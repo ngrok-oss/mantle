@@ -1,0 +1,6 @@
+node_modules
+dist
+public
+pnpm-lock.yaml
+*.json
+scripts
