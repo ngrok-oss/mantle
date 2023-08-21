@@ -1,7 +1,9 @@
 import type { Preview } from "@storybook/react";
 import { setupTailwindSelectorStrategy } from "./setup-tailwind-selector-strategy";
+import { withThemeByClassName } from "@storybook/addon-styling";
 
 import "../src/assets/fonts/fonts.css";
+import "../src/index.css"; // Tailwind
 
 setupTailwindSelectorStrategy();
 
@@ -16,5 +18,15 @@ const preview: Preview = {
 		},
 	},
 };
+
+export const decorators = [
+	withThemeByClassName({
+		themes: {
+			light: "light",
+			dark: "dark",
+		},
+		defaultTheme: "light",
+	}),
+];
 
 export default preview;
