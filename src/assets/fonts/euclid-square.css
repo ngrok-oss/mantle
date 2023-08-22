@@ -11,8 +11,7 @@
 	font-family: EuclidSquare;
 	font-style: italic;
 	font-weight: normal;
-	src: url("./euclid-square/EuclidSquare-RegularItalic-WebS.woff")
-		format("woff");
+	src: url("./euclid-square/EuclidSquare-RegularItalic-WebS.woff") format("woff");
 }
 
 @font-face {
