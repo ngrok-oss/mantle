@@ -19,20 +19,20 @@ to compose multiple primitive's behavior together.
 @see https://www.radix-ui.com/docs/primitives/guides/composition#composition`,name:"asChild",required:!1,type:{name:"boolean"}},variant:{defaultValue:null,description:"",name:"variant",required:!1,type:{name:'"primary" | "secondary" | "danger" | null'}},size:{defaultValue:null,description:"",name:"size",required:!1,type:{name:'"default" | "sm" | "lg" | null'}}}}}catch{}const Ce={title:"Button",component:z,tags:["autodocs"]},G={render:r=>W.jsx(z,{...r,children:"Button"}),args:{variant:"primary",size:"default"}},O={render:r=>W.jsx(z,{...r,children:"Button"}),args:{...G.args,variant:"secondary"}},V={render:r=>W.jsx(z,{...r,children:"Button"}),args:{...G.args,variant:"danger"}};var pr,fr,gr;G.parameters={...G.parameters,docs:{...(pr=G.parameters)==null?void 0:pr.docs,source:{originalSource:`{
   render: args => <Button {...args}>Button</Button>,
   args: {
-    variant: 'primary',
-    size: 'default'
+    variant: "primary",
+    size: "default"
   }
 }`,...(gr=(fr=G.parameters)==null?void 0:fr.docs)==null?void 0:gr.source}}};var br,mr,vr;O.parameters={...O.parameters,docs:{...(br=O.parameters)==null?void 0:br.docs,source:{originalSource:`{
   render: args => <Button {...args}>Button</Button>,
   args: {
     ...Primary.args,
-    variant: 'secondary'
+    variant: "secondary"
   }
 }`,...(vr=(mr=O.parameters)==null?void 0:mr.docs)==null?void 0:vr.source}}};var hr,yr,xr;V.parameters={...V.parameters,docs:{...(hr=V.parameters)==null?void 0:hr.docs,source:{originalSource:`{
   render: args => <Button {...args}>Button</Button>,
   args: {
     ...Primary.args,
-    variant: 'danger'
+    variant: "danger"
   }
 }`,...(xr=(yr=V.parameters)==null?void 0:yr.docs)==null?void 0:xr.source}}};const ke=["Primary","Secondary","Danger"];export{V as Danger,G as Primary,O as Secondary,ke as __namedExportsOrder,Ce as default};
-//# sourceMappingURL=button.stories-43ee3b38.js.map
+//# sourceMappingURL=button.stories-e8f5d5b1.js.map
