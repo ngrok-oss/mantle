@@ -13,6 +13,10 @@ const buttonVariants = cva(
 				primary: "bg-brand-primary-500 text-[#fff] hover:bg-brand-primary-600 active:bg-brand-primary-700",
 				secondary: "bg-brand-primary-50 border-brand-primary-300 text-brand-primary-900 hover:bg-brand-primary-100 active:bg-brand-primary-200",
 			},
+			state: {
+				default: "",
+				danger: "",
+			},
 			size: {
 				default: "h-10 px-4 py-2",
 				sm: "h-9 rounded-md px-3 text-sm",
@@ -23,6 +27,23 @@ const buttonVariants = cva(
 			priority: "default",
 			size: "default",
 		},
+		compoundVariants: [
+			{
+				priority: "default",
+				state: "danger",
+				class: "border-danger-600 text-danger-600 hover:bg-danger-50 active:bg-danger-100",
+			},
+			{
+				priority: "primary",
+				state: "danger",
+				class: "bg-danger-500 hover:bg-danger-600 active:bg-danger-700",
+			},
+			{
+				priority: "secondary",
+				state: "danger",
+				class: "bg-danger-50 border-danger-300 text-danger-900 hover:bg-danger-100 active:bg-danger-200",
+			},
+		],
 	},
 );
 
@@ -46,10 +67,10 @@ export type ButtonProps = {
 	VariantProps<typeof buttonVariants>;
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-	({ className, priority, size, asChild = false, ...props }, ref) => {
+	({ className, priority, size, state, asChild = false, ...props }, ref) => {
 		const Comp = asChild ? Slot : "button";
 
-		return <Comp className={cn(buttonVariants({ priority, size, className }))} ref={ref} {...props} />;
+		return <Comp className={cn(buttonVariants({ priority, size, state, className }))} ref={ref} {...props} />;
 	},
 );
 Button.displayName = "Button";

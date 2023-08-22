@@ -16,6 +16,7 @@ export const Default: Story = {
 	args: {
 		priority: "default",
 		size: "default",
+		state: "default",
 	},
 };
 
