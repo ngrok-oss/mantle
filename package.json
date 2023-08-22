@@ -10,7 +10,8 @@
     "fmt": "prettier --write --cache .",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview --host",
-    "storybook": "storybook dev -p 6006"
+    "storybook": "storybook dev -p 6006",
+    "start": "pnpm storybook"
   },
   "dependencies": {
     "@radix-ui/react-slot": "1.0.2",
