@@ -14,16 +14,8 @@ type Story = StoryObj<typeof Button>;
 export const Default: Story = {
 	render: (args) => <Button {...args}>Button</Button>,
 	args: {
-		variant: "default",
+		priority: "default",
 		size: "default",
-	},
-};
-
-export const Secondary: Story = {
-	render: (args) => <Button {...args}>Button</Button>,
-	args: {
-		...Default.args,
-		variant: "secondary",
 	},
 };
 
@@ -31,6 +23,14 @@ export const Primary: Story = {
 	render: (args) => <Button {...args}>Button</Button>,
 	args: {
 		...Default.args,
-		variant: "primary",
+		priority: "primary",
+	},
+};
+
+export const Secondary: Story = {
+	render: (args) => <Button {...args}>Button</Button>,
+	args: {
+		...Default.args,
+		priority: "secondary",
 	},
 };
