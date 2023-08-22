@@ -11,10 +11,10 @@ export default meta;
 
 type Story = StoryObj<typeof Button>;
 
-export const Primary: Story = {
+export const Default: Story = {
 	render: (args) => <Button {...args}>Button</Button>,
 	args: {
-		variant: "primary",
+		variant: "default",
 		size: "default",
 	},
 };
@@ -22,15 +22,15 @@ export const Primary: Story = {
 export const Secondary: Story = {
 	render: (args) => <Button {...args}>Button</Button>,
 	args: {
-		...Primary.args,
+		...Default.args,
 		variant: "secondary",
 	},
 };
 
-export const Danger: Story = {
+export const Primary: Story = {
 	render: (args) => <Button {...args}>Button</Button>,
 	args: {
-		...Primary.args,
-		variant: "danger",
+		...Default.args,
+		variant: "primary",
 	},
 };
