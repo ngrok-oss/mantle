@@ -3,7 +3,7 @@ import { setupTailwindSelectorStrategy } from "./setup-tailwind-selector-strateg
 import { withThemeByClassName } from "@storybook/addon-styling";
 
 import "../src/assets/fonts/fonts.css";
-import "../src/index.css"; // Tailwind
+import "../src/mantle.css";
 
 setupTailwindSelectorStrategy();
 
