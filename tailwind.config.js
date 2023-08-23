@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 module.exports = {
 	important: "#ngrok",
 	content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
@@ -11,6 +13,10 @@ module.exports = {
 			},
 		},
 		extend: {
+			fontFamily: {
+				sans: ["EuclidSquare", ...defaultTheme.fontFamily.sans],
+				mono: ["IBMPlexMono", ...defaultTheme.fontFamily.mono],
+			},
 			colors: {
 				white: "hsl(var(--white) / <alpha-value>)",
 				neutral: {
