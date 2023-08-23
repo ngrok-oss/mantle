@@ -47,6 +47,7 @@ module.exports = {
 	plugins: [],
 	rules: {
 		"@typescript-eslint/consistent-type-definitions": ["error", "type"],
+		"@typescript-eslint/ban-types": "off",
 	},
 	settings: {
 		react: {
