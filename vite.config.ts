@@ -11,7 +11,6 @@ export default defineConfig({
 		},
 	},
 	test: {
-		globals: true,
 		environment: "jsdom",
 		setupFiles: "./src/test/setup.ts",
 		// you might want to disable it, if you don't have tests that rely on CSS

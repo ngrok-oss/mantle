@@ -17,8 +17,6 @@
     "noEmit": true,
     "jsx": "react-jsx",
 
-    "types": ["vitest/globals"],
-
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
