@@ -12,10 +12,10 @@ const buttonVariants = cva(
 		variants: {
 			priority: {
 				default:
-					"DEFAULT border-brand-primary-600 text-brand-primary-600 bg-white hover:bg-brand-primary-50 active:bg-brand-primary-100",
-				primary: "PRIMARY bg-brand-primary-500 text-[#fff] hover:bg-brand-primary-600 active:bg-brand-primary-700",
+					"border-brand-primary-600 text-brand-primary-600 bg-white hover:bg-brand-primary-50 active:bg-brand-primary-100",
+				primary: "bg-brand-primary-500 text-[#fff] hover:bg-brand-primary-600 active:bg-brand-primary-700",
 				secondary:
-					"SECONDARY bg-brand-primary-50 border-brand-primary-300 text-brand-primary-900 hover:bg-brand-primary-100 active:bg-brand-primary-200",
+					"bg-brand-primary-50 border-brand-primary-300 text-brand-primary-900 hover:bg-brand-primary-100 active:bg-brand-primary-200",
 			},
 			state: {
 				default: "",
