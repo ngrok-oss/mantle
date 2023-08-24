@@ -12,5 +12,25 @@ export default meta;
 type Story = StoryObj<typeof Input>;
 
 export const Default: Story = {
-	render: () => <Input placeholder="Enter some text" />,
+	render: (args) => <Input {...args} />,
+	args: {
+		placeholder: "Choose a username",
+		state: "default",
+	},
+};
+
+export const Danger: Story = {
+	render: (args) => <Input {...args} />,
+	args: {
+		value: "@aaronshekey",
+		state: "danger",
+	},
+};
+
+export const Success: Story = {
+	render: (args) => <Input {...args} />,
+	args: {
+		value: "@aaronshekey",
+		state: "success",
+	},
 };
