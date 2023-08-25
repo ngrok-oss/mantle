@@ -7,15 +7,16 @@ import type { WithAsChild } from "../types/as-child";
 import type { VariantProps } from "../types/variant-props";
 
 const buttonVariants = cva(
-	"inline-flex items-center justify-center rounded-md font-medium border border-transparent ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-primary-500/25 focus-visible:ring-offset-0 disabled:pointer-events-none disabled:opacity-50",
+	"inline-flex items-center justify-center rounded-md font-medium border border-transparent transition-colors focus-visible:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50",
 	{
 		variants: {
 			priority: {
 				default:
-					"border-brand-primary-600 text-brand-primary-600 dark:text-brand-primary-800 bg-white hover:bg-brand-primary-50 active:bg-brand-primary-100",
-				primary: "bg-brand-primary-500 text-[#fff] hover:bg-brand-primary-600 active:bg-brand-primary-700",
+					"border-brand-primary-500 text-brand-primary-500 bg-white hover:bg-brand-primary-50 active:bg-brand-primary-100 focus-visible:ring-brand-primary-600/25",
+				primary:
+					"bg-brand-primary-500 text-button hover:bg-brand-primary-600 active:bg-brand-primary-700 focus-visible:ring-brand-primary-600/25",
 				secondary:
-					"bg-brand-primary-50 border-brand-primary-300 text-brand-primary-900 hover:bg-brand-primary-100 active:bg-brand-primary-200",
+					"bg-brand-primary-50 border-brand-primary-200 text-brand-primary-900 hover:bg-brand-primary-100 active:bg-brand-primary-200 focus-visible:ring-brand-primary-600/25",
 			},
 			state: {
 				default: "",
@@ -35,17 +36,17 @@ const buttonVariants = cva(
 			{
 				priority: "default",
 				state: "danger",
-				class: "border-red-600 text-red-600 hover:bg-red-50 active:bg-red-100 focus-visible:ring-red-500/25",
+				class: "border-red-500 text-red-500 hover:bg-red-50 active:bg-red-100 focus-visible:ring-red-600/25",
 			},
 			{
 				priority: "primary",
 				state: "danger",
-				class: "bg-red-500 hover:bg-red-600 active:bg-red-700 focus-visible:ring-red-500/25",
+				class: "bg-red-500 hover:bg-red-600 active:bg-red-700 focus-visible:ring-red-600/25",
 			},
 			{
 				priority: "secondary",
 				state: "danger",
-				class: "bg-red-50 border-red-300 text-red-900 hover:bg-red-100 active:bg-red-200 focus-visible:ring-red-500/25",
+				class: "bg-red-50 border-red-200 text-red-900 hover:bg-red-100 active:bg-red-200 focus-visible:ring-red-600/25",
 			},
 		],
 	},

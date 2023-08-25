@@ -92,6 +92,7 @@ module.exports = {
 					800: "hsl(var(--brand-secondary-800) / <alpha-value>)",
 					900: "hsl(var(--brand-secondary-900) / <alpha-value>)",
 				},
+				button: "hsl(var(--button))",
 				border: "hsl(var(--border))",
 				input: "hsl(var(--input))",
 				ring: "hsl(var(--ring))",

@@ -67,7 +67,9 @@
 	--green-800: 170deg 29% 20%;
 	--green-900: 170deg 52% 9%;
 
-	--background: 0 0% 100%;
+	--button: 0deg 0% 100%;
+
+	/* --background: 0 0% 100%;
 	--foreground: 222.2 84% 4.9%;
 
 	--muted: 210 40% 96.1%;
@@ -77,11 +79,11 @@
 	--popover-foreground: 222.2 84% 4.9%;
 
 	--card: 0 0% 100%;
-	--card-foreground: 222.2 84% 4.9%;
+	--card-foreground: 222.2 84% 4.9%; */
 
 	--border: var(--gray-200);
 
-	--primary: 222.2 47.4% 11.2%;
+	/* --primary: 222.2 47.4% 11.2%;
 	--primary-foreground: 210 40% 98%;
 
 	--secondary: 210 40% 96.1%;
@@ -93,7 +95,7 @@
 	--destructive: 0 84.2% 60.2%;
 	--destructive-foreground: 210 40% 98%;
 
-	--ring: var(--gray-400);
+	--ring: var(--gray-400); */
 
 	--radius: 0.5rem;
 }
@@ -161,7 +163,7 @@
 	--brand-secondary-800: 257deg 58% 87%;
 	--brand-secondary-900: 261deg 68% 93%;
 
-	--background: 222.2 84% 4.9%;
+	/* --background: 222.2 84% 4.9%;
 	--foreground: 210 40% 98%;
 
 	--muted: 217.2 32.6% 17.5%;
@@ -185,7 +187,7 @@
 	--accent-foreground: 210 40% 98%;
 
 	--destructive: 0 62.8% 30.6%;
-	--destructive-foreground: 0 85.7% 97.3%;
+	--destructive-foreground: 0 85.7% 97.3%; */
 }
 
 :root.high-contrast {
@@ -314,6 +316,8 @@
 	--green-700: 140deg 36% 88%;
 	--green-800: 139deg 42% 91%;
 	--green-900: 138deg 52% 94%;
+
+	--button: 0deg 0% 0%;
 }
 
 @layer base {
