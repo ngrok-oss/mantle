@@ -26,16 +26,16 @@
 	--brand-secondary-700: 254deg 43% 40%;
 	--brand-secondary-800: 253deg 44% 29%;
 	--brand-secondary-900: 253deg 47% 19%;
-	--neutral-050: 210deg 40% 98%;
-	--neutral-100: 213deg 36% 95%;
-	--neutral-200: 217deg 30% 92%;
-	--neutral-300: 211deg 25% 84%;
-	--neutral-400: 221deg 20% 69%;
-	--neutral-500: 224deg 17% 56%;
-	--neutral-600: 225deg 14% 43%;
-	--neutral-700: 225deg 18% 31%;
-	--neutral-800: 225deg 19% 21%;
-	--neutral-900: 231deg 19% 13%;
+	--gray-050: 210deg 40% 98%;
+	--gray-100: 213deg 36% 95%;
+	--gray-200: 217deg 30% 92%;
+	--gray-300: 211deg 25% 84%;
+	--gray-400: 221deg 20% 69%;
+	--gray-500: 224deg 17% 56%;
+	--gray-600: 225deg 14% 43%;
+	--gray-700: 225deg 18% 31%;
+	--gray-800: 225deg 19% 21%;
+	--gray-900: 231deg 19% 13%;
 	--danger-050: 347deg 69% 97%;
 	--danger-100: 345deg 78% 91%;
 	--danger-200: 347deg 92% 85%;
@@ -79,7 +79,7 @@
 	--card: 0 0% 100%;
 	--card-foreground: 222.2 84% 4.9%;
 
-	--border: var(--neutral-200);
+	--border: var(--gray-200);
 
 	--primary: 222.2 47.4% 11.2%;
 	--primary-foreground: 210 40% 98%;
@@ -93,23 +93,23 @@
 	--destructive: 0 84.2% 60.2%;
 	--destructive-foreground: 210 40% 98%;
 
-	--ring: var(--neutral-400);
+	--ring: var(--gray-400);
 
 	--radius: 0.5rem;
 }
 
 :root.dark {
 	--white: 240deg 19% 13%;
-	--neutral-050: 231deg 20% 19%;
-	--neutral-100: 234deg 15% 25%;
-	--neutral-200: 233deg 10% 35%;
-	--neutral-300: 23deg 7% 45%;
-	--neutral-400: 23deg 6% 55%;
-	--neutral-500: 23deg 7% 64%;
-	--neutral-600: 22deg 7% 74%;
-	--neutral-700: 22deg 9% 83%;
-	--neutral-800: 216deg 14% 93%;
-	--neutral-900: 0deg 0% 100%;
+	--gray-050: 231deg 20% 19%;
+	--gray-100: 234deg 15% 25%;
+	--gray-200: 233deg 10% 35%;
+	--gray-300: 23deg 7% 45%;
+	--gray-400: 23deg 6% 55%;
+	--gray-500: 23deg 7% 64%;
+	--gray-600: 22deg 7% 74%;
+	--gray-700: 22deg 9% 83%;
+	--gray-800: 216deg 14% 93%;
+	--gray-900: 0deg 0% 100%;
 	--danger-050: 354deg 27% 22%;
 	--danger-100: 359deg 32% 25%;
 	--danger-200: 2deg 39% 32%;
@@ -193,6 +193,6 @@
 		@apply border-border;
 	}
 	body {
-		@apply bg-white text-neutral-800;
+		@apply bg-white text-gray-800;
 	}
 }
