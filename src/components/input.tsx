@@ -1,8 +1,10 @@
-import * as React from "react";
+import type { InputHTMLAttributes } from "react";
+import { forwardRef } from "react";
 import { cva } from "class-variance-authority";
 
 import { cx } from "../lib/cx";
 import type { VariantProps } from "../types/variant-props";
+import type { AutoComplete, InputType } from "../types/input";
 
 const inputVariants = cva(
 	"flex h-10 w-full rounded-md border border-neutral-400 bg-white px-3 py-2 text-neutral-800 ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-neutral-500 focus:border-brand-primary-500 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-primary-500/25 focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50",
@@ -26,11 +28,18 @@ type InputVariants = VariantProps<typeof inputVariants>;
 /**
  * The props for the `Input` component.
  */
-export type InputProps = React.InputHTMLAttributes<HTMLInputElement> & InputVariants;
+export type InputProps = InputVariants &
+	Omit<InputHTMLAttributes<HTMLInputElement>, "autoComplete" | "type"> & {
+		autoComplete?: AutoComplete;
+		type?: InputType;
+	};
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(
-	({ className, type, state = "default", ...props }, ref) => {
-		return <input type={type} className={cx(inputVariants({ state }), className)} ref={ref} {...props} />;
+/**
+ * Used to create interactive controls for web-based forms in order to accept data from the user
+ */
+const Input = forwardRef<HTMLInputElement, InputProps>(
+	({ className, state = "default", type = "text", ...props }, ref) => {
+		return <input className={cx(inputVariants({ state }), className)} ref={ref} type={type} {...props} />;
 	},
 );
 Input.displayName = "Input";
