@@ -80,7 +80,6 @@
 	--card-foreground: 222.2 84% 4.9%;
 
 	--border: var(--neutral-200);
-	--input: 214.3 31.8% 91.4%;
 
 	--primary: 222.2 47.4% 11.2%;
 	--primary-foreground: 210 40% 98%;
@@ -94,7 +93,7 @@
 	--destructive: 0 84.2% 60.2%;
 	--destructive-foreground: 210 40% 98%;
 
-	--ring: 215 20.2% 65.1%;
+	--ring: var(--neutral-400);
 
 	--radius: 0.5rem;
 }
@@ -187,8 +186,6 @@
 
 	--destructive: 0 62.8% 30.6%;
 	--destructive-foreground: 0 85.7% 97.3%;
-
-	--ring: 217.2 32.6% 17.5%;
 }
 
 @layer base {
