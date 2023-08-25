@@ -23,6 +23,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,
+    "types": ["vitest-dom/extend-expect"]
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
