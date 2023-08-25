@@ -7,14 +7,16 @@ import type { VariantProps } from "../types/variant-props";
 import type { AutoComplete, InputType } from "../types/input";
 
 const inputVariants = cva(
-	"flex h-10 w-full rounded-md border border-gray-400 bg-white px-3 py-2 text-gray-800 ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-500 focus:border-brand-primary-500 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-primary-500/25 focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50",
+	"flex h-10 w-full rounded-md border bg-white px-3 py-2 file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-4 disabled:cursor-not-allowed disabled:opacity-50",
 	{
 		variants: {
 			state: {
-				default: "",
+				default:
+					"text-gray-900 border-gray-500 placeholder:text-gray-300 focus:border-brand-primary-500 focus-visible:ring-brand-primary-600/25",
 				danger:
-					"text-red-500 border-red-500 focus:border-red-500 focus-visible:ring-red-500/25 placeholder:text-red-400",
-				success: "text-green-500 border-green-500 focus:border-green-500 focus-visible:ring-green-500/25",
+					"text-red-900 border-red-500 placeholder:text-red-300 focus:border-red-500 focus-visible:ring-red-600/25",
+				success:
+					"text-green-900 border-green-500 placeholder:text-green-300 focus:border-green-500 focus-visible:ring-green-600/25",
 			},
 		},
 		defaultVariants: {
