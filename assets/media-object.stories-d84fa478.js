@@ -1,4 +1,4 @@
-import{j as e,c as b}from"./cx-f3deaa61.js";import{r as j}from"./index-61bf1805.js";import"./_commonjsHelpers-de833af9.js";const a=j.forwardRef(({className:n,children:d,style:c},o)=>e.jsx("div",{ref:o,className:b("flex gap-4",n),style:c,children:d}));a.displayName="MediaObject";const i=j.forwardRef(({className:n,children:d,style:c},o)=>e.jsx("div",{ref:o,className:b("shrink-0 leading-none",n),style:c,children:d}));i.displayName="MediaObjectMedia";const t=j.forwardRef(({className:n,children:d,style:c},o)=>e.jsx("div",{ref:o,className:b("min-w-0 flex-1",n),style:c,children:d}));t.displayName="MediaObjectContent";try{a.displayName="MediaObject",a.__docgenInfo={description:`The media object is an image/icon (media) to the left, with descriptive
+import{j as e,a as b}from"./cx-7c29962e.js";import{r as j}from"./index-61bf1805.js";import"./_commonjsHelpers-de833af9.js";const a=j.forwardRef(({className:n,children:d,style:c},o)=>e.jsx("div",{ref:o,className:b("flex gap-4",n),style:c,children:d}));a.displayName="MediaObject";const i=j.forwardRef(({className:n,children:d,style:c},o)=>e.jsx("div",{ref:o,className:b("shrink-0 leading-none",n),style:c,children:d}));i.displayName="MediaObjectMedia";const t=j.forwardRef(({className:n,children:d,style:c},o)=>e.jsx("div",{ref:o,className:b("min-w-0 flex-1",n),style:c,children:d}));t.displayName="MediaObjectContent";try{a.displayName="MediaObject",a.__docgenInfo={description:`The media object is an image/icon (media) to the left, with descriptive
 content (title and subtitle/description) to the right.
 
 Change the spacing between the media and content by passing a \`gap-*\` class.
@@ -104,4 +104,4 @@ components as direct children.`,displayName:"MediaObject",props:{}}}catch{}const
             </MediaObject>
         </div>
 }`,...(S=(B=x.parameters)==null?void 0:B.docs)==null?void 0:S.source}}};const T=["Basic","StyledWithGap","MediaCenterAligned","MediaBottomAligned","MediaOnRightByFlexRowReverse","MediaOnRightByOrder"];export{m as Basic,l as MediaBottomAligned,u as MediaCenterAligned,p as MediaOnRightByFlexRowReverse,x as MediaOnRightByOrder,r as StyledWithGap,T as __namedExportsOrder,G as default};
-//# sourceMappingURL=media-object.stories-a29fa7c8.js.map
+//# sourceMappingURL=media-object.stories-d84fa478.js.map
