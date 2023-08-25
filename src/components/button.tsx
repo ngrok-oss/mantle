@@ -35,19 +35,17 @@ const buttonVariants = cva(
 			{
 				priority: "default",
 				state: "danger",
-				class:
-					"border-danger-600 text-danger-600 hover:bg-danger-50 active:bg-danger-100 focus-visible:ring-danger-500/25",
+				class: "border-red-600 text-red-600 hover:bg-red-50 active:bg-red-100 focus-visible:ring-red-500/25",
 			},
 			{
 				priority: "primary",
 				state: "danger",
-				class: "bg-danger-500 hover:bg-danger-600 active:bg-danger-700 focus-visible:ring-danger-500/25",
+				class: "bg-red-500 hover:bg-red-600 active:bg-red-700 focus-visible:ring-red-500/25",
 			},
 			{
 				priority: "secondary",
 				state: "danger",
-				class:
-					"bg-danger-50 border-danger-300 text-danger-900 hover:bg-danger-100 active:bg-danger-200 focus-visible:ring-danger-500/25",
+				class: "bg-red-50 border-red-300 text-red-900 hover:bg-red-100 active:bg-red-200 focus-visible:ring-red-500/25",
 			},
 		],
 	},

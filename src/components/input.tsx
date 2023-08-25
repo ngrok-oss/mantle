@@ -13,7 +13,7 @@ const inputVariants = cva(
 			state: {
 				default: "",
 				danger:
-					"text-danger-500 border-danger-500 focus:border-danger-500 focus-visible:ring-danger-500/25 placeholder:text-danger-400",
+					"text-red-500 border-red-500 focus:border-red-500 focus-visible:ring-red-500/25 placeholder:text-red-400",
 				success: "text-success-500 border-success-500 focus:border-success-500 focus-visible:ring-success-500/25",
 			},
 		},
