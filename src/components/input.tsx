@@ -14,7 +14,7 @@ const inputVariants = cva(
 				default: "",
 				danger:
 					"text-red-500 border-red-500 focus:border-red-500 focus-visible:ring-red-500/25 placeholder:text-red-400",
-				success: "text-success-500 border-success-500 focus:border-success-500 focus-visible:ring-success-500/25",
+				success: "text-green-500 border-green-500 focus:border-green-500 focus-visible:ring-green-500/25",
 			},
 		},
 		defaultVariants: {
