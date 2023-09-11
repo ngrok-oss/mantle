@@ -22,10 +22,12 @@ const preview: Preview = {
 export const decorators = [
 	withThemeByClassName({
 		themes: {
-			light: "light",
-			dark: "dark",
+			Light: "light",
+			Dark: "dark",
+			"Light (High contrast)": "light high-contrast",
+			"Dark (High contrast)": "dark high-contrast",
 		},
-		defaultTheme: "light",
+		defaultTheme: "Light",
 	}),
 ];
 

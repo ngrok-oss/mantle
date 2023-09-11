@@ -68,7 +68,7 @@ export const Simple: Story = {
 export const SimpleStyled: Story = {
 	render: () => (
 		<div className="max-w-96 mx-auto">
-			<Card className="border-4 border-danger-700 bg-brand-secondary-400 p-4 text-white">
+			<Card className="border-4 border-red-700 bg-brand-secondary-400 p-4 text-white">
 				<p className="mb-0">Ex fugiat commodo ullamco eiusmod qui reprehenderit ex amet.</p>
 			</Card>
 		</div>
