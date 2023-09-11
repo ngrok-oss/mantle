@@ -19,6 +19,9 @@ const config: StorybookConfig = {
 	],
 	core: {
 		disableTelemetry: true,
+		disableProjectJson: true,
+		disableWebpackDefaults: true,
+		disableWhatsNewNotifications: true,
 	},
 	docs: {
 		autodocs: "tag",
