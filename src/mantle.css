@@ -36,26 +36,6 @@
 	--gray-700: 225deg 18% 31%;
 	--gray-800: 225deg 19% 21%;
 	--gray-900: 231deg 19% 13%;
-	--red-050: 345deg 100% 98%;
-	--red-100: 357deg 69% 90%;
-	--red-200: 1deg 64% 81%;
-	--red-300: 1deg 62% 72%;
-	--red-400: 2deg 61% 64%;
-	--red-500: 2deg 60% 55%;
-	--red-600: 3deg 54% 46%;
-	--red-700: 355deg 49% 37%;
-	--red-800: 354deg 56% 26%;
-	--red-900: 348deg 97% 13%;
-	--yellow-050: 60deg 52% 95%;
-	--yellow-100: 46deg 64% 88%;
-	--yellow-200: 43deg 68% 81%;
-	--yellow-300: 42deg 70% 73%;
-	--yellow-400: 41deg 71% 65%;
-	--yellow-500: 41deg 71% 60%;
-	--yellow-600: 39deg 51% 48%;
-	--yellow-700: 37deg 56% 37%;
-	--yellow-800: 34deg 65% 25%;
-	--yellow-900: 28deg 94% 13%;
 	--green-050: 138deg 89% 96%;
 	--green-100: 142deg 62% 89%;
 	--green-200: 146deg 49% 78%;
@@ -66,88 +46,40 @@
 	--green-700: 166deg 26% 30%;
 	--green-800: 170deg 29% 20%;
 	--green-900: 170deg 52% 9%;
+	--red-050: 345deg 100% 98%;
+	--red-100: 358deg 70% 91%;
+	--red-200: 0deg 64% 81%;
+	--red-300: 1deg 61% 72%;
+	--red-400: 2deg 61% 62%;
+	--red-500: 2deg 60% 55%;
+	--red-600: 3deg 54% 46%;
+	--red-700: 355deg 49% 37%;
+	--red-800: 354deg 56% 26%;
+	--red-900: 348deg 97% 13%;
+	--yellow-050: 36deg 100% 95%;
+	--yellow-100: 36deg 100% 87%;
+	--yellow-200: 36deg 100% 78%;
+	--yellow-300: 36deg 96% 71%;
+	--yellow-400: 36deg 92% 60%;
+	--yellow-500: 36deg 90% 52%;
+	--yellow-600: 36deg 74% 46%;
+	--yellow-700: 36deg 100% 34%;
+	--yellow-800: 36deg 100% 23%;
+	--yellow-900: 36deg 100% 11%;
 
 	--button: 0deg 0% 100%;
-
-	/* --background: 0 0% 100%;
-	--foreground: 222.2 84% 4.9%;
-
-	--muted: 210 40% 96.1%;
-	--muted-foreground: 215.4 16.3% 46.9%;
-
-	--popover: 0 0% 100%;
-	--popover-foreground: 222.2 84% 4.9%;
-
-	--card: 0 0% 100%;
-	--card-foreground: 222.2 84% 4.9%; */
-
 	--border: var(--gray-200);
-
-	/* --primary: 222.2 47.4% 11.2%;
-	--primary-foreground: 210 40% 98%;
-
-	--secondary: 210 40% 96.1%;
-	--secondary-foreground: 222.2 47.4% 11.2%;
-
-	--accent: 210 40% 96.1%;
-	--accent-foreground: 222.2 47.4% 11.2%;
-
-	--destructive: 0 84.2% 60.2%;
-	--destructive-foreground: 210 40% 98%;
-
-	--ring: var(--gray-400); */
-
 	--radius: 0.5rem;
 }
 
 :root.dark {
-	--white: 240deg 19% 13%;
-	--gray-050: 230deg 7% 64%;
-	--gray-100: 234deg 15% 25%;
-	--gray-200: 233deg 10% 35%;
-	--gray-300: 233deg 7% 45%;
-	--gray-400: 232deg 6% 55%;
-	--gray-500: 230deg 7% 64%;
-	--gray-600: 228deg 7% 74%;
-	--gray-700: 225deg 9% 83%;
-	--gray-800: 216deg 14% 93%;
-	--gray-900: 0deg 0% 100%;
-	--red-050: 353deg 24% 20%;
-	--red-100: 0deg 32% 27%;
-	--red-200: 3deg 39% 33%;
-	--red-300: 3deg 44% 38%;
-	--red-400: 4deg 48% 44%;
-	--red-500: 5deg 51% 50%;
-	--red-600: 4deg 49% 62%;
-	--red-700: 0deg 47% 74%;
-	--red-800: 355deg 49% 86%;
-	--red-900: 343deg 54% 92%;
-	--yellow-050: 28deg 26% 22%;
-	--yellow-100: 36deg 34% 29%;
-	--yellow-200: 39deg 39% 35%;
-	--yellow-300: 41deg 43% 42%;
-	--yellow-400: 42deg 45% 48%;
-	--yellow-500: 43deg 55% 54%;
-	--yellow-600: 44deg 56% 64%;
-	--yellow-700: 46deg 56% 72%;
-	--yellow-800: 48deg 57% 82%;
-	--yellow-900: 54deg 63% 91%;
-	--green-050: 170deg 17% 22%;
-	--green-100: 161deg 11% 28%;
-	--green-200: 155deg 14% 33%;
-	--green-300: 154deg 16% 39%;
-	--green-400: 152deg 17% 44%;
-	--green-500: 151deg 19% 50%;
-	--green-600: 149deg 21% 63%;
-	--green-700: 147deg 25% 74%;
-	--green-800: 142deg 32% 87%;
-	--green-900: 138deg 52% 94%;
+	--white: 240deg 18% 13%;
 	--brand-primary-050: 237deg 33% 22%;
 	--brand-primary-100: 233deg 39% 31%;
 	--brand-primary-200: 233deg 41% 40%;
 	--brand-primary-300: 232deg 44% 49%;
 	--brand-primary-400: 231deg 60% 57%;
-	--brand-primary-500: 231deg 88% 65%;
+	--brand-primary-500: 231deg 81% 65%;
 	--brand-primary-600: 231deg 87% 72%;
 	--brand-primary-700: 230deg 87% 79%;
 	--brand-primary-800: 228deg 84% 85%;
@@ -162,32 +94,46 @@
 	--brand-secondary-700: 256deg 51% 77%;
 	--brand-secondary-800: 257deg 58% 87%;
 	--brand-secondary-900: 261deg 68% 93%;
-
-	/* --background: 222.2 84% 4.9%;
-	--foreground: 210 40% 98%;
-
-	--muted: 217.2 32.6% 17.5%;
-	--muted-foreground: 215 20.2% 65.1%;
-
-	--popover: 222.2 84% 4.9%;
-	--popover-foreground: 210 40% 98%;
-
-	--card: 222.2 84% 4.9%;
-	--card-foreground: 210 40% 98%;
-
-	--input: 217.2 32.6% 17.5%;
-
-	--primary: 210 40% 98%;
-	--primary-foreground: 222.2 47.4% 11.2%;
-
-	--secondary: 217.2 32.6% 17.5%;
-	--secondary-foreground: 210 40% 98%;
-
-	--accent: 217.2 32.6% 17.5%;
-	--accent-foreground: 210 40% 98%;
-
-	--destructive: 0 62.8% 30.6%;
-	--destructive-foreground: 0 85.7% 97.3%; */
+	--gray-050: 231deg 20% 19%;
+	--gray-100: 234deg 15% 25%;
+	--gray-200: 233deg 10% 35%;
+	--gray-300: 233deg 7% 45%;
+	--gray-400: 232deg 6% 55%;
+	--gray-500: 230deg 7% 64%;
+	--gray-600: 228deg 7% 74%;
+	--gray-700: 225deg 9% 83%;
+	--gray-800: 216deg 14% 93%;
+	--gray-900: 0deg 0% 100%;
+	--green-050: 173deg 30% 18%;
+	--green-100: 163deg 35% 24%;
+	--green-200: 158deg 38% 28%;
+	--green-300: 154deg 40% 34%;
+	--green-400: 153deg 42% 38%;
+	--green-500: 151deg 43% 43%;
+	--green-600: 149deg 31% 62%;
+	--green-700: 147deg 43% 73%;
+	--green-800: 142deg 77% 85%;
+	--green-900: 137deg 100% 93%;
+	--red-050: 353deg 24% 20%;
+	--red-100: 0deg 32% 27%;
+	--red-200: 3deg 39% 33%;
+	--red-300: 3deg 44% 38%;
+	--red-400: 4deg 48% 44%;
+	--red-500: 5deg 51% 50%;
+	--red-600: 4deg 49% 62%;
+	--red-700: 0deg 47% 74%;
+	--red-800: 355deg 49% 86%;
+	--red-900: 343deg 54% 92%;
+	--yellow-050: 28deg 26% 22%;
+	--yellow-100: 33deg 39% 29%;
+	--yellow-200: 34deg 46% 34%;
+	--yellow-300: 35deg 52% 40%;
+	--yellow-400: 35deg 57% 46%;
+	--yellow-500: 36deg 67% 52%;
+	--yellow-600: 36deg 65% 58%;
+	--yellow-700: 29deg 64% 74%;
+	--yellow-800: 25deg 57% 82%;
+	--yellow-900: 36deg 63% 91%;
 }
 
 :root.high-contrast {
@@ -212,7 +158,7 @@
 	--brand-secondary-700: 255deg 45% 28%;
 	--brand-secondary-800: 254deg 46% 24%;
 	--brand-secondary-900: 253deg 47% 19%;
-	--gray-050: 227deg 15% 30%;
+	--gray-050: 210deg 40% 99%;
 	--gray-100: 215deg 32% 93%;
 	--gray-200: 225deg 14% 43%;
 	--gray-300: 225deg 14% 39%;
@@ -222,7 +168,17 @@
 	--gray-700: 227deg 16% 22%;
 	--gray-800: 232deg 16% 18%;
 	--gray-900: 231deg 19% 13%;
-	--red-050: 345deg 100% 99%;
+	--green-050: 144deg 100% 99%;
+	--green-100: 142deg 100% 87%;
+	--green-200: 162deg 77% 29%;
+	--green-300: 163deg 77% 29%;
+	--green-400: 162deg 91% 25%;
+	--green-500: 163deg 100% 21%;
+	--green-600: 165deg 100% 18%;
+	--green-700: 165deg 100% 15%;
+	--green-800: 169deg 100% 11%;
+	--green-900: 170deg 100% 8%;
+	--red-50: 345deg 100% 99%;
 	--red-100: 355deg 79% 95%;
 	--red-200: 2deg 53% 46%;
 	--red-300: 2deg 54% 42%;
@@ -242,20 +198,10 @@
 	--yellow-700: 32deg 68% 23%;
 	--yellow-800: 31deg 77% 18%;
 	--yellow-900: 28deg 94% 13%;
-	--green-050: 138deg 89% 99%;
-	--green-100: 142deg 62% 89%;
-	--green-200: 162deg 27% 38%;
-	--green-300: 162deg 27% 34%;
-	--green-400: 162deg 29% 30%;
-	--green-500: 164deg 30% 26%;
-	--green-600: 165deg 33% 22%;
-	--green-700: 165deg 36% 18%;
-	--green-800: 169deg 41% 13%;
-	--green-900: 170deg 52% 9%;
 }
 
 :root.dark.high-contrast {
-	--white: 240deg 18% 9%;
+	--white: 225deg 18% 9%;
 	--brand-primary-050: 237deg 33% 18%;
 	--brand-primary-100: 233deg 39% 31%;
 	--brand-primary-200: 230deg 87% 79%;
@@ -285,37 +231,37 @@
 	--gray-600: 225deg 11% 93%;
 	--gray-700: 240deg 8% 95%;
 	--gray-800: 240deg 9% 98%;
-	--gray-900: 0 0% 100%;
+	--gray-900: 0deg 0% 100%;
+	--green-050: 170deg 99% 11%;
+	--green-100: 162deg 73% 23%;
+	--green-200: 147deg 59% 71%;
+	--green-300: 147deg 65% 74%;
+	--green-400: 146deg 73% 77%;
+	--green-500: 145deg 83% 80%;
+	--green-600: 144deg 96% 82%;
+	--green-700: 140deg 100% 86%;
+	--green-800: 139deg 100% 89%;
+	--green-900: 137deg 100% 93%;
 	--red-050: 352deg 24% 16%;
 	--red-100: 0deg 32% 27%;
-	--red-200: 0deg 47% 74%;
-	--red-300: 0deg 47% 76%;
-	--red-400: 358deg 48% 79%;
-	--red-500: 356deg 48% 82%;
-	--red-600: 354deg 49% 85%;
-	--red-700: 353deg 51% 87%;
-	--red-800: 349deg 53% 90%;
-	--red-900: 343deg 54% 92%;
+	--red-200: 0deg 97% 77%;
+	--red-300: 0deg 100% 80%;
+	--red-400: 358deg 100% 82%;
+	--red-500: 356deg 100% 84%;
+	--red-600: 354deg 100% 87%;
+	--red-700: 353deg 100% 89%;
+	--red-800: 348deg 100% 91%;
+	--red-900: 344deg 100% 93%;
 	--yellow-050: 28deg 26% 18%;
 	--yellow-100: 36deg 34% 29%;
-	--yellow-200: 46deg 56% 72%;
-	--yellow-300: 47deg 56% 75%;
-	--yellow-400: 46deg 58% 78%;
-	--yellow-500: 48deg 58% 80%;
-	--yellow-600: 48deg 59% 83%;
-	--yellow-700: 50deg 59% 85%;
-	--yellow-800: 48deg 57% 82%;
-	--yellow-900: 54deg 63% 91%;
-	--green-050: 170deg 7% 18%;
-	--green-100: 161deg 11% 28%;
-	--green-200: 147deg 25% 74%;
-	--green-300: 147deg 26% 77%;
-	--green-400: 146deg 27% 80%;
-	--green-500: 145deg 30% 83%;
-	--green-600: 143deg 32% 86%;
-	--green-700: 140deg 36% 88%;
-	--green-800: 139deg 42% 91%;
-	--green-900: 138deg 52% 94%;
+	--yellow-200: 45deg 71% 69%;
+	--yellow-300: 47deg 74% 71%;
+	--yellow-400: 46deg 81% 73%;
+	--yellow-500: 48deg 86% 75%;
+	--yellow-600: 48deg 93% 77%;
+	--yellow-700: 50deg 98% 78%;
+	--yellow-800: 48deg 89% 81%;
+	--yellow-900: 54deg 100% 84%;
 
 	--button: 0deg 0% 0%;
 }
