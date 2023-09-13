@@ -44,7 +44,7 @@ const config: StorybookConfig = {
 			to: "/static",
 		},
 	],
-	stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx|mdx)"],
+	stories: [relativePath("..", "src", "**", "*.stories.@(js|jsx|ts|tsx|mdx)")],
 };
 
 export default config;
