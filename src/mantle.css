@@ -75,14 +75,14 @@
 :root.dark {
 	--white: 240deg 18% 13%;
 	--brand-primary-050: 237deg 33% 22%;
-	--brand-primary-100: 233deg 39% 31%;
-	--brand-primary-200: 233deg 41% 40%;
-	--brand-primary-300: 232deg 44% 49%;
-	--brand-primary-400: 231deg 60% 57%;
-	--brand-primary-500: 231deg 81% 65%;
-	--brand-primary-600: 231deg 87% 72%;
-	--brand-primary-700: 230deg 87% 79%;
-	--brand-primary-800: 228deg 84% 85%;
+	--brand-primary-100: 234deg 34% 30%;
+	--brand-primary-200: 233deg 35% 41%;
+	--brand-primary-300: 231deg 40% 53%;
+	--brand-primary-400: 231deg 63% 64%;
+	--brand-primary-500: 231deg 95% 72%;
+	--brand-primary-600: 231deg 93% 76%;
+	--brand-primary-700: 229deg 91% 82%;
+	--brand-primary-800: 227deg 86% 88%;
 	--brand-primary-900: 223deg 78% 93%;
 	--brand-secondary-050: 250deg 36% 24%;
 	--brand-secondary-100: 249deg 35% 28%;
