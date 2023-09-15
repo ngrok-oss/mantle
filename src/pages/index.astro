@@ -1,6 +1,11 @@
 ---
 import '../mantle.css';
+import { Card } from '../components/card';
+import { CardHeader } from '../components/card';
+import { CardTitle } from '../components/card';
+import { CardBody } from '../components/card';
 import { Button } from '../components/button';
+import { Input } from '../components/input';
 ---
 
 <html>
@@ -12,13 +17,27 @@ import { Button } from '../components/button';
       <option value="dark high-contrast">Dark High Contrast Theme</option>
     </select>
 
-    <Button
-      priority="default"
-      size="default"
-      state="default"
-    >
-      Button
-    </Button>
+    <Card className="mx-auto w-96 rounded-lg">
+      <CardHeader>
+        <CardTitle>Sign up</CardTitle>
+      </CardHeader>
+      <CardBody>
+        <div class="flex gap-2">
+          <Input
+            placeholder="Choose a username"
+            state="default"
+          />
+
+          <Button
+            priority="default"
+            size="default"
+            state="default"
+          >
+            Submit
+          </Button>
+        </div>
+      </CardBody>
+    </Card>
   </body>
 </html>
 <script type="javascript">
