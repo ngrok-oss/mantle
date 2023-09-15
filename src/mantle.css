@@ -68,7 +68,6 @@
 	--yellow-900: 36deg 100% 11%;
 
 	--button: 0deg 0% 100%;
-	--border: var(--gray-200);
 	--radius: 0.5rem;
 }
 
@@ -267,9 +266,6 @@
 }
 
 @layer base {
-	* {
-		@apply border-border;
-	}
 	body {
 		@apply bg-white text-gray-800;
 	}

@@ -4,7 +4,7 @@ const defaultTheme = require("tailwindcss/defaultTheme");
 module.exports = {
 	important: "#ngrok",
 	darkMode: "class",
-	content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
+	content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx}"],
 	theme: {
 		container: {
 			center: true,
@@ -91,40 +91,6 @@ module.exports = {
 					700: "hsl(var(--brand-secondary-700) / <alpha-value>)",
 					800: "hsl(var(--brand-secondary-800) / <alpha-value>)",
 					900: "hsl(var(--brand-secondary-900) / <alpha-value>)",
-				},
-				button: "hsl(var(--button))",
-				border: "hsl(var(--border))",
-				input: "hsl(var(--input))",
-				ring: "hsl(var(--ring))",
-				background: "hsl(var(--background))",
-				foreground: "hsl(var(--foreground))",
-				primary: {
-					DEFAULT: "hsl(var(--primary))",
-					foreground: "hsl(var(--primary-foreground))",
-				},
-				secondary: {
-					DEFAULT: "hsl(var(--secondary))",
-					foreground: "hsl(var(--secondary-foreground))",
-				},
-				destructive: {
-					DEFAULT: "hsl(var(--destructive))",
-					foreground: "hsl(var(--destructive-foreground))",
-				},
-				muted: {
-					DEFAULT: "hsl(var(--muted))",
-					foreground: "hsl(var(--muted-foreground))",
-				},
-				accent: {
-					DEFAULT: "hsl(var(--accent))",
-					foreground: "hsl(var(--accent-foreground))",
-				},
-				popover: {
-					DEFAULT: "hsl(var(--popover))",
-					foreground: "hsl(var(--popover-foreground))",
-				},
-				card: {
-					DEFAULT: "hsl(var(--card))",
-					foreground: "hsl(var(--card-foreground))",
 				},
 			},
 			borderRadius: {
