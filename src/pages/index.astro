@@ -1,5 +1,6 @@
 ---
 import '../mantle.css';
+import { Button } from '../components/button';
 ---
 
 <html>
@@ -10,6 +11,14 @@ import '../mantle.css';
       <option value="high-contrast">Light High Contrast Theme</option>
       <option value="dark high-contrast">Dark High Contrast Theme</option>
     </select>
+
+    <Button
+      priority="default"
+      size="default"
+      state="default"
+    >
+      Button
+    </Button>
   </body>
 </html>
 <script>
@@ -37,5 +46,4 @@ import '../mantle.css';
   themeSelect.addEventListener("change", function () {
     localStorage.setItem("userPreferredTheme", themeSelect.value);
   });
-
 </script>

@@ -21,6 +21,7 @@
     "preview": "astro preview"
   },
   "dependencies": {
+    "@astrojs/react": "^3.0.2",
     "@astrojs/tailwind": "^5.0.0",
     "@radix-ui/react-slot": "1.0.2",
     "astro": "^3.1.0",
