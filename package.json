@@ -12,13 +12,17 @@
     "fmt:check": "prettier --check .",
     "fmt": "prettier --write --cache .",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "start": "pnpm storybook",
+    "start": "astro dev",
     "storybook": "storybook dev -p 6006",
     "test": "TZ=UTC vitest",
-    "typecheck": "tsc --incremental --noEmit --skipLibCheck"
+    "typecheck": "tsc --incremental --noEmit --skipLibCheck",
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
   },
   "dependencies": {
     "@radix-ui/react-slot": "1.0.2",
+    "astro": "^3.1.0",
     "class-variance-authority": "0.7.0",
     "clsx": "2.0.0",
     "lucide-react": "0.269.0",

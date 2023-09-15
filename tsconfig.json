@@ -26,5 +26,6 @@
     "types": ["vitest-dom/extend-expect"]
   },
   "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "references": [{ "path": "./tsconfig.node.json" }],
+  "extends": "astro/tsconfigs/base"
 }
