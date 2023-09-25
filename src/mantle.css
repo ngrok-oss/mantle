@@ -69,6 +69,8 @@
 
 	--button: 0deg 0% 100%;
 	--radius: 0.5rem;
+	--background: var(--gray-050);
+	--foreground: var(--white);
 }
 
 :root.dark {
@@ -133,6 +135,8 @@
 	--yellow-700: 29deg 64% 74%;
 	--yellow-800: 25deg 57% 82%;
 	--yellow-900: 36deg 63% 91%;
+	--background: var(--white);
+	--foreground: var(--gray-050);
 }
 
 :root.high-contrast {
