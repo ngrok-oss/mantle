@@ -38,31 +38,32 @@ import { Input } from '../components/input';
         </div>
       </CardBody>
     </Card>
+
+    <script type="text/javascript">
+      function setTheme(theme) {
+        document.documentElement.className = theme;
+      }
+
+      // Get the select element and listen for changes
+      const themeSelect = document.getElementById("themeSelect");
+      themeSelect.addEventListener("change", function () {
+        setTheme(themeSelect.value);
+      });
+
+      // Set the initial theme based on user preference (you can use cookies or local storage)
+      // For simplicity, we'll default to the light theme here
+      const userPreferredTheme = localStorage.getItem("userPreferredTheme");
+      if (userPreferredTheme) {
+        setTheme(userPreferredTheme);
+        themeSelect.value = userPreferredTheme;
+      } else {
+        setTheme("light");
+      }
+
+      // Save user's theme preference to local storage
+      themeSelect.addEventListener("change", function () {
+        localStorage.setItem("userPreferredTheme", themeSelect.value);
+      });
+    </script>
   </body>
 </html>
-<script type="javascript">
-function setTheme(theme) {
-  document.documentElement.className = theme;
-}
-
-// Get the select element and listen for changes
-const themeSelect = document.getElementById("themeSelect");
-themeSelect.addEventListener("change", function () {
-  setTheme(themeSelect.value);
-});
-
-// Set the initial theme based on user preference (you can use cookies or local storage)
-// For simplicity, we'll default to the light theme here
-const userPreferredTheme = localStorage.getItem("userPreferredTheme");
-if (userPreferredTheme) {
-  setTheme(userPreferredTheme);
-  themeSelect.value = userPreferredTheme;
-} else {
-  setTheme("light");
-}
-
-// Save user's theme preference to local storage
-themeSelect.addEventListener("change", function () {
-  localStorage.setItem("userPreferredTheme", themeSelect.value);
-});
-</script>
