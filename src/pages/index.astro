@@ -2,6 +2,13 @@
 import "../mantle.css";
 import { Input } from "../components/input";
 import { Button } from "../components/button";
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuLabel,
+	DropdownMenuTrigger,
+} from "../components/dropdown-menu";
 ---
 
 <html lang="en-us" id="ngrok">
@@ -32,6 +39,16 @@ import { Button } from "../components/button";
 					<option value="high-contrast">Light High Contrast Theme</option>
 					<option value="dark high-contrast">Dark High Contrast Theme</option>
 				</select>
+
+				<DropdownMenu>
+					<DropdownMenuTrigger>Theme</DropdownMenuTrigger>
+					<DropdownMenuContent>
+						<DropdownMenuLabel>Light</DropdownMenuLabel>
+						<DropdownMenuItem>Dark</DropdownMenuItem>
+						<DropdownMenuItem>Light High Contrast</DropdownMenuItem>
+						<DropdownMenuItem>Dark High Contrast</DropdownMenuItem>
+					</DropdownMenuContent>
+				</DropdownMenu>
 
 				<Button className="md:hidden">Search</Button>
 				<Input placeholder="Search…" state="default" className="hidden md:w-64 md:block" />
@@ -450,3 +467,4 @@ import { Button } from "../components/button";
 		</script>
 	</body>
 </html>
+ ../components/dropdown-menu
