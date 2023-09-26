@@ -1,6 +1,7 @@
 ---
 import "../mantle.css";
 import { Input } from "../components/input";
+import { Button } from "../components/button";
 ---
 
 <html lang="en-us" id="ngrok">
@@ -11,7 +12,7 @@ import { Input } from "../components/input";
 	</head>
 	<body class="bg-background">
 		<div class="mx-auto max-w-[82.5rem] w-full px-4">
-			<header class="flex h-24 gap-4 items-center">
+			<header class="flex h-24 gap-2 md:gap-4 items-center">
 				<svg width="184" height="36"
 					><path
 						fill="hsl(var(--brand-primary-500))"
@@ -32,10 +33,12 @@ import { Input } from "../components/input";
 					<option value="dark high-contrast">Dark High Contrast Theme</option>
 				</select>
 
-				<Input placeholder="Search…" state="default" className="w-64" />
+				<Button className="md:hidden">Search</Button>
+				<Input placeholder="Search…" state="default" className="hidden md:w-64 md:block" />
+				<Button className="md:hidden" priority="primary">Menu</Button>
 			</header>
-			<section class="flex gap-4 mb-24">
-				<nav class="w-52 pt-9">
+			<section class="flex gap-4 mb-4 lg:mb-9">
+				<nav class="hidden w-52 pt-9 md:block">
 					<ul>
 						<li class="text-brand-primary-500">Base</li>
 						<ul class="mt-4 text-sm flex flex-col gap-2">
@@ -49,10 +52,8 @@ import { Input } from "../components/input";
 						</ul>
 					</ul>
 				</nav>
-				<article
-					class="flex gap-4 bg-foreground rounded-lg shadow-lg p-9 w-full"
-				>
-					<nav class="w-52">
+				<article class="flex gap-4 bg-foreground rounded-lg shadow-lg p-4 md:p-9 w-full">
+					<nav class="hidden w-52 lg:block">
 						<h3 class="text-brand-secondary-600 text-xl">On this page</h3>
 						<ul class="text-sm text-gray-600 mt-4">
 							<li>Variables</li>
@@ -69,356 +70,349 @@ import { Input } from "../components/input";
 					<div class="w-full order-first">
 						<h1 class="text-5xl">Colors</h1>
 						<p class="text-gray-600 text-xl mt-4">
-							Mantle uses Tailwind under the hood for all its CSS styling.
-							However, we differ from Tailwind when it comes to colors. Mantle
-							provides a full color library that automatically provides dark and
-							high contrast modes. This is different from standard Tailwind
-							usage that requires dark class variations. By simply specifying
-							light colors provided by mantle, you’ll get dark and high contrast
-							modes for free. If you require additional customization, you can
-							provide dark variant classes as an override.
+							Mantle uses Tailwind under the hood for all its CSS styling. However, we differ from Tailwind when it
+							comes to colors. Mantle provides a full color library that automatically provides dark and high contrast
+							modes. This is different from standard Tailwind usage that requires dark class variations. By simply
+							specifying light colors provided by mantle, you’ll get dark and high contrast modes for free. If you
+							require additional customization, you can provide dark variant classes as an override.
 						</p>
 						<h2 class="text-3xl mt-8">Variables</h2>
 						<p class="text-gray-600 mt-3">
-							Mantle’s colors are delivered as CSS variables via Tailwind’s API
-							eg. <code class="bg-gray-100 rounded font-mono p-1 text-sm"
-								>.text-brand-primary-500</code
-							>. They can be directly accessed via <code
-								class="bg-gray-100 rounded font-mono p-1 text-sm"
+							Mantle’s colors are delivered as CSS variables via Tailwind’s API eg. <code
+								class="bg-gray-100 rounded font-mono p-1 text-sm">.text-brand-primary-500</code
+							>. They can be directly accessed via <code class="bg-gray-100 rounded font-mono p-1 text-sm"
 								>var(--brand-primary-500)</code
-							> but do note that you'll need to wrap everything in <code
+							> but do note that you’ll need to wrap everything in <code
 								class="bg-gray-100 rounded font-mono p-1 text-sm">hsl()</code
-							> like so: <code class="bg-gray-100 rounded font-mono p-1 text-sm"
-								>hsl(var(--brand-primary-500))</code
-							>. This allows for Tailwind operations like <code
-								class="bg-gray-100 rounded font-mono p-1 text-sm"
+							> like so: <code class="bg-gray-100 rounded font-mono p-1 text-sm">hsl(var(--brand-primary-500))</code>.
+							This allows for Tailwind operations like <code class="bg-gray-100 rounded font-mono p-1 text-sm"
 								>text-primary-500/25</code
 							>.
 						</p>
 
 						<h3 class="text-2xl mt-6">Brand Primary</h3>
 						<p class="text-gray-600 mt-2">
-							ngrok’s primary branding color is used in its logo as well as
-							primary links. Use it sparingly to attract attention.
+							ngrok’s primary branding color is used in its logo as well as primary links. Use it sparingly to attract
+							attention.
 						</p>
-						<div class="flex mt-4">
+						<div class="flex mt-4 flex-col md:flex-row">
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-brand-primary-900 aspect-square rounded-l-md"
+								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-brand-primary-900 md:aspect-square rounded-tl-md rounded-tr-md md:rounded-tr-none md:rounded-bl-md p-3 md:p-0 md:w-0"
 							>
 								900
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-brand-primary-800 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-brand-primary-800 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								800
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-brand-primary-700 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-brand-primary-700 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								700
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-brand-primary-600 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-brand-primary-600 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								600
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-brand-primary-500 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-brand-primary-500 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								500
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm bg-brand-primary-400 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm bg-brand-primary-400 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								400
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm bg-brand-primary-300 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm bg-brand-primary-300 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								300
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm bg-brand-primary-200 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm bg-brand-primary-200 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								200
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm bg-brand-primary-100 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm bg-brand-primary-100 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								100
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm bg-brand-primary-50 aspect-square rounded-r-md"
+								class="flex flex-grow items-center justify-center font-mono text-sm bg-brand-primary-50 md:aspect-square rounded-bl-md rounded-br-md md:rounded-br-md md:rounded-tr-md p-3 md:p-0 md:w-0"
 							>
 								50
 							</div>
 						</div>
 
 						<h3 class="text-2xl mt-6">Brand Secondary</h3>
-						<div class="flex mt-4">
+						<div class="flex mt-4 flex-col md:flex-row">
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-brand-secondary-900 aspect-square rounded-l-md"
+								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-brand-secondary-900 md:aspect-square rounded-tl-md rounded-tr-md md:rounded-tr-none md:rounded-bl-md p-3 md:p-0 md:w-0"
 							>
 								900
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-brand-secondary-800 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-brand-secondary-800 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								800
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-brand-secondary-700 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-brand-secondary-700 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								700
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-brand-secondary-600 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-brand-secondary-600 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								600
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-brand-secondary-500 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-brand-secondary-500 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								500
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm bg-brand-secondary-400 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm bg-brand-secondary-400 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								400
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm bg-brand-secondary-300 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm bg-brand-secondary-300 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								300
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm bg-brand-secondary-200 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm bg-brand-secondary-200 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								200
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm bg-brand-secondary-100 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm bg-brand-secondary-100 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								100
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm bg-brand-secondary-50 aspect-square rounded-r-md"
+								class="flex flex-grow items-center justify-center font-mono text-sm bg-brand-secondary-50 md:aspect-square rounded-bl-md rounded-br-md md:rounded-br-md md:rounded-tr-md p-3 md:p-0 md:w-0"
 							>
 								50
 							</div>
 						</div>
 
 						<h3 class="text-2xl mt-6">Gray</h3>
-						<div class="flex mt-4">
+						<div class="flex mt-4 flex-col md:flex-row">
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-gray-900 aspect-square rounded-l-md"
+								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-gray-900 md:aspect-square rounded-tl-md rounded-tr-md md:rounded-tr-none md:rounded-bl-md p-3 md:p-0 md:w-0"
 							>
 								900
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-gray-800 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-gray-800 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								800
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-gray-700 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-gray-700 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								700
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-gray-600 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-gray-600 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								600
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-gray-500 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-gray-500 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								500
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm bg-gray-400 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm bg-gray-400 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								400
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm bg-gray-300 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm bg-gray-300 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								300
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm bg-gray-200 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm bg-gray-200 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								200
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm bg-gray-100 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm bg-gray-100 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								100
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm bg-gray-50 aspect-square rounded-r-md"
+								class="flex flex-grow items-center justify-center font-mono text-sm bg-gray-50 md:aspect-square rounded-bl-md rounded-br-md md:rounded-br-md md:rounded-tr-md p-3 md:p-0 md:w-0"
 							>
 								50
 							</div>
 						</div>
 
 						<h3 class="text-2xl mt-6">Red</h3>
-						<div class="flex mt-4">
+						<div class="flex mt-4 flex-col md:flex-row">
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-red-900 aspect-square rounded-l-md"
+								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-red-900 md:aspect-square rounded-tl-md rounded-tr-md md:rounded-tr-none md:rounded-bl-md p-3 md:p-0 md:w-0"
 							>
 								900
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-red-800 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-red-800 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								800
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-red-700 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-red-700 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								700
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-red-600 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-red-600 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								600
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-red-500 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-red-500 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								500
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm bg-red-400 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm bg-red-400 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								400
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm bg-red-300 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm bg-red-300 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								300
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm bg-red-200 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm bg-red-200 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								200
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm bg-red-100 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm bg-red-100 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								100
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm bg-red-50 aspect-square rounded-r-md"
+								class="flex flex-grow items-center justify-center font-mono text-sm bg-red-50 md:aspect-square rounded-bl-md rounded-br-md md:rounded-br-md md:rounded-tr-md p-3 md:p-0 md:w-0"
 							>
 								50
 							</div>
 						</div>
 
 						<h3 class="text-2xl mt-6">Green</h3>
-						<div class="flex mt-4">
+						<div class="flex mt-4 flex-col md:flex-row">
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-green-900 aspect-square rounded-l-md"
+								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-green-900 md:aspect-square rounded-tl-md rounded-tr-md md:rounded-tr-none md:rounded-bl-md p-3 md:p-0 md:w-0"
 							>
 								900
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-green-800 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-green-800 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								800
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-green-700 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-green-700 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								700
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-green-600 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-green-600 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								600
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-green-500 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-green-500 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								500
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm bg-green-400 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm bg-green-400 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								400
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm bg-green-300 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm bg-green-300 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								300
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm bg-green-200 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm bg-green-200 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								200
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm bg-green-100 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm bg-green-100 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								100
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm bg-green-50 aspect-square rounded-r-md"
+								class="flex flex-grow items-center justify-center font-mono text-sm bg-green-50 md:aspect-square rounded-bl-md rounded-br-md md:rounded-br-md md:rounded-tr-md p-3 md:p-0 md:w-0"
 							>
 								50
 							</div>
 						</div>
 
 						<h3 class="text-2xl mt-6">Yellow</h3>
-						<div class="flex mt-4">
+						<div class="flex mt-4 flex-col md:flex-row">
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-yellow-900 aspect-square rounded-l-md"
+								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-yellow-900 md:aspect-square rounded-tl-md rounded-tr-md md:rounded-tr-none md:rounded-bl-md p-3 md:p-0 md:w-0"
 							>
 								900
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-yellow-800 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-yellow-800 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								800
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-yellow-700 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-yellow-700 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								700
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-yellow-600 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm text-white bg-yellow-600 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								600
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm bg-yellow-500 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm bg-yellow-500 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								500
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm bg-yellow-400 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm bg-yellow-400 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								400
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm bg-yellow-300 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm bg-yellow-300 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								300
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm bg-yellow-200 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm bg-yellow-200 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								200
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm bg-yellow-100 aspect-square"
+								class="flex flex-grow items-center justify-center font-mono text-sm bg-yellow-100 md:aspect-square p-3 md:p-0 md:w-0"
 							>
 								100
 							</div>
 							<div
-								class="flex flex-grow items-center justify-center font-mono text-sm bg-yellow-50 aspect-square rounded-r-md"
+								class="flex flex-grow items-center justify-center font-mono text-sm bg-yellow-50 md:aspect-square rounded-bl-md rounded-br-md md:rounded-br-md md:rounded-tr-md p-3 md:p-0 md:w-0"
 							>
 								50
 							</div>
