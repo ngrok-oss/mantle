@@ -11,8 +11,8 @@ import { Button } from "../components/button";
 		<title>Mantle</title>
 	</head>
 	<body class="bg-background">
-		<div class="mx-auto max-w-[82.5rem] w-full px-4">
-			<header class="flex h-24 gap-2 md:gap-4 items-center">
+		<div class="mx-auto max-w-[82.5rem] w-full sm:px-4">
+			<header class="flex h-24 gap-2 md:gap-4 items-center px-4 sm:px-0">
 				<svg width="184" height="36"
 					><path
 						fill="hsl(var(--brand-primary-500))"
@@ -37,7 +37,7 @@ import { Button } from "../components/button";
 				<Input placeholder="Search…" state="default" className="hidden md:w-64 md:block" />
 				<Button className="md:hidden" priority="primary">Menu</Button>
 			</header>
-			<section class="flex gap-4 mb-4 lg:mb-9">
+			<section class="flex gap-4 sm:mb-4 lg:mb-9">
 				<nav class="hidden w-52 pt-9 md:block">
 					<ul>
 						<li class="text-brand-primary-500">Base</li>
@@ -52,7 +52,7 @@ import { Button } from "../components/button";
 						</ul>
 					</ul>
 				</nav>
-				<article class="flex gap-4 bg-foreground rounded-lg shadow-lg p-4 md:p-9 w-full">
+				<article class="flex gap-4 bg-foreground sm:rounded-lg shadow-lg p-4 md:p-9 w-full">
 					<nav class="hidden w-52 lg:block">
 						<h3 class="text-brand-secondary-600 text-xl">On this page</h3>
 						<ul class="text-sm text-gray-600 mt-4">
