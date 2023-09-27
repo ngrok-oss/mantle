@@ -2,9 +2,9 @@ import type { InputHTMLAttributes } from "react";
 import { forwardRef } from "react";
 import { cva } from "class-variance-authority";
 
-import { cx } from "../lib/cx";
-import type { VariantProps } from "../types/variant-props";
-import type { AutoComplete, InputType } from "../types/input";
+import { cx } from "../../lib/cx";
+import type { VariantProps } from "../../types/variant-props";
+import type { AutoComplete, InputType } from "../../types/input";
 
 const inputVariants = cva(
 	"flex h-10 w-full rounded-md border bg-white px-3 py-2 file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-4 disabled:cursor-not-allowed disabled:opacity-50",

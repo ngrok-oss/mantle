@@ -2,8 +2,8 @@ import type { HTMLAttributes } from "react";
 import { forwardRef } from "react";
 import { Slot } from "@radix-ui/react-slot";
 
-import { cx } from "../lib/cx";
-import type { WithAsChild } from "../types/as-child";
+import { cx } from "../../lib/cx";
+import type { WithAsChild } from "../../types/as-child";
 
 export type Props = HTMLAttributes<HTMLDivElement>;
 
