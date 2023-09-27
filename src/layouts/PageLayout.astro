@@ -2,6 +2,7 @@
 import "../mantle.css";
 import { Input } from "../components/mantle/input";
 import { Button } from "../components/mantle/button";
+import Navigation from "../components/Navigation.astro";
 
 const { title } = Astro.props;
 ---
@@ -40,20 +41,7 @@ const { title } = Astro.props;
 				<Button className="md:hidden" priority="primary">Menu</Button>
 			</header>
 			<section class="flex gap-4 sm:mb-4 lg:mb-9">
-				<nav class="hidden w-52 pt-9 md:block">
-					<ul>
-						<li class="text-brand-primary-500">Base</li>
-						<ul class="mt-4 text-sm flex flex-col gap-2">
-							<li>Colors</li>
-							<li>Typography</li>
-							<li>Icons</li>
-						</ul>
-						<li class="text-brand-primary-500 mt-12">Components</li>
-						<ul class="mt-4 text-sm flex flex-col gap-2">
-							<li>Input</li>
-						</ul>
-					</ul>
-				</nav>
+				<Navigation />
 				<article class="flex gap-4 bg-foreground sm:rounded-lg shadow-lg p-4 md:p-9 w-full">
 					<nav class="hidden w-52 lg:block">
 						<h3 class="text-brand-secondary-600 text-xl">On this page</h3>

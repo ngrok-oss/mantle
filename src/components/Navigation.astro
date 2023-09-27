@@ -1,0 +1,17 @@
+---
+const pathname = new URL(Astro.request.url).pathname;
+---
+
+<nav class="hidden w-52 pt-9 md:block">
+	<ul>
+		<li class="text-brand-primary-500">Base</li>
+		<ul class="mt-4 text-sm -ml-2">
+			<li class="px-2 rounded-md bg-gray-100"><a class="inline-block py-1" href="/base/colors">Colors</a></li>
+			<li class="px-2"><a class="inline-block py-1" href="/base/typography">Typography</a></li>
+		</ul>
+		<li class="text-brand-primary-500 mt-12">Components</li>
+		<ul class="mt-4 text-sm -ml-2">
+			<li class="px-2"><a class="inline-block py-1" href="/components/input">Input</a></li>
+		</ul>
+	</ul>
+</nav>
