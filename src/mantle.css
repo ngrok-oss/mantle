@@ -282,7 +282,7 @@
 
 	code[class*="language-"],
 	pre[class*="language-"] {
-		color: hsl(var(--gray-800));
+		@apply text-gray-800;
 		background: none;
 		font-size: 1em;
 		text-align: left;
@@ -304,22 +304,17 @@
 
 	/* Code blocks */
 	pre[class*="language-"] {
-		padding: 1em;
-		border-radius: 0.5rem;
-		overflow: auto;
-		border: 1px solid hsl(var(--gray-200));
+		@apply border border-gray-200 overflow-auto rounded-lg p-4;
 	}
 
 	:not(pre) > code[class*="language-"],
 	pre[class*="language-"] {
-		background: hsl(var(--background));
+		@apply bg-background;
 	}
 
 	/* Inline code */
 	:not(pre) > code[class*="language-"] {
-		padding: .1em;
-		border-radius: .3em;
-		white-space: normal;
+		@apply bg-gray-100 rounded-sm whitespace-normal;
 	}
 
 	.token.comment,
