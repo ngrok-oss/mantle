@@ -273,4 +273,112 @@
 	body {
 		@apply bg-white text-gray-800;
 	}
+
+	/**
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+
+	code[class*="language-"],
+	pre[class*="language-"] {
+		color: hsl(var(--gray-800));
+		background: none;
+		font-size: 1em;
+		text-align: left;
+		white-space: pre;
+		word-spacing: normal;
+		word-break: normal;
+		word-wrap: normal;
+		line-height: 1.5;
+
+		-moz-tab-size: 2;
+		-o-tab-size: 2;
+		tab-size: 2;
+
+		-webkit-hyphens: none;
+		-moz-hyphens: none;
+		-ms-hyphens: none;
+		hyphens: none;
+	}
+
+	/* Code blocks */
+	pre[class*="language-"] {
+		padding: 1em;
+		border-radius: 0.5rem;
+		overflow: auto;
+		border: 1px solid hsl(var(--gray-200));
+	}
+
+	:not(pre) > code[class*="language-"],
+	pre[class*="language-"] {
+		background: hsl(var(--background));
+	}
+
+	/* Inline code */
+	:not(pre) > code[class*="language-"] {
+		padding: .1em;
+		border-radius: .3em;
+		white-space: normal;
+	}
+
+	.token.comment,
+	.token.prolog,
+	.token.doctype,
+	.token.cdata {
+		color: hsl(var(--gray-500));
+	}
+
+	.token.property,
+	.token.tag,
+	.token.boolean,
+	.token.number,
+	.token.constant,
+	.token.symbol,
+	.token.deleted {
+		color: hsl(var(--brand-secondary-600));
+	}
+
+	.token.attr-name,
+	.token.string,
+	.token.char,
+	.token.builtin,
+	.token.inserted {
+		color: hsl(var(--green-600));
+	}
+
+	.token.operator,
+	.token.entity,
+	.token.url,
+	.language-css .token.string,
+	.style .token.string {
+		color: hsl(var(--green-600));
+	}
+
+	.token.selector,
+	.token.atrule,
+	.token.attr-value,
+	.token.keyword {
+		color: hsl(var(--brand-primary-500));
+	}
+
+	.token.function,
+	.token.class-name {
+		color: hsl(var(--yellow-600));
+	}
+
+	.token.regex,
+	.token.important,
+	.token.variable {
+		color: hsl(var(--green-600));
+	}
+
+	.token.important,
+	.token.bold {
+		font-weight: bold;
+	}
+
+	.token.italic {
+		font-style: italic;
+	}
 }

@@ -1,0 +1,14 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro";
+import { Prism } from "@astrojs/prism";
+import { Input } from "../../components/mantle/input";
+---
+
+<PageLayout title="Input">
+	<h1 class="text-5xl">Input</h1>
+	<p class="text-gray-600 text-xl mt-4">Fundamental component for inputs.</p>
+	<div class="mt-4 bg-background p-9 flex items-center justify-center">
+		<Input />
+	</div>
+	<Prism is:raw lang="tsx" code={`<Input />`} />
+</PageLayout>

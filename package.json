@@ -19,6 +19,7 @@
     "preview": "astro preview"
   },
   "dependencies": {
+    "@astrojs/prism": "^3.0.0",
     "@astrojs/react": "^3.0.2",
     "@astrojs/tailwind": "^5.0.0",
     "@radix-ui/react-slot": "1.0.2",
