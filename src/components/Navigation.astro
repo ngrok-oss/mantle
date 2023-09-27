@@ -1,17 +1,42 @@
 ---
-const pathname = new URL(Astro.request.url).pathname;
+interface Link {
+	href: string;
+	text: string;
+}
+
+const baseLinks: Link[] = [
+	{ href: "/base/colors", text: "Colors" },
+	{ href: "/base/typography", text: "Typography" },
+];
+
+const componentLinks: Link[] = [{ href: "/components/input", text: "Input" }];
 ---
 
 <nav class="hidden w-52 pt-9 md:block">
 	<ul>
 		<li class="text-brand-primary-500">Base</li>
 		<ul class="mt-4 text-sm -ml-2">
-			<li class="px-2 rounded-md bg-gray-100"><a class="inline-block py-1" href="/base/colors">Colors</a></li>
-			<li class="px-2"><a class="inline-block py-1" href="/base/typography">Typography</a></li>
+			{
+				baseLinks.map(({ href, text }) => (
+					<li class={href === Astro.url.pathname ? "px-2 rounded-md bg-gray-100" : "px-2"}>
+						<a href={href} aria-current={href === Astro.url.pathname ? "page" : undefined} class="inline-block py-1">
+							{text}
+						</a>
+					</li>
+				))
+			}
 		</ul>
 		<li class="text-brand-primary-500 mt-12">Components</li>
 		<ul class="mt-4 text-sm -ml-2">
-			<li class="px-2"><a class="inline-block py-1" href="/components/input">Input</a></li>
+			{
+				componentLinks.map(({ href, text }) => (
+					<li class={href === Astro.url.pathname ? "px-2 rounded-md bg-gray-100" : "px-2"}>
+						<a href={href} aria-current={href === Astro.url.pathname ? "page" : undefined} class="inline-block py-1">
+							{text}
+						</a>
+					</li>
+				))
+			}
 		</ul>
 	</ul>
 </nav>
