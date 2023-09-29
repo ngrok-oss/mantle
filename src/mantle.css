@@ -70,6 +70,10 @@
 	--button: 0deg 0% 100%;
 	--border: var(--gray-200);
 	--radius: 0.5rem;
+	--background: var(--gray-050);
+	--foreground: var(--white);
+	--popover: 0 0% 100%;
+	--popover-foreground: 222.2 84% 4.9%;
 }
 
 :root.dark {
@@ -134,9 +138,14 @@
 	--yellow-700: 29deg 64% 74%;
 	--yellow-800: 25deg 57% 82%;
 	--yellow-900: 36deg 63% 91%;
+
+	--background: var(--white);
+	--foreground: var(--gray-050);
+	--popover: 222.2 84% 4.9%;
+	--popover-foreground: 210 40% 98%;
 }
 
-:root.high-contrast {
+:root.light-high-contrast {
 	--white: 0deg 0% 100%;
 	--brand-primary-050: 222deg 87% 99%;
 	--brand-primary-100: 227deg 81% 90%;
@@ -200,7 +209,7 @@
 	--yellow-900: 28deg 94% 13%;
 }
 
-:root.dark.high-contrast {
+:root.dark-high-contrast {
 	--white: 225deg 18% 9%;
 	--brand-primary-050: 237deg 33% 18%;
 	--brand-primary-100: 233deg 39% 31%;
