@@ -32,9 +32,6 @@ dependencies:
   '@uidotdev/usehooks':
     specifier: 2.3.1
     version: 2.3.1(react-dom@18.2.0)(react@18.2.0)
-  '@vercel/analytics':
-    specifier: 1.0.2
-    version: 1.0.2
   '@vercel/remix':
     specifier: 2.0.1
     version: 2.0.1(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)
@@ -5204,10 +5201,6 @@ packages:
   /@vanilla-extract/private@1.0.3:
     resolution: {integrity: sha512-17kVyLq3ePTKOkveHxXuIJZtGYs+cSoev7BlP+Lf4916qfDhk/HBjvlYDe8egrea7LNPHKwSZJK/bzZC+Q6AwQ==}
     dev: true
-
-  /@vercel/analytics@1.0.2:
-    resolution: {integrity: sha512-BZFxVrv24VbNNl5xMxqUojQIegEeXMI6rX3rg1uVLYUEXsuKNBSAEQf4BWEcjQDp/8aYJOj6m8V4PUA3x/cxgg==}
-    dev: false
 
   /@vercel/remix@2.0.1(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2):
     resolution: {integrity: sha512-mHtbgIRn4naLkKT2ICcd0v9hgGZrGBSYjBQp2kYaA4PDBUKHFqXeB7C+iyyFlQXkc6tiSPwGeqMXgvb7t8D5Ow==}

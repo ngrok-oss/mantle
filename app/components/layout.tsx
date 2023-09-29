@@ -52,8 +52,8 @@ export function Layout({ children, className, style }: Props) {
 						<SelectOption value={theme("system")}>System</SelectOption>
 						<SelectOption value={theme("light")}>Light Theme</SelectOption>
 						<SelectOption value={theme("dark")}>Dark Theme</SelectOption>
-						<SelectOption value={theme("light-high-contrast")}>Light High Contrast Theme</SelectOption>
-						<SelectOption value={theme("dark-high-contrast")}>Dark High Contrast Theme</SelectOption>
+						<SelectOption value={theme("light-high-contrast")}>Light High Contrast</SelectOption>
+						<SelectOption value={theme("dark-high-contrast")}>Dark High Contrast</SelectOption>
 					</SelectContent>
 				</Select>
 
