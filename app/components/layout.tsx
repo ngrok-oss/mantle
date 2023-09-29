@@ -82,7 +82,7 @@ export function Layout({ children, className, style }: Props) {
 
 function Navigation({ className, style }: WithStyleProps) {
 	return (
-		<nav className={cx("hidden w-52 pt-9 md:block", className)} style={style}>
+		<nav className={cx("hidden w-44 pt-9 md:block", className)} style={style}>
 			<ul role="list" className="flex flex-col gap-4">
 				<li className="text-brand-primary-500">Base</li>
 				<ul role="list" className="text-sm">
