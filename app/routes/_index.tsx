@@ -19,7 +19,7 @@ export default function Page() {
 				’s UI library and design system that powers its front-end.
 			</p>
 
-			<h2 id="variables" className="mt-8 text-3xl">
+			<h2 id="dependencies" className="mt-8 text-3xl">
 				Dependencies
 			</h2>
 			<p className="mt-3 text-gray-600">
@@ -44,6 +44,14 @@ export default function Page() {
 					Remix
 				</a>
 				.
+			</p>
+
+			<h2 id="status" className="mt-8 text-3xl">
+				Status
+			</h2>
+			<p className="mt-3 text-gray-600">
+				Mantle is a work in progress that’s currently adding components. It intends to replace new and existing ngrok
+				user interfaces.
 			</p>
 		</div>
 	);
