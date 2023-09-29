@@ -1,5 +1,5 @@
 import { Button } from "@/components/button";
-import { Input } from "@/components/input";
+// import { Input } from "@/components/input";
 import { Select, SelectContent, SelectIcon, SelectOption, SelectTrigger } from "@/components/select";
 import { isTheme, theme, useTheme } from "@/components/theme-provider";
 import { cx } from "@/lib/cx";
@@ -67,7 +67,7 @@ export function Layout({ children, className, style }: Props) {
 				</Select>
 
 				<Button className="md:hidden">Search</Button>
-				<Input placeholder="Search…" state="default" className="hidden md:block md:w-64" />
+				{/* <Input placeholder="Search…" state="default" className="hidden md:block md:w-64" /> */}
 				<Button className="md:hidden" priority="primary">
 					Menu
 				</Button>
@@ -83,10 +83,25 @@ export function Layout({ children, className, style }: Props) {
 function Navigation({ className, style }: WithStyleProps) {
 	return (
 		<nav className={cx("hidden w-44 pt-9 md:block", className)} style={style}>
-			<ul role="list" className="flex flex-col gap-4">
-				<li className="text-brand-primary-500">Base</li>
-				<ul role="list" className="text-sm">
-					<li>
+			<ul role="list" className="flex flex-col">
+				<li>
+					<NavLink
+						className={({ isActive }) =>
+							cx(
+								"-ml-2 block rounded-lg px-2 py-1 text-sm text-gray-700 hover:text-gray-900",
+								isActive && "bg-brand-primary-500 text-button hover:bg-brand-primary-600 hover:text-button",
+							)
+						}
+						to="/"
+					>
+						Overview
+					</NavLink>
+				</li>
+
+				<li className="mt-4 text-brand-primary-500">Base</li>
+
+				<ul role="list" className="mt-2 text-sm">
+					{/* <li>
 						<NavLink
 							className={({ isActive }) =>
 								cx(
@@ -98,7 +113,7 @@ function Navigation({ className, style }: WithStyleProps) {
 						>
 							Typography
 						</NavLink>
-					</li>
+					</li> */}
 					<li>
 						<NavLink
 							className={({ isActive }) =>
@@ -113,8 +128,9 @@ function Navigation({ className, style }: WithStyleProps) {
 						</NavLink>
 					</li>
 				</ul>
-				<li className="mt-8 text-brand-primary-500">Components</li>
-				<ul role="list" className="space-y-2 text-sm">
+
+				{/* <li className="mt-4 text-brand-primary-500">Components</li>
+				<ul role="list" className="mt-2 text-sm">
 					<li>
 						<NavLink
 							className={({ isActive }) =>
@@ -128,7 +144,7 @@ function Navigation({ className, style }: WithStyleProps) {
 							Input
 						</NavLink>
 					</li>
-				</ul>
+				</ul> */}
 			</ul>
 		</nav>
 	);
