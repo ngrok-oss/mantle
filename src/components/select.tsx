@@ -28,6 +28,8 @@ const SelectGroup = Group;
 
 const SelectValue = Value;
 
+const SelectIcon = Icon;
+
 const SelectTrigger = forwardRef<
 	ElementRef<typeof Trigger>,
 	ComponentPropsWithoutRef<typeof Trigger> & { hideIcon?: boolean }
@@ -114,4 +116,14 @@ const SelectSeparator = forwardRef<ElementRef<typeof Separator>, ComponentPropsW
 );
 SelectSeparator.displayName = Separator.displayName;
 
-export { Select, SelectGroup, SelectValue, SelectTrigger, SelectContent, SelectLabel, SelectOption, SelectSeparator };
+export {
+	Select,
+	SelectContent,
+	SelectGroup,
+	SelectIcon,
+	SelectLabel,
+	SelectOption,
+	SelectSeparator,
+	SelectTrigger,
+	SelectValue,
+};

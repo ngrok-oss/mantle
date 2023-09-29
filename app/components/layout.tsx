@@ -1,6 +1,6 @@
 import { Button } from "@/components/button";
 import { Input } from "@/components/input";
-import { Select, SelectContent, SelectOption, SelectTrigger } from "@/components/select";
+import { Select, SelectContent, SelectIcon, SelectOption, SelectTrigger } from "@/components/select";
 import { isTheme, theme, useTheme } from "@/components/theme-provider";
 import { cx } from "@/lib/cx";
 import { WithStyleProps } from "@/types/with-style-props";
@@ -49,10 +49,12 @@ export function Layout({ children, className, style }: Props) {
 						{/* TODO: this should probably have a title/tooltip instead that describes what it is since we ain't got a spot for a label */}
 						<span className="sr-only">Theme Switcher</span>
 						<SelectTrigger className="w-min" hideIcon>
-							<svg className="text-gray-600" width="39" height="24" fill="currentColor">
-								<path d="M28 9h10l-5 6-5-6Z" />
-								<path d="M16.02 2.297a10.53 10.53 0 0 1 3.58 2.457A10.464 10.464 0 0 1 22.5 12c0 5.799-4.701 10.5-10.5 10.5-2.81 0-5.361-1.104-7.246-2.9A10.468 10.468 0 0 1 1.5 12a10.469 10.469 0 0 1 3.075-7.425A10.469 10.469 0 0 1 12 1.5c1.424 0 2.781.283 4.02.797ZM20.9 12a8.87 8.87 0 0 0-2.432-6.114L5.886 18.468A8.9 8.9 0 0 0 20.9 12Z" />
-							</svg>
+							<SelectIcon className="text-gray-600">
+								<svg width="39" height="24" fill="currentColor">
+									<path d="M28 9h10l-5 6-5-6Z" />
+									<path d="M16.02 2.297a10.53 10.53 0 0 1 3.58 2.457A10.464 10.464 0 0 1 22.5 12c0 5.799-4.701 10.5-10.5 10.5-2.81 0-5.361-1.104-7.246-2.9A10.468 10.468 0 0 1 1.5 12a10.469 10.469 0 0 1 3.075-7.425A10.469 10.469 0 0 1 12 1.5c1.424 0 2.781.283 4.02.797ZM20.9 12a8.87 8.87 0 0 0-2.432-6.114L5.886 18.468A8.9 8.9 0 0 0 20.9 12Z" />
+								</svg>
+							</SelectIcon>
 						</SelectTrigger>
 					</div>
 					<SelectContent>
