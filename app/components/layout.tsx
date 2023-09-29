@@ -30,13 +30,13 @@ export function Layout({ children, className, style }: Props) {
 	const [currentTheme, setTheme] = useTheme();
 
 	return (
-		<main className={cx("mx-auto h-full max-w-7xl px-4", className)} style={style}>
+		<main className={cx("mx-auto h-full max-w-7xl sm:px-4", className)} style={style}>
 			<header className="flex h-24 items-center gap-2 px-4 sm:px-0 md:gap-4">
 				<Link to="/">
 					<MantleLogo />
 				</Link>
 
-				<Select
+				{/* <Select
 					value={currentTheme}
 					onValueChange={(value) => {
 						const maybeNewTheme = isTheme(value) ? value : undefined;
