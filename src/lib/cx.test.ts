@@ -46,7 +46,6 @@ describe("cx", () => {
 	});
 
 	test("conditional font color applies correctly", () => {
-		// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 		expect(cx("text-red", false && "text-blue", true && "text-gold")).toBe("text-gold");
 	});
 });
