@@ -28,23 +28,26 @@ const SelectGroup = Group;
 
 const SelectValue = Value;
 
-const SelectTrigger = forwardRef<ElementRef<typeof Trigger>, ComponentPropsWithoutRef<typeof Trigger>>(
-	({ className, children, ...props }, ref) => (
-		<Trigger
-			ref={ref}
-			className={cx(
-				"flex h-10 w-full items-center justify-between rounded-md border border-gray-500 bg-white px-3 py-2 placeholder:text-gray-300 focus:border-brand-primary-500 focus:outline-none focus:ring-4 focus:ring-brand-primary-600/25 disabled:cursor-not-allowed disabled:opacity-50",
-				className,
-			)}
-			{...props}
-		>
-			{children}
+const SelectTrigger = forwardRef<
+	ElementRef<typeof Trigger>,
+	ComponentPropsWithoutRef<typeof Trigger> & { hideIcon?: boolean }
+>(({ className, children, hideIcon = false, ...props }, ref) => (
+	<Trigger
+		ref={ref}
+		className={cx(
+			"flex h-10 w-full items-center justify-between rounded-md border border-gray-500 bg-white px-3 py-2 placeholder:text-gray-300 focus:border-brand-primary-500 focus:outline-none focus:ring-4 focus:ring-brand-primary-600/25 disabled:cursor-not-allowed disabled:opacity-50",
+			className,
+		)}
+		{...props}
+	>
+		{children}
+		{!hideIcon && (
 			<Icon asChild>
 				<CaretSortIcon className="h-4 w-4 opacity-50" />
 			</Icon>
-		</Trigger>
-	),
-);
+		)}
+	</Trigger>
+));
 SelectTrigger.displayName = Trigger.displayName;
 
 const SelectContent = forwardRef<ElementRef<typeof Content>, ComponentPropsWithoutRef<typeof Content>>(

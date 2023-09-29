@@ -6,7 +6,7 @@ settings:
 
 dependencies:
   '@radix-ui/react-dropdown-menu':
-    specifier: ^2.0.6
+    specifier: 2.0.6
     version: 2.0.6(@types/react-dom@18.2.8)(@types/react@18.2.23)(react-dom@18.2.0)(react@18.2.0)
   '@radix-ui/react-icons':
     specifier: 1.3.0
@@ -51,10 +51,10 @@ dependencies:
     specifier: 0.279.0
     version: 0.279.0(react@18.2.0)
   react:
-    specifier: ^18.2.0
+    specifier: 18.2.0
     version: 18.2.0
   react-dom:
-    specifier: ^18.2.0
+    specifier: 18.2.0
     version: 18.2.0(react@18.2.0)
   tailwind-merge:
     specifier: 1.14.0
@@ -3947,7 +3947,7 @@ packages:
       express: 4.18.2
       find-cache-dir: 3.3.2
       fs-extra: 11.1.1
-      magic-string: 0.30.3
+      magic-string: 0.30.4
       remark-external-links: 8.0.0
       remark-slug: 6.1.0
       rollup: 3.29.4
@@ -4085,7 +4085,7 @@ packages:
       '@storybook/node-logger': 7.4.5
       '@storybook/types': 7.4.5
       '@types/find-cache-dir': 3.2.1
-      '@types/node': 16.18.54
+      '@types/node': 16.18.55
       '@types/node-fetch': 2.6.6
       '@types/pretty-hrtime': 1.0.1
       chalk: 4.1.2
@@ -4134,7 +4134,7 @@ packages:
       '@storybook/telemetry': 7.4.5
       '@storybook/types': 7.4.5
       '@types/detect-port': 1.3.3
-      '@types/node': 16.18.54
+      '@types/node': 16.18.55
       '@types/pretty-hrtime': 1.0.1
       '@types/semver': 7.5.3
       better-opn: 3.0.2
@@ -4324,7 +4324,7 @@ packages:
       '@storybook/react': 7.4.5(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)
       '@vitejs/plugin-react': 3.1.0(vite@4.4.9)
       ast-types: 0.14.2
-      magic-string: 0.30.3
+      magic-string: 0.30.4
       react: 18.2.0
       react-docgen: 6.0.0-alpha.3
       react-dom: 18.2.0(react@18.2.0)
@@ -4358,7 +4358,7 @@ packages:
       '@storybook/types': 7.4.5
       '@types/escodegen': 0.0.6
       '@types/estree': 0.0.51
-      '@types/node': 16.18.54
+      '@types/node': 16.18.55
       acorn: 7.4.1
       acorn-jsx: 5.3.2(acorn@7.4.1)
       acorn-walk: 7.2.0
@@ -4861,8 +4861,8 @@ packages:
       form-data: 4.0.0
     dev: true
 
-  /@types/node@16.18.54:
-    resolution: {integrity: sha512-oTmGy68gxZZ21FhTJVVvZBYpQHEBZxHKTsGshobMqm9qWpbqdZsA5jvsuPZcHu0KwpmLrOHWPdEfg7XDpNT9UA==}
+  /@types/node@16.18.55:
+    resolution: {integrity: sha512-Y1zz/LIuJek01+hlPNzzXQhmq/Z2BCP96j18MSXC0S0jSu/IG4FFxmBs7W4/lI2vPJ7foVfEB0hUVtnOjnCiTg==}
     dev: true
 
   /@types/node@20.7.1:
@@ -5331,7 +5331,7 @@ packages:
   /@vitest/snapshot@0.34.5:
     resolution: {integrity: sha512-+ikwSbhu6z2yOdtKmk/aeoDZ9QPm2g/ZO5rXT58RR9Vmu/kB2MamyDSx77dctqdZfP3Diqv4mbc/yw2kPT8rmA==}
     dependencies:
-      magic-string: 0.30.3
+      magic-string: 0.30.4
       pathe: 1.1.1
       pretty-format: 29.7.0
     dev: true
@@ -9195,8 +9195,8 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.15
     dev: true
 
-  /magic-string@0.30.3:
-    resolution: {integrity: sha512-B7xGbll2fG/VjP+SWg4sX3JynwIU0mjoTc6MPpKNuIvftk6u6vqhDnk1R80b8C2GBR6ywqy+1DcKBrevBg+bmw==}
+  /magic-string@0.30.4:
+    resolution: {integrity: sha512-Q/TKtsC5BPm0kGqgBIF9oXAs/xEf2vRKiIB4wCRQTJOQIByZ1d+NnUOotvJOvNpi5RNIgVOMC3pOuaP1ZTDlVg==}
     engines: {node: '>=12'}
     dependencies:
       '@jridgewell/sourcemap-codec': 1.4.15
@@ -12691,7 +12691,7 @@ packages:
       debug: 4.3.4
       jsdom: 22.1.0
       local-pkg: 0.4.3
-      magic-string: 0.30.3
+      magic-string: 0.30.4
       pathe: 1.1.1
       picocolors: 1.0.0
       std-env: 3.4.3
