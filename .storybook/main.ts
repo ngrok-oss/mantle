@@ -8,7 +8,7 @@ import type { StorybookConfig } from "@storybook/react-vite";
 
 const relativePath = (...pathSegments: string[]) => path.resolve(__dirname, ...pathSegments);
 
-const fontsPath = (...pathSegments: string[]) => relativePath("..", "app", "fonts", ...pathSegments);
+const fontsPath = (...pathSegments: string[]) => relativePath("..", "src", "assets", "fonts", ...pathSegments);
 
 const config: StorybookConfig = {
 	addons: [
@@ -44,7 +44,7 @@ const config: StorybookConfig = {
 			to: "/static",
 		},
 	],
-	stories: [relativePath("..", "app", "**", "*.stories.@(js|jsx|ts|tsx|mdx)")],
+	stories: [relativePath("..", "src", "**", "*.stories.@(js|jsx|ts|tsx|mdx)")],
 };
 
 export default config;

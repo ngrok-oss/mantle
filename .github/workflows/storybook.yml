@@ -2,7 +2,7 @@ name: Build and Deploy
 on:
   push:
     # Trigger the action only when files change in the folders defined here
-    paths: ["app/**", "tailwind.config.js", "app/mantle.css", ".storybook"]
+    paths: ["src/**", "tailwind.config.js", "src/mantle.css", ".storybook"]
     branches:
       - main
 jobs:

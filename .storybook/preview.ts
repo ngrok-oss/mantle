@@ -2,8 +2,8 @@ import type { Preview } from "@storybook/react";
 import { setupTailwindSelectorStrategy } from "./setup-tailwind-selector-strategy";
 import { withThemeByClassName } from "@storybook/addon-styling";
 
-import "../app/assets/fonts/fonts.css";
-import "../app/mantle.css";
+import "../src/assets/fonts/fonts.css";
+import "../src/mantle.css";
 
 setupTailwindSelectorStrategy();
 
