@@ -45,13 +45,13 @@ export function Layout({ children, className, style }: Props) {
 						}
 					}}
 				>
-					<SelectTrigger className="ml-auto w-32">
+					<SelectTrigger className="ml-auto w-44">
 						<SelectValue placeholder="Select a Theme" />
 					</SelectTrigger>
 					<SelectContent>
 						<SelectOption value={theme("system")}>System</SelectOption>
-						<SelectOption value={theme("light")}>Light Theme</SelectOption>
-						<SelectOption value={theme("dark")}>Dark Theme</SelectOption>
+						<SelectOption value={theme("light")}>Light</SelectOption>
+						<SelectOption value={theme("dark")}>Dark</SelectOption>
 						<SelectOption value={theme("light-high-contrast")}>Light High Contrast</SelectOption>
 						<SelectOption value={theme("dark-high-contrast")}>Dark High Contrast</SelectOption>
 					</SelectContent>
@@ -65,7 +65,7 @@ export function Layout({ children, className, style }: Props) {
 			</header>
 			<div className="flex gap-4 sm:mb-4 lg:mb-9">
 				<Navigation />
-				<article className="flex-1 bg-foreground p-4 shadow-lg sm:rounded-lg md:p-9">{children}</article>
+				<article className="bg-foreground flex-1 p-4 shadow-lg sm:rounded-lg md:p-9">{children}</article>
 			</div>
 		</main>
 	);
@@ -94,7 +94,7 @@ function Navigation({ className, style }: WithStyleProps) {
 						</NavLink>
 					</li>
 				</ul>
-				<li className="mt-8 text-brand-primary-500">Components</li>
+				<li className="text-brand-primary-500 mt-8">Components</li>
 				<ul role="list" className="-ml-2 space-y-2 text-sm">
 					<li>
 						<NavLink
