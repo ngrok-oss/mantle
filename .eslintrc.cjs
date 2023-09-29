@@ -1,4 +1,4 @@
-/** @type */
+/** @type {import('eslint').Linter.Config} */
 module.exports = {
 	root: true,
 	env: {
@@ -13,6 +13,7 @@ module.exports = {
 		"plugin:react/recommended",
 		"plugin:react/jsx-runtime",
 		"plugin:storybook/recommended",
+		"@remix-run/eslint-config/node",
 		"prettier", // must be last
 	],
 	ignorePatterns: ["dist", ".eslintrc.cjs"],

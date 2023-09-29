@@ -25,3 +25,9 @@ dist-ssr
 
 storybook-static
 tsconfig.tsbuildinfo
+
+/.cache
+/build
+/public/build
+.env
+.vercel
