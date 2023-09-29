@@ -23,7 +23,7 @@ export default function Page() {
 				Dependencies
 			</h2>
 			<p className="mt-3 text-gray-600">
-				Mantle’s styling is written using{" "}
+				Mantle’s styling is composed using{" "}
 				<a className="text-brand-primary-500" href="https://tailwindcss.com">
 					Tailwind
 				</a>
@@ -36,8 +36,8 @@ export default function Page() {
 					shadcn/ui
 				</a>
 				’s markup and{" "}
-				<a className="text-brand-primary-500" href="#">
-					radix
+				<a className="text-brand-primary-500" href="https://www.radix-ui.com">
+					Radix
 				</a>
 				’s primitives. Its documentation is built in{" "}
 				<a className="text-brand-primary-500" href="https://remix.run/">
