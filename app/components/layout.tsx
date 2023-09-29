@@ -76,10 +76,15 @@ function Navigation({ className, style }: WithStyleProps) {
 		<nav className={cx("hidden w-52 pt-9 md:block", className)} style={style}>
 			<ul role="list" className="flex flex-col gap-4">
 				<li className="text-brand-primary-500">Base</li>
-				<ul role="list" className="-ml-2 space-y-2 text-sm">
+				<ul role="list" className="text-sm">
 					<li>
 						<NavLink
-							className={({ isActive }) => cx("px-2 hover:font-medium", isActive && "text-brand-primary-500 underline")}
+							className={({ isActive }) =>
+								cx(
+									"-ml-2 block rounded-lg px-2 py-1 text-gray-700 hover:text-gray-900",
+									isActive && "bg-brand-primary-500 text-button hover:bg-brand-primary-600 hover:text-button",
+								)
+							}
 							to="/base/typography"
 						>
 							Typography
@@ -87,7 +92,12 @@ function Navigation({ className, style }: WithStyleProps) {
 					</li>
 					<li>
 						<NavLink
-							className={({ isActive }) => cx("px-2 hover:font-medium", isActive && "text-brand-primary-500 underline")}
+							className={({ isActive }) =>
+								cx(
+									"-ml-2 block rounded-lg px-2 py-1 text-gray-700 hover:text-gray-900",
+									isActive && "bg-brand-primary-500 text-button hover:bg-brand-primary-600 hover:text-button",
+								)
+							}
 							to="/base/colors"
 						>
 							Colors
@@ -95,10 +105,15 @@ function Navigation({ className, style }: WithStyleProps) {
 					</li>
 				</ul>
 				<li className="mt-8 text-brand-primary-500">Components</li>
-				<ul role="list" className="-ml-2 space-y-2 text-sm">
+				<ul role="list" className="space-y-2 text-sm">
 					<li>
 						<NavLink
-							className={({ isActive }) => cx("px-2 hover:font-medium", isActive && "text-brand-primary-500 underline")}
+							className={({ isActive }) =>
+								cx(
+									"-ml-2 block rounded-lg px-2 py-1 text-gray-700 hover:text-gray-900",
+									isActive && "bg-brand-primary-500 text-button hover:bg-brand-primary-600 hover:text-button",
+								)
+							}
 							to="/components/input"
 						>
 							Input
