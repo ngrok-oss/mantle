@@ -3,7 +3,7 @@ import type { MetaFunction } from "@vercel/remix";
 export const meta: MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle" },
-		{ name: "description", content: "mantle is ngrok's UI library and design system" },
+		{ name: "description", content: "mantle is ngrok’s UI library and design system" },
 	];
 };
 

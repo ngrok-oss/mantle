@@ -23,6 +23,13 @@
 
 @font-face {
 	font-family: EuclidSquare;
+	font-style: normal;
+	font-weight: 600;
+	src: url("./euclid-square/EuclidSquare-Semibold-WebS.woff") format("woff");
+}
+
+@font-face {
+	font-family: EuclidSquare;
 	font-style: italic;
 	font-weight: 500;
 	src: url("./euclid-square/EuclidSquare-MediumItalic-WebS.woff") format("woff");
