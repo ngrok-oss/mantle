@@ -13,9 +13,10 @@ export const meta: MetaFunction = () => {
 
 export default function Page() {
 	return (
-		<div className="relative flex flex-row-reverse gap-4">
-			<nav className="sticky top-0 hidden self-start lg:block">
+		<div className="relative flex flex-row-reverse gap-9">
+			<nav className="sticky top-6 hidden w-44 self-start lg:block">
 				{/* TODO(cody): make this have scroll aware navigation links instead */}
+				{/* TODO: this should be generated automatically */}
 				<h3 className="text-xl text-brand-secondary-600">On this page</h3>
 				<ul className="mt-4 text-sm text-gray-600">
 					<li>
