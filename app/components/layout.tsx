@@ -98,7 +98,7 @@ function Navigation({ className, style }: WithStyleProps) {
 					</NavLink>
 				</li>
 
-				<li className="mt-4 text-brand-primary-500">Base</li>
+				<li className="mt-6 text-brand-primary-500">Base</li>
 
 				<ul role="list" className="mt-2 text-sm">
 					{/* <li>
@@ -129,7 +129,7 @@ function Navigation({ className, style }: WithStyleProps) {
 					</li>
 				</ul>
 
-				{/* <li className="mt-4 text-brand-primary-500">Components</li>
+				<li className="mt-6 text-brand-primary-500">Components</li>
 				<ul role="list" className="mt-2 text-sm">
 					<li>
 						<NavLink
@@ -144,7 +144,7 @@ function Navigation({ className, style }: WithStyleProps) {
 							Input
 						</NavLink>
 					</li>
-				</ul> */}
+				</ul>
 			</ul>
 		</nav>
 	);
