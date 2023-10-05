@@ -283,7 +283,7 @@
 
 pre.prismjs,
 pre.prismjs code {
-	@apply text-sm text-gray-800 bg-background;
+	@apply bg-background text-sm text-gray-800;
 	text-align: left;
 	white-space: pre;
 	word-spacing: normal;
@@ -303,7 +303,7 @@ pre.prismjs code {
 
 /* Code blocks */
 pre.prismjs {
-	@apply border border-gray-200 overflow-auto rounded-lg p-4;
+	@apply overflow-auto rounded-lg border border-gray-200 p-4;
 }
 
 .token.comment,
