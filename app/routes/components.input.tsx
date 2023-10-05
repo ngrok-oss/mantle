@@ -1,5 +1,6 @@
 import type { MetaFunction } from "@vercel/remix";
 import { Input } from "@/components/input";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -16,6 +17,13 @@ export default function Page() {
 			<div className="mt-4 flex items-center justify-center rounded-lg border border-gray-200 bg-background p-9">
 				<Input placeholder="Enter a username" />
 			</div>
+
+			<SyntaxHighlighter
+				className="mt-4"
+				language="jsx"
+				useInlineStyles={false}
+				codeTagProps={{ style: {} }}
+			>{`<Input placeholder="Enter a username" />`}</SyntaxHighlighter>
 		</div>
 	);
 }
