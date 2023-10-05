@@ -283,8 +283,7 @@
 
 pre.prismjs,
 pre.prismjs code {
-	@apply text-gray-800 bg-background;
-	font-size: 1em;
+	@apply text-sm text-gray-800 bg-background;
 	text-align: left;
 	white-space: pre;
 	word-spacing: normal;
