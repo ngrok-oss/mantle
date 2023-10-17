@@ -1,13 +1,4 @@
-import {
-	PropsWithChildren,
-	createContext,
-	forwardRef,
-	useContext,
-	useEffect,
-	useId,
-	useMemo,
-	useState,
-} from "react";
+import { PropsWithChildren, createContext, forwardRef, useContext, useEffect, useId, useMemo, useState } from "react";
 import type { WithStyleProps } from "../types/with-style-props";
 import { cx } from "../lib/cx";
 
@@ -114,6 +105,7 @@ const CodeBlockLine = forwardRef<HTMLSpanElement, CodeBlockLineProps>(
 		return (
 			<span
 				data-line-number={lineNumber}
+				data-highlight={highlight}
 				className={cx("block before:mr-1 before:content-[attr(data-line-number)]", className)}
 				ref={ref}
 				style={style}
@@ -129,32 +121,34 @@ type CodeBlockCopyButtonProps = WithStyleProps & {
 	onCopyError?: (error: unknown) => void;
 };
 
-const CodeBlockCopyButton = forwardRef<HTMLButtonElement, CodeBlockCopyButtonProps>(({ className, onCopy, onCopyError, style }, ref) => {
-	const ctx = useContext(CodeBlockCopyContext);
-	const [copied, setCopied] = useState(false);
+const CodeBlockCopyButton = forwardRef<HTMLButtonElement, CodeBlockCopyButtonProps>(
+	({ className, onCopy, onCopyError, style }, ref) => {
+		const ctx = useContext(CodeBlockCopyContext);
+		const [copied, setCopied] = useState(false);
 
-	return (
-		<button
-			className={cx(className)}
-			ref={ref}
-			style={style}
-			onClick={() => {
-				window.navigator.clipboard
-					.writeText(ctx)
-					.then(() => {
-						setCopied(true);
-						onCopy?.(ctx);
-						setTimeout(() => setCopied(false), 1000);
-					})
-					.catch((error) => {
-						onCopyError?.(error);
-					});
-			}}
-		>
-			<CopyIcon />
-		</button>
-	);
-});
+		return (
+			<button
+				className={cx(className)}
+				ref={ref}
+				style={style}
+				onClick={() => {
+					window.navigator.clipboard
+						.writeText(ctx)
+						.then(() => {
+							setCopied(true);
+							onCopy?.(ctx);
+							setTimeout(() => setCopied(false), 1000);
+						})
+						.catch((error) => {
+							onCopyError?.(error);
+						});
+				}}
+			>
+				<CopyIcon />
+			</button>
+		);
+	},
+);
 
 export { CodeBlock, CodeBlockContent, CodeBlockCopyButton, CodeBlockLine };
 
