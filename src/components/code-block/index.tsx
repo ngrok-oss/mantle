@@ -13,6 +13,7 @@ import { Slot } from "@radix-ui/react-slot";
  * - fix line numbers, maybe try grid instead of :before and flex?
  * - fix line hightlighting
  * - fix line wrapping? horizontal scrolling has problems w/ line highlighting :(
+ * - actually use that `useState` var in CodeBlockCopyButton
  */
 
 type CodeBlockContextType = (newCopyText: string) => void;
@@ -159,7 +160,7 @@ const CodeBlockCopyButton = forwardRef<HTMLButtonElement, CodeBlockCopyButtonPro
 		return (
 			<button
 				type="button"
-				className={cx("absolute right-1.5 top-1.5 z-50 rounded-sm p-2 hover:bg-gray-200", className)}
+				className={cx("absolute right-1.5 top-1.5 z-50 rounded-sm p-2 hover:bg-gray-200 focus:bg-gray-200", className)}
 				ref={ref}
 				style={style}
 				onClick={() => {
