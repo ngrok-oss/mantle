@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { CodeBlock, CodeBlockBody, CodeBlockContent, CodeBlockHeader } from ".";
+import { CodeBlock, CodeBlockBody, CodeBlockContent, CodeBlockCopyButton, CodeBlockHeader, CodeBlockTitle } from ".";
 
 const meta = {
 	title: "CodeBlock",
@@ -25,13 +25,47 @@ const CodeIcon = () => (
 
 export const WithHeaderHighlightsAndHighlights: Story = {
 	render: () => (
-		<div className="max-w-96 mx-auto">
+		<div className="mx-auto max-w-screen-md">
 			<CodeBlock>
 				<CodeBlockHeader className="flex items-center gap-2">
 					<CodeIcon />
-					hello.js
+					<CodeBlockTitle>ngrok-example.js</CodeBlockTitle>
 				</CodeBlockHeader>
 				<CodeBlockBody>
+					<CodeBlockCopyButton />
+					<CodeBlockContent language="js" showLineNumbers highlightLines={[1, 2, "10-13"]}>
+						{`
+const http  = require('http');
+const ngrok = require("@ngrok/ngrok");
+
+const server = http.createServer((req, res) => {
+	res.writeHead(200);
+	res.end("Hello!");
+});
+
+// Consumes authtoken from env automatically
+ngrok.listen(server).then(() => {
+	console.log("url:", server.tunnel.url());
+});
+// really long line here that should wrap around and stuff Officia ipsum sint eu labore esse deserunt aliqua quis irure.
+						`}
+					</CodeBlockContent>
+				</CodeBlockBody>
+			</CodeBlock>
+		</div>
+	),
+};
+
+export const WithHeaderHighlightsAndHighlightsScrollyBoi: Story = {
+	render: () => (
+		<div className="mx-auto max-w-screen-md">
+			<CodeBlock className="h-40">
+				<CodeBlockHeader className="flex items-center gap-2">
+					<CodeIcon />
+					<CodeBlockTitle>ngrok-example.js</CodeBlockTitle>
+				</CodeBlockHeader>
+				<CodeBlockBody>
+					<CodeBlockCopyButton />
 					<CodeBlockContent language="js" showLineNumbers highlightLines={[1, 2, "10-12"]}>
 						{`
 const http  = require('http');
@@ -56,11 +90,11 @@ ngrok.listen(server).then(() => {
 
 export const WithHeaderAndLineNumbers: Story = {
 	render: () => (
-		<div className="max-w-96 mx-auto">
+		<div className="mx-auto max-w-screen-md">
 			<CodeBlock>
 				<CodeBlockHeader className="flex items-center gap-2">
 					<CodeIcon />
-					hello.js
+					<CodeBlockTitle>ngrok-example.js</CodeBlockTitle>
 				</CodeBlockHeader>
 				<CodeBlockBody>
 					<CodeBlockContent language="js" showLineNumbers>
@@ -77,6 +111,7 @@ const server = http.createServer((req, res) => {
 ngrok.listen(server).then(() => {
 	console.log("url:", server.tunnel.url());
 });
+// really long line here that should wrap around and stuff Officia ipsum sint eu labore esse deserunt aliqua quis irure.
 						`}
 					</CodeBlockContent>
 				</CodeBlockBody>
@@ -87,11 +122,11 @@ ngrok.listen(server).then(() => {
 
 export const WithHeaderNoLineNumbers: Story = {
 	render: () => (
-		<div className="max-w-96 mx-auto">
+		<div className="mx-auto max-w-screen-md">
 			<CodeBlock>
 				<CodeBlockHeader className="flex items-center gap-2">
 					<CodeIcon />
-					hello.js
+					<CodeBlockTitle>ngrok-example.js</CodeBlockTitle>
 				</CodeBlockHeader>
 				<CodeBlockBody>
 					<CodeBlockContent language="js">
@@ -118,7 +153,7 @@ ngrok.listen(server).then(() => {
 
 export const WithoutHeaderNoLineNumbers: Story = {
 	render: () => (
-		<div className="max-w-96 mx-auto">
+		<div className="mx-auto max-w-screen-md">
 			<CodeBlock>
 				<CodeBlockBody>
 					<CodeBlockContent language="js">
@@ -145,7 +180,7 @@ ngrok.listen(server).then(() => {
 
 export const WithoutHeaderNoLineNumbersButHighlights: Story = {
 	render: () => (
-		<div className="max-w-96 mx-auto">
+		<div className="mx-auto max-w-screen-md">
 			<CodeBlock>
 				<CodeBlockBody>
 					<CodeBlockContent language="js" highlightLines={[1, 2, "10-12"]}>
