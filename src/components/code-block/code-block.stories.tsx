@@ -204,3 +204,18 @@ ngrok.listen(server).then(() => {
 		</div>
 	),
 };
+
+export const SingleLine: Story = {
+	render: () => (
+		<div className="mx-auto max-w-screen-md">
+			<CodeBlock>
+				<CodeBlockBody>
+					<CodeBlockCopyButton />
+					<CodeBlockContent language="js">
+						{`sudo unzip ~/Downloads/ngrok-v3-stable-darwin.zip -d /usr/local/bin`}
+					</CodeBlockContent>
+				</CodeBlockBody>
+			</CodeBlock>
+		</div>
+	),
+};
