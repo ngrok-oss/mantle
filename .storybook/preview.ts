@@ -20,8 +20,8 @@ export const decorators = [
 		themes: {
 			Light: "light",
 			Dark: "dark",
-			"Light (High contrast)": "light high-contrast",
-			"Dark (High contrast)": "dark high-contrast",
+			"Light (High contrast)": "light-high-contrast",
+			"Dark (High contrast)": "dark-high-contrast",
 		},
 		defaultTheme: "Light",
 	}),

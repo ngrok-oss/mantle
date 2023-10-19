@@ -87,14 +87,14 @@ ngrok.listen(server).then(() => {
 export const WithHeaderHighlightsAndHighlightsScrollyBoi: Story = {
 	render: () => (
 		<div className="mx-auto max-w-screen-md">
-			<CodeBlock className="h-40">
+			<CodeBlock>
 				<CodeBlockHeader className="flex items-center gap-1">
 					<FileIcon />
 					<CodeBlockTitle>ngrok-example.js</CodeBlockTitle>
 				</CodeBlockHeader>
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
-					<CodeBlockContent language="js" showLineNumbers highlightLines={[1, 2, "10-12"]}>
+					<CodeBlockContent className="h-40" language="js" showLineNumbers highlightLines={[1, 2, "10-12"]}>
 						{`
 const http = require('http');
 const ngrok = require("@ngrok/ngrok");
