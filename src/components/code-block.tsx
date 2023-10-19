@@ -100,7 +100,10 @@ const CodeBlockContent = forwardRef<HTMLPreElement, CodeBlockContentProps>(
 							return (
 								<span
 									key={line + lineNumber}
-									className={cx("block border-r px-2 text-gray-400", shouldHighlight && "bg-blue-100 text-gray-600")}
+									className={cx(
+										"block border-r px-2 text-gray-400",
+										shouldHighlight && "border-l-4 border-l-blue-200 bg-blue-100 text-gray-600",
+									)}
 								>
 									{lineNumber}
 								</span>
