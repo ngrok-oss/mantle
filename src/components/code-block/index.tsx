@@ -189,19 +189,17 @@ export { CodeBlock, CodeBlockBody, CodeBlockContent, CodeBlockCopyButton, CodeBl
 const CopyIcon = ({ className, style }: WithStyleProps) => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
-		className={cx("inline leading-none", className)}
-		height="1em"
-		role="img"
-		width="1em"
 		fill="none"
-		viewBox="0 0 16 19"
+		viewBox="0 0 24 24"
+		strokeWidth="{1.5}"
+		stroke="currentColor"
+		className={cx("h-6 w-6", className)}
 		style={style}
 	>
-		<rect x="0.75" y="4.75" width="10.5" height="13.5" rx="1.25" stroke="currentColor" strokeWidth="1.5" />
 		<path
-			d="M4 5.5V2C4 1.44772 4.44772 1 5 1H14C14.5523 1 15 1.44772 15 2V13C15 13.5523 14.5523 14 14 14H10.5"
-			stroke="currentColor"
-			strokeWidth="1.5"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+			d="M8.75 7.75v-3.5a1.5 1.5 0 0 1 1.5-1.5h8.5a1.5 1.5 0 0 1 1.5 1.5v10.5a1.5 1.5 0 0 1-1.5 1.5h-3.5m-10 5h8.5a1.5 1.5 0 0 0 1.5-1.5V9.25a1.5 1.5 0 0 0-1.5-1.5h-8.5a1.5 1.5 0 0 0-1.5 1.5v10.5a1.5 1.5 0 0 0 1.5 1.5Z"
 		/>
 	</svg>
 );
