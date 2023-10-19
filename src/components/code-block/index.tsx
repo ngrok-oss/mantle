@@ -1,10 +1,12 @@
-import { HTMLAttributes, createContext, forwardRef, useContext, useEffect, useState } from "react";
+import { ElementRef, HTMLAttributes, createContext, forwardRef, useContext, useEffect, useRef, useState } from "react";
+import { Slot } from "@radix-ui/react-slot";
+import Prism from "prismjs";
+
 import type { WithStyleProps } from "@/types/with-style-props";
 import { cx } from "@/lib/cx";
 import { SupportedLanguage } from "./utils/supported-languages";
 import { formatLanguageClassName } from "./utils/format-language-classname";
-import { LineRange, resolveLineNumbers } from "./utils/line-numbers";
-import { Slot } from "@radix-ui/react-slot";
+import { LineRange } from "./utils/line-numbers";
 
 /**
  * TODO(cody):
@@ -52,76 +54,41 @@ type CodeBlockContentProps = WithStyleProps & {
 };
 
 const CodeBlockContent = forwardRef<HTMLPreElement, CodeBlockContentProps>((props, ref) => {
-	const { children, className, /* highlightLines, */ language = "sh", /* showLineNumbers = false, */ style } = props;
-	const highlightLines = undefined; // debug only, punting for now
-	const showLineNumbers = false; // debug only, punting for now
+	const { children, className, language = "sh", style } = props;
+	const innerPreRef = useRef<ElementRef<"pre">>();
 
 	const setCopyText = useContext(CodeBlockContext);
 
 	// trim any leading and trailing whitespace/empty lines
 	const trimmedCode = children?.trim() ?? "";
-	const lines = trimmedCode.split("\n");
-
-	const highlightLineNumberSet = resolveLineNumbers(...(highlightLines ?? []));
 
 	useEffect(() => {
 		setCopyText(trimmedCode);
 	}, [trimmedCode, setCopyText]);
 
+	useEffect(() => {
+		if (!innerPreRef.current) {
+			return;
+		}
+		Prism.highlightElement(innerPreRef.current);
+	}, [trimmedCode]);
+
 	return (
 		<pre
 			className={cx(
 				formatLanguageClassName(language),
-				"scrollbar block h-full overflow-auto py-4 font-mono text-[0.8125rem]",
+				"scrollbar block h-full overflow-auto p-4 font-mono text-[0.8125rem]",
 				className,
 			)}
 			data-lang={language}
-			data-line-numbers={showLineNumbers || undefined}
-			ref={ref}
+			// data-line-numbers={showLineNumbers || undefined}
+			ref={(node) => {
+				innerPreRef.current = node ?? undefined;
+				return ref;
+			}}
 			style={style}
 		>
-			{/* TODO(cody): maybe retry this, but use grid instead? */}
-			{/* {showLineNumbers && (
-				<div aria-hidden className="pointer-events-none flex-shrink-0 select-none text-right">
-					{lines.map((line, index) => {
-						const lineNumber = index + 1;
-						const shouldHighlight = highlightLineNumberSet.has(lineNumber);
-
-						return (
-							<span
-								key={line + lineNumber}
-								className={cx(
-									"block border-r px-2 text-gray-400",
-									shouldHighlight && "border-l-4 border-l-brand-primary-200 bg-brand-primary-100 ",
-								)}
-							>
-								{lineNumber}
-							</span>
-						);
-					})}
-				</div>
-			)} */}
-			<code className="">
-				{lines.map((line, index) => {
-					const lineNumber = index + 1;
-					const shouldHighlight = highlightLineNumberSet.has(lineNumber);
-
-					return (
-						<span
-							key={line + lineNumber}
-							data-line-number={showLineNumbers ? lineNumber : undefined}
-							data-highlight={shouldHighlight || undefined}
-							className={cx(
-								"relative block whitespace-pre-wrap before:sticky before:left-0 before:inline-block before:border-brand-primary-200 before:bg-gray-50 before:text-right before:text-gray-400",
-								showLineNumbers ? "before:w-14 before:pr-4 before:content-[attr(data-line-number)]" : "px-4",
-								shouldHighlight && "bg-brand-primary-100 before:border-l-4 before:bg-brand-primary-100",
-							)}
-						>
-							{line === "" ? "\n" : line}
-						</span>
-					);
-				})}
-			</code>
+			<code>{trimmedCode}</code>
 		</pre>
 	);
 });
