@@ -50,6 +50,9 @@ dependencies:
   lucide-react:
     specifier: 0.290.0
     version: 0.290.0(react@18.2.0)
+  prismjs:
+    specifier: 1.29.0
+    version: 1.29.0
   react:
     specifier: 18.2.0
     version: 18.2.0
