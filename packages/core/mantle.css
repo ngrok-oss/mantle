@@ -143,6 +143,7 @@
 	--foreground: var(--gray-050);
 	--popover: 222.2 84% 4.9%;
 	--popover-foreground: 210 40% 98%;
+	--scrollbar: var(--gray-600);
 }
 
 :root.light-high-contrast {
@@ -369,5 +370,32 @@ pre.prismjs {
 @layer base {
 	body {
 		@apply bg-white text-gray-800;
+	}
+}
+
+@layer utility {
+	.scrollbar::-webkit-scrollbar {
+		width: 0.625rem;
+		height: 0.625rem;
+		background-color: transparent;
+	}
+
+	.scrollbar::-webkit-scrollbar-track {
+		border-radius: 0.625rem;
+		background-color: transparent;
+	}
+
+	.scrollbar::-webkit-scrollbar-thumb {
+		border-radius: 0.625rem;
+		background-color: hsla(var(--scrollbar), 0.5);
+	}
+
+	.scrollbar::-webkit-scrollbar-corner {
+		background-color: transparent;
+		border-color: transparent;
+	}
+
+	.scrollbar {
+		scrollbar-color: hsla(var(--scrollbar), 0.5) transparent;
 	}
 }
