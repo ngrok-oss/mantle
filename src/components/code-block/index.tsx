@@ -71,7 +71,7 @@ const CodeBlockContent = forwardRef<HTMLPreElement, CodeBlockContentProps>((prop
 		<pre
 			className={cx(
 				formatLanguageClassName(language),
-				"block h-full overflow-auto py-4 font-mono text-sm leading-normal",
+				"scrollbar block h-full overflow-auto py-4 font-mono text-[0.8125rem]",
 				className,
 			)}
 			data-lang={language}
@@ -141,7 +141,7 @@ CodeBlockHeader.displayName = "CodeBlockHeader";
 const CodeBlockTitle = forwardRef<HTMLHeadingElement, HTMLAttributes<HTMLHeadingElement> & { asChild?: boolean }>(
 	({ asChild = false, className, ...props }, ref) => {
 		const Comp = asChild ? Slot : "h3";
-		return <Comp ref={ref} className={cx("font-mono text-[13px] font-normal leading-[22px]", className)} {...props} />;
+		return <Comp ref={ref} className={cx("font-mono text-[0.8125rem] font-normal", className)} {...props} />;
 	},
 );
 CodeBlockTitle.displayName = "CodeBlockTitle";
