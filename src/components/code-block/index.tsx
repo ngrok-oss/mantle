@@ -1,7 +1,7 @@
 import { ElementRef, HTMLAttributes, createContext, forwardRef, useContext, useEffect, useRef, useState } from "react";
 import { Slot } from "@radix-ui/react-slot";
 import Prism from "prismjs";
-import 'prismjs/components/prism-bash';
+import "prismjs/components/prism-bash";
 
 import type { WithStyleProps } from "@/types/with-style-props";
 import { cx } from "@/lib/cx";
