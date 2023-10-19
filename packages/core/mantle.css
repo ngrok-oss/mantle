@@ -343,12 +343,12 @@ pre.prismjs {
 .token.atrule,
 .token.attr-value,
 .token.keyword {
-	color: hsl(var(--brand-primary-500));
+	color: hsl(var(--yellow-600));
 }
 
 .token.function,
 .token.class-name {
-	color: hsl(var(--yellow-600));
+	color: hsl(var(--brand-primary-500));
 }
 
 .token.regex,
