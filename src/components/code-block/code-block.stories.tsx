@@ -36,7 +36,7 @@ export const WithHeaderHighlightsAndHighlights: Story = {
 	render: () => (
 		<div className="mx-auto max-w-screen-md">
 			<CodeBlock>
-				<CodeBlockHeader className="flex items-center gap-2">
+				<CodeBlockHeader className="flex items-center gap-1">
 					<CommandLineIcon />
 					<CodeBlockTitle>Command Line</CodeBlockTitle>
 				</CodeBlockHeader>
@@ -55,7 +55,7 @@ export const WithHeaderCommandLine: Story = {
 	render: () => (
 		<div className="mx-auto max-w-screen-md">
 			<CodeBlock>
-				<CodeBlockHeader className="flex items-center gap-2">
+				<CodeBlockHeader className="flex items-center gap-1">
 					<FileIcon />
 					<CodeBlockTitle>ngrok-example.js</CodeBlockTitle>
 				</CodeBlockHeader>
@@ -88,7 +88,7 @@ export const WithHeaderHighlightsAndHighlightsScrollyBoi: Story = {
 	render: () => (
 		<div className="mx-auto max-w-screen-md">
 			<CodeBlock className="h-40">
-				<CodeBlockHeader className="flex items-center gap-2">
+				<CodeBlockHeader className="flex items-center gap-1">
 					<FileIcon />
 					<CodeBlockTitle>ngrok-example.js</CodeBlockTitle>
 				</CodeBlockHeader>
@@ -120,7 +120,7 @@ export const WithHeaderAndLineNumbers: Story = {
 	render: () => (
 		<div className="mx-auto max-w-screen-md">
 			<CodeBlock>
-				<CodeBlockHeader className="flex items-center gap-2">
+				<CodeBlockHeader className="flex items-center gap-1">
 					<FileIcon />
 					<CodeBlockTitle>ngrok-example.js</CodeBlockTitle>
 				</CodeBlockHeader>
@@ -152,7 +152,7 @@ export const WithHeaderNoLineNumbers: Story = {
 	render: () => (
 		<div className="mx-auto max-w-screen-md">
 			<CodeBlock>
-				<CodeBlockHeader className="flex items-center gap-2">
+				<CodeBlockHeader className="flex items-center gap-1">
 					<FileIcon />
 					<CodeBlockTitle>ngrok-example.js</CodeBlockTitle>
 				</CodeBlockHeader>
