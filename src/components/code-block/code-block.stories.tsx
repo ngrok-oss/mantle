@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { CodeBlock, CodeBlockBody, CodeBlockContent, CodeBlockHeader } from "./code-block";
+import { CodeBlock, CodeBlockBody, CodeBlockContent, CodeBlockHeader } from ".";
 
 const meta = {
 	title: "CodeBlock",

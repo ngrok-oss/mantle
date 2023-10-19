@@ -1,37 +1,9 @@
 import { PropsWithChildren, createContext, forwardRef, useContext, useEffect, useState } from "react";
-import type { WithStyleProps } from "../types/with-style-props";
-import { cx } from "../lib/cx";
-
-const supportedLanguages = [
-	"cs",
-	"csharp",
-	"css",
-	"dotnet",
-	"go",
-	"html",
-	"java",
-	"javascript",
-	"js",
-	"py",
-	"python",
-	"ruby",
-	"rust",
-	"sh",
-	"ts",
-	"typescript",
-	"yaml",
-	"yml",
-] as const;
-export type SupportedLanguage = (typeof supportedLanguages)[number];
-
-/**
- * Formats a language name into a class name that Prism.js can understand.
- * @default "language-sh"
- */
-const formatLanguageClassName = (language: SupportedLanguage | undefined = "sh") => {
-	const lang = language ?? "sh";
-	return `language-${lang}`;
-};
+import type { WithStyleProps } from "@/types/with-style-props";
+import { cx } from "@/lib/cx";
+import { SupportedLanguage } from "./utils/supported-languages";
+import { formatLanguageClassName } from "./utils/format-language-classname";
+import { LineRange, resolveLineNumbers } from "./utils/line-numbers";
 
 type CodeBlockContextType = (newCopyText: string) => void;
 
@@ -66,8 +38,6 @@ const CodeBlockBody = forwardRef<HTMLDivElement, CodeBlockBodyProps>(({ classNam
 ));
 CodeBlockBody.displayName = "CodeBlockBody";
 
-type LineRange = `${number}-${number}`;
-
 type CodeBlockContentProps = WithStyleProps & {
 	children?: string | undefined;
 	highlightLines?: (LineRange | number)[];
@@ -83,7 +53,7 @@ const CodeBlockContent = forwardRef<HTMLPreElement, CodeBlockContentProps>(
 		const trimmedCode = children?.trim() ?? "";
 		const lines = trimmedCode.split("\n");
 
-		const highlightLineNumberSet = resolveHighlightedLineNumbers(...(highlightLines ?? []));
+		const highlightLineNumberSet = resolveLineNumbers(...(highlightLines ?? []));
 
 		useEffect(() => {
 			setCopyText(trimmedCode);
@@ -136,51 +106,6 @@ const CodeBlockContent = forwardRef<HTMLPreElement, CodeBlockContentProps>(
 );
 CodeBlockContent.displayName = "CodeBlockContent";
 
-const isPositiveLineNumber = (n: number | undefined): n is number =>
-	n != null && !Number.isNaN(n) && n > 0 && Number.isFinite(n);
-
-/**
- * Resolves a list of line ranges and numbers into a unique list of line numbers as a set.
- */
-export function resolveHighlightedLineNumbers(...highlightLines: (LineRange | number)[]): Set<number> {
-	const lineNumberSet = new Set<number>();
-
-	if (!highlightLines) {
-		return lineNumberSet;
-	}
-
-	for (const item of highlightLines) {
-		if (typeof item === "number") {
-			if (!isPositiveLineNumber(item)) {
-				continue;
-			}
-			// only support integer line numbers
-			const int = Math.floor(item);
-			lineNumberSet.add(int);
-		} else {
-			let [start, end] = item.split("-").map((n) => Number.parseInt(n, 10));
-
-			// ignore invalid ranges that don't contain valid line numbers
-			if (!isPositiveLineNumber(start) || !isPositiveLineNumber(end)) {
-				continue;
-			}
-
-			// swap start and end if they are backwards
-			if (start > end) {
-				[start, end] = [end, start];
-			}
-
-			// add all line numbers in the range, inclusive
-			for (let i = start; i <= end; i++) {
-				const int = Math.floor(i);
-				lineNumberSet.add(int);
-			}
-		}
-	}
-
-	return lineNumberSet;
-}
-
 const CodeBlockHeader = forwardRef<HTMLDivElement, PropsWithChildren & WithStyleProps>(
 	({ children, className, style }, ref) => (
 		<div
@@ -231,10 +156,6 @@ const CodeBlockCopyButton = forwardRef<HTMLButtonElement, CodeBlockCopyButtonPro
 	},
 );
 CodeBlockCopyButton.displayName = "CodeBlockCopyButton";
-
-export function innerCode(templateLiteralList: string[]) {
-	return templateLiteralList.join("\n");
-}
 
 export { CodeBlock, CodeBlockBody, CodeBlockContent, CodeBlockCopyButton, CodeBlockHeader };
 
