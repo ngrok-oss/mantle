@@ -35,7 +35,7 @@ export const WithHeaderHighlightsAndHighlights: Story = {
 					<CodeBlockCopyButton />
 					<CodeBlockContent language="js" showLineNumbers highlightLines={[1, 2, "10-13"]}>
 						{`
-const http  = require('http');
+const http = require('http');
 const ngrok = require("@ngrok/ngrok");
 
 const server = http.createServer((req, res) => {
@@ -68,7 +68,7 @@ export const WithHeaderHighlightsAndHighlightsScrollyBoi: Story = {
 					<CodeBlockCopyButton />
 					<CodeBlockContent language="js" showLineNumbers highlightLines={[1, 2, "10-12"]}>
 						{`
-const http  = require('http');
+const http = require('http');
 const ngrok = require("@ngrok/ngrok");
 
 const server = http.createServer((req, res) => {
@@ -99,7 +99,7 @@ export const WithHeaderAndLineNumbers: Story = {
 				<CodeBlockBody>
 					<CodeBlockContent language="js" showLineNumbers>
 						{`
-const http  = require('http');
+const http = require('http');
 const ngrok = require("@ngrok/ngrok");
 
 const server = http.createServer((req, res) => {
@@ -131,7 +131,7 @@ export const WithHeaderNoLineNumbers: Story = {
 				<CodeBlockBody>
 					<CodeBlockContent language="js">
 						{`
-const http  = require('http');
+const http = require('http');
 const ngrok = require("@ngrok/ngrok");
 
 const server = http.createServer((req, res) => {
@@ -158,7 +158,7 @@ export const WithoutHeaderNoLineNumbers: Story = {
 				<CodeBlockBody>
 					<CodeBlockContent language="js">
 						{`
-const http  = require('http');
+const http = require('http');
 const ngrok = require("@ngrok/ngrok");
 
 const server = http.createServer((req, res) => {
@@ -185,7 +185,7 @@ export const WithoutHeaderNoLineNumbersButHighlights: Story = {
 				<CodeBlockBody>
 					<CodeBlockContent language="js" highlightLines={[1, 2, "10-12"]}>
 						{`
-const http  = require('http');
+const http = require('http');
 const ngrok = require("@ngrok/ngrok");
 
 const server = http.createServer((req, res) => {
