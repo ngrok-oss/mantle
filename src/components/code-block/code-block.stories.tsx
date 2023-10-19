@@ -42,7 +42,7 @@ export const WithHeaderHighlightsAndHighlights: Story = {
 				</CodeBlockHeader>
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
-					<CodeBlockContent language="bash">
+					<CodeBlockContent language="sh">
 						{`sudo unzip ~/Downloads/ngrok-v3-stable-darwin.zip -d /usr/local/bin`}
 					</CodeBlockContent>
 				</CodeBlockBody>
@@ -239,7 +239,7 @@ export const SingleLine: Story = {
 			<CodeBlock>
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
-					<CodeBlockContent language="bash">
+					<CodeBlockContent language="sh">
 						{`sudo unzip ~/Downloads/ngrok-v3-stable-darwin.zip -d /usr/local/bin`}
 					</CodeBlockContent>
 				</CodeBlockBody>
