@@ -28,7 +28,7 @@ MediaObject.displayName = "MediaObject";
  * The container for an image or icon to display in the media slot of the media object.
  */
 export const MediaObjectMedia = forwardRef<HTMLDivElement, Props>(({ className, children, style }, ref) => (
-	<div ref={ref} className={cx("shrink-0 leading-none", className)} style={style}>
+	<div ref={ref} className={cx("flex-shrink-0 leading-none", className)} style={style}>
 		{children}
 	</div>
 ));

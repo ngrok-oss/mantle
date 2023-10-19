@@ -1,120 +1,195 @@
-import { PropsWithChildren, createContext, forwardRef, useContext, useEffect, useId, useMemo, useState } from "react";
+import { PropsWithChildren, createContext, forwardRef, useContext, useEffect, useState } from "react";
 import type { WithStyleProps } from "../types/with-style-props";
 import { cx } from "../lib/cx";
 
-type CodeBlockProps = PropsWithChildren & WithStyleProps;
+const supportedLanguages = [
+	"cs",
+	"csharp",
+	"css",
+	"dotnet",
+	"go",
+	"html",
+	"java",
+	"javascript",
+	"js",
+	"py",
+	"python",
+	"ruby",
+	"rust",
+	"sh",
+	"ts",
+	"typescript",
+	"yaml",
+	"yml",
+] as const;
+export type SupportedLanguage = (typeof supportedLanguages)[number];
 
-type CodeBlockContextType = {
-	registerLine: (id: string, line: string | undefined) => void;
-	unregisterLine: (id: string) => void;
-	getLineNumber: (id: string) => number | undefined;
+/**
+ * Formats a language name into a class name that Prism.js can understand.
+ * @default "language-sh"
+ */
+const formatLanguageClassName = (language: SupportedLanguage | undefined = "sh") => {
+	const lang = language ?? "sh";
+	return `language-${lang}`;
 };
 
-const CodeBlockContext = createContext<CodeBlockContextType>({
-	registerLine: () => {},
-	unregisterLine: () => {},
-	getLineNumber: () => undefined,
-});
+type CodeBlockContextType = (newCopyText: string) => void;
+
+const CodeBlockContext = createContext<CodeBlockContextType>(() => {});
 
 const CodeBlockCopyContext = createContext<string>("");
 
-const CodeBlock = forwardRef<HTMLPreElement, CodeBlockProps>(({ className, children, style }, ref) => {
-	type Line = {
-		text: string;
-		id: string;
-	};
-	const [lines, setLines] = useState<Array<Line>>([]);
+type CodeBlockProps = PropsWithChildren & WithStyleProps;
 
-	const value: CodeBlockContextType = useMemo(
-		() => ({
-			getLineNumber: (id) => {
-				const result = lines.findIndex((line) => line.id === id);
-				return result;
-			},
-			registerLine: (id, newLine) => {
-				const text = newLine?.trim();
-				if (!text) {
-					return;
-				}
-
-				setLines((prevLines) => {
-					// if the line already exists, do nothing
-					if (prevLines.find((line) => line.id === id)) {
-						return prevLines;
-					}
-					return [...prevLines, { text, id }];
-				});
-			},
-			unregisterLine: (id) => {
-				setLines((prevLines) => {
-					const newLines = [...prevLines];
-					// find the line index by id and remove it from the list
-					const index = newLines.findIndex((line) => line.id === id);
-					if (index !== -1) {
-						newLines.splice(index, 1);
-					}
-					return newLines;
-				});
-			},
-		}),
-		[lines],
-	);
+const CodeBlock = forwardRef<HTMLDivElement, CodeBlockProps>(({ className, children, style }, ref) => {
+	const [copyText, setCopyText] = useState("");
 
 	return (
-		<CodeBlockContext.Provider value={value}>
-			<CodeBlockCopyContext.Provider value={lines.map((line) => line.text).join("\n")}>
-				<pre className={cx(className)} ref={ref} style={style}>
+		<CodeBlockContext.Provider value={setCopyText}>
+			<CodeBlockCopyContext.Provider value={copyText}>
+				<div className={cx("relative rounded-md border border-gray-200 bg-gray-50", className)} ref={ref} style={style}>
 					{children}
-				</pre>
+				</div>
 			</CodeBlockCopyContext.Provider>
 		</CodeBlockContext.Provider>
 	);
 });
+CodeBlock.displayName = "CodeBlock";
 
-const CodeBlockContent = forwardRef<HTMLSpanElement, PropsWithChildren & WithStyleProps>(
-	({ children, className, style }, ref) => (
-		<code className={cx("block", className)} ref={ref} style={style}>
-			{children}
-		</code>
-	),
-);
+type CodeBlockBodyProps = WithStyleProps & PropsWithChildren;
 
-type CodeBlockLineProps = WithStyleProps & {
+const CodeBlockBody = forwardRef<HTMLDivElement, CodeBlockBodyProps>(({ className, children, style }, ref) => (
+	<div className={cx("relative", className)} ref={ref} style={style}>
+		<CodeBlockCopyButton className="absolute right-2 top-2" />
+		{children}
+	</div>
+));
+CodeBlockBody.displayName = "CodeBlockBody";
+
+type LineRange = `${number}-${number}`;
+
+type CodeBlockContentProps = WithStyleProps & {
 	children?: string | undefined;
-	highlight?: boolean;
+	highlightLines?: (LineRange | number)[];
+	language?: SupportedLanguage;
+	showLineNumbers?: boolean;
 };
 
-const CodeBlockLine = forwardRef<HTMLSpanElement, CodeBlockLineProps>(
-	({ children, className, highlight = false, style }, ref) => {
-		const id = useId();
-		const ctx = useContext(CodeBlockContext);
-		const lineNumber = ctx.getLineNumber(id);
+const CodeBlockContent = forwardRef<HTMLPreElement, CodeBlockContentProps>(
+	({ children, className, highlightLines, language, showLineNumbers, style }, ref) => {
+		const setCopyText = useContext(CodeBlockContext);
+
+		// trim any leading and trailing whitespace/empty lines
+		const trimmedCode = children?.trim() ?? "";
+		const lines = trimmedCode.split("\n");
+
+		const highlightLineNumberSet = resolveHighlightedLineNumbers(...(highlightLines ?? []));
 
 		useEffect(() => {
-			ctx.registerLine(id, children);
-
-			return () => {
-				ctx.unregisterLine(id);
-			};
-		});
-
-		if (!children) {
-			return null;
-		}
+			setCopyText(trimmedCode);
+		}, [trimmedCode, setCopyText]);
 
 		return (
-			<span
-				data-line-number={lineNumber}
-				data-highlight={highlight}
-				className={cx("block before:mr-1 before:content-[attr(data-line-number)]", className)}
-				ref={ref}
-				style={style}
-			>
-				{children}
-			</span>
+			<pre className={cx(formatLanguageClassName(language), "flex py-4 font-mono", className)} ref={ref} style={style}>
+				{showLineNumbers && (
+					<div aria-hidden className="pointer-events-none flex-shrink-0 select-none text-right">
+						{lines.map((line, index) => {
+							const lineNumber = index + 1;
+							const shouldHighlight = highlightLineNumberSet.has(lineNumber);
+
+							return (
+								<span
+									key={line + lineNumber}
+									className={cx("block border-r px-2 text-gray-400", shouldHighlight && "bg-blue-100 text-gray-600")}
+								>
+									{lineNumber}
+								</span>
+							);
+						})}
+					</div>
+				)}
+				<code className="block min-w-0 flex-1">
+					{lines.map((line, index) => {
+						const lineNumber = index + 1;
+						const shouldHighlight = highlightLineNumberSet.has(lineNumber);
+
+						return (
+							<span
+								key={line + lineNumber}
+								data-line-number={lineNumber}
+								data-highlight={shouldHighlight || undefined}
+								className={cx("block px-4", shouldHighlight && "bg-blue-100")}
+								ref={ref}
+								style={style}
+							>
+								{line === "" ? "\n" : line}
+							</span>
+						);
+					})}
+				</code>
+			</pre>
 		);
 	},
 );
+CodeBlockContent.displayName = "CodeBlockContent";
+
+const isPositiveLineNumber = (n: number | undefined): n is number =>
+	n != null && !Number.isNaN(n) && n > 0 && Number.isFinite(n);
+
+/**
+ * Resolves a list of line ranges and numbers into a unique list of line numbers as a set.
+ */
+export function resolveHighlightedLineNumbers(...highlightLines: (LineRange | number)[]): Set<number> {
+	const lineNumberSet = new Set<number>();
+
+	if (!highlightLines) {
+		return lineNumberSet;
+	}
+
+	for (const item of highlightLines) {
+		if (typeof item === "number") {
+			if (!isPositiveLineNumber(item)) {
+				continue;
+			}
+			// only support integer line numbers
+			const int = Math.floor(item);
+			lineNumberSet.add(int);
+		} else {
+			let [start, end] = item.split("-").map((n) => Number.parseInt(n, 10));
+
+			// ignore invalid ranges that don't contain valid line numbers
+			if (!isPositiveLineNumber(start) || !isPositiveLineNumber(end)) {
+				continue;
+			}
+
+			// swap start and end if they are backwards
+			if (start > end) {
+				[start, end] = [end, start];
+			}
+
+			// add all line numbers in the range, inclusive
+			for (let i = start; i <= end; i++) {
+				const int = Math.floor(i);
+				lineNumberSet.add(int);
+			}
+		}
+	}
+
+	return lineNumberSet;
+}
+
+const CodeBlockHeader = forwardRef<HTMLDivElement, PropsWithChildren & WithStyleProps>(
+	({ children, className, style }, ref) => (
+		<div
+			className={cx("border-bottom border-gray-300 bg-gray-100 px-4 py-2 font-mono text-base text-gray-700", className)}
+			ref={ref}
+			style={style}
+		>
+			{children}
+		</div>
+	),
+);
+CodeBlockHeader.displayName = "CodeBlockHeader";
 
 type CodeBlockCopyButtonProps = WithStyleProps & {
 	onCopy?: (value: string) => void;
@@ -124,11 +199,12 @@ type CodeBlockCopyButtonProps = WithStyleProps & {
 const CodeBlockCopyButton = forwardRef<HTMLButtonElement, CodeBlockCopyButtonProps>(
 	({ className, onCopy, onCopyError, style }, ref) => {
 		const ctx = useContext(CodeBlockCopyContext);
-		const [copied, setCopied] = useState(false);
+		const [, setCopied] = useState(false);
 
 		return (
 			<button
-				className={cx(className)}
+				type="button"
+				className={cx("p-2", className)}
 				ref={ref}
 				style={style}
 				onClick={() => {
@@ -137,7 +213,9 @@ const CodeBlockCopyButton = forwardRef<HTMLButtonElement, CodeBlockCopyButtonPro
 						.then(() => {
 							setCopied(true);
 							onCopy?.(ctx);
-							setTimeout(() => setCopied(false), 1000);
+							setTimeout(() => {
+								setCopied(false);
+							}, 1000);
 						})
 						.catch((error) => {
 							onCopyError?.(error);
@@ -149,8 +227,13 @@ const CodeBlockCopyButton = forwardRef<HTMLButtonElement, CodeBlockCopyButtonPro
 		);
 	},
 );
+CodeBlockCopyButton.displayName = "CodeBlockCopyButton";
 
-export { CodeBlock, CodeBlockContent, CodeBlockCopyButton, CodeBlockLine };
+export function innerCode(templateLiteralList: string[]) {
+	return templateLiteralList.join("\n");
+}
+
+export { CodeBlock, CodeBlockBody, CodeBlockContent, CodeBlockCopyButton, CodeBlockHeader };
 
 const CopyIcon = ({ className, style }: WithStyleProps) => (
 	<svg
@@ -160,14 +243,14 @@ const CopyIcon = ({ className, style }: WithStyleProps) => (
 		role="img"
 		width="1em"
 		fill="none"
-		stroke="currentColor"
-		stroke-linecap="round"
-		stroke-linejoin="round"
-		stroke-width="2"
-		viewBox="0 0 24 24"
+		viewBox="0 0 16 19"
 		style={style}
 	>
-		<path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
-		<rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
+		<rect x="0.75" y="4.75" width="10.5" height="13.5" rx="1.25" stroke="currentColor" strokeWidth="1.5" />
+		<path
+			d="M4 5.5V2C4 1.44772 4.44772 1 5 1H14C14.5523 1 15 1.44772 15 2V13C15 13.5523 14.5523 14 14 14H10.5"
+			stroke="currentColor"
+			strokeWidth="1.5"
+		/>
 	</svg>
 );

@@ -35,6 +35,7 @@ module.exports = {
 		"@typescript-eslint/consistent-type-definitions": ["error", "type"],
 		"@typescript-eslint/ban-types": "off",
 		"@typescript-eslint/no-unnecessary-condition": "off",
+		"@typescript-eslint/no-empty-function": "off",
 	},
 	settings: {
 		react: {
