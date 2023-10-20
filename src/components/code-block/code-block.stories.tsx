@@ -150,7 +150,7 @@ export const WithoutHeaderCommandLine: Story = {
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
 					<CodeBlockContent language="sh">
-						{`sudo unzip ~/Downloads/ngrok-v3-stable-darwin.zip -d /usr/local/bin`}
+						{`sudo unzip ~/Downloads/ngrok-v3-stable-darwin.zip -d /usr/local/bin absolute right-3 top-1.5 z-50 rounded-sm p-2 hover:bg-gray-200 focus:bg-gray-200`}
 					</CodeBlockContent>
 				</CodeBlockBody>
 			</CodeBlock>

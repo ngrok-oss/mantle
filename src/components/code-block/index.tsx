@@ -79,7 +79,11 @@ const CodeBlockContent = forwardRef<HTMLPreElement, CodeBlockContentProps>((prop
 
 	return (
 		<pre
-			className={cx(formatLanguageClassName(language), "scrollbar block h-full overflow-auto p-4", className)}
+			className={cx(
+				formatLanguageClassName(language),
+				"scrollbar block overflow-auto p-4 after:inline-block after:h-1 after:w-12 after:content-['']",
+				className,
+			)}
 			data-lang={language}
 			// data-line-numbers={showLineNumbers || undefined}
 			ref={(node) => {
@@ -124,7 +128,10 @@ const CodeBlockCopyButton = forwardRef<HTMLButtonElement, CodeBlockCopyButtonPro
 		return (
 			<button
 				type="button"
-				className={cx("absolute right-3 top-1.5 z-50 rounded-sm p-2 hover:bg-gray-200 focus:bg-gray-200", className)}
+				className={cx(
+					"absolute right-3.5 top-2 z-50 rounded-sm border border-gray-200 bg-gray-50 p-1 hover:border-gray-400 hover:bg-gray-200 focus:bg-gray-200",
+					className,
+				)}
 				ref={ref}
 				style={style}
 				onClick={() => {
