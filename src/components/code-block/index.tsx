@@ -128,7 +128,7 @@ const CodeBlockCopyButton = forwardRef<HTMLButtonElement, CodeBlockCopyButtonPro
 		return (
 			<button
 				type="button"
-				className={cx("absolute right-1.5 top-1.5 z-50 rounded-sm p-2 hover:bg-gray-200 focus:bg-gray-200", className)}
+				className={cx("absolute right-3 top-1.5 z-50 rounded-sm p-2 hover:bg-gray-200 focus:bg-gray-200", className)}
 				ref={ref}
 				style={style}
 				onClick={() => {
