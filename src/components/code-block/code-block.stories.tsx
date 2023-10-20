@@ -61,7 +61,7 @@ export const WithHeaderFile: Story = {
 				</CodeBlockHeader>
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
-					<CodeBlockContent language="js" showLineNumbers highlightLines={[1, 2, "10-13"]}>
+					<CodeBlockContent language="js">
 						{`
 const http = require('http');
 const ngrok = require("@ngrok/ngrok");
@@ -94,7 +94,7 @@ export const WithHeaderFileScrolling: Story = {
 				</CodeBlockHeader>
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
-					<CodeBlockContent className="h-40" language="js" showLineNumbers highlightLines={[1, 2, "10-12"]}>
+					<CodeBlockContent className="h-40" language="js">
 						{`
 const http = require('http');
 const ngrok = require("@ngrok/ngrok");
