@@ -116,7 +116,7 @@ ngrok.listen(server).then(() => {
 	),
 };
 
-export const WithoutHeaderFile: Story = {
+export const WithoutHeaderFileAndNoCopyButton: Story = {
 	render: () => (
 		<div className="mx-auto max-w-screen-md">
 			<CodeBlock>
