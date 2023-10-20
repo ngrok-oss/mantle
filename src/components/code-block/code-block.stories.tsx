@@ -32,7 +32,7 @@ const FileIcon = () => (
 	</svg>
 );
 
-export const WithHeaderHighlightsAndHighlights: Story = {
+export const WithHeaderCommandLine: Story = {
 	render: () => (
 		<div className="mx-auto max-w-screen-md">
 			<CodeBlock>
@@ -51,7 +51,7 @@ export const WithHeaderHighlightsAndHighlights: Story = {
 	),
 };
 
-export const WithHeaderCommandLine: Story = {
+export const WithHeaderFile: Story = {
 	render: () => (
 		<div className="mx-auto max-w-screen-md">
 			<CodeBlock>
@@ -84,7 +84,7 @@ ngrok.listen(server).then(() => {
 	),
 };
 
-export const WithHeaderHighlightsAndHighlightsScrollyBoi: Story = {
+export const WithHeaderFileScrolling: Story = {
 	render: () => (
 		<div className="mx-auto max-w-screen-md">
 			<CodeBlock>
@@ -116,70 +116,7 @@ ngrok.listen(server).then(() => {
 	),
 };
 
-export const WithHeaderAndLineNumbers: Story = {
-	render: () => (
-		<div className="mx-auto max-w-screen-md">
-			<CodeBlock>
-				<CodeBlockHeader className="flex items-center gap-1">
-					<FileIcon />
-					<CodeBlockTitle>ngrok-example.js</CodeBlockTitle>
-				</CodeBlockHeader>
-				<CodeBlockBody>
-					<CodeBlockContent language="js" showLineNumbers>
-						{`
-const http = require('http');
-const ngrok = require("@ngrok/ngrok");
-
-const server = http.createServer((req, res) => {
-	res.writeHead(200);
-	res.end("Hello!");
-});
-
-// Consumes authtoken from env automatically
-ngrok.listen(server).then(() => {
-	console.log("url:", server.tunnel.url());
-});
-// really long line here that should wrap around and stuff Officia ipsum sint eu labore esse deserunt aliqua quis irure.
-						`}
-					</CodeBlockContent>
-				</CodeBlockBody>
-			</CodeBlock>
-		</div>
-	),
-};
-
-export const WithHeaderNoLineNumbers: Story = {
-	render: () => (
-		<div className="mx-auto max-w-screen-md">
-			<CodeBlock>
-				<CodeBlockHeader className="flex items-center gap-1">
-					<FileIcon />
-					<CodeBlockTitle>ngrok-example.js</CodeBlockTitle>
-				</CodeBlockHeader>
-				<CodeBlockBody>
-					<CodeBlockContent language="js">
-						{`
-const http = require('http');
-const ngrok = require("@ngrok/ngrok");
-
-const server = http.createServer((req, res) => {
-	res.writeHead(200);
-	res.end("Hello!");
-});
-
-// Consumes authtoken from env automatically
-ngrok.listen(server).then(() => {
-	console.log("url:", server.tunnel.url());
-});
-						`}
-					</CodeBlockContent>
-				</CodeBlockBody>
-			</CodeBlock>
-		</div>
-	),
-};
-
-export const WithoutHeaderNoLineNumbers: Story = {
+export const WithoutHeaderFile: Story = {
 	render: () => (
 		<div className="mx-auto max-w-screen-md">
 			<CodeBlock>
@@ -206,34 +143,7 @@ ngrok.listen(server).then(() => {
 	),
 };
 
-export const WithoutHeaderNoLineNumbersButHighlights: Story = {
-	render: () => (
-		<div className="mx-auto max-w-screen-md">
-			<CodeBlock>
-				<CodeBlockBody>
-					<CodeBlockContent language="js" highlightLines={[1, 2, "10-12"]}>
-						{`
-const http = require('http');
-const ngrok = require("@ngrok/ngrok");
-
-const server = http.createServer((req, res) => {
-	res.writeHead(200);
-	res.end("Hello!");
-});
-
-// Consumes authtoken from env automatically
-ngrok.listen(server).then(() => {
-	console.log("url:", server.tunnel.url());
-});
-						`}
-					</CodeBlockContent>
-				</CodeBlockBody>
-			</CodeBlock>
-		</div>
-	),
-};
-
-export const SingleLine: Story = {
+export const WithoutHeaderCommandLine: Story = {
 	render: () => (
 		<div className="mx-auto max-w-screen-md">
 			<CodeBlock>
