@@ -32,7 +32,10 @@ const CodeBlock = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ 
 		<CodeBlockContext.Provider value={setCopyText}>
 			<CodeBlockCopyContext.Provider value={copyText}>
 				<div
-					className={cx("overflow-hidden rounded-md border border-gray-200 bg-gray-50 font-mono text-[0.8125rem]", className)}
+					className={cx(
+						"overflow-hidden rounded-md border border-gray-200 bg-gray-50 font-mono text-[0.8125rem]",
+						className,
+					)}
 					ref={ref}
 					{...props}
 				/>
@@ -76,11 +79,7 @@ const CodeBlockContent = forwardRef<HTMLPreElement, CodeBlockContentProps>((prop
 
 	return (
 		<pre
-			className={cx(
-				formatLanguageClassName(language),
-				"scrollbar block h-full overflow-auto p-4",
-				className,
-			)}
+			className={cx(formatLanguageClassName(language), "scrollbar block h-full overflow-auto p-4", className)}
 			data-lang={language}
 			// data-line-numbers={showLineNumbers || undefined}
 			ref={(node) => {
@@ -97,10 +96,7 @@ CodeBlockContent.displayName = "CodeBlockContent";
 
 const CodeBlockHeader = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
 	<div
-		className={cx(
-			"flex-shrink-0 border-b border-gray-200 bg-gray-100 px-4 py-2 text-gray-700",
-			className,
-		)}
+		className={cx("flex-shrink-0 border-b border-gray-200 bg-gray-100 px-4 py-2 text-gray-700", className)}
 		ref={ref}
 		{...props}
 	/>
