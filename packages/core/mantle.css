@@ -367,18 +367,18 @@ pre.prismjs {
 }
 
 .scrollbar::-webkit-scrollbar {
-	width: 0.625rem;
-	height: 0.625rem;
+	width: 0.5rem;
+	height: 0.5rem;
 	background-color: transparent;
 }
 
 .scrollbar::-webkit-scrollbar-track {
-	border-radius: 0.625rem;
+	border-radius: 0.5rem;
 	background-color: transparent;
 }
 
 .scrollbar::-webkit-scrollbar-thumb {
-	border-radius: 0.625rem;
+	border-radius: 0.5rem;
 	background-color: hsl(var(--gray-600) / 0.8);
 }
 
