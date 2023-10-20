@@ -354,7 +354,7 @@ pre.prismjs {
 .token.regex,
 .token.important,
 .token.variable {
-	color: hsl(var(--green-600));
+	color: hsl(var(--yellow-600));
 }
 
 .token.important,
