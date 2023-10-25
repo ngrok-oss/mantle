@@ -34,8 +34,8 @@ const supportedLanguages = [
 export type SupportedLanguage = (typeof supportedLanguages)[number];
 
 /**
- * Type Predicate: checks if an arbitrary string value is a supported syntax highlighting language.
+ * Type Predicate: checks if an arbitrary value is a supported syntax highlighting language.
  */
-export const isSupportedLanguage = (value: string): value is SupportedLanguage => {
-	return supportedLanguages.includes(value as SupportedLanguage);
+export const isSupportedLanguage = (value: unknown): value is SupportedLanguage => {
+	return typeof value === "string" && supportedLanguages.includes(value as SupportedLanguage);
 };
