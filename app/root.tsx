@@ -2,7 +2,7 @@ import { cssBundleHref } from "@remix-run/css-bundle";
 import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
 import type { LinksFunction } from "@vercel/remix";
 import mantleCss from "../src/mantle.css";
-import { PreventWrongThemeFlash, ThemeProvider } from "@/components/theme-provider";
+import { PreventWrongThemeFlash, ThemeProvider } from "@/theme-provider";
 import { Layout } from "./components/layout";
 
 export const links: LinksFunction = () => [

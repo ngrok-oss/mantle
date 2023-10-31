@@ -1,8 +1,8 @@
-import { Button } from "@/components/button";
-// import { Input } from "@/components/input";
-import { Select, SelectContent, SelectIcon, SelectOption, SelectTrigger } from "@/components/select";
-import { isTheme, theme, useTheme } from "@/components/theme-provider";
-import { cx } from "@/lib/cx";
+import { Button } from "@/button";
+// import { Input } from "@/input";
+import { Select, SelectContent, SelectIcon, SelectOption, SelectTrigger } from "@/select";
+import { isTheme, theme, useTheme } from "@/theme-provider";
+import { cx } from "@/cx";
 import { WithStyleProps } from "@/types/with-style-props";
 import { Link, NavLink } from "@remix-run/react";
 import { PropsWithChildren } from "react";

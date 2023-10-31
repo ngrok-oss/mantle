@@ -4,7 +4,7 @@ import { Check, ChevronRight, Circle } from "lucide-react";
 import type { ComponentPropsWithoutRef, ElementRef } from "react";
 import { forwardRef } from "react";
 
-import { cx } from "../lib/cx";
+import { cx } from "../cx";
 
 const DropdownMenu = DropdownMenuPrimitive.Root;
 

@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 
-import { cx } from "./cx";
+import { cx } from ".";
 
 describe("cx", () => {
 	test("given '', returns ''", () => {

@@ -2,7 +2,7 @@ import { type ButtonHTMLAttributes, forwardRef } from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
 
-import { cx } from "../lib/cx";
+import { cx } from "../cx";
 import type { WithAsChild } from "../types/as-child";
 import type { VariantProps } from "../types/variant-props";
 
