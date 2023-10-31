@@ -3,11 +3,11 @@ import { Slot } from "@radix-ui/react-slot";
 import Prism from "prismjs";
 import "prismjs/components/prism-bash";
 
-import type { WithStyleProps } from "@/types/with-style-props";
-import { cx } from "@/lib/cx";
-import { SupportedLanguage } from "./utils/supported-languages";
-import { formatLanguageClassName } from "./utils/format-language-classname";
-import { LineRange } from "./utils/line-numbers";
+import type { WithStyleProps } from "../types/with-style-props";
+import { cx } from "../cx";
+import { SupportedLanguage } from "./supported-languages";
+import { formatLanguageClassName } from "./format-language-classname";
+import { LineRange } from "./line-numbers";
 
 /**
  * TODO(cody):
