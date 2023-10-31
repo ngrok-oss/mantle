@@ -1,8 +1,11 @@
-"use client";
-
 import type { PropsWithChildren } from "react";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import invariant from "tiny-invariant";
+
+/**
+ * prefersDarkModeMediaQuery is the media query used to detect if the user prefers dark mode.
+ */
+const prefersDarkModeMediaQuery = "(prefers-color-scheme: dark)" as const;
 
 /**
  * themes is a tuple of valid themes.
@@ -56,12 +59,52 @@ type Props = PropsWithChildren & {
 };
 
 /**
+ * isBrowser returns true if the code is running in a browser environment.
+ */
+const isBrowser = () => typeof window !== "undefined";
+
+/**
+ * PreventWrongThemeFlash is a React component that prevents the wrong theme from flashing on initial page load.
+ * Render as high as possible in the DOM, preferably in the <head> element.
+ */
+export const PreventWrongThemeFlash = ({
+	defaultTheme = "system",
+	storageKey = DEFAULT_STORAGE_KEY,
+}: {
+	defaultTheme?: Theme;
+	storageKey?: string;
+}) => (
+	<script
+		dangerouslySetInnerHTML={{
+			__html: `
+(function() {
+	const themes = ${JSON.stringify(themes)};
+	const isTheme = (value) => typeof value === "string" && themes.includes(value);
+	const fallbackTheme = "${defaultTheme}" ?? "system";
+	const maybeStoredTheme = window.localStorage.getItem("${storageKey}");
+	const themePreference = isTheme(maybeStoredTheme) ? maybeStoredTheme : fallbackTheme;
+	const prefersDarkMode = window.matchMedia("${prefersDarkModeMediaQuery}").matches;
+	const theme = themePreference === "system" ? (prefersDarkMode ? "dark" : "light") : themePreference;
+	const htmlElement = document.documentElement;
+	htmlElement.classList.remove(...themes);
+	htmlElement.classList.add(theme);
+})();
+`.trim(),
+		}}
+	/>
+);
+
+/**
  * ThemeProvider is a React Context Provider that provides the current theme and a function to set the theme.
  */
 export function ThemeProvider({ children, defaultTheme = "system", storageKey = DEFAULT_STORAGE_KEY }: Props) {
-	const [theme, setTheme] = useState<Theme>(() =>
-		typeof window === "undefined" ? defaultTheme : (window.localStorage.getItem(storageKey) as Theme) || defaultTheme,
-	);
+	const [theme, setTheme] = useState<Theme>(() => {
+		const fallback = defaultTheme ?? "system";
+		if (isBrowser()) {
+			return (window.localStorage.getItem(storageKey) as Theme | null) ?? fallback;
+		}
+		return fallback;
+	});
 
 	useEffect(() => {
 		const storedTheme = window.localStorage.getItem(storageKey) as Theme | null;
