@@ -2,7 +2,6 @@
 import defaultTheme from "tailwindcss/defaultTheme";
 
 export default {
-	important: "#ngrok",
 	darkMode: "class",
 	theme: {
 		container: {
