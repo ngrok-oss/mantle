@@ -1,5 +1,3 @@
-"use client";
-
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
 import {
 	Root,

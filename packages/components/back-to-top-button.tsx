@@ -1,5 +1,3 @@
-"use client";
-
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 import { useWindowScroll } from "@uidotdev/usehooks";
 import { useRef, type CSSProperties, useEffect } from "react";
