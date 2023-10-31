@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { CodeBlock, CodeBlockBody, CodeBlockContent, CodeBlockCopyButton, CodeBlockHeader, CodeBlockTitle } from ".";
+import { code } from "./utils/code";
 
 const meta = {
 	title: "CodeBlock",
@@ -43,7 +44,7 @@ export const WithHeaderCommandLine: Story = {
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
 					<CodeBlockContent language="sh">
-						{`sudo unzip ~/Downloads/ngrok-v3-stable-darwin.zip -d /usr/local/bin`}
+						{code`sudo unzip ~/Downloads/ngrok-v3-stable-darwin.zip -d /usr/local/bin`}
 					</CodeBlockContent>
 				</CodeBlockBody>
 			</CodeBlock>
@@ -62,13 +63,18 @@ export const WithHeaderFile: Story = {
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
 					<CodeBlockContent language="js">
-						{`
+						{code`
 const http = require('http');
 const ngrok = require("@ngrok/ngrok");
 
 const server = http.createServer((req, res) => {
 	res.writeHead(200);
 	res.end("Hello!");
+	setTimeout(() => {
+		Promise.resolve(() => {
+			console.log("url:", server.tunnel.url());
+		})
+	}, timeout);
 });
 
 // Consumes authtoken from env automatically
@@ -84,6 +90,8 @@ ngrok.listen(server).then(() => {
 	),
 };
 
+const status = 200;
+const hello = "Hello!";
 export const WithHeaderFileScrolling: Story = {
 	render: () => (
 		<div className="mx-auto max-w-screen-md">
@@ -95,19 +103,19 @@ export const WithHeaderFileScrolling: Story = {
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
 					<CodeBlockContent className="h-40" language="js">
-						{`
-const http = require('http');
-const ngrok = require("@ngrok/ngrok");
+						{code`
+							const http = require('http');
+							const ngrok = require("@ngrok/ngrok");
 
-const server = http.createServer((req, res) => {
-	res.writeHead(200);
-	res.end("Hello!");
-});
+							const server = http.createServer((req, res) => {
+								res.writeHead(${status});
+								res.end(${hello});
+							});
 
-// Consumes authtoken from env automatically
-ngrok.listen(server).then(() => {
-	console.log("url:", server.tunnel.url());
-});
+							// Consumes authtoken from env automatically
+							ngrok.listen(server).then(() => {
+								console.log("url:", server.tunnel.url());
+							});
 						`}
 					</CodeBlockContent>
 				</CodeBlockBody>
@@ -122,7 +130,7 @@ export const WithoutHeaderFileAndNoCopyButton: Story = {
 			<CodeBlock>
 				<CodeBlockBody>
 					<CodeBlockContent language="js">
-						{`
+						{code`
 const http = require('http');
 const ngrok = require("@ngrok/ngrok");
 
@@ -150,7 +158,7 @@ export const WithoutHeaderCommandLine: Story = {
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
 					<CodeBlockContent language="sh">
-						{`sudo unzip ~/Downloads/ngrok-v3-stable-darwin.zip -d /usr/local/bin absolute right-3 top-1.5 z-50 rounded-sm p-2 hover:bg-gray-200 focus:bg-gray-200`}
+						{code`sudo unzip ~/Downloads/ngrok-v3-stable-darwin.zip -d /usr/local/bin absolute right-3 top-1.5 z-50 rounded-sm p-2 hover:bg-gray-200 focus:bg-gray-200`}
 					</CodeBlockContent>
 				</CodeBlockBody>
 			</CodeBlock>

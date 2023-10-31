@@ -90,7 +90,7 @@ const CodeBlockContent = forwardRef<HTMLPreElement, CodeBlockContentProps>((prop
 				innerPreRef.current = node ?? undefined;
 				return ref;
 			}}
-			style={style}
+			style={{ tabSize: 2, MozTabSize: 2, ...style }}
 		>
 			<code>{trimmedCode}</code>
 		</pre>
