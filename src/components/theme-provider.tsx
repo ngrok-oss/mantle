@@ -64,66 +64,33 @@ type Props = PropsWithChildren & {
 const isBrowser = () => typeof window !== "undefined";
 
 /**
- * PreventWrongThemeFlash is a React component that prevents the wrong theme from flashing on initial page load.
- * Render as high as possible in the DOM, preferably in the <head> element.
+ * determines the initial theme based on the default theme and the value stored in localStorage by the storageKey
  */
-export const PreventWrongThemeFlash = ({
-	defaultTheme = "system",
-	storageKey = DEFAULT_STORAGE_KEY,
-}: {
-	defaultTheme?: Theme;
-	storageKey?: string;
-}) => (
-	<script
-		dangerouslySetInnerHTML={{
-			__html: `
-(function() {
-	const themes = ${JSON.stringify(themes)};
-	const isTheme = (value) => typeof value === "string" && themes.includes(value);
-	const fallbackTheme = "${defaultTheme}" ?? "system";
-	const maybeStoredTheme = window.localStorage.getItem("${storageKey}");
-	const themePreference = isTheme(maybeStoredTheme) ? maybeStoredTheme : fallbackTheme;
-	const prefersDarkMode = window.matchMedia("${prefersDarkModeMediaQuery}").matches;
-	const theme = themePreference === "system" ? (prefersDarkMode ? "dark" : "light") : themePreference;
-	const htmlElement = document.documentElement;
-	htmlElement.classList.remove(...themes);
-	htmlElement.classList.add(theme);
-})();
-`.trim(),
-		}}
-	/>
-);
+function determineInitialTheme(defaultTheme: Theme, storageKey: string) {
+	const fallback = defaultTheme ?? "system";
+	if (isBrowser()) {
+		return (window.localStorage.getItem(storageKey) as Theme | null) ?? fallback;
+	}
+	return fallback;
+}
 
 /**
  * ThemeProvider is a React Context Provider that provides the current theme and a function to set the theme.
  */
 export function ThemeProvider({ children, defaultTheme = "system", storageKey = DEFAULT_STORAGE_KEY }: Props) {
 	const [theme, setTheme] = useState<Theme>(() => {
-		const fallback = defaultTheme ?? "system";
-		if (isBrowser()) {
-			return (window.localStorage.getItem(storageKey) as Theme | null) ?? fallback;
-		}
-		return fallback;
+		const initialTheme = determineInitialTheme(defaultTheme, storageKey);
+		applyTheme(initialTheme);
+		return initialTheme;
 	});
 
 	useEffect(() => {
 		const storedTheme = window.localStorage.getItem(storageKey) as Theme | null;
-		if (storedTheme && themes.includes(storedTheme)) {
+		if (isTheme(storedTheme)) {
 			setTheme(storedTheme);
+			applyTheme(storedTheme);
 		}
 	}, [storageKey]);
-
-	useEffect(() => {
-		const root = window.document.documentElement;
-		root.classList.remove(...themes);
-
-		if (theme === "system") {
-			const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-			root.classList.add(systemTheme);
-			return;
-		}
-		root.classList.add(theme);
-	}, [theme]);
 
 	const value: ThemeProviderState = useMemo(
 		() => [
@@ -131,6 +98,7 @@ export function ThemeProvider({ children, defaultTheme = "system", storageKey = 
 			(theme: Theme) => {
 				window.localStorage.setItem(storageKey, theme);
 				setTheme(theme);
+				applyTheme(theme);
 			},
 		],
 		[theme, storageKey],
@@ -151,3 +119,51 @@ export function useTheme() {
 
 	return context;
 }
+
+/**
+ * Applies the given theme to the <html> element.
+ */
+function applyTheme(theme: Theme) {
+	if (!isBrowser()) {
+		return;
+	}
+
+	const htmlElement = window.document.documentElement;
+	htmlElement.classList.remove(...themes);
+	const newTheme =
+		theme === "system" ? (window.matchMedia(prefersDarkModeMediaQuery).matches ? "dark" : "light") : theme;
+	htmlElement.classList.add(newTheme);
+	htmlElement.dataset.theme = newTheme;
+}
+
+/**
+ * PreventWrongThemeFlash is a React component that prevents the wrong theme from flashing on initial page load.
+ * Render as high as possible in the DOM, preferably in the <head> element.
+ */
+export const PreventWrongThemeFlash = ({
+	defaultTheme = "system",
+	storageKey = DEFAULT_STORAGE_KEY,
+}: {
+	defaultTheme?: Theme;
+	storageKey?: string;
+}) => (
+	<script
+		dangerouslySetInnerHTML={{
+			__html: `
+(function() {
+	const themes = ${JSON.stringify(themes)};
+	const isTheme = (value) => typeof value === "string" && themes.includes(value);
+	const fallbackTheme = "${defaultTheme}" ?? "system";
+	const maybeStoredTheme = window.localStorage.getItem("${storageKey}");
+	const themePreference = isTheme(maybeStoredTheme) ? maybeStoredTheme : fallbackTheme;
+	const prefersDarkMode = window.matchMedia("${prefersDarkModeMediaQuery}").matches;
+	const initialTheme = themePreference === "system" ? (prefersDarkMode ? "dark" : "light") : themePreference;
+	const htmlElement = document.documentElement;
+	htmlElement.classList.remove(...themes);
+	htmlElement.classList.add(initialTheme);
+	htmlElement.dataset.theme = initialTheme;
+})();
+`.trim(),
+		}}
+	/>
+);
