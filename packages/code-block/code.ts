@@ -39,8 +39,6 @@ function findMinIndent(value: string): number {
 		return 0;
 	}
 
-	console.log({ match });
-
 	return match.reduce((acc, curr) => Math.min(acc, curr.length), Infinity);
 }
 
