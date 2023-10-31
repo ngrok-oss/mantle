@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Card, CardBody, CardFooter, CardHeader, CardTitle } from "./card";
+import { Card, CardBody, CardFooter, CardHeader, CardTitle } from "./";
 
 const meta = {
 	title: "Card",
