@@ -10,7 +10,7 @@ import { PropsWithChildren } from "react";
 const MantleLogo = () => (
 	<svg width="184" height="36">
 		<path
-			fill="hsl(var(--brand-primary-500))"
+			fill="hsl(var(--brand-primary-600))"
 			d="M29.149 13.905c-1.187-1.331-2.655-2.001-4.4-2.001-1.075 0-2.065.21-2.976.633a7.307 7.307 0 0 0-2.36 1.733 8.342 8.342 0 0 0-1.566 2.59c-.384.989-.576 2.06-.576 3.218 0 1.135.179 2.17.531 3.105.357.93.853 1.728 1.495 2.393a6.856 6.856 0 0 0 2.289 1.56c.884.373 1.852.56 2.905.56.477 0 .919-.036 1.32-.105a5.166 5.166 0 0 0 1.151-.337c.366-.16.723-.36 1.08-.602a9.31 9.31 0 0 0 1.107-.925v3.953h-.005v.383h-4.872l-3.663 4.212V35h13.747V12.319h-5.207v1.586Zm-.014 7.245c-.183.419-.424.788-.718 1.103a3.257 3.257 0 0 1-2.37.998 3.33 3.33 0 0 1-1.338-.264 3.21 3.21 0 0 1-1.066-.734 3.564 3.564 0 0 1-.964-2.471c0-.47.09-.912.272-1.322.183-.41.424-.766.737-1.072.307-.305.66-.547 1.062-.734a3.031 3.031 0 0 1 1.293-.278c.442 0 .866.087 1.28.265.411.173.773.42 1.08.734.309.314.55.674.737 1.085.183.41.272.861.272 1.354-.004.47-.094.916-.277 1.336Zm-14.514-6.998a5.627 5.627 0 0 0-.923-.876 5.396 5.396 0 0 0-.96-.579 4.44 4.44 0 0 0-.522-.2 5.88 5.88 0 0 0-.843-.197H7.661l-2.454 2.86v-2.8H0v15.08h5.207V17.265h4.89l.406-.009v10.18h5.207v-9.432c0-.803-.076-1.518-.228-2.147a4.216 4.216 0 0 0-.86-1.705Zm35.048-1.833h-5.68l-2.258 2.598V12.32h-5.212V27.4h5.22l.005-10.094h3.788l4.137-4.778v-.21Zm28.136 6.966 7.12-6.711v-.255h-6.861l-5.462 5.439V3h-5.207v24.395h5.207v-6.14l5.725 6.14h7.006v-.287l-7.528-7.823Zm-14.479-5.248c-.794-.716-1.736-1.272-2.82-1.673-1.084-.401-2.258-.602-3.525-.602-1.285 0-2.472.205-3.551.616a8.799 8.799 0 0 0-2.807 1.687 7.71 7.71 0 0 0-1.843 2.53 7.473 7.473 0 0 0-.66 3.132c0 1.235.219 2.357.66 3.364a7.732 7.732 0 0 0 1.83 2.6 8.056 8.056 0 0 0 2.775 1.677c1.075.392 2.244.588 3.512.588 1.285 0 2.476-.196 3.582-.588 1.102-.392 2.048-.944 2.834-1.664a7.795 7.795 0 0 0 1.856-2.558c.45-.99.678-2.079.678-3.278 0-1.194-.223-2.288-.66-3.278a7.649 7.649 0 0 0-1.861-2.553Zm-3.253 7.14c-.183.42-.424.788-.718 1.103a3.272 3.272 0 0 1-2.37.998c-.459 0-.896-.086-1.311-.264a3.145 3.145 0 0 1-1.062-.734 3.77 3.77 0 0 1-.718-1.103 3.451 3.451 0 0 1-.273-1.395c0-.47.09-.912.273-1.323a3.8 3.8 0 0 1 .718-1.084c.299-.315.651-.561 1.062-.735a3.279 3.279 0 0 1 1.312-.264c.46 0 .897.087 1.307.264.41.174.767.42 1.062.735.299.314.535.683.718 1.103.183.42.272.866.272 1.335 0 .488-.089.944-.272 1.364Z"
 		/>
 		<path
@@ -61,8 +61,6 @@ export function Layout({ children, className, style }: Props) {
 						<SelectOption value={theme("system")}>System</SelectOption>
 						<SelectOption value={theme("light")}>Light</SelectOption>
 						<SelectOption value={theme("dark")}>Dark</SelectOption>
-						<SelectOption value={theme("light-high-contrast")}>Light High Contrast</SelectOption>
-						<SelectOption value={theme("dark-high-contrast")}>Dark High Contrast</SelectOption>
 					</SelectContent>
 				</Select>
 
@@ -74,7 +72,7 @@ export function Layout({ children, className, style }: Props) {
 			</header>
 			<div className="flex gap-4 sm:mb-4 lg:mb-9">
 				<Navigation />
-				<article className="flex-1 bg-foreground p-4 shadow-lg sm:rounded-lg md:p-9">{children}</article>
+				<article className="flex-1 p-4 sm:rounded-lg md:p-9">{children}</article>
 			</div>
 		</main>
 	);
@@ -98,10 +96,10 @@ function Navigation({ className, style }: WithStyleProps) {
 					</NavLink>
 				</li>
 
-				<li className="mt-6 text-brand-primary-500">Base</li>
+				<li className="mt-6 text-gray-400 text-xs tracking-widest font-medium uppercase">Base</li>
 
 				<ul role="list" className="mt-2 text-sm">
-					{/* <li>
+					<li>
 						<NavLink
 							className={({ isActive }) =>
 								cx(
@@ -113,7 +111,7 @@ function Navigation({ className, style }: WithStyleProps) {
 						>
 							Typography
 						</NavLink>
-					</li> */}
+					</li>
 					<li>
 						<NavLink
 							className={({ isActive }) =>
@@ -129,7 +127,7 @@ function Navigation({ className, style }: WithStyleProps) {
 					</li>
 				</ul>
 
-				<li className="mt-6 text-brand-primary-500">Components</li>
+				<li className="mt-6 text-gray-400 mt-6 text-xs tracking-widest font-medium uppercase">Components</li>
 				<ul role="list" className="mt-2 text-sm">
 					<li>
 						<NavLink
