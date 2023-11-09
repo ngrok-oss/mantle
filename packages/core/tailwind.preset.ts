@@ -1,8 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 import defaultTheme from "tailwindcss/defaultTheme";
+import tailwindCssAnimatePlugin from "tailwindcss-animate";
 
 export default {
-	important: "#ngrok",
 	darkMode: "class",
 	theme: {
 		container: {
@@ -296,5 +296,5 @@ export default {
 			},
 		},
 	},
-	plugins: [require("tailwindcss-animate")],
+	plugins: [tailwindCssAnimatePlugin],
 };

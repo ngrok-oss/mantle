@@ -1,6 +1,6 @@
-import baseConfig from "./tailwind.base.config";
+import baseConfig from "./packages/core/tailwind.preset";
 
 export default {
 	presets: [baseConfig],
-	content: ["./src/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}"],
+	content: ["./packages/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}"],
 };

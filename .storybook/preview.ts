@@ -1,11 +1,7 @@
 import type { Preview } from "@storybook/react";
-import { setupTailwindSelectorStrategy } from "./setup-tailwind-selector-strategy";
 import { withThemeByClassName } from "@storybook/addon-styling";
 
-import "../src/assets/fonts/fonts.css";
-import "../src/mantle.css";
-
-setupTailwindSelectorStrategy();
+import "../packages/core/mantle.css";
 
 const preview: Preview = {
 	parameters: {

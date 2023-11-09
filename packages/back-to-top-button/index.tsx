@@ -1,12 +1,10 @@
-"use client";
-
-import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
+import { usePrefersReducedMotion } from "../hooks/use-prefers-reduced-motion";
 import { useWindowScroll } from "@uidotdev/usehooks";
 import { useRef, type CSSProperties, useEffect } from "react";
-import { Portal } from "./portal";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./tooltip";
+import { Portal } from "../portal";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../tooltip";
 import { ArrowUpToLine } from "lucide-react";
-import { cx } from "../lib/cx";
+import { cx } from "../cx";
 
 type Props = {
 	className?: string;
