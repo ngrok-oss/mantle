@@ -88,7 +88,7 @@ function Navigation({ className, style }: WithStyleProps) {
 					<NavLink
 						className={({ isActive }) =>
 							cx(
-								"-ml-2 block rounded-lg px-2 py-1 text-sm text-gray-600 hover:font-medium hover:text-gray-900",
+								"-ml-2 block rounded-lg px-2 py-1 text-sm text-gray-500 hover:font-medium hover:text-gray-900",
 								isActive && "font-medium text-blue-600 hover:text-blue-600",
 							)
 						}
@@ -105,7 +105,7 @@ function Navigation({ className, style }: WithStyleProps) {
 						<NavLink
 							className={({ isActive }) =>
 								cx(
-									"-ml-2 block rounded-lg px-2 py-1 text-gray-600 hover:font-medium hover:text-gray-900",
+									"-ml-2 block rounded-lg px-2 py-1 text-gray-500 hover:font-medium hover:text-gray-900",
 									isActive && "font-medium text-blue-600 hover:text-blue-600",
 								)
 							}
@@ -118,7 +118,7 @@ function Navigation({ className, style }: WithStyleProps) {
 						<NavLink
 							className={({ isActive }) =>
 								cx(
-									"-ml-2 block rounded-lg px-2 py-1 text-gray-600 hover:font-medium hover:text-gray-900",
+									"-ml-2 block rounded-lg px-2 py-1 text-gray-500 hover:font-medium hover:text-gray-900",
 									isActive && "font-medium text-blue-600 hover:text-blue-600",
 								)
 							}
@@ -135,7 +135,7 @@ function Navigation({ className, style }: WithStyleProps) {
 						<NavLink
 							className={({ isActive }) =>
 								cx(
-									"-ml-2 block rounded-lg px-2 py-1 text-gray-600 hover:font-medium hover:text-gray-900",
+									"-ml-2 block rounded-lg px-2 py-1 text-gray-500 hover:font-medium hover:text-gray-900",
 									isActive && "font-medium text-blue-600 hover:text-blue-600",
 								)
 							}
