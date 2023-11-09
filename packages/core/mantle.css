@@ -7,7 +7,7 @@
 :root {
 	/* ngrok custom blue (600 is current button)
 	* These are required as they are referenced by both light and dark modes.
-	* Replaces the Tailwind blue.
+	* Replaces the Tailwind blue and a single value of gray.
 	* Not to be used directly. 
 	*/
 
@@ -22,6 +22,8 @@
 	--ngrok-blue-800: 232 70% 40%;
 	--ngrok-blue-900: 232 63% 33%;
 	--ngrok-blue-950: 234 55% 21%;
+
+	--ngrok-gray-800: 216 23% 22%;
 
 	/**
 	* Tailwind palette.
@@ -287,9 +289,9 @@
 	--gray-500: var(--tw-gray-500);
 	--gray-600: var(--tw-gray-600);
 	--gray-700: var(--tw-gray-700);
-	--gray-800: var(--tw-gray-800);
-	--gray-900: var(--tw-gray-900);
-	--gray-950: var(--tw-gray-950);
+	--gray-800: var(--ngrok-gray-800);
+	--gray-900: var(--tw-gray-800);
+	--gray-950: var(--tw-gray-900);
 	--red-050: var(--tw-red-050);
 	--red-100: var(--tw-red-100);
 	--red-200: var(--tw-red-200);
@@ -493,9 +495,9 @@
 
 	--white: var(--tw-black);
 	--black: var(--tw-white);
-	--gray-050: var(--tw-gray-950);
-	--gray-100: var(--tw-gray-900);
-	--gray-200: var(--tw-gray-800);
+	--gray-050: var(--tw-gray-900);
+	--gray-100: var(--tw-gray-800);
+	--gray-200: var(--ngrok-gray-800);
 	--gray-300: var(--tw-gray-700);
 	--gray-400: var(--tw-gray-600);
 	--gray-500: var(--tw-gray-500);
@@ -681,10 +683,10 @@
 	--rose-900: var(--tw-rose-100);
 	--rose-950: var(--tw-rose-050);
 
-	--background: var(--gray-100);
-	--foreground: var(--gray-100);
-	--card: var(--gray-200);
-	--popover: var(--gray-300);
+	--background: var(--gray-050);
+	--foreground: var(--gray-050);
+	--card: var(--gray-100);
+	--popover: var(--gray-200);
 	--popover-foreground: 210 40% 98%;
 }
 
