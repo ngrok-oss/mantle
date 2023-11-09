@@ -716,7 +716,7 @@ pre.prismjs code {
 
 /* Code blocks */
 pre.prismjs {
-	@apply overflow-auto rounded-lg border border-gray-200 p-4;
+	@apply overflow-auto rounded-lg border border-gray-300 p-4;
 }
 
 .token.comment,
