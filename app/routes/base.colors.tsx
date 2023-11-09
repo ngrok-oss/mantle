@@ -22,7 +22,7 @@ export default function Page() {
 					<li>
 						<HashNavLink
 							className={(isActive) =>
-								cx("hover:font-medium hover:text-gray-950", isActive && "font-medium text-blue-600")
+								cx("hover:font-medium hover:text-gray-800", isActive && "font-medium text-blue-600")
 							}
 							to=".#variables"
 						>
@@ -33,7 +33,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-gray-950", isActive && "font-medium text-blue-600")
+									cx("hover:font-medium hover:text-gray-800", isActive && "font-medium text-blue-600")
 								}
 								to=".#primary"
 							>
@@ -43,7 +43,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-gray-950", isActive && "font-medium text-blue-600")
+									cx("hover:font-medium hover:text-gray-800", isActive && "font-medium text-blue-600")
 								}
 								to=".#gray"
 							>
@@ -53,7 +53,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-gray-950", isActive && "font-medium text-blue-600")
+									cx("hover:font-medium hover:text-gray-800", isActive && "font-medium text-blue-600")
 								}
 								to=".#danger"
 							>
@@ -63,7 +63,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-gray-950", isActive && "font-medium text-blue-600")
+									cx("hover:font-medium hover:text-gray-800", isActive && "font-medium text-blue-600")
 								}
 								to=".#success"
 							>
@@ -73,7 +73,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-gray-950", isActive && "font-medium text-blue-600")
+									cx("hover:font-medium hover:text-gray-800", isActive && "font-medium text-blue-600")
 								}
 								to=".#warning"
 							>
