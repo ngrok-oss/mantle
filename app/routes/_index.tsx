@@ -11,7 +11,7 @@ export default function Page() {
 	return (
 		<div>
 			<h1 className="text-5xl font-medium">Mantle</h1>
-			<p className="font-weight mt-4 max-w-prose text-xl text-gray-600">
+			<p className="font-weight mt-4 text-xl text-gray-600">
 				Mantle is{" "}
 				<a className="text-blue-600 hover:underline" href="https://ngrok.com">
 					ngrok
@@ -22,7 +22,7 @@ export default function Page() {
 			<h2 id="dependencies" className="mt-8 text-3xl font-medium">
 				Dependencies
 			</h2>
-			<p className="mt-3 max-w-prose text-gray-600">
+			<p className="mt-3 text-gray-600">
 				Mantle’s styling is composed using{" "}
 				<a className="text-blue-600 hover:underline" href="https://tailwindcss.com">
 					Tailwind
@@ -49,7 +49,7 @@ export default function Page() {
 			<h2 id="status" className="mt-8 text-3xl font-medium">
 				Status
 			</h2>
-			<p className="mt-3 max-w-prose text-gray-600">
+			<p className="mt-3 text-gray-600">
 				Mantle is a work in progress that’s currently adding components. It intends to replace new and existing ngrok
 				user interfaces.
 			</p>

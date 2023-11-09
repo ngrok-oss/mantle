@@ -1,4 +1,4 @@
-import { cx } from "@/cx";
+import { cx } from "@/lib/cx";
 import { WithStyleProps } from "@/types/with-style-props";
 import { HashNavLink } from "~/components/hash-nav-link";
 import type { MetaFunction } from "@vercel/remix";
@@ -85,7 +85,7 @@ export default function Page() {
 			</nav>
 			<div className="flex-1">
 				<h1 className="text-5xl font-medium">Colors</h1>
-				<p className="mt-4 text-xl text-gray-600" max-w-prose>
+				<p className="mt-4 text-xl text-gray-600">
 					Mantle uses Tailwind under the hood for all its CSS styling. However, we differ from Tailwind when it comes to
 					colors. Mantle provides a full color library that automatically provides dark and high contrast modes. This is
 					different from standard Tailwind usage that requires dark class variations. By simply specifying light colors
@@ -111,7 +111,7 @@ export default function Page() {
 				<h3 id="blue" className="mt-6 text-xl font-medium">
 					Blue (primary)
 				</h3>
-				<p className="mt-2 max-w-prose text-gray-600">
+				<p className="mt-2 text-gray-600">
 					ngrok&apos;s primary branding color is used in its logo as well as primary links. Use it sparingly to attract
 					attention.
 				</p>
