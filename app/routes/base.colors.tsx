@@ -1,4 +1,4 @@
-import { cx } from "@/lib/cx";
+import { cx } from "@/cx";
 import { WithStyleProps } from "@/types/with-style-props";
 import { HashNavLink } from "~/components/hash-nav-link";
 import type { MetaFunction } from "@vercel/remix";
