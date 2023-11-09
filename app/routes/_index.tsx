@@ -13,7 +13,7 @@ export default function Page() {
 			<h1 className="text-5xl font-medium">Mantle</h1>
 			<p className="mt-4 text-xl text-gray-600 font-weight max-w-prose">
 				Mantle is{" "}
-				<a className="text-brand-primary-600" href="https://ngrok.com">
+				<a className="text-blue-600 hover:underline" href="https://ngrok.com">
 					ngrok
 				</a>
 				’s UI library and design system that powers its front-end.
@@ -24,23 +24,23 @@ export default function Page() {
 			</h2>
 			<p className="mt-3 text-gray-600 max-w-prose">
 				Mantle’s styling is composed using{" "}
-				<a className="text-brand-primary-600" href="https://tailwindcss.com">
+				<a className="text-blue-600 hover:underline" href="https://tailwindcss.com">
 					Tailwind
 				</a>
 				. Its{" "}
-				<a className="text-brand-primary-600" href="https://react.dev">
+				<a className="text-blue-600 hover:underline" href="https://react.dev">
 					React
 				</a>{" "}
 				components are powered by{" "}
-				<a className="text-brand-primary-600" href="https://ui.shadcn.com">
+				<a className="text-blue-600 hover:underline" href="https://ui.shadcn.com">
 					shadcn/ui
 				</a>
 				’s markup and{" "}
-				<a className="text-brand-primary-600" href="https://www.radix-ui.com">
+				<a className="text-blue-600 hover:underline" href="https://www.radix-ui.com">
 					Radix
 				</a>
 				’s primitives. Its documentation is built in{" "}
-				<a className="text-brand-primary-600" href="https://remix.run/">
+				<a className="text-blue-600 hover:underline" href="https://remix.run/">
 					Remix
 				</a>
 				.

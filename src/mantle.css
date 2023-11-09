@@ -6,10 +6,29 @@
 
 :root {
 
+	/* ngrok custom blue (600 is current button)
+	* These are required as they are referenced by both light and dark modes.
+	* Replaces the Tailwind blue.
+	* Not to be used directly. 
+	*/
+
+    --ngrok-blue-050: 221 100% 97%;
+    --ngrok-blue-100: 221 95% 93%;
+    --ngrok-blue-200: 220 94% 87%;
+    --ngrok-blue-300: 219 95% 78%;
+    --ngrok-blue-400: 220 93% 68%;
+    --ngrok-blue-500: 224 89% 60%;
+    --ngrok-blue-600: 228 82% 55%;
+    --ngrok-blue-700: 231 75% 48%;
+    --ngrok-blue-800: 232 70% 40%;
+    --ngrok-blue-900: 232 63% 33%;
+    --ngrok-blue-950: 234 55% 21%;
+	
 	/**
 	* Tailwind palette.
+	* These are required as they are referenced by both light and dark modes.
+	* Colors not currently utilized: tw-slate, tw-zinc, tw-neutral, tw-stone, tw-blue.
 	* Not to be used directly. 
-	* Can swap to HSL if needed, and/or drop in values directly to our palette in the future.
 	*/
 	
 	--tw-black: 0 0% 0%;
@@ -261,19 +280,17 @@
 	
 	--black: var(--tw-black);
 	--white: var(--tw-white);
-
-	--gray-050: var(--tw-slate-050);
-	--gray-100: var(--tw-slate-100);
-	--gray-200: var(--tw-slate-200);
-	--gray-300: var(--tw-slate-300);
-	--gray-400: var(--tw-slate-400);
-	--gray-500: var(--tw-slate-500);
-	--gray-600: var(--tw-slate-600);
-	--gray-700: var(--tw-slate-700);
-	--gray-800: var(--tw-slate-800);
-	--gray-900: var(--tw-slate-900);
-	--gray-950: var(--tw-slate-950);
-
+	--gray-050: var(--tw-gray-050);
+	--gray-100: var(--tw-gray-100);
+	--gray-200: var(--tw-gray-200);
+	--gray-300: var(--tw-gray-300);
+	--gray-400: var(--tw-gray-400);
+	--gray-500: var(--tw-gray-500);
+	--gray-600: var(--tw-gray-600);
+	--gray-700: var(--tw-gray-700);
+	--gray-800: var(--tw-gray-800);
+	--gray-900: var(--tw-gray-900);
+	--gray-950: var(--tw-gray-950);
 	--red-050: var(--tw-red-050);
 	--red-100: var(--tw-red-100);
 	--red-200: var(--tw-red-200);
@@ -384,17 +401,17 @@
 	--sky-800: var(--tw-sky-800);
 	--sky-900: var(--tw-sky-900);
 	--sky-950: var(--tw-sky-950);
-	--blue-050: var(--tw-blue-050);
-	--blue-100: var(--tw-blue-100);
-	--blue-200: var(--tw-blue-200);
-	--blue-300: var(--tw-blue-300);
-	--blue-400: var(--tw-blue-400);
-	--blue-500: var(--tw-blue-500);
-	--blue-600: var(--tw-blue-600);
-	--blue-700: var(--tw-blue-700);
-	--blue-800: var(--tw-blue-800);
-	--blue-900: var(--tw-blue-900);
-	--blue-950: var(--tw-blue-950);
+	--blue-050: var(--ngrok-blue-050);
+	--blue-100: var(--ngrok-blue-100);
+	--blue-200: var(--ngrok-blue-200);
+	--blue-300: var(--ngrok-blue-300);
+	--blue-400: var(--ngrok-blue-400);
+	--blue-500: var(--ngrok-blue-500);
+	--blue-600: var(--ngrok-blue-600);
+	--blue-700: var(--ngrok-blue-700);
+	--blue-800: var(--ngrok-blue-800);
+	--blue-900: var(--ngrok-blue-900);
+	--blue-950: var(--ngrok-blue-950);
 	--indigo-050: var(--tw-indigo-050);
 	--indigo-100: var(--tw-indigo-100);
 	--indigo-200: var(--tw-indigo-200);
@@ -462,80 +479,12 @@
 	--rose-900: var(--tw-rose-900);
 	--rose-950: var(--tw-rose-950);
 
-	/* Mantle functional palette */
-
-	--brand-primary-050: var(--blue-050);
-	--brand-primary-100: var(--blue-100);
-	--brand-primary-200: var(--blue-200);
-	--brand-primary-300: var(--blue-300);
-	--brand-primary-400: var(--blue-400);
-	--brand-primary-500: var(--blue-500);
-	--brand-primary-600: var(--blue-600);
-	--brand-primary-700: var(--blue-700);
-	--brand-primary-800: var(--blue-800);
-	--brand-primary-900: var(--blue-900);
-	--brand-primary-950: var(--blue-950);
-	--brand-secondary-050: var(--indigo-050);
-	--brand-secondary-100: var(--indigo-100);
-	--brand-secondary-200: var(--indigo-200);
-	--brand-secondary-300: var(--indigo-300);
-	--brand-secondary-400: var(--indigo-400);
-	--brand-secondary-500: var(--indigo-500);
-	--brand-secondary-600: var(--indigo-600);
-	--brand-secondary-700: var(--indigo-700);
-	--brand-secondary-800: var(--indigo-800);
-	--brand-secondary-900: var(--indigo-900);
-	--brand-secondary-950: var(--indigo-950);
-	--info-050: var(--sky-050);
-	--info-100: var(--sky-100);
-	--info-200: var(--sky-200);
-	--info-300: var(--sky-300);
-	--info-400: var(--sky-400);
-	--info-500: var(--sky-500);
-	--info-600: var(--sky-600);
-	--info-700: var(--sky-700);
-	--info-800: var(--sky-800);
-	--info-900: var(--sky-900);
-	--info-950: var(--sky-950);
-	--success-050: var(--green-050);
-	--success-100: var(--green-100);
-	--success-200: var(--green-200);
-	--success-300: var(--green-300);
-	--success-400: var(--green-400);
-	--success-500: var(--green-500);
-	--success-600: var(--green-600);
-	--success-700: var(--green-700);
-	--success-800: var(--green-800);
-	--success-900: var(--green-900);
-	--success-950: var(--green-950);
-	--danger-050: var(--red-050);
-	--danger-100: var(--red-100);
-	--danger-200: var(--red-200);
-	--danger-300: var(--red-300);
-	--danger-400: var(--red-400);
-	--danger-500: var(--red-500);
-	--danger-600: var(--red-600);
-	--danger-700: var(--red-700);
-	--danger-800: var(--red-800);
-	--danger-900: var(--red-900);
-	--danger-950: var(--red-950);
-	--warning-050: var(--amber-050);
-	--warning-100: var(--amber-100);
-	--warning-200: var(--amber-200);
-	--warning-300: var(--amber-300);
-	--warning-400: var(--amber-400);
-	--warning-500: var(--amber-500);
-	--warning-600: var(--amber-600);
-	--warning-700: var(--amber-700);
-	--warning-800: var(--amber-800);
-	--warning-900: var(--amber-900);
-	--warning-950: var(--amber-950);
-
 	--button: 0deg 0% 100%;
 	--border: var(--gray-200);
 	--radius: 0.5rem;
-	--background: var(--white);
+	--background: var(--gray-050);
 	--foreground: var(--white);
+	--card: var(--white);
 	--popover: 0 0% 100%;
 	--popover-foreground: 222.2 84% 4.9%;
 }
@@ -546,17 +495,17 @@
 
 	--white: var(--tw-black);
 	--black: var(--tw-white);
-	--gray-050: var(--tw-slate-950);
-	--gray-100: var(--tw-slate-900);
-	--gray-200: var(--tw-slate-800);
-	--gray-300: var(--tw-slate-700);
-	--gray-400: var(--tw-slate-600);
-	--gray-500: var(--tw-slate-500);
-	--gray-600: var(--tw-slate-400);
-	--gray-700: var(--tw-slate-300);
-	--gray-800: var(--tw-slate-200);
-	--gray-900: var(--tw-slate-100);
-	--gray-950: var(--tw-slate-050);
+	--gray-050: var(--tw-gray-950);
+	--gray-100: var(--tw-gray-900);
+	--gray-200: var(--tw-gray-800);
+	--gray-300: var(--tw-gray-700);
+	--gray-400: var(--tw-gray-600);
+	--gray-500: var(--tw-gray-500);
+	--gray-600: var(--tw-gray-400);
+	--gray-700: var(--tw-gray-300);
+	--gray-800: var(--tw-gray-200);
+	--gray-900: var(--tw-gray-100);
+	--gray-950: var(--tw-gray-050);
 	--red-050: var(--tw-red-950);
 	--red-100: var(--tw-red-900);
 	--red-200: var(--tw-red-800);
@@ -656,17 +605,17 @@
 	--sky-800: var(--tw-sky-200);
 	--sky-900: var(--tw-sky-100);
 	--sky-950: var(--tw-sky-050);
-	--blue-050: var(--tw-blue-950);
-	--blue-100: var(--tw-blue-900);
-	--blue-200: var(--tw-blue-800);
-	--blue-300: var(--tw-blue-700);
-	--blue-400: var(--tw-blue-600);
-	--blue-500: var(--tw-blue-500);
-	--blue-600: var(--tw-blue-400);
-	--blue-700: var(--tw-blue-300);
-	--blue-800: var(--tw-blue-200);
-	--blue-900: var(--tw-blue-100);
-	--blue-950: var(--tw-blue-050);
+	--blue-050: var(--ngrok-blue-950);
+	--blue-100: var(--ngrok-blue-900);
+	--blue-200: var(--ngrok-blue-800);
+	--blue-300: var(--ngrok-blue-700);
+	--blue-400: var(--ngrok-blue-600);
+	--blue-500: var(--ngrok-blue-500);
+	--blue-600: var(--ngrok-blue-400);
+	--blue-700: var(--ngrok-blue-300);
+	--blue-800: var(--ngrok-blue-200);
+	--blue-900: var(--ngrok-blue-100);
+	--blue-950: var(--ngrok-blue-050);
 	--indigo-050: var(--tw-indigo-950);
 	--indigo-100: var(--tw-indigo-900);
 	--indigo-200: var(--tw-indigo-800);
@@ -734,78 +683,10 @@
 	--rose-900: var(--tw-rose-100);
 	--rose-950: var(--tw-rose-050);
 
-	/* Mantle functional palette (dark) */
-
-	--brand-primary-050: var(--tw-blue-950);
-	--brand-primary-100: var(--tw-blue-900);
-	--brand-primary-200: var(--tw-blue-800);
-	--brand-primary-300: var(--tw-blue-700);
-	--brand-primary-400: var(--tw-blue-600);
-	--brand-primary-500: var(--tw-blue-500);
-	--brand-primary-600: var(--tw-blue-400);
-	--brand-primary-700: var(--tw-blue-300);
-	--brand-primary-800: var(--tw-blue-200);
-	--brand-primary-900: var(--tw-blue-100);
-	--brand-primary-950: var(--tw-blue-050);
-	--brand-secondary-050: var(--tw-indigo-950);
-	--brand-secondary-100: var(--tw-indigo-900);
-	--brand-secondary-200: var(--tw-indigo-800);
-	--brand-secondary-300: var(--tw-indigo-700);
-	--brand-secondary-400: var(--tw-indigo-600);
-	--brand-secondary-500: var(--tw-indigo-500);
-	--brand-secondary-600: var(--tw-indigo-400);
-	--brand-secondary-700: var(--tw-indigo-300);
-	--brand-secondary-800: var(--tw-indigo-200);
-	--brand-secondary-900: var(--tw-indigo-100);
-	--brand-secondary-950: var(--tw-indigo-050);
-	--info-050: var(--tw-sky-950);
-	--info-100: var(--tw-sky-900);
-	--info-200: var(--tw-sky-800);
-	--info-300: var(--tw-sky-700);
-	--info-400: var(--tw-sky-600);
-	--info-500: var(--tw-sky-500);
-	--info-600: var(--tw-sky-400);
-	--info-700: var(--tw-sky-300);
-	--info-800: var(--tw-sky-200);
-	--info-900: var(--tw-sky-100);
-	--info-950: var(--tw-sky-050);
-	--success-050: var(--tw-green-950);
-	--success-100: var(--tw-green-900);
-	--success-200: var(--tw-green-800);
-	--success-300: var(--tw-green-700);
-	--success-400: var(--tw-green-600);
-	--success-500: var(--tw-green-500);
-	--success-600: var(--tw-green-400);
-	--success-700: var(--tw-green-300);
-	--success-800: var(--tw-green-200);
-	--success-900: var(--tw-green-100);
-	--success-950: var(--tw-green-050);
-	--danger-050: var(--tw-red-950);
-	--danger-100: var(--tw-red-900);
-	--danger-200: var(--tw-red-800);
-	--danger-300: var(--tw-red-700);
-	--danger-400: var(--tw-red-600);
-	--danger-500: var(--tw-red-500);
-	--danger-600: var(--tw-red-400);
-	--danger-700: var(--tw-red-300);
-	--danger-800: var(--tw-red-200);
-	--danger-900: var(--tw-red-100);
-	--danger-950: var(--tw-red-050);
-	--warning-050: var(--tw-amber-950);
-	--warning-100: var(--tw-amber-900);
-	--warning-200: var(--tw-amber-800);
-	--warning-300: var(--tw-amber-700);
-	--warning-400: var(--tw-amber-600);
-	--warning-500: var(--tw-amber-500);
-	--warning-600: var(--tw-amber-400);
-	--warning-700: var(--tw-amber-300);
-	--warning-800: var(--tw-amber-200);
-	--warning-900: var(--tw-amber-100);
-	--warning-950: var(--tw-amber-050);
-
 	--background: var(--gray-100);
 	--foreground: var(--gray-100);
-	--popover: 222.2 84% 4.9%;
+	--card: var(--gray-200);
+	--popover: var(--gray-300);
 	--popover-foreground: 210 40% 98%;
 }
 
@@ -854,7 +735,7 @@ pre.prismjs {
 .token.constant,
 .token.symbol,
 .token.deleted {
-	color: hsl(var(--brand-secondary-600));
+	color: hsl(var(--indigo-600));
 }
 
 .token.attr-name,
@@ -877,7 +758,7 @@ pre.prismjs {
 .token.atrule,
 .token.attr-value,
 .token.keyword {
-	color: hsl(var(--brand-primary-500));
+	color: hsl(var(--blue-500));
 }
 
 .token.function,
