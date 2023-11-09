@@ -5,32 +5,31 @@
 @tailwind utilities;
 
 :root {
-
 	/* ngrok custom blue (600 is current button)
 	* These are required as they are referenced by both light and dark modes.
 	* Replaces the Tailwind blue.
 	* Not to be used directly. 
 	*/
 
-    --ngrok-blue-050: 221 100% 97%;
-    --ngrok-blue-100: 221 95% 93%;
-    --ngrok-blue-200: 220 94% 87%;
-    --ngrok-blue-300: 219 95% 78%;
-    --ngrok-blue-400: 220 93% 68%;
-    --ngrok-blue-500: 224 89% 60%;
-    --ngrok-blue-600: 228 82% 55%;
-    --ngrok-blue-700: 231 75% 48%;
-    --ngrok-blue-800: 232 70% 40%;
-    --ngrok-blue-900: 232 63% 33%;
-    --ngrok-blue-950: 234 55% 21%;
-	
+	--ngrok-blue-050: 221 100% 97%;
+	--ngrok-blue-100: 221 95% 93%;
+	--ngrok-blue-200: 220 94% 87%;
+	--ngrok-blue-300: 219 95% 78%;
+	--ngrok-blue-400: 220 93% 68%;
+	--ngrok-blue-500: 224 89% 60%;
+	--ngrok-blue-600: 228 82% 55%;
+	--ngrok-blue-700: 231 75% 48%;
+	--ngrok-blue-800: 232 70% 40%;
+	--ngrok-blue-900: 232 63% 33%;
+	--ngrok-blue-950: 234 55% 21%;
+
 	/**
 	* Tailwind palette.
 	* These are required as they are referenced by both light and dark modes.
 	* Colors not currently utilized: tw-slate, tw-zinc, tw-neutral, tw-stone, tw-blue.
 	* Not to be used directly. 
 	*/
-	
+
 	--tw-black: 0 0% 0%;
 	--tw-white: 0 0% 100%;
 	--tw-slate-050: 210 40% 98%;
@@ -277,7 +276,7 @@
 	--tw-rose-950: 343.1 87.7% 15.9%;
 
 	/* mantle palette */
-	
+
 	--black: var(--tw-black);
 	--white: var(--tw-white);
 	--gray-050: var(--tw-gray-050);
@@ -490,7 +489,6 @@
 }
 
 :root.dark {
-
 	/* mantle palette (dark) */
 
 	--white: var(--tw-black);

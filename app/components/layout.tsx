@@ -72,7 +72,7 @@ export function Layout({ children, className, style }: Props) {
 			</header>
 			<div className="flex gap-4 sm:mb-4 lg:mb-9">
 				<Navigation />
-				<article className="bg-card shadow-lg flex-1 p-4 sm:rounded-lg md:p-9">{children}</article>
+				<article className="flex-1 bg-card p-4 shadow-lg sm:rounded-lg md:p-9">{children}</article>
 			</div>
 		</main>
 	);
@@ -82,15 +82,14 @@ function Navigation({ className, style }: WithStyleProps) {
 	return (
 		<nav className={cx("hidden w-44 pt-9 md:block", className)} style={style}>
 			<ul role="list" className="flex flex-col">
-
-				<li className="mb-2 text-xs tracking-widest font-medium uppercase">Welcome</li>
+				<li className="mb-2 text-xs font-medium uppercase tracking-widest">Welcome</li>
 
 				<li>
 					<NavLink
 						className={({ isActive }) =>
 							cx(
-								"text-sm -ml-2 block rounded-lg px-2 py-1 text-gray-600 hover:text-gray-900 hover:font-medium",
-								isActive && "text-blue-600 hover:text-blue-600 font-medium",
+								"-ml-2 block rounded-lg px-2 py-1 text-sm text-gray-600 hover:font-medium hover:text-gray-900",
+								isActive && "font-medium text-blue-600 hover:text-blue-600",
 							)
 						}
 						to="/"
@@ -99,15 +98,15 @@ function Navigation({ className, style }: WithStyleProps) {
 					</NavLink>
 				</li>
 
-				<li className="mt-6 text-xs tracking-widest font-medium uppercase">Base</li>
+				<li className="mt-6 text-xs font-medium uppercase tracking-widest">Base</li>
 
 				<ul role="list" className="mt-2 text-sm">
 					<li>
 						<NavLink
 							className={({ isActive }) =>
 								cx(
-									"-ml-2 block rounded-lg px-2 py-1 text-gray-600 hover:text-gray-900 hover:font-medium",
-									isActive && "text-blue-600 hover:text-blue-600 font-medium",
+									"-ml-2 block rounded-lg px-2 py-1 text-gray-600 hover:font-medium hover:text-gray-900",
+									isActive && "font-medium text-blue-600 hover:text-blue-600",
 								)
 							}
 							to="/base/typography"
@@ -119,8 +118,8 @@ function Navigation({ className, style }: WithStyleProps) {
 						<NavLink
 							className={({ isActive }) =>
 								cx(
-									"-ml-2 block rounded-lg px-2 py-1 text-gray-600 hover:text-gray-900 hover:font-medium",
-									isActive && "text-blue-600 hover:text-blue-600 font-medium",
+									"-ml-2 block rounded-lg px-2 py-1 text-gray-600 hover:font-medium hover:text-gray-900",
+									isActive && "font-medium text-blue-600 hover:text-blue-600",
 								)
 							}
 							to="/base/colors"
@@ -130,14 +129,14 @@ function Navigation({ className, style }: WithStyleProps) {
 					</li>
 				</ul>
 
-				<li className="mt-6 text-xs tracking-widest font-medium uppercase">Components</li>
+				<li className="mt-6 text-xs font-medium uppercase tracking-widest">Components</li>
 				<ul role="list" className="mt-2 text-sm">
 					<li>
 						<NavLink
 							className={({ isActive }) =>
 								cx(
-									"-ml-2 block rounded-lg px-2 py-1 text-gray-600 hover:text-gray-900 hover:font-medium",
-									isActive && "text-blue-600 hover:text-blue-600 font-medium",
+									"-ml-2 block rounded-lg px-2 py-1 text-gray-600 hover:font-medium hover:text-gray-900",
+									isActive && "font-medium text-blue-600 hover:text-blue-600",
 								)
 							}
 							to="/components/input"

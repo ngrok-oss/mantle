@@ -37,7 +37,7 @@ const SelectTrigger = forwardRef<
 	<Trigger
 		ref={ref}
 		className={cx(
-			"flex h-10 w-full items-center justify-between rounded-md border border-gray-500 bg-white px-3 py-2 placeholder:text-gray-300 focus:border-brand-primary-500 focus:outline-none focus:ring-4 focus:ring-brand-primary-600/25 disabled:cursor-not-allowed disabled:opacity-50",
+			"focus:border-brand-primary-500 focus:ring-brand-primary-600/25 flex h-10 w-full items-center justify-between rounded-md border border-gray-500 bg-white px-3 py-2 placeholder:text-gray-300 focus:outline-none focus:ring-4 disabled:cursor-not-allowed disabled:opacity-50",
 			className,
 		)}
 		{...props}
@@ -93,7 +93,7 @@ const SelectOption = forwardRef<ElementRef<typeof Item>, ComponentPropsWithoutRe
 		<Item
 			ref={ref}
 			className={cx(
-				"relative flex w-full cursor-pointer items-center rounded-sm py-1.5 pl-2 pr-2 text-sm outline-none focus:bg-brand-primary-500 focus:text-button data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+				"focus:bg-brand-primary-500 relative flex w-full cursor-pointer items-center rounded-sm py-1.5 pl-2 pr-2 text-sm outline-none focus:text-button data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
 				className,
 			)}
 			{...props}

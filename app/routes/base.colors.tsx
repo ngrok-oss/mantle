@@ -21,7 +21,9 @@ export default function Page() {
 				<ul className="mt-3 text-sm text-gray-600">
 					<li>
 						<HashNavLink
-							className={(isActive) => cx("hover:font-medium hover:text-gray-950", isActive && "text-blue-600 font-medium")}
+							className={(isActive) =>
+								cx("hover:font-medium hover:text-gray-950", isActive && "font-medium text-blue-600")
+							}
 							to=".#variables"
 						>
 							Variables
@@ -30,7 +32,9 @@ export default function Page() {
 					<ul className="ml-4 mt-2 flex flex-col gap-2">
 						<li>
 							<HashNavLink
-								className={(isActive) => cx("hover:font-medium hover:text-gray-950", isActive && "text-blue-600 font-medium")}
+								className={(isActive) =>
+									cx("hover:font-medium hover:text-gray-950", isActive && "font-medium text-blue-600")
+								}
 								to=".#primary"
 							>
 								Blue
@@ -38,7 +42,9 @@ export default function Page() {
 						</li>
 						<li>
 							<HashNavLink
-								className={(isActive) => cx("hover:font-medium hover:text-gray-950", isActive && "text-blue-600 font-medium")}
+								className={(isActive) =>
+									cx("hover:font-medium hover:text-gray-950", isActive && "font-medium text-blue-600")
+								}
 								to=".#gray"
 							>
 								Gray
@@ -46,7 +52,9 @@ export default function Page() {
 						</li>
 						<li>
 							<HashNavLink
-								className={(isActive) => cx("hover:font-medium hover:text-gray-950", isActive && "text-blue-600 font-medium")}
+								className={(isActive) =>
+									cx("hover:font-medium hover:text-gray-950", isActive && "font-medium text-blue-600")
+								}
 								to=".#danger"
 							>
 								Red
@@ -54,7 +62,9 @@ export default function Page() {
 						</li>
 						<li>
 							<HashNavLink
-								className={(isActive) => cx("hover:font-medium hover:text-gray-950", isActive && "text-blue-600 font-medium")}
+								className={(isActive) =>
+									cx("hover:font-medium hover:text-gray-950", isActive && "font-medium text-blue-600")
+								}
 								to=".#success"
 							>
 								Green
@@ -62,7 +72,9 @@ export default function Page() {
 						</li>
 						<li>
 							<HashNavLink
-								className={(isActive) => cx("hover:font-medium hover:text-gray-950", isActive && "text-blue-600 font-medium")}
+								className={(isActive) =>
+									cx("hover:font-medium hover:text-gray-950", isActive && "font-medium text-blue-600")
+								}
 								to=".#warning"
 							>
 								Amber
@@ -85,19 +97,21 @@ export default function Page() {
 				</h2>
 				<p className="mt-3 text-gray-600">
 					Mantle&apos;s colors are delivered as CSS variables via Tailwind&apos;s API eg.{" "}
-					<code className="rounded bg-gray-200 px-1 py-0.5 font-mono text-sm text-gray-800">.text-blue-500</code>. They can be
-					directly accessed via{" "}
-					<code className="rounded bg-gray-200 px-1 py-0.5 font-mono text-sm text-gray-800">var(--primary-500)</code> but do note that
-					you&apos;ll need to wrap everything in{" "}
+					<code className="rounded bg-gray-200 px-1 py-0.5 font-mono text-sm text-gray-800">.text-blue-500</code>. They
+					can be directly accessed via{" "}
+					<code className="rounded bg-gray-200 px-1 py-0.5 font-mono text-sm text-gray-800">var(--primary-500)</code>{" "}
+					but do note that you&apos;ll need to wrap everything in{" "}
 					<code className="rounded bg-gray-200 px-1 py-0.5 font-mono text-sm text-gray-800">hsl()</code> like so:{" "}
-					<code className="rounded bg-gray-200 px-1 py-0.5 font-mono text-sm text-gray-800">hsl(var(--primary-500))</code>. This allows
-					for Tailwind operations like{" "}
+					<code className="rounded bg-gray-200 px-1 py-0.5 font-mono text-sm text-gray-800">
+						hsl(var(--primary-500))
+					</code>
+					. This allows for Tailwind operations like{" "}
 					<code className="rounded bg-gray-200 px-1 py-0.5 font-mono text-sm text-gray-800">text-blue-500/25</code>.
 				</p>
 				<h3 id="blue" className="mt-6 text-xl font-medium">
 					Blue (primary)
 				</h3>
-				<p className="mt-2 text-gray-600 max-w-prose">
+				<p className="mt-2 max-w-prose text-gray-600">
 					ngrok&apos;s primary branding color is used in its logo as well as primary links. Use it sparingly to attract
 					attention.
 				</p>
