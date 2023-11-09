@@ -35,7 +35,7 @@ export default function Page() {
 								className={(isActive) =>
 									cx("hover:font-medium hover:text-gray-800", isActive && "font-medium text-blue-600")
 								}
-								to=".#primary"
+								to=".#blue"
 							>
 								Blue
 							</HashNavLink>
@@ -55,7 +55,7 @@ export default function Page() {
 								className={(isActive) =>
 									cx("hover:font-medium hover:text-gray-800", isActive && "font-medium text-blue-600")
 								}
-								to=".#danger"
+								to=".#red"
 							>
 								Red
 							</HashNavLink>
@@ -65,7 +65,7 @@ export default function Page() {
 								className={(isActive) =>
 									cx("hover:font-medium hover:text-gray-800", isActive && "font-medium text-blue-600")
 								}
-								to=".#success"
+								to=".#green"
 							>
 								Green
 							</HashNavLink>
@@ -75,7 +75,7 @@ export default function Page() {
 								className={(isActive) =>
 									cx("hover:font-medium hover:text-gray-800", isActive && "font-medium text-blue-600")
 								}
-								to=".#warning"
+								to=".#amber"
 							>
 								Amber
 							</HashNavLink>
