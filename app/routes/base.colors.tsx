@@ -87,26 +87,36 @@ export default function Page() {
 				<h1 className="text-5xl font-medium">Colors</h1>
 				<p className="mt-4 text-xl text-gray-600">
 					Mantle uses Tailwind under the hood for all its CSS styling. However, we differ from Tailwind when it comes to
-					colors. Mantle provides a full color library that automatically provides a dark mode. This is
-					different from standard Tailwind usage that requires dark class variations. By simply specifying light colors
-					provided by mantle, you&apos;ll get dark mode for free. If you require additional
-					customization, you can provide dark variant classes as an override.
+					colors. Mantle provides a full color library that automatically provides a dark mode. This is different from
+					standard Tailwind usage that requires dark class variations. By simply specifying light colors provided by
+					mantle, you&apos;ll get dark mode for free. If you require additional customization, you can provide dark
+					variant classes as an override.
 				</p>
 				<h2 id="variables" className="mt-8 text-3xl font-medium">
 					Variables
 				</h2>
 				<p className="mt-3 text-gray-600">
 					Mantle&apos;s colors are delivered as CSS variables via Tailwind&apos;s API eg.{" "}
-					<code className="rounded bg-gray-200 px-1 py-0.5 font-mono text-sm text-gray-800">.text-blue-500</code>. They
-					can be directly accessed via{" "}
-					<code className="rounded bg-gray-200 px-1 py-0.5 font-mono text-sm text-gray-800">var(--primary-500)</code>{" "}
+					<code className="rounded border border-gray-300 bg-gray-100 px-1 py-px font-mono text-sm text-gray-800 dark:bg-gray-200">
+						.text-blue-500
+					</code>
+					. They can be directly accessed via{" "}
+					<code className="rounded border border-gray-300 bg-gray-100 px-1 py-px font-mono text-sm text-gray-800 dark:bg-gray-200">
+						var(--primary-500)
+					</code>{" "}
 					but do note that you&apos;ll need to wrap everything in{" "}
-					<code className="rounded bg-gray-200 px-1 py-0.5 font-mono text-sm text-gray-800">hsl()</code> like so:{" "}
-					<code className="rounded bg-gray-200 px-1 py-0.5 font-mono text-sm text-gray-800">
+					<code className="rounded border border-gray-300 bg-gray-100 px-1 py-px font-mono text-sm text-gray-800 dark:bg-gray-200">
+						hsl()
+					</code>{" "}
+					like so:{" "}
+					<code className="rounded border border-gray-300 bg-gray-100 px-1 py-px font-mono text-sm text-gray-800 dark:bg-gray-200">
 						hsl(var(--primary-500))
 					</code>
 					. This allows for Tailwind operations like{" "}
-					<code className="rounded bg-gray-200 px-1 py-0.5 font-mono text-sm text-gray-800">text-blue-500/25</code>.
+					<code className="rounded border border-gray-300 bg-gray-100 px-1 py-px font-mono text-sm text-gray-800 dark:bg-gray-200">
+						text-blue-500/25
+					</code>
+					.
 				</p>
 				<h3 id="blue" className="mt-6 text-xl font-medium">
 					Blue (primary)
