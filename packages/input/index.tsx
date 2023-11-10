@@ -12,11 +12,11 @@ const inputVariants = cva(
 		variants: {
 			state: {
 				default:
-					"text-gray-900 border-gray-500 placeholder:text-gray-300 focus:border-blue-500 focus-visible:ring-blue-600/25",
+					"text-gray-900 border-gray-500 placeholder:text-gray-400 focus:border-blue-500 focus-visible:ring-blue-600/25",
 				danger:
-					"text-red-900 border-red-500 placeholder:text-red-300 focus:border-red-500 focus-visible:ring-red-600/25",
+					"text-red-900 border-red-500 placeholder:text-red-400 focus:border-red-500 focus-visible:ring-red-600/25",
 				success:
-					"text-green-900 border-green-500 placeholder:text-green-300 focus:border-green-500 focus-visible:ring-green-600/25",
+					"text-green-900 border-green-500 placeholder:text-green-400 focus:border-green-500 focus-visible:ring-green-600/25",
 			},
 		},
 		defaultVariants: {
