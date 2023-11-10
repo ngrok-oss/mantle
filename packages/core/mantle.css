@@ -758,7 +758,7 @@ pre.prismjs {
 .token.atrule,
 .token.attr-value,
 .token.keyword {
-	color: hsl(var(--blue-500));
+	color: hsl(var(--blue-600));
 }
 
 .token.function,
