@@ -12,7 +12,7 @@ const inputVariants = cva(
 		variants: {
 			state: {
 				default:
-					"text-gray-900 border-gray-500 placeholder:text-gray-400 focus:border-blue-500 focus-visible:ring-blue-600/25",
+					"text-gray-900 border-gray-300 placeholder:text-gray-400 focus:border-blue-500 focus-visible:ring-blue-600/25",
 				danger:
 					"text-red-900 border-red-500 placeholder:text-red-400 focus:border-red-500 focus-visible:ring-red-600/25",
 				success:
