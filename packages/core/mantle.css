@@ -783,6 +783,6 @@ pre.prismjs {
 
 @layer base {
 	body {
-		@apply bg-white text-gray-800;
+		@apply bg-white text-gray-900;
 	}
 }
