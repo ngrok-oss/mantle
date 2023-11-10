@@ -87,9 +87,9 @@ export default function Page() {
 				<h1 className="text-5xl font-medium">Colors</h1>
 				<p className="mt-4 text-xl text-gray-600">
 					Mantle uses Tailwind under the hood for all its CSS styling. However, we differ from Tailwind when it comes to
-					colors. Mantle provides a full color library that automatically provides dark and high contrast modes. This is
+					colors. Mantle provides a full color library that automatically provides a dark mode. This is
 					different from standard Tailwind usage that requires dark class variations. By simply specifying light colors
-					provided by mantle, you&apos;ll get dark and high contrast modes for free. If you require additional
+					provided by mantle, you&apos;ll get dark mode for free. If you require additional
 					customization, you can provide dark variant classes as an override.
 				</p>
 				<h2 id="variables" className="mt-8 text-3xl font-medium">
