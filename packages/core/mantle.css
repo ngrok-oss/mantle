@@ -44,7 +44,7 @@
 	/**
 	* Tailwind palette.
 	* These are required as they are referenced by both light and dark modes.
-	* Colors not currently utilized: tw-slate, tw-zinc, tw-neutral, tw-stone, tw-blue.
+	* Colors not currently utilized: tw-slate, tw-gray, tw-zinc, tw-neutral, tw-stone, tw-blue.
 	* Not to be used directly. 
 	*/
 
