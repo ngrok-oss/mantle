@@ -7,7 +7,7 @@
     "last 2 years, not dead, > 0.2%"
   ],
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.0.0"
   },
   "scripts": {
     "cmd:storybook": "STORYBOOK_DISABLE_TELEMETRY=1 storybook",
