@@ -33,7 +33,7 @@ const CodeBlock = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ 
 			<CodeBlockCopyContext.Provider value={copyText}>
 				<div
 					className={cx(
-						"overflow-hidden rounded-md border border-gray-200 bg-gray-50 font-mono text-[0.8125rem]",
+						"overflow-hidden rounded-md border border-gray-300 bg-gray-50 font-mono text-[0.8125rem]",
 						className,
 					)}
 					ref={ref}
@@ -81,7 +81,7 @@ const CodeBlockContent = forwardRef<HTMLPreElement, CodeBlockContentProps>((prop
 		<pre
 			className={cx(
 				formatLanguageClassName(language),
-				"scrollbar firefox:after:mr-16 firefox:after:inline-block firefox:after:content-[''] overflow-auto p-4 pr-16",
+				"scrollbar overflow-auto p-4 pr-16 firefox:after:mr-16 firefox:after:inline-block firefox:after:content-['']",
 				className,
 			)}
 			data-lang={language}
@@ -100,7 +100,7 @@ CodeBlockContent.displayName = "CodeBlockContent";
 
 const CodeBlockHeader = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
 	<div
-		className={cx("flex-shrink-0 border-b border-gray-200 bg-gray-100 px-4 py-2 text-gray-700", className)}
+		className={cx("flex-shrink-0 border-b border-gray-300 bg-gray-100 px-4 py-2 text-gray-700", className)}
 		ref={ref}
 		{...props}
 	/>
@@ -129,7 +129,7 @@ const CodeBlockCopyButton = forwardRef<HTMLButtonElement, CodeBlockCopyButtonPro
 			<button
 				type="button"
 				className={cx(
-					"absolute right-3.5 top-2 z-50 rounded-sm border border-gray-200 bg-gray-50 p-1 hover:border-gray-400 hover:bg-gray-200 focus:bg-gray-200",
+					"absolute right-3.5 top-2 z-50 rounded-sm border border-gray-300 bg-gray-50 p-1 hover:border-gray-400 hover:bg-gray-200 focus:bg-gray-200",
 					className,
 				)}
 				ref={ref}
