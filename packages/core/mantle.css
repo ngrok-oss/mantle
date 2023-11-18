@@ -779,7 +779,7 @@ pre.prismjs {
 
 .token.function,
 .token.class-name {
-	color: hsl(var(--brand-primary-500));
+	color: hsl(var(--blue-600));
 }
 
 .token.regex,
