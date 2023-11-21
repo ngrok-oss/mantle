@@ -8,6 +8,11 @@ import invariant from "tiny-invariant";
 const prefersDarkModeMediaQuery = "(prefers-color-scheme: dark)" as const;
 
 /**
+ * prefersHighContrastMediaQuery is the media query used to detect if the user prefers high contrast mode.
+ */
+const prefersHighContrastMediaQuery = "(prefers-contrast: more)" as const;
+
+/**
  * themes is a tuple of valid themes.
  */
 const themes = ["system", "light", "dark", "light-high-contrast", "dark-high-contrast"] as const;
@@ -130,10 +135,28 @@ function applyTheme(theme: Theme) {
 
 	const htmlElement = window.document.documentElement;
 	htmlElement.classList.remove(...themes);
-	const newTheme =
-		theme === "system" ? (window.matchMedia(prefersDarkModeMediaQuery).matches ? "dark" : "light") : theme;
+	const prefersDarkMode = window.matchMedia(prefersDarkModeMediaQuery).matches;
+	const prefersContrastMore = window.matchMedia(prefersHighContrastMediaQuery).matches;
+	const newTheme = theme === "system" ? determineThemeFromMediaQuery({ prefersDarkMode, prefersContrastMore }) : theme;
 	htmlElement.classList.add(newTheme);
 	htmlElement.dataset.theme = newTheme;
+}
+
+/**
+ * determineThemeFromMediaQuery returns the theme that should be used based on the user's media query preferences.
+ */
+export function determineThemeFromMediaQuery({
+	prefersDarkMode,
+	prefersContrastMore,
+}: {
+	prefersDarkMode: boolean;
+	prefersContrastMore: boolean;
+}) {
+	if (prefersContrastMore) {
+		return prefersDarkMode ? "dark-high-contrast" : "light-high-contrast";
+	}
+
+	return prefersDarkMode ? "dark" : "light";
 }
 
 /**
@@ -157,7 +180,15 @@ export const PreventWrongThemeFlash = ({
 	const maybeStoredTheme = window.localStorage.getItem("${storageKey}");
 	const themePreference = isTheme(maybeStoredTheme) ? maybeStoredTheme : fallbackTheme;
 	const prefersDarkMode = window.matchMedia("${prefersDarkModeMediaQuery}").matches;
-	const initialTheme = themePreference === "system" ? (prefersDarkMode ? "dark" : "light") : themePreference;
+	const prefersContrastMore = window.matchMedia("${prefersHighContrastMediaQuery}").matches;
+	let initialTheme = themePreference;
+	if (initialTheme === "system") {
+		if (prefersContrastMore) {
+			initialTheme = prefersDarkMode ? "dark-high-contrast" : "light-high-contrast";
+		} else {
+			initialTheme = prefersDarkMode ? "dark" : "light";
+		}
+	}
 	const htmlElement = document.documentElement;
 	htmlElement.classList.remove(...themes);
 	htmlElement.classList.add(initialTheme);
