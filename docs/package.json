@@ -3,9 +3,12 @@
 	"private": true,
 	"sideEffects": false,
 	"type": "module",
-	"engines": {
-		"node": ">=20"
-	},
+	"browserslist": [
+    "last 2 years, not dead, > 0.2%"
+  ],
+  "engines": {
+    "node": ">=20.0.0"
+  },
 	"scripts": {
 		"build": "vite build && vite build --ssr",
 		"dev": "vite dev",
@@ -17,14 +20,14 @@
 	},
 	"dependencies": {
 		"@ngrok/mantle": "workspace:*",
-		"@remix-run/node": "2.3.0",
-		"@remix-run/react": "2.3.0",
-		"@remix-run/serve": "2.3.0",
+		"@remix-run/node": "2.3.1",
+		"@remix-run/react": "2.3.1",
+		"@remix-run/serve": "2.3.1",
 		"@vercel/remix": "2.2.0",
 		"isbot": "3.7.1"
 	},
 	"devDependencies": {
-		"@remix-run/dev": "2.3.0",
-		"@remix-run/eslint-config": "2.3.0"
+		"@remix-run/dev": "2.3.1",
+		"@remix-run/eslint-config": "2.3.1"
 	}
 }
