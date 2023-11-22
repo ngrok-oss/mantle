@@ -12,7 +12,6 @@ import { LineRange } from "./line-numbers";
 /**
  * TODO(cody):
  * - implement syntax highlighting w/ prism or highlightjs (spike on both, figure out which is easier/less bs)
- * - fix overflow-y-auto on CodeBlockBody
  * - fix line numbers, maybe try grid instead of :before and flex?
  * - fix line hightlighting
  * - fix line wrapping? horizontal scrolling has problems w/ line highlighting :(
@@ -81,7 +80,7 @@ const CodeBlockContent = forwardRef<HTMLPreElement, CodeBlockContentProps>((prop
 		<pre
 			className={cx(
 				formatLanguageClassName(language),
-				"scrollbar overflow-auto p-4 pr-16 firefox:after:mr-16 firefox:after:inline-block firefox:after:content-['']",
+				"scrollbar overflow-x-auto p-4 pr-16 firefox:after:mr-16 firefox:after:inline-block firefox:after:content-['']",
 				className,
 			)}
 			data-lang={language}
@@ -129,7 +128,7 @@ const CodeBlockCopyButton = forwardRef<HTMLButtonElement, CodeBlockCopyButtonPro
 			<button
 				type="button"
 				className={cx(
-					"absolute right-3.5 top-2 z-50 rounded-sm border border-gray-300 bg-gray-50 p-1 hover:border-gray-400 hover:bg-gray-200 focus:bg-gray-200",
+					"absolute right-3.5 top-2 z-50 rounded-sm border border-gray-300 bg-gray-50 p-1 shadow-[0.875rem_0_0_0_hsl(var(--gray-050)),_-0.5rem_0_0.35rem_0_hsla(var(--gray-050));] hover:border-gray-400 hover:bg-gray-200 focus:bg-gray-200",
 					className,
 				)}
 				ref={ref}

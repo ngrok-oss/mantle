@@ -133,37 +133,6 @@ ngrok.listen(server).then(() => {
 
 const status = 200;
 const hello = "Hello!";
-export const WithHeaderFileScrolling: Story = {
-	render: () => (
-		<div className="mx-auto max-w-screen-md">
-			<CodeBlock>
-				<CodeBlockHeader className="flex items-center gap-1">
-					<FileIcon />
-					<CodeBlockTitle>ngrok-example.js</CodeBlockTitle>
-				</CodeBlockHeader>
-				<CodeBlockBody>
-					<CodeBlockCopyButton />
-					<CodeBlockContent className="h-40" language="js">
-						{code`
-							const http = require('http');
-							const ngrok = require("@ngrok/ngrok");
-
-							const server = http.createServer((req, res) => {
-								res.writeHead(${status});
-								res.end(${hello});
-							});
-
-							// Consumes authtoken from env automatically
-							ngrok.listen(server).then(() => {
-								console.log("url:", server.tunnel.url());
-							});
-						`}
-					</CodeBlockContent>
-				</CodeBlockBody>
-			</CodeBlock>
-		</div>
-	),
-};
 
 export const WithoutHeaderFileAndNoCopyButton: Story = {
 	render: () => (
