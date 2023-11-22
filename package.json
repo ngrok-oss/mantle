@@ -10,13 +10,13 @@
     "node": ">=20.0.0"
   },
   "scripts": {
-    "cmd:storybook": "STORYBOOK_DISABLE_TELEMETRY=1 storybook",
     "build-storybook": "pnpm run --filter @ngrok/mantle build-storybook",
+    "cmd:storybook": "STORYBOOK_DISABLE_TELEMETRY=1 storybook",
     "docs:build": "pnpm run --filter docs build",
     "docs:dev": "pnpm run --filter docs dev",
     "docs:start": "pnpm run --filter docs start",
-    "fmt:check": "pnpm run -r --parallel fmt:check",
 		"fmt": "pnpm run -r --parallel fmt",
+    "fmt:check": "pnpm run -r --parallel fmt:check",
     "lint:js": "pnpm run -r --parallel lint:js",
     "storybook": "pnpm run --filter @ngrok/mantle storybook",
     "test": "pnpm run -r --parallel test",
