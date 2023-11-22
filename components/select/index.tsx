@@ -56,7 +56,7 @@ const SelectContent = forwardRef<ElementRef<typeof Content>, ComponentPropsWitho
 			<Content
 				ref={ref}
 				className={cx(
-					"relative z-50 min-w-[8rem] overflow-hidden rounded-md border bg-white text-gray-900 shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+					"data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 relative z-50 min-w-[8rem] overflow-hidden rounded-md border bg-white text-gray-900 shadow-md",
 					position === "popper" &&
 						"data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",
 					className,
@@ -91,7 +91,7 @@ const SelectOption = forwardRef<ElementRef<typeof Item>, ComponentPropsWithoutRe
 		<Item
 			ref={ref}
 			className={cx(
-				"relative flex w-full cursor-pointer items-center rounded-sm py-1.5 pl-2 pr-2 text-sm outline-none focus:bg-blue-500 focus:text-button data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+				"focus:text-button relative flex w-full cursor-pointer items-center rounded-sm py-1.5 pl-2 pr-2 text-sm outline-none focus:bg-blue-500 data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
 				className,
 			)}
 			{...props}
@@ -109,7 +109,7 @@ SelectOption.displayName = Item.displayName;
 
 const SelectSeparator = forwardRef<ElementRef<typeof Separator>, ComponentPropsWithoutRef<typeof Separator>>(
 	({ className, ...props }, ref) => (
-		<Separator ref={ref} className={cx("-mx-1 my-1 h-px bg-muted", className)} {...props} />
+		<Separator ref={ref} className={cx("bg-muted -mx-1 my-1 h-px", className)} {...props} />
 	),
 );
 SelectSeparator.displayName = Separator.displayName;

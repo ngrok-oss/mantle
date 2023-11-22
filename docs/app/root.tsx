@@ -14,7 +14,7 @@ export default function App() {
 				<Meta />
 				<Links />
 			</head>
-			<body className="h-full min-h-full bg-background">
+			<body className="bg-background h-full min-h-full">
 				<ThemeProvider>
 					<Layout>
 						<Outlet />

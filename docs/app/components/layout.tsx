@@ -75,7 +75,7 @@ export function Layout({ children, className, style }: Props) {
 			</header>
 			<div className="flex gap-4 sm:mb-4 lg:mb-9">
 				<Navigation />
-				<article className="flex-1 bg-card p-4 shadow-lg sm:rounded-lg md:p-9">{children}</article>
+				<article className="bg-card flex-1 p-4 shadow-lg sm:rounded-lg md:p-9">{children}</article>
 			</div>
 		</main>
 	);
