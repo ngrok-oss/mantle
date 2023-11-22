@@ -20,8 +20,8 @@ jobs:
           version: 8
 
       - name: Install and Test 🔧
-        run: | # Install npm packages and build the Storybook files
-          pnpm install
+        run: |
+          pnpm install -r
           pnpm run typecheck
           pnpm run fmt:check
           pnpm run lint:js
