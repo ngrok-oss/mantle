@@ -14,7 +14,7 @@
 		"dev": "vite dev",
 		"fmt:check": "prettier --check .",
 		"fmt": "prettier --write --cache .",
-		"lint:js": "eslint --ext ts,tsx --report-unused-disable-directives --max-warnings 0 .",
+		"lint": "eslint --ext ts,tsx --report-unused-disable-directives --max-warnings 0 .",
 		"start": "remix-serve ./build/index.js",
 		"typecheck": "tsc --incremental --noEmit --skipLibCheck"
 	},

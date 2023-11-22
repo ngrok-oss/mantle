@@ -13,10 +13,9 @@ module.exports = {
 		"plugin:react/recommended",
 		"plugin:react/jsx-runtime",
 		"plugin:storybook/recommended",
-		"@remix-run/eslint-config/node",
 		"prettier", // must be last
 	],
-	ignorePatterns: ["dist", ".eslintrc.cjs"],
+	ignorePatterns: ["storybook-static", ".eslintrc.cjs"],
 	overrides: [
 		{
 			files: [".storybook/**/*.{ts,js,html}", "./**/*.stories.{ts,tsx}"],
