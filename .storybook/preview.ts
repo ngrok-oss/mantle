@@ -1,7 +1,7 @@
 import type { Preview } from "@storybook/react";
 import { withThemeByClassName } from "@storybook/addon-styling";
 
-import "../packages/core/mantle.css";
+import "../components/core/mantle.css";
 
 const preview: Preview = {
 	parameters: {
