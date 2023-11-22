@@ -156,7 +156,43 @@ const CodeBlockCopyButton = forwardRef<HTMLButtonElement, CodeBlockCopyButtonPro
 );
 CodeBlockCopyButton.displayName = "CodeBlockCopyButton";
 
-export { CodeBlock, CodeBlockBody, CodeBlockContent, CodeBlockCopyButton, CodeBlockHeader, CodeBlockTitle };
+const CodeBlockExpanderButton = forwardRef<HTMLDivElement, HTMLAttributes<HTMLButtonElement>>(
+	({ className, ...props }) => (
+		<button
+			type="button"
+			className={cx(
+				"bg-gray-050 flex w-full items-center justify-center border-t border-gray-300 px-4 py-2 font-sans text-gray-700 hover:bg-gray-100",
+				className,
+			)}
+			{...props}
+		>
+			Expand <ExpandIcon />
+		</button>
+	),
+);
+CodeBlockExpanderButton.displayName = "CodeBlockExpanderButton";
+
+export {
+	CodeBlock,
+	CodeBlockBody,
+	CodeBlockContent,
+	CodeBlockCopyButton,
+	CodeBlockHeader,
+	CodeBlockTitle,
+	CodeBlockExpanderButton,
+};
+
+const ExpandIcon = ({ className, style }: WithStyleProps) => (
+	<svg
+		xmlns="http://www.w3.org/2000/svg"
+		viewBox="0 0 20 20"
+		fill="currentColor"
+		className={cx("h-5 w-5", className)}
+		style={style}
+	>
+		<path d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" />
+	</svg>
+);
 
 const CopyIcon = ({ className, style }: WithStyleProps) => (
 	<svg

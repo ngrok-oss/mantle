@@ -1,6 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { CodeBlock, CodeBlockBody, CodeBlockContent, CodeBlockCopyButton, CodeBlockHeader, CodeBlockTitle } from ".";
+import {
+	CodeBlock,
+	CodeBlockBody,
+	CodeBlockContent,
+	CodeBlockCopyButton,
+	CodeBlockExpanderButton,
+	CodeBlockHeader,
+	CodeBlockTitle,
+} from ".";
 import { code } from "./code";
 
 const meta = {
@@ -119,6 +127,39 @@ export const WithHeaderFileScrolling: Story = {
 						`}
 					</CodeBlockContent>
 				</CodeBlockBody>
+			</CodeBlock>
+		</div>
+	),
+};
+
+export const WithHeaderFileExpanding: Story = {
+	render: () => (
+		<div className="mx-auto max-w-screen-md">
+			<CodeBlock>
+				<CodeBlockHeader className="flex items-center gap-1">
+					<FileIcon />
+					<CodeBlockTitle>ngrok-example.js</CodeBlockTitle>
+				</CodeBlockHeader>
+				<CodeBlockBody>
+					<CodeBlockCopyButton />
+					<CodeBlockContent language="js">
+						{code`
+							const http = require('http');
+							const ngrok = require("@ngrok/ngrok");
+
+							const server = http.createServer((req, res) => {
+								res.writeHead(${status});
+								res.end(${hello});
+							});
+
+							// Consumes authtoken from env automatically
+							ngrok.listen(server).then(() => {
+								console.log("url:", server.tunnel.url());
+							});
+						`}
+					</CodeBlockContent>
+				</CodeBlockBody>
+				<CodeBlockExpanderButton />
 			</CodeBlock>
 		</div>
 	),
