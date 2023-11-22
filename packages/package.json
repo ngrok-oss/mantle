@@ -1,0 +1,13 @@
+{
+	"name": "@ngrok/mantle",
+	"type": "module",
+	"dependencies": {},
+	"devDependencies": {},
+	"scripts": {
+		"fmt:check": "prettier --check .",
+		"fmt": "prettier --write --cache .",
+		"lint:js": "eslint --ext ts,tsx --report-unused-disable-directives --max-warnings 0 .",
+		"test": "TZ=UTC vitest",
+		"typecheck": "tsc --incremental --noEmit --skipLibCheck"
+	}
+}

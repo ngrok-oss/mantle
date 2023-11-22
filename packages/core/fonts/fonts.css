@@ -1,2 +1,67 @@
-@import url("./ibm-plex-mono.css");
-@import url("./euclid-square.css");
+/* Euclid Square */
+
+@font-face {
+	font-family: EuclidSquare;
+	font-style: normal;
+	font-weight: normal;
+	src: url("./euclid-square/EuclidSquare-Regular-WebS.woff") format("woff");
+}
+
+@font-face {
+	font-family: EuclidSquare;
+	font-style: italic;
+	font-weight: normal;
+	src: url("./euclid-square/EuclidSquare-RegularItalic-WebS.woff") format("woff");
+}
+
+@font-face {
+	font-family: EuclidSquare;
+	font-style: normal;
+	font-weight: 500;
+	src: url("./euclid-square/EuclidSquare-Medium-WebS.woff") format("woff");
+}
+
+@font-face {
+	font-family: EuclidSquare;
+	font-style: normal;
+	font-weight: 600;
+	src: url("./euclid-square/EuclidSquare-Semibold-WebS.woff") format("woff");
+}
+
+@font-face {
+	font-family: EuclidSquare;
+	font-style: italic;
+	font-weight: 500;
+	src: url("./euclid-square/EuclidSquare-MediumItalic-WebS.woff") format("woff");
+}
+
+/* IBM Plex Mono */
+
+@font-face {
+	font-family: IBMPlexMono;
+	font-style: normal;
+	font-weight: normal;
+	src: url("./ibm-plex-mono/IBMPlexMono-Text.woff") format("woff");
+}
+
+@font-face {
+	font-family: IBMPlexMono;
+	font-style: italic;
+	font-weight: normal;
+	src: url("./ibm-plex-mono/IBMPlexMono-TextItalic.woff") format("woff");
+}
+
+/* semibold is actually 600, but mapping it to 500 works better across AntD */
+@font-face {
+	font-family: IBMPlexMono;
+	font-style: normal;
+	font-weight: 500;
+	src: url("./ibm-plex-mono/IBMPlexMono-SemiBold.woff") format("woff");
+}
+
+@font-face {
+	font-family: IBMPlexMono;
+	font-style: italic;
+	font-weight: 500;
+	src: url("./ibm-plex-mono/IBMPlexMono-SemiBoldItalic.woff") format("woff");
+}

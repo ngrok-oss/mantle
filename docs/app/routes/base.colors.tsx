@@ -1,8 +1,9 @@
-import { cx } from "@/cx";
-import { WithStyleProps } from "@/types/with-style-props";
-import { HashNavLink } from "~/components/hash-nav-link";
-import type { MetaFunction } from "@vercel/remix";
 import { PropsWithChildren } from "react";
+import type { MetaFunction } from "@vercel/remix";
+
+import { cx } from "@ngrok/mantle/cx";
+import { WithStyleProps } from "@ngrok/mantle/types/with-style-props";
+import { HashNavLink } from "~/components/hash-nav-link";
 
 export const meta: MetaFunction = () => {
 	return [

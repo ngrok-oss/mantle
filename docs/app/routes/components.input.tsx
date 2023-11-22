@@ -1,6 +1,6 @@
 import type { MetaFunction } from "@vercel/remix";
-import { Input } from "@/input";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { Input } from "@ngrok/mantle/input";
 
 export const meta: MetaFunction = () => {
 	return [

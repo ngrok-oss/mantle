@@ -15,8 +15,7 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./app/*"],
-      "@/*": ["./packages/*"],
+      "@/*": ["./*"],
     },
   },
   "references": [

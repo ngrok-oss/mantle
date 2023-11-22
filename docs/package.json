@@ -1,0 +1,30 @@
+{
+	"name": "docs",
+	"private": true,
+	"sideEffects": false,
+	"type": "module",
+	"engines": {
+		"node": ">=20"
+	},
+	"scripts": {
+		"build": "vite build && vite build --ssr",
+		"dev": "vite dev",
+		"fmt:check": "prettier --check .",
+		"fmt": "prettier --write --cache .",
+		"lint:js": "eslint --ext ts,tsx --report-unused-disable-directives --max-warnings 0 .",
+		"start": "remix-serve ./build/index.js",
+		"typecheck": "tsc --incremental --noEmit --skipLibCheck"
+	},
+	"dependencies": {
+		"@ngrok/mantle": "workspace:*",
+		"@remix-run/node": "2.3.0",
+		"@remix-run/react": "2.3.0",
+		"@remix-run/serve": "2.3.0",
+		"@vercel/remix": "2.2.0",
+		"isbot": "3.7.1"
+	},
+	"devDependencies": {
+		"@remix-run/dev": "2.3.0",
+		"@remix-run/eslint-config": "2.3.0"
+	}
+}
