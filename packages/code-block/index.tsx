@@ -116,7 +116,7 @@ const CodeBlockContent = forwardRef<HTMLPreElement, CodeBlockContentProps & { on
 					formatLanguageClassName(language),
 					"scrollbar overflow-x-auto overflow-y-hidden p-4 pr-16 firefox:after:mr-16 firefox:after:inline-block firefox:after:content-['']",
 					className,
-					hasExpanderButton && !isExpanded && "max-h-28",
+					hasExpanderButton && !isExpanded && "max-h-56",
 				)}
 				data-lang={language}
 				ref={(node) => {
@@ -206,7 +206,7 @@ const CodeBlockExpanderButton = forwardRef<
 		onClick={onToggleExpand}
 		{...props}
 	>
-		{isExpanded ? "Collapse" : "Expand"} <ExpandIcon />
+		{isExpanded ? "Show less" : "Show more"} <ExpandIcon className={isExpanded ? "rotate-180" : ""} />
 	</button>
 ));
 CodeBlockExpanderButton.displayName = "CodeBlockExpanderButton";
@@ -226,7 +226,7 @@ const ExpandIcon = ({ className, style }: WithStyleProps) => (
 		xmlns="http://www.w3.org/2000/svg"
 		viewBox="0 0 20 20"
 		fill="currentColor"
-		className={cx("h-5 w-5", className)}
+		className={cx("relative top-px h-5 w-5 transition-transform", className)}
 		style={style}
 	>
 		<path d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" />
