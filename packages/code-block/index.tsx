@@ -63,12 +63,14 @@ const CodeBlockBody = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>
 
 		return (
 			<div className={cx("relative h-full", className)} ref={ref} {...props}>
-				{React.Children.map(children, (child, index) =>
+				{React.Children.map(children, (child) =>
 					React.isValidElement(child)
 						? React.cloneElement(child, {
 								hasExpanderButton,
 								isExpanded,
-								onToggleExpand: () => setIsExpanded(!isExpanded),
+								onToggleExpand: () => {
+									setIsExpanded(!isExpanded);
+								},
 						  })
 						: child,
 				)}
@@ -89,7 +91,7 @@ type CodeBlockContentProps = WithStyleProps & {
 
 const CodeBlockContent = forwardRef<HTMLPreElement, CodeBlockContentProps & { onToggleExpand?: () => void }>(
 	(props, ref) => {
-		const { children, className, language = "sh", style, isExpanded, hasExpanderButton, onToggleExpand } = props;
+		const { children, className, language = "sh", style, isExpanded, hasExpanderButton } = props;
 		const innerPreRef = useRef<ElementRef<"pre">>();
 
 		const setCopyText = useContext(CodeBlockContext);
