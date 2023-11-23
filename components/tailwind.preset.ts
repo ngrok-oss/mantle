@@ -2,7 +2,7 @@ import type { Config } from "tailwindcss";
 import defaultTheme from "tailwindcss/defaultTheme";
 import tailwindCssAnimatePlugin from "tailwindcss-animate";
 
-export default {
+const preset = {
 	content: [],
 	darkMode: "class",
 	theme: {
@@ -299,3 +299,7 @@ export default {
 	},
 	plugins: [tailwindCssAnimatePlugin],
 } satisfies Config;
+
+export type Preset = typeof preset;
+
+export default preset;

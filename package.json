@@ -1,6 +1,6 @@
 {
   "name": "@ngrok/mantle",
-  "version": "0.0.1-alpha.10",
+  "version": "0.0.1-alpha.11",
   "sideEffects": false,
   "type": "module",
   "browserslist": [
@@ -10,7 +10,7 @@
     ".": "./dist/index.js",
     "./*": "./dist/*",
     "./assets/*": "./dist/assets/*",
-    "./config/*": "./dist/config/*"
+    "./dist/dts/*": null
   },
   "types": "./dist/index.d.ts",
   "files": [
