@@ -162,9 +162,6 @@ ngrok.listen(server).then(() => {
 	),
 };
 
-const status = 200;
-const hello = "Hello!";
-
 export const WithoutHeaderFileAndNoCopyButton: Story = {
 	render: () => (
 		<div className="mx-auto max-w-screen-md">
