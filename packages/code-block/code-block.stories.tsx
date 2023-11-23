@@ -199,7 +199,7 @@ export const WithoutHeaderCommandLine: Story = {
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
 					<CodeBlockContent language="sh">
-						{code`sudo unzip ~/Downloads/ngrok-v3-stable-darwin.zip -d /usr/local/bin absolute right-3 top-1.5 z-50 rounded-sm p-2 hover:bg-gray-200 focus:bg-gray-200`}
+						{code`ffmpeg -i input%03d.png -c:v hevc_videotoolbox -allow_sw 1 -alpha_quality 0.75 -vtag hvc1 output.mov`}
 					</CodeBlockContent>
 				</CodeBlockBody>
 			</CodeBlock>
