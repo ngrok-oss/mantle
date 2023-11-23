@@ -175,6 +175,9 @@ devDependencies:
   tailwindcss:
     specifier: 3.3.5
     version: 3.3.5
+  tsc-hooks:
+    specifier: 1.1.2
+    version: 1.1.2(typescript@5.3.2)
   typescript:
     specifier: 5.3.2
     version: 5.3.2
@@ -12567,6 +12570,16 @@ packages:
 
   /ts-interface-checker@0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
+
+  /tsc-hooks@1.1.2(typescript@5.3.2):
+    resolution: {integrity: sha512-U3RvEYOZAdCWKT3apcV3UOgsIUMXUzKntqX/jiE3/w3MPuvwk9Yjl5i1Z9rxLBht4LI6x6xkUJpQ5kHKidBjtw==}
+    requiresBuild: true
+    peerDependencies:
+      typescript: '^4.3.2 || ^5.0.2 '
+    dependencies:
+      json5: 2.2.3
+      typescript: 5.3.2
+    dev: true
 
   /tsconfck@2.1.2(typescript@5.3.2):
     resolution: {integrity: sha512-ghqN1b0puy3MhhviwO2kGF8SeMDNhEbnKxjK7h6+fvY9JAxqvXi8y5NAHSQv687OVboS2uZIByzGd45/YxrRHg==}
