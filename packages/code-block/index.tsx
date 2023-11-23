@@ -1,4 +1,13 @@
-import { ElementRef, HTMLAttributes, createContext, forwardRef, useContext, useEffect, useRef, useState } from "react";
+import React, {
+	ElementRef,
+	HTMLAttributes,
+	createContext,
+	forwardRef,
+	useContext,
+	useEffect,
+	useRef,
+	useState,
+} from "react";
 import { Slot } from "@radix-ui/react-slot";
 import Prism from "prismjs";
 import "prismjs/components/prism-bash";
@@ -44,9 +53,26 @@ const CodeBlock = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ 
 });
 CodeBlock.displayName = "CodeBlock";
 
-const CodeBlockBody = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
-	<div className={cx("relative h-full", className)} ref={ref} {...props} />
-));
+const CodeBlockBody = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
+	({ className, children, ...props }, ref) => {
+		const hasExpanderButton = React.Children.toArray(children).some(
+			(child) => React.isValidElement(child) && child.type === CodeBlockExpanderButton,
+		);
+
+		return (
+			<div className={cx("relative h-full", className)} ref={ref} {...props}>
+				{React.Children.map(children, (child) =>
+					React.isValidElement(child)
+						? React.cloneElement(child, {
+								// Add a prop to let CodeBlockContent know if CodeBlockExpanderButton is present
+								hasExpanderButton,
+						  })
+						: child,
+				)}
+			</div>
+		);
+	},
+);
 CodeBlockBody.displayName = "CodeBlockBody";
 
 type CodeBlockContentProps = WithStyleProps & {
@@ -56,45 +82,48 @@ type CodeBlockContentProps = WithStyleProps & {
 	showLineNumbers?: boolean;
 };
 
-const CodeBlockContent = forwardRef<HTMLPreElement, CodeBlockContentProps>((props, ref) => {
-	const { children, className, language = "sh", style } = props;
-	const innerPreRef = useRef<ElementRef<"pre">>();
+const CodeBlockContent = forwardRef<HTMLPreElement, CodeBlockContentProps & { hasExpanderButton?: boolean }>(
+	(props, ref) => {
+		const { children, className, language = "sh", style, hasExpanderButton } = props;
+		const innerPreRef = useRef<ElementRef<"pre">>();
 
-	const setCopyText = useContext(CodeBlockContext);
+		const setCopyText = useContext(CodeBlockContext);
 
-	// trim any leading and trailing whitespace/empty lines
-	const trimmedCode = children?.trim() ?? "";
+		// trim any leading and trailing whitespace/empty lines
+		const trimmedCode = children?.trim() ?? "";
 
-	useEffect(() => {
-		setCopyText(trimmedCode);
-	}, [trimmedCode, setCopyText]);
+		useEffect(() => {
+			setCopyText(trimmedCode);
+		}, [trimmedCode, setCopyText]);
 
-	useEffect(() => {
-		if (!innerPreRef.current) {
-			return;
-		}
-		Prism.highlightElement(innerPreRef.current);
-	}, [trimmedCode]);
+		useEffect(() => {
+			if (!innerPreRef.current) {
+				return;
+			}
+			Prism.highlightElement(innerPreRef.current);
+		}, [trimmedCode]);
 
-	return (
-		<pre
-			className={cx(
-				formatLanguageClassName(language),
-				"scrollbar overflow-x-auto p-4 pr-16 firefox:after:mr-16 firefox:after:inline-block firefox:after:content-['']",
-				className,
-			)}
-			data-lang={language}
-			// data-line-numbers={showLineNumbers || undefined}
-			ref={(node) => {
-				innerPreRef.current = node ?? undefined;
-				return ref;
-			}}
-			style={{ tabSize: 2, MozTabSize: 2, ...style }}
-		>
-			<code>{trimmedCode}</code>
-		</pre>
-	);
-});
+		return (
+			<pre
+				className={cx(
+					formatLanguageClassName(language),
+					"scrollbar overflow-x-auto p-4 pr-16 firefox:after:mr-16 firefox:after:inline-block firefox:after:content-['']",
+					className,
+					// Conditionally add the class based on the presence of CodeBlockExpanderButton
+					hasExpanderButton && "max-h-48 overflow-y-hidden",
+				)}
+				data-lang={language}
+				ref={(node) => {
+					innerPreRef.current = node ?? undefined;
+					return ref;
+				}}
+				style={{ tabSize: 2, MozTabSize: 2, ...style }}
+			>
+				<code>{trimmedCode}</code>
+			</pre>
+		);
+	},
+);
 CodeBlockContent.displayName = "CodeBlockContent";
 
 const CodeBlockHeader = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
