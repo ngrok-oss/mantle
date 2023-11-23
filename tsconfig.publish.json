@@ -25,10 +25,9 @@
     "noUncheckedIndexedAccess": true,
 
 		/* Emit */
-		"declaration": true,
+		"declaration": true
   },
   "include": ["components/**/*"],
 	"exclude": ["components/**/*.stories.*", "components/**/*.test.*"],
-  "references": [{ "path": "./tsconfig.node.json" }],
-	"hooks": ["copy-files"]
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -1,6 +1,6 @@
 {
   "name": "@ngrok/mantle",
-  "version": "0.0.1",
+  "version": "0.0.1-alpha.0",
   "sideEffects": false,
   "type": "module",
   "browserslist": [
@@ -18,13 +18,14 @@
     "node": ">=20.0.0"
   },
   "scripts": {
-    "cmd:storybook": "STORYBOOK_DISABLE_TELEMETRY=1 storybook",
     "build-storybook": "pnpm run cmd:storybook build",
     "build": "remix build",
-    "fmt": "prettier --write --cache .",
-    "fmt:check": "prettier --cache --check .",
+    "cmd:storybook": "STORYBOOK_DISABLE_TELEMETRY=1 storybook",
     "dev": "remix dev --manual",
+    "fmt:check": "prettier --cache --check .",
+    "fmt": "prettier --write --cache .",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "prepublish": "rm -rf dist && tsc --project tsconfig.publish.json && copyfiles -u 1 \"components/**/*.css\" \"components/**/*.woff\" \"components/**/*.txt\" dist",
     "start": "remix-serve ./build/index.js",
     "storybook": "pnpm run cmd:storybook dev -p 6006",
     "test": "TZ=UTC vitest",
@@ -78,6 +79,7 @@
     "@vitest/ui": "0.34.6",
     "autoprefixer": "10.4.16",
     "browserslist": "4.22.1",
+    "copyfiles": "2.4.1",
     "eslint": "8.54.0",
     "eslint-config-prettier": "9.0.0",
     "eslint-plugin-react": "7.33.2",
@@ -89,7 +91,6 @@
     "prettier-plugin-tailwindcss": "0.5.7",
     "storybook": "7.5.3",
     "tailwindcss": "3.3.5",
-    "tsc-hooks": "1.1.2",
     "typescript": "5.3.2",
     "vite": "5.0.2",
     "vite-tsconfig-paths": "4.2.1",
