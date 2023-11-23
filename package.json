@@ -1,6 +1,6 @@
 {
   "name": "@ngrok/mantle",
-  "version": "0.0.1-alpha.0",
+  "version": "0.0.1-alpha.1",
   "sideEffects": false,
   "type": "module",
   "browserslist": [
@@ -8,9 +8,7 @@
   ],
   "main": "dist/main.js",
   "module": "dist/module.js",
-  "exports": {
-    ".": "./dist/*.js"
-  },
+  "exports": "./dist/",
   "files": [
     "dist"
   ],
