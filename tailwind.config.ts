@@ -1,7 +1,7 @@
 import type { Config } from "tailwindcss";
-import baseConfig from "./config/tailwind.preset";
+import preset from "./components/tailwind.preset";
 
 export default {
-	presets: [baseConfig],
+	presets: [preset],
 	content: ["./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}"],
 } satisfies Config;

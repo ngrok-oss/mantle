@@ -2,14 +2,14 @@ import babel from "@rollup/plugin-babel";
 import extensions from "rollup-plugin-extensions";
 import typescript from "@rollup/plugin-typescript";
 import copy from "rollup-plugin-copy";
-// import { dts } from "rollup-plugin-dts";
+import { dts } from "rollup-plugin-dts";
 import packageJson from "./package.json" assert { type: "json" };
 
 const { name, version } = packageJson;
 
 const config = [
 	{
-		input: ["./components/index.tsx", "./components/config/tailwind.preset.ts"],
+		input: ["./components/index.tsx", "./components/tailwind.preset.ts"],
 		output: {
 			dir: "dist",
 			format: "esm",
@@ -27,20 +27,23 @@ const config = [
 			}),
 			typescript({
 				tsconfig: "./tsconfig.publish.json",
-				// declaration: true,
 				noEmitOnError: true,
 			}),
-			// dts(),
 			copy({
 				targets: [{ src: ["assets"], dest: "dist" }],
 			}),
 		],
 	},
-	// {
-	// 	input: "./components/index.tsx",
-	// 	output: [{ file: "dist/index.d.ts", format: "esm" }],
-	// 	plugins: [],
-	// },
+	{
+		input: "./dist/dts/index.d.ts",
+		output: [{ file: "dist/index.d.ts", format: "esm", banner: createBanner() }],
+		plugins: [
+			dts(),
+			copy({
+				targets: [{ src: ["./dist/dts/tailwind.preset.d.ts"], dest: "dist" }],
+			}),
+		],
+	},
 ];
 
 export default config;

@@ -26,4 +26,3 @@ export type { AutoComplete, InputType } from "./input/types";
 export type { Theme, ThemeProviderProps } from "./theme-provider";
 export type { WithAsChild } from "./types/as-child";
 export type { WithStyleProps } from "./types/with-style-props";
-export type * from "./config/tailwind.preset";
