@@ -2,17 +2,18 @@
   "compilerOptions": {
 		"outDir": "dist",
 
-    "target": "ES2021",
+    "target": "ES2020",
     "useDefineForClassFields": true,
-    "lib": ["ES2021", "DOM", "DOM.Iterable"],
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
 
     /* Bundler mode */
-    "moduleResolution": "Bundler",
+    "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
+    "allowSyntheticDefaultImports": true,
 
     /* Linting */
     "strict": true,
@@ -25,7 +26,7 @@
 		"declaration": true,
 		"declarationMap": true,
     "declarationDir": "dist",
-    "emitDeclarationOnly": true
+    // "emitDeclarationOnly": true,
   },
   "include": ["components/**/*", "config/**/*", "assets/**/*"],
 	"exclude": ["components/**/*.stories.*", "components/**/*.test.*"],
