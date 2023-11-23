@@ -1,14 +1,14 @@
 {
   "name": "@ngrok/mantle",
-  "version": "0.0.1-alpha.1",
+  "version": "0.0.1-alpha.2",
   "sideEffects": false,
   "type": "module",
   "browserslist": [
     "last 2 years, not dead, > 0.2%"
   ],
-  "main": "dist/main.js",
-  "module": "dist/module.js",
-  "exports": "./dist/",
+  "exports": {
+    "./*": "./dist/*"
+  },
   "files": [
     "dist"
   ],
