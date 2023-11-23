@@ -1,6 +1,6 @@
 {
   "name": "@ngrok/mantle",
-  "version": "0.0.1-alpha.12",
+  "version": "0.0.1-alpha.13",
   "sideEffects": false,
   "type": "module",
   "browserslist": [
@@ -8,13 +8,11 @@
   ],
   "exports": {
     ".": "./dist/index.js",
-    "./tailwind.preset.js": {
+    "./tailwind.preset": {
       "import": "./dist/tailwind.preset.js",
       "default": "./dist/tailwind.preset.js",
       "types": "./dist/tailwind.preset.d.ts"
     },
-    "./dist/dts/*": null,
-    "./*": "./dist/*",
     "./assets/*": "./dist/assets/*"
   },
   "types": "./dist/index.d.ts",
