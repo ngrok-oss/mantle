@@ -6,6 +6,11 @@
   "browserslist": [
     "last 2 years, not dead, > 0.2%"
   ],
+  "main": "dist/main.js",
+  "module": "dist/module.js",
+  "exports": {
+    ".": "./dist/*.js"
+  },
   "engines": {
     "node": ">=20.0.0"
   },
