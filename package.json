@@ -1,17 +1,15 @@
 {
   "name": "@ngrok/mantle",
-  "version": "0.0.1-alpha.3",
+  "version": "0.0.1-alpha.4",
   "sideEffects": false,
   "type": "module",
   "browserslist": [
     "last 2 years, not dead, > 0.2%"
   ],
-  "exports": {
-    "./*": {
-      "import": "./dist/*",
-      "types": "./dist/*/*.d.ts"
-    }
-  },
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "exports": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],

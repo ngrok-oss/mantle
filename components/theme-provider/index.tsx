@@ -20,7 +20,7 @@ const themes = ["system", "light", "dark", "light-high-contrast", "dark-high-con
 /**
  * Theme is a string literal type that represents a valid theme.
  */
-export type Theme = (typeof themes)[number];
+type Theme = (typeof themes)[number];
 
 /**
  * theme is a helper which translates the Theme type into a string literal type.
@@ -30,7 +30,7 @@ export const theme = (value: Theme) => value;
 /**
  * Type predicate that checks if a value is a valid theme.
  */
-export function isTheme(value: unknown): value is Theme {
+function isTheme(value: unknown): value is Theme {
 	if (typeof value !== "string") {
 		return false;
 	}
@@ -58,11 +58,6 @@ const initialState: ThemeProviderState = ["system", () => null];
  */
 const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
 
-type Props = PropsWithChildren & {
-	defaultTheme?: Theme;
-	storageKey?: string;
-};
-
 /**
  * isBrowser returns true if the code is running in a browser environment.
  */
@@ -79,10 +74,15 @@ function determineInitialTheme(defaultTheme: Theme, storageKey: string) {
 	return fallback;
 }
 
+type ThemeProviderProps = PropsWithChildren & {
+	defaultTheme?: Theme;
+	storageKey?: string;
+};
+
 /**
  * ThemeProvider is a React Context Provider that provides the current theme and a function to set the theme.
  */
-export function ThemeProvider({ children, defaultTheme = "system", storageKey = DEFAULT_STORAGE_KEY }: Props) {
+function ThemeProvider({ children, defaultTheme = "system", storageKey = DEFAULT_STORAGE_KEY }: ThemeProviderProps) {
 	const [theme, setTheme] = useState<Theme>(() => {
 		const initialTheme = determineInitialTheme(defaultTheme, storageKey);
 		applyTheme(initialTheme);
@@ -117,7 +117,7 @@ export function ThemeProvider({ children, defaultTheme = "system", storageKey = 
  *
  * @note This function will throw an error if used outside of a ThemeProvider context tree.
  */
-export function useTheme() {
+function useTheme() {
 	const context = useContext(ThemeProviderContext);
 
 	invariant(context, "useTheme must be used within a ThemeProvider");
@@ -163,7 +163,7 @@ export function determineThemeFromMediaQuery({
  * PreventWrongThemeFlash is a React component that prevents the wrong theme from flashing on initial page load.
  * Render as high as possible in the DOM, preferably in the <head> element.
  */
-export const PreventWrongThemeFlash = ({
+const PreventWrongThemeFlash = ({
 	defaultTheme = "system",
 	storageKey = DEFAULT_STORAGE_KEY,
 }: {
@@ -198,3 +198,6 @@ export const PreventWrongThemeFlash = ({
 		}}
 	/>
 );
+
+export type { Theme, ThemeProviderProps };
+export { ThemeProvider, PreventWrongThemeFlash, isTheme, useTheme };
