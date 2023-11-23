@@ -8,9 +8,14 @@
   ],
   "exports": {
     ".": "./dist/index.js",
+    "./tailwind.preset.js": {
+      "import": "./dist/tailwind.preset.js",
+      "default": "./dist/tailwind.preset.js",
+      "types": "./dist/tailwind.preset.d.ts"
+    },
+    "./dist/dts/*": null,
     "./*": "./dist/*",
-    "./assets/*": "./dist/assets/*",
-    "./dist/dts/*": null
+    "./assets/*": "./dist/assets/*"
   },
   "types": "./dist/index.d.ts",
   "files": [

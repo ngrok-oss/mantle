@@ -13,7 +13,7 @@ const config = [
 		output: {
 			dir: "dist",
 			format: "esm",
-			sourcemap: true,
+			sourcemap: false,
 			banner: createBanner(),
 		},
 		plugins: [
