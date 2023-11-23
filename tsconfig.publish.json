@@ -25,7 +25,8 @@
     "noUncheckedIndexedAccess": true,
 
 		/* Emit */
-		"declaration": true
+		"declaration": true,
+		"declarationMap": true,
   },
   "include": ["components/**/*"],
 	"exclude": ["components/**/*.stories.*", "components/**/*.test.*"],

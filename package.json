@@ -7,7 +7,10 @@
     "last 2 years, not dead, > 0.2%"
   ],
   "exports": {
-    "./*": "./dist/*"
+    "./*": {
+      "import": "./dist/*",
+      "types": "./dist/*/*.d.ts"
+    }
   },
   "files": [
     "dist"
