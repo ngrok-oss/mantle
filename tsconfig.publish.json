@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
-		"rootDir": "./components",
+    // "baseUrl": ".",
+		// "rootDir": "./components",
 		"outDir": "dist",
 
     "target": "ES2021",
@@ -11,8 +11,7 @@
     "skipLibCheck": true,
 
     /* Bundler mode */
-    "moduleResolution": "bundler",
-    // "allowImportingTsExtensions": true,
+    "moduleResolution": "Bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
@@ -27,6 +26,8 @@
 		/* Emit */
 		"declaration": true,
 		"declarationMap": true,
+    "declarationDir": "dist",
+    "emitDeclarationOnly": true
   },
   "include": ["components/**/*"],
 	"exclude": ["components/**/*.stories.*", "components/**/*.test.*"],
