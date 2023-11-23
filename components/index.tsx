@@ -1,7 +1,6 @@
 // component exports
 export { Button } from "./button";
 export { Card, CardBody, CardFooter, CardHeader, CardTitle } from "./card";
-export { default as TailwindPreset } from "./core/tailwind.preset";
 export { cx } from "./cx";
 export { Input } from "./input";
 export { MediaObject, MediaObjectMedia, MediaObjectContent } from "./media-object";

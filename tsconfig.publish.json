@@ -1,7 +1,5 @@
 {
   "compilerOptions": {
-    // "baseUrl": ".",
-		// "rootDir": "./components",
 		"outDir": "dist",
 
     "target": "ES2021",
@@ -29,7 +27,7 @@
     "declarationDir": "dist",
     "emitDeclarationOnly": true
   },
-  "include": ["components/**/*"],
+  "include": ["components/**/*", "config/**/*", "assets/**/*"],
 	"exclude": ["components/**/*.stories.*", "components/**/*.test.*"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

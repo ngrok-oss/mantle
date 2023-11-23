@@ -14,15 +14,14 @@ const config = [
 			format: "esm",
 			sourcemap: true,
 			banner: createBanner(),
-			exports: "named",
 		},
-		external: ["react", "react-dom", "tailwindcss"],
 		plugins: [
 			extensions({ extensions: [".ts", ".tsx"] }),
 			babel({
 				babelHelpers: "bundled",
 				exclude: "node_modules",
 				presets: [["@babel/preset-env", { loose: true }], "@babel/preset-react", "@babel/preset-typescript"],
+				plugins: ["babel-plugin-dev-expression"],
 				extensions: [".ts", ".tsx"],
 			}),
 			typescript({
@@ -30,7 +29,10 @@ const config = [
 				noEmitOnError: true,
 			}),
 			copy({
-				targets: [{ src: ["components/core"], dest: "dist" }],
+				targets: [
+					{ src: ["assets"], dest: "dist" },
+					{ src: ["config"], dest: "dist" },
+				],
 			}),
 		],
 	},
