@@ -1,5 +1,5 @@
 {
-  "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx", "config/tailwind.preset.js", "assets/**/*"],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2021"],
     "isolatedModules": true,
