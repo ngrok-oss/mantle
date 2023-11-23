@@ -16,7 +16,7 @@ const config = [
 			banner: createBanner(),
 			exports: "named",
 		},
-		external: ["react", "react-dom"],
+		external: ["react", "react-dom", "tailwindcss"],
 		plugins: [
 			extensions({ extensions: [".ts", ".tsx"] }),
 			babel({
