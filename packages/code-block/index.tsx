@@ -55,17 +55,20 @@ CodeBlock.displayName = "CodeBlock";
 
 const CodeBlockBody = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
 	({ className, children, ...props }, ref) => {
+		const [isExpanded, setIsExpanded] = useState(false);
+
 		const hasExpanderButton = React.Children.toArray(children).some(
 			(child) => React.isValidElement(child) && child.type === CodeBlockExpanderButton,
 		);
 
 		return (
 			<div className={cx("relative h-full", className)} ref={ref} {...props}>
-				{React.Children.map(children, (child) =>
+				{React.Children.map(children, (child, index) =>
 					React.isValidElement(child)
 						? React.cloneElement(child, {
-								// Add a prop to let CodeBlockContent know if CodeBlockExpanderButton is present
 								hasExpanderButton,
+								isExpanded,
+								onToggleExpand: () => setIsExpanded(!isExpanded),
 						  })
 						: child,
 				)}
@@ -80,11 +83,13 @@ type CodeBlockContentProps = WithStyleProps & {
 	highlightLines?: (LineRange | number)[];
 	language?: SupportedLanguage;
 	showLineNumbers?: boolean;
+	isExpanded?: boolean;
+	hasExpanderButton?: boolean;
 };
 
-const CodeBlockContent = forwardRef<HTMLPreElement, CodeBlockContentProps & { hasExpanderButton?: boolean }>(
+const CodeBlockContent = forwardRef<HTMLPreElement, CodeBlockContentProps & { onToggleExpand?: () => void }>(
 	(props, ref) => {
-		const { children, className, language = "sh", style, hasExpanderButton } = props;
+		const { children, className, language = "sh", style, isExpanded, hasExpanderButton, onToggleExpand } = props;
 		const innerPreRef = useRef<ElementRef<"pre">>();
 
 		const setCopyText = useContext(CodeBlockContext);
@@ -107,10 +112,9 @@ const CodeBlockContent = forwardRef<HTMLPreElement, CodeBlockContentProps & { ha
 			<pre
 				className={cx(
 					formatLanguageClassName(language),
-					"scrollbar overflow-x-auto p-4 pr-16 firefox:after:mr-16 firefox:after:inline-block firefox:after:content-['']",
+					"scrollbar overflow-x-auto overflow-y-hidden p-4 pr-16 firefox:after:mr-16 firefox:after:inline-block firefox:after:content-['']",
 					className,
-					// Conditionally add the class based on the presence of CodeBlockExpanderButton
-					hasExpanderButton && "max-h-48 overflow-y-hidden",
+					hasExpanderButton && isExpanded ? null : "max-h-28",
 				)}
 				data-lang={language}
 				ref={(node) => {
@@ -184,20 +188,25 @@ const CodeBlockCopyButton = forwardRef<HTMLButtonElement, CodeBlockCopyButtonPro
 );
 CodeBlockCopyButton.displayName = "CodeBlockCopyButton";
 
-const CodeBlockExpanderButton = forwardRef<HTMLDivElement, HTMLAttributes<HTMLButtonElement>>(
-	({ className, ...props }) => (
-		<button
-			type="button"
-			className={cx(
-				"bg-gray-050 flex w-full items-center justify-center border-t border-gray-300 px-4 py-2 font-sans text-gray-700 hover:bg-gray-100",
-				className,
-			)}
-			{...props}
-		>
-			Expand <ExpandIcon />
-		</button>
-	),
-);
+const CodeBlockExpanderButton = forwardRef<
+	HTMLDivElement,
+	HTMLAttributes<HTMLButtonElement> & {
+		isExpanded?: boolean;
+		onToggleExpand?: () => void;
+	}
+>(({ className, isExpanded, onToggleExpand, ...props }) => (
+	<button
+		type="button"
+		className={cx(
+			"bg-gray-050 flex w-full items-center justify-center border-t border-gray-300 px-4 py-2 font-sans text-gray-700 hover:bg-gray-100",
+			className,
+		)}
+		onClick={onToggleExpand}
+		{...props}
+	>
+		{isExpanded ? "Collapse" : "Expand"} <ExpandIcon />
+	</button>
+));
 CodeBlockExpanderButton.displayName = "CodeBlockExpanderButton";
 
 export {
