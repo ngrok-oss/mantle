@@ -1,6 +1,8 @@
 import type { MetaFunction } from "@vercel/remix";
 import { Input } from "@/input";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { CodeBlock, CodeBlockBody, CodeBlockContent, CodeBlockCopyButton, CodeBlockExpanderButton } from "@/code-block";
+import { code } from "@/code-block/code";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -24,6 +26,18 @@ export default function Page() {
 				useInlineStyles={false}
 				codeTagProps={{ style: {} }}
 			>{`<Input placeholder="Enter a username" />`}</SyntaxHighlighter>
+
+			<CodeBlock className="rounded-t-none border-t-0">
+				<CodeBlockBody>
+					<CodeBlockCopyButton />
+					<CodeBlockContent language="jsx">
+						{code`
+							<Input placeholder="Enter a username" />
+						`}
+					</CodeBlockContent>
+					<CodeBlockExpanderButton />
+				</CodeBlockBody>
+			</CodeBlock>
 		</div>
 	);
 }
