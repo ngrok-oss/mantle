@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react";
-
 import { Card, CardBody, CardFooter, CardHeader, CardTitle } from ".";
 
 const meta = {

@@ -3,7 +3,6 @@
  */
 
 import path from "node:path";
-
 import type { StorybookConfig } from "@storybook/react-vite";
 
 const relativePath = (...pathSegments: string[]) => path.resolve(__dirname, ...pathSegments);

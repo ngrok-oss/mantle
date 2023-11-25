@@ -1,5 +1,5 @@
-import type { MetaFunction } from "@vercel/remix";
 import { Input } from "@/input";
+import type { MetaFunction } from "@vercel/remix";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 
 export const meta: MetaFunction = () => {
