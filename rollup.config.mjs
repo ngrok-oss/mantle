@@ -3,6 +3,8 @@ import extensions from "rollup-plugin-extensions";
 import typescript from "@rollup/plugin-typescript";
 import copy from "rollup-plugin-copy";
 import { dts } from "rollup-plugin-dts";
+
+// prettier-ignore
 import packageJson from "./package.json" assert { type: "json" };
 
 const { name, version } = packageJson;

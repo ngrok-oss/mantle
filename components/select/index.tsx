@@ -1,23 +1,21 @@
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
 import {
-	Root,
-	Group,
-	Value,
-	Trigger,
-	Icon,
 	Content,
-	Portal,
-	Viewport,
-	Label,
+	Group,
+	Icon,
 	Item,
 	ItemIndicator,
 	ItemText,
+	Label,
+	Portal,
+	Root,
 	Separator,
+	Trigger,
+	Value,
+	Viewport,
 } from "@radix-ui/react-select";
-
 import type { ComponentPropsWithoutRef, ElementRef } from "react";
 import { forwardRef } from "react";
-
 import { cx } from "../cx";
 
 const Select = Root;

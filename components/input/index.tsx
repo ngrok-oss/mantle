@@ -1,7 +1,6 @@
+import { cva } from "class-variance-authority";
 import type { InputHTMLAttributes } from "react";
 import { forwardRef } from "react";
-import { cva } from "class-variance-authority";
-
 import { cx } from "../cx";
 import type { VariantProps } from "../types/variant-props";
 import type { AutoComplete, InputType } from "./types";
