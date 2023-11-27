@@ -157,13 +157,28 @@ type CodeBlockCopyButtonProps = WithStyleProps & {
 const CodeBlockCopyButton = forwardRef<HTMLButtonElement, CodeBlockCopyButtonProps>(
 	({ className, onCopy, onCopyError, style }, ref) => {
 		const copyText = useContext(CodeBlockCopyContext);
-		const [, setCopied] = useState(false); // todo: useme
+		const [copied, setCopied] = useState(false);
+
+		useEffect(() => {
+			if (copied) {
+				const timeoutId = setTimeout(() => {
+					setCopied(false);
+				}, 2000);
+
+				return () => {
+					clearTimeout(timeoutId);
+				};
+			}
+		}, [copied]);
 
 		return (
 			<button
 				type="button"
 				className={cx(
-					"absolute right-3.5 top-2 z-50 rounded-sm border border-gray-300 bg-gray-50 p-1 shadow-[0.875rem_0_0_0_hsl(var(--gray-050)),_-0.5rem_0_0.35rem_0_hsla(var(--gray-050));] hover:border-gray-400 hover:bg-gray-200 focus:bg-gray-200",
+					"absolute right-3.5 top-2 z-50 flex h-[2.125rem] items-center rounded-sm border border-gray-300 bg-gray-50 p-1 shadow-[0.875rem_0_0_0_hsl(var(--gray-050)),_-0.5rem_0_0.35rem_0_hsla(var(--gray-050));] hover:border-gray-400 hover:bg-gray-200 focus:bg-gray-200",
+					copied
+						? "gap-1 border-transparent bg-green-500 px-2 text-button hover:border-transparent hover:bg-green-500"
+						: "",
 					className,
 				)}
 				ref={ref}
@@ -174,20 +189,25 @@ const CodeBlockCopyButton = forwardRef<HTMLButtonElement, CodeBlockCopyButtonPro
 						.then(() => {
 							setCopied(true);
 							onCopy?.(copyText);
-							setTimeout(() => {
-								setCopied(false);
-							}, 1000);
 						})
 						.catch((error) => {
 							onCopyError?.(error);
 						});
 				}}
 			>
-				<CopyIcon />
+				{copied ? (
+					<>
+						Copied
+						<CheckIcon />
+					</>
+				) : (
+					<CopyIcon />
+				)}
 			</button>
 		);
 	},
 );
+
 CodeBlockCopyButton.displayName = "CodeBlockCopyButton";
 
 const CodeBlockExpanderButton = forwardRef<
@@ -248,5 +268,17 @@ const CopyIcon = ({ className, style }: WithStyleProps) => (
 			strokeLinejoin="round"
 			d="M8.75 7.75v-3.5a1.5 1.5 0 0 1 1.5-1.5h8.5a1.5 1.5 0 0 1 1.5 1.5v10.5a1.5 1.5 0 0 1-1.5 1.5h-3.5m-10 5h8.5a1.5 1.5 0 0 0 1.5-1.5V9.25a1.5 1.5 0 0 0-1.5-1.5h-8.5a1.5 1.5 0 0 0-1.5 1.5v10.5a1.5 1.5 0 0 0 1.5 1.5Z"
 		/>
+	</svg>
+);
+
+const CheckIcon = ({ className, style }: WithStyleProps) => (
+	<svg
+		xmlns="http://www.w3.org/2000/svg"
+		viewBox="0 0 20 20"
+		fill="currentColor"
+		className={cx("h-5 w-5", className)}
+		style={style}
+	>
+		<path d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" />
 	</svg>
 );
