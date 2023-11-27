@@ -116,7 +116,7 @@ const CodeBlockContent = forwardRef<HTMLPreElement, CodeBlockContentProps & { on
 					formatLanguageClassName(language),
 					"scrollbar overflow-x-auto overflow-y-hidden p-4 pr-16 firefox:after:mr-16 firefox:after:inline-block firefox:after:content-['']",
 					className,
-					hasExpanderButton && !isExpanded && "max-h-56",
+					hasExpanderButton && !isExpanded && "max-h-[13.6rem]",
 				)}
 				data-lang={language}
 				ref={(node) => {
