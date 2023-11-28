@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 import tailwindCssAnimatePlugin from "tailwindcss-animate";
 import defaultTheme from "tailwindcss/defaultTheme";
+import tailwindPluginFirefoxVariant from "./tailwind-plugins/tailwind-plugin-firefox-variant";
 
 const preset = {
 	content: [],
@@ -314,7 +315,7 @@ const preset = {
 			},
 		},
 	},
-	plugins: [tailwindCssAnimatePlugin],
+	plugins: [tailwindCssAnimatePlugin, tailwindPluginFirefoxVariant],
 } satisfies Config;
 
 export type Preset = typeof preset;
