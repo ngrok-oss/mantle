@@ -1,6 +1,6 @@
 {
   "name": "@ngrok/mantle",
-  "version": "0.0.1-alpha.13",
+  "version": "0.0.1-alpha.14",
   "sideEffects": false,
   "type": "module",
   "browserslist": [
@@ -53,8 +53,6 @@
     "clsx": "2.0.0",
     "isbot": "3.7.1",
     "lucide-react": "0.293.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
     "react-syntax-highlighter": "15.5.0",
     "tailwind-merge": "2.0.0",
     "tailwindcss": "3.3.5",
@@ -84,11 +82,11 @@
     "@testing-library/react": "14.1.2",
     "@testing-library/user-event": "14.5.1",
     "@types/node": "20.10.0",
-    "@types/react": "18.2.38",
+    "@types/react": "18.2.39",
     "@types/react-dom": "18.2.17",
     "@types/react-syntax-highlighter": "15.5.10",
-    "@typescript-eslint/eslint-plugin": "6.12.0",
-    "@typescript-eslint/parser": "6.12.0",
+    "@typescript-eslint/eslint-plugin": "6.13.0",
+    "@typescript-eslint/parser": "6.13.0",
     "@vitejs/plugin-react-swc": "3.5.0",
     "@vitest/ui": "0.34.6",
     "autoprefixer": "10.4.16",
@@ -104,7 +102,9 @@
     "postcss": "8.4.31",
     "prettier": "3.1.0",
     "prettier-plugin-tailwindcss": "0.5.7",
-    "rollup": "4.5.2",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "rollup": "4.6.0",
     "rollup-plugin-copy": "3.5.0",
     "rollup-plugin-dts": "6.1.0",
     "rollup-plugin-extensions": "0.1.0",
@@ -114,5 +114,11 @@
     "vite-tsconfig-paths": "4.2.1",
     "vitest": "0.34.6",
     "vitest-dom": "0.1.1"
+  },
+  "peerDependencies": {
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "react": "^18",
+    "react-dom": "^18"
   }
 }
