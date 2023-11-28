@@ -2,7 +2,15 @@
 export { Anchor, anchorClassNames } from "./anchor";
 export { Button } from "./button";
 export { Card, CardBody, CardFooter, CardHeader, CardTitle } from "./card";
-export { cx } from "./cx";
+export {
+	CodeBlock,
+	CodeBlockBody,
+	CodeBlockCode,
+	CodeBlockCopyButton,
+	CodeBlockExpanderButton,
+	CodeBlockHeader,
+	CodeBlockTitle,
+} from "./code-block";
 export {
 	Drawer,
 	DrawerPortal,
@@ -29,8 +37,13 @@ export {
 	SelectValue,
 } from "./select";
 export { Skeleton } from "./skeleton";
-export { ThemeProvider, PreventWrongThemeFlash, isTheme, useTheme } from "./theme-provider";
+export { ThemeProvider, PreventWrongThemeFlash } from "./theme-provider";
 export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "./tooltip";
+
+// utils exports
+export { code } from "./code-block/code";
+export { cx } from "./cx";
+export { isTheme, useTheme } from "./theme-provider";
 
 // types exports
 export type { ButtonProps } from "./button";

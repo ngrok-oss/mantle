@@ -1,6 +1,5 @@
 import { Button } from "@/button";
 import { cx } from "@/cx";
-// import { Input } from "@/input";
 import { Select, SelectContent, SelectIcon, SelectOption, SelectTrigger } from "@/select";
 import { isTheme, theme, useTheme } from "@/theme-provider";
 import { WithStyleProps } from "@/types/with-style-props";
@@ -133,6 +132,19 @@ function Navigation({ className, style }: WithStyleProps) {
 
 				<li className="mt-6 text-xs font-medium uppercase tracking-widest">Components</li>
 				<ul role="list" className="mt-2 text-sm">
+					<li>
+						<NavLink
+							className={({ isActive }) =>
+								cx(
+									"-ml-2 block rounded-lg px-2 py-1 text-gray-500 hover:font-medium hover:text-gray-900",
+									isActive && "font-medium text-blue-600 hover:text-blue-600",
+								)
+							}
+							to="/components/code-block"
+						>
+							Code Block
+						</NavLink>
+					</li>
 					<li>
 						<NavLink
 							className={({ isActive }) =>

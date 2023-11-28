@@ -1,6 +1,7 @@
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
+import { code } from "@/code-block/code";
 import { Input } from "@/input";
 import type { MetaFunction } from "@vercel/remix";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -18,12 +19,12 @@ export default function Page() {
 				<Input placeholder="Enter a username" />
 			</div>
 
-			<SyntaxHighlighter
-				className="!rounded-t-none !border-t-0"
-				language="jsx"
-				useInlineStyles={false}
-				codeTagProps={{ style: {} }}
-			>{`<Input placeholder="Enter a username" />`}</SyntaxHighlighter>
+			<CodeBlock className="rounded-t-none border-t-0">
+				<CodeBlockBody>
+					<CodeBlockCopyButton />
+					<CodeBlockCode language="tsx">{code`<Input placeholder="Enter a username" />`}</CodeBlockCode>
+				</CodeBlockBody>
+			</CodeBlock>
 		</div>
 	);
 }

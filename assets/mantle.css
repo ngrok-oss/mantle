@@ -795,13 +795,13 @@ pre.prismjs {
 
 .token.function,
 .token.class-name {
-	color: hsl(var(--yellow-600));
+	color: hsl(var(--blue-600));
 }
 
 .token.regex,
 .token.important,
 .token.variable {
-	color: hsl(var(--green-600));
+	color: hsl(var(--yellow-600));
 }
 
 .token.important,
@@ -817,4 +817,29 @@ pre.prismjs {
 	body {
 		@apply bg-white text-gray-900;
 	}
+}
+
+.scrollbar::-webkit-scrollbar {
+	width: 0.5rem;
+	height: 0.5rem;
+	background-color: transparent;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+	border-radius: 0.5rem;
+	background-color: transparent;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+	border-radius: 0.5rem;
+	background-color: hsl(var(--gray-600) / 0.8);
+}
+
+.scrollbar::-webkit-scrollbar-corner {
+	background-color: transparent;
+	border-color: transparent;
+}
+
+.scrollbar {
+	scrollbar-color: hsl(var(--gray-600) / 0.8) transparent;
 }
