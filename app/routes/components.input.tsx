@@ -19,7 +19,7 @@ export default function Page() {
 				<Input placeholder="Enter a username" />
 			</div>
 
-			<CodeBlock className="mt-4">
+			<CodeBlock className="rounded-t-none border-t-0">
 				<CodeBlockBody>
 					<CodeBlockCopyButton
 						onCopy={(value) => console.log("CodeBlockCopyButton.onCopy", { value })}
