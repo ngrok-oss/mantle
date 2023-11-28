@@ -15,6 +15,7 @@ export {
 	SelectTrigger,
 	SelectValue,
 } from "./select";
+export { Skeleton } from "./skeleton";
 export { ThemeProvider, PreventWrongThemeFlash, isTheme, useTheme } from "./theme-provider";
 export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "./tooltip";
 
