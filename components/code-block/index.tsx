@@ -1,12 +1,15 @@
 import { Slot } from "@radix-ui/react-slot";
 import Prism from "prismjs";
-import React, {
+import {
 	createContext,
+	Dispatch,
 	ElementRef,
 	forwardRef,
 	HTMLAttributes,
+	SetStateAction,
 	useContext,
 	useEffect,
+	useMemo,
 	useRef,
 	useState,
 } from "react";
@@ -23,111 +26,111 @@ import { formatLanguageClassName, type SupportedLanguage } from "./supported-lan
  * - fix line wrapping? horizontal scrolling has problems w/ line highlighting :(
  */
 
-type CodeBlockContextType = (newCopyText: string) => void;
+type CodeBlockContextType = {
+	copyText: string;
+	hasCodeExpander: boolean;
+	isCodeExpanded: boolean;
+	setCopyText: (newCopyText: string) => void;
+	setHasCodeExpander: (value: boolean) => void;
+	setIsCodeExpanded: Dispatch<SetStateAction<boolean>>;
+};
 
-const CodeBlockContext = createContext<CodeBlockContextType>(() => {});
-
-const CodeBlockCopyContext = createContext<string>("");
+const CodeBlockContext = createContext<CodeBlockContextType>({
+	copyText: "",
+	hasCodeExpander: false,
+	isCodeExpanded: false,
+	setCopyText: () => {},
+	setHasCodeExpander: () => {},
+	setIsCodeExpanded: () => {},
+});
 
 const CodeBlock = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => {
 	const [copyText, setCopyText] = useState("");
+	const [hasCodeExpander, setHasCodeExpander] = useState(false);
+	const [isCodeExpanded, setIsCodeExpanded] = useState(false);
+
+	const context: CodeBlockContextType = useMemo(
+		() =>
+			({
+				copyText,
+				hasCodeExpander,
+				isCodeExpanded,
+				setCopyText,
+				setHasCodeExpander,
+				setIsCodeExpanded,
+			}) as const,
+		[copyText, hasCodeExpander, isCodeExpanded],
+	);
 
 	return (
-		<CodeBlockContext.Provider value={setCopyText}>
-			<CodeBlockCopyContext.Provider value={copyText}>
-				<div
-					className={cx(
-						"overflow-hidden rounded-md border border-gray-300 bg-gray-50 font-mono text-[0.8125rem]",
-						className,
-					)}
-					ref={ref}
-					{...props}
-				/>
-			</CodeBlockCopyContext.Provider>
+		<CodeBlockContext.Provider value={context}>
+			<div
+				className={cx(
+					"overflow-hidden rounded-md border border-gray-300 bg-gray-50 font-mono text-[0.8125rem]",
+					className,
+				)}
+				ref={ref}
+				{...props}
+			/>
 		</CodeBlockContext.Provider>
 	);
 });
 CodeBlock.displayName = "CodeBlock";
 
-const CodeBlockBody = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
-	({ className, children, ...props }, ref) => {
-		const [isExpanded, setIsExpanded] = useState(false);
-
-		const hasExpanderButton = React.Children.toArray(children).some(
-			(child) => React.isValidElement(child) && child.type === CodeBlockExpanderButton,
-		);
-
-		return (
-			<div className={cx("relative h-full", className)} ref={ref} {...props}>
-				{React.Children.map(children, (child) =>
-					React.isValidElement(child)
-						? // eslint-disable-next-line @typescript-eslint/no-explicit-any
-						  React.cloneElement<any>(child, {
-								hasExpanderButton,
-								isExpanded,
-								onToggleExpand: () => {
-									setIsExpanded(!isExpanded);
-								},
-						  })
-						: child,
-				)}
-			</div>
-		);
-	},
-);
+const CodeBlockBody = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
+	<div className={cx("relative h-full", className)} ref={ref} {...props} />
+));
 CodeBlockBody.displayName = "CodeBlockBody";
 
-type CodeBlockContentProps = WithStyleProps & {
+type CodeBlockCodeProps = WithStyleProps & {
 	children?: string | undefined;
 	highlightLines?: (LineRange | number)[];
 	language?: SupportedLanguage;
 	showLineNumbers?: boolean;
-	isExpanded?: boolean;
-	hasExpanderButton?: boolean;
 };
 
-const CodeBlockContent = forwardRef<HTMLPreElement, CodeBlockContentProps & { onToggleExpand?: () => void }>(
-	(props, ref) => {
-		const { children, className, language = "sh", style, isExpanded, hasExpanderButton } = props;
-		const innerPreRef = useRef<ElementRef<"pre">>();
+const CodeBlockCode = forwardRef<HTMLPreElement, CodeBlockCodeProps & { onToggleExpand?: () => void }>((props, ref) => {
+	const { children, className, language = "sh", style } = props;
+	const innerPreRef = useRef<ElementRef<"pre">>();
 
-		const setCopyText = useContext(CodeBlockContext);
+	const { hasCodeExpander, isCodeExpanded, setCopyText } = useContext(CodeBlockContext);
 
-		// trim any leading and trailing whitespace/empty lines
-		const trimmedCode = children?.trim() ?? "";
+	const shouldCollapseCodeHeight = hasCodeExpander && !isCodeExpanded;
 
-		useEffect(() => {
-			setCopyText(trimmedCode);
-		}, [trimmedCode, setCopyText]);
+	// trim any leading and trailing whitespace/empty lines
+	const trimmedCode = children?.trim() ?? "";
 
-		useEffect(() => {
-			if (!innerPreRef.current) {
-				return;
-			}
-			Prism.highlightElement(innerPreRef.current);
-		}, [trimmedCode]);
+	useEffect(() => {
+		setCopyText(trimmedCode);
+	}, [trimmedCode, setCopyText]);
 
-		return (
-			<pre
-				className={cx(
-					formatLanguageClassName(language),
-					"scrollbar overflow-x-auto overflow-y-hidden p-4 pr-16 firefox:after:mr-16 firefox:after:inline-block firefox:after:content-['']",
-					className,
-					hasExpanderButton && !isExpanded && "max-h-[13.6rem]",
-				)}
-				data-lang={language}
-				ref={(node) => {
-					innerPreRef.current = node ?? undefined;
-					return ref;
-				}}
-				style={{ tabSize: 2, MozTabSize: 2, ...style }}
-			>
-				<code>{trimmedCode}</code>
-			</pre>
-		);
-	},
-);
-CodeBlockContent.displayName = "CodeBlockContent";
+	useEffect(() => {
+		if (!innerPreRef.current) {
+			return;
+		}
+		Prism.highlightElement(innerPreRef.current);
+	}, [trimmedCode]);
+
+	return (
+		<pre
+			className={cx(
+				formatLanguageClassName(language),
+				"scrollbar overflow-x-auto overflow-y-hidden p-4 pr-16 firefox:after:mr-16 firefox:after:inline-block firefox:after:content-['']",
+				shouldCollapseCodeHeight && "max-h-[13.6rem]",
+				className,
+			)}
+			data-lang={language}
+			ref={(node) => {
+				innerPreRef.current = node ?? undefined;
+				return ref;
+			}}
+			style={{ tabSize: 2, MozTabSize: 2, ...style }}
+		>
+			<code>{trimmedCode}</code>
+		</pre>
+	);
+});
+CodeBlockCode.displayName = "CodeBlockCode";
 
 const CodeBlockHeader = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
 	<div
@@ -153,7 +156,7 @@ type CodeBlockCopyButtonProps = WithStyleProps & {
 
 const CodeBlockCopyButton = forwardRef<HTMLButtonElement, CodeBlockCopyButtonProps>(
 	({ className, onCopy, onCopyError, style }, ref) => {
-		const copyText = useContext(CodeBlockCopyContext);
+		const { copyText } = useContext(CodeBlockContext);
 		const [copied, setCopied] = useState(false);
 
 		useEffect(() => {
@@ -203,39 +206,47 @@ const CodeBlockCopyButton = forwardRef<HTMLButtonElement, CodeBlockCopyButtonPro
 		);
 	},
 );
-
 CodeBlockCopyButton.displayName = "CodeBlockCopyButton";
 
-type CodeBlockExpanderButtonProps = Exclude<HTMLAttributes<HTMLButtonElement>, "children"> & {
-	isExpanded?: boolean;
-	onToggleExpand?: () => void;
-};
+const CodeBlockExpanderButton = forwardRef<HTMLButtonElement, Exclude<HTMLAttributes<HTMLButtonElement>, "children">>(
+	({ className, ...props }) => {
+		const { isCodeExpanded, setIsCodeExpanded, setHasCodeExpander } = useContext(CodeBlockContext);
 
-const CodeBlockExpanderButton = forwardRef<HTMLButtonElement, CodeBlockExpanderButtonProps>(
-	({ className, isExpanded, onToggleExpand, ...props }) => (
-		<button
-			type="button"
-			className={cx(
-				"bg-gray-050 flex w-full items-center justify-center border-t border-gray-300 px-4 py-2 font-sans text-gray-700 hover:bg-gray-100",
-				className,
-			)}
-			onClick={onToggleExpand}
-			{...props}
-		>
-			{isExpanded ? "Show less" : "Show more"} <ExpandIcon className={isExpanded ? "rotate-180" : ""} />
-		</button>
-	),
+		useEffect(() => {
+			setHasCodeExpander(true);
+
+			return () => {
+				setHasCodeExpander(false);
+			};
+		}, [setHasCodeExpander]);
+
+		return (
+			<button
+				type="button"
+				className={cx(
+					"bg-gray-050 flex w-full items-center justify-center border-t border-gray-300 px-4 py-2 font-sans text-gray-700 hover:bg-gray-100",
+					className,
+				)}
+				onClick={() => {
+					setIsCodeExpanded((prev) => !prev);
+				}}
+				{...props}
+			>
+				{isCodeExpanded ? "Show less" : "Show more"} <ExpandIcon className={isCodeExpanded ? "rotate-180" : ""} />
+			</button>
+		);
+	},
 );
 CodeBlockExpanderButton.displayName = "CodeBlockExpanderButton";
 
 export {
 	CodeBlock,
 	CodeBlockBody,
-	CodeBlockContent,
+	CodeBlockCode,
 	CodeBlockCopyButton,
+	CodeBlockExpanderButton,
 	CodeBlockHeader,
 	CodeBlockTitle,
-	CodeBlockExpanderButton,
 };
 
 const ExpandIcon = ({ className, style }: WithStyleProps) => (

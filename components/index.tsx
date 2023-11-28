@@ -5,14 +5,12 @@ export { Card, CardBody, CardFooter, CardHeader, CardTitle } from "./card";
 export {
 	CodeBlock,
 	CodeBlockBody,
-	CodeBlockContent,
+	CodeBlockCode,
 	CodeBlockCopyButton,
+	CodeBlockExpanderButton,
 	CodeBlockHeader,
 	CodeBlockTitle,
-	CodeBlockExpanderButton,
 } from "./code-block";
-export { code } from "./code-block/code";
-export { cx } from "./cx";
 export {
 	Drawer,
 	DrawerPortal,
@@ -39,8 +37,13 @@ export {
 	SelectValue,
 } from "./select";
 export { Skeleton } from "./skeleton";
-export { ThemeProvider, PreventWrongThemeFlash, isTheme, useTheme } from "./theme-provider";
+export { ThemeProvider, PreventWrongThemeFlash } from "./theme-provider";
 export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "./tooltip";
+
+// utils exports
+export { code } from "./code-block/code";
+export { cx } from "./cx";
+export { isTheme, useTheme } from "./theme-provider";
 
 // types exports
 export type { ButtonProps } from "./button";
