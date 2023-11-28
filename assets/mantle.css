@@ -706,6 +706,22 @@
 	--popover-foreground: 210 40% 98%;
 }
 
+@layer base {
+	/**
+ * provide an a11y escape hatch for those that prefer less motion
+ */
+	@media (prefers-reduced-motion: reduce) {
+		*,
+		*::before,
+		*::after {
+			animation-duration: 0.01ms !important;
+			animation-iteration-count: 1 !important;
+			transition-duration: 0.01ms !important;
+			scroll-behavior: auto !important;
+		}
+	}
+}
+
 /**
 	* prism.js default theme for JavaScript, CSS and HTML
 	* Based on dabblet (http://dabblet.com)

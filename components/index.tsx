@@ -1,7 +1,20 @@
 // component exports
+export { Anchor, anchorClassNames } from "./anchor";
 export { Button } from "./button";
 export { Card, CardBody, CardFooter, CardHeader, CardTitle } from "./card";
 export { cx } from "./cx";
+export {
+	Drawer,
+	DrawerPortal,
+	DrawerOverlay,
+	DrawerTrigger,
+	DrawerClose,
+	DrawerContent,
+	DrawerHeader,
+	DrawerFooter,
+	DrawerTitle,
+	DrawerDescription,
+} from "./drawer";
 export { Input } from "./input";
 export { MediaObject, MediaObjectMedia, MediaObjectContent } from "./media-object";
 export {
@@ -15,6 +28,7 @@ export {
 	SelectTrigger,
 	SelectValue,
 } from "./select";
+export { Skeleton } from "./skeleton";
 export { ThemeProvider, PreventWrongThemeFlash, isTheme, useTheme } from "./theme-provider";
 export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "./tooltip";
 
