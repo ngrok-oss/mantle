@@ -196,6 +196,7 @@ const CodeBlockCopyButton = forwardRef<HTMLButtonElement, CodeBlockCopyButtonPro
 					}
 				}}
 			>
+				<span className="sr-only">Copy code</span>
 				{copied ? (
 					<>
 						Copied
