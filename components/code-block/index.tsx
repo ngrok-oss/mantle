@@ -16,6 +16,7 @@ import {
 import "prismjs/components/prism-bash.js";
 import "prismjs/components/prism-jsx.js";
 import "prismjs/components/prism-tsx.js";
+import { useCopyToClipboard } from "@uidotdev/usehooks";
 import { cx } from "../cx";
 import type { WithStyleProps } from "../types/with-style-props";
 import { LineRange } from "./line-numbers";
@@ -159,6 +160,7 @@ type CodeBlockCopyButtonProps = WithStyleProps & {
 const CodeBlockCopyButton = forwardRef<HTMLButtonElement, CodeBlockCopyButtonProps>(
 	({ className, onCopy, onCopyError, style }, ref) => {
 		const { copyText } = useContext(CodeBlockContext);
+		const [, copyToClipboard] = useCopyToClipboard();
 		const [copied, setCopied] = useState(false);
 
 		useEffect(() => {
@@ -186,7 +188,7 @@ const CodeBlockCopyButton = forwardRef<HTMLButtonElement, CodeBlockCopyButtonPro
 				style={style}
 				onClick={async () => {
 					try {
-						await window?.navigator?.clipboard?.writeText(copyText);
+						await copyToClipboard(copyText);
 						onCopy?.(copyText);
 						setCopied(true);
 					} catch (error) {
