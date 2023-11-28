@@ -21,10 +21,7 @@ export default function Page() {
 
 			<CodeBlock className="rounded-t-none border-t-0">
 				<CodeBlockBody>
-					<CodeBlockCopyButton
-						onCopy={(value) => console.log("CodeBlockCopyButton.onCopy", { value })}
-						onCopyError={(error) => console.log("CodeBlockCopyButton.onCopyError", { error })}
-					/>
+					<CodeBlockCopyButton />
 					<CodeBlockCode language="tsx">{code`<Input placeholder="Enter a username" />`}</CodeBlockCode>
 				</CodeBlockBody>
 			</CodeBlock>
