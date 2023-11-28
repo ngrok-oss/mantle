@@ -2,6 +2,16 @@
 export { Anchor, anchorClassNames } from "./anchor";
 export { Button } from "./button";
 export { Card, CardBody, CardFooter, CardHeader, CardTitle } from "./card";
+export {
+	CodeBlock,
+	CodeBlockBody,
+	CodeBlockContent,
+	CodeBlockCopyButton,
+	CodeBlockHeader,
+	CodeBlockTitle,
+	CodeBlockExpanderButton,
+} from "./code-block";
+export { code } from "./code-block/code";
 export { cx } from "./cx";
 export {
 	Drawer,
