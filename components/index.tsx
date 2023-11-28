@@ -1,4 +1,5 @@
 // component exports
+export { Anchor, anchorClassNames } from "./anchor";
 export { Button } from "./button";
 export { Card, CardBody, CardFooter, CardHeader, CardTitle } from "./card";
 export { cx } from "./cx";
