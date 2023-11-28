@@ -13,7 +13,10 @@ import {
 	useRef,
 	useState,
 } from "react";
-import "prismjs/components/prism-bash";
+import "prismjs/components/prism-bash.js";
+import "prismjs/components/prism-jsx.js";
+import "prismjs/components/prism-tsx.js";
+import { useCopyToClipboard } from "@uidotdev/usehooks";
 import { cx } from "../cx";
 import type { WithStyleProps } from "../types/with-style-props";
 import { LineRange } from "./line-numbers";
@@ -89,7 +92,7 @@ type CodeBlockCodeProps = WithStyleProps & {
 	showLineNumbers?: boolean;
 };
 
-const CodeBlockCode = forwardRef<HTMLPreElement, CodeBlockCodeProps & { onToggleExpand?: () => void }>((props, ref) => {
+const CodeBlockCode = forwardRef<HTMLPreElement, CodeBlockCodeProps>((props, ref) => {
 	const { children, className, language = "sh", style } = props;
 	const innerPreRef = useRef<ElementRef<"pre">>();
 
@@ -157,11 +160,12 @@ type CodeBlockCopyButtonProps = WithStyleProps & {
 const CodeBlockCopyButton = forwardRef<HTMLButtonElement, CodeBlockCopyButtonProps>(
 	({ className, onCopy, onCopyError, style }, ref) => {
 		const { copyText } = useContext(CodeBlockContext);
+		const [, copyToClipboard] = useCopyToClipboard();
 		const [copied, setCopied] = useState(false);
 
 		useEffect(() => {
 			if (copied) {
-				const timeoutId = setTimeout(() => {
+				const timeoutId = window.setTimeout(() => {
 					setCopied(false);
 				}, 2000);
 
@@ -182,16 +186,10 @@ const CodeBlockCopyButton = forwardRef<HTMLButtonElement, CodeBlockCopyButtonPro
 				)}
 				ref={ref}
 				style={style}
-				onClick={() => {
-					window.navigator.clipboard
-						.writeText(copyText)
-						.then(() => {
-							setCopied(true);
-							onCopy?.(copyText);
-						})
-						.catch((error) => {
-							onCopyError?.(error);
-						});
+				onClick={async () => {
+					await copyToClipboard(copyText);
+					onCopy?.(copyText);
+					setCopied(true);
 				}}
 			>
 				{copied ? (
@@ -209,7 +207,7 @@ const CodeBlockCopyButton = forwardRef<HTMLButtonElement, CodeBlockCopyButtonPro
 CodeBlockCopyButton.displayName = "CodeBlockCopyButton";
 
 const CodeBlockExpanderButton = forwardRef<HTMLButtonElement, Exclude<HTMLAttributes<HTMLButtonElement>, "children">>(
-	({ className, ...props }) => {
+	({ className, ...props }, ref) => {
 		const { isCodeExpanded, setIsCodeExpanded, setHasCodeExpander } = useContext(CodeBlockContext);
 
 		useEffect(() => {
@@ -222,6 +220,7 @@ const CodeBlockExpanderButton = forwardRef<HTMLButtonElement, Exclude<HTMLAttrib
 
 		return (
 			<button
+				ref={ref}
 				type="button"
 				className={cx(
 					"bg-gray-050 flex w-full items-center justify-center border-t border-gray-300 px-4 py-2 font-sans text-gray-700 hover:bg-gray-100",

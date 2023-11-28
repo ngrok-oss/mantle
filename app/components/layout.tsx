@@ -1,6 +1,5 @@
 import { Button } from "@/button";
 import { cx } from "@/cx";
-// import { Input } from "@/input";
 import { Select, SelectContent, SelectIcon, SelectOption, SelectTrigger } from "@/select";
 import { isTheme, theme, useTheme } from "@/theme-provider";
 import { WithStyleProps } from "@/types/with-style-props";
