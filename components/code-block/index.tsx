@@ -137,7 +137,7 @@ CodeBlockCode.displayName = "CodeBlockCode";
 
 const CodeBlockHeader = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
 	<div
-		className={cx("flex-shrink-0 border-b border-gray-300 bg-gray-100 px-4 py-2 text-gray-700", className)}
+		className={cx("flex items-center gap-1 border-b border-gray-300 bg-gray-100 px-4 py-2 text-gray-700", className)}
 		ref={ref}
 		{...props}
 	/>

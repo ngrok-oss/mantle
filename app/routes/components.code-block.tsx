@@ -26,7 +26,7 @@ export default function Page() {
 			<p className="mt-4 text-xl text-gray-600">Code blocks render and apply syntax highlighting to blocks of code.</p>
 			<div className="mt-4 flex items-center justify-center rounded-lg rounded-b-none border border-gray-300 bg-background p-4 md:p-9">
 				<CodeBlock>
-					<CodeBlockHeader className="flex items-center gap-1">
+					<CodeBlockHeader>
 							<FileIcon />
 							<CodeBlockTitle>ngrok-example.js</CodeBlockTitle>
 					</CodeBlockHeader>
