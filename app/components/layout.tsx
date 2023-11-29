@@ -32,14 +32,15 @@ export function Layout({ children, className, style }: Props) {
 	return (
 		<main className={cx("mx-auto h-full max-w-7xl sm:px-4", className)} style={style}>
 			<header className="flex h-24 items-center gap-4 px-4 sm:px-0">
-				<button className="md:hidden flex shrink-0 h-10 w-10 items-center justify-center rounded-md border border-gray-300 bg-white focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-600/25" onClick={() => { setShowNavigation((s) => !s) }}>
-					{!showNavigation &&
-						<HamburgerIcon />
-					}
+				<button
+					className="md:hidden flex shrink-0 h-10 w-10 items-center justify-center rounded-md border border-gray-300 bg-white focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-600/25"
+					onClick={() => {
+						setShowNavigation((s) => !s);
+					}}
+				>
+					{!showNavigation && <HamburgerIcon />}
 
-					{showNavigation &&
-						<CloseIcon />
-					}
+					{showNavigation && <CloseIcon />}
 				</button>
 
 				<Link to="/">
@@ -76,11 +77,11 @@ export function Layout({ children, className, style }: Props) {
 					</SelectContent>
 				</Select>
 			</header>
-			{showNavigation &&
+			{showNavigation && (
 				<div className="md:hidden absolute bg-card z-50 p-4 bottom-0 top-24 left-0 right-0">
 					<Navigation className="h-full scrollbar overflow-auto" />
 				</div>
-			}
+			)}
 			<div className="flex gap-4 sm:mb-4 lg:mb-9">
 				<Navigation className="hidden w-44 pt-9 md:block" />
 				<article className="flex-1 bg-card p-4 shadow-lg sm:rounded-lg md:p-9 w-0">{children}</article>
@@ -175,13 +176,29 @@ function Navigation({ className, style }: WithStyleProps) {
 }
 
 const CloseIcon = ({ className, style }: WithStyleProps) => (
-	<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={cx("h-6 w-6", className)} style={style}>
+	<svg
+		xmlns="http://www.w3.org/2000/svg"
+		fill="none"
+		viewBox="0 0 24 24"
+		strokeWidth={1.5}
+		stroke="currentColor"
+		className={cx("h-6 w-6", className)}
+		style={style}
+	>
 		<path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
 	</svg>
 );
 
 const HamburgerIcon = ({ className, style }: WithStyleProps) => (
-	<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={cx("h-6 w-6", className)} style={style}>
+	<svg
+		xmlns="http://www.w3.org/2000/svg"
+		fill="none"
+		viewBox="0 0 24 24"
+		strokeWidth={1.5}
+		stroke="currentColor"
+		className={cx("h-6 w-6", className)}
+		style={style}
+	>
 		<path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
 	</svg>
 );

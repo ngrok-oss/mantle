@@ -1,4 +1,12 @@
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, CodeBlockExpanderButton, CodeBlockHeader, CodeBlockTitle } from "@/code-block";
+import {
+	CodeBlock,
+	CodeBlockBody,
+	CodeBlockCode,
+	CodeBlockCopyButton,
+	CodeBlockExpanderButton,
+	CodeBlockHeader,
+	CodeBlockTitle,
+} from "@/code-block";
 import { code } from "@/code-block/code";
 import type { MetaFunction } from "@vercel/remix";
 
@@ -27,8 +35,8 @@ export default function Page() {
 			<div className="mt-4 flex items-center justify-center rounded-lg rounded-b-none border border-gray-300 bg-background p-4 md:p-9">
 				<CodeBlock>
 					<CodeBlockHeader>
-							<FileIcon />
-							<CodeBlockTitle>ngrok-example.js</CodeBlockTitle>
+						<FileIcon />
+						<CodeBlockTitle>ngrok-example.js</CodeBlockTitle>
 					</CodeBlockHeader>
 					<CodeBlockBody>
 						<CodeBlockCopyButton />
