@@ -4,7 +4,7 @@ import { Select, SelectContent, SelectIcon, SelectOption, SelectTrigger } from "
 import { isTheme, theme, useTheme } from "@/theme-provider";
 import { WithStyleProps } from "@/types/with-style-props";
 import { Link, NavLink } from "@remix-run/react";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useState } from "react";
 
 const MantleLogo = () => (
 	<svg width="184" height="36">
@@ -27,10 +27,13 @@ type Props = PropsWithChildren & WithStyleProps;
 
 export function Layout({ children, className, style }: Props) {
 	const [currentTheme, setTheme] = useTheme();
+	const [showNavigation, setShowNavigation] = useState(false);
 
 	return (
 		<main className={cx("mx-auto h-full max-w-7xl sm:px-4", className)} style={style}>
 			<header className="flex h-24 items-center gap-2 px-4 sm:px-0 md:gap-4">
+				<Button className="md:hidden" priority="primary" onClick={() => { setShowNavigation((s) => !s) }}>Menu</Button>
+
 				<Link to="/">
 					<MantleLogo />
 				</Link>
@@ -64,15 +67,14 @@ export function Layout({ children, className, style }: Props) {
 						<SelectOption value={theme("dark-high-contrast")}>Dark High Contrast</SelectOption>
 					</SelectContent>
 				</Select>
-
-				<Button className="md:hidden">Search</Button>
-				{/* <Input placeholder="Search…" state="default" className="hidden md:block md:w-64" /> */}
-				<Button className="md:hidden" priority="primary">
-					Menu
-				</Button>
 			</header>
+			{showNavigation &&
+				<div className="md:hidden absolute bg-card z-50 p-4 bottom-0 top-24 left-0 right-0">
+					<Navigation className="h-full scrollbar overflow-auto" />
+				</div>
+			}
 			<div className="flex gap-4 sm:mb-4 lg:mb-9">
-				<Navigation />
+				<Navigation className="hidden w-44 pt-9 md:block" />
 				<article className="flex-1 bg-card p-4 shadow-lg sm:rounded-lg md:p-9 w-0">{children}</article>
 			</div>
 		</main>
@@ -81,7 +83,7 @@ export function Layout({ children, className, style }: Props) {
 
 function Navigation({ className, style }: WithStyleProps) {
 	return (
-		<nav className={cx("hidden w-44 pt-9 md:block text-sm", className)} style={style}>
+		<nav className={cx("text-sm", className)} style={style}>
 			<ul role="list" className="flex flex-col">
 				<li className="mb-2 text-xs font-medium uppercase tracking-wide">Welcome</li>
 
