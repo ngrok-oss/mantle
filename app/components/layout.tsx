@@ -83,7 +83,7 @@ export function Layout({ children, className, style }: Props) {
 			)}
 			<div className="flex gap-4 sm:mb-4 lg:mb-9">
 				<Navigation className="hidden w-44 pt-9 md:block" />
-				<article className="flex-1 bg-card p-4 shadow-lg sm:rounded-lg md:p-9 w-0">{children}</article>
+				<article className="flex-1 bg-card p-4 shadow-2xl sm:rounded-lg md:p-9 w-0">{children}</article>
 			</div>
 		</main>
 	);
@@ -93,7 +93,7 @@ function Navigation({ className, style }: WithStyleProps) {
 	return (
 		<nav className={cx("text-sm", className)} style={style}>
 			<ul role="list" className="flex flex-col">
-				<li className="mb-2 text-xs font-medium uppercase tracking-wide">Welcome</li>
+				<li className="mb-2 text-xs font-medium uppercase tracking-wider">Welcome</li>
 
 				<li>
 					<NavLink
@@ -109,7 +109,7 @@ function Navigation({ className, style }: WithStyleProps) {
 					</NavLink>
 				</li>
 
-				<li className="mt-6 text-xs font-medium uppercase tracking-wide">Base</li>
+				<li className="mt-6 text-xs font-medium uppercase tracking-wider">Base</li>
 
 				<ul role="list" className="mt-2">
 					<li>
@@ -140,7 +140,7 @@ function Navigation({ className, style }: WithStyleProps) {
 					</li>
 				</ul>
 
-				<li className="mt-6 text-xs font-medium uppercase tracking-wide">Components</li>
+				<li className="mt-6 text-xs font-medium uppercase tracking-wider">Components</li>
 				<ul role="list" className="mt-2">
 					<li>
 						<NavLink
