@@ -33,7 +33,7 @@ const SelectTrigger = forwardRef<
 	<Trigger
 		ref={ref}
 		className={cx(
-			"flex h-10 w-full items-center justify-between rounded-md border border-gray-500 bg-white px-3 py-2 placeholder:text-gray-300 focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-600/25 disabled:cursor-not-allowed disabled:opacity-50",
+			"flex h-10 w-full items-center justify-between rounded-md border border-gray-300 bg-white px-3 py-2 placeholder:text-gray-300 focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-600/25 disabled:cursor-not-allowed disabled:opacity-50",
 			className,
 		)}
 		{...props}

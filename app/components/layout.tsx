@@ -31,8 +31,16 @@ export function Layout({ children, className, style }: Props) {
 
 	return (
 		<main className={cx("mx-auto h-full max-w-7xl sm:px-4", className)} style={style}>
-			<header className="flex h-24 items-center gap-2 px-4 sm:px-0 md:gap-4">
-				<Button className="md:hidden" priority="primary" onClick={() => { setShowNavigation((s) => !s) }}>Menu</Button>
+			<header className="flex h-24 items-center gap-4 px-4 sm:px-0">
+				<button className="md:hidden flex shrink-0 h-10 w-10 items-center justify-center rounded-md border border-gray-300 bg-white focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-600/25" onClick={() => { setShowNavigation((s) => !s) }}>
+					{!showNavigation &&
+						<HamburgerIcon />
+					}
+
+					{showNavigation &&
+						<CloseIcon />
+					}
+				</button>
 
 				<Link to="/">
 					<MantleLogo />
@@ -165,3 +173,15 @@ function Navigation({ className, style }: WithStyleProps) {
 		</nav>
 	);
 }
+
+const CloseIcon = ({ className, style }: WithStyleProps) => (
+	<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={cx("h-6 w-6", className)} style={style}>
+		<path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+	</svg>
+);
+
+const HamburgerIcon = ({ className, style }: WithStyleProps) => (
+	<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={cx("h-6 w-6", className)} style={style}>
+		<path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+	</svg>
+);
