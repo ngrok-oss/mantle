@@ -118,7 +118,7 @@ const CodeBlockCode = forwardRef<HTMLPreElement, CodeBlockCodeProps>((props, ref
 		<pre
 			className={cx(
 				formatLanguageClassName(language),
-				"scrollbar overflow-x-auto overflow-y-hidden p-4 pr-16 firefox:after:mr-16 firefox:after:inline-block firefox:after:content-['']",
+				"scrollbar overflow-x-auto overflow-y-hidden p-4 pr-[3.375rem] firefox:after:mr-[3.375rem] firefox:after:inline-block firefox:after:content-['']",
 				shouldCollapseCodeHeight && "max-h-[13.6rem]",
 				className,
 			)}
@@ -179,9 +179,9 @@ const CodeBlockCopyButton = forwardRef<HTMLButtonElement, CodeBlockCopyButtonPro
 			<button
 				type="button"
 				className={cx(
-					"absolute right-3.5 top-2 z-10 flex h-[2.125rem] items-center rounded-sm border border-gray-300 bg-gray-50 p-1 shadow-[0.875rem_0_0_0_hsl(var(--gray-050)),_-0.5rem_0_0.35rem_0_hsla(var(--gray-050));] hover:border-gray-400 hover:bg-gray-200 focus:bg-gray-200",
+					"absolute right-[0.625rem] top-[0.625rem] z-10 flex h-8 w-8 items-center justify-center place-items-center rounded-sm border border-gray-300 bg-gray-50 shadow-[-1rem_0_0.75rem_-0.375rem_hsl(var(--gray-050)),1rem_0_0_-0.25rem_hsl(var(--gray-050))] hover:border-gray-400 hover:bg-gray-200",
 					copied &&
-						"gap-1 border-transparent bg-green-500 focus:bg-green-500 px-2 text-button hover:border-transparent hover:bg-green-500",
+						"gap-1 w-auto border-transparent bg-green-500 focus:bg-green-500 px-2 text-button hover:border-transparent hover:bg-green-500",
 					className,
 				)}
 				ref={ref}
@@ -203,7 +203,7 @@ const CodeBlockCopyButton = forwardRef<HTMLButtonElement, CodeBlockCopyButtonPro
 						<CheckIcon />
 					</>
 				) : (
-					<CopyIcon />
+					<CopyIcon className="-ml-px" />
 				)}
 			</button>
 		);
