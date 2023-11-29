@@ -1,4 +1,3 @@
-import { Button } from "@/button";
 import { cx } from "@/cx";
 import { Select, SelectContent, SelectIcon, SelectOption, SelectTrigger } from "@/select";
 import { isTheme, theme, useTheme } from "@/theme-provider";
