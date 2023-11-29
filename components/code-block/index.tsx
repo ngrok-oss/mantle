@@ -81,7 +81,7 @@ const CodeBlock = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ 
 CodeBlock.displayName = "CodeBlock";
 
 const CodeBlockBody = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
-	<div className={cx("relative h-full", className)} ref={ref} {...props} />
+	<div className={cx("relative", className)} ref={ref} {...props} />
 ));
 CodeBlockBody.displayName = "CodeBlockBody";
 
@@ -179,7 +179,7 @@ const CodeBlockCopyButton = forwardRef<HTMLButtonElement, CodeBlockCopyButtonPro
 			<button
 				type="button"
 				className={cx(
-					"absolute right-3.5 top-2 z-50 flex h-[2.125rem] items-center rounded-sm border border-gray-300 bg-gray-50 p-1 shadow-[0.875rem_0_0_0_hsl(var(--gray-050)),_-0.5rem_0_0.35rem_0_hsla(var(--gray-050));] hover:border-gray-400 hover:bg-gray-200 focus:bg-gray-200",
+					"absolute right-3.5 top-2 z-10 flex h-[2.125rem] items-center rounded-sm border border-gray-300 bg-gray-50 p-1 shadow-[0.875rem_0_0_0_hsl(var(--gray-050)),_-0.5rem_0_0.35rem_0_hsla(var(--gray-050));] hover:border-gray-400 hover:bg-gray-200 focus:bg-gray-200",
 					copied &&
 						"gap-1 border-transparent bg-green-500 focus:bg-green-500 px-2 text-button hover:border-transparent hover:bg-green-500",
 					className,
