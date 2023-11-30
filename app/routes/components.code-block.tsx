@@ -21,11 +21,17 @@ export default function Page() {
 	return (
 		<div>
 			<h1 className="text-5xl font-medium">Code Block</h1>
-			<h2 className="mt-4 text-xl text-gray-600">
-				Code blocks render and apply syntax highlighting to blocks of code.
-			</h2>
-			<div className="my-4 rounded-lg border border-gray-300 bg-background">
-				<div className="flex items-center justify-center p-4 md:p-9 border-b">
+			<p className="mt-4 text-xl text-gray-600">Code blocks render and apply syntax highlighting to blocks of code.</p>
+
+			<h2 className="mt-8 text-3xl font-medium">Examples</h2>
+
+			<h3 className="mt-8 text-xl font-medium">Complete</h3>
+			<p className="mt-1 text-gray-600">
+				This example includes every potential child of our code block component—a header with file icon and file name,
+				highlighted code with a copy button, and an expander which optionally crops the height of long code samples.
+			</p>
+			<div className="mt-4 rounded-lg border border-gray-300 bg-background">
+				<div className="flex items-center justify-center p-4 md:p-9 border-b border-gray-300">
 					<CodeBlock>
 						<CodeBlockHeader>
 							<FileIcon />
@@ -109,10 +115,14 @@ export default function Page() {
 				</CodeBlock>
 			</div>
 
-			<section className="my-4">
-				<h3 className="mb-1">Single Line With Header</h3>
-				<div className="rounded-lg border border-gray-300 bg-background">
-					<div className="flex items-center justify-center p-4 md:p-9 border-b">
+			<section>
+				<h3 className="mt-8 text-xl font-medium">Single Line with a Header</h3>
+				<p className="mt-1 text-gray-600">
+					Many code blocks will be single line command line prompts and should be able to render with a header and copy
+					button. This makes it absolutely clear that this example is a command line prompt and not a code sample.
+				</p>
+				<div className="mt-4 rounded-lg border border-gray-300 bg-background">
+					<div className="flex items-center justify-center p-4 md:p-9 border-b border-gray-300">
 						<CodeBlock>
 							<CodeBlockHeader>
 								<CommandLineIcon />
@@ -150,10 +160,14 @@ export default function Page() {
 				</div>
 			</section>
 
-			<section className="my-4">
-				<h3 className="mb-1">Horizontal Scroll With Header</h3>
-				<div className="rounded-lg border border-gray-300 bg-background">
-					<div className="flex items-center justify-center p-4 md:p-9 border-b">
+			<section>
+				<h3 className="mt-8 text-xl font-medium">Horizontal Scrolling</h3>
+				<p className="mt-1 text-gray-600">
+					This example is included to demonstrate that code blocks can scroll horizontally if the content is too wide.
+					Mantle attempts to normalize scrollbar styling across browsers and platforms.
+				</p>
+				<div className="mt-4 rounded-lg border border-gray-300 bg-background">
+					<div className="flex items-center justify-center p-4 md:p-9 border-b border-gray-300">
 						<CodeBlock>
 							<CodeBlockHeader>
 								<FileIcon />
@@ -226,10 +240,16 @@ export default function Page() {
 				</div>
 			</section>
 
-			<section className="my-4">
-				<h3 className="mb-1">No Header or Copy Button</h3>
-				<div className="rounded-lg border border-gray-300 bg-background">
-					<div className="flex items-center justify-center p-4 md:p-9 border-b">
+			<section>
+				<h3 className="mt-8 text-xl font-medium">No Header or Copy Button</h3>
+				<p className="mt-1 text-gray-600">
+					This is the most simple example of our code block component. While very useful, the copy button is optional.
+					It is also perfectly acceptable to render a code block without a header, especially if context is provided in
+					the surrounding content or the code block is self-explanatory eg. “In your index.js file, paste the
+					following:”.
+				</p>
+				<div className="mt-4 rounded-lg border border-gray-300 bg-background">
+					<div className="flex items-center justify-center p-4 md:p-9 border-b border-gray-300">
 						<CodeBlock>
 							<CodeBlockBody>
 								<CodeBlockCode language="js">
@@ -279,10 +299,14 @@ export default function Page() {
 				</div>
 			</section>
 
-			<section className="my-4">
-				<h3 className="mb-1">Overflow Single Line With Copy Button</h3>
-				<div className="rounded-lg border border-gray-300 bg-background">
-					<div className="flex items-center justify-center p-4 md:p-9 border-b">
+			<section>
+				<h3 className="mt-8 text-xl font-medium">Single Line with Horizontal Scrolling</h3>
+				<p className="mt-1 text-gray-600">
+					This example is included to show the interaction between the copy button and horizontal scrolling on a single
+					verbose bash command.
+				</p>
+				<div className="mt-4 rounded-lg border border-gray-300 bg-background">
+					<div className="flex items-center justify-center p-4 md:p-9 border-b border-gray-300">
 						<CodeBlock>
 							<CodeBlockBody>
 								<CodeBlockCopyButton />
