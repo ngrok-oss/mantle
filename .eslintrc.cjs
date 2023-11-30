@@ -35,6 +35,13 @@ module.exports = {
 		"@typescript-eslint/consistent-type-definitions": ["error", "type"],
 		"@typescript-eslint/ban-types": "off",
 		"@typescript-eslint/no-unnecessary-condition": "off",
+		"@typescript-eslint/no-empty-function": "off",
+		"@typescript-eslint/no-misused-promises": [
+			"error",
+			{
+				checksVoidReturn: false,
+			},
+		],
 	},
 	settings: {
 		react: {

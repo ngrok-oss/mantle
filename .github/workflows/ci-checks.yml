@@ -9,20 +9,30 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Install Node.js 18 📗
+      - name: Install Node.js 20 📗
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20
 
       - name: Install pnpm 📦
         uses: pnpm/action-setup@v2
         with:
           version: 8
 
-      - name: Install and Test 🔧
-        run: | # Install npm packages and build the Storybook files
+      - name: Install Dependencies 📥
+        run: | # Install npm packages
           pnpm install
+
+      - name: Lint and Type Check 🧹
+        run: | # Run the lint and type check
           pnpm run typecheck
           pnpm run fmt:check
           pnpm run lint
-          pnpm run test run
+
+      - name: Test 🧪
+        run: | # Run the tests
+          pnpm run test
+
+      - name: Ensure Package is Publishable 🧐
+        run: | # Run the prepublish hook to ensure the package is publishable
+          pnpm run prepublishOnly

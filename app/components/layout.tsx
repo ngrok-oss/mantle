@@ -1,11 +1,10 @@
-import { Button } from "@/button";
-// import { Input } from "@/input";
+import { cx } from "@/cx";
 import { Select, SelectContent, SelectIcon, SelectOption, SelectTrigger } from "@/select";
 import { isTheme, theme, useTheme } from "@/theme-provider";
-import { cx } from "@/cx";
 import { WithStyleProps } from "@/types/with-style-props";
-import { Link, NavLink } from "@remix-run/react";
-import { PropsWithChildren } from "react";
+import { Link, NavLinkProps, NavLink as RRNavLink } from "@remix-run/react";
+import { route } from "~/types/routes";
+import { PropsWithChildren, useState } from "react";
 
 const MantleLogo = () => (
 	<svg width="184" height="36">
@@ -28,10 +27,22 @@ type Props = PropsWithChildren & WithStyleProps;
 
 export function Layout({ children, className, style }: Props) {
 	const [currentTheme, setTheme] = useTheme();
+	const [showNavigation, setShowNavigation] = useState(false);
 
 	return (
 		<main className={cx("mx-auto h-full max-w-7xl sm:px-4", className)} style={style}>
-			<header className="flex h-24 items-center gap-2 px-4 sm:px-0 md:gap-4">
+			<header className="flex h-24 items-center gap-4 px-4 sm:px-0">
+				<button
+					className="md:hidden flex shrink-0 h-10 w-10 items-center justify-center rounded-md border border-gray-300 bg-white focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-600/25"
+					onClick={() => {
+						setShowNavigation((s) => !s);
+					}}
+				>
+					{!showNavigation && <HamburgerIcon />}
+
+					{showNavigation && <CloseIcon />}
+				</button>
+
 				<Link to="/">
 					<MantleLogo />
 				</Link>
@@ -61,18 +72,19 @@ export function Layout({ children, className, style }: Props) {
 						<SelectOption value={theme("system")}>System</SelectOption>
 						<SelectOption value={theme("light")}>Light</SelectOption>
 						<SelectOption value={theme("dark")}>Dark</SelectOption>
+						<SelectOption value={theme("light-high-contrast")}>Light High Contrast</SelectOption>
+						<SelectOption value={theme("dark-high-contrast")}>Dark High Contrast</SelectOption>
 					</SelectContent>
 				</Select>
-
-				<Button className="md:hidden">Search</Button>
-				{/* <Input placeholder="Search…" state="default" className="hidden md:block md:w-64" /> */}
-				<Button className="md:hidden" priority="primary">
-					Menu
-				</Button>
 			</header>
+			{showNavigation && (
+				<div className="md:hidden absolute bg-card z-50 p-4 bottom-0 top-24 left-0 right-0">
+					<Navigation className="h-full scrollbar overflow-auto" />
+				</div>
+			)}
 			<div className="flex gap-4 sm:mb-4 lg:mb-9">
-				<Navigation />
-				<article className="flex-1 bg-card p-4 shadow-lg sm:rounded-lg md:p-9">{children}</article>
+				<Navigation className="hidden w-44 pt-9 md:block" />
+				<article className="flex-1 bg-card p-4 shadow-2xl sm:rounded-lg md:p-9 w-0">{children}</article>
 			</div>
 		</main>
 	);
@@ -80,72 +92,89 @@ export function Layout({ children, className, style }: Props) {
 
 function Navigation({ className, style }: WithStyleProps) {
 	return (
-		<nav className={cx("hidden w-44 pt-9 md:block", className)} style={style}>
+		<nav className={cx("text-sm", className)} style={style}>
 			<ul role="list" className="flex flex-col">
-				<li className="mb-2 text-xs font-medium uppercase tracking-widest">Welcome</li>
+				<li className="mb-2 text-xs font-medium uppercase tracking-wider">Welcome</li>
 
 				<li>
-					<NavLink
-						className={({ isActive }) =>
-							cx(
-								"-ml-2 block rounded-lg px-2 py-1 text-sm text-gray-500 hover:font-medium hover:text-gray-900",
-								isActive && "font-medium text-blue-600 hover:text-blue-600",
-							)
-						}
-						to="/"
-					>
-						Overview
-					</NavLink>
+					<NavLink to="/">Overview</NavLink>
 				</li>
 
-				<li className="mt-6 text-xs font-medium uppercase tracking-widest">Base</li>
+				<li className="mt-6 text-xs font-medium uppercase tracking-wider">Base</li>
 
-				<ul role="list" className="mt-2 text-sm">
+				<ul role="list" className="mt-2">
 					<li>
-						<NavLink
-							className={({ isActive }) =>
-								cx(
-									"-ml-2 block rounded-lg px-2 py-1 text-gray-500 hover:font-medium hover:text-gray-900",
-									isActive && "font-medium text-blue-600 hover:text-blue-600",
-								)
-							}
-							to="/base/typography"
-						>
-							Typography
-						</NavLink>
+						<NavLink to={route("/base/colors")}>Colors</NavLink>
 					</li>
 					<li>
-						<NavLink
-							className={({ isActive }) =>
-								cx(
-									"-ml-2 block rounded-lg px-2 py-1 text-gray-500 hover:font-medium hover:text-gray-900",
-									isActive && "font-medium text-blue-600 hover:text-blue-600",
-								)
-							}
-							to="/base/colors"
-						>
-							Colors
-						</NavLink>
+						<NavLink to={route("/base/typography")}>Typography</NavLink>
 					</li>
 				</ul>
 
-				<li className="mt-6 text-xs font-medium uppercase tracking-widest">Components</li>
-				<ul role="list" className="mt-2 text-sm">
+				<li className="mt-6 text-xs font-medium uppercase tracking-wider">Components</li>
+				<ul role="list" className="mt-2">
 					<li>
-						<NavLink
-							className={({ isActive }) =>
-								cx(
-									"-ml-2 block rounded-lg px-2 py-1 text-gray-500 hover:font-medium hover:text-gray-900",
-									isActive && "font-medium text-blue-600 hover:text-blue-600",
-								)
-							}
-							to="/components/input"
-						>
-							Input
-						</NavLink>
+						<NavLink to={route("/components/anchor")}>Anchor</NavLink>
+					</li>
+					<li>
+						<NavLink to={route("/components/button")}>Button</NavLink>
+					</li>
+					<li>
+						<NavLink to={route("/components/card")}>Card</NavLink>
+					</li>
+					<li>
+						<NavLink to={route("/components/code-block")}>Code Block</NavLink>
+					</li>
+					<li>
+						<NavLink to={route("/components/input")}>Input</NavLink>
+					</li>
+					<li>
+						<NavLink to={route("/components/media-object")}>Media Object</NavLink>
+					</li>
+					<li>
+						<NavLink to={route("/components/skeleton")}>Skeleton</NavLink>
 					</li>
 				</ul>
 			</ul>
 		</nav>
 	);
 }
+
+const NavLink = ({ children, to }: PropsWithChildren & Pick<NavLinkProps, "to">) => (
+	<RRNavLink
+		className={({ isActive }) =>
+			cx("block py-1 text-gray-500 hover:text-gray-900", isActive && "font-medium text-blue-600 hover:text-blue-600")
+		}
+		to={to}
+	>
+		{children}
+	</RRNavLink>
+);
+
+const CloseIcon = ({ className, style }: WithStyleProps) => (
+	<svg
+		xmlns="http://www.w3.org/2000/svg"
+		fill="none"
+		viewBox="0 0 24 24"
+		strokeWidth={1.5}
+		stroke="currentColor"
+		className={cx("h-6 w-6", className)}
+		style={style}
+	>
+		<path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+	</svg>
+);
+
+const HamburgerIcon = ({ className, style }: WithStyleProps) => (
+	<svg
+		xmlns="http://www.w3.org/2000/svg"
+		fill="none"
+		viewBox="0 0 24 24"
+		strokeWidth={1.5}
+		stroke="currentColor"
+		className={cx("h-6 w-6", className)}
+		style={style}
+	>
+		<path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+	</svg>
+);
