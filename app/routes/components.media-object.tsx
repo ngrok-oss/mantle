@@ -24,7 +24,7 @@ export default function Page() {
 					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">gap-*</code>{" "}
 					class. The default{" "}
 					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">gap</code> is{" "}
-					<code>gap-4</code>.
+					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">gap-4</code>.
 				</p>
 				<p>
 					Use{" "}
@@ -36,7 +36,11 @@ export default function Page() {
 					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">
 						&lt;MediaObject&gt;
 					</code>{" "}
-					with the <code>&lt;MediaObjectMedia&gt;</code> and{" "}
+					with the{" "}
+					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">
+						&lt;MediaObjectMedia&gt;
+					</code>{" "}
+					and{" "}
 					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">
 						&lt;MediaObjectContent&gt;
 					</code>{" "}
