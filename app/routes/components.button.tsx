@@ -18,11 +18,15 @@ export default function Page() {
 			<h2 className="my-4 text-xl text-gray-600">Displays a button or a component that looks like a button.</h2>
 			<div className="mt-8 space-y-4 text-gray-600">
 				<p>
-					The <code className="bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">&lt;Button&gt;</code>{" "}
+					The{" "}
+					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">
+						&lt;Button&gt;
+					</code>{" "}
 					element is an interactive element activated by a user with a mouse, keyboard, finger, voice command, or other
 					assistive technology. Once activated, it then performs an action, such as submitting a{" "}
-					<code className="bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">form</code> or opening a{" "}
-					<code className="bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">dialog</code>.
+					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">form</code> or
+					opening a{" "}
+					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">dialog</code>.
 				</p>
 				<p>
 					See the <Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button">MDN docs</Anchor> for

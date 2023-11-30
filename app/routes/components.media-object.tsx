@@ -21,19 +21,23 @@ export default function Page() {
 			<div className="mt-8 space-y-4 text-gray-600">
 				<p>
 					Change the spacing between the media and content by passing a{" "}
-					<code className="bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">gap-*</code> class. The
-					default <code className="bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">gap</code> is{" "}
+					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">gap-*</code>{" "}
+					class. The default{" "}
+					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">gap</code> is{" "}
 					<code>gap-4</code>.
 				</p>
 				<p>
-					Use <code className="bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">flexbox</code>{" "}
+					Use{" "}
+					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">flexbox</code>{" "}
 					utilities to change the alignment of the media and content.
 				</p>
 				<p>
 					Compose the{" "}
-					<code className="bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">&lt;MediaObject&gt;</code>{" "}
+					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">
+						&lt;MediaObject&gt;
+					</code>{" "}
 					with the <code>&lt;MediaObjectMedia&gt;</code> and{" "}
-					<code className="bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">
+					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">
 						&lt;MediaObjectContent&gt;
 					</code>{" "}
 					components as direct children.

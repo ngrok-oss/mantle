@@ -97,16 +97,24 @@ export default function Page() {
 				</h2>
 				<p className="mt-3 text-gray-600">
 					Mantle&apos;s colors are delivered as CSS variables via Tailwind&apos;s API eg.{" "}
-					<code className="bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">.text-blue-500</code>.
-					They can be directly accessed via{" "}
-					<code className="bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">var(--primary-500)</code>{" "}
+					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">
+						.text-blue-500
+					</code>
+					. They can be directly accessed via{" "}
+					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">
+						var(--primary-500)
+					</code>{" "}
 					but do note that you&apos;ll need to wrap everything in{" "}
-					<code className="bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">hsl()</code> like so:{" "}
-					<code className="bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">
+					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">hsl()</code>{" "}
+					like so:{" "}
+					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">
 						hsl(var(--primary-500))
 					</code>
 					. This allows for Tailwind operations like{" "}
-					<code className="bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">text-blue-500/25</code>.
+					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">
+						text-blue-500/25
+					</code>
+					.
 				</p>
 				<h3 id="blue" className="mt-6 text-xl font-medium">
 					Blue (primary)
