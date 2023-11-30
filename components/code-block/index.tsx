@@ -9,6 +9,7 @@ import {
 	SetStateAction,
 	useContext,
 	useEffect,
+	useId,
 	useMemo,
 	useRef,
 	useState,
@@ -17,6 +18,7 @@ import "prismjs/components/prism-bash.js";
 import "prismjs/components/prism-jsx.js";
 import "prismjs/components/prism-tsx.js";
 import { useCopyToClipboard } from "@uidotdev/usehooks";
+import assert from "tiny-invariant";
 import { cx } from "../cx";
 import type { WithStyleProps } from "../types/with-style-props";
 import { LineRange } from "./line-numbers";
@@ -30,39 +32,59 @@ import { formatLanguageClassName, type SupportedLanguage } from "./supported-lan
  */
 
 type CodeBlockContextType = {
+	codeId: string | undefined;
 	copyText: string;
 	hasCodeExpander: boolean;
 	isCodeExpanded: boolean;
+	registerCodeId: (id: string) => void;
 	setCopyText: (newCopyText: string) => void;
 	setHasCodeExpander: (value: boolean) => void;
 	setIsCodeExpanded: Dispatch<SetStateAction<boolean>>;
+	unregisterCodeId: (id: string) => void;
 };
 
 const CodeBlockContext = createContext<CodeBlockContextType>({
+	codeId: undefined,
 	copyText: "",
 	hasCodeExpander: false,
 	isCodeExpanded: false,
+	registerCodeId: () => {},
 	setCopyText: () => {},
 	setHasCodeExpander: () => {},
 	setIsCodeExpanded: () => {},
+	unregisterCodeId: () => {},
 });
 
 const CodeBlock = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => {
 	const [copyText, setCopyText] = useState("");
 	const [hasCodeExpander, setHasCodeExpander] = useState(false);
 	const [isCodeExpanded, setIsCodeExpanded] = useState(false);
+	const [codeId, setCodeId] = useState<string | undefined>(undefined);
 
 	const context: CodeBlockContextType = useMemo(
 		() =>
 			({
+				codeId,
 				copyText,
 				hasCodeExpander,
 				isCodeExpanded,
+				registerCodeId: (id) => {
+					setCodeId((old) => {
+						assert(old == null, "You can only render a single CodeBlockCode within a CodeBlock.");
+						return id;
+					});
+				},
 				setCopyText,
 				setHasCodeExpander,
 				setIsCodeExpanded,
+				unregisterCodeId: (id) => {
+					setCodeId((old) => {
+						assert(old === id, "You can only render a single CodeBlockCode within a CodeBlock.");
+						return undefined;
+					});
+				},
 			}) as const,
-		[copyText, hasCodeExpander, isCodeExpanded],
+		[codeId, copyText, hasCodeExpander, isCodeExpanded],
 	);
 
 	return (
@@ -95,39 +117,53 @@ type CodeBlockCodeProps = WithStyleProps & {
 const CodeBlockCode = forwardRef<HTMLPreElement, CodeBlockCodeProps>((props, ref) => {
 	const { children, className, language = "sh", style } = props;
 	const innerPreRef = useRef<ElementRef<"pre">>();
-
-	const { hasCodeExpander, isCodeExpanded, setCopyText } = useContext(CodeBlockContext);
-
-	const shouldCollapseCodeHeight = hasCodeExpander && !isCodeExpanded;
+	const id = useId();
+	const { hasCodeExpander, isCodeExpanded, registerCodeId, setCopyText, unregisterCodeId } =
+		useContext(CodeBlockContext);
 
 	// trim any leading and trailing whitespace/empty lines
 	const trimmedCode = children?.trim() ?? "";
+
+	useEffect(() => {
+		const preElement = innerPreRef.current;
+		if (!preElement) {
+			return;
+		}
+		Prism.highlightElement(preElement);
+	}, [trimmedCode, children]);
 
 	useEffect(() => {
 		setCopyText(trimmedCode);
 	}, [trimmedCode, setCopyText]);
 
 	useEffect(() => {
-		if (!innerPreRef.current) {
-			return;
-		}
-		Prism.highlightElement(innerPreRef.current);
-	}, [trimmedCode]);
+		registerCodeId(id);
+
+		return () => {
+			unregisterCodeId(id);
+		};
+	}, [id, registerCodeId, unregisterCodeId]);
 
 	return (
 		<pre
+			aria-expanded={hasCodeExpander ? isCodeExpanded : undefined}
 			className={cx(
 				formatLanguageClassName(language),
 				"scrollbar overflow-x-auto overflow-y-hidden p-4 pr-16 firefox:after:mr-16 firefox:after:inline-block firefox:after:content-['']",
-				shouldCollapseCodeHeight && "max-h-[13.6rem]",
+				"aria-[expanded='false']:max-h-[13.6rem]",
 				className,
 			)}
 			data-lang={language}
+			id={id}
 			ref={(node) => {
 				innerPreRef.current = node ?? undefined;
 				return ref;
 			}}
-			style={{ tabSize: 2, MozTabSize: 2, ...style }}
+			style={{
+				tabSize: 2,
+				MozTabSize: 2,
+				...style,
+			}}
 		>
 			<code>{trimmedCode}</code>
 		</pre>
@@ -211,9 +247,14 @@ const CodeBlockCopyButton = forwardRef<HTMLButtonElement, CodeBlockCopyButtonPro
 );
 CodeBlockCopyButton.displayName = "CodeBlockCopyButton";
 
-const CodeBlockExpanderButton = forwardRef<HTMLButtonElement, Exclude<HTMLAttributes<HTMLButtonElement>, "children">>(
-	({ className, ...props }, ref) => {
-		const { isCodeExpanded, setIsCodeExpanded, setHasCodeExpander } = useContext(CodeBlockContext);
+type CodeBlockExpanderButtonProps = Omit<
+	HTMLAttributes<HTMLButtonElement>,
+	"children" | "aria-controls" | "aria-expanded"
+>;
+
+const CodeBlockExpanderButton = forwardRef<HTMLButtonElement, CodeBlockExpanderButtonProps>(
+	({ className, onClick, ...props }, ref) => {
+		const { codeId, isCodeExpanded, setIsCodeExpanded, setHasCodeExpander } = useContext(CodeBlockContext);
 
 		useEffect(() => {
 			setHasCodeExpander(true);
@@ -225,18 +266,22 @@ const CodeBlockExpanderButton = forwardRef<HTMLButtonElement, Exclude<HTMLAttrib
 
 		return (
 			<button
-				ref={ref}
-				type="button"
+				{...props}
+				aria-controls={codeId}
+				aria-expanded={isCodeExpanded}
 				className={cx(
 					"bg-gray-050 flex w-full items-center justify-center border-t border-gray-300 px-4 py-2 font-sans text-gray-700 hover:bg-gray-100",
 					className,
 				)}
-				onClick={() => {
+				ref={ref}
+				type="button"
+				onClick={(event) => {
 					setIsCodeExpanded((prev) => !prev);
+					onClick?.(event);
 				}}
-				{...props}
 			>
-				{isCodeExpanded ? "Show less" : "Show more"} <ExpandIcon className={isCodeExpanded ? "rotate-180" : ""} />
+				{isCodeExpanded ? "Show less" : "Show more"}{" "}
+				<ExpandIcon className={cx(isCodeExpanded && "rotate-180", "transition-all duration-150")} />
 			</button>
 		);
 	},
