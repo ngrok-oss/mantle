@@ -31,42 +31,46 @@ export default function Page() {
 					<code>&lt;MediaObjectContent&gt;</code> components as direct children.
 				</p>
 			</div>
-			<div className="mt-4 flex items-center justify-center rounded-lg rounded-b-none border border-gray-300 bg-background p-4 md:p-9">
-				<MediaObject>
-					<MediaObjectMedia>
-						<ExampleMedia />
-					</MediaObjectMedia>
-					<MediaObjectContent>
-						<h4 className="text-lg font-bold">Lorem ipsum</h4>
-						<p className="mb-4 mt-1">
-							Repudiandae sint consequuntur vel. Amet ut nobis explicabo numquam expedita quia omnis voluptatem. Minus
-							quidem ipsam quia iusto.
-						</p>
-						<p>Ea eiusmod eiusmod aute reprehenderit exercitation eu ea id adipisicing occaecat.</p>
-					</MediaObjectContent>
-				</MediaObject>
-			</div>
 
-			<CodeBlock className="rounded-t-none border-t-0">
-				<CodeBlockBody>
-					<CodeBlockCopyButton />
-					<CodeBlockCode language="tsx">{code`
-						<MediaObject>
-							<MediaObjectMedia>
-								<ExampleMedia />
-							</MediaObjectMedia>
-							<MediaObjectContent>
-								<h4 className="text-lg font-bold">Lorem ipsum</h4>
-								<p className="mb-4 mt-1">
-									Repudiandae sint consequuntur vel. Amet ut nobis explicabo numquam expedita quia omnis voluptatem. Minus
-									quidem ipsam quia iusto.
-								</p>
-								<p>Ea eiusmod eiusmod aute reprehenderit exercitation eu ea id adipisicing occaecat.</p>
-							</MediaObjectContent>
-						</MediaObject>
-					`}</CodeBlockCode>
-				</CodeBlockBody>
-			</CodeBlock>
+			<div className="my-4 rounded-lg border border-gray-300 bg-background">
+				<div className="flex items-center justify-center p-4 md:p-9 border-b">
+					<MediaObject>
+						<MediaObjectMedia>
+							<ExampleMedia />
+						</MediaObjectMedia>
+						<MediaObjectContent>
+							<h4 className="text-lg font-bold">Lorem ipsum</h4>
+							<p className="mb-4 mt-1">
+								Repudiandae sint consequuntur vel. Amet ut nobis explicabo numquam expedita quia omnis voluptatem. Minus
+								quidem ipsam quia iusto.
+							</p>
+							<p>Ea eiusmod eiusmod aute reprehenderit exercitation eu ea id adipisicing occaecat.</p>
+						</MediaObjectContent>
+					</MediaObject>
+				</div>
+				<CodeBlock className="border-none">
+					<CodeBlockBody>
+						<CodeBlockCopyButton />
+						<CodeBlockCode language="tsx">
+							{code`
+								<MediaObject>
+									<MediaObjectMedia>
+										<ExampleMedia />
+									</MediaObjectMedia>
+									<MediaObjectContent>
+										<h4 className="text-lg font-bold">Lorem ipsum</h4>
+										<p className="mb-4 mt-1">
+											Repudiandae sint consequuntur vel. Amet ut nobis explicabo numquam expedita quia omnis voluptatem. Minus
+											quidem ipsam quia iusto.
+										</p>
+										<p>Ea eiusmod eiusmod aute reprehenderit exercitation eu ea id adipisicing occaecat.</p>
+									</MediaObjectContent>
+								</MediaObject>
+							`}
+						</CodeBlockCode>
+					</CodeBlockBody>
+				</CodeBlock>
+			</div>
 		</div>
 	);
 }

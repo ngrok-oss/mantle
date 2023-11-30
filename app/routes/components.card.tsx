@@ -17,38 +17,42 @@ export default function Page() {
 			<h2 className="my-4 text-xl text-gray-600">
 				A container used to display content in a box, resembling a physical card.
 			</h2>
-			<div className="mt-4 flex items-center justify-center rounded-lg rounded-b-none border border-gray-300 bg-background p-4 md:p-9">
-				<Card>
-					<CardHeader>
-						<CardTitle>Card Title Here</CardTitle>
-					</CardHeader>
-					<CardBody>
-						<p>Laborum in aute officia adipisicing elit velit.</p>
-					</CardBody>
-					<CardFooter>
-						<p>Card footer</p>
-					</CardFooter>
-				</Card>
-			</div>
 
-			<CodeBlock className="rounded-t-none border-t-0">
-				<CodeBlockBody>
-					<CodeBlockCopyButton />
-					<CodeBlockCode language="tsx">{code`
-						<Card>
-							<CardHeader>
-								<CardTitle>Card Title Here</CardTitle>
-							</CardHeader>
-							<CardBody>
-								<p>Laborum in aute officia adipisicing elit velit.</p>
-							</CardBody>
-							<CardFooter>
-								<p>Card footer</p>
-							</CardFooter>
-						</Card>
-					`}</CodeBlockCode>
-				</CodeBlockBody>
-			</CodeBlock>
+			<div className="my-4 rounded-lg border border-gray-300 bg-background">
+				<div className="flex items-center justify-center p-4 md:p-9 border-b">
+					<Card>
+						<CardHeader>
+							<CardTitle>Card Title Here</CardTitle>
+						</CardHeader>
+						<CardBody>
+							<p>Laborum in aute officia adipisicing elit velit.</p>
+						</CardBody>
+						<CardFooter>
+							<p>Card footer</p>
+						</CardFooter>
+					</Card>
+				</div>
+				<CodeBlock className="border-none">
+					<CodeBlockBody>
+						<CodeBlockCopyButton />
+						<CodeBlockCode language="tsx">
+							{code`
+								<Card>
+									<CardHeader>
+										<CardTitle>Card Title Here</CardTitle>
+									</CardHeader>
+									<CardBody>
+										<p>Laborum in aute officia adipisicing elit velit.</p>
+									</CardBody>
+									<CardFooter>
+										<p>Card footer</p>
+									</CardFooter>
+								</Card>
+							`}
+						</CodeBlockCode>
+					</CodeBlockBody>
+				</CodeBlock>
+			</div>
 		</div>
 	);
 }

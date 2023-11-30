@@ -15,16 +15,18 @@ export default function Page() {
 		<div>
 			<h1 className="text-5xl font-medium">Input</h1>
 			<h2 className="mt-4 text-xl text-gray-600">Fundamental component for inputs.</h2>
-			<div className="mt-4 flex items-center justify-center rounded-lg rounded-b-none border border-gray-300 bg-background p-4 md:p-9">
-				<Input placeholder="Enter a username" />
-			</div>
+			<div className="my-4 rounded-lg border border-gray-300 bg-background">
+				<div className="flex items-center justify-center p-4 md:p-9 border-b">
+					<Input placeholder="Enter a username" />
+				</div>
 
-			<CodeBlock className="rounded-t-none border-t-0">
-				<CodeBlockBody>
-					<CodeBlockCopyButton />
-					<CodeBlockCode language="tsx">{code`<Input placeholder="Enter a username" />`}</CodeBlockCode>
-				</CodeBlockBody>
-			</CodeBlock>
+				<CodeBlock className="border-none">
+					<CodeBlockBody>
+						<CodeBlockCopyButton />
+						<CodeBlockCode language="tsx">{code`<Input placeholder="Enter a username" />`}</CodeBlockCode>
+					</CodeBlockBody>
+				</CodeBlock>
+			</div>
 		</div>
 	);
 }

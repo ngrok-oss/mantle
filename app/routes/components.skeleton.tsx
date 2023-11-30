@@ -21,13 +21,10 @@ export default function Page() {
 				<div className="flex items-center justify-center p-4 md:p-9 border-b">
 					<Skeleton className="h-4 w-full" />
 				</div>
-
 				<CodeBlock className="border-none">
 					<CodeBlockBody>
 						<CodeBlockCopyButton />
-						<CodeBlockCode language="tsx">{code`
-						<Skeleton className="h-4 w-full" />
-					`}</CodeBlockCode>
+						<CodeBlockCode language="tsx">{code`<Skeleton className="h-4 w-full" />`}</CodeBlockCode>
 					</CodeBlockBody>
 				</CodeBlock>
 			</div>
@@ -48,21 +45,22 @@ export default function Page() {
 							</MediaObjectContent>
 						</MediaObject>
 					</div>
-
 					<CodeBlock className="border-none">
 						<CodeBlockBody>
 							<CodeBlockCopyButton />
-							<CodeBlockCode language="tsx">{code`
-							<MediaObject>
-								<MediaObjectMedia>
-									<Skeleton className="h-12 w-12 rounded-full" />
-								</MediaObjectMedia>
-								<MediaObjectContent className="space-y-3">
-									<Skeleton className="h-4 w-[250px]" />
-									<Skeleton className="h-4 w-[200px]" />
-								</MediaObjectContent>
-							</MediaObject>
-						`}</CodeBlockCode>
+							<CodeBlockCode language="tsx">
+								{code`
+									<MediaObject>
+										<MediaObjectMedia>
+											<Skeleton className="h-12 w-12 rounded-full" />
+										</MediaObjectMedia>
+										<MediaObjectContent className="space-y-3">
+											<Skeleton className="h-4 w-[250px]" />
+											<Skeleton className="h-4 w-[200px]" />
+										</MediaObjectContent>
+									</MediaObject>
+								`}
+							</CodeBlockCode>
 						</CodeBlockBody>
 					</CodeBlock>
 				</div>

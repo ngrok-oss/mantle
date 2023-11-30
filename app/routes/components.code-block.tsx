@@ -34,16 +34,17 @@ export default function Page() {
 			<h2 className="mt-4 text-xl text-gray-600">
 				Code blocks render and apply syntax highlighting to blocks of code.
 			</h2>
-			<div className="mt-4 flex items-center justify-center rounded-lg rounded-b-none border border-gray-300 bg-background p-4 md:p-9">
-				<CodeBlock>
-					<CodeBlockHeader>
-						<FileIcon />
-						<CodeBlockTitle>ngrok-example.js</CodeBlockTitle>
-					</CodeBlockHeader>
-					<CodeBlockBody>
-						<CodeBlockCopyButton />
-						<CodeBlockCode language="js">
-							{code`
+			<div className="my-4 rounded-lg border border-gray-300 bg-background">
+				<div className="flex items-center justify-center p-4 md:p-9 border-b">
+					<CodeBlock>
+						<CodeBlockHeader>
+							<FileIcon />
+							<CodeBlockTitle>ngrok-example.js</CodeBlockTitle>
+						</CodeBlockHeader>
+						<CodeBlockBody>
+							<CodeBlockCopyButton />
+							<CodeBlockCode language="js">
+								{code`
 								const listener = await ngrok.connect({
 									// session configuration
 									addr: \`localhost:8080\`, // or \`8080\` or \`unix:$\{UNIX_SOCKET\}\`
@@ -87,36 +88,37 @@ export default function Page() {
 									websocket_tcp_converter: true,
 								});
 							`}
+							</CodeBlockCode>
+							<CodeBlockExpanderButton />
+						</CodeBlockBody>
+					</CodeBlock>
+				</div>
+
+				<CodeBlock className="border-none">
+					<CodeBlockBody>
+						<CodeBlockCopyButton />
+						<CodeBlockCode language="tsx">
+							{code`
+								<CodeBlock>
+									<CodeBlockHeader>
+										<Icon />
+										<CodeBlockTitle>…</CodeBlockTitle>
+									</CodeBlockHeader>
+									<CodeBlockBody>
+										<CodeBlockCopyButton />
+										<CodeBlockCode language="…">
+											{code\`
+												…
+											\`}
+										</CodeBlockCode>
+										<CodeBlockExpanderButton />
+									</CodeBlockBody>
+								</CodeBlock>
+							`}
 						</CodeBlockCode>
-						<CodeBlockExpanderButton />
 					</CodeBlockBody>
 				</CodeBlock>
 			</div>
-
-			<CodeBlock className="rounded-t-none border-t-0">
-				<CodeBlockBody>
-					<CodeBlockCopyButton />
-					<CodeBlockCode language="tsx">
-						{code`
-							<CodeBlock>
-								<CodeBlockHeader>
-									<Icon />
-									<CodeBlockTitle>…</CodeBlockTitle>
-								</CodeBlockHeader>
-								<CodeBlockBody>
-									<CodeBlockCopyButton />
-									<CodeBlockCode language="…">
-										{code\`
-											…
-										\`}
-									</CodeBlockCode>
-									<CodeBlockExpanderButton />
-								</CodeBlockBody>
-							</CodeBlock>
-						`}
-					</CodeBlockCode>
-				</CodeBlockBody>
-			</CodeBlock>
 		</div>
 	);
 }

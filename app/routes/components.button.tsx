@@ -31,13 +31,10 @@ export default function Page() {
 				<div className="flex items-center justify-center p-4 md:p-9 border-b">
 					<Button>Click me!</Button>
 				</div>
-
 				<CodeBlock className="border-none">
 					<CodeBlockBody>
 						<CodeBlockCopyButton />
-						<CodeBlockCode language="tsx">{code`
-						<Button>Click me!</Button>
-					`}</CodeBlockCode>
+						<CodeBlockCode language="tsx">{code`<Button>Click me!</Button>`}</CodeBlockCode>
 					</CodeBlockBody>
 				</CodeBlock>
 			</div>

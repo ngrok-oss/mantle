@@ -41,22 +41,25 @@ export default function Page() {
 					.
 				</p>
 			</div>
-			<div className="mt-4 flex items-center justify-center rounded-lg rounded-b-none border border-gray-300 bg-background p-4 md:p-9">
-				<p>
-					This link will go to <Anchor href="https://ngrok.com/">ngrok.com</Anchor>!
-				</p>
+			<div className="my-4 rounded-lg border border-gray-300 bg-background">
+				<div className="flex items-center justify-center p-4 md:p-9 border-b">
+					<p>
+						This link will go to <Anchor href="https://ngrok.com/">ngrok.com</Anchor>!
+					</p>
+				</div>
+				<CodeBlock className="border-none">
+					<CodeBlockBody>
+						<CodeBlockCopyButton />
+						<CodeBlockCode language="tsx">
+							{code`
+								<p>
+									This link will go to <Anchor href="https://ngrok.com/">ngrok.com</Anchor>!
+								</p>
+							`}
+						</CodeBlockCode>
+					</CodeBlockBody>
+				</CodeBlock>
 			</div>
-
-			<CodeBlock className="rounded-t-none border-t-0">
-				<CodeBlockBody>
-					<CodeBlockCopyButton />
-					<CodeBlockCode language="tsx">{code`
-						<p>
-							This link will go to <Anchor href="https://ngrok.com/">ngrok.com</Anchor>!
-						</p>
-					`}</CodeBlockCode>
-				</CodeBlockBody>
-			</CodeBlock>
 		</div>
 	);
 }
