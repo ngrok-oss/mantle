@@ -7,6 +7,7 @@ export const routes = [
 	"/components/code-block",
 	"/components/input",
 	"/components/media-object",
+	"/components/skeleton",
 ] as const;
 
 export type Route = (typeof routes)[number];

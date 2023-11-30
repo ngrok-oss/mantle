@@ -128,6 +128,9 @@ function Navigation({ className, style }: WithStyleProps) {
 					<li>
 						<NavLink to={route("/components/media-object")}>Media Object</NavLink>
 					</li>
+					<li>
+						<NavLink to={route("/components/skeleton")}>Skeleton</NavLink>
+					</li>
 				</ul>
 			</ul>
 		</nav>
