@@ -22,13 +22,13 @@ jobs:
       - name: Install Dependencies 📥
         run: | # Install npm packages
           pnpm install
-      
+
       - name: Lint and Type Check 🧹
         run: | # Run the lint and type check
           pnpm run typecheck
           pnpm run fmt:check
           pnpm run lint
-      
+
       - name: Test 🧪
         run: | # Run the tests
           pnpm run test
@@ -36,4 +36,3 @@ jobs:
       - name: Ensure Package is Publishable 🧐
         run: | # Run the prepublish hook to ensure the package is publishable
           pnpm run prepublishOnly
-
