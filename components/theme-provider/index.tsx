@@ -25,7 +25,7 @@ type Theme = (typeof themes)[number];
 /**
  * theme is a helper which translates the Theme type into a string literal type.
  */
-export const theme = (value: Theme) => value;
+const theme = (value: Theme) => value;
 
 /**
  * Type predicate that checks if a value is a valid theme.
@@ -144,6 +144,7 @@ function applyTheme(theme: Theme) {
 
 /**
  * determineThemeFromMediaQuery returns the theme that should be used based on the user's media query preferences.
+ * @private
  */
 export function determineThemeFromMediaQuery({
 	prefersDarkMode,
@@ -200,4 +201,4 @@ const PreventWrongThemeFlash = ({
 );
 
 export type { Theme, ThemeProviderProps };
-export { ThemeProvider, PreventWrongThemeFlash, isTheme, useTheme };
+export { isTheme, PreventWrongThemeFlash, ThemeProvider, theme, useTheme };
