@@ -3,6 +3,7 @@ export const routes = [
 	"/base/colors",
 	"/base/typography",
 	"/components/anchor",
+	"/components/button",
 	"/components/card",
 	"/components/code-block",
 	"/components/input",

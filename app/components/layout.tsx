@@ -117,6 +117,9 @@ function Navigation({ className, style }: WithStyleProps) {
 						<NavLink to={route("/components/anchor")}>Anchor</NavLink>
 					</li>
 					<li>
+						<NavLink to={route("/components/button")}>Button</NavLink>
+					</li>
+					<li>
 						<NavLink to={route("/components/card")}>Card</NavLink>
 					</li>
 					<li>
