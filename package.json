@@ -3,7 +3,12 @@
   "description": "mantle is ngrok's UI library and design system.",
   "author": "ngrok",
   "license": "MIT",
-  "version": "0.0.1",
+  "version": "0.0.2",
+  "homepage": "https://mantle.ngrok.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ngrok-oss/mantle"
+  },
   "sideEffects": false,
   "type": "module",
   "browserslist": [
