@@ -64,14 +64,15 @@ const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
 const isBrowser = () => typeof window !== "undefined";
 
 /**
- * determines the initial theme based on the default theme and the value stored in localStorage by the storageKey
+ * Gets the stored theme from localStorage or returns the default theme if no theme is stored.
  */
-function determineInitialTheme(defaultTheme: Theme, storageKey: string) {
-	const fallback = defaultTheme ?? "system";
+function getStoredTheme(storageKey: string, defaultTheme: Theme = "system") {
+	const fallbackTheme = defaultTheme ?? "system";
 	if (isBrowser()) {
-		return (window.localStorage.getItem(storageKey) as Theme | null) ?? fallback;
+		const storedTheme = window.localStorage.getItem(storageKey);
+		return isTheme(storedTheme) ? storedTheme : fallbackTheme;
 	}
-	return fallback;
+	return fallbackTheme;
 }
 
 type ThemeProviderProps = PropsWithChildren & {
@@ -84,18 +85,41 @@ type ThemeProviderProps = PropsWithChildren & {
  */
 function ThemeProvider({ children, defaultTheme = "system", storageKey = DEFAULT_STORAGE_KEY }: ThemeProviderProps) {
 	const [theme, setTheme] = useState<Theme>(() => {
-		const initialTheme = determineInitialTheme(defaultTheme, storageKey);
+		const initialTheme = getStoredTheme(storageKey, defaultTheme);
 		applyTheme(initialTheme);
 		return initialTheme;
 	});
 
 	useEffect(() => {
-		const storedTheme = window.localStorage.getItem(storageKey) as Theme | null;
-		if (isTheme(storedTheme)) {
-			setTheme(storedTheme);
-			applyTheme(storedTheme);
-		}
-	}, [storageKey]);
+		const storedTheme = getStoredTheme(storageKey, defaultTheme);
+		setTheme(storedTheme);
+		applyTheme(storedTheme);
+	}, [defaultTheme, storageKey]);
+
+	useEffect(() => {
+		const prefersDarkMql = window.matchMedia(prefersDarkModeMediaQuery);
+		const prefersHighContrastMql = window.matchMedia(prefersHighContrastMediaQuery);
+
+		const onChange = () => {
+			const storedTheme = getStoredTheme(storageKey, defaultTheme);
+
+			// If the stored theme is not "system", then the user has explicitly set a theme and we should not
+			// automatically change the theme when the user's system preferences change.
+			if (storedTheme !== "system") {
+				return;
+			}
+
+			applyTheme("system");
+		};
+
+		prefersDarkMql.addEventListener("change", onChange);
+		prefersHighContrastMql.addEventListener("change", onChange);
+
+		return () => {
+			prefersDarkMql.removeEventListener("change", onChange);
+			prefersHighContrastMql.removeEventListener("change", onChange);
+		};
+	}, [defaultTheme, storageKey]);
 
 	const value: ThemeProviderState = useMemo(
 		() => [
@@ -106,7 +130,7 @@ function ThemeProvider({ children, defaultTheme = "system", storageKey = DEFAULT
 				applyTheme(theme);
 			},
 		],
-		[theme, storageKey],
+		[storageKey, theme],
 	);
 
 	return <ThemeProviderContext.Provider value={value}>{children}</ThemeProviderContext.Provider>;
@@ -136,8 +160,8 @@ function applyTheme(theme: Theme) {
 	const htmlElement = window.document.documentElement;
 	htmlElement.classList.remove(...themes);
 	const prefersDarkMode = window.matchMedia(prefersDarkModeMediaQuery).matches;
-	const prefersContrastMore = window.matchMedia(prefersHighContrastMediaQuery).matches;
-	const newTheme = theme === "system" ? determineThemeFromMediaQuery({ prefersDarkMode, prefersContrastMore }) : theme;
+	const prefersHighContrast = window.matchMedia(prefersHighContrastMediaQuery).matches;
+	const newTheme = theme === "system" ? determineThemeFromMediaQuery({ prefersDarkMode, prefersHighContrast }) : theme;
 	htmlElement.classList.add(newTheme);
 	htmlElement.dataset.theme = newTheme;
 }
@@ -148,12 +172,12 @@ function applyTheme(theme: Theme) {
  */
 export function determineThemeFromMediaQuery({
 	prefersDarkMode,
-	prefersContrastMore,
+	prefersHighContrast,
 }: {
 	prefersDarkMode: boolean;
-	prefersContrastMore: boolean;
+	prefersHighContrast: boolean;
 }) {
-	if (prefersContrastMore) {
+	if (prefersHighContrast) {
 		return prefersDarkMode ? "dark-high-contrast" : "light-high-contrast";
 	}
 
@@ -179,12 +203,16 @@ const PreventWrongThemeFlash = ({
 	const isTheme = (value) => typeof value === "string" && themes.includes(value);
 	const fallbackTheme = "${defaultTheme}" ?? "system";
 	const maybeStoredTheme = window.localStorage.getItem("${storageKey}");
-	const themePreference = isTheme(maybeStoredTheme) ? maybeStoredTheme : fallbackTheme;
+	const hasStoredTheme = isTheme(maybeStoredTheme);
+	if (!hasStoredTheme) {
+		window.localStorage.setItem("${storageKey}", fallbackTheme);
+	}
+	const themePreference = hasStoredTheme ? maybeStoredTheme : fallbackTheme;
 	const prefersDarkMode = window.matchMedia("${prefersDarkModeMediaQuery}").matches;
-	const prefersContrastMore = window.matchMedia("${prefersHighContrastMediaQuery}").matches;
+	const prefersHighContrast = window.matchMedia("${prefersHighContrastMediaQuery}").matches;
 	let initialTheme = themePreference;
 	if (initialTheme === "system") {
-		if (prefersContrastMore) {
+		if (prefersHighContrast) {
 			initialTheme = prefersDarkMode ? "dark-high-contrast" : "light-high-contrast";
 		} else {
 			initialTheme = prefersDarkMode ? "dark" : "light";
