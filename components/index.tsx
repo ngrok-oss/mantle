@@ -37,13 +37,13 @@ export {
 	SelectValue,
 } from "./select";
 export { Skeleton } from "./skeleton";
-export { ThemeProvider, PreventWrongThemeFlash } from "./theme-provider";
+export { PreventWrongThemeFlash, ThemeProvider } from "./theme-provider";
 export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "./tooltip";
 
 // utils exports
 export { code } from "./code-block/code";
 export { cx } from "./cx";
-export { isTheme, useTheme } from "./theme-provider";
+export { isTheme, theme, useTheme } from "./theme-provider";
 
 // types exports
 export type { ButtonProps } from "./button";
