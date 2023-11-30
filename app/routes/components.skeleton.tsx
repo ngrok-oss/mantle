@@ -29,11 +29,11 @@ export default function Page() {
 				</CodeBlock>
 			</div>
 
-			<section>
-				<h3>
+			<section className="my-4">
+				<h3 className="mb-1">
 					Skeleton <Link to="/components/media-object">Media Object</Link>
 				</h3>
-				<div className="my-4 rounded-lg border border-gray-300 bg-background">
+				<div className="rounded-lg border border-gray-300 bg-background">
 					<div className="flex items-center justify-center p-4 md:p-9 border-b">
 						<MediaObject>
 							<MediaObjectMedia>
