@@ -203,7 +203,7 @@ const CodeBlockCopyButton = forwardRef<HTMLButtonElement, CodeBlockCopyButtonPro
 						<CheckIcon />
 					</>
 				) : (
-					<CopyIcon className="-ml-px" />
+					<CopyIcon />
 				)}
 			</button>
 		);
