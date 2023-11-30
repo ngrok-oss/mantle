@@ -294,6 +294,7 @@ export default function Page() {
 									</CodeBlock>
 								`}
 							</CodeBlockCode>
+							<CodeBlockExpanderButton />
 						</CodeBlockBody>
 					</CodeBlock>
 				</div>
@@ -303,7 +304,7 @@ export default function Page() {
 				<h3 className="mt-8 text-xl font-medium">Single Line with Horizontal Scrolling</h3>
 				<p className="mt-1 text-gray-600">
 					This example is included to show the interaction between the copy button and horizontal scrolling on a single
-					verbose bash command.
+					verbose terminal command.
 				</p>
 				<div className="mt-4 rounded-lg border border-gray-300 bg-background">
 					<div className="flex items-center justify-center p-4 md:p-9 border-b border-gray-300">
