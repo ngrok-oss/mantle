@@ -842,4 +842,5 @@ pre.prismjs {
 
 .scrollbar {
 	scrollbar-color: hsl(var(--gray-600) / 0.8) transparent;
+	scrollbar-width: thin;
 }
