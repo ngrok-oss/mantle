@@ -82,9 +82,9 @@ export function Layout({ children, className, style }: Props) {
 					<Navigation className="h-full scrollbar overflow-auto" />
 				</div>
 			)}
-			<div className="flex gap-4 sm:mb-4 lg:mb-9">
+			<div className="flex gap-4">
 				<Navigation className="hidden w-44 pt-9 md:block" />
-				<article className="flex-1 bg-card p-4 shadow-2xl sm:rounded-lg md:p-9 w-0">{children}</article>
+				<article className="flex-1 bg-card p-4 shadow-2xl sm:rounded-lg md:p-9 w-0 sm:mb-4 lg:mb-9">{children}</article>
 			</div>
 		</main>
 	);

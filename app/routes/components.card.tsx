@@ -19,7 +19,7 @@ export default function Page() {
 			</h2>
 
 			<div className="my-4 rounded-lg border border-gray-300 bg-background">
-				<div className="flex items-center justify-center p-4 md:p-9 border-b">
+				<div className="flex items-center justify-center p-4 md:p-9 border-b border-gray-300">
 					<Card>
 						<CardHeader>
 							<CardTitle>Card Title Here</CardTitle>

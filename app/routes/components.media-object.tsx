@@ -18,22 +18,38 @@ export default function Page() {
 				The Media Object is an image/icon (media) to the left, with descriptive content (title and subtitle/description)
 				to the right.
 			</h2>
-			<div className="space-y-4">
+			<div className="mt-8 space-y-4 text-gray-600">
 				<p>
-					Change the spacing between the media and content by passing a <code>gap-*</code> class. The default{" "}
-					<code>gap</code> is <code>gap-4</code>.
+					Change the spacing between the media and content by passing a{" "}
+					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">gap-*</code>{" "}
+					class. The default{" "}
+					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">gap</code> is{" "}
+					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">gap-4</code>.
 				</p>
 				<p>
-					Use <code>flexbox</code> utilities to change the alignment of the media and content.
+					Use{" "}
+					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">flexbox</code>{" "}
+					utilities to change the alignment of the media and content.
 				</p>
 				<p>
-					Compose the <code>&lt;MediaObject&gt;</code> with the <code>&lt;MediaObjectMedia&gt;</code> and{" "}
-					<code>&lt;MediaObjectContent&gt;</code> components as direct children.
+					Compose the{" "}
+					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">
+						&lt;MediaObject&gt;
+					</code>{" "}
+					with the{" "}
+					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">
+						&lt;MediaObjectMedia&gt;
+					</code>{" "}
+					and{" "}
+					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">
+						&lt;MediaObjectContent&gt;
+					</code>{" "}
+					components as direct children.
 				</p>
 			</div>
 
 			<div className="my-4 rounded-lg border border-gray-300 bg-background">
-				<div className="flex items-center justify-center p-4 md:p-9 border-b">
+				<div className="flex items-center justify-center p-4 md:p-9 border-b border-gray-300">
 					<MediaObject>
 						<MediaObjectMedia>
 							<ExampleMedia />

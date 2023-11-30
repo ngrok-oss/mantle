@@ -15,15 +15,29 @@ export default function Page() {
 		<div>
 			<h1 className="text-5xl font-medium">Anchor</h1>
 			<h2 className="my-4 text-xl text-gray-600">Fundamental component for rendering links to external addresses.</h2>
-			<div className="space-y-4">
+			<div className="mt-8 space-y-4 text-gray-600">
 				<p>
-					The <code>&lt;Anchor&gt;</code> element, with its <code>href</code> attribute, creates a hyperlink to web
-					pages, files, email addresses, locations in the same page, or anything else a URL can address.
+					The{" "}
+					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">
+						&lt;Anchor&gt;
+					</code>{" "}
+					element, with its{" "}
+					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">href</code>{" "}
+					attribute, creates a hyperlink to web pages, files, email addresses, locations in the same page, or anything
+					else a URL can address.
 				</p>
 				<p>
-					Content within each <code>&lt;Anchor&gt;</code> should indicate the link&apos;s destination. If the{" "}
-					<code>href</code> attribute is present, pressing the enter key while focused on the{" "}
-					<code>&lt;Anchor&gt;</code> element will activate it.
+					Content within each{" "}
+					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">
+						&lt;Anchor&gt;
+					</code>{" "}
+					should indicate the link&apos;s destination. If the{" "}
+					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">href</code>{" "}
+					attribute is present, pressing the enter key while focused on the{" "}
+					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">
+						&lt;Anchor&gt;
+					</code>{" "}
+					element will activate it.
 				</p>
 				<p>
 					See the <Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">MDN docs</Anchor> for more
@@ -32,17 +46,27 @@ export default function Page() {
 				<p>
 					If you need to link to an internal application route, prefer using the{" "}
 					<Anchor href="https://reactrouter.com/en/main/components/link">
-						<code>react-router-dom</code> <code>&lt;Link&gt;</code>
+						<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">
+							react-router-dom
+						</code>{" "}
+						<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">
+							&lt;Link&gt;
+						</code>
 					</Anchor>{" "}
 					or the{" "}
 					<Anchor href="https://remix.run/docs/en/main/components/link">
-						<code>@remix-run/react</code> <code>&lt;Link&gt;</code>
+						<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">
+							@remix-run/react
+						</code>{" "}
+						<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">
+							&lt;Link&gt;
+						</code>
 					</Anchor>
 					.
 				</p>
 			</div>
 			<div className="my-4 rounded-lg border border-gray-300 bg-background">
-				<div className="flex items-center justify-center p-4 md:p-9 border-b">
+				<div className="flex items-center justify-center p-4 md:p-9 border-b border-gray-300">
 					<p>
 						This link will go to <Anchor href="https://ngrok.com/">ngrok.com</Anchor>!
 					</p>

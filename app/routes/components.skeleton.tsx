@@ -18,7 +18,7 @@ export default function Page() {
 			<h1 className="text-5xl font-medium">Skeleton</h1>
 			<h2 className="my-4 text-xl text-gray-600">Use to show a placeholder while content is loading.</h2>
 			<div className="my-4 rounded-lg border border-gray-300 bg-background">
-				<div className="flex items-center justify-center p-4 md:p-9 border-b">
+				<div className="flex items-center justify-center p-4 md:p-9 border-b border-gray-300">
 					<Skeleton className="h-4 w-full" />
 				</div>
 				<CodeBlock className="border-none">
@@ -29,12 +29,16 @@ export default function Page() {
 				</CodeBlock>
 			</div>
 
-			<section className="my-4">
-				<h3 className="mb-1">
+			<section>
+				<h3 className="mt-8 text-xl font-medium">
 					Skeleton <Link to="/components/media-object">Media Object</Link>
 				</h3>
-				<div className="rounded-lg border border-gray-300 bg-background">
-					<div className="flex items-center justify-center p-4 md:p-9 border-b">
+				<p className="mt-1 text-gray-600">
+					The Skeleton component can be included within components. You can also pass Tailwind utility classes for
+					further control.
+				</p>
+				<div className="mt-4 rounded-lg border border-gray-300 bg-background">
+					<div className="flex items-center justify-center p-4 md:p-9 border-b border-gray-300">
 						<MediaObject>
 							<MediaObjectMedia>
 								<Skeleton className="h-12 w-12 rounded-full" />
