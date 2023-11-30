@@ -728,31 +728,6 @@
 	* @author Lea Verou
 	*/
 
-pre.prismjs,
-pre.prismjs code {
-	@apply bg-background text-sm text-gray-800;
-	text-align: left;
-	white-space: pre;
-	word-spacing: normal;
-	word-break: normal;
-	word-wrap: normal;
-	line-height: 1.5;
-
-	-moz-tab-size: 2;
-	-o-tab-size: 2;
-	tab-size: 2;
-
-	-webkit-hyphens: none;
-	-moz-hyphens: none;
-	-ms-hyphens: none;
-	hyphens: none;
-}
-
-/* Code blocks */
-pre.prismjs {
-	@apply overflow-auto rounded-lg border border-gray-300 p-4;
-}
-
 .token.comment,
 .token.prolog,
 .token.doctype,
