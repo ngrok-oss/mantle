@@ -163,7 +163,8 @@ function applyTheme(theme: Theme) {
 	const prefersHighContrast = window.matchMedia(prefersHighContrastMediaQuery).matches;
 	const newTheme = theme === "system" ? determineThemeFromMediaQuery({ prefersDarkMode, prefersHighContrast }) : theme;
 	htmlElement.classList.add(newTheme);
-	htmlElement.dataset.theme = newTheme;
+	htmlElement.dataset.appliedTheme = newTheme;
+	htmlElement.dataset.theme = theme;
 }
 
 /**
@@ -221,7 +222,8 @@ const PreventWrongThemeFlash = ({
 	const htmlElement = document.documentElement;
 	htmlElement.classList.remove(...themes);
 	htmlElement.classList.add(initialTheme);
-	htmlElement.dataset.theme = initialTheme;
+	htmlElement.dataset.appliedTheme = initialTheme;
+	htmlElement.dataset.theme = themePreference;
 })();
 `.trim(),
 		}}
