@@ -19,7 +19,7 @@ const firefoxVariantPlugin = plugin(
 			isFirefoxRule.append(container.nodes);
 			container.append(isFirefoxRule);
 			isFirefoxRule.walkRules((rule) => {
-				rule.selector = `.${api.e(`firefox${separator}${rule.selector.slice(1).replaceAll("\\", "")}`)}`;
+				rule.selector = `.${api.e(`firefox${separator}${rule.selector.slice(1).replace(/\\/g, "")}`)}`;
 			});
 		});
 	},

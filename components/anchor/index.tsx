@@ -11,6 +11,15 @@ const anchorClassNames = (className: string | undefined) =>
 
 type AnchorProps = AnchorHTMLAttributes<HTMLAnchorElement> & WithAsChild;
 
+/**
+ * Fundamental component for rendering links to external addresses.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a
+ *
+ * @note If you need to link to an internal application route, prefer using the
+ * [`react-router-dom` `<Link>`](https://reactrouter.com/en/main/components/link) or the
+ * [`@remix-run/react` `<Link>`](https://remix.run/docs/en/main/components/link).
+ */
 const Anchor = forwardRef<HTMLAnchorElement, AnchorProps>(({ asChild, className, ...props }, ref) => {
 	const Component = asChild ? Slot : "a";
 

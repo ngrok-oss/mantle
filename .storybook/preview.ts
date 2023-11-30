@@ -1,5 +1,6 @@
 import { withThemeByClassName } from "@storybook/addon-styling";
 import type { Preview } from "@storybook/react";
+import { theme } from "../components/theme-provider";
 import "../assets/mantle.css";
 
 const preview: Preview = {
@@ -17,10 +18,10 @@ const preview: Preview = {
 export const decorators = [
 	withThemeByClassName({
 		themes: {
-			Light: "light",
-			Dark: "dark",
-			"Light (High contrast)": "light high-contrast",
-			"Dark (High contrast)": "dark high-contrast",
+			Light: theme("light"),
+			Dark: theme("dark"),
+			"Light (High contrast)": theme("light-high-contrast"),
+			"Dark (High contrast)": theme("dark-high-contrast"),
 		},
 		defaultTheme: "Light",
 	}),
