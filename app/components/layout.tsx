@@ -3,6 +3,7 @@ import { Select, SelectContent, SelectIcon, SelectOption, SelectTrigger } from "
 import { isTheme, theme, useTheme } from "@/theme-provider";
 import { WithStyleProps } from "@/types/with-style-props";
 import { Link, NavLinkProps, NavLink as RRNavLink } from "@remix-run/react";
+import { route } from "~/types/routes";
 import { PropsWithChildren, useState } from "react";
 
 const MantleLogo = () => (
@@ -103,26 +104,29 @@ function Navigation({ className, style }: WithStyleProps) {
 
 				<ul role="list" className="mt-2">
 					<li>
-						<NavLink to="/base/typography">Typography</NavLink>
+						<NavLink to={route("/base/colors")}>Colors</NavLink>
 					</li>
 					<li>
-						<NavLink to="/base/colors">Colors</NavLink>
+						<NavLink to={route("/base/typography")}>Typography</NavLink>
 					</li>
 				</ul>
 
 				<li className="mt-6 text-xs font-medium uppercase tracking-wider">Components</li>
 				<ul role="list" className="mt-2">
 					<li>
-						<NavLink to="/components/anchor">Anchor</NavLink>
+						<NavLink to={route("/components/anchor")}>Anchor</NavLink>
 					</li>
 					<li>
-						<NavLink to="/components/card">Card</NavLink>
+						<NavLink to={route("/components/card")}>Card</NavLink>
 					</li>
 					<li>
-						<NavLink to="/components/code-block">Code Block</NavLink>
+						<NavLink to={route("/components/code-block")}>Code Block</NavLink>
 					</li>
 					<li>
-						<NavLink to="/components/input">Input</NavLink>
+						<NavLink to={route("/components/input")}>Input</NavLink>
+					</li>
+					<li>
+						<NavLink to={route("/components/media-object")}>Media Object</NavLink>
 					</li>
 				</ul>
 			</ul>
