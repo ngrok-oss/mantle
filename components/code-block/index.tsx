@@ -149,7 +149,7 @@ const CodeBlockCode = forwardRef<HTMLPreElement, CodeBlockCodeProps>((props, ref
 			aria-expanded={hasCodeExpander ? isCodeExpanded : undefined}
 			className={cx(
 				formatLanguageClassName(language),
-				"scrollbar overflow-x-auto overflow-y-hidden p-4 pr-16 firefox:after:mr-16 firefox:after:inline-block firefox:after:content-['']",
+				"scrollbar overflow-x-auto overflow-y-hidden p-4 pr-[3.375rem] firefox:after:mr-[3.375rem] firefox:after:inline-block firefox:after:content-['']",
 				"aria-[expanded='false']:max-h-[13.6rem]",
 				className,
 			)}
@@ -215,9 +215,9 @@ const CodeBlockCopyButton = forwardRef<HTMLButtonElement, CodeBlockCopyButtonPro
 			<button
 				type="button"
 				className={cx(
-					"absolute right-3.5 top-2 z-10 flex h-[2.125rem] items-center rounded-sm border border-gray-300 bg-gray-50 p-1 shadow-[0.875rem_0_0_0_hsl(var(--gray-050)),_-0.5rem_0_0.35rem_0_hsla(var(--gray-050));] hover:border-gray-400 hover:bg-gray-200 focus:bg-gray-200",
+					"absolute right-3 top-3 z-10 flex h-7 w-7 items-center justify-center rounded-sm border border-gray-300 bg-gray-50 shadow-[-1rem_0_0.75rem_-0.375rem_hsl(var(--gray-050)),1rem_0_0_-0.25rem_hsl(var(--gray-050))] hover:border-gray-400 hover:bg-gray-200",
 					copied &&
-						"gap-1 border-transparent bg-green-500 focus:bg-green-500 px-2 text-button hover:border-transparent hover:bg-green-500",
+						"gap-1 w-auto border-transparent bg-green-500 focus:bg-green-500 pl-2 pr-1.5 text-button hover:border-transparent hover:bg-green-500",
 					className,
 				)}
 				ref={ref}
@@ -314,16 +314,16 @@ const CopyIcon = ({ className, style }: WithStyleProps) => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		fill="none"
-		viewBox="0 0 24 24"
+		viewBox="0 0 20 20"
 		strokeWidth="{1.5}"
 		stroke="currentColor"
-		className={cx("h-6 w-6", className)}
+		className={cx("h-5 w-5", className)}
 		style={style}
 	>
 		<path
 			strokeLinecap="round"
 			strokeLinejoin="round"
-			d="M8.75 7.75v-3.5a1.5 1.5 0 0 1 1.5-1.5h8.5a1.5 1.5 0 0 1 1.5 1.5v10.5a1.5 1.5 0 0 1-1.5 1.5h-3.5m-10 5h8.5a1.5 1.5 0 0 0 1.5-1.5V9.25a1.5 1.5 0 0 0-1.5-1.5h-8.5a1.5 1.5 0 0 0-1.5 1.5v10.5a1.5 1.5 0 0 0 1.5 1.5Z"
+			d="M7.719 7.719v-3.5a1.5 1.5 0 0 1 1.5-1.5h5.562a1.5 1.5 0 0 1 1.5 1.5V12a1.5 1.5 0 0 1-1.5 1.5H11.5m-7.281 4.781H10a1.5 1.5 0 0 0 1.5-1.5V9.22a1.5 1.5 0 0 0-1.5-1.5H4.219a1.5 1.5 0 0 0-1.5 1.5v7.562a1.5 1.5 0 0 0 1.5 1.5Z"
 		/>
 	</svg>
 );

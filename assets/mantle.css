@@ -832,7 +832,7 @@ pre.prismjs {
 
 .scrollbar::-webkit-scrollbar-thumb {
 	border-radius: 0.5rem;
-	background-color: hsl(var(--gray-600) / 0.8);
+	background-color: hsl(var(--gray-800) / 0.5);
 }
 
 .scrollbar::-webkit-scrollbar-corner {
@@ -841,5 +841,6 @@ pre.prismjs {
 }
 
 .scrollbar {
-	scrollbar-color: hsl(var(--gray-600) / 0.8) transparent;
+	scrollbar-color: hsl(var(--gray-600) / 0.5) transparent;
+	scrollbar-width: thin;
 }

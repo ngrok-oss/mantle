@@ -114,7 +114,7 @@ export default function Page() {
 				<div className="rounded-lg border border-gray-300 bg-background">
 					<div className="flex items-center justify-center p-4 md:p-9 border-b">
 						<CodeBlock>
-							<CodeBlockHeader className="flex items-center gap-1">
+							<CodeBlockHeader>
 								<CommandLineIcon />
 								<CodeBlockTitle>Command Line</CodeBlockTitle>
 							</CodeBlockHeader>
@@ -132,7 +132,7 @@ export default function Page() {
 							<CodeBlockCode language="tsx">
 								{code`
 									<CodeBlock>
-										<CodeBlockHeader className="flex items-center gap-1">
+										<CodeBlockHeader>
 											<CommandLineIcon />
 											<CodeBlockTitle>Command Line</CodeBlockTitle>
 										</CodeBlockHeader>
@@ -155,7 +155,7 @@ export default function Page() {
 				<div className="rounded-lg border border-gray-300 bg-background">
 					<div className="flex items-center justify-center p-4 md:p-9 border-b">
 						<CodeBlock>
-							<CodeBlockHeader className="flex items-center gap-1">
+							<CodeBlockHeader>
 								<FileIcon />
 								<CodeBlockTitle>ngrok-example.js</CodeBlockTitle>
 							</CodeBlockHeader>
@@ -190,7 +190,7 @@ export default function Page() {
 							<CodeBlockCode language="tsx">
 								{code`
 									<CodeBlock>
-										<CodeBlockHeader className="flex items-center gap-1">
+										<CodeBlockHeader>
 											<FileIcon />
 											<CodeBlockTitle>ngrok-example.js</CodeBlockTitle>
 										</CodeBlockHeader>
@@ -220,6 +220,7 @@ export default function Page() {
 									</CodeBlock>
 								`}
 							</CodeBlockCode>
+							<CodeBlockExpanderButton />
 						</CodeBlockBody>
 					</CodeBlock>
 				</div>
