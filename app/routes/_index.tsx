@@ -1,3 +1,4 @@
+import { Anchor } from "@/anchor";
 import type { MetaFunction } from "@vercel/remix";
 
 export const meta: MetaFunction = () => {
@@ -22,36 +23,26 @@ export default function Page() {
 			<h2 id="dependencies" className="mt-8 text-3xl font-medium">
 				Dependencies
 			</h2>
-			<p className="mt-3 text-gray-600">
-				Mantle&apos;s styling is composed using{" "}
-				<a className="text-blue-600 hover:underline" href="https://tailwindcss.com">
-					Tailwind
-				</a>
-				. Its{" "}
-				<a className="text-blue-600 hover:underline" href="https://react.dev">
-					React
-				</a>{" "}
-				components are powered by{" "}
-				<a className="text-blue-600 hover:underline" href="https://ui.shadcn.com">
-					shadcn/ui
-				</a>
-				&apos;s markup and{" "}
-				<a className="text-blue-600 hover:underline" href="https://www.radix-ui.com">
-					Radix
-				</a>
-				&apos;s primitives. Its documentation is built in{" "}
-				<a className="text-blue-600 hover:underline" href="https://remix.run/">
-					Remix
-				</a>
-				.
+			<p className="mt-4 text-gray-600">
+				Mantle&apos;s styling is composed using <Anchor href="https://tailwindcss.com">Tailwind</Anchor>. Its{" "}
+				<Anchor href="https://react.dev">React</Anchor> components are powered by{" "}
+				<Anchor href="https://ui.shadcn.com">shadcn/ui</Anchor>
+				&apos;s markup and <Anchor href="https://www.radix-ui.com">Radix</Anchor>
+				&apos;s primitives. Its documentation is built in <Anchor href="https://remix.run/">Remix</Anchor>.
 			</p>
 
 			<h2 id="status" className="mt-8 text-3xl font-medium">
 				Status
 			</h2>
-			<p className="mt-3 text-gray-600">
+			<p className="mt-4 text-gray-600">
 				Mantle is a work in progress that&apos;s currently adding components. It intends to replace new and existing
 				ngrok user interfaces.
+			</p>
+
+			<p className="mt-4 text-gray-600">
+				Mantle is available in its alpha state on{" "}
+				<Anchor href="https://www.npmjs.com/package/@ngrok/mantle">NPM</Anchor>. It is open source and available on{" "}
+				<Anchor href="https://github.com/ngrok-oss/mantle">GitHub</Anchor>.
 			</p>
 		</div>
 	);
