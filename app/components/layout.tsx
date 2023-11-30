@@ -2,7 +2,7 @@ import { cx } from "@/cx";
 import { Select, SelectContent, SelectIcon, SelectOption, SelectTrigger } from "@/select";
 import { isTheme, theme, useTheme } from "@/theme-provider";
 import { WithStyleProps } from "@/types/with-style-props";
-import { Link, NavLink } from "@remix-run/react";
+import { Link, NavLinkProps, NavLink as RRNavLink } from "@remix-run/react";
 import { PropsWithChildren, useState } from "react";
 
 const MantleLogo = () => (
@@ -96,96 +96,50 @@ function Navigation({ className, style }: WithStyleProps) {
 				<li className="mb-2 text-xs font-medium uppercase tracking-wider">Welcome</li>
 
 				<li>
-					<NavLink
-						className={({ isActive }) =>
-							cx(
-								"block py-1 text-gray-500 hover:text-gray-900",
-								isActive && "font-medium text-blue-600 hover:text-blue-600",
-							)
-						}
-						to="/"
-					>
-						Overview
-					</NavLink>
+					<NavLink to="/">Overview</NavLink>
 				</li>
 
 				<li className="mt-6 text-xs font-medium uppercase tracking-wider">Base</li>
 
 				<ul role="list" className="mt-2">
 					<li>
-						<NavLink
-							className={({ isActive }) =>
-								cx(
-									"block py-1 text-gray-500 hover:text-gray-900",
-									isActive && "font-medium text-blue-600 hover:text-blue-600",
-								)
-							}
-							to="/base/typography"
-						>
-							Typography
-						</NavLink>
+						<NavLink to="/base/typography">Typography</NavLink>
 					</li>
 					<li>
-						<NavLink
-							className={({ isActive }) =>
-								cx(
-									"block py-1 text-gray-500 hover:text-gray-900",
-									isActive && "font-medium text-blue-600 hover:text-blue-600",
-								)
-							}
-							to="/base/colors"
-						>
-							Colors
-						</NavLink>
+						<NavLink to="/base/colors">Colors</NavLink>
 					</li>
 				</ul>
 
 				<li className="mt-6 text-xs font-medium uppercase tracking-wider">Components</li>
 				<ul role="list" className="mt-2">
 					<li>
-						<NavLink
-							className={({ isActive }) =>
-								cx(
-									"block py-1 text-gray-500 hover:text-gray-900",
-									isActive && "font-medium text-blue-600 hover:text-blue-600",
-								)
-							}
-							to="/components/anchor"
-						>
-							Anchor
-						</NavLink>
+						<NavLink to="/components/anchor">Anchor</NavLink>
 					</li>
 					<li>
-						<NavLink
-							className={({ isActive }) =>
-								cx(
-									"block py-1 text-gray-500 hover:text-gray-900",
-									isActive && "font-medium text-blue-600 hover:text-blue-600",
-								)
-							}
-							to="/components/code-block"
-						>
-							Code Block
-						</NavLink>
+						<NavLink to="/components/card">Card</NavLink>
 					</li>
 					<li>
-						<NavLink
-							className={({ isActive }) =>
-								cx(
-									"block py-1 text-gray-500 hover:text-gray-900",
-									isActive && "font-medium text-blue-600 hover:text-blue-600",
-								)
-							}
-							to="/components/input"
-						>
-							Input
-						</NavLink>
+						<NavLink to="/components/code-block">Code Block</NavLink>
+					</li>
+					<li>
+						<NavLink to="/components/input">Input</NavLink>
 					</li>
 				</ul>
 			</ul>
 		</nav>
 	);
 }
+
+const NavLink = ({ children, to }: PropsWithChildren & Pick<NavLinkProps, "to">) => (
+	<RRNavLink
+		className={({ isActive }) =>
+			cx("block py-1 text-gray-500 hover:text-gray-900", isActive && "font-medium text-blue-600 hover:text-blue-600")
+		}
+		to={to}
+	>
+		{children}
+	</RRNavLink>
+);
 
 const CloseIcon = ({ className, style }: WithStyleProps) => (
 	<svg
