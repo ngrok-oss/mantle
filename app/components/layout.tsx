@@ -150,6 +150,19 @@ function Navigation({ className, style }: WithStyleProps) {
 									isActive && "font-medium text-blue-600 hover:text-blue-600",
 								)
 							}
+							to="/components/anchor"
+						>
+							Anchor
+						</NavLink>
+					</li>
+					<li>
+						<NavLink
+							className={({ isActive }) =>
+								cx(
+									"block py-1 text-gray-500 hover:text-gray-900",
+									isActive && "font-medium text-blue-600 hover:text-blue-600",
+								)
+							}
 							to="/components/code-block"
 						>
 							Code Block
