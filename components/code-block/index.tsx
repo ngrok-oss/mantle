@@ -181,7 +181,7 @@ const CodeBlockCopyButton = forwardRef<HTMLButtonElement, CodeBlockCopyButtonPro
 				className={cx(
 					"absolute right-3 top-3 z-10 flex h-7 w-7 items-center justify-center rounded-sm border border-gray-300 bg-gray-50 shadow-[-1rem_0_0.75rem_-0.375rem_hsl(var(--gray-050)),1rem_0_0_-0.25rem_hsl(var(--gray-050))] hover:border-gray-400 hover:bg-gray-200",
 					copied &&
-						"gap-1 w-auto border-transparent bg-green-500 focus:bg-green-500 px-2 text-button hover:border-transparent hover:bg-green-500",
+						"gap-1 w-auto border-transparent bg-green-500 focus:bg-green-500 pl-2 pr-1.5 text-button hover:border-transparent hover:bg-green-500",
 					className,
 				)}
 				ref={ref}
