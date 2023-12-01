@@ -14,9 +14,9 @@ export default function Page() {
 	return (
 		<div>
 			<h1 className="text-5xl font-medium">Card</h1>
-			<h2 className="my-4 text-xl text-gray-600">
+			<p className="my-4 text-xl text-gray-600">
 				A container used to display content in a box, resembling a physical card.
-			</h2>
+			</p>
 
 			<div className="my-4 rounded-lg border border-gray-300 bg-background">
 				<div className="flex items-center justify-center p-4 md:p-9 border-b border-gray-300">

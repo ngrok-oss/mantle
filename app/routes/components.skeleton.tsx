@@ -16,7 +16,7 @@ export default function Page() {
 	return (
 		<div>
 			<h1 className="text-5xl font-medium">Skeleton</h1>
-			<h2 className="my-4 text-xl text-gray-600">Use to show a placeholder while content is loading.</h2>
+			<p className="my-4 text-xl text-gray-600">Use to show a placeholder while content is loading.</p>
 			<div className="my-4 rounded-lg border border-gray-300 bg-background">
 				<div className="flex items-center justify-center p-4 md:p-9 border-b border-gray-300">
 					<Skeleton className="h-4 w-full" />

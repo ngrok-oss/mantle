@@ -14,10 +14,10 @@ export default function Page() {
 	return (
 		<div>
 			<h1 className="text-5xl font-medium">Media Object</h1>
-			<h2 className="my-4 text-xl text-gray-600">
+			<p className="my-4 text-xl text-gray-600">
 				The Media Object is an image/icon (media) to the left, with descriptive content (title and subtitle/description)
 				to the right.
-			</h2>
+			</p>
 			<div className="mt-8 space-y-4 text-gray-600">
 				<p>
 					Change the spacing between the media and content by passing a{" "}

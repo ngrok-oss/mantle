@@ -14,7 +14,7 @@ export default function Page() {
 	return (
 		<div>
 			<h1 className="text-5xl font-medium">Anchor</h1>
-			<h2 className="my-4 text-xl text-gray-600">Fundamental component for rendering links to external addresses.</h2>
+			<p className="my-4 text-xl text-gray-600">Fundamental component for rendering links to external addresses.</p>
 			<div className="mt-8 space-y-4 text-gray-600">
 				<p>
 					The{" "}
