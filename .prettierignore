@@ -1,6 +1,8 @@
-node_modules
-dist
-public
-pnpm-lock.yaml
 *.json
+build
+dist
+node_modules
+pnpm-lock.yaml
+public
 rollup.config.*
+storybook-static
