@@ -2,9 +2,9 @@ import { cx } from "@/cx";
 import { Select, SelectContent, SelectIcon, SelectOption, SelectTrigger } from "@/select";
 import { isTheme, theme, useTheme } from "@/theme-provider";
 import { WithStyleProps } from "@/types/with-style-props";
-import { Link, NavLinkProps, NavLink as RRNavLink } from "@remix-run/react";
-import { route } from "~/types/routes";
+import { Link } from "@remix-run/react";
 import { PropsWithChildren, useState } from "react";
+import { NavLink } from "./nav-link";
 
 const MantleLogo = () => (
 	<svg width="184" height="36">
@@ -104,52 +104,41 @@ function Navigation({ className, style }: WithStyleProps) {
 
 				<ul role="list" className="mt-2">
 					<li>
-						<NavLink to={route("/base/colors")}>Colors</NavLink>
+						<NavLink to="/base/colors">Colors</NavLink>
 					</li>
 					<li>
-						<NavLink to={route("/base/typography")}>Typography</NavLink>
+						<NavLink to="/base/typography">Typography</NavLink>
 					</li>
 				</ul>
 
 				<li className="mt-6 text-xs font-medium uppercase tracking-wider">Components</li>
 				<ul role="list" className="mt-2">
 					<li>
-						<NavLink to={route("/components/anchor")}>Anchor</NavLink>
+						<NavLink to="/components/anchor">Anchor</NavLink>
 					</li>
 					<li>
-						<NavLink to={route("/components/button")}>Button</NavLink>
+						<NavLink to="/components/button">Button</NavLink>
 					</li>
 					<li>
-						<NavLink to={route("/components/card")}>Card</NavLink>
+						<NavLink to="/components/card">Card</NavLink>
 					</li>
 					<li>
-						<NavLink to={route("/components/code-block")}>Code Block</NavLink>
+						<NavLink to="/components/code-block">Code Block</NavLink>
 					</li>
 					<li>
-						<NavLink to={route("/components/input")}>Input</NavLink>
+						<NavLink to="/components/input">Input</NavLink>
 					</li>
 					<li>
-						<NavLink to={route("/components/media-object")}>Media Object</NavLink>
+						<NavLink to="/components/media-object">Media Object</NavLink>
 					</li>
 					<li>
-						<NavLink to={route("/components/skeleton")}>Skeleton</NavLink>
+						<NavLink to="/components/skeleton">Skeleton</NavLink>
 					</li>
 				</ul>
 			</ul>
 		</nav>
 	);
 }
-
-const NavLink = ({ children, to }: PropsWithChildren & Pick<NavLinkProps, "to">) => (
-	<RRNavLink
-		className={({ isActive }) =>
-			cx("block py-1 text-gray-500 hover:text-gray-900", isActive && "font-medium text-blue-600 hover:text-blue-600")
-		}
-		to={to}
-	>
-		{children}
-	</RRNavLink>
-);
 
 const CloseIcon = ({ className, style }: WithStyleProps) => (
 	<svg
