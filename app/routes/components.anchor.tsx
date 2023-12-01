@@ -2,6 +2,7 @@ import { Anchor } from "@/anchor";
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
 import { code } from "@/code-block/code";
 import type { MetaFunction } from "@vercel/remix";
+import { Example } from "~/components/example";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -65,25 +66,23 @@ export default function Page() {
 					.
 				</p>
 			</div>
-			<div className="mt-4 rounded-lg border border-gray-300 to-gray-200 from-gray-50 bg-gradient-to-br dark:bg-gradient-to-tl">
-				<div className="flex items-center justify-center p-4 md:p-16 border-b border-gray-300">
-					<p>
-						This link will go to <Anchor href="https://ngrok.com/">ngrok.com</Anchor>!
-					</p>
-				</div>
-				<CodeBlock className="border-none">
-					<CodeBlockBody>
-						<CodeBlockCopyButton />
-						<CodeBlockCode language="tsx">
-							{code`
-								<p>
-									This link will go to <Anchor href="https://ngrok.com/">ngrok.com</Anchor>!
-								</p>
-							`}
-						</CodeBlockCode>
-					</CodeBlockBody>
-				</CodeBlock>
-			</div>
+			<Example className="mt-4">
+				<p>
+					This link will go to <Anchor href="https://ngrok.com/">ngrok.com</Anchor>!
+				</p>
+			</Example>
+			<CodeBlock className="rounded-t-none rounded-b-lg">
+				<CodeBlockBody>
+					<CodeBlockCopyButton />
+					<CodeBlockCode language="tsx">
+						{code`
+							<p>
+								This link will go to <Anchor href="https://ngrok.com/">ngrok.com</Anchor>!
+							</p>
+						`}
+					</CodeBlockCode>
+				</CodeBlockBody>
+			</CodeBlock>
 		</div>
 	);
 }

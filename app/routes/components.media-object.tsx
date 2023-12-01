@@ -2,6 +2,7 @@ import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/
 import { code } from "@/code-block/code";
 import { MediaObject, MediaObjectContent, MediaObjectMedia } from "@/media-object";
 import type { MetaFunction } from "@vercel/remix";
+import { Example } from "~/components/example";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -48,45 +49,43 @@ export default function Page() {
 				</p>
 			</div>
 
-			<div className="mt-4 rounded-lg border border-gray-300 to-gray-200 from-gray-50 bg-gradient-to-br dark:bg-gradient-to-tl">
-				<div className="flex items-center justify-center p-4 md:p-16 border-b border-gray-300">
-					<MediaObject>
-						<MediaObjectMedia>
-							<ExampleMedia />
-						</MediaObjectMedia>
-						<MediaObjectContent>
-							<h4 className="text-lg font-bold">Lorem ipsum</h4>
-							<p className="mb-4 mt-1">
-								Repudiandae sint consequuntur vel. Amet ut nobis explicabo numquam expedita quia omnis voluptatem. Minus
-								quidem ipsam quia iusto.
-							</p>
-							<p>Ea eiusmod eiusmod aute reprehenderit exercitation eu ea id adipisicing occaecat.</p>
-						</MediaObjectContent>
-					</MediaObject>
-				</div>
-				<CodeBlock className="border-none">
-					<CodeBlockBody>
-						<CodeBlockCopyButton />
-						<CodeBlockCode language="tsx">
-							{code`
-								<MediaObject>
-									<MediaObjectMedia>
-										<ExampleMedia />
-									</MediaObjectMedia>
-									<MediaObjectContent>
-										<h4 className="text-lg font-bold">Lorem ipsum</h4>
-										<p className="mb-4 mt-1">
-											Repudiandae sint consequuntur vel. Amet ut nobis explicabo numquam expedita quia omnis voluptatem. Minus
-											quidem ipsam quia iusto.
-										</p>
-										<p>Ea eiusmod eiusmod aute reprehenderit exercitation eu ea id adipisicing occaecat.</p>
-									</MediaObjectContent>
-								</MediaObject>
-							`}
-						</CodeBlockCode>
-					</CodeBlockBody>
-				</CodeBlock>
-			</div>
+			<Example className="mt-4">
+				<MediaObject>
+					<MediaObjectMedia>
+						<ExampleMedia />
+					</MediaObjectMedia>
+					<MediaObjectContent>
+						<h4 className="text-lg font-bold">Lorem ipsum</h4>
+						<p className="mb-4 mt-1">
+							Repudiandae sint consequuntur vel. Amet ut nobis explicabo numquam expedita quia omnis voluptatem. Minus
+							quidem ipsam quia iusto.
+						</p>
+						<p>Ea eiusmod eiusmod aute reprehenderit exercitation eu ea id adipisicing occaecat.</p>
+					</MediaObjectContent>
+				</MediaObject>
+			</Example>
+			<CodeBlock className="rounded-t-none rounded-b-lg">
+				<CodeBlockBody>
+					<CodeBlockCopyButton />
+					<CodeBlockCode language="tsx">
+						{code`
+							<MediaObject>
+								<MediaObjectMedia>
+									<ExampleMedia />
+								</MediaObjectMedia>
+								<MediaObjectContent>
+									<h4 className="text-lg font-bold">Lorem ipsum</h4>
+									<p className="mb-4 mt-1">
+										Repudiandae sint consequuntur vel. Amet ut nobis explicabo numquam expedita quia omnis voluptatem. Minus
+										quidem ipsam quia iusto.
+									</p>
+									<p>Ea eiusmod eiusmod aute reprehenderit exercitation eu ea id adipisicing occaecat.</p>
+								</MediaObjectContent>
+							</MediaObject>
+						`}
+					</CodeBlockCode>
+				</CodeBlockBody>
+			</CodeBlock>
 		</div>
 	);
 }

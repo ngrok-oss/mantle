@@ -2,6 +2,7 @@ import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/
 import { code } from "@/code-block/code";
 import { Input } from "@/input";
 import type { MetaFunction } from "@vercel/remix";
+import { Example } from "~/components/example";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -15,18 +16,16 @@ export default function Page() {
 		<div>
 			<h1 className="text-5xl font-medium">Input</h1>
 			<p className="mt-4 text-xl text-gray-600">Fundamental component for inputs.</p>
-			<div className="mt-4 rounded-lg border border-gray-300 to-gray-200 from-gray-50 bg-gradient-to-br dark:bg-gradient-to-tl">
-				<div className="flex items-center justify-center p-4 md:p-16 border-b border-gray-300">
-					<Input placeholder="Enter a username" />
-				</div>
 
-				<CodeBlock className="border-none">
-					<CodeBlockBody>
-						<CodeBlockCopyButton />
-						<CodeBlockCode language="tsx">{code`<Input placeholder="Enter a username" />`}</CodeBlockCode>
-					</CodeBlockBody>
-				</CodeBlock>
-			</div>
+			<Example className="mt-4">
+				<Input placeholder="Enter a username" />
+			</Example>
+			<CodeBlock className="rounded-t-none rounded-b-lg">
+				<CodeBlockBody>
+					<CodeBlockCopyButton />
+					<CodeBlockCode language="tsx">{code`<Input placeholder="Enter a username" />`}</CodeBlockCode>
+				</CodeBlockBody>
+			</CodeBlock>
 		</div>
 	);
 }

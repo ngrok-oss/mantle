@@ -3,6 +3,7 @@ import { code } from "@/code-block/code";
 import { MediaObject, MediaObjectContent, MediaObjectMedia } from "@/media-object";
 import { Skeleton } from "@/skeleton";
 import type { MetaFunction } from "@vercel/remix";
+import { Example } from "~/components/example";
 import { Link } from "~/components/link";
 
 export const meta: MetaFunction = () => {
@@ -17,17 +18,15 @@ export default function Page() {
 		<div>
 			<h1 className="text-5xl font-medium">Skeleton</h1>
 			<p className="mt-4 text-xl text-gray-600">Use to show a placeholder while content is loading.</p>
-			<div className="mt-4 rounded-lg border border-gray-300 to-gray-200 from-gray-50 bg-gradient-to-br dark:bg-gradient-to-tl">
-				<div className="flex items-center justify-center p-4 md:p-16 border-b border-gray-300">
-					<Skeleton className="h-4 w-full" />
-				</div>
-				<CodeBlock className="border-none">
-					<CodeBlockBody>
-						<CodeBlockCopyButton />
-						<CodeBlockCode language="tsx">{code`<Skeleton className="h-4 w-full" />`}</CodeBlockCode>
-					</CodeBlockBody>
-				</CodeBlock>
-			</div>
+			<Example className="mt-4">
+				<Skeleton className="h-4 w-full" />
+			</Example>
+			<CodeBlock className="rounded-t-none rounded-b-lg">
+				<CodeBlockBody>
+					<CodeBlockCopyButton />
+					<CodeBlockCode language="tsx">{code`<Skeleton className="h-4 w-full" />`}</CodeBlockCode>
+				</CodeBlockBody>
+			</CodeBlock>
 
 			<section>
 				<h3 className="mt-8 text-xl font-medium">
@@ -37,23 +36,22 @@ export default function Page() {
 					The Skeleton component can be included within components. You can also pass Tailwind utility classes for
 					further control.
 				</p>
-				<div className="mt-4 rounded-lg border border-gray-300 bg-background">
-					<div className="flex items-center justify-center p-4 md:p-9 border-b border-gray-300">
-						<MediaObject>
-							<MediaObjectMedia>
-								<Skeleton className="h-12 w-12 rounded-full" />
-							</MediaObjectMedia>
-							<MediaObjectContent className="space-y-3">
-								<Skeleton className="h-4 w-[250px]" />
-								<Skeleton className="h-4 w-[200px]" />
-							</MediaObjectContent>
-						</MediaObject>
-					</div>
-					<CodeBlock className="border-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode language="tsx">
-								{code`
+				<Example className="mt-4">
+					<MediaObject>
+						<MediaObjectMedia>
+							<Skeleton className="h-12 w-12 rounded-full" />
+						</MediaObjectMedia>
+						<MediaObjectContent className="space-y-3">
+							<Skeleton className="h-4 w-[250px]" />
+							<Skeleton className="h-4 w-[200px]" />
+						</MediaObjectContent>
+					</MediaObject>
+				</Example>
+				<CodeBlock className="rounded-t-none rounded-b-lg">
+					<CodeBlockBody>
+						<CodeBlockCopyButton />
+						<CodeBlockCode language="tsx">
+							{code`
 									<MediaObject>
 										<MediaObjectMedia>
 											<Skeleton className="h-12 w-12 rounded-full" />
@@ -64,10 +62,9 @@ export default function Page() {
 										</MediaObjectContent>
 									</MediaObject>
 								`}
-							</CodeBlockCode>
-						</CodeBlockBody>
-					</CodeBlock>
-				</div>
+						</CodeBlockCode>
+					</CodeBlockBody>
+				</CodeBlock>
 			</section>
 		</div>
 	);

@@ -3,6 +3,7 @@ import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/
 import { code } from "@/code-block/code";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/table";
 import type { MetaFunction } from "@vercel/remix";
+import { Example } from "~/components/example";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -18,19 +19,17 @@ export default function Page() {
 			<p className="mt-4 text-xl text-gray-600">
 				Initiates an action, such as completing a task or submitting information
 			</p>
-			<div className="mt-4 rounded-lg border border-gray-300 to-gray-200 from-gray-50 bg-gradient-to-br dark:bg-gradient-to-tl">
-				<div className="flex items-center justify-center gap-2 p-4 md:p-16 border-b border-gray-300">
-					<Button>Default</Button>
-					<Button priority="primary">Primary</Button>
-					<Button priority="secondary">Secondary</Button>
-				</div>
-				<CodeBlock className="border-none">
-					<CodeBlockBody>
-						<CodeBlockCopyButton />
-						<CodeBlockCode language="tsx">{code`<Button>Click me!</Button>`}</CodeBlockCode>
-					</CodeBlockBody>
-				</CodeBlock>
-			</div>
+			<Example className="mt-4 gap-2">
+				<Button>Default</Button>
+				<Button priority="primary">Primary</Button>
+				<Button priority="secondary">Secondary</Button>
+			</Example>
+			<CodeBlock className="rounded-t-none rounded-b-lg">
+				<CodeBlockBody>
+					<CodeBlockCopyButton />
+					<CodeBlockCode language="tsx">{code`<Button>Click me!</Button>`}</CodeBlockCode>
+				</CodeBlockBody>
+			</CodeBlock>
 			<h2 className="mt-16 text-3xl font-medium">API Reference</h2>
 			<div className="mt-4 rounded-lg border border-gray-300 overflow-hidden z-10">
 				<Table>
