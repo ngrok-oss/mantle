@@ -36,3 +36,8 @@ jobs:
       - name: Ensure Package is Publishable 🧐
         run: | # Run the prepublish hook to ensure the package is publishable
           pnpm run prepublishOnly
+
+      - name: Diff Remix Routes 🕵️
+        run: | # Diff the remix routes
+          pnpm run gen:remix-routes
+          git diff --exit-code
