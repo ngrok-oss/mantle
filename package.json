@@ -32,15 +32,15 @@
   },
   "scripts": {
     "build-storybook": "pnpm run cmd:storybook build",
-    "build": "remix build",
     "cmd:storybook": "STORYBOOK_DISABLE_TELEMETRY=1 storybook",
-    "dev": "remix dev --manual",
+    "docs:build": "remix build",
+    "docs:dev": "remix dev --manual",
+    "docs:serve": "remix-serve ./build/index.js",
     "fmt:check": "prettier --cache --check .",
     "fmt": "prettier --write --cache .",
     "gen:remix-routes": "tsx scripts/gen-remix-routes",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "prepublishOnly": "rm -rf dist && rollup -c",
-    "start": "remix-serve ./build/index.js",
     "storybook": "pnpm run cmd:storybook dev -p 6006",
     "test": "TZ=UTC vitest",
     "typecheck": "tsc --incremental --noEmit --skipLibCheck"
