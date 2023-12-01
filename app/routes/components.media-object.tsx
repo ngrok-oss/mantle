@@ -48,8 +48,8 @@ export default function Page() {
 				</p>
 			</div>
 
-			<div className="my-4 rounded-lg border border-gray-300 bg-background">
-				<div className="flex items-center justify-center p-4 md:p-9 border-b border-gray-300">
+			<div className="mt-4 rounded-lg border border-gray-300 to-gray-200 from-gray-50 bg-gradient-to-br dark:bg-gradient-to-tl">
+				<div className="flex items-center justify-center p-4 md:p-16 border-b border-gray-300">
 					<MediaObject>
 						<MediaObjectMedia>
 							<ExampleMedia />

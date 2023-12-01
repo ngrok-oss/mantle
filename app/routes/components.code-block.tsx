@@ -30,8 +30,8 @@ export default function Page() {
 				This example includes every potential child of our code block component—a header with file icon and file name,
 				highlighted code with a copy button, and an expander which optionally crops the height of long code samples.
 			</p>
-			<div className="mt-4 rounded-lg border border-gray-300 bg-background">
-				<div className="flex items-center justify-center p-4 md:p-9 border-b border-gray-300">
+			<div className="mt-4 rounded-lg border border-gray-300 to-gray-200 from-gray-50 bg-gradient-to-br dark:bg-gradient-to-tl">
+				<div className="flex items-center justify-center p-4 md:p-16 border-b border-gray-300">
 					<CodeBlock>
 						<CodeBlockHeader>
 							<FileIcon />
@@ -121,8 +121,8 @@ export default function Page() {
 					Many code blocks will be single line command line prompts and should be able to render with a header and copy
 					button. This makes it absolutely clear that this example is a command line prompt and not a code sample.
 				</p>
-				<div className="mt-4 rounded-lg border border-gray-300 bg-background">
-					<div className="flex items-center justify-center p-4 md:p-9 border-b border-gray-300">
+				<div className="mt-4 rounded-lg border border-gray-300 to-gray-200 from-gray-50 bg-gradient-to-br dark:bg-gradient-to-tl">
+					<div className="flex items-center justify-center p-4 md:p-16 border-b border-gray-300">
 						<CodeBlock>
 							<CodeBlockHeader>
 								<CommandLineIcon />
@@ -166,8 +166,8 @@ export default function Page() {
 					This example is included to demonstrate that code blocks can scroll horizontally if the content is too wide.
 					Mantle attempts to normalize scrollbar styling across browsers and platforms.
 				</p>
-				<div className="mt-4 rounded-lg border border-gray-300 bg-background">
-					<div className="flex items-center justify-center p-4 md:p-9 border-b border-gray-300">
+				<div className="mt-4 rounded-lg border border-gray-300 to-gray-200 from-gray-50 bg-gradient-to-br dark:bg-gradient-to-tl">
+					<div className="flex items-center justify-center p-4 md:p-16 border-b border-gray-300">
 						<CodeBlock>
 							<CodeBlockHeader>
 								<FileIcon />
@@ -248,8 +248,8 @@ export default function Page() {
 					the surrounding content or the code block is self-explanatory eg. “In your index.js file, paste the
 					following:”.
 				</p>
-				<div className="mt-4 rounded-lg border border-gray-300 bg-background">
-					<div className="flex items-center justify-center p-4 md:p-9 border-b border-gray-300">
+				<div className="mt-4 rounded-lg border border-gray-300 to-gray-200 from-gray-50 bg-gradient-to-br dark:bg-gradient-to-tl">
+					<div className="flex items-center justify-center p-4 md:p-16 border-b border-gray-300">
 						<CodeBlock>
 							<CodeBlockBody>
 								<CodeBlockCode language="js">
@@ -306,8 +306,8 @@ export default function Page() {
 					This example is included to show the interaction between the copy button and horizontal scrolling on a single
 					verbose terminal command.
 				</p>
-				<div className="mt-4 rounded-lg border border-gray-300 bg-background">
-					<div className="flex items-center justify-center p-4 md:p-9 border-b border-gray-300">
+				<div className="mt-4 rounded-lg border border-gray-300 to-gray-200 from-gray-50 bg-gradient-to-br dark:bg-gradient-to-tl">
+					<div className="flex items-center justify-center p-4 md:p-16 border-b border-gray-300">
 						<CodeBlock>
 							<CodeBlockBody>
 								<CodeBlockCopyButton />

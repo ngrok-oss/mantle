@@ -16,9 +16,9 @@ export default function Page() {
 	return (
 		<div>
 			<h1 className="text-5xl font-medium">Skeleton</h1>
-			<p className="my-4 text-xl text-gray-600">Use to show a placeholder while content is loading.</p>
-			<div className="my-4 rounded-lg border border-gray-300 bg-background">
-				<div className="flex items-center justify-center p-4 md:p-9 border-b border-gray-300">
+			<p className="mt-4 text-xl text-gray-600">Use to show a placeholder while content is loading.</p>
+			<div className="mt-4 rounded-lg border border-gray-300 to-gray-200 from-gray-50 bg-gradient-to-br dark:bg-gradient-to-tl">
+				<div className="flex items-center justify-center p-4 md:p-16 border-b border-gray-300">
 					<Skeleton className="h-4 w-full" />
 				</div>
 				<CodeBlock className="border-none">

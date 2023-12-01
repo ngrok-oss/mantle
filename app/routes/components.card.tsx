@@ -14,12 +14,12 @@ export default function Page() {
 	return (
 		<div>
 			<h1 className="text-5xl font-medium">Card</h1>
-			<p className="my-4 text-xl text-gray-600">
+			<p className="mt-4 text-xl text-gray-600">
 				A container used to display content in a box, resembling a physical card.
 			</p>
 
-			<div className="my-4 rounded-lg border border-gray-300 bg-background">
-				<div className="flex items-center justify-center p-4 md:p-9 border-b border-gray-300">
+			<div className="mt-4 rounded-lg border border-gray-300 to-gray-200 from-gray-50 bg-gradient-to-br dark:bg-gradient-to-tl">
+				<div className="flex items-center justify-center p-4 md:p-16 border-b border-gray-300">
 					<Card>
 						<CardHeader>
 							<CardTitle>Card Title Here</CardTitle>
