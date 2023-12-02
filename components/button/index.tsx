@@ -11,11 +11,11 @@ const buttonVariants = cva(
 		variants: {
 			priority: {
 				default:
-					"border-blue-500 text-blue-500 bg-white hover:bg-blue-50 active:bg-blue-100 focus-visible:ring-blue-600/25",
+					"border-gray-300 text-gray-800 bg-gray-50 hover:bg-gray-100 active:bg-gray-200 focus-visible:ring-blue-600/25 focus-visible:border-blue-500",
 				primary:
 					"bg-blue-500 text-button hover:bg-blue-600 active:bg-blue-700 focus-visible:ring-blue-600/25 border-transparent",
 				secondary:
-					"bg-blue-50 border-blue-300 text-blue-900 hover:bg-blue-100 active:bg-blue-200 focus-visible:ring-blue-600/25",
+					"bg-gray-50 border-blue-600 text-blue-600 hover:bg-blue-50 active:bg-blue-100 focus-visible:ring-blue-600/25",
 			},
 			state: {
 				default: "",
