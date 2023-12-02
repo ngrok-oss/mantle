@@ -8,9 +8,12 @@ export const routePatterns = [
 	"/components/button",
 	"/components/card",
 	"/components/code-block",
+	"/components/inline-code",
 	"/components/input",
 	"/components/media-object",
+	"/components/popover",
 	"/components/skeleton",
+	"/components/table",
 ] as const;
 
 export type RoutePattern = (typeof routePatterns)[number];
@@ -28,9 +31,12 @@ export const routes = [
 	"/components/button",
 	"/components/card",
 	"/components/code-block",
+	"/components/inline-code",
 	"/components/input",
 	"/components/media-object",
+	"/components/popover",
 	"/components/skeleton",
+	"/components/table",
 ] as const;
 
 export type Route = (typeof routes)[number];
