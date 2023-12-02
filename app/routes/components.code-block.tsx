@@ -21,7 +21,7 @@ export const meta: MetaFunction = () => {
 export default function Page() {
 	return (
 		<div>
-			<h1 className="text-5xl font-medium">Code Block</h1>
+			<h1 className="text-5xl font-medium">CodeBlock</h1>
 			<p className="mt-4 text-xl text-gray-600">Code blocks render and apply syntax highlighting to blocks of code.</p>
 
 			{/* <h2 className="mt-8 text-3xl font-medium">Examples</h2>

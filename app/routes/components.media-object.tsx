@@ -15,7 +15,7 @@ export const meta: MetaFunction = () => {
 export default function Page() {
 	return (
 		<div>
-			<h1 className="text-5xl font-medium">Media Object</h1>
+			<h1 className="text-5xl font-medium">MediaObject</h1>
 			<p className="my-4 text-xl text-gray-600">
 				The Media Object is an image/icon (media) to the left, with descriptive content (title and subtitle/description)
 				to the right.
