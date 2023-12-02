@@ -10,6 +10,7 @@ export const routePatterns = [
 	"/components/code-block",
 	"/components/input",
 	"/components/media-object",
+	"/components/popover",
 	"/components/skeleton",
 ] as const;
 
@@ -30,6 +31,7 @@ export const routes = [
 	"/components/code-block",
 	"/components/input",
 	"/components/media-object",
+	"/components/popover",
 	"/components/skeleton",
 ] as const;
 

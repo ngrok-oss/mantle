@@ -132,6 +132,9 @@ function Navigation({ className, style }: WithStyleProps) {
 						<NavLink to="/components/media-object">Media Object</NavLink>
 					</li>
 					<li>
+						<NavLink to="/components/popover">Popover</NavLink>
+					</li>
+					<li>
 						<NavLink to="/components/skeleton">Skeleton</NavLink>
 					</li>
 				</ul>

@@ -26,6 +26,7 @@ export {
 export { InlineCode } from "./inline-code";
 export { Input } from "./input";
 export { MediaObject, MediaObjectMedia, MediaObjectContent } from "./media-object";
+export { Popover, PopoverTrigger, PopoverContent } from "./popover";
 export {
 	Select,
 	SelectContent,
