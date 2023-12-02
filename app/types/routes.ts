@@ -12,6 +12,7 @@ export const routePatterns = [
 	"/components/media-object",
 	"/components/popover",
 	"/components/skeleton",
+	"/components/table",
 ] as const;
 
 export type RoutePattern = (typeof routePatterns)[number];
@@ -33,6 +34,7 @@ export const routes = [
 	"/components/media-object",
 	"/components/popover",
 	"/components/skeleton",
+	"/components/table",
 ] as const;
 
 export type Route = (typeof routes)[number];

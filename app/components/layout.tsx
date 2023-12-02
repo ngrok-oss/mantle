@@ -137,6 +137,9 @@ function Navigation({ className, style }: WithStyleProps) {
 					<li>
 						<NavLink to="/components/skeleton">Skeleton</NavLink>
 					</li>
+					<li>
+						<NavLink to="/components/table">Table</NavLink>
+					</li>
 				</ul>
 			</ul>
 		</nav>

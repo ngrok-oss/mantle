@@ -1,0 +1,139 @@
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
+import { code } from "@/code-block/code";
+import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/table";
+import type { MetaFunction } from "@vercel/remix";
+import { Example } from "~/components/example";
+
+export const meta: MetaFunction = () => {
+	return [
+		{ title: "@ngrok/mantle — Table" },
+		{ name: "description", content: "mantle is ngrok's UI library and design system" },
+	];
+};
+
+export default function Page() {
+	return (
+		<div>
+			<h1 className="text-5xl font-medium">Table</h1>
+			<p className="mt-4 text-xl text-gray-600">A responsive table component.</p>
+			<Example className="mt-4 gap-2">
+				<ExampleTable />
+			</Example>
+			<CodeBlock className="rounded-t-none rounded-b-lg">
+				<CodeBlockBody>
+					<CodeBlockCopyButton />
+					<CodeBlockCode language="tsx">
+						{code`
+							<Table>
+								<TableCaption>A list of your recent invoices.</TableCaption>
+								<TableHeader>
+									<TableRow>
+										<TableHead className="w-[100px]">Invoice</TableHead>
+										<TableHead>Status</TableHead>
+										<TableHead>Method</TableHead>
+										<TableHead className="text-right">Amount</TableHead>
+									</TableRow>
+								</TableHeader>
+								<TableBody>
+									{invoices.map((invoice) => (
+										<TableRow key={invoice.invoice}>
+											<TableCell className="font-medium">{invoice.invoice}</TableCell>
+											<TableCell>{invoice.paymentStatus}</TableCell>
+											<TableCell>{invoice.paymentMethod}</TableCell>
+											<TableCell className="text-right">{invoice.totalAmount}</TableCell>
+										</TableRow>
+									))}
+								</TableBody>
+								<TableFooter>
+									<TableRow>
+										<TableCell colSpan={3}>Total</TableCell>
+										<TableCell className="text-right">$2,500.00</TableCell>
+									</TableRow>
+								</TableFooter>
+							</Table>
+						`}
+					</CodeBlockCode>
+				</CodeBlockBody>
+			</CodeBlock>
+		</div>
+	);
+}
+
+const ExampleTable = () => {
+	const invoices = [
+		{
+			invoice: "INV001",
+			paymentStatus: "Paid",
+			totalAmount: "$250.00",
+			paymentMethod: "Credit Card",
+		},
+		{
+			invoice: "INV002",
+			paymentStatus: "Pending",
+			totalAmount: "$150.00",
+			paymentMethod: "PayPal",
+		},
+		{
+			invoice: "INV003",
+			paymentStatus: "Unpaid",
+			totalAmount: "$350.00",
+			paymentMethod: "Bank Transfer",
+		},
+		{
+			invoice: "INV004",
+			paymentStatus: "Paid",
+			totalAmount: "$450.00",
+			paymentMethod: "Credit Card",
+		},
+		{
+			invoice: "INV005",
+			paymentStatus: "Paid",
+			totalAmount: "$550.00",
+			paymentMethod: "PayPal",
+		},
+		{
+			invoice: "INV006",
+			paymentStatus: "Pending",
+			totalAmount: "$200.00",
+			paymentMethod: "Bank Transfer",
+		},
+		{
+			invoice: "INV007",
+			paymentStatus: "Unpaid",
+			totalAmount: "$300.00",
+			paymentMethod: "Credit Card",
+		},
+	];
+
+	return (
+		<div className="mt-4 rounded-lg border border-gray-300 overflow-hidden z-10">
+			<Table>
+				<TableCaption>A list of your recent invoices.</TableCaption>
+				<TableHeader>
+					<TableRow>
+						<TableHead className="w-[100px]">Invoice</TableHead>
+						<TableHead>Status</TableHead>
+						<TableHead>Method</TableHead>
+						<TableHead className="text-right">Amount</TableHead>
+					</TableRow>
+				</TableHeader>
+				<TableBody>
+					{invoices.map((invoice) => (
+						<TableRow key={invoice.invoice}>
+							<TableCell className="font-medium">{invoice.invoice}</TableCell>
+							<TableCell>{invoice.paymentStatus}</TableCell>
+							<TableCell>{invoice.paymentMethod}</TableCell>
+							<TableCell className="text-right">{invoice.totalAmount}</TableCell>
+						</TableRow>
+					))}
+				</TableBody>
+				<TableFooter>
+					<TableRow>
+						<TableCell colSpan={3}>Total</TableCell>
+						<TableCell className="text-right">$2,500.00</TableCell>
+					</TableRow>
+				</TableFooter>
+			</Table>
+		</div>
+	);
+};
