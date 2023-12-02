@@ -1,7 +1,9 @@
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
 import { code } from "@/code-block/code";
+import { InlineCode } from "@/inline-code";
 import { MediaObject, MediaObjectContent, MediaObjectMedia } from "@/media-object";
 import type { MetaFunction } from "@vercel/remix";
+import { Example } from "~/components/example";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -14,79 +16,62 @@ export default function Page() {
 	return (
 		<div>
 			<h1 className="text-5xl font-medium">Media Object</h1>
-			<h2 className="my-4 text-xl text-gray-600">
+			<p className="my-4 text-xl text-gray-600">
 				The Media Object is an image/icon (media) to the left, with descriptive content (title and subtitle/description)
 				to the right.
-			</h2>
+			</p>
 			<div className="mt-8 space-y-4 text-gray-600">
 				<p>
-					Change the spacing between the media and content by passing a{" "}
-					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">gap-*</code>{" "}
-					class. The default{" "}
-					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">gap</code> is{" "}
-					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">gap-4</code>.
+					Change the spacing between the media and content by passing a <InlineCode>gap-*</InlineCode> class. The
+					default <InlineCode>gap</InlineCode> is <InlineCode>gap-4</InlineCode>.
 				</p>
 				<p>
-					Use{" "}
-					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">flexbox</code>{" "}
-					utilities to change the alignment of the media and content.
+					Use <InlineCode>flexbox</InlineCode> utilities to change the alignment of the media and content.
 				</p>
 				<p>
-					Compose the{" "}
-					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">
-						&lt;MediaObject&gt;
-					</code>{" "}
-					with the{" "}
-					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">
-						&lt;MediaObjectMedia&gt;
-					</code>{" "}
-					and{" "}
-					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">
-						&lt;MediaObjectContent&gt;
-					</code>{" "}
+					Compose the <InlineCode>&lt;MediaObject&gt;</InlineCode> with the{" "}
+					<InlineCode>&lt;MediaObjectMedia&gt;</InlineCode> and <InlineCode>&lt;MediaObjectContent&gt;</InlineCode>{" "}
 					components as direct children.
 				</p>
 			</div>
 
-			<div className="my-4 rounded-lg border border-gray-300 bg-background">
-				<div className="flex items-center justify-center p-4 md:p-9 border-b border-gray-300">
-					<MediaObject>
-						<MediaObjectMedia>
-							<ExampleMedia />
-						</MediaObjectMedia>
-						<MediaObjectContent>
-							<h4 className="text-lg font-bold">Lorem ipsum</h4>
-							<p className="mb-4 mt-1">
-								Repudiandae sint consequuntur vel. Amet ut nobis explicabo numquam expedita quia omnis voluptatem. Minus
-								quidem ipsam quia iusto.
-							</p>
-							<p>Ea eiusmod eiusmod aute reprehenderit exercitation eu ea id adipisicing occaecat.</p>
-						</MediaObjectContent>
-					</MediaObject>
-				</div>
-				<CodeBlock className="border-none">
-					<CodeBlockBody>
-						<CodeBlockCopyButton />
-						<CodeBlockCode language="tsx">
-							{code`
-								<MediaObject>
-									<MediaObjectMedia>
-										<ExampleMedia />
-									</MediaObjectMedia>
-									<MediaObjectContent>
-										<h4 className="text-lg font-bold">Lorem ipsum</h4>
-										<p className="mb-4 mt-1">
-											Repudiandae sint consequuntur vel. Amet ut nobis explicabo numquam expedita quia omnis voluptatem. Minus
-											quidem ipsam quia iusto.
-										</p>
-										<p>Ea eiusmod eiusmod aute reprehenderit exercitation eu ea id adipisicing occaecat.</p>
-									</MediaObjectContent>
-								</MediaObject>
-							`}
-						</CodeBlockCode>
-					</CodeBlockBody>
-				</CodeBlock>
-			</div>
+			<Example className="mt-4">
+				<MediaObject>
+					<MediaObjectMedia>
+						<ExampleMedia />
+					</MediaObjectMedia>
+					<MediaObjectContent>
+						<h4 className="text-lg font-bold">Lorem ipsum</h4>
+						<p className="mb-4 mt-1">
+							Repudiandae sint consequuntur vel. Amet ut nobis explicabo numquam expedita quia omnis voluptatem. Minus
+							quidem ipsam quia iusto.
+						</p>
+						<p>Ea eiusmod eiusmod aute reprehenderit exercitation eu ea id adipisicing occaecat.</p>
+					</MediaObjectContent>
+				</MediaObject>
+			</Example>
+			<CodeBlock className="rounded-t-none rounded-b-lg">
+				<CodeBlockBody>
+					<CodeBlockCopyButton />
+					<CodeBlockCode language="tsx">
+						{code`
+							<MediaObject>
+								<MediaObjectMedia>
+									<ExampleMedia />
+								</MediaObjectMedia>
+								<MediaObjectContent>
+									<h4 className="text-lg font-bold">Lorem ipsum</h4>
+									<p className="mb-4 mt-1">
+										Repudiandae sint consequuntur vel. Amet ut nobis explicabo numquam expedita quia omnis voluptatem. Minus
+										quidem ipsam quia iusto.
+									</p>
+									<p>Ea eiusmod eiusmod aute reprehenderit exercitation eu ea id adipisicing occaecat.</p>
+								</MediaObjectContent>
+							</MediaObject>
+						`}
+					</CodeBlockCode>
+				</CodeBlockBody>
+			</CodeBlock>
 		</div>
 	);
 }

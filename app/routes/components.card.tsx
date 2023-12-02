@@ -2,6 +2,7 @@ import { Card, CardBody, CardFooter, CardHeader, CardTitle } from "@/card";
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
 import { code } from "@/code-block/code";
 import type { MetaFunction } from "@vercel/remix";
+import { Example } from "~/components/example";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -14,45 +15,43 @@ export default function Page() {
 	return (
 		<div>
 			<h1 className="text-5xl font-medium">Card</h1>
-			<h2 className="my-4 text-xl text-gray-600">
+			<p className="mt-4 text-xl text-gray-600">
 				A container used to display content in a box, resembling a physical card.
-			</h2>
+			</p>
 
-			<div className="my-4 rounded-lg border border-gray-300 bg-background">
-				<div className="flex items-center justify-center p-4 md:p-9 border-b border-gray-300">
-					<Card>
-						<CardHeader>
-							<CardTitle>Card Title Here</CardTitle>
-						</CardHeader>
-						<CardBody>
-							<p>Laborum in aute officia adipisicing elit velit.</p>
-						</CardBody>
-						<CardFooter>
-							<p>Card footer</p>
-						</CardFooter>
-					</Card>
-				</div>
-				<CodeBlock className="border-none">
-					<CodeBlockBody>
-						<CodeBlockCopyButton />
-						<CodeBlockCode language="tsx">
-							{code`
-								<Card>
-									<CardHeader>
-										<CardTitle>Card Title Here</CardTitle>
-									</CardHeader>
-									<CardBody>
-										<p>Laborum in aute officia adipisicing elit velit.</p>
-									</CardBody>
-									<CardFooter>
-										<p>Card footer</p>
-									</CardFooter>
-								</Card>
-							`}
-						</CodeBlockCode>
-					</CodeBlockBody>
-				</CodeBlock>
-			</div>
+			<Example className="mt-4">
+				<Card>
+					<CardHeader>
+						<CardTitle>Card Title Here</CardTitle>
+					</CardHeader>
+					<CardBody>
+						<p>Laborum in aute officia adipisicing elit velit.</p>
+					</CardBody>
+					<CardFooter>
+						<p>Card footer</p>
+					</CardFooter>
+				</Card>
+			</Example>
+			<CodeBlock className="rounded-t-none rounded-b-lg">
+				<CodeBlockBody>
+					<CodeBlockCopyButton />
+					<CodeBlockCode language="tsx">
+						{code`
+							<Card>
+								<CardHeader>
+									<CardTitle>Card Title Here</CardTitle>
+								</CardHeader>
+								<CardBody>
+									<p>Laborum in aute officia adipisicing elit velit.</p>
+								</CardBody>
+								<CardFooter>
+									<p>Card footer</p>
+								</CardFooter>
+							</Card>
+						`}
+					</CodeBlockCode>
+				</CodeBlockBody>
+			</CodeBlock>
 		</div>
 	);
 }
