@@ -35,7 +35,8 @@ const buttonVariants = cva(
 			{
 				priority: "default",
 				state: "danger",
-				class: "border-red-500 text-red-500 hover:bg-red-50 active:bg-red-100 focus-visible:ring-red-600/25",
+				class:
+					"border-red-300 text-red-500 hover:bg-red-50 active:bg-red-100 focus-visible:ring-red-600/25 focus-visible:border-red-500",
 			},
 			{
 				priority: "primary",
@@ -45,7 +46,7 @@ const buttonVariants = cva(
 			{
 				priority: "secondary",
 				state: "danger",
-				class: "bg-red-50 border-red-200 text-red-900 hover:bg-red-100 active:bg-red-200 focus-visible:ring-red-600/25",
+				class: "border-red-600 text-red-600 hover:bg-red-50 active:bg-red-100 focus-visible:ring-red-600/25",
 			},
 		],
 	},

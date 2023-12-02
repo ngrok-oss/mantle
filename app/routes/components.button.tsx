@@ -23,6 +23,14 @@ export default function Page() {
 				<Button>Default</Button>
 				<Button priority="primary">Primary</Button>
 				<Button priority="secondary">Secondary</Button>
+
+				<Button state="danger">Default</Button>
+				<Button state="danger" priority="primary">
+					Primary
+				</Button>
+				<Button state="danger" priority="secondary">
+					Secondary
+				</Button>
 			</Example>
 			<CodeBlock className="rounded-t-none rounded-b-lg">
 				<CodeBlockBody>
