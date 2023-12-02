@@ -1,5 +1,6 @@
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
 import { code } from "@/code-block/code";
+import { InlineCode } from "@/inline-code";
 import { MediaObject, MediaObjectContent, MediaObjectMedia } from "@/media-object";
 import type { MetaFunction } from "@vercel/remix";
 import { Example } from "~/components/example";
@@ -21,30 +22,15 @@ export default function Page() {
 			</p>
 			<div className="mt-8 space-y-4 text-gray-600">
 				<p>
-					Change the spacing between the media and content by passing a{" "}
-					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">gap-*</code>{" "}
-					class. The default{" "}
-					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">gap</code> is{" "}
-					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">gap-4</code>.
+					Change the spacing between the media and content by passing a <InlineCode>gap-*</InlineCode> class. The
+					default <InlineCode>gap</InlineCode> is <InlineCode>gap-4</InlineCode>.
 				</p>
 				<p>
-					Use{" "}
-					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">flexbox</code>{" "}
-					utilities to change the alignment of the media and content.
+					Use <InlineCode>flexbox</InlineCode> utilities to change the alignment of the media and content.
 				</p>
 				<p>
-					Compose the{" "}
-					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">
-						&lt;MediaObject&gt;
-					</code>{" "}
-					with the{" "}
-					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">
-						&lt;MediaObjectMedia&gt;
-					</code>{" "}
-					and{" "}
-					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">
-						&lt;MediaObjectContent&gt;
-					</code>{" "}
+					Compose the <InlineCode>&lt;MediaObject&gt;</InlineCode> with the{" "}
+					<InlineCode>&lt;MediaObjectMedia&gt;</InlineCode> and <InlineCode>&lt;MediaObjectContent&gt;</InlineCode>{" "}
 					components as direct children.
 				</p>
 			</div>

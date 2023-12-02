@@ -1,4 +1,5 @@
 import { cx } from "@/cx";
+import { InlineCode } from "@/inline-code";
 import { WithStyleProps } from "@/types/with-style-props";
 import type { MetaFunction } from "@vercel/remix";
 import { HashNavLink } from "~/components/hash-nav-link";
@@ -97,24 +98,10 @@ export default function Page() {
 				</h2>
 				<p className="mt-3 text-gray-600">
 					Mantle&apos;s colors are delivered as CSS variables via Tailwind&apos;s API eg.{" "}
-					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">
-						.text-blue-500
-					</code>
-					. They can be directly accessed via{" "}
-					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">
-						var(--primary-500)
-					</code>{" "}
-					but do note that you&apos;ll need to wrap everything in{" "}
-					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">hsl()</code>{" "}
-					like so:{" "}
-					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">
-						hsl(var(--primary-500))
-					</code>
-					. This allows for Tailwind operations like{" "}
-					<code className="font-mono bg-gray-100 border border-gray-300 text-sm rounded-md px-1 py-0.5">
-						text-blue-500/25
-					</code>
-					.
+					<InlineCode>.text-blue-500</InlineCode>. They can be directly accessed via{" "}
+					<InlineCode>var(--primary-500)</InlineCode> but do note that you&apos;ll need to wrap everything in{" "}
+					<InlineCode>hsl()</InlineCode> like so: <InlineCode>hsl(var(--primary-500))</InlineCode>. This allows for
+					Tailwind operations like <InlineCode>text-blue-500/25</InlineCode>.
 				</p>
 				<h3 id="blue" className="mt-6 text-xl font-medium">
 					Blue (primary)

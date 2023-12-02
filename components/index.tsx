@@ -23,6 +23,7 @@ export {
 	DrawerTitle,
 	DrawerDescription,
 } from "./drawer";
+export { InlineCode } from "./inline-code";
 export { Input } from "./input";
 export { MediaObject, MediaObjectMedia, MediaObjectContent } from "./media-object";
 export {
@@ -37,6 +38,7 @@ export {
 	SelectValue,
 } from "./select";
 export { Skeleton } from "./skeleton";
+export { Table, TableHeader, TableBody, TableFooter, TableHead, TableRow, TableCell, TableCaption } from "./table";
 export { PreventWrongThemeFlash, ThemeProvider } from "./theme-provider";
 export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "./tooltip";
 
