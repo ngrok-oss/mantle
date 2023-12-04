@@ -243,13 +243,6 @@ importers:
       tailwindcss-animate:
         specifier: 1.0.7
         version: 1.0.7(tailwindcss@3.3.5)
-    devDependencies:
-      '@parcel/transformer-typescript-types':
-        specifier: 2.10.3
-        version: 2.10.3(@parcel/core@2.10.3)(typescript@5.3.2)
-      parcel:
-        specifier: 2.10.3
-        version: 2.10.3(postcss@8.4.31)(typescript@5.3.2)
 
 packages:
 
@@ -2786,55 +2779,6 @@ packages:
       - '@parcel/core'
     dev: true
 
-  /@parcel/config-default@2.10.3(@parcel/core@2.10.3)(postcss@8.4.31)(typescript@5.3.2):
-    resolution: {integrity: sha512-gHVw5cKZVA9h/J4E33qQLg3QG3cYMyWVruyVzF8dFy/Rar5ebXMof1f38IhR2BIavpoThbnCnxgD4SVK8xOPag==}
-    peerDependencies:
-      '@parcel/core': ^2.10.3
-    dependencies:
-      '@parcel/bundler-default': 2.10.3(@parcel/core@2.10.3)
-      '@parcel/compressor-raw': 2.10.3(@parcel/core@2.10.3)
-      '@parcel/core': 2.10.3
-      '@parcel/namer-default': 2.10.3(@parcel/core@2.10.3)
-      '@parcel/optimizer-css': 2.10.3(@parcel/core@2.10.3)
-      '@parcel/optimizer-htmlnano': 2.10.3(@parcel/core@2.10.3)(postcss@8.4.31)(typescript@5.3.2)
-      '@parcel/optimizer-image': 2.10.3(@parcel/core@2.10.3)
-      '@parcel/optimizer-svgo': 2.10.3(@parcel/core@2.10.3)
-      '@parcel/optimizer-swc': 2.10.3(@parcel/core@2.10.3)
-      '@parcel/packager-css': 2.10.3(@parcel/core@2.10.3)
-      '@parcel/packager-html': 2.10.3(@parcel/core@2.10.3)
-      '@parcel/packager-js': 2.10.3(@parcel/core@2.10.3)
-      '@parcel/packager-raw': 2.10.3(@parcel/core@2.10.3)
-      '@parcel/packager-svg': 2.10.3(@parcel/core@2.10.3)
-      '@parcel/packager-wasm': 2.10.3(@parcel/core@2.10.3)
-      '@parcel/reporter-dev-server': 2.10.3(@parcel/core@2.10.3)
-      '@parcel/resolver-default': 2.10.3(@parcel/core@2.10.3)
-      '@parcel/runtime-browser-hmr': 2.10.3(@parcel/core@2.10.3)
-      '@parcel/runtime-js': 2.10.3(@parcel/core@2.10.3)
-      '@parcel/runtime-react-refresh': 2.10.3(@parcel/core@2.10.3)
-      '@parcel/runtime-service-worker': 2.10.3(@parcel/core@2.10.3)
-      '@parcel/transformer-babel': 2.10.3(@parcel/core@2.10.3)
-      '@parcel/transformer-css': 2.10.3(@parcel/core@2.10.3)
-      '@parcel/transformer-html': 2.10.3(@parcel/core@2.10.3)
-      '@parcel/transformer-image': 2.10.3(@parcel/core@2.10.3)
-      '@parcel/transformer-js': 2.10.3(@parcel/core@2.10.3)
-      '@parcel/transformer-json': 2.10.3(@parcel/core@2.10.3)
-      '@parcel/transformer-postcss': 2.10.3(@parcel/core@2.10.3)
-      '@parcel/transformer-posthtml': 2.10.3(@parcel/core@2.10.3)
-      '@parcel/transformer-raw': 2.10.3(@parcel/core@2.10.3)
-      '@parcel/transformer-react-refresh-wrap': 2.10.3(@parcel/core@2.10.3)
-      '@parcel/transformer-svg': 2.10.3(@parcel/core@2.10.3)
-    transitivePeerDependencies:
-      - '@swc/helpers'
-      - cssnano
-      - postcss
-      - purgecss
-      - relateurl
-      - srcset
-      - terser
-      - typescript
-      - uncss
-    dev: true
-
   /@parcel/config-default@2.10.3(@parcel/core@2.10.3)(postcss@8.4.32)(typescript@5.3.2):
     resolution: {integrity: sha512-gHVw5cKZVA9h/J4E33qQLg3QG3cYMyWVruyVzF8dFy/Rar5ebXMof1f38IhR2BIavpoThbnCnxgD4SVK8xOPag==}
     peerDependencies:
@@ -3003,27 +2947,6 @@ packages:
       nullthrows: 1.1.1
     transitivePeerDependencies:
       - '@parcel/core'
-    dev: true
-
-  /@parcel/optimizer-htmlnano@2.10.3(@parcel/core@2.10.3)(postcss@8.4.31)(typescript@5.3.2):
-    resolution: {integrity: sha512-KTIZOy19tYeG0j3JRv435A6jnTh3O1LPhsUfo6Xlea7Cz1yUUxAANl9MG8lHZKYbZCFFKbfk2I9QBycmcYxAAw==}
-    engines: {node: '>= 12.0.0', parcel: ^2.10.3}
-    dependencies:
-      '@parcel/plugin': 2.10.3(@parcel/core@2.10.3)
-      htmlnano: 2.1.0(postcss@8.4.31)(svgo@2.8.0)(typescript@5.3.2)
-      nullthrows: 1.1.1
-      posthtml: 0.16.6
-      svgo: 2.8.0
-    transitivePeerDependencies:
-      - '@parcel/core'
-      - cssnano
-      - postcss
-      - purgecss
-      - relateurl
-      - srcset
-      - terser
-      - typescript
-      - uncss
     dev: true
 
   /@parcel/optimizer-htmlnano@2.10.3(@parcel/core@2.10.3)(postcss@8.4.32)(typescript@5.3.2):
@@ -9721,44 +9644,6 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /htmlnano@2.1.0(postcss@8.4.31)(svgo@2.8.0)(typescript@5.3.2):
-    resolution: {integrity: sha512-jVGRE0Ep9byMBKEu0Vxgl8dhXYOUk0iNQ2pjsG+BcRB0u0oDF5A9p/iBGMg/PGKYUyMD0OAGu8dVT5Lzj8S58g==}
-    peerDependencies:
-      cssnano: ^6.0.0
-      postcss: ^8.3.11
-      purgecss: ^5.0.0
-      relateurl: ^0.2.7
-      srcset: 4.0.0
-      svgo: ^3.0.2
-      terser: ^5.10.0
-      uncss: ^0.17.3
-    peerDependenciesMeta:
-      cssnano:
-        optional: true
-      postcss:
-        optional: true
-      purgecss:
-        optional: true
-      relateurl:
-        optional: true
-      srcset:
-        optional: true
-      svgo:
-        optional: true
-      terser:
-        optional: true
-      uncss:
-        optional: true
-    dependencies:
-      cosmiconfig: 8.3.6(typescript@5.3.2)
-      postcss: 8.4.31
-      posthtml: 0.16.6
-      svgo: 2.8.0
-      timsort: 0.3.0
-    transitivePeerDependencies:
-      - typescript
-    dev: true
-
   /htmlnano@2.1.0(postcss@8.4.32)(svgo@2.8.0)(typescript@5.3.2):
     resolution: {integrity: sha512-jVGRE0Ep9byMBKEu0Vxgl8dhXYOUk0iNQ2pjsG+BcRB0u0oDF5A9p/iBGMg/PGKYUyMD0OAGu8dVT5Lzj8S58g==}
     peerDependencies:
@@ -12009,40 +11894,6 @@ packages:
     resolution: {integrity: sha512-NUcwaKxUxWrZLpDG+z/xZaCgQITkA/Dv4V/T6bw7VON6l1Xz/VnrBqrYjZQ12TamKHzITTfOEIYUj48y2KXImA==}
     dev: true
 
-  /parcel@2.10.3(postcss@8.4.31)(typescript@5.3.2):
-    resolution: {integrity: sha512-Ocx33N4ZVnotJTALhMZ0AqPIE9UN5uP6jjA+lYJ4FlEYuYYZsvOQXZQgeMa62pFj6jrOHWh7ho8uJhRdTNwVyg==}
-    engines: {node: '>= 12.0.0'}
-    hasBin: true
-    peerDependenciesMeta:
-      '@parcel/core':
-        optional: true
-    dependencies:
-      '@parcel/config-default': 2.10.3(@parcel/core@2.10.3)(postcss@8.4.31)(typescript@5.3.2)
-      '@parcel/core': 2.10.3
-      '@parcel/diagnostic': 2.10.3
-      '@parcel/events': 2.10.3
-      '@parcel/fs': 2.10.3(@parcel/core@2.10.3)
-      '@parcel/logger': 2.10.3
-      '@parcel/package-manager': 2.10.3(@parcel/core@2.10.3)
-      '@parcel/reporter-cli': 2.10.3(@parcel/core@2.10.3)
-      '@parcel/reporter-dev-server': 2.10.3(@parcel/core@2.10.3)
-      '@parcel/reporter-tracer': 2.10.3(@parcel/core@2.10.3)
-      '@parcel/utils': 2.10.3
-      chalk: 4.1.2
-      commander: 7.2.0
-      get-port: 4.2.0
-    transitivePeerDependencies:
-      - '@swc/helpers'
-      - cssnano
-      - postcss
-      - purgecss
-      - relateurl
-      - srcset
-      - terser
-      - typescript
-      - uncss
-    dev: true
-
   /parcel@2.10.3(postcss@8.4.32)(typescript@5.3.2):
     resolution: {integrity: sha512-Ocx33N4ZVnotJTALhMZ0AqPIE9UN5uP6jjA+lYJ4FlEYuYYZsvOQXZQgeMa62pFj6jrOHWh7ho8uJhRdTNwVyg==}
     engines: {node: '>= 12.0.0'}
@@ -12408,6 +12259,7 @@ packages:
       nanoid: 3.3.7
       picocolors: 1.0.0
       source-map-js: 1.0.2
+    dev: false
 
   /postcss@8.4.32:
     resolution: {integrity: sha512-D/kj5JNu6oo2EIy+XL/26JEDTlIbB8hw85G8StOE6L74RQAVVP5rej6wxCNqyMbR4RkPfqvezVbPw81Ngd6Kcw==}

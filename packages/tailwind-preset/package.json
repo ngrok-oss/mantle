@@ -11,7 +11,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "rm -rf dist && parcel build"
+    "build": "rm -rf dist && parcel build",
+    "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
     "tailwindcss-animate": "1.0.7"
@@ -19,9 +20,5 @@
   "peerDependencies": {
     "tailwindcss": "^3.3.5",
     "postcss": "^8"
-  },
-  "devDependencies": {
-    "@parcel/transformer-typescript-types": "2.10.3",
-    "parcel": "2.10.3"
   }
 }
