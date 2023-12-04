@@ -1,4 +1,4 @@
-import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
+import { CheckIcon, ChevronDownIcon } from "@heroicons/react/20/solid";
 import {
 	Content,
 	Group,
@@ -41,7 +41,7 @@ const SelectTrigger = forwardRef<
 		{children}
 		{!hideIcon && (
 			<Icon asChild>
-				<CaretSortIcon className="h-4 w-4 opacity-50" />
+				<ChevronDownIcon className="w-5 h-5" />
 			</Icon>
 		)}
 	</Trigger>
@@ -96,7 +96,7 @@ const SelectOption = forwardRef<ElementRef<typeof Item>, ComponentPropsWithoutRe
 		>
 			<span className="absolute right-2 flex h-3.5 w-3.5 items-center justify-center">
 				<ItemIndicator>
-					<CheckIcon className="h-4 w-4" />
+					<CheckIcon className="w-5 h-5" />
 				</ItemIndicator>
 			</span>
 			<ItemText>{children}</ItemText>
