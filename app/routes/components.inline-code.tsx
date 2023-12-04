@@ -14,7 +14,7 @@ export const meta: MetaFunction = () => {
 export default function Page() {
 	return (
 		<div>
-			<h1 className="text-5xl font-medium">InlineCode</h1>
+			<h1 className="text-5xl font-medium">Inline Code</h1>
 			<p className="mt-4 text-xl text-gray-600">Marks text to signify a short fragment of inline computer code.</p>
 
 			<Example className="mt-4">
