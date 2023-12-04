@@ -17,6 +17,7 @@ import {
 import "prismjs/components/prism-bash.js";
 import "prismjs/components/prism-jsx.js";
 import "prismjs/components/prism-tsx.js";
+import { CheckIcon, ChevronDownIcon } from "@heroicons/react/20/solid";
 import { useCopyToClipboard } from "@uidotdev/usehooks";
 import assert from "tiny-invariant";
 import { cx } from "../cx";
@@ -236,7 +237,7 @@ const CodeBlockCopyButton = forwardRef<HTMLButtonElement, CodeBlockCopyButtonPro
 				{copied ? (
 					<>
 						Copied
-						<CheckIcon />
+						<CheckIcon className="w-5 h-5" />
 					</>
 				) : (
 					<CopyIcon />
@@ -281,7 +282,7 @@ const CodeBlockExpanderButton = forwardRef<HTMLButtonElement, CodeBlockExpanderB
 				}}
 			>
 				{isCodeExpanded ? "Show less" : "Show more"}{" "}
-				<ExpandIcon className={cx(isCodeExpanded && "rotate-180", "transition-all duration-150")} />
+				<ChevronDownIcon className={cx("w-5 h-5", isCodeExpanded && "rotate-180", "transition-all duration-150")} />
 			</button>
 		);
 	},
@@ -298,18 +299,6 @@ export {
 	CodeBlockTitle,
 };
 
-const ExpandIcon = ({ className, style }: WithStyleProps) => (
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		viewBox="0 0 20 20"
-		fill="currentColor"
-		className={cx("relative top-px h-5 w-5 transition-transform", className)}
-		style={style}
-	>
-		<path d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" />
-	</svg>
-);
-
 const CopyIcon = ({ className, style }: WithStyleProps) => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
@@ -325,17 +314,5 @@ const CopyIcon = ({ className, style }: WithStyleProps) => (
 			strokeLinejoin="round"
 			d="M7.719 7.719v-3.5a1.5 1.5 0 0 1 1.5-1.5h5.562a1.5 1.5 0 0 1 1.5 1.5V12a1.5 1.5 0 0 1-1.5 1.5H11.5m-7.281 4.781H10a1.5 1.5 0 0 0 1.5-1.5V9.22a1.5 1.5 0 0 0-1.5-1.5H4.219a1.5 1.5 0 0 0-1.5 1.5v7.562a1.5 1.5 0 0 0 1.5 1.5Z"
 		/>
-	</svg>
-);
-
-const CheckIcon = ({ className, style }: WithStyleProps) => (
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		viewBox="0 0 20 20"
-		fill="currentColor"
-		className={cx("h-5 w-5", className)}
-		style={style}
-	>
-		<path d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" />
 	</svg>
 );
