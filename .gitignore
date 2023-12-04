@@ -31,3 +31,4 @@ tsconfig.tsbuildinfo
 /public/build
 .env
 .vercel
+.parcel-cache

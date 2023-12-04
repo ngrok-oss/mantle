@@ -1,0 +1,27 @@
+{
+  "name": "@ngrok/mantle-tailwind-preset",
+  "version": "0.0.1",
+  "author": "ngrok",
+  "license": "MIT",
+  "type": "module",
+  "source": "index.tsx",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rm -rf dist && parcel build"
+  },
+  "dependencies": {
+    "tailwindcss-animate": "1.0.7"
+  },
+  "peerDependencies": {
+    "tailwindcss": "^3.3.5",
+    "postcss": "^8"
+  },
+  "devDependencies": {
+    "@parcel/transformer-typescript-types": "2.10.3",
+    "parcel": "2.10.3"
+  }
+}
