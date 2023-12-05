@@ -1,5 +1,7 @@
-import { preset } from "./tailwind.preset";
+import { preset as mantlePreset } from "./tailwind.preset";
 
 export type { Preset } from "./tailwind.preset";
 
-export default preset;
+export { mantlePreset };
+
+export default mantlePreset;

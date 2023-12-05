@@ -307,3 +307,5 @@ const preset = {
 export type Preset = typeof preset;
 
 export { preset };
+
+export default preset;
