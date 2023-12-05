@@ -1,8 +1,15 @@
 {
   "name": "@ngrok/mantle-tailwind-preset",
-  "version": "0.0.1",
+  "description": "A Tailwind CSS preset for ngrok's Mantle design system",
+  "version": "0.0.2",
   "author": "ngrok",
   "license": "MIT",
+  "homepage": "https://mantle.ngrok.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ngrok-oss/mantle"
+  },
+  "sideEffects": false,
   "type": "module",
   "source": "index.tsx",
   "main": "./dist/index.js",
