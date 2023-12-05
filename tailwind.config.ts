@@ -1,5 +1,5 @@
 import type { Config } from "tailwindcss";
-import preset from "./components/tailwind.preset";
+import preset from "./packages/tailwind-preset";
 
 export default {
 	presets: [preset],

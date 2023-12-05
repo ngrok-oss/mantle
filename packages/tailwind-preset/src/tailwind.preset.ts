@@ -33,7 +33,6 @@ const preset = {
 					800: "hsl(var(--gray-800) / <alpha-value>)",
 					900: "hsl(var(--gray-900) / <alpha-value>)",
 					950: "hsl(var(--gray-950) / <alpha-value>)",
-					DEFAULT: "hsl(var(--gray-500) / <alpha-value>)",
 				},
 				red: {
 					50: "hsl(var(--red-050) / <alpha-value>)",
@@ -47,7 +46,6 @@ const preset = {
 					800: "hsl(var(--red-800) / <alpha-value>)",
 					900: "hsl(var(--red-900) / <alpha-value>)",
 					950: "hsl(var(--red-950) / <alpha-value>)",
-					DEFAULT: "hsl(var(--red-500) / <alpha-value>)",
 				},
 				orange: {
 					50: "hsl(var(--orange-050) / <alpha-value>)",
@@ -61,7 +59,6 @@ const preset = {
 					800: "hsl(var(--orange-800) / <alpha-value>)",
 					900: "hsl(var(--orange-900) / <alpha-value>)",
 					950: "hsl(var(--orange-950) / <alpha-value>)",
-					DEFAULT: "hsl(var(--orange-500) / <alpha-value>)",
 				},
 				amber: {
 					50: "hsl(var(--amber-050) / <alpha-value>)",
@@ -75,7 +72,6 @@ const preset = {
 					800: "hsl(var(--amber-800) / <alpha-value>)",
 					900: "hsl(var(--amber-900) / <alpha-value>)",
 					950: "hsl(var(--amber-950) / <alpha-value>)",
-					DEFAULT: "hsl(var(--amber-500) / <alpha-value>)",
 				},
 				yellow: {
 					50: "hsl(var(--yellow-050) / <alpha-value>)",
@@ -89,7 +85,6 @@ const preset = {
 					800: "hsl(var(--yellow-800) / <alpha-value>)",
 					900: "hsl(var(--yellow-900) / <alpha-value>)",
 					950: "hsl(var(--yellow-950) / <alpha-value>)",
-					DEFAULT: "hsl(var(--yellow-500) / <alpha-value>)",
 				},
 				lime: {
 					50: "hsl(var(--lime-050) / <alpha-value>)",
@@ -103,7 +98,6 @@ const preset = {
 					800: "hsl(var(--lime-800) / <alpha-value>)",
 					900: "hsl(var(--lime-900) / <alpha-value>)",
 					950: "hsl(var(--lime-950) / <alpha-value>)",
-					DEFAULT: "hsl(var(--lime-500) / <alpha-value>)",
 				},
 				green: {
 					50: "hsl(var(--green-050) / <alpha-value>)",
@@ -117,7 +111,6 @@ const preset = {
 					800: "hsl(var(--green-800) / <alpha-value>)",
 					900: "hsl(var(--green-900) / <alpha-value>)",
 					950: "hsl(var(--green-950) / <alpha-value>)",
-					DEFAULT: "hsl(var(--green-500) / <alpha-value>)",
 				},
 				teal: {
 					50: "hsl(var(--teal-050) / <alpha-value>)",
@@ -131,7 +124,6 @@ const preset = {
 					800: "hsl(var(--teal-800) / <alpha-value>)",
 					900: "hsl(var(--teal-900) / <alpha-value>)",
 					950: "hsl(var(--teal-950) / <alpha-value>)",
-					DEFAULT: "hsl(var(--teal-500) / <alpha-value>)",
 				},
 				cyan: {
 					50: "hsl(var(--cyan-050) / <alpha-value>)",
@@ -145,7 +137,6 @@ const preset = {
 					800: "hsl(var(--cyan-800) / <alpha-value>)",
 					900: "hsl(var(--cyan-900) / <alpha-value>)",
 					950: "hsl(var(--cyan-950) / <alpha-value>)",
-					DEFAULT: "hsl(var(--cyan-500) / <alpha-value>)",
 				},
 				sky: {
 					50: "hsl(var(--sky-050) / <alpha-value>)",
@@ -159,7 +150,6 @@ const preset = {
 					800: "hsl(var(--sky-800) / <alpha-value>)",
 					900: "hsl(var(--sky-900) / <alpha-value>)",
 					950: "hsl(var(--sky-950) / <alpha-value>)",
-					DEFAULT: "hsl(var(--sky-500) / <alpha-value>)",
 				},
 				blue: {
 					50: "hsl(var(--blue-050) / <alpha-value>)",
@@ -173,7 +163,6 @@ const preset = {
 					800: "hsl(var(--blue-800) / <alpha-value>)",
 					900: "hsl(var(--blue-900) / <alpha-value>)",
 					950: "hsl(var(--blue-950) / <alpha-value>)",
-					DEFAULT: "hsl(var(--blue-500) / <alpha-value>)",
 				},
 				indigo: {
 					50: "hsl(var(--indigo-050) / <alpha-value>)",
@@ -187,7 +176,6 @@ const preset = {
 					800: "hsl(var(--indigo-800) / <alpha-value>)",
 					900: "hsl(var(--indigo-900) / <alpha-value>)",
 					950: "hsl(var(--indigo-950) / <alpha-value>)",
-					DEFAULT: "hsl(var(--indigo-500) / <alpha-value>)",
 				},
 				violet: {
 					50: "hsl(var(--violet-050) / <alpha-value>)",
@@ -201,7 +189,6 @@ const preset = {
 					800: "hsl(var(--violet-800) / <alpha-value>)",
 					900: "hsl(var(--violet-900) / <alpha-value>)",
 					950: "hsl(var(--violet-950) / <alpha-value>)",
-					DEFAULT: "hsl(var(--violet-500) / <alpha-value>)",
 				},
 				purple: {
 					50: "hsl(var(--purple-050) / <alpha-value>)",
@@ -215,7 +202,6 @@ const preset = {
 					800: "hsl(var(--purple-800) / <alpha-value>)",
 					900: "hsl(var(--purple-900) / <alpha-value>)",
 					950: "hsl(var(--purple-950) / <alpha-value>)",
-					DEFAULT: "hsl(var(--purple-500) / <alpha-value>)",
 				},
 				fuchsia: {
 					50: "hsl(var(--fuchsia-050) / <alpha-value>)",
@@ -229,7 +215,6 @@ const preset = {
 					800: "hsl(var(--fuchsia-800) / <alpha-value>)",
 					900: "hsl(var(--fuchsia-900) / <alpha-value>)",
 					950: "hsl(var(--fuchsia-950) / <alpha-value>)",
-					DEFAULT: "hsl(var(--fuchsia-500) / <alpha-value>)",
 				},
 				pink: {
 					50: "hsl(var(--pink-050) / <alpha-value>)",
@@ -243,7 +228,6 @@ const preset = {
 					800: "hsl(var(--pink-800) / <alpha-value>)",
 					900: "hsl(var(--pink-900) / <alpha-value>)",
 					950: "hsl(var(--pink-950) / <alpha-value>)",
-					DEFAULT: "hsl(var(--pink-500) / <alpha-value>)",
 				},
 				rose: {
 					50: "hsl(var(--rose-050) / <alpha-value>)",
@@ -257,7 +241,6 @@ const preset = {
 					800: "hsl(var(--rose-800) / <alpha-value>)",
 					900: "hsl(var(--rose-900) / <alpha-value>)",
 					950: "hsl(var(--rose-950) / <alpha-value>)",
-					DEFAULT: "hsl(var(--rose-500) / <alpha-value>)",
 				},
 				button: "hsl(var(--button))",
 				border: "hsl(var(--border))",
