@@ -24,7 +24,7 @@ const SelectTrigger = forwardRef<
 	>
 		{children}
 		<SelectPrimitive.Icon asChild>
-			<CaretDown className="h-4 w-4 opacity-50" weight="bold" />
+			<CaretDown className="h-4 w-4" weight="bold" />
 		</SelectPrimitive.Icon>
 	</SelectPrimitive.Trigger>
 ));
