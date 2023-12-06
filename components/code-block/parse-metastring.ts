@@ -1,4 +1,3 @@
-// import type { SupportedLanguage } from "./supported-languages";
 import { z } from "zod";
 
 const modes = ["file", "cli"] as const;
