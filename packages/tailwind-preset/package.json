@@ -1,7 +1,7 @@
 {
   "name": "@ngrok/mantle-tailwind-preset",
   "description": "A Tailwind CSS preset for ngrok's Mantle design system",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "author": "ngrok",
   "license": "MIT",
   "homepage": "https://mantle.ngrok.com",
@@ -15,9 +15,9 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
     }
   },
   "files": [
