@@ -13,10 +13,7 @@ export default function Page() {
 		<div>
 			<h1 className="text-5xl font-medium">Mantle</h1>
 			<p className="font-weight mt-4 text-xl text-gray-600">
-				Mantle is{" "}
-				<a className="text-blue-600 hover:underline" href="https://ngrok.com">
-					ngrok
-				</a>
+				Mantle is <Anchor href="https://ngrok.com">ngrok</Anchor>
 				&apos;s UI library and design system that powers its front-end.
 			</p>
 

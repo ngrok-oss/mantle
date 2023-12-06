@@ -119,16 +119,16 @@ function Navigation({ className, style }: WithStyleProps) {
 						<NavLink to="/components/card">Card</NavLink>
 					</li>
 					<li>
-						<NavLink to="/components/code-block">CodeBlock</NavLink>
+						<NavLink to="/components/code-block">Code Block</NavLink>
 					</li>
 					<li>
-						<NavLink to="/components/inline-code">InlineCode</NavLink>
+						<NavLink to="/components/inline-code">Inline Code</NavLink>
 					</li>
 					<li>
 						<NavLink to="/components/input">Input</NavLink>
 					</li>
 					<li>
-						<NavLink to="/components/media-object">MediaObject</NavLink>
+						<NavLink to="/components/media-object">Media Object</NavLink>
 					</li>
 					<li>
 						<NavLink to="/components/popover">Popover</NavLink>
