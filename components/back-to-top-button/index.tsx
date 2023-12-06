@@ -1,5 +1,5 @@
+import { ArrowLineUp } from "@phosphor-icons/react/ArrowLineUp";
 import { useWindowScroll } from "@uidotdev/usehooks";
-import { ArrowUpToLine } from "lucide-react";
 import { useEffect, useRef, type CSSProperties } from "react";
 import { cx } from "../cx";
 import { usePrefersReducedMotion } from "../hooks/use-prefers-reduced-motion";
@@ -42,7 +42,7 @@ export const BackToTopButton = ({ className, showThresholdPx = 200, style }: Pro
 						tabIndex={-1}
 					>
 						<span className="sr-only">Scroll back to top</span>
-						<ArrowUpToLine />
+						<ArrowLineUp className="w-6 h-6" />
 					</TooltipTrigger>
 					<TooltipContent collisionPadding={8}>
 						<p>Scroll back to top</p>

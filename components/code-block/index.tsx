@@ -17,6 +17,9 @@ import {
 import "prismjs/components/prism-bash.js";
 import "prismjs/components/prism-jsx.js";
 import "prismjs/components/prism-tsx.js";
+import { CaretDown } from "@phosphor-icons/react/CaretDown";
+import { Check } from "@phosphor-icons/react/Check";
+import { Copy } from "@phosphor-icons/react/Copy";
 import { useCopyToClipboard } from "@uidotdev/usehooks";
 import assert from "tiny-invariant";
 import { cx } from "../cx";
@@ -236,10 +239,10 @@ const CodeBlockCopyButton = forwardRef<HTMLButtonElement, CodeBlockCopyButtonPro
 				{copied ? (
 					<>
 						Copied
-						<CheckIcon />
+						<Check className="w-4 h-4" weight="bold" />
 					</>
 				) : (
-					<CopyIcon />
+					<Copy className="w-5 h-5 -ml-px" />
 				)}
 			</button>
 		);
@@ -270,7 +273,7 @@ const CodeBlockExpanderButton = forwardRef<HTMLButtonElement, CodeBlockExpanderB
 				aria-controls={codeId}
 				aria-expanded={isCodeExpanded}
 				className={cx(
-					"bg-gray-050 flex w-full items-center justify-center border-t border-gray-300 px-4 py-2 font-sans text-gray-700 hover:bg-gray-100",
+					"bg-gray-050 flex w-full items-center justify-center border-t border-gray-300 px-4 py-2 gap-0.5 font-sans text-gray-700 hover:bg-gray-100",
 					className,
 				)}
 				ref={ref}
@@ -281,7 +284,10 @@ const CodeBlockExpanderButton = forwardRef<HTMLButtonElement, CodeBlockExpanderB
 				}}
 			>
 				{isCodeExpanded ? "Show less" : "Show more"}{" "}
-				<ExpandIcon className={cx(isCodeExpanded && "rotate-180", "transition-all duration-150")} />
+				<CaretDown
+					className={cx("w-4 h-4", isCodeExpanded && "rotate-180", "transition-all duration-150")}
+					weight="bold"
+				/>
 			</button>
 		);
 	},
@@ -297,45 +303,3 @@ export {
 	CodeBlockHeader,
 	CodeBlockTitle,
 };
-
-const ExpandIcon = ({ className, style }: WithStyleProps) => (
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		viewBox="0 0 20 20"
-		fill="currentColor"
-		className={cx("relative top-px h-5 w-5 transition-transform", className)}
-		style={style}
-	>
-		<path d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" />
-	</svg>
-);
-
-const CopyIcon = ({ className, style }: WithStyleProps) => (
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		fill="none"
-		viewBox="0 0 20 20"
-		strokeWidth="{1.5}"
-		stroke="currentColor"
-		className={cx("h-5 w-5", className)}
-		style={style}
-	>
-		<path
-			strokeLinecap="round"
-			strokeLinejoin="round"
-			d="M7.719 7.719v-3.5a1.5 1.5 0 0 1 1.5-1.5h5.562a1.5 1.5 0 0 1 1.5 1.5V12a1.5 1.5 0 0 1-1.5 1.5H11.5m-7.281 4.781H10a1.5 1.5 0 0 0 1.5-1.5V9.22a1.5 1.5 0 0 0-1.5-1.5H4.219a1.5 1.5 0 0 0-1.5 1.5v7.562a1.5 1.5 0 0 0 1.5 1.5Z"
-		/>
-	</svg>
-);
-
-const CheckIcon = ({ className, style }: WithStyleProps) => (
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		viewBox="0 0 20 20"
-		fill="currentColor"
-		className={cx("h-5 w-5", className)}
-		style={style}
-	>
-		<path d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" />
-	</svg>
-);
