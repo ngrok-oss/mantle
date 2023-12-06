@@ -36,7 +36,7 @@ export default function Page() {
 				ngrok user interfaces.
 			</p>
 
-			<p className="mt-4 text-gray-600 mb-0">
+			<p className="mt-4 text-gray-600">
 				Mantle is available in its alpha state on{" "}
 				<Anchor href="https://www.npmjs.com/package/@ngrok/mantle">NPM</Anchor>. It is open source and available on{" "}
 				<Anchor href="https://github.com/ngrok-oss/mantle">GitHub</Anchor>.
