@@ -36,18 +36,15 @@ export function parseMetastring(value: string | undefined): Meta {
 		return defaultMeta;
 	}
 
-	const metaJson = tokenizeMetastring(metastring).reduce(
-		(acc, token) => {
-			const [key, _value] = token.split("=");
-			if (!key) {
-				return acc;
-			}
-			const value = normalizeValue(_value);
-			acc[key] = value ?? true;
+	const metaJson = tokenizeMetastring(metastring).reduce<Record<string, unknown>>((acc, token) => {
+		const [key, _value] = token.split("=");
+		if (!key) {
 			return acc;
-		},
-		{} as Record<string, unknown>,
-	);
+		}
+		const value = normalizeValue(_value);
+		acc[key] = value ?? true;
+		return acc;
+	}, {});
 
 	try {
 		const parsed = metaSchema.parse(metaJson);
@@ -77,7 +74,7 @@ export function normalizeValue(value: string | undefined) {
  */
 export function tokenizeMetastring(value: string | undefined): string[] {
 	const input = value?.trim() ?? "";
-	const result: Array<string> = [];
+	const result: string[] = [];
 
 	let currentString = "";
 	let inQuotes = false;
@@ -97,7 +94,6 @@ export function tokenizeMetastring(value: string | undefined): string[] {
 	}
 
 	if (currentString) {
-		console.log({ currentString });
 		result.push(currentString);
 	}
 

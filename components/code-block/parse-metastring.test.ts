@@ -17,12 +17,42 @@ describe("parseMetastring", () => {
 		expect(meta).toEqual(defaultMeta);
 	});
 
-	test('given "title="Hello World", returns meta with title', () => {
+	test('given "title="Hello World", returns meta with title and default values', () => {
 		const meta = parseMetastring('title="Hello World"');
 		expect(meta).toEqual({
 			collapsible: false,
 			disableCopy: false,
 			mode: undefined,
+			title: "Hello World",
+		});
+	});
+
+	test('given "collapsible disableCopy mode="cli", returns meta with collapsible, disableCopy, and mode', () => {
+		const meta = parseMetastring("collapsible disableCopy mode=cli");
+		expect(meta).toEqual({
+			collapsible: true,
+			disableCopy: true,
+			mode: "cli",
+			title: undefined,
+		});
+	});
+
+	test('given "collapsible disableCopy mode="file" title="Foo Bar"", returns meta with collapsible, disableCopy, mode, and title', () => {
+		const meta = parseMetastring('collapsible disableCopy mode="file" title="Foo Bar"');
+		expect(meta).toEqual({
+			collapsible: true,
+			disableCopy: true,
+			mode: "file",
+			title: "Foo Bar",
+		});
+	});
+
+	test("given duplicates, returns meta with no duplicates and last value for Key-Value pairs", () => {
+		const meta = parseMetastring('collapsible disableCopy disableCopy mode="file" title="Foo Bar" title="Hello World"');
+		expect(meta).toEqual({
+			collapsible: true,
+			disableCopy: true,
+			mode: "file",
 			title: "Hello World",
 		});
 	});
@@ -44,17 +74,17 @@ describe("tokenizeMetastring", () => {
 		expect(tokens).toEqual([]);
 	});
 
-	test("given 'title=\"Hello World\"', returns ['title=\"Hello World\"']", () => {
+	test(`given 'title="Hello World"', returns ['title="Hello World"']`, () => {
 		const tokens = tokenizeMetastring('title="Hello World"');
 		expect(tokens).toEqual(['title="Hello World"']);
 	});
 
-	test(`given "title=\"Terminal Example\" disableCopy mode=\"cli\"", returns ['title=\"Terminal Example\"', 'disableCopy', 'mode=\"cli\"']`, () => {
+	test(`given "title='Terminal Example" disableCopy mode="cli"", returns ['title="Terminal Example"', 'disableCopy', 'mode="cli"']`, () => {
 		const tokens = tokenizeMetastring('title="Terminal Example" disableCopy mode="cli"');
 		expect(tokens).toEqual(['title="Terminal Example"', "disableCopy", 'mode="cli"']);
 	});
 
-	test(`given "title=\"Terminal Example \"one\"\" disableCopy mode=\"cli\"", returns ['title=\"Terminal Example \"one\"\"', 'disableCopy', 'mode=\"cli\"']`, () => {
+	test(`given "title="Terminal Example "one" disableCopy mode="cli"", returns ['title="Terminal Example "one"', 'disableCopy', 'mode="cli"']`, () => {
 		const tokens = tokenizeMetastring('title="Terminal Example "one" " disableCopy mode="cli"');
 		expect(tokens).toEqual(['title="Terminal Example "one" "', "disableCopy", 'mode="cli"']);
 	});
