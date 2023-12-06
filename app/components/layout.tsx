@@ -61,7 +61,7 @@ export function Layout({ children, className, style }: Props) {
 						{/* TODO: this should probably have a title/tooltip instead that describes what it is since we ain't got a spot for a label */}
 						<span className="sr-only">Theme Switcher</span>
 						<SelectTrigger className="w-min">
-							<Sun className="w-6 h-6" />
+							<Sun className="w-6 h-6 mr-1" />
 						</SelectTrigger>
 					</div>
 					<SelectContent>
