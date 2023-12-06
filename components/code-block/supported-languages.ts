@@ -1,7 +1,8 @@
 /**
  * List of supported languages for syntax highlighting.
+ * @private
  */
-const supportedLanguages = [
+export const supportedLanguages = [
 	"bash",
 	"cs",
 	"csharp",
@@ -32,6 +33,24 @@ const supportedLanguages = [
  * Supported languages for syntax highlighting.
  */
 export type SupportedLanguage = (typeof supportedLanguages)[number];
+
+/**
+ * Parses a markdown code block (```) language class into a SupportedLanguage.
+ * Defaults to "sh" if no supported language is found.
+ */
+export function parseLanguage(
+	value: `language-${string}` | `lang-${string}` | (string & {}) | undefined,
+): SupportedLanguage {
+	if (!value) {
+		return "sh";
+	}
+
+	// remove leading "language-" and "lang-" prefixes
+	// find first '-' and slice from there
+	const maybeLanguage = value.trim().slice(value.indexOf("-") + 1);
+
+	return isSupportedLanguage(maybeLanguage) ? maybeLanguage : "sh";
+}
 
 /**
  * Type Predicate: checks if an arbitrary value is a supported syntax highlighting language.
