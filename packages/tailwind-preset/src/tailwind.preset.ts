@@ -1,9 +1,9 @@
 import type { Config } from "tailwindcss";
 import tailwindCssAnimatePlugin from "tailwindcss-animate";
 import defaultTheme from "tailwindcss/defaultTheme";
-import tailwindPluginFirefoxVariant from "./tailwind-plugin-firefox-variant";
+import { firefoxVariantPlugin } from "./tailwind-plugin-firefox-variant.js";
 
-const preset = {
+const mantlePreset = {
 	content: [],
 	darkMode: "class",
 	theme: {
@@ -301,11 +301,9 @@ const preset = {
 			},
 		},
 	},
-	plugins: [tailwindCssAnimatePlugin, tailwindPluginFirefoxVariant],
+	plugins: [tailwindCssAnimatePlugin, firefoxVariantPlugin],
 } satisfies Config;
 
-export type Preset = typeof preset;
+export type MantlePreset = typeof mantlePreset;
 
-export { preset };
-
-export default preset;
+export { mantlePreset };

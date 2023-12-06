@@ -25,4 +25,4 @@ const firefoxVariantPlugin = plugin(
 	},
 );
 
-export default firefoxVariantPlugin;
+export { firefoxVariantPlugin };
