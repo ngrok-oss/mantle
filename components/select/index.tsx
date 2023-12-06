@@ -41,7 +41,7 @@ const SelectScrollUpButton = forwardRef<
 		className={cx("flex cursor-default items-center justify-center py-1", className)}
 		{...props}
 	>
-		<CaretUp className="h-4 w-4" />
+		<CaretUp className="h-4 w-4" weight="bold" />
 	</SelectPrimitive.ScrollUpButton>
 ));
 SelectScrollUpButton.displayName = SelectPrimitive.ScrollUpButton.displayName;
