@@ -59,7 +59,7 @@ TableCell.displayName = "TableCell";
 
 const TableCaption = forwardRef<HTMLTableCaptionElement, HTMLAttributes<HTMLTableCaptionElement>>(
 	({ className, ...props }, ref) => (
-		<caption ref={ref} className={cx("mt-4 text-sm text-muted-foreground", className)} {...props} />
+		<caption ref={ref} className={cx("py-4 text-sm text-muted-foreground", className)} {...props} />
 	),
 );
 TableCaption.displayName = "TableCaption";

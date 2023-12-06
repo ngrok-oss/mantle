@@ -106,7 +106,7 @@ const ExampleTable = () => {
 	];
 
 	return (
-		<div className="mt-4 rounded-lg border border-gray-300 overflow-hidden z-10">
+		<div className="mt-4 rounded-lg bg-card border border-gray-300 overflow-hidden z-10">
 			<Table>
 				<TableCaption>A list of your recent invoices.</TableCaption>
 				<TableHeader>
