@@ -2,7 +2,7 @@ import { cx } from "@/cx";
 import { Select, SelectContent, SelectItem, SelectTrigger } from "@/select";
 import { isTheme, theme, useTheme } from "@/theme-provider";
 import { WithStyleProps } from "@/types/with-style-props";
-import { Sun } from "@phosphor-icons/react";
+import { Sun } from "@phosphor-icons/react/Sun";
 import { Link } from "@remix-run/react";
 import { PropsWithChildren, useState } from "react";
 import { NavLink } from "./nav-link";

@@ -17,7 +17,9 @@ import {
 import "prismjs/components/prism-bash.js";
 import "prismjs/components/prism-jsx.js";
 import "prismjs/components/prism-tsx.js";
-import { CaretDown, Check, Copy } from "@phosphor-icons/react";
+import { CaretDown } from "@phosphor-icons/react/CaretDown";
+import { Check } from "@phosphor-icons/react/Check";
+import { Copy } from "@phosphor-icons/react/Copy";
 import { useCopyToClipboard } from "@uidotdev/usehooks";
 import assert from "tiny-invariant";
 import { cx } from "../cx";

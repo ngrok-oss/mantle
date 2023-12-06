@@ -8,7 +8,8 @@ import {
 	CodeBlockTitle,
 } from "@/code-block";
 import { code } from "@/code-block/code";
-import { FileText, Terminal } from "@phosphor-icons/react";
+import { FileText } from "@phosphor-icons/react/FileText";
+import { Terminal } from "@phosphor-icons/react/Terminal";
 import type { MetaFunction } from "@vercel/remix";
 import { Example } from "~/components/example";
 
