@@ -2,7 +2,9 @@ import { cx } from "@/cx";
 import { Select, SelectContent, SelectItem, SelectTrigger } from "@/select";
 import { isTheme, theme, useTheme } from "@/theme-provider";
 import { WithStyleProps } from "@/types/with-style-props";
+import { List } from "@phosphor-icons/react/List";
 import { Sun } from "@phosphor-icons/react/Sun";
+import { X } from "@phosphor-icons/react/X";
 import { Link } from "@remix-run/react";
 import { PropsWithChildren, useState } from "react";
 import { NavLink } from "./nav-link";
@@ -39,9 +41,9 @@ export function Layout({ children, className, style }: Props) {
 						setShowNavigation((s) => !s);
 					}}
 				>
-					{!showNavigation && <HamburgerIcon />}
+					{!showNavigation && <List className="w-6 h-6" />}
 
-					{showNavigation && <CloseIcon />}
+					{showNavigation && <X className="w-6 h-6" />}
 				</button>
 
 				<Link to="/">
@@ -144,31 +146,3 @@ function Navigation({ className, style }: WithStyleProps) {
 		</nav>
 	);
 }
-
-const CloseIcon = ({ className, style }: WithStyleProps) => (
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		fill="none"
-		viewBox="0 0 24 24"
-		strokeWidth={1.5}
-		stroke="currentColor"
-		className={cx("h-6 w-6", className)}
-		style={style}
-	>
-		<path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-	</svg>
-);
-
-const HamburgerIcon = ({ className, style }: WithStyleProps) => (
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		fill="none"
-		viewBox="0 0 24 24"
-		strokeWidth={1.5}
-		stroke="currentColor"
-		className={cx("h-6 w-6", className)}
-		style={style}
-	>
-		<path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-	</svg>
-);
