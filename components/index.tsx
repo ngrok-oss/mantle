@@ -45,6 +45,8 @@ export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "./tool
 
 // utils exports
 export { code } from "./code-block/code";
+export { parseMetastring } from "./code-block/parse-metastring";
+export { isSupportedLanguage, parseLanguage } from "./code-block/supported-languages";
 export { cx } from "./cx";
 export { isTheme, theme, useTheme } from "./theme-provider";
 

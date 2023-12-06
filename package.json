@@ -119,12 +119,14 @@
     "vite": "5.0.5",
     "vite-tsconfig-paths": "4.2.1",
     "vitest": "1.0.1",
-    "vitest-dom": "0.1.1"
+    "vitest-dom": "0.1.1",
+    "zod": "3.22.4"
   },
   "peerDependencies": {
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "zod": "^3.22.4"
   }
 }
