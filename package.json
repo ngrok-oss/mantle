@@ -3,22 +3,26 @@
   "description": "mantle is ngrok's UI library and design system.",
   "author": "ngrok",
   "license": "MIT",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "homepage": "https://mantle.ngrok.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/ngrok-oss/mantle"
   },
   "sideEffects": false,
-  "type": "module",
   "browserslist": [
     "last 2 years, not dead, > 0.2%"
   ],
-  "main": "./dist/index.js",
   "source": "./components/index.tsx",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./dist/index.js",
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
     "./mantle.css": "./dist/mantle.css"
   },
   "files": [
@@ -55,6 +59,7 @@
     "@remix-run/node": "2.3.1",
     "@remix-run/react": "2.3.1",
     "@remix-run/serve": "2.3.1",
+    "@swc/helpers": "0.5.3",
     "@uidotdev/usehooks": "2.4.1",
     "@vercel/remix": "2.2.0",
     "class-variance-authority": "0.7.0",
