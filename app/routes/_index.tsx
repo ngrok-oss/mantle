@@ -13,10 +13,7 @@ export default function Page() {
 		<div>
 			<h1 className="text-5xl font-medium">Mantle</h1>
 			<p className="font-weight mt-4 text-xl text-gray-600">
-				Mantle is{" "}
-				<a className="text-blue-600 hover:underline" href="https://ngrok.com">
-					ngrok
-				</a>
+				Mantle is <Anchor href="https://ngrok.com">ngrok</Anchor>
 				&apos;s UI library and design system that powers its front-end.
 			</p>
 
@@ -39,7 +36,7 @@ export default function Page() {
 				ngrok user interfaces.
 			</p>
 
-			<p className="mt-4 text-gray-600">
+			<p className="mt-4 text-gray-600 mb-0">
 				Mantle is available in its alpha state on{" "}
 				<Anchor href="https://www.npmjs.com/package/@ngrok/mantle">NPM</Anchor>. It is open source and available on{" "}
 				<Anchor href="https://github.com/ngrok-oss/mantle">GitHub</Anchor>.
