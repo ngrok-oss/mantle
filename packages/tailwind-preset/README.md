@@ -13,11 +13,8 @@ To get started, install the preset with your preferred package manager:
 
 Then, add the [preset](https://tailwindcss.com/docs/presets) to your tailwind configuration.
 
-> [!NOTE]  
-> We only support ESM imports at this time.
-
 ```ts
-import mantlePreset from "@ngrok/mantle-tailwind-preset";
+import { mantlePreset } from "@ngrok/mantle-tailwind-preset";
 import type { Config } from "tailwindcss";
 
 export default {
