@@ -6,47 +6,55 @@ import type { WithAsChild } from "../types/as-child";
 import type { VariantProps } from "../types/variant-props";
 
 const buttonVariants = cva(
-	"inline-flex items-center justify-center rounded-md font-medium border focus-visible:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50",
+	"inline-flex items-center justify-center rounded-md font-medium focus-visible:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 border whitespace-nowrap",
 	{
 		variants: {
-			priority: {
-				default:
-					"border-gray-300 text-gray-800 bg-gray-50 hover:bg-gray-100 active:bg-gray-200 focus-visible:ring-blue-600/25 focus-visible:border-blue-500",
-				primary:
-					"bg-blue-500 text-button hover:bg-blue-600 active:bg-blue-700 focus-visible:ring-blue-600/25 border-transparent",
-				secondary:
-					"bg-gray-50 border-blue-600 text-blue-600 hover:bg-blue-50 active:bg-blue-100 focus-visible:ring-blue-600/25",
+			appearance: {
+				outline: "border-blue-500 text-blue-600 hover:bg-blue-50 active:bg-blue-100 focus-visible:ring-blue-500/25",
+				solid:
+					"border-transparent bg-blue-500 text-button hover:bg-blue-600 active:bg-blue-700 focus-visible:ring-blue-500/25",
+				ghost: "border-transparent text-blue-600 hover:bg-blue-50 active:bg-blue-100 focus-visible:ring-blue-500/25",
 			},
-			state: {
+			priority: {
 				default: "",
 				danger: "",
-			},
-			size: {
-				default: "h-10 px-4 py-2",
-				sm: "h-9 rounded-md px-3 text-sm",
-				lg: "h-12 rounded-md px-6 text-lg",
+				muted: "",
 			},
 		},
 		defaultVariants: {
-			priority: "default",
-			size: "default",
+			appearance: "ghost",
 		},
 		compoundVariants: [
 			{
-				priority: "default",
-				state: "danger",
+				appearance: "ghost",
+				priority: "danger",
+				class: "border-transparent text-red-600 hover:bg-red-50 active:bg-red-100 focus-visible:ring-red-500/25",
+			},
+			{
+				appearance: "outline",
+				priority: "danger",
 				class:
-					"border-red-300 text-red-500 hover:bg-red-50 active:bg-red-100 focus-visible:ring-red-600/25 focus-visible:border-red-500",
+					"border-transparent border-red-500 text-red-600 hover:bg-red-50 active:bg-red-100 focus-visible:ring-red-500/25",
 			},
 			{
-				priority: "primary",
-				state: "danger",
-				class: "bg-red-500 hover:bg-red-600 active:bg-red-700 focus-visible:ring-red-600/25",
+				appearance: "solid",
+				priority: "danger",
+				class: "border-transparent bg-red-500 hover:bg-red-600 active:bg-red-700 focus-visible:ring-red-500/25",
 			},
 			{
-				priority: "secondary",
-				state: "danger",
-				class: "border-red-600 text-red-600 hover:bg-red-50 active:bg-red-100 focus-visible:ring-red-600/25",
+				appearance: "ghost",
+				priority: "muted",
+				class: "border-transparent text-gray-500 hover:bg-gray-50 active:bg-gray-100 focus-visible:ring-gray-500/25",
+			},
+			{
+				appearance: "outline",
+				priority: "muted",
+				class: "border-gray-400 text-gray-500 hover:bg-gray-50 active:bg-gray-100 focus-visible:ring-gray-500/25",
+			},
+			{
+				appearance: "solid",
+				priority: "muted",
+				class: "border-transparent bg-gray-400 hover:bg-gray-500 active:bg-gray-600 focus-visible:ring-gray-500/25",
 			},
 		],
 	},
@@ -68,10 +76,10 @@ export type ButtonProps = WithAsChild & ButtonHTMLAttributes<HTMLButtonElement> 
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button
  */
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-	({ className, priority = "default", size = "default", state = "default", asChild = false, ...props }, ref) => {
+	({ className, appearance = "ghost", priority = "default", asChild = false, ...props }, ref) => {
 		const Comp = asChild ? Slot : "button";
 
-		return <Comp className={cx(buttonVariants({ priority, size, state, className }))} ref={ref} {...props} />;
+		return <Comp className={cx(buttonVariants({ appearance, priority, className }))} ref={ref} {...props} />;
 	},
 );
 Button.displayName = "Button";

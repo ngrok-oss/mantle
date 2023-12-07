@@ -10,27 +10,71 @@ export default meta;
 
 type Story = StoryObj<typeof Button>;
 
-export const Default: Story = {
+export const Ghost: Story = {
 	render: (args) => <Button {...args}>Button</Button>,
 	args: {
-		priority: "default",
-		size: "default",
-		state: "default",
+		appearance: "ghost",
 	},
 };
 
-export const Primary: Story = {
+export const Solid: Story = {
 	render: (args) => <Button {...args}>Button</Button>,
 	args: {
-		...Default.args,
-		priority: "primary",
+		appearance: "solid",
 	},
 };
 
-export const Secondary: Story = {
+export const Outline: Story = {
 	render: (args) => <Button {...args}>Button</Button>,
 	args: {
-		...Default.args,
-		priority: "secondary",
+		appearance: "outline",
+	},
+};
+
+export const GhostMuted: Story = {
+	render: (args) => <Button {...args}>Button</Button>,
+	args: {
+		appearance: "ghost",
+		priority: "muted",
+	},
+};
+
+export const SolidMuted: Story = {
+	render: (args) => <Button {...args}>Button</Button>,
+	args: {
+		appearance: "solid",
+		priority: "muted",
+	},
+};
+
+export const OutlineMuted: Story = {
+	render: (args) => <Button {...args}>Button</Button>,
+	args: {
+		appearance: "outline",
+		priority: "muted",
+	},
+};
+
+export const GhostDanger: Story = {
+	render: (args) => <Button {...args}>Button</Button>,
+	args: {
+		appearance: "ghost",
+		priority: "danger",
+	},
+};
+
+export const SolidDanger: Story = {
+	render: (args) => <Button {...args}>Button</Button>,
+	args: {
+		appearance: "solid",
+		priority: "danger",
+	},
+};
+
+export const OutlineDanger: Story = {
+	render: (args) => <Button {...args}>Button</Button>,
+	args: {
+		appearance: "outline",
+		priority: "danger",
 	},
 };

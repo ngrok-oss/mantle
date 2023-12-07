@@ -19,18 +19,32 @@ export default function Page() {
 			<p className="mt-4 text-xl text-gray-600">
 				Initiates an action, such as completing a task or submitting information
 			</p>
-			<Example className="mt-4 gap-2">
-				<Button>Default</Button>
-				<Button priority="primary">Primary</Button>
-				<Button priority="secondary">Secondary</Button>
+			<Example className="mt-4 gap-4 flex flex-wrap">
+				<div className="flex gap-2">
+					<Button>Ghost</Button>
+					<Button appearance="solid">Solid</Button>
+					<Button appearance="outline">Outline</Button>
+				</div>
 
-				<Button state="danger">Default</Button>
-				<Button state="danger" priority="primary">
-					Primary
-				</Button>
-				<Button state="danger" priority="secondary">
-					Secondary
-				</Button>
+				<div className="flex gap-2">
+					<Button priority="muted">Muted</Button>
+					<Button priority="muted" appearance="solid">
+						Muted
+					</Button>
+					<Button priority="muted" appearance="outline">
+						Muted
+					</Button>
+				</div>
+
+				<div className="flex gap-2">
+					<Button priority="danger">Danger</Button>
+					<Button priority="danger" appearance="solid">
+						Danger
+					</Button>
+					<Button priority="danger" appearance="outline">
+						Danger
+					</Button>
+				</div>
 			</Example>
 			<CodeBlock className="rounded-t-none rounded-b-lg">
 				<CodeBlockBody>
@@ -50,28 +64,20 @@ export default function Page() {
 					</TableHeader>
 					<TableBody className="font-mono text-xs text-gray-600">
 						<TableRow>
+							<TableCell className="align-top font-medium">appearance</TableCell>
+							<TableCell className="align-top text-xs space-y-2">
+								<p>ghost</p>
+								<p>solid</p>
+								<p>outline</p>
+							</TableCell>
+							<TableCell className="align-top">ghost</TableCell>
+						</TableRow>
+						<TableRow>
 							<TableCell className="align-top font-medium">priority</TableCell>
 							<TableCell className="align-top text-xs space-y-2">
 								<p>default</p>
-								<p>primary</p>
-								<p>secondary</p>
-							</TableCell>
-							<TableCell className="align-top">default</TableCell>
-						</TableRow>
-						<TableRow>
-							<TableCell className="align-top font-medium">size</TableCell>
-							<TableCell className="align-top text-xs space-y-2">
-								<p>default</p>
-								<p>sm</p>
-								<p>lg</p>
-							</TableCell>
-							<TableCell className="align-top">default</TableCell>
-						</TableRow>
-						<TableRow>
-							<TableCell className="align-top font-medium">state</TableCell>
-							<TableCell className="align-top text-xs space-y-2">
-								<p>default</p>
 								<p>danger</p>
+								<p>muted</p>
 							</TableCell>
 							<TableCell className="align-top">default</TableCell>
 						</TableRow>
