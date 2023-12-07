@@ -19,7 +19,7 @@ export default function Page() {
 			<p className="mt-4 text-xl text-gray-600">
 				Initiates an action, such as completing a task or submitting information
 			</p>
-			<Example className="mt-4 gap-4 flex flex-wrap">
+			<Example className="mt-4 gap-4 flex flex-wrap bg-white bg-none">
 				<div className="flex gap-2">
 					<Button>Ghost</Button>
 					<Button appearance="solid">Solid</Button>
