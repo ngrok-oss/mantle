@@ -8,7 +8,7 @@ export function Example({ children, className, style }: Props) {
 	return (
 		<div
 			className={cx(
-				"rounded-lg border to-gray-200 from-gray-50 bg-gradient-to-br dark:bg-gradient-to-tl flex items-center justify-center p-4 md:p-16 border-b-0 border-gray-300 rounded-b-none",
+				"rounded-lg border to-gray-100 from-[#fcfcfc] dark:from-gray-200 dark:to-gray-50 bg-gradient-to-br flex items-center justify-center p-4 md:p-16 border-b-0 border-gray-300 rounded-b-none",
 				className,
 			)}
 			style={style}
