@@ -1,7 +1,10 @@
 import { cx } from "@/cx";
-import { Select, SelectContent, SelectIcon, SelectOption, SelectTrigger } from "@/select";
+import { Select, SelectContent, SelectItem, SelectTrigger } from "@/select";
 import { isTheme, theme, useTheme } from "@/theme-provider";
 import { WithStyleProps } from "@/types/with-style-props";
+import { List } from "@phosphor-icons/react/List";
+import { Sun } from "@phosphor-icons/react/Sun";
+import { X } from "@phosphor-icons/react/X";
 import { Link } from "@remix-run/react";
 import { PropsWithChildren, useState } from "react";
 import { NavLink } from "./nav-link";
@@ -38,9 +41,9 @@ export function Layout({ children, className, style }: Props) {
 						setShowNavigation((s) => !s);
 					}}
 				>
-					{!showNavigation && <HamburgerIcon />}
+					{!showNavigation && <List className="w-6 h-6" />}
 
-					{showNavigation && <CloseIcon />}
+					{showNavigation && <X className="w-6 h-6" />}
 				</button>
 
 				<Link to="/">
@@ -59,21 +62,16 @@ export function Layout({ children, className, style }: Props) {
 					<div className="ml-auto">
 						{/* TODO: this should probably have a title/tooltip instead that describes what it is since we ain't got a spot for a label */}
 						<span className="sr-only">Theme Switcher</span>
-						<SelectTrigger className="w-min" hideIcon>
-							<SelectIcon className="text-gray-600">
-								<svg width="39" height="24" fill="currentColor">
-									<path d="M28 9h10l-5 6-5-6Z" />
-									<path d="M16.02 2.297a10.53 10.53 0 0 1 3.58 2.457A10.464 10.464 0 0 1 22.5 12c0 5.799-4.701 10.5-10.5 10.5-2.81 0-5.361-1.104-7.246-2.9A10.468 10.468 0 0 1 1.5 12a10.469 10.469 0 0 1 3.075-7.425A10.469 10.469 0 0 1 12 1.5c1.424 0 2.781.283 4.02.797ZM20.9 12a8.87 8.87 0 0 0-2.432-6.114L5.886 18.468A8.9 8.9 0 0 0 20.9 12Z" />
-								</svg>
-							</SelectIcon>
+						<SelectTrigger className="w-min">
+							<Sun className="w-6 h-6 mr-1" />
 						</SelectTrigger>
 					</div>
 					<SelectContent>
-						<SelectOption value={theme("system")}>System</SelectOption>
-						<SelectOption value={theme("light")}>Light</SelectOption>
-						<SelectOption value={theme("dark")}>Dark</SelectOption>
-						<SelectOption value={theme("light-high-contrast")}>Light High Contrast</SelectOption>
-						<SelectOption value={theme("dark-high-contrast")}>Dark High Contrast</SelectOption>
+						<SelectItem value={theme("system")}>System</SelectItem>
+						<SelectItem value={theme("light")}>Light</SelectItem>
+						<SelectItem value={theme("dark")}>Dark</SelectItem>
+						<SelectItem value={theme("light-high-contrast")}>Light High Contrast</SelectItem>
+						<SelectItem value={theme("dark-high-contrast")}>Dark High Contrast</SelectItem>
 					</SelectContent>
 				</Select>
 			</header>
@@ -126,44 +124,25 @@ function Navigation({ className, style }: WithStyleProps) {
 						<NavLink to="/components/code-block">Code Block</NavLink>
 					</li>
 					<li>
+						<NavLink to="/components/inline-code">Inline Code</NavLink>
+					</li>
+					<li>
 						<NavLink to="/components/input">Input</NavLink>
 					</li>
 					<li>
 						<NavLink to="/components/media-object">Media Object</NavLink>
 					</li>
 					<li>
+						<NavLink to="/components/popover">Popover</NavLink>
+					</li>
+					<li>
 						<NavLink to="/components/skeleton">Skeleton</NavLink>
+					</li>
+					<li>
+						<NavLink to="/components/table">Table</NavLink>
 					</li>
 				</ul>
 			</ul>
 		</nav>
 	);
 }
-
-const CloseIcon = ({ className, style }: WithStyleProps) => (
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		fill="none"
-		viewBox="0 0 24 24"
-		strokeWidth={1.5}
-		stroke="currentColor"
-		className={cx("h-6 w-6", className)}
-		style={style}
-	>
-		<path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-	</svg>
-);
-
-const HamburgerIcon = ({ className, style }: WithStyleProps) => (
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		fill="none"
-		viewBox="0 0 24 24"
-		strokeWidth={1.5}
-		stroke="currentColor"
-		className={cx("h-6 w-6", className)}
-		style={style}
-	>
-		<path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-	</svg>
-);

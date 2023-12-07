@@ -20,7 +20,7 @@ export default function Page() {
 			</p>
 
 			<Example className="mt-4">
-				<Card>
+				<Card className="shadow-lg">
 					<CardHeader>
 						<CardTitle>Card Title Here</CardTitle>
 					</CardHeader>
