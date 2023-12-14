@@ -44,7 +44,7 @@
     "typecheck": "tsc --incremental --noEmit --skipLibCheck"
   },
   "dependencies": {
-    "@phosphor-icons/react": "^2.0.15",
+    "@phosphor-icons/react": "2.0.15",
     "@radix-ui/react-dialog": "1.0.5",
     "@radix-ui/react-dropdown-menu": "2.0.6",
     "@radix-ui/react-popover": "1.0.7",
