@@ -1,6 +1,5 @@
 import path from "node:path";
 import glob from "fast-glob";
-import camelCase from "lodash.camelcase";
 
 type Path = `/${string}`;
 
@@ -189,10 +188,3 @@ const trimLeadingSlashes = (value: string | undefined): string => (value || "").
  * @example given "/foo/bar/////" returns "/foo/bar"
  */
 const trimTrailingSlashes = (value: string | undefined): string => (value || "").replace(/\/+$/, "");
-
-/**
- * Convert a string to capitalized case, e.g. `fooBar` to `FooBar` or `lorem ipsum` to `Lorem ipsum`.
- */
-function capitalizeFirst(value: string): string {
-	return value.charAt(0).toUpperCase() + value.slice(1);
-}

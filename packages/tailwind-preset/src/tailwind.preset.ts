@@ -15,6 +15,9 @@ const mantlePreset = {
 			},
 		},
 		extend: {
+			aria: {
+				invalid: 'invalid="true"',
+			},
 			fontFamily: {
 				sans: ["EuclidSquare", ...defaultTheme.fontFamily.sans],
 				mono: ["IBMPlexMono", ...defaultTheme.fontFamily.mono],

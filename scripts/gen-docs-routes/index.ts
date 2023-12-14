@@ -40,6 +40,8 @@ async function main() {
 main();
 
 async function fmt(data: string) {
-	const options = await prettier.resolveConfig(process.cwd());
+	const __dirname = path.dirname(fileURLToPath(import.meta.url));
+	const configFilePath = path.resolve(__dirname, "..", "..", ".prettierrc.json");
+	const options = await prettier.resolveConfig(configFilePath);
 	return prettier.format(data, { ...options, parser: "typescript" });
 }
