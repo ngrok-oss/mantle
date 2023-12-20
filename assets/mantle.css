@@ -37,10 +37,6 @@
 	--ngrok-grayple-900: 234 18% 17%;
 	--ngrok-grayple-950: 236 20% 11.5%;
 
-	/* for use with the tw-gray scale between 700 and 800 */
-
-	--ngrok-gray-800: 216 23% 22%;
-
 	/**
 	* Tailwind palette.
 	* These are required as they are referenced by both light and dark modes.
