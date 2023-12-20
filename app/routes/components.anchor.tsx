@@ -24,7 +24,7 @@ export default function Page() {
 					address.
 				</p>
 				<p>
-					Content within each <InlineCode>&lt;Anchor&gt;</InlineCode> should indicate the link&apos;s destination. If
+					Content within each <InlineCode>&lt;Anchor&gt;</InlineCode> should indicate the link&rsquo;s destination. If
 					the <InlineCode>href</InlineCode> attribute is present, pressing the enter key while focused on the{" "}
 					<InlineCode>&lt;Anchor&gt;</InlineCode> element will activate it.
 				</p>
