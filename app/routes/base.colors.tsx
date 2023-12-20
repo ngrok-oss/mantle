@@ -109,7 +109,7 @@ export default function Page() {
 				<h1 className="text-5xl font-medium">Colors</h1>
 				<p className="mt-4 text-xl text-gray-600">
 					Colors are a key component of any design system. They are used to convey meaning, attract attention, and
-					provide feedback. Mantle&apos;s color system is designed to be accessible and flexible with dark and high
+					provide feedback. Mantle&rsquo;s color system is designed to be accessible and flexible with dark and high
 					contrast modes.
 				</p>
 
@@ -120,7 +120,7 @@ export default function Page() {
 					Mantle uses Tailwind under the hood for all its CSS styling. However, we differ from Tailwind when it comes to
 					colors. Mantle provides a full color library that automatically provides a dark and high contrast modes. This
 					is different from standard Tailwind usage that <em>requires</em> dark class variations. By simply specifying
-					light colors provided by mantle, you&apos;ll get dark and high contrast modes for free. If you require
+					light colors provided by mantle, you&rsquo;ll get dark and high contrast modes for free. If you require
 					additional customization, you can provide dark variant classes as an override.
 				</p>
 
@@ -128,9 +128,9 @@ export default function Page() {
 					Variables
 				</h2>
 				<p className="mt-3 text-gray-600">
-					Mantle&apos;s colors are delivered as CSS variables via Tailwind&apos;s API eg.{" "}
+					Mantle&rsquo;s colors are delivered as CSS variables via Tailwind&rsquo;s API eg.{" "}
 					<InlineCode>.text-blue-500</InlineCode>. They can be directly accessed via{" "}
-					<InlineCode>var(--blue-500)</InlineCode> but do note that you&apos;ll need to wrap everything in{" "}
+					<InlineCode>var(--blue-500)</InlineCode> but do note that you&rsquo;ll need to wrap everything in{" "}
 					<InlineCode>hsl()</InlineCode> like so: <InlineCode>hsl(var(--blue-500))</InlineCode>. This allows for
 					Tailwind operations like <InlineCode>text-blue-500/25</InlineCode>.
 				</p>
@@ -138,7 +138,7 @@ export default function Page() {
 					Blue
 				</h3>
 				<p className="mt-2 text-gray-600">
-					ngrok&apos;s primary branding color is used in its logo as well as primary links. Use it sparingly to attract
+					ngrok&rsquo;s primary branding color is used in its logo as well as primary links. Use it sparingly to attract
 					attention.
 				</p>
 				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row">
