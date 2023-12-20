@@ -26,7 +26,7 @@ const TableFooter = forwardRef<HTMLTableSectionElement, HTMLAttributes<HTMLTable
 	({ className, ...props }, ref) => (
 		<tfoot
 			ref={ref}
-			className={cx("border-t border-gray-200 bg-gray-50/50 font-medium [&>tr]:last:border-b-0", className)}
+			className={cx("border-t border-gray-300 bg-gray-50/50 font-medium [&>tr]:last:border-b-0", className)}
 			{...props}
 		/>
 	),
@@ -37,7 +37,7 @@ const TableRow = forwardRef<HTMLTableRowElement, HTMLAttributes<HTMLTableRowElem
 	({ className, ...props }, ref) => (
 		<tr
 			ref={ref}
-			className={cx("border-b border-gray-200 hover:bg-muted/50 data-[state=selected]:bg-muted", className)}
+			className={cx("border-b border-gray-300 hover:bg-muted/50 data-[state=selected]:bg-muted", className)}
 			{...props}
 		/>
 	),
@@ -67,7 +67,7 @@ TableCell.displayName = "TableCell";
 
 const TableCaption = forwardRef<HTMLTableCaptionElement, HTMLAttributes<HTMLTableCaptionElement>>(
 	({ className, ...props }, ref) => (
-		<caption ref={ref} className={cx("py-4 text-sm text-gray-500 border-t border-gray-200", className)} {...props} />
+		<caption ref={ref} className={cx("py-4 text-sm text-gray-500 border-t border-gray-300", className)} {...props} />
 	),
 );
 TableCaption.displayName = "TableCaption";
