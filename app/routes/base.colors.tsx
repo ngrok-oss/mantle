@@ -116,9 +116,13 @@ export default function Page() {
 					<ColorSquare className="bg-blue-800 text-white">800</ColorSquare>
 					<ColorSquare className="bg-blue-700 text-white">700</ColorSquare>
 					<ColorSquare className="bg-blue-600 text-white">600</ColorSquare>
-					<ColorSquare className="bg-blue-500 text-white">500</ColorSquare>
-					<ColorSquare className="bg-blue-400">400</ColorSquare>
-					<ColorSquare className="bg-blue-300">300</ColorSquare>
+					<ColorSquare className="bg-blue-500 text-white dark:black">500</ColorSquare>
+					<ColorSquare className="bg-blue-400 light-high-contrast:text-gray-50 dark-high-contrast:text-gray-50">
+						400
+					</ColorSquare>
+					<ColorSquare className="bg-blue-300 light-high-contrast:text-gray-50 dark-high-contrast:text-gray-50">
+						300
+					</ColorSquare>
 					<ColorSquare className="bg-blue-200">200</ColorSquare>
 					<ColorSquare className="bg-blue-100">100</ColorSquare>
 					<ColorSquare className="bg-blue-50">50</ColorSquare>
@@ -132,9 +136,13 @@ export default function Page() {
 					<ColorSquare className="bg-gray-800 text-white">800</ColorSquare>
 					<ColorSquare className="bg-gray-700 text-white">700</ColorSquare>
 					<ColorSquare className="bg-gray-600 text-white">600</ColorSquare>
-					<ColorSquare className="bg-gray-500 text-white">500</ColorSquare>
-					<ColorSquare className="bg-gray-400">400</ColorSquare>
-					<ColorSquare className="bg-gray-300">300</ColorSquare>
+					<ColorSquare className="bg-gray-500 text-white dark:black">500</ColorSquare>
+					<ColorSquare className="bg-gray-400 light-high-contrast:text-gray-50 dark-high-contrast:text-gray-50">
+						400
+					</ColorSquare>
+					<ColorSquare className="bg-gray-300 light-high-contrast:text-gray-50 dark-high-contrast:text-gray-50">
+						300
+					</ColorSquare>
 					<ColorSquare className="bg-gray-200">200</ColorSquare>
 					<ColorSquare className="bg-gray-100">100</ColorSquare>
 					<ColorSquare className="bg-gray-50">50</ColorSquare>
@@ -148,9 +156,13 @@ export default function Page() {
 					<ColorSquare className="bg-red-800 text-white">800</ColorSquare>
 					<ColorSquare className="bg-red-700 text-white">700</ColorSquare>
 					<ColorSquare className="bg-red-600 text-white">600</ColorSquare>
-					<ColorSquare className="bg-red-500 text-white">500</ColorSquare>
-					<ColorSquare className="bg-red-400">400</ColorSquare>
-					<ColorSquare className="bg-red-300">300</ColorSquare>
+					<ColorSquare className="bg-red-500 text-white dark:black">500</ColorSquare>
+					<ColorSquare className="bg-red-400 light-high-contrast:text-white dark-high-contrast:text-black">
+						400
+					</ColorSquare>
+					<ColorSquare className="bg-red-300 light-high-contrast:text-white dark-high-contrast:text-black">
+						300
+					</ColorSquare>
 					<ColorSquare className="bg-red-200">200</ColorSquare>
 					<ColorSquare className="bg-red-100">100</ColorSquare>
 					<ColorSquare className="bg-red-50">50</ColorSquare>
@@ -164,9 +176,13 @@ export default function Page() {
 					<ColorSquare className="bg-green-800 text-white">800</ColorSquare>
 					<ColorSquare className="bg-green-700 text-white">700</ColorSquare>
 					<ColorSquare className="bg-green-600 text-white">600</ColorSquare>
-					<ColorSquare className="bg-green-500 text-white">500</ColorSquare>
-					<ColorSquare className="bg-green-400">400</ColorSquare>
-					<ColorSquare className="bg-green-300">300</ColorSquare>
+					<ColorSquare className="bg-green-500 text-white dark:black">500</ColorSquare>
+					<ColorSquare className="bg-green-400 light-high-contrast:text-white dark-high-contrast:text-black">
+						400
+					</ColorSquare>
+					<ColorSquare className="bg-green-300 light-high-contrast:text-white dark-high-contrast:text-black">
+						300
+					</ColorSquare>
 					<ColorSquare className="bg-green-200">200</ColorSquare>
 					<ColorSquare className="bg-green-100">100</ColorSquare>
 					<ColorSquare className="bg-green-50">50</ColorSquare>
@@ -180,9 +196,13 @@ export default function Page() {
 					<ColorSquare className="bg-amber-800 text-white">800</ColorSquare>
 					<ColorSquare className="bg-amber-700 text-white">700</ColorSquare>
 					<ColorSquare className="bg-amber-600 text-white">600</ColorSquare>
-					<ColorSquare className="bg-amber-500 text-white">500</ColorSquare>
-					<ColorSquare className="bg-amber-400">400</ColorSquare>
-					<ColorSquare className="bg-amber-300">300</ColorSquare>
+					<ColorSquare className="bg-amber-500 text-white dark:text-gray-950">500</ColorSquare>
+					<ColorSquare className="bg-amber-400 light-high-contrast:text-white dark-high-contrast:text-black">
+						400
+					</ColorSquare>
+					<ColorSquare className="bg-amber-300 light-high-contrast:text-white dark-high-contrast:text-black">
+						300
+					</ColorSquare>
 					<ColorSquare className="bg-amber-200">200</ColorSquare>
 					<ColorSquare className="bg-amber-100">100</ColorSquare>
 					<ColorSquare className="bg-amber-50">50</ColorSquare>

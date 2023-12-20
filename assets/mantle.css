@@ -922,6 +922,9 @@
 	--yellow-800: 34 89% 22%;
 	--yellow-900: 31 87% 18%;
 	--yellow-950: 26 83% 14%;
+
+	--black: 0 0% 0%;
+	--white: 0 0% 100%;
 }
 
 :root.dark-high-contrast {
