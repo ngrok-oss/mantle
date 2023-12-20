@@ -92,6 +92,16 @@ export default function Page() {
 							</HashNavLink>
 						</li>
 					</ul>
+					<li>
+						<HashNavLink
+							className={(isActive) =>
+								cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+							}
+							to=".#overrides"
+						>
+							Overrides
+						</HashNavLink>
+					</li>
 				</ul>
 			</nav>
 			<div className="flex-1">
@@ -137,8 +147,8 @@ export default function Page() {
 					<ColorSquare className="bg-blue-700 text-white">700</ColorSquare>
 					<ColorSquare className="bg-blue-600 text-white">600</ColorSquare>
 					<ColorSquare className="bg-blue-500 text-white dark:text-black">500</ColorSquare>
-					<ColorSquare className="bg-blue-400 high-contrast:text-white dark-high-contrast:text-black">400</ColorSquare>
-					<ColorSquare className="bg-blue-300 high-contrast:text-white dark-high-contrast:text-black">300</ColorSquare>
+					<ColorSquare className="bg-blue-400 high-contrast:text-white dark-high-contrast:text-white">400</ColorSquare>
+					<ColorSquare className="bg-blue-300 high-contrast:text-white dark-high-contrast:text-white">300</ColorSquare>
 					<ColorSquare className="bg-blue-200">200</ColorSquare>
 					<ColorSquare className="bg-blue-100">100</ColorSquare>
 					<ColorSquare className="bg-blue-50">50</ColorSquare>
@@ -153,8 +163,8 @@ export default function Page() {
 					<ColorSquare className="bg-gray-700 text-white">700</ColorSquare>
 					<ColorSquare className="bg-gray-600 text-white">600</ColorSquare>
 					<ColorSquare className="bg-gray-500 text-white dark:text-black">500</ColorSquare>
-					<ColorSquare className="bg-gray-400 high-contrast:text-white dark-high-contrast:text-black">400</ColorSquare>
-					<ColorSquare className="bg-gray-300 high-contrast:text-white dark-high-contrast:text-black">300</ColorSquare>
+					<ColorSquare className="bg-gray-400 high-contrast:text-white dark-high-contrast:text-white">400</ColorSquare>
+					<ColorSquare className="bg-gray-300 high-contrast:text-white dark-high-contrast:text-white">300</ColorSquare>
 					<ColorSquare className="bg-gray-200">200</ColorSquare>
 					<ColorSquare className="bg-gray-100">100</ColorSquare>
 					<ColorSquare className="bg-gray-50">50</ColorSquare>
@@ -169,8 +179,8 @@ export default function Page() {
 					<ColorSquare className="bg-red-700 text-white">700</ColorSquare>
 					<ColorSquare className="bg-red-600 text-white">600</ColorSquare>
 					<ColorSquare className="bg-red-500 text-white dark:text-black">500</ColorSquare>
-					<ColorSquare className="bg-red-400 high-contrast:text-white dark-high-contrast:text-black">400</ColorSquare>
-					<ColorSquare className="bg-red-300 high-contrast:text-white dark-high-contrast:text-black">300</ColorSquare>
+					<ColorSquare className="bg-red-400 high-contrast:text-white dark-high-contrast:text-white">400</ColorSquare>
+					<ColorSquare className="bg-red-300 high-contrast:text-white dark-high-contrast:text-white">300</ColorSquare>
 					<ColorSquare className="bg-red-200">200</ColorSquare>
 					<ColorSquare className="bg-red-100">100</ColorSquare>
 					<ColorSquare className="bg-red-50">50</ColorSquare>
@@ -185,8 +195,8 @@ export default function Page() {
 					<ColorSquare className="bg-green-700 text-white">700</ColorSquare>
 					<ColorSquare className="bg-green-600 text-white">600</ColorSquare>
 					<ColorSquare className="bg-green-500 text-white dark:text-black">500</ColorSquare>
-					<ColorSquare className="bg-green-400 high-contrast:text-white dark-high-contrast:text-black">400</ColorSquare>
-					<ColorSquare className="bg-green-300 high-contrast:text-white dark-high-contrast:text-black">300</ColorSquare>
+					<ColorSquare className="bg-green-400 high-contrast:text-white dark-high-contrast:text-white">400</ColorSquare>
+					<ColorSquare className="bg-green-300 high-contrast:text-white dark-high-contrast:text-white">300</ColorSquare>
 					<ColorSquare className="bg-green-200">200</ColorSquare>
 					<ColorSquare className="bg-green-100">100</ColorSquare>
 					<ColorSquare className="bg-green-50">50</ColorSquare>
@@ -201,12 +211,23 @@ export default function Page() {
 					<ColorSquare className="bg-amber-700 text-white">700</ColorSquare>
 					<ColorSquare className="bg-amber-600 text-white">600</ColorSquare>
 					<ColorSquare className="bg-amber-500 text-white dark:text-black">500</ColorSquare>
-					<ColorSquare className="bg-amber-400 high-contrast:text-white dark-high-contrast:text-black">400</ColorSquare>
-					<ColorSquare className="bg-amber-300 high-contrast:text-white dark-high-contrast:text-black">300</ColorSquare>
+					<ColorSquare className="bg-amber-400 high-contrast:text-white dark-high-contrast:text-white">400</ColorSquare>
+					<ColorSquare className="bg-amber-300 high-contrast:text-white dark-high-contrast:text-white">300</ColorSquare>
 					<ColorSquare className="bg-amber-200">200</ColorSquare>
 					<ColorSquare className="bg-amber-100">100</ColorSquare>
 					<ColorSquare className="bg-amber-50">50</ColorSquare>
 				</div>
+
+				<h2 id="overrides" className="mt-8 text-3xl font-medium">
+					Overrides
+				</h2>
+				<p className="mt-3 text-gray-600">
+					Most colors should appropriately swap for sensible values in dark and high contrast modes. However, there are
+					often cases where you&rsquo;ll need to specify an override. The <InlineCode>dark:</InlineCode> variant is
+					well-documented on Tailwind&rsquo;s website. Mantle provides additional variants for high contrast and dark
+					high contrast mode with <InlineCode>high-contrast:</InlineCode> and{" "}
+					<InlineCode>dark-high-contrast:</InlineCode> respectively.
+				</p>
 			</div>
 		</div>
 	);
