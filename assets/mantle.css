@@ -1149,6 +1149,7 @@
 	--card: var(--gray-050);
 	--popover: var(--gray-100);
 	--popover-foreground: 210 40% 98%;
+	--button: var(--white);
 }
 
 @layer base {
