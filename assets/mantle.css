@@ -1265,8 +1265,3 @@
 	scrollbar-color: hsl(var(--gray-600) / 0.5) transparent;
 	scrollbar-width: thin;
 }
-
-.dark-high-contrast .example {
-	--tw-gradient-from: hsl(var(--gray-050)) var(--tw-gradient-from-position);
-	--tw-gradient-to: #000 var(--tw-gradient-to-position);
-}
