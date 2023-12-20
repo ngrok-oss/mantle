@@ -5,7 +5,7 @@ import { WithAsChild } from "../types/as-child";
 
 const anchorClassNames = (className: string | undefined) =>
 	cx(
-		"text-blue-600 focus-visible:ring-blue-600/25 cursor-pointer rounded bg-transparent focus:outline-none focus-visible:ring hover:underline visited:text-blue-800",
+		"text-blue-600 focus-visible:ring-blue-600/25 cursor-pointer rounded bg-transparent focus:outline-none focus-visible:ring hover:underline",
 		className,
 	);
 

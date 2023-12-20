@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 import tailwindCssAnimatePlugin from "tailwindcss-animate";
 import defaultTheme from "tailwindcss/defaultTheme";
+import plugin from "tailwindcss/plugin";
 import { firefoxVariantPlugin } from "./tailwind-plugin-firefox-variant.js";
 
 const mantlePreset = {
@@ -24,6 +25,7 @@ const mantlePreset = {
 			},
 			colors: {
 				white: "hsl(var(--white) / <alpha-value>)",
+				black: "hsl(var(--black) / <alpha-value>)",
 				gray: {
 					50: "hsl(var(--gray-050) / <alpha-value>)",
 					100: "hsl(var(--gray-100) / <alpha-value>)",
@@ -304,7 +306,14 @@ const mantlePreset = {
 			},
 		},
 	},
-	plugins: [tailwindCssAnimatePlugin, firefoxVariantPlugin],
+	plugins: [
+		tailwindCssAnimatePlugin,
+		firefoxVariantPlugin,
+		plugin(function ({ addVariant }) {
+			addVariant("dark-high-contrast", [":is(.dark-high-contrast &)"]);
+			addVariant("high-contrast", [":is(.light-high-contrast &)"]);
+		}),
+	],
 } satisfies Config;
 
 export type MantlePreset = typeof mantlePreset;
