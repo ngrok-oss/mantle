@@ -310,7 +310,7 @@ const mantlePreset = {
 		firefoxVariantPlugin,
 		plugin(function ({ addVariant }) {
 			addVariant("dark-high-contrast", [":is(.dark-high-contrast &)"]);
-			addVariant("light-high-contrast", [":is(.light-high-contrast &)"]);
+			addVariant("high-contrast", [":is(.light-high-contrast &)"]);
 		}),
 	],
 } satisfies Config;
