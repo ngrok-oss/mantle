@@ -25,6 +25,7 @@ const mantlePreset = {
 			},
 			colors: {
 				white: "hsl(var(--white) / <alpha-value>)",
+				black: "hsl(var(--black) / <alpha-value>)",
 				gray: {
 					50: "hsl(var(--gray-050) / <alpha-value>)",
 					100: "hsl(var(--gray-100) / <alpha-value>)",
