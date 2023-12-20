@@ -1,3 +1,4 @@
+import { Anchor } from "@/anchor";
 import { cx } from "@/cx";
 import { InlineCode } from "@/inline-code";
 import { WithStyleProps } from "@/types/with-style-props";
@@ -133,14 +134,14 @@ export default function Page() {
 					<InlineCode>hsl()</InlineCode> like so: <InlineCode>hsl(var(--blue-500))</InlineCode>. This allows for
 					Tailwind operations like <InlineCode>text-blue-500/25</InlineCode>.
 				</p>
-				<h3 id="blue" className="mt-6 text-xl font-medium">
-					Blue (primary)
+				<h3 id="blue" className="mt-8 text-xl font-medium">
+					Blue
 				</h3>
 				<p className="mt-2 text-gray-600">
 					ngrok&apos;s primary branding color is used in its logo as well as primary links. Use it sparingly to attract
 					attention.
 				</p>
-				<div className="mt-4 flex flex-col overflow-hidden rounded-md md:flex-row">
+				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row">
 					<ColorSquare className="bg-blue-950 text-white">950</ColorSquare>
 					<ColorSquare className="bg-blue-900 text-white">900</ColorSquare>
 					<ColorSquare className="bg-blue-800 text-white">800</ColorSquare>
@@ -153,10 +154,10 @@ export default function Page() {
 					<ColorSquare className="bg-blue-100">100</ColorSquare>
 					<ColorSquare className="bg-blue-50">50</ColorSquare>
 				</div>
-				<h3 id="gray" className="mt-6 text-xl font-medium">
+				<h3 id="gray" className="mt-8 text-xl font-medium">
 					Gray
 				</h3>
-				<div className="mt-4 flex flex-col overflow-hidden rounded-md md:flex-row">
+				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row">
 					<ColorSquare className="bg-gray-950 text-white">950</ColorSquare>
 					<ColorSquare className="bg-gray-900 text-white">900</ColorSquare>
 					<ColorSquare className="bg-gray-800 text-white">800</ColorSquare>
@@ -169,10 +170,10 @@ export default function Page() {
 					<ColorSquare className="bg-gray-100">100</ColorSquare>
 					<ColorSquare className="bg-gray-50">50</ColorSquare>
 				</div>
-				<h3 id="red" className="mt-6 text-xl font-medium">
-					Red (danger)
+				<h3 id="red" className="mt-8 text-xl font-medium">
+					Red
 				</h3>
-				<div className="mt-4 flex flex-col overflow-hidden rounded-md md:flex-row">
+				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row">
 					<ColorSquare className="bg-red-950 text-white">950</ColorSquare>
 					<ColorSquare className="bg-red-900 text-white">900</ColorSquare>
 					<ColorSquare className="bg-red-800 text-white">800</ColorSquare>
@@ -185,10 +186,10 @@ export default function Page() {
 					<ColorSquare className="bg-red-100">100</ColorSquare>
 					<ColorSquare className="bg-red-50">50</ColorSquare>
 				</div>
-				<h3 id="green" className="mt-6 text-xl font-medium">
-					Green (success)
+				<h3 id="green" className="mt-8 text-xl font-medium flex items-center gap-2">
+					Green
 				</h3>
-				<div className="mt-4 flex flex-col overflow-hidden rounded-md md:flex-row">
+				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row">
 					<ColorSquare className="bg-green-950 text-white">950</ColorSquare>
 					<ColorSquare className="bg-green-900 text-white">900</ColorSquare>
 					<ColorSquare className="bg-green-800 text-white">800</ColorSquare>
@@ -201,10 +202,10 @@ export default function Page() {
 					<ColorSquare className="bg-green-100">100</ColorSquare>
 					<ColorSquare className="bg-green-50">50</ColorSquare>
 				</div>
-				<h3 id="amber" className="mt-6 text-xl font-medium">
-					Amber (warning)
+				<h3 id="amber" className="mt-8 text-xl font-medium">
+					Amber
 				</h3>
-				<div className="mt-4 flex flex-col overflow-hidden rounded-md md:flex-row">
+				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row">
 					<ColorSquare className="bg-amber-950 text-white">950</ColorSquare>
 					<ColorSquare className="bg-amber-900 text-white">900</ColorSquare>
 					<ColorSquare className="bg-amber-800 text-white">800</ColorSquare>
@@ -224,9 +225,9 @@ export default function Page() {
 				<p className="mt-3 text-gray-600">
 					Most colors should appropriately swap for sensible values in dark and high contrast modes. However, there are
 					often cases where you&rsquo;ll need to specify an override. The <InlineCode>dark:</InlineCode> variant is
-					well-documented on Tailwind&rsquo;s website. Mantle provides additional variants for high contrast and dark
-					high contrast mode with <InlineCode>high-contrast:</InlineCode> and{" "}
-					<InlineCode>dark-high-contrast:</InlineCode> respectively.
+					well-documented on <Anchor href="https://tailwindcss.com/docs/dark-mode">Tailwind&rsquo;s website</Anchor>.
+					Mantle provides additional variants for high contrast and dark high contrast mode with{" "}
+					<InlineCode>high-contrast:</InlineCode> and <InlineCode>dark-high-contrast:</InlineCode> respectively.
 				</p>
 			</div>
 		</div>
