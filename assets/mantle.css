@@ -8,7 +8,7 @@
 	/* ngrok custom blue (600 is current button)
 	* These are required as they are referenced by both light and dark modes.
 	* Replaces the Tailwind blue and a single value of gray.
-	* Not to be used directly. 
+	* Not to be used directly.
 	*/
 
 	--ngrok-blue-050: 221 100% 97%;
@@ -40,7 +40,6 @@
 	/**
 	* Tailwind palette.
 	* These are required as they are referenced by both light and dark modes.
-	* Colors not currently utilized: tw-slate, tw-gray, tw-zinc, tw-neutral, tw-stone, tw-blue.
 	* Not to be used directly.
 	*/
 
@@ -518,6 +517,17 @@
 	--green-800: var(--tw-green-200);
 	--green-900: var(--tw-green-100);
 	--green-950: var(--tw-green-050);
+	--emerald-050: var(--tw-emerald-950);
+	--emerald-100: var(--tw-emerald-900);
+	--emerald-200: var(--tw-emerald-800);
+	--emerald-300: var(--tw-emerald-700);
+	--emerald-400: var(--tw-emerald-600);
+	--emerald-500: var(--tw-emerald-500);
+	--emerald-600: var(--tw-emerald-400);
+	--emerald-700: var(--tw-emerald-300);
+	--emerald-800: var(--tw-emerald-200);
+	--emerald-900: var(--tw-emerald-100);
+	--emerald-950: var(--tw-emerald-050);
 	--teal-050: var(--tw-teal-950);
 	--teal-100: var(--tw-teal-900);
 	--teal-200: var(--tw-teal-800);
