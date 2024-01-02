@@ -1,10 +1,8 @@
 import { Anchor } from "@/anchor";
 import { cx } from "@/cx";
 import { InlineCode } from "@/inline-code";
-import { WithStyleProps } from "@/types/with-style-props";
 import type { MetaFunction } from "@vercel/remix";
 import { HashNavLink } from "~/components/hash-nav-link";
-import { PropsWithChildren } from "react";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -134,89 +132,846 @@ export default function Page() {
 					<InlineCode>hsl()</InlineCode> like so: <InlineCode>hsl(var(--blue-500))</InlineCode>. This allows for
 					Tailwind operations like <InlineCode>text-blue-500/25</InlineCode>.
 				</p>
-				<h3 id="blue" className="mt-8 text-xl font-medium">
-					Blue
-				</h3>
-				<p className="mt-2 text-gray-600">
-					ngrok&rsquo;s primary branding color is used in its logo as well as primary links. Use it sparingly to attract
-					attention.
-				</p>
-				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row">
-					<ColorSquare className="bg-blue-950 text-white">950</ColorSquare>
-					<ColorSquare className="bg-blue-900 text-white">900</ColorSquare>
-					<ColorSquare className="bg-blue-800 text-white">800</ColorSquare>
-					<ColorSquare className="bg-blue-700 text-white">700</ColorSquare>
-					<ColorSquare className="bg-blue-600 text-white">600</ColorSquare>
-					<ColorSquare className="bg-blue-500 text-white dark:text-black">500</ColorSquare>
-					<ColorSquare className="bg-blue-400 high-contrast:text-white dark-high-contrast:text-white">400</ColorSquare>
-					<ColorSquare className="bg-blue-300 high-contrast:text-white dark-high-contrast:text-white">300</ColorSquare>
-					<ColorSquare className="bg-blue-200">200</ColorSquare>
-					<ColorSquare className="bg-blue-100">100</ColorSquare>
-					<ColorSquare className="bg-blue-50">50</ColorSquare>
-				</div>
 				<h3 id="gray" className="mt-8 text-xl font-medium">
 					Gray
 				</h3>
-				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row">
-					<ColorSquare className="bg-gray-950 text-white">950</ColorSquare>
-					<ColorSquare className="bg-gray-900 text-white">900</ColorSquare>
-					<ColorSquare className="bg-gray-800 text-white">800</ColorSquare>
-					<ColorSquare className="bg-gray-700 text-white">700</ColorSquare>
-					<ColorSquare className="bg-gray-600 text-white">600</ColorSquare>
-					<ColorSquare className="bg-gray-500 text-white dark:text-black">500</ColorSquare>
-					<ColorSquare className="bg-gray-400 high-contrast:text-white dark-high-contrast:text-white">400</ColorSquare>
-					<ColorSquare className="bg-gray-300 high-contrast:text-white dark-high-contrast:text-white">300</ColorSquare>
-					<ColorSquare className="bg-gray-200">200</ColorSquare>
-					<ColorSquare className="bg-gray-100">100</ColorSquare>
-					<ColorSquare className="bg-gray-50">50</ColorSquare>
+				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row gap-2 text-xs">
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-gray-950 w-full h-10 rounded"></div>
+						950
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-gray-900 w-full h-10 rounded"></div>
+						900
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-gray-800 w-full h-10 rounded"></div>
+						800
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-gray-700 w-full h-10 rounded"></div>
+						700
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-gray-600 w-full h-10 rounded"></div>
+						600
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-gray-500 w-full h-10 rounded"></div>
+						500
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-gray-400 w-full h-10 rounded"></div>
+						400
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-gray-300 w-full h-10 rounded"></div>
+						300
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-gray-200 w-full h-10 rounded"></div>
+						200
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-gray-100 w-full h-10 rounded"></div>
+						100
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-gray-50 w-full h-10 rounded"></div>
+						50
+					</div>
 				</div>
 				<h3 id="red" className="mt-8 text-xl font-medium">
 					Red
 				</h3>
-				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row">
-					<ColorSquare className="bg-red-950 text-white">950</ColorSquare>
-					<ColorSquare className="bg-red-900 text-white">900</ColorSquare>
-					<ColorSquare className="bg-red-800 text-white">800</ColorSquare>
-					<ColorSquare className="bg-red-700 text-white">700</ColorSquare>
-					<ColorSquare className="bg-red-600 text-white">600</ColorSquare>
-					<ColorSquare className="bg-red-500 text-white dark:text-black">500</ColorSquare>
-					<ColorSquare className="bg-red-400 high-contrast:text-white dark-high-contrast:text-white">400</ColorSquare>
-					<ColorSquare className="bg-red-300 high-contrast:text-white dark-high-contrast:text-white">300</ColorSquare>
-					<ColorSquare className="bg-red-200">200</ColorSquare>
-					<ColorSquare className="bg-red-100">100</ColorSquare>
-					<ColorSquare className="bg-red-50">50</ColorSquare>
+				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row gap-2 text-xs">
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-red-950 w-full h-10 rounded"></div>
+						950
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-red-900 w-full h-10 rounded"></div>
+						900
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-red-800 w-full h-10 rounded"></div>
+						800
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-red-700 w-full h-10 rounded"></div>
+						700
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-red-600 w-full h-10 rounded"></div>
+						600
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-red-500 w-full h-10 rounded"></div>
+						500
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-red-400 w-full h-10 rounded"></div>
+						400
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-red-300 w-full h-10 rounded"></div>
+						300
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-red-200 w-full h-10 rounded"></div>
+						200
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-red-100 w-full h-10 rounded"></div>
+						100
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-red-50 w-full h-10 rounded"></div>
+						50
+					</div>
 				</div>
-				<h3 id="green" className="mt-8 text-xl font-medium flex items-center gap-2">
-					Green
+				<h3 id="orange" className="mt-8 text-xl font-medium">
+					Orange
 				</h3>
-				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row">
-					<ColorSquare className="bg-green-950 text-white">950</ColorSquare>
-					<ColorSquare className="bg-green-900 text-white">900</ColorSquare>
-					<ColorSquare className="bg-green-800 text-white">800</ColorSquare>
-					<ColorSquare className="bg-green-700 text-white">700</ColorSquare>
-					<ColorSquare className="bg-green-600 text-white">600</ColorSquare>
-					<ColorSquare className="bg-green-500 text-white dark:text-black">500</ColorSquare>
-					<ColorSquare className="bg-green-400 high-contrast:text-white dark-high-contrast:text-white">400</ColorSquare>
-					<ColorSquare className="bg-green-300 high-contrast:text-white dark-high-contrast:text-white">300</ColorSquare>
-					<ColorSquare className="bg-green-200">200</ColorSquare>
-					<ColorSquare className="bg-green-100">100</ColorSquare>
-					<ColorSquare className="bg-green-50">50</ColorSquare>
+				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row gap-2 text-xs">
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-orange-950 w-full h-10 rounded"></div>
+						950
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-orange-900 w-full h-10 rounded"></div>
+						900
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-orange-800 w-full h-10 rounded"></div>
+						800
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-orange-700 w-full h-10 rounded"></div>
+						700
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-orange-600 w-full h-10 rounded"></div>
+						600
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-orange-500 w-full h-10 rounded"></div>
+						500
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-orange-400 w-full h-10 rounded"></div>
+						400
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-orange-300 w-full h-10 rounded"></div>
+						300
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-orange-200 w-full h-10 rounded"></div>
+						200
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-orange-100 w-full h-10 rounded"></div>
+						100
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-orange-50 w-full h-10 rounded"></div>
+						50
+					</div>
 				</div>
 				<h3 id="amber" className="mt-8 text-xl font-medium">
 					Amber
 				</h3>
-				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row">
-					<ColorSquare className="bg-amber-950 text-white">950</ColorSquare>
-					<ColorSquare className="bg-amber-900 text-white">900</ColorSquare>
-					<ColorSquare className="bg-amber-800 text-white">800</ColorSquare>
-					<ColorSquare className="bg-amber-700 text-white">700</ColorSquare>
-					<ColorSquare className="bg-amber-600 text-white">600</ColorSquare>
-					<ColorSquare className="bg-amber-500 text-white dark:text-black">500</ColorSquare>
-					<ColorSquare className="bg-amber-400 high-contrast:text-white dark-high-contrast:text-white">400</ColorSquare>
-					<ColorSquare className="bg-amber-300 high-contrast:text-white dark-high-contrast:text-white">300</ColorSquare>
-					<ColorSquare className="bg-amber-200">200</ColorSquare>
-					<ColorSquare className="bg-amber-100">100</ColorSquare>
-					<ColorSquare className="bg-amber-50">50</ColorSquare>
+				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row gap-2 text-xs">
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-amber-950 w-full h-10 rounded"></div>
+						950
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-amber-900 w-full h-10 rounded"></div>
+						900
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-amber-800 w-full h-10 rounded"></div>
+						800
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-amber-700 w-full h-10 rounded"></div>
+						700
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-amber-600 w-full h-10 rounded"></div>
+						600
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-amber-500 w-full h-10 rounded"></div>
+						500
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-amber-400 w-full h-10 rounded"></div>
+						400
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-amber-300 w-full h-10 rounded"></div>
+						300
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-amber-200 w-full h-10 rounded"></div>
+						200
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-amber-100 w-full h-10 rounded"></div>
+						100
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-amber-50 w-full h-10 rounded"></div>
+						50
+					</div>
+				</div>
+				<h3 id="yellow" className="mt-8 text-xl font-medium">
+					Yellow
+				</h3>
+				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row gap-2 text-xs">
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-yellow-950 w-full h-10 rounded"></div>
+						950
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-yellow-900 w-full h-10 rounded"></div>
+						900
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-yellow-800 w-full h-10 rounded"></div>
+						800
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-yellow-700 w-full h-10 rounded"></div>
+						700
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-yellow-600 w-full h-10 rounded"></div>
+						600
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-yellow-500 w-full h-10 rounded"></div>
+						500
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-yellow-400 w-full h-10 rounded"></div>
+						400
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-yellow-300 w-full h-10 rounded"></div>
+						300
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-yellow-200 w-full h-10 rounded"></div>
+						200
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-yellow-100 w-full h-10 rounded"></div>
+						100
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-yellow-50 w-full h-10 rounded"></div>
+						50
+					</div>
+				</div>
+				<h3 id="lime" className="mt-8 text-xl font-medium">
+					Lime
+				</h3>
+				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row gap-2 text-xs">
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-lime-950 w-full h-10 rounded"></div>
+						950
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-lime-900 w-full h-10 rounded"></div>
+						900
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-lime-800 w-full h-10 rounded"></div>
+						800
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-lime-700 w-full h-10 rounded"></div>
+						700
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-lime-600 w-full h-10 rounded"></div>
+						600
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-lime-500 w-full h-10 rounded"></div>
+						500
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-lime-400 w-full h-10 rounded"></div>
+						400
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-lime-300 w-full h-10 rounded"></div>
+						300
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-lime-200 w-full h-10 rounded"></div>
+						200
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-lime-100 w-full h-10 rounded"></div>
+						100
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-lime-50 w-full h-10 rounded"></div>
+						50
+					</div>
+				</div>
+				<h3 id="green" className="mt-8 text-xl font-medium flex items-center gap-2">
+					Green
+				</h3>
+				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row gap-2 text-xs">
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-green-950 w-full h-10 rounded"></div>
+						950
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-green-900 w-full h-10 rounded"></div>
+						900
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-green-800 w-full h-10 rounded"></div>
+						800
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-green-700 w-full h-10 rounded"></div>
+						700
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-green-600 w-full h-10 rounded"></div>
+						600
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-green-500 w-full h-10 rounded"></div>
+						500
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-green-400 w-full h-10 rounded"></div>
+						400
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-green-300 w-full h-10 rounded"></div>
+						300
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-green-200 w-full h-10 rounded"></div>
+						200
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-green-100 w-full h-10 rounded"></div>
+						100
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-green-50 w-full h-10 rounded"></div>
+						50
+					</div>
+				</div>
+				<h3 id="emerald" className="mt-8 text-xl font-medium">
+					Emerald
+				</h3>
+				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row gap-2 text-xs">
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-emerald-950 w-full h-10 rounded"></div>
+						950
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-emerald-900 w-full h-10 rounded"></div>
+						900
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-emerald-800 w-full h-10 rounded"></div>
+						800
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-emerald-700 w-full h-10 rounded"></div>
+						700
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-emerald-600 w-full h-10 rounded"></div>
+						600
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-emerald-500 w-full h-10 rounded"></div>
+						500
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-emerald-400 w-full h-10 rounded"></div>
+						400
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-emerald-300 w-full h-10 rounded"></div>
+						300
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-emerald-200 w-full h-10 rounded"></div>
+						200
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-emerald-100 w-full h-10 rounded"></div>
+						100
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-emerald-50 w-full h-10 rounded"></div>
+						50
+					</div>
+				</div>
+				<h3 id="teal" className="mt-8 text-xl font-medium">
+					Teal
+				</h3>
+				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row gap-2 text-xs">
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-teal-950 w-full h-10 rounded"></div>
+						950
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-teal-900 w-full h-10 rounded"></div>
+						900
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-teal-800 w-full h-10 rounded"></div>
+						800
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-teal-700 w-full h-10 rounded"></div>
+						700
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-teal-600 w-full h-10 rounded"></div>
+						600
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-teal-500 w-full h-10 rounded"></div>
+						500
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-teal-400 w-full h-10 rounded"></div>
+						400
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-teal-300 w-full h-10 rounded"></div>
+						300
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-teal-200 w-full h-10 rounded"></div>
+						200
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-teal-100 w-full h-10 rounded"></div>
+						100
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-teal-50 w-full h-10 rounded"></div>
+						50
+					</div>
+				</div>
+				<h3 id="cyan" className="mt-8 text-xl font-medium">
+					Cyan
+				</h3>
+				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row gap-2 text-xs">
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-cyan-950 w-full h-10 rounded"></div>
+						950
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-cyan-900 w-full h-10 rounded"></div>
+						900
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-cyan-800 w-full h-10 rounded"></div>
+						800
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-cyan-700 w-full h-10 rounded"></div>
+						700
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-cyan-600 w-full h-10 rounded"></div>
+						600
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-cyan-500 w-full h-10 rounded"></div>
+						500
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-cyan-400 w-full h-10 rounded"></div>
+						400
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-cyan-300 w-full h-10 rounded"></div>
+						300
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-cyan-200 w-full h-10 rounded"></div>
+						200
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-cyan-100 w-full h-10 rounded"></div>
+						100
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-cyan-50 w-full h-10 rounded"></div>
+						50
+					</div>
+				</div>
+
+				<h3 id="sky" className="mt-8 text-xl font-medium">
+					Sky
+				</h3>
+				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row gap-2 text-xs">
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-sky-950 w-full h-10 rounded"></div>
+						950
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-sky-900 w-full h-10 rounded"></div>
+						900
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-sky-800 w-full h-10 rounded"></div>
+						800
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-sky-700 w-full h-10 rounded"></div>
+						700
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-sky-600 w-full h-10 rounded"></div>
+						600
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-sky-500 w-full h-10 rounded"></div>
+						500
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-sky-400 w-full h-10 rounded"></div>
+						400
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-sky-300 w-full h-10 rounded"></div>
+						300
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-sky-200 w-full h-10 rounded"></div>
+						200
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-sky-100 w-full h-10 rounded"></div>
+						100
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-sky-50 w-full h-10 rounded"></div>
+						50
+					</div>
+				</div>
+
+				<h3 id="blue" className="mt-8 text-xl font-medium">
+					Blue
+				</h3>
+				<p className="mt-0 text-gray-600">
+					ngrok&rsquo;s primary branding color is used in its logo as well as primary links. Use it sparingly to attract
+					attention.
+				</p>
+				<div className="mt-2 flex flex-col gap-2 overflow-hidden rounded-md md:flex-row text-xs">
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-blue-950 w-full h-10 rounded"></div>
+						950
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-blue-900 w-full h-10 rounded"></div>
+						900
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-blue-800 w-full h-10 rounded"></div>
+						800
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-blue-700 w-full h-10 rounded"></div>
+						700
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-blue-600 w-full h-10 rounded"></div>
+						600
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-blue-500 w-full h-10 rounded"></div>
+						500
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-blue-400 w-full h-10 rounded"></div>
+						400
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-blue-300 w-full h-10 rounded"></div>
+						300
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-blue-200 w-full h-10 rounded"></div>
+						200
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-blue-100 w-full h-10 rounded"></div>
+						100
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-blue-50 w-full h-10 rounded"></div>
+						50
+					</div>
+				</div>
+
+				<h3 id="violet" className="mt-8 text-xl font-medium">
+					Violet
+				</h3>
+				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row gap-2 text-xs">
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-violet-950 w-full h-10 rounded"></div>
+						950
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-violet-900 w-full h-10 rounded"></div>
+						900
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-violet-800 w-full h-10 rounded"></div>
+						800
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-violet-700 w-full h-10 rounded"></div>
+						700
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-violet-600 w-full h-10 rounded"></div>
+						600
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-violet-500 w-full h-10 rounded"></div>
+						500
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-violet-400 w-full h-10 rounded"></div>
+						400
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-violet-300 w-full h-10 rounded"></div>
+						300
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-violet-200 w-full h-10 rounded"></div>
+						200
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-violet-100 w-full h-10 rounded"></div>
+						100
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-violet-50 w-full h-10 rounded"></div>
+						50
+					</div>
+				</div>
+				<h3 id="purple" className="mt-8 text-xl font-medium">
+					Purple
+				</h3>
+				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row gap-2 text-xs">
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-purple-950 w-full h-10 rounded"></div>
+						950
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-purple-900 w-full h-10 rounded"></div>
+						900
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-purple-800 w-full h-10 rounded"></div>
+						800
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-purple-700 w-full h-10 rounded"></div>
+						700
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-purple-600 w-full h-10 rounded"></div>
+						600
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-purple-500 w-full h-10 rounded"></div>
+						500
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-purple-400 w-full h-10 rounded"></div>
+						400
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-purple-300 w-full h-10 rounded"></div>
+						300
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-purple-200 w-full h-10 rounded"></div>
+						200
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-purple-100 w-full h-10 rounded"></div>
+						100
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-purple-50 w-full h-10 rounded"></div>
+						50
+					</div>
+				</div>
+				<h3 id="fuchsia" className="mt-8 text-xl font-medium">
+					Fuchsia
+				</h3>
+				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row gap-2 text-xs">
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-fuchsia-950 w-full h-10 rounded"></div>
+						950
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-fuchsia-900 w-full h-10 rounded"></div>
+						900
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-fuchsia-800 w-full h-10 rounded"></div>
+						800
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-fuchsia-700 w-full h-10 rounded"></div>
+						700
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-fuchsia-600 w-full h-10 rounded"></div>
+						600
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-fuchsia-500 w-full h-10 rounded"></div>
+						500
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-fuchsia-400 w-full h-10 rounded"></div>
+						400
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-fuchsia-300 w-full h-10 rounded"></div>
+						300
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-fuchsia-200 w-full h-10 rounded"></div>
+						200
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-fuchsia-100 w-full h-10 rounded"></div>
+						100
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-fuchsia-50 w-full h-10 rounded"></div>
+						50
+					</div>
+				</div>
+
+				<h3 id="pink" className="mt-8 text-xl font-medium">
+					Pink
+				</h3>
+				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row gap-2 text-xs">
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-pink-950 w-full h-10 rounded"></div>
+						950
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-pink-900 w-full h-10 rounded"></div>
+						900
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-pink-800 w-full h-10 rounded"></div>
+						800
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-pink-700 w-full h-10 rounded"></div>
+						700
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-pink-600 w-full h-10 rounded"></div>
+						600
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-pink-500 w-full h-10 rounded"></div>
+						500
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-pink-400 w-full h-10 rounded"></div>
+						400
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-pink-300 w-full h-10 rounded"></div>
+						300
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-pink-200 w-full h-10 rounded"></div>
+						200
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-pink-100 w-full h-10 rounded"></div>
+						100
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-pink-50 w-full h-10 rounded"></div>
+						50
+					</div>
+				</div>
+				<h3 id="rose" className="mt-8 text-xl font-medium">
+					Rose
+				</h3>
+				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row gap-2 text-xs">
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-rose-950 w-full h-10 rounded"></div>
+						950
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-rose-900 w-full h-10 rounded"></div>
+						900
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-rose-800 w-full h-10 rounded"></div>
+						800
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-rose-700 w-full h-10 rounded"></div>
+						700
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-rose-600 w-full h-10 rounded"></div>
+						600
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-rose-500 w-full h-10 rounded"></div>
+						500
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-rose-400 w-full h-10 rounded"></div>
+						400
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-rose-300 w-full h-10 rounded"></div>
+						300
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-rose-200 w-full h-10 rounded"></div>
+						200
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-rose-100 w-full h-10 rounded"></div>
+						100
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-rose-50 w-full h-10 rounded"></div>
+						50
+					</div>
 				</div>
 
 				<h2 id="overrides" className="mt-8 text-3xl font-medium">
@@ -230,20 +985,6 @@ export default function Page() {
 					<InlineCode>high-contrast:</InlineCode> and <InlineCode>dark-high-contrast:</InlineCode> respectively.
 				</p>
 			</div>
-		</div>
-	);
-}
-
-function ColorSquare({ children, className, style }: PropsWithChildren & WithStyleProps) {
-	return (
-		<div
-			className={cx(
-				"flex flex-grow items-center justify-center p-3 font-mono text-sm md:aspect-square md:w-0 md:p-0",
-				className,
-			)}
-			style={style}
-		>
-			{children}
 		</div>
 	);
 }
