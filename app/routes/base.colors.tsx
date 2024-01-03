@@ -118,7 +118,7 @@ export default function Page() {
 					Mantle uses Tailwind under the hood for all its CSS styling. However, we differ from Tailwind when it comes to
 					colors. Mantle provides a full color library that automatically provides a dark and high contrast modes. This
 					is different from standard Tailwind usage that <em>requires</em> dark class variations. By simply specifying
-					light colors provided by mantle, you&rsquo;ll get dark and high contrast modes for free. If you require
+					light colors provided by Mantle, you&rsquo;ll get dark and high contrast modes for free. If you require
 					additional customization, you can provide dark variant classes as an override.
 				</p>
 
@@ -132,10 +132,288 @@ export default function Page() {
 					<InlineCode>hsl()</InlineCode> like so: <InlineCode>hsl(var(--blue-500))</InlineCode>. This allows for
 					Tailwind operations like <InlineCode>text-blue-500/25</InlineCode>.
 				</p>
+
+				<h2 id="overrides" className="mt-8 text-3xl font-medium">
+					Overrides
+				</h2>
+				<p className="mt-3 text-gray-600">
+					Most colors should appropriately swap for sensible values in dark and high contrast modes. However, there are
+					often cases where you&rsquo;ll need to specify an override. The <InlineCode>dark:</InlineCode> variant is
+					well-documented on <Anchor href="https://tailwindcss.com/docs/dark-mode">Tailwind&rsquo;s website</Anchor>.
+					Mantle provides additional variants for high contrast and dark high contrast mode with{" "}
+					<InlineCode>high-contrast:</InlineCode> and <InlineCode>dark-high-contrast:</InlineCode> respectively.
+				</p>
+
+				<h2 id="branded-colors" className="mt-8 text-3xl font-medium">
+					Branded Colors
+				</h2>
+				<p className="mt-3 text-gray-600">
+					Mantle generally limits its color choices to the following branded colors for primary actions, and various
+					states like danger and warnings.
+				</p>
+
 				<h3 id="gray" className="mt-8 text-xl font-medium">
 					Gray
 				</h3>
-				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row gap-2 text-xs">
+				<div className="mt-2 flex flex-col overflow-hidden md:flex-row gap-2 text-xs">
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-gray-950 w-full h-10 rounded"></div>
+						950
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-gray-900 w-full h-10 rounded"></div>
+						900
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-gray-800 w-full h-10 rounded"></div>
+						800
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-gray-700 w-full h-10 rounded"></div>
+						700
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-gray-600 w-full h-10 rounded"></div>
+						600
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-gray-500 w-full h-10 rounded"></div>
+						500
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-gray-400 w-full h-10 rounded"></div>
+						400
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-gray-300 w-full h-10 rounded"></div>
+						300
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-gray-200 w-full h-10 rounded"></div>
+						200
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-gray-100 w-full h-10 rounded"></div>
+						100
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-gray-50 w-full h-10 rounded"></div>
+						50
+					</div>
+				</div>
+
+				<h3 id="blue" className="mt-8 text-xl font-medium">
+					Blue
+				</h3>
+				<div className="mt-2 flex flex-col gap-2 overflow-hidden md:flex-row text-xs">
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-blue-950 w-full h-10 rounded"></div>
+						950
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-blue-900 w-full h-10 rounded"></div>
+						900
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-blue-800 w-full h-10 rounded"></div>
+						800
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-blue-700 w-full h-10 rounded"></div>
+						700
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-blue-600 w-full h-10 rounded"></div>
+						600
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-blue-500 w-full h-10 rounded"></div>
+						500
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-blue-400 w-full h-10 rounded"></div>
+						400
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-blue-300 w-full h-10 rounded"></div>
+						300
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-blue-200 w-full h-10 rounded"></div>
+						200
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-blue-100 w-full h-10 rounded"></div>
+						100
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-blue-50 w-full h-10 rounded"></div>
+						50
+					</div>
+				</div>
+
+				<h3 id="green" className="mt-8 text-xl font-medium flex items-center gap-2">
+					Green
+				</h3>
+				<div className="mt-2 flex flex-col overflow-hidden md:flex-row gap-2 text-xs">
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-green-950 w-full h-10 rounded"></div>
+						950
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-green-900 w-full h-10 rounded"></div>
+						900
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-green-800 w-full h-10 rounded"></div>
+						800
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-green-700 w-full h-10 rounded"></div>
+						700
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-green-600 w-full h-10 rounded"></div>
+						600
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-green-500 w-full h-10 rounded"></div>
+						500
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-green-400 w-full h-10 rounded"></div>
+						400
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-green-300 w-full h-10 rounded"></div>
+						300
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-green-200 w-full h-10 rounded"></div>
+						200
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-green-100 w-full h-10 rounded"></div>
+						100
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-green-50 w-full h-10 rounded"></div>
+						50
+					</div>
+				</div>
+
+				<h3 id="red" className="mt-8 text-xl font-medium">
+					Red
+				</h3>
+				<div className="mt-2 flex flex-col overflow-hidden md:flex-row gap-2 text-xs">
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-red-950 w-full h-10 rounded"></div>
+						950
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-red-900 w-full h-10 rounded"></div>
+						900
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-red-800 w-full h-10 rounded"></div>
+						800
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-red-700 w-full h-10 rounded"></div>
+						700
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-red-600 w-full h-10 rounded"></div>
+						600
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-red-500 w-full h-10 rounded"></div>
+						500
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-red-400 w-full h-10 rounded"></div>
+						400
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-red-300 w-full h-10 rounded"></div>
+						300
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-red-200 w-full h-10 rounded"></div>
+						200
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-red-100 w-full h-10 rounded"></div>
+						100
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-red-50 w-full h-10 rounded"></div>
+						50
+					</div>
+				</div>
+
+				<h3 id="amber" className="mt-8 text-xl font-medium">
+					Amber
+				</h3>
+				<div className="mt-2 flex flex-col overflow-hidden md:flex-row gap-2 text-xs">
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-amber-950 w-full h-10 rounded"></div>
+						950
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-amber-900 w-full h-10 rounded"></div>
+						900
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-amber-800 w-full h-10 rounded"></div>
+						800
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-amber-700 w-full h-10 rounded"></div>
+						700
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-amber-600 w-full h-10 rounded"></div>
+						600
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-amber-500 w-full h-10 rounded"></div>
+						500
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-amber-400 w-full h-10 rounded"></div>
+						400
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-amber-300 w-full h-10 rounded"></div>
+						300
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-amber-200 w-full h-10 rounded"></div>
+						200
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-amber-100 w-full h-10 rounded"></div>
+						100
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-amber-50 w-full h-10 rounded"></div>
+						50
+					</div>
+				</div>
+
+				<h2 id="variables" className="mt-16 text-3xl font-medium">
+					Extended Palette
+				</h2>
+				<p className="mt-3 text-gray-600">
+					Mantle also supports the entirety of Tailwind&rsquo;s color palette in light, dark, and high contrast
+					variants. We&rsquo;ve left out Tailwind&rsquo;s gray palette, since we only want to use our own custom branded
+					version.
+				</p>
+				<h3 id="gray" className="mt-8 text-xl font-medium">
+					Gray
+				</h3>
+				<div className="mt-2 flex flex-col overflow-hidden md:flex-row gap-2 text-xs">
 					<div className="font-mono flex-grow flex flex-col gap-1">
 						<div className="bg-gray-950 w-full h-10 rounded"></div>
 						950
@@ -184,7 +462,7 @@ export default function Page() {
 				<h3 id="red" className="mt-8 text-xl font-medium">
 					Red
 				</h3>
-				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row gap-2 text-xs">
+				<div className="mt-2 flex flex-col overflow-hidden md:flex-row gap-2 text-xs">
 					<div className="font-mono flex-grow flex flex-col gap-1">
 						<div className="bg-red-950 w-full h-10 rounded"></div>
 						950
@@ -233,7 +511,7 @@ export default function Page() {
 				<h3 id="orange" className="mt-8 text-xl font-medium">
 					Orange
 				</h3>
-				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row gap-2 text-xs">
+				<div className="mt-2 flex flex-col overflow-hidden md:flex-row gap-2 text-xs">
 					<div className="font-mono flex-grow flex flex-col gap-1">
 						<div className="bg-orange-950 w-full h-10 rounded"></div>
 						950
@@ -282,7 +560,7 @@ export default function Page() {
 				<h3 id="amber" className="mt-8 text-xl font-medium">
 					Amber
 				</h3>
-				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row gap-2 text-xs">
+				<div className="mt-2 flex flex-col overflow-hidden md:flex-row gap-2 text-xs">
 					<div className="font-mono flex-grow flex flex-col gap-1">
 						<div className="bg-amber-950 w-full h-10 rounded"></div>
 						950
@@ -331,7 +609,7 @@ export default function Page() {
 				<h3 id="yellow" className="mt-8 text-xl font-medium">
 					Yellow
 				</h3>
-				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row gap-2 text-xs">
+				<div className="mt-2 flex flex-col overflow-hidden md:flex-row gap-2 text-xs">
 					<div className="font-mono flex-grow flex flex-col gap-1">
 						<div className="bg-yellow-950 w-full h-10 rounded"></div>
 						950
@@ -380,7 +658,7 @@ export default function Page() {
 				<h3 id="lime" className="mt-8 text-xl font-medium">
 					Lime
 				</h3>
-				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row gap-2 text-xs">
+				<div className="mt-2 flex flex-col overflow-hidden md:flex-row gap-2 text-xs">
 					<div className="font-mono flex-grow flex flex-col gap-1">
 						<div className="bg-lime-950 w-full h-10 rounded"></div>
 						950
@@ -429,7 +707,7 @@ export default function Page() {
 				<h3 id="green" className="mt-8 text-xl font-medium flex items-center gap-2">
 					Green
 				</h3>
-				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row gap-2 text-xs">
+				<div className="mt-2 flex flex-col overflow-hidden md:flex-row gap-2 text-xs">
 					<div className="font-mono flex-grow flex flex-col gap-1">
 						<div className="bg-green-950 w-full h-10 rounded"></div>
 						950
@@ -478,7 +756,7 @@ export default function Page() {
 				<h3 id="emerald" className="mt-8 text-xl font-medium">
 					Emerald
 				</h3>
-				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row gap-2 text-xs">
+				<div className="mt-2 flex flex-col overflow-hidden md:flex-row gap-2 text-xs">
 					<div className="font-mono flex-grow flex flex-col gap-1">
 						<div className="bg-emerald-950 w-full h-10 rounded"></div>
 						950
@@ -527,7 +805,7 @@ export default function Page() {
 				<h3 id="teal" className="mt-8 text-xl font-medium">
 					Teal
 				</h3>
-				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row gap-2 text-xs">
+				<div className="mt-2 flex flex-col overflow-hidden md:flex-row gap-2 text-xs">
 					<div className="font-mono flex-grow flex flex-col gap-1">
 						<div className="bg-teal-950 w-full h-10 rounded"></div>
 						950
@@ -576,7 +854,7 @@ export default function Page() {
 				<h3 id="cyan" className="mt-8 text-xl font-medium">
 					Cyan
 				</h3>
-				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row gap-2 text-xs">
+				<div className="mt-2 flex flex-col overflow-hidden md:flex-row gap-2 text-xs">
 					<div className="font-mono flex-grow flex flex-col gap-1">
 						<div className="bg-cyan-950 w-full h-10 rounded"></div>
 						950
@@ -626,7 +904,7 @@ export default function Page() {
 				<h3 id="sky" className="mt-8 text-xl font-medium">
 					Sky
 				</h3>
-				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row gap-2 text-xs">
+				<div className="mt-2 flex flex-col overflow-hidden md:flex-row gap-2 text-xs">
 					<div className="font-mono flex-grow flex flex-col gap-1">
 						<div className="bg-sky-950 w-full h-10 rounded"></div>
 						950
@@ -676,11 +954,7 @@ export default function Page() {
 				<h3 id="blue" className="mt-8 text-xl font-medium">
 					Blue
 				</h3>
-				<p className="mt-0 text-gray-600">
-					ngrok&rsquo;s primary branding color is used in its logo as well as primary links. Use it sparingly to attract
-					attention.
-				</p>
-				<div className="mt-2 flex flex-col gap-2 overflow-hidden rounded-md md:flex-row text-xs">
+				<div className="mt-2 flex flex-col gap-2 overflow-hidden md:flex-row text-xs">
 					<div className="font-mono flex-grow flex flex-col gap-1">
 						<div className="bg-blue-950 w-full h-10 rounded"></div>
 						950
@@ -730,7 +1004,7 @@ export default function Page() {
 				<h3 id="violet" className="mt-8 text-xl font-medium">
 					Violet
 				</h3>
-				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row gap-2 text-xs">
+				<div className="mt-2 flex flex-col overflow-hidden md:flex-row gap-2 text-xs">
 					<div className="font-mono flex-grow flex flex-col gap-1">
 						<div className="bg-violet-950 w-full h-10 rounded"></div>
 						950
@@ -779,7 +1053,7 @@ export default function Page() {
 				<h3 id="purple" className="mt-8 text-xl font-medium">
 					Purple
 				</h3>
-				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row gap-2 text-xs">
+				<div className="mt-2 flex flex-col overflow-hidden md:flex-row gap-2 text-xs">
 					<div className="font-mono flex-grow flex flex-col gap-1">
 						<div className="bg-purple-950 w-full h-10 rounded"></div>
 						950
@@ -828,7 +1102,7 @@ export default function Page() {
 				<h3 id="fuchsia" className="mt-8 text-xl font-medium">
 					Fuchsia
 				</h3>
-				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row gap-2 text-xs">
+				<div className="mt-2 flex flex-col overflow-hidden md:flex-row gap-2 text-xs">
 					<div className="font-mono flex-grow flex flex-col gap-1">
 						<div className="bg-fuchsia-950 w-full h-10 rounded"></div>
 						950
@@ -878,7 +1152,7 @@ export default function Page() {
 				<h3 id="pink" className="mt-8 text-xl font-medium">
 					Pink
 				</h3>
-				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row gap-2 text-xs">
+				<div className="mt-2 flex flex-col overflow-hidden md:flex-row gap-2 text-xs">
 					<div className="font-mono flex-grow flex flex-col gap-1">
 						<div className="bg-pink-950 w-full h-10 rounded"></div>
 						950
@@ -927,7 +1201,7 @@ export default function Page() {
 				<h3 id="rose" className="mt-8 text-xl font-medium">
 					Rose
 				</h3>
-				<div className="mt-2 flex flex-col overflow-hidden rounded-md md:flex-row gap-2 text-xs">
+				<div className="mt-2 flex flex-col overflow-hidden md:flex-row gap-2 text-xs">
 					<div className="font-mono flex-grow flex flex-col gap-1">
 						<div className="bg-rose-950 w-full h-10 rounded"></div>
 						950
@@ -973,17 +1247,6 @@ export default function Page() {
 						50
 					</div>
 				</div>
-
-				<h2 id="overrides" className="mt-8 text-3xl font-medium">
-					Overrides
-				</h2>
-				<p className="mt-3 text-gray-600">
-					Most colors should appropriately swap for sensible values in dark and high contrast modes. However, there are
-					often cases where you&rsquo;ll need to specify an override. The <InlineCode>dark:</InlineCode> variant is
-					well-documented on <Anchor href="https://tailwindcss.com/docs/dark-mode">Tailwind&rsquo;s website</Anchor>.
-					Mantle provides additional variants for high contrast and dark high contrast mode with{" "}
-					<InlineCode>high-contrast:</InlineCode> and <InlineCode>dark-high-contrast:</InlineCode> respectively.
-				</p>
 			</div>
 		</div>
 	);
