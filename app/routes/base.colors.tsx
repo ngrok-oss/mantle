@@ -39,17 +39,89 @@ export default function Page() {
 							Variables
 						</HashNavLink>
 					</li>
+					<li>
+						<HashNavLink
+							className={(isActive) =>
+								cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+							}
+							to=".#overrides"
+						>
+							Overrides
+						</HashNavLink>
+					</li>
+					<li>
+						<HashNavLink
+							className={(isActive) =>
+								cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+							}
+							to=".#branded-colors"
+						>
+							Branded Colors
+						</HashNavLink>
+					</li>
 					<ul className="ml-4 flex flex-col gap-2">
 						<li>
 							<HashNavLink
 								className={(isActive) =>
 									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
 								}
-								to=".#blue"
+								to=".#gray-branded"
+							>
+								Gray
+							</HashNavLink>
+						</li>
+						<li>
+							<HashNavLink
+								className={(isActive) =>
+									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+								}
+								to=".#blue-branded"
 							>
 								Blue
 							</HashNavLink>
 						</li>
+						<li>
+							<HashNavLink
+								className={(isActive) =>
+									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+								}
+								to=".#green-branded"
+							>
+								Green
+							</HashNavLink>
+						</li>
+						<li>
+							<HashNavLink
+								className={(isActive) =>
+									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+								}
+								to=".#red-branded"
+							>
+								Red
+							</HashNavLink>
+						</li>
+						<li>
+							<HashNavLink
+								className={(isActive) =>
+									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+								}
+								to=".#amber-branded"
+							>
+								Amber
+							</HashNavLink>
+						</li>
+					</ul>
+					<li>
+						<HashNavLink
+							className={(isActive) =>
+								cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+							}
+							to=".#extended-palette"
+						>
+							Extended Palette
+						</HashNavLink>
+					</li>
+					<ul className="ml-4 flex flex-col gap-2">
 						<li>
 							<HashNavLink
 								className={(isActive) =>
@@ -75,9 +147,9 @@ export default function Page() {
 								className={(isActive) =>
 									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
 								}
-								to=".#green"
+								to=".#orange"
 							>
-								Green
+								Orange
 							</HashNavLink>
 						</li>
 						<li>
@@ -90,17 +162,148 @@ export default function Page() {
 								Amber
 							</HashNavLink>
 						</li>
+						<li>
+							<HashNavLink
+								className={(isActive) =>
+									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+								}
+								to=".#yellow"
+							>
+								Yellow
+							</HashNavLink>
+						</li>
+						<li>
+							<HashNavLink
+								className={(isActive) =>
+									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+								}
+								to=".#lime"
+							>
+								Lime
+							</HashNavLink>
+						</li>
+						<li>
+							<HashNavLink
+								className={(isActive) =>
+									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+								}
+								to=".#green"
+							>
+								Green
+							</HashNavLink>
+						</li>
+						<li>
+							<HashNavLink
+								className={(isActive) =>
+									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+								}
+								to=".#emerald"
+							>
+								Emerald
+							</HashNavLink>
+						</li>
+						<li>
+							<HashNavLink
+								className={(isActive) =>
+									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+								}
+								to=".#teal"
+							>
+								Teal
+							</HashNavLink>
+						</li>
+						<li>
+							<HashNavLink
+								className={(isActive) =>
+									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+								}
+								to=".#cyan"
+							>
+								Cyan
+							</HashNavLink>
+						</li>
+						<li>
+							<HashNavLink
+								className={(isActive) =>
+									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+								}
+								to=".#sky"
+							>
+								Sky
+							</HashNavLink>
+						</li>
+
+						<li>
+							<HashNavLink
+								className={(isActive) =>
+									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+								}
+								to=".#blue"
+							>
+								Blue
+							</HashNavLink>
+						</li>
+						<li>
+							<HashNavLink
+								className={(isActive) =>
+									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+								}
+								to=".#indigo"
+							>
+								Indigo
+							</HashNavLink>
+						</li>
+						<li>
+							<HashNavLink
+								className={(isActive) =>
+									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+								}
+								to=".#violet"
+							>
+								Violet
+							</HashNavLink>
+						</li>
+						<li>
+							<HashNavLink
+								className={(isActive) =>
+									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+								}
+								to=".#purple"
+							>
+								Purple
+							</HashNavLink>
+						</li>
+						<li>
+							<HashNavLink
+								className={(isActive) =>
+									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+								}
+								to=".#fuchsia"
+							>
+								Fuchsia
+							</HashNavLink>
+						</li>
+						<li>
+							<HashNavLink
+								className={(isActive) =>
+									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+								}
+								to=".#pink"
+							>
+								Pink
+							</HashNavLink>
+						</li>
+						<li>
+							<HashNavLink
+								className={(isActive) =>
+									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+								}
+								to=".#rose"
+							>
+								Rose
+							</HashNavLink>
+						</li>
 					</ul>
-					<li>
-						<HashNavLink
-							className={(isActive) =>
-								cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
-							}
-							to=".#overrides"
-						>
-							Overrides
-						</HashNavLink>
-					</li>
 				</ul>
 			</nav>
 			<div className="flex-1">
@@ -152,7 +355,7 @@ export default function Page() {
 					states like danger and warnings.
 				</p>
 
-				<h3 id="gray" className="mt-8 text-xl font-medium">
+				<h3 id="gray-branded" className="mt-8 text-xl font-medium">
 					Gray
 				</h3>
 				<div className="mt-2 flex flex-col overflow-hidden md:flex-row gap-2 text-xs">
@@ -202,7 +405,7 @@ export default function Page() {
 					</div>
 				</div>
 
-				<h3 id="blue" className="mt-8 text-xl font-medium">
+				<h3 id="blue-branded" className="mt-8 text-xl font-medium">
 					Blue
 				</h3>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden md:flex-row text-xs">
@@ -252,7 +455,7 @@ export default function Page() {
 					</div>
 				</div>
 
-				<h3 id="green" className="mt-8 text-xl font-medium flex items-center gap-2">
+				<h3 id="green-branded" className="mt-8 text-xl font-medium flex items-center gap-2">
 					Green
 				</h3>
 				<div className="mt-2 flex flex-col overflow-hidden md:flex-row gap-2 text-xs">
@@ -302,7 +505,7 @@ export default function Page() {
 					</div>
 				</div>
 
-				<h3 id="red" className="mt-8 text-xl font-medium">
+				<h3 id="red-branded" className="mt-8 text-xl font-medium">
 					Red
 				</h3>
 				<div className="mt-2 flex flex-col overflow-hidden md:flex-row gap-2 text-xs">
@@ -352,7 +555,7 @@ export default function Page() {
 					</div>
 				</div>
 
-				<h3 id="amber" className="mt-8 text-xl font-medium">
+				<h3 id="amber-branded" className="mt-8 text-xl font-medium">
 					Amber
 				</h3>
 				<div className="mt-2 flex flex-col overflow-hidden md:flex-row gap-2 text-xs">
@@ -402,7 +605,7 @@ export default function Page() {
 					</div>
 				</div>
 
-				<h2 id="variables" className="mt-16 text-3xl font-medium">
+				<h2 id="extended-palette" className="mt-16 text-3xl font-medium">
 					Extended Palette
 				</h2>
 				<p className="mt-3 text-gray-600">
@@ -997,6 +1200,56 @@ export default function Page() {
 					</div>
 					<div className="font-mono flex-grow flex flex-col gap-1">
 						<div className="bg-blue-50 w-full h-10 rounded"></div>
+						50
+					</div>
+				</div>
+
+				<h3 id="indigo" className="mt-8 text-xl font-medium">
+					Indigo
+				</h3>
+				<div className="mt-2 flex flex-col overflow-hidden md:flex-row gap-2 text-xs">
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-indigo-950 w-full h-10 rounded"></div>
+						950
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-indigo-900 w-full h-10 rounded"></div>
+						900
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-indigo-800 w-full h-10 rounded"></div>
+						800
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-indigo-700 w-full h-10 rounded"></div>
+						700
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-indigo-600 w-full h-10 rounded"></div>
+						600
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-indigo-500 w-full h-10 rounded"></div>
+						500
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-indigo-400 w-full h-10 rounded"></div>
+						400
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-indigo-300 w-full h-10 rounded"></div>
+						300
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-indigo-200 w-full h-10 rounded"></div>
+						200
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-indigo-100 w-full h-10 rounded"></div>
+						100
+					</div>
+					<div className="font-mono flex-grow flex flex-col gap-1">
+						<div className="bg-indigo-50 w-full h-10 rounded"></div>
 						50
 					</div>
 				</div>
