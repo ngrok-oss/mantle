@@ -12,6 +12,7 @@ export const routePatterns = [
 	"/components/input",
 	"/components/media-object",
 	"/components/popover",
+	"/components/select",
 	"/components/skeleton",
 	"/components/table",
 ] as const;
@@ -35,6 +36,7 @@ export const routes = [
 	"/components/input",
 	"/components/media-object",
 	"/components/popover",
+	"/components/select",
 	"/components/skeleton",
 	"/components/table",
 ] as const;

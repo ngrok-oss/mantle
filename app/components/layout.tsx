@@ -136,6 +136,9 @@ function Navigation({ className, style }: WithStyleProps) {
 						<NavLink to="/components/popover">Popover</NavLink>
 					</li>
 					<li>
+						<NavLink to="/components/select">Select</NavLink>
+					</li>
+					<li>
 						<NavLink to="/components/skeleton">Skeleton</NavLink>
 					</li>
 					<li>
