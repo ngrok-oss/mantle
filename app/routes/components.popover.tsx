@@ -3,7 +3,7 @@ import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/
 import { code } from "@/code-block/code";
 import { Input } from "@/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/popover";
-import type { MetaFunction } from "@vercel/remix";
+import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 
 export const meta: MetaFunction = () => {
@@ -11,6 +11,12 @@ export const meta: MetaFunction = () => {
 		{ title: "@ngrok/mantle — Popover" },
 		{ name: "description", content: "mantle is ngrok's UI library and design system" },
 	];
+};
+
+export const headers: HeadersFunction = () => {
+	return {
+		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
+	};
 };
 
 export default function Page() {

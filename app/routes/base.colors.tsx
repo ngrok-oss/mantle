@@ -1,7 +1,7 @@
 import { Anchor } from "@/anchor";
 import { cx } from "@/cx";
 import { InlineCode } from "@/inline-code";
-import type { MetaFunction } from "@vercel/remix";
+import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { HashNavLink } from "~/components/hash-nav-link";
 
 export const meta: MetaFunction = () => {
@@ -9,6 +9,12 @@ export const meta: MetaFunction = () => {
 		{ title: "@ngrok/mantle — Colors" },
 		{ name: "description", content: "mantle is ngrok's UI library and design system" },
 	];
+};
+
+export const headers: HeadersFunction = () => {
+	return {
+		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
+	};
 };
 
 export default function Page() {

@@ -1,7 +1,7 @@
 import { PreventWrongThemeFlash, ThemeProvider } from "@/theme-provider";
 import { cssBundleHref } from "@remix-run/css-bundle";
+import type { LinksFunction } from "@remix-run/node";
 import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
-import type { LinksFunction } from "@vercel/remix";
 import mantleCss from "../assets/mantle.css";
 import { Layout } from "./components/layout";
 

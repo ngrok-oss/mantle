@@ -95,54 +95,82 @@ function Navigation({ className, style }: WithStyleProps) {
 				<li className="mb-2 text-xs font-medium uppercase tracking-wider">Welcome</li>
 
 				<li>
-					<NavLink to="/">Overview</NavLink>
+					<NavLink to="/" prefetch="intent">
+						Overview
+					</NavLink>
 				</li>
 
 				<li className="mt-6 text-xs font-medium uppercase tracking-wider">Base</li>
 
 				<ul role="list" className="mt-2">
 					<li>
-						<NavLink to="/base/colors">Colors</NavLink>
+						<NavLink to="/base/colors" prefetch="intent">
+							Colors
+						</NavLink>
 					</li>
 					<li>
-						<NavLink to="/base/typography">Typography</NavLink>
+						<NavLink to="/base/typography" prefetch="intent">
+							Typography
+						</NavLink>
 					</li>
 				</ul>
 
 				<li className="mt-6 text-xs font-medium uppercase tracking-wider">Components</li>
 				<ul role="list" className="mt-2">
 					<li>
-						<NavLink to="/components/anchor">Anchor</NavLink>
+						<NavLink to="/components/anchor" prefetch="intent">
+							Anchor
+						</NavLink>
 					</li>
 					<li>
-						<NavLink to="/components/button">Button</NavLink>
+						<NavLink to="/components/button" prefetch="intent">
+							Button
+						</NavLink>
 					</li>
 					<li>
-						<NavLink to="/components/card">Card</NavLink>
+						<NavLink to="/components/card" prefetch="intent">
+							Card
+						</NavLink>
 					</li>
 					<li>
-						<NavLink to="/components/code-block">Code Block</NavLink>
+						<NavLink to="/components/code-block" prefetch="intent">
+							Code Block
+						</NavLink>
 					</li>
 					<li>
-						<NavLink to="/components/inline-code">Inline Code</NavLink>
+						<NavLink to="/components/inline-code" prefetch="intent">
+							Inline Code
+						</NavLink>
 					</li>
 					<li>
-						<NavLink to="/components/input">Input</NavLink>
+						<NavLink to="/components/input" prefetch="intent">
+							Input
+						</NavLink>
 					</li>
 					<li>
-						<NavLink to="/components/media-object">Media Object</NavLink>
+						<NavLink to="/components/media-object" prefetch="intent">
+							Media Object
+						</NavLink>
 					</li>
 					<li>
-						<NavLink to="/components/popover">Popover</NavLink>
+						<NavLink to="/components/popover" prefetch="intent">
+							Popover
+						</NavLink>
 					</li>
 					<li>
-						<NavLink to="/components/select">Select</NavLink>
+						<NavLink to="/components/select" prefetch="intent">
+							Select
+						</NavLink>
 					</li>
 					<li>
-						<NavLink to="/components/skeleton">Skeleton</NavLink>
+						<NavLink to="/components/skeleton" prefetch="intent">
+							Skeleton
+						</NavLink>
 					</li>
 					<li>
-						<NavLink to="/components/table">Table</NavLink>
+						<NavLink to="/components/table" prefetch="intent">
+							Table
+						</NavLink>
 					</li>
 				</ul>
 			</ul>
