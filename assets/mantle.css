@@ -1111,6 +1111,21 @@
 	}
 }
 
+@layer utilities {
+	.light {
+		color-scheme: light;
+	}
+	.dark {
+		color-scheme: dark;
+	}
+	.light-high-contrast {
+		color-scheme: light;
+	}
+	.dark-high-contrast {
+		color-scheme: dark;
+	}
+}
+
 /**
 	* prism.js default theme for JavaScript, CSS and HTML
 	* Based on dabblet (http://dabblet.com)
