@@ -12,17 +12,18 @@ export {
 	CodeBlockTitle,
 } from "./code-block";
 export {
-	Drawer,
-	DrawerPortal,
-	DrawerOverlay,
-	DrawerTrigger,
-	DrawerClose,
-	DrawerContent,
-	DrawerHeader,
-	DrawerFooter,
-	DrawerTitle,
-	DrawerDescription,
-} from "./drawer";
+	Sheet,
+	SheetBody,
+	SheetClose,
+	SheetContent,
+	SheetDescription,
+	SheetFooter,
+	SheetHeader,
+	SheetOverlay,
+	SheetPortal,
+	SheetTitle,
+	SheetTrigger,
+} from "./sheet";
 export { InlineCode } from "./inline-code";
 export { Input } from "./input";
 export { MediaObject, MediaObjectMedia, MediaObjectContent } from "./media-object";

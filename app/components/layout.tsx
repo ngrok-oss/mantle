@@ -163,6 +163,11 @@ function Navigation({ className, style }: WithStyleProps) {
 						</NavLink>
 					</li>
 					<li>
+						<NavLink to="/components/sheet" prefetch="intent">
+							Sheet
+						</NavLink>
+					</li>
+					<li>
 						<NavLink to="/components/skeleton" prefetch="intent">
 							Skeleton
 						</NavLink>
