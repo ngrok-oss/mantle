@@ -1,5 +1,5 @@
 import { Anchor } from "@/anchor";
-import type { HeadersFunction, MetaFunction } from "@vercel/remix";
+import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 
 export const meta: MetaFunction = () => {
 	return [

@@ -1,7 +1,7 @@
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
 import { code } from "@/code-block/code";
 import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/table";
-import type { MetaFunction } from "@vercel/remix";
+import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 
 export const meta: MetaFunction = () => {
@@ -9,6 +9,12 @@ export const meta: MetaFunction = () => {
 		{ title: "@ngrok/mantle — Table" },
 		{ name: "description", content: "mantle is ngrok's UI library and design system" },
 	];
+};
+
+export const headers: HeadersFunction = () => {
+	return {
+		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
+	};
 };
 
 export default function Page() {
