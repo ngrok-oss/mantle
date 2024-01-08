@@ -1179,7 +1179,7 @@
 
 @layer base {
 	body {
-		@apply bg-white text-gray-900;
+		@apply overflow-y-scroll bg-white text-gray-900;
 	}
 }
 
@@ -1205,6 +1205,6 @@
 }
 
 .scrollbar {
-	scrollbar-color: hsl(var(--gray-600) / 0.5) transparent;
+	scrollbar-color: hsl(var(--gray-600) / 0.5) hsl(var(--white) / var(--tw-bg-opacity));
 	scrollbar-width: thin;
 }
