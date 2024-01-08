@@ -1179,7 +1179,7 @@
 
 @layer base {
 	body {
-		@apply overflow-y-scroll bg-white text-gray-900;
+		@apply bg-white text-gray-900;
 	}
 }
 
@@ -1191,7 +1191,7 @@
 
 .scrollbar::-webkit-scrollbar-track {
 	border-radius: 0.5rem;
-	background-color: transparent;
+	background-color: hsl(var(--white) / var(--tw-bg-opacity));
 }
 
 .scrollbar::-webkit-scrollbar-thumb {

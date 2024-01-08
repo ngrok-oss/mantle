@@ -22,7 +22,7 @@ export default function App() {
 				<Meta />
 				<Links />
 			</head>
-			<body className="h-full min-h-full bg-background">
+			<body className="h-full min-h-full overflow-y-scroll bg-background">
 				<ThemeProvider>
 					<Layout>
 						<Outlet />
