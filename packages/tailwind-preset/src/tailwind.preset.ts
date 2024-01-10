@@ -16,12 +16,17 @@ const mantlePreset = {
 			},
 		},
 		extend: {
+			animation: {
+				"accordion-down": "accordion-down 0.2s ease-out",
+				"accordion-up": "accordion-up 0.2s ease-out",
+			},
 			aria: {
 				invalid: 'invalid="true"',
 			},
-			fontFamily: {
-				sans: ["EuclidSquare", ...defaultTheme.fontFamily.sans],
-				mono: ["IBMPlexMono", ...defaultTheme.fontFamily.mono],
+			borderRadius: {
+				lg: "var(--radius)",
+				md: "calc(var(--radius) - 2px)",
+				sm: "calc(var(--radius) - 4px)",
 			},
 			colors: {
 				white: "hsl(var(--white) / <alpha-value>)",
@@ -295,13 +300,19 @@ const mantlePreset = {
 					foreground: "hsl(var(--card-foreground))",
 				},
 			},
-			borderRadius: {
-				lg: "var(--radius)",
-				md: "calc(var(--radius) - 2px)",
-				sm: "calc(var(--radius) - 4px)",
+			cursor: {
+				inherit: "inherit",
+				initial: "initial",
 			},
-			transitionProperty: {
-				"max-height": "max-height",
+			fontFamily: {
+				sans: ["EuclidSquare", ...defaultTheme.fontFamily.sans],
+				mono: ["IBMPlexMono", ...defaultTheme.fontFamily.mono],
+			},
+			fontSize: {
+				"size-inherit": "inherit",
+			},
+			fontWeight: {
+				initial: "initial",
 			},
 			keyframes: {
 				"accordion-down": {
@@ -313,9 +324,19 @@ const mantlePreset = {
 					to: { height: "0" },
 				},
 			},
-			animation: {
-				"accordion-down": "accordion-down 0.2s ease-out",
-				"accordion-up": "accordion-up 0.2s ease-out",
+			lineHeight: {
+				0: "0",
+				initial: "initial",
+			},
+			screens: {
+				xs: "480px",
+			},
+			transitionProperty: {
+				"max-height": "max-height",
+			},
+			zIndex: {
+				1: "1",
+				max: "2147483647",
 			},
 		},
 	},
