@@ -12,7 +12,7 @@ const buttonVariants = cva(
 			appearance: {
 				outline: "border-blue-600 text-blue-600 hover:bg-blue-50 active:bg-blue-100 focus-visible:ring-blue-500/25",
 				solid:
-					"border-transparent bg-blue-500 text-button hover:bg-blue-600 active:bg-blue-700 focus-visible:ring-blue-500/25",
+					"border-transparent bg-blue-500 text-button hover:bg-blue-600 active:bg-blue-700 focus-visible:border-blue-600 focus-visible:ring-blue-500/25",
 				ghost: "border-transparent text-blue-600 hover:bg-blue-50 active:bg-blue-100 focus-visible:ring-blue-500/25",
 			},
 			priority: {
@@ -39,7 +39,8 @@ const buttonVariants = cva(
 			{
 				appearance: "solid",
 				priority: "danger",
-				class: "border-transparent bg-red-500 hover:bg-red-600 active:bg-red-700 focus-visible:ring-red-500/25",
+				class:
+					"border-transparent bg-red-500 hover:bg-red-600 active:bg-red-700 focus-visible:ring-red-500/25 focus-visible:border-red-600",
 			},
 			{
 				appearance: "ghost",
@@ -55,7 +56,8 @@ const buttonVariants = cva(
 			{
 				appearance: "solid",
 				priority: "muted",
-				class: "border-transparent bg-gray-500 hover:bg-gray-600 active:bg-gray-700 focus-visible:ring-gray-500/25",
+				class:
+					"border-transparent bg-gray-500 hover:bg-gray-600 active:bg-gray-700 focus-visible:ring-gray-500/25 focus-visible:border-gray-600",
 			},
 		],
 	},
