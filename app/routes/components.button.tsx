@@ -25,7 +25,7 @@ export default function Page() {
 			<p className="mt-4 text-xl text-gray-600">
 				Initiates an action, such as completing a task or submitting information
 			</p>
-			<Example className="mt-4 gap-4 flex flex-wrap">
+			<Example className="mt-4 flex flex-wrap gap-4">
 				<div className="flex gap-2">
 					<Button>Ghost</Button>
 					<Button appearance="solid">Solid</Button>
@@ -52,14 +52,14 @@ export default function Page() {
 					</Button>
 				</div>
 			</Example>
-			<CodeBlock className="rounded-t-none rounded-b-lg">
+			<CodeBlock className="rounded-b-lg rounded-t-none">
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
 					<CodeBlockCode language="tsx">{code`<Button>Click me!</Button>`}</CodeBlockCode>
 				</CodeBlockBody>
 			</CodeBlock>
 			<h2 className="mt-16 text-3xl font-medium">API Reference</h2>
-			<div className="mt-4 rounded-lg border border-gray-300 overflow-hidden z-10">
+			<div className="z-10 mt-4 overflow-hidden rounded-lg border border-gray-300">
 				<Table>
 					<TableHeader>
 						<TableRow>
@@ -71,7 +71,7 @@ export default function Page() {
 					<TableBody className="font-mono text-xs text-gray-600">
 						<TableRow>
 							<TableCell className="align-top font-medium">appearance</TableCell>
-							<TableCell className="align-top text-xs space-y-2">
+							<TableCell className="space-y-2 align-top text-xs">
 								<p>ghost</p>
 								<p>solid</p>
 								<p>outline</p>
@@ -80,7 +80,7 @@ export default function Page() {
 						</TableRow>
 						<TableRow>
 							<TableCell className="align-top font-medium">priority</TableCell>
-							<TableCell className="align-top text-xs space-y-2">
+							<TableCell className="space-y-2 align-top text-xs">
 								<p>default</p>
 								<p>danger</p>
 								<p>muted</p>

@@ -13,7 +13,7 @@ type Story = StoryObj<typeof Skeleton>;
 
 export const Default: Story = {
 	render: () => (
-		<div className="max-w-sm mx-auto">
+		<div className="mx-auto max-w-sm">
 			<Skeleton className="h-4 w-full" />
 		</div>
 	),
@@ -21,7 +21,7 @@ export const Default: Story = {
 
 export const SkeletonMediaObject: Story = {
 	render: () => (
-		<div className="max-w-sm mx-auto">
+		<div className="mx-auto max-w-sm">
 			<MediaObject>
 				<MediaObjectMedia>
 					<Skeleton className="h-12 w-12 rounded-full" />

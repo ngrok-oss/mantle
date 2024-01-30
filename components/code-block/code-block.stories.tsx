@@ -27,7 +27,7 @@ export const WithHeaderFileExpanding: Story = {
 		<div className="mx-auto max-w-screen-md">
 			<CodeBlock>
 				<CodeBlockHeader className="flex items-center gap-1">
-					<FileText className="w-5 h-5" weight="fill" />
+					<FileText className="h-5 w-5" weight="fill" />
 					<CodeBlockTitle>ngrok-example.js</CodeBlockTitle>
 				</CodeBlockHeader>
 				<CodeBlockBody>
@@ -90,7 +90,7 @@ export const WithHeaderCommandLine: Story = {
 		<div className="mx-auto max-w-screen-md">
 			<CodeBlock>
 				<CodeBlockHeader className="flex items-center gap-1">
-					<Terminal className="w-5 h-5" weight="fill" />
+					<Terminal className="h-5 w-5" weight="fill" />
 					<CodeBlockTitle>Command Line</CodeBlockTitle>
 				</CodeBlockHeader>
 				<CodeBlockBody>
@@ -109,7 +109,7 @@ export const WithHeaderFile: Story = {
 		<div className="mx-auto max-w-screen-md">
 			<CodeBlock>
 				<CodeBlockHeader className="flex items-center gap-1">
-					<FileText className="w-5 h-5" weight="fill" />
+					<FileText className="h-5 w-5" weight="fill" />
 					<CodeBlockTitle>ngrok-example.js</CodeBlockTitle>
 				</CodeBlockHeader>
 				<CodeBlockBody>

@@ -66,11 +66,11 @@ const SheetContent = forwardRef<ElementRef<typeof SheetPrimitive.Content>, Sheet
 SheetContent.displayName = SheetPrimitive.Content.displayName;
 
 const SheetBody = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => (
-	<div className={cx("p-6 flex-1 overflow-y-auto", className)} {...props} />
+	<div className={cx("flex-1 overflow-y-auto p-6", className)} {...props} />
 );
 
 const SheetHeader = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => (
-	<div className={cx("px-6 py-4 border-b shrink-0 border-gray-300", className)} {...props} />
+	<div className={cx("shrink-0 border-b border-gray-300 px-6 py-4", className)} {...props} />
 );
 
 const SheetFooter = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => (

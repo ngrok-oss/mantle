@@ -56,7 +56,7 @@ export default function Page() {
 					</MediaObjectContent>
 				</MediaObject>
 			</Example>
-			<CodeBlock className="rounded-t-none rounded-b-lg">
+			<CodeBlock className="rounded-b-lg rounded-t-none">
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
 					<CodeBlockCode language="tsx">

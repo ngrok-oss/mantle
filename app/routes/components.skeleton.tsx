@@ -27,7 +27,7 @@ export default function Page() {
 			<Example className="mt-4">
 				<Skeleton className="h-4 w-full" />
 			</Example>
-			<CodeBlock className="rounded-t-none rounded-b-lg">
+			<CodeBlock className="rounded-b-lg rounded-t-none">
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
 					<CodeBlockCode language="tsx">{code`<Skeleton className="h-4 w-full" />`}</CodeBlockCode>
@@ -53,7 +53,7 @@ export default function Page() {
 						</MediaObjectContent>
 					</MediaObject>
 				</Example>
-				<CodeBlock className="rounded-t-none rounded-b-lg">
+				<CodeBlock className="rounded-b-lg rounded-t-none">
 					<CodeBlockBody>
 						<CodeBlockCopyButton />
 						<CodeBlockCode language="tsx">
