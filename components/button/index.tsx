@@ -10,10 +10,10 @@ const buttonVariants = cva(
 	{
 		variants: {
 			appearance: {
-				outline: "border-blue-500 text-blue-600 hover:bg-blue-100 active:bg-blue-200 focus-visible:ring-blue-500/25",
+				outline: "border-blue-600 text-blue-600 hover:bg-blue-50 active:bg-blue-100 focus-visible:ring-blue-500/25",
 				solid:
 					"border-transparent bg-blue-500 text-button hover:bg-blue-600 active:bg-blue-700 focus-visible:ring-blue-500/25",
-				ghost: "border-transparent text-blue-600 hover:bg-blue-100 active:bg-blue-200 focus-visible:ring-blue-500/25",
+				ghost: "border-transparent text-blue-600 hover:bg-blue-50 active:bg-blue-100 focus-visible:ring-blue-500/25",
 			},
 			priority: {
 				default: "",
