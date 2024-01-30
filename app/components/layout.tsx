@@ -177,6 +177,11 @@ function Navigation({ className, style }: WithStyleProps) {
 							Table
 						</NavLink>
 					</li>
+					<li>
+						<NavLink to="/components/tooltip" prefetch="intent">
+							Tooltip
+						</NavLink>
+					</li>
 				</ul>
 			</ul>
 		</nav>
