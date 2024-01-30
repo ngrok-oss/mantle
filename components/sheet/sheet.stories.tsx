@@ -12,7 +12,7 @@ type Story = StoryObj<typeof Sheet>;
 
 export const Default: Story = {
 	render: () => (
-		<div className="max-w-sm mx-auto">
+		<div className="mx-auto max-w-sm">
 			<Sheet>
 				<SheetTrigger>Open Sheet</SheetTrigger>
 				<SheetContent className="max-w-lg sm:max-w-lg">

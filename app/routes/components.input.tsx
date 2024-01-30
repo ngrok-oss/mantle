@@ -26,7 +26,7 @@ export default function Page() {
 			<Example className="mt-4">
 				<Input placeholder="Enter a username" />
 			</Example>
-			<CodeBlock className="rounded-t-none rounded-b-lg">
+			<CodeBlock className="rounded-b-lg rounded-t-none">
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
 					<CodeBlockCode language="tsx">{code`<Input placeholder="Enter a username" />`}</CodeBlockCode>

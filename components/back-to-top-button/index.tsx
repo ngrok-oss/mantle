@@ -42,7 +42,7 @@ export const BackToTopButton = ({ className, showThresholdPx = 200, style }: Pro
 						tabIndex={-1}
 					>
 						<span className="sr-only">Scroll back to top</span>
-						<ArrowLineUp className="w-6 h-6" />
+						<ArrowLineUp className="h-6 w-6" />
 					</TooltipTrigger>
 					<TooltipContent collisionPadding={8}>
 						<p>Scroll back to top</p>
