@@ -26,7 +26,7 @@ export default function Page() {
 			<Example className="mt-4">
 				<InlineCode>npm install @ngrok/mantle</InlineCode>
 			</Example>
-			<CodeBlock className="rounded-t-none rounded-b-lg">
+			<CodeBlock className="rounded-b-lg rounded-t-none">
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
 					<CodeBlockCode language="tsx">{code`<InlineCode>npm install @ngrok/mantle</InlineCode>`}</CodeBlockCode>

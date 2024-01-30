@@ -26,7 +26,7 @@ const ExampleMedia = () => (
 
 export const Basic: Story = {
 	render: () => (
-		<div className="max-w-96 mx-auto">
+		<div className="mx-auto max-w-96">
 			<MediaObject>
 				<MediaObjectMedia>
 					<ExampleMedia />
@@ -46,7 +46,7 @@ export const Basic: Story = {
 
 export const StyledWithGap: Story = {
 	render: () => (
-		<div className="max-w-96 mx-auto">
+		<div className="mx-auto max-w-96">
 			<MediaObject className="gap-10 bg-slate-300 p-6">
 				<MediaObjectMedia>
 					<ExampleMedia />
@@ -66,7 +66,7 @@ export const StyledWithGap: Story = {
 
 export const MediaCenterAligned: Story = {
 	render: () => (
-		<div className="max-w-96 mx-auto">
+		<div className="mx-auto max-w-96">
 			<MediaObject>
 				<MediaObjectMedia className="self-center">
 					<ExampleMedia />
@@ -86,7 +86,7 @@ export const MediaCenterAligned: Story = {
 
 export const MediaBottomAligned: Story = {
 	render: () => (
-		<div className="max-w-96 mx-auto">
+		<div className="mx-auto max-w-96">
 			<MediaObject>
 				<MediaObjectMedia className="self-end">
 					<ExampleMedia />
@@ -106,7 +106,7 @@ export const MediaBottomAligned: Story = {
 
 export const MediaOnRightByFlexRowReverse: Story = {
 	render: () => (
-		<div className="max-w-96 mx-auto">
+		<div className="mx-auto max-w-96">
 			<MediaObject className="flex-row-reverse">
 				<MediaObjectMedia>
 					<ExampleMedia />
@@ -126,7 +126,7 @@ export const MediaOnRightByFlexRowReverse: Story = {
 
 export const MediaOnRightByOrder: Story = {
 	render: () => (
-		<div className="max-w-96 mx-auto">
+		<div className="mx-auto max-w-96">
 			<MediaObject>
 				<MediaObjectContent>
 					<h4 className="text-lg font-bold">Lorem ipsum</h4>

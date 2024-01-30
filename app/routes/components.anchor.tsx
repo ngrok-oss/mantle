@@ -55,7 +55,7 @@ export default function Page() {
 					This link will go to <Anchor href="https://ngrok.com/">ngrok.com</Anchor>!
 				</p>
 			</Example>
-			<CodeBlock className="rounded-t-none rounded-b-lg">
+			<CodeBlock className="rounded-b-lg rounded-t-none">
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
 					<CodeBlockCode language="tsx">

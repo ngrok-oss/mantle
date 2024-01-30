@@ -36,14 +36,14 @@ export function Layout({ children, className, style }: Props) {
 		<main className={cx("mx-auto h-full max-w-7xl sm:px-4", className)} style={style}>
 			<header className="flex h-24 items-center gap-4 px-4 sm:px-0">
 				<button
-					className="md:hidden flex shrink-0 h-10 w-10 items-center justify-center rounded-md border border-gray-300 bg-white focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-600/25"
+					className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-white focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-600/25 md:hidden"
 					onClick={() => {
 						setShowNavigation((s) => !s);
 					}}
 				>
-					{!showNavigation && <List className="w-6 h-6" />}
+					{!showNavigation && <List className="h-6 w-6" />}
 
-					{showNavigation && <X className="w-6 h-6" />}
+					{showNavigation && <X className="h-6 w-6" />}
 				</button>
 
 				<Link to="/">
@@ -63,7 +63,7 @@ export function Layout({ children, className, style }: Props) {
 						{/* TODO: this should probably have a title/tooltip instead that describes what it is since we ain't got a spot for a label */}
 						<span className="sr-only">Theme Switcher</span>
 						<SelectTrigger className="w-min">
-							<Sun className="w-6 h-6 mr-1" />
+							<Sun className="mr-1 h-6 w-6" />
 						</SelectTrigger>
 					</div>
 					<SelectContent>
@@ -76,13 +76,13 @@ export function Layout({ children, className, style }: Props) {
 				</Select>
 			</header>
 			{showNavigation && (
-				<div className="md:hidden absolute bg-card z-50 p-4 bottom-0 top-24 left-0 right-0">
-					<Navigation className="h-full scrollbar overflow-auto" />
+				<div className="absolute bottom-0 left-0 right-0 top-24 z-50 bg-card p-4 md:hidden">
+					<Navigation className="scrollbar h-full overflow-auto" />
 				</div>
 			)}
 			<div className="flex gap-4">
 				<Navigation className="hidden w-44 pt-9 md:block" />
-				<article className="flex-1 bg-card p-4 shadow-2xl sm:rounded-lg md:p-9 w-0 sm:mb-4 lg:mb-9">{children}</article>
+				<article className="w-0 flex-1 bg-card p-4 shadow-2xl sm:mb-4 sm:rounded-lg md:p-9 lg:mb-9">{children}</article>
 			</div>
 		</main>
 	);

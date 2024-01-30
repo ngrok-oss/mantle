@@ -38,7 +38,7 @@ type Story = StoryObj<typeof meta>;
 
 export const FullyLoaded: Story = {
 	render: () => (
-		<div className="max-w-96 mx-auto">
+		<div className="mx-auto max-w-96">
 			<Card>
 				<CardHeader>
 					<CardTitle>Card Title Here</CardTitle>
@@ -56,7 +56,7 @@ export const FullyLoaded: Story = {
 
 export const Simple: Story = {
 	render: () => (
-		<div className="max-w-96 mx-auto">
+		<div className="mx-auto max-w-96">
 			<Card>
 				<p className="mb-0">Duis irure nisi sint eiusmod irure sunt pariatur veniam Lorem nostrud cillum.</p>
 			</Card>
@@ -66,7 +66,7 @@ export const Simple: Story = {
 
 export const SimpleStyled: Story = {
 	render: () => (
-		<div className="max-w-96 mx-auto">
+		<div className="mx-auto max-w-96">
 			<Card className="bg-brand-secondary-400 border-4 border-red-700 p-4 text-white">
 				<p className="mb-0">Ex fugiat commodo ullamco eiusmod qui reprehenderit ex amet.</p>
 			</Card>
@@ -76,7 +76,7 @@ export const SimpleStyled: Story = {
 
 export const WithBody: Story = {
 	render: () => (
-		<div className="max-w-96 mx-auto">
+		<div className="mx-auto max-w-96">
 			<Card>
 				<CardBody>
 					<p className="mb-0">
@@ -90,7 +90,7 @@ export const WithBody: Story = {
 
 export const WithHeaderAndBody: Story = {
 	render: () => (
-		<div className="max-w-96 mx-auto">
+		<div className="mx-auto max-w-96">
 			<Card>
 				<CardHeader>
 					<CardTitle>Card Title Here</CardTitle>
@@ -105,7 +105,7 @@ export const WithHeaderAndBody: Story = {
 
 export const WithFooterAndBody: Story = {
 	render: () => (
-		<div className="max-w-96 mx-auto">
+		<div className="mx-auto max-w-96">
 			<Card>
 				<CardBody>
 					<p className="mb-0">

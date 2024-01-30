@@ -25,7 +25,7 @@ export default function Page() {
 			<Example className="mt-4 gap-2">
 				<ExampleTable />
 			</Example>
-			<CodeBlock className="rounded-t-none rounded-b-lg">
+			<CodeBlock className="rounded-b-lg rounded-t-none">
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
 					<CodeBlockCode language="tsx">
@@ -112,7 +112,7 @@ const ExampleTable = () => {
 	];
 
 	return (
-		<div className="mt-4 rounded-lg bg-white dark:bg-gray-100 border border-gray-300 overflow-hidden z-10">
+		<div className="z-10 mt-4 overflow-hidden rounded-lg border border-gray-300 bg-white dark:bg-gray-100">
 			<Table>
 				<TableCaption>A list of your recent invoices.</TableCaption>
 				<TableHeader>

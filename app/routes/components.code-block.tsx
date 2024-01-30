@@ -43,7 +43,7 @@ export default function Page() {
 			<Example className="mt-4">
 				<CodeBlock>
 					<CodeBlockHeader>
-						<FileText className="w-5 h-5" weight="fill" />
+						<FileText className="h-5 w-5" weight="fill" />
 						<CodeBlockTitle>ngrok-example.js</CodeBlockTitle>
 					</CodeBlockHeader>
 					<CodeBlockBody>
@@ -98,7 +98,7 @@ export default function Page() {
 					</CodeBlockBody>
 				</CodeBlock>
 			</Example>
-			<CodeBlock className="rounded-t-none rounded-b-lg">
+			<CodeBlock className="rounded-b-lg rounded-t-none">
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
 					<CodeBlockCode language="tsx">
@@ -133,7 +133,7 @@ export default function Page() {
 				<Example className="mt-4">
 					<CodeBlock>
 						<CodeBlockHeader>
-							<Terminal className="w-5 h-5" weight="fill" />
+							<Terminal className="h-5 w-5" weight="fill" />
 							<CodeBlockTitle>Command Line</CodeBlockTitle>
 						</CodeBlockHeader>
 						<CodeBlockBody>
@@ -144,7 +144,7 @@ export default function Page() {
 						</CodeBlockBody>
 					</CodeBlock>
 				</Example>
-				<CodeBlock className="rounded-t-none rounded-b-lg">
+				<CodeBlock className="rounded-b-lg rounded-t-none">
 					<CodeBlockBody>
 						<CodeBlockCopyButton />
 						<CodeBlockCode language="tsx">
@@ -176,7 +176,7 @@ export default function Page() {
 				<Example className="mt-4">
 					<CodeBlock>
 						<CodeBlockHeader>
-							<FileText className="w-5 h-5" weight="fill" />
+							<FileText className="h-5 w-5" weight="fill" />
 							<CodeBlockTitle>ngrok-example.js</CodeBlockTitle>
 						</CodeBlockHeader>
 						<CodeBlockBody>
@@ -204,7 +204,7 @@ export default function Page() {
 						</CodeBlockBody>
 					</CodeBlock>
 				</Example>
-				<CodeBlock className="rounded-t-none rounded-b-lg">
+				<CodeBlock className="rounded-b-lg rounded-t-none">
 					<CodeBlockBody>
 						<CodeBlockCopyButton />
 						<CodeBlockCode language="tsx">
@@ -273,7 +273,7 @@ export default function Page() {
 						</CodeBlockBody>
 					</CodeBlock>
 				</Example>
-				<CodeBlock className="rounded-t-none rounded-b-lg">
+				<CodeBlock className="rounded-b-lg rounded-t-none">
 					<CodeBlockBody>
 						<CodeBlockCopyButton />
 						<CodeBlockCode language="tsx">
@@ -319,7 +319,7 @@ export default function Page() {
 						</CodeBlockBody>
 					</CodeBlock>
 				</Example>
-				<CodeBlock className="rounded-t-none rounded-b-lg">
+				<CodeBlock className="rounded-b-lg rounded-t-none">
 					<CodeBlockBody>
 						<CodeBlockCopyButton />
 						<CodeBlockCode language="tsx">

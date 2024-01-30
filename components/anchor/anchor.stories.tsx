@@ -12,7 +12,7 @@ type Story = StoryObj<typeof Anchor>;
 
 export const Default: Story = {
 	render: () => (
-		<div className="max-w-sm mx-auto">
+		<div className="mx-auto max-w-sm">
 			<p>
 				This link will go to <Anchor href="https://ngrok.com">ngrok.com</Anchor>.
 			</p>

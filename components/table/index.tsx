@@ -10,7 +10,7 @@ Table.displayName = "Table";
 
 const TableHeader = forwardRef<HTMLTableSectionElement, HTMLAttributes<HTMLTableSectionElement>>(
 	({ className, ...props }, ref) => (
-		<thead ref={ref} className={cx("[&_tr]:border-b bg-background", className)} {...props} />
+		<thead ref={ref} className={cx("bg-background [&_tr]:border-b", className)} {...props} />
 	),
 );
 TableHeader.displayName = "TableHeader";
@@ -67,7 +67,7 @@ TableCell.displayName = "TableCell";
 
 const TableCaption = forwardRef<HTMLTableCaptionElement, HTMLAttributes<HTMLTableCaptionElement>>(
 	({ className, ...props }, ref) => (
-		<caption ref={ref} className={cx("py-4 text-sm text-gray-500 border-t border-gray-300", className)} {...props} />
+		<caption ref={ref} className={cx("border-t border-gray-300 py-4 text-sm text-gray-500", className)} {...props} />
 	),
 );
 TableCaption.displayName = "TableCaption";
