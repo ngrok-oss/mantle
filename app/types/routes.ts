@@ -16,6 +16,7 @@ export const routePatterns = [
 	"/components/sheet",
 	"/components/skeleton",
 	"/components/table",
+	"/components/tooltip",
 ] as const;
 
 export type RoutePattern = (typeof routePatterns)[number];
@@ -41,6 +42,7 @@ export const routes = [
 	"/components/sheet",
 	"/components/skeleton",
 	"/components/table",
+	"/components/tooltip",
 ] as const;
 
 export type Route = (typeof routes)[number];
