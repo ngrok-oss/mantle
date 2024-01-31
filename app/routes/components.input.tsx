@@ -2,6 +2,7 @@ import { Button } from "@/button";
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
 import { code } from "@/code-block/code";
 import { Input } from "@/input";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/table";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
@@ -26,21 +27,54 @@ export default function Page() {
 			<p className="mt-4 text-xl text-gray-600">Fundamental component for inputs.</p>
 
 			<Example className="mt-4 flex-col gap-6">
-				<div className="flex">
+				<div className="flex gap-2">
+					<Select>
+						<SelectTrigger className="w-[180px]">
+							<SelectValue placeholder="Select a fruit" />
+						</SelectTrigger>
+						<SelectContent>
+							<SelectGroup>
+								<SelectLabel>Fruits</SelectLabel>
+								<SelectItem value="apple">Apple</SelectItem>
+							</SelectGroup>
+						</SelectContent>
+					</Select>
 					<Input placeholder="Enter a username" />
-					<Button className="ml-2" priority="default" appearance="outline" type="button">
+					<Button priority="muted" appearance="outline" type="button">
 						Submit
 					</Button>
 				</div>
-				<div className="flex">
+				<div className="flex gap-2">
+					<Select>
+						<SelectTrigger className="w-[180px]">
+							<SelectValue placeholder="Select" />
+						</SelectTrigger>
+						<SelectContent>
+							<SelectGroup>
+								<SelectLabel>Fruits</SelectLabel>
+								<SelectItem value="apple">Apple</SelectItem>
+							</SelectGroup>
+						</SelectContent>
+					</Select>
 					<Input placeholder="Enter a username" state="danger" />
-					<Button className="ml-2" priority="danger" appearance="outline" type="button">
+					<Button priority="danger" appearance="outline" type="button">
 						Submit
 					</Button>
 				</div>
-				<div className="flex">
+				<div className="flex gap-2">
+					<Select>
+						<SelectTrigger className="w-[180px]">
+							<SelectValue placeholder="Select" />
+						</SelectTrigger>
+						<SelectContent>
+							<SelectGroup>
+								<SelectLabel>Fruits</SelectLabel>
+								<SelectItem value="apple">Apple</SelectItem>
+							</SelectGroup>
+						</SelectContent>
+					</Select>
 					<Input placeholder="Enter a username" disabled />
-					<Button className="ml-2" priority="default" appearance="outline" type="button" disabled>
+					<Button priority="default" appearance="outline" type="button" disabled>
 						Submit
 					</Button>
 				</div>
