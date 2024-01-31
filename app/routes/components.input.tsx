@@ -62,7 +62,7 @@ export default function Page() {
 					</Button>
 				</div>
 				<div className="flex gap-2">
-					<Select>
+					<Select disabled>
 						<SelectTrigger className="w-[180px]">
 							<SelectValue placeholder="Select" />
 						</SelectTrigger>
