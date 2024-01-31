@@ -11,11 +11,11 @@ const buttonVariants = cva(
 		variants: {
 			appearance: {
 				outline:
-					"bg-white dark:bg-gray-50 border-blue-600 text-blue-600 hover:bg-blue-600/10 dark:hover:bg-blue-600/10 active:bg-blue-600/20 focus-visible:ring-blue-500/25",
+					"bg-white dark:bg-gray-50 border-blue-600 text-blue-600 hover:bg-blue-500/5 dark:hover:bg-blue-500/5 active:bg-blue-500/10 focus-visible:ring-blue-500/25",
 				solid:
 					"border-transparent bg-blue-500 text-button hover:bg-blue-600 active:bg-blue-700 focus-visible:border-blue-600 focus-visible:ring-blue-500/25",
 				ghost:
-					"border-transparent text-blue-600 hover:bg-blue-600/10 active:bg-blue-600/20 focus-visible:ring-blue-500/25",
+					"border-transparent text-blue-600 hover:bg-blue-500/5 active:bg-blue-500/10 focus-visible:ring-blue-500/25",
 			},
 			priority: {
 				default: "",
@@ -30,13 +30,13 @@ const buttonVariants = cva(
 			{
 				appearance: "ghost",
 				priority: "danger",
-				class: "border-transparent text-red-600 hover:bg-red-600/10 active:bg-red-600/20 focus-visible:ring-red-500/25",
+				class: "border-transparent text-red-600 hover:bg-red-500/5 active:bg-red-500/10 focus-visible:ring-red-500/25",
 			},
 			{
 				appearance: "outline",
 				priority: "danger",
 				class:
-					"bg-white dark:bg-gray-50 border-red-600 text-red-600 dark:hover:bg-red-600/10 hover:bg-red-600/10 active:bg-red-600/20 focus-visible:ring-red-500/25",
+					"bg-white dark:bg-gray-50 border-red-600 text-red-600 dark:hover:bg-red-500/5 hover:bg-red-500/5 active:bg-red-500/10 focus-visible:ring-red-500/25",
 			},
 			{
 				appearance: "solid",
@@ -48,13 +48,13 @@ const buttonVariants = cva(
 				appearance: "ghost",
 				priority: "muted",
 				class:
-					"border-transparent text-gray-900 hover:bg-gray-600/10 active:bg-gray-600/20 focus-visible:ring-blue-500/25",
+					"border-transparent text-gray-900 hover:bg-gray-500/5 active:bg-gray-500/10 focus-visible:ring-blue-500/25",
 			},
 			{
 				appearance: "outline",
 				priority: "muted",
 				class:
-					"bg-white dark:bg-gray-50 border-gray-400 text-gray-900 hover:bg-gray-600/10 dark:hover:bg-gray-600/10 active:bg-gray-600/20 focus-visible:ring-blue-500/25 focus-visible:border-blue-600",
+					"bg-white dark:bg-gray-50 border-gray-400 text-gray-900 hover:bg-gray-500/5 dark:hover:bg-gray-500/5 active:bg-gray-500/10 focus-visible:ring-blue-500/25 focus-visible:border-blue-600",
 			},
 			{
 				appearance: "solid",

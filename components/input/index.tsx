@@ -6,7 +6,7 @@ import type { VariantProps } from "../types/variant-props";
 import type { AutoComplete, InputType } from "./types";
 
 const inputVariants = cva(
-	"flex h-11 sm:h-9 w-full rounded-md border bg-white dark:bg-gray-50 px-3 py-2 file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-4 disabled:cursor-not-allowed disabled:opacity-50 sm:text-sm disabled:bg-gray-100",
+	"flex h-11 sm:h-9 w-full rounded-md border bg-white dark:bg-gray-50 px-3 py-2 file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50 sm:text-sm",
 	{
 		variants: {
 			state: {
