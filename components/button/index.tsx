@@ -54,7 +54,7 @@ const buttonVariants = cva(
 				appearance: "outline",
 				priority: "muted",
 				class:
-					"bg-white dark:bg-gray-50 border-gray-400 text-gray-900 hover:bg-gray-500/5 dark:hover:bg-gray-500/5 active:bg-gray-500/10 focus-visible:ring-blue-500/25 focus-visible:border-blue-600",
+					"bg-white dark:bg-gray-50 border-gray-300 text-gray-900 hover:bg-gray-500/5 dark:hover:bg-gray-500/5 active:bg-gray-500/10 focus-visible:ring-blue-500/25 focus-visible:border-blue-600",
 			},
 			{
 				appearance: "solid",

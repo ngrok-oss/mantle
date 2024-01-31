@@ -74,7 +74,7 @@ export default function Page() {
 						</SelectContent>
 					</Select>
 					<Input placeholder="Enter a username" disabled />
-					<Button priority="default" appearance="outline" type="button" disabled>
+					<Button priority="muted" appearance="outline" type="button" disabled>
 						Submit
 					</Button>
 				</div>
