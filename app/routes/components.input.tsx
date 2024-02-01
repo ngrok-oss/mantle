@@ -1,8 +1,6 @@
-import { Button } from "@/button";
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
 import { code } from "@/code-block/code";
 import { Input } from "@/input";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/table";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
