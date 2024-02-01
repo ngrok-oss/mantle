@@ -1,5 +1,19 @@
 @import url("https://cdn.ngrok.com/static/fonts/fonts.css");
 
+/**
+ * provide an a11y escape hatch for those that prefer less motion
+ */
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}
+
 :root {
 	/* ngrok custom blue (600 is current button)
 	* These are required as they are referenced by both light and dark modes.
