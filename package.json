@@ -3,13 +3,13 @@
   "description": "mantle is ngrok's UI library and design system.",
   "author": "ngrok",
   "license": "MIT",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "homepage": "https://mantle.ngrok.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/ngrok-oss/mantle"
   },
-  "sideEffects": false,
+  "sideEffects": ["*.css"],
   "type": "module",
   "browserslist": [
     "last 2 years, not dead, > 0.2%"
@@ -80,7 +80,7 @@
     "@storybook/react": "7.6.12",
     "@storybook/react-vite": "7.6.12",
     "@storybook/testing-library": "0.2.2",
-    "@testing-library/react": "14.2.0",
+    "@testing-library/react": "14.2.1",
     "@testing-library/user-event": "14.5.2",
     "@types/node": "20.11.16",
     "@types/prismjs": "1.26.3",
@@ -100,7 +100,7 @@
     "eslint-plugin-react-hooks": "4.6.0",
     "eslint-plugin-storybook": "0.6.15",
     "fast-glob": "3.3.2",
-    "jsdom": "23.2.0",
+    "jsdom": "24.0.0",
     "parcel": "2.11.0",
     "postcss": "8.4.33",
     "prettier": "3.2.4",
