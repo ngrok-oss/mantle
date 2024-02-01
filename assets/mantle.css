@@ -1,9 +1,5 @@
 @import url("https://cdn.ngrok.com/static/fonts/fonts.css");
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 :root {
 	/* ngrok custom blue (600 is current button)
 	* These are required as they are referenced by both light and dark modes.
@@ -1095,35 +1091,17 @@
 	--button: var(--white);
 }
 
-@layer base {
-	/**
- * provide an a11y escape hatch for those that prefer less motion
- */
-	@media (prefers-reduced-motion: reduce) {
-		*,
-		*::before,
-		*::after {
-			animation-duration: 0.01ms !important;
-			animation-iteration-count: 1 !important;
-			transition-duration: 0.01ms !important;
-			scroll-behavior: auto !important;
-		}
-	}
+.light {
+	color-scheme: light;
 }
-
-@layer utilities {
-	.light {
-		color-scheme: light;
-	}
-	.dark {
-		color-scheme: dark;
-	}
-	.light-high-contrast {
-		color-scheme: light;
-	}
-	.dark-high-contrast {
-		color-scheme: dark;
-	}
+.dark {
+	color-scheme: dark;
+}
+.light-high-contrast {
+	color-scheme: light;
+}
+.dark-high-contrast {
+	color-scheme: dark;
 }
 
 /**
