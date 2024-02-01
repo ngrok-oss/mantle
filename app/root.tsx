@@ -2,12 +2,14 @@ import { PreventWrongThemeFlash, ThemeProvider } from "@/theme-provider";
 import { cssBundleHref } from "@remix-run/css-bundle";
 import type { LinksFunction } from "@remix-run/node";
 import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
+import tailwind from "tailwindcss/tailwind.css";
 import mantleCss from "../assets/mantle.css";
 import { Layout } from "./components/layout";
 
 export const links: LinksFunction = () => [
 	...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
 	{ rel: "stylesheet", href: mantleCss },
+	{ rel: "stylesheet", href: tailwind },
 ];
 
 export default function App() {
