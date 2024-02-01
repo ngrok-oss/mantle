@@ -2,6 +2,7 @@ import { withThemeByClassName } from "@storybook/addon-styling";
 import type { Preview } from "@storybook/react";
 import { theme } from "../components/theme-provider";
 import "../assets/mantle.css";
+import "tailwindcss/tailwind.css";
 
 const preview: Preview = {
 	parameters: {

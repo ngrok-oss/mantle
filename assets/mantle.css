@@ -1170,12 +1170,6 @@
 	font-style: italic;
 }
 
-@layer base {
-	body {
-		@apply bg-white text-gray-900;
-	}
-}
-
 .scrollbar::-webkit-scrollbar {
 	width: 0.5rem;
 	height: 0.5rem;
@@ -1200,4 +1194,8 @@
 .scrollbar {
 	scrollbar-color: hsl(var(--gray-600) / 0.5) transparent;
 	scrollbar-width: thin;
+}
+
+body {
+	@apply bg-white text-gray-900;
 }
