@@ -1,5 +1,9 @@
 @import url("https://cdn.ngrok.com/static/fonts/fonts.css");
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /**
  * provide an a11y escape hatch for those that prefer less motion
  */
@@ -1105,19 +1109,6 @@
 	--button: var(--white);
 }
 
-.light {
-	color-scheme: light;
-}
-.dark {
-	color-scheme: dark;
-}
-.light-high-contrast {
-	color-scheme: light;
-}
-.dark-high-contrast {
-	color-scheme: dark;
-}
-
 /**
 	* prism.js default theme for JavaScript, CSS and HTML
 	* Based on dabblet (http://dabblet.com)
@@ -1184,32 +1175,49 @@
 	font-style: italic;
 }
 
-.scrollbar::-webkit-scrollbar {
-	width: 0.5rem;
-	height: 0.5rem;
-	background-color: transparent;
+@layer base {
+	body {
+		@apply bg-white text-gray-900;
+	}
 }
 
-.scrollbar::-webkit-scrollbar-track {
-	border-radius: 0.5rem;
-	background-color: transparent;
-}
+@layer utilities {
+	.light {
+		color-scheme: light;
+	}
+	.dark {
+		color-scheme: dark;
+	}
+	.light-high-contrast {
+		color-scheme: light;
+	}
+	.dark-high-contrast {
+		color-scheme: dark;
+	}
 
-.scrollbar::-webkit-scrollbar-thumb {
-	border-radius: 0.5rem;
-	background-color: hsl(var(--gray-800) / 0.5);
-}
+	.scrollbar::-webkit-scrollbar {
+		width: 0.5rem;
+		height: 0.5rem;
+		background-color: transparent;
+	}
 
-.scrollbar::-webkit-scrollbar-corner {
-	background-color: transparent;
-	border-color: transparent;
-}
+	.scrollbar::-webkit-scrollbar-track {
+		border-radius: 0.5rem;
+		background-color: transparent;
+	}
 
-.scrollbar {
-	scrollbar-color: hsl(var(--gray-600) / 0.5) transparent;
-	scrollbar-width: thin;
-}
+	.scrollbar::-webkit-scrollbar-thumb {
+		border-radius: 0.5rem;
+		background-color: hsl(var(--gray-800) / 0.5);
+	}
 
-body {
-	@apply bg-white text-gray-900;
+	.scrollbar::-webkit-scrollbar-corner {
+		background-color: transparent;
+		border-color: transparent;
+	}
+
+	.scrollbar {
+		scrollbar-color: hsl(var(--gray-600) / 0.5) transparent;
+		scrollbar-width: thin;
+	}
 }
