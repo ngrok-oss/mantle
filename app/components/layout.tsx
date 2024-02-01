@@ -1,5 +1,6 @@
+import { Button } from "@/button";
 import { cx } from "@/cx";
-import { Select, SelectContent, SelectItem, SelectTrigger } from "@/select";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger } from "@/select";
 import { isTheme, theme, useTheme } from "@/theme-provider";
 import { WithStyleProps } from "@/types/with-style-props";
 import { List } from "@phosphor-icons/react/List";
@@ -35,16 +36,18 @@ export function Layout({ children, className, style }: Props) {
 	return (
 		<main className={cx("mx-auto h-full max-w-7xl sm:px-4", className)} style={style}>
 			<header className="flex h-24 items-center gap-4 px-4 sm:px-0">
-				<button
-					className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-white focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-600/25 md:hidden"
+				<Button
+					appearance="outline"
+					priority="muted"
+					className="w-11 sm:w-9 md:hidden"
 					onClick={() => {
 						setShowNavigation((s) => !s);
 					}}
 				>
-					{!showNavigation && <List className="h-6 w-6" />}
+					{!showNavigation && <List className="h-6 w-6 shrink-0" />}
 
-					{showNavigation && <X className="h-6 w-6" />}
-				</button>
+					{showNavigation && <X className="h-6 w-6 shrink-0" />}
+				</Button>
 
 				<Link to="/">
 					<MantleLogo />
@@ -67,11 +70,14 @@ export function Layout({ children, className, style }: Props) {
 						</SelectTrigger>
 					</div>
 					<SelectContent>
-						<SelectItem value={theme("system")}>System</SelectItem>
-						<SelectItem value={theme("light")}>Light</SelectItem>
-						<SelectItem value={theme("dark")}>Dark</SelectItem>
-						<SelectItem value={theme("light-high-contrast")}>Light High Contrast</SelectItem>
-						<SelectItem value={theme("dark-high-contrast")}>Dark High Contrast</SelectItem>
+						<SelectGroup>
+							<SelectLabel>Choose a theme</SelectLabel>
+							<SelectItem value={theme("system")}>System</SelectItem>
+							<SelectItem value={theme("light")}>Light</SelectItem>
+							<SelectItem value={theme("dark")}>Dark</SelectItem>
+							<SelectItem value={theme("light-high-contrast")}>Light High Contrast</SelectItem>
+							<SelectItem value={theme("dark-high-contrast")}>Dark High Contrast</SelectItem>
+						</SelectGroup>
 					</SelectContent>
 				</Select>
 			</header>

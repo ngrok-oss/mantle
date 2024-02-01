@@ -27,7 +27,7 @@ export default function Page() {
 
 			<Example className="mt-4">
 				<Select>
-					<SelectTrigger className="w-[180px]">
+					<SelectTrigger className="max-w-64">
 						<SelectValue placeholder="Select a fruit" />
 					</SelectTrigger>
 					<SelectContent>

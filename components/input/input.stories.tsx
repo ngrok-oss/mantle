@@ -25,11 +25,3 @@ export const Danger: Story = {
 		state: "danger",
 	},
 };
-
-export const Success: Story = {
-	render: (args) => <Input {...args} />,
-	args: {
-		value: "@aaronshekey",
-		state: "success",
-	},
-};
