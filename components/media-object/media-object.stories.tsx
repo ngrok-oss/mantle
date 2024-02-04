@@ -47,7 +47,7 @@ export const Basic: Story = {
 export const StyledWithGap: Story = {
 	render: () => (
 		<div className="mx-auto max-w-96">
-			<MediaObject className="gap-10 bg-slate-300 p-6">
+			<MediaObject className="bg-slate-300 gap-10 p-6">
 				<MediaObjectMedia>
 					<ExampleMedia />
 				</MediaObjectMedia>
