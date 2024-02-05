@@ -9,6 +9,9 @@ const mantlePreset = {
 	darkMode: "class",
 	theme: {
 		colors: {
+			inherit: "inherit",
+			current: "currentColor",
+			transparent: "transparent",
 			white: "hsl(var(--white) / <alpha-value>)",
 			black: "hsl(var(--black) / <alpha-value>)",
 			gray: {
