@@ -185,20 +185,14 @@ export function determineThemeFromMediaQuery({
 	return prefersDarkMode ? "dark" : "light";
 }
 
-/**
- * PreventWrongThemeFlash is a React component that prevents the wrong theme from flashing on initial page load.
- * Render as high as possible in the DOM, preferably in the <head> element.
- */
-const PreventWrongThemeFlash = ({
+export function preventWrongThemeFlashScriptContent({
 	defaultTheme = "system",
 	storageKey = DEFAULT_STORAGE_KEY,
 }: {
 	defaultTheme?: Theme;
 	storageKey?: string;
-}) => (
-	<script
-		dangerouslySetInnerHTML={{
-			__html: `
+}) {
+	return `
 (function() {
 	const themes = ${JSON.stringify(themes)};
 	const isTheme = (value) => typeof value === "string" && themes.includes(value);
@@ -225,7 +219,23 @@ const PreventWrongThemeFlash = ({
 	htmlElement.dataset.appliedTheme = initialTheme;
 	htmlElement.dataset.theme = themePreference;
 })();
-`.trim(),
+`.trim();
+}
+
+/**
+ * PreventWrongThemeFlash is a React component that prevents the wrong theme from flashing on initial page load.
+ * Render as high as possible in the DOM, preferably in the <head> element.
+ */
+const PreventWrongThemeFlash = ({
+	defaultTheme = "system",
+	storageKey = DEFAULT_STORAGE_KEY,
+}: {
+	defaultTheme?: Theme;
+	storageKey?: string;
+}) => (
+	<script
+		dangerouslySetInnerHTML={{
+			__html: preventWrongThemeFlashScriptContent({ defaultTheme, storageKey }),
 		}}
 	/>
 );
