@@ -16,6 +16,7 @@ export const routePatterns = [
 	"/components/sheet",
 	"/components/skeleton",
 	"/components/table",
+	"/components/theme-provider",
 	"/components/tooltip",
 ] as const;
 
@@ -42,6 +43,7 @@ export const routes = [
 	"/components/sheet",
 	"/components/skeleton",
 	"/components/table",
+	"/components/theme-provider",
 	"/components/tooltip",
 ] as const;
 
