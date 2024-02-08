@@ -1,5 +1,4 @@
 import { code, CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
-import { InlineCode } from "@/inline-code";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/table";
 import { TextArea } from "@/text-area";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
@@ -57,18 +56,12 @@ export default function Page() {
 								<p>monospaced</p>
 								<p>undefined</p>
 							</TableCell>
-							<TableCell className="align-top">
-								undefined
-							</TableCell>
+							<TableCell className="align-top">undefined</TableCell>
 						</TableRow>
 						<TableRow>
 							<TableCell className="align-top font-medium">aria-invalid</TableCell>
-							<TableCell className="space-y-2 align-top text-xs">
-								boolean
-							</TableCell>
-							<TableCell className="align-top">
-								false
-							</TableCell>
+							<TableCell className="space-y-2 align-top text-xs">boolean</TableCell>
+							<TableCell className="align-top">false</TableCell>
 						</TableRow>
 					</TableBody>
 				</Table>
