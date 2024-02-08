@@ -1,6 +1,6 @@
 import { code, CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
 import { Input } from "@/input";
-import { Table, TableBody, TableHead, TableHeader, TableRow } from "@/table";
+import { Table, TableBody, TableHead, TableHeader, TableRow, TableCell } from "@/table";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 
@@ -31,10 +31,8 @@ export default function Page() {
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
 					<CodeBlockCode language="tsx">{code`
-						<>
-							<Input placeholder="Enter a username" />
-							<Input placeholder="Enter a username" aria-invalid />
-						</>
+						<Input placeholder="Enter a username" />
+						<Input placeholder="Enter a username" aria-invalid />
 					`}</CodeBlockCode>
 				</CodeBlockBody>
 			</CodeBlock>
@@ -50,14 +48,15 @@ export default function Page() {
 						</TableRow>
 					</TableHeader>
 					<TableBody className="font-mono text-xs text-gray-600">
-						{/* <TableRow>
-							<TableCell className="align-top font-medium">state</TableCell>
+						<TableRow>
+							<TableCell className="align-top font-medium">aria-invalid</TableCell>
 							<TableCell className="space-y-2 align-top text-xs">
-								<p>default</p>
-								<p>danger</p>
+								boolean
 							</TableCell>
-							<TableCell className="align-top">default</TableCell>
-						</TableRow> */}
+							<TableCell className="align-top">
+								false
+							</TableCell>
+						</TableRow>
 					</TableBody>
 				</Table>
 			</div>

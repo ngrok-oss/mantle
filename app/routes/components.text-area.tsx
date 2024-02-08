@@ -33,11 +33,9 @@ export default function Page() {
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
 					<CodeBlockCode language="tsx">{code`
-						<>
 							<TextArea placeholder="Enter a username" />
-							<TextArea className="max-w-64" appearance="monospaced" placeholder="Enter a username" />
+							<TextArea appearance="monospaced" placeholder="Enter a username" />
 							<TextArea placeholder="Enter a username" aria-invalid />
-						</>
 					`}</CodeBlockCode>
 				</CodeBlockBody>
 			</CodeBlock>
@@ -56,10 +54,20 @@ export default function Page() {
 						<TableRow>
 							<TableCell className="align-top font-medium">appearance</TableCell>
 							<TableCell className="space-y-2 align-top text-xs">
-								<InlineCode>&quot;monospaced&quot; | undefined</InlineCode>
+								<p>monospaced</p>
+								<p>undefined</p>
 							</TableCell>
 							<TableCell className="align-top">
-								<InlineCode>undefined</InlineCode>
+								undefined
+							</TableCell>
+						</TableRow>
+						<TableRow>
+							<TableCell className="align-top font-medium">aria-invalid</TableCell>
+							<TableCell className="space-y-2 align-top text-xs">
+								boolean
+							</TableCell>
+							<TableCell className="align-top">
+								false
 							</TableCell>
 						</TableRow>
 					</TableBody>
