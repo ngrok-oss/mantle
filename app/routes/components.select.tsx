@@ -24,8 +24,23 @@ export default function Page() {
 				Displays a list of options for the user to pick from—triggered by a button.
 			</p>
 
-			<Example className="mt-4">
+			<Example className="mt-4 flex-col gap-2">
 				<Select>
+					<SelectTrigger className="max-w-64">
+						<SelectValue placeholder="Select a fruit" />
+					</SelectTrigger>
+					<SelectContent>
+						<SelectGroup>
+							<SelectLabel>Fruits</SelectLabel>
+							<SelectItem value="apple">Apple</SelectItem>
+							<SelectItem value="banana">Banana</SelectItem>
+							<SelectItem value="blueberry">Blueberry</SelectItem>
+							<SelectItem value="grapes">Grapes</SelectItem>
+							<SelectItem value="pineapple">Pineapple</SelectItem>
+						</SelectGroup>
+					</SelectContent>
+				</Select>
+				<Select aria-invalid>
 					<SelectTrigger className="max-w-64">
 						<SelectValue placeholder="Select a fruit" />
 					</SelectTrigger>
