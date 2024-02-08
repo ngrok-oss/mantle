@@ -1,6 +1,6 @@
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
-import { code } from "@/code-block/code";
-import { InlineCode } from "@/inline-code";
+import { code } from "@/code-block/src/code";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block/src/code-block";
+import { InlineCode } from "@/inline-code/src/inline-code";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 

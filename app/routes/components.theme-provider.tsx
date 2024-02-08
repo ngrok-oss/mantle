@@ -1,4 +1,5 @@
 import {
+	code,
 	CodeBlock,
 	CodeBlockBody,
 	CodeBlockCode,
@@ -7,7 +8,6 @@ import {
 	CodeBlockHeader,
 	CodeBlockTitle,
 } from "@/code-block";
-import { code } from "@/code-block/code";
 import { InlineCode } from "@/inline-code";
 import { preventWrongThemeFlashScriptContent } from "@/theme-provider";
 import { FileText } from "@phosphor-icons/react/FileText";

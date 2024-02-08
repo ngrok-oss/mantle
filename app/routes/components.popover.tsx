@@ -1,8 +1,8 @@
-import { Button } from "@/button";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
-import { code } from "@/code-block/code";
-import { Input } from "@/input";
-import { Popover, PopoverContent, PopoverTrigger } from "@/popover";
+import { Button } from "@/button/src/button";
+import { code } from "@/code-block/src/code";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block/src/code-block";
+import { Input } from "@/input/src/input";
+import { Popover, PopoverContent, PopoverTrigger } from "@/popover/src/popover";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { MediaObject, MediaObjectContent, MediaObjectMedia } from ".";
+import { MediaObject, MediaObjectContent, MediaObjectMedia } from "./media-object";
 
 const meta = {
 	title: "MediaObject",

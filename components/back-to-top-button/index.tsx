@@ -1,10 +1,10 @@
 import { ArrowLineUp } from "@phosphor-icons/react/ArrowLineUp";
 import { useWindowScroll } from "@uidotdev/usehooks";
 import { useEffect, useRef, type CSSProperties } from "react";
-import { cx } from "../cx";
+import { cx } from "../core";
 import { usePrefersReducedMotion } from "../hooks/use-prefers-reduced-motion";
 import { Portal } from "../portal";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../tooltip";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../tooltip/src/tooltip";
 
 type Props = {
 	className?: string;

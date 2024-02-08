@@ -1,6 +1,7 @@
 import { FileText } from "@phosphor-icons/react/FileText";
 import { Terminal } from "@phosphor-icons/react/Terminal";
 import type { Meta, StoryObj } from "@storybook/react";
+import { code } from "../src/code";
 import {
 	CodeBlock,
 	CodeBlockBody,
@@ -9,8 +10,7 @@ import {
 	CodeBlockExpanderButton,
 	CodeBlockHeader,
 	CodeBlockTitle,
-} from ".";
-import { code } from "./code";
+} from "./code-block";
 
 const meta = {
 	title: "CodeBlock",
