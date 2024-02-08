@@ -7,6 +7,7 @@ export * from "./core";
 export * from "./inline-code";
 export * from "./input";
 export * from "./media-object";
+export * from "./password-input";
 export * from "./popover";
 export * from "./select";
 export * from "./sheet";
