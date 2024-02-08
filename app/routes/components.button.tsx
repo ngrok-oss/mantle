@@ -1,7 +1,7 @@
-import { Button } from "@/button";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
-import { code } from "@/code-block/code";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/table";
+import { Button } from "@/button/src/button";
+import { code } from "@/code-block/src/code";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block/src/code-block";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/table/src/table";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 

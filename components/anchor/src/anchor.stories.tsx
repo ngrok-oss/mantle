@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Anchor } from ".";
+import { Anchor } from "./anchor";
 
 const meta: Meta<typeof Anchor> = {
 	title: "Anchor",

@@ -1,6 +1,6 @@
-import { Button } from "@/button";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
-import { code } from "@/code-block/code";
+import { Button } from "@/button/src/button";
+import { code } from "@/code-block/src/code";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block/src/code-block";
 import {
 	Sheet,
 	SheetBody,
@@ -11,7 +11,7 @@ import {
 	SheetHeader,
 	SheetTitle,
 	SheetTrigger,
-} from "@/sheet";
+} from "@/sheet/src/sheet";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 

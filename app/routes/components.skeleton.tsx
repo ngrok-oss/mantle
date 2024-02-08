@@ -1,5 +1,4 @@
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
-import { code } from "@/code-block/code";
+import { code, CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
 import { MediaObject, MediaObjectContent, MediaObjectMedia } from "@/media-object";
 import { Skeleton } from "@/skeleton";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
