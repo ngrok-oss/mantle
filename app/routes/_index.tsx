@@ -1,4 +1,4 @@
-import { Anchor } from "@/anchor/src/anchor";
+import { Anchor } from "@/anchor";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 
 export const meta: MetaFunction = () => {

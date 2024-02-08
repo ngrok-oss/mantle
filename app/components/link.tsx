@@ -1,4 +1,4 @@
-import { Anchor } from "@/anchor/src/anchor";
+import { Anchor } from "@/anchor";
 import { LinkProps, Link as RRLink } from "@remix-run/react";
 import { Route } from "~/types/routes";
 

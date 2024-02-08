@@ -1,5 +1,5 @@
-import { code } from "@/code-block/src/code";
 import {
+	code,
 	CodeBlock,
 	CodeBlockBody,
 	CodeBlockCode,
@@ -7,7 +7,7 @@ import {
 	CodeBlockExpanderButton,
 	CodeBlockHeader,
 	CodeBlockTitle,
-} from "@/code-block/src/code-block";
+} from "@/code-block";
 import { FileText } from "@phosphor-icons/react/FileText";
 import { Terminal } from "@phosphor-icons/react/Terminal";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";

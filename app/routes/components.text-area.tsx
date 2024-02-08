@@ -1,12 +1,13 @@
 import { code, CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
-import { Input } from "@/input";
-import { Table, TableBody, TableHead, TableHeader, TableRow } from "@/table";
+import { InlineCode } from "@/inline-code";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/table";
+import { TextArea } from "@/text-area";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 
 export const meta: MetaFunction = () => {
 	return [
-		{ title: "@ngrok/mantle — Input" },
+		{ title: "@ngrok/mantle — TextArea" },
 		{ name: "description", content: "mantle is ngrok's UI library and design system" },
 	];
 };
@@ -20,20 +21,22 @@ export const headers: HeadersFunction = () => {
 export default function Page() {
 	return (
 		<div>
-			<h1 className="text-5xl font-medium">Input</h1>
-			<p className="mt-4 text-xl text-gray-600">Fundamental component for inputs.</p>
+			<h1 className="text-5xl font-medium">TextArea</h1>
+			<p className="mt-4 text-xl text-gray-600">Displays a form textarea or a component that looks like a textarea.</p>
 
 			<Example className="mt-4 flex-col gap-4">
-				<Input className="max-w-64" placeholder="Enter a username" />
-				<Input className="max-w-64" placeholder="Enter a username" aria-invalid />
+				<TextArea className="max-w-64" placeholder="Enter a username" />
+				<TextArea className="max-w-64" appearance="monospaced" placeholder="Enter a username" />
+				<TextArea className="max-w-64" placeholder="Enter a username" aria-invalid />
 			</Example>
 			<CodeBlock className="rounded-b-lg rounded-t-none">
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
 					<CodeBlockCode language="tsx">{code`
 						<>
-							<Input placeholder="Enter a username" />
-							<Input placeholder="Enter a username" aria-invalid />
+							<TextArea placeholder="Enter a username" />
+							<TextArea className="max-w-64" appearance="monospaced" placeholder="Enter a username" />
+							<TextArea placeholder="Enter a username" aria-invalid />
 						</>
 					`}</CodeBlockCode>
 				</CodeBlockBody>
@@ -50,14 +53,15 @@ export default function Page() {
 						</TableRow>
 					</TableHeader>
 					<TableBody className="font-mono text-xs text-gray-600">
-						{/* <TableRow>
-							<TableCell className="align-top font-medium">state</TableCell>
+						<TableRow>
+							<TableCell className="align-top font-medium">appearance</TableCell>
 							<TableCell className="space-y-2 align-top text-xs">
-								<p>default</p>
-								<p>danger</p>
+								<InlineCode>&quot;monospaced&quot; | undefined</InlineCode>
 							</TableCell>
-							<TableCell className="align-top">default</TableCell>
-						</TableRow> */}
+							<TableCell className="align-top">
+								<InlineCode>undefined</InlineCode>
+							</TableCell>
+						</TableRow>
 					</TableBody>
 				</Table>
 			</div>
