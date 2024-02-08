@@ -7,6 +7,7 @@ import { List } from "@phosphor-icons/react/List";
 import { Sun } from "@phosphor-icons/react/Sun";
 import { X } from "@phosphor-icons/react/X";
 import { Link } from "@remix-run/react";
+import { Route } from "~/types/routes";
 import { PropsWithChildren, useState } from "react";
 import { NavLink } from "./nav-link";
 
@@ -94,6 +95,44 @@ export function Layout({ children, className, style }: Props) {
 	);
 }
 
+const components = [
+	"Alert",
+	"Anchor",
+	"Button",
+	"Card",
+	"Code Block",
+	"Inline Code",
+	"Input",
+	"Media Object",
+	"Popover",
+	"Select",
+	"Sheet",
+	"Skeleton",
+	"Table",
+	"Text Area",
+	"Theme Provider",
+	"Tooltip",
+] as const;
+
+const componentRouteLookup = {
+	Alert: "/components/alert",
+	Anchor: "/components/anchor",
+	Button: "/components/button",
+	Card: "/components/card",
+	"Code Block": "/components/code-block",
+	"Inline Code": "/components/inline-code",
+	Input: "/components/input",
+	"Media Object": "/components/media-object",
+	Popover: "/components/popover",
+	Select: "/components/select",
+	Sheet: "/components/sheet",
+	Skeleton: "/components/skeleton",
+	Table: "/components/table",
+	"Text Area": "/components/text-area",
+	"Theme Provider": "/components/theme-provider",
+	Tooltip: "/components/tooltip",
+} as const satisfies Record<(typeof components)[number], Route>;
+
 function Navigation({ className, style }: WithStyleProps) {
 	return (
 		<nav className={cx("text-sm", className)} style={style}>
@@ -123,81 +162,13 @@ function Navigation({ className, style }: WithStyleProps) {
 
 				<li className="mt-6 text-xs font-medium uppercase tracking-wider">Components</li>
 				<ul role="list" className="mt-2">
-					<li>
-						<NavLink to="/components/anchor" prefetch="intent">
-							Anchor
-						</NavLink>
-					</li>
-					<li>
-						<NavLink to="/components/button" prefetch="intent">
-							Button
-						</NavLink>
-					</li>
-					<li>
-						<NavLink to="/components/card" prefetch="intent">
-							Card
-						</NavLink>
-					</li>
-					<li>
-						<NavLink to="/components/code-block" prefetch="intent">
-							Code Block
-						</NavLink>
-					</li>
-					<li>
-						<NavLink to="/components/inline-code" prefetch="intent">
-							Inline Code
-						</NavLink>
-					</li>
-					<li>
-						<NavLink to="/components/input" prefetch="intent">
-							Input
-						</NavLink>
-					</li>
-					<li>
-						<NavLink to="/components/media-object" prefetch="intent">
-							Media Object
-						</NavLink>
-					</li>
-					<li>
-						<NavLink to="/components/popover" prefetch="intent">
-							Popover
-						</NavLink>
-					</li>
-					<li>
-						<NavLink to="/components/select" prefetch="intent">
-							Select
-						</NavLink>
-					</li>
-					<li>
-						<NavLink to="/components/sheet" prefetch="intent">
-							Sheet
-						</NavLink>
-					</li>
-					<li>
-						<NavLink to="/components/skeleton" prefetch="intent">
-							Skeleton
-						</NavLink>
-					</li>
-					<li>
-						<NavLink to="/components/table" prefetch="intent">
-							Table
-						</NavLink>
-					</li>
-					<li>
-						<NavLink to="/components/text-area" prefetch="intent">
-							Text Area
-						</NavLink>
-					</li>
-					<li>
-						<NavLink to="/components/theme-provider" prefetch="intent">
-							Theme Provider
-						</NavLink>
-					</li>
-					<li>
-						<NavLink to="/components/tooltip" prefetch="intent">
-							Tooltip
-						</NavLink>
-					</li>
+					{components.map((component) => (
+						<li key={component}>
+							<NavLink to={componentRouteLookup[component]} prefetch="intent">
+								{component}
+							</NavLink>
+						</li>
+					))}
 				</ul>
 			</ul>
 		</nav>
