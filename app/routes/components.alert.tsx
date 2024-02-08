@@ -121,24 +121,14 @@ export default function Page() {
 						<TableRow>
 							<TableCell className="align-top font-medium">priority</TableCell>
 							<TableCell className="space-y-2 align-top text-xs">
-								<p>
-									<InlineCode>&quot;danger&quot;</InlineCode>
-								</p>
-								<p>
-									<InlineCode>&quot;default&quot;</InlineCode>
-								</p>
-								<p>
-									<InlineCode>&quot;info&quot;</InlineCode>
-								</p>
-								<p>
-									<InlineCode>&quot;success&quot;</InlineCode>
-								</p>
-								<p>
-									<InlineCode>&quot;warning&quot;</InlineCode>
-								</p>
+								<p>danger</p>
+								<p>default</p>
+								<p>info</p>
+								<p>success</p>
+								<p>warning</p>
 							</TableCell>
 							<TableCell className="align-top">
-								<InlineCode>&quot;default&quot;</InlineCode>
+								<p>default</p>
 							</TableCell>
 						</TableRow>
 					</TableBody>
