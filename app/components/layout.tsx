@@ -184,6 +184,11 @@ function Navigation({ className, style }: WithStyleProps) {
 						</NavLink>
 					</li>
 					<li>
+						<NavLink to="/components/text-area" prefetch="intent">
+							Text Area
+						</NavLink>
+					</li>
+					<li>
 						<NavLink to="/components/theme-provider" prefetch="intent">
 							Theme Provider
 						</NavLink>

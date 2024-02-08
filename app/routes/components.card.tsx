@@ -1,6 +1,5 @@
-import { Card, CardBody, CardFooter, CardHeader, CardTitle } from "@/card/src/card";
-import { code } from "@/code-block/src/code";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block/src/code-block";
+import { Card, CardBody, CardFooter, CardHeader, CardTitle } from "@/card";
+import { code, CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 
