@@ -34,7 +34,11 @@ export default function Page() {
 			<CodeBlock className="rounded-b-lg rounded-t-none">
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
-					<CodeBlockCode language="tsx">{code`<Skeleton className="w-full" />`}</CodeBlockCode>
+					<CodeBlockCode language="tsx">{code`
+						import { Skeleton } from "@ngrok/mantle";
+
+						<Skeleton className="w-full" />
+					`}</CodeBlockCode>
 				</CodeBlockBody>
 			</CodeBlock>
 
@@ -62,6 +66,8 @@ export default function Page() {
 						<CodeBlockCopyButton />
 						<CodeBlockCode language="tsx">
 							{code`
+									import { MediaObject, MediaObjectMedia, MediaObjectContent, Skeleton } from "@ngrok/mantle";
+
 									<MediaObject>
 										<MediaObjectMedia>
 											<Skeleton className="h-12 w-12 rounded-full" />

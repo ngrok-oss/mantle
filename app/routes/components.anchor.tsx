@@ -59,6 +59,8 @@ export default function Page() {
 					<CodeBlockCopyButton />
 					<CodeBlockCode language="tsx">
 						{code`
+							import { Anchor } from "@ngrok/mantle";
+
 							<p>
 								This link will go to <Anchor href="https://ngrok.com/">ngrok.com</Anchor>!
 							</p>

@@ -99,6 +99,18 @@ export default function Page() {
 					<CodeBlockCopyButton />
 					<CodeBlockCode language="tsx">
 						{code`
+							import {
+								Sheet,
+								SheetBody,
+								SheetClose,
+								SheetContent,
+								SheetDescription,
+								SheetFooter,
+								SheetHeader,
+								SheetTitle,
+								SheetTrigger,
+							} from "@ngrok/mantle";
+
 							<Sheet>
 								<SheetTrigger asChild>
 									<Button appearance="solid">Open Sheet</Button>
