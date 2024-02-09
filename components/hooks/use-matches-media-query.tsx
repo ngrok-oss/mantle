@@ -1,28 +1,23 @@
-import { useEffect, useState } from "react";
+import { useCallback, useSyncExternalStore } from "react";
 
-export function useMatchesMediaQuery(mediaQuery: MediaQueryList): boolean {
-	const [matches, setMatches] = useState<boolean>(() => mediaQuery.matches);
+export function useMatchesMediaQuery(query: string) {
+	const subscribe = useCallback(
+		(callback: () => void) => {
+			const matchMedia = window.matchMedia(query);
 
-	useEffect(() => {
-		function onChange() {
-			setMatches(mediaQuery.matches);
-		}
-
-		if (typeof mediaQuery.addEventListener === "undefined") {
-			// fix for Safari < 14.x
-			mediaQuery.addListener(onChange);
-
+			matchMedia.addEventListener("change", callback);
 			return () => {
-				mediaQuery.removeListener(onChange);
+				matchMedia.removeEventListener("change", callback);
 			};
-		}
+		},
+		[query],
+	);
 
-		mediaQuery.addEventListener("change", onChange);
-
-		return () => {
-			mediaQuery.removeEventListener("change", onChange);
-		};
-	}, [mediaQuery]);
-
-	return matches;
+	return useSyncExternalStore(
+		subscribe,
+		() => {
+			return window.matchMedia(query).matches;
+		},
+		() => false,
+	);
 }
