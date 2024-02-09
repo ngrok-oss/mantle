@@ -4,6 +4,7 @@ export * from "./button";
 export * from "./card";
 export * from "./code-block";
 export * from "./core";
+export * from "./dropdown-menu";
 export * from "./inline-code";
 export * from "./input";
 export * from "./media-object";
