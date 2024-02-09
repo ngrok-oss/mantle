@@ -4,6 +4,7 @@ import { Skeleton } from "@/skeleton";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 import { Link } from "~/components/link";
+import { InlineCode } from "dist";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -22,14 +23,18 @@ export default function Page() {
 	return (
 		<div>
 			<h1 className="text-5xl font-medium">Skeleton</h1>
-			<p className="mt-4 text-xl text-gray-600">Use to show a placeholder while content is loading.</p>
+			<p className="mt-4 text-xl text-gray-600">
+				Use to show a placeholder while content is loading. By using a <InlineCode>Skeleton</InlineCode>, you can give
+				the user an idea of what the content will look like, reducing the perceived loading time and CLS (Cumulative
+				Layout Shift).
+			</p>
 			<Example className="mt-4">
-				<Skeleton className="h-4 w-full" />
+				<Skeleton className="w-full" />
 			</Example>
 			<CodeBlock className="rounded-b-lg rounded-t-none">
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
-					<CodeBlockCode language="tsx">{code`<Skeleton className="h-4 w-full" />`}</CodeBlockCode>
+					<CodeBlockCode language="tsx">{code`<Skeleton className="w-full" />`}</CodeBlockCode>
 				</CodeBlockBody>
 			</CodeBlock>
 
@@ -47,8 +52,8 @@ export default function Page() {
 							<Skeleton className="h-12 w-12 rounded-full" />
 						</MediaObjectMedia>
 						<MediaObjectContent className="space-y-3">
-							<Skeleton className="h-4 w-[250px]" />
-							<Skeleton className="h-4 w-[200px]" />
+							<Skeleton className="w-[250px]" />
+							<Skeleton className="w-[200px]" />
 						</MediaObjectContent>
 					</MediaObject>
 				</Example>
@@ -62,8 +67,8 @@ export default function Page() {
 											<Skeleton className="h-12 w-12 rounded-full" />
 										</MediaObjectMedia>
 										<MediaObjectContent className="space-y-3">
-											<Skeleton className="h-4 w-[250px]" />
-											<Skeleton className="h-4 w-[200px]" />
+											<Skeleton className="w-[250px]" />
+											<Skeleton className="w-[200px]" />
 										</MediaObjectContent>
 									</MediaObject>
 								`}
