@@ -60,6 +60,8 @@ export default function Page() {
 					<CodeBlockCopyButton />
 					<CodeBlockCode language="tsx">
 						{code`
+							import { MediaObject, MediaObjectContent, MediaObjectMedia } from "@ngrok/mantle";
+
 							<MediaObject>
 								<MediaObjectMedia>
 									<ExampleMedia />

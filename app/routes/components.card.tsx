@@ -42,6 +42,8 @@ export default function Page() {
 					<CodeBlockCopyButton />
 					<CodeBlockCode language="tsx">
 						{code`
+							import { Card, CardBody, CardFooter, CardHeader, CardTitle } from "@ngrok/mantle";
+
 							<Card>
 								<CardHeader>
 									<CardTitle>Card Title Here</CardTitle>

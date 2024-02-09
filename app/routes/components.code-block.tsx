@@ -103,6 +103,8 @@ export default function Page() {
 					<CodeBlockCopyButton />
 					<CodeBlockCode language="tsx">
 						{code`
+							import { CodeBlock, CodeBlockHeader, CodeBlockTitle, CodeBlockBody, CodeBlockCopyButton, CodeBlockCode, CodeBlockExpanderButton } from "@ngrok/mantle";
+
 							<CodeBlock>
 								<CodeBlockHeader>
 									<Icon />
