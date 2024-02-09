@@ -1,6 +1,7 @@
 import type { PropsWithChildren } from "react";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import invariant from "tiny-invariant";
+import { useMatchesMediaQuery } from "../../hooks/use-matches-media-query";
 
 /**
  * prefersDarkModeMediaQuery is the media query used to detect if the user prefers dark mode.
@@ -161,10 +162,38 @@ function applyTheme(theme: Theme) {
 	htmlElement.classList.remove(...themes);
 	const prefersDarkMode = window.matchMedia(prefersDarkModeMediaQuery).matches;
 	const prefersHighContrast = window.matchMedia(prefersHighContrastMediaQuery).matches;
-	const newTheme = theme === "system" ? determineThemeFromMediaQuery({ prefersDarkMode, prefersHighContrast }) : theme;
+	const newTheme = resolveTheme(theme, { prefersDarkMode, prefersHighContrast });
 	htmlElement.classList.add(newTheme);
 	htmlElement.dataset.appliedTheme = newTheme;
 	htmlElement.dataset.theme = theme;
+}
+
+/**
+ * If the theme is "system", it will resolve the theme based on the user's media query preferences, otherwise it will return the theme as is.
+ * This will mirror the result that gets applied to the <html> element.
+ */
+function resolveTheme(
+	theme: Theme,
+	{ prefersDarkMode, prefersHighContrast }: { prefersDarkMode: boolean; prefersHighContrast: boolean },
+) {
+	if (theme === "system") {
+		return determineThemeFromMediaQuery({ prefersDarkMode, prefersHighContrast });
+	}
+
+	return theme;
+}
+
+/**
+ * If the theme is "system", it will resolve the theme based on the user's media query preferences, otherwise it will return the theme as is.
+ * This will mirror the result that gets applied to the <html> element.
+ */
+function useAppliedTheme() {
+	const [theme] = useTheme();
+
+	const prefersDarkMode = useMatchesMediaQuery(prefersDarkModeMediaQuery);
+	const prefersHighContrast = useMatchesMediaQuery(prefersHighContrastMediaQuery);
+
+	return resolveTheme(theme, { prefersDarkMode, prefersHighContrast });
 }
 
 /**
@@ -241,4 +270,12 @@ const PreventWrongThemeFlash = ({
 );
 
 export type { Theme, ThemeProviderProps };
-export { isTheme, preventWrongThemeFlashScriptContent, PreventWrongThemeFlash, ThemeProvider, theme, useTheme };
+export {
+	isTheme,
+	PreventWrongThemeFlash,
+	preventWrongThemeFlashScriptContent,
+	theme,
+	ThemeProvider,
+	useAppliedTheme,
+	useTheme,
+};
