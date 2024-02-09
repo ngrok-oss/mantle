@@ -28,7 +28,11 @@ export default function Page() {
 			<CodeBlock className="rounded-b-lg rounded-t-none">
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
-					<CodeBlockCode language="tsx">{code`<InlineCode>npm install @ngrok/mantle</InlineCode>`}</CodeBlockCode>
+					<CodeBlockCode language="tsx">{code`
+						import { InlineCode } from "@ngrok/mantle";
+
+						<InlineCode>npm install @ngrok/mantle</InlineCode>
+					`}</CodeBlockCode>
 				</CodeBlockBody>
 			</CodeBlock>
 		</div>

@@ -66,6 +66,8 @@ export default function Page() {
 					<CodeBlockCopyButton />
 					<CodeBlockCode language="tsx">
 						{code`
+							import { Popover, PopoverContent, PopoverTrigger } from "@ngrok/mantle";
+
 							<Popover>
 								<PopoverTrigger asChild>
 									<Button>Open popover</Button>

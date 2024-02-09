@@ -33,11 +33,11 @@ export default function Page() {
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
 					<CodeBlockCode language="tsx">{code`
-						<>
-							<TextArea placeholder="Enter a username" />
-							<TextArea className="max-w-64" appearance="monospaced" placeholder="Enter a username" />
-							<TextArea placeholder="Enter a username" aria-invalid />
-						</>
+						import { TextArea } from "@ngrok/mantle";
+
+						<TextArea placeholder="Enter a username" />
+						<TextArea className="max-w-64" appearance="monospaced" placeholder="Enter a username" />
+						<TextArea placeholder="Enter a username" aria-invalid />
 					`}</CodeBlockCode>
 				</CodeBlockBody>
 			</CodeBlock>

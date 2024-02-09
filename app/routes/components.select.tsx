@@ -61,6 +61,8 @@ export default function Page() {
 					<CodeBlockCopyButton />
 					<CodeBlockCode language="tsx">
 						{code`
+							import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@ngrok/mantle";
+
 							<Select>
 								<SelectTrigger className="w-[180px]">
 									<SelectValue placeholder="Select a fruit" />

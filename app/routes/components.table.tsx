@@ -29,6 +29,8 @@ export default function Page() {
 					<CodeBlockCopyButton />
 					<CodeBlockCode language="tsx">
 						{code`
+							import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@ngrok/mantle";
+
 							<Table>
 								<TableCaption>A list of your recent invoices.</TableCaption>
 								<TableHeader>
