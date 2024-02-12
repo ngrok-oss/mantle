@@ -1,6 +1,6 @@
 import { code, CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
 import { Input } from "@/input";
-import { Table, TableBody, TableHead, TableHeader, TableRow } from "@/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/table";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 
@@ -50,14 +50,11 @@ export default function Page() {
 						</TableRow>
 					</TableHeader>
 					<TableBody className="font-mono text-xs text-gray-600">
-						{/* <TableRow>
-							<TableCell className="align-top font-medium">state</TableCell>
-							<TableCell className="space-y-2 align-top text-xs">
-								<p>default</p>
-								<p>danger</p>
-							</TableCell>
-							<TableCell className="align-top">default</TableCell>
-						</TableRow> */}
+						<TableRow>
+							<TableCell className="align-top font-medium">aria-invalid</TableCell>
+							<TableCell className="align-top">boolean</TableCell>
+							<TableCell className="align-top">false</TableCell>
+						</TableRow>
 					</TableBody>
 				</Table>
 			</div>

@@ -34,7 +34,7 @@ export default function Page() {
 				ThemeProvider is a React Context Provider that provides the current theme to the application and a function to
 				change it.
 			</p>
-			<div className="space-y-4">
+			<div className="mt-8 space-y-4 text-gray-600">
 				<p>
 					To use the <InlineCode>ThemeProvider</InlineCode>, wrap your application&apos;s entry point. This should be
 					done as high in the component tree as possible.
@@ -43,7 +43,7 @@ export default function Page() {
 					You should also add the <InlineCode>PreventWrongThemeFlash</InlineCode> component to the head of your
 					application to prevent a Flash of Unstyled Content (FOUC) when the app first loads.
 				</p>
-				<CodeBlock className="rounded-b-lg rounded-t-none">
+				<CodeBlock>
 					<CodeBlockHeader>
 						<FileText className="h-5 w-5" weight="fill" />
 						<CodeBlockTitle>root.tsx</CodeBlockTitle>
@@ -83,7 +83,7 @@ export default function Page() {
 					is not able to render React components. In this case, you can use the copy the following script and add it to
 					your application&apos;s <InlineCode>&lt;head&gt;</InlineCode>:
 				</p>
-				<CodeBlock className="rounded-b-lg rounded-t-none">
+				<CodeBlock>
 					<CodeBlockHeader>
 						<FileText className="h-5 w-5" weight="fill" />
 						<CodeBlockTitle>index.html</CodeBlockTitle>
@@ -101,7 +101,7 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 					Then, in your application, you can use the <InlineCode>useTheme</InlineCode> hook to get and change the
 					current theme:
 				</p>
-				<CodeBlock className="rounded-b-lg rounded-t-none">
+				<CodeBlock>
 					<CodeBlockHeader>
 						<FileText className="h-5 w-5" weight="fill" />
 						<CodeBlockTitle>app.tsx</CodeBlockTitle>

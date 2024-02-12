@@ -12,12 +12,13 @@ export type PasswordInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, "au
 };
 
 const passwordInputVariants = cva(
-	"flex h-11 sm:h-9 w-full rounded-md border bg-white dark:bg-gray-50 px-3 py-2 file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50 sm:text-sm",
+	"flex h-11 sm:h-9 w-full rounded-md border bg-white dark:bg-gray-50 px-3 py-2 focus-within:outline-none focus-within:ring-4 disabled:pointer-events-none disabled:opacity-50 sm:text-sm",
 	{
 		variants: {
 			state: {
-				default: "text-gray-900 border-gray-300 placeholder:text-gray-400 focus:border-blue-600 focus:ring-blue-500/25",
-				danger: "border-red-600 focus:border-red-600 focus:ring-red-500/25",
+				default:
+					"text-gray-900 border-gray-300 placeholder:text-gray-400 focus-within:border-blue-600 focus-within:ring-blue-500/25",
+				danger: "border-red-600 focus-within:border-red-600 focus-within:ring-red-500/25",
 			},
 		},
 		defaultVariants: {
