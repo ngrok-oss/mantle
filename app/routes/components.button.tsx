@@ -54,7 +54,11 @@ export default function Page() {
 			<CodeBlock className="rounded-b-lg rounded-t-none">
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
-					<CodeBlockCode language="tsx">{code`<Button>Click me!</Button>`}</CodeBlockCode>
+					<CodeBlockCode language="tsx">{code`
+						import { Button } from "@ngrok/mantle";
+
+						<Button>Click me!</Button>
+					`}</CodeBlockCode>
 				</CodeBlockBody>
 			</CodeBlock>
 			<h2 className="mt-16 text-3xl font-medium">API Reference</h2>

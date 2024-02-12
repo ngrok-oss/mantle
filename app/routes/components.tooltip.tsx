@@ -43,6 +43,8 @@ export default function Page() {
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
 					<CodeBlockCode language="tsx">{code`
+						import { Button, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@ngrok/mantle";
+
 						<TooltipProvider>
 							<Tooltip>
 								<TooltipTrigger asChild>

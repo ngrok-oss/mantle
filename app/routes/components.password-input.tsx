@@ -31,6 +31,8 @@ export default function Page() {
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
 					<CodeBlockCode language="tsx">{code`
+            import { PasswordInput } from "@ngrok/mantle";
+
 						<PasswordInput  />
 						<PasswordInput aria-invalid />
 					`}</CodeBlockCode>

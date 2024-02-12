@@ -68,6 +68,8 @@ export default function Page() {
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
 					<CodeBlockCode language="tsx">{code`
+						import { Alert, AlertContent, AlertDescription, AlertTitle } from "@ngrok/mantle";
+
 						<Alert>
 							<Rocket className="h-6 w-6" />
 							<AlertContent>
