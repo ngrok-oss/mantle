@@ -52,7 +52,7 @@ export default function Page() {
 					<TableBody className="font-mono text-xs text-gray-600">
 						<TableRow>
 							<TableCell className="align-top font-medium">aria-invalid</TableCell>
-							<TableCell className="space-y-2 align-top text-xs">boolean</TableCell>
+							<TableCell className="align-top">boolean</TableCell>
 							<TableCell className="align-top">false</TableCell>
 						</TableRow>
 					</TableBody>

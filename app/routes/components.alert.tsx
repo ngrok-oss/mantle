@@ -1,5 +1,6 @@
 import { Alert, AlertContent, AlertDescription, AlertTitle } from "@/alert";
 import { code, CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
+import { InlineCode } from "@/inline-code";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/table";
 import { CheckCircle } from "@phosphor-icons/react/CheckCircle";
 import { Fire } from "@phosphor-icons/react/Fire";
@@ -115,22 +116,22 @@ export default function Page() {
 						<TableRow>
 							<TableHead>Prop</TableHead>
 							<TableHead>Type</TableHead>
+							<TableHead>Options</TableHead>
 							<TableHead>Default</TableHead>
 						</TableRow>
 					</TableHeader>
 					<TableBody className="font-mono text-xs text-gray-600">
 						<TableRow>
 							<TableCell className="align-top font-medium">priority</TableCell>
-							<TableCell className="space-y-2 align-top text-xs">
+							<TableCell className="align-top">enum</TableCell>
+							<TableCell className="space-y-2 align-top">
 								<p>danger</p>
 								<p>default</p>
 								<p>info</p>
 								<p>success</p>
 								<p>warning</p>
 							</TableCell>
-							<TableCell className="align-top">
-								<p>default</p>
-							</TableCell>
+							<TableCell className="align-top">default</TableCell>
 						</TableRow>
 					</TableBody>
 				</Table>

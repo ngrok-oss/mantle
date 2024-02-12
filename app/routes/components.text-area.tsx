@@ -24,19 +24,19 @@ export default function Page() {
 			<p className="mt-4 text-xl text-gray-600">Displays a form textarea or a component that looks like a textarea.</p>
 
 			<Example className="mt-4 flex-col gap-4">
-				<TextArea className="max-w-64" placeholder="Enter a username" />
-				<TextArea className="max-w-64" appearance="monospaced" placeholder="Enter a username" />
-				<TextArea className="max-w-64" placeholder="Enter a username" aria-invalid />
+				<TextArea className="max-w-64" placeholder="Tell us about your experience…" />
+				<TextArea className="max-w-64" appearance="monospaced" placeholder="Tell us about your experience…" />
+				<TextArea className="max-w-64" placeholder="Tell us about your experience…" aria-invalid />
 			</Example>
 			<CodeBlock className="rounded-b-lg rounded-t-none">
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
 					<CodeBlockCode language="tsx">{code`
 						import { TextArea } from "@ngrok/mantle";
-            
-            <TextArea placeholder="Enter a username" />
-						<TextArea appearance="monospaced" placeholder="Enter a username" />
-						<TextArea placeholder="Enter a username" aria-invalid />
+
+						<TextArea placeholder="Tell us about your experience…" />
+						<TextArea appearance="monospaced" placeholder="Tell us about your experience…" />
+						<TextArea placeholder="Tell us about your experience…" aria-invalid />
 					`}</CodeBlockCode>
 				</CodeBlockBody>
 			</CodeBlock>
@@ -48,13 +48,15 @@ export default function Page() {
 						<TableRow>
 							<TableHead>Prop</TableHead>
 							<TableHead>Type</TableHead>
+							<TableHead>Options</TableHead>
 							<TableHead>Default</TableHead>
 						</TableRow>
 					</TableHeader>
 					<TableBody className="font-mono text-xs text-gray-600">
 						<TableRow>
 							<TableCell className="align-top font-medium">appearance</TableCell>
-							<TableCell className="space-y-2 align-top text-xs">
+							<TableCell className="align-top">enum</TableCell>
+							<TableCell className="space-y-2 align-top">
 								<p>monospaced</p>
 								<p>undefined</p>
 							</TableCell>
@@ -62,7 +64,8 @@ export default function Page() {
 						</TableRow>
 						<TableRow>
 							<TableCell className="align-top font-medium">aria-invalid</TableCell>
-							<TableCell className="space-y-2 align-top text-xs">boolean</TableCell>
+							<TableCell className="space-y-2 align-top">boolean</TableCell>
+							<TableCell></TableCell>
 							<TableCell className="align-top">false</TableCell>
 						</TableRow>
 					</TableBody>
