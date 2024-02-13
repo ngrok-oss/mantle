@@ -11,7 +11,15 @@ type Props = Exclude<HTMLAttributes<HTMLDivElement>, "children">;
  * @note Default height is 1rem.
  */
 function Skeleton({ className, ...props }: Props) {
-	return <div className={cx("h-4 animate-pulse rounded-md bg-gray-500/10", className)} {...props} />;
+	return (
+		<div
+			className={cx(
+				"h-4 animate-pulse rounded-md bg-gray-300/25 dark-high-contrast:bg-black/30 high-contrast:bg-black/30 dark:bg-gray-950/10",
+				className,
+			)}
+			{...props}
+		/>
+	);
 }
 
 export { Skeleton };
