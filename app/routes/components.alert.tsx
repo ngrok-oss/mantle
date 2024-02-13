@@ -1,6 +1,5 @@
 import { Alert, AlertContent, AlertDescription, AlertTitle } from "@/alert";
 import { code, CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
-import { InlineCode } from "@/inline-code";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/table";
 import { CheckCircle } from "@phosphor-icons/react/CheckCircle";
 import { Fire } from "@phosphor-icons/react/Fire";
