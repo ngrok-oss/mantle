@@ -68,13 +68,15 @@ export default function Page() {
 						<TableRow>
 							<TableHead>Prop</TableHead>
 							<TableHead>Type</TableHead>
+							<TableHead>Options</TableHead>
 							<TableHead>Default</TableHead>
 						</TableRow>
 					</TableHeader>
 					<TableBody className="font-mono text-xs text-gray-600">
 						<TableRow>
 							<TableCell className="align-top font-medium">appearance</TableCell>
-							<TableCell className="space-y-2 align-top text-xs">
+							<TableCell className="align-top">enum</TableCell>
+							<TableCell className="space-y-2 align-top">
 								<p>ghost</p>
 								<p>solid</p>
 								<p>outline</p>
@@ -83,7 +85,8 @@ export default function Page() {
 						</TableRow>
 						<TableRow>
 							<TableCell className="align-top font-medium">priority</TableCell>
-							<TableCell className="space-y-2 align-top text-xs">
+							<TableCell className="align-top">enum</TableCell>
+							<TableCell className="space-y-2 align-top">
 								<p>default</p>
 								<p>danger</p>
 								<p>muted</p>
@@ -93,6 +96,7 @@ export default function Page() {
 						<TableRow>
 							<TableCell className="font-medium">asChild</TableCell>
 							<TableCell>boolean</TableCell>
+							<TableCell></TableCell>
 							<TableCell>false</TableCell>
 						</TableRow>
 					</TableBody>
