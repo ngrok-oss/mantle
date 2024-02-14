@@ -248,7 +248,6 @@ const mantlePreset = {
 				900: "hsl(var(--rose-900) / <alpha-value>)",
 				950: "hsl(var(--rose-950) / <alpha-value>)",
 			},
-			button: "hsl(var(--button))",
 			border: "hsl(var(--border))",
 			input: "hsl(var(--input))",
 			ring: "hsl(var(--ring))",
@@ -261,18 +260,6 @@ const mantlePreset = {
 			secondary: {
 				DEFAULT: "hsl(var(--secondary))",
 				foreground: "hsl(var(--secondary-foreground))",
-			},
-			destructive: {
-				DEFAULT: "hsl(var(--destructive))",
-				foreground: "hsl(var(--destructive-foreground))",
-			},
-			muted: {
-				DEFAULT: "hsl(var(--muted))",
-				foreground: "hsl(var(--muted-foreground))",
-			},
-			accent: {
-				DEFAULT: "hsl(var(--accent))",
-				foreground: "hsl(var(--accent-foreground))",
 			},
 			popover: {
 				DEFAULT: "hsl(var(--popover))",
@@ -297,11 +284,6 @@ const mantlePreset = {
 			},
 			aria: {
 				invalid: 'invalid="true"',
-			},
-			borderRadius: {
-				lg: "var(--radius)",
-				md: "calc(var(--radius) - 2px)",
-				sm: "calc(var(--radius) - 4px)",
 			},
 			cursor: {
 				inherit: "inherit",
@@ -333,6 +315,9 @@ const mantlePreset = {
 			},
 			screens: {
 				xs: "480px",
+			},
+			spacing: {
+				"1.25": "0.3125rem",
 			},
 			transitionProperty: {
 				"max-height": "max-height",

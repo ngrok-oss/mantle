@@ -26,12 +26,14 @@ const SelectGroup = SelectPrimitive.Group;
 const SelectValue = SelectPrimitive.Value;
 
 const selectTriggerVariants = cva(
-	"flex h-11 w-full items-center justify-between rounded-md border bg-white px-3 py-2 placeholder:text-gray-300 hover:bg-gray-500/5 focus:outline-none focus:ring-4 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:hover:bg-gray-500/5 sm:h-9 sm:text-sm [&>span]:line-clamp-1 [&>span]:text-left",
+	"flex h-11 w-full items-center justify-between rounded-md border bg-white px-3 py-2 placeholder:text-gray-300 hover:bg-gray-500/5 focus:outline-none focus:ring-4 aria-expanded:ring-4 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:hover:bg-gray-500/5 sm:h-9 sm:text-sm [&>span]:line-clamp-1 [&>span]:text-left",
 	{
 		variants: {
 			state: {
-				danger: "border-red-600 focus:border-red-600 focus:ring-red-500/25",
-				default: "text-gray-900 border-gray-300 placeholder:text-gray-400 focus:border-blue-600 focus:ring-blue-500/25",
+				danger:
+					"border-red-600 focus:border-red-600 aria-expanded:border-red-600 focus:ring-red-500/25 aria-expanded:ring-red-500/25",
+				default:
+					"text-gray-900 border-gray-300 placeholder:text-gray-400 focus:border-blue-600 aria-expanded:border-blue-600 focus:ring-blue-500/25 aria-expanded:ring-blue-500/25",
 			},
 		},
 		defaultVariants: {
@@ -59,12 +61,12 @@ const SelectTrigger = forwardRef<
 		>
 			{children}
 			<SelectPrimitive.Icon asChild>
-				<CaretDown className="h-4 w-4 shrink-0" weight="bold" />
+				<CaretDown className="size-4 shrink-0" weight="bold" />
 			</SelectPrimitive.Icon>
 		</SelectPrimitive.Trigger>
 	);
 });
-SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
+SelectTrigger.displayName = "SelectTrigger";
 
 const SelectScrollUpButton = forwardRef<
 	ElementRef<typeof SelectPrimitive.ScrollUpButton>,
@@ -75,10 +77,10 @@ const SelectScrollUpButton = forwardRef<
 		className={cx("flex cursor-default items-center justify-center py-1", className)}
 		{...props}
 	>
-		<CaretUp className="h-4 w-4" weight="bold" />
+		<CaretUp className="size-4" weight="bold" />
 	</SelectPrimitive.ScrollUpButton>
 ));
-SelectScrollUpButton.displayName = SelectPrimitive.ScrollUpButton.displayName;
+SelectScrollUpButton.displayName = "SelectScrollUpButton";
 
 const SelectScrollDownButton = forwardRef<
 	ElementRef<typeof SelectPrimitive.ScrollDownButton>,
@@ -89,42 +91,43 @@ const SelectScrollDownButton = forwardRef<
 		className={cx("flex cursor-default items-center justify-center py-1", className)}
 		{...props}
 	>
-		<CaretDown className="h-4 w-4" weight="bold" />
+		<CaretDown className="size-4" weight="bold" />
 	</SelectPrimitive.ScrollDownButton>
 ));
-SelectScrollDownButton.displayName = SelectPrimitive.ScrollDownButton.displayName;
+SelectScrollDownButton.displayName = "SelectScrollDownButton";
 
-const SelectContent = forwardRef<
-	ElementRef<typeof SelectPrimitive.Content>,
-	ComponentPropsWithoutRef<typeof SelectPrimitive.Content>
->(({ className, children, position = "popper", ...props }, ref) => (
-	<SelectPrimitive.Portal>
-		<SelectPrimitive.Content
-			ref={ref}
-			className={cx(
-				"relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border border-gray-300 bg-card text-popover-foreground shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
-				position === "popper" &&
-					"data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",
-				className,
-			)}
-			position={position}
-			{...props}
-		>
-			<SelectScrollUpButton />
-			<SelectPrimitive.Viewport
+type SelectContentProps = ComponentPropsWithoutRef<typeof SelectPrimitive.Content> & {
+	width?: "trigger" | "content";
+};
+
+const SelectContent = forwardRef<ElementRef<typeof SelectPrimitive.Content>, SelectContentProps>(
+	({ className, children, position = "popper", width, ...props }, ref) => (
+		<SelectPrimitive.Portal>
+			<SelectPrimitive.Content
+				ref={ref}
 				className={cx(
-					"p-1",
+					"relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border border-gray-200 shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+					"bg-card dark:bg-gray-100",
 					position === "popper" &&
-						"h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]",
+						"max-h-[var(--radix-select-content-available-height)] data-[side=bottom]:translate-y-2 data-[side=left]:-translate-x-2 data-[side=right]:translate-x-2 data-[side=top]:-translate-y-2",
+					width === "trigger" && "w-[var(--radix-select-trigger-width)]",
+					className,
 				)}
+				position={position}
+				{...props}
 			>
-				{children}
-			</SelectPrimitive.Viewport>
-			<SelectScrollDownButton />
-		</SelectPrimitive.Content>
-	</SelectPrimitive.Portal>
-));
-SelectContent.displayName = SelectPrimitive.Content.displayName;
+				<SelectScrollUpButton />
+				<SelectPrimitive.Viewport
+					className={cx("p-1", position === "popper" && "h-[var(--radix-select-trigger-height)] w-full")}
+				>
+					{children}
+				</SelectPrimitive.Viewport>
+				<SelectScrollDownButton />
+			</SelectPrimitive.Content>
+		</SelectPrimitive.Portal>
+	),
+);
+SelectContent.displayName = "SelectContent";
 
 const SelectLabel = forwardRef<
 	ElementRef<typeof SelectPrimitive.Label>,
@@ -132,7 +135,7 @@ const SelectLabel = forwardRef<
 >(({ className, ...props }, ref) => (
 	<SelectPrimitive.Label ref={ref} className={cx("px-2 py-1.5 text-sm font-semibold", className)} {...props} />
 ));
-SelectLabel.displayName = SelectPrimitive.Label.displayName;
+SelectLabel.displayName = "SelectLabel";
 
 const SelectItem = forwardRef<
 	ElementRef<typeof SelectPrimitive.Item>,
@@ -141,28 +144,26 @@ const SelectItem = forwardRef<
 	<SelectPrimitive.Item
 		ref={ref}
 		className={cx(
-			"relative flex w-full cursor-pointer select-none items-center rounded-sm py-1.5 pl-2 pr-8 text-sm outline-none focus:bg-blue-600 focus:text-white data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+			"relative flex w-full cursor-pointer select-none items-center rounded py-1.5 pl-2 pr-8 text-sm outline-none focus:bg-gray-100 data-[disabled]:pointer-events-none data-[state='checked']:bg-blue-500 data-[state='checked']:text-[#fff] data-[disabled]:opacity-50 dark:focus:bg-gray-200 data-[state='checked']:dark:bg-blue-500",
 			className,
 		)}
 		{...props}
 	>
-		<span className="absolute right-2 flex h-3.5 w-3.5 items-center justify-center">
-			<SelectPrimitive.ItemIndicator>
-				<Check className="h-4 w-4" weight="bold" />
-			</SelectPrimitive.ItemIndicator>
-		</span>
 		<SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
+		<SelectPrimitive.ItemIndicator className="absolute right-2 flex h-3.5 w-3.5 items-center justify-center">
+			<Check className="size-4" weight="bold" />
+		</SelectPrimitive.ItemIndicator>
 	</SelectPrimitive.Item>
 ));
-SelectItem.displayName = SelectPrimitive.Item.displayName;
+SelectItem.displayName = "SelectItem";
 
 const SelectSeparator = forwardRef<
 	ElementRef<typeof SelectPrimitive.Separator>,
 	ComponentPropsWithoutRef<typeof SelectPrimitive.Separator>
 >(({ className, ...props }, ref) => (
-	<SelectPrimitive.Separator ref={ref} className={cx("-mx-1 my-1 h-px bg-muted", className)} {...props} />
+	<SelectPrimitive.Separator ref={ref} className={cx("-mx-1 my-1 h-px bg-gray-200", className)} {...props} />
 ));
-SelectSeparator.displayName = SelectPrimitive.Separator.displayName;
+SelectSeparator.displayName = "SelectSeparator";
 
 export {
 	Select,
