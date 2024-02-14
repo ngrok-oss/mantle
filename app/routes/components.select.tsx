@@ -1,5 +1,14 @@
 import { code, CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/select";
+import {
+	Select,
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectLabel,
+	SelectSeparator,
+	SelectTrigger,
+	SelectValue,
+} from "@/select";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 
@@ -29,7 +38,7 @@ export default function Page() {
 					<SelectTrigger className="max-w-64">
 						<SelectValue placeholder="Select a fruit" />
 					</SelectTrigger>
-					<SelectContent>
+					<SelectContent width="trigger">
 						<SelectGroup>
 							<SelectLabel>Fruits</SelectLabel>
 							<SelectItem value="apple">Apple</SelectItem>
@@ -37,6 +46,18 @@ export default function Page() {
 							<SelectItem value="blueberry">Blueberry</SelectItem>
 							<SelectItem value="grapes">Grapes</SelectItem>
 							<SelectItem value="pineapple">Pineapple</SelectItem>
+						</SelectGroup>
+						<SelectSeparator />
+						<SelectGroup>
+							<SelectLabel>Vegetables</SelectLabel>
+							<SelectItem value="carrot">Carrot</SelectItem>
+							<SelectItem value="cucumber">Cucumber</SelectItem>
+							<SelectItem value="lettuce">Lettuce</SelectItem>
+							<SelectItem value="tomato">Tomato</SelectItem>
+							<SelectItem value="zucchini">
+								<p>Zucchini</p>
+								<p>Ex sit voluptate incididunt pariatur velit consequat reprehenderit.</p>
+							</SelectItem>
 						</SelectGroup>
 					</SelectContent>
 				</Select>
@@ -53,6 +74,18 @@ export default function Page() {
 							<SelectItem value="grapes">Grapes</SelectItem>
 							<SelectItem value="pineapple">Pineapple</SelectItem>
 						</SelectGroup>
+						<SelectSeparator />
+						<SelectGroup>
+							<SelectLabel>Vegetables</SelectLabel>
+							<SelectItem value="carrot">Carrot</SelectItem>
+							<SelectItem value="cucumber">Cucumber</SelectItem>
+							<SelectItem value="lettuce">Lettuce</SelectItem>
+							<SelectItem value="tomato">Tomato</SelectItem>
+							<SelectItem value="zucchini">
+								<p>Zucchini</p>
+								<p>Ex sit voluptate incididunt pariatur velit consequat reprehenderit.</p>
+							</SelectItem>
+						</SelectGroup>
 					</SelectContent>
 				</Select>
 			</Example>
@@ -61,7 +94,16 @@ export default function Page() {
 					<CodeBlockCopyButton />
 					<CodeBlockCode language="tsx">
 						{code`
-							import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@ngrok/mantle";
+							import {
+								Select,
+								SelectContent,
+								SelectGroup,
+								SelectItem,
+								SelectLabel,
+								SelectSeparator,
+								SelectTrigger,
+								SelectValue,
+							} from "@ngrok/mantle";
 
 							<Select>
 								<SelectTrigger className="w-[180px]">
@@ -75,6 +117,18 @@ export default function Page() {
 										<SelectItem value="blueberry">Blueberry</SelectItem>
 										<SelectItem value="grapes">Grapes</SelectItem>
 										<SelectItem value="pineapple">Pineapple</SelectItem>
+									</SelectGroup>
+									<SelectSeparator />
+									<SelectGroup>
+										<SelectLabel>Vegetables</SelectLabel>
+										<SelectItem value="carrot">Carrot</SelectItem>
+										<SelectItem value="cucumber">Cucumber</SelectItem>
+										<SelectItem value="lettuce">Lettuce</SelectItem>
+										<SelectItem value="tomato">Tomato</SelectItem>
+										<SelectItem value="zucchini">
+											<p>Zucchini</p>
+											<p>Ex sit voluptate incididunt pariatur velit consequat reprehenderit.</p>
+										</SelectItem>
 									</SelectGroup>
 								</SelectContent>
 							</Select>

@@ -439,9 +439,7 @@
 	--rose-900: var(--tw-rose-900);
 	--rose-950: var(--tw-rose-950);
 
-	--button: 0deg 0% 100%;
 	--border: var(--gray-200);
-	--radius: 0.5rem;
 	--background: var(--gray-050);
 	--foreground: var(--white);
 	--card: var(--white);
@@ -1106,7 +1104,6 @@
 	--card: var(--gray-050);
 	--popover: var(--gray-100);
 	--popover-foreground: 210 40% 98%;
-	--button: var(--white);
 }
 
 /**

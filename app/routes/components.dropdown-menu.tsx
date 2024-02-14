@@ -3,17 +3,17 @@ import { code, CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } fr
 import {
 	DropdownMenu,
 	DropdownMenuContent,
-	DropdownMenuGroup,
 	DropdownMenuItem,
 	DropdownMenuLabel,
-	DropdownMenuPortal,
+	DropdownMenuRadioItem,
 	DropdownMenuSeparator,
-	DropdownMenuShortcut,
-	DropdownMenuSub,
-	DropdownMenuSubContent,
-	DropdownMenuSubTrigger,
 	DropdownMenuTrigger,
 } from "@/dropdown-menu";
+import { Desktop } from "@phosphor-icons/react/Desktop";
+import { Gear } from "@phosphor-icons/react/Gear";
+import { Moon } from "@phosphor-icons/react/Moon";
+import { SignOut } from "@phosphor-icons/react/SignOut";
+import { Sun } from "@phosphor-icons/react/Sun";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 
@@ -39,58 +39,42 @@ export default function Page() {
 			</p>
 
 			<Example className="mt-4">
-				<DropdownMenu modal>
+				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
-						<Button appearance="outline">Open</Button>
+						<Button appearance="solid">Open Menu</Button>
 					</DropdownMenuTrigger>
-					<DropdownMenuContent className="w-56">
-						<DropdownMenuLabel>My Account</DropdownMenuLabel>
+					<DropdownMenuContent>
+						<DropdownMenuLabel>micah@ngrok.com</DropdownMenuLabel>
 						<DropdownMenuSeparator />
-						<DropdownMenuGroup>
-							<DropdownMenuItem>
-								Profile
-								<DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-							</DropdownMenuItem>
-							<DropdownMenuItem>
-								Billing
-								<DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
-							</DropdownMenuItem>
-							<DropdownMenuItem>
-								Settings
-								<DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-							</DropdownMenuItem>
-							<DropdownMenuItem>
-								Keyboard shortcuts
-								<DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
-							</DropdownMenuItem>
-						</DropdownMenuGroup>
+						<DropdownMenuRadioItem name="theme" value="system">
+							<Desktop className="size-5" />
+							<span>System Preference</span>
+						</DropdownMenuRadioItem>
+						<DropdownMenuRadioItem name="theme" value="light">
+							<Sun className="size-5" />
+							<span>Light Mode</span>
+						</DropdownMenuRadioItem>
+						<DropdownMenuRadioItem name="theme" value="dark">
+							<Moon className="size-5" />
+							<span>Dark Mode</span>
+						</DropdownMenuRadioItem>
+						<DropdownMenuRadioItem name="theme" value="light-high-contrast">
+							<Sun className="size-5" weight="fill" />
+							<span>Light High Contrast</span>
+						</DropdownMenuRadioItem>
+						<DropdownMenuRadioItem name="theme" value="dark-high-contrast">
+							<Moon className="size-5" weight="fill" />
+							<span>Dark High Contrast</span>
+						</DropdownMenuRadioItem>
 						<DropdownMenuSeparator />
-						<DropdownMenuGroup>
-							<DropdownMenuItem>Team</DropdownMenuItem>
-							<DropdownMenuSub>
-								<DropdownMenuSubTrigger>Invite users</DropdownMenuSubTrigger>
-								<DropdownMenuPortal>
-									<DropdownMenuSubContent>
-										<DropdownMenuItem>Email</DropdownMenuItem>
-										<DropdownMenuItem>Message</DropdownMenuItem>
-										<DropdownMenuSeparator />
-										<DropdownMenuItem>More...</DropdownMenuItem>
-									</DropdownMenuSubContent>
-								</DropdownMenuPortal>
-							</DropdownMenuSub>
-							<DropdownMenuItem>
-								New Team
-								<DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
-							</DropdownMenuItem>
-						</DropdownMenuGroup>
+						<DropdownMenuItem className="flex items-center gap-2">
+							<Gear className="size-5" />
+							<span>User Settings</span>
+						</DropdownMenuItem>
 						<DropdownMenuSeparator />
-						<DropdownMenuItem>GitHub</DropdownMenuItem>
-						<DropdownMenuItem>Support</DropdownMenuItem>
-						<DropdownMenuItem disabled>API</DropdownMenuItem>
-						<DropdownMenuSeparator />
-						<DropdownMenuItem>
-							Log out
-							<DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+						<DropdownMenuItem className="flex items-center gap-2">
+							<SignOut className="size-5" />
+							<span>Log out</span>
 						</DropdownMenuItem>
 					</DropdownMenuContent>
 				</DropdownMenu>
@@ -103,70 +87,49 @@ export default function Page() {
 							Button,
 							DropdownMenu,
 							DropdownMenuContent,
-							DropdownMenuGroup,
 							DropdownMenuItem,
 							DropdownMenuLabel,
-							DropdownMenuPortal,
+							DropdownMenuRadioItem,
 							DropdownMenuSeparator,
-							DropdownMenuShortcut,
-							DropdownMenuSub,
-							DropdownMenuSubContent,
-							DropdownMenuSubTrigger,
 							DropdownMenuTrigger,
 						} from "@ngrok/mantle";
 
 						<DropdownMenu>
 							<DropdownMenuTrigger asChild>
-								<Button appearance="outline">Open</Button>
+								<Button appearance="solid">Open Menu</Button>
 							</DropdownMenuTrigger>
-							<DropdownMenuContent className="w-56">
-								<DropdownMenuLabel>My Account</DropdownMenuLabel>
+							<DropdownMenuContent>
+								<DropdownMenuLabel>micah@ngrok.com</DropdownMenuLabel>
 								<DropdownMenuSeparator />
-								<DropdownMenuGroup>
-									<DropdownMenuItem>
-										Profile
-										<DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-									</DropdownMenuItem>
-									<DropdownMenuItem>
-										Billing
-										<DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
-									</DropdownMenuItem>
-									<DropdownMenuItem>
-										Settings
-										<DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-									</DropdownMenuItem>
-									<DropdownMenuItem>
-										Keyboard shortcuts
-										<DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
-									</DropdownMenuItem>
-								</DropdownMenuGroup>
-								<DropdownMenuSeparator />
-								<DropdownMenuGroup>
-									<DropdownMenuItem>Team</DropdownMenuItem>
-									<DropdownMenuSub>
-										<DropdownMenuSubTrigger>Invite users</DropdownMenuSubTrigger>
-										<DropdownMenuPortal>
-											<DropdownMenuSubContent>
-												<DropdownMenuItem>Email</DropdownMenuItem>
-												<DropdownMenuItem>Message</DropdownMenuItem>
-												<DropdownMenuSeparator />
-												<DropdownMenuItem>More...</DropdownMenuItem>
-											</DropdownMenuSubContent>
-										</DropdownMenuPortal>
-									</DropdownMenuSub>
-									<DropdownMenuItem>
-										New Team
-										<DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
-									</DropdownMenuItem>
-								</DropdownMenuGroup>
-								<DropdownMenuSeparator />
-								<DropdownMenuItem>GitHub</DropdownMenuItem>
-								<DropdownMenuItem>Support</DropdownMenuItem>
-								<DropdownMenuItem disabled>API</DropdownMenuItem>
+								<DropdownMenuRadioItem name="theme" value="system">
+									<Desktop className="size-5" />
+									<span>System Preference</span>
+								</DropdownMenuRadioItem>
+								<DropdownMenuRadioItem name="theme" value="light">
+									<Sun className="size-5" />
+									<span>Light Mode</span>
+								</DropdownMenuRadioItem>
+								<DropdownMenuRadioItem name="theme" value="dark">
+									<Moon className="size-5" />
+									<span>Dark Mode</span>
+								</DropdownMenuRadioItem>
+								<DropdownMenuRadioItem name="theme" value="light-high-contrast">
+									<Sun className="size-5" weight="fill" />
+									<span>Light High Contrast</span>
+								</DropdownMenuRadioItem>
+								<DropdownMenuRadioItem name="theme" value="dark-high-contrast">
+									<Moon className="size-5" weight="fill" />
+									<span>Dark High Contrast</span>
+								</DropdownMenuRadioItem>
 								<DropdownMenuSeparator />
 								<DropdownMenuItem>
-									Log out
-									<DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+									<Gear className="size-5" />
+									<span>User Settings</span>
+								</DropdownMenuItem>
+								<DropdownMenuSeparator />
+								<DropdownMenuItem>
+									<SignOut className="size-5" />
+									<span>Log out</span>
 								</DropdownMenuItem>
 							</DropdownMenuContent>
 						</DropdownMenu>

@@ -3,13 +3,15 @@
   "description": "mantle is ngrok's UI library and design system.",
   "author": "ngrok",
   "license": "MIT",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "homepage": "https://mantle.ngrok.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/ngrok-oss/mantle"
   },
-  "sideEffects": ["*.css"],
+  "sideEffects": [
+    "*.css"
+  ],
   "type": "module",
   "browserslist": [
     "last 2 years, not dead, > 0.2%"
@@ -44,6 +46,7 @@
     "typecheck": "tsc --incremental --noEmit --skipLibCheck"
   },
   "dependencies": {
+    "@ariakit/react": "0.4.1",
     "@phosphor-icons/react": "2.0.15",
     "@radix-ui/react-dialog": "1.0.5",
     "@radix-ui/react-dropdown-menu": "2.0.6",
