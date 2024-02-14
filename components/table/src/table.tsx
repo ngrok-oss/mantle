@@ -37,7 +37,7 @@ const TableRow = forwardRef<HTMLTableRowElement, HTMLAttributes<HTMLTableRowElem
 	({ className, ...props }, ref) => (
 		<tr
 			ref={ref}
-			className={cx("border-b border-gray-300 hover:bg-muted/50 data-[state=selected]:bg-muted", className)}
+			className={cx("border-b border-gray-300 hover:bg-gray-200/50 data-[state=selected]:bg-gray-200", className)}
 			{...props}
 		/>
 	),
@@ -49,7 +49,7 @@ const TableHead = forwardRef<HTMLTableCellElement, ThHTMLAttributes<HTMLTableCel
 		<th
 			ref={ref}
 			className={cx(
-				"h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0",
+				"text-muted-foreground h-12 px-4 text-left align-middle font-medium [&:has([role=checkbox])]:pr-0",
 				className,
 			)}
 			{...props}
