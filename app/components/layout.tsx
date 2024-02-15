@@ -38,7 +38,7 @@ export function Layout({ children, className, style }: Props) {
 		<main className={cx("mx-auto h-full max-w-7xl sm:px-4", className)} style={style}>
 			<header className="flex h-24 items-center gap-4 px-4 sm:px-0">
 				<Button
-					appearance="outline"
+					appearance="outlined"
 					priority="muted"
 					className="w-11 sm:w-9 md:hidden"
 					onClick={() => {

@@ -17,17 +17,17 @@ export const Ghost: Story = {
 	},
 };
 
-export const Solid: Story = {
+export const Filled: Story = {
 	render: (args) => <Button {...args}>Button</Button>,
 	args: {
-		appearance: "solid",
+		appearance: "filled",
 	},
 };
 
-export const Outline: Story = {
+export const Outlined: Story = {
 	render: (args) => <Button {...args}>Button</Button>,
 	args: {
-		appearance: "outline",
+		appearance: "outlined",
 	},
 };
 
@@ -39,18 +39,18 @@ export const GhostMuted: Story = {
 	},
 };
 
-export const SolidMuted: Story = {
+export const FilledMuted: Story = {
 	render: (args) => <Button {...args}>Button</Button>,
 	args: {
-		appearance: "solid",
+		appearance: "filled",
 		priority: "muted",
 	},
 };
 
-export const OutlineMuted: Story = {
+export const OutlinedMuted: Story = {
 	render: (args) => <Button {...args}>Button</Button>,
 	args: {
-		appearance: "outline",
+		appearance: "outlined",
 		priority: "muted",
 	},
 };
@@ -63,10 +63,10 @@ export const GhostDanger: Story = {
 	},
 };
 
-export const SolidDanger: Story = {
+export const FilledDanger: Story = {
 	render: (args) => <Button {...args}>Button</Button>,
 	args: {
-		appearance: "solid",
+		appearance: "filled",
 		priority: "danger",
 	},
 };
