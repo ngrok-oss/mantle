@@ -27,7 +27,7 @@ export default function Page() {
 			<Example className="mt-4 flex flex-wrap gap-6">
 				<div>
 					<p className="mb-2 text-center font-mono text-xs">Default</p>
-					<div className="flex gap-2">
+					<div className="flex items-center gap-2">
 						<Button>Ghost</Button>
 						<Button appearance="filled">Filled</Button>
 						<Button appearance="outlined">Outlined</Button>
@@ -37,7 +37,7 @@ export default function Page() {
 
 				<div>
 					<p className="mb-2 text-center font-mono text-xs">Muted</p>
-					<div className="flex gap-2">
+					<div className="flex items-center gap-2">
 						<Button priority="muted">Ghost</Button>
 						<Button priority="muted" appearance="filled">
 							Filled
@@ -53,7 +53,7 @@ export default function Page() {
 
 				<div>
 					<p className="mb-2 text-center font-mono text-xs">Danger</p>
-					<div className="flex gap-2">
+					<div className="flex items-center gap-2">
 						<Button priority="danger">Ghost</Button>
 						<Button priority="danger" appearance="filled">
 							Filled
