@@ -71,10 +71,10 @@ export const FilledDanger: Story = {
 	},
 };
 
-export const OutlineDanger: Story = {
+export const OutlinedDanger: Story = {
 	render: (args) => <Button {...args}>Button</Button>,
 	args: {
-		appearance: "outline",
+		appearance: "outlined",
 		priority: "danger",
 	},
 };
