@@ -29,7 +29,7 @@ export default function Page() {
 				<TooltipProvider>
 					<Tooltip>
 						<TooltipTrigger asChild>
-							<Button appearance="solid" priority="default">
+							<Button appearance="filled" priority="default">
 								Hover
 							</Button>
 						</TooltipTrigger>
@@ -48,7 +48,7 @@ export default function Page() {
 						<TooltipProvider>
 							<Tooltip>
 								<TooltipTrigger asChild>
-									<Button appearance="solid" priority="default">
+									<Button appearance="filled" priority="default">
 										Hover
 									</Button>
 								</TooltipTrigger>

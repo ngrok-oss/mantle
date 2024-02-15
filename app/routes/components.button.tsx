@@ -24,31 +24,40 @@ export default function Page() {
 			<p className="mt-4 text-xl text-gray-600">
 				Initiates an action, such as completing a task or submitting information
 			</p>
-			<Example className="mt-4 flex flex-wrap gap-4">
-				<div className="flex gap-2">
-					<Button>Ghost</Button>
-					<Button appearance="solid">Solid</Button>
-					<Button appearance="outline">Outline</Button>
+			<Example className="mt-4 flex flex-wrap gap-6">
+				<div>
+					<p className="mb-2 text-center font-mono text-xs">Default</p>
+					<div className="flex gap-2">
+						<Button>Ghost</Button>
+						<Button appearance="filled">Filled</Button>
+						<Button appearance="outlined">Outlined</Button>
+					</div>
 				</div>
 
-				<div className="flex gap-2">
-					<Button priority="muted">Muted</Button>
-					<Button priority="muted" appearance="solid">
-						Muted
-					</Button>
-					<Button priority="muted" appearance="outline">
-						Muted
-					</Button>
+				<div>
+					<p className="mb-2 text-center font-mono text-xs">Muted</p>
+					<div className="flex gap-2">
+						<Button priority="muted">Ghost</Button>
+						<Button priority="muted" appearance="filled">
+							Filled
+						</Button>
+						<Button priority="muted" appearance="outlined">
+							Outlined
+						</Button>
+					</div>
 				</div>
 
-				<div className="flex gap-2">
-					<Button priority="danger">Danger</Button>
-					<Button priority="danger" appearance="solid">
-						Danger
-					</Button>
-					<Button priority="danger" appearance="outline">
-						Danger
-					</Button>
+				<div>
+					<p className="mb-2 text-center font-mono text-xs">Danger</p>
+					<div className="flex gap-2">
+						<Button priority="danger">Ghost</Button>
+						<Button priority="danger" appearance="filled">
+							Filled
+						</Button>
+						<Button priority="danger" appearance="outlined">
+							Outlined
+						</Button>
+					</div>
 				</div>
 			</Example>
 			<CodeBlock className="rounded-b-lg rounded-t-none">
@@ -57,7 +66,17 @@ export default function Page() {
 					<CodeBlockCode language="tsx">{code`
 						import { Button } from "@ngrok/mantle";
 
-						<Button>Click me!</Button>
+						<Button>Ghost</Button>
+						<Button appearance="filled">Filled</Button>
+						<Button appearance="outlined">Outlined</Button>
+
+						<Button priority="muted">Ghost</Button>
+						<Button priority="muted" appearance="filled">Filled</Button>
+						<Button priority="muted" appearance="outlined">Outlined</Button>
+
+						<Button priority="danger">Ghost</Button>
+						<Button priority="danger" appearance="filled">Filled</Button>
+						<Button priority="danger" appearance="outlined">Outlined</Button>
 					`}</CodeBlockCode>
 				</CodeBlockBody>
 			</CodeBlock>
@@ -78,8 +97,8 @@ export default function Page() {
 							<TableCell className="align-top">enum</TableCell>
 							<TableCell className="space-y-2 align-top">
 								<p>ghost</p>
-								<p>solid</p>
-								<p>outline</p>
+								<p>filled</p>
+								<p>outlined</p>
 							</TableCell>
 							<TableCell className="align-top">ghost</TableCell>
 						</TableRow>

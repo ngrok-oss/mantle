@@ -25,7 +25,7 @@ export const Default: Story = {
 		<div className="min-h-screen">
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild>
-					<Button appearance="solid">Open Menu</Button>
+					<Button appearance="filled">Open Menu</Button>
 				</DropdownMenuTrigger>
 				<DropdownMenuContent>
 					<DropdownMenuLabel>micah@ngrok.com</DropdownMenuLabel>

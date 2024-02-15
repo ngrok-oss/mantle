@@ -39,7 +39,7 @@ export default function Page() {
 			<Example className="mt-4">
 				<Sheet>
 					<SheetTrigger asChild>
-						<Button appearance="solid">Open Sheet</Button>
+						<Button appearance="filled">Open Sheet</Button>
 					</SheetTrigger>
 					<SheetContent>
 						<SheetHeader>
@@ -113,7 +113,7 @@ export default function Page() {
 
 							<Sheet>
 								<SheetTrigger asChild>
-									<Button appearance="solid">Open Sheet</Button>
+									<Button appearance="filled">Open Sheet</Button>
 								</SheetTrigger>
 								<SheetContent>
 									<SheetHeader>

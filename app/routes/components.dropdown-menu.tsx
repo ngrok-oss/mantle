@@ -41,7 +41,7 @@ export default function Page() {
 			<Example className="mt-4">
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
-						<Button appearance="solid">Open Menu</Button>
+						<Button appearance="filled">Open Menu</Button>
 					</DropdownMenuTrigger>
 					<DropdownMenuContent>
 						<DropdownMenuLabel>micah@ngrok.com</DropdownMenuLabel>
@@ -96,7 +96,7 @@ export default function Page() {
 
 						<DropdownMenu>
 							<DropdownMenuTrigger asChild>
-								<Button appearance="solid">Open Menu</Button>
+								<Button appearance="filled">Open Menu</Button>
 							</DropdownMenuTrigger>
 							<DropdownMenuContent>
 								<DropdownMenuLabel>micah@ngrok.com</DropdownMenuLabel>
