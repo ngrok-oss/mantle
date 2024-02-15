@@ -50,7 +50,7 @@ const DropdownMenuItem = forwardRef<
 	<Ariakit.MenuItem
 		ref={ref}
 		className={cx(
-			"relative flex select-none items-center rounded px-2 py-1.5 text-sm font-normal text-gray-900 outline-none transition-colors data-[disabled]:pointer-events-none data-[active-item]:bg-gray-100 data-[disabled]:opacity-50 dark:data-[active-item]:bg-gray-200",
+			"relative flex cursor-pointer select-none items-center rounded px-2 py-1.5 text-sm font-normal text-gray-900 outline-none data-[disabled]:pointer-events-none data-[active-item]:bg-gray-100 data-[disabled]:opacity-50 dark:data-[active-item]:bg-gray-200",
 			className,
 		)}
 		{...props}
@@ -64,7 +64,7 @@ const DropdownMenuCheckboxItem = forwardRef<ElementRef<typeof Ariakit.MenuItemRa
 		<Ariakit.MenuItemCheckbox
 			ref={ref}
 			className={cx(
-				"relative flex select-none items-center gap-2 rounded py-1.5 pl-2 pr-9 text-sm font-normal text-gray-900 outline-none transition-colors data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+				"relative flex cursor-pointer select-none items-center gap-2 rounded py-1.5 pl-2 pr-9 text-sm font-normal text-gray-900 outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
 				"data-[active-item]:bg-gray-100 data-[active-item]:dark:bg-gray-200",
 				"aria-checked:bg-blue-500 aria-checked:font-medium aria-checked:text-[#fff] aria-checked:data-[active-item]:dark-high-contrast:bg-blue-500 aria-checked:dark:bg-blue-500 aria-checked:data-[active-item]:dark:bg-blue-500",
 				className,
@@ -84,7 +84,7 @@ const DropdownMenuRadioItem = forwardRef<ElementRef<typeof Ariakit.MenuItemRadio
 		<Ariakit.MenuItemRadio
 			ref={ref}
 			className={cx(
-				"relative flex select-none items-center gap-2 rounded py-1.5 pl-2 pr-9 text-sm font-normal text-gray-900 outline-none transition-colors data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+				"relative flex cursor-pointer select-none items-center gap-2 rounded py-1.5 pl-2 pr-9 text-sm font-normal text-gray-900 outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
 				"data-[active-item]:bg-gray-100 data-[active-item]:dark:bg-gray-200",
 				"aria-checked:!bg-blue-500 aria-checked:font-medium aria-checked:text-[#fff] aria-checked:dark-high-contrast:text-gray-100",
 				className,
