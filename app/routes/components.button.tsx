@@ -31,6 +31,7 @@ export default function Page() {
 						<Button>Ghost</Button>
 						<Button appearance="filled">Filled</Button>
 						<Button appearance="outlined">Outlined</Button>
+						<Button appearance="link">Link</Button>
 					</div>
 				</div>
 
@@ -43,6 +44,9 @@ export default function Page() {
 						</Button>
 						<Button priority="muted" appearance="outlined">
 							Outlined
+						</Button>
+						<Button priority="muted" appearance="link">
+							Link
 						</Button>
 					</div>
 				</div>
@@ -57,6 +61,9 @@ export default function Page() {
 						<Button priority="danger" appearance="outlined">
 							Outlined
 						</Button>
+						<Button priority="danger" appearance="link">
+							Link
+						</Button>
 					</div>
 				</div>
 			</Example>
@@ -69,14 +76,17 @@ export default function Page() {
 						<Button>Ghost</Button>
 						<Button appearance="filled">Filled</Button>
 						<Button appearance="outlined">Outlined</Button>
+						<Button appearance="link">Link</Button>
 
 						<Button priority="muted">Ghost</Button>
 						<Button priority="muted" appearance="filled">Filled</Button>
 						<Button priority="muted" appearance="outlined">Outlined</Button>
+						<Button priority="muted" appearance="link">Link</Button>
 
 						<Button priority="danger">Ghost</Button>
 						<Button priority="danger" appearance="filled">Filled</Button>
 						<Button priority="danger" appearance="outlined">Outlined</Button>
+						<Button priority="danger" appearance="link">Link</Button>
 					`}</CodeBlockCode>
 				</CodeBlockBody>
 			</CodeBlock>
@@ -99,6 +109,7 @@ export default function Page() {
 								<p>ghost</p>
 								<p>filled</p>
 								<p>outlined</p>
+								<p>link</p>
 							</TableCell>
 							<TableCell className="align-top">ghost</TableCell>
 						</TableRow>

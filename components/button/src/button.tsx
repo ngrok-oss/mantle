@@ -16,6 +16,7 @@ const buttonVariants = cva(
 					"border-transparent bg-blue-500 text-[#fff] hover:bg-blue-600 dark:hover:bg-blue-400 active:bg-blue-700 dark:active:bg-blue-300 focus-visible:border-blue-600 focus-visible:ring-blue-500/25",
 				ghost:
 					"border-transparent text-blue-600 hover:bg-blue-500/5 active:bg-blue-500/10 focus-visible:ring-blue-500/25",
+				link: "border-transparent cursor-pointer hover:underline text-blue-600 active:bg-blue-500/10 focus-visible:ring-blue-500/25",
 			},
 			priority: {
 				default: "",
@@ -45,6 +46,11 @@ const buttonVariants = cva(
 					"border-transparent bg-red-500 hover:bg-red-600 active:bg-red-700 focus-visible:ring-red-500/25 focus-visible:border-red-600 dark:hover:bg-red-400 dark:active:bg-red-300",
 			},
 			{
+				appearance: "link",
+				priority: "danger",
+				class: "text-red-600 active:bg-red-500/10 focus-visible:ring-red-500/25",
+			},
+			{
 				appearance: "ghost",
 				priority: "muted",
 				class:
@@ -61,6 +67,11 @@ const buttonVariants = cva(
 				priority: "muted",
 				class:
 					"border-transparent bg-gray-500 hover:bg-gray-600 active:bg-gray-700 focus-visible:ring-gray-500/25 focus-visible:border-gray-600 dark:hover:bg-gray-400 dark:active:bg-gray-300",
+			},
+			{
+				appearance: "link",
+				priority: "muted",
+				class: "text-gray-900 active:bg-gray-500/10 focus-visible:ring-blue-500/25",
 			},
 		],
 	},
