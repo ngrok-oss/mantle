@@ -31,7 +31,7 @@
   },
   "scripts": {
     "build-storybook": "pnpm run cmd:storybook build",
-    "build": "rm -rf dist && parcel build --dist-dir dist && cp -a ./assets/mantle.css ./dist",
+    "build": "rm -rf dist .parcel-cache && parcel build --dist-dir dist && cp -a ./assets/mantle.css ./dist",
     "cmd:storybook": "STORYBOOK_DISABLE_TELEMETRY=1 storybook",
     "docs:build": "remix build",
     "docs:dev": "remix dev --manual",
