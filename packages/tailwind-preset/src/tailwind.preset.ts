@@ -251,7 +251,6 @@ const mantlePreset = {
 			border: "hsl(var(--border))",
 			input: "hsl(var(--input))",
 			ring: "hsl(var(--ring))",
-			background: "hsl(var(--background))",
 			foreground: "hsl(var(--foreground))",
 			primary: {
 				DEFAULT: "hsl(var(--primary))",
@@ -262,11 +261,9 @@ const mantlePreset = {
 				foreground: "hsl(var(--secondary-foreground))",
 			},
 			popover: {
-				DEFAULT: "hsl(var(--popover))",
 				foreground: "hsl(var(--popover-foreground))",
 			},
 			card: {
-				DEFAULT: "hsl(var(--card))",
 				foreground: "hsl(var(--card-foreground))",
 			},
 		},
@@ -284,6 +281,12 @@ const mantlePreset = {
 			},
 			aria: {
 				invalid: 'invalid="true"',
+			},
+			backgroundColor: {
+				body: "hsl(var(--body) / <alpha-value>)",
+				background: "hsl(var(--background) / <alpha-value>)",
+				popover: "hsl(var(--popover) / <alpha-value>)",
+				card: "hsl(var(--card) / <alpha-value>)",
 			},
 			cursor: {
 				inherit: "inherit",
