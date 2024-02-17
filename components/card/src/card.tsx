@@ -11,11 +11,7 @@ export type CardProps = HTMLAttributes<HTMLDivElement>;
  * card.
  */
 export const Card = forwardRef<HTMLDivElement, CardProps>(({ className, children, ...rest }, ref) => (
-	<div
-		ref={ref}
-		className={cx("relative rounded-md border border-gray-300 bg-white dark:bg-gray-50", className)}
-		{...rest}
-	>
+	<div ref={ref} className={cx("relative rounded-md border border-gray-300 bg-card", className)} {...rest}>
 		{children}
 	</div>
 ));
