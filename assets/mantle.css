@@ -440,10 +440,11 @@
 	--rose-950: var(--tw-rose-950);
 
 	--border: var(--gray-200);
+	--body: var(--gray-050);
 	--background: var(--gray-050);
 	--foreground: var(--white);
 	--card: var(--white);
-	--popover: 0 0% 100%;
+	--popover: var(--white);
 	--popover-foreground: 222.2 84% 4.9%;
 }
 
@@ -651,6 +652,7 @@
 	--rose-900: var(--tw-rose-100);
 	--rose-950: var(--tw-rose-050);
 
+	--body: var(--gray-050);
 	--background: var(--gray-050);
 	--foreground: var(--gray-050);
 	--card: var(--gray-100);
@@ -1099,6 +1101,7 @@
 	--yellow-900: 50 96% 89%;
 	--yellow-950: 55 92% 95%;
 
+	--body: var(--white);
 	--background: var(--white);
 	--foreground: var(--gray-050);
 	--card: var(--gray-050);

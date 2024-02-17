@@ -24,7 +24,7 @@ export default function App() {
 				<Meta />
 				<Links />
 			</head>
-			<body className="h-full min-h-full overflow-y-scroll bg-background">
+			<body className="h-full min-h-full overflow-y-scroll bg-body">
 				<ThemeProvider>
 					<Layout>
 						<Outlet />

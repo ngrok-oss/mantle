@@ -65,7 +65,7 @@ export default function Page() {
 											<Meta />
 											<Links />
 										</head>
-										<body className="h-full min-h-full overflow-y-scroll bg-background">
+										<body className="h-full min-h-full overflow-y-scroll bg-body">
 											// 👇 wrap your app entry in the ThemeProvider
 											<ThemeProvider>
 												<Outlet />
