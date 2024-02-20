@@ -1,15 +1,20 @@
-import { Content, Provider, Root, Trigger } from "@radix-ui/react-tooltip";
+import { Arrow, Content, Provider, Root, Trigger } from "@radix-ui/react-tooltip";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 import { cx } from "../../core";
 
-const TooltipProvider = Provider;
+/**
+ * Wraps your app to provide global functionality to your tooltips.
+ */
+const TooltipProvider = ({ delayDuration = 0, ...props }: ComponentPropsWithoutRef<typeof Provider>) => (
+	<Provider delayDuration={delayDuration ?? 0} {...props} />
+);
 
 const Tooltip = Root;
 
 const TooltipTrigger = Trigger;
 
 const TooltipContent = forwardRef<ElementRef<typeof Content>, ComponentPropsWithoutRef<typeof Content>>(
-	({ className, sideOffset = 4, ...props }, ref) => (
+	({ children, className, sideOffset = 4, ...props }, ref) => (
 		<Content
 			ref={ref}
 			sideOffset={sideOffset}
@@ -18,9 +23,11 @@ const TooltipContent = forwardRef<ElementRef<typeof Content>, ComponentPropsWith
 				className,
 			)}
 			{...props}
-		/>
+		>
+			{children}
+		</Content>
 	),
 );
-TooltipContent.displayName = Content.displayName;
+TooltipContent.displayName = "TooltipContent";
 
 export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider };
