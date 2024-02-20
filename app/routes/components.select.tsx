@@ -33,7 +33,7 @@ export default function Page() {
 				Displays a list of options for the user to pick from—triggered by a button.
 			</p>
 
-			<Example className="mt-4 flex-col gap-2">
+			<Example className="mt-4 flex-col gap-4">
 				<Select>
 					<SelectTrigger className="max-w-64">
 						<SelectValue placeholder="Select a fruit" />
