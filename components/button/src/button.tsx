@@ -6,7 +6,7 @@ import type { WithAsChild } from "../../types/src/as-child";
 import type { VariantProps } from "../../types/src/variant-props";
 
 const buttonVariants = cva(
-	"items-center justify-center rounded-md focus-visible:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50 whitespace-nowrap sm:text-sm",
+	"items-center justify-center rounded-md focus-visible:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50 whitespace-nowrap sm:text-sm aria-[disabled]:pointer-events-none aria-[disabled]:opacity-50",
 	{
 		variants: {
 			appearance: {
