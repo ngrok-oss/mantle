@@ -1,4 +1,4 @@
-import { Arrow, Content, Provider, Root, Trigger } from "@radix-ui/react-tooltip";
+import { Content, Provider, Root, Trigger } from "@radix-ui/react-tooltip";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 import { cx } from "../../core";
 
