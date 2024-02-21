@@ -153,7 +153,7 @@ const CodeBlockCode = forwardRef<HTMLPreElement, CodeBlockCodeProps>((props, ref
 			className={cx(
 				formatLanguageClassName(language),
 				"scrollbar overflow-x-auto overflow-y-hidden p-4 pr-[3.375rem] firefox:after:mr-[3.375rem] firefox:after:inline-block firefox:after:content-['']",
-				"aria-[expanded='false']:max-h-[13.6rem]",
+				"aria-collapsed:max-h-[13.6rem]",
 				className,
 			)}
 			data-lang={language}

@@ -280,7 +280,9 @@ const mantlePreset = {
 				"accordion-up": "accordion-up 0.2s ease-out",
 			},
 			aria: {
+				collapsed: 'expanded="false"',
 				invalid: 'invalid="true"',
+				unchecked: 'checked="false"',
 			},
 			backgroundColor: {
 				body: "hsl(var(--body) / <alpha-value>)",
@@ -291,6 +293,22 @@ const mantlePreset = {
 			cursor: {
 				inherit: "inherit",
 				initial: "initial",
+			},
+			data: {
+				"active-item": "active-item",
+				disabled: "disabled",
+				highlighted: "highlighted",
+				"orientation-horizontal": 'orientation="horizontal"',
+				"orientation-vertical": 'orientation="vertical"',
+				"side-bottom": 'side="bottom"',
+				"side-left": 'side="left"',
+				"side-right": 'side="right"',
+				"side-top": 'side="top"',
+				"state-checked": 'state~="checked"',
+				"state-closed": 'state~="closed"',
+				"state-open": 'state~="open"',
+				"state-selected": 'state~="selected"',
+				"state-unchecked": 'state~="unchecked"',
 			},
 			fontFamily: {
 				sans: ["EuclidSquare", ...defaultTheme.fontFamily.sans],
