@@ -9,8 +9,8 @@ const textAreaVariants = cva(
 	{
 		variants: {
 			state: {
-				default: "text-gray-900 border-gray-300 placeholder:text-gray-400 focus:border-blue-600 focus:ring-blue-500/25",
-				danger: "border-red-600 focus:border-red-600 focus:ring-red-500/25",
+				default: "text-gray-900 border-form placeholder:text-gray-400 focus:border-primary focus:ring-primary",
+				danger: "border-danger focus:border-danger focus:ring-danger",
 			},
 			appearance: {
 				monospaced: "font-mono text-[0.9375rem] sm:text-[0.8125rem]",
