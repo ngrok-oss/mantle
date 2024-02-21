@@ -3,7 +3,7 @@
   "description": "mantle is ngrok's UI library and design system.",
   "author": "ngrok",
   "license": "MIT",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "homepage": "https://mantle.ngrok.com",
   "repository": {
     "type": "git",
@@ -18,14 +18,15 @@
   ],
   "main": "./dist/index.js",
   "source": "./components/index.tsx",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/components/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/index.js",
       "require": "./dist/index.js",
-      "types": "./dist/index.d.ts",
+      "types": "./dist/components/index.d.ts",
       "default": "./dist/index.js"
-    }
+    },
+    "./mantle.css": "./assets/mantle.css"
   },
   "files": [
     "dist",
@@ -36,7 +37,8 @@
   },
   "scripts": {
     "build-storybook": "pnpm run cmd:storybook build",
-    "build": "rm -rf dist .parcel-cache && parcel build --dist-dir dist && cp -a ./assets/mantle.css ./dist",
+    "build:types": "tsc --project ./tsconfig.publish.json",
+    "build": "rm -rf dist .parcel-cache && parcel build --no-cache --dist-dir dist && pnpm run build:types",
     "cmd:storybook": "STORYBOOK_DISABLE_TELEMETRY=1 storybook",
     "docs:build": "remix build",
     "docs:dev": "remix dev --manual",
