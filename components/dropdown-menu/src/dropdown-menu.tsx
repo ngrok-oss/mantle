@@ -34,7 +34,7 @@ const DropdownMenuContent = forwardRef<ElementRef<typeof Ariakit.Menu>, Componen
 			gutter={gutter}
 			ref={ref}
 			className={cx(
-				"border-popover z-50 min-w-[8rem] overflow-hidden rounded border bg-popover p-1.25 shadow-xl outline-none data-side-bottom:slide-in-from-top-2 data-side-left:slide-in-from-right-2 data-side-right:slide-in-from-left-2 data-side-top:slide-in-from-bottom-2 data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 data-state-open:animate-in data-state-open:fade-in-0 data-state-open:zoom-in-95",
+				"z-50 min-w-[8rem] overflow-hidden rounded border border-popover bg-popover p-1.25 shadow-xl outline-none data-side-bottom:slide-in-from-top-2 data-side-left:slide-in-from-right-2 data-side-right:slide-in-from-left-2 data-side-top:slide-in-from-bottom-2 data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 data-state-open:animate-in data-state-open:fade-in-0 data-state-open:zoom-in-95",
 				className,
 			)}
 			{...props}
@@ -66,7 +66,7 @@ const DropdownMenuCheckboxItem = forwardRef<ElementRef<typeof Ariakit.MenuItemRa
 			className={cx(
 				"relative flex cursor-pointer select-none items-center gap-2 rounded py-1.5 pl-2 pr-9 text-sm font-normal text-gray-900 outline-none data-disabled:pointer-events-none data-disabled:opacity-50",
 				"data-active-item:bg-popover",
-				"aria-checked:text-bg-primary aria-checked:bg-primary aria-checked:font-medium",
+				"aria-checked:bg-primary aria-checked:font-medium aria-checked:text-bg-primary",
 				className,
 			)}
 			{...props}
