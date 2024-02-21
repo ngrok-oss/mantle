@@ -36,21 +36,16 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(({ classN
 
 	return (
 		<div className={cx(passwordInputVariants({ state }), className)} style={style}>
-			<input
-				ref={ref}
-				className="m-0 flex-1 rounded bg-transparent p-0 focus:outline-none"
-				type={type}
-				{...inputProps}
-			/>
+			<input ref={ref} className="m-0 flex-1 bg-transparent p-0 focus:outline-none" type={type} {...inputProps} />
 			<button
 				type="button"
 				tabIndex={-1}
-				className="ml-1 cursor-pointer bg-inherit p-0 text-size-inherit text-gray-600 hover:text-gray-900"
+				className="ml-1 cursor-pointer bg-inherit p-0 text-gray-600 hover:text-gray-900"
 				onClick={() => {
 					setShowPassword((s) => !s);
 				}}
 			>
-				{showPassword ? <Eye /> : <EyeClosed />}
+				{showPassword ? <Eye className="size-6 sm:size-5" /> : <EyeClosed className="size-6 sm:size-5" />}
 			</button>
 		</div>
 	);
