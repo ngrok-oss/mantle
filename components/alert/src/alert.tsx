@@ -7,11 +7,11 @@ import { cx } from "../../core";
 const alertVariants = cva("relative w-full rounded-lg border px-4 py-3 text-sm flex gap-4", {
 	variants: {
 		priority: {
-			danger: "border-red-600 bg-red-500/5 text-red-700",
-			default: "border-gray-600 bg-gray-500/3 text-gray-700",
-			info: "border-blue-600 bg-blue-500/5 text-blue-700",
-			success: "border-green-600 bg-green-500/5 text-green-700",
-			warning: "border-amber-600 bg-amber-500/5 text-amber-700",
+			danger: "border-danger-muted bg-danger-muted text-bg-danger-muted",
+			default: "border-neutral-muted bg-neutral-muted text-bg-neutral-muted",
+			info: "border-primary-muted bg-primary-muted text-bg-primary-muted",
+			success: "border-success-muted bg-success-muted text-bg-success-muted",
+			warning: "border-warning-muted bg-warning-muted text-bg-warning-muted",
 		},
 	},
 	defaultVariants: {
