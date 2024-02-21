@@ -267,12 +267,6 @@ const mantlePreset = {
 				unchecked: 'checked="false"',
 			},
 			backgroundColor: {
-				body: "hsl(var(--body) / <alpha-value>)",
-				background: "hsl(var(--background) / <alpha-value>)",
-				popover: "hsl(var(--popover) / <alpha-value>)",
-				card: "hsl(var(--card) / <alpha-value>)",
-			},
-			backgroundColor: {
 				base: "hsl(var(--bg-base))",
 				card: "hsl(var(--bg-card))",
 				popover: "hsl(var(--bg-popover))",
