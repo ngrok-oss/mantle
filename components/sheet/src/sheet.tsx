@@ -55,7 +55,7 @@ const SheetContent = forwardRef<ElementRef<typeof SheetPrimitive.Content>, Sheet
 			<SheetOverlay />
 			<SheetPrimitive.Content ref={ref} className={cx(SheetVariants({ side }), className)} {...props}>
 				{children}
-				<SheetPrimitive.Close className="absolute right-4 top-4 rounded opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
+				<SheetPrimitive.Close className="ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute right-4 top-4 rounded opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none">
 					<X className="h-6 w-6" />
 					<span className="sr-only">Close</span>
 				</SheetPrimitive.Close>

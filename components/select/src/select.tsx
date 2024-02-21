@@ -161,7 +161,7 @@ const SelectSeparator = forwardRef<
 	ElementRef<typeof SelectPrimitive.Separator>,
 	ComponentPropsWithoutRef<typeof SelectPrimitive.Separator>
 >(({ className, ...props }, ref) => (
-	<SelectPrimitive.Separator ref={ref} className={cx("-mx-1 my-1 h-px popover-border-muted", className)} {...props} />
+	<SelectPrimitive.Separator ref={ref} className={cx("popover-border-muted -mx-1 my-1 h-px", className)} {...props} />
 ));
 SelectSeparator.displayName = "SelectSeparator";
 

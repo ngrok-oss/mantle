@@ -31,7 +31,8 @@ const buttonVariants = cva(
 			{
 				appearance: "ghost",
 				priority: "danger",
-				class: "border-transparent text-danger hover:bg-danger-muted-hover active:bg-danger-muted-active focus-visible:ring-danger",
+				class:
+					"border-transparent text-danger hover:bg-danger-muted-hover active:bg-danger-muted-active focus-visible:ring-danger",
 			},
 			{
 				appearance: "outlined",

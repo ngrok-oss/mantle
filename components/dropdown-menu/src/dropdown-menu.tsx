@@ -50,7 +50,7 @@ const DropdownMenuItem = forwardRef<
 	<Ariakit.MenuItem
 		ref={ref}
 		className={cx(
-			"relative flex cursor-pointer select-none items-center rounded px-2 py-1.5 text-sm font-normal text-gray-900 outline-none data-[disabled]:pointer-events-none data-[active-item]:bg-popover-active data-[disabled]:opacity-50",
+			"data-[active-item]:bg-popover-active relative flex cursor-pointer select-none items-center rounded px-2 py-1.5 text-sm font-normal text-gray-900 outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
 			className,
 		)}
 		{...props}
