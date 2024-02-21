@@ -484,23 +484,23 @@
 	--bg-warning-active: var(--amber-700);
 	--bg-success-active: var(--green-700);
 
-	--bg-neutral-muted: var(--gray-500) / 0.1;
-	--bg-primary-muted: var(--blue-500) / 0.1;
-	--bg-danger-muted: var(--red-500) / 0.1;
-	--bg-warning-muted: var(--amber-500) / 0.1;
-	--bg-success-muted: var(--green-500) / 0.1;
+	--bg-neutral-muted: var(--gray-500) / 0.08;
+	--bg-primary-muted: var(--blue-500) / 0.08;
+	--bg-danger-muted: var(--red-500) / 0.08;
+	--bg-warning-muted: var(--amber-500) / 0.08;
+	--bg-success-muted: var(--green-500) / 0.08;
 
-	--bg-neutral-muted-hover: var(--gray-500) / 0.14;
-	--bg-primary-muted-hover: var(--blue-500) / 0.14;
-	--bg-danger-muted-hover: var(--red-500) / 0.14;
-	--bg-warning-muted-hover: var(--amber-500) / 0.14;
-	--bg-success-muted-hover: var(--green-500) / 0.14;
+	--bg-neutral-muted-hover: var(--gray-500) / 0.08;
+	--bg-primary-muted-hover: var(--blue-500) / 0.08;
+	--bg-danger-muted-hover: var(--red-500) / 0.08;
+	--bg-warning-muted-hover: var(--amber-500) / 0.08;
+	--bg-success-muted-hover: var(--green-500) / 0.08;
 
-	--bg-neutral-muted-active: var(--gray-500) / 0.18;
-	--bg-primary-muted-active: var(--blue-500) / 0.18;
-	--bg-danger-muted-active: var(--red-500) / 0.18;
-	--bg-warning-muted-active: var(--amber-500) / 0.18;
-	--bg-success-muted-active: var(--green-500) / 0.18;
+	--bg-neutral-muted-active: var(--gray-500) / 0.12;
+	--bg-primary-muted-active: var(--blue-500) / 0.12;
+	--bg-danger-muted-active: var(--red-500) / 0.12;
+	--bg-warning-muted-active: var(--amber-500) / 0.12;
+	--bg-success-muted-active: var(--green-500) / 0.12;
 
 	--border-neutral: var(--gray-600);
 	--border-primary: var(--blue-600);
