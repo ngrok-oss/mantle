@@ -439,12 +439,105 @@
 	--rose-900: var(--tw-rose-900);
 	--rose-950: var(--tw-rose-950);
 
-	--border: var(--gray-200);
-	--background: var(--gray-050);
-	--foreground: var(--white);
-	--card: var(--white);
-	--popover: 0 0% 100%;
-	--popover-foreground: 222.2 84% 4.9%;
+	/* Elevation Tokens */
+
+	--bg-base: var(--white);
+	--bg-card: var(--white);
+	--bg-popover: var(--white);
+
+	--bg-base-hover: var(--gray-100);
+	--bg-card-hover: var(--gray-100);
+	--bg-popover-hover: var(--gray-100);
+
+	--border-base: var(--gray-300);
+	--border-card: var(--gray-300);
+	--border-popover: var(--gray-300);
+
+	--border-base-muted: var(--gray-200);
+	--border-card-muted: var(--gray-200);
+	--border-popover-muted: var(--gray-200);
+
+	/* Form Tokens */
+
+	--bg-form: var(--white);
+	--bg-form-hover: var(--bg-neutral-muted-hover);
+	--bg-form-active: var(--bg-neutral-muted-active);
+	--border-form: var(--gray-300);
+	
+	/* Theme Tokens */
+
+	--bg-neutral: var(--gray-500);
+	--bg-primary: var(--blue-500);
+	--bg-danger:  var(--red-500);
+	--bg-warning: var(--amber-500);
+	--bg-success: var(--green-500);
+
+	--bg-neutral-hover: var(--gray-600);
+	--bg-primary-hover: var(--blue-600);
+	--bg-danger-hover:  var(--red-600);
+	--bg-warning-hover: var(--amber-600);
+	--bg-success-hover: var(--green-600);
+
+	--bg-neutral-active: var(--gray-700);
+	--bg-primary-active: var(--blue-700);
+	--bg-danger-active:  var(--red-700);
+	--bg-warning-active: var(--amber-700);
+	--bg-success-active: var(--green-700);
+
+	--bg-neutral-muted: var(--gray-500) / .10;
+	--bg-primary-muted: var(--blue-500) / .10;
+	--bg-danger-muted:  var(--red-500) / .10;
+	--bg-warning-muted: var(--amber-500) / .10;
+	--bg-success-muted: var(--green-500) / .10;
+
+	--bg-neutral-muted-hover: var(--gray-500) / .14;
+	--bg-primary-muted-hover: var(--blue-500) / .14;
+	--bg-danger-muted-hover:  var(--red-500) / .14;
+	--bg-warning-muted-hover: var(--amber-500) / .14;
+	--bg-success-muted-hover: var(--green-500) / .14;
+
+	--bg-neutral-muted-active: var(--gray-500) / .18;
+	--bg-primary-muted-active: var(--blue-500) / .18;
+	--bg-danger-muted-active:  var(--red-500) / .18;
+	--bg-warning-muted-active: var(--amber-500) / .18;
+	--bg-success-muted-active: var(--green-500) / .18;
+
+	--border-neutral: var(--gray-600);
+	--border-primary: var(--blue-600);
+	--border-danger:  var(--red-600);
+	--border-warning: var(--amber-600);
+	--border-success: var(--green-600);
+
+	--border-neutral-muted: var(--gray-500) / 0.75;
+	--border-primary-muted: var(--blue-500) / 0.75;
+	--border-danger-muted:  var(--red-500) / 0.75;
+	--border-warning-muted: var(--amber-500) / 0.75;
+	--border-success-muted: var(--green-500) / 0.75;
+	
+	--text-neutral: var(--gray-600);
+	--text-primary: var(--blue-600);
+	--text-danger:  var(--red-600);
+	--text-warning: var(--amber-600);
+	--text-success: var(--green-600);
+
+	--text-bg-neutral-muted: var(--gray-700);
+	--text-bg-primary-muted: var(--blue-700);
+	--text-bg-danger-muted:  var(--red-700);
+	--text-bg-warning-muted: var(--amber-700);
+	--text-bg-success-muted: var(--green-700);
+
+	--text-bg-neutral: var(--tw-white);
+	--text-bg-primary: var(--tw-white);
+	--text-bg-danger:  var(--tw-white);
+	--text-bg-warning: var(--tw-white);
+	--text-bg-success: var(--tw-white);
+
+	--ring-neutral: var(--gray-500) / 0.25;
+	--ring-primary: var(--blue-500) / 0.25;
+	--ring-danger:  var(--red-500) / 0.25;
+	--ring-warning: var(--amber-500) / 0.25;
+	--ring-success: var(--green-500) / 0.25;
+	
 }
 
 :root.dark {
@@ -651,11 +744,54 @@
 	--rose-900: var(--tw-rose-100);
 	--rose-950: var(--tw-rose-050);
 
-	--background: var(--gray-050);
-	--foreground: var(--gray-050);
-	--card: var(--gray-100);
-	--popover: var(--gray-200);
-	--popover-foreground: 210 40% 98%;
+	/* Elevation Tokens */
+
+	--bg-base: var(--gray-050);
+	--bg-card: var(--gray-100);
+	--bg-popover: var(--gray-100);
+
+	--bg-base-hover: var(--gray-200);
+	--bg-card-hover: var(--gray-200);
+	--bg-popover-hover: var(--gray-200);
+
+	--border-base: var(--gray-300);
+	--border-card: var(--gray-300);
+	--border-popover: var(--gray-300);
+
+	--border-base-muted: var(--gray-200);
+	--border-card-muted: var(--gray-200);
+	--border-popover-muted: var(--gray-200);
+
+	/* Form Tokens */
+
+	--bg-form: var(--gray-050);
+	--border-form: var(--gray-300);
+
+	/* Theme Tokens */
+
+	--bg-neutral: var(--gray-500);
+	--bg-primary: var(--blue-500);
+	--bg-danger:  var(--red-500);
+	--bg-warning: var(--amber-500);
+	--bg-success: var(--green-500);
+
+	--bg-neutral-hover: var(--gray-500) / .9;
+	--bg-primary-hover: var(--blue-500) / .9;
+	--bg-danger-hover:  var(--red-500) / .9;
+	--bg-warning-hover: var(--amber-500) / .9;
+	--bg-success-hover: var(--green-500) / .9;
+
+	--bg-neutral-active: var(--gray-500) / .8;
+	--bg-primary-active: var(--blue-500) / .8;
+	--bg-danger-active:  var(--red-500) / .8;
+	--bg-warning-active: var(--amber-500) / .8;
+	--bg-success-active: var(--green-500) / .8;
+
+	--text-bg-neutral: var(--tw-white);
+	--text-bg-primary: var(--tw-white);
+	--text-bg-danger:  var(--tw-white);
+	--text-bg-warning: var(--tw-white);
+	--text-bg-success: var(--tw-white);
 }
 
 :root.light-high-contrast {
@@ -877,6 +1013,7 @@
 
 	--black: 0 0% 0%;
 	--white: 0 0% 100%;
+
 }
 
 :root.dark-high-contrast {
@@ -1099,11 +1236,13 @@
 	--yellow-900: 50 96% 89%;
 	--yellow-950: 55 92% 95%;
 
-	--background: var(--white);
-	--foreground: var(--gray-050);
-	--card: var(--gray-050);
-	--popover: var(--gray-100);
-	--popover-foreground: 210 40% 98%;
+	/* Tokens */
+
+	--text-bg-neutral: var(--tw-black);
+	--text-bg-primary: var(--tw-black);
+	--text-bg-danger:  var(--tw-black);
+	--text-bg-warning: var(--tw-black);
+	--text-bg-success: var(--tw-black);
 }
 
 /**
