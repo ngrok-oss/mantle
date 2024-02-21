@@ -19,4 +19,4 @@ export * from "./theme-provider";
 export * from "./tooltip";
 
 // types exports
-export * from "./types";
+export type * from "./types";

@@ -18,7 +18,7 @@ const SheetOverlay = forwardRef<
 >(({ className, ...props }, ref) => (
 	<SheetPrimitive.Overlay
 		className={cx(
-			"fixed inset-0 z-50 bg-base/80 backdrop-blur data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+			"bg-base/80 fixed inset-0 z-50 backdrop-blur data-state-closed:animate-out data-state-closed:fade-out-0 data-state-open:animate-in data-state-open:fade-in-0",
 			className,
 		)}
 		{...props}
@@ -28,16 +28,16 @@ const SheetOverlay = forwardRef<
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName;
 
 const SheetVariants = cva(
-	"fixed z-50 flex flex-col bg-base shadow-lg transition ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500",
+	"fixed z-50 flex flex-col bg-base shadow-lg transition ease-in-out data-state-open:animate-in data-state-closed:animate-out data-state-closed:duration-300 data-state-open:duration-500",
 	{
 		variants: {
 			side: {
-				top: "inset-x-0 top-0 border-b data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top",
+				top: "inset-x-0 top-0 border-b data-state-closed:slide-out-to-top data-state-open:slide-in-from-top",
 				bottom:
-					"inset-x-0 bottom-0 border-t data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom",
-				left: "inset-y-0 left-0 h-full w-full border-r data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left sm:max-w-sm",
+					"inset-x-0 bottom-0 border-t data-state-closed:slide-out-to-bottom data-state-open:slide-in-from-bottom",
+				left: "inset-y-0 left-0 h-full w-full border-r data-state-closed:slide-out-to-left data-state-open:slide-in-from-left sm:max-w-sm",
 				right:
-					"inset-y-0 right-0 h-full w-full border-l data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-sm",
+					"inset-y-0 right-0 h-full w-full border-l data-state-closed:slide-out-to-right data-state-open:slide-in-from-right sm:max-w-sm",
 			},
 		},
 		defaultVariants: {
@@ -55,7 +55,7 @@ const SheetContent = forwardRef<ElementRef<typeof SheetPrimitive.Content>, Sheet
 			<SheetOverlay />
 			<SheetPrimitive.Content ref={ref} className={cx(SheetVariants({ side }), className)} {...props}>
 				{children}
-				<SheetPrimitive.Close className="ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute right-4 top-4 rounded opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none">
+				<SheetPrimitive.Close className="ring-offset-background absolute right-4 top-4 rounded opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-state-open:bg-secondary">
 					<X className="h-6 w-6" />
 					<span className="sr-only">Close</span>
 				</SheetPrimitive.Close>
@@ -66,7 +66,7 @@ const SheetContent = forwardRef<ElementRef<typeof SheetPrimitive.Content>, Sheet
 SheetContent.displayName = SheetPrimitive.Content.displayName;
 
 const SheetBody = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => (
-	<div className={cx("flex-1 overflow-y-auto p-6", className)} {...props} />
+	<div className={cx("scrollbar flex-1 overflow-y-auto p-6", className)} {...props} />
 );
 
 const SheetHeader = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => (

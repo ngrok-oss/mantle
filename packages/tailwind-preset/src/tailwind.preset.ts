@@ -248,27 +248,6 @@ const mantlePreset = {
 				900: "hsl(var(--rose-900) / <alpha-value>)",
 				950: "hsl(var(--rose-950) / <alpha-value>)",
 			},
-			// border: "hsl(var(--border))",
-			// input: "hsl(var(--input))",
-			// ring: "hsl(var(--ring))",
-			// background: "hsl(var(--background))",
-			// foreground: "hsl(var(--foreground))",
-			// primary: {
-			// 	DEFAULT: "hsl(var(--primary))",
-			// 	foreground: "hsl(var(--primary-foreground))",
-			// },
-			// secondary: {
-			// 	DEFAULT: "hsl(var(--secondary))",
-			// 	foreground: "hsl(var(--secondary-foreground))",
-			// },
-			// popover: {
-			// 	DEFAULT: "hsl(var(--popover))",
-			// 	foreground: "hsl(var(--popover-foreground))",
-			// },
-			// card: {
-			// 	DEFAULT: "hsl(var(--card))",
-			// 	foreground: "hsl(var(--card-foreground))",
-			// },
 		},
 		container: {
 			center: true,
@@ -283,7 +262,15 @@ const mantlePreset = {
 				"accordion-up": "accordion-up 0.2s ease-out",
 			},
 			aria: {
+				collapsed: 'expanded="false"',
 				invalid: 'invalid="true"',
+				unchecked: 'checked="false"',
+			},
+			backgroundColor: {
+				body: "hsl(var(--body) / <alpha-value>)",
+				background: "hsl(var(--background) / <alpha-value>)",
+				popover: "hsl(var(--popover) / <alpha-value>)",
+				card: "hsl(var(--card) / <alpha-value>)",
 			},
 			backgroundColor: {
 				base: "hsl(var(--bg-base))",
@@ -372,6 +359,22 @@ const mantlePreset = {
 			cursor: {
 				inherit: "inherit",
 				initial: "initial",
+			},
+			data: {
+				"active-item": "active-item",
+				disabled: "disabled",
+				highlighted: "highlighted",
+				"orientation-horizontal": 'orientation="horizontal"',
+				"orientation-vertical": 'orientation="vertical"',
+				"side-bottom": 'side="bottom"',
+				"side-left": 'side="left"',
+				"side-right": 'side="right"',
+				"side-top": 'side="top"',
+				"state-checked": 'state~="checked"',
+				"state-closed": 'state~="closed"',
+				"state-open": 'state~="open"',
+				"state-selected": 'state~="selected"',
+				"state-unchecked": 'state~="unchecked"',
 			},
 			fontFamily: {
 				sans: ["EuclidSquare", ...defaultTheme.fontFamily.sans],

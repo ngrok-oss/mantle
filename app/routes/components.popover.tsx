@@ -26,7 +26,7 @@ export default function Page() {
 			<Example className="mt-4 gap-2">
 				<Popover>
 					<PopoverTrigger asChild>
-						<Button>Open popover</Button>
+						<Button appearance="filled">Open popover</Button>
 					</PopoverTrigger>
 					<PopoverContent className="w-80">
 						<form

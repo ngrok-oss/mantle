@@ -106,10 +106,10 @@ const SelectContent = forwardRef<ElementRef<typeof SelectPrimitive.Content>, Sel
 			<SelectPrimitive.Content
 				ref={ref}
 				className={cx(
-					"relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border border-popover shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+					"border-popover relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border shadow-md data-side-bottom:slide-in-from-top-2 data-side-left:slide-in-from-right-2 data-side-right:slide-in-from-left-2 data-side-top:slide-in-from-bottom-2 data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 data-state-open:animate-in data-state-open:fade-in-0 data-state-open:zoom-in-95",
 					"bg-popover",
 					position === "popper" &&
-						"max-h-[var(--radix-select-content-available-height)] data-[side=bottom]:translate-y-2 data-[side=left]:-translate-x-2 data-[side=right]:translate-x-2 data-[side=top]:-translate-y-2",
+						"max-h-[var(--radix-select-content-available-height)] data-side-bottom:translate-y-2 data-side-left:-translate-x-2 data-side-right:translate-x-2 data-side-top:-translate-y-2",
 					width === "trigger" && "w-[var(--radix-select-trigger-width)]",
 					className,
 				)}
@@ -144,7 +144,7 @@ const SelectItem = forwardRef<
 	<SelectPrimitive.Item
 		ref={ref}
 		className={cx(
-			"relative flex w-full cursor-pointer select-none items-center rounded py-1.5 pl-2 pr-8 text-sm outline-none focus:bg-popover-hover data-[disabled]:pointer-events-none data-[state='checked']:bg-primary data-[state='checked']:text-bg-primary data-[disabled]:opacity-50",
+			"focus:bg-popover-hover data-state-checked:text-bg-primary relative flex w-full cursor-pointer select-none items-center rounded py-1.5 pl-2 pr-8 text-sm outline-none data-disabled:pointer-events-none data-disabled:opacity-50 data-state-checked:bg-primary",
 			className,
 		)}
 		{...props}

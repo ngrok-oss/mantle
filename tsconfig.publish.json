@@ -1,29 +1,36 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "useDefineForClassFields": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
+    /* Base Options: */
+    "esModuleInterop": true,
     "skipLibCheck": true,
-
-    /* Bundler mode */
-    "moduleResolution": "Bundler",
+    "target": "es2022",
+    "allowJs": true,
     "resolveJsonModule": true,
+    "moduleDetection": "force",
     "isolatedModules": true,
     "jsx": "react-jsx",
-    "allowSyntheticDefaultImports": true,
 
-    /* Linting */
+    /* Strictness */
     "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
 
-		/* Emit */
-		"declaration": true,
-    "declarationDir": "dist/dts",
+    /* Emit */
+    "moduleResolution": "Bundler",
+    "module": "ESNext",
+    "outDir": "dist",
+    "sourceMap": true,
+    "declaration": true,
+    "composite": true,
+    "declarationMap": true,
+    // "declarationDir": "dist/dts",
     "emitDeclarationOnly": true,
+
+
+    /* Runs in the DOM */
+    "lib": ["es2022", "dom", "dom.iterable"],
   },
   "include": ["components/**/*", "assets/**/*"],
 	"exclude": ["components/**/*.stories.*", "components/**/*.test.*"],
