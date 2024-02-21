@@ -9,9 +9,7 @@ const Table = forwardRef<HTMLTableElement, HTMLAttributes<HTMLTableElement>>(({ 
 Table.displayName = "Table";
 
 const TableHeader = forwardRef<HTMLTableSectionElement, HTMLAttributes<HTMLTableSectionElement>>(
-	({ className, ...props }, ref) => (
-		<thead ref={ref} className={cx("bg-background [&_tr]:border-b", className)} {...props} />
-	),
+	({ className, ...props }, ref) => <thead ref={ref} className={cx("bg-base [&_tr]:border-b", className)} {...props} />,
 );
 TableHeader.displayName = "TableHeader";
 
