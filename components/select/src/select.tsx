@@ -26,14 +26,14 @@ const SelectGroup = SelectPrimitive.Group;
 const SelectValue = SelectPrimitive.Value;
 
 const selectTriggerVariants = cva(
-	"flex h-11 w-full items-center justify-between rounded-md border bg-white px-3 py-2 placeholder:text-gray-300 hover:bg-gray-500/5 focus:outline-none focus:ring-4 aria-expanded:ring-4 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:hover:bg-gray-500/5 sm:h-9 sm:text-sm [&>span]:line-clamp-1 [&>span]:text-left",
+	"flex h-11 w-full items-center justify-between rounded-md border border-form bg-form px-3 py-2 placeholder:text-gray-300 hover:bg-form-hover focus:outline-none focus:ring-4 aria-expanded:ring-4 disabled:pointer-events-none disabled:opacity-50 sm:h-9 sm:text-sm [&>span]:line-clamp-1 [&>span]:text-left",
 	{
 		variants: {
 			state: {
 				danger:
-					"border-red-600 focus:border-red-600 aria-expanded:border-red-600 focus:ring-red-500/25 aria-expanded:ring-red-500/25",
+					"border-danger focus:border-danger aria-expanded:border-danger focus:ring-danger aria-expanded:ring-danger",
 				default:
-					"text-gray-900 border-gray-300 placeholder:text-gray-400 focus:border-blue-600 aria-expanded:border-blue-600 focus:ring-blue-500/25 aria-expanded:ring-blue-500/25",
+					"text-gray-900 borderpform placeholder:text-gray-400 focus:border-primary aria-expanded:border-primary focus:ring-primary aria-expanded:ring-primary",
 			},
 		},
 		defaultVariants: {
@@ -106,8 +106,8 @@ const SelectContent = forwardRef<ElementRef<typeof SelectPrimitive.Content>, Sel
 			<SelectPrimitive.Content
 				ref={ref}
 				className={cx(
-					"relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border border-gray-200 shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
-					"bg-card dark:bg-gray-100",
+					"relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border border-popover shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+					"bg-popover",
 					position === "popper" &&
 						"max-h-[var(--radix-select-content-available-height)] data-[side=bottom]:translate-y-2 data-[side=left]:-translate-x-2 data-[side=right]:translate-x-2 data-[side=top]:-translate-y-2",
 					width === "trigger" && "w-[var(--radix-select-trigger-width)]",
@@ -144,7 +144,7 @@ const SelectItem = forwardRef<
 	<SelectPrimitive.Item
 		ref={ref}
 		className={cx(
-			"relative flex w-full cursor-pointer select-none items-center rounded py-1.5 pl-2 pr-8 text-sm outline-none focus:bg-gray-100 data-[disabled]:pointer-events-none data-[state='checked']:bg-blue-500 data-[state='checked']:text-[#fff] data-[disabled]:opacity-50 dark:focus:bg-gray-200 data-[state='checked']:dark:bg-blue-500",
+			"relative flex w-full cursor-pointer select-none items-center rounded py-1.5 pl-2 pr-8 text-sm outline-none focus:bg-popover-hover data-[disabled]:pointer-events-none data-[state='checked']:bg-primary data-[state='checked']:text-bg-primary data-[disabled]:opacity-50",
 			className,
 		)}
 		{...props}
@@ -161,7 +161,7 @@ const SelectSeparator = forwardRef<
 	ElementRef<typeof SelectPrimitive.Separator>,
 	ComponentPropsWithoutRef<typeof SelectPrimitive.Separator>
 >(({ className, ...props }, ref) => (
-	<SelectPrimitive.Separator ref={ref} className={cx("-mx-1 my-1 h-px bg-gray-200", className)} {...props} />
+	<SelectPrimitive.Separator ref={ref} className={cx("-mx-1 my-1 h-px popover-border-muted", className)} {...props} />
 ));
 SelectSeparator.displayName = "SelectSeparator";
 
