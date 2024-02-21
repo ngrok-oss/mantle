@@ -11,12 +11,12 @@ const buttonVariants = cva(
 		variants: {
 			appearance: {
 				outlined:
-					"font-medium inline-flex h-11 sm:h-9 px-3 border bg-white dark:bg-gray-50 border-blue-600 text-blue-600 hover:bg-blue-500/5 dark:hover:bg-blue-500/5 active:bg-blue-500/10 focus-visible:ring-blue-500/25",
+					"font-medium inline-flex h-11 sm:h-9 px-3 border bg-form border-primary text-primary hover:bg-primary-muted-hover active:bg-primary-muted-active focus-visible:ring-primary",
 				filled:
-					"font-medium inline-flex h-11 sm:h-9 px-3 border border-transparent bg-blue-500 text-[#fff] hover:bg-blue-600 dark:hover:bg-blue-400 active:bg-blue-700 dark:active:bg-blue-300 focus-visible:border-blue-600 focus-visible:ring-blue-500/25",
+					"font-medium inline-flex h-11 sm:h-9 px-3 border border-transparent bg-primary text-bg-primary hover:bg-primary-hover active:bg-primary-active focus-visible:border-primary focus-visible:ring-primary",
 				ghost:
-					"font-medium inline-flex h-11 sm:h-9 px-3 border border-transparent text-blue-600 hover:bg-blue-500/5 active:bg-blue-500/10 focus-visible:ring-blue-500/25",
-				link: "inline border-transparent cursor-pointer hover:underline text-blue-600 focus-visible:ring-blue-500/25",
+					"font-medium inline-flex h-11 sm:h-9 px-3 border border-transparent text-primary hover:bg-primary-muted-hover active:bg-primary-muted-active focus-visible:ring-primary",
+				link: "inline border-transparent cursor-pointer hover:underline text-primary focus-visible:ring-primary",
 			},
 			priority: {
 				default: "",
@@ -31,47 +31,47 @@ const buttonVariants = cva(
 			{
 				appearance: "ghost",
 				priority: "danger",
-				class: "border-transparent text-red-600 hover:bg-red-500/5 active:bg-red-500/10 focus-visible:ring-red-500/25",
+				class: "border-transparent text-danger hover:bg-danger-muted-hover active:bg-danger-muted-active focus-visible:ring-danger",
 			},
 			{
 				appearance: "outlined",
 				priority: "danger",
 				class:
-					"bg-white dark:bg-gray-50 border-red-600 text-red-600 dark:hover:bg-red-500/5 hover:bg-red-500/5 active:bg-red-500/10 focus-visible:ring-red-500/25",
+					"bg-form border-danger text-danger hover:bg-danger-muted-hover active:bg-danger-muted-active focus-visible:ring-danger",
 			},
 			{
 				appearance: "filled",
 				priority: "danger",
 				class:
-					"border-transparent bg-red-500 hover:bg-red-600 active:bg-red-700 focus-visible:ring-red-500/25 focus-visible:border-red-600 dark:hover:bg-red-400 dark:active:bg-red-300",
+					"border-transparent bg-danger hover:bg-danger-hover active:bg-danger-active focus-visible:ring-danger focus-visible:border-danger",
 			},
 			{
 				appearance: "link",
 				priority: "danger",
-				class: "text-red-600 focus-visible:ring-red-500/25",
+				class: "text-danger focus-visible:ring-danger",
 			},
 			{
 				appearance: "ghost",
 				priority: "muted",
 				class:
-					"border-transparent text-gray-900 hover:bg-gray-500/5 active:bg-gray-500/10 focus-visible:ring-blue-500/25",
+					"border-transparent text-gray-900 hover:bg-neutral-muted-hover active:bg-neutral-muted-active focus-visible:ring-primary",
 			},
 			{
 				appearance: "outlined",
 				priority: "muted",
 				class:
-					"bg-white dark:bg-gray-50 border-gray-300 text-gray-900 hover:bg-gray-500/5 dark:hover:bg-gray-500/5 active:bg-gray-500/10 focus-visible:ring-blue-500/25 focus-visible:border-blue-600",
+					"bg-form border-form text-gray-900 hover:bg-neutral-muted-hover active:bg-neutral-muted-active focus-visible:ring-primary focus-visible:border-primary",
 			},
 			{
 				appearance: "filled",
 				priority: "muted",
 				class:
-					"border-transparent bg-gray-500 hover:bg-gray-600 active:bg-gray-700 focus-visible:ring-gray-500/25 focus-visible:border-gray-600 dark:hover:bg-gray-400 dark:active:bg-gray-300",
+					"border-transparent bg-neutral hover:bg-neutral-hover active:bg-neutral-active focus-visible:ring-neutral focus-visible:border-neutral",
 			},
 			{
 				appearance: "link",
 				priority: "muted",
-				class: "text-gray-900 focus-visible:ring-blue-500/25",
+				class: "text-gray-900 focus-visible:ring-primary",
 			},
 		],
 	},
