@@ -34,16 +34,12 @@ const AlertContent = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
 AlertContent.displayName = "AlertContent";
 
 const AlertTitle = forwardRef<HTMLParagraphElement, HTMLAttributes<HTMLHeadingElement>>(
-	({ className, ...props }, ref) => (
-		<h5 ref={ref} className={cx("font-medium", className)} {...props} />
-	),
+	({ className, ...props }, ref) => <h5 ref={ref} className={cx("font-medium", className)} {...props} />,
 );
 AlertTitle.displayName = "AlertTitle";
 
 const AlertDescription = forwardRef<HTMLParagraphElement, HTMLAttributes<HTMLParagraphElement>>(
-	({ className, ...props }, ref) => (
-		<div ref={ref} className={cx("text-sm", className)} {...props} />
-	),
+	({ className, ...props }, ref) => <div ref={ref} className={cx("text-sm", className)} {...props} />,
 );
 AlertDescription.displayName = "AlertDescription";
 
