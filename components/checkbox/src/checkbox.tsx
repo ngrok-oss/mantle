@@ -1,8 +1,8 @@
-import { WithStyleProps } from "@/types";
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
 import { forwardRef } from "react";
 import type { ComponentPropsWithoutRef, ElementRef } from "react";
 import { cx } from "../../core";
+import { WithStyleProps } from "../../types";
 
 type Props = ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>;
 
@@ -10,7 +10,7 @@ const Checkbox = forwardRef<ElementRef<typeof CheckboxPrimitive.Root>, Props>(({
 	<CheckboxPrimitive.Root
 		ref={ref}
 		className={cx(
-			"size-4 shrink-0 appearance-none rounded border border-gray-300 focus:border-blue-500 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-500/25 disabled:cursor-not-allowed disabled:opacity-50 data-state-checked:border-blue-500 data-state-checked:bg-blue-500 data-state-indeterminate:border-blue-500 data-state-indeterminate:bg-blue-500",
+			"data-state-indeterminate:border-blue-500 data-state-indeterminate:bg-blue-500 size-4 shrink-0 appearance-none rounded border border-gray-300 focus:border-blue-500 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-500/25 disabled:cursor-not-allowed disabled:opacity-50 data-state-checked:border-blue-500 data-state-checked:bg-blue-500",
 			className,
 		)}
 		{...props}
@@ -18,7 +18,7 @@ const Checkbox = forwardRef<ElementRef<typeof CheckboxPrimitive.Root>, Props>(({
 		<CheckboxPrimitive.Indicator className="hidden items-center justify-center leading-none text-[#fff] data-state-checked:flex">
 			<CheckedIcon className="size-3" />
 		</CheckboxPrimitive.Indicator>
-		<CheckboxPrimitive.Indicator className="hidden items-center justify-center text-[#fff] data-state-indeterminate:flex">
+		<CheckboxPrimitive.Indicator className="data-state-indeterminate:flex hidden items-center justify-center text-[#fff]">
 			<IndeterminateIcon className="size-3" />
 		</CheckboxPrimitive.Indicator>
 		<CheckboxPrimitive.Indicator />
