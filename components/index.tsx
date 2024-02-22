@@ -2,6 +2,7 @@ export * from "./alert";
 export * from "./anchor";
 export * from "./button";
 export * from "./card";
+export * from "./checkbox";
 export * from "./code-block";
 export * from "./core";
 export * from "./dropdown-menu";
