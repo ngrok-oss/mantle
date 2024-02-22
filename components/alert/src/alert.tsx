@@ -4,7 +4,7 @@ import type { HTMLAttributes } from "react";
 import { cx } from "../../core";
 import type { VariantProps } from "../../types";
 
-const alertVariants = cva("relative w-full rounded-lg border px-4 py-3 text-sm flex gap-4", {
+const alertVariants = cva("relative w-full rounded-md border p-2.5 text-sm flex gap-1.5", {
 	variants: {
 		priority: {
 			danger: "border-red-600 bg-red-500/5 text-red-700",
@@ -34,16 +34,12 @@ const AlertContent = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
 AlertContent.displayName = "AlertContent";
 
 const AlertTitle = forwardRef<HTMLParagraphElement, HTMLAttributes<HTMLHeadingElement>>(
-	({ className, ...props }, ref) => (
-		<h5 ref={ref} className={cx("mb-1 font-medium leading-none tracking-tight", className)} {...props} />
-	),
+	({ className, ...props }, ref) => <h5 ref={ref} className={cx("font-medium", className)} {...props} />,
 );
 AlertTitle.displayName = "AlertTitle";
 
 const AlertDescription = forwardRef<HTMLParagraphElement, HTMLAttributes<HTMLParagraphElement>>(
-	({ className, ...props }, ref) => (
-		<div ref={ref} className={cx("text-sm [&_p]:leading-relaxed", className)} {...props} />
-	),
+	({ className, ...props }, ref) => <div ref={ref} className={cx("text-sm", className)} {...props} />,
 );
 AlertDescription.displayName = "AlertDescription";
 
