@@ -144,7 +144,7 @@ const SelectItem = forwardRef<
 	<SelectPrimitive.Item
 		ref={ref}
 		className={cx(
-			"relative flex w-full cursor-pointer select-none items-center rounded py-1.5 pl-2 pr-8 text-sm outline-none focus:bg-gray-100 data-disabled:pointer-events-none data-disabled:opacity-50 data-state-checked:bg-blue-500 data-state-checked:text-[#fff] dark:focus:bg-gray-200 data-state-checked:dark:bg-blue-500",
+			"relative flex w-full cursor-pointer select-none items-center rounded py-1.5 pl-2 pr-8 text-sm outline-none focus:bg-gray-100 data-state-checked:bg-blue-500 data-state-checked:text-[#fff] data-disabled:pointer-events-none data-disabled:opacity-50 dark:focus:bg-gray-200 data-state-checked:dark:bg-blue-500",
 			className,
 		)}
 		{...props}
