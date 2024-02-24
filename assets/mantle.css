@@ -441,7 +441,7 @@
 
 	/* Elevation Tokens */
 
-	--bg-base: var(--white);
+	--bg-base: var(--gray-050);
 	--bg-card: var(--white);
 	--bg-popover: var(--white);
 	--bg-dialog: var(--white);
