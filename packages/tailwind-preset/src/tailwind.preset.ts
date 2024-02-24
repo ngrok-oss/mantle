@@ -362,8 +362,6 @@ const mantlePreset = {
 			},
 			data: {
 				"active-item": "active-item",
-				disabled: "disabled",
-				highlighted: "highlighted",
 				"orientation-horizontal": 'orientation="horizontal"',
 				"orientation-vertical": 'orientation="vertical"',
 				"side-bottom": 'side="bottom"',
@@ -372,9 +370,12 @@ const mantlePreset = {
 				"side-top": 'side="top"',
 				"state-checked": 'state~="checked"',
 				"state-closed": 'state~="closed"',
+				"state-indeterminate": 'state~="indeterminate"',
 				"state-open": 'state~="open"',
 				"state-selected": 'state~="selected"',
 				"state-unchecked": 'state~="unchecked"',
+				disabled: "disabled",
+				highlighted: "highlighted",
 			},
 			fontFamily: {
 				sans: ["EuclidSquare", ...defaultTheme.fontFamily.sans],

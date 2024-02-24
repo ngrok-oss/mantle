@@ -8,7 +8,7 @@ Mantle uses `pnpm` as its package manager. First, install the dependencies in th
 
 ### Development and preview
 
-Run `pnpm dev` to run Remix's development mode, rebuilding assets on file changes.
+Run `pnpm run docs:dev` to run Remix's development mode, rebuilding assets on file changes.
 
 Open up [http://localhost:3000](http://localhost:3000) and you should be ready to go!
 
