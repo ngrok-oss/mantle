@@ -462,7 +462,7 @@
 	--border-dialog-muted: var(--gray-200);
 
 	/* Overlay */
-	
+
 	--bg-overlay: var(--gray-950) / 0.5;
 
 	/* Tooltip */
@@ -783,7 +783,7 @@
 	--bg-overlay: var(--tw-black) / 0.6;
 
 	/* Tooltip */
-	
+
 	--bg-tooltip: var(--tw-black);
 	--text-bg-tooltip: var(--gray-900);
 
