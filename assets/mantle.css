@@ -1038,6 +1038,13 @@
 
 	--black: 0 0% 0%;
 	--white: 0 0% 100%;
+
+	/* Tokens */
+
+	--border-base-muted: var(--gray-300);
+	--border-card-muted: var(--gray-300);
+	--border-popover-muted: var(--gray-300);
+	--border-dialog-muted: var(--gray-300);
 }
 
 :root.dark-high-contrast {
@@ -1267,6 +1274,11 @@
 	--text-bg-danger: var(--tw-black);
 	--text-bg-warning: var(--tw-black);
 	--text-bg-success: var(--tw-black);
+
+	--border-base-muted: var(--gray-300);
+	--border-card-muted: var(--gray-300);
+	--border-popover-muted: var(--gray-300);
+	--border-dialog-muted: var(--gray-300);
 
 	/* Tooltip */
 
