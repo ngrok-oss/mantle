@@ -270,6 +270,7 @@ const mantlePreset = {
 				base: "hsl(var(--bg-base))",
 				card: "hsl(var(--bg-card))",
 				popover: "hsl(var(--bg-popover))",
+				tooltip: "hsl(var(--bg-tooltip))",
 				form: "hsl(var(--bg-form))",
 				neutral: "hsl(var(--bg-neutral))",
 				primary: "hsl(var(--bg-primary))",
@@ -323,6 +324,7 @@ const mantlePreset = {
 				"bg-danger-muted": "hsl(var(--text-bg-danger-muted))",
 				"bg-warning-muted": "hsl(var(--text-bg-warning-muted))",
 				"bg-success-muted": "hsl(var(--text-bg-success-muted))",
+				"bg-tooltip": "hsl(var(--text-bg-tooltip))",
 			},
 			borderColor: {
 				base: "hsl(var(--border-base))",

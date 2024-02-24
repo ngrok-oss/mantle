@@ -444,6 +444,7 @@
 	--bg-base: var(--white);
 	--bg-card: var(--white);
 	--bg-popover: var(--white);
+	--bg-dialog: var(--white);
 
 	--bg-base-hover: var(--gray-100);
 	--bg-card-hover: var(--gray-100);
@@ -452,10 +453,15 @@
 	--border-base: var(--gray-300);
 	--border-card: var(--gray-300);
 	--border-popover: var(--gray-300);
+	--border-dialog: var(--gray-300);
 
 	--border-base-muted: var(--gray-200);
 	--border-card-muted: var(--gray-200);
 	--border-popover-muted: var(--gray-200);
+	/* Tooltip */
+
+	--bg-tooltip: var(--gray-800);
+	--text-bg-tooltip: var(--tw-white);
 
 	/* Form Tokens */
 
@@ -760,6 +766,10 @@
 	--border-base-muted: var(--gray-200);
 	--border-card-muted: var(--gray-200);
 	--border-popover-muted: var(--gray-200);
+	/* Tooltip */
+	
+	--bg-tooltip: var(--tw-black);
+	--text-bg-tooltip: var(--gray-900);
 
 	/* Form Tokens */
 
@@ -1241,6 +1251,11 @@
 	--text-bg-danger: var(--tw-black);
 	--text-bg-warning: var(--tw-black);
 	--text-bg-success: var(--tw-black);
+
+	/* Tooltip */
+
+	--bg-tooltip: var(--gray-200);
+	--text-bg-tooltip: var(--tw-white);
 }
 
 /**
