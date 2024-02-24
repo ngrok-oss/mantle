@@ -18,7 +18,7 @@ const SheetOverlay = forwardRef<
 >(({ className, ...props }, ref) => (
 	<SheetPrimitive.Overlay
 		className={cx(
-			"fixed inset-0 z-50 bg-base/80 backdrop-blur data-state-closed:animate-out data-state-closed:fade-out-0 data-state-open:animate-in data-state-open:fade-in-0",
+			"fixed inset-0 z-50 bg-overlay backdrop-blur data-state-closed:animate-out data-state-closed:fade-out-0 data-state-open:animate-in data-state-open:fade-in-0",
 			className,
 		)}
 		{...props}
@@ -28,16 +28,16 @@ const SheetOverlay = forwardRef<
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName;
 
 const SheetVariants = cva(
-	"fixed z-50 flex flex-col bg-base shadow-lg transition ease-in-out data-state-open:animate-in data-state-closed:animate-out data-state-closed:duration-100 data-state-open:duration-100",
+	"fixed z-50 flex flex-col bg-dialog shadow-lg transition ease-in-out data-state-open:animate-in data-state-closed:animate-out data-state-closed:duration-100 data-state-open:duration-100",
 	{
 		variants: {
 			side: {
-				top: "inset-x-0 top-0 border-b data-state-closed:slide-out-to-top data-state-open:slide-in-from-top",
+				top: "inset-x-0 top-0 border-b border-dialog data-state-closed:slide-out-to-top data-state-open:slide-in-from-top",
 				bottom:
-					"inset-x-0 bottom-0 border-t data-state-closed:slide-out-to-bottom data-state-open:slide-in-from-bottom",
-				left: "inset-y-0 left-0 h-full w-full border-r data-state-closed:slide-out-to-left data-state-open:slide-in-from-left sm:max-w-sm",
+					"inset-x-0 bottom-0 border-t border-dialog data-state-closed:slide-out-to-bottom data-state-open:slide-in-from-bottom",
+				left: "inset-y-0 left-0 h-full w-full border-r border-dialog data-state-closed:slide-out-to-left data-state-open:slide-in-from-left sm:max-w-sm",
 				right:
-					"inset-y-0 right-0 h-full w-full border-l data-state-closed:slide-out-to-right data-state-open:slide-in-from-right sm:max-w-sm",
+					"inset-y-0 right-0 h-full w-full border-l border-dialog data-state-closed:slide-out-to-right data-state-open:slide-in-from-right sm:max-w-sm",
 			},
 		},
 		defaultVariants: {
@@ -70,11 +70,11 @@ const SheetBody = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => (
 );
 
 const SheetHeader = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => (
-	<div className={cx("shrink-0 border-b border-gray-300 px-6 py-4", className)} {...props} />
+	<div className={cx("shrink-0 border-b border-dialog-muted px-6 py-4", className)} {...props} />
 );
 
 const SheetFooter = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => (
-	<div className={cx("shrink-0 border-t border-gray-300 px-6 py-2.5", className)} {...props} />
+	<div className={cx("shrink-0 border-t border-dialog-muted px-6 py-2.5", className)} {...props} />
 );
 
 const SheetTitle = forwardRef<

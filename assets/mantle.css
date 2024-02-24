@@ -449,6 +449,7 @@
 	--bg-base-hover: var(--gray-100);
 	--bg-card-hover: var(--gray-100);
 	--bg-popover-hover: var(--gray-100);
+	--bg-dialog-hover: var(--gray-100);
 
 	--border-base: var(--gray-300);
 	--border-card: var(--gray-300);
@@ -458,6 +459,12 @@
 	--border-base-muted: var(--gray-200);
 	--border-card-muted: var(--gray-200);
 	--border-popover-muted: var(--gray-200);
+	--border-dialog-muted: var(--gray-200);
+
+	/* Overlay */
+	
+	--bg-overlay: var(--gray-950) / 0.5;
+
 	/* Tooltip */
 
 	--bg-tooltip: var(--gray-800);
@@ -754,18 +761,27 @@
 	--bg-base: var(--gray-050);
 	--bg-card: var(--gray-100);
 	--bg-popover: var(--gray-100);
+	--bg-dialog: var(--gray-050);
 
 	--bg-base-hover: var(--gray-200);
 	--bg-card-hover: var(--gray-200);
 	--bg-popover-hover: var(--gray-200);
+	--bg-dialog-hover: var(--gray-200);
 
 	--border-base: var(--gray-300);
 	--border-card: var(--gray-300);
 	--border-popover: var(--gray-300);
+	--border-dialog: var(--gray-300);
 
 	--border-base-muted: var(--gray-200);
 	--border-card-muted: var(--gray-200);
 	--border-popover-muted: var(--gray-200);
+	--border-dialog-muted: var(--gray-200);
+
+	/* Overlay */
+
+	--bg-overlay: var(--tw-black) / 0.6;
+
 	/* Tooltip */
 	
 	--bg-tooltip: var(--tw-black);
