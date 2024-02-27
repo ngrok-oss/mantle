@@ -9,7 +9,7 @@ const alertVariants = cva("relative w-full rounded-md border p-2.5 text-sm flex 
 		priority: {
 			danger: "border-danger-muted bg-danger-muted text-bg-danger-muted",
 			default: "border-neutral-muted bg-neutral-muted text-bg-neutral-muted",
-			info: "border-primary-muted bg-primary-muted text-bg-primary-muted",
+			info: "border-accent-muted bg-accent-muted text-bg-accent-muted",
 			success: "border-success-muted bg-success-muted text-bg-success-muted",
 			warning: "border-warning-muted bg-warning-muted text-bg-warning-muted",
 		},

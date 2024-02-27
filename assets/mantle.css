@@ -480,73 +480,73 @@
 	/* Theme Tokens */
 
 	--bg-neutral: var(--gray-500);
-	--bg-primary: var(--blue-500);
+	--bg-accent: var(--blue-500);
 	--bg-danger: var(--red-500);
 	--bg-warning: var(--amber-500);
 	--bg-success: var(--green-500);
 
 	--bg-neutral-hover: var(--gray-600);
-	--bg-primary-hover: var(--blue-600);
+	--bg-accent-hover: var(--blue-600);
 	--bg-danger-hover: var(--red-600);
 	--bg-warning-hover: var(--amber-600);
 	--bg-success-hover: var(--green-600);
 
 	--bg-neutral-active: var(--gray-700);
-	--bg-primary-active: var(--blue-700);
+	--bg-accent-active: var(--blue-700);
 	--bg-danger-active: var(--red-700);
 	--bg-warning-active: var(--amber-700);
 	--bg-success-active: var(--green-700);
 
 	--bg-neutral-muted: var(--gray-500) / 0.08;
-	--bg-primary-muted: var(--blue-500) / 0.08;
+	--bg-accent-muted: var(--blue-500) / 0.08;
 	--bg-danger-muted: var(--red-500) / 0.08;
 	--bg-warning-muted: var(--amber-500) / 0.08;
 	--bg-success-muted: var(--green-500) / 0.08;
 
 	--bg-neutral-muted-hover: var(--gray-500) / 0.08;
-	--bg-primary-muted-hover: var(--blue-500) / 0.08;
+	--bg-accent-muted-hover: var(--blue-500) / 0.08;
 	--bg-danger-muted-hover: var(--red-500) / 0.08;
 	--bg-warning-muted-hover: var(--amber-500) / 0.08;
 	--bg-success-muted-hover: var(--green-500) / 0.08;
 
 	--bg-neutral-muted-active: var(--gray-500) / 0.12;
-	--bg-primary-muted-active: var(--blue-500) / 0.12;
+	--bg-accent-muted-active: var(--blue-500) / 0.12;
 	--bg-danger-muted-active: var(--red-500) / 0.12;
 	--bg-warning-muted-active: var(--amber-500) / 0.12;
 	--bg-success-muted-active: var(--green-500) / 0.12;
 
 	--border-neutral: var(--gray-600);
-	--border-primary: var(--blue-600);
+	--border-accent: var(--blue-600);
 	--border-danger: var(--red-600);
 	--border-warning: var(--amber-600);
 	--border-success: var(--green-600);
 
 	--border-neutral-muted: var(--gray-500) / 0.75;
-	--border-primary-muted: var(--blue-500) / 0.75;
+	--border-accent-muted: var(--blue-500) / 0.75;
 	--border-danger-muted: var(--red-500) / 0.75;
 	--border-warning-muted: var(--amber-500) / 0.75;
 	--border-success-muted: var(--green-500) / 0.75;
 
 	--text-neutral: var(--gray-600);
-	--text-primary: var(--blue-600);
+	--text-accent: var(--blue-600);
 	--text-danger: var(--red-600);
 	--text-warning: var(--amber-600);
 	--text-success: var(--green-600);
 
 	--text-bg-neutral-muted: var(--gray-700);
-	--text-bg-primary-muted: var(--blue-700);
+	--text-bg-accent-muted: var(--blue-700);
 	--text-bg-danger-muted: var(--red-700);
 	--text-bg-warning-muted: var(--amber-700);
 	--text-bg-success-muted: var(--green-700);
 
 	--text-bg-neutral: var(--tw-white);
-	--text-bg-primary: var(--tw-white);
+	--text-bg-accent: var(--tw-white);
 	--text-bg-danger: var(--tw-white);
 	--text-bg-warning: var(--tw-white);
 	--text-bg-success: var(--tw-white);
 
 	--ring-neutral: var(--gray-500) / 0.25;
-	--ring-primary: var(--blue-500) / 0.25;
+	--ring-accent: var(--blue-500) / 0.25;
 	--ring-danger: var(--red-500) / 0.25;
 	--ring-warning: var(--amber-500) / 0.25;
 	--ring-success: var(--green-500) / 0.25;
@@ -795,25 +795,25 @@
 	/* Theme Tokens */
 
 	--bg-neutral: var(--gray-500);
-	--bg-primary: var(--blue-500);
+	--bg-accent: var(--blue-500);
 	--bg-danger: var(--red-500);
 	--bg-warning: var(--amber-500);
 	--bg-success: var(--green-500);
 
 	--bg-neutral-hover: var(--gray-500) / 0.9;
-	--bg-primary-hover: var(--blue-500) / 0.9;
+	--bg-accent-hover: var(--blue-500) / 0.9;
 	--bg-danger-hover: var(--red-500) / 0.9;
 	--bg-warning-hover: var(--amber-500) / 0.9;
 	--bg-success-hover: var(--green-500) / 0.9;
 
 	--bg-neutral-active: var(--gray-500) / 0.8;
-	--bg-primary-active: var(--blue-500) / 0.8;
+	--bg-accent-active: var(--blue-500) / 0.8;
 	--bg-danger-active: var(--red-500) / 0.8;
 	--bg-warning-active: var(--amber-500) / 0.8;
 	--bg-success-active: var(--green-500) / 0.8;
 
 	--text-bg-neutral: var(--tw-white);
-	--text-bg-primary: var(--tw-white);
+	--text-bg-accent: var(--tw-white);
 	--text-bg-danger: var(--tw-white);
 	--text-bg-warning: var(--tw-white);
 	--text-bg-success: var(--tw-white);
@@ -1270,7 +1270,7 @@
 	/* Tokens */
 
 	--text-bg-neutral: var(--tw-black);
-	--text-bg-primary: var(--tw-black);
+	--text-bg-accent: var(--tw-black);
 	--text-bg-danger: var(--tw-black);
 	--text-bg-warning: var(--tw-black);
 	--text-bg-success: var(--tw-black);
