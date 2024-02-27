@@ -313,6 +313,8 @@ const mantlePreset = {
 			textColor: {
 				strong: "hsl(var(--text-strong))",
 				default: "hsl(var(--text-default))",
+				muted: "hsl(var(--text-muted))",
+				placeholder: "hsl(var(--text-placeholder))",
 				accent: "hsl(var(--text-accent))",
 				danger: "hsl(var(--text-danger))",
 				warning: "hsl(var(--text-warning))",
