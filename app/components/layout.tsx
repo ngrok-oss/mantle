@@ -39,7 +39,7 @@ export function Layout({ children, className, style }: Props) {
 			<header className="flex h-24 items-center gap-4 px-4 sm:px-0">
 				<Button
 					appearance="outlined"
-					priority="muted"
+					priority="neutral"
 					className="w-11 sm:w-9 md:hidden"
 					onClick={() => {
 						setShowNavigation((s) => !s);
