@@ -25,8 +25,10 @@ export default function Page() {
 			<h5 className="mt-4 text-base font-medium">Heading 5</h5>
 			<h6 className="mt-4 text-xs font-medium uppercase tracking-widest">Heading 6</h6>
 
-			<div className="text-strong">Primary text</div>
-			<div className="text-default">Secondary text</div>
+			<div className="text-strong">Strong text</div>
+			<div className="text-default">default text</div>
+			<div className="text-muted">Muted text</div>
+			<div className="text-placeholder">Placeholder text</div>
 		</div>
 	);
 }
