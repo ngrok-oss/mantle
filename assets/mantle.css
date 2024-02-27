@@ -463,7 +463,7 @@
 
 	/* Overlay */
 
-	--bg-overlay: var(--gray-950) / 0.5;
+	--bg-overlay: var(--tw-black) / 0.12;
 
 	/* Tooltip */
 
@@ -1300,6 +1300,7 @@
 	--bg-card: var(--gray-050);
 	--bg-popover: var(--gray-050);
 	--bg-dialog: var(--gray-050);
+	--bg-overlay: var(--tw-black) / 0.8;
 
 	--text-strong: var(--black);
 	--text-default: var(--black);

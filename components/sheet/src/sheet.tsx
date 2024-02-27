@@ -18,7 +18,7 @@ const SheetOverlay = forwardRef<
 >(({ className, ...props }, ref) => (
 	<SheetPrimitive.Overlay
 		className={cx(
-			"fixed inset-0 z-50 bg-overlay backdrop-blur data-state-closed:animate-out data-state-closed:fade-out-0 data-state-open:animate-in data-state-open:fade-in-0",
+			"fixed inset-0 z-50 bg-overlay backdrop-blur-sm data-state-closed:animate-out data-state-closed:fade-out-0 data-state-open:animate-in data-state-open:fade-in-0",
 			className,
 		)}
 		{...props}
@@ -89,7 +89,7 @@ const SheetDescription = forwardRef<
 	ElementRef<typeof SheetPrimitive.Description>,
 	ComponentPropsWithoutRef<typeof SheetPrimitive.Description>
 >(({ className, ...props }, ref) => (
-	<SheetPrimitive.Description ref={ref} className={cx("text-sm text-default", className)} {...props} />
+	<SheetPrimitive.Description ref={ref} className={cx("text-default text-sm", className)} {...props} />
 ));
 SheetDescription.displayName = SheetPrimitive.Description.displayName;
 
