@@ -527,8 +527,8 @@
 	--border-warning-muted: var(--amber-500) / 0.75;
 	--border-success-muted: var(--green-500) / 0.75;
 
-	--text-primary: var(--black-950);
-	--text-secondary: var(--black-950) / 0.65;
+	--text-primary: var(--gray-950);
+	--text-secondary: var(--gray-950) / 0.75;
 
 	--text-neutral: var(--gray-600);
 	--text-accent: var(--blue-600);
