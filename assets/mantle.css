@@ -823,6 +823,12 @@
 	--text-bg-danger: var(--tw-white);
 	--text-bg-warning: var(--tw-white);
 	--text-bg-success: var(--tw-white);
+
+	--ring-neutral: var(--gray-600) / 0.35;
+	--ring-accent: var(--blue-600) / 0.35;
+	--ring-danger: var(--red-600) / 0.35;
+	--ring-warning: var(--amber-600) / 0.35;
+	--ring-success: var(--green-600) / 0.35;
 }
 
 :root.light-high-contrast {
@@ -1054,6 +1060,12 @@
 
 	--text-primary: var(--black);
 	--text-secondary: var(--black);
+
+	--ring-neutral: var(--gray-400) / 0.4;
+	--ring-accent: var(--blue-400) / 0.4;
+	--ring-danger: var(--red-400) / 0.4;
+	--ring-warning: var(--amber-400) / 0.4;
+	--ring-success: var(--green-400) / 0.4;
 }
 
 :root.dark-high-contrast {
@@ -1292,7 +1304,11 @@
 	--border-popover-muted: var(--gray-300);
 	--border-dialog-muted: var(--gray-300);
 
-	/* Tooltip */
+	--ring-neutral: var(--gray-700) / 0.65;
+	--ring-accent: var(--blue-700) / 0.65;
+	--ring-danger: var(--red-700) / 0.65;
+	--ring-warning: var(--amber-700) / 0.65;
+	--ring-success: var(--green-700) / 0.65;
 
 	--bg-tooltip: var(--gray-200);
 	--text-bg-tooltip: var(--tw-white);
