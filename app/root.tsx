@@ -14,7 +14,7 @@ export const links: LinksFunction = () => [
 
 export default function App() {
 	return (
-		<html className="h-full" lang="en-US" dir="ltr">
+		<html id="ngrok" className="h-full" lang="en-US" dir="ltr">
 			<head>
 				<PreventWrongThemeFlash />
 				<PreloadFonts />
