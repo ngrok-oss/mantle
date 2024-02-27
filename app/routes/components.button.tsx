@@ -21,7 +21,7 @@ export default function Page() {
 	return (
 		<div>
 			<h1 className="text-5xl font-medium">Button</h1>
-			<p className="mt-4 text-xl text-gray-600">
+			<p className="text-secondary mt-4 text-xl">
 				Initiates an action, such as completing a task or submitting information
 			</p>
 			<Example className="mt-4 flex flex-wrap gap-6">
@@ -101,7 +101,7 @@ export default function Page() {
 							<TableHead>Default</TableHead>
 						</TableRow>
 					</TableHeader>
-					<TableBody className="font-mono text-xs text-gray-600">
+					<TableBody className="text-secondary font-mono text-xs">
 						<TableRow>
 							<TableCell className="align-top font-medium">appearance</TableCell>
 							<TableCell className="align-top">enum</TableCell>

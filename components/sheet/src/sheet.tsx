@@ -89,7 +89,7 @@ const SheetDescription = forwardRef<
 	ElementRef<typeof SheetPrimitive.Description>,
 	ComponentPropsWithoutRef<typeof SheetPrimitive.Description>
 >(({ className, ...props }, ref) => (
-	<SheetPrimitive.Description ref={ref} className={cx("text-sm text-gray-600", className)} {...props} />
+	<SheetPrimitive.Description ref={ref} className={cx("text-secondary text-sm", className)} {...props} />
 ));
 SheetDescription.displayName = SheetPrimitive.Description.displayName;
 

@@ -20,7 +20,7 @@ export default function Page() {
 	return (
 		<div>
 			<h1 className="text-5xl font-medium">Table</h1>
-			<p className="mt-4 text-xl text-gray-600">A responsive table component.</p>
+			<p className="text-secondary mt-4 text-xl">A responsive table component.</p>
 			<Example className="mt-4 gap-2">
 				<ExampleTable />
 			</Example>

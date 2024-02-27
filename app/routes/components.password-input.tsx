@@ -21,7 +21,7 @@ export default function Page() {
 	return (
 		<div>
 			<h1 className="text-5xl font-medium">Password Input</h1>
-			<p className="mt-4 text-xl text-gray-600">Fundamental component for password inputs.</p>
+			<p className="text-secondary mt-4 text-xl">Fundamental component for password inputs.</p>
 
 			<Example className="mt-4 flex-col gap-4">
 				<PasswordInput className="max-w-64" />
@@ -49,7 +49,7 @@ export default function Page() {
 							<TableHead>Default</TableHead>
 						</TableRow>
 					</TableHeader>
-					<TableBody className="font-mono text-xs text-gray-600">
+					<TableBody className="text-secondary font-mono text-xs">
 						<TableRow>
 							<TableCell className="align-top font-medium">aria-invalid</TableCell>
 							<TableCell className="align-top">boolean</TableCell>

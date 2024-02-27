@@ -21,11 +21,11 @@ export default function Page() {
 	return (
 		<div>
 			<h1 className="text-5xl font-medium">Media Object</h1>
-			<p className="my-4 text-xl text-gray-600">
+			<p className="text-secondary my-4 text-xl">
 				The Media Object is an image/icon (media) to the left, with descriptive content (title and subtitle/description)
 				to the right.
 			</p>
-			<div className="mt-8 space-y-4 text-gray-600">
+			<div className="text-secondary mt-8 space-y-4">
 				<p>
 					Change the spacing between the media and content by passing a <InlineCode>gap-*</InlineCode> class. The
 					default <InlineCode>gap</InlineCode> is <InlineCode>gap-4</InlineCode>.
