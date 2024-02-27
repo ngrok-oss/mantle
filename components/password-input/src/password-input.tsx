@@ -40,7 +40,7 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(({ classN
 			<button
 				type="button"
 				tabIndex={-1}
-				className="ml-1 cursor-pointer bg-inherit p-0 text-secondary hover:text-gray-900"
+				className="ml-1 cursor-pointer bg-inherit p-0 text-default hover:text-gray-900"
 				onClick={() => {
 					setShowPassword((s) => !s);
 				}}

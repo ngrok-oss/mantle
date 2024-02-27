@@ -311,8 +311,8 @@ const mantlePreset = {
 				"success-muted-active": "hsl(var(--bg-success-muted-active))",
 			},
 			textColor: {
-				primary: "hsl(var(--text-primary))",
-				secondary: "hsl(var(--text-secondary))",
+				strong: "hsl(var(--text-strong))",
+				default: "hsl(var(--text-default))",
 				accent: "hsl(var(--text-accent))",
 				danger: "hsl(var(--text-danger))",
 				warning: "hsl(var(--text-warning))",

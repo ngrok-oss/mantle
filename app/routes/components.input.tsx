@@ -21,7 +21,7 @@ export default function Page() {
 	return (
 		<div>
 			<h1 className="text-5xl font-medium">Input</h1>
-			<p className="mt-4 text-xl text-secondary">Fundamental component for inputs.</p>
+			<p className="mt-4 text-xl text-default">Fundamental component for inputs.</p>
 
 			<Example className="mt-4 flex-col gap-4">
 				<Input className="max-w-64" placeholder="Enter a username" />
@@ -49,7 +49,7 @@ export default function Page() {
 							<TableHead>Default</TableHead>
 						</TableRow>
 					</TableHeader>
-					<TableBody className="font-mono text-xs text-secondary">
+					<TableBody className="font-mono text-xs text-default">
 						<TableRow>
 							<TableCell className="align-top font-medium">aria-invalid</TableCell>
 							<TableCell className="align-top">boolean</TableCell>

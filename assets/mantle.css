@@ -527,8 +527,8 @@
 	--border-warning-muted: var(--amber-500) / 0.75;
 	--border-success-muted: var(--green-500) / 0.75;
 
-	--text-primary: var(--gray-950);
-	--text-secondary: var(--gray-950) / 0.75;
+	--text-strong: var(--gray-950);
+	--text-default: var(--gray-950) / 0.75;
 
 	--text-neutral: var(--gray-600);
 	--text-accent: var(--blue-600);
@@ -815,8 +815,8 @@
 	--bg-warning-active: var(--amber-500) / 0.8;
 	--bg-success-active: var(--green-500) / 0.8;
 
-	--text-primary: var(--black);
-	--text-secondary: var(--black) / 0.7;
+	--text-strong: var(--black);
+	--text-default: var(--black) / 0.7;
 
 	--text-on-bg-neutral: var(--tw-white);
 	--text-on-bg-accent: var(--tw-white);
@@ -1058,8 +1058,8 @@
 	--border-popover-muted: var(--gray-300);
 	--border-dialog-muted: var(--gray-300);
 
-	--text-primary: var(--black);
-	--text-secondary: var(--black);
+	--text-strong: var(--black);
+	--text-default: var(--black);
 
 	--ring-neutral: var(--gray-400) / 0.4;
 	--ring-accent: var(--blue-400) / 0.4;
@@ -1290,8 +1290,8 @@
 
 	/* Tokens */
 
-	--text-primary: var(--black);
-	--text-secondary: var(--black);
+	--text-strong: var(--black);
+	--text-default: var(--black);
 
 	--text-on-bg-neutral: var(--tw-black);
 	--text-on-bg-accent: var(--tw-black);

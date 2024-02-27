@@ -21,8 +21,8 @@ export default function Page() {
 	return (
 		<div>
 			<h1 className="text-5xl font-medium">Anchor</h1>
-			<p className="my-4 text-xl text-secondary">Fundamental component for rendering links to external addresses.</p>
-			<div className="mt-8 space-y-4 text-secondary">
+			<p className="my-4 text-xl text-default">Fundamental component for rendering links to external addresses.</p>
+			<div className="mt-8 space-y-4 text-default">
 				<p>
 					The <InlineCode>&lt;Anchor&gt;</InlineCode> element, with its <InlineCode>href</InlineCode> attribute, creates
 					a hyperlink to web pages, files, email addresses, locations in the same page, or anything else a URL can
