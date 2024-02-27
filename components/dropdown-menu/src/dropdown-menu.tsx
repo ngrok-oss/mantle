@@ -66,7 +66,7 @@ const DropdownMenuCheckboxItem = forwardRef<ElementRef<typeof Ariakit.MenuItemRa
 			className={cx(
 				"relative flex cursor-pointer select-none items-center gap-2 rounded py-1.5 pl-2 pr-9 text-sm font-normal text-gray-900 outline-none data-disabled:pointer-events-none data-disabled:opacity-50",
 				"data-active-item:bg-popover",
-				"aria-checked:bg-accent aria-checked:text-bg-accent aria-checked:font-medium",
+				"aria-checked:bg-accent aria-checked:font-medium aria-checked:text-bg-accent",
 				className,
 			)}
 			{...props}

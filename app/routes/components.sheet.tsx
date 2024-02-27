@@ -31,7 +31,7 @@ export default function Page() {
 	return (
 		<div>
 			<h1 className="text-5xl font-medium">Sheet</h1>
-			<p className="text-secondary mt-4 text-xl">
+			<p className="mt-4 text-xl text-secondary">
 				A container that overlays the current view from the edge of the screen. It is a lightweight way of allowing
 				users to complete a task without losing contextual information of the view beneath it.
 			</p>

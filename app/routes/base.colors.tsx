@@ -24,7 +24,7 @@ export default function Page() {
 				{/* TODO(cody): make this have scroll aware navigation links instead */}
 				{/* TODO: this should be generated automatically */}
 				<h3 className="text-xs font-medium uppercase tracking-widest">On this page</h3>
-				<ul className="text-secondary mt-3 flex flex-col gap-2 text-sm">
+				<ul className="mt-3 flex flex-col gap-2 text-sm text-secondary">
 					<li>
 						<HashNavLink
 							className={(isActive) =>
@@ -314,7 +314,7 @@ export default function Page() {
 			</nav>
 			<div className="flex-1">
 				<h1 className="text-5xl font-medium">Colors</h1>
-				<p className="text-secondary mt-4 text-xl">
+				<p className="mt-4 text-xl text-secondary">
 					Colors are a key component of any design system. They are used to convey meaning, attract attention, and
 					provide feedback. Mantle&rsquo;s color system is designed to be accessible and flexible with dark and high
 					contrast modes.
@@ -323,7 +323,7 @@ export default function Page() {
 				<h2 id="tailwind" className="mt-8 text-3xl font-medium">
 					Tailwind
 				</h2>
-				<p className="text-secondary mt-3">
+				<p className="mt-3 text-secondary">
 					Mantle uses Tailwind under the hood for all its CSS styling. However, we differ from Tailwind when it comes to
 					colors. Mantle provides a full color library that automatically provides a dark and high contrast modes. This
 					is different from standard Tailwind usage that <em>requires</em> dark class variations. By simply specifying
@@ -334,7 +334,7 @@ export default function Page() {
 				<h2 id="variables" className="mt-8 text-3xl font-medium">
 					Variables
 				</h2>
-				<p className="text-secondary mt-3">
+				<p className="mt-3 text-secondary">
 					Mantle&rsquo;s colors are delivered as CSS variables via Tailwind&rsquo;s API eg.{" "}
 					<InlineCode>.text-blue-500</InlineCode>. They can be directly accessed via{" "}
 					<InlineCode>var(--blue-500)</InlineCode> but do note that you&rsquo;ll need to wrap everything in{" "}
@@ -345,7 +345,7 @@ export default function Page() {
 				<h2 id="overrides" className="mt-8 text-3xl font-medium">
 					Overrides
 				</h2>
-				<p className="text-secondary mt-3">
+				<p className="mt-3 text-secondary">
 					Most colors should appropriately swap for sensible values in dark and high contrast modes. However, there are
 					often cases where you&rsquo;ll need to specify an override. The <InlineCode>dark:</InlineCode> variant is
 					well-documented on <Anchor href="https://tailwindcss.com/docs/dark-mode">Tailwind&rsquo;s website</Anchor>.
@@ -356,7 +356,7 @@ export default function Page() {
 				<h2 id="branded-colors" className="mt-8 text-3xl font-medium">
 					Branded Colors
 				</h2>
-				<p className="text-secondary mt-3">
+				<p className="mt-3 text-secondary">
 					Mantle generally limits its color choices to the following branded colors for primary actions, and various
 					states like danger and warnings.
 				</p>
@@ -614,7 +614,7 @@ export default function Page() {
 				<h2 id="extended-palette" className="mt-16 text-3xl font-medium">
 					Extended Palette
 				</h2>
-				<p className="text-secondary mt-3">
+				<p className="mt-3 text-secondary">
 					Mantle also supports the entirety of Tailwind&rsquo;s color palette in light, dark, and high contrast
 					variants. Howver, we&rsquo;ve left out the extended collection of Tailwind&rsquo;s grays eg. slate, zinc, etc.
 					since we only want to use our own custom branded gray.

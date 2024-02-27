@@ -29,7 +29,7 @@ export default function Page() {
 	return (
 		<div>
 			<h1 className="text-5xl font-medium">Select</h1>
-			<p className="text-secondary mt-4 text-xl">
+			<p className="mt-4 text-xl text-secondary">
 				Displays a list of options for the user to pick from—triggered by a button.
 			</p>
 

@@ -20,7 +20,7 @@ export default function Page() {
 	return (
 		<div>
 			<h1 className="text-5xl font-medium">Card</h1>
-			<p className="text-secondary mt-4 text-xl">
+			<p className="mt-4 text-xl text-secondary">
 				A container used to display content in a box, resembling a physical card.
 			</p>
 
