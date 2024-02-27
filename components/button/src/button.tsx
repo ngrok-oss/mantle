@@ -21,7 +21,7 @@ const buttonVariants = cva(
 			priority: {
 				default: "",
 				danger: "",
-				muted: "",
+				neutral: "",
 			},
 		},
 		defaultVariants: {
@@ -53,25 +53,25 @@ const buttonVariants = cva(
 			},
 			{
 				appearance: "ghost",
-				priority: "muted",
+				priority: "neutral",
 				class:
 					"border-transparent text-gray-900 hover:bg-neutral-muted-hover active:bg-neutral-muted-active focus-visible:ring-accent",
 			},
 			{
 				appearance: "outlined",
-				priority: "muted",
+				priority: "neutral",
 				class:
 					"bg-form border-form text-gray-900 hover:bg-neutral-muted-hover active:bg-neutral-muted-active focus-visible:ring-accent focus-visible:border-accent",
 			},
 			{
 				appearance: "filled",
-				priority: "muted",
+				priority: "neutral",
 				class:
 					"border-transparent bg-neutral hover:bg-neutral-hover active:bg-neutral-active focus-visible:ring-neutral focus-visible:border-neutral",
 			},
 			{
 				appearance: "link",
-				priority: "muted",
+				priority: "neutral",
 				class: "text-gray-900 focus-visible:ring-accent",
 			},
 		],

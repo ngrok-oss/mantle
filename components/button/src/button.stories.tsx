@@ -31,7 +31,7 @@ export const Outlined: Story = {
 	},
 };
 
-export const GhostMuted: Story = {
+export const GhostNeutral: Story = {
 	render: (args) => <Button {...args}>Button</Button>,
 	args: {
 		appearance: "ghost",
@@ -39,7 +39,7 @@ export const GhostMuted: Story = {
 	},
 };
 
-export const FilledMuted: Story = {
+export const FilledNeutral: Story = {
 	render: (args) => <Button {...args}>Button</Button>,
 	args: {
 		appearance: "filled",
@@ -47,7 +47,7 @@ export const FilledMuted: Story = {
 	},
 };
 
-export const OutlinedMuted: Story = {
+export const OutlinedNeutral: Story = {
 	render: (args) => <Button {...args}>Button</Button>,
 	args: {
 		appearance: "outlined",
