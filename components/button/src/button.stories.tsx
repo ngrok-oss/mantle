@@ -35,7 +35,7 @@ export const GhostNeutral: Story = {
 	render: (args) => <Button {...args}>Button</Button>,
 	args: {
 		appearance: "ghost",
-		priority: "muted",
+		priority: "neutral",
 	},
 };
 
@@ -43,7 +43,7 @@ export const FilledNeutral: Story = {
 	render: (args) => <Button {...args}>Button</Button>,
 	args: {
 		appearance: "filled",
-		priority: "muted",
+		priority: "neutral",
 	},
 };
 
@@ -51,7 +51,7 @@ export const OutlinedNeutral: Story = {
 	render: (args) => <Button {...args}>Button</Button>,
 	args: {
 		appearance: "outlined",
-		priority: "muted",
+		priority: "neutral",
 	},
 };
 
