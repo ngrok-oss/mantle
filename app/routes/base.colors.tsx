@@ -24,11 +24,11 @@ export default function Page() {
 				{/* TODO(cody): make this have scroll aware navigation links instead */}
 				{/* TODO: this should be generated automatically */}
 				<h3 className="text-xs font-medium uppercase tracking-widest">On this page</h3>
-				<ul className="mt-3 flex flex-col gap-2 text-sm text-default">
+				<ul className="mt-3 flex flex-col gap-2 text-sm text-muted">
 					<li>
 						<HashNavLink
 							className={(isActive) =>
-								cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+								cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
 							}
 							to=".#tailwind"
 						>
@@ -38,7 +38,7 @@ export default function Page() {
 					<li>
 						<HashNavLink
 							className={(isActive) =>
-								cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+								cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
 							}
 							to=".#variables"
 						>
@@ -48,7 +48,7 @@ export default function Page() {
 					<li>
 						<HashNavLink
 							className={(isActive) =>
-								cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+								cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
 							}
 							to=".#overrides"
 						>
@@ -58,7 +58,7 @@ export default function Page() {
 					<li>
 						<HashNavLink
 							className={(isActive) =>
-								cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+								cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
 							}
 							to=".#branded-colors"
 						>
@@ -69,7 +69,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
 								}
 								to=".#gray-branded"
 							>
@@ -79,7 +79,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
 								}
 								to=".#blue-branded"
 							>
@@ -89,7 +89,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
 								}
 								to=".#green-branded"
 							>
@@ -99,7 +99,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
 								}
 								to=".#red-branded"
 							>
@@ -109,7 +109,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
 								}
 								to=".#amber-branded"
 							>
@@ -120,7 +120,7 @@ export default function Page() {
 					<li>
 						<HashNavLink
 							className={(isActive) =>
-								cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+								cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
 							}
 							to=".#extended-palette"
 						>
@@ -131,7 +131,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
 								}
 								to=".#gray"
 							>
@@ -141,7 +141,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
 								}
 								to=".#red"
 							>
@@ -151,7 +151,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
 								}
 								to=".#orange"
 							>
@@ -161,7 +161,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
 								}
 								to=".#amber"
 							>
@@ -171,7 +171,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
 								}
 								to=".#yellow"
 							>
@@ -181,7 +181,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
 								}
 								to=".#lime"
 							>
@@ -191,7 +191,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
 								}
 								to=".#green"
 							>
@@ -201,7 +201,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
 								}
 								to=".#emerald"
 							>
@@ -211,7 +211,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
 								}
 								to=".#teal"
 							>
@@ -221,7 +221,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
 								}
 								to=".#cyan"
 							>
@@ -231,7 +231,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
 								}
 								to=".#sky"
 							>
@@ -242,7 +242,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
 								}
 								to=".#blue"
 							>
@@ -252,7 +252,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
 								}
 								to=".#indigo"
 							>
@@ -262,7 +262,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
 								}
 								to=".#violet"
 							>
@@ -272,7 +272,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
 								}
 								to=".#purple"
 							>
@@ -282,7 +282,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
 								}
 								to=".#fuchsia"
 							>
@@ -292,7 +292,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
 								}
 								to=".#pink"
 							>
@@ -302,7 +302,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-gray-900", isActive && "font-medium text-blue-600")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
 								}
 								to=".#rose"
 							>
