@@ -527,6 +527,9 @@
 	--border-warning-muted: var(--amber-500) / 0.75;
 	--border-success-muted: var(--green-500) / 0.75;
 
+	--text-primary: var(--black-950);
+	--text-secondary: var(--black-950) / 0.65;
+
 	--text-neutral: var(--gray-600);
 	--text-accent: var(--blue-600);
 	--text-danger: var(--red-600);
@@ -812,6 +815,9 @@
 	--bg-warning-active: var(--amber-500) / 0.8;
 	--bg-success-active: var(--green-500) / 0.8;
 
+	--text-primary: var(--black);
+	--text-secondary: var(--black) / 0.7;
+
 	--text-bg-neutral: var(--tw-white);
 	--text-bg-accent: var(--tw-white);
 	--text-bg-danger: var(--tw-white);
@@ -1045,6 +1051,9 @@
 	--border-card-muted: var(--gray-300);
 	--border-popover-muted: var(--gray-300);
 	--border-dialog-muted: var(--gray-300);
+
+	--text-primary: var(--black);
+	--text-secondary: var(--black);
 }
 
 :root.dark-high-contrast {
@@ -1268,6 +1277,9 @@
 	--yellow-950: 55 92% 95%;
 
 	/* Tokens */
+
+	--text-primary: var(--black);
+	--text-secondary: var(--black);
 
 	--text-bg-neutral: var(--tw-black);
 	--text-bg-accent: var(--tw-black);
