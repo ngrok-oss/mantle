@@ -20,7 +20,7 @@ export default function Page() {
 	return (
 		<div>
 			<h1 className="text-5xl font-medium">Checkbox</h1>
-			<p className="text-secondary mt-4 text-xl">
+			<p className="mt-4 text-xl text-secondary">
 				A form control that allows the user to toggle between checked and not checked.
 			</p>
 

@@ -34,7 +34,7 @@ export default function Page() {
 	return (
 		<div>
 			<h1 className="text-5xl font-medium">Dropdown Menu</h1>
-			<p className="text-secondary mt-4 text-xl">
+			<p className="mt-4 text-xl text-secondary">
 				Displays a menu to the user — such as a set of actions or functions — triggered by a button.
 			</p>
 

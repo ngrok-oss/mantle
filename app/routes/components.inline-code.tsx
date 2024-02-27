@@ -20,7 +20,7 @@ export default function Page() {
 	return (
 		<div>
 			<h1 className="text-5xl font-medium">Inline Code</h1>
-			<p className="text-secondary mt-4 text-xl">Marks text to signify a short fragment of inline computer code.</p>
+			<p className="mt-4 text-xl text-secondary">Marks text to signify a short fragment of inline computer code.</p>
 
 			<Example className="mt-4">
 				<InlineCode>npm install @ngrok/mantle</InlineCode>
