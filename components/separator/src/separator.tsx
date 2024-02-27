@@ -15,7 +15,11 @@ const Separator = forwardRef<
 		aria-orientation={decorative ? undefined : orientation}
 		decorative={decorative}
 		orientation={orientation}
-		className={cx("bg-gray-500/20 high-contrast:bg-black dark-high-contrast:bg-black shrink-0", orientation === "horizontal" ? "h-[1px] w-full" : "h-full w-[1px]", className)}
+		className={cx(
+			"shrink-0 bg-gray-500/20 dark-high-contrast:bg-black high-contrast:bg-black",
+			orientation === "horizontal" ? "h-[1px] w-full" : "h-full w-[1px]",
+			className,
+		)}
 		{...props}
 	/>
 ));
