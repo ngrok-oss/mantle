@@ -50,7 +50,7 @@ const DropdownMenuItem = forwardRef<
 	<Ariakit.MenuItem
 		ref={ref}
 		className={cx(
-			"data-active-item:bg-popover-active relative flex cursor-pointer select-none items-center rounded px-2 py-1.5 text-sm font-normal text-gray-900 outline-none data-disabled:pointer-events-none data-disabled:opacity-50",
+			"data-active-item:bg-popover-active relative flex cursor-pointer select-none items-center rounded px-2 py-1.5 text-sm font-normal text-strong outline-none data-disabled:pointer-events-none data-disabled:opacity-50",
 			className,
 		)}
 		{...props}
@@ -64,7 +64,7 @@ const DropdownMenuCheckboxItem = forwardRef<ElementRef<typeof Ariakit.MenuItemRa
 		<Ariakit.MenuItemCheckbox
 			ref={ref}
 			className={cx(
-				"relative flex cursor-pointer select-none items-center gap-2 rounded py-1.5 pl-2 pr-9 text-sm font-normal text-gray-900 outline-none data-disabled:pointer-events-none data-disabled:opacity-50",
+				"relative flex cursor-pointer select-none items-center gap-2 rounded py-1.5 pl-2 pr-9 text-sm font-normal text-strong outline-none data-disabled:pointer-events-none data-disabled:opacity-50",
 				"data-active-item:bg-popover",
 				"aria-checked:bg-accent aria-checked:font-medium aria-checked:text-on-bg-accent",
 				className,
@@ -84,9 +84,9 @@ const DropdownMenuRadioItem = forwardRef<ElementRef<typeof Ariakit.MenuItemRadio
 		<Ariakit.MenuItemRadio
 			ref={ref}
 			className={cx(
-				"relative flex cursor-pointer select-none items-center gap-2 rounded py-1.5 pl-2 pr-9 text-sm font-normal text-gray-900 outline-none data-disabled:pointer-events-none data-disabled:opacity-50",
-				"data-active-item:bg-gray-100 data-active-item:dark:bg-gray-200",
-				"aria-checked:!bg-blue-500 aria-checked:font-medium aria-checked:text-[#fff] aria-checked:dark-high-contrast:text-gray-100",
+				"relative flex cursor-pointer select-none items-center gap-2 rounded py-1.5 pl-2 pr-9 text-sm font-normal text-strong outline-none data-disabled:pointer-events-none data-disabled:opacity-50",
+				"data-active-item:bg-popover-hover data-active-item:dark:bg-popover-hover",
+				"aria-checked:!bg-accent aria-checked:font-medium aria-checked:text-on-bg-accent",
 				className,
 			)}
 			{...props}
@@ -106,7 +106,7 @@ const DropdownMenuItemCheck = (props: Omit<HTMLAttributes<HTMLSpanElement>, "chi
 
 const DropdownMenuLabel = forwardRef<ElementRef<"div">, ComponentPropsWithoutRef<"div">>(
 	({ className, ...props }, ref) => (
-		<div ref={ref} className={cx("px-2 py-1.5 text-sm font-medium text-gray-900", className)} {...props} />
+		<div ref={ref} className={cx("px-2 py-1.5 text-sm font-medium text-strong", className)} {...props} />
 	),
 );
 DropdownMenuLabel.displayName = "DropdownMenuLabel";
