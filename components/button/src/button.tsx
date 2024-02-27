@@ -55,13 +55,13 @@ const buttonVariants = cva(
 				appearance: "ghost",
 				priority: "neutral",
 				class:
-					"border-transparent text-gray-900 hover:bg-neutral-muted-hover active:bg-neutral-muted-active focus-visible:ring-accent",
+					"border-transparent text-strong hover:bg-neutral-muted-hover active:bg-neutral-muted-active focus-visible:ring-accent",
 			},
 			{
 				appearance: "outlined",
 				priority: "neutral",
 				class:
-					"bg-form border-form text-gray-900 hover:bg-neutral-muted-hover active:bg-neutral-muted-active focus-visible:ring-accent focus-visible:border-accent",
+					"bg-form border-form text-strong hover:bg-neutral-muted-hover active:bg-neutral-muted-active focus-visible:ring-accent focus-visible:border-accent",
 			},
 			{
 				appearance: "filled",
@@ -72,7 +72,7 @@ const buttonVariants = cva(
 			{
 				appearance: "link",
 				priority: "neutral",
-				class: "text-gray-900 focus-visible:ring-accent",
+				class: "text-strong focus-visible:ring-accent",
 			},
 		],
 	},
