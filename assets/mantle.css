@@ -468,7 +468,7 @@
 	/* Tooltip */
 
 	--bg-tooltip: var(--gray-800);
-	--text-bg-tooltip: var(--tw-white);
+	--text-on-bg-tooltip: var(--tw-white);
 
 	/* Form Tokens */
 
@@ -536,17 +536,17 @@
 	--text-warning: var(--amber-600);
 	--text-success: var(--green-600);
 
-	--text-bg-neutral-muted: var(--gray-700);
-	--text-bg-accent-muted: var(--blue-700);
-	--text-bg-danger-muted: var(--red-700);
-	--text-bg-warning-muted: var(--amber-700);
-	--text-bg-success-muted: var(--green-700);
+	--text-on-bg-neutral-muted: var(--gray-700);
+	--text-on-bg-accent-muted: var(--blue-700);
+	--text-on-bg-danger-muted: var(--red-700);
+	--text-on-bg-warning-muted: var(--amber-700);
+	--text-on-bg-success-muted: var(--green-700);
 
-	--text-bg-neutral: var(--tw-white);
-	--text-bg-accent: var(--tw-white);
-	--text-bg-danger: var(--tw-white);
-	--text-bg-warning: var(--tw-white);
-	--text-bg-success: var(--tw-white);
+	--text-on-bg-neutral: var(--tw-white);
+	--text-on-bg-accent: var(--tw-white);
+	--text-on-bg-danger: var(--tw-white);
+	--text-on-bg-warning: var(--tw-white);
+	--text-on-bg-success: var(--tw-white);
 
 	--ring-neutral: var(--gray-500) / 0.25;
 	--ring-accent: var(--blue-500) / 0.25;
@@ -788,7 +788,7 @@
 	/* Tooltip */
 
 	--bg-tooltip: var(--tw-black);
-	--text-bg-tooltip: var(--gray-900);
+	--text-on-bg-tooltip: var(--gray-900);
 
 	/* Form Tokens */
 
@@ -818,11 +818,11 @@
 	--text-primary: var(--black);
 	--text-secondary: var(--black) / 0.7;
 
-	--text-bg-neutral: var(--tw-white);
-	--text-bg-accent: var(--tw-white);
-	--text-bg-danger: var(--tw-white);
-	--text-bg-warning: var(--tw-white);
-	--text-bg-success: var(--tw-white);
+	--text-on-bg-neutral: var(--tw-white);
+	--text-on-bg-accent: var(--tw-white);
+	--text-on-bg-danger: var(--tw-white);
+	--text-on-bg-warning: var(--tw-white);
+	--text-on-bg-success: var(--tw-white);
 
 	--ring-neutral: var(--gray-600) / 0.35;
 	--ring-accent: var(--blue-600) / 0.35;
@@ -1293,11 +1293,11 @@
 	--text-primary: var(--black);
 	--text-secondary: var(--black);
 
-	--text-bg-neutral: var(--tw-black);
-	--text-bg-accent: var(--tw-black);
-	--text-bg-danger: var(--tw-black);
-	--text-bg-warning: var(--tw-black);
-	--text-bg-success: var(--tw-black);
+	--text-on-bg-neutral: var(--tw-black);
+	--text-on-bg-accent: var(--tw-black);
+	--text-on-bg-danger: var(--tw-black);
+	--text-on-bg-warning: var(--tw-black);
+	--text-on-bg-success: var(--tw-black);
 
 	--border-base-muted: var(--gray-300);
 	--border-card-muted: var(--gray-300);
@@ -1311,7 +1311,7 @@
 	--ring-success: var(--green-700) / 0.65;
 
 	--bg-tooltip: var(--gray-200);
-	--text-bg-tooltip: var(--tw-white);
+	--text-on-bg-tooltip: var(--tw-white);
 }
 
 /**
