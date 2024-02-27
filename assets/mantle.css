@@ -529,7 +529,7 @@
 
 	--text-strong: var(--gray-950);
 	--text-default: var(--gray-950) / 0.75;
-	--text-muted: var(--gray-950) / 0.60;
+	--text-muted: var(--gray-950) / 0.6;
 	--text-placeholder: var(--gray-950) / 0.5;
 
 	--text-neutral: var(--gray-600);
@@ -1065,7 +1065,7 @@
 	--text-strong: var(--black);
 	--text-default: var(--black);
 	--text-muted: var(--black) / 0.75;
-	--text-placeholder: var(--black) / 0.50;
+	--text-placeholder: var(--black) / 0.5;
 
 	--ring-neutral: var(--gray-400) / 0.4;
 	--ring-accent: var(--blue-400) / 0.4;
@@ -1299,7 +1299,7 @@
 	--text-strong: var(--black);
 	--text-default: var(--black);
 	--text-muted: var(--black) / 0.75;
-	--text-placeholder: var(--black) / 0.50;
+	--text-placeholder: var(--black) / 0.5;
 
 	--text-on-bg-neutral: var(--tw-black);
 	--text-on-bg-accent: var(--tw-black);
