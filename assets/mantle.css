@@ -1296,6 +1296,11 @@
 
 	/* Tokens */
 
+	--bg-base: var(--white);
+	--bg-card: var(--gray-050);
+	--bg-popover: var(--gray-050);
+	--bg-dialog: var(--gray-050);
+
 	--text-strong: var(--black);
 	--text-default: var(--black);
 	--text-muted: var(--black) / 0.75;
