@@ -9,7 +9,7 @@ const textAreaVariants = cva(
 	{
 		variants: {
 			state: {
-				default: "text-gray-900 border-form placeholder:text-gray-400 focus:border-primary focus:ring-primary",
+				default: "text-gray-900 border-form placeholder:text-gray-400 focus:border-accent focus:ring-accent",
 				danger: "border-danger focus:border-danger focus:ring-danger",
 			},
 			appearance: {

@@ -33,7 +33,7 @@ const selectTriggerVariants = cva(
 				danger:
 					"border-danger focus:border-danger aria-expanded:border-danger focus:ring-danger aria-expanded:ring-danger",
 				default:
-					"text-gray-900 borderpform placeholder:text-gray-400 focus:border-primary aria-expanded:border-primary focus:ring-primary aria-expanded:ring-primary",
+					"text-gray-900 borderpform placeholder:text-gray-400 focus:border-accent aria-expanded:border-accent focus:ring-accent aria-expanded:ring-accent",
 			},
 		},
 		defaultVariants: {
@@ -144,7 +144,7 @@ const SelectItem = forwardRef<
 	<SelectPrimitive.Item
 		ref={ref}
 		className={cx(
-			"relative flex w-full cursor-pointer select-none items-center rounded py-1.5 pl-2 pr-8 text-sm outline-none focus:bg-popover-hover data-state-checked:bg-primary data-state-checked:text-bg-primary data-disabled:pointer-events-none data-disabled:opacity-50",
+			"data-state-checked:bg-accent data-state-checked:text-bg-accent relative flex w-full cursor-pointer select-none items-center rounded py-1.5 pl-2 pr-8 text-sm outline-none focus:bg-popover-hover data-disabled:pointer-events-none data-disabled:opacity-50",
 			className,
 		)}
 		{...props}

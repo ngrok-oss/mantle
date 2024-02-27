@@ -11,12 +11,12 @@ const buttonVariants = cva(
 		variants: {
 			appearance: {
 				outlined:
-					"font-medium inline-flex h-11 sm:h-9 px-3 border bg-form border-primary text-primary hover:bg-primary-muted-hover active:bg-primary-muted-active focus-visible:ring-primary",
+					"font-medium inline-flex h-11 sm:h-9 px-3 border bg-form border-accent text-accent hover:bg-accent-muted-hover active:bg-accent-muted-active focus-visible:ring-accent",
 				filled:
-					"font-medium inline-flex h-11 sm:h-9 px-3 border border-transparent bg-primary text-bg-primary hover:bg-primary-hover active:bg-primary-active focus-visible:border-primary focus-visible:ring-primary",
+					"font-medium inline-flex h-11 sm:h-9 px-3 border border-transparent bg-accent text-bg-accent hover:bg-accent-hover active:bg-accent-active focus-visible:border-accent focus-visible:ring-accent",
 				ghost:
-					"font-medium inline-flex h-11 sm:h-9 px-3 border border-transparent text-primary hover:bg-primary-muted-hover active:bg-primary-muted-active focus-visible:ring-primary",
-				link: "inline border-transparent cursor-pointer hover:underline text-primary focus-visible:ring-primary",
+					"font-medium inline-flex h-11 sm:h-9 px-3 border border-transparent text-accent hover:bg-accent-muted-hover active:bg-accent-muted-active focus-visible:ring-accent",
+				link: "inline border-transparent cursor-pointer hover:underline text-accent focus-visible:ring-accent",
 			},
 			priority: {
 				default: "",
@@ -55,13 +55,13 @@ const buttonVariants = cva(
 				appearance: "ghost",
 				priority: "muted",
 				class:
-					"border-transparent text-gray-900 hover:bg-neutral-muted-hover active:bg-neutral-muted-active focus-visible:ring-primary",
+					"border-transparent text-gray-900 hover:bg-neutral-muted-hover active:bg-neutral-muted-active focus-visible:ring-accent",
 			},
 			{
 				appearance: "outlined",
 				priority: "muted",
 				class:
-					"bg-form border-form text-gray-900 hover:bg-neutral-muted-hover active:bg-neutral-muted-active focus-visible:ring-primary focus-visible:border-primary",
+					"bg-form border-form text-gray-900 hover:bg-neutral-muted-hover active:bg-neutral-muted-active focus-visible:ring-accent focus-visible:border-accent",
 			},
 			{
 				appearance: "filled",
@@ -72,7 +72,7 @@ const buttonVariants = cva(
 			{
 				appearance: "link",
 				priority: "muted",
-				class: "text-gray-900 focus-visible:ring-primary",
+				class: "text-gray-900 focus-visible:ring-accent",
 			},
 		],
 	},
