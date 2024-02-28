@@ -17,7 +17,7 @@ const Separator = forwardRef<
 		orientation={orientation}
 		className={cx(
 			"shrink-0 bg-gray-500/20 dark-high-contrast:bg-black high-contrast:bg-black dark:bg-gray-600/20",
-			orientation === "horizontal" ? "h-[1px] w-full" : "h-full w-[1px]",
+			orientation === "horizontal" ? "h-px w-full" : "h-full w-px",
 			className,
 		)}
 		{...props}

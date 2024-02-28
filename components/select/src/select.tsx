@@ -6,6 +6,7 @@ import { cva } from "class-variance-authority";
 import type { ComponentPropsWithoutRef, ElementRef, SelectHTMLAttributes } from "react";
 import { createContext, forwardRef, useContext } from "react";
 import { cx } from "../../core";
+import { Separator } from "../../separator";
 import type { VariantProps } from "../../types/src/variant-props";
 
 const SelectAriaInvalidContext = createContext<SelectHTMLAttributes<HTMLSelectElement>["aria-invalid"]>(undefined);
@@ -157,12 +158,11 @@ const SelectItem = forwardRef<
 ));
 SelectItem.displayName = "SelectItem";
 
-const SelectSeparator = forwardRef<
-	ElementRef<typeof SelectPrimitive.Separator>,
-	ComponentPropsWithoutRef<typeof SelectPrimitive.Separator>
->(({ className, ...props }, ref) => (
-	<SelectPrimitive.Separator ref={ref} className={cx("-mx-1 my-1 h-px", className)} {...props} />
-));
+const SelectSeparator = forwardRef<ElementRef<typeof Separator>, ComponentPropsWithoutRef<typeof Separator>>(
+	({ className, ...props }, ref) => (
+		<Separator ref={ref} className={cx("-mx-1 my-1 h-px w-auto", className)} {...props} />
+	),
+);
 SelectSeparator.displayName = "SelectSeparator";
 
 export {

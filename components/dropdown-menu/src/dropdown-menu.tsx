@@ -1,9 +1,9 @@
-import { Separator } from "@/separator";
 import * as Ariakit from "@ariakit/react";
 import { Check } from "@phosphor-icons/react/Check";
 import type { ComponentPropsWithoutRef, ElementRef, HTMLAttributes } from "react";
 import { forwardRef } from "react";
 import { cx } from "../../core";
+import { Separator } from "../../separator";
 import { WithAsChild } from "../../types";
 
 const DropdownMenu = Ariakit.MenuProvider;
@@ -112,12 +112,9 @@ const DropdownMenuLabel = forwardRef<ElementRef<"div">, ComponentPropsWithoutRef
 );
 DropdownMenuLabel.displayName = "DropdownMenuLabel";
 
-const DropdownMenuSeparator = forwardRef<
-	ElementRef<typeof Ariakit.MenuSeparator>,
-	ComponentPropsWithoutRef<typeof Ariakit.MenuSeparator>
->(({ className, ...props }, ref) => (
-	<Separator ref={ref} className={cx("-mx-2 my-1 w-[calc(100%+1rem)]", className)} {...props} />
-));
+const DropdownMenuSeparator = forwardRef<ElementRef<typeof Separator>, ComponentPropsWithoutRef<typeof Separator>>(
+	({ className, ...props }, ref) => <Separator ref={ref} className={cx("-mx-2 my-1 w-auto", className)} {...props} />,
+);
 DropdownMenuSeparator.displayName = "DropdownMenuSeparator";
 
 const DropdownMenuShortcut = ({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>) => {
