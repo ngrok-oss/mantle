@@ -21,7 +21,7 @@ export default function Page() {
 	return (
 		<div>
 			<h1 className="text-5xl font-medium">Button</h1>
-			<p className="mt-4 text-xl text-gray-600">
+			<p className="mt-4 text-xl text-default">
 				Initiates an action, such as completing a task or submitting information
 			</p>
 			<Example className="mt-4 flex flex-wrap gap-6">
@@ -36,16 +36,16 @@ export default function Page() {
 				</div>
 
 				<div>
-					<p className="mb-2 text-center font-mono text-xs">Muted</p>
+					<p className="mb-2 text-center font-mono text-xs">Neutral</p>
 					<div className="flex items-center gap-2">
-						<Button priority="muted">Ghost</Button>
-						<Button priority="muted" appearance="filled">
+						<Button priority="neutral">Ghost</Button>
+						<Button priority="neutral" appearance="filled">
 							Filled
 						</Button>
-						<Button priority="muted" appearance="outlined">
+						<Button priority="neutral" appearance="outlined">
 							Outlined
 						</Button>
-						<Button priority="muted" appearance="link">
+						<Button priority="neutral" appearance="link">
 							Link
 						</Button>
 					</div>
@@ -78,10 +78,10 @@ export default function Page() {
 						<Button appearance="outlined">Outlined</Button>
 						<Button appearance="link">Link</Button>
 
-						<Button priority="muted">Ghost</Button>
-						<Button priority="muted" appearance="filled">Filled</Button>
-						<Button priority="muted" appearance="outlined">Outlined</Button>
-						<Button priority="muted" appearance="link">Link</Button>
+						<Button priority="neutral">Ghost</Button>
+						<Button priority="neutral" appearance="filled">Filled</Button>
+						<Button priority="neutral" appearance="outlined">Outlined</Button>
+						<Button priority="neutral" appearance="link">Link</Button>
 
 						<Button priority="danger">Ghost</Button>
 						<Button priority="danger" appearance="filled">Filled</Button>
@@ -101,7 +101,7 @@ export default function Page() {
 							<TableHead>Default</TableHead>
 						</TableRow>
 					</TableHeader>
-					<TableBody className="font-mono text-xs text-gray-600">
+					<TableBody className="font-mono text-xs text-default">
 						<TableRow>
 							<TableCell className="align-top font-medium">appearance</TableCell>
 							<TableCell className="align-top">enum</TableCell>
@@ -119,7 +119,7 @@ export default function Page() {
 							<TableCell className="space-y-2 align-top">
 								<p>default</p>
 								<p>danger</p>
-								<p>muted</p>
+								<p>neutral</p>
 							</TableCell>
 							<TableCell className="align-top">default</TableCell>
 						</TableRow>

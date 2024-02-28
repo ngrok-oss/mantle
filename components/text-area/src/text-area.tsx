@@ -5,12 +5,12 @@ import { cx } from "../../core";
 import { VariantProps } from "../../types/";
 
 const textAreaVariants = cva(
-	"flex min-h-[5.75rem] sm:min-h-[4.75rem] w-full rounded-md border border-input bg-white dark:bg-gray-50 px-3 py-[calc(theme(spacing[2.5])-1px)] sm:py-[calc(theme(spacing[2])-1px)] shadow-sm focus-visible:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50 sm:text-sm",
+	"border-input flex min-h-[5.75rem] w-full rounded-md border bg-white px-3 py-[calc(theme(spacing[2.5])-1px)] shadow-sm focus-visible:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 sm:min-h-[4.75rem] sm:py-[calc(theme(spacing[2])-1px)] sm:text-sm",
 	{
 		variants: {
 			state: {
-				default: "text-gray-900 border-gray-300 placeholder:text-gray-400 focus:border-blue-600 focus:ring-blue-500/25",
-				danger: "border-red-600 focus:border-red-600 focus:ring-red-500/25",
+				default: "text-strong border-form placeholder:text-placeholder focus:border-accent focus:ring-accent",
+				danger: "border-danger placeholder:text-placeholder focus:border-danger focus:ring-danger",
 			},
 			appearance: {
 				monospaced: "font-mono text-[0.9375rem] sm:text-[0.8125rem]",

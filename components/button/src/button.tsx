@@ -6,22 +6,22 @@ import type { WithAsChild } from "../../types/src/as-child";
 import type { VariantProps } from "../../types/src/variant-props";
 
 const buttonVariants = cva(
-	"items-center justify-center rounded-md focus-visible:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50 whitespace-nowrap sm:text-sm aria-disabled:opacity-50",
+	"items-center justify-center whitespace-nowrap rounded-md focus-visible:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50 aria-disabled:opacity-50 sm:text-sm",
 	{
 		variants: {
 			appearance: {
 				outlined:
-					"font-medium inline-flex h-11 sm:h-9 px-3 border bg-white dark:bg-gray-50 border-blue-600 text-blue-600 hover:bg-blue-500/5 dark:hover:bg-blue-500/5 active:bg-blue-500/10 focus-visible:ring-blue-500/25",
+					"inline-flex h-11 border border-accent bg-form px-3 font-medium text-accent hover:bg-accent-muted-hover focus-visible:ring-accent active:bg-accent-muted-active sm:h-9",
 				filled:
-					"font-medium inline-flex h-11 sm:h-9 px-3 border border-transparent bg-blue-500 text-[#fff] hover:bg-blue-600 dark:hover:bg-blue-400 active:bg-blue-700 dark:active:bg-blue-300 focus-visible:border-blue-600 focus-visible:ring-blue-500/25",
+					"inline-flex h-11 border border-transparent bg-accent px-3 font-medium text-on-bg-accent hover:bg-accent-hover focus-visible:border-accent focus-visible:ring-accent active:bg-accent-active sm:h-9",
 				ghost:
-					"font-medium inline-flex h-11 sm:h-9 px-3 border border-transparent text-blue-600 hover:bg-blue-500/5 active:bg-blue-500/10 focus-visible:ring-blue-500/25",
-				link: "inline border-transparent cursor-pointer hover:underline text-blue-600 focus-visible:ring-blue-500/25",
+					"inline-flex h-11 border border-transparent px-3 font-medium text-accent hover:bg-accent-muted-hover focus-visible:ring-accent active:bg-accent-muted-active sm:h-9",
+				link: "inline cursor-pointer border-transparent text-accent hover:underline focus-visible:ring-accent",
 			},
 			priority: {
 				default: "",
 				danger: "",
-				muted: "",
+				neutral: "",
 			},
 		},
 		defaultVariants: {
@@ -31,47 +31,48 @@ const buttonVariants = cva(
 			{
 				appearance: "ghost",
 				priority: "danger",
-				class: "border-transparent text-red-600 hover:bg-red-500/5 active:bg-red-500/10 focus-visible:ring-red-500/25",
+				class:
+					"border-transparent text-danger hover:bg-danger-muted-hover focus-visible:ring-danger active:bg-danger-muted-active",
 			},
 			{
 				appearance: "outlined",
 				priority: "danger",
 				class:
-					"bg-white dark:bg-gray-50 border-red-600 text-red-600 dark:hover:bg-red-500/5 hover:bg-red-500/5 active:bg-red-500/10 focus-visible:ring-red-500/25",
+					"border-danger bg-form text-danger hover:bg-danger-muted-hover focus-visible:ring-danger active:bg-danger-muted-active",
 			},
 			{
 				appearance: "filled",
 				priority: "danger",
 				class:
-					"border-transparent bg-red-500 hover:bg-red-600 active:bg-red-700 focus-visible:ring-red-500/25 focus-visible:border-red-600 dark:hover:bg-red-400 dark:active:bg-red-300",
+					"border-transparent bg-danger hover:bg-danger-hover focus-visible:border-danger focus-visible:ring-danger active:bg-danger-active",
 			},
 			{
 				appearance: "link",
 				priority: "danger",
-				class: "text-red-600 focus-visible:ring-red-500/25",
+				class: "text-danger focus-visible:ring-danger",
 			},
 			{
 				appearance: "ghost",
-				priority: "muted",
+				priority: "neutral",
 				class:
-					"border-transparent text-gray-900 hover:bg-gray-500/5 active:bg-gray-500/10 focus-visible:ring-blue-500/25",
+					"text-strong border-transparent hover:bg-neutral-muted-hover focus-visible:ring-accent active:bg-neutral-muted-active",
 			},
 			{
 				appearance: "outlined",
-				priority: "muted",
+				priority: "neutral",
 				class:
-					"bg-white dark:bg-gray-50 border-gray-300 text-gray-900 hover:bg-gray-500/5 dark:hover:bg-gray-500/5 active:bg-gray-500/10 focus-visible:ring-blue-500/25 focus-visible:border-blue-600",
+					"text-strong border-form bg-form hover:bg-neutral-muted-hover focus-visible:border-accent focus-visible:ring-accent active:bg-neutral-muted-active",
 			},
 			{
 				appearance: "filled",
-				priority: "muted",
+				priority: "neutral",
 				class:
-					"border-transparent bg-gray-500 hover:bg-gray-600 active:bg-gray-700 focus-visible:ring-gray-500/25 focus-visible:border-gray-600 dark:hover:bg-gray-400 dark:active:bg-gray-300",
+					"border-transparent bg-neutral hover:bg-neutral-hover focus-visible:border-neutral focus-visible:ring-neutral active:bg-neutral-active",
 			},
 			{
 				appearance: "link",
-				priority: "muted",
-				class: "text-gray-900 focus-visible:ring-blue-500/25",
+				priority: "neutral",
+				class: "text-strong focus-visible:ring-accent",
 			},
 		],
 	},

@@ -26,8 +26,8 @@ export function NavLink({ className, hash, rawTo, search, to, ...props }: Props)
 			}}
 			className={(args) =>
 				cx(
-					"block py-1 text-gray-500 hover:text-gray-900",
-					args.isActive && "font-medium text-blue-600 hover:text-blue-600",
+					"block py-1 text-muted hover:text-strong",
+					args.isActive && "font-medium text-accent hover:text-accent",
 					typeof className === "function" ? className(args) : className,
 				)
 			}

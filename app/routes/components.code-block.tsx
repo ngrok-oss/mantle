@@ -30,12 +30,12 @@ export default function Page() {
 	return (
 		<div>
 			<h1 className="text-5xl font-medium">Code Block</h1>
-			<p className="mt-4 text-xl text-gray-600">Code blocks render and apply syntax highlighting to blocks of code.</p>
+			<p className="mt-4 text-xl text-default">Code blocks render and apply syntax highlighting to blocks of code.</p>
 
 			{/* <h2 className="mt-8 text-3xl font-medium">Examples</h2>
 
 			<h3 className="mt-8 text-xl font-medium">Complete</h3>
-			<p className="mt-1 text-gray-600">
+			<p className="mt-1 text-default">
 				This example includes every potential child of our code block component—a header with file icon and file name,
 				highlighted code with a copy button, and an expander which optionally crops the height of long code samples.
 			</p> */}
@@ -128,7 +128,7 @@ export default function Page() {
 			<h2 className="mt-16 text-3xl font-medium">Examples</h2>
 			<section>
 				<h3 className="mt-8 text-xl font-medium">Single Line with a Header</h3>
-				<p className="mt-1 text-gray-600">
+				<p className="mt-1 text-default">
 					Many code blocks will be single line command line prompts and should be able to render with a header and copy
 					button. This makes it absolutely clear that this example is a command line prompt and not a code sample.
 				</p>
@@ -171,7 +171,7 @@ export default function Page() {
 
 			<section>
 				<h3 className="mt-8 text-xl font-medium">Horizontal Scrolling</h3>
-				<p className="mt-1 text-gray-600">
+				<p className="mt-1 text-default">
 					This example is included to demonstrate that code blocks can scroll horizontally if the content is too wide.
 					Mantle attempts to normalize scrollbar styling across browsers and platforms.
 				</p>
@@ -249,7 +249,7 @@ export default function Page() {
 
 			<section>
 				<h3 className="mt-8 text-xl font-medium">No Header or Copy Button</h3>
-				<p className="mt-1 text-gray-600">
+				<p className="mt-1 text-default">
 					This is the most simple example of our code block component. While very useful, the copy button is optional.
 					It is also perfectly acceptable to render a code block without a header, especially if context is provided in
 					the surrounding content or the code block is self-explanatory eg. “In your index.js file, paste the
@@ -307,7 +307,7 @@ export default function Page() {
 
 			<section>
 				<h3 className="mt-8 text-xl font-medium">Single Line with Horizontal Scrolling</h3>
-				<p className="mt-1 text-gray-600">
+				<p className="mt-1 text-default">
 					This example is included to show the interaction between the copy button and horizontal scrolling on a single
 					verbose terminal command.
 				</p>

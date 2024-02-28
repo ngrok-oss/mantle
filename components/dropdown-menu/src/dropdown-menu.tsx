@@ -3,6 +3,7 @@ import { Check } from "@phosphor-icons/react/Check";
 import type { ComponentPropsWithoutRef, ElementRef, HTMLAttributes } from "react";
 import { forwardRef } from "react";
 import { cx } from "../../core";
+import { Separator } from "../../separator";
 import { WithAsChild } from "../../types";
 
 const DropdownMenu = Ariakit.MenuProvider;
@@ -34,7 +35,7 @@ const DropdownMenuContent = forwardRef<ElementRef<typeof Ariakit.Menu>, Componen
 			gutter={gutter}
 			ref={ref}
 			className={cx(
-				"z-50 min-w-[8rem] overflow-hidden rounded border border-gray-200 bg-card p-1.25 shadow-xl outline-none data-side-bottom:slide-in-from-top-2 data-side-left:slide-in-from-right-2 data-side-right:slide-in-from-left-2 data-side-top:slide-in-from-bottom-2 data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 data-state-open:animate-in data-state-open:fade-in-0 data-state-open:zoom-in-95",
+				"z-50 min-w-[8rem] overflow-hidden rounded border border-popover bg-popover p-1.25 shadow-xl outline-none data-side-bottom:slide-in-from-top-2 data-side-left:slide-in-from-right-2 data-side-right:slide-in-from-left-2 data-side-top:slide-in-from-bottom-2 data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 data-state-open:animate-in data-state-open:fade-in-0 data-state-open:zoom-in-95",
 				className,
 			)}
 			{...props}
@@ -50,7 +51,7 @@ const DropdownMenuItem = forwardRef<
 	<Ariakit.MenuItem
 		ref={ref}
 		className={cx(
-			"relative flex cursor-pointer select-none items-center rounded px-2 py-1.5 text-sm font-normal text-gray-900 outline-none data-active-item:bg-gray-100 data-disabled:pointer-events-none data-disabled:opacity-50 dark:data-active-item:bg-gray-200",
+			"relative flex cursor-pointer select-none items-center rounded px-2 py-1.5 text-sm font-normal text-strong outline-none data-active-item:bg-popover-hover data-disabled:pointer-events-none data-disabled:opacity-50 data-active-item:dark:bg-popover-hover",
 			className,
 		)}
 		{...props}
@@ -64,10 +65,9 @@ const DropdownMenuCheckboxItem = forwardRef<ElementRef<typeof Ariakit.MenuItemRa
 		<Ariakit.MenuItemCheckbox
 			ref={ref}
 			className={cx(
-				"relative flex cursor-pointer select-none items-center gap-2 rounded py-1.5 pl-2 pr-9 text-sm font-normal text-gray-900 outline-none data-disabled:pointer-events-none data-disabled:opacity-50",
-				"data-active-item:bg-gray-100 data-active-item:dark:bg-gray-200",
-				"aria-checked:bg-blue-500 aria-checked:font-medium aria-checked:text-[#fff] aria-checked:data-active-item:dark-high-contrast:bg-blue-500 aria-checked:dark:bg-blue-500 aria-checked:data-active-item:dark:bg-blue-500",
-				"data-active-item:text-ellipsis",
+				"relative flex cursor-pointer select-none items-center gap-2 rounded py-1.5 pl-2 pr-9 text-sm font-normal text-strong outline-none data-disabled:pointer-events-none data-disabled:opacity-50",
+				"data-active-item:bg-popover",
+				"aria-checked:bg-accent aria-checked:font-medium aria-checked:text-on-bg-accent",
 				className,
 			)}
 			{...props}
@@ -85,9 +85,9 @@ const DropdownMenuRadioItem = forwardRef<ElementRef<typeof Ariakit.MenuItemRadio
 		<Ariakit.MenuItemRadio
 			ref={ref}
 			className={cx(
-				"relative flex cursor-pointer select-none items-center gap-2 rounded py-1.5 pl-2 pr-9 text-sm font-normal text-gray-900 outline-none data-disabled:pointer-events-none data-disabled:opacity-50",
-				"data-active-item:bg-gray-100 data-active-item:dark:bg-gray-200",
-				"aria-checked:!bg-blue-500 aria-checked:font-medium aria-checked:text-[#fff] aria-checked:dark-high-contrast:text-gray-100",
+				"relative flex cursor-pointer select-none items-center gap-2 rounded py-1.5 pl-2 pr-9 text-sm font-normal text-strong outline-none data-disabled:pointer-events-none data-disabled:opacity-50",
+				"data-active-item:bg-popover-hover data-active-item:dark:bg-popover-hover",
+				"aria-checked:!bg-accent aria-checked:font-medium aria-checked:text-on-bg-accent",
 				className,
 			)}
 			{...props}
@@ -107,17 +107,14 @@ const DropdownMenuItemCheck = (props: Omit<HTMLAttributes<HTMLSpanElement>, "chi
 
 const DropdownMenuLabel = forwardRef<ElementRef<"div">, ComponentPropsWithoutRef<"div">>(
 	({ className, ...props }, ref) => (
-		<div ref={ref} className={cx("px-2 py-1.5 text-sm font-medium text-gray-900", className)} {...props} />
+		<div ref={ref} className={cx("px-2 py-1.5 text-sm font-medium text-strong", className)} {...props} />
 	),
 );
 DropdownMenuLabel.displayName = "DropdownMenuLabel";
 
-const DropdownMenuSeparator = forwardRef<
-	ElementRef<typeof Ariakit.MenuSeparator>,
-	ComponentPropsWithoutRef<typeof Ariakit.MenuSeparator>
->(({ className, ...props }, ref) => (
-	<Ariakit.MenuSeparator ref={ref} className={cx("-mx-2 my-1 h-px bg-gray-200", className)} {...props} />
-));
+const DropdownMenuSeparator = forwardRef<ElementRef<typeof Separator>, ComponentPropsWithoutRef<typeof Separator>>(
+	({ className, ...props }, ref) => <Separator ref={ref} className={cx("-mx-2 my-1 w-auto", className)} {...props} />,
+);
 DropdownMenuSeparator.displayName = "DropdownMenuSeparator";
 
 const DropdownMenuShortcut = ({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>) => {

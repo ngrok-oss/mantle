@@ -4,14 +4,14 @@ import type { HTMLAttributes } from "react";
 import { cx } from "../../core";
 import type { VariantProps } from "../../types";
 
-const alertVariants = cva("relative w-full rounded-md border p-2.5 text-sm flex gap-1.5", {
+const alertVariants = cva("relative flex w-full gap-1.5 rounded-md border p-2.5 text-sm", {
 	variants: {
 		priority: {
-			danger: "border-red-600 bg-red-500/5 text-red-700",
-			default: "border-gray-600 bg-gray-500/3 text-gray-700",
-			info: "border-blue-600 bg-blue-500/5 text-blue-700",
-			success: "border-green-600 bg-green-500/5 text-green-700",
-			warning: "border-amber-600 bg-amber-500/5 text-amber-700",
+			danger: "border-danger-muted bg-danger-muted text-on-bg-danger-muted",
+			default: "border-neutral-muted bg-neutral-muted text-on-bg-neutral-muted",
+			info: "border-accent-muted bg-accent-muted text-on-bg-accent-muted",
+			success: "border-success-muted bg-success-muted text-on-bg-success-muted",
+			warning: "border-warning-muted bg-warning-muted text-on-bg-warning-muted",
 		},
 	},
 	defaultVariants: {
