@@ -27,14 +27,14 @@ const SelectGroup = SelectPrimitive.Group;
 const SelectValue = SelectPrimitive.Value;
 
 const selectTriggerVariants = cva(
-	"flex h-11 w-full items-center justify-between rounded-md border border-form bg-form px-3 py-2 placeholder:text-placeholder hover:bg-form-hover focus:outline-none focus:ring-4 aria-expanded:ring-4 disabled:pointer-events-none disabled:opacity-50 sm:h-9 sm:text-sm [&>span]:line-clamp-1 [&>span]:text-left",
+	"flex h-11 w-full items-center justify-between rounded-md border border-form bg-form px-3 py-2 placeholder:text-placeholder hover:bg-form-hover focus:outline-none focus:ring-4 disabled:pointer-events-none disabled:opacity-50 aria-expanded:ring-4 sm:h-9 sm:text-sm [&>span]:line-clamp-1 [&>span]:text-left",
 	{
 		variants: {
 			state: {
 				danger:
-					"border-danger focus:border-danger aria-expanded:border-danger focus:ring-danger aria-expanded:ring-danger",
+					"border-danger focus:border-danger focus:ring-danger aria-expanded:border-danger aria-expanded:ring-danger",
 				default:
-					"text-strong borderpform placeholder:text-placeholder focus:border-accent aria-expanded:border-accent focus:ring-accent aria-expanded:ring-accent",
+					"text-strong borderpform placeholder:text-placeholder focus:border-accent focus:ring-accent aria-expanded:border-accent aria-expanded:ring-accent",
 			},
 		},
 		defaultVariants: {

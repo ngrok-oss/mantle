@@ -4,7 +4,7 @@ import type { HTMLAttributes } from "react";
 import { cx } from "../../core";
 import type { VariantProps } from "../../types";
 
-const alertVariants = cva("relative w-full rounded-md border p-2.5 text-sm flex gap-1.5", {
+const alertVariants = cva("relative flex w-full gap-1.5 rounded-md border p-2.5 text-sm", {
 	variants: {
 		priority: {
 			danger: "border-danger-muted bg-danger-muted text-on-bg-danger-muted",

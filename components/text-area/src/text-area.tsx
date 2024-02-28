@@ -5,7 +5,7 @@ import { cx } from "../../core";
 import { VariantProps } from "../../types/";
 
 const textAreaVariants = cva(
-	"flex min-h-[5.75rem] sm:min-h-[4.75rem] w-full rounded-md border border-input bg-white dark:bg-gray-50 px-3 py-[calc(theme(spacing[2.5])-1px)] sm:py-[calc(theme(spacing[2])-1px)] shadow-sm focus-visible:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50 sm:text-sm",
+	"border-input flex min-h-[5.75rem] w-full rounded-md border bg-white px-3 py-[calc(theme(spacing[2.5])-1px)] shadow-sm focus-visible:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 sm:min-h-[4.75rem] sm:py-[calc(theme(spacing[2])-1px)] sm:text-sm",
 	{
 		variants: {
 			state: {

@@ -28,7 +28,7 @@ const SheetOverlay = forwardRef<
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName;
 
 const SheetVariants = cva(
-	"fixed z-50 flex flex-col bg-dialog shadow-lg transition ease-in-out data-state-open:animate-in data-state-closed:animate-out data-state-closed:duration-100 data-state-open:duration-100",
+	"fixed z-50 flex flex-col bg-dialog shadow-lg transition ease-in-out data-state-closed:duration-100 data-state-closed:animate-out data-state-open:duration-100 data-state-open:animate-in",
 	{
 		variants: {
 			side: {
@@ -81,7 +81,7 @@ const SheetTitle = forwardRef<
 	ElementRef<typeof SheetPrimitive.Title>,
 	ComponentPropsWithoutRef<typeof SheetPrimitive.Title>
 >(({ className, ...props }, ref) => (
-	<SheetPrimitive.Title ref={ref} className={cx("text-lg font-semibold text-strong", className)} {...props} />
+	<SheetPrimitive.Title ref={ref} className={cx("text-strong text-lg font-semibold", className)} {...props} />
 ));
 SheetTitle.displayName = SheetPrimitive.Title.displayName;
 

@@ -5,7 +5,7 @@ import { cx } from "../../core";
 import type { AutoComplete, InputType } from "./types";
 
 const inputVariants = cva(
-	"flex h-11 sm:h-9 w-full rounded-md border bg-form px-3 py-2 file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50 sm:text-sm",
+	"flex h-11 w-full rounded-md border bg-form px-3 py-2 file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50 sm:h-9 sm:text-sm",
 	{
 		variants: {
 			state: {

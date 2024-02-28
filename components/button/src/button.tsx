@@ -6,17 +6,17 @@ import type { WithAsChild } from "../../types/src/as-child";
 import type { VariantProps } from "../../types/src/variant-props";
 
 const buttonVariants = cva(
-	"items-center justify-center rounded-md focus-visible:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50 whitespace-nowrap sm:text-sm aria-disabled:opacity-50",
+	"items-center justify-center whitespace-nowrap rounded-md focus-visible:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50 aria-disabled:opacity-50 sm:text-sm",
 	{
 		variants: {
 			appearance: {
 				outlined:
-					"font-medium inline-flex h-11 sm:h-9 px-3 border bg-form border-accent text-accent hover:bg-accent-muted-hover active:bg-accent-muted-active focus-visible:ring-accent",
+					"inline-flex h-11 border border-accent bg-form px-3 font-medium text-accent hover:bg-accent-muted-hover focus-visible:ring-accent active:bg-accent-muted-active sm:h-9",
 				filled:
-					"font-medium inline-flex h-11 sm:h-9 px-3 border border-transparent bg-accent text-on-bg-accent hover:bg-accent-hover active:bg-accent-active focus-visible:border-accent focus-visible:ring-accent",
+					"inline-flex h-11 border border-transparent bg-accent px-3 font-medium text-on-bg-accent hover:bg-accent-hover focus-visible:border-accent focus-visible:ring-accent active:bg-accent-active sm:h-9",
 				ghost:
-					"font-medium inline-flex h-11 sm:h-9 px-3 border border-transparent text-accent hover:bg-accent-muted-hover active:bg-accent-muted-active focus-visible:ring-accent",
-				link: "inline border-transparent cursor-pointer hover:underline text-accent focus-visible:ring-accent",
+					"inline-flex h-11 border border-transparent px-3 font-medium text-accent hover:bg-accent-muted-hover focus-visible:ring-accent active:bg-accent-muted-active sm:h-9",
+				link: "inline cursor-pointer border-transparent text-accent hover:underline focus-visible:ring-accent",
 			},
 			priority: {
 				default: "",
@@ -32,19 +32,19 @@ const buttonVariants = cva(
 				appearance: "ghost",
 				priority: "danger",
 				class:
-					"border-transparent text-danger hover:bg-danger-muted-hover active:bg-danger-muted-active focus-visible:ring-danger",
+					"border-transparent text-danger hover:bg-danger-muted-hover focus-visible:ring-danger active:bg-danger-muted-active",
 			},
 			{
 				appearance: "outlined",
 				priority: "danger",
 				class:
-					"bg-form border-danger text-danger hover:bg-danger-muted-hover active:bg-danger-muted-active focus-visible:ring-danger",
+					"border-danger bg-form text-danger hover:bg-danger-muted-hover focus-visible:ring-danger active:bg-danger-muted-active",
 			},
 			{
 				appearance: "filled",
 				priority: "danger",
 				class:
-					"border-transparent bg-danger hover:bg-danger-hover active:bg-danger-active focus-visible:ring-danger focus-visible:border-danger",
+					"border-transparent bg-danger hover:bg-danger-hover focus-visible:border-danger focus-visible:ring-danger active:bg-danger-active",
 			},
 			{
 				appearance: "link",
@@ -55,19 +55,19 @@ const buttonVariants = cva(
 				appearance: "ghost",
 				priority: "neutral",
 				class:
-					"border-transparent text-strong hover:bg-neutral-muted-hover active:bg-neutral-muted-active focus-visible:ring-accent",
+					"text-strong border-transparent hover:bg-neutral-muted-hover focus-visible:ring-accent active:bg-neutral-muted-active",
 			},
 			{
 				appearance: "outlined",
 				priority: "neutral",
 				class:
-					"bg-form border-form text-strong hover:bg-neutral-muted-hover active:bg-neutral-muted-active focus-visible:ring-accent focus-visible:border-accent",
+					"text-strong border-form bg-form hover:bg-neutral-muted-hover focus-visible:border-accent focus-visible:ring-accent active:bg-neutral-muted-active",
 			},
 			{
 				appearance: "filled",
 				priority: "neutral",
 				class:
-					"border-transparent bg-neutral hover:bg-neutral-hover active:bg-neutral-active focus-visible:ring-neutral focus-visible:border-neutral",
+					"border-transparent bg-neutral hover:bg-neutral-hover focus-visible:border-neutral focus-visible:ring-neutral active:bg-neutral-active",
 			},
 			{
 				appearance: "link",
