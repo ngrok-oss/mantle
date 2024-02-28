@@ -8,7 +8,6 @@ const config = {
 	tabWidth: 2,
 	trailingComma: "all",
 	useTabs: true,
-	tailwindConfig: "./tailwind.config.ts",
 };
 
 export default config;
