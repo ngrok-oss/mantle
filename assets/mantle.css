@@ -1324,6 +1324,8 @@
 	--ring-warning: var(--amber-700) / 0.65;
 	--ring-success: var(--green-700) / 0.65;
 
+	--bg-overlay: var(--tw-black) / 0.6;
+
 	--bg-tooltip: var(--tw-black);
 	--text-on-bg-tooltip: var(--tw-white);
 }
