@@ -48,8 +48,10 @@
 	--ngrok-grayple-600: 228 11% 34.9%;
 	--ngrok-grayple-700: 230 14% 27.1%;
 	--ngrok-grayple-800: 232 16% 21%;
-	--ngrok-grayple-900: 234 18% 17%;
-	--ngrok-grayple-950: 236 20% 11.5%;
+	--ngrok-grayple-900: 234 17% 18%;
+	--ngrok-grayple-950: 235 20% 14%;
+
+	--ngrok-black:  238 22% 10%;
 
 	/**
 	* Tailwind palette.
@@ -238,7 +240,7 @@
 
 	/* mantle palette */
 
-	--black: var(--tw-black);
+	--black: var(--ngrok-black);
 	--white: var(--tw-white);
 	--gray-050: var(--ngrok-grayple-050);
 	--gray-100: var(--ngrok-grayple-100);
@@ -560,7 +562,7 @@
 :root.dark {
 	/* mantle palette (dark) */
 
-	--white: var(--tw-black);
+	--white: var(--ngrok-black);
 	--black: var(--tw-white);
 	--gray-050: var(--ngrok-grayple-950);
 	--gray-100: var(--ngrok-grayple-900);
@@ -763,8 +765,8 @@
 
 	/* Elevation Tokens */
 
-	--bg-base: var(--gray-050);
-	--bg-card: var(--gray-100);
+	--bg-base: var(--white);
+	--bg-card: var(--gray-050);
 	--bg-popover: var(--gray-100);
 	--bg-dialog: var(--gray-050);
 
