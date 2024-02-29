@@ -1309,6 +1309,8 @@
 	--text-muted: var(--black) / 0.75;
 	--text-placeholder: var(--black) / 0.5;
 
+	--bg-form: var(--gray-050);
+
 	--text-on-bg-neutral: var(--tw-black);
 	--text-on-bg-accent: var(--tw-black);
 	--text-on-bg-danger: var(--tw-black);
