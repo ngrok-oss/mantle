@@ -28,31 +28,33 @@ type TextAreaVariants = VariantProps<typeof textAreaVariants>;
 
 export type TextAreaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & Pick<TextAreaVariants, "appearance">;
 
-const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(({ appearance, className, ...props }, ref) => {
-	const state = props["aria-invalid"] ? "danger" : "default";
-	const [isDragOver, setIsDragOver] = useState(false);
+const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
+	({ appearance, className, onDragEnter, onDragLeave, onDropCapture, ...props }, ref) => {
+		const state = props["aria-invalid"] ? "danger" : "default";
+		const [isDragOver, setIsDragOver] = useState(false);
 
-	return (
-		<textarea
-			onDrop={(event) => {
-				setIsDragOver(false);
-				props.onDrop?.(event);
-			}}
-			onDragEnter={(event) => {
-				setIsDragOver(true);
-				props.onDragEnter?.(event);
-			}}
-			onDragLeave={(event) => {
-				setIsDragOver(false);
-				props.onDragLeave?.(event);
-			}}
-			data-drag-over={isDragOver}
-			className={cx(textAreaVariants({ appearance, state }), className)}
-			ref={ref}
-			{...props}
-		/>
-	);
-});
+		return (
+			<textarea
+				className={cx(textAreaVariants({ appearance, state }), className)}
+				data-drag-over={isDragOver}
+				onDragEnter={(event) => {
+					setIsDragOver(true);
+					onDragEnter?.(event);
+				}}
+				onDragLeave={(event) => {
+					setIsDragOver(false);
+					onDragLeave?.(event);
+				}}
+				onDropCapture={(event) => {
+					setIsDragOver(false);
+					onDropCapture?.(event);
+				}}
+				ref={ref}
+				{...props}
+			/>
+		);
+	},
+);
 TextArea.displayName = "TextArea";
 
 export { TextArea };
