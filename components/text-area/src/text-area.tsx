@@ -5,14 +5,14 @@ import { cx } from "../../core";
 import { VariantProps } from "../../types/";
 
 const textAreaVariants = cva(
-	"border-input flex min-h-[5.75rem] w-full rounded-md border bg-white px-3 py-[calc(theme(spacing[2.5])-1px)] shadow-sm focus-visible:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 sm:min-h-[4.75rem] sm:py-[calc(theme(spacing[2])-1px)] sm:text-sm data-drag-over:border-dashed",
+	"border-input flex min-h-[5.75rem] w-full rounded-md border bg-white px-3 py-[calc(theme(spacing[2.5])-1px)] shadow-sm focus-visible:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 sm:min-h-[4.75rem] sm:py-[calc(theme(spacing[2])-1px)] sm:text-sm data-drag-over:border-dashed data-drag-over:ring-4",
 	{
 		variants: {
 			state: {
 				default:
-					"text-strong border-form placeholder:text-placeholder focus:border-accent focus:ring-accent data-drag-over:border-accent",
+					"text-strong border-form placeholder:text-placeholder focus:border-accent ring-accent data-drag-over:border-accent",
 				danger:
-					"border-danger placeholder:text-placeholder focus:border-danger focus:ring-danger data-drag-over:border-danger data-drag-over:border-dashed",
+					"border-danger placeholder:text-placeholder focus:border-danger ring-danger data-drag-over:border-danger data-drag-over:border-dashed",
 			},
 			appearance: {
 				monospaced: "font-mono text-[0.9375rem] sm:text-[0.8125rem]",
