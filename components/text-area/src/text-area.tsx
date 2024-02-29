@@ -1,5 +1,5 @@
 import { cva } from "class-variance-authority";
-import { forwardRef, useState } from "react";
+import { forwardRef, useRef, useState } from "react";
 import type { TextareaHTMLAttributes } from "react";
 import { cx } from "../../core";
 import { VariantProps } from "../../types/";
@@ -32,6 +32,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
 	({ appearance, className, onDragEnter, onDragLeave, onDropCapture, ...props }, ref) => {
 		const state = props["aria-invalid"] ? "danger" : "default";
 		const [isDragOver, setIsDragOver] = useState(false);
+		const _ref = useRef<HTMLTextAreaElement | null>(null);
 
 		return (
 			<textarea
@@ -47,9 +48,17 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
 				}}
 				onDropCapture={(event) => {
 					setIsDragOver(false);
+					_ref.current?.focus();
 					onDropCapture?.(event);
 				}}
-				ref={ref}
+				ref={(node) => {
+					_ref.current = node;
+					if (typeof ref === "function") {
+						ref(node);
+					} else if (ref) {
+						ref.current = node;
+					}
+				}}
 				{...props}
 			/>
 		);
