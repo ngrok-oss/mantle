@@ -24,6 +24,7 @@
 	* Replaces the Tailwind blue and a single value of gray.
 	* Not to be used directly.
 	*/
+	color-scheme: light;
 
 	--ngrok-blue-050: 221 100% 97%;
 	--ngrok-blue-100: 221 95% 93%;
@@ -558,6 +559,7 @@
 }
 
 :root.dark {
+	color-scheme: dark;
 	/* mantle palette (dark) */
 
 	--white: var(--tw-black);
@@ -836,6 +838,8 @@
 }
 
 :root.light-high-contrast {
+	color-scheme: light;
+
 	--amber-050: 48 100% 96%;
 	--amber-100: 48 96% 89%;
 	--amber-200: 48 97% 77%;
@@ -1075,6 +1079,8 @@
 }
 
 :root.dark-high-contrast {
+	color-scheme: dark;
+
 	--white: 0 0% 0%;
 	--black: 0 0% 100%;
 
