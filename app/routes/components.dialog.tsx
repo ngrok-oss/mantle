@@ -1,6 +1,6 @@
 import { Button } from "@/button";
 import { code, CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/dialog";
+import { Dialog, DialogBody, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/dialog";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 
@@ -32,11 +32,19 @@ export default function Page() {
 					<DialogContent>
 						<DialogHeader>
 							<DialogTitle>Are you absolutely sure?</DialogTitle>
-							<DialogDescription>
-								This action cannot be undone. This will permanently delete your account and remove your data from our
-								servers.
-							</DialogDescription>
 						</DialogHeader>
+						<DialogBody>
+							This action cannot be undone. This will permanently delete your account and remove your data from our
+							servers.
+						</DialogBody>
+						<DialogFooter>
+							<Button priority="danger" appearance="filled">
+								Delete
+							</Button>
+							<Button priority="neutral" appearance="outlined">
+								Cancel
+							</Button>
+						</DialogFooter>
 					</DialogContent>
 				</Dialog>
 			</Example>
@@ -45,7 +53,7 @@ export default function Page() {
 					<CodeBlockCopyButton />
 					<CodeBlockCode language="tsx">
 						{code`
-							import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger } from "@ngrok/mantle";
+							import { Dialog, DialogBody, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@ngrok/mantle";
 
 							<Dialog>
 								<DialogTrigger asChild>
@@ -54,11 +62,19 @@ export default function Page() {
 								<DialogContent>
 									<DialogHeader>
 										<DialogTitle>Are you absolutely sure?</DialogTitle>
-										<DialogDescription>
-											This action cannot be undone. This will permanently delete your account and remove your data from our
-											servers.
-										</DialogDescription>
 									</DialogHeader>
+									<DialogBody>
+										This action cannot be undone. This will permanently delete your account and remove your data from our
+										servers.
+									</DialogBody>
+									<DialogFooter>
+										<Button>
+											Delete
+										</Button>
+										<Button>
+											Cancel
+										</Button>
+									</DialogFooter>
 								</DialogContent>
 							</Dialog>
 						`}

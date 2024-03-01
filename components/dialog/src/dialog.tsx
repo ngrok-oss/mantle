@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/button";
 import { X } from "@phosphor-icons/react/X";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
@@ -20,7 +21,7 @@ const DialogOverlay = forwardRef<
 	<DialogPrimitive.Overlay
 		ref={ref}
 		className={cx(
-			"fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+			"fixed inset-0 z-50 bg-overlay backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
 			className,
 		)}
 		{...props}
@@ -37,15 +38,17 @@ const DialogContent = forwardRef<
 		<DialogPrimitive.Content
 			ref={ref}
 			className={cx(
-				"bg-background fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg",
+				"fixed left-[50%] top-[50%] z-50 w-full max-w-lg translate-x-[-50%] translate-y-[-50%] rounded-lg border border-dialog bg-dialog shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]",
 				className,
 			)}
 			{...props}
 		>
 			{children}
-			<DialogPrimitive.Close className="ring-offset-background focus:ring-ring data-[state=open]:text-muted-foreground absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent">
-				<X className="size-6" />
-				<span className="sr-only">Close</span>
+			<DialogPrimitive.Close asChild>
+				<Button appearance="outlined" priority="neutral" className="absolute right-4 top-4 size-11 sm:size-9">
+					<X className="size-6 shrink-0" />
+					<span className="sr-only">Close</span>
+				</Button>
 			</DialogPrimitive.Close>
 		</DialogPrimitive.Content>
 	</DialogPortal>
@@ -53,12 +56,23 @@ const DialogContent = forwardRef<
 DialogContent.displayName = DialogPrimitive.Content.displayName;
 
 const DialogHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-	<div className={cx("flex flex-col space-y-1.5 text-center sm:text-left", className)} {...props} />
+	<div
+		className={cx("flex shrink-0 flex-col space-y-1.5 border-b border-dialog-muted px-6 py-4", className)}
+		{...props}
+	/>
 );
 DialogHeader.displayName = "DialogHeader";
 
+const DialogBody = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+	<div className={cx("scrollbar flex-1 overflow-y-auto p-6", className)} {...props} />
+);
+DialogBody.displayName = "DialogBody";
+
 const DialogFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-	<div className={cx("flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2", className)} {...props} />
+	<div
+		className={cx("flex shrink-0 flex-row-reverse gap-2 border-t border-dialog-muted px-6 py-2.5", className)}
+		{...props}
+	/>
 );
 DialogFooter.displayName = "DialogFooter";
 
@@ -68,7 +82,7 @@ const DialogTitle = forwardRef<
 >(({ className, ...props }, ref) => (
 	<DialogPrimitive.Title
 		ref={ref}
-		className={cx("text-lg font-semibold leading-none tracking-tight", className)}
+		className={cx("text-lg font-medium leading-none text-strong", className)}
 		{...props}
 	/>
 ));
@@ -78,7 +92,7 @@ const DialogDescription = forwardRef<
 	ElementRef<typeof DialogPrimitive.Description>,
 	ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
 >(({ className, ...props }, ref) => (
-	<DialogPrimitive.Description ref={ref} className={cx("text-muted-foreground text-sm", className)} {...props} />
+	<DialogPrimitive.Description ref={ref} className={cx("text-sm text-default", className)} {...props} />
 ));
 DialogDescription.displayName = DialogPrimitive.Description.displayName;
 
@@ -90,6 +104,7 @@ export {
 	DialogClose,
 	DialogContent,
 	DialogHeader,
+	DialogBody,
 	DialogFooter,
 	DialogTitle,
 	DialogDescription,
