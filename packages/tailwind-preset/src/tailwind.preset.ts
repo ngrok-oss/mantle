@@ -324,8 +324,8 @@ const mantlePreset = {
 				"on-bg-danger-muted": "hsl(var(--text-on-bg-danger-muted))",
 				"on-bg-neutral-muted": "hsl(var(--text-on-bg-neutral-muted))",
 				"on-bg-success-muted": "hsl(var(--text-on-bg-success-muted))",
-				"on-bg-tooltip": "hsl(var(--text-on-bg-tooltip))",
 				"on-bg-warning-muted": "hsl(var(--text-on-bg-warning-muted))",
+				"tooltip": "hsl(var(--text-tooltip))",
 			},
 			borderColor: {
 				accent: "hsl(var(--border-accent))",

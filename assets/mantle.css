@@ -468,7 +468,7 @@
 	/* Tooltip */
 
 	--bg-tooltip: var(--gray-800);
-	--text-on-bg-tooltip: var(--tw-white);
+	--text-tooltip: var(--tw-white);
 
 	/* Form Tokens */
 
@@ -785,7 +785,7 @@
 	/* Tooltip */
 
 	--bg-tooltip: var(--tw-black);
-	--text-on-bg-tooltip: var(--gray-900);
+	--text-tooltip: var(--gray-900);
 
 	/* Form Tokens */
 
@@ -1313,7 +1313,7 @@
 	--bg-overlay: var(--tw-black) / 0.6;
 
 	--bg-tooltip: var(--tw-black);
-	--text-on-bg-tooltip: var(--tw-white);
+	--text-tooltip: var(--tw-white);
 }
 
 /**
