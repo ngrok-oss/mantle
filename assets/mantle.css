@@ -539,11 +539,11 @@
 	--text-warning: var(--amber-600);
 	--text-success: var(--green-600);
 
-	--text-on-bg-neutral-muted: var(--gray-700);
-	--text-on-bg-accent-muted: var(--blue-700);
-	--text-on-bg-danger-muted: var(--red-700);
-	--text-on-bg-warning-muted: var(--amber-700);
-	--text-on-bg-success-muted: var(--green-700);
+	--text-neutral-strong: var(--gray-700);
+	--text-accent-strong: var(--blue-700);
+	--text-danger-strong: var(--red-700);
+	--text-warning-strong: var(--amber-700);
+	--text-success-strong: var(--green-700);
 
 	--ring-neutral: var(--gray-500) / 0.25;
 	--ring-accent: var(--blue-500) / 0.25;
