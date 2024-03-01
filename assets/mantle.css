@@ -531,6 +531,7 @@
 	--text-default: var(--gray-950) / 0.75;
 	--text-muted: var(--gray-950) / 0.6;
 	--text-placeholder: var(--gray-950) / 0.5;
+	--text-inverted: var(--tw-white);
 
 	--text-neutral: var(--gray-600);
 	--text-accent: var(--blue-600);
@@ -543,12 +544,6 @@
 	--text-on-bg-danger-muted: var(--red-700);
 	--text-on-bg-warning-muted: var(--amber-700);
 	--text-on-bg-success-muted: var(--green-700);
-
-	--text-on-bg-neutral: var(--tw-white);
-	--text-on-bg-accent: var(--tw-white);
-	--text-on-bg-danger: var(--tw-white);
-	--text-on-bg-warning: var(--tw-white);
-	--text-on-bg-success: var(--tw-white);
 
 	--ring-neutral: var(--gray-500) / 0.25;
 	--ring-accent: var(--blue-500) / 0.25;
@@ -821,12 +816,7 @@
 	--text-default: var(--black) / 0.7;
 	--text-muted: var(--black) / 0.5;
 	--text-placeholder: var(--black) / 0.4;
-
-	--text-on-bg-neutral: var(--tw-white);
-	--text-on-bg-accent: var(--tw-white);
-	--text-on-bg-danger: var(--tw-white);
-	--text-on-bg-warning: var(--tw-white);
-	--text-on-bg-success: var(--tw-white);
+	--text-inverted: var(--tw-white);
 
 	--ring-neutral: var(--gray-600) / 0.35;
 	--ring-accent: var(--blue-600) / 0.35;
@@ -1066,6 +1056,7 @@
 	--text-default: var(--black);
 	--text-muted: var(--black) / 0.75;
 	--text-placeholder: var(--black) / 0.5;
+	--text-inverted: var(--tw-white);
 
 	--ring-neutral: var(--gray-400) / 0.4;
 	--ring-accent: var(--blue-400) / 0.4;
@@ -1306,12 +1297,7 @@
 	--text-default: var(--black);
 	--text-muted: var(--black) / 0.75;
 	--text-placeholder: var(--black) / 0.5;
-
-	--text-on-bg-neutral: var(--tw-black);
-	--text-on-bg-accent: var(--tw-black);
-	--text-on-bg-danger: var(--tw-black);
-	--text-on-bg-warning: var(--tw-black);
-	--text-on-bg-success: var(--tw-black);
+	--text-inverted: var(--tw-black);
 
 	--border-base-muted: var(--gray-300);
 	--border-card-muted: var(--gray-300);

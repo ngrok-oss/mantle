@@ -67,7 +67,7 @@ const DropdownMenuCheckboxItem = forwardRef<ElementRef<typeof Ariakit.MenuItemRa
 			className={cx(
 				"relative flex cursor-pointer select-none items-center gap-2 rounded py-1.5 pl-2 pr-9 text-sm font-normal text-strong outline-none data-disabled:pointer-events-none data-disabled:opacity-50",
 				"data-active-item:bg-popover",
-				"aria-checked:bg-accent aria-checked:font-medium aria-checked:text-on-bg-accent",
+				"aria-checked:bg-accent aria-checked:font-medium aria-checked:text-inverted",
 				className,
 			)}
 			{...props}
@@ -87,7 +87,7 @@ const DropdownMenuRadioItem = forwardRef<ElementRef<typeof Ariakit.MenuItemRadio
 			className={cx(
 				"relative flex cursor-pointer select-none items-center gap-2 rounded py-1.5 pl-2 pr-9 text-sm font-normal text-strong outline-none data-disabled:pointer-events-none data-disabled:opacity-50",
 				"data-active-item:bg-popover-hover data-active-item:dark:bg-popover-hover",
-				"aria-checked:!bg-accent aria-checked:font-medium aria-checked:text-on-bg-accent",
+				"aria-checked:!bg-accent aria-checked:font-medium aria-checked:text-inverted",
 				className,
 			)}
 			{...props}

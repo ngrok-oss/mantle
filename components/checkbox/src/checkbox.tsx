@@ -15,10 +15,10 @@ const Checkbox = forwardRef<ElementRef<typeof CheckboxPrimitive.Root>, Props>(({
 		)}
 		{...props}
 	>
-		<CheckboxPrimitive.Indicator className="hidden items-center justify-center leading-none text-on-bg-accent data-state-checked:flex">
+		<CheckboxPrimitive.Indicator className="hidden items-center justify-center leading-none text-inverted data-state-checked:flex">
 			<CheckedIcon className="size-3" />
 		</CheckboxPrimitive.Indicator>
-		<CheckboxPrimitive.Indicator className="hidden items-center justify-center text-on-bg-accent data-state-indeterminate:flex">
+		<CheckboxPrimitive.Indicator className="hidden items-center justify-center text-inverted data-state-indeterminate:flex">
 			<IndeterminateIcon className="size-3" />
 		</CheckboxPrimitive.Indicator>
 		<CheckboxPrimitive.Indicator />
