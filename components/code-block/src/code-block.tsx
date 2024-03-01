@@ -218,7 +218,7 @@ const CodeBlockCopyButton = forwardRef<HTMLButtonElement, CodeBlockCopyButtonPro
 			<button
 				type="button"
 				className={cx(
-					"absolute right-3 top-3 z-10 flex h-7 w-7 items-center justify-center rounded border border-gray-300 bg-gray-50 shadow-[-1rem_0_0.75rem_-0.375rem_hsl(var(--gray-050)),1rem_0_0_-0.25rem_hsl(var(--gray-050))] hover:border-gray-400 hover:bg-gray-200 focus-visible:border-accent focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent",
+					"absolute right-3 top-3 z-10 flex h-7 w-7 items-center justify-center rounded border border-gray-300 bg-gray-50 shadow-[-1rem_0_0.75rem_-0.375rem_hsl(var(--gray-50)),1rem_0_0_-0.25rem_hsl(var(--gray-50))] hover:border-gray-400 hover:bg-gray-200 focus-visible:border-accent focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent",
 					copied &&
 						"w-auto gap-1 border-transparent bg-success pl-2 pr-1.5 text-inverted hover:border-transparent hover:bg-success-hover focus:bg-success-active focus-visible:border-success focus-visible:ring-success",
 					className,
@@ -273,7 +273,7 @@ const CodeBlockExpanderButton = forwardRef<HTMLButtonElement, CodeBlockExpanderB
 				aria-controls={codeId}
 				aria-expanded={isCodeExpanded}
 				className={cx(
-					"bg-gray-050 flex w-full items-center justify-center gap-0.5 border-t border-gray-300 px-4 py-2 font-sans text-gray-700 hover:bg-gray-100",
+					"bg-gray-50 flex w-full items-center justify-center gap-0.5 border-t border-gray-300 px-4 py-2 font-sans text-gray-700 hover:bg-gray-100",
 					className,
 				)}
 				ref={ref}

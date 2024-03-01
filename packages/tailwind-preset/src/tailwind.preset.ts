@@ -15,7 +15,7 @@ const mantlePreset = {
 			white: "hsl(var(--white) / <alpha-value>)",
 			black: "hsl(var(--black) / <alpha-value>)",
 			gray: {
-				50: "hsl(var(--gray-050) / <alpha-value>)",
+				50: "hsl(var(--gray-50) / <alpha-value>)",
 				100: "hsl(var(--gray-100) / <alpha-value>)",
 				200: "hsl(var(--gray-200) / <alpha-value>)",
 				300: "hsl(var(--gray-300) / <alpha-value>)",
@@ -33,7 +33,7 @@ const mantlePreset = {
 				"a400": "hsl(var(--gray-500) / 0.75)",
 			},
 			red: {
-				50: "hsl(var(--red-050) / <alpha-value>)",
+				50: "hsl(var(--red-50) / <alpha-value>)",
 				100: "hsl(var(--red-100) / <alpha-value>)",
 				200: "hsl(var(--red-200) / <alpha-value>)",
 				300: "hsl(var(--red-300) / <alpha-value>)",
@@ -51,7 +51,7 @@ const mantlePreset = {
 				"a400": "hsl(var(--red-500) / 0.75)",
 			},
 			orange: {
-				50: "hsl(var(--orange-050) / <alpha-value>)",
+				50: "hsl(var(--orange-50) / <alpha-value>)",
 				100: "hsl(var(--orange-100) / <alpha-value>)",
 				200: "hsl(var(--orange-200) / <alpha-value>)",
 				300: "hsl(var(--orange-300) / <alpha-value>)",
@@ -69,7 +69,7 @@ const mantlePreset = {
 				"a400": "hsl(var(--orange-500) / 0.75)",
 			},
 			amber: {
-				50: "hsl(var(--amber-050) / <alpha-value>)",
+				50: "hsl(var(--amber-50) / <alpha-value>)",
 				100: "hsl(var(--amber-100) / <alpha-value>)",
 				200: "hsl(var(--amber-200) / <alpha-value>)",
 				300: "hsl(var(--amber-300) / <alpha-value>)",
@@ -87,7 +87,7 @@ const mantlePreset = {
 				"a400": "hsl(var(--amber-500) / 0.75)",
 			},
 			yellow: {
-				50: "hsl(var(--yellow-050) / <alpha-value>)",
+				50: "hsl(var(--yellow-50) / <alpha-value>)",
 				100: "hsl(var(--yellow-100) / <alpha-value>)",
 				200: "hsl(var(--yellow-200) / <alpha-value>)",
 				300: "hsl(var(--yellow-300) / <alpha-value>)",
@@ -105,7 +105,7 @@ const mantlePreset = {
 				"a400": "hsl(var(--yellow-500) / 0.75)",
 			},
 			lime: {
-				50: "hsl(var(--lime-050) / <alpha-value>)",
+				50: "hsl(var(--lime-50) / <alpha-value>)",
 				100: "hsl(var(--lime-100) / <alpha-value>)",
 				200: "hsl(var(--lime-200) / <alpha-value>)",
 				300: "hsl(var(--lime-300) / <alpha-value>)",
@@ -123,7 +123,7 @@ const mantlePreset = {
 				"a400": "hsl(var(--lime-500) / 0.75)",
 			},
 			green: {
-				50: "hsl(var(--green-050) / <alpha-value>)",
+				50: "hsl(var(--green-50) / <alpha-value>)",
 				100: "hsl(var(--green-100) / <alpha-value>)",
 				200: "hsl(var(--green-200) / <alpha-value>)",
 				300: "hsl(var(--green-300) / <alpha-value>)",
@@ -141,7 +141,7 @@ const mantlePreset = {
 				"a400": "hsl(var(--green-500) / 0.75)",
 			},
 			emerald: {
-				50: "hsl(var(--emerald-050) / <alpha-value>)",
+				50: "hsl(var(--emerald-50) / <alpha-value>)",
 				100: "hsl(var(--emerald-100) / <alpha-value>)",
 				200: "hsl(var(--emerald-200) / <alpha-value>)",
 				300: "hsl(var(--emerald-300) / <alpha-value>)",
@@ -159,7 +159,7 @@ const mantlePreset = {
 				"a400": "hsl(var(--emerald-500) / 0.75)",
 			},
 			teal: {
-				50: "hsl(var(--teal-050) / <alpha-value>)",
+				50: "hsl(var(--teal-50) / <alpha-value>)",
 				100: "hsl(var(--teal-100) / <alpha-value>)",
 				200: "hsl(var(--teal-200) / <alpha-value>)",
 				300: "hsl(var(--teal-300) / <alpha-value>)",
@@ -177,7 +177,7 @@ const mantlePreset = {
 				"a400": "hsl(var(--teal-500) / 0.75)",
 			},
 			cyan: {
-				50: "hsl(var(--cyan-050) / <alpha-value>)",
+				50: "hsl(var(--cyan-50) / <alpha-value>)",
 				100: "hsl(var(--cyan-100) / <alpha-value>)",
 				200: "hsl(var(--cyan-200) / <alpha-value>)",
 				300: "hsl(var(--cyan-300) / <alpha-value>)",
@@ -195,7 +195,7 @@ const mantlePreset = {
 				"a400": "hsl(var(--cyan-500) / 0.75)",
 			},
 			sky: {
-				50: "hsl(var(--sky-050) / <alpha-value>)",
+				50: "hsl(var(--sky-50) / <alpha-value>)",
 				100: "hsl(var(--sky-100) / <alpha-value>)",
 				200: "hsl(var(--sky-200) / <alpha-value>)",
 				300: "hsl(var(--sky-300) / <alpha-value>)",
@@ -213,7 +213,7 @@ const mantlePreset = {
 				"a400": "hsl(var(--sky-500) / 0.75)",
 			},
 			blue: {
-				50: "hsl(var(--blue-050) / <alpha-value>)",
+				50: "hsl(var(--blue-50) / <alpha-value>)",
 				100: "hsl(var(--blue-100) / <alpha-value>)",
 				200: "hsl(var(--blue-200) / <alpha-value>)",
 				300: "hsl(var(--blue-300) / <alpha-value>)",
@@ -231,7 +231,7 @@ const mantlePreset = {
 				"a400": "hsl(var(--blue-500) / 0.75)",
 			},
 			indigo: {
-				50: "hsl(var(--indigo-050) / <alpha-value>)",
+				50: "hsl(var(--indigo-50) / <alpha-value>)",
 				100: "hsl(var(--indigo-100) / <alpha-value>)",
 				200: "hsl(var(--indigo-200) / <alpha-value>)",
 				300: "hsl(var(--indigo-300) / <alpha-value>)",
@@ -249,7 +249,7 @@ const mantlePreset = {
 				"a400": "hsl(var(--indigo-500) / 0.75)",
 			},
 			violet: {
-				50: "hsl(var(--violet-050) / <alpha-value>)",
+				50: "hsl(var(--violet-50) / <alpha-value>)",
 				100: "hsl(var(--violet-100) / <alpha-value>)",
 				200: "hsl(var(--violet-200) / <alpha-value>)",
 				300: "hsl(var(--violet-300) / <alpha-value>)",
@@ -267,7 +267,7 @@ const mantlePreset = {
 				"a400": "hsl(var(--violet-500) / 0.75)",
 			},
 			purple: {
-				50: "hsl(var(--purple-050) / <alpha-value>)",
+				50: "hsl(var(--purple-50) / <alpha-value>)",
 				100: "hsl(var(--purple-100) / <alpha-value>)",
 				200: "hsl(var(--purple-200) / <alpha-value>)",
 				300: "hsl(var(--purple-300) / <alpha-value>)",
@@ -285,7 +285,7 @@ const mantlePreset = {
 				"a400": "hsl(var(--purple-500) / 0.75)",
 			},
 			fuchsia: {
-				50: "hsl(var(--fuchsia-050) / <alpha-value>)",
+				50: "hsl(var(--fuchsia-50) / <alpha-value>)",
 				100: "hsl(var(--fuchsia-100) / <alpha-value>)",
 				200: "hsl(var(--fuchsia-200) / <alpha-value>)",
 				300: "hsl(var(--fuchsia-300) / <alpha-value>)",
@@ -303,7 +303,7 @@ const mantlePreset = {
 				"a400": "hsl(var(--fuchsia-500) / 0.75)",
 			},
 			pink: {
-				50: "hsl(var(--pink-050) / <alpha-value>)",
+				50: "hsl(var(--pink-50) / <alpha-value>)",
 				100: "hsl(var(--pink-100) / <alpha-value>)",
 				200: "hsl(var(--pink-200) / <alpha-value>)",
 				300: "hsl(var(--pink-300) / <alpha-value>)",
@@ -321,7 +321,7 @@ const mantlePreset = {
 				"a400": "hsl(var(--pink-500) / 0.75)",
 			},
 			rose: {
-				50: "hsl(var(--rose-050) / <alpha-value>)",
+				50: "hsl(var(--rose-50) / <alpha-value>)",
 				100: "hsl(var(--rose-100) / <alpha-value>)",
 				200: "hsl(var(--rose-200) / <alpha-value>)",
 				300: "hsl(var(--rose-300) / <alpha-value>)",
@@ -339,7 +339,8 @@ const mantlePreset = {
 				"a400": "hsl(var(--rose-500) / 0.75)",
 			},
 			accent: {
-				50: "hsl(var(--blue-050) / <alpha-value>)",
+				DEFAULT: "hsl(var(--blue-500) / <alpha-value>)",
+				50: "hsl(var(--blue-50) / <alpha-value>)",
 				100: "hsl(var(--blue-100) / <alpha-value>)",
 				200: "hsl(var(--blue-200) / <alpha-value>)",
 				300: "hsl(var(--blue-300) / <alpha-value>)",
@@ -375,7 +376,6 @@ const mantlePreset = {
 				unchecked: 'checked="false"',
 			},
 			backgroundColor: {
-				accent: "hsl(var(--bg-accent))",
 				base: "hsl(var(--bg-base))",
 				card: "hsl(var(--bg-card))",
 				danger: "hsl(var(--bg-danger))",
