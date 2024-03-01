@@ -446,10 +446,10 @@
 	--bg-popover: var(--white);
 	--bg-dialog: var(--white);
 
-	--bg-base-hover: var(--gray-500) / .08;
-	--bg-card-hover: var(--gray-100) / .08;
-	--bg-popover-hover: var(--gray-100) / .08;
-	--bg-dialog-hover: var(--gray-100) / .08;
+	--bg-base-hover: var(--gray-500) / 0.08;
+	--bg-card-hover: var(--gray-100) / 0.08;
+	--bg-popover-hover: var(--gray-100) / 0.08;
+	--bg-dialog-hover: var(--gray-100) / 0.08;
 
 	--border-base: var(--gray-300);
 	--border-card: var(--gray-300);

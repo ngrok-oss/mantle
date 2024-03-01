@@ -324,7 +324,7 @@ const mantlePreset = {
 				"danger-strong": "hsl(var(--text-danger-strong))",
 				"neutral-strong": "hsl(var(--text-neutral-strong))",
 				"success-strong": "hsl(var(--text-success-strong))",
-				"tooltip": "hsl(var(--text-tooltip))",
+				tooltip: "hsl(var(--text-tooltip))",
 				"warning-strong": "hsl(var(--text-warning-strong))",
 			},
 			borderColor: {
