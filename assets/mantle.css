@@ -709,8 +709,8 @@
 	/* form tokens */
 
 	--bg-form: var(--white);
-	--bg-form-hover: var(--bg-neutral-muted-hover);
-	--bg-form-active: var(--bg-neutral-muted-active);
+	--bg-form-hover: var(--bg-neutral-a50);
+	--bg-form-active: var(--bg-neutral-a100);
 	--border-form: var(--gray-300);
 
 	/* theme tokens */
