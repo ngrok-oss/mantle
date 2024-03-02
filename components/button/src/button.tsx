@@ -32,13 +32,13 @@ const buttonVariants = cva(
 				appearance: "ghost",
 				priority: "danger",
 				class:
-					"border-transparent text-danger-600 hover:bg-a50 focus-visible:ring-danger active:bg-danger-a100",
+					"border-transparent text-danger-600 hover:bg-danger-a50 focus-visible:ring-danger active:bg-danger-a100",
 			},
 			{
 				appearance: "outlined",
 				priority: "danger",
 				class:
-					"border-danger-600 bg-form text-danger-600 hover:bg-a50 focus-visible:ring-danger active:bg-danger-a100",
+					"border-danger-600 bg-form text-danger-600 hover:bg-danger-a50 focus-visible:ring-danger active:bg-danger-a100",
 			},
 			{
 				appearance: "filled",
