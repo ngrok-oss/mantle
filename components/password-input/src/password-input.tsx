@@ -17,8 +17,8 @@ const passwordInputVariants = cva(
 		variants: {
 			state: {
 				default:
-					"text-strong border-form placeholder:text-placeholder focus-within:border-accent focus-within:ring-accent",
-				danger: "border-danger focus-within:border-danger focus-within:ring-danger",
+					"text-strong border-form placeholder:text-placeholder focus-within:border-accent-600 focus-within:ring-accent",
+				danger: "border-danger-600 focus-within:border-danger-600 focus-within:ring-danger",
 			},
 		},
 		defaultVariants: {
