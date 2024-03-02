@@ -27,7 +27,9 @@ export default function Page() {
 				<ul className="mt-3 flex flex-col gap-2 text-sm text-muted">
 					<li>
 						<HashNavLink
-							className={(isActive) => cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")}
+							className={(isActive) =>
+								cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
+							}
 							to=".#tailwind"
 						>
 							Tailwind
@@ -35,7 +37,9 @@ export default function Page() {
 					</li>
 					<li>
 						<HashNavLink
-							className={(isActive) => cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")}
+							className={(isActive) =>
+								cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
+							}
 							to=".#variables"
 						>
 							Variables
@@ -43,7 +47,9 @@ export default function Page() {
 					</li>
 					<li>
 						<HashNavLink
-							className={(isActive) => cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")}
+							className={(isActive) =>
+								cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
+							}
 							to=".#overrides"
 						>
 							Overrides
@@ -51,7 +57,9 @@ export default function Page() {
 					</li>
 					<li>
 						<HashNavLink
-							className={(isActive) => cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")}
+							className={(isActive) =>
+								cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
+							}
 							to=".#branded-colors"
 						>
 							Branded Colors
@@ -111,7 +119,9 @@ export default function Page() {
 					</ul>
 					<li>
 						<HashNavLink
-							className={(isActive) => cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")}
+							className={(isActive) =>
+								cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
+							}
 							to=".#extended-palette"
 						>
 							Extended Palette

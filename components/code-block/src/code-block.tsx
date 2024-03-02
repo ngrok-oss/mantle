@@ -273,7 +273,7 @@ const CodeBlockExpanderButton = forwardRef<HTMLButtonElement, CodeBlockExpanderB
 				aria-controls={codeId}
 				aria-expanded={isCodeExpanded}
 				className={cx(
-					"bg-gray-50 flex w-full items-center justify-center gap-0.5 border-t border-gray-300 px-4 py-2 font-sans text-gray-700 hover:bg-gray-100",
+					"flex w-full items-center justify-center gap-0.5 border-t border-gray-300 bg-gray-50 px-4 py-2 font-sans text-gray-700 hover:bg-gray-100",
 					className,
 				)}
 				ref={ref}
