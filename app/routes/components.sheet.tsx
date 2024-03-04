@@ -86,7 +86,7 @@ export default function Page() {
 								adipisicing fugiat.
 							</p>
 						</SheetBody>
-						<SheetFooter className="text-right">
+						<SheetFooter>
 							<SheetClose asChild>
 								<Button>Close</Button>
 							</SheetClose>
@@ -128,7 +128,7 @@ export default function Page() {
 											Lorem ipsum
 										</p>
 									</SheetBody>
-									<SheetFooter className="text-right">
+									<SheetFooter>
 										<SheetClose asChild>
 											<Button>Close</Button>
 										</SheetClose>
