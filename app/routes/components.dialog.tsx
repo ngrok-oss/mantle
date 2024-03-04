@@ -1,6 +1,15 @@
 import { Button } from "@/button";
 import { code, CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
-import { Dialog, DialogBody, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/dialog";
+import {
+	Dialog,
+	DialogBody,
+	DialogClose,
+	DialogContent,
+	DialogFooter,
+	DialogHeader,
+	DialogTitle,
+	DialogTrigger,
+} from "@/dialog";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 
@@ -38,12 +47,16 @@ export default function Page() {
 							servers.
 						</DialogBody>
 						<DialogFooter>
-							<Button priority="danger" appearance="filled">
-								Delete
-							</Button>
-							<Button priority="neutral" appearance="outlined">
-								Cancel
-							</Button>
+							<DialogClose asChild>
+								<Button priority="danger" appearance="filled">
+									Delete
+								</Button>
+							</DialogClose>
+							<DialogClose asChild>
+								<Button priority="neutral" appearance="outlined">
+									Cancel
+								</Button>
+							</DialogClose>
 						</DialogFooter>
 					</DialogContent>
 				</Dialog>
