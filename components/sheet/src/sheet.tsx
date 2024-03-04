@@ -77,7 +77,10 @@ const SheetHeader = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) =>
 );
 
 const SheetFooter = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => (
-	<div className={cx("shrink-0 border-t border-dialog-muted px-6 py-2.5", className)} {...props} />
+	<div
+		className={cx("flex shrink-0 flex-row-reverse gap-2 border-t border-dialog-muted px-6 py-2.5", className)}
+		{...props}
+	/>
 );
 
 const SheetTitle = forwardRef<

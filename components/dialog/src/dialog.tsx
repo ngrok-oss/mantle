@@ -86,7 +86,7 @@ const DialogDescription = forwardRef<
 	ElementRef<typeof DialogPrimitive.Description>,
 	ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
 >(({ className, ...props }, ref) => (
-	<DialogPrimitive.Description ref={ref} className={cx("text-sm text-default", className)} {...props} />
+	<DialogPrimitive.Description ref={ref} className={cx("text-muted", className)} {...props} />
 ));
 DialogDescription.displayName = DialogPrimitive.Description.displayName;
 
