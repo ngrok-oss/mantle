@@ -1,8 +1,8 @@
-import { Button } from "@/button";
 import { X } from "@phosphor-icons/react/X";
 import * as SheetPrimitive from "@radix-ui/react-dialog";
 import { cva, type VariantProps } from "class-variance-authority";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef, HTMLAttributes } from "react";
+import { Button } from "../../button";
 import { cx } from "../../core";
 
 const Sheet = SheetPrimitive.Root;
@@ -58,7 +58,7 @@ const SheetContent = forwardRef<ElementRef<typeof SheetPrimitive.Content>, Sheet
 				{children}
 				<SheetPrimitive.Close asChild>
 					<Button appearance="outlined" priority="neutral" className="absolute right-4 top-4 size-11 sm:size-9">
-						<X className="size-6 shrink-0" />
+						<X className="size-5 shrink-0" />
 						<span className="sr-only">Close</span>
 					</Button>
 				</SheetPrimitive.Close>
