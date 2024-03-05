@@ -575,23 +575,23 @@
 
 	/* theme tokens */
 
-	--bg-neutral: var(--neutral-500);
-	--bg-accent: var(--accent-500);
-	--bg-danger: var(--danger-500);
-	--bg-warning: var(--warning-500);
-	--bg-success: var(--success-500);
+	--bg-filled-neutral: var(--neutral-500);
+	--bg-filled-accent: var(--accent-500);
+	--bg-filled-danger: var(--danger-500);
+	--bg-filled-warning: var(--warning-500);
+	--bg-filled-success: var(--success-500);
 
-	--bg-neutral-hover: var(--neutral-600);
-	--bg-accent-hover: var(--accent-600);
-	--bg-danger-hover: var(--danger-600);
-	--bg-warning-hover: var(--warning-600);
-	--bg-success-hover: var(--success-600);
+	--bg-filled-neutral-hover: var(--neutral-600);
+	--bg-filled-accent-hover: var(--accent-600);
+	--bg-filled-danger-hover: var(--danger-600);
+	--bg-filled-warning-hover: var(--warning-600);
+	--bg-filled-success-hover: var(--success-600);
 
-	--bg-neutral-active: var(--neutral-700);
-	--bg-accent-active: var(--accent-700);
-	--bg-danger-active: var(--danger-700);
-	--bg-warning-active: var(--warning-700);
-	--bg-success-active: var(--success-700);
+	--bg-filled-neutral-active: var(--neutral-700);
+	--bg-filled-accent-active: var(--accent-700);
+	--bg-filled-danger-active: var(--danger-700);
+	--bg-filled-warning-active: var(--warning-700);
+	--bg-filled-success-active: var(--success-700);
 
 	--text-strong: var(--neutral-950);
 	--text-default: var(--neutral-950) / 0.75;
@@ -872,17 +872,17 @@
 	--bg-warning: var(--warning-500);
 	--bg-success: var(--success-500);
 
-	--bg-neutral-hover: var(--neutral-500) / 0.9;
-	--bg-accent-hover: var(--accent-500) / 0.9;
-	--bg-danger-hover: var(--danger-500) / 0.9;
-	--bg-warning-hover: var(--warning-500) / 0.9;
-	--bg-success-hover: var(--success-500) / 0.9;
+	--bg-filled-neutral-hover: var(--neutral-500) / 0.9;
+	--bg-filled-accent-hover: var(--accent-500) / 0.9;
+	--bg-filled-danger-hover: var(--danger-500) / 0.9;
+	--bg-filled-warning-hover: var(--warning-500) / 0.9;
+	--bg-filled-success-hover: var(--success-500) / 0.9;
 
-	--bg-neutral-active: var(--neutral-500) / 0.8;
-	--bg-accent-active: var(--accent-500) / 0.8;
-	--bg-danger-active: var(--danger-500) / 0.8;
-	--bg-warning-active: var(--warning-500) / 0.8;
-	--bg-success-active: var(--success-500) / 0.8;
+	--bg-filled-neutral-active: var(--neutral-500) / 0.8;
+	--bg-filled-accent-active: var(--accent-500) / 0.8;
+	--bg-filled-danger-active: var(--danger-500) / 0.8;
+	--bg-filled-warning-active: var(--warning-500) / 0.8;
+	--bg-filled-success-active: var(--success-500) / 0.8;
 
 	--text-strong: var(--black);
 	--text-default: var(--black) / 0.7;
