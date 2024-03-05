@@ -245,7 +245,6 @@ const colors = {
 		950: "hsl(var(--rose-950) / <alpha-value>)",
 	},
 	neutral: {
-		DEFAULT: "hsl(var(--neutral-500) / <alpha-value>)",
 		50: "hsl(var(--neutral-50) / <alpha-value>)",
 		100: "hsl(var(--neutral-100) / <alpha-value>)",
 		200: "hsl(var(--neutral-200) / <alpha-value>)",
@@ -259,7 +258,6 @@ const colors = {
 		950: "hsl(var(--neutral-950) / <alpha-value>)",
 	},
 	accent: {
-		DEFAULT: "hsl(var(--accent-500) / <alpha-value>)",
 		50: "hsl(var(--accent-50) / <alpha-value>)",
 		100: "hsl(var(--accent-100) / <alpha-value>)",
 		200: "hsl(var(--accent-200) / <alpha-value>)",
@@ -273,7 +271,6 @@ const colors = {
 		950: "hsl(var(--accent-950) / <alpha-value>)",
 	},
 	danger: {
-		DEFAULT: "hsl(var(--danger-500) / <alpha-value>)",
 		50: "hsl(var(--danger-50) / <alpha-value>)",
 		100: "hsl(var(--danger-100) / <alpha-value>)",
 		200: "hsl(var(--danger-200) / <alpha-value>)",
@@ -287,7 +284,6 @@ const colors = {
 		950: "hsl(var(--danger-950) / <alpha-value>)",
 	},
 	warning: {
-		DEFAULT: "hsl(var(--warning-500) / <alpha-value>)",
 		50: "hsl(var(--warning-50) / <alpha-value>)",
 		100: "hsl(var(--warning-100) / <alpha-value>)",
 		200: "hsl(var(--warning-200) / <alpha-value>)",
@@ -301,7 +297,6 @@ const colors = {
 		950: "hsl(var(--warning-950) / <alpha-value>)",
 	},
 	success: {
-		DEFAULT: "hsl(var(--success-500) / <alpha-value>)",
 		50: "hsl(var(--success-50) / <alpha-value>)",
 		100: "hsl(var(--success-100) / <alpha-value>)",
 		200: "hsl(var(--success-200) / <alpha-value>)",
