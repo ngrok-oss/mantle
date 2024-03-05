@@ -7,11 +7,11 @@ import type { VariantProps } from "../../types";
 const alertVariants = cva("relative flex w-full gap-1.5 rounded-md border p-2.5 text-sm", {
 	variants: {
 		priority: {
-			danger: "border-danger-500/50 bg-danger-500/10 text-danger-700",
-			default: "border-neutral-500/50 bg-neutral-500/10 text-neutral-700",
-			info: "border-accent-500/50 bg-accent-500/10 text-accent-700",
-			success: "border-success-500/50 bg-success-500/10 text-success-700",
-			warning: "border-warning-500/50 bg-warning-500/10 text-warning-700",
+			danger: "border-red-500/50 bg-red-500/10 text-red-700",
+			default: "border-gray-500/50 bg-gray-500/10 text-gray-700",
+			info: "border-blue-500/50 bg-blue-500/10 text-blue-700",
+			success: "border-green-500/50 bg-green-500/10 text-green-700",
+			warning: "border-amber-500/50 bg-amber-500/10 text-amber-700",
 		},
 	},
 	defaultVariants: {
