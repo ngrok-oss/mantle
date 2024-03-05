@@ -739,11 +739,11 @@
 	--text-placeholder: var(--gray-950) / 0.5;
 	--text-inverted: var(--tw-white);
 
-	--ring-neutral: var(--gray-500) / 0.30;
-	--ring-accent: var(--blue-500) / 0.30;
-	--ring-danger: var(--red-500) / 0.30;
-	--ring-warning: var(--amber-500) / 0.30;
-	--ring-success: var(--green-500) / 0.30;
+	--ring-neutral: var(--gray-500) / 0.3;
+	--ring-accent: var(--blue-500) / 0.3;
+	--ring-danger: var(--red-500) / 0.3;
+	--ring-warning: var(--amber-500) / 0.3;
+	--ring-success: var(--green-500) / 0.3;
 }
 
 :root.dark {

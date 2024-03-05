@@ -495,11 +495,11 @@ const mantlePreset = {
 				"popover-muted": "hsl(var(--border-popover-muted))",
 			},
 			ringColor: {
-				accent: { ...defaultTheme.colors.accent, DEFAULT: "hsl(var(--ring-accent))"},
-				danger: { ...defaultTheme.colors.danger, DEFAULT: "hsl(var(--ring-danger))"},
-				neutral: { ...defaultTheme.colors.neutral, DEFAULT:"hsl(var(--ring-neutral))"},
-				success: { ...defaultTheme.colors.success, DEFAULT:"hsl(var(--ring-success))"},
-				warning: { ...defaultTheme.colors.warning, DEFAULT:"hsl(var(--ring-warning))"},
+				accent: { ...defaultTheme.colors.accent, DEFAULT: "hsl(var(--ring-accent))" },
+				danger: { ...defaultTheme.colors.danger, DEFAULT: "hsl(var(--ring-danger))" },
+				neutral: { ...defaultTheme.colors.neutral, DEFAULT: "hsl(var(--ring-neutral))" },
+				success: { ...defaultTheme.colors.success, DEFAULT: "hsl(var(--ring-success))" },
+				warning: { ...defaultTheme.colors.warning, DEFAULT: "hsl(var(--ring-warning))" },
 			},
 			cursor: {
 				inherit: "inherit",
