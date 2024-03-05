@@ -364,11 +364,11 @@ const mantlePreset = {
 			},
 			textColor: {
 				default: "hsl(var(--text-default))",
-				inverted: "hsl(var(--text-inverted))",
 				muted: "hsl(var(--text-muted))",
 				placeholder: "hsl(var(--text-placeholder))",
 				strong: "hsl(var(--text-strong))",
 				tooltip: "hsl(var(--text-tooltip))",
+				"on-filled": "hsl(var(--text-on-filled))",
 			},
 			borderColor: {
 				base: "hsl(var(--border-base))",

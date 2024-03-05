@@ -28,7 +28,7 @@ export const BackToTopButton = ({ className, showThresholdPx = 200, style }: Pro
 				<Tooltip>
 					<TooltipTrigger
 						className={cx(
-							"fixed bottom-4 right-4 z-50 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-filled-accent text-inverted transition-all duration-150 ease-in-out hover:bg-white/90 hover:shadow-lg",
+							"fixed bottom-4 right-4 z-50 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-filled-accent text-on-filled transition-all duration-150 ease-in-out hover:bg-white/90 hover:shadow-lg",
 							(position.y ?? 0) >= showThresholdPx ? "visible opacity-100" : "invisible opacity-0",
 							className,
 						)}
