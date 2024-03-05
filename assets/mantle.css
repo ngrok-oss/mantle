@@ -599,11 +599,11 @@
 	--text-placeholder: var(--neutral-950) / 0.5;
 	--text-inverted: var(--tw-white);
 
-	--ring-neutral: var(--neutral-500) / 0.3;
-	--ring-accent: var(--accent-500) / 0.3;
-	--ring-danger: var(--danger-500) / 0.3;
-	--ring-warning: var(--warning-500) / 0.3;
-	--ring-success: var(--success-500) / 0.3;
+	--ring-focus-neutral: var(--neutral-500) / 0.3;
+	--ring-focus-accent: var(--accent-500) / 0.3;
+	--ring-focus-danger: var(--danger-500) / 0.3;
+	--ring-focus-warning: var(--warning-500) / 0.3;
+	--ring-focus-success: var(--success-500) / 0.3;
 }
 
 :root.dark {

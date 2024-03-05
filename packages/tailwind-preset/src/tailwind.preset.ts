@@ -382,11 +382,11 @@ const mantlePreset = {
 				"popover-muted": "hsl(var(--border-popover-muted))",
 			},
 			ringColor: {
-				accent: { ...colors.accent, DEFAULT: "hsl(var(--ring-accent))" },
-				danger: { ...colors.danger, DEFAULT: "hsl(var(--ring-danger))" },
-				neutral: { ...colors.neutral, DEFAULT: "hsl(var(--ring-neutral))" },
-				success: { ...colors.success, DEFAULT: "hsl(var(--ring-success))" },
-				warning: { ...colors.warning, DEFAULT: "hsl(var(--ring-warning))" },
+				"focus-accent": "hsl(var(--ring-focus-accent))",
+				"focus-danger": "hsl(var(--ring-focus-danger))",
+				"focus-neutral": "hsl(var(--ring-focus-neutral))",
+				"focus-success": "hsl(var(--ring-focus-success))",
+				"focus-warning": "hsl(var(--ring-focus-warning))",
 			},
 			cursor: {
 				inherit: "inherit",
