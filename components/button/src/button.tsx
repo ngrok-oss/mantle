@@ -11,11 +11,11 @@ const buttonVariants = cva(
 		variants: {
 			appearance: {
 				outlined:
-					"inline-flex h-11 border border-accent-600 bg-form px-3 font-medium text-accent-600 hover:bg-accent-a50 focus-visible:ring-accent active:bg-accent-a100 sm:h-9",
+					"inline-flex h-11 border border-accent-600 hover:border-accent-700 active:border-accent-700 bg-form px-3 font-medium text-accent-600 hover:text-accent-700 active:text-accent-700 hover:bg-accent-500/10 focus-visible:ring-accent active:bg-accent-500/15 sm:h-9",
 				filled:
 					"inline-flex h-11 border border-transparent bg-accent px-3 font-medium text-inverted hover:bg-accent-hover focus-visible:border-accent-600 focus-visible:ring-accent active:bg-accent-active sm:h-9",
 				ghost:
-					"inline-flex h-11 border border-transparent px-3 font-medium text-accent-600 hover:bg-accent-a50 focus-visible:ring-accent active:bg-accent-a100 sm:h-9",
+					"inline-flex h-11 border border-transparent px-3 font-medium text-accent-600 hover:text-accent-700 active:text-accent-700 hover:bg-accent-500/10 focus-visible:ring-accent active:bg-accent-500/15 sm:h-9",
 				link: "inline cursor-pointer border-transparent text-accent-600 hover:underline focus-visible:ring-accent",
 			},
 			priority: {
@@ -31,13 +31,13 @@ const buttonVariants = cva(
 			{
 				appearance: "ghost",
 				priority: "danger",
-				class: "border-transparent text-danger-600 hover:bg-danger-a50 focus-visible:ring-danger active:bg-danger-a100",
+				class: "border-transparent text-danger-600 hover:text-danger-700 active:text-danger-700 hover:bg-danger-500/10 focus-visible:ring-danger active:bg-danger-500/15",
 			},
 			{
 				appearance: "outlined",
 				priority: "danger",
 				class:
-					"border-danger-600 bg-form text-danger-600 hover:bg-danger-a50 focus-visible:ring-danger active:bg-danger-a100",
+					"border-danger-600 hover:border-danger-700 active:border-danger-700 bg-form text-danger-600 hover:text-danger-700 active:text-danger-700 hover:bg-danger-500/10 focus-visible:ring-danger active:bg-danger-500/15",
 			},
 			{
 				appearance: "filled",
@@ -53,13 +53,13 @@ const buttonVariants = cva(
 			{
 				appearance: "ghost",
 				priority: "neutral",
-				class: "text-strong border-transparent hover:bg-neutral-a50 focus-visible:ring-accent active:bg-neutral-a100",
+				class: "text-strong border-transparent hover:bg-neutral-500/10 hover:text-strong hover:bg-neutral-500/10 active:text-strong focus-visible:ring-accent active:bg-neutral-500/15",
 			},
 			{
 				appearance: "outlined",
 				priority: "neutral",
 				class:
-					"text-strong border-form bg-form hover:bg-neutral-a50 focus-visible:border-accent-600 focus-visible:ring-accent active:bg-neutral-a100",
+					"text-strong border-form bg-form hover:bg-neutral-500/5 focus-visible:border-accent-600 focus-visible:active:border-accent-600 hover:border-neutral-400 active:border-neutral-400 hover:text-strong active:text-strong focus-visible:ring-accent active:bg-neutral-500/10",
 			},
 			{
 				appearance: "filled",
