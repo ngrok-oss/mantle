@@ -473,123 +473,8 @@
 	--rose-900: var(--tw-rose-900);
 	--rose-950: var(--tw-rose-950);
 
-	/* alpha palette */
-
-	--gray-a50: var(--gray-500) / 0.08;
-	--gray-a100: var(--gray-500) / 0.12;
-	--gray-a200: var(--gray-500) / 0.2;
-	--gray-a300: var(--gray-500) / 0.5;
-	--gray-a400: var(--gray-500) / 0.75;
-
-	--red-a50: var(--red-500) / 0.08;
-	--red-a100: var(--red-500) / 0.12;
-	--red-a200: var(--red-500) / 0.2;
-	--red-a300: var(--red-500) / 0.5;
-	--red-a400: var(--red-500) / 0.75;
-
-	--orange-a50: var(--orange-500) / 0.08;
-	--orange-a100: var(--orange-500) / 0.12;
-	--orange-a200: var(--orange-500) / 0.2;
-	--orange-a300: var(--orange-500) / 0.5;
-	--orange-a400: var(--orange-500) / 0.75;
-
-	--amber-a50: var(--amber-500) / 0.08;
-	--amber-a100: var(--amber-500) / 0.12;
-	--amber-a200: var(--amber-500) / 0.2;
-	--amber-a300: var(--amber-500) / 0.5;
-	--amber-a400: var(--amber-500) / 0.75;
-
-	--yellow-a50: var(--yellow-500) / 0.08;
-	--yellow-a100: var(--yellow-500) / 0.12;
-	--yellow-a200: var(--yellow-500) / 0.2;
-	--yellow-a300: var(--yellow-500) / 0.5;
-	--yellow-a400: var(--yellow-500) / 0.75;
-
-	--lime-a50: var(--lime-500) / 0.08;
-	--lime-a100: var(--lime-500) / 0.12;
-	--lime-a200: var(--lime-500) / 0.2;
-	--lime-a300: var(--lime-500) / 0.5;
-	--lime-a400: var(--lime-500) / 0.75;
-
-	--green-a50: var(--green-500) / 0.08;
-	--green-a100: var(--green-500) / 0.12;
-	--green-a200: var(--green-500) / 0.2;
-	--green-a300: var(--green-500) / 0.5;
-	--green-a400: var(--green-500) / 0.75;
-
-	--emerald-a50: var(--emerald-500) / 0.08;
-	--emerald-a100: var(--emerald-500) / 0.12;
-	--emerald-a200: var(--emerald-500) / 0.2;
-	--emerald-a300: var(--emerald-500) / 0.5;
-	--emerald-a400: var(--emerald-500) / 0.75;
-
-	--teal-a50: var(--teal-500) / 0.08;
-	--teal-a100: var(--teal-500) / 0.12;
-	--teal-a200: var(--teal-500) / 0.2;
-	--teal-a300: var(--teal-500) / 0.5;
-	--teal-a400: var(--teal-500) / 0.75;
-
-	--cyan-a50: var(--cyan-500) / 0.08;
-	--cyan-a100: var(--cyan-500) / 0.12;
-	--cyan-a200: var(--cyan-500) / 0.2;
-	--cyan-a300: var(--cyan-500) / 0.5;
-	--cyan-a400: var(--cyan-500) / 0.75;
-
-	--sky-a50: var(--sky-500) / 0.08;
-	--sky-a100: var(--sky-500) / 0.12;
-	--sky-a200: var(--sky-500) / 0.2;
-	--sky-a300: var(--sky-500) / 0.5;
-	--sky-a400: var(--sky-500) / 0.75;
-
-	--blue-a50: var(--ngrok-blue-500) / 0.08;
-	--blue-a100: var(--ngrok-blue-500) / 0.12;
-	--blue-a200: var(--ngrok-blue-500) / 0.2;
-	--blue-a300: var(--ngrok-blue-500) / 0.5;
-	--blue-a400: var(--ngrok-blue-500) / 0.75;
-
-	--indigo-a50: var(--indigo-500) / 0.08;
-	--indigo-a100: var(--indigo-500) / 0.12;
-	--indigo-a200: var(--indigo-500) / 0.2;
-	--indigo-a300: var(--indigo-500) / 0.5;
-	--indigo-a400: var(--indigo-500) / 0.75;
-
-	--violet-a50: var(--violet-500) / 0.08;
-	--violet-a100: var(--violet-500) / 0.12;
-	--violet-a200: var(--violet-500) / 0.2;
-	--violet-a300: var(--violet-500) / 0.5;
-	--violet-a400: var(--violet-500) / 0.75;
-
-	--purple-a50: var(--purple-500) / 0.08;
-	--purple-a100: var(--purple-500) / 0.12;
-	--purple-a200: var(--purple-500) / 0.2;
-	--purple-a300: var(--purple-500) / 0.5;
-	--purple-a400: var(--purple-500) / 0.75;
-
-	--fuchsia-a50: var(--fuchsia-500) / 0.08;
-	--fuchsia-a100: var(--fuchsia-500) / 0.12;
-	--fuchsia-a200: var(--fuchsia-500) / 0.2;
-	--fuchsia-a300: var(--fuchsia-500) / 0.5;
-	--fuchsia-a400: var(--fuchsia-500) / 0.75;
-
-	--pink-a50: var(--pink-500) / 0.08;
-	--pink-a100: var(--pink-500) / 0.12;
-	--pink-a200: var(--pink-500) / 0.2;
-	--pink-a300: var(--pink-500) / 0.5;
-	--pink-a400: var(--pink-500) / 0.75;
-
-	--rose-a50: var(--rose-500) / 0.08;
-	--rose-a100: var(--rose-500) / 0.12;
-	--rose-a200: var(--rose-500) / 0.2;
-	--rose-a300: var(--rose-500) / 0.5;
-	--rose-a400: var(--rose-500) / 0.75;
-
 	/* mantle functional palette */
 
-	--neutral-a50: var(--gray-a50);
-	--neutral-a100: var(--gray-a100);
-	--neutral-a200: var(--gray-a200);
-	--neutral-a300: var(--gray-a300);
-	--neutral-a400: var(--gray-a400);
 
 	--neutral-50: var(--gray-50);
 	--neutral-100: var(--gray-100);
@@ -603,12 +488,6 @@
 	--neutral-900: var(--gray-900);
 	--neutral-950: var(--gray-950);
 
-	--accent-a50: var(--blue-a50);
-	--accent-a100: var(--blue-a100);
-	--accent-a200: var(--blue-a200);
-	--accent-a300: var(--blue-a300);
-	--accent-a400: var(--blue-a400);
-
 	--accent-50: var(--blue-50);
 	--accent-100: var(--blue-100);
 	--accent-200: var(--blue-200);
@@ -620,12 +499,6 @@
 	--accent-800: var(--blue-800);
 	--accent-900: var(--blue-900);
 	--accent-950: var(--blue-950);
-
-	--danger-a50: var(--red-a50);
-	--danger-a100: var(--red-a100);
-	--danger-a200: var(--red-a200);
-	--danger-a300: var(--red-a300);
-	--danger-a400: var(--red-a400);
 
 	--danger-50: var(--red-50);
 	--danger-100: var(--red-100);
@@ -639,12 +512,6 @@
 	--danger-900: var(--red-900);
 	--danger-950: var(--red-950);
 
-	--warning-a50: var(--amber-a50);
-	--warning-a100: var(--amber-a100);
-	--warning-a200: var(--amber-a200);
-	--warning-a300: var(--amber-a300);
-	--warning-a400: var(--amber-a400);
-
 	--warning-50: var(--amber-50);
 	--warning-100: var(--amber-100);
 	--warning-200: var(--amber-200);
@@ -656,12 +523,6 @@
 	--warning-800: var(--amber-800);
 	--warning-900: var(--amber-900);
 	--warning-950: var(--amber-950);
-
-	--success-a50: var(--green-a50);
-	--success-a100: var(--green-a100);
-	--success-a200: var(--green-a200);
-	--success-a300: var(--green-a300);
-	--success-a400: var(--green-a400);
 
 	--success-50: var(--green-50);
 	--success-100: var(--green-100);
@@ -709,8 +570,8 @@
 	/* form tokens */
 
 	--bg-form: var(--white);
-	--bg-form-hover: var(--bg-neutral-a50);
-	--bg-form-active: var(--bg-neutral-a100);
+	--bg-form-hover: var(--bg-neutral-500) / 0.5;
+	--bg-form-active: var(--bg-neutral-500) / 0.1;
 	--border-form: var(--gray-300);
 
 	/* theme tokens */
