@@ -335,6 +335,7 @@ const mantlePreset = {
 				"side-left": 'side="left"',
 				"side-right": 'side="right"',
 				"side-top": 'side="top"',
+				"drag-over": 'drag-over="true"',
 				"state-checked": 'state~="checked"',
 				"state-closed": 'state~="closed"',
 				"state-indeterminate": 'state~="indeterminate"',

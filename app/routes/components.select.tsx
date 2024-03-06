@@ -34,33 +34,43 @@ export default function Page() {
 			</p>
 
 			<Example className="mt-4 flex-col gap-4">
-				<Select>
-					<SelectTrigger className="max-w-64">
-						<SelectValue placeholder="Select a fruit" />
-					</SelectTrigger>
-					<SelectContent width="trigger">
-						<SelectGroup>
-							<SelectLabel>Fruits</SelectLabel>
-							<SelectItem value="apple">Apple</SelectItem>
-							<SelectItem value="banana">Banana</SelectItem>
-							<SelectItem value="blueberry">Blueberry</SelectItem>
-							<SelectItem value="grapes">Grapes</SelectItem>
-							<SelectItem value="pineapple">Pineapple</SelectItem>
-						</SelectGroup>
-						<SelectSeparator />
-						<SelectGroup>
-							<SelectLabel>Vegetables</SelectLabel>
-							<SelectItem value="carrot">Carrot</SelectItem>
-							<SelectItem value="cucumber">Cucumber</SelectItem>
-							<SelectItem value="lettuce">Lettuce</SelectItem>
-							<SelectItem value="tomato">Tomato</SelectItem>
-							<SelectItem value="zucchini">
-								<p>Zucchini</p>
-								<p>Ex sit voluptate incididunt pariatur velit consequat reprehenderit.</p>
-							</SelectItem>
-						</SelectGroup>
-					</SelectContent>
-				</Select>
+				<form
+					onSubmit={(event) => {
+						event.preventDefault();
+						const formData = new FormData(event.currentTarget);
+						const formValues = Object.fromEntries(formData.entries());
+						console.log("form submitted, formValues: ", formValues);
+					}}
+				>
+					<Select name="number">
+						<SelectTrigger className="max-w-64">
+							<SelectValue placeholder="Select a fruit" />
+						</SelectTrigger>
+						<SelectContent width="trigger">
+							<SelectGroup>
+								<SelectLabel>Fruits</SelectLabel>
+								<SelectItem value="apple">Apple</SelectItem>
+								<SelectItem value="banana">Banana</SelectItem>
+								<SelectItem value="blueberry">Blueberry</SelectItem>
+								<SelectItem value="grapes">Grapes</SelectItem>
+								<SelectItem value="pineapple">Pineapple</SelectItem>
+							</SelectGroup>
+							<SelectSeparator />
+							<SelectGroup>
+								<SelectLabel>Vegetables</SelectLabel>
+								<SelectItem value="carrot">Carrot</SelectItem>
+								<SelectItem value="cucumber">Cucumber</SelectItem>
+								<SelectItem value="lettuce">Lettuce</SelectItem>
+								<SelectItem value="tomato">Tomato</SelectItem>
+								<SelectItem value="zucchini">
+									<p>Zucchini</p>
+									<p>Ex sit voluptate incididunt pariatur velit consequat reprehenderit.</p>
+								</SelectItem>
+							</SelectGroup>
+						</SelectContent>
+					</Select>
+					<button type="submit">Submit</button>
+				</form>
 				<Select aria-invalid>
 					<SelectTrigger className="max-w-64">
 						<SelectValue placeholder="Select a fruit" />
