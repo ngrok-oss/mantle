@@ -20,7 +20,7 @@ export default function Page() {
 	return (
 		<div>
 			<h1 className="text-5xl font-medium">Separator</h1>
-			<p className="mt-4 text-xl text-neutral">Visually or semantically separates content.</p>
+			<p className="mt-4 text-xl text-body">Visually or semantically separates content.</p>
 
 			<Example className="mt-4">
 				<div>

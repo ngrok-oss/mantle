@@ -363,8 +363,8 @@ const mantlePreset = {
 				"popover-hover": "hsl(var(--bg-popover-hover))",
 			},
 			textColor: {
+				body: "hsl(var(--text-body))",
 				muted: "hsl(var(--text-muted))",
-				neutral: { ...colors.neutral, DEFAULT: "hsl(var(--text-neutral))" },
 				placeholder: "hsl(var(--text-placeholder))",
 				strong: "hsl(var(--text-strong))",
 				tooltip: "hsl(var(--text-tooltip))",
