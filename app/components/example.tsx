@@ -8,7 +8,7 @@ export function Example({ children, className, style }: Props) {
 	return (
 		<div
 			className={cx(
-				"flex items-center justify-center rounded-lg rounded-b-none border border-b-0 border-gray-300 md:p-16",
+				"flex items-center justify-center rounded-lg rounded-b-none border border-b-0 border-gray-300 p-4 md:p-16",
 				className,
 			)}
 			style={style}
