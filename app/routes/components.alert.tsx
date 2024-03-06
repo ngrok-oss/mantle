@@ -2,10 +2,10 @@ import { Alert, AlertContent, AlertDescription, AlertTitle } from "@/alert";
 import { code, CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/table";
 import { CheckCircle } from "@phosphor-icons/react/CheckCircle";
-import { Fire } from "@phosphor-icons/react/Fire";
+import { Warning } from "@phosphor-icons/react/Warning";
 import { Info } from "@phosphor-icons/react/Info";
 import { Rocket } from "@phosphor-icons/react/Rocket";
-import { Warning } from "@phosphor-icons/react/Warning";
+import { WarningDiamond } from "@phosphor-icons/react/WarningDiamond";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 
@@ -36,7 +36,7 @@ export default function Page() {
 					</AlertContent>
 				</Alert>
 				<Alert priority="danger">
-					<Fire className="size-5" />
+					<Warning className="size-5" />
 					<AlertContent>
 						<AlertTitle>Danger</AlertTitle>
 						<AlertDescription>This is a danger alert.</AlertDescription>
@@ -57,7 +57,7 @@ export default function Page() {
 					</AlertContent>
 				</Alert>
 				<Alert priority="warning">
-					<Warning className="size-5" />
+					<WarningDiamond className="size-5" />
 					<AlertContent>
 						<AlertTitle>Warning</AlertTitle>
 						<AlertDescription>This is a warning alert.</AlertDescription>
@@ -78,7 +78,7 @@ export default function Page() {
 							</AlertContent>
 						</Alert>
 						<Alert priority="danger">
-							<Fire className="size-5" />
+							<Warning className="size-5" />
 							<AlertContent>
 								<AlertTitle>Danger</AlertTitle>
 								<AlertDescription>This is a danger alert.</AlertDescription>
@@ -99,7 +99,7 @@ export default function Page() {
 							</AlertContent>
 						</Alert>
 						<Alert priority="warning">
-							<Warning className="size-5" />
+							<WarningDiamond className="size-5" />
 							<AlertContent>
 								<AlertTitle>Warning</AlertTitle>
 								<AlertDescription>This is a warning alert.</AlertDescription>
