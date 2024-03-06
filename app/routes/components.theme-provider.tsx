@@ -30,11 +30,11 @@ export default function Page() {
 	return (
 		<div>
 			<h1 className="text-5xl font-medium">Theme Provider</h1>
-			<p className="mb-4 mt-4 text-xl text-default">
+			<p className="mb-4 mt-4 text-xl text-neutral">
 				ThemeProvider is a React Context Provider that provides the current theme to the application and a function to
 				change it.
 			</p>
-			<div className="mt-8 space-y-4 text-default">
+			<div className="mt-8 space-y-4 text-neutral">
 				<p>
 					To use the <InlineCode>ThemeProvider</InlineCode>, wrap your application&apos;s entry point. This should be
 					done as high in the component tree as possible.
