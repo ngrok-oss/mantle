@@ -13,7 +13,7 @@ const buttonVariants = cva(
 				outlined:
 					"inline-flex h-11 border border-accent-600 hover:border-accent-700 active:border-accent-700 bg-form px-3 font-medium text-accent-600 hover:text-accent-700 active:text-accent-700 hover:bg-accent-500/10 focus-visible:ring-focus-accent active:bg-accent-500/15 sm:h-9",
 				filled:
-					"inline-flex h-11 border border-transparent bg-filled-accent px-3 font-medium text-inverted hover:bg-filled-accent-hover focus-visible:border-accent-600 focus-visible:ring-focus-accent active:bg-filled-accent-active sm:h-9",
+					"inline-flex h-11 border border-transparent bg-filled-accent px-3 font-medium text-on-filled hover:bg-filled-accent-hover focus-visible:border-accent-600 focus-visible:ring-focus-accent active:bg-filled-accent-active sm:h-9",
 				ghost:
 					"inline-flex h-11 border border-transparent px-3 font-medium text-accent-600 hover:text-accent-700 active:text-accent-700 hover:bg-accent-500/10 focus-visible:ring-focus-accent active:bg-accent-500/15 sm:h-9",
 				link: "inline cursor-pointer border-transparent text-accent-600 hover:underline focus-visible:ring-focus-accent",

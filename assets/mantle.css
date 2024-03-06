@@ -563,7 +563,7 @@
 	--text-default: var(--neutral-950) / 0.75;
 	--text-muted: var(--neutral-950) / 0.6;
 	--text-placeholder: var(--neutral-950) / 0.5;
-	--text-inverted: var(--tw-white);
+	--text-on-filled: var(--tw-white);
 
 	/* overlay */
 
@@ -860,7 +860,7 @@
 	--text-default: var(--black) / 0.7;
 	--text-muted: var(--black) / 0.5;
 	--text-placeholder: var(--black) / 0.4;
-	--text-inverted: var(--tw-white);
+	--text-on-filled: var(--tw-white);
 
 	/* overlay */
 
@@ -1130,7 +1130,7 @@
 	--text-default: var(--black);
 	--text-muted: var(--black) / 0.75;
 	--text-placeholder: var(--black) / 0.5;
-	--text-inverted: var(--tw-white);
+	--text-on-filled: var(--tw-white);
 }
 
 :root.dark-high-contrast {
@@ -1365,7 +1365,7 @@
 	--text-default: var(--black);
 	--text-muted: var(--black) / 0.75;
 	--text-placeholder: var(--black) / 0.5;
-	--text-inverted: var(--tw-black);
+	--text-on-filled: var(--tw-black);
 
 	--border-base-muted: var(--neutral-300);
 	--border-card-muted: var(--neutral-300);
