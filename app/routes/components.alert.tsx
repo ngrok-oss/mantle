@@ -71,35 +71,35 @@ export default function Page() {
 						import { Alert, AlertContent, AlertDescription, AlertTitle } from "@ngrok/mantle";
 
 						<Alert>
-							<Rocket className="h-6 w-6" />
+							<Rocket className="size-5" />
 							<AlertContent>
 								<AlertTitle>Default</AlertTitle>
 								<AlertDescription>This is a default alert.</AlertDescription>
 							</AlertContent>
 						</Alert>
 						<Alert priority="danger">
-							<Fire className="h-6 w-6" />
+							<Fire className="size-5" />
 							<AlertContent>
 								<AlertTitle>Danger</AlertTitle>
 								<AlertDescription>This is a danger alert.</AlertDescription>
 							</AlertContent>
 						</Alert>
 						<Alert priority="info">
-							<Info className="h-6 w-6" />
+							<Info className="size-5" />
 							<AlertContent>
 								<AlertTitle>Info</AlertTitle>
 								<AlertDescription>This is an info alert.</AlertDescription>
 							</AlertContent>
 						</Alert>
 						<Alert priority="success">
-							<CheckCircle className="h-6 w-6" />
+							<CheckCircle className="size-5" />
 							<AlertContent>
 								<AlertTitle>Success</AlertTitle>
 								<AlertDescription>This is a success alert.</AlertDescription>
 							</AlertContent>
 						</Alert>
 						<Alert priority="warning">
-							<Warning className="h-6 w-6" />
+							<Warning className="size-5" />
 							<AlertContent>
 								<AlertTitle>Warning</AlertTitle>
 								<AlertDescription>This is a warning alert.</AlertDescription>
