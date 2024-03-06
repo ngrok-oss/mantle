@@ -560,7 +560,7 @@
 	/* text tokens */
 
 	--text-strong: var(--neutral-950);
-	--text-default: var(--neutral-950) / 0.75;
+	--text-neutral: var(--neutral-950) / 0.75;
 	--text-muted: var(--neutral-950) / 0.6;
 	--text-placeholder: var(--neutral-950) / 0.5;
 	--text-on-filled: var(--tw-white);
@@ -857,7 +857,7 @@
 	/* text tokens */
 
 	--text-strong: var(--black);
-	--text-default: var(--black) / 0.7;
+	--text-neutral: var(--black) / 0.7;
 	--text-muted: var(--black) / 0.5;
 	--text-placeholder: var(--black) / 0.4;
 	--text-on-filled: var(--tw-white);
@@ -1127,7 +1127,7 @@
 	/* text tokens */
 
 	--text-strong: var(--black);
-	--text-default: var(--black);
+	--text-neutral: var(--black);
 	--text-muted: var(--black) / 0.75;
 	--text-placeholder: var(--black) / 0.5;
 	--text-on-filled: var(--tw-white);
@@ -1362,7 +1362,7 @@
 	--bg-overlay: var(--tw-black) / 0.8;
 
 	--text-strong: var(--black);
-	--text-default: var(--black);
+	--text-neutral: var(--black);
 	--text-muted: var(--black) / 0.75;
 	--text-placeholder: var(--black) / 0.5;
 	--text-on-filled: var(--tw-black);
