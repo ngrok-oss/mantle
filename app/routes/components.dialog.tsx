@@ -30,7 +30,7 @@ export default function Page() {
 	return (
 		<div>
 			<h1 className="text-5xl font-medium">Dialog</h1>
-			<p className="mt-4 text-xl text-default">
+			<p className="text-default mt-4 text-xl">
 				A window overlaid on either the primary window or another dialog window, rendering the content underneath inert.
 			</p>
 			<Example className="mt-4 gap-2">
