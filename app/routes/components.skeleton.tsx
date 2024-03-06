@@ -23,7 +23,7 @@ export default function Page() {
 	return (
 		<div>
 			<h1 className="text-5xl font-medium">Skeleton</h1>
-			<p className="mt-4 text-xl text-default">
+			<p className="mt-4 text-xl text-body">
 				Use to show a placeholder while content is loading. By using a <InlineCode>Skeleton</InlineCode>, you can give
 				the user an idea of what the content will look like, reducing the perceived loading time and CLS (Cumulative
 				Layout Shift).
@@ -46,7 +46,7 @@ export default function Page() {
 				<h3 className="mt-8 text-xl font-medium">
 					Skeleton <Link to="/components/media-object">Media Object</Link>
 				</h3>
-				<p className="mt-1 text-default">
+				<p className="mt-1 text-body">
 					The Skeleton component can be included within components. You can also pass Tailwind utility classes for
 					further control.
 				</p>

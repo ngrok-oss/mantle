@@ -22,7 +22,7 @@ export default function Page() {
 	return (
 		<div>
 			<h1 className="text-5xl font-medium">Popover</h1>
-			<p className="mt-4 text-xl text-default">Displays rich content in a portal, triggered by a button.</p>
+			<p className="mt-4 text-xl text-body">Displays rich content in a portal, triggered by a button.</p>
 			<Example className="mt-4 gap-2">
 				<Popover>
 					<PopoverTrigger asChild>

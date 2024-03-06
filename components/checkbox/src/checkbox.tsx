@@ -10,15 +10,15 @@ const Checkbox = forwardRef<ElementRef<typeof CheckboxPrimitive.Root>, Props>(({
 	<CheckboxPrimitive.Root
 		ref={ref}
 		className={cx(
-			"size-4 shrink-0 appearance-none rounded border border-form focus:border-accent focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent disabled:cursor-not-allowed disabled:opacity-50 data-state-checked:border-transparent data-state-checked:bg-accent data-state-indeterminate:border-transparent data-state-indeterminate:bg-accent",
+			"size-4 shrink-0 appearance-none rounded border border-form bg-form focus:border-accent-600 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-focus-accent disabled:cursor-not-allowed disabled:opacity-50 data-state-checked:border-transparent data-state-checked:bg-filled-accent data-state-indeterminate:border-transparent data-state-indeterminate:bg-filled-accent",
 			className,
 		)}
 		{...props}
 	>
-		<CheckboxPrimitive.Indicator className="hidden items-center justify-center leading-none text-on-bg-accent data-state-checked:flex">
+		<CheckboxPrimitive.Indicator className="hidden items-center justify-center leading-none text-on-filled data-state-checked:flex">
 			<CheckedIcon className="size-3" />
 		</CheckboxPrimitive.Indicator>
-		<CheckboxPrimitive.Indicator className="hidden items-center justify-center text-on-bg-accent data-state-indeterminate:flex">
+		<CheckboxPrimitive.Indicator className="hidden items-center justify-center text-on-filled data-state-indeterminate:flex">
 			<IndeterminateIcon className="size-3" />
 		</CheckboxPrimitive.Indicator>
 		<CheckboxPrimitive.Indicator />

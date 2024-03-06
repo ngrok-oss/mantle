@@ -27,7 +27,9 @@ export default function Page() {
 				<ul className="mt-3 flex flex-col gap-2 text-sm text-muted">
 					<li>
 						<HashNavLink
-							className={(isActive) => cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")}
+							className={(isActive) =>
+								cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
+							}
 							to=".#tailwind"
 						>
 							Tailwind
@@ -35,7 +37,9 @@ export default function Page() {
 					</li>
 					<li>
 						<HashNavLink
-							className={(isActive) => cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")}
+							className={(isActive) =>
+								cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
+							}
 							to=".#variables"
 						>
 							Variables
@@ -43,7 +47,9 @@ export default function Page() {
 					</li>
 					<li>
 						<HashNavLink
-							className={(isActive) => cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")}
+							className={(isActive) =>
+								cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
+							}
 							to=".#overrides"
 						>
 							Overrides
@@ -51,7 +57,9 @@ export default function Page() {
 					</li>
 					<li>
 						<HashNavLink
-							className={(isActive) => cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")}
+							className={(isActive) =>
+								cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
+							}
 							to=".#branded-colors"
 						>
 							Branded Colors
@@ -61,7 +69,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
 								}
 								to=".#gray-branded"
 							>
@@ -71,7 +79,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
 								}
 								to=".#blue-branded"
 							>
@@ -81,7 +89,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
 								}
 								to=".#green-branded"
 							>
@@ -91,7 +99,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
 								}
 								to=".#red-branded"
 							>
@@ -101,7 +109,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
 								}
 								to=".#amber-branded"
 							>
@@ -111,7 +119,9 @@ export default function Page() {
 					</ul>
 					<li>
 						<HashNavLink
-							className={(isActive) => cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")}
+							className={(isActive) =>
+								cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
+							}
 							to=".#extended-palette"
 						>
 							Extended Palette
@@ -121,7 +131,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
 								}
 								to=".#gray"
 							>
@@ -131,7 +141,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
 								}
 								to=".#red"
 							>
@@ -141,7 +151,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
 								}
 								to=".#orange"
 							>
@@ -151,7 +161,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
 								}
 								to=".#amber"
 							>
@@ -161,7 +171,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
 								}
 								to=".#yellow"
 							>
@@ -171,7 +181,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
 								}
 								to=".#lime"
 							>
@@ -181,7 +191,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
 								}
 								to=".#green"
 							>
@@ -191,7 +201,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
 								}
 								to=".#emerald"
 							>
@@ -201,7 +211,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
 								}
 								to=".#teal"
 							>
@@ -211,7 +221,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
 								}
 								to=".#cyan"
 							>
@@ -221,7 +231,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
 								}
 								to=".#sky"
 							>
@@ -232,7 +242,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
 								}
 								to=".#blue"
 							>
@@ -242,7 +252,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
 								}
 								to=".#indigo"
 							>
@@ -252,7 +262,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
 								}
 								to=".#violet"
 							>
@@ -262,7 +272,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
 								}
 								to=".#purple"
 							>
@@ -272,7 +282,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
 								}
 								to=".#fuchsia"
 							>
@@ -282,7 +292,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
 								}
 								to=".#pink"
 							>
@@ -292,7 +302,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent")
+									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
 								}
 								to=".#rose"
 							>
@@ -304,7 +314,7 @@ export default function Page() {
 			</nav>
 			<div className="flex-1">
 				<h1 className="text-5xl font-medium">Colors</h1>
-				<p className="mt-4 text-xl text-default">
+				<p className="mt-4 text-xl text-body">
 					Colors are a key component of any design system. They are used to convey meaning, attract attention, and
 					provide feedback. Mantle&rsquo;s color system is designed to be accessible and flexible with dark and high
 					contrast modes.
@@ -313,7 +323,7 @@ export default function Page() {
 				<h2 id="tailwind" className="mt-8 text-3xl font-medium">
 					Tailwind
 				</h2>
-				<p className="mt-3 text-default">
+				<p className="mt-3 text-body">
 					Mantle uses Tailwind under the hood for all its CSS styling. However, we differ from Tailwind when it comes to
 					colors. Mantle provides a full color library that automatically provides a dark and high contrast modes. This
 					is different from standard Tailwind usage that <em>requires</em> dark class variations. By simply specifying
@@ -324,7 +334,7 @@ export default function Page() {
 				<h2 id="variables" className="mt-8 text-3xl font-medium">
 					Variables
 				</h2>
-				<p className="mt-3 text-default">
+				<p className="mt-3 text-body">
 					Mantle&rsquo;s colors are delivered as CSS variables via Tailwind&rsquo;s API eg.{" "}
 					<InlineCode>.text-blue-500</InlineCode>. They can be directly accessed via{" "}
 					<InlineCode>var(--blue-500)</InlineCode> but do note that you&rsquo;ll need to wrap everything in{" "}
@@ -335,7 +345,7 @@ export default function Page() {
 				<h2 id="overrides" className="mt-8 text-3xl font-medium">
 					Overrides
 				</h2>
-				<p className="mt-3 text-default">
+				<p className="mt-3 text-body">
 					Most colors should appropriately swap for sensible values in dark and high contrast modes. However, there are
 					often cases where you&rsquo;ll need to specify an override. The <InlineCode>dark:</InlineCode> variant is
 					well-documented on <Anchor href="https://tailwindcss.com/docs/dark-mode">Tailwind&rsquo;s website</Anchor>.
@@ -346,7 +356,7 @@ export default function Page() {
 				<h2 id="branded-colors" className="mt-8 text-3xl font-medium">
 					Branded Colors
 				</h2>
-				<p className="mt-3 text-default">
+				<p className="mt-3 text-body">
 					Mantle generally limits its color choices to the following branded colors for primary actions, and various
 					states like danger and warnings.
 				</p>
@@ -604,7 +614,7 @@ export default function Page() {
 				<h2 id="extended-palette" className="mt-16 text-3xl font-medium">
 					Extended Palette
 				</h2>
-				<p className="mt-3 text-default">
+				<p className="mt-3 text-body">
 					Mantle also supports the entirety of Tailwind&rsquo;s color palette in light, dark, and high contrast
 					variants. Howver, we&rsquo;ve left out the extended collection of Tailwind&rsquo;s grays eg. slate, zinc, etc.
 					since we only want to use our own custom branded gray.

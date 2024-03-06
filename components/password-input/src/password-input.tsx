@@ -17,8 +17,8 @@ const passwordInputVariants = cva(
 		variants: {
 			state: {
 				default:
-					"text-strong border-form placeholder:text-placeholder focus-within:border-accent focus-within:ring-accent",
-				danger: "border-danger focus-within:border-danger focus-within:ring-danger",
+					"text-strong border-form placeholder:text-placeholder focus-within:border-accent-600 focus-within:ring-focus-accent",
+				danger: "border-danger-600 focus-within:border-danger-600 focus-within:ring-focus-danger",
 			},
 		},
 		defaultVariants: {
@@ -40,7 +40,7 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(({ classN
 			<button
 				type="button"
 				tabIndex={-1}
-				className="ml-1 cursor-pointer bg-inherit p-0 text-default hover:text-strong"
+				className="ml-1 cursor-pointer bg-inherit p-0 text-body hover:text-strong"
 				onClick={() => {
 					setShowPassword((s) => !s);
 				}}
