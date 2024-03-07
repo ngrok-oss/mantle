@@ -3,6 +3,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { TextArea } from "@/text-area";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
+import { DragEvent } from "react";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -17,16 +18,38 @@ export const headers: HeadersFunction = () => {
 	};
 };
 
+async function handleDrop(event: DragEvent<HTMLTextAreaElement>) {
+	event.preventDefault();
+	const files = Array.from(event.dataTransfer.files);
+	const fileData = await Promise.all(files.map((file) => file.text()));
+	const textArea = event.target as HTMLTextAreaElement;
+	textArea.value = fileData.join("\n");
+}
+
 export default function Page() {
 	return (
 		<div>
 			<h1 className="text-5xl font-medium">TextArea</h1>
-			<p className="mt-4 text-xl text-default">Displays a form textarea or a component that looks like a textarea.</p>
+			<p className="mt-4 text-xl text-body">Displays a form textarea or a component that looks like a textarea.</p>
 
 			<Example className="mt-4 flex-col gap-4">
-				<TextArea className="max-w-64" placeholder="Tell us about your experience…" />
-				<TextArea className="max-w-64" appearance="monospaced" placeholder="Tell us about your experience…" />
-				<TextArea className="max-w-64" placeholder="Tell us about your experience…" aria-invalid />
+				<TextArea
+					onDrop={(event) => handleDrop(event)}
+					className="max-w-64"
+					placeholder="Tell us about your experience…"
+				/>
+				<TextArea
+					onDrop={(event) => handleDrop(event)}
+					className="max-w-64"
+					appearance="monospaced"
+					placeholder="Tell us about your experience…"
+				/>
+				<TextArea
+					onDrop={(event) => handleDrop(event)}
+					className="max-w-64"
+					placeholder="Tell us about your experience…"
+					aria-invalid
+				/>
 			</Example>
 			<CodeBlock className="rounded-b-lg rounded-t-none">
 				<CodeBlockBody>
@@ -52,7 +75,7 @@ export default function Page() {
 							<TableHead>Default</TableHead>
 						</TableRow>
 					</TableHeader>
-					<TableBody className="font-mono text-xs text-default">
+					<TableBody className="font-mono text-xs text-body">
 						<TableRow>
 							<TableCell className="align-top font-medium">appearance</TableCell>
 							<TableCell className="align-top">enum</TableCell>

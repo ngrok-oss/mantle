@@ -17,7 +17,7 @@ export default function Page() {
 	return (
 		<div>
 			<h1 className="text-5xl font-medium">Typography</h1>
-			<p className="mt-4 text-xl text-default">Very early explorations of typographic scale.</p>
+			<p className="mt-4 text-xl text-body">Very early explorations of typographic scale.</p>
 			<h1 className="mt-8 text-5xl font-medium">Heading 1</h1>
 			<h2 className="mt-4 text-3xl font-medium">Heading 2</h2>
 			<h3 className="mt-4 text-2xl font-medium">Heading 3</h3>
@@ -26,7 +26,7 @@ export default function Page() {
 			<h6 className="mt-4 text-xs font-medium uppercase tracking-widest">Heading 6</h6>
 
 			<div className="text-strong">Strong text</div>
-			<div className="text-default">default text</div>
+			<div className="text-body">default text</div>
 			<div className="text-muted">Muted text</div>
 			<div className="text-placeholder">Placeholder text</div>
 		</div>
