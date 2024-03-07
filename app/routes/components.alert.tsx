@@ -2,10 +2,10 @@ import { Alert, AlertContent, AlertDescription, AlertTitle } from "@/alert";
 import { code, CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/table";
 import { CheckCircle } from "@phosphor-icons/react/CheckCircle";
-import { Fire } from "@phosphor-icons/react/Fire";
 import { Info } from "@phosphor-icons/react/Info";
 import { Rocket } from "@phosphor-icons/react/Rocket";
 import { Warning } from "@phosphor-icons/react/Warning";
+import { WarningDiamond } from "@phosphor-icons/react/WarningDiamond";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 
@@ -36,7 +36,7 @@ export default function Page() {
 					</AlertContent>
 				</Alert>
 				<Alert priority="danger">
-					<Fire className="size-5" />
+					<Warning className="size-5" />
 					<AlertContent>
 						<AlertTitle>Danger</AlertTitle>
 						<AlertDescription>This is a danger alert.</AlertDescription>
@@ -57,7 +57,7 @@ export default function Page() {
 					</AlertContent>
 				</Alert>
 				<Alert priority="warning">
-					<Warning className="size-5" />
+					<WarningDiamond className="size-5" />
 					<AlertContent>
 						<AlertTitle>Warning</AlertTitle>
 						<AlertDescription>This is a warning alert.</AlertDescription>
@@ -71,35 +71,35 @@ export default function Page() {
 						import { Alert, AlertContent, AlertDescription, AlertTitle } from "@ngrok/mantle";
 
 						<Alert>
-							<Rocket className="h-6 w-6" />
+							<Rocket className="size-5" />
 							<AlertContent>
 								<AlertTitle>Default</AlertTitle>
 								<AlertDescription>This is a default alert.</AlertDescription>
 							</AlertContent>
 						</Alert>
 						<Alert priority="danger">
-							<Fire className="h-6 w-6" />
+							<Warning className="size-5" />
 							<AlertContent>
 								<AlertTitle>Danger</AlertTitle>
 								<AlertDescription>This is a danger alert.</AlertDescription>
 							</AlertContent>
 						</Alert>
 						<Alert priority="info">
-							<Info className="h-6 w-6" />
+							<Info className="size-5" />
 							<AlertContent>
 								<AlertTitle>Info</AlertTitle>
 								<AlertDescription>This is an info alert.</AlertDescription>
 							</AlertContent>
 						</Alert>
 						<Alert priority="success">
-							<CheckCircle className="h-6 w-6" />
+							<CheckCircle className="size-5" />
 							<AlertContent>
 								<AlertTitle>Success</AlertTitle>
 								<AlertDescription>This is a success alert.</AlertDescription>
 							</AlertContent>
 						</Alert>
 						<Alert priority="warning">
-							<Warning className="h-6 w-6" />
+							<WarningDiamond className="size-5" />
 							<AlertContent>
 								<AlertTitle>Warning</AlertTitle>
 								<AlertDescription>This is a warning alert.</AlertDescription>
