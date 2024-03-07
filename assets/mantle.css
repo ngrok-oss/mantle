@@ -52,7 +52,7 @@
 	--ngrok-grayple-900: 234 17% 18%;
 	--ngrok-grayple-950: 235 20% 14%;
 
-	--ngrok-black:  238 22% 10%;
+	--ngrok-black: 238 22% 10%;
 
 	/**
 	* Tailwind palette.
@@ -840,8 +840,8 @@
 
 	--bg-base: var(--white);
 	--bg-card: var(--neutral-50);
+	--bg-dialog: var(--neutral-50);
 	--bg-popover: var(--neutral-100);
-	--bg-dialog: var(--neutral-100);
 
 	--bg-base-hover: var(--neutral-500) / 0.15;
 	--bg-card-hover: var(--neutral-500) / 0.15;
