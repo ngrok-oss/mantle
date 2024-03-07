@@ -1,7 +1,10 @@
 import { Button } from "@/button";
 import { code, CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/table";
+import { Fire } from "@phosphor-icons/react/Fire";
+import { Lightning } from "@phosphor-icons/react/Lightning";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
+import { Link } from "@remix-run/react";
 import { Example } from "~/components/example";
 
 export const meta: MetaFunction = () => {
@@ -26,10 +29,45 @@ export default function Page() {
 				<div>
 					<p className="mb-2 text-center font-mono text-xs">Default</p>
 					<div className="flex items-center gap-2">
-						<Button>Ghost</Button>
-						<Button appearance="filled">Filled</Button>
-						<Button appearance="outlined">Outlined</Button>
-						<Button appearance="link">Link</Button>
+						<Button icon={<Fire weight="fill" />} iconPlacement="right" onClick={() => console.log("on click ghosty")}>
+							Ghost
+						</Button>
+						<form
+							onSubmit={(event) => {
+								event.preventDefault();
+								console.log("submitting form");
+							}}
+						>
+							<Button
+								icon={<Fire weight="fill" />}
+								iconPlacement="right"
+								state="pending"
+								type="submit"
+								onClick={() => {
+									console.log("on click pending");
+								}}
+							>
+								Ghost
+							</Button>
+						</form>
+						<Button appearance="filled" icon={<Lightning weight="fill" />}>
+							Filled
+						</Button>
+						<Button appearance="filled" icon={<Lightning weight="fill" />} state="pending">
+							Filled
+						</Button>
+						<Button appearance="filled" icon={<Lightning weight="fill" />} iconPlacement="right" asChild>
+							<a href="#button">anchor as child!</a>
+						</Button>
+						<Button appearance="filled" icon={<Lightning weight="fill" />} iconPlacement="right" asChild>
+							<Link to="/base/typography">Typography!</Link>
+						</Button>
+						<Button appearance="outlined" state="pending">
+							Outlined
+						</Button>
+						<Button appearance="link" icon={<Fire weight="fill" />}>
+							Link
+						</Button>
 					</div>
 				</div>
 
