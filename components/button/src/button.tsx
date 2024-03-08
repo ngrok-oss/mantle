@@ -8,6 +8,8 @@ import {
 	forwardRef,
 	HTMLAttributes,
 	isValidElement,
+	MouseEvent,
+	PropsWithChildren,
 	ReactNode,
 	type ButtonHTMLAttributes,
 } from "react";
@@ -16,47 +18,50 @@ import type { WithAsChild } from "../../types/src/as-child";
 import type { VariantProps } from "../../types/src/variant-props";
 
 const buttonVariants = cva(
-	"group items-center justify-center whitespace-nowrap rounded-md [&>*]:focus-within:outline-none focus-within:outline-none group-focus-visible:ring-4 focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50 aria-disabled:opacity-50 sm:text-sm gap-1",
+	"items-center justify-center gap-1.5 whitespace-nowrap rounded-md focus-within:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50 aria-disabled:opacity-50 sm:text-sm [&>*]:focus-within:outline-none",
 	{
 		variants: {
 			appearance: {
-				outlined:
-					"inline-flex h-11 border border-accent-600 hover:border-accent-700 active:border-accent-700 bg-form px-3 font-medium text-accent-600 hover:text-accent-700 active:text-accent-700 hover:bg-accent-500/10 focus-visible:ring-focus-accent active:bg-accent-500/15 sm:h-9",
 				filled:
 					"inline-flex h-11 border border-transparent bg-filled-accent px-3 font-medium text-on-filled hover:bg-filled-accent-hover focus-visible:border-accent-600 focus-visible:ring-focus-accent active:bg-filled-accent-active sm:h-9",
 				ghost:
-					"inline-flex h-11 border border-transparent px-3 font-medium text-accent-600 hover:text-accent-700 active:text-accent-700 hover:bg-accent-500/10 focus-visible:ring-focus-accent active:bg-accent-500/15 sm:h-9",
+					"inline-flex h-11 border border-transparent px-3 font-medium text-accent-600 hover:bg-accent-500/10 hover:text-accent-700 focus-visible:ring-focus-accent active:bg-accent-500/15 active:text-accent-700 sm:h-9",
+				outlined:
+					"inline-flex h-11 border border-accent-600 bg-form px-3 font-medium text-accent-600 hover:border-accent-700 hover:bg-accent-500/10 hover:text-accent-700 focus-visible:ring-focus-accent active:border-accent-700 active:bg-accent-500/15 active:text-accent-700 sm:h-9",
 				link: "group inline cursor-pointer border-transparent text-accent-600 hover:underline focus-visible:ring-focus-accent",
 			},
 			priority: {
-				default: "",
 				danger: "",
+				default: "",
 				neutral: "",
 			},
 			state: {
-				pending: "opacity-50",
 				idle: "",
+				pending: "opacity-50",
 			},
 			iconPlacement: {
-				left: "pl-2.5",
-				right: "pr-2.5",
+				end: "pe-2.5",
+				start: "ps-2.5",
 			},
 		},
 		defaultVariants: {
-			appearance: "ghost",
+			appearance: "outlined",
+			priority: "default",
+			state: "idle",
+			iconPlacement: "start",
 		},
 		compoundVariants: [
 			{
 				appearance: "ghost",
 				priority: "danger",
 				class:
-					"border-transparent text-danger-600 hover:text-danger-700 active:text-danger-700 hover:bg-danger-500/10 focus-visible:ring-focus-danger active:bg-danger-500/15",
+					"border-transparent text-danger-600 hover:bg-danger-500/10 hover:text-danger-700 focus-visible:ring-focus-danger active:bg-danger-500/15 active:text-danger-700",
 			},
 			{
 				appearance: "outlined",
 				priority: "danger",
 				class:
-					"border-danger-600 hover:border-danger-700 active:border-danger-700 bg-form text-danger-600 hover:text-danger-700 active:text-danger-700 hover:bg-danger-500/10 focus-visible:ring-focus-danger active:bg-danger-500/15",
+					"border-danger-600 bg-form text-danger-600 hover:border-danger-700 hover:bg-danger-500/10 hover:text-danger-700 focus-visible:ring-focus-danger active:border-danger-700 active:bg-danger-500/15 active:text-danger-700",
 			},
 			{
 				appearance: "filled",
@@ -73,13 +78,13 @@ const buttonVariants = cva(
 				appearance: "ghost",
 				priority: "neutral",
 				class:
-					"text-strong border-transparent hover:text-strong hover:bg-neutral-500/10 active:text-strong focus-visible:ring-focus-accent active:bg-neutral-500/15",
+					"border-transparent text-strong hover:bg-neutral-500/10 hover:text-strong focus-visible:ring-focus-accent active:bg-neutral-500/15 active:text-strong",
 			},
 			{
 				appearance: "outlined",
 				priority: "neutral",
 				class:
-					"text-strong border-form bg-form hover:bg-form-hover focus-visible:border-accent-600 focus-visible:active:border-accent-600 hover:border-neutral-400 active:border-neutral-400 hover:text-strong active:text-strong focus-visible:ring-focus-accent active:bg-neutral-500/10",
+					"border-form bg-form text-strong hover:border-neutral-400 hover:bg-form-hover hover:text-strong focus-visible:border-accent-600 focus-visible:ring-focus-accent active:border-neutral-400 active:bg-neutral-500/10 active:text-strong focus-visible:active:border-accent-600",
 			},
 			{
 				appearance: "filled",
@@ -118,85 +123,56 @@ export type ButtonProps = WithAsChild &
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 	(
 		{
-			appearance = "ghost",
+			appearance = "outlined",
 			asChild = false,
 			children,
-			className,
+			className: propClassName,
 			icon: propIcon,
-			iconPlacement = "left",
+			iconPlacement = "start",
 			priority = "default",
 			state = "idle",
 			...props
 		},
 		ref,
 	) => {
-		const Comp = asChild ? Slot : "button";
 		const icon = state === "pending" ? <CircleNotch className="animate-spin" /> : propIcon;
+		const className = cx(
+			buttonVariants({ appearance, priority, state, iconPlacement: icon ? iconPlacement : undefined }),
+			propClassName,
+		);
+		const onClickCapture = (event: MouseEvent<HTMLButtonElement>) => {
+			if (state === "pending") {
+				event.preventDefault();
+				event.stopPropagation();
+			}
+			props.onClickCapture?.(event);
+		};
 
 		if (asChild) {
-			const singleChild = Children.only(children);
-
-			// Access the child's children
-			const grandchildren = isValidElement(singleChild) ? singleChild.props?.children : null;
+			const singleChild = Children.only(children) as ReactNode;
+			const isValidChild = isValidElement(singleChild);
+			// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+			const grandchildren = (isValidChild ? singleChild.props?.children : null) as ReactNode;
 
 			return (
-				<Comp
-					onClickCapture={(event) => {
-						if (state === "pending") {
-							event.preventDefault();
-							event.stopPropagation();
-						}
-						props.onClickCapture?.(event);
-					}}
-					className={cx(
-						buttonVariants({ appearance, priority, state, iconPlacement: icon ? iconPlacement : undefined, className }),
-					)}
-					ref={ref}
-					{...props}
-				>
-					{cloneElement(singleChild, {
-						children: (
-							<span
-								className={clsx(
-									"inline-flex items-center gap-1.5 focus-within:outline-none focus-visible:outline-none",
-									appearance === "link" && "group-hover:underline",
-								)}
-							>
-								{icon && iconPlacement === "left" && <ButtonIcon>{icon}</ButtonIcon>}
+				<Slot data-state={state} onClickCapture={onClickCapture} className={className} ref={ref} {...props}>
+					{isValidChild &&
+						cloneElement(
+							singleChild,
+							{},
+							<InnerContent appearance={appearance} icon={icon} iconPlacement={iconPlacement}>
 								{grandchildren}
-								{icon && iconPlacement === "right" && <ButtonIcon>{icon}</ButtonIcon>}
-							</span>
-						),
-					})}
-				</Comp>
+							</InnerContent>,
+						)}
+				</Slot>
 			);
 		}
 
 		return (
-			<button
-				onClickCapture={(event) => {
-					if (state === "pending") {
-						event.preventDefault();
-						event.stopPropagation();
-					}
-					props.onClickCapture?.(event);
-				}}
-				className={cx(
-					buttonVariants({ appearance, priority, state, iconPlacement: icon ? iconPlacement : undefined, className }),
-				)}
-				ref={ref}
-				{...props}
-			>
-				<span
-					className={clsx(
-						"inline-flex items-center gap-1.5 focus-within:outline-none focus-visible:outline-none",
-						appearance === "link" && "group-hover:underline",
-					)}
-				>
-					{icon && iconPlacement === "left" && <ButtonIcon>{icon}</ButtonIcon>}
+			<button data-state={state} onClickCapture={onClickCapture} className={className} ref={ref} {...props}>
+				<InnerContent appearance={appearance} icon={icon} iconPlacement={iconPlacement}>
 					{children}
-					{icon && iconPlacement === "right" && <ButtonIcon>{icon}</ButtonIcon>}
-				</span>
+				</InnerContent>
 			</button>
 		);
 	},
@@ -207,6 +183,20 @@ export { Button, buttonVariants };
 
 const ButtonIcon = ({ children, className, ...props }: HTMLAttributes<HTMLSpanElement>) => (
 	<span className={cx("[&>svg]:size-5", className)} {...props}>
+		{children}
+	</span>
+);
+
+type InnerContentProps = PropsWithChildren & Pick<ButtonProps, "appearance" | "icon" | "iconPlacement">;
+
+const InnerContent = ({ appearance, children, icon, iconPlacement }: InnerContentProps) => (
+	<span
+		className={clsx(
+			"inline-flex items-center gap-1.5 focus-within:outline-none focus-visible:outline-none",
+			appearance === "link" && "group-hover:underline",
+		)}
+	>
+		{icon && <ButtonIcon className={clsx(iconPlacement === "end" && "order-last")}>{icon}</ButtonIcon>}
 		{children}
 	</span>
 );

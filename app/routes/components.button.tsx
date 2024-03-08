@@ -1,11 +1,20 @@
 import { Button } from "@/button";
 import { code, CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/table";
+import { InlineCode } from "@/inline-code";
 import { Fire } from "@phosphor-icons/react/Fire";
-import { Lightning } from "@phosphor-icons/react/Lightning";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
-import { Link } from "@remix-run/react";
 import { Example } from "~/components/example";
+import {
+	BooleanPropType,
+	PropDefaultValueCell,
+	PropDescriptionCell,
+	PropNameCell,
+	PropRow,
+	PropsTable,
+	PropTypeCell,
+	ReactNodePropType,
+	StringPropType,
+} from "~/components/props-table";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -22,152 +31,326 @@ export const headers: HeadersFunction = () => {
 
 export default function Page() {
 	return (
-		<div>
-			<h1 className="text-5xl font-medium">Button</h1>
-			<p className="mt-4 text-xl text-body">Initiates an action, such as completing a task or submitting information</p>
-			<Example className="mt-4 flex flex-wrap gap-6">
+		<div className="space-y-16">
+			<section className="mb-4 space-y-4">
+				<h1 id="button" className="text-5xl font-medium">
+					Button
+				</h1>
+				<p className="text-xl text-body">Initiates an action, such as completing a task or submitting information</p>
 				<div>
-					<p className="mb-2 text-center font-mono text-xs">Default</p>
-					<div className="flex items-center gap-2">
-						<Button icon={<Fire weight="fill" />} iconPlacement="right" onClick={() => console.log("on click ghosty")}>
-							Ghost
-						</Button>
-						<form
-							onSubmit={(event) => {
-								event.preventDefault();
-								console.log("submitting form");
-							}}
-						>
-							<Button
-								icon={<Fire weight="fill" />}
-								iconPlacement="right"
-								state="pending"
-								type="submit"
-								onClick={() => {
-									console.log("on click pending");
-								}}
-							>
-								Ghost
+					<Example className="flex-col gap-6">
+						<div className="mt-4 flex flex-wrap gap-6">
+							<div>
+								<p className="mb-2 text-center font-mono text-xs">Default</p>
+								<div className="flex items-center gap-2">
+									<Button appearance="ghost" priority="default">
+										Ghost
+									</Button>
+									<Button appearance="ghost" priority="default" iconPlacement="end">
+										<span>Ghost</span> Button
+									</Button>
+									<Button appearance="filled" priority="default">
+										Filled
+									</Button>
+									<Button appearance="outlined" priority="default">
+										Outlined
+									</Button>
+									<Button appearance="link" priority="default">
+										Link
+									</Button>
+								</div>
+							</div>
+							<div>
+								<p className="mb-2 text-center font-mono text-xs">Neutral</p>
+								<div className="flex items-center gap-2">
+									<Button appearance="ghost" priority="neutral">
+										Ghost
+									</Button>
+									<Button appearance="filled" priority="neutral">
+										Filled
+									</Button>
+									<Button appearance="outlined" priority="neutral">
+										Outlined
+									</Button>
+									<Button appearance="link" priority="neutral">
+										Link
+									</Button>
+								</div>
+							</div>
+							<div>
+								<p className="mb-2 text-center font-mono text-xs">Danger</p>
+								<div className="flex items-center gap-2">
+									<Button appearance="ghost" priority="danger">
+										Ghost
+									</Button>
+									<Button appearance="filled" priority="danger">
+										Filled
+									</Button>
+									<Button appearance="outlined" priority="danger">
+										Outlined
+									</Button>
+									<Button appearance="link" priority="danger">
+										Link
+									</Button>
+								</div>
+							</div>
+						</div>
+					</Example>
+					<CodeBlock className="rounded-b-lg rounded-t-none">
+						<CodeBlockBody>
+							<CodeBlockCopyButton />
+							<CodeBlockCode language="tsx">
+								{code`
+									import { Button } from "@ngrok/mantle";
+
+									<Button>Outlined</Button>
+									<Button appearance="filled">Filled</Button>
+									<Button appearance="ghost">Ghost</Button>
+									<Button appearance="link">Link</Button>
+
+									<Button priority="neutral">Outlined</Button>
+									<Button priority="neutral" appearance="filled">Filled</Button>
+									<Button priority="neutral" appearance="ghost">Ghost</Button>
+									<Button priority="neutral" appearance="link">Link</Button>
+
+									<Button priority="danger">Outlined</Button>
+									<Button priority="danger" appearance="filled">Filled</Button>
+									<Button priority="danger" appearance="ghost">Ghost</Button>
+									<Button priority="danger" appearance="link">Link</Button>
+								`}
+							</CodeBlockCode>
+						</CodeBlockBody>
+					</CodeBlock>
+				</div>
+			</section>
+
+			<section className="mb-4 space-y-4">
+				<h2 id="example-icon" className="text-3xl font-medium">
+					Icon and Positioning
+				</h2>
+				<p className="text-xl text-body">
+					Use the <InlineCode>icon</InlineCode> prop to add an icon to the button. By default, it will render on the
+					logical start side of the button. Use the <InlineCode>iconPlacement</InlineCode> prop to change the side the
+					icon is rendered on.
+				</p>
+				<div>
+					<Example>
+						<div className="flex items-center gap-2">
+							<Button icon={<Fire weight="fill" />}>Icon Start</Button>
+							<Button icon={<Fire weight="fill" />} iconPlacement="end">
+								Icon End
 							</Button>
-						</form>
-						<Button appearance="filled" icon={<Lightning weight="fill" />}>
-							Filled
-						</Button>
-						<Button appearance="filled" icon={<Lightning weight="fill" />} state="pending">
-							Filled
-						</Button>
-						<Button appearance="filled" icon={<Lightning weight="fill" />} iconPlacement="right" asChild>
-							<a href="#button">anchor as child!</a>
-						</Button>
-						<Button appearance="filled" icon={<Lightning weight="fill" />} iconPlacement="right" asChild>
-							<Link to="/base/typography">Typography!</Link>
-						</Button>
-						<Button appearance="outlined" state="pending">
-							Outlined
-						</Button>
-						<Button appearance="link" icon={<Fire weight="fill" />}>
-							Link
-						</Button>
-					</div>
-				</div>
+						</div>
+					</Example>
+					<CodeBlock className="rounded-b-lg rounded-t-none">
+						<CodeBlockBody>
+							<CodeBlockCopyButton />
+							<CodeBlockCode language="tsx">
+								{code`
+									import { Button } from "@ngrok/mantle";
+									import { Fire } from "@phosphor-icons/react/Fire";
 
+									<Button icon={<Fire weight="fill" />}>Icon Start</Button>
+									<Button icon={<Fire weight="fill" />} iconPlacement="end">
+										Icon End
+									</Button>
+								`}
+							</CodeBlockCode>
+						</CodeBlockBody>
+					</CodeBlock>
+				</div>
+			</section>
+
+			<section className="mb-4 space-y-4">
+				<h2 id="example-state" className="text-3xl font-medium">
+					State: Idle and Pending
+				</h2>
+				<p className="text-xl text-body">
+					Use <InlineCode>state</InlineCode> to indicate if the button is in a loading state. By default, the button is
+					in an <InlineCode>idle</InlineCode> state. If you set the state to <InlineCode>pending</InlineCode>, the
+					button will render a spinner and disable user interaction. If an icon is given, it will be replaced with the
+					spinner. If no icon is given, the spinner will render on the side defined by{" "}
+					<InlineCode>iconPlacement</InlineCode>.
+				</p>
 				<div>
-					<p className="mb-2 text-center font-mono text-xs">Neutral</p>
-					<div className="flex items-center gap-2">
-						<Button priority="neutral">Ghost</Button>
-						<Button priority="neutral" appearance="filled">
-							Filled
-						</Button>
-						<Button priority="neutral" appearance="outlined">
-							Outlined
-						</Button>
-						<Button priority="neutral" appearance="link">
-							Link
-						</Button>
-					</div>
+					<Example className="flex-col gap-4">
+						<div>
+							<p className="mb-2 text-center font-mono text-xs">Idle</p>
+							<div className="flex items-center gap-2">
+								<Button>No Icon + Idle</Button>
+								<Button icon={<Fire weight="fill" />}>Icon Start + Idle</Button>
+								<Button icon={<Fire weight="fill" />} iconPlacement="end">
+									Icon End + Idle
+								</Button>
+							</div>
+						</div>
+						<div>
+							<p className="mb-2 text-center font-mono text-xs">Pending</p>
+							<div className="flex items-center gap-2">
+								<Button state="pending">No Icon + Pending</Button>
+								<Button icon={<Fire weight="fill" />} state="pending">
+									Icon Start + Pending
+								</Button>
+								<Button icon={<Fire weight="fill" />} iconPlacement="end" state="pending">
+									Icon End + Pending
+								</Button>
+							</div>
+						</div>
+					</Example>
+					<CodeBlock className="rounded-b-lg rounded-t-none">
+						<CodeBlockBody>
+							<CodeBlockCopyButton />
+							<CodeBlockCode language="tsx">
+								{code`
+									import { Button } from "@ngrok/mantle";
+									import { Fire } from "@phosphor-icons/react/Fire";
+
+									<Button>No Icon + Idle</Button>
+									<Button icon={<Fire weight="fill" />}>Icon Start + Idle</Button>
+									<Button icon={<Fire weight="fill" />} iconPlacement="end">
+										Icon End + Idle
+									</Button>
+									<Button state="pending">No Icon + Pending</Button>
+									<Button icon={<Fire weight="fill" />} state="pending">
+										Icon Start + Pending
+									</Button>
+									<Button icon={<Fire weight="fill" />} iconPlacement="end" state="pending">
+										Icon End + Pending
+									</Button>
+								`}
+							</CodeBlockCode>
+						</CodeBlockBody>
+					</CodeBlock>
 				</div>
+			</section>
 
-				<div>
-					<p className="mb-2 text-center font-mono text-xs">Danger</p>
-					<div className="flex items-center gap-2">
-						<Button priority="danger">Ghost</Button>
-						<Button priority="danger" appearance="filled">
-							Filled
-						</Button>
-						<Button priority="danger" appearance="outlined">
-							Outlined
-						</Button>
-						<Button priority="danger" appearance="link">
-							Link
-						</Button>
-					</div>
-				</div>
-			</Example>
-			<CodeBlock className="rounded-b-lg rounded-t-none">
-				<CodeBlockBody>
-					<CodeBlockCopyButton />
-					<CodeBlockCode language="tsx">{code`
-						import { Button } from "@ngrok/mantle";
-
-						<Button>Ghost</Button>
-						<Button appearance="filled">Filled</Button>
-						<Button appearance="outlined">Outlined</Button>
-						<Button appearance="link">Link</Button>
-
-						<Button priority="neutral">Ghost</Button>
-						<Button priority="neutral" appearance="filled">Filled</Button>
-						<Button priority="neutral" appearance="outlined">Outlined</Button>
-						<Button priority="neutral" appearance="link">Link</Button>
-
-						<Button priority="danger">Ghost</Button>
-						<Button priority="danger" appearance="filled">Filled</Button>
-						<Button priority="danger" appearance="outlined">Outlined</Button>
-						<Button priority="danger" appearance="link">Link</Button>
-					`}</CodeBlockCode>
-				</CodeBlockBody>
-			</CodeBlock>
-			<h2 className="mt-16 text-3xl font-medium">API Reference</h2>
-			<div className="z-10 mt-4 overflow-hidden rounded-lg border border-gray-300">
-				<Table>
-					<TableHeader>
-						<TableRow>
-							<TableHead>Prop</TableHead>
-							<TableHead>Type</TableHead>
-							<TableHead>Options</TableHead>
-							<TableHead>Default</TableHead>
-						</TableRow>
-					</TableHeader>
-					<TableBody className="font-mono text-xs text-body">
-						<TableRow>
-							<TableCell className="align-top font-medium">appearance</TableCell>
-							<TableCell className="align-top">enum</TableCell>
-							<TableCell className="space-y-2 align-top">
-								<p>ghost</p>
-								<p>filled</p>
-								<p>outlined</p>
-								<p>link</p>
-							</TableCell>
-							<TableCell className="align-top">ghost</TableCell>
-						</TableRow>
-						<TableRow>
-							<TableCell className="align-top font-medium">priority</TableCell>
-							<TableCell className="align-top">enum</TableCell>
-							<TableCell className="space-y-2 align-top">
-								<p>default</p>
-								<p>danger</p>
-								<p>neutral</p>
-							</TableCell>
-							<TableCell className="align-top">default</TableCell>
-						</TableRow>
-						<TableRow>
-							<TableCell className="font-medium">asChild</TableCell>
-							<TableCell>boolean</TableCell>
-							<TableCell></TableCell>
-							<TableCell>false</TableCell>
-						</TableRow>
-					</TableBody>
-				</Table>
-			</div>
+			<section className="mt-16">
+				<h2 id="api" className="mb-4 text-3xl font-medium">
+					API Reference
+				</h2>
+				<PropsTable>
+					<PropRow>
+						<PropNameCell name="appearance" optional />
+						<PropTypeCell>
+							<ul>
+								<li>
+									<StringPropType value="ghost" />
+								</li>
+								<li>
+									<StringPropType value="filled" />
+								</li>
+								<li>
+									<StringPropType value="outlined" />
+								</li>
+								<li>
+									<StringPropType value="link" />
+								</li>
+							</ul>
+						</PropTypeCell>
+						<PropDefaultValueCell>
+							<StringPropType value="ghost" />
+						</PropDefaultValueCell>
+						<PropDescriptionCell>
+							<p>
+								Defines the visual style of the <InlineCode>Button</InlineCode>.
+							</p>
+						</PropDescriptionCell>
+					</PropRow>
+					<PropRow>
+						<PropNameCell name="asChild" optional />
+						<PropTypeCell>
+							<BooleanPropType />
+						</PropTypeCell>
+						<PropDefaultValueCell>
+							<BooleanPropType value={false} />
+						</PropDefaultValueCell>
+						<PropDescriptionCell>
+							<p>
+								Use the <InlineCode>asChild</InlineCode> prop to compose Radix’s functionality onto alternative *
+								element types or your own React components.
+							</p>
+						</PropDescriptionCell>
+					</PropRow>
+					<PropRow>
+						<PropNameCell name="icon" optional />
+						<PropTypeCell>
+							<ReactNodePropType />
+						</PropTypeCell>
+						<PropDefaultValueCell />
+						<PropDescriptionCell>An icon to render inside the button.</PropDescriptionCell>
+					</PropRow>
+					<PropRow>
+						<PropNameCell name="iconPlacement" optional />
+						<PropTypeCell>
+							<ul>
+								<li>
+									<StringPropType value="start" />
+								</li>
+								<li>
+									<StringPropType value="end" />
+								</li>
+							</ul>
+						</PropTypeCell>
+						<PropDefaultValueCell>
+							<StringPropType value="start" />
+						</PropDefaultValueCell>
+						<PropDescriptionCell>
+							<p>
+								The side that the icon will render on, if given. If <InlineCode>state="pending"</InlineCode>, the
+								loading icon will also render on this side.
+							</p>
+						</PropDescriptionCell>
+					</PropRow>
+					<PropRow>
+						<PropNameCell name="priority" optional />
+						<PropTypeCell>
+							<ul>
+								<li>
+									<StringPropType value="default" />
+								</li>
+								<li>
+									<StringPropType value="danger" />
+								</li>
+								<li>
+									<StringPropType value="neutral" />
+								</li>
+							</ul>
+						</PropTypeCell>
+						<PropDefaultValueCell>
+							<StringPropType value="default" />
+						</PropDefaultValueCell>
+						<PropDescriptionCell>
+							<p>
+								Indicates the importance or impact level of the button, affecting its color and potentially its styling
+								to communicate its purpose to the user
+							</p>
+						</PropDescriptionCell>
+					</PropRow>
+					<PropRow>
+						<PropNameCell name="state" optional />
+						<PropTypeCell>
+							<ul>
+								<li>
+									<StringPropType value="idle" />
+								</li>
+								<li>
+									<StringPropType value="pending" />
+								</li>
+							</ul>
+						</PropTypeCell>
+						<PropDefaultValueCell>
+							<StringPropType value="idle" />
+						</PropDefaultValueCell>
+						<PropDescriptionCell>
+							<p>
+								The state of the button. If the button should present a "loading state", use{" "}
+								<InlineCode>pending</InlineCode>. Setting the state to <InlineCode>pending</InlineCode> will replace any
+								icon with a spinner, or add one if an icon wasn't given.
+							</p>
+						</PropDescriptionCell>
+					</PropRow>
+				</PropsTable>
+			</section>
 		</div>
 	);
 }

@@ -1,4 +1,5 @@
 import { PreventWrongThemeFlash, ThemeProvider } from "@/theme-provider";
+import { TooltipProvider } from "@/tooltip";
 import { cssBundleHref } from "@remix-run/css-bundle";
 import type { LinksFunction } from "@remix-run/node";
 import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
@@ -26,9 +27,11 @@ export default function App() {
 			</head>
 			<body className="h-full min-h-full overflow-y-scroll bg-base">
 				<ThemeProvider>
-					<Layout>
-						<Outlet />
-					</Layout>
+					<TooltipProvider>
+						<Layout>
+							<Outlet />
+						</Layout>
+					</TooltipProvider>
 				</ThemeProvider>
 				<ScrollRestoration />
 				<Scripts />
