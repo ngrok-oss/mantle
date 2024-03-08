@@ -584,17 +584,17 @@
 
 	/* theme tokens */
 
-	--bg-filled-neutral: var(--neutral-500);
-	--bg-filled-accent: var(--accent-500);
-	--bg-filled-danger: var(--danger-500);
-	--bg-filled-warning: var(--warning-500);
-	--bg-filled-success: var(--success-500);
+	--bg-filled-neutral: var(--neutral-600);
+	--bg-filled-accent: var(--accent-600);
+	--bg-filled-danger: var(--danger-600);
+	--bg-filled-warning: var(--warning-600);
+	--bg-filled-success: var(--success-600);
 
-	--bg-filled-neutral-hover: var(--neutral-600);
-	--bg-filled-accent-hover: var(--accent-600);
-	--bg-filled-danger-hover: var(--danger-600);
-	--bg-filled-warning-hover: var(--warning-600);
-	--bg-filled-success-hover: var(--success-600);
+	--bg-filled-neutral-hover: var(--neutral-500);
+	--bg-filled-accent-hover: var(--accent-500);
+	--bg-filled-danger-hover: var(--danger-500);
+	--bg-filled-warning-hover: var(--warning-500);
+	--bg-filled-success-hover: var(--success-500);
 
 	--bg-filled-neutral-active: var(--neutral-700);
 	--bg-filled-accent-active: var(--accent-700);
@@ -880,23 +880,23 @@
 
 	/* theme tokens */
 
-	--bg-neutral: var(--neutral-500);
-	--bg-accent: var(--accent-500);
-	--bg-danger: var(--danger-500);
-	--bg-warning: var(--warning-500);
-	--bg-success: var(--success-500);
+	--bg-filled-neutral: var(--neutral-400);
+	--bg-filled-accent: var(--accent-400);
+	--bg-filled-danger: var(--danger-400);
+	--bg-filled-warning: var(--warning-400);
+	--bg-filled-success: var(--success-400);
 
-	--bg-filled-neutral-hover: var(--neutral-500) / 0.9;
-	--bg-filled-accent-hover: var(--accent-500) / 0.9;
-	--bg-filled-danger-hover: var(--danger-500) / 0.9;
-	--bg-filled-warning-hover: var(--warning-500) / 0.9;
-	--bg-filled-success-hover: var(--success-500) / 0.9;
+	--bg-filled-neutral-hover: var(--neutral-500);
+	--bg-filled-accent-hover: var(--accent-500);
+	--bg-filled-danger-hover: var(--danger-500);
+	--bg-filled-warning-hover: var(--warning-500);
+	--bg-filled-success-hover: var(--success-500);
 
-	--bg-filled-neutral-active: var(--neutral-500) / 0.8;
-	--bg-filled-accent-active: var(--accent-500) / 0.8;
-	--bg-filled-danger-active: var(--danger-500) / 0.8;
-	--bg-filled-warning-active: var(--warning-500) / 0.8;
-	--bg-filled-success-active: var(--success-500) / 0.8;
+	--bg-filled-neutral-active: var(--neutral-300);
+	--bg-filled-accent-active: var(--accent-300);
+	--bg-filled-danger-active: var(--danger-300);
+	--bg-filled-warning-active: var(--warning-300);
+	--bg-filled-success-active: var(--success-300);
 }
 
 :root.light-high-contrast {
