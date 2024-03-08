@@ -71,9 +71,9 @@ export default function Page() {
 								className={(isActive) =>
 									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
 								}
-								to=".#gray-branded"
+								to=".#neutral-branded"
 							>
-								Gray
+								Neutral
 							</HashNavLink>
 						</li>
 						<li>
@@ -81,9 +81,9 @@ export default function Page() {
 								className={(isActive) =>
 									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
 								}
-								to=".#blue-branded"
+								to=".#accent-branded"
 							>
-								Blue
+								Accent
 							</HashNavLink>
 						</li>
 						<li>
@@ -91,9 +91,9 @@ export default function Page() {
 								className={(isActive) =>
 									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
 								}
-								to=".#green-branded"
+								to=".#sreen-branded"
 							>
-								Green
+								Success
 							</HashNavLink>
 						</li>
 						<li>
@@ -101,9 +101,9 @@ export default function Page() {
 								className={(isActive) =>
 									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
 								}
-								to=".#red-branded"
+								to=".#danger-branded"
 							>
-								Red
+								Danger
 							</HashNavLink>
 						</li>
 						<li>
@@ -111,9 +111,9 @@ export default function Page() {
 								className={(isActive) =>
 									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
 								}
-								to=".#amber-branded"
+								to=".#warning-branded"
 							>
-								Amber
+								Warning
 							</HashNavLink>
 						</li>
 					</ul>
@@ -357,256 +357,256 @@ export default function Page() {
 					Branded Colors
 				</h2>
 				<p className="mt-3 text-body">
-					Mantle generally limits its color choices to the following branded colors for primary actions, and various
+					Mantle generally limits its color choices to the following functional colors for primary actions, and various
 					states like danger and warnings.
 				</p>
 
-				<h3 id="gray-branded" className="mt-8 text-xl font-medium">
-					Gray
+				<h3 id="neutral-branded" className="mt-8 text-xl font-medium">
+					Neutral
 				</h3>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-gray-950"></div>
+						<div className="h-10 w-full rounded bg-neutral-950"></div>
 						950
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-gray-900"></div>
+						<div className="h-10 w-full rounded bg-neutral-900"></div>
 						900
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-gray-800"></div>
+						<div className="h-10 w-full rounded bg-neutral-800"></div>
 						800
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-gray-700"></div>
+						<div className="h-10 w-full rounded bg-neutral-700"></div>
 						700
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-gray-600"></div>
+						<div className="h-10 w-full rounded bg-neutral-600"></div>
 						600
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-gray-500"></div>
+						<div className="h-10 w-full rounded bg-neutral-500"></div>
 						500
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-gray-400"></div>
+						<div className="h-10 w-full rounded bg-neutral-400"></div>
 						400
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-gray-300"></div>
+						<div className="h-10 w-full rounded bg-neutral-300"></div>
 						300
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-gray-200"></div>
+						<div className="h-10 w-full rounded bg-neutral-200"></div>
 						200
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-gray-100"></div>
+						<div className="h-10 w-full rounded bg-neutral-100"></div>
 						100
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-gray-50"></div>
+						<div className="h-10 w-full rounded bg-neutral-50"></div>
 						50
 					</div>
 				</div>
 
-				<h3 id="blue-branded" className="mt-8 text-xl font-medium">
-					Blue
+				<h3 id="accent-branded" className="mt-8 text-xl font-medium">
+					Accent
 				</h3>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-blue-950"></div>
+						<div className="h-10 w-full rounded bg-accent-950"></div>
 						950
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-blue-900"></div>
+						<div className="h-10 w-full rounded bg-accent-900"></div>
 						900
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-blue-800"></div>
+						<div className="h-10 w-full rounded bg-accent-800"></div>
 						800
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-blue-700"></div>
+						<div className="h-10 w-full rounded bg-accent-700"></div>
 						700
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-blue-600"></div>
+						<div className="h-10 w-full rounded bg-accent-600"></div>
 						600
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-blue-500"></div>
+						<div className="h-10 w-full rounded bg-accent-500"></div>
 						500
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-blue-400"></div>
+						<div className="h-10 w-full rounded bg-accent-400"></div>
 						400
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-blue-300"></div>
+						<div className="h-10 w-full rounded bg-accent-300"></div>
 						300
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-blue-200"></div>
+						<div className="h-10 w-full rounded bg-accent-200"></div>
 						200
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-blue-100"></div>
+						<div className="h-10 w-full rounded bg-accent-100"></div>
 						100
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-blue-50"></div>
+						<div className="h-10 w-full rounded bg-accent-50"></div>
 						50
 					</div>
 				</div>
 
-				<h3 id="green-branded" className="mt-8 flex items-center gap-2 text-xl font-medium">
-					Green
+				<h3 id="success-branded" className="mt-8 flex items-center gap-2 text-xl font-medium">
+					Success
 				</h3>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-green-950"></div>
+						<div className="h-10 w-full rounded bg-success-950"></div>
 						950
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-green-900"></div>
+						<div className="h-10 w-full rounded bg-success-900"></div>
 						900
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-green-800"></div>
+						<div className="h-10 w-full rounded bg-success-800"></div>
 						800
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-green-700"></div>
+						<div className="h-10 w-full rounded bg-success-700"></div>
 						700
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-green-600"></div>
+						<div className="h-10 w-full rounded bg-success-600"></div>
 						600
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-green-500"></div>
+						<div className="h-10 w-full rounded bg-success-500"></div>
 						500
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-green-400"></div>
+						<div className="h-10 w-full rounded bg-success-400"></div>
 						400
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-green-300"></div>
+						<div className="h-10 w-full rounded bg-success-300"></div>
 						300
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-green-200"></div>
+						<div className="h-10 w-full rounded bg-success-200"></div>
 						200
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-green-100"></div>
+						<div className="h-10 w-full rounded bg-success-100"></div>
 						100
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-green-50"></div>
+						<div className="h-10 w-full rounded bg-success-50"></div>
 						50
 					</div>
 				</div>
 
-				<h3 id="red-branded" className="mt-8 text-xl font-medium">
-					Red
+				<h3 id="danger-branded" className="mt-8 text-xl font-medium">
+					Danger
 				</h3>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-red-950"></div>
+						<div className="h-10 w-full rounded bg-danger-950"></div>
 						950
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-red-900"></div>
+						<div className="h-10 w-full rounded bg-danger-900"></div>
 						900
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-red-800"></div>
+						<div className="h-10 w-full rounded bg-danger-800"></div>
 						800
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-red-700"></div>
+						<div className="h-10 w-full rounded bg-danger-700"></div>
 						700
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-red-600"></div>
+						<div className="h-10 w-full rounded bg-danger-600"></div>
 						600
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-red-500"></div>
+						<div className="h-10 w-full rounded bg-danger-500"></div>
 						500
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-red-400"></div>
+						<div className="h-10 w-full rounded bg-danger-400"></div>
 						400
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-red-300"></div>
+						<div className="h-10 w-full rounded bg-danger-300"></div>
 						300
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-red-200"></div>
+						<div className="h-10 w-full rounded bg-danger-200"></div>
 						200
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-red-100"></div>
+						<div className="h-10 w-full rounded bg-danger-100"></div>
 						100
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-red-50"></div>
+						<div className="h-10 w-full rounded bg-danger-50"></div>
 						50
 					</div>
 				</div>
 
-				<h3 id="amber-branded" className="mt-8 text-xl font-medium">
-					Amber
+				<h3 id="warning-branded" className="mt-8 text-xl font-medium">
+					Warning
 				</h3>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-amber-950"></div>
+						<div className="h-10 w-full rounded bg-warning-950"></div>
 						950
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-amber-900"></div>
+						<div className="h-10 w-full rounded bg-warning-900"></div>
 						900
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-amber-800"></div>
+						<div className="h-10 w-full rounded bg-warning-800"></div>
 						800
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-amber-700"></div>
+						<div className="h-10 w-full rounded bg-warning-700"></div>
 						700
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-amber-600"></div>
+						<div className="h-10 w-full rounded bg-warning-600"></div>
 						600
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-amber-500"></div>
+						<div className="h-10 w-full rounded bg-warning-500"></div>
 						500
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-amber-400"></div>
+						<div className="h-10 w-full rounded bg-warning-400"></div>
 						400
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-amber-300"></div>
+						<div className="h-10 w-full rounded bg-warning-300"></div>
 						300
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-amber-200"></div>
+						<div className="h-10 w-full rounded bg-warning-200"></div>
 						200
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-amber-100"></div>
+						<div className="h-10 w-full rounded bg-warning-100"></div>
 						100
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-amber-50"></div>
+						<div className="h-10 w-full rounded bg-warning-50"></div>
 						50
 					</div>
 				</div>
@@ -616,7 +616,7 @@ export default function Page() {
 				</h2>
 				<p className="mt-3 text-body">
 					Mantle also supports the entirety of Tailwind&rsquo;s color palette in light, dark, and high contrast
-					variants. Howver, we&rsquo;ve left out the extended collection of Tailwind&rsquo;s grays eg. slate, zinc, etc.
+					variants. These are to be used when there is no functional meaning behind the color choice. However, we&rsquo;ve left out the extended collection of Tailwind&rsquo;s grays eg. slate, zinc, etc.
 					since we only want to use our own custom branded gray.
 				</p>
 				<h3 id="gray" className="mt-8 text-xl font-medium">
