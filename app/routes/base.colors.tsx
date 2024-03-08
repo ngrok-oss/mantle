@@ -91,7 +91,7 @@ export default function Page() {
 								className={(isActive) =>
 									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
 								}
-								to=".#sreen"
+								to=".#success"
 							>
 								Success
 							</HashNavLink>
