@@ -880,11 +880,11 @@
 
 	/* theme tokens */
 
-	--bg-neutral: var(--neutral-500);
-	--bg-accent: var(--accent-500);
-	--bg-danger: var(--danger-500);
-	--bg-warning: var(--warning-500);
-	--bg-success: var(--success-500);
+	--bg-filled-neutral: var(--neutral-500);
+	--bg-filled-accent: var(--accent-500);
+	--bg-filled-danger: var(--danger-500);
+	--bg-filled-warning: var(--warning-500);
+	--bg-filled-success: var(--success-500);
 
 	--bg-filled-neutral-hover: var(--neutral-500) / 0.9;
 	--bg-filled-accent-hover: var(--accent-500) / 0.9;
