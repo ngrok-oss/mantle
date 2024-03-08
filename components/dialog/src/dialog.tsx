@@ -56,12 +56,12 @@ const DialogContent = forwardRef<
 DialogContent.displayName = DialogPrimitive.Content.displayName;
 
 const DialogHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-	<div className={cx("flex shrink-0 flex-col gap-2", className)} {...props}></div>
+	<div className={cx("flex shrink-0 flex-col gap-2 text-strong", className)} {...props}></div>
 );
 DialogHeader.displayName = "DialogHeader";
 
 const DialogBody = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-	<div className={cx("my-6 flex-1", className)} {...props} />
+	<div className={cx("my-6 flex-1 text-body", className)} {...props} />
 );
 DialogBody.displayName = "DialogBody";
 
