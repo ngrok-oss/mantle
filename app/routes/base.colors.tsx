@@ -616,8 +616,9 @@ export default function Page() {
 				</h2>
 				<p className="mt-3 text-body">
 					Mantle also supports the entirety of Tailwind&rsquo;s color palette in light, dark, and high contrast
-					variants. These are to be used when there is no functional meaning behind the color choice. However, we&rsquo;ve left out the extended collection of Tailwind&rsquo;s grays eg. slate, zinc, etc.
-					since we only want to use our own custom branded gray.
+					variants. These are to be used when there is no functional meaning behind the color choice. However,
+					we&rsquo;ve left out the extended collection of Tailwind&rsquo;s grays eg. slate, zinc, etc. since we only
+					want to use our own custom branded gray.
 				</p>
 				<h3 id="gray" className="mt-8 text-xl font-medium">
 					Gray
