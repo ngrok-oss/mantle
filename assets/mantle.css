@@ -578,23 +578,23 @@
 	/* form tokens */
 
 	--bg-form: var(--white);
-	--bg-form-hover: var(--neutral-500) / 0.05;
-	--bg-form-active: var(--neutral-500) / 0.1;
+	--bg-form-hover: var(--neutral-50);
+	--bg-form-active: var(--neutral-100);
 	--border-form: var(--neutral-300);
 
 	/* theme tokens */
 
-	--bg-filled-neutral: var(--neutral-600);
-	--bg-filled-accent: var(--accent-600);
-	--bg-filled-danger: var(--danger-600);
-	--bg-filled-warning: var(--warning-600);
-	--bg-filled-success: var(--success-600);
+	--bg-filled-neutral: var(--neutral-500);
+	--bg-filled-accent: var(--accent-500);
+	--bg-filled-danger: var(--danger-500);
+	--bg-filled-warning: var(--warning-500);
+	--bg-filled-success: var(--success-500);
 
-	--bg-filled-neutral-hover: var(--neutral-500);
-	--bg-filled-accent-hover: var(--accent-500);
-	--bg-filled-danger-hover: var(--danger-500);
-	--bg-filled-warning-hover: var(--warning-500);
-	--bg-filled-success-hover: var(--success-500);
+	--bg-filled-neutral-hover: var(--neutral-600);
+	--bg-filled-accent-hover: var(--accent-600);
+	--bg-filled-danger-hover: var(--danger-600);
+	--bg-filled-warning-hover: var(--warning-600);
+	--bg-filled-success-hover: var(--success-600);
 
 	--bg-filled-neutral-active: var(--neutral-700);
 	--bg-filled-accent-active: var(--accent-700);
@@ -876,21 +876,23 @@
 	/* form tokens */
 
 	--bg-form: var(--neutral-50);
+	--bg-form-hover: var(--neutral-100);
+	--bg-form-active: var(--neutral-200);
 	--border-form: var(--neutral-300);
 
 	/* theme tokens */
 
-	--bg-filled-neutral: var(--neutral-400);
-	--bg-filled-accent: var(--accent-400);
-	--bg-filled-danger: var(--danger-400);
-	--bg-filled-warning: var(--warning-400);
-	--bg-filled-success: var(--success-400);
+	--bg-filled-neutral: var(--neutral-500);
+	--bg-filled-accent: var(--accent-500);
+	--bg-filled-danger: var(--danger-500);
+	--bg-filled-warning: var(--warning-500);
+	--bg-filled-success: var(--success-500);
 
-	--bg-filled-neutral-hover: var(--neutral-500);
-	--bg-filled-accent-hover: var(--accent-500);
-	--bg-filled-danger-hover: var(--danger-500);
-	--bg-filled-warning-hover: var(--warning-500);
-	--bg-filled-success-hover: var(--success-500);
+	--bg-filled-neutral-hover: var(--neutral-400);
+	--bg-filled-accent-hover: var(--accent-400);
+	--bg-filled-danger-hover: var(--danger-400);
+	--bg-filled-warning-hover: var(--warning-400);
+	--bg-filled-success-hover: var(--success-400);
 
 	--bg-filled-neutral-active: var(--neutral-300);
 	--bg-filled-accent-active: var(--accent-300);
