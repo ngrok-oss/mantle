@@ -38,61 +38,56 @@ export default function Page() {
 				</h1>
 				<p className="text-xl text-body">Initiates an action, such as completing a task or submitting information</p>
 				<div>
-					<Example className="flex-col gap-6">
-						<div className="mt-4 flex flex-wrap gap-6">
-							<div>
-								<p className="mb-2 text-center font-mono text-xs">Default</p>
-								<div className="flex items-center gap-2">
-									<Button appearance="ghost" priority="default">
-										Ghost
-									</Button>
-									<Button appearance="ghost" priority="default" iconPlacement="end">
-										<span>Ghost</span> Button
-									</Button>
-									<Button appearance="filled" priority="default">
-										Filled
-									</Button>
-									<Button appearance="outlined" priority="default">
-										Outlined
-									</Button>
-									<Button appearance="link" priority="default">
-										Link
-									</Button>
-								</div>
+					<Example className="mt-4 flex flex-wrap gap-6">
+						<div>
+							<p className="mb-2 text-center font-mono text-xs">Default</p>
+							<div className="flex items-center gap-2">
+								<Button appearance="ghost" priority="default">
+									Ghost
+								</Button>
+								<Button appearance="filled" priority="default">
+									Filled
+								</Button>
+								<Button appearance="outlined" priority="default">
+									Outlined
+								</Button>
+								<Button appearance="link" priority="default">
+									Link
+								</Button>
 							</div>
-							<div>
-								<p className="mb-2 text-center font-mono text-xs">Neutral</p>
-								<div className="flex items-center gap-2">
-									<Button appearance="ghost" priority="neutral">
-										Ghost
-									</Button>
-									<Button appearance="filled" priority="neutral">
-										Filled
-									</Button>
-									<Button appearance="outlined" priority="neutral">
-										Outlined
-									</Button>
-									<Button appearance="link" priority="neutral">
-										Link
-									</Button>
-								</div>
+						</div>
+						<div>
+							<p className="mb-2 text-center font-mono text-xs">Neutral</p>
+							<div className="flex items-center gap-2">
+								<Button appearance="ghost" priority="neutral">
+									Ghost
+								</Button>
+								<Button appearance="filled" priority="neutral">
+									Filled
+								</Button>
+								<Button appearance="outlined" priority="neutral">
+									Outlined
+								</Button>
+								<Button appearance="link" priority="neutral">
+									Link
+								</Button>
 							</div>
-							<div>
-								<p className="mb-2 text-center font-mono text-xs">Danger</p>
-								<div className="flex items-center gap-2">
-									<Button appearance="ghost" priority="danger">
-										Ghost
-									</Button>
-									<Button appearance="filled" priority="danger">
-										Filled
-									</Button>
-									<Button appearance="outlined" priority="danger">
-										Outlined
-									</Button>
-									<Button appearance="link" priority="danger">
-										Link
-									</Button>
-								</div>
+						</div>
+						<div>
+							<p className="mb-2 text-center font-mono text-xs">Danger</p>
+							<div className="flex items-center gap-2">
+								<Button appearance="ghost" priority="danger">
+									Ghost
+								</Button>
+								<Button appearance="filled" priority="danger">
+									Filled
+								</Button>
+								<Button appearance="outlined" priority="danger">
+									Outlined
+								</Button>
+								<Button appearance="link" priority="danger">
+									Link
+								</Button>
 							</div>
 						</div>
 					</Example>
