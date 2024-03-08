@@ -60,9 +60,9 @@ export default function Page() {
 							className={(isActive) =>
 								cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
 							}
-							to=".#branded-colors"
+							to=".#functional-colors"
 						>
-							Branded Colors
+							Functional Colors
 						</HashNavLink>
 					</li>
 					<ul className="ml-4 flex flex-col gap-2">
@@ -71,7 +71,7 @@ export default function Page() {
 								className={(isActive) =>
 									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
 								}
-								to=".#neutral-branded"
+								to=".#neutral"
 							>
 								Neutral
 							</HashNavLink>
@@ -81,7 +81,7 @@ export default function Page() {
 								className={(isActive) =>
 									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
 								}
-								to=".#accent-branded"
+								to=".#accent"
 							>
 								Accent
 							</HashNavLink>
@@ -91,7 +91,7 @@ export default function Page() {
 								className={(isActive) =>
 									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
 								}
-								to=".#sreen-branded"
+								to=".#sreen"
 							>
 								Success
 							</HashNavLink>
@@ -101,7 +101,7 @@ export default function Page() {
 								className={(isActive) =>
 									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
 								}
-								to=".#danger-branded"
+								to=".#danger"
 							>
 								Danger
 							</HashNavLink>
@@ -111,7 +111,7 @@ export default function Page() {
 								className={(isActive) =>
 									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
 								}
-								to=".#warning-branded"
+								to=".#warning"
 							>
 								Warning
 							</HashNavLink>
@@ -353,7 +353,7 @@ export default function Page() {
 					<InlineCode>high-contrast:</InlineCode> and <InlineCode>dark-high-contrast:</InlineCode> respectively.
 				</p>
 
-				<h2 id="branded-colors" className="mt-8 text-3xl font-medium">
+				<h2 id="functional-colors" className="mt-8 text-3xl font-medium">
 					Functional Colors
 				</h2>
 				<p className="mt-3 text-body">
@@ -361,7 +361,7 @@ export default function Page() {
 					states like danger and warnings.
 				</p>
 
-				<h3 id="neutral-branded" className="mt-8 text-xl font-medium">
+				<h3 id="neutral" className="mt-8 text-xl font-medium">
 					Neutral
 				</h3>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
@@ -411,7 +411,7 @@ export default function Page() {
 					</div>
 				</div>
 
-				<h3 id="accent-branded" className="mt-8 text-xl font-medium">
+				<h3 id="accent" className="mt-8 text-xl font-medium">
 					Accent
 				</h3>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
@@ -461,7 +461,7 @@ export default function Page() {
 					</div>
 				</div>
 
-				<h3 id="success-branded" className="mt-8 flex items-center gap-2 text-xl font-medium">
+				<h3 id="success" className="mt-8 flex items-center gap-2 text-xl font-medium">
 					Success
 				</h3>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
@@ -511,7 +511,7 @@ export default function Page() {
 					</div>
 				</div>
 
-				<h3 id="danger-branded" className="mt-8 text-xl font-medium">
+				<h3 id="danger" className="mt-8 text-xl font-medium">
 					Danger
 				</h3>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
@@ -561,7 +561,7 @@ export default function Page() {
 					</div>
 				</div>
 
-				<h3 id="warning-branded" className="mt-8 text-xl font-medium">
+				<h3 id="warning" className="mt-8 text-xl font-medium">
 					Warning
 				</h3>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
