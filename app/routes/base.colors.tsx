@@ -354,7 +354,7 @@ export default function Page() {
 				</p>
 
 				<h2 id="branded-colors" className="mt-8 text-3xl font-medium">
-					Branded Colors
+					Functional Colors
 				</h2>
 				<p className="mt-3 text-body">
 					Mantle generally limits its color choices to the following functional colors for primary actions, and various
