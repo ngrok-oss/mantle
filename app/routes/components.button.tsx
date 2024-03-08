@@ -3,6 +3,7 @@ import { code, CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } fr
 import { InlineCode } from "@/inline-code";
 import { Fire } from "@phosphor-icons/react/Fire";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
+import { Link } from "@remix-run/react";
 import { Example } from "~/components/example";
 import {
 	BooleanPropType,
@@ -15,6 +16,7 @@ import {
 	ReactNodePropType,
 	StringPropType,
 } from "~/components/props-table";
+import { route } from "~/types/routes";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -211,6 +213,41 @@ export default function Page() {
 									</Button>
 									<Button icon={<Fire weight="fill" />} iconPlacement="end" state="pending">
 										Icon End + Pending
+									</Button>
+								`}
+							</CodeBlockCode>
+						</CodeBlockBody>
+					</CodeBlock>
+				</div>
+			</section>
+
+			<section className="mb-4 space-y-4">
+				<h2 id="composition" className="text-3xl font-medium">
+					Composition
+				</h2>
+				<p className="text-xl text-body">
+					When you want to render <span className="italic">something else</span> as a <InlineCode>Button</InlineCode>,
+					you can use the <InlineCode>asChild</InlineCode> prop to compose. This is useful when you want to splat the{" "}
+					<InlineCode>Button</InlineCode> styling onto a <InlineCode>Link</InlineCode> from{" "}
+					<InlineCode>remix</InlineCode> or <InlineCode>react-router</InlineCode>.
+				</p>
+				<div>
+					<Example>
+						<Button appearance="filled" icon={<Fire weight="fill" />} asChild>
+							<Link to={route("/base/colors")}>See our colors!</Link>
+						</Button>
+					</Example>
+					<CodeBlock className="rounded-b-lg rounded-t-none">
+						<CodeBlockBody>
+							<CodeBlockCopyButton />
+							<CodeBlockCode language="tsx">
+								{code`
+									import { Button } from "@ngrok/mantle";
+									import { Fire } from "@phosphor-icons/react/Fire";
+									import { Link } from "react-router-dom";
+
+									<Button appearance="filled" icon={<Fire weight="fill" />} asChild>
+										<Link to="/base/colors">See our colors!</Link>
 									</Button>
 								`}
 							</CodeBlockCode>
