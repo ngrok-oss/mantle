@@ -298,8 +298,8 @@ export default function Page() {
 						</PropDefaultValueCell>
 						<PropDescriptionCell>
 							<p>
-								Use the <InlineCode>asChild</InlineCode> prop to compose Radix’s functionality onto alternative *
-								element types or your own React components.
+								Use the <InlineCode>asChild</InlineCode> prop to compose the <InlineCode>Button</InlineCode> styling and
+								functionality onto alternative element types or your own React components.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>
