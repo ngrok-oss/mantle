@@ -336,8 +336,8 @@ export default function Page() {
 						</PropDefaultValueCell>
 						<PropDescriptionCell>
 							<p>
-								The side that the icon will render on, if given. If <InlineCode>state="pending"</InlineCode>, the
-								loading icon will also render on this side.
+								The side that the icon will render on, if one is present. If <InlineCode>state="pending"</InlineCode>,
+								the loading icon will also render on this side.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>
