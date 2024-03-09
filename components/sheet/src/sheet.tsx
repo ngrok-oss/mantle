@@ -69,7 +69,7 @@ const SheetContent = forwardRef<ElementRef<typeof SheetPrimitive.Content>, Sheet
 SheetContent.displayName = SheetPrimitive.Content.displayName;
 
 const SheetBody = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => (
-	<div className={cx("scrollbar flex-1 overflow-y-auto p-6", className)} {...props} />
+	<div className={cx("scrollbar flex-1 overflow-y-auto p-6 text-body", className)} {...props} />
 );
 
 const SheetHeader = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => (
@@ -95,7 +95,7 @@ const SheetDescription = forwardRef<
 	ElementRef<typeof SheetPrimitive.Description>,
 	ComponentPropsWithoutRef<typeof SheetPrimitive.Description>
 >(({ className, ...props }, ref) => (
-	<SheetPrimitive.Description ref={ref} className={cx("text-muted", className)} {...props} />
+	<SheetPrimitive.Description ref={ref} className={cx("text-body", className)} {...props} />
 ));
 SheetDescription.displayName = SheetPrimitive.Description.displayName;
 
