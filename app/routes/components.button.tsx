@@ -364,8 +364,8 @@ export default function Page() {
 						</PropDefaultValueCell>
 						<PropDescriptionCell>
 							<p>
-								Indicates the importance or impact level of the button, affecting its color and potentially its styling
-								to communicate its purpose to the user.
+								Indicates the importance or impact level of the button, affecting its color and styling to communicate
+								its purpose to the user.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>

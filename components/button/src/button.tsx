@@ -43,7 +43,7 @@ const buttonVariants = cva(
 			},
 			/**
 			 * Indicates the importance or impact level of the button, affecting its
-			 * color and potentially its styling to communicate its purpose to the user
+			 * color and styling to communicate its purpose to the user
 			 */
 			priority: {
 				danger: "",
