@@ -1,3 +1,4 @@
+import { Anchor } from "@/anchor";
 import { Button } from "@/button";
 import { code, CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
 import { InlineCode } from "@/inline-code";
@@ -256,10 +257,17 @@ export default function Page() {
 				</div>
 			</section>
 
-			<section className="mt-16">
-				<h2 id="api" className="mb-4 text-3xl font-medium">
+			<section className="mt-16 space-y-4">
+				<h2 id="api" className="text-3xl font-medium">
 					API Reference
 				</h2>
+				<p className="text-xl text-body">
+					The <InlineCode>Button</InlineCode> accepts the following props in addition to the{" "}
+					<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button">
+						standard HTML button attributes
+					</Anchor>
+					.
+				</p>
 				<PropsTable>
 					<PropRow>
 						<PropNameCell name="appearance" optional />
@@ -377,7 +385,8 @@ export default function Page() {
 							<p>
 								The state of the button. If the button should present a "loading state", use{" "}
 								<InlineCode>pending</InlineCode>. Setting the state to <InlineCode>pending</InlineCode> will replace any
-								icon with a spinner, or add one if an icon wasn't given.
+								icon with a spinner, or add one if an icon wasn't given. It will also disable user interaction with the
+								button and set <InlineCode>aria-disabled</InlineCode>.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>

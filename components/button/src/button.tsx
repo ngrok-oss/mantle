@@ -131,10 +131,12 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 			iconPlacement = "start",
 			priority = "default",
 			state = "idle",
+			"aria-disabled": _ariaDisabled,
 			...props
 		},
 		ref,
 	) => {
+		const ariaDisabled = _ariaDisabled ?? state === "pending";
 		const icon = state === "pending" ? <CircleNotch className="animate-spin" /> : propIcon;
 		const className = cx(
 			buttonVariants({ appearance, priority, state, iconPlacement: icon ? iconPlacement : undefined }),
@@ -155,7 +157,14 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 			const grandchildren = (isValidChild ? singleChild.props?.children : null) as ReactNode;
 
 			return (
-				<Slot data-state={state} onClickCapture={onClickCapture} className={className} ref={ref} {...props}>
+				<Slot
+					aria-disabled={ariaDisabled}
+					className={className}
+					data-state={state}
+					onClickCapture={onClickCapture}
+					ref={ref}
+					{...props}
+				>
 					{isValidChild &&
 						cloneElement(
 							singleChild,
@@ -169,7 +178,14 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 		}
 
 		return (
-			<button data-state={state} onClickCapture={onClickCapture} className={className} ref={ref} {...props}>
+			<button
+				aria-disabled={ariaDisabled}
+				className={className}
+				data-state={state}
+				onClickCapture={onClickCapture}
+				ref={ref}
+				{...props}
+			>
 				<InnerContent appearance={appearance} icon={icon} iconPlacement={iconPlacement}>
 					{children}
 				</InnerContent>
