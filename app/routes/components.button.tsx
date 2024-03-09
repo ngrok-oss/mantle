@@ -317,7 +317,10 @@ export default function Page() {
 							<ReactNodePropType />
 						</PropTypeCell>
 						<PropDefaultValueCell />
-						<PropDescriptionCell>An icon to render inside the button.</PropDescriptionCell>
+						<PropDescriptionCell>
+							An icon to render inside the button. If the <InlineCode>state</InlineCode> is{" "}
+							<InlineCode>pending</InlineCode>, then the icon will automatically be replaced with a spinner
+						</PropDescriptionCell>
 					</PropRow>
 					<PropRow>
 						<PropNameCell name="iconPlacement" optional />

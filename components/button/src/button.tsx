@@ -122,9 +122,13 @@ type ButtonVariants = VariantProps<typeof buttonVariants>;
 /**
  * The props for the `Button` component.
  */
-export type ButtonProps = WithAsChild &
-	ButtonHTMLAttributes<HTMLButtonElement> &
+export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
+	WithAsChild &
 	ButtonVariants & {
+		/**
+		 * An icon to render inside the button. If the `state` is `"pending"`, then
+		 * the icon will automatically be replaced with a spinner.
+		 */
 		icon?: ReactNode;
 	};
 
