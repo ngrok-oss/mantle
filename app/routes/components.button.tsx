@@ -319,7 +319,7 @@ export default function Page() {
 						<PropDefaultValueCell />
 						<PropDescriptionCell>
 							An icon to render inside the button. If the <InlineCode>state</InlineCode> is{" "}
-							<InlineCode>pending</InlineCode>, then the icon will automatically be replaced with a spinner
+							<InlineCode>pending</InlineCode>, then the icon will automatically be replaced with a spinner.
 						</PropDescriptionCell>
 					</PropRow>
 					<PropRow>
@@ -365,7 +365,7 @@ export default function Page() {
 						<PropDescriptionCell>
 							<p>
 								Indicates the importance or impact level of the button, affecting its color and potentially its styling
-								to communicate its purpose to the user
+								to communicate its purpose to the user.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>
