@@ -48,7 +48,6 @@ const buttonVariants = cva(
 			appearance: "outlined",
 			priority: "default",
 			state: "idle",
-			iconPlacement: "start",
 		},
 		compoundVariants: [
 			{
