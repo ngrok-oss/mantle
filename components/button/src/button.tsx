@@ -21,6 +21,9 @@ const buttonVariants = cva(
 	"items-center justify-center gap-1.5 whitespace-nowrap rounded-md focus-within:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50 aria-disabled:opacity-50 sm:text-sm [&>*]:focus-within:outline-none",
 	{
 		variants: {
+			/**
+			 * Defines the visual style of the Button.
+			 */
 			appearance: {
 				filled:
 					"inline-flex h-11 border border-transparent bg-filled-accent px-3 font-medium text-on-filled hover:bg-filled-accent-hover focus-visible:border-accent-600 focus-visible:ring-focus-accent active:bg-filled-accent-active sm:h-9",
@@ -30,18 +33,32 @@ const buttonVariants = cva(
 					"inline-flex h-11 border border-accent-600 bg-form px-3 font-medium text-accent-600 hover:border-accent-700 hover:bg-accent-500/10 hover:text-accent-700 focus-visible:ring-focus-accent active:border-accent-700 active:bg-accent-500/15 active:text-accent-700 sm:h-9",
 				link: "group inline cursor-pointer border-transparent text-accent-600 hover:underline focus-visible:ring-focus-accent",
 			},
+			/**
+			 * The side that the icon will render on, if one is present. If `state="pending"`,
+			 * then the loading icon will also render on this side.
+			 */
+			iconPlacement: {
+				end: "pe-2.5",
+				start: "ps-2.5",
+			},
+			/**
+			 * Indicates the importance or impact level of the button, affecting its
+			 * color and potentially its styling to communicate its purpose to the user
+			 */
 			priority: {
 				danger: "",
 				default: "",
 				neutral: "",
 			},
+			/**
+			 * The state of the button, default `"idle"`. If the button should present
+			 * a "loading state", use `"pending"`. Setting the state to `"pending"` will
+			 * replace any `icon` with a spinner, or add one if an icon wasn't given.
+			 * It will also disable user interaction with the button and set `aria-disabled`.
+			 */
 			state: {
 				idle: "",
 				pending: "opacity-50",
-			},
-			iconPlacement: {
-				end: "pe-2.5",
-				start: "ps-2.5",
 			},
 		},
 		defaultVariants: {
