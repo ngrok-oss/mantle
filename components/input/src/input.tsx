@@ -9,7 +9,7 @@ const inputVariants = cva(
 	{
 		variants: {
 			state: {
-				default: "text-strong border-form placeholder:text-placeholder focus:border-accent-600 focus:ring-focus-accent",
+				default: "border-form text-strong placeholder:text-placeholder focus:border-accent-600 focus:ring-focus-accent",
 				danger: "border-danger-600 placeholder:text-placeholder focus:border-danger-600 focus:ring-focus-danger",
 			},
 		},
