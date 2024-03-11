@@ -22,7 +22,7 @@ import { Check } from "@phosphor-icons/react/Check";
 import { Copy } from "@phosphor-icons/react/Copy";
 import { useCopyToClipboard } from "@uidotdev/usehooks";
 import assert from "tiny-invariant";
-import { Button } from "../../button/src/button";
+import { Button } from "../../button";
 import { cx } from "../../core";
 import type { WithStyleProps } from "../../types/src/with-style-props";
 import { LineRange } from "./line-numbers";
