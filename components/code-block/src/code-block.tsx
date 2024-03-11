@@ -22,6 +22,7 @@ import { Check } from "@phosphor-icons/react/Check";
 import { Copy } from "@phosphor-icons/react/Copy";
 import { useCopyToClipboard } from "@uidotdev/usehooks";
 import assert from "tiny-invariant";
+import { Button } from "../../button/src/button";
 import { cx } from "../../core";
 import type { WithStyleProps } from "../../types/src/with-style-props";
 import { LineRange } from "./line-numbers";
@@ -215,12 +216,13 @@ const CodeBlockCopyButton = forwardRef<HTMLButtonElement, CodeBlockCopyButtonPro
 		}, [copied]);
 
 		return (
-			<button
-				type="button"
+			<Button
+				appearance="outlined"
+				priority="neutral"
 				className={cx(
-					"absolute right-3 top-3 z-10 flex h-7 w-7 items-center justify-center rounded border border-gray-300 bg-gray-50 shadow-[-1rem_0_0.75rem_-0.375rem_hsl(var(--gray-50)),1rem_0_0_-0.25rem_hsl(var(--gray-50))] hover:border-gray-400 hover:bg-gray-200 focus-visible:border-accent-600 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-focus-accent",
+					"absolute right-3 top-3 z-10 flex size-7 rounded bg-gray-50 font-normal shadow-[-1rem_0_0.75rem_-0.375rem_hsl(var(--gray-50)),1rem_0_0_-0.25rem_hsl(var(--gray-50))] hover:border-gray-400 hover:bg-gray-200 active:bg-gray-200 sm:size-7",
 					copied &&
-						"w-auto gap-1 border-transparent bg-filled-success pl-2 pr-1.5 text-on-filled hover:border-transparent hover:bg-filled-success focus:bg-filled-success focus-visible:border-success-600 focus-visible:ring-focus-success",
+						"w-auto border-transparent bg-filled-success pl-2 pr-1.5 text-on-filled hover:border-transparent hover:bg-filled-success hover:text-on-filled focus:bg-filled-success focus-visible:border-success-600 focus-visible:ring-focus-success active:border-transparent active:bg-filled-success active:text-on-filled sm:w-auto",
 					className,
 				)}
 				ref={ref}
@@ -244,7 +246,7 @@ const CodeBlockCopyButton = forwardRef<HTMLButtonElement, CodeBlockCopyButtonPro
 				) : (
 					<Copy className="-ml-px h-5 w-5" />
 				)}
-			</button>
+			</Button>
 		);
 	},
 );
