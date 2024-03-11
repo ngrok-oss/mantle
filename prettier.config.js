@@ -8,6 +8,7 @@ const config = {
 	tabWidth: 2,
 	trailingComma: "all",
 	useTabs: true,
+	tailwindFunctions: ["cva"],
 };
 
 export default config;

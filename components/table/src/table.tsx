@@ -2,9 +2,9 @@ import { forwardRef, HTMLAttributes, TdHTMLAttributes, ThHTMLAttributes } from "
 import { cx } from "../../core";
 
 const Table = forwardRef<HTMLTableElement, HTMLAttributes<HTMLTableElement>>(({ className, ...props }, ref) => (
-	<div className="relative w-full overflow-auto">
-		<table ref={ref} className={cx("w-full caption-bottom text-sm", className)} {...props} />
-	</div>
+	// <div className="">
+	<table ref={ref} className={cx("relative w-full caption-bottom overflow-auto text-sm", className)} {...props} />
+	// </div>
 ));
 Table.displayName = "Table";
 

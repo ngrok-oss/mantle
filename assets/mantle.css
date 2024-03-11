@@ -545,10 +545,10 @@
 	--bg-popover: var(--white);
 	--bg-dialog: var(--white);
 
-	--bg-base-hover: var(--neutral-500) / 0.08;
-	--bg-card-hover: var(--neutral-500) / 0.08;
-	--bg-popover-hover: var(--neutral-500) / 0.08;
-	--bg-dialog-hover: var(--neutral-500) / 0.08;
+	--bg-base-hover: var(--neutral-100);
+	--bg-card-hover: var(--neutral-100);
+	--bg-popover-hover: var(--neutral-100);
+	--bg-dialog-hover: var(--neutral-100);
 
 	--border-base: var(--neutral-300);
 	--border-card: var(--neutral-300);
@@ -843,10 +843,10 @@
 	--bg-dialog: var(--neutral-50);
 	--bg-popover: var(--neutral-100);
 
-	--bg-base-hover: var(--neutral-500) / 0.15;
-	--bg-card-hover: var(--neutral-500) / 0.15;
-	--bg-popover-hover: var(--neutral-500) / 0.15;
-	--bg-dialog-hover: var(--neutral-500) / 0.15;
+	--bg-base-hover: var(--neutral-100);
+	--bg-card-hover: var(--neutral-200);
+	--bg-popover-hover: var(--neutral-200);
+	--bg-dialog-hover: var(--neutral-100);
 
 	--border-base: var(--neutral-300);
 	--border-card: var(--neutral-300);

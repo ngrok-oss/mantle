@@ -26,7 +26,7 @@ export default function Page() {
 			<h6 className="mt-4 text-xs font-medium uppercase tracking-widest">Heading 6</h6>
 
 			<div className="text-strong">Strong text</div>
-			<div className="text-body">default text</div>
+			<div className="text-body">Body text</div>
 			<div className="text-muted">Muted text</div>
 			<div className="text-placeholder">Placeholder text</div>
 		</div>
