@@ -94,7 +94,7 @@ const CodeBlock = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ 
 		<CodeBlockContext.Provider value={context}>
 			<div
 				className={cx(
-					"overflow-hidden rounded-md border border-gray-300 bg-gray-50 font-mono text-[0.8125rem]",
+					"overflow-hidden rounded-md border border-base bg-base font-mono text-[0.8125rem]",
 					className,
 				)}
 				ref={ref}
@@ -176,7 +176,7 @@ CodeBlockCode.displayName = "CodeBlockCode";
 
 const CodeBlockHeader = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
 	<div
-		className={cx("flex items-center gap-1 border-b border-gray-300 bg-gray-100 px-4 py-2 text-gray-700", className)}
+		className={cx("flex items-center gap-1 border-b border-base bg-neutral-100 dark:bg-neutral-50 px-4 py-2 text-neutral-700", className)}
 		ref={ref}
 		{...props}
 	/>
@@ -218,7 +218,7 @@ const CodeBlockCopyButton = forwardRef<HTMLButtonElement, CodeBlockCopyButtonPro
 			<button
 				type="button"
 				className={cx(
-					"absolute right-3 top-3 z-10 flex h-7 w-7 items-center justify-center rounded border border-gray-300 bg-gray-50 shadow-[-1rem_0_0.75rem_-0.375rem_hsl(var(--gray-50)),1rem_0_0_-0.25rem_hsl(var(--gray-50))] hover:border-gray-400 hover:bg-gray-200 focus-visible:border-accent-600 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-focus-accent",
+					"absolute right-3 top-3 z-10 flex h-7 w-7 items-center justify-center rounded border border-neutral-300 bg-base shadow-[-1rem_0_0.75rem_-0.375rem_hsl(var(--base)),1rem_0_0_-0.25rem_hsl(var(--base))] hover:border-neutral-400 hover:bg-base-hover focus-visible:border-accent-600 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-focus-accent",
 					copied &&
 						"w-auto gap-1 border-transparent bg-filled-success pl-2 pr-1.5 text-on-filled hover:border-transparent hover:bg-filled-success focus:bg-filled-success focus-visible:border-success-600 focus-visible:ring-focus-success",
 					className,
@@ -273,7 +273,7 @@ const CodeBlockExpanderButton = forwardRef<HTMLButtonElement, CodeBlockExpanderB
 				aria-controls={codeId}
 				aria-expanded={isCodeExpanded}
 				className={cx(
-					"flex w-full items-center justify-center gap-0.5 border-t border-gray-300 bg-gray-50 px-4 py-2 font-sans text-gray-700 hover:bg-gray-100",
+					"flex w-full items-center justify-center gap-0.5 border-t border-base bg-base px-4 py-2 font-sans text-neutral-700 hover:bg-base-hover",
 					className,
 				)}
 				ref={ref}
