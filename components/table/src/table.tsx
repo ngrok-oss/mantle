@@ -9,13 +9,15 @@ const Table = forwardRef<HTMLTableElement, HTMLAttributes<HTMLTableElement>>(({ 
 Table.displayName = "Table";
 
 const TableHeader = forwardRef<HTMLTableSectionElement, HTMLAttributes<HTMLTableSectionElement>>(
-	({ className, ...props }, ref) => <thead ref={ref} className={cx("bg-card [&_tr]:border-b [&_tr]:border-card-muted", className)} {...props} />,
+	({ className, ...props }, ref) => (
+		<thead ref={ref} className={cx("bg-card [&_tr]:border-b [&_tr]:border-card-muted", className)} {...props} />
+	),
 );
 TableHeader.displayName = "TableHeader";
 
 const TableBody = forwardRef<HTMLTableSectionElement, HTMLAttributes<HTMLTableSectionElement>>(
 	({ className, ...props }, ref) => (
-		<tbody ref={ref} className={cx("[&_tr:last-child]:border-0 text-strong", className)} {...props} />
+		<tbody ref={ref} className={cx("text-strong [&_tr:last-child]:border-0", className)} {...props} />
 	),
 );
 TableBody.displayName = "TableBody";
@@ -46,10 +48,7 @@ const TableHead = forwardRef<HTMLTableCellElement, ThHTMLAttributes<HTMLTableCel
 	({ className, ...props }, ref) => (
 		<th
 			ref={ref}
-			className={cx(
-				"text-muted h-12 px-4 text-left align-middle font-medium [&:has([role=checkbox])]:pr-0",
-				className,
-			)}
+			className={cx("h-12 px-4 text-left align-middle font-medium text-muted [&:has([role=checkbox])]:pr-0", className)}
 			{...props}
 		/>
 	),

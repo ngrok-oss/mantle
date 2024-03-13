@@ -93,10 +93,7 @@ const CodeBlock = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ 
 	return (
 		<CodeBlockContext.Provider value={context}>
 			<div
-				className={cx(
-					"overflow-hidden rounded-md border border-base bg-base font-mono text-[0.8125rem]",
-					className,
-				)}
+				className={cx("overflow-hidden rounded-md border border-base bg-base font-mono text-[0.8125rem]", className)}
 				ref={ref}
 				{...props}
 			/>
@@ -176,7 +173,10 @@ CodeBlockCode.displayName = "CodeBlockCode";
 
 const CodeBlockHeader = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
 	<div
-		className={cx("flex items-center gap-1 border-b border-base bg-neutral-100 dark:bg-neutral-50 px-4 py-2 text-neutral-700", className)}
+		className={cx(
+			"flex items-center gap-1 border-b border-base bg-neutral-100 px-4 py-2 text-neutral-700 dark:bg-neutral-50",
+			className,
+		)}
 		ref={ref}
 		{...props}
 	/>
