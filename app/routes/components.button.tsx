@@ -160,7 +160,7 @@ export default function Page() {
 			</section>
 
 			<section className="mb-4 space-y-4">
-				<h2 id="example-state" className="text-3xl font-medium">
+				<h2 id="example-loading" className="text-3xl font-medium">
 					isLoading
 				</h2>
 				<p className="text-xl text-body">
