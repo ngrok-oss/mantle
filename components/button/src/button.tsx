@@ -42,6 +42,15 @@ const buttonVariants = cva(
 				start: "ps-2.5",
 			},
 			/**
+			 * Whether or not the button is in a loading state, default `false`. Setting `isLoading` will
+			 * replace any `icon` with a spinner, or add one if an icon wasn't given.
+			 * It will also disable user interaction with the button and set `aria-disabled`.
+			 */
+			isLoading: {
+				false: "",
+				true: "opacity-50",
+			},
+			/**
 			 * Indicates the importance or impact level of the button, affecting its
 			 * color and styling to communicate its purpose to the user
 			 */
@@ -50,21 +59,11 @@ const buttonVariants = cva(
 				default: "",
 				neutral: "",
 			},
-			/**
-			 * The state of the button, default `"idle"`. If the button should present
-			 * a "loading state", use `"pending"`. Setting the state to `"pending"` will
-			 * replace any `icon` with a spinner, or add one if an icon wasn't given.
-			 * It will also disable user interaction with the button and set `aria-disabled`.
-			 */
-			state: {
-				idle: "",
-				pending: "opacity-50",
-			},
 		},
 		defaultVariants: {
 			appearance: "outlined",
+			isLoading: false,
 			priority: "default",
-			state: "idle",
 		},
 		compoundVariants: [
 			{
@@ -143,27 +142,27 @@ export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 	(
 		{
+			"aria-disabled": _ariaDisabled,
 			appearance = "outlined",
 			asChild = false,
 			children,
 			className: propClassName,
 			icon: propIcon,
 			iconPlacement = "start",
+			isLoading = false,
 			priority = "default",
-			state = "idle",
-			"aria-disabled": _ariaDisabled,
 			...props
 		},
 		ref,
 	) => {
-		const ariaDisabled = _ariaDisabled ?? state === "pending";
-		const icon = state === "pending" ? <CircleNotch className="animate-spin" /> : propIcon;
+		const ariaDisabled = _ariaDisabled ?? isLoading;
+		const icon = isLoading ? <CircleNotch className="animate-spin" /> : propIcon;
 		const className = cx(
-			buttonVariants({ appearance, priority, state, iconPlacement: icon ? iconPlacement : undefined }),
+			buttonVariants({ appearance, priority, isLoading, iconPlacement: icon ? iconPlacement : undefined }),
 			propClassName,
 		);
 		const onClickCapture = (event: MouseEvent<HTMLButtonElement>) => {
-			if (state === "pending") {
+			if (isLoading) {
 				event.preventDefault();
 				event.stopPropagation();
 			}
@@ -180,7 +179,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 				<Slot
 					aria-disabled={ariaDisabled}
 					className={className}
-					data-state={state}
+					data-loading={isLoading}
 					onClickCapture={onClickCapture}
 					ref={ref}
 					{...props}
@@ -201,7 +200,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 			<button
 				aria-disabled={ariaDisabled}
 				className={className}
-				data-state={state}
+				data-loading={isLoading}
 				onClickCapture={onClickCapture}
 				ref={ref}
 				{...props}
