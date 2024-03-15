@@ -1,5 +1,3 @@
-"use client";
-
 import { X } from "@phosphor-icons/react/X";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
