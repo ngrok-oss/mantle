@@ -2,7 +2,7 @@ import { PreventWrongThemeFlash, ThemeProvider } from "@/theme-provider";
 import { TooltipProvider } from "@/tooltip";
 import { cssBundleHref } from "@remix-run/css-bundle";
 import type { LinksFunction } from "@remix-run/node";
-import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
+import { json, Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from "@remix-run/react";
 import tailwind from "tailwindcss/tailwind.css";
 import mantleCss from "../assets/mantle.css";
 import { Layout } from "./components/layout";
@@ -13,7 +13,14 @@ export const links: LinksFunction = () => [
 	{ rel: "stylesheet", href: tailwind },
 ];
 
+export const loader = async () => {
+	const packageJson = await import("../package.json");
+	return json({ currentVersion: packageJson.version });
+};
+
 export default function App() {
+	const { currentVersion } = useLoaderData<typeof loader>();
+
 	return (
 		<html id="ngrok" className="h-full" lang="en-US" dir="ltr">
 			<head>
@@ -28,7 +35,7 @@ export default function App() {
 			<body className="h-full min-h-full overflow-y-scroll bg-base">
 				<ThemeProvider>
 					<TooltipProvider>
-						<Layout>
+						<Layout currentVersion={currentVersion}>
 							<Outlet />
 						</Layout>
 					</TooltipProvider>

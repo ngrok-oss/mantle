@@ -28,9 +28,12 @@ const MantleLogo = () => (
 	</svg>
 );
 
-type Props = PropsWithChildren & WithStyleProps;
+type Props = PropsWithChildren &
+	WithStyleProps & {
+		currentVersion: string;
+	};
 
-export function Layout({ children, className, style }: Props) {
+export function Layout({ children, className, currentVersion, style }: Props) {
 	const [currentTheme, setTheme] = useTheme();
 	const [showNavigation, setShowNavigation] = useState(false);
 
@@ -53,6 +56,8 @@ export function Layout({ children, className, style }: Props) {
 				<Link to="/">
 					<MantleLogo />
 				</Link>
+
+				<p className="text-strong">{currentVersion} (latest)</p>
 
 				<Select
 					value={currentTheme}

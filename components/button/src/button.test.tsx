@@ -53,7 +53,7 @@ describe("Button", () => {
 		expect(screen.getByRole("link")).toHaveTextContent("click me");
 	});
 
-	test(`when state="idle", allows click and submit events to propagate`, async () => {
+	test(`when isLoading={false}, allows click and submit events to propagate`, async () => {
 		const Subject = () => {
 			const [submitState, setSubmitState] = useState<"submitting" | "idle">("idle");
 			const [clickState, setClickState] = useState<"clicked" | "idle">("idle");
@@ -67,7 +67,7 @@ describe("Button", () => {
 						}}
 					>
 						<Button
-							state="idle"
+							isLoading={false}
 							type="submit"
 							onClick={() => {
 								setClickState("clicked");
@@ -88,7 +88,7 @@ describe("Button", () => {
 		expect(screen.getByTestId("click-state")).toHaveTextContent("clicked");
 	});
 
-	test(`when state="pending", doesn't allow click or submit events to propagate`, async () => {
+	test(`when isLoading={true}, doesn't allow click or submit events to propagate`, async () => {
 		const Subject = () => {
 			const [submitState, setSubmitState] = useState<"submitting" | "idle">("idle");
 			const [clickState, setClickState] = useState<"clicked" | "idle">("idle");
@@ -102,7 +102,7 @@ describe("Button", () => {
 						}}
 					>
 						<Button
-							state="pending"
+							isLoading
 							type="submit"
 							onClick={() => {
 								setClickState("clicked");
