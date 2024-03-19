@@ -5,6 +5,7 @@ import type { LinksFunction } from "@remix-run/node";
 import { json, Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from "@remix-run/react";
 import tailwind from "tailwindcss/tailwind.css";
 import mantleCss from "../assets/mantle.css";
+import { AutoScrollToHash } from "./components/auto-scroll-to-hash";
 import { Layout } from "./components/layout";
 
 export const links: LinksFunction = () => [
@@ -34,6 +35,7 @@ export default function App() {
 			</head>
 			<body className="h-full min-h-full overflow-y-scroll bg-base">
 				<ThemeProvider>
+					<AutoScrollToHash />
 					<TooltipProvider>
 						<Layout currentVersion={currentVersion}>
 							<Outlet />
