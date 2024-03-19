@@ -70,7 +70,7 @@ export const PropDescriptionCell = ({ children, className, style }: PropDescript
 
 export const ReactNodePropType = () => <span className="text-red-600">ReactNode</span>;
 export const BooleanPropType = ({ value }: { value?: true | false | undefined }) => (
-	<span className="text-purple-600">{typeof value === "undefined" ? "boolean" : `${value}`}</span>
+	<span className="text-purple-600">{typeof value === "undefined" ? "boolean" : String(value)}</span>
 );
 export const StringPropType = ({ value }: { value: string }) => <span className="token attr-value">{value}</span>;
 export const UndefinedPropType = () => <span className="italic text-amber-600">undefined</span>;

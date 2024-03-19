@@ -170,7 +170,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 		};
 
 		if (asChild) {
-			const singleChild = Children.only(children) as ReactNode;
+			const singleChild = Children.only(children);
 			const isValidChild = isValidElement(singleChild);
 			// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 			const grandchildren = (isValidChild ? singleChild.props?.children : null) as ReactNode;

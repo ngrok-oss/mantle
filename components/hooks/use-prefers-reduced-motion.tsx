@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
  * Users who have never fiddled with their a11y settings will still see animations
  * (no explicit opt-in required from a user's perspective)
  */
-const query = "(prefers-reduced-motion: no-preference)" as const;
+const query = "(prefers-reduced-motion: no-preference)";
 
 /**
  * usePrefersReducedMotion returns true if the user has opted out of animations

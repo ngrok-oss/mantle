@@ -6,12 +6,12 @@ import { useMatchesMediaQuery } from "../../hooks/use-matches-media-query";
 /**
  * prefersDarkModeMediaQuery is the media query used to detect if the user prefers dark mode.
  */
-const prefersDarkModeMediaQuery = "(prefers-color-scheme: dark)" as const;
+const prefersDarkModeMediaQuery = "(prefers-color-scheme: dark)";
 
 /**
  * prefersHighContrastMediaQuery is the media query used to detect if the user prefers high contrast mode.
  */
-const prefersHighContrastMediaQuery = "(prefers-contrast: more)" as const;
+const prefersHighContrastMediaQuery = "(prefers-contrast: more)";
 
 /**
  * themes is a tuple of valid themes.
@@ -42,7 +42,7 @@ function isTheme(value: unknown): value is Theme {
 /**
  * DEFAULT_STORAGE_KEY is the default key used to store the theme in localStorage.
  */
-const DEFAULT_STORAGE_KEY = "mantle-ui-theme" as const;
+const DEFAULT_STORAGE_KEY = "mantle-ui-theme";
 
 /**
  * ThemeProviderState is the shape of the state returned by the ThemeProviderContext.
