@@ -19,6 +19,9 @@ export const loader = async () => {
 	return json({ currentVersion: packageJson.version });
 };
 
+const commitSha = process.env.VERCEL_GIT_COMMIT_SHA;
+const deploymentId = process.env.VERCEL_DEPLOYMENT_ID;
+
 export default function App() {
 	const { currentVersion } = useLoaderData<typeof loader>();
 
@@ -30,6 +33,8 @@ export default function App() {
 				<meta charSet="utf-8" />
 				<meta name="author" content="ngrok" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
+				<meta name="commit-sha" content={commitSha} />
+				<meta name="deployment-id" content={deploymentId} />
 				<Meta />
 				<Links />
 			</head>
