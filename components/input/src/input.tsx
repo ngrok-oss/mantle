@@ -1,5 +1,5 @@
 import { Warning } from "@phosphor-icons/react/Warning";
-import type { ForwardedRef, HTMLAttributes, InputHTMLAttributes, PropsWithChildren } from "react";
+import type { ForwardedRef, InputHTMLAttributes, PropsWithChildren } from "react";
 import { createContext, forwardRef, useContext } from "react";
 import { cx } from "../../core";
 import type { WithAutoComplete, WithInputType, WithInvalid } from "./types";
@@ -26,7 +26,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({ children, className, .
 	}
 
 	return (
-		<InputContainer className={className}>
+		<InputContainer invalid={props.invalid} className={className}>
 			<InputCapture ref={inputRef} {...props} />
 		</InputContainer>
 	);
@@ -66,7 +66,7 @@ type InputContextType = Omit<InputHTMLAttributes<HTMLInputElement>, "autoComplet
 
 const InputContext = createContext<InputContextType>({ invalid: false });
 
-type InputContainerProps = HTMLAttributes<HTMLDivElement> &
+type InputContainerProps = InputHTMLAttributes<HTMLInputElement> &
 	BaseProps & {
 		/**
 		 * @private __SECRET_DO_NOT_USE_OR_YOU_WILL_BE_FIRED
@@ -82,13 +82,13 @@ type InputContainerProps = HTMLAttributes<HTMLDivElement> &
 /**
  * The container for the input element.
  */
-const InputContainer = forwardRef<HTMLDivElement, InputContainerProps>(
+const InputContainer = forwardRef<HTMLInputElement, InputContainerProps>(
 	({ "aria-invalid": _ariaInvalid, children, className, invalid, type, __private, style, ...props }, ref) => {
 		const ariaInvalid = _ariaInvalid ?? invalid;
 
 		return (
 			<InputContext.Provider
-				value={{ "aria-invalid": _ariaInvalid, invalid, type, ...props, ref: __private?.inputRef }}
+				value={{ "aria-invalid": _ariaInvalid, invalid, type, ...props, ref: ref ?? __private?.inputRef }}
 			>
 				<div
 					aria-invalid={ariaInvalid}
@@ -103,7 +103,12 @@ const InputContainer = forwardRef<HTMLDivElement, InputContainerProps>(
 					style={style}
 				>
 					{children}
-					{invalid && <Warning className="pointer-events-none order-last text-danger-600" weight="fill" />}
+					{invalid && (
+						<div className="pointer-events-none order-last text-danger-600">
+							<span className="sr-only">The value entered for the {props.name ?? ""} input has failed validation.</span>
+							<Warning aria-hidden weight="fill" />
+						</div>
+					)}
 				</div>
 			</InputContext.Provider>
 		);
