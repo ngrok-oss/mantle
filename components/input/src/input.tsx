@@ -1,6 +1,6 @@
 import { Warning } from "@phosphor-icons/react/Warning";
-import type { ForwardedRef, InputHTMLAttributes, PropsWithChildren } from "react";
-import { createContext, forwardRef, useContext } from "react";
+import type { ForwardedRef, InputHTMLAttributes, MutableRefObject, PropsWithChildren } from "react";
+import { createContext, ElementRef, forwardRef, useContext, useRef } from "react";
 import { cx } from "../../core";
 import type { WithAutoComplete, WithInputType, WithInvalid } from "./types";
 
@@ -14,20 +14,21 @@ type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, "autoComplete" | "
 /**
  * Used to create interactive controls for web-based forms in order to accept data from the user
  */
-const Input = forwardRef<HTMLInputElement, InputProps>(({ children, className, ...props }, inputRef) => {
+const Input = forwardRef<HTMLInputElement, InputProps>(({ children, className, ...props }, forwardedRef) => {
 	const hasChildren = Boolean(children);
+	const innerRef = useRef<ElementRef<"input">>(null);
 
 	if (hasChildren) {
 		return (
-			<InputContainer className={className} __private={{ inputRef }} {...props}>
+			<InputContainer className={className} forwardedRef={forwardedRef} innerRef={innerRef} {...props}>
 				{children}
 			</InputContainer>
 		);
 	}
 
 	return (
-		<InputContainer invalid={props.invalid} className={className}>
-			<InputCapture ref={inputRef} {...props} />
+		<InputContainer {...props} className={className} forwardedRef={forwardedRef} innerRef={innerRef}>
+			<InputCapture {...props} />
 		</InputContainer>
 	);
 });
@@ -40,7 +41,13 @@ type InputCaptureProps = Omit<InputHTMLAttributes<HTMLInputElement>, "autoComple
  */
 const InputCapture = forwardRef<HTMLInputElement, InputCaptureProps>(
 	({ "aria-invalid": _ariaInvalid, className, invalid = false, ...restProps }, ref) => {
-		const { "aria-invalid": ctxAriaInvalid, invalid: ctxInvalid, ref: ctxRef, ...ctx } = useContext(InputContext);
+		const {
+			"aria-invalid": ctxAriaInvalid,
+			invalid: ctxInvalid,
+			forwardedRef: ctxForwardedRef,
+			innerRef: ctxInnerRef,
+			...ctx
+		} = useContext(InputContext);
 		const ariaInvalid = ctxAriaInvalid ?? ctxInvalid ?? _ariaInvalid ?? invalid;
 		const props = { ...ctx, ...restProps, type: restProps.type ?? ctx.type ?? "text" };
 
@@ -48,7 +55,19 @@ const InputCapture = forwardRef<HTMLInputElement, InputCaptureProps>(
 			<input
 				aria-invalid={ariaInvalid}
 				className={cx("min-w-0 flex-1 bg-form placeholder:text-placeholder focus:outline-none", className)}
-				ref={ctxRef ?? ref}
+				ref={(node) => {
+					if (typeof ref === "function") {
+						ref(node);
+					} else if (ref) {
+						ref.current = node;
+					}
+					if (typeof ctxForwardedRef === "function") {
+						ctxForwardedRef(node);
+					} else if (ctxForwardedRef) {
+						ctxForwardedRef.current = node;
+					}
+					ctxInnerRef.current = node;
+				}}
 				{...props}
 			/>
 		);
@@ -59,62 +78,83 @@ InputCapture.displayName = "InputCapture";
 type InputContextType = Omit<InputHTMLAttributes<HTMLInputElement>, "autoComplete" | "type"> &
 	BaseProps & {
 		/**
-		 * ref to the input element, forwarded from `Input` to `InputCapture`
+		 * inner ref for the input element, controlled by `Input`
 		 */
-		ref?: ForwardedRef<HTMLInputElement>;
+		innerRef: MutableRefObject<HTMLInputElement | null>;
+		/**
+		 * forwarded ref to the input element, forwarded from `Input` to `InputCapture`
+		 */
+		forwardedRef?: ForwardedRef<HTMLInputElement>;
 	};
 
-const InputContext = createContext<InputContextType>({ invalid: false });
+const InputContext = createContext<InputContextType>({ invalid: false, innerRef: { current: null } });
 
 type InputContainerProps = InputHTMLAttributes<HTMLInputElement> &
 	BaseProps & {
 		/**
-		 * @private __SECRET_DO_NOT_USE_OR_YOU_WILL_BE_FIRED
+		 * @private inner ref for the input element, controlled by `Input`
 		 */
-		__private?: {
-			/**
-			 * @private ref to the input element, forwarded from `Input` to `InputCapture`
-			 */
-			inputRef: ForwardedRef<HTMLInputElement>;
-		};
+		innerRef: MutableRefObject<HTMLInputElement | null>;
+		/**
+		 * @private ref to the input element, forwarded from `Input` to `InputCapture`
+		 */
+		forwardedRef: ForwardedRef<HTMLInputElement>;
 	};
 
 /**
  * The container for the input element.
  */
-const InputContainer = forwardRef<HTMLInputElement, InputContainerProps>(
-	({ "aria-invalid": _ariaInvalid, children, className, invalid, type, __private, style, ...props }, ref) => {
-		const ariaInvalid = _ariaInvalid ?? invalid;
+const InputContainer = ({
+	"aria-invalid": _ariaInvalid,
+	children,
+	className,
+	forwardedRef,
+	innerRef,
+	invalid,
+	style,
+	type,
+	...props
+}: InputContainerProps) => {
+	const ariaInvalid = _ariaInvalid ?? invalid;
 
-		return (
-			<InputContext.Provider
-				value={{ "aria-invalid": _ariaInvalid, invalid, type, ...props, ref: ref ?? __private?.inputRef }}
+	return (
+		<InputContext.Provider
+			value={{
+				"aria-invalid": _ariaInvalid,
+				invalid,
+				type,
+				...props,
+				forwardedRef,
+				innerRef,
+			}}
+		>
+			<div
+				aria-invalid={ariaInvalid}
+				className={cx(
+					"flex h-11 w-full items-center gap-1.5 rounded-md border bg-form px-3 py-2 file:border-0 file:bg-transparent file:text-sm file:font-medium focus-within:outline-none focus-within:ring-4 focus-visible:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50 sm:h-9 sm:text-sm",
+					"has-[input:not(:first-child)]:ps-2.5 has-[input:not(:last-child)]:pe-2.5 [&>:not(input)]:shrink-0 [&_svg]:size-6 sm:[&_svg]:size-5",
+					"border-form text-strong focus-within:border-accent-600 focus-within:ring-focus-accent",
+					ariaInvalid && "border-danger-600 pe-2.5 focus-within:border-danger-600 focus-within:ring-focus-danger",
+					className,
+				)}
+				onClick={() => {
+					innerRef?.current?.focus();
+				}}
+				style={style}
 			>
-				<div
-					aria-invalid={ariaInvalid}
-					className={cx(
-						"flex h-11 w-full items-center gap-1.5 rounded-md border bg-form px-3 py-2 file:border-0 file:bg-transparent file:text-sm file:font-medium focus-within:outline-none focus-within:ring-4 focus-visible:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50 sm:h-9 sm:text-sm",
-						"has-[input:not(:first-child)]:ps-2.5 has-[input:not(:last-child)]:pe-2.5 [&>:not(input)]:shrink-0 [&_svg]:size-6 sm:[&_svg]:size-5",
-						"border-form text-strong focus-within:border-accent-600 focus-within:ring-focus-accent",
-						"aria-invalid:border-danger-600 aria-invalid:pe-2.5 aria-invalid:focus-within:border-danger-600 aria-invalid:focus-within:ring-focus-danger",
-						className,
-					)}
-					ref={ref}
-					style={style}
-				>
-					{children}
-					{invalid && (
-						<div className="pointer-events-none order-last text-danger-600">
-							<span className="sr-only">The value entered for the {props.name ?? ""} input has failed validation.</span>
-							<Warning aria-hidden weight="fill" />
-						</div>
-					)}
-				</div>
-			</InputContext.Provider>
-		);
-	},
-);
-InputContainer.displayName = "InputContainer";
+				{children}
+				{invalid && (
+					<div className="pointer-events-none order-last select-none text-danger-600">
+						<span className="sr-only">
+							{["The value entered for the", props.name, "input has failed validation."].filter(Boolean).join(" ")}
+						</span>
+						<Warning aria-hidden weight="fill" />
+					</div>
+				)}
+			</div>
+		</InputContext.Provider>
+	);
+};
 
-export { Input, InputContainer, InputCapture };
-export type { InputProps, InputCaptureProps, InputContainerProps };
+export { Input, InputCapture };
+export type { InputProps, InputCaptureProps };

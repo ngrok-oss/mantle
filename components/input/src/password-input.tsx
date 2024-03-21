@@ -2,7 +2,7 @@ import { Eye } from "@phosphor-icons/react/Eye";
 import { EyeClosed } from "@phosphor-icons/react/EyeClosed";
 import { forwardRef, useState } from "react";
 import type { InputHTMLAttributes } from "react";
-import { InputCapture, InputContainer } from "./input";
+import { Input, InputCapture } from "./input";
 import type { InputType, WithAutoComplete, WithInvalid } from "./types";
 
 type PasswordInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, "autoComplete" | "type"> &
@@ -17,7 +17,7 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>((props, r
 	const EyeCon = showPassword ? Eye : EyeClosed;
 
 	return (
-		<InputContainer type={type} ref={ref} {...props}>
+		<Input type={type} ref={ref} {...props}>
 			<InputCapture />
 			<button
 				type="button"
@@ -30,7 +30,7 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>((props, r
 				<span className="sr-only">Turn password visibility {showPassword ? "off" : "on"}</span>
 				<EyeCon aria-hidden />
 			</button>
-		</InputContainer>
+		</Input>
 	);
 });
 PasswordInput.displayName = "PasswordInput";
