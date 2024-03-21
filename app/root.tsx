@@ -16,14 +16,13 @@ export const links: LinksFunction = () => [
 
 export const loader = async () => {
 	const packageJson = await import("../package.json");
-	return json({ currentVersion: packageJson.version });
+	const commitSha = process.env.VERCEL_GIT_COMMIT_SHA;
+	const deploymentId = process.env.VERCEL_DEPLOYMENT_ID;
+	return json({ currentVersion: packageJson.version, commitSha, deploymentId });
 };
 
-const commitSha = process.env.VERCEL_GIT_COMMIT_SHA;
-const deploymentId = process.env.VERCEL_DEPLOYMENT_ID;
-
 export default function App() {
-	const { currentVersion } = useLoaderData<typeof loader>();
+	const { currentVersion, commitSha, deploymentId } = useLoaderData<typeof loader>();
 
 	return (
 		<html id="ngrok" className="h-full" lang="en-US" dir="ltr">
