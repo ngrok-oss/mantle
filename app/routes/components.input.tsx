@@ -129,9 +129,9 @@ export default function Page() {
 						</label>
 						<label className="block w-full max-w-80 space-y-1">
 							<p>Search with start and end icons (invalid)</p>
-							<InputContainer className="max-w-64">
+							<InputContainer className="max-w-64" invalid placeholder="Search...">
 								<MagnifyingGlass />
-								<InputCapture placeholder="Search..." invalid />
+								<InputCapture />
 								<Info />
 							</InputContainer>
 						</label>
@@ -183,9 +183,9 @@ export default function Page() {
 									</label>
 									<label className="block w-full max-w-80 space-y-1">
 										<p>Search with start and end icons (invalid)</p>
-										<InputContainer className="max-w-64">
+										<InputContainer className="max-w-64" invalid placeholder="Search...">
 											<MagnifyingGlass />
-											<InputCapture placeholder="Search..." invalid />
+											<InputCapture />
 											<Info />
 										</InputContainer>
 									</label>
