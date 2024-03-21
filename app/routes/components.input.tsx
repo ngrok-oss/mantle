@@ -8,7 +8,7 @@ import {
 	CodeBlockExpanderButton,
 } from "@/code-block";
 import { InlineCode } from "@/inline-code";
-import { Input, InputCapture, InputContainer } from "@/input";
+import { Input, InputCapture } from "@/input";
 import { Info } from "@phosphor-icons/react/Info";
 import { MagnifyingGlass } from "@phosphor-icons/react/MagnifyingGlass";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
@@ -78,16 +78,20 @@ export default function Page() {
 					Composition
 				</h2>
 				<p className="text-xl text-body">
-					<InlineCode>Input</InlineCode> is a composition of the <InlineCode>InputContainer</InlineCode> and{" "}
-					<InlineCode>InputCapture</InlineCode> components. The <InlineCode>InputCapture</InlineCode> component is
-					responsible for rendering the actual form <InlineCode>input</InlineCode> element. The{" "}
-					<InlineCode>InputContainer</InlineCode> component is responsible for rendering the presentational container
-					around the input element, as well as any additional visual treatments like error states.
+					You can compose additional visual or functional elements within the <InlineCode>Input</InlineCode> using{" "}
+					<InlineCode>children</InlineCode>. The examples below show you how to render start and end icons or buttons.
+					The{" "}
+					<Anchor asChild>
+						<Link to={route("/components/password-input")}>Password Input</Link>
+					</Anchor>{" "}
+					is built using this API under the hood! Keep in mind that you will need to manually pass the{" "}
+					<InlineCode>InputCapture</InlineCode> component as children too because it is responsible for rendering the
+					actual form <InlineCode>input</InlineCode> element! We provide an <InlineCode>InputCapture</InlineCode>{" "}
+					component for you when you don't use the <InlineCode>children</InlineCode> API.
 				</p>
 				<p className="text-xl text-body">
-					The examples below show you how you can compose additional elements within the <InlineCode>Input</InlineCode>,
-					like start and end icons or buttons. The <Link to={route("/components/password-input")}>Password Input</Link>{" "}
-					is built using this API under the hood!
+					Note: when composing with interactive content (e.g. a <InlineCode>button</InlineCode>), you will need to
+					consider whether or not that element should be tab-indexable or receive focus!
 				</p>
 				<div>
 					<Example className="mt-4 grid grid-cols-2 place-items-center gap-6">
@@ -129,11 +133,11 @@ export default function Page() {
 						</label>
 						<label className="block w-full max-w-80 space-y-1">
 							<p>Search with start and end icons (invalid)</p>
-							<InputContainer className="max-w-64" invalid placeholder="Search...">
+							<Input className="max-w-64" invalid placeholder="Search...">
 								<MagnifyingGlass />
 								<InputCapture />
 								<Info />
-							</InputContainer>
+							</Input>
 						</label>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
@@ -141,7 +145,7 @@ export default function Page() {
 							<CodeBlockCopyButton />
 							<CodeBlockCode language="tsx">
 								{code`
-									import { Input, InputContainer, InputCapture } from "@ngrok/mantle";
+									import { Input, InputCapture } from "@ngrok/mantle";
 									import { Info } from "@phosphor-icons/react/Info";
 									import { MagnifyingGlass } from "@phosphor-icons/react/MagnifyingGlass";
 
@@ -183,11 +187,11 @@ export default function Page() {
 									</label>
 									<label className="block w-full max-w-80 space-y-1">
 										<p>Search with start and end icons (invalid)</p>
-										<InputContainer className="max-w-64" invalid placeholder="Search...">
+										<Input className="max-w-64" invalid placeholder="Search...">
 											<MagnifyingGlass />
 											<InputCapture />
 											<Info />
-										</InputContainer>
+										</Input>
 									</label>
 								`}
 							</CodeBlockCode>
