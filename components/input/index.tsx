@@ -1,5 +1,6 @@
-export { Input, inputVariants } from "./src/input";
+export { Input, InputContainer, InputCapture } from "./src/input";
+export { PasswordInput } from "./src/password-input";
 
-export type { InputVariants } from "./src/input";
-export type { InputProps } from "./src/input";
-export type { AutoComplete, InputType } from "./src/types";
+export type { InputProps, InputCaptureProps, InputContainerProps } from "./src/input";
+export type { AutoComplete, InputType, WithAutoComplete, WithInputType, WithInvalid } from "./src/types";
+export type { PasswordInputProps } from "./src/password-input";
