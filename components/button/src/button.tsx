@@ -217,7 +217,7 @@ Button.displayName = "Button";
 export { Button, buttonVariants };
 
 const ButtonIcon = ({ children, className, ...props }: HTMLAttributes<HTMLSpanElement>) => (
-	<span className={cx("shrink-0 [&>svg]:size-5", className)} {...props}>
+	<span className={cx("shrink-0 [&>svg]:size-6 sm:[&>svg]:size-5", className)} {...props}>
 		{children}
 	</span>
 );
