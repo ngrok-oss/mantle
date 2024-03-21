@@ -2,16 +2,8 @@ import { CircleNotch } from "@phosphor-icons/react/CircleNotch";
 import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
 import clsx from "clsx";
-import {
-	Children,
-	cloneElement,
-	forwardRef,
-	isValidElement,
-	MouseEvent,
-	PropsWithChildren,
-	ReactNode,
-	type ButtonHTMLAttributes,
-} from "react";
+import { Children, cloneElement, forwardRef, isValidElement } from "react";
+import type { ButtonHTMLAttributes, MouseEvent, PropsWithChildren, ReactNode } from "react";
 import invariant from "tiny-invariant";
 import { cx } from "../../core";
 import { Icon } from "../../icon";
@@ -122,7 +114,7 @@ type ButtonVariants = VariantProps<typeof buttonVariants>;
 /**
  * The props for the `Button` component.
  */
-export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
 	WithAsChild &
 	ButtonVariants & {
 		/**
@@ -147,10 +139,11 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 			appearance = "outlined",
 			asChild = false,
 			children,
-			className: propClassName,
+			className,
 			icon: propIcon,
 			iconPlacement = "start",
 			isLoading = false,
+			onClickCapture,
 			priority = "default",
 			...props
 		},
@@ -158,16 +151,25 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 	) => {
 		const ariaDisabled = _ariaDisabled ?? isLoading;
 		const icon = isLoading ? <CircleNotch className="animate-spin" /> : propIcon;
-		const className = cx(
-			buttonVariants({ appearance, priority, isLoading, iconPlacement: icon ? iconPlacement : undefined }),
-			propClassName,
-		);
-		const onClickCapture = (event: MouseEvent<HTMLButtonElement>) => {
+
+		const _onClickCapture = (event: MouseEvent<HTMLButtonElement>) => {
 			if (isLoading) {
 				event.preventDefault();
 				event.stopPropagation();
 			}
-			props.onClickCapture?.(event);
+			onClickCapture?.(event);
+		};
+
+		const buttonProps = {
+			"aria-disabled": ariaDisabled,
+			className: cx(
+				buttonVariants({ appearance, priority, isLoading, iconPlacement: icon ? iconPlacement : undefined }),
+				className,
+			),
+			"data-loading": isLoading,
+			onClickCapture: _onClickCapture,
+			ref,
+			...props,
 		};
 
 		if (asChild) {
@@ -199,14 +201,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 		}
 
 		return (
-			<button
-				aria-disabled={ariaDisabled}
-				className={className}
-				data-loading={isLoading}
-				onClickCapture={onClickCapture}
-				ref={ref}
-				{...props}
-			>
+			<button {...buttonProps}>
 				<InnerContent appearance={appearance} icon={icon} iconPlacement={iconPlacement}>
 					{children}
 				</InnerContent>
@@ -217,6 +212,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 Button.displayName = "Button";
 
 export { Button, buttonVariants };
+export type { ButtonProps };
 
 type InnerContentProps = PropsWithChildren & Pick<ButtonProps, "appearance" | "icon" | "iconPlacement">;
 
