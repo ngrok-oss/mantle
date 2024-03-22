@@ -287,7 +287,7 @@ export default function Page() {
 							</ul>
 						</PropTypeCell>
 						<PropDefaultValueCell>
-							<StringPropType value="ghost" />
+							<StringPropType value="outlined" />
 						</PropDefaultValueCell>
 						<PropDescriptionCell>
 							<p>

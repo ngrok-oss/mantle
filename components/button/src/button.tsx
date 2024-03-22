@@ -6,14 +6,15 @@ import {
 	Children,
 	cloneElement,
 	forwardRef,
-	HTMLAttributes,
 	isValidElement,
 	MouseEvent,
 	PropsWithChildren,
 	ReactNode,
 	type ButtonHTMLAttributes,
 } from "react";
+import invariant from "tiny-invariant";
 import { cx } from "../../core";
+import { Icon } from "../../icon";
 import type { WithAsChild } from "../../types/src/as-child";
 import type { VariantProps } from "../../types/src/variant-props";
 
@@ -171,9 +172,11 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
 		if (asChild) {
 			const singleChild = Children.only(children);
-			const isValidChild = isValidElement(singleChild);
-			// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-			const grandchildren = (isValidChild ? singleChild.props?.children : null) as ReactNode;
+			invariant(
+				isValidElement<ButtonProps>(singleChild),
+				"When using `asChild`, Button must be passed a single child as a JSX tag.",
+			);
+			const grandchildren = singleChild.props?.children;
 
 			return (
 				<Slot
@@ -184,14 +187,13 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 					ref={ref}
 					{...props}
 				>
-					{isValidChild &&
-						cloneElement(
-							singleChild,
-							{},
-							<InnerContent appearance={appearance} icon={icon} iconPlacement={iconPlacement}>
-								{grandchildren}
-							</InnerContent>,
-						)}
+					{cloneElement(
+						singleChild,
+						{},
+						<InnerContent appearance={appearance} icon={icon} iconPlacement={iconPlacement}>
+							{grandchildren}
+						</InnerContent>,
+					)}
 				</Slot>
 			);
 		}
@@ -216,12 +218,6 @@ Button.displayName = "Button";
 
 export { Button, buttonVariants };
 
-const ButtonIcon = ({ children, className, ...props }: HTMLAttributes<HTMLSpanElement>) => (
-	<span className={cx("shrink-0 [&>svg]:size-6 sm:[&>svg]:size-5", className)} {...props}>
-		{children}
-	</span>
-);
-
 type InnerContentProps = PropsWithChildren & Pick<ButtonProps, "appearance" | "icon" | "iconPlacement">;
 
 const InnerContent = ({ appearance, children, icon, iconPlacement }: InnerContentProps) => (
@@ -231,7 +227,7 @@ const InnerContent = ({ appearance, children, icon, iconPlacement }: InnerConten
 			appearance === "link" && "group-hover:underline",
 		)}
 	>
-		{icon && <ButtonIcon className={clsx(iconPlacement === "end" && "order-last")}>{icon}</ButtonIcon>}
+		{icon && <Icon svg={icon} className={clsx(iconPlacement === "end" && "order-last")} />}
 		{children}
 	</span>
 );
