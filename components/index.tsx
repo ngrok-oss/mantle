@@ -7,6 +7,7 @@ export * from "./code-block";
 export * from "./core";
 export * from "./dialog";
 export * from "./dropdown-menu";
+export * from "./icon";
 export * from "./inline-code";
 export * from "./input";
 export * from "./media-object";
