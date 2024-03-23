@@ -57,7 +57,9 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 					<MantleLogo />
 				</Link>
 
-				<p className="text-strong">{currentVersion} (latest)</p>
+				<p className="font-mono text-xs text-strong">
+					<a href="https://github.com/ngrok-oss/mantle/releases">{currentVersion}</a>
+				</p>
 
 				<Select
 					value={currentTheme}
