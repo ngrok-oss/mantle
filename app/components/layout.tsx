@@ -171,6 +171,11 @@ function Navigation({ className, style }: WithStyleProps) {
 						</NavLink>
 					</li>
 					<li>
+						<NavLink to="/base/shadows" prefetch="intent">
+							Shadows
+						</NavLink>
+					</li>
+					<li>
 						<NavLink to="/base/typography" prefetch="intent">
 							Typography
 						</NavLink>

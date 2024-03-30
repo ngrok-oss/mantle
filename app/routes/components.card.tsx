@@ -24,11 +24,7 @@ export default function Page() {
 				A container used to display content in a box, resembling a physical card.
 			</p>
 
-			<Example className="mt-4 grid grid-flow-col gap-8">
-				<div className="size-24 rounded bg-card shadow-md"></div>
-				<div className="size-24 rounded bg-card shadow-lg"></div>
-				<div className="size-24 rounded bg-card shadow-xl"></div>
-				<div className="size-24 rounded bg-card shadow-2xl"></div>
+			<Example className="mt-4">
 				<Card className="shadow-lg">
 					<CardHeader>
 						<CardTitle>Card Title Here</CardTitle>

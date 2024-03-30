@@ -3,6 +3,7 @@
 export const routePatterns = [
 	"/",
 	"/base/colors",
+	"/base/shadows",
 	"/base/typography",
 	"/components/alert",
 	"/components/anchor",
@@ -38,6 +39,7 @@ export const isRoutePattern = (value: unknown): value is RoutePattern =>
 export const routes = [
 	"/",
 	"/base/colors",
+	"/base/shadows",
 	"/base/typography",
 	"/components/alert",
 	"/components/anchor",
