@@ -609,6 +609,13 @@
 	--ring-focus-danger: var(--danger-500) / 0.3;
 	--ring-focus-warning: var(--warning-500) / 0.3;
 	--ring-focus-success: var(--success-500) / 0.3;
+
+	/* shadow tokens */
+
+	--shadow-color: 0 0% 0%;
+	--shadow-first: 4%;
+	--shadow-second: 10%;
+	--shadow-third: 25%;
 }
 
 :root.dark {
@@ -897,6 +904,12 @@
 	--bg-filled-danger-active: var(--danger-500) / 0.8;
 	--bg-filled-warning-active: var(--warning-500) / 0.8;
 	--bg-filled-success-active: var(--success-500) / 0.8;
+
+	/* shadow tokens */
+
+	--shadow-first: 15%;
+	--shadow-second: 30%;
+	--shadow-third: 90%;
 }
 
 :root.light-high-contrast {
@@ -1135,6 +1148,12 @@
 	--text-muted: var(--black) / 0.75;
 	--text-placeholder: var(--black) / 0.5;
 	--text-on-filled: var(--tw-white);
+
+	/* shadow tokens */
+
+	--shadow-first: 100%;
+	--shadow-second: 100%;
+	--shadow-third: 100%;
 }
 
 :root.dark-high-contrast {
@@ -1382,6 +1401,12 @@
 
 	--bg-tooltip: var(--tw-black);
 	--text-tooltip: var(--tw-white);
+
+	/* shadow tokens */
+
+	--shadow-first: 100%;
+	--shadow-second: 100%;
+	--shadow-third: 100%;
 }
 
 /**

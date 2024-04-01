@@ -333,6 +333,13 @@ const mantlePreset = {
 				invalid: 'invalid="true"',
 				unchecked: 'checked="false"',
 			},
+			boxShadow: {
+				md: "0px 2px 13px 0px hsl(var(--shadow-color) / var(--shadow-first)), 0px 2px 4px -2px hsl(var(--shadow-color) / var(--shadow-second)), 0px 4px 6px -1px hsl(var(--shadow-color) / var(--shadow-second))",
+				lg: "0px 1px 13px 0px hsl(var(--shadow-color) / var(--shadow-first)), 0px 4px 6px -4px hsl(var(--shadow-color) / var(--shadow-second)), 0px 10px 15px -3px hsl(var(--shadow-color) / var(--shadow-second))",
+				xl: "0px 0px 15px 0px hsl(var(--shadow-color) / var(--shadow-first)), 0px 8px 10px -6px hsl(var(--shadow-color) / var(--shadow-second)), 0px 20px 25px -5px hsl(var(--shadow-color) / var(--shadow-second))",
+				"2xl":
+					"0px 0px 15px 2px hsl(var(--shadow-color) / var(--shadow-first)), 0px 25px 50px -12px hsl(var(--shadow-color) / var(--shadow-third))",
+			},
 			backgroundColor: {
 				base: "hsl(var(--bg-base))",
 				card: "hsl(var(--bg-card))",
