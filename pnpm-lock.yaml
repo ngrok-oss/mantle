@@ -12,8 +12,8 @@ importers:
         specifier: 0.4.5
         version: 0.4.5(react-dom@18.2.0)(react@18.2.0)
       '@phosphor-icons/react':
-        specifier: 2.1.4
-        version: 2.1.4(react-dom@18.2.0)(react@18.2.0)
+        specifier: 2.0.15
+        version: 2.0.15(react-dom@18.2.0)(react@18.2.0)
       '@radix-ui/react-checkbox':
         specifier: 1.0.4
         version: 1.0.4(@types/react-dom@18.2.23)(@types/react@18.2.73)(react-dom@18.2.0)(react@18.2.0)
@@ -3934,8 +3934,8 @@ packages:
       nullthrows: 1.1.1
     dev: true
 
-  /@phosphor-icons/react@2.1.4(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-EeNwgcg1aeK5vG/JYVTullnZzk5zjftOrjLb1iYetyhn5ImFFREc+xG0FAB/dAY277DGDSF8pNdNbqG1SUKIxQ==}
+  /@phosphor-icons/react@2.0.15(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-PQKNcRrfERlC8gJGNz0su0i9xVmeubXSNxucPcbCLDd9u0cwJVTEyYK87muul/svf0UXFdL2Vl6bbeOhT1Mwow==}
     engines: {node: '>=10'}
     peerDependencies:
       react: '>= 16.8'
