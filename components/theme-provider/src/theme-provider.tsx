@@ -26,7 +26,7 @@ type Theme = (typeof themes)[number];
 /**
  * theme is a helper which translates the Theme type into a string literal type.
  */
-const theme = (value: Theme) => value;
+const theme = <T extends Theme>(value: T) => value;
 
 /**
  * Type predicate that checks if a value is a valid theme.
