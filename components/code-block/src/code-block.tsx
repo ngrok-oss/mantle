@@ -144,8 +144,8 @@ const CodeBlockCode = forwardRef<HTMLPreElement, CodeBlockCodeProps>((props, ref
 			grammar,
 			`CodeBlock does not support the language "${language}". The syntax highlighter does not have a grammar for this language. The supported languages are: ${supportedLanguages.join(", ")}.`,
 		);
-		const highlighted = Prism.highlight(trimmedCode, grammar, language);
-		setHighlightedCode(highlighted);
+		const newHighlightedCode = Prism.highlight(trimmedCode, grammar, language);
+		setHighlightedCode(newHighlightedCode);
 	}, [trimmedCode, language]);
 
 	useEffect(() => {
