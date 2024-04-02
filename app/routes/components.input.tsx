@@ -1,11 +1,11 @@
 import { Anchor } from "@/anchor";
 import {
-	code,
 	CodeBlock,
 	CodeBlockBody,
 	CodeBlockCode,
 	CodeBlockCopyButton,
 	CodeBlockExpanderButton,
+	fmtCode,
 } from "@/code-block";
 import { InlineCode } from "@/inline-code";
 import { Input, InputCapture } from "@/input";
@@ -62,7 +62,7 @@ export default function Page() {
 							<CodeBlockCopyButton />
 							<CodeBlockCode
 								language="tsx"
-								value={code`
+								value={fmtCode`
 									import { Input } from "@ngrok/mantle";
 
 									<Input placeholder="Enter a username" />
@@ -146,7 +146,7 @@ export default function Page() {
 							<CodeBlockCopyButton />
 							<CodeBlockCode
 								language="tsx"
-								value={code`
+								value={fmtCode`
 									import { Input, InputCapture } from "@ngrok/mantle";
 									import { Info } from "@phosphor-icons/react/Info";
 									import { MagnifyingGlass } from "@phosphor-icons/react/MagnifyingGlass";

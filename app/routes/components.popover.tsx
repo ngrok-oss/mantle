@@ -1,5 +1,5 @@
 import { Button } from "@/button";
-import { code, CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import { Input } from "@/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/popover";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
@@ -66,7 +66,7 @@ export default function Page() {
 					<CodeBlockCopyButton />
 					<CodeBlockCode
 						language="tsx"
-						value={code`
+						value={fmtCode`
 							import { Popover, PopoverContent, PopoverTrigger } from "@ngrok/mantle";
 
 							<Popover>

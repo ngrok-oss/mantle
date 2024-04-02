@@ -1,5 +1,5 @@
 import { Anchor } from "@/anchor";
-import { code, CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import { InlineCode } from "@/inline-code";
 import { TextArea } from "@/text-area";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
@@ -70,7 +70,7 @@ export default function Page() {
 							<CodeBlockCopyButton />
 							<CodeBlockCode
 								language="tsx"
-								value={code`
+								value={fmtCode`
 									import { TextArea } from "@ngrok/mantle";
 
 									<TextArea placeholder="Tell us about your experience…" />

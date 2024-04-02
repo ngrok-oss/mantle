@@ -3,10 +3,10 @@ type Primitive = string | number | boolean | undefined | null;
 /**
  * Tagged template literal to format code blocks and normalize leading indentation
  */
-export function code(strings: TemplateStringsArray, ...values: Primitive[]): string {
+export function fmtCode(strings: TemplateStringsArray, ...values: Primitive[]): string {
 	if (!isTemplateStringsArray(strings) || !Array.isArray(values)) {
 		throw new Error(
-			"It looks like you tried to call `code` as a function. Make sure to use it as a tagged template.\n\tExample: code`SELECT * FROM users`, not code('SELECT * FROM users')",
+			"It looks like you tried to call `fmtCode` as a function. Make sure to use it as a tagged template.\n\tExample: fmtCode`SELECT * FROM users`, not fmtCode('SELECT * FROM users')",
 		);
 	}
 

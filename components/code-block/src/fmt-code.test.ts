@@ -1,17 +1,17 @@
 import { describe, expect, test } from "vitest";
-import { code } from "./code";
+import { fmtCode } from "./fmt-code";
 
-describe("code", () => {
+describe("fmtCode", () => {
 	test("given empty string, returns empty string", () => {
-		expect(code``).toBe("");
+		expect(fmtCode``).toBe("");
 	});
 
 	test("given a single line string, returns the string", () => {
-		expect(code`SELECT * FROM users`).toBe("SELECT * FROM users");
+		expect(fmtCode`SELECT * FROM users`).toBe("SELECT * FROM users");
 	});
 
 	test("given a multiline string with no indentation, returns the string", () => {
-		const example = code`
+		const example = fmtCode`
 const foo = {};
 const bar = {};
 foo.bar = bar;
@@ -20,7 +20,7 @@ foo.bar = bar;
 	});
 
 	test("given a multiline string with indentation, returns the string with indentation removed", () => {
-		const example = code`
+		const example = fmtCode`
 											const foo = {};
 											const bar = {};
 											foo.bar = bar;
@@ -28,8 +28,8 @@ foo.bar = bar;
 		expect(example).toBe("const foo = {};\nconst bar = {};\nfoo.bar = bar;");
 	});
 
-	test("givenv a code block without indentation, returns the string", () => {
-		const example = code`
+	test("givenv a fmtCode block without indentation, returns the string", () => {
+		const example = fmtCode`
 const http = require('http');
 const ngrok = require("@ngrok/ngrok");
 const server = http.createServer((req, res) => {
@@ -59,8 +59,8 @@ ngrok.listen(server).then(() => {
 		`);
 	});
 
-	test("givenv a code block with indentation, returns the string", () => {
-		const example = code`
+	test("givenv a fmtCode block with indentation, returns the string", () => {
+		const example = fmtCode`
 											const http = require('http');
 											const ngrok = require("@ngrok/ngrok");
 											const server = http.createServer((req, res) => {

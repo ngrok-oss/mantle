@@ -1,5 +1,5 @@
 import { Alert, AlertContent, AlertDescription, AlertTitle } from "@/alert";
-import { code, CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/table";
 import { CheckCircle } from "@phosphor-icons/react/CheckCircle";
 import { Info } from "@phosphor-icons/react/Info";
@@ -69,7 +69,7 @@ export default function Page() {
 					<CodeBlockCopyButton />
 					<CodeBlockCode
 						language="tsx"
-						value={code`
+						value={fmtCode`
 						import { Alert, AlertContent, AlertDescription, AlertTitle } from "@ngrok/mantle";
 
 						<Alert>

@@ -1,5 +1,5 @@
 import { Anchor } from "@/anchor";
-import { code, CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import { Icon } from "@/icon";
 import { InlineCode } from "@/inline-code";
 import { Fire } from "@phosphor-icons/react/Fire";
@@ -51,7 +51,7 @@ export default function Page() {
 							<CodeBlockCopyButton />
 							<CodeBlockCode
 								language="tsx"
-								value={code`
+								value={fmtCode`
 									import { Icon } from "@ngrok/mantle";
 									import { Fire } from "@phosphor-icons/react/Fire";
 
@@ -110,7 +110,7 @@ export default function Page() {
 							<CodeBlockCopyButton />
 							<CodeBlockCode
 								language="tsx"
-								value={code`
+								value={fmtCode`
 									import { Icon } from "@ngrok/mantle";
 									import { Fire } from "@phosphor-icons/react/Fire";
 
