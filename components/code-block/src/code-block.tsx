@@ -3,7 +3,6 @@ import Prism from "prismjs";
 import {
 	createContext,
 	Dispatch,
-	ElementRef,
 	forwardRef,
 	HTMLAttributes,
 	SetStateAction,
@@ -11,7 +10,6 @@ import {
 	useEffect,
 	useId,
 	useMemo,
-	useRef,
 	useState,
 } from "react";
 import "prismjs/components/prism-bash.js";
@@ -25,7 +23,8 @@ import assert from "tiny-invariant";
 import { cx } from "../../core";
 import type { WithStyleProps } from "../../types/src/with-style-props";
 import { LineRange } from "./line-numbers";
-import { formatLanguageClassName, type SupportedLanguage } from "./supported-languages";
+import { formatLanguageClassName, supportedLanguages } from "./supported-languages";
+import type { SupportedLanguage } from "./supported-languages";
 
 /**
  * TODO(cody):
@@ -131,21 +130,23 @@ type CodeBlockCodeProps = WithStyleProps & {
 
 const CodeBlockCode = forwardRef<HTMLPreElement, CodeBlockCodeProps>((props, ref) => {
 	const { className, language = "sh", style, value } = props;
-	const innerPreRef = useRef<ElementRef<"pre">>();
 	const id = useId();
 	const { hasCodeExpander, isCodeExpanded, registerCodeId, setCopyText, unregisterCodeId } =
 		useContext(CodeBlockContext);
 
 	// trim any leading and trailing whitespace/empty lines
 	const trimmedCode = value?.trim() ?? "";
+	const [highlightedCode, setHighlightedCode] = useState(trimmedCode);
 
 	useEffect(() => {
-		const preElement = innerPreRef.current;
-		if (!preElement) {
-			return;
-		}
-		Prism.highlightElement(preElement);
-	}, [value, language]);
+		const grammar = Prism.languages[language];
+		assert(
+			grammar,
+			`CodeBlock does not support the language "${language}". The syntax highlighter does not have a grammar for this language. The supported languages are: ${supportedLanguages.join(", ")}.`,
+		);
+		const highlighted = Prism.highlight(trimmedCode, grammar, language);
+		setHighlightedCode(highlighted);
+	}, [trimmedCode, language]);
 
 	useEffect(() => {
 		setCopyText(trimmedCode);
@@ -170,17 +171,14 @@ const CodeBlockCode = forwardRef<HTMLPreElement, CodeBlockCodeProps>((props, ref
 			)}
 			data-lang={language}
 			id={id}
-			ref={(node) => {
-				innerPreRef.current = node ?? undefined;
-				return ref;
-			}}
+			ref={ref}
 			style={{
+				...style,
 				tabSize: 2,
 				MozTabSize: 2,
-				...style,
 			}}
 		>
-			<code>{trimmedCode}</code>
+			<code dangerouslySetInnerHTML={{ __html: highlightedCode }} />
 		</pre>
 	);
 });
