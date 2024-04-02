@@ -1,5 +1,4 @@
 import {
-	code,
 	CodeBlock,
 	CodeBlockBody,
 	CodeBlockCode,
@@ -7,6 +6,7 @@ import {
 	CodeBlockExpanderButton,
 	CodeBlockHeader,
 	CodeBlockTitle,
+	fmtCode,
 } from "@/code-block";
 import { InlineCode } from "@/inline-code";
 import { PreloadFonts, preventWrongThemeFlashScriptContent } from "@/theme-provider";
@@ -54,7 +54,7 @@ export default function Page() {
 						<CodeBlockCopyButton />
 						<CodeBlockCode
 							language="tsx"
-							value={code`
+							value={fmtCode`
 							import { MantleThemeHeadContent, ThemeProvider } from "@ngrok/mantle";
 
 							export default function App() {
@@ -97,7 +97,7 @@ export default function Page() {
 						<CodeBlockCopyButton />
 						<CodeBlockCode
 							language="html"
-							value={code`<script>
+							value={fmtCode`<script>
 ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 </script>
 `}
@@ -118,7 +118,7 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 						<CodeBlockCopyButton />
 						<CodeBlockCode
 							language="html"
-							value={code`<head>\n\t${renderToStaticMarkup(<PreloadFonts />)
+							value={fmtCode`<head>\n\t${renderToStaticMarkup(<PreloadFonts />)
 								.split("/><")
 								.join("/>\n\t<")}\n</head>`}
 						/>
@@ -137,7 +137,7 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 						<CodeBlockCopyButton />
 						<CodeBlockCode
 							language="tsx"
-							value={code`
+							value={fmtCode`
 							import {
 								isTheme,
 								Select,

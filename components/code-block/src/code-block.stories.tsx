@@ -1,7 +1,6 @@
 import { FileText } from "@phosphor-icons/react/FileText";
 import { Terminal } from "@phosphor-icons/react/Terminal";
 import type { Meta, StoryObj } from "@storybook/react";
-import { code } from "../src/code";
 import {
 	CodeBlock,
 	CodeBlockBody,
@@ -11,6 +10,7 @@ import {
 	CodeBlockHeader,
 	CodeBlockTitle,
 } from "./code-block";
+import { fmtCode } from "./fmt-code";
 
 const meta = {
 	title: "CodeBlock",
@@ -34,7 +34,7 @@ export const WithHeaderFileExpanding: Story = {
 					<CodeBlockCopyButton />
 					<CodeBlockCode
 						language="js"
-						value={code`
+						value={fmtCode`
 							const listener = await ngrok.connect({
 								// session configuration
 								addr: \`localhost:8080\`, // or \`8080\` or \`unix:$\{UNIX_SOCKET\}\`
@@ -98,7 +98,7 @@ export const WithHeaderCommandLine: Story = {
 					<CodeBlockCopyButton />
 					<CodeBlockCode
 						language="sh"
-						value={code`sudo unzip ~/Downloads/ngrok-v3-stable-darwin.zip -d /usr/local/bin`}
+						value={fmtCode`sudo unzip ~/Downloads/ngrok-v3-stable-darwin.zip -d /usr/local/bin`}
 					/>
 				</CodeBlockBody>
 			</CodeBlock>
@@ -118,7 +118,7 @@ export const WithHeaderFile: Story = {
 					<CodeBlockCopyButton />
 					<CodeBlockCode
 						language="js"
-						value={code`
+						value={fmtCode`
 const http = require('http');
 const ngrok = require("@ngrok/ngrok");
 const server = http.createServer((req, res) => {
@@ -150,7 +150,7 @@ export const WithoutHeaderFileAndNoCopyButton: Story = {
 				<CodeBlockBody>
 					<CodeBlockCode
 						language="js"
-						value={code`
+						value={fmtCode`
 const http = require('http');
 const ngrok = require("@ngrok/ngrok");
 const server = http.createServer((req, res) => {
@@ -177,7 +177,7 @@ export const WithoutHeaderCommandLine: Story = {
 					<CodeBlockCopyButton />
 					<CodeBlockCode
 						language="sh"
-						value={code`ffmpeg -i input%03d.png -c:v hevc_videotoolbox -allow_sw 1 -alpha_quality 0.75 -vtag hvc1 output.mov`}
+						value={fmtCode`ffmpeg -i input%03d.png -c:v hevc_videotoolbox -allow_sw 1 -alpha_quality 0.75 -vtag hvc1 output.mov`}
 					/>
 				</CodeBlockBody>
 			</CodeBlock>

@@ -1,6 +1,6 @@
 import { Anchor } from "@/anchor";
 import { Button } from "@/button";
-import { code, CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import { InlineCode } from "@/inline-code";
 import { Fire } from "@phosphor-icons/react/Fire";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
@@ -99,7 +99,7 @@ export default function Page() {
 							<CodeBlockCopyButton />
 							<CodeBlockCode
 								language="tsx"
-								value={code`
+								value={fmtCode`
 									import { Button } from "@ngrok/mantle";
 
 									<Button>Outlined</Button>
@@ -146,7 +146,7 @@ export default function Page() {
 							<CodeBlockCopyButton />
 							<CodeBlockCode
 								language="tsx"
-								value={code`
+								value={fmtCode`
 									import { Button } from "@ngrok/mantle";
 									import { Fire } from "@phosphor-icons/react/Fire";
 
@@ -201,7 +201,7 @@ export default function Page() {
 							<CodeBlockCopyButton />
 							<CodeBlockCode
 								language="tsx"
-								value={code`
+								value={fmtCode`
 									import { Button } from "@ngrok/mantle";
 									import { Fire } from "@phosphor-icons/react/Fire";
 
@@ -245,7 +245,7 @@ export default function Page() {
 							<CodeBlockCopyButton />
 							<CodeBlockCode
 								language="tsx"
-								value={code`
+								value={fmtCode`
 									import { Button } from "@ngrok/mantle";
 									import { Fire } from "@phosphor-icons/react/Fire";
 									import { Link } from "react-router-dom";

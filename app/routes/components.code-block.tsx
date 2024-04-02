@@ -1,5 +1,4 @@
 import {
-	code,
 	CodeBlock,
 	CodeBlockBody,
 	CodeBlockCode,
@@ -7,6 +6,7 @@ import {
 	CodeBlockExpanderButton,
 	CodeBlockHeader,
 	CodeBlockTitle,
+	fmtCode,
 } from "@/code-block";
 import { FileText } from "@phosphor-icons/react/FileText";
 import { Terminal } from "@phosphor-icons/react/Terminal";
@@ -50,7 +50,7 @@ export default function Page() {
 						<CodeBlockCopyButton />
 						<CodeBlockCode
 							language="js"
-							value={code`
+							value={fmtCode`
 								const listener = await ngrok.connect({
 									// session configuration
 									addr: \`localhost:8080\`, // or \`8080\` or \`unix:$\{UNIX_SOCKET\}\`
@@ -104,8 +104,17 @@ export default function Page() {
 					<CodeBlockCopyButton />
 					<CodeBlockCode
 						language="tsx"
-						value={code`
-							import { CodeBlock, CodeBlockHeader, CodeBlockTitle, CodeBlockBody, CodeBlockCopyButton, CodeBlockCode, CodeBlockExpanderButton } from "@ngrok/mantle";
+						value={fmtCode`
+							import {
+								CodeBlock,
+								CodeBlockBody,
+								CodeBlockCode,
+								CodeBlockCopyButton,
+								CodeBlockExpanderButton,
+								CodeBlockHeader,
+								CodeBlockTitle,
+								fmtCode,
+							} from "@ngrok/mantle";
 
 							<CodeBlock>
 								<CodeBlockHeader>
@@ -114,7 +123,7 @@ export default function Page() {
 								</CodeBlockHeader>
 								<CodeBlockBody>
 									<CodeBlockCopyButton />
-									<CodeBlockCode language="…" value={code\`…\`} />
+									<CodeBlockCode language="…" value={fmtCode\`…\`} />
 								</CodeBlockBody>
 								<CodeBlockExpanderButton />
 							</CodeBlock>
@@ -140,7 +149,7 @@ export default function Page() {
 							<CodeBlockCopyButton />
 							<CodeBlockCode
 								language="sh"
-								value={code`sudo unzip ~/Downloads/ngrok-v3-stable-darwin.zip -d /usr/local/bin`}
+								value={fmtCode`sudo unzip ~/Downloads/ngrok-v3-stable-darwin.zip -d /usr/local/bin`}
 							/>
 						</CodeBlockBody>
 					</CodeBlock>
@@ -150,7 +159,7 @@ export default function Page() {
 						<CodeBlockCopyButton />
 						<CodeBlockCode
 							language="tsx"
-							value={code`
+							value={fmtCode`
 								<CodeBlock>
 									<CodeBlockHeader>
 										<CommandLineIcon />
@@ -158,7 +167,7 @@ export default function Page() {
 									</CodeBlockHeader>
 									<CodeBlockBody>
 										<CodeBlockCopyButton />
-										<CodeBlockCode language="sh" value={code\`sudo unzip ~/Downloads/ngrok-v3-stable-darwin.zip -d /usr/local/bin\`} />
+										<CodeBlockCode language="sh" value={fmtCode\`sudo unzip ~/Downloads/ngrok-v3-stable-darwin.zip -d /usr/local/bin\`} />
 									</CodeBlockBody>
 								</CodeBlock>
 							`}
@@ -183,7 +192,7 @@ export default function Page() {
 							<CodeBlockCopyButton />
 							<CodeBlockCode
 								language="js"
-								value={code`
+								value={fmtCode`
 									const http = require('http');
 									const ngrok = require("@ngrok/ngrok");
 									const server = http.createServer((req, res) => {
@@ -210,7 +219,7 @@ export default function Page() {
 						<CodeBlockCopyButton />
 						<CodeBlockCode
 							language="tsx"
-							value={code`
+							value={fmtCode`
 								<CodeBlock>
 									<CodeBlockHeader>
 										<FileIcon />
@@ -220,7 +229,7 @@ export default function Page() {
 										<CodeBlockCopyButton />
 										<CodeBlockCode
 											language="js"
-											value={code\`
+											value={fmtCode\`
 												const http = require('http');
 												const ngrok = require("@ngrok/ngrok");
 												const server = http.createServer((req, res) => {
@@ -261,7 +270,7 @@ export default function Page() {
 						<CodeBlockBody>
 							<CodeBlockCode
 								language="js"
-								value={code`
+								value={fmtCode`
 									const http = require('http');
 									const ngrok = require("@ngrok/ngrok");
 									const server = http.createServer((req, res) => {
@@ -282,12 +291,12 @@ export default function Page() {
 						<CodeBlockCopyButton />
 						<CodeBlockCode
 							language="tsx"
-							value={code`
+							value={fmtCode`
 								<CodeBlock>
 									<CodeBlockBody>
 										<CodeBlockCode
 											language="js"
-											value={code\`
+											value={fmtCode\`
 												const http = require('http');
 												const ngrok = require("@ngrok/ngrok");
 												const server = http.createServer((req, res) => {
@@ -321,7 +330,7 @@ export default function Page() {
 							<CodeBlockCopyButton />
 							<CodeBlockCode
 								language="sh"
-								value={code`ffmpeg -i multichannel.mxf -map 0:v:0 -map 0:a:0 -map 0:a:0 -c:a:0 ac3 -b:a:0 640k -ac:a:1 2 -c:a:1 aac -b:2 128k out.mp4`}
+								value={fmtCode`ffmpeg -i multichannel.mxf -map 0:v:0 -map 0:a:0 -map 0:a:0 -c:a:0 ac3 -b:a:0 640k -ac:a:1 2 -c:a:1 aac -b:2 128k out.mp4`}
 							/>
 						</CodeBlockBody>
 					</CodeBlock>
@@ -331,13 +340,13 @@ export default function Page() {
 						<CodeBlockCopyButton />
 						<CodeBlockCode
 							language="tsx"
-							value={code`
+							value={fmtCode`
 							<CodeBlock>
 								<CodeBlockBody>
 									<CodeBlockCopyButton />
 									<CodeBlockCode
 										language="sh"
-										value={code\`ffmpeg -i multichannel.mxf -map 0:v:0 -map 0:a:0 -map 0:a:0 -c:a:0 ac3 -b:a:0 640k -ac:a:1 2 -c:a:1 aac -b:2 128k out.mp4\`}
+										value={fmtCode\`ffmpeg -i multichannel.mxf -map 0:v:0 -map 0:a:0 -map 0:a:0 -c:a:0 ac3 -b:a:0 640k -ac:a:1 2 -c:a:1 aac -b:2 128k out.mp4\`}
 									/>
 								</CodeBlockBody>
 							</CodeBlock>

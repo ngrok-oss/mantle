@@ -1,5 +1,5 @@
 import { Button } from "@/button";
-import { code, CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import {
 	Dialog,
 	DialogBody,
@@ -66,7 +66,7 @@ export default function Page() {
 					<CodeBlockCopyButton />
 					<CodeBlockCode
 						language="tsx"
-						value={code`
+						value={fmtCode`
 							import { Dialog, DialogBody, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@ngrok/mantle";
 
 							<Dialog>

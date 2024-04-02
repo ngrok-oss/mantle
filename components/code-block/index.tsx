@@ -8,6 +8,6 @@ export {
 	CodeBlockTitle,
 } from "./src/code-block";
 
-export { code } from "./src/code";
+export { fmtCode } from "./src/fmt-code";
 export { parseMetastring } from "./src/parse-metastring";
 export { isSupportedLanguage, parseLanguage } from "./src/supported-languages";
