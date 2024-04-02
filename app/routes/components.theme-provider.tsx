@@ -50,7 +50,9 @@ export default function Page() {
 					</CodeBlockHeader>
 					<CodeBlockBody>
 						<CodeBlockCopyButton />
-						<CodeBlockCode language="tsx">{code`
+						<CodeBlockCode
+							language="tsx"
+							value={code`
 							import { PreventWrongThemeFlash, ThemeProvider } from "@ngrok/mantle";
 
 							export default function App() {
@@ -74,7 +76,8 @@ export default function Page() {
 									</html>
 								);
 							}
-						`}</CodeBlockCode>
+						`}
+						/>
 						<CodeBlockExpanderButton />
 					</CodeBlockBody>
 				</CodeBlock>
@@ -90,10 +93,13 @@ export default function Page() {
 					</CodeBlockHeader>
 					<CodeBlockBody>
 						<CodeBlockCopyButton />
-						<CodeBlockCode language="html">{code`<script>
+						<CodeBlockCode
+							language="html"
+							value={code`<script>
 ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 </script>
-`}</CodeBlockCode>
+`}
+						/>
 						<CodeBlockExpanderButton />
 					</CodeBlockBody>
 				</CodeBlock>
@@ -108,7 +114,9 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 					</CodeBlockHeader>
 					<CodeBlockBody>
 						<CodeBlockCopyButton />
-						<CodeBlockCode language="tsx">{code`
+						<CodeBlockCode
+							language="tsx"
+							value={code`
 							import {
 								isTheme,
 								Select,
@@ -156,7 +164,8 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 									</>
 								);
 							}
-`}</CodeBlockCode>
+`}
+						/>
 					</CodeBlockBody>
 					<CodeBlockExpanderButton />
 				</CodeBlock>

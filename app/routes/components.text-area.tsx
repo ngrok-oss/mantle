@@ -68,15 +68,16 @@ export default function Page() {
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
 							<CodeBlockCopyButton />
-							<CodeBlockCode language="tsx">
-								{code`
+							<CodeBlockCode
+								language="tsx"
+								value={code`
 									import { TextArea } from "@ngrok/mantle";
 
 									<TextArea placeholder="Tell us about your experience…" />
 									<TextArea appearance="monospaced" placeholder="Tell us about your experience…" />
 									<TextArea placeholder="Tell us about your experience…" invalid />
 								`}
-							</CodeBlockCode>
+							/>
 						</CodeBlockBody>
 					</CodeBlock>
 				</div>

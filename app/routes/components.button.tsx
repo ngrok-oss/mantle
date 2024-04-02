@@ -97,8 +97,9 @@ export default function Page() {
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
 							<CodeBlockCopyButton />
-							<CodeBlockCode language="tsx">
-								{code`
+							<CodeBlockCode
+								language="tsx"
+								value={code`
 									import { Button } from "@ngrok/mantle";
 
 									<Button>Outlined</Button>
@@ -116,7 +117,7 @@ export default function Page() {
 									<Button priority="danger" appearance="ghost">Ghost</Button>
 									<Button priority="danger" appearance="link">Link</Button>
 								`}
-							</CodeBlockCode>
+							/>
 						</CodeBlockBody>
 					</CodeBlock>
 				</div>
@@ -143,8 +144,9 @@ export default function Page() {
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
 							<CodeBlockCopyButton />
-							<CodeBlockCode language="tsx">
-								{code`
+							<CodeBlockCode
+								language="tsx"
+								value={code`
 									import { Button } from "@ngrok/mantle";
 									import { Fire } from "@phosphor-icons/react/Fire";
 
@@ -153,7 +155,7 @@ export default function Page() {
 										Icon End
 									</Button>
 								`}
-							</CodeBlockCode>
+							/>
 						</CodeBlockBody>
 					</CodeBlock>
 				</div>
@@ -197,8 +199,9 @@ export default function Page() {
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
 							<CodeBlockCopyButton />
-							<CodeBlockCode language="tsx">
-								{code`
+							<CodeBlockCode
+								language="tsx"
+								value={code`
 									import { Button } from "@ngrok/mantle";
 									import { Fire } from "@phosphor-icons/react/Fire";
 
@@ -215,7 +218,7 @@ export default function Page() {
 										Icon End + isLoading
 									</Button>
 								`}
-							</CodeBlockCode>
+							/>
 						</CodeBlockBody>
 					</CodeBlock>
 				</div>
@@ -240,8 +243,9 @@ export default function Page() {
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
 							<CodeBlockCopyButton />
-							<CodeBlockCode language="tsx">
-								{code`
+							<CodeBlockCode
+								language="tsx"
+								value={code`
 									import { Button } from "@ngrok/mantle";
 									import { Fire } from "@phosphor-icons/react/Fire";
 									import { Link } from "react-router-dom";
@@ -250,7 +254,7 @@ export default function Page() {
 										<Link to="/base/colors">See our colors!</Link>
 									</Button>
 								`}
-							</CodeBlockCode>
+							/>
 						</CodeBlockBody>
 					</CodeBlock>
 				</div>

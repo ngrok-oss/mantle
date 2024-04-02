@@ -67,7 +67,9 @@ export default function Page() {
 			<CodeBlock className="rounded-b-lg rounded-t-none">
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
-					<CodeBlockCode language="tsx">{code`
+					<CodeBlockCode
+						language="tsx"
+						value={code`
 						import { Alert, AlertContent, AlertDescription, AlertTitle } from "@ngrok/mantle";
 
 						<Alert>
@@ -105,7 +107,8 @@ export default function Page() {
 								<AlertDescription>This is a warning alert.</AlertDescription>
 							</AlertContent>
 						</Alert>
-					`}</CodeBlockCode>
+					`}
+					/>
 				</CodeBlockBody>
 			</CodeBlock>
 			<h2 className="mt-16 text-3xl font-medium">API Reference</h2>

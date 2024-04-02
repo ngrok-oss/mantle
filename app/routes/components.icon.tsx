@@ -49,15 +49,16 @@ export default function Page() {
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
 							<CodeBlockCopyButton />
-							<CodeBlockCode language="tsx">
-								{code`
+							<CodeBlockCode
+								language="tsx"
+								value={code`
 									import { Icon } from "@ngrok/mantle";
 									import { Fire } from "@phosphor-icons/react/Fire";
 
 									<Icon svg={<Fire />} />
 									<Icon className="text-danger-600" svg={<Fire weight="fill" />} />
 								`}
-							</CodeBlockCode>
+							/>
 						</CodeBlockBody>
 					</CodeBlock>
 				</div>
@@ -107,8 +108,9 @@ export default function Page() {
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
 							<CodeBlockCopyButton />
-							<CodeBlockCode language="tsx">
-								{code`
+							<CodeBlockCode
+								language="tsx"
+								value={code`
 									import { Icon } from "@ngrok/mantle";
 									import { Fire } from "@phosphor-icons/react/Fire";
 
@@ -116,7 +118,7 @@ export default function Page() {
 									<Icon svg={<Fire className="size-12 sm:size-16" />} />
 									<Icon className="size-20 sm:size-28" svg={<Fire className="size-12 sm:size-16" />} />
 								`}
-							</CodeBlockCode>
+							/>
 						</CodeBlockBody>
 					</CodeBlock>
 				</div>

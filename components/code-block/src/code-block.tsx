@@ -3,7 +3,6 @@ import Prism from "prismjs";
 import {
 	createContext,
 	Dispatch,
-	ElementRef,
 	forwardRef,
 	HTMLAttributes,
 	SetStateAction,
@@ -11,7 +10,6 @@ import {
 	useEffect,
 	useId,
 	useMemo,
-	useRef,
 	useState,
 } from "react";
 import "prismjs/components/prism-bash.js";
@@ -25,7 +23,8 @@ import assert from "tiny-invariant";
 import { cx } from "../../core";
 import type { WithStyleProps } from "../../types/src/with-style-props";
 import { LineRange } from "./line-numbers";
-import { formatLanguageClassName, type SupportedLanguage } from "./supported-languages";
+import { formatLanguageClassName, supportedLanguages } from "./supported-languages";
+import type { SupportedLanguage } from "./supported-languages";
 
 /**
  * TODO(cody):
@@ -111,29 +110,43 @@ const CodeBlockBody = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>
 CodeBlockBody.displayName = "CodeBlockBody";
 
 type CodeBlockCodeProps = WithStyleProps & {
-	children?: string | undefined;
+	/**
+	 * The code to display in the code block. Should be code formatted as a string. This code will be passed to our syntax highlighter.
+	 */
+	value: string;
+	/**
+	 * @todo not implemented yet
+	 */
 	highlightLines?: (LineRange | number)[];
+	/**
+	 * The language of the code block. This will be used to determine how to syntax highlight the code. @default `"sh"`.
+	 */
 	language?: SupportedLanguage;
+	/**
+	 * @todo not implemented yet
+	 */
 	showLineNumbers?: boolean;
 };
 
 const CodeBlockCode = forwardRef<HTMLPreElement, CodeBlockCodeProps>((props, ref) => {
-	const { children, className, language = "sh", style } = props;
-	const innerPreRef = useRef<ElementRef<"pre">>();
+	const { className, language = "sh", style, value } = props;
 	const id = useId();
 	const { hasCodeExpander, isCodeExpanded, registerCodeId, setCopyText, unregisterCodeId } =
 		useContext(CodeBlockContext);
 
 	// trim any leading and trailing whitespace/empty lines
-	const trimmedCode = children?.trim() ?? "";
+	const trimmedCode = value?.trim() ?? "";
+	const [highlightedCodeInnerHtml, setHighlightedCodeInnerHtml] = useState(trimmedCode);
 
 	useEffect(() => {
-		const preElement = innerPreRef.current;
-		if (!preElement) {
-			return;
-		}
-		Prism.highlightElement(preElement);
-	}, [trimmedCode, children]);
+		const grammar = Prism.languages[language];
+		assert(
+			grammar,
+			`CodeBlock does not support the language "${language}". The syntax highlighter does not have a grammar for this language. The supported languages are: ${supportedLanguages.join(", ")}.`,
+		);
+		const newHighlightedCodeInnerHtml = Prism.highlight(trimmedCode, grammar, language);
+		setHighlightedCodeInnerHtml(newHighlightedCodeInnerHtml);
+	}, [trimmedCode, language]);
 
 	useEffect(() => {
 		setCopyText(trimmedCode);
@@ -158,17 +171,14 @@ const CodeBlockCode = forwardRef<HTMLPreElement, CodeBlockCodeProps>((props, ref
 			)}
 			data-lang={language}
 			id={id}
-			ref={(node) => {
-				innerPreRef.current = node ?? undefined;
-				return ref;
-			}}
+			ref={ref}
 			style={{
+				...style,
 				tabSize: 2,
 				MozTabSize: 2,
-				...style,
 			}}
 		>
-			<code>{trimmedCode}</code>
+			<code dangerouslySetInnerHTML={{ __html: highlightedCodeInnerHtml }} />
 		</pre>
 	);
 });
@@ -192,7 +202,13 @@ const CodeBlockTitle = forwardRef<HTMLHeadingElement, HTMLAttributes<HTMLHeading
 CodeBlockTitle.displayName = "CodeBlockTitle";
 
 type CodeBlockCopyButtonProps = WithStyleProps & {
+	/**
+	 * Callback fired when the copy button is clicked, passes the copied text as an argument.
+	 */
 	onCopy?: (value: string) => void;
+	/**
+	 * Callback fired when an error occurs during copying.
+	 */
 	onCopyError?: (error: unknown) => void;
 };
 

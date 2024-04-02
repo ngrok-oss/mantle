@@ -32,8 +32,9 @@ export const WithHeaderFileExpanding: Story = {
 				</CodeBlockHeader>
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
-					<CodeBlockCode language="js">
-						{code`
+					<CodeBlockCode
+						language="js"
+						value={code`
 							const listener = await ngrok.connect({
 								// session configuration
 								addr: \`localhost:8080\`, // or \`8080\` or \`unix:$\{UNIX_SOCKET\}\`
@@ -77,7 +78,7 @@ export const WithHeaderFileExpanding: Story = {
 								websocket_tcp_converter: true,
 							});
 						`}
-					</CodeBlockCode>
+					/>
 					<CodeBlockExpanderButton />
 				</CodeBlockBody>
 			</CodeBlock>
@@ -95,9 +96,10 @@ export const WithHeaderCommandLine: Story = {
 				</CodeBlockHeader>
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
-					<CodeBlockCode language="sh">
-						{code`sudo unzip ~/Downloads/ngrok-v3-stable-darwin.zip -d /usr/local/bin`}
-					</CodeBlockCode>
+					<CodeBlockCode
+						language="sh"
+						value={code`sudo unzip ~/Downloads/ngrok-v3-stable-darwin.zip -d /usr/local/bin`}
+					/>
 				</CodeBlockBody>
 			</CodeBlock>
 		</div>
@@ -114,8 +116,9 @@ export const WithHeaderFile: Story = {
 				</CodeBlockHeader>
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
-					<CodeBlockCode language="js">
-						{code`
+					<CodeBlockCode
+						language="js"
+						value={code`
 const http = require('http');
 const ngrok = require("@ngrok/ngrok");
 const server = http.createServer((req, res) => {
@@ -133,7 +136,7 @@ ngrok.listen(server).then(() => {
 });
 // really long line here that should wrap around and stuff Officia ipsum sint eu labore esse deserunt aliqua quis irure.
 						`}
-					</CodeBlockCode>
+					/>
 				</CodeBlockBody>
 			</CodeBlock>
 		</div>
@@ -145,8 +148,9 @@ export const WithoutHeaderFileAndNoCopyButton: Story = {
 		<div className="mx-auto max-w-screen-md">
 			<CodeBlock>
 				<CodeBlockBody>
-					<CodeBlockCode language="js">
-						{code`
+					<CodeBlockCode
+						language="js"
+						value={code`
 const http = require('http');
 const ngrok = require("@ngrok/ngrok");
 const server = http.createServer((req, res) => {
@@ -158,7 +162,7 @@ ngrok.listen(server).then(() => {
 	console.log("url:", server.tunnel.url());
 });
 						`}
-					</CodeBlockCode>
+					/>
 				</CodeBlockBody>
 			</CodeBlock>
 		</div>
@@ -171,9 +175,10 @@ export const WithoutHeaderCommandLine: Story = {
 			<CodeBlock>
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
-					<CodeBlockCode language="sh">
-						{code`ffmpeg -i input%03d.png -c:v hevc_videotoolbox -allow_sw 1 -alpha_quality 0.75 -vtag hvc1 output.mov`}
-					</CodeBlockCode>
+					<CodeBlockCode
+						language="sh"
+						value={code`ffmpeg -i input%03d.png -c:v hevc_videotoolbox -allow_sw 1 -alpha_quality 0.75 -vtag hvc1 output.mov`}
+					/>
 				</CodeBlockBody>
 			</CodeBlock>
 		</div>
