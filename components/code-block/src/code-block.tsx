@@ -136,7 +136,7 @@ const CodeBlockCode = forwardRef<HTMLPreElement, CodeBlockCodeProps>((props, ref
 
 	// trim any leading and trailing whitespace/empty lines
 	const trimmedCode = value?.trim() ?? "";
-	const [highlightedCode, setHighlightedCode] = useState(trimmedCode);
+	const [highlightedCodeInnerHtml, setHighlightedCodeInnerHtml] = useState(trimmedCode);
 
 	useEffect(() => {
 		const grammar = Prism.languages[language];
@@ -144,8 +144,8 @@ const CodeBlockCode = forwardRef<HTMLPreElement, CodeBlockCodeProps>((props, ref
 			grammar,
 			`CodeBlock does not support the language "${language}". The syntax highlighter does not have a grammar for this language. The supported languages are: ${supportedLanguages.join(", ")}.`,
 		);
-		const newHighlightedCode = Prism.highlight(trimmedCode, grammar, language);
-		setHighlightedCode(newHighlightedCode);
+		const newHighlightedCodeInnerHtml = Prism.highlight(trimmedCode, grammar, language);
+		setHighlightedCodeInnerHtml(newHighlightedCodeInnerHtml);
 	}, [trimmedCode, language]);
 
 	useEffect(() => {
@@ -178,7 +178,7 @@ const CodeBlockCode = forwardRef<HTMLPreElement, CodeBlockCodeProps>((props, ref
 				MozTabSize: 2,
 			}}
 		>
-			<code dangerouslySetInnerHTML={{ __html: highlightedCode }} />
+			<code dangerouslySetInnerHTML={{ __html: highlightedCodeInnerHtml }} />
 		</pre>
 	);
 });
