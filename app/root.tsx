@@ -1,4 +1,4 @@
-import { PreventWrongThemeFlash, ThemeProvider } from "@/theme-provider";
+import { PreventWrongThemeFlash, ThemeProvider, useInitialHtmlThemeProps } from "@/theme-provider";
 import { TooltipProvider } from "@/tooltip";
 import { cssBundleHref } from "@remix-run/css-bundle";
 import type { LinksFunction } from "@remix-run/node";
@@ -23,9 +23,10 @@ export const loader = async () => {
 
 export default function App() {
 	const { currentVersion, commitSha, deploymentId } = useLoaderData<typeof loader>();
+	const initialHtmlThemeProps = useInitialHtmlThemeProps({ className: "h-full" });
 
 	return (
-		<html id="ngrok" className="h-full" lang="en-US" dir="ltr">
+		<html id="ngrok" {...initialHtmlThemeProps} lang="en-US" dir="ltr">
 			<head>
 				<PreventWrongThemeFlash />
 				<PreloadFonts />

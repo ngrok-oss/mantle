@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import type { PropsWithChildren } from "react";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import invariant from "tiny-invariant";
@@ -269,6 +270,44 @@ const PreventWrongThemeFlash = ({
 	/>
 );
 
+type InitialThemeProps = {
+	className: string;
+	"data-applied-theme": Omit<Theme, "system">;
+	"data-theme": Theme;
+};
+
+/**
+ * useInitialHtmlThemeProps returns the initial props that should be applied to the <html> element to prevent react hydration errors.
+ */
+function useInitialHtmlThemeProps(props?: {
+	className?: string;
+	defaultTheme?: Theme;
+	storageKey?: string;
+}): InitialThemeProps {
+	const { className = "", defaultTheme = "system", storageKey = DEFAULT_STORAGE_KEY } = props ?? {};
+
+	return useMemo(() => {
+		if (!isBrowser()) {
+			return {
+				className: clsx(className),
+				"data-applied-theme": "system",
+				"data-theme": "system",
+			};
+		}
+
+		const prefersDarkMode = window.matchMedia(prefersDarkModeMediaQuery).matches;
+		const prefersHighContrast = window.matchMedia(prefersHighContrastMediaQuery).matches;
+		const initialTheme = getStoredTheme(storageKey, defaultTheme);
+		const reolvedTheme = resolveTheme(initialTheme, { prefersDarkMode, prefersHighContrast });
+
+		return {
+			className: clsx(className, reolvedTheme),
+			"data-applied-theme": reolvedTheme,
+			"data-theme": initialTheme,
+		};
+	}, [className, defaultTheme, storageKey]);
+}
+
 export type { Theme, ThemeProviderProps };
 export {
 	isTheme,
@@ -277,5 +316,6 @@ export {
 	theme,
 	ThemeProvider,
 	useAppliedTheme,
+	useInitialHtmlThemeProps,
 	useTheme,
 };
