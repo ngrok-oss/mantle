@@ -9,9 +9,10 @@ import {
 	CodeBlockTitle,
 } from "@/code-block";
 import { InlineCode } from "@/inline-code";
-import { preventWrongThemeFlashScriptContent } from "@/theme-provider";
+import { PreloadFonts, preventWrongThemeFlashScriptContent } from "@/theme-provider";
 import { FileText } from "@phosphor-icons/react/FileText";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
+import { renderToStaticMarkup } from "react-dom/server";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -40,8 +41,9 @@ export default function Page() {
 					done as high in the component tree as possible.
 				</p>
 				<p>
-					You should also add the <InlineCode>PreventWrongThemeFlash</InlineCode> component to the head of your
-					application to prevent a Flash of Unstyled Content (FOUC) when the app first loads.
+					You should also add the <InlineCode>MantleThemeHeadContent</InlineCode> component to the head of your
+					application to prevent a Flash of Unstyled Content (FOUC) when the app first loads as well as preload all of
+					our custom fonts.
 				</p>
 				<CodeBlock>
 					<CodeBlockHeader>
@@ -53,14 +55,14 @@ export default function Page() {
 						<CodeBlockCode
 							language="tsx"
 							value={code`
-							import { PreventWrongThemeFlash, ThemeProvider } from "@ngrok/mantle";
+							import { MantleThemeHeadContent, ThemeProvider } from "@ngrok/mantle";
 
 							export default function App() {
 								return (
 									<html className="h-full" lang="en-US" dir="ltr">
 										<head>
 											// 👇 add this as high in the <head> as possible!
-											<PreventWrongThemeFlash />
+											<MantleThemeHeadContent />
 											<meta charSet="utf-8" />
 											<meta name="author" content="ngrok" />
 											<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -82,7 +84,7 @@ export default function Page() {
 					</CodeBlockBody>
 				</CodeBlock>
 				<p>
-					Sometimes you cannot use the <InlineCode>PreventWrongThemeFlash</InlineCode> component because your webserver
+					Sometimes you cannot use the <InlineCode>MantleThemeHeadContent</InlineCode> component because your webserver
 					is not able to render React components. In this case, you can use the copy the following script and add it to
 					your application&apos;s <InlineCode>&lt;head&gt;</InlineCode>:
 				</p>
@@ -101,6 +103,25 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 `}
 						/>
 						<CodeBlockExpanderButton />
+					</CodeBlockBody>
+				</CodeBlock>
+				<p>
+					You will also need to ensure that you add the <InlineCode>PreloadFonts</InlineCode> component to your app as
+					well.
+				</p>
+				<CodeBlock>
+					<CodeBlockHeader>
+						<FileText className="h-5 w-5" weight="fill" />
+						<CodeBlockTitle>index.html</CodeBlockTitle>
+					</CodeBlockHeader>
+					<CodeBlockBody>
+						<CodeBlockCopyButton />
+						<CodeBlockCode
+							language="html"
+							value={code`<head>\n\t${renderToStaticMarkup(<PreloadFonts />)
+								.split("/><")
+								.join("/>\n\t<")}\n</head>`}
+						/>
 					</CodeBlockBody>
 				</CodeBlock>
 				<p>
