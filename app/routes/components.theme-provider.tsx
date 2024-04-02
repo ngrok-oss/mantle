@@ -9,9 +9,10 @@ import {
 	CodeBlockTitle,
 } from "@/code-block";
 import { InlineCode } from "@/inline-code";
-import { preventWrongThemeFlashScriptContent } from "@/theme-provider";
+import { PreloadFonts, preventWrongThemeFlashScriptContent } from "@/theme-provider";
 import { FileText } from "@phosphor-icons/react/FileText";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
+import { renderToStaticMarkup } from "react-dom/server";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -101,6 +102,19 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 `}
 						/>
 						<CodeBlockExpanderButton />
+					</CodeBlockBody>
+				</CodeBlock>
+				<p>
+					You will also need to ensure that you add the <InlineCode>PreloadFonts</InlineCode> component to your app as well.
+				</p>
+				<CodeBlock>
+					<CodeBlockHeader>
+						<FileText className="h-5 w-5" weight="fill" />
+						<CodeBlockTitle>index.html</CodeBlockTitle>
+					</CodeBlockHeader>
+					<CodeBlockBody>
+						<CodeBlockCopyButton />
+						<CodeBlockCode language="html" value={code`<head>\n\t${renderToStaticMarkup(<PreloadFonts />).split("/><").join("/>\n\t<")}\n</head>`} />
 					</CodeBlockBody>
 				</CodeBlock>
 				<p>
