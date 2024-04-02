@@ -11,7 +11,11 @@ export type CardProps = HTMLAttributes<HTMLDivElement>;
  * card.
  */
 export const Card = forwardRef<HTMLDivElement, CardProps>(({ className, children, ...rest }, ref) => (
-	<div ref={ref} className={cx("relative rounded-md border border-card bg-card", className)} {...rest}>
+	<div
+		ref={ref}
+		className={cx("relative divide-y divide-card-muted rounded-md border border-card bg-card", className)}
+		{...rest}
+	>
 		{children}
 	</div>
 ));
@@ -31,7 +35,7 @@ CardBody.displayName = "CardBody";
  * The footer container of a card. Usually composed as a direct child of a `Card` component.
  */
 export const CardFooter = forwardRef<HTMLDivElement, CardProps>(({ className, children, ...rest }, ref) => (
-	<div ref={ref} className={cx("border-t border-card-muted px-6 py-3", className)} {...rest}>
+	<div ref={ref} className={cx("px-6 py-3", className)} {...rest}>
 		{children}
 	</div>
 ));
@@ -41,7 +45,7 @@ CardFooter.displayName = "CardFooter";
  * The header container of a card. Usually composed as a direct child of a `Card` component.
  */
 export const CardHeader = forwardRef<HTMLDivElement, CardProps>(({ className, children, ...rest }, ref) => (
-	<div ref={ref} className={cx("border-b border-card-muted px-6 py-3", className)} {...rest}>
+	<div ref={ref} className={cx("px-6 py-3", className)} {...rest}>
 		{children}
 	</div>
 ));
