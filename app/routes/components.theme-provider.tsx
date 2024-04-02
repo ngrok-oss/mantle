@@ -42,7 +42,8 @@ export default function Page() {
 				</p>
 				<p>
 					You should also add the <InlineCode>MantleThemeHeadContent</InlineCode> component to the head of your
-					application to prevent a Flash of Unstyled Content (FOUC) when the app first loads as well as preload all of our custom fonts.
+					application to prevent a Flash of Unstyled Content (FOUC) when the app first loads as well as preload all of
+					our custom fonts.
 				</p>
 				<CodeBlock>
 					<CodeBlockHeader>
@@ -105,7 +106,8 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 					</CodeBlockBody>
 				</CodeBlock>
 				<p>
-					You will also need to ensure that you add the <InlineCode>PreloadFonts</InlineCode> component to your app as well.
+					You will also need to ensure that you add the <InlineCode>PreloadFonts</InlineCode> component to your app as
+					well.
 				</p>
 				<CodeBlock>
 					<CodeBlockHeader>
@@ -114,7 +116,12 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 					</CodeBlockHeader>
 					<CodeBlockBody>
 						<CodeBlockCopyButton />
-						<CodeBlockCode language="html" value={code`<head>\n\t${renderToStaticMarkup(<PreloadFonts />).split("/><").join("/>\n\t<")}\n</head>`} />
+						<CodeBlockCode
+							language="html"
+							value={code`<head>\n\t${renderToStaticMarkup(<PreloadFonts />)
+								.split("/><")
+								.join("/>\n\t<")}\n</head>`}
+						/>
 					</CodeBlockBody>
 				</CodeBlock>
 				<p>
