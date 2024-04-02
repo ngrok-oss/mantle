@@ -105,7 +105,16 @@ export default function Page() {
 					<CodeBlockCode
 						language="tsx"
 						value={fmtCode`
-							import { fmtCode, CodeBlock, CodeBlockHeader, CodeBlockTitle, CodeBlockBody, CodeBlockCopyButton, CodeBlockCode, CodeBlockExpanderButton } from "@ngrok/mantle";
+							import {
+								CodeBlock,
+								CodeBlockBody,
+								CodeBlockCode,
+								CodeBlockCopyButton,
+								CodeBlockExpanderButton,
+								CodeBlockHeader,
+								CodeBlockTitle,
+								fmtCode,
+							} from "@ngrok/mantle";
 
 							<CodeBlock>
 								<CodeBlockHeader>
