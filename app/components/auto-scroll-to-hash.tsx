@@ -1,7 +1,7 @@
+import { useIsomorphicLayoutEffect } from "@/hooks/use-isomorphic-layout-effect";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 import { useLocation } from "@remix-run/react";
 import { useMemo } from "react";
-import { useIsomorphicLayoutEffect } from "./use-isomorphic-layout-effect";
 
 type Props = {
 	disabled?: boolean;

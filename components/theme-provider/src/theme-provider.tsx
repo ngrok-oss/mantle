@@ -3,6 +3,7 @@ import type { PropsWithChildren } from "react";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import invariant from "tiny-invariant";
 import { useMatchesMediaQuery } from "../../hooks/use-matches-media-query";
+import { PreloadFonts } from "./preload-fonts";
 
 /**
  * prefersDarkModeMediaQuery is the media query used to detect if the user prefers dark mode.
@@ -253,21 +254,24 @@ function preventWrongThemeFlashScriptContent({
 }
 
 /**
- * PreventWrongThemeFlash is a React component that prevents the wrong theme from flashing on initial page load.
- * Render as high as possible in the DOM, preferably in the <head> element.
+ * MantleThemeHeadContent is a React component that prevents the wrong theme from flashing on initial page load.
+ * Render as high as possible in the <head> element.
  */
-const PreventWrongThemeFlash = ({
+const MantleThemeHeadContent = ({
 	defaultTheme = "system",
 	storageKey = DEFAULT_STORAGE_KEY,
 }: {
 	defaultTheme?: Theme;
 	storageKey?: string;
 }) => (
-	<script
-		dangerouslySetInnerHTML={{
-			__html: preventWrongThemeFlashScriptContent({ defaultTheme, storageKey }),
-		}}
-	/>
+	<>
+		<script
+			dangerouslySetInnerHTML={{
+				__html: preventWrongThemeFlashScriptContent({ defaultTheme, storageKey }),
+			}}
+		/>
+		<PreloadFonts />
+	</>
 );
 
 type InitialThemeProps = {
@@ -311,7 +315,7 @@ function useInitialHtmlThemeProps(props?: {
 export type { Theme, ThemeProviderProps };
 export {
 	isTheme,
-	PreventWrongThemeFlash,
+	MantleThemeHeadContent,
 	preventWrongThemeFlashScriptContent,
 	theme,
 	ThemeProvider,
