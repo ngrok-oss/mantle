@@ -145,7 +145,7 @@ const CodeBlockCode = forwardRef<HTMLPreElement, CodeBlockCodeProps>((props, ref
 			return;
 		}
 		Prism.highlightElement(preElement);
-	}, [value]);
+	}, [value, language]);
 
 	useEffect(() => {
 		setCopyText(trimmedCode);
