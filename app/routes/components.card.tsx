@@ -40,8 +40,9 @@ export default function Page() {
 			<CodeBlock className="rounded-b-lg rounded-t-none">
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
-					<CodeBlockCode language="tsx">
-						{code`
+					<CodeBlockCode
+						language="tsx"
+						value={code`
 							import { Card, CardBody, CardFooter, CardHeader, CardTitle } from "@ngrok/mantle";
 
 							<Card>
@@ -56,7 +57,7 @@ export default function Page() {
 								</CardFooter>
 							</Card>
 						`}
-					</CodeBlockCode>
+					/>
 				</CodeBlockBody>
 			</CodeBlock>
 		</div>

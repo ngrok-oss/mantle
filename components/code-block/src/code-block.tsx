@@ -111,21 +111,33 @@ const CodeBlockBody = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>
 CodeBlockBody.displayName = "CodeBlockBody";
 
 type CodeBlockCodeProps = WithStyleProps & {
-	children?: string | undefined;
+	/**
+	 * The code to display in the code block. Should be code formatted as a string. This code will be passed to our syntax highlighter.
+	 */
+	value: string;
+	/**
+	 * @todo not implemented yet
+	 */
 	highlightLines?: (LineRange | number)[];
+	/**
+	 * The language of the code block. This will be used to determine how to syntax highlight the code. @default `"sh"`.
+	 */
 	language?: SupportedLanguage;
+	/**
+	 * @todo not implemented yet
+	 */
 	showLineNumbers?: boolean;
 };
 
 const CodeBlockCode = forwardRef<HTMLPreElement, CodeBlockCodeProps>((props, ref) => {
-	const { children, className, language = "sh", style } = props;
+	const { className, language = "sh", style, value } = props;
 	const innerPreRef = useRef<ElementRef<"pre">>();
 	const id = useId();
 	const { hasCodeExpander, isCodeExpanded, registerCodeId, setCopyText, unregisterCodeId } =
 		useContext(CodeBlockContext);
 
 	// trim any leading and trailing whitespace/empty lines
-	const trimmedCode = children?.trim() ?? "";
+	const trimmedCode = value?.trim() ?? "";
 
 	useEffect(() => {
 		const preElement = innerPreRef.current;
@@ -133,7 +145,7 @@ const CodeBlockCode = forwardRef<HTMLPreElement, CodeBlockCodeProps>((props, ref
 			return;
 		}
 		Prism.highlightElement(preElement);
-	}, [trimmedCode, children]);
+	}, [value]);
 
 	useEffect(() => {
 		setCopyText(trimmedCode);
@@ -192,7 +204,13 @@ const CodeBlockTitle = forwardRef<HTMLHeadingElement, HTMLAttributes<HTMLHeading
 CodeBlockTitle.displayName = "CodeBlockTitle";
 
 type CodeBlockCopyButtonProps = WithStyleProps & {
+	/**
+	 * Callback fired when the copy button is clicked, passes the copied text as an argument.
+	 */
 	onCopy?: (value: string) => void;
+	/**
+	 * Callback fired when an error occurs during copying.
+	 */
 	onCopyError?: (error: unknown) => void;
 };
 

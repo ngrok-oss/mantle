@@ -64,8 +64,9 @@ export default function Page() {
 			<CodeBlock className="rounded-b-lg rounded-t-none">
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
-					<CodeBlockCode language="tsx">
-						{code`
+					<CodeBlockCode
+						language="tsx"
+						value={code`
 							import { Popover, PopoverContent, PopoverTrigger } from "@ngrok/mantle";
 
 							<Popover>
@@ -77,7 +78,7 @@ export default function Page() {
 								</PopoverContent>
 							</Popover>
 						`}
-					</CodeBlockCode>
+					/>
 				</CodeBlockBody>
 			</CodeBlock>
 		</div>

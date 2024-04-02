@@ -82,7 +82,9 @@ export default function Page() {
 			<CodeBlock className="rounded-b-lg rounded-t-none">
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
-					<CodeBlockCode language="tsx">{code`
+					<CodeBlockCode
+						language="tsx"
+						value={code`
 						import {
 							Button,
 							DropdownMenu,
@@ -133,7 +135,8 @@ export default function Page() {
 								</DropdownMenuItem>
 							</DropdownMenuContent>
 						</DropdownMenu>
-					`}</CodeBlockCode>
+					`}
+					/>
 				</CodeBlockBody>
 			</CodeBlock>
 		</div>

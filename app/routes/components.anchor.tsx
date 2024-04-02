@@ -57,15 +57,16 @@ export default function Page() {
 			<CodeBlock className="rounded-b-lg rounded-t-none">
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
-					<CodeBlockCode language="tsx">
-						{code`
+					<CodeBlockCode
+						language="tsx"
+						value={code`
 							import { Anchor } from "@ngrok/mantle";
 
 							<p>
 								This link will go to <Anchor href="https://ngrok.com/">ngrok.com</Anchor>!
 							</p>
 						`}
-					</CodeBlockCode>
+					/>
 				</CodeBlockBody>
 			</CodeBlock>
 		</div>

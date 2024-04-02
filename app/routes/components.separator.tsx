@@ -42,8 +42,9 @@ export default function Page() {
 			<CodeBlock className="rounded-b-lg rounded-t-none">
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
-					<CodeBlockCode language="tsx">
-						{code`
+					<CodeBlockCode
+						language="tsx"
+						value={code`
 							import { Separator } from "@ngrok/mantle";
 
 							<div>
@@ -61,7 +62,7 @@ export default function Page() {
 								</div>
 							</div>
 						`}
-					</CodeBlockCode>
+					/>
 				</CodeBlockBody>
 			</CodeBlock>
 		</div>

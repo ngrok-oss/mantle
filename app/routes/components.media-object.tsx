@@ -58,8 +58,9 @@ export default function Page() {
 			<CodeBlock className="rounded-b-lg rounded-t-none">
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
-					<CodeBlockCode language="tsx">
-						{code`
+					<CodeBlockCode
+						language="tsx"
+						value={code`
 							import { MediaObject, MediaObjectContent, MediaObjectMedia } from "@ngrok/mantle";
 
 							<MediaObject>
@@ -76,7 +77,7 @@ export default function Page() {
 								</MediaObjectContent>
 							</MediaObject>
 						`}
-					</CodeBlockCode>
+					/>
 				</CodeBlockBody>
 			</CodeBlock>
 		</div>

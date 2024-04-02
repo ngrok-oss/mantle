@@ -60,14 +60,15 @@ export default function Page() {
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
 							<CodeBlockCopyButton />
-							<CodeBlockCode language="tsx">
-								{code`
+							<CodeBlockCode
+								language="tsx"
+								value={code`
 									import { Input } from "@ngrok/mantle";
 
 									<Input placeholder="Enter a username" />
 									<Input placeholder="Enter a username" invalid />
 								`}
-							</CodeBlockCode>
+							/>
 						</CodeBlockBody>
 					</CodeBlock>
 				</div>
@@ -143,8 +144,9 @@ export default function Page() {
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
 							<CodeBlockCopyButton />
-							<CodeBlockCode language="tsx">
-								{code`
+							<CodeBlockCode
+								language="tsx"
+								value={code`
 									import { Input, InputCapture } from "@ngrok/mantle";
 									import { Info } from "@phosphor-icons/react/Info";
 									import { MagnifyingGlass } from "@phosphor-icons/react/MagnifyingGlass";
@@ -194,7 +196,7 @@ export default function Page() {
 										</Input>
 									</label>
 								`}
-							</CodeBlockCode>
+							/>
 							<CodeBlockExpanderButton />
 						</CodeBlockBody>
 					</CodeBlock>

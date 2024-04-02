@@ -42,7 +42,9 @@ export default function Page() {
 			<CodeBlock className="rounded-b-lg rounded-t-none">
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
-					<CodeBlockCode language="tsx">{code`
+					<CodeBlockCode
+						language="tsx"
+						value={code`
 						import { Button, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@ngrok/mantle";
 
 						<TooltipProvider>
@@ -57,7 +59,8 @@ export default function Page() {
 								</TooltipContent>
 							</Tooltip>
 						</TooltipProvider>
-					`}</CodeBlockCode>
+					`}
+					/>
 				</CodeBlockBody>
 			</CodeBlock>
 		</div>
