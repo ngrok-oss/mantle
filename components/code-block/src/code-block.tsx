@@ -132,7 +132,7 @@ type CodeBlockCodeProps = WithStyleProps & {
 	 */
 	highlightLines?: (LineRange | number)[];
 	/**
-	 * The language of the code block. This will be used to determine how to syntax highlight the code. @default `"sh"`.
+	 * The language of the code block. This will be used to determine how to syntax highlight the code. @default `"text"`.
 	 */
 	language?: SupportedLanguage;
 	/**
@@ -142,7 +142,7 @@ type CodeBlockCodeProps = WithStyleProps & {
 };
 
 const CodeBlockCode = forwardRef<HTMLPreElement, CodeBlockCodeProps>((props, ref) => {
-	const { className, language = "sh", style, value } = props;
+	const { className, language = "text", style, value } = props;
 	const id = useId();
 	const { hasCodeExpander, isCodeExpanded, registerCodeId, setCopyText, unregisterCodeId } =
 		useContext(CodeBlockContext);

@@ -7,6 +7,7 @@ import {
 	CodeBlockHeader,
 	CodeBlockTitle,
 	fmtCode,
+	supportedLanguages,
 } from "@/code-block";
 import { FileText } from "@phosphor-icons/react/FileText";
 import { Terminal } from "@phosphor-icons/react/Terminal";
@@ -31,7 +32,6 @@ export default function Page() {
 		<div>
 			<h1 className="text-5xl font-medium">Code Block</h1>
 			<p className="mt-4 text-xl text-body">Code blocks render and apply syntax highlighting to blocks of code.</p>
-
 			{/* <h2 className="mt-8 text-3xl font-medium">Examples</h2>
 
 			<h3 className="mt-8 text-xl font-medium">Complete</h3>
@@ -354,6 +354,18 @@ export default function Page() {
 						/>
 					</CodeBlockBody>
 				</CodeBlock>
+			</section>
+
+			<section className="mb-4 space-y-4">
+				<h2 id="supported-languages" className="text-3xl font-medium">
+					Supported Languages
+				</h2>
+				<p className="text-xl text-body">We support the following languages:</p>
+				<ul className="grid grid-cols-3 place-items-center lg:grid-cols-7">
+					{supportedLanguages.map((language) => (
+						<li key={language}>{language}</li>
+					))}
+				</ul>
 			</section>
 		</div>
 	);
