@@ -10,4 +10,4 @@ export {
 
 export { fmtCode } from "./src/fmt-code";
 export { parseMetastring } from "./src/parse-metastring";
-export { isSupportedLanguage, parseLanguage } from "./src/supported-languages";
+export { isSupportedLanguage, parseLanguage, supportedLanguages } from "./src/supported-languages";
