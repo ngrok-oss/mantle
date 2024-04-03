@@ -36,15 +36,13 @@ export const supportedLanguages = [
 /**
  * Supported languages for syntax highlighting.
  */
-export type SupportedLanguage = (typeof supportedLanguages)[number];
+type SupportedLanguage = (typeof supportedLanguages)[number];
 
 /**
  * Parses a markdown code block (```) language class into a SupportedLanguage.
  * Defaults to "sh" if no supported language is found.
  */
-export function parseLanguage(
-	value: `language-${string}` | `lang-${string}` | (string & {}) | undefined,
-): SupportedLanguage {
+function parseLanguage(value: `language-${string}` | `lang-${string}` | (string & {}) | undefined): SupportedLanguage {
 	if (!value) {
 		return "sh";
 	}
@@ -59,7 +57,7 @@ export function parseLanguage(
 /**
  * Type Predicate: checks if an arbitrary value is a supported syntax highlighting language.
  */
-export const isSupportedLanguage = (value: unknown): value is SupportedLanguage => {
+const isSupportedLanguage = (value: unknown): value is SupportedLanguage => {
 	return typeof value === "string" && supportedLanguages.includes(value as SupportedLanguage);
 };
 
@@ -72,8 +70,11 @@ type LanguageClass = `language-${SupportedLanguage}`;
  * Formats a language name into a class name that Prism.js can understand.
  * @default "language-sh"
  */
-export function formatLanguageClassName(language: SupportedLanguage | undefined = "sh") {
+function formatLanguageClassName(language: SupportedLanguage | undefined = "sh") {
 	const lang = language ?? "sh";
 	const className: LanguageClass = `language-${lang}`;
 	return className;
 }
+
+export { isSupportedLanguage, parseLanguage, formatLanguageClassName };
+export type { SupportedLanguage };
