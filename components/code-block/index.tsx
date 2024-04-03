@@ -9,5 +9,12 @@ export {
 } from "./src/code-block";
 
 export { fmtCode } from "./src/fmt-code";
-export { parseMetastring } from "./src/parse-metastring";
-export { isSupportedLanguage, parseLanguage, supportedLanguages } from "./src/supported-languages";
+export { defaultMeta, parseMetastring } from "./src/parse-metastring";
+export type { Meta, MetaInput, Mode, DefaultMeta } from "./src/parse-metastring";
+export {
+	formatLanguageClassName,
+	isSupportedLanguage,
+	parseLanguage,
+	supportedLanguages,
+} from "./src/supported-languages";
+export type { SupportedLanguage } from "./src/supported-languages";

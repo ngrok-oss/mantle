@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 const modes = ["file", "cli"] as const;
-export type Mode = (typeof modes)[number];
+type Mode = (typeof modes)[number];
 
 const metaSchema = z.object({
 	collapsible: z.boolean().default(false),
@@ -10,18 +10,18 @@ const metaSchema = z.object({
 	title: z.string().trim().optional(),
 });
 
-export type MetaInput = z.input<typeof metaSchema>;
+type MetaInput = z.input<typeof metaSchema>;
 
-export type Meta = z.infer<typeof metaSchema>;
+type Meta = z.infer<typeof metaSchema>;
 
-export const defaultMeta = {
+const defaultMeta = {
 	collapsible: false,
 	disableCopy: false,
 	mode: undefined,
 	title: undefined,
 } as const satisfies Meta;
 
-export type DefaultMeta = typeof defaultMeta;
+type DefaultMeta = typeof defaultMeta;
 
 /**
  * Parses a markdown code block (```) metastring into a meta object.
@@ -29,7 +29,7 @@ export type DefaultMeta = typeof defaultMeta;
  * Useful for parsing the metastring from a markdown code block to pass into the
  * CodeBlock components as props.
  */
-export function parseMetastring(value: string | undefined): Meta {
+function parseMetastring(value: string | undefined): Meta {
 	const metastring = value?.trim() ?? "";
 	if (!metastring) {
 		return defaultMeta;
@@ -57,6 +57,9 @@ export function parseMetastring(value: string | undefined): Meta {
 		return defaultMeta;
 	}
 }
+
+export { defaultMeta, parseMetastring };
+export type { Meta, MetaInput, Mode, DefaultMeta };
 
 /**
  * Remove leading and trailing `"` quotes around value
