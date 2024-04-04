@@ -1479,6 +1479,10 @@
 	body {
 		@apply bg-white text-gray-900;
 	}
+
+	strong {
+		@apply font-medium;
+	}
 }
 
 @layer utilities {
