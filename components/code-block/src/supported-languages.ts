@@ -15,6 +15,7 @@ export const supportedLanguages = [
 	"js",
 	"json",
 	"jsx",
+	"markup",
 	"plain",
 	"plaintext",
 	"py",
@@ -31,6 +32,7 @@ export const supportedLanguages = [
 	"typescript",
 	"yaml",
 	"yml",
+	"xml",
 ] as const;
 
 /**
