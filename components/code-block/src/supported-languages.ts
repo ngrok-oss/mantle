@@ -30,9 +30,9 @@ export const supportedLanguages = [
 	"tsx",
 	"txt",
 	"typescript",
+	"xml",
 	"yaml",
 	"yml",
-	"xml",
 ] as const;
 
 /**
