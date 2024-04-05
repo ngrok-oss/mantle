@@ -20,7 +20,7 @@ import { route } from "~/types/routes";
 
 export const meta: MetaFunction = () => {
 	return [
-		{ title: "@ngrok/mantle — Button" },
+		{ title: "@ngrok/mantle — Icon Button" },
 		{ name: "description", content: "mantle is ngrok's UI library and design system" },
 	];
 };
@@ -35,7 +35,7 @@ export default function Page() {
 	return (
 		<div className="space-y-16">
 			<section className="mb-4 space-y-4">
-				<h1 id="icon button" className="text-5xl font-medium">
+				<h1 id="icon-button" className="text-5xl font-medium">
 					Icon Button
 				</h1>
 				<p className="text-xl text-body">
