@@ -2,7 +2,7 @@ import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 
 export const meta: MetaFunction = () => {
 	return [
-		{ title: "@ngrok/mantle — Typography" },
+		{ title: "@ngrok/mantle — Shadows" },
 		{ name: "description", content: "mantle is ngrok's UI library and design system" },
 	];
 };
