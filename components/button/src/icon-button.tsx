@@ -63,6 +63,15 @@ type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
 		icon: ReactNode;
 	};
 
+/**
+ * Renders a button or a component that looks like a button, an interactive
+ * element activated by a user with a mouse, keyboard, finger, voice command, or
+ * other assistive technology. Once activated, it then performs an action, such
+ * as submitting a form or opening a dialog.
+ * Renders only a single icon as children with an accessible, screen-reader-only label.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button
+ */
 const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 	(
 		{

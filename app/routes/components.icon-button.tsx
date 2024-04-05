@@ -39,7 +39,10 @@ export default function Page() {
 				<h1 id="icon button" className="text-5xl font-medium">
 					Icon Button
 				</h1>
-				<p className="text-xl text-body">Initiates an action, such as completing a task or submitting information. </p>
+				<p className="text-xl text-body">
+					Initiates an action, such as completing a task or submitting information. Renders only a single icon as
+					children with an accessible, screen-reader-only label.
+				</p>
 				<div>
 					<Example className="mt-4 flex flex-wrap gap-6">
 						<div>
