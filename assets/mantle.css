@@ -613,9 +613,8 @@
 	/* shadow tokens */
 
 	--shadow-color: 0 0% 0%;
-	--shadow-first: 4%;
+	--shadow-first: 5%;
 	--shadow-second: 10%;
-	--shadow-third: 25%;
 }
 
 :root.dark {
@@ -909,7 +908,6 @@
 
 	--shadow-first: 15%;
 	--shadow-second: 30%;
-	--shadow-third: 90%;
 }
 
 :root.light-high-contrast {
@@ -1153,7 +1151,6 @@
 
 	--shadow-first: 100%;
 	--shadow-second: 100%;
-	--shadow-third: 100%;
 }
 
 :root.dark-high-contrast {
@@ -1406,7 +1403,6 @@
 
 	--shadow-first: 100%;
 	--shadow-second: 100%;
-	--shadow-third: 100%;
 }
 
 /**
