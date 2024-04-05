@@ -181,14 +181,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 			const grandchildren = singleChild.props?.children;
 
 			return (
-				<Slot
-					aria-disabled={ariaDisabled}
-					className={className}
-					data-loading={isLoading}
-					onClickCapture={onClickCapture}
-					ref={ref}
-					{...props}
-				>
+				<Slot {...buttonProps}>
 					{cloneElement(
 						singleChild,
 						{},
