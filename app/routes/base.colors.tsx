@@ -1,8 +1,8 @@
-import { Anchor } from "@/anchor";
-import { cx } from "@/core";
-import { InlineCode } from "@/inline-code";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { HashNavLink } from "~/components/hash-nav-link";
+import { Anchor } from "packages/anchor";
+import { cx } from "packages/core";
+import { InlineCode } from "packages/inline-code";
 
 export const meta: MetaFunction = () => {
 	return [

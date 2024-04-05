@@ -1,7 +1,3 @@
-import { Anchor } from "@/anchor";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
-import { InlineCode } from "@/inline-code";
-import { PasswordInput } from "@/input";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 import {
@@ -13,6 +9,10 @@ import {
 	PropsTable,
 	PropTypeCell,
 } from "~/components/props-table";
+import { Anchor } from "packages/anchor";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "packages/code-block";
+import { InlineCode } from "packages/inline-code";
+import { PasswordInput } from "packages/input";
 
 export const meta: MetaFunction = () => {
 	return [

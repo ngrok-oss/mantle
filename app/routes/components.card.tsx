@@ -1,7 +1,7 @@
-import { Card, CardBody, CardFooter, CardHeader, CardTitle } from "@/card";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
+import { Card, CardBody, CardFooter, CardHeader, CardTitle } from "packages/card";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "packages/code-block";
 
 export const meta: MetaFunction = () => {
 	return [

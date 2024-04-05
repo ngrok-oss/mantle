@@ -1,9 +1,9 @@
-import { Button } from "@/button";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
-import { Input } from "@/input";
-import { Popover, PopoverContent, PopoverTrigger } from "@/popover";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
+import { Button } from "packages/button";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "packages/code-block";
+import { Input } from "packages/input";
+import { Popover, PopoverContent, PopoverTrigger } from "packages/popover";
 
 export const meta: MetaFunction = () => {
 	return [

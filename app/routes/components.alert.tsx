@@ -1,7 +1,3 @@
-import { Alert, AlertContent, AlertDescription, AlertTitle } from "@/alert";
-import { Card, CardBody } from "@/card";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
-import { InlineCode } from "@/inline-code";
 import { CheckCircle } from "@phosphor-icons/react/CheckCircle";
 import { Info } from "@phosphor-icons/react/Info";
 import { Rocket } from "@phosphor-icons/react/Rocket";
@@ -18,6 +14,10 @@ import {
 	PropTypeCell,
 	StringPropType,
 } from "~/components/props-table";
+import { Alert, AlertContent, AlertDescription, AlertTitle } from "packages/alert";
+import { Card, CardBody } from "packages/card";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "packages/code-block";
+import { InlineCode } from "packages/inline-code";
 
 export const meta: MetaFunction = () => {
 	return [

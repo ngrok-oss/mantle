@@ -1,14 +1,3 @@
-import { Anchor } from "@/anchor";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	CodeBlockExpanderButton,
-	fmtCode,
-} from "@/code-block";
-import { InlineCode } from "@/inline-code";
-import { Input, InputCapture } from "@/input";
 import { Info } from "@phosphor-icons/react/Info";
 import { MagnifyingGlass } from "@phosphor-icons/react/MagnifyingGlass";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
@@ -23,6 +12,17 @@ import {
 	PropTypeCell,
 } from "~/components/props-table";
 import { route } from "~/types/routes";
+import { Anchor } from "packages/anchor";
+import {
+	CodeBlock,
+	CodeBlockBody,
+	CodeBlockCode,
+	CodeBlockCopyButton,
+	CodeBlockExpanderButton,
+	fmtCode,
+} from "packages/code-block";
+import { InlineCode } from "packages/inline-code";
+import { Input, InputCapture } from "packages/input";
 import { Link } from "react-router-dom";
 
 export const meta: MetaFunction = () => {

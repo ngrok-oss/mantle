@@ -1,3 +1,7 @@
+import { FileText } from "@phosphor-icons/react/FileText";
+import { Terminal } from "@phosphor-icons/react/Terminal";
+import type { HeadersFunction, MetaFunction } from "@remix-run/node";
+import { Example } from "~/components/example";
 import {
 	CodeBlock,
 	CodeBlockBody,
@@ -8,11 +12,7 @@ import {
 	CodeBlockTitle,
 	fmtCode,
 	supportedLanguages,
-} from "@/code-block";
-import { FileText } from "@phosphor-icons/react/FileText";
-import { Terminal } from "@phosphor-icons/react/Terminal";
-import type { HeadersFunction, MetaFunction } from "@remix-run/node";
-import { Example } from "~/components/example";
+} from "packages/code-block";
 
 export const meta: MetaFunction = () => {
 	return [

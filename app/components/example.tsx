@@ -1,5 +1,5 @@
-import { cx } from "@/core";
-import { WithStyleProps } from "@/types";
+import { cx } from "packages/core";
+import { WithStyleProps } from "packages/types";
 import { PropsWithChildren } from "react";
 
 type Props = PropsWithChildren & WithStyleProps;

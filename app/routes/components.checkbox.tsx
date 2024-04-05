@@ -1,7 +1,7 @@
-import { Checkbox } from "@/checkbox";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
+import { Checkbox } from "packages/checkbox";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "packages/code-block";
 
 export const meta: MetaFunction = () => {
 	return [

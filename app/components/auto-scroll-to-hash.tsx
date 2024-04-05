@@ -1,5 +1,5 @@
-import { useIsomorphicLayoutEffect } from "@/hooks/use-isomorphic-layout-effect";
-import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
+import { useIsomorphicLayoutEffect } from "@/core/src/use-isomorphic-layout-effect";
+import { usePrefersReducedMotion } from "@/core/src/use-prefers-reduced-motion";
 import { useLocation } from "@remix-run/react";
 import { useMemo } from "react";
 

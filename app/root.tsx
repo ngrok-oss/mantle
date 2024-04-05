@@ -1,8 +1,8 @@
-import { MantleThemeHeadContent, ThemeProvider, useInitialHtmlThemeProps } from "@/theme-provider";
-import { TooltipProvider } from "@/tooltip";
 import { cssBundleHref } from "@remix-run/css-bundle";
 import type { LinksFunction } from "@remix-run/node";
 import { json, Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from "@remix-run/react";
+import { MantleThemeHeadContent, ThemeProvider, useInitialHtmlThemeProps } from "packages/theme-provider";
+import { TooltipProvider } from "packages/tooltip";
 import tailwind from "tailwindcss/tailwind.css";
 import mantleCss from "../assets/mantle.css";
 import { AutoScrollToHash } from "./components/auto-scroll-to-hash";
