@@ -1,4 +1,4 @@
-import { ArrowLineUp } from "@phosphor-icons/react";
+import { ArrowLineUp } from "@phosphor-icons/react/ArrowLineUp";
 import { useWindowScroll } from "@uidotdev/usehooks";
 import { useEffect, useRef, type CSSProperties } from "react";
 import { cx } from "../core";

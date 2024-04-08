@@ -2,7 +2,7 @@ import { Anchor } from "@/anchor";
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import { Icon } from "@/icon";
 import { InlineCode } from "@/inline-code";
-import { Fire } from "@phosphor-icons/react";
+import { Fire } from "@phosphor-icons/react/Fire";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 import {

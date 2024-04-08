@@ -10,7 +10,7 @@ import {
 } from "@/code-block";
 import { InlineCode } from "@/inline-code";
 import { PreloadFonts, preventWrongThemeFlashScriptContent } from "@/theme-provider";
-import { FileText } from "@phosphor-icons/react";
+import { FileText } from "@phosphor-icons/react/FileText";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { renderToStaticMarkup } from "react-dom/server";
 

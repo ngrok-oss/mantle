@@ -1,4 +1,4 @@
-import { CircleNotch } from "@phosphor-icons/react";
+import { CircleNotch } from "@phosphor-icons/react/CircleNotch";
 import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
 import { ButtonHTMLAttributes, Children, cloneElement, forwardRef, isValidElement, MouseEvent, ReactNode } from "react";

@@ -9,7 +9,11 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/dropdown-menu";
-import { Desktop, Gear, Moon, SignOut, Sun } from "@phosphor-icons/react";
+import { Desktop } from "@phosphor-icons/react/Desktop";
+import { Gear } from "@phosphor-icons/react/Gear";
+import { Moon } from "@phosphor-icons/react/Moon";
+import { SignOut } from "@phosphor-icons/react/SignOut";
+import { Sun } from "@phosphor-icons/react/Sun";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 

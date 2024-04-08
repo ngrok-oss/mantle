@@ -2,7 +2,11 @@ import { Alert, AlertContent, AlertDescription, AlertTitle } from "@/alert";
 import { Card, CardBody } from "@/card";
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import { InlineCode } from "@/inline-code";
-import { CheckCircle, Info, Rocket, Warning, WarningDiamond } from "@phosphor-icons/react";
+import { CheckCircle } from "@phosphor-icons/react/CheckCircle";
+import { Info } from "@phosphor-icons/react/Info";
+import { Rocket } from "@phosphor-icons/react/Rocket";
+import { Warning } from "@phosphor-icons/react/Warning";
+import { WarningDiamond } from "@phosphor-icons/react/WarningDiamond";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 import {

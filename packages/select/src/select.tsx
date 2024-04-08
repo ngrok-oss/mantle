@@ -1,4 +1,6 @@
-import { CaretDown, CaretUp, Check } from "@phosphor-icons/react";
+import { CaretDown } from "@phosphor-icons/react/CaretDown";
+import { CaretUp } from "@phosphor-icons/react/CaretUp";
+import { Check } from "@phosphor-icons/react/Check";
 import * as SelectPrimitive from "@radix-ui/react-select";
 import { cva } from "class-variance-authority";
 import type { ComponentPropsWithoutRef, ElementRef, SelectHTMLAttributes } from "react";

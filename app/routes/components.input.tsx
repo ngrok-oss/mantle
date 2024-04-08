@@ -9,7 +9,8 @@ import {
 } from "@/code-block";
 import { InlineCode } from "@/inline-code";
 import { Input, InputCapture } from "@/input";
-import { Info, MagnifyingGlass } from "@phosphor-icons/react";
+import { Info } from "@phosphor-icons/react/Info";
+import { MagnifyingGlass } from "@phosphor-icons/react/MagnifyingGlass";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 import {
