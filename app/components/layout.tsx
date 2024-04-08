@@ -1,6 +1,4 @@
-import { List } from "@phosphor-icons/react/List";
-import { Sun } from "@phosphor-icons/react/Sun";
-import { X } from "@phosphor-icons/react/X";
+import { List, Sun, X } from "@phosphor-icons/react";
 import { Link } from "@remix-run/react";
 import { Route } from "~/types/routes";
 import { Button } from "packages/button";

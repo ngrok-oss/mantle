@@ -1,4 +1,4 @@
-import { Fire } from "@phosphor-icons/react/Fire";
+import { Fire } from "@phosphor-icons/react";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 import {
@@ -53,7 +53,7 @@ export default function Page() {
 								language="tsx"
 								value={fmtCode`
 									import { Icon } from "@ngrok/mantle";
-									import { Fire } from "@phosphor-icons/react/Fire";
+									import { Fire } from "@phosphor-icons/react";
 
 									<Icon svg={<Fire />} />
 									<Icon className="text-danger-600" svg={<Fire weight="fill" />} />
@@ -112,7 +112,7 @@ export default function Page() {
 								language="tsx"
 								value={fmtCode`
 									import { Icon } from "@ngrok/mantle";
-									import { Fire } from "@phosphor-icons/react/Fire";
+									import { Fire } from "@phosphor-icons/react";
 
 									<Icon svg={<Fire />} />
 									<Icon svg={<Fire className="size-12 sm:size-16" />} />

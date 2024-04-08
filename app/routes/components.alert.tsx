@@ -1,8 +1,4 @@
-import { CheckCircle } from "@phosphor-icons/react/CheckCircle";
-import { Info } from "@phosphor-icons/react/Info";
-import { Rocket } from "@phosphor-icons/react/Rocket";
-import { Warning } from "@phosphor-icons/react/Warning";
-import { WarningDiamond } from "@phosphor-icons/react/WarningDiamond";
+import { CheckCircle, Info, Rocket, Warning, WarningDiamond } from "@phosphor-icons/react";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 import {
@@ -192,7 +188,7 @@ export default function Page() {
 								language="tsx"
 								value={fmtCode`
 									import { Alert, AlertContent, AlertDescription, AlertTitle } from "@ngrok/mantle";
-									import { Warning } from "@phosphor-icons/react/Warning";
+									import { Warning } from "@phosphor-icons/react";
 
 									// Danger Alert with icon
 									<Alert priority="danger">
@@ -263,7 +259,7 @@ export default function Page() {
 								language="tsx"
 								value={fmtCode`
 									import { Alert, AlertContent, AlertTitle } from "@ngrok/mantle";
-									import { Rocket } from "@phosphor-icons/react/Rocket";
+									import { Rocket } from "@phosphor-icons/react";
 
 									<Alert priority="info" className="rounded-none">
 										<Rocket className="size-5" />

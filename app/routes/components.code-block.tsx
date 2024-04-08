@@ -1,5 +1,4 @@
-import { FileText } from "@phosphor-icons/react/FileText";
-import { Terminal } from "@phosphor-icons/react/Terminal";
+import { FileText, Terminal } from "@phosphor-icons/react";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 import {

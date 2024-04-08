@@ -1,4 +1,4 @@
-import { FileText } from "@phosphor-icons/react/FileText";
+import { FileText } from "@phosphor-icons/react";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import {
 	CodeBlock,

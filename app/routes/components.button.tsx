@@ -1,4 +1,4 @@
-import { Fire } from "@phosphor-icons/react/Fire";
+import { Fire } from "@phosphor-icons/react";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
 import { Example } from "~/components/example";
@@ -148,7 +148,7 @@ export default function Page() {
 								language="tsx"
 								value={fmtCode`
 									import { Button } from "@ngrok/mantle";
-									import { Fire } from "@phosphor-icons/react/Fire";
+									import { Fire } from "@phosphor-icons/react";
 
 									<Button icon={<Fire weight="fill" />}>Icon Start</Button>
 									<Button icon={<Fire weight="fill" />} iconPlacement="end">
@@ -203,7 +203,7 @@ export default function Page() {
 								language="tsx"
 								value={fmtCode`
 									import { Button } from "@ngrok/mantle";
-									import { Fire } from "@phosphor-icons/react/Fire";
+									import { Fire } from "@phosphor-icons/react";
 
 									<Button>No Icon + Idle</Button>
 									<Button icon={<Fire weight="fill" />}>Icon Start + Idle</Button>
@@ -247,7 +247,7 @@ export default function Page() {
 								language="tsx"
 								value={fmtCode`
 									import { Button } from "@ngrok/mantle";
-									import { Fire } from "@phosphor-icons/react/Fire";
+									import { Fire } from "@phosphor-icons/react";
 									import { Link } from "react-router-dom";
 
 									<Button appearance="filled" icon={<Fire weight="fill" />} asChild>

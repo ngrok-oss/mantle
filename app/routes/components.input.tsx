@@ -1,5 +1,4 @@
-import { Info } from "@phosphor-icons/react/Info";
-import { MagnifyingGlass } from "@phosphor-icons/react/MagnifyingGlass";
+import { Info, MagnifyingGlass } from "@phosphor-icons/react";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 import {
@@ -148,8 +147,8 @@ export default function Page() {
 								language="tsx"
 								value={fmtCode`
 									import { Input, InputCapture } from "@ngrok/mantle";
-									import { Info } from "@phosphor-icons/react/Info";
-									import { MagnifyingGlass } from "@phosphor-icons/react/MagnifyingGlass";
+									import { Info } from "@phosphor-icons/react";
+									import { MagnifyingGlass } from "@phosphor-icons/react";
 
 									<label className="block w-full max-w-80 space-y-1">
 										<p>Search with start icon</p>

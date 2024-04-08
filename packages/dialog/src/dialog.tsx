@@ -1,4 +1,4 @@
-import { X } from "@phosphor-icons/react/X";
+import { X } from "@phosphor-icons/react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 import { Button } from "../../button";
