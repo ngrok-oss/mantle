@@ -22,7 +22,7 @@ export default defineConfig((options) => ({
 	dts: true,
 	entry: packages,
 	external: ["@phosphor-icons/react", "react", "react-dom", "tailwindcss", "zod"],
-	format: ["esm"],
+	format: ["esm", "cjs"],
 	minify: true,
 	sourcemap: true,
 	splitting: true,
