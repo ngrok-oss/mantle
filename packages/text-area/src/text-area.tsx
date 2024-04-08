@@ -1,7 +1,7 @@
 import { cva } from "class-variance-authority";
 import { forwardRef, useRef, useState } from "react";
 import type { TextareaHTMLAttributes } from "react";
-import { cx } from "../../core";
+import { cx } from "../../cx";
 import { VariantProps } from "../../types";
 
 const textAreaVariants = cva(

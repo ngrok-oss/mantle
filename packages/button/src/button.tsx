@@ -5,7 +5,7 @@ import clsx from "clsx";
 import { Children, cloneElement, forwardRef, isValidElement } from "react";
 import type { ButtonHTMLAttributes, MouseEvent, PropsWithChildren, ReactNode } from "react";
 import invariant from "tiny-invariant";
-import { cx } from "../../core";
+import { cx } from "../../cx";
 import { Icon } from "../../icon";
 import type { WithAsChild } from "../../types/src/as-child";
 import type { VariantProps } from "../../types/src/variant-props";

@@ -1,7 +1,7 @@
 import { Warning } from "@phosphor-icons/react/Warning";
 import type { ForwardedRef, InputHTMLAttributes, MutableRefObject, PropsWithChildren } from "react";
 import { createContext, ElementRef, forwardRef, useContext, useRef } from "react";
-import { cx } from "../../core";
+import { cx } from "../../cx";
 import type { WithAutoComplete, WithInputType, WithInvalid } from "./types";
 
 type BaseProps = WithAutoComplete & WithInputType & WithInvalid;

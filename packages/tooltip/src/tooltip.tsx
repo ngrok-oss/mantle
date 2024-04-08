@@ -1,6 +1,6 @@
 import { Content, Provider, Root, Trigger } from "@radix-ui/react-tooltip";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
-import { cx } from "../../core";
+import { cx } from "../../cx";
 
 /**
  * Wraps your app to provide global functionality to your tooltips.

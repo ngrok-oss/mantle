@@ -33,7 +33,7 @@ import { Check } from "@phosphor-icons/react/Check";
 import { Copy } from "@phosphor-icons/react/Copy";
 import { useCopyToClipboard } from "@uidotdev/usehooks";
 import assert from "tiny-invariant";
-import { cx } from "../../core";
+import { cx } from "../../cx";
 import type { WithStyleProps } from "../../types/src/with-style-props";
 import { LineRange } from "./line-numbers";
 import { formatLanguageClassName, supportedLanguages } from "./supported-languages";

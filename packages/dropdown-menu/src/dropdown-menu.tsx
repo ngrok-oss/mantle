@@ -2,7 +2,7 @@ import * as Ariakit from "@ariakit/react";
 import { Check } from "@phosphor-icons/react/Check";
 import type { ComponentPropsWithoutRef, ElementRef, HTMLAttributes } from "react";
 import { forwardRef } from "react";
-import { cx } from "../../core";
+import { cx } from "../../cx";
 import { Separator } from "../../separator";
 import { WithAsChild } from "../../types";
 

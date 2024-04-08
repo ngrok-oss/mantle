@@ -1,7 +1,7 @@
 import * as SeparatorPrimitive from "@radix-ui/react-separator";
 import { forwardRef } from "react";
 import type { ComponentPropsWithoutRef, ElementRef } from "react";
-import { cx } from "../../core";
+import { cx } from "../../cx";
 
 /**
  * Visually or semantically separates content.

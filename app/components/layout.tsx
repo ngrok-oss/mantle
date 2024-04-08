@@ -1,5 +1,5 @@
 import { Button } from "@/button";
-import { cx } from "@/core";
+import { cx } from "@/cx";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger } from "@/select";
 import { isTheme, theme, useTheme } from "@/theme-provider";
 import { WithStyleProps } from "@/types";

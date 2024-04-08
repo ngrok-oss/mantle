@@ -1,4 +1,4 @@
-import { cx } from "@/core";
+import { cx } from "@/cx";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/table";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/tooltip";
 import { WithStyleProps } from "@/types";
