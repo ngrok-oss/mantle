@@ -52,7 +52,7 @@ export default function Page() {
 							<CodeBlockCode
 								language="tsx"
 								value={fmtCode`
-									import { Icon } from "@ngrok/mantle";
+									import { Icon } from "@ngrok/mantle/icon";
 									import { Fire } from "@phosphor-icons/react";
 
 									<Icon svg={<Fire />} />
@@ -111,7 +111,7 @@ export default function Page() {
 							<CodeBlockCode
 								language="tsx"
 								value={fmtCode`
-									import { Icon } from "@ngrok/mantle";
+									import { Icon } from "@ngrok/mantle/icon"
 									import { Fire } from "@phosphor-icons/react";
 
 									<Icon svg={<Fire />} />

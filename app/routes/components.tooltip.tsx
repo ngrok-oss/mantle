@@ -45,7 +45,8 @@ export default function Page() {
 					<CodeBlockCode
 						language="tsx"
 						value={fmtCode`
-						import { Button, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@ngrok/mantle";
+						import { Button } from "@ngrok/mantle/button";
+						import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@ngrok/mantle/tooltip";
 
 						<TooltipProvider>
 							<Tooltip>

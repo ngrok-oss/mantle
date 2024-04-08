@@ -37,7 +37,7 @@ export default function Page() {
 					<CodeBlockCode
 						language="tsx"
 						value={fmtCode`
-						import { Skeleton } from "@ngrok/mantle";
+						import { Skeleton } from "@ngrok/mantle/skeleton";
 
 						<Skeleton className="w-full" />
 					`}
@@ -70,7 +70,8 @@ export default function Page() {
 						<CodeBlockCode
 							language="tsx"
 							value={fmtCode`
-									import { MediaObject, MediaObjectMedia, MediaObjectContent, Skeleton } from "@ngrok/mantle";
+									import { MediaObject, MediaObjectMedia, MediaObjectContent } from "@ngrok/mantle/media-object";
+									import { Skeleton } from "@ngrok/skeleton";
 
 									<MediaObject>
 										<MediaObjectMedia>

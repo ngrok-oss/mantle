@@ -72,7 +72,7 @@ export default function Page() {
 							<CodeBlockCode
 								language="tsx"
 								value={fmtCode`
-									import { IconButton } from "@ngrok/mantle";
+									import { IconButton } from "@ngrok/mantle/button";
 									import { Fire } from "@phosphor-icons/react";
 
 									<IconButton appearance="ghost" label="prestige worldwide" size="xs" icon={<Globe />} />
@@ -122,7 +122,7 @@ export default function Page() {
 							<CodeBlockCode
 								language="tsx"
 								value={fmtCode`
-									import { Button } from "@ngrok/mantle";
+									import { IconButton } from "@ngrok/mantle/button";
 									import { Fire } from "@phosphor-icons/react";
 
 									<IconButton appearance="ghost" label="prestige worldwide" icon={<Globe />} />
@@ -159,7 +159,7 @@ export default function Page() {
 							<CodeBlockCode
 								language="tsx"
 								value={fmtCode`
-									import { Button } from "@ngrok/mantle";
+									import { IconButton } from "@ngrok/mantle/button";
 									import { Fire } from "@phosphor-icons/react";
 									import { Link } from "react-router-dom";
 

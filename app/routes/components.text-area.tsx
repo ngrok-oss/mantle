@@ -71,7 +71,7 @@ export default function Page() {
 							<CodeBlockCode
 								language="tsx"
 								value={fmtCode`
-									import { TextArea } from "@ngrok/mantle";
+									import { TextArea } from "@ngrok/mantle/text-area";
 
 									<TextArea placeholder="Tell us about your experience…" />
 									<TextArea appearance="monospaced" placeholder="Tell us about your experience…" />

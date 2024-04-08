@@ -62,7 +62,7 @@ export default function Page() {
 					<CodeBlockCode
 						language="tsx"
 						value={fmtCode`
-							import { Checkbox } from "@ngrok/mantle";
+							import { Checkbox } from "@ngrok/mantle/checkbox";
 
 							<label htmlFor="terms" className="flex items-center gap-2">
 								<Checkbox name="terms" id="terms" />

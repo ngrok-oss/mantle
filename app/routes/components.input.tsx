@@ -62,7 +62,7 @@ export default function Page() {
 							<CodeBlockCode
 								language="tsx"
 								value={fmtCode`
-									import { Input } from "@ngrok/mantle";
+									import { Input } from "@ngrok/mantle/input";
 
 									<Input placeholder="Enter a username" />
 									<Input placeholder="Enter a username" invalid />
@@ -146,9 +146,8 @@ export default function Page() {
 							<CodeBlockCode
 								language="tsx"
 								value={fmtCode`
-									import { Input, InputCapture } from "@ngrok/mantle";
-									import { Info } from "@phosphor-icons/react";
-									import { MagnifyingGlass } from "@phosphor-icons/react";
+									import { Input, InputCapture } from "@ngrok/mantle/input";
+									import { Info, MagnifyingGlass } from "@phosphor-icons/react";
 
 									<label className="block w-full max-w-80 space-y-1">
 										<p>Search with start icon</p>

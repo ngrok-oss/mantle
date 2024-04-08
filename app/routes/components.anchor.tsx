@@ -60,7 +60,7 @@ export default function Page() {
 					<CodeBlockCode
 						language="tsx"
 						value={fmtCode`
-							import { Anchor } from "@ngrok/mantle";
+							import { Anchor } from "@ngrok/mantle/anchor";
 
 							<p>
 								This link will go to <Anchor href="https://ngrok.com/">ngrok.com</Anchor>!

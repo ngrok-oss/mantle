@@ -31,7 +31,7 @@ export default function Page() {
 					<CodeBlockCode
 						language="tsx"
 						value={fmtCode`
-						import { InlineCode } from "@ngrok/mantle";
+						import { InlineCode } from "@ngrok/mantle/inline-code";
 
 						<InlineCode>npm install @ngrok/mantle</InlineCode>
 					`}
