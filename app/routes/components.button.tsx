@@ -100,7 +100,7 @@ export default function Page() {
 							<CodeBlockCode
 								language="tsx"
 								value={fmtCode`
-									import { Button } from "@ngrok/mantle";
+									import { Button } from "@ngrok/mantle/button";
 
 									<Button>Outlined</Button>
 									<Button appearance="filled">Filled</Button>
@@ -147,8 +147,8 @@ export default function Page() {
 							<CodeBlockCode
 								language="tsx"
 								value={fmtCode`
-									import { Button } from "@ngrok/mantle";
-									import { Fire } from "@phosphor-icons/react/Fire";
+									import { Button } from "@ngrok/mantle/button";
+									import { Fire } from "@phosphor-icons/react";
 
 									<Button icon={<Fire weight="fill" />}>Icon Start</Button>
 									<Button icon={<Fire weight="fill" />} iconPlacement="end">
@@ -202,8 +202,8 @@ export default function Page() {
 							<CodeBlockCode
 								language="tsx"
 								value={fmtCode`
-									import { Button } from "@ngrok/mantle";
-									import { Fire } from "@phosphor-icons/react/Fire";
+									import { Button } from "@ngrok/mantle/button";
+									import { Fire } from "@phosphor-icons/react";
 
 									<Button>No Icon + Idle</Button>
 									<Button icon={<Fire weight="fill" />}>Icon Start + Idle</Button>
@@ -246,8 +246,8 @@ export default function Page() {
 							<CodeBlockCode
 								language="tsx"
 								value={fmtCode`
-									import { Button } from "@ngrok/mantle";
-									import { Fire } from "@phosphor-icons/react/Fire";
+									import { Button } from "@ngrok/mantle/button";
+									import { Fire } from "@phosphor-icons/react";
 									import { Link } from "react-router-dom";
 
 									<Button appearance="filled" icon={<Fire weight="fill" />} asChild>

@@ -55,7 +55,7 @@ export default function Page() {
 						<CodeBlockCode
 							language="tsx"
 							value={fmtCode`
-							import { MantleThemeHeadContent, ThemeProvider } from "@ngrok/mantle";
+							import { MantleThemeHeadContent, ThemeProvider } from "@ngrok/mantle/theme-provider";
 
 							export default function App() {
 								return (
@@ -139,16 +139,14 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 							language="tsx"
 							value={fmtCode`
 							import {
-								isTheme,
 								Select,
 								SelectContent,
 								SelectGroup,
 								SelectItem,
 								SelectLabel,
 								SelectTrigger,
-								theme,
-								useTheme,
-							} from "@ngrok/mantle";
+							} from "@ngrok/mantle/select";
+							import { isTheme, theme, useTheme } from "@ngrok/mantle/theme-provider";
 
 							function App() {
 								const [currentTheme, setTheme] = useTheme();

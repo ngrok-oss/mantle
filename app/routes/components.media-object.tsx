@@ -61,7 +61,7 @@ export default function Page() {
 					<CodeBlockCode
 						language="tsx"
 						value={fmtCode`
-							import { MediaObject, MediaObjectContent, MediaObjectMedia } from "@ngrok/mantle";
+							import { MediaObject, MediaObjectContent, MediaObjectMedia } from "@ngrok/mantle/media-object";
 
 							<MediaObject>
 								<MediaObjectMedia>

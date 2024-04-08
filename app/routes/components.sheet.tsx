@@ -110,7 +110,7 @@ export default function Page() {
 								SheetHeader,
 								SheetTitle,
 								SheetTrigger,
-							} from "@ngrok/mantle";
+							} from "@ngrok/mantle/sheet";
 
 							<Sheet>
 								<SheetTrigger asChild>

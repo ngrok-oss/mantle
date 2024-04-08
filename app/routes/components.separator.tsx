@@ -45,7 +45,7 @@ export default function Page() {
 					<CodeBlockCode
 						language="tsx"
 						value={fmtCode`
-							import { Separator } from "@ngrok/mantle";
+							import { Separator } from "@ngrok/mantle/separator";
 
 							<div>
 								<div className="space-y-1">

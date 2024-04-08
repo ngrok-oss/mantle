@@ -82,7 +82,7 @@ export default function Page() {
 							<CodeBlockCode
 								language="tsx"
 								value={fmtCode`
-									import { Alert, AlertContent, AlertDescription, AlertTitle } from "@ngrok/mantle";
+									import { Alert, AlertContent, AlertDescription, AlertTitle } from "@ngrok/mantle/alert";
 
 									<Alert>
 										<Rocket className="size-5" />
@@ -191,8 +191,8 @@ export default function Page() {
 							<CodeBlockCode
 								language="tsx"
 								value={fmtCode`
-									import { Alert, AlertContent, AlertDescription, AlertTitle } from "@ngrok/mantle";
-									import { Warning } from "@phosphor-icons/react/Warning";
+									import { Alert, AlertContent, AlertDescription, AlertTitle } from "@ngrok/mantle/alert";
+									import { Warning } from "@phosphor-icons/react";
 
 									// Danger Alert with icon
 									<Alert priority="danger">
@@ -262,8 +262,8 @@ export default function Page() {
 							<CodeBlockCode
 								language="tsx"
 								value={fmtCode`
-									import { Alert, AlertContent, AlertTitle } from "@ngrok/mantle";
-									import { Rocket } from "@phosphor-icons/react/Rocket";
+									import { Alert, AlertContent, AlertTitle } from "@ngrok/mantle/alert";
+									import { Rocket } from "@phosphor-icons/react";
 
 									<Alert priority="info" className="rounded-none">
 										<Rocket className="size-5" />

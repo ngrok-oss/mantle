@@ -85,8 +85,8 @@ export default function Page() {
 					<CodeBlockCode
 						language="tsx"
 						value={fmtCode`
+						import { Button } from "@ngrok/mantle/button";
 						import {
-							Button,
 							DropdownMenu,
 							DropdownMenuContent,
 							DropdownMenuItem,
@@ -94,7 +94,7 @@ export default function Page() {
 							DropdownMenuRadioItem,
 							DropdownMenuSeparator,
 							DropdownMenuTrigger,
-						} from "@ngrok/mantle";
+						} from "@ngrok/mantle/dropdown-menu";
 
 						<DropdownMenu>
 							<DropdownMenuTrigger asChild>

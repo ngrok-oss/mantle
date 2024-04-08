@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+
     /* Base Options: */
     "esModuleInterop": true,
     "skipLibCheck": true,
@@ -23,16 +25,12 @@
     "outDir": "dist",
     "sourceMap": true,
     "declaration": true,
-    "composite": true,
     "declarationMap": true,
-    // "declarationDir": "dist/dts",
-    "emitDeclarationOnly": true,
-
 
     /* Runs in the DOM */
-    "lib": ["es2022", "dom", "dom.iterable"],
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
   },
-  "include": ["components/**/*", "assets/**/*"],
-	"exclude": ["components/**/*.stories.*", "components/**/*.test.*"],
+  "include": ["packages/**/*", "assets/**/*"],
+	"exclude": ["./packages/**/*.stories.*", "./packages/**/*.test.*"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

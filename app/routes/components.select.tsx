@@ -104,7 +104,7 @@ export default function Page() {
 								SelectSeparator,
 								SelectTrigger,
 								SelectValue,
-							} from "@ngrok/mantle";
+							} from "@ngrok/mantle/select";
 
 							<Select>
 								<SelectTrigger className="w-[180px]">

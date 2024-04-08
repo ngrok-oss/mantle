@@ -43,7 +43,7 @@ export default function Page() {
 					<CodeBlockCode
 						language="tsx"
 						value={fmtCode`
-							import { Card, CardBody, CardFooter, CardHeader, CardTitle } from "@ngrok/mantle";
+							import { Card, CardBody, CardFooter, CardHeader, CardTitle } from "@ngrok/mantle/card";
 
 							<Card>
 								<CardHeader>

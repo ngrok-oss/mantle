@@ -114,7 +114,7 @@ export default function Page() {
 								CodeBlockHeader,
 								CodeBlockTitle,
 								fmtCode,
-							} from "@ngrok/mantle";
+							} from "@ngrok/mantle/code-block";
 
 							<CodeBlock>
 								<CodeBlockHeader>
