@@ -19,18 +19,6 @@
   "browserslist": [
     "last 2 years, not dead, > 0.2%"
   ],
-  "main": "./dist/index.js",
-  "source": "./components/index.tsx",
-  "types": "./dist/components/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.js",
-      "types": "./dist/components/index.d.ts",
-      "default": "./dist/index.js"
-    },
-    "./mantle.css": "./assets/mantle.css"
-  },
   "files": [
     "dist",
     "assets"
@@ -40,8 +28,7 @@
   },
   "scripts": {
     "build-storybook": "storybook build",
-    "build:types": "tsc --project ./tsconfig.publish.json",
-    "build": "rm -rf dist .parcel-cache && parcel build --no-cache --dist-dir dist && pnpm run build:types",
+    "build": "rm -rf dist && tsup",
     "cmd:storybook": "STORYBOOK_DISABLE_TELEMETRY=1 storybook",
     "docs:build": "remix build",
     "docs:dev": "remix dev --manual",
@@ -75,14 +62,13 @@
     "isbot": "5.1.4",
     "prismjs": "1.29.0",
     "tailwind-merge": "2.2.2",
+    "tailwindcss-animate": "1.0.7",
     "tiny-invariant": "1.3.3"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "1.3.0",
     "@commander-js/extra-typings": "12.0.1",
     "@ianvs/prettier-plugin-sort-imports": "4.2.1",
-    "@parcel/packager-ts": "2.12.0",
-    "@parcel/transformer-typescript-types": "2.12.0",
     "@remix-run/dev": "2.8.1",
     "@remix-run/eslint-config": "2.8.1",
     "@storybook/addon-essentials": "7.6.17",
@@ -95,9 +81,9 @@
     "@storybook/react": "7.6.17",
     "@storybook/react-vite": "7.6.17",
     "@storybook/testing-library": "0.2.2",
-    "@testing-library/react": "14.2.2",
+    "@testing-library/react": "14.3.0",
     "@testing-library/user-event": "14.5.2",
-    "@types/node": "20.12.4",
+    "@types/node": "20.12.5",
     "@types/prismjs": "1.26.3",
     "@types/react": "18.2.74",
     "@types/react-dom": "18.2.24",
@@ -116,7 +102,6 @@
     "eslint-plugin-storybook": "0.8.0",
     "fast-glob": "3.3.2",
     "jsdom": "24.0.0",
-    "parcel": "2.12.0",
     "postcss": "8.4.38",
     "prettier": "3.2.5",
     "prettier-plugin-tailwindcss": "0.5.13",
@@ -125,7 +110,6 @@
     "react-router-dom": "6.22.3",
     "storybook": "7.6.17",
     "tailwindcss": "3.4.3",
-    "tailwindcss-animate": "1.0.7",
     "tsup": "8.0.2",
     "tsx": "4.7.2",
     "typescript": "5.4.4",
@@ -136,13 +120,111 @@
     "zod": "3.22.4"
   },
   "peerDependencies": {
+    "@phosphor-icons/react": "^2.0.0",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
-    "@phosphor-icons/react": "^2.0.0",
     "postcss": "^8.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "tailwindcss": "^3.4.3",
     "zod": "^3.22.4"
+  },
+  "exports": {
+    "./mantle.css": "./assets/mantle.css",
+    "./tailwind-preset": {
+      "import": "./dist/tailwind-preset.js",
+      "types": "./dist/tailwind-preset.d.ts"
+    },
+    "./alert": {
+      "import": "./dist/alert.js",
+      "types": "./dist/alert.d.ts"
+    },
+    "./anchor": {
+      "import": "./dist/anchor.js",
+      "types": "./dist/anchor.d.ts"
+    },
+    "./button": {
+      "import": "./dist/button.js",
+      "types": "./dist/button.d.ts"
+    },
+    "./card": {
+      "import": "./dist/card.js",
+      "types": "./dist/card.d.ts"
+    },
+    "./checkbox": {
+      "import": "./dist/checkbox.js",
+      "types": "./dist/checkbox.d.ts"
+    },
+    "./code-block": {
+      "import": "./dist/code-block.js",
+      "types": "./dist/code-block.d.ts"
+    },
+    "./core": {
+      "import": "./dist/core.js",
+      "types": "./dist/core.d.ts"
+    },
+    "./dialog": {
+      "import": "./dist/dialog.js",
+      "types": "./dist/dialog.d.ts"
+    },
+    "./dropdown-menu": {
+      "import": "./dist/dropdown-menu.js",
+      "types": "./dist/dropdown-menu.d.ts"
+    },
+    "./icon": {
+      "import": "./dist/icon.js",
+      "types": "./dist/icon.d.ts"
+    },
+    "./inline-code": {
+      "import": "./dist/inline-code.js",
+      "types": "./dist/inline-code.d.ts"
+    },
+    "./input": {
+      "import": "./dist/input.js",
+      "types": "./dist/input.d.ts"
+    },
+    "./media-object": {
+      "import": "./dist/media-object.js",
+      "types": "./dist/media-object.d.ts"
+    },
+    "./popover": {
+      "import": "./dist/popover.js",
+      "types": "./dist/popover.d.ts"
+    },
+    "./select": {
+      "import": "./dist/select.js",
+      "types": "./dist/select.d.ts"
+    },
+    "./separator": {
+      "import": "./dist/separator.js",
+      "types": "./dist/separator.d.ts"
+    },
+    "./sheet": {
+      "import": "./dist/sheet.js",
+      "types": "./dist/sheet.d.ts"
+    },
+    "./skeleton": {
+      "import": "./dist/skeleton.js",
+      "types": "./dist/skeleton.d.ts"
+    },
+    "./table": {
+      "import": "./dist/table.js",
+      "types": "./dist/table.d.ts"
+    },
+    "./text-area": {
+      "import": "./dist/text-area.js",
+      "types": "./dist/text-area.d.ts"
+    },
+    "./theme-provider": {
+      "import": "./dist/theme-provider.js",
+      "types": "./dist/theme-provider.d.ts"
+    },
+    "./tooltip": {
+      "import": "./dist/tooltip.js",
+      "types": "./dist/tooltip.d.ts"
+    },
+    "./types": {
+      "types": "./dist/types.d.ts"
+    }
   }
 }
