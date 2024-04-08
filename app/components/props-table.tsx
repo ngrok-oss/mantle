@@ -1,7 +1,7 @@
-import { cx } from "packages/core";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "packages/table";
-import { Tooltip, TooltipContent, TooltipTrigger } from "packages/tooltip";
-import { WithStyleProps } from "packages/types";
+import { cx } from "@/core";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/table";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/tooltip";
+import { WithStyleProps } from "@/types";
 import { PropsWithChildren } from "react";
 
 type PropsTableProps = WithStyleProps & PropsWithChildren;

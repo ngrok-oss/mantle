@@ -1,3 +1,7 @@
+import { Alert, AlertContent, AlertDescription, AlertTitle } from "@/alert";
+import { Card, CardBody } from "@/card";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
+import { InlineCode } from "@/inline-code";
 import { CheckCircle, Info, Rocket, Warning, WarningDiamond } from "@phosphor-icons/react";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
@@ -10,10 +14,6 @@ import {
 	PropTypeCell,
 	StringPropType,
 } from "~/components/props-table";
-import { Alert, AlertContent, AlertDescription, AlertTitle } from "packages/alert";
-import { Card, CardBody } from "packages/card";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "packages/code-block";
-import { InlineCode } from "packages/inline-code";
 
 export const meta: MetaFunction = () => {
 	return [

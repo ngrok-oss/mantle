@@ -1,8 +1,5 @@
-import { Desktop, Gear, Moon, SignOut, Sun } from "@phosphor-icons/react";
-import type { HeadersFunction, MetaFunction } from "@remix-run/node";
-import { Example } from "~/components/example";
-import { Button } from "packages/button";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "packages/code-block";
+import { Button } from "@/button";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -11,7 +8,10 @@ import {
 	DropdownMenuRadioItem,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
-} from "packages/dropdown-menu";
+} from "@/dropdown-menu";
+import { Desktop, Gear, Moon, SignOut, Sun } from "@phosphor-icons/react";
+import type { HeadersFunction, MetaFunction } from "@remix-run/node";
+import { Example } from "~/components/example";
 
 export const meta: MetaFunction = () => {
 	return [

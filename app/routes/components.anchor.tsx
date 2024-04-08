@@ -1,8 +1,8 @@
+import { Anchor } from "@/anchor";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
+import { InlineCode } from "@/inline-code";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
-import { Anchor } from "packages/anchor";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "packages/code-block";
-import { InlineCode } from "packages/inline-code";
 
 export const meta: MetaFunction = () => {
 	return [

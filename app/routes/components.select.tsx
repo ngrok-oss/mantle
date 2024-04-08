@@ -1,6 +1,4 @@
-import type { HeadersFunction, MetaFunction } from "@remix-run/node";
-import { Example } from "~/components/example";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "packages/code-block";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import {
 	Select,
 	SelectContent,
@@ -10,7 +8,9 @@ import {
 	SelectSeparator,
 	SelectTrigger,
 	SelectValue,
-} from "packages/select";
+} from "@/select";
+import type { HeadersFunction, MetaFunction } from "@remix-run/node";
+import { Example } from "~/components/example";
 
 export const meta: MetaFunction = () => {
 	return [

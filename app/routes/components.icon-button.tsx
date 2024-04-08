@@ -1,3 +1,7 @@
+import { Anchor } from "@/anchor";
+import { IconButton } from "@/button";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
+import { InlineCode } from "@/inline-code";
 import { Globe } from "@phosphor-icons/react";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
@@ -13,10 +17,6 @@ import {
 	StringPropType,
 } from "~/components/props-table";
 import { route } from "~/types/routes";
-import { Anchor } from "packages/anchor";
-import { IconButton } from "packages/button";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "packages/code-block";
-import { InlineCode } from "packages/inline-code";
 
 export const meta: MetaFunction = () => {
 	return [

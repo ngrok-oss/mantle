@@ -1,6 +1,6 @@
+import { cx } from "@/core";
 import { NavLinkProps, NavLink as RRNavLink } from "@remix-run/react";
 import { Route } from "~/types/routes";
-import { cx } from "packages/core";
 
 type Props = Omit<NavLinkProps, "to"> & {
 	hash?: `#${string}` | undefined;

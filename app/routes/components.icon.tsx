@@ -1,3 +1,7 @@
+import { Anchor } from "@/anchor";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
+import { Icon } from "@/icon";
+import { InlineCode } from "@/inline-code";
 import { Fire } from "@phosphor-icons/react";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
@@ -12,10 +16,6 @@ import {
 	ReactNodePropType,
 	StringPropType,
 } from "~/components/props-table";
-import { Anchor } from "packages/anchor";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "packages/code-block";
-import { Icon } from "packages/icon";
-import { InlineCode } from "packages/inline-code";
 
 export const meta: MetaFunction = () => {
 	return [

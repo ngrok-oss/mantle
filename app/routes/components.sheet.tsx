@@ -1,7 +1,5 @@
-import type { HeadersFunction, MetaFunction } from "@remix-run/node";
-import { Example } from "~/components/example";
-import { Button } from "packages/button";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "packages/code-block";
+import { Button } from "@/button";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import {
 	Sheet,
 	SheetBody,
@@ -12,7 +10,9 @@ import {
 	SheetHeader,
 	SheetTitle,
 	SheetTrigger,
-} from "packages/sheet";
+} from "@/sheet";
+import type { HeadersFunction, MetaFunction } from "@remix-run/node";
+import { Example } from "~/components/example";
 
 export const meta: MetaFunction = () => {
 	return [

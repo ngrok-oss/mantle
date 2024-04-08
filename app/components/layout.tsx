@@ -1,11 +1,11 @@
+import { Button } from "@/button";
+import { cx } from "@/core";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger } from "@/select";
+import { isTheme, theme, useTheme } from "@/theme-provider";
+import { WithStyleProps } from "@/types";
 import { List, Sun, X } from "@phosphor-icons/react";
 import { Link } from "@remix-run/react";
 import { Route } from "~/types/routes";
-import { Button } from "packages/button";
-import { cx } from "packages/core";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger } from "packages/select";
-import { isTheme, theme, useTheme } from "packages/theme-provider";
-import { WithStyleProps } from "packages/types";
 import { PropsWithChildren, useState } from "react";
 import { NavLink } from "./nav-link";
 

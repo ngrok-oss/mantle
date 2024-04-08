@@ -1,5 +1,3 @@
-import { FileText } from "@phosphor-icons/react";
-import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import {
 	CodeBlock,
 	CodeBlockBody,
@@ -9,9 +7,11 @@ import {
 	CodeBlockHeader,
 	CodeBlockTitle,
 	fmtCode,
-} from "packages/code-block";
-import { InlineCode } from "packages/inline-code";
-import { PreloadFonts, preventWrongThemeFlashScriptContent } from "packages/theme-provider";
+} from "@/code-block";
+import { InlineCode } from "@/inline-code";
+import { PreloadFonts, preventWrongThemeFlashScriptContent } from "@/theme-provider";
+import { FileText } from "@phosphor-icons/react";
+import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { renderToStaticMarkup } from "react-dom/server";
 
 export const meta: MetaFunction = () => {

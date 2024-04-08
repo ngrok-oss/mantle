@@ -1,3 +1,7 @@
+import { Anchor } from "@/anchor";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
+import { InlineCode } from "@/inline-code";
+import { TextArea } from "@/text-area";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 import {
@@ -10,10 +14,6 @@ import {
 	PropTypeCell,
 	StringPropType,
 } from "~/components/props-table";
-import { Anchor } from "packages/anchor";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "packages/code-block";
-import { InlineCode } from "packages/inline-code";
-import { TextArea } from "packages/text-area";
 import { DragEvent } from "react";
 
 export const meta: MetaFunction = () => {

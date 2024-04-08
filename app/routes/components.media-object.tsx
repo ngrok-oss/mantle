@@ -1,8 +1,8 @@
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
+import { InlineCode } from "@/inline-code";
+import { MediaObject, MediaObjectContent, MediaObjectMedia } from "@/media-object";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "packages/code-block";
-import { InlineCode } from "packages/inline-code";
-import { MediaObject, MediaObjectContent, MediaObjectMedia } from "packages/media-object";
 
 export const meta: MetaFunction = () => {
 	return [
