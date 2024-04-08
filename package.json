@@ -3,7 +3,7 @@
   "description": "mantle is ngrok's UI library and design system.",
   "author": "ngrok",
   "license": "MIT",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "homepage": "https://mantle.ngrok.com",
   "repository": {
     "type": "git",
@@ -141,9 +141,9 @@
       "import": "./dist/code-block.js",
       "types": "./dist/code-block.d.ts"
     },
-    "./core": {
-      "import": "./dist/core.js",
-      "types": "./dist/core.d.ts"
+    "./cx": {
+      "import": "./dist/cx.js",
+      "types": "./dist/cx.d.ts"
     },
     "./dialog": {
       "import": "./dist/dialog.js",
@@ -152,6 +152,10 @@
     "./dropdown-menu": {
       "import": "./dist/dropdown-menu.js",
       "types": "./dist/dropdown-menu.d.ts"
+    },
+    "./hooks": {
+      "import": "./dist/hooks.js",
+      "types": "./dist/hooks.d.ts"
     },
     "./icon": {
       "import": "./dist/icon.js",
