@@ -1,4 +1,4 @@
-import { cx } from "@/core";
+import { cx } from "@/cx";
 import { NavLinkProps, NavLink as RRNavLink } from "@remix-run/react";
 import { Route } from "~/types/routes";
 

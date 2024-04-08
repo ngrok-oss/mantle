@@ -1,5 +1,5 @@
 import { forwardRef, HTMLAttributes } from "react";
-import { cx } from "../../core";
+import { cx } from "../../cx";
 
 /**
  * A component to render inline code.

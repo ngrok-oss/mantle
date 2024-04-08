@@ -1,6 +1,6 @@
 import { Children, cloneElement, HTMLAttributes, isValidElement, ReactElement, ReactNode } from "react";
 import invariant from "tiny-invariant";
-import { cx } from "../../core";
+import { cx } from "../../cx";
 import { WithStyleProps } from "../../types";
 
 type IconProps = WithStyleProps & {

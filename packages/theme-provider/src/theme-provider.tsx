@@ -2,7 +2,7 @@ import clsx from "clsx";
 import type { PropsWithChildren } from "react";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import invariant from "tiny-invariant";
-import { useMatchesMediaQuery } from "../../core/src/use-matches-media-query";
+import { useMatchesMediaQuery } from "../../hooks/src/use-matches-media-query";
 import { PreloadFonts } from "./preload-fonts";
 
 /**

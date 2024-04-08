@@ -1,5 +1,5 @@
 import { HTMLAttributes } from "react";
-import { cx } from "../../core";
+import { cx } from "../../cx";
 
 type Props = Exclude<HTMLAttributes<HTMLDivElement>, "children">;
 

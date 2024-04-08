@@ -1,5 +1,5 @@
 import { Anchor } from "@/anchor";
-import { cx } from "@/core";
+import { cx } from "@/cx";
 import { InlineCode } from "@/inline-code";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { HashNavLink } from "~/components/hash-nav-link";

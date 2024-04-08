@@ -1,6 +1,6 @@
 import { Slot } from "@radix-ui/react-slot";
 import { AnchorHTMLAttributes, forwardRef } from "react";
-import { cx } from "../../core";
+import { cx } from "../../cx";
 import { WithAsChild } from "../../types/src/as-child";
 
 const anchorClassNames = (className: string | undefined) =>

@@ -1,4 +1,4 @@
-import { useIsomorphicLayoutEffect, usePrefersReducedMotion } from "@/core";
+import { useIsomorphicLayoutEffect, usePrefersReducedMotion } from "@/hooks";
 import { useLocation } from "@remix-run/react";
 import { useMemo } from "react";
 

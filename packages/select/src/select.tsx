@@ -5,7 +5,7 @@ import * as SelectPrimitive from "@radix-ui/react-select";
 import { cva } from "class-variance-authority";
 import type { ComponentPropsWithoutRef, ElementRef, SelectHTMLAttributes } from "react";
 import { createContext, forwardRef, useContext } from "react";
-import { cx } from "../../core";
+import { cx } from "../../cx";
 import { Separator } from "../../separator";
 import type { VariantProps } from "../../types/src/variant-props";
 
