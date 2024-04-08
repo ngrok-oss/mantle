@@ -1,20 +1,36 @@
 {
   "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx", "assets/**/*"],
   "compilerOptions": {
-    "lib": ["DOM", "DOM.Iterable", "ES2021"],
-    "isolatedModules": true,
-    "esModuleInterop": true,
-    "jsx": "react-jsx",
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "resolveJsonModule": true,
-    "target": "ES2021",
-    "strict": true,
-    "strictNullChecks": true,
-    "noUncheckedIndexedAccess": true,
-    "allowJs": true,
-    "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
+    
+    /* Base Options: */
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "target": "es2022",
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "moduleDetection": "force",
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+
+    /* Strictness */
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+
+    /* Emit */
+    "moduleResolution": "Bundler",
+    "module": "ESNext",
+    // "outDir": "dist",
+    "sourceMap": true,
+    "composite": true,
+    "declarationMap": true,
+
+    /* Runs in the DOM */
+    "lib": ["DOM", "DOM.Iterable", "ES2022"],
+   
     "paths": {
       "~/*": ["./app/*"],
       "@/*": ["packages/*"],

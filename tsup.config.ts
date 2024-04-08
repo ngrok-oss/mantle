@@ -18,9 +18,15 @@ const packages = allPackageDirectories
 	}, {});
 
 export default defineConfig((options) => ({
-	entry: packages,
-	format: ["esm"],
+	clean: true,
 	dts: true,
+	entry: packages,
 	external: ["react", "react-dom"],
+	format: ["esm"],
+	minify: true,
+	sourcemap: true,
+	splitting: true,
+	target: "es2022",
+	tsconfig: "tsconfig.publish.json",
 	...options,
 }));
