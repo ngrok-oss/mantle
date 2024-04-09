@@ -28,6 +28,7 @@ export const routePatterns = [
 	"/components/text-area",
 	"/components/theme-provider",
 	"/components/tooltip",
+	"/setup",
 ] as const;
 
 export type RoutePattern = (typeof routePatterns)[number];
@@ -65,6 +66,7 @@ export const routes = [
 	"/components/text-area",
 	"/components/theme-provider",
 	"/components/tooltip",
+	"/setup",
 ] as const;
 
 export type Route = (typeof routes)[number];
@@ -73,7 +75,7 @@ export const route = <T extends Route>(value: T) => value;
 
 export const isRoute = (value: unknown): value is Route => typeof value === "string" && routes.includes(value as Route);
 
-export const topLevelNavItems = ["/", "/base", "/components"] as const;
+export const topLevelNavItems = ["/", "/base", "/components", "/setup"] as const;
 
 export type TopLevelNav = (typeof topLevelNavItems)[number];
 
