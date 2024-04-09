@@ -9,11 +9,6 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Install Node.js 20 📗
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-
       - name: Install bun 📦
         uses: oven-sh/setup-bun@v1
         with:
