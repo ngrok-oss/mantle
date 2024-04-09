@@ -1,4 +1,3 @@
-import { writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { Command } from "@commander-js/extra-typings";
@@ -17,21 +16,21 @@ async function main() {
 	const __dirname = path.dirname(fileURLToPath(import.meta.url));
 	const remixAppPath = path.resolve(__dirname, "..", "..", "app");
 	const inputPath = path.resolve(remixAppPath, "routes");
-	const outputPath = path.resolve(remixAppPath, "types", "routes.ts");
+	const destination = path.resolve(remixAppPath, "types", "routes.ts");
 
-	const [routePaths, routePatterns] = processRoutes(inputPath);
+	const [routePaths, routePatterns] = await processRoutes(inputPath);
 	const tsTemplate = generateTypeScriptTemplate(routePaths, routePatterns);
 	const output = await fmt(tsTemplate);
 
 	if (options.dryRun) {
 		console.log(`Dry run. Showing output to standard out…`);
-		console.log(`Showing "${outputPath}" content:`);
+		console.log(`Showing "${destination}" content:`);
 		console.log(output);
 		return;
 	} else {
 		console.log(`Writing files…`);
-		console.log(`Writing ${outputPath}…`);
-		writeFileSync(outputPath, output, "utf8");
+		console.log(`Writing ${destination}…`);
+		Bun.write(destination, output);
 	}
 
 	console.log(`Done generating routes! 💃`);

@@ -1,5 +1,6 @@
 import { Anchor } from "@/anchor";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
+import { Link } from "~/components/link";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -20,7 +21,8 @@ export default function Page() {
 			<h1 className="text-5xl font-medium">Mantle</h1>
 			<p className="font-weight mt-4 text-xl text-body">
 				Mantle is <Anchor href="https://ngrok.com">ngrok</Anchor>
-				&rsquo;s UI library and design system that powers its front-end.
+				&rsquo;s UI library and design system that powers its front-end. To use in your application, see{" "}
+				<Link to="/setup">Setup</Link>.
 			</p>
 
 			<h2 id="dependencies" className="mt-8 text-3xl font-medium">
@@ -28,7 +30,7 @@ export default function Page() {
 			</h2>
 			<p className="mt-4 text-body">
 				Mantle&rsquo;s styling is composed using <Anchor href="https://tailwindcss.com">Tailwind</Anchor>. Its{" "}
-				<Anchor href="https://react.dev">React</Anchor> components are powered by{" "}
+				<Anchor href="https://react.dev">React</Anchor> components are inspired by{" "}
 				<Anchor href="https://ui.shadcn.com">shadcn/ui</Anchor>
 				&rsquo;s markup and <Anchor href="https://www.radix-ui.com">Radix</Anchor>
 				&rsquo;s primitives. Its documentation is built in <Anchor href="https://remix.run/">Remix</Anchor>.

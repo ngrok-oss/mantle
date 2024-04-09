@@ -165,6 +165,11 @@ function Navigation({ className, style }: WithStyleProps) {
 						Overview
 					</NavLink>
 				</li>
+				<li>
+					<NavLink to="/setup" prefetch="intent">
+						Setup
+					</NavLink>
+				</li>
 
 				<li className="mt-6 text-xs font-medium uppercase tracking-wider">Base</li>
 

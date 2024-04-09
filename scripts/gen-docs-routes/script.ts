@@ -1,19 +1,18 @@
 import path from "node:path";
-import glob from "fast-glob";
 
 type Path = `/${string}`;
 
 /**
  * Process a target to generate a list of route paths and route patterns.
  */
-export function processRoutes(
+export async function processRoutes(
 	remixAppRoutesDirPath: string,
-): readonly [routePaths: Array<Path>, routePatterns: Array<Path>] {
-	const allRouteModuleFilenames = glob.sync(`${remixAppRoutesDirPath}/*.{ts,tsx}`);
+): Promise<readonly [routePaths: Array<Path>, routePatterns: Array<Path>]> {
+	const glob = new Bun.Glob("**/*.{ts,tsx}");
 
 	const [uniqRoutePaths, uniqRoutePatterns] = getInitialRouteSets();
 
-	allRouteModuleFilenames.forEach((filepath) => {
+	for await (const filepath of glob.scan(remixAppRoutesDirPath)) {
 		const filename = path.basename(filepath, ".tsx").trim();
 
 		const segments = parseSegmentsFromFilename(filename);
@@ -23,7 +22,7 @@ export function processRoutes(
 
 		uniqRoutePaths.add(routePath);
 		uniqRoutePatterns.add(routePattern);
-	});
+	}
 
 	const routePaths = Array.from(uniqRoutePaths).sort();
 	const routePatterns = Array.from(uniqRoutePatterns).sort();
