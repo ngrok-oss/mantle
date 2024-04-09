@@ -14,30 +14,30 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install pnpm 📦
-        uses: pnpm/action-setup@v2
+      - name: Install bun 📦
+        uses: oven-sh/setup-bun@v1
         with:
-          version: 8
+          version: 1.1.3
 
       - name: Install Dependencies 📥
-        run: | # Install npm packages
-          pnpm install
+        run: | # Install node packages
+          bun install
 
       - name: Lint and Type Check 🧹
         run: | # Run the lint and type check
-          pnpm run typecheck
-          pnpm run fmt:check
-          pnpm run lint
+          bun run typecheck
+          bun run fmt:check
+          bun run lint
 
       - name: Test 🧪
         run: | # Run the tests
-          pnpm run test
+          bun run test
 
       - name: Ensure Package is Publishable 🧐
         run: | # Run the prepublish hook to ensure the package is publishable
-          pnpm run prepublishOnly
+          bun run prepublishOnly
 
       - name: Diff Docs Routes Codegen 🕵️
         run: | # Diff the docs routes codegen
-          pnpm run gen:docs-routes
+          bun run gen:docs-routes
           git diff --exit-code
