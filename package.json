@@ -30,9 +30,9 @@
     "docs:serve": "remix-serve ./build/index.js",
     "fmt:check": "prettier --check .",
     "fmt": "prettier --write .",
-    "gen:docs-routes": "tsx scripts/gen-docs-routes",
+    "gen:docs-routes": "bun ./scripts/gen-docs-routes",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "prepublishOnly": "pnpm run build",
+    "prepublishOnly": "bun run build",
     "test": "TZ=UTC vitest",
     "typecheck": "tsc --incremental --noEmit --skipLibCheck"
   },
@@ -67,12 +67,13 @@
     "@remix-run/eslint-config": "2.8.1",
     "@testing-library/react": "14.3.0",
     "@testing-library/user-event": "14.5.2",
-    "@types/node": "20.12.5",
+    "@types/bun": "latest",
+    "@types/node": "20.12.6",
     "@types/prismjs": "1.26.3",
-    "@types/react": "18.2.74",
+    "@types/react": "18.2.75",
     "@types/react-dom": "18.2.24",
-    "@typescript-eslint/eslint-plugin": "7.5.0",
-    "@typescript-eslint/parser": "7.5.0",
+    "@typescript-eslint/eslint-plugin": "7.6.0",
+    "@typescript-eslint/parser": "7.6.0",
     "@vitejs/plugin-react": "4.2.1",
     "@vitest/ui": "1.4.0",
     "autoprefixer": "10.4.19",
@@ -83,7 +84,6 @@
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-react": "7.34.1",
     "eslint-plugin-react-hooks": "4.6.0",
-    "fast-glob": "3.3.2",
     "jsdom": "24.0.0",
     "postcss": "8.4.38",
     "prettier": "3.2.5",
@@ -236,5 +236,6 @@
     "./types": {
       "types": "./dist/types.d.ts"
     }
-  }
+  },
+  "module": "index.ts"
 }
