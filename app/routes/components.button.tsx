@@ -1,6 +1,6 @@
 import { Anchor } from "@/anchor";
 import { Button } from "@/button";
-import { code, CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import { InlineCode } from "@/inline-code";
 import { Fire } from "@phosphor-icons/react/Fire";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
@@ -97,9 +97,10 @@ export default function Page() {
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
 							<CodeBlockCopyButton />
-							<CodeBlockCode language="tsx">
-								{code`
-									import { Button } from "@ngrok/mantle";
+							<CodeBlockCode
+								language="tsx"
+								value={fmtCode`
+									import { Button } from "@ngrok/mantle/button";
 
 									<Button>Outlined</Button>
 									<Button appearance="filled">Filled</Button>
@@ -116,7 +117,7 @@ export default function Page() {
 									<Button priority="danger" appearance="ghost">Ghost</Button>
 									<Button priority="danger" appearance="link">Link</Button>
 								`}
-							</CodeBlockCode>
+							/>
 						</CodeBlockBody>
 					</CodeBlock>
 				</div>
@@ -143,32 +144,32 @@ export default function Page() {
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
 							<CodeBlockCopyButton />
-							<CodeBlockCode language="tsx">
-								{code`
-									import { Button } from "@ngrok/mantle";
-									import { Fire } from "@phosphor-icons/react/Fire";
+							<CodeBlockCode
+								language="tsx"
+								value={fmtCode`
+									import { Button } from "@ngrok/mantle/button";
+									import { Fire } from "@phosphor-icons/react";
 
 									<Button icon={<Fire weight="fill" />}>Icon Start</Button>
 									<Button icon={<Fire weight="fill" />} iconPlacement="end">
 										Icon End
 									</Button>
 								`}
-							</CodeBlockCode>
+							/>
 						</CodeBlockBody>
 					</CodeBlock>
 				</div>
 			</section>
 
 			<section className="mb-4 space-y-4">
-				<h2 id="example-state" className="text-3xl font-medium">
-					State: Idle and Pending
+				<h2 id="example-loading" className="text-3xl font-medium">
+					isLoading
 				</h2>
 				<p className="text-xl text-body">
-					Use <InlineCode>state</InlineCode> to indicate if the button is in a loading state. By default, the button is
-					in an <InlineCode>idle</InlineCode> state. If you set the state to <InlineCode>pending</InlineCode>, the
-					button will render a spinner and disable user interaction. If an icon is given, it will be replaced with the
-					spinner. If no icon is given, the spinner will render on the side defined by{" "}
-					<InlineCode>iconPlacement</InlineCode>.
+					<InlineCode>isLoading</InlineCode> determines whether or not the button is in a loading state, default{" "}
+					<InlineCode>false</InlineCode>. Setting <InlineCode>isLoading</InlineCode> will replace any{" "}
+					<InlineCode>icon</InlineCode> with a spinner, or add one if an icon wasn't given. It will also disable user
+					interaction with the button and set <InlineCode>aria-disabled</InlineCode>.
 				</p>
 				<div>
 					<Example className="flex-col gap-4">
@@ -183,14 +184,14 @@ export default function Page() {
 							</div>
 						</div>
 						<div>
-							<p className="mb-2 text-center font-mono text-xs">Pending</p>
+							<p className="mb-2 text-center font-mono text-xs">isLoading</p>
 							<div className="flex items-center gap-2">
-								<Button state="pending">No Icon + Pending</Button>
-								<Button icon={<Fire weight="fill" />} state="pending">
-									Icon Start + Pending
+								<Button isLoading>No Icon + isLoading</Button>
+								<Button icon={<Fire weight="fill" />} isLoading>
+									Icon Start + isLoading
 								</Button>
-								<Button icon={<Fire weight="fill" />} iconPlacement="end" state="pending">
-									Icon End + Pending
+								<Button icon={<Fire weight="fill" />} iconPlacement="end" isLoading>
+									Icon End + isLoading
 								</Button>
 							</div>
 						</div>
@@ -198,25 +199,26 @@ export default function Page() {
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
 							<CodeBlockCopyButton />
-							<CodeBlockCode language="tsx">
-								{code`
-									import { Button } from "@ngrok/mantle";
-									import { Fire } from "@phosphor-icons/react/Fire";
+							<CodeBlockCode
+								language="tsx"
+								value={fmtCode`
+									import { Button } from "@ngrok/mantle/button";
+									import { Fire } from "@phosphor-icons/react";
 
 									<Button>No Icon + Idle</Button>
 									<Button icon={<Fire weight="fill" />}>Icon Start + Idle</Button>
 									<Button icon={<Fire weight="fill" />} iconPlacement="end">
 										Icon End + Idle
 									</Button>
-									<Button state="pending">No Icon + Pending</Button>
-									<Button icon={<Fire weight="fill" />} state="pending">
-										Icon Start + Pending
+									<Button isLoading>No Icon + isLoading</Button>
+									<Button icon={<Fire weight="fill" />} isLoading>
+										Icon Start + isLoading
 									</Button>
-									<Button icon={<Fire weight="fill" />} iconPlacement="end" state="pending">
-										Icon End + Pending
+									<Button icon={<Fire weight="fill" />} iconPlacement="end" isLoading>
+										Icon End + isLoading
 									</Button>
 								`}
-							</CodeBlockCode>
+							/>
 						</CodeBlockBody>
 					</CodeBlock>
 				</div>
@@ -241,17 +243,18 @@ export default function Page() {
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
 							<CodeBlockCopyButton />
-							<CodeBlockCode language="tsx">
-								{code`
-									import { Button } from "@ngrok/mantle";
-									import { Fire } from "@phosphor-icons/react/Fire";
+							<CodeBlockCode
+								language="tsx"
+								value={fmtCode`
+									import { Button } from "@ngrok/mantle/button";
+									import { Fire } from "@phosphor-icons/react";
 									import { Link } from "react-router-dom";
 
 									<Button appearance="filled" icon={<Fire weight="fill" />} asChild>
 										<Link to="/base/colors">See our colors!</Link>
 									</Button>
 								`}
-							</CodeBlockCode>
+							/>
 						</CodeBlockBody>
 					</CodeBlock>
 				</div>
@@ -288,7 +291,7 @@ export default function Page() {
 							</ul>
 						</PropTypeCell>
 						<PropDefaultValueCell>
-							<StringPropType value="ghost" />
+							<StringPropType value="outlined" />
 						</PropDefaultValueCell>
 						<PropDescriptionCell>
 							<p>
@@ -345,6 +348,23 @@ export default function Page() {
 						</PropDescriptionCell>
 					</PropRow>
 					<PropRow>
+						<PropNameCell name="isLoading" optional />
+						<PropTypeCell>
+							<BooleanPropType />
+						</PropTypeCell>
+						<PropDefaultValueCell>
+							<BooleanPropType value={false} />
+						</PropDefaultValueCell>
+						<PropDescriptionCell>
+							<p>
+								Determines whether or not the button is in a loading state, default <InlineCode>false</InlineCode>.
+								Setting <InlineCode>isLoading</InlineCode> will replace any <InlineCode>icon</InlineCode> with a
+								spinner, or add one if an icon wasn't given. It will also disable user interaction with the button and
+								set <InlineCode>aria-disabled</InlineCode>.
+							</p>
+						</PropDescriptionCell>
+					</PropRow>
+					<PropRow>
 						<PropNameCell name="priority" optional />
 						<PropTypeCell>
 							<ul>
@@ -366,30 +386,6 @@ export default function Page() {
 							<p>
 								Indicates the importance or impact level of the button, affecting its color and styling to communicate
 								its purpose to the user.
-							</p>
-						</PropDescriptionCell>
-					</PropRow>
-					<PropRow>
-						<PropNameCell name="state" optional />
-						<PropTypeCell>
-							<ul>
-								<li>
-									<StringPropType value="idle" />
-								</li>
-								<li>
-									<StringPropType value="pending" />
-								</li>
-							</ul>
-						</PropTypeCell>
-						<PropDefaultValueCell>
-							<StringPropType value="idle" />
-						</PropDefaultValueCell>
-						<PropDescriptionCell>
-							<p>
-								The state of the button. If the button should present a "loading state", use{" "}
-								<InlineCode>pending</InlineCode>. Setting the state to <InlineCode>pending</InlineCode> will replace any
-								icon with a spinner, or add one if an icon wasn't given. It will also disable user interaction with the
-								button and set <InlineCode>aria-disabled</InlineCode>.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>

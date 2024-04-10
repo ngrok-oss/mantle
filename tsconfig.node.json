@@ -8,5 +8,5 @@
     "strict": true,
     "types": ["vitest/globals"]
   },
-  "include": ["vite.config.ts", ".storybook", "prettier.config.js"]
+  "include": ["vite.config.ts", ".storybook", "prettier.config.js", "tsup.config.ts"]
 }

@@ -1,5 +1,5 @@
 import { Button } from "@/button";
-import { code, CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -82,9 +82,11 @@ export default function Page() {
 			<CodeBlock className="rounded-b-lg rounded-t-none">
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
-					<CodeBlockCode language="tsx">{code`
+					<CodeBlockCode
+						language="tsx"
+						value={fmtCode`
+						import { Button } from "@ngrok/mantle/button";
 						import {
-							Button,
 							DropdownMenu,
 							DropdownMenuContent,
 							DropdownMenuItem,
@@ -92,7 +94,7 @@ export default function Page() {
 							DropdownMenuRadioItem,
 							DropdownMenuSeparator,
 							DropdownMenuTrigger,
-						} from "@ngrok/mantle";
+						} from "@ngrok/mantle/dropdown-menu";
 
 						<DropdownMenu>
 							<DropdownMenuTrigger asChild>
@@ -133,7 +135,8 @@ export default function Page() {
 								</DropdownMenuItem>
 							</DropdownMenuContent>
 						</DropdownMenu>
-					`}</CodeBlockCode>
+					`}
+					/>
 				</CodeBlockBody>
 			</CodeBlock>
 		</div>

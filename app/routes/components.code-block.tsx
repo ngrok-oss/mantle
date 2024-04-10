@@ -1,5 +1,4 @@
 import {
-	code,
 	CodeBlock,
 	CodeBlockBody,
 	CodeBlockCode,
@@ -7,6 +6,8 @@ import {
 	CodeBlockExpanderButton,
 	CodeBlockHeader,
 	CodeBlockTitle,
+	fmtCode,
+	supportedLanguages,
 } from "@/code-block";
 import { FileText } from "@phosphor-icons/react/FileText";
 import { Terminal } from "@phosphor-icons/react/Terminal";
@@ -31,7 +32,6 @@ export default function Page() {
 		<div>
 			<h1 className="text-5xl font-medium">Code Block</h1>
 			<p className="mt-4 text-xl text-body">Code blocks render and apply syntax highlighting to blocks of code.</p>
-
 			{/* <h2 className="mt-8 text-3xl font-medium">Examples</h2>
 
 			<h3 className="mt-8 text-xl font-medium">Complete</h3>
@@ -48,8 +48,9 @@ export default function Page() {
 					</CodeBlockHeader>
 					<CodeBlockBody>
 						<CodeBlockCopyButton />
-						<CodeBlockCode language="js">
-							{code`
+						<CodeBlockCode
+							language="js"
+							value={fmtCode`
 								const listener = await ngrok.connect({
 									// session configuration
 									addr: \`localhost:8080\`, // or \`8080\` or \`unix:$\{UNIX_SOCKET\}\`
@@ -93,17 +94,27 @@ export default function Page() {
 									websocket_tcp_converter: true,
 								});
 							`}
-						</CodeBlockCode>
-						<CodeBlockExpanderButton />
+						/>
 					</CodeBlockBody>
+					<CodeBlockExpanderButton />
 				</CodeBlock>
 			</Example>
 			<CodeBlock className="rounded-b-lg rounded-t-none">
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
-					<CodeBlockCode language="tsx">
-						{code`
-							import { CodeBlock, CodeBlockHeader, CodeBlockTitle, CodeBlockBody, CodeBlockCopyButton, CodeBlockCode, CodeBlockExpanderButton } from "@ngrok/mantle";
+					<CodeBlockCode
+						language="tsx"
+						value={fmtCode`
+							import {
+								CodeBlock,
+								CodeBlockBody,
+								CodeBlockCode,
+								CodeBlockCopyButton,
+								CodeBlockExpanderButton,
+								CodeBlockHeader,
+								CodeBlockTitle,
+								fmtCode,
+							} from "@ngrok/mantle/code-block";
 
 							<CodeBlock>
 								<CodeBlockHeader>
@@ -112,16 +123,12 @@ export default function Page() {
 								</CodeBlockHeader>
 								<CodeBlockBody>
 									<CodeBlockCopyButton />
-									<CodeBlockCode language="…">
-										{code\`
-											…
-										\`}
-									</CodeBlockCode>
-									<CodeBlockExpanderButton />
+									<CodeBlockCode language="…" value={fmtCode\`…\`} />
 								</CodeBlockBody>
+								<CodeBlockExpanderButton />
 							</CodeBlock>
 						`}
-					</CodeBlockCode>
+					/>
 				</CodeBlockBody>
 			</CodeBlock>
 
@@ -140,17 +147,19 @@ export default function Page() {
 						</CodeBlockHeader>
 						<CodeBlockBody>
 							<CodeBlockCopyButton />
-							<CodeBlockCode language="sh">
-								{code`sudo unzip ~/Downloads/ngrok-v3-stable-darwin.zip -d /usr/local/bin`}
-							</CodeBlockCode>
+							<CodeBlockCode
+								language="sh"
+								value={fmtCode`sudo unzip ~/Downloads/ngrok-v3-stable-darwin.zip -d /usr/local/bin`}
+							/>
 						</CodeBlockBody>
 					</CodeBlock>
 				</Example>
 				<CodeBlock className="rounded-b-lg rounded-t-none">
 					<CodeBlockBody>
 						<CodeBlockCopyButton />
-						<CodeBlockCode language="tsx">
-							{code`
+						<CodeBlockCode
+							language="tsx"
+							value={fmtCode`
 								<CodeBlock>
 									<CodeBlockHeader>
 										<CommandLineIcon />
@@ -158,13 +167,11 @@ export default function Page() {
 									</CodeBlockHeader>
 									<CodeBlockBody>
 										<CodeBlockCopyButton />
-										<CodeBlockCode language="sh">
-											{code\`sudo unzip ~/Downloads/ngrok-v3-stable-darwin.zip -d /usr/local/bin\`}
-										</CodeBlockCode>
+										<CodeBlockCode language="sh" value={fmtCode\`sudo unzip ~/Downloads/ngrok-v3-stable-darwin.zip -d /usr/local/bin\`} />
 									</CodeBlockBody>
 								</CodeBlock>
 							`}
-						</CodeBlockCode>
+						/>
 					</CodeBlockBody>
 				</CodeBlock>
 			</section>
@@ -183,8 +190,9 @@ export default function Page() {
 						</CodeBlockHeader>
 						<CodeBlockBody>
 							<CodeBlockCopyButton />
-							<CodeBlockCode language="js">
-								{code`
+							<CodeBlockCode
+								language="js"
+								value={fmtCode`
 									const http = require('http');
 									const ngrok = require("@ngrok/ngrok");
 									const server = http.createServer((req, res) => {
@@ -202,15 +210,16 @@ export default function Page() {
 									});
 									// really long line here that should wrap around and stuff Officia ipsum sint eu labore esse deserunt aliqua quis irure.
 								`}
-							</CodeBlockCode>
+							/>
 						</CodeBlockBody>
 					</CodeBlock>
 				</Example>
 				<CodeBlock className="rounded-b-lg rounded-t-none">
 					<CodeBlockBody>
 						<CodeBlockCopyButton />
-						<CodeBlockCode language="tsx">
-							{code`
+						<CodeBlockCode
+							language="tsx"
+							value={fmtCode`
 								<CodeBlock>
 									<CodeBlockHeader>
 										<FileIcon />
@@ -218,8 +227,9 @@ export default function Page() {
 									</CodeBlockHeader>
 									<CodeBlockBody>
 										<CodeBlockCopyButton />
-										<CodeBlockCode language="js">
-											{code\`
+										<CodeBlockCode
+											language="js"
+											value={fmtCode\`
 												const http = require('http');
 												const ngrok = require("@ngrok/ngrok");
 												const server = http.createServer((req, res) => {
@@ -237,13 +247,13 @@ export default function Page() {
 												});
 												// really long line here that should wrap around and stuff Officia ipsum sint eu labore esse deserunt aliqua quis irure.
 											\`}
-										</CodeBlockCode>
+										/>
 									</CodeBlockBody>
 								</CodeBlock>
 							`}
-						</CodeBlockCode>
-						<CodeBlockExpanderButton />
+						/>
 					</CodeBlockBody>
+					<CodeBlockExpanderButton />
 				</CodeBlock>
 			</section>
 
@@ -258,8 +268,9 @@ export default function Page() {
 				<Example className="mt-4">
 					<CodeBlock>
 						<CodeBlockBody>
-							<CodeBlockCode language="js">
-								{code`
+							<CodeBlockCode
+								language="js"
+								value={fmtCode`
 									const http = require('http');
 									const ngrok = require("@ngrok/ngrok");
 									const server = http.createServer((req, res) => {
@@ -271,19 +282,21 @@ export default function Page() {
 										console.log("url:", server.tunnel.url());
 									});
 								`}
-							</CodeBlockCode>
+							/>
 						</CodeBlockBody>
 					</CodeBlock>
 				</Example>
 				<CodeBlock className="rounded-b-lg rounded-t-none">
 					<CodeBlockBody>
 						<CodeBlockCopyButton />
-						<CodeBlockCode language="tsx">
-							{code`
+						<CodeBlockCode
+							language="tsx"
+							value={fmtCode`
 								<CodeBlock>
 									<CodeBlockBody>
-										<CodeBlockCode language="js">
-											{code\`
+										<CodeBlockCode
+											language="js"
+											value={fmtCode\`
 												const http = require('http');
 												const ngrok = require("@ngrok/ngrok");
 												const server = http.createServer((req, res) => {
@@ -295,13 +308,13 @@ export default function Page() {
 													console.log("url:", server.tunnel.url());
 												});
 											\`}
-										</CodeBlockCode>
+										/>
 									</CodeBlockBody>
 								</CodeBlock>
 							`}
-						</CodeBlockCode>
-						<CodeBlockExpanderButton />
+						/>
 					</CodeBlockBody>
+					<CodeBlockExpanderButton />
 				</CodeBlock>
 			</section>
 
@@ -315,29 +328,44 @@ export default function Page() {
 					<CodeBlock>
 						<CodeBlockBody>
 							<CodeBlockCopyButton />
-							<CodeBlockCode language="sh">
-								{code`ffmpeg -i multichannel.mxf -map 0:v:0 -map 0:a:0 -map 0:a:0 -c:a:0 ac3 -b:a:0 640k -ac:a:1 2 -c:a:1 aac -b:2 128k out.mp4`}
-							</CodeBlockCode>
+							<CodeBlockCode
+								language="sh"
+								value={fmtCode`ffmpeg -i multichannel.mxf -map 0:v:0 -map 0:a:0 -map 0:a:0 -c:a:0 ac3 -b:a:0 640k -ac:a:1 2 -c:a:1 aac -b:2 128k out.mp4`}
+							/>
 						</CodeBlockBody>
 					</CodeBlock>
 				</Example>
 				<CodeBlock className="rounded-b-lg rounded-t-none">
 					<CodeBlockBody>
 						<CodeBlockCopyButton />
-						<CodeBlockCode language="tsx">
-							{code`
-									<CodeBlock>
-										<CodeBlockBody>
-											<CodeBlockCopyButton />
-											<CodeBlockCode language="sh">
-												{code\`ffmpeg -i multichannel.mxf -map 0:v:0 -map 0:a:0 -map 0:a:0 -c:a:0 ac3 -b:a:0 640k -ac:a:1 2 -c:a:1 aac -b:2 128k out.mp4\`}
-											</CodeBlockCode>
-										</CodeBlockBody>
-									</CodeBlock>
-								`}
-						</CodeBlockCode>
+						<CodeBlockCode
+							language="tsx"
+							value={fmtCode`
+							<CodeBlock>
+								<CodeBlockBody>
+									<CodeBlockCopyButton />
+									<CodeBlockCode
+										language="sh"
+										value={fmtCode\`ffmpeg -i multichannel.mxf -map 0:v:0 -map 0:a:0 -map 0:a:0 -c:a:0 ac3 -b:a:0 640k -ac:a:1 2 -c:a:1 aac -b:2 128k out.mp4\`}
+									/>
+								</CodeBlockBody>
+							</CodeBlock>
+							`}
+						/>
 					</CodeBlockBody>
 				</CodeBlock>
+			</section>
+
+			<section className="mb-4 space-y-4">
+				<h2 id="supported-languages" className="text-3xl font-medium">
+					Supported Languages
+				</h2>
+				<p className="text-xl text-body">We support the following languages:</p>
+				<ul className="grid grid-cols-3 place-items-center lg:grid-cols-7">
+					{supportedLanguages.map((language) => (
+						<li key={language}>{language}</li>
+					))}
+				</ul>
 			</section>
 		</div>
 	);

@@ -1,5 +1,5 @@
 import { Button } from "@/button";
-import { cx } from "@/core";
+import { cx } from "@/cx";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger } from "@/select";
 import { isTheme, theme, useTheme } from "@/theme-provider";
 import { WithStyleProps } from "@/types";
@@ -28,9 +28,12 @@ const MantleLogo = () => (
 	</svg>
 );
 
-type Props = PropsWithChildren & WithStyleProps;
+type Props = PropsWithChildren &
+	WithStyleProps & {
+		currentVersion: string;
+	};
 
-export function Layout({ children, className, style }: Props) {
+export function Layout({ children, className, currentVersion, style }: Props) {
 	const [currentTheme, setTheme] = useTheme();
 	const [showNavigation, setShowNavigation] = useState(false);
 
@@ -53,6 +56,10 @@ export function Layout({ children, className, style }: Props) {
 				<Link to="/">
 					<MantleLogo />
 				</Link>
+
+				<p className="font-mono text-xs text-strong">
+					<a href="https://github.com/ngrok-oss/mantle/releases">{currentVersion}</a>
+				</p>
 
 				<Select
 					value={currentTheme}
@@ -104,6 +111,8 @@ const components = [
 	"Code Block",
 	"Dialog",
 	"Dropdown Menu",
+	"Icon Button",
+	"Icon",
 	"Inline Code",
 	"Input",
 	"Media Object",
@@ -128,6 +137,8 @@ const componentRouteLookup = {
 	"Code Block": "/components/code-block",
 	Dialog: "/components/dialog",
 	"Dropdown Menu": "/components/dropdown-menu",
+	Icon: "/components/icon",
+	"Icon Button": "/components/icon-button",
 	"Inline Code": "/components/inline-code",
 	Input: "/components/input",
 	"Media Object": "/components/media-object",
@@ -154,6 +165,11 @@ function Navigation({ className, style }: WithStyleProps) {
 						Overview
 					</NavLink>
 				</li>
+				<li>
+					<NavLink to="/setup" prefetch="intent">
+						Setup
+					</NavLink>
+				</li>
 
 				<li className="mt-6 text-xs font-medium uppercase tracking-wider">Base</li>
 
@@ -161,6 +177,11 @@ function Navigation({ className, style }: WithStyleProps) {
 					<li>
 						<NavLink to="/base/colors" prefetch="intent">
 							Colors
+						</NavLink>
+					</li>
+					<li>
+						<NavLink to="/base/shadows" prefetch="intent">
+							Shadows
 						</NavLink>
 					</li>
 					<li>

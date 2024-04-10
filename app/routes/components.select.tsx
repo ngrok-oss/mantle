@@ -1,4 +1,4 @@
-import { code, CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import {
 	Select,
 	SelectContent,
@@ -92,8 +92,9 @@ export default function Page() {
 			<CodeBlock className="rounded-b-lg rounded-t-none">
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
-					<CodeBlockCode language="tsx">
-						{code`
+					<CodeBlockCode
+						language="tsx"
+						value={fmtCode`
 							import {
 								Select,
 								SelectContent,
@@ -103,7 +104,7 @@ export default function Page() {
 								SelectSeparator,
 								SelectTrigger,
 								SelectValue,
-							} from "@ngrok/mantle";
+							} from "@ngrok/mantle/select";
 
 							<Select>
 								<SelectTrigger className="w-[180px]">
@@ -133,7 +134,7 @@ export default function Page() {
 								</SelectContent>
 							</Select>
 						`}
-					</CodeBlockCode>
+					/>
 				</CodeBlockBody>
 			</CodeBlock>
 		</div>

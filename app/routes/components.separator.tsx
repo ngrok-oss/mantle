@@ -1,4 +1,4 @@
-import { code, CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import { Separator } from "@/separator";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
@@ -42,9 +42,10 @@ export default function Page() {
 			<CodeBlock className="rounded-b-lg rounded-t-none">
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
-					<CodeBlockCode language="tsx">
-						{code`
-							import { Separator } from "@ngrok/mantle";
+					<CodeBlockCode
+						language="tsx"
+						value={fmtCode`
+							import { Separator } from "@ngrok/mantle/separator";
 
 							<div>
 								<div className="space-y-1">
@@ -61,7 +62,7 @@ export default function Page() {
 								</div>
 							</div>
 						`}
-					</CodeBlockCode>
+					/>
 				</CodeBlockBody>
 			</CodeBlock>
 		</div>

@@ -2,5 +2,6 @@ node_modules
 dist
 public
 pnpm-lock.yaml
+bun.lockb
 *.json
 rollup.config.*

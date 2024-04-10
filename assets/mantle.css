@@ -611,6 +611,12 @@
 	--ring-focus-danger: var(--danger-500) / 0.3;
 	--ring-focus-warning: var(--warning-500) / 0.3;
 	--ring-focus-success: var(--success-500) / 0.3;
+
+	/* shadow tokens */
+
+	--shadow-color: 0 0% 0%;
+	--shadow-first: 5%;
+	--shadow-second: 10%;
 }
 
 :root.dark {
@@ -882,11 +888,11 @@
 
 	/* theme tokens */
 
-	--bg-neutral: var(--neutral-500);
-	--bg-accent: var(--accent-500);
-	--bg-danger: var(--danger-500);
-	--bg-warning: var(--warning-500);
-	--bg-success: var(--success-500);
+	--bg-filled-neutral: var(--neutral-500);
+	--bg-filled-accent: var(--accent-500);
+	--bg-filled-danger: var(--danger-500);
+	--bg-filled-warning: var(--warning-500);
+	--bg-filled-success: var(--success-500);
 
 	--bg-filled-neutral-hover: var(--neutral-500) / 0.9;
 	--bg-filled-accent-hover: var(--accent-500) / 0.9;
@@ -899,6 +905,11 @@
 	--bg-filled-danger-active: var(--danger-500) / 0.8;
 	--bg-filled-warning-active: var(--warning-500) / 0.8;
 	--bg-filled-success-active: var(--success-500) / 0.8;
+
+	/* shadow tokens */
+
+	--shadow-first: 15%;
+	--shadow-second: 30%;
 }
 
 :root.light-high-contrast {
@@ -1137,6 +1148,11 @@
 	--text-muted: var(--black) / 0.75;
 	--text-placeholder: var(--black) / 0.5;
 	--text-on-filled: var(--tw-white);
+
+	/* shadow tokens */
+
+	--shadow-first: 100%;
+	--shadow-second: 100%;
 }
 
 :root.dark-high-contrast {
@@ -1384,6 +1400,11 @@
 
 	--bg-tooltip: var(--tw-black);
 	--text-tooltip: var(--tw-white);
+
+	/* shadow tokens */
+
+	--shadow-first: 100%;
+	--shadow-second: 100%;
 }
 
 /**
@@ -1455,6 +1476,10 @@
 @layer base {
 	body {
 		@apply bg-white text-gray-900;
+	}
+
+	strong {
+		@apply font-medium;
 	}
 }
 

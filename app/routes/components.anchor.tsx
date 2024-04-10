@@ -1,5 +1,5 @@
 import { Anchor } from "@/anchor";
-import { code, CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import { InlineCode } from "@/inline-code";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
@@ -57,15 +57,16 @@ export default function Page() {
 			<CodeBlock className="rounded-b-lg rounded-t-none">
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
-					<CodeBlockCode language="tsx">
-						{code`
-							import { Anchor } from "@ngrok/mantle";
+					<CodeBlockCode
+						language="tsx"
+						value={fmtCode`
+							import { Anchor } from "@ngrok/mantle/anchor";
 
 							<p>
 								This link will go to <Anchor href="https://ngrok.com/">ngrok.com</Anchor>!
 							</p>
 						`}
-					</CodeBlockCode>
+					/>
 				</CodeBlockBody>
 			</CodeBlock>
 		</div>

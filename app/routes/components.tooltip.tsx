@@ -1,5 +1,5 @@
 import { Button } from "@/button";
-import { code, CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/tooltip";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
@@ -42,8 +42,11 @@ export default function Page() {
 			<CodeBlock className="rounded-b-lg rounded-t-none">
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
-					<CodeBlockCode language="tsx">{code`
-						import { Button, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@ngrok/mantle";
+					<CodeBlockCode
+						language="tsx"
+						value={fmtCode`
+						import { Button } from "@ngrok/mantle/button";
+						import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@ngrok/mantle/tooltip";
 
 						<TooltipProvider>
 							<Tooltip>
@@ -57,7 +60,8 @@ export default function Page() {
 								</TooltipContent>
 							</Tooltip>
 						</TooltipProvider>
-					`}</CodeBlockCode>
+					`}
+					/>
 				</CodeBlockBody>
 			</CodeBlock>
 		</div>

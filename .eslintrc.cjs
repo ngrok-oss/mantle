@@ -12,17 +12,10 @@ module.exports = {
 		"plugin:@typescript-eslint/stylistic-type-checked",
 		"plugin:react/recommended",
 		"plugin:react/jsx-runtime",
-		"plugin:storybook/recommended",
 		"@remix-run/eslint-config/node",
 		"prettier", // must be last
 	],
 	ignorePatterns: ["dist", ".eslintrc.cjs"],
-	overrides: [
-		{
-			files: [".storybook/**/*.{ts,js,html}", "./**/*.stories.{ts,tsx}"],
-			extends: ["plugin:storybook/recommended"],
-		},
-	],
 	parser: "@typescript-eslint/parser",
 	parserOptions: {
 		ecmaVersion: "latest",

@@ -1,5 +1,5 @@
 import { Button } from "@/button";
-import { code, CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import {
 	Sheet,
 	SheetBody,
@@ -97,8 +97,9 @@ export default function Page() {
 			<CodeBlock className="rounded-b-lg rounded-t-none">
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
-					<CodeBlockCode language="tsx">
-						{code`
+					<CodeBlockCode
+						language="tsx"
+						value={fmtCode`
 							import {
 								Sheet,
 								SheetBody,
@@ -109,7 +110,7 @@ export default function Page() {
 								SheetHeader,
 								SheetTitle,
 								SheetTrigger,
-							} from "@ngrok/mantle";
+							} from "@ngrok/mantle/sheet";
 
 							<Sheet>
 								<SheetTrigger asChild>
@@ -136,7 +137,7 @@ export default function Page() {
 								</SheetContent>
 							</Sheet>
 						`}
-					</CodeBlockCode>
+					/>
 				</CodeBlockBody>
 			</CodeBlock>
 		</div>

@@ -1,4 +1,4 @@
-import { cx } from "@/core";
+import { cx } from "@/cx";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/table";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/tooltip";
 import { WithStyleProps } from "@/types";
@@ -68,9 +68,12 @@ export const PropDescriptionCell = ({ children, className, style }: PropDescript
 	</TableCell>
 );
 
+export const ObjectPropType = ({ name }: { name: string }) => <span className="text-red-600">{name}</span>;
 export const ReactNodePropType = () => <span className="text-red-600">ReactNode</span>;
 export const BooleanPropType = ({ value }: { value?: true | false | undefined }) => (
-	<span className="text-purple-600">{typeof value === "undefined" ? "boolean" : `${value}`}</span>
+	<span className="text-purple-600">{typeof value === "undefined" ? "boolean" : String(value)}</span>
 );
-export const StringPropType = ({ value }: { value: string }) => <span className="token attr-value">{value}</span>;
+export const StringPropType = ({ value }: { value?: string }) => (
+	<span className="token attr-value">{value ?? "string"}</span>
+);
 export const UndefinedPropType = () => <span className="italic text-amber-600">undefined</span>;

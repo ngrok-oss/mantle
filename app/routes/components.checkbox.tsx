@@ -1,5 +1,5 @@
 import { Checkbox } from "@/checkbox";
-import { code, CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 
@@ -59,9 +59,10 @@ export default function Page() {
 			<CodeBlock className="rounded-b-lg rounded-t-none">
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
-					<CodeBlockCode language="tsx">
-						{code`
-							import { Checkbox } from "@ngrok/mantle";
+					<CodeBlockCode
+						language="tsx"
+						value={fmtCode`
+							import { Checkbox } from "@ngrok/mantle/checkbox";
 
 							<label htmlFor="terms" className="flex items-center gap-2">
 								<Checkbox name="terms" id="terms" />
@@ -80,7 +81,7 @@ export default function Page() {
 								Indeterminate
 							</label>
 						`}
-					</CodeBlockCode>
+					/>
 				</CodeBlockBody>
 			</CodeBlock>
 		</div>

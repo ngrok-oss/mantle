@@ -1,4 +1,4 @@
-import { code, CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton } from "@/code-block";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import { InlineCode } from "@/inline-code";
 import { MediaObject, MediaObjectContent, MediaObjectMedia } from "@/media-object";
 import { Skeleton } from "@/skeleton";
@@ -34,11 +34,14 @@ export default function Page() {
 			<CodeBlock className="rounded-b-lg rounded-t-none">
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
-					<CodeBlockCode language="tsx">{code`
-						import { Skeleton } from "@ngrok/mantle";
+					<CodeBlockCode
+						language="tsx"
+						value={fmtCode`
+						import { Skeleton } from "@ngrok/mantle/skeleton";
 
 						<Skeleton className="w-full" />
-					`}</CodeBlockCode>
+					`}
+					/>
 				</CodeBlockBody>
 			</CodeBlock>
 
@@ -64,9 +67,11 @@ export default function Page() {
 				<CodeBlock className="rounded-b-lg rounded-t-none">
 					<CodeBlockBody>
 						<CodeBlockCopyButton />
-						<CodeBlockCode language="tsx">
-							{code`
-									import { MediaObject, MediaObjectMedia, MediaObjectContent, Skeleton } from "@ngrok/mantle";
+						<CodeBlockCode
+							language="tsx"
+							value={fmtCode`
+									import { MediaObject, MediaObjectMedia, MediaObjectContent } from "@ngrok/mantle/media-object";
+									import { Skeleton } from "@ngrok/skeleton";
 
 									<MediaObject>
 										<MediaObjectMedia>
@@ -78,7 +83,7 @@ export default function Page() {
 										</MediaObjectContent>
 									</MediaObject>
 								`}
-						</CodeBlockCode>
+						/>
 					</CodeBlockBody>
 				</CodeBlock>
 			</section>
