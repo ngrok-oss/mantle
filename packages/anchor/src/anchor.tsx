@@ -19,14 +19,20 @@ const anchorClassNames = (className: string | undefined) =>
 type AnchorProps = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "rel" | "target"> &
 	WithAsChild & {
 		/**
-		 * The rel attribute defines the relationship between a linked resource and the current document. Valid on <link>, <a>, <area>, and <form>, the supported values depend on the element on which the attribute is found.
+		 * The rel attribute defines the relationship between a linked resource and the current document.
+		 *
 		 * Every keyword within a space-separated value should be unique within that value.
+		 *
 		 * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel
 		 */
 		rel?: Rel | (string & {}) | undefined | (Rel | (string & {}) | undefined | null)[];
 		/**
 		 * Where to display the linked URL, as the name for a browsing context (a tab, window, or <iframe>).
+		 *
+		 * Note: Setting `target="_blank"` on <a> elements implicitly provides the same rel behavior as setting `rel="noopener"` which does not set `window.opener`.
+		 *
 		 * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#target
+		 *
 		 * @default "_self"
 		 */
 		target?: Target | undefined;
@@ -51,6 +57,7 @@ Anchor.displayName = "Anchor";
 
 /**
  * Resolves the `rel` attribute to a string.
+ *
  * If the value is an array, it will be filtered for empty values, ensure uniqueness, sorted, and joined with a space.
  */
 function resolveRel(rel: Rel | (string & {}) | undefined | null | (Rel | (string & {}) | undefined | null)[]) {
