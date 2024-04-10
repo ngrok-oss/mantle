@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ElementRef, useEffect, useRef, useState } from "react";
+import { act } from "react-dom/test-utils";
 import { describe, expect, test } from "vitest";
 import { Input, InputCapture } from "./input";
 
@@ -45,7 +46,7 @@ describe("Input", () => {
 		expect(screen.getByRole("textbox")).toHaveAttribute("placeholder", "Testy McTestface");
 	});
 
-	test("without children, passes ref through and allows focus on mount", () => {
+	test("without children, passes ref through and allows focus on mount", async () => {
 		const Subject = () => {
 			const inputRef = useRef<ElementRef<"input">>(null);
 
@@ -56,13 +57,13 @@ describe("Input", () => {
 			return <Input ref={inputRef} placeholder="Testy McTestface" />;
 		};
 
-		render(<Subject />);
+		await act(() => render(<Subject />));
 
 		expect(screen.getByRole("textbox")).toHaveAttribute("placeholder", "Testy McTestface");
 		expect(document.activeElement).toBe(screen.getByRole("textbox"));
 	});
 
-	test("with children, passes ref through from Input and allows focus on mount", () => {
+	test("with children, passes ref through from Input and allows focus on mount", async () => {
 		const Subject = () => {
 			const inputRef = useRef<ElementRef<"input">>(null);
 
@@ -77,13 +78,13 @@ describe("Input", () => {
 			);
 		};
 
-		render(<Subject />);
+		await act(() => render(<Subject />));
 
 		expect(screen.getByRole("textbox")).toHaveAttribute("placeholder", "Testy McTestface");
 		expect(document.activeElement).toBe(screen.getByRole("textbox"));
 	});
 
-	test("with children, passes ref through from InputCapture and allows focus on mount", () => {
+	test("with children, passes ref through from InputCapture and allows focus on mount", async () => {
 		const Subject = () => {
 			const inputRef = useRef<ElementRef<"input">>(null);
 
@@ -98,7 +99,7 @@ describe("Input", () => {
 			);
 		};
 
-		render(<Subject />);
+		await act(() => render(<Subject />));
 
 		expect(screen.getByRole("textbox")).toHaveAttribute("placeholder", "Testy McTestface");
 		expect(document.activeElement).toBe(screen.getByRole("textbox"));
@@ -121,7 +122,7 @@ describe("Input", () => {
 
 		render(<Subject />);
 
-		await userEvent.type(screen.getByRole("textbox"), "ello govna");
+		await act(() => userEvent.type(screen.getByRole("textbox"), "ello govna"));
 
 		expect(screen.getByRole("textbox")).toHaveValue("ello govna");
 	});
@@ -145,7 +146,7 @@ describe("Input", () => {
 
 		render(<Subject />);
 
-		await userEvent.type(screen.getByRole("textbox"), "ello govna");
+		await act(() => userEvent.type(screen.getByRole("textbox"), "ello govna"));
 
 		expect(screen.getByRole("textbox")).toHaveValue("ello govna");
 	});
@@ -169,7 +170,7 @@ describe("Input", () => {
 
 		render(<Subject />);
 
-		await userEvent.type(screen.getByRole("textbox"), "ello govna");
+		await act(() => userEvent.type(screen.getByRole("textbox"), "ello govna"));
 
 		expect(screen.getByRole("textbox")).toHaveValue("ello govna");
 	});

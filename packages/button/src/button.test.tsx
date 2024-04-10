@@ -1,6 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useState } from "react";
+import { act } from "react-dom/test-utils";
 import { createMemoryRouter, Link, RouterProvider } from "react-router-dom";
 import { describe, expect, test } from "vitest";
 import { Button } from "./button";
@@ -83,7 +84,7 @@ describe("Button", () => {
 		};
 
 		render(<Subject />);
-		await userEvent.click(screen.getByRole("button"));
+		await act(() => userEvent.click(screen.getByRole("button")));
 		expect(screen.getByTestId("submit-state")).toHaveTextContent("submitting");
 		expect(screen.getByTestId("click-state")).toHaveTextContent("clicked");
 	});
@@ -118,7 +119,7 @@ describe("Button", () => {
 		};
 
 		render(<Subject />);
-		await userEvent.click(screen.getByRole("button"));
+		await act(() => userEvent.click(screen.getByRole("button")));
 		expect(screen.getByTestId("submit-state")).toHaveTextContent("idle");
 		expect(screen.getByTestId("click-state")).toHaveTextContent("idle");
 	});
