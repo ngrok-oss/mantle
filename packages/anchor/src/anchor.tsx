@@ -63,12 +63,16 @@ Anchor.displayName = "Anchor";
 function resolveRel(rel: Rel | (string & {}) | undefined | null | (Rel | (string & {}) | undefined | null)[]) {
 	if (Array.isArray(rel)) {
 		const uniqueRel = new Set(rel);
-		const result = [...uniqueRel].filter(Boolean).sort().join(" ");
+		const result = [...uniqueRel]
+			.map((item) => item?.trim())
+			.filter(Boolean)
+			.sort()
+			.join(" ");
 		return result || undefined;
 	}
 
 	// eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-	return rel || undefined;
+	return rel?.trim() || undefined;
 }
 
 export { Anchor, anchorClassNames, resolveRel };
