@@ -10,7 +10,7 @@ describe("resolveRel", () => {
 	});
 
 	test("filters out empty values", () => {
-		expect(resolveRel(["noopener", undefined, null, "", "", "noreferrer"])).toBe("noopener noreferrer");
+		expect(resolveRel(["noopener", undefined, null, "", "     ", "\t\r\n ", "noreferrer"])).toBe("noopener noreferrer");
 	});
 
 	test("given a single rel, returns that rel", () => {
