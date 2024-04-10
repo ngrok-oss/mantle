@@ -2,6 +2,7 @@ import { Button } from "@/button";
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import {
 	DropdownMenu,
+	DropdownMenuCheckboxItem,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuLabel,
@@ -48,33 +49,37 @@ export default function Page() {
 						<DropdownMenuSeparator />
 						<DropdownMenuRadioItem name="theme" value="system">
 							<Desktop className="size-5" />
-							<span>System Preference</span>
+							System Preference
 						</DropdownMenuRadioItem>
 						<DropdownMenuRadioItem name="theme" value="light">
 							<Sun className="size-5" />
-							<span>Light Mode</span>
+							Light Mode
 						</DropdownMenuRadioItem>
 						<DropdownMenuRadioItem name="theme" value="dark">
 							<Moon className="size-5" />
-							<span>Dark Mode</span>
+							Dark Mode
 						</DropdownMenuRadioItem>
 						<DropdownMenuRadioItem name="theme" value="light-high-contrast">
 							<Sun className="size-5" weight="fill" />
-							<span>Light High Contrast</span>
+							Light High Contrast
 						</DropdownMenuRadioItem>
 						<DropdownMenuRadioItem name="theme" value="dark-high-contrast">
 							<Moon className="size-5" weight="fill" />
-							<span>Dark High Contrast</span>
+							Dark High Contrast
 						</DropdownMenuRadioItem>
 						<DropdownMenuSeparator />
 						<DropdownMenuItem className="flex items-center gap-2">
 							<Gear className="size-5" />
-							<span>User Settings</span>
+							User Settings
 						</DropdownMenuItem>
+						<DropdownMenuSeparator />
+						<DropdownMenuCheckboxItem name="notifications">
+							Enable Notifications
+						</DropdownMenuCheckboxItem>
 						<DropdownMenuSeparator />
 						<DropdownMenuItem className="flex items-center gap-2">
 							<SignOut className="size-5" />
-							<span>Log out</span>
+							Log out
 						</DropdownMenuItem>
 					</DropdownMenuContent>
 				</DropdownMenu>
