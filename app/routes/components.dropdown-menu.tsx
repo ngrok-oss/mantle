@@ -73,9 +73,7 @@ export default function Page() {
 							User Settings
 						</DropdownMenuItem>
 						<DropdownMenuSeparator />
-						<DropdownMenuCheckboxItem name="notifications">
-							Enable Notifications
-						</DropdownMenuCheckboxItem>
+						<DropdownMenuCheckboxItem name="notifications">Enable Notifications</DropdownMenuCheckboxItem>
 						<DropdownMenuSeparator />
 						<DropdownMenuItem className="flex items-center gap-2">
 							<SignOut className="size-5" />
