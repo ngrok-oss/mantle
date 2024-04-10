@@ -10,6 +10,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install Node.js 20 📗
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
       - name: Install bun 📦
         uses: oven-sh/setup-bun@v1
         with:
@@ -17,6 +22,6 @@ jobs:
 
       - run: bun install
 
-      - run: bun publish --access public --no-git-checks
+      - run: npm publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
