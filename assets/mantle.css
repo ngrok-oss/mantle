@@ -1405,6 +1405,11 @@
 	--shadow-second: 100%;
 }
 
+::selection {
+	color: #fff;
+	background: hsl(var(--blue-600));
+}
+
 /**
 	* prism.js default theme for JavaScript, CSS and HTML
 	* Based on dabblet (http://dabblet.com)
