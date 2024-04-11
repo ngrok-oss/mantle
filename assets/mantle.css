@@ -1405,7 +1405,7 @@
 	--shadow-second: 100%;
 }
 
-:root::selection {
+::selection {
 	color: #fff;
 	background: hsl(var(--blue-600));
 }
