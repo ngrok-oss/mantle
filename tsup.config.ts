@@ -1,5 +1,6 @@
 import fs from "fs";
-import { Options, defineConfig } from "tsup";
+import { defineConfig } from "tsup";
+import type { Options } from "tsup";
 
 /**
  * A set of package names that should not be published to npm
@@ -39,16 +40,19 @@ const commonOptions = {
 	tsconfig: "tsconfig.publish.json",
 } satisfies Options;
 
-export default defineConfig((options) => [{
-	...commonOptions,
-	format: ["esm"],
-	entry: componentPackages,
-	...options
-}, {
-	...commonOptions,
-	format: ["esm", "cjs"], // we need to dual publish the tailwind preset for now because postcss expects cjs
-	entry: {
-		"tailwind-preset": packagePath("tailwind-preset"),
+export default defineConfig((options) => [
+	{
+		...commonOptions,
+		format: ["esm"],
+		entry: componentPackages,
+		...options,
 	},
-	...options
-}]);
+	{
+		...commonOptions,
+		format: ["esm", "cjs"], // we need to dual publish the tailwind preset for now because postcss expects cjs
+		entry: {
+			"tailwind-preset": packagePath("tailwind-preset"),
+		},
+		...options,
+	},
+]);
