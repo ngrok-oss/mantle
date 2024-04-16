@@ -29,10 +29,8 @@ const componentPackages = allPackageDirectories
 	}, {});
 
 const commonOptions = {
-	clean: true,
 	dts: true,
 	external: ["@phosphor-icons/react", "react", "react-dom", "tailwindcss", "zod"],
-	format: ["esm", "cjs"],
 	minify: true,
 	sourcemap: true,
 	splitting: true,
@@ -43,7 +41,7 @@ const commonOptions = {
 export default defineConfig((options) => [
 	{
 		...commonOptions,
-		format: ["esm"],
+		format: "esm",
 		entry: componentPackages,
 		...options,
 	},
