@@ -3,7 +3,7 @@
   "description": "mantle is ngrok's UI library and design system.",
   "author": "ngrok",
   "license": "MIT",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "homepage": "https://mantle.ngrok.com",
   "repository": {
     "type": "git",
@@ -119,117 +119,94 @@
       "types": "./dist/tailwind-preset.d.ts"
     },
     "./alert": {
-      "require": "./dist/alert.cjs",
       "import": "./dist/alert.js",
       "types": "./dist/alert.d.ts"
     },
     "./anchor": {
-      "require": "./dist/anchor.cjs",
       "import": "./dist/anchor.js",
       "types": "./dist/anchor.d.ts"
     },
     "./button": {
-      "require": "./dist/button.cjs",
       "import": "./dist/button.js",
       "types": "./dist/button.d.ts"
     },
     "./card": {
-      "require": "./dist/card.cjs",
       "import": "./dist/card.js",
       "types": "./dist/card.d.ts"
     },
     "./checkbox": {
-      "require": "./dist/checkbox.cjs",
       "import": "./dist/checkbox.js",
       "types": "./dist/checkbox.d.ts"
     },
     "./code-block": {
-      "require": "./dist/code-block.cjs",
       "import": "./dist/code-block.js",
       "types": "./dist/code-block.d.ts"
     },
     "./cx": {
-      "require": "./dist/cx.cjs",
       "import": "./dist/cx.js",
       "types": "./dist/cx.d.ts"
     },
     "./dialog": {
-      "require": "./dist/dialog.cjs",
       "import": "./dist/dialog.js",
       "types": "./dist/dialog.d.ts"
     },
     "./dropdown-menu": {
-      "require": "./dist/dropdown-menu.cjs",
       "import": "./dist/dropdown-menu.js",
       "types": "./dist/dropdown-menu.d.ts"
     },
     "./hooks": {
-      "require": "./dist/hooks.cjs",
       "import": "./dist/hooks.js",
       "types": "./dist/hooks.d.ts"
     },
     "./icon": {
-      "require": "./dist/icon.cjs",
       "import": "./dist/icon.js",
       "types": "./dist/icon.d.ts"
     },
     "./inline-code": {
-      "require": "./dist/inline-code.cjs",
       "import": "./dist/inline-code.js",
       "types": "./dist/inline-code.d.ts"
     },
     "./input": {
-      "require": "./dist/input.cjs",
       "import": "./dist/input.js",
       "types": "./dist/input.d.ts"
     },
     "./media-object": {
-      "require": "./dist/media-object.cjs",
       "import": "./dist/media-object.js",
       "types": "./dist/media-object.d.ts"
     },
     "./popover": {
-      "require": "./dist/popover.cjs",
       "import": "./dist/popover.js",
       "types": "./dist/popover.d.ts"
     },
     "./select": {
-      "require": "./dist/select.cjs",
       "import": "./dist/select.js",
       "types": "./dist/select.d.ts"
     },
     "./separator": {
-      "require": "./dist/separator.cjs",
       "import": "./dist/separator.js",
       "types": "./dist/separator.d.ts"
     },
     "./sheet": {
-      "require": "./dist/sheet.cjs",
       "import": "./dist/sheet.js",
       "types": "./dist/sheet.d.ts"
     },
     "./skeleton": {
-      "require": "./dist/skeleton.cjs",
       "import": "./dist/skeleton.js",
       "types": "./dist/skeleton.d.ts"
     },
     "./table": {
-      "require": "./dist/table.cjs",
       "import": "./dist/table.js",
       "types": "./dist/table.d.ts"
     },
     "./text-area": {
-      "require": "./dist/text-area.cjs",
       "import": "./dist/text-area.js",
       "types": "./dist/text-area.d.ts"
     },
     "./theme-provider": {
-      "require": "./dist/theme-provider.cjs",
       "import": "./dist/theme-provider.js",
       "types": "./dist/theme-provider.d.ts"
     },
     "./tooltip": {
-      "require": "./dist/tooltip.cjs",
       "import": "./dist/tooltip.js",
       "types": "./dist/tooltip.d.ts"
     },
