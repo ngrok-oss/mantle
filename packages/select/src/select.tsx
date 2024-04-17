@@ -59,9 +59,7 @@ const SelectTrigger = forwardRef<ElementRef<typeof SelectPrimitive.Trigger>, Sel
 				aria-invalid={ariaInvalid}
 				ref={ref}
 				className={cx(
-					"flex h-11 w-full items-center justify-between rounded-md border border-form bg-form px-3 py-2 disabled:pointer-events-none disabled:opacity-50 aria-expanded:ring-4 sm:h-9 sm:text-sm [&>span]:line-clamp-1 [&>span]:text-left",
-					"placeholder:text-placeholder hover:bg-form-hover focus:outline-none focus:ring-4",
-					"text-strong focus:border-accent-600 focus:ring-focus-accent aria-expanded:border-accent-600 aria-expanded:ring-focus-accent",
+					"flex h-11 w-full items-center justify-between rounded-md border border-form bg-form px-3 py-2 text-strong placeholder:text-placeholder hover:border-neutral-400 hover:bg-form-hover hover:text-strong focus:border-accent-600 focus:outline-none focus:ring-4 focus:ring-focus-accent focus-visible:border-accent-600 focus-visible:ring-focus-accent active:border-neutral-400 active:bg-neutral-500/10 active:text-strong focus-visible:active:border-accent-600 disabled:pointer-events-none disabled:opacity-50 aria-expanded:border-accent-600 aria-expanded:ring-4 aria-expanded:ring-focus-accent sm:h-9 sm:text-sm [&>span]:line-clamp-1 [&>span]:text-left",
 					ariaInvalid &&
 						"border-danger-600 focus:border-danger-600 focus:ring-focus-danger aria-expanded:border-danger-600 aria-expanded:ring-focus-danger",
 					className,
