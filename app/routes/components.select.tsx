@@ -61,7 +61,7 @@ export default function Page() {
 						</SelectGroup>
 					</SelectContent>
 				</Select>
-				<Select aria-invalid>
+				<Select invalid>
 					<SelectTrigger className="max-w-64">
 						<SelectValue placeholder="Select a fruit" />
 					</SelectTrigger>
