@@ -1,72 +1,81 @@
+import { WithInvalid } from "@/input";
 import { CaretDown } from "@phosphor-icons/react/CaretDown";
 import { CaretUp } from "@phosphor-icons/react/CaretUp";
 import { Check } from "@phosphor-icons/react/Check";
 import * as SelectPrimitive from "@radix-ui/react-select";
-import { cva } from "class-variance-authority";
 import type { ComponentPropsWithoutRef, ElementRef, SelectHTMLAttributes } from "react";
 import { createContext, forwardRef, useContext } from "react";
 import { cx } from "../../cx";
 import { Separator } from "../../separator";
-import type { VariantProps } from "../../types/src/variant-props";
 
-const SelectAriaInvalidContext = createContext<SelectHTMLAttributes<HTMLSelectElement>["aria-invalid"]>(undefined);
+type WithAriaInvalid = Pick<SelectHTMLAttributes<HTMLSelectElement>, "aria-invalid">;
+type SelectContextType = WithInvalid & WithAriaInvalid;
 
-type SelectProps = ComponentPropsWithoutRef<typeof SelectPrimitive.Root> &
-	Pick<SelectHTMLAttributes<HTMLSelectElement>, "aria-invalid">;
+const SelectContext = createContext<SelectContextType>({});
 
-const Select = ({ children, ...props }: SelectProps) => {
+type SelectProps = Omit<ComponentPropsWithoutRef<typeof SelectPrimitive.Root>, "onValueChange"> &
+	WithInvalid &
+	WithAriaInvalid & {
+		/**
+		 * Event handler called when the value changes.
+		 */
+		onChange?: (value: string) => void;
+	};
+
+/**
+ * Displays a list of options for the user to pick from—triggered by a button.
+ */
+const Select = ({ "aria-invalid": _ariaInvalid, children, invalid, onChange, ...props }: SelectProps) => {
 	return (
-		<SelectPrimitive.Root {...props}>
-			<SelectAriaInvalidContext.Provider value={props["aria-invalid"]}>{children}</SelectAriaInvalidContext.Provider>
+		<SelectPrimitive.Root {...props} onValueChange={onChange}>
+			<SelectContext.Provider value={{ "aria-invalid": _ariaInvalid, invalid }}>{children}</SelectContext.Provider>
 		</SelectPrimitive.Root>
 	);
 };
 
+/**
+ * A group of related options within a select menu. Similar to an html `<optgroup>` element.
+ * Use in conjunction with Select.Label to ensure good accessibility via automatic labelling.
+ */
 const SelectGroup = SelectPrimitive.Group;
 
+/**
+ * The part that reflects the selected value. By default the selected item's text will be rendered. if you require more control, you can instead control the select and pass your own children. It should not be styled to ensure correct positioning. An optional placeholder prop is also available for when the select has no value.
+ */
 const SelectValue = SelectPrimitive.Value;
 
-const selectTriggerVariants = cva(
-	"flex h-11 w-full items-center justify-between rounded-md border border-form bg-form px-3 py-2 placeholder:text-placeholder hover:bg-form-hover focus:outline-none focus:ring-4 disabled:pointer-events-none disabled:opacity-50 aria-expanded:ring-4 sm:h-9 sm:text-sm [&>span]:line-clamp-1 [&>span]:text-left",
-	{
-		variants: {
-			state: {
-				danger:
-					"border-danger-600 focus:border-danger-600 focus:ring-focus-danger aria-expanded:border-danger-600 aria-expanded:ring-focus-danger",
-				default:
-					"borderpform text-strong placeholder:text-placeholder focus:border-accent-600 focus:ring-focus-accent aria-expanded:border-accent-600 aria-expanded:ring-focus-accent",
-			},
-		},
-		defaultVariants: {
-			state: "default",
-		},
+type SelectTriggerProps = ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> & WithAriaInvalid & WithInvalid;
+
+/**
+ * The button that toggles the select. The Select.Content will position itself adjacent to the trigger.
+ */
+const SelectTrigger = forwardRef<ElementRef<typeof SelectPrimitive.Trigger>, SelectTriggerProps>(
+	({ "aria-invalid": _ariaInvalid, className, children, invalid, ...props }, ref) => {
+		const { "aria-invalid": ctxAriaInvalid, invalid: ctxInvalid } = useContext(SelectContext);
+		const ariaInvalid = ctxAriaInvalid ?? ctxInvalid ?? _ariaInvalid ?? invalid;
+
+		return (
+			<SelectPrimitive.Trigger
+				aria-invalid={ariaInvalid}
+				ref={ref}
+				className={cx(
+					"flex h-11 w-full items-center justify-between rounded-md border border-form bg-form px-3 py-2 disabled:pointer-events-none disabled:opacity-50 aria-expanded:ring-4 sm:h-9 sm:text-sm [&>span]:line-clamp-1 [&>span]:text-left",
+					"placeholder:text-placeholder hover:bg-form-hover focus:outline-none focus:ring-4",
+					"text-strong focus:border-accent-600 focus:ring-focus-accent aria-expanded:border-accent-600 aria-expanded:ring-focus-accent",
+					ariaInvalid &&
+						"border-danger-600 focus:border-danger-600 focus:ring-focus-danger aria-expanded:border-danger-600 aria-expanded:ring-focus-danger",
+					className,
+				)}
+				{...props}
+			>
+				{children}
+				<SelectPrimitive.Icon asChild>
+					<CaretDown className="size-4 shrink-0" weight="bold" />
+				</SelectPrimitive.Icon>
+			</SelectPrimitive.Trigger>
+		);
 	},
 );
-
-type SelectTriggerVariants = VariantProps<typeof selectTriggerVariants>;
-
-const SelectTrigger = forwardRef<
-	ElementRef<typeof SelectPrimitive.Trigger>,
-	ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>
->(({ className, children, ...props }, ref) => {
-	const ariaInvalidContext = useContext(SelectAriaInvalidContext);
-	const ariaInvalid = props["aria-invalid"] ?? ariaInvalidContext;
-	const state = ariaInvalid ? "danger" : ("default" satisfies SelectTriggerVariants["state"]);
-
-	return (
-		<SelectPrimitive.Trigger
-			ref={ref}
-			className={cx(selectTriggerVariants({ state }), className)}
-			{...props}
-			aria-invalid={ariaInvalid}
-		>
-			{children}
-			<SelectPrimitive.Icon asChild>
-				<CaretDown className="size-4 shrink-0" weight="bold" />
-			</SelectPrimitive.Icon>
-		</SelectPrimitive.Trigger>
-	);
-});
 SelectTrigger.displayName = "SelectTrigger";
 
 const SelectScrollUpButton = forwardRef<
@@ -101,6 +110,10 @@ type SelectContentProps = ComponentPropsWithoutRef<typeof SelectPrimitive.Conten
 	width?: "trigger" | "content";
 };
 
+/**
+ * The component that pops out when the select is open as a portal adjacent to the trigger button.
+ * It contains a scrolling viewport of the select items.
+ */
 const SelectContent = forwardRef<ElementRef<typeof SelectPrimitive.Content>, SelectContentProps>(
 	({ className, children, position = "popper", width, ...props }, ref) => (
 		<SelectPrimitive.Portal>
@@ -130,6 +143,9 @@ const SelectContent = forwardRef<ElementRef<typeof SelectPrimitive.Content>, Sel
 );
 SelectContent.displayName = "SelectContent";
 
+/**
+ * Used to render the label of a group. It won't be focusable using arrow keys.
+ */
 const SelectLabel = forwardRef<
 	ElementRef<typeof SelectPrimitive.Label>,
 	ComponentPropsWithoutRef<typeof SelectPrimitive.Label>
@@ -138,6 +154,11 @@ const SelectLabel = forwardRef<
 ));
 SelectLabel.displayName = "SelectLabel";
 
+/**
+ * An option within a select menu. Similar to an html `<option>` element.
+ * Contains a `value` prop that will be passed to the `onChange` handler of the `Select` component when selected.
+ * Displays the children as the option's text.
+ */
 const SelectItem = forwardRef<
 	ElementRef<typeof SelectPrimitive.Item>,
 	ComponentPropsWithoutRef<typeof SelectPrimitive.Item>
@@ -158,6 +179,9 @@ const SelectItem = forwardRef<
 ));
 SelectItem.displayName = "SelectItem";
 
+/**
+ * Used to visually separate items in the select.
+ */
 const SelectSeparator = forwardRef<ElementRef<typeof Separator>, ComponentPropsWithoutRef<typeof Separator>>(
 	({ className, ...props }, ref) => (
 		<Separator ref={ref} className={cx("-mx-1 my-1 h-px w-auto", className)} {...props} />
