@@ -1,4 +1,3 @@
-import { WithInvalid } from "@/input";
 import { CaretDown } from "@phosphor-icons/react/CaretDown";
 import { CaretUp } from "@phosphor-icons/react/CaretUp";
 import { Check } from "@phosphor-icons/react/Check";
@@ -6,6 +5,7 @@ import * as SelectPrimitive from "@radix-ui/react-select";
 import type { ComponentPropsWithoutRef, ElementRef, SelectHTMLAttributes } from "react";
 import { createContext, forwardRef, useContext } from "react";
 import { cx } from "../../cx";
+import type { WithInvalid } from "../../input";
 import { Separator } from "../../separator";
 
 type WithAriaInvalid = Pick<SelectHTMLAttributes<HTMLSelectElement>, "aria-invalid">;
