@@ -1,7 +1,7 @@
 import { X } from "@phosphor-icons/react/X";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
-import { Button } from "../../button";
+import { IconButton } from "../../button";
 import { cx } from "../../cx";
 
 const Dialog = DialogPrimitive.Root;
@@ -42,10 +42,12 @@ const DialogContent = forwardRef<
 			{...props}
 		>
 			<DialogPrimitive.Close asChild>
-				<Button appearance="outlined" priority="neutral" className="absolute right-3.5 top-3.5 size-11 p-0 sm:size-9">
-					<X className="size-5 shrink-0" />
-					<span className="sr-only">Close</span>
-				</Button>
+				<IconButton
+					label="Close"
+					icon={<X />}
+					appearance="outlined"
+					className="absolute right-3.5 top-3.5 size-11 p-0 sm:size-9"
+				/>
 			</DialogPrimitive.Close>
 			{children}
 		</DialogPrimitive.Content>

@@ -45,16 +45,16 @@ export default function Page() {
 						<div>
 							<p className="mb-2 text-center font-mono text-xs">Default</p>
 							<div className="flex items-center gap-2">
-								<Button appearance="ghost" priority="default">
+								<Button type="button" appearance="ghost" priority="default">
 									Ghost
 								</Button>
-								<Button appearance="filled" priority="default">
+								<Button type="button" appearance="filled" priority="default">
 									Filled
 								</Button>
-								<Button appearance="outlined" priority="default">
+								<Button type="button" appearance="outlined" priority="default">
 									Outlined
 								</Button>
-								<Button appearance="link" priority="default">
+								<Button type="button" appearance="link" priority="default">
 									Link
 								</Button>
 							</div>
@@ -62,16 +62,16 @@ export default function Page() {
 						<div>
 							<p className="mb-2 text-center font-mono text-xs">Neutral</p>
 							<div className="flex items-center gap-2">
-								<Button appearance="ghost" priority="neutral">
+								<Button type="button" appearance="ghost" priority="neutral">
 									Ghost
 								</Button>
-								<Button appearance="filled" priority="neutral">
+								<Button type="button" appearance="filled" priority="neutral">
 									Filled
 								</Button>
-								<Button appearance="outlined" priority="neutral">
+								<Button type="button" appearance="outlined" priority="neutral">
 									Outlined
 								</Button>
-								<Button appearance="link" priority="neutral">
+								<Button type="button" appearance="link" priority="neutral">
 									Link
 								</Button>
 							</div>
@@ -79,16 +79,16 @@ export default function Page() {
 						<div>
 							<p className="mb-2 text-center font-mono text-xs">Danger</p>
 							<div className="flex items-center gap-2">
-								<Button appearance="ghost" priority="danger">
+								<Button type="button" appearance="ghost" priority="danger">
 									Ghost
 								</Button>
-								<Button appearance="filled" priority="danger">
+								<Button type="button" appearance="filled" priority="danger">
 									Filled
 								</Button>
-								<Button appearance="outlined" priority="danger">
+								<Button type="button" appearance="outlined" priority="danger">
 									Outlined
 								</Button>
-								<Button appearance="link" priority="danger">
+								<Button type="button" appearance="link" priority="danger">
 									Link
 								</Button>
 							</div>
@@ -102,20 +102,20 @@ export default function Page() {
 								value={fmtCode`
 									import { Button } from "@ngrok/mantle/button";
 
-									<Button>Outlined</Button>
-									<Button appearance="filled">Filled</Button>
-									<Button appearance="ghost">Ghost</Button>
-									<Button appearance="link">Link</Button>
+									<Button type="button">Outlined</Button>
+									<Button type="button" appearance="filled">Filled</Button>
+									<Button type="button" appearance="ghost">Ghost</Button>
+									<Button type="button" appearance="link">Link</Button>
 
-									<Button priority="neutral">Outlined</Button>
-									<Button priority="neutral" appearance="filled">Filled</Button>
-									<Button priority="neutral" appearance="ghost">Ghost</Button>
-									<Button priority="neutral" appearance="link">Link</Button>
+									<Button type="button" priority="neutral">Outlined</Button>
+									<Button type="button" priority="neutral" appearance="filled">Filled</Button>
+									<Button type="button" priority="neutral" appearance="ghost">Ghost</Button>
+									<Button type="button" priority="neutral" appearance="link">Link</Button>
 
-									<Button priority="danger">Outlined</Button>
-									<Button priority="danger" appearance="filled">Filled</Button>
-									<Button priority="danger" appearance="ghost">Ghost</Button>
-									<Button priority="danger" appearance="link">Link</Button>
+									<Button type="button" priority="danger">Outlined</Button>
+									<Button type="button" priority="danger" appearance="filled">Filled</Button>
+									<Button type="button" priority="danger" appearance="ghost">Ghost</Button>
+									<Button type="button" priority="danger" appearance="link">Link</Button>
 								`}
 							/>
 						</CodeBlockBody>
@@ -135,8 +135,10 @@ export default function Page() {
 				<div>
 					<Example>
 						<div className="flex items-center gap-2">
-							<Button icon={<Fire weight="fill" />}>Icon Start</Button>
-							<Button icon={<Fire weight="fill" />} iconPlacement="end">
+							<Button type="button" icon={<Fire weight="fill" />}>
+								Icon Start
+							</Button>
+							<Button type="button" icon={<Fire weight="fill" />} iconPlacement="end">
 								Icon End
 							</Button>
 						</div>
@@ -150,8 +152,8 @@ export default function Page() {
 									import { Button } from "@ngrok/mantle/button";
 									import { Fire } from "@phosphor-icons/react";
 
-									<Button icon={<Fire weight="fill" />}>Icon Start</Button>
-									<Button icon={<Fire weight="fill" />} iconPlacement="end">
+									<Button type="button" icon={<Fire weight="fill" />}>Icon Start</Button>
+									<Button type="button" icon={<Fire weight="fill" />} iconPlacement="end">
 										Icon End
 									</Button>
 								`}
@@ -176,9 +178,11 @@ export default function Page() {
 						<div>
 							<p className="mb-2 text-center font-mono text-xs">Idle</p>
 							<div className="flex items-center gap-2">
-								<Button>No Icon + Idle</Button>
-								<Button icon={<Fire weight="fill" />}>Icon Start + Idle</Button>
-								<Button icon={<Fire weight="fill" />} iconPlacement="end">
+								<Button type="button">No Icon + Idle</Button>
+								<Button type="button" icon={<Fire weight="fill" />}>
+									Icon Start + Idle
+								</Button>
+								<Button type="button" icon={<Fire weight="fill" />} iconPlacement="end">
 									Icon End + Idle
 								</Button>
 							</div>
@@ -186,11 +190,13 @@ export default function Page() {
 						<div>
 							<p className="mb-2 text-center font-mono text-xs">isLoading</p>
 							<div className="flex items-center gap-2">
-								<Button isLoading>No Icon + isLoading</Button>
-								<Button icon={<Fire weight="fill" />} isLoading>
+								<Button type="button" isLoading>
+									No Icon + isLoading
+								</Button>
+								<Button type="button" icon={<Fire weight="fill" />} isLoading>
 									Icon Start + isLoading
 								</Button>
-								<Button icon={<Fire weight="fill" />} iconPlacement="end" isLoading>
+								<Button type="button" icon={<Fire weight="fill" />} iconPlacement="end" isLoading>
 									Icon End + isLoading
 								</Button>
 							</div>
@@ -205,16 +211,16 @@ export default function Page() {
 									import { Button } from "@ngrok/mantle/button";
 									import { Fire } from "@phosphor-icons/react";
 
-									<Button>No Icon + Idle</Button>
-									<Button icon={<Fire weight="fill" />}>Icon Start + Idle</Button>
-									<Button icon={<Fire weight="fill" />} iconPlacement="end">
+									<Button type="button">No Icon + Idle</Button>
+									<Button type="button" icon={<Fire weight="fill" />}>Icon Start + Idle</Button>
+									<Button type="button" icon={<Fire weight="fill" />} iconPlacement="end">
 										Icon End + Idle
 									</Button>
-									<Button isLoading>No Icon + isLoading</Button>
-									<Button icon={<Fire weight="fill" />} isLoading>
+									<Button type="button" isLoading>No Icon + isLoading</Button>
+									<Button type="button" icon={<Fire weight="fill" />} isLoading>
 										Icon Start + isLoading
 									</Button>
-									<Button icon={<Fire weight="fill" />} iconPlacement="end" isLoading>
+									<Button type="button" icon={<Fire weight="fill" />} iconPlacement="end" isLoading>
 										Icon End + isLoading
 									</Button>
 								`}
@@ -236,7 +242,7 @@ export default function Page() {
 				</p>
 				<div>
 					<Example>
-						<Button appearance="filled" icon={<Fire weight="fill" />} asChild>
+						<Button type="button" appearance="filled" icon={<Fire weight="fill" />} asChild>
 							<Link to={route("/base/colors")}>See our colors!</Link>
 						</Button>
 					</Example>
@@ -387,6 +393,52 @@ export default function Page() {
 								Indicates the importance or impact level of the button, affecting its color and styling to communicate
 								its purpose to the user.
 							</p>
+						</PropDescriptionCell>
+					</PropRow>
+					<PropRow>
+						<PropNameCell name="type" />
+						<PropTypeCell>
+							<ul>
+								<li>
+									<StringPropType value="button" />
+								</li>
+								<li>
+									<StringPropType value="reset" />
+								</li>
+								<li>
+									<StringPropType value="submit" />
+								</li>
+							</ul>
+						</PropTypeCell>
+						<PropDefaultValueCell />
+						<PropDescriptionCell>
+							<p>
+								The default behavior of the <InlineCode>Button</InlineCode>. Unlike the native{" "}
+								<InlineCode>button</InlineCode> element,{" "}
+								<span className="font-semibold">this prop is required and has no default value</span>. See{" "}
+								<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#type">
+									the MDN docs
+								</Anchor>{" "}
+								for more information.
+							</p>
+							<ul className="list-disc pl-5">
+								<li>
+									<p>
+										<InlineCode>"button"</InlineCode>: The button has no default behavior, and does nothing when pressed
+										by default.
+									</p>
+								</li>
+								<li>
+									<p>
+										<InlineCode>"reset"</InlineCode>: The button resets all the controls to their initial values.
+									</p>
+								</li>
+								<li>
+									<p>
+										<InlineCode>"submit"</InlineCode>: The button submits the form data to the server.
+									</p>
+								</li>
+							</ul>
 						</PropDescriptionCell>
 					</PropRow>
 				</PropsTable>

@@ -122,6 +122,15 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
 		 * the icon will automatically be replaced with a spinner.
 		 */
 		icon?: ReactNode;
+		/**
+		 * The default behavior of the button. Possible values are: `"button"`, `"submit"`, and `"reset"`.
+		 * Unlike the native `<button>` element, this prop is required and has no default value.
+		 * - `"button"`: The button has no default behavior, and does nothing when pressed by default. It can have client-side scripts listen to the element's events, which are triggered when the events occur.
+		 * - `"reset"`: The button resets all the controls to their initial values.
+		 * - `"submit"`: The button submits the form data to the server.
+		 * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#type
+		 */
+		type: Exclude<ButtonHTMLAttributes<HTMLButtonElement>["type"], undefined>;
 	};
 
 /**

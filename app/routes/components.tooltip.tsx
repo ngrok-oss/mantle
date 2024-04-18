@@ -29,7 +29,7 @@ export default function Page() {
 				<TooltipProvider>
 					<Tooltip>
 						<TooltipTrigger asChild>
-							<Button appearance="filled" priority="default">
+							<Button type="button" appearance="filled" priority="default">
 								Hover
 							</Button>
 						</TooltipTrigger>

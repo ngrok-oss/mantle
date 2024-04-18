@@ -2,7 +2,7 @@ import { X } from "@phosphor-icons/react/X";
 import * as SheetPrimitive from "@radix-ui/react-dialog";
 import { cva, type VariantProps } from "class-variance-authority";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef, HTMLAttributes } from "react";
-import { Button } from "../../button";
+import { IconButton } from "../../button";
 import { cx } from "../../cx";
 
 const Sheet = SheetPrimitive.Root;
@@ -57,10 +57,13 @@ const SheetContent = forwardRef<ElementRef<typeof SheetPrimitive.Content>, Sheet
 			<SheetPrimitive.Content ref={ref} className={cx(SheetVariants({ side }), className)} {...props}>
 				{children}
 				<SheetPrimitive.Close asChild>
-					<Button appearance="outlined" priority="neutral" className="absolute right-4 top-4 size-11 sm:size-9">
-						<X className="size-5 shrink-0" />
-						<span className="sr-only">Close</span>
-					</Button>
+					<IconButton
+						label="Close"
+						icon={<X />}
+						type="button"
+						appearance="outlined"
+						className="absolute right-4 top-4 size-11 sm:size-9"
+					/>
 				</SheetPrimitive.Close>
 			</SheetPrimitive.Content>
 		</SheetPortal>

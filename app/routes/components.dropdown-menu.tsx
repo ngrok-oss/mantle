@@ -42,7 +42,9 @@ export default function Page() {
 			<Example className="mt-4">
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
-						<Button appearance="filled">Open Menu</Button>
+						<Button type="button" appearance="filled">
+							Open Menu
+						</Button>
 					</DropdownMenuTrigger>
 					<DropdownMenuContent>
 						<DropdownMenuLabel>micah@ngrok.com</DropdownMenuLabel>
