@@ -3,7 +3,6 @@ import { TooltipProvider } from "@/tooltip";
 import { cssBundleHref } from "@remix-run/css-bundle";
 import type { LinksFunction } from "@remix-run/node";
 import { json, Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from "@remix-run/react";
-import tailwind from "tailwindcss/tailwind.css";
 import mantleCss from "../assets/mantle.css";
 import { AutoScrollToHash } from "./components/auto-scroll-to-hash";
 import { Layout } from "./components/layout";
@@ -11,7 +10,6 @@ import { Layout } from "./components/layout";
 export const links: LinksFunction = () => [
 	...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
 	{ rel: "stylesheet", href: mantleCss },
-	{ rel: "stylesheet", href: tailwind },
 ];
 
 export const loader = async () => {
