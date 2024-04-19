@@ -163,12 +163,7 @@ function Navigation({ className, style }: WithStyleProps) {
 
 				<li>
 					<NavLink to="/" prefetch="intent">
-						Overview
-					</NavLink>
-				</li>
-				<li>
-					<NavLink to="/setup" prefetch="intent">
-						Setup
+						Overview &amp; Setup
 					</NavLink>
 				</li>
 
