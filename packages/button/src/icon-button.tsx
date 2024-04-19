@@ -1,10 +1,11 @@
 import { CircleNotch } from "@phosphor-icons/react/CircleNotch";
 import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
-import { ButtonHTMLAttributes, Children, cloneElement, forwardRef, isValidElement, MouseEvent, ReactNode } from "react";
+import { ButtonHTMLAttributes, Children, cloneElement, forwardRef, isValidElement, ReactNode } from "react";
 import { cx } from "../../cx";
 import { Icon } from "../../icon";
 import type { VariantProps, WithAsChild } from "../../types";
+import { parseBooleanish } from "./parse-booleanish";
 
 const iconButtonVariants = cva(
 	"inline-flex items-center justify-center rounded-md border focus-within:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50 aria-disabled:opacity-50",
@@ -90,31 +91,23 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 			asChild = false,
 			children,
 			className,
+			disabled,
 			isLoading = false,
 			icon: propIcon,
 			label,
-			onClickCapture,
 			size,
 			type = "button",
 			...props
 		},
 		ref,
 	) => {
-		const ariaDisabled = _ariaDisabled ?? isLoading;
-
-		const _onClickCapture = (event: MouseEvent<HTMLButtonElement>) => {
-			if (isLoading) {
-				event.preventDefault();
-				event.stopPropagation();
-			}
-			onClickCapture?.(event);
-		};
+		const ariaDisabled = parseBooleanish(_ariaDisabled ?? disabled ?? isLoading);
 
 		const buttonProps = {
 			"aria-disabled": ariaDisabled,
 			className: cx(iconButtonVariants({ appearance, isLoading, size }), className),
+			disabled: ariaDisabled,
 			"data-loading": isLoading,
-			onClickCapture: _onClickCapture,
 			ref,
 			type,
 			...props,
