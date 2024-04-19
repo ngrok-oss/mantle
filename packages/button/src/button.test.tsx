@@ -120,6 +120,7 @@ describe("Button", () => {
 
 		render(<Subject />);
 		await act(() => userEvent.click(screen.getByRole("button")));
+		expect(screen.getByRole("button")).toHaveAttribute("data-loading", "true");
 		expect(screen.getByTestId("submit-state")).toHaveTextContent("idle");
 		expect(screen.getByTestId("click-state")).toHaveTextContent("idle");
 	});

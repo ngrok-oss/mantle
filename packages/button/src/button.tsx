@@ -3,15 +3,16 @@ import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
 import clsx from "clsx";
 import { Children, cloneElement, forwardRef, isValidElement } from "react";
-import type { ButtonHTMLAttributes, MouseEvent, PropsWithChildren, ReactNode } from "react";
+import type { ButtonHTMLAttributes, PropsWithChildren, ReactNode } from "react";
 import invariant from "tiny-invariant";
 import { cx } from "../../cx";
 import { Icon } from "../../icon";
 import type { WithAsChild } from "../../types/src/as-child";
 import type { VariantProps } from "../../types/src/variant-props";
+import { parseBooleanish } from "./parse-booleanish";
 
 const buttonVariants = cva(
-	"inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-md focus-within:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50 aria-disabled:opacity-50 sm:text-sm [&>*]:focus-within:outline-none",
+	"inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-md focus-within:outline-none focus-visible:ring-4 aria-disabled:opacity-50 sm:text-sm [&>*]:focus-within:outline-none",
 	{
 		variants: {
 			/**
@@ -146,25 +147,17 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 			asChild = false,
 			children,
 			className,
+			disabled,
 			icon: propIcon,
 			iconPlacement = "start",
 			isLoading = false,
-			onClickCapture,
 			priority = "default",
 			...props
 		},
 		ref,
 	) => {
-		const ariaDisabled = _ariaDisabled ?? isLoading;
+		const ariaDisabled = parseBooleanish(_ariaDisabled ?? disabled ?? isLoading);
 		const icon = isLoading ? <CircleNotch className="animate-spin" /> : propIcon;
-
-		const _onClickCapture = (event: MouseEvent<HTMLButtonElement>) => {
-			if (isLoading) {
-				event.preventDefault();
-				event.stopPropagation();
-			}
-			onClickCapture?.(event);
-		};
 
 		/**
 		 * If the button has an icon and is not a link, add padding-start or padding-end to the button depending on the icon placement.
@@ -179,8 +172,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 				hasSpecialIconPadding && iconPlacement === "end" && "pe-2.5",
 				className,
 			),
+			disabled: ariaDisabled,
 			"data-loading": isLoading,
-			onClickCapture: _onClickCapture,
 			ref,
 			...props,
 		};
