@@ -36,7 +36,9 @@ export default function Page() {
 			<Example className="mt-4 gap-2">
 				<Dialog>
 					<DialogTrigger asChild>
-						<Button appearance="filled">Open dialog</Button>
+						<Button type="button" appearance="filled">
+							Open dialog
+						</Button>
 					</DialogTrigger>
 					<DialogContent>
 						<DialogHeader>
@@ -48,12 +50,12 @@ export default function Page() {
 						</DialogBody>
 						<DialogFooter>
 							<DialogClose asChild>
-								<Button priority="danger" appearance="filled">
+								<Button type="button" priority="danger" appearance="filled">
 									Delete
 								</Button>
 							</DialogClose>
 							<DialogClose asChild>
-								<Button priority="neutral" appearance="outlined">
+								<Button type="button" priority="neutral" appearance="outlined">
 									Cancel
 								</Button>
 							</DialogClose>
@@ -71,7 +73,7 @@ export default function Page() {
 
 							<Dialog>
 								<DialogTrigger asChild>
-									<Button>Open dialog</Button>
+									<Button type="button">Open dialog</Button>
 								</DialogTrigger>
 								<DialogContent>
 									<DialogHeader>
@@ -82,10 +84,10 @@ export default function Page() {
 										servers.
 									</DialogBody>
 									<DialogFooter>
-										<Button>
+										<Button type="button">
 											Delete
 										</Button>
-										<Button>
+										<Button type="button">
 											Cancel
 										</Button>
 									</DialogFooter>

@@ -274,6 +274,53 @@ export default function Page() {
 							</p>
 						</PropDescriptionCell>
 					</PropRow>
+					<PropRow>
+						<PropNameCell name="type" optional />
+						<PropTypeCell>
+							<ul>
+								<li>
+									<StringPropType value="button" />
+								</li>
+								<li>
+									<StringPropType value="reset" />
+								</li>
+								<li>
+									<StringPropType value="submit" />
+								</li>
+							</ul>
+						</PropTypeCell>
+						<PropDefaultValueCell>
+							<StringPropType value="button" />
+						</PropDefaultValueCell>
+						<PropDescriptionCell>
+							<p>
+								The default behavior of the <InlineCode>IconButton</InlineCode>. Unlike the native{" "}
+								<InlineCode>button</InlineCode> element, this prop defaults to <InlineCode>"button"</InlineCode>. See{" "}
+								<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#type">
+									the MDN docs
+								</Anchor>{" "}
+								for more information.
+							</p>
+							<ul className="list-disc pl-5">
+								<li>
+									<p>
+										<InlineCode>"button"</InlineCode>: The button has no default behavior, and does nothing when pressed
+										by default.
+									</p>
+								</li>
+								<li>
+									<p>
+										<InlineCode>"reset"</InlineCode>: The button resets all the controls to their initial values.
+									</p>
+								</li>
+								<li>
+									<p>
+										<InlineCode>"submit"</InlineCode>: The button submits the form data to the server.
+									</p>
+								</li>
+							</ul>
+						</PropDescriptionCell>
+					</PropRow>
 				</PropsTable>
 			</section>
 		</div>

@@ -39,7 +39,9 @@ export default function Page() {
 			<Example className="mt-4">
 				<Sheet>
 					<SheetTrigger asChild>
-						<Button appearance="filled">Open Sheet</Button>
+						<Button type="button" appearance="filled">
+							Open Sheet
+						</Button>
 					</SheetTrigger>
 					<SheetContent>
 						<SheetHeader>
@@ -88,7 +90,7 @@ export default function Page() {
 						</SheetBody>
 						<SheetFooter>
 							<SheetClose asChild>
-								<Button>Close</Button>
+								<Button type="button">Close</Button>
 							</SheetClose>
 						</SheetFooter>
 					</SheetContent>
@@ -114,7 +116,7 @@ export default function Page() {
 
 							<Sheet>
 								<SheetTrigger asChild>
-									<Button appearance="filled">Open Sheet</Button>
+									<Button type="button" appearance="filled">Open Sheet</Button>
 								</SheetTrigger>
 								<SheetContent>
 									<SheetHeader>
@@ -131,7 +133,7 @@ export default function Page() {
 									</SheetBody>
 									<SheetFooter>
 										<SheetClose asChild>
-											<Button>Close</Button>
+											<Button type="button">Close</Button>
 										</SheetClose>
 									</SheetFooter>
 								</SheetContent>
