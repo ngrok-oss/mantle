@@ -11,7 +11,7 @@ import type { WithAsChild } from "../../types/src/as-child";
 import type { VariantProps } from "../../types/src/variant-props";
 
 const buttonVariants = cva(
-	"items-center justify-center gap-1.5 whitespace-nowrap rounded-md focus-within:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50 aria-disabled:opacity-50 sm:text-sm [&>*]:focus-within:outline-none",
+	"inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-md focus-within:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50 aria-disabled:opacity-50 sm:text-sm [&>*]:focus-within:outline-none",
 	{
 		variants: {
 			/**
@@ -19,20 +19,12 @@ const buttonVariants = cva(
 			 */
 			appearance: {
 				filled:
-					"inline-flex h-11 border border-transparent bg-filled-accent px-3 font-medium text-on-filled hover:bg-filled-accent-hover focus-visible:border-accent-600 focus-visible:ring-focus-accent active:bg-filled-accent-active sm:h-9",
+					"h-11 border border-transparent bg-filled-accent px-3 font-medium text-on-filled hover:bg-filled-accent-hover focus-visible:border-accent-600 focus-visible:ring-focus-accent active:bg-filled-accent-active sm:h-9",
 				ghost:
-					"inline-flex h-11 border border-transparent px-3 font-medium text-accent-600 hover:bg-accent-500/10 hover:text-accent-700 focus-visible:ring-focus-accent active:bg-accent-500/15 active:text-accent-700 sm:h-9",
+					"h-11 border border-transparent px-3 font-medium text-accent-600 hover:bg-accent-500/10 hover:text-accent-700 focus-visible:ring-focus-accent active:bg-accent-500/15 active:text-accent-700 sm:h-9",
 				outlined:
-					"inline-flex h-11 border border-accent-600 bg-form px-3 font-medium text-accent-600 hover:border-accent-700 hover:bg-accent-500/10 hover:text-accent-700 focus-visible:ring-focus-accent active:border-accent-700 active:bg-accent-500/15 active:text-accent-700 sm:h-9",
-				link: "group inline cursor-pointer border-transparent text-accent-600 hover:underline focus-visible:ring-focus-accent",
-			},
-			/**
-			 * The side that the icon will render on, if one is present. If `state="pending"`,
-			 * then the loading icon will also render on this side.
-			 */
-			iconPlacement: {
-				end: "pe-2.5",
-				start: "ps-2.5",
+					"h-11 border border-accent-600 bg-form px-3 font-medium text-accent-600 hover:border-accent-700 hover:bg-accent-500/10 hover:text-accent-700 focus-visible:ring-focus-accent active:border-accent-700 active:bg-accent-500/15 active:text-accent-700 sm:h-9",
+				link: "group cursor-pointer border-transparent text-accent-600 hover:underline focus-visible:ring-focus-accent",
 			},
 			/**
 			 * Whether or not the button is in a loading state, default `false`. Setting `isLoading` will
@@ -123,6 +115,11 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
 		 */
 		icon?: ReactNode;
 		/**
+		 * The side that the icon will render on, if one is present. If `state="pending"`,
+		 * then the loading icon will also render on this side.
+		 */
+		iconPlacement?: "start" | "end";
+		/**
 		 * The default behavior of the button. Possible values are: `"button"`, `"submit"`, and `"reset"`.
 		 * Unlike the native `<button>` element, this prop is required and has no default value.
 		 * - `"button"`: The button has no default behavior, and does nothing when pressed by default. It can have client-side scripts listen to the element's events, which are triggered when the events occur.
@@ -169,10 +166,17 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 			onClickCapture?.(event);
 		};
 
+		/**
+		 * If the button has an icon and is not a link, add padding-start or padding-end to the button depending on the icon placement.
+		 */
+		const hasSpecialIconPadding = icon && appearance !== "link";
+
 		const buttonProps = {
 			"aria-disabled": ariaDisabled,
 			className: cx(
-				buttonVariants({ appearance, priority, isLoading, iconPlacement: icon ? iconPlacement : undefined }),
+				buttonVariants({ appearance, priority, isLoading }),
+				hasSpecialIconPadding && iconPlacement === "start" && "ps-2.5",
+				hasSpecialIconPadding && iconPlacement === "end" && "pe-2.5",
 				className,
 			),
 			"data-loading": isLoading,
