@@ -25,7 +25,7 @@ export default {
 } satisfies Config;
 ```
 
-Next, check out the [Setup](https://mantle.ngrok.com/setup) and [Theme Provider](https://mantle.ngrok.com/components/theme-provider) usage docs and start using mantle components in your application!
+Next, check out the [Overview & Setup](https://mantle.ngrok.com/) and [Theme Provider](https://mantle.ngrok.com/components/theme-provider) usage docs and start using mantle components in your application!
 
 ## Development
 
