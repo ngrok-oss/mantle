@@ -1,4 +1,4 @@
-import { cx } from "@ngrok/mantle/cx";
+import { cx } from "@/cx";
 import { HTMLAttributes } from "react";
 
 type Props = HTMLAttributes<HTMLSpanElement>;
