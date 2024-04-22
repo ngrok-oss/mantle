@@ -96,64 +96,70 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 				</div>
 			)}
 			<div className="flex gap-4">
-				<Navigation className="hidden w-44 pt-9 md:block" />
+				<Navigation className="hidden h-full min-h-full w-44 overflow-auto pt-9 md:block" />
 				<article className="w-0 flex-1 bg-card p-4 shadow-2xl sm:mb-4 sm:rounded-lg md:p-9 lg:mb-9">{children}</article>
 			</div>
 		</main>
 	);
 }
 
-const components = [
-	"Alert",
+/**
+ * Components that are ready for production use cases
+ */
+const prodReadyComponents = [
 	"Anchor",
 	"Button",
 	"Card",
-	"Checkbox",
 	"Code Block",
-	"Dialog",
-	"Dropdown Menu",
 	"Icon Button",
 	"Icon",
 	"Inline Code",
 	"Input",
 	"Media Object",
 	"Password Input",
-	"Popover",
 	"Select",
 	"Separator",
-	"Sheet",
 	"Skeleton",
 	"Table",
 	"Text Area",
 	"Theme Provider",
-	"Tooltip",
 ] as const;
 
-const componentRouteLookup = {
-	Alert: "/components/alert",
+/**
+ * Components that are still in "preview" and not recommended for production use cases yet.
+ * These components are still in active development and may not be fully functional or have a complete and stable API.
+ * They are exported for early feedback and testing purposes!
+ */
+const previewComponents = ["Alert", "Checkbox", "Dialog", "Dropdown Menu", "Popover", "Sheet", "Tooltip"] as const;
+
+const prodReadyComponentRouteLookup = {
 	Anchor: "/components/anchor",
 	Button: "/components/button",
 	Card: "/components/card",
-	Checkbox: "/components/checkbox",
 	"Code Block": "/components/code-block",
-	Dialog: "/components/dialog",
-	"Dropdown Menu": "/components/dropdown-menu",
 	Icon: "/components/icon",
 	"Icon Button": "/components/icon-button",
 	"Inline Code": "/components/inline-code",
 	Input: "/components/input",
 	"Media Object": "/components/media-object",
 	"Password Input": "/components/password-input",
-	Popover: "/components/popover",
 	Select: "/components/select",
 	Separator: "/components/separator",
-	Sheet: "/components/sheet",
 	Skeleton: "/components/skeleton",
 	Table: "/components/table",
 	"Text Area": "/components/text-area",
 	"Theme Provider": "/components/theme-provider",
-	Tooltip: "/components/tooltip",
-} as const satisfies Record<(typeof components)[number], Route>;
+} as const satisfies Record<(typeof prodReadyComponents)[number], Route>;
+
+const previewComponentsRouteLookup = {
+	Alert: "/components/preview/alert",
+	Checkbox: "/components/preview/checkbox",
+	Dialog: "/components/preview/dialog",
+	"Dropdown Menu": "/components/preview/dropdown-menu",
+	Popover: "/components/preview/popover",
+	Sheet: "/components/preview/sheet",
+	Tooltip: "/components/preview/tooltip",
+} as const satisfies Record<(typeof previewComponents)[number], Route>;
 
 function Navigation({ className, style }: WithStyleProps) {
 	return (
@@ -189,9 +195,20 @@ function Navigation({ className, style }: WithStyleProps) {
 
 				<li className="mt-6 text-xs font-medium uppercase tracking-wider">Components</li>
 				<ul role="list" className="mt-2">
-					{components.map((component) => (
+					{prodReadyComponents.map((component) => (
 						<li key={component}>
-							<NavLink to={componentRouteLookup[component]} prefetch="intent">
+							<NavLink to={prodReadyComponentRouteLookup[component]} prefetch="intent">
+								{component}
+							</NavLink>
+						</li>
+					))}
+				</ul>
+
+				<li className="mt-6 text-xs font-medium uppercase tracking-wider">Preview Components</li>
+				<ul role="list" className="mt-2">
+					{previewComponents.map((component) => (
+						<li key={component}>
+							<NavLink to={previewComponentsRouteLookup[component]} prefetch="intent">
 								{component}
 							</NavLink>
 						</li>

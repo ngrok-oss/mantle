@@ -3,6 +3,7 @@ import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode }
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/tooltip";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
+import { PreviewBadge } from "~/components/preview-badge";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -19,32 +20,36 @@ export const headers: HeadersFunction = () => {
 
 export default function Page() {
 	return (
-		<div>
-			<h1 className="text-5xl font-medium">Tooltip</h1>
-			<p className="mt-4 text-xl text-body">
+		<div className="space-y-4">
+			<div className="flex items-center gap-3">
+				<h1 className="text-5xl font-medium">Tooltip</h1>
+				<PreviewBadge />
+			</div>
+			<p className="text-xl text-body">
 				A popup that displays information related to an element when the element receives keyboard focus or the mouse
 				hovers over it.
 			</p>
-			<Example className="mt-4">
-				<TooltipProvider>
-					<Tooltip>
-						<TooltipTrigger asChild>
-							<Button type="button" appearance="filled" priority="default">
-								Hover
-							</Button>
-						</TooltipTrigger>
-						<TooltipContent>
-							<p>Add to library</p>
-						</TooltipContent>
-					</Tooltip>
-				</TooltipProvider>
-			</Example>
-			<CodeBlock className="rounded-b-lg rounded-t-none">
-				<CodeBlockBody>
-					<CodeBlockCopyButton />
-					<CodeBlockCode
-						language="tsx"
-						value={fmtCode`
+			<div>
+				<Example>
+					<TooltipProvider>
+						<Tooltip>
+							<TooltipTrigger asChild>
+								<Button type="button" appearance="filled" priority="default">
+									Hover
+								</Button>
+							</TooltipTrigger>
+							<TooltipContent>
+								<p>Add to library</p>
+							</TooltipContent>
+						</Tooltip>
+					</TooltipProvider>
+				</Example>
+				<CodeBlock className="rounded-b-lg rounded-t-none">
+					<CodeBlockBody>
+						<CodeBlockCopyButton />
+						<CodeBlockCode
+							language="tsx"
+							value={fmtCode`
 						import { Button } from "@ngrok/mantle/button";
 						import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@ngrok/mantle/tooltip";
 
@@ -61,9 +66,10 @@ export default function Page() {
 							</Tooltip>
 						</TooltipProvider>
 					`}
-					/>
-				</CodeBlockBody>
-			</CodeBlock>
+						/>
+					</CodeBlockBody>
+				</CodeBlock>
+			</div>
 		</div>
 	);
 }

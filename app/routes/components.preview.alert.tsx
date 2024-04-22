@@ -9,6 +9,7 @@ import { Warning } from "@phosphor-icons/react/Warning";
 import { WarningDiamond } from "@phosphor-icons/react/WarningDiamond";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
+import { PreviewBadge } from "~/components/preview-badge";
 import {
 	PropDefaultValueCell,
 	PropDescriptionCell,
@@ -36,7 +37,10 @@ export default function Page() {
 	return (
 		<div className="space-y-16">
 			<section className="mb-4 space-y-4">
-				<h1 className="text-5xl font-medium">Alert</h1>
+				<div className="flex items-center gap-3">
+					<h1 className="text-5xl font-medium">Alert</h1>
+					<PreviewBadge />
+				</div>
 				<p className="mt-4 text-xl text-body">Displays a callout for user attention.</p>
 				<div>
 					<Example className="mt-4 flex-col gap-2">
