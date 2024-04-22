@@ -63,16 +63,57 @@ type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
 		 * the icon will automatically be replaced with a spinner.
 		 */
 		icon: ReactNode;
-		/**
-		 * The default behavior of the button. Possible values are: `"button"`, `"submit"`, and `"reset"`.
-		 * Unlike the native `<button>` element, this prop is required and has no default value.
-		 * - `"button"`: The button has no default behavior, and does nothing when pressed by default. It can have client-side scripts listen to the element's events, which are triggered when the events occur.
-		 * - `"reset"`: The button resets all the controls to their initial values.
-		 * - `"submit"`: The button submits the form data to the server.
-		 * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#type
-		 */
-		type: Exclude<ButtonHTMLAttributes<HTMLButtonElement>["type"], undefined>;
-	};
+	} & (
+		| {
+				/**
+				 * Use the `asChild` prop to compose Radix's functionality onto alternative
+				 * element types or your own React components.
+				 *
+				 * When `asChild` is set to `true`, mantle will not render a default DOM
+				 * element, instead cloning the component's child and passing it the props and
+				 * behavior required to make it functional.
+				 *
+				 * asChild can be used as deeply as you need to. This means it is a great way
+				 * to compose multiple primitive's behavior together.
+				 *
+				 * @see https://www.radix-ui.com/docs/primitives/guides/composition#composition
+				 */
+				asChild: true;
+				/**
+				 * The default behavior of the button. Possible values are: `"button"`, `"submit"`, and `"reset"`.
+				 *
+				 * if `asChild` is NOT used: Unlike the native `<button>` element, this prop is required and has no default value.
+				 *
+				 * If `asChild` IS used: This prop HAS NO EFFECT, is REMOVED, and has no default value. This is because we do not want the `button` `type` to automatically merge with any child anchor `type` attribute because the `anchor` `type` is _strictly different_ than the `button` type, see: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#type
+				 *
+				 * @enum
+				 * - `"button"`: The button has no default behavior, and does nothing when pressed by default. It can have client-side scripts listen to the element's events, which are triggered when the events occur.
+				 * - `"reset"`: The button resets all the controls to their initial values.
+				 * - `"submit"`: The button submits the form data to the server.
+				 *
+				 * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#type
+				 */
+				type?: ButtonHTMLAttributes<HTMLButtonElement>["type"];
+		  }
+		| {
+				asChild?: false | undefined;
+				/**
+				 * The default behavior of the button. Possible values are: `"button"`, `"submit"`, and `"reset"`.
+				 *
+				 * if `asChild` is NOT used: Unlike the native `<button>` element, this prop is required and has no default value.
+				 *
+				 * If `asChild` IS used: This prop HAS NO EFFECT, is REMOVED, and has no default value. This is because we do not want the `button` `type` to automatically merge with any child anchor `type` attribute because the `anchor` `type` is _strictly different_ than the `button` type, see: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#type
+				 *
+				 * @enum
+				 * - `"button"`: The button has no default behavior, and does nothing when pressed by default. It can have client-side scripts listen to the element's events, which are triggered when the events occur.
+				 * - `"reset"`: The button resets all the controls to their initial values.
+				 * - `"submit"`: The button submits the form data to the server.
+				 *
+				 * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#type
+				 */
+				type: Exclude<ButtonHTMLAttributes<HTMLButtonElement>["type"], undefined>;
+		  }
+	);
 
 /**
  * Renders a button or a component that looks like a button, an interactive
@@ -97,6 +138,7 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 			label,
 			onClick: propsOnClick,
 			size,
+			type,
 			...props
 		},
 		ref,
@@ -129,7 +171,7 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 		}
 
 		return (
-			<button {...buttonProps}>
+			<button {...buttonProps} type={type}>
 				<span className="sr-only">{label}</span>
 				<Icon svg={icon} />
 			</button>

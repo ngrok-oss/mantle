@@ -21,13 +21,16 @@ describe("Button", () => {
 		expect(screen.getByRole("button")).toHaveTextContent("click me");
 	});
 
-	test("renders an anchor, with `asChild`", () => {
+	test("renders an anchor with `asChild`, doesn't pass `type` to anchor", () => {
 		render(
-			<Button asChild type="button">
+			<Button type="button" asChild>
 				<a href="#yolo">click me</a>
 			</Button>,
 		);
 		expect(screen.getByRole("link")).toHaveTextContent("click me");
+
+		// Ensure the `type` attribute is not passed to the anchor element
+		expect(screen.getByRole("link")).not.toHaveAttribute("type");
 	});
 
 	test("renders a anchor (<Link />), with `asChild`", async () => {
