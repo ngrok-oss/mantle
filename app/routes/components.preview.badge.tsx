@@ -48,12 +48,6 @@ export default function Page() {
 							<Badge appearance="muted" color="neutral" icon={<GlobeHemisphereWest />}>
 								Muted Neutral
 							</Badge>
-							<Badge appearance="strong" color="neutral">
-								Strong Neutral
-							</Badge>
-							<Badge appearance="strong" color="neutral" icon={<GlobeHemisphereWest />}>
-								Strong Neutral
-							</Badge>
 						</div>
 						<div className="flex flex-col items-center gap-2">
 							<Badge appearance="muted" color="accent">
@@ -61,12 +55,6 @@ export default function Page() {
 							</Badge>
 							<Badge appearance="muted" color="accent" icon={<GlobeHemisphereWest />}>
 								Muted Accent
-							</Badge>
-							<Badge appearance="strong" color="accent">
-								Strong Accent
-							</Badge>
-							<Badge appearance="strong" color="accent" icon={<GlobeHemisphereWest />}>
-								Strong Accent
 							</Badge>
 						</div>
 						<div className="flex flex-col items-center gap-2">
@@ -76,12 +64,6 @@ export default function Page() {
 							<Badge appearance="muted" color="danger" icon={<GlobeHemisphereWest />}>
 								Muted Danger
 							</Badge>
-							<Badge appearance="strong" color="danger">
-								Strong Danger
-							</Badge>
-							<Badge appearance="strong" color="danger" icon={<GlobeHemisphereWest />}>
-								Strong Danger
-							</Badge>
 						</div>
 						<div className="flex flex-col items-center gap-2">
 							<Badge appearance="muted" color="warning">
@@ -90,12 +72,6 @@ export default function Page() {
 							<Badge appearance="muted" color="warning" icon={<GlobeHemisphereWest />}>
 								Muted Warning
 							</Badge>
-							<Badge appearance="strong" color="warning">
-								Strong Warning
-							</Badge>
-							<Badge appearance="strong" color="warning" icon={<GlobeHemisphereWest />}>
-								Strong Warning
-							</Badge>
 						</div>
 						<div className="flex flex-col items-center gap-2">
 							<Badge appearance="muted" color="success">
@@ -103,12 +79,6 @@ export default function Page() {
 							</Badge>
 							<Badge appearance="muted" color="success" icon={<GlobeHemisphereWest />}>
 								Muted Success
-							</Badge>
-							<Badge appearance="strong" color="success">
-								Strong Success
-							</Badge>
-							<Badge appearance="strong" color="success" icon={<GlobeHemisphereWest />}>
-								Strong Success
 							</Badge>
 						</div>
 					</Example>

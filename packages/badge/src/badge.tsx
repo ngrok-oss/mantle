@@ -1,8 +1,9 @@
-import { cloneElement, isValidElement, type HTMLAttributes, type ReactNode } from "react";
+import type { HTMLAttributes, ReactNode } from "react";
 import invariant from "tiny-invariant";
 import { cx } from "../../cx";
+import { IconBase } from "../../icon/src/_icon-base";
 
-const appearances = ["muted", "strong"] as const;
+const appearances = ["muted" /*"strong" */] as const;
 type Appearance = (typeof appearances)[number];
 
 const colorPaletteColors = [
@@ -63,7 +64,7 @@ const Badge = ({ appearance, children, className, color = "neutral", icon, ...pr
 	return (
 		<span
 			className={cx(
-				"inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-xs font-medium",
+				"inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-sm font-medium sm:text-xs",
 				icon && "ps-1",
 				bgColor,
 				textColor,
@@ -71,7 +72,7 @@ const Badge = ({ appearance, children, className, color = "neutral", icon, ...pr
 			)}
 			{...props}
 		>
-			{icon && isValidElement<HTMLAttributes<SVGElement>>(icon) && cloneElement(icon, { className: "size-4 shrink-0" })}
+			{icon && <IconBase className="size-5 sm:size-4" svg={icon} />}
 			{children}
 		</span>
 	);
@@ -106,38 +107,10 @@ const mutedBgColorLookup = {
 	warning: "bg-warning-700/20",
 } satisfies Record<BadgeColor, string>;
 
-const strongBgColorLookup = {
-	amber: "bg-amber-500",
-	blue: "bg-blue-500",
-	cyan: "bg-cyan-500",
-	emerald: "bg-emerald-500",
-	fuchsia: "bg-fuchsia-500",
-	gray: "bg-gray-500",
-	green: "bg-green-500",
-	indigo: "bg-indigo-500",
-	lime: "bg-lime-500",
-	orange: "bg-orange-500",
-	pink: "bg-pink-500",
-	purple: "bg-purple-500",
-	red: "bg-red-500",
-	rose: "bg-rose-500",
-	sky: "bg-sky-500",
-	teal: "bg-teal-500",
-	violet: "bg-violet-500",
-	yellow: "bg-yellow-500",
-	accent: "bg-accent-500",
-	danger: "bg-danger-500",
-	neutral: "bg-neutral-500",
-	success: "bg-success-500",
-	warning: "bg-warning-500",
-} satisfies Record<BadgeColor, string>;
-
 function computeBgColor(color: BadgeColor, appearance: Appearance) {
 	switch (appearance) {
 		case "muted":
 			return mutedBgColorLookup[color];
-		case "strong":
-			return strongBgColorLookup[color];
 		default:
 			invariant(false, `Invalid appearance: ${String(appearance)}`);
 	}
@@ -173,8 +146,6 @@ function computeTextColor(color: BadgeColor, appearance: Appearance) {
 	switch (appearance) {
 		case "muted":
 			return textColorMutedLookup[color];
-		case "strong":
-			return "text-[#fff]"; // note: this seems to be causing color contrast issues, we should revisit!
 		default:
 			invariant(false, `Invalid appearance: ${String(appearance)}`);
 	}
