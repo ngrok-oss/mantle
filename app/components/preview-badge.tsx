@@ -1,13 +1,8 @@
-import { cx } from "@/cx";
-import { HTMLAttributes } from "react";
+import { Badge } from "@/badge";
+import { Sparkle } from "@phosphor-icons/react/Sparkle";
 
-type Props = HTMLAttributes<HTMLSpanElement>;
-
-/**
- * @todo replace with <Badge /> when it's available
- */
-export const PreviewBadge = ({ children = "Preview", className, ...props }: Props) => (
-	<span className={cx("rounded-md bg-purple-500 px-1.5 text-xs leading-5 text-on-filled", className)} {...props}>
-		{children}
-	</span>
+export const PreviewBadge = () => (
+	<Badge appearance="muted" color="fuchsia" icon={<Sparkle />}>
+		Preview
+	</Badge>
 );
