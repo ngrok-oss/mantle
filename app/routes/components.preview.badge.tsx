@@ -1,5 +1,6 @@
 import { Badge } from "@/badge";
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
+import { colors } from "@/color";
 import { InlineCode } from "@/inline-code";
 import { GlobeHemisphereWest } from "@phosphor-icons/react/GlobeHemisphereWest";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
@@ -40,47 +41,19 @@ export default function Page() {
 					A Badge is used to highlight important information or to visually indicate the status of an item.
 				</p>
 				<div>
-					<Example className="mt-4 flex-row flex-wrap gap-4">
-						<div className="flex flex-col items-center gap-2">
-							<Badge appearance="muted" color="neutral">
-								Muted Neutral
-							</Badge>
-							<Badge appearance="muted" color="neutral" icon={<GlobeHemisphereWest />}>
-								Muted Neutral
-							</Badge>
-						</div>
-						<div className="flex flex-col items-center gap-2">
-							<Badge appearance="muted" color="accent">
-								Muted Accent
-							</Badge>
-							<Badge appearance="muted" color="accent" icon={<GlobeHemisphereWest />}>
-								Muted Accent
-							</Badge>
-						</div>
-						<div className="flex flex-col items-center gap-2">
-							<Badge appearance="muted" color="danger">
-								Muted Danger
-							</Badge>
-							<Badge appearance="muted" color="danger" icon={<GlobeHemisphereWest />}>
-								Muted Danger
-							</Badge>
-						</div>
-						<div className="flex flex-col items-center gap-2">
-							<Badge appearance="muted" color="warning">
-								Muted Warning
-							</Badge>
-							<Badge appearance="muted" color="warning" icon={<GlobeHemisphereWest />}>
-								Muted Warning
-							</Badge>
-						</div>
-						<div className="flex flex-col items-center gap-2">
-							<Badge appearance="muted" color="success">
-								Muted Success
-							</Badge>
-							<Badge appearance="muted" color="success" icon={<GlobeHemisphereWest />}>
-								Muted Success
-							</Badge>
-						</div>
+					<Example>
+						<ul role="list" className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4">
+							{colors.map((color) => (
+								<li key={color} className="flex flex-col items-center gap-2">
+									<Badge appearance="muted" color={color}>
+										Muted {color}
+									</Badge>
+									<Badge appearance="muted" color={color} icon={<GlobeHemisphereWest />}>
+										Muted {color}
+									</Badge>
+								</li>
+							))}
+						</ul>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
@@ -88,7 +61,15 @@ export default function Page() {
 							<CodeBlockCode
 								language="tsx"
 								value={fmtCode`
-									// TODO(cody): fixme
+									import { Badge } from "@ngrok/mantle/badge";
+									import { GlobeHemisphereWest } from "@phosphor-icons/react/GlobeHemisphereWest";
+
+									<Badge appearance="muted" color="neutral">
+										Muted neutral
+									</Badge>
+									<Badge appearance="muted" color="neutral" icon={<GlobeHemisphereWest />}>
+										Muted neutral
+									</Badge>
 								`}
 							/>
 						</CodeBlockBody>

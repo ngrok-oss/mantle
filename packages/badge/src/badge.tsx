@@ -1,49 +1,17 @@
 import type { HTMLAttributes, ReactNode } from "react";
 import invariant from "tiny-invariant";
+import type { Color } from "../../color";
 import { cx } from "../../cx";
 import { IconBase } from "../../icon/src/_icon-base";
 
 const appearances = ["muted" /*"strong" */] as const;
 type Appearance = (typeof appearances)[number];
 
-const colorPaletteColors = [
-	"amber",
-	"blue",
-	"cyan",
-	"emerald",
-	"fuchsia",
-	"gray",
-	"green",
-	"indigo",
-	"lime",
-	"orange",
-	"pink",
-	"purple",
-	"red",
-	"rose",
-	"sky",
-	"teal",
-	"violet",
-	"yellow",
-] as const;
-
-const functionalColors = ["accent", "danger", "neutral", "success", "warning"] as const;
-
-/**
- * Supported Badge colors.
- */
-const badgeColors = [...colorPaletteColors, ...functionalColors] as const;
-
-/**
- * Supported Badge colors.
- */
-type BadgeColor = (typeof badgeColors)[number];
-
 type BadgeProps = HTMLAttributes<HTMLSpanElement> & {
 	/**
 	 * The color variant of the badge
 	 */
-	color?: BadgeColor;
+	color?: Color;
 	/**
 	 * The icon to render inside the badge.
 	 */
@@ -79,7 +47,8 @@ const Badge = ({ appearance, children, className, color = "neutral", icon, ...pr
 };
 
 export { Badge };
-export type { BadgeColor, BadgeProps };
+
+export type { BadgeProps };
 
 const mutedBgColorLookup = {
 	amber: "bg-amber-700/20",
@@ -105,9 +74,9 @@ const mutedBgColorLookup = {
 	neutral: "bg-neutral-700/20",
 	success: "bg-success-700/20",
 	warning: "bg-warning-700/20",
-} satisfies Record<BadgeColor, string>;
+} satisfies Record<Color, string>;
 
-function computeBgColor(color: BadgeColor, appearance: Appearance) {
+function computeBgColor(color: Color, appearance: Appearance) {
 	switch (appearance) {
 		case "muted":
 			return mutedBgColorLookup[color];
@@ -140,9 +109,9 @@ const textColorMutedLookup = {
 	neutral: "text-neutral-700",
 	success: "text-success-700",
 	warning: "text-warning-700",
-} satisfies Record<BadgeColor, string>;
+} satisfies Record<Color, string>;
 
-function computeTextColor(color: BadgeColor, appearance: Appearance) {
+function computeTextColor(color: Color, appearance: Appearance) {
 	switch (appearance) {
 		case "muted":
 			return textColorMutedLookup[color];
