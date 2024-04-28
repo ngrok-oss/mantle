@@ -1,7 +1,7 @@
 /**
  * Color palette named colors
  */
-const colorPaletteColors = [
+const namedColors = [
 	"amber",
 	"blue",
 	"cyan",
@@ -23,15 +23,15 @@ const colorPaletteColors = [
 ] as const;
 
 /**
- * A color from the color palette
+ * A named color from the color palette
  */
-type ColorPalette = (typeof colorPaletteColors)[number];
+type NamedColor = (typeof namedColors)[number];
 
 /**
  * Check if a value is a color from the color palette
  */
-const isColorPaletteColor = (value: unknown): value is ColorPalette =>
-	typeof value === "string" && colorPaletteColors.includes(value as ColorPalette);
+const isNamedColor = (value: unknown): value is NamedColor =>
+	typeof value === "string" && namedColors.includes(value as NamedColor);
 
 /**
  * Functional named colors
@@ -50,19 +50,22 @@ const isFunctionalColor = (value: unknown): value is FunctionalColor =>
 	typeof value === "string" && functionalColors.includes(value as FunctionalColor);
 
 /**
- * All named colors
+ * All named mantle colors
  */
-const colors = [...colorPaletteColors, ...functionalColors] as const;
+const colors = [...namedColors, ...functionalColors] as const;
 
 /**
- * A named color
+ * A named mantle color
  */
 type Color = (typeof colors)[number];
 
 /**
- * Check if a value is a named color
+ * Check if a value is a named mantle color
  */
 const isColor = (value: unknown): value is Color => typeof value === "string" && colors.includes(value as Color);
 
-export { colors, colorPaletteColors, functionalColors, isColor, isColorPaletteColor, isFunctionalColor };
-export type { Color, ColorPalette, FunctionalColor };
+// MARK: - Exports
+
+export { colors, functionalColors, isColor, isFunctionalColor, isNamedColor, namedColors };
+
+export type { Color, FunctionalColor, NamedColor };

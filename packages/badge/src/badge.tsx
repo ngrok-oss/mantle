@@ -9,7 +9,7 @@ type Appearance = (typeof appearances)[number];
 
 type BadgeProps = HTMLAttributes<HTMLSpanElement> & {
 	/**
-	 * The color variant of the badge
+	 * The color variant of the badge. Accepts named colors and functional colors from the mantle color palette.
 	 */
 	color?: Color;
 	/**
@@ -46,9 +46,13 @@ const Badge = ({ appearance, children, className, color = "neutral", icon, ...pr
 	);
 };
 
+// MARK: - Exports
+
 export { Badge };
 
 export type { BadgeProps };
+
+// MARK: - Private
 
 const mutedBgColorLookup = {
 	amber: "bg-amber-700/20",

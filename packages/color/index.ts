@@ -1,10 +1,3 @@
-export {
-	colors,
-	colorPaletteColors,
-	functionalColors,
-	isColor,
-	isColorPaletteColor,
-	isFunctionalColor,
-} from "./src/colors";
+export { colors, functionalColors, isColor, isFunctionalColor, isNamedColor, namedColors } from "./src/colors";
 
-export type { Color, ColorPalette, FunctionalColor } from "./src/colors";
+export type { Color, FunctionalColor, NamedColor } from "./src/colors";
