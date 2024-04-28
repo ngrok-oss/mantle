@@ -126,6 +126,10 @@
       "import": "./dist/anchor.js",
       "types": "./dist/anchor.d.ts"
     },
+    "./badge": {
+      "import": "./dist/badge.js",
+      "types": "./dist/badge.d.ts"
+    },
     "./button": {
       "import": "./dist/button.js",
       "types": "./dist/button.d.ts"
@@ -141,6 +145,10 @@
     "./code-block": {
       "import": "./dist/code-block.js",
       "types": "./dist/code-block.d.ts"
+    },
+    "./color": {
+      "import": "./dist/color.js",
+      "types": "./dist/color.d.ts"
     },
     "./cx": {
       "import": "./dist/cx.js",

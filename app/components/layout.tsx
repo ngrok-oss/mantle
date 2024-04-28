@@ -130,7 +130,16 @@ const prodReadyComponents = [
  * These components are still in active development and may not be fully functional or have a complete and stable API.
  * They are exported for early feedback and testing purposes!
  */
-const previewComponents = ["Alert", "Checkbox", "Dialog", "Dropdown Menu", "Popover", "Sheet", "Tooltip"] as const;
+const previewComponents = [
+	"Alert",
+	"Badge",
+	"Checkbox",
+	"Dialog",
+	"Dropdown Menu",
+	"Popover",
+	"Sheet",
+	"Tooltip",
+] as const;
 
 const prodReadyComponentRouteLookup = {
 	Anchor: "/components/anchor",
@@ -153,6 +162,7 @@ const prodReadyComponentRouteLookup = {
 
 const previewComponentsRouteLookup = {
 	Alert: "/components/preview/alert",
+	Badge: "/components/preview/badge",
 	Checkbox: "/components/preview/checkbox",
 	Dialog: "/components/preview/dialog",
 	"Dropdown Menu": "/components/preview/dropdown-menu",
