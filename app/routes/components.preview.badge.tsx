@@ -41,7 +41,8 @@ export default function Page() {
 					<PreviewBadge />
 				</div>
 				<p className="mt-4 text-xl text-body">
-					A Badge is used to highlight important information or to visually indicate the status of an item.
+					A Badge is a non-interactive component used to highlight important information or to visually indicate the
+					status of an item.
 				</p>
 				<div>
 					<Example>

@@ -23,7 +23,7 @@ type BadgeProps = HTMLAttributes<HTMLSpanElement> & {
 };
 
 /**
- * A Badge is used to highlight important information or to visually indicate the status of an item.
+ * A Badge is a non-interactive component used to highlight important information or to visually indicate the status of an item.
  */
 const Badge = ({ appearance, children, className, color = "neutral", icon, ...props }: BadgeProps) => {
 	const bgColor = computeBgColor(color, appearance);
