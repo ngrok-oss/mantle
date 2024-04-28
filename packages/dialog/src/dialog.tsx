@@ -1,6 +1,7 @@
 import { X } from "@phosphor-icons/react/X";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
-import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
+import { forwardRef } from "react";
+import type { ComponentPropsWithoutRef, ElementRef } from "react";
 import { IconButton } from "../../button";
 import { cx } from "../../cx";
 

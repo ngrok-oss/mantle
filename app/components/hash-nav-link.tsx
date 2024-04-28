@@ -1,4 +1,5 @@
-import { Link, Path, useLocation } from "@remix-run/react";
+import { Link, useLocation } from "@remix-run/react";
+import type { Path } from "@remix-run/react";
 import type { PropsWithChildren } from "react";
 
 type Props = PropsWithChildren<{

@@ -1,17 +1,7 @@
 import { Slot } from "@radix-ui/react-slot";
 import Prism from "prismjs";
-import {
-	createContext,
-	Dispatch,
-	forwardRef,
-	HTMLAttributes,
-	SetStateAction,
-	useContext,
-	useEffect,
-	useId,
-	useMemo,
-	useState,
-} from "react";
+import { createContext, forwardRef, useContext, useEffect, useId, useMemo, useState } from "react";
+import type { Dispatch, HTMLAttributes, SetStateAction } from "react";
 import "prismjs/components/prism-bash.js";
 import "prismjs/components/prism-bash.js";
 import "prismjs/components/prism-csharp.js";
@@ -35,7 +25,7 @@ import { useCopyToClipboard } from "@uidotdev/usehooks";
 import assert from "tiny-invariant";
 import { cx } from "../../cx";
 import type { WithStyleProps } from "../../types/src/with-style-props";
-import { LineRange } from "./line-numbers";
+import type { LineRange } from "./line-numbers";
 import { formatLanguageClassName, supportedLanguages } from "./supported-languages";
 import type { SupportedLanguage } from "./supported-languages";
 

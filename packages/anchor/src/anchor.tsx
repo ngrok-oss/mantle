@@ -1,7 +1,8 @@
 import { Slot } from "@radix-ui/react-slot";
-import { AnchorHTMLAttributes, forwardRef } from "react";
+import { forwardRef } from "react";
+import type { AnchorHTMLAttributes } from "react";
 import { cx } from "../../cx";
-import { WithAsChild } from "../../types/src/as-child";
+import type { WithAsChild } from "../../types/src/as-child";
 import type { Rel, Target } from "./types";
 
 /**

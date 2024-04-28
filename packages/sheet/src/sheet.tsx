@@ -1,7 +1,8 @@
 import { X } from "@phosphor-icons/react/X";
 import * as SheetPrimitive from "@radix-ui/react-dialog";
 import { cva, type VariantProps } from "class-variance-authority";
-import { ComponentPropsWithoutRef, ElementRef, forwardRef, HTMLAttributes } from "react";
+import { forwardRef } from "react";
+import type { ComponentPropsWithoutRef, ElementRef, HTMLAttributes } from "react";
 import { IconButton } from "../../button";
 import { cx } from "../../cx";
 

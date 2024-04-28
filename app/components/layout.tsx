@@ -2,13 +2,14 @@ import { Button } from "@/button";
 import { cx } from "@/cx";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger } from "@/select";
 import { isTheme, theme, useTheme } from "@/theme-provider";
-import { WithStyleProps } from "@/types";
+import type { WithStyleProps } from "@/types";
 import { List } from "@phosphor-icons/react/List";
 import { Sun } from "@phosphor-icons/react/Sun";
 import { X } from "@phosphor-icons/react/X";
 import { Link } from "@remix-run/react";
-import { Route } from "~/types/routes";
-import { PropsWithChildren, useState } from "react";
+import type { Route } from "~/types/routes";
+import type { PropsWithChildren } from "react";
+import { useState } from "react";
 import { NavLink } from "./nav-link";
 
 const MantleLogo = () => (

@@ -1,6 +1,6 @@
 import { cx } from "@/cx";
 import type { WithStyleProps } from "@/types";
-import { PropsWithChildren } from "react";
+import type { PropsWithChildren } from "react";
 
 type Props = PropsWithChildren & WithStyleProps;
 

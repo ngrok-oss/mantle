@@ -1,8 +1,8 @@
 import { cx } from "@/cx";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/table";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/tooltip";
-import { WithStyleProps } from "@/types";
-import { PropsWithChildren } from "react";
+import type { WithStyleProps } from "@/types";
+import type { PropsWithChildren } from "react";
 
 type PropsTableProps = WithStyleProps & PropsWithChildren;
 export const PropsTable = ({ children, className, style }: PropsTableProps) => (

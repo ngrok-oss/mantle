@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { ElementRef, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import type { ElementRef } from "react";
 import { act } from "react-dom/test-utils";
 import { describe, expect, test } from "vitest";
 import { Input, InputCapture } from "./input";
