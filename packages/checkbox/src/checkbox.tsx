@@ -2,7 +2,7 @@ import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
 import { forwardRef } from "react";
 import type { ComponentPropsWithoutRef, ElementRef } from "react";
 import { cx } from "../../cx";
-import { WithStyleProps } from "../../types";
+import type { WithStyleProps } from "../../types";
 
 type Props = ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>;
 

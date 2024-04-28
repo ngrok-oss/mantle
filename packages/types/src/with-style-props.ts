@@ -1,4 +1,4 @@
-import { CSSProperties } from "react";
+import type { CSSProperties } from "react";
 
 /**
  * Helper type that includes an optional className and style prop for react

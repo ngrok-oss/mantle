@@ -14,7 +14,7 @@ import {
 	PropTypeCell,
 	StringPropType,
 } from "~/components/props-table";
-import { DragEvent } from "react";
+import type { DragEvent } from "react";
 
 export const meta: MetaFunction = () => {
 	return [

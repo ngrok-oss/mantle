@@ -1,6 +1,6 @@
 import { Warning } from "@phosphor-icons/react/Warning";
-import type { ForwardedRef, InputHTMLAttributes, MutableRefObject, PropsWithChildren } from "react";
-import { createContext, ElementRef, forwardRef, useContext, useRef } from "react";
+import type { ElementRef, ForwardedRef, InputHTMLAttributes, MutableRefObject, PropsWithChildren } from "react";
+import { createContext, forwardRef, useContext, useRef } from "react";
 import { cx } from "../../cx";
 import type { WithAutoComplete, WithInputType, WithInvalid } from "./types";
 

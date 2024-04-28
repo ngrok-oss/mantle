@@ -4,7 +4,7 @@ import type { ComponentPropsWithoutRef, ElementRef, HTMLAttributes } from "react
 import { forwardRef } from "react";
 import { cx } from "../../cx";
 import { Separator } from "../../separator";
-import { WithAsChild } from "../../types";
+import type { WithAsChild } from "../../types";
 
 const DropdownMenu = Ariakit.MenuProvider;
 

@@ -12,6 +12,7 @@
     "moduleDetection": "force",
     "isolatedModules": true,
     "jsx": "react-jsx",
+    "verbatimModuleSyntax": true,
 
     /* Strictness */
     "strict": true,
@@ -19,6 +20,7 @@
     "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "noImplicitOverride": true,
 
     /* Emit */
     "moduleResolution": "Bundler",
