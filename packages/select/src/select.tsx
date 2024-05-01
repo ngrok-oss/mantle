@@ -85,7 +85,7 @@ const SelectScrollUpButton = forwardRef<
 		className={cx("flex cursor-default items-center justify-center py-1", className)}
 		{...props}
 	>
-		<CaretUp className="size-4" weight="bold" />
+		<CaretUp className="size-4 shrink-0" weight="bold" />
 	</SelectPrimitive.ScrollUpButton>
 ));
 SelectScrollUpButton.displayName = "SelectScrollUpButton";
@@ -99,7 +99,7 @@ const SelectScrollDownButton = forwardRef<
 		className={cx("flex cursor-default items-center justify-center py-1", className)}
 		{...props}
 	>
-		<CaretDown className="size-4" weight="bold" />
+		<CaretDown className="size-4 shrink-0" weight="bold" />
 	</SelectPrimitive.ScrollDownButton>
 ));
 SelectScrollDownButton.displayName = "SelectScrollDownButton";
@@ -171,7 +171,7 @@ const SelectItem = forwardRef<
 	>
 		<SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
 		<SelectPrimitive.ItemIndicator className="absolute right-2 flex h-3.5 w-3.5 items-center justify-center">
-			<Check className="size-4" weight="bold" />
+			<Check className="size-4 shrink-0" weight="bold" />
 		</SelectPrimitive.ItemIndicator>
 	</SelectPrimitive.Item>
 ));

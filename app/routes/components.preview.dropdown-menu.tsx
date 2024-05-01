@@ -4,12 +4,19 @@ import {
 	DropdownMenu,
 	DropdownMenuCheckboxItem,
 	DropdownMenuContent,
+	DropdownMenuGroup,
 	DropdownMenuItem,
 	DropdownMenuLabel,
+	DropdownMenuRadioGroup,
 	DropdownMenuRadioItem,
 	DropdownMenuSeparator,
+	DropdownMenuShortcut,
+	DropdownMenuSub,
+	DropdownMenuSubContent,
+	DropdownMenuSubTrigger,
 	DropdownMenuTrigger,
 } from "@/dropdown-menu";
+import type { Theme } from "@/theme-provider";
 import { Desktop } from "@phosphor-icons/react/Desktop";
 import { Gear } from "@phosphor-icons/react/Gear";
 import { Moon } from "@phosphor-icons/react/Moon";
@@ -18,6 +25,7 @@ import { Sun } from "@phosphor-icons/react/Sun";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 import { PreviewBadge } from "~/components/preview-badge";
+import { useState } from "react";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -33,6 +41,9 @@ export const headers: HeadersFunction = () => {
 };
 
 export default function Page() {
+	const [selectedTheme, setSelectedTheme] = useState<Theme>("system");
+	const [enableNotifications, setEnableNotifications] = useState(false);
+
 	return (
 		<div className="space-y-4">
 			<div className="flex items-center gap-3">
@@ -54,36 +65,76 @@ export default function Page() {
 						<DropdownMenuContent>
 							<DropdownMenuLabel>micah@ngrok.com</DropdownMenuLabel>
 							<DropdownMenuSeparator />
-							<DropdownMenuRadioItem name="theme" value="system">
-								<Desktop className="size-5" />
-								System Preference
-							</DropdownMenuRadioItem>
-							<DropdownMenuRadioItem name="theme" value="light">
-								<Sun className="size-5" />
-								Light Mode
-							</DropdownMenuRadioItem>
-							<DropdownMenuRadioItem name="theme" value="dark">
-								<Moon className="size-5" />
-								Dark Mode
-							</DropdownMenuRadioItem>
-							<DropdownMenuRadioItem name="theme" value="light-high-contrast">
-								<Sun className="size-5" weight="fill" />
-								Light High Contrast
-							</DropdownMenuRadioItem>
-							<DropdownMenuRadioItem name="theme" value="dark-high-contrast">
-								<Moon className="size-5" weight="fill" />
-								Dark High Contrast
-							</DropdownMenuRadioItem>
+							<DropdownMenuRadioGroup
+								value={selectedTheme}
+								onValueChange={(value) => {
+									setSelectedTheme(value as Theme);
+								}}
+							>
+								<DropdownMenuRadioItem value="system">
+									<Desktop />
+									System Preference
+								</DropdownMenuRadioItem>
+								<DropdownMenuRadioItem value="light">
+									<Sun />
+									Light Mode
+								</DropdownMenuRadioItem>
+								<DropdownMenuRadioItem value="dark">
+									<Moon />
+									Dark Mode
+								</DropdownMenuRadioItem>
+								<DropdownMenuRadioItem value="light-high-contrast">
+									<Sun weight="fill" />
+									Light High Contrast
+								</DropdownMenuRadioItem>
+								<DropdownMenuRadioItem value="dark-high-contrast">
+									<Moon weight="fill" />
+									Dark High Contrast
+								</DropdownMenuRadioItem>
+							</DropdownMenuRadioGroup>
 							<DropdownMenuSeparator />
 							<DropdownMenuItem className="flex items-center gap-2">
-								<Gear className="size-5" />
+								<Gear />
 								User Settings
 							</DropdownMenuItem>
 							<DropdownMenuSeparator />
-							<DropdownMenuCheckboxItem name="notifications">Enable Notifications</DropdownMenuCheckboxItem>
+							<DropdownMenuCheckboxItem
+								checked={enableNotifications}
+								onCheckedChange={(value) => {
+									setEnableNotifications(value);
+								}}
+							>
+								Enable Notifications
+							</DropdownMenuCheckboxItem>
+							<DropdownMenuGroup>
+								<DropdownMenuItem>Team</DropdownMenuItem>
+								<DropdownMenuSub>
+									<DropdownMenuSubTrigger>Invite users</DropdownMenuSubTrigger>
+									<DropdownMenuSubContent>
+										<DropdownMenuItem>Email</DropdownMenuItem>
+										<DropdownMenuItem>Message</DropdownMenuItem>
+										<DropdownMenuItem>Email</DropdownMenuItem>
+										<DropdownMenuItem>Email</DropdownMenuItem>
+										<DropdownMenuItem>Email</DropdownMenuItem>
+										<DropdownMenuItem>Email</DropdownMenuItem>
+										<DropdownMenuItem>Email</DropdownMenuItem>
+										<DropdownMenuItem>Email</DropdownMenuItem>
+										<DropdownMenuItem>Email</DropdownMenuItem>
+										<DropdownMenuItem>Email</DropdownMenuItem>
+										<DropdownMenuItem>Email</DropdownMenuItem>
+										<DropdownMenuItem>Email</DropdownMenuItem>
+										<DropdownMenuSeparator />
+										<DropdownMenuItem>More...</DropdownMenuItem>
+									</DropdownMenuSubContent>
+								</DropdownMenuSub>
+								<DropdownMenuItem>
+									New Team
+									<DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
+								</DropdownMenuItem>
+							</DropdownMenuGroup>
 							<DropdownMenuSeparator />
 							<DropdownMenuItem className="flex items-center gap-2">
-								<SignOut className="size-5" />
+								<SignOut />
 								Log out
 							</DropdownMenuItem>
 						</DropdownMenuContent>
@@ -114,34 +165,34 @@ export default function Page() {
 								<DropdownMenuLabel>micah@ngrok.com</DropdownMenuLabel>
 								<DropdownMenuSeparator />
 								<DropdownMenuRadioItem name="theme" value="system">
-									<Desktop className="size-5" />
-									<span>System Preference</span>
+									<Desktop />
+									System Preference
 								</DropdownMenuRadioItem>
 								<DropdownMenuRadioItem name="theme" value="light">
-									<Sun className="size-5" />
-									<span>Light Mode</span>
+									<Sun />
+									Light Mode
 								</DropdownMenuRadioItem>
 								<DropdownMenuRadioItem name="theme" value="dark">
-									<Moon className="size-5" />
-									<span>Dark Mode</span>
+									<Moon />
+									Dark Mode
 								</DropdownMenuRadioItem>
 								<DropdownMenuRadioItem name="theme" value="light-high-contrast">
-									<Sun className="size-5" weight="fill" />
-									<span>Light High Contrast</span>
+									<Sun weight="fill" />
+									Light High Contrast
 								</DropdownMenuRadioItem>
 								<DropdownMenuRadioItem name="theme" value="dark-high-contrast">
-									<Moon className="size-5" weight="fill" />
-									<span>Dark High Contrast</span>
+									<Moon weight="fill" />
+									Dark High Contrast
 								</DropdownMenuRadioItem>
 								<DropdownMenuSeparator />
 								<DropdownMenuItem>
-									<Gear className="size-5" />
-									<span>User Settings</span>
+									<Gear />
+									User Settings
 								</DropdownMenuItem>
 								<DropdownMenuSeparator />
 								<DropdownMenuItem>
-									<SignOut className="size-5" />
-									<span>Log out</span>
+									<SignOut />
+									Log out
 								</DropdownMenuItem>
 							</DropdownMenuContent>
 						</DropdownMenu>
