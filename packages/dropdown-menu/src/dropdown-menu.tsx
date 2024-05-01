@@ -4,6 +4,7 @@ import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import type { ComponentPropsWithoutRef, ElementRef } from "react";
 import { forwardRef } from "react";
 import { cx } from "../../cx";
+import { Separator } from "../../separator";
 
 const DropdownMenu = DropdownMenuPrimitive.Root;
 
@@ -25,7 +26,7 @@ const DropdownMenuSubTrigger = forwardRef<
 >(({ className, inset, children, ...props }, ref) => (
 	<DropdownMenuPrimitive.SubTrigger
 		className={cx(
-			"focus:bg-accent data-[state=open]:bg-accent relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-2 pr-9 text-sm outline-none",
+			"focus:bg-accent data-[state=open]:bg-accent relative flex cursor-pointer select-none items-center rounded-sm py-1.5 pl-2 pr-9 text-sm outline-none",
 			"data-state-open:bg-popover-hover data-highlighted:bg-popover-hover",
 			"[&>svg]:size-5 [&_svg]:shrink-0",
 			inset && "pl-8",
@@ -88,7 +89,7 @@ const DropdownMenuItem = forwardRef<
 	<DropdownMenuPrimitive.Item
 		ref={ref}
 		className={cx(
-			"focus:bg-accent focus:text-accent-foreground relative flex cursor-default select-none items-center rounded px-2 py-1.5 text-sm font-normal outline-none transition-colors data-disabled:pointer-events-none data-disabled:opacity-50 data-highlighted:bg-popover-hover data-active-item:dark:bg-popover-hover",
+			"focus:bg-accent focus:text-accent-foreground relative flex cursor-pointer select-none items-center rounded px-2 py-1.5 text-sm font-normal outline-none transition-colors data-disabled:pointer-events-none data-disabled:opacity-50 data-highlighted:bg-popover-hover data-active-item:dark:bg-popover-hover",
 			"[&>svg]:size-5 [&_svg]:shrink-0",
 			inset && "pl-8",
 			className,
@@ -167,12 +168,9 @@ const DropdownMenuLabel = forwardRef<
 ));
 DropdownMenuLabel.displayName = "DropdownMenuLabel";
 
-const DropdownMenuSeparator = forwardRef<
-	ElementRef<typeof DropdownMenuPrimitive.Separator>,
-	ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Separator>
->(({ className, ...props }, ref) => (
-	<DropdownMenuPrimitive.Separator ref={ref} className={cx("bg-muted -mx-1 my-1 h-px", className)} {...props} />
-));
+const DropdownMenuSeparator = forwardRef<ElementRef<typeof Separator>, ComponentPropsWithoutRef<typeof Separator>>(
+	({ className, ...props }, ref) => <Separator ref={ref} className={cx("-mx-2 my-1 w-auto", className)} {...props} />,
+);
 DropdownMenuSeparator.displayName = "DropdownMenuSeparator";
 
 const DropdownMenuShortcut = ({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>) => {
