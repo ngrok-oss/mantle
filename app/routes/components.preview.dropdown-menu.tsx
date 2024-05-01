@@ -7,7 +7,6 @@ import {
 	DropdownMenuGroup,
 	DropdownMenuItem,
 	DropdownMenuLabel,
-	DropdownMenuPortal,
 	DropdownMenuRadioGroup,
 	DropdownMenuRadioItem,
 	DropdownMenuSeparator,
@@ -111,24 +110,22 @@ export default function Page() {
 								<DropdownMenuItem>Team</DropdownMenuItem>
 								<DropdownMenuSub>
 									<DropdownMenuSubTrigger>Invite users</DropdownMenuSubTrigger>
-									<DropdownMenuPortal>
-										<DropdownMenuSubContent>
-											<DropdownMenuItem>Email</DropdownMenuItem>
-											<DropdownMenuItem>Message</DropdownMenuItem>
-											<DropdownMenuItem>Email</DropdownMenuItem>
-											<DropdownMenuItem>Email</DropdownMenuItem>
-											<DropdownMenuItem>Email</DropdownMenuItem>
-											<DropdownMenuItem>Email</DropdownMenuItem>
-											<DropdownMenuItem>Email</DropdownMenuItem>
-											<DropdownMenuItem>Email</DropdownMenuItem>
-											<DropdownMenuItem>Email</DropdownMenuItem>
-											<DropdownMenuItem>Email</DropdownMenuItem>
-											<DropdownMenuItem>Email</DropdownMenuItem>
-											<DropdownMenuItem>Email</DropdownMenuItem>
-											<DropdownMenuSeparator />
-											<DropdownMenuItem>More...</DropdownMenuItem>
-										</DropdownMenuSubContent>
-									</DropdownMenuPortal>
+									<DropdownMenuSubContent>
+										<DropdownMenuItem>Email</DropdownMenuItem>
+										<DropdownMenuItem>Message</DropdownMenuItem>
+										<DropdownMenuItem>Email</DropdownMenuItem>
+										<DropdownMenuItem>Email</DropdownMenuItem>
+										<DropdownMenuItem>Email</DropdownMenuItem>
+										<DropdownMenuItem>Email</DropdownMenuItem>
+										<DropdownMenuItem>Email</DropdownMenuItem>
+										<DropdownMenuItem>Email</DropdownMenuItem>
+										<DropdownMenuItem>Email</DropdownMenuItem>
+										<DropdownMenuItem>Email</DropdownMenuItem>
+										<DropdownMenuItem>Email</DropdownMenuItem>
+										<DropdownMenuItem>Email</DropdownMenuItem>
+										<DropdownMenuSeparator />
+										<DropdownMenuItem>More...</DropdownMenuItem>
+									</DropdownMenuSubContent>
 								</DropdownMenuSub>
 								<DropdownMenuItem>
 									New Team
