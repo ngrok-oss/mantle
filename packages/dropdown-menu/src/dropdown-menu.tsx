@@ -169,7 +169,9 @@ const DropdownMenuLabel = forwardRef<
 DropdownMenuLabel.displayName = "DropdownMenuLabel";
 
 const DropdownMenuSeparator = forwardRef<ElementRef<typeof Separator>, ComponentPropsWithoutRef<typeof Separator>>(
-	({ className, ...props }, ref) => <Separator ref={ref} className={cx("-mx-2 my-1 w-auto", className)} {...props} />,
+	({ className, ...props }, ref) => (
+		<Separator ref={ref} className={cx("-mx-1.25 my-1 w-auto", className)} {...props} />
+	),
 );
 DropdownMenuSeparator.displayName = "DropdownMenuSeparator";
 
