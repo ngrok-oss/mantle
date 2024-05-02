@@ -1,10 +1,10 @@
 import {
 	CodeBlock,
 	CodeBlockBody,
-	CodeBlockCode,
 	CodeBlockCopyButton,
 	CodeBlockExpanderButton,
 	CodeBlockHeader,
+	CodeBlockPre,
 	CodeBlockTitle,
 	fmtCode,
 } from "@/code-block";
@@ -52,7 +52,7 @@ export default function Page() {
 					</CodeBlockHeader>
 					<CodeBlockBody>
 						<CodeBlockCopyButton />
-						<CodeBlockCode
+						<CodeBlockPre
 							language="tsx"
 							value={fmtCode`
 							import { MantleThemeHeadContent, ThemeProvider } from "@ngrok/mantle/theme-provider";
@@ -95,7 +95,7 @@ export default function Page() {
 					</CodeBlockHeader>
 					<CodeBlockBody>
 						<CodeBlockCopyButton />
-						<CodeBlockCode
+						<CodeBlockPre
 							language="html"
 							value={fmtCode`<script>
 ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
@@ -116,7 +116,7 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 					</CodeBlockHeader>
 					<CodeBlockBody>
 						<CodeBlockCopyButton />
-						<CodeBlockCode
+						<CodeBlockPre
 							language="html"
 							value={fmtCode`<head>\n\t${renderToStaticMarkup(<PreloadFonts />)
 								.split("/><")
@@ -135,7 +135,7 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 					</CodeBlockHeader>
 					<CodeBlockBody>
 						<CodeBlockCopyButton />
-						<CodeBlockCode
+						<CodeBlockPre
 							language="tsx"
 							value={fmtCode`
 							import {

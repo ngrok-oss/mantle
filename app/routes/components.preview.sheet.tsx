@@ -1,5 +1,5 @@
 import { Button } from "@/button";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
+import { CodeBlock, CodeBlockBody, CodeBlockCopyButton, CodeBlockPre, fmtCode } from "@/code-block";
 import {
 	Sheet,
 	SheetBody,
@@ -105,7 +105,7 @@ export default function Page() {
 				<CodeBlock className="rounded-b-lg rounded-t-none">
 					<CodeBlockBody>
 						<CodeBlockCopyButton />
-						<CodeBlockCode
+						<CodeBlockPre
 							language="tsx"
 							value={fmtCode`
 							import {

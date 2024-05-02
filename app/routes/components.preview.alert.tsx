@@ -1,6 +1,6 @@
 import { Alert, AlertContent, AlertDescription, AlertTitle } from "@/alert";
 import { Card, CardBody } from "@/card";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
+import { CodeBlock, CodeBlockBody, CodeBlockCopyButton, CodeBlockPre, fmtCode } from "@/code-block";
 import { InlineCode } from "@/inline-code";
 import { CheckCircle } from "@phosphor-icons/react/CheckCircle";
 import { Info } from "@phosphor-icons/react/Info";
@@ -83,7 +83,7 @@ export default function Page() {
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
 							<CodeBlockCopyButton />
-							<CodeBlockCode
+							<CodeBlockPre
 								language="tsx"
 								value={fmtCode`
 									import { Alert, AlertContent, AlertDescription, AlertTitle } from "@ngrok/mantle/alert";
@@ -192,7 +192,7 @@ export default function Page() {
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
 							<CodeBlockCopyButton />
-							<CodeBlockCode
+							<CodeBlockPre
 								language="tsx"
 								value={fmtCode`
 									import { Alert, AlertContent, AlertDescription, AlertTitle } from "@ngrok/mantle/alert";
@@ -263,7 +263,7 @@ export default function Page() {
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
 							<CodeBlockCopyButton />
-							<CodeBlockCode
+							<CodeBlockPre
 								language="tsx"
 								value={fmtCode`
 									import { Alert, AlertContent, AlertTitle } from "@ngrok/mantle/alert";

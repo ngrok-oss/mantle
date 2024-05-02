@@ -1,6 +1,6 @@
 import { Anchor } from "@/anchor";
 import { IconButton } from "@/button";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
+import { CodeBlock, CodeBlockBody, CodeBlockCopyButton, CodeBlockPre, fmtCode } from "@/code-block";
 import { InlineCode } from "@/inline-code";
 import { Globe } from "@phosphor-icons/react/Globe";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
@@ -69,7 +69,7 @@ export default function Page() {
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
 							<CodeBlockCopyButton />
-							<CodeBlockCode
+							<CodeBlockPre
 								language="tsx"
 								value={fmtCode`
 									import { IconButton } from "@ngrok/mantle/button";
@@ -119,7 +119,7 @@ export default function Page() {
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
 							<CodeBlockCopyButton />
-							<CodeBlockCode
+							<CodeBlockPre
 								language="tsx"
 								value={fmtCode`
 									import { IconButton } from "@ngrok/mantle/button";
@@ -156,7 +156,7 @@ export default function Page() {
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
 							<CodeBlockCopyButton />
-							<CodeBlockCode
+							<CodeBlockPre
 								language="tsx"
 								value={fmtCode`
 									import { IconButton } from "@ngrok/mantle/button";

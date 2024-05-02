@@ -1,5 +1,5 @@
 import { Anchor } from "@/anchor";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
+import { CodeBlock, CodeBlockBody, CodeBlockCopyButton, CodeBlockPre, fmtCode } from "@/code-block";
 import { InlineCode } from "@/inline-code";
 import { PasswordInput } from "@/input";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
@@ -49,7 +49,7 @@ export default function Page() {
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
 							<CodeBlockCopyButton />
-							<CodeBlockCode
+							<CodeBlockPre
 								language="tsx"
 								value={fmtCode`
 									import { PasswordInput } from "@ngrok/mantle/input";

@@ -1,5 +1,5 @@
 import { Anchor } from "@/anchor";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, CodeBlockHeader, fmtCode } from "@/code-block";
+import { CodeBlock, CodeBlockBody, CodeBlockCopyButton, CodeBlockHeader, CodeBlockPre, fmtCode } from "@/code-block";
 import { InlineCode } from "@/inline-code";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/table";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
@@ -75,7 +75,7 @@ export default function Page() {
 								<CodeBlock>
 									<CodeBlockBody>
 										<CodeBlockCopyButton />
-										<CodeBlockCode language="sh" value={fmtCode`npm install -E @ngrok/mantle`} />
+										<CodeBlockPre language="sh" value={fmtCode`npm install -E @ngrok/mantle`} />
 									</CodeBlockBody>
 								</CodeBlock>
 							</TableCell>
@@ -86,7 +86,7 @@ export default function Page() {
 								<CodeBlock>
 									<CodeBlockBody>
 										<CodeBlockCopyButton />
-										<CodeBlockCode language="sh" value={fmtCode`yarn add -E @ngrok/mantle`} />
+										<CodeBlockPre language="sh" value={fmtCode`yarn add -E @ngrok/mantle`} />
 									</CodeBlockBody>
 								</CodeBlock>
 							</TableCell>
@@ -97,7 +97,7 @@ export default function Page() {
 								<CodeBlock>
 									<CodeBlockBody>
 										<CodeBlockCopyButton />
-										<CodeBlockCode language="sh" value={fmtCode`pnpm add -E @ngrok/mantle`} />
+										<CodeBlockPre language="sh" value={fmtCode`pnpm add -E @ngrok/mantle`} />
 									</CodeBlockBody>
 								</CodeBlock>
 							</TableCell>
@@ -108,7 +108,7 @@ export default function Page() {
 								<CodeBlock>
 									<CodeBlockBody>
 										<CodeBlockCopyButton />
-										<CodeBlockCode language="sh" value={fmtCode`bun add -E @ngrok/mantle`} />
+										<CodeBlockPre language="sh" value={fmtCode`bun add -E @ngrok/mantle`} />
 									</CodeBlockBody>
 								</CodeBlock>
 							</TableCell>
@@ -127,7 +127,7 @@ export default function Page() {
 					<CodeBlockHeader>tailwind.config.ts</CodeBlockHeader>
 					<CodeBlockBody>
 						<CodeBlockCopyButton />
-						<CodeBlockCode
+						<CodeBlockPre
 							language="ts"
 							value={fmtCode`
 							import { mantlePreset } from "@ngrok/mantle/tailwind-preset";
@@ -153,7 +153,7 @@ export default function Page() {
 					<CodeBlockHeader>root.tsx</CodeBlockHeader>
 					<CodeBlockBody>
 						<CodeBlockCopyButton />
-						<CodeBlockCode
+						<CodeBlockPre
 							language="tsx"
 							value={fmtCode`
 							import { StrictMode } from "react";

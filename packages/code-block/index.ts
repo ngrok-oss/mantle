@@ -1,7 +1,7 @@
 export {
 	CodeBlock,
 	CodeBlockBody,
-	CodeBlockCode,
+	CodeBlockPre,
 	CodeBlockCopyButton,
 	CodeBlockExpanderButton,
 	CodeBlockHeader,
