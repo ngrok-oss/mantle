@@ -1,33 +1,17 @@
-import { Slot } from "@radix-ui/react-slot";
-import Prism from "prismjs";
-import { createContext, forwardRef, useContext, useEffect, useId, useMemo, useState } from "react";
-import type { Dispatch, HTMLAttributes, SetStateAction } from "react";
-import "prismjs/components/prism-bash.js";
-import "prismjs/components/prism-bash.js";
-import "prismjs/components/prism-csharp.js";
-import "prismjs/components/prism-css.js";
-import "prismjs/components/prism-go.js";
-import "prismjs/components/prism-java.js";
-import "prismjs/components/prism-javascript.js";
-import "prismjs/components/prism-json.js";
-import "prismjs/components/prism-jsx.js";
-import "prismjs/components/prism-markup.js";
-import "prismjs/components/prism-python.js";
-import "prismjs/components/prism-ruby.js";
-import "prismjs/components/prism-rust.js";
-import "prismjs/components/prism-tsx.js";
-import "prismjs/components/prism-typescript.js";
-import "prismjs/components/prism-yaml.js";
 import { CaretDown } from "@phosphor-icons/react/CaretDown";
 import { Check } from "@phosphor-icons/react/Check";
 import { Copy } from "@phosphor-icons/react/Copy";
+import { Slot } from "@radix-ui/react-slot";
 import { useCopyToClipboard } from "@uidotdev/usehooks";
+import { createContext, forwardRef, useContext, useEffect, useId, useMemo, useState } from "react";
+import type { Dispatch, HTMLAttributes, SetStateAction } from "react";
 import assert from "tiny-invariant";
 import { cx } from "../../cx";
 import type { WithStyleProps } from "../../types/src/with-style-props";
 import type { LineRange } from "./line-numbers";
-import { formatLanguageClassName, supportedLanguages } from "./supported-languages";
+import { formatLanguageClassName } from "./supported-languages";
 import type { SupportedLanguage } from "./supported-languages";
+import { syntaxHighlight } from "./syntax-highlight";
 
 /**
  * TODO(cody):
@@ -139,17 +123,10 @@ const CodeBlockCode = forwardRef<HTMLPreElement, CodeBlockCodeProps>((props, ref
 
 	// trim any leading and trailing whitespace/empty lines
 	const trimmedCode = value?.trim() ?? "";
-	const [highlightedCodeInnerHtml, setHighlightedCodeInnerHtml] = useState(trimmedCode);
-
-	useEffect(() => {
-		const grammar = Prism.languages[language];
-		assert(
-			grammar,
-			`CodeBlock does not support the language "${language}". The syntax highlighter does not have a grammar for this language. The supported languages are: ${supportedLanguages.join(", ")}.`,
-		);
-		const newHighlightedCodeInnerHtml = Prism.highlight(trimmedCode, grammar, language);
-		setHighlightedCodeInnerHtml(newHighlightedCodeInnerHtml);
-	}, [trimmedCode, language]);
+	const highlightedCodeInnerHtml = useMemo(
+		() => syntaxHighlight({ value: trimmedCode, language }),
+		[trimmedCode, language],
+	);
 
 	useEffect(() => {
 		setCopyText(trimmedCode);
