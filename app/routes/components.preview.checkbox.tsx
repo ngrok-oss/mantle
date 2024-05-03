@@ -1,5 +1,5 @@
 import { Checkbox } from "@/checkbox";
-import { CodeBlock, CodeBlockBody, CodeBlockCopyButton, CodeBlockPre, fmtCode } from "@/code-block";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 import { PreviewBadge } from "~/components/preview-badge";
@@ -64,7 +64,7 @@ export default function Page() {
 				<CodeBlock className="rounded-b-lg rounded-t-none">
 					<CodeBlockBody>
 						<CodeBlockCopyButton />
-						<CodeBlockPre
+						<CodeBlockCode
 							language="tsx"
 							value={fmtCode`
 							import { Checkbox } from "@ngrok/mantle/checkbox";

@@ -59,7 +59,7 @@ const CodeBlock = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ 
 				isCodeExpanded,
 				registerCodeId: (id) => {
 					setCodeId((old) => {
-						assert(old == null, "You can only render a single CodeBlockPre within a CodeBlock.");
+						assert(old == null, "You can only render a single CodeBlockCode within a CodeBlock.");
 						return id;
 					});
 				},
@@ -68,7 +68,7 @@ const CodeBlock = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ 
 				setIsCodeExpanded,
 				unregisterCodeId: (id) => {
 					setCodeId((old) => {
-						assert(old === id, "You can only render a single CodeBlockPre within a CodeBlock.");
+						assert(old === id, "You can only render a single CodeBlockCode within a CodeBlock.");
 						return undefined;
 					});
 				},
@@ -96,7 +96,7 @@ const CodeBlockBody = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>
 ));
 CodeBlockBody.displayName = "CodeBlockBody";
 
-type CodeBlockPreProps = WithStyleProps & {
+type CodeBlockCodeProps = WithStyleProps & {
 	/**
 	 * The code to display in the code block. Should be code formatted as a string. This code will be passed to our syntax highlighter.
 	 */
@@ -115,7 +115,7 @@ type CodeBlockPreProps = WithStyleProps & {
 	showLineNumbers?: boolean;
 };
 
-const CodeBlockPre = forwardRef<HTMLPreElement, CodeBlockPreProps>((props, ref) => {
+const CodeBlockCode = forwardRef<HTMLPreElement, CodeBlockCodeProps>((props, ref) => {
 	const { className, language = "text", style, value } = props;
 	const id = useId();
 	const { hasCodeExpander, isCodeExpanded, registerCodeId, setCopyText, unregisterCodeId } =
@@ -162,7 +162,7 @@ const CodeBlockPre = forwardRef<HTMLPreElement, CodeBlockPreProps>((props, ref) 
 		</pre>
 	);
 });
-CodeBlockPre.displayName = "CodeBlockPre";
+CodeBlockCode.displayName = "CodeBlockCode";
 
 const CodeBlockHeader = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
 	<div
@@ -293,7 +293,7 @@ CodeBlockExpanderButton.displayName = "CodeBlockExpanderButton";
 export {
 	CodeBlock,
 	CodeBlockBody,
-	CodeBlockPre,
+	CodeBlockCode,
 	CodeBlockCopyButton,
 	CodeBlockExpanderButton,
 	CodeBlockHeader,

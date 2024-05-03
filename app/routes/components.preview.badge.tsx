@@ -1,6 +1,6 @@
 import { Anchor } from "@/anchor";
 import { Badge } from "@/badge";
-import { CodeBlock, CodeBlockBody, CodeBlockCopyButton, CodeBlockPre, fmtCode } from "@/code-block";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import { colors } from "@/color";
 import { InlineCode } from "@/inline-code";
 import { GlobeHemisphereWest } from "@phosphor-icons/react/GlobeHemisphereWest";
@@ -62,7 +62,7 @@ export default function Page() {
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
 							<CodeBlockCopyButton />
-							<CodeBlockPre
+							<CodeBlockCode
 								language="tsx"
 								value={fmtCode`
 									import { Badge } from "@ngrok/mantle/badge";

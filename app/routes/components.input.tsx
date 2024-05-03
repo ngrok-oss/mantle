@@ -2,9 +2,9 @@ import { Anchor } from "@/anchor";
 import {
 	CodeBlock,
 	CodeBlockBody,
+	CodeBlockCode,
 	CodeBlockCopyButton,
 	CodeBlockExpanderButton,
-	CodeBlockPre,
 	fmtCode,
 } from "@/code-block";
 import { InlineCode } from "@/inline-code";
@@ -60,7 +60,7 @@ export default function Page() {
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
 							<CodeBlockCopyButton />
-							<CodeBlockPre
+							<CodeBlockCode
 								language="tsx"
 								value={fmtCode`
 									import { Input } from "@ngrok/mantle/input";
@@ -144,7 +144,7 @@ export default function Page() {
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
 							<CodeBlockCopyButton />
-							<CodeBlockPre
+							<CodeBlockCode
 								language="tsx"
 								value={fmtCode`
 									import { Input, InputCapture } from "@ngrok/mantle/input";

@@ -1,7 +1,7 @@
 export {
 	CodeBlock,
 	CodeBlockBody,
-	CodeBlockPre,
+	CodeBlockCode,
 	CodeBlockCopyButton,
 	CodeBlockExpanderButton,
 	CodeBlockHeader,
@@ -17,4 +17,5 @@ export {
 	parseLanguage,
 	supportedLanguages,
 } from "./src/supported-languages";
+export { syntaxHighlight } from "./src/syntax-highlight";
 export type { SupportedLanguage } from "./src/supported-languages";

@@ -1,5 +1,5 @@
 import { Card, CardBody, CardFooter, CardHeader, CardTitle } from "@/card";
-import { CodeBlock, CodeBlockBody, CodeBlockCopyButton, CodeBlockPre, fmtCode } from "@/code-block";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 
@@ -40,7 +40,7 @@ export default function Page() {
 			<CodeBlock className="rounded-b-lg rounded-t-none">
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
-					<CodeBlockPre
+					<CodeBlockCode
 						language="tsx"
 						value={fmtCode`
 							import { Card, CardBody, CardFooter, CardHeader, CardTitle } from "@ngrok/mantle/card";

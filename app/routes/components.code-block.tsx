@@ -1,10 +1,10 @@
 import {
 	CodeBlock,
 	CodeBlockBody,
+	CodeBlockCode,
 	CodeBlockCopyButton,
 	CodeBlockExpanderButton,
 	CodeBlockHeader,
-	CodeBlockPre,
 	CodeBlockTitle,
 	fmtCode,
 	supportedLanguages,
@@ -48,7 +48,7 @@ export default function Page() {
 					</CodeBlockHeader>
 					<CodeBlockBody>
 						<CodeBlockCopyButton />
-						<CodeBlockPre
+						<CodeBlockCode
 							language="js"
 							value={fmtCode`
 								const listener = await ngrok.connect({
@@ -102,13 +102,13 @@ export default function Page() {
 			<CodeBlock className="rounded-b-lg rounded-t-none">
 				<CodeBlockBody>
 					<CodeBlockCopyButton />
-					<CodeBlockPre
+					<CodeBlockCode
 						language="tsx"
 						value={fmtCode`
 							import {
 								CodeBlock,
 								CodeBlockBody,
-								CodeBlockPre,
+								CodeBlockCode,
 								CodeBlockCopyButton,
 								CodeBlockExpanderButton,
 								CodeBlockHeader,
@@ -123,7 +123,7 @@ export default function Page() {
 								</CodeBlockHeader>
 								<CodeBlockBody>
 									<CodeBlockCopyButton />
-									<CodeBlockPre language="…" value={fmtCode\`…\`} />
+									<CodeBlockCode language="…" value={fmtCode\`…\`} />
 								</CodeBlockBody>
 								<CodeBlockExpanderButton />
 							</CodeBlock>
@@ -147,7 +147,7 @@ export default function Page() {
 						</CodeBlockHeader>
 						<CodeBlockBody>
 							<CodeBlockCopyButton />
-							<CodeBlockPre
+							<CodeBlockCode
 								language="sh"
 								value={fmtCode`sudo unzip ~/Downloads/ngrok-v3-stable-darwin.zip -d /usr/local/bin`}
 							/>
@@ -157,7 +157,7 @@ export default function Page() {
 				<CodeBlock className="rounded-b-lg rounded-t-none">
 					<CodeBlockBody>
 						<CodeBlockCopyButton />
-						<CodeBlockPre
+						<CodeBlockCode
 							language="tsx"
 							value={fmtCode`
 								<CodeBlock>
@@ -167,7 +167,7 @@ export default function Page() {
 									</CodeBlockHeader>
 									<CodeBlockBody>
 										<CodeBlockCopyButton />
-										<CodeBlockPre language="sh" value={fmtCode\`sudo unzip ~/Downloads/ngrok-v3-stable-darwin.zip -d /usr/local/bin\`} />
+										<CodeBlockCode language="sh" value={fmtCode\`sudo unzip ~/Downloads/ngrok-v3-stable-darwin.zip -d /usr/local/bin\`} />
 									</CodeBlockBody>
 								</CodeBlock>
 							`}
@@ -190,7 +190,7 @@ export default function Page() {
 						</CodeBlockHeader>
 						<CodeBlockBody>
 							<CodeBlockCopyButton />
-							<CodeBlockPre
+							<CodeBlockCode
 								language="js"
 								value={fmtCode`
 									const http = require('http');
@@ -217,7 +217,7 @@ export default function Page() {
 				<CodeBlock className="rounded-b-lg rounded-t-none">
 					<CodeBlockBody>
 						<CodeBlockCopyButton />
-						<CodeBlockPre
+						<CodeBlockCode
 							language="tsx"
 							value={fmtCode`
 								<CodeBlock>
@@ -227,7 +227,7 @@ export default function Page() {
 									</CodeBlockHeader>
 									<CodeBlockBody>
 										<CodeBlockCopyButton />
-										<CodeBlockPre
+										<CodeBlockCode
 											language="js"
 											value={fmtCode\`
 												const http = require('http');
@@ -268,7 +268,7 @@ export default function Page() {
 				<Example className="mt-4">
 					<CodeBlock>
 						<CodeBlockBody>
-							<CodeBlockPre
+							<CodeBlockCode
 								language="js"
 								value={fmtCode`
 									const http = require('http');
@@ -289,12 +289,12 @@ export default function Page() {
 				<CodeBlock className="rounded-b-lg rounded-t-none">
 					<CodeBlockBody>
 						<CodeBlockCopyButton />
-						<CodeBlockPre
+						<CodeBlockCode
 							language="tsx"
 							value={fmtCode`
 								<CodeBlock>
 									<CodeBlockBody>
-										<CodeBlockPre
+										<CodeBlockCode
 											language="js"
 											value={fmtCode\`
 												const http = require('http');
@@ -328,7 +328,7 @@ export default function Page() {
 					<CodeBlock>
 						<CodeBlockBody>
 							<CodeBlockCopyButton />
-							<CodeBlockPre
+							<CodeBlockCode
 								language="sh"
 								value={fmtCode`ffmpeg -i multichannel.mxf -map 0:v:0 -map 0:a:0 -map 0:a:0 -c:a:0 ac3 -b:a:0 640k -ac:a:1 2 -c:a:1 aac -b:2 128k out.mp4`}
 							/>
@@ -338,13 +338,13 @@ export default function Page() {
 				<CodeBlock className="rounded-b-lg rounded-t-none">
 					<CodeBlockBody>
 						<CodeBlockCopyButton />
-						<CodeBlockPre
+						<CodeBlockCode
 							language="tsx"
 							value={fmtCode`
 							<CodeBlock>
 								<CodeBlockBody>
 									<CodeBlockCopyButton />
-									<CodeBlockPre
+									<CodeBlockCode
 										language="sh"
 										value={fmtCode\`ffmpeg -i multichannel.mxf -map 0:v:0 -map 0:a:0 -map 0:a:0 -c:a:0 ac3 -b:a:0 640k -ac:a:1 2 -c:a:1 aac -b:2 128k out.mp4\`}
 									/>
