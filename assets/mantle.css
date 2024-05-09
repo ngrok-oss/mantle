@@ -1484,6 +1484,10 @@
 	strong {
 		@apply font-medium;
 	}
+
+	th {
+		text-align: inherit;
+	}
 }
 
 @layer utilities {
