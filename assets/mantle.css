@@ -1484,6 +1484,10 @@
 	strong {
 		@apply font-medium;
 	}
+
+	th {
+		text-align: inherit;
+	}
 }
 
 @layer utilities {
@@ -1522,7 +1526,7 @@
 	}
 
 	.scrollbar {
-		scrollbar-color: hsl(var(--gray-600) / 0.5) transparent;
+		scrollbar-color: hsl(var(--gray-800) / 0.5) transparent;
 		scrollbar-width: thin;
 	}
 }
