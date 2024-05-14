@@ -426,7 +426,7 @@ const mantlePreset = {
 			},
 			fontFamily: {
 				sans: ["EuclidSquare", ...defaultTheme.fontFamily.sans],
-				mono: ["IBMPlexMono", ...defaultTheme.fontFamily.mono],
+				mono: ["Courier Prime Code", ...defaultTheme.fontFamily.mono],
 			},
 			fontSize: {
 				"size-inherit": "inherit",

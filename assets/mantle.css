@@ -1477,6 +1477,13 @@
 }
 
 @layer base {
+	@font-face {
+		font-family: 'Courier Prime Code';
+		src: url('courier_prime_code-webfont.woff2') format('woff2'), url('courier_prime_code-webfont.woff') format('woff');
+		font-weight: normal;
+		font-style: normal;
+	}
+
 	body {
 		@apply bg-white text-gray-900;
 	}
@@ -1491,6 +1498,10 @@
 }
 
 @layer utilities {
+	.courier-prime-code {
+		font-family: "Courier Prime Code Regular", monospace;
+	}
+
 	.light {
 		color-scheme: light;
 	}

@@ -20,7 +20,7 @@ const textAreaVariants = cva(
 			 * The visual style of the textarea.
 			 */
 			appearance: {
-				monospaced: "font-mono text-[0.9375rem] sm:text-[0.8125rem]",
+				monospaced: "font-mono",
 			},
 		},
 		defaultVariants: {

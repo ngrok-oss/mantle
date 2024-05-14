@@ -95,10 +95,7 @@ const CodeBlock = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ 
 	return (
 		<CodeBlockContext.Provider value={context}>
 			<div
-				className={cx(
-					"overflow-hidden rounded-md border border-gray-300 bg-gray-50 font-mono text-[0.8125rem]",
-					className,
-				)}
+				className={cx("overflow-hidden rounded-md border border-gray-300 bg-gray-50 font-mono text-sm", className)}
 				ref={ref}
 				{...props}
 			/>
@@ -199,7 +196,7 @@ CodeBlockHeader.displayName = "CodeBlockHeader";
 const CodeBlockTitle = forwardRef<HTMLHeadingElement, HTMLAttributes<HTMLHeadingElement> & { asChild?: boolean }>(
 	({ asChild = false, className, ...props }, ref) => {
 		const Comp = asChild ? Slot : "h3";
-		return <Comp ref={ref} className={cx("font-mono text-[0.8125rem] font-normal", className)} {...props} />;
+		return <Comp ref={ref} className={cx("font-mono font-normal", className)} {...props} />;
 	},
 );
 CodeBlockTitle.displayName = "CodeBlockTitle";
