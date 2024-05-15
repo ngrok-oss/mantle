@@ -2,14 +2,14 @@ import { CircleNotch } from "@phosphor-icons/react/CircleNotch";
 import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
 import { Children, cloneElement, forwardRef, isValidElement } from "react";
-import type { ButtonHTMLAttributes, ReactNode } from "react";
+import type { ButtonHTMLAttributes, MouseEvent, ReactNode } from "react";
 import { cx } from "../../cx";
 import { Icon } from "../../icon";
 import type { VariantProps, WithAsChild } from "../../types";
 import { parseBooleanish } from "./parse-booleanish";
 
 const iconButtonVariants = cva(
-	"inline-flex items-center justify-center rounded-md border focus-within:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50 aria-disabled:opacity-50",
+	"inline-flex cursor-pointer items-center justify-center rounded-md border focus-within:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50 aria-disabled:opacity-50",
 	{
 		variants: {
 			/**
@@ -65,14 +65,13 @@ type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
 		icon: ReactNode;
 		/**
 		 * The default behavior of the button. Possible values are: `"button"`, `"submit"`, and `"reset"`.
-		 * Unlike the native `<button>` element, this prop defaults to `"button"`.
+		 * Unlike the native `<button>` element, this prop is required and has no default value.
 		 * - `"button"`: The button has no default behavior, and does nothing when pressed by default. It can have client-side scripts listen to the element's events, which are triggered when the events occur.
 		 * - `"reset"`: The button resets all the controls to their initial values.
 		 * - `"submit"`: The button submits the form data to the server.
 		 * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#type
-		 * @default "button"
 		 */
-		type?: ButtonHTMLAttributes<HTMLButtonElement>["type"];
+		type: Exclude<ButtonHTMLAttributes<HTMLButtonElement>["type"], undefined>;
 	};
 
 /**
@@ -93,36 +92,41 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 			children,
 			className,
 			disabled,
-			isLoading = false,
 			icon: propIcon,
+			isLoading = false,
 			label,
+			onClick: propsOnClick,
 			size,
-			type = "button",
 			...props
 		},
 		ref,
 	) => {
 		const ariaDisabled = parseBooleanish(_ariaDisabled ?? disabled ?? isLoading);
+		const icon = isLoading ? <CircleNotch className="animate-spin" /> : propIcon;
+
+		const onClick = (event: MouseEvent<HTMLButtonElement>) => {
+			if (ariaDisabled) {
+				event.preventDefault();
+				return;
+			}
+			propsOnClick?.(event);
+		};
 
 		const buttonProps = {
 			"aria-disabled": ariaDisabled,
 			className: cx(iconButtonVariants({ appearance, isLoading, size }), className),
-			disabled: ariaDisabled,
 			"data-loading": isLoading,
+			onClick,
 			ref,
-			type,
 			...props,
 		};
 
 		if (asChild) {
 			const singleChild = Children.only(children);
 			const isValidChild = isValidElement(singleChild);
-			const icon = isLoading ? <CircleNotch className="animate-spin" /> : propIcon;
 
 			return <Slot {...buttonProps}>{isValidChild && cloneElement(singleChild, {}, <Icon svg={icon} />)}</Slot>;
 		}
-
-		const icon = isLoading ? <CircleNotch className="animate-spin" /> : propIcon;
 
 		return (
 			<button {...buttonProps}>

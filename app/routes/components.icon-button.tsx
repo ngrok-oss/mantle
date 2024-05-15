@@ -47,22 +47,22 @@ export default function Page() {
 						<div>
 							<p className="mb-2 text-center font-mono text-xs">Size xs</p>
 							<div className="flex items-center gap-2">
-								<IconButton appearance="ghost" label="prestige worldwide" size="xs" icon={<Globe />} />
-								<IconButton appearance="outlined" label="prestige worldwide" size="xs" icon={<Globe />} />
+								<IconButton type="button" appearance="ghost" label="prestige worldwide" size="xs" icon={<Globe />} />
+								<IconButton type="button" appearance="outlined" label="prestige worldwide" size="xs" icon={<Globe />} />
 							</div>
 						</div>
 						<div>
 							<p className="mb-2 text-center font-mono text-xs">Size sm</p>
 							<div className="flex items-center gap-2">
-								<IconButton appearance="ghost" label="prestige worldwide" size="sm" icon={<Globe />} />
-								<IconButton appearance="outlined" label="prestige worldwide" size="sm" icon={<Globe />} />
+								<IconButton type="button" appearance="ghost" label="prestige worldwide" size="sm" icon={<Globe />} />
+								<IconButton type="button" appearance="outlined" label="prestige worldwide" size="sm" icon={<Globe />} />
 							</div>
 						</div>
 						<div>
 							<p className="mb-2 text-center font-mono text-xs">Size md</p>
 							<div className="flex items-center gap-2">
-								<IconButton appearance="ghost" label="prestige worldwide" icon={<Globe />} />
-								<IconButton appearance="outlined" label="prestige worldwide" icon={<Globe />} />
+								<IconButton type="button" appearance="ghost" label="prestige worldwide" icon={<Globe />} />
+								<IconButton type="button" appearance="outlined" label="prestige worldwide" icon={<Globe />} />
 							</div>
 						</div>
 					</Example>
@@ -75,14 +75,14 @@ export default function Page() {
 									import { IconButton } from "@ngrok/mantle/button";
 									import { Fire } from "@phosphor-icons/react";
 
-									<IconButton appearance="ghost" label="prestige worldwide" size="xs" icon={<Globe />} />
-									<IconButton appearance="outlined" label="prestige worldwide" size="xs" icon={<Globe />} />
+									<IconButton type="button" appearance="ghost" label="prestige worldwide" size="xs" icon={<Globe />} />
+									<IconButton type="button" appearance="outlined" label="prestige worldwide" size="xs" icon={<Globe />} />
 
-									<IconButton appearance="ghost" label="prestige worldwide" size="sm" icon={<Globe />} />
-									<IconButton appearance="outlined" label="prestige worldwide" size="sm" icon={<Globe />} />
+									<IconButton type="button" appearance="ghost" label="prestige worldwide" size="sm" icon={<Globe />} />
+									<IconButton type="button" appearance="outlined" label="prestige worldwide" size="sm" icon={<Globe />} />
 
-									<IconButton appearance="ghost" label="prestige worldwide" size="md" icon={<Globe />} />
-									<IconButton appearance="outlined" label="prestige worldwide" size="md" icon={<Globe />} />
+									<IconButton type="button" appearance="ghost" label="prestige worldwide" size="md" icon={<Globe />} />
+									<IconButton type="button" appearance="outlined" label="prestige worldwide" size="md" icon={<Globe />} />
 								`}
 							/>
 						</CodeBlockBody>
@@ -104,15 +104,15 @@ export default function Page() {
 						<div>
 							<p className="mb-2 text-center font-mono text-xs">idle</p>
 							<div className="flex items-center gap-2">
-								<IconButton appearance="ghost" label="prestige worldwide" icon={<Globe />} />
-								<IconButton appearance="outlined" label="prestige worldwide" icon={<Globe />} />
+								<IconButton type="button" appearance="ghost" label="prestige worldwide" icon={<Globe />} />
+								<IconButton type="button" appearance="outlined" label="prestige worldwide" icon={<Globe />} />
 							</div>
 						</div>
 						<div>
 							<p className="mb-2 text-center font-mono text-xs">isLoading</p>
 							<div className="flex items-center gap-2">
-								<IconButton appearance="ghost" label="prestige worldwide" isLoading icon={<Globe />} />
-								<IconButton appearance="outlined" label="prestige worldwide" isLoading icon={<Globe />} />
+								<IconButton type="button" appearance="ghost" label="prestige worldwide" isLoading icon={<Globe />} />
+								<IconButton type="button" appearance="outlined" label="prestige worldwide" isLoading icon={<Globe />} />
 							</div>
 						</div>
 					</Example>
@@ -125,11 +125,11 @@ export default function Page() {
 									import { IconButton } from "@ngrok/mantle/button";
 									import { Fire } from "@phosphor-icons/react";
 
-									<IconButton appearance="ghost" label="prestige worldwide" icon={<Globe />} />
-									<IconButton appearance="outlined" label="prestige worldwide" icon={<Globe />} />
+									<IconButton type="button" appearance="ghost" label="prestige worldwide" icon={<Globe />} />
+									<IconButton type="button" appearance="outlined" label="prestige worldwide" icon={<Globe />} />
 
-									<IconButton appearance="ghost" label="prestige worldwide" isLoading icon={<Globe />} />
-									<IconButton appearance="outlined" label="prestige worldwide" isLoading icon={<Globe />} />
+									<IconButton type="button" appearance="ghost" label="prestige worldwide" isLoading icon={<Globe />} />
+									<IconButton type="button" appearance="outlined" label="prestige worldwide" isLoading icon={<Globe />} />
 								`}
 							/>
 						</CodeBlockBody>
@@ -149,7 +149,7 @@ export default function Page() {
 				</p>
 				<div>
 					<Example>
-						<IconButton appearance="outlined" asChild label="prestige worldwide" icon={<Globe />}>
+						<IconButton type="button" appearance="outlined" asChild label="prestige worldwide" icon={<Globe />}>
 							<Link to={route("/base/colors")} />
 						</IconButton>
 					</Example>
@@ -163,7 +163,7 @@ export default function Page() {
 									import { Fire } from "@phosphor-icons/react";
 									import { Link } from "react-router-dom";
 
-									<IconButton appearance="outlined" asChild label="prestige worldwide" icon={<Globe />}>
+									<IconButton type="button"  appearance="outlined" asChild label="prestige worldwide" icon={<Globe />}>
 										<Link to={route("/base/colors")} />
 									</IconButton>
 								`}
@@ -275,7 +275,7 @@ export default function Page() {
 						</PropDescriptionCell>
 					</PropRow>
 					<PropRow>
-						<PropNameCell name="type" optional />
+						<PropNameCell name="type" />
 						<PropTypeCell>
 							<ul>
 								<li>
@@ -289,13 +289,12 @@ export default function Page() {
 								</li>
 							</ul>
 						</PropTypeCell>
-						<PropDefaultValueCell>
-							<StringPropType value="button" />
-						</PropDefaultValueCell>
+						<PropDefaultValueCell />
 						<PropDescriptionCell>
 							<p>
 								The default behavior of the <InlineCode>IconButton</InlineCode>. Unlike the native{" "}
-								<InlineCode>button</InlineCode> element, this prop defaults to <InlineCode>"button"</InlineCode>. See{" "}
+								<InlineCode>button</InlineCode> element,{" "}
+								<span className="font-semibold">this prop is required and has no default value</span>. See{" "}
 								<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#type">
 									the MDN docs
 								</Anchor>{" "}
