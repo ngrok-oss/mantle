@@ -142,14 +142,16 @@ export default function Page() {
 					Composition
 				</h2>
 				<p className="text-xl text-body">
-					When you want to render <span className="italic">something else</span> as a <InlineCode>Button</InlineCode>,
-					you can use the <InlineCode>asChild</InlineCode> prop to compose. This is useful when you want to splat the{" "}
-					<InlineCode>Button</InlineCode> styling onto a <InlineCode>Link</InlineCode> from{" "}
-					<InlineCode>remix</InlineCode> or <InlineCode>react-router</InlineCode>.
+					When you want to render <span className="italic">something else</span> as a{" "}
+					<InlineCode>IconButton</InlineCode>, you can use the <InlineCode>asChild</InlineCode> prop to compose. This is
+					useful when you want to splat the <InlineCode>IconButton</InlineCode> styling onto a{" "}
+					<InlineCode>Link</InlineCode> from <InlineCode>remix</InlineCode> or <InlineCode>react-router</InlineCode>.
+					Keep in mind that when you use <InlineCode>asChild</InlineCode> the <InlineCode>type</InlineCode> prop will{" "}
+					<strong>NOT</strong> be passed to the child component.
 				</p>
 				<div>
 					<Example>
-						<IconButton type="button" appearance="outlined" asChild label="prestige worldwide" icon={<Globe />}>
+						<IconButton appearance="outlined" asChild label="prestige worldwide" icon={<Globe />}>
 							<Link to={route("/base/colors")} />
 						</IconButton>
 					</Example>
@@ -163,7 +165,7 @@ export default function Page() {
 									import { Fire } from "@phosphor-icons/react";
 									import { Link } from "react-router-dom";
 
-									<IconButton type="button"  appearance="outlined" asChild label="prestige worldwide" icon={<Globe />}>
+									<IconButton appearance="outlined" asChild label="prestige worldwide" icon={<Globe />}>
 										<Link to={route("/base/colors")} />
 									</IconButton>
 								`}
@@ -293,7 +295,7 @@ export default function Page() {
 						<PropDescriptionCell>
 							<p>
 								The default behavior of the <InlineCode>IconButton</InlineCode>. Unlike the native{" "}
-								<InlineCode>button</InlineCode> element,{" "}
+								<InlineCode>button</InlineCode> element, unless you use the <InlineCode>asChild</InlineCode> prop,{" "}
 								<span className="font-semibold">this prop is required and has no default value</span>. See{" "}
 								<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#type">
 									the MDN docs
