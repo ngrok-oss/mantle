@@ -44,6 +44,7 @@ const DialogContent = forwardRef<
 		>
 			<DialogPrimitive.Close asChild>
 				<IconButton
+					type="button"
 					label="Close"
 					icon={<X />}
 					appearance="outlined"

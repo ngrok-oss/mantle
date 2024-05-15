@@ -3,7 +3,7 @@ import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
 import clsx from "clsx";
 import { Children, cloneElement, forwardRef, isValidElement } from "react";
-import type { ButtonHTMLAttributes, PropsWithChildren, ReactNode } from "react";
+import type { ButtonHTMLAttributes, MouseEvent, PropsWithChildren, ReactNode } from "react";
 import invariant from "tiny-invariant";
 import { cx } from "../../cx";
 import { Icon } from "../../icon";
@@ -12,7 +12,7 @@ import type { VariantProps } from "../../types/src/variant-props";
 import { parseBooleanish } from "./parse-booleanish";
 
 const buttonVariants = cva(
-	"inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-md focus-within:outline-none focus-visible:ring-4 aria-disabled:opacity-50 sm:text-sm [&>*]:focus-within:outline-none",
+	"inline-flex cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap rounded-md focus-within:outline-none focus-visible:ring-4 aria-disabled:opacity-50 sm:text-sm [&>*]:focus-within:outline-none",
 	{
 		variants: {
 			/**
@@ -25,7 +25,7 @@ const buttonVariants = cva(
 					"h-11 border border-transparent px-3 font-medium text-accent-600 hover:bg-accent-500/10 hover:text-accent-700 focus-visible:ring-focus-accent active:bg-accent-500/15 active:text-accent-700 sm:h-9",
 				outlined:
 					"h-11 border border-accent-600 bg-form px-3 font-medium text-accent-600 hover:border-accent-700 hover:bg-accent-500/10 hover:text-accent-700 focus-visible:ring-focus-accent active:border-accent-700 active:bg-accent-500/15 active:text-accent-700 sm:h-9",
-				link: "group cursor-pointer border-transparent text-accent-600 hover:underline focus-visible:ring-focus-accent",
+				link: "group border-transparent text-accent-600 hover:underline focus-visible:ring-focus-accent",
 			},
 			/**
 			 * Whether or not the button is in a loading state, default `false`. Setting `isLoading` will
@@ -151,6 +151,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 			icon: propIcon,
 			iconPlacement = "start",
 			isLoading = false,
+			onClick: propsOnClick,
 			priority = "default",
 			...props
 		},
@@ -164,6 +165,14 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 		 */
 		const hasSpecialIconPadding = icon && appearance !== "link";
 
+		const onClick = (event: MouseEvent<HTMLButtonElement>) => {
+			if (ariaDisabled) {
+				event.preventDefault();
+				return;
+			}
+			propsOnClick?.(event);
+		};
+
 		const buttonProps = {
 			"aria-disabled": ariaDisabled,
 			className: cx(
@@ -172,8 +181,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 				hasSpecialIconPadding && iconPlacement === "end" && "pe-2.5",
 				className,
 			),
-			disabled: ariaDisabled,
 			"data-loading": isLoading,
+			onClick,
 			ref,
 			...props,
 		};
