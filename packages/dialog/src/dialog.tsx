@@ -2,7 +2,7 @@ import { X } from "@phosphor-icons/react/X";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { forwardRef } from "react";
 import type { ComponentPropsWithoutRef, ElementRef } from "react";
-import { IconButton } from "../../button";
+import { IconButton, type IconButtonProps } from "../../button";
 import { cx } from "../../cx";
 
 const Dialog = DialogPrimitive.Root;
@@ -37,38 +37,48 @@ const DialogContent = forwardRef<
 		<DialogPrimitive.Content
 			ref={ref}
 			className={cx(
-				"scrollbar fixed left-[50%] top-[50%] z-50 max-h-dvh w-full max-w-lg translate-x-[-50%] translate-y-[-50%] overflow-y-auto rounded-xl border border-dialog bg-dialog p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]",
+				"scrollbar fixed left-[50%] top-[50%] z-50 flex max-h-[calc(100dvh_-_32px)] w-full max-w-lg translate-x-[-50%] translate-y-[-50%] flex-col overflow-y-auto rounded-xl border border-dialog bg-dialog shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]",
 				className,
 			)}
 			{...props}
 		>
-			<DialogPrimitive.Close asChild>
-				<IconButton
-					type="button"
-					label="Close"
-					icon={<X />}
-					appearance="outlined"
-					className="absolute right-3.5 top-3.5 size-11 p-0 sm:size-9"
-				/>
-			</DialogPrimitive.Close>
 			{children}
 		</DialogPrimitive.Content>
 	</DialogPortal>
 ));
 DialogContent.displayName = DialogPrimitive.Content.displayName;
 
-const DialogHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-	<div className={cx("flex shrink-0 flex-col gap-2 text-strong", className)} {...props}></div>
+const DialogHeader = ({ className, children, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+	<div className={cx("relative border-b border-dialog-muted px-4 py-6 text-strong", className)} {...props}>
+		<DialogCloseIconButton className="absolute right-2 top-3.5 float-right" />
+		{children}
+	</div>
 );
 DialogHeader.displayName = "DialogHeader";
 
+type DialogCloseIconButtonProps = Partial<Omit<IconButtonProps, "icon">>;
+const DialogCloseIconButton = ({
+	size = "md",
+	type = "button",
+	label = "Close Dialog",
+	appearance = "ghost",
+	...props
+}: DialogCloseIconButtonProps) => (
+	<DialogPrimitive.Close asChild>
+		<IconButton appearance={appearance} icon={<X />} label={label} size={size} type={type} {...props} />
+	</DialogPrimitive.Close>
+);
+
 const DialogBody = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-	<div className={cx("my-6 flex-1 text-body", className)} {...props} />
+	<div className={cx("scrollbar flex-1 overflow-y-auto px-4 py-6 text-body", className)} {...props} />
 );
 DialogBody.displayName = "DialogBody";
 
 const DialogFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-	<div className={cx("flex shrink-0 flex-row-reverse gap-2", className)} {...props} />
+	<div
+		className={cx("flex shrink-0 flex-row-reverse gap-2 border-t border-dialog-muted px-4 py-3", className)}
+		{...props}
+	/>
 );
 DialogFooter.displayName = "DialogFooter";
 
@@ -98,6 +108,7 @@ export {
 	DialogOverlay,
 	DialogTrigger,
 	DialogClose,
+	DialogCloseIconButton,
 	DialogContent,
 	DialogHeader,
 	DialogBody,
