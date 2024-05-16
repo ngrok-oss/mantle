@@ -70,7 +70,7 @@ const DialogCloseIconButton = ({
 );
 
 const DialogBody = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-	<div className={cx("scrollbar flex-1 overflow-y-auto px-4 py-6 text-body", className)} {...props} />
+	<div className={cx("scrollbar flex-1 overflow-y-auto p-4 text-body", className)} {...props} />
 );
 DialogBody.displayName = "DialogBody";
 
