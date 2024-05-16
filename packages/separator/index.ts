@@ -1,1 +1,1 @@
-export { Separator } from "./src/separator";
+export { HorizontalSeparatorGroup, Separator } from "./src/separator";
