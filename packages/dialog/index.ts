@@ -4,6 +4,7 @@ export {
 	DialogOverlay,
 	DialogTrigger,
 	DialogClose,
+	DialogCloseIconButton,
 	DialogContent,
 	DialogHeader,
 	DialogBody,
