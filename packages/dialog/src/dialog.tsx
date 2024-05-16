@@ -49,8 +49,8 @@ const DialogContent = forwardRef<
 DialogContent.displayName = DialogPrimitive.Content.displayName;
 
 const DialogHeader = ({ className, children, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-	<div className={cx("relative border-b border-dialog-muted px-4 py-6 text-strong", className)} {...props}>
-		<DialogCloseIconButton className="absolute right-2 top-3.5 float-right" />
+	<div className={cx("relative min-h-16 border-b border-dialog-muted px-4 py-6 text-strong", className)} {...props}>
+		<DialogCloseIconButton className="absolute right-4 top-3.5 float-right" />
 		{children}
 	</div>
 );
