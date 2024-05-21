@@ -139,6 +139,7 @@ const previewComponents = [
 	"Dialog",
 	"Dropdown Menu",
 	"Popover",
+	"Radio Group",
 	"Sheet",
 	"Tooltip",
 ] as const;
@@ -170,6 +171,7 @@ const previewComponentsRouteLookup = {
 	Dialog: "/components/preview/dialog",
 	"Dropdown Menu": "/components/preview/dropdown-menu",
 	Popover: "/components/preview/popover",
+	"Radio Group": "/components/preview/radio-group",
 	Sheet: "/components/preview/sheet",
 	Tooltip: "/components/preview/tooltip",
 } as const satisfies Record<(typeof previewComponents)[number], Route>;
