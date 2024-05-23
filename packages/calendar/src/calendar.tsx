@@ -5,7 +5,7 @@ import { DayPicker } from "react-day-picker";
 import { buttonVariants } from "../../button/src/button";
 import { cx } from "../../cx";
 
-export type CalendarProps = ComponentProps<typeof DayPicker>;
+type CalendarProps = ComponentProps<typeof DayPicker>;
 
 function Calendar({ className, classNames, showOutsideDays = true, ...props }: CalendarProps) {
 	return (
@@ -58,3 +58,5 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }: C
 Calendar.displayName = "Calendar";
 
 export { Calendar };
+
+export type { CalendarProps };
