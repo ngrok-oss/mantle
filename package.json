@@ -80,6 +80,7 @@
     "browserslist": "4.23.0",
     "commander": "12.0.0",
     "copyfiles": "2.4.1",
+    "date-fns": "3.6.0",
     "eslint": "8.57.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-react": "7.34.1",
