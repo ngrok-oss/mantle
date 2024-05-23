@@ -35,7 +35,7 @@ export const headers: HeadersFunction = () => {
 const SingleCalendarExample = () => {
 	const [date, setDate] = useState<Date | undefined>(undefined);
 
-	return <Calendar mode="single" selected={date} onSelect={setDate} className="rounded-md border shadow" />;
+	return <Calendar mode="single" selected={date} onSelect={setDate} className="rounded-md border border-card p-2 shadow-md" />;
 };
 
 const RangeCalendarExample = () => {
@@ -47,7 +47,7 @@ const RangeCalendarExample = () => {
 			defaultMonth={date?.from}
 			selected={date}
 			onSelect={setDate}
-			className="rounded-md border shadow"
+			className="rounded-md border border-card p-2 shadow-md"
 		/>
 	);
 };

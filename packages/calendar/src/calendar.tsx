@@ -11,22 +11,22 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }: C
 	return (
 		<DayPicker
 			showOutsideDays={showOutsideDays}
-			className={cx("p-3", className)}
+			className={cx("", className)}
 			classNames={{
 				months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
 				month: "space-y-4",
 				caption: "flex justify-center pt-1 relative items-center",
 				caption_label: "text-sm font-medium",
-				nav: "space-x-1 flex items-center",
+				nav: "flex items-center",
 				nav_button: cx(
-					buttonVariants({ appearance: "outlined" }),
-					"h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100",
+					buttonVariants({ appearance: "outlined", priority: "neutral" }),
+					"sm:h-7 sm:w-7 h-7 w-7",
 				),
-				nav_button_previous: "absolute left-1",
-				nav_button_next: "absolute right-1",
+				nav_button_previous: "absolute left-0",
+				nav_button_next: "absolute right-0",
 				table: "w-full border-collapse space-y-1",
 				head_row: "flex",
-				head_cell: "text-muted-foreground rounded-md w-8 font-normal text-[0.8rem]",
+				head_cell: "text-muted-foreground w-8 font-normal text-[0.8rem] text-center",
 				row: "flex w-full mt-2",
 				cell: cx(
 					"relative p-0 text-center text-sm focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-accent [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected].day-range-end)]:rounded-r-md",
@@ -47,8 +47,8 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }: C
 				...classNames,
 			}}
 			components={{
-				IconLeft: () => <CaretLeft className="h-4 w-4" />,
-				IconRight: () => <CaretRight className="h-4 w-4" />,
+				IconLeft: () => <CaretLeft className="h-4 w-4 shrink-0" />,
+				IconRight: () => <CaretRight className="h-4 w-4 shrink-0" />,
 			}}
 			{...props}
 		/>
