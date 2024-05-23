@@ -19,36 +19,36 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }: C
 				caption_label: "text-sm font-medium",
 				nav: "flex items-center",
 				nav_button: cx(
-					buttonVariants({ appearance: "outlined", priority: "neutral" }),
+					buttonVariants({ appearance: "ghost", priority: "neutral" }),
 					"sm:h-7 sm:w-7 h-7 w-7",
 				),
 				nav_button_previous: "absolute left-0",
 				nav_button_next: "absolute right-0",
 				table: "w-full border-collapse space-y-1",
 				head_row: "flex",
-				head_cell: "text-muted-foreground w-8 font-normal text-[0.8rem] text-center",
-				row: "flex w-full mt-2",
+				head_cell: "text-muted-foreground w-7 text-[0.8rem] text-center font-normal",
+				row: "flex w-full mt-1",
 				cell: cx(
-					"relative p-0 text-center text-sm focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-accent [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected].day-range-end)]:rounded-r-md",
+					"overflow-hidden text-center hover:bg-accent-500/5 text-sm p-0 relative focus-within:relative focus-within:z-20",
 					props.mode === "range"
 						? "[&:has(>.day-range-end)]:rounded-r-md [&:has(>.day-range-start)]:rounded-l-md first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md"
 						: "[&:has([aria-selected])]:rounded-md",
 				),
-				day: cx(buttonVariants({ appearance: "ghost" }), "h-8 w-8 p-0 font-normal aria-selected:opacity-100"),
+				day: "sm:h-7 sm:w-7 h-7 w-7 p-0",
 				day_range_start: "day-range-start",
 				day_range_end: "day-range-end",
-				day_selected: "bg-filled-accent text-on-filled hover:bg-filled-accent hover:text-on-filled",
-				day_today: "bg-filled-accent/30 text-on-filled",
+				day_selected: "bg-filled-accent text-on-filled",
+				day_today: "text-accent-600 font-medium bg-accent-500/10",
 				day_outside:
-					"day-outside text-muted-foreground opacity-50  aria-selected:bg-accent/50 aria-selected:text-muted-foreground aria-selected:opacity-30",
+					"day-outside text-neutral-400 aria-selected:text-on-filled",
 				day_disabled: "text-muted-foreground opacity-50",
-				day_range_middle: "aria-selected:bg-accent aria-selected:text-accent-foreground",
+				day_range_middle: "",
 				day_hidden: "invisible",
 				...classNames,
 			}}
 			components={{
-				IconLeft: () => <CaretLeft className="h-4 w-4 shrink-0" />,
-				IconRight: () => <CaretRight className="h-4 w-4 shrink-0" />,
+				IconLeft: () => <CaretLeft className="h-4 w-4 shrink-0" weight="bold" />,
+				IconRight: () => <CaretRight className="h-4 w-4 shrink-0" weight="bold" />,
 			}}
 			{...props}
 		/>
