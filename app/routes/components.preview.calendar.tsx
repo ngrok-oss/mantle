@@ -4,6 +4,8 @@ import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode }
 import { InlineCode } from "@/inline-code";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
+import { useState } from "react";
+import type { DateRange } from "react-day-picker";
 
 // import {
 // 	BooleanPropType,
@@ -30,6 +32,26 @@ export const headers: HeadersFunction = () => {
 	};
 };
 
+const SingleCalendarExample = () => {
+	const [date, setDate] = useState<Date | undefined>(undefined);
+
+	return <Calendar mode="single" selected={date} onSelect={setDate} className="rounded-md border shadow" />;
+};
+
+const RangeCalendarExample = () => {
+	const [date, setDate] = useState<DateRange | undefined>({ from: undefined, to: undefined });
+
+	return (
+		<Calendar
+			mode="range"
+			defaultMonth={date?.from}
+			selected={date}
+			onSelect={setDate}
+			className="rounded-md border shadow"
+		/>
+	);
+};
+
 export default function Page() {
 	return (
 		<div className="space-y-16">
@@ -40,12 +62,14 @@ export default function Page() {
 				<p className="text-xl text-body">A date field component that allows users to enter and edit date.</p>
 				<div>
 					<Example className="mt-4 flex flex-col gap-6">
-						<Calendar
-							mode="single"
-							// selected={date}
-							// onSelect={setDate}
-							className="rounded-md border shadow"
-						/>
+						<div className="space-y-2">
+							<p>Single</p>
+							<SingleCalendarExample />
+						</div>
+						<div className="space-y-2">
+							<p>Range</p>
+							<RangeCalendarExample />
+						</div>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
@@ -55,7 +79,11 @@ export default function Page() {
 								value={fmtCode`
 									import { Calendar } from "@ngrok/mantle/calendar";
 
-									<Calendar mode="single" />
+									<Calendar
+										mode="single"
+										selected={date}
+										onSelect={setDate}
+									/>
 								`}
 							/>
 						</CodeBlockBody>
