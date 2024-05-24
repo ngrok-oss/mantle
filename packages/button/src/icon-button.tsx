@@ -2,14 +2,14 @@ import { CircleNotch } from "@phosphor-icons/react/CircleNotch";
 import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
 import { Children, cloneElement, forwardRef, isValidElement } from "react";
-import type { ButtonHTMLAttributes, MouseEvent, ReactNode } from "react";
+import type { ButtonHTMLAttributes, ReactNode } from "react";
 import { cx } from "../../cx";
 import { Icon } from "../../icon";
 import type { VariantProps, WithAsChild } from "../../types";
 import { parseBooleanish } from "./parse-booleanish";
 
 const iconButtonVariants = cva(
-	"inline-flex cursor-pointer items-center justify-center rounded-md border focus-within:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50 aria-disabled:opacity-50",
+	"inline-flex cursor-pointer items-center justify-center rounded-md border focus-within:outline-none focus-visible:ring-4 disabled:cursor-default disabled:opacity-50",
 	{
 		variants: {
 			/**
@@ -17,9 +17,9 @@ const iconButtonVariants = cva(
 			 */
 			appearance: {
 				ghost:
-					"border-transparent text-strong hover:bg-neutral-500/10 hover:text-strong focus-visible:ring-focus-accent active:bg-neutral-500/15 active:text-strong",
+					"border-transparent text-strong focus-visible:ring-focus-accent enabled:hover:bg-neutral-500/10 enabled:hover:text-strong enabled:active:bg-neutral-500/15 enabled:active:text-strong",
 				outlined:
-					"border-form bg-form text-strong hover:border-neutral-400 hover:bg-form-hover hover:text-strong focus-visible:border-accent-600 focus-visible:ring-focus-accent active:border-neutral-400 active:bg-neutral-500/10 active:text-strong focus-visible:active:border-accent-600",
+					"border-form bg-form text-strong focus-visible:border-accent-600 focus-visible:ring-focus-accent enabled:hover:border-neutral-400 enabled:hover:bg-form-hover enabled:hover:text-strong enabled:active:border-neutral-400 enabled:active:bg-neutral-500/10 enabled:active:text-strong focus-visible:enabled:active:border-accent-600",
 			},
 			/**
 			 * Whether or not the button is in a loading state, default `false`. Setting `isLoading` will
@@ -132,34 +132,25 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 			asChild = false,
 			children,
 			className,
-			disabled,
+			disabled: _disabled,
 			icon: propIcon,
 			isLoading = false,
 			label,
-			onClick: propsOnClick,
 			size,
 			type,
 			...props
 		},
 		ref,
 	) => {
-		const ariaDisabled = parseBooleanish(_ariaDisabled ?? disabled ?? isLoading);
+		const disabled = parseBooleanish(_ariaDisabled ?? _disabled ?? isLoading);
 		const icon = isLoading ? <CircleNotch className="animate-spin" /> : propIcon;
 
-		const onClick = (event: MouseEvent<HTMLButtonElement>) => {
-			if (ariaDisabled) {
-				event.preventDefault();
-				return;
-			}
-			propsOnClick?.(event);
-		};
-
 		const buttonProps = {
-			"aria-disabled": ariaDisabled,
+			"aria-disabled": disabled,
 			className: cx(iconButtonVariants({ appearance, isLoading, size }), className),
 			"data-loading": isLoading,
 			"data-size": size,
-			onClick,
+			disabled,
 			ref,
 			...props,
 		};

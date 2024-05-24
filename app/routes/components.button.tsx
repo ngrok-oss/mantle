@@ -2,6 +2,7 @@ import { Anchor } from "@/anchor";
 import { Button } from "@/button";
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import { InlineCode } from "@/inline-code";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/tooltip";
 import { Fire } from "@phosphor-icons/react/Fire";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
@@ -18,6 +19,7 @@ import {
 	StringPropType,
 } from "~/components/props-table";
 import { route } from "~/types/routes";
+import type { PropsWithChildren } from "react";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -31,6 +33,13 @@ export const headers: HeadersFunction = () => {
 		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
 	};
 };
+
+const DisabledTooltip = ({ children }: PropsWithChildren) => (
+	<Tooltip>
+		<TooltipTrigger asChild>{children}</TooltipTrigger>
+		<TooltipContent>Tooltips work on disabled buttons!</TooltipContent>
+	</Tooltip>
+);
 
 export default function Page() {
 	return (
@@ -91,6 +100,31 @@ export default function Page() {
 								<Button type="button" appearance="link" priority="danger">
 									Link
 								</Button>
+							</div>
+						</div>
+						<div>
+							<p className="mb-2 text-center font-mono text-xs">Disabled</p>
+							<div className="flex items-center gap-2">
+								<DisabledTooltip>
+									<Button disabled type="button" appearance="ghost" priority="default">
+										Ghost
+									</Button>
+								</DisabledTooltip>
+								<DisabledTooltip>
+									<Button disabled type="button" appearance="filled" priority="default">
+										Filled
+									</Button>
+								</DisabledTooltip>
+								<DisabledTooltip>
+									<Button disabled type="button" appearance="outlined" priority="default">
+										Outlined
+									</Button>
+								</DisabledTooltip>
+								<DisabledTooltip>
+									<Button disabled type="button" appearance="link" priority="default">
+										Link
+									</Button>
+								</DisabledTooltip>
 							</div>
 						</div>
 					</Example>

@@ -2,6 +2,7 @@ import { Anchor } from "@/anchor";
 import { IconButton } from "@/button";
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import { InlineCode } from "@/inline-code";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/tooltip";
 import { Globe } from "@phosphor-icons/react/Globe";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
@@ -17,6 +18,7 @@ import {
 	StringPropType,
 } from "~/components/props-table";
 import { route } from "~/types/routes";
+import type { PropsWithChildren } from "react";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -30,6 +32,13 @@ export const headers: HeadersFunction = () => {
 		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
 	};
 };
+
+const DisabledTooltip = ({ children }: PropsWithChildren) => (
+	<Tooltip>
+		<TooltipTrigger asChild>{children}</TooltipTrigger>
+		<TooltipContent>Tooltips work on disabled buttons!</TooltipContent>
+	</Tooltip>
+);
 
 export default function Page() {
 	return (
@@ -63,6 +72,23 @@ export default function Page() {
 							<div className="flex items-center gap-2">
 								<IconButton type="button" appearance="ghost" label="prestige worldwide" icon={<Globe />} />
 								<IconButton type="button" appearance="outlined" label="prestige worldwide" icon={<Globe />} />
+							</div>
+						</div>
+						<div>
+							<p className="mb-2 text-center font-mono text-xs">Disabled</p>
+							<div className="flex items-center gap-2">
+								<DisabledTooltip>
+									<IconButton disabled type="button" appearance="ghost" label="prestige worldwide" icon={<Globe />} />
+								</DisabledTooltip>
+								<DisabledTooltip>
+									<IconButton
+										disabled
+										type="button"
+										appearance="outlined"
+										label="prestige worldwide"
+										icon={<Globe />}
+									/>
+								</DisabledTooltip>
 							</div>
 						</div>
 					</Example>
