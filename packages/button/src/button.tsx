@@ -3,7 +3,7 @@ import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
 import clsx from "clsx";
 import { Children, cloneElement, forwardRef, isValidElement } from "react";
-import type { ButtonHTMLAttributes, MouseEvent, PropsWithChildren, ReactNode } from "react";
+import type { ButtonHTMLAttributes, PropsWithChildren, ReactNode } from "react";
 import invariant from "tiny-invariant";
 import { cx } from "../../cx";
 import { Icon } from "../../icon";
@@ -11,7 +11,7 @@ import type { VariantProps } from "../../types/src/variant-props";
 import { parseBooleanish } from "./parse-booleanish";
 
 const buttonVariants = cva(
-	"inline-flex cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap rounded-md focus-within:outline-none focus-visible:ring-4 aria-disabled:opacity-50 sm:text-sm [&>*]:focus-within:outline-none",
+	"inline-flex cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap rounded-md focus-within:outline-none focus-visible:ring-4 disabled:cursor-default disabled:opacity-50 sm:text-sm [&>*]:focus-within:outline-none",
 	{
 		variants: {
 			/**
@@ -19,17 +19,17 @@ const buttonVariants = cva(
 			 */
 			appearance: {
 				filled:
-					"h-11 border border-transparent bg-filled-accent px-3 font-medium text-on-filled hover:bg-filled-accent-hover focus-visible:border-accent-600 focus-visible:ring-focus-accent active:bg-filled-accent-active sm:h-9",
+					"h-11 border border-transparent bg-filled-accent px-3 font-medium text-on-filled focus-visible:border-accent-600 focus-visible:ring-focus-accent enabled:hover:bg-filled-accent-hover enabled:active:bg-filled-accent-active sm:h-9",
 				ghost:
-					"h-11 border border-transparent px-3 font-medium text-accent-600 hover:bg-accent-500/10 hover:text-accent-700 focus-visible:ring-focus-accent active:bg-accent-500/15 active:text-accent-700 sm:h-9",
+					"h-11 border border-transparent px-3 font-medium text-accent-600 focus-visible:ring-focus-accent enabled:hover:bg-accent-500/10 enabled:hover:text-accent-700 enabled:active:bg-accent-500/15 enabled:active:text-accent-700 sm:h-9",
 				outlined:
-					"h-11 border border-accent-600 bg-form px-3 font-medium text-accent-600 hover:border-accent-700 hover:bg-accent-500/10 hover:text-accent-700 focus-visible:ring-focus-accent active:border-accent-700 active:bg-accent-500/15 active:text-accent-700 sm:h-9",
-				link: "group border-transparent text-accent-600 hover:underline focus-visible:ring-focus-accent",
+					"h-11 border border-accent-600 bg-form px-3 font-medium text-accent-600 focus-visible:ring-focus-accent enabled:hover:border-accent-700 enabled:hover:bg-accent-500/10 enabled:hover:text-accent-700 enabled:active:border-accent-700 enabled:active:bg-accent-500/15 enabled:active:text-accent-700 sm:h-9",
+				link: "group border-transparent text-accent-600 focus-visible:ring-focus-accent enabled:hover:underline",
 			},
 			/**
 			 * Whether or not the button is in a loading state, default `false`. Setting `isLoading` will
 			 * replace any `icon` with a spinner, or add one if an icon wasn't given.
-			 * It will also disable user interaction with the button and set `aria-disabled`.
+			 * It will also disable user interaction with the button and set `disabled`.
 			 */
 			isLoading: {
 				false: "",
@@ -55,19 +55,19 @@ const buttonVariants = cva(
 				appearance: "ghost",
 				priority: "danger",
 				class:
-					"border-transparent text-danger-600 hover:bg-danger-500/10 hover:text-danger-700 focus-visible:ring-focus-danger active:bg-danger-500/15 active:text-danger-700",
+					"border-transparent text-danger-600 focus-visible:ring-focus-danger enabled:hover:bg-danger-500/10 enabled:hover:text-danger-700 enabled:active:bg-danger-500/15 enabled:active:text-danger-700",
 			},
 			{
 				appearance: "outlined",
 				priority: "danger",
 				class:
-					"border-danger-600 bg-form text-danger-600 hover:border-danger-700 hover:bg-danger-500/10 hover:text-danger-700 focus-visible:ring-focus-danger active:border-danger-700 active:bg-danger-500/15 active:text-danger-700",
+					"border-danger-600 bg-form text-danger-600 focus-visible:ring-focus-danger enabled:hover:border-danger-700 enabled:hover:bg-danger-500/10 enabled:hover:text-danger-700 enabled:active:border-danger-700 enabled:active:bg-danger-500/15 enabled:active:text-danger-700",
 			},
 			{
 				appearance: "filled",
 				priority: "danger",
 				class:
-					"border-transparent bg-filled-danger hover:bg-filled-danger-hover focus-visible:border-danger-600 focus-visible:ring-focus-danger active:bg-filled-danger-active",
+					"border-transparent bg-filled-danger focus-visible:border-danger-600 focus-visible:ring-focus-danger enabled:hover:bg-filled-danger-hover enabled:active:bg-filled-danger-active",
 			},
 			{
 				appearance: "link",
@@ -78,19 +78,19 @@ const buttonVariants = cva(
 				appearance: "ghost",
 				priority: "neutral",
 				class:
-					"border-transparent text-strong hover:bg-neutral-500/10 hover:text-strong focus-visible:ring-focus-accent active:bg-neutral-500/15 active:text-strong",
+					"border-transparent text-strong focus-visible:ring-focus-accent enabled:hover:bg-neutral-500/10 enabled:hover:text-strong enabled:active:bg-neutral-500/15 enabled:active:text-strong",
 			},
 			{
 				appearance: "outlined",
 				priority: "neutral",
 				class:
-					"border-form bg-form text-strong hover:border-neutral-400 hover:bg-form-hover hover:text-strong focus-visible:border-accent-600 focus-visible:ring-focus-accent active:border-neutral-400 active:bg-neutral-500/10 active:text-strong focus-visible:active:border-accent-600",
+					"border-form bg-form text-strong focus-visible:border-accent-600 focus-visible:ring-focus-accent enabled:hover:border-neutral-400 enabled:hover:bg-form-hover enabled:hover:text-strong enabled:active:border-neutral-400 enabled:active:bg-neutral-500/10 enabled:active:text-strong focus-visible:enabled:active:border-accent-600",
 			},
 			{
 				appearance: "filled",
 				priority: "neutral",
 				class:
-					"border-transparent bg-filled-neutral hover:bg-filled-neutral-hover focus-visible:border-neutral-600 focus-visible:ring-focus-neutral active:bg-filled-neutral-active",
+					"border-transparent bg-filled-neutral focus-visible:border-neutral-600 focus-visible:ring-focus-neutral enabled:hover:bg-filled-neutral-hover enabled:active:bg-filled-neutral-active",
 			},
 			{
 				appearance: "link",
@@ -186,18 +186,17 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 			asChild,
 			children,
 			className,
-			disabled,
+			disabled: _disabled,
 			icon: propIcon,
 			iconPlacement = "start",
 			isLoading = false,
-			onClick: propsOnClick,
 			priority = "default",
 			type,
 			...props
 		},
 		ref,
 	) => {
-		const ariaDisabled = parseBooleanish(_ariaDisabled ?? disabled ?? isLoading);
+		const disabled = parseBooleanish(_ariaDisabled ?? _disabled ?? isLoading);
 		const icon = isLoading ? <CircleNotch className="animate-spin" /> : propIcon;
 
 		/**
@@ -205,16 +204,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 		 */
 		const hasSpecialIconPadding = icon && appearance !== "link";
 
-		const onClick = (event: MouseEvent<HTMLButtonElement>) => {
-			if (ariaDisabled) {
-				event.preventDefault();
-				return;
-			}
-			propsOnClick?.(event);
-		};
-
 		const buttonProps = {
-			"aria-disabled": ariaDisabled,
+			"aria-disabled": disabled,
 			className: cx(
 				buttonVariants({ appearance, priority, isLoading }),
 				hasSpecialIconPadding && iconPlacement === "start" && "ps-2.5",
@@ -222,7 +213,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 				className,
 			),
 			"data-loading": isLoading,
-			onClick,
+			disabled,
 			ref,
 			...props,
 		};
@@ -268,7 +259,7 @@ const InnerContent = ({ appearance, children, icon, iconPlacement }: InnerConten
 	<span
 		className={clsx(
 			"inline-flex items-center gap-1.5 focus-within:outline-none focus-visible:outline-none",
-			appearance === "link" && "group-hover:underline",
+			appearance === "link" && "enabled:group-hover:underline",
 		)}
 	>
 		{icon && <Icon svg={icon} className={clsx(iconPlacement === "end" && "order-last")} />}
