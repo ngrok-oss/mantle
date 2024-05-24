@@ -35,7 +35,14 @@ export const headers: HeadersFunction = () => {
 const SingleCalendarExample = () => {
 	const [date, setDate] = useState<Date | undefined>(undefined);
 
-	return <Calendar mode="single" selected={date} onSelect={setDate} className="rounded-md border border-card p-2 shadow-md" />;
+	return (
+		<Calendar
+			mode="single"
+			selected={date}
+			onSelect={setDate}
+			className="rounded-md border border-card p-2 shadow-md"
+		/>
+	);
 };
 
 const RangeCalendarExample = () => {
