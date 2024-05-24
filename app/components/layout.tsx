@@ -202,6 +202,11 @@ function Navigation({ className, style }: WithStyleProps) {
 							Typography
 						</NavLink>
 					</li>
+					<li>
+						<NavLink to="/base/tailwind-variants" prefetch="intent">
+							Tailwind Variants
+						</NavLink>
+					</li>
 				</ul>
 
 				<li className="mt-6 text-xs font-medium uppercase tracking-wider">Components</li>

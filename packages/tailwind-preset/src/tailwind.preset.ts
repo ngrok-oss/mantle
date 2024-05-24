@@ -3,6 +3,7 @@ import tailwindCssAnimatePlugin from "tailwindcss-animate";
 import defaultTheme from "tailwindcss/defaultTheme";
 import plugin from "tailwindcss/plugin";
 import { firefoxVariantPlugin } from "./tailwind-plugin-firefox-variant.js";
+import { pointingVariantsPlugin } from "./tailwind-plugin-pointing-variants.js";
 
 const colors = {
 	inherit: "inherit",
@@ -466,6 +467,7 @@ const mantlePreset = {
 	plugins: [
 		tailwindCssAnimatePlugin,
 		firefoxVariantPlugin,
+		pointingVariantsPlugin,
 		plugin(function ({ addVariant }) {
 			addVariant("dark-high-contrast", [":is(.dark-high-contrast &)"]);
 			addVariant("high-contrast", [":is(.light-high-contrast &)"]);
