@@ -59,6 +59,21 @@ const RangeCalendarExample = () => {
 	);
 };
 
+const RangeMultipleCalendarExample = () => {
+	const [date, setDate] = useState<DateRange | undefined>({ from: undefined, to: undefined });
+
+	return (
+		<Calendar
+			mode="range"
+			defaultMonth={date?.from}
+			selected={date}
+			onSelect={setDate}
+			numberOfMonths={2}
+			className="rounded-md border border-card p-2 shadow-md"
+		/>
+	);
+};
+
 export default function Page() {
 	return (
 		<div className="space-y-16">
@@ -76,6 +91,11 @@ export default function Page() {
 						<div className="space-y-2">
 							<p>Range</p>
 							<RangeCalendarExample />
+						</div>
+
+						<div className="space-y-2">
+							<p>Range Multiple Months</p>
+							<RangeMultipleCalendarExample />
 						</div>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
