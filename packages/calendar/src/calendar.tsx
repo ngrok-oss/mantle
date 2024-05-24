@@ -31,7 +31,7 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }: C
 						? "first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md"
 						: "",
 				),
-				day: "day sm:h-7 sm:w-7 h-7 w-7 rounded-md hover:bg-filled-accent/15",
+				day: "day sm:h-7 sm:w-7 h-7 w-7 rounded-md [&:not([aria-selected])]:hover:bg-filled-accent/15",
 				day_range_start: "day-range-start [&:not(.day-range-end)]:rounded-r-none",
 				day_range_end: "day-range-end [&:not(.day-range-start)]:rounded-l-none",
 				day_selected: "bg-filled-accent text-on-filled hover:bg-filled-accent",
