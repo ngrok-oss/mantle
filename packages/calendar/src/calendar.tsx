@@ -26,19 +26,18 @@ function Calendar({ className, classNames, showOutsideDays = true, ...props }: C
 				head_cell: "text-muted-foreground w-7 text-[0.8rem] text-center font-normal",
 				row: "flex w-full mt-1",
 				cell: cx(
-					"overflow-hidden text-center text-sm p-0 relative focus-within:relative focus-within:z-20 hover:bg-filled-accent/5",
+					"text-center text-sm p-0 relative focus-within:relative focus-within:z-20",
 					props.mode === "range"
-						? "[&:has(>.day-range-end)]:rounded-r-md [&:has(>.day-range-start)]:rounded-l-md first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md"
-						: "rounded-md [&:has([aria-selected])]:rounded-md",
+						? "first-child:[&>.day-range-middle]:bg-red-500" : "",
 				),
-				day: cx("sm:h-7 sm:w-7 h-7 w-7"),
-				day_range_start: "day-range-start",
-				day_range_end: "day-range-end",
+				day: "day sm:h-7 sm:w-7 h-7 w-7 rounded-md",
+				day_range_start: "day-range-start [&:not(.day-range-end)]:rounded-r-none",
+				day_range_end: "day-range-end [&:not(.day-range-start)]:rounded-l-none",
 				day_selected: "bg-filled-accent text-on-filled",
 				day_today: "text-accent-600 font-medium bg-filled-accent/15",
 				day_outside: "day-outside text-neutral-400 aria-selected:text-on-filled",
 				day_disabled: "text-muted-foreground opacity-50",
-				day_range_middle: "aria-selected:bg-filled-accent/10 aria-selected:text-strong",
+				day_range_middle: "day-range-middle aria-selected:bg-filled-accent/10 aria-selected:text-strong rounded-none",
 				day_hidden: "invisible",
 				...classNames,
 			}}
