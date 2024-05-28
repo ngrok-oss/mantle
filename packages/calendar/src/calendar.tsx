@@ -7,7 +7,7 @@ import { cx } from "../../cx";
 
 type CalendarProps = ComponentProps<typeof DayPicker>;
 
-function Calendar({ className, classNames, showOutsideDays = true, ...props }: CalendarProps) {
+function Calendar({ className, classNames, showOutsideDays = false, ...props }: CalendarProps) {
 	return (
 		<DayPicker
 			showOutsideDays={showOutsideDays}
