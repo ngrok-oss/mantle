@@ -94,6 +94,26 @@ const HiddenDaysCalendarExample = () => {
 	);
 };
 
+const DisabledDaysCalendarExample = () => {
+	const [date, setDate] = useState<DateRange | undefined>({ from: undefined, to: undefined });
+	const disabledDays = [
+		new Date(2024, 4, 3),
+		new Date(2024, 4, 13),
+		new Date(2024, 4, 14)
+];
+
+	return (
+		<Calendar
+			mode="range"
+			defaultMonth={disabledDays[0]}
+			selected={date}
+			onSelect={setDate}
+			disabled={disabledDays}
+			className="rounded-md border border-card p-2 shadow-md"
+		/>
+	);
+};
+
 export default function Page() {
 	return (
 		<div className="space-y-16">
@@ -121,6 +141,11 @@ export default function Page() {
 						<div className="space-y-2">
 							<p>Hidden Days</p>
 							<HiddenDaysCalendarExample />
+						</div>
+
+						<div className="space-y-2">
+							<p>Disabled Days</p>
+							<DisabledDaysCalendarExample />
 						</div>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
