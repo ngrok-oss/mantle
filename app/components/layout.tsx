@@ -134,6 +134,7 @@ const prodReadyComponents = [
 const previewComponents = [
 	"Alert",
 	"Badge",
+	"Calendar",
 	"Checkbox",
 	"Dialog",
 	"Dropdown Menu",
@@ -164,6 +165,7 @@ const prodReadyComponentRouteLookup = {
 const previewComponentsRouteLookup = {
 	Alert: "/components/preview/alert",
 	Badge: "/components/preview/badge",
+	Calendar: "/components/preview/calendar",
 	Checkbox: "/components/preview/checkbox",
 	Dialog: "/components/preview/dialog",
 	"Dropdown Menu": "/components/preview/dropdown-menu",
