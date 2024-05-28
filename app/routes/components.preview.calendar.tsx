@@ -4,6 +4,7 @@ import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode }
 import { InlineCode } from "@/inline-code";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
+import { PreviewBadge } from "~/components/preview-badge";
 import { useState } from "react";
 import type { DateRange } from "react-day-picker";
 
@@ -110,9 +111,12 @@ export default function Page() {
 	return (
 		<div className="space-y-16">
 			<section className="mb-4 space-y-4">
-				<h1 id="calendar" className="text-5xl font-medium">
-					Calendar
-				</h1>
+				<div className="flex items-center gap-3">
+					<h1 id="calendar" className="text-5xl font-medium">
+						Calendar
+					</h1>
+					<PreviewBadge />
+				</div>
 				<p className="text-xl text-body">A date field component that allows users to enter and edit date.</p>
 				<div>
 					<Example className="mt-4 flex flex-col gap-6">
