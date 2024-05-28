@@ -76,11 +76,7 @@ const RangeMultipleCalendarExample = () => {
 
 const HiddenDaysCalendarExample = () => {
 	const [date, setDate] = useState<DateRange | undefined>({ from: undefined, to: undefined });
-	const hiddenDays = [
-		new Date(2024, 4, 6),
-		new Date(2024, 4, 20),
-		new Date(2024, 4, 11)
-];
+	const hiddenDays = [new Date(2024, 4, 6), new Date(2024, 4, 20), new Date(2024, 4, 11)];
 
 	return (
 		<Calendar
@@ -96,11 +92,7 @@ const HiddenDaysCalendarExample = () => {
 
 const DisabledDaysCalendarExample = () => {
 	const [date, setDate] = useState<DateRange | undefined>({ from: undefined, to: undefined });
-	const disabledDays = [
-		new Date(2024, 4, 3),
-		new Date(2024, 4, 13),
-		new Date(2024, 4, 14)
-];
+	const disabledDays = [new Date(2024, 4, 3), new Date(2024, 4, 13), new Date(2024, 4, 14)];
 
 	return (
 		<Calendar
