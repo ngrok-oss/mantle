@@ -74,6 +74,26 @@ const RangeMultipleCalendarExample = () => {
 	);
 };
 
+const HiddenDaysCalendarExample = () => {
+	const [date, setDate] = useState<DateRange | undefined>({ from: undefined, to: undefined });
+	const hiddenDays = [
+		new Date(2024, 4, 6),
+		new Date(2024, 4, 20),
+		new Date(2024, 4, 11)
+];
+
+	return (
+		<Calendar
+			mode="range"
+			defaultMonth={hiddenDays[0]}
+			selected={date}
+			onSelect={setDate}
+			hidden={hiddenDays}
+			className="rounded-md border border-card p-2 shadow-md"
+		/>
+	);
+};
+
 export default function Page() {
 	return (
 		<div className="space-y-16">
@@ -96,6 +116,11 @@ export default function Page() {
 						<div className="space-y-2">
 							<p>Range Multiple Months</p>
 							<RangeMultipleCalendarExample />
+						</div>
+
+						<div className="space-y-2">
+							<p>Hidden Days</p>
+							<HiddenDaysCalendarExample />
 						</div>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
