@@ -2,7 +2,7 @@ import { Anchor } from "@/anchor";
 import { Button } from "@/button";
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import { InlineCode } from "@/inline-code";
-import { RadioButton, RadioGroup } from "@/radio-group";
+import { RadioButton, RadioGroup, SimpleRadioItem } from "@/radio-group";
 import { Fire } from "@phosphor-icons/react/Fire";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
@@ -49,18 +49,22 @@ export default function Page() {
 						<form>
 							Inside form:
 							<RadioGroup defaultValue="comfortable">
-								<label htmlFor="r1" className="flex cursor-pointer items-center space-x-2">
-									<RadioButton value="default" id="r1" />
-									<p>Default</p>
+								<label htmlFor="r1">
+									<SimpleRadioItem value="default" id="r1">
+										<p>Default</p>
+									</SimpleRadioItem>
 								</label>
-								<label htmlFor="r2" className="flex cursor-pointer items-center space-x-2">
-									<RadioButton value="comfortable" id="r2" />
-									<p>Comfortable</p>
+								<label htmlFor="r2">
+									<SimpleRadioItem value="comfortable" id="r2" disabled>
+										<p>Comfortable</p>
+									</SimpleRadioItem>
 								</label>
-								<label htmlFor="r3" className="flex cursor-pointer items-center space-x-2">
-									<RadioButton value="compact" id="r3" />
-									<p>Compact</p>
-								</label>
+								<SimpleRadioItem value="compact" id="r3">
+									<label htmlFor="r3">Compact</label>
+								</SimpleRadioItem>
+								<SimpleRadioItem value="roomy" id="r4">
+									Roomy
+								</SimpleRadioItem>
 							</RadioGroup>
 						</form>
 						<div>

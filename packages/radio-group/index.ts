@@ -1,1 +1,1 @@
-export { RadioGroup, RadioButton } from "./src/radio-group";
+export { RadioGroup, RadioButton, SimpleRadioItem } from "./src/radio-group";
