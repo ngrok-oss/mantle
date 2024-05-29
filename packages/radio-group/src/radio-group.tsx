@@ -82,9 +82,6 @@ const SimpleRadioItem = forwardRef<ElementRef<typeof RadioGroupPrimitive.Item>, 
 					}
 					setIsActive(true);
 				}}
-				onBlur={() => {
-					setIsActive(false);
-				}}
 				onMouseUp={() => {
 					setIsActive(false);
 				}}
