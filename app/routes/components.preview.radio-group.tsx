@@ -7,6 +7,7 @@ import { Fire } from "@phosphor-icons/react/Fire";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
 import { Example } from "~/components/example";
+import { PreviewBadge } from "~/components/preview-badge";
 import {
 	BooleanPropType,
 	PropDefaultValueCell,
@@ -37,9 +38,10 @@ export default function Page() {
 	return (
 		<div className="space-y-16">
 			<section className="mb-4 space-y-4">
-				<h1 id="radio-group" className="text-5xl font-medium">
-					Radio Group
-				</h1>
+				<div className="flex items-center gap-3">
+					<h1 className="text-5xl font-medium">Radio Group</h1>
+					<PreviewBadge />
+				</div>
 				<p className="text-xl text-body">
 					A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a
 					time.
