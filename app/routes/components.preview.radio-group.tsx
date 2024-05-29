@@ -48,6 +48,9 @@ export default function Page() {
 				</p>
 				<div>
 					<Example className="mt-4 flex flex-wrap gap-6">
+						<RadioGroup>
+							<RadioButton value="" />
+						</RadioGroup>
 						<form>
 							Inside form:
 							<RadioGroup defaultValue="comfortable">

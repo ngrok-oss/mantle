@@ -1,6 +1,6 @@
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
 import clsx from "clsx";
-import { forwardRef, useRef, useState } from "react";
+import { forwardRef, useRef } from "react";
 import type { ComponentPropsWithoutRef, ElementRef } from "react";
 import { composeRefs } from "../../compose-refs";
 import { cx } from "../../cx";
@@ -12,7 +12,7 @@ const RadioGroup = forwardRef<
 	return (
 		<RadioGroupPrimitive.Root
 			className={cx(
-				// "grid gap-2",
+				"",
 				// "has-[[data-state='checked']]:border-green-600 has-[[data-state='checked']]:bg-red-600/10",
 				className,
 			)}
@@ -33,8 +33,9 @@ const RadioButton = forwardRef<
 			className={cx(
 				"relative size-4 shrink-0 overflow-hidden rounded-full border border-form bg-form enabled:active:bg-form disabled:opacity-50",
 				"data-state-checked:border-transparent data-state-checked:bg-accent-500 active:data-state-checked:bg-accent-500",
-				"focus:border-accent-600 focus:outline-none focus-visible:ring-4 focus-visible:ring-focus-accent",
-				"focus:data-state-checked:border-accent-600",
+				"enabled:hover:border-accent-600 enabled:group-hover/radio:border-accent-600",
+				"focus:outline-none focus-visible:border-accent-600 focus-visible:ring-4 focus-visible:ring-focus-accent",
+				"focus-visible:data-state-checked:border-accent-600",
 				className,
 			)}
 			{...props}
@@ -54,7 +55,6 @@ const SimpleRadioItem = forwardRef<ElementRef<typeof RadioGroupPrimitive.Item>, 
 		const containerRef = useRef<ElementRef<"div">>(null);
 		const childrenRef = useRef<ElementRef<"div">>(null);
 		const innerRef = useRef<ElementRef<typeof RadioGroupPrimitive.Item> | null>(null);
-		const [isActive, setIsActive] = useState(false);
 
 		const clickRadio = () => {
 			innerRef.current?.focus();
@@ -66,7 +66,7 @@ const SimpleRadioItem = forwardRef<ElementRef<typeof RadioGroupPrimitive.Item>, 
 				aria-disabled={disabled}
 				ref={containerRef}
 				className={cx(
-					"flex select-none items-center gap-2",
+					"group/radio flex select-none items-center gap-2",
 					!disabled && "cursor-pointer [&_*]:cursor-pointer",
 					className,
 				)}
@@ -76,25 +76,8 @@ const SimpleRadioItem = forwardRef<ElementRef<typeof RadioGroupPrimitive.Item>, 
 						clickRadio();
 					}
 				}}
-				onMouseDown={() => {
-					if (disabled) {
-						return;
-					}
-					setIsActive(true);
-				}}
-				onMouseUp={() => {
-					setIsActive(false);
-				}}
-				onMouseLeave={() => {
-					setIsActive(false);
-				}}
 			>
-				<RadioButton
-					className={clsx(isActive && "border-accent-600 data-state-checked:border-accent-600")}
-					disabled={disabled}
-					ref={composeRefs(ref, innerRef)}
-					{...props}
-				/>
+				<RadioButton disabled={disabled} ref={composeRefs(ref, innerRef)} {...props} />
 				<div
 					ref={childrenRef}
 					onClick={(event) => {
