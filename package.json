@@ -155,6 +155,10 @@
       "import": "./dist/color.js",
       "types": "./dist/color.d.ts"
     },
+    "./compose-refs": {
+      "import": "./dist/compose-refs.js",
+      "types": "./dist/compose-refs.d.ts"
+    },
     "./cx": {
       "import": "./dist/cx.js",
       "types": "./dist/cx.d.ts"
