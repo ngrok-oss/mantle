@@ -2,6 +2,7 @@ import { Anchor } from "@/anchor";
 import { Button } from "@/button";
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import { InlineCode } from "@/inline-code";
+import { RadioButton, RadioGroup } from "@/radio-group";
 import { Fire } from "@phosphor-icons/react/Fire";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
@@ -45,56 +46,39 @@ export default function Page() {
 				</p>
 				<div>
 					<Example className="mt-4 flex flex-wrap gap-6">
+						<form>
+							Inside form:
+							<RadioGroup defaultValue="comfortable">
+								<label htmlFor="r1" className="flex cursor-pointer items-center space-x-2">
+									<RadioButton value="default" id="r1" />
+									<p>Default</p>
+								</label>
+								<label htmlFor="r2" className="flex cursor-pointer items-center space-x-2">
+									<RadioButton value="comfortable" id="r2" />
+									<p>Comfortable</p>
+								</label>
+								<label htmlFor="r3" className="flex cursor-pointer items-center space-x-2">
+									<RadioButton value="compact" id="r3" />
+									<p>Compact</p>
+								</label>
+							</RadioGroup>
+						</form>
 						<div>
-							<p className="mb-2 text-center font-mono text-xs">Default</p>
-							<div className="flex items-center gap-2">
-								<Button type="button" appearance="ghost" priority="default">
-									Ghost
-								</Button>
-								<Button type="button" appearance="filled" priority="default">
-									Filled
-								</Button>
-								<Button type="button" appearance="outlined" priority="default">
-									Outlined
-								</Button>
-								<Button type="button" appearance="link" priority="default">
-									Link
-								</Button>
-							</div>
-						</div>
-						<div>
-							<p className="mb-2 text-center font-mono text-xs">Neutral</p>
-							<div className="flex items-center gap-2">
-								<Button type="button" appearance="ghost" priority="neutral">
-									Ghost
-								</Button>
-								<Button type="button" appearance="filled" priority="neutral">
-									Filled
-								</Button>
-								<Button type="button" appearance="outlined" priority="neutral">
-									Outlined
-								</Button>
-								<Button type="button" appearance="link" priority="neutral">
-									Link
-								</Button>
-							</div>
-						</div>
-						<div>
-							<p className="mb-2 text-center font-mono text-xs">Danger</p>
-							<div className="flex items-center gap-2">
-								<Button type="button" appearance="ghost" priority="danger">
-									Ghost
-								</Button>
-								<Button type="button" appearance="filled" priority="danger">
-									Filled
-								</Button>
-								<Button type="button" appearance="outlined" priority="danger">
-									Outlined
-								</Button>
-								<Button type="button" appearance="link" priority="danger">
-									Link
-								</Button>
-							</div>
+							Outside form:
+							<RadioGroup defaultValue="compact">
+								<label htmlFor="rr1" className="flex cursor-pointer items-center space-x-2">
+									<RadioButton value="default" id="rr1" />
+									<p>Default</p>
+								</label>
+								<label htmlFor="rr2" className="flex cursor-pointer items-center space-x-2">
+									<RadioButton value="comfortable" id="rr2" />
+									<p>Comfortable</p>
+								</label>
+								<label htmlFor="rr3" className="flex cursor-pointer items-center space-x-2">
+									<RadioButton value="compact" id="rr3" />
+									<p>Compact</p>
+								</label>
+							</RadioGroup>
 						</div>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
