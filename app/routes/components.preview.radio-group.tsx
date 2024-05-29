@@ -72,18 +72,22 @@ export default function Page() {
 						<div>
 							Outside form:
 							<RadioGroup defaultValue="compact">
-								<label htmlFor="rr1" className="flex cursor-pointer items-center space-x-2">
-									<RadioButton value="default" id="rr1" />
-									<p>Default</p>
+								<label htmlFor="rr1">
+									<SimpleRadioItem value="default" id="rr1">
+										<p>Default</p>
+									</SimpleRadioItem>
 								</label>
-								<label htmlFor="rr2" className="flex cursor-pointer items-center space-x-2">
-									<RadioButton value="comfortable" id="rr2" />
-									<p>Comfortable</p>
+								<label htmlFor="rr2">
+									<SimpleRadioItem value="comfortable" id="rr2" disabled>
+										<p>Comfortable</p>
+									</SimpleRadioItem>
 								</label>
-								<label htmlFor="rr3" className="flex cursor-pointer items-center space-x-2">
-									<RadioButton value="compact" id="rr3" />
-									<p>Compact</p>
-								</label>
+								<SimpleRadioItem value="compact" id="rr3">
+									<label htmlFor="rr3">Compact</label>
+								</SimpleRadioItem>
+								<SimpleRadioItem value="roomy" id="rr4">
+									Roomy
+								</SimpleRadioItem>
 							</RadioGroup>
 						</div>
 					</Example>
