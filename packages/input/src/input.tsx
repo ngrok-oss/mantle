@@ -1,6 +1,7 @@
 import { Warning } from "@phosphor-icons/react/Warning";
 import type { ElementRef, ForwardedRef, InputHTMLAttributes, MutableRefObject, PropsWithChildren } from "react";
 import { createContext, forwardRef, useContext, useRef } from "react";
+import { composeRefs } from "../../compose-refs";
 import { cx } from "../../cx";
 import type { WithAutoComplete, WithInputType, WithInvalid } from "./types";
 
@@ -55,19 +56,7 @@ const InputCapture = forwardRef<HTMLInputElement, InputCaptureProps>(
 			<input
 				aria-invalid={ariaInvalid}
 				className={cx("min-w-0 flex-1 bg-form placeholder:text-placeholder focus:outline-none", className)}
-				ref={(node) => {
-					if (typeof ref === "function") {
-						ref(node);
-					} else if (ref) {
-						ref.current = node;
-					}
-					if (typeof ctxForwardedRef === "function") {
-						ctxForwardedRef(node);
-					} else if (ctxForwardedRef) {
-						ctxForwardedRef.current = node;
-					}
-					ctxInnerRef.current = node;
-				}}
+				ref={composeRefs(ref, ctxForwardedRef, ctxInnerRef)}
 				{...props}
 			/>
 		);
