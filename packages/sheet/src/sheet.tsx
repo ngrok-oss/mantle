@@ -20,7 +20,7 @@ const SheetOverlay = forwardRef<
 >(({ className, ...props }, ref) => (
 	<SheetPrimitive.Overlay
 		className={cx(
-			"fixed inset-0 z-50 bg-overlay backdrop-blur-sm data-state-closed:animate-out data-state-closed:fade-out-0 data-state-open:animate-in data-state-open:fade-in-0",
+			"fixed inset-0 z-40 bg-overlay backdrop-blur-sm data-state-closed:animate-out data-state-closed:fade-out-0 data-state-open:animate-in data-state-open:fade-in-0",
 			className,
 		)}
 		{...props}
@@ -30,7 +30,7 @@ const SheetOverlay = forwardRef<
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName;
 
 const SheetVariants = cva(
-	"fixed z-50 flex flex-col bg-dialog shadow-lg transition ease-in-out data-state-closed:duration-100 data-state-closed:animate-out data-state-open:duration-100 data-state-open:animate-in",
+	"fixed z-40 flex flex-col bg-dialog shadow-lg transition ease-in-out data-state-closed:duration-100 data-state-closed:animate-out data-state-open:duration-100 data-state-open:animate-in",
 	{
 		variants: {
 			side: {
