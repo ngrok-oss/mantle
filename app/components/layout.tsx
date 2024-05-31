@@ -9,9 +9,9 @@ import { X } from "@phosphor-icons/react/X";
 import { Link } from "@remix-run/react";
 import type { Route } from "~/types/routes";
 import type { PropsWithChildren } from "react";
-import { useState } from "react";
 import { RemoveScroll } from "react-remove-scroll";
 import { NavLink } from "./nav-link";
+import { useNavigation } from "./navigation-context";
 
 const MantleLogo = () => (
 	<svg width="184" height="36">
@@ -37,7 +37,7 @@ type Props = PropsWithChildren &
 
 export function Layout({ children, className, currentVersion, style }: Props) {
 	const [currentTheme, setTheme] = useTheme();
-	const [showNavigation, setShowNavigation] = useState(false);
+	const { showNavigation, setShowNavigation } = useNavigation();
 
 	return (
 		<main className={cx("mx-auto h-full max-w-7xl sm:px-4", className)} style={style}>
@@ -48,7 +48,7 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 					priority="neutral"
 					className="w-11 sm:w-9 md:hidden"
 					onClick={() => {
-						setShowNavigation((s) => !s);
+						setShowNavigation(!showNavigation);
 					}}
 				>
 					{!showNavigation && <List className="h-6 w-6 shrink-0" />}

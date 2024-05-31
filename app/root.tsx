@@ -6,6 +6,7 @@ import { json, Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useL
 import mantleCss from "../assets/mantle.css";
 import { AutoScrollToHash } from "./components/auto-scroll-to-hash";
 import { Layout } from "./components/layout";
+import { NavigationProvider } from "./components/navigation-context";
 
 export const links: LinksFunction = () => [
 	...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
@@ -39,9 +40,11 @@ export default function App() {
 				<ThemeProvider>
 					<AutoScrollToHash />
 					<TooltipProvider>
-						<Layout currentVersion={currentVersion}>
-							<Outlet />
-						</Layout>
+						<NavigationProvider>
+							<Layout currentVersion={currentVersion}>
+								<Outlet />
+							</Layout>
+						</NavigationProvider>
 					</TooltipProvider>
 				</ThemeProvider>
 				<ScrollRestoration />
