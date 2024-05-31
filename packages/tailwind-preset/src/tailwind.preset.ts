@@ -2,6 +2,7 @@ import type { Config } from "tailwindcss";
 import tailwindCssAnimatePlugin from "tailwindcss-animate";
 import defaultTheme from "tailwindcss/defaultTheme";
 import plugin from "tailwindcss/plugin";
+import { ariaEnabledVariantPlugin } from "./tailwind-plugin-aria-enabled.js";
 import { firefoxVariantPlugin } from "./tailwind-plugin-firefox-variant.js";
 import { pointingVariantsPlugin } from "./tailwind-plugin-pointing-variants.js";
 
@@ -472,6 +473,7 @@ const mantlePreset = {
 			addVariant("dark-high-contrast", [":is(.dark-high-contrast &)"]);
 			addVariant("high-contrast", [":is(.light-high-contrast &)"]);
 		}),
+		ariaEnabledVariantPlugin,
 	],
 } satisfies Config;
 
