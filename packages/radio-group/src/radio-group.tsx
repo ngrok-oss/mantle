@@ -50,7 +50,7 @@ type RadioItemProps = Omit<HeadlessRadioProps, "children"> & PropsWithChildren;
 const RadioItem = forwardRef<ElementRef<"div">, RadioItemProps>(({ children, className, ...props }, ref) => (
 	<HeadlessRadio
 		className={cx(
-			"group/radio flex cursor-default gap-2 text-base focus:outline-none aria-enabled:cursor-pointer sm:text-sm [&_label]:cursor-inherit",
+			"group/radio flex cursor-default gap-2 py-1 text-base focus:outline-none aria-enabled:cursor-pointer sm:text-sm [&_label]:cursor-inherit",
 			className,
 		)}
 		as="div"

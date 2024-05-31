@@ -40,25 +40,25 @@ export default function Page() {
 				<div>
 					<Example className="mt-4 grid gap-6">
 						<RadioGroup className="" defaultValue="comfortable">
-							<RadioItem className="py-1" value="default" id="simple-1">
+							<RadioItem value="default" id="simple-1">
 								<RadioIndicator />
 								<RadioItemContent asChild>
 									<label htmlFor="simple-1">Default</label>
 								</RadioItemContent>
 							</RadioItem>
-							<RadioItem className="py-1" value="comfortable" id="simple-2" disabled>
+							<RadioItem value="comfortable" id="simple-2" disabled>
 								<RadioIndicator />
 								<RadioItemContent asChild>
 									<label htmlFor="simple-2">Comfortable</label>
 								</RadioItemContent>
 							</RadioItem>
-							<RadioItem className="py-1" value="compact" id="simple-3">
+							<RadioItem value="compact" id="simple-3">
 								<RadioIndicator />
 								<RadioItemContent asChild>
 									<label htmlFor="simple-3">Compact</label>
 								</RadioItemContent>
 							</RadioItem>
-							<RadioItem className="py-1" value="roomy" id="simple-4">
+							<RadioItem value="roomy" id="simple-4">
 								<RadioIndicator />
 								<RadioItemContent asChild>
 									<label htmlFor="simple-4">Roomy</label>
