@@ -34,7 +34,7 @@ type RadioItemProps = Omit<HeadlessRadioProps, "children"> & PropsWithChildren;
 const RadioItem = forwardRef<ElementRef<"div">, RadioItemProps>(({ children, className, ...props }, ref) => (
 	<HeadlessRadio
 		className={cx(
-			"group/radio aria-enabled:cursor-pointer flex cursor-default gap-2 focus:outline-none [&_label]:cursor-inherit",
+			"group/radio flex cursor-default gap-2 focus:outline-none aria-enabled:cursor-pointer [&_label]:cursor-inherit",
 			className,
 		)}
 		as="div"
@@ -86,7 +86,7 @@ const RadioListItem = forwardRef<ElementRef<"div">, RadioListItemProps>(
 				as="div"
 				className={cx(
 					"group/radio",
-					"aria-enabled:cursor-pointer relative flex select-none gap-2 border border-form p-2 focus:outline-none",
+					"relative flex select-none gap-2 border border-form p-2 focus:outline-none aria-enabled:cursor-pointer",
 					"first-of-type:rounded-tl-md first-of-type:rounded-tr-md last-of-type:rounded-bl-md last-of-type:rounded-br-md",
 					"[&_label]:cursor-inherit",
 					disabled && "border-form/50",
@@ -131,7 +131,7 @@ const RadioCard = forwardRef<ElementRef<"div">, RadioCardProps>(({ children, cla
 				"group/radio [&_label]:cursor-inherit",
 				"rounded-md border border-card bg-card",
 				"p-4",
-				"aria-enabled:cursor-pointer relative focus:outline-none",
+				"relative focus:outline-none aria-enabled:cursor-pointer",
 				"first-of-type:rounded-tl-md first-of-type:rounded-tr-md last-of-type:rounded-bl-md last-of-type:rounded-br-md",
 				disabled && "border-form/50",
 				"aria-checked:z-1 aria-checked:border-accent-500/40 aria-checked:bg-accent-500/10 hover:aria-checked:border-accent-600",
