@@ -96,7 +96,10 @@ const RadioIndicator = ({ children, className, ...props }: RadioIndicatorProps) 
 	const ctx = useContext(RadioStateContext);
 
 	return (
-		<div className={cx("inline-flex h-6 items-center sm:h-5", className)} {...props}>
+		<div
+			className={cx("radio-indicator inline-flex size-6 items-center justify-center sm:size-5", className)}
+			{...props}
+		>
 			{children == null ? (
 				<DefaultRadioIndicator {...ctx} />
 			) : typeof children === "function" ? (
@@ -127,11 +130,12 @@ const RadioListItem = forwardRef<ElementRef<"div">, RadioListItemProps>(
 			<HeadlessRadio
 				as="div"
 				className={cx(
-					"group/radio relative flex select-none gap-2 border border-form p-2 text-base sm:text-sm [&_label]:cursor-inherit",
+					"group/radio relative flex select-none gap-2 border border-form px-3 py-2 text-base sm:text-sm [&_label]:cursor-inherit",
 					"focus:outline-none aria-enabled:cursor-pointer",
 					"first-of-type:rounded-tl-md first-of-type:rounded-tr-md last-of-type:rounded-bl-md last-of-type:rounded-br-md",
 					disabled ? "border-form/50" : "hover:z-1 hover:border-accent-600",
 					"aria-checked:z-1 aria-checked:border-accent-500/40 aria-checked:bg-accent-500/10 hover:aria-checked:border-accent-600",
+					"has-[.radio-indicator:first-child]:pl-2 has-[.radio-indicator:last-child]:pr-2",
 					className,
 				)}
 				disabled={disabled}

@@ -86,7 +86,7 @@ export default function Page() {
 								</RadioItemContent>
 							</RadioListItem>
 							<RadioListItem value="compact" id="rli3">
-								<RadioIndicator />
+								{/* <RadioIndicator /> */}
 								<RadioItemContent>
 									<label className="font-medium text-strong" htmlFor="rli3">
 										Compact
@@ -95,13 +95,13 @@ export default function Page() {
 								</RadioItemContent>
 							</RadioListItem>
 							<RadioListItem value="roomy" id="rli4">
-								<RadioIndicator />
 								<RadioItemContent>
 									<label className="font-medium text-strong" htmlFor="rli4">
 										Roomy
 									</label>
 									<p className="text-body">Tempor dolore Lorem exercitation id nisi aliquip elit.</p>
 								</RadioItemContent>
+								<RadioIndicator />
 							</RadioListItem>
 						</RadioGroupList>
 
