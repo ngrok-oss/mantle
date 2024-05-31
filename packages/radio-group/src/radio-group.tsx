@@ -76,7 +76,7 @@ const DefaultRadioIndicator = ({ checked, disabled, focus, hover }: RadioStateCo
 			"flex size-4 items-center justify-center rounded-full border border-form",
 			disabled && "cursor-default opacity-50",
 			checked && "border-accent-500 bg-accent-500",
-			focus && "border-accent-600 ring-4 ring-focus-accent",
+			focus && !disabled && "border-accent-600 ring-4 ring-focus-accent",
 			hover && "border-accent-600",
 		)}
 	>
@@ -124,33 +124,30 @@ type RadioListItemProps = RadioItemProps;
 /**
  * A radio list item that is used inside a `RadioGroupList`.
  */
-const RadioListItem = forwardRef<ElementRef<"div">, RadioListItemProps>(
-	({ children, className, disabled, ...props }, ref) => {
-		return (
-			<HeadlessRadio
-				as="div"
-				className={cx(
-					"group/radio relative flex select-none gap-2 border border-form px-3 py-2 text-base sm:text-sm [&_label]:cursor-inherit",
-					"focus:outline-none aria-enabled:cursor-pointer",
-					"first-of-type:rounded-tl-md first-of-type:rounded-tr-md last-of-type:rounded-bl-md last-of-type:rounded-br-md",
-					disabled ? "border-form/50" : "hover:z-1 hover:border-accent-600",
-					"aria-checked:z-1 aria-checked:border-accent-500/40 aria-checked:bg-accent-500/10 hover:aria-checked:border-accent-600",
-					"has-[.radio-indicator:first-child]:pl-2 has-[.radio-indicator:last-child]:pr-2",
-					className,
-				)}
-				disabled={disabled}
-				ref={ref}
-				{...props}
-			>
-				{(ctx) => (
-					<>
-						<RadioStateContext.Provider value={ctx}>{children}</RadioStateContext.Provider>
-					</>
-				)}
-			</HeadlessRadio>
-		);
-	},
-);
+const RadioListItem = forwardRef<ElementRef<"div">, RadioListItemProps>(({ children, className, ...props }, ref) => {
+	return (
+		<HeadlessRadio
+			as="div"
+			className={cx(
+				"group/radio relative flex select-none gap-2 border border-form px-3 py-2 text-base sm:text-sm [&_label]:cursor-inherit",
+				"focus:outline-none aria-enabled:cursor-pointer",
+				"first-of-type:rounded-tl-md first-of-type:rounded-tr-md last-of-type:rounded-bl-md last-of-type:rounded-br-md",
+				"disabled:border-form/50 aria-enabled:hover:z-1 aria-enabled:hover:border-accent-600",
+				"aria-checked:z-1 aria-checked:border-accent-500/40 aria-checked:bg-accent-500/10 enabled:hover:aria-checked:border-accent-600",
+				"has-[.radio-indicator:first-child]:pl-2 has-[.radio-indicator:last-child]:pr-2",
+				className,
+			)}
+			ref={ref}
+			{...props}
+		>
+			{(ctx) => (
+				<>
+					<RadioStateContext.Provider value={ctx}>{children}</RadioStateContext.Provider>
+				</>
+			)}
+		</HeadlessRadio>
+	);
+});
 RadioListItem.displayName = "RadioListItem";
 
 type RadioItemContentProps = HTMLAttributes<HTMLDivElement> & WithAsChild;
@@ -160,7 +157,7 @@ type RadioCardProps = RadioItemProps;
 /**
  * A radio card item. Use it as a child of `RadioGroup`
  */
-const RadioCard = forwardRef<ElementRef<"div">, RadioCardProps>(({ children, className, disabled, ...props }, ref) => {
+const RadioCard = forwardRef<ElementRef<"div">, RadioCardProps>(({ children, className, ...props }, ref) => {
 	return (
 		<HeadlessRadio
 			as="div"
@@ -168,11 +165,10 @@ const RadioCard = forwardRef<ElementRef<"div">, RadioCardProps>(({ children, cla
 				"group/radio relative rounded-md border border-card bg-card p-4 text-base sm:text-sm [&_label]:cursor-inherit",
 				"focus:outline-none aria-enabled:cursor-pointer",
 				"first-of-type:rounded-tl-md first-of-type:rounded-tr-md last-of-type:rounded-bl-md last-of-type:rounded-br-md",
-				disabled ? "border-form/50" : "hover:z-1 hover:border-accent-600",
-				"aria-checked:z-1 aria-checked:border-accent-500/40 aria-checked:bg-accent-500/10 hover:aria-checked:border-accent-600",
+				"disabled:border-form/50 aria-enabled:hover:z-1 aria-enabled:hover:border-accent-600",
+				"aria-checked:z-1 aria-checked:border-accent-500/40 aria-checked:bg-accent-500/10 aria-enabled:hover:aria-checked:border-accent-600",
 				className,
 			)}
-			disabled={disabled}
 			{...props}
 			ref={ref}
 		>
