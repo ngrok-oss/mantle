@@ -50,7 +50,7 @@ type RadioItemProps = Omit<HeadlessRadioProps, "children"> & PropsWithChildren;
 const RadioItem = forwardRef<ElementRef<"div">, RadioItemProps>(({ children, className, ...props }, ref) => (
 	<HeadlessRadio
 		className={cx(
-			"group/radio flex cursor-default gap-2 focus:outline-none aria-enabled:cursor-pointer [&_label]:cursor-inherit",
+			"group/radio flex cursor-default gap-2 text-base focus:outline-none aria-enabled:cursor-pointer sm:text-sm [&_label]:cursor-inherit",
 			className,
 		)}
 		as="div"
@@ -96,7 +96,7 @@ const RadioIndicator = ({ children, className, ...props }: RadioIndicatorProps) 
 	const ctx = useContext(RadioStateContext);
 
 	return (
-		<div className={cx("inline-flex h-6 items-center", className)} {...props}>
+		<div className={cx("inline-flex h-6 items-center sm:h-5", className)} {...props}>
 			{children == null ? (
 				<DefaultRadioIndicator {...ctx} />
 			) : typeof children === "function" ? (
@@ -127,7 +127,7 @@ const RadioListItem = forwardRef<ElementRef<"div">, RadioListItemProps>(
 			<HeadlessRadio
 				as="div"
 				className={cx(
-					"group/radio relative flex select-none gap-2 border border-form p-2 [&_label]:cursor-inherit",
+					"group/radio relative flex select-none gap-2 border border-form p-2 text-base sm:text-sm [&_label]:cursor-inherit",
 					"focus:outline-none aria-enabled:cursor-pointer",
 					"first-of-type:rounded-tl-md first-of-type:rounded-tr-md last-of-type:rounded-bl-md last-of-type:rounded-br-md",
 					disabled ? "border-form/50" : "hover:z-1 hover:border-accent-600",
@@ -161,7 +161,7 @@ const RadioCard = forwardRef<ElementRef<"div">, RadioCardProps>(({ children, cla
 		<HeadlessRadio
 			as="div"
 			className={clsx(
-				"group/radio relative rounded-md border border-card bg-card p-4 [&_label]:cursor-inherit",
+				"group/radio relative rounded-md border border-card bg-card p-4 text-base sm:text-sm [&_label]:cursor-inherit",
 				"focus:outline-none aria-enabled:cursor-pointer",
 				"first-of-type:rounded-tl-md first-of-type:rounded-tr-md last-of-type:rounded-bl-md last-of-type:rounded-br-md",
 				disabled ? "border-form/50" : "hover:z-1 hover:border-accent-600",

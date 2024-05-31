@@ -31,31 +31,31 @@ export default function Page() {
 			<div>
 				<Example>
 					<div className="flex flex-col">
-						<label htmlFor="terms" className="flex items-center gap-2">
+						<label htmlFor="terms" className="flex items-center gap-2 has-[:enabled]:cursor-pointer">
 							<Checkbox name="terms" id="terms" />
 							Accept terms and conditions
 						</label>
-						<label htmlFor="unchecked" className="flex items-center gap-2">
+						<label htmlFor="unchecked" className="flex items-center gap-2 has-[:enabled]:cursor-pointer">
 							<Checkbox id="unchecked" name="unchecked" checked={false} />
 							Unchecked
 						</label>
-						<label htmlFor="checked" className="flex items-center gap-2">
+						<label htmlFor="checked" className="flex items-center gap-2 has-[:enabled]:cursor-pointer">
 							<Checkbox id="checked" name="checked" checked />
 							Checked
 						</label>
-						<label htmlFor="indeterminate" className="flex items-center gap-2">
+						<label htmlFor="indeterminate" className="flex items-center gap-2 has-[:enabled]:cursor-pointer">
 							<Checkbox id="indeterminate" name="indeterminate" checked="indeterminate" />
 							Indeterminate
 						</label>
-						<label htmlFor="disabled-unchecked" className="flex items-center gap-2">
+						<label htmlFor="disabled-unchecked" className="flex items-center gap-2 has-[:enabled]:cursor-pointer">
 							<Checkbox disabled id="unchecked" name="unchecked" checked={false} />
 							<span className="opacity-50">Disabled Unchecked</span>
 						</label>
-						<label htmlFor="disabled-checked" className="flex items-center gap-2 ">
+						<label htmlFor="disabled-checked" className="flex items-center gap-2 has-[:enabled]:cursor-pointer">
 							<Checkbox disabled id="checked" name="checked" checked />
 							<span className="opacity-50">Disabled Checked</span>
 						</label>
-						<label htmlFor="disabled-indeterminate" className="flex items-center gap-2">
+						<label htmlFor="disabled-indeterminate" className="flex items-center gap-2 has-[:enabled]:cursor-pointer">
 							<Checkbox disabled id="indeterminate" name="indeterminate" checked="indeterminate" />
 							<span className="opacity-50">Disabled Indeterminate</span>
 						</label>
