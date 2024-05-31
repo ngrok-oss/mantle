@@ -97,7 +97,7 @@ const RadioIndicator = ({ children, className, ...props }: RadioIndicatorProps) 
 
 	return (
 		<div
-			className={cx("radio-indicator inline-flex size-6 items-center justify-center sm:size-5", className)}
+			className={cx("radio-indicator inline-flex size-6 select-none items-center justify-center sm:size-5", className)}
 			{...props}
 		>
 			{children == null ? (
