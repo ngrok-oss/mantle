@@ -95,7 +95,7 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 			{showNavigation && (
 				// TODO: When the window is made larger, we need to re-enable scrolling
 				<RemoveScroll>
-					<div className="absolute bottom-0 left-0 right-0 top-24 z-50 bg-card p-4 md:hidden">
+					<div className="fixed bottom-0 left-0 right-0 top-24 z-50 bg-card p-4 md:hidden">
 						<Navigation className="scrollbar h-full overflow-auto" />
 					</div>
 				</RemoveScroll>
