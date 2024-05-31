@@ -1,99 +1,164 @@
-import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
-import clsx from "clsx";
-import { forwardRef, useRef } from "react";
-import type { ComponentPropsWithoutRef, ElementRef } from "react";
-import { composeRefs } from "../../compose-refs";
+import { Radio as HeadlessRadio, RadioGroup as HeadlessRadioGroup } from "@headlessui/react";
+import type { RadioGroupProps as HeadlessRadioGroupProps, RadioProps as HeadlessRadioProps } from "@headlessui/react";
+import { Slot } from "@radix-ui/react-slot";
+import { createContext, forwardRef } from "react";
+import type { ElementRef, HTMLAttributes, PropsWithChildren } from "react";
 import { cx } from "../../cx";
+import type { WithAsChild } from "../../types";
 
-const RadioGroup = forwardRef<
-	ElementRef<typeof RadioGroupPrimitive.Root>,
-	ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Root>
->(({ className, ...props }, ref) => {
-	return (
-		<RadioGroupPrimitive.Root
-			className={cx(
-				"",
-				// "has-[[data-state='checked']]:border-green-600 has-[[data-state='checked']]:bg-red-600/10",
-				className,
-			)}
-			{...props}
-			ref={ref}
-		/>
-	);
-});
+type RadioGroupProps = PropsWithChildren<Omit<HeadlessRadioGroupProps, "as" | "children">>;
+
+const RadioGroup = forwardRef<ElementRef<typeof HeadlessRadioGroup>, RadioGroupProps>((props, ref) => (
+	<HeadlessRadioGroup {...props} ref={ref} />
+));
 RadioGroup.displayName = "RadioGroup";
 
-const RadioButton = forwardRef<
-	ElementRef<typeof RadioGroupPrimitive.Item>,
-	ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Item>
->(({ className, ...props }, ref) => {
-	return (
-		<RadioGroupPrimitive.Item
-			ref={ref}
-			className={cx(
-				"relative size-4 shrink-0 overflow-hidden rounded-full border border-form bg-form enabled:active:bg-form disabled:opacity-50",
-				"data-state-checked:border-transparent data-state-checked:bg-accent-500 active:data-state-checked:bg-accent-500",
-				"enabled:hover:border-accent-600 enabled:group-hover/radio:border-accent-600",
-				"focus:outline-none focus-visible:border-accent-600 focus-visible:ring-4 focus-visible:ring-focus-accent",
-				"focus-visible:data-state-checked:border-accent-600",
-				className,
-			)}
-			{...props}
-		>
-			<RadioGroupPrimitive.Indicator className="absolute inset-0 flex items-center justify-center">
-				<div className="size-2 rounded-full bg-[#fff]" />
-			</RadioGroupPrimitive.Indicator>
-		</RadioGroupPrimitive.Item>
-	);
+type RadioContextValue = {
+	autofocus: boolean;
+	checked: boolean;
+	disabled: boolean;
+	focus: boolean;
+	hover: boolean;
+};
+
+const RadioContext = createContext<RadioContextValue>({
+	autofocus: false,
+	checked: false,
+	disabled: false,
+	focus: false,
+	hover: false,
 });
-RadioButton.displayName = "RadioButton";
 
-type SimpleRadioItemProps = Omit<ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Item>, "asChild">;
+type RadioItemProps = Omit<HeadlessRadioProps, "children"> & PropsWithChildren;
 
-const SimpleRadioItem = forwardRef<ElementRef<typeof RadioGroupPrimitive.Item>, SimpleRadioItemProps>(
-	({ children, disabled, className, style, ...props }, ref) => {
-		const containerRef = useRef<ElementRef<"div">>(null);
-		const childrenRef = useRef<ElementRef<"div">>(null);
-		const innerRef = useRef<ElementRef<typeof RadioGroupPrimitive.Item> | null>(null);
+const RadioItem = forwardRef<ElementRef<"div">, RadioItemProps>(({ children, className, ...props }, ref) => (
+	<HeadlessRadio
+		className={cx(
+			"group/radio aria-enabled:cursor-pointer flex cursor-default gap-2 focus:outline-none [&_label]:cursor-inherit",
+			className,
+		)}
+		as="div"
+		{...props}
+		ref={ref}
+	>
+		{(ctx) => <RadioContext.Provider value={ctx}>{children}</RadioContext.Provider>}
+	</HeadlessRadio>
+));
+RadioItem.displayName = "RadioItem";
 
-		const clickRadio = () => {
-			innerRef.current?.focus();
-			innerRef.current?.click();
-		};
+type RadioIndicatorProps = HTMLAttributes<HTMLDivElement>;
 
+/**
+ * The selection indicator for a radio item.
+ * Pass a function as children for a render-props way to customize the indicator.
+ */
+const RadioIndicator = ({ children, className, ...props }: RadioIndicatorProps) => {
+	return (
+		<div className={cx("inline-flex h-6 items-center", className)} {...props}>
+			{children ?? (
+				<span
+					className={cx(
+						"flex size-4 items-center justify-center rounded-full border border-form",
+						"group-aria-disabled/radio:cursor-default group-aria-disabled/radio:opacity-50",
+						"group-focus-visible/radio:!border-accent-600 group-focus-visible/radio:ring-4 group-focus-visible/radio:ring-focus-accent",
+						"group-aria-checked/radio:border-accent-500 group-aria-checked/radio:bg-accent-500",
+						"enabled:group-hover/radio:!border-accent-600",
+					)}
+				>
+					<span className="hidden size-2 rounded-full bg-[#fff] group-aria-checked/radio:block" />
+				</span>
+			)}
+		</div>
+	);
+};
+
+const RadioGroupList = forwardRef<ElementRef<typeof RadioGroup>, RadioGroupProps>(({ className, ...props }, ref) => {
+	return <RadioGroup className={cx("-space-y-px", className)} {...props} ref={ref} />;
+});
+RadioGroupList.displayName = "RadioGroupList";
+
+type RadioListItemProps = RadioItemProps;
+
+const RadioListItem = forwardRef<ElementRef<"div">, RadioListItemProps>(
+	({ children, className, disabled, ...props }, ref) => {
 		return (
-			<div
-				aria-disabled={disabled}
-				ref={containerRef}
+			<HeadlessRadio
+				as="div"
 				className={cx(
-					"group/radio flex select-none items-center gap-2",
-					!disabled && "cursor-pointer [&_*]:cursor-pointer",
+					"group/radio",
+					"aria-enabled:cursor-pointer relative flex select-none gap-2 border border-form p-2 focus:outline-none",
+					"first-of-type:rounded-tl-md first-of-type:rounded-tr-md last-of-type:rounded-bl-md last-of-type:rounded-br-md",
+					"[&_label]:cursor-inherit",
+					disabled && "border-form/50",
+					"aria-checked:z-1 aria-checked:border-accent-500/40 aria-checked:bg-accent-500/10 hover:aria-checked:border-accent-600",
+					!disabled && "hover:z-1 hover:border-accent-600",
 					className,
 				)}
-				style={style}
-				onClick={(event) => {
-					if (containerRef.current === event.target && innerRef.current !== document.activeElement) {
-						clickRadio();
-					}
-				}}
+				disabled={disabled}
+				{...props}
+				ref={ref}
 			>
-				<RadioButton disabled={disabled} ref={composeRefs(ref, innerRef)} {...props} />
-				<div
-					ref={childrenRef}
-					onClick={(event) => {
-						if (childrenRef.current === event.target && innerRef.current !== document.activeElement) {
-							clickRadio();
-						}
-					}}
-					onMouseUp={() => {}}
-					className={clsx(disabled && "opacity-50")}
-				>
-					{children}
-				</div>
-			</div>
+				{(ctx) => (
+					<>
+						<RadioContext.Provider value={ctx}>{children}</RadioContext.Provider>
+					</>
+				)}
+			</HeadlessRadio>
 		);
 	},
 );
-SimpleRadioItem.displayName = "SimpleRadioItem";
+RadioListItem.displayName = "RadioListItem";
 
-export { RadioGroup, RadioButton, SimpleRadioItem };
+type RadioItemContentProps = HTMLAttributes<HTMLDivElement> & WithAsChild;
+
+const RadioItemContent = ({ asChild = false, children, className, ...props }: RadioItemContentProps) => {
+	const Component = asChild ? Slot : "div";
+
+	return (
+		<Component className={cx("min-w-0 flex-1 group-aria-disabled/radio:opacity-50", className)} {...props}>
+			{children}
+		</Component>
+	);
+};
+
+type RadioCardProps = RadioItemProps;
+
+const RadioCard = forwardRef<ElementRef<"div">, RadioCardProps>(({ children, className, disabled, ...props }, ref) => {
+	return (
+		<HeadlessRadio
+			as="div"
+			className={cx(
+				"group/radio [&_label]:cursor-inherit",
+				"rounded-md border border-card bg-card",
+				"p-4",
+				"aria-enabled:cursor-pointer relative focus:outline-none",
+				"first-of-type:rounded-tl-md first-of-type:rounded-tr-md last-of-type:rounded-bl-md last-of-type:rounded-br-md",
+				disabled && "border-form/50",
+				"aria-checked:z-1 aria-checked:border-accent-500/40 aria-checked:bg-accent-500/10 hover:aria-checked:border-accent-600",
+				!disabled && "hover:z-1 hover:border-accent-600",
+				className,
+			)}
+			disabled={disabled}
+			{...props}
+			ref={ref}
+		>
+			{(ctx) => (
+				<>
+					<RadioContext.Provider value={ctx}>{children}</RadioContext.Provider>
+				</>
+			)}
+		</HeadlessRadio>
+	);
+});
+RadioCard.displayName = "RadioCard";
+
+export {
+	//
+	RadioCard,
+	RadioGroup,
+	RadioGroupList,
+	RadioIndicator,
+	RadioItem,
+	RadioItemContent,
+	RadioListItem,
+};

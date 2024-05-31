@@ -2,7 +2,15 @@ import { Anchor } from "@/anchor";
 import { Button } from "@/button";
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import { InlineCode } from "@/inline-code";
-import { RadioButton, RadioGroup, SimpleRadioItem } from "@/radio-group";
+import {
+	RadioCard,
+	RadioGroup,
+	RadioGroupList,
+	RadioIndicator,
+	RadioItem,
+	RadioItemContent,
+	RadioListItem,
+} from "@/radio-group";
 import { Fire } from "@phosphor-icons/react/Fire";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
@@ -47,28 +55,159 @@ export default function Page() {
 					time.
 				</p>
 				<div>
-					<Example className="mt-4 flex flex-wrap gap-6">
-						<RadioGroup>
-							<RadioButton value="" />
+					<RadioGroup className="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4" defaultValue="existing">
+						<RadioCard className="flex" value="newsletter" id="rc1">
+							<div className="flex-1">
+								<p className="block text-sm font-medium text-strong">Newsletter</p>
+								<p className="mt-1 flex items-center text-sm text-gray-500">Last message sent an hour ago</p>
+								<p className="mt-6 text-sm font-medium">621 users</p>
+							</div>
+							<RadioIndicator />
+						</RadioCard>
+						<RadioCard className="flex" value="existing" id="rc2">
+							<div className="flex-1">
+								<p className="block text-sm font-medium text-strong">Existing Customers</p>
+								<p className="mt-1 flex items-center text-sm text-gray-500">Last message sent 2 weeks ago</p>
+								<p className="mt-6 text-sm font-medium">1200 users</p>
+							</div>
+							<RadioIndicator />
+						</RadioCard>
+						<RadioCard className="flex" value="trial" id="rc3">
+							<div className="flex-1">
+								<p className="block text-sm font-medium text-strong">Trial Users</p>
+								<p className="mt-1 flex items-center text-sm text-gray-500">Last message sent 4 days ago</p>
+								<p className="mt-6 text-sm font-medium">2740 Users</p>
+							</div>
+							<RadioIndicator />
+						</RadioCard>
+					</RadioGroup>
+
+					<div className="my-8 grid grid-cols-7 gap-4">
+						<p className="col-span-2 text-right">MFA Enforcement:</p>
+						<RadioGroup className="col-span-5 flex flex-col gap-2" defaultValue="disabled">
+							<RadioCard className="flex gap-2" value="disabled" id="disabled">
+								<RadioIndicator />
+								<label htmlFor="disabled">
+									<span className="font-medium">Disabled:</span> Allow all users to authenticate with any method
+								</label>
+							</RadioCard>
+							<RadioCard className="flex gap-2" value="enabled" id="enabled">
+								<RadioIndicator />
+								<label htmlFor="enabled">
+									<span className="font-medium">Enabled:</span> Require all team members to sign in with Multi-Factor
+									Authentication. If they don't have it enabled, they will be prompted to enable it immediately.
+								</label>
+							</RadioCard>
 						</RadioGroup>
-						<form>
+					</div>
+
+					<Example className="mt-4 flex flex-wrap gap-6">
+						<RadioGroupList defaultValue="comfortable">
+							<RadioListItem value="default" disabled id="rli1">
+								<RadioIndicator />
+								<RadioItemContent>
+									<label className="font-medium" htmlFor="rli1">
+										Default
+									</label>
+									<p>Laborum esse cillum incididunt est dolore.</p>
+								</RadioItemContent>
+							</RadioListItem>
+							<RadioListItem value="comfortable" id="rli2">
+								<RadioIndicator />
+								<RadioItemContent>
+									<label className="font-medium" htmlFor="rli2">
+										Comfortable
+									</label>
+									<p>Ea laboris tempor laborum officia ea adipisicing exercitation.</p>
+								</RadioItemContent>
+							</RadioListItem>
+							<RadioListItem value="compact" id="rli3">
+								<RadioIndicator />
+								<RadioItemContent>
+									<label className="font-medium" htmlFor="rli3">
+										Compact
+									</label>
+									<p>Adipisicing est dolore velit magna dolor voluptate velit.</p>
+								</RadioItemContent>
+							</RadioListItem>
+							<RadioListItem value="roomy" id="rli4">
+								<RadioIndicator />
+								<RadioItemContent>
+									<label className="font-medium" htmlFor="rli4">
+										Roomy
+									</label>
+									<p>Tempor dolore Lorem exercitation id nisi aliquip elit.</p>
+								</RadioItemContent>
+							</RadioListItem>
+						</RadioGroupList>
+
+						<RadioGroup className="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4">
+							<RadioCard value="newsletter" id="rc1">
+								asdf
+							</RadioCard>
+							<RadioCard value="existing" id="rc2">
+								asdf
+							</RadioCard>
+							<RadioCard value="trial" id="rc3">
+								asdf
+							</RadioCard>
+						</RadioGroup>
+
+						<RadioGroup defaultValue="comfortable">
+							<RadioItem value="default" id="simple-1">
+								<RadioIndicator />
+								<RadioItemContent asChild>
+									<label htmlFor="simple-1">Default</label>
+								</RadioItemContent>
+							</RadioItem>
+							<RadioItem value="comfortable" id="simple-2" disabled>
+								<RadioIndicator />
+								<RadioItemContent asChild>
+									<label htmlFor="simple-2">Comfortable</label>
+								</RadioItemContent>
+							</RadioItem>
+							<RadioItem value="compact" id="simple-3">
+								<RadioIndicator />
+								<RadioItemContent asChild>
+									<label htmlFor="simple-3">Compact</label>
+								</RadioItemContent>
+							</RadioItem>
+							<RadioItem value="roomy" id="simple-4">
+								<RadioIndicator />
+								<RadioItemContent asChild>
+									<label htmlFor="simple-4">Roomy</label>
+								</RadioItemContent>
+							</RadioItem>
+						</RadioGroup>
+
+						{/* <form>
 							Inside form:
-							<RadioGroup defaultValue="comfortable">
+							<RadioGroup defaultValue="comfortable" id="0">
 								<label htmlFor="r1">
-									<SimpleRadioItem value="default" id="r1">
-										<p>Default</p>
+									<SimpleRadioItem value="default" id="1">
+										<RadioButton value="default" id="r1" />
+										<RadioItemContent>
+											<p>Default</p>
+										</RadioItemContent>
 									</SimpleRadioItem>
 								</label>
 								<label htmlFor="r2">
-									<SimpleRadioItem value="comfortable" id="r2" disabled>
-										<p>Comfortable</p>
+									<SimpleRadioItem value="comfortable" id="2">
+										<RadioButton value="comfortable" id="r2" disabled />
+										<RadioItemContent>
+											<p>Comfortable</p>
+										</RadioItemContent>
 									</SimpleRadioItem>
 								</label>
-								<SimpleRadioItem value="compact" id="r3">
-									<label htmlFor="r3">Compact</label>
+								<SimpleRadioItem value="compact" id="3">
+									<RadioButton value="compact" id="r3" />
+									<RadioItemContent>
+										<label htmlFor="r3">Compact</label>
+									</RadioItemContent>
 								</SimpleRadioItem>
-								<SimpleRadioItem value="roomy" id="r4">
-									Roomy
+								<SimpleRadioItem value="roomy" id="4">
+									<RadioButton value="roomy" id="r4" />
+									<RadioItemContent>Roomy</RadioItemContent>
 								</SimpleRadioItem>
 							</RadioGroup>
 						</form>
@@ -92,7 +231,7 @@ export default function Page() {
 									Roomy
 								</SimpleRadioItem>
 							</RadioGroup>
-						</div>
+						</div> */}
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
