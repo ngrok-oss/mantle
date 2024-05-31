@@ -10,6 +10,7 @@ import { Link } from "@remix-run/react";
 import type { Route } from "~/types/routes";
 import type { PropsWithChildren } from "react";
 import { useState } from "react";
+import { RemoveScroll } from "react-remove-scroll";
 import { NavLink } from "./nav-link";
 
 const MantleLogo = () => (
@@ -92,9 +93,12 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 				</Select>
 			</header>
 			{showNavigation && (
-				<div className="absolute bottom-0 left-0 right-0 top-24 z-50 bg-card p-4 md:hidden">
-					<Navigation className="scrollbar h-full overflow-auto" />
-				</div>
+				// TODO: When the window is made larger, we need to re-enable scrolling
+				<RemoveScroll>
+					<div className="absolute bottom-0 left-0 right-0 top-24 z-50 bg-card p-4 md:hidden">
+						<Navigation className="scrollbar h-full overflow-auto" />
+					</div>
+				</RemoveScroll>
 			)}
 			<div className="flex gap-4">
 				<Navigation className="hidden h-full min-h-full w-44 overflow-auto pt-9 md:block" />
