@@ -39,26 +39,26 @@ export default function Page() {
 				</p>
 				<div>
 					<Example className="mt-4 grid gap-6">
-						<RadioGroup defaultValue="comfortable">
-							<RadioItem value="default" id="simple-1">
+						<RadioGroup className="" defaultValue="comfortable">
+							<RadioItem className="py-1" value="default" id="simple-1">
 								<RadioIndicator />
 								<RadioItemContent asChild>
 									<label htmlFor="simple-1">Default</label>
 								</RadioItemContent>
 							</RadioItem>
-							<RadioItem value="comfortable" id="simple-2" disabled>
+							<RadioItem className="py-1" value="comfortable" id="simple-2" disabled>
 								<RadioIndicator />
 								<RadioItemContent asChild>
 									<label htmlFor="simple-2">Comfortable</label>
 								</RadioItemContent>
 							</RadioItem>
-							<RadioItem value="compact" id="simple-3">
+							<RadioItem className="py-1" value="compact" id="simple-3">
 								<RadioIndicator />
 								<RadioItemContent asChild>
 									<label htmlFor="simple-3">Compact</label>
 								</RadioItemContent>
 							</RadioItem>
-							<RadioItem value="roomy" id="simple-4">
+							<RadioItem className="py-1" value="roomy" id="simple-4">
 								<RadioIndicator />
 								<RadioItemContent asChild>
 									<label htmlFor="simple-4">Roomy</label>
@@ -70,37 +70,37 @@ export default function Page() {
 							<RadioListItem value="default" disabled id="rli1">
 								<RadioIndicator />
 								<RadioItemContent>
-									<label className="font-medium" htmlFor="rli1">
+									<label className="font-medium text-strong" htmlFor="rli1">
 										Default
 									</label>
-									<p>Laborum esse cillum incididunt est dolore.</p>
+									<p className="text-body">Laborum esse cillum incididunt est dolore.</p>
 								</RadioItemContent>
 							</RadioListItem>
 							<RadioListItem value="comfortable" id="rli2">
 								<RadioIndicator />
 								<RadioItemContent>
-									<label className="font-medium" htmlFor="rli2">
+									<label className="font-medium text-strong" htmlFor="rli2">
 										Comfortable
 									</label>
-									<p>Ea laboris tempor laborum officia ea adipisicing exercitation.</p>
+									<p className="text-body">Ea laboris tempor laborum officia ea adipisicing exercitation.</p>
 								</RadioItemContent>
 							</RadioListItem>
 							<RadioListItem value="compact" id="rli3">
 								<RadioIndicator />
 								<RadioItemContent>
-									<label className="font-medium" htmlFor="rli3">
+									<label className="font-medium text-strong" htmlFor="rli3">
 										Compact
 									</label>
-									<p>Adipisicing est dolore velit magna dolor voluptate velit.</p>
+									<p className="text-body">Adipisicing est dolore velit magna dolor voluptate velit.</p>
 								</RadioItemContent>
 							</RadioListItem>
 							<RadioListItem value="roomy" id="rli4">
 								<RadioIndicator />
 								<RadioItemContent>
-									<label className="font-medium" htmlFor="rli4">
+									<label className="font-medium text-strong" htmlFor="rli4">
 										Roomy
 									</label>
-									<p>Tempor dolore Lorem exercitation id nisi aliquip elit.</p>
+									<p className="text-body">Tempor dolore Lorem exercitation id nisi aliquip elit.</p>
 								</RadioItemContent>
 							</RadioListItem>
 						</RadioGroupList>
@@ -154,26 +154,26 @@ export default function Page() {
 										RadioListItem,
 									} from "@ngrok/mantle/radio-group";
 
-									<RadioGroup defaultValue="comfortable">
-										<RadioItem value="default" id="simple-1">
+									<RadioGroup className="" defaultValue="comfortable">
+										<RadioItem className="py-1" value="default" id="simple-1">
 											<RadioIndicator />
 											<RadioItemContent asChild>
 												<label htmlFor="simple-1">Default</label>
 											</RadioItemContent>
 										</RadioItem>
-										<RadioItem value="comfortable" id="simple-2" disabled>
+										<RadioItem className="py-1" value="comfortable" id="simple-2" disabled>
 											<RadioIndicator />
 											<RadioItemContent asChild>
 												<label htmlFor="simple-2">Comfortable</label>
 											</RadioItemContent>
 										</RadioItem>
-										<RadioItem value="compact" id="simple-3">
+										<RadioItem className="py-1" value="compact" id="simple-3">
 											<RadioIndicator />
 											<RadioItemContent asChild>
 												<label htmlFor="simple-3">Compact</label>
 											</RadioItemContent>
 										</RadioItem>
-										<RadioItem value="roomy" id="simple-4">
+										<RadioItem className="py-1" value="roomy" id="simple-4">
 											<RadioIndicator />
 											<RadioItemContent asChild>
 												<label htmlFor="simple-4">Roomy</label>
@@ -185,37 +185,37 @@ export default function Page() {
 										<RadioListItem value="default" disabled id="rli1">
 											<RadioIndicator />
 											<RadioItemContent>
-												<label className="font-medium" htmlFor="rli1">
+												<label className="font-medium text-strong" htmlFor="rli1">
 													Default
 												</label>
-												<p>Laborum esse cillum incididunt est dolore.</p>
+												<p className="text-body">Laborum esse cillum incididunt est dolore.</p>
 											</RadioItemContent>
 										</RadioListItem>
 										<RadioListItem value="comfortable" id="rli2">
 											<RadioIndicator />
 											<RadioItemContent>
-												<label className="font-medium" htmlFor="rli2">
+												<label className="font-medium text-strong" htmlFor="rli2">
 													Comfortable
 												</label>
-												<p>Ea laboris tempor laborum officia ea adipisicing exercitation.</p>
+												<p className="text-body">Ea laboris tempor laborum officia ea adipisicing exercitation.</p>
 											</RadioItemContent>
 										</RadioListItem>
 										<RadioListItem value="compact" id="rli3">
 											<RadioIndicator />
 											<RadioItemContent>
-												<label className="font-medium" htmlFor="rli3">
+												<label className="font-medium text-strong" htmlFor="rli3">
 													Compact
 												</label>
-												<p>Adipisicing est dolore velit magna dolor voluptate velit.</p>
+												<p className="text-body">Adipisicing est dolore velit magna dolor voluptate velit.</p>
 											</RadioItemContent>
 										</RadioListItem>
 										<RadioListItem value="roomy" id="rli4">
 											<RadioIndicator />
 											<RadioItemContent>
-												<label className="font-medium" htmlFor="rli4">
+												<label className="font-medium text-strong" htmlFor="rli4">
 													Roomy
 												</label>
-												<p>Tempor dolore Lorem exercitation id nisi aliquip elit.</p>
+												<p className="text-body">Tempor dolore Lorem exercitation id nisi aliquip elit.</p>
 											</RadioItemContent>
 										</RadioListItem>
 									</RadioGroupList>
