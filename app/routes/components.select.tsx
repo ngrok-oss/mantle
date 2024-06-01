@@ -24,6 +24,7 @@ import {
 	PropTypeCell,
 	StringPropType,
 } from "~/components/props-table";
+import { useState } from "react";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -39,6 +40,8 @@ export const headers: HeadersFunction = () => {
 };
 
 export default function Page() {
+	const [example1Value, setExample1Value] = useState("");
+
 	return (
 		<div className="space-y-16">
 			<section className="mb-4 space-y-4">
@@ -153,6 +156,64 @@ export default function Page() {
 						</CodeBlockBody>
 					</CodeBlock>
 				</div>
+			</section>
+
+			<section>
+				<header className="space-y-4">
+					<h2 id="examples" className="text-3xl font-medium">
+						Examples
+					</h2>
+				</header>
+
+				<section>
+					<h3 className="mt-8 text-xl font-medium">Custom selected value</h3>
+					<p className="mt-1 text-body">
+						By default the selected item's text will be rendered when selected. Sometimes you may need to render
+						something different. You can control the select and pass <InlineCode>children</InlineCode> instead.
+					</p>
+					<Example className="mt-4">
+						<Select value={example1Value} onChange={setExample1Value}>
+							<SelectTrigger className="w-[180px]">
+								<SelectValue placeholder="Select a fruit">
+									{example1Value === "apple" ? <>🍎 Apple</> : <>🍑 Peach</>}
+								</SelectValue>
+							</SelectTrigger>
+							<SelectContent width="trigger">
+								<SelectItem value="apple">Apple</SelectItem>
+								<SelectItem value="peach">Peach</SelectItem>
+							</SelectContent>
+						</Select>
+					</Example>
+					<CodeBlock className="rounded-b-lg rounded-t-none">
+						<CodeBlockBody>
+							<CodeBlockCopyButton />
+							<CodeBlockCode
+								language="tsx"
+								value={fmtCode`
+							import {
+								Select,
+								SelectContent,
+								SelectItem,
+								SelectTrigger,
+								SelectValue,
+							} from "@ngrok/mantle/select";
+
+							<Select value={value} onChange={setValue}>
+								<SelectTrigger className="w-[180px]">
+									<SelectValue placeholder="Select a fruit">
+										{value === "apple" ? <>🍎 Apple!</> : <>🍑 Peach!</>}
+									</SelectValue>
+								</SelectTrigger>
+								<SelectContent width="trigger">
+									<SelectItem value="apple">Apple</SelectItem>
+									<SelectItem value="peach">Peach</SelectItem>
+								</SelectContent>
+							</Select>
+						`}
+							/>
+						</CodeBlockBody>
+					</CodeBlock>
+				</section>
 			</section>
 
 			<section className="mt-16 space-y-8">
