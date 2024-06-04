@@ -70,7 +70,9 @@ export default function Page() {
 
 						<RadioButtonGroup defaultValue="production">
 							<RadioButton value="development">Development</RadioButton>
-							<RadioButton value="staging">Staging</RadioButton>
+							<RadioButton disabled value="staging">
+								Staging
+							</RadioButton>
 							<RadioButton value="production">Production</RadioButton>
 						</RadioButtonGroup>
 
