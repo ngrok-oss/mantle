@@ -1,5 +1,7 @@
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import {
+	RadioButton,
+	RadioButtonGroup,
 	RadioCard,
 	RadioGroup,
 	RadioGroupList,
@@ -65,6 +67,14 @@ export default function Page() {
 								</RadioItemContent>
 							</RadioItem>
 						</RadioGroup>
+
+						<RadioButtonGroup defaultValue="production">
+							<RadioButton value="development">Development</RadioButton>
+							<RadioButton disabled value="staging">
+								Staging
+							</RadioButton>
+							<RadioButton value="production">Production</RadioButton>
+						</RadioButtonGroup>
 
 						<RadioGroupList defaultValue="comfortable">
 							<RadioListItem value="default" disabled id="rli1">
@@ -145,6 +155,8 @@ export default function Page() {
 								language="tsx"
 								value={fmtCode`
 									import {
+										RadioButton,
+										RadioButtonGroup,
 										RadioCard,
 										RadioGroup,
 										RadioGroupList,
@@ -180,6 +192,12 @@ export default function Page() {
 											</RadioItemContent>
 										</RadioItem>
 									</RadioGroup>
+
+									<RadioButtonGroup defaultValue="production">
+										<RadioButton value="development">Development</RadioButton>
+										<RadioButton value="staging">Staging</RadioButton>
+										<RadioButton value="production">Production</RadioButton>
+									</RadioButtonGroup>
 
 									<RadioGroupList defaultValue="comfortable">
 										<RadioListItem value="default" disabled id="rli1">

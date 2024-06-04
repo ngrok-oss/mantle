@@ -132,7 +132,7 @@ const RadioListItem = forwardRef<ElementRef<"div">, RadioListItemProps>(({ child
 				"group/radio relative flex select-none gap-2 border border-form px-3 py-2 text-base sm:text-sm [&_label]:cursor-inherit",
 				"focus:outline-none aria-enabled:cursor-pointer",
 				"first-of-type:rounded-tl-md first-of-type:rounded-tr-md last-of-type:rounded-bl-md last-of-type:rounded-br-md",
-				"disabled:border-form/50 aria-enabled:hover:z-1 aria-enabled:hover:border-accent-600",
+				"aria-disabled:border-form/50 aria-enabled:hover:z-1 aria-enabled:hover:border-accent-600",
 				"aria-checked:z-1 aria-checked:border-accent-500/40 aria-checked:bg-accent-500/10 enabled:hover:aria-checked:border-accent-600",
 				"has-[.radio-indicator:first-child]:pl-2 has-[.radio-indicator:last-child]:pr-2",
 				className,
@@ -165,7 +165,7 @@ const RadioCard = forwardRef<ElementRef<"div">, RadioCardProps>(({ children, cla
 				"group/radio relative rounded-md border border-card bg-card p-4 text-base sm:text-sm [&_label]:cursor-inherit",
 				"focus:outline-none aria-enabled:cursor-pointer",
 				"first-of-type:rounded-tl-md first-of-type:rounded-tr-md last-of-type:rounded-bl-md last-of-type:rounded-br-md",
-				"disabled:border-form/50 aria-enabled:hover:z-1 aria-enabled:hover:border-accent-600",
+				"aria-disabled:border-form/50 aria-enabled:hover:z-1 aria-enabled:hover:border-accent-600",
 				"aria-checked:z-1 aria-checked:border-accent-500/40 aria-checked:bg-accent-500/10 aria-enabled:hover:aria-checked:border-accent-600",
 				className,
 			)}
@@ -197,8 +197,49 @@ const RadioItemContent = ({ asChild = false, children, className, ...props }: Ra
 	);
 };
 
+/**
+ * An inline group of radio buttons. Use RadioButton as direct children.
+ */
+const RadioButtonGroup = forwardRef<ElementRef<typeof RadioGroup>, RadioGroupProps>(({ className, ...props }, ref) => {
+	return <RadioGroup className={clsx("flex flex-row flex-nowrap -space-x-px", className)} {...props} ref={ref} />;
+});
+RadioButtonGroup.displayName = "RadioButtonGroup";
+
+type RadioButtonProps = RadioItemProps;
+
+/**
+ * A radio button that is used inside a `RadioButtonGroup`.
+ */
+const RadioButton = forwardRef<ElementRef<"div">, RadioButtonProps>(({ children, className, ...props }, ref) => {
+	return (
+		<HeadlessRadio
+			as="div"
+			className={cx(
+				"group/radio relative flex flex-1 select-none items-center justify-center gap-2 border border-form px-3 py-2 text-base sm:text-sm [&_label]:cursor-inherit",
+				"focus:outline-none aria-enabled:cursor-pointer",
+				"first-of-type:rounded-bl-md first-of-type:rounded-tl-md last-of-type:rounded-br-md last-of-type:rounded-tr-md",
+				"aria-disabled:opacity-50 aria-enabled:hover:z-1 aria-enabled:hover:border-accent-600",
+				"aria-checked:z-1 aria-checked:border-accent-500/40 aria-checked:bg-accent-500/10 enabled:hover:aria-checked:border-accent-600",
+				"has-[.radio-indicator:first-child]:pl-2 has-[.radio-indicator:last-child]:pr-2",
+				className,
+			)}
+			ref={ref}
+			{...props}
+		>
+			{(ctx) => (
+				<>
+					<RadioStateContext.Provider value={ctx}>{children}</RadioStateContext.Provider>
+				</>
+			)}
+		</HeadlessRadio>
+	);
+});
+RadioButton.displayName = "RadioButton";
+
 export {
 	//
+	RadioButton,
+	RadioButtonGroup,
 	RadioCard,
 	RadioGroup,
 	RadioGroupList,
