@@ -1,4 +1,5 @@
 import { Anchor } from "@/anchor";
+import { Button } from "@/button";
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import { InlineCode } from "@/inline-code";
 import { PasswordInput } from "@/input";
@@ -13,6 +14,7 @@ import {
 	PropsTable,
 	PropTypeCell,
 } from "~/components/props-table";
+import { useState } from "react";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -25,6 +27,24 @@ export const headers: HeadersFunction = () => {
 	return {
 		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
 	};
+};
+
+const ControlledVisibility = () => {
+	const [showPassword, setShowPassword] = useState(false);
+
+	return (
+		<div className="flex items-center gap-2">
+			<PasswordInput showValue={showPassword} onValueVisibilityChange={setShowPassword} />
+			<Button
+				type="button"
+				onClick={() => {
+					setShowPassword((v) => !v);
+				}}
+			>
+				{showPassword ? "Hide" : "Show"} Password
+			</Button>
+		</div>
+	);
 };
 
 export default function Page() {
@@ -44,6 +64,14 @@ export default function Page() {
 						<label className="block w-full max-w-64 space-y-1">
 							<p>Password (invalid)</p>
 							<PasswordInput invalid />
+						</label>
+						<label className="block w-full max-w-64 space-y-1">
+							<p>Controlled Visibility</p>
+							<ControlledVisibility />
+						</label>
+						<label className="block w-full max-w-64 space-y-1">
+							<p>Masked Hidden Value</p>
+							<PasswordInput maskHiddenValue />
 						</label>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
@@ -89,6 +117,41 @@ export default function Page() {
 								will change the presentation of the password input to indicate <span className="italic">danger</span> to
 								the user as well as set <InlineCode>aria-invalid</InlineCode>.
 							</p>
+						</PropDescriptionCell>
+					</PropRow>
+					<PropRow>
+						<PropNameCell name="maskHiddenValue" optional />
+						<PropTypeCell>
+							<BooleanPropType />
+						</PropTypeCell>
+						<PropDefaultValueCell>
+							<BooleanPropType value={false} />
+						</PropDefaultValueCell>
+						<PropDescriptionCell>
+							<p>
+								Mask the true length of the password input with a fixed width when the value is hidden and the input is
+								not focused.
+							</p>
+						</PropDescriptionCell>
+					</PropRow>
+					<PropRow>
+						<PropNameCell name="onValueVisibilityChange" optional />
+						<PropTypeCell>{`(value: boolean) => void`}</PropTypeCell>
+						<PropDefaultValueCell />
+						<PropDescriptionCell>
+							<p>Callback for when the visibility of the password value changes.</p>
+						</PropDescriptionCell>
+					</PropRow>
+					<PropRow>
+						<PropNameCell name="showValue" optional />
+						<PropTypeCell>
+							<BooleanPropType />
+						</PropTypeCell>
+						<PropDefaultValueCell>
+							<BooleanPropType value={false} />
+						</PropDefaultValueCell>
+						<PropDescriptionCell>
+							<p>Show/hide the password value as a controlled state</p>
 						</PropDescriptionCell>
 					</PropRow>
 				</PropsTable>

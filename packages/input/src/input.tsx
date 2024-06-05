@@ -53,12 +53,20 @@ const InputCapture = forwardRef<HTMLInputElement, InputCaptureProps>(
 		const props = { ...ctx, ...restProps, type: restProps.type ?? ctx.type ?? "text" };
 
 		return (
-			<input
-				aria-invalid={ariaInvalid}
-				className={cx("min-w-0 flex-1 bg-form placeholder:text-placeholder focus:outline-none", className)}
-				ref={composeRefs(ref, ctxForwardedRef, ctxInnerRef)}
-				{...props}
-			/>
+			// <input
+			// 	aria-invalid={ariaInvalid}
+			// 	className={cx("min-w-0 flex-1 bg-form placeholder:text-placeholder focus:outline-none", className)}
+			// 	ref={composeRefs(ref, ctxForwardedRef, ctxInnerRef)}
+			// 	{...props}
+			// />
+			<div className={cx("min-w-0 flex-1")}>
+				<input
+					aria-invalid={ariaInvalid}
+					className={cx("w-full bg-form placeholder:text-placeholder focus:outline-none", className)}
+					ref={composeRefs(ref, ctxForwardedRef, ctxInnerRef)}
+					{...props}
+				/>
+			</div>
 		);
 	},
 );
@@ -120,7 +128,7 @@ const InputContainer = ({
 			<div
 				aria-invalid={ariaInvalid}
 				className={cx(
-					"flex h-11 w-full items-center gap-1.5 rounded-md border bg-form px-3 py-2 file:border-0 file:bg-transparent file:text-sm file:font-medium focus-within:outline-none focus-within:ring-4 focus-visible:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50 sm:h-9 sm:text-sm",
+					"relative flex h-11 w-full items-center gap-1.5 rounded-md border bg-form px-3 py-2 file:border-0 file:bg-transparent file:text-sm file:font-medium focus-within:outline-none focus-within:ring-4 focus-visible:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50 sm:h-9 sm:text-sm",
 					"has-[input:not(:first-child)]:ps-2.5 has-[input:not(:last-child)]:pe-2.5 [&>:not(input)]:shrink-0 [&_svg]:size-6 sm:[&_svg]:size-5",
 					"border-form text-strong focus-within:border-accent-600 focus-within:ring-focus-accent",
 					ariaInvalid && "border-danger-600 pe-2.5 focus-within:border-danger-600 focus-within:ring-focus-danger",
