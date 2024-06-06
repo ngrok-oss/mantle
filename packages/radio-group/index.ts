@@ -6,6 +6,7 @@ export {
 	RadioGroup,
 	RadioGroupList,
 	RadioIndicator,
+	RadioInputSandbox,
 	RadioItem,
 	RadioItemContent,
 	RadioListItem,
