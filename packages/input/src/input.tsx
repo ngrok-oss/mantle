@@ -53,13 +53,7 @@ const InputCapture = forwardRef<HTMLInputElement, InputCaptureProps>(
 		const props = { ...ctx, ...restProps, type: restProps.type ?? ctx.type ?? "text" };
 
 		return (
-			// <input
-			// 	aria-invalid={ariaInvalid}
-			// 	className={cx("min-w-0 flex-1 bg-form placeholder:text-placeholder focus:outline-none", className)}
-			// 	ref={composeRefs(ref, ctxForwardedRef, ctxInnerRef)}
-			// 	{...props}
-			// />
-			<div className={cx("min-w-0 flex-1")}>
+			<div className="min-w-0 flex-1 text-left">
 				<input
 					aria-invalid={ariaInvalid}
 					className={cx("w-full bg-form placeholder:text-placeholder focus:outline-none", className)}
