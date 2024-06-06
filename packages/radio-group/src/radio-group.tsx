@@ -2,9 +2,10 @@ import { Radio as HeadlessRadio, RadioGroup as HeadlessRadioGroup } from "@headl
 import type { RadioGroupProps as HeadlessRadioGroupProps, RadioProps as HeadlessRadioProps } from "@headlessui/react";
 import { Slot } from "@radix-ui/react-slot";
 import clsx from "clsx";
-import { createContext, forwardRef, useContext } from "react";
+import { Children, cloneElement, createContext, forwardRef, isValidElement, useContext, useRef } from "react";
 import type { ElementRef, HTMLAttributes, PropsWithChildren, ReactNode } from "react";
 import { cx } from "../../cx";
+import { isInput } from "../../input";
 import type { WithAsChild } from "../../types";
 
 type RadioGroupProps = PropsWithChildren<Omit<HeadlessRadioGroupProps, "as" | "children">>;
@@ -236,6 +237,66 @@ const RadioButton = forwardRef<ElementRef<"div">, RadioButtonProps>(({ children,
 });
 RadioButton.displayName = "RadioButton";
 
+type RadioInputSandboxProps = HTMLAttributes<HTMLDivElement>;
+
+/**
+ * A sandbox container for input elements composed within radio group items.
+ * It prevents the default behavior of the radio group when clicking on the input element or accepting keyboard input.
+ */
+const RadioInputSandbox = ({ children, onClick, onKeyDown, ...props }: RadioInputSandboxProps) => {
+	const ref = useRef<HTMLDivElement>(null);
+	const ctx = useContext(RadioStateContext);
+
+	const singleChild = Children.only(children);
+
+	// Prevent the child input from receiving focus when the parent radio group item is disabled or unchecked.
+	const shouldPreventTabIndex = ctx.disabled || !ctx.checked;
+
+	return (
+		<div
+			ref={ref}
+			aria-disabled={ctx.disabled}
+			onKeyDown={(event) => {
+				if (ctx.disabled) {
+					event.stopPropagation();
+					event.preventDefault();
+					return;
+				}
+				switch (event.key) {
+					case "Enter":
+					case "Tab":
+						break;
+					default:
+						event.stopPropagation();
+				}
+				onKeyDown?.(event);
+			}}
+			onClick={(event) => {
+				if (ctx.disabled) {
+					event.stopPropagation();
+					event.preventDefault();
+					return;
+				}
+				const target = event.target;
+				if (isInput(target)) {
+					window.requestAnimationFrame(() => {
+						target.focus();
+					});
+				}
+				onClick?.(event);
+			}}
+			{...props}
+		>
+			{isValidElement<HTMLInputElement>(singleChild)
+				? cloneElement(singleChild, {
+						disabled: ctx.disabled || singleChild.props.disabled,
+						tabIndex: shouldPreventTabIndex ? -1 : singleChild.props.tabIndex,
+					})
+				: null}
+		</div>
+	);
+};
+
 export {
 	//
 	RadioButton,
@@ -244,6 +305,7 @@ export {
 	RadioGroup,
 	RadioGroupList,
 	RadioIndicator,
+	RadioInputSandbox,
 	RadioItem,
 	RadioItemContent,
 	RadioListItem,
