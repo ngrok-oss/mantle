@@ -2,14 +2,26 @@ import { CaretDown } from "@phosphor-icons/react/CaretDown";
 import { CaretUp } from "@phosphor-icons/react/CaretUp";
 import { Check } from "@phosphor-icons/react/Check";
 import * as SelectPrimitive from "@radix-ui/react-select";
-import type { ComponentPropsWithoutRef, ElementRef, SelectHTMLAttributes } from "react";
+import type { ComponentPropsWithoutRef, ElementRef, FocusEvent, Ref, SelectHTMLAttributes } from "react";
 import { createContext, forwardRef, useContext } from "react";
+import { composeRefs } from "../../compose-refs";
 import { cx } from "../../cx";
 import type { WithInvalid } from "../../input";
 import { Separator } from "../../separator";
 
 type WithAriaInvalid = Pick<SelectHTMLAttributes<HTMLSelectElement>, "aria-invalid">;
-type SelectContextType = WithInvalid & WithAriaInvalid;
+type SelectContextType = WithInvalid &
+	WithAriaInvalid & {
+		/**
+		 * Ref for the trigger button.
+		 */
+		ref?: Ref<HTMLButtonElement>;
+		/**
+		 * Event handler called when Select blurs.
+		 * @note this is a no-op for now until we can guarantee that it works identically to a native select onBlur
+		 */
+		onBlur?: (event: FocusEvent<HTMLButtonElement>) => void;
+	};
 
 const SelectContext = createContext<SelectContextType>({});
 
@@ -20,18 +32,28 @@ type SelectProps = Omit<ComponentPropsWithoutRef<typeof SelectPrimitive.Root>, "
 		 * Event handler called when the value changes.
 		 */
 		onChange?: (value: string) => void;
+		/**
+		 * Event handler called when Select blurs.
+		 * @note this is a no-op for now until we can guarantee that it works identically to a native select onBlur
+		 */
+		onBlur?: (event: FocusEvent<HTMLButtonElement>) => void;
 	};
 
 /**
  * Displays a list of options for the user to pick from—triggered by a button.
  */
-const Select = ({ "aria-invalid": _ariaInvalid, children, invalid, onChange, ...props }: SelectProps) => {
-	return (
-		<SelectPrimitive.Root {...props} onValueChange={onChange}>
-			<SelectContext.Provider value={{ "aria-invalid": _ariaInvalid, invalid }}>{children}</SelectContext.Provider>
-		</SelectPrimitive.Root>
-	);
-};
+const Select = forwardRef<HTMLButtonElement, SelectProps>(
+	({ "aria-invalid": _ariaInvalid, children, invalid, onBlur, onChange, ...props }, ref) => {
+		return (
+			<SelectPrimitive.Root {...props} onValueChange={onChange}>
+				<SelectContext.Provider value={{ "aria-invalid": _ariaInvalid, invalid, onBlur, ref }}>
+					{children}
+				</SelectContext.Provider>
+			</SelectPrimitive.Root>
+		);
+	},
+);
+Select.displayName = "Select";
 
 /**
  * A group of related options within a select menu. Similar to an html `<optgroup>` element.
@@ -50,20 +72,20 @@ type SelectTriggerProps = ComponentPropsWithoutRef<typeof SelectPrimitive.Trigge
  * The button that toggles the select. The Select.Content will position itself adjacent to the trigger.
  */
 const SelectTrigger = forwardRef<ElementRef<typeof SelectPrimitive.Trigger>, SelectTriggerProps>(
-	({ "aria-invalid": _ariaInvalid, className, children, invalid, ...props }, ref) => {
-		const { "aria-invalid": ctxAriaInvalid, invalid: ctxInvalid } = useContext(SelectContext);
-		const ariaInvalid = ctxAriaInvalid ?? ctxInvalid ?? _ariaInvalid ?? invalid;
+	({ "aria-invalid": _ariaInvalid, className, children, invalid: _invalid, ...props }, ref) => {
+		const ctx = useContext(SelectContext);
+		const invalid = ctx["aria-invalid"] ?? ctx.invalid ?? _ariaInvalid ?? _invalid;
 
 		return (
 			<SelectPrimitive.Trigger
-				aria-invalid={ariaInvalid}
-				ref={ref}
+				aria-invalid={invalid}
 				className={cx(
 					"flex h-11 w-full items-center justify-between rounded-md border border-form bg-form px-3 py-2 text-strong placeholder:text-placeholder hover:border-neutral-400 hover:bg-form-hover hover:text-strong focus:border-accent-600 focus:outline-none focus:ring-4 focus:ring-focus-accent focus-visible:border-accent-600 focus-visible:ring-focus-accent active:border-neutral-400 active:bg-neutral-500/10 active:text-strong focus-visible:active:border-accent-600 disabled:pointer-events-none disabled:opacity-50 aria-expanded:border-accent-600 aria-expanded:ring-4 aria-expanded:ring-focus-accent sm:h-9 sm:text-sm [&>span]:line-clamp-1 [&>span]:text-left",
-					ariaInvalid &&
+					invalid &&
 						"border-danger-600 focus:border-danger-600 focus:ring-focus-danger aria-expanded:border-danger-600 aria-expanded:ring-focus-danger",
 					className,
 				)}
+				ref={composeRefs(ref, ctx.ref)}
 				{...props}
 			>
 				{children}
