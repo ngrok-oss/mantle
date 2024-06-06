@@ -9,7 +9,6 @@ import { X } from "@phosphor-icons/react/X";
 import { Link } from "@remix-run/react";
 import type { Route } from "~/types/routes";
 import type { PropsWithChildren } from "react";
-import { RemoveScroll } from "react-remove-scroll";
 import { NavLink } from "./nav-link";
 import { useNavigation } from "./navigation-context";
 
@@ -93,12 +92,9 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 				</Select>
 			</header>
 			{showNavigation && (
-				// TODO: When the window is made larger, we need to re-enable scrolling
-				<RemoveScroll>
-					<div className="fixed bottom-0 left-0 right-0 top-20 z-50 bg-card p-4 md:hidden">
-						<Navigation className="scrollbar h-full overflow-auto" />
-					</div>
-				</RemoveScroll>
+				<div className="fixed bottom-0 left-0 right-0 top-20 z-50 bg-card p-4 md:hidden">
+					<Navigation className="scrollbar h-full overflow-auto overscroll-contain" />
+				</div>
 			)}
 			<div className="flex gap-4">
 				<div className="bottom-0 hidden w-44 md:block">
