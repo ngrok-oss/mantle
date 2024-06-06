@@ -41,7 +41,7 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 
 	return (
 		<main className={cx("mx-auto h-full max-w-7xl sm:px-4", className)} style={style}>
-			<header className="flex h-24 items-center gap-4 px-4 sm:px-0">
+			<header className="flex h-20 items-center gap-4 px-4 sm:px-0">
 				<Button
 					type="button"
 					appearance="outlined"
@@ -56,11 +56,11 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 					{showNavigation && <X className="h-6 w-6 shrink-0" />}
 				</Button>
 
-				<Link to="/" className="static top-auto sm:fixed sm:top-[1.8rem] sm:w-44">
+				<Link to="/" className="static top-auto sm:top-[1.4rem] sm:w-44 md:fixed">
 					<MantleLogo />
 				</Link>
 
-				<p className="hidden font-mono text-xs text-strong xs:block sm:ml-48">
+				<p className="hidden font-mono text-xs text-strong xs:block md:ml-48">
 					<a href="https://github.com/ngrok-oss/mantle/releases">{currentVersion}</a>
 				</p>
 
@@ -95,14 +95,14 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 			{showNavigation && (
 				// TODO: When the window is made larger, we need to re-enable scrolling
 				<RemoveScroll>
-					<div className="fixed bottom-0 left-0 right-0 top-24 z-50 bg-card p-4 md:hidden">
+					<div className="fixed bottom-0 left-0 right-0 top-20 z-50 bg-card p-4 md:hidden">
 						<Navigation className="scrollbar h-full overflow-auto" />
 					</div>
 				</RemoveScroll>
 			)}
 			<div className="flex gap-4">
 				<div className="bottom-0 hidden w-44 md:block">
-					<div className="fixed bottom-0 top-24 w-44">
+					<div className="fixed bottom-0 top-20 w-44">
 						<Navigation className="scrollbar scroll-shadow h-full overflow-auto pb-4" />
 					</div>
 				</div>
