@@ -1,7 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { useState } from "react";
-import { act } from "react-dom/test-utils";
+import { act, useState } from "react";
 import { createMemoryRouter, Link, RouterProvider } from "react-router-dom";
 import { describe, expect, test } from "vitest";
 import { Button } from "./button";
