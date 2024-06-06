@@ -56,7 +56,7 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 					{showNavigation && <X className="h-6 w-6 shrink-0" />}
 				</Button>
 
-				<Link to="/" className="static top-auto sm:top-[1.4rem] sm:w-44 md:fixed">
+				<Link to="/" className="static top-auto sm:top-[1.4rem] md:fixed">
 					<MantleLogo />
 				</Link>
 
