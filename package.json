@@ -45,6 +45,7 @@
     "@radix-ui/react-select": "2.0.0",
     "@radix-ui/react-separator": "1.0.3",
     "@radix-ui/react-slot": "1.0.2",
+    "@radix-ui/react-switch": "1.0.3",
     "@radix-ui/react-tabs": "1.0.4",
     "@radix-ui/react-tooltip": "1.0.7",
     "@remix-run/css-bundle": "2.9.2",
@@ -220,6 +221,10 @@
     "./skeleton": {
       "import": "./dist/skeleton.js",
       "types": "./dist/skeleton.d.ts"
+    },
+    "./switch": {
+      "import": "./dist/switch.js",
+      "types": "./dist/switch.d.ts"
     },
     "./table": {
       "import": "./dist/table.js",
