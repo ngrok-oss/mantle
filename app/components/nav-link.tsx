@@ -2,6 +2,7 @@ import { cx } from "@/cx";
 import { NavLink as RRNavLink } from "@remix-run/react";
 import type { NavLinkProps } from "@remix-run/react";
 import type { Route } from "~/types/routes";
+import { useNavigation } from "./navigation-context";
 
 type Props = Omit<NavLinkProps, "to"> & {
 	hash?: `#${string}` | undefined;
@@ -18,6 +19,8 @@ type Props = Omit<NavLinkProps, "to"> & {
 	);
 
 export function NavLink({ className, hash, rawTo, search, to, ...props }: Props) {
+	const { setShowNavigation } = useNavigation();
+
 	return (
 		<RRNavLink
 			to={{
@@ -32,6 +35,10 @@ export function NavLink({ className, hash, rawTo, search, to, ...props }: Props)
 					typeof className === "function" ? className(args) : className,
 				)
 			}
+			onClick={(e) => {
+				setShowNavigation(false);
+				if (props.onClick) props.onClick(e);
+			}}
 			{...props}
 		/>
 	);
