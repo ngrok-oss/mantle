@@ -39,10 +39,8 @@ const TabsList = forwardRef<ElementRef<typeof TabsPrimitiveList>, ComponentProps
 				className={cx(
 					"flex max-w-min border-gray-200",
 					ctx.orientation === "horizontal"
-						? // ? "flex-row items-center gap-6 border-b border-b-gray-200"
-							"flex-row items-center gap-6 border-b"
-						: // : "flex-col items-end gap-[0.875rem] min-h-full border-r border-r-gray-200",
-							"h-full max-h-fit flex-col items-end gap-[0.875rem] border-r",
+						? "flex-row items-center gap-6 border-b"
+						: "h-full max-h-fit flex-col items-end gap-[0.875rem] border-r",
 					className,
 				)}
 				ref={ref}
@@ -79,9 +77,9 @@ const TabsTrigger = forwardRef<ElementRef<typeof TabsPrimitiveTrigger>, TabsTrig
 				<span
 					aria-hidden
 					className={clsx(
-						"absolute group-data-state-active/tab-trigger:bg-blue-600",
-						ctx.orientation === "horizontal" && "bottom-0 left-0 right-0 h-[0.1875rem]",
-						ctx.orientation === "vertical" && "bottom-0 right-0 top-0 w-[0.1875rem]",
+						"absolute z-1 group-data-state-active/tab-trigger:bg-blue-600",
+						ctx.orientation === "horizontal" && "-bottom-px left-0 right-0 h-[0.1875rem]",
+						ctx.orientation === "vertical" && "-right-px bottom-0 top-0 w-[0.1875rem]",
 					)}
 				/>
 				{children}
