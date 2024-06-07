@@ -1,7 +1,15 @@
 import { describe, expect, test } from "vitest";
-import { parseBooleanish } from "./parse-booleanish";
+import { parseBooleanish } from "./booleanish";
 
 describe("parseBooleanish", () => {
+	test("given `undefined`, returns `false`", () => {
+		expect(parseBooleanish(undefined)).toBe(false);
+	});
+
+	test("given `null`, returns `false`", () => {
+		expect(parseBooleanish(null)).toBe(false);
+	});
+
 	test("given `false`, returns `false`", () => {
 		expect(parseBooleanish(false)).toBe(false);
 	});

@@ -6,7 +6,7 @@ import type { ButtonHTMLAttributes, ReactNode } from "react";
 import { cx } from "../../cx";
 import { Icon } from "../../icon";
 import type { VariantProps, WithAsChild } from "../../types";
-import { parseBooleanish } from "./parse-booleanish";
+import { parseBooleanish } from "../../types";
 
 const iconButtonVariants = cva(
 	"inline-flex cursor-pointer items-center justify-center rounded-md border focus-within:outline-none focus-visible:ring-4 disabled:cursor-default disabled:opacity-50",

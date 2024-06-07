@@ -7,8 +7,8 @@ import type { ButtonHTMLAttributes, PropsWithChildren, ReactNode } from "react";
 import invariant from "tiny-invariant";
 import { cx } from "../../cx";
 import { Icon } from "../../icon";
+import { parseBooleanish } from "../../types";
 import type { VariantProps } from "../../types/src/variant-props";
-import { parseBooleanish } from "./parse-booleanish";
 
 const buttonVariants = cva(
 	"inline-flex cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap rounded-md focus-within:outline-none focus-visible:ring-4 disabled:cursor-default disabled:opacity-50 sm:text-sm [&>*]:focus-within:outline-none",
