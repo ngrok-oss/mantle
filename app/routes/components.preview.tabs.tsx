@@ -1,15 +1,11 @@
+import { Button } from "@/button";
+import { Card, CardBody, CardFooter, CardHeader, CardTitle } from "@/card";
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
-import {
-	RadioButton,
-	RadioButtonGroup,
-	RadioCard,
-	RadioGroup,
-	RadioGroupList,
-	RadioIndicator,
-	RadioItem,
-	RadioItemContent,
-	RadioListItem,
-} from "@/radio-group";
+import { Input, PasswordInput } from "@/input";
+import { TabBadge, Tabs, TabsContent, TabsList, TabsTrigger } from "@/tabs";
+import { Globe } from "@phosphor-icons/react/Globe";
+import { ShieldCheck } from "@phosphor-icons/react/ShieldCheck";
+import { User } from "@phosphor-icons/react/User";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 import { PreviewBadge } from "~/components/preview-badge";
@@ -40,112 +36,183 @@ export default function Page() {
 				</p>
 				<div>
 					<Example className="mt-4 grid gap-6">
-						<RadioGroup defaultValue="comfortable">
-							<RadioItem value="default" id="simple-1">
-								<RadioIndicator />
-								<RadioItemContent asChild>
-									<label htmlFor="simple-1">Default</label>
-								</RadioItemContent>
-							</RadioItem>
-							<RadioItem value="comfortable" id="simple-2" disabled>
-								<RadioIndicator />
-								<RadioItemContent asChild>
-									<label htmlFor="simple-2">Comfortable</label>
-								</RadioItemContent>
-							</RadioItem>
-							<RadioItem value="compact" id="simple-3">
-								<RadioIndicator />
-								<RadioItemContent asChild>
-									<label htmlFor="simple-3">Compact</label>
-								</RadioItemContent>
-							</RadioItem>
-							<RadioItem value="roomy" id="simple-4">
-								<RadioIndicator />
-								<RadioItemContent asChild>
-									<label htmlFor="simple-4">Roomy</label>
-								</RadioItemContent>
-							</RadioItem>
-						</RadioGroup>
-
-						<RadioButtonGroup defaultValue="production">
-							<RadioButton value="development">Development</RadioButton>
-							<RadioButton disabled value="staging">
-								Staging
-							</RadioButton>
-							<RadioButton value="production">Production</RadioButton>
-						</RadioButtonGroup>
-
-						<RadioGroupList defaultValue="comfortable">
-							<RadioListItem value="default" disabled id="rli1">
-								<RadioIndicator />
-								<RadioItemContent>
-									<label className="font-medium text-strong" htmlFor="rli1">
-										Default
-									</label>
-									<p className="text-body">Laborum esse cillum incididunt est dolore.</p>
-								</RadioItemContent>
-							</RadioListItem>
-							<RadioListItem value="comfortable" id="rli2">
-								<RadioIndicator />
-								<RadioItemContent>
-									<label className="font-medium text-strong" htmlFor="rli2">
-										Comfortable
-									</label>
-									<p className="text-body">Ea laboris tempor laborum officia ea adipisicing exercitation.</p>
-								</RadioItemContent>
-							</RadioListItem>
-							<RadioListItem value="compact" id="rli3">
-								<RadioIndicator />
-								<RadioItemContent>
-									<label className="font-medium text-strong" htmlFor="rli3">
-										Compact
-									</label>
-									<p className="text-body">Adipisicing est dolore velit magna dolor voluptate velit.</p>
-								</RadioItemContent>
-							</RadioListItem>
-							<RadioListItem value="roomy" id="rli4">
-								<RadioIndicator />
-								<RadioItemContent>
-									<label className="font-medium text-strong" htmlFor="rli4">
-										Roomy
-									</label>
-									<p className="text-body">Tempor dolore Lorem exercitation id nisi aliquip elit.</p>
-								</RadioItemContent>
-							</RadioListItem>
-						</RadioGroupList>
-
-						<RadioGroup className="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4" defaultValue="existing">
-							<RadioCard className="flex" value="newsletter" id="radiocard-1">
-								<div className="flex-1">
-									<label htmlFor="radiocard-1" className="block text-sm font-medium text-strong">
-										Newsletter
-									</label>
-									<p className="mt-1 flex items-center text-sm text-gray-500">Last message sent an hour ago</p>
-									<p className="mt-6 text-sm font-medium">621 users</p>
-								</div>
-								<RadioIndicator />
-							</RadioCard>
-							<RadioCard className="flex" value="existing" id="radiocard-2">
-								<div className="flex-1">
-									<label htmlFor="radiocard-2" className="block text-sm font-medium text-strong">
-										Existing Customers
-									</label>
-									<p className="mt-1 flex items-center text-sm text-gray-500">Last message sent 2 weeks ago</p>
-									<p className="mt-6 text-sm font-medium">1200 users</p>
-								</div>
-								<RadioIndicator />
-							</RadioCard>
-							<RadioCard className="flex" value="trial" id="radiocard-3">
-								<div className="flex-1">
-									<label htmlFor="radiocard-3" className="block text-sm font-medium text-strong">
-										Trial Users
-									</label>
-									<p className="mt-1 flex items-center text-sm text-gray-500">Last message sent 4 days ago</p>
-									<p className="mt-6 text-sm font-medium">2740 Users</p>
-								</div>
-								<RadioIndicator />
-							</RadioCard>
-						</RadioGroup>
+						<Tabs orientation="horizontal" defaultValue="tab-1">
+							<TabsList>
+								<TabsTrigger value="tab-1">Tab Title</TabsTrigger>
+								<TabsTrigger value="tab-2">Tab Title</TabsTrigger>
+								<TabsTrigger disabled value="tab-3">
+									Tab Title
+								</TabsTrigger>
+								<TabsTrigger value="tab-4">Tab Title</TabsTrigger>
+							</TabsList>
+						</Tabs>
+						<Tabs orientation="horizontal" defaultValue="tab-1">
+							<TabsList>
+								<TabsTrigger value="tab-1">
+									<Globe />
+									Tab Title
+								</TabsTrigger>
+								<TabsTrigger value="tab-2">
+									<Globe />
+									Tab Title
+								</TabsTrigger>
+								<TabsTrigger disabled value="tab-3">
+									<Globe />
+									Tab Title
+								</TabsTrigger>
+								<TabsTrigger value="tab-4">
+									<Globe />
+									Tab Title
+								</TabsTrigger>
+							</TabsList>
+						</Tabs>
+						<Tabs orientation="horizontal" defaultValue="tab-1">
+							<TabsList>
+								<TabsTrigger value="tab-1">
+									Tab Title
+									<TabBadge>32</TabBadge>
+								</TabsTrigger>
+								<TabsTrigger value="tab-2">
+									Tab Title
+									<TabBadge>32</TabBadge>
+								</TabsTrigger>
+								<TabsTrigger disabled value="tab-3">
+									Tab Title
+									<TabBadge>32</TabBadge>
+								</TabsTrigger>
+								<TabsTrigger value="tab-4">
+									Tab Title
+									<TabBadge>32</TabBadge>
+								</TabsTrigger>
+							</TabsList>
+						</Tabs>
+						<Tabs orientation="horizontal" defaultValue="tab-1">
+							<TabsList>
+								<TabsTrigger value="tab-1">
+									<Globe />
+									Tab Title
+									<TabBadge>32</TabBadge>
+								</TabsTrigger>
+								<TabsTrigger value="tab-2">
+									<Globe />
+									Tab Title
+									<TabBadge>32</TabBadge>
+								</TabsTrigger>
+								<TabsTrigger disabled value="tab-3">
+									<Globe />
+									Tab Title
+									<TabBadge>32</TabBadge>
+								</TabsTrigger>
+								<TabsTrigger value="tab-4">
+									<Globe />
+									Tab Title
+									<TabBadge>32</TabBadge>
+								</TabsTrigger>
+							</TabsList>
+						</Tabs>
+						<Tabs orientation="horizontal" defaultValue="account" className="w-[400px]">
+							<TabsList>
+								<TabsTrigger value="account">
+									<User />
+									Account
+									<TabBadge>2</TabBadge>
+								</TabsTrigger>
+								<TabsTrigger value="password">
+									<ShieldCheck />
+									Password
+								</TabsTrigger>
+							</TabsList>
+							<TabsContent value="account">
+								<Card>
+									<CardHeader>
+										<CardTitle>Account</CardTitle>
+										<p className="text-muted">Make changes to your account here. Click save when you're done.</p>
+									</CardHeader>
+									<CardBody className="space-y-2">
+										<div className="space-y-1">
+											<label htmlFor="name">Name</label>
+											<Input id="name" defaultValue="Cody Price" />
+										</div>
+										<div className="space-y-1">
+											<label htmlFor="username">Username</label>
+											<Input id="username" defaultValue="@cody-dot-js" />
+										</div>
+									</CardBody>
+									<CardFooter>
+										<Button type="button">Save changes</Button>
+									</CardFooter>
+								</Card>
+							</TabsContent>
+							<TabsContent value="password">
+								<Card>
+									<CardHeader>
+										<CardTitle>Password</CardTitle>
+										<p className="text-muted">Change your password here. After saving, you'll be logged out.</p>
+									</CardHeader>
+									<CardBody className="space-y-2">
+										<div className="space-y-1">
+											<label htmlFor="current">Current password</label>
+											<PasswordInput id="current" />
+										</div>
+										<div className="space-y-1">
+											<label htmlFor="new">New password</label>
+											<PasswordInput id="new" />
+										</div>
+									</CardBody>
+									<CardFooter>
+										<Button type="button">Save password</Button>
+									</CardFooter>
+								</Card>
+							</TabsContent>
+						</Tabs>
+						<Tabs orientation="vertical" defaultValue="account" className="w-[400px]">
+							<TabsList>
+								<TabsTrigger value="account">Account</TabsTrigger>
+								<TabsTrigger value="password">Password</TabsTrigger>
+							</TabsList>
+							<TabsContent value="account">
+								<Card>
+									<CardHeader>
+										<CardTitle>Account</CardTitle>
+										<p className="text-muted">Make changes to your account here. Click save when you're done.</p>
+									</CardHeader>
+									<CardBody className="space-y-2">
+										<div className="space-y-1">
+											<label htmlFor="name">Name</label>
+											<Input id="name" defaultValue="Cody Price" />
+										</div>
+										<div className="space-y-1">
+											<label htmlFor="username">Username</label>
+											<Input id="username" defaultValue="@cody-dot-js" />
+										</div>
+									</CardBody>
+									<CardFooter>
+										<Button type="button">Save changes</Button>
+									</CardFooter>
+								</Card>
+							</TabsContent>
+							<TabsContent value="password">
+								<Card>
+									<CardHeader>
+										<CardTitle>Password</CardTitle>
+										<p className="text-muted">Change your password here. After saving, you'll be logged out.</p>
+									</CardHeader>
+									<CardBody className="space-y-2">
+										<div className="space-y-1">
+											<label htmlFor="current">Current password</label>
+											<PasswordInput id="current" />
+										</div>
+										<div className="space-y-1">
+											<label htmlFor="new">New password</label>
+											<PasswordInput id="new" />
+										</div>
+									</CardBody>
+									<CardFooter>
+										<Button type="button">Save password</Button>
+									</CardFooter>
+								</Card>
+							</TabsContent>
+						</Tabs>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
@@ -153,122 +220,66 @@ export default function Page() {
 							<CodeBlockCode
 								language="tsx"
 								value={fmtCode`
-									import {
-										RadioButton,
-										RadioButtonGroup,
-										RadioCard,
-										RadioGroup,
-										RadioGroupList,
-										RadioIndicator,
-										RadioItem,
-										RadioItemContent,
-										RadioListItem,
-									} from "@ngrok/mantle/radio-group";
+									import { Button } from "@ngrok/mantle/button";
+									import { Card, CardBody, CardFooter, CardHeader, CardTitle } from "@ngrok/mantle/card";
+									import { Input, PasswordInput } from "@ngrok/mantle/input";
+									import { TabBadge, Tabs, TabsContent, TabsList, TabsTrigger } from "@ngrok/mantle/tabs";
 
-									<RadioGroup defaultValue="comfortable">
-										<RadioItem className="py-1" value="default" id="simple-1">
-											<RadioIndicator />
-											<RadioItemContent asChild>
-												<label htmlFor="simple-1">Default</label>
-											</RadioItemContent>
-										</RadioItem>
-										<RadioItem className="py-1" value="comfortable" id="simple-2" disabled>
-											<RadioIndicator />
-											<RadioItemContent asChild>
-												<label htmlFor="simple-2">Comfortable</label>
-											</RadioItemContent>
-										</RadioItem>
-										<RadioItem className="py-1" value="compact" id="simple-3">
-											<RadioIndicator />
-											<RadioItemContent asChild>
-												<label htmlFor="simple-3">Compact</label>
-											</RadioItemContent>
-										</RadioItem>
-										<RadioItem className="py-1" value="roomy" id="simple-4">
-											<RadioIndicator />
-											<RadioItemContent asChild>
-												<label htmlFor="simple-4">Roomy</label>
-											</RadioItemContent>
-										</RadioItem>
-									</RadioGroup>
-
-									<RadioButtonGroup defaultValue="production">
-										<RadioButton value="development">Development</RadioButton>
-										<RadioButton value="staging">Staging</RadioButton>
-										<RadioButton value="production">Production</RadioButton>
-									</RadioButtonGroup>
-
-									<RadioGroupList defaultValue="comfortable">
-										<RadioListItem value="default" disabled id="rli1">
-											<RadioIndicator />
-											<RadioItemContent>
-												<label className="font-medium text-strong" htmlFor="rli1">
-													Default
-												</label>
-												<p className="text-body">Laborum esse cillum incididunt est dolore.</p>
-											</RadioItemContent>
-										</RadioListItem>
-										<RadioListItem value="comfortable" id="rli2">
-											<RadioIndicator />
-											<RadioItemContent>
-												<label className="font-medium text-strong" htmlFor="rli2">
-													Comfortable
-												</label>
-												<p className="text-body">Ea laboris tempor laborum officia ea adipisicing exercitation.</p>
-											</RadioItemContent>
-										</RadioListItem>
-										<RadioListItem value="compact" id="rli3">
-											<RadioIndicator />
-											<RadioItemContent>
-												<label className="font-medium text-strong" htmlFor="rli3">
-													Compact
-												</label>
-												<p className="text-body">Adipisicing est dolore velit magna dolor voluptate velit.</p>
-											</RadioItemContent>
-										</RadioListItem>
-										<RadioListItem value="roomy" id="rli4">
-											<RadioIndicator />
-											<RadioItemContent>
-												<label className="font-medium text-strong" htmlFor="rli4">
-													Roomy
-												</label>
-												<p className="text-body">Tempor dolore Lorem exercitation id nisi aliquip elit.</p>
-											</RadioItemContent>
-										</RadioListItem>
-									</RadioGroupList>
-
-									<RadioGroup className="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4" defaultValue="existing">
-										<RadioCard className="flex" value="newsletter" id="radiocard-1">
-											<div className="flex-1">
-												<label htmlFor="radiocard-1" className="block text-sm font-medium text-strong">
-													Newsletter
-												</label>
-												<p className="mt-1 flex items-center text-sm text-gray-500">Last message sent an hour ago</p>
-												<p className="mt-6 text-sm font-medium">621 users</p>
-											</div>
-											<RadioIndicator />
-										</RadioCard>
-										<RadioCard className="flex" value="existing" id="radiocard-2">
-											<div className="flex-1">
-												<label htmlFor="radiocard-2" className="block text-sm font-medium text-strong">
-													Existing Customers
-												</label>
-												<p className="mt-1 flex items-center text-sm text-gray-500">Last message sent 2 weeks ago</p>
-												<p className="mt-6 text-sm font-medium">1200 users</p>
-											</div>
-											<RadioIndicator />
-										</RadioCard>
-										<RadioCard className="flex" value="trial" id="radiocard-3">
-											<div className="flex-1">
-												<label htmlFor="radiocard-3" className="block text-sm font-medium text-strong">
-													Trial Users
-												</label>
-												<p className="mt-1 flex items-center text-sm text-gray-500">Last message sent 4 days ago</p>
-												<p className="mt-6 text-sm font-medium">2740 Users</p>
-											</div>
-											<RadioIndicator />
-										</RadioCard>
-									</RadioGroup>
+									<Tabs orientation="horizontal" defaultValue="account" className="w-[400px]">
+										<TabsList>
+											<TabsTrigger value="account">
+												<User />
+												Account
+												<TabBadge>2</TabBadge>
+											</TabsTrigger>
+											<TabsTrigger value="password">
+												<ShieldCheck />
+												Password
+											</TabsTrigger>
+										</TabsList>
+										<TabsContent value="account">
+											<Card>
+												<CardHeader>
+													<CardTitle>Account</CardTitle>
+													<p className="text-muted">Make changes to your account here. Click save when you're done.</p>
+												</CardHeader>
+												<CardBody className="space-y-2">
+													<div className="space-y-1">
+														<label htmlFor="name">Name</label>
+														<Input id="name" defaultValue="Cody Price" />
+													</div>
+													<div className="space-y-1">
+														<label htmlFor="username">Username</label>
+														<Input id="username" defaultValue="@cody-dot-js" />
+													</div>
+												</CardBody>
+												<CardFooter>
+													<Button type="button">Save changes</Button>
+												</CardFooter>
+											</Card>
+										</TabsContent>
+										<TabsContent value="password">
+											<Card>
+												<CardHeader>
+													<CardTitle>Password</CardTitle>
+													<p className="text-muted">Change your password here. After saving, you'll be logged out.</p>
+												</CardHeader>
+												<CardBody className="space-y-2">
+													<div className="space-y-1">
+														<label htmlFor="current">Current password</label>
+														<PasswordInput id="current" />
+													</div>
+													<div className="space-y-1">
+														<label htmlFor="new">New password</label>
+														<PasswordInput id="new" />
+													</div>
+												</CardBody>
+												<CardFooter>
+													<Button type="button">Save password</Button>
+												</CardFooter>
+											</Card>
+										</TabsContent>
+									</Tabs>
 								`}
 							/>
 						</CodeBlockBody>

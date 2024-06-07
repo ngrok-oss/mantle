@@ -27,7 +27,7 @@ const DropdownMenuSubTrigger = forwardRef<
 	<DropdownMenuPrimitive.SubTrigger
 		className={cx(
 			"focus:bg-accent data-state-open:bg-accent relative flex cursor-pointer select-none items-center rounded-sm py-1.5 pl-2 pr-9 text-base outline-none sm:text-sm",
-			"data-state-open:bg-popover-hover data-highlighted:bg-popover-hover",
+			"data-highlighted:bg-popover-hover data-state-open:bg-popover-hover",
 			"[&>svg]:size-6 [&>svg]:sm:size-5 [&_svg]:shrink-0",
 			inset && "pl-8",
 			className,
