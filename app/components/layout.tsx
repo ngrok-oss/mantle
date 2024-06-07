@@ -105,7 +105,7 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 			<div className="flex gap-4">
 				<div className="bottom-0 hidden w-44 md:block">
 					<div className="fixed bottom-0 top-20 w-44">
-						<Navigation className="scrollbar scroll-shadow h-full overflow-auto pb-4" />
+						<Navigation className="scrollbar scroll-shadow h-full overflow-auto py-4" />
 					</div>
 				</div>
 				<article className="w-0 flex-1 bg-card p-4 shadow-2xl sm:mb-4 sm:rounded-lg md:p-9 lg:mb-9">{children}</article>
