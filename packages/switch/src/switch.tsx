@@ -8,11 +8,10 @@ const Switch = forwardRef<ElementRef<typeof SwitchPrimitiveRoot>, ComponentProps
 	({ className, ...props }, ref) => (
 		<SwitchPrimitiveRoot
 			className={cx(
-				"peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent shadow-sm outline-none transition-colors",
+				"peer inline-flex h-6 w-10 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent shadow-sm outline-none transition-colors sm:h-5 sm:w-9",
 				"disabled:cursor-default disabled:opacity-50",
 				"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-focus-accent",
-				"data-state-checked:bg-accent-600 data-state-unchecked:bg-form",
-				// "data-[state=checked]:bg-primary data-[state=unchecked]:bg-input",
+				"data-state-checked:bg-blue-500 data-state-unchecked:bg-form",
 				className,
 			)}
 			{...props}
@@ -20,7 +19,7 @@ const Switch = forwardRef<ElementRef<typeof SwitchPrimitiveRoot>, ComponentProps
 		>
 			<SwitchPrimitiveThumb
 				className={clsx(
-					"pointer-events-none block size-4 rounded-full bg-[#fff] shadow-lg ring-0 transition-transform",
+					"pointer-events-none block size-5 rounded-full bg-[#fff] shadow-lg ring-0 transition-transform sm:size-4",
 					"data-state-checked:translate-x-4 data-state-unchecked:translate-x-0",
 				)}
 			/>

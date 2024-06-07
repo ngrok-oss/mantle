@@ -28,7 +28,7 @@ export default function Page() {
 				<p className="text-xl text-body">A control that allows the user to toggle between checked and not checked.</p>
 				<div>
 					<Example className="mt-4 grid gap-6">
-						<label htmlFor="airplane-mode" className="flex items-center gap-2">
+						<label htmlFor="airplane-mode" className="flex cursor-pointer items-center gap-2">
 							<Switch id="airplane-mode" />
 							<p>Airplane Mode</p>
 						</label>
@@ -41,7 +41,7 @@ export default function Page() {
 								value={fmtCode`
 									import { Switch } from "@ngrok/mantle/switch";
 
-									<label htmlFor="airplane-mode" className="flex items-center gap-2">
+									<label htmlFor="airplane-mode" className="flex cursor-pointer items-center gap-2">
 										<Switch id="airplane-mode" />
 										<p>Airplane Mode</p>
 									</label>
