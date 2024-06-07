@@ -54,7 +54,7 @@ const TabsTrigger = forwardRef<ElementRef<typeof TabsPrimitiveTrigger>, TabsTrig
 	({ children, className, ...props }, ref) => (
 		<TabsPrimitiveTrigger
 			className={cx(
-				"group/tab-trigger relative flex cursor-pointer items-center gap-1 whitespace-nowrap py-3 text-sm font-medium text-gray-600 transition-all",
+				"group/tab-trigger relative flex cursor-pointer items-center gap-1 whitespace-nowrap py-3 text-sm font-medium text-gray-600",
 				"rounded-tl-md rounded-tr-md",
 				"outline-none ring-focus-accent",
 				"disabled:cursor-default disabled:opacity-50",
