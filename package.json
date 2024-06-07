@@ -189,6 +189,10 @@
       "import": "./dist/input.js",
       "types": "./dist/input.d.ts"
     },
+    "./label": {
+      "import": "./dist/label.js",
+      "types": "./dist/label.d.ts"
+    },
     "./media-object": {
       "import": "./dist/media-object.js",
       "types": "./dist/media-object.d.ts"
