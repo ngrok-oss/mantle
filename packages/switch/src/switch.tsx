@@ -8,7 +8,7 @@ const Switch = forwardRef<ElementRef<typeof SwitchPrimitiveRoot>, ComponentProps
 	({ className, ...props }, ref) => (
 		<SwitchPrimitiveRoot
 			className={cx(
-				"peer inline-flex h-6 w-10 shrink-0 cursor-pointer items-center rounded-full outline-none transition-colors sm:h-5 sm:w-9",
+				"peer inline-flex h-6 w-10 shrink-0 cursor-pointer items-center rounded-full outline-none sm:h-5 sm:w-9",
 				"disabled:cursor-default disabled:opacity-50",
 				"focus-visible:border-accent-600 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-focus-accent",
 				"data-state-checked:bg-blue-500 data-state-unchecked:bg-gray-400",
