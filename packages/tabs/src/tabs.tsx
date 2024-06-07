@@ -69,7 +69,7 @@ const TabsTrigger = forwardRef<ElementRef<typeof TabsPrimitiveTrigger>, TabsTrig
 					"disabled:cursor-default disabled:opacity-50",
 					"focus-visible:ring-4",
 					"[&>svg]:size-6 [&>svg]:shrink-0 [&>svg]:sm:size-5",
-					"enabled:hover:data-state-active:text-blue-600 enabled:hover:text-gray-900",
+					"enabled:hover:text-gray-900 enabled:hover:data-state-active:text-blue-600",
 					"data-state-active:text-blue-600",
 					className,
 				)}
@@ -79,7 +79,7 @@ const TabsTrigger = forwardRef<ElementRef<typeof TabsPrimitiveTrigger>, TabsTrig
 				<span
 					aria-hidden
 					className={clsx(
-						"group-data-state-active/tab-trigger:bg-blue-600 absolute",
+						"absolute group-data-state-active/tab-trigger:bg-blue-600",
 						ctx.orientation === "horizontal" && "bottom-0 left-0 right-0 h-[0.1875rem]",
 						ctx.orientation === "vertical" && "bottom-0 right-0 top-0 w-[0.1875rem]",
 					)}
