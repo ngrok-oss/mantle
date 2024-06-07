@@ -32,7 +32,7 @@ const Badge = ({ appearance, children, className, color = "neutral", icon, ...pr
 	return (
 		<span
 			className={cx(
-				"inline-flex w-fit shrink-0 items-center gap-1 rounded px-1.5 py-0.5 text-sm font-medium sm:text-xs",
+				"inline-flex w-fit shrink-0 cursor-default items-center gap-1 rounded px-1.5 py-0.5 text-sm font-medium sm:text-xs",
 				icon && "ps-1",
 				bgColor,
 				textColor,
