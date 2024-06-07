@@ -165,10 +165,13 @@ export default function Page() {
 								</Card>
 							</TabsContent>
 						</Tabs>
-						<Tabs orientation="vertical" defaultValue="account" className="w-[400px]">
+						<Tabs orientation="vertical" defaultValue="account" className="max-w-xl">
 							<TabsList>
 								<TabsTrigger value="account">Account</TabsTrigger>
 								<TabsTrigger value="password">Password</TabsTrigger>
+								<TabsTrigger value="disabled-tab" disabled>
+									Disabled tab
+								</TabsTrigger>
 							</TabsList>
 							<TabsContent value="account">
 								<Card>
