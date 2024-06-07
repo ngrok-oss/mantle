@@ -37,10 +37,10 @@ const TabsList = forwardRef<ElementRef<typeof TabsPrimitiveList>, ComponentProps
 			<TabsPrimitiveList
 				aria-orientation={ctx.orientation}
 				className={cx(
-					"flex max-w-min border-gray-200",
+					"flex border-gray-200",
 					ctx.orientation === "horizontal"
 						? "flex-row items-center gap-6 border-b"
-						: "h-full max-h-fit flex-col items-end gap-[0.875rem] border-r",
+						: "flex-col items-end gap-[0.875rem] self-stretch border-r",
 					className,
 				)}
 				ref={ref}
