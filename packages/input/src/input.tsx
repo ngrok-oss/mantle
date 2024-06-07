@@ -1,4 +1,5 @@
 import { Warning } from "@phosphor-icons/react/Warning";
+import clsx from "clsx";
 import type { ElementRef, ForwardedRef, InputHTMLAttributes, MutableRefObject, PropsWithChildren } from "react";
 import { createContext, forwardRef, useContext, useRef } from "react";
 import { composeRefs } from "../../compose-refs";
@@ -97,8 +98,10 @@ type InputContainerProps = InputHTMLAttributes<HTMLInputElement> &
  */
 const InputContainer = ({
 	"aria-invalid": _ariaInvalid,
+	"aria-disabled": _ariaDisabled,
 	children,
 	className,
+	disabled,
 	forwardedRef,
 	innerRef,
 	invalid,
@@ -112,6 +115,8 @@ const InputContainer = ({
 		<InputContext.Provider
 			value={{
 				"aria-invalid": _ariaInvalid,
+				"aria-disabled": _ariaDisabled,
+				disabled,
 				invalid,
 				type,
 				...props,
@@ -121,8 +126,10 @@ const InputContainer = ({
 		>
 			<div
 				aria-invalid={ariaInvalid}
+				aria-disabled={disabled ?? _ariaDisabled}
 				className={cx(
-					"relative flex h-11 w-full items-center gap-1.5 rounded-md border bg-form px-3 py-2 file:border-0 file:bg-transparent file:text-sm file:font-medium focus-within:outline-none focus-within:ring-4 focus-visible:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50 sm:h-9 sm:text-sm",
+					"relative flex h-11 w-full items-center gap-1.5 rounded-md border bg-form px-3 py-2 file:border-0 file:bg-transparent file:text-sm file:font-medium focus-within:outline-none focus-within:ring-4 focus-visible:outline-none focus-visible:ring-4 sm:h-9 sm:text-sm",
+					"aria-disabled:opacity-50",
 					"has-[input:not(:first-child)]:ps-2.5 has-[input:not(:last-child)]:pe-2.5 [&>:not(input)]:shrink-0 [&_svg]:size-6 sm:[&_svg]:size-5",
 					"border-form text-strong focus-within:border-accent-600 focus-within:ring-focus-accent",
 					ariaInvalid && "border-danger-600 pe-2.5 focus-within:border-danger-600 focus-within:ring-focus-danger",
@@ -137,7 +144,7 @@ const InputContainer = ({
 				{invalid && (
 					<div className="pointer-events-none order-last select-none text-danger-600">
 						<span className="sr-only">
-							{["The value entered for the", props.name, "input has failed validation."].filter(Boolean).join(" ")}
+							{clsx("The value entered for the", props.name, "input has failed validation.")}
 						</span>
 						<Warning aria-hidden weight="fill" />
 					</div>
