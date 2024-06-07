@@ -28,9 +28,37 @@ export default function Page() {
 				<p className="text-xl text-body">A control that allows the user to toggle between checked and not checked.</p>
 				<div>
 					<Example className="mt-4 grid gap-6">
-						<label htmlFor="airplane-mode" className="flex cursor-pointer items-center gap-2">
+						<label
+							htmlFor="unchecked"
+							className="flex cursor-pointer items-center gap-2 has-[:disabled]:cursor-default"
+						>
+							<Switch id="unchecked" checked={false} />
+							<p>Unchecked</p>
+						</label>
+						<label htmlFor="checked" className="flex cursor-pointer items-center gap-2 has-[:disabled]:cursor-default">
+							<Switch id="checked" checked={true} />
+							<p>Checked</p>
+						</label>
+						<label
+							htmlFor="airplane-mode"
+							className="flex cursor-pointer items-center gap-2 has-[:disabled]:cursor-default"
+						>
 							<Switch id="airplane-mode" />
 							<p>Airplane Mode</p>
+						</label>
+						<label
+							htmlFor="airplane-mode-disabled-unchecked"
+							className="flex cursor-pointer items-center gap-2 has-[:disabled]:cursor-default"
+						>
+							<Switch id="airplane-mode-disabled-unchecked" disabled />
+							<p>Airplane Mode Disabled Unchecked</p>
+						</label>
+						<label
+							htmlFor="airplane-mode-disabled-checked"
+							className="flex cursor-pointer items-center gap-2 has-[:disabled]:cursor-default"
+						>
+							<Switch id="airplane-mode-disabled-checked" disabled checked />
+							<p>Airplane Mode Disabled Checked</p>
 						</label>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
@@ -41,7 +69,10 @@ export default function Page() {
 								value={fmtCode`
 									import { Switch } from "@ngrok/mantle/switch";
 
-									<label htmlFor="airplane-mode" className="flex cursor-pointer items-center gap-2">
+									<label
+										htmlFor="airplane-mode"
+										className="flex cursor-pointer items-center gap-2 has-[:disabled]:cursor-default"
+									>
 										<Switch id="airplane-mode" />
 										<p>Airplane Mode</p>
 									</label>
