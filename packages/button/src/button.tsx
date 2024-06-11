@@ -19,12 +19,12 @@ const buttonVariants = cva(
 			 */
 			appearance: {
 				filled:
-					"h-11 border border-transparent bg-filled-accent px-3 font-medium text-on-filled focus-visible:border-accent-600 focus-visible:ring-focus-accent enabled:hover:bg-filled-accent-hover enabled:active:bg-filled-accent-active sm:h-9",
+					"h-11 border border-transparent bg-filled-accent px-3 font-medium text-on-filled focus-visible:border-accent-600 focus-visible:ring-focus-accent not-disabled:hover:bg-filled-accent-hover not-disabled:active:bg-filled-accent-active sm:h-9",
 				ghost:
-					"h-11 border border-transparent px-3 font-medium text-accent-600 focus-visible:ring-focus-accent enabled:hover:bg-accent-500/10 enabled:hover:text-accent-700 enabled:active:bg-accent-500/15 enabled:active:text-accent-700 sm:h-9",
+					"h-11 border border-transparent px-3 font-medium text-accent-600 focus-visible:ring-focus-accent not-disabled:hover:bg-accent-500/10 not-disabled:hover:text-accent-700 not-disabled:active:bg-accent-500/15 not-disabled:active:text-accent-700 sm:h-9",
 				outlined:
-					"h-11 border border-accent-600 bg-form px-3 font-medium text-accent-600 focus-visible:ring-focus-accent enabled:hover:border-accent-700 enabled:hover:bg-accent-500/10 enabled:hover:text-accent-700 enabled:active:border-accent-700 enabled:active:bg-accent-500/15 enabled:active:text-accent-700 sm:h-9",
-				link: "group border-transparent text-accent-600 focus-visible:ring-focus-accent enabled:hover:underline",
+					"h-11 border border-accent-600 bg-form px-3 font-medium text-accent-600 focus-visible:ring-focus-accent not-disabled:hover:border-accent-700 not-disabled:hover:bg-accent-500/10 not-disabled:hover:text-accent-700 not-disabled:active:border-accent-700 not-disabled:active:bg-accent-500/15 not-disabled:active:text-accent-700 sm:h-9",
+				link: "group border-transparent text-accent-600 focus-visible:ring-focus-accent not-disabled:hover:underline",
 			},
 			/**
 			 * Whether or not the button is in a loading state, default `false`. Setting `isLoading` will
@@ -55,19 +55,19 @@ const buttonVariants = cva(
 				appearance: "ghost",
 				priority: "danger",
 				class:
-					"border-transparent text-danger-600 focus-visible:ring-focus-danger enabled:hover:bg-danger-500/10 enabled:hover:text-danger-700 enabled:active:bg-danger-500/15 enabled:active:text-danger-700",
+					"border-transparent text-danger-600 focus-visible:ring-focus-danger not-disabled:hover:bg-danger-500/10 not-disabled:hover:text-danger-700 not-disabled:active:bg-danger-500/15 not-disabled:active:text-danger-700",
 			},
 			{
 				appearance: "outlined",
 				priority: "danger",
 				class:
-					"border-danger-600 bg-form text-danger-600 focus-visible:ring-focus-danger enabled:hover:border-danger-700 enabled:hover:bg-danger-500/10 enabled:hover:text-danger-700 enabled:active:border-danger-700 enabled:active:bg-danger-500/15 enabled:active:text-danger-700",
+					"border-danger-600 bg-form text-danger-600 focus-visible:ring-focus-danger not-disabled:hover:border-danger-700 not-disabled:hover:bg-danger-500/10 not-disabled:hover:text-danger-700 not-disabled:active:border-danger-700 not-disabled:active:bg-danger-500/15 not-disabled:active:text-danger-700",
 			},
 			{
 				appearance: "filled",
 				priority: "danger",
 				class:
-					"border-transparent bg-filled-danger focus-visible:border-danger-600 focus-visible:ring-focus-danger enabled:hover:bg-filled-danger-hover enabled:active:bg-filled-danger-active",
+					"border-transparent bg-filled-danger focus-visible:border-danger-600 focus-visible:ring-focus-danger not-disabled:hover:bg-filled-danger-hover not-disabled:active:bg-filled-danger-active",
 			},
 			{
 				appearance: "link",
@@ -78,19 +78,19 @@ const buttonVariants = cva(
 				appearance: "ghost",
 				priority: "neutral",
 				class:
-					"border-transparent text-strong focus-visible:ring-focus-accent enabled:hover:bg-neutral-500/10 enabled:hover:text-strong enabled:active:bg-neutral-500/15 enabled:active:text-strong",
+					"border-transparent text-strong focus-visible:ring-focus-accent not-disabled:hover:bg-neutral-500/10 not-disabled:hover:text-strong not-disabled:active:bg-neutral-500/15 not-disabled:active:text-strong",
 			},
 			{
 				appearance: "outlined",
 				priority: "neutral",
 				class:
-					"border-form bg-form text-strong focus-visible:border-accent-600 focus-visible:ring-focus-accent enabled:hover:border-neutral-400 enabled:hover:bg-form-hover enabled:hover:text-strong enabled:active:border-neutral-400 enabled:active:bg-neutral-500/10 enabled:active:text-strong focus-visible:enabled:active:border-accent-600",
+					"border-form bg-form text-strong focus-visible:border-accent-600 focus-visible:ring-focus-accent not-disabled:hover:border-neutral-400 not-disabled:hover:bg-form-hover not-disabled:hover:text-strong not-disabled:active:border-neutral-400 not-disabled:active:bg-neutral-500/10 not-disabled:active:text-strong focus-visible:not-disabled:active:border-accent-600",
 			},
 			{
 				appearance: "filled",
 				priority: "neutral",
 				class:
-					"border-transparent bg-filled-neutral focus-visible:border-neutral-600 focus-visible:ring-focus-neutral enabled:hover:bg-filled-neutral-hover enabled:active:bg-filled-neutral-active",
+					"border-transparent bg-filled-neutral focus-visible:border-neutral-600 focus-visible:ring-focus-neutral not-disabled:hover:bg-filled-neutral-hover not-disabled:active:bg-filled-neutral-active",
 			},
 			{
 				appearance: "link",
@@ -259,7 +259,7 @@ const InnerContent = ({ appearance, children, icon, iconPlacement }: InnerConten
 	<span
 		className={clsx(
 			"inline-flex items-center gap-1.5 focus-within:outline-none focus-visible:outline-none",
-			appearance === "link" && "enabled:group-hover:underline",
+			appearance === "link" && "not-disabled:group-hover:underline",
 		)}
 	>
 		{icon && <Icon svg={icon} className={clsx(iconPlacement === "end" && "order-last")} />}
