@@ -475,6 +475,9 @@ const mantlePreset = {
 			addVariant("dark-high-contrast", [":is(.dark-high-contrast &)"]);
 			addVariant("high-contrast", [":is(.light-high-contrast &)"]);
 		}),
+		plugin(function ({ addVariant }) {
+			addVariant("not-disabled", ["&:not(:disabled)"]);
+		}),
 		ariaEnabledVariantPlugin,
 	],
 } satisfies Config;

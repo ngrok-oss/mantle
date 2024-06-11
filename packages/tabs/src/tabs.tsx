@@ -67,7 +67,7 @@ const TabsTrigger = forwardRef<ElementRef<typeof TabsPrimitiveTrigger>, TabsTrig
 					"disabled:cursor-default disabled:opacity-50",
 					"focus-visible:ring-4",
 					"[&>svg]:size-6 [&>svg]:shrink-0 [&>svg]:sm:size-5",
-					"enabled:hover:text-gray-900 enabled:hover:data-state-active:text-blue-600",
+					"not-disabled:hover:text-gray-900 not-disabled:hover:data-state-active:text-blue-600",
 					"data-state-active:text-blue-600",
 					className,
 				)}
