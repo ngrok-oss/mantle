@@ -113,50 +113,50 @@ export default function Page() {
 				</p>
 				<div>
 					<Example className="mt-4 grid grid-cols-2 place-items-center gap-6">
-						<label className="block w-full max-w-80 space-y-1">
+						<Label className="block w-full max-w-80 space-y-1">
 							<p>Search with start icon</p>
 							<Input className="max-w-64" placeholder="Search...">
 								<MagnifyingGlass />
 								<InputCapture />
 							</Input>
-						</label>
-						<label className="block w-full max-w-80 space-y-1">
+						</Label>
+						<Label className="block w-full max-w-80 space-y-1">
 							<p>Search with end icon</p>
 							<Input className="max-w-64" placeholder="Search...">
 								<InputCapture />
 								<Info />
 							</Input>
-						</label>
-						<label className="block w-full max-w-80 space-y-1">
+						</Label>
+						<Label className="block w-full max-w-80 space-y-1">
 							<p>Search with start and end icons</p>
 							<Input className="max-w-64" placeholder="Search...">
 								<MagnifyingGlass />
 								<InputCapture />
 								<Info />
 							</Input>
-						</label>
-						<label className="block w-full max-w-80 space-y-1">
+						</Label>
+						<Label className="block w-full max-w-80 space-y-1">
 							<p>Search with start icon (error)</p>
 							<Input className="max-w-64" placeholder="Search..." validation="error">
 								<MagnifyingGlass />
 								<InputCapture />
 							</Input>
-						</label>
-						<label className="block w-full max-w-80 space-y-1">
+						</Label>
+						<Label className="block w-full max-w-80 space-y-1">
 							<p>Search with end icon (error)</p>
 							<Input className="max-w-64" placeholder="Search..." validation="error">
 								<InputCapture />
 								<Info />
 							</Input>
-						</label>
-						<label className="block w-full max-w-80 space-y-1">
+						</Label>
+						<Label className="block w-full max-w-80 space-y-1">
 							<p>Search with start and end icons (error)</p>
 							<Input className="max-w-64" validation="error" placeholder="Search...">
 								<MagnifyingGlass />
 								<InputCapture />
 								<Info />
 							</Input>
-						</label>
+						</Label>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
@@ -165,52 +165,53 @@ export default function Page() {
 								language="tsx"
 								value={fmtCode`
 									import { Input, InputCapture } from "@ngrok/mantle/input";
+									import { Label } from "@ngrok/mantle/label";
 									import { Info, MagnifyingGlass } from "@phosphor-icons/react";
 
-									<label className="block w-full max-w-80 space-y-1">
+									<Label className="block w-full max-w-80 space-y-1">
 										<p>Search with start icon</p>
 										<Input className="max-w-64" placeholder="Search...">
 											<MagnifyingGlass />
 											<InputCapture />
 										</Input>
-									</label>
-									<label className="block w-full max-w-80 space-y-1">
+									</Label>
+									<Label className="block w-full max-w-80 space-y-1">
 										<p>Search with end icon</p>
 										<Input className="max-w-64" placeholder="Search...">
 											<InputCapture />
 											<Info />
 										</Input>
-									</label>
-									<label className="block w-full max-w-80 space-y-1">
+									</Label>
+									<Label className="block w-full max-w-80 space-y-1">
 										<p>Search with start and end icons</p>
 										<Input className="max-w-64" placeholder="Search...">
 											<MagnifyingGlass />
 											<InputCapture />
 											<Info />
 										</Input>
-									</label>
-									<label className="block w-full max-w-80 space-y-1">
+									</Label>
+									<Label className="block w-full max-w-80 space-y-1">
 										<p>Search with start icon (error)</p>
 										<Input className="max-w-64" placeholder="Search..." validation="error">
 											<MagnifyingGlass />
 											<InputCapture />
 										</Input>
-									</label>
-									<label className="block w-full max-w-80 space-y-1">
+									</Label>
+									<Label className="block w-full max-w-80 space-y-1">
 										<p>Search with end icon (error)</p>
 										<Input className="max-w-64" placeholder="Search..." validation="error">
 											<InputCapture />
 											<Info />
 										</Input>
-									</label>
-									<label className="block w-full max-w-80 space-y-1">
+									</Label>
+									<Label className="block w-full max-w-80 space-y-1">
 										<p>Search with start and end icons (error)</p>
 										<Input className="max-w-64" validation="error" placeholder="Search...">
 											<MagnifyingGlass />
 											<InputCapture />
 											<Info />
 										</Input>
-									</label>
+									</Label>
 								`}
 							/>
 							<CodeBlockExpanderButton />

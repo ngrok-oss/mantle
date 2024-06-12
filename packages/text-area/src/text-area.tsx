@@ -63,7 +63,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
 		return (
 			<textarea
 				aria-invalid={ariaInvalid}
-				data-validation={validation}
+				data-validation={validation || undefined} // eslint-disable-line @typescript-eslint/prefer-nullish-coalescing
 				className={cx(
 					appearance === "monospaced" && "font-mono text-[0.9375rem] sm:text-[0.8125rem]",
 					"border-input flex min-h-24 w-full rounded-md border bg-form px-3 py-[calc(theme(spacing[2.5])-1px)] focus-visible:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50 data-drag-over:border-dashed data-drag-over:ring-4 sm:py-[calc(theme(spacing[2])-1px)] sm:text-sm",

@@ -72,23 +72,24 @@ type SelectTriggerProps = ComponentPropsWithoutRef<typeof SelectPrimitive.Trigge
  * The button that toggles the select. The Select.Content will position itself adjacent to the trigger.
  */
 const SelectTrigger = forwardRef<ElementRef<typeof SelectPrimitive.Trigger>, SelectTriggerProps>(
-	({ "aria-invalid": _ariaInvalid, className, children, validation: _validation, ...props }, ref) => {
+	({ "aria-invalid": ariaInValidProp, className, children, validation: _validation, ...props }, ref) => {
 		const ctx = useContext(SelectContext);
+		const _ariaInvalid = ctx["aria-invalid"] ?? ariaInValidProp;
 		const isInvalid = _ariaInvalid != null && _ariaInvalid !== "false";
 		const validation = isInvalid ? "error" : ctx.validation ?? _validation;
-		const ariaInvalid = ctx["aria-invalid"] ?? _ariaInvalid ?? validation === "error";
+		const ariaInvalid = _ariaInvalid ?? validation === "error";
 
 		return (
 			<SelectPrimitive.Trigger
 				aria-invalid={ariaInvalid}
-				data-validation={validation}
+				data-validation={validation || undefined} // eslint-disable-line @typescript-eslint/prefer-nullish-coalescing
 				className={cx(
-					"flex h-11 w-full items-center justify-between rounded-md border border-form bg-form px-3 py-2 text-strong placeholder:text-placeholder hover:border-neutral-400 hover:bg-form-hover hover:text-strong focus:border-accent-600 focus:outline-none focus:ring-4 focus:ring-focus-accent focus-visible:border-accent-600 focus-visible:ring-focus-accent active:border-neutral-400 active:bg-neutral-500/10 active:text-strong focus-visible:active:border-accent-600 disabled:pointer-events-none disabled:opacity-50 aria-expanded:border-accent-600 aria-expanded:ring-4 aria-expanded:ring-focus-accent sm:h-9 sm:text-sm [&>span]:line-clamp-1 [&>span]:text-left",
-					"data-validation-success:border-success-600 focus-visible:data-validation-success:border-success-600 focus-visible:data-validation-success:ring-focus-success data-validation-success:aria-expanded:border-success-600 data-validation-success:aria-expanded:ring-focus-success",
-					"data-validation-warning:border-warning-600 focus-visible:data-validation-warning:border-warning-600 focus-visible:data-validation-warning:ring-focus-warning data-validation-warning:aria-expanded:border-warning-600 data-validation-warning:aria-expanded:ring-focus-warning",
-					"data-validation-error:border-danger-600 focus-visible:data-validation-error:border-danger-600 focus-visible:data-validation-error:ring-focus-danger data-validation-error:aria-expanded:border-danger-600 data-validation-error:aria-expanded:ring-focus-danger",
-					// invalid &&
-					// 	"border-danger-600 focus:border-danger-600 focus:ring-focus-danger aria-expanded:border-danger-600 aria-expanded:ring-focus-danger",
+					"flex h-11 w-full items-center justify-between rounded-md border border-form bg-form px-3 py-2 text-strong placeholder:text-placeholder hover:border-neutral-400 hover:bg-form-hover hover:text-strong disabled:pointer-events-none disabled:opacity-50 sm:h-9 sm:text-sm [&>span]:line-clamp-1 [&>span]:text-left",
+					"focus:outline-none focus-visible:ring-4 aria-expanded:ring-4",
+					"focus-visible:border-accent-600 focus-visible:ring-focus-accent aria-expanded:border-accent-600 aria-expanded:ring-focus-accent",
+					"data-validation-success:border-success-600 data-validation-success:focus-visible:border-success-600 data-validation-success:focus-visible:ring-focus-success data-validation-success:aria-expanded:border-success-600 data-validation-success:aria-expanded:ring-focus-success",
+					"data-validation-warning:border-warning-600 data-validation-warning:focus-visible:border-warning-600 data-validation-warning:focus-visible:ring-focus-warning data-validation-warning:aria-expanded:border-warning-600 data-validation-warning:aria-expanded:ring-focus-warning",
+					"data-validation-error:border-danger-600 data-validation-error:focus-visible:border-danger-600 data-validation-error:focus-visible:ring-focus-danger data-validation-error:aria-expanded:border-danger-600 data-validation-error:aria-expanded:ring-focus-danger",
 					className,
 				)}
 				ref={composeRefs(ref, ctx.ref)}

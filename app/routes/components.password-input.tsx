@@ -3,6 +3,7 @@ import { Button } from "@/button";
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import { InlineCode } from "@/inline-code";
 import { PasswordInput } from "@/input";
+import { Label } from "@/label";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 import {
@@ -58,22 +59,22 @@ export default function Page() {
 				<p className="mt-4 text-xl text-body">Fundamental component for password inputs.</p>
 				<div>
 					<Example className="mt-4 flex-col gap-4">
-						<label className="block w-full max-w-64 space-y-1">
+						<Label className="block w-full max-w-64 space-y-1">
 							<p>Password</p>
 							<PasswordInput />
-						</label>
-						<label className="block w-full max-w-64 space-y-1">
+						</Label>
+						<Label className="block w-full max-w-64 space-y-1">
 							<p>Password (error)</p>
 							<PasswordInput validation="error" />
-						</label>
-						<label className="block w-full max-w-64 space-y-1">
+						</Label>
+						<Label className="block w-full max-w-64 space-y-1">
 							<p>Controlled Visibility</p>
 							<ControlledVisibility />
-						</label>
-						<label className="block w-full max-w-64 space-y-1">
+						</Label>
+						<Label className="block w-full max-w-64 space-y-1">
 							<p>Masked Hidden Value</p>
 							<PasswordInput maskHiddenValue />
-						</label>
+						</Label>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>

@@ -106,6 +106,61 @@ export default function Page() {
 								</SelectGroup>
 							</SelectContent>
 						</Select>
+
+						<Select validation="success">
+							<SelectTrigger className="max-w-64">
+								<SelectValue placeholder="Select a fruit" />
+							</SelectTrigger>
+							<SelectContent>
+								<SelectGroup>
+									<SelectLabel>Fruits</SelectLabel>
+									<SelectItem value="apple">Apple</SelectItem>
+									<SelectItem value="banana">Banana</SelectItem>
+									<SelectItem value="blueberry">Blueberry</SelectItem>
+									<SelectItem value="grapes">Grapes</SelectItem>
+									<SelectItem value="pineapple">Pineapple</SelectItem>
+								</SelectGroup>
+								<SelectSeparator />
+								<SelectGroup>
+									<SelectLabel>Vegetables</SelectLabel>
+									<SelectItem value="carrot">Carrot</SelectItem>
+									<SelectItem value="cucumber">Cucumber</SelectItem>
+									<SelectItem value="lettuce">Lettuce</SelectItem>
+									<SelectItem value="tomato">Tomato</SelectItem>
+									<SelectItem value="zucchini">
+										<p>Zucchini</p>
+										<p>Ex sit voluptate incididunt pariatur velit consequat reprehenderit.</p>
+									</SelectItem>
+								</SelectGroup>
+							</SelectContent>
+						</Select>
+						<Select validation="warning">
+							<SelectTrigger className="max-w-64">
+								<SelectValue placeholder="Select a fruit" />
+							</SelectTrigger>
+							<SelectContent>
+								<SelectGroup>
+									<SelectLabel>Fruits</SelectLabel>
+									<SelectItem value="apple">Apple</SelectItem>
+									<SelectItem value="banana">Banana</SelectItem>
+									<SelectItem value="blueberry">Blueberry</SelectItem>
+									<SelectItem value="grapes">Grapes</SelectItem>
+									<SelectItem value="pineapple">Pineapple</SelectItem>
+								</SelectGroup>
+								<SelectSeparator />
+								<SelectGroup>
+									<SelectLabel>Vegetables</SelectLabel>
+									<SelectItem value="carrot">Carrot</SelectItem>
+									<SelectItem value="cucumber">Cucumber</SelectItem>
+									<SelectItem value="lettuce">Lettuce</SelectItem>
+									<SelectItem value="tomato">Tomato</SelectItem>
+									<SelectItem value="zucchini">
+										<p>Zucchini</p>
+										<p>Ex sit voluptate incididunt pariatur velit consequat reprehenderit.</p>
+									</SelectItem>
+								</SelectGroup>
+							</SelectContent>
+						</Select>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
