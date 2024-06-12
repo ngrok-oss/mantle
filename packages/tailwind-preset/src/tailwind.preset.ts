@@ -427,6 +427,9 @@ const mantlePreset = {
 				"state-selected": 'state~="selected"',
 				"state-submitting": 'state~="submitting"',
 				"state-unchecked": 'state~="unchecked"',
+				"validation-error": 'validation="error"',
+				"validation-success": 'validation="success"',
+				"validation-warning": 'validation="warning"',
 			},
 			fontFamily: {
 				sans: ["EuclidSquare", ...defaultTheme.fontFamily.sans],

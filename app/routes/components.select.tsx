@@ -79,7 +79,62 @@ export default function Page() {
 								</SelectGroup>
 							</SelectContent>
 						</Select>
-						<Select invalid aria-invalid>
+						<Select validation="error">
+							<SelectTrigger className="max-w-64">
+								<SelectValue placeholder="Select a fruit" />
+							</SelectTrigger>
+							<SelectContent>
+								<SelectGroup>
+									<SelectLabel>Fruits</SelectLabel>
+									<SelectItem value="apple">Apple</SelectItem>
+									<SelectItem value="banana">Banana</SelectItem>
+									<SelectItem value="blueberry">Blueberry</SelectItem>
+									<SelectItem value="grapes">Grapes</SelectItem>
+									<SelectItem value="pineapple">Pineapple</SelectItem>
+								</SelectGroup>
+								<SelectSeparator />
+								<SelectGroup>
+									<SelectLabel>Vegetables</SelectLabel>
+									<SelectItem value="carrot">Carrot</SelectItem>
+									<SelectItem value="cucumber">Cucumber</SelectItem>
+									<SelectItem value="lettuce">Lettuce</SelectItem>
+									<SelectItem value="tomato">Tomato</SelectItem>
+									<SelectItem value="zucchini">
+										<p>Zucchini</p>
+										<p>Ex sit voluptate incididunt pariatur velit consequat reprehenderit.</p>
+									</SelectItem>
+								</SelectGroup>
+							</SelectContent>
+						</Select>
+
+						<Select validation="success">
+							<SelectTrigger className="max-w-64">
+								<SelectValue placeholder="Select a fruit" />
+							</SelectTrigger>
+							<SelectContent>
+								<SelectGroup>
+									<SelectLabel>Fruits</SelectLabel>
+									<SelectItem value="apple">Apple</SelectItem>
+									<SelectItem value="banana">Banana</SelectItem>
+									<SelectItem value="blueberry">Blueberry</SelectItem>
+									<SelectItem value="grapes">Grapes</SelectItem>
+									<SelectItem value="pineapple">Pineapple</SelectItem>
+								</SelectGroup>
+								<SelectSeparator />
+								<SelectGroup>
+									<SelectLabel>Vegetables</SelectLabel>
+									<SelectItem value="carrot">Carrot</SelectItem>
+									<SelectItem value="cucumber">Cucumber</SelectItem>
+									<SelectItem value="lettuce">Lettuce</SelectItem>
+									<SelectItem value="tomato">Tomato</SelectItem>
+									<SelectItem value="zucchini">
+										<p>Zucchini</p>
+										<p>Ex sit voluptate incididunt pariatur velit consequat reprehenderit.</p>
+									</SelectItem>
+								</SelectGroup>
+							</SelectContent>
+						</Select>
+						<Select validation="warning">
 							<SelectTrigger className="max-w-64">
 								<SelectValue placeholder="Select a fruit" />
 							</SelectTrigger>
@@ -263,22 +318,31 @@ export default function Page() {
 							</PropDescriptionCell>
 						</PropRow>
 						<PropRow>
-							<PropNameCell name="invalid" optional />
+							<PropNameCell name="validation" optional />
 							<PropTypeCell>
-								<BooleanPropType />
-							</PropTypeCell>
-							<PropDefaultValueCell />
-							<PropDescriptionCell>Whether or not the input has a validation error.</PropDescriptionCell>
-						</PropRow>
-						<PropRow>
-							<PropNameCell className="min-w-[130px]" name="aria-invalid" optional />
-							<PropTypeCell>
-								<InlineCode>{"HTMLAttributes<HTMLSelectElement>"}</InlineCode>
+								<ul>
+									<li>
+										<StringPropType value="error" />
+									</li>
+									<li>
+										<StringPropType value="success" />
+									</li>
+									<li>
+										<StringPropType value="warning" />
+									</li>
+									<li>
+										<BooleanPropType value={false} />
+									</li>
+								</ul>
 							</PropTypeCell>
 							<PropDefaultValueCell />
 							<PropDescriptionCell>
-								<InlineCode>{"aria-invalid"}</InlineCode> from{" "}
-								<InlineCode>{"HTMLAttributes<HTMLSelectElement>"}</InlineCode>
+								<p>
+									Use the <InlineCode>validation</InlineCode> prop to show if the select has a specific validation
+									status. This will change the border and outline of the select trigger. Setting{" "}
+									<InlineCode>validation</InlineCode> to <InlineCode>error</InlineCode> also sets{" "}
+									<InlineCode>aria-invalid</InlineCode>.
+								</p>
 							</PropDescriptionCell>
 						</PropRow>
 					</PropsTable>
@@ -301,22 +365,31 @@ export default function Page() {
 
 					<PropsTable>
 						<PropRow>
-							<PropNameCell name="invalid" optional />
+							<PropNameCell name="validation" optional />
 							<PropTypeCell>
-								<BooleanPropType />
-							</PropTypeCell>
-							<PropDefaultValueCell />
-							<PropDescriptionCell>Whether or not the input has a validation error.</PropDescriptionCell>
-						</PropRow>
-						<PropRow>
-							<PropNameCell className="min-w-[130px]" name="aria-invalid" optional />
-							<PropTypeCell>
-								<InlineCode>{"HTMLAttributes<HTMLSelectElement>"}</InlineCode>
+								<ul>
+									<li>
+										<StringPropType value="error" />
+									</li>
+									<li>
+										<StringPropType value="success" />
+									</li>
+									<li>
+										<StringPropType value="warning" />
+									</li>
+									<li>
+										<BooleanPropType value={false} />
+									</li>
+								</ul>
 							</PropTypeCell>
 							<PropDefaultValueCell />
 							<PropDescriptionCell>
-								<InlineCode>{"aria-invalid"}</InlineCode> from{" "}
-								<InlineCode>{"HTMLAttributes<HTMLSelectElement>"}</InlineCode>
+								<p>
+									Use the <InlineCode>validation</InlineCode> prop to show if the select has a specific validation
+									status. This will change the border and outline of the select trigger. Setting{" "}
+									<InlineCode>validation</InlineCode> to <InlineCode>error</InlineCode> also sets{" "}
+									<InlineCode>aria-invalid</InlineCode>.
+								</p>
 							</PropDescriptionCell>
 						</PropRow>
 					</PropsTable>

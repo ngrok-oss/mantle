@@ -4,10 +4,10 @@ import clsx from "clsx";
 import { forwardRef, useEffect, useState } from "react";
 import type { InputHTMLAttributes } from "react";
 import { Input, InputCapture } from "./input";
-import type { InputType, WithAutoComplete, WithInvalid } from "./types";
+import type { InputType, WithAutoComplete, WithValidation } from "./types";
 
 type PasswordInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, "autoComplete" | "type"> &
-	WithInvalid &
+	WithValidation &
 	WithAutoComplete & {
 		/**
 		 * Mask the true length of the password input with a fixed width when the value is hidden and the input is not focused.

@@ -122,9 +122,12 @@ export type WithInputType = {
 	type?: InputType;
 };
 
-export type WithInvalid = {
+/**
+ * An input component with a prop for validation state.
+ */
+export type WithValidation = {
 	/**
-	 * Whether or not the input has a validation error.
+	 * The validation state of the input.
 	 */
-	invalid?: boolean;
+	validation?: "error" | "success" | "warning" | false;
 };
