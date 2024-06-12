@@ -1,12 +1,14 @@
+import { CheckCircle } from "@phosphor-icons/react/CheckCircle";
 import { Warning } from "@phosphor-icons/react/Warning";
+import { WarningDiamond } from "@phosphor-icons/react/WarningDiamond";
 import clsx from "clsx";
 import type { ElementRef, ForwardedRef, InputHTMLAttributes, MutableRefObject, PropsWithChildren } from "react";
 import { createContext, forwardRef, useContext, useRef } from "react";
 import { composeRefs } from "../../compose-refs";
 import { cx } from "../../cx";
-import type { WithAutoComplete, WithInputType, WithInvalid } from "./types";
+import type { WithAutoComplete, WithInputType, WithValidation } from "./types";
 
-type BaseProps = WithAutoComplete & WithInputType & WithInvalid;
+type BaseProps = WithAutoComplete & WithInputType & WithValidation;
 
 /**
  * The props for the `Input` component.
@@ -42,21 +44,24 @@ type InputCaptureProps = Omit<InputHTMLAttributes<HTMLInputElement>, "autoComple
  * The actual <input /> element that captures user input.
  */
 const InputCapture = forwardRef<HTMLInputElement, InputCaptureProps>(
-	({ "aria-invalid": _ariaInvalid, className, invalid = false, ...restProps }, ref) => {
+	({ "aria-invalid": _ariaInvalid, className, validation: _validation, ...restProps }, ref) => {
 		const {
 			"aria-invalid": ctxAriaInvalid,
-			invalid: ctxInvalid,
 			forwardedRef: ctxForwardedRef,
 			innerRef: ctxInnerRef,
+			validation: ctxValidation,
 			...ctx
 		} = useContext(InputContext);
-		const ariaInvalid = ctxAriaInvalid ?? ctxInvalid ?? _ariaInvalid ?? invalid;
+
+		const validation = ctxValidation ?? _validation;
+		const ariaInvalid = ctxAriaInvalid ?? _ariaInvalid ?? validation === "error";
 		const props = { ...ctx, ...restProps, type: restProps.type ?? ctx.type ?? "text" };
 
 		return (
 			<div className="min-w-0 flex-1 text-left">
 				<input
 					aria-invalid={ariaInvalid}
+					data-validation={validation || undefined} // eslint-disable-line @typescript-eslint/prefer-nullish-coalescing
 					className={cx("w-full bg-form placeholder:text-placeholder focus:outline-none", className)}
 					ref={composeRefs(ref, ctxForwardedRef, ctxInnerRef)}
 					{...props}
@@ -79,7 +84,7 @@ type InputContextType = Omit<InputHTMLAttributes<HTMLInputElement>, "autoComplet
 		forwardedRef?: ForwardedRef<HTMLInputElement>;
 	};
 
-const InputContext = createContext<InputContextType>({ invalid: false, innerRef: { current: null } });
+const InputContext = createContext<InputContextType>({ validation: undefined, innerRef: { current: null } });
 
 type InputContainerProps = InputHTMLAttributes<HTMLInputElement> &
 	BaseProps & {
@@ -104,12 +109,14 @@ const InputContainer = ({
 	disabled,
 	forwardedRef,
 	innerRef,
-	invalid,
 	style,
 	type,
+	validation: _validation,
 	...props
 }: InputContainerProps) => {
-	const ariaInvalid = _ariaInvalid ?? invalid;
+	const isInvalid = _ariaInvalid != null && _ariaInvalid !== "false";
+	const validation = isInvalid ? "error" : _validation;
+	const ariaInvalid = _ariaInvalid ?? validation === "error";
 
 	return (
 		<InputContext.Provider
@@ -117,8 +124,8 @@ const InputContainer = ({
 				"aria-invalid": _ariaInvalid,
 				"aria-disabled": _ariaDisabled,
 				disabled,
-				invalid,
 				type,
+				validation,
 				...props,
 				forwardedRef,
 				innerRef,
@@ -127,12 +134,15 @@ const InputContainer = ({
 			<div
 				aria-invalid={ariaInvalid}
 				aria-disabled={disabled ?? _ariaDisabled}
+				data-validation={validation || undefined} // eslint-disable-line @typescript-eslint/prefer-nullish-coalescing
 				className={cx(
 					"relative flex h-11 w-full items-center gap-1.5 rounded-md border bg-form px-3 py-2 file:border-0 file:bg-transparent file:text-sm file:font-medium focus-within:outline-none focus-within:ring-4 focus-visible:outline-none focus-visible:ring-4 sm:h-9 sm:text-sm",
 					"aria-disabled:opacity-50",
 					"has-[input:not(:first-child)]:ps-2.5 has-[input:not(:last-child)]:pe-2.5 [&>:not(input)]:shrink-0 [&_svg]:size-6 sm:[&_svg]:size-5",
-					"border-form text-strong focus-within:border-accent-600 focus-within:ring-focus-accent",
-					ariaInvalid && "border-danger-600 pe-2.5 focus-within:border-danger-600 focus-within:ring-focus-danger",
+					"border-form text-strong has-[:focus-visible]:border-accent-600 has-[:focus-visible]:ring-focus-accent",
+					"data-validation-success:border-success-600 has-[:focus-visible]:data-validation-success:border-success-600 has-[:focus-visible]:data-validation-success:ring-focus-success",
+					"data-validation-warning:border-warning-600 has-[:focus-visible]:data-validation-warning:border-warning-600 has-[:focus-visible]:data-validation-warning:ring-focus-warning",
+					"data-validation-error:border-danger-600 has-[:focus-visible]:data-validation-error:border-danger-600 has-[:focus-visible]:data-validation-error:ring-focus-danger",
 					className,
 				)}
 				onClick={() => {
@@ -141,14 +151,7 @@ const InputContainer = ({
 				style={style}
 			>
 				{children}
-				{invalid && (
-					<div className="pointer-events-none order-last select-none text-danger-600">
-						<span className="sr-only">
-							{clsx("The value entered for the", props.name, "input has failed validation.")}
-						</span>
-						<Warning aria-hidden weight="fill" />
-					</div>
-				)}
+				<ValidationFeedback name={props.name} validation={validation} />
 			</div>
 		</InputContext.Provider>
 	);
@@ -156,3 +159,29 @@ const InputContainer = ({
 
 export { Input, InputCapture };
 export type { InputProps, InputCaptureProps };
+
+const ValidationFeedback = ({ name, validation }: WithValidation & { name?: string }) => {
+	switch (validation) {
+		case "error":
+			return (
+				<div className="pointer-events-none order-last select-none text-danger-600">
+					<span className="sr-only">{clsx("The value entered for the", name, "input has failed validation.")}</span>
+					<Warning aria-hidden weight="fill" />
+				</div>
+			);
+		case "success":
+			return (
+				<div className="pointer-events-none order-last select-none text-success-600">
+					<CheckCircle weight="fill" />
+				</div>
+			);
+		case "warning":
+			return (
+				<div className="pointer-events-none order-last select-none text-warning-600">
+					<WarningDiamond weight="fill" />
+				</div>
+			);
+		default:
+			return null;
+	}
+};

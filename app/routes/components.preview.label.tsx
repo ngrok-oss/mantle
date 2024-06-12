@@ -37,7 +37,7 @@ export default function Page() {
 							<Input type="text" id="name-2" />
 						</div>
 						<Label htmlFor="name-disabled">
-							Name: <Input type="text" id="name" disabled readOnly invalid value="foo" />
+							Name: <Input type="text" id="name" disabled readOnly validation="error" value="foo" />
 						</Label>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">

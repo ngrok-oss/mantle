@@ -13,6 +13,7 @@ import {
 	PropRow,
 	PropsTable,
 	PropTypeCell,
+	StringPropType,
 } from "~/components/props-table";
 import { useState } from "react";
 
@@ -62,8 +63,8 @@ export default function Page() {
 							<PasswordInput />
 						</label>
 						<label className="block w-full max-w-64 space-y-1">
-							<p>Password (invalid)</p>
-							<PasswordInput invalid />
+							<p>Password (error)</p>
+							<PasswordInput validation="error" />
 						</label>
 						<label className="block w-full max-w-64 space-y-1">
 							<p>Controlled Visibility</p>
@@ -104,22 +105,6 @@ export default function Page() {
 				</p>
 				<PropsTable>
 					<PropRow>
-						<PropNameCell name="invalid" optional />
-						<PropTypeCell>
-							<BooleanPropType />
-						</PropTypeCell>
-						<PropDefaultValueCell>
-							<BooleanPropType value={false} />
-						</PropDefaultValueCell>
-						<PropDescriptionCell>
-							<p>
-								Use the <InlineCode>invalid</InlineCode> prop to show if the password input has a validation error. This
-								will change the presentation of the password input to indicate <span className="italic">danger</span> to
-								the user as well as set <InlineCode>aria-invalid</InlineCode>.
-							</p>
-						</PropDescriptionCell>
-					</PropRow>
-					<PropRow>
 						<PropNameCell name="maskHiddenValue" optional />
 						<PropTypeCell>
 							<BooleanPropType />
@@ -152,6 +137,33 @@ export default function Page() {
 						</PropDefaultValueCell>
 						<PropDescriptionCell>
 							<p>Show/hide the password value as a controlled state</p>
+						</PropDescriptionCell>
+					</PropRow>
+					<PropRow>
+						<PropNameCell name="validation" optional />
+						<PropTypeCell>
+							<ul>
+								<li>
+									<StringPropType value="error" />
+								</li>
+								<li>
+									<StringPropType value="success" />
+								</li>
+								<li>
+									<StringPropType value="warning" />
+								</li>
+								<li>
+									<BooleanPropType value={false} />
+								</li>
+							</ul>
+						</PropTypeCell>
+						<PropDefaultValueCell />
+						<PropDescriptionCell>
+							<p>
+								Use the <InlineCode>validation</InlineCode> prop to show if the input has a specific validation status.
+								This will change the border and outline of the input. Setting <InlineCode>validation</InlineCode> to{" "}
+								<InlineCode>error</InlineCode> also sets <InlineCode>aria-invalid</InlineCode>.
+							</p>
 						</PropDescriptionCell>
 					</PropRow>
 				</PropsTable>

@@ -6,11 +6,11 @@ import type { ComponentPropsWithoutRef, ElementRef, FocusEvent, Ref, SelectHTMLA
 import { createContext, forwardRef, useContext } from "react";
 import { composeRefs } from "../../compose-refs";
 import { cx } from "../../cx";
-import type { WithInvalid } from "../../input";
+import type { WithValidation } from "../../input";
 import { Separator } from "../../separator";
 
 type WithAriaInvalid = Pick<SelectHTMLAttributes<HTMLSelectElement>, "aria-invalid">;
-type SelectContextType = WithInvalid &
+type SelectContextType = WithValidation &
 	WithAriaInvalid & {
 		/**
 		 * Ref for the trigger button.
@@ -26,7 +26,7 @@ type SelectContextType = WithInvalid &
 const SelectContext = createContext<SelectContextType>({});
 
 type SelectProps = Omit<ComponentPropsWithoutRef<typeof SelectPrimitive.Root>, "onValueChange"> &
-	WithInvalid &
+	WithValidation &
 	WithAriaInvalid & {
 		/**
 		 * Event handler called when the value changes.
@@ -43,10 +43,10 @@ type SelectProps = Omit<ComponentPropsWithoutRef<typeof SelectPrimitive.Root>, "
  * Displays a list of options for the user to pick from—triggered by a button.
  */
 const Select = forwardRef<HTMLButtonElement, SelectProps>(
-	({ "aria-invalid": _ariaInvalid, children, invalid, onBlur, onChange, ...props }, ref) => {
+	({ "aria-invalid": _ariaInvalid, children, validation, onBlur, onChange, ...props }, ref) => {
 		return (
 			<SelectPrimitive.Root {...props} onValueChange={onChange}>
-				<SelectContext.Provider value={{ "aria-invalid": _ariaInvalid, invalid, onBlur, ref }}>
+				<SelectContext.Provider value={{ "aria-invalid": _ariaInvalid, validation, onBlur, ref }}>
 					{children}
 				</SelectContext.Provider>
 			</SelectPrimitive.Root>
@@ -66,23 +66,29 @@ const SelectGroup = SelectPrimitive.Group;
  */
 const SelectValue = SelectPrimitive.Value;
 
-type SelectTriggerProps = ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> & WithAriaInvalid & WithInvalid;
+type SelectTriggerProps = ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> & WithAriaInvalid & WithValidation;
 
 /**
  * The button that toggles the select. The Select.Content will position itself adjacent to the trigger.
  */
 const SelectTrigger = forwardRef<ElementRef<typeof SelectPrimitive.Trigger>, SelectTriggerProps>(
-	({ "aria-invalid": _ariaInvalid, className, children, invalid: _invalid, ...props }, ref) => {
+	({ "aria-invalid": _ariaInvalid, className, children, validation: _validation, ...props }, ref) => {
 		const ctx = useContext(SelectContext);
-		const invalid = ctx["aria-invalid"] ?? ctx.invalid ?? _ariaInvalid ?? _invalid;
+		const isInvalid = _ariaInvalid != null && _ariaInvalid !== "false";
+		const validation = isInvalid ? "error" : ctx.validation ?? _validation;
+		const ariaInvalid = ctx["aria-invalid"] ?? _ariaInvalid ?? validation === "error";
 
 		return (
 			<SelectPrimitive.Trigger
-				aria-invalid={invalid}
+				aria-invalid={ariaInvalid}
+				data-validation={validation}
 				className={cx(
 					"flex h-11 w-full items-center justify-between rounded-md border border-form bg-form px-3 py-2 text-strong placeholder:text-placeholder hover:border-neutral-400 hover:bg-form-hover hover:text-strong focus:border-accent-600 focus:outline-none focus:ring-4 focus:ring-focus-accent focus-visible:border-accent-600 focus-visible:ring-focus-accent active:border-neutral-400 active:bg-neutral-500/10 active:text-strong focus-visible:active:border-accent-600 disabled:pointer-events-none disabled:opacity-50 aria-expanded:border-accent-600 aria-expanded:ring-4 aria-expanded:ring-focus-accent sm:h-9 sm:text-sm [&>span]:line-clamp-1 [&>span]:text-left",
-					invalid &&
-						"border-danger-600 focus:border-danger-600 focus:ring-focus-danger aria-expanded:border-danger-600 aria-expanded:ring-focus-danger",
+					"data-validation-success:border-success-600 focus-visible:data-validation-success:border-success-600 focus-visible:data-validation-success:ring-focus-success data-validation-success:aria-expanded:border-success-600 data-validation-success:aria-expanded:ring-focus-success",
+					"data-validation-warning:border-warning-600 focus-visible:data-validation-warning:border-warning-600 focus-visible:data-validation-warning:ring-focus-warning data-validation-warning:aria-expanded:border-warning-600 data-validation-warning:aria-expanded:ring-focus-warning",
+					"data-validation-error:border-danger-600 focus-visible:data-validation-error:border-danger-600 focus-visible:data-validation-error:ring-focus-danger data-validation-error:aria-expanded:border-danger-600 data-validation-error:aria-expanded:ring-focus-danger",
+					// invalid &&
+					// 	"border-danger-600 focus:border-danger-600 focus:ring-focus-danger aria-expanded:border-danger-600 aria-expanded:ring-focus-danger",
 					className,
 				)}
 				ref={composeRefs(ref, ctx.ref)}

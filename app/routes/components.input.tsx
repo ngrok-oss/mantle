@@ -9,6 +9,7 @@ import {
 } from "@/code-block";
 import { InlineCode } from "@/inline-code";
 import { Input, InputCapture } from "@/input";
+import { Label } from "@/label";
 import { Info } from "@phosphor-icons/react/Info";
 import { MagnifyingGlass } from "@phosphor-icons/react/MagnifyingGlass";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
@@ -21,6 +22,7 @@ import {
 	PropRow,
 	PropsTable,
 	PropTypeCell,
+	StringPropType,
 } from "~/components/props-table";
 import { route } from "~/types/routes";
 import { Link } from "react-router-dom";
@@ -48,14 +50,27 @@ export default function Page() {
 				<p className="mt-4 text-xl text-body">Fundamental component for inputs.</p>
 				<div>
 					<Example className="mt-4 flex flex-col gap-6">
-						<label className="block w-full max-w-80 space-y-1">
+						<Label className="block w-full max-w-80 space-y-1">
 							<p>Username</p>
-							<Input className="max-w-64" placeholder="Enter a username" />
-						</label>
-						<label className="block w-full max-w-80 space-y-1">
-							<p>Username (invalid)</p>
-							<Input className="max-w-64" placeholder="Enter a username" invalid />
-						</label>
+							<Input placeholder="Enter a username" />
+						</Label>
+						<div className="w-full max-w-80 space-y-2">
+							<p>Validation States:</p>
+							<div className="flex w-full flex-col gap-6">
+								<Label className="space-y-1">
+									<p>Error</p>
+									<Input placeholder={'"validation="error"'} validation="error" />
+								</Label>
+								<Label className="space-y-1">
+									<p>Success</p>
+									<Input placeholder={'"validation="success"'} validation="success" />
+								</Label>
+								<Label className="space-y-1">
+									<p>Warning</p>
+									<Input placeholder={'"validation="warning"'} validation="warning" />
+								</Label>
+							</div>
+						</div>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
@@ -66,7 +81,9 @@ export default function Page() {
 									import { Input } from "@ngrok/mantle/input";
 
 									<Input placeholder="Enter a username" />
-									<Input placeholder="Enter a username" invalid />
+									<Input placeholder="Enter a username" validation="error" />
+									<Input placeholder="Enter a username" validation="success" />
+									<Input placeholder="Enter a username" validation="warning" />
 								`}
 							/>
 						</CodeBlockBody>
@@ -119,22 +136,22 @@ export default function Page() {
 							</Input>
 						</label>
 						<label className="block w-full max-w-80 space-y-1">
-							<p>Search with start icon (invalid)</p>
-							<Input className="max-w-64" placeholder="Search..." invalid>
+							<p>Search with start icon (error)</p>
+							<Input className="max-w-64" placeholder="Search..." validation="error">
 								<MagnifyingGlass />
 								<InputCapture />
 							</Input>
 						</label>
 						<label className="block w-full max-w-80 space-y-1">
-							<p>Search with end icon (invalid)</p>
-							<Input className="max-w-64" placeholder="Search..." invalid>
+							<p>Search with end icon (error)</p>
+							<Input className="max-w-64" placeholder="Search..." validation="error">
 								<InputCapture />
 								<Info />
 							</Input>
 						</label>
 						<label className="block w-full max-w-80 space-y-1">
-							<p>Search with start and end icons (invalid)</p>
-							<Input className="max-w-64" invalid placeholder="Search...">
+							<p>Search with start and end icons (error)</p>
+							<Input className="max-w-64" validation="error" placeholder="Search...">
 								<MagnifyingGlass />
 								<InputCapture />
 								<Info />
@@ -173,22 +190,22 @@ export default function Page() {
 										</Input>
 									</label>
 									<label className="block w-full max-w-80 space-y-1">
-										<p>Search with start icon (invalid)</p>
-										<Input className="max-w-64" placeholder="Search..." invalid>
+										<p>Search with start icon (error)</p>
+										<Input className="max-w-64" placeholder="Search..." validation="error">
 											<MagnifyingGlass />
 											<InputCapture />
 										</Input>
 									</label>
 									<label className="block w-full max-w-80 space-y-1">
-										<p>Search with end icon (invalid)</p>
-										<Input className="max-w-64" placeholder="Search..." invalid>
+										<p>Search with end icon (error)</p>
+										<Input className="max-w-64" placeholder="Search..." validation="error">
 											<InputCapture />
 											<Info />
 										</Input>
 									</label>
 									<label className="block w-full max-w-80 space-y-1">
-										<p>Search with start and end icons (invalid)</p>
-										<Input className="max-w-64" invalid placeholder="Search...">
+										<p>Search with start and end icons (error)</p>
+										<Input className="max-w-64" validation="error" placeholder="Search...">
 											<MagnifyingGlass />
 											<InputCapture />
 											<Info />
@@ -215,18 +232,29 @@ export default function Page() {
 				</p>
 				<PropsTable>
 					<PropRow>
-						<PropNameCell name="invalid" optional />
+						<PropNameCell name="validation" optional />
 						<PropTypeCell>
-							<BooleanPropType />
+							<ul>
+								<li>
+									<StringPropType value="error" />
+								</li>
+								<li>
+									<StringPropType value="success" />
+								</li>
+								<li>
+									<StringPropType value="warning" />
+								</li>
+								<li>
+									<BooleanPropType value={false} />
+								</li>
+							</ul>
 						</PropTypeCell>
-						<PropDefaultValueCell>
-							<BooleanPropType value={false} />
-						</PropDefaultValueCell>
+						<PropDefaultValueCell />
 						<PropDescriptionCell>
 							<p>
-								Use the <InlineCode>invalid</InlineCode> prop to show if the input has a validation error. This will
-								change the presentation of the input to indicate <span className="italic">danger</span> to the user as
-								well as set <InlineCode>aria-invalid</InlineCode>.
+								Use the <InlineCode>validation</InlineCode> prop to show if the input has a specific validation status.
+								This will change the border and outline of the input. Setting <InlineCode>validation</InlineCode> to{" "}
+								<InlineCode>error</InlineCode> also sets <InlineCode>aria-invalid</InlineCode>.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>
