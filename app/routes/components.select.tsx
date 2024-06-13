@@ -16,6 +16,7 @@ import { Example } from "~/components/example";
 import { Link } from "~/components/link";
 import {
 	BooleanPropType,
+	FuncPropType,
 	PropDefaultValueCell,
 	PropDescriptionCell,
 	PropNameCell,
@@ -308,7 +309,7 @@ export default function Page() {
 						<PropRow>
 							<PropNameCell name="onChange" optional />
 							<PropTypeCell>
-								<InlineCode>{"(value: string) => void"}</InlineCode>
+								<FuncPropType value="(value: string) => void" />
 							</PropTypeCell>
 							<PropDefaultValueCell />
 							<PropDescriptionCell>
@@ -333,14 +334,23 @@ export default function Page() {
 									<li>
 										<BooleanPropType value={false} />
 									</li>
+									<li>
+										<FuncPropType value={`() => "error" | "success" | "warning" | false`} />
+									</li>
 								</ul>
 							</PropTypeCell>
 							<PropDefaultValueCell />
-							<PropDescriptionCell>
+							<PropDescriptionCell className="space-y-2">
 								<p>
-									Use the <InlineCode>validation</InlineCode> prop to show if the select has a specific validation
-									status. This will change the border and outline of the select trigger. Setting{" "}
-									<InlineCode>validation</InlineCode> to <InlineCode>error</InlineCode> also sets{" "}
+									Use the <InlineCode>validation</InlineCode> prop to show if the select trigger has a specific
+									validation status. This will change the border and outline of the select trigger.
+								</p>
+								<p>
+									The <InlineCode>false</InlineCode> type is useful when using short-circuiting logic so that you don't
+									need to use a ternary with <InlineCode>undefined</InlineCode>.
+								</p>
+								<p>
+									Setting <InlineCode>validation</InlineCode> to <InlineCode>error</InlineCode> also sets{" "}
 									<InlineCode>aria-invalid</InlineCode>.
 								</p>
 							</PropDescriptionCell>
@@ -380,14 +390,23 @@ export default function Page() {
 									<li>
 										<BooleanPropType value={false} />
 									</li>
+									<li>
+										<FuncPropType value={`() => "error" | "success" | "warning" | false`} />
+									</li>
 								</ul>
 							</PropTypeCell>
 							<PropDefaultValueCell />
-							<PropDescriptionCell>
+							<PropDescriptionCell className="space-y-2">
 								<p>
-									Use the <InlineCode>validation</InlineCode> prop to show if the select has a specific validation
-									status. This will change the border and outline of the select trigger. Setting{" "}
-									<InlineCode>validation</InlineCode> to <InlineCode>error</InlineCode> also sets{" "}
+									Use the <InlineCode>validation</InlineCode> prop to show if the select trigger has a specific
+									validation status. This will change the border and outline of the select trigger.
+								</p>
+								<p>
+									The <InlineCode>false</InlineCode> type is useful when using short-circuiting logic so that you don't
+									need to use a ternary with <InlineCode>undefined</InlineCode>.
+								</p>
+								<p>
+									Setting <InlineCode>validation</InlineCode> to <InlineCode>error</InlineCode> also sets{" "}
 									<InlineCode>aria-invalid</InlineCode>.
 								</p>
 							</PropDescriptionCell>

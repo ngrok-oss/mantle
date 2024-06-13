@@ -2,7 +2,10 @@ import { cx } from "@/cx";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/table";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/tooltip";
 import type { WithStyleProps } from "@/types";
-import type { PropsWithChildren } from "react";
+import Prism from "prismjs";
+import { useEffect, useState, type PropsWithChildren } from "react";
+import assert from "tiny-invariant";
+import "prismjs/components/prism-typescript.js";
 
 type PropsTableProps = WithStyleProps & PropsWithChildren;
 export const PropsTable = ({ children, className, style }: PropsTableProps) => (
@@ -76,4 +79,23 @@ export const BooleanPropType = ({ value }: { value?: true | false | undefined })
 export const StringPropType = ({ value }: { value?: string }) => (
 	<span className="token attr-value">{value ?? "string"}</span>
 );
+
+export const FuncPropType = ({ value }: { value: string }) => {
+	// trim any leading and trailing whitespace/empty lines
+	const trimmedCode = value?.trim() ?? "";
+	const [highlightedCodeInnerHtml, setHighlightedCodeInnerHtml] = useState(trimmedCode);
+
+	useEffect(() => {
+		const grammar = Prism.languages.typescript;
+		assert(grammar, "Couldn't load Prism grammar for typescript!");
+		const newHighlightedCodeInnerHtml = Prism.highlight(trimmedCode, grammar, "typescript");
+		setHighlightedCodeInnerHtml(newHighlightedCodeInnerHtml);
+	}, [trimmedCode]);
+
+	return (
+		<pre className="language-typescript">
+			<code dangerouslySetInnerHTML={{ __html: highlightedCodeInnerHtml }} />
+		</pre>
+	);
+};
 export const UndefinedPropType = () => <span className="italic text-amber-600">undefined</span>;

@@ -7,6 +7,7 @@ import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 import {
 	BooleanPropType,
+	FuncPropType,
 	PropDefaultValueCell,
 	PropDescriptionCell,
 	PropNameCell,
@@ -148,14 +149,23 @@ export default function Page() {
 								<li>
 									<BooleanPropType value={false} />
 								</li>
+								<li>
+									<FuncPropType value={`() => "error" | "success" | "warning" | false`} />
+								</li>
 							</ul>
 						</PropTypeCell>
 						<PropDefaultValueCell />
-						<PropDescriptionCell>
+						<PropDescriptionCell className="space-y-2">
 							<p>
 								Use the <InlineCode>validation</InlineCode> prop to show if the textarea has a specific validation
-								status. This will change the border and outline of the textarea. Setting{" "}
-								<InlineCode>validation</InlineCode> to <InlineCode>error</InlineCode> also sets{" "}
+								status. This will change the border and outline of the textarea.
+							</p>
+							<p>
+								The <InlineCode>false</InlineCode> type is useful when using short-circuiting logic so that you don't
+								need to use a ternary with <InlineCode>undefined</InlineCode>.
+							</p>
+							<p>
+								Setting <InlineCode>validation</InlineCode> to <InlineCode>error</InlineCode> also sets{" "}
 								<InlineCode>aria-invalid</InlineCode>.
 							</p>
 						</PropDescriptionCell>
