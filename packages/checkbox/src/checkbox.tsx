@@ -1,49 +1,60 @@
-import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
-import { forwardRef } from "react";
+import clsx from "clsx";
+import { forwardRef, useEffect, useRef } from "react";
 import type { ComponentPropsWithoutRef, ElementRef } from "react";
+import { composeRefs } from "../../compose-refs";
 import { cx } from "../../cx";
-import type { WithStyleProps } from "../../types";
+import type { WithValidation } from "../../input";
 
-type Props = ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>;
+type Props = Omit<ComponentPropsWithoutRef<"input">, "type" | "checked"> &
+	WithValidation & {
+		checked?: boolean | "indeterminate";
+	};
 
-const Checkbox = forwardRef<ElementRef<typeof CheckboxPrimitive.Root>, Props>(({ className, ...props }, ref) => (
-	<CheckboxPrimitive.Root
-		ref={ref}
-		className={cx(
-			"size-4 shrink-0 cursor-pointer appearance-none rounded border border-form bg-form disabled:cursor-default disabled:opacity-50",
-			"data-state-checked:border-transparent data-state-checked:bg-accent-500 data-state-indeterminate:border-transparent data-state-indeterminate:bg-accent-500",
-			"focus:border-accent-600 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-focus-accent focus:data-state-checked:border-accent-600 focus:data-state-indeterminate:border-accent-600",
-			className,
-		)}
-		{...props}
-	>
-		<CheckboxPrimitive.Indicator className="hidden items-center justify-center leading-none text-on-filled data-state-checked:flex">
-			<CheckedIcon className="size-3" />
-		</CheckboxPrimitive.Indicator>
-		<CheckboxPrimitive.Indicator className="hidden items-center justify-center text-on-filled data-state-indeterminate:flex">
-			<IndeterminateIcon className="size-3" />
-		</CheckboxPrimitive.Indicator>
-		<CheckboxPrimitive.Indicator />
-	</CheckboxPrimitive.Root>
-));
+/**
+ * A form control that allows the user to toggle between checked and not checked.
+ */
+const Checkbox = forwardRef<ElementRef<"input">, Props>(
+	({ "aria-invalid": _ariaInvalid, className, checked: _checked, validation: _validation, ...props }, ref) => {
+		const innerRef = useRef<ElementRef<"input">>(null);
+		const indeterminate = _checked === "indeterminate";
+		const checked = !indeterminate || typeof _checked === "boolean" ? _checked : undefined;
+
+		const isInvalid = _ariaInvalid != null && _ariaInvalid !== "false";
+		const validation = isInvalid ? "error" : typeof _validation === "function" ? _validation() : _validation;
+		const ariaInvalid = _ariaInvalid ?? validation === "error";
+
+		useEffect(() => {
+			if (innerRef.current) {
+				innerRef.current.indeterminate = indeterminate;
+			}
+		}, [indeterminate]);
+
+		return (
+			<input
+				aria-invalid={ariaInvalid}
+				data-validation={validation || undefined} // eslint-disable-line @typescript-eslint/prefer-nullish-coalescing
+				className={clsx(
+					"shrink-0 cursor-pointer select-none appearance-none rounded border border-form bg-form disabled:cursor-default disabled:opacity-50",
+					"bg-center bg-no-repeat focus:outline-none",
+					"focus-visible:border-accent-600 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-focus-accent",
+					"checked:bg-accent-500 checked:bg-checked-icon",
+					"indeterminate:bg-accent-500 indeterminate:bg-indeterminate-icon",
+					"data-validation-success:border-success-600 data-validation-success:checked:bg-success-500 data-validation-success:indeterminate:bg-success-500 focus-visible:data-validation-success:border-success-600 focus-visible:data-validation-success:ring-focus-success",
+					"data-validation-warning:border-warning-600 data-validation-warning:checked:bg-warning-500 data-validation-warning:indeterminate:bg-warning-500 focus-visible:data-validation-warning:border-warning-600 focus-visible:data-validation-warning:ring-focus-warning",
+					"data-validation-error:border-danger-600 data-validation-error:checked:bg-danger-500 data-validation-error:indeterminate:bg-danger-500 focus-visible:data-validation-error:border-danger-600 focus-visible:data-validation-error:ring-focus-danger",
+					cx("block size-4 p-0", className),
+				)}
+				checked={checked}
+				ref={composeRefs(innerRef, ref)}
+				type="checkbox"
+				{...props}
+			/>
+		);
+	},
+);
 Checkbox.displayName = "Checkbox";
 
-export { Checkbox };
-
-const CheckedIcon = ({ className, style }: WithStyleProps) => (
-	<svg className={className} style={style} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-		<path
-			d="M12.7071 4.29289C13.0976 4.68342 13.0976 5.31658 12.7071 5.70711L6.70711 11.7071C6.31658 12.0976 5.68342 12.0976 5.29289 11.7071L3.29289 9.70711C2.90237 9.31658 2.90237 8.68342 3.29289 8.29289C3.68342 7.90237 4.31658 7.90237 4.70711 8.29289L6 9.58579L11.2929 4.29289C11.6834 3.90237 12.3166 3.90237 12.7071 4.29289Z"
-			fill="currentColor"
-		/>
-	</svg>
-);
-
-const IndeterminateIcon = ({ className, style }: WithStyleProps) => (
-	<svg className={className} style={style} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-		<path
-			d="M4 8C4 7.44772 4.44772 7 5 7H11C11.5523 7 12 7.44772 12 8C12 8.55228 11.5523 9 11 9H5C4.44772 9 4 8.55228 4 8Z"
-			fill="currentColor"
-		/>
-	</svg>
-);
+export {
+	//,
+	Checkbox,
+};
