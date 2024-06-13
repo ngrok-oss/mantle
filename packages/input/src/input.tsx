@@ -6,7 +6,7 @@ import type { ElementRef, ForwardedRef, InputHTMLAttributes, MutableRefObject, P
 import { createContext, forwardRef, useContext, useRef } from "react";
 import { composeRefs } from "../../compose-refs";
 import { cx } from "../../cx";
-import type { WithAutoComplete, WithInputType, WithValidation } from "./types";
+import type { Validation, WithAutoComplete, WithInputType, WithValidation } from "./types";
 
 type BaseProps = WithAutoComplete & WithInputType & WithValidation;
 
@@ -115,7 +115,7 @@ const InputContainer = ({
 	...props
 }: InputContainerProps) => {
 	const isInvalid = _ariaInvalid != null && _ariaInvalid !== "false";
-	const validation = isInvalid ? "error" : _validation;
+	const validation = isInvalid ? "error" : typeof _validation === "function" ? _validation() : _validation;
 	const ariaInvalid = _ariaInvalid ?? validation === "error";
 
 	return (
@@ -160,7 +160,7 @@ const InputContainer = ({
 export { Input, InputCapture };
 export type { InputProps, InputCaptureProps };
 
-const ValidationFeedback = ({ name, validation }: WithValidation & { name?: string }) => {
+const ValidationFeedback = ({ name, validation }: { name?: string; validation: Validation | undefined }) => {
 	switch (validation) {
 		case "error":
 			return (

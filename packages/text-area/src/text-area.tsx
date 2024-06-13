@@ -55,7 +55,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
 		ref,
 	) => {
 		const isInvalid = _ariaInvalid != null && _ariaInvalid !== "false";
-		const validation = isInvalid ? "error" : _validation;
+		const validation = isInvalid ? "error" : typeof _validation === "function" ? _validation() : _validation;
 		const ariaInvalid = _ariaInvalid ?? validation === "error";
 		const [isDragOver, setIsDragOver] = useState(false);
 		const _ref = useRef<HTMLTextAreaElement | null>(null);

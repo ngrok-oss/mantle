@@ -72,11 +72,12 @@ type SelectTriggerProps = ComponentPropsWithoutRef<typeof SelectPrimitive.Trigge
  * The button that toggles the select. The Select.Content will position itself adjacent to the trigger.
  */
 const SelectTrigger = forwardRef<ElementRef<typeof SelectPrimitive.Trigger>, SelectTriggerProps>(
-	({ "aria-invalid": ariaInValidProp, className, children, validation: _validation, ...props }, ref) => {
+	({ "aria-invalid": ariaInValidProp, className, children, validation: propValidation, ...props }, ref) => {
 		const ctx = useContext(SelectContext);
 		const _ariaInvalid = ctx["aria-invalid"] ?? ariaInValidProp;
 		const isInvalid = _ariaInvalid != null && _ariaInvalid !== "false";
-		const validation = isInvalid ? "error" : ctx.validation ?? _validation;
+		const _validation = ctx.validation ?? propValidation;
+		const validation = isInvalid ? "error" : typeof _validation === "function" ? _validation() : _validation;
 		const ariaInvalid = _ariaInvalid ?? validation === "error";
 
 		return (
