@@ -87,7 +87,7 @@ export const FuncPropType = ({ value }: { value: string }) => {
 
 	useEffect(() => {
 		const grammar = Prism.languages.typescript;
-		assert(grammar, "oof");
+		assert(grammar, "Couldn't load Prism grammar for typescript!");
 		const newHighlightedCodeInnerHtml = Prism.highlight(trimmedCode, grammar, "typescript");
 		setHighlightedCodeInnerHtml(newHighlightedCodeInnerHtml);
 	}, [trimmedCode]);
