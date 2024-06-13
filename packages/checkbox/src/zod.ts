@@ -13,7 +13,7 @@ type CheckboxOptions = {
 };
 
 /**
- * A zod schema for a checkbox value.
+ * A zod schema for a checkbox input value.
  */
 function zodCheckbox(options?: CheckboxOptions) {
 	const { trueValue = "on", message = "Invalid value" } = options ?? {};
