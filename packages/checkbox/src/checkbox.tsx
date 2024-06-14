@@ -2,7 +2,6 @@ import clsx from "clsx";
 import { forwardRef, useEffect, useRef, useState } from "react";
 import type { ComponentPropsWithoutRef, ElementRef } from "react";
 import { composeRefs } from "../../compose-refs";
-import { cx } from "../../cx";
 import type { WithValidation } from "../../input";
 
 type CheckedState = boolean | "indeterminate";
@@ -69,7 +68,8 @@ const Checkbox = forwardRef<ElementRef<"input">, Props>(
 					"data-validation-success:border-success-600 data-validation-success:checked:bg-success-500 data-validation-success:indeterminate:bg-success-500 focus-visible:data-validation-success:border-success-600 focus-visible:data-validation-success:ring-focus-success",
 					"data-validation-warning:border-warning-600 data-validation-warning:checked:bg-warning-500 data-validation-warning:indeterminate:bg-warning-500 focus-visible:data-validation-warning:border-warning-600 focus-visible:data-validation-warning:ring-focus-warning",
 					"data-validation-error:border-danger-600 data-validation-error:checked:bg-danger-500 data-validation-error:indeterminate:bg-danger-500 focus-visible:data-validation-error:border-danger-600 focus-visible:data-validation-error:ring-focus-danger",
-					cx("block size-4 p-0", className),
+					"where:block where:size-4 where:p-0",
+					className,
 				)}
 				checked={isIndeterminate(_checked) ? undefined : _checked}
 				data-validation={validation || undefined} // eslint-disable-line @typescript-eslint/prefer-nullish-coalescing

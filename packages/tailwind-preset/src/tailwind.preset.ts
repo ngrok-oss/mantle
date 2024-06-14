@@ -6,6 +6,7 @@ import plugin from "tailwindcss/plugin";
 import { ariaEnabledVariantPlugin } from "./tailwind-plugin-aria-enabled.js";
 import { firefoxVariantPlugin } from "./tailwind-plugin-firefox-variant.js";
 import { pointingVariantsPlugin } from "./tailwind-plugin-pointing-variants.js";
+import { whereVariantPlugin } from "./tailwind-plugin-where-variant.js";
 
 const colors = {
 	inherit: "inherit",
@@ -486,6 +487,7 @@ const mantlePreset = {
 		plugin(function ({ addVariant }) {
 			addVariant("not-disabled", ["&:not(:disabled)"]);
 		}),
+		whereVariantPlugin,
 		ariaEnabledVariantPlugin,
 	],
 } satisfies Config;
