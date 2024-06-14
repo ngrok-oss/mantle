@@ -123,7 +123,9 @@ export default function Page() {
 					</PropRow>
 					<PropRow>
 						<PropNameCell name="onValueVisibilityChange" optional />
-						<PropTypeCell>{`(value: boolean) => void`}</PropTypeCell>
+						<PropTypeCell>
+							<FuncPropType value="(value: boolean) => void" />
+						</PropTypeCell>
 						<PropDefaultValueCell />
 						<PropDescriptionCell>
 							<p>Callback for when the visibility of the password value changes.</p>
