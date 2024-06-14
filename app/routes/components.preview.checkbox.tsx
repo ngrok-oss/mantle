@@ -57,7 +57,7 @@ export default function Page() {
 							Checked (static)
 						</Label>
 						<Label htmlFor="indeterminate" className="flex items-center gap-2">
-							<Checkbox id="indeterminate" name="indeterminate" checked="indeterminate" />
+							<Checkbox id="indeterminate" name="indeterminate" defaultChecked="indeterminate" readOnly />
 							Indeterminate (static)
 						</Label>
 						<Label htmlFor="disabled-unchecked" className="flex items-center gap-2">
@@ -134,6 +134,26 @@ export default function Page() {
 								Whether the checkbox is checked or not. Setting this to <InlineCode>indeterminate</InlineCode> will show
 								the indeterminate state. This is useful for when the checkbox is in a parent-child relationship, but
 								this requires manual, controlled state.
+							</p>
+						</PropDescriptionCell>
+					</PropRow>
+					<PropRow>
+						<PropNameCell name="defaultChecked" optional />
+						<PropTypeCell>
+							<ul>
+								<li>
+									<BooleanPropType />
+								</li>
+								<li>
+									<StringPropType value="indeterminate" />
+								</li>
+							</ul>
+						</PropTypeCell>
+						<PropDefaultValueCell />
+						<PropDescriptionCell>
+							<p>
+								The checked state of the checkbox when it is initially rendered. Use when you do not need to control its
+								checked state.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>
