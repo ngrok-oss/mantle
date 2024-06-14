@@ -1,28 +1,35 @@
 import { z } from "zod";
 
-type CheckboxOptions = {
+type Options = {
 	/**
 	 * The value to use when the checkbox is checked.
+	 * @default "on"
 	 */
-	trueValue?: "on" | (string & {});
-	/**
-	 * The error message to display when the value is not valid.
-	 * Pass a function to customize the message based on the data.
-	 */
-	message?: string | ((data: unknown) => string);
+	trueValue?: string;
 };
 
 /**
- * A zod schema for a checkbox input value.
+ * Turns the value from a checkbox field into a boolean,
+ * but does not require the checkbox to be checked.
+ * For checkboxes with a `value` attribute, you can pass that as the `trueValue` option.
+ *
+ * @example
+ * ```ts
+ * z.object({
+ *   defaultCheckbox: zodCheckbox(),
+ *   checkboxWithValue: zodCheckbox({ trueValue: "true" }),
+ *   mustBeChecked: zodCheckbox().refine((v) => v, "Please check this box"),
+ * });
+ * ```
  */
-function zodCheckbox(options?: CheckboxOptions) {
-	const { trueValue = "on", message = "Invalid value" } = options ?? {};
+function zodCheckbox(options?: Options) {
+	const { trueValue = "on" } = options ?? {};
 
-	return z.literal(trueValue, {
-		errorMap: (issue, args) => ({
-			message: typeof message === "function" ? message(args.data) : message ?? issue.message ?? issue.code,
-		}),
-	});
+	return z.union([
+		z.literal(trueValue).transform(() => true),
+		z.literal(false).transform(() => false),
+		z.literal(undefined).transform(() => false),
+	]);
 }
 
 export {
