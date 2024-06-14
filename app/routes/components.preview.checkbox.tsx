@@ -49,11 +49,11 @@ export default function Page() {
 							Accept terms and conditions
 						</Label>
 						<Label htmlFor="unchecked" className="flex items-center gap-2">
-							<Checkbox id="unchecked" name="unchecked" checked={false} />
+							<Checkbox id="unchecked" name="unchecked" checked={false} readOnly />
 							Unchecked (static)
 						</Label>
 						<Label htmlFor="checked" className="flex items-center gap-2">
-							<Checkbox id="checked" name="checked" checked />
+							<Checkbox id="checked" name="checked" checked readOnly />
 							Checked (static)
 						</Label>
 						<Label htmlFor="indeterminate" className="flex items-center gap-2">
@@ -61,15 +61,15 @@ export default function Page() {
 							Indeterminate (static)
 						</Label>
 						<Label htmlFor="disabled-unchecked" className="flex items-center gap-2">
-							<Checkbox disabled id="unchecked" name="unchecked" checked={false} />
+							<Checkbox disabled id="unchecked" name="unchecked" checked={false} readOnly />
 							<span className="opacity-50">Disabled Unchecked (static)</span>
 						</Label>
 						<Label htmlFor="disabled-checked" className="flex items-center gap-2">
-							<Checkbox disabled id="checked" name="checked" checked />
+							<Checkbox disabled id="checked" name="checked" checked readOnly />
 							<span className="opacity-50">Disabled Checked (static)</span>
 						</Label>
 						<Label htmlFor="disabled-indeterminate" className="flex items-center gap-2">
-							<Checkbox disabled id="indeterminate" name="indeterminate" checked="indeterminate" />
+							<Checkbox disabled id="indeterminate" name="indeterminate" defaultChecked="indeterminate" readOnly />
 							<span className="opacity-50">Disabled Indeterminate (static)</span>
 						</Label>
 					</div>
