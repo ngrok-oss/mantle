@@ -5,6 +5,13 @@
 @tailwind utilities;
 
 /**
+ * This layer is lower specificity than non-layered styles, but higher
+ * specificity than any `:where()` styles. All tailwind classes will override
+ * the `mantle` layer since they are not in a layer.
+ */
+@layer mantle;
+
+/**
  * provide an a11y escape hatch for those that prefer less motion
  */
 @media (prefers-reduced-motion: reduce) {
