@@ -69,7 +69,7 @@ const Checkbox = forwardRef<ElementRef<"input">, Props>(
 					"data-validation-success:border-success-600 data-validation-success:checked:bg-success-500 data-validation-success:indeterminate:bg-success-500 focus-visible:data-validation-success:border-success-600 focus-visible:data-validation-success:ring-focus-success",
 					"data-validation-warning:border-warning-600 data-validation-warning:checked:bg-warning-500 data-validation-warning:indeterminate:bg-warning-500 focus-visible:data-validation-warning:border-warning-600 focus-visible:data-validation-warning:ring-focus-warning",
 					"data-validation-error:border-danger-600 data-validation-error:checked:bg-danger-500 data-validation-error:indeterminate:bg-danger-500 focus-visible:data-validation-error:border-danger-600 focus-visible:data-validation-error:ring-focus-danger",
-					"where:block where:size-4 where:p-0",
+					"mantle:block mantle:size-4",
 					className,
 				)}
 				checked={isIndeterminate(_checked) ? undefined : _checked}

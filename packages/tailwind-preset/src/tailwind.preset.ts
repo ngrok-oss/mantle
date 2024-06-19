@@ -5,6 +5,7 @@ import defaultTheme from "tailwindcss/defaultTheme";
 import plugin from "tailwindcss/plugin";
 import { ariaEnabledVariantPlugin } from "./tailwind-plugin-aria-enabled.js";
 import { firefoxVariantPlugin } from "./tailwind-plugin-firefox-variant.js";
+import { mantleVariantPlugin } from "./tailwind-plugin-mantle-variant.js";
 import { pointingVariantsPlugin } from "./tailwind-plugin-pointing-variants.js";
 import { whereVariantPlugin } from "./tailwind-plugin-where-variant.js";
 
@@ -489,6 +490,7 @@ const mantlePreset = {
 		}),
 		whereVariantPlugin,
 		ariaEnabledVariantPlugin,
+		mantleVariantPlugin,
 	],
 } satisfies Config;
 
