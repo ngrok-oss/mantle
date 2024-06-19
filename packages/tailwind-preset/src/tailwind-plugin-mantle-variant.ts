@@ -15,7 +15,7 @@ const mantleVariantPlugin = plugin(
 		api.addVariant("mantle", ({ container, separator }: { container: Root; separator: string }) => {
 			const mantleRule = api.postcss.atRule({
 				name: "layer",
-				params: "peepeepoopoo",
+				params: "mantle",
 			});
 			mantleRule.append(container.nodes);
 			container.append(mantleRule);
