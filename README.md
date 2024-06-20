@@ -31,7 +31,30 @@ Next, check out the [Overview & Setup](https://mantle.ngrok.com/) and [Theme Pro
 
 ### Installation
 
-Mantle uses [bun](https://bun.sh/) as its package manager. First, install the dependencies in the repo’s directory by running `bun install`.
+Mantle uses [bun](https://bun.sh/) as its package manager and [direnv](https://direnv.net/) to assist you with managing the bun version.
+
+First, install `direnv`:
+
+| OS     | command                 |
+| ------ | ----------------------- |
+| macOS  | brew install direnv     |
+| ubuntu | sudo apt install direnv |
+
+For all other OSes, see the [direnv installation guide](https://direnv.net/docs/installation.html).
+
+Next, run
+
+```sh
+direnv allow
+```
+
+This will install `bun` if it's not already installed and then update to the latest version.
+
+Finally, install all of node module dependencies in the repo’s directory:
+
+```sh
+bun install
+```
 
 ### Local Development
 
