@@ -31,7 +31,6 @@
     "fmt:check": "prettier --check .",
     "fmt": "prettier --write .",
     "gen:docs-routes": "bun ./scripts/gen-docs-routes",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "prepublishOnly": "bun run build",
     "test": "TZ=UTC vitest",
     "typecheck": "tsc --incremental --noEmit --skipLibCheck"
@@ -66,7 +65,6 @@
     "@ianvs/prettier-plugin-sort-imports": "4.2.1",
     "@phosphor-icons/react": "2.1.6",
     "@remix-run/dev": "2.9.2",
-    "@remix-run/eslint-config": "2.9.2",
     "@testing-library/dom": "10.2.0",
     "@testing-library/react": "16.0.0",
     "@testing-library/user-event": "14.5.2",
@@ -75,8 +73,8 @@
     "@types/prismjs": "1.26.4",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
-    "@typescript-eslint/eslint-plugin": "7.14.1",
-    "@typescript-eslint/parser": "7.13.1",
+    
+    
     "@vitejs/plugin-react": "4.3.1",
     "@vitest/ui": "1.6.0",
     "autoprefixer": "10.4.19",
@@ -84,10 +82,6 @@
     "commander": "12.1.0",
     "copyfiles": "2.4.1",
     "date-fns": "3.6.0",
-    "eslint": "8.57.0",
-    "eslint-config-prettier": "9.1.0",
-    "eslint-plugin-react": "7.34.3",
-    "eslint-plugin-react-hooks": "4.6.2",
     "jsdom": "24.1.0",
     "mini-svg-data-uri": "1.4.4",
     "postcss": "8.4.38",
