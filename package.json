@@ -24,7 +24,7 @@
     "node": ">=20.0.0"
   },
   "scripts": {
-    "build": "rm -rf dist && tsup",
+    "build": "rm -rf dist && NODE_OPTIONS='--max-old-space-size=16384' tsup",
     "docs:build": "remix build",
     "docs:dev": "remix dev --manual",
     "docs:serve": "remix-serve ./build/index.js",
