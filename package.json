@@ -33,7 +33,7 @@
     "gen:docs-routes": "bun ./scripts/gen-docs-routes",
     "prepublishOnly": "bun run build",
     "test": "TZ=UTC vitest",
-    "typecheck": "tsc --incremental --noEmit --skipLibCheck"
+    "typecheck": "tsc --incremental --noEmit --skipLibCheck -P ./tsconfig.json"
   },
   "dependencies": {
     "@headlessui/react": "2.1.0",
