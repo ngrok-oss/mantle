@@ -184,7 +184,7 @@ export default function Page() {
 								<SelectTrigger className="w-[180px]">
 									<SelectValue placeholder="Select a fruit" />
 								</SelectTrigger>
-								<SelectContent>
+								<SelectContent width="trigger">
 									<SelectGroup>
 										<SelectLabel>Fruits</SelectLabel>
 										<SelectItem value="apple">Apple</SelectItem>

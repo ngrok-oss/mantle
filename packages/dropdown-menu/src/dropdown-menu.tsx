@@ -63,25 +63,32 @@ const DropdownMenuSubContent = forwardRef<
 ));
 DropdownMenuSubContent.displayName = "DropdownMenuSubContent";
 
-const DropdownMenuContent = forwardRef<
-	ElementRef<typeof DropdownMenuPrimitive.Content>,
-	ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Content>
->(({ className, loop = true, ...props }, ref) => (
-	<DropdownMenuPortal>
-		<DropdownMenuPrimitive.Content
-			ref={ref}
-			className={cx(
-				"scrollbar",
-				"text-popover-foreground z-50 min-w-[8rem] overflow-hidden rounded border border-popover bg-popover p-1.25 shadow-xl outline-none",
-				"data-side-bottom:slide-in-from-top-2 data-side-left:slide-in-from-right-2 data-side-right:slide-in-from-left-2 data-side-top:slide-in-from-bottom-2 data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 data-state-open:animate-in data-state-open:fade-in-0 data-state-open:zoom-in-95",
-				"my-2 max-h-[calc(var(--radix-dropdown-menu-content-available-height)_-_16px)] overflow-auto",
-				className,
-			)}
-			loop={loop}
-			{...props}
-		/>
-	</DropdownMenuPortal>
-));
+type DropdownMenuContentProps = ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Content> & {
+	/**
+	 * Whether the DropdownMenuContent should match the width of the trigger or use the intrinsic content width.
+	 */
+	width?: "trigger" | "content";
+};
+
+const DropdownMenuContent = forwardRef<ElementRef<typeof DropdownMenuPrimitive.Content>, DropdownMenuContentProps>(
+	({ className, loop = true, width, ...props }, ref) => (
+		<DropdownMenuPortal>
+			<DropdownMenuPrimitive.Content
+				ref={ref}
+				className={cx(
+					"scrollbar",
+					"text-popover-foreground z-50 min-w-[8rem] overflow-hidden rounded border border-popover bg-popover p-1.25 shadow-xl outline-none",
+					"data-side-bottom:slide-in-from-top-2 data-side-left:slide-in-from-right-2 data-side-right:slide-in-from-left-2 data-side-top:slide-in-from-bottom-2 data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 data-state-open:animate-in data-state-open:fade-in-0 data-state-open:zoom-in-95",
+					"my-2 max-h-[calc(var(--radix-dropdown-menu-content-available-height)_-_16px)] overflow-auto",
+					width === "trigger" && "w-[var(--radix-dropdown-menu-trigger-width)]",
+					className,
+				)}
+				loop={loop}
+				{...props}
+			/>
+		</DropdownMenuPortal>
+	),
+);
 DropdownMenuContent.displayName = "DropdownMenuContent";
 
 const DropdownMenuItem = forwardRef<
