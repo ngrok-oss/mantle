@@ -1,18 +1,20 @@
 name: CI Checks
+
 on: push
+
 jobs:
   ci-checks:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v2.3.1
+        uses: actions/checkout@v4
         with:
           persist-credentials: false
 
       - name: Install bun 📦
         uses: oven-sh/setup-bun@v1
         with:
-          version: 1.1.16
+          bun-version: latest
 
       - name: Install Dependencies 📥
         run: | # Install node packages
