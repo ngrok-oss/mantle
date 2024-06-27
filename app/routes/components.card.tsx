@@ -18,31 +18,30 @@ export const headers: HeadersFunction = () => {
 
 export default function Page() {
 	return (
-		<div>
+		<div className="space-y-4">
 			<h1 className="text-5xl font-medium">Card</h1>
-			<p className="mt-4 text-xl text-body">
-				A container used to display content in a box, resembling a physical card.
-			</p>
+			<p className="text-xl text-body">A container used to display content in a box, resembling a physical card.</p>
 
-			<Example className="mt-4">
-				<Card className="shadow-lg">
-					<CardHeader>
-						<CardTitle>Card Title Here</CardTitle>
-					</CardHeader>
-					<CardBody>
-						<p>Laborum in aute officia adipisicing elit velit.</p>
-					</CardBody>
-					<CardFooter>
-						<p>Card footer</p>
-					</CardFooter>
-				</Card>
-			</Example>
-			<CodeBlock className="rounded-b-lg rounded-t-none">
-				<CodeBlockBody>
-					<CodeBlockCopyButton />
-					<CodeBlockCode
-						language="tsx"
-						value={fmtCode`
+			<div>
+				<Example>
+					<Card className="shadow-lg">
+						<CardHeader>
+							<CardTitle>Card Title Here</CardTitle>
+						</CardHeader>
+						<CardBody>
+							<p>Laborum in aute officia adipisicing elit velit.</p>
+						</CardBody>
+						<CardFooter>
+							<p>Card footer</p>
+						</CardFooter>
+					</Card>
+				</Example>
+				<CodeBlock className="rounded-b-lg rounded-t-none">
+					<CodeBlockBody>
+						<CodeBlockCopyButton />
+						<CodeBlockCode
+							language="tsx"
+							value={fmtCode`
 							import { Card, CardBody, CardFooter, CardHeader, CardTitle } from "@ngrok/mantle/card";
 
 							<Card>
@@ -57,9 +56,10 @@ export default function Page() {
 								</CardFooter>
 							</Card>
 						`}
-					/>
-				</CodeBlockBody>
-			</CodeBlock>
+						/>
+					</CodeBlockBody>
+				</CodeBlock>
+			</div>
 		</div>
 	);
 }

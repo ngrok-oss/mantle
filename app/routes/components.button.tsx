@@ -44,13 +44,13 @@ const DisabledTooltip = ({ children }: PropsWithChildren) => (
 export default function Page() {
 	return (
 		<div className="space-y-16">
-			<section className="mb-4 space-y-4">
+			<section className="space-y-4">
 				<h1 id="button" className="text-5xl font-medium">
 					Button
 				</h1>
 				<p className="text-xl text-body">Initiates an action, such as completing a task or submitting information</p>
 				<div>
-					<Example className="mt-4 flex flex-wrap gap-6">
+					<Example className="flex flex-wrap gap-6">
 						<div>
 							<p className="mb-2 text-center font-mono text-xs">Default</p>
 							<div className="flex items-center gap-2">
@@ -157,7 +157,7 @@ export default function Page() {
 				</div>
 			</section>
 
-			<section className="mb-4 space-y-4">
+			<section className="space-y-4">
 				<h2 id="example-icon" className="text-3xl font-medium">
 					Icon and Positioning
 				</h2>
@@ -197,7 +197,7 @@ export default function Page() {
 				</div>
 			</section>
 
-			<section className="mb-4 space-y-4">
+			<section className="space-y-4">
 				<h2 id="example-loading" className="text-3xl font-medium">
 					isLoading
 				</h2>
@@ -280,7 +280,7 @@ export default function Page() {
 				</div>
 			</section>
 
-			<section className="mb-4 space-y-4">
+			<section className="space-y-4">
 				<h2 id="composition" className="text-3xl font-medium">
 					Composition
 				</h2>
@@ -318,7 +318,7 @@ export default function Page() {
 				</div>
 			</section>
 
-			<section className="mt-16 space-y-4">
+			<section className="space-y-4">
 				<h2 id="api" className="text-3xl font-medium">
 					API Reference
 				</h2>

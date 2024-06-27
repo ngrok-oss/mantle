@@ -33,7 +33,7 @@ export const headers: HeadersFunction = () => {
 export default function Page() {
 	return (
 		<div className="space-y-16">
-			<section className="mb-4 space-y-4">
+			<section className="space-y-4">
 				<h1 id="icon" className="text-5xl font-medium">
 					Icon
 				</h1>
@@ -42,7 +42,7 @@ export default function Page() {
 					<Anchor href="https://phosphoricons.com">phosphor icons</Anchor>.
 				</p>
 				<div>
-					<Example className="mt-4">
+					<Example>
 						<Icon svg={<Fire />} />
 						<Icon className="text-danger-600" svg={<Fire weight="fill" />} />
 					</Example>
@@ -64,7 +64,7 @@ export default function Page() {
 				</div>
 			</section>
 
-			<section className="mb-4 space-y-4">
+			<section className="space-y-4">
 				<h2 id="example-class-name" className="text-3xl font-medium">
 					Merging <InlineCode>className</InlineCode>s
 				</h2>
@@ -78,7 +78,7 @@ export default function Page() {
 					<li>Icon className</li>
 				</ol>
 				<div>
-					<Example className="mt-4 flex-col gap-6">
+					<Example className="flex-col gap-6">
 						<div className="text-center">
 							<p>
 								When <InlineCode>className</InlineCode> is not specified:
@@ -124,7 +124,7 @@ export default function Page() {
 				</div>
 			</section>
 
-			<section className="mt-16 space-y-4">
+			<section className="space-y-4">
 				<h2 id="api" className="text-3xl font-medium">
 					API Reference
 				</h2>

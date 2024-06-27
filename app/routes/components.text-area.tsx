@@ -42,14 +42,14 @@ async function handleDrop(event: DragEvent<HTMLTextAreaElement>) {
 export default function Page() {
 	return (
 		<div className="space-y-16">
-			<section className="mb-4 space-y-4">
+			<section className="space-y-4">
 				<h1 id="textarea" className="text-5xl font-medium">
 					TextArea
 				</h1>
-				<p className="mt-4 text-xl text-body">Displays a form textarea or a component that looks like a textarea.</p>
+				<p className="text-xl text-body">Displays a form textarea or a component that looks like a textarea.</p>
 
 				<div>
-					<Example className="mt-4 grid grid-cols-2 gap-6">
+					<Example className="grid grid-cols-2 gap-6">
 						<Label className="space-y-1">
 							<p>Default TextArea</p>
 							<TextArea onDrop={(event) => handleDrop(event)} placeholder="Tell us about your experience…" />
@@ -105,7 +105,7 @@ export default function Page() {
 				</div>
 			</section>
 
-			<section className="mt-16 space-y-4">
+			<section className="space-y-4">
 				<h2 id="api" className="text-3xl font-medium">
 					API Reference
 				</h2>

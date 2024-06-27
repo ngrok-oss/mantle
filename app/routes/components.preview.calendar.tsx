@@ -110,7 +110,7 @@ const DisabledDaysCalendarExample = () => {
 export default function Page() {
 	return (
 		<div className="space-y-16">
-			<section className="mb-4 space-y-4">
+			<section className="space-y-4">
 				<div className="flex items-center gap-3">
 					<h1 id="calendar" className="text-5xl font-medium">
 						Calendar
@@ -119,7 +119,7 @@ export default function Page() {
 				</div>
 				<p className="text-xl text-body">A date field component that allows users to enter and edit date.</p>
 				<div>
-					<Example className="mt-4 flex flex-col gap-6">
+					<Example className="flex flex-col gap-6">
 						<div className="space-y-2">
 							<p>Single</p>
 							<SingleCalendarExample />
@@ -164,7 +164,7 @@ export default function Page() {
 				</div>
 			</section>
 
-			<section className="mt-16 space-y-4">
+			<section className="space-y-4">
 				<h2 id="api" className="text-3xl font-medium">
 					API Reference
 				</h2>

@@ -53,13 +53,13 @@ const ControlledVisibility = () => {
 export default function Page() {
 	return (
 		<div className="space-y-16">
-			<section className="mb-4 space-y-4">
+			<section className="space-y-4">
 				<h1 id="password-input" className="text-5xl font-medium">
 					Password Input
 				</h1>
-				<p className="mt-4 text-xl text-body">Fundamental component for password inputs.</p>
+				<p className="text-xl text-body">Fundamental component for password inputs.</p>
 				<div>
-					<Example className="mt-4 flex-col gap-4">
+					<Example className="flex-col gap-4">
 						<Label className="block w-full max-w-64 space-y-1">
 							<p>Password</p>
 							<PasswordInput />
@@ -94,7 +94,7 @@ export default function Page() {
 				</div>
 			</section>
 
-			<section className="mt-16 space-y-4">
+			<section className="space-y-4">
 				<h2 id="api" className="text-3xl font-medium">
 					API Reference
 				</h2>

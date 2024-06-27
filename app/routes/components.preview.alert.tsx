@@ -36,14 +36,14 @@ export const headers: HeadersFunction = () => {
 export default function Page() {
 	return (
 		<div className="space-y-16">
-			<section className="mb-4 space-y-4">
+			<section className="space-y-4">
 				<div className="flex items-center gap-3">
 					<h1 className="text-5xl font-medium">Alert</h1>
 					<PreviewBadge />
 				</div>
-				<p className="mt-4 text-xl text-body">Displays a callout for user attention.</p>
+				<p className="text-xl text-body">Displays a callout for user attention.</p>
 				<div>
-					<Example className="mt-4 flex-col gap-2">
+					<Example className="flex-col gap-2">
 						<Alert>
 							<Rocket className="size-5" />
 							<AlertContent>
@@ -130,7 +130,7 @@ export default function Page() {
 				</div>
 			</section>
 
-			<section className="mb-4 space-y-4">
+			<section className="space-y-4">
 				<h2 id="composition" className="text-3xl font-medium">
 					Composition
 				</h2>
@@ -139,7 +139,7 @@ export default function Page() {
 					types of Alert layouts.
 				</p>
 				<div>
-					<Example className="mt-4 flex-col gap-4">
+					<Example className="flex-col gap-4">
 						<div className="w-full max-w-screen-sm space-y-2">
 							<p>
 								Danger <InlineCode>Alert</InlineCode> with icon
@@ -236,7 +236,7 @@ export default function Page() {
 				</div>
 			</section>
 
-			<section className="mb-4 space-y-4">
+			<section className="space-y-4">
 				<h2 id="example-banner" className="text-3xl font-medium">
 					Banners
 				</h2>
@@ -245,7 +245,7 @@ export default function Page() {
 					component.
 				</p>
 				<div>
-					<Example className="mt-4 block">
+					<Example>
 						<div className="min-h-56 space-y-4 border border-card">
 							<Alert priority="info" className="rounded-none">
 								<Rocket className="size-5" />

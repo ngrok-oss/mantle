@@ -21,55 +21,62 @@ export const headers: HeadersFunction = () => {
 
 export default function Page() {
 	return (
-		<div>
-			<h1 className="text-5xl font-medium">Skeleton</h1>
-			<p className="mt-4 text-xl text-body">
-				Use to show a placeholder while content is loading. By using a <InlineCode>Skeleton</InlineCode>, you can give
-				the user an idea of what the content will look like, reducing the perceived loading time and CLS (Cumulative
-				Layout Shift).
-			</p>
-			<Example className="mt-4">
-				<Skeleton className="w-full" />
-			</Example>
-			<CodeBlock className="rounded-b-lg rounded-t-none">
-				<CodeBlockBody>
-					<CodeBlockCopyButton />
-					<CodeBlockCode
-						language="tsx"
-						value={fmtCode`
+		<div className="space-y-16">
+			<section className="space-y-4">
+				<h1 className="text-5xl font-medium">Skeleton</h1>
+				<p className="mt-4 text-xl text-body">
+					Use to show a placeholder while content is loading. By using a <InlineCode>Skeleton</InlineCode>, you can give
+					the user an idea of what the content will look like, reducing the perceived loading time and CLS (Cumulative
+					Layout Shift).
+				</p>
+				<div>
+					<Example>
+						<Skeleton className="w-full" />
+					</Example>
+					<CodeBlock className="rounded-b-lg rounded-t-none">
+						<CodeBlockBody>
+							<CodeBlockCopyButton />
+							<CodeBlockCode
+								language="tsx"
+								value={fmtCode`
 						import { Skeleton } from "@ngrok/mantle/skeleton";
 
 						<Skeleton className="w-full" />
 					`}
-					/>
-				</CodeBlockBody>
-			</CodeBlock>
+							/>
+						</CodeBlockBody>
+					</CodeBlock>
+				</div>
+			</section>
 
-			<section>
-				<h3 className="mt-8 text-xl font-medium">
-					Skeleton <Link to="/components/media-object">Media Object</Link>
-				</h3>
-				<p className="mt-1 text-body">
-					The Skeleton component can be included within components. You can also pass Tailwind utility classes for
-					further control.
-				</p>
-				<Example className="mt-4">
-					<MediaObject>
-						<MediaObjectMedia>
-							<Skeleton className="h-12 w-12 rounded-full" />
-						</MediaObjectMedia>
-						<MediaObjectContent className="space-y-3">
-							<Skeleton className="w-[250px]" />
-							<Skeleton className="w-[200px]" />
-						</MediaObjectContent>
-					</MediaObject>
-				</Example>
-				<CodeBlock className="rounded-b-lg rounded-t-none">
-					<CodeBlockBody>
-						<CodeBlockCopyButton />
-						<CodeBlockCode
-							language="tsx"
-							value={fmtCode`
+			<section className="space-y-4">
+				<header className="space-y-1">
+					<h3 className="text-xl font-medium">
+						Skeleton <Link to="/components/media-object">Media Object</Link>
+					</h3>
+					<p className="mt-1 text-body">
+						The Skeleton component can be included within components. You can also pass Tailwind utility classes for
+						further control.
+					</p>
+				</header>
+				<div>
+					<Example>
+						<MediaObject>
+							<MediaObjectMedia>
+								<Skeleton className="h-12 w-12 rounded-full" />
+							</MediaObjectMedia>
+							<MediaObjectContent className="space-y-3">
+								<Skeleton className="w-[250px]" />
+								<Skeleton className="w-[200px]" />
+							</MediaObjectContent>
+						</MediaObject>
+					</Example>
+					<CodeBlock className="rounded-b-lg rounded-t-none">
+						<CodeBlockBody>
+							<CodeBlockCopyButton />
+							<CodeBlockCode
+								language="tsx"
+								value={fmtCode`
 									import { MediaObject, MediaObjectMedia, MediaObjectContent } from "@ngrok/mantle/media-object";
 									import { Skeleton } from "@ngrok/skeleton";
 
@@ -83,9 +90,10 @@ export default function Page() {
 										</MediaObjectContent>
 									</MediaObject>
 								`}
-						/>
-					</CodeBlockBody>
-				</CodeBlock>
+							/>
+						</CodeBlockBody>
+					</CodeBlock>
+				</div>
 			</section>
 		</div>
 	);

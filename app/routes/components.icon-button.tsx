@@ -43,7 +43,7 @@ const DisabledTooltip = ({ children }: PropsWithChildren) => (
 export default function Page() {
 	return (
 		<div className="space-y-16">
-			<section className="mb-4 space-y-4">
+			<section className="space-y-4">
 				<h1 id="icon-button" className="text-5xl font-medium">
 					Icon Button
 				</h1>
@@ -52,7 +52,7 @@ export default function Page() {
 					children with an accessible, screen-reader-only label.
 				</p>
 				<div>
-					<Example className="mt-4 flex flex-wrap gap-6">
+					<Example className="flex flex-wrap gap-6">
 						<div>
 							<p className="mb-2 text-center font-mono text-xs">Size xs</p>
 							<div className="flex items-center gap-2">
@@ -116,7 +116,7 @@ export default function Page() {
 				</div>
 			</section>
 
-			<section className="mb-4 space-y-4">
+			<section className="space-y-4">
 				<h2 id="example-loading" className="text-3xl font-medium">
 					isLoading
 				</h2>
@@ -163,7 +163,7 @@ export default function Page() {
 				</div>
 			</section>
 
-			<section className="mb-4 space-y-4">
+			<section className="space-y-4">
 				<h2 id="composition" className="text-3xl font-medium">
 					Composition
 				</h2>
@@ -201,7 +201,7 @@ export default function Page() {
 				</div>
 			</section>
 
-			<section className="mt-16 space-y-4">
+			<section className="space-y-4">
 				<h2 id="api" className="text-3xl font-medium">
 					API Reference
 				</h2>

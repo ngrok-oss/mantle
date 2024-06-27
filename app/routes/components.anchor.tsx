@@ -19,10 +19,12 @@ export const headers: HeadersFunction = () => {
 
 export default function Page() {
 	return (
-		<div>
-			<h1 className="text-5xl font-medium">Anchor</h1>
-			<p className="my-4 text-xl text-body">Fundamental component for rendering links to external addresses.</p>
-			<div className="mt-8 space-y-4 text-body">
+		<div className="space-y-8">
+			<header className="space-y-4">
+				<h1 className="text-5xl font-medium">Anchor</h1>
+				<p className="text-xl text-body">Fundamental component for rendering links to external addresses.</p>
+			</header>
+			<div className="space-y-4 text-body">
 				<p>
 					The <InlineCode>&lt;Anchor&gt;</InlineCode> element, with its <InlineCode>href</InlineCode> attribute, creates
 					a hyperlink to web pages, files, email addresses, locations in the same page, or anything else a URL can
@@ -49,26 +51,29 @@ export default function Page() {
 					.
 				</p>
 			</div>
-			<Example className="mt-4">
-				<p>
-					This link will go to <Anchor href="https://ngrok.com/">ngrok.com</Anchor>!
-				</p>
-			</Example>
-			<CodeBlock className="rounded-b-lg rounded-t-none">
-				<CodeBlockBody>
-					<CodeBlockCopyButton />
-					<CodeBlockCode
-						language="tsx"
-						value={fmtCode`
+
+			<div>
+				<Example>
+					<p>
+						This link will go to <Anchor href="https://ngrok.com/">ngrok.com</Anchor>!
+					</p>
+				</Example>
+				<CodeBlock className="rounded-b-lg rounded-t-none">
+					<CodeBlockBody>
+						<CodeBlockCopyButton />
+						<CodeBlockCode
+							language="tsx"
+							value={fmtCode`
 							import { Anchor } from "@ngrok/mantle/anchor";
 
 							<p>
 								This link will go to <Anchor href="https://ngrok.com/">ngrok.com</Anchor>!
 							</p>
 						`}
-					/>
-				</CodeBlockBody>
-			</CodeBlock>
+						/>
+					</CodeBlockBody>
+				</CodeBlock>
+			</div>
 		</div>
 	);
 }

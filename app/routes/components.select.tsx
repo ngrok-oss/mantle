@@ -45,14 +45,12 @@ export default function Page() {
 
 	return (
 		<div className="space-y-16">
-			<section className="mb-4 space-y-4">
+			<section className="space-y-4">
 				<h1 className="text-5xl font-medium">Select</h1>
-				<p className="mt-4 text-xl text-body">
-					Displays a list of options for the user to pick from—triggered by a button.
-				</p>
+				<p className="text-xl text-body">Displays a list of options for the user to pick from—triggered by a button.</p>
 
 				<div>
-					<Example className="mt-4 flex-col gap-4">
+					<Example className="flex-col gap-4">
 						<Select name="number">
 							<SelectTrigger className="max-w-64">
 								<SelectValue placeholder="Select a fruit" />
@@ -214,38 +212,41 @@ export default function Page() {
 				</div>
 			</section>
 
-			<section>
+			<section className="space-y-8">
 				<header className="space-y-4">
 					<h2 id="examples" className="text-3xl font-medium">
 						Examples
 					</h2>
 				</header>
 
-				<section>
-					<h3 className="mt-8 text-xl font-medium">Custom selected value</h3>
-					<p className="mt-1 text-body">
-						By default the selected item's text will be rendered when selected. Sometimes you may need to render
-						something different. You can control the select and pass <InlineCode>children</InlineCode> instead.
-					</p>
-					<Example className="mt-4">
-						<Select value={example1Value} onChange={setExample1Value}>
-							<SelectTrigger className="w-[180px]">
-								<SelectValue placeholder="Select a fruit">
-									{example1Value === "apple" ? <>🍎 Apple</> : <>🍑 Peach</>}
-								</SelectValue>
-							</SelectTrigger>
-							<SelectContent width="trigger">
-								<SelectItem value="apple">Apple</SelectItem>
-								<SelectItem value="peach">Peach</SelectItem>
-							</SelectContent>
-						</Select>
-					</Example>
-					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
-								language="tsx"
-								value={fmtCode`
+				<section className="space-y-4">
+					<header className="space-y-1">
+						<h3 className="text-xl font-medium">Custom selected value</h3>
+						<p className="text-body">
+							By default the selected item's text will be rendered when selected. Sometimes you may need to render
+							something different. You can control the select and pass <InlineCode>children</InlineCode> instead.
+						</p>
+					</header>
+					<div>
+						<Example>
+							<Select value={example1Value} onChange={setExample1Value}>
+								<SelectTrigger className="w-[180px]">
+									<SelectValue placeholder="Select a fruit">
+										{example1Value === "apple" ? <>🍎 Apple</> : <>🍑 Peach</>}
+									</SelectValue>
+								</SelectTrigger>
+								<SelectContent width="trigger">
+									<SelectItem value="apple">Apple</SelectItem>
+									<SelectItem value="peach">Peach</SelectItem>
+								</SelectContent>
+							</Select>
+						</Example>
+						<CodeBlock className="rounded-b-lg rounded-t-none">
+							<CodeBlockBody>
+								<CodeBlockCopyButton />
+								<CodeBlockCode
+									language="tsx"
+									value={fmtCode`
 							import {
 								Select,
 								SelectContent,
@@ -266,13 +267,14 @@ export default function Page() {
 								</SelectContent>
 							</Select>
 						`}
-							/>
-						</CodeBlockBody>
-					</CodeBlock>
+								/>
+							</CodeBlockBody>
+						</CodeBlock>
+					</div>
 				</section>
 			</section>
 
-			<section className="mt-16 space-y-8">
+			<section className="space-y-8">
 				<header className="space-y-4">
 					<h2 id="api" className="text-3xl font-medium">
 						API Reference
@@ -290,20 +292,22 @@ export default function Page() {
 					</p>
 				</header>
 
-				<section>
-					<h3 className="mb-2 text-xl font-medium">Select</h3>
+				<section className="space-y-4">
+					<header className="space-y-1">
+						<h3 className="text-xl font-medium">Select</h3>
 
-					<p className="mb-4 text-body">
-						All props from Radix{" "}
-						<Anchor
-							href="https://www.radix-ui.com/primitives/docs/components/select#root"
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							Select.Root
-						</Anchor>
-						, plus:
-					</p>
+						<p className="text-body">
+							All props from Radix{" "}
+							<Anchor
+								href="https://www.radix-ui.com/primitives/docs/components/select#root"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								Select.Root
+							</Anchor>
+							, plus:
+						</p>
+					</header>
 
 					<PropsTable>
 						<PropRow>
@@ -358,20 +362,22 @@ export default function Page() {
 					</PropsTable>
 				</section>
 
-				<section>
-					<h3 className="mb-4 text-xl font-medium">SelectTrigger</h3>
+				<section className="space-y-4">
+					<header className="space-y-1">
+						<h3 className="text-xl font-medium">SelectTrigger</h3>
 
-					<p className="mb-4 text-body">
-						All props from Radix{" "}
-						<Anchor
-							href="https://www.radix-ui.com/primitives/docs/components/select#trigger"
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							Select.Trigger
-						</Anchor>
-						, plus:
-					</p>
+						<p className="text-body">
+							All props from Radix{" "}
+							<Anchor
+								href="https://www.radix-ui.com/primitives/docs/components/select#trigger"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								Select.Trigger
+							</Anchor>
+							, plus:
+						</p>
+					</header>
 
 					<PropsTable>
 						<PropRow>
@@ -414,10 +420,10 @@ export default function Page() {
 					</PropsTable>
 				</section>
 
-				<section>
-					<h3 className="mb-4 text-xl font-medium">SelectValue</h3>
+				<section className="space-y-1">
+					<h3 className="text-xl font-medium">SelectValue</h3>
 
-					<p className="mb-4 text-body">
+					<p className="text-body">
 						Radix{" "}
 						<Anchor
 							href="https://www.radix-ui.com/primitives/docs/components/select#value"
@@ -430,20 +436,22 @@ export default function Page() {
 					</p>
 				</section>
 
-				<section>
-					<h3 className="mb-4 text-xl font-medium">SelectContent</h3>
+				<section className="space-y-4">
+					<header className="space-y-1">
+						<h3 className="text-xl font-medium">SelectContent</h3>
 
-					<p className="mb-4 text-body">
-						All props from Radix{" "}
-						<Anchor
-							href="https://www.radix-ui.com/primitives/docs/components/select#content"
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							Select.Content
-						</Anchor>
-						, plus:
-					</p>
+						<p className="text-body">
+							All props from Radix{" "}
+							<Anchor
+								href="https://www.radix-ui.com/primitives/docs/components/select#content"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								Select.Content
+							</Anchor>
+							, plus:
+						</p>
+					</header>
 
 					<PropsTable>
 						<PropRow>
@@ -471,10 +479,10 @@ export default function Page() {
 					</PropsTable>
 				</section>
 
-				<section>
-					<h3 className="mb-4 text-xl font-medium">SelectGroup</h3>
+				<section className="space-y-1">
+					<h3 className="text-xl font-medium">SelectGroup</h3>
 
-					<p className="mb-4 text-body">
+					<p className="text-body">
 						Radix{" "}
 						<Anchor
 							href="https://www.radix-ui.com/primitives/docs/components/select#group"
@@ -487,19 +495,19 @@ export default function Page() {
 					</p>
 				</section>
 
-				<section>
-					<h3 className="mb-4 text-xl font-medium">SelectSeparator</h3>
+				<section className="space-y-1">
+					<h3 className="text-xl font-medium">SelectSeparator</h3>
 
-					<p className="mb-4 text-body">
+					<p className="text-body">
 						Used to visually separate items in the select. Composed from{" "}
 						<Link to="/components/separator">Mantle Separator</Link>.
 					</p>
 				</section>
 
-				<section>
-					<h3 className="mb-4 text-xl font-medium">SelectItem</h3>
+				<section className="space-y-1">
+					<h3 className="text-xl font-medium">SelectItem</h3>
 
-					<p className="mb-4 text-body">
+					<p className="text-body">
 						Radix{" "}
 						<Anchor
 							href="https://www.radix-ui.com/primitives/docs/components/select#item"
@@ -512,10 +520,10 @@ export default function Page() {
 					</p>
 				</section>
 
-				<section>
-					<h3 className="mb-4 text-xl font-medium">SelectLabel</h3>
+				<section className="space-y-1">
+					<h3 className="text-xl font-medium">SelectLabel</h3>
 
-					<p className="mb-4 text-body">
+					<p className="text-body">
 						Radix{" "}
 						<Anchor
 							href="https://www.radix-ui.com/primitives/docs/components/select#label"
@@ -528,10 +536,10 @@ export default function Page() {
 					</p>
 				</section>
 
-				<section>
-					<h3 className="mb-4 text-xl font-medium">SelectScrollUpButton</h3>
+				<section className="space-y-1">
+					<h3 className="text-xl font-medium">SelectScrollUpButton</h3>
 
-					<p className="mb-4 text-body">
+					<p className="text-body">
 						Radix{" "}
 						<Anchor
 							href="https://www.radix-ui.com/primitives/docs/components/select#scrollupbutton"
@@ -544,10 +552,10 @@ export default function Page() {
 					</p>
 				</section>
 
-				<section>
-					<h3 className="mb-4 text-xl font-medium">SelectScrollDownButton</h3>
+				<section className="space-y-1">
+					<h3 className="text-xl font-medium">SelectScrollDownButton</h3>
 
-					<p className="mb-4 text-body">
+					<p className="text-body">
 						Radix{" "}
 						<Anchor
 							href="https://www.radix-ui.com/primitives/docs/components/select#scrolldownbutton"
