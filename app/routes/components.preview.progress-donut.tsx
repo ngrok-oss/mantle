@@ -1,6 +1,5 @@
 import { Anchor } from "@/anchor";
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
-import { cx } from "@/cx";
 import { InlineCode } from "@/inline-code";
 import { ProgressDonut, ProgressDonutIndicator } from "@/progress";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
