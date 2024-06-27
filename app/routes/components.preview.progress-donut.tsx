@@ -42,10 +42,37 @@ export default function Page() {
 					Displays an indicator showing the completion progress of a task as a circular progress bar.
 				</p>
 				<div>
-					<Example>
+					<Example className="flex-col gap-6">
 						<ProgressDonut value={60} className="size-10">
 							<ProgressDonutIndicator />
 						</ProgressDonut>
+
+						<div className="flex flex-col gap-2">
+							<div className="flex items-center gap-1.5 text-sm">
+								<ProgressDonut value={100} className="size-6">
+									<ProgressDonutIndicator />
+								</ProgressDonut>
+								Data transfer out
+							</div>
+
+							<div className="flex items-center gap-1.5 text-xs">
+								<div className="grid w-6 place-items-center">
+									<ProgressDonut value={100} className="size-4" strokeWidth={`0.315rem`}>
+										<ProgressDonutIndicator />
+									</ProgressDonut>
+								</div>
+								Included
+							</div>
+
+							<div className="flex items-center gap-1.5 text-xs">
+								<div className="grid w-6 place-items-center">
+									<ProgressDonut value={25} className="size-4" strokeWidth={`0.315rem`}>
+										<ProgressDonutIndicator className="text-success-600" />
+									</ProgressDonut>
+								</div>
+								Additional
+							</div>
+						</div>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
