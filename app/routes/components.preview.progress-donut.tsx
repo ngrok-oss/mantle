@@ -1,5 +1,6 @@
 import { Anchor } from "@/anchor";
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
+import { cx } from "@/cx";
 import { InlineCode } from "@/inline-code";
 import { ProgressDonut, ProgressDonutIndicator } from "@/progress";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
@@ -15,6 +16,7 @@ import {
 	PropTypeCell,
 	StringPropType,
 } from "~/components/props-table";
+import { useState } from "react";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -61,6 +63,66 @@ export default function Page() {
 					</CodeBlockBody>
 				</CodeBlock>
 			</div>
+			<section className="mt-16 space-y-4">
+				<h2 id="dynamic-colors" className="text-3xl font-medium">
+					Dynamic Colors
+				</h2>
+				<p className="text-xl text-body">
+					The color of the <InlineCode>ProgressDonutIndicator</InlineCode> is inherited from the parent text color using{" "}
+					<InlineCode>currentColor</InlineCode>. Using this, you can easily change the color of it based on the current
+					progress value.
+				</p>
+				<div>
+					<Example>
+						<div className="min-w-72">
+							<DynamicColorsExample />
+						</div>
+					</Example>
+					<CodeBlock className="rounded-b-lg rounded-t-none">
+						<CodeBlockBody>
+							<CodeBlockCopyButton />
+							<CodeBlockCode
+								language="tsx"
+								value={fmtCode`
+									import { ProgressDonut, ProgressDonutIndicator } from "@ngrok/mantle/progress";
+
+									const Example = () => {
+										const [value, setValue] = useState(0);
+
+										function computeColor() {
+											switch (true) {
+												case value <= 20:
+													return "text-accent-600";
+												case value <= 40:
+													return "text-success-600";
+												case value <= 60:
+													return "text-warning-600";
+												case value <= 80:
+													return "text-fuchsia-600";
+												default:
+													return "text-danger-600";
+											}
+										};
+
+										return (
+											<form className="space-y-4">
+												<ProgressDonut value={value} className="size-10">
+													<ProgressDonutIndicator className={computeColor()} />
+												</ProgressDonut>
+												<label className="block space-y-1">
+													<p>Value:</p>
+													<input type="range" min={0} max={100} value={value} onChange={(e) => setValue(Number(e.target.value))} /> (
+													{value}%)
+												</label>
+											</form>
+										);
+									};
+								`}
+							/>
+						</CodeBlockBody>
+					</CodeBlock>
+				</div>
+			</section>
 			<section className="mt-16 space-y-4">
 				<h2 id="api" className="text-3xl font-medium">
 					API Reference
@@ -129,3 +191,35 @@ export default function Page() {
 		</div>
 	);
 }
+
+const DynamicColorsExample = () => {
+	const [value, setValue] = useState(0);
+
+	function computeColor() {
+		switch (true) {
+			case value <= 20:
+				return "text-accent-600";
+			case value <= 40:
+				return "text-success-600";
+			case value <= 60:
+				return "text-warning-600";
+			case value <= 80:
+				return "text-fuchsia-600";
+			default:
+				return "text-danger-600";
+		}
+	}
+
+	return (
+		<form className="space-y-4">
+			<ProgressDonut value={value} className="size-10">
+				<ProgressDonutIndicator className={computeColor()} />
+			</ProgressDonut>
+			<label className="block space-y-1">
+				<p>Value:</p>
+				<input type="range" min={0} max={100} value={value} onChange={(e) => setValue(Number(e.target.value))} /> (
+				{value}%)
+			</label>
+		</form>
+	);
+};
