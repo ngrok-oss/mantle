@@ -80,6 +80,10 @@ export const StringPropType = ({ value }: { value?: string }) => (
 	<span className="token attr-value">{value ?? "string"}</span>
 );
 
+export const NumberPropType = ({ value }: { value?: number }) => (
+	<span className="token number">{value ?? "number"}</span>
+);
+
 export const FuncPropType = ({ value }: { value: string }) => {
 	// trim any leading and trailing whitespace/empty lines
 	const trimmedCode = value?.trim() ?? "";
