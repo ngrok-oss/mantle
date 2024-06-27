@@ -23,6 +23,9 @@ type Props = SvgAttributes & {
 	max?: number | undefined;
 	/**
 	 * The width of the progress bar stroke.
+	 * Note, we clamp the stroke width to a minimum of 1px and max of 12px since
+	 * it is proportional to the viewbox size (0 0 32 32).
+	 *
 	 * @default 0.25rem (4px)
 	 */
 	strokeWidth?: StrokeWidth;
@@ -173,8 +176,8 @@ function pxToRem(value: number): RemValue {
 
 /**
  * Derive the stroke width in pixels as a number value or pixels/rem from a string value.
- * Note, this function clamps the stroke width to a minimum of 1 and max of 12 since it the
- * stroke width is effectively a ratio of the viewbox size.
+ * Note, this function clamps the stroke width to a minimum of 1 and max of 12 since
+ * it is proportional to the viewbox size (0 0 32 32).
  */
 export function deriveStrokeWidthPx(strokeWidth: number | string | undefined): number {
 	let value = 4;

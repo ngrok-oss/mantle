@@ -167,7 +167,10 @@ export default function Page() {
 							<StringPropType value="0.25rem" />
 						</PropDefaultValueCell>
 						<PropDescriptionCell>
-							<p>The width of the progress bar stroke.</p>
+							<p>
+								The width of the progress bar stroke. Note, we clamp the stroke width to a minimum of 1px and max of
+								12px since it is proportional to the viewbox size (0 0 32 32).
+							</p>
 						</PropDescriptionCell>
 					</PropRow>
 					<PropRow>
