@@ -28,25 +28,26 @@ const DialogOverlay = forwardRef<
 ));
 DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
 
-const DialogContent = forwardRef<
-	ElementRef<typeof DialogPrimitive.Content>,
-	ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
->(({ className, children, ...props }, ref) => (
-	<DialogPortal>
-		<DialogOverlay />
-		<DialogPrimitive.Content
-			ref={ref}
-			className={cx(
-				"fixed left-1/2 top-1/2 z-50 flex max-h-[calc(100dvh_-_2rem)] w-full max-w-lg -translate-x-1/2 -translate-y-1/2 flex-col rounded-xl border border-dialog bg-dialog shadow-lg transition-transform duration-200",
-				"data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 data-state-closed:slide-out-to-left-1/2 data-state-closed:slide-out-to-top-[48%] data-state-open:animate-in data-state-open:fade-in-0 data-state-open:zoom-in-95 data-state-open:slide-in-from-left-1/2 data-state-open:slide-in-from-top-[48%]",
-				className,
-			)}
-			{...props}
-		>
-			{children}
-		</DialogPrimitive.Content>
-	</DialogPortal>
-));
+const DialogContent = forwardRef<ElementRef<"div">, ComponentPropsWithoutRef<typeof DialogPrimitive.Content>>(
+	({ className, children, ...props }, ref) => (
+		<DialogPortal>
+			<DialogOverlay />
+			<DialogPrimitive.Content className="fixed inset-4 z-50 flex items-center justify-center" {...props}>
+				<div
+					className={cx(
+						"flex max-h-full max-w-lg flex-1 flex-col",
+						"rounded-xl border border-dialog bg-dialog shadow-lg transition-transform duration-200",
+						"data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 data-state-closed:slide-out-to-left-1/2 data-state-closed:slide-out-to-top-[48%] data-state-open:animate-in data-state-open:fade-in-0 data-state-open:zoom-in-95 data-state-open:slide-in-from-left-1/2 data-state-open:slide-in-from-top-[48%]",
+						className,
+					)}
+					ref={ref}
+				>
+					{children}
+				</div>
+			</DialogPrimitive.Content>
+		</DialogPortal>
+	),
+);
 DialogContent.displayName = DialogPrimitive.Content.displayName;
 
 const DialogHeader = ({ className, children, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
