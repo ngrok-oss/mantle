@@ -35,7 +35,7 @@ const DialogContent = forwardRef<ElementRef<"div">, ComponentPropsWithoutRef<typ
 			<DialogPrimitive.Content className="fixed inset-4 z-50 flex items-center justify-center" {...props}>
 				<div
 					className={cx(
-						"flex max-h-full max-w-lg flex-1 flex-col",
+						"flex max-h-full w-full max-w-lg flex-1 flex-col",
 						"rounded-xl border border-dialog bg-dialog shadow-lg transition-transform duration-200",
 						"data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 data-state-closed:slide-out-to-left-1/2 data-state-closed:slide-out-to-top-[48%] data-state-open:animate-in data-state-open:fade-in-0 data-state-open:zoom-in-95 data-state-open:slide-in-from-left-1/2 data-state-open:slide-in-from-top-[48%]",
 						className,
