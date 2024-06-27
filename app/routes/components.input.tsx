@@ -13,6 +13,7 @@ import { Label } from "@/label";
 import { Info } from "@phosphor-icons/react/Info";
 import { MagnifyingGlass } from "@phosphor-icons/react/MagnifyingGlass";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
+import { Link } from "@remix-run/react";
 import { Example } from "~/components/example";
 import {
 	BooleanPropType,
@@ -26,7 +27,6 @@ import {
 	StringPropType,
 } from "~/components/props-table";
 import { route } from "~/types/routes";
-import { Link } from "react-router-dom";
 
 export const meta: MetaFunction = () => {
 	return [
