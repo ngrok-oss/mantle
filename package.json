@@ -197,6 +197,10 @@
       "import": "./dist/popover.js",
       "types": "./dist/popover.d.ts"
     },
+    "./progress": {
+      "import": "./dist/progress.js",
+      "types": "./dist/progress.d.ts"
+    },
     "./radio-group": {
       "import": "./dist/radio-group.js",
       "types": "./dist/radio-group.d.ts"
