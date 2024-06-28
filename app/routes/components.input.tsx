@@ -44,13 +44,13 @@ export const headers: HeadersFunction = () => {
 export default function Page() {
 	return (
 		<div className="space-y-16">
-			<section className="mb-4 space-y-4">
+			<section className="space-y-4">
 				<h1 id="input" className="text-5xl font-medium">
 					Input
 				</h1>
-				<p className="mt-4 text-xl text-body">Fundamental component for inputs.</p>
+				<p className="text-xl text-body">Fundamental component for inputs.</p>
 				<div>
-					<Example className="mt-4 flex flex-col gap-6">
+					<Example className="flex flex-col gap-6">
 						<Label className="block w-full max-w-80 space-y-1">
 							<p>Username</p>
 							<Input placeholder="Enter a username" />
@@ -92,7 +92,7 @@ export default function Page() {
 				</div>
 			</section>
 
-			<section className="mb-4 space-y-4">
+			<section className="space-y-4">
 				<h2 id="composition" className="text-3xl font-medium">
 					Composition
 				</h2>
@@ -113,7 +113,7 @@ export default function Page() {
 					consider whether or not that element should be tab-indexable or receive focus!
 				</p>
 				<div>
-					<Example className="mt-4 grid grid-cols-2 place-items-center gap-6">
+					<Example className="grid grid-cols-2 place-items-center gap-6">
 						<Label className="block w-full max-w-80 space-y-1">
 							<p>Search with start icon</p>
 							<Input className="max-w-64" placeholder="Search...">
@@ -221,7 +221,7 @@ export default function Page() {
 				</div>
 			</section>
 
-			<section className="mt-16 space-y-4">
+			<section className="space-y-4">
 				<h2 id="api" className="text-3xl font-medium">
 					API Reference
 				</h2>

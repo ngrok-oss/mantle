@@ -35,12 +35,12 @@ export const headers: HeadersFunction = () => {
 export default function Page() {
 	return (
 		<div className="space-y-16">
-			<section className="mb-4 space-y-4">
+			<section className="space-y-4">
 				<div className="flex items-center gap-3">
 					<h1 className="text-5xl font-medium">Badge</h1>
 					<PreviewBadge />
 				</div>
-				<p className="mt-4 text-xl text-body">
+				<p className="text-xl text-body">
 					A Badge is a non-interactive component used to highlight important information or to visually indicate the
 					status of an item.
 				</p>
@@ -81,7 +81,7 @@ export default function Page() {
 				</div>
 			</section>
 
-			<section className="mt-16 space-y-4">
+			<section className="space-y-4">
 				<h2 id="api" className="text-3xl font-medium">
 					API Reference
 				</h2>

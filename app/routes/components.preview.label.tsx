@@ -21,14 +21,14 @@ export const headers: HeadersFunction = () => {
 export default function Page() {
 	return (
 		<div className="space-y-16">
-			<section className="mb-4 space-y-4">
+			<section className="space-y-4">
 				<div className="flex items-center gap-3">
 					<h1 className="text-5xl font-medium">Label</h1>
 					<PreviewBadge />
 				</div>
 				<p className="text-xl text-body">Renders an accessible label associated with controls.</p>
 				<div>
-					<Example className="mt-4 grid gap-6">
+					<Example className="grid gap-6">
 						<Label htmlFor="name">
 							Name: <Input type="text" id="name" />
 						</Label>

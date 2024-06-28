@@ -56,191 +56,191 @@ export default function Page() {
 	const [enableNotifications, setEnableNotifications] = useState(false);
 
 	return (
-		<div className="space-y-4">
-			<div className="flex items-center gap-3">
-				<h1 className="text-5xl font-medium">Dropdown Menu</h1>
-				<PreviewBadge />
-			</div>
-			<p className="text-xl text-body">
-				Displays a menu to the user — such as a set of actions or functions — triggered by a button.
-			</p>
-
-			<div>
-				<Example className="flex-col gap-6">
-					<DropdownMenu>
-						<DropdownMenuTrigger asChild>
-							<Button type="button" appearance="filled">
-								Open Menu
-							</Button>
-						</DropdownMenuTrigger>
-						<DropdownMenuContent>
-							<DropdownMenuLabel>micah@ngrok.com</DropdownMenuLabel>
-							<DropdownMenuSeparator />
-							<DropdownMenuRadioGroup
-								value={selectedTheme}
-								onValueChange={(value) => {
-									setSelectedTheme(value as Theme);
-								}}
-							>
-								<DropdownMenuRadioItem value="system">
-									<Desktop />
-									System Preference
-								</DropdownMenuRadioItem>
-								<DropdownMenuRadioItem value="light">
-									<Sun />
-									Light Mode
-								</DropdownMenuRadioItem>
-								<DropdownMenuRadioItem value="dark">
-									<Moon />
-									Dark Mode
-								</DropdownMenuRadioItem>
-								<DropdownMenuRadioItem value="light-high-contrast">
-									<Sun weight="fill" />
-									Light High Contrast
-								</DropdownMenuRadioItem>
-								<DropdownMenuRadioItem value="dark-high-contrast">
-									<Moon weight="fill" />
-									Dark High Contrast
-								</DropdownMenuRadioItem>
-							</DropdownMenuRadioGroup>
-							<DropdownMenuSeparator />
-							<DropdownMenuItem className="flex items-center gap-2">
-								<Gear />
-								User Settings
-							</DropdownMenuItem>
-							<DropdownMenuSeparator />
-							<DropdownMenuCheckboxItem
-								checked={enableNotifications}
-								onCheckedChange={(value) => {
-									setEnableNotifications(value);
-								}}
-							>
-								Enable Notifications
-							</DropdownMenuCheckboxItem>
-							<DropdownMenuGroup>
-								<DropdownMenuItem>Team</DropdownMenuItem>
-								<DropdownMenuSub>
-									<DropdownMenuSubTrigger>Invite users</DropdownMenuSubTrigger>
-									<DropdownMenuSubContent>
-										<DropdownMenuItem>Email</DropdownMenuItem>
-										<DropdownMenuItem>Message</DropdownMenuItem>
-										<DropdownMenuItem>Email</DropdownMenuItem>
-										<DropdownMenuItem>Email</DropdownMenuItem>
-										<DropdownMenuItem>Email</DropdownMenuItem>
-										<DropdownMenuItem>Email</DropdownMenuItem>
-										<DropdownMenuItem>Email</DropdownMenuItem>
-										<DropdownMenuItem>Email</DropdownMenuItem>
-										<DropdownMenuItem>Email</DropdownMenuItem>
-										<DropdownMenuItem>Email</DropdownMenuItem>
-										<DropdownMenuItem>Email</DropdownMenuItem>
-										<DropdownMenuItem>Email</DropdownMenuItem>
-										<DropdownMenuSeparator />
-										<DropdownMenuItem>More...</DropdownMenuItem>
-									</DropdownMenuSubContent>
-								</DropdownMenuSub>
-								<DropdownMenuItem>
-									New Team
-									<DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
+		<div className="space-y-16">
+			<section className="space-y-4">
+				<div className="flex items-center gap-3">
+					<h1 className="text-5xl font-medium">Dropdown Menu</h1>
+					<PreviewBadge />
+				</div>
+				<p className="text-xl text-body">
+					Displays a menu to the user — such as a set of actions or functions — triggered by a button.
+				</p>
+				<div>
+					<Example className="flex-col gap-6">
+						<DropdownMenu>
+							<DropdownMenuTrigger asChild>
+								<Button type="button" appearance="filled">
+									Open Menu
+								</Button>
+							</DropdownMenuTrigger>
+							<DropdownMenuContent>
+								<DropdownMenuLabel>micah@ngrok.com</DropdownMenuLabel>
+								<DropdownMenuSeparator />
+								<DropdownMenuRadioGroup
+									value={selectedTheme}
+									onValueChange={(value) => {
+										setSelectedTheme(value as Theme);
+									}}
+								>
+									<DropdownMenuRadioItem value="system">
+										<Desktop />
+										System Preference
+									</DropdownMenuRadioItem>
+									<DropdownMenuRadioItem value="light">
+										<Sun />
+										Light Mode
+									</DropdownMenuRadioItem>
+									<DropdownMenuRadioItem value="dark">
+										<Moon />
+										Dark Mode
+									</DropdownMenuRadioItem>
+									<DropdownMenuRadioItem value="light-high-contrast">
+										<Sun weight="fill" />
+										Light High Contrast
+									</DropdownMenuRadioItem>
+									<DropdownMenuRadioItem value="dark-high-contrast">
+										<Moon weight="fill" />
+										Dark High Contrast
+									</DropdownMenuRadioItem>
+								</DropdownMenuRadioGroup>
+								<DropdownMenuSeparator />
+								<DropdownMenuItem className="flex items-center gap-2">
+									<Gear />
+									User Settings
 								</DropdownMenuItem>
-							</DropdownMenuGroup>
-							<DropdownMenuSeparator />
-							<DropdownMenuItem className="flex items-center gap-2">
-								<SignOut />
-								Log out
-							</DropdownMenuItem>
-						</DropdownMenuContent>
-					</DropdownMenu>
-
-					<DropdownMenu>
-						<DropdownMenuTrigger asChild>
-							<Button type="button" appearance="filled">
-								Content Width Matches Trigger Width (Extra Wide)
-							</Button>
-						</DropdownMenuTrigger>
-						<DropdownMenuContent width="trigger">
-							<DropdownMenuLabel>micah@ngrok.com</DropdownMenuLabel>
-							<DropdownMenuSeparator />
-							<DropdownMenuRadioGroup
-								value={selectedTheme}
-								onValueChange={(value) => {
-									setSelectedTheme(value as Theme);
-								}}
-							>
-								<DropdownMenuRadioItem value="system">
-									<Desktop />
-									System Preference
-								</DropdownMenuRadioItem>
-								<DropdownMenuRadioItem value="light">
-									<Sun />
-									Light Mode
-								</DropdownMenuRadioItem>
-								<DropdownMenuRadioItem value="dark">
-									<Moon />
-									Dark Mode
-								</DropdownMenuRadioItem>
-								<DropdownMenuRadioItem value="light-high-contrast">
-									<Sun weight="fill" />
-									Light High Contrast
-								</DropdownMenuRadioItem>
-								<DropdownMenuRadioItem value="dark-high-contrast">
-									<Moon weight="fill" />
-									Dark High Contrast
-								</DropdownMenuRadioItem>
-							</DropdownMenuRadioGroup>
-							<DropdownMenuSeparator />
-							<DropdownMenuItem className="flex items-center gap-2">
-								<Gear />
-								User Settings
-							</DropdownMenuItem>
-							<DropdownMenuSeparator />
-							<DropdownMenuCheckboxItem
-								checked={enableNotifications}
-								onCheckedChange={(value) => {
-									setEnableNotifications(value);
-								}}
-							>
-								Enable Notifications
-							</DropdownMenuCheckboxItem>
-							<DropdownMenuGroup>
-								<DropdownMenuItem>Team</DropdownMenuItem>
-								<DropdownMenuSub>
-									<DropdownMenuSubTrigger>Invite users</DropdownMenuSubTrigger>
-									<DropdownMenuSubContent>
-										<DropdownMenuItem>Email</DropdownMenuItem>
-										<DropdownMenuItem>Message</DropdownMenuItem>
-										<DropdownMenuItem>Email</DropdownMenuItem>
-										<DropdownMenuItem>Email</DropdownMenuItem>
-										<DropdownMenuItem>Email</DropdownMenuItem>
-										<DropdownMenuItem>Email</DropdownMenuItem>
-										<DropdownMenuItem>Email</DropdownMenuItem>
-										<DropdownMenuItem>Email</DropdownMenuItem>
-										<DropdownMenuItem>Email</DropdownMenuItem>
-										<DropdownMenuItem>Email</DropdownMenuItem>
-										<DropdownMenuItem>Email</DropdownMenuItem>
-										<DropdownMenuItem>Email</DropdownMenuItem>
-										<DropdownMenuSeparator />
-										<DropdownMenuItem>More...</DropdownMenuItem>
-									</DropdownMenuSubContent>
-								</DropdownMenuSub>
-								<DropdownMenuItem>
-									New Team
-									<DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
+								<DropdownMenuSeparator />
+								<DropdownMenuCheckboxItem
+									checked={enableNotifications}
+									onCheckedChange={(value) => {
+										setEnableNotifications(value);
+									}}
+								>
+									Enable Notifications
+								</DropdownMenuCheckboxItem>
+								<DropdownMenuGroup>
+									<DropdownMenuItem>Team</DropdownMenuItem>
+									<DropdownMenuSub>
+										<DropdownMenuSubTrigger>Invite users</DropdownMenuSubTrigger>
+										<DropdownMenuSubContent>
+											<DropdownMenuItem>Email</DropdownMenuItem>
+											<DropdownMenuItem>Message</DropdownMenuItem>
+											<DropdownMenuItem>Email</DropdownMenuItem>
+											<DropdownMenuItem>Email</DropdownMenuItem>
+											<DropdownMenuItem>Email</DropdownMenuItem>
+											<DropdownMenuItem>Email</DropdownMenuItem>
+											<DropdownMenuItem>Email</DropdownMenuItem>
+											<DropdownMenuItem>Email</DropdownMenuItem>
+											<DropdownMenuItem>Email</DropdownMenuItem>
+											<DropdownMenuItem>Email</DropdownMenuItem>
+											<DropdownMenuItem>Email</DropdownMenuItem>
+											<DropdownMenuItem>Email</DropdownMenuItem>
+											<DropdownMenuSeparator />
+											<DropdownMenuItem>More...</DropdownMenuItem>
+										</DropdownMenuSubContent>
+									</DropdownMenuSub>
+									<DropdownMenuItem>
+										New Team
+										<DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
+									</DropdownMenuItem>
+								</DropdownMenuGroup>
+								<DropdownMenuSeparator />
+								<DropdownMenuItem className="flex items-center gap-2">
+									<SignOut />
+									Log out
 								</DropdownMenuItem>
-							</DropdownMenuGroup>
-							<DropdownMenuSeparator />
-							<DropdownMenuItem className="flex items-center gap-2">
-								<SignOut />
-								Log out
-							</DropdownMenuItem>
-						</DropdownMenuContent>
-					</DropdownMenu>
-				</Example>
-				<CodeBlock className="rounded-b-lg rounded-t-none">
-					<CodeBlockBody>
-						<CodeBlockCopyButton />
-						<CodeBlockCode
-							language="tsx"
-							value={fmtCode`
+							</DropdownMenuContent>
+						</DropdownMenu>
+
+						<DropdownMenu>
+							<DropdownMenuTrigger asChild>
+								<Button type="button" appearance="filled">
+									Content Width Matches Trigger Width (Extra Wide)
+								</Button>
+							</DropdownMenuTrigger>
+							<DropdownMenuContent width="trigger">
+								<DropdownMenuLabel>micah@ngrok.com</DropdownMenuLabel>
+								<DropdownMenuSeparator />
+								<DropdownMenuRadioGroup
+									value={selectedTheme}
+									onValueChange={(value) => {
+										setSelectedTheme(value as Theme);
+									}}
+								>
+									<DropdownMenuRadioItem value="system">
+										<Desktop />
+										System Preference
+									</DropdownMenuRadioItem>
+									<DropdownMenuRadioItem value="light">
+										<Sun />
+										Light Mode
+									</DropdownMenuRadioItem>
+									<DropdownMenuRadioItem value="dark">
+										<Moon />
+										Dark Mode
+									</DropdownMenuRadioItem>
+									<DropdownMenuRadioItem value="light-high-contrast">
+										<Sun weight="fill" />
+										Light High Contrast
+									</DropdownMenuRadioItem>
+									<DropdownMenuRadioItem value="dark-high-contrast">
+										<Moon weight="fill" />
+										Dark High Contrast
+									</DropdownMenuRadioItem>
+								</DropdownMenuRadioGroup>
+								<DropdownMenuSeparator />
+								<DropdownMenuItem className="flex items-center gap-2">
+									<Gear />
+									User Settings
+								</DropdownMenuItem>
+								<DropdownMenuSeparator />
+								<DropdownMenuCheckboxItem
+									checked={enableNotifications}
+									onCheckedChange={(value) => {
+										setEnableNotifications(value);
+									}}
+								>
+									Enable Notifications
+								</DropdownMenuCheckboxItem>
+								<DropdownMenuGroup>
+									<DropdownMenuItem>Team</DropdownMenuItem>
+									<DropdownMenuSub>
+										<DropdownMenuSubTrigger>Invite users</DropdownMenuSubTrigger>
+										<DropdownMenuSubContent>
+											<DropdownMenuItem>Email</DropdownMenuItem>
+											<DropdownMenuItem>Message</DropdownMenuItem>
+											<DropdownMenuItem>Email</DropdownMenuItem>
+											<DropdownMenuItem>Email</DropdownMenuItem>
+											<DropdownMenuItem>Email</DropdownMenuItem>
+											<DropdownMenuItem>Email</DropdownMenuItem>
+											<DropdownMenuItem>Email</DropdownMenuItem>
+											<DropdownMenuItem>Email</DropdownMenuItem>
+											<DropdownMenuItem>Email</DropdownMenuItem>
+											<DropdownMenuItem>Email</DropdownMenuItem>
+											<DropdownMenuItem>Email</DropdownMenuItem>
+											<DropdownMenuItem>Email</DropdownMenuItem>
+											<DropdownMenuSeparator />
+											<DropdownMenuItem>More...</DropdownMenuItem>
+										</DropdownMenuSubContent>
+									</DropdownMenuSub>
+									<DropdownMenuItem>
+										New Team
+										<DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
+									</DropdownMenuItem>
+								</DropdownMenuGroup>
+								<DropdownMenuSeparator />
+								<DropdownMenuItem className="flex items-center gap-2">
+									<SignOut />
+									Log out
+								</DropdownMenuItem>
+							</DropdownMenuContent>
+						</DropdownMenu>
+					</Example>
+					<CodeBlock className="rounded-b-lg rounded-t-none">
+						<CodeBlockBody>
+							<CodeBlockCopyButton />
+							<CodeBlockCode
+								language="tsx"
+								value={fmtCode`
 						import { Button } from "@ngrok/mantle/button";
 						import {
 							DropdownMenu,
@@ -292,12 +292,13 @@ export default function Page() {
 							</DropdownMenuContent>
 						</DropdownMenu>
 					`}
-						/>
-					</CodeBlockBody>
-				</CodeBlock>
-			</div>
+							/>
+						</CodeBlockBody>
+					</CodeBlock>
+				</div>
+			</section>
 
-			<section className="mt-16 space-y-4">
+			<section className="space-y-8">
 				<header className="space-y-4">
 					<h2 id="api" className="text-3xl font-medium">
 						API Reference
@@ -315,20 +316,22 @@ export default function Page() {
 					</p>
 				</header>
 
-				<section>
-					<h3 className="mb-4 text-xl font-medium">DropdownMenuContent</h3>
+				<section className="space-y-4">
+					<header className="space-y-1">
+						<h3 className="text-xl font-medium">DropdownMenuContent</h3>
 
-					<p className="mb-4 text-body">
-						All props from Radix{" "}
-						<Anchor
-							href="https://www.radix-ui.com/primitives/docs/components/dropdown-menu#content"
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							DropdownMenu.Content
-						</Anchor>
-						, plus:
-					</p>
+						<p className="text-body">
+							All props from Radix{" "}
+							<Anchor
+								href="https://www.radix-ui.com/primitives/docs/components/dropdown-menu#content"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								DropdownMenu.Content
+							</Anchor>
+							, plus:
+						</p>
+					</header>
 
 					<PropsTable>
 						<PropRow>

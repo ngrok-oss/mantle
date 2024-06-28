@@ -21,7 +21,7 @@ export const headers: HeadersFunction = () => {
 export default function Page() {
 	return (
 		<div className="space-y-16">
-			<section className="mb-4 space-y-4">
+			<section className="space-y-4">
 				<div className="flex items-center gap-3">
 					<h1 className="text-5xl font-medium">Switch</h1>
 					<PreviewBadge />

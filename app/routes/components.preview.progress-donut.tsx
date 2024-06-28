@@ -32,37 +32,66 @@ export const headers: HeadersFunction = () => {
 
 export default function Page() {
 	return (
-		<div className="space-y-4">
-			<div className="flex items-center gap-3">
-				<h1 className="text-5xl font-medium">Progress Donut</h1>
-				<PreviewBadge />
-			</div>
-			<p className="text-xl text-body">
-				Displays an indicator showing the completion progress of a task as a circular progress bar.
-			</p>
-			<div>
-				<Example>
-					<ProgressDonut value={60} className="size-10">
-						<ProgressDonutIndicator />
-					</ProgressDonut>
-				</Example>
-				<CodeBlock className="rounded-b-lg rounded-t-none">
-					<CodeBlockBody>
-						<CodeBlockCopyButton />
-						<CodeBlockCode
-							language="tsx"
-							value={fmtCode`
+		<div className="space-y-16">
+			<div className="space-y-4">
+				<div className="flex items-center gap-3">
+					<h1 className="text-5xl font-medium">Progress Donut</h1>
+					<PreviewBadge />
+				</div>
+				<p className="text-xl text-body">
+					Displays an indicator showing the completion progress of a task as a circular progress bar.
+				</p>
+				<div>
+					<Example className="flex-col gap-6">
+						<ProgressDonut value={60} className="size-10">
+							<ProgressDonutIndicator />
+						</ProgressDonut>
+
+						<div className="flex flex-col gap-2">
+							<div className="flex items-center gap-1.5 text-sm">
+								<ProgressDonut value={100} className="size-6">
+									<ProgressDonutIndicator />
+								</ProgressDonut>
+								Data transfer out
+							</div>
+
+							<div className="flex items-center gap-1.5 text-xs">
+								<div className="grid w-6 place-items-center">
+									<ProgressDonut value={100} className="size-4" strokeWidth={`0.315rem`}>
+										<ProgressDonutIndicator />
+									</ProgressDonut>
+								</div>
+								Included
+							</div>
+
+							<div className="flex items-center gap-1.5 text-xs">
+								<div className="grid w-6 place-items-center">
+									<ProgressDonut value={25} className="size-4" strokeWidth={`0.315rem`}>
+										<ProgressDonutIndicator className="text-success-600" />
+									</ProgressDonut>
+								</div>
+								Additional
+							</div>
+						</div>
+					</Example>
+					<CodeBlock className="rounded-b-lg rounded-t-none">
+						<CodeBlockBody>
+							<CodeBlockCopyButton />
+							<CodeBlockCode
+								language="tsx"
+								value={fmtCode`
 							import { ProgressDonut, ProgressDonutIndicator } from "@ngrok/mantle/progress";
 
 							<ProgressDonut value={60} className="size-10">
 								<ProgressDonutIndicator />
 							</ProgressDonut>
 						`}
-						/>
-					</CodeBlockBody>
-				</CodeBlock>
+							/>
+						</CodeBlockBody>
+					</CodeBlock>
+				</div>
 			</div>
-			<section className="mt-16 space-y-4">
+			<section className="space-y-4">
 				<h2 id="dynamic-colors" className="text-3xl font-medium">
 					Dynamic Colors
 				</h2>
@@ -122,7 +151,7 @@ export default function Page() {
 					</CodeBlock>
 				</div>
 			</section>
-			<section className="mt-16 space-y-4">
+			<section className="space-y-4">
 				<h2 id="api" className="text-3xl font-medium">
 					API Reference
 				</h2>

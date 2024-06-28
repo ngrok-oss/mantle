@@ -33,53 +33,54 @@ export const headers: HeadersFunction = () => {
 
 export default function Page() {
 	return (
-		<div className="space-y-4">
-			<div className="flex items-center gap-3">
-				<h1 className="text-5xl font-medium">Checkbox</h1>
-				<PreviewBadge />
-			</div>
-			<p className="text-xl text-body">
-				A form control that allows the user to toggle between checked and not checked.
-			</p>
-			<div>
-				<Example>
-					<div className="flex flex-col">
-						<Label htmlFor="terms" className="flex items-center gap-2">
-							<Checkbox name="terms" id="terms" />
-							Accept terms and conditions
-						</Label>
-						<Label htmlFor="unchecked" className="flex items-center gap-2">
-							<Checkbox id="unchecked" name="unchecked" checked={false} readOnly />
-							Unchecked (static)
-						</Label>
-						<Label htmlFor="checked" className="flex items-center gap-2">
-							<Checkbox id="checked" name="checked" checked readOnly />
-							Checked (static)
-						</Label>
-						<Label htmlFor="indeterminate" className="flex items-center gap-2">
-							<Checkbox id="indeterminate" name="indeterminate" defaultChecked="indeterminate" readOnly />
-							Indeterminate (static)
-						</Label>
-						<Label htmlFor="disabled-unchecked" className="flex items-center gap-2">
-							<Checkbox disabled id="unchecked" name="unchecked" checked={false} readOnly />
-							<span className="opacity-50">Disabled Unchecked (static)</span>
-						</Label>
-						<Label htmlFor="disabled-checked" className="flex items-center gap-2">
-							<Checkbox disabled id="checked" name="checked" checked readOnly />
-							<span className="opacity-50">Disabled Checked (static)</span>
-						</Label>
-						<Label htmlFor="disabled-indeterminate" className="flex items-center gap-2">
-							<Checkbox disabled id="indeterminate" name="indeterminate" defaultChecked="indeterminate" readOnly />
-							<span className="opacity-50">Disabled Indeterminate (static)</span>
-						</Label>
-					</div>
-				</Example>
-				<CodeBlock className="rounded-b-lg rounded-t-none">
-					<CodeBlockBody>
-						<CodeBlockCopyButton />
-						<CodeBlockCode
-							language="tsx"
-							value={fmtCode`
+		<div className="space-y-16">
+			<section className="space-y-4">
+				<div className="flex items-center gap-3">
+					<h1 className="text-5xl font-medium">Checkbox</h1>
+					<PreviewBadge />
+				</div>
+				<p className="text-xl text-body">
+					A form control that allows the user to toggle between checked and not checked.
+				</p>
+				<div>
+					<Example>
+						<div className="flex flex-col">
+							<Label htmlFor="terms" className="flex items-center gap-2">
+								<Checkbox name="terms" id="terms" />
+								Accept terms and conditions
+							</Label>
+							<Label htmlFor="unchecked" className="flex items-center gap-2">
+								<Checkbox id="unchecked" name="unchecked" checked={false} readOnly />
+								Unchecked (static)
+							</Label>
+							<Label htmlFor="checked" className="flex items-center gap-2">
+								<Checkbox id="checked" name="checked" checked readOnly />
+								Checked (static)
+							</Label>
+							<Label htmlFor="indeterminate" className="flex items-center gap-2">
+								<Checkbox id="indeterminate" name="indeterminate" defaultChecked="indeterminate" readOnly />
+								Indeterminate (static)
+							</Label>
+							<Label htmlFor="disabled-unchecked" className="flex items-center gap-2">
+								<Checkbox disabled id="unchecked" name="unchecked" checked={false} readOnly />
+								<span className="opacity-50">Disabled Unchecked (static)</span>
+							</Label>
+							<Label htmlFor="disabled-checked" className="flex items-center gap-2">
+								<Checkbox disabled id="checked" name="checked" checked readOnly />
+								<span className="opacity-50">Disabled Checked (static)</span>
+							</Label>
+							<Label htmlFor="disabled-indeterminate" className="flex items-center gap-2">
+								<Checkbox disabled id="indeterminate" name="indeterminate" defaultChecked="indeterminate" readOnly />
+								<span className="opacity-50">Disabled Indeterminate (static)</span>
+							</Label>
+						</div>
+					</Example>
+					<CodeBlock className="rounded-b-lg rounded-t-none">
+						<CodeBlockBody>
+							<CodeBlockCopyButton />
+							<CodeBlockCode
+								language="tsx"
+								value={fmtCode`
 							import { Checkbox } from "@ngrok/mantle/checkbox";
 							import { Label } from "@ngrok/mantle/label";
 
@@ -100,11 +101,12 @@ export default function Page() {
 								Indeterminate
 							</Label>
 						`}
-						/>
-					</CodeBlockBody>
-				</CodeBlock>
-			</div>
-			<section className="mt-16 space-y-4">
+							/>
+						</CodeBlockBody>
+					</CodeBlock>
+				</div>
+			</section>
+			<section className="space-y-4">
 				<h2 id="api" className="text-3xl font-medium">
 					API Reference
 				</h2>

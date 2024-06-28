@@ -1,3 +1,4 @@
+import { Card, CardBody } from "@/card";
 import {
 	CodeBlock,
 	CodeBlockBody,
@@ -29,28 +30,23 @@ export const headers: HeadersFunction = () => {
 
 export default function Page() {
 	return (
-		<div>
-			<h1 className="text-5xl font-medium">Code Block</h1>
-			<p className="mt-4 text-xl text-body">Code blocks render and apply syntax highlighting to blocks of code.</p>
-			{/* <h2 className="mt-8 text-3xl font-medium">Examples</h2>
+		<div className="space-y-16">
+			<section className="space-y-4">
+				<h1 className="text-5xl font-medium">Code Block</h1>
+				<p className="text-xl text-body">Code blocks render and apply syntax highlighting to blocks of code.</p>
 
-			<h3 className="mt-8 text-xl font-medium">Complete</h3>
-			<p className="mt-1 text-body">
-				This example includes every potential child of our code block component—a header with file icon and file name,
-				highlighted code with a copy button, and an expander which optionally crops the height of long code samples.
-			</p> */}
-
-			<Example className="mt-4">
-				<CodeBlock>
-					<CodeBlockHeader>
-						<FileText className="h-5 w-5" weight="fill" />
-						<CodeBlockTitle>ngrok-example.js</CodeBlockTitle>
-					</CodeBlockHeader>
-					<CodeBlockBody>
-						<CodeBlockCopyButton />
-						<CodeBlockCode
-							language="js"
-							value={fmtCode`
+				<div>
+					<Example>
+						<CodeBlock>
+							<CodeBlockHeader>
+								<FileText className="h-5 w-5" weight="fill" />
+								<CodeBlockTitle>ngrok-example.js</CodeBlockTitle>
+							</CodeBlockHeader>
+							<CodeBlockBody>
+								<CodeBlockCopyButton />
+								<CodeBlockCode
+									language="js"
+									value={fmtCode`
 								const listener = await ngrok.connect({
 									// session configuration
 									addr: \`localhost:8080\`, // or \`8080\` or \`unix:$\{UNIX_SOCKET\}\`
@@ -94,17 +90,17 @@ export default function Page() {
 									websocket_tcp_converter: true,
 								});
 							`}
-						/>
-					</CodeBlockBody>
-					<CodeBlockExpanderButton />
-				</CodeBlock>
-			</Example>
-			<CodeBlock className="rounded-b-lg rounded-t-none">
-				<CodeBlockBody>
-					<CodeBlockCopyButton />
-					<CodeBlockCode
-						language="tsx"
-						value={fmtCode`
+								/>
+							</CodeBlockBody>
+							<CodeBlockExpanderButton />
+						</CodeBlock>
+					</Example>
+					<CodeBlock className="rounded-b-lg rounded-t-none">
+						<CodeBlockBody>
+							<CodeBlockCopyButton />
+							<CodeBlockCode
+								language="tsx"
+								value={fmtCode`
 							import {
 								CodeBlock,
 								CodeBlockBody,
@@ -128,38 +124,47 @@ export default function Page() {
 								<CodeBlockExpanderButton />
 							</CodeBlock>
 						`}
-					/>
-				</CodeBlockBody>
-			</CodeBlock>
-
-			<h2 className="mt-16 text-3xl font-medium">Examples</h2>
-			<section>
-				<h3 className="mt-8 text-xl font-medium">Single Line with a Header</h3>
-				<p className="mt-1 text-body">
-					Many code blocks will be single line command line prompts and should be able to render with a header and copy
-					button. This makes it absolutely clear that this example is a command line prompt and not a code sample.
-				</p>
-				<Example className="mt-4">
-					<CodeBlock>
-						<CodeBlockHeader>
-							<Terminal className="h-5 w-5" weight="fill" />
-							<CodeBlockTitle>Command Line</CodeBlockTitle>
-						</CodeBlockHeader>
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
-								language="sh"
-								value={fmtCode`sudo unzip ~/Downloads/ngrok-v3-stable-darwin.zip -d /usr/local/bin`}
 							/>
 						</CodeBlockBody>
 					</CodeBlock>
-				</Example>
-				<CodeBlock className="rounded-b-lg rounded-t-none">
-					<CodeBlockBody>
-						<CodeBlockCopyButton />
-						<CodeBlockCode
-							language="tsx"
-							value={fmtCode`
+				</div>
+			</section>
+
+			<section className="space-y-8">
+				<h2 className="text-3xl font-medium">Examples</h2>
+
+				<section className="space-y-4">
+					<header className="space-y-1">
+						<h3 className="text-xl font-medium">Single Line with a Header</h3>
+						<p className="text-body">
+							Many code blocks will be single line command line prompts and should be able to render with a header and
+							copy button. This makes it absolutely clear that this example is a command line prompt and not a code
+							sample.
+						</p>
+					</header>
+
+					<div>
+						<Example>
+							<CodeBlock>
+								<CodeBlockHeader>
+									<Terminal className="h-5 w-5" weight="fill" />
+									<CodeBlockTitle>Command Line</CodeBlockTitle>
+								</CodeBlockHeader>
+								<CodeBlockBody>
+									<CodeBlockCopyButton />
+									<CodeBlockCode
+										language="sh"
+										value={fmtCode`sudo unzip ~/Downloads/ngrok-v3-stable-darwin.zip -d /usr/local/bin`}
+									/>
+								</CodeBlockBody>
+							</CodeBlock>
+						</Example>
+						<CodeBlock className="rounded-b-lg rounded-t-none">
+							<CodeBlockBody>
+								<CodeBlockCopyButton />
+								<CodeBlockCode
+									language="tsx"
+									value={fmtCode`
 								<CodeBlock>
 									<CodeBlockHeader>
 										<CommandLineIcon />
@@ -171,28 +176,32 @@ export default function Page() {
 									</CodeBlockBody>
 								</CodeBlock>
 							`}
-						/>
-					</CodeBlockBody>
-				</CodeBlock>
-			</section>
+								/>
+							</CodeBlockBody>
+						</CodeBlock>
+					</div>
+				</section>
 
-			<section>
-				<h3 className="mt-8 text-xl font-medium">Horizontal Scrolling</h3>
-				<p className="mt-1 text-body">
-					This example is included to demonstrate that code blocks can scroll horizontally if the content is too wide.
-					Mantle attempts to normalize scrollbar styling across browsers and platforms.
-				</p>
-				<Example className="mt-4">
-					<CodeBlock>
-						<CodeBlockHeader>
-							<FileText className="h-5 w-5" weight="fill" />
-							<CodeBlockTitle>ngrok-example.js</CodeBlockTitle>
-						</CodeBlockHeader>
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
-								language="js"
-								value={fmtCode`
+				<section className="space-y-4">
+					<header className="space-y-1">
+						<h3 className="text-xl font-medium">Horizontal Scrolling</h3>
+						<p className="text-body">
+							This example is included to demonstrate that code blocks can scroll horizontally if the content is too
+							wide. Mantle attempts to normalize scrollbar styling across browsers and platforms.
+						</p>
+					</header>
+					<div>
+						<Example>
+							<CodeBlock>
+								<CodeBlockHeader>
+									<FileText className="h-5 w-5" weight="fill" />
+									<CodeBlockTitle>ngrok-example.js</CodeBlockTitle>
+								</CodeBlockHeader>
+								<CodeBlockBody>
+									<CodeBlockCopyButton />
+									<CodeBlockCode
+										language="js"
+										value={fmtCode`
 									const http = require('http');
 									const ngrok = require("@ngrok/ngrok");
 									const server = http.createServer((req, res) => {
@@ -210,16 +219,16 @@ export default function Page() {
 									});
 									// really long line here that should wrap around and stuff Officia ipsum sint eu labore esse deserunt aliqua quis irure.
 								`}
-							/>
-						</CodeBlockBody>
-					</CodeBlock>
-				</Example>
-				<CodeBlock className="rounded-b-lg rounded-t-none">
-					<CodeBlockBody>
-						<CodeBlockCopyButton />
-						<CodeBlockCode
-							language="tsx"
-							value={fmtCode`
+									/>
+								</CodeBlockBody>
+							</CodeBlock>
+						</Example>
+						<CodeBlock className="rounded-b-lg rounded-t-none">
+							<CodeBlockBody>
+								<CodeBlockCopyButton />
+								<CodeBlockCode
+									language="tsx"
+									value={fmtCode`
 								<CodeBlock>
 									<CodeBlockHeader>
 										<FileIcon />
@@ -251,26 +260,30 @@ export default function Page() {
 									</CodeBlockBody>
 								</CodeBlock>
 							`}
-						/>
-					</CodeBlockBody>
-					<CodeBlockExpanderButton />
-				</CodeBlock>
-			</section>
+								/>
+							</CodeBlockBody>
+							<CodeBlockExpanderButton />
+						</CodeBlock>
+					</div>
+				</section>
 
-			<section>
-				<h3 className="mt-8 text-xl font-medium">No Header or Copy Button</h3>
-				<p className="mt-1 text-body">
-					This is the most simple example of our code block component. While very useful, the copy button is optional.
-					It is also perfectly acceptable to render a code block without a header, especially if context is provided in
-					the surrounding content or the code block is self-explanatory eg. “In your index.js file, paste the
-					following:”.
-				</p>
-				<Example className="mt-4">
-					<CodeBlock>
-						<CodeBlockBody>
-							<CodeBlockCode
-								language="js"
-								value={fmtCode`
+				<section className="space-y-4">
+					<header className="space-y-1">
+						<h3 className="text-xl font-medium">No Header or Copy Button</h3>
+						<p className="text-body">
+							This is the most simple example of our code block component. While very useful, the copy button is
+							optional. It is also perfectly acceptable to render a code block without a header, especially if context
+							is provided in the surrounding content or the code block is self-explanatory eg. “In your index.js file,
+							paste the following:”.
+						</p>
+					</header>
+					<div>
+						<Example>
+							<CodeBlock>
+								<CodeBlockBody>
+									<CodeBlockCode
+										language="js"
+										value={fmtCode`
 									const http = require('http');
 									const ngrok = require("@ngrok/ngrok");
 									const server = http.createServer((req, res) => {
@@ -282,16 +295,16 @@ export default function Page() {
 										console.log("url:", server.tunnel.url());
 									});
 								`}
-							/>
-						</CodeBlockBody>
-					</CodeBlock>
-				</Example>
-				<CodeBlock className="rounded-b-lg rounded-t-none">
-					<CodeBlockBody>
-						<CodeBlockCopyButton />
-						<CodeBlockCode
-							language="tsx"
-							value={fmtCode`
+									/>
+								</CodeBlockBody>
+							</CodeBlock>
+						</Example>
+						<CodeBlock className="rounded-b-lg rounded-t-none">
+							<CodeBlockBody>
+								<CodeBlockCopyButton />
+								<CodeBlockCode
+									language="tsx"
+									value={fmtCode`
 								<CodeBlock>
 									<CodeBlockBody>
 										<CodeBlockCode
@@ -312,35 +325,39 @@ export default function Page() {
 									</CodeBlockBody>
 								</CodeBlock>
 							`}
-						/>
-					</CodeBlockBody>
-					<CodeBlockExpanderButton />
-				</CodeBlock>
-			</section>
+								/>
+							</CodeBlockBody>
+							<CodeBlockExpanderButton />
+						</CodeBlock>
+					</div>
+				</section>
 
-			<section>
-				<h3 className="mt-8 text-xl font-medium">Single Line with Horizontal Scrolling</h3>
-				<p className="mt-1 text-body">
-					This example is included to show the interaction between the copy button and horizontal scrolling on a single
-					verbose terminal command.
-				</p>
-				<Example className="mt-4">
-					<CodeBlock>
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
-								language="sh"
-								value={fmtCode`ffmpeg -i multichannel.mxf -map 0:v:0 -map 0:a:0 -map 0:a:0 -c:a:0 ac3 -b:a:0 640k -ac:a:1 2 -c:a:1 aac -b:2 128k out.mp4`}
-							/>
-						</CodeBlockBody>
-					</CodeBlock>
-				</Example>
-				<CodeBlock className="rounded-b-lg rounded-t-none">
-					<CodeBlockBody>
-						<CodeBlockCopyButton />
-						<CodeBlockCode
-							language="tsx"
-							value={fmtCode`
+				<section className="space-y-4">
+					<header className="space-y-1">
+						<h3 className="text-xl font-medium">Single Line with Horizontal Scrolling</h3>
+						<p className="text-body">
+							This example is included to show the interaction between the copy button and horizontal scrolling on a
+							single verbose terminal command.
+						</p>
+					</header>
+					<div>
+						<Example>
+							<CodeBlock>
+								<CodeBlockBody>
+									<CodeBlockCopyButton />
+									<CodeBlockCode
+										language="sh"
+										value={fmtCode`ffmpeg -i multichannel.mxf -map 0:v:0 -map 0:a:0 -map 0:a:0 -c:a:0 ac3 -b:a:0 640k -ac:a:1 2 -c:a:1 aac -b:2 128k out.mp4`}
+									/>
+								</CodeBlockBody>
+							</CodeBlock>
+						</Example>
+						<CodeBlock className="rounded-b-lg rounded-t-none">
+							<CodeBlockBody>
+								<CodeBlockCopyButton />
+								<CodeBlockCode
+									language="tsx"
+									value={fmtCode`
 							<CodeBlock>
 								<CodeBlockBody>
 									<CodeBlockCopyButton />
@@ -351,21 +368,28 @@ export default function Page() {
 								</CodeBlockBody>
 							</CodeBlock>
 							`}
-						/>
-					</CodeBlockBody>
-				</CodeBlock>
+								/>
+							</CodeBlockBody>
+						</CodeBlock>
+					</div>
+				</section>
 			</section>
 
-			<section className="mb-4 space-y-4">
+			<section className="space-y-4">
 				<h2 id="supported-languages" className="text-3xl font-medium">
 					Supported Languages
 				</h2>
-				<p className="text-xl text-body">We support the following languages:</p>
-				<ul className="grid grid-cols-3 place-items-center lg:grid-cols-7">
-					{supportedLanguages.map((language) => (
-						<li key={language}>{language}</li>
-					))}
-				</ul>
+				<p className="text-xl text-body">Mantle supports the following languages:</p>
+
+				<Card className="font-mono text-xs">
+					<CardBody>
+						<ul className="grid grid-cols-3 gap-2 lg:grid-cols-7">
+							{supportedLanguages.map((language) => (
+								<li key={language}>{language}</li>
+							))}
+						</ul>
+					</CardBody>
+				</Card>
 			</section>
 		</div>
 	);
