@@ -8,7 +8,6 @@ import { ShieldCheck } from "@phosphor-icons/react/ShieldCheck";
 import { User } from "@phosphor-icons/react/User";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
-import { PreviewBadge } from "~/components/preview-badge";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -27,10 +26,7 @@ export default function Page() {
 	return (
 		<div className="space-y-16">
 			<section className="space-y-4">
-				<div className="flex items-center gap-3">
-					<h1 className="text-5xl font-medium">Tabs</h1>
-					<PreviewBadge />
-				</div>
+				<h1 className="text-5xl font-medium">Tabs</h1>
 				<p className="text-xl text-body">
 					A set of layered sections of content—known as tab panels—that are displayed one at a time.
 				</p>

@@ -5,7 +5,6 @@ import { InlineCode } from "@/inline-code";
 import { Label } from "@/label";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
-import { PreviewBadge } from "~/components/preview-badge";
 import {
 	BooleanPropType,
 	FuncPropType,
@@ -35,10 +34,7 @@ export default function Page() {
 	return (
 		<div className="space-y-16">
 			<section className="space-y-4">
-				<div className="flex items-center gap-3">
-					<h1 className="text-5xl font-medium">Checkbox</h1>
-					<PreviewBadge />
-				</div>
+				<h1 className="text-5xl font-medium">Checkbox</h1>
 				<p className="text-xl text-body">
 					A form control that allows the user to toggle between checked and not checked.
 				</p>
