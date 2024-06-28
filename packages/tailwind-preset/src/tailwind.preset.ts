@@ -5,6 +5,7 @@ import defaultTheme from "tailwindcss/defaultTheme";
 import plugin from "tailwindcss/plugin";
 import { ariaEnabledVariantPlugin } from "./tailwind-plugin-aria-enabled.js";
 import { firefoxVariantPlugin } from "./tailwind-plugin-firefox-variant.js";
+import { gradientStopPlugin } from "./tailwind-plugin-gradient-stop.js";
 import { pointingVariantsPlugin } from "./tailwind-plugin-pointing-variants.js";
 import { whereVariantPlugin } from "./tailwind-plugin-where-variant.js";
 
@@ -465,7 +466,14 @@ const mantlePreset = {
 				xs: "480px",
 			},
 			spacing: {
-				"1.25": "0.3125rem",
+				"1.25": "0.3125rem", // 5px
+				"4.5": "1.125rem", // 18px
+			},
+			transitionDuration: {
+				"5s": "5000ms",
+				"7.5s": "7500ms",
+				"10s": "10000ms",
+				"15s": "15000ms",
 			},
 			transitionProperty: {
 				"max-height": "max-height",
@@ -487,6 +495,7 @@ const mantlePreset = {
 		plugin(function ({ addVariant }) {
 			addVariant("not-disabled", ["&:not(:disabled)"]);
 		}),
+		gradientStopPlugin,
 		whereVariantPlugin,
 		ariaEnabledVariantPlugin,
 	],
