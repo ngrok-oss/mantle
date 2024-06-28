@@ -3,6 +3,7 @@ import type { Config } from "tailwindcss";
 import tailwindCssAnimatePlugin from "tailwindcss-animate";
 import defaultTheme from "tailwindcss/defaultTheme";
 import plugin from "tailwindcss/plugin";
+import { animationDurationPlugin } from "./tailwind-plugin-animation-duration.js";
 import { ariaEnabledVariantPlugin } from "./tailwind-plugin-aria-enabled.js";
 import { firefoxVariantPlugin } from "./tailwind-plugin-firefox-variant.js";
 import { gradientStopPlugin } from "./tailwind-plugin-gradient-stop.js";
@@ -469,13 +470,6 @@ const mantlePreset = {
 				"1.25": "0.3125rem", // 5px
 				"4.5": "1.125rem", // 18px
 			},
-			transitionDuration: {
-				"5s": "5000ms",
-				"7.5s": "7500ms",
-				"10s": "10000ms",
-				"12.5s": "12500ms",
-				"15s": "15000ms",
-			},
 			transitionProperty: {
 				"max-height": "max-height",
 			},
@@ -498,6 +492,7 @@ const mantlePreset = {
 		}),
 		gradientStopPlugin,
 		whereVariantPlugin,
+		animationDurationPlugin,
 		ariaEnabledVariantPlugin,
 	],
 } satisfies Config;

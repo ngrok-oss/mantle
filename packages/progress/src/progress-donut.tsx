@@ -63,8 +63,6 @@ type Props = SvgAttributes & {
 	 * @default null
 	 */
 	value?: number | undefined | null;
-
-	duration?: `duration-${number}${string}` | undefined;
 };
 
 /**
@@ -77,7 +75,6 @@ const ProgressDonut = ({
 	strokeWidth: _strokeWidth = 4,
 	style,
 	value: _value,
-	duration = "duration-15s",
 	...props
 }: Props) => {
 	const max = isValidMaxNumber(_max) ? _max : defaultMax;
@@ -106,8 +103,8 @@ const ProgressDonut = ({
 					// "size-6 transform-gpu",
 					//
 					// value == null && "duration-15s animate-spin",
-					value == null && duration,
-					value == null && "animate-spin",
+					value == null && "animate-spin animation-duration-[15s]",
+					// value == null && "animate-spin",
 				)}
 			>
 				<svg
