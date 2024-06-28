@@ -103,3 +103,5 @@ export const FuncPropType = ({ value }: { value: string }) => {
 	);
 };
 export const UndefinedPropType = () => <span className="italic text-amber-600">undefined</span>;
+
+export const NullPropType = () => <span className="italic text-amber-600">null</span>;

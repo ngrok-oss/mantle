@@ -41,10 +41,19 @@ export default function Page() {
 				<p className="text-xl text-body">
 					Displays an indicator showing the completion progress of a task as a circular progress bar.
 				</p>
+				<p className="text-xl text-body">
+					The indicator color is inherited via <InlineCode>currentColor</InlineCode>. Override the default (
+					<InlineCode>accent-600</InlineCode>) by setting the
+					<InlineCode>ProgressDonutIndicator</InlineCode>'s text color.
+				</p>
 				<div>
 					<Example className="flex-col gap-6">
 						<ProgressDonut value={60} className="size-10">
 							<ProgressDonutIndicator />
+						</ProgressDonut>
+
+						<ProgressDonut value={60} className="size-10">
+							<ProgressDonutIndicator className="text-fuchsia-600" />
 						</ProgressDonut>
 
 						<div className="flex flex-col gap-2">
@@ -57,7 +66,7 @@ export default function Page() {
 
 							<div className="flex items-center gap-1.5 text-xs">
 								<div className="grid w-6 place-items-center">
-									<ProgressDonut value={100} className="size-4" strokeWidth={`0.315rem`}>
+									<ProgressDonut value={100} className="size-4" strokeWidth="0.315rem">
 										<ProgressDonutIndicator />
 									</ProgressDonut>
 								</div>
@@ -66,7 +75,7 @@ export default function Page() {
 
 							<div className="flex items-center gap-1.5 text-xs">
 								<div className="grid w-6 place-items-center">
-									<ProgressDonut value={25} className="size-4" strokeWidth={`0.315rem`}>
+									<ProgressDonut value={25} className="size-4" strokeWidth="0.315rem">
 										<ProgressDonutIndicator className="text-success-600" />
 									</ProgressDonut>
 								</div>
@@ -80,17 +89,79 @@ export default function Page() {
 							<CodeBlockCode
 								language="tsx"
 								value={fmtCode`
-							import { ProgressDonut, ProgressDonutIndicator } from "@ngrok/mantle/progress";
+									import { ProgressDonut, ProgressDonutIndicator } from "@ngrok/mantle/progress";
 
-							<ProgressDonut value={60} className="size-10">
-								<ProgressDonutIndicator />
-							</ProgressDonut>
-						`}
+									<ProgressDonut value={60} className="size-10">
+										<ProgressDonutIndicator />
+									</ProgressDonut>
+
+									<ProgressDonut value={60} className="size-10">
+										<ProgressDonutIndicator className="text-fuchsia-600" />
+									</ProgressDonut>
+
+									<div className="flex flex-col gap-2">
+										<div className="flex items-center gap-1.5 text-sm">
+											<ProgressDonut value={100} className="size-6">
+												<ProgressDonutIndicator />
+											</ProgressDonut>
+											Data transfer out
+										</div>
+
+										<div className="flex items-center gap-1.5 text-xs">
+											<div className="grid w-6 place-items-center">
+												<ProgressDonut value={100} className="size-4" strokeWidth="0.315rem">
+													<ProgressDonutIndicator />
+												</ProgressDonut>
+											</div>
+											Included
+										</div>
+
+										<div className="flex items-center gap-1.5 text-xs">
+											<div className="grid w-6 place-items-center">
+												<ProgressDonut value={25} className="size-4" strokeWidth="0.315rem">
+													<ProgressDonutIndicator className="text-success-600" />
+												</ProgressDonut>
+											</div>
+											Additional
+										</div>
+									</div>
+								`}
 							/>
 						</CodeBlockBody>
 					</CodeBlock>
 				</div>
 			</div>
+			<section className="space-y-4">
+				<h2 id="indeterminate" className="text-3xl font-medium">
+					Indeterminate Value
+				</h2>
+				<p className="text-xl text-body">
+					You can set the <InlineCode>value</InlineCode> prop to <InlineCode>"indeterminate"</InlineCode> to show the
+					progress bar in an indeterminate state.
+				</p>
+				<div>
+					<Example>
+						<ProgressDonut className="size-10" value="indeterminate">
+							<ProgressDonutIndicator />
+						</ProgressDonut>
+					</Example>
+					<CodeBlock className="rounded-b-lg rounded-t-none">
+						<CodeBlockBody>
+							<CodeBlockCopyButton />
+							<CodeBlockCode
+								language="tsx"
+								value={fmtCode`
+									import { ProgressDonut, ProgressDonutIndicator } from "@ngrok/mantle/progress";
+
+									<ProgressDonut className="size-10" value="indeterminate">
+										<ProgressDonutIndicator />
+									</ProgressDonut>
+								`}
+							/>
+						</CodeBlockBody>
+					</CodeBlock>
+				</div>
+			</section>
 			<section className="space-y-4">
 				<h2 id="dynamic-colors" className="text-3xl font-medium">
 					Dynamic Colors
@@ -204,7 +275,14 @@ export default function Page() {
 					<PropRow>
 						<PropNameCell name="value" optional />
 						<PropTypeCell>
-							<NumberPropType />
+							<ul>
+								<li>
+									<NumberPropType />
+								</li>
+								<li>
+									<StringPropType value="indeterminate" />
+								</li>
+							</ul>
 						</PropTypeCell>
 						<PropDefaultValueCell>
 							<NumberPropType value={0} />
@@ -214,6 +292,10 @@ export default function Page() {
 								The current value of the progress bar. This attribute specifies how much of the task that has been
 								completed. It must be a valid floating point number between 0 and max, or between 0 and 100 if max is
 								omitted.
+							</p>
+							<p>
+								If set to <InlineCode>"indeterminate"</InlineCode>, the progress bar is considered{" "}
+								<strong>indeterminate</strong>.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>

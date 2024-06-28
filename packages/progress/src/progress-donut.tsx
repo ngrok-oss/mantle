@@ -7,6 +7,7 @@ import type { WithStyleProps } from "../../types";
 
 type RemValue = `${number}rem`;
 type StrokeWidth = number | RemValue;
+type ValueType = number | "indeterminate";
 
 /**
  * The default maximum value of the progress bar.
@@ -22,14 +23,14 @@ type ProgressContextValue = {
 	max: number;
 	radius: number;
 	strokeWidth: StrokeWidth;
-	value: number | null;
+	value: ValueType;
 };
 
 const ProgressContext = createContext<ProgressContextValue>({
 	max: defaultMax,
 	radius: 16,
 	strokeWidth: "0.25rem",
-	value: null,
+	value: 0,
 });
 
 type SvgAttributes = Omit<
@@ -58,11 +59,11 @@ type Props = SvgAttributes & {
 	 * The current value of the progress bar.
 	 * This attribute specifies how much of the task that has been completed.
 	 * It must be a valid floating point number between 0 and max, or between 0 and 100 if max is omitted.
-	 * If no value is set (or `null`), the progress bar is considered indeterminate.
+	 * If set to `"indeterminate"`, the progress bar is considered indeterminate.
 	 *
-	 * @default null
+	 * @default 0
 	 */
-	value?: number | undefined | null;
+	value?: ValueType | undefined;
 };
 
 /**
@@ -78,7 +79,7 @@ const ProgressDonut = ({
 	...props
 }: Props) => {
 	const max = isValidMaxNumber(_max) ? _max : defaultMax;
-	const value = isValidValueNumber(_value, max) ? _value : null;
+	const value = (isValidValueNumber(_value, max) ? _value : _value == null ? 0 : "indeterminate") satisfies ValueType;
 	const strokeWidthPx = deriveStrokeWidthPx(_strokeWidth);
 	const strokeWidthRem = pxToRem(strokeWidthPx);
 	const radius = circleRadius(strokeWidthPx);
@@ -144,13 +145,12 @@ type ProgressDonutIndicatorProps = WithStyleProps;
 const ProgressDonutIndicator = ({ className, style }: ProgressDonutIndicatorProps) => {
 	const gradientId = useRandomStableId();
 	const ctx = useContext(ProgressContext);
-	const isIndeterminate = ctx.value == null;
 	const circumferenceValue = circumference(ctx.radius);
-	const progressValue = ctx.value == null ? indeterminateTailPercent : ctx.value / ctx.max;
+	const progressValue = ctx.value == "indeterminate" ? indeterminateTailPercent : ctx.value / ctx.max;
 
 	return (
 		<g className={cx("text-accent-600", className)} style={style}>
-			{isIndeterminate && (
+			{ctx.value == "indeterminate" && (
 				<defs>
 					<linearGradient id={gradientId}>
 						<stop className="stop-opacity-100 stop-color-current" offset="0%" />
@@ -163,7 +163,7 @@ const ProgressDonutIndicator = ({ className, style }: ProgressDonutIndicatorProp
 				cy={viewboxSize / 2}
 				fill="transparent"
 				r={ctx.radius}
-				stroke={isIndeterminate ? `url(#${gradientId})` : "currentColor"}
+				stroke={ctx.value == "indeterminate" ? `url(#${gradientId})` : "currentColor"}
 				strokeDasharray={circumferenceValue}
 				strokeDashoffset={`${(1 - progressValue) * circumferenceValue}px`}
 				strokeLinecap="round"

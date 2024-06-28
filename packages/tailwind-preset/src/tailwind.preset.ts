@@ -472,7 +472,6 @@ const mantlePreset = {
 			},
 			spacing: {
 				"1.25": "0.3125rem", // 5px
-				"4.5": "1.125rem", // 18px
 			},
 			transitionProperty: {
 				"max-height": "max-height",
