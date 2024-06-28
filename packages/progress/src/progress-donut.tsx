@@ -103,8 +103,8 @@ const ProgressDonut = ({
 				aria-valuenow={valueNow}
 				className={clsx(
 					"origin-center",
-					value != null && "-rotate-90 transform-gpu",
-					value == null && "animate-spin",
+					value === "indeterminate" && "animate-spin",
+					value !== "indeterminate" && "-rotate-90 transform-gpu",
 					cx("size-6 text-gray-200 animation-duration-[15s] dark:text-gray-300", className),
 				)}
 				data-max={max}
