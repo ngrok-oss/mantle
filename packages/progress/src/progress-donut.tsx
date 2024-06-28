@@ -96,12 +96,13 @@ const ProgressDonut = ({
 
 	return (
 		<ProgressContext.Provider value={ctx}>
-			<div
+			<span
 				className={clsx(
+					"inline-block leading-none",
 					// value === null && "animate-[spin_7500ms_linear_infinite]",
-					"",
+					// "size-6 transform-gpu",
 					//
-					value == null && "duration-15s animate-spin",
+					value == null && "animate-spin duration-15s",
 				)}
 			>
 				<svg
@@ -112,6 +113,7 @@ const ProgressDonut = ({
 						"-rotate-90 transform-gpu",
 						// value == null && "duration-15s animate-spin",
 						//,
+						// cx("size-6 text-gray-200", className),
 						cx("size-6 text-gray-200", className),
 					)}
 					data-max={max}
@@ -133,7 +135,7 @@ const ProgressDonut = ({
 					{children}
 					{/* </g> */}
 				</svg>
-			</div>
+			</span>
 		</ProgressContext.Provider>
 	);
 };
