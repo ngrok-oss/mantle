@@ -1,5 +1,6 @@
 import plugin from "tailwindcss/plugin";
 import type { PluginAPI } from "tailwindcss/types/config";
+import { filterDefault } from "./shared";
 
 /**
  * This plugin adds animation-duration utilities to TailwindCSS
@@ -17,7 +18,3 @@ const animationDurationPlugin = plugin((api: PluginAPI) => {
 });
 
 export { animationDurationPlugin };
-
-function filterDefault(values: Record<string, string>) {
-	return Object.fromEntries(Object.entries(values).filter(([key]) => key !== "DEFAULT"));
-}

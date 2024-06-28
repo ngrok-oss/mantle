@@ -458,6 +458,10 @@ const mantlePreset = {
 					from: { height: "var(--radix-accordion-content-height)" },
 					to: { height: "0" },
 				},
+				spin: {
+					from: { transform: "rotate(var(--spin-start-deg, 0))" },
+					to: { transform: "rotate(var(--spin-end-deg, 360deg))" },
+				} as const,
 			},
 			lineHeight: {
 				0: "0",
@@ -480,9 +484,13 @@ const mantlePreset = {
 		},
 	},
 	plugins: [
-		tailwindCssAnimatePlugin,
+		animationDurationPlugin,
+		ariaEnabledVariantPlugin,
 		firefoxVariantPlugin,
+		gradientStopPlugin,
 		pointingVariantsPlugin,
+		tailwindCssAnimatePlugin,
+		whereVariantPlugin,
 		plugin(function ({ addVariant }) {
 			addVariant("dark-high-contrast", [":is(.dark-high-contrast &)"]);
 			addVariant("high-contrast", [":is(.light-high-contrast &)"]);
@@ -490,10 +498,6 @@ const mantlePreset = {
 		plugin(function ({ addVariant }) {
 			addVariant("not-disabled", ["&:not(:disabled)"]);
 		}),
-		gradientStopPlugin,
-		whereVariantPlugin,
-		animationDurationPlugin,
-		ariaEnabledVariantPlugin,
 	],
 } satisfies Config;
 

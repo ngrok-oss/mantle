@@ -96,51 +96,45 @@ const ProgressDonut = ({
 
 	return (
 		<ProgressContext.Provider value={ctx}>
-			<span
+			<svg
+				aria-valuemax={max}
+				aria-valuemin={0}
+				aria-valuenow={valueNow}
 				className={clsx(
-					"inline-block leading-none",
-					// value === null && "animate-[spin_7500ms_linear_infinite]",
-					// "size-6 transform-gpu",
-					//
-					// value == null && "duration-15s animate-spin",
-					value == null && "animate-spin animation-duration-[15s]",
-					// value == null && "animate-spin",
+					"origin-center",
+					value != null && "-rotate-90 transform-gpu",
+					value == null && "animate-spin",
+					cx("size-6 text-gray-200 animation-duration-[15s] dark:text-gray-300", className),
 				)}
+				data-max={max}
+				data-min={0}
+				data-value={valueNow}
+				role="progressbar"
+				viewBox={`0 0 ${viewboxSize} ${viewboxSize}`}
+				style={{
+					"--spin-start-deg": "45deg",
+					"--spin-end-deg": "405deg",
+				}}
+				{...props}
 			>
-				<svg
-					aria-valuemax={max}
-					aria-valuemin={0}
-					aria-valuenow={valueNow}
-					className={clsx(
-						"-rotate-90 transform-gpu",
-						// value == null && "duration-15s animate-spin",
-						//,
-						// cx("size-6 text-gray-200", className),
-						cx("size-6 text-gray-200", className),
-					)}
-					data-max={max}
-					data-min={0}
-					data-value={valueNow}
-					role="progressbar"
-					viewBox={`0 0 ${viewboxSize} ${viewboxSize}`}
-					{...props}
-				>
-					{/* <g className="-rotate-90 transform-gpu"> */}
-					<circle
-						cx={viewboxSize / 2}
-						cy={viewboxSize / 2}
-						fill="transparent"
-						r={radius}
-						stroke="currentColor"
-						strokeWidth={pxToRem(strokeWidthPx)}
-					/>
-					{children}
-					{/* </g> */}
-				</svg>
-			</span>
+				<circle
+					cx={viewboxSize / 2}
+					cy={viewboxSize / 2}
+					fill="transparent"
+					r={radius}
+					stroke="currentColor"
+					strokeWidth={pxToRem(strokeWidthPx)}
+				/>
+				{children}
+			</svg>
 		</ProgressContext.Provider>
 	);
 };
+
+/**
+ * Length (value) of the progress indicator tail when the progress bar is indeterminate.
+ */
+const indeterminateTailPercent = 0.6;
 
 type ProgressDonutIndicatorProps = WithStyleProps;
 
@@ -152,15 +146,15 @@ const ProgressDonutIndicator = ({ className, style }: ProgressDonutIndicatorProp
 	const ctx = useContext(ProgressContext);
 	const isIndeterminate = ctx.value == null;
 	const circumferenceValue = circumference(ctx.radius);
-	const progressValue = ctx.value == null ? 0.6 : ctx.value / ctx.max;
+	const progressValue = ctx.value == null ? indeterminateTailPercent : ctx.value / ctx.max;
 
 	return (
 		<g className={cx("text-accent-600", className)} style={style}>
 			{isIndeterminate && (
 				<defs>
 					<linearGradient id={gradientId}>
-						<stop className="stop-current-color stop-opacity-100" offset="0%" />
-						<stop className="stop-current-color stop-opacity-0" offset="100%" />
+						<stop className="stop-opacity-100 stop-color-current" offset="0%" />
+						<stop className="stop-opacity-0 stop-color-current" offset="95%" />
 					</linearGradient>
 				</defs>
 			)}
@@ -172,7 +166,6 @@ const ProgressDonutIndicator = ({ className, style }: ProgressDonutIndicatorProp
 				stroke={isIndeterminate ? `url(#${gradientId})` : "currentColor"}
 				strokeDasharray={circumferenceValue}
 				strokeDashoffset={`${(1 - progressValue) * circumferenceValue}px`}
-				// strokeLinecap={isIndeterminate ? "butt" : "round"}
 				strokeLinecap="round"
 				strokeWidth={ctx.strokeWidth}
 			/>
