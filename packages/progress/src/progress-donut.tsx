@@ -139,7 +139,7 @@ const ProgressDonut = ({
 };
 
 type ProgressDonutIndicatorProps = WithStyleProps & {
-	tail?: number;
+	tail?: number; // todo(cody) only for debug/demo
 };
 /**
  * The indicator for the circular progress bar.
