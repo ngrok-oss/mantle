@@ -30,7 +30,7 @@
     /* Runs in the DOM */
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
   },
-  "include": ["packages/**/*", "assets/**/*"],
+  "include": ["packages/**/*", "assets/**/*", "typings/**/*.d.ts"],
 	"exclude": ["./packages/**/*.stories.*", "./packages/**/*.test.*"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
