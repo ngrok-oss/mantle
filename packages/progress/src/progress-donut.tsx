@@ -8,6 +8,30 @@ import type { WithStyleProps } from "../../types";
 type RemValue = `${number}rem`;
 type StrokeWidth = number | RemValue;
 
+/**
+ * The default maximum value of the progress bar.
+ */
+const defaultMax = 100;
+
+/**
+ * The size of the viewbox for the progress bar svg.
+ */
+const viewboxSize = 32;
+
+type ProgressContextValue = {
+	max: number;
+	radius: number;
+	strokeWidth: StrokeWidth;
+	value: number | null;
+};
+
+const ProgressContext = createContext<ProgressContextValue>({
+	max: defaultMax,
+	radius: 16,
+	strokeWidth: "0.25rem",
+	value: null,
+});
+
 type SvgAttributes = Omit<
 	HTMLAttributes<SVGElement>,
 	"viewBox" | "role" | "aria-valuemax" | "aria-valuemin" | "aria-valuenow"
@@ -39,31 +63,9 @@ type Props = SvgAttributes & {
 	 * @default null
 	 */
 	value?: number | undefined | null;
+
+	duration?: `duration-${number}${string}` | undefined;
 };
-
-/**
- * The default maximum value of the progress bar.
- */
-const defaultMax = 100;
-
-/**
- * The size of the viewbox for the progress bar svg.
- */
-const viewboxSize = 32;
-
-type ProgressContextValue = {
-	max: number;
-	radius: number;
-	strokeWidth: StrokeWidth;
-	value: number | null;
-};
-
-const ProgressContext = createContext<ProgressContextValue>({
-	max: defaultMax,
-	radius: 16,
-	strokeWidth: "0.25rem",
-	value: null,
-});
 
 /**
  * A simple circular progress bar.
@@ -75,6 +77,7 @@ const ProgressDonut = ({
 	strokeWidth: _strokeWidth = 4,
 	style,
 	value: _value,
+	duration = "duration-15s",
 	...props
 }: Props) => {
 	const max = isValidMaxNumber(_max) ? _max : defaultMax;
@@ -102,7 +105,9 @@ const ProgressDonut = ({
 					// value === null && "animate-[spin_7500ms_linear_infinite]",
 					// "size-6 transform-gpu",
 					//
-					value == null && "duration-15s animate-spin",
+					// value == null && "duration-15s animate-spin",
+					value == null && duration,
+					value == null && "animate-spin",
 				)}
 			>
 				<svg
@@ -140,18 +145,17 @@ const ProgressDonut = ({
 	);
 };
 
-type ProgressDonutIndicatorProps = WithStyleProps & {
-	tail?: number; // todo(cody) only for debug/demo
-};
+type ProgressDonutIndicatorProps = WithStyleProps;
+
 /**
  * The indicator for the circular progress bar.
  */
-const ProgressDonutIndicator = ({ className, style, tail = 0.6 }: ProgressDonutIndicatorProps) => {
+const ProgressDonutIndicator = ({ className, style }: ProgressDonutIndicatorProps) => {
 	const gradientId = useRandomStableId();
 	const ctx = useContext(ProgressContext);
 	const isIndeterminate = ctx.value == null;
 	const circumferenceValue = circumference(ctx.radius);
-	const progressValue = ctx.value == null ? tail : ctx.value / ctx.max;
+	const progressValue = ctx.value == null ? 0.6 : ctx.value / ctx.max;
 
 	return (
 		<g className={cx("text-accent-600", className)} style={style}>

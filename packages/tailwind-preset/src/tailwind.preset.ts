@@ -473,6 +473,7 @@ const mantlePreset = {
 				"5s": "5000ms",
 				"7.5s": "7500ms",
 				"10s": "10000ms",
+				"12.5s": "12500ms",
 				"15s": "15000ms",
 			},
 			transitionProperty: {
