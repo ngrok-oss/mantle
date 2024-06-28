@@ -3,8 +3,10 @@ import type { Config } from "tailwindcss";
 import tailwindCssAnimatePlugin from "tailwindcss-animate";
 import defaultTheme from "tailwindcss/defaultTheme";
 import plugin from "tailwindcss/plugin";
+import { animationDurationPlugin } from "./tailwind-plugin-animation-duration.js";
 import { ariaEnabledVariantPlugin } from "./tailwind-plugin-aria-enabled.js";
 import { firefoxVariantPlugin } from "./tailwind-plugin-firefox-variant.js";
+import { gradientStopPlugin } from "./tailwind-plugin-gradient-stop.js";
 import { pointingVariantsPlugin } from "./tailwind-plugin-pointing-variants.js";
 import { whereVariantPlugin } from "./tailwind-plugin-where-variant.js";
 
@@ -456,6 +458,10 @@ const mantlePreset = {
 					from: { height: "var(--radix-accordion-content-height)" },
 					to: { height: "0" },
 				},
+				spin: {
+					from: { transform: "rotate(var(--spin-start-deg, 0))" },
+					to: { transform: "rotate(var(--spin-end-deg, 360deg))" },
+				} as const,
 			},
 			lineHeight: {
 				0: "0",
@@ -465,7 +471,7 @@ const mantlePreset = {
 				xs: "480px",
 			},
 			spacing: {
-				"1.25": "0.3125rem",
+				"1.25": "0.3125rem", // 5px
 			},
 			transitionProperty: {
 				"max-height": "max-height",
@@ -477,9 +483,13 @@ const mantlePreset = {
 		},
 	},
 	plugins: [
-		tailwindCssAnimatePlugin,
+		animationDurationPlugin,
+		ariaEnabledVariantPlugin,
 		firefoxVariantPlugin,
+		gradientStopPlugin,
 		pointingVariantsPlugin,
+		tailwindCssAnimatePlugin,
+		whereVariantPlugin,
 		plugin(function ({ addVariant }) {
 			addVariant("dark-high-contrast", [":is(.dark-high-contrast &)"]);
 			addVariant("high-contrast", [":is(.light-high-contrast &)"]);
@@ -487,8 +497,6 @@ const mantlePreset = {
 		plugin(function ({ addVariant }) {
 			addVariant("not-disabled", ["&:not(:disabled)"]);
 		}),
-		whereVariantPlugin,
-		ariaEnabledVariantPlugin,
 	],
 } satisfies Config;
 

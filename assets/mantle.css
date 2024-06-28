@@ -1508,6 +1508,16 @@
 		color-scheme: dark;
 	}
 
+	/* .stop-current-color {
+		stop-color: currentColor;
+	}
+	.stop-opacity-100 {
+		stop-opacity: 1;
+	}
+	.stop-opacity-0 {
+		stop-opacity: 0;
+	} */
+
 	.scrollbar::-webkit-scrollbar {
 		width: 0.5rem;
 		height: 0.5rem;

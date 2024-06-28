@@ -2,10 +2,36 @@ import clsx from "clsx";
 import { createContext, useContext, useMemo } from "react";
 import type { HTMLAttributes } from "react";
 import { cx } from "../../cx";
+import { useRandomStableId } from "../../hooks";
 import type { WithStyleProps } from "../../types";
 
 type RemValue = `${number}rem`;
 type StrokeWidth = number | RemValue;
+type ValueType = number | "indeterminate";
+
+/**
+ * The default maximum value of the progress bar.
+ */
+const defaultMax = 100;
+
+/**
+ * The size of the viewbox for the progress bar svg.
+ */
+const viewboxSize = 32;
+
+type ProgressContextValue = {
+	max: number;
+	radius: number;
+	strokeWidth: StrokeWidth;
+	value: ValueType;
+};
+
+const ProgressContext = createContext<ProgressContextValue>({
+	max: defaultMax,
+	radius: 16,
+	strokeWidth: "0.25rem",
+	value: 0,
+});
 
 type SvgAttributes = Omit<
 	HTMLAttributes<SVGElement>,
@@ -33,35 +59,12 @@ type Props = SvgAttributes & {
 	 * The current value of the progress bar.
 	 * This attribute specifies how much of the task that has been completed.
 	 * It must be a valid floating point number between 0 and max, or between 0 and 100 if max is omitted.
+	 * If set to `"indeterminate"`, the progress bar is considered indeterminate.
 	 *
 	 * @default 0
 	 */
-	value?: number | undefined; // | null; // in the future we'll support null for `indeterminate` state
+	value?: ValueType | undefined;
 };
-
-/**
- * The default maximum value of the progress bar.
- */
-const defaultMax = 100;
-
-/**
- * The size of the viewbox for the progress bar svg.
- */
-const viewboxSize = 32;
-
-type ProgressContextValue = {
-	max: number;
-	radius: number;
-	strokeWidth: StrokeWidth;
-	value: number;
-};
-
-const ProgressContext = createContext<ProgressContextValue>({
-	max: defaultMax,
-	radius: 16,
-	strokeWidth: "0.25rem",
-	value: 0,
-});
 
 /**
  * A simple circular progress bar.
@@ -76,7 +79,7 @@ const ProgressDonut = ({
 	...props
 }: Props) => {
 	const max = isValidMaxNumber(_max) ? _max : defaultMax;
-	const value = isValidValueNumber(_value, max) ? _value : 0; // in the future we'll support `null` for `indeterminate` state
+	const value = (isValidValueNumber(_value, max) ? _value : _value == null ? 0 : "indeterminate") satisfies ValueType;
 	const strokeWidthPx = deriveStrokeWidthPx(_strokeWidth);
 	const strokeWidthRem = pxToRem(strokeWidthPx);
 	const radius = circleRadius(strokeWidthPx);
@@ -98,12 +101,21 @@ const ProgressDonut = ({
 				aria-valuemax={max}
 				aria-valuemin={0}
 				aria-valuenow={valueNow}
-				className={clsx("-rotate-90 transform-gpu", cx("size-6 text-gray-200 dark:text-gray-300", className))}
+				className={clsx(
+					"origin-center",
+					value === "indeterminate" && "animate-spin",
+					value !== "indeterminate" && "-rotate-90 transform-gpu",
+					cx("size-6 text-gray-200 animation-duration-[15s] dark:text-gray-300", className),
+				)}
 				data-max={max}
 				data-min={0}
 				data-value={valueNow}
 				role="progressbar"
 				viewBox={`0 0 ${viewboxSize} ${viewboxSize}`}
+				style={{
+					"--spin-start-deg": "45deg",
+					"--spin-end-deg": "405deg",
+				}}
 				{...props}
 			>
 				<circle
@@ -121,21 +133,37 @@ const ProgressDonut = ({
 };
 
 /**
+ * Length (value) of the progress indicator tail when the progress bar is indeterminate.
+ */
+const indeterminateTailPercent = 0.6;
+
+type ProgressDonutIndicatorProps = WithStyleProps;
+
+/**
  * The indicator for the circular progress bar.
  */
-const ProgressDonutIndicator = ({ className, style }: WithStyleProps) => {
+const ProgressDonutIndicator = ({ className, style }: ProgressDonutIndicatorProps) => {
+	const gradientId = useRandomStableId();
 	const ctx = useContext(ProgressContext);
-	const progressValue = ctx.value / ctx.max;
 	const circumferenceValue = circumference(ctx.radius);
+	const progressValue = ctx.value == "indeterminate" ? indeterminateTailPercent : ctx.value / ctx.max;
 
 	return (
 		<g className={cx("text-accent-600", className)} style={style}>
+			{ctx.value == "indeterminate" && (
+				<defs>
+					<linearGradient id={gradientId}>
+						<stop className="stop-opacity-100 stop-color-current" offset="0%" />
+						<stop className="stop-opacity-0 stop-color-current" offset="95%" />
+					</linearGradient>
+				</defs>
+			)}
 			<circle
 				cx={viewboxSize / 2}
 				cy={viewboxSize / 2}
 				fill="transparent"
 				r={ctx.radius}
-				stroke="currentColor"
+				stroke={ctx.value == "indeterminate" ? `url(#${gradientId})` : "currentColor"}
 				strokeDasharray={circumferenceValue}
 				strokeDashoffset={`${(1 - progressValue) * circumferenceValue}px`}
 				strokeLinecap="round"
