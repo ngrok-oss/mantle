@@ -102,7 +102,7 @@ const ProgressDonut = ({
 					// value === null && "animate-[spin_7500ms_linear_infinite]",
 					// "size-6 transform-gpu",
 					//
-					value == null && "animate-spin duration-15s",
+					value == null && "duration-15s animate-spin",
 				)}
 			>
 				<svg
@@ -171,7 +171,8 @@ const ProgressDonutIndicator = ({ className, style, tail = 0.6 }: ProgressDonutI
 				stroke={isIndeterminate ? `url(#${gradientId})` : "currentColor"}
 				strokeDasharray={circumferenceValue}
 				strokeDashoffset={`${(1 - progressValue) * circumferenceValue}px`}
-				strokeLinecap={isIndeterminate ? "butt" : "round"}
+				// strokeLinecap={isIndeterminate ? "butt" : "round"}
+				strokeLinecap="round"
 				strokeWidth={ctx.strokeWidth}
 			/>
 		</g>
