@@ -1,13 +1,12 @@
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
-import { Input } from "@/input";
 import { Label } from "@/label";
+import { Switch } from "@/switch";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
-import { PreviewBadge } from "~/components/preview-badge";
 
 export const meta: MetaFunction = () => {
 	return [
-		{ title: "@ngrok/mantle — Label" },
+		{ title: "@ngrok/mantle — Switch" },
 		{ name: "description", content: "mantle is ngrok's UI library and design system" },
 	];
 };
@@ -22,22 +21,41 @@ export default function Page() {
 	return (
 		<div className="space-y-16">
 			<section className="space-y-4">
-				<div className="flex items-center gap-3">
-					<h1 className="text-5xl font-medium">Label</h1>
-					<PreviewBadge />
-				</div>
-				<p className="text-xl text-body">Renders an accessible label associated with controls.</p>
+				<h1 className="text-5xl font-medium">Switch</h1>
+				<p className="text-xl text-body">A control that allows the user to toggle between checked and not checked.</p>
 				<div>
-					<Example className="grid gap-6">
-						<Label htmlFor="name">
-							Name: <Input type="text" id="name" />
+					<Example className="mt-4 grid gap-6">
+						<Label
+							htmlFor="airplane-mode"
+							className="flex cursor-pointer items-center gap-2 has-[:disabled]:cursor-default"
+						>
+							<Switch id="airplane-mode" readOnly />
+							<p>Airplane Mode</p>
 						</Label>
-						<div className="flex items-center gap-2">
-							<Label htmlFor="name-2">Name:</Label>
-							<Input type="text" id="name-2" />
-						</div>
-						<Label htmlFor="name-disabled">
-							Name: <Input type="text" id="name" disabled readOnly validation="error" value="foo" />
+						<Label
+							htmlFor="unchecked"
+							className="flex cursor-pointer items-center gap-2 has-[:disabled]:cursor-default"
+						>
+							<Switch checked={false} id="unchecked" readOnly />
+							<p>Unchecked (readonly)</p>
+						</Label>
+						<Label htmlFor="checked" className="flex cursor-pointer items-center gap-2 has-[:disabled]:cursor-default">
+							<Switch checked={true} id="checked" readOnly />
+							<p>Checked (readonly)</p>
+						</Label>
+						<Label
+							htmlFor="airplane-mode-disabled-unchecked"
+							className="flex cursor-pointer items-center gap-2 has-[:disabled]:cursor-default"
+						>
+							<Switch disabled id="airplane-mode-disabled-unchecked" readOnly />
+							<p>Airplane Mode Disabled Unchecked (readonly)</p>
+						</Label>
+						<Label
+							htmlFor="airplane-mode-disabled-checked"
+							className="flex cursor-pointer items-center gap-2 has-[:disabled]:cursor-default"
+						>
+							<Switch checked disabled id="airplane-mode-disabled-checked" readOnly />
+							<p>Airplane Mode Disabled Checked (readonly)</p>
 						</Label>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
@@ -46,17 +64,16 @@ export default function Page() {
 							<CodeBlockCode
 								language="tsx"
 								value={fmtCode`
-									import { Input } from "@ngrok/mantle/input";
 									import { Label } from "@ngrok/mantle/label";
+									import { Switch } from "@ngrok/mantle/switch";
 
-									<Label htmlFor="name">
-										Name: <Input type="text" id="name" />
+									<Label
+										htmlFor="airplane-mode"
+										className="flex cursor-pointer items-center gap-2 has-[:disabled]:cursor-default"
+									>
+										<Switch id="airplane-mode" />
+										<p>Airplane Mode</p>
 									</Label>
-
-									<div className="flex items-center gap-2">
-										<Label htmlFor="name-2">Name:</Label>
-										<Input type="text" id="name-2" />
-									</div>
 								`}
 							/>
 						</CodeBlockBody>
