@@ -75,8 +75,8 @@ export default function Page() {
 
 							<div className="flex items-center gap-1.5 text-xs">
 								<div className="grid w-6 place-items-center">
-									<ProgressDonut value={25} className="size-4" strokeWidth="0.315rem">
-										<ProgressDonutIndicator className="text-success-600" />
+									<ProgressDonut className="size-4" value="indeterminate" strokeWidth="0.315rem">
+										<ProgressDonutIndicator />
 									</ProgressDonut>
 								</div>
 								Additional
