@@ -9,7 +9,7 @@ import type { VariantProps, WithAsChild } from "../../types";
 import { parseBooleanish } from "../../types";
 
 const iconButtonVariants = cva(
-	"inline-flex cursor-pointer items-center justify-center rounded-md border focus-within:outline-none focus-visible:ring-4 disabled:cursor-default disabled:opacity-50",
+	"inline-flex shrink-0 cursor-pointer items-center justify-center rounded-md border focus-within:outline-none focus-visible:ring-4 disabled:cursor-default disabled:opacity-50",
 	{
 		variants: {
 			/**
