@@ -147,7 +147,7 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 
 		const buttonProps = {
 			"aria-disabled": disabled,
-			className: cx(iconButtonVariants({ appearance, isLoading, size }), className),
+			className: cx("icon-button", iconButtonVariants({ appearance, isLoading, size }), className),
 			"data-loading": isLoading,
 			"data-size": size,
 			disabled,

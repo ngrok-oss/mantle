@@ -52,8 +52,14 @@ const DialogContent = forwardRef<ElementRef<"div">, ComponentPropsWithoutRef<typ
 DialogContent.displayName = DialogPrimitive.Content.displayName;
 
 const DialogHeader = ({ className, children, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-	<div className={cx("relative min-h-16 border-b border-dialog-muted px-4 py-6 text-strong", className)} {...props}>
-		<DialogCloseIconButton className="absolute right-4 top-3.5 float-right" />
+	<div
+		className={cx(
+			"relative flex h-full items-center justify-between gap-2 border-b border-dialog-muted px-6 py-4 text-strong",
+			"has-[.icon-button]:pr-4", // when there are actions in the header, shorten the padding
+			className,
+		)}
+		{...props}
+	>
 		{children}
 	</div>
 );
@@ -73,15 +79,12 @@ const DialogCloseIconButton = ({
 );
 
 const DialogBody = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-	<div className={cx("scrollbar flex-1 overflow-y-auto p-4 text-body", className)} {...props} />
+	<div className={cx("scrollbar flex-1 overflow-y-auto p-6 text-body", className)} {...props} />
 );
 DialogBody.displayName = "DialogBody";
 
 const DialogFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-	<div
-		className={cx("flex shrink-0 flex-row-reverse gap-2 border-t border-dialog-muted px-4 py-3", className)}
-		{...props}
-	/>
+	<div className={cx("flex shrink-0 flex-row-reverse gap-2 border-dialog-muted px-6 py-4", className)} {...props} />
 );
 DialogFooter.displayName = "DialogFooter";
 
@@ -89,11 +92,7 @@ const DialogTitle = forwardRef<
 	ElementRef<typeof DialogPrimitive.Title>,
 	ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
 >(({ className, ...props }, ref) => (
-	<DialogPrimitive.Title
-		ref={ref}
-		className={cx("text-lg font-medium leading-none text-strong", className)}
-		{...props}
-	/>
+	<DialogPrimitive.Title ref={ref} className={cx("truncate text-lg font-medium text-strong", className)} {...props} />
 ));
 DialogTitle.displayName = DialogPrimitive.Title.displayName;
 
