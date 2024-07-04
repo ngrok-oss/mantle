@@ -26,7 +26,7 @@ const HorizontalSeparatorGroup = ({ className, children, ...props }: HTMLAttribu
 	</SeparatorGroupContext.Provider>
 );
 
-type SeparatorProps = ComponentPropsWithoutRef<typeof SeparatorPrimitive.Root>;
+type SeparatorProps = Omit<ComponentPropsWithoutRef<typeof SeparatorPrimitive.Root>, "children">;
 
 /**
  * Visually or semantically separates content.
