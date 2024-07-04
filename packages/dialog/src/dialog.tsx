@@ -54,7 +54,7 @@ DialogContent.displayName = DialogPrimitive.Content.displayName;
 const DialogHeader = ({ className, children, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
 	<div
 		className={cx(
-			"relative flex h-full items-center justify-between gap-2 border-b border-dialog-muted px-6 py-4 text-strong",
+			"relative flex shrink-0 items-center justify-between gap-2 border-b border-dialog-muted px-6 py-4 text-strong",
 			"has-[.icon-button]:pr-4", // when there are actions in the header, shorten the padding
 			className,
 		)}
@@ -84,7 +84,10 @@ const DialogBody = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement
 DialogBody.displayName = "DialogBody";
 
 const DialogFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-	<div className={cx("flex shrink-0 flex-row-reverse gap-2 border-dialog-muted px-6 py-4", className)} {...props} />
+	<div
+		className={cx("flex shrink-0 flex-row-reverse gap-2 border-t border-dialog-muted px-6 py-4", className)}
+		{...props}
+	/>
 );
 DialogFooter.displayName = "DialogFooter";
 
@@ -106,15 +109,15 @@ DialogDescription.displayName = DialogPrimitive.Description.displayName;
 
 export {
 	Dialog,
-	DialogPortal,
-	DialogOverlay,
-	DialogTrigger,
+	DialogBody,
 	DialogClose,
 	DialogCloseIconButton,
 	DialogContent,
-	DialogHeader,
-	DialogBody,
-	DialogFooter,
-	DialogTitle,
 	DialogDescription,
+	DialogFooter,
+	DialogHeader,
+	DialogOverlay,
+	DialogPortal,
+	DialogTitle,
+	DialogTrigger,
 };
