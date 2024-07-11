@@ -30,7 +30,7 @@ const SheetOverlay = forwardRef<
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName;
 
 const SheetVariants = cva(
-	"fixed z-40 flex flex-col bg-dialog shadow-lg transition ease-in-out data-state-closed:duration-100 data-state-closed:animate-out data-state-open:duration-100 data-state-open:animate-in",
+	"fixed z-40 flex flex-col bg-dialog shadow-lg outline-none transition ease-in-out focus-within:outline-none data-state-closed:duration-100 data-state-closed:animate-out data-state-open:duration-100 data-state-open:animate-in",
 	{
 		variants: {
 			side: {
