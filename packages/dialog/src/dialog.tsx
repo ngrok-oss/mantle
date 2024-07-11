@@ -36,6 +36,7 @@ const DialogContent = forwardRef<ElementRef<"div">, ComponentPropsWithoutRef<typ
 				<DialogPrimitive.Content
 					className={cx(
 						"flex max-h-full w-full max-w-lg flex-1 flex-col",
+						"outline-none focus-within:outline-none",
 						"rounded-xl border border-dialog bg-dialog shadow-lg transition-transform duration-200",
 						"data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 data-state-open:animate-in data-state-open:fade-in-0 data-state-open:zoom-in-95",
 						className,
