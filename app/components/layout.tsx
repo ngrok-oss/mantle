@@ -134,6 +134,7 @@ const prodReadyComponents = [
 	"Label",
 	"Media Object",
 	"Password Input",
+	"Progress Donut",
 	"Radio Group",
 	"Select",
 	"Separator",
@@ -155,7 +156,6 @@ const previewComponents = [
 	//,
 	"Calendar",
 	"Popover",
-	"Progress Donut",
 	"Tooltip",
 ] as const;
 
@@ -176,6 +176,7 @@ const prodReadyComponentRouteLookup = {
 	Label: "/components/label",
 	"Media Object": "/components/media-object",
 	"Password Input": "/components/password-input",
+	"Progress Donut": "/components/progress-donut",
 	"Radio Group": "/components/radio-group",
 	Select: "/components/select",
 	Separator: "/components/separator",
@@ -191,7 +192,6 @@ const prodReadyComponentRouteLookup = {
 const previewComponentsRouteLookup = {
 	Calendar: "/components/preview/calendar",
 	Popover: "/components/preview/popover",
-	"Progress Donut": "/components/preview/progress-donut",
 	Tooltip: "/components/preview/tooltip",
 } as const satisfies Record<(typeof previewComponents)[number], Route>;
 
