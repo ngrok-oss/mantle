@@ -10,6 +10,8 @@ import { cx } from "../../cx";
  *
  * @preview This component is in `preview` mode which means the API is not stable and may change.
  * There may also be bugs! Please file an issue if you find any! <3
+ *
+ * https://github.com/ngrok-oss/mantle/issues
  */
 const Popover = PopoverPrimitive.Root;
 
@@ -18,6 +20,8 @@ const Popover = PopoverPrimitive.Root;
  *
  * @preview This component is in `preview` mode which means the API is not stable and may change.
  * There may also be bugs! Please file an issue if you find any! <3
+ *
+ * https://github.com/ngrok-oss/mantle/issues
  */
 const PopoverTrigger = PopoverPrimitive.Trigger;
 
@@ -26,6 +30,8 @@ const PopoverTrigger = PopoverPrimitive.Trigger;
  *
  * @preview This component is in `preview` mode which means the API is not stable and may change.
  * There may also be bugs! Please file an issue if you find any! <3
+ *
+ * https://github.com/ngrok-oss/mantle/issues
  */
 const PopoverContent = forwardRef<
 	ElementRef<typeof PopoverPrimitive.Content>,

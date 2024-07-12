@@ -9,6 +9,8 @@ import { cx } from "../../cx";
  *
  * @preview This component is in `preview` mode which means the API is not stable and may change.
  * There may also be bugs! Please file an issue if you find any! <3
+ *
+ * https://github.com/ngrok-oss/mantle/issues
  */
 const TooltipProvider = ({ delayDuration = 0, ...props }: ComponentPropsWithoutRef<typeof Provider>) => (
 	<Provider delayDuration={delayDuration ?? 0} {...props} />
@@ -21,6 +23,8 @@ const TooltipProvider = ({ delayDuration = 0, ...props }: ComponentPropsWithoutR
  *
  * @preview This component is in `preview` mode which means the API is not stable and may change.
  * There may also be bugs! Please file an issue if you find any! <3
+ *
+ * https://github.com/ngrok-oss/mantle/issues
  */
 const Tooltip = Root;
 
@@ -29,6 +33,8 @@ const Tooltip = Root;
  *
  * @preview This component is in `preview` mode which means the API is not stable and may change.
  * There may also be bugs! Please file an issue if you find any! <3
+ *
+ * https://github.com/ngrok-oss/mantle/issues
  */
 const TooltipTrigger = Trigger;
 
@@ -37,6 +43,8 @@ const TooltipTrigger = Trigger;
  *
  * @preview This component is in `preview` mode which means the API is not stable and may change.
  * There may also be bugs! Please file an issue if you find any! <3
+ *
+ * https://github.com/ngrok-oss/mantle/issues
  */
 const TooltipContent = forwardRef<ElementRef<typeof Content>, ComponentPropsWithoutRef<typeof Content>>(
 	({ children, className, sideOffset = 4, ...props }, ref) => (
