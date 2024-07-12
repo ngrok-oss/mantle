@@ -4,7 +4,6 @@ import { InlineCode } from "@/inline-code";
 import { ProgressDonut, ProgressDonutIndicator } from "@/progress";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
-import { PreviewBadge } from "~/components/preview-badge";
 import {
 	NumberPropType,
 	PropDefaultValueCell,
@@ -34,10 +33,7 @@ export default function Page() {
 	return (
 		<div className="space-y-16">
 			<div className="space-y-4">
-				<div className="flex items-center gap-3">
-					<h1 className="text-5xl font-medium">Progress Donut</h1>
-					<PreviewBadge />
-				</div>
+				<h1 className="text-5xl font-medium">Progress Donut</h1>
 				<p className="text-xl text-body">
 					Displays an indicator showing the completion progress of a task as a circular progress bar.
 				</p>
