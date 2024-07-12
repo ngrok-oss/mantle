@@ -125,6 +125,7 @@ const prodReadyComponents = [
 	"Card",
 	"Checkbox",
 	"Code Block",
+	"Dialog",
 	"Dropdown Menu",
 	"Icon Button",
 	"Icon",
@@ -136,6 +137,7 @@ const prodReadyComponents = [
 	"Radio Group",
 	"Select",
 	"Separator",
+	"Sheet",
 	"Skeleton",
 	"Switch",
 	"Table",
@@ -152,10 +154,8 @@ const prodReadyComponents = [
 const previewComponents = [
 	//,
 	"Calendar",
-	"Dialog",
 	"Popover",
 	"Progress Donut",
-	"Sheet",
 	"Tooltip",
 ] as const;
 
@@ -167,6 +167,7 @@ const prodReadyComponentRouteLookup = {
 	Card: "/components/card",
 	Checkbox: "/components/checkbox",
 	"Code Block": "/components/code-block",
+	Dialog: "/components/dialog",
 	"Dropdown Menu": "/components/dropdown-menu",
 	Icon: "/components/icon",
 	"Icon Button": "/components/icon-button",
@@ -178,6 +179,7 @@ const prodReadyComponentRouteLookup = {
 	"Radio Group": "/components/radio-group",
 	Select: "/components/select",
 	Separator: "/components/separator",
+	Sheet: "/components/sheet",
 	Skeleton: "/components/skeleton",
 	Switch: "/components/switch",
 	Table: "/components/table",
@@ -188,10 +190,8 @@ const prodReadyComponentRouteLookup = {
 
 const previewComponentsRouteLookup = {
 	Calendar: "/components/preview/calendar",
-	Dialog: "/components/preview/dialog",
 	Popover: "/components/preview/popover",
 	"Progress Donut": "/components/preview/progress-donut",
-	Sheet: "/components/preview/sheet",
 	Tooltip: "/components/preview/tooltip",
 } as const satisfies Record<(typeof previewComponents)[number], Route>;
 
