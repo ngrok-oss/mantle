@@ -13,7 +13,6 @@ import {
 } from "@/dialog";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
-import { PreviewBadge } from "~/components/preview-badge";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -32,10 +31,7 @@ export default function Page() {
 	return (
 		<div className="space-y-16">
 			<section className="space-y-4">
-				<div className="flex items-center gap-3">
-					<h1 className="text-5xl font-medium">Dialog</h1>
-					<PreviewBadge />
-				</div>
+				<h1 className="text-5xl font-medium">Dialog</h1>
 				<p className="text-xl text-body">
 					A window overlaid on either the primary window or another dialog window, rendering the content underneath
 					inert.
