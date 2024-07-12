@@ -50,22 +50,22 @@ export default function Page() {
 						<CodeBlockCode
 							language="tsx"
 							value={fmtCode`
-						import { Button } from "@ngrok/mantle/button";
-						import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@ngrok/mantle/tooltip";
+								import { Button } from "@ngrok/mantle/button";
+								import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@ngrok/mantle/tooltip";
 
-						<TooltipProvider>
-							<Tooltip>
-								<TooltipTrigger asChild>
-									<Button appearance="filled" priority="default">
-										Hover
-									</Button>
-								</TooltipTrigger>
-								<TooltipContent>
-									<p>Add to library</p>
-								</TooltipContent>
-							</Tooltip>
-						</TooltipProvider>
-					`}
+								<TooltipProvider>
+									<Tooltip>
+										<TooltipTrigger asChild>
+											<Button appearance="filled" priority="default">
+												Hover
+											</Button>
+										</TooltipTrigger>
+										<TooltipContent>
+											<p>Add to library</p>
+										</TooltipContent>
+									</Tooltip>
+								</TooltipProvider>
+							`}
 						/>
 					</CodeBlockBody>
 				</CodeBlock>

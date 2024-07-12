@@ -1,3 +1,9 @@
-export { Calendar } from "./src/calendar";
+export {
+	//,
+	Calendar,
+} from "./src/calendar";
 
-export type { CalendarProps } from "./src/calendar";
+export type {
+	//,
+	CalendarProps,
+} from "./src/calendar";
