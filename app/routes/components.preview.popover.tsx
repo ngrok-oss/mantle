@@ -74,17 +74,17 @@ export default function Page() {
 						<CodeBlockCode
 							language="tsx"
 							value={fmtCode`
-							import { Popover, PopoverContent, PopoverTrigger } from "@ngrok/mantle/popover";
+								import { Popover, PopoverContent, PopoverTrigger } from "@ngrok/mantle/popover";
 
-							<Popover>
-								<PopoverTrigger asChild>
-									<Button>Open popover</Button>
-								</PopoverTrigger>
-								<PopoverContent className="w-80">
-									<p>Reprehenderit veniam excepteur incididunt et ut eu.</p>
-								</PopoverContent>
-							</Popover>
-						`}
+								<Popover>
+									<PopoverTrigger asChild>
+										<Button>Open popover</Button>
+									</PopoverTrigger>
+									<PopoverContent className="w-80">
+										<p>Reprehenderit veniam excepteur incididunt et ut eu.</p>
+									</PopoverContent>
+								</Popover>
+							`}
 						/>
 					</CodeBlockBody>
 				</CodeBlock>

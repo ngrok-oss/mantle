@@ -7,6 +7,12 @@ import { cx } from "../../cx";
 
 type CalendarProps = ComponentProps<typeof DayPicker>;
 
+/**
+ * A calendar component that allows users to select a date or a range of dates.
+ *
+ * @preview This component is in `preview` mode which means the API is not stable and may change.
+ * There may also be bugs! Please file an issue if you find any! <3
+ */
 function Calendar({ className, classNames, showOutsideDays = false, ...props }: CalendarProps) {
 	return (
 		<DayPicker
@@ -54,6 +60,12 @@ function Calendar({ className, classNames, showOutsideDays = false, ...props }: 
 }
 Calendar.displayName = "Calendar";
 
-export { Calendar };
+export {
+	//,
+	Calendar,
+};
 
-export type { CalendarProps };
+export type {
+	//,
+	CalendarProps,
+};
