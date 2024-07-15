@@ -19,7 +19,7 @@ export const PropsTable = ({ children, className, style }: PropsTableProps) => (
 					<TableHead>Description</TableHead>
 				</TableRow>
 			</TableHeader>
-			<TableBody className="text-xs text-body">{children}</TableBody>
+			<TableBody className="font-body text-xs text-body">{children}</TableBody>
 		</Table>
 	</div>
 );

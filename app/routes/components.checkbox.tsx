@@ -35,7 +35,7 @@ export default function Page() {
 		<div className="space-y-16">
 			<section className="space-y-4">
 				<h1 className="text-5xl font-medium">Checkbox</h1>
-				<p className="text-xl text-body">
+				<p className="font-body text-xl text-body">
 					A form control that allows the user to toggle between checked and not checked.
 				</p>
 				<div>
@@ -106,7 +106,7 @@ export default function Page() {
 				<h2 id="api" className="text-3xl font-medium">
 					API Reference
 				</h2>
-				<p className="text-xl text-body">
+				<p className="font-body text-xl text-body">
 					The <InlineCode>Checkbox</InlineCode> accepts the following props in addition to the{" "}
 					<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox">
 						standard HTML checkbox input attributes

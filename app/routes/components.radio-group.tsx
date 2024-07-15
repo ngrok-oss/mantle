@@ -31,7 +31,7 @@ export default function Page() {
 		<div className="space-y-16">
 			<section className="space-y-4">
 				<h1 className="text-5xl font-medium">Radio Group</h1>
-				<p className="text-xl text-body">
+				<p className="font-body text-xl text-body">
 					A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a
 					time.
 				</p>
@@ -277,7 +277,7 @@ export default function Page() {
 				<h2 id="composition" className="text-3xl font-medium">
 					Composition
 				</h2>
-				<p className="text-xl text-body">
+				<p className="text-xl font-body">
 					When you want to render <span className="italic">something else</span> as a <InlineCode>Button</InlineCode>,
 					you can use the <InlineCode>asChild</InlineCode> prop to compose. This is useful when you want to splat the{" "}
 					<InlineCode>Button</InlineCode> styling onto a <InlineCode>Link</InlineCode> from{" "}

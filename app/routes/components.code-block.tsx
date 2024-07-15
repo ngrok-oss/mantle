@@ -33,7 +33,9 @@ export default function Page() {
 		<div className="space-y-16">
 			<section className="space-y-4">
 				<h1 className="text-5xl font-medium">Code Block</h1>
-				<p className="text-xl text-body">Code blocks render and apply syntax highlighting to blocks of code.</p>
+				<p className="font-body text-xl text-body">
+					Code blocks render and apply syntax highlighting to blocks of code.
+				</p>
 
 				<div>
 					<Example>
@@ -136,7 +138,7 @@ export default function Page() {
 				<section className="space-y-4">
 					<header className="space-y-1">
 						<h3 className="text-xl font-medium">Single Line with a Header</h3>
-						<p className="text-body">
+						<p className="font-body text-body">
 							Many code blocks will be single line command line prompts and should be able to render with a header and
 							copy button. This makes it absolutely clear that this example is a command line prompt and not a code
 							sample.
@@ -185,7 +187,7 @@ export default function Page() {
 				<section className="space-y-4">
 					<header className="space-y-1">
 						<h3 className="text-xl font-medium">Horizontal Scrolling</h3>
-						<p className="text-body">
+						<p className="font-body text-body">
 							This example is included to demonstrate that code blocks can scroll horizontally if the content is too
 							wide. Mantle attempts to normalize scrollbar styling across browsers and platforms.
 						</p>
@@ -270,7 +272,7 @@ export default function Page() {
 				<section className="space-y-4">
 					<header className="space-y-1">
 						<h3 className="text-xl font-medium">No Header or Copy Button</h3>
-						<p className="text-body">
+						<p className="font-body text-body">
 							This is the most simple example of our code block component. While very useful, the copy button is
 							optional. It is also perfectly acceptable to render a code block without a header, especially if context
 							is provided in the surrounding content or the code block is self-explanatory eg. “In your index.js file,
@@ -335,7 +337,7 @@ export default function Page() {
 				<section className="space-y-4">
 					<header className="space-y-1">
 						<h3 className="text-xl font-medium">Single Line with Horizontal Scrolling</h3>
-						<p className="text-body">
+						<p className="font-body text-body">
 							This example is included to show the interaction between the copy button and horizontal scrolling on a
 							single verbose terminal command.
 						</p>
@@ -379,7 +381,7 @@ export default function Page() {
 				<h2 id="supported-languages" className="text-3xl font-medium">
 					Supported Languages
 				</h2>
-				<p className="text-xl text-body">Mantle supports the following languages:</p>
+				<p className="font-body text-xl text-body">Mantle supports the following languages:</p>
 
 				<Card className="font-mono text-xs">
 					<CardBody>

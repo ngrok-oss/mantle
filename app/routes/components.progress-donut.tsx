@@ -34,10 +34,10 @@ export default function Page() {
 		<div className="space-y-16">
 			<div className="space-y-4">
 				<h1 className="text-5xl font-medium">Progress Donut</h1>
-				<p className="text-xl text-body">
+				<p className="font-body text-xl text-body">
 					Displays an indicator showing the completion progress of a task as a circular progress bar.
 				</p>
-				<p className="text-xl text-body">
+				<p className="font-body text-xl text-body">
 					The indicator color is inherited via <InlineCode>currentColor</InlineCode>. Override the default (
 					<InlineCode>accent-600</InlineCode>) by setting the
 					<InlineCode>ProgressDonutIndicator</InlineCode>'s text color.
@@ -131,7 +131,7 @@ export default function Page() {
 				<h2 id="indeterminate" className="text-3xl font-medium">
 					Indeterminate Value
 				</h2>
-				<p className="text-xl text-body">
+				<p className="font-body text-xl text-body">
 					You can set the <InlineCode>value</InlineCode> prop to <InlineCode>"indeterminate"</InlineCode> to show the
 					progress bar in an indeterminate state.
 				</p>
@@ -162,7 +162,7 @@ export default function Page() {
 				<h2 id="dynamic-colors" className="text-3xl font-medium">
 					Dynamic Colors
 				</h2>
-				<p className="text-xl text-body">
+				<p className="font-body text-xl text-body">
 					The color of the <InlineCode>ProgressDonutIndicator</InlineCode> is inherited from the parent text color using{" "}
 					<InlineCode>currentColor</InlineCode>. Using this, you can easily change the color of it based on the current
 					progress value.
@@ -222,7 +222,7 @@ export default function Page() {
 				<h2 id="api" className="text-3xl font-medium">
 					API Reference
 				</h2>
-				<p className="text-xl text-body">
+				<p className="font-body text-xl text-body">
 					The <InlineCode>ProgressDonut</InlineCode> accepts the following props in addition to the{" "}
 					<Anchor href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/svg#attributes">
 						standard HTML svg attributes

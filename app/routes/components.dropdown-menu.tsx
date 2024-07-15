@@ -58,7 +58,7 @@ export default function Page() {
 		<div className="space-y-16">
 			<section className="space-y-4">
 				<h1 className="text-5xl font-medium">Dropdown Menu</h1>
-				<p className="text-xl text-body">
+				<p className="font-body text-xl text-body">
 					Displays a menu to the user — such as a set of actions or functions — triggered by a button.
 				</p>
 				<div>
@@ -299,7 +299,7 @@ export default function Page() {
 					<h2 id="api" className="text-3xl font-medium">
 						API Reference
 					</h2>
-					<p className="text-xl text-body">
+					<p className="font-body text-xl text-body">
 						The <InlineCode>DropdownMenu</InlineCode> components are built on top of{" "}
 						<Anchor
 							href="https://www.radix-ui.com/primitives/docs/components/dropdown-menu"

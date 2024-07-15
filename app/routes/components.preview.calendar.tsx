@@ -117,7 +117,7 @@ export default function Page() {
 					</h1>
 					<PreviewBadge />
 				</div>
-				<p className="text-xl text-body">A date field component that allows users to enter and edit date.</p>
+				<p className="font-body text-xl text-body">A date field component that allows users to enter and edit date.</p>
 				<div>
 					<Example className="flex flex-col gap-6">
 						<div className="space-y-2">
@@ -168,7 +168,7 @@ export default function Page() {
 				<h2 id="api" className="text-3xl font-medium">
 					API Reference
 				</h2>
-				<p className="text-xl text-body">
+				<p className="font-body text-xl text-body">
 					The <InlineCode>Calendar</InlineCode> is built on top of{" "}
 					<Anchor href="https://react-day-picker.js.org/">React DayPicker</Anchor>.
 				</p>

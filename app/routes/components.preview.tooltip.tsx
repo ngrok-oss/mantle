@@ -25,7 +25,7 @@ export default function Page() {
 				<h1 className="text-5xl font-medium">Tooltip</h1>
 				<PreviewBadge />
 			</div>
-			<p className="text-xl text-body">
+			<p className="font-body text-xl text-body">
 				A popup that displays information related to an element when the element receives keyboard focus or the mouse
 				hovers over it.
 			</p>

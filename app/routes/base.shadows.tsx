@@ -17,7 +17,7 @@ export default function Page() {
 	return (
 		<div>
 			<h1 className="text-5xl font-medium">Shadows</h1>
-			<p className="mt-4 text-xl text-body">Tokens for defining elevations.</p>
+			<p className="font-body mt-4 text-xl text-body">Tokens for defining elevations.</p>
 			<div className="mt-8 flex gap-8">
 				<div className="size-24 rounded-lg bg-card shadow-inner"></div>
 				<div className="size-24 rounded-lg bg-card shadow-sm"></div>

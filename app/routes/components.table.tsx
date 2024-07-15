@@ -20,7 +20,7 @@ export default function Page() {
 	return (
 		<section className="space-y-4">
 			<h1 className="text-5xl font-medium">Table</h1>
-			<p className="text-xl text-body">A responsive table component.</p>
+			<p className="font-body text-xl text-body">A responsive table component.</p>
 			<div>
 				<Example className="gap-2">
 					<ExampleTable />

@@ -20,7 +20,7 @@ export default function Page() {
 	return (
 		<div>
 			<h1 className="text-5xl font-medium">Tailwind Variants</h1>
-			<p className="mt-4 text-xl text-body">
+			<p className="font-body mt-4 text-xl text-body">
 				Additional tailwind variants added by our tailwind preset. The boxes below will have a green border and
 				checkmark if they match, else a red border and X.
 			</p>

@@ -21,7 +21,7 @@ export default function Page() {
 		<div className="space-y-16">
 			<section className="space-y-4">
 				<h1 className="text-5xl font-medium">Separator</h1>
-				<p className="text-xl text-body">Visually or semantically separates content.</p>
+				<p className="font-body text-xl text-body">Visually or semantically separates content.</p>
 				<div>
 					<Example>
 						<div className="space-y-4">
