@@ -20,7 +20,7 @@ export const headers: HeadersFunction = () => {
 
 export default function Page() {
 	return (
-		<div className="space-y-16">
+		<div className="space-y-4">
 			<div className="flex items-center gap-3">
 				<h1 className="text-5xl font-medium">Tooltip</h1>
 				<PreviewBadge />
