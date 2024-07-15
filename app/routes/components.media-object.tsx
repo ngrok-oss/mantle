@@ -22,13 +22,13 @@ export default function Page() {
 		<div className="space-y-8">
 			<header className="space-y-4">
 				<h1 className="text-5xl font-medium">Media Object</h1>
-				<p className="font-body my-4 text-xl text-body">
+				<p className="my-4 font-body text-xl text-body">
 					The Media Object is an image/icon (media) to the left, with descriptive content (title and
 					subtitle/description) to the right.
 				</p>
 			</header>
 
-			<section className="font-body space-y-4 text-body">
+			<section className="space-y-4 font-body text-body">
 				<p>
 					Change the spacing between the media and content by passing a <InlineCode>gap-*</InlineCode> class. The
 					default <InlineCode>gap</InlineCode> is <InlineCode>gap-4</InlineCode>.

@@ -37,7 +37,7 @@ export default function Page() {
 					change it.
 				</p>
 			</header>
-			<section className="font-body space-y-4 text-body">
+			<section className="space-y-4 font-body text-body">
 				<p>
 					To use the <InlineCode>ThemeProvider</InlineCode>, wrap your application&apos;s entry point. This should be
 					done as high in the component tree as possible.

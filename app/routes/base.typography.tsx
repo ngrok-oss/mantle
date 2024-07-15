@@ -19,12 +19,12 @@ export default function Page() {
 	return (
 		<div>
 			<h1 className="text-5xl font-medium">Typography</h1>
-			<p className="font-body mt-4 text-xl text-body">
+			<p className="mt-4 font-body text-xl text-body">
 				Mantle provides various typography tokens for consistency and readability.
 			</p>
 
 			<h2 className="mt-8 text-3xl font-medium">Scale</h2>
-			<p className="font-body mt-3 text-body">
+			<p className="mt-3 font-body text-body">
 				Mantle provides a general type scale for various headers throughout our products. Do note that our text styling
 				is independent of the actual markup, so a Heading 1 can be styled as a Heading 2 or Heading 5 as appropriate.
 			</p>
@@ -37,7 +37,7 @@ export default function Page() {
 			<h6 className="mt-4 text-xs font-medium uppercase tracking-widest">Heading 6</h6>
 
 			<h2 className="mt-12 text-3xl font-medium">Colors</h2>
-			<p className="font-body mt-3 text-body">
+			<p className="mt-3 font-body text-body">
 				When possible, it’s preferred to render text using the following tokens. This helps provide heirarchy outside of
 				font size, and makes sure our type is the right color across various themes.
 			</p>
@@ -77,7 +77,7 @@ export default function Page() {
 			</div>
 
 			<h2 className="mt-12 text-3xl font-medium">Fonts</h2>
-			<p className="font-body mt-3 text-body">
+			<p className="mt-3 font-body text-body">
 				Mantle specifies Euclid as the default font for UI and headings. It extends Tailwind by providing Nunito Sans as
 				a <InlineCode>font-body</InlineCode>. We also use IBM Plex Mono as a monospace typeface.
 			</p>

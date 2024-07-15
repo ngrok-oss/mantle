@@ -72,7 +72,7 @@ export default function Page() {
 					The <InlineCode>Icon</InlineCode> merges <InlineCode>className</InlineCode> selectors with the following order
 					of precedence (last one wins):
 				</p>
-				<ol className="font-body ml-8 list-decimal text-body">
+				<ol className="ml-8 list-decimal font-body text-body">
 					<li>Icon base classes</li>
 					<li>svg className</li>
 					<li>Icon className</li>
