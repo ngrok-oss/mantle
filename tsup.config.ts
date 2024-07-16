@@ -50,7 +50,6 @@ export default defineConfig((options) => [
 		format: ["esm", "cjs"], // we need to dual publish the tailwind preset for now because postcss expects cjs
 		entry: {
 			"tailwind-preset": packagePath("tailwind-preset"),
-			index: "./packages/index.js",
 		},
 		...options,
 	},
