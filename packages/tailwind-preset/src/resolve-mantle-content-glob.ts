@@ -19,18 +19,26 @@ import path from "node:path";
  * }
  */
 function resolveMantleContentGlob(require: NodeRequire) {
-	/**
-	 * use the tailwind-preset module path since it is dual exported as cjs and esm
-	 * as long as we rely on postcss we need to reference a cjs module only or it will fail to resolve
-	 */
-	const presetPath = require.resolve("@ngrok/mantle/tailwind-preset");
+	try {
+		/**
+		 * use the tailwind-preset module path since it is dual exported as cjs and esm
+		 * as long as we rely on postcss we need to reference a cjs module only or it will fail to resolve
+		 */
+		const presetPath = require.resolve("@ngrok/mantle/tailwind-preset");
 
-	/**
-	 * resolve the glob path to all mantle component content
-	 * need to go up two levels to get to the mantle package root since the
-	 * tailwind-preset exists at node_modules/@ngrok/mantle/dist/tailwind-preset.js
-	 */
-	return path.join(presetPath, "..", "..", "**", "*.js");
+		/**
+		 * resolve the glob path to all mantle component content
+		 * need to go up two levels to get to the mantle package root since the
+		 * tailwind-preset exists at node_modules/@ngrok/mantle/dist/tailwind-preset.js
+		 */
+		return path.join(presetPath, "..", "..", "**", "*.js");
+	} catch (error) {
+		console.warn(error);
+
+		// unlikely, BUT if require.resolve throws, just return a best guess glob of the mantle package
+		// assumes the mantle package is hoisted to the root node_modules
+		return "node_modules/@ngrok/mantle/**/*.js";
+	}
 }
 
 export {
