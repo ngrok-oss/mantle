@@ -22,7 +22,7 @@ export default function Page() {
 	return (
 		<div>
 			<h1 className="text-5xl font-medium">Mantle</h1>
-			<p className="font-weight mt-4 font-body text-xl text-body">
+			<p className="font-weight font-body mt-4 text-xl text-body">
 				Mantle is <Anchor href="https://ngrok.com">ngrok</Anchor>
 				&rsquo;s UI library and design system that powers its front-end.
 			</p>
@@ -34,7 +34,7 @@ export default function Page() {
 			<h3 id="dependencies" className="mt-6 text-xl font-medium">
 				Dependencies
 			</h3>
-			<p className="mt-3 font-body text-body">
+			<p className="font-body mt-3 text-body">
 				Mantle&rsquo;s styling is composed using <Anchor href="https://tailwindcss.com">Tailwind</Anchor>. Its{" "}
 				<Anchor href="https://react.dev">React</Anchor> components are inspired by{" "}
 				<Anchor href="https://ui.shadcn.com">shadcn/ui</Anchor>
@@ -45,19 +45,19 @@ export default function Page() {
 			<h3 id="status" className="mt-8 text-xl font-medium">
 				Status
 			</h3>
-			<p className="mt-3 font-body text-body">
+			<p className="font-body mt-3 text-body">
 				Mantle is a work in progress that&rsquo;s currently adding components. It intends to replace new and existing
 				ngrok user interfaces.
 			</p>
 
-			<p className="mt-3 font-body text-body">
+			<p className="font-body mt-3 text-body">
 				Mantle is available in its alpha state on{" "}
 				<Anchor href="https://www.npmjs.com/package/@ngrok/mantle">NPM</Anchor>. It is open source and available on{" "}
 				<Anchor href="https://github.com/ngrok-oss/mantle">GitHub</Anchor>.
 			</p>
 
 			<h2 className="mt-12 text-3xl font-medium">Setup</h2>
-			<p className="mt-3 font-body text-body">
+			<p className="font-body mt-3 text-body">
 				Start by installing <InlineCode>@ngrok/mantle</InlineCode> with your preferred package manager:
 			</p>
 			<div className="mt-4 overflow-hidden rounded-lg border border-card">
@@ -70,7 +70,7 @@ export default function Page() {
 					</TableHeader>
 					<TableBody>
 						<TableRow>
-							<TableCell>npm</TableCell>
+							<TableCell className="font-body">npm</TableCell>
 							<TableCell>
 								<CodeBlock>
 									<CodeBlockBody>
@@ -81,7 +81,7 @@ export default function Page() {
 							</TableCell>
 						</TableRow>
 						<TableRow>
-							<TableCell>yarn</TableCell>
+							<TableCell className="font-body">yarn</TableCell>
 							<TableCell>
 								<CodeBlock>
 									<CodeBlockBody>
@@ -92,7 +92,7 @@ export default function Page() {
 							</TableCell>
 						</TableRow>
 						<TableRow>
-							<TableCell>pnpm</TableCell>
+							<TableCell className="font-body">pnpm</TableCell>
 							<TableCell>
 								<CodeBlock>
 									<CodeBlockBody>
@@ -103,7 +103,7 @@ export default function Page() {
 							</TableCell>
 						</TableRow>
 						<TableRow>
-							<TableCell>bun</TableCell>
+							<TableCell className="font-body">bun</TableCell>
 							<TableCell>
 								<CodeBlock>
 									<CodeBlockBody>
@@ -119,7 +119,7 @@ export default function Page() {
 
 			<section>
 				<h2 className="mt-8 text-xl font-medium">Tailwind Configuration</h2>
-				<p className="mt-3 font-body text-body">
+				<p className="font-body mt-3 text-body">
 					Then, add the <Anchor href="https://tailwindcss.com/docs/presets">tailwind preset</Anchor> to your tailwind
 					configuration:
 				</p>
@@ -145,7 +145,7 @@ export default function Page() {
 
 			<section>
 				<h2 className="mt-8 text-xl font-medium">Application Scaffolding</h2>
-				<p className="mt-3 font-body text-body">
+				<p className="font-body mt-3 text-body">
 					In your application&rsquo;s entry/root, import the <InlineCode>mantle.css</InlineCode> file to apply the
 					mantle styles:
 				</p>
@@ -179,11 +179,11 @@ export default function Page() {
 						/>
 					</CodeBlockBody>
 				</CodeBlock>
-				<p className="mt-8 font-body text-body">
+				<p className="font-body mt-8 text-body">
 					Next, you should add the <Link to="/components/theme-provider">Theme Provider</Link> to your application to
 					provide the mantle theme to your components. You are now ready to use mantle components in your application!
 				</p>
-				<p className="mt-4 font-body text-body">
+				<p className="font-body mt-4 text-body">
 					You are now ready to use mantle components in your application! For example, you can use the{" "}
 					<Link to="/components/button">Button</Link>!
 				</p>
