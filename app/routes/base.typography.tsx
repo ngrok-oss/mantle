@@ -93,7 +93,7 @@ export default function Page() {
 					</TableHeader>
 					<TableBody className="text-xs text-body">
 						<TableRow>
-							<TableCell className="space-y-1">
+							<TableCell className="space-x-1 space-y-1">
 								<InlineCode className="break-keep">font-sans</InlineCode>
 								<InlineCode className="break-keep">default</InlineCode>
 							</TableCell>
