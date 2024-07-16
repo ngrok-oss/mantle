@@ -3,7 +3,7 @@
   "description": "mantle is ngrok's UI library and design system.",
   "author": "ngrok",
   "license": "MIT",
-  "version": "0.1.40",
+  "version": "0.1.41",
   "homepage": "https://mantle.ngrok.com",
   "repository": {
     "type": "git",
@@ -109,7 +109,13 @@
     "tailwindcss": "^3.4.4",
     "zod": "^3.23.8"
   },
+  "main": "dist/index.js",
   "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    },
     "./mantle.css": "./assets/mantle.css",
     "./tailwind-preset": {
       "require": "./dist/tailwind-preset.cjs",
