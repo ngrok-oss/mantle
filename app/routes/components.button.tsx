@@ -48,7 +48,9 @@ export default function Page() {
 				<h1 id="button" className="text-5xl font-medium">
 					Button
 				</h1>
-				<p className="text-xl text-body">Initiates an action, such as completing a task or submitting information</p>
+				<p className="font-body text-xl text-body">
+					Initiates an action, such as completing a task or submitting information
+				</p>
 				<div>
 					<Example className="flex flex-wrap gap-6">
 						<div>
@@ -161,7 +163,7 @@ export default function Page() {
 				<h2 id="example-icon" className="text-3xl font-medium">
 					Icon and Positioning
 				</h2>
-				<p className="text-xl text-body">
+				<p className="font-body text-xl text-body">
 					Use the <InlineCode>icon</InlineCode> prop to add an icon to the button. By default, it will render on the
 					logical start side of the button. Use the <InlineCode>iconPlacement</InlineCode> prop to change the side the
 					icon is rendered on.
@@ -201,7 +203,7 @@ export default function Page() {
 				<h2 id="example-loading" className="text-3xl font-medium">
 					isLoading
 				</h2>
-				<p className="text-xl text-body">
+				<p className="font-body text-xl text-body">
 					<InlineCode>isLoading</InlineCode> determines whether or not the button is in a loading state, default{" "}
 					<InlineCode>false</InlineCode>. Setting <InlineCode>isLoading</InlineCode> will replace any{" "}
 					<InlineCode>icon</InlineCode> with a spinner, or add one if an icon wasn't given. It will also disable user
@@ -284,7 +286,7 @@ export default function Page() {
 				<h2 id="composition" className="text-3xl font-medium">
 					Composition
 				</h2>
-				<p className="text-xl text-body">
+				<p className="font-body text-xl text-body">
 					When you want to render <span className="italic">something else</span> as a <InlineCode>Button</InlineCode>,
 					you can use the <InlineCode>asChild</InlineCode> prop to compose. This is useful when you want to splat the{" "}
 					<InlineCode>Button</InlineCode> styling onto a <InlineCode>Link</InlineCode> from{" "}
@@ -322,7 +324,7 @@ export default function Page() {
 				<h2 id="api" className="text-3xl font-medium">
 					API Reference
 				</h2>
-				<p className="text-xl text-body">
+				<p className="font-body text-xl text-body">
 					The <InlineCode>Button</InlineCode> accepts the following props in addition to the{" "}
 					<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button">
 						standard HTML button attributes

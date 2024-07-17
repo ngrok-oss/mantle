@@ -47,7 +47,7 @@ export default function Page() {
 				<h1 id="icon-button" className="text-5xl font-medium">
 					Icon Button
 				</h1>
-				<p className="text-xl text-body">
+				<p className="font-body text-xl text-body">
 					Initiates an action, such as completing a task or submitting information. Renders only a single icon as
 					children with an accessible, screen-reader-only label.
 				</p>
@@ -120,7 +120,7 @@ export default function Page() {
 				<h2 id="example-loading" className="text-3xl font-medium">
 					isLoading
 				</h2>
-				<p className="text-xl text-body">
+				<p className="font-body text-xl text-body">
 					<InlineCode>isLoading</InlineCode> determines whether or not the icon button is in a loading state, default{" "}
 					<InlineCode>false</InlineCode>. Setting <InlineCode>isLoading</InlineCode> will replace the icon with a
 					spinner. It will also disable user interaction with the button and set <InlineCode>aria-disabled</InlineCode>.
@@ -167,7 +167,7 @@ export default function Page() {
 				<h2 id="composition" className="text-3xl font-medium">
 					Composition
 				</h2>
-				<p className="text-xl text-body">
+				<p className="font-body text-xl text-body">
 					When you want to render <span className="italic">something else</span> as a{" "}
 					<InlineCode>IconButton</InlineCode>, you can use the <InlineCode>asChild</InlineCode> prop to compose. This is
 					useful when you want to splat the <InlineCode>IconButton</InlineCode> styling onto a{" "}
@@ -205,7 +205,7 @@ export default function Page() {
 				<h2 id="api" className="text-3xl font-medium">
 					API Reference
 				</h2>
-				<p className="text-xl text-body">
+				<p className="font-body text-xl text-body">
 					The <InlineCode>IconButton</InlineCode> accepts the following props in addition to the{" "}
 					<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button">
 						standard HTML button attributes

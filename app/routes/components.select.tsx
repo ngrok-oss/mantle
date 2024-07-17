@@ -47,7 +47,9 @@ export default function Page() {
 		<div className="space-y-16">
 			<section className="space-y-4">
 				<h1 className="text-5xl font-medium">Select</h1>
-				<p className="text-xl text-body">Displays a list of options for the user to pick from—triggered by a button.</p>
+				<p className="font-body text-xl text-body">
+					Displays a list of options for the user to pick from—triggered by a button.
+				</p>
 
 				<div>
 					<Example className="flex-col gap-4">
@@ -222,7 +224,7 @@ export default function Page() {
 				<section className="space-y-4">
 					<header className="space-y-1">
 						<h3 className="text-xl font-medium">Custom selected value</h3>
-						<p className="text-body">
+						<p className="font-body text-body">
 							By default the selected item's text will be rendered when selected. Sometimes you may need to render
 							something different. You can control the select and pass <InlineCode>children</InlineCode> instead.
 						</p>
@@ -279,7 +281,7 @@ export default function Page() {
 					<h2 id="api" className="text-3xl font-medium">
 						API Reference
 					</h2>
-					<p className="text-xl text-body">
+					<p className="font-body text-xl text-body">
 						The <InlineCode>Select</InlineCode> components are built on top of{" "}
 						<Anchor
 							href="https://www.radix-ui.com/primitives/docs/components/select"
@@ -296,7 +298,7 @@ export default function Page() {
 					<header className="space-y-1">
 						<h3 className="text-xl font-medium">Select</h3>
 
-						<p className="text-body">
+						<p className="font-body text-body">
 							All props from Radix{" "}
 							<Anchor
 								href="https://www.radix-ui.com/primitives/docs/components/select#root"
@@ -366,7 +368,7 @@ export default function Page() {
 					<header className="space-y-1">
 						<h3 className="text-xl font-medium">SelectTrigger</h3>
 
-						<p className="text-body">
+						<p className="font-body text-body">
 							All props from Radix{" "}
 							<Anchor
 								href="https://www.radix-ui.com/primitives/docs/components/select#trigger"
@@ -423,7 +425,7 @@ export default function Page() {
 				<section className="space-y-1">
 					<h3 className="text-xl font-medium">SelectValue</h3>
 
-					<p className="text-body">
+					<p className="font-body text-body">
 						Radix{" "}
 						<Anchor
 							href="https://www.radix-ui.com/primitives/docs/components/select#value"
@@ -440,7 +442,7 @@ export default function Page() {
 					<header className="space-y-1">
 						<h3 className="text-xl font-medium">SelectContent</h3>
 
-						<p className="text-body">
+						<p className="font-body text-body">
 							All props from Radix{" "}
 							<Anchor
 								href="https://www.radix-ui.com/primitives/docs/components/select#content"
@@ -482,7 +484,7 @@ export default function Page() {
 				<section className="space-y-1">
 					<h3 className="text-xl font-medium">SelectGroup</h3>
 
-					<p className="text-body">
+					<p className="font-body text-body">
 						Radix{" "}
 						<Anchor
 							href="https://www.radix-ui.com/primitives/docs/components/select#group"
@@ -498,7 +500,7 @@ export default function Page() {
 				<section className="space-y-1">
 					<h3 className="text-xl font-medium">SelectSeparator</h3>
 
-					<p className="text-body">
+					<p className="font-body text-body">
 						Used to visually separate items in the select. Composed from{" "}
 						<Link to="/components/separator">Mantle Separator</Link>.
 					</p>
@@ -507,7 +509,7 @@ export default function Page() {
 				<section className="space-y-1">
 					<h3 className="text-xl font-medium">SelectItem</h3>
 
-					<p className="text-body">
+					<p className="font-body text-body">
 						Radix{" "}
 						<Anchor
 							href="https://www.radix-ui.com/primitives/docs/components/select#item"
@@ -523,7 +525,7 @@ export default function Page() {
 				<section className="space-y-1">
 					<h3 className="text-xl font-medium">SelectLabel</h3>
 
-					<p className="text-body">
+					<p className="font-body text-body">
 						Radix{" "}
 						<Anchor
 							href="https://www.radix-ui.com/primitives/docs/components/select#label"
@@ -539,7 +541,7 @@ export default function Page() {
 				<section className="space-y-1">
 					<h3 className="text-xl font-medium">SelectScrollUpButton</h3>
 
-					<p className="text-body">
+					<p className="font-body text-body">
 						Radix{" "}
 						<Anchor
 							href="https://www.radix-ui.com/primitives/docs/components/select#scrollupbutton"
@@ -555,7 +557,7 @@ export default function Page() {
 				<section className="space-y-1">
 					<h3 className="text-xl font-medium">SelectScrollDownButton</h3>
 
-					<p className="text-body">
+					<p className="font-body text-body">
 						Radix{" "}
 						<Anchor
 							href="https://www.radix-ui.com/primitives/docs/components/select#scrolldownbutton"

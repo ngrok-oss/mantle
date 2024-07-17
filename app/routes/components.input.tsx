@@ -48,7 +48,7 @@ export default function Page() {
 				<h1 id="input" className="text-5xl font-medium">
 					Input
 				</h1>
-				<p className="text-xl text-body">Fundamental component for inputs.</p>
+				<p className="font-body text-xl text-body">Fundamental component for inputs.</p>
 				<div>
 					<Example className="flex flex-col gap-6">
 						<Label className="block w-full max-w-80 space-y-1">
@@ -96,7 +96,7 @@ export default function Page() {
 				<h2 id="composition" className="text-3xl font-medium">
 					Composition
 				</h2>
-				<p className="text-xl text-body">
+				<p className="font-body text-xl text-body">
 					You can compose additional visual or functional elements within the <InlineCode>Input</InlineCode> using{" "}
 					<InlineCode>children</InlineCode>. The examples below show you how to render start and end icons or buttons.
 					The{" "}
@@ -108,7 +108,7 @@ export default function Page() {
 					actual form <InlineCode>input</InlineCode> element! We provide an <InlineCode>InputCapture</InlineCode>{" "}
 					component for you when you don't use the <InlineCode>children</InlineCode> API.
 				</p>
-				<p className="text-xl text-body">
+				<p className="font-body text-xl text-body">
 					Note: when composing with interactive content (e.g. a <InlineCode>button</InlineCode>), you will need to
 					consider whether or not that element should be tab-indexable or receive focus!
 				</p>
@@ -225,7 +225,7 @@ export default function Page() {
 				<h2 id="api" className="text-3xl font-medium">
 					API Reference
 				</h2>
-				<p className="text-xl text-body">
+				<p className="font-body text-xl text-body">
 					The <InlineCode>Input</InlineCode> accepts the following props in addition to the{" "}
 					<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input">
 						standard HTML input attributes

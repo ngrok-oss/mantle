@@ -32,7 +32,7 @@ export default function Page() {
 		<div className="space-y-16">
 			<section className="space-y-4">
 				<h1 className="text-5xl font-medium">Dialog</h1>
-				<p className="text-xl text-body">
+				<p className="font-body text-xl text-body">
 					A window overlaid on either the primary window or another dialog window, rendering the content underneath
 					inert.
 				</p>
