@@ -1485,10 +1485,9 @@
 
 @layer base {
 	@font-face {
-		font-family: "Courier Prime Code";
+		font-family: "Founders Grotesk Mono";
 		src:
-			url("courier_prime_code-webfont.woff2") format("woff2"),
-			url("courier_prime_code-webfont.woff") format("woff");
+			url("test-founders-grotesk-mono-regular.woff2") format("woff2");
 		font-weight: normal;
 		font-style: normal;
 	}
