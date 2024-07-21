@@ -29,13 +29,15 @@ export const headers: HeadersFunction = () => {
 
 export default function Page() {
 	return (
-		<div>
-			<h1 className="text-5xl font-medium">Theme Provider</h1>
-			<p className="mb-4 mt-4 text-xl text-body">
-				ThemeProvider is a React Context Provider that provides the current theme to the application and a function to
-				change it.
-			</p>
-			<div className="mt-8 space-y-4 text-body">
+		<div className="space-y-8">
+			<header className="space-y-4">
+				<h1 className="text-5xl font-medium">Theme Provider</h1>
+				<p className="font-body text-xl text-body">
+					ThemeProvider is a React Context Provider that provides the current theme to the application and a function to
+					change it.
+				</p>
+			</header>
+			<section className="space-y-4 font-body text-body">
 				<p>
 					To use the <InlineCode>ThemeProvider</InlineCode>, wrap your application&apos;s entry point. This should be
 					done as high in the component tree as possible.
@@ -83,7 +85,9 @@ export default function Page() {
 						<CodeBlockExpanderButton />
 					</CodeBlockBody>
 				</CodeBlock>
-				<p>
+			</section>
+			<section className="space-y-4">
+				<p className="font-body text-body">
 					Sometimes you cannot use the <InlineCode>MantleThemeHeadContent</InlineCode> component because your webserver
 					is not able to render React components. In this case, you can use the copy the following script and add it to
 					your application&apos;s <InlineCode>&lt;head&gt;</InlineCode>:
@@ -105,7 +109,9 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 						<CodeBlockExpanderButton />
 					</CodeBlockBody>
 				</CodeBlock>
-				<p>
+			</section>
+			<section className="space-y-4">
+				<p className="font-body text-body">
 					You will also need to ensure that you add the <InlineCode>PreloadFonts</InlineCode> component to your app as
 					well.
 				</p>
@@ -124,7 +130,9 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 						/>
 					</CodeBlockBody>
 				</CodeBlock>
-				<p>
+			</section>
+			<section className="space-y-4">
+				<p className="font-body text-body">
 					Then, in your application, you can use the <InlineCode>useTheme</InlineCode> hook to get and change the
 					current theme:
 				</p>
@@ -188,7 +196,7 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 					</CodeBlockBody>
 					<CodeBlockExpanderButton />
 				</CodeBlock>
-			</div>
+			</section>
 		</div>
 	);
 }

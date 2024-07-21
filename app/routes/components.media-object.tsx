@@ -19,13 +19,16 @@ export const headers: HeadersFunction = () => {
 
 export default function Page() {
 	return (
-		<div>
-			<h1 className="text-5xl font-medium">Media Object</h1>
-			<p className="my-4 text-xl text-body">
-				The Media Object is an image/icon (media) to the left, with descriptive content (title and subtitle/description)
-				to the right.
-			</p>
-			<div className="mt-8 space-y-4 text-body">
+		<div className="space-y-8">
+			<header className="space-y-4">
+				<h1 className="text-5xl font-medium">Media Object</h1>
+				<p className="my-4 font-body text-xl text-body">
+					The Media Object is an image/icon (media) to the left, with descriptive content (title and
+					subtitle/description) to the right.
+				</p>
+			</header>
+
+			<section className="space-y-4 font-body text-body">
 				<p>
 					Change the spacing between the media and content by passing a <InlineCode>gap-*</InlineCode> class. The
 					default <InlineCode>gap</InlineCode> is <InlineCode>gap-4</InlineCode>.
@@ -38,29 +41,29 @@ export default function Page() {
 					<InlineCode>&lt;MediaObjectMedia&gt;</InlineCode> and <InlineCode>&lt;MediaObjectContent&gt;</InlineCode>{" "}
 					components as direct children.
 				</p>
-			</div>
 
-			<Example className="mt-4">
-				<MediaObject>
-					<MediaObjectMedia>
-						<ExampleMedia />
-					</MediaObjectMedia>
-					<MediaObjectContent>
-						<h4 className="text-lg font-bold">Lorem ipsum</h4>
-						<p className="mb-4 mt-1">
-							Repudiandae sint consequuntur vel. Amet ut nobis explicabo numquam expedita quia omnis voluptatem. Minus
-							quidem ipsam quia iusto.
-						</p>
-						<p>Ea eiusmod eiusmod aute reprehenderit exercitation eu ea id adipisicing occaecat.</p>
-					</MediaObjectContent>
-				</MediaObject>
-			</Example>
-			<CodeBlock className="rounded-b-lg rounded-t-none">
-				<CodeBlockBody>
-					<CodeBlockCopyButton />
-					<CodeBlockCode
-						language="tsx"
-						value={fmtCode`
+				<div>
+					<Example>
+						<MediaObject>
+							<MediaObjectMedia>
+								<ExampleMedia />
+							</MediaObjectMedia>
+							<MediaObjectContent>
+								<h4 className="text-lg font-bold">Lorem ipsum</h4>
+								<p className="mb-4 mt-1">
+									Repudiandae sint consequuntur vel. Amet ut nobis explicabo numquam expedita quia omnis voluptatem.
+									Minus quidem ipsam quia iusto.
+								</p>
+								<p>Ea eiusmod eiusmod aute reprehenderit exercitation eu ea id adipisicing occaecat.</p>
+							</MediaObjectContent>
+						</MediaObject>
+					</Example>
+					<CodeBlock className="rounded-b-lg rounded-t-none">
+						<CodeBlockBody>
+							<CodeBlockCopyButton />
+							<CodeBlockCode
+								language="tsx"
+								value={fmtCode`
 							import { MediaObject, MediaObjectContent, MediaObjectMedia } from "@ngrok/mantle/media-object";
 
 							<MediaObject>
@@ -77,9 +80,11 @@ export default function Page() {
 								</MediaObjectContent>
 							</MediaObject>
 						`}
-					/>
-				</CodeBlockBody>
-			</CodeBlock>
+							/>
+						</CodeBlockBody>
+					</CodeBlock>
+				</div>
+			</section>
 		</div>
 	);
 }

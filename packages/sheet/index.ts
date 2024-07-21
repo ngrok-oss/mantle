@@ -1,7 +1,9 @@
 export {
 	Sheet,
+	SheetActions,
 	SheetBody,
 	SheetClose,
+	SheetCloseIconButton,
 	SheetContent,
 	SheetDescription,
 	SheetFooter,
@@ -9,5 +11,6 @@ export {
 	SheetOverlay,
 	SheetPortal,
 	SheetTitle,
+	SheetTitleGroup,
 	SheetTrigger,
 } from "./src/sheet";

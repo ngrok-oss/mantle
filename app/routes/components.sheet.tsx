@@ -1,19 +1,25 @@
-import { Button } from "@/button";
+import { Button, IconButton } from "@/button";
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
+import { Separator } from "@/separator";
 import {
 	Sheet,
+	SheetActions,
 	SheetBody,
 	SheetClose,
+	SheetCloseIconButton,
 	SheetContent,
 	SheetDescription,
 	SheetFooter,
 	SheetHeader,
 	SheetTitle,
+	SheetTitleGroup,
 	SheetTrigger,
 } from "@/sheet";
+import { ListMagnifyingGlass } from "@phosphor-icons/react/ListMagnifyingGlass";
+import { TerminalWindow } from "@phosphor-icons/react/TerminalWindow";
+import { TrashSimple } from "@phosphor-icons/react/TrashSimple";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
-import { PreviewBadge } from "~/components/preview-badge";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -31,11 +37,8 @@ export const headers: HeadersFunction = () => {
 export default function Page() {
 	return (
 		<div className="space-y-4">
-			<div className="flex items-center gap-3">
-				<h1 className="text-5xl font-medium">Sheet</h1>
-				<PreviewBadge />
-			</div>
-			<p className="text-xl text-body">
+			<h1 className="text-5xl font-medium">Sheet</h1>
+			<p className="font-body text-xl text-body">
 				A container that overlays the current view from the edge of the screen. It is a lightweight way of allowing
 				users to complete a task without losing contextual information of the view beneath it.
 			</p>
@@ -50,7 +53,16 @@ export default function Page() {
 						</SheetTrigger>
 						<SheetContent>
 							<SheetHeader>
-								<SheetTitle>Are you absolutely sure?</SheetTitle>
+								<SheetTitleGroup>
+									<SheetTitle>Are you absolutely sure?</SheetTitle>
+									<SheetActions>
+										<IconButton appearance="ghost" type="button" icon={<TerminalWindow />} label="Start a Tunnel" />
+										<IconButton appearance="ghost" type="button" icon={<ListMagnifyingGlass />} label="See Traffic" />
+										<IconButton appearance="ghost" type="button" icon={<TrashSimple />} label="Delete" />
+										<Separator orientation="vertical" className="h-[80%]" />
+										<SheetCloseIconButton appearance="ghost" />
+									</SheetActions>
+								</SheetTitleGroup>
 								<SheetDescription>
 									This action cannot be undone. This will permanently delete your account and remove your data from our
 									servers.
@@ -108,43 +120,60 @@ export default function Page() {
 						<CodeBlockCode
 							language="tsx"
 							value={fmtCode`
-							import {
-								Sheet,
-								SheetBody,
-								SheetClose,
-								SheetContent,
-								SheetDescription,
-								SheetFooter,
-								SheetHeader,
-								SheetTitle,
-								SheetTrigger,
-							} from "@ngrok/mantle/sheet";
+								import { Button, IconButton } from "@ngrok/mantle/button";
+								import { Separator } from "@ngrok/mantle/separator";
+								import {
+									Sheet,
+									SheetActions,
+									SheetBody,
+									SheetClose,
+									SheetCloseIconButton,
+									SheetContent,
+									SheetDescription,
+									SheetFooter,
+									SheetHeader,
+									SheetTitle,
+									SheetTitleGroup,
+									SheetTrigger,
+								} from "@/ngrok/mantle/sheet";
+								import { ListMagnifyingGlass } from "@phosphor-icons/react/ListMagnifyingGlass";
+								import { TerminalWindow } from "@phosphor-icons/react/TerminalWindow";
+								import { TrashSimple } from "@phosphor-icons/react/TrashSimple";
 
-							<Sheet>
-								<SheetTrigger asChild>
-									<Button type="button" appearance="filled">Open Sheet</Button>
-								</SheetTrigger>
-								<SheetContent>
-									<SheetHeader>
-										<SheetTitle>Are you absolutely sure?</SheetTitle>
-										<SheetDescription>
-											This action cannot be undone. This will permanently delete your account and remove your data from our
-											servers.
-										</SheetDescription>
-									</SheetHeader>
-									<SheetBody className="space-y-4">
-										<p>
-											Lorem ipsum
-										</p>
-									</SheetBody>
-									<SheetFooter>
-										<SheetClose asChild>
-											<Button type="button">Close</Button>
-										</SheetClose>
-									</SheetFooter>
-								</SheetContent>
-							</Sheet>
-						`}
+								<Sheet>
+									<SheetTrigger asChild>
+										<Button type="button" appearance="filled">Open Sheet</Button>
+									</SheetTrigger>
+									<SheetContent>
+										<SheetHeader>
+											<SheetTitleGroup>
+												<SheetTitle>Are you absolutely sure?</SheetTitle>
+												<SheetActions>
+													<SheetCloseIconButton appearance="outlined" />
+													<Separator orientation="vertical" className="h-[80%]" />
+													<IconButton type="button" icon={<TrashSimple />} label="Delete" />
+													<IconButton type="button" icon={<ListMagnifyingGlass />} label="See Traffic" />
+													<IconButton type="button" icon={<TerminalWindow />} label="Start a Tunnel" />
+												</SheetActions>
+											</SheetTitleGroup>
+											<SheetDescription>
+												This action cannot be undone. This will permanently delete your account and remove your data from our
+												servers.
+											</SheetDescription>
+										</SheetHeader>
+										<SheetBody className="space-y-4">
+											<p>
+												Lorem ipsum
+											</p>
+										</SheetBody>
+										<SheetFooter>
+											<SheetClose asChild>
+												<Button type="button">Close</Button>
+											</SheetClose>
+										</SheetFooter>
+									</SheetContent>
+								</Sheet>
+							`}
 						/>
 					</CodeBlockBody>
 				</CodeBlock>

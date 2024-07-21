@@ -2,6 +2,7 @@ import { Anchor } from "@/anchor";
 import { IconButton } from "@/button";
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import { InlineCode } from "@/inline-code";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/tooltip";
 import { Globe } from "@phosphor-icons/react/Globe";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
@@ -17,6 +18,7 @@ import {
 	StringPropType,
 } from "~/components/props-table";
 import { route } from "~/types/routes";
+import type { PropsWithChildren } from "react";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -31,38 +33,62 @@ export const headers: HeadersFunction = () => {
 	};
 };
 
+const DisabledTooltip = ({ children }: PropsWithChildren) => (
+	<Tooltip>
+		<TooltipTrigger asChild>{children}</TooltipTrigger>
+		<TooltipContent>Tooltips work on disabled buttons!</TooltipContent>
+	</Tooltip>
+);
+
 export default function Page() {
 	return (
 		<div className="space-y-16">
-			<section className="mb-4 space-y-4">
+			<section className="space-y-4">
 				<h1 id="icon-button" className="text-5xl font-medium">
 					Icon Button
 				</h1>
-				<p className="text-xl text-body">
+				<p className="font-body text-xl text-body">
 					Initiates an action, such as completing a task or submitting information. Renders only a single icon as
 					children with an accessible, screen-reader-only label.
 				</p>
 				<div>
-					<Example className="mt-4 flex flex-wrap gap-6">
+					<Example className="flex flex-wrap gap-6">
 						<div>
 							<p className="mb-2 text-center font-mono text-xs">Size xs</p>
 							<div className="flex items-center gap-2">
-								<IconButton appearance="ghost" label="prestige worldwide" size="xs" icon={<Globe />} />
-								<IconButton appearance="outlined" label="prestige worldwide" size="xs" icon={<Globe />} />
+								<IconButton type="button" appearance="ghost" label="prestige worldwide" size="xs" icon={<Globe />} />
+								<IconButton type="button" appearance="outlined" label="prestige worldwide" size="xs" icon={<Globe />} />
 							</div>
 						</div>
 						<div>
 							<p className="mb-2 text-center font-mono text-xs">Size sm</p>
 							<div className="flex items-center gap-2">
-								<IconButton appearance="ghost" label="prestige worldwide" size="sm" icon={<Globe />} />
-								<IconButton appearance="outlined" label="prestige worldwide" size="sm" icon={<Globe />} />
+								<IconButton type="button" appearance="ghost" label="prestige worldwide" size="sm" icon={<Globe />} />
+								<IconButton type="button" appearance="outlined" label="prestige worldwide" size="sm" icon={<Globe />} />
 							</div>
 						</div>
 						<div>
 							<p className="mb-2 text-center font-mono text-xs">Size md</p>
 							<div className="flex items-center gap-2">
-								<IconButton appearance="ghost" label="prestige worldwide" icon={<Globe />} />
-								<IconButton appearance="outlined" label="prestige worldwide" icon={<Globe />} />
+								<IconButton type="button" appearance="ghost" label="prestige worldwide" icon={<Globe />} />
+								<IconButton type="button" appearance="outlined" label="prestige worldwide" icon={<Globe />} />
+							</div>
+						</div>
+						<div>
+							<p className="mb-2 text-center font-mono text-xs">Disabled</p>
+							<div className="flex items-center gap-2">
+								<DisabledTooltip>
+									<IconButton disabled type="button" appearance="ghost" label="prestige worldwide" icon={<Globe />} />
+								</DisabledTooltip>
+								<DisabledTooltip>
+									<IconButton
+										disabled
+										type="button"
+										appearance="outlined"
+										label="prestige worldwide"
+										icon={<Globe />}
+									/>
+								</DisabledTooltip>
 							</div>
 						</div>
 					</Example>
@@ -75,14 +101,14 @@ export default function Page() {
 									import { IconButton } from "@ngrok/mantle/button";
 									import { Fire } from "@phosphor-icons/react";
 
-									<IconButton appearance="ghost" label="prestige worldwide" size="xs" icon={<Globe />} />
-									<IconButton appearance="outlined" label="prestige worldwide" size="xs" icon={<Globe />} />
+									<IconButton type="button" appearance="ghost" label="prestige worldwide" size="xs" icon={<Globe />} />
+									<IconButton type="button" appearance="outlined" label="prestige worldwide" size="xs" icon={<Globe />} />
 
-									<IconButton appearance="ghost" label="prestige worldwide" size="sm" icon={<Globe />} />
-									<IconButton appearance="outlined" label="prestige worldwide" size="sm" icon={<Globe />} />
+									<IconButton type="button" appearance="ghost" label="prestige worldwide" size="sm" icon={<Globe />} />
+									<IconButton type="button" appearance="outlined" label="prestige worldwide" size="sm" icon={<Globe />} />
 
-									<IconButton appearance="ghost" label="prestige worldwide" size="md" icon={<Globe />} />
-									<IconButton appearance="outlined" label="prestige worldwide" size="md" icon={<Globe />} />
+									<IconButton type="button" appearance="ghost" label="prestige worldwide" size="md" icon={<Globe />} />
+									<IconButton type="button" appearance="outlined" label="prestige worldwide" size="md" icon={<Globe />} />
 								`}
 							/>
 						</CodeBlockBody>
@@ -90,11 +116,11 @@ export default function Page() {
 				</div>
 			</section>
 
-			<section className="mb-4 space-y-4">
+			<section className="space-y-4">
 				<h2 id="example-loading" className="text-3xl font-medium">
 					isLoading
 				</h2>
-				<p className="text-xl text-body">
+				<p className="font-body text-xl text-body">
 					<InlineCode>isLoading</InlineCode> determines whether or not the icon button is in a loading state, default{" "}
 					<InlineCode>false</InlineCode>. Setting <InlineCode>isLoading</InlineCode> will replace the icon with a
 					spinner. It will also disable user interaction with the button and set <InlineCode>aria-disabled</InlineCode>.
@@ -104,15 +130,15 @@ export default function Page() {
 						<div>
 							<p className="mb-2 text-center font-mono text-xs">idle</p>
 							<div className="flex items-center gap-2">
-								<IconButton appearance="ghost" label="prestige worldwide" icon={<Globe />} />
-								<IconButton appearance="outlined" label="prestige worldwide" icon={<Globe />} />
+								<IconButton type="button" appearance="ghost" label="prestige worldwide" icon={<Globe />} />
+								<IconButton type="button" appearance="outlined" label="prestige worldwide" icon={<Globe />} />
 							</div>
 						</div>
 						<div>
 							<p className="mb-2 text-center font-mono text-xs">isLoading</p>
 							<div className="flex items-center gap-2">
-								<IconButton appearance="ghost" label="prestige worldwide" isLoading icon={<Globe />} />
-								<IconButton appearance="outlined" label="prestige worldwide" isLoading icon={<Globe />} />
+								<IconButton type="button" appearance="ghost" label="prestige worldwide" isLoading icon={<Globe />} />
+								<IconButton type="button" appearance="outlined" label="prestige worldwide" isLoading icon={<Globe />} />
 							</div>
 						</div>
 					</Example>
@@ -125,11 +151,11 @@ export default function Page() {
 									import { IconButton } from "@ngrok/mantle/button";
 									import { Fire } from "@phosphor-icons/react";
 
-									<IconButton appearance="ghost" label="prestige worldwide" icon={<Globe />} />
-									<IconButton appearance="outlined" label="prestige worldwide" icon={<Globe />} />
+									<IconButton type="button" appearance="ghost" label="prestige worldwide" icon={<Globe />} />
+									<IconButton type="button" appearance="outlined" label="prestige worldwide" icon={<Globe />} />
 
-									<IconButton appearance="ghost" label="prestige worldwide" isLoading icon={<Globe />} />
-									<IconButton appearance="outlined" label="prestige worldwide" isLoading icon={<Globe />} />
+									<IconButton type="button" appearance="ghost" label="prestige worldwide" isLoading icon={<Globe />} />
+									<IconButton type="button" appearance="outlined" label="prestige worldwide" isLoading icon={<Globe />} />
 								`}
 							/>
 						</CodeBlockBody>
@@ -137,15 +163,17 @@ export default function Page() {
 				</div>
 			</section>
 
-			<section className="mb-4 space-y-4">
+			<section className="space-y-4">
 				<h2 id="composition" className="text-3xl font-medium">
 					Composition
 				</h2>
-				<p className="text-xl text-body">
-					When you want to render <span className="italic">something else</span> as a <InlineCode>Button</InlineCode>,
-					you can use the <InlineCode>asChild</InlineCode> prop to compose. This is useful when you want to splat the{" "}
-					<InlineCode>Button</InlineCode> styling onto a <InlineCode>Link</InlineCode> from{" "}
-					<InlineCode>remix</InlineCode> or <InlineCode>react-router</InlineCode>.
+				<p className="font-body text-xl text-body">
+					When you want to render <span className="italic">something else</span> as a{" "}
+					<InlineCode>IconButton</InlineCode>, you can use the <InlineCode>asChild</InlineCode> prop to compose. This is
+					useful when you want to splat the <InlineCode>IconButton</InlineCode> styling onto a{" "}
+					<InlineCode>Link</InlineCode> from <InlineCode>remix</InlineCode> or <InlineCode>react-router</InlineCode>.
+					Keep in mind that when you use <InlineCode>asChild</InlineCode> the <InlineCode>type</InlineCode> prop will{" "}
+					<strong>NOT</strong> be passed to the child component.
 				</p>
 				<div>
 					<Example>
@@ -173,11 +201,11 @@ export default function Page() {
 				</div>
 			</section>
 
-			<section className="mt-16 space-y-4">
+			<section className="space-y-4">
 				<h2 id="api" className="text-3xl font-medium">
 					API Reference
 				</h2>
-				<p className="text-xl text-body">
+				<p className="font-body text-xl text-body">
 					The <InlineCode>IconButton</InlineCode> accepts the following props in addition to the{" "}
 					<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button">
 						standard HTML button attributes
@@ -275,7 +303,7 @@ export default function Page() {
 						</PropDescriptionCell>
 					</PropRow>
 					<PropRow>
-						<PropNameCell name="type" optional />
+						<PropNameCell name="type" />
 						<PropTypeCell>
 							<ul>
 								<li>
@@ -289,13 +317,12 @@ export default function Page() {
 								</li>
 							</ul>
 						</PropTypeCell>
-						<PropDefaultValueCell>
-							<StringPropType value="button" />
-						</PropDefaultValueCell>
+						<PropDefaultValueCell />
 						<PropDescriptionCell>
 							<p>
 								The default behavior of the <InlineCode>IconButton</InlineCode>. Unlike the native{" "}
-								<InlineCode>button</InlineCode> element, this prop defaults to <InlineCode>"button"</InlineCode>. See{" "}
+								<InlineCode>button</InlineCode> element, unless you use the <InlineCode>asChild</InlineCode> prop,{" "}
+								<span className="font-semibold">this prop is required and has no default value</span>. See{" "}
 								<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#type">
 									the MDN docs
 								</Anchor>{" "}

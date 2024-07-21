@@ -1,8 +1,14 @@
+import svgToDataUri from "mini-svg-data-uri";
 import type { Config } from "tailwindcss";
 import tailwindCssAnimatePlugin from "tailwindcss-animate";
 import defaultTheme from "tailwindcss/defaultTheme";
 import plugin from "tailwindcss/plugin";
+import { animationDurationPlugin } from "./tailwind-plugin-animation-duration.js";
+import { ariaEnabledVariantPlugin } from "./tailwind-plugin-aria-enabled.js";
 import { firefoxVariantPlugin } from "./tailwind-plugin-firefox-variant.js";
+import { gradientStopPlugin } from "./tailwind-plugin-gradient-stop.js";
+import { pointingVariantsPlugin } from "./tailwind-plugin-pointing-variants.js";
+import { whereVariantPlugin } from "./tailwind-plugin-where-variant.js";
 
 const colors = {
 	inherit: "inherit",
@@ -333,6 +339,10 @@ const mantlePreset = {
 				invalid: 'invalid="true"',
 				unchecked: 'checked="false"',
 			},
+			backgroundImage: {
+				"checked-icon": `url("${svgToDataUri(`<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><path fill="#fff" d="M12.7071 4.29289c.3905.39053.3905 1.02369 0 1.41422L6.70711 11.7071c-.39053.3905-1.02369.3905-1.41422 0l-2-1.99999c-.39052-.39053-.39052-1.02369 0-1.41422.39053-.39052 1.02369-.39052 1.41422 0L6 9.58579l5.2929-5.2929c.3905-.39052 1.0237-.39052 1.4142 0Z"/></svg>`)}")`,
+				"indeterminate-icon": `url("${svgToDataUri(`<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><path fill="#fff" d="M4 8c0-.55228.44772-1 1-1h6c.5523 0 1 .44772 1 1s-.4477 1-1 1H5c-.55228 0-1-.44772-1-1Z"/></svg>`)}")`,
+			},
 			boxShadow: {
 				sm: "0px 1px 2px 0 hsl(var(--shadow-color) / var(--shadow-first))",
 				DEFAULT:
@@ -406,27 +416,33 @@ const mantlePreset = {
 			data: {
 				"active-item": "active-item",
 				"drag-over": 'drag-over="true"',
+				disabled: "disabled",
+				highlighted: "highlighted",
 				"orientation-horizontal": 'orientation="horizontal"',
 				"orientation-vertical": 'orientation="vertical"',
 				"side-bottom": 'side="bottom"',
 				"side-left": 'side="left"',
 				"side-right": 'side="right"',
 				"side-top": 'side="top"',
+				"state-active": 'state~="active"',
 				"state-checked": 'state~="checked"',
 				"state-closed": 'state~="closed"',
 				"state-idle": 'state~="idle"',
+				"state-inactive": 'state~="inactive"',
 				"state-indeterminate": 'state~="indeterminate"',
 				"state-open": 'state~="open"',
 				"state-pending": 'state~="pending"',
 				"state-selected": 'state~="selected"',
 				"state-submitting": 'state~="submitting"',
 				"state-unchecked": 'state~="unchecked"',
-				disabled: "disabled",
-				highlighted: "highlighted",
+				"validation-error": 'validation="error"',
+				"validation-success": 'validation="success"',
+				"validation-warning": 'validation="warning"',
 			},
 			fontFamily: {
 				sans: ["EuclidSquare", ...defaultTheme.fontFamily.sans],
-				mono: ["Courier Prime Code", ...defaultTheme.fontFamily.mono],
+				mono: ["Founders Grotesk Mono", ...defaultTheme.fontFamily.mono],
+				body: ["Nunito Sans", ...defaultTheme.fontFamily.sans],
 			},
 			fontSize: {
 				"size-inherit": "inherit",
@@ -443,6 +459,10 @@ const mantlePreset = {
 					from: { height: "var(--radix-accordion-content-height)" },
 					to: { height: "0" },
 				},
+				spin: {
+					from: { transform: "rotate(var(--spin-start-deg, 0))" },
+					to: { transform: "rotate(var(--spin-end-deg, 360deg))" },
+				} as const,
 			},
 			lineHeight: {
 				0: "0",
@@ -452,7 +472,7 @@ const mantlePreset = {
 				xs: "480px",
 			},
 			spacing: {
-				"1.25": "0.3125rem",
+				"1.25": "0.3125rem", // 5px
 			},
 			transitionProperty: {
 				"max-height": "max-height",
@@ -464,11 +484,19 @@ const mantlePreset = {
 		},
 	},
 	plugins: [
-		tailwindCssAnimatePlugin,
+		animationDurationPlugin,
+		ariaEnabledVariantPlugin,
 		firefoxVariantPlugin,
+		gradientStopPlugin,
+		pointingVariantsPlugin,
+		tailwindCssAnimatePlugin,
+		whereVariantPlugin,
 		plugin(function ({ addVariant }) {
 			addVariant("dark-high-contrast", [":is(.dark-high-contrast &)"]);
 			addVariant("high-contrast", [":is(.light-high-contrast &)"]);
+		}),
+		plugin(function ({ addVariant }) {
+			addVariant("not-disabled", ["&:not(:disabled)"]);
 		}),
 	],
 } satisfies Config;

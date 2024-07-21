@@ -25,7 +25,7 @@ export default function Page() {
 				<h1 className="text-5xl font-medium">Tooltip</h1>
 				<PreviewBadge />
 			</div>
-			<p className="text-xl text-body">
+			<p className="font-body text-xl text-body">
 				A popup that displays information related to an element when the element receives keyboard focus or the mouse
 				hovers over it.
 			</p>
@@ -50,22 +50,22 @@ export default function Page() {
 						<CodeBlockCode
 							language="tsx"
 							value={fmtCode`
-						import { Button } from "@ngrok/mantle/button";
-						import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@ngrok/mantle/tooltip";
+								import { Button } from "@ngrok/mantle/button";
+								import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@ngrok/mantle/tooltip";
 
-						<TooltipProvider>
-							<Tooltip>
-								<TooltipTrigger asChild>
-									<Button appearance="filled" priority="default">
-										Hover
-									</Button>
-								</TooltipTrigger>
-								<TooltipContent>
-									<p>Add to library</p>
-								</TooltipContent>
-							</Tooltip>
-						</TooltipProvider>
-					`}
+								<TooltipProvider>
+									<Tooltip>
+										<TooltipTrigger asChild>
+											<Button appearance="filled" priority="default">
+												Hover
+											</Button>
+										</TooltipTrigger>
+										<TooltipContent>
+											<p>Add to library</p>
+										</TooltipContent>
+									</Tooltip>
+								</TooltipProvider>
+							`}
 						/>
 					</CodeBlockBody>
 				</CodeBlock>

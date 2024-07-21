@@ -1,5 +1,5 @@
 /**
- * Utility type for adding the `asChild` boolean prop to a component.
+ * Utility type for adding the optional `asChild` boolean prop to a component.
  */
 export type WithAsChild = {
 	/**

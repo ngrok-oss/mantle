@@ -7,7 +7,6 @@ import { GlobeHemisphereWest } from "@phosphor-icons/react/GlobeHemisphereWest";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 import { Link } from "~/components/link";
-import { PreviewBadge } from "~/components/preview-badge";
 import {
 	PropDefaultValueCell,
 	PropDescriptionCell,
@@ -35,12 +34,9 @@ export const headers: HeadersFunction = () => {
 export default function Page() {
 	return (
 		<div className="space-y-16">
-			<section className="mb-4 space-y-4">
-				<div className="flex items-center gap-3">
-					<h1 className="text-5xl font-medium">Badge</h1>
-					<PreviewBadge />
-				</div>
-				<p className="mt-4 text-xl text-body">
+			<section className="space-y-4">
+				<h1 className="text-5xl font-medium">Badge</h1>
+				<p className="font-body text-xl text-body">
 					A Badge is a non-interactive component used to highlight important information or to visually indicate the
 					status of an item.
 				</p>
@@ -81,11 +77,11 @@ export default function Page() {
 				</div>
 			</section>
 
-			<section className="mt-16 space-y-4">
+			<section className="space-y-4">
 				<h2 id="api" className="text-3xl font-medium">
 					API Reference
 				</h2>
-				<p className="text-xl text-body">
+				<p className="font-body text-xl text-body">
 					The <InlineCode>Badge</InlineCode> accepts the following props in addition to the{" "}
 					<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span">
 						standard HTML span attributes

@@ -26,7 +26,7 @@ export default function Page() {
 				<h1 className="text-5xl font-medium">Popover</h1>
 				<PreviewBadge />
 			</div>
-			<p className="text-xl text-body">Displays rich content in a portal, triggered by a button.</p>
+			<p className="font-body text-xl text-body">Displays rich content in a portal, triggered by a button.</p>
 			<div>
 				<Example className="gap-2">
 					<Popover>
@@ -74,17 +74,17 @@ export default function Page() {
 						<CodeBlockCode
 							language="tsx"
 							value={fmtCode`
-							import { Popover, PopoverContent, PopoverTrigger } from "@ngrok/mantle/popover";
+								import { Popover, PopoverContent, PopoverTrigger } from "@ngrok/mantle/popover";
 
-							<Popover>
-								<PopoverTrigger asChild>
-									<Button>Open popover</Button>
-								</PopoverTrigger>
-								<PopoverContent className="w-80">
-									<p>Reprehenderit veniam excepteur incididunt et ut eu.</p>
-								</PopoverContent>
-							</Popover>
-						`}
+								<Popover>
+									<PopoverTrigger asChild>
+										<Button>Open popover</Button>
+									</PopoverTrigger>
+									<PopoverContent className="w-80">
+										<p>Reprehenderit veniam excepteur incididunt et ut eu.</p>
+									</PopoverContent>
+								</Popover>
+							`}
 						/>
 					</CodeBlockBody>
 				</CodeBlock>

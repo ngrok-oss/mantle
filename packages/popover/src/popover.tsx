@@ -3,10 +3,36 @@ import { forwardRef } from "react";
 import type { ComponentPropsWithoutRef, ElementRef } from "react";
 import { cx } from "../../cx";
 
+/**
+ * A popover is a floating overlay that appears above other elements on the page.
+ * Displays rich content in a portal, triggered by a button.
+ * This is the root, stateful component that manages the open/closed state of the popover.
+ *
+ * @preview This component is in `preview` mode which means the API is not stable and may change.
+ * There may also be bugs! Please file an issue if you find any! <3
+ *
+ * https://github.com/ngrok-oss/mantle/issues
+ */
 const Popover = PopoverPrimitive.Root;
 
+/**
+ * The trigger button that opens the popover.
+ *
+ * @preview This component is in `preview` mode which means the API is not stable and may change.
+ * There may also be bugs! Please file an issue if you find any! <3
+ *
+ * https://github.com/ngrok-oss/mantle/issues
+ */
 const PopoverTrigger = PopoverPrimitive.Trigger;
 
+/**
+ * The content to render inside the popover.
+ *
+ * @preview This component is in `preview` mode which means the API is not stable and may change.
+ * There may also be bugs! Please file an issue if you find any! <3
+ *
+ * https://github.com/ngrok-oss/mantle/issues
+ */
 const PopoverContent = forwardRef<
 	ElementRef<typeof PopoverPrimitive.Content>,
 	ComponentPropsWithoutRef<typeof PopoverPrimitive.Content>
@@ -24,6 +50,11 @@ const PopoverContent = forwardRef<
 		/>
 	</PopoverPrimitive.Portal>
 ));
-PopoverContent.displayName = PopoverPrimitive.Content.displayName;
+PopoverContent.displayName = "PopoverContent";
 
-export { Popover, PopoverTrigger, PopoverContent };
+export {
+	//,
+	Popover,
+	PopoverTrigger,
+	PopoverContent,
+};

@@ -2,6 +2,7 @@ import { Anchor } from "@/anchor";
 import { Button } from "@/button";
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import { InlineCode } from "@/inline-code";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/tooltip";
 import { Fire } from "@phosphor-icons/react/Fire";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
@@ -18,6 +19,7 @@ import {
 	StringPropType,
 } from "~/components/props-table";
 import { route } from "~/types/routes";
+import type { PropsWithChildren } from "react";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -32,16 +34,25 @@ export const headers: HeadersFunction = () => {
 	};
 };
 
+const DisabledTooltip = ({ children }: PropsWithChildren) => (
+	<Tooltip>
+		<TooltipTrigger asChild>{children}</TooltipTrigger>
+		<TooltipContent>Tooltips work on disabled buttons!</TooltipContent>
+	</Tooltip>
+);
+
 export default function Page() {
 	return (
 		<div className="space-y-16">
-			<section className="mb-4 space-y-4">
+			<section className="space-y-4">
 				<h1 id="button" className="text-5xl font-medium">
 					Button
 				</h1>
-				<p className="text-xl text-body">Initiates an action, such as completing a task or submitting information</p>
+				<p className="font-body text-xl text-body">
+					Initiates an action, such as completing a task or submitting information
+				</p>
 				<div>
-					<Example className="mt-4 flex flex-wrap gap-6">
+					<Example className="flex flex-wrap gap-6">
 						<div>
 							<p className="mb-2 text-center font-mono text-xs">Default</p>
 							<div className="flex items-center gap-2">
@@ -93,6 +104,31 @@ export default function Page() {
 								</Button>
 							</div>
 						</div>
+						<div>
+							<p className="mb-2 text-center font-mono text-xs">Disabled</p>
+							<div className="flex items-center gap-2">
+								<DisabledTooltip>
+									<Button disabled type="button" appearance="ghost" priority="default">
+										Ghost
+									</Button>
+								</DisabledTooltip>
+								<DisabledTooltip>
+									<Button disabled type="button" appearance="filled" priority="default">
+										Filled
+									</Button>
+								</DisabledTooltip>
+								<DisabledTooltip>
+									<Button disabled type="button" appearance="outlined" priority="default">
+										Outlined
+									</Button>
+								</DisabledTooltip>
+								<DisabledTooltip>
+									<Button disabled type="button" appearance="link" priority="default">
+										Link
+									</Button>
+								</DisabledTooltip>
+							</div>
+						</div>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
@@ -123,11 +159,11 @@ export default function Page() {
 				</div>
 			</section>
 
-			<section className="mb-4 space-y-4">
+			<section className="space-y-4">
 				<h2 id="example-icon" className="text-3xl font-medium">
 					Icon and Positioning
 				</h2>
-				<p className="text-xl text-body">
+				<p className="font-body text-xl text-body">
 					Use the <InlineCode>icon</InlineCode> prop to add an icon to the button. By default, it will render on the
 					logical start side of the button. Use the <InlineCode>iconPlacement</InlineCode> prop to change the side the
 					icon is rendered on.
@@ -163,11 +199,11 @@ export default function Page() {
 				</div>
 			</section>
 
-			<section className="mb-4 space-y-4">
+			<section className="space-y-4">
 				<h2 id="example-loading" className="text-3xl font-medium">
 					isLoading
 				</h2>
-				<p className="text-xl text-body">
+				<p className="font-body text-xl text-body">
 					<InlineCode>isLoading</InlineCode> determines whether or not the button is in a loading state, default{" "}
 					<InlineCode>false</InlineCode>. Setting <InlineCode>isLoading</InlineCode> will replace any{" "}
 					<InlineCode>icon</InlineCode> with a spinner, or add one if an icon wasn't given. It will also disable user
@@ -246,19 +282,21 @@ export default function Page() {
 				</div>
 			</section>
 
-			<section className="mb-4 space-y-4">
+			<section className="space-y-4">
 				<h2 id="composition" className="text-3xl font-medium">
 					Composition
 				</h2>
-				<p className="text-xl text-body">
+				<p className="font-body text-xl text-body">
 					When you want to render <span className="italic">something else</span> as a <InlineCode>Button</InlineCode>,
 					you can use the <InlineCode>asChild</InlineCode> prop to compose. This is useful when you want to splat the{" "}
 					<InlineCode>Button</InlineCode> styling onto a <InlineCode>Link</InlineCode> from{" "}
-					<InlineCode>remix</InlineCode> or <InlineCode>react-router</InlineCode>.
+					<InlineCode>remix</InlineCode> or <InlineCode>react-router</InlineCode>. Keep in mind that when you use{" "}
+					<InlineCode>asChild</InlineCode> the <InlineCode>type</InlineCode> prop will <strong>NOT</strong> be passed to
+					the child component.
 				</p>
 				<div>
 					<Example>
-						<Button type="button" appearance="filled" icon={<Fire weight="fill" />} asChild>
+						<Button appearance="filled" icon={<Fire weight="fill" />} asChild>
 							<Link to={route("/base/colors")}>See our colors!</Link>
 						</Button>
 					</Example>
@@ -282,11 +320,11 @@ export default function Page() {
 				</div>
 			</section>
 
-			<section className="mt-16 space-y-4">
+			<section className="space-y-4">
 				<h2 id="api" className="text-3xl font-medium">
 					API Reference
 				</h2>
-				<p className="text-xl text-body">
+				<p className="font-body text-xl text-body">
 					The <InlineCode>Button</InlineCode> accepts the following props in addition to the{" "}
 					<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button">
 						standard HTML button attributes
@@ -430,7 +468,7 @@ export default function Page() {
 						<PropDescriptionCell>
 							<p>
 								The default behavior of the <InlineCode>Button</InlineCode>. Unlike the native{" "}
-								<InlineCode>button</InlineCode> element,{" "}
+								<InlineCode>button</InlineCode> element, unless you use the <InlineCode>asChild</InlineCode> prop,{" "}
 								<span className="font-semibold">this prop is required and has no default value</span>. See{" "}
 								<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#type">
 									the MDN docs

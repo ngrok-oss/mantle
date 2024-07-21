@@ -1,7 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { useState } from "react";
-import { act } from "react-dom/test-utils";
+import { act, useState } from "react";
 import { createMemoryRouter, Link, RouterProvider } from "react-router-dom";
 import { describe, expect, test } from "vitest";
 import { Button } from "./button";
@@ -21,13 +20,16 @@ describe("Button", () => {
 		expect(screen.getByRole("button")).toHaveTextContent("click me");
 	});
 
-	test("renders an anchor, with `asChild`", () => {
+	test("renders an anchor with `asChild`, doesn't pass `type` to anchor", () => {
 		render(
-			<Button asChild type="button">
+			<Button type="button" asChild>
 				<a href="#yolo">click me</a>
 			</Button>,
 		);
 		expect(screen.getByRole("link")).toHaveTextContent("click me");
+
+		// Ensure the `type` attribute is not passed to the anchor element
+		expect(screen.getByRole("link")).not.toHaveAttribute("type");
 	});
 
 	test("renders a anchor (<Link />), with `asChild`", async () => {
