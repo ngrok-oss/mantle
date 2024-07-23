@@ -6,14 +6,37 @@ import type { ComponentPropsWithoutRef, ElementRef, HTMLAttributes } from "react
 import { IconButton, type IconButtonProps } from "../../button";
 import { cx } from "../../cx";
 
+/**
+ * The root component for a sheet. Should compose the `SheetTrigger` and `SheetContent`.
+ * Acts as a stateful provider for the sheet's open/closed state.
+ */
 const Sheet = SheetPrimitive.Root;
 
+/**
+ * The trigger for a sheet. Should be rendered as a child of the `Sheet` component.
+ * Renders an unstyled button by default, but can be customized with the `asChild` prop.
+ */
 const SheetTrigger = SheetPrimitive.Trigger;
 
+/**
+ * The close button for a sheet. Should be rendered as a child of the `SheetContent` component.
+ * Renders an unstyled button by default, but can be customized with the `asChild` prop.
+ */
 const SheetClose = SheetPrimitive.Close;
 
+/**
+ * The portal for a sheet. Should be rendered as a child of the `Sheet` component.
+ * Renders a portal that the `SheetOverlay` and `SheetContent` is rendered into.
+ *
+ * You likely don't need to use this component directly, as it is used internally by the `SheetContent` component.
+ */
 const SheetPortal = SheetPrimitive.Portal;
 
+/**
+ * The overlay backdrop for a sheet. Should be rendered as a child of the `SheetPortal` component.
+ *
+ * You likely don't need to use this component directly, as it is used internally by the `SheetContent` component.
+ */
 const SheetOverlay = forwardRef<
 	ElementRef<typeof SheetPrimitive.Overlay>,
 	ComponentPropsWithoutRef<typeof SheetPrimitive.Overlay>
@@ -51,6 +74,10 @@ const SheetVariants = cva(
 type SheetContentProps = {} & ComponentPropsWithoutRef<typeof SheetPrimitive.Content> &
 	VariantProps<typeof SheetVariants>;
 
+/**
+ * The main container for a sheet. Renders on top of the overlay backdrop.
+ * Should compose the `SheetHeader`, `SheetBody`, and `SheetFooter`.
+ */
 const SheetContent = forwardRef<ElementRef<typeof SheetPrimitive.Content>, SheetContentProps>(
 	({ side = "right", className, children, ...props }, ref) => (
 		<SheetPortal>
@@ -64,6 +91,10 @@ const SheetContent = forwardRef<ElementRef<typeof SheetPrimitive.Content>, Sheet
 SheetContent.displayName = SheetPrimitive.Content.displayName;
 
 type SheetCloseIconButtonProps = Partial<Omit<IconButtonProps, "icon">>;
+
+/**
+ * An icon button that closes the sheet when clicked. Should be rendered within the `SheetHeader` as a child of `SheetActions`.
+ */
 const SheetCloseIconButton = ({
 	size = "md",
 	type = "button",
@@ -76,10 +107,18 @@ const SheetCloseIconButton = ({
 	</SheetPrimitive.Close>
 );
 
+/**
+ * The body container for a sheet. This is where you would typically place the main content of the sheet.
+ * Should be rendered as a child of `SheetContent`.
+ */
 const SheetBody = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => (
 	<div className={cx("scrollbar flex-1 overflow-y-auto p-6 text-body", className)} {...props} />
 );
 
+/**
+ * The header container for a sheet. This is where you would typically place the title, description, and actions.
+ * Should be rendered as a child of `SheetContent`.
+ */
 const SheetHeader = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => (
 	<div
 		className={cx(
@@ -91,13 +130,21 @@ const SheetHeader = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) =>
 	/>
 );
 
+/**
+ * The footer container for a sheet. This is where you would typically place close and submit buttons.
+ * Should be rendered as a child of `SheetContent`.
+ */
 const SheetFooter = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => (
 	<div
-		className={cx("flex shrink-0 flex-row-reverse gap-2 border-t border-dialog-muted px-6 py-2.5", className)}
+		className={cx("flex shrink-0 justify-end gap-2 border-t border-dialog-muted px-6 py-2.5", className)}
 		{...props}
 	/>
 );
 
+/**
+ * The title for a sheet. Typically rendered as a child of `SheetTitleGroup`.
+ * Defaults to an `h2` element, but can be changed via the `asChild` prop.
+ */
 const SheetTitle = forwardRef<
 	ElementRef<typeof SheetPrimitive.Title>,
 	ComponentPropsWithoutRef<typeof SheetPrimitive.Title>
@@ -110,6 +157,9 @@ const SheetTitle = forwardRef<
 ));
 SheetTitle.displayName = SheetPrimitive.Title.displayName;
 
+/**
+ * A group container for the title and actions of a sheet. Typically rendered as a child of `SheetHeader`.
+ */
 const SheetTitleGroup = forwardRef<ElementRef<"div">, HTMLAttributes<HTMLDivElement>>(
 	({ children, className, ...props }, ref) => (
 		<div className={cx("flex items-center justify-between gap-2", className)} {...props} ref={ref}>
@@ -119,6 +169,9 @@ const SheetTitleGroup = forwardRef<ElementRef<"div">, HTMLAttributes<HTMLDivElem
 );
 SheetTitleGroup.displayName = "SheetTitleGroup";
 
+/**
+ * A description for a sheet. Typically rendered as a child of `SheetHeader`.
+ */
 const SheetDescription = forwardRef<
 	ElementRef<typeof SheetPrimitive.Description>,
 	ComponentPropsWithoutRef<typeof SheetPrimitive.Description>
@@ -127,6 +180,9 @@ const SheetDescription = forwardRef<
 ));
 SheetDescription.displayName = SheetPrimitive.Description.displayName;
 
+/**
+ * A group container for the actions of a sheet. Typically rendered as a child of `SheetTitleGroup`.
+ */
 const SheetActions = forwardRef<ElementRef<"div">, HTMLAttributes<HTMLDivElement>>(
 	({ children, className, ...props }, ref) => (
 		<div className={cx("flex h-full items-center gap-2", className)} {...props} ref={ref}>

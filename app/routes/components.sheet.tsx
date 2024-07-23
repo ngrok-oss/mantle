@@ -110,6 +110,9 @@ export default function Page() {
 								<SheetClose asChild>
 									<Button type="button">Close</Button>
 								</SheetClose>
+								<Button type="button" appearance="filled">
+									Save
+								</Button>
 							</SheetFooter>
 						</SheetContent>
 					</Sheet>
@@ -149,11 +152,11 @@ export default function Page() {
 											<SheetTitleGroup>
 												<SheetTitle>Are you absolutely sure?</SheetTitle>
 												<SheetActions>
-													<SheetCloseIconButton appearance="outlined" />
+													<IconButton appearance="ghost" type="button" icon={<TerminalWindow />} label="Start a Tunnel" />
+													<IconButton appearance="ghost" type="button" icon={<ListMagnifyingGlass />} label="See Traffic" />
+													<IconButton appearance="ghost" type="button" icon={<TrashSimple />} label="Delete" />
 													<Separator orientation="vertical" className="h-[80%]" />
-													<IconButton type="button" icon={<TrashSimple />} label="Delete" />
-													<IconButton type="button" icon={<ListMagnifyingGlass />} label="See Traffic" />
-													<IconButton type="button" icon={<TerminalWindow />} label="Start a Tunnel" />
+													<SheetCloseIconButton appearance="ghost" />
 												</SheetActions>
 											</SheetTitleGroup>
 											<SheetDescription>
