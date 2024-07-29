@@ -441,7 +441,7 @@ const mantlePreset = {
 			},
 			fontFamily: {
 				sans: ["EuclidSquare", ...defaultTheme.fontFamily.sans],
-				mono: ["IBMPlexMono", ...defaultTheme.fontFamily.mono],
+				mono: ["Founders Grotesk Mono", ...defaultTheme.fontFamily.mono],
 				body: ["Nunito Sans", ...defaultTheme.fontFamily.sans],
 			},
 			fontSize: {

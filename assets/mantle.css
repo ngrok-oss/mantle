@@ -1484,6 +1484,13 @@
 }
 
 @layer base {
+	@font-face {
+		font-family: "Founders Grotesk Mono";
+		src: url("test-founders-grotesk-mono-regular.woff2") format("woff2");
+		font-weight: normal;
+		font-style: normal;
+	}
+
 	body {
 		@apply bg-white text-gray-900;
 	}
