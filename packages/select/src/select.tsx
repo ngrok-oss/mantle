@@ -2,7 +2,14 @@ import { CaretDown } from "@phosphor-icons/react/CaretDown";
 import { CaretUp } from "@phosphor-icons/react/CaretUp";
 import { Check } from "@phosphor-icons/react/Check";
 import * as SelectPrimitive from "@radix-ui/react-select";
-import type { ComponentPropsWithoutRef, ElementRef, FocusEvent, Ref, SelectHTMLAttributes } from "react";
+import type {
+	ComponentProps,
+	ComponentPropsWithoutRef,
+	ElementRef,
+	FocusEvent,
+	Ref,
+	SelectHTMLAttributes,
+} from "react";
 import { createContext, forwardRef, useContext } from "react";
 import { composeRefs } from "../../compose-refs";
 import { cx } from "../../cx";
@@ -21,7 +28,7 @@ type SelectContextType = WithValidation &
 		 * @note this is a no-op for now until we can guarantee that it works identically to a native select onBlur
 		 */
 		onBlur?: (event: FocusEvent<HTMLButtonElement>) => void;
-	};
+	} & Pick<ComponentProps<"button">, "id">;
 
 const SelectContext = createContext<SelectContextType>({});
 
@@ -37,16 +44,16 @@ type SelectProps = Omit<ComponentPropsWithoutRef<typeof SelectPrimitive.Root>, "
 		 * @note this is a no-op for now until we can guarantee that it works identically to a native select onBlur
 		 */
 		onBlur?: (event: FocusEvent<HTMLButtonElement>) => void;
-	};
+	} & Pick<ComponentProps<"button">, "id">;
 
 /**
  * Displays a list of options for the user to pick from—triggered by a button.
  */
 const Select = forwardRef<HTMLButtonElement, SelectProps>(
-	({ "aria-invalid": _ariaInvalid, children, validation, onBlur, onChange, ...props }, ref) => {
+	({ "aria-invalid": _ariaInvalid, children, id, validation, onBlur, onChange, ...props }, ref) => {
 		return (
 			<SelectPrimitive.Root {...props} onValueChange={onChange}>
-				<SelectContext.Provider value={{ "aria-invalid": _ariaInvalid, validation, onBlur, ref }}>
+				<SelectContext.Provider value={{ "aria-invalid": _ariaInvalid, id, validation, onBlur, ref }}>
 					{children}
 				</SelectContext.Provider>
 			</SelectPrimitive.Root>
@@ -72,13 +79,14 @@ type SelectTriggerProps = ComponentPropsWithoutRef<typeof SelectPrimitive.Trigge
  * The button that toggles the select. The Select.Content will position itself adjacent to the trigger.
  */
 const SelectTrigger = forwardRef<ElementRef<typeof SelectPrimitive.Trigger>, SelectTriggerProps>(
-	({ "aria-invalid": ariaInValidProp, className, children, validation: propValidation, ...props }, ref) => {
+	({ "aria-invalid": ariaInValidProp, className, children, id: propId, validation: propValidation, ...props }, ref) => {
 		const ctx = useContext(SelectContext);
 		const _ariaInvalid = ctx["aria-invalid"] ?? ariaInValidProp;
 		const isInvalid = _ariaInvalid != null && _ariaInvalid !== "false";
 		const _validation = ctx.validation ?? propValidation;
 		const validation = isInvalid ? "error" : typeof _validation === "function" ? _validation() : _validation;
 		const ariaInvalid = _ariaInvalid ?? validation === "error";
+		const id = ctx.id ?? propId;
 
 		return (
 			<SelectPrimitive.Trigger
@@ -86,13 +94,14 @@ const SelectTrigger = forwardRef<ElementRef<typeof SelectPrimitive.Trigger>, Sel
 				data-validation={validation || undefined} // eslint-disable-line @typescript-eslint/prefer-nullish-coalescing
 				className={cx(
 					"flex h-11 w-full items-center justify-between rounded-md border border-form bg-form px-3 py-2 text-strong placeholder:text-placeholder hover:border-neutral-400 hover:bg-form-hover hover:text-strong disabled:pointer-events-none disabled:opacity-50 sm:h-9 sm:text-sm [&>span]:line-clamp-1 [&>span]:text-left",
-					"focus:outline-none focus-visible:ring-4 aria-expanded:ring-4",
-					"focus-visible:border-accent-600 focus-visible:ring-focus-accent aria-expanded:border-accent-600 aria-expanded:ring-focus-accent",
-					"data-validation-success:border-success-600 data-validation-success:focus-visible:border-success-600 data-validation-success:focus-visible:ring-focus-success data-validation-success:aria-expanded:border-success-600 data-validation-success:aria-expanded:ring-focus-success",
-					"data-validation-warning:border-warning-600 data-validation-warning:focus-visible:border-warning-600 data-validation-warning:focus-visible:ring-focus-warning data-validation-warning:aria-expanded:border-warning-600 data-validation-warning:aria-expanded:ring-focus-warning",
-					"data-validation-error:border-danger-600 data-validation-error:focus-visible:border-danger-600 data-validation-error:focus-visible:ring-focus-danger data-validation-error:aria-expanded:border-danger-600 data-validation-error:aria-expanded:ring-focus-danger",
+					"focus:outline-none focus:ring-4 aria-expanded:ring-4",
+					"focus:border-accent-600 focus:ring-focus-accent aria-expanded:border-accent-600 aria-expanded:ring-focus-accent",
+					"data-validation-success:border-success-600 data-validation-success:focus:border-success-600 data-validation-success:focus:ring-focus-success data-validation-success:aria-expanded:border-success-600 data-validation-success:aria-expanded:ring-focus-success",
+					"data-validation-warning:border-warning-600 data-validation-warning:focus:border-warning-600 data-validation-warning:focus:ring-focus-warning data-validation-warning:aria-expanded:border-warning-600 data-validation-warning:aria-expanded:ring-focus-warning",
+					"data-validation-error:border-danger-600 data-validation-error:focus:border-danger-600 data-validation-error:focus:ring-focus-danger data-validation-error:aria-expanded:border-danger-600 data-validation-error:aria-expanded:ring-focus-danger",
 					className,
 				)}
+				id={id}
 				ref={composeRefs(ref, ctx.ref)}
 				{...props}
 			>
