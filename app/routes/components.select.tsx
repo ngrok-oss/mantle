@@ -1,6 +1,7 @@
 import { Anchor } from "@/anchor";
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import { InlineCode } from "@/inline-code";
+import { Label } from "@/label";
 import {
 	Select,
 	SelectContent,
@@ -53,33 +54,36 @@ export default function Page() {
 
 				<div>
 					<Example className="flex-col gap-4">
-						<Select name="number">
-							<SelectTrigger className="max-w-64">
-								<SelectValue placeholder="Select a fruit" />
-							</SelectTrigger>
-							<SelectContent width="trigger">
-								<SelectGroup>
-									<SelectLabel>Fruits</SelectLabel>
-									<SelectItem value="apple">Apple</SelectItem>
-									<SelectItem value="banana">Banana</SelectItem>
-									<SelectItem value="blueberry">Blueberry</SelectItem>
-									<SelectItem value="grapes">Grapes</SelectItem>
-									<SelectItem value="pineapple">Pineapple</SelectItem>
-								</SelectGroup>
-								<SelectSeparator />
-								<SelectGroup>
-									<SelectLabel>Vegetables</SelectLabel>
-									<SelectItem value="carrot">Carrot</SelectItem>
-									<SelectItem value="cucumber">Cucumber</SelectItem>
-									<SelectItem value="lettuce">Lettuce</SelectItem>
-									<SelectItem value="tomato">Tomato</SelectItem>
-									<SelectItem value="zucchini">
-										<p>Zucchini</p>
-										<p>Ex sit voluptate incididunt pariatur velit consequat reprehenderit.</p>
-									</SelectItem>
-								</SelectGroup>
-							</SelectContent>
-						</Select>
+						<Label htmlFor="fruits">
+							<p>Fruits</p>
+							<Select id="fruits" name="number">
+								<SelectTrigger className="max-w-64">
+									<SelectValue placeholder="Select a fruit" />
+								</SelectTrigger>
+								<SelectContent width="trigger">
+									<SelectGroup>
+										<SelectLabel>Fruits</SelectLabel>
+										<SelectItem value="apple">Apple</SelectItem>
+										<SelectItem value="banana">Banana</SelectItem>
+										<SelectItem value="blueberry">Blueberry</SelectItem>
+										<SelectItem value="grapes">Grapes</SelectItem>
+										<SelectItem value="pineapple">Pineapple</SelectItem>
+									</SelectGroup>
+									<SelectSeparator />
+									<SelectGroup>
+										<SelectLabel>Vegetables</SelectLabel>
+										<SelectItem value="carrot">Carrot</SelectItem>
+										<SelectItem value="cucumber">Cucumber</SelectItem>
+										<SelectItem value="lettuce">Lettuce</SelectItem>
+										<SelectItem value="tomato">Tomato</SelectItem>
+										<SelectItem value="zucchini">
+											<p>Zucchini</p>
+											<p>Ex sit voluptate incididunt pariatur velit consequat reprehenderit.</p>
+										</SelectItem>
+									</SelectGroup>
+								</SelectContent>
+							</Select>
+						</Label>
 						<Select validation="error">
 							<SelectTrigger className="max-w-64">
 								<SelectValue placeholder="Select a fruit" />
@@ -169,45 +173,49 @@ export default function Page() {
 							<CodeBlockCode
 								language="tsx"
 								value={fmtCode`
-							import {
-								Select,
-								SelectContent,
-								SelectGroup,
-								SelectItem,
-								SelectLabel,
-								SelectSeparator,
-								SelectTrigger,
-								SelectValue,
-							} from "@ngrok/mantle/select";
+									import { Label } from "@ngrok/mantle/label";
+									import {
+										Select,
+										SelectContent,
+										SelectGroup,
+										SelectItem,
+										SelectLabel,
+										SelectSeparator,
+										SelectTrigger,
+										SelectValue,
+									} from "@ngrok/mantle/select";
 
-							<Select>
-								<SelectTrigger className="w-[180px]">
-									<SelectValue placeholder="Select a fruit" />
-								</SelectTrigger>
-								<SelectContent width="trigger">
-									<SelectGroup>
-										<SelectLabel>Fruits</SelectLabel>
-										<SelectItem value="apple">Apple</SelectItem>
-										<SelectItem value="banana">Banana</SelectItem>
-										<SelectItem value="blueberry">Blueberry</SelectItem>
-										<SelectItem value="grapes">Grapes</SelectItem>
-										<SelectItem value="pineapple">Pineapple</SelectItem>
-									</SelectGroup>
-									<SelectSeparator />
-									<SelectGroup>
-										<SelectLabel>Vegetables</SelectLabel>
-										<SelectItem value="carrot">Carrot</SelectItem>
-										<SelectItem value="cucumber">Cucumber</SelectItem>
-										<SelectItem value="lettuce">Lettuce</SelectItem>
-										<SelectItem value="tomato">Tomato</SelectItem>
-										<SelectItem value="zucchini">
-											<p>Zucchini</p>
-											<p>Ex sit voluptate incididunt pariatur velit consequat reprehenderit.</p>
-										</SelectItem>
-									</SelectGroup>
-								</SelectContent>
-							</Select>
-						`}
+									<Label htmlFor="fruits">
+										<p>Fruits</p>
+										<Select id="fruits" name="number">
+											<SelectTrigger className="max-w-64">
+												<SelectValue placeholder="Select a fruit" />
+											</SelectTrigger>
+											<SelectContent width="trigger">
+												<SelectGroup>
+													<SelectLabel>Fruits</SelectLabel>
+													<SelectItem value="apple">Apple</SelectItem>
+													<SelectItem value="banana">Banana</SelectItem>
+													<SelectItem value="blueberry">Blueberry</SelectItem>
+													<SelectItem value="grapes">Grapes</SelectItem>
+													<SelectItem value="pineapple">Pineapple</SelectItem>
+												</SelectGroup>
+												<SelectSeparator />
+												<SelectGroup>
+													<SelectLabel>Vegetables</SelectLabel>
+													<SelectItem value="carrot">Carrot</SelectItem>
+													<SelectItem value="cucumber">Cucumber</SelectItem>
+													<SelectItem value="lettuce">Lettuce</SelectItem>
+													<SelectItem value="tomato">Tomato</SelectItem>
+													<SelectItem value="zucchini">
+														<p>Zucchini</p>
+														<p>Ex sit voluptate incididunt pariatur velit consequat reprehenderit.</p>
+													</SelectItem>
+												</SelectGroup>
+											</SelectContent>
+										</Select>
+									</Label>
+								`}
 							/>
 						</CodeBlockBody>
 					</CodeBlock>
