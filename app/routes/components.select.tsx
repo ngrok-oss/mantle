@@ -54,10 +54,10 @@ export default function Page() {
 
 				<div>
 					<Example className="flex-col gap-4">
-						<Label htmlFor="fruits">
+						<Label className="w-full max-w-64" htmlFor="fruits">
 							<p>Fruits</p>
 							<Select id="fruits" name="number">
-								<SelectTrigger className="max-w-64">
+								<SelectTrigger>
 									<SelectValue placeholder="Select a fruit" />
 								</SelectTrigger>
 								<SelectContent width="trigger">
@@ -185,10 +185,10 @@ export default function Page() {
 										SelectValue,
 									} from "@ngrok/mantle/select";
 
-									<Label htmlFor="fruits">
+									<Label className="w-full max-w-64" htmlFor="fruits">
 										<p>Fruits</p>
 										<Select id="fruits" name="number">
-											<SelectTrigger className="max-w-64">
+											<SelectTrigger>
 												<SelectValue placeholder="Select a fruit" />
 											</SelectTrigger>
 											<SelectContent width="trigger">
