@@ -253,6 +253,15 @@ function Navigation({ className, style }: WithStyleProps) {
 						</li>
 					))}
 				</ul>
+
+				<li className="mt-6 text-xs font-medium uppercase tracking-wider">Unreleased Components</li>
+				<ul role="list" className="mt-2">
+					<li>
+						<NavLink to="/components/unreleased/data-table" prefetch="intent">
+							Data Table
+						</NavLink>
+					</li>
+				</ul>
 			</ul>
 		</nav>
 	);

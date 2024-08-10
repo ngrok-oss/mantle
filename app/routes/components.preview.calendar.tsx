@@ -3,8 +3,8 @@ import { Calendar } from "@/calendar";
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import { InlineCode } from "@/inline-code";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
+import { PreviewBadge } from "~/components/badges";
 import { Example } from "~/components/example";
-import { PreviewBadge } from "~/components/preview-badge";
 import { useState } from "react";
 import type { DateRange } from "react-day-picker";
 
