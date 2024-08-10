@@ -8,6 +8,11 @@ import type { Options } from "tsup";
 const doNotPublish = new Set(["back-to-top-button", "portal"]);
 
 /**
+ * A set of package names that shouldn't be released yet
+ */
+const unreleasedPackages = new Set(["data-table"]);
+
+/**
  * Check if a package name is the tailwind preset
  */
 const isTailwindPreset = (name: string) => /tailwind-preset/i.test(name);
@@ -22,7 +27,10 @@ const allPackageDirectories = fs
 
 // filter only the publishable component packages then map them to the tsup config entries object
 const componentPackages = allPackageDirectories
-	.filter((name) => !doNotPublish.has(name) && !isTailwindPreset(name))
+	.filter(
+		(packageName) =>
+			!doNotPublish.has(packageName) && !unreleasedPackages.has(packageName) && !isTailwindPreset(packageName),
+	)
 	.reduce<Record<string, string>>((acc, name) => {
 		acc[name] = packagePath(name);
 		return acc;

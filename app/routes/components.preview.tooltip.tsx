@@ -2,8 +2,8 @@ import { Button } from "@/button";
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/tooltip";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
+import { PreviewBadge } from "~/components/badges";
 import { Example } from "~/components/example";
-import { PreviewBadge } from "~/components/preview-badge";
 
 export const meta: MetaFunction = () => {
 	return [

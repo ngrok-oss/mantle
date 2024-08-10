@@ -3,8 +3,8 @@ import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode }
 import { Input } from "@/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/popover";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
+import { PreviewBadge } from "~/components/badges";
 import { Example } from "~/components/example";
-import { PreviewBadge } from "~/components/preview-badge";
 
 export const meta: MetaFunction = () => {
 	return [
