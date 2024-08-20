@@ -1,4 +1,5 @@
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
+import { InlineCode } from "@/inline-code";
 import { HorizontalSeparatorGroup, Separator } from "@/separator";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
@@ -89,6 +90,117 @@ export default function Page() {
 								</HorizontalSeparatorGroup>
 							</div>
 						`}
+							/>
+						</CodeBlockBody>
+					</CodeBlock>
+				</div>
+			</section>
+
+			<section className="space-y-4">
+				<h2 id="composition" className="text-3xl font-medium">
+					Composition
+				</h2>
+				<p className="font-body text-xl text-body">
+					When you want to render <span className="italic">something else</span> as a{" "}
+					<InlineCode>HorizontalSeparatorGroup</InlineCode> or <InlineCode>Separator</InlineCode>, you can use the{" "}
+					<InlineCode>asChild</InlineCode> prop to compose.
+				</p>
+				<div>
+					<Example>
+						<div className="flex flex-col space-y-16">
+							<form className="w-96">
+								<fieldset className="space-y-4">
+									<HorizontalSeparatorGroup className="w-full" asChild>
+										<legend>
+											Choose your favorite fruit!
+											<Separator asChild>
+												<span />
+											</Separator>
+										</legend>
+									</HorizontalSeparatorGroup>
+
+									<div className="space-y-2">
+										<div className="space-x-2">
+											<input type="radio" id="apple" name="monster" value="apple" />
+											<label htmlFor="apple">Apple</label>
+										</div>
+
+										<div className="space-x-2">
+											<input type="radio" id="mango" name="monster" value="mango" />
+											<label htmlFor="mango">Mango</label>
+										</div>
+
+										<div className="space-x-2">
+											<input type="radio" id="pear" name="monster" value="pear" />
+											<label htmlFor="pear">Pear</label>
+										</div>
+									</div>
+								</fieldset>
+							</form>
+
+							<div className="flex h-5 items-center space-x-4 text-sm">
+								<div>Blog</div>
+								<Separator orientation="vertical" asChild>
+									<span />
+								</Separator>
+								<div>Docs</div>
+								<Separator orientation="vertical" asChild>
+									<span />
+								</Separator>
+								<div>Source</div>
+							</div>
+						</div>
+					</Example>
+					<CodeBlock className="rounded-b-lg rounded-t-none">
+						<CodeBlockBody>
+							<CodeBlockCopyButton />
+							<CodeBlockCode
+								language="tsx"
+								value={fmtCode`
+									import { HorizontalSeparatorGroup, Separator } from "@ngrok/mantle/separator";
+
+									<form>
+										<fieldset className="space-y-4">
+											<HorizontalSeparatorGroup className="w-full" asChild>
+												<legend>
+													Choose your favorite fruit!
+													<Separator asChild>
+														<span />
+													</Separator>
+												</legend>
+											</HorizontalSeparatorGroup>
+
+											<div className="space-y-2">
+												<div className="space-x-2">
+													<input type="radio" id="apple" name="monster" value="apple" />
+													<label htmlFor="apple">Apple</label>
+												</div>
+
+												<div className="space-x-2">
+													<input type="radio" id="mango" name="monster" value="mango" />
+													<label htmlFor="mango">Mango</label>
+												</div>
+
+												<div className="space-x-2">
+													<input type="radio" id="pear" name="monster" value="pear" />
+													<label htmlFor="pear">Pear</label>
+												</div>
+											</div>
+										</fieldset>
+									</form>
+
+									<div className="flex h-5 items-center space-x-4 text-sm">
+										<div>Blog</div>
+										<Separator orientation="vertical" asChild>
+											<span />
+										</Separator>
+										<div>Docs</div>
+										<Separator orientation="vertical" asChild>
+											<span />
+										</Separator>
+										<div>Source</div>
+									</div>
+								`}
 							/>
 						</CodeBlockBody>
 					</CodeBlock>

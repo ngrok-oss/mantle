@@ -1,7 +1,9 @@
 import * as SeparatorPrimitive from "@radix-ui/react-separator";
+import { Slot } from "@radix-ui/react-slot";
 import { createContext, forwardRef, useContext } from "react";
 import type { ComponentPropsWithoutRef, ElementRef, HTMLAttributes } from "react";
 import { cx } from "../../cx";
+import type { WithAsChild } from "../../types/src/as-child";
 
 type Orientation = "horizontal" | "vertical";
 
@@ -14,19 +16,28 @@ const SeparatorGroupContext = createContext<SeparatorGroupContextShape>({});
 /**
  * A container to layout a group of horizontal separators.
  */
-const HorizontalSeparatorGroup = ({ className, children, ...props }: HTMLAttributes<HTMLDivElement>) => (
-	<SeparatorGroupContext.Provider value={{ orientation: "horizontal" }}>
-		<div
-			data-horizontal-separator-group
-			className={cx("group flex items-center gap-2 [&_*:not([data-separator])]:shrink-0", className)}
-			{...props}
-		>
-			{children}
-		</div>
-	</SeparatorGroupContext.Provider>
-);
+const HorizontalSeparatorGroup = ({
+	className,
+	children,
+	asChild,
+	...props
+}: HTMLAttributes<HTMLDivElement> & WithAsChild) => {
+	const Comp = asChild ? Slot : "div";
 
-type SeparatorProps = Omit<ComponentPropsWithoutRef<typeof SeparatorPrimitive.Root>, "children">;
+	return (
+		<SeparatorGroupContext.Provider value={{ orientation: "horizontal" }}>
+			<Comp
+				data-horizontal-separator-group
+				className={cx("group flex items-center gap-2 [&_*:not([data-separator])]:shrink-0", className)}
+				{...props}
+			>
+				{children}
+			</Comp>
+		</SeparatorGroupContext.Provider>
+	);
+};
+
+type SeparatorProps = ComponentPropsWithoutRef<typeof SeparatorPrimitive.Root>;
 
 /**
  * Visually or semantically separates content.
