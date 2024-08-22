@@ -93,7 +93,8 @@ const SelectTrigger = forwardRef<ElementRef<typeof SelectPrimitive.Trigger>, Sel
 				aria-invalid={ariaInvalid}
 				data-validation={validation || undefined} // eslint-disable-line @typescript-eslint/prefer-nullish-coalescing
 				className={cx(
-					"flex h-11 w-full items-center justify-between rounded-md border border-form bg-form px-3 py-2 text-strong placeholder:text-placeholder hover:border-neutral-400 hover:bg-form-hover hover:text-strong disabled:pointer-events-none disabled:opacity-50 sm:h-9 sm:text-sm [&>span]:line-clamp-1 [&>span]:text-left",
+					"h-11 text-base sm:h-9 sm:text-sm",
+					"flex w-full items-center justify-between rounded-md border border-form bg-form px-3 py-2 text-strong placeholder:text-placeholder hover:border-neutral-400 hover:bg-form-hover hover:text-strong disabled:pointer-events-none disabled:opacity-50 [&>span]:line-clamp-1 [&>span]:text-left",
 					"focus:outline-none focus:ring-4 aria-expanded:ring-4",
 					"focus:border-accent-600 focus:ring-focus-accent aria-expanded:border-accent-600 aria-expanded:ring-focus-accent",
 					"data-validation-success:border-success-600 data-validation-success:focus:border-success-600 data-validation-success:focus:ring-focus-success data-validation-success:aria-expanded:border-success-600 data-validation-success:aria-expanded:ring-focus-success",

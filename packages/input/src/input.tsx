@@ -136,7 +136,8 @@ const InputContainer = ({
 				aria-disabled={disabled ?? _ariaDisabled}
 				data-validation={validation || undefined} // eslint-disable-line @typescript-eslint/prefer-nullish-coalescing
 				className={cx(
-					"relative flex h-11 w-full items-center gap-1.5 rounded-md border bg-form px-3 py-2 file:border-0 file:bg-transparent file:text-sm file:font-medium focus-within:outline-none focus-within:ring-4 focus-visible:outline-none focus-visible:ring-4 sm:h-9 sm:text-sm",
+					"h-11 text-base sm:h-9 sm:text-sm",
+					"relative flex w-full items-center gap-1.5 rounded-md border bg-form px-3 py-2 file:border-0 file:bg-transparent file:text-sm file:font-medium focus-within:outline-none focus-within:ring-4 focus-visible:outline-none focus-visible:ring-4",
 					"aria-disabled:opacity-50",
 					"has-[input:not(:first-child)]:ps-2.5 has-[input:not(:last-child)]:pe-2.5 [&>:not(input)]:shrink-0 [&_svg]:size-6 sm:[&_svg]:size-5",
 					"border-form text-strong has-[:focus-visible]:border-accent-600 has-[:focus-visible]:ring-focus-accent",
