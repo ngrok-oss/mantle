@@ -6,17 +6,9 @@ import type { WithValidation } from "../../input";
 import type { VariantProps } from "../../types";
 
 const textAreaVariants = cva(
-	"border-input flex min-h-24 w-full rounded-md border bg-form px-3 py-[calc(theme(spacing[2.5])-1px)] focus-visible:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50 data-drag-over:border-dashed data-drag-over:ring-4 sm:py-[calc(theme(spacing[2])-1px)] sm:text-sm",
+	"border-input flex min-h-24 w-full rounded-md border bg-form px-3 py-[calc(theme(spacing[2.5])-1px)] text-base focus-visible:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50 data-drag-over:border-dashed data-drag-over:ring-4 sm:py-[calc(theme(spacing[2])-1px)] sm:text-sm",
 	{
 		variants: {
-			// /**
-			//  * Whether or not the textarea has a validation error.
-			//  */
-			// invalid: {
-			// 	false:
-			// 		"border-form text-strong ring-focus-accent placeholder:text-placeholder focus:border-accent-600 data-drag-over:border-accent-600",
-			// 	true: "border-danger-600 ring-focus-danger placeholder:text-placeholder focus:border-danger-600 data-drag-over:border-dashed data-drag-over:border-danger-600",
-			// },
 			/**
 			 * The visual style of the textarea.
 			 */
@@ -24,9 +16,6 @@ const textAreaVariants = cva(
 				monospaced: "font-mono text-[0.9375rem] sm:text-[0.8125rem]",
 			},
 		},
-		// defaultVariants: {
-		// 	invalid: false,
-		// },
 	},
 );
 
