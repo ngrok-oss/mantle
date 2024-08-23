@@ -1,4 +1,5 @@
 import path from "node:path";
+import { glob } from "tinyglobby";
 
 type Path = `/${string}`;
 
@@ -8,11 +9,12 @@ type Path = `/${string}`;
 export async function processRoutes(
 	remixAppRoutesDirPath: string,
 ): Promise<readonly [routePaths: Array<Path>, routePatterns: Array<Path>]> {
-	const glob = new Bun.Glob("**/*.{ts,tsx}");
+	const globPath = path.join(remixAppRoutesDirPath, "**", "*.tsx");
+	const filepaths = await glob([globPath]);
 
 	const [uniqRoutePaths, uniqRoutePatterns] = getInitialRouteSets();
 
-	for await (const filepath of glob.scan(remixAppRoutesDirPath)) {
+	filepaths.forEach((filepath) => {
 		const filename = path.basename(filepath, ".tsx").trim();
 
 		const segments = parseSegmentsFromFilename(filename);
@@ -22,7 +24,7 @@ export async function processRoutes(
 
 		uniqRoutePaths.add(routePath);
 		uniqRoutePatterns.add(routePattern);
-	}
+	});
 
 	const routePaths = Array.from(uniqRoutePaths).sort();
 	const routePatterns = Array.from(uniqRoutePatterns).sort();

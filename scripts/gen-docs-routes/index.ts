@@ -1,4 +1,5 @@
 import path from "node:path";
+import fs from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { Command } from "@commander-js/extra-typings";
 import prettier from "prettier";
@@ -30,7 +31,7 @@ async function main() {
 	} else {
 		console.log(`Writing files…`);
 		console.log(`Writing ${destination}…`);
-		Bun.write(destination, output);
+		await fs.writeFile(destination, output, "utf-8");
 	}
 
 	console.log(`Done generating routes! 💃`);
