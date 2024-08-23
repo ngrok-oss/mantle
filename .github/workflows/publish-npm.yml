@@ -20,12 +20,7 @@ jobs:
         with:
           version: 9
 
-      - name: Install bun 📦
-        uses: oven-sh/setup-bun@v1
-        with:
-          bun-version: latest
-
-      - run: bun install
+      - run: pnpm install
 
       - run: pnpm publish --access public --no-git-checks
         env:
