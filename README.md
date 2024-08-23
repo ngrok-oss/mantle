@@ -27,12 +27,6 @@ export default {
 	content: [resolveMantleContentGlob(require), "./app/**/*.tsx"], // 👈 don't forget to swap out app content glob here!
 	// ... the rest of your tailwind config!
 } satisfies Config;
-
-
-export default {
-	presets: [mantlePreset],
-	// ... the rest of your tailwind config!
-} satisfies Config;
 ```
 
 Next, check out the [Overview & Setup](https://mantle.ngrok.com/) and [Theme Provider](https://mantle.ngrok.com/components/theme-provider) usage docs and start using mantle components in your application!
