@@ -26,6 +26,7 @@
     "node": ">=20.0.0"
   },
   "scripts": {
+    "start": "pnpm run docs:dev",
     "build": "rm -rf dist && NODE_OPTIONS='--max-old-space-size=16384' tsup",
     "docs:build": "remix build",
     "docs:dev": "remix dev --manual",
