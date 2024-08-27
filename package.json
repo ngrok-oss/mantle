@@ -23,7 +23,7 @@
     "package.json"
   ],
   "engines": {
-    "node": ">=20.0.0"
+    "node": "^20.0.0"
   },
   "scripts": {
     "build": "rm -rf dist && NODE_OPTIONS='--max-old-space-size=16384' tsup",
