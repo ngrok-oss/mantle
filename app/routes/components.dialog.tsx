@@ -1,4 +1,4 @@
-import { Button } from "@/button";
+import { Button, IconButton } from "@/button";
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import {
 	Dialog,
@@ -11,6 +11,9 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/dialog";
+import { InlineCode } from "@/inline-code";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/tooltip";
+import { TrashSimple } from "@phosphor-icons/react/dist/icons/TrashSimple";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 
@@ -184,6 +187,101 @@ export default function Page() {
 								</DialogContent>
 							</Dialog>
 						`}
+							/>
+						</CodeBlockBody>
+					</CodeBlock>
+				</div>
+			</section>
+
+			<section className="space-y-4">
+				<h2 id="composition" className="text-3xl font-medium">
+					Composition
+				</h2>
+				<p className="font-body text-xl text-body">
+					In some cases, you might wish to have a tooltip over the dialog trigger. This is helpful if the dialog trigger
+					is an <InlineCode>IconButton</InlineCode> and you wish to provide more context to what the button does. You
+					can compose them both together to where the dialog trigger is also the tooltip trigger.
+				</p>
+				<div>
+					<Example>
+						<Dialog>
+							<Tooltip>
+								<TooltipTrigger asChild>
+									<DialogTrigger asChild>
+										<IconButton type="button" label="Delete" size="sm" icon={<TrashSimple />} />
+									</DialogTrigger>
+								</TooltipTrigger>
+								<TooltipContent>
+									<p>Delete</p>
+								</TooltipContent>
+							</Tooltip>
+
+							<DialogContent>
+								<DialogHeader>
+									<DialogTitle>Are you absolutely sure?</DialogTitle>
+									<DialogCloseIconButton />
+								</DialogHeader>
+								<DialogBody>
+									This action cannot be undone. This will permanently delete your account and remove your data from our
+									servers.
+								</DialogBody>
+								<DialogFooter>
+									<DialogClose asChild>
+										<Button type="button" priority="danger" appearance="filled">
+											Delete
+										</Button>
+									</DialogClose>
+									<DialogClose asChild>
+										<Button type="button" priority="neutral" appearance="outlined">
+											Cancel
+										</Button>
+									</DialogClose>
+								</DialogFooter>
+							</DialogContent>
+						</Dialog>
+					</Example>
+					<CodeBlock className="rounded-b-lg rounded-t-none">
+						<CodeBlockBody>
+							<CodeBlockCopyButton />
+							<CodeBlockCode
+								language="tsx"
+								value={fmtCode`
+									<Dialog>
+										<Tooltip>
+											<TooltipTrigger asChild>
+												<DialogTrigger asChild>
+													<IconButton type="button" label="Delete" size="sm" icon={<TrashSimple />} />
+												</DialogTrigger>
+											</TooltipTrigger>
+											<TooltipContent>
+												<p>Delete</p>
+											</TooltipContent>
+										</Tooltip>
+
+										<DialogContent>
+											<DialogHeader>
+												<DialogTitle>Are you absolutely sure?</DialogTitle>
+												<DialogCloseIconButton />
+											</DialogHeader>
+											<DialogBody>
+												This action cannot be undone. This will permanently delete your account and remove your data from our
+												servers.
+											</DialogBody>
+											<DialogFooter>
+												<DialogClose asChild>
+													<Button type="button" priority="danger" appearance="filled">
+														Delete
+													</Button>
+												</DialogClose>
+												<DialogClose asChild>
+													<Button type="button" priority="neutral" appearance="outlined">
+														Cancel
+													</Button>
+												</DialogClose>
+											</DialogFooter>
+										</DialogContent>
+									</Dialog>
+								`}
 							/>
 						</CodeBlockBody>
 					</CodeBlock>
