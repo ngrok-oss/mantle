@@ -1,6 +1,7 @@
 import { Anchor } from "@/anchor";
-import { LinkProps, Link as RRLink } from "@remix-run/react";
-import { Route } from "~/types/routes";
+import { Link as RRLink } from "@remix-run/react";
+import type { LinkProps } from "@remix-run/react";
+import type { Route } from "~/types/routes";
 
 type Props = Omit<LinkProps, "to"> & {
 	hash?: `#${string}` | undefined;

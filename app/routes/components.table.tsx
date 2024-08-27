@@ -18,18 +18,19 @@ export const headers: HeadersFunction = () => {
 
 export default function Page() {
 	return (
-		<div>
+		<section className="space-y-4">
 			<h1 className="text-5xl font-medium">Table</h1>
-			<p className="mt-4 text-xl text-body">A responsive table component.</p>
-			<Example className="mt-4 gap-2">
-				<ExampleTable />
-			</Example>
-			<CodeBlock className="rounded-b-lg rounded-t-none">
-				<CodeBlockBody>
-					<CodeBlockCopyButton />
-					<CodeBlockCode
-						language="tsx"
-						value={fmtCode`
+			<p className="font-body text-xl text-body">A responsive table component.</p>
+			<div>
+				<Example className="gap-2">
+					<ExampleTable />
+				</Example>
+				<CodeBlock className="rounded-b-lg rounded-t-none">
+					<CodeBlockBody>
+						<CodeBlockCopyButton />
+						<CodeBlockCode
+							language="tsx"
+							value={fmtCode`
 							import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@ngrok/mantle/table";
 
 							<Table>
@@ -60,10 +61,11 @@ export default function Page() {
 								</TableFooter>
 							</Table>
 						`}
-					/>
-				</CodeBlockBody>
-			</CodeBlock>
-		</div>
+						/>
+					</CodeBlockBody>
+				</CodeBlock>
+			</div>
+		</section>
 	);
 }
 

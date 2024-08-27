@@ -1,18 +1,23 @@
 import { Anchor } from "@/anchor";
+import { Button } from "@/button";
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import { InlineCode } from "@/inline-code";
 import { PasswordInput } from "@/input";
+import { Label } from "@/label";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 import {
 	BooleanPropType,
+	FuncPropType,
 	PropDefaultValueCell,
 	PropDescriptionCell,
 	PropNameCell,
 	PropRow,
 	PropsTable,
 	PropTypeCell,
+	StringPropType,
 } from "~/components/props-table";
+import { useState } from "react";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -27,24 +32,50 @@ export const headers: HeadersFunction = () => {
 	};
 };
 
+const ControlledVisibility = () => {
+	const [showPassword, setShowPassword] = useState(false);
+
+	return (
+		<div className="flex items-center gap-2">
+			<PasswordInput showValue={showPassword} onValueVisibilityChange={setShowPassword} />
+			<Button
+				type="button"
+				onClick={() => {
+					setShowPassword((v) => !v);
+				}}
+			>
+				{showPassword ? "Hide" : "Show"} Password
+			</Button>
+		</div>
+	);
+};
+
 export default function Page() {
 	return (
 		<div className="space-y-16">
-			<section className="mb-4 space-y-4">
+			<section className="space-y-4">
 				<h1 id="password-input" className="text-5xl font-medium">
 					Password Input
 				</h1>
-				<p className="mt-4 text-xl text-body">Fundamental component for password inputs.</p>
+				<p className="font-body text-xl text-body">Fundamental component for password inputs.</p>
 				<div>
-					<Example className="mt-4 flex-col gap-4">
-						<label className="block w-full max-w-64 space-y-1">
+					<Example className="flex-col gap-4">
+						<Label className="block w-full max-w-64 space-y-1">
 							<p>Password</p>
 							<PasswordInput />
-						</label>
-						<label className="block w-full max-w-64 space-y-1">
-							<p>Password (invalid)</p>
-							<PasswordInput invalid />
-						</label>
+						</Label>
+						<Label className="block w-full max-w-64 space-y-1">
+							<p>Password (error)</p>
+							<PasswordInput validation="error" />
+						</Label>
+						<Label className="block w-full max-w-64 space-y-1">
+							<p>Controlled Visibility</p>
+							<ControlledVisibility />
+						</Label>
+						<Label className="block w-full max-w-64 space-y-1">
+							<p>Masked Hidden Value</p>
+							<PasswordInput maskHiddenValue />
+						</Label>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
@@ -63,11 +94,11 @@ export default function Page() {
 				</div>
 			</section>
 
-			<section className="mt-16 space-y-4">
+			<section className="space-y-4">
 				<h2 id="api" className="text-3xl font-medium">
 					API Reference
 				</h2>
-				<p className="text-xl text-body">
+				<p className="font-body text-xl text-body">
 					The <InlineCode>PasswordInput</InlineCode> accepts the following props in addition to the{" "}
 					<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input">
 						standard HTML input attributes
@@ -76,7 +107,7 @@ export default function Page() {
 				</p>
 				<PropsTable>
 					<PropRow>
-						<PropNameCell name="invalid" optional />
+						<PropNameCell name="maskHiddenValue" optional />
 						<PropTypeCell>
 							<BooleanPropType />
 						</PropTypeCell>
@@ -85,9 +116,67 @@ export default function Page() {
 						</PropDefaultValueCell>
 						<PropDescriptionCell>
 							<p>
-								Use the <InlineCode>invalid</InlineCode> prop to show if the password input has a validation error. This
-								will change the presentation of the password input to indicate <span className="italic">danger</span> to
-								the user as well as set <InlineCode>aria-invalid</InlineCode>.
+								Mask the true length of the password input with a fixed width when the value is hidden and the input is
+								not focused.
+							</p>
+						</PropDescriptionCell>
+					</PropRow>
+					<PropRow>
+						<PropNameCell name="onValueVisibilityChange" optional />
+						<PropTypeCell>
+							<FuncPropType value="(value: boolean) => void" />
+						</PropTypeCell>
+						<PropDefaultValueCell />
+						<PropDescriptionCell>
+							<p>Callback for when the visibility of the password value changes.</p>
+						</PropDescriptionCell>
+					</PropRow>
+					<PropRow>
+						<PropNameCell name="showValue" optional />
+						<PropTypeCell>
+							<BooleanPropType />
+						</PropTypeCell>
+						<PropDefaultValueCell>
+							<BooleanPropType value={false} />
+						</PropDefaultValueCell>
+						<PropDescriptionCell>
+							<p>Show/hide the password value as a controlled state</p>
+						</PropDescriptionCell>
+					</PropRow>
+					<PropRow>
+						<PropNameCell name="validation" optional />
+						<PropTypeCell>
+							<ul>
+								<li>
+									<StringPropType value="error" />
+								</li>
+								<li>
+									<StringPropType value="success" />
+								</li>
+								<li>
+									<StringPropType value="warning" />
+								</li>
+								<li>
+									<BooleanPropType value={false} />
+								</li>
+								<li>
+									<FuncPropType value={`() => "error" | "success" | "warning" | false`} />
+								</li>
+							</ul>
+						</PropTypeCell>
+						<PropDefaultValueCell />
+						<PropDescriptionCell className="space-y-2">
+							<p>
+								Use the <InlineCode>validation</InlineCode> prop to show if the input has a specific validation status.
+								This will change the border and outline of the input.
+							</p>
+							<p>
+								The <InlineCode>false</InlineCode> type is useful when using short-circuiting logic so that you don't
+								need to use a ternary with <InlineCode>undefined</InlineCode>.
+							</p>
+							<p>
+								Setting <InlineCode>validation</InlineCode> to <InlineCode>error</InlineCode> also sets{" "}
+								<InlineCode>aria-invalid</InlineCode>.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>

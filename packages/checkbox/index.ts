@@ -1,1 +1,9 @@
-export { Checkbox } from "./src/checkbox";
+export {
+	//,
+	Checkbox,
+} from "./src/checkbox";
+
+export {
+	//,
+	zodCheckbox,
+} from "./src/zod";

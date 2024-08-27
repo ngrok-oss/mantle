@@ -122,9 +122,48 @@ export type WithInputType = {
 	type?: InputType;
 };
 
-export type WithInvalid = {
+/**
+ * The validation state of the input.
+ *
+ * @example
+ * the false type is useful when using short-circuiting logic, e.g.
+ *
+ * ```
+ * validation={Boolean(formState.errors.name) && "error"}
+ * ```
+ *
+ * if `formState.errors.name` is falsey, then the input will show default presentation
+ * this prevents you from having to use a ternary with `undefined`, e.g.
+ *
+ * ```
+ * validation={Boolean(formState.errors.name) ? "error" : undefined}
+ * ```
+ */
+export type Validation = "error" | "success" | "warning" | false;
+
+/**
+ * An input component with a prop for validation state.
+ */
+export type WithValidation = {
 	/**
-	 * Whether or not the input has a validation error.
+	 * The validation state of the input.
+	 * Can be a literal `Validation` value or a function that returns
+	 * a `Validation` value.
+	 *
+	 *
+	 * @example
+	 * the false type is useful when using short-circuiting logic, e.g.
+	 *
+	 * ```
+	 * validation={Boolean(formState.errors.name) && "error"}
+	 * ```
+	 *
+	 * if `formState.errors.name` is falsey, then the input will show default presentation
+	 * this prevents you from having to use a ternary with `undefined`, e.g.
+	 *
+	 * ```
+	 * validation={Boolean(formState.errors.name) ? "error" : undefined}
+	 * ```
 	 */
-	invalid?: boolean;
+	validation?: Validation | (() => Validation);
 };

@@ -3,15 +3,15 @@ import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
 import clsx from "clsx";
 import { Children, cloneElement, forwardRef, isValidElement } from "react";
-import type { ButtonHTMLAttributes, MouseEvent, PropsWithChildren, ReactNode } from "react";
+import type { ButtonHTMLAttributes, PropsWithChildren, ReactNode } from "react";
 import invariant from "tiny-invariant";
 import { cx } from "../../cx";
 import { Icon } from "../../icon";
-import type { WithAsChild } from "../../types/src/as-child";
+import { parseBooleanish } from "../../types";
 import type { VariantProps } from "../../types/src/variant-props";
 
 const buttonVariants = cva(
-	"items-center justify-center gap-1.5 whitespace-nowrap rounded-md focus-within:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50 aria-disabled:opacity-50 sm:text-sm [&>*]:focus-within:outline-none",
+	"inline-flex cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap rounded-md text-base focus-within:outline-none focus-visible:ring-4 disabled:cursor-default disabled:opacity-50 sm:text-sm [&>*]:focus-within:outline-none",
 	{
 		variants: {
 			/**
@@ -19,25 +19,17 @@ const buttonVariants = cva(
 			 */
 			appearance: {
 				filled:
-					"inline-flex h-11 border border-transparent bg-filled-accent px-3 font-medium text-on-filled hover:bg-filled-accent-hover focus-visible:border-accent-600 focus-visible:ring-focus-accent active:bg-filled-accent-active sm:h-9",
+					"h-11 border border-transparent bg-filled-accent px-3 font-medium text-on-filled focus-visible:border-accent-600 focus-visible:ring-focus-accent not-disabled:hover:bg-filled-accent-hover not-disabled:active:bg-filled-accent-active sm:h-9",
 				ghost:
-					"inline-flex h-11 border border-transparent px-3 font-medium text-accent-600 hover:bg-accent-500/10 hover:text-accent-700 focus-visible:ring-focus-accent active:bg-accent-500/15 active:text-accent-700 sm:h-9",
+					"h-11 border border-transparent px-3 font-medium text-accent-600 focus-visible:ring-focus-accent not-disabled:hover:bg-accent-500/10 not-disabled:hover:text-accent-700 not-disabled:active:bg-accent-500/15 not-disabled:active:text-accent-700 sm:h-9",
 				outlined:
-					"inline-flex h-11 border border-accent-600 bg-form px-3 font-medium text-accent-600 hover:border-accent-700 hover:bg-accent-500/10 hover:text-accent-700 focus-visible:ring-focus-accent active:border-accent-700 active:bg-accent-500/15 active:text-accent-700 sm:h-9",
-				link: "group inline cursor-pointer border-transparent text-accent-600 hover:underline focus-visible:ring-focus-accent",
-			},
-			/**
-			 * The side that the icon will render on, if one is present. If `state="pending"`,
-			 * then the loading icon will also render on this side.
-			 */
-			iconPlacement: {
-				end: "pe-2.5",
-				start: "ps-2.5",
+					"h-11 border border-accent-600 bg-form px-3 font-medium text-accent-600 focus-visible:ring-focus-accent not-disabled:hover:border-accent-700 not-disabled:hover:bg-accent-500/10 not-disabled:hover:text-accent-700 not-disabled:active:border-accent-700 not-disabled:active:bg-accent-500/15 not-disabled:active:text-accent-700 sm:h-9",
+				link: "group border-transparent text-accent-600 focus-visible:ring-focus-accent not-disabled:hover:underline",
 			},
 			/**
 			 * Whether or not the button is in a loading state, default `false`. Setting `isLoading` will
 			 * replace any `icon` with a spinner, or add one if an icon wasn't given.
-			 * It will also disable user interaction with the button and set `aria-disabled`.
+			 * It will also disable user interaction with the button and set `disabled`.
 			 */
 			isLoading: {
 				false: "",
@@ -63,19 +55,19 @@ const buttonVariants = cva(
 				appearance: "ghost",
 				priority: "danger",
 				class:
-					"border-transparent text-danger-600 hover:bg-danger-500/10 hover:text-danger-700 focus-visible:ring-focus-danger active:bg-danger-500/15 active:text-danger-700",
+					"border-transparent text-danger-600 focus-visible:ring-focus-danger not-disabled:hover:bg-danger-500/10 not-disabled:hover:text-danger-700 not-disabled:active:bg-danger-500/15 not-disabled:active:text-danger-700",
 			},
 			{
 				appearance: "outlined",
 				priority: "danger",
 				class:
-					"border-danger-600 bg-form text-danger-600 hover:border-danger-700 hover:bg-danger-500/10 hover:text-danger-700 focus-visible:ring-focus-danger active:border-danger-700 active:bg-danger-500/15 active:text-danger-700",
+					"border-danger-600 bg-form text-danger-600 focus-visible:ring-focus-danger not-disabled:hover:border-danger-700 not-disabled:hover:bg-danger-500/10 not-disabled:hover:text-danger-700 not-disabled:active:border-danger-700 not-disabled:active:bg-danger-500/15 not-disabled:active:text-danger-700",
 			},
 			{
 				appearance: "filled",
 				priority: "danger",
 				class:
-					"border-transparent bg-filled-danger hover:bg-filled-danger-hover focus-visible:border-danger-600 focus-visible:ring-focus-danger active:bg-filled-danger-active",
+					"border-transparent bg-filled-danger focus-visible:border-danger-600 focus-visible:ring-focus-danger not-disabled:hover:bg-filled-danger-hover not-disabled:active:bg-filled-danger-active",
 			},
 			{
 				appearance: "link",
@@ -86,19 +78,19 @@ const buttonVariants = cva(
 				appearance: "ghost",
 				priority: "neutral",
 				class:
-					"border-transparent text-strong hover:bg-neutral-500/10 hover:text-strong focus-visible:ring-focus-accent active:bg-neutral-500/15 active:text-strong",
+					"border-transparent text-strong focus-visible:ring-focus-accent not-disabled:hover:bg-neutral-500/10 not-disabled:hover:text-strong not-disabled:active:bg-neutral-500/15 not-disabled:active:text-strong",
 			},
 			{
 				appearance: "outlined",
 				priority: "neutral",
 				class:
-					"border-form bg-form text-strong hover:border-neutral-400 hover:bg-form-hover hover:text-strong focus-visible:border-accent-600 focus-visible:ring-focus-accent active:border-neutral-400 active:bg-neutral-500/10 active:text-strong focus-visible:active:border-accent-600",
+					"border-form bg-form text-strong focus-visible:border-accent-600 focus-visible:ring-focus-accent not-disabled:hover:border-neutral-400 not-disabled:hover:bg-form-hover not-disabled:hover:text-strong not-disabled:active:border-neutral-400 not-disabled:active:bg-neutral-500/10 not-disabled:active:text-strong focus-visible:not-disabled:active:border-accent-600",
 			},
 			{
 				appearance: "filled",
 				priority: "neutral",
 				class:
-					"border-transparent bg-filled-neutral hover:bg-filled-neutral-hover focus-visible:border-neutral-600 focus-visible:ring-focus-neutral active:bg-filled-neutral-active",
+					"border-transparent bg-filled-neutral focus-visible:border-neutral-600 focus-visible:ring-focus-neutral not-disabled:hover:bg-filled-neutral-hover not-disabled:active:bg-filled-neutral-active",
 			},
 			{
 				appearance: "link",
@@ -115,14 +107,68 @@ type ButtonVariants = VariantProps<typeof buttonVariants>;
  * The props for the `Button` component.
  */
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
-	WithAsChild &
 	ButtonVariants & {
 		/**
 		 * An icon to render inside the button. If the `state` is `"pending"`, then
 		 * the icon will automatically be replaced with a spinner.
 		 */
 		icon?: ReactNode;
-	};
+		/**
+		 * The side that the icon will render on, if one is present. If `state="pending"`,
+		 * then the loading icon will also render on this side.
+		 */
+		iconPlacement?: "start" | "end";
+	} & (
+		| {
+				/**
+				 * Use the `asChild` prop to compose Radix's functionality onto alternative
+				 * element types or your own React components.
+				 *
+				 * When `asChild` is set to `true`, mantle will not render a default DOM
+				 * element, instead cloning the component's child and passing it the props and
+				 * behavior required to make it functional.
+				 *
+				 * asChild can be used as deeply as you need to. This means it is a great way
+				 * to compose multiple primitive's behavior together.
+				 *
+				 * @see https://www.radix-ui.com/docs/primitives/guides/composition#composition
+				 */
+				asChild: true;
+				/**
+				 * The default behavior of the button. Possible values are: `"button"`, `"submit"`, and `"reset"`.
+				 *
+				 * if `asChild` is NOT used: Unlike the native `<button>` element, this prop is required and has no default value.
+				 *
+				 * If `asChild` IS used: This prop HAS NO EFFECT, is REMOVED, and has no default value. This is because we do not want the `button` `type` to automatically merge with any child anchor `type` attribute because the `anchor` `type` is _strictly different_ than the `button` type, see: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#type
+				 *
+				 * @enum
+				 * - `"button"`: The button has no default behavior, and does nothing when pressed by default. It can have client-side scripts listen to the element's events, which are triggered when the events occur.
+				 * - `"reset"`: The button resets all the controls to their initial values.
+				 * - `"submit"`: The button submits the form data to the server.
+				 *
+				 * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#type
+				 */
+				type?: ButtonHTMLAttributes<HTMLButtonElement>["type"];
+		  }
+		| {
+				asChild?: false | undefined;
+				/**
+				 * The default behavior of the button. Possible values are: `"button"`, `"submit"`, and `"reset"`.
+				 *
+				 * if `asChild` is NOT used: Unlike the native `<button>` element, this prop is required and has no default value.
+				 *
+				 * If `asChild` IS used: This prop HAS NO EFFECT, is REMOVED, and has no default value. This is because we do not want the `button` `type` to automatically merge with any child anchor `type` attribute because the `anchor` `type` is _strictly different_ than the `button` type, see: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#type
+				 *
+				 * @enum
+				 * - `"button"`: The button has no default behavior, and does nothing when pressed by default. It can have client-side scripts listen to the element's events, which are triggered when the events occur.
+				 * - `"reset"`: The button resets all the controls to their initial values.
+				 * - `"submit"`: The button submits the form data to the server.
+				 *
+				 * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#type
+				 */
+				type: Exclude<ButtonHTMLAttributes<HTMLButtonElement>["type"], undefined>;
+		  }
+	);
 
 /**
  * Renders a button or a component that looks like a button, an interactive
@@ -137,37 +183,37 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 		{
 			"aria-disabled": _ariaDisabled,
 			appearance = "outlined",
-			asChild = false,
+			asChild,
 			children,
 			className,
+			disabled: _disabled,
 			icon: propIcon,
 			iconPlacement = "start",
 			isLoading = false,
-			onClickCapture,
 			priority = "default",
+			type,
 			...props
 		},
 		ref,
 	) => {
-		const ariaDisabled = _ariaDisabled ?? isLoading;
+		const disabled = parseBooleanish(_ariaDisabled ?? _disabled ?? isLoading);
 		const icon = isLoading ? <CircleNotch className="animate-spin" /> : propIcon;
 
-		const _onClickCapture = (event: MouseEvent<HTMLButtonElement>) => {
-			if (isLoading) {
-				event.preventDefault();
-				event.stopPropagation();
-			}
-			onClickCapture?.(event);
-		};
+		/**
+		 * If the button has an icon and is not a link, add padding-start or padding-end to the button depending on the icon placement.
+		 */
+		const hasSpecialIconPadding = icon && appearance !== "link";
 
 		const buttonProps = {
-			"aria-disabled": ariaDisabled,
+			"aria-disabled": disabled,
 			className: cx(
-				buttonVariants({ appearance, priority, isLoading, iconPlacement: icon ? iconPlacement : undefined }),
+				buttonVariants({ appearance, priority, isLoading }),
+				hasSpecialIconPadding && iconPlacement === "start" && "ps-2.5",
+				hasSpecialIconPadding && iconPlacement === "end" && "pe-2.5",
 				className,
 			),
 			"data-loading": isLoading,
-			onClickCapture: _onClickCapture,
+			disabled,
 			ref,
 			...props,
 		};
@@ -194,7 +240,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 		}
 
 		return (
-			<button {...buttonProps}>
+			<button {...buttonProps} type={type}>
 				<InnerContent appearance={appearance} icon={icon} iconPlacement={iconPlacement}>
 					{children}
 				</InnerContent>
@@ -213,7 +259,7 @@ const InnerContent = ({ appearance, children, icon, iconPlacement }: InnerConten
 	<span
 		className={clsx(
 			"inline-flex items-center gap-1.5 focus-within:outline-none focus-visible:outline-none",
-			appearance === "link" && "group-hover:underline",
+			appearance === "link" && "not-disabled:group-hover:underline",
 		)}
 	>
 		{icon && <Icon svg={icon} className={clsx(iconPlacement === "end" && "order-last")} />}

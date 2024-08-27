@@ -9,21 +9,24 @@ import {
 } from "@/code-block";
 import { InlineCode } from "@/inline-code";
 import { Input, InputCapture } from "@/input";
+import { Label } from "@/label";
 import { Info } from "@phosphor-icons/react/Info";
 import { MagnifyingGlass } from "@phosphor-icons/react/MagnifyingGlass";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
+import { Link } from "@remix-run/react";
 import { Example } from "~/components/example";
 import {
 	BooleanPropType,
+	FuncPropType,
 	PropDefaultValueCell,
 	PropDescriptionCell,
 	PropNameCell,
 	PropRow,
 	PropsTable,
 	PropTypeCell,
+	StringPropType,
 } from "~/components/props-table";
 import { route } from "~/types/routes";
-import { Link } from "react-router-dom";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -41,21 +44,34 @@ export const headers: HeadersFunction = () => {
 export default function Page() {
 	return (
 		<div className="space-y-16">
-			<section className="mb-4 space-y-4">
+			<section className="space-y-4">
 				<h1 id="input" className="text-5xl font-medium">
 					Input
 				</h1>
-				<p className="mt-4 text-xl text-body">Fundamental component for inputs.</p>
+				<p className="font-body text-xl text-body">Fundamental component for inputs.</p>
 				<div>
-					<Example className="mt-4 flex flex-col gap-6">
-						<label className="block w-full max-w-80 space-y-1">
+					<Example className="flex flex-col gap-6">
+						<Label className="block w-full max-w-80 space-y-1">
 							<p>Username</p>
-							<Input className="max-w-64" placeholder="Enter a username" />
-						</label>
-						<label className="block w-full max-w-80 space-y-1">
-							<p>Username (invalid)</p>
-							<Input className="max-w-64" placeholder="Enter a username" invalid />
-						</label>
+							<Input placeholder="Enter a username" />
+						</Label>
+						<div className="w-full max-w-80 space-y-2">
+							<p>Validation States:</p>
+							<div className="flex w-full flex-col gap-6">
+								<Label className="space-y-1">
+									<p>Error</p>
+									<Input placeholder={'"validation="error"'} validation="error" />
+								</Label>
+								<Label className="space-y-1">
+									<p>Success</p>
+									<Input placeholder={'"validation="success"'} validation="success" />
+								</Label>
+								<Label className="space-y-1">
+									<p>Warning</p>
+									<Input placeholder={'"validation="warning"'} validation="warning" />
+								</Label>
+							</div>
+						</div>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
@@ -66,7 +82,9 @@ export default function Page() {
 									import { Input } from "@ngrok/mantle/input";
 
 									<Input placeholder="Enter a username" />
-									<Input placeholder="Enter a username" invalid />
+									<Input placeholder="Enter a username" validation="error" />
+									<Input placeholder="Enter a username" validation="success" />
+									<Input placeholder="Enter a username" validation="warning" />
 								`}
 							/>
 						</CodeBlockBody>
@@ -74,11 +92,11 @@ export default function Page() {
 				</div>
 			</section>
 
-			<section className="mb-4 space-y-4">
+			<section className="space-y-4">
 				<h2 id="composition" className="text-3xl font-medium">
 					Composition
 				</h2>
-				<p className="text-xl text-body">
+				<p className="font-body text-xl text-body">
 					You can compose additional visual or functional elements within the <InlineCode>Input</InlineCode> using{" "}
 					<InlineCode>children</InlineCode>. The examples below show you how to render start and end icons or buttons.
 					The{" "}
@@ -90,56 +108,56 @@ export default function Page() {
 					actual form <InlineCode>input</InlineCode> element! We provide an <InlineCode>InputCapture</InlineCode>{" "}
 					component for you when you don't use the <InlineCode>children</InlineCode> API.
 				</p>
-				<p className="text-xl text-body">
+				<p className="font-body text-xl text-body">
 					Note: when composing with interactive content (e.g. a <InlineCode>button</InlineCode>), you will need to
 					consider whether or not that element should be tab-indexable or receive focus!
 				</p>
 				<div>
-					<Example className="mt-4 grid grid-cols-2 place-items-center gap-6">
-						<label className="block w-full max-w-80 space-y-1">
+					<Example className="grid grid-cols-2 place-items-center gap-6">
+						<Label className="block w-full max-w-80 space-y-1">
 							<p>Search with start icon</p>
 							<Input className="max-w-64" placeholder="Search...">
 								<MagnifyingGlass />
 								<InputCapture />
 							</Input>
-						</label>
-						<label className="block w-full max-w-80 space-y-1">
+						</Label>
+						<Label className="block w-full max-w-80 space-y-1">
 							<p>Search with end icon</p>
 							<Input className="max-w-64" placeholder="Search...">
 								<InputCapture />
 								<Info />
 							</Input>
-						</label>
-						<label className="block w-full max-w-80 space-y-1">
+						</Label>
+						<Label className="block w-full max-w-80 space-y-1">
 							<p>Search with start and end icons</p>
 							<Input className="max-w-64" placeholder="Search...">
 								<MagnifyingGlass />
 								<InputCapture />
 								<Info />
 							</Input>
-						</label>
-						<label className="block w-full max-w-80 space-y-1">
-							<p>Search with start icon (invalid)</p>
-							<Input className="max-w-64" placeholder="Search..." invalid>
+						</Label>
+						<Label className="block w-full max-w-80 space-y-1">
+							<p>Search with start icon (error)</p>
+							<Input className="max-w-64" placeholder="Search..." validation="error">
 								<MagnifyingGlass />
 								<InputCapture />
 							</Input>
-						</label>
-						<label className="block w-full max-w-80 space-y-1">
-							<p>Search with end icon (invalid)</p>
-							<Input className="max-w-64" placeholder="Search..." invalid>
+						</Label>
+						<Label className="block w-full max-w-80 space-y-1">
+							<p>Search with end icon (error)</p>
+							<Input className="max-w-64" placeholder="Search..." validation="error">
 								<InputCapture />
 								<Info />
 							</Input>
-						</label>
-						<label className="block w-full max-w-80 space-y-1">
-							<p>Search with start and end icons (invalid)</p>
-							<Input className="max-w-64" invalid placeholder="Search...">
+						</Label>
+						<Label className="block w-full max-w-80 space-y-1">
+							<p>Search with start and end icons (error)</p>
+							<Input className="max-w-64" validation="error" placeholder="Search...">
 								<MagnifyingGlass />
 								<InputCapture />
 								<Info />
 							</Input>
-						</label>
+						</Label>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
@@ -148,52 +166,53 @@ export default function Page() {
 								language="tsx"
 								value={fmtCode`
 									import { Input, InputCapture } from "@ngrok/mantle/input";
+									import { Label } from "@ngrok/mantle/label";
 									import { Info, MagnifyingGlass } from "@phosphor-icons/react";
 
-									<label className="block w-full max-w-80 space-y-1">
+									<Label className="block w-full max-w-80 space-y-1">
 										<p>Search with start icon</p>
 										<Input className="max-w-64" placeholder="Search...">
 											<MagnifyingGlass />
 											<InputCapture />
 										</Input>
-									</label>
-									<label className="block w-full max-w-80 space-y-1">
+									</Label>
+									<Label className="block w-full max-w-80 space-y-1">
 										<p>Search with end icon</p>
 										<Input className="max-w-64" placeholder="Search...">
 											<InputCapture />
 											<Info />
 										</Input>
-									</label>
-									<label className="block w-full max-w-80 space-y-1">
+									</Label>
+									<Label className="block w-full max-w-80 space-y-1">
 										<p>Search with start and end icons</p>
 										<Input className="max-w-64" placeholder="Search...">
 											<MagnifyingGlass />
 											<InputCapture />
 											<Info />
 										</Input>
-									</label>
-									<label className="block w-full max-w-80 space-y-1">
-										<p>Search with start icon (invalid)</p>
-										<Input className="max-w-64" placeholder="Search..." invalid>
+									</Label>
+									<Label className="block w-full max-w-80 space-y-1">
+										<p>Search with start icon (error)</p>
+										<Input className="max-w-64" placeholder="Search..." validation="error">
 											<MagnifyingGlass />
 											<InputCapture />
 										</Input>
-									</label>
-									<label className="block w-full max-w-80 space-y-1">
-										<p>Search with end icon (invalid)</p>
-										<Input className="max-w-64" placeholder="Search..." invalid>
+									</Label>
+									<Label className="block w-full max-w-80 space-y-1">
+										<p>Search with end icon (error)</p>
+										<Input className="max-w-64" placeholder="Search..." validation="error">
 											<InputCapture />
 											<Info />
 										</Input>
-									</label>
-									<label className="block w-full max-w-80 space-y-1">
-										<p>Search with start and end icons (invalid)</p>
-										<Input className="max-w-64" invalid placeholder="Search...">
+									</Label>
+									<Label className="block w-full max-w-80 space-y-1">
+										<p>Search with start and end icons (error)</p>
+										<Input className="max-w-64" validation="error" placeholder="Search...">
 											<MagnifyingGlass />
 											<InputCapture />
 											<Info />
 										</Input>
-									</label>
+									</Label>
 								`}
 							/>
 							<CodeBlockExpanderButton />
@@ -202,11 +221,11 @@ export default function Page() {
 				</div>
 			</section>
 
-			<section className="mt-16 space-y-4">
+			<section className="space-y-4">
 				<h2 id="api" className="text-3xl font-medium">
 					API Reference
 				</h2>
-				<p className="text-xl text-body">
+				<p className="font-body text-xl text-body">
 					The <InlineCode>Input</InlineCode> accepts the following props in addition to the{" "}
 					<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input">
 						standard HTML input attributes
@@ -215,18 +234,39 @@ export default function Page() {
 				</p>
 				<PropsTable>
 					<PropRow>
-						<PropNameCell name="invalid" optional />
+						<PropNameCell name="validation" optional />
 						<PropTypeCell>
-							<BooleanPropType />
+							<ul>
+								<li>
+									<StringPropType value="error" />
+								</li>
+								<li>
+									<StringPropType value="success" />
+								</li>
+								<li>
+									<StringPropType value="warning" />
+								</li>
+								<li>
+									<BooleanPropType value={false} />
+								</li>
+								<li>
+									<FuncPropType value={`() => "error" | "success" | "warning" | false`} />
+								</li>
+							</ul>
 						</PropTypeCell>
-						<PropDefaultValueCell>
-							<BooleanPropType value={false} />
-						</PropDefaultValueCell>
-						<PropDescriptionCell>
+						<PropDefaultValueCell />
+						<PropDescriptionCell className="space-y-2">
 							<p>
-								Use the <InlineCode>invalid</InlineCode> prop to show if the input has a validation error. This will
-								change the presentation of the input to indicate <span className="italic">danger</span> to the user as
-								well as set <InlineCode>aria-invalid</InlineCode>.
+								Use the <InlineCode>validation</InlineCode> prop to show if the input has a specific validation status.
+								This will change the border and outline of the input.
+							</p>
+							<p>
+								The <InlineCode>false</InlineCode> type is useful when using short-circuiting logic so that you don't
+								need to use a ternary with <InlineCode>undefined</InlineCode>.
+							</p>
+							<p>
+								Setting <InlineCode>validation</InlineCode> to <InlineCode>error</InlineCode> also sets{" "}
+								<InlineCode>aria-invalid</InlineCode>.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>

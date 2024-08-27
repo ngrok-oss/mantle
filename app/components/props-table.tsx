@@ -1,8 +1,11 @@
 import { cx } from "@/cx";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/table";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/tooltip";
-import { WithStyleProps } from "@/types";
-import { PropsWithChildren } from "react";
+import type { WithStyleProps } from "@/types";
+import Prism from "prismjs";
+import { useEffect, useState, type PropsWithChildren } from "react";
+import assert from "tiny-invariant";
+import "prismjs/components/prism-typescript.js";
 
 type PropsTableProps = WithStyleProps & PropsWithChildren;
 export const PropsTable = ({ children, className, style }: PropsTableProps) => (
@@ -16,7 +19,7 @@ export const PropsTable = ({ children, className, style }: PropsTableProps) => (
 					<TableHead>Description</TableHead>
 				</TableRow>
 			</TableHeader>
-			<TableBody className="text-xs text-body">{children}</TableBody>
+			<TableBody className="font-body text-xs text-body">{children}</TableBody>
 		</Table>
 	</div>
 );
@@ -76,4 +79,29 @@ export const BooleanPropType = ({ value }: { value?: true | false | undefined })
 export const StringPropType = ({ value }: { value?: string }) => (
 	<span className="token attr-value">{value ?? "string"}</span>
 );
+
+export const NumberPropType = ({ value }: { value?: number }) => (
+	<span className="token number">{value ?? "number"}</span>
+);
+
+export const FuncPropType = ({ value }: { value: string }) => {
+	// trim any leading and trailing whitespace/empty lines
+	const trimmedCode = value?.trim() ?? "";
+	const [highlightedCodeInnerHtml, setHighlightedCodeInnerHtml] = useState(trimmedCode);
+
+	useEffect(() => {
+		const grammar = Prism.languages.typescript;
+		assert(grammar, "Couldn't load Prism grammar for typescript!");
+		const newHighlightedCodeInnerHtml = Prism.highlight(trimmedCode, grammar, "typescript");
+		setHighlightedCodeInnerHtml(newHighlightedCodeInnerHtml);
+	}, [trimmedCode]);
+
+	return (
+		<pre className="language-typescript">
+			<code dangerouslySetInnerHTML={{ __html: highlightedCodeInnerHtml }} />
+		</pre>
+	);
+};
 export const UndefinedPropType = () => <span className="italic text-amber-600">undefined</span>;
+
+export const NullPropType = () => <span className="italic text-amber-600">null</span>;

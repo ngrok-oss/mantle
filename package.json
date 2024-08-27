@@ -3,12 +3,13 @@
   "description": "mantle is ngrok's UI library and design system.",
   "author": "ngrok",
   "license": "MIT",
-  "version": "0.1.6",
+  "version": "0.1.51",
   "homepage": "https://mantle.ngrok.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/ngrok-oss/mantle"
   },
+  "packageManager": "pnpm@9.9.0",
   "sideEffects": [
     "*.css"
   ],
@@ -18,224 +19,238 @@
   ],
   "files": [
     "dist",
-    "assets"
+    "assets",
+    "package.json"
   ],
   "engines": {
-    "node": ">=20.0.0"
+    "node": "^20.0.0"
   },
   "scripts": {
-    "build": "rm -rf dist && tsup",
+    "build": "rm -rf dist && NODE_OPTIONS='--max-old-space-size=16384' tsup",
     "docs:build": "remix build",
     "docs:dev": "remix dev --manual",
     "docs:serve": "remix-serve ./build/index.js",
     "fmt:check": "prettier --check .",
     "fmt": "prettier --write .",
-    "gen:docs-routes": "bun ./scripts/gen-docs-routes",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "prepublishOnly": "bun run build",
+    "gen:docs-routes": "tsx ./scripts/gen-docs-routes",
+    "prepublishOnly": "pnpm run build",
+    "serve": "pnpm run docs:serve",
+    "start": "pnpm run docs:dev",
     "test": "TZ=UTC vitest",
-    "typecheck": "tsc --incremental --noEmit --skipLibCheck"
+    "typecheck": "tsc --incremental --noEmit --skipLibCheck -P ./tsconfig.json"
   },
   "dependencies": {
-    "@ariakit/react": "0.4.5",
-    "@radix-ui/react-checkbox": "1.0.4",
-    "@radix-ui/react-dialog": "1.0.5",
-    "@radix-ui/react-dropdown-menu": "2.0.6",
-    "@radix-ui/react-popover": "1.0.7",
-    "@radix-ui/react-select": "2.0.0",
-    "@radix-ui/react-separator": "1.0.3",
-    "@radix-ui/react-slot": "1.0.2",
-    "@radix-ui/react-tooltip": "1.0.7",
-    "@remix-run/css-bundle": "2.8.1",
-    "@remix-run/node": "2.8.1",
-    "@remix-run/react": "2.8.1",
-    "@remix-run/serve": "2.8.1",
+    "@headlessui/react": "2.1.3",
+    "@radix-ui/react-dialog": "1.1.1",
+    "@radix-ui/react-dropdown-menu": "2.1.1",
+    "@radix-ui/react-popover": "1.1.1",
+    "@radix-ui/react-select": "2.1.1",
+    "@radix-ui/react-separator": "1.1.0",
+    "@radix-ui/react-slot": "1.1.0",
+    "@radix-ui/react-switch": "1.1.0",
+    "@radix-ui/react-tabs": "1.1.0",
+    "@radix-ui/react-tooltip": "1.1.2",
+    "@remix-run/css-bundle": "2.11.2",
+    "@remix-run/node": "2.11.2",
+    "@remix-run/react": "2.11.2",
+    "@remix-run/serve": "2.11.2",
     "@uidotdev/usehooks": "2.4.1",
     "class-variance-authority": "0.7.0",
-    "clsx": "2.1.0",
-    "isbot": "5.1.4",
+    "clsx": "2.1.1",
+    "isbot": "5.1.17",
     "prismjs": "1.29.0",
-    "tailwind-merge": "2.2.2",
+    "react-day-picker": "8.10.1",
+    "tailwind-merge": "2.5.2",
     "tailwindcss-animate": "1.0.7",
     "tiny-invariant": "1.3.3"
   },
   "devDependencies": {
-    "@commander-js/extra-typings": "12.0.1",
-    "@ianvs/prettier-plugin-sort-imports": "4.2.1",
-    "@phosphor-icons/react": "2.1.3",
-    "@remix-run/dev": "2.8.1",
-    "@remix-run/eslint-config": "2.8.1",
-    "@testing-library/react": "14.3.0",
+    "@commander-js/extra-typings": "12.1.0",
+    "@ianvs/prettier-plugin-sort-imports": "4.3.1",
+    "@phosphor-icons/react": "2.1.7",
+    "@remix-run/dev": "2.11.2",
+    "@testing-library/dom": "10.4.0",
+    "@testing-library/react": "16.0.0",
     "@testing-library/user-event": "14.5.2",
-    "@types/bun": "latest",
-    "@types/node": "20.12.6",
-    "@types/prismjs": "1.26.3",
-    "@types/react": "18.2.75",
-    "@types/react-dom": "18.2.24",
-    "@typescript-eslint/eslint-plugin": "7.6.0",
-    "@typescript-eslint/parser": "7.6.0",
-    "@vitejs/plugin-react": "4.2.1",
-    "@vitest/ui": "1.4.0",
-    "autoprefixer": "10.4.19",
-    "browserslist": "4.23.0",
-    "commander": "12.0.0",
+    "@types/node": "20.16.1",
+    "@types/prismjs": "1.26.4",
+    "@types/react": "18.3.4",
+    "@types/react-dom": "18.3.0",
+    "@vitejs/plugin-react": "4.3.1",
+    "@vitest/ui": "2.0.5",
+    "autoprefixer": "10.4.20",
+    "browserslist": "4.23.3",
+    "commander": "12.1.0",
     "copyfiles": "2.4.1",
-    "eslint": "8.57.0",
-    "eslint-config-prettier": "9.1.0",
-    "eslint-plugin-react": "7.34.1",
-    "eslint-plugin-react-hooks": "4.6.0",
-    "jsdom": "24.0.0",
-    "postcss": "8.4.38",
-    "prettier": "3.2.5",
-    "prettier-plugin-tailwindcss": "0.5.13",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-router-dom": "6.22.3",
-    "tailwindcss": "3.4.3",
-    "tsup": "8.0.2",
-    "tsx": "4.7.2",
-    "typescript": "5.4.4",
-    "vite": "5.2.8",
-    "vite-tsconfig-paths": "4.3.2",
-    "vitest": "1.4.0",
+    "date-fns": "3.6.0",
+    "jsdom": "25.0.0",
+    "mini-svg-data-uri": "1.4.4",
+    "postcss": "8.4.41",
+    "prettier": "3.3.3",
+    "prettier-plugin-tailwindcss": "0.6.6",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-router-dom": "6.26.1",
+    "tailwindcss": "3.4.10",
+    "tinyglobby": "0.2.5",
+    "tsup": "8.2.4",
+    "tsx": "4.19.0",
+    "typescript": "5.5.4",
+    "vite": "5.4.2",
+    "vite-tsconfig-paths": "5.0.1",
+    "vitest": "2.0.5",
     "vitest-dom": "0.1.1",
-    "zod": "3.22.4"
+    "zod": "3.23.8"
   },
   "peerDependencies": {
-    "@phosphor-icons/react": "2.1.3",
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.0",
-    "postcss": "^8.0.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "tailwindcss": "^3.4.3",
-    "zod": "^3.22.4"
+    "@phosphor-icons/react": "2.1.7",
+    "@types/react": "^18.3.4",
+    "@types/react-dom": "^18.3.0",
+    "date-fns": "^3.6.0",
+    "postcss": "^8.4.41",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tailwindcss": "^3.4.10",
+    "zod": "^3.23.8"
   },
   "exports": {
     "./mantle.css": "./assets/mantle.css",
+    "./package.json": "./package.json",
     "./tailwind-preset": {
       "require": "./dist/tailwind-preset.cjs",
       "import": "./dist/tailwind-preset.js",
       "types": "./dist/tailwind-preset.d.ts"
     },
     "./alert": {
-      "require": "./dist/alert.cjs",
       "import": "./dist/alert.js",
       "types": "./dist/alert.d.ts"
     },
     "./anchor": {
-      "require": "./dist/anchor.cjs",
       "import": "./dist/anchor.js",
       "types": "./dist/anchor.d.ts"
     },
+    "./badge": {
+      "import": "./dist/badge.js",
+      "types": "./dist/badge.d.ts"
+    },
     "./button": {
-      "require": "./dist/button.cjs",
       "import": "./dist/button.js",
       "types": "./dist/button.d.ts"
     },
+    "./calendar": {
+      "import": "./dist/calendar.js",
+      "types": "./dist/calendar.d.ts"
+    },
     "./card": {
-      "require": "./dist/card.cjs",
       "import": "./dist/card.js",
       "types": "./dist/card.d.ts"
     },
     "./checkbox": {
-      "require": "./dist/checkbox.cjs",
       "import": "./dist/checkbox.js",
       "types": "./dist/checkbox.d.ts"
     },
     "./code-block": {
-      "require": "./dist/code-block.cjs",
       "import": "./dist/code-block.js",
       "types": "./dist/code-block.d.ts"
     },
+    "./color": {
+      "import": "./dist/color.js",
+      "types": "./dist/color.d.ts"
+    },
+    "./compose-refs": {
+      "import": "./dist/compose-refs.js",
+      "types": "./dist/compose-refs.d.ts"
+    },
     "./cx": {
-      "require": "./dist/cx.cjs",
       "import": "./dist/cx.js",
       "types": "./dist/cx.d.ts"
     },
     "./dialog": {
-      "require": "./dist/dialog.cjs",
       "import": "./dist/dialog.js",
       "types": "./dist/dialog.d.ts"
     },
     "./dropdown-menu": {
-      "require": "./dist/dropdown-menu.cjs",
       "import": "./dist/dropdown-menu.js",
       "types": "./dist/dropdown-menu.d.ts"
     },
     "./hooks": {
-      "require": "./dist/hooks.cjs",
       "import": "./dist/hooks.js",
       "types": "./dist/hooks.d.ts"
     },
     "./icon": {
-      "require": "./dist/icon.cjs",
       "import": "./dist/icon.js",
       "types": "./dist/icon.d.ts"
     },
     "./inline-code": {
-      "require": "./dist/inline-code.cjs",
       "import": "./dist/inline-code.js",
       "types": "./dist/inline-code.d.ts"
     },
     "./input": {
-      "require": "./dist/input.cjs",
       "import": "./dist/input.js",
       "types": "./dist/input.d.ts"
     },
+    "./label": {
+      "import": "./dist/label.js",
+      "types": "./dist/label.d.ts"
+    },
     "./media-object": {
-      "require": "./dist/media-object.cjs",
       "import": "./dist/media-object.js",
       "types": "./dist/media-object.d.ts"
     },
     "./popover": {
-      "require": "./dist/popover.cjs",
       "import": "./dist/popover.js",
       "types": "./dist/popover.d.ts"
     },
+    "./progress": {
+      "import": "./dist/progress.js",
+      "types": "./dist/progress.d.ts"
+    },
+    "./radio-group": {
+      "import": "./dist/radio-group.js",
+      "types": "./dist/radio-group.d.ts"
+    },
     "./select": {
-      "require": "./dist/select.cjs",
       "import": "./dist/select.js",
       "types": "./dist/select.d.ts"
     },
     "./separator": {
-      "require": "./dist/separator.cjs",
       "import": "./dist/separator.js",
       "types": "./dist/separator.d.ts"
     },
     "./sheet": {
-      "require": "./dist/sheet.cjs",
       "import": "./dist/sheet.js",
       "types": "./dist/sheet.d.ts"
     },
     "./skeleton": {
-      "require": "./dist/skeleton.cjs",
       "import": "./dist/skeleton.js",
       "types": "./dist/skeleton.d.ts"
     },
+    "./switch": {
+      "import": "./dist/switch.js",
+      "types": "./dist/switch.d.ts"
+    },
     "./table": {
-      "require": "./dist/table.cjs",
       "import": "./dist/table.js",
       "types": "./dist/table.d.ts"
     },
+    "./tabs": {
+      "import": "./dist/tabs.js",
+      "types": "./dist/tabs.d.ts"
+    },
     "./text-area": {
-      "require": "./dist/text-area.cjs",
       "import": "./dist/text-area.js",
       "types": "./dist/text-area.d.ts"
     },
     "./theme-provider": {
-      "require": "./dist/theme-provider.cjs",
       "import": "./dist/theme-provider.js",
       "types": "./dist/theme-provider.d.ts"
     },
     "./tooltip": {
-      "require": "./dist/tooltip.cjs",
       "import": "./dist/tooltip.js",
       "types": "./dist/tooltip.d.ts"
     },
     "./types": {
       "types": "./dist/types.d.ts"
     }
-  },
-  "module": "index.ts"
+  }
 }

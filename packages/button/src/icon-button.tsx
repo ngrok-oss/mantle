@@ -1,13 +1,15 @@
 import { CircleNotch } from "@phosphor-icons/react/CircleNotch";
 import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
-import { ButtonHTMLAttributes, Children, cloneElement, forwardRef, isValidElement, MouseEvent, ReactNode } from "react";
+import { Children, cloneElement, forwardRef, isValidElement } from "react";
+import type { ButtonHTMLAttributes, ReactNode } from "react";
 import { cx } from "../../cx";
 import { Icon } from "../../icon";
 import type { VariantProps, WithAsChild } from "../../types";
+import { parseBooleanish } from "../../types";
 
 const iconButtonVariants = cva(
-	"inline-flex items-center justify-center rounded-md border focus-within:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50 aria-disabled:opacity-50",
+	"inline-flex shrink-0 cursor-pointer items-center justify-center rounded-md border focus-within:outline-none focus-visible:ring-4 disabled:cursor-default disabled:opacity-50",
 	{
 		variants: {
 			/**
@@ -15,9 +17,9 @@ const iconButtonVariants = cva(
 			 */
 			appearance: {
 				ghost:
-					"border-transparent text-strong hover:bg-neutral-500/10 hover:text-strong focus-visible:ring-focus-accent active:bg-neutral-500/15 active:text-strong",
+					"border-transparent text-strong focus-visible:ring-focus-accent not-disabled:hover:bg-neutral-500/10 not-disabled:hover:text-strong not-disabled:active:bg-neutral-500/15 not-disabled:active:text-strong",
 				outlined:
-					"border-form bg-form text-strong hover:border-neutral-400 hover:bg-form-hover hover:text-strong focus-visible:border-accent-600 focus-visible:ring-focus-accent active:border-neutral-400 active:bg-neutral-500/10 active:text-strong focus-visible:active:border-accent-600",
+					"border-form bg-form text-strong focus-visible:border-accent-600 focus-visible:ring-focus-accent not-disabled:hover:border-neutral-400 not-disabled:hover:bg-form-hover not-disabled:hover:text-strong not-disabled:active:border-neutral-400 not-disabled:active:bg-neutral-500/10 not-disabled:active:text-strong focus-visible:not-disabled:active:border-accent-600",
 			},
 			/**
 			 * Whether or not the button is in a loading state, default `false`. Setting `isLoading` will
@@ -61,7 +63,57 @@ type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
 		 * the icon will automatically be replaced with a spinner.
 		 */
 		icon: ReactNode;
-	};
+	} & (
+		| {
+				/**
+				 * Use the `asChild` prop to compose Radix's functionality onto alternative
+				 * element types or your own React components.
+				 *
+				 * When `asChild` is set to `true`, mantle will not render a default DOM
+				 * element, instead cloning the component's child and passing it the props and
+				 * behavior required to make it functional.
+				 *
+				 * asChild can be used as deeply as you need to. This means it is a great way
+				 * to compose multiple primitive's behavior together.
+				 *
+				 * @see https://www.radix-ui.com/docs/primitives/guides/composition#composition
+				 */
+				asChild: true;
+				/**
+				 * The default behavior of the button. Possible values are: `"button"`, `"submit"`, and `"reset"`.
+				 *
+				 * if `asChild` is NOT used: Unlike the native `<button>` element, this prop is required and has no default value.
+				 *
+				 * If `asChild` IS used: This prop HAS NO EFFECT, is REMOVED, and has no default value. This is because we do not want the `button` `type` to automatically merge with any child anchor `type` attribute because the `anchor` `type` is _strictly different_ than the `button` type, see: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#type
+				 *
+				 * @enum
+				 * - `"button"`: The button has no default behavior, and does nothing when pressed by default. It can have client-side scripts listen to the element's events, which are triggered when the events occur.
+				 * - `"reset"`: The button resets all the controls to their initial values.
+				 * - `"submit"`: The button submits the form data to the server.
+				 *
+				 * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#type
+				 */
+				type?: ButtonHTMLAttributes<HTMLButtonElement>["type"];
+		  }
+		| {
+				asChild?: false | undefined;
+				/**
+				 * The default behavior of the button. Possible values are: `"button"`, `"submit"`, and `"reset"`.
+				 *
+				 * if `asChild` is NOT used: Unlike the native `<button>` element, this prop is required and has no default value.
+				 *
+				 * If `asChild` IS used: This prop HAS NO EFFECT, is REMOVED, and has no default value. This is because we do not want the `button` `type` to automatically merge with any child anchor `type` attribute because the `anchor` `type` is _strictly different_ than the `button` type, see: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#type
+				 *
+				 * @enum
+				 * - `"button"`: The button has no default behavior, and does nothing when pressed by default. It can have client-side scripts listen to the element's events, which are triggered when the events occur.
+				 * - `"reset"`: The button resets all the controls to their initial values.
+				 * - `"submit"`: The button submits the form data to the server.
+				 *
+				 * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#type
+				 */
+				type: Exclude<ButtonHTMLAttributes<HTMLButtonElement>["type"], undefined>;
+		  }
+	);
 
 /**
  * Renders a button or a component that looks like a button, an interactive
@@ -80,30 +132,25 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 			asChild = false,
 			children,
 			className,
-			isLoading = false,
+			disabled: _disabled,
 			icon: propIcon,
+			isLoading = false,
 			label,
-			onClickCapture,
 			size,
+			type,
 			...props
 		},
 		ref,
 	) => {
-		const ariaDisabled = _ariaDisabled ?? isLoading;
-
-		const _onClickCapture = (event: MouseEvent<HTMLButtonElement>) => {
-			if (isLoading) {
-				event.preventDefault();
-				event.stopPropagation();
-			}
-			onClickCapture?.(event);
-		};
+		const disabled = parseBooleanish(_ariaDisabled ?? _disabled ?? isLoading);
+		const icon = isLoading ? <CircleNotch className="animate-spin" /> : propIcon;
 
 		const buttonProps = {
-			"aria-disabled": ariaDisabled,
-			className: cx(iconButtonVariants({ appearance, isLoading, size }), className),
+			"aria-disabled": disabled,
+			className: cx("icon-button", iconButtonVariants({ appearance, isLoading, size }), className),
 			"data-loading": isLoading,
-			onClickCapture: _onClickCapture,
+			"data-size": size,
+			disabled,
 			ref,
 			...props,
 		};
@@ -111,15 +158,12 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 		if (asChild) {
 			const singleChild = Children.only(children);
 			const isValidChild = isValidElement(singleChild);
-			const icon = isLoading ? <CircleNotch className="animate-spin" /> : propIcon;
 
 			return <Slot {...buttonProps}>{isValidChild && cloneElement(singleChild, {}, <Icon svg={icon} />)}</Slot>;
 		}
 
-		const icon = isLoading ? <CircleNotch className="animate-spin" /> : propIcon;
-
 		return (
-			<button {...buttonProps}>
+			<button {...buttonProps} type={type}>
 				<span className="sr-only">{label}</span>
 				<Icon svg={icon} />
 			</button>
@@ -128,5 +172,5 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 );
 IconButton.displayName = "IconButton";
 
-export { IconButton };
+export { IconButton, iconButtonVariants };
 export type { IconButtonProps };

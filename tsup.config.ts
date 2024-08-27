@@ -1,7 +1,23 @@
 import fs from "fs";
 import { defineConfig } from "tsup";
+import type { Options } from "tsup";
 
+/**
+ * A set of package names that should not be published to npm
+ */
 const doNotPublish = new Set(["back-to-top-button", "portal"]);
+
+/**
+ * A set of package names that shouldn't be released yet
+ */
+const unreleasedPackages = new Set(["data-table"]);
+
+/**
+ * Check if a package name is the tailwind preset
+ */
+const isTailwindPreset = (name: string) => /tailwind-preset/i.test(name);
+
+const packagePath = (name: string) => `./packages/${name}/index.ts` as const;
 
 // read all of the directories in the packages directory
 const allPackageDirectories = fs
@@ -9,24 +25,40 @@ const allPackageDirectories = fs
 	.filter((dirent) => dirent.isDirectory())
 	.map((dirent) => dirent.name);
 
-// filter out packages that exist in the `doNotPublish` set and then map them to the tsup config entries object
-const packages = allPackageDirectories
-	.filter((name) => !doNotPublish.has(name))
+// filter only the publishable component packages then map them to the tsup config entries object
+const componentPackages = allPackageDirectories
+	.filter(
+		(packageName) =>
+			!doNotPublish.has(packageName) && !unreleasedPackages.has(packageName) && !isTailwindPreset(packageName),
+	)
 	.reduce<Record<string, string>>((acc, name) => {
-		acc[name] = `./packages/${name}/index.ts`;
+		acc[name] = packagePath(name);
 		return acc;
 	}, {});
 
-export default defineConfig((options) => ({
-	clean: true,
+const commonOptions = {
 	dts: true,
-	entry: packages,
 	external: ["@phosphor-icons/react", "react", "react-dom", "tailwindcss", "zod"],
-	format: ["esm", "cjs"],
 	minify: true,
 	sourcemap: true,
 	splitting: true,
 	target: "es2022",
 	tsconfig: "tsconfig.publish.json",
-	...options,
-}));
+} satisfies Options;
+
+export default defineConfig((options) => [
+	{
+		...commonOptions,
+		format: "esm",
+		entry: componentPackages,
+		...options,
+	},
+	{
+		...commonOptions,
+		format: ["esm", "cjs"], // we need to dual publish the tailwind preset for now because postcss expects cjs
+		entry: {
+			"tailwind-preset": packagePath("tailwind-preset"),
+		},
+		...options,
+	},
+]);

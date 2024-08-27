@@ -2,71 +2,118 @@ import { CaretDown } from "@phosphor-icons/react/CaretDown";
 import { CaretUp } from "@phosphor-icons/react/CaretUp";
 import { Check } from "@phosphor-icons/react/Check";
 import * as SelectPrimitive from "@radix-ui/react-select";
-import { cva } from "class-variance-authority";
-import type { ComponentPropsWithoutRef, ElementRef, SelectHTMLAttributes } from "react";
+import type {
+	ComponentProps,
+	ComponentPropsWithoutRef,
+	ElementRef,
+	FocusEvent,
+	Ref,
+	SelectHTMLAttributes,
+} from "react";
 import { createContext, forwardRef, useContext } from "react";
+import { composeRefs } from "../../compose-refs";
 import { cx } from "../../cx";
+import type { WithValidation } from "../../input";
 import { Separator } from "../../separator";
-import type { VariantProps } from "../../types/src/variant-props";
 
-const SelectAriaInvalidContext = createContext<SelectHTMLAttributes<HTMLSelectElement>["aria-invalid"]>(undefined);
+type WithAriaInvalid = Pick<SelectHTMLAttributes<HTMLSelectElement>, "aria-invalid">;
+type SelectContextType = WithValidation &
+	WithAriaInvalid & {
+		/**
+		 * Ref for the trigger button.
+		 */
+		ref?: Ref<HTMLButtonElement>;
+		/**
+		 * Event handler called when Select blurs.
+		 * @note this is a no-op for now until we can guarantee that it works identically to a native select onBlur
+		 */
+		onBlur?: (event: FocusEvent<HTMLButtonElement>) => void;
+	} & Pick<ComponentProps<"button">, "id">;
 
-type SelectProps = ComponentPropsWithoutRef<typeof SelectPrimitive.Root> &
-	Pick<SelectHTMLAttributes<HTMLSelectElement>, "aria-invalid">;
+const SelectContext = createContext<SelectContextType>({});
 
-const Select = ({ children, ...props }: SelectProps) => {
-	return (
-		<SelectPrimitive.Root {...props}>
-			<SelectAriaInvalidContext.Provider value={props["aria-invalid"]}>{children}</SelectAriaInvalidContext.Provider>
-		</SelectPrimitive.Root>
-	);
-};
+type SelectProps = Omit<ComponentPropsWithoutRef<typeof SelectPrimitive.Root>, "onValueChange"> &
+	WithValidation &
+	WithAriaInvalid & {
+		/**
+		 * Event handler called when the value changes.
+		 */
+		onChange?: (value: string) => void;
+		/**
+		 * Event handler called when Select blurs.
+		 * @note this is a no-op for now until we can guarantee that it works identically to a native select onBlur
+		 */
+		onBlur?: (event: FocusEvent<HTMLButtonElement>) => void;
+	} & Pick<ComponentProps<"button">, "id">;
 
-const SelectGroup = SelectPrimitive.Group;
-
-const SelectValue = SelectPrimitive.Value;
-
-const selectTriggerVariants = cva(
-	"flex h-11 w-full items-center justify-between rounded-md border border-form bg-form px-3 py-2 placeholder:text-placeholder hover:bg-form-hover focus:outline-none focus:ring-4 disabled:pointer-events-none disabled:opacity-50 aria-expanded:ring-4 sm:h-9 sm:text-sm [&>span]:line-clamp-1 [&>span]:text-left",
-	{
-		variants: {
-			state: {
-				danger:
-					"border-danger-600 focus:border-danger-600 focus:ring-focus-danger aria-expanded:border-danger-600 aria-expanded:ring-focus-danger",
-				default:
-					"borderpform text-strong placeholder:text-placeholder focus:border-accent-600 focus:ring-focus-accent aria-expanded:border-accent-600 aria-expanded:ring-focus-accent",
-			},
-		},
-		defaultVariants: {
-			state: "default",
-		},
+/**
+ * Displays a list of options for the user to pick from—triggered by a button.
+ */
+const Select = forwardRef<HTMLButtonElement, SelectProps>(
+	({ "aria-invalid": _ariaInvalid, children, id, validation, onBlur, onChange, ...props }, ref) => {
+		return (
+			<SelectPrimitive.Root {...props} onValueChange={onChange}>
+				<SelectContext.Provider value={{ "aria-invalid": _ariaInvalid, id, validation, onBlur, ref }}>
+					{children}
+				</SelectContext.Provider>
+			</SelectPrimitive.Root>
+		);
 	},
 );
+Select.displayName = "Select";
 
-type SelectTriggerVariants = VariantProps<typeof selectTriggerVariants>;
+/**
+ * A group of related options within a select menu. Similar to an html `<optgroup>` element.
+ * Use in conjunction with Select.Label to ensure good accessibility via automatic labelling.
+ */
+const SelectGroup = SelectPrimitive.Group;
 
-const SelectTrigger = forwardRef<
-	ElementRef<typeof SelectPrimitive.Trigger>,
-	ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>
->(({ className, children, ...props }, ref) => {
-	const ariaInvalidContext = useContext(SelectAriaInvalidContext);
-	const ariaInvalid = props["aria-invalid"] ?? ariaInvalidContext;
-	const state = ariaInvalid ? "danger" : ("default" satisfies SelectTriggerVariants["state"]);
+/**
+ * The part that reflects the selected value. By default the selected item's text will be rendered. if you require more control, you can instead control the select and pass your own children. It should not be styled to ensure correct positioning. An optional placeholder prop is also available for when the select has no value.
+ */
+const SelectValue = SelectPrimitive.Value;
 
-	return (
-		<SelectPrimitive.Trigger
-			ref={ref}
-			className={cx(selectTriggerVariants({ state }), className)}
-			{...props}
-			aria-invalid={ariaInvalid}
-		>
-			{children}
-			<SelectPrimitive.Icon asChild>
-				<CaretDown className="size-4 shrink-0" weight="bold" />
-			</SelectPrimitive.Icon>
-		</SelectPrimitive.Trigger>
-	);
-});
+type SelectTriggerProps = ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> & WithAriaInvalid & WithValidation;
+
+/**
+ * The button that toggles the select. The Select.Content will position itself adjacent to the trigger.
+ */
+const SelectTrigger = forwardRef<ElementRef<typeof SelectPrimitive.Trigger>, SelectTriggerProps>(
+	({ "aria-invalid": ariaInValidProp, className, children, id: propId, validation: propValidation, ...props }, ref) => {
+		const ctx = useContext(SelectContext);
+		const _ariaInvalid = ctx["aria-invalid"] ?? ariaInValidProp;
+		const isInvalid = _ariaInvalid != null && _ariaInvalid !== "false";
+		const _validation = ctx.validation ?? propValidation;
+		const validation = isInvalid ? "error" : typeof _validation === "function" ? _validation() : _validation;
+		const ariaInvalid = _ariaInvalid ?? validation === "error";
+		const id = ctx.id ?? propId;
+
+		return (
+			<SelectPrimitive.Trigger
+				aria-invalid={ariaInvalid}
+				data-validation={validation || undefined} // eslint-disable-line @typescript-eslint/prefer-nullish-coalescing
+				className={cx(
+					"h-11 text-base sm:h-9 sm:text-sm",
+					"flex w-full items-center justify-between rounded-md border border-form bg-form px-3 py-2 text-strong placeholder:text-placeholder hover:border-neutral-400 hover:bg-form-hover hover:text-strong disabled:pointer-events-none disabled:opacity-50 [&>span]:line-clamp-1 [&>span]:text-left",
+					"focus:outline-none focus:ring-4 aria-expanded:ring-4",
+					"focus:border-accent-600 focus:ring-focus-accent aria-expanded:border-accent-600 aria-expanded:ring-focus-accent",
+					"data-validation-success:border-success-600 data-validation-success:focus:border-success-600 data-validation-success:focus:ring-focus-success data-validation-success:aria-expanded:border-success-600 data-validation-success:aria-expanded:ring-focus-success",
+					"data-validation-warning:border-warning-600 data-validation-warning:focus:border-warning-600 data-validation-warning:focus:ring-focus-warning data-validation-warning:aria-expanded:border-warning-600 data-validation-warning:aria-expanded:ring-focus-warning",
+					"data-validation-error:border-danger-600 data-validation-error:focus:border-danger-600 data-validation-error:focus:ring-focus-danger data-validation-error:aria-expanded:border-danger-600 data-validation-error:aria-expanded:ring-focus-danger",
+					className,
+				)}
+				id={id}
+				ref={composeRefs(ref, ctx.ref)}
+				{...props}
+			>
+				{children}
+				<SelectPrimitive.Icon asChild>
+					<CaretDown className="size-4 shrink-0" weight="bold" />
+				</SelectPrimitive.Icon>
+			</SelectPrimitive.Trigger>
+		);
+	},
+);
 SelectTrigger.displayName = "SelectTrigger";
 
 const SelectScrollUpButton = forwardRef<
@@ -78,7 +125,7 @@ const SelectScrollUpButton = forwardRef<
 		className={cx("flex cursor-default items-center justify-center py-1", className)}
 		{...props}
 	>
-		<CaretUp className="size-4" weight="bold" />
+		<CaretUp className="size-4 shrink-0" weight="bold" />
 	</SelectPrimitive.ScrollUpButton>
 ));
 SelectScrollUpButton.displayName = "SelectScrollUpButton";
@@ -92,7 +139,7 @@ const SelectScrollDownButton = forwardRef<
 		className={cx("flex cursor-default items-center justify-center py-1", className)}
 		{...props}
 	>
-		<CaretDown className="size-4" weight="bold" />
+		<CaretDown className="size-4 shrink-0" weight="bold" />
 	</SelectPrimitive.ScrollDownButton>
 ));
 SelectScrollDownButton.displayName = "SelectScrollDownButton";
@@ -101,6 +148,10 @@ type SelectContentProps = ComponentPropsWithoutRef<typeof SelectPrimitive.Conten
 	width?: "trigger" | "content";
 };
 
+/**
+ * The component that pops out when the select is open as a portal adjacent to the trigger button.
+ * It contains a scrolling viewport of the select items.
+ */
 const SelectContent = forwardRef<ElementRef<typeof SelectPrimitive.Content>, SelectContentProps>(
 	({ className, children, position = "popper", width, ...props }, ref) => (
 		<SelectPrimitive.Portal>
@@ -130,6 +181,9 @@ const SelectContent = forwardRef<ElementRef<typeof SelectPrimitive.Content>, Sel
 );
 SelectContent.displayName = "SelectContent";
 
+/**
+ * Used to render the label of a group. It won't be focusable using arrow keys.
+ */
 const SelectLabel = forwardRef<
 	ElementRef<typeof SelectPrimitive.Label>,
 	ComponentPropsWithoutRef<typeof SelectPrimitive.Label>
@@ -138,6 +192,11 @@ const SelectLabel = forwardRef<
 ));
 SelectLabel.displayName = "SelectLabel";
 
+/**
+ * An option within a select menu. Similar to an html `<option>` element.
+ * Contains a `value` prop that will be passed to the `onChange` handler of the `Select` component when selected.
+ * Displays the children as the option's text.
+ */
 const SelectItem = forwardRef<
 	ElementRef<typeof SelectPrimitive.Item>,
 	ComponentPropsWithoutRef<typeof SelectPrimitive.Item>
@@ -145,19 +204,22 @@ const SelectItem = forwardRef<
 	<SelectPrimitive.Item
 		ref={ref}
 		className={cx(
-			"relative flex w-full cursor-pointer select-none items-center rounded py-1.5 pl-2 pr-8 text-sm outline-none focus:bg-popover-hover data-state-checked:bg-filled-accent data-state-checked:text-on-filled data-disabled:pointer-events-none data-disabled:opacity-50",
+			"relative flex w-full cursor-pointer select-none items-center rounded py-1.5 pl-2 pr-8 text-sm outline-none focus:bg-popover-hover data-disabled:pointer-events-none data-disabled:opacity-50 data-state-checked:bg-filled-accent data-state-checked:text-on-filled",
 			className,
 		)}
 		{...props}
 	>
 		<SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
 		<SelectPrimitive.ItemIndicator className="absolute right-2 flex h-3.5 w-3.5 items-center justify-center">
-			<Check className="size-4" weight="bold" />
+			<Check className="size-4 shrink-0" weight="bold" />
 		</SelectPrimitive.ItemIndicator>
 	</SelectPrimitive.Item>
 ));
 SelectItem.displayName = "SelectItem";
 
+/**
+ * Used to visually separate items in the select.
+ */
 const SelectSeparator = forwardRef<ElementRef<typeof Separator>, ComponentPropsWithoutRef<typeof Separator>>(
 	({ className, ...props }, ref) => (
 		<Separator ref={ref} className={cx("-mx-1 my-1 h-px w-auto", className)} {...props} />

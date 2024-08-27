@@ -2,6 +2,7 @@ import { Anchor } from "@/anchor";
 import { Button } from "@/button";
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import { InlineCode } from "@/inline-code";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/tooltip";
 import { Fire } from "@phosphor-icons/react/Fire";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
@@ -18,6 +19,7 @@ import {
 	StringPropType,
 } from "~/components/props-table";
 import { route } from "~/types/routes";
+import type { PropsWithChildren } from "react";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -32,29 +34,38 @@ export const headers: HeadersFunction = () => {
 	};
 };
 
+const DisabledTooltip = ({ children }: PropsWithChildren) => (
+	<Tooltip>
+		<TooltipTrigger asChild>{children}</TooltipTrigger>
+		<TooltipContent>Tooltips work on disabled buttons!</TooltipContent>
+	</Tooltip>
+);
+
 export default function Page() {
 	return (
 		<div className="space-y-16">
-			<section className="mb-4 space-y-4">
+			<section className="space-y-4">
 				<h1 id="button" className="text-5xl font-medium">
 					Button
 				</h1>
-				<p className="text-xl text-body">Initiates an action, such as completing a task or submitting information</p>
+				<p className="font-body text-xl text-body">
+					Initiates an action, such as completing a task or submitting information
+				</p>
 				<div>
-					<Example className="mt-4 flex flex-wrap gap-6">
+					<Example className="flex flex-wrap gap-6">
 						<div>
 							<p className="mb-2 text-center font-mono text-xs">Default</p>
 							<div className="flex items-center gap-2">
-								<Button appearance="ghost" priority="default">
+								<Button type="button" appearance="ghost" priority="default">
 									Ghost
 								</Button>
-								<Button appearance="filled" priority="default">
+								<Button type="button" appearance="filled" priority="default">
 									Filled
 								</Button>
-								<Button appearance="outlined" priority="default">
+								<Button type="button" appearance="outlined" priority="default">
 									Outlined
 								</Button>
-								<Button appearance="link" priority="default">
+								<Button type="button" appearance="link" priority="default">
 									Link
 								</Button>
 							</div>
@@ -62,16 +73,16 @@ export default function Page() {
 						<div>
 							<p className="mb-2 text-center font-mono text-xs">Neutral</p>
 							<div className="flex items-center gap-2">
-								<Button appearance="ghost" priority="neutral">
+								<Button type="button" appearance="ghost" priority="neutral">
 									Ghost
 								</Button>
-								<Button appearance="filled" priority="neutral">
+								<Button type="button" appearance="filled" priority="neutral">
 									Filled
 								</Button>
-								<Button appearance="outlined" priority="neutral">
+								<Button type="button" appearance="outlined" priority="neutral">
 									Outlined
 								</Button>
-								<Button appearance="link" priority="neutral">
+								<Button type="button" appearance="link" priority="neutral">
 									Link
 								</Button>
 							</div>
@@ -79,18 +90,43 @@ export default function Page() {
 						<div>
 							<p className="mb-2 text-center font-mono text-xs">Danger</p>
 							<div className="flex items-center gap-2">
-								<Button appearance="ghost" priority="danger">
+								<Button type="button" appearance="ghost" priority="danger">
 									Ghost
 								</Button>
-								<Button appearance="filled" priority="danger">
+								<Button type="button" appearance="filled" priority="danger">
 									Filled
 								</Button>
-								<Button appearance="outlined" priority="danger">
+								<Button type="button" appearance="outlined" priority="danger">
 									Outlined
 								</Button>
-								<Button appearance="link" priority="danger">
+								<Button type="button" appearance="link" priority="danger">
 									Link
 								</Button>
+							</div>
+						</div>
+						<div>
+							<p className="mb-2 text-center font-mono text-xs">Disabled</p>
+							<div className="flex items-center gap-2">
+								<DisabledTooltip>
+									<Button disabled type="button" appearance="ghost" priority="default">
+										Ghost
+									</Button>
+								</DisabledTooltip>
+								<DisabledTooltip>
+									<Button disabled type="button" appearance="filled" priority="default">
+										Filled
+									</Button>
+								</DisabledTooltip>
+								<DisabledTooltip>
+									<Button disabled type="button" appearance="outlined" priority="default">
+										Outlined
+									</Button>
+								</DisabledTooltip>
+								<DisabledTooltip>
+									<Button disabled type="button" appearance="link" priority="default">
+										Link
+									</Button>
+								</DisabledTooltip>
 							</div>
 						</div>
 					</Example>
@@ -102,20 +138,33 @@ export default function Page() {
 								value={fmtCode`
 									import { Button } from "@ngrok/mantle/button";
 
-									<Button>Outlined</Button>
-									<Button appearance="filled">Filled</Button>
-									<Button appearance="ghost">Ghost</Button>
-									<Button appearance="link">Link</Button>
+									<Button type="button">Outlined</Button>
+									<Button type="button" appearance="filled">Filled</Button>
+									<Button type="button" appearance="ghost">Ghost</Button>
+									<Button type="button" appearance="link">Link</Button>
 
-									<Button priority="neutral">Outlined</Button>
-									<Button priority="neutral" appearance="filled">Filled</Button>
-									<Button priority="neutral" appearance="ghost">Ghost</Button>
-									<Button priority="neutral" appearance="link">Link</Button>
+									<Button type="button" priority="neutral">Outlined</Button>
+									<Button type="button" priority="neutral" appearance="filled">Filled</Button>
+									<Button type="button" priority="neutral" appearance="ghost">Ghost</Button>
+									<Button type="button" priority="neutral" appearance="link">Link</Button>
 
-									<Button priority="danger">Outlined</Button>
-									<Button priority="danger" appearance="filled">Filled</Button>
-									<Button priority="danger" appearance="ghost">Ghost</Button>
-									<Button priority="danger" appearance="link">Link</Button>
+									<Button type="button" priority="danger">Outlined</Button>
+									<Button type="button" priority="danger" appearance="filled">Filled</Button>
+									<Button type="button" priority="danger" appearance="ghost">Ghost</Button>
+									<Button type="button" priority="danger" appearance="link">Link</Button>
+
+									<Button disabled type="button" appearance="ghost" priority="default">
+										Ghost
+									</Button>
+									<Button disabled type="button" appearance="filled" priority="default">
+										Filled
+									</Button>
+									<Button disabled type="button" appearance="outlined" priority="default">
+										Outlined
+									</Button>
+									<Button disabled type="button" appearance="link" priority="default">
+										Link
+									</Button>
 								`}
 							/>
 						</CodeBlockBody>
@@ -123,11 +172,11 @@ export default function Page() {
 				</div>
 			</section>
 
-			<section className="mb-4 space-y-4">
+			<section className="space-y-4">
 				<h2 id="example-icon" className="text-3xl font-medium">
 					Icon and Positioning
 				</h2>
-				<p className="text-xl text-body">
+				<p className="font-body text-xl text-body">
 					Use the <InlineCode>icon</InlineCode> prop to add an icon to the button. By default, it will render on the
 					logical start side of the button. Use the <InlineCode>iconPlacement</InlineCode> prop to change the side the
 					icon is rendered on.
@@ -135,8 +184,10 @@ export default function Page() {
 				<div>
 					<Example>
 						<div className="flex items-center gap-2">
-							<Button icon={<Fire weight="fill" />}>Icon Start</Button>
-							<Button icon={<Fire weight="fill" />} iconPlacement="end">
+							<Button type="button" icon={<Fire weight="fill" />}>
+								Icon Start
+							</Button>
+							<Button type="button" icon={<Fire weight="fill" />} iconPlacement="end">
 								Icon End
 							</Button>
 						</div>
@@ -150,8 +201,8 @@ export default function Page() {
 									import { Button } from "@ngrok/mantle/button";
 									import { Fire } from "@phosphor-icons/react";
 
-									<Button icon={<Fire weight="fill" />}>Icon Start</Button>
-									<Button icon={<Fire weight="fill" />} iconPlacement="end">
+									<Button type="button" icon={<Fire weight="fill" />}>Icon Start</Button>
+									<Button type="button" icon={<Fire weight="fill" />} iconPlacement="end">
 										Icon End
 									</Button>
 								`}
@@ -161,11 +212,11 @@ export default function Page() {
 				</div>
 			</section>
 
-			<section className="mb-4 space-y-4">
+			<section className="space-y-4">
 				<h2 id="example-loading" className="text-3xl font-medium">
 					isLoading
 				</h2>
-				<p className="text-xl text-body">
+				<p className="font-body text-xl text-body">
 					<InlineCode>isLoading</InlineCode> determines whether or not the button is in a loading state, default{" "}
 					<InlineCode>false</InlineCode>. Setting <InlineCode>isLoading</InlineCode> will replace any{" "}
 					<InlineCode>icon</InlineCode> with a spinner, or add one if an icon wasn't given. It will also disable user
@@ -173,25 +224,45 @@ export default function Page() {
 				</p>
 				<div>
 					<Example className="flex-col gap-4">
-						<div>
+						<div className="space-y-2">
 							<p className="mb-2 text-center font-mono text-xs">Idle</p>
-							<div className="flex items-center gap-2">
-								<Button>No Icon + Idle</Button>
-								<Button icon={<Fire weight="fill" />}>Icon Start + Idle</Button>
-								<Button icon={<Fire weight="fill" />} iconPlacement="end">
+							<div className="flex items-center justify-center gap-2">
+								<Button type="button">No Icon + Idle</Button>
+								<Button type="button" icon={<Fire weight="fill" />}>
+									Icon Start + Idle
+								</Button>
+								<Button type="button" icon={<Fire weight="fill" />} iconPlacement="end">
 									Icon End + Idle
 								</Button>
 							</div>
+							<div className="flex items-center justify-center gap-2">
+								<Button type="button" appearance="link" icon={<Fire weight="fill" />}>
+									Link + Icon Start + Idle
+								</Button>
+								<Button type="button" appearance="link" icon={<Fire weight="fill" />} iconPlacement="end">
+									Link + Icon End + Idle
+								</Button>
+							</div>
 						</div>
-						<div>
+						<div className="space-y-2">
 							<p className="mb-2 text-center font-mono text-xs">isLoading</p>
-							<div className="flex items-center gap-2">
-								<Button isLoading>No Icon + isLoading</Button>
-								<Button icon={<Fire weight="fill" />} isLoading>
+							<div className="flex items-center justify-center gap-2">
+								<Button type="button" isLoading>
+									No Icon + isLoading
+								</Button>
+								<Button type="button" icon={<Fire weight="fill" />} isLoading>
 									Icon Start + isLoading
 								</Button>
-								<Button icon={<Fire weight="fill" />} iconPlacement="end" isLoading>
+								<Button type="button" icon={<Fire weight="fill" />} iconPlacement="end" isLoading>
 									Icon End + isLoading
+								</Button>
+							</div>
+							<div className="flex items-center justify-center gap-2">
+								<Button type="button" appearance="link" icon={<Fire weight="fill" />} isLoading>
+									Link + Icon Start + isLoading
+								</Button>
+								<Button type="button" appearance="link" icon={<Fire weight="fill" />} iconPlacement="end" isLoading>
+									Link + Icon End + isLoading
 								</Button>
 							</div>
 						</div>
@@ -205,16 +276,16 @@ export default function Page() {
 									import { Button } from "@ngrok/mantle/button";
 									import { Fire } from "@phosphor-icons/react";
 
-									<Button>No Icon + Idle</Button>
-									<Button icon={<Fire weight="fill" />}>Icon Start + Idle</Button>
-									<Button icon={<Fire weight="fill" />} iconPlacement="end">
+									<Button type="button">No Icon + Idle</Button>
+									<Button type="button" icon={<Fire weight="fill" />}>Icon Start + Idle</Button>
+									<Button type="button" icon={<Fire weight="fill" />} iconPlacement="end">
 										Icon End + Idle
 									</Button>
-									<Button isLoading>No Icon + isLoading</Button>
-									<Button icon={<Fire weight="fill" />} isLoading>
+									<Button type="button" isLoading>No Icon + isLoading</Button>
+									<Button type="button" icon={<Fire weight="fill" />} isLoading>
 										Icon Start + isLoading
 									</Button>
-									<Button icon={<Fire weight="fill" />} iconPlacement="end" isLoading>
+									<Button type="button" icon={<Fire weight="fill" />} iconPlacement="end" isLoading>
 										Icon End + isLoading
 									</Button>
 								`}
@@ -224,15 +295,17 @@ export default function Page() {
 				</div>
 			</section>
 
-			<section className="mb-4 space-y-4">
+			<section className="space-y-4">
 				<h2 id="composition" className="text-3xl font-medium">
 					Composition
 				</h2>
-				<p className="text-xl text-body">
+				<p className="font-body text-xl text-body">
 					When you want to render <span className="italic">something else</span> as a <InlineCode>Button</InlineCode>,
 					you can use the <InlineCode>asChild</InlineCode> prop to compose. This is useful when you want to splat the{" "}
 					<InlineCode>Button</InlineCode> styling onto a <InlineCode>Link</InlineCode> from{" "}
-					<InlineCode>remix</InlineCode> or <InlineCode>react-router</InlineCode>.
+					<InlineCode>remix</InlineCode> or <InlineCode>react-router</InlineCode>. Keep in mind that when you use{" "}
+					<InlineCode>asChild</InlineCode> the <InlineCode>type</InlineCode> prop will <strong>NOT</strong> be passed to
+					the child component.
 				</p>
 				<div>
 					<Example>
@@ -260,11 +333,11 @@ export default function Page() {
 				</div>
 			</section>
 
-			<section className="mt-16 space-y-4">
+			<section className="space-y-4">
 				<h2 id="api" className="text-3xl font-medium">
 					API Reference
 				</h2>
-				<p className="text-xl text-body">
+				<p className="font-body text-xl text-body">
 					The <InlineCode>Button</InlineCode> accepts the following props in addition to the{" "}
 					<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button">
 						standard HTML button attributes
@@ -387,6 +460,52 @@ export default function Page() {
 								Indicates the importance or impact level of the button, affecting its color and styling to communicate
 								its purpose to the user.
 							</p>
+						</PropDescriptionCell>
+					</PropRow>
+					<PropRow>
+						<PropNameCell name="type" />
+						<PropTypeCell>
+							<ul>
+								<li>
+									<StringPropType value="button" />
+								</li>
+								<li>
+									<StringPropType value="reset" />
+								</li>
+								<li>
+									<StringPropType value="submit" />
+								</li>
+							</ul>
+						</PropTypeCell>
+						<PropDefaultValueCell />
+						<PropDescriptionCell>
+							<p>
+								The default behavior of the <InlineCode>Button</InlineCode>. Unlike the native{" "}
+								<InlineCode>button</InlineCode> element, unless you use the <InlineCode>asChild</InlineCode> prop,{" "}
+								<span className="font-semibold">this prop is required and has no default value</span>. See{" "}
+								<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#type">
+									the MDN docs
+								</Anchor>{" "}
+								for more information.
+							</p>
+							<ul className="list-disc pl-5">
+								<li>
+									<p>
+										<InlineCode>"button"</InlineCode>: The button has no default behavior, and does nothing when pressed
+										by default.
+									</p>
+								</li>
+								<li>
+									<p>
+										<InlineCode>"reset"</InlineCode>: The button resets all the controls to their initial values.
+									</p>
+								</li>
+								<li>
+									<p>
+										<InlineCode>"submit"</InlineCode>: The button submits the form data to the server.
+									</p>
+								</li>
+							</ul>
 						</PropDescriptionCell>
 					</PropRow>
 				</PropsTable>

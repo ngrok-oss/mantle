@@ -1,5 +1,8 @@
 @import url("https://cdn.ngrok.com/static/fonts/fonts.css");
 
+/* TODO: Host this on our CDN */
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -617,6 +620,7 @@
 	--shadow-color: 0 0% 0%;
 	--shadow-first: 5%;
 	--shadow-second: 10%;
+	--navigation-shadow: hsl(0deg 0% 0% / 10%);
 }
 
 :root.dark {
@@ -910,6 +914,7 @@
 
 	--shadow-first: 15%;
 	--shadow-second: 30%;
+	--navigation-shadow: hsl(0deg 0% 0% / 40%);
 }
 
 :root.light-high-contrast {
@@ -1153,6 +1158,7 @@
 
 	--shadow-first: 100%;
 	--shadow-second: 100%;
+	--navigation-shadow: hsl(0deg 0% 0% / 60%);
 }
 
 :root.dark-high-contrast {
@@ -1405,6 +1411,12 @@
 
 	--shadow-first: 100%;
 	--shadow-second: 100%;
+	--navigation-shadow: hsl(0deg 0% 0% / 100%);
+}
+
+::selection {
+	color: #fff;
+	background: hsl(var(--blue-600));
 }
 
 /**
@@ -1481,6 +1493,10 @@
 	strong {
 		@apply font-medium;
 	}
+
+	th {
+		text-align: inherit;
+	}
 }
 
 @layer utilities {
@@ -1496,6 +1512,16 @@
 	.dark-high-contrast {
 		color-scheme: dark;
 	}
+
+	/* .stop-current-color {
+		stop-color: currentColor;
+	}
+	.stop-opacity-100 {
+		stop-opacity: 1;
+	}
+	.stop-opacity-0 {
+		stop-opacity: 0;
+	} */
 
 	.scrollbar::-webkit-scrollbar {
 		width: 0.5rem;
@@ -1519,7 +1545,23 @@
 	}
 
 	.scrollbar {
-		scrollbar-color: hsl(var(--gray-600) / 0.5) transparent;
+		scrollbar-color: hsl(var(--gray-800) / 0.5) transparent;
 		scrollbar-width: thin;
+	}
+
+	.scroll-shadow {
+		background: /* Shadow Cover TOP */
+			linear-gradient(hsl(var(--bg-base)) 30%, hsl(var(--bg-base) / 0%)) center top,
+			/* Shadow Cover BOTTOM */ linear-gradient(hsl(var(--bg-base) / 0%), hsl(var(--bg-base)) 70%) center bottom,
+			/* Shadow TOP */ radial-gradient(farthest-side at 50% 0, var(--navigation-shadow), rgb(0 0 0 / 0%)) center top,
+			/* Shadow BOTTOM */ radial-gradient(farthest-side at 50% 100%, var(--navigation-shadow), rgb(0 0 0 / 0%)) center
+				bottom;
+		background-repeat: no-repeat;
+		background-size:
+			100% 40px,
+			100% 40px,
+			100% 14px,
+			100% 14px;
+		background-attachment: local, local, scroll, scroll;
 	}
 }

@@ -1,4 +1,5 @@
-import { forwardRef, HTMLAttributes, TdHTMLAttributes, ThHTMLAttributes } from "react";
+import { forwardRef } from "react";
+import type { HTMLAttributes, TdHTMLAttributes, ThHTMLAttributes } from "react";
 import { cx } from "../../cx";
 
 const Table = forwardRef<HTMLTableElement, HTMLAttributes<HTMLTableElement>>(({ className, ...props }, ref) => (
