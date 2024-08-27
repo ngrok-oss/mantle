@@ -152,6 +152,19 @@ export default function Page() {
 									<Button type="button" priority="danger" appearance="filled">Filled</Button>
 									<Button type="button" priority="danger" appearance="ghost">Ghost</Button>
 									<Button type="button" priority="danger" appearance="link">Link</Button>
+
+									<Button disabled type="button" appearance="ghost" priority="default">
+										Ghost
+									</Button>
+									<Button disabled type="button" appearance="filled" priority="default">
+										Filled
+									</Button>
+									<Button disabled type="button" appearance="outlined" priority="default">
+										Outlined
+									</Button>
+									<Button disabled type="button" appearance="link" priority="default">
+										Link
+									</Button>
 								`}
 							/>
 						</CodeBlockBody>
