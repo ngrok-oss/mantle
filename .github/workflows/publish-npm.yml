@@ -15,10 +15,9 @@ jobs:
           node-version-file: ".nvmrc"
           registry-url: "https://registry.npmjs.org"
 
-      - name: Setup pnpm 📦
+      - name: Install pnpm 📦
         uses: pnpm/action-setup@v4
-        with:
-          version: 9
+        # use version from package.json#packageManager field
 
       - run: pnpm install
 
