@@ -27,7 +27,7 @@ const TableFooter = forwardRef<HTMLTableSectionElement, HTMLAttributes<HTMLTable
 	({ className, ...props }, ref) => (
 		<tfoot
 			ref={ref}
-			className={cx("border-t border-card-muted bg-card-hover font-medium [&>tr]:last:border-b-0", className)}
+			className={cx("border-t border-card-muted bg-card-hover/60 font-medium [&>tr]:last:border-b-0", className)}
 			{...props}
 		/>
 	),
@@ -49,7 +49,10 @@ const TableHead = forwardRef<HTMLTableCellElement, ThHTMLAttributes<HTMLTableCel
 	({ className, ...props }, ref) => (
 		<th
 			ref={ref}
-			className={cx("h-12 px-4 text-left align-middle font-medium text-muted [&:has([role=checkbox])]:pr-0", className)}
+			className={cx(
+				"h-12 px-4 text-left align-middle font-medium text-strong [&:has([role=checkbox])]:pr-0",
+				className,
+			)}
 			{...props}
 		/>
 	),
