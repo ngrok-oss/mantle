@@ -1495,6 +1495,10 @@
 	th {
 		text-align: inherit;
 	}
+
+	fieldset {
+		min-width: 0;
+	}
 }
 
 @layer utilities {
