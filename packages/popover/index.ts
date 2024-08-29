@@ -1,6 +1,8 @@
 export {
 	//,
 	Popover,
-	PopoverTrigger,
+	PopoverAnchor,
+	PopoverClose,
 	PopoverContent,
+	PopoverTrigger,
 } from "./src/popover";

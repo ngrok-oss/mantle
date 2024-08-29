@@ -14,6 +14,7 @@ import { cx } from "../../cx";
  * https://github.com/ngrok-oss/mantle/issues
  */
 const Popover = PopoverPrimitive.Root;
+Popover.displayName = "Popover";
 
 /**
  * The trigger button that opens the popover.
@@ -24,6 +25,29 @@ const Popover = PopoverPrimitive.Root;
  * https://github.com/ngrok-oss/mantle/issues
  */
 const PopoverTrigger = PopoverPrimitive.Trigger;
+PopoverTrigger.displayName = "PopoverTrigger";
+
+/**
+ * An optional element to position the PopoverContent against. If this part is not used, the content will position alongside the PopoverTrigger.
+ *
+ * @preview This component is in `preview` mode which means the API is not stable and may change.
+ * There may also be bugs! Please file an issue if you find any! <3
+ *
+ * https://github.com/ngrok-oss/mantle/issues
+ */
+const PopoverAnchor = PopoverPrimitive.Anchor;
+PopoverAnchor.displayName = "PopoverAnchor";
+
+/**
+ * A button that closes an open popover.
+ *
+ * @preview This component is in `preview` mode which means the API is not stable and may change.
+ * There may also be bugs! Please file an issue if you find any! <3
+ *
+ * https://github.com/ngrok-oss/mantle/issues
+ */
+const PopoverClose = PopoverPrimitive.Close;
+PopoverClose.displayName = "PopoverClose";
 
 /**
  * The content to render inside the popover.
@@ -55,6 +79,8 @@ PopoverContent.displayName = "PopoverContent";
 export {
 	//,
 	Popover,
-	PopoverTrigger,
+	PopoverAnchor,
+	PopoverClose,
 	PopoverContent,
+	PopoverTrigger,
 };
