@@ -26,14 +26,14 @@ export default function Page() {
 				<div>
 					<Example className="grid gap-6">
 						<Label htmlFor="name">
-							Name: <Input type="text" id="name" />
+							Name <Input type="text" id="name" />
 						</Label>
 						<div className="flex items-center gap-2">
-							<Label htmlFor="name-2">Name:</Label>
+							<Label htmlFor="name-2">Name</Label>
 							<Input type="text" id="name-2" />
 						</div>
 						<Label htmlFor="name-disabled">
-							Name: <Input type="text" id="name" disabled readOnly validation="error" value="foo" />
+							Name <Input type="text" id="name" disabled readOnly validation="error" value="foo" />
 						</Label>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
