@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../packages/icon/src/icon.tsx"],
+  "sourcesContent": ["import type { ReactNode } from \"react\";\nimport { cx } from \"../../cx\";\nimport type { WithStyleProps } from \"../../types\";\nimport { IconBase } from \"./_icon-base\";\n\ntype IconProps = WithStyleProps & {\n\t/**\n\t * A single SVG icon element.\n\t */\n\tsvg: ReactNode;\n};\n/**\n * Decorates an svg icon with automatic sizing styles.\n * Merges `className` selectors with the following order of precedence (last one wins):\n * 1. Icon base classes\n * 2. svg className\n * 3. Icon className\n */\nconst Icon = ({ className, style, svg }: IconProps) => (\n\t<IconBase className={cx(\"size-6 sm:size-5\", className)} style={style} svg={svg} />\n);\n\nexport { Icon };\nexport type { IconProps };\n"],
+  "mappings": ";;;;;;;;;;;;;;AAmBC;AADD,IAAM,OAAO,CAAC,EAAE,WAAW,OAAO,IAAI,MACrC,mDAAC,YAAS,WAAW,GAAG,oBAAoB,SAAS,GAAG,OAAc,OAAtE;AAAA;AAAA;AAAA;AAAA,OAAgF;",
+  "names": []
+}

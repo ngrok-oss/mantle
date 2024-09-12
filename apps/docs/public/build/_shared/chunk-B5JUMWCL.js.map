@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../packages/inline-code/src/inline-code.tsx"],
+  "sourcesContent": ["import { forwardRef } from \"react\";\nimport type { HTMLAttributes } from \"react\";\nimport { cx } from \"../../cx\";\n\n/**\n * A component to render inline code.\n */\nconst InlineCode = forwardRef<HTMLSpanElement, HTMLAttributes<HTMLSpanElement>>(({ className, ...props }, ref) => (\n\t<code\n\t\tref={ref}\n\t\tclassName={cx(\"rounded-md border border-card bg-gray-500/5 px-1 py-0.5 font-mono text-[0.8em]\", className)}\n\t\t{...props}\n\t/>\n));\nInlineCode.displayName = \"InlineCode\";\n\nexport { InlineCode };\n"],
+  "mappings": ";;;;;;;;;;;;;;AAAA,mBAA2B;AAQ1B;AADD,IAAM,iBAAa,yBAA6D,CAAC,EAAE,WAAW,GAAG,MAAM,GAAG,QACzG;AAAA,EAAC;AAAA;AAAA,IACA;AAAA,IACA,WAAW,GAAG,kFAAkF,SAAS;AAAA,IACxG,GAAG;AAAA;AAAA,EAHL;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAIA,CACA;AACD,WAAW,cAAc;",
+  "names": []
+}
