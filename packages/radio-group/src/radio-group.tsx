@@ -132,6 +132,7 @@ const RadioListItem = forwardRef<ElementRef<"div">, RadioListItemProps>(({ child
 			className={cx(
 				"group/radio relative flex select-none gap-2 border border-form px-3 py-2 text-base sm:text-sm [&_label]:cursor-inherit",
 				"focus:outline-none aria-enabled:cursor-pointer",
+				"focus-visible:ring-4 focus-visible:ring-focus-accent aria-enabled:focus-visible:border-accent-600",
 				"first-of-type:rounded-tl-md first-of-type:rounded-tr-md last-of-type:rounded-bl-md last-of-type:rounded-br-md",
 				"aria-disabled:border-form/50 aria-enabled:hover:z-1 aria-enabled:hover:border-accent-600",
 				"aria-checked:z-1 aria-checked:border-accent-500/40 aria-checked:bg-accent-500/10 dark-high-contrast:aria-checked:border-accent-400 high-contrast:aria-checked:border-accent-400 not-disabled:hover:aria-checked:border-accent-600",
@@ -165,6 +166,7 @@ const RadioCard = forwardRef<ElementRef<"div">, RadioCardProps>(({ children, cla
 			className={clsx(
 				"group/radio relative rounded-md border border-card bg-card p-4 text-base sm:text-sm [&_label]:cursor-inherit",
 				"focus:outline-none aria-enabled:cursor-pointer",
+				"focus-visible:ring-4 focus-visible:ring-focus-accent aria-enabled:focus-visible:border-accent-600",
 				"first-of-type:rounded-tl-md first-of-type:rounded-tr-md last-of-type:rounded-bl-md last-of-type:rounded-br-md",
 				"aria-disabled:border-form/50 aria-enabled:hover:z-1 aria-enabled:hover:border-accent-600",
 				"aria-checked:z-1 aria-checked:border-accent-500/40 aria-checked:bg-accent-500/10 aria-enabled:hover:aria-checked:border-accent-600 dark-high-contrast:aria-checked:border-accent-400 high-contrast:aria-checked:border-accent-400",
@@ -217,6 +219,7 @@ const RadioButton = forwardRef<ElementRef<"div">, RadioButtonProps>(({ children,
 			as="div"
 			className={cx(
 				"group/radio relative flex flex-1 select-none items-center justify-center gap-2 border border-form px-3 py-2 text-base sm:text-sm [&_label]:cursor-inherit",
+				"focus-visible:ring-4 focus-visible:ring-focus-accent aria-enabled:focus-visible:border-accent-600",
 				"focus:outline-none aria-enabled:cursor-pointer",
 				"first-of-type:rounded-bl-md first-of-type:rounded-tl-md last-of-type:rounded-br-md last-of-type:rounded-tr-md",
 				"aria-disabled:opacity-50 aria-enabled:hover:z-1 aria-enabled:hover:border-accent-600",
