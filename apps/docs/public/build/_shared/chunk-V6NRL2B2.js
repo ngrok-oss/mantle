@@ -1,0 +1,1 @@
+import{a}from"/build/_shared/chunk-SQBGVNFG.js";import{c as u}from"/build/_shared/chunk-QDA5CGMH.js";var f=u(a(),1);function c(...t){return n=>{t.forEach(r=>{typeof r=="function"?r(n):r!=null&&(r.current=n)})}}export{c as a};

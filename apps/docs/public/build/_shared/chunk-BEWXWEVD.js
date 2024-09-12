@@ -1,0 +1,1 @@
+import{d as t}from"/build/_shared/chunk-LXOI3BT3.js";import{a as e}from"/build/_shared/chunk-KNSIEFAX.js";import{b as n}from"/build/_shared/chunk-SQBGVNFG.js";import{c as r}from"/build/_shared/chunk-QDA5CGMH.js";var o=r(n(),1),h=({hash:i,rawTo:p,search:s,to:m,...d})=>(0,o.jsx)(e,{asChild:!0,children:(0,o.jsx)(t,{to:{pathname:m??p,search:s,hash:i},...d})});export{h as a};
