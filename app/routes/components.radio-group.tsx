@@ -37,7 +37,7 @@ export default function Page() {
 				</p>
 				<div>
 					<Example className="mt-4 grid gap-6">
-						<RadioGroup defaultValue="comfortable">
+						<RadioGroup defaultValue="compact">
 							<RadioItem value="default" id="simple-1">
 								<RadioIndicator />
 								<RadioItemContent asChild>
