@@ -23,7 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 
-storybook-static
 tsconfig.tsbuildinfo
 
 /.cache
@@ -32,5 +31,4 @@ tsconfig.tsbuildinfo
 .env
 .vercel
 .parcel-cache
-*storybook.log
 .turbo
