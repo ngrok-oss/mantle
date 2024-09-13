@@ -43,7 +43,7 @@ const commonOptions = {
 	sourcemap: true,
 	splitting: true,
 	target: "es2022",
-	tsconfig: "tsconfig.publish.json",
+	tsconfig: "tsconfig.json",
 } satisfies Options;
 
 export default defineConfig((options) => [

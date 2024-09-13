@@ -27,7 +27,7 @@
   "scripts": {
     "build": "rm -rf dist && NODE_OPTIONS='--max-old-space-size=16384' tsup",
     "test": "TZ=UTC vitest",
-    "typecheck": "tsc --incremental --noEmit --skipLibCheck -P ./tsconfig.json",
+    "typecheck": "tsc",
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
