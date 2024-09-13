@@ -1,6 +1,6 @@
-import { Button } from "@/button";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/tooltip";
+import { Button } from "@ngrok/mantle/button";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@ngrok/mantle/tooltip";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { PreviewBadge } from "~/components/badges";
 import { Example } from "~/components/example";

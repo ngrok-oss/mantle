@@ -1,5 +1,5 @@
-import { InlineCode } from "@/inline-code";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/table";
+import { InlineCode } from "@ngrok/mantle/inline-code";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@ngrok/mantle/table";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 
 export const meta: MetaFunction = () => {

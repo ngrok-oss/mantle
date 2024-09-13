@@ -1,7 +1,7 @@
-import { Anchor } from "@/anchor";
-import { Calendar } from "@/calendar";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
-import { InlineCode } from "@/inline-code";
+import { Anchor } from "@ngrok/mantle/anchor";
+import { Calendar } from "@ngrok/mantle/calendar";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
+import { InlineCode } from "@ngrok/mantle/inline-code";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { PreviewBadge } from "~/components/badges";
 import { Example } from "~/components/example";

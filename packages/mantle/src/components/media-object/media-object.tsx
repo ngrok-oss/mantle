@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import type { HTMLAttributes } from "react";
-import { cx } from "../../../utils/cx";
+import { cx } from "../../utils/cx";
 
 /**
  * The media object is an image/icon (media) to the left, with descriptive

@@ -1,8 +1,8 @@
-import { Button } from "@/button";
-import { cx } from "@/cx";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger } from "@/select";
-import { isTheme, theme, useTheme } from "@/theme-provider";
-import type { WithStyleProps } from "@/types";
+import { Button } from "@ngrok/mantle/button";
+import { cx } from "@ngrok/mantle/cx";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger } from "@ngrok/mantle/select";
+import { isTheme, theme, useTheme } from "@ngrok/mantle/theme-provider";
+import type { WithStyleProps } from "@ngrok/mantle/types";
 import { List } from "@phosphor-icons/react/List";
 import { Sun } from "@phosphor-icons/react/Sun";
 import { X } from "@phosphor-icons/react/X";

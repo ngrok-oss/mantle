@@ -12,27 +12,33 @@ const doNotPublish = new Set(["portal"]);
  */
 const unreleasedPackages = new Set(["data-table"]);
 
-/**
- * Check if a package name is the tailwind preset
- */
-const isTailwindPreset = (name: string) => /tailwind-preset/i.test(name);
+const componentPath = (name: string) => `./src/components/${name}/index.ts` as const;
+const utilPath = (name: string) => `./src/utils/${name}/index.ts` as const;
 
-const packagePath = (name: string) => `./packages/${name}/index.ts` as const;
-
-// read all of the directories in the packages directory
-const allPackageDirectories = fs
-	.readdirSync("packages", { withFileTypes: true })
+const allComponents = fs
+	.readdirSync("src/components", { withFileTypes: true })
 	.filter((dirent) => dirent.isDirectory())
 	.map((dirent) => dirent.name);
 
-// filter only the publishable component packages then map them to the tsup config entries object
-const componentPackages = allPackageDirectories
+const allUtils = fs
+.readdirSync("src/utils", { withFileTypes: true })
+.filter((dirent) => dirent.isDirectory())
+.map((dirent) => dirent.name);
+
+const componentPackages = allComponents
+	// filter only the publishable component packages then map them to the tsup config entries object
 	.filter(
 		(packageName) =>
-			!doNotPublish.has(packageName) && !unreleasedPackages.has(packageName) && !isTailwindPreset(packageName),
+			!doNotPublish.has(packageName) && !unreleasedPackages.has(packageName),
 	)
 	.reduce<Record<string, string>>((acc, name) => {
-		acc[name] = packagePath(name);
+		acc[name] = componentPath(name);
+		return acc;
+	}, {});
+
+const utilPackages = allUtils
+	.reduce<Record<string, string>>((acc, name) => {
+		acc[name] = utilPath(name);
 		return acc;
 	}, {});
 
@@ -43,7 +49,7 @@ const commonOptions = {
 	sourcemap: true,
 	splitting: true,
 	target: "es2022",
-	tsconfig: "tsconfig.json",
+	tsconfig: "tsconfig.build.json",
 } satisfies Options;
 
 export default defineConfig((options) => [
@@ -55,9 +61,15 @@ export default defineConfig((options) => [
 	},
 	{
 		...commonOptions,
+		format: "esm",
+		entry: utilPackages,
+		...options,
+	},
+	{
+		...commonOptions,
 		format: ["esm", "cjs"], // we need to dual publish the tailwind preset for now because postcss expects cjs
 		entry: {
-			"tailwind-preset": packagePath("tailwind-preset"),
+			"tailwind-preset": "./src/tailwind-preset/index.ts",
 		},
 		...options,
 	},

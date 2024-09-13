@@ -1,6 +1,6 @@
-import { Anchor } from "@/anchor";
-import { cx } from "@/cx";
-import { InlineCode } from "@/inline-code";
+import { Anchor } from "@ngrok/mantle/anchor";
+import { cx } from "@ngrok/mantle/cx";
+import { InlineCode } from "@ngrok/mantle/inline-code";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { HashNavLink } from "~/components/hash-nav-link";
 

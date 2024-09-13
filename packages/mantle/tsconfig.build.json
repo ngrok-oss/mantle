@@ -1,8 +1,8 @@
 {
-  "extends": "@cfg/tsconfig/react-library.json",
-  "include": ["src/**/*"],
+  "extends": "./tsconfig.json",
+  "include": ["src/**/*", "assets/**/*"],
 	"exclude": ["**/*.test.*"],
   "compilerOptions": {
-    "outDir": "dist"
+    "composite": false
   }
 }

@@ -1,5 +1,5 @@
-import { Card, CardBody, CardFooter, CardHeader, CardTitle } from "@/card";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
+import { Card, CardBody, CardFooter, CardHeader, CardTitle } from "@ngrok/mantle/card";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 

@@ -1,7 +1,7 @@
-import { Anchor } from "@/anchor";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, CodeBlockHeader, fmtCode } from "@/code-block";
-import { InlineCode } from "@/inline-code";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/table";
+import { Anchor } from "@ngrok/mantle/anchor";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, CodeBlockHeader, fmtCode } from "@ngrok/mantle/code-block";
+import { InlineCode } from "@ngrok/mantle/inline-code";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@ngrok/mantle/table";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Link } from "~/components/link";
 

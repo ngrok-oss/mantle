@@ -1,5 +1,5 @@
-import { Button, IconButton } from "@/button";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
+import { Button, IconButton } from "@ngrok/mantle/button";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
 import {
 	Dialog,
 	DialogBody,
@@ -10,9 +10,9 @@ import {
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
-} from "@/dialog";
-import { InlineCode } from "@/inline-code";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/tooltip";
+} from "@ngrok/mantle/dialog";
+import { InlineCode } from "@ngrok/mantle/inline-code";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@ngrok/mantle/tooltip";
 import { TrashSimple } from "@phosphor-icons/react/dist/icons/TrashSimple";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";

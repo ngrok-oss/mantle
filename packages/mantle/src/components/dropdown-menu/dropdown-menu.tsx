@@ -3,8 +3,8 @@ import { Check } from "@phosphor-icons/react/Check";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import type { ComponentPropsWithoutRef, ElementRef } from "react";
 import { forwardRef } from "react";
-import { cx } from "../../../utils/cx";
-import { Separator } from "../../separator";
+import { cx } from "../../utils/cx";
+import { Separator } from "../separator";
 
 const DropdownMenu = DropdownMenuPrimitive.Root;
 

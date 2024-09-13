@@ -1,7 +1,7 @@
-import { Button } from "@/button";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
-import { Input } from "@/input";
-import { Popover, PopoverContent, PopoverTrigger } from "@/popover";
+import { Button } from "@ngrok/mantle/button";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
+import { Input } from "@ngrok/mantle/input";
+import { Popover, PopoverContent, PopoverTrigger } from "@ngrok/mantle/popover";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { PreviewBadge } from "~/components/badges";
 import { Example } from "~/components/example";

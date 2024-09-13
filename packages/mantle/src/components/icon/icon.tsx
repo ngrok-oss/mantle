@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
-import type { WithStyleProps } from "../../../types";
-import { cx } from "../../../utils/cx";
+import type { WithStyleProps } from "../../types";
+import { cx } from "../../utils/cx";
 import { IconBase } from "./_icon-base";
 
 type IconProps = WithStyleProps & {

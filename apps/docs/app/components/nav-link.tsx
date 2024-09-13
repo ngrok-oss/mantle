@@ -1,4 +1,4 @@
-import { cx } from "@/cx";
+import { cx } from "@ngrok/mantle/cx";
 import { NavLink as RRNavLink } from "@remix-run/react";
 import type { NavLinkProps } from "@remix-run/react";
 import type { Route } from "~/types/routes";

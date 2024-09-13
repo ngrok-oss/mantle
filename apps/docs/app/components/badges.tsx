@@ -1,5 +1,5 @@
-import { Badge } from "@/badge";
-import type { WithStyleProps } from "@/types";
+import { Badge } from "@ngrok/mantle/badge";
+import type { WithStyleProps } from "@ngrok/mantle/types";
 import { HandPalm } from "@phosphor-icons/react/HandPalm";
 import { Sparkle } from "@phosphor-icons/react/Sparkle";
 

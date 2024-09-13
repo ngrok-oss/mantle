@@ -7,9 +7,9 @@ import {
 	CodeBlockHeader,
 	CodeBlockTitle,
 	fmtCode,
-} from "@/code-block";
-import { InlineCode } from "@/inline-code";
-import { PreloadFonts, preventWrongThemeFlashScriptContent } from "@/theme-provider";
+} from "@ngrok/mantle/code-block";
+import { InlineCode } from "@ngrok/mantle/inline-code";
+import { PreloadFonts, preventWrongThemeFlashScriptContent } from "@ngrok/mantle/theme-provider";
 import { FileText } from "@phosphor-icons/react/FileText";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { renderToStaticMarkup } from "react-dom/server";

@@ -1,8 +1,8 @@
-import { Button } from "@/button";
-import { Card, CardBody, CardFooter, CardHeader, CardTitle } from "@/card";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
-import { Input, PasswordInput } from "@/input";
-import { TabBadge, Tabs, TabsContent, TabsList, TabsTrigger } from "@/tabs";
+import { Button } from "@ngrok/mantle/button";
+import { Card, CardBody, CardFooter, CardHeader, CardTitle } from "@ngrok/mantle/card";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
+import { Input, PasswordInput } from "@ngrok/mantle/input";
+import { TabBadge, Tabs, TabsContent, TabsList, TabsTrigger } from "@ngrok/mantle/tabs";
 import { Globe } from "@phosphor-icons/react/Globe";
 import { ShieldCheck } from "@phosphor-icons/react/ShieldCheck";
 import { User } from "@phosphor-icons/react/User";

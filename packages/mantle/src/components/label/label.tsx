@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import type { ComponentPropsWithoutRef, ElementRef } from "react";
-import { cx } from "../../../utils/cx";
+import { cx } from "../../utils/cx";
 
 type LabelProps = ComponentPropsWithoutRef<"label"> & {
 	disabled?: boolean;

@@ -2,8 +2,8 @@ import { CaretLeft } from "@phosphor-icons/react/dist/icons/CaretLeft";
 import { CaretRight } from "@phosphor-icons/react/dist/icons/CaretRight";
 import type { ComponentProps } from "react";
 import { DayPicker } from "react-day-picker";
-import { buttonVariants } from "../../button/src/button";
 import { cx } from "../../utils/cx";
+import { buttonVariants } from "../button/button";
 
 type CalendarProps = ComponentProps<typeof DayPicker>;
 

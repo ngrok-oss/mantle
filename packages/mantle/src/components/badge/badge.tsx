@@ -1,8 +1,8 @@
 import type { HTMLAttributes, ReactNode } from "react";
 import invariant from "tiny-invariant";
-import type { Color } from "../../../utils/color";
-import { cx } from "../../../utils/cx";
-import { IconBase } from "../../icon/src/_icon-base";
+import type { Color } from "../../utils/color";
+import { cx } from "../../utils/cx";
+import { IconBase } from "../icon/_icon-base";
 
 const appearances = ["muted" /*"strong" */] as const;
 type Appearance = (typeof appearances)[number];

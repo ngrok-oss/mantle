@@ -1,9 +1,9 @@
 import clsx from "clsx";
 import { createContext, useContext, useMemo } from "react";
 import type { HTMLAttributes } from "react";
-import { useRandomStableId } from "../../../hooks";
-import type { WithStyleProps } from "../../../types";
-import { cx } from "../../../utils/cx";
+import { useRandomStableId } from "../../hooks";
+import type { WithStyleProps } from "../../types";
+import { cx } from "../../utils/cx";
 
 type RemValue = `${number}rem`;
 type StrokeWidth = number | RemValue;

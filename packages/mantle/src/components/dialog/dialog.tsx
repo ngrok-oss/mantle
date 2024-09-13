@@ -2,8 +2,8 @@ import { X } from "@phosphor-icons/react/X";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { forwardRef } from "react";
 import type { ComponentPropsWithoutRef, ElementRef } from "react";
-import { cx } from "../../../utils/cx";
-import { IconButton,../../cxuttonProps } from "../../button";
+import { cx } from "../../utils/cx";
+import { IconButton, type IconButtonProps } from "../button";
 
 const Dialog = DialogPrimitive.Root;
 

@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import type { HTMLAttributes } from "react";
-import { cx } from "../../../utils/cx";
+import { cx } from "../../utils/cx";
 
 /**
  * A component to render inline code.

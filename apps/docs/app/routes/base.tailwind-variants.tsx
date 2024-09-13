@@ -1,6 +1,6 @@
-import { Icon } from "@/icon";
-import { InlineCode } from "@/inline-code";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/table";
+import { Icon } from "@ngrok/mantle/icon";
+import { InlineCode } from "@ngrok/mantle/inline-code";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@ngrok/mantle/table";
 import { Check } from "@phosphor-icons/react/Check";
 import { X } from "@phosphor-icons/react/X";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";

@@ -11,10 +11,10 @@ import type {
 	SelectHTMLAttributes,
 } from "react";
 import { createContext, forwardRef, useContext } from "react";
-import { composeRefs } from "../../../utils/compose-refs";
-import { cx } from "../../../utils/cx";
-import type { WithValidation } from "../../input";
-import { Separator } from "../../separator";
+import { composeRefs } from "../../utils/compose-refs";
+import { cx } from "../../utils/cx";
+import type { WithValidation } from "../input";
+import { Separator } from "../separator";
 
 type WithAriaInvalid = Pick<SelectHTMLAttributes<HTMLSelectElement>, "aria-invalid">;
 type SelectContextType = WithValidation &

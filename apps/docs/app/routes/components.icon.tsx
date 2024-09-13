@@ -1,7 +1,7 @@
-import { Anchor } from "@/anchor";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
-import { Icon } from "@/icon";
-import { InlineCode } from "@/inline-code";
+import { Anchor } from "@ngrok/mantle/anchor";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
+import { Icon } from "@ngrok/mantle/icon";
+import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Fire } from "@phosphor-icons/react/Fire";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";

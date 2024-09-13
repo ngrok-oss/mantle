@@ -1,4 +1,4 @@
-import { Anchor } from "@/anchor";
+import { Anchor } from "@ngrok/mantle/anchor";
 import { Link as RRLink } from "@remix-run/react";
 import type { LinkProps } from "@remix-run/react";
 import type { Route } from "~/types/routes";

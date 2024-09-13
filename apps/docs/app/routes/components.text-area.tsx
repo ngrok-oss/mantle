@@ -1,8 +1,8 @@
-import { Anchor } from "@/anchor";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
-import { InlineCode } from "@/inline-code";
-import { Label } from "@/label";
-import { TextArea } from "@/text-area";
+import { Anchor } from "@ngrok/mantle/anchor";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
+import { InlineCode } from "@ngrok/mantle/inline-code";
+import { Label } from "@ngrok/mantle/label";
+import { TextArea } from "@ngrok/mantle/text-area";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 import {

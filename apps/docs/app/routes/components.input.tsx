@@ -1,4 +1,4 @@
-import { Anchor } from "@/anchor";
+import { Anchor } from "@ngrok/mantle/anchor";
 import {
 	CodeBlock,
 	CodeBlockBody,
@@ -6,10 +6,10 @@ import {
 	CodeBlockCopyButton,
 	CodeBlockExpanderButton,
 	fmtCode,
-} from "@/code-block";
-import { InlineCode } from "@/inline-code";
-import { Input, InputCapture } from "@/input";
-import { Label } from "@/label";
+} from "@ngrok/mantle/code-block";
+import { InlineCode } from "@ngrok/mantle/inline-code";
+import { Input, InputCapture } from "@ngrok/mantle/input";
+import { Label } from "@ngrok/mantle/label";
 import { Info } from "@phosphor-icons/react/Info";
 import { MagnifyingGlass } from "@phosphor-icons/react/MagnifyingGlass";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";

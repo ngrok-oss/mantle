@@ -1,9 +1,9 @@
-import { MantleThemeHeadContent, ThemeProvider, useInitialHtmlThemeProps } from "@/theme-provider";
-import { TooltipProvider } from "@/tooltip";
+import { TooltipProvider } from "@ngrok/mantle/tooltip";
+import { MantleThemeHeadContent, ThemeProvider, useInitialHtmlThemeProps } from "@ngrok/mantle/theme-provider";
 import { cssBundleHref } from "@remix-run/css-bundle";
 import type { LinksFunction } from "@remix-run/node";
 import { json, Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from "@remix-run/react";
-import mantleCss from "../assets/mantle.css";
+import mantleCss from "@ngrok/mantle/mantle.css";
 import { AutoScrollToHash } from "./components/auto-scroll-to-hash";
 import { Layout } from "./components/layout";
 import { NavigationProvider } from "./components/navigation-context";
@@ -14,10 +14,10 @@ export const links: LinksFunction = () => [
 ];
 
 export const loader = async () => {
-	const packageJson = await import("../package.json");
+	const packageJson = await import("../../../packages/mantle/package.json");
 	const commitSha = process.env.VERCEL_GIT_COMMIT_SHA;
 	const deploymentId = process.env.VERCEL_DEPLOYMENT_ID;
-	return json({ currentVersion: packageJson.version, commitSha, deploymentId });
+	return json({ currentVersion: packageJson.default.version, commitSha, deploymentId });
 };
 
 export default function App() {

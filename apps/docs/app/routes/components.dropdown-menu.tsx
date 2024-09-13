@@ -1,6 +1,6 @@
-import { Anchor } from "@/anchor";
-import { Button } from "@/button";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
+import { Anchor } from "@ngrok/mantle/anchor";
+import { Button } from "@ngrok/mantle/button";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
 import {
 	DropdownMenu,
 	DropdownMenuCheckboxItem,
@@ -16,9 +16,9 @@ import {
 	DropdownMenuSubContent,
 	DropdownMenuSubTrigger,
 	DropdownMenuTrigger,
-} from "@/dropdown-menu";
-import { InlineCode } from "@/inline-code";
-import type { Theme } from "@/theme-provider";
+} from "@ngrok/mantle/dropdown-menu";
+import { InlineCode } from "@ngrok/mantle/inline-code";
+import type { Theme } from "@ngrok/mantle/theme-provider";
 import { Desktop } from "@phosphor-icons/react/Desktop";
 import { Gear } from "@phosphor-icons/react/Gear";
 import { Moon } from "@phosphor-icons/react/Moon";

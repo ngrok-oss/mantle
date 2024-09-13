@@ -1,4 +1,4 @@
-import { Card, CardBody } from "@/card";
+import { Card, CardBody } from "@ngrok/mantle/card";
 import {
 	CodeBlock,
 	CodeBlockBody,
@@ -9,7 +9,7 @@ import {
 	CodeBlockTitle,
 	fmtCode,
 	supportedLanguages,
-} from "@/code-block";
+} from "@ngrok/mantle/code-block";
 import { FileText } from "@phosphor-icons/react/FileText";
 import { Terminal } from "@phosphor-icons/react/Terminal";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";

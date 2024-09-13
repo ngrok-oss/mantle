@@ -1,8 +1,8 @@
-import { Anchor } from "@/anchor";
-import { Badge } from "@/badge";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
-import { colors } from "@/color";
-import { InlineCode } from "@/inline-code";
+import { Anchor } from "@ngrok/mantle/anchor";
+import { Badge } from "@ngrok/mantle/badge";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
+import { colors } from "@ngrok/mantle/color";
+import { InlineCode } from "@ngrok/mantle/inline-code";
 import { GlobeHemisphereWest } from "@phosphor-icons/react/GlobeHemisphereWest";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";

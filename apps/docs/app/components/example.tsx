@@ -1,5 +1,5 @@
-import { cx } from "@/cx";
-import type { WithStyleProps } from "@/types";
+import { cx } from "@ngrok/mantle/cx";
+import type { WithStyleProps } from "@ngrok/mantle/types";
 import type { PropsWithChildren } from "react";
 
 type Props = PropsWithChildren & WithStyleProps;

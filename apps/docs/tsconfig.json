@@ -3,7 +3,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./app/*"]
+      "~/*": ["./app/*"],
+      "@ngrok/mantle/unreleased/*": ["../../packages/mantle/src/unreleased/*"],
     }
   }
 }

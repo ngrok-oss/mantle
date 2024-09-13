@@ -1,7 +1,7 @@
 import * as PopoverPrimitive from "@radix-ui/react-popover";
 import { forwardRef } from "react";
 import type { ComponentPropsWithoutRef, ElementRef } from "react";
-import { cx } from "../../../utils/cx";
+import { cx } from "../../utils/cx";
 
 /**
  * A popover is a floating overlay that appears above other elements on the page.

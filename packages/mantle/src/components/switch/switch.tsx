@@ -2,8 +2,8 @@ import { Root as SwitchPrimitiveRoot, Thumb as SwitchPrimitiveThumb } from "@rad
 import clsx from "clsx";
 import { forwardRef } from "react";
 import type { ComponentPropsWithoutRef, ElementRef } from "react";
-import { parseBooleanish } from "../../../types";
-import { cx } from "../../../utils/cx";
+import { parseBooleanish } from "../../types";
+import { cx } from "../../utils/cx";
 
 type SwitchProps = ComponentPropsWithoutRef<typeof SwitchPrimitiveRoot> & {
 	/**

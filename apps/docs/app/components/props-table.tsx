@@ -1,7 +1,7 @@
-import { cx } from "@/cx";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/table";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/tooltip";
-import type { WithStyleProps } from "@/types";
+import { cx } from "@ngrok/mantle/cx";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@ngrok/mantle/table";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@ngrok/mantle/tooltip";
+import type { WithStyleProps } from "@ngrok/mantle/types";
 import Prism from "prismjs";
 import { useEffect, useState, type PropsWithChildren } from "react";
 import assert from "tiny-invariant";

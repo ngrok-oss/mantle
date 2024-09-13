@@ -1,8 +1,8 @@
 import type { ReactElement, ReactNode } from "react";
 import { Children, cloneElement, isValidElement } from "react";
 import invariant from "tiny-invariant";
-import type { WithStyleProps } from "../../../types";
-import { cx } from "../../../utils/cx";
+import type { WithStyleProps } from "../../types";
+import { cx } from "../../utils/cx";
 import type { SvgAttributes } from "./types";
 
 type IconBaseProps = WithStyleProps & {

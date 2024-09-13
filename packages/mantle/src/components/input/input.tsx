@@ -4,8 +4,8 @@ import { WarningDiamond } from "@phosphor-icons/react/WarningDiamond";
 import clsx from "clsx";
 import type { ElementRef, ForwardedRef, InputHTMLAttributes, MutableRefObject, PropsWithChildren } from "react";
 import { createContext, forwardRef, useContext, useRef } from "react";
-import { composeRefs } from "../../../utils/compose-refs";
-import { cx } from "../../../utils/cx";
+import { composeRefs } from "../../utils/compose-refs";
+import { cx } from "../../utils/cx";
 import type { Validation, WithAutoComplete, WithInputType, WithValidation } from "./types";
 
 type BaseProps = WithAutoComplete & WithInputType & WithValidation;

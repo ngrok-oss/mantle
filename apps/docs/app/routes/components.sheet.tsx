@@ -1,6 +1,6 @@
-import { Button, IconButton } from "@/button";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
-import { Separator } from "@/separator";
+import { Button, IconButton } from "@ngrok/mantle/button";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
+import { Separator } from "@ngrok/mantle/separator";
 import {
 	Sheet,
 	SheetActions,
@@ -14,7 +14,7 @@ import {
 	SheetTitle,
 	SheetTitleGroup,
 	SheetTrigger,
-} from "@/sheet";
+} from "@ngrok/mantle/sheet";
 import { ListMagnifyingGlass } from "@phosphor-icons/react/ListMagnifyingGlass";
 import { TerminalWindow } from "@phosphor-icons/react/TerminalWindow";
 import { TrashSimple } from "@phosphor-icons/react/TrashSimple";
@@ -138,7 +138,7 @@ export default function Page() {
 									SheetTitle,
 									SheetTitleGroup,
 									SheetTrigger,
-								} from "@/ngrok/mantle/sheet";
+								} from "@ngrok/mantle/ngrok/mantle/sheet";
 								import { ListMagnifyingGlass } from "@phosphor-icons/react/ListMagnifyingGlass";
 								import { TerminalWindow } from "@phosphor-icons/react/TerminalWindow";
 								import { TrashSimple } from "@phosphor-icons/react/TrashSimple";

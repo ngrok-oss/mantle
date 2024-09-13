@@ -4,9 +4,9 @@ import { Slot } from "@radix-ui/react-slot";
 import clsx from "clsx";
 import { Children, cloneElement, createContext, forwardRef, isValidElement, useContext, useRef } from "react";
 import type { ElementRef, HTMLAttributes, PropsWithChildren, ReactNode } from "react";
-import type { WithAsChild } from "../../../types";
-import { cx } from "../../../utils/cx";
-import { isInput } from "../../input";
+import type { WithAsChild } from "../../types";
+import { cx } from "../../utils/cx";
+import { isInput } from "../input";
 
 type RadioGroupProps = PropsWithChildren<Omit<HeadlessRadioGroupProps, "as" | "children">>;
 

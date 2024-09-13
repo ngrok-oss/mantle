@@ -1,4 +1,4 @@
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
 import {
 	RadioButton,
 	RadioButtonGroup,
@@ -9,7 +9,7 @@ import {
 	RadioItem,
 	RadioItemContent,
 	RadioListItem,
-} from "@/radio-group";
+} from "@ngrok/mantle/radio-group";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 

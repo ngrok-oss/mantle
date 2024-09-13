@@ -1,10 +1,11 @@
 {
   "name": "mantle-docs",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "remix build",
     "serve": "remix-serve ./build/index.js",
-    "start": "remix dev --manual",
+    "dev": "remix dev --manual",
     "test": "vitest run",
     "test:watch": "vitest watch",
     "typecheck": "tsc",
@@ -25,6 +26,7 @@
     "tiny-invariant": "1.3.3"
   },
   "devDependencies": {
+    "@cfg/tsconfig": "workspace:*",
     "@commander-js/extra-typings": "12.1.0",
     "@remix-run/dev": "2.11.2",
     "@types/node": "20.16.5",
