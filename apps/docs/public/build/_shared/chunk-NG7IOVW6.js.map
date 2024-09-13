@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../../../packages/compose-refs/src/compose-refs.tsx"],
-  "sourcesContent": ["import type { Ref } from \"react\";\nimport { useCallback } from \"react\";\n\ntype PossibleRef<T> = Ref<T> | undefined;\n\n/**\n * A utility to compose multiple refs together\n * Accepts callback refs and RefObject(s)\n */\nfunction composeRefs<T>(...refs: PossibleRef<T>[]) {\n\treturn (node: T) => {\n\t\trefs.forEach((ref) => {\n\t\t\tif (typeof ref === \"function\") {\n\t\t\t\tref(node);\n\t\t\t} else if (ref != null) {\n\t\t\t\t(ref as React.MutableRefObject<T>).current = node;\n\t\t\t}\n\t\t});\n\t};\n}\n\n/**\n * A custom hook that composes multiple refs\n * Accepts callback refs and RefObject(s)\n */\nfunction useComposedRefs<T>(...refs: PossibleRef<T>[]) {\n\treturn useCallback(() => composeRefs(...refs), [refs]);\n}\n\nexport { composeRefs, useComposedRefs };\n"],
-  "mappings": ";;;;;;;;AACA,mBAA4B;AAQ5B,SAAS,eAAkB,MAAwB;AAClD,SAAO,CAAC,SAAY;AACnB,SAAK,QAAQ,CAAC,QAAQ;AACrB,UAAI,OAAO,QAAQ,YAAY;AAC9B,YAAI,IAAI;AAAA,MACT,WAAW,OAAO,MAAM;AACvB,QAAC,IAAkC,UAAU;AAAA,MAC9C;AAAA,IACD,CAAC;AAAA,EACF;AACD;",
-  "names": []
-}

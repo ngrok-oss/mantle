@@ -25,9 +25,8 @@ dist-ssr
 
 tsconfig.tsbuildinfo
 
-/.cache
-/build
-/public/build
+.cache
+build
 .env
 .vercel
 .parcel-cache

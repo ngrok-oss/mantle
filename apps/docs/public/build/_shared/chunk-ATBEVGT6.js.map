@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../../../packages/types/src/booleanish.tsx"],
-  "sourcesContent": ["export type Booleanish = boolean | \"true\" | \"false\";\n\n/**\n * Parse/coerce a booleanish value (boolean | \"true\" | \"false\") into a boolean.\n * @default false if the value is not a boolean or \"true\"\n */\nexport function parseBooleanish(value: Booleanish | (string & {}) | undefined | null): boolean {\n\tif (typeof value === \"boolean\") {\n\t\treturn value;\n\t} else {\n\t\treturn value === \"true\";\n\t}\n}\n"],
-  "mappings": ";AAMO,SAAS,gBAAgB,OAA+D;AAC9F,MAAI,OAAO,UAAU,WAAW;AAC/B,WAAO;AAAA,EACR,OAAO;AACN,WAAO,UAAU;AAAA,EAClB;AACD;",
-  "names": []
-}
