@@ -112,10 +112,6 @@ const ProgressDonut = ({
 				data-value={valueNow}
 				role="progressbar"
 				viewBox={`0 0 ${viewboxSize} ${viewboxSize}`}
-				style={{
-					"--spin-start-deg": "45deg",
-					"--spin-end-deg": "405deg",
-				}}
 				{...props}
 			>
 				<circle

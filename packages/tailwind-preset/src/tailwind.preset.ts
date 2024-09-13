@@ -1,4 +1,3 @@
-import svgToDataUri from "mini-svg-data-uri";
 import type { Config } from "tailwindcss";
 import tailwindCssAnimatePlugin from "tailwindcss-animate";
 import defaultTheme from "tailwindcss/defaultTheme";
@@ -340,8 +339,8 @@ const mantlePreset = {
 				unchecked: 'checked="false"',
 			},
 			backgroundImage: {
-				"checked-icon": `url("${svgToDataUri(`<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><path fill="#fff" d="M12.7071 4.29289c.3905.39053.3905 1.02369 0 1.41422L6.70711 11.7071c-.39053.3905-1.02369.3905-1.41422 0l-2-1.99999c-.39052-.39053-.39052-1.02369 0-1.41422.39053-.39052 1.02369-.39052 1.41422 0L6 9.58579l5.2929-5.2929c.3905-.39052 1.0237-.39052 1.4142 0Z"/></svg>`)}")`,
-				"indeterminate-icon": `url("${svgToDataUri(`<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><path fill="#fff" d="M4 8c0-.55228.44772-1 1-1h6c.5523 0 1 .44772 1 1s-.4477 1-1 1H5c-.55228 0-1-.44772-1-1Z"/></svg>`)}")`,
+				"checked-icon": `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 16 16'%3e%3cpath fill='white' d='M12.7071 4.29289c.3905.39053.3905 1.02369 0 1.41422L6.70711 11.7071c-.39053.3905-1.02369.3905-1.41422 0l-2-1.99999c-.39052-.39053-.39052-1.02369 0-1.41422.39053-.39052 1.02369-.39052 1.41422 0L6 9.58579l5.2929-5.2929c.3905-.39052 1.0237-.39052 1.4142 0Z'/%3e%3c/svg%3e")`,
+				"indeterminate-icon": `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 16 16'%3e%3cpath fill='white' d='M4 8c0-.55228.44772-1 1-1h6c.5523 0 1 .44772 1 1s-.4477 1-1 1H5c-.55228 0-1-.44772-1-1Z'/%3e%3c/svg%3e")`,
 			},
 			boxShadow: {
 				sm: "0px 1px 2px 0 hsl(var(--shadow-color) / var(--shadow-first))",
