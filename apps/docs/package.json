@@ -11,6 +11,7 @@
     "gen:docs-routes": "tsx ./scripts/gen-docs-routes"
   },
   "dependencies": {
+    "@ngrok/mantle": "workspace:*",
     "@phosphor-icons/react": "2.1.7",
     "@remix-run/css-bundle": "2.11.2",
     "@remix-run/node": "2.11.2",
