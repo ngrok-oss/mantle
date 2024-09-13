@@ -5,7 +5,7 @@ import type { Options } from "tsup";
 /**
  * A set of package names that should not be published to npm
  */
-const doNotPublish = new Set(["back-to-top-button", "portal"]);
+const doNotPublish = new Set(["portal"]);
 
 /**
  * A set of package names that shouldn't be released yet
