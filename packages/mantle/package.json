@@ -27,6 +27,7 @@
   "scripts": {
     "build": "rm -rf dist && NODE_OPTIONS='--max-old-space-size=16384' tsup",
     "test": "TZ=UTC vitest",
+    "test:watch": "TZ=UTC vitest watch",
     "typecheck": "tsc",
     "prepublishOnly": "pnpm run build"
   },

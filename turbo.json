@@ -1,4 +1,39 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "tasks": {}
+  "tasks": {
+    "build": {
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "dependsOn": ["^build"],
+      "outputs": [
+        "build/**",
+        ".vercel/**",
+        "dist/**"
+      ]
+    },
+    "clean": {
+      "cache": false
+    },
+    "lint": {
+      "dependsOn": ["^build"]
+    },
+    "serve": {
+      "dependsOn": ["^build"]
+    },
+    "start": {
+      "dependsOn": ["^build"],
+      "cache": false,
+      "persistent": true
+    },
+    "test": {
+      "outputs": ["coverage/**"],
+      "dependsOn": []
+    },
+    "test:watch": {
+      "cache": false,
+      "persistent": true
+    },
+    "typecheck": {
+      "dependsOn": ["^build"]
+    }
+  }
 }

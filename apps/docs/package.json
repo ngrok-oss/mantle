@@ -2,12 +2,13 @@
   "name": "mantle-docs",
   "private": true,
   "scripts": {
-    "docs:build": "remix build",
-    "docs:dev": "remix dev --manual",
-    "docs:serve": "remix-serve ./build/index.js",
-    "gen:docs-routes": "tsx ./scripts/gen-docs-routes",
-    "test": "vitest",
-    "typecheck": "tsc"
+    "build": "remix build",
+    "serve": "remix-serve ./build/index.js",
+    "start": "remix dev --manual",
+    "test": "vitest run",
+    "test:watch": "vitest watch",
+    "typecheck": "tsc",
+    "gen:docs-routes": "tsx ./scripts/gen-docs-routes"
   },
   "dependencies": {
     "@phosphor-icons/react": "2.1.7",
