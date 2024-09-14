@@ -37,7 +37,7 @@ export default function Page() {
 		<div className="space-y-16">
 			<section className="space-y-4">
 				<h1 className="text-5xl font-medium">Alert</h1>
-				<p className="font-body text-xl text-body">Displays a callout for user attention.</p>
+				<p className="font-body text-body text-xl">Displays a callout for user attention.</p>
 				<div>
 					<Example className="flex-col gap-2">
 						<Alert>
@@ -130,7 +130,7 @@ export default function Page() {
 				<h2 id="composition" className="text-3xl font-medium">
 					Composition
 				</h2>
-				<p className="font-body text-xl text-body">
+				<p className="font-body text-body text-xl">
 					You can mix and match what you put inside the <InlineCode>Alert</InlineCode> component to create different
 					types of Alert layouts.
 				</p>
@@ -236,13 +236,13 @@ export default function Page() {
 				<h2 id="example-banner" className="text-3xl font-medium">
 					Banners
 				</h2>
-				<p className="font-body text-xl text-body">
+				<p className="font-body text-body text-xl">
 					For banner-like alerts, set <InlineCode>rounded-none</InlineCode> on the <InlineCode>Alert</InlineCode>{" "}
 					component.
 				</p>
 				<div>
 					<Example>
-						<div className="min-h-56 space-y-4 border border-card">
+						<div className="border-card min-h-56 space-y-4 border">
 							<Alert priority="info" className="rounded-none">
 								<Rocket className="size-5" />
 								<AlertContent>

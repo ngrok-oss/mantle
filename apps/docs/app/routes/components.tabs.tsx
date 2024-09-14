@@ -27,7 +27,7 @@ export default function Page() {
 		<div className="space-y-16">
 			<section className="space-y-4">
 				<h1 className="text-5xl font-medium">Tabs</h1>
-				<p className="font-body text-xl text-body">
+				<p className="font-body text-body text-xl">
 					A set of layered sections of content—known as tab panels—that are displayed one at a time.
 				</p>
 				<div>

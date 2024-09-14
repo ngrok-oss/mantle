@@ -1,5 +1,14 @@
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
-import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@ngrok/mantle/table";
+import {
+	Table,
+	TableBody,
+	TableCaption,
+	TableCell,
+	TableFooter,
+	TableHead,
+	TableHeader,
+	TableRow,
+} from "@ngrok/mantle/table";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 
@@ -20,7 +29,7 @@ export default function Page() {
 	return (
 		<section className="space-y-4">
 			<h1 className="text-5xl font-medium">Table</h1>
-			<p className="font-body text-xl text-body">A responsive table component.</p>
+			<p className="font-body text-body text-xl">A responsive table component.</p>
 			<div>
 				<Example className="gap-2">
 					<ExampleTable />

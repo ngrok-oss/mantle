@@ -19,12 +19,12 @@ export default function Page() {
 	return (
 		<div>
 			<h1 className="text-5xl font-medium">Typography</h1>
-			<p className="mt-4 font-body text-xl text-body">
+			<p className="font-body text-body mt-4 text-xl">
 				Mantle provides various typography tokens for consistency and readability.
 			</p>
 
 			<h2 className="mt-8 text-3xl font-medium">Scale</h2>
-			<p className="mt-3 font-body text-body">
+			<p className="font-body text-body mt-3">
 				Mantle provides a general type scale for various headers throughout our products. Do note that our text styling
 				is independent of the actual markup, so a Heading 1 can be styled as a Heading 2 or Heading 5 as appropriate.
 			</p>
@@ -37,13 +37,13 @@ export default function Page() {
 			<h6 className="mt-4 text-xs font-medium uppercase tracking-widest">Heading 6</h6>
 
 			<h2 className="mt-12 text-3xl font-medium">Colors</h2>
-			<p className="mt-3 font-body text-body">
+			<p className="font-body text-body mt-3">
 				When possible, it’s preferred to render text using the following tokens. This helps provide heirarchy outside of
 				font size, and makes sure our type is the right color across various themes.
 			</p>
 
 			<div className="mt-3 flex flex-col gap-4 overflow-hidden text-xs md:flex-row">
-				<div className="flex flex-grow flex-col gap-1 text-strong">
+				<div className="text-strong flex flex-grow flex-col gap-1">
 					<div className="h-10 w-full rounded bg-neutral-950"></div>
 					<div className="flex items-center justify-between">
 						Strong
@@ -77,12 +77,12 @@ export default function Page() {
 			</div>
 
 			<h2 className="mt-12 text-3xl font-medium">Fonts</h2>
-			<p className="mt-3 font-body text-body">
+			<p className="font-body text-body mt-3">
 				Mantle specifies Euclid as the default font for UI and headings. It extends Tailwind by providing Nunito Sans as
 				a <InlineCode>font-body</InlineCode>. We also use IBM Plex Mono as a monospace typeface.
 			</p>
 
-			<div className="mt-4 overflow-hidden rounded-lg border border-card">
+			<div className="border-card mt-4 overflow-hidden rounded-lg border">
 				<Table>
 					<TableHeader>
 						<TableRow>
@@ -91,7 +91,7 @@ export default function Page() {
 							<TableHead>Description</TableHead>
 						</TableRow>
 					</TableHeader>
-					<TableBody className="text-xs text-body">
+					<TableBody className="text-body text-xs">
 						<TableRow>
 							<TableCell className="space-x-1 space-y-1">
 								<InlineCode className="break-keep">font-sans</InlineCode>

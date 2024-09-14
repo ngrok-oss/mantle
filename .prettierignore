@@ -4,4 +4,3 @@ public
 pnpm-lock.yaml
 bun.lockb
 *.json
-rollup.config.*

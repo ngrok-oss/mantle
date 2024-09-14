@@ -22,7 +22,7 @@ export default function Page() {
 		<div className="space-y-16">
 			<section className="space-y-4">
 				<h1 className="text-5xl font-medium">Separator</h1>
-				<p className="font-body text-xl text-body">Visually or semantically separates content.</p>
+				<p className="font-body text-body text-xl">Visually or semantically separates content.</p>
 				<div>
 					<Example>
 						<div className="space-y-4">
@@ -100,7 +100,7 @@ export default function Page() {
 				<h2 id="composition" className="text-3xl font-medium">
 					Composition
 				</h2>
-				<p className="font-body text-xl text-body">
+				<p className="font-body text-body text-xl">
 					When you want to render <span className="italic">something else</span> as a{" "}
 					<InlineCode>HorizontalSeparatorGroup</InlineCode> or <InlineCode>Separator</InlineCode>, you can use the{" "}
 					<InlineCode>asChild</InlineCode> prop to compose.

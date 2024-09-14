@@ -31,7 +31,7 @@ export default function Page() {
 		<div className="space-y-16">
 			<section className="space-y-4">
 				<h1 className="text-5xl font-medium">Radio Group</h1>
-				<p className="font-body text-xl text-body">
+				<p className="font-body text-body text-xl">
 					A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a
 					time.
 				</p>
@@ -76,7 +76,7 @@ export default function Page() {
 							<RadioListItem value="default" disabled id="rli1">
 								<RadioIndicator />
 								<RadioItemContent>
-									<label className="font-medium text-strong" htmlFor="rli1">
+									<label className="text-strong font-medium" htmlFor="rli1">
 										Default
 									</label>
 									<p className="text-body">Laborum esse cillum incididunt est dolore.</p>
@@ -85,7 +85,7 @@ export default function Page() {
 							<RadioListItem value="comfortable" id="rli2">
 								<RadioIndicator />
 								<RadioItemContent>
-									<label className="font-medium text-strong" htmlFor="rli2">
+									<label className="text-strong font-medium" htmlFor="rli2">
 										Comfortable
 									</label>
 									<p className="text-body">Ea laboris tempor laborum officia ea adipisicing exercitation.</p>
@@ -94,7 +94,7 @@ export default function Page() {
 							<RadioListItem value="compact" id="rli3">
 								<RadioIndicator />
 								<RadioItemContent>
-									<label className="font-medium text-strong" htmlFor="rli3">
+									<label className="text-strong font-medium" htmlFor="rli3">
 										Compact
 									</label>
 									<p className="text-body">Adipisicing est dolore velit magna dolor voluptate velit.</p>
@@ -103,7 +103,7 @@ export default function Page() {
 							<RadioListItem value="roomy" id="rli4">
 								<RadioIndicator />
 								<RadioItemContent>
-									<label className="font-medium text-strong" htmlFor="rli4">
+									<label className="text-strong font-medium" htmlFor="rli4">
 										Roomy
 									</label>
 									<p className="text-body">Tempor dolore Lorem exercitation id nisi aliquip elit.</p>
@@ -114,7 +114,7 @@ export default function Page() {
 						<RadioGroup className="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4" defaultValue="existing">
 							<RadioCard className="flex" value="newsletter" id="radiocard-1">
 								<div className="flex-1">
-									<label htmlFor="radiocard-1" className="block text-sm font-medium text-strong">
+									<label htmlFor="radiocard-1" className="text-strong block text-sm font-medium">
 										Newsletter
 									</label>
 									<p className="mt-1 flex items-center text-sm text-gray-500">Last message sent an hour ago</p>
@@ -124,7 +124,7 @@ export default function Page() {
 							</RadioCard>
 							<RadioCard className="flex" value="existing" id="radiocard-2">
 								<div className="flex-1">
-									<label htmlFor="radiocard-2" className="block text-sm font-medium text-strong">
+									<label htmlFor="radiocard-2" className="text-strong block text-sm font-medium">
 										Existing Customers
 									</label>
 									<p className="mt-1 flex items-center text-sm text-gray-500">Last message sent 2 weeks ago</p>
@@ -134,7 +134,7 @@ export default function Page() {
 							</RadioCard>
 							<RadioCard className="flex" value="trial" id="radiocard-3">
 								<div className="flex-1">
-									<label htmlFor="radiocard-3" className="block text-sm font-medium text-strong">
+									<label htmlFor="radiocard-3" className="text-strong block text-sm font-medium">
 										Trial Users
 									</label>
 									<p className="mt-1 flex items-center text-sm text-gray-500">Last message sent 4 days ago</p>

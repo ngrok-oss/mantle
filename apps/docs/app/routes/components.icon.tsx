@@ -37,7 +37,7 @@ export default function Page() {
 				<h1 id="icon" className="text-5xl font-medium">
 					Icon
 				</h1>
-				<p className="font-body text-xl text-body">
+				<p className="font-body text-body text-xl">
 					Decorates an svg icon with automatic sizing. Useful when applying base styles to{" "}
 					<Anchor href="https://phosphoricons.com">phosphor icons</Anchor>.
 				</p>
@@ -68,11 +68,11 @@ export default function Page() {
 				<h2 id="example-class-name" className="text-3xl font-medium">
 					Merging <InlineCode>className</InlineCode>s
 				</h2>
-				<p className="font-body text-xl text-body">
+				<p className="font-body text-body text-xl">
 					The <InlineCode>Icon</InlineCode> merges <InlineCode>className</InlineCode> selectors with the following order
 					of precedence (last one wins):
 				</p>
-				<ol className="ml-8 list-decimal font-body text-body">
+				<ol className="font-body text-body ml-8 list-decimal">
 					<li>Icon base classes</li>
 					<li>svg className</li>
 					<li>Icon className</li>
@@ -128,7 +128,7 @@ export default function Page() {
 				<h2 id="api" className="text-3xl font-medium">
 					API Reference
 				</h2>
-				<p className="font-body text-xl text-body">
+				<p className="font-body text-body text-xl">
 					The <InlineCode>Icon</InlineCode> accepts the following props:
 				</p>
 				<PropsTable>

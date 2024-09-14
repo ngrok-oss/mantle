@@ -46,7 +46,7 @@ export default function Page() {
 				<h1 id="textarea" className="text-5xl font-medium">
 					TextArea
 				</h1>
-				<p className="font-body text-xl text-body">
+				<p className="font-body text-body text-xl">
 					Displays a form textarea or a component that looks like a textarea.
 				</p>
 
@@ -111,7 +111,7 @@ export default function Page() {
 				<h2 id="api" className="text-3xl font-medium">
 					API Reference
 				</h2>
-				<p className="font-body text-xl text-body">
+				<p className="font-body text-body text-xl">
 					The <InlineCode>TextArea</InlineCode> accepts the following props in addition to the{" "}
 					<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea">
 						standard HTML textarea attributes

@@ -61,7 +61,7 @@ const InputCapture = forwardRef<HTMLInputElement, InputCaptureProps>(
 			<div className="min-w-0 flex-1 text-left">
 				<input
 					aria-invalid={ariaInvalid}
-					data-validation={validation || undefined} // eslint-disable-line @typescript-eslint/prefer-nullish-coalescing
+					data-validation={validation || undefined}
 					className={cx("bg-form placeholder:text-placeholder w-full focus:outline-none", className)}
 					ref={composeRefs(ref, ctxForwardedRef, ctxInnerRef)}
 					{...props}
@@ -134,7 +134,7 @@ const InputContainer = ({
 			<div
 				aria-invalid={ariaInvalid}
 				aria-disabled={disabled ?? _ariaDisabled}
-				data-validation={validation || undefined} // eslint-disable-line @typescript-eslint/prefer-nullish-coalescing
+				data-validation={validation || undefined}
 				className={cx(
 					"h-11 text-base sm:h-9 sm:text-sm",
 					"bg-form relative flex w-full items-center gap-1.5 rounded-md border px-3 py-2 file:border-0 file:bg-transparent file:text-sm file:font-medium focus-within:outline-none focus-within:ring-4 focus-visible:outline-none focus-visible:ring-4",

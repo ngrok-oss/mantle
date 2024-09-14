@@ -1,9 +1,9 @@
-import { TooltipProvider } from "@ngrok/mantle/tooltip";
+import mantleCss from "@ngrok/mantle/mantle.css";
 import { MantleThemeHeadContent, ThemeProvider, useInitialHtmlThemeProps } from "@ngrok/mantle/theme-provider";
+import { TooltipProvider } from "@ngrok/mantle/tooltip";
 import { cssBundleHref } from "@remix-run/css-bundle";
 import type { LinksFunction } from "@remix-run/node";
 import { json, Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from "@remix-run/react";
-import mantleCss from "@ngrok/mantle/mantle.css";
 import { AutoScrollToHash } from "./components/auto-scroll-to-hash";
 import { Layout } from "./components/layout";
 import { NavigationProvider } from "./components/navigation-context";
@@ -36,7 +36,7 @@ export default function App() {
 				<Meta />
 				<Links />
 			</head>
-			<body className="h-full min-h-full overflow-y-scroll bg-base">
+			<body className="bg-base h-full min-h-full overflow-y-scroll">
 				<ThemeProvider>
 					<AutoScrollToHash />
 					<TooltipProvider>

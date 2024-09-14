@@ -67,7 +67,6 @@ const ProgressDonut = ({
 	className,
 	max: _max = defaultMax,
 	strokeWidth: _strokeWidth = 4,
-	style,
 	value: _value,
 	...props
 }: Props) => {

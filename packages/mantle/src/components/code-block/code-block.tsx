@@ -22,9 +22,9 @@ import { CaretDown } from "@phosphor-icons/react/CaretDown";
 import { Check } from "@phosphor-icons/react/Check";
 import { Copy } from "@phosphor-icons/react/Copy";
 import assert from "tiny-invariant";
-import { cx } from "../../utils/cx";
 import { useCopyToClipboard } from "../../hooks/use-copy-to-clipboard";
 import type { WithStyleProps } from "../../types/with-style-props";
+import { cx } from "../../utils/cx";
 import type { LineRange } from "./line-numbers";
 import { formatLanguageClassName, supportedLanguages } from "./supported-languages";
 import type { SupportedLanguage } from "./supported-languages";
@@ -246,6 +246,7 @@ const CodeBlockCopyButton = forwardRef<HTMLButtonElement, CodeBlockCopyButtonPro
 				style={style}
 				onClick={async () => {
 					try {
+						// eslint-disable-next-line @typescript-eslint/await-thenable
 						await copyToClipboard(copyText);
 						onCopy?.(copyText);
 						setCopied(true);

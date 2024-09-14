@@ -5,14 +5,14 @@ import { useMemo } from "react";
  * This is similar to `useId`, but generates a stable id client side which can also
  * be used for css selectors and element ids.
  */
-const useRandomStableId = (prefix: string = "mantle") => useMemo(() => randomStableId(prefix), [prefix]);
+const useRandomStableId = (prefix = "mantle") => useMemo(() => randomStableId(prefix), [prefix]);
 
 export {
 	//,
 	useRandomStableId,
 };
 
-function randomStableId(prefix: string = "mantle") {
+function randomStableId(prefix = "mantle") {
 	const _prefix = prefix.trim() || "mantle";
 	return [_prefix, randomPostfix()].join("-");
 }

@@ -48,7 +48,7 @@ export default function Page() {
 		<div className="space-y-16">
 			<section className="space-y-4">
 				<h1 className="text-5xl font-medium">Select</h1>
-				<p className="font-body text-xl text-body">
+				<p className="font-body text-body text-xl">
 					Displays a list of options for the user to pick from—triggered by a button.
 				</p>
 
@@ -289,7 +289,7 @@ export default function Page() {
 					<h2 id="api" className="text-3xl font-medium">
 						API Reference
 					</h2>
-					<p className="font-body text-xl text-body">
+					<p className="font-body text-body text-xl">
 						The <InlineCode>Select</InlineCode> components are built on top of{" "}
 						<Anchor
 							href="https://www.radix-ui.com/primitives/docs/components/select"

@@ -35,7 +35,7 @@ export default function Page() {
 		<div className="space-y-16">
 			<section className="space-y-4">
 				<h1 className="text-5xl font-medium">Dialog</h1>
-				<p className="font-body text-xl text-body">
+				<p className="font-body text-body text-xl">
 					A window overlaid on either the primary window or another dialog window, rendering the content underneath
 					inert.
 				</p>
@@ -197,7 +197,7 @@ export default function Page() {
 				<h2 id="composition" className="text-3xl font-medium">
 					Composition
 				</h2>
-				<p className="font-body text-xl text-body">
+				<p className="font-body text-body text-xl">
 					In some cases, you might wish to have a tooltip over the dialog trigger. This is helpful if the dialog trigger
 					is an <InlineCode>IconButton</InlineCode> and you wish to provide more context to what the button does. You
 					can compose them both together to where the dialog trigger is also the tooltip trigger.

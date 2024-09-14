@@ -13,7 +13,7 @@ import { NavLink } from "./nav-link";
 import { useNavigation } from "./navigation-context";
 
 const NgrokLogo = () => (
-	<svg width="82" height="34" className="hidden xs:block">
+	<svg width="82" height="34" className="xs:block hidden">
 		<path
 			fill="hsl(var(--blue-600))"
 			d="M27.888 13.4c-1.136-1.257-2.54-1.89-4.21-1.89-1.028 0-1.976.198-2.847.599a6.99 6.99 0 0 0-2.258 1.636 7.864 7.864 0 0 0-1.498 2.446c-.367.935-.55 1.947-.55 3.041 0 1.072.17 2.05.507 2.933a6.614 6.614 0 0 0 1.43 2.26 6.562 6.562 0 0 0 2.19 1.474c.845.353 1.772.53 2.78.53.456 0 .879-.035 1.263-.1a4.987 4.987 0 0 0 1.101-.318c.35-.15.692-.34 1.033-.569a8.894 8.894 0 0 0 1.059-.874v3.734h-.005v.362h-4.661l-3.505 3.98v.684H32.87V11.902h-4.981V13.4Zm-.013 6.844a3.646 3.646 0 0 1-.687 1.042 3.15 3.15 0 0 1-2.267.943 3.22 3.22 0 0 1-1.28-.25 3.072 3.072 0 0 1-1.021-.693 3.363 3.363 0 0 1-.674-1.042 3.316 3.316 0 0 1-.248-1.292c0-.444.085-.861.26-1.249a3.23 3.23 0 0 1 .705-1.012 3.552 3.552 0 0 1 1.016-.693 2.931 2.931 0 0 1 1.238-.263c.422 0 .828.082 1.225.25.393.163.738.396 1.033.693.294.297.525.637.704 1.025.175.388.26.814.26 1.28-.004.443-.089.865-.264 1.261ZM13.989 13.633a5.356 5.356 0 0 0-1.802-1.373 4.263 4.263 0 0 0-.5-.19 5.671 5.671 0 0 0-.806-.185H7.33l-2.347 2.7v-2.644H0v14.246h4.982v-9.612H9.66l.389-.009v9.617h4.981v-8.91c0-.758-.072-1.435-.217-2.029a3.964 3.964 0 0 0-.824-1.61ZM47.52 11.902h-5.434l-2.16 2.455v-2.455H34.94v14.247h4.994l.004-9.536h3.624L47.52 12.1v-.198ZM74 18.483l6.813-6.34v-.241h-6.566l-5.225 5.138V3.099H64.04v23.045h4.982v-5.8l5.477 5.8h6.703v-.271l-7.203-7.39ZM60.586 13.525c-.76-.676-1.66-1.201-2.698-1.58-1.037-.38-2.16-.569-3.372-.569-1.23 0-2.365.194-3.398.582a8.44 8.44 0 0 0-2.685 1.593 7.29 7.29 0 0 0-1.763 2.39 6.984 6.984 0 0 0-.632 2.96c0 1.166.21 2.226.632 3.177a7.305 7.305 0 0 0 1.75 2.455 7.727 7.727 0 0 0 2.655 1.585c1.03.37 2.148.556 3.36.556 1.23 0 2.37-.185 3.428-.556 1.054-.37 1.96-.891 2.71-1.572a7.37 7.37 0 0 0 1.776-2.416c.431-.934.65-1.964.65-3.096 0-1.129-.214-2.162-.633-3.097a7.23 7.23 0 0 0-1.78-2.412Zm-3.112 6.745a3.644 3.644 0 0 1-.687 1.042 3.053 3.053 0 0 1-1.016.693c-.397.168-.811.25-1.25.25-.44 0-.859-.082-1.256-.25a3.01 3.01 0 0 1-1.016-.693 3.558 3.558 0 0 1-.687-1.042 3.225 3.225 0 0 1-.26-1.318c0-.444.085-.862.26-1.25.175-.387.401-.727.687-1.024a2.99 2.99 0 0 1 1.016-.694c.397-.168.811-.25 1.255-.25.44 0 .858.082 1.251.25a2.95 2.95 0 0 1 1.016.694c.286.297.512.646.687 1.042.175.396.26.818.26 1.262 0 .46-.085.892-.26 1.288Z"
@@ -65,7 +65,7 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 					<MantleLogo />
 				</Link>
 
-				<p className="font-mono text-xs text-strong md:ml-48">
+				<p className="text-strong font-mono text-xs md:ml-48">
 					<a href="https://github.com/ngrok-oss/mantle/releases">{currentVersion}</a>
 				</p>
 
@@ -98,7 +98,7 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 				</Select>
 			</header>
 			{showNavigation && (
-				<div className="fixed bottom-0 left-0 right-0 top-20 z-50 bg-card p-4 md:hidden">
+				<div className="bg-card fixed bottom-0 left-0 right-0 top-20 z-50 p-4 md:hidden">
 					<Navigation className="scrollbar h-full overflow-auto overscroll-contain" />
 				</div>
 			)}
@@ -108,7 +108,7 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 						<Navigation className="scrollbar scroll-shadow h-full overflow-auto py-4" />
 					</div>
 				</div>
-				<article className="w-0 flex-1 bg-card p-4 shadow-2xl sm:mb-4 sm:rounded-lg md:p-9 lg:mb-9">{children}</article>
+				<article className="bg-card w-0 flex-1 p-4 shadow-2xl sm:mb-4 sm:rounded-lg md:p-9 lg:mb-9">{children}</article>
 			</div>
 		</main>
 	);

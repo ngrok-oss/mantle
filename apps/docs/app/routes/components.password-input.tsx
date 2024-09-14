@@ -57,7 +57,7 @@ export default function Page() {
 				<h1 id="password-input" className="text-5xl font-medium">
 					Password Input
 				</h1>
-				<p className="font-body text-xl text-body">Fundamental component for password inputs.</p>
+				<p className="font-body text-body text-xl">Fundamental component for password inputs.</p>
 				<div>
 					<Example className="flex-col gap-4">
 						<Label className="block w-full max-w-64 space-y-1">
@@ -98,7 +98,7 @@ export default function Page() {
 				<h2 id="api" className="text-3xl font-medium">
 					API Reference
 				</h2>
-				<p className="font-body text-xl text-body">
+				<p className="font-body text-body text-xl">
 					The <InlineCode>PasswordInput</InlineCode> accepts the following props in addition to the{" "}
 					<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input">
 						standard HTML input attributes

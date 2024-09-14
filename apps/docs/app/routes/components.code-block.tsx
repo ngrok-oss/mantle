@@ -33,7 +33,7 @@ export default function Page() {
 		<div className="space-y-16">
 			<section className="space-y-4">
 				<h1 className="text-5xl font-medium">Code Block</h1>
-				<p className="font-body text-xl text-body">
+				<p className="font-body text-body text-xl">
 					Code blocks render and apply syntax highlighting to blocks of code.
 				</p>
 
@@ -381,7 +381,7 @@ export default function Page() {
 				<h2 id="supported-languages" className="text-3xl font-medium">
 					Supported Languages
 				</h2>
-				<p className="font-body text-xl text-body">Mantle supports the following languages:</p>
+				<p className="font-body text-body text-xl">Mantle supports the following languages:</p>
 
 				<Card className="font-mono text-xs">
 					<CardBody>

@@ -22,7 +22,7 @@ export default function Page() {
 		<div className="space-y-16">
 			<section className="space-y-4">
 				<h1 className="text-5xl font-medium">Switch</h1>
-				<p className="font-body text-xl text-body">
+				<p className="font-body text-body text-xl">
 					A control that allows the user to toggle between checked and not checked.
 				</p>
 				<div>

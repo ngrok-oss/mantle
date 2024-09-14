@@ -20,7 +20,7 @@ export default function Page() {
 	return (
 		<div className="space-y-4">
 			<h1 className="text-5xl font-medium">Card</h1>
-			<p className="font-body text-xl text-body">
+			<p className="font-body text-body text-xl">
 				A container used to display content in a box, resembling a physical card.
 			</p>
 

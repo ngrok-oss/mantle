@@ -72,7 +72,6 @@ function resolveRel(rel: Rel | (string & {}) | undefined | null | (Rel | (string
 		return result || undefined;
 	}
 
-	// eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
 	return rel?.trim() || undefined;
 }
 

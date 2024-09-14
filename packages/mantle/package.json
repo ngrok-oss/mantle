@@ -27,6 +27,7 @@
   "scripts": {
     "build": "rm -rf dist && NODE_OPTIONS='--max-old-space-size=16384' tsup",
     "dev": "tsup --watch",
+    "lint": "eslint .",
     "test": "TZ=UTC vitest",
     "test:watch": "TZ=UTC vitest watch",
     "typecheck": "tsc",

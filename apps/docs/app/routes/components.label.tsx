@@ -22,7 +22,7 @@ export default function Page() {
 		<div className="space-y-16">
 			<section className="space-y-4">
 				<h1 className="text-5xl font-medium">Label</h1>
-				<p className="font-body text-xl text-body">Renders an accessible label associated with controls.</p>
+				<p className="font-body text-body text-xl">Renders an accessible label associated with controls.</p>
 				<div>
 					<Example className="grid gap-6">
 						<Label htmlFor="name">

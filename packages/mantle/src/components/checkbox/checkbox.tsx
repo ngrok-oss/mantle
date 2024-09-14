@@ -73,7 +73,7 @@ const Checkbox = forwardRef<ElementRef<"input">, Props>(
 					className,
 				)}
 				checked={isIndeterminate(_checked) ? undefined : _checked}
-				data-validation={validation || undefined} // eslint-disable-line @typescript-eslint/prefer-nullish-coalescing
+				data-validation={validation || undefined}
 				defaultChecked={isIndeterminate(defaultChecked) ? undefined : defaultChecked}
 				defaultValue={defaultValue}
 				onClick={(event) => {

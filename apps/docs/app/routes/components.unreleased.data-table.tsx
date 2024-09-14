@@ -1,7 +1,7 @@
 import { Anchor } from "@ngrok/mantle/anchor";
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
-import { DataTable } from "@ngrok/mantle/unreleased/data-table";
 import { InlineCode } from "@ngrok/mantle/inline-code";
+import { DataTable } from "@ngrok/mantle/unreleased/data-table";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { UnreleasedBadge } from "~/components/badges";
 import { Example } from "~/components/example";
@@ -29,7 +29,7 @@ export default function Page() {
 					</h1>
 					<UnreleasedBadge />
 				</div>
-				<p className="font-body text-xl text-body">
+				<p className="font-body text-body text-xl">
 					Tables purposefully designed for dynamic, application data with features like sorting, filtering, and
 					pagination. Powered by{" "}
 					<Anchor href="https://tanstack.com/table/latest/docs/introduction">TanStack Table</Anchor>.
@@ -57,7 +57,7 @@ export default function Page() {
 				<h2 id="api" className="text-3xl font-medium">
 					API Reference
 				</h2>
-				<p className="font-body text-xl text-body">
+				<p className="font-body text-body text-xl">
 					The <InlineCode>DataTable</InlineCode> accepts the following props in addition to...
 				</p>
 				{/* <PropsTable>

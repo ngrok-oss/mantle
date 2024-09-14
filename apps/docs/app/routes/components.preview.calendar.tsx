@@ -41,7 +41,7 @@ const SingleCalendarExample = () => {
 			mode="single"
 			selected={date}
 			onSelect={setDate}
-			className="rounded-md border border-card p-2 shadow-md"
+			className="border-card rounded-md border p-2 shadow-md"
 		/>
 	);
 };
@@ -55,7 +55,7 @@ const RangeCalendarExample = () => {
 			defaultMonth={date?.from}
 			selected={date}
 			onSelect={setDate}
-			className="rounded-md border border-card p-2 shadow-md"
+			className="border-card rounded-md border p-2 shadow-md"
 		/>
 	);
 };
@@ -70,7 +70,7 @@ const RangeMultipleCalendarExample = () => {
 			selected={date}
 			onSelect={setDate}
 			numberOfMonths={2}
-			className="rounded-md border border-card p-2 shadow-md"
+			className="border-card rounded-md border p-2 shadow-md"
 		/>
 	);
 };
@@ -86,7 +86,7 @@ const HiddenDaysCalendarExample = () => {
 			selected={date}
 			onSelect={setDate}
 			hidden={hiddenDays}
-			className="rounded-md border border-card p-2 shadow-md"
+			className="border-card rounded-md border p-2 shadow-md"
 		/>
 	);
 };
@@ -102,7 +102,7 @@ const DisabledDaysCalendarExample = () => {
 			selected={date}
 			onSelect={setDate}
 			disabled={disabledDays}
-			className="rounded-md border border-card p-2 shadow-md"
+			className="border-card rounded-md border p-2 shadow-md"
 		/>
 	);
 };
@@ -117,7 +117,7 @@ export default function Page() {
 					</h1>
 					<PreviewBadge />
 				</div>
-				<p className="font-body text-xl text-body">A date field component that allows users to enter and edit date.</p>
+				<p className="font-body text-body text-xl">A date field component that allows users to enter and edit date.</p>
 				<div>
 					<Example className="flex flex-col gap-6">
 						<div className="space-y-2">
@@ -168,7 +168,7 @@ export default function Page() {
 				<h2 id="api" className="text-3xl font-medium">
 					API Reference
 				</h2>
-				<p className="font-body text-xl text-body">
+				<p className="font-body text-body text-xl">
 					The <InlineCode>Calendar</InlineCode> is built on top of{" "}
 					<Anchor href="https://react-day-picker.js.org/">React DayPicker</Anchor>.
 				</p>

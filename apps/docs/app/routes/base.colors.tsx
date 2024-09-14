@@ -24,11 +24,11 @@ export default function Page() {
 				{/* TODO(cody): make this have scroll aware navigation links instead */}
 				{/* TODO: this should be generated automatically */}
 				<h3 className="text-xs font-medium uppercase tracking-widest">On this page</h3>
-				<ul className="mt-3 flex flex-col gap-2 text-sm text-muted">
+				<ul className="text-muted mt-3 flex flex-col gap-2 text-sm">
 					<li>
 						<HashNavLink
 							className={(isActive) =>
-								cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
+								cx("hover:text-strong hover:font-medium", isActive && "text-accent-600 font-medium")
 							}
 							to=".#tailwind"
 						>
@@ -38,7 +38,7 @@ export default function Page() {
 					<li>
 						<HashNavLink
 							className={(isActive) =>
-								cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
+								cx("hover:text-strong hover:font-medium", isActive && "text-accent-600 font-medium")
 							}
 							to=".#variables"
 						>
@@ -48,7 +48,7 @@ export default function Page() {
 					<li>
 						<HashNavLink
 							className={(isActive) =>
-								cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
+								cx("hover:text-strong hover:font-medium", isActive && "text-accent-600 font-medium")
 							}
 							to=".#overrides"
 						>
@@ -58,7 +58,7 @@ export default function Page() {
 					<li>
 						<HashNavLink
 							className={(isActive) =>
-								cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
+								cx("hover:text-strong hover:font-medium", isActive && "text-accent-600 font-medium")
 							}
 							to=".#functional-colors"
 						>
@@ -69,7 +69,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
+									cx("hover:text-strong hover:font-medium", isActive && "text-accent-600 font-medium")
 								}
 								to=".#neutral"
 							>
@@ -79,7 +79,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
+									cx("hover:text-strong hover:font-medium", isActive && "text-accent-600 font-medium")
 								}
 								to=".#accent"
 							>
@@ -89,7 +89,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
+									cx("hover:text-strong hover:font-medium", isActive && "text-accent-600 font-medium")
 								}
 								to=".#success"
 							>
@@ -99,7 +99,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
+									cx("hover:text-strong hover:font-medium", isActive && "text-accent-600 font-medium")
 								}
 								to=".#danger"
 							>
@@ -109,7 +109,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
+									cx("hover:text-strong hover:font-medium", isActive && "text-accent-600 font-medium")
 								}
 								to=".#warning"
 							>
@@ -120,7 +120,7 @@ export default function Page() {
 					<li>
 						<HashNavLink
 							className={(isActive) =>
-								cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
+								cx("hover:text-strong hover:font-medium", isActive && "text-accent-600 font-medium")
 							}
 							to=".#extended-palette"
 						>
@@ -131,7 +131,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
+									cx("hover:text-strong hover:font-medium", isActive && "text-accent-600 font-medium")
 								}
 								to=".#gray"
 							>
@@ -141,7 +141,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
+									cx("hover:text-strong hover:font-medium", isActive && "text-accent-600 font-medium")
 								}
 								to=".#red"
 							>
@@ -151,7 +151,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
+									cx("hover:text-strong hover:font-medium", isActive && "text-accent-600 font-medium")
 								}
 								to=".#orange"
 							>
@@ -161,7 +161,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
+									cx("hover:text-strong hover:font-medium", isActive && "text-accent-600 font-medium")
 								}
 								to=".#amber"
 							>
@@ -171,7 +171,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
+									cx("hover:text-strong hover:font-medium", isActive && "text-accent-600 font-medium")
 								}
 								to=".#yellow"
 							>
@@ -181,7 +181,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
+									cx("hover:text-strong hover:font-medium", isActive && "text-accent-600 font-medium")
 								}
 								to=".#lime"
 							>
@@ -191,7 +191,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
+									cx("hover:text-strong hover:font-medium", isActive && "text-accent-600 font-medium")
 								}
 								to=".#green"
 							>
@@ -201,7 +201,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
+									cx("hover:text-strong hover:font-medium", isActive && "text-accent-600 font-medium")
 								}
 								to=".#emerald"
 							>
@@ -211,7 +211,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
+									cx("hover:text-strong hover:font-medium", isActive && "text-accent-600 font-medium")
 								}
 								to=".#teal"
 							>
@@ -221,7 +221,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
+									cx("hover:text-strong hover:font-medium", isActive && "text-accent-600 font-medium")
 								}
 								to=".#cyan"
 							>
@@ -231,7 +231,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
+									cx("hover:text-strong hover:font-medium", isActive && "text-accent-600 font-medium")
 								}
 								to=".#sky"
 							>
@@ -242,7 +242,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
+									cx("hover:text-strong hover:font-medium", isActive && "text-accent-600 font-medium")
 								}
 								to=".#blue"
 							>
@@ -252,7 +252,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
+									cx("hover:text-strong hover:font-medium", isActive && "text-accent-600 font-medium")
 								}
 								to=".#indigo"
 							>
@@ -262,7 +262,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
+									cx("hover:text-strong hover:font-medium", isActive && "text-accent-600 font-medium")
 								}
 								to=".#violet"
 							>
@@ -272,7 +272,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
+									cx("hover:text-strong hover:font-medium", isActive && "text-accent-600 font-medium")
 								}
 								to=".#purple"
 							>
@@ -282,7 +282,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
+									cx("hover:text-strong hover:font-medium", isActive && "text-accent-600 font-medium")
 								}
 								to=".#fuchsia"
 							>
@@ -292,7 +292,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
+									cx("hover:text-strong hover:font-medium", isActive && "text-accent-600 font-medium")
 								}
 								to=".#pink"
 							>
@@ -302,7 +302,7 @@ export default function Page() {
 						<li>
 							<HashNavLink
 								className={(isActive) =>
-									cx("hover:font-medium hover:text-strong", isActive && "font-medium text-accent-600")
+									cx("hover:text-strong hover:font-medium", isActive && "text-accent-600 font-medium")
 								}
 								to=".#rose"
 							>
@@ -314,7 +314,7 @@ export default function Page() {
 			</nav>
 			<div className="flex-1">
 				<h1 className="text-5xl font-medium">Colors</h1>
-				<p className="mt-4 font-body text-xl text-body">
+				<p className="font-body text-body mt-4 text-xl">
 					Colors are a key component of any design system. They are used to convey meaning, attract attention, and
 					provide feedback. Mantle&rsquo;s color system is designed to be accessible and flexible with dark and high
 					contrast modes.
@@ -323,7 +323,7 @@ export default function Page() {
 				<h2 id="tailwind" className="mt-8 text-3xl font-medium">
 					Tailwind
 				</h2>
-				<p className="mt-3 font-body text-body">
+				<p className="font-body text-body mt-3">
 					Mantle uses Tailwind under the hood for all its CSS styling. However, we differ from Tailwind when it comes to
 					colors. Mantle provides a full color library that automatically provides a dark and high contrast modes. This
 					is different from standard Tailwind usage that <em>requires</em> dark class variations. By simply specifying
@@ -334,7 +334,7 @@ export default function Page() {
 				<h2 id="variables" className="mt-8 text-3xl font-medium">
 					Variables
 				</h2>
-				<p className="mt-3 font-body text-body">
+				<p className="font-body text-body mt-3">
 					Mantle&rsquo;s colors are delivered as CSS variables via Tailwind&rsquo;s API eg.{" "}
 					<InlineCode>.text-blue-500</InlineCode>. They can be directly accessed via{" "}
 					<InlineCode>var(--blue-500)</InlineCode> but do note that you&rsquo;ll need to wrap everything in{" "}
@@ -345,7 +345,7 @@ export default function Page() {
 				<h2 id="overrides" className="mt-8 text-3xl font-medium">
 					Overrides
 				</h2>
-				<p className="mt-3 font-body text-body">
+				<p className="font-body text-body mt-3">
 					Most colors should appropriately swap for sensible values in dark and high contrast modes. However, there are
 					often cases where you&rsquo;ll need to specify an override. The <InlineCode>dark:</InlineCode> variant is
 					well-documented on <Anchor href="https://tailwindcss.com/docs/dark-mode">Tailwind&rsquo;s website</Anchor>.
@@ -356,7 +356,7 @@ export default function Page() {
 				<h2 id="functional-colors" className="mt-8 text-3xl font-medium">
 					Functional Colors
 				</h2>
-				<p className="mt-3 font-body text-body">
+				<p className="font-body text-body mt-3">
 					Mantle generally limits its color choices to the following functional colors for primary actions, and various
 					states like danger and warnings.
 				</p>
@@ -416,47 +416,47 @@ export default function Page() {
 				</h3>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-accent-950"></div>
+						<div className="bg-accent-950 h-10 w-full rounded"></div>
 						950
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-accent-900"></div>
+						<div className="bg-accent-900 h-10 w-full rounded"></div>
 						900
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-accent-800"></div>
+						<div className="bg-accent-800 h-10 w-full rounded"></div>
 						800
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-accent-700"></div>
+						<div className="bg-accent-700 h-10 w-full rounded"></div>
 						700
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-accent-600"></div>
+						<div className="bg-accent-600 h-10 w-full rounded"></div>
 						600
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-accent-500"></div>
+						<div className="bg-accent-500 h-10 w-full rounded"></div>
 						500
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-accent-400"></div>
+						<div className="bg-accent-400 h-10 w-full rounded"></div>
 						400
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-accent-300"></div>
+						<div className="bg-accent-300 h-10 w-full rounded"></div>
 						300
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-accent-200"></div>
+						<div className="bg-accent-200 h-10 w-full rounded"></div>
 						200
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-accent-100"></div>
+						<div className="bg-accent-100 h-10 w-full rounded"></div>
 						100
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-accent-50"></div>
+						<div className="bg-accent-50 h-10 w-full rounded"></div>
 						50
 					</div>
 				</div>
@@ -466,47 +466,47 @@ export default function Page() {
 				</h3>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-success-950"></div>
+						<div className="bg-success-950 h-10 w-full rounded"></div>
 						950
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-success-900"></div>
+						<div className="bg-success-900 h-10 w-full rounded"></div>
 						900
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-success-800"></div>
+						<div className="bg-success-800 h-10 w-full rounded"></div>
 						800
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-success-700"></div>
+						<div className="bg-success-700 h-10 w-full rounded"></div>
 						700
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-success-600"></div>
+						<div className="bg-success-600 h-10 w-full rounded"></div>
 						600
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-success-500"></div>
+						<div className="bg-success-500 h-10 w-full rounded"></div>
 						500
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-success-400"></div>
+						<div className="bg-success-400 h-10 w-full rounded"></div>
 						400
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-success-300"></div>
+						<div className="bg-success-300 h-10 w-full rounded"></div>
 						300
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-success-200"></div>
+						<div className="bg-success-200 h-10 w-full rounded"></div>
 						200
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-success-100"></div>
+						<div className="bg-success-100 h-10 w-full rounded"></div>
 						100
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-success-50"></div>
+						<div className="bg-success-50 h-10 w-full rounded"></div>
 						50
 					</div>
 				</div>
@@ -516,47 +516,47 @@ export default function Page() {
 				</h3>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-danger-950"></div>
+						<div className="bg-danger-950 h-10 w-full rounded"></div>
 						950
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-danger-900"></div>
+						<div className="bg-danger-900 h-10 w-full rounded"></div>
 						900
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-danger-800"></div>
+						<div className="bg-danger-800 h-10 w-full rounded"></div>
 						800
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-danger-700"></div>
+						<div className="bg-danger-700 h-10 w-full rounded"></div>
 						700
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-danger-600"></div>
+						<div className="bg-danger-600 h-10 w-full rounded"></div>
 						600
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-danger-500"></div>
+						<div className="bg-danger-500 h-10 w-full rounded"></div>
 						500
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-danger-400"></div>
+						<div className="bg-danger-400 h-10 w-full rounded"></div>
 						400
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-danger-300"></div>
+						<div className="bg-danger-300 h-10 w-full rounded"></div>
 						300
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-danger-200"></div>
+						<div className="bg-danger-200 h-10 w-full rounded"></div>
 						200
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-danger-100"></div>
+						<div className="bg-danger-100 h-10 w-full rounded"></div>
 						100
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-danger-50"></div>
+						<div className="bg-danger-50 h-10 w-full rounded"></div>
 						50
 					</div>
 				</div>
@@ -566,47 +566,47 @@ export default function Page() {
 				</h3>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-warning-950"></div>
+						<div className="bg-warning-950 h-10 w-full rounded"></div>
 						950
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-warning-900"></div>
+						<div className="bg-warning-900 h-10 w-full rounded"></div>
 						900
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-warning-800"></div>
+						<div className="bg-warning-800 h-10 w-full rounded"></div>
 						800
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-warning-700"></div>
+						<div className="bg-warning-700 h-10 w-full rounded"></div>
 						700
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-warning-600"></div>
+						<div className="bg-warning-600 h-10 w-full rounded"></div>
 						600
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-warning-500"></div>
+						<div className="bg-warning-500 h-10 w-full rounded"></div>
 						500
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-warning-400"></div>
+						<div className="bg-warning-400 h-10 w-full rounded"></div>
 						400
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-warning-300"></div>
+						<div className="bg-warning-300 h-10 w-full rounded"></div>
 						300
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-warning-200"></div>
+						<div className="bg-warning-200 h-10 w-full rounded"></div>
 						200
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-warning-100"></div>
+						<div className="bg-warning-100 h-10 w-full rounded"></div>
 						100
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-warning-50"></div>
+						<div className="bg-warning-50 h-10 w-full rounded"></div>
 						50
 					</div>
 				</div>
@@ -614,7 +614,7 @@ export default function Page() {
 				<h2 id="extended-palette" className="mt-16 text-3xl font-medium">
 					Extended Palette
 				</h2>
-				<p className="mt-3 font-body text-body">
+				<p className="font-body text-body mt-3">
 					Mantle also supports the entirety of Tailwind&rsquo;s color palette in light, dark, and high contrast
 					variants. These are to be used when there is no functional meaning behind the color choice. However,
 					we&rsquo;ve left out the extended collection of Tailwind&rsquo;s grays eg. slate, zinc, etc. since we only

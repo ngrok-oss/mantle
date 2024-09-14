@@ -1,5 +1,12 @@
 import { Anchor } from "@ngrok/mantle/anchor";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, CodeBlockHeader, fmtCode } from "@ngrok/mantle/code-block";
+import {
+	CodeBlock,
+	CodeBlockBody,
+	CodeBlockCode,
+	CodeBlockCopyButton,
+	CodeBlockHeader,
+	fmtCode,
+} from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@ngrok/mantle/table";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
@@ -22,7 +29,7 @@ export default function Page() {
 	return (
 		<div>
 			<h1 className="text-5xl font-medium">Mantle</h1>
-			<p className="font-weight mt-4 font-body text-xl text-body">
+			<p className="font-weight font-body text-body mt-4 text-xl">
 				Mantle is <Anchor href="https://ngrok.com">ngrok</Anchor>
 				&rsquo;s UI library and design system that powers its front-end.
 			</p>
@@ -34,7 +41,7 @@ export default function Page() {
 			<h3 id="dependencies" className="mt-6 text-xl font-medium">
 				Dependencies
 			</h3>
-			<p className="mt-3 font-body text-body">
+			<p className="font-body text-body mt-3">
 				Mantle&rsquo;s styling is composed using <Anchor href="https://tailwindcss.com">Tailwind</Anchor>. Its{" "}
 				<Anchor href="https://react.dev">React</Anchor> components are inspired by{" "}
 				<Anchor href="https://ui.shadcn.com">shadcn/ui</Anchor>
@@ -45,22 +52,22 @@ export default function Page() {
 			<h3 id="status" className="mt-8 text-xl font-medium">
 				Status
 			</h3>
-			<p className="mt-3 font-body text-body">
+			<p className="font-body text-body mt-3">
 				Mantle is a work in progress that&rsquo;s currently adding components. It intends to replace new and existing
 				ngrok user interfaces.
 			</p>
 
-			<p className="mt-3 font-body text-body">
+			<p className="font-body text-body mt-3">
 				Mantle is available in its alpha state on{" "}
 				<Anchor href="https://www.npmjs.com/package/@ngrok/mantle">NPM</Anchor>. It is open source and available on{" "}
 				<Anchor href="https://github.com/ngrok-oss/mantle">GitHub</Anchor>.
 			</p>
 
 			<h2 className="mt-12 text-3xl font-medium">Setup</h2>
-			<p className="mt-3 font-body text-body">
+			<p className="font-body text-body mt-3">
 				Start by installing <InlineCode>@ngrok/mantle</InlineCode> with your preferred package manager:
 			</p>
-			<div className="mt-4 overflow-hidden rounded-lg border border-card">
+			<div className="border-card mt-4 overflow-hidden rounded-lg border">
 				<Table>
 					<TableHeader>
 						<TableRow>
@@ -119,7 +126,7 @@ export default function Page() {
 
 			<section>
 				<h2 className="mt-8 text-xl font-medium">Tailwind Configuration</h2>
-				<p className="mt-3 font-body text-body">
+				<p className="font-body text-body mt-3">
 					Then, add the <Anchor href="https://tailwindcss.com/docs/presets">tailwind preset</Anchor> and mantle content
 					to your tailwind configuration:
 				</p>
@@ -149,7 +156,7 @@ export default function Page() {
 
 			<section>
 				<h2 className="mt-8 text-xl font-medium">Application Scaffolding</h2>
-				<p className="mt-3 font-body text-body">
+				<p className="font-body text-body mt-3">
 					In your application&rsquo;s entry/root, import the <InlineCode>mantle.css</InlineCode> file to apply the
 					mantle styles:
 				</p>
@@ -183,11 +190,11 @@ export default function Page() {
 						/>
 					</CodeBlockBody>
 				</CodeBlock>
-				<p className="mt-8 font-body text-body">
+				<p className="font-body text-body mt-8">
 					Next, you should add the <Link to="/components/theme-provider">Theme Provider</Link> to your application to
 					provide the mantle theme to your components. You are now ready to use mantle components in your application!
 				</p>
-				<p className="mt-4 font-body text-body">
+				<p className="font-body text-body mt-4">
 					You are now ready to use mantle components in your application! For example, you can use the{" "}
 					<Link to="/components/button">Button</Link>!
 				</p>

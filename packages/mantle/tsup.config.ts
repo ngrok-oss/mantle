@@ -21,26 +21,22 @@ const allComponents = fs
 	.map((dirent) => dirent.name);
 
 const allUtils = fs
-.readdirSync("src/utils", { withFileTypes: true })
-.filter((dirent) => dirent.isDirectory())
-.map((dirent) => dirent.name);
+	.readdirSync("src/utils", { withFileTypes: true })
+	.filter((dirent) => dirent.isDirectory())
+	.map((dirent) => dirent.name);
 
 const componentPackages = allComponents
 	// filter only the publishable component packages then map them to the tsup config entries object
-	.filter(
-		(packageName) =>
-			!doNotPublish.has(packageName) && !unreleasedPackages.has(packageName),
-	)
+	.filter((packageName) => !doNotPublish.has(packageName) && !unreleasedPackages.has(packageName))
 	.reduce<Record<string, string>>((acc, name) => {
 		acc[name] = componentPath(name);
 		return acc;
 	}, {});
 
-const utilPackages = allUtils
-	.reduce<Record<string, string>>((acc, name) => {
-		acc[name] = utilPath(name);
-		return acc;
-	}, {});
+const utilPackages = allUtils.reduce<Record<string, string>>((acc, name) => {
+	acc[name] = utilPath(name);
+	return acc;
+}, {});
 
 const commonOptions = {
 	dts: true,

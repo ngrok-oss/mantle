@@ -1,25 +1,26 @@
 {
-  "private": true,
-  "name": "mantle",
-  "license": "MIT",
+	"private": true,
+	"name": "mantle",
+	"license": "MIT",
   "packageManager": "pnpm@9.10.0",
-  "type": "module",
-  "scripts": {
-    "build": "turbo run build",
-    "clean": "turbo run clean",
-    "fmt:check": "prettier --check .",
-    "fmt": "prettier --write .",
-    "lint": "turbo run lint",
-    "serve": "turbo run serve",
-    "start": "turbo run dev --parallel",
-    "test:watch": "turbo run test:watch",
-    "test": "turbo run test",
-    "typecheck": "turbo run typecheck"
-  },
-  "devDependencies": {
-    "@ianvs/prettier-plugin-sort-imports": "4.3.1",
-    "prettier": "3.3.3",
-    "prettier-plugin-tailwindcss": "0.6.6",
-    "turbo": "^2.1.1"
-  }
+	"type": "module",
+	"scripts": {
+		"build": "turbo run build",
+		"clean": "turbo run clean",
+		"fmt:check": "prettier --check .",
+		"fmt": "prettier --write .",
+		"lint": "turbo run lint --continue -- --cache --cache-location node_modules/.cache/.eslintcache",
+		"lint:fix": "turbo run lint --continue -- --fix --cache --cache-location node_modules/.cache/.eslintcache",
+		"serve": "turbo run serve",
+		"start": "turbo run dev --parallel",
+		"test:watch": "turbo run test:watch",
+		"test": "turbo run test",
+		"typecheck": "turbo run typecheck"
+	},
+	"devDependencies": {
+		"@ianvs/prettier-plugin-sort-imports": "4.3.1",
+		"prettier": "3.3.3",
+		"prettier-plugin-tailwindcss": "0.6.6",
+		"turbo": "^2.1.1"
+	}
 }

@@ -91,7 +91,7 @@ const SelectTrigger = forwardRef<ElementRef<typeof SelectPrimitive.Trigger>, Sel
 		return (
 			<SelectPrimitive.Trigger
 				aria-invalid={ariaInvalid}
-				data-validation={validation || undefined} // eslint-disable-line @typescript-eslint/prefer-nullish-coalescing
+				data-validation={validation || undefined}
 				className={cx(
 					"h-11 text-base sm:h-9 sm:text-sm",
 					"border-form bg-form text-strong placeholder:text-placeholder hover:bg-form-hover hover:text-strong flex w-full items-center justify-between gap-1.5 rounded-md border px-3 py-2 hover:border-neutral-400 disabled:pointer-events-none disabled:opacity-50 [&>span]:line-clamp-1 [&>span]:text-left",

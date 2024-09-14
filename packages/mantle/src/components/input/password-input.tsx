@@ -58,7 +58,7 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
 				<button
 					type="button"
 					tabIndex={-1}
-					className="ml-1 cursor-pointer bg-inherit p-0 text-body hover:text-strong"
+					className="text-body hover:text-strong ml-1 cursor-pointer bg-inherit p-0"
 					onClick={() => {
 						setShowPassword(!showPassword);
 						onValueVisibilityChange?.(!showPassword);
