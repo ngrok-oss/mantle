@@ -50,6 +50,9 @@ importers:
       react:
         specifier: 18.3.1
         version: 18.3.1
+      react-day-picker:
+        specifier: 8.10.1
+        version: 8.10.1(date-fns@3.6.0)(react@18.3.1)
       react-dom:
         specifier: 18.3.1
         version: 18.3.1(react@18.3.1)
@@ -128,7 +131,7 @@ importers:
         version: 7.35.1(eslint@9.10.0(jiti@1.21.6))
       eslint-plugin-react-hooks:
         specifier: rc
-        version: 5.1.0-rc-ee1a403a-20240916(eslint@9.10.0(jiti@1.21.6))
+        version: 5.1.0-rc-f2df5694-20240916(eslint@9.10.0(jiti@1.21.6))
       globals:
         specifier: 15.9.0
         version: 15.9.0
@@ -2502,8 +2505,8 @@ packages:
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8
 
-  eslint-plugin-react-hooks@5.1.0-rc-ee1a403a-20240916:
-    resolution: {integrity: sha512-x1UYSVY9asu6QzREA02hS7m9igbOgr0SsOQFUe3ZhTYHin7cAF9abkp9Vhg5jKK1WcLxhZXI+w+KUlF7TpeV6w==}
+  eslint-plugin-react-hooks@5.1.0-rc-f2df5694-20240916:
+    resolution: {integrity: sha512-516cGsghQfJf5fu95qkoAbQUw2hwrn0EfDj/Rwddn2zY0uWx2+WQUsJoFrAM3EX6X/BvxpxW4YudlSGVeU6U1A==}
     engines: {node: '>=10'}
     peerDependencies:
       eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0 || ^9.0.0
@@ -7399,7 +7402,7 @@ snapshots:
       safe-regex-test: 1.0.3
       string.prototype.includes: 2.0.0
 
-  eslint-plugin-react-hooks@5.1.0-rc-ee1a403a-20240916(eslint@9.10.0(jiti@1.21.6)):
+  eslint-plugin-react-hooks@5.1.0-rc-f2df5694-20240916(eslint@9.10.0(jiti@1.21.6)):
     dependencies:
       eslint: 9.10.0(jiti@1.21.6)
 
