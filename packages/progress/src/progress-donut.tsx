@@ -14,21 +14,14 @@ type ValueType = number | "indeterminate";
  */
 const defaultMax = 100;
 
-/**
- * The size of the viewbox for the progress bar svg.
- */
-const viewboxSize = 32;
-
 type ProgressContextValue = {
 	max: number;
-	radius: number;
 	strokeWidth: StrokeWidth;
 	value: ValueType;
 };
 
 const ProgressContext = createContext<ProgressContextValue>({
 	max: defaultMax,
-	radius: 16,
 	strokeWidth: "0.25rem",
 	value: 0,
 });
@@ -81,17 +74,15 @@ const ProgressDonut = ({
 	const max = isValidMaxNumber(_max) ? _max : defaultMax;
 	const value = (isValidValueNumber(_value, max) ? _value : _value == null ? 0 : "indeterminate") satisfies ValueType;
 	const strokeWidthPx = deriveStrokeWidthPx(_strokeWidth);
-	const radius = circleRadius(strokeWidthPx);
 	const valueNow = isNumber(value) ? value : undefined;
 
 	const ctx: ProgressContextValue = useMemo(
 		() => ({
 			max,
-			radius,
 			strokeWidth: strokeWidthPx,
 			value,
 		}),
-		[max, radius, strokeWidthPx, value],
+		[max, strokeWidthPx, value],
 	);
 
 	return (
@@ -101,7 +92,6 @@ const ProgressDonut = ({
 				aria-valuemin={0}
 				aria-valuenow={valueNow}
 				className={clsx(
-					// "origin-center",
 					value === "indeterminate" && "animate-spin",
 					value !== "indeterminate" && "transform-gpu",
 					cx("size-6 text-gray-200 animation-duration-[15s] dark:text-gray-300", className),
@@ -119,9 +109,7 @@ const ProgressDonut = ({
 					cy="50%"
 					fill="transparent"
 					r={`calc(50% - ${strokeWidthPx / 2}px)`}
-					// r="calc(50% - 2px"
 					stroke="currentColor"
-					// strokeWidth={pxToRem(strokeWidthPx)}
 					strokeWidth={ctx.strokeWidth}
 				/>
 				{children}
@@ -160,7 +148,6 @@ const ProgressDonutIndicator = ({ className, style }: ProgressDonutIndicatorProp
 				cx="50%"
 				cy="50%"
 				fill="transparent"
-				// r="calc(50% - 2px)"
 				r={`calc(50% - ${strokeWidthPx / 2}px)`}
 				stroke={ctx.value == "indeterminate" ? `url(#${gradientId})` : "currentColor"}
 				pathLength={100}
@@ -181,34 +168,8 @@ export {
 	ProgressDonutIndicator,
 };
 
-/**
- * Calculate the radius of a circle given the stroke width.
- * The radius is calculated as half the viewbox size minus half the stroke width
- * so that the stroke doesn't clamp within the viewbox.
- */
-function circleRadius(strokeWidth: number): number {
-	const value = Number.isNaN(strokeWidth) ? 4 : strokeWidth;
-	// clamp the stroke width to a minimum of 1 and max of 16 non-inclusive on both sides
-	const clampedStrokeWidth = clamp(value, { min: 1, max: 16 });
-	return (viewboxSize - clampedStrokeWidth) / 2;
-}
-
 function clamp(value: number, { min, max }: { min: number; max: number }): number {
 	return Math.min(max, Math.max(min, value));
-}
-
-/**
- * Convert a pixel value to a rem value.
- */
-function pxToRem(value: number): RemValue {
-	return `${value / 16}rem` as RemValue;
-}
-
-/**
- * Divide a value by 2 and return it as a rem value.
- */
-function halfStroke(value: number): RemValue {
-	return `${value / 2}rem` as RemValue;
 }
 
 /**
@@ -232,14 +193,6 @@ export function deriveStrokeWidthPx(strokeWidth: number | string | undefined): n
 
 	const stroke = Number.isNaN(value) ? 4 : value;
 	return clamp(stroke, { min: 1, max: 12 });
-}
-
-/**
- * Calculate the circumference of a circle given its radius.
- * C = 2πr
- */
-function circumference(radius: number) {
-	return 2 * Math.PI * radius;
 }
 
 /**
