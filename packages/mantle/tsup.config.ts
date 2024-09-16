@@ -52,19 +52,10 @@ export default defineConfig((options) => [
 	{
 		...commonOptions,
 		format: "esm",
-		entry: componentPackages,
-		...options,
-	},
-	{
-		...commonOptions,
-		format: "esm",
-		entry: utilPackages,
-		...options,
-	},
-	{
-		...commonOptions,
-		format: "esm",
 		entry: {
+			...componentPackages,
+			...utilPackages,
+			hooks: "./src/hooks/index.ts",
 			types: "./src/types/index.ts",
 		},
 		...options,
