@@ -4,7 +4,7 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["./app/*"],
-      "@ngrok/mantle/unreleased/*": ["../../packages/mantle/src/unreleased/*"],
+      "@ngrok/mantle/data-table": ["../../packages/mantle/src/components/data-table/index.ts"],
     }
   }
 }

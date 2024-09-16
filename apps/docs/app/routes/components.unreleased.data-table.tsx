@@ -1,7 +1,7 @@
 import { Anchor } from "@ngrok/mantle/anchor";
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
+import { DataTable } from "@ngrok/mantle/data-table";
 import { InlineCode } from "@ngrok/mantle/inline-code";
-import { DataTable } from "@ngrok/mantle/unreleased/data-table";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { UnreleasedBadge } from "~/components/badges";
 import { Example } from "~/components/example";
