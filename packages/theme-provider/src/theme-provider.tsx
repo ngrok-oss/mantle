@@ -72,7 +72,10 @@ const isBrowser = () => typeof window !== "undefined";
 function getStoredTheme(storageKey: string, defaultTheme: Theme = "system") {
 	const fallbackTheme = defaultTheme ?? "system";
 	if (isBrowser()) {
-		const storedTheme = window.localStorage.getItem(storageKey);
+		let storedTheme: string | null = null;
+		try {
+			storedTheme = "localStorage" in window ? window.localStorage.getItem(storageKey) : null;
+		} catch (_) {}
 		return isTheme(storedTheme) ? storedTheme : fallbackTheme;
 	}
 	return fallbackTheme;
@@ -128,7 +131,11 @@ function ThemeProvider({ children, defaultTheme = "system", storageKey = DEFAULT
 		() => [
 			theme,
 			(theme: Theme) => {
-				window.localStorage.setItem(storageKey, theme);
+				try {
+					if ("localStorage" in window) {
+						window.localStorage.setItem(storageKey, theme);
+					}
+				} catch (_) {}
 				setTheme(theme);
 				applyTheme(theme);
 			},
@@ -228,10 +235,15 @@ function preventWrongThemeFlashScriptContent({
 	const themes = ${JSON.stringify(themes)};
 	const isTheme = (value) => typeof value === "string" && themes.includes(value);
 	const fallbackTheme = "${defaultTheme}" ?? "system";
-	const maybeStoredTheme = window.localStorage.getItem("${storageKey}");
+	let maybeStoredTheme = null;
+	try {
+		maybeStoredTheme = "localStorage" in window ? window.localStorage.getItem("${storageKey}") : null;
+	} catch (_) {}
 	const hasStoredTheme = isTheme(maybeStoredTheme);
-	if (!hasStoredTheme) {
-		window.localStorage.setItem("${storageKey}", fallbackTheme);
+	if (!hasStoredTheme && "localStorage" in window) {
+		try {
+			window.localStorage.setItem("${storageKey}", fallbackTheme);
+		} catch (_) {}
 	}
 	const themePreference = hasStoredTheme ? maybeStoredTheme : fallbackTheme;
 	const prefersDarkMode = window.matchMedia("${prefersDarkModeMediaQuery}").matches;
