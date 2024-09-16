@@ -34,9 +34,9 @@ jobs:
 
       - name: Ensure Package is Publishable 🧐
         run: | # Run the prepublish hook to ensure the package is publishable
-          pnpm run prepublishOnly
+          cd packages/mantle && pnpm run prepublishOnly
 
       - name: Diff Docs Routes Codegen 🕵️
         run: | # Diff the docs routes codegen
-          pnpm run gen:docs-routes
+          cd apps/docs && pnpm run gen:docs-routes
           git diff --exit-code
