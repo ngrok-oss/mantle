@@ -1,1 +1,0 @@
-import{a}from"/build/_shared/chunk-F4CGZL4B.js";import{d as s}from"/build/_shared/chunk-I4CY5NX7.js";import{b as i}from"/build/_shared/chunk-SQBGVNFG.js";import{c as t}from"/build/_shared/chunk-QDA5CGMH.js";var m=t(i(),1),c=({className:o,style:r,svg:e})=>(0,m.jsx)(a,{className:s("size-6 sm:size-5",o),style:r,svg:e});export{c as a};
