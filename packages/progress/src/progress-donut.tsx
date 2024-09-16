@@ -81,7 +81,6 @@ const ProgressDonut = ({
 	const max = isValidMaxNumber(_max) ? _max : defaultMax;
 	const value = (isValidValueNumber(_value, max) ? _value : _value == null ? 0 : "indeterminate") satisfies ValueType;
 	const strokeWidthPx = deriveStrokeWidthPx(_strokeWidth);
-	const strokeWidthRem = pxToRem(strokeWidthPx);
 	const radius = circleRadius(strokeWidthPx);
 	const valueNow = isNumber(value) ? value : undefined;
 
@@ -89,10 +88,10 @@ const ProgressDonut = ({
 		() => ({
 			max,
 			radius,
-			strokeWidth: strokeWidthRem,
+			strokeWidth: strokeWidthPx,
 			value,
 		}),
-		[max, radius, strokeWidthRem, value],
+		[max, radius, strokeWidthPx, value],
 	);
 
 	return (
@@ -102,25 +101,28 @@ const ProgressDonut = ({
 				aria-valuemin={0}
 				aria-valuenow={valueNow}
 				className={clsx(
-					"origin-center",
+					// "origin-center",
 					value === "indeterminate" && "animate-spin",
-					value !== "indeterminate" && "-rotate-90 transform-gpu",
+					value !== "indeterminate" && "transform-gpu",
 					cx("size-6 text-gray-200 animation-duration-[15s] dark:text-gray-300", className),
 				)}
 				data-max={max}
 				data-min={0}
 				data-value={valueNow}
 				role="progressbar"
-				viewBox={`0 0 ${viewboxSize} ${viewboxSize}`}
+				width="100%"
+				height="100%"
 				{...props}
 			>
 				<circle
-					cx={viewboxSize / 2}
-					cy={viewboxSize / 2}
+					cx="50%"
+					cy="50%"
 					fill="transparent"
-					r={radius}
+					r={`calc(50% - ${strokeWidthPx / 2}px)`}
+					// r="calc(50% - 2px"
 					stroke="currentColor"
-					strokeWidth={pxToRem(strokeWidthPx)}
+					// strokeWidth={pxToRem(strokeWidthPx)}
+					strokeWidth={ctx.strokeWidth}
 				/>
 				{children}
 			</svg>
@@ -141,8 +143,8 @@ type ProgressDonutIndicatorProps = WithStyleProps;
 const ProgressDonutIndicator = ({ className, style }: ProgressDonutIndicatorProps) => {
 	const gradientId = useRandomStableId();
 	const ctx = useContext(ProgressContext);
-	const circumferenceValue = circumference(ctx.radius);
 	const progressValue = ctx.value == "indeterminate" ? indeterminateTailPercent : ctx.value / ctx.max;
+	const strokeWidthPx = deriveStrokeWidthPx(ctx.strokeWidth);
 
 	return (
 		<g className={cx("text-accent-600", className)} style={style}>
@@ -155,15 +157,19 @@ const ProgressDonutIndicator = ({ className, style }: ProgressDonutIndicatorProp
 				</defs>
 			)}
 			<circle
-				cx={viewboxSize / 2}
-				cy={viewboxSize / 2}
+				cx="50%"
+				cy="50%"
 				fill="transparent"
-				r={ctx.radius}
+				// r="calc(50% - 2px)"
+				r={`calc(50% - ${strokeWidthPx / 2}px)`}
 				stroke={ctx.value == "indeterminate" ? `url(#${gradientId})` : "currentColor"}
-				strokeDasharray={circumferenceValue}
-				strokeDashoffset={`${(1 - progressValue) * circumferenceValue}px`}
+				pathLength={100}
+				strokeDasharray={100}
+				strokeDashoffset={100 - progressValue * 100}
 				strokeLinecap="round"
 				strokeWidth={ctx.strokeWidth}
+				transform="rotate(-90)"
+				transform-origin="center"
 			/>
 		</g>
 	);
@@ -196,6 +202,13 @@ function clamp(value: number, { min, max }: { min: number; max: number }): numbe
  */
 function pxToRem(value: number): RemValue {
 	return `${value / 16}rem` as RemValue;
+}
+
+/**
+ * Divide a value by 2 and return it as a rem value.
+ */
+function halfStroke(value: number): RemValue {
+	return `${value / 2}rem` as RemValue;
 }
 
 /**
