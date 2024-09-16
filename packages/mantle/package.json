@@ -96,8 +96,8 @@
     "./package.json": "./package.json",
     "./tailwind-preset": {
       "types": "./dist/tailwind-preset.d.ts",
-      "require": "./dist/tailwind-preset.cjs",
-      "import": "./dist/tailwind-preset.js"
+      "import": "./dist/tailwind-preset.js",
+      "require": "./dist/tailwind-preset.cjs"
     },
     "./alert": {
       "import": "./dist/alert.js",

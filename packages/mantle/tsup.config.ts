@@ -63,6 +63,14 @@ export default defineConfig((options) => [
 	},
 	{
 		...commonOptions,
+		format: "esm",
+		entry: {
+			types: "./src/types/index.ts",
+		},
+		...options,
+	},
+	{
+		...commonOptions,
 		format: ["esm", "cjs"], // we need to dual publish the tailwind preset for now because postcss expects cjs
 		entry: {
 			"tailwind-preset": "./src/tailwind-preset/index.ts",
