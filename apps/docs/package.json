@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest watch",
+    "test:ui": "vitest --ui",
     "typecheck": "tsc",
     "gen:docs-routes": "tsx ./scripts/gen-docs-routes"
   },
@@ -42,9 +43,6 @@
     "tinyglobby": "0.2.5",
     "tsx": "4.19.0",
     "typescript": "5.5.4",
-    "vite": "5.4.3",
-    "vite-tsconfig-paths": "5.0.1",
-    "vitest": "2.0.5",
-    "vitest-dom": "0.1.1"
+    "vitest": "2.0.5"
   }
 }

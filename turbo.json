@@ -26,10 +26,13 @@
 			"persistent": true
 		},
 		"test": {
-			"outputs": ["coverage/**"],
-			"dependsOn": []
+			"outputs": []
 		},
 		"test:watch": {
+			"cache": false,
+			"persistent": true
+		},
+		"test:ui": {
 			"cache": false,
 			"persistent": true
 		},

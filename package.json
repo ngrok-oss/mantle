@@ -14,6 +14,7 @@
 		"serve": "turbo run serve",
 		"start": "turbo run dev --parallel",
 		"test:watch": "turbo run test:watch",
+		"test:ui": "turbo run test:ui",
 		"test": "turbo run test",
 		"typecheck": "turbo run typecheck"
 	},
