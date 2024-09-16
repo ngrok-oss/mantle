@@ -5,7 +5,7 @@
   "scripts": {
     "build": "remix build",
     "serve": "remix-serve ./build/index.js",
-    "dev": "remix dev --manual",
+    "dev": "remix dev",
     "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest watch",
