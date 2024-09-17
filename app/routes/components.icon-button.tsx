@@ -18,7 +18,7 @@ import {
 	StringPropType,
 } from "~/components/props-table";
 import { route } from "~/types/routes";
-import type { PropsWithChildren } from "react";
+import { type PropsWithChildren } from "react";
 
 export const meta: MetaFunction = () => {
 	return [

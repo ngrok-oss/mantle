@@ -3,7 +3,7 @@
   "description": "mantle is ngrok's UI library and design system.",
   "author": "ngrok",
   "license": "MIT",
-  "version": "0.1.58",
+  "version": "0.1.59",
   "homepage": "https://mantle.ngrok.com",
   "repository": {
     "type": "git",
@@ -195,6 +195,10 @@
     "./media-object": {
       "import": "./dist/media-object.js",
       "types": "./dist/media-object.d.ts"
+    },
+    "./pagination": {
+      "import": "./dist/pagination.js",
+      "types": "./dist/pagination.d.ts"
     },
     "./popover": {
       "import": "./dist/popover.js",
