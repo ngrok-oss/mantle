@@ -1,15 +1,15 @@
 import { cva } from "class-variance-authority";
 import { forwardRef, type ComponentProps } from "react";
-import { cx } from "../../cx";
 import type { VariantProps } from "../../types";
+import { cx } from "../../utils/cx";
 
-const buttonGroupVariants = cva("inline-flex items-center rounded-md border-form hover:border-neutral-400", {
+const buttonGroupVariants = cva("border-form inline-flex items-center rounded-md hover:border-neutral-400", {
 	variants: {
 		/**
 		 * Defines the visual style of the ButtonGroup.
 		 */
 		appearance: {
-			panel: "gap-0.5 border bg-form p-[0.1875rem] [--icon-button-border-radius:0.125rem] [&>.separator]:mx-px",
+			panel: "bg-form gap-0.5 border p-[0.1875rem] [--icon-button-border-radius:0.125rem] [&>.separator]:mx-px",
 			ghost: "gap-0.5",
 			outlined: "", // TODO(cody): implement me
 		},

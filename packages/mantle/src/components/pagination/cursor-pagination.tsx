@@ -2,8 +2,8 @@ import { CaretLeft } from "@phosphor-icons/react/dist/icons/CaretLeft";
 import { CaretRight } from "@phosphor-icons/react/dist/icons/CaretRight";
 import { createContext, forwardRef, useContext, useState, type ComponentProps, type ElementRef } from "react";
 import invariant from "tiny-invariant";
-import { ButtonGroup, IconButton } from "../../../button";
-import { cx } from "../../../utils/cx";
+import { cx } from "../../utils/cx";
+import { ButtonGroup, IconButton } from "../button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../select";
 import { Separator } from "../separator";
 
