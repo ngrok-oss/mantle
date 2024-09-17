@@ -28,7 +28,7 @@ const ProgressContext = createContext<ProgressContextValue>({
 
 type SvgAttributes = Omit<
 	HTMLAttributes<SVGElement>,
-	"viewBox" | "role" | "aria-valuemax" | "aria-valuemin" | "aria-valuenow" | "wdith" | "height"
+	"viewBox" | "role" | "aria-valuemax" | "aria-valuemin" | "aria-valuenow" | "width" | "height"
 >;
 
 type Props = SvgAttributes & {
