@@ -1,17 +1,13 @@
-import mantleCss from "@ngrok/mantle/mantle.css";
+import mantleCss from "@ngrok/mantle/mantle.css?url";
 import { MantleThemeHeadContent, ThemeProvider, useInitialHtmlThemeProps } from "@ngrok/mantle/theme-provider";
 import { TooltipProvider } from "@ngrok/mantle/tooltip";
-import { cssBundleHref } from "@remix-run/css-bundle";
 import type { LinksFunction } from "@remix-run/node";
-import { json, Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from "@remix-run/react";
+import { json, Links, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from "@remix-run/react";
 import { AutoScrollToHash } from "./components/auto-scroll-to-hash";
 import { Layout } from "./components/layout";
 import { NavigationProvider } from "./components/navigation-context";
 
-export const links: LinksFunction = () => [
-	...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
-	{ rel: "stylesheet", href: mantleCss },
-];
+export const links: LinksFunction = () => [{ rel: "stylesheet", href: mantleCss }];
 
 export const loader = async () => {
 	const packageJson = await import("../../../packages/mantle/package.json");
@@ -49,7 +45,6 @@ export default function App() {
 				</ThemeProvider>
 				<ScrollRestoration />
 				<Scripts />
-				<LiveReload />
 			</body>
 		</html>
 	);

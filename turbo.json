@@ -10,15 +10,13 @@
 		"clean": {
 			"cache": false
 		},
-		"dev": {
-			"cache": false
-		},
 		"lint": {
 			"dependsOn": ["^lint"],
 			"outputs": ["node_modules/.cache/.eslintcache"]
 		},
 		"serve": {
-			"dependsOn": ["^build"]
+			"dependsOn": ["^build"],
+      "outputs": ["public/build/**"]
 		},
 		"start": {
 			"dependsOn": ["^build"],

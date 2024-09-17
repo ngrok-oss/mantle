@@ -5,6 +5,10 @@
     "paths": {
       "~/*": ["./app/*"],
       "@ngrok/mantle/data-table": ["../../packages/mantle/src/components/data-table/index.ts"],
-    }
+    },
+    "types": ["@remix-run/node", "vite/client"],
+    "skipLibCheck": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler"
   }
 }

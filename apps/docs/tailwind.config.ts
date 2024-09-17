@@ -3,5 +3,5 @@ import type { Config } from "tailwindcss";
 
 export default {
 	presets: [mantlePreset],
-	content: ["./app/**/*.tsx", "../../packages/mantle/dist/**/*.js"],
+	content: ["./app/**/*.tsx", "../../packages/mantle/src/**/*.{ts,tsx}"],
 } satisfies Config;

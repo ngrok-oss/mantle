@@ -1,8 +1,6 @@
 {
   "extends": "./base.json",
   "compilerOptions": {
-    "moduleResolution": "Bundler",
-
     /* If transpiling with TypeScript: */
     "module": "NodeNext",
     "sourceMap": true,
