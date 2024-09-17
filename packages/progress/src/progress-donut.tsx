@@ -14,28 +14,21 @@ type ValueType = number | "indeterminate";
  */
 const defaultMax = 100;
 
-/**
- * The size of the viewbox for the progress bar svg.
- */
-const viewboxSize = 32;
-
 type ProgressContextValue = {
 	max: number;
-	radius: number;
 	strokeWidth: StrokeWidth;
 	value: ValueType;
 };
 
 const ProgressContext = createContext<ProgressContextValue>({
 	max: defaultMax,
-	radius: 16,
 	strokeWidth: "0.25rem",
 	value: 0,
 });
 
 type SvgAttributes = Omit<
 	HTMLAttributes<SVGElement>,
-	"viewBox" | "role" | "aria-valuemax" | "aria-valuemin" | "aria-valuenow"
+	"viewBox" | "role" | "aria-valuemax" | "aria-valuemin" | "aria-valuenow" | "wdith" | "height"
 >;
 
 type Props = SvgAttributes & {
@@ -81,18 +74,15 @@ const ProgressDonut = ({
 	const max = isValidMaxNumber(_max) ? _max : defaultMax;
 	const value = (isValidValueNumber(_value, max) ? _value : _value == null ? 0 : "indeterminate") satisfies ValueType;
 	const strokeWidthPx = deriveStrokeWidthPx(_strokeWidth);
-	const strokeWidthRem = pxToRem(strokeWidthPx);
-	const radius = circleRadius(strokeWidthPx);
 	const valueNow = isNumber(value) ? value : undefined;
 
 	const ctx: ProgressContextValue = useMemo(
 		() => ({
 			max,
-			radius,
-			strokeWidth: strokeWidthRem,
+			strokeWidth: strokeWidthPx,
 			value,
 		}),
-		[max, radius, strokeWidthRem, value],
+		[max, strokeWidthPx, value],
 	);
 
 	return (
@@ -102,25 +92,24 @@ const ProgressDonut = ({
 				aria-valuemin={0}
 				aria-valuenow={valueNow}
 				className={clsx(
-					"origin-center",
-					value === "indeterminate" && "animate-spin",
-					value !== "indeterminate" && "-rotate-90 transform-gpu",
-					cx("size-6 text-gray-200 animation-duration-[15s] dark:text-gray-300", className),
+					value === "indeterminate" && "transform-gpu animate-spin animation-duration-[15s]",
+					cx("size-6 text-gray-200 dark:text-gray-300", className),
 				)}
 				data-max={max}
 				data-min={0}
 				data-value={valueNow}
+				height="100%"
 				role="progressbar"
-				viewBox={`0 0 ${viewboxSize} ${viewboxSize}`}
+				width="100%"
 				{...props}
 			>
 				<circle
-					cx={viewboxSize / 2}
-					cy={viewboxSize / 2}
+					cx="50%"
+					cy="50%"
 					fill="transparent"
-					r={radius}
+					r={`calc(50% - ${strokeWidthPx / 2}px)`}
 					stroke="currentColor"
-					strokeWidth={pxToRem(strokeWidthPx)}
+					strokeWidth={strokeWidthPx}
 				/>
 				{children}
 			</svg>
@@ -141,8 +130,8 @@ type ProgressDonutIndicatorProps = WithStyleProps;
 const ProgressDonutIndicator = ({ className, style }: ProgressDonutIndicatorProps) => {
 	const gradientId = useRandomStableId();
 	const ctx = useContext(ProgressContext);
-	const circumferenceValue = circumference(ctx.radius);
-	const progressValue = ctx.value == "indeterminate" ? indeterminateTailPercent : ctx.value / ctx.max;
+	const percentage = (ctx.value == "indeterminate" ? indeterminateTailPercent : ctx.value / ctx.max) * 100;
+	const strokeWidthPx = deriveStrokeWidthPx(ctx.strokeWidth);
 
 	return (
 		<g className={cx("text-accent-600", className)} style={style}>
@@ -155,15 +144,18 @@ const ProgressDonutIndicator = ({ className, style }: ProgressDonutIndicatorProp
 				</defs>
 			)}
 			<circle
-				cx={viewboxSize / 2}
-				cy={viewboxSize / 2}
+				cx="50%"
+				cy="50%"
 				fill="transparent"
-				r={ctx.radius}
+				pathLength={100}
+				r={`calc(50% - ${strokeWidthPx / 2}px)`}
 				stroke={ctx.value == "indeterminate" ? `url(#${gradientId})` : "currentColor"}
-				strokeDasharray={circumferenceValue}
-				strokeDashoffset={`${(1 - progressValue) * circumferenceValue}px`}
+				strokeDasharray={100}
+				strokeDashoffset={100 - percentage}
 				strokeLinecap="round"
-				strokeWidth={ctx.strokeWidth}
+				strokeWidth={strokeWidthPx}
+				transform-origin="center"
+				transform="rotate(-90)" // rotate -90 degrees so it starts from the top
 			/>
 		</g>
 	);
@@ -176,26 +168,10 @@ export {
 };
 
 /**
- * Calculate the radius of a circle given the stroke width.
- * The radius is calculated as half the viewbox size minus half the stroke width
- * so that the stroke doesn't clamp within the viewbox.
+ * Clamp a value between a minimum and maximum value.
  */
-function circleRadius(strokeWidth: number): number {
-	const value = Number.isNaN(strokeWidth) ? 4 : strokeWidth;
-	// clamp the stroke width to a minimum of 1 and max of 16 non-inclusive on both sides
-	const clampedStrokeWidth = clamp(value, { min: 1, max: 16 });
-	return (viewboxSize - clampedStrokeWidth) / 2;
-}
-
 function clamp(value: number, { min, max }: { min: number; max: number }): number {
 	return Math.min(max, Math.max(min, value));
-}
-
-/**
- * Convert a pixel value to a rem value.
- */
-function pxToRem(value: number): RemValue {
-	return `${value / 16}rem` as RemValue;
 }
 
 /**
@@ -219,14 +195,6 @@ export function deriveStrokeWidthPx(strokeWidth: number | string | undefined): n
 
 	const stroke = Number.isNaN(value) ? 4 : value;
 	return clamp(stroke, { min: 1, max: 12 });
-}
-
-/**
- * Calculate the circumference of a circle given its radius.
- * C = 2πr
- */
-function circumference(radius: number) {
-	return 2 * Math.PI * radius;
 }
 
 /**

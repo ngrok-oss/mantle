@@ -44,11 +44,11 @@ export default function Page() {
 				</p>
 				<div>
 					<Example className="flex-col gap-6">
-						<ProgressDonut value={60} className="size-10">
+						<ProgressDonut value={60} className="size-10" strokeWidth="0.375rem">
 							<ProgressDonutIndicator />
 						</ProgressDonut>
 
-						<ProgressDonut value={60} className="size-10">
+						<ProgressDonut value={60} className="size-10" strokeWidth="0.375rem">
 							<ProgressDonutIndicator className="text-fuchsia-600" />
 						</ProgressDonut>
 
@@ -62,7 +62,7 @@ export default function Page() {
 
 							<div className="flex items-center gap-1.5 text-xs">
 								<div className="grid w-6 place-items-center">
-									<ProgressDonut value={100} className="size-4" strokeWidth="0.315rem">
+									<ProgressDonut value={100} className="size-4" strokeWidth="0.1875rem">
 										<ProgressDonutIndicator />
 									</ProgressDonut>
 								</div>
@@ -71,7 +71,7 @@ export default function Page() {
 
 							<div className="flex items-center gap-1.5 text-xs">
 								<div className="grid w-6 place-items-center">
-									<ProgressDonut className="size-4" value="indeterminate" strokeWidth="0.315rem">
+									<ProgressDonut className="size-4" value="indeterminate" strokeWidth="0.1875rem">
 										<ProgressDonutIndicator />
 									</ProgressDonut>
 								</div>
@@ -87,11 +87,11 @@ export default function Page() {
 								value={fmtCode`
 									import { ProgressDonut, ProgressDonutIndicator } from "@ngrok/mantle/progress";
 
-									<ProgressDonut value={60} className="size-10">
+									<ProgressDonut value={60} className="size-10" strokeWidth="0.375rem">
 										<ProgressDonutIndicator />
 									</ProgressDonut>
 
-									<ProgressDonut value={60} className="size-10">
+									<ProgressDonut value={60} className="size-10" strokeWidth="0.375rem">
 										<ProgressDonutIndicator className="text-fuchsia-600" />
 									</ProgressDonut>
 
@@ -105,7 +105,7 @@ export default function Page() {
 
 										<div className="flex items-center gap-1.5 text-xs">
 											<div className="grid w-6 place-items-center">
-												<ProgressDonut value={100} className="size-4" strokeWidth="0.315rem">
+												<ProgressDonut value={100} className="size-4" strokeWidth="0.1875rem">
 													<ProgressDonutIndicator />
 												</ProgressDonut>
 											</div>
@@ -114,7 +114,7 @@ export default function Page() {
 
 										<div className="flex items-center gap-1.5 text-xs">
 											<div className="grid w-6 place-items-center">
-												<ProgressDonut value={25} className="size-4" strokeWidth="0.315rem">
+												<ProgressDonut value={25} className="size-4" strokeWidth="0.1875rem">
 													<ProgressDonutIndicator className="text-success-600" />
 												</ProgressDonut>
 											</div>
@@ -137,7 +137,7 @@ export default function Page() {
 				</p>
 				<div>
 					<Example>
-						<ProgressDonut className="size-10" value="indeterminate">
+						<ProgressDonut className="size-10" value="indeterminate" strokeWidth="0.375rem">
 							<ProgressDonutIndicator />
 						</ProgressDonut>
 					</Example>
@@ -149,7 +149,7 @@ export default function Page() {
 								value={fmtCode`
 									import { ProgressDonut, ProgressDonutIndicator } from "@ngrok/mantle/progress";
 
-									<ProgressDonut className="size-10" value="indeterminate">
+									<ProgressDonut className="size-10" value="indeterminate" strokeWidth="0.375rem">
 										<ProgressDonutIndicator />
 									</ProgressDonut>
 								`}
@@ -201,7 +201,7 @@ export default function Page() {
 
 										return (
 											<form className="space-y-4">
-												<ProgressDonut value={value} className="size-10">
+												<ProgressDonut value={value} className="size-10" strokeWidth="0.375rem">
 													<ProgressDonutIndicator className={computeColor()} />
 												</ProgressDonut>
 												<label className="block space-y-1">
@@ -321,7 +321,7 @@ const DynamicColorsExample = () => {
 
 	return (
 		<form className="space-y-4">
-			<ProgressDonut value={value} className="size-10">
+			<ProgressDonut value={value} className="size-10" strokeWidth="0.375rem">
 				<ProgressDonutIndicator className={computeColor()} />
 			</ProgressDonut>
 			<label className="block space-y-1">
