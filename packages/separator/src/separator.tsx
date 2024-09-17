@@ -56,6 +56,7 @@ const Separator = forwardRef<ElementRef<typeof SeparatorPrimitive.Root>, Separat
 				decorative={decorative}
 				orientation={orientation}
 				className={cx(
+					"separator",
 					"bg-gray-500/20 dark-high-contrast:bg-black high-contrast:bg-black dark:bg-gray-600/20",
 					orientation === "horizontal" ? "h-px w-full group-data-[horizontal-separator-group]:flex-1" : "h-full w-px",
 					className,

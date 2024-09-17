@@ -1,9 +1,12 @@
 import { Anchor } from "@/anchor";
-import { IconButton } from "@/button";
+import { ButtonGroup, IconButton } from "@/button";
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@/code-block";
 import { InlineCode } from "@/inline-code";
+import { CursorButtons, CursorPageSizeSelect, CursorPagination } from "@/pagination";
+import { Separator } from "@/separator";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/tooltip";
 import { Globe } from "@phosphor-icons/react/Globe";
+import { Shrimp } from "@phosphor-icons/react/Shrimp";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
 import { Example } from "~/components/example";
@@ -18,7 +21,7 @@ import {
 	StringPropType,
 } from "~/components/props-table";
 import { route } from "~/types/routes";
-import type { PropsWithChildren } from "react";
+import { useState, type PropsWithChildren } from "react";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -41,6 +44,9 @@ const DisabledTooltip = ({ children }: PropsWithChildren) => (
 );
 
 export default function Page() {
+	const [currentIndex, setCurrentIndex] = useState(0);
+	const [currentIndex2, setCurrentIndex2] = useState(0);
+
 	return (
 		<div className="space-y-16">
 			<section className="space-y-4">
@@ -51,6 +57,47 @@ export default function Page() {
 					Initiates an action, such as completing a task or submitting information. Renders only a single icon as
 					children with an accessible, screen-reader-only label.
 				</p>
+				<div>
+					<CursorPagination defaultPageSize={10}>
+						<CursorPageSizeSelect onChangePageSize={() => {}} />
+						<CursorButtons
+							hasNextPage={currentIndex < 5}
+							hasPreviousPage={currentIndex > 0}
+							onNextPage={() => setCurrentIndex((prev) => prev + 1)}
+							onPreviousPage={() => setCurrentIndex((prev) => prev - 1)}
+						/>
+					</CursorPagination>
+				</div>
+				<CursorPagination defaultPageSize={10}>
+					<CursorPageSizeSelect onChangePageSize={() => {}} />
+					<CursorButtons
+						hasNextPage={currentIndex2 < 5}
+						hasPreviousPage={currentIndex2 > 0}
+						onNextPage={() => setCurrentIndex2((prev) => prev + 1)}
+						onPreviousPage={() => setCurrentIndex2((prev) => prev - 1)}
+					/>
+				</CursorPagination>
+				<div>
+					<ButtonGroup appearance="outlined">
+						<IconButton type="button" appearance="outlined" label="prestige worldwide" size="sm" icon={<Globe />} />
+						<IconButton type="button" appearance="outlined" label="prestige worldwide" size="sm" icon={<Shrimp />} />
+					</ButtonGroup>
+				</div>
+				<div>
+					<ButtonGroup appearance="outlined">
+						<IconButton type="button" appearance="outlined" label="prestige worldwide" size="sm" icon={<Globe />} />
+						<IconButton type="button" appearance="outlined" label="prestige worldwide" size="sm" icon={<Shrimp />} />
+						<IconButton type="button" appearance="outlined" label="prestige worldwide" size="sm" icon={<Shrimp />} />
+					</ButtonGroup>
+				</div>
+				<div>
+					<ButtonGroup appearance="ghost">
+						<IconButton type="button" appearance="ghost" label="prestige worldwide" size="sm" icon={<Globe />} />
+						<IconButton type="button" appearance="ghost" label="prestige worldwide" size="sm" icon={<Shrimp />} />
+						<Separator orientation="vertical" className="h-5" />
+						<IconButton type="button" appearance="ghost" label="prestige worldwide" size="sm" icon={<Shrimp />} />
+					</ButtonGroup>
+				</div>
 				<div>
 					<Example className="flex flex-wrap gap-6">
 						<div>
