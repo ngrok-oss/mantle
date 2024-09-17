@@ -28,7 +28,7 @@ const ProgressContext = createContext<ProgressContextValue>({
 
 type SvgAttributes = Omit<
 	HTMLAttributes<SVGElement>,
-	"viewBox" | "role" | "aria-valuemax" | "aria-valuemin" | "aria-valuenow"
+	"viewBox" | "role" | "aria-valuemax" | "aria-valuemin" | "aria-valuenow" | "wdith" | "height"
 >;
 
 type Props = SvgAttributes & {
@@ -92,16 +92,15 @@ const ProgressDonut = ({
 				aria-valuemin={0}
 				aria-valuenow={valueNow}
 				className={clsx(
-					value === "indeterminate" && "animate-spin",
-					value !== "indeterminate" && "transform-gpu",
-					cx("size-6 text-gray-200 animation-duration-[15s] dark:text-gray-300", className),
+					value === "indeterminate" && "transform-gpu animate-spin animation-duration-[15s]",
+					cx("size-6 text-gray-200 dark:text-gray-300", className),
 				)}
 				data-max={max}
 				data-min={0}
 				data-value={valueNow}
+				height="100%"
 				role="progressbar"
 				width="100%"
-				height="100%"
 				{...props}
 			>
 				<circle
@@ -110,7 +109,7 @@ const ProgressDonut = ({
 					fill="transparent"
 					r={`calc(50% - ${strokeWidthPx / 2}px)`}
 					stroke="currentColor"
-					strokeWidth={ctx.strokeWidth}
+					strokeWidth={strokeWidthPx}
 				/>
 				{children}
 			</svg>
@@ -131,7 +130,7 @@ type ProgressDonutIndicatorProps = WithStyleProps;
 const ProgressDonutIndicator = ({ className, style }: ProgressDonutIndicatorProps) => {
 	const gradientId = useRandomStableId();
 	const ctx = useContext(ProgressContext);
-	const progressValue = ctx.value == "indeterminate" ? indeterminateTailPercent : ctx.value / ctx.max;
+	const percentage = (ctx.value == "indeterminate" ? indeterminateTailPercent : ctx.value / ctx.max) * 100;
 	const strokeWidthPx = deriveStrokeWidthPx(ctx.strokeWidth);
 
 	return (
@@ -148,15 +147,15 @@ const ProgressDonutIndicator = ({ className, style }: ProgressDonutIndicatorProp
 				cx="50%"
 				cy="50%"
 				fill="transparent"
+				pathLength={100}
 				r={`calc(50% - ${strokeWidthPx / 2}px)`}
 				stroke={ctx.value == "indeterminate" ? `url(#${gradientId})` : "currentColor"}
-				pathLength={100}
 				strokeDasharray={100}
-				strokeDashoffset={100 - progressValue * 100}
+				strokeDashoffset={100 - percentage}
 				strokeLinecap="round"
-				strokeWidth={ctx.strokeWidth}
-				transform="rotate(-90)"
+				strokeWidth={strokeWidthPx}
 				transform-origin="center"
+				transform="rotate(-90)" // rotate -90 degrees so it starts from the top
 			/>
 		</g>
 	);
@@ -168,6 +167,9 @@ export {
 	ProgressDonutIndicator,
 };
 
+/**
+ * Clamp a value between a minimum and maximum value.
+ */
 function clamp(value: number, { min, max }: { min: number; max: number }): number {
 	return Math.min(max, Math.max(min, value));
 }
