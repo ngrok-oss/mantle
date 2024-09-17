@@ -26,7 +26,7 @@
   },
   "scripts": {
     "build": "tsup",
-    "start": "tsup --watch",
+    "dev": "tsup --watch",
     "lint": "eslint .",
     "test": "TZ=UTC vitest run",
     "test:watch": "TZ=UTC vitest watch",
