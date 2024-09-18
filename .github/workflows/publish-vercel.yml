@@ -28,7 +28,7 @@ jobs:
         # use version from package.json#packageManager field
 
       - name: Install Vercel CLI
-        run: pnpm install --global vercel@latest
+        run: pnpm install --global vercel@latest turbo@latest
 
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
