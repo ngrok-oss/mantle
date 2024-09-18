@@ -21,6 +21,6 @@ jobs:
 
       - run: pnpm install
 
-      - run: pnpm publish --filter @ngrok/mantle --access public --no-git-checks
+      - run: cd packages/mantle && pnpm publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
