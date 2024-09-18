@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["src/**/*", "assets/**/*"],
+	"exclude": ["**/*.test.*"],
+  "compilerOptions": {
+    /* does not play nice with tsup */
+    "composite": false
+  }
+}
