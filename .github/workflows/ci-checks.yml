@@ -38,5 +38,5 @@ jobs:
 
       - name: Diff Docs Routes Codegen 🕵️
         run: | # Diff the docs routes codegen
-          cd apps/docs && pnpm run gen:docs-routes
+          cd apps/www && pnpm run gen:docs-routes
           git diff --exit-code
