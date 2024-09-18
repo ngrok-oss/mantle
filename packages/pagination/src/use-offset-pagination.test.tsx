@@ -77,4 +77,40 @@ describe("useOffsetPagination", () => {
 		expect(result.current.hasNextPage).toBe(true);
 		expect(result.current.hasPreviousPage).toBe(false);
 	});
+
+	test("changing the page size resets the current page to 1", async () => {
+		const { result, rerender } = renderHook((props) => useOffsetPagination(props), {
+			initialProps: {
+				listSize: 1867,
+				pageSize: 100,
+			},
+		});
+
+		expect(result.current.currentPage).toBe(1);
+		expect(result.current.pageSize).toBe(100);
+
+		await act(() => result.current.nextPage());
+		expect(result.current.currentPage).toBe(2);
+
+		rerender({ listSize: 1867, pageSize: 50 });
+		expect(result.current.currentPage).toBe(1);
+	});
+
+	test("changing the list size resets the current page to 1", async () => {
+		const { result, rerender } = renderHook((props) => useOffsetPagination(props), {
+			initialProps: {
+				listSize: 1867,
+				pageSize: 100,
+			},
+		});
+
+		expect(result.current.currentPage).toBe(1);
+		expect(result.current.pageSize).toBe(100);
+
+		await act(() => result.current.nextPage());
+		expect(result.current.currentPage).toBe(2);
+
+		rerender({ listSize: 200, pageSize: 100 });
+		expect(result.current.currentPage).toBe(1);
+	});
 });
