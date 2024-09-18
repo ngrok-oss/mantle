@@ -36,6 +36,7 @@
     "@types/prismjs": "1.26.4",
     "@types/react": "18.3.5",
     "@types/react-dom": "18.3.0",
+    "@vercel/remix": "2.12.0",
     "@vitest/ui": "2.0.5",
     "commander": "12.1.0",
     "eslint": "9.10.0",

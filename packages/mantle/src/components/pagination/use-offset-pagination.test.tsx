@@ -89,7 +89,7 @@ describe("useOffsetPagination", () => {
 		expect(result.current.currentPage).toBe(1);
 		expect(result.current.pageSize).toBe(100);
 
-		await act(() => result.current.nextPage());
+		act(() => result.current.nextPage());
 		expect(result.current.currentPage).toBe(2);
 
 		rerender({ listSize: 1867, pageSize: 50 });
@@ -107,7 +107,7 @@ describe("useOffsetPagination", () => {
 		expect(result.current.currentPage).toBe(1);
 		expect(result.current.pageSize).toBe(100);
 
-		await act(() => result.current.nextPage());
+		act(() => result.current.nextPage());
 		expect(result.current.currentPage).toBe(2);
 
 		rerender({ listSize: 200, pageSize: 100 });
