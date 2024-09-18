@@ -1,5 +1,5 @@
+import { useIsomorphicLayoutEffect, usePrefersReducedMotion } from "@ngrok/mantle/hooks";
 import { useLocation } from "@remix-run/react";
-import { useIsomorphicLayoutEffect, usePrefersReducedMotion } from "~/hooks";
 import { useMemo } from "react";
 
 type Props = {
