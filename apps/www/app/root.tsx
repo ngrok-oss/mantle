@@ -10,7 +10,7 @@ import { NavigationProvider } from "./components/navigation-context";
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: mantleCss }];
 
 export const loader = async () => {
-	const packageJson = await import("../../../packages/mantle/package.json");
+	const packageJson = await import("@ngrok/mantle/package.json");
 	const commitSha = process.env.VERCEL_GIT_COMMIT_SHA;
 	const deploymentId = process.env.VERCEL_DEPLOYMENT_ID;
 	return json({ currentVersion: packageJson.default.version, commitSha, deploymentId });
