@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type UseOffsetPaginationProps = {
 	/**
@@ -68,6 +68,17 @@ type OffsetPaginationState = {
 function useOffsetPagination({ listSize, pageSize }: UseOffsetPaginationProps): OffsetPaginationState {
 	const [currentPage, setCurrentPage] = useState(1);
 	const [currentPageSize, setCurrentPageSize] = useState(pageSize);
+
+	// Reset the current page to 1 when the page size prop changes
+	useEffect(() => {
+		setCurrentPageSize(pageSize);
+		setCurrentPage(1);
+	}, [pageSize]);
+
+	// Reset the current page to 1 when the list size prop changes
+	useEffect(() => {
+		setCurrentPage(1);
+	}, [listSize]);
 
 	const totalPages = Math.ceil(listSize / currentPageSize);
 	const offset = (currentPage - 1) * currentPageSize;
