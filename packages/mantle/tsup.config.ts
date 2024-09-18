@@ -44,7 +44,6 @@ const commonOptions = {
 	external: ["@phosphor-icons/react", "react", "react-dom", "tailwindcss", "zod"],
 	minify: true,
 	sourcemap: true,
-	splitting: true,
 	target: "es2022",
 	tsconfig: "tsconfig.build.json",
 } satisfies Options;
@@ -63,7 +62,6 @@ export default defineConfig((options) => [
 	},
 	{
 		...commonOptions,
-		splitting: false,
 		format: ["esm", "cjs"], // we need to dual publish the tailwind preset for now because postcss expects cjs
 		entry: {
 			"tailwind-preset": "./src/tailwind-preset/index.ts",

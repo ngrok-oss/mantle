@@ -25,8 +25,8 @@
     "node": "^20.0.0"
   },
   "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch",
+    "build": "NODE_OPTIONS='--max-old-space-size=16384' tsup",
+    "dev": "NODE_OPTIONS='--max-old-space-size=16384' tsup --watch",
     "lint": "eslint .",
     "test": "TZ=UTC vitest run",
     "test:watch": "TZ=UTC vitest watch",
