@@ -3,7 +3,7 @@
   "description": "mantle is ngrok's UI library and design system.",
   "author": "ngrok",
   "license": "MIT",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "homepage": "https://mantle.ngrok.com",
   "repository": {
     "type": "git",
@@ -26,14 +26,14 @@
   },
   "scripts": {
     "build": "NODE_OPTIONS='--max-old-space-size=16384' tsup",
-    "dev": "NODE_OPTIONS='--max-old-space-size=16384' tsup --watch",
-    "lint": "eslint .",
-    "test": "TZ=UTC vitest run",
-    "test:watch": "TZ=UTC vitest watch",
-    "test:ui": "TZ=UTC vitest --ui",
-    "typecheck": "tsc",
     "clean": "rm -rf dist",
-    "prepublishOnly": "pnpm run build"
+    "lint": "eslint .",
+    "prebuild": "rm -rf dist",
+    "prepublishOnly": "pnpm run build",
+    "test:ui": "TZ=UTC vitest --ui",
+    "test:watch": "TZ=UTC vitest watch",
+    "test": "TZ=UTC vitest run",
+    "typecheck": "tsc"
   },
   "dependencies": {
     "@headlessui/react": "2.1.5",
