@@ -16,9 +16,19 @@ const prefersDarkModeMediaQuery = "(prefers-color-scheme: dark)";
 const prefersHighContrastMediaQuery = "(prefers-contrast: more)";
 
 /**
+ * resolvedThemes is a tuple of valid themes that have been resolved from "system" to a specific theme.
+ */
+const resolvedThemes = ["light", "dark", "light-high-contrast", "dark-high-contrast"] as const;
+
+/**
+ * ResolvedTheme is a type that represents a theme that has been resolved from "system" to a specific theme.
+ */
+type ResolvedTheme = (typeof resolvedThemes)[number];
+
+/**
  * themes is a tuple of valid themes.
  */
-const themes = ["system", "light", "dark", "light-high-contrast", "dark-high-contrast"] as const;
+const themes = ["system", ...resolvedThemes] as const;
 
 /**
  * Theme is a string literal type that represents a valid theme.
@@ -26,9 +36,9 @@ const themes = ["system", "light", "dark", "light-high-contrast", "dark-high-con
 type Theme = (typeof themes)[number];
 
 /**
- * theme is a helper which translates the Theme type into a string literal type.
+ * $theme is a helper which translates the Theme type into a string literal type.
  */
-const theme = <T extends Theme>(value: T) => value;
+const $theme = <T extends Theme = Theme>(value: T) => value;
 
 /**
  * Type predicate that checks if a value is a valid theme.
@@ -39,6 +49,22 @@ function isTheme(value: unknown): value is Theme {
 	}
 
 	return themes.includes(value as Theme);
+}
+
+/**
+ * $resolvedTheme is a helper which translates the ResolvedTheme type into a string literal type.
+ */
+const $resolvedTheme = <T extends ResolvedTheme = ResolvedTheme>(value: T) => value;
+
+/**
+ * Type predicate that checks if a value is a valid resolved theme.
+ */
+function isResolvedTheme(value: unknown): value is ResolvedTheme {
+	if (typeof value !== "string") {
+		return false;
+	}
+
+	return resolvedThemes.includes(value as ResolvedTheme);
 }
 
 /**
@@ -160,7 +186,7 @@ function useTheme() {
 }
 
 /**
- * Applies the given theme to the <html> element.
+ * Applies the given theme to the `<html>` element.
  */
 function applyTheme(theme: Theme) {
 	if (!isBrowser()) {
@@ -175,6 +201,27 @@ function applyTheme(theme: Theme) {
 	htmlElement.classList.add(newTheme);
 	htmlElement.dataset.appliedTheme = newTheme;
 	htmlElement.dataset.theme = theme;
+}
+
+/**
+ * Read the theme and applied theme from the `<html>` element.
+ */
+function readThemeFromHtmlElement() {
+	if (!isBrowser()) {
+		return {
+			appliedTheme: undefined,
+			theme: undefined,
+		};
+	}
+
+	const htmlElement = window.document.documentElement;
+	const theme = isTheme(htmlElement.dataset.theme) ? htmlElement.dataset.theme : undefined;
+	const appliedTheme = isResolvedTheme(htmlElement.dataset.appliedTheme) ? htmlElement.dataset.appliedTheme : undefined;
+
+	return {
+		appliedTheme,
+		theme,
+	};
 }
 
 /**
@@ -215,7 +262,7 @@ export function determineThemeFromMediaQuery({
 }: {
 	prefersDarkMode: boolean;
 	prefersHighContrast: boolean;
-}) {
+}): ResolvedTheme {
 	if (prefersHighContrast) {
 		return prefersDarkMode ? "dark-high-contrast" : "light-high-contrast";
 	}
@@ -324,14 +371,27 @@ function useInitialHtmlThemeProps(props?: {
 	}, [className, defaultTheme, storageKey]);
 }
 
-export type { Theme, ThemeProviderProps };
 export {
+	//,
+	$resolvedTheme,
+	$theme,
+	applyTheme,
+	isResolvedTheme,
 	isTheme,
 	MantleThemeHeadContent,
 	preventWrongThemeFlashScriptContent,
-	theme,
+	readThemeFromHtmlElement,
+	resolvedThemes,
 	ThemeProvider,
+	themes,
 	useAppliedTheme,
 	useInitialHtmlThemeProps,
 	useTheme,
+};
+
+export type {
+	//,
+	ResolvedTheme,
+	Theme,
+	ThemeProviderProps,
 };

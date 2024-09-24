@@ -1,7 +1,7 @@
 import { Button } from "@ngrok/mantle/button";
 import { cx } from "@ngrok/mantle/cx";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger } from "@ngrok/mantle/select";
-import { isTheme, theme, useTheme } from "@ngrok/mantle/theme-provider";
+import { $theme, isTheme, useTheme } from "@ngrok/mantle/theme-provider";
 import type { WithStyleProps } from "@ngrok/mantle/types";
 import { List } from "@phosphor-icons/react/List";
 import { Sun } from "@phosphor-icons/react/Sun";
@@ -88,11 +88,11 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 					<SelectContent>
 						<SelectGroup>
 							<SelectLabel>Choose a theme</SelectLabel>
-							<SelectItem value={theme("system")}>System</SelectItem>
-							<SelectItem value={theme("light")}>Light</SelectItem>
-							<SelectItem value={theme("dark")}>Dark</SelectItem>
-							<SelectItem value={theme("light-high-contrast")}>Light High Contrast</SelectItem>
-							<SelectItem value={theme("dark-high-contrast")}>Dark High Contrast</SelectItem>
+							<SelectItem value={$theme("system")}>System</SelectItem>
+							<SelectItem value={$theme("light")}>Light</SelectItem>
+							<SelectItem value={$theme("dark")}>Dark</SelectItem>
+							<SelectItem value={$theme("light-high-contrast")}>Light High Contrast</SelectItem>
+							<SelectItem value={$theme("dark-high-contrast")}>Dark High Contrast</SelectItem>
 						</SelectGroup>
 					</SelectContent>
 				</Select>
