@@ -198,7 +198,7 @@ const previewComponentsRouteLookup = {
 function Navigation({ className, style }: WithStyleProps) {
 	return (
 		<nav className={cx("text-sm", className)} style={style}>
-			<ul role="list" className="flex flex-col">
+			<ul className="flex flex-col">
 				<li className="mb-2 text-xs font-medium uppercase tracking-wider">Welcome</li>
 
 				<li>
@@ -209,7 +209,7 @@ function Navigation({ className, style }: WithStyleProps) {
 
 				<li className="mt-6 text-xs font-medium uppercase tracking-wider">Base</li>
 
-				<ul role="list" className="mt-2">
+				<ul className="mt-2">
 					<li>
 						<NavLink to="/base/colors" prefetch="intent">
 							Colors
@@ -233,7 +233,7 @@ function Navigation({ className, style }: WithStyleProps) {
 				</ul>
 
 				<li className="mt-6 text-xs font-medium uppercase tracking-wider">Components</li>
-				<ul role="list" className="mt-2">
+				<ul className="mt-2">
 					{prodReadyComponents.map((component) => (
 						<li key={component}>
 							<NavLink to={prodReadyComponentRouteLookup[component]} prefetch="intent">
@@ -244,7 +244,7 @@ function Navigation({ className, style }: WithStyleProps) {
 				</ul>
 
 				<li className="mt-6 text-xs font-medium uppercase tracking-wider">Preview Components</li>
-				<ul role="list" className="mt-2">
+				<ul className="mt-2">
 					{previewComponents.map((component) => (
 						<li key={component}>
 							<NavLink to={previewComponentsRouteLookup[component]} prefetch="intent">
@@ -255,7 +255,7 @@ function Navigation({ className, style }: WithStyleProps) {
 				</ul>
 
 				<li className="mt-6 text-xs font-medium uppercase tracking-wider">Unreleased Components</li>
-				<ul role="list" className="mt-2">
+				<ul className="mt-2">
 					<li>
 						<NavLink to="/components/unreleased/data-table" prefetch="intent">
 							Data Table
