@@ -1,7 +1,69 @@
-@import url("https://cdn.ngrok.com/static/fonts/fonts.css");
+/* Euclid Square */
+@font-face {
+	font-family: EuclidSquare;
+	font-style: normal;
+	font-weight: normal;
+	src: url("https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Regular-WebS.woff") format("woff");
+}
 
-/* TODO: Host this on our CDN */
-@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap");
+@font-face {
+	font-family: EuclidSquare;
+	font-style: italic;
+	font-weight: normal;
+	src: url("https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-RegularItalic-WebS.woff") format("woff");
+}
+
+@font-face {
+	font-family: EuclidSquare;
+	font-style: normal;
+	font-weight: 500;
+	src: url("https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Medium-WebS.woff") format("woff");
+}
+
+@font-face {
+	font-family: EuclidSquare;
+	font-style: normal;
+	font-weight: 600;
+	src: url("https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-Semibold-WebS.woff") format("woff");
+}
+
+@font-face {
+	font-family: EuclidSquare;
+	font-style: italic;
+	font-weight: 500;
+	src: url("https://cdn.ngrok.com/static/fonts/euclid-square/EuclidSquare-MediumItalic-WebS.woff") format("woff");
+}
+
+/* IBM Plex Mono */
+
+@font-face {
+	font-family: IBMPlexMono;
+	font-style: normal;
+	font-weight: normal;
+	src: url("https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-Text.woff") format("woff");
+}
+
+@font-face {
+	font-family: IBMPlexMono;
+	font-style: italic;
+	font-weight: normal;
+	src: url("https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-TextItalic.woff") format("woff");
+}
+
+/* semibold is actually 600, but mapping it to 500 works better across AntD */
+@font-face {
+	font-family: IBMPlexMono;
+	font-style: normal;
+	font-weight: 500;
+	src: url("https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBold.woff") format("woff");
+}
+
+@font-face {
+	font-family: IBMPlexMono;
+	font-style: italic;
+	font-weight: 500;
+	src: url("https://cdn.ngrok.com/static/fonts/ibm-plex-mono/IBMPlexMono-SemiBoldItalic.woff") format("woff");
+}
 
 @tailwind base;
 @tailwind components;
@@ -1514,16 +1576,6 @@
 	.dark-high-contrast {
 		color-scheme: dark;
 	}
-
-	/* .stop-current-color {
-		stop-color: currentColor;
-	}
-	.stop-opacity-100 {
-		stop-opacity: 1;
-	}
-	.stop-opacity-0 {
-		stop-opacity: 0;
-	} */
 
 	.scrollbar::-webkit-scrollbar {
 		width: 0.5rem;
