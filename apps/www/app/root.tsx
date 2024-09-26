@@ -23,8 +23,8 @@ export default function App() {
 	return (
 		<html id="ngrok" {...initialHtmlThemeProps} lang="en-US" dir="ltr">
 			<head>
-				<MantleThemeHeadContent includeNunitoSans />
 				<meta charSet="utf-8" />
+				<MantleThemeHeadContent includeNunitoSans />
 				<meta name="author" content="ngrok" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<meta name="commit-sha" content={commitSha} />
