@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { fmtCode } from "./fmt-code";
+import { fmtCode } from "./fmt-code.js";
 
 describe("fmtCode", () => {
 	test("given empty string, returns empty string", () => {

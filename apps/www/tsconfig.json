@@ -1,40 +1,16 @@
 {
-  "extends": "@cfg/tsconfig/react-app.json",
+  "extends": "@cfg/tsconfig/tsconfig.react-app.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
       "~/*": ["./app/*"],
-
-      /* we sneakily reference the local packages dir to enable instant HMR in dev */
-      /* while maintaining the same imports as our public package api */
-      "@ngrok/mantle/mantle.css?url": [
-        "../../packages/mantle/assets/mantle.css"
-      ],
-      "@ngrok/mantle/color": [
-        "../../packages/mantle/src/utils/color"
-      ],
-      "@ngrok/mantle/compose-refs": [
-        "../../packages/mantle/src/utils/compose-refs"
-      ],
-      "@ngrok/mantle/cx": [
-        "../../packages/mantle/src/utils/cx"
-      ],
-      "@ngrok/mantle/tailwind-preset": [
-        "../../packages/mantle/src/tailwind-preset"
-      ],
-      "@ngrok/mantle/hooks": [
-        "../../packages/mantle/src/hooks"
-      ],
-      "@ngrok/mantle/types": [
-        "../../packages/mantle/src/types"
-      ],
-      "@ngrok/mantle/*": [
-        "../../packages/mantle/src/components/*"
-      ],
-    },
+		},
     "types": ["@remix-run/node", "vite/client"],
     "skipLibCheck": true,
     "module": "ESNext",
-    "moduleResolution": "Bundler"
+    "moduleResolution": "Bundler",
+		"customConditions": [
+			"@ngrok/mantle/source"
+		]
   }
 }

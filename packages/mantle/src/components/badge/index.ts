@@ -1,3 +1,9 @@
-export { Badge } from "./badge";
+export {
+	//,
+	Badge,
+} from "./badge.js";
 
-export type { BadgeProps } from "./badge";
+export type {
+	//,
+	BadgeProps,
+} from "./badge.js";

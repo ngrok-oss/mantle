@@ -1,5 +1,5 @@
 {
-  "extends": "./base.json",
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
     /* If NOT transpiling with TypeScript: */
     "module": "preserve",

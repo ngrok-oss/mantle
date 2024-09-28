@@ -1,5 +1,5 @@
 {
-  "extends": "./base.json",
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
     /* If transpiling with TypeScript: */
     "module": "NodeNext",

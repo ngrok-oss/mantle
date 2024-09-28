@@ -5,10 +5,10 @@ import clsx from "clsx";
 import { Children, cloneElement, forwardRef, isValidElement } from "react";
 import type { ButtonHTMLAttributes, PropsWithChildren, ReactNode } from "react";
 import invariant from "tiny-invariant";
-import { parseBooleanish } from "../../types";
-import type { VariantProps } from "../../types/variant-props";
-import { cx } from "../../utils/cx";
-import { Icon } from "../icon";
+import { parseBooleanish } from "../../types/index.js";
+import type { VariantProps } from "../../types/variant-props.js";
+import { cx } from "../../utils/cx/cx.js";
+import { Icon } from "../icon/index.js";
 
 const buttonVariants = cva(
 	"inline-flex cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap rounded-md text-base focus-within:outline-none focus-visible:ring-4 disabled:cursor-default disabled:opacity-50 sm:text-sm [&>*]:focus-within:outline-none",

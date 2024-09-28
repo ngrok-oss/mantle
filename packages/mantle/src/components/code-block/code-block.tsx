@@ -22,12 +22,12 @@ import { CaretDown } from "@phosphor-icons/react/CaretDown";
 import { Check } from "@phosphor-icons/react/Check";
 import { Copy } from "@phosphor-icons/react/Copy";
 import assert from "tiny-invariant";
-import { useCopyToClipboard } from "../../hooks/use-copy-to-clipboard";
-import type { WithStyleProps } from "../../types/with-style-props";
-import { cx } from "../../utils/cx";
-import type { LineRange } from "./line-numbers";
-import { formatLanguageClassName, supportedLanguages } from "./supported-languages";
-import type { SupportedLanguage } from "./supported-languages";
+import { useCopyToClipboard } from "../../hooks/use-copy-to-clipboard.js";
+import type { WithStyleProps } from "../../types/with-style-props.js";
+import { cx } from "../../utils/cx/cx.js";
+import type { LineRange } from "./line-numbers.js";
+import { formatLanguageClassName, supportedLanguages } from "./supported-languages.js";
+import type { SupportedLanguage } from "./supported-languages.js";
 
 /**
  * TODO(cody):

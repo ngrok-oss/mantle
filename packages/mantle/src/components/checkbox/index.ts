@@ -1,9 +1,9 @@
 export {
 	//,
 	Checkbox,
-} from "./checkbox";
+} from "./checkbox.js";
 
 export {
 	//,
 	zodCheckbox,
-} from "./zod";
+} from "./zod.js";

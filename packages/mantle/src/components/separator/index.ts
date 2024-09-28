@@ -1,1 +1,5 @@
-export { HorizontalSeparatorGroup, Separator } from "./separator";
+export {
+	//,
+	HorizontalSeparatorGroup,
+	Separator,
+} from "./separator.js";

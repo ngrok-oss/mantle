@@ -1,8 +1,8 @@
 import { cva } from "class-variance-authority";
 import { forwardRef } from "react";
 import type { HTMLAttributes } from "react";
-import type { VariantProps } from "../../types";
-import { cx } from "../../utils/cx";
+import type { VariantProps } from "../../types/index.js";
+import { cx } from "../../utils/cx/cx.js";
 
 const alertVariants = cva("relative flex w-full gap-1.5 rounded-md border p-2.5 text-sm", {
 	variants: {

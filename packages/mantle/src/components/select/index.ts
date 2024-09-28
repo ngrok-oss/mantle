@@ -1,4 +1,5 @@
 export {
+	//,
 	Select,
 	SelectContent,
 	SelectGroup,
@@ -7,4 +8,4 @@ export {
 	SelectSeparator,
 	SelectTrigger,
 	SelectValue,
-} from "./select";
+} from "./select.js";

@@ -2,10 +2,10 @@ import { CaretLeft } from "@phosphor-icons/react/dist/icons/CaretLeft";
 import { CaretRight } from "@phosphor-icons/react/dist/icons/CaretRight";
 import { createContext, forwardRef, useContext, useState, type ComponentProps, type ElementRef } from "react";
 import invariant from "tiny-invariant";
-import { cx } from "../../utils/cx";
-import { ButtonGroup, IconButton } from "../button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../select";
-import { Separator } from "../separator";
+import { cx } from "../../utils/cx/cx.js";
+import { ButtonGroup, IconButton } from "../button/index.js";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../select/select.js";
+import { Separator } from "../separator/separator.js";
 
 type CursorPaginationContextValue = {
 	defaultPageSize: number;

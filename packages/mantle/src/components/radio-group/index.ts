@@ -1,5 +1,5 @@
 export {
-	//
+	//,
 	RadioButton,
 	RadioButtonGroup,
 	RadioCard,
@@ -10,4 +10,4 @@ export {
 	RadioItem,
 	RadioItemContent,
 	RadioListItem,
-} from "./radio-group";
+} from "./radio-group.js";

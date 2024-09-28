@@ -4,4 +4,4 @@ export {
 	TooltipContent,
 	TooltipProvider,
 	TooltipTrigger,
-} from "./tooltip";
+} from "./tooltip.js";

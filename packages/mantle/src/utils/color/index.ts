@@ -1,3 +1,3 @@
-export { colors, functionalColors, isColor, isFunctionalColor, isNamedColor, namedColors } from "./colors";
+export { colors, functionalColors, isColor, isFunctionalColor, isNamedColor, namedColors } from "./colors.js";
 
-export type { Color, FunctionalColor, NamedColor } from "./colors";
+export type { Color, FunctionalColor, NamedColor } from "./colors.js";

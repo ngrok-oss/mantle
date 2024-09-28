@@ -1,13 +1,13 @@
 import type { Config } from "tailwindcss";
 import tailwindCssAnimatePlugin from "tailwindcss-animate";
-import defaultTheme from "tailwindcss/defaultTheme";
-import plugin from "tailwindcss/plugin";
-import { animationDurationPlugin } from "./tailwind-plugin-animation-duration";
-import { ariaEnabledVariantPlugin } from "./tailwind-plugin-aria-enabled";
-import { firefoxVariantPlugin } from "./tailwind-plugin-firefox-variant";
-import { gradientStopPlugin } from "./tailwind-plugin-gradient-stop";
-import { pointingVariantsPlugin } from "./tailwind-plugin-pointing-variants";
-import { whereVariantPlugin } from "./tailwind-plugin-where-variant";
+import defaultTheme from "tailwindcss/defaultTheme.js";
+import plugin from "tailwindcss/plugin.js";
+import { animationDurationPlugin } from "./tailwind-plugin-animation-duration.js";
+import { ariaEnabledVariantPlugin } from "./tailwind-plugin-aria-enabled.js";
+import { firefoxVariantPlugin } from "./tailwind-plugin-firefox-variant.js";
+import { gradientStopPlugin } from "./tailwind-plugin-gradient-stop.js";
+import { pointingVariantsPlugin } from "./tailwind-plugin-pointing-variants.js";
+import { whereVariantPlugin } from "./tailwind-plugin-where-variant.js";
 
 const colors = {
 	inherit: "inherit",

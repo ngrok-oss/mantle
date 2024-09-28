@@ -1,1 +1,4 @@
-export { InlineCode } from "./inline-code";
+export {
+	//,
+	InlineCode,
+} from "./inline-code.js";

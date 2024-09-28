@@ -3,8 +3,8 @@ import { EyeClosed } from "@phosphor-icons/react/EyeClosed";
 import clsx from "clsx";
 import { forwardRef, useEffect, useState } from "react";
 import type { InputHTMLAttributes } from "react";
-import { Input, InputCapture } from "./input";
-import type { InputType, WithAutoComplete, WithValidation } from "./types";
+import { Input, InputCapture } from "./input.js";
+import type { InputType, WithAutoComplete, WithValidation } from "./types.js";
 
 type PasswordInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, "autoComplete" | "type"> &
 	WithValidation &

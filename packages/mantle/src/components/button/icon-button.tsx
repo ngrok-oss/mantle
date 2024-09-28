@@ -3,10 +3,10 @@ import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
 import { Children, cloneElement, forwardRef, isValidElement } from "react";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
-import type { VariantProps, WithAsChild } from "../../types";
-import { parseBooleanish } from "../../types";
-import { cx } from "../../utils/cx";
-import { Icon } from "../icon";
+import type { VariantProps, WithAsChild } from "../../types/index.js";
+import { parseBooleanish } from "../../types/index.js";
+import { cx } from "../../utils/cx/cx.js";
+import { Icon } from "../icon/index.js";
 
 const iconButtonVariants = cva(
 	"inline-flex shrink-0 cursor-pointer items-center justify-center rounded-[var(--icon-button-border-radius,0.375rem)] border focus-within:outline-none focus-visible:ring-4 disabled:cursor-default disabled:opacity-50",

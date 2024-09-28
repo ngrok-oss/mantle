@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { resolveRel } from "./anchor";
+import { resolveRel } from "./anchor.js";
 
 describe("resolveRel", () => {
 	test("given nothing or undefined, returns undefined", () => {

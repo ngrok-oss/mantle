@@ -2,4 +2,4 @@ export {
 	//,
 	ProgressDonut,
 	ProgressDonutIndicator,
-} from "./progress-donut";
+} from "./progress-donut.js";

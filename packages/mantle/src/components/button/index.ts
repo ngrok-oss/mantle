@@ -1,7 +1,25 @@
-export { Button } from "./button";
-export { IconButton } from "./icon-button";
-export { ButtonGroup } from "./button-group";
+export {
+	//,
+	Button,
+} from "./button.js";
+export {
+	//,
+	IconButton,
+} from "./icon-button.js";
+export {
+	//,
+	ButtonGroup,
+} from "./button-group.js";
 
-export type { ButtonProps } from "./button";
-export type { IconButtonProps } from "./icon-button";
-export type { ButtonGroupProps } from "./button-group";
+export type {
+	//,
+	ButtonProps,
+} from "./button.js";
+export type {
+	//,
+	IconButtonProps,
+} from "./icon-button.js";
+export type {
+	//,
+	ButtonGroupProps,
+} from "./button-group.js";

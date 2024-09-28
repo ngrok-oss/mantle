@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { resolveLineNumbers } from "./line-numbers";
+import { resolveLineNumbers } from "./line-numbers.js";
 
 describe("resolveLineNumbers", () => {
 	test("given an empty list, returns an empty set", () => {

@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { zodCheckbox } from "./zod";
+import { zodCheckbox } from "./zod.js";
 
 describe("zodCheckbox", () => {
 	test("default options, not required", () => {

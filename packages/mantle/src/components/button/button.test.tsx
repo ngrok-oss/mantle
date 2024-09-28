@@ -1,9 +1,9 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { userEvent } from "@testing-library/user-event";
 import { act, useState } from "react";
 import { createMemoryRouter, Link, RouterProvider } from "react-router-dom";
 import { describe, expect, test } from "vitest";
-import { Button } from "./button";
+import { Button } from "./button.js";
 
 describe("Button", () => {
 	test("renders a button, without `asChild`", () => {

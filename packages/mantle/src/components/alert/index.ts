@@ -1,1 +1,7 @@
-export { Alert, AlertContent, AlertTitle, AlertDescription } from "./alert";
+export {
+	//,
+	Alert,
+	AlertContent,
+	AlertDescription,
+	AlertTitle,
+} from "./alert.js";

@@ -1,9 +1,9 @@
 import clsx from "clsx";
 import { createContext, useContext, useMemo } from "react";
-import type { HTMLAttributes } from "react";
-import { useRandomStableId } from "../../hooks";
-import type { WithStyleProps } from "../../types";
-import { cx } from "../../utils/cx";
+import type { ComponentProps, HTMLAttributes } from "react";
+import { useRandomStableId } from "../../hooks/use-random-stable-id.js";
+import type { WithStyleProps } from "../../types/with-style-props.js";
+import { cx } from "../../utils/cx/cx.js";
 
 type RemValue = `${number}rem`;
 type StrokeWidth = number | RemValue;
@@ -121,19 +121,19 @@ const ProgressDonut = ({
  */
 const indeterminateTailPercent = 0.6;
 
-type ProgressDonutIndicatorProps = WithStyleProps;
+type ProgressDonutIndicatorProps = Omit<ComponentProps<"g">, "children">;
 
 /**
  * The indicator for the circular progress bar.
  */
-const ProgressDonutIndicator = ({ className, style }: ProgressDonutIndicatorProps) => {
+const ProgressDonutIndicator = ({ className, ...props }: ProgressDonutIndicatorProps) => {
 	const gradientId = useRandomStableId();
 	const ctx = useContext(ProgressContext);
 	const percentage = (ctx.value == "indeterminate" ? indeterminateTailPercent : ctx.value / ctx.max) * 100;
 	const strokeWidthPx = deriveStrokeWidthPx(ctx.strokeWidth);
 
 	return (
-		<g className={cx("text-accent-600", className)} style={style}>
+		<g className={cx("text-accent-600", className)} {...props}>
 			{ctx.value == "indeterminate" && (
 				<defs>
 					<linearGradient id={gradientId}>

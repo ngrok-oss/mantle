@@ -1,8 +1,8 @@
 import { Slot } from "@radix-ui/react-slot";
 import type { HTMLAttributes } from "react";
 import { forwardRef } from "react";
-import type { WithAsChild } from "../../types/as-child";
-import { cx } from "../../utils/cx";
+import type { WithAsChild } from "../../types/index.js";
+import { cx } from "../../utils/cx/cx.js";
 
 export type CardProps = HTMLAttributes<HTMLDivElement>;
 

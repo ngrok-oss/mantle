@@ -6,6 +6,8 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 installGlobals();
 
+const isVercelBuild = Boolean(process.env.VERCEL);
+
 export default defineConfig({
 	server: {
 		port: 3000,
@@ -19,8 +21,11 @@ export default defineConfig({
 				unstable_optimizeDeps: true, // https://remix.run/docs/en/main/guides/dependency-optimization#dependency-optimization
 				// unstable_singleFetch: true, // 👈 enable single-fetch
 			},
-			presets: [vercelPreset()],
+			presets: isVercelBuild ? [vercelPreset()] : undefined,
 		}),
 		tsconfigPaths(),
 	],
+	resolve: {
+		conditions: ["@ngrok/mantle/source"],
+	},
 });

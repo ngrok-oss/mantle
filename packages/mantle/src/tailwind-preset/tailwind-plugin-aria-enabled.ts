@@ -1,5 +1,5 @@
-import plugin from "tailwindcss/plugin";
-import type { PluginAPI } from "tailwindcss/types/config";
+import plugin from "tailwindcss/plugin.js";
+import type { PluginAPI } from "tailwindcss/types/config.js";
 
 /**
  * This plugin adds the following variant: aria-enabled

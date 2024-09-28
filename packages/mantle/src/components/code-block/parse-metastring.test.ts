@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { defaultMeta, normalizeValue, parseMetastring, tokenizeMetastring } from "./parse-metastring";
+import { defaultMeta, normalizeValue, parseMetastring, tokenizeMetastring } from "./parse-metastring.js";
 
 describe("parseMetastring", () => {
 	test("given undefined, returns default meta", () => {

@@ -1,4 +1,4 @@
 export {
 	//
 	Switch,
-} from "./switch";
+} from "./switch.js";

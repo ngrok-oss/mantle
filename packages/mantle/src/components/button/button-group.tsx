@@ -1,7 +1,7 @@
 import { cva } from "class-variance-authority";
 import { forwardRef, type ComponentProps } from "react";
-import type { VariantProps } from "../../types";
-import { cx } from "../../utils/cx";
+import type { VariantProps } from "../../types/index.js";
+import { cx } from "../../utils/cx/cx.js";
 
 const buttonGroupVariants = cva("border-form inline-flex items-center rounded-md hover:border-neutral-400", {
 	variants: {
