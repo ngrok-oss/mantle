@@ -1,4 +1,5 @@
 export {
+	//,
 	Sheet,
 	SheetActions,
 	SheetBody,
@@ -13,4 +14,4 @@ export {
 	SheetTitle,
 	SheetTitleGroup,
 	SheetTrigger,
-} from "./sheet";
+} from "./sheet.js";

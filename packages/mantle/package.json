@@ -59,11 +59,12 @@
     "@cfg/tsconfig": "workspace:*",
     "@phosphor-icons/react": "2.1.7",
     "@testing-library/dom": "10.4.0",
+    "@testing-library/jest-dom": "6.5.0",
     "@testing-library/react": "16.0.1",
     "@testing-library/user-event": "14.5.2",
-    "@types/node": "20.16.9",
+    "@types/node": "20.16.10",
     "@types/prismjs": "1.26.4",
-    "@types/react": "18.3.9",
+    "@types/react": "18.3.10",
     "@types/react-dom": "18.3.0",
     "@vitejs/plugin-react": "4.3.1",
     "@vitest/ui": "2.1.1",
@@ -80,7 +81,6 @@
     "typescript": "5.6.2",
     "vite": "5.4.8",
     "vitest": "2.1.1",
-    "vitest-dom": "0.1.1",
     "zod": "3.23.8"
   },
   "peerDependencies": {

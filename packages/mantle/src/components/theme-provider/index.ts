@@ -14,15 +14,15 @@ export {
 	useAppliedTheme,
 	useInitialHtmlThemeProps,
 	useTheme,
-} from "./theme-provider";
+} from "./theme-provider.js";
 
 export {
 	//,
 	PreloadFonts,
-} from "./preload-fonts";
+} from "./preload-fonts.js";
 
 export type {
 	//,
 	Theme,
 	ThemeProviderProps,
-} from "./theme-provider";
+} from "./theme-provider.js";

@@ -4,6 +4,7 @@
 	"exclude": ["**/*.test.*"],
   "compilerOptions": {
     /* does not play nice with tsup */
-    "composite": false
+    "composite": false,
+		"outDir": "dist",
   }
 }

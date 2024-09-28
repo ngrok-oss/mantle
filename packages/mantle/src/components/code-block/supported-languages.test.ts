@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { parseLanguage, supportedLanguages } from "./supported-languages";
+import { parseLanguage, supportedLanguages } from "./supported-languages.js";
 
 describe("parseLanguage", () => {
 	test("given undefined, returns 'sh'", () => {

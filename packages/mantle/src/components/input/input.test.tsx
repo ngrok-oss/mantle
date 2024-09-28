@@ -1,9 +1,9 @@
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { userEvent } from "@testing-library/user-event";
 import { act, useEffect, useRef, useState } from "react";
 import type { ElementRef } from "react";
 import { describe, expect, test } from "vitest";
-import { Input, InputCapture } from "./input";
+import { Input, InputCapture } from "./input.js";
 
 describe("Input", () => {
 	test('without children or validation="error", renders an input with aria-invalid="false" and placeholder="Testy McTestface"', () => {

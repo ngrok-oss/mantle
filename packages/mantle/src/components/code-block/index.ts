@@ -1,4 +1,5 @@
 export {
+	//,
 	CodeBlock,
 	CodeBlockBody,
 	CodeBlockCode,
@@ -6,10 +7,20 @@ export {
 	CodeBlockExpanderButton,
 	CodeBlockHeader,
 	CodeBlockTitle,
-} from "./code-block";
+} from "./code-block.js";
 
-export { fmtCode } from "./fmt-code";
-export { defaultMeta, parseMetastring } from "./parse-metastring";
-export type { Meta, MetaInput, Mode, DefaultMeta } from "./parse-metastring";
-export { formatLanguageClassName, isSupportedLanguage, parseLanguage, supportedLanguages } from "./supported-languages";
-export type { SupportedLanguage } from "./supported-languages";
+export { fmtCode } from "./fmt-code.js";
+export {
+	//,
+	defaultMeta,
+	parseMetastring,
+} from "./parse-metastring.js";
+export type { Meta, MetaInput, Mode, DefaultMeta } from "./parse-metastring.js";
+export {
+	//,
+	formatLanguageClassName,
+	isSupportedLanguage,
+	parseLanguage,
+	supportedLanguages,
+} from "./supported-languages.js";
+export type { SupportedLanguage } from "./supported-languages.js";

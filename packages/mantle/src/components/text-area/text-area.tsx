@@ -1,9 +1,9 @@
 import { cva } from "class-variance-authority";
 import { forwardRef, useRef, useState } from "react";
 import type { TextareaHTMLAttributes } from "react";
-import type { VariantProps } from "../../types";
-import { cx } from "../../utils/cx";
-import type { WithValidation } from "../input";
+import type { VariantProps } from "../../types/variant-props.js";
+import { cx } from "../../utils/cx/cx.js";
+import type { WithValidation } from "../input/types.js";
 
 const textAreaVariants = cva(
 	"border-input bg-form data-drag-over:border-dashed data-drag-over:ring-4 flex min-h-24 w-full rounded-md border px-3 py-[calc(theme(spacing[2.5])-1px)] text-base focus-visible:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50 sm:py-[calc(theme(spacing[2])-1px)] sm:text-sm",

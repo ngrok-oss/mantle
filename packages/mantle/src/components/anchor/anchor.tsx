@@ -1,9 +1,9 @@
 import { Slot } from "@radix-ui/react-slot";
 import { forwardRef } from "react";
 import type { AnchorHTMLAttributes } from "react";
-import type { WithAsChild } from "../../types/as-child";
-import { cx } from "../../utils/cx";
-import type { Rel, Target } from "./types";
+import type { WithAsChild } from "../../types/as-child.js";
+import { cx } from "../../utils/cx/cx.js";
+import type { Rel, Target } from "./types.js";
 
 /**
  * The class names for the `Anchor` component which define the styles for the component.

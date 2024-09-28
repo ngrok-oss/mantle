@@ -7,7 +7,7 @@ import {
 import clsx from "clsx";
 import { createContext, forwardRef, useContext } from "react";
 import type { ComponentPropsWithoutRef, ElementRef, HTMLAttributes } from "react";
-import { cx } from "../../utils/cx";
+import { cx } from "../../utils/cx/cx.js";
 
 type TabsStateContextValue = {
 	orientation: "horizontal" | "vertical";

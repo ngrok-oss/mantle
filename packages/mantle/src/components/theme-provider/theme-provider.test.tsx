@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { determineThemeFromMediaQuery } from "./theme-provider";
+import { determineThemeFromMediaQuery } from "./theme-provider.js";
 
 describe("determineThemeFromMediaQuery", () => {
 	test("given prefersDarkMode=true and prefersHighContrast=false, returns dark", () => {

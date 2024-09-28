@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
-import { TextArea } from "./text-area";
+import { TextArea } from "./text-area.js";
 
 describe("TextArea", () => {
 	test('given validation={false}, renders a textarea with aria-invalid="false" and not have data-validation', () => {

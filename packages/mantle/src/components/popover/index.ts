@@ -5,4 +5,4 @@ export {
 	PopoverClose,
 	PopoverContent,
 	PopoverTrigger,
-} from "./popover";
+} from "./popover.js";

@@ -1,4 +1,4 @@
 export {
 	//
 	Label,
-} from "./label";
+} from "./label.js";

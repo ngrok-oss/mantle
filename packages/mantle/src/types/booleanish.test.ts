@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { parseBooleanish } from "./booleanish";
+import { parseBooleanish } from "./booleanish.js";
 
 describe("parseBooleanish", () => {
 	test("given `undefined`, returns `false`", () => {

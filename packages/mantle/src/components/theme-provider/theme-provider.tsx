@@ -2,8 +2,8 @@ import clsx from "clsx";
 import type { ComponentProps, PropsWithChildren } from "react";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import invariant from "tiny-invariant";
-import { useMatchesMediaQuery } from "../../hooks/use-matches-media-query";
-import { PreloadFonts } from "./preload-fonts";
+import { useMatchesMediaQuery } from "../../hooks/use-matches-media-query.js";
+import { PreloadFonts } from "./preload-fonts.js";
 
 /**
  * prefersDarkModeMediaQuery is the media query used to detect if the user prefers dark mode.

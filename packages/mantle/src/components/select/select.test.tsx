@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
-import { Select, SelectTrigger } from "./select";
+import { Select, SelectTrigger } from "./select.js";
 
 describe("Select", () => {
 	test('given validation={false}, renders a SelectTrigger with aria-invalid="false" and not have data-validation', () => {

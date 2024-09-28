@@ -1,4 +1,9 @@
-export { Anchor, anchorClassNames, resolveRel } from "./anchor";
+export {
+	//,
+	Anchor,
+	anchorClassNames,
+	resolveRel,
+} from "./anchor.js";
 
-export type { AnchorProps } from "./anchor";
-export type { Rel, Target } from "./types";
+export type { AnchorProps } from "./anchor.js";
+export type { Rel, Target } from "./types.js";

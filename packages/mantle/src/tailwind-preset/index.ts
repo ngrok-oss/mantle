@@ -1,4 +1,4 @@
-export type { MantlePreset } from "./tailwind.preset";
+export type { MantlePreset } from "./tailwind.preset.js";
 
-export { mantlePreset } from "./tailwind.preset";
-export { resolveMantleContentGlob } from "./resolve-mantle-content-glob";
+export { mantlePreset } from "./tailwind.preset.js";
+export { resolveMantleContentGlob } from "./resolve-mantle-content-glob.js";

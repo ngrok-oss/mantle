@@ -1,8 +1,8 @@
 import clsx from "clsx";
 import { forwardRef, useEffect, useRef, useState } from "react";
 import type { ComponentPropsWithoutRef, ElementRef } from "react";
-import { composeRefs } from "../../utils/compose-refs";
-import type { WithValidation } from "../input";
+import { composeRefs } from "../../utils/compose-refs/index.js";
+import type { WithValidation } from "../input/index.js";
 
 type CheckedState = boolean | "indeterminate";
 

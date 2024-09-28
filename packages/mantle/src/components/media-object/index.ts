@@ -1,1 +1,6 @@
-export { MediaObject, MediaObjectMedia, MediaObjectContent } from "./media-object";
+export {
+	//,
+	MediaObject,
+	MediaObjectMedia,
+	MediaObjectContent,
+} from "./media-object.js";

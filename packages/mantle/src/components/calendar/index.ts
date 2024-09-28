@@ -1,9 +1,9 @@
 export {
 	//,
 	Calendar,
-} from "./calendar";
+} from "./calendar.js";
 
 export type {
 	//,
 	CalendarProps,
-} from "./calendar";
+} from "./calendar.js";

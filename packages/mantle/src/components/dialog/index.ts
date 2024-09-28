@@ -1,4 +1,5 @@
 export {
+	//,
 	Dialog,
 	DialogBody,
 	DialogClose,
@@ -11,4 +12,4 @@ export {
 	DialogPortal,
 	DialogTitle,
 	DialogTrigger,
-} from "./dialog";
+} from "./dialog.js";

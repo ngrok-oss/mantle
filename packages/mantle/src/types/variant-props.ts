@@ -1,5 +1,5 @@
 import type { VariantProps as CVAVariantProps } from "class-variance-authority";
-import type { DeepNonNullable } from "./deep-non-nullable";
+import type { DeepNonNullable } from "./deep-non-nullable.js";
 
 /**
  * Variant props that are optional and cannot be `null`.

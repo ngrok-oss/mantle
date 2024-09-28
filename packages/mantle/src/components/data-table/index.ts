@@ -1,4 +1,4 @@
 export {
 	//,
 	DataTable,
-} from "./data-table";
+} from "./data-table.js";

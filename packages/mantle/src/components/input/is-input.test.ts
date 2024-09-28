@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { isInput } from "./is-input";
+import { isInput } from "./is-input.js";
 
 describe("isInput", () => {
 	test("given an input element, returns true", () => {

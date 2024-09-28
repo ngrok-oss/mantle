@@ -2,8 +2,8 @@ import * as SeparatorPrimitive from "@radix-ui/react-separator";
 import { Slot } from "@radix-ui/react-slot";
 import { createContext, forwardRef, useContext } from "react";
 import type { ComponentPropsWithoutRef, ElementRef, HTMLAttributes } from "react";
-import type { WithAsChild } from "../../types/as-child";
-import { cx } from "../../utils/cx";
+import type { WithAsChild } from "../../types/as-child.js";
+import { cx } from "../../utils/cx/cx.js";
 
 type Orientation = "horizontal" | "vertical";
 

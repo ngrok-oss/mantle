@@ -1,4 +1,4 @@
-export { Icon } from "./icon";
+export { Icon } from "./icon.js";
 
-export type { IconProps } from "./icon";
-export type { SvgAttributes } from "./types";
+export type { IconProps } from "./icon.js";
+export type { SvgAttributes } from "./types.js";

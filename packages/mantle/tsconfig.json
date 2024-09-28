@@ -1,9 +1,7 @@
 {
-  "extends": "@cfg/tsconfig/react-library.json",
+  "extends": "@cfg/tsconfig/tsconfig.react-library.json",
   "exclude": ["dist", "node_modules"],
   "compilerOptions": {
-    /* If NOT transpiling with TypeScript: */
-    "module": "preserve",
     "noEmit": true,
   }
 }

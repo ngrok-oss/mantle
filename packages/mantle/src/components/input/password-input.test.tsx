@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
-import { PasswordInput } from "./password-input";
+import { PasswordInput } from "./password-input.js";
 
 describe("Checkbox", () => {
 	test('given validation={false}, renders an input with aria-invalid="false" and not have data-validation', () => {

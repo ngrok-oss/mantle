@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { deriveStrokeWidthPx } from "./progress-donut";
+import { deriveStrokeWidthPx } from "./progress-donut.js";
 
 describe("deriveStrokeWidthPx", () => {
 	test("given null/undefined, returns 4", () => {

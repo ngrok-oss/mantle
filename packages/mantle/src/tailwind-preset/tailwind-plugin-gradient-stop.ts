@@ -1,6 +1,6 @@
-import plugin from "tailwindcss/plugin";
-import type { PluginAPI } from "tailwindcss/types/config";
-import { filterDefault, flattenObject } from "./shared";
+import plugin from "tailwindcss/plugin.js";
+import type { PluginAPI } from "tailwindcss/types/config.js";
+import { filterDefault, flattenObject } from "./shared.js";
 
 /**
  * This plugin adds a stop svg utilities to TailwindCSS

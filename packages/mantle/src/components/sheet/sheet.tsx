@@ -3,8 +3,8 @@ import * as SheetPrimitive from "@radix-ui/react-dialog";
 import { cva, type VariantProps } from "class-variance-authority";
 import { forwardRef } from "react";
 import type { ComponentPropsWithoutRef, ElementRef, HTMLAttributes } from "react";
-import { cx } from "../../utils/cx";
-import { IconButton, type IconButtonProps } from "../button";
+import { cx } from "../../utils/cx/cx.js";
+import { IconButton, type IconButtonProps } from "../button/icon-button.js";
 
 /**
  * The root component for a sheet. Should compose the `SheetTrigger` and `SheetContent`.
