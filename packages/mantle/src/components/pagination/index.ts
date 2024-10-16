@@ -1,16 +1,18 @@
 export {
 	//,
-	CursorPagination,
 	CursorButtons,
 	CursorPageSizeSelect,
+	CursorPageSizeValue,
+	CursorPagination,
 } from "./cursor-pagination.js";
 export { useOffsetPagination } from "./use-offset-pagination.js";
 
 export type {
 	//,
-	CursorPaginationProps,
 	CursorButtonsProps,
 	CursorPageSizeSelectProps,
+	CursorPageSizeValueProps,
+	CursorPaginationProps,
 } from "./cursor-pagination.js";
 export type {
 	//,

@@ -1,21 +1,35 @@
 import { CaretLeft } from "@phosphor-icons/react/dist/icons/CaretLeft";
 import { CaretRight } from "@phosphor-icons/react/dist/icons/CaretRight";
+import { Slot } from "@radix-ui/react-slot";
 import { createContext, forwardRef, useContext, useState, type ComponentProps, type ElementRef } from "react";
 import invariant from "tiny-invariant";
+import type { WithAsChild } from "../../types/as-child.js";
 import { cx } from "../../utils/cx/cx.js";
 import { ButtonGroup, IconButton } from "../button/index.js";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../select/select.js";
 import { Separator } from "../separator/separator.js";
 
 type CursorPaginationContextValue = {
+	/**
+	 * The default number of items per page.
+	 */
 	defaultPageSize: number;
+	/**
+	 * The current number of items per page.
+	 */
 	pageSize: number;
+	/**
+	 * A function to set the number of items per page.
+	 */
 	setPageSize: (value: number) => void;
 };
 
 const CursorPaginationContext = createContext<CursorPaginationContextValue | undefined>(undefined);
 
 type CursorPaginationProps = ComponentProps<"div"> & {
+	/**
+	 * The default number of items per page.
+	 */
 	defaultPageSize: number;
 };
 
@@ -44,9 +58,21 @@ const CursorPagination = forwardRef<HTMLDivElement, CursorPaginationProps>(
 CursorPagination.displayName = "CursorPagination";
 
 type CursorButtonsProps = Omit<ComponentProps<typeof ButtonGroup>, "appearance"> & {
+	/**
+	 * Whether there is a next page of data to load.
+	 */
 	hasNextPage: boolean;
+	/**
+	 * Whether there is a previous page of data to load.
+	 */
 	hasPreviousPage: boolean;
+	/**
+	 * A callback that is called when the next page button is clicked.
+	 */
 	onNextPage?: () => void;
+	/**
+	 * A callback that is called when the previous page button is clicked.
+	 */
 	onPreviousPage?: () => void;
 };
 
@@ -87,7 +113,13 @@ CursorButtons.displayName = "CursorButtons";
 const defaultPageSizes = [5, 10, 20, 50, 100] as const;
 
 type CursorPageSizeSelectProps = Omit<ComponentProps<typeof SelectTrigger>, "children"> & {
-	pageSizes?: readonly number[];
+	/**
+	 * A list of page sizes to choose from. The default page size must be included in this list.
+	 */
+	pageSizes?: typeof defaultPageSizes | readonly number[];
+	/**
+	 * A callback that is called when the page size is changed.
+	 */
 	onChangePageSize?: (value: number) => void;
 };
 
@@ -100,9 +132,15 @@ const CursorPageSizeSelect = forwardRef<ElementRef<typeof SelectTrigger>, Cursor
 
 		invariant(ctx, "CursorPageSizeSelect must be used as a child of a CursorPagination component");
 
-		invariant(pageSizes.includes(ctx.defaultPageSize), "defaultPageSize must be included in pageSizes");
+		invariant(
+			pageSizes.includes(ctx.defaultPageSize),
+			"CursorPagination.defaultPageSize must be included in CursorPageSizeSelect.pageSizes",
+		);
 
-		invariant(pageSizes.includes(ctx.pageSize), "pageSize must be included in pageSizes");
+		invariant(
+			pageSizes.includes(ctx.pageSize),
+			"CursorPagination.pageSize must be included in CursorPageSizeSelect.pageSizes",
+		);
 
 		return (
 			<Select
@@ -132,16 +170,37 @@ const CursorPageSizeSelect = forwardRef<ElementRef<typeof SelectTrigger>, Cursor
 );
 CursorPageSizeSelect.displayName = "CursorPageSizeSelect";
 
+type CursorPageSizeValueProps = Omit<ComponentProps<"span">, "children"> & WithAsChild;
+
+/**
+ * Displays the current page size when using cursor-based pagination as a read-only value.
+ */
+function CursorPageSizeValue({ asChild = false, className, ...props }: CursorPageSizeValueProps) {
+	const ctx = useContext(CursorPaginationContext);
+
+	invariant(ctx, "CursorPageSizeValue must be used as a child of a CursorPagination component");
+
+	const Component = asChild ? Slot : "span";
+
+	return (
+		<Component className={cx("text-muted text-sm font-normal", className)} {...props}>
+			{ctx.pageSize} per page
+		</Component>
+	);
+}
+
 export {
 	//,
-	CursorPagination,
 	CursorButtons,
 	CursorPageSizeSelect,
+	CursorPageSizeValue,
+	CursorPagination,
 };
 
 export type {
 	//,
-	CursorPaginationProps,
 	CursorButtonsProps,
 	CursorPageSizeSelectProps,
+	CursorPageSizeValueProps,
+	CursorPaginationProps,
 };
