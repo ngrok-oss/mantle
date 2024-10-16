@@ -132,9 +132,15 @@ const CursorPageSizeSelect = forwardRef<ElementRef<typeof SelectTrigger>, Cursor
 
 		invariant(ctx, "CursorPageSizeSelect must be used as a child of a CursorPagination component");
 
-		invariant(pageSizes.includes(ctx.defaultPageSize), "defaultPageSize must be included in pageSizes");
+		invariant(
+			pageSizes.includes(ctx.defaultPageSize),
+			"CursorPagination.defaultPageSize must be included in CursorPageSizeSelect.pageSizes",
+		);
 
-		invariant(pageSizes.includes(ctx.pageSize), "pageSize must be included in pageSizes");
+		invariant(
+			pageSizes.includes(ctx.pageSize),
+			"CursorPagination.pageSize must be included in CursorPageSizeSelect.pageSizes",
+		);
 
 		return (
 			<Select

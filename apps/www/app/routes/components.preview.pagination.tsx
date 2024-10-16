@@ -44,7 +44,7 @@ export default function Page() {
 				<div>
 					<Example className="flex flex-col gap-6">
 						<CursorPagination defaultPageSize={100}>
-							<CursorPageSizeSelect pageSizes={[]} />
+							<CursorPageSizeSelect />
 							<CursorButtons hasNextPage hasPreviousPage />
 						</CursorPagination>
 
