@@ -62,7 +62,7 @@ const InputCapture = forwardRef<HTMLInputElement, InputCaptureProps>(
 				<input
 					aria-invalid={ariaInvalid}
 					data-validation={validation || undefined}
-					className={cx("bg-form placeholder:text-placeholder w-full focus:outline-none", className)}
+					className={cx("placeholder:text-placeholder w-full bg-transparent focus:outline-none", className)}
 					ref={composeRefs(ref, ctxForwardedRef, ctxInnerRef)}
 					{...props}
 				/>
