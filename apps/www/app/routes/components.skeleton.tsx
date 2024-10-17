@@ -78,7 +78,7 @@ export default function Page() {
 								language="tsx"
 								value={fmtCode`
 									import { MediaObject, MediaObjectMedia, MediaObjectContent } from "@ngrok/mantle/media-object";
-									import { Skeleton } from "@ngrok/skeleton";
+									import { Skeleton } from "@ngrok/mantle/skeleton";
 
 									<MediaObject>
 										<MediaObjectMedia>
