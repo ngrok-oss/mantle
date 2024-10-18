@@ -1,5 +1,5 @@
 const cdnOrigin = "https://assets.dev-ngrok.com";
-const cdnBase = `${cdnOrigin}/static/fonts`;
+const cdnBase = `${cdnOrigin}/fonts`;
 
 const fonts = [
 	"/euclid-square/EuclidSquare-Regular-WebS.woff",
