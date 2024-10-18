@@ -29,7 +29,6 @@
     "clean": "rm -rf dist",
     "lint": "eslint .",
     "prebuild": "rm -rf dist",
-    "prepublishOnly": "pnpm run build",
     "test:ui": "TZ=UTC vitest --ui",
     "test:watch": "TZ=UTC vitest watch",
     "test": "TZ=UTC vitest run",

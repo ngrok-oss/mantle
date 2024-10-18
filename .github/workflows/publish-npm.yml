@@ -1,12 +1,14 @@
 name: npmjs
+
 on:
-  release:
-    types: [published]
-  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+    if: github.repository == '@ngrok/mantle'
     steps:
       - uses: actions/checkout@v4
 
@@ -21,6 +23,11 @@ jobs:
 
       - run: pnpm install
 
-      - run: cd packages/mantle && pnpm publish --access public --no-git-checks
+      - name: Create Release Pull Request or Publish to npm
+        uses: changesets/action@v1
+        with:
+          publish: pnpm release
+          version: pnpm version
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
