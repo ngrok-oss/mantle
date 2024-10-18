@@ -54,19 +54,21 @@ const InputCapture = forwardRef<HTMLInputElement, InputCaptureProps>(
 		} = useContext(InputContext);
 
 		const validation = ctxValidation ?? _validation;
+		const validationValue = (typeof validation === "function" ? validation() : validation) || undefined;
 		const ariaInvalid = ctxAriaInvalid ?? _ariaInvalid ?? validation === "error";
 		const props = { ...ctx, ...restProps, type: restProps.type ?? ctx.type ?? "text" };
 
 		return (
-			<div className="min-w-0 flex-1 text-left">
-				<input
-					aria-invalid={ariaInvalid}
-					data-validation={validation || undefined}
-					className={cx("placeholder:text-placeholder w-full bg-transparent focus:outline-none", className)}
-					ref={composeRefs(ref, ctxForwardedRef, ctxInnerRef)}
-					{...props}
-				/>
-			</div>
+			<input
+				aria-invalid={ariaInvalid}
+				data-validation={validationValue}
+				className={cx(
+					"placeholder:text-placeholder min-w-0 flex-1 bg-transparent text-left focus:outline-none",
+					className,
+				)}
+				ref={composeRefs(ref, ctxForwardedRef, ctxInnerRef)}
+				{...props}
+			/>
 		);
 	},
 );

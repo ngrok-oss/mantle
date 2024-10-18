@@ -72,10 +72,6 @@ export default function Page() {
 							<p>Controlled Visibility</p>
 							<ControlledVisibility />
 						</Label>
-						<Label className="block w-full max-w-64 space-y-1">
-							<p>Masked Hidden Value</p>
-							<PasswordInput maskHiddenValue />
-						</Label>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
@@ -106,21 +102,6 @@ export default function Page() {
 					.
 				</p>
 				<PropsTable>
-					<PropRow>
-						<PropNameCell name="maskHiddenValue" optional />
-						<PropTypeCell>
-							<BooleanPropType />
-						</PropTypeCell>
-						<PropDefaultValueCell>
-							<BooleanPropType value={false} />
-						</PropDefaultValueCell>
-						<PropDescriptionCell>
-							<p>
-								Mask the true length of the password input with a fixed width when the value is hidden and the input is
-								not focused.
-							</p>
-						</PropDescriptionCell>
-					</PropRow>
 					<PropRow>
 						<PropNameCell name="onValueVisibilityChange" optional />
 						<PropTypeCell>
