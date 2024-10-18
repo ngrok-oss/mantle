@@ -22,7 +22,7 @@ type PasswordInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, "autoCompl
 type PasswordInputType = Extract<InputType, "text" | "password">;
 
 const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
-	({ onBlur, onFocus, onValueVisibilityChange, showValue = false, ...props }, ref) => {
+	({ onValueVisibilityChange, showValue = false, ...props }, ref) => {
 		const [showPassword, setShowPassword] = useState<boolean>(showValue);
 		const type: PasswordInputType = showPassword ? "text" : "password";
 		const EyeCon = showPassword ? Eye : EyeClosed;
@@ -31,22 +31,8 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
 			setShowPassword(showValue);
 		}, [showValue]);
 
-		const [isFocused, setIsFocused] = useState(false);
-
 		return (
-			<Input
-				onBlur={(event) => {
-					setIsFocused(false);
-					onBlur?.(event);
-				}}
-				onFocus={(event) => {
-					setIsFocused(true);
-					onFocus?.(event);
-				}}
-				type={type}
-				ref={ref}
-				{...props}
-			>
+			<Input type={type} ref={ref} {...props}>
 				<InputCapture />
 				<button
 					type="button"

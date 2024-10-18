@@ -2,7 +2,6 @@ import clsx from "clsx";
 import { createContext, useContext, useMemo } from "react";
 import type { ComponentProps, HTMLAttributes } from "react";
 import { useRandomStableId } from "../../hooks/use-random-stable-id.js";
-import type { WithStyleProps } from "../../types/with-style-props.js";
 import { cx } from "../../utils/cx/cx.js";
 
 type RemValue = `${number}rem`;
