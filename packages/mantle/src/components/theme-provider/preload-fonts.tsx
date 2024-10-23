@@ -1,4 +1,4 @@
-const cdnOrigin = "https://assets.dev-ngrok.com";
+const cdnOrigin = "https://assets.ngrok.com";
 const cdnBase = `${cdnOrigin}/fonts`;
 
 const fonts = [
