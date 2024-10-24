@@ -1,8 +1,8 @@
+import { CaretDown } from "@phosphor-icons/react/CaretDown";
+import { Check } from "@phosphor-icons/react/Check";
+import { Copy } from "@phosphor-icons/react/Copy";
 import { Slot } from "@radix-ui/react-slot";
 import Prism from "prismjs";
-import { createContext, forwardRef, useContext, useEffect, useId, useMemo, useState } from "react";
-import type { ComponentProps, Dispatch, HTMLAttributes, SetStateAction } from "react";
-import "prismjs/components/prism-bash.js";
 import "prismjs/components/prism-bash.js";
 import "prismjs/components/prism-csharp.js";
 import "prismjs/components/prism-css.js";
@@ -18,17 +18,15 @@ import "prismjs/components/prism-rust.js";
 import "prismjs/components/prism-tsx.js";
 import "prismjs/components/prism-typescript.js";
 import "prismjs/components/prism-yaml.js";
-import { CaretDown } from "@phosphor-icons/react/CaretDown";
-import { Check } from "@phosphor-icons/react/Check";
-import { Copy } from "@phosphor-icons/react/Copy";
-import clsx from "clsx";
+import type { ComponentProps, Dispatch, HTMLAttributes, SetStateAction } from "react";
+import { createContext, forwardRef, useContext, useEffect, useId, useMemo, useState } from "react";
 import assert from "tiny-invariant";
 import { useCopyToClipboard } from "../../hooks/use-copy-to-clipboard.js";
 import type { WithStyleProps } from "../../types/with-style-props.js";
 import { cx } from "../../utils/cx/cx.js";
 import type { LineRange } from "./line-numbers.js";
-import { formatLanguageClassName, supportedLanguages } from "./supported-languages.js";
 import type { SupportedLanguage } from "./supported-languages.js";
+import { formatLanguageClassName, supportedLanguages } from "./supported-languages.js";
 
 /**
  * TODO(cody):
