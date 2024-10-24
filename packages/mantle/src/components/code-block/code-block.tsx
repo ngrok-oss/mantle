@@ -1,7 +1,7 @@
 import { Slot } from "@radix-ui/react-slot";
 import Prism from "prismjs";
 import { createContext, forwardRef, useContext, useEffect, useId, useMemo, useState } from "react";
-import type { Dispatch, HTMLAttributes, SetStateAction } from "react";
+import type { ComponentProps, Dispatch, HTMLAttributes, SetStateAction } from "react";
 import "prismjs/components/prism-bash.js";
 import "prismjs/components/prism-bash.js";
 import "prismjs/components/prism-csharp.js";
@@ -21,6 +21,7 @@ import "prismjs/components/prism-yaml.js";
 import { CaretDown } from "@phosphor-icons/react/CaretDown";
 import { Check } from "@phosphor-icons/react/Check";
 import { Copy } from "@phosphor-icons/react/Copy";
+import clsx from "clsx";
 import assert from "tiny-invariant";
 import { useCopyToClipboard } from "../../hooks/use-copy-to-clipboard.js";
 import type { WithStyleProps } from "../../types/with-style-props.js";
@@ -112,7 +113,7 @@ const CodeBlockBody = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>
 ));
 CodeBlockBody.displayName = "CodeBlockBody";
 
-type CodeBlockCodeProps = WithStyleProps & {
+type CodeBlockCodeProps = Omit<ComponentProps<"pre">, "children"> & {
 	/**
 	 * The code to display in the code block. Should be code formatted as a string. This code will be passed to our syntax highlighter.
 	 */
@@ -131,60 +132,82 @@ type CodeBlockCodeProps = WithStyleProps & {
 	showLineNumbers?: boolean;
 };
 
-const CodeBlockCode = forwardRef<HTMLPreElement, CodeBlockCodeProps>((props, ref) => {
-	const { className, language = "text", style, value } = props;
-	const id = useId();
-	const { hasCodeExpander, isCodeExpanded, registerCodeId, setCopyText, unregisterCodeId } =
-		useContext(CodeBlockContext);
+const CodeBlockCode = forwardRef<HTMLPreElement, CodeBlockCodeProps>(
+	(
+		{
+			className,
+			language = "text",
+			style,
+			value,
+			highlightLines: _unusedHighlightLines, // not implemented yet
+			showLineNumbers: _unusedShowLineNumbers, // not implemented yet
+			tabIndex,
+			...props
+		},
+		ref,
+	) => {
+		const id = useId();
+		const { hasCodeExpander, isCodeExpanded, registerCodeId, setCopyText, unregisterCodeId } =
+			useContext(CodeBlockContext);
 
-	// trim any leading and trailing whitespace/empty lines
-	const trimmedCode = value?.trim() ?? "";
-	const [highlightedCodeInnerHtml, setHighlightedCodeInnerHtml] = useState(trimmedCode);
+		// trim any leading and trailing whitespace/empty lines
+		const trimmedCode = value?.trim() ?? "";
+		const [highlightedCodeInnerHtml, setHighlightedCodeInnerHtml] = useState(trimmedCode);
 
-	useEffect(() => {
-		const grammar = Prism.languages[language];
-		assert(
-			grammar,
-			`CodeBlock does not support the language "${language}". The syntax highlighter does not have a grammar for this language. The supported languages are: ${supportedLanguages.join(", ")}.`,
+		useEffect(() => {
+			const grammar = Prism.languages[language];
+			assert(
+				grammar,
+				`CodeBlock does not support the language "${language}". The syntax highlighter does not have a grammar for this language. The supported languages are: ${supportedLanguages.join(", ")}.`,
+			);
+			const newHighlightedCodeInnerHtml = Prism.highlight(trimmedCode, grammar, language);
+			setHighlightedCodeInnerHtml(newHighlightedCodeInnerHtml);
+		}, [trimmedCode, language]);
+
+		useEffect(() => {
+			setCopyText(trimmedCode);
+		}, [trimmedCode, setCopyText]);
+
+		useEffect(() => {
+			registerCodeId(id);
+
+			return () => {
+				unregisterCodeId(id);
+			};
+		}, [id, registerCodeId, unregisterCodeId]);
+
+		return (
+			<pre
+				aria-expanded={hasCodeExpander ? isCodeExpanded : undefined}
+				className={cx(
+					"scrollbar firefox:after:mr-[3.375rem] firefox:after:inline-block firefox:after:content-[''] overflow-x-auto overflow-y-hidden p-4 pr-[3.375rem]",
+					"aria-collapsed:max-h-[13.6rem]",
+					formatLanguageClassName(language), // place it last because prism does weird stuff client side, causes hydration mismatches
+					className,
+				)}
+				data-lang={language}
+				id={id}
+				ref={ref}
+				style={{
+					...style,
+					tabSize: 2,
+					MozTabSize: 2,
+				}}
+				// prism.js adds a tabindex of 0 to the pre element by default (unless it's set)
+				// this is unnecessary, we do not want this automatic behavior!
+				tabIndex={tabIndex ?? -1}
+				{...props}
+			>
+				<code
+					// we need to suppress the hydration warning because we are setting the innerHTML of the code block
+					// and using Prism.js to "highlight" the code in a useEffect (client-side only), which does different things on the client and server
+					suppressHydrationWarning
+					dangerouslySetInnerHTML={{ __html: highlightedCodeInnerHtml }}
+				/>
+			</pre>
 		);
-		const newHighlightedCodeInnerHtml = Prism.highlight(trimmedCode, grammar, language);
-		setHighlightedCodeInnerHtml(newHighlightedCodeInnerHtml);
-	}, [trimmedCode, language]);
-
-	useEffect(() => {
-		setCopyText(trimmedCode);
-	}, [trimmedCode, setCopyText]);
-
-	useEffect(() => {
-		registerCodeId(id);
-
-		return () => {
-			unregisterCodeId(id);
-		};
-	}, [id, registerCodeId, unregisterCodeId]);
-
-	return (
-		<pre
-			aria-expanded={hasCodeExpander ? isCodeExpanded : undefined}
-			className={cx(
-				formatLanguageClassName(language),
-				"scrollbar firefox:after:mr-[3.375rem] firefox:after:inline-block firefox:after:content-[''] overflow-x-auto overflow-y-hidden p-4 pr-[3.375rem]",
-				"aria-collapsed:max-h-[13.6rem]",
-				className,
-			)}
-			data-lang={language}
-			id={id}
-			ref={ref}
-			style={{
-				...style,
-				tabSize: 2,
-				MozTabSize: 2,
-			}}
-		>
-			<code dangerouslySetInnerHTML={{ __html: highlightedCodeInnerHtml }} />
-		</pre>
-	);
-});
+	},
+);
 CodeBlockCode.displayName = "CodeBlockCode";
 
 const CodeBlockHeader = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
