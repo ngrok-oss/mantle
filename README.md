@@ -13,7 +13,7 @@
 
 ## Getting Started
 
-Check out our [install instructions](https://github.com/ngrok-oss/mantle/tree/main/packages/mantle#readme).
+Check out our [install instructions](packages/mantle#readme).
 
 ## Documentation
 
