@@ -18,6 +18,7 @@ import {
 	ReactNodePropType,
 	StringPropType,
 } from "~/components/props-table";
+import { route } from "~/types/routes";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -70,6 +71,42 @@ export default function Page() {
 									</Badge>
 									<Badge appearance="muted" color="neutral" icon={<GlobeHemisphereWest />}>
 										Muted neutral
+									</Badge>
+								`}
+							/>
+						</CodeBlockBody>
+					</CodeBlock>
+				</div>
+			</section>
+
+			<section className="space-y-4">
+				<h2 id="composition" className="text-3xl font-medium">
+					Composition
+				</h2>
+				<p className="font-body text-body text-xl">
+					When you want to render <span className="italic">something else</span> as a <InlineCode>Badge</InlineCode>,
+					you can use the <InlineCode>asChild</InlineCode> prop to compose. This is useful when you want to splat the{" "}
+					<InlineCode>Badge</InlineCode> styling onto a <InlineCode>Link</InlineCode> from{" "}
+					<InlineCode>remix</InlineCode> or <InlineCode>react-router</InlineCode>.
+				</p>
+				<div>
+					<Example>
+						<Badge appearance="muted" asChild color="pink" icon={<GlobeHemisphereWest />}>
+							<Link to={route("/base/colors")}>See our colors!</Link>
+						</Badge>
+					</Example>
+					<CodeBlock className="rounded-b-lg rounded-t-none">
+						<CodeBlockBody>
+							<CodeBlockCopyButton />
+							<CodeBlockCode
+								language="tsx"
+								value={fmtCode`
+									import { Badge } from "@ngrok/mantle/badge";
+									import { GlobeHemisphereWest } from "@phosphor-icons/react/GlobeHemisphereWest";
+									import { Link } from "react-router-dom";
+
+									<Badge appearance="muted" asChild color="pink" icon={<GlobeHemisphereWest />}>
+										<Link to={route("/base/colors")}>See our colors!</Link>
 									</Badge>
 								`}
 							/>

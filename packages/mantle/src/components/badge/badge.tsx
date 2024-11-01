@@ -1,5 +1,5 @@
 import { Slot } from "@radix-ui/react-slot";
-import type { HTMLAttributes, ReactNode } from "react";
+import { Children, cloneElement, isValidElement, type HTMLAttributes, type ReactNode } from "react";
 import invariant from "tiny-invariant";
 import type { WithAsChild } from "../../types/as-child.js";
 import type { Color } from "../../utils/color/index.js";
@@ -32,22 +32,41 @@ const Badge = ({ appearance, asChild = false, children, className, color = "neut
 	const bgColor = computeBgColor(color, appearance);
 	const textColor = computeTextColor(color, appearance);
 
-	const Component = asChild ? Slot : "span";
+	const badgeClasses = cx(
+		"inline-flex w-fit shrink-0 cursor-default items-center gap-1 rounded px-1.5 py-0.5 text-sm font-medium sm:text-xs",
+		icon && "ps-1",
+		bgColor,
+		textColor,
+		className,
+	);
+
+	if (asChild) {
+		const singleChild = Children.only(children);
+		invariant(
+			isValidElement<BadgeProps>(singleChild),
+			"When using `asChild`, Badge must be passed a single child as a JSX tag.",
+		);
+		const grandchildren = singleChild.props?.children;
+
+		return (
+			<Slot className={badgeClasses} {...props}>
+				{cloneElement(
+					singleChild,
+					{},
+					<>
+						{icon && <IconBase className="size-5 sm:size-4" svg={icon} />}
+						{grandchildren}
+					</>,
+				)}
+			</Slot>
+		);
+	}
 
 	return (
-		<Component
-			className={cx(
-				"inline-flex w-fit shrink-0 cursor-default items-center gap-1 rounded px-1.5 py-0.5 text-sm font-medium sm:text-xs",
-				icon && "ps-1",
-				bgColor,
-				textColor,
-				className,
-			)}
-			{...props}
-		>
+		<span className={badgeClasses} {...props}>
 			{icon && <IconBase className="size-5 sm:size-4" svg={icon} />}
 			{children}
-		</Component>
+		</span>
 	);
 };
 
