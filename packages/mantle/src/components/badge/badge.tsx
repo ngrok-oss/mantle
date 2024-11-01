@@ -1,5 +1,7 @@
+import { Slot } from "@radix-ui/react-slot";
 import type { HTMLAttributes, ReactNode } from "react";
 import invariant from "tiny-invariant";
+import type { WithAsChild } from "../../types/as-child.js";
 import type { Color } from "../../utils/color/index.js";
 import { cx } from "../../utils/cx/cx.js";
 import { IconBase } from "../icon/_icon-base.js";
@@ -7,30 +9,33 @@ import { IconBase } from "../icon/_icon-base.js";
 const appearances = ["muted" /*"strong" */] as const;
 type Appearance = (typeof appearances)[number];
 
-type BadgeProps = HTMLAttributes<HTMLSpanElement> & {
-	/**
-	 * The color variant of the badge. Accepts named colors and functional colors from the mantle color palette.
-	 */
-	color?: Color;
-	/**
-	 * The icon to render inside the badge.
-	 */
-	icon?: ReactNode;
-	/**
-	 * The visual style of the badge.
-	 */
-	appearance: Appearance;
-};
+type BadgeProps = HTMLAttributes<HTMLSpanElement> &
+	WithAsChild & {
+		/**
+		 * The color variant of the badge. Accepts named colors and functional colors from the mantle color palette.
+		 */
+		color?: Color;
+		/**
+		 * The icon to render inside the badge.
+		 */
+		icon?: ReactNode;
+		/**
+		 * The visual style of the badge.
+		 */
+		appearance: Appearance;
+	};
 
 /**
  * A Badge is a non-interactive component used to highlight important information or to visually indicate the status of an item.
  */
-const Badge = ({ appearance, children, className, color = "neutral", icon, ...props }: BadgeProps) => {
+const Badge = ({ appearance, asChild = false, children, className, color = "neutral", icon, ...props }: BadgeProps) => {
 	const bgColor = computeBgColor(color, appearance);
 	const textColor = computeTextColor(color, appearance);
 
+	const Component = asChild ? Slot : "span";
+
 	return (
-		<span
+		<Component
 			className={cx(
 				"inline-flex w-fit shrink-0 cursor-default items-center gap-1 rounded px-1.5 py-0.5 text-sm font-medium sm:text-xs",
 				icon && "ps-1",
@@ -42,7 +47,7 @@ const Badge = ({ appearance, children, className, color = "neutral", icon, ...pr
 		>
 			{icon && <IconBase className="size-5 sm:size-4" svg={icon} />}
 			{children}
-		</span>
+		</Component>
 	);
 };
 
