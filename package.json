@@ -2,7 +2,7 @@
 	"private": true,
 	"name": "mantle",
 	"license": "MIT",
-  "packageManager": "pnpm@9.12.2",
+  "packageManager": "pnpm@9.12.3",
 	"type": "module",
 	"scripts": {
 		"build": "turbo run build",
