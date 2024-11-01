@@ -8,6 +8,7 @@ import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 import { Link } from "~/components/link";
 import {
+	BooleanPropType,
 	PropDefaultValueCell,
 	PropDescriptionCell,
 	PropNameCell,
@@ -103,6 +104,21 @@ export default function Page() {
 							<p>
 								Defines the visual style of the <InlineCode>Badge</InlineCode>. Currently only supports the{" "}
 								<InlineCode>muted</InlineCode> variant.
+							</p>
+						</PropDescriptionCell>
+					</PropRow>
+					<PropRow>
+						<PropNameCell name="asChild" optional />
+						<PropTypeCell>
+							<BooleanPropType />
+						</PropTypeCell>
+						<PropDefaultValueCell>
+							<BooleanPropType value={false} />
+						</PropDefaultValueCell>
+						<PropDescriptionCell>
+							<p>
+								Use the <InlineCode>asChild</InlineCode> prop to compose the <InlineCode>Badge</InlineCode> styling and
+								functionality onto alternative element types or your own React components.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>
