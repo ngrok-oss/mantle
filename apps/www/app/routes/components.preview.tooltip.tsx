@@ -35,11 +35,11 @@ export default function Page() {
 						<Tooltip>
 							<TooltipTrigger asChild>
 								<Button type="button" appearance="filled" priority="default">
-									Hover
+									Add to library
 								</Button>
 							</TooltipTrigger>
 							<TooltipContent>
-								<p>Add to library</p>
+								<p>This feature is part of your plan</p>
 							</TooltipContent>
 						</Tooltip>
 					</TooltipProvider>
