@@ -19,11 +19,13 @@ type ProgressContextValue = {
 	value: ValueType;
 };
 
-const ProgressContext = createContext<ProgressContextValue>({
+const defaultContextValue = {
 	max: defaultMax,
 	strokeWidth: "0.25rem",
 	value: 0,
-});
+} as const satisfies ProgressContextValue;
+
+const ProgressContext = createContext<ProgressContextValue>(defaultContextValue);
 
 type SvgAttributes = Omit<
 	HTMLAttributes<SVGElement>,
@@ -71,8 +73,9 @@ const ProgressDonut = ({
 }: Props) => {
 	const max = isValidMaxNumber(_max) ? _max : defaultMax;
 	const value = (isValidValueNumber(_value, max) ? _value : _value == null ? 0 : "indeterminate") satisfies ValueType;
-	const strokeWidthPx = deriveStrokeWidthPx(_strokeWidth);
+	const strokeWidthPx = deriveStrokeWidthPx(_strokeWidth ?? defaultContextValue.strokeWidth);
 	const valueNow = isNumber(value) ? value : undefined;
+	const radius = `calc(50% - ${strokeWidthPx / 2}px)` as const;
 
 	const ctx: ProgressContextValue = useMemo(
 		() => ({
@@ -101,14 +104,7 @@ const ProgressDonut = ({
 				width="100%"
 				{...props}
 			>
-				<circle
-					cx="50%"
-					cy="50%"
-					fill="transparent"
-					r={`calc(50% - ${strokeWidthPx / 2}px)`}
-					stroke="currentColor"
-					strokeWidth={strokeWidthPx}
-				/>
+				<circle cx="50%" cy="50%" fill="transparent" r={radius} stroke="currentColor" strokeWidth={strokeWidthPx} />
 				{children}
 			</svg>
 		</ProgressContext.Provider>
@@ -127,9 +123,10 @@ type ProgressDonutIndicatorProps = Omit<ComponentProps<"g">, "children">;
  */
 const ProgressDonutIndicator = ({ className, ...props }: ProgressDonutIndicatorProps) => {
 	const gradientId = useRandomStableId();
-	const ctx = useContext(ProgressContext);
+	const ctx = useContext(ProgressContext) ?? defaultContextValue;
 	const percentage = (ctx.value == "indeterminate" ? indeterminateTailPercent : ctx.value / ctx.max) * 100;
 	const strokeWidthPx = deriveStrokeWidthPx(ctx.strokeWidth);
+	const radius = `calc(50% - ${strokeWidthPx / 2}px)` as const;
 
 	return (
 		<g className={cx("text-accent-600", className)} {...props}>
@@ -146,7 +143,7 @@ const ProgressDonutIndicator = ({ className, ...props }: ProgressDonutIndicatorP
 				cy="50%"
 				fill="transparent"
 				pathLength={100}
-				r={`calc(50% - ${strokeWidthPx / 2}px)`}
+				r={radius}
 				stroke={ctx.value == "indeterminate" ? `url(#${gradientId})` : "currentColor"}
 				strokeDasharray={100}
 				strokeDashoffset={100 - percentage}
