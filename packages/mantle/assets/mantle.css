@@ -1618,4 +1618,21 @@
 			100% 14px;
 		background-attachment: local, local, scroll, scroll;
 	}
+
+	.nav-scroll-shadow {
+		background:
+			/* Shadow Cover TOP */
+			linear-gradient(hsl(var(--bg-popover)) 30%, hsl(var(--bg-popover) / 0%)) center top,
+			/* Shadow Cover BOTTOM */ linear-gradient(hsl(var(--bg-popover) / 0%), hsl(var(--bg-popover)) 70%) center bottom,
+			/* Shadow TOP */ radial-gradient(farthest-side at 50% 0, var(--navigation-shadow), rgb(0 0 0 / 0%)) center top,
+			/* Shadow BOTTOM */ radial-gradient(farthest-side at 50% 100%, var(--navigation-shadow), rgb(0 0 0 / 0%)) center
+				bottom;
+		background-repeat: no-repeat;
+		background-size:
+			100% 40px,
+			100% 40px,
+			100% 14px,
+			100% 14px;
+		background-attachment: local, local, scroll, scroll;
+	}
 }
