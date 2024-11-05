@@ -1,7 +1,6 @@
 import clsx from "clsx";
-import { createContext, useContext, useMemo } from "react";
-import type { ComponentProps, HTMLAttributes } from "react";
-import { useRandomStableId } from "../../hooks/use-random-stable-id.js";
+import { createContext, useContext, useId, useMemo } from "react";
+import type { ComponentProps, CSSProperties, HTMLAttributes } from "react";
 import { cx } from "../../utils/cx/cx.js";
 
 type RemValue = `${number}rem`;
@@ -75,7 +74,7 @@ const ProgressDonut = ({
 	const value = (isValidValueNumber(_value, max) ? _value : _value == null ? 0 : "indeterminate") satisfies ValueType;
 	const strokeWidthPx = deriveStrokeWidthPx(_strokeWidth ?? defaultContextValue.strokeWidth);
 	const valueNow = isNumber(value) ? value : undefined;
-	const radius = `calc(50% - ${strokeWidthPx / 2}px)` as const;
+	const radius = calcRadius(strokeWidthPx);
 
 	const ctx: ProgressContextValue = useMemo(
 		() => ({
@@ -104,7 +103,15 @@ const ProgressDonut = ({
 				width="100%"
 				{...props}
 			>
-				<circle cx="50%" cy="50%" fill="transparent" r={radius} stroke="currentColor" strokeWidth={strokeWidthPx} />
+				<circle
+					className="[r:var(--radius)]"
+					cx="50%"
+					cy="50%"
+					fill="transparent"
+					stroke="currentColor"
+					strokeWidth={strokeWidthPx}
+					style={{ "--radius": radius } as CSSProperties}
+				/>
 				{children}
 			</svg>
 		</ProgressContext.Provider>
@@ -122,11 +129,11 @@ type ProgressDonutIndicatorProps = Omit<ComponentProps<"g">, "children">;
  * The indicator for the circular progress bar.
  */
 const ProgressDonutIndicator = ({ className, ...props }: ProgressDonutIndicatorProps) => {
-	const gradientId = useRandomStableId();
+	const gradientId = useId();
 	const ctx = useContext(ProgressContext) ?? defaultContextValue;
 	const percentage = (ctx.value == "indeterminate" ? indeterminateTailPercent : ctx.value / ctx.max) * 100;
 	const strokeWidthPx = deriveStrokeWidthPx(ctx.strokeWidth);
-	const radius = `calc(50% - ${strokeWidthPx / 2}px)` as const;
+	const radius = calcRadius(strokeWidthPx);
 
 	return (
 		<g className={cx("text-accent-600", className)} {...props}>
@@ -139,16 +146,17 @@ const ProgressDonutIndicator = ({ className, ...props }: ProgressDonutIndicatorP
 				</defs>
 			)}
 			<circle
+				className="[r:var(--radius)]"
 				cx="50%"
 				cy="50%"
 				fill="transparent"
 				pathLength={100}
-				r={radius}
 				stroke={ctx.value == "indeterminate" ? `url(#${gradientId})` : "currentColor"}
 				strokeDasharray={100}
 				strokeDashoffset={100 - percentage}
 				strokeLinecap="round"
 				strokeWidth={strokeWidthPx}
+				style={{ "--radius": radius } as CSSProperties}
 				transform-origin="center"
 				transform="rotate(-90)" // rotate -90 degrees so it starts from the top
 			/>
@@ -211,4 +219,12 @@ function isValidValueNumber(value: unknown, max: number): value is number {
  */
 function isValidMaxNumber(value: unknown): value is number {
 	return isNumber(value) && !Number.isNaN(value) && value > 0;
+}
+
+/**
+ * Calculate the radius of the progress donut and indicator based on the stroke
+ * width in pixels.
+ */
+function calcRadius(strokeWidthPx: number) {
+	return `calc(50% - ${strokeWidthPx / 2}px)` as const;
 }
