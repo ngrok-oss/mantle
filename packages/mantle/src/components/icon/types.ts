@@ -1,5 +1,5 @@
-import type { HTMLAttributes } from "react";
+import type { ComponentProps } from "react";
 
-export type SvgAttributes = HTMLAttributes<SVGElement> & {
+export type SvgAttributes = ComponentProps<"svg"> & {
 	focusable?: "true" | "false";
 };

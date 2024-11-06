@@ -1,11 +1,10 @@
-import type { ReactElement, ReactNode } from "react";
-import { Children, cloneElement, isValidElement } from "react";
+import type { ElementRef, ReactElement, ReactNode } from "react";
+import { Children, cloneElement, forwardRef, isValidElement } from "react";
 import invariant from "tiny-invariant";
-import type { WithStyleProps } from "../../types/with-style-props.js";
 import { cx } from "../../utils/cx/cx.js";
 import type { SvgAttributes } from "./types.js";
 
-type IconBaseProps = WithStyleProps & {
+type IconBaseProps = Omit<SvgAttributes, "children"> & {
 	/**
 	 * A single SVG icon element.
 	 */
@@ -22,18 +21,23 @@ type IconBaseProps = WithStyleProps & {
  * 2. svg className
  * 3. Icon className
  */
-const IconBase = ({ className, style, svg }: IconBaseProps) => {
-	const icon = Children.only(svg) as ReactElement;
+const IconBase = forwardRef<ElementRef<"svg">, IconBaseProps>(({ className, style, svg, ...props }, ref) => {
+	const icon = Children.only(svg) as ReactElement<SvgAttributes>;
 	invariant(isValidElement<SvgAttributes>(icon), "Icon must be passed a single SVG icon as a JSX tag.");
 
 	return (
 		<>
 			{cloneElement(icon, {
+				...props,
 				className: cx("shrink-0", icon.props.className, className),
 				style: { ...icon.props.style, ...style },
+				ref,
 			})}
 		</>
 	);
-};
+});
 
-export { IconBase };
+export {
+	//,
+	IconBase,
+};
