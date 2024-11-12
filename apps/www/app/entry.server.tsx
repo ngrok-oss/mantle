@@ -5,7 +5,12 @@ import { RemixServer } from "@remix-run/react";
 import { isbot } from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
 
-const ABORT_DELAY = 5_000;
+// Reject/cancel all pending promises after 5 seconds
+export const streamTimeout = 5_000;
+
+// Automatically timeout the React renderer after 6 seconds, which ensures
+// React has enough time to flush down the rejected boundary contents
+const reactRendererTimeout = 1_000 + streamTimeout;
 
 export default function handleRequest(
 	request: Request,
@@ -25,34 +30,31 @@ function handleBotRequest(
 	remixContext: EntryContext,
 ) {
 	return new Promise((resolve, reject) => {
-		const { pipe, abort } = renderToPipeableStream(
-			<RemixServer context={remixContext} url={request.url} abortDelay={ABORT_DELAY} />,
-			{
-				onAllReady() {
-					const body = new PassThrough();
+		const { pipe, abort } = renderToPipeableStream(<RemixServer context={remixContext} url={request.url} />, {
+			onAllReady() {
+				const body = new PassThrough();
 
-					responseHeaders.set("Content-Type", "text/html");
+				responseHeaders.set("Content-Type", "text/html");
 
-					resolve(
-						new Response(createReadableStreamFromReadable(body), {
-							headers: responseHeaders,
-							status: responseStatusCode,
-						}),
-					);
+				resolve(
+					new Response(createReadableStreamFromReadable(body), {
+						headers: responseHeaders,
+						status: responseStatusCode,
+					}),
+				);
 
-					pipe(body);
-				},
-				onShellError(error: unknown) {
-					reject(error);
-				},
-				onError(error: unknown) {
-					responseStatusCode = 500;
-					console.error(error);
-				},
+				pipe(body);
 			},
-		);
+			onShellError(error: unknown) {
+				reject(error);
+			},
+			onError(error: unknown) {
+				responseStatusCode = 500;
+				console.error(error);
+			},
+		});
 
-		setTimeout(abort, ABORT_DELAY);
+		setTimeout(abort, reactRendererTimeout);
 	});
 }
 
@@ -63,33 +65,30 @@ function handleBrowserRequest(
 	remixContext: EntryContext,
 ) {
 	return new Promise((resolve, reject) => {
-		const { pipe, abort } = renderToPipeableStream(
-			<RemixServer context={remixContext} url={request.url} abortDelay={ABORT_DELAY} />,
-			{
-				onShellReady() {
-					const body = new PassThrough();
+		const { pipe, abort } = renderToPipeableStream(<RemixServer context={remixContext} url={request.url} />, {
+			onShellReady() {
+				const body = new PassThrough();
 
-					responseHeaders.set("Content-Type", "text/html");
+				responseHeaders.set("Content-Type", "text/html");
 
-					resolve(
-						new Response(createReadableStreamFromReadable(body), {
-							headers: responseHeaders,
-							status: responseStatusCode,
-						}),
-					);
+				resolve(
+					new Response(createReadableStreamFromReadable(body), {
+						headers: responseHeaders,
+						status: responseStatusCode,
+					}),
+				);
 
-					pipe(body);
-				},
-				onShellError(error: unknown) {
-					reject(error);
-				},
-				onError(error: unknown) {
-					console.error(error);
-					responseStatusCode = 500;
-				},
+				pipe(body);
 			},
-		);
+			onShellError(error: unknown) {
+				reject(error);
+			},
+			onError(error: unknown) {
+				console.error(error);
+				responseStatusCode = 500;
+			},
+		});
 
-		setTimeout(abort, ABORT_DELAY);
+		setTimeout(abort, reactRendererTimeout);
 	});
 }
