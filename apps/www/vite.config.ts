@@ -1,12 +1,15 @@
 import { vitePlugin as remix } from "@remix-run/dev";
-import { installGlobals } from "@remix-run/node";
 import { vercelPreset } from "@vercel/remix/vite";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 
-installGlobals();
-
 const isVercelBuild = Boolean(process.env.VERCEL);
+
+declare module "@remix-run/node" {
+	interface Future {
+		v3_singleFetch: true;
+	}
+}
 
 export default defineConfig({
 	server: {
@@ -15,11 +18,12 @@ export default defineConfig({
 	plugins: [
 		remix({
 			future: {
-				v3_fetcherPersist: true,
-				v3_relativeSplatPath: true,
-				v3_throwAbortReason: true,
 				unstable_optimizeDeps: true, // https://remix.run/docs/en/main/guides/dependency-optimization#dependency-optimization
-				// unstable_singleFetch: true, // 👈 enable single-fetch
+				v3_fetcherPersist: true,
+				v3_lazyRouteDiscovery: true,
+				v3_relativeSplatPath: true,
+				v3_singleFetch: true, // 👈 enable single-fetch
+				v3_throwAbortReason: true,
 			},
 			presets: isVercelBuild ? [vercelPreset()] : undefined,
 		}),
