@@ -1,6 +1,6 @@
 import { act, renderHook } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
-import { useOffsetPagination } from "./use-offset-pagination.js";
+import { getOffsetPaginatedSlice, useOffsetPagination } from "./use-offset-pagination.js";
 
 describe("useOffsetPagination", () => {
 	test("given a list size of zero", () => {
@@ -112,5 +112,58 @@ describe("useOffsetPagination", () => {
 
 		rerender({ listSize: 200, pageSize: 100 });
 		expect(result.current.currentPage).toBe(1);
+	});
+});
+
+describe("getOffsetPaginatedSlice", () => {
+	test("given a list size of zero and a page size of 10", () => {
+		const list: number[] = [];
+		const pageSize = 10;
+		const { result } = renderHook(() =>
+			useOffsetPagination({
+				listSize: list.length,
+				pageSize,
+			}),
+		);
+
+		const slice = getOffsetPaginatedSlice(list, result.current);
+		expect(slice).toEqual([]);
+	});
+
+	test("given a list size of 1 and a page size of 10", () => {
+		const list = [1];
+		const pageSize = 10;
+		const { result } = renderHook(() =>
+			useOffsetPagination({
+				listSize: list.length,
+				pageSize,
+			}),
+		);
+
+		const slice = getOffsetPaginatedSlice(list, result.current);
+		expect(slice).toEqual([1]);
+	});
+
+	test("given a list of size 11 and a page size of 10", () => {
+		const list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+		const pageSize = 10;
+		const { result } = renderHook(() =>
+			useOffsetPagination({
+				listSize: list.length,
+				pageSize,
+			}),
+		);
+
+		const slice = getOffsetPaginatedSlice(list, result.current);
+		expect(slice).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+
+		act(() => result.current.nextPage());
+		const nextSlice = getOffsetPaginatedSlice(list, result.current);
+		expect(nextSlice).toEqual([11]);
+
+		// there should be no more pages, the slice should be the same as the previous one
+		act(() => result.current.nextPage());
+		const lastSlice = getOffsetPaginatedSlice(list, result.current);
+		expect(lastSlice).toEqual([11]);
 	});
 });
