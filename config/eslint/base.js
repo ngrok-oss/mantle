@@ -39,6 +39,8 @@ export default tseslint.config(
 		],
 		rules: {
 			...turboPlugin.configs.recommended.rules,
+			"@typescript-eslint/no-empty-object-type": "off",
+			"@typescript-eslint/prefer-promise-reject-errors": "off",
 			"@typescript-eslint/no-non-null-assertion": "off",
 			"prefer-const": "off",
 			"@typescript-eslint/no-empty-function": "off",

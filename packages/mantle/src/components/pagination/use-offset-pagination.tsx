@@ -132,9 +132,17 @@ function useOffsetPagination({ listSize, pageSize }: UseOffsetPaginationProps): 
 	};
 }
 
+/**
+ * Get a paginated slice of a list based on the current offset pagination state.
+ */
+function getOffsetPaginatedSlice<T>(list: readonly T[], pagination: OffsetPaginationState): T[] {
+	return list.slice(pagination.offset, pagination.offset + pagination.pageSize);
+}
+
 export {
 	//,
 	useOffsetPagination,
+	getOffsetPaginatedSlice,
 };
 
 export type {
