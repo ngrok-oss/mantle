@@ -5,7 +5,11 @@ export {
 	CursorPageSizeValue,
 	CursorPagination,
 } from "./cursor-pagination.js";
-export { useOffsetPagination } from "./use-offset-pagination.js";
+export {
+	//,
+	getOffsetPaginatedSlice,
+	useOffsetPagination,
+} from "./use-offset-pagination.js";
 
 export type {
 	//,
@@ -16,6 +20,6 @@ export type {
 } from "./cursor-pagination.js";
 export type {
 	//,
-	UseOffsetPaginationProps,
 	OffsetPaginationState,
+	UseOffsetPaginationProps,
 } from "./use-offset-pagination.js";
