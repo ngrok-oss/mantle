@@ -141,12 +141,12 @@ function getOffsetPaginatedSlice<T>(list: readonly T[], pagination: OffsetPagina
 
 export {
 	//,
-	useOffsetPagination,
 	getOffsetPaginatedSlice,
+	useOffsetPagination,
 };
 
 export type {
 	//,
-	UseOffsetPaginationProps,
 	OffsetPaginationState,
+	UseOffsetPaginationProps,
 };
