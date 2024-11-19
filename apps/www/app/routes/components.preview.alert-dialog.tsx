@@ -113,11 +113,13 @@ export default function Page() {
 									import {
 										AlertDialog,
 										AlertDialogAction,
+										AlertDialogBody,
 										AlertDialogCancel,
 										AlertDialogContent,
 										AlertDialogDescription,
 										AlertDialogFooter,
 										AlertDialogHeader,
+										AlertDialogIcon,
 										AlertDialogTitle,
 										AlertDialogTrigger,
 									} from "@ngrok/mantle/alert-dialog";
@@ -130,17 +132,20 @@ export default function Page() {
 											</Button>
 										</AlertDialogTrigger>
 										<AlertDialogContent>
-											<AlertDialogHeader>
-												<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-												<AlertDialogDescription>
-													This action cannot be undone. This will permanently delete your account and remove your data from
-													our servers.
-												</AlertDialogDescription>
-											</AlertDialogHeader>
-											<AlertDialogFooter>
-												<AlertDialogCancel type="button">Cancel</AlertDialogCancel>
-												<AlertDialogAction type="button">Continue</AlertDialogAction>
-											</AlertDialogFooter>
+											<AlertDialogIcon />
+											<AlertDialogBody>
+												<AlertDialogHeader>
+													<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+													<AlertDialogDescription>
+														This action cannot be undone. This will permanently delete your account and remove your data from
+														our servers.
+													</AlertDialogDescription>
+												</AlertDialogHeader>
+												<AlertDialogFooter>
+													<AlertDialogCancel type="button">Cancel</AlertDialogCancel>
+													<AlertDialogAction type="button">Continue</AlertDialogAction>
+												</AlertDialogFooter>
+											</AlertDialogBody>
 										</AlertDialogContent>
 									</AlertDialog>
 								`}
