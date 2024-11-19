@@ -3,7 +3,7 @@ import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
 import clsx from "clsx";
 import { Children, cloneElement, forwardRef, isValidElement } from "react";
-import type { ButtonHTMLAttributes, PropsWithChildren, ReactNode } from "react";
+import type { ButtonHTMLAttributes, ComponentProps, PropsWithChildren, ReactNode } from "react";
 import invariant from "tiny-invariant";
 import { parseBooleanish } from "../../types/index.js";
 import type { VariantProps } from "../../types/variant-props.js";
@@ -103,10 +103,13 @@ const buttonVariants = cva(
 
 type ButtonVariants = VariantProps<typeof buttonVariants>;
 
+type ButtonAppearance = Pick<ButtonVariants, "appearance">["appearance"];
+type ButtonPriority = Pick<ButtonVariants, "priority">["priority"];
+
 /**
  * The props for the `Button` component.
  */
-type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
+type ButtonProps = ComponentProps<"button"> &
 	ButtonVariants & {
 		/**
 		 * An icon to render inside the button. If the `state` is `"pending"`, then
@@ -250,8 +253,18 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 );
 Button.displayName = "Button";
 
-export { Button, buttonVariants };
-export type { ButtonProps };
+export {
+	//,
+	Button,
+	buttonVariants,
+};
+
+export type {
+	//,
+	ButtonProps,
+	ButtonAppearance,
+	ButtonPriority,
+};
 
 type InnerContentProps = PropsWithChildren & Pick<ButtonProps, "appearance" | "icon" | "iconPlacement">;
 

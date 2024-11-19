@@ -1,19 +1,32 @@
 import {
 	AlertDialog,
 	AlertDialogAction,
+	AlertDialogBody,
 	AlertDialogCancel,
 	AlertDialogContent,
 	AlertDialogDescription,
 	AlertDialogFooter,
 	AlertDialogHeader,
+	AlertDialogIcon,
 	AlertDialogTitle,
 	AlertDialogTrigger,
 } from "@ngrok/mantle/alert-dialog";
+import { Anchor } from "@ngrok/mantle/anchor";
 import { Button } from "@ngrok/mantle/button";
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
+import { InlineCode } from "@ngrok/mantle/inline-code";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { PreviewBadge } from "~/components/badges";
 import { Example } from "~/components/example";
+import {
+	PropDefaultValueCell,
+	PropDescriptionCell,
+	PropNameCell,
+	PropRow,
+	PropsTable,
+	PropTypeCell,
+	StringPropType,
+} from "~/components/props-table";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -34,7 +47,7 @@ export default function Page() {
 			<section className="space-y-4">
 				<div className="flex items-center gap-3">
 					<h1 id="calendar" className="text-5xl font-medium">
-						AlertDialog
+						Alert Dialog
 					</h1>
 					<PreviewBadge />
 				</div>
@@ -43,24 +56,50 @@ export default function Page() {
 				</p>
 				<div>
 					<Example className="flex-col gap-6">
-						<AlertDialog>
+						<AlertDialog priority="info">
 							<AlertDialogTrigger asChild>
 								<Button type="button" appearance="outlined">
-									Show Dialog
+									Show Info Alert Dialog
 								</Button>
 							</AlertDialogTrigger>
 							<AlertDialogContent>
-								<AlertDialogHeader>
-									<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-									<AlertDialogDescription>
-										This action cannot be undone. This will permanently delete your account and remove your data from
-										our servers.
-									</AlertDialogDescription>
-								</AlertDialogHeader>
-								<AlertDialogFooter>
-									<AlertDialogCancel type="button">Cancel</AlertDialogCancel>
-									<AlertDialogAction type="button">Continue</AlertDialogAction>
-								</AlertDialogFooter>
+								<AlertDialogIcon />
+								<AlertDialogBody>
+									<AlertDialogHeader>
+										<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+										<AlertDialogDescription>
+											This action cannot be undone. This will permanently delete your account and remove your data from
+											our servers.
+										</AlertDialogDescription>
+									</AlertDialogHeader>
+									<AlertDialogFooter>
+										<AlertDialogCancel type="button">Cancel</AlertDialogCancel>
+										<AlertDialogAction type="button">Continue</AlertDialogAction>
+									</AlertDialogFooter>
+								</AlertDialogBody>
+							</AlertDialogContent>
+						</AlertDialog>
+						<AlertDialog priority="danger">
+							<AlertDialogTrigger asChild>
+								<Button type="button" appearance="outlined">
+									Show Danger Alert Dialog
+								</Button>
+							</AlertDialogTrigger>
+							<AlertDialogContent>
+								<AlertDialogIcon />
+								<AlertDialogBody>
+									<AlertDialogHeader>
+										<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+										<AlertDialogDescription>
+											This action cannot be undone. This will permanently delete your account and remove your data from
+											our servers.
+										</AlertDialogDescription>
+									</AlertDialogHeader>
+									<AlertDialogFooter>
+										<AlertDialogCancel type="button">Cancel</AlertDialogCancel>
+										<AlertDialogAction type="button">Continue</AlertDialogAction>
+									</AlertDialogFooter>
+								</AlertDialogBody>
 							</AlertDialogContent>
 						</AlertDialog>
 					</Example>
@@ -83,10 +122,10 @@ export default function Page() {
 									} from "@ngrok/mantle/alert-dialog";
 									import { Button } from "@ngrok/mantle/button";
 
-									<AlertDialog>
+									<AlertDialog priority="info">
 										<AlertDialogTrigger asChild>
 											<Button type="button" appearance="outlined">
-												Show Dialog
+												Show Info Alert Dialog
 											</Button>
 										</AlertDialogTrigger>
 										<AlertDialogContent>
@@ -110,100 +149,121 @@ export default function Page() {
 				</div>
 			</section>
 
-			{/* <section className="space-y-4">
-				<h2 id="composition" className="text-3xl font-medium">
-					Composition
-				</h2>
-				<p className="font-body text-body text-xl">
-					In some cases, you might wish to have a tooltip over the dialog trigger. This is helpful if the dialog trigger
-					is an <InlineCode>IconButton</InlineCode> and you wish to provide more context to what the button does. You
-					can compose them both together to where the dialog trigger is also the tooltip trigger.
-				</p>
-				<div>
-					<Example>
-						<Dialog>
-							<Tooltip>
-								<TooltipTrigger asChild>
-									<DialogTrigger asChild>
-										<IconButton type="button" label="Delete" size="sm" icon={<TrashSimple />} />
-									</DialogTrigger>
-								</TooltipTrigger>
-								<TooltipContent>
-									<p>Delete</p>
-								</TooltipContent>
-							</Tooltip>
+			<section className="space-y-8">
+				<header className="space-y-4">
+					<h2 id="api" className="text-3xl font-medium">
+						API Reference
+					</h2>
+					<p className="font-body text-body text-xl">
+						The <InlineCode>AlertDialog</InlineCode> components are built on top of{" "}
+						<Anchor
+							href="https://www.radix-ui.com/primitives/docs/components/alert-dialog"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							Radix Alert Dialog
+						</Anchor>
+						.
+					</p>
+				</header>
 
-							<DialogContent>
-								<DialogHeader>
-									<DialogTitle>Are you absolutely sure?</DialogTitle>
-									<DialogCloseIconButton />
-								</DialogHeader>
-								<DialogBody>
-									This action cannot be undone. This will permanently delete your account and remove your data from our
-									servers.
-								</DialogBody>
-								<DialogFooter>
-									<DialogClose asChild>
-										<Button type="button" priority="danger" appearance="filled">
-											Delete
-										</Button>
-									</DialogClose>
-									<DialogClose asChild>
-										<Button type="button" priority="neutral" appearance="outlined">
-											Cancel
-										</Button>
-									</DialogClose>
-								</DialogFooter>
-							</DialogContent>
-						</Dialog>
-					</Example>
-					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
-								language="tsx"
-								value={fmtCode`
-									<Dialog>
-										<Tooltip>
-											<TooltipTrigger asChild>
-												<DialogTrigger asChild>
-													<IconButton type="button" label="Delete" size="sm" icon={<TrashSimple />} />
-												</DialogTrigger>
-											</TooltipTrigger>
-											<TooltipContent>
-												<p>Delete</p>
-											</TooltipContent>
-										</Tooltip>
+				<section className="space-y-4">
+					<header className="space-y-1">
+						<h3 className="text-xl font-medium">AlertDialog</h3>
 
-										<DialogContent>
-											<DialogHeader>
-												<DialogTitle>Are you absolutely sure?</DialogTitle>
-												<DialogCloseIconButton />
-											</DialogHeader>
-											<DialogBody>
-												This action cannot be undone. This will permanently delete your account and remove your data from our
-												servers.
-											</DialogBody>
-											<DialogFooter>
-												<DialogClose asChild>
-													<Button type="button" priority="danger" appearance="filled">
-														Delete
-													</Button>
-												</DialogClose>
-												<DialogClose asChild>
-													<Button type="button" priority="neutral" appearance="outlined">
-														Cancel
-													</Button>
-												</DialogClose>
-											</DialogFooter>
-										</DialogContent>
-									</Dialog>
-								`}
-							/>
-						</CodeBlockBody>
-					</CodeBlock>
-				</div>
-			</section> */}
+						<p className="font-body text-body">The root component for the Alert Dialog.</p>
+						<p className="font-body text-body">
+							All props from Radix{" "}
+							<Anchor
+								href="https://www.radix-ui.com/primitives/docs/components/alert-dialog#root"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								AlertDialog.Root
+							</Anchor>
+							, plus:
+						</p>
+					</header>
+
+					<PropsTable>
+						<PropRow>
+							<PropNameCell name="priority" />
+							<PropTypeCell>
+								<ul>
+									<li>
+										<StringPropType value="info" />
+									</li>
+									<li>
+										<StringPropType value="danger" />
+									</li>
+								</ul>
+							</PropTypeCell>
+							<PropDefaultValueCell />
+							<PropDescriptionCell>
+								<p>
+									Indicates the importance or impact level of the AlertDialog, affecting its color and styling to
+									communicate its purpose to the user.
+								</p>
+							</PropDescriptionCell>
+						</PropRow>
+					</PropsTable>
+				</section>
+
+				<section className="space-y-1">
+					<h3 className="text-xl font-medium">AlertDialogTrigger</h3>
+
+					<p className="font-body text-body">A button that opens the Alert Dialog.</p>
+					<p className="font-body text-body">
+						Radix{" "}
+						<Anchor
+							href="https://www.radix-ui.com/primitives/docs/components/alert-dialog#trigger"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							AlertDialog.Trigger
+						</Anchor>{" "}
+						props.
+					</p>
+				</section>
+
+				<section className="space-y-1">
+					<h3 className="text-xl font-medium">AlertDialogContent</h3>
+
+					<p className="font-body text-body">
+						The popover Alert Dialog container. Renders on top of the overlay and is centered in the viewport.
+					</p>
+					<p className="font-body text-body">
+						Radix{" "}
+						<Anchor
+							href="https://www.radix-ui.com/primitives/docs/components/alert-dialog#content"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							AlertDialog.Content
+						</Anchor>{" "}
+						props.
+					</p>
+				</section>
+
+				<section className="space-y-1">
+					<h3 className="text-xl font-medium">AlertDialogContent</h3>
+
+					<p className="font-body text-body">
+						The popover Alert Dialog container. Renders on top of the overlay and is centered in the viewport.
+					</p>
+					<p className="font-body text-body">
+						Radix{" "}
+						<Anchor
+							href="https://www.radix-ui.com/primitives/docs/components/alert-dialog#content"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							AlertDialog.Content
+						</Anchor>{" "}
+						props.
+					</p>
+				</section>
+			</section>
 		</div>
 	);
 }
