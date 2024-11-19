@@ -154,6 +154,7 @@ const prodReadyComponents = [
  */
 const previewComponents = [
 	//,
+	"AlertDialog",
 	"Calendar",
 	"Pagination",
 	"Popover",
@@ -191,6 +192,7 @@ const prodReadyComponentRouteLookup = {
 } as const satisfies Record<(typeof prodReadyComponents)[number], Route>;
 
 const previewComponentsRouteLookup = {
+	AlertDialog: "/components/preview/alert-dialog",
 	Calendar: "/components/preview/calendar",
 	Pagination: "/components/preview/pagination",
 	Popover: "/components/preview/popover",
