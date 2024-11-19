@@ -167,6 +167,7 @@ AlertDialogDescription.displayName = AlertDialogPrimitive.Description.displayNam
 
 /**
  * A button that closes the dialog and confirms the action.
+ * Will default to appearance="filled", as well as the priority color from the `AlertDialog`.
  *
  * These buttons should be distinguished visually from the AlertDialogCancel button.
  *
@@ -204,6 +205,7 @@ AlertDialogAction.displayName = AlertDialogPrimitive.Action.displayName;
 
 /**
  * A button that closes the dialog and cancels the action.
+ * Will default to appearance="outlined" and priority="neutral".
  *
  * This button should be distinguished visually from AlertDialogAction buttons.
  *

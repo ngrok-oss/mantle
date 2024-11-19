@@ -18,6 +18,7 @@ import { InlineCode } from "@ngrok/mantle/inline-code";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { PreviewBadge } from "~/components/badges";
 import { Example } from "~/components/example";
+import { Link } from "~/components/link";
 import {
 	PropDefaultValueCell,
 	PropDescriptionCell,
@@ -246,21 +247,104 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 className="text-xl font-medium">AlertDialogContent</h3>
+					<h3 className="text-xl font-medium">AlertDialogHeader</h3>
 
 					<p className="font-body text-body">
-						The popover Alert Dialog container. Renders on top of the overlay and is centered in the viewport.
+						Contains the header content of the dialog, including the title and description.
+					</p>
+					<p className="font-body text-body">
+						Same props as a <InlineCode>{"<div>"}</InlineCode> element.
+					</p>
+				</section>
+
+				<section className="space-y-1">
+					<h3 className="text-xl font-medium">AlertDialogFooter</h3>
+
+					<p className="font-body text-body">
+						Contains the footer content of the dialog, including the action and cancel buttons.
+					</p>
+					<p className="font-body text-body">
+						Same props as a <InlineCode>{"<div>"}</InlineCode> element.
+					</p>
+				</section>
+
+				<section className="space-y-1">
+					<h3 className="text-xl font-medium">AlertDialogTitle</h3>
+
+					<p className="font-body text-body">An accessible name to be announced when the dialog is opened.</p>
+					<p className="font-body text-body">
+						Alternatively, you can provide <InlineCode>aria-label</InlineCode> or{" "}
+						<InlineCode>aria-labelledby</InlineCode> to <InlineCode>AlertDialogContent</InlineCode> and exclude this
+						component.
 					</p>
 					<p className="font-body text-body">
 						Radix{" "}
 						<Anchor
-							href="https://www.radix-ui.com/primitives/docs/components/alert-dialog#content"
+							href="https://www.radix-ui.com/primitives/docs/components/alert-dialog#title"
 							target="_blank"
 							rel="noopener noreferrer"
 						>
-							AlertDialog.Content
+							AlertDialog.Title
 						</Anchor>{" "}
 						props.
+					</p>
+				</section>
+
+				<section className="space-y-1">
+					<h3 className="text-xl font-medium">AlertDialogDescription</h3>
+
+					<p className="font-body text-body">An accessible description to be announced when the dialog is opened.</p>
+					<p className="font-body text-body">
+						Alternatively, you can provide <InlineCode>aria-describedby</InlineCode> to{" "}
+						<InlineCode>AlertDialogContent</InlineCode> and exclude this component.
+					</p>
+					<p className="font-body text-body">
+						Radix{" "}
+						<Anchor
+							href="https://www.radix-ui.com/primitives/docs/components/alert-dialog#description"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							AlertDialog.Description
+						</Anchor>{" "}
+						props.
+					</p>
+				</section>
+
+				<section className="space-y-1">
+					<h3 className="text-xl font-medium">AlertDialogAction</h3>
+
+					<p className="font-body text-body">
+						A button that closes the alert dialog and confirms the action. Will default to{" "}
+						<InlineCode>appearance="filled"</InlineCode>, as well as the priority color from the{" "}
+						<InlineCode>AlertDialog</InlineCode>
+					</p>
+					<p className="font-body text-body">
+						These buttons should be distinguished visually from the <InlineCode>AlertDialogCancel</InlineCode> button.
+					</p>
+					<p className="font-body text-body">
+						Composes around the mantle <Link to="/components/button">Button</Link> component.
+					</p>
+					<p className="font-body text-body">
+						Same props as the <Link to="/components/button">Button</Link> component.
+					</p>
+				</section>
+
+				<section className="space-y-1">
+					<h3 className="text-xl font-medium">AlertDialogCancel</h3>
+
+					<p className="font-body text-body">
+						A button that closes the dialog and cancels the action. Will default to{" "}
+						<InlineCode>appearance="outlined"</InlineCode> and <InlineCode>priority="neutral"</InlineCode>.
+					</p>
+					<p className="font-body text-body">
+						This button should be distinguished visually from <InlineCode>AlertDialogAction</InlineCode> buttons.
+					</p>
+					<p className="font-body text-body">
+						Composes around the mantle <Link to="/components/button">Button</Link> component.
+					</p>
+					<p className="font-body text-body">
+						Same props as the <Link to="/components/button">Button</Link> component.
 					</p>
 				</section>
 			</section>
