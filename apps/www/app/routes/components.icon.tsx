@@ -73,9 +73,12 @@ export default function Page() {
 					of precedence (last one wins):
 				</p>
 				<ol className="font-body text-body ml-8 list-decimal">
+					<li>
+						SvgOnly base classes (only <InlineCode>"shrink-0"</InlineCode>)
+					</li>
 					<li>Icon base classes</li>
-					<li>svg className</li>
 					<li>Icon className</li>
+					<li>svg className</li>
 				</ol>
 				<div>
 					<Example className="flex-col gap-6">
@@ -93,6 +96,14 @@ export default function Page() {
 							</p>
 							<div className="flex items-center justify-center">
 								<Icon svg={<Fire className="size-12 sm:size-16" />} />
+							</div>
+						</div>
+						<div className="text-center">
+							<p>
+								When <InlineCode>className</InlineCode> is only specified on <InlineCode>Icon</InlineCode>:
+							</p>
+							<div className="flex items-center justify-center">
+								<Icon className="size-20 sm:size-28" svg={<Fire />} />
 							</div>
 						</div>
 						<div className="text-center">
@@ -116,6 +127,7 @@ export default function Page() {
 
 									<Icon svg={<Fire />} />
 									<Icon svg={<Fire className="size-12 sm:size-16" />} />
+									<Icon className="size-20 sm:size-28" svg={<Fire />} />
 									<Icon className="size-20 sm:size-28" svg={<Fire className="size-12 sm:size-16" />} />
 								`}
 							/>

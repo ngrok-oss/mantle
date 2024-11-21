@@ -4,7 +4,7 @@ import invariant from "tiny-invariant";
 import type { WithAsChild } from "../../types/as-child.js";
 import type { Color } from "../../utils/color/index.js";
 import { cx } from "../../utils/cx/cx.js";
-import { IconBase } from "../icon/_icon-base.js";
+import { SvgOnly } from "../icon/svg-only.js";
 
 const appearances = ["muted" /*"strong" */] as const;
 type Appearance = (typeof appearances)[number];
@@ -54,7 +54,7 @@ const Badge = ({ appearance, asChild = false, children, className, color = "neut
 					singleChild,
 					{},
 					<>
-						{icon && <IconBase className="size-5 sm:size-4" svg={icon} />}
+						{icon && <SvgOnly className="size-5 sm:size-4" svg={icon} />}
 						{grandchildren}
 					</>,
 				)}
@@ -64,7 +64,7 @@ const Badge = ({ appearance, asChild = false, children, className, color = "neut
 
 	return (
 		<span className={badgeClasses} {...props}>
-			{icon && <IconBase className="size-5 sm:size-4" svg={icon} />}
+			{icon && <SvgOnly className="size-5 sm:size-4" svg={icon} />}
 			{children}
 		</span>
 	);
