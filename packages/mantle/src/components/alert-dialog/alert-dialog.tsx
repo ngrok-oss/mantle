@@ -15,7 +15,7 @@ import {
 import invariant from "tiny-invariant";
 import { cx } from "../../utils/cx/cx.js";
 import { Button, type ButtonPriority, type ButtonProps } from "../button/button.js";
-import { IconBase } from "../icon/_icon-base.js";
+import { SvgOnly } from "../icon/svg-only.js";
 import type { SvgAttributes } from "../icon/types.js";
 
 const priorities = ["info", "danger"] as const;
@@ -253,7 +253,7 @@ const AlertDialogIcon = forwardRef<ElementRef<"svg">, AlertDialogIconProps>(({ c
 	const defaultIcon = ctx.priority === "danger" ? <Warning /> : <Info />;
 
 	return (
-		<IconBase
+		<SvgOnly
 			ref={ref}
 			className={cx("size-12 sm:size-7", defaultColor, className)}
 			svg={svg ?? defaultIcon}
