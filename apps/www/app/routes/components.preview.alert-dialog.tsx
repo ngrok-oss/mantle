@@ -103,6 +103,37 @@ export default function Page() {
 								</AlertDialogBody>
 							</AlertDialogContent>
 						</AlertDialog>
+
+						<AlertDialog priority="danger">
+							<AlertDialogTrigger asChild>
+								<Button type="button" appearance="outlined">
+									With a form
+								</Button>
+							</AlertDialogTrigger>
+							<AlertDialogContent>
+								<AlertDialogIcon />
+								<AlertDialogBody>
+									<AlertDialogHeader>
+										<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+										<AlertDialogDescription>
+											This action cannot be undone. This will permanently delete your account and remove your data from
+											our servers.
+										</AlertDialogDescription>
+									</AlertDialogHeader>
+									<AlertDialogFooter>
+										<AlertDialogCancel type="button">Cancel</AlertDialogCancel>
+										<form
+											onSubmit={(event) => {
+												event.preventDefault();
+												window.alert("Form submitted!");
+											}}
+										>
+											<AlertDialogAction type="submit">Continue</AlertDialogAction>
+										</form>
+									</AlertDialogFooter>
+								</AlertDialogBody>
+							</AlertDialogContent>
+						</AlertDialog>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
@@ -131,6 +162,7 @@ export default function Page() {
 												Show Info Alert Dialog
 											</Button>
 										</AlertDialogTrigger>
+
 										<AlertDialogContent>
 											<AlertDialogIcon />
 											<AlertDialogBody>
@@ -144,6 +176,37 @@ export default function Page() {
 												<AlertDialogFooter>
 													<AlertDialogCancel type="button">Cancel</AlertDialogCancel>
 													<AlertDialogAction type="button">Continue</AlertDialogAction>
+												</AlertDialogFooter>
+											</AlertDialogBody>
+										</AlertDialogContent>
+									</AlertDialog>
+
+									<AlertDialog priority="danger">
+										<AlertDialogTrigger asChild>
+											<Button type="button" appearance="outlined">
+												With a form
+											</Button>
+										</AlertDialogTrigger>
+										<AlertDialogContent>
+											<AlertDialogIcon />
+											<AlertDialogBody>
+												<AlertDialogHeader>
+													<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+													<AlertDialogDescription>
+														This action cannot be undone. This will permanently delete your account and remove your data from
+														our servers.
+													</AlertDialogDescription>
+												</AlertDialogHeader>
+												<AlertDialogFooter>
+													<AlertDialogCancel type="button">Cancel</AlertDialogCancel>
+													<form
+														onSubmit={(event) => {
+															event.preventDefault();
+															window.alert("Form submitted!");
+														}}
+													>
+														<AlertDialogAction type="submit">Continue</AlertDialogAction>
+													</form>
 												</AlertDialogFooter>
 											</AlertDialogBody>
 										</AlertDialogContent>
@@ -163,7 +226,7 @@ export default function Page() {
 					<p className="font-body text-body text-xl">
 						The <InlineCode>AlertDialog</InlineCode> components are built on top of{" "}
 						<Anchor
-							href="https://www.radix-ui.com/primitives/docs/components/alert-dialog"
+							href="https://www.radix-ui.com/primitives/docs/components/dialog"
 							target="_blank"
 							rel="noopener noreferrer"
 						>
@@ -181,11 +244,11 @@ export default function Page() {
 						<p className="font-body text-body">
 							All props from Radix{" "}
 							<Anchor
-								href="https://www.radix-ui.com/primitives/docs/components/alert-dialog#root"
+								href="https://www.radix-ui.com/primitives/docs/components/dialog#root"
 								target="_blank"
 								rel="noopener noreferrer"
 							>
-								AlertDialog.Root
+								Dialog.Root
 							</Anchor>
 							, plus:
 						</p>
@@ -222,11 +285,11 @@ export default function Page() {
 					<p className="font-body text-body">
 						Radix{" "}
 						<Anchor
-							href="https://www.radix-ui.com/primitives/docs/components/alert-dialog#trigger"
+							href="https://www.radix-ui.com/primitives/docs/components/dialog#trigger"
 							target="_blank"
 							rel="noopener noreferrer"
 						>
-							AlertDialog.Trigger
+							Dialog.Trigger
 						</Anchor>{" "}
 						props.
 					</p>
@@ -241,11 +304,11 @@ export default function Page() {
 					<p className="font-body text-body">
 						Radix{" "}
 						<Anchor
-							href="https://www.radix-ui.com/primitives/docs/components/alert-dialog#content"
+							href="https://www.radix-ui.com/primitives/docs/components/dialog#content"
 							target="_blank"
 							rel="noopener noreferrer"
 						>
-							AlertDialog.Content
+							Dialog.Content
 						</Anchor>{" "}
 						props.
 					</p>
@@ -285,11 +348,11 @@ export default function Page() {
 					<p className="font-body text-body">
 						Radix{" "}
 						<Anchor
-							href="https://www.radix-ui.com/primitives/docs/components/alert-dialog#title"
+							href="https://www.radix-ui.com/primitives/docs/components/dialog#title"
 							target="_blank"
 							rel="noopener noreferrer"
 						>
-							AlertDialog.Title
+							Dialog.Title
 						</Anchor>{" "}
 						props.
 					</p>
@@ -306,11 +369,11 @@ export default function Page() {
 					<p className="font-body text-body">
 						Radix{" "}
 						<Anchor
-							href="https://www.radix-ui.com/primitives/docs/components/alert-dialog#description"
+							href="https://www.radix-ui.com/primitives/docs/components/dialog#description"
 							target="_blank"
 							rel="noopener noreferrer"
 						>
-							AlertDialog.Description
+							Dialog.Description
 						</Anchor>{" "}
 						props.
 					</p>
@@ -320,9 +383,9 @@ export default function Page() {
 					<h3 className="text-xl font-medium">AlertDialogAction</h3>
 
 					<p className="font-body text-body">
-						A button that closes the alert dialog and confirms the action. Will default to{" "}
-						<InlineCode>appearance="filled"</InlineCode>, as well as the priority color from the{" "}
-						<InlineCode>AlertDialog</InlineCode>
+						A button that confirms the Alert Dialog action. Will default to <InlineCode>appearance="filled"</InlineCode>
+						, as well as the priority color from the <InlineCode>AlertDialog</InlineCode>. Does not close the alert
+						dialog by default.
 					</p>
 					<p className="font-body text-body">
 						These buttons should be distinguished visually from the <InlineCode>AlertDialogCancel</InlineCode> button.
