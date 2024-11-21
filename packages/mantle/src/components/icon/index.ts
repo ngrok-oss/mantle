@@ -15,5 +15,10 @@ export type {
 
 export type {
 	//,
+	SvgOnlyProps,
+} from "./svg-only.js";
+
+export type {
+	//,
 	SvgAttributes,
 } from "./types.js";
