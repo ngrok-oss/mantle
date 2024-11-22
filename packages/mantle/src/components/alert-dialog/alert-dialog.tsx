@@ -2,7 +2,7 @@
 
 import { Info } from "@phosphor-icons/react/Info";
 import { Warning } from "@phosphor-icons/react/Warning";
-import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog";
+import * as AlertDialogPrimitive from "@radix-ui/react-dialog";
 import {
 	createContext,
 	forwardRef,
@@ -51,6 +51,7 @@ function AlertDialog({ priority, ...props }: AlertDialogProps) {
 		</AlertDialogContext.Provider>
 	);
 }
+AlertDialog.displayName = "AlertDialog";
 
 /**
  * A button that opens the Alert Dialog.
@@ -75,7 +76,7 @@ const AlertDialogOverlay = forwardRef<
 		ref={ref}
 	/>
 ));
-AlertDialogOverlay.displayName = AlertDialogPrimitive.Overlay.displayName;
+AlertDialogOverlay.displayName = "AlertDialogOverlay";
 
 /**
  * The popover alert dialog container.
@@ -104,7 +105,7 @@ const AlertDialogContent = forwardRef<
 		</div>
 	</AlertDialogPortal>
 ));
-AlertDialogContent.displayName = AlertDialogPrimitive.Content.displayName;
+AlertDialogContent.displayName = "AlertDialogContent";
 
 /**
  * Contains the main content of the dialog.
@@ -112,6 +113,7 @@ AlertDialogContent.displayName = AlertDialogPrimitive.Content.displayName;
 const AlertDialogBody = ({ className, ...props }: ComponentProps<"div">) => (
 	<div className={cx("flex-1 space-y-4", className)} {...props} />
 );
+AlertDialogBody.displayName = "AlertDialogBody";
 
 /**
  * Contains the header content of the dialog, including the title and description.
@@ -145,7 +147,7 @@ const AlertDialogTitle = forwardRef<
 		{...props}
 	/>
 ));
-AlertDialogTitle.displayName = AlertDialogPrimitive.Title.displayName;
+AlertDialogTitle.displayName = "AlertDialogTitle";
 
 /**
  * An accessible description to be announced when the dialog is opened.
@@ -163,11 +165,12 @@ const AlertDialogDescription = forwardRef<
 		{...props}
 	/>
 ));
-AlertDialogDescription.displayName = AlertDialogPrimitive.Description.displayName;
+AlertDialogDescription.displayName = "AlertDialogDescription";
 
 /**
- * A button that closes the dialog and confirms the action.
+ * A button that confirms the Alert Dialog action.
  * Will default to appearance="filled", as well as the priority color from the `AlertDialog`.
+ * Does not close the alert dialog by default.
  *
  * These buttons should be distinguished visually from the AlertDialogCancel button.
  *
@@ -189,19 +192,17 @@ const AlertDialogAction = forwardRef<ElementRef<"button">, ButtonProps>(
 		}
 
 		return (
-			<AlertDialogPrimitive.Action asChild>
-				<Button
-					//
-					appearance={appearance}
-					priority={buttonPriority}
-					ref={ref}
-					{...props}
-				/>
-			</AlertDialogPrimitive.Action>
+			<Button
+				//
+				appearance={appearance}
+				priority={buttonPriority}
+				ref={ref}
+				{...props}
+			/>
 		);
 	},
 );
-AlertDialogAction.displayName = AlertDialogPrimitive.Action.displayName;
+AlertDialogAction.displayName = "AlertDialogAction";
 
 /**
  * A button that closes the dialog and cancels the action.
@@ -222,7 +223,7 @@ const AlertDialogCancel = forwardRef<ElementRef<"button">, ButtonProps>(
 		},
 		ref,
 	) => (
-		<AlertDialogPrimitive.Cancel asChild>
+		<AlertDialogPrimitive.Close asChild>
 			<Button
 				appearance={appearance}
 				className={cx("mt-2 sm:mt-0", className)}
@@ -230,10 +231,10 @@ const AlertDialogCancel = forwardRef<ElementRef<"button">, ButtonProps>(
 				ref={ref}
 				{...props}
 			/>
-		</AlertDialogPrimitive.Cancel>
+		</AlertDialogPrimitive.Close>
 	),
 );
-AlertDialogCancel.displayName = AlertDialogPrimitive.Cancel.displayName;
+AlertDialogCancel.displayName = "AlertDialogCancel";
 
 type AlertDialogIconProps = Omit<SvgAttributes, "children"> & {
 	svg?: ReactNode;

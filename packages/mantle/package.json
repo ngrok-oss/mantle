@@ -3,7 +3,7 @@
   "description": "mantle is ngrok's UI library and design system.",
   "author": "ngrok",
   "license": "MIT",
-  "version": "0.14.1",
+  "version": "0.14.2",
   "homepage": "https://mantle.ngrok.com",
   "repository": {
     "type": "git",
@@ -37,7 +37,6 @@
   },
   "dependencies": {
     "@headlessui/react": "2.2.0",
-    "@radix-ui/react-alert-dialog": "1.1.2",
     "@radix-ui/react-dialog": "1.1.2",
     "@radix-ui/react-dropdown-menu": "2.1.2",
     "@radix-ui/react-popover": "1.1.2",
