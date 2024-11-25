@@ -138,7 +138,7 @@ export default function Page() {
 									SheetTitle,
 									SheetTitleGroup,
 									SheetTrigger,
-								} from "@ngrok/mantle/ngrok/mantle/sheet";
+								} from "@ngrok/mantle/sheet";
 								import { ListMagnifyingGlass } from "@phosphor-icons/react/ListMagnifyingGlass";
 								import { TerminalWindow } from "@phosphor-icons/react/TerminalWindow";
 								import { TrashSimple } from "@phosphor-icons/react/TrashSimple";
