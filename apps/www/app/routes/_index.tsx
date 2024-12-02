@@ -46,7 +46,9 @@ export default function Page() {
 				<Anchor href="https://react.dev">React</Anchor> components are inspired by{" "}
 				<Anchor href="https://ui.shadcn.com">shadcn/ui</Anchor>
 				&rsquo;s markup and <Anchor href="https://www.radix-ui.com">Radix</Anchor>
-				&rsquo;s primitives. Its documentation is built in <Anchor href="https://remix.run/">Remix</Anchor>.
+				&rsquo;s primitives. Its documentation is built in <Anchor href="https://remix.run/">
+					Remix
+				</Anchor>.
 			</p>
 
 			<h3 id="status" className="mt-8 text-xl font-medium">
