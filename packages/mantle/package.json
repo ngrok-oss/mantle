@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "@headlessui/react": "2.2.0",
+    "@radix-ui/react-accordion": "1.2.1",
     "@radix-ui/react-dialog": "1.1.2",
     "@radix-ui/react-dropdown-menu": "2.1.2",
     "@radix-ui/react-popover": "1.1.2",
@@ -101,6 +102,11 @@
       "import": "./dist/tailwind-preset.js",
       "require": "./dist/tailwind-preset.cjs"
     },
+		"./accordion": {
+			"@ngrok/mantle/source": "./src/components/accordion/index.ts",
+      "import": "./dist/accordion.js",
+      "types": "./dist/accordion.d.ts"
+		},
     "./alert": {
       "@ngrok/mantle/source": "./src/components/alert/index.ts",
       "import": "./dist/alert.js",

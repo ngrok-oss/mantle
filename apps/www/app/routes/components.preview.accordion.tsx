@@ -1,0 +1,415 @@
+import {
+	Accordion,
+	AccordionContent,
+	AccordionHeading,
+	AccordionItem,
+	AccordionTrigger,
+	AccordionTriggerIcon,
+} from "@ngrok/mantle/accordion";
+import { Badge } from "@ngrok/mantle/badge";
+import { Button } from "@ngrok/mantle/button";
+import { Card, CardBody } from "@ngrok/mantle/card";
+import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
+import { Separator } from "@ngrok/mantle/separator";
+import { Plus } from "@phosphor-icons/react/Plus";
+import type { HeadersFunction, MetaFunction } from "@remix-run/node";
+import { PreviewBadge } from "~/components/badges";
+import { Example } from "~/components/example";
+
+// import {
+// 	PropDefaultValueCell,
+// 	PropDescriptionCell,
+// 	PropNameCell,
+// 	PropRow,
+// 	PropsTable,
+// 	PropTypeCell,
+// 	StringPropType,
+// } from "~/components/props-table";
+
+export const meta: MetaFunction = () => {
+	return [
+		{ title: "@ngrok/mantle — Accordion" },
+		{ name: "description", content: "mantle is ngrok's UI library and design system" },
+	];
+};
+
+export const headers: HeadersFunction = () => {
+	return {
+		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
+	};
+};
+
+export default function Page() {
+	return (
+		<div className="space-y-16">
+			<section className="space-y-4">
+				<div className="flex items-center gap-3">
+					<h1 id="calendar" className="text-5xl font-medium">
+						Accordion
+					</h1>
+					<PreviewBadge />
+				</div>
+				<p className="font-body text-body text-xl">
+					A vertically stacked set of interactive headings that each reveal an associated section of content.
+				</p>
+				<div>
+					<Example className="flex-col gap-6">
+						<Accordion type="multiple" defaultValue={["on_tcp_connect", "on_http_response"]}>
+							<AccordionItem value="on_tcp_connect">
+								<AccordionHeading className="mx-4 flex items-center gap-2" asChild>
+									<h2>
+										<AccordionTrigger>
+											<span className="font-mono text-sm font-bold">on_tcp_connect</span>
+											<Badge appearance="muted" color="neutral" className="rounded-full">
+												3
+											</Badge>
+											<AccordionTriggerIcon />
+										</AccordionTrigger>
+										<Separator orientation="horizontal" className="flex-1" />
+										<Button type="button" appearance="link" icon={<Plus />}>
+											Add Rule
+										</Button>
+									</h2>
+								</AccordionHeading>
+								<AccordionContent>
+									<Card>
+										<CardBody>Proident irure consequat Lorem incididunt ullamco.</CardBody>
+									</Card>
+								</AccordionContent>
+							</AccordionItem>
+							<AccordionItem value="on_http_request">
+								<AccordionHeading className="mx-4 flex items-center gap-2" asChild>
+									<h2>
+										<AccordionTrigger>
+											<span className="font-mono text-sm font-bold">on_http_request</span>
+											<Badge appearance="muted" color="neutral" className="rounded-full">
+												2
+											</Badge>
+											<AccordionTriggerIcon />
+										</AccordionTrigger>
+										<Separator orientation="horizontal" className="flex-1" />
+										<Button type="button" appearance="link" icon={<Plus />}>
+											Add Rule
+										</Button>
+									</h2>
+								</AccordionHeading>
+								<AccordionContent>
+									<Card>
+										<CardBody>Excepteur amet laboris occaecat anim minim reprehenderit.</CardBody>
+									</Card>
+								</AccordionContent>
+							</AccordionItem>
+							<AccordionItem value="on_http_response">
+								<AccordionHeading className="mx-4 flex items-center gap-2" asChild>
+									<h2>
+										<AccordionTrigger>
+											<span className="font-mono text-sm font-bold">on_http_response</span>
+											<Badge appearance="muted" color="neutral" className="rounded-full">
+												0
+											</Badge>
+											<AccordionTriggerIcon />
+										</AccordionTrigger>
+										<Separator orientation="horizontal" className="flex-1" />
+										<Button type="button" appearance="link" icon={<Plus />}>
+											Add Rule
+										</Button>
+									</h2>
+								</AccordionHeading>
+								<AccordionContent>
+									<p className="text-center">This phase does not have any rules defined</p>
+								</AccordionContent>
+							</AccordionItem>
+						</Accordion>
+					</Example>
+					<CodeBlock className="rounded-b-lg rounded-t-none">
+						<CodeBlockBody>
+							<CodeBlockCopyButton />
+							<CodeBlockCode
+								language="tsx"
+								value={fmtCode`
+									import {
+										Accordion,
+										AccordionContent,
+										AccordionHeading,
+										AccordionItem,
+										AccordionTrigger,
+										AccordionTriggerIcon,
+									} from "@ngrok/mantle/accordion";
+									import { Badge } from "@ngrok/mantle/badge";
+									import { Button } from "@ngrok/mantle/button";
+									import { Card, CardBody } from "@ngrok/mantle/card";
+
+									<Accordion type="multiple" defaultValue={["on_tcp_connect", "on_http_response"]}>
+										<AccordionItem value="on_tcp_connect">
+											<AccordionHeading className="mx-4 flex items-center gap-2" asChild>
+												<h2>
+													<AccordionTrigger>
+														<span className="font-mono text-sm font-bold">on_tcp_connect</span>
+														<Badge appearance="muted" color="neutral" className="rounded-full">
+															3
+														</Badge>
+														<AccordionTriggerIcon />
+													</AccordionTrigger>
+													<Separator orientation="horizontal" className="flex-1" />
+													<Button type="button" appearance="link" icon={<Plus />}>
+														Add Rule
+													</Button>
+												</h2>
+											</AccordionHeading>
+											<AccordionContent>
+												<Card>
+													<CardBody>Proident irure consequat Lorem incididunt ullamco.</CardBody>
+												</Card>
+											</AccordionContent>
+										</AccordionItem>
+										<AccordionItem value="on_http_request">
+											<AccordionHeading className="mx-4 flex items-center gap-2" asChild>
+												<h2>
+													<AccordionTrigger>
+														<span className="font-mono text-sm font-bold">on_http_request</span>
+														<Badge appearance="muted" color="neutral" className="rounded-full">
+															2
+														</Badge>
+														<AccordionTriggerIcon />
+													</AccordionTrigger>
+													<Separator orientation="horizontal" className="flex-1" />
+													<Button type="button" appearance="link" icon={<Plus />}>
+														Add Rule
+													</Button>
+												</h2>
+											</AccordionHeading>
+											<AccordionContent>
+												<Card>
+													<CardBody>Excepteur amet laboris occaecat anim minim reprehenderit.</CardBody>
+												</Card>
+											</AccordionContent>
+										</AccordionItem>
+										<AccordionItem value="on_http_response">
+											<AccordionHeading className="mx-4 flex items-center gap-2" asChild>
+												<h2>
+													<AccordionTrigger>
+														<span className="font-mono text-sm font-bold">on_http_response</span>
+														<Badge appearance="muted" color="neutral" className="rounded-full">
+															0
+														</Badge>
+														<AccordionTriggerIcon />
+													</AccordionTrigger>
+													<Separator orientation="horizontal" className="flex-1" />
+													<Button type="button" appearance="link" icon={<Plus />}>
+														Add Rule
+													</Button>
+												</h2>
+											</AccordionHeading>
+											<AccordionContent>
+												<p className="text-center">This phase does not have any rules defined</p>
+											</AccordionContent>
+										</AccordionItem>
+									</Accordion>
+								`}
+							/>
+						</CodeBlockBody>
+					</CodeBlock>
+				</div>
+			</section>
+
+			{/* <section className="space-y-8">
+				<header className="space-y-4">
+					<h2 id="api" className="text-3xl font-medium">
+						API Reference
+					</h2>
+					<p className="font-body text-body text-xl">
+						The <InlineCode>AlertDialog</InlineCode> components are built on top of{" "}
+						<Anchor
+							href="https://www.radix-ui.com/primitives/docs/components/dialog"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							Radix Alert Dialog
+						</Anchor>
+						.
+					</p>
+				</header>
+
+				<section className="space-y-4">
+					<header className="space-y-1">
+						<h3 className="text-xl font-medium">AlertDialog</h3>
+
+						<p className="font-body text-body">The root component for the Alert Dialog.</p>
+						<p className="font-body text-body">
+							All props from Radix{" "}
+							<Anchor
+								href="https://www.radix-ui.com/primitives/docs/components/dialog#root"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								Dialog.Root
+							</Anchor>
+							, plus:
+						</p>
+					</header>
+
+					<PropsTable>
+						<PropRow>
+							<PropNameCell name="priority" />
+							<PropTypeCell>
+								<ul>
+									<li>
+										<StringPropType value="info" />
+									</li>
+									<li>
+										<StringPropType value="danger" />
+									</li>
+								</ul>
+							</PropTypeCell>
+							<PropDefaultValueCell />
+							<PropDescriptionCell>
+								<p>
+									Indicates the importance or impact level of the AlertDialog, affecting its color and styling to
+									communicate its purpose to the user.
+								</p>
+							</PropDescriptionCell>
+						</PropRow>
+					</PropsTable>
+				</section>
+
+				<section className="space-y-1">
+					<h3 className="text-xl font-medium">AlertDialogTrigger</h3>
+
+					<p className="font-body text-body">A button that opens the Alert Dialog.</p>
+					<p className="font-body text-body">
+						Radix{" "}
+						<Anchor
+							href="https://www.radix-ui.com/primitives/docs/components/dialog#trigger"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							Dialog.Trigger
+						</Anchor>{" "}
+						props.
+					</p>
+				</section>
+
+				<section className="space-y-1">
+					<h3 className="text-xl font-medium">AlertDialogContent</h3>
+
+					<p className="font-body text-body">
+						The popover Alert Dialog container. Renders on top of the overlay and is centered in the viewport.
+					</p>
+					<p className="font-body text-body">
+						Radix{" "}
+						<Anchor
+							href="https://www.radix-ui.com/primitives/docs/components/dialog#content"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							Dialog.Content
+						</Anchor>{" "}
+						props.
+					</p>
+				</section>
+
+				<section className="space-y-1">
+					<h3 className="text-xl font-medium">AlertDialogHeader</h3>
+
+					<p className="font-body text-body">
+						Contains the header content of the dialog, including the title and description.
+					</p>
+					<p className="font-body text-body">
+						Same props as a <InlineCode>{"<div>"}</InlineCode> element.
+					</p>
+				</section>
+
+				<section className="space-y-1">
+					<h3 className="text-xl font-medium">AlertDialogFooter</h3>
+
+					<p className="font-body text-body">
+						Contains the footer content of the dialog, including the action and cancel buttons.
+					</p>
+					<p className="font-body text-body">
+						Same props as a <InlineCode>{"<div>"}</InlineCode> element.
+					</p>
+				</section>
+
+				<section className="space-y-1">
+					<h3 className="text-xl font-medium">AlertDialogTitle</h3>
+
+					<p className="font-body text-body">An accessible name to be announced when the dialog is opened.</p>
+					<p className="font-body text-body">
+						Alternatively, you can provide <InlineCode>aria-label</InlineCode> or{" "}
+						<InlineCode>aria-labelledby</InlineCode> to <InlineCode>AlertDialogContent</InlineCode> and exclude this
+						component.
+					</p>
+					<p className="font-body text-body">
+						Radix{" "}
+						<Anchor
+							href="https://www.radix-ui.com/primitives/docs/components/dialog#title"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							Dialog.Title
+						</Anchor>{" "}
+						props.
+					</p>
+				</section>
+
+				<section className="space-y-1">
+					<h3 className="text-xl font-medium">AlertDialogDescription</h3>
+
+					<p className="font-body text-body">An accessible description to be announced when the dialog is opened.</p>
+					<p className="font-body text-body">
+						Alternatively, you can provide <InlineCode>aria-describedby</InlineCode> to{" "}
+						<InlineCode>AlertDialogContent</InlineCode> and exclude this component.
+					</p>
+					<p className="font-body text-body">
+						Radix{" "}
+						<Anchor
+							href="https://www.radix-ui.com/primitives/docs/components/dialog#description"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							Dialog.Description
+						</Anchor>{" "}
+						props.
+					</p>
+				</section>
+
+				<section className="space-y-1">
+					<h3 className="text-xl font-medium">AlertDialogAction</h3>
+
+					<p className="font-body text-body">
+						A button that confirms the Alert Dialog action. Will default to <InlineCode>appearance="filled"</InlineCode>
+						, as well as the priority color from the <InlineCode>AlertDialog</InlineCode>. Does not close the alert
+						dialog by default.
+					</p>
+					<p className="font-body text-body">
+						These buttons should be distinguished visually from the <InlineCode>AlertDialogCancel</InlineCode> button.
+					</p>
+					<p className="font-body text-body">
+						Composes around the mantle <Link to="/components/button">Button</Link> component.
+					</p>
+					<p className="font-body text-body">
+						Same props as the <Link to="/components/button">Button</Link> component.
+					</p>
+				</section>
+
+				<section className="space-y-1">
+					<h3 className="text-xl font-medium">AlertDialogCancel</h3>
+
+					<p className="font-body text-body">
+						A button that closes the dialog and cancels the action. Will default to{" "}
+						<InlineCode>appearance="outlined"</InlineCode> and <InlineCode>priority="neutral"</InlineCode>.
+					</p>
+					<p className="font-body text-body">
+						This button should be distinguished visually from <InlineCode>AlertDialogAction</InlineCode> buttons.
+					</p>
+					<p className="font-body text-body">
+						Composes around the mantle <Link to="/components/button">Button</Link> component.
+					</p>
+					<p className="font-body text-body">
+						Same props as the <Link to="/components/button">Button</Link> component.
+					</p>
+				</section>
+			</section> */}
+		</div>
+	);
+}
