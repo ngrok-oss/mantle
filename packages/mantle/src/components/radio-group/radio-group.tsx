@@ -218,7 +218,8 @@ const RadioButton = forwardRef<ElementRef<"div">, RadioButtonProps>(({ children,
 		<HeadlessRadio
 			as="div"
 			className={cx(
-				"group/radio border-form [&_label]:cursor-inherit relative flex flex-1 select-none items-center justify-center gap-2 border px-3 py-2 text-base sm:text-sm",
+				"group/radio border-form [&_label]:cursor-inherit relative flex flex-1 select-none items-center justify-center gap-2 border px-3 text-base sm:text-sm",
+				"h-11 sm:h-9",
 				"focus-visible:ring-focus-accent aria-enabled:focus-visible:border-accent-600 focus-visible:ring-4",
 				"aria-enabled:cursor-pointer focus:outline-none",
 				"first-of-type:rounded-bl-md first-of-type:rounded-tl-md last-of-type:rounded-br-md last-of-type:rounded-tr-md",
