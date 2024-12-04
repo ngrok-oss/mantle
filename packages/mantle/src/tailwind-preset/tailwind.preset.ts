@@ -496,6 +496,7 @@ const mantlePreset = {
 		}),
 		plugin(function ({ addVariant }) {
 			addVariant("not-disabled", ["&:not(:disabled)"]);
+			addVariant("not-aria-disabled", ['&:not(&[aria-disabled="true"])']);
 		}),
 	],
 } satisfies Config;
