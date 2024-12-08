@@ -1,0 +1,19 @@
+.mantle-alert-info {
+	position: relative !important;
+	display: flex !important;
+	width: 100% !important;
+	gap: 0.375rem !important;
+	border-radius: 0.375rem !important;
+	border-width: 1px !important;
+	padding: 0.625rem !important;
+	font-size: 0.875rem !important;
+	line-height: 1.25rem !important;
+	border-color: hsl(var(--accent-500) / .5) !important;
+	/* background-color: hsl(var(--accent-500) / .1) !important; */
+	background-color: #f00 !important;
+	color: hsl(var(--accent-700) / 1) !important;
+}
+
+.banner {
+	border-radius: 0 !important;
+}
