@@ -3,7 +3,7 @@ import { forwardRef, type ComponentProps } from "react";
 import type { VariantProps } from "../../types/index.js";
 import { cx } from "../../utils/cx/cx.js";
 
-const buttonGroupVariants = cva("border-form inline-flex items-center rounded-md hover:border-neutral-400", {
+const buttonGroupVariants = cva("border-form inline-flex items-center rounded-md", {
 	variants: {
 		/**
 		 * Defines the visual style of the ButtonGroup.
