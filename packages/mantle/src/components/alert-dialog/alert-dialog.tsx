@@ -17,6 +17,7 @@ import { cx } from "../../utils/cx/cx.js";
 import { Button, type ButtonPriority, type ButtonProps } from "../button/button.js";
 import { SvgOnly } from "../icon/svg-only.js";
 import type { SvgAttributes } from "../icon/types.js";
+import { preventCloseOnPromptInteraction } from "../toast/toast.js";
 
 const priorities = ["info", "danger"] as const;
 type Priority = (typeof priorities)[number];
@@ -86,7 +87,7 @@ AlertDialogOverlay.displayName = "AlertDialogOverlay";
 const AlertDialogContent = forwardRef<
 	ElementRef<typeof AlertDialogPrimitive.Content>,
 	ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Content>
->(({ className, ...props }, ref) => (
+>(({ className, onInteractOutside, onPointerDownOutside, ...props }, ref) => (
 	<AlertDialogPortal>
 		<AlertDialogOverlay />
 		<div className="fixed inset-4 z-50 flex items-center justify-center">
@@ -100,6 +101,14 @@ const AlertDialogContent = forwardRef<
 					"data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 data-state-open:animate-in data-state-open:fade-in-0 data-state-open:zoom-in-95",
 					className,
 				)}
+				onInteractOutside={(event) => {
+					preventCloseOnPromptInteraction(event);
+					onInteractOutside?.(event);
+				}}
+				onPointerDownOutside={(event) => {
+					preventCloseOnPromptInteraction(event);
+					onPointerDownOutside?.(event);
+				}}
 				{...props}
 			/>
 		</div>
