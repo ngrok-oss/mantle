@@ -2,7 +2,7 @@
 	"private": true,
 	"name": "mantle",
 	"license": "MIT",
-  "packageManager": "pnpm@9.14.2",
+  "packageManager": "pnpm@9.15.0",
 	"type": "module",
 	"engines": {
     "node": "^22.0.0"
@@ -23,7 +23,7 @@
 	},
 	"devDependencies": {
 		"@ianvs/prettier-plugin-sort-imports": "4.4.0",
-		"prettier": "3.4.1",
+		"prettier": "3.4.2",
 		"prettier-plugin-tailwindcss": "0.6.9",
 		"turbo": "2.3.3"
 	}
