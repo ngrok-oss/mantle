@@ -11,13 +11,17 @@ import type { WithAsChild } from "../../types/as-child.js";
 import { cx } from "../../utils/cx/cx.js";
 import { Icon } from "../icon/icon.js";
 import type { SvgOnlyProps } from "../icon/svg-only.js";
+import { useAppliedTheme } from "../theme-provider/theme-provider.js";
 
-type ToasterProps = React.ComponentProps<typeof ToastPrimitive.Toaster>;
+type ToasterProps = ComponentProps<typeof ToastPrimitive.Toaster>;
 
 const Toaster = (props: ToasterProps) => {
+	const theme = useAppliedTheme();
+
 	return (
 		<ToastPrimitive.Toaster
 			position="top-center"
+			theme={theme as ToasterProps["theme"]}
 			className="toaster mantle-prompt pointer-events-auto font-sans"
 			gap={12}
 			toastOptions={{
