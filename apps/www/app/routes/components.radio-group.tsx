@@ -111,6 +111,30 @@ export default function Page() {
 							</RadioListItem>
 						</RadioGroupList>
 
+						<RadioGroupList defaultValue="mixed">
+							<RadioListItem value="mixed" disabled id="rld1">
+								<RadioIndicator />
+								<RadioItemContent>
+									<label className="text-strong font-medium" htmlFor="rld1">
+										Mixed
+									</label>
+									<p className="text-body">
+										Only new workspace members are required to use SSO. Existing members can still log in with other
+										methods.
+									</p>
+								</RadioItemContent>
+							</RadioListItem>
+							<RadioListItem value="strict" id="rld2" disabled>
+								<RadioIndicator />
+								<RadioItemContent>
+									<label className="text-strong font-medium" htmlFor="rld2">
+										Strict
+									</label>
+									<p className="text-body">All workspace members are required to log in with SSO.</p>
+								</RadioItemContent>
+							</RadioListItem>
+						</RadioGroupList>
+
 						<RadioGroup className="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4" defaultValue="existing">
 							<RadioCard className="flex" value="newsletter" id="radiocard-1">
 								<div className="flex-1">
