@@ -72,7 +72,8 @@ export default function Page() {
 				<PreviewBadge />
 			</div>
 			<p className="font-body text-body text-xl">
-				Pariatur eiusmod consectetur adipisicing sint sunt duis labore ad officia aliquip minim exercitation.
+				A succinct message that is displayed temporarily. Toasts are used to provide feedback to the user without
+				interrupting their workflow.
 			</p>
 			<div>
 				<Example className="flex-col gap-4">
