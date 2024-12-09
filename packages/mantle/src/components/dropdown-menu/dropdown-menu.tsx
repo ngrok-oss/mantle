@@ -71,7 +71,7 @@ type DropdownMenuContentProps = ComponentPropsWithoutRef<typeof DropdownMenuPrim
 };
 
 const DropdownMenuContent = forwardRef<ElementRef<typeof DropdownMenuPrimitive.Content>, DropdownMenuContentProps>(
-	({ className, loop = true, width, ...props }, ref) => (
+	({ className, onClick, loop = true, width, ...props }, ref) => (
 		<DropdownMenuPortal>
 			<DropdownMenuPrimitive.Content
 				ref={ref}
@@ -84,6 +84,14 @@ const DropdownMenuContent = forwardRef<ElementRef<typeof DropdownMenuPrimitive.C
 					className,
 				)}
 				loop={loop}
+				onClick={(event) => {
+					/**
+					 * Prevent the click event from propagating up to parent/containing elements
+					 * of the DropdownMenu
+					 */
+					event.stopPropagation();
+					onClick?.(event);
+				}}
 				{...props}
 			/>
 		</DropdownMenuPortal>
