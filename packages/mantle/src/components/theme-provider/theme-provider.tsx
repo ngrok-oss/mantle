@@ -85,7 +85,7 @@ const initialState: ThemeProviderState = ["system", () => null];
 /**
  * ThemeProviderContext is a React Context that provides the current theme and a function to set the theme.
  */
-const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
+const ThemeProviderContext = createContext<ThemeProviderState | null>(null);
 
 /**
  * isBrowser returns true if the code is running in a browser environment.
@@ -244,7 +244,8 @@ function resolveTheme(
  * This will mirror the result that gets applied to the <html> element.
  */
 function useAppliedTheme() {
-	const [theme] = useTheme();
+	const themeContext = useContext(ThemeProviderContext);
+	const theme = themeContext != null ? themeContext[0] : "system";
 
 	const prefersDarkMode = useMatchesMediaQuery(prefersDarkModeMediaQuery);
 	const prefersHighContrast = useMatchesMediaQuery(prefersHighContrastMediaQuery);
