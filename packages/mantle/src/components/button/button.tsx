@@ -11,7 +11,7 @@ import { cx } from "../../utils/cx/cx.js";
 import { Icon } from "../icon/index.js";
 
 const buttonVariants = cva(
-	"inline-flex cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap rounded-md text-base focus-within:outline-none focus-visible:ring-4 disabled:cursor-default disabled:opacity-50 sm:text-sm [&>*]:focus-within:outline-none",
+	"inline-flex cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap rounded-md focus-within:outline-none focus-visible:ring-4 disabled:cursor-default disabled:opacity-50 [&>*]:focus-within:outline-none",
 	{
 		variants: {
 			/**
@@ -19,11 +19,11 @@ const buttonVariants = cva(
 			 */
 			appearance: {
 				filled:
-					"bg-filled-accent text-on-filled focus-visible:border-accent-600 focus-visible:ring-focus-accent not-disabled:hover:bg-filled-accent-hover not-disabled:active:bg-filled-accent-active h-11 border border-transparent px-3 font-medium sm:h-9",
+					"bg-filled-accent text-on-filled focus-visible:border-accent-600 focus-visible:ring-focus-accent not-disabled:hover:bg-filled-accent-hover not-disabled:active:bg-filled-accent-active h-11 border border-transparent px-3 text-base font-medium sm:h-9 sm:text-sm",
 				ghost:
-					"text-accent-600 focus-visible:ring-focus-accent not-disabled:hover:bg-accent-500/10 not-disabled:hover:text-accent-700 not-disabled:active:bg-accent-500/15 not-disabled:active:text-accent-700 h-11 border border-transparent px-3 font-medium sm:h-9",
+					"text-accent-600 focus-visible:ring-focus-accent not-disabled:hover:bg-accent-500/10 not-disabled:hover:text-accent-700 not-disabled:active:bg-accent-500/15 not-disabled:active:text-accent-700 h-11 border border-transparent px-3 text-base font-medium sm:h-9 sm:text-sm",
 				outlined:
-					"border-accent-600 bg-form text-accent-600 focus-visible:ring-focus-accent not-disabled:hover:border-accent-700 not-disabled:hover:bg-accent-500/10 not-disabled:hover:text-accent-700 not-disabled:active:border-accent-700 not-disabled:active:bg-accent-500/15 not-disabled:active:text-accent-700 h-11 border px-3 font-medium sm:h-9",
+					"border-accent-600 bg-form text-accent-600 focus-visible:ring-focus-accent not-disabled:hover:border-accent-700 not-disabled:hover:bg-accent-500/10 not-disabled:hover:text-accent-700 not-disabled:active:border-accent-700 not-disabled:active:bg-accent-500/15 not-disabled:active:text-accent-700 h-11 border px-3 text-base font-medium sm:h-9 sm:text-sm",
 				link: "text-accent-600 focus-visible:ring-focus-accent not-disabled:hover:underline group border-transparent",
 			},
 			/**
