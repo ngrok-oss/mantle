@@ -71,7 +71,7 @@ const Toast = forwardRef<ElementRef<"div">, ToastProps>(({ asChild, children, cl
 				className={cx(
 					"relative flex items-start gap-2",
 					"py-3 pl-[0.9375rem] pr-4",
-					"bg-popover border-popover rounded border shadow-lg",
+					"bg-popover high-contrast:border-popover rounded rounded-r-[0.3125rem] border border-gray-500/35 shadow-lg",
 					/**
 					 * Do not apply overflow-hidden because we want the priority bar accent
 					 * to overlap the toast border, else the border flows over the
@@ -101,11 +101,7 @@ type PriorityBarAccentProps = Omit<ComponentProps<"div">, "children"> & { priori
 function PriorityBarAccent({ className, priority, ...props }: PriorityBarAccentProps) {
 	return (
 		<div
-			className={cx(
-				"z-1 absolute -inset-px right-auto w-1.5 rounded-bl rounded-tl",
-				priorityBackgroundColor[priority],
-				className,
-			)}
+			className={cx("z-1 absolute -inset-px right-auto w-1.5 rounded-l", priorityBackgroundColor[priority], className)}
 		/>
 	);
 }
