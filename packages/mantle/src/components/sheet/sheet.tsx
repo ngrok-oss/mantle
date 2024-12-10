@@ -3,8 +3,10 @@ import * as SheetPrimitive from "@radix-ui/react-dialog";
 import { cva, type VariantProps } from "class-variance-authority";
 import { forwardRef } from "react";
 import type { ComponentPropsWithoutRef, ElementRef, HTMLAttributes } from "react";
+import invariant from "tiny-invariant";
 import { cx } from "../../utils/cx/cx.js";
 import { IconButton, type IconButtonProps } from "../button/icon-button.js";
+import { preventCloseOnPromptInteraction } from "../toast/toast.js";
 
 /**
  * The root component for a sheet. Should compose the `SheetTrigger` and `SheetContent`.
@@ -78,11 +80,23 @@ type SheetContentProps = {} & ComponentPropsWithoutRef<typeof SheetPrimitive.Con
  * The main container for a sheet. Renders on top of the overlay backdrop.
  * Should compose the `SheetHeader`, `SheetBody`, and `SheetFooter`.
  */
-const SheetContent = forwardRef<ElementRef<typeof SheetPrimitive.Content>, SheetContentProps>(
-	({ side = "right", className, children, ...props }, ref) => (
+const SheetContent = forwardRef<ElementRef<"div">, SheetContentProps>(
+	({ children, className, onInteractOutside, onPointerDownOutside, side = "right", ...props }, ref) => (
 		<SheetPortal>
 			<SheetOverlay />
-			<SheetPrimitive.Content ref={ref} className={cx(SheetVariants({ side }), className)} {...props}>
+			<SheetPrimitive.Content
+				className={cx(SheetVariants({ side }), className)}
+				onInteractOutside={(event) => {
+					preventCloseOnPromptInteraction(event);
+					onInteractOutside?.(event);
+				}}
+				onPointerDownOutside={(event) => {
+					preventCloseOnPromptInteraction(event);
+					onPointerDownOutside?.(event);
+				}}
+				ref={ref}
+				{...props}
+			>
 				{children}
 			</SheetPrimitive.Content>
 		</SheetPortal>

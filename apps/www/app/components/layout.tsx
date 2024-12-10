@@ -159,6 +159,7 @@ const previewComponents = [
 	"Calendar",
 	"Pagination",
 	"Popover",
+	"Toast",
 	"Tooltip",
 ] as const;
 
@@ -198,6 +199,7 @@ const previewComponentsRouteLookup = {
 	Calendar: "/components/preview/calendar",
 	Pagination: "/components/preview/pagination",
 	Popover: "/components/preview/popover",
+	Toast: "/components/preview/toast",
 	Tooltip: "/components/preview/tooltip",
 } as const satisfies Record<(typeof previewComponents)[number], Route>;
 

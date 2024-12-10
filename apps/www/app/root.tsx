@@ -1,5 +1,6 @@
 import mantleCss from "@ngrok/mantle/mantle.css?url";
 import { MantleThemeHeadContent, ThemeProvider, useInitialHtmlThemeProps } from "@ngrok/mantle/theme-provider";
+import { Toaster } from "@ngrok/mantle/toast";
 import { TooltipProvider } from "@ngrok/mantle/tooltip";
 import type { LinksFunction } from "@remix-run/node";
 import { Links, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from "@remix-run/react";
@@ -42,6 +43,7 @@ export default function App() {
 							</Layout>
 						</NavigationProvider>
 					</TooltipProvider>
+					<Toaster />
 				</ThemeProvider>
 				<ScrollRestoration />
 				<Scripts />
