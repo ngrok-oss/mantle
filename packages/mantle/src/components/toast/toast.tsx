@@ -70,7 +70,7 @@ const Toast = forwardRef<ElementRef<"div">, ToastProps>(({ asChild, children, cl
 				className={cx(
 					"relative flex items-start gap-2 text-sm",
 					"p-3 pl-[0.9375rem]",
-					"bg-popover high-contrast:border-popover rounded rounded-r-[0.3125rem] border border-gray-500/35 shadow-lg",
+					"bg-popover border-popover rounded rounded-r-[0.3125rem] border shadow-lg",
 					/**
 					 * Do not apply overflow-hidden because we want the priority bar accent
 					 * to overlap the toast border, else the border flows over the
