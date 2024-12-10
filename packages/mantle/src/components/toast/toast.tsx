@@ -69,8 +69,8 @@ const Toast = forwardRef<ElementRef<"div">, ToastProps>(({ asChild, children, cl
 			<Component
 				data-mantle-notifier
 				className={cx(
-					"relative flex items-start gap-2",
-					"py-3 pl-[0.9375rem] pr-4",
+					"relative flex items-start gap-2 text-sm",
+					"p-3 pl-[0.9375rem]",
 					"bg-popover high-contrast:border-popover rounded rounded-r-[0.3125rem] border border-gray-500/35 shadow-lg",
 					/**
 					 * Do not apply overflow-hidden because we want the priority bar accent
