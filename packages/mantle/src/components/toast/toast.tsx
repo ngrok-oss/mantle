@@ -22,7 +22,7 @@ const Toaster = (props: ToasterProps) => {
 		<ToastPrimitive.Toaster
 			position="top-center"
 			theme={theme as ToasterProps["theme"]}
-			className="toaster mantle-prompt pointer-events-auto font-sans"
+			className="toaster mantle-prompt pointer-events-auto font-sans *:duration-200"
 			gap={12}
 			toastOptions={{
 				unstyled: true,
@@ -67,7 +67,6 @@ const Toast = forwardRef<ElementRef<"div">, ToastProps>(({ asChild, children, cl
 	return (
 		<ToastStateContext.Provider value={{ priority }}>
 			<Component
-				data-mantle-notifier
 				className={cx(
 					"relative flex items-start gap-2 text-sm",
 					"p-3 pl-[0.9375rem]",
