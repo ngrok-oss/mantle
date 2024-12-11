@@ -48,6 +48,7 @@ const commonOptions = {
 	sourcemap: true,
 	target: "es2022",
 	tsconfig: "tsconfig.build.json",
+	injectStyle: false,
 } satisfies Options;
 
 export default defineConfig((options) => [

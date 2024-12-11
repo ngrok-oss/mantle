@@ -1,14 +1,11 @@
-import mantleCss from "@ngrok/mantle/mantle.css?url";
+import "@ngrok/mantle/mantle.css";
 import { MantleThemeHeadContent, ThemeProvider, useInitialHtmlThemeProps } from "@ngrok/mantle/theme-provider";
 import { Toaster } from "@ngrok/mantle/toast";
 import { TooltipProvider } from "@ngrok/mantle/tooltip";
-import type { LinksFunction } from "@remix-run/node";
 import { Links, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from "@remix-run/react";
 import { AutoScrollToHash } from "./components/auto-scroll-to-hash";
 import { Layout } from "./components/layout";
 import { NavigationProvider } from "./components/navigation-context";
-
-export const links: LinksFunction = () => [{ rel: "stylesheet", href: mantleCss }];
 
 export const loader = async () => {
 	const packageJson = await import("@ngrok/mantle/package.json");
