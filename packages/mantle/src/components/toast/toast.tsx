@@ -81,17 +81,17 @@ type MakeToastOptions = {
  */
 function makeToast(children: ReactNode, options?: MakeToastOptions) {
 	return ToastPrimitive.toast.custom(
-		(toastId) => <ToastIdContext.Provider value={options?.id ?? toastId}>{children}</ToastIdContext.Provider>,
+		(toastId) => <ToastIdContext.Provider value={toastId}>{children}</ToastIdContext.Provider>,
 		{
 			//
 			duration: options?.duration_ms,
-			id: options?.id,
+			// If a custom ID is provided, use it, else use the toastId provided by the sonner library
+			// don't set an ID to `undefined` as it breaks the sonner library
+			...(options?.id ? { id: options.id } : {}),
 			unstyled: true,
 		},
 	);
 }
-
-type ToastActionProps = ComponentProps<"button"> & WithAsChild;
 
 const priorities = [
 	//,
@@ -197,6 +197,8 @@ const ToastIcon = forwardRef<ElementRef<"svg">, ToastIconProps>(({ className, sv
 			throw new Error(`Unreachable Case: ${ctx.priority}`);
 	}
 });
+
+type ToastActionProps = ComponentProps<"button"> & WithAsChild;
 
 /**
  * A button that dismisses the toast when clicked.
