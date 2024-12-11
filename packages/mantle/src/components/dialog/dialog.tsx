@@ -1,10 +1,10 @@
 import { X } from "@phosphor-icons/react/X";
-import * as DialogPrimitive from "@radix-ui/react-dialog";
+import type { ComponentProps, ComponentPropsWithoutRef, ElementRef } from "react";
 import { forwardRef } from "react";
-import type { ComponentPropsWithoutRef, ElementRef } from "react";
 import { cx } from "../../utils/cx/cx.js";
 import { IconButton, type IconButtonProps } from "../button/icon-button.js";
 import { preventCloseOnPromptInteraction } from "../toast/toast.js";
+import * as DialogPrimitive from "./primitive.js";
 
 const Dialog = DialogPrimitive.Root;
 
@@ -14,19 +14,18 @@ const DialogPortal = DialogPrimitive.Portal;
 
 const DialogClose = DialogPrimitive.Close;
 
-const DialogOverlay = forwardRef<
-	ElementRef<typeof DialogPrimitive.Overlay>,
-	ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
->(({ className, ...props }, ref) => (
-	<DialogPrimitive.Overlay
-		ref={ref}
-		className={cx(
-			"bg-overlay data-state-closed:animate-out data-state-closed:fade-out-0 data-state-open:animate-in data-state-open:fade-in-0 fixed inset-0 z-50 backdrop-blur-sm",
-			className,
-		)}
-		{...props}
-	/>
-));
+const DialogOverlay = forwardRef<ElementRef<"div">, ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>>(
+	({ className, ...props }, ref) => (
+		<DialogPrimitive.Overlay
+			ref={ref}
+			className={cx(
+				"bg-overlay data-state-closed:animate-out data-state-closed:fade-out-0 data-state-open:animate-in data-state-open:fade-in-0 fixed inset-0 z-50 backdrop-blur-sm",
+				className,
+			)}
+			{...props}
+		/>
+	),
+);
 DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
 
 const DialogContent = forwardRef<ElementRef<"div">, ComponentPropsWithoutRef<typeof DialogPrimitive.Content>>(
@@ -61,7 +60,7 @@ const DialogContent = forwardRef<ElementRef<"div">, ComponentPropsWithoutRef<typ
 );
 DialogContent.displayName = DialogPrimitive.Content.displayName;
 
-const DialogHeader = ({ className, children, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+const DialogHeader = ({ className, children, ...props }: ComponentProps<"div">) => (
 	<div
 		className={cx(
 			"border-dialog-muted text-strong relative flex shrink-0 items-center justify-between gap-2 border-b px-6 py-4",
@@ -88,12 +87,12 @@ const DialogCloseIconButton = ({
 	</DialogPrimitive.Close>
 );
 
-const DialogBody = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+const DialogBody = ({ className, ...props }: ComponentProps<"div">) => (
 	<div className={cx("scrollbar text-body flex-1 overflow-y-auto p-6", className)} {...props} />
 );
 DialogBody.displayName = "DialogBody";
 
-const DialogFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+const DialogFooter = ({ className, ...props }: ComponentProps<"div">) => (
 	<div
 		className={cx("border-dialog-muted flex shrink-0 flex-row-reverse gap-2 border-t px-6 py-4", className)}
 		{...props}
@@ -109,12 +108,11 @@ const DialogTitle = forwardRef<
 ));
 DialogTitle.displayName = DialogPrimitive.Title.displayName;
 
-const DialogDescription = forwardRef<
-	ElementRef<typeof DialogPrimitive.Description>,
-	ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
->(({ className, ...props }, ref) => (
-	<DialogPrimitive.Description ref={ref} className={cx("text-muted", className)} {...props} />
-));
+const DialogDescription = forwardRef<ElementRef<"p">, ComponentPropsWithoutRef<typeof DialogPrimitive.Description>>(
+	({ className, ...props }, ref) => (
+		<DialogPrimitive.Description ref={ref} className={cx("text-muted", className)} {...props} />
+	),
+);
 DialogDescription.displayName = DialogPrimitive.Description.displayName;
 
 export {
