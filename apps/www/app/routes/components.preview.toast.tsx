@@ -221,13 +221,14 @@ export default function Page() {
 								import { Button } from "@ngrok/mantle/button";
 								import { makeToast, Toast, ToastAction, ToastIcon, ToastMessage } from "@ngrok/mantle/toast";
 
-								// Only one of these should be added to the root of your app
+								// Only one <Toaster /> should be rendered at a time
+								// add it to the root of your app
 								<Toaster />
 
 								<Button
 									type="button"
 									onClick={() =>
-										// make some toast!
+										// make some toast! 🍞😋
 										makeToast(
 											<Toast priority="success">
 												<ToastIcon />

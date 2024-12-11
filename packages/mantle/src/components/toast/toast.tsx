@@ -18,7 +18,14 @@ type ToasterPrimitiveProps = ComponentProps<typeof ToastPrimitive.Toaster>;
 type ToasterPrimitiveTheme = ToasterPrimitiveProps["theme"];
 
 type ToasterProps = WithStyleProps &
-	Pick<ToasterPrimitiveProps, "duration" | "containerAriaLabel" | "dir" | "position">;
+	Pick<ToasterPrimitiveProps, "containerAriaLabel" | "dir" | "position"> & {
+		/**
+		 * Time in milliseconds that should elapse before automatically dismissing toasts.
+		 * When set here, this will be the default duration for all toasts.
+		 * @default 4000
+		 */
+		duration_ms?: number;
+	};
 
 /**
  * A container for displaying all toasts.
@@ -31,7 +38,7 @@ const Toaster = ({
 	className,
 	containerAriaLabel,
 	dir,
-	duration = 4000,
+	duration_ms = 4000,
 	position = "top-center",
 	style,
 }: ToasterProps) => {
@@ -42,7 +49,7 @@ const Toaster = ({
 			className={cx("toaster mantle-prompt pointer-events-auto font-sans *:duration-200", className)}
 			containerAriaLabel={containerAriaLabel}
 			dir={dir}
-			duration={duration}
+			duration={duration_ms}
 			gap={12}
 			position={position ?? "top-center"}
 			style={style}
@@ -56,7 +63,17 @@ const Toaster = ({
 
 const ToastIdContext = createContext<string | number>("");
 
-type MakeToastOptions = Pick<ToastPrimitive.ExternalToast, "duration" | "id">;
+type MakeToastOptions = {
+	/**
+	 * Time in milliseconds that should elapse before automatically closing the toast.
+	 * Will default to the `<Toaster />`'s `duration_ms` if not provided.
+	 */
+	duration_ms?: number;
+	/**
+	 * An optional custom ID for this toast. If not given, a unique ID is provided for you.
+	 */
+	id?: string;
+};
 
 /**
  * Create a toast. Provide a `<Toast>` component as the `children` to be rendered
@@ -64,10 +81,10 @@ type MakeToastOptions = Pick<ToastPrimitive.ExternalToast, "duration" | "id">;
  */
 function makeToast(children: ReactNode, options?: MakeToastOptions) {
 	return ToastPrimitive.toast.custom(
-		(toastId) => <ToastIdContext.Provider value={toastId}>{children}</ToastIdContext.Provider>,
+		(toastId) => <ToastIdContext.Provider value={options?.id ?? toastId}>{children}</ToastIdContext.Provider>,
 		{
 			//
-			duration: options?.duration,
+			duration: options?.duration_ms,
 			id: options?.id,
 			unstyled: true,
 		},
@@ -193,7 +210,13 @@ const ToastAction = forwardRef<ElementRef<"button">, ToastActionProps>(
 
 		return (
 			<Component
-				className={cx("shrink-0", className)}
+				className={cx(
+					//,
+					"shrink-0",
+					// 👇 wiggle the bits so that icon buttons toast actions are aligned with the toast icon
+					"data-[icon-button]:-mr-1 data-[icon-button]:-mt-0.5",
+					className,
+				)}
 				onClick={(event) => {
 					onClick?.(event);
 					if (event.defaultPrevented) {
@@ -278,6 +301,7 @@ type PriorityBarAccentProps = Omit<ComponentProps<"div">, "children"> & { priori
 function PriorityBarAccent({ className, priority, ...props }: PriorityBarAccentProps) {
 	return (
 		<div
+			aria-hidden
 			className={cx(
 				//
 				"z-1 absolute -inset-px right-auto w-1.5 rounded-l",

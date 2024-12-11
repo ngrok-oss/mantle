@@ -1,3 +1,6 @@
+/* import for webpack support in crusty */
+@import "sonner/dist/styles.css";
+
 /* Euclid Square */
 @font-face {
 	font-family: EuclidSquare;
