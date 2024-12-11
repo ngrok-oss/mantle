@@ -4,6 +4,7 @@ import { forwardRef } from "react";
 import type { ComponentPropsWithoutRef, ElementRef } from "react";
 import { cx } from "../../utils/cx/cx.js";
 import { IconButton, type IconButtonProps } from "../button/icon-button.js";
+import { preventCloseOnPromptInteraction } from "../toast/toast.js";
 
 const Dialog = DialogPrimitive.Root;
 
@@ -29,7 +30,7 @@ const DialogOverlay = forwardRef<
 DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
 
 const DialogContent = forwardRef<ElementRef<"div">, ComponentPropsWithoutRef<typeof DialogPrimitive.Content>>(
-	({ className, children, ...props }, ref) => (
+	({ children, className, onInteractOutside, onPointerDownOutside, ...props }, ref) => (
 		<DialogPortal>
 			<DialogOverlay />
 			<div className="fixed inset-4 z-50 flex items-center justify-center">
@@ -41,6 +42,14 @@ const DialogContent = forwardRef<ElementRef<"div">, ComponentPropsWithoutRef<typ
 						"data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 data-state-open:animate-in data-state-open:fade-in-0 data-state-open:zoom-in-95",
 						className,
 					)}
+					onInteractOutside={(event) => {
+						preventCloseOnPromptInteraction(event);
+						onInteractOutside?.(event);
+					}}
+					onPointerDownOutside={(event) => {
+						preventCloseOnPromptInteraction(event);
+						onPointerDownOutside?.(event);
+					}}
 					ref={ref}
 					{...props}
 				>

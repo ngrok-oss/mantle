@@ -3,7 +3,7 @@
   "description": "mantle is ngrok's UI library and design system.",
   "author": "ngrok",
   "license": "MIT",
-  "version": "0.15.4",
+  "version": "0.16.0",
   "homepage": "https://mantle.ngrok.com",
   "repository": {
     "type": "git",
@@ -52,6 +52,7 @@
     "clsx": "2.1.1",
     "prismjs": "1.29.0",
     "react-day-picker": "8.10.1",
+    "sonner": "1.7.1",
     "tailwind-merge": "2.5.5",
     "tailwindcss-animate": "1.0.7",
     "tiny-invariant": "1.3.3"
@@ -102,11 +103,11 @@
       "import": "./dist/tailwind-preset.js",
       "require": "./dist/tailwind-preset.cjs"
     },
-		"./accordion": {
-			"@ngrok/mantle/source": "./src/components/accordion/index.ts",
+    "./accordion": {
+      "@ngrok/mantle/source": "./src/components/accordion/index.ts",
       "import": "./dist/accordion.js",
       "types": "./dist/accordion.d.ts"
-		},
+    },
     "./alert": {
       "@ngrok/mantle/source": "./src/components/alert/index.ts",
       "import": "./dist/alert.js",
@@ -276,6 +277,11 @@
       "import": "./dist/theme-provider.js",
       "types": "./dist/theme-provider.d.ts"
     },
+		"./toast": {
+			"@ngrok/mantle/source": "./src/components/toast/index.ts",
+			"import": "./dist/toast.js",
+			"types": "./dist/toast.d.ts"
+		},
     "./tooltip": {
       "@ngrok/mantle/source": "./src/components/tooltip/index.ts",
       "import": "./dist/tooltip.js",
