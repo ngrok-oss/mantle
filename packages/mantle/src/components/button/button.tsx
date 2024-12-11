@@ -24,7 +24,7 @@ const buttonVariants = cva(
 					"text-accent-600 focus-visible:ring-focus-accent not-disabled:hover:bg-accent-500/10 not-disabled:hover:text-accent-700 not-disabled:active:bg-accent-500/15 not-disabled:active:text-accent-700 h-11 border border-transparent px-3 text-base font-medium sm:h-9 sm:text-sm",
 				outlined:
 					"border-accent-600 bg-form text-accent-600 focus-visible:ring-focus-accent not-disabled:hover:border-accent-700 not-disabled:hover:bg-accent-500/10 not-disabled:hover:text-accent-700 not-disabled:active:border-accent-700 not-disabled:active:bg-accent-500/15 not-disabled:active:text-accent-700 h-11 border px-3 text-base font-medium sm:h-9 sm:text-sm",
-				link: "text-accent-600 focus-visible:ring-focus-accent not-disabled:hover:underline group border-transparent",
+				link: "text-accent-600 focus-visible:ring-focus-accent not-disabled:hover:underline text-size-inherit group border-transparent",
 			},
 			/**
 			 * Whether or not the button is in a loading state, default `false`. Setting `isLoading` will

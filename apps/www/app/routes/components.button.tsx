@@ -52,7 +52,7 @@ export default function Page() {
 					Initiates an action, such as completing a task or submitting information
 				</p>
 				<div>
-					<Example className="flex flex-wrap gap-6">
+					<Example className="flex flex-wrap gap-6 text-base sm:text-sm">
 						<div>
 							<p className="mb-2 text-center font-mono text-xs">Default</p>
 							<div className="flex items-center gap-2">
