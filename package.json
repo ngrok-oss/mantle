@@ -12,7 +12,7 @@
 		"start": "turbo run start",
 		"serve": "turbo run serve",
 		"clean": "turbo run clean",
-		"fmt:check": "prettier --check .",>
+		"fmt:check": "prettier --check .",
 		"fmt": "prettier --write .",
 		"lint": "turbo run lint --continue -- --cache --cache-location node_modules/.cache/.eslintcache",
 		"lint:fix": "turbo run lint --continue -- --fix --cache --cache-location node_modules/.cache/.eslintcache",
