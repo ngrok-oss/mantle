@@ -1,11 +1,10 @@
 import { X } from "@phosphor-icons/react/X";
-import * as SheetPrimitive from "@radix-ui/react-dialog";
 import { cva, type VariantProps } from "class-variance-authority";
-import { forwardRef } from "react";
 import type { ComponentPropsWithoutRef, ElementRef, HTMLAttributes } from "react";
-import invariant from "tiny-invariant";
+import { forwardRef } from "react";
 import { cx } from "../../utils/cx/cx.js";
 import { IconButton, type IconButtonProps } from "../button/icon-button.js";
+import * as SheetPrimitive from "../dialog/primitive.js";
 import { preventCloseOnPromptInteraction } from "../toast/toast.js";
 
 /**

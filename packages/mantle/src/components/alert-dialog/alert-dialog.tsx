@@ -2,7 +2,6 @@
 
 import { Info } from "@phosphor-icons/react/Info";
 import { Warning } from "@phosphor-icons/react/Warning";
-import * as AlertDialogPrimitive from "@radix-ui/react-dialog";
 import {
 	createContext,
 	forwardRef,
@@ -15,6 +14,7 @@ import {
 import invariant from "tiny-invariant";
 import { cx } from "../../utils/cx/cx.js";
 import { Button, type ButtonPriority, type ButtonProps } from "../button/button.js";
+import * as AlertDialogPrimitive from "../dialog/primitive.js";
 import { SvgOnly } from "../icon/svg-only.js";
 import type { SvgAttributes } from "../icon/types.js";
 import { preventCloseOnPromptInteraction } from "../toast/toast.js";
