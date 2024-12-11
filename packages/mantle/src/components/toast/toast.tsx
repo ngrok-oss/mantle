@@ -8,44 +8,81 @@ import { Slot } from "@radix-ui/react-slot";
 import { createContext, forwardRef, useContext, type ComponentProps, type ElementRef, type ReactNode } from "react";
 import * as ToastPrimitive from "sonner";
 import type { WithAsChild } from "../../types/as-child.js";
+import type { WithStyleProps } from "../../types/with-style-props.js";
 import { cx } from "../../utils/cx/cx.js";
 import { Icon } from "../icon/icon.js";
 import type { SvgOnlyProps } from "../icon/svg-only.js";
 import { useAppliedTheme } from "../theme-provider/theme-provider.js";
 
-type ToasterProps = ComponentProps<typeof ToastPrimitive.Toaster>;
+type ToasterPrimitiveProps = ComponentProps<typeof ToastPrimitive.Toaster>;
+type ToasterPrimitiveTheme = ToasterPrimitiveProps["theme"];
 
-const Toaster = (props: ToasterProps) => {
+type ToasterProps = WithStyleProps &
+	Pick<ToasterPrimitiveProps, "duration" | "containerAriaLabel" | "dir" | "position">;
+
+/**
+ * A container for displaying all toasts.
+ *
+ * Only one `<Toaster />` should be rendered in an app a time, preferably at the
+ * root level of the app.
+ */
+const Toaster = ({
+	//,
+	className,
+	containerAriaLabel,
+	dir,
+	duration = 4000,
+	position = "top-center",
+	style,
+}: ToasterProps) => {
 	const theme = useAppliedTheme();
 
 	return (
 		<ToastPrimitive.Toaster
-			position="top-center"
-			theme={theme as ToasterProps["theme"]}
-			className="toaster mantle-prompt pointer-events-auto font-sans *:duration-200"
+			className={cx("toaster mantle-prompt pointer-events-auto font-sans *:duration-200", className)}
+			containerAriaLabel={containerAriaLabel}
+			dir={dir}
+			duration={duration}
 			gap={12}
+			position={position ?? "top-center"}
+			style={style}
+			theme={theme as ToasterPrimitiveTheme} // we have additional themes that are not in the sonner types, so we need to cast for now
 			toastOptions={{
 				unstyled: true,
 			}}
-			{...props}
 		/>
 	);
 };
 
 const ToastIdContext = createContext<string | number>("");
 
-function makeToast(children: ReactNode) {
+type MakeToastOptions = Pick<ToastPrimitive.ExternalToast, "duration" | "id">;
+
+/**
+ * Create a toast. Provide a `<Toast>` component as the `children` to be rendered
+ * inside the `<Toaster />` section.
+ */
+function makeToast(children: ReactNode, options?: MakeToastOptions) {
 	return ToastPrimitive.toast.custom(
 		(toastId) => <ToastIdContext.Provider value={toastId}>{children}</ToastIdContext.Provider>,
 		{
 			//
+			duration: options?.duration,
+			id: options?.id,
+			unstyled: true,
 		},
 	);
 }
 
 type ToastActionProps = ComponentProps<"button"> & WithAsChild;
 
-const priorities = ["info", "success", "warning", "danger"] as const;
+const priorities = [
+	//,
+	"danger",
+	"info",
+	"success",
+	"warning",
+] as const;
 type Priority = (typeof priorities)[number];
 
 type ToastState = {
@@ -61,6 +98,10 @@ type ToastProps = ComponentProps<"div"> &
 		priority: Priority;
 	};
 
+/**
+ * A succinct message with a priority that is displayed temporarily.
+ * Toasts are used to provide feedback to the user without interrupting their workflow.
+ */
 const Toast = forwardRef<ElementRef<"div">, ToastProps>(({ asChild, children, className, priority, ...props }, ref) => {
 	const Component = asChild ? Slot : "div";
 
@@ -88,32 +129,12 @@ const Toast = forwardRef<ElementRef<"div">, ToastProps>(({ asChild, children, cl
 	);
 });
 
-const priorityBackgroundColor = {
-	info: "bg-accent-600",
-	warning: "bg-warning-600",
-	success: "bg-success-600",
-	danger: "bg-danger-600",
-} as const satisfies Record<Priority, string>;
-
-type PriorityBarAccentProps = Omit<ComponentProps<"div">, "children"> & { priority: Priority };
-
-function PriorityBarAccent({ className, priority, ...props }: PriorityBarAccentProps) {
-	return (
-		<div
-			className={cx("z-1 absolute -inset-px right-auto w-1.5 rounded-l", priorityBackgroundColor[priority], className)}
-		/>
-	);
-}
-
 type ToastIconProps = Partial<SvgOnlyProps>;
 
-const defaultPriorityIcon = {
-	danger: <Warning weight="fill" />,
-	warning: <WarningDiamond weight="fill" />,
-	success: <CheckCircle weight="fill" />,
-	info: <Info weight="fill" />,
-} as const satisfies Record<Priority, ReactNode>;
-
+/**
+ * An icon that visually represents the priority of the toast.
+ * If you do not provide an icon, the default icon and color for the priority is used.
+ */
 const ToastIcon = forwardRef<ElementRef<"svg">, ToastIconProps>(({ className, svg, ...props }, ref) => {
 	const ctx = useContext(ToastStateContext);
 
@@ -146,12 +167,24 @@ const ToastIcon = forwardRef<ElementRef<"svg">, ToastIconProps>(({ className, sv
 				/>
 			);
 		case "info":
-			return <Icon className={cx("text-accent-600", className)} ref={ref} svg={<Info weight="fill" />} {...props} />;
+			return (
+				<Icon
+					//
+					className={cx("text-accent-600", className)}
+					ref={ref}
+					svg={<Info weight="fill" />}
+					{...props}
+				/>
+			);
 		default:
 			throw new Error(`Unreachable Case: ${ctx.priority}`);
 	}
 });
 
+/**
+ * A button that dismisses the toast when clicked.
+ * You can prevent the toast from being dismissed `onClick` by calling `event.preventDefault()`
+ */
 const ToastAction = forwardRef<ElementRef<"button">, ToastActionProps>(
 	({ asChild, className, onClick, ...props }, ref) => {
 		const ctx = useContext(ToastIdContext);
@@ -177,10 +210,20 @@ const ToastAction = forwardRef<ElementRef<"button">, ToastActionProps>(
 
 type ToastMessageProps = ComponentProps<"p"> & WithAsChild;
 
+/**
+ * The message content of the toast.
+ */
 const ToastMessage = forwardRef<ElementRef<"p">, ToastMessageProps>(({ asChild, className, ...props }, ref) => {
 	const Component = asChild ? Slot : "p";
 
-	return <Component className={cx("text-strong flex-1 text-base sm:text-sm", className)} ref={ref} {...props} />;
+	return (
+		<Component
+			//
+			className={cx("text-strong flex-1 text-base sm:text-sm", className)}
+			ref={ref}
+			{...props}
+		/>
+	);
 });
 
 export {
@@ -216,4 +259,32 @@ export function preventCloseOnPromptInteraction(
 	if (event.target.closest(".mantle-prompt")) {
 		event.preventDefault();
 	}
+}
+
+const priorityBackgroundColor = {
+	info: "bg-accent-600",
+	warning: "bg-warning-600",
+	success: "bg-success-600",
+	danger: "bg-danger-600",
+} as const satisfies Record<Priority, string>;
+
+type PriorityBarAccentProps = Omit<ComponentProps<"div">, "children"> & { priority: Priority };
+
+/**
+ * @private
+ *
+ * A colored bar that visually represents the priority of the toast.
+ */
+function PriorityBarAccent({ className, priority, ...props }: PriorityBarAccentProps) {
+	return (
+		<div
+			className={cx(
+				//
+				"z-1 absolute -inset-px right-auto w-1.5 rounded-l",
+				priorityBackgroundColor[priority],
+				className,
+			)}
+			{...props}
+		/>
+	);
 }

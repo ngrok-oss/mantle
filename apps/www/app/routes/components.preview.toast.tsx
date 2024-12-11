@@ -227,6 +227,7 @@ export default function Page() {
 								<Button
 									type="button"
 									onClick={() =>
+										// make some toast!
 										makeToast(
 											<Toast priority="success">
 												<ToastIcon />
