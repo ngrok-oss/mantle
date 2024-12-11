@@ -55,6 +55,10 @@ export default function Page() {
 							<p>Username</p>
 							<Input placeholder="Enter a username" />
 						</Label>
+						<Label className="block w-full max-w-80 space-y-1">
+							<p>Email</p>
+							<Input placeholder="Enter your email" autoComplete="email" />
+						</Label>
 						<div className="w-full max-w-80 space-y-2">
 							<p>Validation States:</p>
 							<div className="flex w-full flex-col gap-6">
