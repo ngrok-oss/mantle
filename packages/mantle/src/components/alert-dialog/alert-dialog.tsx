@@ -152,7 +152,10 @@ const AlertDialogTitle = forwardRef<
 >(({ className, ...props }, ref) => (
 	<AlertDialogPrimitive.Title
 		ref={ref}
-		className={cx("text-strong text-center text-xl font-medium sm:text-start sm:text-lg", className)}
+		className={cx(
+			"text-strong pointer-coarse:text-xl pointer-fine:text-lg text-center font-medium sm:text-start",
+			className,
+		)}
 		{...props}
 	/>
 ));
@@ -170,7 +173,10 @@ const AlertDialogDescription = forwardRef<
 >(({ className, ...props }, ref) => (
 	<AlertDialogPrimitive.Description
 		ref={ref}
-		className={cx("text-body text-center text-base font-normal sm:text-start sm:text-sm", className)}
+		className={cx(
+			"text-body pointer-coarse:text-base pointer-fine:text-sm text-center font-normal sm:text-start",
+			className,
+		)}
 		{...props}
 	/>
 ));
@@ -265,7 +271,7 @@ const AlertDialogIcon = forwardRef<ElementRef<"svg">, AlertDialogIconProps>(({ c
 	return (
 		<SvgOnly
 			ref={ref}
-			className={cx("size-12 sm:size-7", defaultColor, className)}
+			className={cx("pointer-coarse:size-12 pointer-fine:size-7", defaultColor, className)}
 			svg={svg ?? defaultIcon}
 			{...props}
 		/>
