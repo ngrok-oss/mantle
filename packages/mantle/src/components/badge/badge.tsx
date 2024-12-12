@@ -33,7 +33,7 @@ const Badge = ({ appearance, asChild = false, children, className, color = "neut
 	const textColor = computeTextColor(color, appearance);
 
 	const badgeClasses = cx(
-		"inline-flex w-fit shrink-0 cursor-default items-center gap-1 rounded px-1.5 py-0.5 text-sm font-medium sm:text-xs",
+		"inline-flex w-fit shrink-0 cursor-default items-center gap-1 rounded px-1.5 py-0.5 pointer-coarse:text-sm font-medium pointer-fine:text-xs",
 		icon && "ps-1",
 		bgColor,
 		textColor,
@@ -54,7 +54,7 @@ const Badge = ({ appearance, asChild = false, children, className, color = "neut
 					singleChild,
 					{},
 					<>
-						{icon && <SvgOnly className="size-5 sm:size-4" svg={icon} />}
+						{icon && <SvgOnly className="pointer-coarse:size-5 pointer-fine:size-4" svg={icon} />}
 						{grandchildren}
 					</>,
 				)}
@@ -64,7 +64,7 @@ const Badge = ({ appearance, asChild = false, children, className, color = "neut
 
 	return (
 		<span className={badgeClasses} {...props}>
-			{icon && <SvgOnly className="size-5 sm:size-4" svg={icon} />}
+			{icon && <SvgOnly className="pointer-coarse:size-5 pointer-fine:size-4" svg={icon} />}
 			{children}
 		</span>
 	);
