@@ -26,7 +26,7 @@ function Calendar({ className, classNames, showOutsideDays = false, ...props }: 
 				caption: "flex justify-center pt-1 relative items-center",
 				caption_label: "text-sm font-medium",
 				nav: "flex items-center",
-				nav_button: cx(buttonVariants({ appearance: "ghost", priority: "neutral" }), "sm:h-7 sm:w-7 h-7 w-7"),
+				nav_button: cx(buttonVariants({ appearance: "ghost", priority: "neutral" }), "size-7"),
 				nav_button_previous: "absolute left-0",
 				nav_button_next: "absolute right-0",
 				table: "w-full border-collapse space-y-1",
@@ -34,7 +34,7 @@ function Calendar({ className, classNames, showOutsideDays = false, ...props }: 
 				head_cell: "text-body w-7 text-[0.8rem] text-center font-normal",
 				row: "flex w-full mt-1",
 				cell: cx(
-					"overflow-hidden text-center text-sm p-0 relative focus-within:relative focus-within:z-20 sm:h-7 sm:w-7 h-7 w-7 ",
+					"overflow-hidden text-center text-sm p-0 relative focus-within:relative focus-within:z-20 size-7",
 					props.mode === "range"
 						? "first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md"
 						: "",
@@ -53,8 +53,8 @@ function Calendar({ className, classNames, showOutsideDays = false, ...props }: 
 				...classNames,
 			}}
 			components={{
-				IconLeft: () => <CaretLeft className="h-4 w-4 shrink-0" weight="bold" />,
-				IconRight: () => <CaretRight className="h-4 w-4 shrink-0" weight="bold" />,
+				IconLeft: () => <CaretLeft className="size-4 shrink-0" weight="bold" />,
+				IconRight: () => <CaretRight className="size-4 shrink-0" weight="bold" />,
 			}}
 			{...props}
 		/>
