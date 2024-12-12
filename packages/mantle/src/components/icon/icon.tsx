@@ -19,7 +19,13 @@ type IconProps = Omit<SvgAttributes, "children"> & {
  * 4. svg className
  */
 const Icon = forwardRef<ElementRef<"svg">, IconProps>(({ className, style, svg, ...props }, ref) => (
-	<SvgOnly ref={ref} className={cx("size-6 sm:size-5", className)} style={style} svg={svg} {...props} />
+	<SvgOnly
+		ref={ref}
+		className={cx("pointer-coarse:size-6 pointer-fine:size-5", className)}
+		style={style}
+		svg={svg}
+		{...props}
+	/>
 ));
 
 export {
