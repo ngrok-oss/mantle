@@ -26,9 +26,9 @@ const DropdownMenuSubTrigger = forwardRef<
 >(({ className, inset, children, ...props }, ref) => (
 	<DropdownMenuPrimitive.SubTrigger
 		className={cx(
-			"focus:bg-accent data-state-open:bg-accent relative flex cursor-pointer select-none items-center rounded py-1.5 pl-2 pr-9 text-base outline-none sm:text-sm",
+			"focus:bg-accent data-state-open:bg-accent pointer-coarse:text-base pointer-fine:text-sm relative flex cursor-pointer select-none items-center rounded py-1.5 pl-2 pr-9 outline-none",
 			"data-highlighted:bg-popover-hover data-state-open:bg-popover-hover",
-			"[&>svg]:size-6 [&>svg]:sm:size-5 [&_svg]:shrink-0",
+			"[&>svg]:pointer-coarse:size-6 [&>svg]:pointer-fine:size-5 [&_svg]:shrink-0",
 			inset && "pl-8",
 			className,
 		)}
@@ -37,7 +37,7 @@ const DropdownMenuSubTrigger = forwardRef<
 	>
 		{children}
 		<span className="absolute right-2 flex items-center">
-			<CaretRight className="size-5 shrink-0 sm:size-4" weight="bold" />
+			<CaretRight className="pointer-coarse:size-5 pointer-fine:size-4 shrink-0" weight="bold" />
 		</span>
 	</DropdownMenuPrimitive.SubTrigger>
 ));
@@ -108,8 +108,8 @@ const DropdownMenuItem = forwardRef<
 	<DropdownMenuPrimitive.Item
 		ref={ref}
 		className={cx(
-			"focus:bg-accent focus:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50 data-highlighted:bg-popover-hover data-active-item:dark:bg-popover-hover relative flex cursor-pointer select-none items-center rounded px-2 py-1.5 text-base font-normal outline-none transition-colors sm:text-sm",
-			"[&>svg]:size-6 [&>svg]:sm:size-5 [&_svg]:shrink-0",
+			"focus:bg-accent focus:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50 data-highlighted:bg-popover-hover data-active-item:dark:bg-popover-hover pointer-coarse:text-base pointer-fine:text-sm relative flex cursor-pointer select-none items-center rounded px-2 py-1.5 font-normal outline-none transition-colors",
+			"[&>svg]:pointer-coarse:size-6 [&>svg]:pointer-fine:size-5 [&_svg]:shrink-0",
 			inset && "pl-8",
 			className,
 		)}
@@ -125,10 +125,10 @@ const DropdownMenuCheckboxItem = forwardRef<
 	<DropdownMenuPrimitive.CheckboxItem
 		ref={ref}
 		className={cx(
-			"text-strong data-disabled:pointer-events-none data-disabled:opacity-50 relative flex cursor-pointer select-none items-center gap-2 rounded py-1.5 pl-2 pr-9 text-base font-normal outline-none sm:text-sm",
+			"text-strong data-disabled:pointer-events-none data-disabled:opacity-50 pointer-coarse:text-base pointer-fine:text-sm relative flex cursor-pointer select-none items-center gap-2 rounded py-1.5 pl-2 pr-9 font-normal outline-none",
 			"data-highlighted:bg-popover-hover data-highlighted:dark:bg-popover-hover",
 			"aria-checked:!bg-filled-accent aria-checked:text-on-filled aria-checked:font-medium",
-			"[&>svg]:size-6 [&>svg]:sm:size-5 [&_svg]:shrink-0",
+			"[&>svg]:pointer-coarse:size-6 [&>svg]:pointer-fine:size-5 [&_svg]:shrink-0",
 			className,
 		)}
 		checked={checked}
@@ -136,7 +136,7 @@ const DropdownMenuCheckboxItem = forwardRef<
 	>
 		<span className="absolute right-2 flex items-center">
 			<DropdownMenuPrimitive.ItemIndicator>
-				<Check className="size-5 shrink-0 sm:size-4" weight="bold" />
+				<Check className="pointer-coarse:size-5 pointer-fine:size-4 shrink-0" weight="bold" />
 			</DropdownMenuPrimitive.ItemIndicator>
 		</span>
 		{children}
@@ -153,10 +153,10 @@ const DropdownMenuRadioItem = forwardRef<ElementRef<"input">, DropdownMenuRadioI
 	({ className, children, ...props }, ref) => (
 		<DropdownMenuPrimitive.RadioItem
 			className={cx(
-				"text-strong data-disabled:pointer-events-none data-disabled:opacity-50 relative flex cursor-pointer select-none items-center gap-2 rounded py-1.5 pl-2 pr-9 text-base font-normal outline-none sm:text-sm",
+				"text-strong data-disabled:pointer-events-none data-disabled:opacity-50 pointer-coarse:text-base pointer-fine:text-sm relative flex cursor-pointer select-none items-center gap-2 rounded py-1.5 pl-2 pr-9 font-normal outline-none",
 				"data-highlighted:bg-popover-hover data-highlighted:dark:bg-popover-hover",
 				"aria-checked:!bg-filled-accent aria-checked:text-on-filled aria-checked:font-medium",
-				"[&>svg]:size-6 [&>svg]:sm:size-5 [&_svg]:shrink-0",
+				"[&>svg]:pointer-coarse:size-6 [&>svg]:pointer-fine:size-5 [&_svg]:shrink-0",
 				className,
 			)}
 			ref={ref}
@@ -164,7 +164,7 @@ const DropdownMenuRadioItem = forwardRef<ElementRef<"input">, DropdownMenuRadioI
 		>
 			<span className="absolute right-2 flex items-center">
 				<DropdownMenuPrimitive.ItemIndicator>
-					<Check className="size-5 shrink-0 sm:size-4" weight="bold" />
+					<Check className="pointer-coarse:size-5 pointer-fine:size-4 shrink-0" weight="bold" />
 				</DropdownMenuPrimitive.ItemIndicator>
 			</span>
 			{children}
