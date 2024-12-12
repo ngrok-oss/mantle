@@ -93,7 +93,7 @@ const SelectTrigger = forwardRef<ElementRef<typeof SelectPrimitive.Trigger>, Sel
 				aria-invalid={ariaInvalid}
 				data-validation={validation || undefined}
 				className={cx(
-					"h-11 text-base sm:h-9 sm:text-sm",
+					"pointer-coarse:h-11 pointer-coarse:text-base pointer-fine:h-9 pointer-fine:text-sm",
 					"border-form bg-form text-strong placeholder:text-placeholder hover:bg-form-hover hover:text-strong flex w-full items-center justify-between gap-1.5 rounded-md border px-3 py-2 hover:border-neutral-400 disabled:pointer-events-none disabled:opacity-50 [&>span]:line-clamp-1 [&>span]:text-left",
 					"focus:outline-none focus:ring-4 aria-expanded:ring-4",
 					"focus:border-accent-600 focus:ring-focus-accent aria-expanded:border-accent-600 aria-expanded:ring-focus-accent",
