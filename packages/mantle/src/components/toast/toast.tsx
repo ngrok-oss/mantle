@@ -126,7 +126,7 @@ const Toast = forwardRef<ElementRef<"div">, ToastProps>(({ asChild, children, cl
 		<ToastStateContext.Provider value={{ priority }}>
 			<Component
 				className={cx(
-					"relative flex items-start gap-2 text-base sm:text-sm",
+					"relative flex items-start gap-2 text-sm",
 					"p-3 pl-[0.9375rem]",
 					"bg-popover high-contrast:border-popover rounded rounded-r-[0.3125rem] border border-gray-500/35 shadow-lg",
 					/**
@@ -244,7 +244,7 @@ const ToastMessage = forwardRef<ElementRef<"p">, ToastMessageProps>(({ asChild, 
 	return (
 		<Component
 			//
-			className={cx("text-strong flex-1 text-base sm:text-sm", className)}
+			className={cx("text-strong flex-1 text-sm", className)}
 			ref={ref}
 			{...props}
 		/>
