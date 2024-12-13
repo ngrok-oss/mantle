@@ -54,8 +54,8 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
 				aria-invalid={ariaInvalid}
 				data-validation={validation || undefined}
 				className={cx(
-					appearance === "monospaced" && "font-mono text-[0.9375rem] sm:text-[0.8125rem]",
-					"border-input bg-form data-drag-over:border-dashed data-drag-over:ring-4 flex min-h-24 w-full rounded-md border px-3 py-[calc(theme(spacing[2.5])-1px)] focus-visible:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50 sm:py-[calc(theme(spacing[2])-1px)] sm:text-sm",
+					appearance === "monospaced" && "pointer-coarse:text-[0.9375rem] font-mono text-[0.8125rem]",
+					"border-input bg-form data-drag-over:border-dashed data-drag-over:ring-4 pointer-coarse:py-[calc(theme(spacing[2.5])-1px)] pointer-coarse:text-base flex min-h-24 w-full rounded-md border px-3 py-[calc(theme(spacing[2])-1px)] focus-visible:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50",
 					"placeholder:text-placeholder data-drag-over:border-dashed",
 					"border-form text-strong ring-focus-accent focus:border-accent-600 data-drag-over:border-accent-600",
 					"data-validation-error:border-danger-600 data-validation-error:ring-focus-danger data-validation-error:focus-visible:border-danger-600 data-validation-error:data-drag-over:border-danger-600",
