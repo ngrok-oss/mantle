@@ -21,7 +21,7 @@ const Switch = forwardRef<ElementRef<typeof SwitchPrimitiveRoot>, SwitchProps>(
 			<SwitchPrimitiveRoot
 				aria-readonly={readOnly}
 				className={cx(
-					"peer inline-flex h-6 w-10 shrink-0 cursor-pointer items-center rounded-full outline-none sm:h-5 sm:w-9",
+					"peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full outline-none",
 					"disabled:cursor-default disabled:opacity-50",
 					"focus-visible:border-accent-600 focus-visible:ring-focus-accent focus-visible:outline-none focus-visible:ring-4",
 					"data-state-checked:bg-blue-500 data-state-unchecked:bg-gray-400",
@@ -41,7 +41,7 @@ const Switch = forwardRef<ElementRef<typeof SwitchPrimitiveRoot>, SwitchProps>(
 			>
 				<SwitchPrimitiveThumb
 					className={clsx(
-						"pointer-events-none block size-5 rounded-full bg-[#fff] shadow-md ring-0 transition-transform sm:size-4",
+						"pointer-events-none block size-4 rounded-full bg-[#fff] shadow-md ring-0 transition-transform",
 						"data-state-checked:translate-x-[1.125rem] data-state-unchecked:translate-x-[0.125rem]",
 					)}
 				/>
