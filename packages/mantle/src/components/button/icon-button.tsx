@@ -34,9 +34,9 @@ const iconButtonVariants = cva(
 			 * The size of the IconButton.
 			 */
 			size: {
-				xs: "size-7 sm:size-6",
-				sm: "size-9 sm:size-7",
-				md: "size-11 sm:size-9",
+				xs: "size-6",
+				sm: "size-7",
+				md: "size-9",
 			},
 		},
 		defaultVariants: {
