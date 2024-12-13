@@ -1,5 +1,6 @@
-import { Button } from "@ngrok/mantle/button";
+import { Button, IconButton } from "@ngrok/mantle/button";
 import { cx } from "@ngrok/mantle/cx";
+import { Icon } from "@ngrok/mantle/icon";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger } from "@ngrok/mantle/select";
 import { $theme, isTheme, useTheme } from "@ngrok/mantle/theme-provider";
 import type { WithStyleProps } from "@ngrok/mantle/types";
@@ -46,19 +47,17 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 	return (
 		<main className={cx("mx-auto h-full max-w-7xl sm:px-4", className)} style={style}>
 			<header className="flex h-20 items-center gap-4 px-4 sm:px-0">
-				<Button
-					type="button"
-					appearance="outlined"
-					priority="neutral"
-					className="w-11 sm:w-9 md:hidden"
+				<IconButton
+					className="md:hidden"
 					onClick={() => {
 						setShowNavigation(!showNavigation);
 					}}
-				>
-					{!showNavigation && <List className="h-6 w-6 shrink-0" />}
-
-					{showNavigation && <X className="h-6 w-6 shrink-0" />}
-				</Button>
+					type="button"
+					appearance="outlined"
+					label="Menu"
+					size="md"
+					icon={showNavigation ? <X /> : <List />}
+				/>
 
 				<Link to="/" className="static top-auto flex sm:top-[1.4rem] md:fixed">
 					<NgrokLogo />
@@ -82,7 +81,7 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 						{/* TODO: this should probably have a title/tooltip instead that describes what it is since we ain't got a spot for a label */}
 						<span className="sr-only">Theme Switcher</span>
 						<SelectTrigger className="w-min">
-							<Sun className="mr-1 h-6 w-6" />
+							<Icon className="mr-1" svg={<Sun />} />
 						</SelectTrigger>
 					</div>
 					<SelectContent>
