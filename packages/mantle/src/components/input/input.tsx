@@ -138,7 +138,7 @@ const InputContainer = ({
 				aria-disabled={disabled ?? _ariaDisabled}
 				data-validation={validation || undefined}
 				className={cx(
-					"pointer-coarse:text-base h-11 text-sm",
+					"pointer-coarse:text-base h-9 text-sm",
 					"bg-form relative flex w-full items-center gap-1.5 rounded-md border px-3 py-2 file:border-0 file:bg-transparent file:text-sm file:font-medium focus-within:outline-none focus-within:ring-4 focus-visible:outline-none focus-visible:ring-4",
 					"aria-disabled:opacity-50",
 					"has-[input:not(:first-child)]:ps-2.5 has-[input:not(:last-child)]:pe-2.5 [&>:not(input)]:shrink-0 [&_svg]:size-5",
