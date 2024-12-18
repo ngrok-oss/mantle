@@ -1,12 +1,14 @@
 import { Button } from "@ngrok/mantle/button";
 import { Card, CardBody, CardFooter, CardHeader, CardTitle } from "@ngrok/mantle/card";
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
+import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Input, PasswordInput } from "@ngrok/mantle/input";
 import { TabBadge, Tabs, TabsContent, TabsList, TabsTrigger } from "@ngrok/mantle/tabs";
 import { Globe } from "@phosphor-icons/react/Globe";
 import { ShieldCheck } from "@phosphor-icons/react/ShieldCheck";
 import { User } from "@phosphor-icons/react/User";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
+import { Link } from "@remix-run/react";
 import { Example } from "~/components/example";
 
 export const meta: MetaFunction = () => {
@@ -32,6 +34,27 @@ export default function Page() {
 				</p>
 				<div>
 					<Example className="mt-4 grid gap-6">
+						<div className="space-y-2">
+							<p>
+								<InlineCode>asChild</InlineCode> with <InlineCode>Link</InlineCode>s
+							</p>
+							<Tabs orientation="horizontal" defaultValue="colors">
+								<TabsList>
+									<TabsTrigger value="colors" asChild>
+										<Link to="/base/colors">Colors</Link>
+									</TabsTrigger>
+									<TabsTrigger value="shadows" asChild>
+										<Link to="/base/shadows">Shadows</Link>
+									</TabsTrigger>
+									<TabsTrigger disabled value="tailwind-variants" asChild>
+										<Link to="/base/tailwind-variants">Tailwind Variants</Link>
+									</TabsTrigger>
+									<TabsTrigger value="typography" asChild>
+										<Link to="/base/typography">Typography</Link>
+									</TabsTrigger>
+								</TabsList>
+							</Tabs>
+						</div>
 						<Tabs orientation="horizontal" defaultValue="tab-1">
 							<TabsList>
 								<TabsTrigger value="tab-1">Tab Title</TabsTrigger>
