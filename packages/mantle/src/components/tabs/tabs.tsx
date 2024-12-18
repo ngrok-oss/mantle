@@ -90,8 +90,6 @@ const TabsTrigger = forwardRef<ElementRef<typeof TabsPrimitiveTrigger>, TabsTrig
 				className,
 			),
 			disabled,
-			// when not disabled, allow keyboard navigation to the trigger, even for asChild anchors/links
-			// ...(disabled ? {} : { tabIndex: 0 }),
 			...props,
 		};
 
