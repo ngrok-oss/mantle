@@ -128,7 +128,9 @@ export default function Page() {
 												window.alert("Form submitted!");
 											}}
 										>
-											<AlertDialogAction type="submit">Continue</AlertDialogAction>
+											<AlertDialogAction type="submit" className="w-full sm:w-fit">
+												Continue
+											</AlertDialogAction>
 										</form>
 									</AlertDialogFooter>
 								</AlertDialogBody>
