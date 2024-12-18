@@ -51,7 +51,7 @@ type RadioItemProps = Omit<HeadlessRadioProps, "children"> & PropsWithChildren;
 const RadioItem = forwardRef<ElementRef<"div">, RadioItemProps>(({ children, className, ...props }, ref) => (
 	<HeadlessRadio
 		className={cx(
-			"group/radio aria-enabled:cursor-pointer [&_label]:cursor-inherit flex cursor-default gap-2 py-1 text-base focus:outline-none sm:text-sm",
+			"group/radio aria-enabled:cursor-pointer [&_label]:cursor-inherit flex cursor-default gap-2 py-1 text-sm focus:outline-none",
 			className,
 		)}
 		as="div"
@@ -98,7 +98,7 @@ const RadioIndicator = ({ children, className, ...props }: RadioIndicatorProps) 
 
 	return (
 		<div
-			className={cx("radio-indicator inline-flex size-6 select-none items-center justify-center sm:size-5", className)}
+			className={cx("radio-indicator inline-flex size-5 select-none items-center justify-center", className)}
 			{...props}
 		>
 			{children == null ? (
@@ -130,7 +130,7 @@ const RadioListItem = forwardRef<ElementRef<"div">, RadioListItemProps>(({ child
 		<HeadlessRadio
 			as="div"
 			className={cx(
-				"group/radio border-form [&_label]:cursor-inherit relative flex select-none gap-2 border px-3 py-2 text-base sm:text-sm",
+				"group/radio border-form [&_label]:cursor-inherit relative flex select-none gap-2 border px-3 py-2 text-sm",
 				"aria-enabled:cursor-pointer focus:outline-none",
 				"focus-visible:ring-focus-accent aria-enabled:focus-visible:border-accent-600 focus-visible:ring-4",
 				"first-of-type:rounded-tl-md first-of-type:rounded-tr-md last-of-type:rounded-bl-md last-of-type:rounded-br-md",
@@ -164,7 +164,7 @@ const RadioCard = forwardRef<ElementRef<"div">, RadioCardProps>(({ children, cla
 		<HeadlessRadio
 			as="div"
 			className={clsx(
-				"group/radio border-card bg-card [&_label]:cursor-inherit relative rounded-md border p-4 text-base sm:text-sm",
+				"group/radio border-card bg-card [&_label]:cursor-inherit relative rounded-md border p-4 text-sm",
 				"aria-enabled:cursor-pointer focus:outline-none",
 				"focus-visible:ring-focus-accent aria-enabled:focus-visible:border-accent-600 focus-visible:ring-4",
 				"first-of-type:rounded-tl-md first-of-type:rounded-tr-md last-of-type:rounded-bl-md last-of-type:rounded-br-md",
@@ -218,8 +218,8 @@ const RadioButton = forwardRef<ElementRef<"div">, RadioButtonProps>(({ children,
 		<HeadlessRadio
 			as="div"
 			className={cx(
-				"group/radio border-form [&_label]:cursor-inherit relative flex flex-1 select-none items-center justify-center gap-2 border px-3 text-base sm:text-sm",
-				"h-11 sm:h-9",
+				"group/radio border-form [&_label]:cursor-inherit relative flex flex-1 select-none items-center justify-center gap-2 border px-3 text-sm",
+				"h-9",
 				"focus-visible:ring-focus-accent aria-enabled:focus-visible:border-accent-600 focus-visible:ring-4",
 				"aria-enabled:cursor-pointer focus:outline-none",
 				"first-of-type:rounded-bl-md first-of-type:rounded-tl-md last-of-type:rounded-br-md last-of-type:rounded-tr-md",

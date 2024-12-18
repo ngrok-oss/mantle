@@ -152,7 +152,7 @@ const AlertDialogTitle = forwardRef<
 >(({ className, ...props }, ref) => (
 	<AlertDialogPrimitive.Title
 		ref={ref}
-		className={cx("text-strong text-center text-xl font-medium sm:text-start sm:text-lg", className)}
+		className={cx("text-strong text-center text-lg font-medium sm:text-start", className)}
 		{...props}
 	/>
 ));
@@ -170,7 +170,7 @@ const AlertDialogDescription = forwardRef<
 >(({ className, ...props }, ref) => (
 	<AlertDialogPrimitive.Description
 		ref={ref}
-		className={cx("text-body text-center text-base font-normal sm:text-start sm:text-sm", className)}
+		className={cx("text-body text-center text-sm font-normal sm:text-start", className)}
 		{...props}
 	/>
 ));

@@ -19,11 +19,11 @@ const buttonVariants = cva(
 			 */
 			appearance: {
 				filled:
-					"bg-filled-accent text-on-filled focus-visible:border-accent-600 focus-visible:ring-focus-accent not-disabled:hover:bg-filled-accent-hover not-disabled:active:bg-filled-accent-active h-11 border border-transparent px-3 text-base font-medium sm:h-9 sm:text-sm",
+					"bg-filled-accent text-on-filled focus-visible:border-accent-600 focus-visible:ring-focus-accent not-disabled:hover:bg-filled-accent-hover not-disabled:active:bg-filled-accent-active h-9 border border-transparent px-3 text-sm font-medium",
 				ghost:
-					"text-accent-600 focus-visible:ring-focus-accent not-disabled:hover:bg-accent-500/10 not-disabled:hover:text-accent-700 not-disabled:active:bg-accent-500/15 not-disabled:active:text-accent-700 h-11 border border-transparent px-3 text-base font-medium sm:h-9 sm:text-sm",
+					"text-accent-600 focus-visible:ring-focus-accent not-disabled:hover:bg-accent-500/10 not-disabled:hover:text-accent-700 not-disabled:active:bg-accent-500/15 not-disabled:active:text-accent-700 h-9 border border-transparent px-3 text-sm font-medium",
 				outlined:
-					"border-accent-600 bg-form text-accent-600 focus-visible:ring-focus-accent not-disabled:hover:border-accent-700 not-disabled:hover:bg-accent-500/10 not-disabled:hover:text-accent-700 not-disabled:active:border-accent-700 not-disabled:active:bg-accent-500/15 not-disabled:active:text-accent-700 h-11 border px-3 text-base font-medium sm:h-9 sm:text-sm",
+					"border-accent-600 bg-form text-accent-600 focus-visible:ring-focus-accent not-disabled:hover:border-accent-700 not-disabled:hover:bg-accent-500/10 not-disabled:hover:text-accent-700 not-disabled:active:border-accent-700 not-disabled:active:bg-accent-500/15 not-disabled:active:text-accent-700 h-9 border px-3 text-sm font-medium",
 				link: "text-accent-600 focus-visible:ring-focus-accent not-disabled:hover:underline group border-transparent",
 			},
 			/**

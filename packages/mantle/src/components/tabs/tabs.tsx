@@ -84,7 +84,7 @@ const TabsTrigger = forwardRef<ElementRef<typeof TabsPrimitiveTrigger>, TabsTrig
 				"ring-focus-accent outline-none",
 				"aria-disabled:cursor-default aria-disabled:opacity-50",
 				"focus-visible:ring-4",
-				"[&>svg]:size-6 [&>svg]:shrink-0 [&>svg]:sm:size-5",
+				"[&>svg]:shrink-0 [&>svg]:size-5",
 				"not-aria-disabled:hover:text-gray-900 not-aria-disabled:hover:data-state-active:text-blue-600",
 				"data-state-active:text-blue-600",
 				className,
