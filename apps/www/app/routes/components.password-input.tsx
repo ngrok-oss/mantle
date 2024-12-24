@@ -36,7 +36,7 @@ const ControlledVisibility = () => {
 	const [showPassword, setShowPassword] = useState(false);
 
 	return (
-		<div className="flex items-center gap-2">
+		<div className="flex flex-wrap items-center gap-2">
 			<PasswordInput showValue={showPassword} onValueVisibilityChange={setShowPassword} />
 			<Button
 				type="button"
