@@ -169,9 +169,7 @@ export default function Page() {
 				</p>
 				<div>
 					<Example>
-						<div className="min-w-72">
-							<DynamicColorsExample />
-						</div>
+						<DynamicColorsExample />
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
@@ -325,9 +323,8 @@ const DynamicColorsExample = () => {
 				<ProgressDonutIndicator className={computeColor()} />
 			</ProgressDonut>
 			<label className="block space-y-1">
-				<p>Value:</p>
-				<input type="range" min={0} max={100} value={value} onChange={(e) => setValue(Number(e.target.value))} /> (
-				{value}%)
+				<p>Value: {value}%</p>
+				<input type="range" min={0} max={100} value={value} onChange={(e) => setValue(Number(e.target.value))} />
 			</label>
 		</form>
 	);
