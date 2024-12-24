@@ -46,7 +46,7 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 
 	return (
 		<main className={cx("mx-auto h-full max-w-7xl sm:px-4", className)} style={style}>
-			<header className="flex h-20 items-center gap-4 px-4 sm:px-0">
+			<header className="xs:gap-4 flex h-20 items-center gap-3 px-4 sm:px-0">
 				<IconButton
 					className="md:hidden"
 					onClick={() => {
@@ -64,7 +64,7 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 					<MantleLogo />
 				</Link>
 
-				<p className="text-strong font-mono text-xs md:ml-48">
+				<p className="text-strong -ml-1 font-mono text-xs md:ml-48">
 					<a href="https://github.com/ngrok-oss/mantle/releases">{currentVersion}</a>
 				</p>
 
