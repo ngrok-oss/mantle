@@ -34,10 +34,10 @@ export default function Page() {
 				</p>
 				<div>
 					<Example className="mt-4 grid gap-6">
-						<div className="space-y-2">
-							<p>
-								<InlineCode>asChild</InlineCode> with <InlineCode>Link</InlineCode>s
-							</p>
+						<p>
+							<InlineCode>asChild</InlineCode> with <InlineCode>Link</InlineCode>s
+						</p>
+						<div className="scrollbar -mt-4 overflow-x-scroll">
 							<Tabs orientation="horizontal" defaultValue="colors">
 								<TabsList>
 									<TabsTrigger value="colors" asChild>
@@ -55,81 +55,89 @@ export default function Page() {
 								</TabsList>
 							</Tabs>
 						</div>
-						<Tabs orientation="horizontal" defaultValue="tab-1">
-							<TabsList>
-								<TabsTrigger value="tab-1">Tab Title</TabsTrigger>
-								<TabsTrigger value="tab-2">Tab Title</TabsTrigger>
-								<TabsTrigger disabled value="tab-3">
-									Tab Title
-								</TabsTrigger>
-								<TabsTrigger value="tab-4">Tab Title</TabsTrigger>
-							</TabsList>
-						</Tabs>
-						<Tabs orientation="horizontal" defaultValue="tab-1">
-							<TabsList>
-								<TabsTrigger value="tab-1">
-									<Globe />
-									Tab Title
-								</TabsTrigger>
-								<TabsTrigger value="tab-2">
-									<Globe />
-									Tab Title
-								</TabsTrigger>
-								<TabsTrigger disabled value="tab-3">
-									<Globe />
-									Tab Title
-								</TabsTrigger>
-								<TabsTrigger value="tab-4">
-									<Globe />
-									Tab Title
-								</TabsTrigger>
-							</TabsList>
-						</Tabs>
-						<Tabs orientation="horizontal" defaultValue="tab-1">
-							<TabsList>
-								<TabsTrigger value="tab-1">
-									Tab Title
-									<TabBadge>32</TabBadge>
-								</TabsTrigger>
-								<TabsTrigger value="tab-2">
-									Tab Title
-									<TabBadge>32</TabBadge>
-								</TabsTrigger>
-								<TabsTrigger disabled value="tab-3">
-									Tab Title
-									<TabBadge>32</TabBadge>
-								</TabsTrigger>
-								<TabsTrigger value="tab-4">
-									Tab Title
-									<TabBadge>32</TabBadge>
-								</TabsTrigger>
-							</TabsList>
-						</Tabs>
-						<Tabs orientation="horizontal" defaultValue="tab-1">
-							<TabsList>
-								<TabsTrigger value="tab-1">
-									<Globe />
-									Tab Title
-									<TabBadge>32</TabBadge>
-								</TabsTrigger>
-								<TabsTrigger value="tab-2">
-									<Globe />
-									Tab Title
-									<TabBadge>32</TabBadge>
-								</TabsTrigger>
-								<TabsTrigger disabled value="tab-3">
-									<Globe />
-									Tab Title
-									<TabBadge>32</TabBadge>
-								</TabsTrigger>
-								<TabsTrigger value="tab-4">
-									<Globe />
-									Tab Title
-									<TabBadge>32</TabBadge>
-								</TabsTrigger>
-							</TabsList>
-						</Tabs>
-						<Tabs orientation="horizontal" defaultValue="account" className="w-[400px]">
+						<div className="scrollbar overflow-x-scroll">
+							<Tabs orientation="horizontal" defaultValue="tab-1">
+								<TabsList>
+									<TabsTrigger value="tab-1">Tab Title</TabsTrigger>
+									<TabsTrigger value="tab-2">Tab Title</TabsTrigger>
+									<TabsTrigger disabled value="tab-3">
+										Tab Title
+									</TabsTrigger>
+									<TabsTrigger value="tab-4">Tab Title</TabsTrigger>
+								</TabsList>
+							</Tabs>
+						</div>
+						<div className="scrollbar overflow-x-scroll">
+							<Tabs orientation="horizontal" defaultValue="tab-1">
+								<TabsList>
+									<TabsTrigger value="tab-1">
+										<Globe />
+										Tab Title
+									</TabsTrigger>
+									<TabsTrigger value="tab-2">
+										<Globe />
+										Tab Title
+									</TabsTrigger>
+									<TabsTrigger disabled value="tab-3">
+										<Globe />
+										Tab Title
+									</TabsTrigger>
+									<TabsTrigger value="tab-4">
+										<Globe />
+										Tab Title
+									</TabsTrigger>
+								</TabsList>
+							</Tabs>
+						</div>
+						<div className="scrollbar overflow-x-scroll">
+							<Tabs orientation="horizontal" defaultValue="tab-1">
+								<TabsList>
+									<TabsTrigger value="tab-1">
+										Tab Title
+										<TabBadge>32</TabBadge>
+									</TabsTrigger>
+									<TabsTrigger value="tab-2">
+										Tab Title
+										<TabBadge>32</TabBadge>
+									</TabsTrigger>
+									<TabsTrigger disabled value="tab-3">
+										Tab Title
+										<TabBadge>32</TabBadge>
+									</TabsTrigger>
+									<TabsTrigger value="tab-4">
+										Tab Title
+										<TabBadge>32</TabBadge>
+									</TabsTrigger>
+								</TabsList>
+							</Tabs>
+						</div>
+						<div className="scrollbar overflow-x-scroll">
+							<Tabs orientation="horizontal" defaultValue="tab-1">
+								<TabsList>
+									<TabsTrigger value="tab-1">
+										<Globe />
+										Tab Title
+										<TabBadge>32</TabBadge>
+									</TabsTrigger>
+									<TabsTrigger value="tab-2">
+										<Globe />
+										Tab Title
+										<TabBadge>32</TabBadge>
+									</TabsTrigger>
+									<TabsTrigger disabled value="tab-3">
+										<Globe />
+										Tab Title
+										<TabBadge>32</TabBadge>
+									</TabsTrigger>
+									<TabsTrigger value="tab-4">
+										<Globe />
+										Tab Title
+										<TabBadge>32</TabBadge>
+									</TabsTrigger>
+								</TabsList>
+							</Tabs>
+						</div>
+						<Tabs orientation="horizontal" defaultValue="account" className="w-100 max-w-[400px]">
 							<TabsList>
 								<TabsTrigger value="account">
 									<User />
@@ -147,19 +155,6 @@ export default function Page() {
 										<CardTitle>Account</CardTitle>
 										<p className="text-muted">Make changes to your account here. Click save when you're done.</p>
 									</CardHeader>
-									<CardBody className="space-y-2">
-										<div className="space-y-1">
-											<label htmlFor="name">Name</label>
-											<Input id="name" defaultValue="Cody Price" />
-										</div>
-										<div className="space-y-1">
-											<label htmlFor="username">Username</label>
-											<Input id="username" defaultValue="@cody-dot-js" />
-										</div>
-									</CardBody>
-									<CardFooter>
-										<Button type="button">Save changes</Button>
-									</CardFooter>
 								</Card>
 							</TabsContent>
 							<TabsContent value="password">
@@ -168,23 +163,10 @@ export default function Page() {
 										<CardTitle>Password</CardTitle>
 										<p className="text-muted">Change your password here. After saving, you'll be logged out.</p>
 									</CardHeader>
-									<CardBody className="space-y-2">
-										<div className="space-y-1">
-											<label htmlFor="current">Current password</label>
-											<PasswordInput id="current" />
-										</div>
-										<div className="space-y-1">
-											<label htmlFor="new">New password</label>
-											<PasswordInput id="new" />
-										</div>
-									</CardBody>
-									<CardFooter>
-										<Button type="button">Save password</Button>
-									</CardFooter>
 								</Card>
 							</TabsContent>
 						</Tabs>
-						<Tabs orientation="vertical" defaultValue="account" className="max-w-xl">
+						<Tabs orientation="vertical" defaultValue="account" className="scrollbar max-w-xl overflow-x-scroll">
 							<TabsList>
 								<TabsTrigger value="account">Account</TabsTrigger>
 								<TabsTrigger value="password">Password</TabsTrigger>
@@ -198,19 +180,6 @@ export default function Page() {
 										<CardTitle>Account</CardTitle>
 										<p className="text-muted">Make changes to your account here. Click save when you're done.</p>
 									</CardHeader>
-									<CardBody className="space-y-2">
-										<div className="space-y-1">
-											<label htmlFor="name">Name</label>
-											<Input id="name" defaultValue="Cody Price" />
-										</div>
-										<div className="space-y-1">
-											<label htmlFor="username">Username</label>
-											<Input id="username" defaultValue="@cody-dot-js" />
-										</div>
-									</CardBody>
-									<CardFooter>
-										<Button type="button">Save changes</Button>
-									</CardFooter>
 								</Card>
 							</TabsContent>
 							<TabsContent value="password">
@@ -219,19 +188,6 @@ export default function Page() {
 										<CardTitle>Password</CardTitle>
 										<p className="text-muted">Change your password here. After saving, you'll be logged out.</p>
 									</CardHeader>
-									<CardBody className="space-y-2">
-										<div className="space-y-1">
-											<label htmlFor="current">Current password</label>
-											<PasswordInput id="current" />
-										</div>
-										<div className="space-y-1">
-											<label htmlFor="new">New password</label>
-											<PasswordInput id="new" />
-										</div>
-									</CardBody>
-									<CardFooter>
-										<Button type="button">Save password</Button>
-									</CardFooter>
 								</Card>
 							</TabsContent>
 						</Tabs>
