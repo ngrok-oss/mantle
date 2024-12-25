@@ -51,7 +51,7 @@ export default function Page() {
 				</p>
 
 				<div>
-					<Example className="grid grid-cols-2 gap-6">
+					<Example className="grid grid-cols-1 gap-6 sm:grid-cols-2">
 						<Label className="space-y-1">
 							<p>Default TextArea</p>
 							<TextArea onDrop={(event) => handleDrop(event)} placeholder="Tell us about your experience…" />
