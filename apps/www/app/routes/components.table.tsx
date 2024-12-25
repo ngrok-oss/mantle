@@ -125,7 +125,7 @@ const ExampleTable = () => {
 	];
 
 	return (
-		<div className="z-10 mt-4 overflow-hidden rounded-lg border border-gray-300 bg-white dark:bg-gray-100">
+		<div className="scrollbar z-10 mt-4 overflow-x-scroll rounded-lg border border-gray-300 bg-white dark:bg-gray-100">
 			<Table>
 				<TableCaption>A list of your recent invoices.</TableCaption>
 				<TableHeader>
