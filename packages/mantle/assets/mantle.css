@@ -1580,30 +1580,31 @@
 		color-scheme: dark;
 	}
 
-	.scrollbar::-webkit-scrollbar {
-		width: 0.5rem;
-		height: 0.5rem;
-		background-color: transparent;
-	}
+	@supports selector(::-webkit-scrollbar) {
+		.scrollbar::-webkit-scrollbar {
+			width: 0.5rem;
+			height: 0.5rem;
+			background-color: transparent;
+		}
 
-	.scrollbar::-webkit-scrollbar-track {
-		border-radius: 0.5rem;
-		background-color: transparent;
-	}
+		.scrollbar::-webkit-scrollbar-track {
+			border-radius: 0.5rem;
+			background-color: transparent;
+		}
 
-	.scrollbar::-webkit-scrollbar-thumb {
-		border-radius: 0.5rem;
-		background-color: hsl(var(--gray-800) / 0.5);
-	}
+		.scrollbar::-webkit-scrollbar-thumb {
+			border-radius: 0.5rem;
+			background-color: hsl(var(--gray-800) / 0.5);
+		}
 
-	.scrollbar::-webkit-scrollbar-corner {
-		background-color: transparent;
-		border-color: transparent;
+		.scrollbar::-webkit-scrollbar-corner {
+			background-color: transparent;
+			border-color: transparent;
+		}
 	}
 
 	.scrollbar {
 		scrollbar-color: hsl(var(--gray-800) / 0.5) transparent;
-		scrollbar-width: thin;
 	}
 
 	.scroll-shadow {
