@@ -149,7 +149,7 @@ export default function Page() {
 
 						<DropdownMenu>
 							<DropdownMenuTrigger asChild>
-								<Button type="button" appearance="filled">
+								<Button type="button" appearance="filled" className="whitespace-break-spaces">
 									Content Width Matches Trigger Width (Extra Wide)
 								</Button>
 							</DropdownMenuTrigger>

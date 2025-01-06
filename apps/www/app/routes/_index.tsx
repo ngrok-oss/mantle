@@ -67,14 +67,8 @@ export default function Page() {
 			<p className="font-body text-body mt-3">
 				Start by installing <InlineCode>@ngrok/mantle</InlineCode> with your preferred package manager:
 			</p>
-			<div className="border-card mt-4 overflow-hidden rounded-lg border">
+			<div className="border-card scrollbar mt-4 overflow-x-scroll rounded-lg border">
 				<Table>
-					<TableHeader>
-						<TableRow>
-							<TableHead>Package Manager</TableHead>
-							<TableHead>Command</TableHead>
-						</TableRow>
-					</TableHeader>
 					<TableBody>
 						<TableRow>
 							<TableCell className="font-body">npm</TableCell>
@@ -172,15 +166,15 @@ export default function Page() {
 
 							// 👇 add this import to your root file to apply mantle styles! 👇
 							import "@ngrok/mantle/mantle.css";
-							
+
 							const container = window.document.getElementById("app");
-							
+
 							if (!container) {
 								throw new Error("Something went wrong: cannot render application! Please refresh the page to try again.");
 							}
-							
+
 							const root = createRoot(container);
-							
+
 							root.render(
 								<StrictMode>
 									<App />

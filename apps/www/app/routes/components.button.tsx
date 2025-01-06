@@ -226,7 +226,7 @@ export default function Page() {
 					<Example className="flex-col gap-4">
 						<div className="space-y-2">
 							<p className="mb-2 text-center font-mono text-xs">Idle</p>
-							<div className="flex items-center justify-center gap-2">
+							<div className="flex flex-wrap items-center justify-center gap-2">
 								<Button type="button">No Icon + Idle</Button>
 								<Button type="button" icon={<Fire weight="fill" />}>
 									Icon Start + Idle
@@ -235,7 +235,7 @@ export default function Page() {
 									Icon End + Idle
 								</Button>
 							</div>
-							<div className="flex items-center justify-center gap-2">
+							<div className="flex flex-wrap items-center justify-center gap-2">
 								<Button type="button" appearance="link" icon={<Fire weight="fill" />}>
 									Link + Icon Start + Idle
 								</Button>
@@ -246,7 +246,7 @@ export default function Page() {
 						</div>
 						<div className="space-y-2">
 							<p className="mb-2 text-center font-mono text-xs">isLoading</p>
-							<div className="flex items-center justify-center gap-2">
+							<div className="flex flex-wrap items-center justify-center gap-2">
 								<Button type="button" isLoading>
 									No Icon + isLoading
 								</Button>
@@ -257,7 +257,7 @@ export default function Page() {
 									Icon End + isLoading
 								</Button>
 							</div>
-							<div className="flex items-center justify-center gap-2">
+							<div className="flex flex-wrap items-center justify-center gap-2">
 								<Button type="button" appearance="link" icon={<Fire weight="fill" />} isLoading>
 									Link + Icon Start + isLoading
 								</Button>

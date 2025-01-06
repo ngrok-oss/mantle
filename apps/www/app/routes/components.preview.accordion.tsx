@@ -59,7 +59,7 @@ export default function Page() {
 								<AccordionHeading className="mx-4 flex items-center gap-2" asChild>
 									<h2>
 										<AccordionTrigger>
-											<span className="font-mono text-sm font-bold">on_tcp_connect</span>
+											<span className="font-mono text-sm font-medium">on_tcp_connect</span>
 											<Badge appearance="muted" color="neutral" className="rounded-full">
 												3
 											</Badge>
@@ -67,7 +67,7 @@ export default function Page() {
 										</AccordionTrigger>
 										<Separator orientation="horizontal" className="flex-1" />
 										<Button type="button" appearance="link" icon={<Plus />}>
-											Add Rule
+											<span className="xs:inline hidden">Add Rule</span>
 										</Button>
 									</h2>
 								</AccordionHeading>
@@ -81,7 +81,7 @@ export default function Page() {
 								<AccordionHeading className="mx-4 flex items-center gap-2" asChild>
 									<h2>
 										<AccordionTrigger>
-											<span className="font-mono text-sm font-bold">on_http_request</span>
+											<span className="font-mono text-sm font-medium">on_http_request</span>
 											<Badge appearance="muted" color="neutral" className="rounded-full">
 												2
 											</Badge>
@@ -89,7 +89,7 @@ export default function Page() {
 										</AccordionTrigger>
 										<Separator orientation="horizontal" className="flex-1" />
 										<Button type="button" appearance="link" icon={<Plus />}>
-											Add Rule
+											<span className="xs:inline hidden">Add Rule</span>
 										</Button>
 									</h2>
 								</AccordionHeading>
@@ -103,7 +103,7 @@ export default function Page() {
 								<AccordionHeading className="mx-4 flex items-center gap-2" asChild>
 									<h2>
 										<AccordionTrigger>
-											<span className="font-mono text-sm font-bold">on_http_response</span>
+											<span className="font-mono text-sm font-medium">on_http_response</span>
 											<Badge appearance="muted" color="neutral" className="rounded-full">
 												0
 											</Badge>
@@ -111,7 +111,7 @@ export default function Page() {
 										</AccordionTrigger>
 										<Separator orientation="horizontal" className="flex-1" />
 										<Button type="button" appearance="link" icon={<Plus />}>
-											Add Rule
+											<span className="xs:inline hidden">Add Rule</span>
 										</Button>
 									</h2>
 								</AccordionHeading>
@@ -144,7 +144,7 @@ export default function Page() {
 											<AccordionHeading className="mx-4 flex items-center gap-2" asChild>
 												<h2>
 													<AccordionTrigger>
-														<span className="font-mono text-sm font-bold">on_tcp_connect</span>
+														<span className="font-mono text-sm font-medium">on_tcp_connect</span>
 														<Badge appearance="muted" color="neutral" className="rounded-full">
 															3
 														</Badge>
@@ -166,7 +166,7 @@ export default function Page() {
 											<AccordionHeading className="mx-4 flex items-center gap-2" asChild>
 												<h2>
 													<AccordionTrigger>
-														<span className="font-mono text-sm font-bold">on_http_request</span>
+														<span className="font-mono text-sm font-medium">on_http_request</span>
 														<Badge appearance="muted" color="neutral" className="rounded-full">
 															2
 														</Badge>
@@ -188,7 +188,7 @@ export default function Page() {
 											<AccordionHeading className="mx-4 flex items-center gap-2" asChild>
 												<h2>
 													<AccordionTrigger>
-														<span className="font-mono text-sm font-bold">on_http_response</span>
+														<span className="font-mono text-sm font-medium">on_http_response</span>
 														<Badge appearance="muted" color="neutral" className="rounded-full">
 															0
 														</Badge>

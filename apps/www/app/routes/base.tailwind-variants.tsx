@@ -24,7 +24,7 @@ export default function Page() {
 			<h1 className="text-5xl font-medium">Tailwind Variants</h1>
 			<p className="font-body text-body mt-4 text-xl">Additional Tailwind variants added by our Tailwind preset.</p>
 
-			<div className="border-card mt-8 overflow-hidden rounded-lg border">
+			<div className="border-card scrollbar mt-8 overflow-x-scroll rounded-lg border">
 				<Table>
 					<TableHeader>
 						<TableRow>

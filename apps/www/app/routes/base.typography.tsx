@@ -82,7 +82,7 @@ export default function Page() {
 				a <InlineCode>font-body</InlineCode>. We also use IBM Plex Mono as a monospace typeface.
 			</p>
 
-			<div className="border-card mt-4 overflow-hidden rounded-lg border">
+			<div className="border-card scrollbar mt-4 overflow-x-scroll rounded-lg border">
 				<Table>
 					<TableHeader>
 						<TableRow>

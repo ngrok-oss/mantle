@@ -9,7 +9,7 @@ import "prismjs/components/prism-typescript.js";
 
 type PropsTableProps = WithStyleProps & PropsWithChildren;
 export const PropsTable = ({ children, className, style }: PropsTableProps) => (
-	<div className={cx("overflow-hidden rounded-lg border border-gray-300", className)} style={style}>
+	<div className={cx("scrollbar overflow-x-scroll rounded-lg border border-gray-300", className)} style={style}>
 		<Table>
 			<TableHeader>
 				<TableRow>
