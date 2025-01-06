@@ -107,8 +107,8 @@ export default function Page() {
 				</p>
 				<div>
 					<Example>
-						<div className="flex flex-col space-y-16">
-							<form className="w-96">
+						<div className="flex w-full max-w-96 flex-col space-y-16">
+							<form>
 								<fieldset className="space-y-4">
 									<HorizontalSeparatorGroup className="w-full" asChild>
 										<legend>
