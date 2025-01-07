@@ -61,13 +61,13 @@ export default function Page() {
 				</header>
 				<div>
 					<Example>
-						<MediaObject>
+						<MediaObject className="w-full max-w-96 items-center">
 							<MediaObjectMedia>
 								<Skeleton className="h-12 w-12 rounded-full" />
 							</MediaObjectMedia>
 							<MediaObjectContent className="space-y-3">
-								<Skeleton className="w-[250px]" />
-								<Skeleton className="w-[200px]" />
+								<Skeleton className="w-full" />
+								<Skeleton className="w-4/5" />
 							</MediaObjectContent>
 						</MediaObject>
 					</Example>
@@ -80,13 +80,13 @@ export default function Page() {
 									import { MediaObject, MediaObjectMedia, MediaObjectContent } from "@ngrok/mantle/media-object";
 									import { Skeleton } from "@ngrok/mantle/skeleton";
 
-									<MediaObject>
+									<MediaObject className="w-full max-w-96 items-center">
 										<MediaObjectMedia>
 											<Skeleton className="h-12 w-12 rounded-full" />
 										</MediaObjectMedia>
 										<MediaObjectContent className="space-y-3">
-											<Skeleton className="w-[250px]" />
-											<Skeleton className="w-[200px]" />
+											<Skeleton className="w-full" />
+											<Skeleton className="w-4/5" />
 										</MediaObjectContent>
 									</MediaObject>
 								`}
