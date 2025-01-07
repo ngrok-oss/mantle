@@ -3,6 +3,7 @@ import { cx } from "@ngrok/mantle/cx";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { HashNavLink } from "~/components/hash-nav-link";
+import { PageHeader } from "~/components/page-header";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -313,7 +314,7 @@ export default function Page() {
 				</ul>
 			</nav>
 			<div className="flex-1">
-				<h1 className="text-5xl font-medium">Colors</h1>
+				<PageHeader id="colors">Colors</PageHeader>
 				<p className="font-body text-body mt-4 text-xl">
 					Colors are a key component of any design system. They are used to convey meaning, attract attention, and
 					provide feedback. Mantle&rsquo;s color system is designed to be accessible and flexible with dark and high

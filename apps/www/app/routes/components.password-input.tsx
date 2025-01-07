@@ -6,6 +6,7 @@ import { PasswordInput } from "@ngrok/mantle/input";
 import { Label } from "@ngrok/mantle/label";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
+import { PageHeader } from "~/components/page-header";
 import {
 	BooleanPropType,
 	FuncPropType,
@@ -54,9 +55,7 @@ export default function Page() {
 	return (
 		<div className="space-y-16">
 			<section className="space-y-4">
-				<h1 id="password-input" className="text-5xl font-medium">
-					Password Input
-				</h1>
+				<PageHeader id="password-input">Password Input</PageHeader>
 				<p className="font-body text-body text-xl">Fundamental component for password inputs.</p>
 				<div>
 					<Example className="flex-col gap-4">

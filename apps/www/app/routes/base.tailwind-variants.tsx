@@ -4,6 +4,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Check } from "@phosphor-icons/react/Check";
 import { X } from "@phosphor-icons/react/X";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
+import { PageHeader } from "~/components/page-header";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -21,7 +22,7 @@ export const headers: HeadersFunction = () => {
 export default function Page() {
 	return (
 		<div>
-			<h1 className="text-5xl font-medium">Tailwind Variants</h1>
+			<PageHeader id="tailwind-variants">Tailwind Variants</PageHeader>
 			<p className="font-body text-body mt-4 text-xl">Additional Tailwind variants added by our Tailwind preset.</p>
 
 			<div className="border-card scrollbar mt-8 overflow-x-scroll rounded-lg border">

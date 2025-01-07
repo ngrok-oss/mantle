@@ -3,6 +3,7 @@ import { Label } from "@ngrok/mantle/label";
 import { Switch } from "@ngrok/mantle/switch";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
+import { PageHeader } from "~/components/page-header";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -21,7 +22,7 @@ export default function Page() {
 	return (
 		<div className="space-y-16">
 			<section className="space-y-4">
-				<h1 className="text-5xl font-medium">Switch</h1>
+				<PageHeader id="switch">Switch</PageHeader>
 				<p className="font-body text-body text-xl">
 					A control that allows the user to toggle between checked and not checked.
 				</p>

@@ -5,6 +5,7 @@ import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Fire } from "@phosphor-icons/react/Fire";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
+import { PageHeader } from "~/components/page-header";
 import {
 	ObjectPropType,
 	PropDefaultValueCell,
@@ -34,9 +35,7 @@ export default function Page() {
 	return (
 		<div className="space-y-16">
 			<section className="space-y-4">
-				<h1 id="icon" className="text-5xl font-medium">
-					Icon
-				</h1>
+				<PageHeader id="icon">icon</PageHeader>
 				<p className="font-body text-body text-xl">
 					Decorates an svg icon with automatic sizing. Useful when applying base styles to{" "}
 					<Anchor href="https://phosphoricons.com">phosphor icons</Anchor>.

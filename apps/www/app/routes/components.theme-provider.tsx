@@ -12,6 +12,7 @@ import { InlineCode } from "@ngrok/mantle/inline-code";
 import { PreloadFonts, preventWrongThemeFlashScriptContent } from "@ngrok/mantle/theme-provider";
 import { FileText } from "@phosphor-icons/react/FileText";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
+import { PageHeader } from "~/components/page-header";
 import { renderToStaticMarkup } from "react-dom/server";
 
 export const meta: MetaFunction = () => {
@@ -31,7 +32,7 @@ export default function Page() {
 	return (
 		<div className="space-y-8">
 			<header className="space-y-4">
-				<h1 className="text-5xl font-medium">Theme Provider</h1>
+				<PageHeader id="theme-provider">Theme Provider</PageHeader>
 				<p className="font-body text-body text-xl">
 					ThemeProvider is a React Context Provider that provides the current theme to the application and a function to
 					change it.

@@ -3,8 +3,8 @@ import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode }
 import { DataTable } from "@ngrok/mantle/data-table";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
-import { UnreleasedBadge } from "~/components/badges";
 import { Example } from "~/components/example";
+import { PageHeader } from "~/components/page-header";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -23,12 +23,9 @@ export default function Page() {
 	return (
 		<div className="space-y-16">
 			<div className="space-y-4">
-				<div className="flex items-center gap-3">
-					<h1 id="data-table" className="text-5xl font-medium">
-						Data Table
-					</h1>
-					<UnreleasedBadge />
-				</div>
+				<PageHeader id="data-table" isUnreleased>
+					Data Table
+				</PageHeader>
 				<p className="font-body text-body text-xl">
 					Tables purposefully designed for dynamic, application data with features like sorting, filtering, and
 					pagination. Powered by{" "}

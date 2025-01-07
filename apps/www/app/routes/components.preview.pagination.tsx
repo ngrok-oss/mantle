@@ -1,8 +1,8 @@
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
 import { CursorButtons, CursorPageSizeSelect, CursorPagination } from "@ngrok/mantle/pagination";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
-import { PreviewBadge } from "~/components/badges";
 import { Example } from "~/components/example";
+import { PageHeader } from "~/components/page-header";
 import { CursorPageSizeValue } from "node_modules/@ngrok/mantle/src/components/pagination/cursor-pagination";
 
 // import {
@@ -34,12 +34,9 @@ export default function Page() {
 	return (
 		<div className="space-y-16">
 			<section className="space-y-4">
-				<div className="flex items-center gap-3">
-					<h1 id="calendar" className="text-5xl font-medium">
-						Pagination
-					</h1>
-					<PreviewBadge />
-				</div>
+				<PageHeader id="pagination" isPreview>
+					Pagination
+				</PageHeader>
 				<p className="font-body text-body text-xl">A date field component that allows users to enter and edit date.</p>
 				<div>
 					<Example className="flex flex-col gap-6">

@@ -3,6 +3,7 @@ import { InlineCode } from "@ngrok/mantle/inline-code";
 import { HorizontalSeparatorGroup, Separator } from "@ngrok/mantle/separator";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
+import { PageHeader } from "~/components/page-header";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -21,7 +22,7 @@ export default function Page() {
 	return (
 		<div className="space-y-16">
 			<section className="space-y-4">
-				<h1 className="text-5xl font-medium">Separator</h1>
+				<PageHeader id="separator">Separator</PageHeader>
 				<p className="font-body text-body text-xl">Visually or semantically separates content.</p>
 				<div>
 					<Example>
@@ -107,8 +108,8 @@ export default function Page() {
 				</p>
 				<div>
 					<Example>
-						<div className="flex flex-col space-y-16">
-							<form className="w-96">
+						<div className="flex w-full max-w-96 flex-col space-y-16">
+							<form>
 								<fieldset className="space-y-4">
 									<HorizontalSeparatorGroup className="w-full" asChild>
 										<legend>

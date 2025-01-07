@@ -11,6 +11,7 @@ import {
 } from "@ngrok/mantle/table";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
+import { PageHeader } from "~/components/page-header";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -28,7 +29,7 @@ export const headers: HeadersFunction = () => {
 export default function Page() {
 	return (
 		<section className="space-y-4">
-			<h1 className="text-5xl font-medium">Table</h1>
+			<PageHeader id="table">Table</PageHeader>
 			<p className="font-body text-body text-xl">A responsive table component.</p>
 			<div>
 				<Example className="gap-2">

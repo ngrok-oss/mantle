@@ -5,6 +5,7 @@ import { Skeleton } from "@ngrok/mantle/skeleton";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 import { Link } from "~/components/link";
+import { PageHeader } from "~/components/page-header";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -23,7 +24,7 @@ export default function Page() {
 	return (
 		<div className="space-y-16">
 			<section className="space-y-4">
-				<h1 className="text-5xl font-medium">Skeleton</h1>
+				<PageHeader id="skeleton">Skeleton</PageHeader>
 				<p className="font-body text-body mt-4 text-xl">
 					Use to show a placeholder while content is loading. By using a <InlineCode>Skeleton</InlineCode>, you can give
 					the user an idea of what the content will look like, reducing the perceived loading time and CLS (Cumulative
@@ -61,13 +62,13 @@ export default function Page() {
 				</header>
 				<div>
 					<Example>
-						<MediaObject>
+						<MediaObject className="w-full max-w-96 items-center">
 							<MediaObjectMedia>
 								<Skeleton className="h-12 w-12 rounded-full" />
 							</MediaObjectMedia>
 							<MediaObjectContent className="space-y-3">
-								<Skeleton className="w-[250px]" />
-								<Skeleton className="w-[200px]" />
+								<Skeleton className="w-full" />
+								<Skeleton className="w-4/5" />
 							</MediaObjectContent>
 						</MediaObject>
 					</Example>
@@ -80,13 +81,13 @@ export default function Page() {
 									import { MediaObject, MediaObjectMedia, MediaObjectContent } from "@ngrok/mantle/media-object";
 									import { Skeleton } from "@ngrok/mantle/skeleton";
 
-									<MediaObject>
+									<MediaObject className="w-full max-w-96 items-center">
 										<MediaObjectMedia>
 											<Skeleton className="h-12 w-12 rounded-full" />
 										</MediaObjectMedia>
 										<MediaObjectContent className="space-y-3">
-											<Skeleton className="w-[250px]" />
-											<Skeleton className="w-[200px]" />
+											<Skeleton className="w-full" />
+											<Skeleton className="w-4/5" />
 										</MediaObjectContent>
 									</MediaObject>
 								`}

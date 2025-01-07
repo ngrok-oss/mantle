@@ -15,6 +15,7 @@ import { Plus } from "@phosphor-icons/react/Plus";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { PreviewBadge } from "~/components/badges";
 import { Example } from "~/components/example";
+import { PageHeader } from "~/components/page-header";
 
 // import {
 // 	PropDefaultValueCell,
@@ -43,12 +44,9 @@ export default function Page() {
 	return (
 		<div className="space-y-16">
 			<section className="space-y-4">
-				<div className="flex items-center gap-3">
-					<h1 id="calendar" className="text-5xl font-medium">
-						Accordion
-					</h1>
-					<PreviewBadge />
-				</div>
+				<PageHeader id="accordion" isPreview>
+					Accordion
+				</PageHeader>
 				<p className="font-body text-body text-xl">
 					A vertically stacked set of interactive headings that each reveal an associated section of content.
 				</p>

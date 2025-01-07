@@ -16,6 +16,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@ngrok/mantle/tooltip";
 import { TrashSimple } from "@phosphor-icons/react/dist/icons/TrashSimple";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
+import { PageHeader } from "~/components/page-header";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -34,7 +35,7 @@ export default function Page() {
 	return (
 		<div className="space-y-16">
 			<section className="space-y-4">
-				<h1 className="text-5xl font-medium">Dialog</h1>
+				<PageHeader id="dialog">Dialog</PageHeader>
 				<p className="font-body text-body text-xl">
 					A window overlaid on either the primary window or another dialog window, rendering the content underneath
 					inert.

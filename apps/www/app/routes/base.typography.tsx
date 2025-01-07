@@ -1,6 +1,7 @@
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@ngrok/mantle/table";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
+import { PageHeader } from "~/components/page-header";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -18,7 +19,7 @@ export const headers: HeadersFunction = () => {
 export default function Page() {
 	return (
 		<div>
-			<h1 className="text-5xl font-medium">Typography</h1>
+			<PageHeader id="typography">Typography</PageHeader>
 			<p className="font-body text-body mt-4 text-xl">
 				Mantle provides various typography tokens for consistency and readability.
 			</p>

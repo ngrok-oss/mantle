@@ -15,6 +15,7 @@ import {
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 import { Link } from "~/components/link";
+import { PageHeader } from "~/components/page-header";
 import {
 	BooleanPropType,
 	FuncPropType,
@@ -47,7 +48,7 @@ export default function Page() {
 	return (
 		<div className="space-y-16">
 			<section className="space-y-4">
-				<h1 className="text-5xl font-medium">Select</h1>
+				<PageHeader id="select">Select</PageHeader>
 				<p className="font-body text-body text-xl">
 					Displays a list of options for the user to pick from—triggered by a button.
 				</p>
