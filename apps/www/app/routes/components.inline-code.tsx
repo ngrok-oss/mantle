@@ -2,6 +2,7 @@ import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode }
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
+import { PageHeader } from "~/components/page-header";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -20,6 +21,7 @@ export default function Page() {
 	return (
 		<div className="space-y-4">
 			<h1 className="text-5xl font-medium">Inline Code</h1>
+			<PageHeader id="inline-code">Inline Code</PageHeader>
 			<p className="font-body text-body text-xl">Marks text to signify a short fragment of inline computer code.</p>
 
 			<div>

@@ -35,8 +35,8 @@ import {
 import { makeToast, Toast, ToastAction, ToastIcon, ToastMessage, type Priority } from "@ngrok/mantle/toast";
 import { X } from "@phosphor-icons/react/X";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
-import { PreviewBadge } from "~/components/badges";
 import { Example } from "~/components/example";
+import { PageHeader } from "~/components/page-header";
 import { useState } from "react";
 import invariant from "tiny-invariant";
 
@@ -67,10 +67,9 @@ export default function Page() {
 
 	return (
 		<div className="space-y-4">
-			<div className="flex items-center gap-3">
-				<h1 className="text-5xl font-medium">Toast</h1>
-				<PreviewBadge />
-			</div>
+			<PageHeader id="toast" isPreview>
+				Toast
+			</PageHeader>
 			<p className="font-body text-body text-xl">
 				A succinct message that is displayed temporarily. Toasts are used to provide feedback to the user without
 				interrupting their workflow.

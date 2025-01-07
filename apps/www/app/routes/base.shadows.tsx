@@ -1,4 +1,5 @@
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
+import { PageHeader } from "~/components/page-header";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -16,7 +17,7 @@ export const headers: HeadersFunction = () => {
 export default function Page() {
 	return (
 		<div>
-			<h1 className="text-5xl font-medium">Shadows</h1>
+			<PageHeader id="shadows">Shadows</PageHeader>
 			<p className="font-body text-body mt-4 text-xl">Tokens for defining elevations.</p>
 			<div className="text-mono mt-8 flex flex-wrap gap-8 font-mono">
 				<div className="bg-card xs:size-36 flex h-36 w-full shrink-0 items-center justify-center rounded-lg shadow-inner">

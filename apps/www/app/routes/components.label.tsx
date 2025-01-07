@@ -3,6 +3,7 @@ import { Input } from "@ngrok/mantle/input";
 import { Label } from "@ngrok/mantle/label";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
+import { PageHeader } from "~/components/page-header";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -21,7 +22,7 @@ export default function Page() {
 	return (
 		<div className="space-y-16">
 			<section className="space-y-4">
-				<h1 className="text-5xl font-medium">Label</h1>
+				<PageHeader id="label">Label</PageHeader>
 				<p className="font-body text-body text-xl">Renders an accessible label associated with controls.</p>
 				<div>
 					<Example className="grid gap-6">

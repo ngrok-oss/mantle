@@ -26,6 +26,7 @@ import { SignOut } from "@phosphor-icons/react/SignOut";
 import { Sun } from "@phosphor-icons/react/Sun";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
+import { PageHeader } from "~/components/page-header";
 import {
 	PropDefaultValueCell,
 	PropDescriptionCell,
@@ -57,7 +58,7 @@ export default function Page() {
 	return (
 		<div className="space-y-16">
 			<section className="space-y-4">
-				<h1 className="text-5xl font-medium">Dropdown Menu</h1>
+				<PageHeader id="dropdown-menu">Dropdown Menu</PageHeader>
 				<p className="font-body text-body text-xl">
 					Displays a menu to the user — such as a set of actions or functions — triggered by a button.
 				</p>

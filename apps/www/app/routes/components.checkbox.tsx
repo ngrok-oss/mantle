@@ -5,6 +5,7 @@ import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Label } from "@ngrok/mantle/label";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
+import { PageHeader } from "~/components/page-header";
 import {
 	BooleanPropType,
 	FuncPropType,
@@ -34,7 +35,7 @@ export default function Page() {
 	return (
 		<div className="space-y-16">
 			<section className="space-y-4">
-				<h1 className="text-5xl font-medium">Checkbox</h1>
+				<PageHeader id="checkbox">Checkbox</PageHeader>
 				<p className="font-body text-body text-xl">
 					A form control that allows the user to toggle between checked and not checked.
 				</p>

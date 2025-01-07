@@ -20,6 +20,7 @@ import { TerminalWindow } from "@phosphor-icons/react/TerminalWindow";
 import { TrashSimple } from "@phosphor-icons/react/TrashSimple";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
+import { PageHeader } from "~/components/page-header";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -37,7 +38,7 @@ export const headers: HeadersFunction = () => {
 export default function Page() {
 	return (
 		<div className="space-y-4">
-			<h1 className="text-5xl font-medium">Sheet</h1>
+			<PageHeader id="sheet">Sheet</PageHeader>
 			<p className="font-body text-body text-xl">
 				A container that overlays the current view from the edge of the screen. It is a lightweight way of allowing
 				users to complete a task without losing contextual information of the view beneath it.

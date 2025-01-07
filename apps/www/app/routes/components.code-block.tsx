@@ -14,6 +14,7 @@ import { FileText } from "@phosphor-icons/react/FileText";
 import { Terminal } from "@phosphor-icons/react/Terminal";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
+import { PageHeader } from "~/components/page-header";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -32,7 +33,7 @@ export default function Page() {
 	return (
 		<div className="space-y-16">
 			<section className="space-y-4">
-				<h1 className="text-5xl font-medium">Code Block</h1>
+				<PageHeader id="code-block">Code Block</PageHeader>
 				<p className="font-body text-body text-xl">
 					Code blocks render and apply syntax highlighting to blocks of code.
 				</p>

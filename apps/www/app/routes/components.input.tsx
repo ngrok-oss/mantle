@@ -15,6 +15,7 @@ import { MagnifyingGlass } from "@phosphor-icons/react/MagnifyingGlass";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
 import { Example } from "~/components/example";
+import { PageHeader } from "~/components/page-header";
 import {
 	BooleanPropType,
 	FuncPropType,
@@ -45,9 +46,7 @@ export default function Page() {
 	return (
 		<div className="space-y-16">
 			<section className="space-y-4">
-				<h1 id="input" className="text-5xl font-medium">
-					Input
-				</h1>
+				<PageHeader id="input">Input</PageHeader>
 				<p className="font-body text-body text-xl">Fundamental component for inputs.</p>
 				<div>
 					<Example className="flex flex-col gap-6">

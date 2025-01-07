@@ -1,8 +1,6 @@
-import { Button } from "@ngrok/mantle/button";
-import { Card, CardBody, CardFooter, CardHeader, CardTitle } from "@ngrok/mantle/card";
+import { Card, CardHeader, CardTitle } from "@ngrok/mantle/card";
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
-import { Input, PasswordInput } from "@ngrok/mantle/input";
 import { TabBadge, Tabs, TabsContent, TabsList, TabsTrigger } from "@ngrok/mantle/tabs";
 import { Globe } from "@phosphor-icons/react/Globe";
 import { ShieldCheck } from "@phosphor-icons/react/ShieldCheck";
@@ -10,6 +8,7 @@ import { User } from "@phosphor-icons/react/User";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
 import { Example } from "~/components/example";
+import { PageHeader } from "~/components/page-header";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -28,7 +27,7 @@ export default function Page() {
 	return (
 		<div className="space-y-16">
 			<section className="space-y-4">
-				<h1 className="text-5xl font-medium">Tabs</h1>
+				<PageHeader id="tabs">Tabs</PageHeader>
 				<p className="font-body text-body text-xl">
 					A set of layered sections of content—known as tab panels—that are displayed one at a time.
 				</p>

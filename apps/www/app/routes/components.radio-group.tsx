@@ -12,6 +12,7 @@ import {
 } from "@ngrok/mantle/radio-group";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
+import { PageHeader } from "~/components/page-header";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -30,7 +31,7 @@ export default function Page() {
 	return (
 		<div className="space-y-16">
 			<section className="space-y-4">
-				<h1 className="text-5xl font-medium">Radio Group</h1>
+				<PageHeader id="radio-group">Radio Group</PageHeader>
 				<p className="font-body text-body text-xl">
 					A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a
 					time.

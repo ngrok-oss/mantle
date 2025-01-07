@@ -3,8 +3,8 @@ import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode }
 import { Input } from "@ngrok/mantle/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@ngrok/mantle/popover";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
-import { PreviewBadge } from "~/components/badges";
 import { Example } from "~/components/example";
+import { PageHeader } from "~/components/page-header";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -22,10 +22,9 @@ export const headers: HeadersFunction = () => {
 export default function Page() {
 	return (
 		<div className="space-y-4">
-			<div className="flex items-center gap-3">
-				<h1 className="text-5xl font-medium">Popover</h1>
-				<PreviewBadge />
-			</div>
+			<PageHeader id="popover" isPreview>
+				Popover
+			</PageHeader>
 			<p className="font-body text-body text-xl">Displays rich content in a portal, triggered by a button.</p>
 			<div>
 				<Example className="gap-2">

@@ -5,6 +5,7 @@ import { Label } from "@ngrok/mantle/label";
 import { TextArea } from "@ngrok/mantle/text-area";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
+import { PageHeader } from "~/components/page-header";
 import {
 	BooleanPropType,
 	FuncPropType,
@@ -43,9 +44,7 @@ export default function Page() {
 	return (
 		<div className="space-y-16">
 			<section className="space-y-4">
-				<h1 id="textarea" className="text-5xl font-medium">
-					TextArea
-				</h1>
+				<PageHeader id="textarea">TextArea</PageHeader>
 				<p className="font-body text-body text-xl">
 					Displays a form textarea or a component that looks like a textarea.
 				</p>

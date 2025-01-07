@@ -7,6 +7,7 @@ import { Globe } from "@phosphor-icons/react/Globe";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
 import { Example } from "~/components/example";
+import { PageHeader } from "~/components/page-header";
 import {
 	BooleanPropType,
 	PropDefaultValueCell,
@@ -44,9 +45,8 @@ export default function Page() {
 	return (
 		<div className="space-y-16">
 			<section className="space-y-4">
-				<h1 id="icon-button" className="text-5xl font-medium">
-					Icon Button
-				</h1>
+				<PageHeader id="icon-button">Icon Button</PageHeader>
+
 				<p className="font-body text-body text-xl">
 					Initiates an action, such as completing a task or submitting information. Renders only a single icon as
 					children with an accessible, screen-reader-only label.

@@ -3,8 +3,8 @@ import { Calendar } from "@ngrok/mantle/calendar";
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
-import { PreviewBadge } from "~/components/badges";
 import { Example } from "~/components/example";
+import { PageHeader } from "~/components/page-header";
 import { useState } from "react";
 import type { DateRange } from "react-day-picker";
 
@@ -111,12 +111,9 @@ export default function Page() {
 	return (
 		<div className="space-y-16">
 			<section className="space-y-4">
-				<div className="flex items-center gap-3">
-					<h1 id="calendar" className="text-5xl font-medium">
-						Calendar
-					</h1>
-					<PreviewBadge />
-				</div>
+				<PageHeader id="calendar" isPreview>
+					Calendar
+				</PageHeader>
 				<p className="font-body text-body text-xl">A date field component that allows users to enter and edit date.</p>
 				<div>
 					<Example className="flex flex-col gap-6">

@@ -3,6 +3,7 @@ import { InlineCode } from "@ngrok/mantle/inline-code";
 import { MediaObject, MediaObjectContent, MediaObjectMedia } from "@ngrok/mantle/media-object";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
+import { PageHeader } from "~/components/page-header";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -21,7 +22,7 @@ export default function Page() {
 	return (
 		<div className="space-y-8">
 			<header className="space-y-4">
-				<h1 className="text-5xl font-medium">Media Object</h1>
+				<PageHeader id="media-object">Media Object</PageHeader>
 				<p className="font-body text-body my-4 text-xl">
 					The Media Object is an image/icon (media) to the left, with descriptive content (title and
 					subtitle/description) to the right.

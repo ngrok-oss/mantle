@@ -4,6 +4,7 @@ import { InlineCode } from "@ngrok/mantle/inline-code";
 import { ProgressDonut, ProgressDonutIndicator } from "@ngrok/mantle/progress";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
+import { PageHeader } from "~/components/page-header";
 import {
 	NumberPropType,
 	PropDefaultValueCell,
@@ -33,7 +34,7 @@ export default function Page() {
 	return (
 		<div className="space-y-16">
 			<div className="space-y-4">
-				<h1 className="text-5xl font-medium">Progress Donut</h1>
+				<PageHeader id="progress-donut">Progress Donut</PageHeader>
 				<p className="font-body text-body text-xl">
 					Displays an indicator showing the completion progress of a task as a circular progress bar.
 				</p>

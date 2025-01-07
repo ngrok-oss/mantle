@@ -16,9 +16,9 @@ import { Button } from "@ngrok/mantle/button";
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
-import { PreviewBadge } from "~/components/badges";
 import { Example } from "~/components/example";
 import { Link } from "~/components/link";
+import { PageHeader } from "~/components/page-header";
 import {
 	PropDefaultValueCell,
 	PropDescriptionCell,
@@ -46,12 +46,9 @@ export default function Page() {
 	return (
 		<div className="space-y-16">
 			<section className="space-y-4">
-				<div className="flex items-center gap-3">
-					<h1 id="calendar" className="text-5xl font-medium">
-						Alert Dialog
-					</h1>
-					<PreviewBadge />
-				</div>
+				<PageHeader id="alert-dialog" isPreview>
+					Alert Dialog
+				</PageHeader>
 				<p className="font-body text-body text-xl">
 					A modal dialog that interrupts the user with important content and expects a response.
 				</p>
