@@ -1,6 +1,5 @@
 import { Anchor } from "@ngrok/mantle/anchor";
 import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
-import { DataTable } from "@ngrok/mantle/data-table";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
@@ -33,7 +32,7 @@ export default function Page() {
 				</p>
 				<div>
 					<Example className="flex-col gap-6">
-						<DataTable />
+						<p>Examples coming soon...</p>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>

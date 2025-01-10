@@ -5,12 +5,12 @@ import type { Options } from "tsup";
 /**
  * A set of package names that should not be published to npm
  */
-const doNotPublish = new Set(["portal"]);
+const doNotPublish = new Set<string>(["portal"]);
 
 /**
  * A set of package names that shouldn't be released yet
  */
-const unreleasedPackages = new Set(["data-table"]);
+const unreleasedPackages = new Set<string>([]);
 
 const componentPath = (name: string) => `./src/components/${name}/index.ts` as const;
 const utilPath = (name: string) => `./src/utils/${name}/index.ts` as const;

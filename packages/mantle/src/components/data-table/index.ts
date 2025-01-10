@@ -1,4 +1,1 @@
-export {
-	//,
-	DataTable,
-} from "./data-table.js";
+export * from "@tanstack/react-table";

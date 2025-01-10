@@ -3,7 +3,7 @@
   "description": "mantle is ngrok's UI library and design system.",
   "author": "ngrok",
   "license": "MIT",
-  "version": "0.17.1",
+  "version": "0.18.0",
   "homepage": "https://mantle.ngrok.com",
   "repository": {
     "type": "git",
@@ -47,6 +47,7 @@
     "@radix-ui/react-switch": "1.1.2",
     "@radix-ui/react-tabs": "1.1.2",
     "@radix-ui/react-tooltip": "1.1.6",
+    "@tanstack/react-table": "8.20.6",
     "@uidotdev/usehooks": "2.4.1",
     "class-variance-authority": "0.7.1",
     "clsx": "2.1.1",
@@ -169,7 +170,9 @@
       "types": "./dist/cx.d.ts"
     },
     "./data-table": {
-      "@ngrok/mantle/source": "./src/components/data-table/index.ts"
+      "@ngrok/mantle/source": "./src/components/data-table/index.ts",
+			"import": "./dist/data-table.js",
+      "types": "./dist/data-table.d.ts"
     },
     "./date-picker": {},
     "./dialog": {
@@ -277,11 +280,11 @@
       "import": "./dist/theme-provider.js",
       "types": "./dist/theme-provider.d.ts"
     },
-		"./toast": {
-			"@ngrok/mantle/source": "./src/components/toast/index.ts",
-			"import": "./dist/toast.js",
-			"types": "./dist/toast.d.ts"
-		},
+    "./toast": {
+      "@ngrok/mantle/source": "./src/components/toast/index.ts",
+      "import": "./dist/toast.js",
+      "types": "./dist/toast.d.ts"
+    },
     "./tooltip": {
       "@ngrok/mantle/source": "./src/components/tooltip/index.ts",
       "import": "./dist/tooltip.js",
