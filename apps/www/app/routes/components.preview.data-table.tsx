@@ -22,7 +22,7 @@ export default function Page() {
 	return (
 		<div className="space-y-16">
 			<div className="space-y-4">
-				<PageHeader id="data-table" isUnreleased>
+				<PageHeader id="data-table" isPreview>
 					Data Table
 				</PageHeader>
 				<p className="font-body text-body text-xl">
