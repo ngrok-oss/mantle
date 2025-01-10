@@ -1,4 +1,4 @@
-import { Button, IconButton } from "@ngrok/mantle/button";
+import { IconButton } from "@ngrok/mantle/button";
 import { cx } from "@ngrok/mantle/cx";
 import { Icon } from "@ngrok/mantle/icon";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger } from "@ngrok/mantle/select";
@@ -156,6 +156,7 @@ const previewComponents = [
 	"Accordion",
 	"AlertDialog",
 	"Calendar",
+	"Data Table",
 	"Pagination",
 	"Popover",
 	"Toast",
@@ -196,6 +197,7 @@ const previewComponentsRouteLookup = {
 	Accordion: "/components/preview/accordion",
 	AlertDialog: "/components/preview/alert-dialog",
 	Calendar: "/components/preview/calendar",
+	"Data Table": "/components/preview/data-table",
 	Pagination: "/components/preview/pagination",
 	Popover: "/components/preview/popover",
 	Toast: "/components/preview/toast",
@@ -261,14 +263,15 @@ function Navigation({ className, style }: WithStyleProps) {
 					))}
 				</ul>
 
-				<li className="mt-6 text-xs font-medium uppercase tracking-wider">Unreleased Components</li>
+				{/* TODO: add back later when we have unreleased components again */}
+				{/* <li className="mt-6 text-xs font-medium uppercase tracking-wider">Unreleased Components</li>
 				<ul className="mt-2">
 					<li>
 						<NavLink to="/components/unreleased/data-table" prefetch="intent">
 							Data Table
 						</NavLink>
 					</li>
-				</ul>
+				</ul> */}
 			</ul>
 		</nav>
 	);

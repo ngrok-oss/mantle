@@ -25,6 +25,7 @@ export const routePatterns = [
 	"/components/preview/accordion",
 	"/components/preview/alert-dialog",
 	"/components/preview/calendar",
+	"/components/preview/data-table",
 	"/components/preview/pagination",
 	"/components/preview/popover",
 	"/components/preview/toast",
@@ -40,7 +41,6 @@ export const routePatterns = [
 	"/components/tabs",
 	"/components/text-area",
 	"/components/theme-provider",
-	"/components/unreleased/data-table",
 ] as const;
 
 export type RoutePattern = (typeof routePatterns)[number];
@@ -75,6 +75,7 @@ export const routes = [
 	"/components/preview/accordion",
 	"/components/preview/alert-dialog",
 	"/components/preview/calendar",
+	"/components/preview/data-table",
 	"/components/preview/pagination",
 	"/components/preview/popover",
 	"/components/preview/toast",
@@ -90,7 +91,6 @@ export const routes = [
 	"/components/tabs",
 	"/components/text-area",
 	"/components/theme-provider",
-	"/components/unreleased/data-table",
 ] as const;
 
 export type Route = (typeof routes)[number];
