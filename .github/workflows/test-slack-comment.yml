@@ -1,7 +1,5 @@
 name: npmjs
 on:
-  release:
-    types: [published]
   workflow_dispatch:
 
 jobs:
@@ -20,10 +18,6 @@ jobs:
         # use version from package.json#packageManager field
 
       - run: pnpm install
-
-      - run: cd packages/mantle && pnpm publish --access public --no-git-checks
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
 
       - name: Grab the version and store it in an env variable
         run: echo "MANTLE_VERSION=$(node -p \"require('./packages/mantle/package.json').version\")" >> $GITHUB_ENV
