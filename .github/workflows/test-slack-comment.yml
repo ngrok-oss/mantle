@@ -20,7 +20,9 @@ jobs:
       - run: pnpm install
 
       - name: Grab the version and store it in an env variable
-        run: echo "MANTLE_VERSION=$(node -p \"require('./packages/mantle/package.json').version\")" >> $GITHUB_ENV
+        run: |
+          VERSION=$(jq -r '.version' ./packages/mantle/package.json)
+          echo "MANTLE_VERSION=$VERSION" >> $GITHUB_ENV
 
       - name: Post to slack
         env:
