@@ -1,4 +1,4 @@
-name: npmjs
+name: test-slack-comment
 on:
   workflow_dispatch:
 
