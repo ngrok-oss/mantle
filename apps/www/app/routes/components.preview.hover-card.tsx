@@ -31,7 +31,7 @@ export default function Page() {
 				<Example className="gap-2">
 					<HoverCard>
 						<HoverCardTrigger asChild>
-							<Button type="button" appearance="filled">
+							<Button type="button" appearance="link">
 								Open Hover Card
 							</Button>
 						</HoverCardTrigger>
@@ -65,7 +65,7 @@ export default function Page() {
 
 								<HoverCard>
 									<HoverCardTrigger asChild>
-										<Button type="button" appearance="filled">
+										<Button type="button" appearance="link">
 											Open Hover Card
 										</Button>
 									</HoverCardTrigger>
