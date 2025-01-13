@@ -5,7 +5,14 @@ import { forwardRef } from "react";
 import type { ComponentPropsWithoutRef, ElementRef } from "react";
 import { cx } from "../../utils/cx/cx.js";
 
-const HoverCard = HoverCardPrimitive.Root;
+const HoverCard = ({
+	openDelay = 250,
+	closeDelay = 300,
+	...props
+}: ComponentPropsWithoutRef<typeof HoverCardPrimitive.Root>) => (
+	<HoverCardPrimitive.Root closeDelay={closeDelay} openDelay={openDelay} {...props} />
+);
+HoverCard.displayName = "HoverCard";
 
 const HoverCardTrigger = HoverCardPrimitive.Trigger;
 
