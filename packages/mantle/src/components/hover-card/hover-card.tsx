@@ -7,7 +7,7 @@ import { cx } from "../../utils/cx/cx.js";
 
 const HoverCard = ({
 	closeDelay = 300,
-	openDelay = 0,
+	openDelay = 100,
 	...props
 }: ComponentPropsWithoutRef<typeof HoverCardPrimitive.Root>) => (
 	<HoverCardPrimitive.Root closeDelay={closeDelay} openDelay={openDelay} {...props} />
