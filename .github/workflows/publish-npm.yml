@@ -34,4 +34,4 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_PUBLISH_WEBHOOK_URL }}
         run: |
-          curl -X POST -H 'Content-type: application/json' --data '{"text":"`@ngrok/mantle@${{ env.MANTLE_VERSION }}` published to npm!\nRelease Notes: https://github.com/ngrok-oss/mantle/releases/tag/v${{ env.MANTLE_VERSION }}"}' $SLACK_WEBHOOK_URL
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"`@ngrok/mantle@${{ env.MANTLE_VERSION }}` published to npm!\nInstall with: `pnpm add -E @ngrok/mantle@${{ env.MANTLE_VERSION }}`\nRelease Notes: https://github.com/ngrok-oss/mantle/releases/tag/v${{ env.MANTLE_VERSION }}"}' $SLACK_WEBHOOK_URL
