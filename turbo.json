@@ -1,6 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalEnv": ["VERCEL_GIT_COMMIT_SHA", "VERCEL_DEPLOYMENT_ID"],
+  "globalEnv": ["VERCEL_GIT_COMMIT_SHA", "VERCEL_DEPLOYMENT_ID", "VERCEL"],
   "tasks": {
     "build": {
 			"cache": true,

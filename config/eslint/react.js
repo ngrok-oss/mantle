@@ -22,6 +22,7 @@ export default [
 		},
 		rules: {
 			...hooksPlugin.configs.recommended.rules,
+			"@typescript-eslint/unbound-method": "off",
 		},
 	},
 ];
