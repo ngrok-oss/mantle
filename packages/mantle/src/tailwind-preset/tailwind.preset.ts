@@ -491,11 +491,11 @@ const mantlePreset = {
 		pointingVariantsPlugin,
 		tailwindCssAnimatePlugin,
 		whereVariantPlugin,
-		plugin(function ({ addVariant }) {
+		plugin(({ addVariant }) => {
 			addVariant("dark-high-contrast", [":is(.dark-high-contrast &)"]);
 			addVariant("high-contrast", [":is(.light-high-contrast &)"]);
 		}),
-		plugin(function ({ addVariant }) {
+		plugin(({ addVariant }) => {
 			addVariant("not-disabled", ["&:not(:disabled)"]);
 			addVariant("not-aria-disabled", ['&:not(&[aria-disabled="true"])']);
 		}),
