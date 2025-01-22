@@ -1,6 +1,7 @@
 export {
 	//,
 	HoverCard,
-	HoverCardTrigger,
 	HoverCardContent,
+	HoverCardPortal,
+	HoverCardTrigger,
 } from "./hover-card.js";
