@@ -19,9 +19,11 @@
     "test": "turbo run test",
     "test:watch": "turbo run test:watch",
     "test:ui": "turbo run test:ui",
-    "typecheck": "turbo run typecheck"
+    "typecheck": "turbo run typecheck",
+		"changeset": "changeset"
   },
   "devDependencies": {
+		"@changesets/cli": "2.27.11",
     "@ianvs/prettier-plugin-sort-imports": "4.4.1",
     "prettier": "3.4.2",
     "prettier-plugin-tailwindcss": "0.6.11",
