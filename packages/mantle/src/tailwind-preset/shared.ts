@@ -5,7 +5,7 @@ export function filterDefault(values: Record<string, string>) {
 	return Object.fromEntries(Object.entries(values).filter(([key]) => key !== "DEFAULT"));
 }
 
-type AnyObject = Record<string, any>;
+type AnyObject = Record<PropertyKey, unknown>;
 
 type FlattenObjectOptions = {
 	parentKey: string;
@@ -20,13 +20,14 @@ export function flattenObject(obj: AnyObject, options?: FlattenObjectOptions) {
 	const { parentKey = "", separator = "-" } = options ?? {};
 
 	for (const key in obj) {
-		if (obj.hasOwnProperty(key)) {
+		if (Object.hasOwn(obj, key)) {
 			const newKey = parentKey ? `${parentKey}${separator}${key}` : key;
 
-			if (typeof obj[key] === "object" && obj[key] != null && !Array.isArray(obj[key])) {
-				Object.assign(result, flattenObject(obj[key], { parentKey: newKey }));
+			const value = obj[key];
+			if (typeof value === "object" && value != null && !Array.isArray(value)) {
+				Object.assign(result, flattenObject(value as AnyObject, { parentKey: newKey }));
 			} else {
-				result[newKey] = obj[key];
+				result[newKey] = value;
 			}
 		}
 	}

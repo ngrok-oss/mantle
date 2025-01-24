@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs from "node:fs";
 import { defineConfig } from "tsup";
 import type { Options } from "tsup";
 
