@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.19.4
+
+### Patch Changes
+
+- [`cf2d8c2`](https://github.com/ngrok-oss/mantle/commit/cf2d8c25e1f3525165e0510ae51dc9162a6439c8) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Debugging changesets release
+
 ## 0.19.3
 
 ### Patch Changes
