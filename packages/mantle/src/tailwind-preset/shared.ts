@@ -16,12 +16,12 @@ type FlattenObjectOptions = {
  * Flattens an object to a single level deep object.
  */
 export function flattenObject(obj: AnyObject, options?: FlattenObjectOptions) {
-	let result: AnyObject = {};
+	const result: AnyObject = {};
 	const { parentKey = "", separator = "-" } = options ?? {};
 
-	for (let key in obj) {
+	for (const key in obj) {
 		if (obj.hasOwnProperty(key)) {
-			let newKey = parentKey ? `${parentKey}${separator}${key}` : key;
+			const newKey = parentKey ? `${parentKey}${separator}${key}` : key;
 
 			if (typeof obj[key] === "object" && obj[key] != null && !Array.isArray(obj[key])) {
 				Object.assign(result, flattenObject(obj[key], { parentKey: newKey }));
