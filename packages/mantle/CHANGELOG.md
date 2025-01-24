@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.19.5
+
+### Patch Changes
+
+- [`595e6c1`](https://github.com/ngrok-oss/mantle/commit/595e6c1dc9758a68602492e270452891d3482f60) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Fixing the post to slack webhook on mantle release
+
 ## 0.19.4
 
 ### Patch Changes
