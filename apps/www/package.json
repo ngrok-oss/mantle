@@ -2,7 +2,7 @@
   "name": "www",
   "private": true,
   "type": "module",
-	"engines": {
+  "engines": {
     "node": "^22.0.0"
   },
   "scripts": {

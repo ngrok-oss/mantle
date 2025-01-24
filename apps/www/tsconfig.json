@@ -4,13 +4,13 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["./app/*"],
-		},
+    },
     "types": ["@remix-run/node", "vite/client"],
     "skipLibCheck": true,
     "module": "ESNext",
     "moduleResolution": "Bundler",
-		"customConditions": [
-			"@ngrok/mantle/source"
-		]
+    "customConditions": [
+      "@ngrok/mantle/source"
+    ]
   }
 }

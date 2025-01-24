@@ -4,3 +4,5 @@ public
 pnpm-lock.yaml
 bun.lockb
 *.json
+*.yaml
+*.yml

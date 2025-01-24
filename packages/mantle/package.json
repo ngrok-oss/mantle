@@ -191,7 +191,7 @@
       "import": "./dist/hooks.js",
       "types": "./dist/hooks.d.ts"
     },
-		"./hover-card": {
+    "./hover-card": {
       "@ngrok/mantle/source": "./src/components/hover-card/index.ts",
       "import": "./dist/hover-card.js",
       "types": "./dist/hover-card.d.ts"
