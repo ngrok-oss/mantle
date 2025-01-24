@@ -5,7 +5,8 @@ export function filterDefault(values: Record<string, string>) {
 	return Object.fromEntries(Object.entries(values).filter(([key]) => key !== "DEFAULT"));
 }
 
-type AnyObject = Record<PropertyKey, unknown>;
+// from tailwind type defs
+type KeyValuePair<K extends keyof any = string, V = string> = Record<K, V>;
 
 type FlattenObjectOptions = {
 	parentKey: string;
@@ -15,8 +16,8 @@ type FlattenObjectOptions = {
 /**
  * Flattens an object to a single level deep object.
  */
-export function flattenObject(obj: AnyObject, options?: FlattenObjectOptions) {
-	const result: AnyObject = {};
+export function flattenObject(obj: KeyValuePair, options?: FlattenObjectOptions) {
+	const result: KeyValuePair = {};
 	const { parentKey = "", separator = "-" } = options ?? {};
 
 	for (const key in obj) {
@@ -24,8 +25,12 @@ export function flattenObject(obj: AnyObject, options?: FlattenObjectOptions) {
 			const newKey = parentKey ? `${parentKey}${separator}${key}` : key;
 
 			const value = obj[key];
-			if (typeof value === "object" && value != null && !Array.isArray(value)) {
-				Object.assign(result, flattenObject(value as AnyObject, { parentKey: newKey }));
+			if (value == null) {
+				continue;
+			}
+
+			if (typeof value === "object" && !Array.isArray(value)) {
+				Object.assign(result, flattenObject(value, { parentKey: newKey }));
 			} else {
 				result[newKey] = value;
 			}
