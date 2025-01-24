@@ -14,7 +14,7 @@ const gradientStopPlugin = plugin((api: PluginAPI) => {
 	);
 
 	api.matchUtilities(
-		{ "stop-color": (value) => ({ "stop-color": value }) },
+		{ "stop-color": (value: string) => ({ "stop-color": value }) },
 		{
 			values: flattenObject(api.theme("colors")),
 			respectImportant: true,

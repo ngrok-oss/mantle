@@ -39,7 +39,7 @@ function findMinIndent(value: string): number {
 		return 0;
 	}
 
-	return match.reduce((acc, curr) => Math.min(acc, curr.length), Infinity);
+	return match.reduce((acc, curr) => Math.min(acc, curr.length), Number.POSITIVE_INFINITY);
 }
 
 /**

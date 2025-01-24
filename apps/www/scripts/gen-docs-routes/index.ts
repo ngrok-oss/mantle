@@ -24,17 +24,16 @@ async function main() {
 	const output = await fmt(tsTemplate);
 
 	if (options.dryRun) {
-		console.log(`Dry run. Showing output to standard out…`);
+		console.log("Dry run. Showing output to standard out…");
 		console.log(`Showing "${destination}" content:`);
 		console.log(output);
 		return;
-	} else {
-		console.log(`Writing files…`);
-		console.log(`Writing ${destination}…`);
-		await fs.writeFile(destination, output, "utf-8");
 	}
 
-	console.log(`Done generating routes! 💃`);
+	console.log("Writing files…");
+	console.log(`Writing ${destination}…`);
+	await fs.writeFile(destination, output, "utf-8");
+	console.log("Done generating routes! 💃");
 }
 
 main();

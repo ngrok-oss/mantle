@@ -5,9 +5,5 @@ export type Booleanish = boolean | "true" | "false";
  * @default false if the value is not a boolean or "true"
  */
 export function parseBooleanish(value: Booleanish | (string & {}) | undefined | null): boolean {
-	if (typeof value === "boolean") {
-		return value;
-	} else {
-		return value === "true";
-	}
+	return typeof value === "boolean" ? value : value === "true";
 }

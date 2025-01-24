@@ -45,7 +45,7 @@ export default function Page() {
 				</p>
 				<div>
 					<Example>
-						<ul role="list" className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+						<ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
 							{colors.map((color) => (
 								<li key={color} className="flex flex-col gap-2">
 									<Badge appearance="muted" color={color}>

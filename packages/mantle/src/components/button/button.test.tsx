@@ -56,7 +56,7 @@ describe("Button", () => {
 		expect(screen.getByRole("link")).toHaveTextContent("click me");
 	});
 
-	test(`when isLoading={false}, allows click and submit events to propagate`, async () => {
+	test("when isLoading={false}, allows click and submit events to propagate", async () => {
 		const Subject = () => {
 			const [submitState, setSubmitState] = useState<"submitting" | "idle">("idle");
 			const [clickState, setClickState] = useState<"clicked" | "idle">("idle");

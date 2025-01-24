@@ -131,13 +131,13 @@ type ProgressDonutIndicatorProps = Omit<ComponentProps<"g">, "children">;
 const ProgressDonutIndicator = ({ className, ...props }: ProgressDonutIndicatorProps) => {
 	const gradientId = useId();
 	const ctx = useContext(ProgressContext) ?? defaultContextValue;
-	const percentage = (ctx.value == "indeterminate" ? indeterminateTailPercent : ctx.value / ctx.max) * 100;
+	const percentage = (ctx.value === "indeterminate" ? indeterminateTailPercent : ctx.value / ctx.max) * 100;
 	const strokeWidthPx = deriveStrokeWidthPx(ctx.strokeWidth);
 	const radius = calcRadius(strokeWidthPx);
 
 	return (
 		<g className={cx("text-accent-600", className)} {...props}>
-			{ctx.value == "indeterminate" && (
+			{ctx.value === "indeterminate" && (
 				<defs>
 					<linearGradient id={gradientId}>
 						<stop className="stop-opacity-100 stop-color-current" offset="0%" />
@@ -151,7 +151,7 @@ const ProgressDonutIndicator = ({ className, ...props }: ProgressDonutIndicatorP
 				cy="50%"
 				fill="transparent"
 				pathLength={100}
-				stroke={ctx.value == "indeterminate" ? `url(#${gradientId})` : "currentColor"}
+				stroke={ctx.value === "indeterminate" ? `url(#${gradientId})` : "currentColor"}
 				strokeDasharray={100}
 				strokeDashoffset={100 - percentage}
 				strokeLinecap="round"
@@ -182,7 +182,7 @@ function clamp(value: number, { min, max }: { min: number; max: number }): numbe
  * Note, this function clamps the stroke width to a minimum of 1 and max of 12 since
  * it is proportional to the viewbox size (0 0 32 32).
  */
-export function deriveStrokeWidthPx(strokeWidth: number | string | undefined): number {
+export function deriveStrokeWidthPx(strokeWidth: number | string | undefined | null): number {
 	let value = 4;
 	if (strokeWidth == null) {
 		return value;

@@ -14,7 +14,7 @@ export async function processRoutes(
 
 	const [uniqRoutePaths, uniqRoutePatterns] = getInitialRouteSets();
 
-	filepaths.forEach((filepath) => {
+	for (const filepath of filepaths) {
 		const filename = path.basename(filepath, ".tsx").trim();
 
 		const segments = parseSegmentsFromFilename(filename);
@@ -24,7 +24,7 @@ export async function processRoutes(
 
 		uniqRoutePaths.add(routePath);
 		uniqRoutePatterns.add(routePattern);
-	});
+	}
 
 	const routePaths = Array.from(uniqRoutePaths).sort();
 	const routePatterns = Array.from(uniqRoutePatterns).sort();
@@ -158,11 +158,11 @@ export const isTopLevelNav = (value: unknown): value is TopLevelNav =>
 function gatherTopLevelNav(routePaths: string[]): string[] {
 	const set = new Set<string>();
 
-	routePaths.forEach((route) => {
+	for (const route of routePaths) {
 		const routeParts = route.split("/").filter(Boolean);
 		const topLevelNav = routeParts[0] ?? "";
 		set.add(`/${topLevelNav}`);
-	});
+	}
 
 	return [...set].sort();
 }
