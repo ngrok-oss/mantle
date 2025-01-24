@@ -6,11 +6,6 @@ on:
       - main
 
 permissions:
-  id-token: write
-  contents: write
-  checks: write
-  issues: write
-  packages: write
   pull-requests: write
 
 jobs:
