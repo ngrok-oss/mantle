@@ -1,12 +1,14 @@
 name: npmjs
+
 on:
-  release:
-    types: [published]
-  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+    if: github.repository == 'ngrok-oss/mantle'
     env:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
       TURBO_TEAM: ${{ vars.TURBO_TEAM }}
@@ -24,17 +26,19 @@ jobs:
 
       - run: pnpm install
 
-      - run: cd packages/mantle && pnpm publish --access public --no-git-checks
+      - name: Create Release Pull Request or Publish to npm
+        uses: changesets/action@v1
+        with:
+          publish: pnpm release
+          version: pnpm version
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
-
-      - name: Grab the released version and store it in an env variable
-        run: |
-          VERSION=$(jq -r '.version' ./packages/mantle/package.json)
-          echo "MANTLE_VERSION=$VERSION" >> $GITHUB_ENV
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
 
       - name: Post to slack
+        if: steps.changesets.outputs.published == 'true'
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_PUBLISH_WEBHOOK_URL }}
+          MANTLE_VERSION: ${{ steps.changesets.outputs.publishedPackages[0].version }}
         run: |
           curl -X POST -H 'Content-type: application/json' --data '{"text":"`@ngrok/mantle@${{ env.MANTLE_VERSION }}` published to npm!\nInstall with: `pnpm add -E @ngrok/mantle@${{ env.MANTLE_VERSION }}`\n<https://github.com/ngrok-oss/mantle/releases/tag/v${{ env.MANTLE_VERSION }}|Release Notes>"}' $SLACK_WEBHOOK_URL
