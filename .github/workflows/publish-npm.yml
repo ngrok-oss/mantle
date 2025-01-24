@@ -52,6 +52,6 @@ jobs:
         if: steps.changesets.outputs.published == 'true'
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_PUBLISH_WEBHOOK_URL }}
-          MANTLE_VERSION: ${{ steps.changesets.outputs.publishedPackages[0].version }}
         run: |
-          curl -X POST -H 'Content-type: application/json' --data '{"text":"`@ngrok/mantle@${{ env.MANTLE_VERSION }}` published to npm!\nInstall with: `pnpm add -E @ngrok/mantle@${{ env.MANTLE_VERSION }}`\n<https://github.com/ngrok-oss/mantle/releases/tag/v${{ env.MANTLE_VERSION }}|Release Notes>"}' $SLACK_WEBHOOK_URL
+          MANTLE_VERSION=$(echo '${{ steps.changesets.outputs.publishedPackages }}' | jq -r '.[0].version')
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"`@ngrok/mantle@$MANTLE_VERSION` published to npm!\nInstall with: `pnpm add -E @ngrok/mantle@$MANTLE_VERSION`\n<https://github.com/ngrok-oss/mantle/releases/tag/v$MANTLE_VERSION|Release Notes>"}' $SLACK_WEBHOOK_URL
