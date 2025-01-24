@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.19.6
+
+### Patch Changes
+
+- [`1d83e1d`](https://github.com/ngrok-oss/mantle/commit/1d83e1df14d7848a7eb14de13699aac7d846dcc8) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Slack post will work this time for real i promise u 🦐
+
 ## 0.19.5
 
 ### Patch Changes
