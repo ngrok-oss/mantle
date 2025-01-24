@@ -29,7 +29,7 @@ export default function Page() {
 				<Table>
 					<TableHeader>
 						<TableRow>
-							<TableHead></TableHead>
+							<TableHead />
 							<TableHead>Class</TableHead>
 
 							<TableHead>Description</TableHead>

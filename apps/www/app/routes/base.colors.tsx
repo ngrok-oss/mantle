@@ -367,47 +367,47 @@ export default function Page() {
 				</h3>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-neutral-950"></div>
+						<div className="h-10 w-full rounded bg-neutral-950" />
 						950
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-neutral-900"></div>
+						<div className="h-10 w-full rounded bg-neutral-900" />
 						900
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-neutral-800"></div>
+						<div className="h-10 w-full rounded bg-neutral-800" />
 						800
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-neutral-700"></div>
+						<div className="h-10 w-full rounded bg-neutral-700" />
 						700
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-neutral-600"></div>
+						<div className="h-10 w-full rounded bg-neutral-600" />
 						600
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-neutral-500"></div>
+						<div className="h-10 w-full rounded bg-neutral-500" />
 						500
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-neutral-400"></div>
+						<div className="h-10 w-full rounded bg-neutral-400" />
 						400
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-neutral-300"></div>
+						<div className="h-10 w-full rounded bg-neutral-300" />
 						300
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-neutral-200"></div>
+						<div className="h-10 w-full rounded bg-neutral-200" />
 						200
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-neutral-100"></div>
+						<div className="h-10 w-full rounded bg-neutral-100" />
 						100
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-neutral-50"></div>
+						<div className="h-10 w-full rounded bg-neutral-50" />
 						50
 					</div>
 				</div>
@@ -417,47 +417,47 @@ export default function Page() {
 				</h3>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-accent-950 h-10 w-full rounded"></div>
+						<div className="bg-accent-950 h-10 w-full rounded" />
 						950
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-accent-900 h-10 w-full rounded"></div>
+						<div className="bg-accent-900 h-10 w-full rounded" />
 						900
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-accent-800 h-10 w-full rounded"></div>
+						<div className="bg-accent-800 h-10 w-full rounded" />
 						800
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-accent-700 h-10 w-full rounded"></div>
+						<div className="bg-accent-700 h-10 w-full rounded" />
 						700
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-accent-600 h-10 w-full rounded"></div>
+						<div className="bg-accent-600 h-10 w-full rounded" />
 						600
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-accent-500 h-10 w-full rounded"></div>
+						<div className="bg-accent-500 h-10 w-full rounded" />
 						500
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-accent-400 h-10 w-full rounded"></div>
+						<div className="bg-accent-400 h-10 w-full rounded" />
 						400
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-accent-300 h-10 w-full rounded"></div>
+						<div className="bg-accent-300 h-10 w-full rounded" />
 						300
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-accent-200 h-10 w-full rounded"></div>
+						<div className="bg-accent-200 h-10 w-full rounded" />
 						200
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-accent-100 h-10 w-full rounded"></div>
+						<div className="bg-accent-100 h-10 w-full rounded" />
 						100
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-accent-50 h-10 w-full rounded"></div>
+						<div className="bg-accent-50 h-10 w-full rounded" />
 						50
 					</div>
 				</div>
@@ -467,47 +467,47 @@ export default function Page() {
 				</h3>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-success-950 h-10 w-full rounded"></div>
+						<div className="bg-success-950 h-10 w-full rounded" />
 						950
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-success-900 h-10 w-full rounded"></div>
+						<div className="bg-success-900 h-10 w-full rounded" />
 						900
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-success-800 h-10 w-full rounded"></div>
+						<div className="bg-success-800 h-10 w-full rounded" />
 						800
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-success-700 h-10 w-full rounded"></div>
+						<div className="bg-success-700 h-10 w-full rounded" />
 						700
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-success-600 h-10 w-full rounded"></div>
+						<div className="bg-success-600 h-10 w-full rounded" />
 						600
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-success-500 h-10 w-full rounded"></div>
+						<div className="bg-success-500 h-10 w-full rounded" />
 						500
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-success-400 h-10 w-full rounded"></div>
+						<div className="bg-success-400 h-10 w-full rounded" />
 						400
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-success-300 h-10 w-full rounded"></div>
+						<div className="bg-success-300 h-10 w-full rounded" />
 						300
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-success-200 h-10 w-full rounded"></div>
+						<div className="bg-success-200 h-10 w-full rounded" />
 						200
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-success-100 h-10 w-full rounded"></div>
+						<div className="bg-success-100 h-10 w-full rounded" />
 						100
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-success-50 h-10 w-full rounded"></div>
+						<div className="bg-success-50 h-10 w-full rounded" />
 						50
 					</div>
 				</div>
@@ -517,47 +517,47 @@ export default function Page() {
 				</h3>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-danger-950 h-10 w-full rounded"></div>
+						<div className="bg-danger-950 h-10 w-full rounded" />
 						950
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-danger-900 h-10 w-full rounded"></div>
+						<div className="bg-danger-900 h-10 w-full rounded" />
 						900
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-danger-800 h-10 w-full rounded"></div>
+						<div className="bg-danger-800 h-10 w-full rounded" />
 						800
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-danger-700 h-10 w-full rounded"></div>
+						<div className="bg-danger-700 h-10 w-full rounded" />
 						700
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-danger-600 h-10 w-full rounded"></div>
+						<div className="bg-danger-600 h-10 w-full rounded" />
 						600
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-danger-500 h-10 w-full rounded"></div>
+						<div className="bg-danger-500 h-10 w-full rounded" />
 						500
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-danger-400 h-10 w-full rounded"></div>
+						<div className="bg-danger-400 h-10 w-full rounded" />
 						400
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-danger-300 h-10 w-full rounded"></div>
+						<div className="bg-danger-300 h-10 w-full rounded" />
 						300
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-danger-200 h-10 w-full rounded"></div>
+						<div className="bg-danger-200 h-10 w-full rounded" />
 						200
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-danger-100 h-10 w-full rounded"></div>
+						<div className="bg-danger-100 h-10 w-full rounded" />
 						100
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-danger-50 h-10 w-full rounded"></div>
+						<div className="bg-danger-50 h-10 w-full rounded" />
 						50
 					</div>
 				</div>
@@ -567,47 +567,47 @@ export default function Page() {
 				</h3>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-warning-950 h-10 w-full rounded"></div>
+						<div className="bg-warning-950 h-10 w-full rounded" />
 						950
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-warning-900 h-10 w-full rounded"></div>
+						<div className="bg-warning-900 h-10 w-full rounded" />
 						900
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-warning-800 h-10 w-full rounded"></div>
+						<div className="bg-warning-800 h-10 w-full rounded" />
 						800
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-warning-700 h-10 w-full rounded"></div>
+						<div className="bg-warning-700 h-10 w-full rounded" />
 						700
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-warning-600 h-10 w-full rounded"></div>
+						<div className="bg-warning-600 h-10 w-full rounded" />
 						600
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-warning-500 h-10 w-full rounded"></div>
+						<div className="bg-warning-500 h-10 w-full rounded" />
 						500
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-warning-400 h-10 w-full rounded"></div>
+						<div className="bg-warning-400 h-10 w-full rounded" />
 						400
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-warning-300 h-10 w-full rounded"></div>
+						<div className="bg-warning-300 h-10 w-full rounded" />
 						300
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-warning-200 h-10 w-full rounded"></div>
+						<div className="bg-warning-200 h-10 w-full rounded" />
 						200
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-warning-100 h-10 w-full rounded"></div>
+						<div className="bg-warning-100 h-10 w-full rounded" />
 						100
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="bg-warning-50 h-10 w-full rounded"></div>
+						<div className="bg-warning-50 h-10 w-full rounded" />
 						50
 					</div>
 				</div>
@@ -626,47 +626,47 @@ export default function Page() {
 				</h3>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-gray-950"></div>
+						<div className="h-10 w-full rounded bg-gray-950" />
 						950
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-gray-900"></div>
+						<div className="h-10 w-full rounded bg-gray-900" />
 						900
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-gray-800"></div>
+						<div className="h-10 w-full rounded bg-gray-800" />
 						800
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-gray-700"></div>
+						<div className="h-10 w-full rounded bg-gray-700" />
 						700
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-gray-600"></div>
+						<div className="h-10 w-full rounded bg-gray-600" />
 						600
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-gray-500"></div>
+						<div className="h-10 w-full rounded bg-gray-500" />
 						500
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-gray-400"></div>
+						<div className="h-10 w-full rounded bg-gray-400" />
 						400
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-gray-300"></div>
+						<div className="h-10 w-full rounded bg-gray-300" />
 						300
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-gray-200"></div>
+						<div className="h-10 w-full rounded bg-gray-200" />
 						200
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-gray-100"></div>
+						<div className="h-10 w-full rounded bg-gray-100" />
 						100
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-gray-50"></div>
+						<div className="h-10 w-full rounded bg-gray-50" />
 						50
 					</div>
 				</div>
@@ -675,47 +675,47 @@ export default function Page() {
 				</h3>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-red-950"></div>
+						<div className="h-10 w-full rounded bg-red-950" />
 						950
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-red-900"></div>
+						<div className="h-10 w-full rounded bg-red-900" />
 						900
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-red-800"></div>
+						<div className="h-10 w-full rounded bg-red-800" />
 						800
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-red-700"></div>
+						<div className="h-10 w-full rounded bg-red-700" />
 						700
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-red-600"></div>
+						<div className="h-10 w-full rounded bg-red-600" />
 						600
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-red-500"></div>
+						<div className="h-10 w-full rounded bg-red-500" />
 						500
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-red-400"></div>
+						<div className="h-10 w-full rounded bg-red-400" />
 						400
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-red-300"></div>
+						<div className="h-10 w-full rounded bg-red-300" />
 						300
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-red-200"></div>
+						<div className="h-10 w-full rounded bg-red-200" />
 						200
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-red-100"></div>
+						<div className="h-10 w-full rounded bg-red-100" />
 						100
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-red-50"></div>
+						<div className="h-10 w-full rounded bg-red-50" />
 						50
 					</div>
 				</div>
@@ -724,47 +724,47 @@ export default function Page() {
 				</h3>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-orange-950"></div>
+						<div className="h-10 w-full rounded bg-orange-950" />
 						950
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-orange-900"></div>
+						<div className="h-10 w-full rounded bg-orange-900" />
 						900
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-orange-800"></div>
+						<div className="h-10 w-full rounded bg-orange-800" />
 						800
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-orange-700"></div>
+						<div className="h-10 w-full rounded bg-orange-700" />
 						700
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-orange-600"></div>
+						<div className="h-10 w-full rounded bg-orange-600" />
 						600
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-orange-500"></div>
+						<div className="h-10 w-full rounded bg-orange-500" />
 						500
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-orange-400"></div>
+						<div className="h-10 w-full rounded bg-orange-400" />
 						400
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-orange-300"></div>
+						<div className="h-10 w-full rounded bg-orange-300" />
 						300
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-orange-200"></div>
+						<div className="h-10 w-full rounded bg-orange-200" />
 						200
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-orange-100"></div>
+						<div className="h-10 w-full rounded bg-orange-100" />
 						100
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-orange-50"></div>
+						<div className="h-10 w-full rounded bg-orange-50" />
 						50
 					</div>
 				</div>
@@ -773,47 +773,47 @@ export default function Page() {
 				</h3>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-amber-950"></div>
+						<div className="h-10 w-full rounded bg-amber-950" />
 						950
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-amber-900"></div>
+						<div className="h-10 w-full rounded bg-amber-900" />
 						900
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-amber-800"></div>
+						<div className="h-10 w-full rounded bg-amber-800" />
 						800
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-amber-700"></div>
+						<div className="h-10 w-full rounded bg-amber-700" />
 						700
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-amber-600"></div>
+						<div className="h-10 w-full rounded bg-amber-600" />
 						600
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-amber-500"></div>
+						<div className="h-10 w-full rounded bg-amber-500" />
 						500
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-amber-400"></div>
+						<div className="h-10 w-full rounded bg-amber-400" />
 						400
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-amber-300"></div>
+						<div className="h-10 w-full rounded bg-amber-300" />
 						300
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-amber-200"></div>
+						<div className="h-10 w-full rounded bg-amber-200" />
 						200
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-amber-100"></div>
+						<div className="h-10 w-full rounded bg-amber-100" />
 						100
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-amber-50"></div>
+						<div className="h-10 w-full rounded bg-amber-50" />
 						50
 					</div>
 				</div>
@@ -822,47 +822,47 @@ export default function Page() {
 				</h3>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-yellow-950"></div>
+						<div className="h-10 w-full rounded bg-yellow-950" />
 						950
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-yellow-900"></div>
+						<div className="h-10 w-full rounded bg-yellow-900" />
 						900
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-yellow-800"></div>
+						<div className="h-10 w-full rounded bg-yellow-800" />
 						800
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-yellow-700"></div>
+						<div className="h-10 w-full rounded bg-yellow-700" />
 						700
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-yellow-600"></div>
+						<div className="h-10 w-full rounded bg-yellow-600" />
 						600
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-yellow-500"></div>
+						<div className="h-10 w-full rounded bg-yellow-500" />
 						500
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-yellow-400"></div>
+						<div className="h-10 w-full rounded bg-yellow-400" />
 						400
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-yellow-300"></div>
+						<div className="h-10 w-full rounded bg-yellow-300" />
 						300
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-yellow-200"></div>
+						<div className="h-10 w-full rounded bg-yellow-200" />
 						200
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-yellow-100"></div>
+						<div className="h-10 w-full rounded bg-yellow-100" />
 						100
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-yellow-50"></div>
+						<div className="h-10 w-full rounded bg-yellow-50" />
 						50
 					</div>
 				</div>
@@ -871,47 +871,47 @@ export default function Page() {
 				</h3>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-lime-950"></div>
+						<div className="h-10 w-full rounded bg-lime-950" />
 						950
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-lime-900"></div>
+						<div className="h-10 w-full rounded bg-lime-900" />
 						900
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-lime-800"></div>
+						<div className="h-10 w-full rounded bg-lime-800" />
 						800
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-lime-700"></div>
+						<div className="h-10 w-full rounded bg-lime-700" />
 						700
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-lime-600"></div>
+						<div className="h-10 w-full rounded bg-lime-600" />
 						600
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-lime-500"></div>
+						<div className="h-10 w-full rounded bg-lime-500" />
 						500
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-lime-400"></div>
+						<div className="h-10 w-full rounded bg-lime-400" />
 						400
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-lime-300"></div>
+						<div className="h-10 w-full rounded bg-lime-300" />
 						300
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-lime-200"></div>
+						<div className="h-10 w-full rounded bg-lime-200" />
 						200
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-lime-100"></div>
+						<div className="h-10 w-full rounded bg-lime-100" />
 						100
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-lime-50"></div>
+						<div className="h-10 w-full rounded bg-lime-50" />
 						50
 					</div>
 				</div>
@@ -920,47 +920,47 @@ export default function Page() {
 				</h3>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-green-950"></div>
+						<div className="h-10 w-full rounded bg-green-950" />
 						950
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-green-900"></div>
+						<div className="h-10 w-full rounded bg-green-900" />
 						900
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-green-800"></div>
+						<div className="h-10 w-full rounded bg-green-800" />
 						800
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-green-700"></div>
+						<div className="h-10 w-full rounded bg-green-700" />
 						700
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-green-600"></div>
+						<div className="h-10 w-full rounded bg-green-600" />
 						600
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-green-500"></div>
+						<div className="h-10 w-full rounded bg-green-500" />
 						500
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-green-400"></div>
+						<div className="h-10 w-full rounded bg-green-400" />
 						400
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-green-300"></div>
+						<div className="h-10 w-full rounded bg-green-300" />
 						300
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-green-200"></div>
+						<div className="h-10 w-full rounded bg-green-200" />
 						200
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-green-100"></div>
+						<div className="h-10 w-full rounded bg-green-100" />
 						100
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-green-50"></div>
+						<div className="h-10 w-full rounded bg-green-50" />
 						50
 					</div>
 				</div>
@@ -969,47 +969,47 @@ export default function Page() {
 				</h3>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-emerald-950"></div>
+						<div className="h-10 w-full rounded bg-emerald-950" />
 						950
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-emerald-900"></div>
+						<div className="h-10 w-full rounded bg-emerald-900" />
 						900
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-emerald-800"></div>
+						<div className="h-10 w-full rounded bg-emerald-800" />
 						800
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-emerald-700"></div>
+						<div className="h-10 w-full rounded bg-emerald-700" />
 						700
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-emerald-600"></div>
+						<div className="h-10 w-full rounded bg-emerald-600" />
 						600
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-emerald-500"></div>
+						<div className="h-10 w-full rounded bg-emerald-500" />
 						500
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-emerald-400"></div>
+						<div className="h-10 w-full rounded bg-emerald-400" />
 						400
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-emerald-300"></div>
+						<div className="h-10 w-full rounded bg-emerald-300" />
 						300
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-emerald-200"></div>
+						<div className="h-10 w-full rounded bg-emerald-200" />
 						200
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-emerald-100"></div>
+						<div className="h-10 w-full rounded bg-emerald-100" />
 						100
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-emerald-50"></div>
+						<div className="h-10 w-full rounded bg-emerald-50" />
 						50
 					</div>
 				</div>
@@ -1018,47 +1018,47 @@ export default function Page() {
 				</h3>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-teal-950"></div>
+						<div className="h-10 w-full rounded bg-teal-950" />
 						950
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-teal-900"></div>
+						<div className="h-10 w-full rounded bg-teal-900" />
 						900
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-teal-800"></div>
+						<div className="h-10 w-full rounded bg-teal-800" />
 						800
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-teal-700"></div>
+						<div className="h-10 w-full rounded bg-teal-700" />
 						700
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-teal-600"></div>
+						<div className="h-10 w-full rounded bg-teal-600" />
 						600
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-teal-500"></div>
+						<div className="h-10 w-full rounded bg-teal-500" />
 						500
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-teal-400"></div>
+						<div className="h-10 w-full rounded bg-teal-400" />
 						400
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-teal-300"></div>
+						<div className="h-10 w-full rounded bg-teal-300" />
 						300
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-teal-200"></div>
+						<div className="h-10 w-full rounded bg-teal-200" />
 						200
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-teal-100"></div>
+						<div className="h-10 w-full rounded bg-teal-100" />
 						100
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-teal-50"></div>
+						<div className="h-10 w-full rounded bg-teal-50" />
 						50
 					</div>
 				</div>
@@ -1067,47 +1067,47 @@ export default function Page() {
 				</h3>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-cyan-950"></div>
+						<div className="h-10 w-full rounded bg-cyan-950" />
 						950
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-cyan-900"></div>
+						<div className="h-10 w-full rounded bg-cyan-900" />
 						900
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-cyan-800"></div>
+						<div className="h-10 w-full rounded bg-cyan-800" />
 						800
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-cyan-700"></div>
+						<div className="h-10 w-full rounded bg-cyan-700" />
 						700
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-cyan-600"></div>
+						<div className="h-10 w-full rounded bg-cyan-600" />
 						600
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-cyan-500"></div>
+						<div className="h-10 w-full rounded bg-cyan-500" />
 						500
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-cyan-400"></div>
+						<div className="h-10 w-full rounded bg-cyan-400" />
 						400
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-cyan-300"></div>
+						<div className="h-10 w-full rounded bg-cyan-300" />
 						300
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-cyan-200"></div>
+						<div className="h-10 w-full rounded bg-cyan-200" />
 						200
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-cyan-100"></div>
+						<div className="h-10 w-full rounded bg-cyan-100" />
 						100
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-cyan-50"></div>
+						<div className="h-10 w-full rounded bg-cyan-50" />
 						50
 					</div>
 				</div>
@@ -1117,47 +1117,47 @@ export default function Page() {
 				</h3>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-sky-950"></div>
+						<div className="h-10 w-full rounded bg-sky-950" />
 						950
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-sky-900"></div>
+						<div className="h-10 w-full rounded bg-sky-900" />
 						900
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-sky-800"></div>
+						<div className="h-10 w-full rounded bg-sky-800" />
 						800
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-sky-700"></div>
+						<div className="h-10 w-full rounded bg-sky-700" />
 						700
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-sky-600"></div>
+						<div className="h-10 w-full rounded bg-sky-600" />
 						600
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-sky-500"></div>
+						<div className="h-10 w-full rounded bg-sky-500" />
 						500
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-sky-400"></div>
+						<div className="h-10 w-full rounded bg-sky-400" />
 						400
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-sky-300"></div>
+						<div className="h-10 w-full rounded bg-sky-300" />
 						300
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-sky-200"></div>
+						<div className="h-10 w-full rounded bg-sky-200" />
 						200
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-sky-100"></div>
+						<div className="h-10 w-full rounded bg-sky-100" />
 						100
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-sky-50"></div>
+						<div className="h-10 w-full rounded bg-sky-50" />
 						50
 					</div>
 				</div>
@@ -1167,47 +1167,47 @@ export default function Page() {
 				</h3>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-blue-950"></div>
+						<div className="h-10 w-full rounded bg-blue-950" />
 						950
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-blue-900"></div>
+						<div className="h-10 w-full rounded bg-blue-900" />
 						900
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-blue-800"></div>
+						<div className="h-10 w-full rounded bg-blue-800" />
 						800
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-blue-700"></div>
+						<div className="h-10 w-full rounded bg-blue-700" />
 						700
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-blue-600"></div>
+						<div className="h-10 w-full rounded bg-blue-600" />
 						600
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-blue-500"></div>
+						<div className="h-10 w-full rounded bg-blue-500" />
 						500
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-blue-400"></div>
+						<div className="h-10 w-full rounded bg-blue-400" />
 						400
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-blue-300"></div>
+						<div className="h-10 w-full rounded bg-blue-300" />
 						300
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-blue-200"></div>
+						<div className="h-10 w-full rounded bg-blue-200" />
 						200
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-blue-100"></div>
+						<div className="h-10 w-full rounded bg-blue-100" />
 						100
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-blue-50"></div>
+						<div className="h-10 w-full rounded bg-blue-50" />
 						50
 					</div>
 				</div>
@@ -1217,47 +1217,47 @@ export default function Page() {
 				</h3>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-indigo-950"></div>
+						<div className="h-10 w-full rounded bg-indigo-950" />
 						950
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-indigo-900"></div>
+						<div className="h-10 w-full rounded bg-indigo-900" />
 						900
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-indigo-800"></div>
+						<div className="h-10 w-full rounded bg-indigo-800" />
 						800
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-indigo-700"></div>
+						<div className="h-10 w-full rounded bg-indigo-700" />
 						700
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-indigo-600"></div>
+						<div className="h-10 w-full rounded bg-indigo-600" />
 						600
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-indigo-500"></div>
+						<div className="h-10 w-full rounded bg-indigo-500" />
 						500
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-indigo-400"></div>
+						<div className="h-10 w-full rounded bg-indigo-400" />
 						400
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-indigo-300"></div>
+						<div className="h-10 w-full rounded bg-indigo-300" />
 						300
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-indigo-200"></div>
+						<div className="h-10 w-full rounded bg-indigo-200" />
 						200
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-indigo-100"></div>
+						<div className="h-10 w-full rounded bg-indigo-100" />
 						100
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-indigo-50"></div>
+						<div className="h-10 w-full rounded bg-indigo-50" />
 						50
 					</div>
 				</div>
@@ -1267,47 +1267,47 @@ export default function Page() {
 				</h3>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-violet-950"></div>
+						<div className="h-10 w-full rounded bg-violet-950" />
 						950
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-violet-900"></div>
+						<div className="h-10 w-full rounded bg-violet-900" />
 						900
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-violet-800"></div>
+						<div className="h-10 w-full rounded bg-violet-800" />
 						800
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-violet-700"></div>
+						<div className="h-10 w-full rounded bg-violet-700" />
 						700
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-violet-600"></div>
+						<div className="h-10 w-full rounded bg-violet-600" />
 						600
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-violet-500"></div>
+						<div className="h-10 w-full rounded bg-violet-500" />
 						500
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-violet-400"></div>
+						<div className="h-10 w-full rounded bg-violet-400" />
 						400
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-violet-300"></div>
+						<div className="h-10 w-full rounded bg-violet-300" />
 						300
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-violet-200"></div>
+						<div className="h-10 w-full rounded bg-violet-200" />
 						200
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-violet-100"></div>
+						<div className="h-10 w-full rounded bg-violet-100" />
 						100
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-violet-50"></div>
+						<div className="h-10 w-full rounded bg-violet-50" />
 						50
 					</div>
 				</div>
@@ -1316,47 +1316,47 @@ export default function Page() {
 				</h3>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-purple-950"></div>
+						<div className="h-10 w-full rounded bg-purple-950" />
 						950
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-purple-900"></div>
+						<div className="h-10 w-full rounded bg-purple-900" />
 						900
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-purple-800"></div>
+						<div className="h-10 w-full rounded bg-purple-800" />
 						800
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-purple-700"></div>
+						<div className="h-10 w-full rounded bg-purple-700" />
 						700
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-purple-600"></div>
+						<div className="h-10 w-full rounded bg-purple-600" />
 						600
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-purple-500"></div>
+						<div className="h-10 w-full rounded bg-purple-500" />
 						500
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-purple-400"></div>
+						<div className="h-10 w-full rounded bg-purple-400" />
 						400
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-purple-300"></div>
+						<div className="h-10 w-full rounded bg-purple-300" />
 						300
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-purple-200"></div>
+						<div className="h-10 w-full rounded bg-purple-200" />
 						200
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-purple-100"></div>
+						<div className="h-10 w-full rounded bg-purple-100" />
 						100
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-purple-50"></div>
+						<div className="h-10 w-full rounded bg-purple-50" />
 						50
 					</div>
 				</div>
@@ -1365,47 +1365,47 @@ export default function Page() {
 				</h3>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-fuchsia-950"></div>
+						<div className="h-10 w-full rounded bg-fuchsia-950" />
 						950
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-fuchsia-900"></div>
+						<div className="h-10 w-full rounded bg-fuchsia-900" />
 						900
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-fuchsia-800"></div>
+						<div className="h-10 w-full rounded bg-fuchsia-800" />
 						800
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-fuchsia-700"></div>
+						<div className="h-10 w-full rounded bg-fuchsia-700" />
 						700
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-fuchsia-600"></div>
+						<div className="h-10 w-full rounded bg-fuchsia-600" />
 						600
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-fuchsia-500"></div>
+						<div className="h-10 w-full rounded bg-fuchsia-500" />
 						500
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-fuchsia-400"></div>
+						<div className="h-10 w-full rounded bg-fuchsia-400" />
 						400
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-fuchsia-300"></div>
+						<div className="h-10 w-full rounded bg-fuchsia-300" />
 						300
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-fuchsia-200"></div>
+						<div className="h-10 w-full rounded bg-fuchsia-200" />
 						200
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-fuchsia-100"></div>
+						<div className="h-10 w-full rounded bg-fuchsia-100" />
 						100
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-fuchsia-50"></div>
+						<div className="h-10 w-full rounded bg-fuchsia-50" />
 						50
 					</div>
 				</div>
@@ -1415,47 +1415,47 @@ export default function Page() {
 				</h3>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-pink-950"></div>
+						<div className="h-10 w-full rounded bg-pink-950" />
 						950
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-pink-900"></div>
+						<div className="h-10 w-full rounded bg-pink-900" />
 						900
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-pink-800"></div>
+						<div className="h-10 w-full rounded bg-pink-800" />
 						800
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-pink-700"></div>
+						<div className="h-10 w-full rounded bg-pink-700" />
 						700
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-pink-600"></div>
+						<div className="h-10 w-full rounded bg-pink-600" />
 						600
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-pink-500"></div>
+						<div className="h-10 w-full rounded bg-pink-500" />
 						500
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-pink-400"></div>
+						<div className="h-10 w-full rounded bg-pink-400" />
 						400
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-pink-300"></div>
+						<div className="h-10 w-full rounded bg-pink-300" />
 						300
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-pink-200"></div>
+						<div className="h-10 w-full rounded bg-pink-200" />
 						200
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-pink-100"></div>
+						<div className="h-10 w-full rounded bg-pink-100" />
 						100
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-pink-50"></div>
+						<div className="h-10 w-full rounded bg-pink-50" />
 						50
 					</div>
 				</div>
@@ -1464,47 +1464,47 @@ export default function Page() {
 				</h3>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-rose-950"></div>
+						<div className="h-10 w-full rounded bg-rose-950" />
 						950
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-rose-900"></div>
+						<div className="h-10 w-full rounded bg-rose-900" />
 						900
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-rose-800"></div>
+						<div className="h-10 w-full rounded bg-rose-800" />
 						800
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-rose-700"></div>
+						<div className="h-10 w-full rounded bg-rose-700" />
 						700
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-rose-600"></div>
+						<div className="h-10 w-full rounded bg-rose-600" />
 						600
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-rose-500"></div>
+						<div className="h-10 w-full rounded bg-rose-500" />
 						500
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-rose-400"></div>
+						<div className="h-10 w-full rounded bg-rose-400" />
 						400
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-rose-300"></div>
+						<div className="h-10 w-full rounded bg-rose-300" />
 						300
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-rose-200"></div>
+						<div className="h-10 w-full rounded bg-rose-200" />
 						200
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-rose-100"></div>
+						<div className="h-10 w-full rounded bg-rose-100" />
 						100
 					</div>
 					<div className="flex flex-grow flex-col gap-1 font-mono">
-						<div className="h-10 w-full rounded bg-rose-50"></div>
+						<div className="h-10 w-full rounded bg-rose-50" />
 						50
 					</div>
 				</div>

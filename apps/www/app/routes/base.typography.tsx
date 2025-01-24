@@ -45,7 +45,7 @@ export default function Page() {
 
 			<div className="mt-3 flex flex-col gap-4 overflow-hidden text-xs md:flex-row">
 				<div className="text-strong flex flex-grow flex-col gap-1">
-					<div className="h-10 w-full rounded bg-neutral-950"></div>
+					<div className="h-10 w-full rounded bg-neutral-950" />
 					<div className="flex items-center justify-between">
 						Strong
 						<InlineCode>.text-strong</InlineCode>
@@ -53,7 +53,7 @@ export default function Page() {
 				</div>
 
 				<div className="flex flex-grow flex-col gap-1">
-					<div className="h-10 w-full rounded bg-neutral-950/75"></div>
+					<div className="h-10 w-full rounded bg-neutral-950/75" />
 					<div className="flex items-center justify-between">
 						<span className="text-body">Body</span>
 						<InlineCode>.text-body</InlineCode>
@@ -61,7 +61,7 @@ export default function Page() {
 				</div>
 
 				<div className="flex flex-grow flex-col gap-1">
-					<div className="h-10 w-full rounded bg-neutral-950/60"></div>
+					<div className="h-10 w-full rounded bg-neutral-950/60" />
 					<div className="flex items-center justify-between">
 						<span className="text-muted">Muted</span>
 						<InlineCode>.text-muted</InlineCode>
@@ -69,7 +69,7 @@ export default function Page() {
 				</div>
 
 				<div className="flex flex-grow flex-col gap-1">
-					<div className="h-10 w-full rounded bg-neutral-950/50"></div>
+					<div className="h-10 w-full rounded bg-neutral-950/50" />
 					<div className="flex items-center justify-between">
 						<span className="text-placeholder">Placeholder</span>
 						<InlineCode>.text-placeholder</InlineCode>
