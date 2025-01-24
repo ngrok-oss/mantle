@@ -1,5 +1,5 @@
 import { cva } from "class-variance-authority";
-import { forwardRef, type ComponentProps } from "react";
+import { forwardRef, type ComponentProps, type ElementRef } from "react";
 import type { VariantProps } from "../../types/index.js";
 import { cx } from "../../utils/cx/cx.js";
 
@@ -18,17 +18,17 @@ const buttonGroupVariants = cva("border-form inline-flex items-center rounded-md
 
 type ButtonGroupVariants = VariantProps<typeof buttonGroupVariants>;
 
-type ButtonGroupProps = Omit<ComponentProps<"div">, "role"> & ButtonGroupVariants;
+type ButtonGroupProps = Omit<ComponentProps<"fieldset">, "role"> & ButtonGroupVariants;
 
 /**
- * A contained group of related buttons buttons.
+ * A contained group of related buttons.
  */
-const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
+const ButtonGroup = forwardRef<ElementRef<"fieldset">, ButtonGroupProps>(
 	({ appearance, className, children, ...props }, ref) => {
 		return (
-			<div className={cx(buttonGroupVariants({ appearance }), className)} ref={ref} role="group" {...props}>
+			<fieldset className={cx(buttonGroupVariants({ appearance }), className)} ref={ref} role="group" {...props}>
 				{children}
-			</div>
+			</fieldset>
 		);
 	},
 );
