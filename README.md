@@ -1,1 +1,1 @@
-./packages/mantle/README.md
+packages/mantle/README.md
