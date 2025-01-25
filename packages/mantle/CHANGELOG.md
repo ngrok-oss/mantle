@@ -1,5 +1,13 @@
 # @ngrok/mantle
 
+## 0.19.7
+
+### Patch Changes
+
+- [#408](https://github.com/ngrok-oss/mantle/pull/408) [`0868adb`](https://github.com/ngrok-oss/mantle/commit/0868adbcf65936e0377236d353610e063a6279f7) Thanks [@melanieseltzer](https://github.com/melanieseltzer)! - Revamp the readme and contributing guide
+
+- [#410](https://github.com/ngrok-oss/mantle/pull/410) [`de54a95`](https://github.com/ngrok-oss/mantle/commit/de54a953fcaf64344c652c5cc573515197e68555) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - add fade-in keyframes to tailwind preset
+
 ## 0.19.6
 
 ### Patch Changes
