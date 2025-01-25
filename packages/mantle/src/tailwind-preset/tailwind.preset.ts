@@ -459,6 +459,10 @@ const mantlePreset = {
 					from: { height: "var(--radix-accordion-content-height)" },
 					to: { height: "0" },
 				},
+				"fade-in": {
+					"0%": { opacity: "0" },
+					"100%": { opacity: "1" },
+				},
 				spin: {
 					from: { transform: "rotate(var(--spin-start-deg, 0))" },
 					to: { transform: "rotate(var(--spin-end-deg, 360deg))" },
