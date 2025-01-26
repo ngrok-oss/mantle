@@ -6,12 +6,11 @@ import {
 	CodeBlockCopyButton,
 	CodeBlockExpanderButton,
 	CodeBlockHeader,
+	CodeBlockIcon,
 	CodeBlockTitle,
 	fmtCode,
 	supportedLanguages,
 } from "@ngrok/mantle/code-block";
-import { FileText } from "@phosphor-icons/react/FileText";
-import { Terminal } from "@phosphor-icons/react/Terminal";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
@@ -42,7 +41,7 @@ export default function Page() {
 					<Example>
 						<CodeBlock>
 							<CodeBlockHeader>
-								<FileText className="h-5 w-5" weight="fill" />
+								<CodeBlockIcon preset="file" />
 								<CodeBlockTitle>ngrok-example.js</CodeBlockTitle>
 							</CodeBlockHeader>
 							<CodeBlockBody>
@@ -50,49 +49,49 @@ export default function Page() {
 								<CodeBlockCode
 									language="js"
 									value={fmtCode`
-								const listener = await ngrok.connect({
-									// session configuration
-									addr: \`localhost:8080\`, // or \`8080\` or \`unix:$\{UNIX_SOCKET\}\`
-									authtoken: "<authtoken>",
-									authtoken_from_env: true,
-									on_status_change: (addr, error) => {
-										console.log(\`disconnected, addr $\{addr\} error: $\{error\}\`);
-									},
-									session_metadata: "Online in One Line",
-									// listener configuration
-									allow_user_agent: "^mozilla.*",
-									basic_auth: ["ngrok:online1line"],
-									circuit_breaker: 0.1,
-									compression: true,
-									deny_user_agent: "^curl.*",
-									domain: "<domain>",
-									ip_restriction_allow_cidrs: ["0.0.0.0/0"],
-									ip_restriction_deny_cidrs: ["10.1.1.1/32"],
-									metadata: "example listener metadata from nodejs",
-									mutual_tls_cas: [fs.readFileSync('ca.crt', 'utf8')],
-									oauth_provider: "google",
-									oauth_allow_domains: ["<domain>"],
-									oauth_allow_emails: ["<email>"],
-									oauth_scopes: ["<scope>"],
-									oauth_client_id: "<id>",
-									oauth_client_secret: "<secret>",
-									oidc_issuer_url: "<url>",
-									oidc_client_id: "<id>",
-									oidc_client_secret: "<secret>",
-									oidc_allow_domains: ["<domain>"],
-									oidc_allow_emails: ["<email>"],
-									oidc_scopes: ["<scope>"],
-									proxy_proto: "", // One of: "", "1", "2"
-									request_header_remove: ["X-Req-Nope"],
-									response_header_remove: ["X-Res-Nope"],
-									request_header_add: ["X-Req-Yup:true"],
-									response_header_add: ["X-Res-Yup:true"],
-									schemes: ["HTTPS"],
-									verify_webhook_provider: "twilio",
-									verify_webhook_secret: "asdf",
-									websocket_tcp_converter: true,
-								});
-							`}
+										const listener = await ngrok.connect({
+											// session configuration
+											addr: \`localhost:8080\`, // or \`8080\` or \`unix:$\{UNIX_SOCKET\}\`
+											authtoken: "<authtoken>",
+											authtoken_from_env: true,
+											on_status_change: (addr, error) => {
+												console.log(\`disconnected, addr $\{addr\} error: $\{error\}\`);
+											},
+											session_metadata: "Online in One Line",
+											// listener configuration
+											allow_user_agent: "^mozilla.*",
+											basic_auth: ["ngrok:online1line"],
+											circuit_breaker: 0.1,
+											compression: true,
+											deny_user_agent: "^curl.*",
+											domain: "<domain>",
+											ip_restriction_allow_cidrs: ["0.0.0.0/0"],
+											ip_restriction_deny_cidrs: ["10.1.1.1/32"],
+											metadata: "example listener metadata from nodejs",
+											mutual_tls_cas: [fs.readFileSync('ca.crt', 'utf8')],
+											oauth_provider: "google",
+											oauth_allow_domains: ["<domain>"],
+											oauth_allow_emails: ["<email>"],
+											oauth_scopes: ["<scope>"],
+											oauth_client_id: "<id>",
+											oauth_client_secret: "<secret>",
+											oidc_issuer_url: "<url>",
+											oidc_client_id: "<id>",
+											oidc_client_secret: "<secret>",
+											oidc_allow_domains: ["<domain>"],
+											oidc_allow_emails: ["<email>"],
+											oidc_scopes: ["<scope>"],
+											proxy_proto: "", // One of: "", "1", "2"
+											request_header_remove: ["X-Req-Nope"],
+											response_header_remove: ["X-Res-Nope"],
+											request_header_add: ["X-Req-Yup:true"],
+											response_header_add: ["X-Res-Yup:true"],
+											schemes: ["HTTPS"],
+											verify_webhook_provider: "twilio",
+											verify_webhook_secret: "asdf",
+											websocket_tcp_converter: true,
+										});
+									`}
 								/>
 							</CodeBlockBody>
 							<CodeBlockExpanderButton />
@@ -104,29 +103,30 @@ export default function Page() {
 							<CodeBlockCode
 								language="tsx"
 								value={fmtCode`
-							import {
-								CodeBlock,
-								CodeBlockBody,
-								CodeBlockCode,
-								CodeBlockCopyButton,
-								CodeBlockExpanderButton,
-								CodeBlockHeader,
-								CodeBlockTitle,
-								fmtCode,
-							} from "@ngrok/mantle/code-block";
+									import {
+										CodeBlock,
+										CodeBlockBody,
+										CodeBlockCode,
+										CodeBlockCopyButton,
+										CodeBlockExpanderButton,
+										CodeBlockHeader,
+										CodeBlockIcon,
+										CodeBlockTitle,
+										fmtCode,
+									} from "@ngrok/mantle/code-block";
 
-							<CodeBlock>
-								<CodeBlockHeader>
-									<Icon />
-									<CodeBlockTitle>…</CodeBlockTitle>
-								</CodeBlockHeader>
-								<CodeBlockBody>
-									<CodeBlockCopyButton />
-									<CodeBlockCode language="…" value={fmtCode\`…\`} />
-								</CodeBlockBody>
-								<CodeBlockExpanderButton />
-							</CodeBlock>
-						`}
+									<CodeBlock>
+										<CodeBlockHeader>
+											<CodeBlockIcon preset="file" />
+											<CodeBlockTitle>…</CodeBlockTitle>
+										</CodeBlockHeader>
+										<CodeBlockBody>
+											<CodeBlockCopyButton />
+											<CodeBlockCode language="…" value={fmtCode\`…\`} />
+										</CodeBlockBody>
+										<CodeBlockExpanderButton />
+									</CodeBlock>
+								`}
 							/>
 						</CodeBlockBody>
 					</CodeBlock>
@@ -150,7 +150,7 @@ export default function Page() {
 						<Example>
 							<CodeBlock>
 								<CodeBlockHeader>
-									<Terminal className="h-5 w-5" weight="fill" />
+									<CodeBlockIcon preset="cli" />
 									<CodeBlockTitle>Command Line</CodeBlockTitle>
 								</CodeBlockHeader>
 								<CodeBlockBody>
@@ -168,17 +168,17 @@ export default function Page() {
 								<CodeBlockCode
 									language="tsx"
 									value={fmtCode`
-								<CodeBlock>
-									<CodeBlockHeader>
-										<CommandLineIcon />
-										<CodeBlockTitle>Command Line</CodeBlockTitle>
-									</CodeBlockHeader>
-									<CodeBlockBody>
-										<CodeBlockCopyButton />
-										<CodeBlockCode language="sh" value={fmtCode\`sudo unzip ~/Downloads/ngrok-v3-stable-darwin.zip -d /usr/local/bin\`} />
-									</CodeBlockBody>
-								</CodeBlock>
-							`}
+										<CodeBlock>
+											<CodeBlockHeader>
+												<CodeBlockIcon preset="cli" />
+												<CodeBlockTitle>Command Line</CodeBlockTitle>
+											</CodeBlockHeader>
+											<CodeBlockBody>
+												<CodeBlockCopyButton />
+												<CodeBlockCode language="sh" value={fmtCode\`sudo unzip ~/Downloads/ngrok-v3-stable-darwin.zip -d /usr/local/bin\`} />
+											</CodeBlockBody>
+										</CodeBlock>
+									`}
 								/>
 							</CodeBlockBody>
 						</CodeBlock>
@@ -197,7 +197,7 @@ export default function Page() {
 						<Example>
 							<CodeBlock>
 								<CodeBlockHeader>
-									<FileText className="h-5 w-5" weight="fill" />
+									<CodeBlockIcon preset="file" />
 									<CodeBlockTitle>ngrok-example.js</CodeBlockTitle>
 								</CodeBlockHeader>
 								<CodeBlockBody>
@@ -205,23 +205,23 @@ export default function Page() {
 									<CodeBlockCode
 										language="js"
 										value={fmtCode`
-									const http = require('http');
-									const ngrok = require("@ngrok/ngrok");
-									const server = http.createServer((req, res) => {
-										res.writeHead(200);
-										res.end("Hello!");
-										setTimeout(() => {
-											Promise.resolve(() => {
+											const http = require('http');
+											const ngrok = require("@ngrok/ngrok");
+											const server = http.createServer((req, res) => {
+												res.writeHead(200);
+												res.end("Hello!");
+												setTimeout(() => {
+													Promise.resolve(() => {
+														console.log("url:", server.tunnel.url());
+													})
+												}, timeout);
+											});
+											// Consumes authtoken from env automatically
+											ngrok.listen(server).then(() => {
 												console.log("url:", server.tunnel.url());
-											})
-										}, timeout);
-									});
-									// Consumes authtoken from env automatically
-									ngrok.listen(server).then(() => {
-										console.log("url:", server.tunnel.url());
-									});
-									// really long line here that should wrap around and stuff Officia ipsum sint eu labore esse deserunt aliqua quis irure.
-								`}
+											});
+											// really long line here that should wrap around and stuff Officia ipsum sint eu labore esse deserunt aliqua quis irure.
+										`}
 									/>
 								</CodeBlockBody>
 							</CodeBlock>
@@ -232,37 +232,37 @@ export default function Page() {
 								<CodeBlockCode
 									language="tsx"
 									value={fmtCode`
-								<CodeBlock>
-									<CodeBlockHeader>
-										<FileIcon />
-										<CodeBlockTitle>ngrok-example.js</CodeBlockTitle>
-									</CodeBlockHeader>
-									<CodeBlockBody>
-										<CodeBlockCopyButton />
-										<CodeBlockCode
-											language="js"
-											value={fmtCode\`
-												const http = require('http');
-												const ngrok = require("@ngrok/ngrok");
-												const server = http.createServer((req, res) => {
-													res.writeHead(200);
-													res.end("Hello!");
-													setTimeout(() => {
-														Promise.resolve(() => {
+										<CodeBlock>
+											<CodeBlockHeader>
+												<CodeBlockIcon preset="file" />
+												<CodeBlockTitle>ngrok-example.js</CodeBlockTitle>
+											</CodeBlockHeader>
+											<CodeBlockBody>
+												<CodeBlockCopyButton />
+												<CodeBlockCode
+													language="js"
+													value={fmtCode\`
+														const http = require('http');
+														const ngrok = require("@ngrok/ngrok");
+														const server = http.createServer((req, res) => {
+															res.writeHead(200);
+															res.end("Hello!");
+															setTimeout(() => {
+																Promise.resolve(() => {
+																	console.log("url:", server.tunnel.url());
+																})
+															}, timeout);
+														});
+														// Consumes authtoken from env automatically
+														ngrok.listen(server).then(() => {
 															console.log("url:", server.tunnel.url());
-														})
-													}, timeout);
-												});
-												// Consumes authtoken from env automatically
-												ngrok.listen(server).then(() => {
-													console.log("url:", server.tunnel.url());
-												});
-												// really long line here that should wrap around and stuff Officia ipsum sint eu labore esse deserunt aliqua quis irure.
-											\`}
-										/>
-									</CodeBlockBody>
-								</CodeBlock>
-							`}
+														});
+														// really long line here that should wrap around and stuff Officia ipsum sint eu labore esse deserunt aliqua quis irure.
+													\`}
+												/>
+											</CodeBlockBody>
+										</CodeBlock>
+									`}
 								/>
 							</CodeBlockBody>
 							<CodeBlockExpanderButton />
@@ -287,17 +287,17 @@ export default function Page() {
 									<CodeBlockCode
 										language="js"
 										value={fmtCode`
-									const http = require('http');
-									const ngrok = require("@ngrok/ngrok");
-									const server = http.createServer((req, res) => {
-										res.writeHead(200);
-										res.end("Hello!");
-									});
-									// Consumes authtoken from env automatically
-									ngrok.listen(server).then(() => {
-										console.log("url:", server.tunnel.url());
-									});
-								`}
+											const http = require('http');
+											const ngrok = require("@ngrok/ngrok");
+											const server = http.createServer((req, res) => {
+												res.writeHead(200);
+												res.end("Hello!");
+											});
+											// Consumes authtoken from env automatically
+											ngrok.listen(server).then(() => {
+												console.log("url:", server.tunnel.url());
+											});
+										`}
 									/>
 								</CodeBlockBody>
 							</CodeBlock>
@@ -308,26 +308,26 @@ export default function Page() {
 								<CodeBlockCode
 									language="tsx"
 									value={fmtCode`
-								<CodeBlock>
-									<CodeBlockBody>
-										<CodeBlockCode
-											language="js"
-											value={fmtCode\`
-												const http = require('http');
-												const ngrok = require("@ngrok/ngrok");
-												const server = http.createServer((req, res) => {
-													res.writeHead(200);
-													res.end("Hello!");
-												});
-												// Consumes authtoken from env automatically
-												ngrok.listen(server).then(() => {
-													console.log("url:", server.tunnel.url());
-												});
-											\`}
-										/>
-									</CodeBlockBody>
-								</CodeBlock>
-							`}
+										<CodeBlock>
+											<CodeBlockBody>
+												<CodeBlockCode
+													language="js"
+													value={fmtCode\`
+														const http = require('http');
+														const ngrok = require("@ngrok/ngrok");
+														const server = http.createServer((req, res) => {
+															res.writeHead(200);
+															res.end("Hello!");
+														});
+														// Consumes authtoken from env automatically
+														ngrok.listen(server).then(() => {
+															console.log("url:", server.tunnel.url());
+														});
+													\`}
+												/>
+											</CodeBlockBody>
+										</CodeBlock>
+									`}
 								/>
 							</CodeBlockBody>
 							<CodeBlockExpanderButton />
@@ -361,16 +361,16 @@ export default function Page() {
 								<CodeBlockCode
 									language="tsx"
 									value={fmtCode`
-							<CodeBlock>
-								<CodeBlockBody>
-									<CodeBlockCopyButton />
-									<CodeBlockCode
-										language="sh"
-										value={fmtCode\`ffmpeg -i multichannel.mxf -map 0:v:0 -map 0:a:0 -map 0:a:0 -c:a:0 ac3 -b:a:0 640k -ac:a:1 2 -c:a:1 aac -b:2 128k out.mp4\`}
-									/>
-								</CodeBlockBody>
-							</CodeBlock>
-							`}
+										<CodeBlock>
+											<CodeBlockBody>
+												<CodeBlockCopyButton />
+												<CodeBlockCode
+													language="sh"
+													value={fmtCode\`ffmpeg -i multichannel.mxf -map 0:v:0 -map 0:a:0 -map 0:a:0 -c:a:0 ac3 -b:a:0 640k -ac:a:1 2 -c:a:1 aac -b:2 128k out.mp4\`}
+												/>
+											</CodeBlockBody>
+										</CodeBlock>
+									`}
 								/>
 							</CodeBlockBody>
 						</CodeBlock>
