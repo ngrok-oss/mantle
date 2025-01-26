@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.19.8
+
+### Patch Changes
+
+- [#411](https://github.com/ngrok-oss/mantle/pull/411) [`88727bd`](https://github.com/ngrok-oss/mantle/commit/88727bd71171ef05ca83dbd43bad1b2449464c2e) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - CodeBlock: add CodeBlockIcon component and fix some styling
+
 ## 0.19.7
 
 ### Patch Changes
