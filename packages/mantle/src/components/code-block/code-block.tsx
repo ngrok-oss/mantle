@@ -386,7 +386,7 @@ function CodeBlockIcon({ className: _className, preset, svg, ...props }: CodeBlo
 			case "cli":
 				return <Terminal className={className} weight="fill" {...props} />;
 			case "traffic-policy":
-				return <Terminal className={className} weight="fill" {...props} />;
+				return <FileText className={className} weight="fill" {...props} />;
 			default:
 				return null;
 		}
