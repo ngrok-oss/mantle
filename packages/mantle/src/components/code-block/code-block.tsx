@@ -1,6 +1,8 @@
 import { CaretDown } from "@phosphor-icons/react/CaretDown";
 import { Check } from "@phosphor-icons/react/Check";
 import { Copy } from "@phosphor-icons/react/Copy";
+import { FileText } from "@phosphor-icons/react/FileText";
+import { Terminal } from "@phosphor-icons/react/Terminal";
 import { Slot } from "@radix-ui/react-slot";
 import Prism from "prismjs";
 import "prismjs/components/prism-bash.js";
@@ -18,13 +20,15 @@ import "prismjs/components/prism-rust.js";
 import "prismjs/components/prism-tsx.js";
 import "prismjs/components/prism-typescript.js";
 import "prismjs/components/prism-yaml.js";
-import type { ComponentProps, Dispatch, HTMLAttributes, SetStateAction } from "react";
+import type { ComponentProps, Dispatch, HTMLAttributes, ReactNode, SetStateAction } from "react";
 import { createContext, forwardRef, useContext, useEffect, useId, useMemo, useState } from "react";
 import assert from "tiny-invariant";
 import { useCopyToClipboard } from "../../hooks/use-copy-to-clipboard.js";
-import type { WithStyleProps } from "../../types/with-style-props.js";
 import { cx } from "../../utils/cx/cx.js";
+import { Icon } from "../icon/icon.js";
+import type { SvgAttributes } from "../icon/types.js";
 import type { LineRange } from "./line-numbers.js";
+import type { Mode } from "./parse-metastring.js";
 import type { SupportedLanguage } from "./supported-languages.js";
 import { formatLanguageClassName, supportedLanguages } from "./supported-languages.js";
 
@@ -59,7 +63,7 @@ const CodeBlockContext = createContext<CodeBlockContextType>({
 	unregisterCodeId: () => {},
 });
 
-const CodeBlock = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => {
+const CodeBlock = forwardRef<HTMLDivElement, ComponentProps<"div">>(({ className, ...props }, ref) => {
 	const [copyText, setCopyText] = useState("");
 	const [hasCodeExpander, setHasCodeExpander] = useState(false);
 	const [isCodeExpanded, setIsCodeExpanded] = useState(false);
@@ -96,6 +100,7 @@ const CodeBlock = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ 
 			<div
 				className={cx(
 					"overflow-hidden rounded-md border border-gray-300 bg-gray-50 font-mono text-[0.8125rem]",
+					"[&_svg]:shrink-0",
 					className,
 				)}
 				ref={ref}
@@ -208,7 +213,7 @@ const CodeBlockCode = forwardRef<HTMLPreElement, CodeBlockCodeProps>(
 );
 CodeBlockCode.displayName = "CodeBlockCode";
 
-const CodeBlockHeader = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
+const CodeBlockHeader = forwardRef<HTMLDivElement, ComponentProps<"div">>(({ className, ...props }, ref) => (
 	<div
 		className={cx("flex items-center gap-1 border-b border-gray-300 bg-gray-100 px-4 py-2 text-gray-700", className)}
 		ref={ref}
@@ -220,12 +225,12 @@ CodeBlockHeader.displayName = "CodeBlockHeader";
 const CodeBlockTitle = forwardRef<HTMLHeadingElement, HTMLAttributes<HTMLHeadingElement> & { asChild?: boolean }>(
 	({ asChild = false, className, ...props }, ref) => {
 		const Comp = asChild ? Slot : "h3";
-		return <Comp ref={ref} className={cx("font-mono text-[0.8125rem] font-normal", className)} {...props} />;
+		return <Comp ref={ref} className={cx("m-0 font-mono text-[0.8125rem] font-normal", className)} {...props} />;
 	},
 );
 CodeBlockTitle.displayName = "CodeBlockTitle";
 
-type CodeBlockCopyButtonProps = WithStyleProps & {
+type CodeBlockCopyButtonProps = Omit<ComponentProps<"button">, "children" | "type"> & {
 	/**
 	 * Callback fired when the copy button is clicked, passes the copied text as an argument.
 	 */
@@ -237,7 +242,7 @@ type CodeBlockCopyButtonProps = WithStyleProps & {
 };
 
 const CodeBlockCopyButton = forwardRef<HTMLButtonElement, CodeBlockCopyButtonProps>(
-	({ className, onCopy, onCopyError, style }, ref) => {
+	({ className, onCopy, onCopyError, onClick, ...props }, ref) => {
 		const { copyText } = useContext(CodeBlockContext);
 		const [, copyToClipboard] = useCopyToClipboard();
 		const [copied, setCopied] = useState(false);
@@ -258,15 +263,15 @@ const CodeBlockCopyButton = forwardRef<HTMLButtonElement, CodeBlockCopyButtonPro
 			<button
 				type="button"
 				className={cx(
-					"focus-visible:border-accent-600 focus-visible:ring-focus-accent absolute right-3 top-3 z-10 flex h-7 w-7 items-center justify-center rounded border border-gray-300 bg-gray-50 shadow-[-1rem_0_0.75rem_-0.375rem_hsl(var(--gray-50)),1rem_0_0_-0.25rem_hsl(var(--gray-50))] hover:border-gray-400 hover:bg-gray-200 focus-visible:outline-none focus-visible:ring-4",
+					"focus-visible:border-accent-600 focus-visible:ring-focus-accent absolute right-3 top-3 z-10 flex size-7 items-center justify-center rounded border border-gray-300 bg-gray-50 shadow-[-1rem_0_0.75rem_-0.375rem_hsl(var(--gray-50)),1rem_0_0_-0.25rem_hsl(var(--gray-50))] hover:border-gray-400 hover:bg-gray-200 focus-visible:outline-none focus-visible:ring-4",
 					copied &&
 						"bg-filled-success text-on-filled hover:bg-filled-success focus:bg-filled-success focus-visible:border-success-600 focus-visible:ring-focus-success w-auto gap-1 border-transparent pl-2 pr-1.5 hover:border-transparent",
 					className,
 				)}
 				ref={ref}
-				style={style}
-				onClick={async () => {
+				onClick={async (event) => {
 					try {
+						onClick?.(event);
 						// eslint-disable-next-line @typescript-eslint/await-thenable
 						await copyToClipboard(copyText);
 						onCopy?.(copyText);
@@ -275,15 +280,16 @@ const CodeBlockCopyButton = forwardRef<HTMLButtonElement, CodeBlockCopyButtonPro
 						onCopyError?.(error);
 					}
 				}}
+				{...props}
 			>
 				<span className="sr-only">Copy code</span>
 				{copied ? (
 					<>
 						Copied
-						<Check className="h-4 w-4" weight="bold" />
+						<Check className="size-4 shrink-0" weight="bold" />
 					</>
 				) : (
-					<Copy className="-ml-px h-5 w-5" />
+					<Copy className="-ml-px size-5 shrink-0" />
 				)}
 			</button>
 		);
@@ -326,7 +332,7 @@ const CodeBlockExpanderButton = forwardRef<HTMLButtonElement, CodeBlockExpanderB
 			>
 				{isCodeExpanded ? "Show less" : "Show more"}{" "}
 				<CaretDown
-					className={cx("h-4 w-4", isCodeExpanded && "rotate-180", "transition-all duration-150")}
+					className={cx("size-4 shrink-0", isCodeExpanded && "rotate-180", "transition-all duration-150")}
 					weight="bold"
 				/>
 			</button>
@@ -335,6 +341,60 @@ const CodeBlockExpanderButton = forwardRef<HTMLButtonElement, CodeBlockExpanderB
 );
 CodeBlockExpanderButton.displayName = "CodeBlockExpanderButton";
 
+type CodeBlockIconProps = Omit<SvgAttributes, "children"> &
+	(
+		| {
+				/**
+				 * A custom icon to display in the code block header.
+				 * (Pass only one of `svg` or `preset`.)
+				 */
+				svg: ReactNode;
+				/**
+				 * A preset icon to display in the code block header.
+				 * (Pass only one of `svg` or `preset`.)
+				 */
+				preset?: undefined | never;
+		  }
+		| {
+				/**
+				 * A custom icon to display in the code block header.
+				 * (Pass only one of `svg` or `preset`.)
+				 */
+				svg?: undefined | never;
+				/**
+				 * A preset icon to display in the code block header.
+				 * (Pass only one of `svg` or `preset`.)
+				 */
+				preset: Mode;
+		  }
+	);
+
+/**
+ * A small icon that represents the type of code block being displayed,
+ * rendered as an SVG next to the code block title in the code block header.
+ *
+ * You can pass in a custom SVG component or use one of the presets
+ * (pass only one of `svg` or `preset`).
+ */
+function CodeBlockIcon({ className: _className, preset, svg, ...props }: CodeBlockIconProps) {
+	const className = cx("size-5 shrink-0", _className);
+
+	if (preset != null) {
+		switch (preset) {
+			case "file":
+				return <FileText className={className} weight="fill" {...props} />;
+			case "cli":
+				return <Terminal className={className} weight="fill" {...props} />;
+			case "traffic-policy":
+				return <Terminal className={className} weight="fill" {...props} />;
+			default:
+				return null;
+		}
+	}
+
+	return <Icon className={className} svg={svg} {...props} />;
+}
+
 export {
 	CodeBlock,
 	CodeBlockBody,
@@ -342,5 +402,6 @@ export {
 	CodeBlockCopyButton,
 	CodeBlockExpanderButton,
 	CodeBlockHeader,
+	CodeBlockIcon,
 	CodeBlockTitle,
 };
