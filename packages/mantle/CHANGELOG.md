@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.19.10
+
+### Patch Changes
+
+- [#415](https://github.com/ngrok-oss/mantle/pull/415) [`4275988`](https://github.com/ngrok-oss/mantle/commit/427598893d974cdbd27fea55bfe322ab437d7a48) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - mantle.css: improve matching for css vars on root
+
 ## 0.19.9
 
 ### Patch Changes
