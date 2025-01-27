@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.19.9
+
+### Patch Changes
+
+- [#413](https://github.com/ngrok-oss/mantle/pull/413) [`d42bb6f`](https://github.com/ngrok-oss/mantle/commit/d42bb6f7843060a84a363e5162b7d1cbedd59946) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - SelectItem: improve styling to fix hover bg color on selected items in docs use case
+
 ## 0.19.8
 
 ### Patch Changes
