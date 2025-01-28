@@ -99,7 +99,7 @@ const CodeBlock = forwardRef<HTMLDivElement, ComponentProps<"div">>(({ className
 		<CodeBlockContext.Provider value={context}>
 			<div
 				className={cx(
-					"overflow-hidden rounded-md border border-gray-300 bg-gray-50 font-mono text-[0.8125rem]",
+					"text-mono overflow-hidden rounded-md border border-gray-300 bg-gray-50 font-mono",
 					"[&_svg]:shrink-0",
 					className,
 				)}
@@ -184,6 +184,7 @@ const CodeBlockCode = forwardRef<HTMLPreElement, CodeBlockCodeProps>(
 				aria-expanded={hasCodeExpander ? isCodeExpanded : undefined}
 				className={cx(
 					"scrollbar firefox:after:mr-[3.375rem] firefox:after:inline-block firefox:after:content-[''] overflow-x-auto overflow-y-hidden p-4 pr-[3.375rem]",
+					"text-size-inherit text-mono m-0 font-mono",
 					"aria-collapsed:max-h-[13.6rem]",
 					formatLanguageClassName(language), // place it last because prism does weird stuff client side, causes hydration mismatches
 					className,
@@ -202,6 +203,7 @@ const CodeBlockCode = forwardRef<HTMLPreElement, CodeBlockCodeProps>(
 				{...props}
 			>
 				<code
+					className="text-size-inherit"
 					// we need to suppress the hydration warning because we are setting the innerHTML of the code block
 					// and using Prism.js to "highlight" the code in a useEffect (client-side only), which does different things on the client and server
 					suppressHydrationWarning
@@ -225,7 +227,7 @@ CodeBlockHeader.displayName = "CodeBlockHeader";
 const CodeBlockTitle = forwardRef<HTMLHeadingElement, HTMLAttributes<HTMLHeadingElement> & { asChild?: boolean }>(
 	({ asChild = false, className, ...props }, ref) => {
 		const Comp = asChild ? Slot : "h3";
-		return <Comp ref={ref} className={cx("m-0 font-mono text-[0.8125rem] font-normal", className)} {...props} />;
+		return <Comp ref={ref} className={cx("text-mono m-0 font-mono font-normal", className)} {...props} />;
 	},
 );
 CodeBlockTitle.displayName = "CodeBlockTitle";
