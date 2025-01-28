@@ -8,7 +8,7 @@ import type { Rel, Target } from "./types.js";
 /**
  * The class names for the `Anchor` component which define the styles for the component.
  */
-const anchorClassNames = (className: string | undefined) =>
+const anchorClassNames = (className?: string) =>
 	cx(
 		"cursor-pointer rounded bg-transparent text-accent-600 hover:underline focus:outline-none focus-visible:ring focus-visible:ring-focus-accent",
 		className,
