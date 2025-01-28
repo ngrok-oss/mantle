@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.19.11
+
+### Patch Changes
+
+- [#417](https://github.com/ngrok-oss/mantle/pull/417) [`298b175`](https://github.com/ngrok-oss/mantle/commit/298b1753231f89c8102d469d5d79b6492364a9d8) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - CodeBlock: adjust styles, add defensive css (for docs)
+
 ## 0.19.10
 
 ### Patch Changes
