@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.19.12
+
+### Patch Changes
+
+- [#419](https://github.com/ngrok-oss/mantle/pull/419) [`d78b2ce`](https://github.com/ngrok-oss/mantle/commit/d78b2ceb6bea4beca93358d7732117d7e97fb1bb) Thanks [@melanieseltzer](https://github.com/melanieseltzer)! - Make the `className` arg on `anchorClassNames` optional
+
 ## 0.19.11
 
 ### Patch Changes
