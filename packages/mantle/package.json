@@ -297,6 +297,7 @@
     },
     "./types": {
       "@ngrok/mantle/source": "./src/types/index.ts",
+      "import": "./dist/types.js",
       "types": "./dist/types.d.ts"
     }
   }
