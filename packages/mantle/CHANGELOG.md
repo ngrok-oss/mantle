@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.19.13
+
+### Patch Changes
+
+- [#422](https://github.com/ngrok-oss/mantle/pull/422) [`e87acd6`](https://github.com/ngrok-oss/mantle/commit/e87acd639bf7c5ad0826b0014733491400daa71f) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - types: export parseBooleanish
+
 ## 0.19.12
 
 ### Patch Changes
