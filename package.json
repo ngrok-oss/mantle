@@ -2,7 +2,7 @@
   "private": true,
   "name": "mantle",
   "license": "MIT",
-  "packageManager": "pnpm@10.2.0",
+  "packageManager": "pnpm@10.2.1",
   "type": "module",
   "engines": {
     "node": "^22.0.0"
@@ -36,7 +36,7 @@
   "pnpm": {
     "overrides": {
       "cookie": ">=1.0.2",
-      "esbuild": ">=0.24.2"
+      "esbuild": ">=0.25.0"
     }
   }
 }
