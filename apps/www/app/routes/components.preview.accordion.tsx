@@ -9,7 +9,13 @@ import {
 import { Badge } from "@ngrok/mantle/badge";
 import { Button } from "@ngrok/mantle/button";
 import { Card, CardBody } from "@ngrok/mantle/card";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
+import {
+	CodeBlock,
+	CodeBlockBody,
+	CodeBlockCode,
+	CodeBlockCopyButton,
+	fmtCode,
+} from "@ngrok/mantle/code-block";
 import { Separator } from "@ngrok/mantle/separator";
 import { Plus } from "@phosphor-icons/react/Plus";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
@@ -30,7 +36,10 @@ import { PageHeader } from "~/components/page-header";
 export const meta: MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — Accordion" },
-		{ name: "description", content: "mantle is ngrok's UI library and design system" },
+		{
+			name: "description",
+			content: "mantle is ngrok's UI library and design system",
+		},
 	];
 };
 
@@ -48,17 +57,30 @@ export default function Page() {
 					Accordion
 				</PageHeader>
 				<p className="font-body text-body text-xl">
-					A vertically stacked set of interactive headings that each reveal an associated section of content.
+					A vertically stacked set of interactive headings that each reveal an
+					associated section of content.
 				</p>
 				<div>
 					<Example className="flex-col gap-6">
-						<Accordion type="multiple" defaultValue={["on_tcp_connect", "on_http_response"]}>
+						<Accordion
+							type="multiple"
+							defaultValue={["on_tcp_connect", "on_http_response"]}
+						>
 							<AccordionItem value="on_tcp_connect">
-								<AccordionHeading className="mx-4 flex items-center gap-2" asChild>
+								<AccordionHeading
+									className="mx-4 flex items-center gap-2"
+									asChild
+								>
 									<h2>
 										<AccordionTrigger>
-											<span className="font-mono text-sm font-medium">on_tcp_connect</span>
-											<Badge appearance="muted" color="neutral" className="rounded-full">
+											<span className="font-mono text-sm font-medium">
+												on_tcp_connect
+											</span>
+											<Badge
+												appearance="muted"
+												color="neutral"
+												className="rounded-full"
+											>
 												3
 											</Badge>
 											<AccordionTriggerIcon />
@@ -71,16 +93,27 @@ export default function Page() {
 								</AccordionHeading>
 								<AccordionContent>
 									<Card>
-										<CardBody>Proident irure consequat Lorem incididunt ullamco.</CardBody>
+										<CardBody>
+											Proident irure consequat Lorem incididunt ullamco.
+										</CardBody>
 									</Card>
 								</AccordionContent>
 							</AccordionItem>
 							<AccordionItem value="on_http_request">
-								<AccordionHeading className="mx-4 flex items-center gap-2" asChild>
+								<AccordionHeading
+									className="mx-4 flex items-center gap-2"
+									asChild
+								>
 									<h2>
 										<AccordionTrigger>
-											<span className="font-mono text-sm font-medium">on_http_request</span>
-											<Badge appearance="muted" color="neutral" className="rounded-full">
+											<span className="font-mono text-sm font-medium">
+												on_http_request
+											</span>
+											<Badge
+												appearance="muted"
+												color="neutral"
+												className="rounded-full"
+											>
 												2
 											</Badge>
 											<AccordionTriggerIcon />
@@ -93,16 +126,27 @@ export default function Page() {
 								</AccordionHeading>
 								<AccordionContent>
 									<Card>
-										<CardBody>Excepteur amet laboris occaecat anim minim reprehenderit.</CardBody>
+										<CardBody>
+											Excepteur amet laboris occaecat anim minim reprehenderit.
+										</CardBody>
 									</Card>
 								</AccordionContent>
 							</AccordionItem>
 							<AccordionItem value="on_http_response">
-								<AccordionHeading className="mx-4 flex items-center gap-2" asChild>
+								<AccordionHeading
+									className="mx-4 flex items-center gap-2"
+									asChild
+								>
 									<h2>
 										<AccordionTrigger>
-											<span className="font-mono text-sm font-medium">on_http_response</span>
-											<Badge appearance="muted" color="neutral" className="rounded-full">
+											<span className="font-mono text-sm font-medium">
+												on_http_response
+											</span>
+											<Badge
+												appearance="muted"
+												color="neutral"
+												className="rounded-full"
+											>
 												0
 											</Badge>
 											<AccordionTriggerIcon />
@@ -114,7 +158,9 @@ export default function Page() {
 									</h2>
 								</AccordionHeading>
 								<AccordionContent>
-									<p className="text-center">This phase does not have any rules defined</p>
+									<p className="text-center">
+										This phase does not have any rules defined
+									</p>
 								</AccordionContent>
 							</AccordionItem>
 						</Accordion>

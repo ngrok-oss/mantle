@@ -1,6 +1,6 @@
 import * as fs from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 /**
  * Walk all of the workspace directories and `rm -rf` the top-level
@@ -19,14 +19,18 @@ async function cleanNodeModules() {
 		}),
 	);
 
-	// Flatten the array of arrays of node_modules directories
-	const allNodeModulePaths = nodeModulesByWorkspace.flat();
+	const allNodeModulePaths = ["node_modules"]
+		.concat(nodeModulesByWorkspace.flat())
+		.sort();
 
 	// Remove each node_modules directory
 	await Promise.all(
 		allNodeModulePaths.map(async (nodeModulePath) => {
 			try {
-				await fs.rm(nodeModulePath, { recursive: true, force: true });
+				await fs.rm(relativePath(nodeModulePath), {
+					recursive: true,
+					force: true,
+				});
 				console.log(`Removed ${nodeModulePath}`);
 			} catch (error) {
 				console.error(`Error removing ${nodeModulePath}:`, error);

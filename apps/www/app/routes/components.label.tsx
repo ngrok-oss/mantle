@@ -1,4 +1,10 @@
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
+import {
+	CodeBlock,
+	CodeBlockBody,
+	CodeBlockCode,
+	CodeBlockCopyButton,
+	fmtCode,
+} from "@ngrok/mantle/code-block";
 import { Input } from "@ngrok/mantle/input";
 import { Label } from "@ngrok/mantle/label";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
@@ -8,7 +14,10 @@ import { PageHeader } from "~/components/page-header";
 export const meta: MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — Label" },
-		{ name: "description", content: "mantle is ngrok's UI library and design system" },
+		{
+			name: "description",
+			content: "mantle is ngrok's UI library and design system",
+		},
 	];
 };
 
@@ -23,7 +32,9 @@ export default function Page() {
 		<div className="space-y-16">
 			<section className="space-y-4">
 				<PageHeader id="label">Label</PageHeader>
-				<p className="font-body text-body text-xl">Renders an accessible label associated with controls.</p>
+				<p className="font-body text-body text-xl">
+					Renders an accessible label associated with controls.
+				</p>
 				<div>
 					<Example className="grid gap-6">
 						<Label htmlFor="name">
@@ -34,7 +45,15 @@ export default function Page() {
 							<Input type="text" id="name-2" />
 						</div>
 						<Label htmlFor="name-disabled">
-							Name <Input type="text" id="name" disabled readOnly validation="error" value="foo" />
+							Name{" "}
+							<Input
+								type="text"
+								id="name"
+								disabled
+								readOnly
+								validation="error"
+								value="foo"
+							/>
 						</Label>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">

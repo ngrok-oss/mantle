@@ -1,10 +1,17 @@
 import { Anchor } from "@ngrok/mantle/anchor";
 import { Button } from "@ngrok/mantle/button";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
+import {
+	CodeBlock,
+	CodeBlockBody,
+	CodeBlockCode,
+	CodeBlockCopyButton,
+	fmtCode,
+} from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { PasswordInput } from "@ngrok/mantle/input";
 import { Label } from "@ngrok/mantle/label";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
+import { useState } from "react";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import {
@@ -14,16 +21,18 @@ import {
 	PropDescriptionCell,
 	PropNameCell,
 	PropRow,
-	PropsTable,
 	PropTypeCell,
+	PropsTable,
 	StringPropType,
 } from "~/components/props-table";
-import { useState } from "react";
 
 export const meta: MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — PasswordInput" },
-		{ name: "description", content: "mantle is ngrok's UI library and design system" },
+		{
+			name: "description",
+			content: "mantle is ngrok's UI library and design system",
+		},
 	];
 };
 
@@ -38,7 +47,10 @@ const ControlledVisibility = () => {
 
 	return (
 		<div className="flex flex-wrap items-center gap-2">
-			<PasswordInput showValue={showPassword} onValueVisibilityChange={setShowPassword} />
+			<PasswordInput
+				showValue={showPassword}
+				onValueVisibilityChange={setShowPassword}
+			/>
 			<Button
 				type="button"
 				onClick={() => {
@@ -56,7 +68,9 @@ export default function Page() {
 		<div className="space-y-16">
 			<section className="space-y-4">
 				<PageHeader id="password-input">Password Input</PageHeader>
-				<p className="font-body text-body text-xl">Fundamental component for password inputs.</p>
+				<p className="font-body text-body text-xl">
+					Fundamental component for password inputs.
+				</p>
 				<div>
 					<Example className="flex-col gap-4">
 						<Label className="block w-full max-w-64 space-y-1">
@@ -94,7 +108,8 @@ export default function Page() {
 					API Reference
 				</h2>
 				<p className="font-body text-body text-xl">
-					The <InlineCode>PasswordInput</InlineCode> accepts the following props in addition to the{" "}
+					The <InlineCode>PasswordInput</InlineCode> accepts the following props
+					in addition to the{" "}
 					<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input">
 						standard HTML input attributes
 					</Anchor>
@@ -108,7 +123,9 @@ export default function Page() {
 						</PropTypeCell>
 						<PropDefaultValueCell />
 						<PropDescriptionCell>
-							<p>Callback for when the visibility of the password value changes.</p>
+							<p>
+								Callback for when the visibility of the password value changes.
+							</p>
 						</PropDescriptionCell>
 					</PropRow>
 					<PropRow>
@@ -140,22 +157,27 @@ export default function Page() {
 									<BooleanPropType value={false} />
 								</li>
 								<li>
-									<FuncPropType value={`() => "error" | "success" | "warning" | false`} />
+									<FuncPropType
+										value={`() => "error" | "success" | "warning" | false`}
+									/>
 								</li>
 							</ul>
 						</PropTypeCell>
 						<PropDefaultValueCell />
 						<PropDescriptionCell className="space-y-2">
 							<p>
-								Use the <InlineCode>validation</InlineCode> prop to show if the input has a specific validation status.
-								This will change the border and outline of the input.
+								Use the <InlineCode>validation</InlineCode> prop to show if the
+								input has a specific validation status. This will change the
+								border and outline of the input.
 							</p>
 							<p>
-								The <InlineCode>false</InlineCode> type is useful when using short-circuiting logic so that you don't
-								need to use a ternary with <InlineCode>undefined</InlineCode>.
+								The <InlineCode>false</InlineCode> type is useful when using
+								short-circuiting logic so that you don't need to use a ternary
+								with <InlineCode>undefined</InlineCode>.
 							</p>
 							<p>
-								Setting <InlineCode>validation</InlineCode> to <InlineCode>error</InlineCode> also sets{" "}
+								Setting <InlineCode>validation</InlineCode> to{" "}
+								<InlineCode>error</InlineCode> also sets{" "}
 								<InlineCode>aria-invalid</InlineCode>.
 							</p>
 						</PropDescriptionCell>

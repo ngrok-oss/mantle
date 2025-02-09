@@ -27,10 +27,14 @@ describe("resolveLineNumbers", () => {
 	});
 
 	test("given a list of numbers and a range of numbers, returns a set of those numbers", () => {
-		expect(resolveLineNumbers(1, 2, 3, "4-6")).toEqual(new Set([1, 2, 3, 4, 5, 6]));
+		expect(resolveLineNumbers(1, 2, 3, "4-6")).toEqual(
+			new Set([1, 2, 3, 4, 5, 6]),
+		);
 	});
 
 	test("given a list of numbers and a range of numbers with overlap, returns a set of unique numbers", () => {
-		expect(resolveLineNumbers(1, 2, 3, "2-4", "1-6", "2-6.5", 6, 5, 6, 2)).toEqual(new Set([1, 2, 3, 4, 5, 6]));
+		expect(
+			resolveLineNumbers(1, 2, 3, "2-4", "1-6", "2-6.5", 6, 5, 6, 2),
+		).toEqual(new Set([1, 2, 3, 4, 5, 6]));
 	});
 });

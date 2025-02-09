@@ -1,5 +1,9 @@
 import { describe, expect, test } from "vitest";
-import { formatRoutePathFromSegments, formatRoutePatternFromSegments, parseSegmentsFromFilename } from "./script";
+import {
+	formatRoutePathFromSegments,
+	formatRoutePatternFromSegments,
+	parseSegmentsFromFilename,
+} from "./script";
 
 describe("parseSegmentsFromFilename", () => {
 	test("given an empty string, returns []", () => {
@@ -31,7 +35,11 @@ describe("parseSegmentsFromFilename", () => {
 	});
 
 	test('(real world example) given the dashboard path "cloud-edge.edges.$edgeId.backends.$backendId.start-a-tunnel", returns ["cloud-edge", "edges", "$edgeId", "backends", "$backendId", "start-a-tunnel"]', () => {
-		expect(parseSegmentsFromFilename("cloud-edge.edges.$edgeId.backends.$backendId.start-a-tunnel")).toEqual([
+		expect(
+			parseSegmentsFromFilename(
+				"cloud-edge.edges.$edgeId.backends.$backendId.start-a-tunnel",
+			),
+		).toEqual([
 			"cloud-edge",
 			"edges",
 			"$edgeId",
@@ -42,7 +50,10 @@ describe("parseSegmentsFromFilename", () => {
 	});
 
 	test('(real world example) given the dashboard path "_auth.unsubscribe.$token", returns ["unsubscribe", "$token"]', () => {
-		expect(parseSegmentsFromFilename("_auth.unsubscribe.$token")).toEqual(["unsubscribe", "$token"]);
+		expect(parseSegmentsFromFilename("_auth.unsubscribe.$token")).toEqual([
+			"unsubscribe",
+			"$token",
+		]);
 	});
 });
 
@@ -64,17 +75,28 @@ describe("formatRoutePatternFromSegments", () => {
 	});
 
 	test('given ["foo", "$bar"], returns "/foo/:bar"', () => {
-		expect(formatRoutePatternFromSegments(["foo", "$bar"])).toEqual("/foo/:bar");
+		expect(formatRoutePatternFromSegments(["foo", "$bar"])).toEqual(
+			"/foo/:bar",
+		);
 	});
 
 	test('(real world example) given ["cloud-edge", "edges", "$edgeId", "backends", "$backendId", "start-a-tunnel"], returns "/cloud-edge/edges/:edgeId/backends/:backendId/start-a-tunnel"', () => {
 		expect(
-			formatRoutePatternFromSegments(["cloud-edge", "edges", "$edgeId", "backends", "$backendId", "start-a-tunnel"]),
+			formatRoutePatternFromSegments([
+				"cloud-edge",
+				"edges",
+				"$edgeId",
+				"backends",
+				"$backendId",
+				"start-a-tunnel",
+			]),
 		).toEqual("/cloud-edge/edges/:edgeId/backends/:backendId/start-a-tunnel");
 	});
 
 	test('(real world example) given ["unsubscribe", "$token"], returns "/unsubscribe/:token"', () => {
-		expect(formatRoutePatternFromSegments(["unsubscribe", "$token"])).toEqual("/unsubscribe/:token");
+		expect(formatRoutePatternFromSegments(["unsubscribe", "$token"])).toEqual(
+			"/unsubscribe/:token",
+		);
 	});
 });
 
@@ -101,11 +123,20 @@ describe("formatRoutePathFromSegments", () => {
 
 	test('(real world example) given ["cloud-edge", "edges", "$edgeId", "backends", "$backendId", "start-a-tunnel"], returns "/cloud-edge/edges/{edgeId}/backends/{backendId}/start-a-tunnel"', () => {
 		expect(
-			formatRoutePathFromSegments(["cloud-edge", "edges", "$edgeId", "backends", "$backendId", "start-a-tunnel"]),
+			formatRoutePathFromSegments([
+				"cloud-edge",
+				"edges",
+				"$edgeId",
+				"backends",
+				"$backendId",
+				"start-a-tunnel",
+			]),
 		).toEqual("/cloud-edge/edges/{edgeId}/backends/{backendId}/start-a-tunnel");
 	});
 
 	test('(real world example) given ["unsubscribe", "$token"], returns "/unsubscribe/{token}"', () => {
-		expect(formatRoutePathFromSegments(["unsubscribe", "$token"])).toEqual("/unsubscribe/{token}");
+		expect(formatRoutePathFromSegments(["unsubscribe", "$token"])).toEqual(
+			"/unsubscribe/{token}",
+		);
 	});
 });

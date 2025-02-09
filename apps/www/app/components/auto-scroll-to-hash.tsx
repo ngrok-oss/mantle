@@ -1,4 +1,7 @@
-import { useIsomorphicLayoutEffect, usePrefersReducedMotion } from "@ngrok/mantle/hooks";
+import {
+	useIsomorphicLayoutEffect,
+	usePrefersReducedMotion,
+} from "@ngrok/mantle/hooks";
 import { useLocation } from "@remix-run/react";
 import { useMemo } from "react";
 
@@ -41,5 +44,8 @@ type ScrollBehavior = "auto" | "smooth";
 function useScrollBehavior(): ScrollBehavior {
 	const prefersReducedMotion = usePrefersReducedMotion();
 
-	return useMemo(() => (prefersReducedMotion ? "auto" : "smooth"), [prefersReducedMotion]);
+	return useMemo(
+		() => (prefersReducedMotion ? "auto" : "smooth"),
+		[prefersReducedMotion],
+	);
 }

@@ -1,4 +1,7 @@
-import { Root as SwitchPrimitiveRoot, Thumb as SwitchPrimitiveThumb } from "@radix-ui/react-switch";
+import {
+	Root as SwitchPrimitiveRoot,
+	Thumb as SwitchPrimitiveThumb,
+} from "@radix-ui/react-switch";
 import clsx from "clsx";
 import { forwardRef } from "react";
 import type { ComponentPropsWithoutRef, ElementRef } from "react";
@@ -14,7 +17,16 @@ type SwitchProps = ComponentPropsWithoutRef<typeof SwitchPrimitiveRoot> & {
 };
 
 const Switch = forwardRef<ElementRef<typeof SwitchPrimitiveRoot>, SwitchProps>(
-	({ "aria-readonly": _ariaReadOnly, className, readOnly: _readOnly, onChange, ...props }, ref) => {
+	(
+		{
+			"aria-readonly": _ariaReadOnly,
+			className,
+			readOnly: _readOnly,
+			onChange,
+			...props
+		},
+		ref,
+	) => {
 		const readOnly = parseBooleanish(_readOnly ?? _ariaReadOnly);
 
 		return (

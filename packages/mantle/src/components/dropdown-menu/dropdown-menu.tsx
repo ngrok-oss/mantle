@@ -63,40 +63,43 @@ const DropdownMenuSubContent = forwardRef<
 ));
 DropdownMenuSubContent.displayName = "DropdownMenuSubContent";
 
-type DropdownMenuContentProps = ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Content> & {
+type DropdownMenuContentProps = ComponentPropsWithoutRef<
+	typeof DropdownMenuPrimitive.Content
+> & {
 	/**
 	 * Whether the DropdownMenuContent should match the width of the trigger or use the intrinsic content width.
 	 */
 	width?: "trigger" | "content";
 };
 
-const DropdownMenuContent = forwardRef<ElementRef<typeof DropdownMenuPrimitive.Content>, DropdownMenuContentProps>(
-	({ className, onClick, loop = true, width, ...props }, ref) => (
-		<DropdownMenuPortal>
-			<DropdownMenuPrimitive.Content
-				ref={ref}
-				className={cx(
-					"scrollbar",
-					"text-popover-foreground border-popover bg-popover p-1.25 z-50 min-w-[8rem] overflow-hidden rounded-md border shadow-xl outline-none",
-					"data-side-bottom:slide-in-from-top-2 data-side-left:slide-in-from-right-2 data-side-right:slide-in-from-left-2 data-side-top:slide-in-from-bottom-2 data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 data-state-open:animate-in data-state-open:fade-in-0 data-state-open:zoom-in-95",
-					"my-2 max-h-[calc(var(--radix-dropdown-menu-content-available-height)_-_16px)] overflow-auto",
-					width === "trigger" && "w-[var(--radix-dropdown-menu-trigger-width)]",
-					className,
-				)}
-				loop={loop}
-				onClick={(event) => {
-					/**
-					 * Prevent the click event from propagating up to parent/containing elements
-					 * of the DropdownMenu
-					 */
-					event.stopPropagation();
-					onClick?.(event);
-				}}
-				{...props}
-			/>
-		</DropdownMenuPortal>
-	),
-);
+const DropdownMenuContent = forwardRef<
+	ElementRef<typeof DropdownMenuPrimitive.Content>,
+	DropdownMenuContentProps
+>(({ className, onClick, loop = true, width, ...props }, ref) => (
+	<DropdownMenuPortal>
+		<DropdownMenuPrimitive.Content
+			ref={ref}
+			className={cx(
+				"scrollbar",
+				"text-popover-foreground border-popover bg-popover p-1.25 z-50 min-w-[8rem] overflow-hidden rounded-md border shadow-xl outline-none",
+				"data-side-bottom:slide-in-from-top-2 data-side-left:slide-in-from-right-2 data-side-right:slide-in-from-left-2 data-side-top:slide-in-from-bottom-2 data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 data-state-open:animate-in data-state-open:fade-in-0 data-state-open:zoom-in-95",
+				"my-2 max-h-[calc(var(--radix-dropdown-menu-content-available-height)_-_16px)] overflow-auto",
+				width === "trigger" && "w-[var(--radix-dropdown-menu-trigger-width)]",
+				className,
+			)}
+			loop={loop}
+			onClick={(event) => {
+				/**
+				 * Prevent the click event from propagating up to parent/containing elements
+				 * of the DropdownMenu
+				 */
+				event.stopPropagation();
+				onClick?.(event);
+			}}
+			{...props}
+		/>
+	</DropdownMenuPortal>
+));
 DropdownMenuContent.displayName = "DropdownMenuContent";
 
 const DropdownMenuItem = forwardRef<
@@ -144,33 +147,36 @@ const DropdownMenuCheckboxItem = forwardRef<
 ));
 DropdownMenuCheckboxItem.displayName = "DropdownMenuCheckboxItem";
 
-type DropdownMenuRadioItemProps = ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.RadioItem> & {
+type DropdownMenuRadioItemProps = ComponentPropsWithoutRef<
+	typeof DropdownMenuPrimitive.RadioItem
+> & {
 	name?: string;
 	id?: string;
 };
 
-const DropdownMenuRadioItem = forwardRef<ElementRef<"input">, DropdownMenuRadioItemProps>(
-	({ className, children, ...props }, ref) => (
-		<DropdownMenuPrimitive.RadioItem
-			className={cx(
-				"text-strong data-disabled:pointer-events-none data-disabled:opacity-50 relative flex cursor-pointer select-none items-center gap-2 rounded py-1.5 pl-2 pr-9 text-sm font-normal outline-none",
-				"data-highlighted:bg-popover-hover data-highlighted:dark:bg-popover-hover",
-				"aria-checked:!bg-filled-accent aria-checked:text-on-filled aria-checked:font-medium",
-				"[&>svg]:size-5 [&_svg]:shrink-0",
-				className,
-			)}
-			ref={ref}
-			{...props}
-		>
-			<span className="absolute right-2 flex items-center">
-				<DropdownMenuPrimitive.ItemIndicator>
-					<Check className="size-4 shrink-0" weight="bold" />
-				</DropdownMenuPrimitive.ItemIndicator>
-			</span>
-			{children}
-		</DropdownMenuPrimitive.RadioItem>
-	),
-);
+const DropdownMenuRadioItem = forwardRef<
+	ElementRef<"input">,
+	DropdownMenuRadioItemProps
+>(({ className, children, ...props }, ref) => (
+	<DropdownMenuPrimitive.RadioItem
+		className={cx(
+			"text-strong data-disabled:pointer-events-none data-disabled:opacity-50 relative flex cursor-pointer select-none items-center gap-2 rounded py-1.5 pl-2 pr-9 text-sm font-normal outline-none",
+			"data-highlighted:bg-popover-hover data-highlighted:dark:bg-popover-hover",
+			"aria-checked:!bg-filled-accent aria-checked:text-on-filled aria-checked:font-medium",
+			"[&>svg]:size-5 [&_svg]:shrink-0",
+			className,
+		)}
+		ref={ref}
+		{...props}
+	>
+		<span className="absolute right-2 flex items-center">
+			<DropdownMenuPrimitive.ItemIndicator>
+				<Check className="size-4 shrink-0" weight="bold" />
+			</DropdownMenuPrimitive.ItemIndicator>
+		</span>
+		{children}
+	</DropdownMenuPrimitive.RadioItem>
+));
 DropdownMenuRadioItem.displayName = "DropdownMenuRadioItem";
 
 const DropdownMenuLabel = forwardRef<
@@ -181,21 +187,38 @@ const DropdownMenuLabel = forwardRef<
 >(({ className, inset, ...props }, ref) => (
 	<DropdownMenuPrimitive.Label
 		ref={ref}
-		className={cx("px-2 py-1.5 text-sm font-semibold", inset && "pl-8", className)}
+		className={cx(
+			"px-2 py-1.5 text-sm font-semibold",
+			inset && "pl-8",
+			className,
+		)}
 		{...props}
 	/>
 ));
 DropdownMenuLabel.displayName = "DropdownMenuLabel";
 
-const DropdownMenuSeparator = forwardRef<ElementRef<typeof Separator>, ComponentPropsWithoutRef<typeof Separator>>(
-	({ className, ...props }, ref) => (
-		<Separator ref={ref} className={cx("-mx-1.25 my-1 w-auto", className)} {...props} />
-	),
-);
+const DropdownMenuSeparator = forwardRef<
+	ElementRef<typeof Separator>,
+	ComponentPropsWithoutRef<typeof Separator>
+>(({ className, ...props }, ref) => (
+	<Separator
+		ref={ref}
+		className={cx("-mx-1.25 my-1 w-auto", className)}
+		{...props}
+	/>
+));
 DropdownMenuSeparator.displayName = "DropdownMenuSeparator";
 
-const DropdownMenuShortcut = ({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>) => {
-	return <span className={cx("ml-auto text-xs tracking-widest opacity-60", className)} {...props} />;
+const DropdownMenuShortcut = ({
+	className,
+	...props
+}: React.HTMLAttributes<HTMLSpanElement>) => {
+	return (
+		<span
+			className={cx("ml-auto text-xs tracking-widest opacity-60", className)}
+			{...props}
+		/>
+	);
 };
 DropdownMenuShortcut.displayName = "DropdownMenuShortcut";
 

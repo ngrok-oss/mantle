@@ -18,7 +18,10 @@ type Options = {
  * Note: The debounced callback will always refer to the latest callback passed
  * even without memoization, so it's stable and safe to use in dependency arrays.
  */
-function useDebouncedCallback<T extends (...args: any[]) => any>(callbackFn: T, options: Options) {
+function useDebouncedCallback<T extends (...args: unknown[]) => unknown>(
+	callbackFn: T,
+	options: Options,
+) {
 	const stableCallbackFn = useCallbackRef(callbackFn);
 	const debounceTimerRef = useRef(0);
 	useEffect(() => () => window.clearTimeout(debounceTimerRef.current), []);
@@ -26,7 +29,10 @@ function useDebouncedCallback<T extends (...args: any[]) => any>(callbackFn: T, 
 	return useCallback(
 		(...args: Parameters<T>) => {
 			window.clearTimeout(debounceTimerRef.current);
-			debounceTimerRef.current = window.setTimeout(() => stableCallbackFn(...args), options.waitMs);
+			debounceTimerRef.current = window.setTimeout(
+				() => stableCallbackFn(...args),
+				options.waitMs,
+			);
 		},
 		[stableCallbackFn, options.waitMs],
 	);

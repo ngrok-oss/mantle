@@ -1,4 +1,10 @@
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
+import {
+	CodeBlock,
+	CodeBlockBody,
+	CodeBlockCode,
+	CodeBlockCopyButton,
+	fmtCode,
+} from "@ngrok/mantle/code-block";
 import {
 	RadioButton,
 	RadioButtonGroup,
@@ -17,7 +23,10 @@ import { PageHeader } from "~/components/page-header";
 export const meta: MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — Radio Group" },
-		{ name: "description", content: "mantle is ngrok's UI library and design system" },
+		{
+			name: "description",
+			content: "mantle is ngrok's UI library and design system",
+		},
 	];
 };
 
@@ -33,8 +42,8 @@ export default function Page() {
 			<section className="space-y-4">
 				<PageHeader id="radio-group">Radio Group</PageHeader>
 				<p className="font-body text-body text-xl">
-					A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a
-					time.
+					A set of checkable buttons—known as radio buttons—where no more than
+					one of the buttons can be checked at a time.
 				</p>
 				<div>
 					<Example className="mt-4 grid gap-6">
@@ -80,7 +89,9 @@ export default function Page() {
 									<label className="text-strong font-medium" htmlFor="rli1">
 										Default
 									</label>
-									<p className="text-body">Laborum esse cillum incididunt est dolore.</p>
+									<p className="text-body">
+										Laborum esse cillum incididunt est dolore.
+									</p>
 								</RadioItemContent>
 							</RadioListItem>
 							<RadioListItem value="comfortable" id="rli2">
@@ -89,7 +100,10 @@ export default function Page() {
 									<label className="text-strong font-medium" htmlFor="rli2">
 										Comfortable
 									</label>
-									<p className="text-body">Ea laboris tempor laborum officia ea adipisicing exercitation.</p>
+									<p className="text-body">
+										Ea laboris tempor laborum officia ea adipisicing
+										exercitation.
+									</p>
 								</RadioItemContent>
 							</RadioListItem>
 							<RadioListItem value="compact" id="rli3">
@@ -98,7 +112,9 @@ export default function Page() {
 									<label className="text-strong font-medium" htmlFor="rli3">
 										Compact
 									</label>
-									<p className="text-body">Adipisicing est dolore velit magna dolor voluptate velit.</p>
+									<p className="text-body">
+										Adipisicing est dolore velit magna dolor voluptate velit.
+									</p>
 								</RadioItemContent>
 							</RadioListItem>
 							<RadioListItem value="roomy" id="rli4">
@@ -107,7 +123,9 @@ export default function Page() {
 									<label className="text-strong font-medium" htmlFor="rli4">
 										Roomy
 									</label>
-									<p className="text-body">Tempor dolore Lorem exercitation id nisi aliquip elit.</p>
+									<p className="text-body">
+										Tempor dolore Lorem exercitation id nisi aliquip elit.
+									</p>
 								</RadioItemContent>
 							</RadioListItem>
 						</RadioGroupList>
@@ -120,8 +138,8 @@ export default function Page() {
 										Mixed
 									</label>
 									<p className="text-body">
-										Only new workspace members are required to use SSO. Existing members can still log in with other
-										methods.
+										Only new workspace members are required to use SSO. Existing
+										members can still log in with other methods.
 									</p>
 								</RadioItemContent>
 							</RadioListItem>
@@ -131,38 +149,58 @@ export default function Page() {
 									<label className="text-strong font-medium" htmlFor="rld2">
 										Strict
 									</label>
-									<p className="text-body">All workspace members are required to log in with SSO.</p>
+									<p className="text-body">
+										All workspace members are required to log in with SSO.
+									</p>
 								</RadioItemContent>
 							</RadioListItem>
 						</RadioGroupList>
 
-						<RadioGroup className="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4" defaultValue="existing">
+						<RadioGroup
+							className="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4"
+							defaultValue="existing"
+						>
 							<RadioCard className="flex" value="newsletter" id="radiocard-1">
 								<div className="flex-1">
-									<label htmlFor="radiocard-1" className="text-strong block text-sm font-medium">
+									<label
+										htmlFor="radiocard-1"
+										className="text-strong block text-sm font-medium"
+									>
 										Newsletter
 									</label>
-									<p className="mt-1 flex items-center text-sm text-gray-500">Last message sent an hour ago</p>
+									<p className="mt-1 flex items-center text-sm text-gray-500">
+										Last message sent an hour ago
+									</p>
 									<p className="mt-6 text-sm font-medium">621 users</p>
 								</div>
 								<RadioIndicator />
 							</RadioCard>
 							<RadioCard className="flex" value="existing" id="radiocard-2">
 								<div className="flex-1">
-									<label htmlFor="radiocard-2" className="text-strong block text-sm font-medium">
+									<label
+										htmlFor="radiocard-2"
+										className="text-strong block text-sm font-medium"
+									>
 										Existing Customers
 									</label>
-									<p className="mt-1 flex items-center text-sm text-gray-500">Last message sent 2 weeks ago</p>
+									<p className="mt-1 flex items-center text-sm text-gray-500">
+										Last message sent 2 weeks ago
+									</p>
 									<p className="mt-6 text-sm font-medium">1200 users</p>
 								</div>
 								<RadioIndicator />
 							</RadioCard>
 							<RadioCard className="flex" value="trial" id="radiocard-3">
 								<div className="flex-1">
-									<label htmlFor="radiocard-3" className="text-strong block text-sm font-medium">
+									<label
+										htmlFor="radiocard-3"
+										className="text-strong block text-sm font-medium"
+									>
 										Trial Users
 									</label>
-									<p className="mt-1 flex items-center text-sm text-gray-500">Last message sent 4 days ago</p>
+									<p className="mt-1 flex items-center text-sm text-gray-500">
+										Last message sent 4 days ago
+									</p>
 									<p className="mt-6 text-sm font-medium">2740 Users</p>
 								</div>
 								<RadioIndicator />

@@ -6,9 +6,14 @@ import type { WithValidation } from "../input/index.js";
 
 type CheckedState = boolean | "indeterminate";
 
-const isIndeterminate = (checked: CheckedState | undefined): checked is "indeterminate" => checked === "indeterminate";
+const isIndeterminate = (
+	checked: CheckedState | undefined,
+): checked is "indeterminate" => checked === "indeterminate";
 
-type Props = Omit<ComponentPropsWithoutRef<"input">, "type" | "checked" | "defaultChecked"> &
+type Props = Omit<
+	ComponentPropsWithoutRef<"input">,
+	"type" | "checked" | "defaultChecked"
+> &
 	WithValidation & {
 		/**
 		 * The controlled checked state of the checkbox. Must be used in conjunction with onChange.
@@ -41,7 +46,11 @@ const Checkbox = forwardRef<ElementRef<"input">, Props>(
 		const innerRef = useRef<ElementRef<"input">>(null);
 		const [defaultChecked] = useState(_defaultChecked);
 		const isInvalid = _ariaInvalid != null && _ariaInvalid !== "false";
-		const validation = isInvalid ? "error" : typeof _validation === "function" ? _validation() : _validation;
+		const validation = isInvalid
+			? "error"
+			: typeof _validation === "function"
+				? _validation()
+				: _validation;
 		const ariaInvalid = _ariaInvalid ?? validation === "error";
 
 		useEffect(() => {
@@ -74,7 +83,9 @@ const Checkbox = forwardRef<ElementRef<"input">, Props>(
 				)}
 				checked={isIndeterminate(_checked) ? undefined : _checked}
 				data-validation={validation || undefined}
-				defaultChecked={isIndeterminate(defaultChecked) ? undefined : defaultChecked}
+				defaultChecked={
+					isIndeterminate(defaultChecked) ? undefined : defaultChecked
+				}
 				defaultValue={defaultValue}
 				onClick={(event) => {
 					if (readOnly) {

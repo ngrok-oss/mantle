@@ -36,7 +36,13 @@ const isNamedColor = (value: unknown): value is NamedColor =>
 /**
  * Functional named colors
  */
-const functionalColors = ["accent", "danger", "neutral", "success", "warning"] as const;
+const functionalColors = [
+	"accent",
+	"danger",
+	"neutral",
+	"success",
+	"warning",
+] as const;
 
 /**
  * A functional color
@@ -47,7 +53,8 @@ type FunctionalColor = (typeof functionalColors)[number];
  * Check if a value is a color from the functional colors
  */
 const isFunctionalColor = (value: unknown): value is FunctionalColor =>
-	typeof value === "string" && functionalColors.includes(value as FunctionalColor);
+	typeof value === "string" &&
+	functionalColors.includes(value as FunctionalColor);
 
 /**
  * All named mantle colors
@@ -62,10 +69,18 @@ type Color = (typeof colors)[number];
 /**
  * Check if a value is a named mantle color
  */
-const isColor = (value: unknown): value is Color => typeof value === "string" && colors.includes(value as Color);
+const isColor = (value: unknown): value is Color =>
+	typeof value === "string" && colors.includes(value as Color);
 
 // MARK: - Exports
 
-export { colors, functionalColors, isColor, isFunctionalColor, isNamedColor, namedColors };
+export {
+	colors,
+	functionalColors,
+	isColor,
+	isFunctionalColor,
+	isNamedColor,
+	namedColors,
+};
 
 export type { Color, FunctionalColor, NamedColor };

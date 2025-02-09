@@ -19,8 +19,18 @@ export default function handleRequest(
 	remixContext: EntryContext,
 ) {
 	return isbot(request.headers.get("user-agent"))
-		? handleBotRequest(request, responseStatusCode, responseHeaders, remixContext)
-		: handleBrowserRequest(request, responseStatusCode, responseHeaders, remixContext);
+		? handleBotRequest(
+				request,
+				responseStatusCode,
+				responseHeaders,
+				remixContext,
+			)
+		: handleBrowserRequest(
+				request,
+				responseStatusCode,
+				responseHeaders,
+				remixContext,
+			);
 }
 
 function handleBotRequest(
@@ -30,29 +40,33 @@ function handleBotRequest(
 	remixContext: EntryContext,
 ) {
 	return new Promise((resolve, reject) => {
-		const { pipe, abort } = renderToPipeableStream(<RemixServer context={remixContext} url={request.url} />, {
-			onAllReady() {
-				const body = new PassThrough();
+		const { pipe, abort } = renderToPipeableStream(
+			<RemixServer context={remixContext} url={request.url} />,
+			{
+				onAllReady() {
+					const body = new PassThrough();
 
-				responseHeaders.set("Content-Type", "text/html");
+					responseHeaders.set("Content-Type", "text/html");
 
-				resolve(
-					new Response(createReadableStreamFromReadable(body), {
-						headers: responseHeaders,
-						status: responseStatusCode,
-					}),
-				);
+					resolve(
+						new Response(createReadableStreamFromReadable(body), {
+							headers: responseHeaders,
+							status: responseStatusCode,
+						}),
+					);
 
-				pipe(body);
+					pipe(body);
+				},
+				onShellError(error: unknown) {
+					reject(error);
+				},
+				onError(error: unknown) {
+					// biome-ignore lint/style/noParameterAssign: this is remix code
+					responseStatusCode = 500;
+					console.error(error);
+				},
 			},
-			onShellError(error: unknown) {
-				reject(error);
-			},
-			onError(error: unknown) {
-				responseStatusCode = 500;
-				console.error(error);
-			},
-		});
+		);
 
 		setTimeout(abort, reactRendererTimeout);
 	});
@@ -65,29 +79,33 @@ function handleBrowserRequest(
 	remixContext: EntryContext,
 ) {
 	return new Promise((resolve, reject) => {
-		const { pipe, abort } = renderToPipeableStream(<RemixServer context={remixContext} url={request.url} />, {
-			onShellReady() {
-				const body = new PassThrough();
+		const { pipe, abort } = renderToPipeableStream(
+			<RemixServer context={remixContext} url={request.url} />,
+			{
+				onShellReady() {
+					const body = new PassThrough();
 
-				responseHeaders.set("Content-Type", "text/html");
+					responseHeaders.set("Content-Type", "text/html");
 
-				resolve(
-					new Response(createReadableStreamFromReadable(body), {
-						headers: responseHeaders,
-						status: responseStatusCode,
-					}),
-				);
+					resolve(
+						new Response(createReadableStreamFromReadable(body), {
+							headers: responseHeaders,
+							status: responseStatusCode,
+						}),
+					);
 
-				pipe(body);
+					pipe(body);
+				},
+				onShellError(error: unknown) {
+					reject(error);
+				},
+				onError(error: unknown) {
+					console.error(error);
+					// biome-ignore lint/style/noParameterAssign: this is remix code
+					responseStatusCode = 500;
+				},
 			},
-			onShellError(error: unknown) {
-				reject(error);
-			},
-			onError(error: unknown) {
-				console.error(error);
-				responseStatusCode = 500;
-			},
-		});
+		);
 
 		setTimeout(abort, reactRendererTimeout);
 	});

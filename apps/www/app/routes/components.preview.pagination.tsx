@@ -1,9 +1,19 @@
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
-import { CursorButtons, CursorPageSizeSelect, CursorPagination } from "@ngrok/mantle/pagination";
+import {
+	CodeBlock,
+	CodeBlockBody,
+	CodeBlockCode,
+	CodeBlockCopyButton,
+	fmtCode,
+} from "@ngrok/mantle/code-block";
+import {
+	CursorButtons,
+	CursorPageSizeSelect,
+	CursorPagination,
+} from "@ngrok/mantle/pagination";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
+import { CursorPageSizeValue } from "node_modules/@ngrok/mantle/src/components/pagination/cursor-pagination";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
-import { CursorPageSizeValue } from "node_modules/@ngrok/mantle/src/components/pagination/cursor-pagination";
 
 // import {
 // 	BooleanPropType,
@@ -20,7 +30,10 @@ import { CursorPageSizeValue } from "node_modules/@ngrok/mantle/src/components/p
 export const meta: MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — Pagination" },
-		{ name: "description", content: "mantle is ngrok's UI library and design system" },
+		{
+			name: "description",
+			content: "mantle is ngrok's UI library and design system",
+		},
 	];
 };
 
@@ -37,7 +50,9 @@ export default function Page() {
 				<PageHeader id="pagination" isPreview>
 					Pagination
 				</PageHeader>
-				<p className="font-body text-body text-xl">A date field component that allows users to enter and edit date.</p>
+				<p className="font-body text-body text-xl">
+					A date field component that allows users to enter and edit date.
+				</p>
 				<div>
 					<Example className="flex flex-col gap-6">
 						<CursorPagination defaultPageSize={100}>

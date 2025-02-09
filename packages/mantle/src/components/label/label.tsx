@@ -7,7 +7,18 @@ type LabelProps = ComponentPropsWithoutRef<"label"> & {
 };
 
 const Label = forwardRef<ElementRef<"label">, LabelProps>(
-	({ "aria-disabled": _ariaDisabled, children, className, disabled, onMouseDown, ...props }, ref) => (
+	(
+		{
+			"aria-disabled": _ariaDisabled,
+			children,
+			className,
+			disabled,
+			onMouseDown,
+			...props
+		},
+		ref,
+	) => (
+		// biome-ignore lint/a11y/noLabelWithoutControl: this is a composable label component
 		<label
 			aria-disabled={disabled ?? _ariaDisabled}
 			className={cx(

@@ -1,5 +1,11 @@
 import { Anchor } from "@ngrok/mantle/anchor";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
+import {
+	CodeBlock,
+	CodeBlockBody,
+	CodeBlockCode,
+	CodeBlockCopyButton,
+	fmtCode,
+} from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
@@ -8,7 +14,10 @@ import { PageHeader } from "~/components/page-header";
 export const meta: MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — Unreleased Data Table" },
-		{ name: "description", content: "mantle is ngrok's UI library and design system" },
+		{
+			name: "description",
+			content: "mantle is ngrok's UI library and design system",
+		},
 	];
 };
 
@@ -26,9 +35,12 @@ export default function Page() {
 					Data Table
 				</PageHeader>
 				<p className="font-body text-body text-xl">
-					Tables purposefully designed for dynamic, application data with features like sorting, filtering, and
-					pagination. Powered by{" "}
-					<Anchor href="https://tanstack.com/table/latest/docs/introduction">TanStack Table</Anchor>.
+					Tables purposefully designed for dynamic, application data with
+					features like sorting, filtering, and pagination. Powered by{" "}
+					<Anchor href="https://tanstack.com/table/latest/docs/introduction">
+						TanStack Table
+					</Anchor>
+					.
 				</p>
 				<div>
 					<Example className="flex-col gap-6">
@@ -54,7 +66,8 @@ export default function Page() {
 					API Reference
 				</h2>
 				<p className="font-body text-body text-xl">
-					The <InlineCode>DataTable</InlineCode> accepts the following props in addition to...
+					The <InlineCode>DataTable</InlineCode> accepts the following props in
+					addition to...
 				</p>
 				{/* <PropsTable>
 					<PropRow>

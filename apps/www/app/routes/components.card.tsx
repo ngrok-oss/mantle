@@ -1,5 +1,17 @@
-import { Card, CardBody, CardFooter, CardHeader, CardTitle } from "@ngrok/mantle/card";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
+import {
+	Card,
+	CardBody,
+	CardFooter,
+	CardHeader,
+	CardTitle,
+} from "@ngrok/mantle/card";
+import {
+	CodeBlock,
+	CodeBlockBody,
+	CodeBlockCode,
+	CodeBlockCopyButton,
+	fmtCode,
+} from "@ngrok/mantle/code-block";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
@@ -7,7 +19,10 @@ import { PageHeader } from "~/components/page-header";
 export const meta: MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — Card" },
-		{ name: "description", content: "mantle is ngrok's UI library and design system" },
+		{
+			name: "description",
+			content: "mantle is ngrok's UI library and design system",
+		},
 	];
 };
 
@@ -22,7 +37,8 @@ export default function Page() {
 		<div className="space-y-4">
 			<PageHeader id="card">Card</PageHeader>
 			<p className="font-body text-body text-xl">
-				A container used to display content in a box, resembling a physical card.
+				A container used to display content in a box, resembling a physical
+				card.
 			</p>
 
 			<div>

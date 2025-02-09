@@ -1,6 +1,17 @@
-import { Alert, AlertContent, AlertDescription, AlertTitle } from "@ngrok/mantle/alert";
+import {
+	Alert,
+	AlertContent,
+	AlertDescription,
+	AlertTitle,
+} from "@ngrok/mantle/alert";
 import { Card, CardBody } from "@ngrok/mantle/card";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
+import {
+	CodeBlock,
+	CodeBlockBody,
+	CodeBlockCode,
+	CodeBlockCopyButton,
+	fmtCode,
+} from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { CheckCircle } from "@phosphor-icons/react/CheckCircle";
 import { Info } from "@phosphor-icons/react/Info";
@@ -15,15 +26,18 @@ import {
 	PropDescriptionCell,
 	PropNameCell,
 	PropRow,
-	PropsTable,
 	PropTypeCell,
+	PropsTable,
 	StringPropType,
 } from "~/components/props-table";
 
 export const meta: MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — Alert" },
-		{ name: "description", content: "mantle is ngrok's UI library and design system" },
+		{
+			name: "description",
+			content: "mantle is ngrok's UI library and design system",
+		},
 	];
 };
 
@@ -38,7 +52,9 @@ export default function Page() {
 		<div className="space-y-16">
 			<section className="space-y-4">
 				<PageHeader id="alert">Alert</PageHeader>
-				<p className="font-body text-body text-xl">Displays a callout for user attention.</p>
+				<p className="font-body text-body text-xl">
+					Displays a callout for user attention.
+				</p>
 				<div>
 					<Example className="flex-col gap-2">
 						<Alert>
@@ -132,8 +148,9 @@ export default function Page() {
 					Composition
 				</h2>
 				<p className="font-body text-body text-xl">
-					You can mix and match what you put inside the <InlineCode>Alert</InlineCode> component to create different
-					types of Alert layouts.
+					You can mix and match what you put inside the{" "}
+					<InlineCode>Alert</InlineCode> component to create different types of
+					Alert layouts.
 				</p>
 				<div>
 					<Example className="flex-col gap-4">
@@ -146,7 +163,8 @@ export default function Page() {
 								<AlertContent>
 									<AlertTitle>Danger Will Robinson</AlertTitle>
 									<AlertDescription>
-										Cupidatat ullamco commodo laborum consectetur ut mollit et nostrud amet elit ut Lorem culpa.
+										Cupidatat ullamco commodo laborum consectetur ut mollit et
+										nostrud amet elit ut Lorem culpa.
 									</AlertDescription>
 								</AlertContent>
 							</Alert>
@@ -159,14 +177,16 @@ export default function Page() {
 								<AlertContent>
 									<AlertTitle>Danger Will Robinson</AlertTitle>
 									<AlertDescription>
-										Cupidatat ullamco commodo laborum consectetur ut mollit et nostrud amet elit ut Lorem culpa.
+										Cupidatat ullamco commodo laborum consectetur ut mollit et
+										nostrud amet elit ut Lorem culpa.
 									</AlertDescription>
 								</AlertContent>
 							</Alert>
 						</div>
 						<div className="w-full max-w-screen-sm space-y-2">
 							<p>
-								Danger <InlineCode>Alert</InlineCode> with icon and no description
+								Danger <InlineCode>Alert</InlineCode> with icon and no
+								description
 							</p>
 							<Alert priority="danger">
 								<Warning className="size-5" />
@@ -177,7 +197,8 @@ export default function Page() {
 						</div>
 						<div className="w-full max-w-screen-sm space-y-2">
 							<p>
-								Danger <InlineCode>Alert</InlineCode> without icon or description
+								Danger <InlineCode>Alert</InlineCode> without icon or
+								description
 							</p>
 							<Alert priority="danger">
 								<AlertContent>
@@ -238,8 +259,8 @@ export default function Page() {
 					Banners
 				</h2>
 				<p className="font-body text-body text-xl">
-					For banner-like alerts, set <InlineCode>rounded-none</InlineCode> on the <InlineCode>Alert</InlineCode>{" "}
-					component.
+					For banner-like alerts, set <InlineCode>rounded-none</InlineCode> on
+					the <InlineCode>Alert</InlineCode> component.
 				</p>
 				<div>
 					<Example>
@@ -247,12 +268,16 @@ export default function Page() {
 							<Alert priority="info" className="rounded-none">
 								<Rocket className="size-5" />
 								<AlertContent>
-									<AlertTitle>This is an info Alert as a page banner</AlertTitle>
+									<AlertTitle>
+										This is an info Alert as a page banner
+									</AlertTitle>
 								</AlertContent>
 							</Alert>
 							<Card className="mx-auto max-w-screen-sm">
 								<CardBody>
-									<p className="my-4">Laboris commodo Lorem anim consequat ut dolore proident.</p>
+									<p className="my-4">
+										Laboris commodo Lorem anim consequat ut dolore proident.
+									</p>
 								</CardBody>
 							</Card>
 						</div>
@@ -310,8 +335,9 @@ export default function Page() {
 						</PropDefaultValueCell>
 						<PropDescriptionCell>
 							<p>
-								Indicates the importance or impact level of the <InlineCode>Alert</InlineCode>, affecting its color and
-								styling to communicate its purpose to the user.
+								Indicates the importance or impact level of the{" "}
+								<InlineCode>Alert</InlineCode>, affecting its color and styling
+								to communicate its purpose to the user.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>

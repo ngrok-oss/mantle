@@ -8,7 +8,10 @@ const ariaEnabledVariantPlugin = plugin((api: PluginAPI) => {
 	api.addVariant(
 		"aria-enabled",
 		// @ts-expect-error addVariant is not typed correctly
-		({ modifySelectors, separator }: { modifySelectors: unknown; separator: string }) => {
+		({
+			modifySelectors,
+			separator,
+		}: { modifySelectors: unknown; separator: string }) => {
 			// @ts-expect-error modifySelectors is not typed correctly
 			modifySelectors(({ className }: { className: string }) => {
 				return `:not([aria-disabled]).${api.e(`aria-enabled${separator}${className}`)}`;

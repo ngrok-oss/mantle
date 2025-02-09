@@ -29,8 +29,7 @@ jobs:
       - name: Lint, Fmt, and Type Check 🧹
         run: | # Run the lint, fmt and type check scripts; typecheck will run build as well
           pnpm run typecheck
-          pnpm run lint
-          pnpm run fmt:check
+          pnpm run fmt-lint
 
       - name: Test 🧪
         run: | # Run the tests

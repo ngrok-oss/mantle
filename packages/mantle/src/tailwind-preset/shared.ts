@@ -2,10 +2,12 @@
  * Filters out the "DEFAULT" key from the given object.
  */
 export function filterDefault(values: Record<string, string>) {
-	return Object.fromEntries(Object.entries(values).filter(([key]) => key !== "DEFAULT"));
+	return Object.fromEntries(
+		Object.entries(values).filter(([key]) => key !== "DEFAULT"),
+	);
 }
 
-// from tailwind type defs
+// biome-ignore lint/suspicious/noExplicitAny: from tailwind type defs
 type KeyValuePair<K extends keyof any = string, V = string> = Record<K, V>;
 
 type FlattenObjectOptions = {
@@ -16,7 +18,10 @@ type FlattenObjectOptions = {
 /**
  * Flattens an object to a single level deep object.
  */
-export function flattenObject(obj: KeyValuePair, options?: FlattenObjectOptions) {
+export function flattenObject(
+	obj: KeyValuePair,
+	options?: FlattenObjectOptions,
+) {
 	const result: KeyValuePair = {};
 	const { parentKey = "", separator = "-" } = options ?? {};
 

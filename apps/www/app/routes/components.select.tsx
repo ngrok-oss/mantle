@@ -1,5 +1,11 @@
 import { Anchor } from "@ngrok/mantle/anchor";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
+import {
+	CodeBlock,
+	CodeBlockBody,
+	CodeBlockCode,
+	CodeBlockCopyButton,
+	fmtCode,
+} from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Label } from "@ngrok/mantle/label";
 import {
@@ -13,6 +19,7 @@ import {
 	SelectValue,
 } from "@ngrok/mantle/select";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
+import { useState } from "react";
 import { Example } from "~/components/example";
 import { Link } from "~/components/link";
 import { PageHeader } from "~/components/page-header";
@@ -23,16 +30,18 @@ import {
 	PropDescriptionCell,
 	PropNameCell,
 	PropRow,
-	PropsTable,
 	PropTypeCell,
+	PropsTable,
 	StringPropType,
 } from "~/components/props-table";
-import { useState } from "react";
 
 export const meta: MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — Select" },
-		{ name: "description", content: "mantle is ngrok's UI library and design system" },
+		{
+			name: "description",
+			content: "mantle is ngrok's UI library and design system",
+		},
 	];
 };
 
@@ -50,7 +59,8 @@ export default function Page() {
 			<section className="space-y-4">
 				<PageHeader id="select">Select</PageHeader>
 				<p className="font-body text-body text-xl">
-					Displays a list of options for the user to pick from—triggered by a button.
+					Displays a list of options for the user to pick from—triggered by a
+					button.
 				</p>
 
 				<div>
@@ -79,7 +89,10 @@ export default function Page() {
 										<SelectItem value="tomato">Tomato</SelectItem>
 										<SelectItem value="zucchini">
 											<p>Zucchini</p>
-											<p>Ex sit voluptate incididunt pariatur velit consequat reprehenderit.</p>
+											<p>
+												Ex sit voluptate incididunt pariatur velit consequat
+												reprehenderit.
+											</p>
 										</SelectItem>
 									</SelectGroup>
 								</SelectContent>
@@ -107,7 +120,10 @@ export default function Page() {
 									<SelectItem value="tomato">Tomato</SelectItem>
 									<SelectItem value="zucchini">
 										<p>Zucchini</p>
-										<p>Ex sit voluptate incididunt pariatur velit consequat reprehenderit.</p>
+										<p>
+											Ex sit voluptate incididunt pariatur velit consequat
+											reprehenderit.
+										</p>
 									</SelectItem>
 								</SelectGroup>
 							</SelectContent>
@@ -135,7 +151,10 @@ export default function Page() {
 									<SelectItem value="tomato">Tomato</SelectItem>
 									<SelectItem value="zucchini">
 										<p>Zucchini</p>
-										<p>Ex sit voluptate incididunt pariatur velit consequat reprehenderit.</p>
+										<p>
+											Ex sit voluptate incididunt pariatur velit consequat
+											reprehenderit.
+										</p>
 									</SelectItem>
 								</SelectGroup>
 							</SelectContent>
@@ -162,7 +181,10 @@ export default function Page() {
 									<SelectItem value="tomato">Tomato</SelectItem>
 									<SelectItem value="zucchini">
 										<p>Zucchini</p>
-										<p>Ex sit voluptate incididunt pariatur velit consequat reprehenderit.</p>
+										<p>
+											Ex sit voluptate incididunt pariatur velit consequat
+											reprehenderit.
+										</p>
 									</SelectItem>
 								</SelectGroup>
 							</SelectContent>
@@ -234,8 +256,10 @@ export default function Page() {
 					<header className="space-y-1">
 						<h3 className="text-xl font-medium">Custom selected value</h3>
 						<p className="font-body text-body">
-							By default the selected item's text will be rendered when selected. Sometimes you may need to render
-							something different. You can control the select and pass <InlineCode>children</InlineCode> instead.
+							By default the selected item's text will be rendered when
+							selected. Sometimes you may need to render something different.
+							You can control the select and pass{" "}
+							<InlineCode>children</InlineCode> instead.
 						</p>
 					</header>
 					<div>
@@ -329,7 +353,8 @@ export default function Page() {
 							<PropDefaultValueCell />
 							<PropDescriptionCell>
 								<p>
-									Event handler called when the value changes. Use it instead of <InlineCode>onValueChange</InlineCode>.
+									Event handler called when the value changes. Use it instead of{" "}
+									<InlineCode>onValueChange</InlineCode>.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -350,22 +375,27 @@ export default function Page() {
 										<BooleanPropType value={false} />
 									</li>
 									<li>
-										<FuncPropType value={`() => "error" | "success" | "warning" | false`} />
+										<FuncPropType
+											value={`() => "error" | "success" | "warning" | false`}
+										/>
 									</li>
 								</ul>
 							</PropTypeCell>
 							<PropDefaultValueCell />
 							<PropDescriptionCell className="space-y-2">
 								<p>
-									Use the <InlineCode>validation</InlineCode> prop to show if the select trigger has a specific
-									validation status. This will change the border and outline of the select trigger.
+									Use the <InlineCode>validation</InlineCode> prop to show if
+									the select trigger has a specific validation status. This will
+									change the border and outline of the select trigger.
 								</p>
 								<p>
-									The <InlineCode>false</InlineCode> type is useful when using short-circuiting logic so that you don't
-									need to use a ternary with <InlineCode>undefined</InlineCode>.
+									The <InlineCode>false</InlineCode> type is useful when using
+									short-circuiting logic so that you don't need to use a ternary
+									with <InlineCode>undefined</InlineCode>.
 								</p>
 								<p>
-									Setting <InlineCode>validation</InlineCode> to <InlineCode>error</InlineCode> also sets{" "}
+									Setting <InlineCode>validation</InlineCode> to{" "}
+									<InlineCode>error</InlineCode> also sets{" "}
 									<InlineCode>aria-invalid</InlineCode>.
 								</p>
 							</PropDescriptionCell>
@@ -408,22 +438,27 @@ export default function Page() {
 										<BooleanPropType value={false} />
 									</li>
 									<li>
-										<FuncPropType value={`() => "error" | "success" | "warning" | false`} />
+										<FuncPropType
+											value={`() => "error" | "success" | "warning" | false`}
+										/>
 									</li>
 								</ul>
 							</PropTypeCell>
 							<PropDefaultValueCell />
 							<PropDescriptionCell className="space-y-2">
 								<p>
-									Use the <InlineCode>validation</InlineCode> prop to show if the select trigger has a specific
-									validation status. This will change the border and outline of the select trigger.
+									Use the <InlineCode>validation</InlineCode> prop to show if
+									the select trigger has a specific validation status. This will
+									change the border and outline of the select trigger.
 								</p>
 								<p>
-									The <InlineCode>false</InlineCode> type is useful when using short-circuiting logic so that you don't
-									need to use a ternary with <InlineCode>undefined</InlineCode>.
+									The <InlineCode>false</InlineCode> type is useful when using
+									short-circuiting logic so that you don't need to use a ternary
+									with <InlineCode>undefined</InlineCode>.
 								</p>
 								<p>
-									Setting <InlineCode>validation</InlineCode> to <InlineCode>error</InlineCode> also sets{" "}
+									Setting <InlineCode>validation</InlineCode> to{" "}
+									<InlineCode>error</InlineCode> also sets{" "}
 									<InlineCode>aria-invalid</InlineCode>.
 								</p>
 							</PropDescriptionCell>
@@ -480,10 +515,12 @@ export default function Page() {
 							<PropDefaultValueCell />
 							<PropDescriptionCell>
 								<p>
-									<InlineCode>trigger</InlineCode> will ensure the content is the same width as the trigger button.
+									<InlineCode>trigger</InlineCode> will ensure the content is
+									the same width as the trigger button.
 								</p>
 								<p>
-									<InlineCode>content</InlineCode> will make it the size of the content itself.
+									<InlineCode>content</InlineCode> will make it the size of the
+									content itself.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>

@@ -3,7 +3,12 @@ import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
 import clsx from "clsx";
 import { Children, cloneElement, forwardRef, isValidElement } from "react";
-import type { ButtonHTMLAttributes, ComponentProps, PropsWithChildren, ReactNode } from "react";
+import type {
+	ButtonHTMLAttributes,
+	ComponentProps,
+	PropsWithChildren,
+	ReactNode,
+} from "react";
 import invariant from "tiny-invariant";
 import { parseBooleanish } from "../../types/index.js";
 import type { VariantProps } from "../../types/variant-props.js";
@@ -169,7 +174,10 @@ type ButtonProps = ComponentProps<"button"> &
 				 *
 				 * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#type
 				 */
-				type: Exclude<ButtonHTMLAttributes<HTMLButtonElement>["type"], undefined>;
+				type: Exclude<
+					ButtonHTMLAttributes<HTMLButtonElement>["type"],
+					undefined
+				>;
 		  }
 	);
 
@@ -200,7 +208,11 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 		ref,
 	) => {
 		const disabled = parseBooleanish(_ariaDisabled ?? _disabled ?? isLoading);
-		const icon = isLoading ? <CircleNotch className="animate-spin" /> : propIcon;
+		const icon = isLoading ? (
+			<CircleNotch className="animate-spin" />
+		) : (
+			propIcon
+		);
 
 		/**
 		 * If the button has an icon and is not a link, add padding-start or padding-end to the button depending on the icon placement.
@@ -234,7 +246,11 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 					{cloneElement(
 						singleChild,
 						{},
-						<InnerContent appearance={appearance} icon={icon} iconPlacement={iconPlacement}>
+						<InnerContent
+							appearance={appearance}
+							icon={icon}
+							iconPlacement={iconPlacement}
+						>
 							{grandchildren}
 						</InnerContent>,
 					)}
@@ -244,7 +260,11 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
 		return (
 			<button {...buttonProps} type={type}>
-				<InnerContent appearance={appearance} icon={icon} iconPlacement={iconPlacement}>
+				<InnerContent
+					appearance={appearance}
+					icon={icon}
+					iconPlacement={iconPlacement}
+				>
 					{children}
 				</InnerContent>
 			</button>
@@ -266,16 +286,27 @@ export type {
 	ButtonPriority,
 };
 
-type InnerContentProps = PropsWithChildren & Pick<ButtonProps, "appearance" | "icon" | "iconPlacement">;
+type InnerContentProps = PropsWithChildren &
+	Pick<ButtonProps, "appearance" | "icon" | "iconPlacement">;
 
-const InnerContent = ({ appearance, children, icon, iconPlacement }: InnerContentProps) => (
+const InnerContent = ({
+	appearance,
+	children,
+	icon,
+	iconPlacement,
+}: InnerContentProps) => (
 	<span
 		className={clsx(
 			"inline-flex items-center gap-1.5 focus-within:outline-none focus-visible:outline-none",
 			appearance === "link" && "not-disabled:group-hover:underline",
 		)}
 	>
-		{icon && <Icon svg={icon} className={clsx(iconPlacement === "end" && "order-last")} />}
+		{icon && (
+			<Icon
+				svg={icon}
+				className={clsx(iconPlacement === "end" && "order-last")}
+			/>
+		)}
 		{children}
 	</span>
 );

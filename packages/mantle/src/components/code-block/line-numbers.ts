@@ -6,7 +6,9 @@ export type LineRange = `${number}-${number}`;
 /**
  * Given a list of line ranges and numbers, resolves them into a unique list of line numbers as a set.
  */
-export function resolveLineNumbers(...items: (LineRange | number)[]): Set<number> {
+export function resolveLineNumbers(
+	...items: (LineRange | number)[]
+): Set<number> {
 	const lineNumberSet = new Set<number>();
 
 	if (!items) {

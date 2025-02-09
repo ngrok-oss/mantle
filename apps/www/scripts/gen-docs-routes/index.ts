@@ -2,7 +2,6 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { Command } from "@commander-js/extra-typings";
-import prettier from "prettier";
 import { generateTypeScriptTemplate, processRoutes } from "./script";
 
 async function main() {
@@ -20,8 +19,7 @@ async function main() {
 	const destination = path.resolve(remixAppPath, "types", "routes.ts");
 
 	const [routePaths, routePatterns] = await processRoutes(inputPath);
-	const tsTemplate = generateTypeScriptTemplate(routePaths, routePatterns);
-	const output = await fmt(tsTemplate);
+	const output = generateTypeScriptTemplate(routePaths, routePatterns);
 
 	if (options.dryRun) {
 		console.log("Dry run. Showing output to standard out…");
@@ -37,10 +35,3 @@ async function main() {
 }
 
 main();
-
-async function fmt(data: string) {
-	const __dirname = path.dirname(fileURLToPath(import.meta.url));
-	const configFilePath = path.resolve(__dirname, "..", "..", ".prettierrc.json");
-	const options = await prettier.resolveConfig(configFilePath);
-	return prettier.format(data, { ...options, parser: "typescript" });
-}

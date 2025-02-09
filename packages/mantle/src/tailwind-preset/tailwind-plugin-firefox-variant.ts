@@ -10,18 +10,21 @@ import type { PluginAPI } from "tailwindcss/types/config.js";
 const firefoxVariantPlugin = plugin(
 	// @ts-expect-error PluginAPI is not typed correctly, missing postcss
 	(api: PluginAPI & { postcss: Postcss }) => {
-		// @ts-expect-error addVariant is not typed correctly
-		api.addVariant("firefox", ({ container, separator }: { container: Root; separator: string }) => {
-			const isFirefoxRule = api.postcss.atRule({
-				name: "supports",
-				params: "(-moz-appearance:none)",
-			});
-			isFirefoxRule.append(container.nodes);
-			container.append(isFirefoxRule);
-			isFirefoxRule.walkRules((rule) => {
-				rule.selector = `.${api.e(`firefox${separator}${rule.selector.slice(1).replace(/\\/g, "")}`)}`;
-			});
-		});
+		api.addVariant(
+			"firefox",
+			// @ts-expect-error addVariant is not typed correctly
+			({ container, separator }: { container: Root; separator: string }) => {
+				const isFirefoxRule = api.postcss.atRule({
+					name: "supports",
+					params: "(-moz-appearance:none)",
+				});
+				isFirefoxRule.append(container.nodes);
+				container.append(isFirefoxRule);
+				isFirefoxRule.walkRules((rule) => {
+					rule.selector = `.${api.e(`firefox${separator}${rule.selector.slice(1).replace(/\\/g, "")}`)}`;
+				});
+			},
+		);
 	},
 );
 

@@ -111,7 +111,10 @@ type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
 				 *
 				 * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#type
 				 */
-				type: Exclude<ButtonHTMLAttributes<HTMLButtonElement>["type"], undefined>;
+				type: Exclude<
+					ButtonHTMLAttributes<HTMLButtonElement>["type"],
+					undefined
+				>;
 		  }
 	);
 
@@ -143,14 +146,22 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 		ref,
 	) => {
 		const disabled = parseBooleanish(_ariaDisabled ?? _disabled ?? isLoading);
-		const icon = isLoading ? <CircleNotch className="animate-spin" /> : propIcon;
+		const icon = isLoading ? (
+			<CircleNotch className="animate-spin" />
+		) : (
+			propIcon
+		);
 
 		const buttonProps = {
 			"aria-disabled": disabled,
 			"data-icon-button": true,
 			"data-loading": isLoading,
 			"data-size": size,
-			className: cx("icon-button", iconButtonVariants({ appearance, isLoading, size }), className),
+			className: cx(
+				"icon-button",
+				iconButtonVariants({ appearance, isLoading, size }),
+				className,
+			),
 			disabled,
 			ref,
 			...props,
@@ -160,7 +171,11 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 			const singleChild = Children.only(children);
 			const isValidChild = isValidElement(singleChild);
 
-			return <Slot {...buttonProps}>{isValidChild && cloneElement(singleChild, {}, <Icon svg={icon} />)}</Slot>;
+			return (
+				<Slot {...buttonProps}>
+					{isValidChild && cloneElement(singleChild, {}, <Icon svg={icon} />)}
+				</Slot>
+			);
 		}
 
 		return (

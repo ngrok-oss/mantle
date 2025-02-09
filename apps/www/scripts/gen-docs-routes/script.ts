@@ -35,7 +35,10 @@ export async function processRoutes(
 /**
  * Initialize a set of route paths and route patterns that includes the root route `"/"`.
  */
-function getInitialRouteSets(): [uniqRoutePaths: Set<Path>, uniqRoutePatterns: Set<Path>] {
+function getInitialRouteSets(): [
+	uniqRoutePaths: Set<Path>,
+	uniqRoutePatterns: Set<Path>,
+] {
 	const uniqRoutePaths = new Set<Path>();
 	const uniqRoutePatterns = new Set<Path>();
 
@@ -112,7 +115,10 @@ export function formatRoutePatternFromSegments(pathSegments: string[]): Path {
 /**
  * Generate a typescript file that exports a string union type for each route path and route pattern.
  */
-export function generateTypeScriptTemplate(routePaths: Array<Path>, routePatterns: Array<Path>): string {
+export function generateTypeScriptTemplate(
+	routePaths: Array<Path>,
+	routePatterns: Array<Path>,
+): string {
 	const topLevelNavItems = gatherTopLevelNav(routePaths);
 
 	return `
@@ -180,7 +186,8 @@ function trimSlashes(value: string | undefined) {
  * @example given "/foo/bar" returns "foo/bar"
  * @example given "/////foo/bar" returns "foo/bar"
  */
-const trimLeadingSlashes = (value: string | undefined): string => (value || "").replace(/^\/+/, "");
+const trimLeadingSlashes = (value: string | undefined): string =>
+	(value || "").replace(/^\/+/, "");
 
 /**
  * Removes all trailing slashes from a string.
@@ -188,4 +195,5 @@ const trimLeadingSlashes = (value: string | undefined): string => (value || "").
  * @example given "/foo/bar/" returns "/foo/bar"
  * @example given "/foo/bar/////" returns "/foo/bar"
  */
-const trimTrailingSlashes = (value: string | undefined): string => (value || "").replace(/\/+$/, "");
+const trimTrailingSlashes = (value: string | undefined): string =>
+	(value || "").replace(/\/+$/, "");

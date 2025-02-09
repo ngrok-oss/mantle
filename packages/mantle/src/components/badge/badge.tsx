@@ -1,5 +1,11 @@
 import { Slot } from "@radix-ui/react-slot";
-import { Children, cloneElement, isValidElement, type HTMLAttributes, type ReactNode } from "react";
+import {
+	Children,
+	type HTMLAttributes,
+	type ReactNode,
+	cloneElement,
+	isValidElement,
+} from "react";
 import invariant from "tiny-invariant";
 import type { WithAsChild } from "../../types/as-child.js";
 import type { Color } from "../../utils/color/index.js";
@@ -28,7 +34,15 @@ type BadgeProps = HTMLAttributes<HTMLSpanElement> &
 /**
  * A Badge is a non-interactive component used to highlight important information or to visually indicate the status of an item.
  */
-const Badge = ({ appearance, asChild = false, children, className, color = "neutral", icon, ...props }: BadgeProps) => {
+const Badge = ({
+	appearance,
+	asChild = false,
+	children,
+	className,
+	color = "neutral",
+	icon,
+	...props
+}: BadgeProps) => {
 	const bgColor = computeBgColor(color, appearance);
 	const textColor = computeTextColor(color, appearance);
 

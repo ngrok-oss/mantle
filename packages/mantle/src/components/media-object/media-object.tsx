@@ -26,25 +26,31 @@ MediaObject.displayName = "MediaObject";
 /**
  * The container for an image or icon to display in the media slot of the media object.
  */
-const MediaObjectMedia = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
-	({ className, children, style }, ref) => (
-		<div ref={ref} className={cx("shrink-0 leading-none", className)} style={style}>
-			{children}
-		</div>
-	),
-);
+const MediaObjectMedia = forwardRef<
+	HTMLDivElement,
+	HTMLAttributes<HTMLDivElement>
+>(({ className, children, style }, ref) => (
+	<div
+		ref={ref}
+		className={cx("shrink-0 leading-none", className)}
+		style={style}
+	>
+		{children}
+	</div>
+));
 MediaObjectMedia.displayName = "MediaObjectMedia";
 
 /**
  * The container for the content slot of a media object.
  */
-const MediaObjectContent = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
-	({ className, children, style }, ref) => (
-		<div ref={ref} className={cx("min-w-0 flex-1", className)} style={style}>
-			{children}
-		</div>
-	),
-);
+const MediaObjectContent = forwardRef<
+	HTMLDivElement,
+	HTMLAttributes<HTMLDivElement>
+>(({ className, children, style }, ref) => (
+	<div ref={ref} className={cx("min-w-0 flex-1", className)} style={style}>
+		{children}
+	</div>
+));
 MediaObjectContent.displayName = "MediaObjectContent";
 
 export { MediaObject, MediaObjectMedia, MediaObjectContent };

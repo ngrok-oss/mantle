@@ -16,7 +16,10 @@ import { cx } from "../../utils/cx/cx.js";
 import type { WithValidation } from "../input/types.js";
 import { Separator } from "../separator/separator.js";
 
-type WithAriaInvalid = Pick<SelectHTMLAttributes<HTMLSelectElement>, "aria-invalid">;
+type WithAriaInvalid = Pick<
+	SelectHTMLAttributes<HTMLSelectElement>,
+	"aria-invalid"
+>;
 type SelectContextType = WithValidation &
 	WithAriaInvalid & {
 		/**
@@ -32,7 +35,10 @@ type SelectContextType = WithValidation &
 
 const SelectContext = createContext<SelectContextType>({});
 
-type SelectProps = Omit<ComponentPropsWithoutRef<typeof SelectPrimitive.Root>, "onValueChange"> &
+type SelectProps = Omit<
+	ComponentPropsWithoutRef<typeof SelectPrimitive.Root>,
+	"onValueChange"
+> &
 	WithValidation &
 	WithAriaInvalid & {
 		/**
@@ -50,10 +56,23 @@ type SelectProps = Omit<ComponentPropsWithoutRef<typeof SelectPrimitive.Root>, "
  * Displays a list of options for the user to pick from—triggered by a button.
  */
 const Select = forwardRef<HTMLButtonElement, SelectProps>(
-	({ "aria-invalid": _ariaInvalid, children, id, validation, onBlur, onChange, ...props }, ref) => {
+	(
+		{
+			"aria-invalid": _ariaInvalid,
+			children,
+			id,
+			validation,
+			onBlur,
+			onChange,
+			...props
+		},
+		ref,
+	) => {
 		return (
 			<SelectPrimitive.Root {...props} onValueChange={onChange}>
-				<SelectContext.Provider value={{ "aria-invalid": _ariaInvalid, id, validation, onBlur, ref }}>
+				<SelectContext.Provider
+					value={{ "aria-invalid": _ariaInvalid, id, validation, onBlur, ref }}
+				>
 					{children}
 				</SelectContext.Provider>
 			</SelectPrimitive.Root>
@@ -73,18 +92,39 @@ const SelectGroup = SelectPrimitive.Group;
  */
 const SelectValue = SelectPrimitive.Value;
 
-type SelectTriggerProps = ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> & WithAriaInvalid & WithValidation;
+type SelectTriggerProps = ComponentPropsWithoutRef<
+	typeof SelectPrimitive.Trigger
+> &
+	WithAriaInvalid &
+	WithValidation;
 
 /**
  * The button that toggles the select. The Select.Content will position itself adjacent to the trigger.
  */
-const SelectTrigger = forwardRef<ElementRef<typeof SelectPrimitive.Trigger>, SelectTriggerProps>(
-	({ "aria-invalid": ariaInValidProp, className, children, id: propId, validation: propValidation, ...props }, ref) => {
+const SelectTrigger = forwardRef<
+	ElementRef<typeof SelectPrimitive.Trigger>,
+	SelectTriggerProps
+>(
+	(
+		{
+			"aria-invalid": ariaInValidProp,
+			className,
+			children,
+			id: propId,
+			validation: propValidation,
+			...props
+		},
+		ref,
+	) => {
 		const ctx = useContext(SelectContext);
 		const _ariaInvalid = ctx["aria-invalid"] ?? ariaInValidProp;
 		const isInvalid = _ariaInvalid != null && _ariaInvalid !== "false";
 		const _validation = ctx.validation ?? propValidation;
-		const validation = isInvalid ? "error" : typeof _validation === "function" ? _validation() : _validation;
+		const validation = isInvalid
+			? "error"
+			: typeof _validation === "function"
+				? _validation()
+				: _validation;
 		const ariaInvalid = _ariaInvalid ?? validation === "error";
 		const id = ctx.id ?? propId;
 
@@ -122,7 +162,10 @@ const SelectScrollUpButton = forwardRef<
 >(({ className, ...props }, ref) => (
 	<SelectPrimitive.ScrollUpButton
 		ref={ref}
-		className={cx("flex cursor-default items-center justify-center py-1", className)}
+		className={cx(
+			"flex cursor-default items-center justify-center py-1",
+			className,
+		)}
 		{...props}
 	>
 		<CaretUp className="size-4 shrink-0" weight="bold" />
@@ -136,7 +179,10 @@ const SelectScrollDownButton = forwardRef<
 >(({ className, ...props }, ref) => (
 	<SelectPrimitive.ScrollDownButton
 		ref={ref}
-		className={cx("flex cursor-default items-center justify-center py-1", className)}
+		className={cx(
+			"flex cursor-default items-center justify-center py-1",
+			className,
+		)}
 		{...props}
 	>
 		<CaretDown className="size-4 shrink-0" weight="bold" />
@@ -144,7 +190,9 @@ const SelectScrollDownButton = forwardRef<
 ));
 SelectScrollDownButton.displayName = "SelectScrollDownButton";
 
-type SelectContentProps = ComponentPropsWithoutRef<typeof SelectPrimitive.Content> & {
+type SelectContentProps = ComponentPropsWithoutRef<
+	typeof SelectPrimitive.Content
+> & {
 	width?: "trigger" | "content";
 };
 
@@ -152,33 +200,38 @@ type SelectContentProps = ComponentPropsWithoutRef<typeof SelectPrimitive.Conten
  * The component that pops out when the select is open as a portal adjacent to the trigger button.
  * It contains a scrolling viewport of the select items.
  */
-const SelectContent = forwardRef<ElementRef<typeof SelectPrimitive.Content>, SelectContentProps>(
-	({ className, children, position = "popper", width, ...props }, ref) => (
-		<SelectPrimitive.Portal>
-			<SelectPrimitive.Content
-				ref={ref}
+const SelectContent = forwardRef<
+	ElementRef<typeof SelectPrimitive.Content>,
+	SelectContentProps
+>(({ className, children, position = "popper", width, ...props }, ref) => (
+	<SelectPrimitive.Portal>
+		<SelectPrimitive.Content
+			ref={ref}
+			className={cx(
+				"border-popover data-side-bottom:slide-in-from-top-2 data-side-left:slide-in-from-right-2 data-side-right:slide-in-from-left-2 data-side-top:slide-in-from-bottom-2 data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 data-state-open:animate-in data-state-open:fade-in-0 data-state-open:zoom-in-95 relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border shadow-md",
+				"bg-popover",
+				position === "popper" &&
+					"data-side-bottom:translate-y-2 data-side-left:-translate-x-2 data-side-right:translate-x-2 data-side-top:-translate-y-2 max-h-[var(--radix-select-content-available-height)]",
+				width === "trigger" && "w-[var(--radix-select-trigger-width)]",
+				className,
+			)}
+			position={position}
+			{...props}
+		>
+			<SelectScrollUpButton />
+			<SelectPrimitive.Viewport
 				className={cx(
-					"border-popover data-side-bottom:slide-in-from-top-2 data-side-left:slide-in-from-right-2 data-side-right:slide-in-from-left-2 data-side-top:slide-in-from-bottom-2 data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 data-state-open:animate-in data-state-open:fade-in-0 data-state-open:zoom-in-95 relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border shadow-md",
-					"bg-popover",
+					"p-1",
 					position === "popper" &&
-						"data-side-bottom:translate-y-2 data-side-left:-translate-x-2 data-side-right:translate-x-2 data-side-top:-translate-y-2 max-h-[var(--radix-select-content-available-height)]",
-					width === "trigger" && "w-[var(--radix-select-trigger-width)]",
-					className,
+						"h-[var(--radix-select-trigger-height)] w-full",
 				)}
-				position={position}
-				{...props}
 			>
-				<SelectScrollUpButton />
-				<SelectPrimitive.Viewport
-					className={cx("p-1", position === "popper" && "h-[var(--radix-select-trigger-height)] w-full")}
-				>
-					{children}
-				</SelectPrimitive.Viewport>
-				<SelectScrollDownButton />
-			</SelectPrimitive.Content>
-		</SelectPrimitive.Portal>
-	),
-);
+				{children}
+			</SelectPrimitive.Viewport>
+			<SelectScrollDownButton />
+		</SelectPrimitive.Content>
+	</SelectPrimitive.Portal>
+));
 SelectContent.displayName = "SelectContent";
 
 /**
@@ -188,7 +241,11 @@ const SelectLabel = forwardRef<
 	ElementRef<typeof SelectPrimitive.Label>,
 	ComponentPropsWithoutRef<typeof SelectPrimitive.Label>
 >(({ className, ...props }, ref) => (
-	<SelectPrimitive.Label ref={ref} className={cx("px-2 py-1.5 text-sm font-semibold", className)} {...props} />
+	<SelectPrimitive.Label
+		ref={ref}
+		className={cx("px-2 py-1.5 text-sm font-semibold", className)}
+		{...props}
+	/>
 ));
 SelectLabel.displayName = "SelectLabel";
 
@@ -224,11 +281,16 @@ SelectItem.displayName = "SelectItem";
 /**
  * Used to visually separate items in the select.
  */
-const SelectSeparator = forwardRef<ElementRef<typeof Separator>, ComponentPropsWithoutRef<typeof Separator>>(
-	({ className, ...props }, ref) => (
-		<Separator ref={ref} className={cx("-mx-1 my-1 h-px w-auto", className)} {...props} />
-	),
-);
+const SelectSeparator = forwardRef<
+	ElementRef<typeof Separator>,
+	ComponentPropsWithoutRef<typeof Separator>
+>(({ className, ...props }, ref) => (
+	<Separator
+		ref={ref}
+		className={cx("-mx-1 my-1 h-px w-auto", className)}
+		{...props}
+	/>
+));
 SelectSeparator.displayName = "SelectSeparator";
 
 export {

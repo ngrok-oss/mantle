@@ -1,8 +1,19 @@
 import "@ngrok/mantle/mantle.css";
-import { MantleThemeHeadContent, ThemeProvider, useInitialHtmlThemeProps } from "@ngrok/mantle/theme-provider";
+import {
+	MantleThemeHeadContent,
+	ThemeProvider,
+	useInitialHtmlThemeProps,
+} from "@ngrok/mantle/theme-provider";
 import { Toaster } from "@ngrok/mantle/toast";
 import { TooltipProvider } from "@ngrok/mantle/tooltip";
-import { Links, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from "@remix-run/react";
+import {
+	Links,
+	Meta,
+	Outlet,
+	Scripts,
+	ScrollRestoration,
+	useLoaderData,
+} from "@remix-run/react";
 import { AutoScrollToHash } from "./components/auto-scroll-to-hash";
 import { Layout } from "./components/layout";
 import { NavigationProvider } from "./components/navigation-context";
@@ -11,12 +22,19 @@ export const loader = async () => {
 	const packageJson = await import("@ngrok/mantle/package.json");
 	const commitSha = process.env.VERCEL_GIT_COMMIT_SHA;
 	const deploymentId = process.env.VERCEL_DEPLOYMENT_ID;
-	return { currentVersion: packageJson.default.version, commitSha, deploymentId };
+	return {
+		currentVersion: packageJson.default.version,
+		commitSha,
+		deploymentId,
+	};
 };
 
 export default function App() {
-	const { currentVersion, commitSha, deploymentId } = useLoaderData<typeof loader>();
-	const initialHtmlThemeProps = useInitialHtmlThemeProps({ className: "h-full" });
+	const { currentVersion, commitSha, deploymentId } =
+		useLoaderData<typeof loader>();
+	const initialHtmlThemeProps = useInitialHtmlThemeProps({
+		className: "h-full",
+	});
 
 	return (
 		<html id="ngrok" {...initialHtmlThemeProps} lang="en-US" dir="ltr">

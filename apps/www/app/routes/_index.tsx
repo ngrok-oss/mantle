@@ -8,14 +8,24 @@ import {
 	fmtCode,
 } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@ngrok/mantle/table";
+import {
+	Table,
+	TableBody,
+	TableCell,
+	TableHead,
+	TableHeader,
+	TableRow,
+} from "@ngrok/mantle/table";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Link } from "~/components/link";
 
 export const meta: MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle" },
-		{ name: "description", content: "mantle is ngrok's UI library and design system" },
+		{
+			name: "description",
+			content: "mantle is ngrok's UI library and design system",
+		},
 	];
 };
 
@@ -42,30 +52,35 @@ export default function Page() {
 				Dependencies
 			</h3>
 			<p className="font-body text-body mt-3">
-				Mantle&rsquo;s styling is composed using <Anchor href="https://tailwindcss.com">Tailwind</Anchor>. Its{" "}
-				<Anchor href="https://react.dev">React</Anchor> components are inspired by{" "}
-				<Anchor href="https://ui.shadcn.com">shadcn/ui</Anchor>
-				&rsquo;s markup and <Anchor href="https://www.radix-ui.com">Radix</Anchor>
-				&rsquo;s primitives. Its documentation is built in <Anchor href="https://remix.run/">Remix</Anchor>.
+				Mantle&rsquo;s styling is composed using{" "}
+				<Anchor href="https://tailwindcss.com">Tailwind</Anchor>. Its{" "}
+				<Anchor href="https://react.dev">React</Anchor> components are inspired
+				by <Anchor href="https://ui.shadcn.com">shadcn/ui</Anchor>
+				&rsquo;s markup and{" "}
+				<Anchor href="https://www.radix-ui.com">Radix</Anchor>
+				&rsquo;s primitives. Its documentation is built in{" "}
+				<Anchor href="https://remix.run/">Remix</Anchor>.
 			</p>
 
 			<h3 id="status" className="mt-8 text-xl font-medium">
 				Status
 			</h3>
 			<p className="font-body text-body mt-3">
-				Mantle is a work in progress that&rsquo;s currently adding components. It intends to replace new and existing
-				ngrok user interfaces.
+				Mantle is a work in progress that&rsquo;s currently adding components.
+				It intends to replace new and existing ngrok user interfaces.
 			</p>
 
 			<p className="font-body text-body mt-3">
 				Mantle is available in its alpha state on{" "}
-				<Anchor href="https://www.npmjs.com/package/@ngrok/mantle">NPM</Anchor>. It is open source and available on{" "}
+				<Anchor href="https://www.npmjs.com/package/@ngrok/mantle">NPM</Anchor>.
+				It is open source and available on{" "}
 				<Anchor href="https://github.com/ngrok-oss/mantle">GitHub</Anchor>.
 			</p>
 
 			<h2 className="mt-12 text-3xl font-medium">Setup</h2>
 			<p className="font-body text-body mt-3">
-				Start by installing <InlineCode>@ngrok/mantle</InlineCode> with your preferred package manager:
+				Start by installing <InlineCode>@ngrok/mantle</InlineCode> with your
+				preferred package manager:
 			</p>
 			<div className="border-card scrollbar mt-4 overflow-x-scroll rounded-lg border">
 				<Table>
@@ -76,7 +91,10 @@ export default function Page() {
 								<CodeBlock>
 									<CodeBlockBody>
 										<CodeBlockCopyButton />
-										<CodeBlockCode language="sh" value={fmtCode`npm install -E @ngrok/mantle`} />
+										<CodeBlockCode
+											language="sh"
+											value={fmtCode`npm install -E @ngrok/mantle`}
+										/>
 									</CodeBlockBody>
 								</CodeBlock>
 							</TableCell>
@@ -87,7 +105,10 @@ export default function Page() {
 								<CodeBlock>
 									<CodeBlockBody>
 										<CodeBlockCopyButton />
-										<CodeBlockCode language="sh" value={fmtCode`yarn add -E @ngrok/mantle`} />
+										<CodeBlockCode
+											language="sh"
+											value={fmtCode`yarn add -E @ngrok/mantle`}
+										/>
 									</CodeBlockBody>
 								</CodeBlock>
 							</TableCell>
@@ -98,7 +119,10 @@ export default function Page() {
 								<CodeBlock>
 									<CodeBlockBody>
 										<CodeBlockCopyButton />
-										<CodeBlockCode language="sh" value={fmtCode`pnpm add -E @ngrok/mantle`} />
+										<CodeBlockCode
+											language="sh"
+											value={fmtCode`pnpm add -E @ngrok/mantle`}
+										/>
 									</CodeBlockBody>
 								</CodeBlock>
 							</TableCell>
@@ -109,7 +133,10 @@ export default function Page() {
 								<CodeBlock>
 									<CodeBlockBody>
 										<CodeBlockCopyButton />
-										<CodeBlockCode language="sh" value={fmtCode`bun add -E @ngrok/mantle`} />
+										<CodeBlockCode
+											language="sh"
+											value={fmtCode`bun add -E @ngrok/mantle`}
+										/>
 									</CodeBlockBody>
 								</CodeBlock>
 							</TableCell>
@@ -121,8 +148,11 @@ export default function Page() {
 			<section>
 				<h2 className="mt-8 text-xl font-medium">Tailwind Configuration</h2>
 				<p className="font-body text-body mt-3">
-					Then, add the <Anchor href="https://tailwindcss.com/docs/presets">tailwind preset</Anchor> and mantle content
-					to your tailwind configuration:
+					Then, add the{" "}
+					<Anchor href="https://tailwindcss.com/docs/presets">
+						tailwind preset
+					</Anchor>{" "}
+					and mantle content to your tailwind configuration:
 				</p>
 				<CodeBlock className="mt-4">
 					<CodeBlockHeader>tailwind.config.ts</CodeBlockHeader>
@@ -151,8 +181,8 @@ export default function Page() {
 			<section>
 				<h2 className="mt-8 text-xl font-medium">Application Scaffolding</h2>
 				<p className="font-body text-body mt-3">
-					In your application&rsquo;s entry/root, import the <InlineCode>mantle.css</InlineCode> file to apply the
-					mantle styles:
+					In your application&rsquo;s entry/root, import the{" "}
+					<InlineCode>mantle.css</InlineCode> file to apply the mantle styles:
 				</p>
 				<CodeBlock className="mt-4">
 					<CodeBlockHeader>root.tsx</CodeBlockHeader>
@@ -185,12 +215,14 @@ export default function Page() {
 					</CodeBlockBody>
 				</CodeBlock>
 				<p className="font-body text-body mt-8">
-					Next, you should add the <Link to="/components/theme-provider">Theme Provider</Link> to your application to
-					provide the mantle theme to your components. You are now ready to use mantle components in your application!
+					Next, you should add the{" "}
+					<Link to="/components/theme-provider">Theme Provider</Link> to your
+					application to provide the mantle theme to your components. You are
+					now ready to use mantle components in your application!
 				</p>
 				<p className="font-body text-body mt-4">
-					You are now ready to use mantle components in your application! For example, you can use the{" "}
-					<Link to="/components/button">Button</Link>!
+					You are now ready to use mantle components in your application! For
+					example, you can use the <Link to="/components/button">Button</Link>!
 				</p>
 			</section>
 		</div>

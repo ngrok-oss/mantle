@@ -13,10 +13,12 @@
     "serve": "turbo run serve",
     "clean": "turbo run clean",
     "clean:node_modules": "node ./clean-node-modules.js",
-    "fmt:check": "prettier --check .",
-    "fmt": "prettier --write .",
-    "lint": "turbo run lint",
-    "lint:fix": "turbo run lint",
+    "fmt-lint": "biome check .",
+    "fmt-lint:fix": "biome check . --write",
+    "fmt:check": "biome format .",
+    "fmt": "biome format . --write",
+    "lint": "biome lint .",
+    "lint:fix": "biome lint . --write",
     "test": "turbo run test",
     "test:watch": "turbo run test:watch",
     "test:ui": "turbo run test:ui",
@@ -26,11 +28,9 @@
     "changeset:publish": "turbo run build --filter=@ngrok/mantle && changeset publish"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "@changesets/changelog-github": "0.5.0",
     "@changesets/cli": "2.27.12",
-    "@ianvs/prettier-plugin-sort-imports": "4.4.1",
-    "prettier": "3.4.2",
-    "prettier-plugin-tailwindcss": "0.6.11",
     "turbo": "2.4.0"
   },
   "pnpm": {

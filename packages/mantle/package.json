@@ -27,7 +27,6 @@
   "scripts": {
     "build": "NODE_OPTIONS='--max-old-space-size=16384' tsup",
     "clean": "rm -rf dist",
-    "lint": "eslint .",
     "prebuild": "rm -rf dist",
     "test:ui": "TZ=UTC vitest --ui",
     "test:watch": "TZ=UTC vitest watch",

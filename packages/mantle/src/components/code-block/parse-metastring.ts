@@ -40,7 +40,9 @@ function parseMetastring(value: string | undefined): Meta {
 		return defaultMeta;
 	}
 
-	const metaJson = tokenizeMetastring(metastring).reduce<Record<string, unknown>>((acc, token) => {
+	const metaJson = tokenizeMetastring(metastring).reduce<
+		Record<string, unknown>
+	>((acc, token) => {
 		const [key, _value] = token.split("=");
 		if (!key) {
 			return acc;

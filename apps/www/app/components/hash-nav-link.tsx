@@ -14,7 +14,9 @@ export const HashNavLink = ({ className, children, to }: Props) => {
 
 	return (
 		<Link
-			className={typeof className === "function" ? className(isActive) : className}
+			className={
+				typeof className === "function" ? className(isActive) : className
+			}
 			onKeyDown={(event) => {
 				// If the space key was pressed on this link, stop event propagation
 				// and prevent the default action. This is so that the ul scroll
