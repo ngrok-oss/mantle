@@ -1,5 +1,11 @@
 import { Anchor } from "@ngrok/mantle/anchor";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
+import {
+	CodeBlock,
+	CodeBlockBody,
+	CodeBlockCode,
+	CodeBlockCopyButton,
+	fmtCode,
+} from "@ngrok/mantle/code-block";
 import {
 	Combobox,
 	ComboboxContent,
@@ -15,7 +21,10 @@ import { PageHeader } from "~/components/page-header";
 export const meta: MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — Combobox" },
-		{ name: "description", content: "mantle is ngrok's UI library and design system" },
+		{
+			name: "description",
+			content: "mantle is ngrok's UI library and design system",
+		},
 	];
 };
 
@@ -32,9 +41,13 @@ export default function Page() {
 				Combobox
 			</PageHeader>
 			<p className="font-body text-body text-xl">
-				Fill in a React input field with autocomplete & autosuggest functionalities. Choose from a list of suggested
-				values with full keyboard support. This component is based on the{" "}
-				<Anchor href="https://www.w3.org/WAI/ARIA/apg/patterns/combobox/">WAI-ARIA Combobox Pattern</Anchor>.
+				Fill in a React input field with autocomplete & autosuggest
+				functionalities. Choose from a list of suggested values with full
+				keyboard support. This component is based on the{" "}
+				<Anchor href="https://www.w3.org/WAI/ARIA/apg/patterns/combobox/">
+					WAI-ARIA Combobox Pattern
+				</Anchor>
+				.
 			</p>
 			<div>
 				<Example className="gap-2">
@@ -45,9 +58,15 @@ export default function Page() {
 						<ComboboxInput />
 						<ComboboxContent>
 							<ComboboxGroup>
-								<ComboboxGroupLabel>Choose an ngrok subdomain</ComboboxGroupLabel>
-								<ComboboxItem value="https://{$random}.ngrok.app">{`https://{$random}.ngrok.app`}</ComboboxItem>
-								<ComboboxItem value="https://{$random}.ngrok.dev">{`https://{$random}.ngrok.dev`}</ComboboxItem>
+								<ComboboxGroupLabel>
+									Choose an ngrok subdomain
+								</ComboboxGroupLabel>
+								<ComboboxItem value="https://{$random}.ngrok.app">
+									{"https://{$random}.ngrok.app"}
+								</ComboboxItem>
+								<ComboboxItem value="https://{$random}.ngrok.dev">
+									{"https://{$random}.ngrok.dev"}
+								</ComboboxItem>
 							</ComboboxGroup>
 						</ComboboxContent>
 					</Combobox>

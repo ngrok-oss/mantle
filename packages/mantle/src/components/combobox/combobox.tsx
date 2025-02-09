@@ -5,7 +5,11 @@ import { cx } from "../../utils/cx/cx.js";
 type ComboboxProps = Primitive.ComboboxProviderProps;
 
 const Combobox = ({ children, ...props }: ComboboxProps) => {
-	return <Primitive.ComboboxProvider {...props}>{children}</Primitive.ComboboxProvider>;
+	return (
+		<Primitive.ComboboxProvider {...props}>
+			{children}
+		</Primitive.ComboboxProvider>
+	);
 };
 
 const ComboboxInput = ({ className, ...props }: Primitive.ComboboxProps) => {
@@ -62,10 +66,19 @@ const ComboboxContent = ({
 	);
 };
 
-const ComboboxItem = ({ children, className, focusOnHover = true, ...props }: Primitive.ComboboxItemProps) => {
+const ComboboxItem = ({
+	children,
+	className,
+	focusOnHover = true,
+	...props
+}: Primitive.ComboboxItemProps) => {
 	return (
 		<Primitive.ComboboxItem
-			className={cx("cursor-pointer rounded px-2 py-1.5 text-sm", "data-active-item:bg-popover-hover", className)}
+			className={cx(
+				"cursor-pointer rounded px-2 py-1.5 text-sm",
+				"data-active-item:bg-popover-hover",
+				className,
+			)}
 			focusOnHover={focusOnHover}
 			{...props}
 		>
@@ -74,7 +87,11 @@ const ComboboxItem = ({ children, className, focusOnHover = true, ...props }: Pr
 	);
 };
 
-const ComboboxGroup = ({ children, className, ...props }: Primitive.ComboboxGroupProps) => {
+const ComboboxGroup = ({
+	children,
+	className,
+	...props
+}: Primitive.ComboboxGroupProps) => {
 	return (
 		<Primitive.ComboboxGroup className={cx("", className)} {...props}>
 			{children}
@@ -82,9 +99,16 @@ const ComboboxGroup = ({ children, className, ...props }: Primitive.ComboboxGrou
 	);
 };
 
-const ComboboxGroupLabel = ({ children, className, ...props }: Primitive.ComboboxGroupLabelProps) => {
+const ComboboxGroupLabel = ({
+	children,
+	className,
+	...props
+}: Primitive.ComboboxGroupLabelProps) => {
 	return (
-		<Primitive.ComboboxGroupLabel className={cx("text-muted px-2 py-1 text-xs font-medium", className)} {...props}>
+		<Primitive.ComboboxGroupLabel
+			className={cx("text-muted px-2 py-1 text-xs font-medium", className)}
+			{...props}
+		>
 			{children}
 		</Primitive.ComboboxGroupLabel>
 	);
