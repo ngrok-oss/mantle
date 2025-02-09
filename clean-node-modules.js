@@ -19,17 +19,16 @@ async function cleanNodeModules() {
 		}),
 	);
 
-	const rootNodeModules = relativePath("node_modules");
 	// Flatten the array of arrays of node_modules directories
-	const allNodeModulePaths = [rootNodeModules].concat(
+	const allNodeModulePaths = ["node_modules"].concat(
 		nodeModulesByWorkspace.flat(),
-	);
+	).sort();
 
 	// Remove each node_modules directory
 	await Promise.all(
 		allNodeModulePaths.map(async (nodeModulePath) => {
 			try {
-				await fs.rm(nodeModulePath, { recursive: true, force: true });
+				await fs.rm(relativePath(nodeModulePath), { recursive: true, force: true });
 				console.log(`Removed ${nodeModulePath}`);
 			} catch (error) {
 				console.error(`Error removing ${nodeModulePath}:`, error);
