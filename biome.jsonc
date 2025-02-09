@@ -36,8 +36,9 @@
 		"enabled": true,
 		"rules": {
 			"a11y": {
-				"noInteractiveElementToNoninteractiveRole": "off",
-				"noSvgWithoutTitle": "off"
+				"noInteractiveElementToNoninteractiveRole": "info",
+				"noSvgWithoutTitle": "info",
+				"useAnchorContent": "info"
 			},
 			"recommended": true,
 			"security": {
