@@ -15,16 +15,18 @@
     "clean": {
       "cache": false
     },
+    "//#fmt-lint": {},
+    "//#fmt-lint:fix": {
+      "cache": false
+    },
     "lint": {
-      "dependsOn": ["^lint"],
-      "outputs": ["node_modules/.cache/.eslintcache"]
+      "dependsOn": ["^lint"]
     },
     "serve": {
       "dependsOn": ["^build"],
       "outputs": ["public/build/**"]
     },
     "start": {
-      "dependsOn": ["^build"],
       "cache": false,
       "persistent": true
     },
@@ -39,9 +41,7 @@
       "cache": false,
       "persistent": true
     },
-    "typecheck": {
-      "dependsOn": ["^build"]
-    }
+    "typecheck": {}
   },
   "remoteCache": {
     "enabled": true

@@ -1,6 +1,6 @@
 import * as fs from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "url";
+import { fileURLToPath } from "node:url";
 
 /**
  * Walk all of the workspace directories and `rm -rf` the top-level
@@ -19,8 +19,11 @@ async function cleanNodeModules() {
 		}),
 	);
 
+	const rootNodeModules = relativePath("node_modules");
 	// Flatten the array of arrays of node_modules directories
-	const allNodeModulePaths = nodeModulesByWorkspace.flat();
+	const allNodeModulePaths = [rootNodeModules].concat(
+		nodeModulesByWorkspace.flat(),
+	);
 
 	// Remove each node_modules directory
 	await Promise.all(

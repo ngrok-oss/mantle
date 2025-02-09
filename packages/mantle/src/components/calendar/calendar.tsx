@@ -15,7 +15,12 @@ type CalendarProps = ComponentProps<typeof DayPicker>;
  *
  * https://github.com/ngrok-oss/mantle/issues
  */
-function Calendar({ className, classNames, showOutsideDays = false, ...props }: CalendarProps) {
+function Calendar({
+	className,
+	classNames,
+	showOutsideDays = false,
+	...props
+}: CalendarProps) {
 	return (
 		<DayPicker
 			showOutsideDays={showOutsideDays}
@@ -26,7 +31,10 @@ function Calendar({ className, classNames, showOutsideDays = false, ...props }: 
 				caption: "flex justify-center pt-1 relative items-center",
 				caption_label: "text-sm font-medium",
 				nav: "flex items-center",
-				nav_button: cx(buttonVariants({ appearance: "ghost", priority: "neutral" }), "size-7"),
+				nav_button: cx(
+					buttonVariants({ appearance: "ghost", priority: "neutral" }),
+					"size-7",
+				),
 				nav_button_previous: "absolute left-0",
 				nav_button_next: "absolute right-0",
 				table: "w-full border-collapse space-y-1",
@@ -40,12 +48,15 @@ function Calendar({ className, classNames, showOutsideDays = false, ...props }: 
 						: "",
 				),
 				day: "day size-full rounded-md [&:not([aria-selected],_[disabled])]:hover:bg-filled-accent/15",
-				day_range_start: "day-range-start [&:not(.day-range-end)]:rounded-r-none",
+				day_range_start:
+					"day-range-start [&:not(.day-range-end)]:rounded-r-none",
 				day_range_end: "day-range-end [&:not(.day-range-start)]:rounded-l-none",
-				day_selected: "[&:not([disabled])]:bg-filled-accent text-on-filled [&:not([disabled])]:hover:bg-filled-accent",
+				day_selected:
+					"[&:not([disabled])]:bg-filled-accent text-on-filled [&:not([disabled])]:hover:bg-filled-accent",
 				day_today:
 					"[&:not([aria-selected],_[disabled])]:text-accent-600 font-medium [&:not([aria-selected],_[disabled])]:bg-filled-accent/10",
-				day_outside: "day-outside aria-selected:text-on-filled opacity-50 text-muted",
+				day_outside:
+					"day-outside aria-selected:text-on-filled opacity-50 text-muted",
 				day_disabled: "text-muted opacity-50",
 				day_range_middle:
 					"day-range-middle [&:not([disabled])]:aria-selected:bg-filled-accent/15 aria-selected:text-strong rounded-none [&:not([disabled])]:aria-selected:hover:bg-filled-accent/25",
@@ -53,8 +64,12 @@ function Calendar({ className, classNames, showOutsideDays = false, ...props }: 
 				...classNames,
 			}}
 			components={{
-				IconLeft: () => <CaretLeft className="h-4 w-4 shrink-0" weight="bold" />,
-				IconRight: () => <CaretRight className="h-4 w-4 shrink-0" weight="bold" />,
+				IconLeft: () => (
+					<CaretLeft className="h-4 w-4 shrink-0" weight="bold" />
+				),
+				IconRight: () => (
+					<CaretRight className="h-4 w-4 shrink-0" weight="bold" />
+				),
 			}}
 			{...props}
 		/>

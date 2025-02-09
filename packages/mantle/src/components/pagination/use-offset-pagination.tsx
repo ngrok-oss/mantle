@@ -65,7 +65,10 @@ type OffsetPaginationState = {
 /**
  * A headless hook for managing offset-based pagination state
  */
-function useOffsetPagination({ listSize, pageSize }: UseOffsetPaginationProps): OffsetPaginationState {
+function useOffsetPagination({
+	listSize,
+	pageSize,
+}: UseOffsetPaginationProps): OffsetPaginationState {
 	const [currentPage, setCurrentPage] = useState(1);
 	const [currentPageSize, setCurrentPageSize] = useState(pageSize);
 
@@ -76,6 +79,7 @@ function useOffsetPagination({ listSize, pageSize }: UseOffsetPaginationProps): 
 	}, [pageSize]);
 
 	// Reset the current page to 1 when the list size prop changes
+	// biome-ignore lint/correctness/useExhaustiveDependencies: when the listSize prop changes, we want to reset the current page to the start
 	useEffect(() => {
 		setCurrentPage(1);
 	}, [listSize]);
@@ -135,7 +139,10 @@ function useOffsetPagination({ listSize, pageSize }: UseOffsetPaginationProps): 
 /**
  * Get a paginated slice of a list based on the current offset pagination state.
  */
-function getOffsetPaginatedSlice<T>(list: readonly T[], pagination: OffsetPaginationState): T[] {
+function getOffsetPaginatedSlice<T>(
+	list: readonly T[],
+	pagination: OffsetPaginationState,
+): T[] {
 	return list.slice(pagination.offset, pagination.offset + pagination.pageSize);
 }
 

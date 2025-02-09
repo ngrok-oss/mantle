@@ -9,13 +9,13 @@
     "build": "remix vite:build",
     "serve": "remix-serve ./build/server/index.js",
     "start": "remix vite:dev --host",
-    "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest watch",
     "test:ui": "vitest --ui",
     "typecheck": "tsc",
     "clean": "rm -rf build && rm -rf .turbo",
-    "gen:docs-routes": "tsx ./scripts/gen-docs-routes"
+    "gen:docs-routes": "tsx ./scripts/gen-docs-routes",
+    "postgen:docs-routes": "pnpm -w fmt"
   },
   "dependencies": {
     "@ngrok/mantle": "workspace:*",
@@ -42,7 +42,6 @@
     "@vercel/remix": "2.15.3",
     "@vitest/ui": "3.0.5",
     "commander": "13.1.0",
-    "eslint": "9.20.0",
     "postcss": "8.5.1",
     "tailwindcss": "3.4.17",
     "tinyglobby": "0.2.10",

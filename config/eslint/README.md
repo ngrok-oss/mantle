@@ -1,1 +1,0 @@
-# `@pkg/eslint-config`

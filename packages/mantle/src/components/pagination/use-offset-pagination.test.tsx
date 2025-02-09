@@ -1,6 +1,9 @@
 import { act, renderHook } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
-import { getOffsetPaginatedSlice, useOffsetPagination } from "./use-offset-pagination.js";
+import {
+	getOffsetPaginatedSlice,
+	useOffsetPagination,
+} from "./use-offset-pagination.js";
 
 describe("useOffsetPagination", () => {
 	test("given a list size of zero", () => {
@@ -79,12 +82,15 @@ describe("useOffsetPagination", () => {
 	});
 
 	test("changing the page size resets the current page to 1", async () => {
-		const { result, rerender } = renderHook((props) => useOffsetPagination(props), {
-			initialProps: {
-				listSize: 1867,
-				pageSize: 100,
+		const { result, rerender } = renderHook(
+			(props) => useOffsetPagination(props),
+			{
+				initialProps: {
+					listSize: 1867,
+					pageSize: 100,
+				},
 			},
-		});
+		);
 
 		expect(result.current.currentPage).toBe(1);
 		expect(result.current.pageSize).toBe(100);
@@ -97,12 +103,15 @@ describe("useOffsetPagination", () => {
 	});
 
 	test("changing the list size resets the current page to 1", async () => {
-		const { result, rerender } = renderHook((props) => useOffsetPagination(props), {
-			initialProps: {
-				listSize: 1867,
-				pageSize: 100,
+		const { result, rerender } = renderHook(
+			(props) => useOffsetPagination(props),
+			{
+				initialProps: {
+					listSize: 1867,
+					pageSize: 100,
+				},
 			},
-		});
+		);
 
 		expect(result.current.currentPage).toBe(1);
 		expect(result.current.pageSize).toBe(100);

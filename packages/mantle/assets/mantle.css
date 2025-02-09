@@ -6,35 +6,40 @@
 	font-family: EuclidSquare;
 	font-style: normal;
 	font-weight: normal;
-	src: url("https://assets.ngrok.com/fonts/euclid-square/EuclidSquare-Regular-WebS.woff") format("woff");
+	src: url("https://assets.ngrok.com/fonts/euclid-square/EuclidSquare-Regular-WebS.woff")
+		format("woff");
 }
 
 @font-face {
 	font-family: EuclidSquare;
 	font-style: italic;
 	font-weight: normal;
-	src: url("https://assets.ngrok.com/fonts/euclid-square/EuclidSquare-RegularItalic-WebS.woff") format("woff");
+	src: url("https://assets.ngrok.com/fonts/euclid-square/EuclidSquare-RegularItalic-WebS.woff")
+		format("woff");
 }
 
 @font-face {
 	font-family: EuclidSquare;
 	font-style: normal;
 	font-weight: 500;
-	src: url("https://assets.ngrok.com/fonts/euclid-square/EuclidSquare-Medium-WebS.woff") format("woff");
+	src: url("https://assets.ngrok.com/fonts/euclid-square/EuclidSquare-Medium-WebS.woff")
+		format("woff");
 }
 
 @font-face {
 	font-family: EuclidSquare;
 	font-style: normal;
 	font-weight: 600;
-	src: url("https://assets.ngrok.com/fonts/euclid-square/EuclidSquare-Semibold-WebS.woff") format("woff");
+	src: url("https://assets.ngrok.com/fonts/euclid-square/EuclidSquare-Semibold-WebS.woff")
+		format("woff");
 }
 
 @font-face {
 	font-family: EuclidSquare;
 	font-style: italic;
 	font-weight: 500;
-	src: url("https://assets.ngrok.com/fonts/euclid-square/EuclidSquare-MediumItalic-WebS.woff") format("woff");
+	src: url("https://assets.ngrok.com/fonts/euclid-square/EuclidSquare-MediumItalic-WebS.woff")
+		format("woff");
 }
 
 /* IBM Plex Mono */
@@ -43,14 +48,16 @@
 	font-family: IBMPlexMono;
 	font-style: normal;
 	font-weight: normal;
-	src: url("https://assets.ngrok.com/fonts/ibm-plex-mono/IBMPlexMono-Text.woff") format("woff");
+	src: url("https://assets.ngrok.com/fonts/ibm-plex-mono/IBMPlexMono-Text.woff")
+		format("woff");
 }
 
 @font-face {
 	font-family: IBMPlexMono;
 	font-style: italic;
 	font-weight: normal;
-	src: url("https://assets.ngrok.com/fonts/ibm-plex-mono/IBMPlexMono-TextItalic.woff") format("woff");
+	src: url("https://assets.ngrok.com/fonts/ibm-plex-mono/IBMPlexMono-TextItalic.woff")
+		format("woff");
 }
 
 /* semibold is actually 600, but mapping it to 500 works better across AntD */
@@ -58,14 +65,16 @@
 	font-family: IBMPlexMono;
 	font-style: normal;
 	font-weight: 500;
-	src: url("https://assets.ngrok.com/fonts/ibm-plex-mono/IBMPlexMono-SemiBold.woff") format("woff");
+	src: url("https://assets.ngrok.com/fonts/ibm-plex-mono/IBMPlexMono-SemiBold.woff")
+		format("woff");
 }
 
 @font-face {
 	font-family: IBMPlexMono;
 	font-style: italic;
 	font-weight: 500;
-	src: url("https://assets.ngrok.com/fonts/ibm-plex-mono/IBMPlexMono-SemiBoldItalic.woff") format("woff");
+	src: url("https://assets.ngrok.com/fonts/ibm-plex-mono/IBMPlexMono-SemiBoldItalic.woff")
+		format("woff");
 }
 
 @tailwind base;
@@ -124,10 +133,10 @@
 	--ngrok-grayple-950: 236 20% 11.5%;
 
 	/**
-	* Tailwind palette.
-	* These are required as they are referenced by both light and dark modes.
-	* Not to be used directly.
-	*/
+	 * Tailwind palette.
+	 * These are required as they are referenced by both light and dark modes.
+	 * Not to be used directly.
+	 */
 
 	--tw-black: 0 0% 0%;
 	--tw-white: 0 0% 100%;
@@ -1492,10 +1501,10 @@
 }
 
 /**
-	* prism.js default theme for JavaScript, CSS and HTML
-	* Based on dabblet (http://dabblet.com)
-	* @author Lea Verou
-	*/
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
 
 .token.comment,
 .token.prolog,
@@ -1617,35 +1626,60 @@
 	}
 
 	.scroll-shadow {
-		background: /* Shadow Cover TOP */
-			linear-gradient(hsl(var(--bg-base)) 30%, hsl(var(--bg-base) / 0%)) center top,
-			/* Shadow Cover BOTTOM */ linear-gradient(hsl(var(--bg-base) / 0%), hsl(var(--bg-base)) 70%) center bottom,
-			/* Shadow TOP */ radial-gradient(farthest-side at 50% 0, var(--navigation-shadow), rgb(0 0 0 / 0%)) center top,
-			/* Shadow BOTTOM */ radial-gradient(farthest-side at 50% 100%, var(--navigation-shadow), rgb(0 0 0 / 0%)) center
-				bottom;
+		/* Shadow Cover TOP */
+		background: linear-gradient(
+				hsl(var(--bg-base)) 30%,
+				hsl(var(--bg-base) / 0%)
+			)
+			center top,
+			/* Shadow Cover BOTTOM */ linear-gradient(
+				hsl(var(--bg-base) / 0%),
+				hsl(var(--bg-base)) 70%
+			)
+			center bottom,
+			/* Shadow TOP */ radial-gradient(
+				farthest-side at 50% 0,
+				var(--navigation-shadow),
+				rgb(0 0 0 / 0%)
+			)
+			center top,
+			/* Shadow BOTTOM */ radial-gradient(
+				farthest-side at 50% 100%,
+				var(--navigation-shadow),
+				rgb(0 0 0 / 0%)
+			)
+			center bottom;
 		background-repeat: no-repeat;
-		background-size:
-			100% 40px,
-			100% 40px,
-			100% 14px,
-			100% 14px;
+		background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
 		background-attachment: local, local, scroll, scroll;
 	}
 
 	.nav-scroll-shadow {
-		background:
-			/* Shadow Cover TOP */
-			linear-gradient(hsl(var(--bg-popover)) 30%, hsl(var(--bg-popover) / 0%)) center top,
-			/* Shadow Cover BOTTOM */ linear-gradient(hsl(var(--bg-popover) / 0%), hsl(var(--bg-popover)) 70%) center bottom,
-			/* Shadow TOP */ radial-gradient(farthest-side at 50% 0, var(--navigation-shadow), rgb(0 0 0 / 0%)) center top,
-			/* Shadow BOTTOM */ radial-gradient(farthest-side at 50% 100%, var(--navigation-shadow), rgb(0 0 0 / 0%)) center
-				bottom;
+		/* Shadow Cover TOP */
+		background: linear-gradient(
+				hsl(var(--bg-popover)) 30%,
+				hsl(var(--bg-popover) / 0%)
+			)
+			center top,
+			/* Shadow Cover BOTTOM */ linear-gradient(
+				hsl(var(--bg-popover) / 0%),
+				hsl(var(--bg-popover)) 70%
+			)
+			center bottom,
+			/* Shadow TOP */ radial-gradient(
+				farthest-side at 50% 0,
+				var(--navigation-shadow),
+				rgb(0 0 0 / 0%)
+			)
+			center top,
+			/* Shadow BOTTOM */ radial-gradient(
+				farthest-side at 50% 100%,
+				var(--navigation-shadow),
+				rgb(0 0 0 / 0%)
+			)
+			center bottom;
 		background-repeat: no-repeat;
-		background-size:
-			100% 40px,
-			100% 40px,
-			100% 14px,
-			100% 14px;
+		background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
 		background-attachment: local, local, scroll, scroll;
 	}
 }

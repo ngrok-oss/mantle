@@ -5,7 +5,10 @@ import type { InputHTMLAttributes } from "react";
 import { Input, InputCapture } from "./input.js";
 import type { InputType, WithAutoComplete, WithValidation } from "./types.js";
 
-type PasswordInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, "autoComplete" | "type"> &
+type PasswordInputProps = Omit<
+	InputHTMLAttributes<HTMLInputElement>,
+	"autoComplete" | "type"
+> &
 	WithValidation &
 	WithAutoComplete & {
 		/**
@@ -43,7 +46,9 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
 						onValueVisibilityChange?.(!showPassword);
 					}}
 				>
-					<span className="sr-only">Turn password visibility {showPassword ? "off" : "on"}</span>
+					<span className="sr-only">
+						Turn password visibility {showPassword ? "off" : "on"}
+					</span>
 					<EyeCon aria-hidden />
 				</button>
 			</Input>

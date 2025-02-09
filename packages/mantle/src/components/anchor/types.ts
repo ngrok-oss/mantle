@@ -46,4 +46,9 @@ export type Rel =
  *
  * @default "_self"
  */
-export type Target = (HTMLAttributeAnchorTarget & "_self") | "_blank" | "_parent" | "_top" | "_unfencedTop";
+export type Target =
+	| (HTMLAttributeAnchorTarget & "_self")
+	| "_blank"
+	| "_parent"
+	| "_top"
+	| "_unfencedTop";

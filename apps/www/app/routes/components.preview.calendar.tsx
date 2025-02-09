@@ -1,12 +1,18 @@
 import { Anchor } from "@ngrok/mantle/anchor";
 import { Calendar } from "@ngrok/mantle/calendar";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
+import {
+	CodeBlock,
+	CodeBlockBody,
+	CodeBlockCode,
+	CodeBlockCopyButton,
+	fmtCode,
+} from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
-import { Example } from "~/components/example";
-import { PageHeader } from "~/components/page-header";
 import { useState } from "react";
 import type { DateRange } from "react-day-picker";
+import { Example } from "~/components/example";
+import { PageHeader } from "~/components/page-header";
 
 // import {
 // 	BooleanPropType,
@@ -23,7 +29,10 @@ import type { DateRange } from "react-day-picker";
 export const meta: MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — Calendar" },
-		{ name: "description", content: "mantle is ngrok's UI library and design system" },
+		{
+			name: "description",
+			content: "mantle is ngrok's UI library and design system",
+		},
 	];
 };
 
@@ -47,7 +56,10 @@ const SingleCalendarExample = () => {
 };
 
 const RangeCalendarExample = () => {
-	const [date, setDate] = useState<DateRange | undefined>({ from: undefined, to: undefined });
+	const [date, setDate] = useState<DateRange | undefined>({
+		from: undefined,
+		to: undefined,
+	});
 
 	return (
 		<Calendar
@@ -61,7 +73,10 @@ const RangeCalendarExample = () => {
 };
 
 const RangeMultipleCalendarExample = () => {
-	const [date, setDate] = useState<DateRange | undefined>({ from: undefined, to: undefined });
+	const [date, setDate] = useState<DateRange | undefined>({
+		from: undefined,
+		to: undefined,
+	});
 
 	return (
 		<Calendar
@@ -76,8 +91,15 @@ const RangeMultipleCalendarExample = () => {
 };
 
 const HiddenDaysCalendarExample = () => {
-	const [date, setDate] = useState<DateRange | undefined>({ from: undefined, to: undefined });
-	const hiddenDays = [new Date(2024, 4, 6), new Date(2024, 4, 20), new Date(2024, 4, 11)];
+	const [date, setDate] = useState<DateRange | undefined>({
+		from: undefined,
+		to: undefined,
+	});
+	const hiddenDays = [
+		new Date(2024, 4, 6),
+		new Date(2024, 4, 20),
+		new Date(2024, 4, 11),
+	];
 
 	return (
 		<Calendar
@@ -92,8 +114,15 @@ const HiddenDaysCalendarExample = () => {
 };
 
 const DisabledDaysCalendarExample = () => {
-	const [date, setDate] = useState<DateRange | undefined>({ from: undefined, to: undefined });
-	const disabledDays = [new Date(2024, 4, 3), new Date(2024, 4, 13), new Date(2024, 4, 14)];
+	const [date, setDate] = useState<DateRange | undefined>({
+		from: undefined,
+		to: undefined,
+	});
+	const disabledDays = [
+		new Date(2024, 4, 3),
+		new Date(2024, 4, 13),
+		new Date(2024, 4, 14),
+	];
 
 	return (
 		<Calendar
@@ -114,7 +143,9 @@ export default function Page() {
 				<PageHeader id="calendar" isPreview>
 					Calendar
 				</PageHeader>
-				<p className="font-body text-body text-xl">A date field component that allows users to enter and edit date.</p>
+				<p className="font-body text-body text-xl">
+					A date field component that allows users to enter and edit date.
+				</p>
 				<div>
 					<Example className="flex flex-col gap-6">
 						<div className="space-y-2">
@@ -167,7 +198,10 @@ export default function Page() {
 				</h2>
 				<p className="font-body text-body text-xl">
 					The <InlineCode>Calendar</InlineCode> is built on top of{" "}
-					<Anchor href="https://react-day-picker.js.org/">React DayPicker</Anchor>.
+					<Anchor href="https://react-day-picker.js.org/">
+						React DayPicker
+					</Anchor>
+					.
 				</p>
 				{/* <PropsTable>
 					<PropRow>

@@ -18,7 +18,10 @@ import { PageHeader } from "~/components/page-header";
 export const meta: MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — Code Block" },
-		{ name: "description", content: "mantle is ngrok's UI library and design system" },
+		{
+			name: "description",
+			content: "mantle is ngrok's UI library and design system",
+		},
 	];
 };
 
@@ -140,9 +143,10 @@ export default function Page() {
 					<header className="space-y-1">
 						<h3 className="text-xl font-medium">Single Line with a Header</h3>
 						<p className="font-body text-body">
-							Many code blocks will be single line command line prompts and should be able to render with a header and
-							copy button. This makes it absolutely clear that this example is a command line prompt and not a code
-							sample.
+							Many code blocks will be single line command line prompts and
+							should be able to render with a header and copy button. This makes
+							it absolutely clear that this example is a command line prompt and
+							not a code sample.
 						</p>
 					</header>
 
@@ -189,8 +193,9 @@ export default function Page() {
 					<header className="space-y-1">
 						<h3 className="text-xl font-medium">Horizontal Scrolling</h3>
 						<p className="font-body text-body">
-							This example is included to demonstrate that code blocks can scroll horizontally if the content is too
-							wide. Mantle attempts to normalize scrollbar styling across browsers and platforms.
+							This example is included to demonstrate that code blocks can
+							scroll horizontally if the content is too wide. Mantle attempts to
+							normalize scrollbar styling across browsers and platforms.
 						</p>
 					</header>
 					<div>
@@ -274,10 +279,12 @@ export default function Page() {
 					<header className="space-y-1">
 						<h3 className="text-xl font-medium">No Header or Copy Button</h3>
 						<p className="font-body text-body">
-							This is the most simple example of our code block component. While very useful, the copy button is
-							optional. It is also perfectly acceptable to render a code block without a header, especially if context
-							is provided in the surrounding content or the code block is self-explanatory eg. “In your index.js file,
-							paste the following:”.
+							This is the most simple example of our code block component. While
+							very useful, the copy button is optional. It is also perfectly
+							acceptable to render a code block without a header, especially if
+							context is provided in the surrounding content or the code block
+							is self-explanatory eg. “In your index.js file, paste the
+							following:”.
 						</p>
 					</header>
 					<div>
@@ -337,10 +344,13 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 className="text-xl font-medium">Single Line with Horizontal Scrolling</h3>
+						<h3 className="text-xl font-medium">
+							Single Line with Horizontal Scrolling
+						</h3>
 						<p className="font-body text-body">
-							This example is included to show the interaction between the copy button and horizontal scrolling on a
-							single verbose terminal command.
+							This example is included to show the interaction between the copy
+							button and horizontal scrolling on a single verbose terminal
+							command.
 						</p>
 					</header>
 					<div>
@@ -382,7 +392,9 @@ export default function Page() {
 				<h2 id="supported-languages" className="text-3xl font-medium">
 					Supported Languages
 				</h2>
-				<p className="font-body text-body text-xl">Mantle supports the following languages:</p>
+				<p className="font-body text-body text-xl">
+					Mantle supports the following languages:
+				</p>
 
 				<Card className="font-mono text-xs">
 					<CardBody>

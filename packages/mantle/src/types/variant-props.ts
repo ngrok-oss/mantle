@@ -6,6 +6,6 @@ import type { DeepNonNullable } from "./deep-non-nullable.js";
  *
  * Using VariantProps directly from CVA produces that can be `null`, which is not what we want.
  */
-export type VariantProps<Variants extends (props: Record<PropertyKey, unknown> | undefined) => string> = Partial<
-	DeepNonNullable<CVAVariantProps<Variants>>
->;
+export type VariantProps<
+	Variants extends (props: Record<PropertyKey, unknown> | undefined) => string,
+> = Partial<DeepNonNullable<CVAVariantProps<Variants>>>;

@@ -1,5 +1,9 @@
 import { X } from "@phosphor-icons/react/X";
-import type { ComponentProps, ComponentPropsWithoutRef, ElementRef } from "react";
+import type {
+	ComponentProps,
+	ComponentPropsWithoutRef,
+	ElementRef,
+} from "react";
 import { forwardRef } from "react";
 import { cx } from "../../utils/cx/cx.js";
 import { IconButton, type IconButtonProps } from "../button/icon-button.js";
@@ -14,22 +18,29 @@ const DialogPortal = DialogPrimitive.Portal;
 
 const DialogClose = DialogPrimitive.Close;
 
-const DialogOverlay = forwardRef<ElementRef<"div">, ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>>(
-	({ className, ...props }, ref) => (
-		<DialogPrimitive.Overlay
-			ref={ref}
-			className={cx(
-				"bg-overlay data-state-closed:animate-out data-state-closed:fade-out-0 data-state-open:animate-in data-state-open:fade-in-0 fixed inset-0 z-50 backdrop-blur-sm",
-				className,
-			)}
-			{...props}
-		/>
-	),
-);
+const DialogOverlay = forwardRef<
+	ElementRef<"div">,
+	ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
+>(({ className, ...props }, ref) => (
+	<DialogPrimitive.Overlay
+		ref={ref}
+		className={cx(
+			"bg-overlay data-state-closed:animate-out data-state-closed:fade-out-0 data-state-open:animate-in data-state-open:fade-in-0 fixed inset-0 z-50 backdrop-blur-sm",
+			className,
+		)}
+		{...props}
+	/>
+));
 DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
 
-const DialogContent = forwardRef<ElementRef<"div">, ComponentPropsWithoutRef<typeof DialogPrimitive.Content>>(
-	({ children, className, onInteractOutside, onPointerDownOutside, ...props }, ref) => (
+const DialogContent = forwardRef<
+	ElementRef<"div">,
+	ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
+>(
+	(
+		{ children, className, onInteractOutside, onPointerDownOutside, ...props },
+		ref,
+	) => (
 		<DialogPortal>
 			<DialogOverlay />
 			<div className="fixed inset-4 z-50 flex items-center justify-center">
@@ -60,7 +71,11 @@ const DialogContent = forwardRef<ElementRef<"div">, ComponentPropsWithoutRef<typ
 );
 DialogContent.displayName = DialogPrimitive.Content.displayName;
 
-const DialogHeader = ({ className, children, ...props }: ComponentProps<"div">) => (
+const DialogHeader = ({
+	className,
+	children,
+	...props
+}: ComponentProps<"div">) => (
 	<div
 		className={cx(
 			"border-dialog-muted text-strong relative flex shrink-0 items-center justify-between gap-2 border-b px-6 py-4",
@@ -83,18 +98,31 @@ const DialogCloseIconButton = ({
 	...props
 }: DialogCloseIconButtonProps) => (
 	<DialogPrimitive.Close asChild>
-		<IconButton appearance={appearance} icon={<X />} label={label} size={size} type={type} {...props} />
+		<IconButton
+			appearance={appearance}
+			icon={<X />}
+			label={label}
+			size={size}
+			type={type}
+			{...props}
+		/>
 	</DialogPrimitive.Close>
 );
 
 const DialogBody = ({ className, ...props }: ComponentProps<"div">) => (
-	<div className={cx("scrollbar text-body flex-1 overflow-y-auto p-6", className)} {...props} />
+	<div
+		className={cx("scrollbar text-body flex-1 overflow-y-auto p-6", className)}
+		{...props}
+	/>
 );
 DialogBody.displayName = "DialogBody";
 
 const DialogFooter = ({ className, ...props }: ComponentProps<"div">) => (
 	<div
-		className={cx("border-dialog-muted flex shrink-0 flex-row-reverse gap-2 border-t px-6 py-4", className)}
+		className={cx(
+			"border-dialog-muted flex shrink-0 flex-row-reverse gap-2 border-t px-6 py-4",
+			className,
+		)}
 		{...props}
 	/>
 );
@@ -104,15 +132,24 @@ const DialogTitle = forwardRef<
 	ElementRef<typeof DialogPrimitive.Title>,
 	ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
 >(({ className, ...props }, ref) => (
-	<DialogPrimitive.Title ref={ref} className={cx("text-strong truncate text-lg font-medium", className)} {...props} />
+	<DialogPrimitive.Title
+		ref={ref}
+		className={cx("text-strong truncate text-lg font-medium", className)}
+		{...props}
+	/>
 ));
 DialogTitle.displayName = DialogPrimitive.Title.displayName;
 
-const DialogDescription = forwardRef<ElementRef<"p">, ComponentPropsWithoutRef<typeof DialogPrimitive.Description>>(
-	({ className, ...props }, ref) => (
-		<DialogPrimitive.Description ref={ref} className={cx("text-muted", className)} {...props} />
-	),
-);
+const DialogDescription = forwardRef<
+	ElementRef<"p">,
+	ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
+>(({ className, ...props }, ref) => (
+	<DialogPrimitive.Description
+		ref={ref}
+		className={cx("text-muted", className)}
+		{...props}
+	/>
+));
 DialogDescription.displayName = DialogPrimitive.Description.displayName;
 
 export {

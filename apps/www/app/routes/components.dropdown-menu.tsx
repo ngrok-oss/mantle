@@ -1,6 +1,12 @@
 import { Anchor } from "@ngrok/mantle/anchor";
 import { Button } from "@ngrok/mantle/button";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
+import {
+	CodeBlock,
+	CodeBlockBody,
+	CodeBlockCode,
+	CodeBlockCopyButton,
+	fmtCode,
+} from "@ngrok/mantle/code-block";
 import {
 	DropdownMenu,
 	DropdownMenuCheckboxItem,
@@ -25,6 +31,7 @@ import { Moon } from "@phosphor-icons/react/Moon";
 import { SignOut } from "@phosphor-icons/react/SignOut";
 import { Sun } from "@phosphor-icons/react/Sun";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
+import { useState } from "react";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import {
@@ -32,16 +39,18 @@ import {
 	PropDescriptionCell,
 	PropNameCell,
 	PropRow,
-	PropsTable,
 	PropTypeCell,
+	PropsTable,
 	StringPropType,
 } from "~/components/props-table";
-import { useState } from "react";
 
 export const meta: MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — DropdownMenu" },
-		{ name: "description", content: "mantle is ngrok's UI library and design system" },
+		{
+			name: "description",
+			content: "mantle is ngrok's UI library and design system",
+		},
 	];
 };
 
@@ -60,7 +69,8 @@ export default function Page() {
 			<section className="space-y-4">
 				<PageHeader id="dropdown-menu">Dropdown Menu</PageHeader>
 				<p className="font-body text-body text-xl">
-					Displays a menu to the user — such as a set of actions or functions — triggered by a button.
+					Displays a menu to the user — such as a set of actions or functions —
+					triggered by a button.
 				</p>
 				<div>
 					<Example className="flex-col gap-6">
@@ -117,7 +127,9 @@ export default function Page() {
 								<DropdownMenuGroup>
 									<DropdownMenuItem>Team</DropdownMenuItem>
 									<DropdownMenuSub>
-										<DropdownMenuSubTrigger>Invite users</DropdownMenuSubTrigger>
+										<DropdownMenuSubTrigger>
+											Invite users
+										</DropdownMenuSubTrigger>
 										<DropdownMenuSubContent>
 											<DropdownMenuItem>Email</DropdownMenuItem>
 											<DropdownMenuItem>Message</DropdownMenuItem>
@@ -150,7 +162,11 @@ export default function Page() {
 
 						<DropdownMenu>
 							<DropdownMenuTrigger asChild>
-								<Button type="button" appearance="filled" className="whitespace-break-spaces">
+								<Button
+									type="button"
+									appearance="filled"
+									className="whitespace-break-spaces"
+								>
 									Content Width Matches Trigger Width (Extra Wide)
 								</Button>
 							</DropdownMenuTrigger>
@@ -201,7 +217,9 @@ export default function Page() {
 								<DropdownMenuGroup>
 									<DropdownMenuItem>Team</DropdownMenuItem>
 									<DropdownMenuSub>
-										<DropdownMenuSubTrigger>Invite users</DropdownMenuSubTrigger>
+										<DropdownMenuSubTrigger>
+											Invite users
+										</DropdownMenuSubTrigger>
 										<DropdownMenuSubContent>
 											<DropdownMenuItem>Email</DropdownMenuItem>
 											<DropdownMenuItem>Message</DropdownMenuItem>
@@ -301,7 +319,8 @@ export default function Page() {
 						API Reference
 					</h2>
 					<p className="font-body text-body text-xl">
-						The <InlineCode>DropdownMenu</InlineCode> components are built on top of{" "}
+						The <InlineCode>DropdownMenu</InlineCode> components are built on
+						top of{" "}
 						<Anchor
 							href="https://www.radix-ui.com/primitives/docs/components/dropdown-menu"
 							target="_blank"
@@ -346,11 +365,12 @@ export default function Page() {
 							<PropDefaultValueCell />
 							<PropDescriptionCell>
 								<p>
-									<InlineCode>trigger</InlineCode> will ensure the dropdown content is the same width as the trigger
-									button.
+									<InlineCode>trigger</InlineCode> will ensure the dropdown
+									content is the same width as the trigger button.
 								</p>
 								<p>
-									<InlineCode>content</InlineCode> will make the dropdown content use the intrinsic content width.
+									<InlineCode>content</InlineCode> will make the dropdown
+									content use the intrinsic content width.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>

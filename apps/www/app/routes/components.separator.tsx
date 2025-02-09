@@ -1,4 +1,10 @@
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
+import {
+	CodeBlock,
+	CodeBlockBody,
+	CodeBlockCode,
+	CodeBlockCopyButton,
+	fmtCode,
+} from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { HorizontalSeparatorGroup, Separator } from "@ngrok/mantle/separator";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
@@ -8,7 +14,10 @@ import { PageHeader } from "~/components/page-header";
 export const meta: MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — Separator" },
-		{ name: "description", content: "mantle is ngrok's UI library and design system" },
+		{
+			name: "description",
+			content: "mantle is ngrok's UI library and design system",
+		},
 	];
 };
 
@@ -23,13 +32,17 @@ export default function Page() {
 		<div className="space-y-16">
 			<section className="space-y-4">
 				<PageHeader id="separator">Separator</PageHeader>
-				<p className="font-body text-body text-xl">Visually or semantically separates content.</p>
+				<p className="font-body text-body text-xl">
+					Visually or semantically separates content.
+				</p>
 				<div>
 					<Example>
 						<div className="space-y-4">
 							<div className="space-y-1">
 								<h4 className="text-sm font-medium leading-none">mantle</h4>
-								<p className="text-muted-foreground text-sm">An open-source UI component library.</p>
+								<p className="text-muted-foreground text-sm">
+									An open-source UI component library.
+								</p>
 							</div>
 							<Separator className="my-4" />
 							<Separator className="my-4" decorative={false} />
@@ -102,8 +115,9 @@ export default function Page() {
 					Composition
 				</h2>
 				<p className="font-body text-body text-xl">
-					When you want to render <span className="italic">something else</span> as a{" "}
-					<InlineCode>HorizontalSeparatorGroup</InlineCode> or <InlineCode>Separator</InlineCode>, you can use the{" "}
+					When you want to render <span className="italic">something else</span>{" "}
+					as a <InlineCode>HorizontalSeparatorGroup</InlineCode> or{" "}
+					<InlineCode>Separator</InlineCode>, you can use the{" "}
 					<InlineCode>asChild</InlineCode> prop to compose.
 				</p>
 				<div>
@@ -122,17 +136,32 @@ export default function Page() {
 
 									<div className="space-y-2">
 										<div className="space-x-2">
-											<input type="radio" id="apple" name="monster" value="apple" />
+											<input
+												type="radio"
+												id="apple"
+												name="monster"
+												value="apple"
+											/>
 											<label htmlFor="apple">Apple</label>
 										</div>
 
 										<div className="space-x-2">
-											<input type="radio" id="mango" name="monster" value="mango" />
+											<input
+												type="radio"
+												id="mango"
+												name="monster"
+												value="mango"
+											/>
 											<label htmlFor="mango">Mango</label>
 										</div>
 
 										<div className="space-x-2">
-											<input type="radio" id="pear" name="monster" value="pear" />
+											<input
+												type="radio"
+												id="pear"
+												name="monster"
+												value="pear"
+											/>
 											<label htmlFor="pear">Pear</label>
 										</div>
 									</div>

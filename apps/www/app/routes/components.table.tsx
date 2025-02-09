@@ -1,4 +1,10 @@
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
+import {
+	CodeBlock,
+	CodeBlockBody,
+	CodeBlockCode,
+	CodeBlockCopyButton,
+	fmtCode,
+} from "@ngrok/mantle/code-block";
 import {
 	Table,
 	TableBody,
@@ -16,7 +22,10 @@ import { PageHeader } from "~/components/page-header";
 export const meta: MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — Table" },
-		{ name: "description", content: "mantle is ngrok's UI library and design system" },
+		{
+			name: "description",
+			content: "mantle is ngrok's UI library and design system",
+		},
 	];
 };
 
@@ -30,7 +39,9 @@ export default function Page() {
 	return (
 		<section className="space-y-4">
 			<PageHeader id="table">Table</PageHeader>
-			<p className="font-body text-body text-xl">A responsive table component.</p>
+			<p className="font-body text-body text-xl">
+				A responsive table component.
+			</p>
 			<div>
 				<Example className="gap-2">
 					<ExampleTable />
@@ -143,7 +154,9 @@ const ExampleTable = () => {
 							<TableCell className="font-medium">{invoice.invoice}</TableCell>
 							<TableCell>{invoice.paymentStatus}</TableCell>
 							<TableCell>{invoice.paymentMethod}</TableCell>
-							<TableCell className="text-right">{invoice.totalAmount}</TableCell>
+							<TableCell className="text-right">
+								{invoice.totalAmount}
+							</TableCell>
 						</TableRow>
 					))}
 				</TableBody>

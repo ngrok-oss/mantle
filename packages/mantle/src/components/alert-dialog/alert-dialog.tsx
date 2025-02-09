@@ -3,17 +3,21 @@
 import { Info } from "@phosphor-icons/react/Info";
 import { Warning } from "@phosphor-icons/react/Warning";
 import {
-	createContext,
-	forwardRef,
-	useContext,
 	type ComponentProps,
 	type ComponentPropsWithoutRef,
 	type ElementRef,
 	type ReactNode,
+	createContext,
+	forwardRef,
+	useContext,
 } from "react";
 import invariant from "tiny-invariant";
 import { cx } from "../../utils/cx/cx.js";
-import { Button, type ButtonPriority, type ButtonProps } from "../button/button.js";
+import {
+	Button,
+	type ButtonPriority,
+	type ButtonProps,
+} from "../button/button.js";
 import * as AlertDialogPrimitive from "../dialog/primitive.js";
 import { SvgOnly } from "../icon/svg-only.js";
 import type { SvgAttributes } from "../icon/types.js";
@@ -30,7 +34,10 @@ const AlertDialogContext = createContext<AlertDialogContextValue | null>(null);
 
 function useAlertDialogContext() {
 	const context = useContext(AlertDialogContext);
-	invariant(context, "AlertDialog child component used outside of AlertDialog parent!");
+	invariant(
+		context,
+		"AlertDialog child component used outside of AlertDialog parent!",
+	);
 	return context;
 }
 
@@ -128,7 +135,13 @@ AlertDialogBody.displayName = "AlertDialogBody";
  * Contains the header content of the dialog, including the title and description.
  */
 const AlertDialogHeader = ({ className, ...props }: ComponentProps<"div">) => (
-	<div className={cx("flex flex-col space-y-2 text-center sm:text-start", className)} {...props} />
+	<div
+		className={cx(
+			"flex flex-col space-y-2 text-center sm:text-start",
+			className,
+		)}
+		{...props}
+	/>
 );
 AlertDialogHeader.displayName = "AlertDialogHeader";
 
@@ -136,7 +149,13 @@ AlertDialogHeader.displayName = "AlertDialogHeader";
  * Contains the footer content of the dialog, including the action and cancel buttons.
  */
 const AlertDialogFooter = ({ className, ...props }: ComponentProps<"div">) => (
-	<div className={cx("flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2", className)} {...props} />
+	<div
+		className={cx(
+			"flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2",
+			className,
+		)}
+		{...props}
+	/>
 );
 AlertDialogFooter.displayName = "AlertDialogFooter";
 
@@ -152,7 +171,10 @@ const AlertDialogTitle = forwardRef<
 >(({ className, ...props }, ref) => (
 	<AlertDialogPrimitive.Title
 		ref={ref}
-		className={cx("text-strong text-center text-lg font-medium sm:text-start", className)}
+		className={cx(
+			"text-strong text-center text-lg font-medium sm:text-start",
+			className,
+		)}
 		{...props}
 	/>
 ));
@@ -170,7 +192,10 @@ const AlertDialogDescription = forwardRef<
 >(({ className, ...props }, ref) => (
 	<AlertDialogPrimitive.Description
 		ref={ref}
-		className={cx("text-body text-center text-sm font-normal sm:text-start", className)}
+		className={cx(
+			"text-body text-center text-sm font-normal sm:text-start",
+			className,
+		)}
 		{...props}
 	/>
 ));
@@ -257,20 +282,23 @@ type AlertDialogIconProps = Omit<SvgAttributes, "children"> & {
  *
  * Can be overridden with a custom icon using the `svg` prop.
  */
-const AlertDialogIcon = forwardRef<ElementRef<"svg">, AlertDialogIconProps>(({ className, svg, ...props }, ref) => {
-	const ctx = useAlertDialogContext();
-	const defaultColor = ctx.priority === "danger" ? "text-danger-600" : "text-accent-600";
-	const defaultIcon = ctx.priority === "danger" ? <Warning /> : <Info />;
+const AlertDialogIcon = forwardRef<ElementRef<"svg">, AlertDialogIconProps>(
+	({ className, svg, ...props }, ref) => {
+		const ctx = useAlertDialogContext();
+		const defaultColor =
+			ctx.priority === "danger" ? "text-danger-600" : "text-accent-600";
+		const defaultIcon = ctx.priority === "danger" ? <Warning /> : <Info />;
 
-	return (
-		<SvgOnly
-			ref={ref}
-			className={cx("size-12 sm:size-7", defaultColor, className)}
-			svg={svg ?? defaultIcon}
-			{...props}
-		/>
-	);
-});
+		return (
+			<SvgOnly
+				ref={ref}
+				className={cx("size-12 sm:size-7", defaultColor, className)}
+				svg={svg ?? defaultIcon}
+				{...props}
+			/>
+		);
+	},
+);
 AlertDialogIcon.displayName = "AlertDialogIcon";
 
 export {

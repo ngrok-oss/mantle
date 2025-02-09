@@ -10,7 +10,13 @@ import {
 	AlertDialogTrigger,
 } from "@ngrok/mantle/alert-dialog";
 import { Button, IconButton } from "@ngrok/mantle/button";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
+import {
+	CodeBlock,
+	CodeBlockBody,
+	CodeBlockCode,
+	CodeBlockCopyButton,
+	fmtCode,
+} from "@ngrok/mantle/code-block";
 import {
 	Dialog,
 	DialogBody,
@@ -32,18 +38,28 @@ import {
 	SheetTitle,
 	SheetTrigger,
 } from "@ngrok/mantle/sheet";
-import { makeToast, Toast, ToastAction, ToastIcon, ToastMessage, type Priority } from "@ngrok/mantle/toast";
+import {
+	type Priority,
+	Toast,
+	ToastAction,
+	ToastIcon,
+	ToastMessage,
+	makeToast,
+} from "@ngrok/mantle/toast";
 import { X } from "@phosphor-icons/react/X";
 import type { HeadersFunction, MetaFunction } from "@remix-run/node";
-import { Example } from "~/components/example";
-import { PageHeader } from "~/components/page-header";
 import { useState } from "react";
 import invariant from "tiny-invariant";
+import { Example } from "~/components/example";
+import { PageHeader } from "~/components/page-header";
 
 export const meta: MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — Toast" },
-		{ name: "description", content: "mantle is ngrok's UI library and design system" },
+		{
+			name: "description",
+			content: "mantle is ngrok's UI library and design system",
+		},
 	];
 };
 
@@ -53,7 +69,12 @@ export const headers: HeadersFunction = () => {
 	};
 };
 
-const priorities = ["info", "success", "warning", "danger"] as const satisfies Priority[];
+const priorities = [
+	"info",
+	"success",
+	"warning",
+	"danger",
+] as const satisfies Priority[];
 
 function getPriorityByIndex(index: number): Priority {
 	const priority = priorities[index % priorities.length];
@@ -71,8 +92,8 @@ export default function Page() {
 				Toast
 			</PageHeader>
 			<p className="font-body text-body text-xl">
-				A succinct message that is displayed temporarily. Toasts are used to provide feedback to the user without
-				interrupting their workflow.
+				A succinct message that is displayed temporarily. Toasts are used to
+				provide feedback to the user without interrupting their workflow.
 			</p>
 			<div>
 				<Example className="flex-col gap-4">
@@ -84,10 +105,17 @@ export default function Page() {
 								<Toast priority={priority}>
 									<ToastIcon />
 									<ToastMessage>
-										Laborum ea anim adipisicing in Lorem incididunt mollit ipsum reprehenderit.
+										Laborum ea anim adipisicing in Lorem incididunt mollit ipsum
+										reprehenderit.
 									</ToastMessage>
 									<ToastAction asChild>
-										<IconButton type="button" appearance="ghost" size="xs" icon={<X />} label="Dismiss toast" />
+										<IconButton
+											type="button"
+											appearance="ghost"
+											size="xs"
+											icon={<X />}
+											label="Dismiss toast"
+										/>
 									</ToastAction>
 								</Toast>,
 							);
@@ -115,10 +143,17 @@ export default function Page() {
 											<Toast priority="warning">
 												<ToastIcon />
 												<ToastMessage>
-													Laborum ea anim adipisicing in Lorem incididunt mollit ipsum reprehenderit.
+													Laborum ea anim adipisicing in Lorem incididunt mollit
+													ipsum reprehenderit.
 												</ToastMessage>
 												<ToastAction asChild>
-													<IconButton type="button" appearance="ghost" size="xs" icon={<X />} label="Dismiss toast" />
+													<IconButton
+														type="button"
+														appearance="ghost"
+														size="xs"
+														icon={<X />}
+														label="Dismiss toast"
+													/>
 												</ToastAction>
 											</Toast>,
 										)
@@ -142,7 +177,9 @@ export default function Page() {
 						</DialogTrigger>
 						<DialogContent>
 							<DialogHeader>
-								<DialogTitle>Are you absolutely sure? aslkdfjas dlfksdoijfoasdjf ioadsjfi</DialogTitle>
+								<DialogTitle>
+									Are you absolutely sure? aslkdfjas dlfksdoijfoasdjf ioadsjfi
+								</DialogTitle>
 								<DialogCloseIconButton />
 							</DialogHeader>
 							<DialogBody>
@@ -153,10 +190,17 @@ export default function Page() {
 											<Toast priority="danger">
 												<ToastIcon />
 												<ToastMessage>
-													Laborum ea anim adipisicing in Lorem incididunt mollit ipsum reprehenderit.
+													Laborum ea anim adipisicing in Lorem incididunt mollit
+													ipsum reprehenderit.
 												</ToastMessage>
 												<ToastAction asChild>
-													<IconButton type="button" appearance="ghost" size="xs" icon={<X />} label="Dismiss toast" />
+													<IconButton
+														type="button"
+														appearance="ghost"
+														size="xs"
+														icon={<X />}
+														label="Dismiss toast"
+													/>
 												</ToastAction>
 											</Toast>,
 										)
@@ -167,7 +211,11 @@ export default function Page() {
 							</DialogBody>
 							<DialogFooter>
 								<DialogClose asChild>
-									<Button type="button" priority="neutral" appearance="outlined">
+									<Button
+										type="button"
+										priority="neutral"
+										appearance="outlined"
+									>
 										Cancel
 									</Button>
 								</DialogClose>
@@ -193,10 +241,17 @@ export default function Page() {
 											<Toast priority="success">
 												<ToastIcon />
 												<ToastMessage>
-													Laborum ea anim adipisicing in Lorem incididunt mollit ipsum reprehenderit.
+													Laborum ea anim adipisicing in Lorem incididunt mollit
+													ipsum reprehenderit.
 												</ToastMessage>
 												<ToastAction asChild>
-													<IconButton type="button" appearance="ghost" size="xs" icon={<X />} label="Dismiss toast" />
+													<IconButton
+														type="button"
+														appearance="ghost"
+														size="xs"
+														icon={<X />}
+														label="Dismiss toast"
+													/>
 												</ToastAction>
 											</Toast>,
 										)

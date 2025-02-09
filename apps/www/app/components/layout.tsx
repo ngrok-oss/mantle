@@ -1,15 +1,22 @@
 import { IconButton } from "@ngrok/mantle/button";
 import { cx } from "@ngrok/mantle/cx";
 import { Icon } from "@ngrok/mantle/icon";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger } from "@ngrok/mantle/select";
+import {
+	Select,
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectLabel,
+	SelectTrigger,
+} from "@ngrok/mantle/select";
 import { $theme, isTheme, useTheme } from "@ngrok/mantle/theme-provider";
 import type { WithStyleProps } from "@ngrok/mantle/types";
 import { List } from "@phosphor-icons/react/List";
 import { Sun } from "@phosphor-icons/react/Sun";
 import { X } from "@phosphor-icons/react/X";
 import { Link } from "@remix-run/react";
-import type { Route } from "~/types/routes";
 import type { PropsWithChildren } from "react";
+import type { Route } from "~/types/routes";
 import { NavLink } from "./nav-link";
 import { useNavigation } from "./navigation-context";
 
@@ -45,7 +52,10 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 	const { showNavigation, setShowNavigation } = useNavigation();
 
 	return (
-		<main className={cx("mx-auto h-full max-w-7xl sm:px-4", className)} style={style}>
+		<main
+			className={cx("mx-auto h-full max-w-7xl sm:px-4", className)}
+			style={style}
+		>
 			<header className="xs:gap-4 flex h-20 items-center gap-3 px-4 sm:px-0">
 				<IconButton
 					className="md:hidden"
@@ -65,7 +75,9 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 				</Link>
 
 				<p className="text-strong -ml-1 font-mono text-xs md:ml-48">
-					<a href="https://github.com/ngrok-oss/mantle/releases">{currentVersion}</a>
+					<a href="https://github.com/ngrok-oss/mantle/releases">
+						{currentVersion}
+					</a>
 				</p>
 
 				<Select
@@ -90,8 +102,12 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 							<SelectItem value={$theme("system")}>System</SelectItem>
 							<SelectItem value={$theme("light")}>Light</SelectItem>
 							<SelectItem value={$theme("dark")}>Dark</SelectItem>
-							<SelectItem value={$theme("light-high-contrast")}>Light High Contrast</SelectItem>
-							<SelectItem value={$theme("dark-high-contrast")}>Dark High Contrast</SelectItem>
+							<SelectItem value={$theme("light-high-contrast")}>
+								Light High Contrast
+							</SelectItem>
+							<SelectItem value={$theme("dark-high-contrast")}>
+								Dark High Contrast
+							</SelectItem>
 						</SelectGroup>
 					</SelectContent>
 				</Select>
@@ -107,7 +123,9 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 						<Navigation className="scrollbar scroll-shadow h-full overflow-auto py-4" />
 					</div>
 				</div>
-				<article className="bg-card w-0 flex-1 p-4 shadow-2xl sm:mb-4 sm:rounded-lg md:p-9 lg:mb-9">{children}</article>
+				<article className="bg-card w-0 flex-1 p-4 shadow-2xl sm:mb-4 sm:rounded-lg md:p-9 lg:mb-9">
+					{children}
+				</article>
 			</div>
 		</main>
 	);
@@ -210,7 +228,9 @@ function Navigation({ className, style }: WithStyleProps) {
 	return (
 		<nav className={cx("text-sm", className)} style={style}>
 			<ul className="flex flex-col">
-				<li className="mb-2 text-xs font-medium uppercase tracking-wider">Welcome</li>
+				<li className="mb-2 text-xs font-medium uppercase tracking-wider">
+					Welcome
+				</li>
 
 				<li>
 					<NavLink to="/" prefetch="intent">
@@ -218,7 +238,9 @@ function Navigation({ className, style }: WithStyleProps) {
 					</NavLink>
 				</li>
 
-				<li className="mt-6 text-xs font-medium uppercase tracking-wider">Base</li>
+				<li className="mt-6 text-xs font-medium uppercase tracking-wider">
+					Base
+				</li>
 
 				<ul className="mt-2">
 					<li>
@@ -243,22 +265,32 @@ function Navigation({ className, style }: WithStyleProps) {
 					</li>
 				</ul>
 
-				<li className="mt-6 text-xs font-medium uppercase tracking-wider">Components</li>
+				<li className="mt-6 text-xs font-medium uppercase tracking-wider">
+					Components
+				</li>
 				<ul className="mt-2">
 					{prodReadyComponents.map((component) => (
 						<li key={component}>
-							<NavLink to={prodReadyComponentRouteLookup[component]} prefetch="intent">
+							<NavLink
+								to={prodReadyComponentRouteLookup[component]}
+								prefetch="intent"
+							>
 								{component}
 							</NavLink>
 						</li>
 					))}
 				</ul>
 
-				<li className="mt-6 text-xs font-medium uppercase tracking-wider">Preview Components</li>
+				<li className="mt-6 text-xs font-medium uppercase tracking-wider">
+					Preview Components
+				</li>
 				<ul className="mt-2">
 					{previewComponents.map((component) => (
 						<li key={component}>
-							<NavLink to={previewComponentsRouteLookup[component]} prefetch="intent">
+							<NavLink
+								to={previewComponentsRouteLookup[component]}
+								prefetch="intent"
+							>
 								{component}
 							</NavLink>
 						</li>

@@ -17,7 +17,10 @@ const anchorClassNames = (className?: string) =>
 /**
  * The props for the `Anchor` component.
  */
-type AnchorProps = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "rel" | "target"> &
+type AnchorProps = Omit<
+	AnchorHTMLAttributes<HTMLAnchorElement>,
+	"rel" | "target"
+> &
 	WithAsChild & {
 		/**
 		 * The rel attribute defines the relationship between a linked resource and the current document.
@@ -26,7 +29,11 @@ type AnchorProps = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "rel" | "target
 		 *
 		 * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel
 		 */
-		rel?: Rel | (string & {}) | undefined | (Rel | (string & {}) | undefined | null)[];
+		rel?:
+			| Rel
+			| (string & {})
+			| undefined
+			| (Rel | (string & {}) | undefined | null)[];
 		/**
 		 * Where to display the linked URL, as the name for a browsing context (a tab, window, or <iframe>).
 		 *
@@ -48,12 +55,21 @@ type AnchorProps = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "rel" | "target
  * [`react-router-dom` `<Link>`](https://reactrouter.com/en/main/components/link) or the
  * [`@remix-run/react` `<Link>`](https://remix.run/docs/en/main/components/link).
  */
-const Anchor = forwardRef<HTMLAnchorElement, AnchorProps>(({ asChild, className, rel: propRel, ...props }, ref) => {
-	const Component = asChild ? Slot : "a";
-	const rel = resolveRel(propRel);
+const Anchor = forwardRef<HTMLAnchorElement, AnchorProps>(
+	({ asChild, className, rel: propRel, ...props }, ref) => {
+		const Component = asChild ? Slot : "a";
+		const rel = resolveRel(propRel);
 
-	return <Component className={anchorClassNames(className)} ref={ref} rel={rel} {...props} />;
-});
+		return (
+			<Component
+				className={anchorClassNames(className)}
+				ref={ref}
+				rel={rel}
+				{...props}
+			/>
+		);
+	},
+);
 Anchor.displayName = "Anchor";
 
 /**
@@ -61,7 +77,14 @@ Anchor.displayName = "Anchor";
  *
  * If the value is an array, it will be filtered for empty values, ensure uniqueness, sorted, and joined with a space.
  */
-function resolveRel(rel: Rel | (string & {}) | undefined | null | (Rel | (string & {}) | undefined | null)[]) {
+function resolveRel(
+	rel:
+		| Rel
+		| (string & {})
+		| undefined
+		| null
+		| (Rel | (string & {}) | undefined | null)[],
+) {
 	if (Array.isArray(rel)) {
 		const uniqueRel = new Set(rel);
 		const result = [...uniqueRel]

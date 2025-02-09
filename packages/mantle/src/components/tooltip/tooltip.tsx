@@ -12,7 +12,10 @@ import { cx } from "../../utils/cx/cx.js";
  *
  * https://github.com/ngrok-oss/mantle/issues
  */
-const TooltipProvider = ({ delayDuration = 0, ...props }: ComponentPropsWithoutRef<typeof Provider>) => (
+const TooltipProvider = ({
+	delayDuration = 0,
+	...props
+}: ComponentPropsWithoutRef<typeof Provider>) => (
 	<Provider delayDuration={delayDuration ?? 0} {...props} />
 );
 
@@ -46,21 +49,22 @@ const TooltipTrigger = Trigger;
  *
  * https://github.com/ngrok-oss/mantle/issues
  */
-const TooltipContent = forwardRef<ElementRef<typeof Content>, ComponentPropsWithoutRef<typeof Content>>(
-	({ children, className, sideOffset = 4, ...props }, ref) => (
-		<Content
-			ref={ref}
-			sideOffset={sideOffset}
-			className={cx(
-				"bg-tooltip text-tooltip animate-in fade-in-0 zoom-in-95 data-side-bottom:slide-in-from-top-2 data-side-left:slide-in-from-right-2 data-side-right:slide-in-from-left-2 data-side-top:slide-in-from-bottom-2 data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 z-50 max-w-72 overflow-hidden break-words rounded-md px-3 py-1.5 text-sm shadow",
-				className,
-			)}
-			{...props}
-		>
-			{children}
-		</Content>
-	),
-);
+const TooltipContent = forwardRef<
+	ElementRef<typeof Content>,
+	ComponentPropsWithoutRef<typeof Content>
+>(({ children, className, sideOffset = 4, ...props }, ref) => (
+	<Content
+		ref={ref}
+		sideOffset={sideOffset}
+		className={cx(
+			"bg-tooltip text-tooltip animate-in fade-in-0 zoom-in-95 data-side-bottom:slide-in-from-top-2 data-side-left:slide-in-from-right-2 data-side-right:slide-in-from-left-2 data-side-top:slide-in-from-bottom-2 data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 z-50 max-w-72 overflow-hidden break-words rounded-md px-3 py-1.5 text-sm shadow",
+			className,
+		)}
+		{...props}
+	>
+		{children}
+	</Content>
+));
 TooltipContent.displayName = "TooltipContent";
 
 export {

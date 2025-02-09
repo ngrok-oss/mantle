@@ -5,8 +5,19 @@ import {
 	Trigger as TabsPrimitiveTrigger,
 } from "@radix-ui/react-tabs";
 import clsx from "clsx";
-import type { ComponentPropsWithoutRef, ElementRef, HTMLAttributes } from "react";
-import { Children, cloneElement, createContext, forwardRef, isValidElement, useContext } from "react";
+import type {
+	ComponentPropsWithoutRef,
+	ElementRef,
+	HTMLAttributes,
+} from "react";
+import {
+	Children,
+	cloneElement,
+	createContext,
+	forwardRef,
+	isValidElement,
+	useContext,
+} from "react";
 import invariant from "tiny-invariant";
 import { parseBooleanish } from "../../types/booleanish.js";
 import { cx } from "../../utils/cx/cx.js";
@@ -15,42 +26,52 @@ type TabsStateContextValue = {
 	orientation: "horizontal" | "vertical";
 };
 
-const TabsStateContext = createContext<TabsStateContextValue>({ orientation: "horizontal" });
+const TabsStateContext = createContext<TabsStateContextValue>({
+	orientation: "horizontal",
+});
 
-const Tabs = forwardRef<ElementRef<typeof TabsPrimitiveRoot>, ComponentPropsWithoutRef<typeof TabsPrimitiveRoot>>(
-	({ className, children, orientation = "horizontal", ...props }, ref) => (
-		<TabsPrimitiveRoot
-			className={cx("flex gap-4", orientation === "horizontal" ? "flex-col" : "flex-row", className)}
-			orientation={orientation}
-			ref={ref}
-			{...props}
-		>
-			<TabsStateContext.Provider value={{ orientation }}>{children}</TabsStateContext.Provider>
-		</TabsPrimitiveRoot>
-	),
-);
+const Tabs = forwardRef<
+	ElementRef<typeof TabsPrimitiveRoot>,
+	ComponentPropsWithoutRef<typeof TabsPrimitiveRoot>
+>(({ className, children, orientation = "horizontal", ...props }, ref) => (
+	<TabsPrimitiveRoot
+		className={cx(
+			"flex gap-4",
+			orientation === "horizontal" ? "flex-col" : "flex-row",
+			className,
+		)}
+		orientation={orientation}
+		ref={ref}
+		{...props}
+	>
+		<TabsStateContext.Provider value={{ orientation }}>
+			{children}
+		</TabsStateContext.Provider>
+	</TabsPrimitiveRoot>
+));
 Tabs.displayName = "Tabs";
 
-const TabsList = forwardRef<ElementRef<typeof TabsPrimitiveList>, ComponentPropsWithoutRef<typeof TabsPrimitiveList>>(
-	({ className, ...props }, ref) => {
-		const ctx = useContext(TabsStateContext);
+const TabsList = forwardRef<
+	ElementRef<typeof TabsPrimitiveList>,
+	ComponentPropsWithoutRef<typeof TabsPrimitiveList>
+>(({ className, ...props }, ref) => {
+	const ctx = useContext(TabsStateContext);
 
-		return (
-			<TabsPrimitiveList
-				aria-orientation={ctx.orientation}
-				className={cx(
-					"flex border-gray-200",
-					ctx.orientation === "horizontal"
-						? "flex-row items-center gap-6 border-b"
-						: "flex-col items-end gap-[0.875rem] self-stretch border-r",
-					className,
-				)}
-				ref={ref}
-				{...props}
-			/>
-		);
-	},
-);
+	return (
+		<TabsPrimitiveList
+			aria-orientation={ctx.orientation}
+			className={cx(
+				"flex border-gray-200",
+				ctx.orientation === "horizontal"
+					? "flex-row items-center gap-6 border-b"
+					: "flex-col items-end gap-[0.875rem] self-stretch border-r",
+				className,
+			)}
+			ref={ref}
+			{...props}
+		/>
+	);
+});
 TabsList.displayName = "TabsList";
 
 type TabsTriggerProps = ComponentPropsWithoutRef<typeof TabsPrimitiveTrigger>;
@@ -63,15 +84,30 @@ const TabsTriggerDecoration = () => {
 			aria-hidden
 			className={clsx(
 				"group-data-state-active/tab-trigger:bg-blue-600 absolute z-0",
-				ctx.orientation === "horizontal" && "-bottom-px left-0 right-0 h-[0.1875rem]",
-				ctx.orientation === "vertical" && "-right-px bottom-0 top-0 w-[0.1875rem]",
+				ctx.orientation === "horizontal" &&
+					"-bottom-px left-0 right-0 h-[0.1875rem]",
+				ctx.orientation === "vertical" &&
+					"-right-px bottom-0 top-0 w-[0.1875rem]",
 			)}
 		/>
 	);
 };
 
-const TabsTrigger = forwardRef<ElementRef<typeof TabsPrimitiveTrigger>, TabsTriggerProps>(
-	({ "aria-disabled": _ariaDisabled, asChild = false, children, className, disabled: _disabled, ...props }, ref) => {
+const TabsTrigger = forwardRef<
+	ElementRef<typeof TabsPrimitiveTrigger>,
+	TabsTriggerProps
+>(
+	(
+		{
+			"aria-disabled": _ariaDisabled,
+			asChild = false,
+			children,
+			className,
+			disabled: _disabled,
+			...props
+		},
+		ref,
+	) => {
 		const ctx = useContext(TabsStateContext);
 		const disabled = parseBooleanish(_ariaDisabled ?? _disabled);
 
@@ -143,7 +179,11 @@ const TabsTrigger = forwardRef<ElementRef<typeof TabsPrimitiveTrigger>, TabsTrig
 );
 TabsTrigger.displayName = "TabsTrigger";
 
-const TabBadge = ({ className, children, ...props }: HTMLAttributes<HTMLSpanElement>) => (
+const TabBadge = ({
+	className,
+	children,
+	...props
+}: HTMLAttributes<HTMLSpanElement>) => (
 	<span
 		className={cx(
 			"rounded-full bg-gray-500/20 px-1.5 text-xs font-medium text-gray-600",
@@ -163,7 +203,10 @@ const TabsContent = forwardRef<
 >(({ className, ...props }, ref) => (
 	<TabsPrimitiveContent
 		ref={ref}
-		className={cx("focus-visible:ring-focus-accent outline-none focus-visible:ring-4", className)}
+		className={cx(
+			"focus-visible:ring-focus-accent outline-none focus-visible:ring-4",
+			className,
+		)}
 		{...props}
 	/>
 ));
