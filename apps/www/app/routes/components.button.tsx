@@ -61,7 +61,7 @@ export default function Page() {
 					information
 				</p>
 				<div>
-					<Example className="flex flex-wrap gap-6">
+					<Example className="flex flex-wrap gap-6 group">
 						<div>
 							<p className="mb-2 text-center font-mono text-xs">Default</p>
 							<div className="flex items-center gap-2">

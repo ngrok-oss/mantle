@@ -29,7 +29,7 @@ const buttonVariants = cva(
 					"text-accent-600 focus-visible:ring-focus-accent not-disabled:hover:bg-accent-500/10 not-disabled:hover:text-accent-700 not-disabled:active:bg-accent-500/15 not-disabled:active:text-accent-700 h-9 border border-transparent px-3 text-sm font-medium",
 				outlined:
 					"border-accent-600 bg-form text-accent-600 focus-visible:ring-focus-accent not-disabled:hover:border-accent-700 not-disabled:hover:bg-accent-500/10 not-disabled:hover:text-accent-700 not-disabled:active:border-accent-700 not-disabled:active:bg-accent-500/15 not-disabled:active:text-accent-700 h-9 border px-3 text-sm font-medium",
-				link: "text-accent-600 focus-visible:ring-focus-accent not-disabled:hover:underline group border-transparent",
+				link: "text-accent-600 focus-visible:ring-focus-accent not-disabled:hover:underline group/button-link border-transparent",
 			},
 			/**
 			 * Whether or not the button is in a loading state, default `false`. Setting `isLoading` will
@@ -298,7 +298,8 @@ const InnerContent = ({
 	<span
 		className={clsx(
 			"inline-flex items-center gap-1.5 focus-within:outline-none focus-visible:outline-none",
-			appearance === "link" && "not-disabled:group-hover:underline",
+			appearance === "link" &&
+				"hover:underline group-disabled/button-link:no-underline",
 		)}
 	>
 		{icon && (
