@@ -1,5 +1,15 @@
 # @ngrok/mantle
 
+## 0.19.14
+
+### Patch Changes
+
+- [#430](https://github.com/ngrok-oss/mantle/pull/430) [`ec4e2e4`](https://github.com/ngrok-oss/mantle/commit/ec4e2e4867e7eecfd8571abc4092e83ad1e3c2fe) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - button: fix underline on group-hover bug of <Button appearance="link"> bug
+
+- [#427](https://github.com/ngrok-oss/mantle/pull/427) [`7b9ef0b`](https://github.com/ngrok-oss/mantle/commit/7b9ef0b44b0f16ff36bd2c9dcfc2d3a74915f1f7) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Update dependencies
+
+- [#425](https://github.com/ngrok-oss/mantle/pull/425) [`0dad7df`](https://github.com/ngrok-oss/mantle/commit/0dad7df13a14b59be0c53605bc3fec471ead73e1) Thanks [@dependabot](https://github.com/apps/dependabot)! - update dependencies
+
 ## 0.19.13
 
 ### Patch Changes
