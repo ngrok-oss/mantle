@@ -2,7 +2,7 @@
   "private": true,
   "name": "mantle",
   "license": "MIT",
-  "packageManager": "pnpm@10.2.1",
+  "packageManager": "pnpm@10.3.0",
   "type": "module",
   "engines": {
     "node": "^22.0.0"
@@ -15,8 +15,8 @@
     "clean:node_modules": "node ./clean-node-modules.js",
     "fmt-lint": "biome check . --diagnostic-level=error",
     "fmt-lint:fix": "biome check . --write --diagnostic-level=error",
-    "fmt:check": "biome format .",
-    "fmt": "biome format . --write",
+    "fmt:check": "biome check --organize-imports-enabled=true --formatter-enabled=true --linter-enabled=false .",
+    "fmt": "biome check --organize-imports-enabled=true --formatter-enabled=true --linter-enabled=false --write .",
     "lint": "biome lint . --diagnostic-level=error",
     "lint:fix": "biome lint . --write --diagnostic-level=error",
     "test": "turbo run test",
@@ -31,12 +31,16 @@
     "@biomejs/biome": "1.9.4",
     "@changesets/changelog-github": "0.5.0",
     "@changesets/cli": "2.27.12",
-    "turbo": "2.4.0"
+    "turbo": "2.4.1"
   },
   "pnpm": {
     "overrides": {
       "cookie": ">=1.0.2",
       "esbuild": ">=0.25.0"
-    }
+    },
+    "onlyBuiltDependencies": [
+      "@biomejs/biome",
+      "esbuild"
+    ]
   }
 }
