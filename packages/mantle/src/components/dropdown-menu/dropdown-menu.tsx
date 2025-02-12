@@ -160,16 +160,17 @@ const DropdownMenuRadioItem = forwardRef<
 >(({ className, children, ...props }, ref) => (
 	<DropdownMenuPrimitive.RadioItem
 		className={cx(
-			"text-strong data-disabled:pointer-events-none data-disabled:opacity-50 relative flex cursor-pointer select-none items-center gap-2 rounded py-1.5 pl-2 pr-9 text-sm font-normal outline-none",
+			"group/dropdown-menu-radio-item",
+			"text-strong data-disabled:pointer-events-none data-disabled:opacity-50 relative flex cursor-pointer select-none items-center gap-2 rounded py-1.5 px-2 text-sm font-normal outline-none",
 			"data-highlighted:bg-popover-hover data-highlighted:dark:bg-popover-hover",
-			"aria-checked:!bg-filled-accent aria-checked:text-on-filled aria-checked:font-medium",
+			"aria-checked:!bg-filled-accent aria-checked:text-on-filled aria-checked:font-medium aria-checked:pr-9",
 			"[&>svg]:size-5 [&_svg]:shrink-0",
 			className,
 		)}
 		ref={ref}
 		{...props}
 	>
-		<span className="absolute right-2 flex items-center">
+		<span className="absolute right-2 items-center hidden group-aria-checked/dropdown-menu-radio-item:flex">
 			<DropdownMenuPrimitive.ItemIndicator>
 				<Check className="size-4 shrink-0" weight="bold" />
 			</DropdownMenuPrimitive.ItemIndicator>
