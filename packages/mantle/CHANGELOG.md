@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.19.15
+
+### Patch Changes
+
+- [#431](https://github.com/ngrok-oss/mantle/pull/431) [`7358307`](https://github.com/ngrok-oss/mantle/commit/7358307706b78eb459803632df08547e588b5cca) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - DropdownMenuRadioItem: only take up space for the checkmark when an item is checked
+
 ## 0.19.14
 
 ### Patch Changes
