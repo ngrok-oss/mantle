@@ -301,12 +301,18 @@ const AlertDialogIcon = forwardRef<ElementRef<"svg">, AlertDialogIconProps>(
 );
 AlertDialogIcon.displayName = "AlertDialogIcon";
 
+/**
+ * A button that closes the Alert Dialog. (Unstyled)
+ */
+const AlertDialogClose = AlertDialogPrimitive.Close;
+
 export {
 	//,
 	AlertDialog,
 	AlertDialogAction,
 	AlertDialogBody,
 	AlertDialogCancel,
+	AlertDialogClose,
 	AlertDialogContent,
 	AlertDialogDescription,
 	AlertDialogFooter,
