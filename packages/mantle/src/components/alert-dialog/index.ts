@@ -4,6 +4,7 @@ export {
 	AlertDialogAction,
 	AlertDialogBody,
 	AlertDialogCancel,
+	AlertDialogClose,
 	AlertDialogContent,
 	AlertDialogDescription,
 	AlertDialogFooter,
