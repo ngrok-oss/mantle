@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.19.16
+
+### Patch Changes
+
+- [#433](https://github.com/ngrok-oss/mantle/pull/433) [`4744706`](https://github.com/ngrok-oss/mantle/commit/474470667d728a02615fb68b9fc5612635c96882) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - AlertDialog: export AlertDialogClose
+
 ## 0.19.15
 
 ### Patch Changes
