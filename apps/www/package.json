@@ -35,7 +35,7 @@
     "@cfg/tsconfig": "workspace:*",
     "@commander-js/extra-typings": "13.1.0",
     "@remix-run/dev": "2.15.3",
-    "@types/node": "22.13.1",
+    "@types/node": "22.13.4",
     "@types/prismjs": "1.26.5",
     "@types/react": "18.3.18",
     "@types/react-dom": "18.3.5",
