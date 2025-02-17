@@ -1,6 +1,12 @@
 import * as Primitive from "@ariakit/react";
-import type { ComponentProps, ComponentPropsWithoutRef } from "react";
+import {
+	type ComponentProps,
+	type ComponentPropsWithoutRef,
+	type ElementRef,
+	forwardRef,
+} from "react";
 import { cx } from "../../utils/cx/cx.js";
+import { Separator } from "../separator/separator.js";
 
 type ComboboxProps = Primitive.ComboboxProviderProps;
 
@@ -160,6 +166,18 @@ function ComboboxHighlightMatch({
 	);
 }
 
+const ComboboxSeparator = forwardRef<
+	ElementRef<typeof Separator>,
+	ComponentPropsWithoutRef<typeof Separator>
+>(({ className, ...props }, ref) => (
+	<Separator
+		ref={ref}
+		className={cx("-mx-1.25 my-1 w-auto", className)}
+		{...props}
+	/>
+));
+ComboboxSeparator.displayName = "ComboboxSeparator";
+
 export {
 	//,
 	Combobox,
@@ -169,4 +187,5 @@ export {
 	ComboboxHighlightMatch,
 	ComboboxInput,
 	ComboboxItem,
+	ComboboxSeparator,
 };

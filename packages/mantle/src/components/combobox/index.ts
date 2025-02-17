@@ -7,4 +7,5 @@ export {
 	ComboboxHighlightMatch,
 	ComboboxInput,
 	ComboboxItem,
+	ComboboxSeparator,
 } from "./combobox.js";

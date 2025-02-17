@@ -14,6 +14,7 @@ import {
 	ComboboxHighlightMatch,
 	ComboboxInput,
 	ComboboxItem,
+	ComboboxSeparator,
 } from "@ngrok/mantle/combobox";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
@@ -72,6 +73,8 @@ export default function Page() {
 									<ComboboxHighlightMatch value="https://${random}.ngrok.dev" />
 								</ComboboxItem>
 							</ComboboxGroup>
+							<ComboboxSeparator />
+							<div>asdfasdf</div>
 						</ComboboxContent>
 					</Combobox>
 				</Example>
