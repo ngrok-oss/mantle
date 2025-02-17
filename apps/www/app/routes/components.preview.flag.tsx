@@ -19,7 +19,7 @@ import {
 	PropsTable,
 	StringPropType,
 } from "~/components/props-table";
-import type { Route } from "./+types/components.progress-donut";
+import type { Route } from "./+types/components.preview.flag";
 
 export const meta: Route.MetaFunction = () => {
 	return [
