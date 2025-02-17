@@ -51,8 +51,8 @@ export default function Page() {
 				by <Anchor href="https://ui.shadcn.com">shadcn/ui</Anchor>
 				&rsquo;s markup and{" "}
 				<Anchor href="https://www.radix-ui.com">Radix</Anchor>
-				&rsquo;s primitives. Its documentation is built in{" "}
-				<Anchor href="https://remix.run/">Remix</Anchor>.
+				&rsquo;s primitives. Its documentation is built with{" "}
+				<Anchor href="https://reactrouter.com/">react-router</Anchor>.
 			</p>
 
 			<h3 id="status" className="mt-8 text-xl font-medium">

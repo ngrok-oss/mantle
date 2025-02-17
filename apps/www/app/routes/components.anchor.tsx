@@ -62,11 +62,6 @@ export default function Page() {
 					<Anchor href="https://reactrouter.com/en/main/components/link">
 						<InlineCode>react-router</InlineCode>{" "}
 						<InlineCode>&lt;Link&gt;</InlineCode>
-					</Anchor>{" "}
-					or the{" "}
-					<Anchor href="https://remix.run/docs/en/main/components/link">
-						<InlineCode>@remix-run/react</InlineCode>{" "}
-						<InlineCode>&lt;Link&gt;</InlineCode>
 					</Anchor>
 					.
 				</p>

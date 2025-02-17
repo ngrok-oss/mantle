@@ -246,10 +246,10 @@ export default function Page() {
 					as a <InlineCode>IconButton</InlineCode>, you can use the{" "}
 					<InlineCode>asChild</InlineCode> prop to compose. This is useful when
 					you want to splat the <InlineCode>IconButton</InlineCode> styling onto
-					a <InlineCode>Link</InlineCode> from <InlineCode>remix</InlineCode> or{" "}
-					<InlineCode>react-router</InlineCode>. Keep in mind that when you use{" "}
-					<InlineCode>asChild</InlineCode> the <InlineCode>type</InlineCode>{" "}
-					prop will <strong>NOT</strong> be passed to the child component.
+					a <InlineCode>react-router</InlineCode> <InlineCode>Link</InlineCode>.
+					Keep in mind that when you use <InlineCode>asChild</InlineCode> the{" "}
+					<InlineCode>type</InlineCode> prop will <strong>NOT</strong> be passed
+					to the child component.
 				</p>
 				<div>
 					<Example>

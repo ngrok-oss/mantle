@@ -102,8 +102,7 @@ export default function Page() {
 					as a <InlineCode>Badge</InlineCode>, you can use the{" "}
 					<InlineCode>asChild</InlineCode> prop to compose. This is useful when
 					you want to splat the <InlineCode>Badge</InlineCode> styling onto a{" "}
-					<InlineCode>Link</InlineCode> from <InlineCode>remix</InlineCode> or{" "}
-					<InlineCode>react-router</InlineCode>.
+					<InlineCode>react-router</InlineCode> <InlineCode>Link</InlineCode>.
 				</p>
 				<div>
 					<Example>
