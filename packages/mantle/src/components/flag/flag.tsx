@@ -28,6 +28,7 @@ type Props = Omit<ComponentProps<"div">, "children"> & {
 
 /**
  * A flag component that displays a flag based on the provided country code.
+ * Inspired by [react-flagpack](https://flagpack.xyz/docs/development/react).
  */
 function Flag({
 	//,
