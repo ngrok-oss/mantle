@@ -6,6 +6,9 @@ jobs:
   ci-checks:
     runs-on: ubuntu-latest
     env:
+      DO_NOT_TRACK: 1
+      TURBO_TELEMETRY_DISABLED: 1
+      VERCEL_TELEMETRY_DISABLED: 1
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
       TURBO_TEAM: ${{ vars.TURBO_TEAM }}
     steps:
@@ -14,25 +17,35 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version-file: ".nvmrc"
-
       - name: Install pnpm 📦
         uses: pnpm/action-setup@v4
         # use version from package.json#packageManager field
+        with:
+          run_install: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+          cache: "pnpm"
 
       - name: Install Dependencies 📥
         run: |
           pnpm install
 
-      - name: Lint, Fmt, and Type Check 🧹
-        run: | # Run the lint, fmt and type check scripts; typecheck will run build as well
+      - name: Fmt and Lint Check 🧹
+        run: |
+          pnpm run fmt-lint:check
+
+      - name: Build 🏗️
+        run: |
+          pnpm run build
+      
+      - name: Typecheck 🔎
+        run: |
           pnpm run typecheck
-          pnpm run fmt-lint
 
       - name: Test 🧪
-        run: | # Run the tests
+        run: |
           pnpm run test
 
       - name: Diff Docs Routes Codegen 🕵️

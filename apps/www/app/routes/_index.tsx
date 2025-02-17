@@ -8,18 +8,11 @@ import {
 	fmtCode,
 } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
-import {
-	Table,
-	TableBody,
-	TableCell,
-	TableHead,
-	TableHeader,
-	TableRow,
-} from "@ngrok/mantle/table";
-import type { HeadersFunction, MetaFunction } from "@remix-run/node";
+import { Table, TableBody, TableCell, TableRow } from "@ngrok/mantle/table";
 import { Link } from "~/components/link";
+import type { Route } from "./+types/_index";
 
-export const meta: MetaFunction = () => {
+export const meta: Route.MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle" },
 		{
@@ -29,7 +22,7 @@ export const meta: MetaFunction = () => {
 	];
 };
 
-export const headers: HeadersFunction = () => {
+export const headers: Route.HeadersFunction = () => {
 	return {
 		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
 	};
@@ -58,8 +51,8 @@ export default function Page() {
 				by <Anchor href="https://ui.shadcn.com">shadcn/ui</Anchor>
 				&rsquo;s markup and{" "}
 				<Anchor href="https://www.radix-ui.com">Radix</Anchor>
-				&rsquo;s primitives. Its documentation is built in{" "}
-				<Anchor href="https://remix.run/">Remix</Anchor>.
+				&rsquo;s primitives. Its documentation is built with{" "}
+				<Anchor href="https://reactrouter.com/">react-router</Anchor>.
 			</p>
 
 			<h3 id="status" className="mt-8 text-xl font-medium">

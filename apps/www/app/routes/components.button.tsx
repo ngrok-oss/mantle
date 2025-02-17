@@ -10,9 +10,8 @@ import {
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@ngrok/mantle/tooltip";
 import { Fire } from "@phosphor-icons/react/Fire";
-import type { HeadersFunction, MetaFunction } from "@remix-run/node";
-import { Link } from "@remix-run/react";
 import type { PropsWithChildren } from "react";
+import { Link } from "react-router";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import {
@@ -27,8 +26,9 @@ import {
 	StringPropType,
 } from "~/components/props-table";
 import { route } from "~/types/routes";
+import type { Route } from "./+types/components.alert";
 
-export const meta: MetaFunction = () => {
+export const meta: Route.MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — Button" },
 		{
@@ -38,7 +38,7 @@ export const meta: MetaFunction = () => {
 	];
 };
 
-export const headers: HeadersFunction = () => {
+export const headers: Route.HeadersFunction = () => {
 	return {
 		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
 	};
@@ -369,10 +369,10 @@ export default function Page() {
 					as a <InlineCode>Button</InlineCode>, you can use the{" "}
 					<InlineCode>asChild</InlineCode> prop to compose. This is useful when
 					you want to splat the <InlineCode>Button</InlineCode> styling onto a{" "}
-					<InlineCode>Link</InlineCode> from <InlineCode>remix</InlineCode> or{" "}
-					<InlineCode>react-router</InlineCode>. Keep in mind that when you use{" "}
-					<InlineCode>asChild</InlineCode> the <InlineCode>type</InlineCode>{" "}
-					prop will <strong>NOT</strong> be passed to the child component.
+					<InlineCode>react-router</InlineCode> <InlineCode>Link</InlineCode>.
+					Keep in mind that when you use <InlineCode>asChild</InlineCode> the{" "}
+					<InlineCode>type</InlineCode> prop will <strong>NOT</strong> be passed
+					to the child component.
 				</p>
 				<div>
 					<Example>
@@ -388,7 +388,7 @@ export default function Page() {
 								value={fmtCode`
 									import { Button } from "@ngrok/mantle/button";
 									import { Fire } from "@phosphor-icons/react";
-									import { Link } from "react-router-dom";
+									import { Link } from "react-router";
 
 									<Button appearance="filled" icon={<Fire weight="fill" />} asChild>
 										<Link to="/base/colors">See our colors!</Link>

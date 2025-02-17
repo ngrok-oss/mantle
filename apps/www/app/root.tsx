@@ -13,7 +13,7 @@ import {
 	Scripts,
 	ScrollRestoration,
 	useLoaderData,
-} from "@remix-run/react";
+} from "react-router";
 import { AutoScrollToHash } from "./components/auto-scroll-to-hash";
 import { Layout } from "./components/layout";
 import { NavigationProvider } from "./components/navigation-context";

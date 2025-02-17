@@ -10,10 +10,10 @@ import {
 	CursorPageSizeSelect,
 	CursorPagination,
 } from "@ngrok/mantle/pagination";
-import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { CursorPageSizeValue } from "node_modules/@ngrok/mantle/src/components/pagination/cursor-pagination";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
+import type { Route } from "./+types/components.preview.pagination";
 
 // import {
 // 	BooleanPropType,
@@ -27,7 +27,7 @@ import { PageHeader } from "~/components/page-header";
 // 	StringPropType,
 // } from "~/components/props-table";
 
-export const meta: MetaFunction = () => {
+export const meta: Route.MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — Pagination" },
 		{
@@ -37,7 +37,7 @@ export const meta: MetaFunction = () => {
 	];
 };
 
-export const headers: HeadersFunction = () => {
+export const headers: Route.HeadersFunction = () => {
 	return {
 		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
 	};

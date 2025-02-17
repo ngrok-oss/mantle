@@ -7,11 +7,11 @@ import {
 	fmtCode,
 } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
-import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
+import type { Route } from "./+types/components.alert";
 
-export const meta: MetaFunction = () => {
+export const meta: Route.MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — Anchor" },
 		{
@@ -21,7 +21,7 @@ export const meta: MetaFunction = () => {
 	];
 };
 
-export const headers: HeadersFunction = () => {
+export const headers: Route.HeadersFunction = () => {
 	return {
 		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
 	};
@@ -60,12 +60,7 @@ export default function Page() {
 				<p>
 					If you need to link to an internal application route, prefer using the{" "}
 					<Anchor href="https://reactrouter.com/en/main/components/link">
-						<InlineCode>react-router-dom</InlineCode>{" "}
-						<InlineCode>&lt;Link&gt;</InlineCode>
-					</Anchor>{" "}
-					or the{" "}
-					<Anchor href="https://remix.run/docs/en/main/components/link">
-						<InlineCode>@remix-run/react</InlineCode>{" "}
+						<InlineCode>react-router</InlineCode>{" "}
 						<InlineCode>&lt;Link&gt;</InlineCode>
 					</Anchor>
 					.

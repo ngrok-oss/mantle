@@ -2,8 +2,8 @@ import {
 	useIsomorphicLayoutEffect,
 	usePrefersReducedMotion,
 } from "@ngrok/mantle/hooks";
-import { useLocation } from "@remix-run/react";
 import { useMemo } from "react";
+import { useLocation } from "react-router";
 
 type Props = {
 	disabled?: boolean;

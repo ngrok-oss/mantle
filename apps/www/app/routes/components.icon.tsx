@@ -9,7 +9,6 @@ import {
 import { Icon } from "@ngrok/mantle/icon";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Fire } from "@phosphor-icons/react/Fire";
-import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import {
@@ -23,8 +22,9 @@ import {
 	ReactNodePropType,
 	StringPropType,
 } from "~/components/props-table";
+import type { Route } from "./+types/components.icon";
 
-export const meta: MetaFunction = () => {
+export const meta: Route.MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — Icon" },
 		{
@@ -34,7 +34,7 @@ export const meta: MetaFunction = () => {
 	];
 };
 
-export const headers: HeadersFunction = () => {
+export const headers: Route.HeadersFunction = () => {
 	return {
 		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
 	};

@@ -24,11 +24,11 @@ import {
 import { ListMagnifyingGlass } from "@phosphor-icons/react/ListMagnifyingGlass";
 import { TerminalWindow } from "@phosphor-icons/react/TerminalWindow";
 import { TrashSimple } from "@phosphor-icons/react/TrashSimple";
-import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
+import type { Route } from "./+types/components.sheet";
 
-export const meta: MetaFunction = () => {
+export const meta: Route.MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — Sheet" },
 		{
@@ -38,7 +38,7 @@ export const meta: MetaFunction = () => {
 	];
 };
 
-export const headers: HeadersFunction = () => {
+export const headers: Route.HeadersFunction = () => {
 	return {
 		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
 	};

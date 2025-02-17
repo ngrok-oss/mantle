@@ -47,13 +47,13 @@ import {
 	makeToast,
 } from "@ngrok/mantle/toast";
 import { X } from "@phosphor-icons/react/X";
-import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { useState } from "react";
 import invariant from "tiny-invariant";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
+import type { Route } from "./+types/components.preview.toast";
 
-export const meta: MetaFunction = () => {
+export const meta: Route.MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — Toast" },
 		{
@@ -63,7 +63,7 @@ export const meta: MetaFunction = () => {
 	];
 };
 
-export const headers: HeadersFunction = () => {
+export const headers: Route.HeadersFunction = () => {
 	return {
 		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
 	};

@@ -18,10 +18,9 @@ import {
 } from "@ngrok/mantle/code-block";
 import { Separator } from "@ngrok/mantle/separator";
 import { Plus } from "@phosphor-icons/react/Plus";
-import type { HeadersFunction, MetaFunction } from "@remix-run/node";
-import { PreviewBadge } from "~/components/badges";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
+import type { Route } from "./+types/components.preview.accordion";
 
 // import {
 // 	PropDefaultValueCell,
@@ -33,7 +32,7 @@ import { PageHeader } from "~/components/page-header";
 // 	StringPropType,
 // } from "~/components/props-table";
 
-export const meta: MetaFunction = () => {
+export const meta: Route.MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — Accordion" },
 		{
@@ -43,7 +42,7 @@ export const meta: MetaFunction = () => {
 	];
 };
 
-export const headers: HeadersFunction = () => {
+export const headers: Route.HeadersFunction = () => {
 	return {
 		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
 	};
