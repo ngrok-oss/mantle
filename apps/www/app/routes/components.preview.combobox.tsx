@@ -11,14 +11,15 @@ import {
 	ComboboxContent,
 	ComboboxGroup,
 	ComboboxGroupLabel,
+	ComboboxHighlightMatch,
 	ComboboxInput,
 	ComboboxItem,
 } from "@ngrok/mantle/combobox";
-import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
+import type { Route } from "./+types/components.preview.combobox";
 
-export const meta: MetaFunction = () => {
+export const meta: Route.MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — Combobox" },
 		{
@@ -28,7 +29,7 @@ export const meta: MetaFunction = () => {
 	];
 };
 
-export const headers: HeadersFunction = () => {
+export const headers: Route.HeadersFunction = () => {
 	return {
 		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
 	};
@@ -61,11 +62,14 @@ export default function Page() {
 								<ComboboxGroupLabel>
 									Choose an ngrok subdomain
 								</ComboboxGroupLabel>
-								<ComboboxItem value="https://{$random}.ngrok.app">
-									{"https://{$random}.ngrok.app"}
+								<ComboboxItem value="https://${random}.ngrok.app">
+									<ComboboxHighlightMatch
+										className="data-highlighted:*:text-red-600"
+										value="https://${random}.ngrok.app"
+									/>
 								</ComboboxItem>
-								<ComboboxItem value="https://{$random}.ngrok.dev">
-									{"https://{$random}.ngrok.dev"}
+								<ComboboxItem value="https://${random}.ngrok.dev">
+									<ComboboxHighlightMatch value="https://${random}.ngrok.dev" />
 								</ComboboxItem>
 							</ComboboxGroup>
 						</ComboboxContent>

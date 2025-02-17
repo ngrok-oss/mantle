@@ -1,5 +1,5 @@
 import * as Primitive from "@ariakit/react";
-import type { ComponentPropsWithoutRef } from "react";
+import type { ComponentProps, ComponentPropsWithoutRef } from "react";
 import { cx } from "../../utils/cx/cx.js";
 
 type ComboboxProps = Primitive.ComboboxProviderProps;
@@ -114,12 +114,59 @@ const ComboboxGroupLabel = ({
 	);
 };
 
+type Props = Omit<ComponentProps<"span">, "children"> & {
+	value: string;
+};
+
+function ComboboxHighlightMatch({
+	className: _className,
+	value,
+	...props
+}: Props) {
+	const combobox = Primitive.useComboboxContext();
+	const query = Primitive.useStoreState(combobox, "value");
+	const className = cx("text-strong font-normal", _className);
+
+	if (!query) {
+		return (
+			<span className={className} {...props}>
+				{value}
+			</span>
+		);
+	}
+
+	const lowerText = value.toLowerCase();
+	const lowerQuery = query.toLowerCase();
+
+	if (!lowerText.startsWith(lowerQuery)) {
+		// No highlight if query is not at the start of the value
+		return (
+			<span className={className} {...props}>
+				{value}
+			</span>
+		);
+	}
+
+	const prefix = value.substring(0, query.length);
+	const suffix = value.substring(query.length);
+
+	return (
+		<span className={className} {...props}>
+			<span data-highlighted className="font-bold">
+				{prefix}
+			</span>
+			{suffix}
+		</span>
+	);
+}
+
 export {
 	//,
 	Combobox,
 	ComboboxContent,
 	ComboboxGroup,
 	ComboboxGroupLabel,
+	ComboboxHighlightMatch,
 	ComboboxInput,
 	ComboboxItem,
 };
