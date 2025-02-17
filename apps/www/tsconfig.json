@@ -1,16 +1,29 @@
 {
   "extends": "@cfg/tsconfig/tsconfig.react-app.json",
+  "include": [
+    "env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".react-router/types/**/*",
+  ],
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
       "~/*": ["./app/*"],
     },
-    "types": ["@remix-run/node", "vite/client"],
+    "types": [
+      "@react-router/node",
+      "vite/client",
+    ],
     "skipLibCheck": true,
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "customConditions": [
       "@ngrok/mantle/source"
-    ]
+    ],
+    "rootDirs": [
+      ".",
+      "./.react-router/types",
+    ],
   }
 }

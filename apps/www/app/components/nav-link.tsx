@@ -1,6 +1,6 @@
 import { cx } from "@ngrok/mantle/cx";
-import { NavLink as RRNavLink } from "@remix-run/react";
-import type { NavLinkProps } from "@remix-run/react";
+import { NavLink as RRNavLink } from "react-router";
+import type { NavLinkProps } from "react-router";
 import type { Route } from "~/types/routes";
 import { useNavigation } from "./navigation-context";
 

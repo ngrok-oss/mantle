@@ -18,7 +18,6 @@ import { Info } from "@phosphor-icons/react/Info";
 import { Rocket } from "@phosphor-icons/react/Rocket";
 import { Warning } from "@phosphor-icons/react/Warning";
 import { WarningDiamond } from "@phosphor-icons/react/WarningDiamond";
-import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import {
@@ -30,8 +29,9 @@ import {
 	PropsTable,
 	StringPropType,
 } from "~/components/props-table";
+import type { Route } from "./+types/components.alert";
 
-export const meta: MetaFunction = () => {
+export const meta: Route.MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — Alert" },
 		{
@@ -41,7 +41,7 @@ export const meta: MetaFunction = () => {
 	];
 };
 
-export const headers: HeadersFunction = () => {
+export const headers: Route.HeadersFunction = () => {
 	return {
 		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
 	};

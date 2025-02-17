@@ -30,7 +30,6 @@ import { Gear } from "@phosphor-icons/react/Gear";
 import { Moon } from "@phosphor-icons/react/Moon";
 import { SignOut } from "@phosphor-icons/react/SignOut";
 import { Sun } from "@phosphor-icons/react/Sun";
-import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { useState } from "react";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
@@ -43,8 +42,9 @@ import {
 	PropsTable,
 	StringPropType,
 } from "~/components/props-table";
+import type { Route } from "./+types/components.dropdown-menu";
 
-export const meta: MetaFunction = () => {
+export const meta: Route.MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — DropdownMenu" },
 		{
@@ -54,7 +54,7 @@ export const meta: MetaFunction = () => {
 	];
 };
 
-export const headers: HeadersFunction = () => {
+export const headers: Route.HeadersFunction = () => {
 	return {
 		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
 	};

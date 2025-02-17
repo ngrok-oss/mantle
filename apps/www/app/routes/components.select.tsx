@@ -18,7 +18,6 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@ngrok/mantle/select";
-import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { useState } from "react";
 import { Example } from "~/components/example";
 import { Link } from "~/components/link";
@@ -34,8 +33,9 @@ import {
 	PropsTable,
 	StringPropType,
 } from "~/components/props-table";
+import type { Route } from "./+types/components.select";
 
-export const meta: MetaFunction = () => {
+export const meta: Route.MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — Select" },
 		{
@@ -45,7 +45,7 @@ export const meta: MetaFunction = () => {
 	];
 };
 
-export const headers: HeadersFunction = () => {
+export const headers: Route.HeadersFunction = () => {
 	return {
 		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
 	};

@@ -1,11 +1,11 @@
 import { Anchor } from "@ngrok/mantle/anchor";
 import { cx } from "@ngrok/mantle/cx";
 import { InlineCode } from "@ngrok/mantle/inline-code";
-import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { HashNavLink } from "~/components/hash-nav-link";
 import { PageHeader } from "~/components/page-header";
+import type { Route } from "./+types/base.colors";
 
-export const meta: MetaFunction = () => {
+export const meta: Route.MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — Colors" },
 		{
@@ -15,7 +15,7 @@ export const meta: MetaFunction = () => {
 	];
 };
 
-export const headers: HeadersFunction = () => {
+export const headers: Route.HeadersFunction = () => {
 	return {
 		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
 	};

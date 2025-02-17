@@ -1,6 +1,6 @@
 import { Anchor } from "@ngrok/mantle/anchor";
-import { Link as RRLink } from "@remix-run/react";
-import type { LinkProps } from "@remix-run/react";
+import { Link as RRLink } from "react-router";
+import type { LinkProps } from "react-router";
 import type { Route } from "~/types/routes";
 
 type Props = Omit<LinkProps, "to"> & {

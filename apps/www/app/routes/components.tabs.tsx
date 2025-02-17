@@ -17,12 +17,12 @@ import {
 import { Globe } from "@phosphor-icons/react/Globe";
 import { ShieldCheck } from "@phosphor-icons/react/ShieldCheck";
 import { User } from "@phosphor-icons/react/User";
-import type { HeadersFunction, MetaFunction } from "@remix-run/node";
-import { Link } from "@remix-run/react";
+import { Link } from "react-router";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
+import type { Route } from "./+types/components.tabs";
 
-export const meta: MetaFunction = () => {
+export const meta: Route.MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — Tabs" },
 		{
@@ -32,7 +32,7 @@ export const meta: MetaFunction = () => {
 	];
 };
 
-export const headers: HeadersFunction = () => {
+export const headers: Route.HeadersFunction = () => {
 	return {
 		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
 	};
@@ -327,7 +327,7 @@ export default function Page() {
 								value={fmtCode`
 									import { Button } from "@ngrok/mantle/button";
 									import { Fire } from "@phosphor-icons/react";
-									import { Link } from "react-router-dom";
+									import { Link } from "react-router";
 
 									<Button appearance="filled" icon={<Fire weight="fill" />} asChild>
 										<Link to="/base/colors">See our colors!</Link>

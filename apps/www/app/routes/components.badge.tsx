@@ -10,7 +10,6 @@ import {
 import { colors } from "@ngrok/mantle/color";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { GlobeHemisphereWest } from "@phosphor-icons/react/GlobeHemisphereWest";
-import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 import { Link } from "~/components/link";
 import { PageHeader } from "~/components/page-header";
@@ -26,8 +25,9 @@ import {
 	StringPropType,
 } from "~/components/props-table";
 import { route } from "~/types/routes";
+import type { Route } from "./+types/components.badge";
 
-export const meta: MetaFunction = () => {
+export const meta: Route.MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — Badge" },
 		{
@@ -37,7 +37,7 @@ export const meta: MetaFunction = () => {
 	];
 };
 
-export const headers: HeadersFunction = () => {
+export const headers: Route.HeadersFunction = () => {
 	return {
 		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
 	};
@@ -124,7 +124,7 @@ export default function Page() {
 								value={fmtCode`
 									import { Badge } from "@ngrok/mantle/badge";
 									import { GlobeHemisphereWest } from "@phosphor-icons/react/GlobeHemisphereWest";
-									import { Link } from "react-router-dom";
+									import { Link } from "react-router";
 
 									<Badge appearance="muted" asChild color="pink" icon={<GlobeHemisphereWest />}>
 										<Link to={route("/base/colors")}>See our colors!</Link>

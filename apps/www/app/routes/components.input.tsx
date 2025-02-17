@@ -12,8 +12,7 @@ import { Input, InputCapture } from "@ngrok/mantle/input";
 import { Label } from "@ngrok/mantle/label";
 import { Info } from "@phosphor-icons/react/Info";
 import { MagnifyingGlass } from "@phosphor-icons/react/MagnifyingGlass";
-import type { HeadersFunction, MetaFunction } from "@remix-run/node";
-import { Link } from "@remix-run/react";
+import { Link } from "react-router";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import {
@@ -28,8 +27,9 @@ import {
 	StringPropType,
 } from "~/components/props-table";
 import { route } from "~/types/routes";
+import type { Route } from "./+types/components.input";
 
-export const meta: MetaFunction = () => {
+export const meta: Route.MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — Input" },
 		{
@@ -39,7 +39,7 @@ export const meta: MetaFunction = () => {
 	];
 };
 
-export const headers: HeadersFunction = () => {
+export const headers: Route.HeadersFunction = () => {
 	return {
 		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
 	};

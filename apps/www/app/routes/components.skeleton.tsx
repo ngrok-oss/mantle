@@ -12,12 +12,12 @@ import {
 	MediaObjectMedia,
 } from "@ngrok/mantle/media-object";
 import { Skeleton } from "@ngrok/mantle/skeleton";
-import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 import { Link } from "~/components/link";
 import { PageHeader } from "~/components/page-header";
+import type { Route } from "./+types/components.skeleton";
 
-export const meta: MetaFunction = () => {
+export const meta: Route.MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — Skeleton" },
 		{
@@ -27,7 +27,7 @@ export const meta: MetaFunction = () => {
 	];
 };
 
-export const headers: HeadersFunction = () => {
+export const headers: Route.HeadersFunction = () => {
 	return {
 		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
 	};

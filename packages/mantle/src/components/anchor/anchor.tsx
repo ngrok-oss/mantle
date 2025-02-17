@@ -52,7 +52,7 @@ type AnchorProps = Omit<
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a
  *
  * @note If you need to link to an internal application route, prefer using the
- * [`react-router-dom` `<Link>`](https://reactrouter.com/en/main/components/link) or the
+ * [`react-router` `<Link>`](https://reactrouter.com/en/main/components/link) or the
  * [`@remix-run/react` `<Link>`](https://remix.run/docs/en/main/components/link).
  */
 const Anchor = forwardRef<HTMLAnchorElement, AnchorProps>(

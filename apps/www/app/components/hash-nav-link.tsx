@@ -1,6 +1,6 @@
-import { Link, useLocation } from "@remix-run/react";
-import type { Path } from "@remix-run/react";
 import type { PropsWithChildren } from "react";
+import type { Path } from "react-router";
+import { Link, useLocation } from "react-router";
 
 type Props = PropsWithChildren<{
 	className?: string | ((isActive: boolean) => string);

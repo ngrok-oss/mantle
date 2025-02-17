@@ -68,7 +68,7 @@ To get started, simply run:
 pnpm -w run start
 ```
 
-This will spin up the Remix documentation site, and is configured to watch for changes to components (so your changes will be instantly reflected).
+This will spin up the react-router documentation site, and is configured to watch for changes to components (so your changes will be instantly reflected).
 
 ## Submitting a Pull Request
 

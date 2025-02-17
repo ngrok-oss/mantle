@@ -10,9 +10,8 @@ import {
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@ngrok/mantle/tooltip";
 import { Globe } from "@phosphor-icons/react/Globe";
-import type { HeadersFunction, MetaFunction } from "@remix-run/node";
-import { Link } from "@remix-run/react";
 import type { PropsWithChildren } from "react";
+import { Link } from "react-router";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import {
@@ -26,8 +25,9 @@ import {
 	StringPropType,
 } from "~/components/props-table";
 import { route } from "~/types/routes";
+import type { Route } from "./+types/components.icon-button";
 
-export const meta: MetaFunction = () => {
+export const meta: Route.MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — Icon Button" },
 		{
@@ -37,7 +37,7 @@ export const meta: MetaFunction = () => {
 	];
 };
 
-export const headers: HeadersFunction = () => {
+export const headers: Route.HeadersFunction = () => {
 	return {
 		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
 	};
@@ -270,7 +270,7 @@ export default function Page() {
 								value={fmtCode`
 									import { IconButton } from "@ngrok/mantle/button";
 									import { Fire } from "@phosphor-icons/react";
-									import { Link } from "react-router-dom";
+									import { Link } from "react-router";
 
 									<IconButton appearance="outlined" asChild label="prestige worldwide" icon={<Globe />}>
 										<Link to={route("/base/colors")} />

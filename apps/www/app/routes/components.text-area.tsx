@@ -9,7 +9,6 @@ import {
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Label } from "@ngrok/mantle/label";
 import { TextArea } from "@ngrok/mantle/text-area";
-import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import type { DragEvent } from "react";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
@@ -24,8 +23,9 @@ import {
 	PropsTable,
 	StringPropType,
 } from "~/components/props-table";
+import type { Route } from "./+types/components.text-area";
 
-export const meta: MetaFunction = () => {
+export const meta: Route.MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — TextArea" },
 		{
@@ -35,7 +35,7 @@ export const meta: MetaFunction = () => {
 	];
 };
 
-export const headers: HeadersFunction = () => {
+export const headers: Route.HeadersFunction = () => {
 	return {
 		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
 	};
