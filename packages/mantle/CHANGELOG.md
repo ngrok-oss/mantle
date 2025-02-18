@@ -1,5 +1,13 @@
 # @ngrok/mantle
 
+## 0.20.1
+
+### Patch Changes
+
+- [#443](https://github.com/ngrok-oss/mantle/pull/443) [`46087c5`](https://github.com/ngrok-oss/mantle/commit/46087c5e763c2c0d034f5d9d1e1b48191dfe1ccd) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Flag: add border radius and inset transparent black border
+
+- [#441](https://github.com/ngrok-oss/mantle/pull/441) [`2867bdf`](https://github.com/ngrok-oss/mantle/commit/2867bdfb23df6d35da1e50bd9ad95b65c70cc3e3) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Prep for react 19: swap react-19-deprecated ElementRef type for ComponentRef type
+
 ## 0.20.0
 
 ### Minor Changes
