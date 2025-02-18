@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.20.0
+
+### Minor Changes
+
+- [#439](https://github.com/ngrok-oss/mantle/pull/439) [`1523118`](https://github.com/ngrok-oss/mantle/commit/15231189ac7f5818fd963d4dc4162c5ca1cfebba) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add Flag component
+
 ## 0.19.17
 
 ### Patch Changes
