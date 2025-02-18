@@ -16,6 +16,7 @@ import {
 	ComboboxItem,
 	ComboboxSeparator,
 } from "@ngrok/mantle/combobox";
+import { CirclesThreePlus } from "@phosphor-icons/react/CirclesThreePlus";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/components.preview.combobox";
@@ -53,28 +54,32 @@ export default function Page() {
 			</p>
 			<div>
 				<Example className="gap-2">
-					<Combobox
-					// open={open}
-					// setOpen={setOpen}
-					>
+					<Combobox>
 						<ComboboxInput />
 						<ComboboxContent>
 							<ComboboxGroup>
 								<ComboboxGroupLabel>
 									Choose an ngrok subdomain
 								</ComboboxGroupLabel>
+								<ComboboxItem value="https://" disabled>
+									<ComboboxHighlightMatch />
+								</ComboboxItem>
 								<ComboboxItem value="https://${random}.ngrok.app">
-									<ComboboxHighlightMatch
-										className="data-highlighted:*:text-red-600"
-										value="https://${random}.ngrok.app"
+									<CirclesThreePlus
+										weight="duotone"
+										className="text-accent-600"
 									/>
+									<ComboboxHighlightMatch />
 								</ComboboxItem>
 								<ComboboxItem value="https://${random}.ngrok.dev">
-									<ComboboxHighlightMatch value="https://${random}.ngrok.dev" />
+									<ComboboxHighlightMatch />
 								</ComboboxItem>
 							</ComboboxGroup>
 							<ComboboxSeparator />
-							<div>asdfasdf</div>
+							<ComboboxItem>
+								Sit dolor enim eiusmod nulla nostrud officia in magna deserunt
+								ut ex veniam cillum.
+							</ComboboxItem>
 						</ComboboxContent>
 					</Combobox>
 				</Example>
