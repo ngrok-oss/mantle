@@ -33,7 +33,7 @@ const borderRadiusVariants = cva("", {
 			s: "rounded-[0.0625rem]",
 			m: "rounded-[0.09375rem]",
 			l: "rounded-sm",
-		},
+		} as const satisfies Record<Size, string>,
 	},
 });
 
@@ -43,7 +43,7 @@ const sizingVariants = cva("", {
 			s: "w-4 h-3",
 			m: "w-5 h-[0.9375rem]",
 			l: "w-8 h-6",
-		},
+		} as const satisfies Record<Size, string>,
 	},
 });
 
