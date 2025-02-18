@@ -18,7 +18,7 @@ import {
 	useRef,
 } from "react";
 import type {
-	ElementRef,
+	ComponentRef,
 	HTMLAttributes,
 	PropsWithChildren,
 	ReactNode,
@@ -35,7 +35,7 @@ type RadioGroupProps = PropsWithChildren<
  * A group of radio items. It manages the state of the children radios. Unstyled and simple.
  */
 const RadioGroup = forwardRef<
-	ElementRef<typeof HeadlessRadioGroup>,
+	ComponentRef<typeof HeadlessRadioGroup>,
 	RadioGroupProps
 >((props, ref) => <HeadlessRadioGroup {...props} ref={ref} />);
 RadioGroup.displayName = "RadioGroup";
@@ -70,7 +70,7 @@ type RadioItemProps = Omit<HeadlessRadioProps, "children"> & PropsWithChildren;
  * A simple radio item that can be used inside a radio group. The "conventional" use-case.
  * Must be a child of `RadioGroup`.
  */
-const RadioItem = forwardRef<ElementRef<"div">, RadioItemProps>(
+const RadioItem = forwardRef<ComponentRef<"div">, RadioItemProps>(
 	({ children, className, ...props }, ref) => (
 		<HeadlessRadio
 			className={cx(
@@ -156,7 +156,7 @@ const RadioIndicator = ({
  * A group of radio list items. Use RadioListItem as direct children.
  */
 const RadioGroupList = forwardRef<
-	ElementRef<typeof RadioGroup>,
+	ComponentRef<typeof RadioGroup>,
 	RadioGroupProps
 >(({ className, ...props }, ref) => {
 	return (
@@ -174,7 +174,7 @@ type RadioListItemProps = RadioItemProps;
 /**
  * A radio list item that is used inside a `RadioGroupList`.
  */
-const RadioListItem = forwardRef<ElementRef<"div">, RadioListItemProps>(
+const RadioListItem = forwardRef<ComponentRef<"div">, RadioListItemProps>(
 	({ children, className, ...props }, ref) => {
 		return (
 			<HeadlessRadio
@@ -212,7 +212,7 @@ type RadioCardProps = RadioItemProps;
 /**
  * A radio card item. Use it as a child of `RadioGroup`
  */
-const RadioCard = forwardRef<ElementRef<"div">, RadioCardProps>(
+const RadioCard = forwardRef<ComponentRef<"div">, RadioCardProps>(
 	({ children, className, ...props }, ref) => {
 		return (
 			<HeadlessRadio
@@ -273,7 +273,7 @@ const RadioItemContent = ({
  * An inline group of radio buttons. Use RadioButton as direct children.
  */
 const RadioButtonGroup = forwardRef<
-	ElementRef<typeof RadioGroup>,
+	ComponentRef<typeof RadioGroup>,
 	RadioGroupProps
 >(({ className, ...props }, ref) => {
 	return (
@@ -291,7 +291,7 @@ type RadioButtonProps = RadioItemProps;
 /**
  * A radio button that is used inside a `RadioButtonGroup`.
  */
-const RadioButton = forwardRef<ElementRef<"div">, RadioButtonProps>(
+const RadioButton = forwardRef<ComponentRef<"div">, RadioButtonProps>(
 	({ children, className, ...props }, ref) => {
 		return (
 			<HeadlessRadio

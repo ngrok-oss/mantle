@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import { act, useEffect, useRef, useState } from "react";
-import type { ElementRef } from "react";
+import type { ComponentRef } from "react";
 import { describe, expect, test } from "vitest";
 import { Input, InputCapture } from "./input.js";
 
@@ -132,7 +132,7 @@ describe("Input", () => {
 
 	test("without children, passes ref through and allows focus on mount", async () => {
 		const Subject = () => {
-			const inputRef = useRef<ElementRef<"input">>(null);
+			const inputRef = useRef<ComponentRef<"input">>(null);
 
 			useEffect(() => {
 				inputRef.current?.focus();
@@ -152,7 +152,7 @@ describe("Input", () => {
 
 	test("with children, passes ref through from Input and allows focus on mount", async () => {
 		const Subject = () => {
-			const inputRef = useRef<ElementRef<"input">>(null);
+			const inputRef = useRef<ComponentRef<"input">>(null);
 
 			useEffect(() => {
 				inputRef.current?.focus();
@@ -176,7 +176,7 @@ describe("Input", () => {
 
 	test("with children, passes ref through from InputCapture and allows focus on mount", async () => {
 		const Subject = () => {
-			const inputRef = useRef<ElementRef<"input">>(null);
+			const inputRef = useRef<ComponentRef<"input">>(null);
 
 			useEffect(() => {
 				inputRef.current?.focus();

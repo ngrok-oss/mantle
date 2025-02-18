@@ -3,7 +3,7 @@ import { CaretRight } from "@phosphor-icons/react/dist/icons/CaretRight";
 import { Slot } from "@radix-ui/react-slot";
 import {
 	type ComponentProps,
-	type ElementRef,
+	type ComponentRef,
 	createContext,
 	forwardRef,
 	useContext,
@@ -107,7 +107,7 @@ type CursorButtonsProps = Omit<
  * A pair of buttons for navigating between pages of data when using cursor-based pagination.
  */
 const CursorButtons = forwardRef<
-	ElementRef<typeof ButtonGroup>,
+	ComponentRef<typeof ButtonGroup>,
 	CursorButtonsProps
 >(
 	(
@@ -163,7 +163,7 @@ type CursorPageSizeSelectProps = Omit<
  * A select input for changing the number of items per page when using cursor-based pagination.
  */
 const CursorPageSizeSelect = forwardRef<
-	ElementRef<typeof SelectTrigger>,
+	ComponentRef<typeof SelectTrigger>,
 	CursorPageSizeSelectProps
 >(
 	(

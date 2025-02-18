@@ -1,4 +1,4 @@
-import type { ElementRef, ReactNode } from "react";
+import type { ComponentRef, ReactNode } from "react";
 import { Children, cloneElement, forwardRef, isValidElement } from "react";
 import invariant from "tiny-invariant";
 import { cx } from "../../utils/cx/cx.js";
@@ -24,7 +24,7 @@ type SvgOnlyProps = Omit<SvgAttributes, "children"> & {
  * The main difference between `Icon` and `SvgOnly` is that `SvgOnly` does not
  * apply any default sizing styles, only `shrink-0`.
  */
-const SvgOnly = forwardRef<ElementRef<"svg">, SvgOnlyProps>(
+const SvgOnly = forwardRef<ComponentRef<"svg">, SvgOnlyProps>(
 	({ className, style, svg, ...props }, ref) => {
 		invariant(
 			isValidElement<SvgAttributes>(svg) && Children.only(svg),

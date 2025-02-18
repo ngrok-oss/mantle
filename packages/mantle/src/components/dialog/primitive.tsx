@@ -1,7 +1,7 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import {
 	type ComponentPropsWithoutRef,
-	type ElementRef,
+	type ComponentRef,
 	createContext,
 	forwardRef,
 	useContext,
@@ -40,7 +40,7 @@ const Close = DialogPrimitive.Close;
 const Overlay = DialogPrimitive.Overlay;
 
 const Content = forwardRef<
-	ElementRef<"div">,
+	ComponentRef<"div">,
 	ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
 >((props, ref) => {
 	const ctx = useContext(InternalDialogContext);
@@ -58,7 +58,7 @@ const Content = forwardRef<
 const Title = DialogPrimitive.Title;
 
 const Description = forwardRef<
-	ElementRef<"p">,
+	ComponentRef<"p">,
 	ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
 >((props, ref) => {
 	const ctx = useContext(InternalDialogContext);

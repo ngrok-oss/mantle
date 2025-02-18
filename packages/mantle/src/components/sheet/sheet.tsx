@@ -2,7 +2,7 @@ import { X } from "@phosphor-icons/react/X";
 import { type VariantProps, cva } from "class-variance-authority";
 import type {
 	ComponentPropsWithoutRef,
-	ElementRef,
+	ComponentRef,
 	HTMLAttributes,
 } from "react";
 import { forwardRef } from "react";
@@ -43,7 +43,7 @@ const SheetPortal = SheetPrimitive.Portal;
  * You likely don't need to use this component directly, as it is used internally by the `SheetContent` component.
  */
 const SheetOverlay = forwardRef<
-	ElementRef<typeof SheetPrimitive.Overlay>,
+	ComponentRef<typeof SheetPrimitive.Overlay>,
 	ComponentPropsWithoutRef<typeof SheetPrimitive.Overlay>
 >(({ className, ...props }, ref) => (
 	<SheetPrimitive.Overlay
@@ -85,7 +85,7 @@ type SheetContentProps = {} & ComponentPropsWithoutRef<
  * The main container for a sheet. Renders on top of the overlay backdrop.
  * Should compose the `SheetHeader`, `SheetBody`, and `SheetFooter`.
  */
-const SheetContent = forwardRef<ElementRef<"div">, SheetContentProps>(
+const SheetContent = forwardRef<ComponentRef<"div">, SheetContentProps>(
 	(
 		{
 			children,
@@ -194,7 +194,7 @@ const SheetFooter = ({
  * Defaults to an `h2` element, but can be changed via the `asChild` prop.
  */
 const SheetTitle = forwardRef<
-	ElementRef<typeof SheetPrimitive.Title>,
+	ComponentRef<typeof SheetPrimitive.Title>,
 	ComponentPropsWithoutRef<typeof SheetPrimitive.Title>
 >(({ className, ...props }, ref) => (
 	<SheetPrimitive.Title
@@ -209,7 +209,7 @@ SheetTitle.displayName = SheetPrimitive.Title.displayName;
  * A group container for the title and actions of a sheet. Typically rendered as a child of `SheetHeader`.
  */
 const SheetTitleGroup = forwardRef<
-	ElementRef<"div">,
+	ComponentRef<"div">,
 	HTMLAttributes<HTMLDivElement>
 >(({ children, className, ...props }, ref) => (
 	<div
@@ -226,7 +226,7 @@ SheetTitleGroup.displayName = "SheetTitleGroup";
  * A description for a sheet. Typically rendered as a child of `SheetHeader`.
  */
 const SheetDescription = forwardRef<
-	ElementRef<typeof SheetPrimitive.Description>,
+	ComponentRef<typeof SheetPrimitive.Description>,
 	ComponentPropsWithoutRef<typeof SheetPrimitive.Description>
 >(({ className, ...props }, ref) => (
 	<SheetPrimitive.Description
@@ -241,7 +241,7 @@ SheetDescription.displayName = SheetPrimitive.Description.displayName;
  * A group container for the actions of a sheet. Typically rendered as a child of `SheetTitleGroup`.
  */
 const SheetActions = forwardRef<
-	ElementRef<"div">,
+	ComponentRef<"div">,
 	HTMLAttributes<HTMLDivElement>
 >(({ children, className, ...props }, ref) => (
 	<div

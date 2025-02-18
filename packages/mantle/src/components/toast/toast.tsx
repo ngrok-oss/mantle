@@ -7,7 +7,7 @@ import { WarningDiamond } from "@phosphor-icons/react/WarningDiamond";
 import { Slot } from "@radix-ui/react-slot";
 import {
 	type ComponentProps,
-	type ElementRef,
+	type ComponentRef,
 	type ReactNode,
 	createContext,
 	forwardRef,
@@ -133,7 +133,7 @@ type ToastProps = ComponentProps<"div"> &
  * A succinct message with a priority that is displayed temporarily.
  * Toasts are used to provide feedback to the user without interrupting their workflow.
  */
-const Toast = forwardRef<ElementRef<"div">, ToastProps>(
+const Toast = forwardRef<ComponentRef<"div">, ToastProps>(
 	({ asChild, children, className, priority, ...props }, ref) => {
 		const Component = asChild ? Slot : "div";
 
@@ -168,7 +168,7 @@ type ToastIconProps = Partial<SvgOnlyProps>;
  * An icon that visually represents the priority of the toast.
  * If you do not provide an icon, the default icon and color for the priority is used.
  */
-const ToastIcon = forwardRef<ElementRef<"svg">, ToastIconProps>(
+const ToastIcon = forwardRef<ComponentRef<"svg">, ToastIconProps>(
 	({ className, svg, ...props }, ref) => {
 		const ctx = useContext(ToastStateContext);
 
@@ -222,7 +222,7 @@ type ToastActionProps = ComponentProps<"button"> & WithAsChild;
  * A button that dismisses the toast when clicked.
  * You can prevent the toast from being dismissed `onClick` by calling `event.preventDefault()`
  */
-const ToastAction = forwardRef<ElementRef<"button">, ToastActionProps>(
+const ToastAction = forwardRef<ComponentRef<"button">, ToastActionProps>(
 	({ asChild, className, onClick, ...props }, ref) => {
 		const ctx = useContext(ToastIdContext);
 
@@ -256,7 +256,7 @@ type ToastMessageProps = ComponentProps<"p"> & WithAsChild;
 /**
  * The message content of the toast.
  */
-const ToastMessage = forwardRef<ElementRef<"p">, ToastMessageProps>(
+const ToastMessage = forwardRef<ComponentRef<"p">, ToastMessageProps>(
 	({ asChild, className, ...props }, ref) => {
 		const Component = asChild ? Slot : "p";
 

@@ -1,5 +1,5 @@
 import { cva } from "class-variance-authority";
-import { type ComponentProps, type ElementRef, forwardRef } from "react";
+import { type ComponentProps, type ComponentRef, forwardRef } from "react";
 import type { VariantProps } from "../../types/index.js";
 import { cx } from "../../utils/cx/cx.js";
 
@@ -27,7 +27,7 @@ type ButtonGroupProps = ComponentProps<"fieldset"> & ButtonGroupVariants;
 /**
  * A contained group of related buttons.
  */
-const ButtonGroup = forwardRef<ElementRef<"fieldset">, ButtonGroupProps>(
+const ButtonGroup = forwardRef<ComponentRef<"fieldset">, ButtonGroupProps>(
 	({ appearance, className, children, ...props }, ref) => {
 		return (
 			<fieldset
