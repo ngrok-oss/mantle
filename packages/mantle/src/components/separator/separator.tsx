@@ -3,7 +3,7 @@ import { Slot } from "@radix-ui/react-slot";
 import { createContext, forwardRef, useContext } from "react";
 import type {
 	ComponentPropsWithoutRef,
-	ElementRef,
+	ComponentRef,
 	HTMLAttributes,
 } from "react";
 import type { WithAsChild } from "../../types/as-child.js";
@@ -50,7 +50,7 @@ type SeparatorProps = ComponentPropsWithoutRef<typeof SeparatorPrimitive.Root>;
  * Visually or semantically separates content.
  */
 const Separator = forwardRef<
-	ElementRef<typeof SeparatorPrimitive.Root>,
+	ComponentRef<typeof SeparatorPrimitive.Root>,
 	SeparatorProps
 >(
 	(

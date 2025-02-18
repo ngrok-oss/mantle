@@ -1,12 +1,12 @@
 import { forwardRef } from "react";
-import type { ComponentPropsWithoutRef, ElementRef } from "react";
+import type { ComponentPropsWithoutRef, ComponentRef } from "react";
 import { cx } from "../../utils/cx/cx.js";
 
 type LabelProps = ComponentPropsWithoutRef<"label"> & {
 	disabled?: boolean;
 };
 
-const Label = forwardRef<ElementRef<"label">, LabelProps>(
+const Label = forwardRef<ComponentRef<"label">, LabelProps>(
 	(
 		{
 			"aria-disabled": _ariaDisabled,

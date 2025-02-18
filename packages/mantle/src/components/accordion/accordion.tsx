@@ -4,14 +4,14 @@ import { CaretDown } from "@phosphor-icons/react/CaretDown";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import {
 	type ComponentPropsWithoutRef,
-	type ElementRef,
+	type ComponentRef,
 	forwardRef,
 } from "react";
 import { cx } from "../../utils/cx/cx.js";
 import { Icon, type IconProps } from "../icon/icon.js";
 
 const Accordion = forwardRef<
-	ElementRef<"div">,
+	ComponentRef<"div">,
 	ComponentPropsWithoutRef<typeof AccordionPrimitive.Root>
 >(({ className, ...props }, ref) => (
 	<AccordionPrimitive.Root
@@ -26,7 +26,7 @@ const AccordionItem = AccordionPrimitive.Item;
 AccordionItem.displayName = "AccordionItem";
 
 const AccordionHeading = forwardRef<
-	ElementRef<"div">,
+	ComponentRef<"div">,
 	ComponentPropsWithoutRef<typeof AccordionPrimitive.Header>
 >(({ className, ...props }, ref) => (
 	<AccordionPrimitive.Header
@@ -38,7 +38,7 @@ const AccordionHeading = forwardRef<
 AccordionHeading.displayName = "AccordionHeading";
 
 const AccordionTrigger = forwardRef<
-	ElementRef<"button">,
+	ComponentRef<"button">,
 	ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
 >(({ className, children, ...props }, ref) => (
 	<AccordionPrimitive.Trigger
@@ -63,7 +63,7 @@ const AccordionTriggerIcon = ({
 );
 
 const AccordionContent = forwardRef<
-	ElementRef<"div">,
+	ComponentRef<"div">,
 	ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>
 >(({ className, children, ...props }, ref) => (
 	<AccordionPrimitive.Content
@@ -82,9 +82,9 @@ AccordionContent.displayName = "AccordionContent";
 export {
 	//,
 	Accordion,
-	AccordionItem,
-	AccordionTrigger,
 	AccordionContent,
 	AccordionHeading,
+	AccordionItem,
+	AccordionTrigger,
 	AccordionTriggerIcon,
 };

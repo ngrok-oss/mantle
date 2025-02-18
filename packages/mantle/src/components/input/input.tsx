@@ -3,7 +3,7 @@ import { Warning } from "@phosphor-icons/react/Warning";
 import { WarningDiamond } from "@phosphor-icons/react/WarningDiamond";
 import clsx from "clsx";
 import type {
-	ElementRef,
+	ComponentRef,
 	ForwardedRef,
 	InputHTMLAttributes,
 	MutableRefObject,
@@ -37,7 +37,7 @@ type InputProps = Omit<
 const Input = forwardRef<HTMLInputElement, InputProps>(
 	({ children, className, ...props }, forwardedRef) => {
 		const hasChildren = Boolean(children);
-		const innerRef = useRef<ElementRef<"input">>(null);
+		const innerRef = useRef<ComponentRef<"input">>(null);
 
 		if (hasChildren) {
 			return (

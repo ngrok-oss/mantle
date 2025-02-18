@@ -2,7 +2,7 @@
 
 import * as HoverCardPrimitive from "@radix-ui/react-hover-card";
 import { forwardRef } from "react";
-import type { ComponentPropsWithoutRef, ElementRef } from "react";
+import type { ComponentPropsWithoutRef, ComponentRef } from "react";
 import { cx } from "../../utils/cx/cx.js";
 
 const HoverCard = ({
@@ -29,7 +29,7 @@ const HoverCardTrigger = HoverCardPrimitive.Trigger;
 const HoverCardPortal = HoverCardPrimitive.Portal;
 
 const HoverCardContent = forwardRef<
-	ElementRef<typeof HoverCardPrimitive.Content>,
+	ComponentRef<typeof HoverCardPrimitive.Content>,
 	ComponentPropsWithoutRef<typeof HoverCardPrimitive.Content>
 >(({ className, onClick, align = "center", sideOffset = 4, ...props }, ref) => (
 	<HoverCardPortal>

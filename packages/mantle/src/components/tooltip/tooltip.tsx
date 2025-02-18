@@ -1,6 +1,6 @@
 import { Content, Provider, Root, Trigger } from "@radix-ui/react-tooltip";
 import { forwardRef } from "react";
-import type { ComponentPropsWithoutRef, ElementRef } from "react";
+import type { ComponentPropsWithoutRef, ComponentRef } from "react";
 import { cx } from "../../utils/cx/cx.js";
 
 /**
@@ -50,7 +50,7 @@ const TooltipTrigger = Trigger;
  * https://github.com/ngrok-oss/mantle/issues
  */
 const TooltipContent = forwardRef<
-	ElementRef<typeof Content>,
+	ComponentRef<typeof Content>,
 	ComponentPropsWithoutRef<typeof Content>
 >(({ children, className, sideOffset = 4, ...props }, ref) => (
 	<Content

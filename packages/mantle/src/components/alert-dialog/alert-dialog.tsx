@@ -5,7 +5,7 @@ import { Warning } from "@phosphor-icons/react/Warning";
 import {
 	type ComponentProps,
 	type ComponentPropsWithoutRef,
-	type ElementRef,
+	type ComponentRef,
 	type ReactNode,
 	createContext,
 	forwardRef,
@@ -72,7 +72,7 @@ const AlertDialogPortal = AlertDialogPrimitive.Portal;
  * A layer that covers the inert portion of the view when the dialog is open.
  */
 const AlertDialogOverlay = forwardRef<
-	ElementRef<typeof AlertDialogPrimitive.Overlay>,
+	ComponentRef<typeof AlertDialogPrimitive.Overlay>,
 	ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Overlay>
 >(({ className, ...props }, ref) => (
 	<AlertDialogPrimitive.Overlay
@@ -92,7 +92,7 @@ AlertDialogOverlay.displayName = "AlertDialogOverlay";
  * Renders on top of the overlay and is centered in the viewport.
  */
 const AlertDialogContent = forwardRef<
-	ElementRef<typeof AlertDialogPrimitive.Content>,
+	ComponentRef<typeof AlertDialogPrimitive.Content>,
 	ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Content>
 >(({ className, onInteractOutside, onPointerDownOutside, ...props }, ref) => (
 	<AlertDialogPortal>
@@ -166,7 +166,7 @@ AlertDialogFooter.displayName = "AlertDialogFooter";
  * `AlertDialogContent` and exclude this component.
  */
 const AlertDialogTitle = forwardRef<
-	ElementRef<typeof AlertDialogPrimitive.Title>,
+	ComponentRef<typeof AlertDialogPrimitive.Title>,
 	ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Title>
 >(({ className, ...props }, ref) => (
 	<AlertDialogPrimitive.Title
@@ -187,7 +187,7 @@ AlertDialogTitle.displayName = "AlertDialogTitle";
  * exclude this component.
  */
 const AlertDialogDescription = forwardRef<
-	ElementRef<typeof AlertDialogPrimitive.Description>,
+	ComponentRef<typeof AlertDialogPrimitive.Description>,
 	ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Description>
 >(({ className, ...props }, ref) => (
 	<AlertDialogPrimitive.Description
@@ -210,7 +210,7 @@ AlertDialogDescription.displayName = "AlertDialogDescription";
  *
  * Composes around the mantle Button component.
  */
-const AlertDialogAction = forwardRef<ElementRef<"button">, ButtonProps>(
+const AlertDialogAction = forwardRef<ComponentRef<"button">, ButtonProps>(
 	(
 		{
 			//,
@@ -246,7 +246,7 @@ AlertDialogAction.displayName = "AlertDialogAction";
  *
  * Composes around the mantle Button component.
  */
-const AlertDialogCancel = forwardRef<ElementRef<"button">, ButtonProps>(
+const AlertDialogCancel = forwardRef<ComponentRef<"button">, ButtonProps>(
 	(
 		{
 			//,
@@ -282,7 +282,7 @@ type AlertDialogIconProps = Omit<SvgAttributes, "children"> & {
  *
  * Can be overridden with a custom icon using the `svg` prop.
  */
-const AlertDialogIcon = forwardRef<ElementRef<"svg">, AlertDialogIconProps>(
+const AlertDialogIcon = forwardRef<ComponentRef<"svg">, AlertDialogIconProps>(
 	({ className, svg, ...props }, ref) => {
 		const ctx = useAlertDialogContext();
 		const defaultColor =

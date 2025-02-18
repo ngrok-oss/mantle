@@ -7,7 +7,7 @@ import {
 import clsx from "clsx";
 import type {
 	ComponentPropsWithoutRef,
-	ElementRef,
+	ComponentRef,
 	HTMLAttributes,
 } from "react";
 import {
@@ -31,7 +31,7 @@ const TabsStateContext = createContext<TabsStateContextValue>({
 });
 
 const Tabs = forwardRef<
-	ElementRef<typeof TabsPrimitiveRoot>,
+	ComponentRef<typeof TabsPrimitiveRoot>,
 	ComponentPropsWithoutRef<typeof TabsPrimitiveRoot>
 >(({ className, children, orientation = "horizontal", ...props }, ref) => (
 	<TabsPrimitiveRoot
@@ -52,7 +52,7 @@ const Tabs = forwardRef<
 Tabs.displayName = "Tabs";
 
 const TabsList = forwardRef<
-	ElementRef<typeof TabsPrimitiveList>,
+	ComponentRef<typeof TabsPrimitiveList>,
 	ComponentPropsWithoutRef<typeof TabsPrimitiveList>
 >(({ className, ...props }, ref) => {
 	const ctx = useContext(TabsStateContext);
@@ -94,7 +94,7 @@ const TabsTriggerDecoration = () => {
 };
 
 const TabsTrigger = forwardRef<
-	ElementRef<typeof TabsPrimitiveTrigger>,
+	ComponentRef<typeof TabsPrimitiveTrigger>,
 	TabsTriggerProps
 >(
 	(
@@ -198,7 +198,7 @@ const TabBadge = ({
 );
 
 const TabsContent = forwardRef<
-	ElementRef<typeof TabsPrimitiveContent>,
+	ComponentRef<typeof TabsPrimitiveContent>,
 	ComponentPropsWithoutRef<typeof TabsPrimitiveContent>
 >(({ className, ...props }, ref) => (
 	<TabsPrimitiveContent

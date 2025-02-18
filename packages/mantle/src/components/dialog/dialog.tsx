@@ -2,7 +2,7 @@ import { X } from "@phosphor-icons/react/X";
 import type {
 	ComponentProps,
 	ComponentPropsWithoutRef,
-	ElementRef,
+	ComponentRef,
 } from "react";
 import { forwardRef } from "react";
 import { cx } from "../../utils/cx/cx.js";
@@ -19,7 +19,7 @@ const DialogPortal = DialogPrimitive.Portal;
 const DialogClose = DialogPrimitive.Close;
 
 const DialogOverlay = forwardRef<
-	ElementRef<"div">,
+	ComponentRef<"div">,
 	ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
 >(({ className, ...props }, ref) => (
 	<DialogPrimitive.Overlay
@@ -34,7 +34,7 @@ const DialogOverlay = forwardRef<
 DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
 
 const DialogContent = forwardRef<
-	ElementRef<"div">,
+	ComponentRef<"div">,
 	ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
 >(
 	(
@@ -129,7 +129,7 @@ const DialogFooter = ({ className, ...props }: ComponentProps<"div">) => (
 DialogFooter.displayName = "DialogFooter";
 
 const DialogTitle = forwardRef<
-	ElementRef<typeof DialogPrimitive.Title>,
+	ComponentRef<typeof DialogPrimitive.Title>,
 	ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
 >(({ className, ...props }, ref) => (
 	<DialogPrimitive.Title
@@ -141,7 +141,7 @@ const DialogTitle = forwardRef<
 DialogTitle.displayName = DialogPrimitive.Title.displayName;
 
 const DialogDescription = forwardRef<
-	ElementRef<"p">,
+	ComponentRef<"p">,
 	ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
 >(({ className, ...props }, ref) => (
 	<DialogPrimitive.Description

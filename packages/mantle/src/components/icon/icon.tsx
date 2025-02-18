@@ -1,4 +1,4 @@
-import { type ElementRef, type ReactNode, forwardRef } from "react";
+import { type ComponentRef, type ReactNode, forwardRef } from "react";
 import { cx } from "../../utils/cx/cx.js";
 import { SvgOnly } from "./svg-only.js";
 import type { SvgAttributes } from "./types.js";
@@ -18,7 +18,7 @@ type IconProps = Omit<SvgAttributes, "children"> & {
  * 3. Icon className
  * 4. svg className
  */
-const Icon = forwardRef<ElementRef<"svg">, IconProps>(
+const Icon = forwardRef<ComponentRef<"svg">, IconProps>(
 	({ className, style, svg, ...props }, ref) => (
 		<SvgOnly
 			ref={ref}

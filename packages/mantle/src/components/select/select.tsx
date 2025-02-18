@@ -5,7 +5,7 @@ import * as SelectPrimitive from "@radix-ui/react-select";
 import type {
 	ComponentProps,
 	ComponentPropsWithoutRef,
-	ElementRef,
+	ComponentRef,
 	FocusEvent,
 	Ref,
 	SelectHTMLAttributes,
@@ -102,7 +102,7 @@ type SelectTriggerProps = ComponentPropsWithoutRef<
  * The button that toggles the select. The Select.Content will position itself adjacent to the trigger.
  */
 const SelectTrigger = forwardRef<
-	ElementRef<typeof SelectPrimitive.Trigger>,
+	ComponentRef<typeof SelectPrimitive.Trigger>,
 	SelectTriggerProps
 >(
 	(
@@ -157,7 +157,7 @@ const SelectTrigger = forwardRef<
 SelectTrigger.displayName = "SelectTrigger";
 
 const SelectScrollUpButton = forwardRef<
-	ElementRef<typeof SelectPrimitive.ScrollUpButton>,
+	ComponentRef<typeof SelectPrimitive.ScrollUpButton>,
 	ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollUpButton>
 >(({ className, ...props }, ref) => (
 	<SelectPrimitive.ScrollUpButton
@@ -174,7 +174,7 @@ const SelectScrollUpButton = forwardRef<
 SelectScrollUpButton.displayName = "SelectScrollUpButton";
 
 const SelectScrollDownButton = forwardRef<
-	ElementRef<typeof SelectPrimitive.ScrollDownButton>,
+	ComponentRef<typeof SelectPrimitive.ScrollDownButton>,
 	ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollDownButton>
 >(({ className, ...props }, ref) => (
 	<SelectPrimitive.ScrollDownButton
@@ -201,7 +201,7 @@ type SelectContentProps = ComponentPropsWithoutRef<
  * It contains a scrolling viewport of the select items.
  */
 const SelectContent = forwardRef<
-	ElementRef<typeof SelectPrimitive.Content>,
+	ComponentRef<typeof SelectPrimitive.Content>,
 	SelectContentProps
 >(({ className, children, position = "popper", width, ...props }, ref) => (
 	<SelectPrimitive.Portal>
@@ -238,7 +238,7 @@ SelectContent.displayName = "SelectContent";
  * Used to render the label of a group. It won't be focusable using arrow keys.
  */
 const SelectLabel = forwardRef<
-	ElementRef<typeof SelectPrimitive.Label>,
+	ComponentRef<typeof SelectPrimitive.Label>,
 	ComponentPropsWithoutRef<typeof SelectPrimitive.Label>
 >(({ className, ...props }, ref) => (
 	<SelectPrimitive.Label
@@ -255,7 +255,7 @@ SelectLabel.displayName = "SelectLabel";
  * Displays the children as the option's text.
  */
 const SelectItem = forwardRef<
-	ElementRef<typeof SelectPrimitive.Item>,
+	ComponentRef<typeof SelectPrimitive.Item>,
 	ComponentPropsWithoutRef<typeof SelectPrimitive.Item>
 >(({ className, children, ...props }, ref) => (
 	<SelectPrimitive.Item
@@ -282,7 +282,7 @@ SelectItem.displayName = "SelectItem";
  * Used to visually separate items in the select.
  */
 const SelectSeparator = forwardRef<
-	ElementRef<typeof Separator>,
+	ComponentRef<typeof Separator>,
 	ComponentPropsWithoutRef<typeof Separator>
 >(({ className, ...props }, ref) => (
 	<Separator

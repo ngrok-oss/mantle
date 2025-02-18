@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { forwardRef, useEffect, useRef, useState } from "react";
-import type { ComponentPropsWithoutRef, ElementRef } from "react";
+import type { ComponentPropsWithoutRef, ComponentRef } from "react";
 import { composeRefs } from "../../utils/compose-refs/index.js";
 import type { WithValidation } from "../input/index.js";
 
@@ -28,7 +28,7 @@ type Props = Omit<
 /**
  * A form control that allows the user to toggle between checked and not checked.
  */
-const Checkbox = forwardRef<ElementRef<"input">, Props>(
+const Checkbox = forwardRef<ComponentRef<"input">, Props>(
 	(
 		{
 			"aria-invalid": _ariaInvalid,
@@ -43,7 +43,7 @@ const Checkbox = forwardRef<ElementRef<"input">, Props>(
 		},
 		ref,
 	) => {
-		const innerRef = useRef<ElementRef<"input">>(null);
+		const innerRef = useRef<ComponentRef<"input">>(null);
 		const [defaultChecked] = useState(_defaultChecked);
 		const isInvalid = _ariaInvalid != null && _ariaInvalid !== "false";
 		const validation = isInvalid
