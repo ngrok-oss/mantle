@@ -181,6 +181,11 @@
       "import": "./dist/dropdown-menu.js",
       "types": "./dist/dropdown-menu.d.ts"
     },
+    "./flag": {
+      "@ngrok/mantle/source": "./src/components/flag/index.ts",
+      "import": "./dist/flag.js",
+      "types": "./dist/flag.d.ts"
+    },
     "./hooks": {
       "@ngrok/mantle/source": "./src/hooks/index.ts",
       "import": "./dist/hooks.js",
