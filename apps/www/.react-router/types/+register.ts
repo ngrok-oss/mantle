@@ -14,6 +14,7 @@ type Params = {
   "/components/preview/pagination": {};
   "/components/preview/accordion": {};
   "/components/preview/calendar": {};
+  "/components/preview/combobox": {};
   "/components/preview/popover": {};
   "/components/preview/tooltip": {};
   "/components/password-input": {};

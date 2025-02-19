@@ -183,6 +183,7 @@ const ComboboxItem = forwardRef<
 							? ({ ref, ...childProps }) => <Slot ref={ref} {...childProps} />
 							: undefined
 					}
+					value={value}
 					{...props}
 				>
 					{children}
