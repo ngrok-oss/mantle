@@ -410,6 +410,7 @@ const countryCodes = [
 	"GB-SCT",
 	"GB-UKM",
 	"GB-WLS",
+	"GB",
 	"GBR",
 	"GD",
 	"GE",
