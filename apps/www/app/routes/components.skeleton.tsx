@@ -12,6 +12,7 @@ import {
 	MediaObjectMedia,
 } from "@ngrok/mantle/media-object";
 import { Skeleton } from "@ngrok/mantle/skeleton";
+import { href } from "react-router";
 import { Example } from "~/components/example";
 import { Link } from "~/components/link";
 import { PageHeader } from "~/components/page-header";
@@ -67,7 +68,8 @@ export default function Page() {
 			<section className="space-y-4">
 				<header className="space-y-1">
 					<h3 className="text-xl font-medium">
-						Skeleton <Link to="/components/media-object">Media Object</Link>
+						Skeleton{" "}
+						<Link to={href("/components/media-object")}>Media Object</Link>
 					</h3>
 					<p className="font-body text-body mt-1">
 						The Skeleton component can be included within components. You can

@@ -19,6 +19,7 @@ import {
 	SelectValue,
 } from "@ngrok/mantle/select";
 import { useState } from "react";
+import { href } from "react-router";
 import { Example } from "~/components/example";
 import { Link } from "~/components/link";
 import { PageHeader } from "~/components/page-header";
@@ -548,7 +549,7 @@ export default function Page() {
 
 					<p className="font-body text-body">
 						Used to visually separate items in the select. Composed from{" "}
-						<Link to="/components/separator">Mantle Separator</Link>.
+						<Link to={href("/components/separator")}>Mantle Separator</Link>.
 					</p>
 				</section>
 

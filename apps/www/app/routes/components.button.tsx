@@ -11,7 +11,7 @@ import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@ngrok/mantle/tooltip";
 import { Fire } from "@phosphor-icons/react/Fire";
 import type { PropsWithChildren } from "react";
-import { Link } from "react-router";
+import { Link, href } from "react-router";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import {
@@ -25,7 +25,6 @@ import {
 	ReactNodePropType,
 	StringPropType,
 } from "~/components/props-table";
-import { route } from "~/types/routes";
 import type { Route } from "./+types/components.alert";
 
 export const meta: Route.MetaFunction = () => {
@@ -377,7 +376,7 @@ export default function Page() {
 				<div>
 					<Example>
 						<Button appearance="filled" icon={<Fire weight="fill" />} asChild>
-							<Link to={route("/base/colors")}>See our colors!</Link>
+							<Link to={href("/base/colors")}>See our colors!</Link>
 						</Button>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
@@ -388,10 +387,10 @@ export default function Page() {
 								value={fmtCode`
 									import { Button } from "@ngrok/mantle/button";
 									import { Fire } from "@phosphor-icons/react";
-									import { Link } from "react-router";
+									import { Link, href } from "react-router";
 
 									<Button appearance="filled" icon={<Fire weight="fill" />} asChild>
-										<Link to="/base/colors">See our colors!</Link>
+										<Link to={href("/base/colors")}>See our colors!</Link>
 									</Button>
 								`}
 							/>

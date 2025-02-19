@@ -11,7 +11,7 @@ import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@ngrok/mantle/tooltip";
 import { Globe } from "@phosphor-icons/react/Globe";
 import type { PropsWithChildren } from "react";
-import { Link } from "react-router";
+import { Link, href } from "react-router";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import {
@@ -24,7 +24,6 @@ import {
 	PropsTable,
 	StringPropType,
 } from "~/components/props-table";
-import { route } from "~/types/routes";
 import type { Route } from "./+types/components.icon-button";
 
 export const meta: Route.MetaFunction = () => {
@@ -259,7 +258,7 @@ export default function Page() {
 							label="prestige worldwide"
 							icon={<Globe />}
 						>
-							<Link to={route("/base/colors")} />
+							<Link to={href("/base/colors")} />
 						</IconButton>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
@@ -270,10 +269,10 @@ export default function Page() {
 								value={fmtCode`
 									import { IconButton } from "@ngrok/mantle/button";
 									import { Fire } from "@phosphor-icons/react";
-									import { Link } from "react-router";
+									import { Link, href } from "react-router";
 
 									<IconButton appearance="outlined" asChild label="prestige worldwide" icon={<Globe />}>
-										<Link to={route("/base/colors")} />
+										<Link to={href("/base/colors")} />
 									</IconButton>
 								`}
 							/>

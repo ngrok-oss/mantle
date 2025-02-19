@@ -21,6 +21,7 @@ import {
 	fmtCode,
 } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
+import { href } from "react-router";
 import { Example } from "~/components/example";
 import { Link } from "~/components/link";
 import { PageHeader } from "~/components/page-header";
@@ -432,11 +433,11 @@ export default function Page() {
 					</p>
 					<p className="font-body text-body">
 						Composes around the mantle{" "}
-						<Link to="/components/button">Button</Link> component.
+						<Link to={href("/components/button")}>Button</Link> component.
 					</p>
 					<p className="font-body text-body">
-						Same props as the <Link to="/components/button">Button</Link>{" "}
-						component.
+						Same props as the{" "}
+						<Link to={href("/components/button")}>Button</Link> component.
 					</p>
 				</section>
 
@@ -454,11 +455,11 @@ export default function Page() {
 					</p>
 					<p className="font-body text-body">
 						Composes around the mantle{" "}
-						<Link to="/components/button">Button</Link> component.
+						<Link to={href("/components/button")}>Button</Link> component.
 					</p>
 					<p className="font-body text-body">
-						Same props as the <Link to="/components/button">Button</Link>{" "}
-						component.
+						Same props as the{" "}
+						<Link to={href("/components/button")}>Button</Link> component.
 					</p>
 				</section>
 			</section>

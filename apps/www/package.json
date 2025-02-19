@@ -9,12 +9,10 @@
     "build": "react-router build",
     "serve": "react-router-serve build/server/index.js",
     "start": "react-router dev --host",
-    "test": "vitest run",
+    "test": "vitest run --passWithNoTests",
     "test:watch": "vitest watch",
     "typecheck": "react-router typegen && tsc",
-    "clean": "rm -rf build && rm -rf .turbo",
-    "gen:docs-routes": "tsx ./scripts/gen-docs-routes",
-    "postgen:docs-routes": "pnpm -w fmt"
+    "clean": "rm -rf build && rm -rf .turbo"
   },
   "dependencies": {
     "@ngrok/mantle": "workspace:*",
@@ -23,7 +21,7 @@
     "@react-router/node": "7.2.0",
     "@react-router/serve": "7.2.0",
     "@vercel/react-router": "1.0.2",
-    "isbot": "5.1.22",
+    "isbot": "5.1.23",
     "prismjs": "1.29.0",
     "react": "18.3.1",
     "react-day-picker": "8.10.1",
@@ -40,13 +38,11 @@
     "@types/react": "18.3.18",
     "@types/react-dom": "18.3.5",
     "commander": "13.1.0",
-    "postcss": "8.5.2",
+    "postcss": "8.5.3",
     "react-router-devtools": "1.1.5",
     "tailwindcss": "3.4.17",
-    "tinyglobby": "0.2.11",
-    "tsx": "4.19.2",
     "typescript": "5.7.3",
-    "vite": "6.1.0",
+    "vite": "6.1.1",
     "vite-tsconfig-paths": "5.1.4"
   }
 }

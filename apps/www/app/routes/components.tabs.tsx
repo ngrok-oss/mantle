@@ -17,7 +17,7 @@ import {
 import { Globe } from "@phosphor-icons/react/Globe";
 import { ShieldCheck } from "@phosphor-icons/react/ShieldCheck";
 import { User } from "@phosphor-icons/react/User";
-import { Link } from "react-router";
+import { Link, href } from "react-router";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/components.tabs";
@@ -57,16 +57,18 @@ export default function Page() {
 							<Tabs orientation="horizontal" defaultValue="colors">
 								<TabsList>
 									<TabsTrigger value="colors" asChild>
-										<Link to="/base/colors">Colors</Link>
+										<Link to={href("/base/colors")}>Colors</Link>
 									</TabsTrigger>
 									<TabsTrigger value="shadows" asChild>
-										<Link to="/base/shadows">Shadows</Link>
+										<Link to={href("/base/shadows")}>Shadows</Link>
 									</TabsTrigger>
 									<TabsTrigger disabled value="tailwind-variants" asChild>
-										<Link to="/base/tailwind-variants">Tailwind Variants</Link>
+										<Link to={href("/base/tailwind-variants")}>
+											Tailwind Variants
+										</Link>
 									</TabsTrigger>
 									<TabsTrigger value="typography" asChild>
-										<Link to="/base/typography">Typography</Link>
+										<Link to={href("/base/typography")}>Typography</Link>
 									</TabsTrigger>
 								</TabsList>
 							</Tabs>
