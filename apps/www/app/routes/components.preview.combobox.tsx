@@ -11,9 +11,9 @@ import {
 	ComboboxContent,
 	ComboboxGroup,
 	ComboboxGroupLabel,
-	ComboboxHighlightMatch,
 	ComboboxInput,
 	ComboboxItem,
+	ComboboxItemValue,
 	ComboboxSeparator,
 } from "@ngrok/mantle/combobox";
 import { CirclesThreePlus } from "@phosphor-icons/react/CirclesThreePlus";
@@ -62,17 +62,20 @@ export default function Page() {
 									Choose an ngrok subdomain
 								</ComboboxGroupLabel>
 								<ComboboxItem value="https://" disabled>
-									<ComboboxHighlightMatch />
+									<ComboboxItemValue />
 								</ComboboxItem>
 								<ComboboxItem value="https://${random}.ngrok.app">
 									<CirclesThreePlus
 										weight="duotone"
 										className="text-accent-600"
 									/>
-									<ComboboxHighlightMatch />
+									<ComboboxItemValue />
 								</ComboboxItem>
 								<ComboboxItem value="https://${random}.ngrok.dev">
-									<ComboboxHighlightMatch />
+									<ComboboxItemValue />
+								</ComboboxItem>
+								<ComboboxItem value="https://${random}.ngrok.io">
+									<ComboboxItemValue />
 								</ComboboxItem>
 							</ComboboxGroup>
 							<ComboboxSeparator />

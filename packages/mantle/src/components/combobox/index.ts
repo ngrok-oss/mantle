@@ -4,8 +4,8 @@ export {
 	ComboboxContent,
 	ComboboxGroup,
 	ComboboxGroupLabel,
-	ComboboxHighlightMatch,
 	ComboboxInput,
 	ComboboxItem,
+	ComboboxItemValue,
 	ComboboxSeparator,
 } from "./combobox.js";

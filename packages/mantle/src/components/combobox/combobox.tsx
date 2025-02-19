@@ -53,9 +53,13 @@ type ComboboxInputProps = Omit<
  * </Combobox>
  */
 const ComboboxInput = forwardRef<ComponentRef<"input">, ComboboxInputProps>(
-	({ autoSelect = "always", className, ...props }, ref) => {
+	(
+		{ autoComplete = "list", autoSelect = "always", className, ...props },
+		ref,
+	) => {
 		return (
 			<Primitive.Combobox
+				autoComplete={autoComplete}
 				autoSelect={autoSelect}
 				className={cx(
 					"pointer-coarse:text-base h-9 text-sm",
@@ -283,12 +287,23 @@ const ComboboxGroupLabel = forwardRef<
 });
 ComboboxGroupLabel.displayName = "ComboboxGroupLabel";
 
-type Props = Omit<ComponentProps<"span">, "children">;
+type ComboboxItemValueProps = Omit<
+	Primitive.ComboboxItemValueProps<"span">,
+	"render"
+> &
+	WithAsChild;
 
 /**
- * Highlight the match between the current ComboboxInput value and parent ComboboxItem value.
+ * Highlights the match between the current ComboboxInput value (userValue) and parent ComboboxItem value.
+ *
+ * Renders a span element with the combobox item value as children.
+ * The value is split into span elements.
+ * Portions of the value matching the user input will have a data-user-value attribute, while the rest will have a data-autocomplete-value attribute.
  *
  * Should only be used as a child of ComboboxItem.
+ * The item value is automatically set to the value of the closest ComboboxItem component's value prop.
+ * The user input value is automatically set to the combobox store's value state.
+ * Both values can be overridden by providing the value and userValue props, respectively.
  *
  * @example
  * <Combobox>
@@ -296,53 +311,35 @@ type Props = Omit<ComponentProps<"span">, "children">;
  *   <ComboboxContent>
  *     <ComboboxItem value="Apple">
  *       🍎
- *       <ComboboxHighlightMatch>
- *     </ComboboxItem>
+ *       <ComboboxItemValue>
+ *     </ComboboxItemValue>
  *     <ComboboxItem value="Banana">
  *       🍌
- *       <ComboboxHighlightMatch>
- *     </ComboboxItem>
+ *       <ComboboxItemValue>
+ *     </ComboboxItemValue>
  *   </ComboboxContent>
  * </Combobox>
  */
-function ComboboxHighlightMatch({ className: _className, ...props }: Props) {
-	const value = useContext(ComboboxItemValueContext) ?? "";
-	const combobox = Primitive.useComboboxContext();
-	const query = Primitive.useStoreState(combobox, "value");
-	const className = cx("text-strong font-normal flex-1 shrink-0", _className);
-
-	if (!query) {
-		return (
-			<span className={className} {...props}>
-				{value}
-			</span>
-		);
-	}
-
-	const lowerText = value.toLowerCase();
-	const lowerQuery = query.toLowerCase();
-
-	if (!lowerText.startsWith(lowerQuery)) {
-		// No highlight if query is not at the start of the value
-		return (
-			<span className={className} {...props}>
-				{value}
-			</span>
-		);
-	}
-
-	const prefix = value.substring(0, query.length);
-	const suffix = value.substring(query.length);
-
+const ComboboxItemValue = forwardRef<
+	ComponentRef<typeof Primitive.ComboboxItemValue>,
+	ComboboxItemValueProps
+>(({ asChild = false, className, ...props }, ref) => {
 	return (
-		<span className={className} {...props}>
-			<span data-highlighted className="font-bold">
-				{prefix}
-			</span>
-			{suffix}
-		</span>
+		<Primitive.ComboboxItemValue
+			className={cx(
+				"data-[user-value]:*:font-bold flex-1 shrink-0 text-strong font-normal",
+				className,
+			)}
+			ref={ref}
+			render={
+				asChild
+					? ({ ref, ...childProps }) => <Slot ref={ref} {...childProps} />
+					: undefined
+			}
+			{...props}
+		/>
 	);
-}
+});
 
 /**
  * Renders a separator between ComboboxItems or ComboboxGroups.
@@ -380,8 +377,8 @@ export {
 	ComboboxContent,
 	ComboboxGroup,
 	ComboboxGroupLabel,
-	ComboboxHighlightMatch,
 	ComboboxInput,
 	ComboboxItem,
+	ComboboxItemValue,
 	ComboboxSeparator,
 };
