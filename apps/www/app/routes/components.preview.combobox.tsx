@@ -50,6 +50,10 @@ export default function Page() {
 				<Anchor href="https://www.w3.org/WAI/ARIA/apg/patterns/combobox/">
 					WAI-ARIA Combobox Pattern
 				</Anchor>
+				and is powered by the{" "}
+				<Anchor href="https://ariakit.org/components/combobox">
+					ariakit Combobox
+				</Anchor>
 				.
 			</p>
 			<div>
