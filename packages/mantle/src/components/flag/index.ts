@@ -8,7 +8,13 @@ export type {
 	FlagProps,
 } from "./flag.js";
 
+export {
+	//,
+	isCountryCode,
+	countryCodes,
+} from "./country-code.js";
+
 export type {
 	//,
-	Flags,
-} from "./types.js";
+	CountryCode,
+} from "./country-code.js";
