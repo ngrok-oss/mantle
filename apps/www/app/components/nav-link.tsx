@@ -1,40 +1,14 @@
 import { cx } from "@ngrok/mantle/cx";
-import { NavLink as RRNavLink } from "react-router";
 import type { NavLinkProps } from "react-router";
-import type { Route } from "~/types/routes";
+import { NavLink as RRNavLink } from "react-router";
 import { useNavigation } from "./navigation-context";
 
-type Props = Omit<NavLinkProps, "to"> & {
-	hash?: `#${string}` | undefined;
-	search?: `?${string}` | undefined;
-} & (
-		| {
-				to: Route;
-				rawTo?: undefined;
-		  }
-		| {
-				to?: undefined;
-				rawTo: string;
-		  }
-	);
-
-export function NavLink({
-	className,
-	hash,
-	rawTo,
-	search,
-	to,
-	...props
-}: Props) {
+export function NavLink({ className, to, ...props }: NavLinkProps) {
 	const { setShowNavigation } = useNavigation();
 
 	return (
 		<RRNavLink
-			to={{
-				pathname: to ?? rawTo,
-				search,
-				hash,
-			}}
+			to={to}
 			className={(args) =>
 				cx(
 					"text-muted hover:text-strong block py-1",
@@ -43,9 +17,9 @@ export function NavLink({
 					typeof className === "function" ? className(args) : className,
 				)
 			}
-			onClick={(e) => {
+			onClick={(event) => {
 				setShowNavigation(false);
-				if (props.onClick) props.onClick(e);
+				if (props.onClick) props.onClick(event);
 			}}
 			{...props}
 		/>

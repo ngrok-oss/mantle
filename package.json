@@ -23,7 +23,6 @@
     "lint": "biome lint . --diagnostic-level=error",
     "test": "turbo run test",
     "test:watch": "turbo run test:watch",
-    "test:ui": "turbo run test:ui",
     "typecheck": "turbo run typecheck",
     "changeset": "changeset",
     "changeset:version": "changeset version",

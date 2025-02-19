@@ -15,8 +15,7 @@ import { List } from "@phosphor-icons/react/List";
 import { Sun } from "@phosphor-icons/react/Sun";
 import { X } from "@phosphor-icons/react/X";
 import type { PropsWithChildren } from "react";
-import { Link } from "react-router";
-import type { Route } from "~/types/routes";
+import { Link, href } from "react-router";
 import { NavLink } from "./nav-link";
 import { useNavigation } from "./navigation-context";
 
@@ -69,7 +68,10 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 					icon={showNavigation ? <X /> : <List />}
 				/>
 
-				<Link to="/" className="static top-auto flex sm:top-[1.4rem] md:fixed">
+				<Link
+					to={href("/")}
+					className="static top-auto flex sm:top-[1.4rem] md:fixed"
+				>
 					<NgrokLogo />
 					<MantleLogo />
 				</Link>
@@ -183,6 +185,8 @@ const previewComponents = [
 	"Tooltip",
 ] as const;
 
+type Route = Parameters<typeof href>[0];
+
 const prodReadyComponentRouteLookup = {
 	Alert: "/components/alert",
 	Anchor: "/components/anchor",
@@ -246,22 +250,22 @@ function Navigation({ className, style }: WithStyleProps) {
 
 				<ul className="mt-2">
 					<li>
-						<NavLink to="/base/colors" prefetch="intent">
+						<NavLink to={href("/base/colors")} prefetch="intent">
 							Colors
 						</NavLink>
 					</li>
 					<li>
-						<NavLink to="/base/shadows" prefetch="intent">
+						<NavLink to={href("/base/shadows")} prefetch="intent">
 							Shadows
 						</NavLink>
 					</li>
 					<li>
-						<NavLink to="/base/typography" prefetch="intent">
+						<NavLink to={href("/base/typography")} prefetch="intent">
 							Typography
 						</NavLink>
 					</li>
 					<li>
-						<NavLink to="/base/tailwind-variants" prefetch="intent">
+						<NavLink to={href("/base/tailwind-variants")} prefetch="intent">
 							Tailwind Variants
 						</NavLink>
 					</li>

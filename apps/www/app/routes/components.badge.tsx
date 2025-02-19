@@ -10,6 +10,7 @@ import {
 import { colors } from "@ngrok/mantle/color";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { GlobeHemisphereWest } from "@phosphor-icons/react/GlobeHemisphereWest";
+import { href } from "react-router";
 import { Example } from "~/components/example";
 import { Link } from "~/components/link";
 import { PageHeader } from "~/components/page-header";
@@ -24,7 +25,6 @@ import {
 	ReactNodePropType,
 	StringPropType,
 } from "~/components/props-table";
-import { route } from "~/types/routes";
 import type { Route } from "./+types/components.badge";
 
 export const meta: Route.MetaFunction = () => {
@@ -112,7 +112,7 @@ export default function Page() {
 							color="pink"
 							icon={<GlobeHemisphereWest />}
 						>
-							<Link to={route("/base/colors")}>See our colors!</Link>
+							<Link to={href("/base/colors")}>See our colors!</Link>
 						</Badge>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
@@ -123,10 +123,10 @@ export default function Page() {
 								value={fmtCode`
 									import { Badge } from "@ngrok/mantle/badge";
 									import { GlobeHemisphereWest } from "@phosphor-icons/react/GlobeHemisphereWest";
-									import { Link } from "react-router";
+									import { Link, href } from "react-router";
 
 									<Badge appearance="muted" asChild color="pink" icon={<GlobeHemisphereWest />}>
-										<Link to={route("/base/colors")}>See our colors!</Link>
+										<Link to={href("/base/colors")}>See our colors!</Link>
 									</Badge>
 								`}
 							/>
@@ -199,8 +199,8 @@ export default function Page() {
 						<PropDescriptionCell>
 							<p>
 								The color variant of the <InlineCode>Badge</InlineCode>.
-								Supports all <Link to="/base/colors">named colors</Link>, both
-								functional and from the color palette.
+								Supports all <Link to={href("/base/colors")}>named colors</Link>
+								, both functional and from the color palette.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>

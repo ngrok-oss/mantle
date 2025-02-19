@@ -37,10 +37,6 @@
       "cache": false,
       "persistent": true
     },
-    "test:ui": {
-      "cache": false,
-      "persistent": true
-    },
     "typecheck": {}
   },
   "remoteCache": {

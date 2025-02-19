@@ -9,6 +9,7 @@ import {
 } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Table, TableBody, TableCell, TableRow } from "@ngrok/mantle/table";
+import { href } from "react-router";
 import { Link } from "~/components/link";
 import type { Route } from "./+types/_index";
 
@@ -209,13 +210,14 @@ export default function Page() {
 				</CodeBlock>
 				<p className="font-body text-body mt-8">
 					Next, you should add the{" "}
-					<Link to="/components/theme-provider">Theme Provider</Link> to your
-					application to provide the mantle theme to your components. You are
-					now ready to use mantle components in your application!
+					<Link to={href("/components/theme-provider")}>Theme Provider</Link> to
+					your application to provide the mantle theme to your components. You
+					are now ready to use mantle components in your application!
 				</p>
 				<p className="font-body text-body mt-4">
 					You are now ready to use mantle components in your application! For
-					example, you can use the <Link to="/components/button">Button</Link>!
+					example, you can use the{" "}
+					<Link to={href("/components/button")}>Button</Link>!
 				</p>
 			</section>
 		</div>

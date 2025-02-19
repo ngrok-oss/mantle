@@ -12,7 +12,7 @@ import { Input, InputCapture } from "@ngrok/mantle/input";
 import { Label } from "@ngrok/mantle/label";
 import { Info } from "@phosphor-icons/react/Info";
 import { MagnifyingGlass } from "@phosphor-icons/react/MagnifyingGlass";
-import { Link } from "react-router";
+import { Link, href } from "react-router";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import {
@@ -26,7 +26,6 @@ import {
 	PropsTable,
 	StringPropType,
 } from "~/components/props-table";
-import { route } from "~/types/routes";
 import type { Route } from "./+types/components.input";
 
 export const meta: Route.MetaFunction = () => {
@@ -119,7 +118,7 @@ export default function Page() {
 					. The examples below show you how to render start and end icons or
 					buttons. The{" "}
 					<Anchor asChild>
-						<Link to={route("/components/password-input")}>Password Input</Link>
+						<Link to={href("/components/password-input")}>Password Input</Link>
 					</Anchor>{" "}
 					is built using this API under the hood! Keep in mind that you will
 					need to manually pass the <InlineCode>InputCapture</InlineCode>{" "}
