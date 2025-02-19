@@ -1,7 +1,7 @@
 import { cva } from "class-variance-authority";
 import type { ComponentProps } from "react";
 import { cx } from "../../utils/cx/cx.js";
-import type { Flags } from "./types.js";
+import type { CountryCode } from "./country-code.js";
 
 const cdnOrigin = "https://assets.ngrok.com";
 
@@ -13,7 +13,7 @@ type Props = Omit<ComponentProps<"div">, "children"> & {
 	 * The country code for the flag to display
 	 * @example "US"
 	 */
-	code: Flags;
+	code: CountryCode;
 	/**
 	 * The size of flag to render, "s", "m", or "l"
 	 * @default "l"
@@ -50,6 +50,12 @@ const sizingVariants = cva("", {
 /**
  * A flag component that displays a flag based on the provided country code.
  * Inspired by [react-flagpack](https://flagpack.xyz/docs/development/react).
+ *
+ * @example
+ * <Flag code="US" />
+ * <Flag code="JP" size="m" loading="eager" />
+ * <Flag code="CA" size="s" loading="lazy" />
+ * <Flag code="GB" size="l" />
  */
 function Flag({
 	//,
