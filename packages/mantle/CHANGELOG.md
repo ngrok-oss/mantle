@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.20.2
+
+### Patch Changes
+
+- [#444](https://github.com/ngrok-oss/mantle/pull/444) [`63ce798`](https://github.com/ngrok-oss/mantle/commit/63ce7986ea424774168209218d4562cbda5906d1) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Flags: rename Flags type to CountryCode, export countryCodes list and isCountryCode type predicate fn
+
 ## 0.20.1
 
 ### Patch Changes
