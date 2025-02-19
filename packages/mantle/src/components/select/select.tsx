@@ -131,10 +131,10 @@ const SelectTrigger = forwardRef<
 		return (
 			<SelectPrimitive.Trigger
 				aria-invalid={ariaInvalid}
-				data-validation={validation || undefined}
 				className={cx(
 					"h-9 text-sm",
-					"border-form bg-form text-strong placeholder:text-placeholder hover:bg-form-hover hover:text-strong flex w-full items-center justify-between gap-1.5 rounded-md border px-3 py-2 hover:border-neutral-400 disabled:pointer-events-none disabled:opacity-50 [&>span]:line-clamp-1 [&>span]:text-left",
+					"border-form bg-form text-strong placeholder:text-placeholder hover:bg-form-hover hover:text-strong flex w-full items-center justify-between gap-1.5 rounded-md border px-3 py-2 disabled:pointer-events-none disabled:opacity-50 [&>span]:line-clamp-1 [&>span]:text-left",
+					"hover:border-neutral-400",
 					"focus:outline-none focus:ring-4 aria-expanded:ring-4",
 					"focus:border-accent-600 focus:ring-focus-accent aria-expanded:border-accent-600 aria-expanded:ring-focus-accent",
 					"data-validation-success:border-success-600 data-validation-success:focus:border-success-600 data-validation-success:focus:ring-focus-success data-validation-success:aria-expanded:border-success-600 data-validation-success:aria-expanded:ring-focus-success",
@@ -142,6 +142,7 @@ const SelectTrigger = forwardRef<
 					"data-validation-error:border-danger-600 data-validation-error:focus:border-danger-600 data-validation-error:focus:ring-focus-danger data-validation-error:aria-expanded:border-danger-600 data-validation-error:aria-expanded:ring-focus-danger",
 					className,
 				)}
+				data-validation={validation || undefined}
 				id={id}
 				ref={composeRefs(ref, ctx.ref)}
 				{...props}

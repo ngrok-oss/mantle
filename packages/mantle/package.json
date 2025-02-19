@@ -33,6 +33,7 @@
     "typecheck": "tsc"
   },
   "dependencies": {
+    "@ariakit/react": "0.4.15",
     "@headlessui/react": "2.2.0",
     "@radix-ui/react-accordion": "1.2.3",
     "@radix-ui/react-dialog": "1.1.6",
@@ -153,6 +154,11 @@
       "@ngrok/mantle/source": "./src/utils/color/index.ts",
       "import": "./dist/color.js",
       "types": "./dist/color.d.ts"
+    },
+    "./combobox": {
+      "@ngrok/mantle/source": "./src/components/combobox/index.ts",
+      "import": "./dist/combobox.js",
+      "types": "./dist/combobox.d.ts"
     },
     "./compose-refs": {
       "@ngrok/mantle/source": "./src/utils/compose-refs/index.ts",
