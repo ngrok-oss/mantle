@@ -1,16 +1,15 @@
 import * as Primitive from "@ariakit/react";
 import { Slot } from "@radix-ui/react-slot";
 import {
-	type ComponentProps,
 	type ComponentPropsWithoutRef,
 	type ComponentRef,
 	type ElementRef,
 	createContext,
 	forwardRef,
-	useContext,
 } from "react";
 import type { WithAsChild } from "../../types/as-child.js";
 import { cx } from "../../utils/cx/cx.js";
+import type { WithValidation } from "../input/types.js";
 import { Separator } from "../separator/separator.js";
 
 type ComboboxProps = Primitive.ComboboxProviderProps;
@@ -38,7 +37,8 @@ const Combobox = ({ children, ...props }: ComboboxProps) => {
 type ComboboxInputProps = Omit<
 	Primitive.ComboboxProps,
 	"render" // we don't support a render prop for the combobox input
->;
+> &
+	WithValidation;
 
 /**
  * Renders a combobox input element that can be used to filter a list of items.
@@ -54,28 +54,44 @@ type ComboboxInputProps = Omit<
  */
 const ComboboxInput = forwardRef<ComponentRef<"input">, ComboboxInputProps>(
 	(
-		{ autoComplete = "list", autoSelect = "always", className, ...props },
+		{
+			"aria-invalid": _ariaInvalid,
+			autoComplete = "list",
+			autoSelect = "always",
+			className,
+			validation: _validation,
+			...props
+		},
 		ref,
 	) => {
+		const isInvalid = _ariaInvalid != null && _ariaInvalid !== "false";
+		const validation = isInvalid
+			? "error"
+			: typeof _validation === "function"
+				? _validation()
+				: _validation;
+		const ariaInvalid = _ariaInvalid ?? validation === "error";
+
 		return (
 			<Primitive.Combobox
+				aria-invalid={ariaInvalid}
 				autoComplete={autoComplete}
 				autoSelect={autoSelect}
 				className={cx(
 					"pointer-coarse:text-base h-9 text-sm",
 					"bg-form relative block w-full rounded-md border px-3 py-2 border-form text-strong",
-					"focus:outline-none focus-visible:outline-none focus-visible:ring-4 aria-expanded:ring-4",
+					"placeholder:text-placeholder",
 					"aria-disabled:opacity-50",
 					"hover:border-neutral-400",
-					"focus:border-accent-600 focus-visible:ring-focus-accent aria-expanded:border-accent-600 aria-expanded:ring-focus-accent",
-					"has-[:focus-visible]:border-accent-600 has-[:focus-visible]:ring-focus-accent",
-					"data-validation-success:border-success-600 has-[:focus-visible]:data-validation-success:border-success-600 has-[:focus-visible]:data-validation-success:ring-focus-success",
-					"data-validation-warning:border-warning-600 has-[:focus-visible]:data-validation-warning:border-warning-600 has-[:focus-visible]:data-validation-warning:ring-focus-warning",
-					"data-validation-error:border-danger-600 has-[:focus-visible]:data-validation-error:border-danger-600 has-[:focus-visible]:data-validation-error:ring-focus-danger",
-					"autofill:shadow-[inset_0_0_0px_1000px_hsl(var(--blue-50))] has-[:autofill]:bg-blue-50 has-[:autofill]:[-webkit-text-fill-color:hsl(var(--text-strong))]", // Autofill styling on the input itself and any children with autofill styling
-					"placeholder:text-placeholder bg-transparent text-left autofill:shadow-[inset_0_0_0px_1000px_hsl(var(--blue-50))]",
+					"focus:outline-none focus:ring-4 aria-expanded:ring-4",
+					"focus:border-accent-600 focus:ring-focus-accent aria-expanded:border-accent-600 aria-expanded:ring-focus-accent",
+					"data-validation-success:border-success-600 data-validation-success:focus:border-success-600 data-validation-success:focus:ring-focus-success data-validation-success:aria-expanded:border-success-600 data-validation-success:aria-expanded:ring-focus-success",
+					"data-validation-warning:border-warning-600 data-validation-warning:focus:border-warning-600 data-validation-warning:focus:ring-focus-warning data-validation-warning:aria-expanded:border-warning-600 data-validation-warning:aria-expanded:ring-focus-warning",
+					"data-validation-error:border-danger-600 data-validation-error:focus:border-danger-600 data-validation-error:focus:ring-focus-danger data-validation-error:aria-expanded:border-danger-600 data-validation-error:aria-expanded:ring-focus-danger",
+					"autofill:shadow-[inset_0_0_0px_1000px_hsl(var(--blue-50))] autofill:bg-blue-50 autofill:[-webkit-text-fill-color:hsl(var(--text-strong))]", // Autofill styling on the input itself and any children with autofill styling
 					className,
 				)}
+				data-validation={validation || undefined}
 				ref={ref}
 				{...props}
 			/>
