@@ -27,7 +27,7 @@
   "scripts": {
     "build": "NODE_OPTIONS='--max-old-space-size=16384' tsup",
     "clean": "rm -rf dist",
-    "prebuild": "rm -rf dist",
+    "prebuild": "pnpm run clean",
     "test:watch": "TZ=UTC vitest watch",
     "test": "TZ=UTC vitest run",
     "typecheck": "tsc"

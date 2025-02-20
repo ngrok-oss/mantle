@@ -27,12 +27,11 @@
       "outputs": ["public/build/**"]
     },
     "start": {
+      "dependsOn": ["^build"],
       "cache": false,
       "persistent": true
     },
-    "test": {
-      "outputs": []
-    },
+    "test": {},
     "test:watch": {
       "cache": false,
       "persistent": true
