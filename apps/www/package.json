@@ -7,12 +7,13 @@
   },
   "scripts": {
     "build": "react-router build",
+    "clean": "rm -rf .vercel build",
+    "prebuild": "pnpm run clean",
     "serve": "react-router-serve build/server/index.js",
     "start": "react-router dev --host",
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest watch",
-    "typecheck": "react-router typegen && tsc",
-    "clean": "rm -rf build && rm -rf .turbo"
+    "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
     "@ngrok/mantle": "workspace:*",
