@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.21.1
+
+### Patch Changes
+
+- [#450](https://github.com/ngrok-oss/mantle/pull/450) [`00de431`](https://github.com/ngrok-oss/mantle/commit/00de431a6f3f95d877a62a89a6d305d82b56b639) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - CodeBlock: fix alignment of absolutely positioned copy button
+
 ## 0.21.0
 
 ### Minor Changes
