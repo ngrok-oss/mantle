@@ -68,6 +68,11 @@ type Props = SvgAttributes & {
 
 /**
  * A simple circular progress bar.
+ *
+ * @example
+ * <ProgressDonut value={60}>
+ *   <ProgressDonutIndicator />
+ * </ProgressDonut>
  */
 const ProgressDonut = ({
 	children,
@@ -145,6 +150,11 @@ type ProgressDonutIndicatorProps = Omit<ComponentProps<"g">, "children">;
 
 /**
  * The indicator for the circular progress bar.
+ *
+ * @example
+ * <ProgressDonut value={60}>
+ *   <ProgressDonutIndicator />
+ * </ProgressDonut>
  */
 const ProgressDonutIndicator = ({
 	className,
@@ -183,7 +193,7 @@ const ProgressDonutIndicator = ({
 				strokeLinecap="round"
 				strokeWidth={strokeWidthPx}
 				style={{ "--radius": radius } as CSSProperties}
-				transform-origin="center"
+				{...{ transformOrigin: "center" as const }}
 				transform="rotate(-90)" // rotate -90 degrees so it starts from the top
 			/>
 		</g>
