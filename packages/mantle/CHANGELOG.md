@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.21.2
+
+### Patch Changes
+
+- [#452](https://github.com/ngrok-oss/mantle/pull/452) [`f76dc0e`](https://github.com/ngrok-oss/mantle/commit/f76dc0e7f3e862f4f50e0270fe29709facd88803) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - ProgressDonut: fix hydration error, add examples in intellisense
+
 ## 0.21.1
 
 ### Patch Changes
