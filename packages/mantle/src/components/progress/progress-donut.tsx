@@ -180,7 +180,10 @@ const ProgressDonutIndicator = ({
 				</defs>
 			)}
 			<circle
-				className="[r:var(--radius)]"
+				className={clsx(
+					"[r:var(--radius)]", // set the circle radius to be the value of the calc'd CSS variable set on the style
+					"origin-center",
+				)}
 				cx="50%"
 				cy="50%"
 				fill="transparent"
@@ -193,7 +196,6 @@ const ProgressDonutIndicator = ({
 				strokeLinecap="round"
 				strokeWidth={strokeWidthPx}
 				style={{ "--radius": radius } as CSSProperties}
-				{...{ transformOrigin: "center" as const }}
 				transform="rotate(-90)" // rotate -90 degrees so it starts from the top
 			/>
 		</g>
