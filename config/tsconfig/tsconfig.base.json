@@ -3,19 +3,20 @@
   "display": "Default",
   "compilerOptions": {
     /* Base Options: */
+    "allowJs": true,
+    "erasableSyntaxOnly": true,
     "esModuleInterop": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "resolveJsonModule": true,
     "skipLibCheck": true,
     "target": "ES2022",
-    "allowJs": true,
-    "resolveJsonModule": true,
-    "moduleDetection": "force",
-    "isolatedModules": true,
     "verbatimModuleSyntax": true,
 
     /* Strictness */
     "strict": true,
-    "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
+    "noUncheckedIndexedAccess": true,
     "noUncheckedSideEffectImports": true,
   }
 }
