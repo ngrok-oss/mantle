@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.21.3
+
+### Patch Changes
+
+- [#454](https://github.com/ngrok-oss/mantle/pull/454) [`2ddbdab`](https://github.com/ngrok-oss/mantle/commit/2ddbdab61f0a875854452c11a3b7dba1913b4737) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - ProgressDonut: properly fix the render AND hydration issue
+
 ## 0.21.2
 
 ### Patch Changes
