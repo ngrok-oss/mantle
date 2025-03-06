@@ -67,7 +67,7 @@ type AlertProps = ComponentProps<"div"> & {
 };
 
 /**
- * Displays a callout for user attention.
+ * Displays a callout for user attention. Root container for all Alert sub-components.
  *
  * @example
  * <Alert priority="info">
