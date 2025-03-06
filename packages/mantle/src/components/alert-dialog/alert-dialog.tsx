@@ -10,6 +10,7 @@ import {
 	createContext,
 	forwardRef,
 	useContext,
+	useMemo,
 } from "react";
 import invariant from "tiny-invariant";
 import { cx } from "../../utils/cx/cx.js";
@@ -53,8 +54,13 @@ type AlertDialogProps = ComponentProps<typeof AlertDialogPrimitive.Root> & {
  * The root component for the Alert Dialog
  */
 function AlertDialog({ priority, ...props }: AlertDialogProps) {
+	const context: AlertDialogContextValue = useMemo(
+		() => ({ priority }),
+		[priority],
+	);
+
 	return (
-		<AlertDialogContext.Provider value={{ priority }}>
+		<AlertDialogContext.Provider value={context}>
 			<AlertDialogPrimitive.Root {...props} />
 		</AlertDialogContext.Provider>
 	);
