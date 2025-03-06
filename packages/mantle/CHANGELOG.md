@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.21.4
+
+### Patch Changes
+
+- [#456](https://github.com/ngrok-oss/mantle/pull/456) [`2ed9953`](https://github.com/ngrok-oss/mantle/commit/2ed9953b76c231445a67a63b3f4be31158968306) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Alert: improve doc site entry and intellisense for each component; remove unused default priority and make priority required; add AlertIcon component
+
 ## 0.21.3
 
 ### Patch Changes
