@@ -330,7 +330,9 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 className="text-xl font-medium">Select</h3>
+						<h3 id="api-select" className="text-xl font-medium">
+							Select
+						</h3>
 
 						<p className="font-body text-body">
 							All props from Radix{" "}
@@ -406,7 +408,9 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 className="text-xl font-medium">SelectTrigger</h3>
+						<h3 id="api-select-trigger" className="text-xl font-medium">
+							SelectTrigger
+						</h3>
 
 						<p className="font-body text-body">
 							All props from Radix{" "}
@@ -468,7 +472,9 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 className="text-xl font-medium">SelectValue</h3>
+					<h3 id="api-select-value" className="text-xl font-medium">
+						SelectValue
+					</h3>
 
 					<p className="font-body text-body">
 						Radix{" "}
@@ -485,7 +491,9 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 className="text-xl font-medium">SelectContent</h3>
+						<h3 id="api-select-content" className="text-xl font-medium">
+							SelectContent
+						</h3>
 
 						<p className="font-body text-body">
 							All props from Radix{" "}
@@ -529,7 +537,9 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 className="text-xl font-medium">SelectGroup</h3>
+					<h3 id="api-select-group" className="text-xl font-medium">
+						SelectGroup
+					</h3>
 
 					<p className="font-body text-body">
 						Radix{" "}
@@ -545,7 +555,9 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 className="text-xl font-medium">SelectSeparator</h3>
+					<h3 id="api-select-separator" className="text-xl font-medium">
+						SelectSeparator
+					</h3>
 
 					<p className="font-body text-body">
 						Used to visually separate items in the select. Composed from{" "}
@@ -554,7 +566,9 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 className="text-xl font-medium">SelectItem</h3>
+					<h3 id="api-select-item" className="text-xl font-medium">
+						SelectItem
+					</h3>
 
 					<p className="font-body text-body">
 						Radix{" "}
@@ -570,7 +584,9 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 className="text-xl font-medium">SelectLabel</h3>
+					<h3 id="api-select-label" className="text-xl font-medium">
+						SelectLabel
+					</h3>
 
 					<p className="font-body text-body">
 						Radix{" "}
@@ -586,7 +602,9 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 className="text-xl font-medium">SelectScrollUpButton</h3>
+					<h3 id="api-select-scroll-up-button" className="text-xl font-medium">
+						SelectScrollUpButton
+					</h3>
 
 					<p className="font-body text-body">
 						Radix{" "}
@@ -602,7 +620,12 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 className="text-xl font-medium">SelectScrollDownButton</h3>
+					<h3
+						id="api-select-scroll-down-button"
+						className="text-xl font-medium"
+					>
+						SelectScrollDownButton
+					</h3>
 
 					<p className="font-body text-body">
 						Radix{" "}
