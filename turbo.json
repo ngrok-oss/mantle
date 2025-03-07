@@ -36,7 +36,9 @@
       "cache": false,
       "persistent": true
     },
-    "typecheck": {}
+    "typecheck": {
+      "outputs": ["**/.react-router/**"]
+    }
   },
   "remoteCache": {
     "enabled": true

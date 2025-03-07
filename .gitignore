@@ -31,3 +31,4 @@ build
 .vercel
 .parcel-cache
 .turbo
+.react-router

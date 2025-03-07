@@ -117,7 +117,7 @@ export default function Page() {
 				<div>
 					<Example>
 						<Button appearance="filled" icon={<Fire weight="fill" />} asChild>
-							<Link to={route("/base/colors")}>See our colors!</Link>
+							<Link to={href("/base/colors")}>See our colors!</Link>
 						</Button>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
