@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.21.5
+
+### Patch Changes
+
+- [#458](https://github.com/ngrok-oss/mantle/pull/458) [`494430c`](https://github.com/ngrok-oss/mantle/commit/494430cfa5e08958de9fc8eb7710644362dee18b) Thanks [@dependabot](https://github.com/apps/dependabot)! - update prism to fix security vulnerability
+
 ## 0.21.4
 
 ### Patch Changes
