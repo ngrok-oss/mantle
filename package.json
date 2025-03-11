@@ -2,7 +2,7 @@
   "private": true,
   "name": "mantle",
   "license": "MIT",
-  "packageManager": "pnpm@10.6.1",
+  "packageManager": "pnpm@10.6.2",
   "type": "module",
   "engines": {
     "node": "^22.0.0"
@@ -38,7 +38,7 @@
   "pnpm": {
     "overrides": {
       "cookie": ">=1.0.2",
-      "esbuild": ">=0.25.0"
+      "esbuild": ">=0.25.1"
     },
     "onlyBuiltDependencies": [
       "@biomejs/biome",
