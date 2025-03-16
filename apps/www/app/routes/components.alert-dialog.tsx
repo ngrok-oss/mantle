@@ -34,7 +34,7 @@ import {
 	PropsTable,
 	StringPropType,
 } from "~/components/props-table";
-import type { Route } from "./+types/components.preview.alert-dialog";
+import type { Route } from "./+types/components.alert-dialog";
 
 export const meta: Route.MetaFunction = () => {
 	return [
@@ -56,9 +56,7 @@ export default function Page() {
 	return (
 		<div className="space-y-16">
 			<section className="space-y-4">
-				<PageHeader id="alert-dialog" isPreview>
-					Alert Dialog
-				</PageHeader>
+				<PageHeader id="alert-dialog">Alert Dialog</PageHeader>
 				<p className="font-body text-body text-xl">
 					A modal dialog that interrupts the user with important content and
 					expects a response.

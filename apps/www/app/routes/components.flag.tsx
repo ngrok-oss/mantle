@@ -19,7 +19,7 @@ import {
 	PropsTable,
 	StringPropType,
 } from "~/components/props-table";
-import type { Route } from "./+types/components.preview.flag";
+import type { Route } from "./+types/components.flag";
 
 export const meta: Route.MetaFunction = () => {
 	return [
@@ -41,9 +41,7 @@ export default function Page() {
 	return (
 		<div className="space-y-16">
 			<div className="space-y-4">
-				<PageHeader id="flag" isPreview>
-					Flag
-				</PageHeader>
+				<PageHeader id="flag">Flag</PageHeader>
 				<p className="font-body text-body text-xl">
 					Displays a flag as an svg based on the provided country code.
 				</p>

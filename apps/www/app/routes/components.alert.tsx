@@ -404,7 +404,7 @@ export default function Page() {
 							Alert
 						</h3>
 
-						<p>
+						<p className="font-body text-body">
 							Displays a callout for user attention. Root container for all{" "}
 							<InlineCode>Alert</InlineCode> sub-components.
 						</p>
@@ -458,10 +458,10 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 id="api-alertcontent" className="text-xl font-medium">
+						<h3 id="api-alert-content" className="text-xl font-medium">
 							AlertContent
 						</h3>
-						<p>
+						<p className="font-body text-body">
 							The container for the content slot of an{" "}
 							<InlineCode>Alert</InlineCode>. Place the{" "}
 							<InlineCode>AlertTitle</InlineCode> and{" "}
@@ -482,10 +482,10 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 id="api-description" className="text-xl font-medium">
+						<h3 id="api-alert-description" className="text-xl font-medium">
 							AlertDescription
 						</h3>
-						<p>
+						<p className="font-body text-body">
 							The optional description of an <InlineCode>Alert</InlineCode>.
 							Default renders as a <InlineCode>p</InlineCode> element; use{" "}
 							<InlineCode>asChild</InlineCode> to render something else.
@@ -525,10 +525,10 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 id="api-icon" className="text-xl font-medium">
+						<h3 id="api-alert-icon" className="text-xl font-medium">
 							AlertIcon
 						</h3>
-						<p>
+						<p className="font-body text-body">
 							An optional icon that visually represents the priority of the{" "}
 							<InlineCode>Alert</InlineCode>. The default rendered icon be
 							overridden with a custom icon using the{" "}
@@ -565,10 +565,10 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 id="api-title" className="text-xl font-medium">
+						<h3 id="api-alert-title" className="text-xl font-medium">
 							AlertTitle
 						</h3>
-						<p>
+						<p className="font-body text-body">
 							The title of an <InlineCode>Alert</InlineCode>. Default renders as
 							an <InlineCode>h5</InlineCode> element; use{" "}
 							<InlineCode>asChild</InlineCode> to render something else.

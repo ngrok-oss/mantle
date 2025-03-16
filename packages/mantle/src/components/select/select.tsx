@@ -54,6 +54,20 @@ type SelectProps = Omit<
 
 /**
  * Displays a list of options for the user to pick from—triggered by a button.
+ *
+ * @example
+ * <Select>
+ *   <SelectTrigger>
+ *     <SelectValue placeholder="Select a fruit" />
+ *   </SelectTrigger>
+ *   <SelectContent>
+ *     <SelectItem value="apple">Apple</SelectItem>
+ *     <SelectItem value="banana">Banana</SelectItem>
+ *     <SelectItem value="cherry">Cherry</SelectItem>
+ *   </SelectContent>
+ * </Select>
+ *
+ * @see https://mantle.ngrok.com/components/select#api-select
  */
 const Select = forwardRef<HTMLButtonElement, SelectProps>(
 	(
@@ -83,12 +97,48 @@ Select.displayName = "Select";
 
 /**
  * A group of related options within a select menu. Similar to an html `<optgroup>` element.
- * Use in conjunction with Select.Label to ensure good accessibility via automatic labelling.
+ * Use in conjunction with SelectLabel to ensure good accessibility via automatic labelling.
+ *
+ * @example
+ * <Select>
+ *   <SelectTrigger>
+ *     <SelectValue placeholder="Select a fruit" />
+ *   </SelectTrigger>
+ *   <SelectContent>
+ *     <SelectGroup>
+ *       <SelectLabel>Fruits</SelectLabel>
+ *       <SelectItem value="apple">Apple</SelectItem>
+ *       <SelectItem value="banana">Banana</SelectItem>
+ *       <SelectItem value="cherry">Cherry</SelectItem>
+ *     </SelectGroup>
+ *     <SelectGroup>
+ *       <SelectLabel>Veggies</SelectLabel>
+ *       <SelectItem value="carrot">Carrot</SelectItem>
+ *       <SelectItem value="cucumber">Cucumber</SelectItem>
+ *     </SelectGroup>
+ *   </SelectContent>
+ * </Select>
+ *
+ * @see https://mantle.ngrok.com/components/select#api-select-group
  */
 const SelectGroup = SelectPrimitive.Group;
 
 /**
  * The part that reflects the selected value. By default the selected item's text will be rendered. if you require more control, you can instead control the select and pass your own children. It should not be styled to ensure correct positioning. An optional placeholder prop is also available for when the select has no value.
+ *
+ * @example
+ * <Select>
+ *   <SelectTrigger>
+ *     <SelectValue placeholder="Select a fruit" />
+ *   </SelectTrigger>
+ *   <SelectContent>
+ *     <SelectItem value="apple">Apple</SelectItem>
+ *     <SelectItem value="banana">Banana</SelectItem>
+ *     <SelectItem value="cherry">Cherry</SelectItem>
+ *   </SelectContent>
+ * </Select>
+ *
+ * @see https://mantle.ngrok.com/components/select#api-select-value
  */
 const SelectValue = SelectPrimitive.Value;
 
@@ -99,7 +149,21 @@ type SelectTriggerProps = ComponentPropsWithoutRef<
 	WithValidation;
 
 /**
- * The button that toggles the select. The Select.Content will position itself adjacent to the trigger.
+ * The button that toggles the select. The SelectContent will position itself adjacent to the trigger.
+ *
+ * @example
+ * <Select>
+ *   <SelectTrigger>
+ *     <SelectValue placeholder="Select a fruit" />
+ *   </SelectTrigger>
+ *   <SelectContent>
+ *     <SelectItem value="apple">Apple</SelectItem>
+ *     <SelectItem value="banana">Banana</SelectItem>
+ *     <SelectItem value="cherry">Cherry</SelectItem>
+ *   </SelectContent>
+ * </Select>
+ *
+ * @see https://mantle.ngrok.com/components/select#api-select-trigger
  */
 const SelectTrigger = forwardRef<
 	ComponentRef<typeof SelectPrimitive.Trigger>,
@@ -157,6 +221,10 @@ const SelectTrigger = forwardRef<
 );
 SelectTrigger.displayName = "SelectTrigger";
 
+/**
+ * The button that scrolls the select content up.
+ * @private
+ */
 const SelectScrollUpButton = forwardRef<
 	ComponentRef<typeof SelectPrimitive.ScrollUpButton>,
 	ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollUpButton>
@@ -174,6 +242,10 @@ const SelectScrollUpButton = forwardRef<
 ));
 SelectScrollUpButton.displayName = "SelectScrollUpButton";
 
+/**
+ * The button that scrolls the select content down.
+ * @private
+ */
 const SelectScrollDownButton = forwardRef<
 	ComponentRef<typeof SelectPrimitive.ScrollDownButton>,
 	ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollDownButton>
@@ -194,49 +266,95 @@ SelectScrollDownButton.displayName = "SelectScrollDownButton";
 type SelectContentProps = ComponentPropsWithoutRef<
 	typeof SelectPrimitive.Content
 > & {
+	/**
+	 * The width of the content. Defaults to the width of the trigger.
+	 * If set to "content", the content will use the intrinsic content width; it will be the width of the longest/widest item.
+	 * @default "trigger"
+	 */
 	width?: "trigger" | "content";
 };
 
 /**
  * The component that pops out when the select is open as a portal adjacent to the trigger button.
  * It contains a scrolling viewport of the select items.
+ *
+ * @example
+ * <Select>
+ *   <SelectTrigger>
+ *     <SelectValue placeholder="Select a fruit" />
+ *   </SelectTrigger>
+ *   <SelectContent>
+ *     <SelectItem value="apple">Apple</SelectItem>
+ *     <SelectItem value="banana">Banana</SelectItem>
+ *     <SelectItem value="cherry">Cherry</SelectItem>
+ *   </SelectContent>
+ * </Select>
+ *
+ * @see https://mantle.ngrok.com/components/select#api-select-content
  */
 const SelectContent = forwardRef<
 	ComponentRef<typeof SelectPrimitive.Content>,
 	SelectContentProps
->(({ className, children, position = "popper", width, ...props }, ref) => (
-	<SelectPrimitive.Portal>
-		<SelectPrimitive.Content
-			ref={ref}
-			className={cx(
-				"border-popover data-side-bottom:slide-in-from-top-2 data-side-left:slide-in-from-right-2 data-side-right:slide-in-from-left-2 data-side-top:slide-in-from-bottom-2 data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 data-state-open:animate-in data-state-open:fade-in-0 data-state-open:zoom-in-95 relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border shadow-md",
-				"bg-popover",
-				position === "popper" &&
-					"data-side-bottom:translate-y-2 data-side-left:-translate-x-2 data-side-right:translate-x-2 data-side-top:-translate-y-2 max-h-[var(--radix-select-content-available-height)]",
-				width === "trigger" && "w-[var(--radix-select-trigger-width)]",
-				className,
-			)}
-			position={position}
-			{...props}
-		>
-			<SelectScrollUpButton />
-			<SelectPrimitive.Viewport
+>(
+	(
+		{ className, children, position = "popper", width = "trigger", ...props },
+		ref,
+	) => (
+		<SelectPrimitive.Portal>
+			<SelectPrimitive.Content
+				ref={ref}
 				className={cx(
-					"p-1",
+					"border-popover data-side-bottom:slide-in-from-top-2 data-side-left:slide-in-from-right-2 data-side-right:slide-in-from-left-2 data-side-top:slide-in-from-bottom-2 data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 data-state-open:animate-in data-state-open:fade-in-0 data-state-open:zoom-in-95 relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border shadow-md",
+					"bg-popover",
 					position === "popper" &&
-						"h-[var(--radix-select-trigger-height)] w-full",
+						"data-side-bottom:translate-y-2 data-side-left:-translate-x-2 data-side-right:translate-x-2 data-side-top:-translate-y-2 max-h-[var(--radix-select-content-available-height)]",
+					width === "trigger" && "w-[var(--radix-select-trigger-width)]",
+					className,
 				)}
+				position={position}
+				{...props}
 			>
-				{children}
-			</SelectPrimitive.Viewport>
-			<SelectScrollDownButton />
-		</SelectPrimitive.Content>
-	</SelectPrimitive.Portal>
-));
+				<SelectScrollUpButton />
+				<SelectPrimitive.Viewport
+					className={cx(
+						"p-1",
+						position === "popper" &&
+							"h-[var(--radix-select-trigger-height)] w-full",
+					)}
+				>
+					{children}
+				</SelectPrimitive.Viewport>
+				<SelectScrollDownButton />
+			</SelectPrimitive.Content>
+		</SelectPrimitive.Portal>
+	),
+);
 SelectContent.displayName = "SelectContent";
 
 /**
  * Used to render the label of a group. It won't be focusable using arrow keys.
+ *
+ * @example
+ * <Select>
+ *   <SelectTrigger>
+ *     <SelectValue placeholder="Select a fruit" />
+ *   </SelectTrigger>
+ *   <SelectContent>
+ *     <SelectGroup>
+ *       <SelectLabel>Fruits</SelectLabel>
+ *       <SelectItem value="apple">Apple</SelectItem>
+ *       <SelectItem value="banana">Banana</SelectItem>
+ *       <SelectItem value="cherry">Cherry</SelectItem>
+ *     </SelectGroup>
+ *     <SelectGroup>
+ *       <SelectLabel>Veggies</SelectLabel>
+ *       <SelectItem value="carrot">Carrot</SelectItem>
+ *       <SelectItem value="cucumber">Cucumber</SelectItem>
+ *     </SelectGroup>
+ *   </SelectContent>
+ * </Select>
+ *
+ * @see https://mantle.ngrok.com/components/select#api-select-label
  */
 const SelectLabel = forwardRef<
 	ComponentRef<typeof SelectPrimitive.Label>,
@@ -252,8 +370,22 @@ SelectLabel.displayName = "SelectLabel";
 
 /**
  * An option within a select menu. Similar to an html `<option>` element.
- * Contains a `value` prop that will be passed to the `onChange` handler of the `Select` component when selected.
+ * Has a required `value` prop that will be passed to the `onChange` handler of the `Select` component when this item is selected.
  * Displays the children as the option's text.
+ *
+ * @example
+ * <Select>
+ *   <SelectTrigger>
+ *     <SelectValue placeholder="Select a fruit" />
+ *   </SelectTrigger>
+ *   <SelectContent>
+ *     <SelectItem value="apple">Apple</SelectItem>
+ *     <SelectItem value="banana">Banana</SelectItem>
+ *     <SelectItem value="cherry">Cherry</SelectItem>
+ *   </SelectContent>
+ * </Select>
+ *
+ * @see https://mantle.ngrok.com/components/select#api-select-item
  */
 const SelectItem = forwardRef<
 	ComponentRef<typeof SelectPrimitive.Item>,
@@ -280,7 +412,30 @@ const SelectItem = forwardRef<
 SelectItem.displayName = "SelectItem";
 
 /**
- * Used to visually separate items in the select.
+ * Used to visually separate items or groups of items in the select content.
+ *
+ * @example
+ * <Select>
+ *   <SelectTrigger>
+ *     <SelectValue placeholder="Select a fruit" />
+ *   </SelectTrigger>
+ *   <SelectContent>
+ *     <SelectGroup>
+ *       <SelectLabel>Fruits</SelectLabel>
+ *       <SelectItem value="apple">Apple</SelectItem>
+ *       <SelectItem value="banana">Banana</SelectItem>
+ *       <SelectItem value="cherry">Cherry</SelectItem>
+ *     </SelectGroup>
+ *     <SelectSeparator />
+ *     <SelectGroup>
+ *       <SelectLabel>Veggies</SelectLabel>
+ *       <SelectItem value="carrot">Carrot</SelectItem>
+ *       <SelectItem value="cucumber">Cucumber</SelectItem>
+ *     </SelectGroup>
+ *   </SelectContent>
+ * </Select>
+ *
+ * @see https://mantle.ngrok.com/components/select#api-select-separator
  */
 const SelectSeparator = forwardRef<
 	ComponentRef<typeof Separator>,
@@ -295,14 +450,13 @@ const SelectSeparator = forwardRef<
 SelectSeparator.displayName = "SelectSeparator";
 
 export {
+	//,
 	Select,
-	SelectGroup,
-	SelectValue,
-	SelectTrigger,
 	SelectContent,
-	SelectLabel,
+	SelectGroup,
 	SelectItem,
+	SelectLabel,
 	SelectSeparator,
-	SelectScrollUpButton,
-	SelectScrollDownButton,
+	SelectTrigger,
+	SelectValue,
 };

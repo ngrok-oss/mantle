@@ -138,6 +138,7 @@ export function Layout({ children, className, currentVersion, style }: Props) {
  */
 const prodReadyComponents = [
 	"Alert",
+	"Alert Dialog",
 	"Anchor",
 	"Badge",
 	"Button",
@@ -146,6 +147,8 @@ const prodReadyComponents = [
 	"Code Block",
 	"Dialog",
 	"Dropdown Menu",
+	"Flag",
+	"Hover Card",
 	"Icon Button",
 	"Icon",
 	"Inline Code",
@@ -164,6 +167,7 @@ const prodReadyComponents = [
 	"Tabs",
 	"Text Area",
 	"Theme Provider",
+	"Toast",
 ] as const;
 
 /**
@@ -174,15 +178,11 @@ const prodReadyComponents = [
 const previewComponents = [
 	//,
 	"Accordion",
-	"AlertDialog",
 	"Calendar",
 	"Combobox",
 	"Data Table",
-	"Flag",
-	"Hover Card",
 	"Pagination",
 	"Popover",
-	"Toast",
 	"Tooltip",
 ] as const;
 
@@ -190,6 +190,7 @@ type Route = Parameters<typeof href>[0];
 
 const prodReadyComponentRouteLookup = {
 	Alert: "/components/alert",
+	"Alert Dialog": "/components/alert-dialog",
 	Anchor: "/components/anchor",
 	Badge: "/components/badge",
 	Button: "/components/button",
@@ -198,6 +199,8 @@ const prodReadyComponentRouteLookup = {
 	"Code Block": "/components/code-block",
 	Dialog: "/components/dialog",
 	"Dropdown Menu": "/components/dropdown-menu",
+	Flag: "/components/flag",
+	"Hover Card": "/components/hover-card",
 	Icon: "/components/icon",
 	"Icon Button": "/components/icon-button",
 	"Inline Code": "/components/inline-code",
@@ -216,19 +219,16 @@ const prodReadyComponentRouteLookup = {
 	Tabs: "/components/tabs",
 	"Text Area": "/components/text-area",
 	"Theme Provider": "/components/theme-provider",
+	Toast: "/components/toast",
 } as const satisfies Record<(typeof prodReadyComponents)[number], Route>;
 
 const previewComponentsRouteLookup = {
 	Accordion: "/components/preview/accordion",
-	AlertDialog: "/components/preview/alert-dialog",
 	Calendar: "/components/preview/calendar",
 	Combobox: "/components/preview/combobox",
 	"Data Table": "/components/preview/data-table",
-	Flag: "/components/preview/flag",
-	"Hover Card": "/components/preview/hover-card",
 	Pagination: "/components/preview/pagination",
 	Popover: "/components/preview/popover",
-	Toast: "/components/preview/toast",
 	Tooltip: "/components/preview/tooltip",
 } as const satisfies Record<(typeof previewComponents)[number], Route>;
 

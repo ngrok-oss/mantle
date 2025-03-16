@@ -51,7 +51,7 @@ import { useState } from "react";
 import invariant from "tiny-invariant";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
-import type { Route } from "./+types/components.preview.toast";
+import type { Route } from "./+types/components.toast";
 
 export const meta: Route.MetaFunction = () => {
 	return [
@@ -88,9 +88,7 @@ export default function Page() {
 
 	return (
 		<div className="space-y-4">
-			<PageHeader id="toast" isPreview>
-				Toast
-			</PageHeader>
+			<PageHeader id="toast">Toast</PageHeader>
 			<p className="font-body text-body text-xl">
 				A succinct message that is displayed temporarily. Toasts are used to
 				provide feedback to the user without interrupting their workflow.
