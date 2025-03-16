@@ -1,5 +1,15 @@
 # @ngrok/mantle
 
+## 0.22.0
+
+### Minor Changes
+
+- [#462](https://github.com/ngrok-oss/mantle/pull/462) [`2e9f116`](https://github.com/ngrok-oss/mantle/commit/2e9f11667f8f2f895ac81883efc386e7df8131d1) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Checkbox: remove zodCheckbox export
+
+### Patch Changes
+
+- [#460](https://github.com/ngrok-oss/mantle/pull/460) [`e62f0ef`](https://github.com/ngrok-oss/mantle/commit/e62f0ef753984366b4c3f3bc53e656abfc0f4b98) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Select: improve component docs, add inline intellisense examples w/ links, make content width default to "trigger"
+
 ## 0.21.5
 
 ### Patch Changes
