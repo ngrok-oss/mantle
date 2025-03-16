@@ -80,7 +80,7 @@ type AlertProps = ComponentProps<"div"> & {
  *   </AlertContent>
  * </Alert>
  *
- * @see https://mantle.ngrok.com/components/alert
+ * @see https://mantle.ngrok.com/components/alert#api-alert
  */
 const Alert = forwardRef<ComponentRef<"div">, AlertProps>(
 	({ className, priority, ...props }, ref) => {
@@ -136,7 +136,7 @@ const defaultIcons = {
  *   </AlertContent>
  * </Alert>
  *
- * @see https://mantle.ngrok.com/components/alert
+ * @see https://mantle.ngrok.com/components/alert#api-alert-icon
  */
 const AlertIcon = forwardRef<ComponentRef<"svg">, AlertIconProps>(
 	({ className, svg, ...props }, ref) => {
@@ -169,7 +169,7 @@ AlertIcon.displayName = "AlertIcon";
  *   </AlertContent>
  * </Alert>
  *
- * @see https://mantle.ngrok.com/components/alert
+ * @see https://mantle.ngrok.com/components/alert#api-alert-content
  */
 const AlertContent = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
 	({ className, ...props }, ref) => (
@@ -194,7 +194,7 @@ type AlertTitleProps = HTMLAttributes<HTMLHeadingElement> & WithAsChild;
  *   </AlertContent>
  * </Alert>
  *
- * @see https://mantle.ngrok.com/components/alert
+ * @see https://mantle.ngrok.com/components/alert#api-alert-title
  */
 const AlertTitle = forwardRef<HTMLHeadingElement, AlertTitleProps>(
 	({ asChild = false, className, ...props }, ref) => {
@@ -227,7 +227,7 @@ type AlertDescriptionProps = ComponentProps<"p"> & WithAsChild;
  *   </AlertContent>
  * </Alert>
  *
- * @see https://mantle.ngrok.com/components/alert
+ * @see https://mantle.ngrok.com/components/alert#api-alert-description
  */
 const AlertDescription = forwardRef<ComponentRef<"p">, AlertDescriptionProps>(
 	({ asChild = false, className, ...props }, ref) => {

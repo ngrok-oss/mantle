@@ -15,7 +15,7 @@ import { Calendar } from "@phosphor-icons/react/Calendar";
 import { Shrimp } from "@phosphor-icons/react/Shrimp";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
-import type { Route } from "./+types/components.preview.hover-card";
+import type { Route } from "./+types/components.hover-card";
 
 export const meta: Route.MetaFunction = () => {
 	return [
@@ -36,9 +36,7 @@ export const headers: Route.HeadersFunction = () => {
 export default function Page() {
 	return (
 		<div className="space-y-4">
-			<PageHeader id="hover-card" isPreview>
-				Hover Card
-			</PageHeader>
+			<PageHeader id="hover-card">Hover Card</PageHeader>
 			<p className="font-body text-body text-xl">
 				For sighted users to preview content available behind a link.
 			</p>

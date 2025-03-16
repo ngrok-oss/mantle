@@ -283,26 +283,26 @@ export default function Page() {
 								<CodeBlockCode
 									language="tsx"
 									value={fmtCode`
-							import {
-								Select,
-								SelectContent,
-								SelectItem,
-								SelectTrigger,
-								SelectValue,
-							} from "@ngrok/mantle/select";
+										import {
+											Select,
+											SelectContent,
+											SelectItem,
+											SelectTrigger,
+											SelectValue,
+										} from "@ngrok/mantle/select";
 
-							<Select value={value} onChange={setValue}>
-								<SelectTrigger className="w-[180px]">
-									<SelectValue placeholder="Select a fruit">
-										{value === "apple" ? <>🍎 Apple!</> : <>🍑 Peach!</>}
-									</SelectValue>
-								</SelectTrigger>
-								<SelectContent width="trigger">
-									<SelectItem value="apple">Apple</SelectItem>
-									<SelectItem value="peach">Peach</SelectItem>
-								</SelectContent>
-							</Select>
-						`}
+										<Select value={value} onChange={setValue}>
+											<SelectTrigger className="w-[180px]">
+												<SelectValue placeholder="Select a fruit">
+													{value === "apple" ? <>🍎 Apple!</> : <>🍑 Peach!</>}
+												</SelectValue>
+											</SelectTrigger>
+											<SelectContent width="trigger">
+												<SelectItem value="apple">Apple</SelectItem>
+												<SelectItem value="peach">Peach</SelectItem>
+											</SelectContent>
+										</Select>
+									`}
 								/>
 							</CodeBlockBody>
 						</CodeBlock>
@@ -333,6 +333,11 @@ export default function Page() {
 						<h3 id="api-select" className="text-xl font-medium">
 							Select
 						</h3>
+
+						<p className="font-body text-body">
+							Displays a list of options for the user to pick from—triggered by
+							a button.
+						</p>
 
 						<p className="font-body text-body">
 							All props from Radix{" "}
@@ -413,6 +418,12 @@ export default function Page() {
 						</h3>
 
 						<p className="font-body text-body">
+							The button that toggles the <InlineCode>Select</InlineCode>. The{" "}
+							<InlineCode>SelectContent</InlineCode> will position itself
+							adjacent to the trigger.
+						</p>
+
+						<p className="font-body text-body">
 							All props from Radix{" "}
 							<Anchor
 								href="https://www.radix-ui.com/primitives/docs/components/select#trigger"
@@ -477,6 +488,15 @@ export default function Page() {
 					</h3>
 
 					<p className="font-body text-body">
+						The part that reflects the selected value. By default the selected
+						item's text will be rendered. if you require more control, you can
+						instead control the <InlineCode>Select</InlineCode> and pass your
+						own children. It should not be styled to ensure correct positioning.
+						An optional placeholder prop is also available for when the{" "}
+						<InlineCode>Select</InlineCode> has no value.
+					</p>
+
+					<p className="font-body text-body">
 						Radix{" "}
 						<Anchor
 							href="https://www.radix-ui.com/primitives/docs/components/select#value"
@@ -494,6 +514,13 @@ export default function Page() {
 						<h3 id="api-select-content" className="text-xl font-medium">
 							SelectContent
 						</h3>
+
+						<p className="font-body text-body">
+							The component that pops out when the{" "}
+							<InlineCode>Select</InlineCode> is open as a portal adjacent to
+							the <InlineCode>SelectTrigger</InlineCode> button. It contains a
+							scrolling viewport of the select items.
+						</p>
 
 						<p className="font-body text-body">
 							All props from Radix{" "}
@@ -521,15 +548,18 @@ export default function Page() {
 									</li>
 								</ul>
 							</PropTypeCell>
-							<PropDefaultValueCell />
+							<PropDefaultValueCell>
+								<StringPropType value="trigger" />
+							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
 									<InlineCode>trigger</InlineCode> will ensure the content is
 									the same width as the trigger button.
 								</p>
 								<p>
-									<InlineCode>content</InlineCode> will make it the size of the
-									content itself.
+									<InlineCode>content</InlineCode> will make it the instrinic
+									size of the content itself; it will be the width of the
+									longest/widest item.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -540,6 +570,13 @@ export default function Page() {
 					<h3 id="api-select-group" className="text-xl font-medium">
 						SelectGroup
 					</h3>
+
+					<p className="font-body text-body">
+						A group of related options within a select menu. Similar to an html{" "}
+						<InlineCode>optgroup</InlineCode> element. Use in conjunction with{" "}
+						<InlineCode>SelectLabel</InlineCode> to ensure good accessibility
+						via automatic labelling.
+					</p>
 
 					<p className="font-body text-body">
 						Radix{" "}
@@ -571,6 +608,15 @@ export default function Page() {
 					</h3>
 
 					<p className="font-body text-body">
+						An option within a select menu. Similar to an html{" "}
+						<InlineCode>option</InlineCode> element. Has a required{" "}
+						<InlineCode>value</InlineCode> prop that will be passed to the{" "}
+						<InlineCode>onChange</InlineCode> handler of the{" "}
+						<InlineCode>Select</InlineCode> component when this item is
+						selected. Displays the children as the option's text.
+					</p>
+
+					<p className="font-body text-body">
 						Radix{" "}
 						<Anchor
 							href="https://www.radix-ui.com/primitives/docs/components/select#item"
@@ -589,6 +635,13 @@ export default function Page() {
 					</h3>
 
 					<p className="font-body text-body">
+						Used to render the label of a group. It won't be focusable using
+						arrow keys. Use in conjunction with{" "}
+						<InlineCode>SelectGroup</InlineCode> to ensure good accessibility
+						via automatic labelling of a group.
+					</p>
+
+					<p className="font-body text-body">
 						Radix{" "}
 						<Anchor
 							href="https://www.radix-ui.com/primitives/docs/components/select#label"
@@ -596,45 +649,6 @@ export default function Page() {
 							rel="noopener noreferrer"
 						>
 							Select.Label
-						</Anchor>{" "}
-						props.
-					</p>
-				</section>
-
-				<section className="space-y-1">
-					<h3 id="api-select-scroll-up-button" className="text-xl font-medium">
-						SelectScrollUpButton
-					</h3>
-
-					<p className="font-body text-body">
-						Radix{" "}
-						<Anchor
-							href="https://www.radix-ui.com/primitives/docs/components/select#scrollupbutton"
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							Select.ScrollUpButton
-						</Anchor>{" "}
-						props.
-					</p>
-				</section>
-
-				<section className="space-y-1">
-					<h3
-						id="api-select-scroll-down-button"
-						className="text-xl font-medium"
-					>
-						SelectScrollDownButton
-					</h3>
-
-					<p className="font-body text-body">
-						Radix{" "}
-						<Anchor
-							href="https://www.radix-ui.com/primitives/docs/components/select#scrolldownbutton"
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							Select.ScrollDownButton
 						</Anchor>{" "}
 						props.
 					</p>
