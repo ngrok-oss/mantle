@@ -61,9 +61,18 @@ type SelectProps = Omit<
  *     <SelectValue placeholder="Select a fruit" />
  *   </SelectTrigger>
  *   <SelectContent>
- *     <SelectItem value="apple">Apple</SelectItem>
- *     <SelectItem value="banana">Banana</SelectItem>
- *     <SelectItem value="cherry">Cherry</SelectItem>
+ *     <SelectGroup>
+ *       <SelectLabel>Fruits</SelectLabel>
+ *       <SelectItem value="apple">Apple</SelectItem>
+ *       <SelectItem value="banana">Banana</SelectItem>
+ *       <SelectItem value="cherry">Cherry</SelectItem>
+ *     </SelectGroup>
+ *     <SelectSeparator />
+ *     <SelectGroup>
+ *       <SelectLabel>Veggies</SelectLabel>
+ *       <SelectItem value="carrot">Carrot</SelectItem>
+ *       <SelectItem value="cucumber">Cucumber</SelectItem>
+ *     </SelectGroup>
  *   </SelectContent>
  * </Select>
  *
