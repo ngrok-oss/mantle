@@ -98,7 +98,7 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 							<Icon className="mr-1" svg={<Sun />} />
 						</SelectTrigger>
 					</div>
-					<SelectContent>
+					<SelectContent width="content">
 						<SelectGroup>
 							<SelectLabel>Choose a theme</SelectLabel>
 							<SelectItem value={$theme("system")}>System</SelectItem>
