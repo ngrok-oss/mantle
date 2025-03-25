@@ -1,5 +1,13 @@
 # @ngrok/mantle
 
+## 0.22.1
+
+### Patch Changes
+
+- [#464](https://github.com/ngrok-oss/mantle/pull/464) [`b55338e`](https://github.com/ngrok-oss/mantle/commit/b55338ea37f0f1a074713990bdcb96b998ef8c09) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update dependencies
+
+- [#466](https://github.com/ngrok-oss/mantle/pull/466) [`a708b7f`](https://github.com/ngrok-oss/mantle/commit/a708b7f298dcd75c5607f4a226f1fede0d593921) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Sheet: improve inline intellisense and docsite documentation
+
 ## 0.22.0
 
 ### Minor Changes
