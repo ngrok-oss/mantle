@@ -31,8 +31,6 @@ import { Link, href } from "react-router";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import {
-	BooleanPropType,
-	FuncPropType,
 	PropDefaultValueCell,
 	PropDescriptionCell,
 	PropNameCell,
@@ -268,7 +266,7 @@ export default function Page() {
 								<CodeBlockCode
 									language="tsx"
 									value={fmtCode`
-										import { Button, IconButton } from "@ngrok/mantle/button";
+										import { Button } from "@ngrok/mantle/button";
 										import {
 											Sheet,
 											SheetActions,
@@ -283,41 +281,45 @@ export default function Page() {
 											SheetTitleGroup,
 											SheetTrigger,
 										} from "@ngrok/mantle/sheet";
+										import { useNavigate } from "react-router";
 										
-										<Button type="button" onClick={() => setIsOpen(true)}>
-											Open Sheet
-										</Button>
-										{isOpen && ( // 👈 this could be controlled by a router or state manager
-											<Sheet open onOpenChange={() => setIsOpen(false)}>
-												<SheetContent>
-													<SheetHeader>
-														<SheetTitleGroup>
-															<SheetTitle>A controlled Sheet</SheetTitle>
-															<SheetActions>
-																<SheetCloseIconButton />
-															</SheetActions>
-														</SheetTitleGroup>
-														<SheetDescription>
-															This sheet is controlled by a router or state manager.
-														</SheetDescription>
-													</SheetHeader>
-													<SheetBody>
-														<p>
-															Consequat do voluptate culpa fugiat consequat nostrud duis
-															aliqua minim. Tempor voluptate cillum elit velit. Voluptate
-															aliqua ipsum aliqua dolore in nisi ea fugiat aliqua velit
-															proident amet.
-														</p>
-													</SheetBody>
-													<SheetFooter>
+										// this is a react-router route module component export
+										export default function Component() {
+											const navigate = useNavigate();
+
+											return (
+												<Sheet open onOpenChange={() => navigate("..")}>
+													<SheetContent>
+														<SheetHeader>
+															<SheetTitleGroup>
+																<SheetTitle>A controlled Sheet</SheetTitle>
+																<SheetActions>
+																	<SheetCloseIconButton />
+																</SheetActions>
+															</SheetTitleGroup>
+															<SheetDescription>
+																This sheet is controlled by a router or state manager.
+															</SheetDescription>
+														</SheetHeader>
+														<SheetBody>
+															<p>
+																Consequat do voluptate culpa fugiat consequat nostrud duis
+																aliqua minim. Tempor voluptate cillum elit velit. Voluptate
+																aliqua ipsum aliqua dolore in nisi ea fugiat aliqua velit
+																proident amet.
+															</p>
+														</SheetBody>
 														<SheetFooter>
-															<SheetClose asChild>
-																<Button type="button">Close</Button>
-															</SheetClose>
+															<SheetFooter>
+																<SheetClose asChild>
+																	<Button type="button">Close</Button>
+																</SheetClose>
+															</SheetFooter>
 														</SheetFooter>
-													</SheetFooter>
-												</SheetContent>
-											</Sheet>
+													</SheetContent>
+												</Sheet>
+											);
+										}
 									`}
 								/>
 							</CodeBlockBody>
@@ -369,64 +371,6 @@ export default function Page() {
 							.
 						</p>
 					</header>
-
-					{/* <PropsTable>
-						<PropRow>
-							<PropNameCell name="onChange" optional />
-							<PropTypeCell>
-								<FuncPropType value="(value: string) => void" />
-							</PropTypeCell>
-							<PropDefaultValueCell />
-							<PropDescriptionCell>
-								<p>
-									Event handler called when the value changes. Use it instead of{" "}
-									<InlineCode>onValueChange</InlineCode>.
-								</p>
-							</PropDescriptionCell>
-						</PropRow>
-						<PropRow>
-							<PropNameCell name="validation" optional />
-							<PropTypeCell>
-								<ul>
-									<li>
-										<StringPropType value="error" />
-									</li>
-									<li>
-										<StringPropType value="success" />
-									</li>
-									<li>
-										<StringPropType value="warning" />
-									</li>
-									<li>
-										<BooleanPropType value={false} />
-									</li>
-									<li>
-										<FuncPropType
-											value={`() => "error" | "success" | "warning" | false`}
-										/>
-									</li>
-								</ul>
-							</PropTypeCell>
-							<PropDefaultValueCell />
-							<PropDescriptionCell className="space-y-2">
-								<p>
-									Use the <InlineCode>validation</InlineCode> prop to show if
-									the select trigger has a specific validation status. This will
-									change the border and outline of the select trigger.
-								</p>
-								<p>
-									The <InlineCode>false</InlineCode> type is useful when using
-									short-circuiting logic so that you don't need to use a ternary
-									with <InlineCode>undefined</InlineCode>.
-								</p>
-								<p>
-									Setting <InlineCode>validation</InlineCode> to{" "}
-									<InlineCode>error</InlineCode> also sets{" "}
-									<InlineCode>aria-invalid</InlineCode>.
-								</p>
-							</PropDescriptionCell>
-						</PropRow>
-					</PropsTable> */}
 				</section>
 
 				<section className="space-y-4">
@@ -455,51 +399,6 @@ export default function Page() {
 							.
 						</p>
 					</header>
-
-					{/* <PropsTable>
-						<PropRow>
-							<PropNameCell name="validation" optional />
-							<PropTypeCell>
-								<ul>
-									<li>
-										<StringPropType value="error" />
-									</li>
-									<li>
-										<StringPropType value="success" />
-									</li>
-									<li>
-										<StringPropType value="warning" />
-									</li>
-									<li>
-										<BooleanPropType value={false} />
-									</li>
-									<li>
-										<FuncPropType
-											value={`() => "error" | "success" | "warning" | false`}
-										/>
-									</li>
-								</ul>
-							</PropTypeCell>
-							<PropDefaultValueCell />
-							<PropDescriptionCell className="space-y-2">
-								<p>
-									Use the <InlineCode>validation</InlineCode> prop to show if
-									the select trigger has a specific validation status. This will
-									change the border and outline of the select trigger.
-								</p>
-								<p>
-									The <InlineCode>false</InlineCode> type is useful when using
-									short-circuiting logic so that you don't need to use a ternary
-									with <InlineCode>undefined</InlineCode>.
-								</p>
-								<p>
-									Setting <InlineCode>validation</InlineCode> to{" "}
-									<InlineCode>error</InlineCode> also sets{" "}
-									<InlineCode>aria-invalid</InlineCode>.
-								</p>
-							</PropDescriptionCell>
-						</PropRow>
-					</PropsTable> */}
 				</section>
 
 				<section className="space-y-1">
