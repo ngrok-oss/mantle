@@ -7,7 +7,7 @@
     "erasableSyntaxOnly": true,
     "esModuleInterop": true,
     "isolatedModules": true,
-    "moduleDetection": "force",
+    "moduleDetection": "auto",
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "target": "ES2022",
