@@ -1,19 +1,27 @@
 import { Anchor } from "@ngrok/mantle/anchor";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
-import { DataTable } from "@ngrok/mantle/data-table";
+import {
+	CodeBlock,
+	CodeBlockBody,
+	CodeBlockCode,
+	CodeBlockCopyButton,
+	fmtCode,
+} from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
-import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
+import type { Route } from "./+types/components.preview.data-table";
 
-export const meta: MetaFunction = () => {
+export const meta: Route.MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — Unreleased Data Table" },
-		{ name: "description", content: "mantle is ngrok's UI library and design system" },
+		{
+			name: "description",
+			content: "mantle is ngrok's UI library and design system",
+		},
 	];
 };
 
-export const headers: HeadersFunction = () => {
+export const headers: Route.HeadersFunction = () => {
 	return {
 		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
 	};
@@ -23,17 +31,20 @@ export default function Page() {
 	return (
 		<div className="space-y-16">
 			<div className="space-y-4">
-				<PageHeader id="data-table" isUnreleased>
+				<PageHeader id="data-table" isPreview>
 					Data Table
 				</PageHeader>
 				<p className="font-body text-body text-xl">
-					Tables purposefully designed for dynamic, application data with features like sorting, filtering, and
-					pagination. Powered by{" "}
-					<Anchor href="https://tanstack.com/table/latest/docs/introduction">TanStack Table</Anchor>.
+					Tables purposefully designed for dynamic, application data with
+					features like sorting, filtering, and pagination. Powered by{" "}
+					<Anchor href="https://tanstack.com/table/latest/docs/introduction">
+						TanStack Table
+					</Anchor>
+					.
 				</p>
 				<div>
 					<Example className="flex-col gap-6">
-						<DataTable />
+						<p>Examples coming soon...</p>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
@@ -55,7 +66,8 @@ export default function Page() {
 					API Reference
 				</h2>
 				<p className="font-body text-body text-xl">
-					The <InlineCode>DataTable</InlineCode> accepts the following props in addition to...
+					The <InlineCode>DataTable</InlineCode> accepts the following props in
+					addition to...
 				</p>
 				{/* <PropsTable>
 					<PropRow>

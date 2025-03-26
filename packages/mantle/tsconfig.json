@@ -3,6 +3,6 @@
   "exclude": ["dist", "node_modules"],
   "compilerOptions": {
     "noEmit": true,
-		"types": ["vitest/globals", "@testing-library/jest-dom"]
+    "types": ["vitest/globals", "@testing-library/jest-dom"]
   }
 }

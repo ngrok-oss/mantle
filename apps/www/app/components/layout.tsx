@@ -1,15 +1,21 @@
-import { Button, IconButton } from "@ngrok/mantle/button";
+import { IconButton } from "@ngrok/mantle/button";
 import { cx } from "@ngrok/mantle/cx";
 import { Icon } from "@ngrok/mantle/icon";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger } from "@ngrok/mantle/select";
+import {
+	Select,
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectLabel,
+	SelectTrigger,
+} from "@ngrok/mantle/select";
 import { $theme, isTheme, useTheme } from "@ngrok/mantle/theme-provider";
 import type { WithStyleProps } from "@ngrok/mantle/types";
 import { List } from "@phosphor-icons/react/List";
 import { Sun } from "@phosphor-icons/react/Sun";
 import { X } from "@phosphor-icons/react/X";
-import { Link } from "@remix-run/react";
-import type { Route } from "~/types/routes";
 import type { PropsWithChildren } from "react";
+import { Link, href } from "react-router";
 import { NavLink } from "./nav-link";
 import { useNavigation } from "./navigation-context";
 
@@ -45,7 +51,10 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 	const { showNavigation, setShowNavigation } = useNavigation();
 
 	return (
-		<main className={cx("mx-auto h-full max-w-7xl sm:px-4", className)} style={style}>
+		<main
+			className={cx("mx-auto h-full max-w-7xl sm:px-4", className)}
+			style={style}
+		>
 			<header className="xs:gap-4 flex h-20 items-center gap-3 px-4 sm:px-0">
 				<IconButton
 					className="md:hidden"
@@ -59,13 +68,18 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 					icon={showNavigation ? <X /> : <List />}
 				/>
 
-				<Link to="/" className="static top-auto flex sm:top-[1.4rem] md:fixed">
+				<Link
+					to={href("/")}
+					className="static top-auto flex sm:top-[1.4rem] md:fixed"
+				>
 					<NgrokLogo />
 					<MantleLogo />
 				</Link>
 
 				<p className="text-strong -ml-1 font-mono text-xs md:ml-48">
-					<a href="https://github.com/ngrok-oss/mantle/releases">{currentVersion}</a>
+					<a href="https://github.com/ngrok-oss/mantle/releases">
+						{currentVersion}
+					</a>
 				</p>
 
 				<Select
@@ -84,14 +98,18 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 							<Icon className="mr-1" svg={<Sun />} />
 						</SelectTrigger>
 					</div>
-					<SelectContent>
+					<SelectContent width="content">
 						<SelectGroup>
 							<SelectLabel>Choose a theme</SelectLabel>
 							<SelectItem value={$theme("system")}>System</SelectItem>
 							<SelectItem value={$theme("light")}>Light</SelectItem>
 							<SelectItem value={$theme("dark")}>Dark</SelectItem>
-							<SelectItem value={$theme("light-high-contrast")}>Light High Contrast</SelectItem>
-							<SelectItem value={$theme("dark-high-contrast")}>Dark High Contrast</SelectItem>
+							<SelectItem value={$theme("light-high-contrast")}>
+								Light High Contrast
+							</SelectItem>
+							<SelectItem value={$theme("dark-high-contrast")}>
+								Dark High Contrast
+							</SelectItem>
 						</SelectGroup>
 					</SelectContent>
 				</Select>
@@ -107,7 +125,9 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 						<Navigation className="scrollbar scroll-shadow h-full overflow-auto py-4" />
 					</div>
 				</div>
-				<article className="bg-card w-0 flex-1 p-4 shadow-2xl sm:mb-4 sm:rounded-lg md:p-9 lg:mb-9">{children}</article>
+				<article className="bg-card w-0 flex-1 p-4 shadow-2xl sm:mb-4 sm:rounded-lg md:p-9 lg:mb-9">
+					{children}
+				</article>
 			</div>
 		</main>
 	);
@@ -118,6 +138,7 @@ export function Layout({ children, className, currentVersion, style }: Props) {
  */
 const prodReadyComponents = [
 	"Alert",
+	"Alert Dialog",
 	"Anchor",
 	"Badge",
 	"Button",
@@ -126,6 +147,8 @@ const prodReadyComponents = [
 	"Code Block",
 	"Dialog",
 	"Dropdown Menu",
+	"Flag",
+	"Hover Card",
 	"Icon Button",
 	"Icon",
 	"Inline Code",
@@ -144,6 +167,7 @@ const prodReadyComponents = [
 	"Tabs",
 	"Text Area",
 	"Theme Provider",
+	"Toast",
 ] as const;
 
 /**
@@ -154,16 +178,19 @@ const prodReadyComponents = [
 const previewComponents = [
 	//,
 	"Accordion",
-	"AlertDialog",
 	"Calendar",
+	"Combobox",
+	"Data Table",
 	"Pagination",
 	"Popover",
-	"Toast",
 	"Tooltip",
 ] as const;
 
+type Route = Parameters<typeof href>[0];
+
 const prodReadyComponentRouteLookup = {
 	Alert: "/components/alert",
+	"Alert Dialog": "/components/alert-dialog",
 	Anchor: "/components/anchor",
 	Badge: "/components/badge",
 	Button: "/components/button",
@@ -172,6 +199,8 @@ const prodReadyComponentRouteLookup = {
 	"Code Block": "/components/code-block",
 	Dialog: "/components/dialog",
 	"Dropdown Menu": "/components/dropdown-menu",
+	Flag: "/components/flag",
+	"Hover Card": "/components/hover-card",
 	Icon: "/components/icon",
 	"Icon Button": "/components/icon-button",
 	"Inline Code": "/components/inline-code",
@@ -190,15 +219,16 @@ const prodReadyComponentRouteLookup = {
 	Tabs: "/components/tabs",
 	"Text Area": "/components/text-area",
 	"Theme Provider": "/components/theme-provider",
+	Toast: "/components/toast",
 } as const satisfies Record<(typeof prodReadyComponents)[number], Route>;
 
 const previewComponentsRouteLookup = {
 	Accordion: "/components/preview/accordion",
-	AlertDialog: "/components/preview/alert-dialog",
 	Calendar: "/components/preview/calendar",
+	Combobox: "/components/preview/combobox",
+	"Data Table": "/components/preview/data-table",
 	Pagination: "/components/preview/pagination",
 	Popover: "/components/preview/popover",
-	Toast: "/components/preview/toast",
 	Tooltip: "/components/preview/tooltip",
 } as const satisfies Record<(typeof previewComponents)[number], Route>;
 
@@ -206,7 +236,9 @@ function Navigation({ className, style }: WithStyleProps) {
 	return (
 		<nav className={cx("text-sm", className)} style={style}>
 			<ul className="flex flex-col">
-				<li className="mb-2 text-xs font-medium uppercase tracking-wider">Welcome</li>
+				<li className="mb-2 text-xs font-medium uppercase tracking-wider">
+					Welcome
+				</li>
 
 				<li>
 					<NavLink to="/" prefetch="intent">
@@ -214,61 +246,74 @@ function Navigation({ className, style }: WithStyleProps) {
 					</NavLink>
 				</li>
 
-				<li className="mt-6 text-xs font-medium uppercase tracking-wider">Base</li>
+				<li className="mt-6 text-xs font-medium uppercase tracking-wider">
+					Base
+				</li>
 
 				<ul className="mt-2">
 					<li>
-						<NavLink to="/base/colors" prefetch="intent">
+						<NavLink to={href("/base/colors")} prefetch="intent">
 							Colors
 						</NavLink>
 					</li>
 					<li>
-						<NavLink to="/base/shadows" prefetch="intent">
+						<NavLink to={href("/base/shadows")} prefetch="intent">
 							Shadows
 						</NavLink>
 					</li>
 					<li>
-						<NavLink to="/base/typography" prefetch="intent">
+						<NavLink to={href("/base/typography")} prefetch="intent">
 							Typography
 						</NavLink>
 					</li>
 					<li>
-						<NavLink to="/base/tailwind-variants" prefetch="intent">
+						<NavLink to={href("/base/tailwind-variants")} prefetch="intent">
 							Tailwind Variants
 						</NavLink>
 					</li>
 				</ul>
 
-				<li className="mt-6 text-xs font-medium uppercase tracking-wider">Components</li>
+				<li className="mt-6 text-xs font-medium uppercase tracking-wider">
+					Components
+				</li>
 				<ul className="mt-2">
 					{prodReadyComponents.map((component) => (
 						<li key={component}>
-							<NavLink to={prodReadyComponentRouteLookup[component]} prefetch="intent">
+							<NavLink
+								to={prodReadyComponentRouteLookup[component]}
+								prefetch="intent"
+							>
 								{component}
 							</NavLink>
 						</li>
 					))}
 				</ul>
 
-				<li className="mt-6 text-xs font-medium uppercase tracking-wider">Preview Components</li>
+				<li className="mt-6 text-xs font-medium uppercase tracking-wider">
+					Preview Components
+				</li>
 				<ul className="mt-2">
 					{previewComponents.map((component) => (
 						<li key={component}>
-							<NavLink to={previewComponentsRouteLookup[component]} prefetch="intent">
+							<NavLink
+								to={previewComponentsRouteLookup[component]}
+								prefetch="intent"
+							>
 								{component}
 							</NavLink>
 						</li>
 					))}
 				</ul>
 
-				<li className="mt-6 text-xs font-medium uppercase tracking-wider">Unreleased Components</li>
+				{/* TODO: add back later when we have unreleased components again */}
+				{/* <li className="mt-6 text-xs font-medium uppercase tracking-wider">Unreleased Components</li>
 				<ul className="mt-2">
 					<li>
 						<NavLink to="/components/unreleased/data-table" prefetch="intent">
 							Data Table
 						</NavLink>
 					</li>
-				</ul>
+				</ul> */}
 			</ul>
 		</nav>
 	);

@@ -1,18 +1,32 @@
 import { Button } from "@ngrok/mantle/button";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@ngrok/mantle/tooltip";
-import type { HeadersFunction, MetaFunction } from "@remix-run/node";
+import {
+	CodeBlock,
+	CodeBlockBody,
+	CodeBlockCode,
+	CodeBlockCopyButton,
+	fmtCode,
+} from "@ngrok/mantle/code-block";
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipProvider,
+	TooltipTrigger,
+} from "@ngrok/mantle/tooltip";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
+import type { Route } from "./+types/components.preview.tooltip";
 
-export const meta: MetaFunction = () => {
+export const meta: Route.MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — Tooltip" },
-		{ name: "description", content: "mantle is ngrok's UI library and design system" },
+		{
+			name: "description",
+			content: "mantle is ngrok's UI library and design system",
+		},
 	];
 };
 
-export const headers: HeadersFunction = () => {
+export const headers: Route.HeadersFunction = () => {
 	return {
 		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
 	};
@@ -25,8 +39,8 @@ export default function Page() {
 				Tooltip
 			</PageHeader>
 			<p className="font-body text-body text-xl">
-				A popup that displays information related to an element when the element receives keyboard focus or the mouse
-				hovers over it.
+				A popup that displays information related to an element when the element
+				receives keyboard focus or the mouse hovers over it.
 			</p>
 			<div>
 				<Example>

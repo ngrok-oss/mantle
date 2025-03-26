@@ -1,18 +1,27 @@
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
+import {
+	CodeBlock,
+	CodeBlockBody,
+	CodeBlockCode,
+	CodeBlockCopyButton,
+	fmtCode,
+} from "@ngrok/mantle/code-block";
 import { Label } from "@ngrok/mantle/label";
 import { Switch } from "@ngrok/mantle/switch";
-import type { HeadersFunction, MetaFunction } from "@remix-run/node";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
+import type { Route } from "./+types/components.switch";
 
-export const meta: MetaFunction = () => {
+export const meta: Route.MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — Switch" },
-		{ name: "description", content: "mantle is ngrok's UI library and design system" },
+		{
+			name: "description",
+			content: "mantle is ngrok's UI library and design system",
+		},
 	];
 };
 
-export const headers: HeadersFunction = () => {
+export const headers: Route.HeadersFunction = () => {
 	return {
 		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
 	};
@@ -24,7 +33,8 @@ export default function Page() {
 			<section className="space-y-4">
 				<PageHeader id="switch">Switch</PageHeader>
 				<p className="font-body text-body text-xl">
-					A control that allows the user to toggle between checked and not checked.
+					A control that allows the user to toggle between checked and not
+					checked.
 				</p>
 				<div>
 					<Example className="mt-4 grid gap-6">
@@ -42,7 +52,10 @@ export default function Page() {
 							<Switch checked={false} id="unchecked" readOnly />
 							<p>Unchecked (readonly)</p>
 						</Label>
-						<Label htmlFor="checked" className="flex cursor-pointer items-center gap-2 has-[:disabled]:cursor-default">
+						<Label
+							htmlFor="checked"
+							className="flex cursor-pointer items-center gap-2 has-[:disabled]:cursor-default"
+						>
 							<Switch checked={true} id="checked" readOnly />
 							<p>Checked (readonly)</p>
 						</Label>
@@ -57,7 +70,12 @@ export default function Page() {
 							htmlFor="airplane-mode-disabled-checked"
 							className="flex cursor-pointer items-center gap-2 has-[:disabled]:cursor-default"
 						>
-							<Switch checked disabled id="airplane-mode-disabled-checked" readOnly />
+							<Switch
+								checked
+								disabled
+								id="airplane-mode-disabled-checked"
+								readOnly
+							/>
 							<p>Airplane Mode Disabled Checked (readonly)</p>
 						</Label>
 					</Example>
@@ -99,7 +117,7 @@ export default function Page() {
 				<div>
 					<Example>
 						<Button appearance="filled" icon={<Fire weight="fill" />} asChild>
-							<Link to={route("/base/colors")}>See our colors!</Link>
+							<Link to={href("/base/colors")}>See our colors!</Link>
 						</Button>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
@@ -110,7 +128,7 @@ export default function Page() {
 								value={fmtCode`
 									import { Button } from "@ngrok/mantle/button";
 									import { Fire } from "@phosphor-icons/react";
-									import { Link } from "react-router-dom";
+									import { Link } from "react-router";
 
 									<Button appearance="filled" icon={<Fire weight="fill" />} asChild>
 										<Link to="/base/colors">See our colors!</Link>

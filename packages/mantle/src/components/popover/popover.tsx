@@ -1,6 +1,6 @@
 import * as PopoverPrimitive from "@radix-ui/react-popover";
 import { forwardRef } from "react";
-import type { ComponentPropsWithoutRef, ElementRef } from "react";
+import type { ComponentPropsWithoutRef, ComponentRef } from "react";
 import { cx } from "../../utils/cx/cx.js";
 
 /**
@@ -58,7 +58,7 @@ PopoverClose.displayName = "PopoverClose";
  * https://github.com/ngrok-oss/mantle/issues
  */
 const PopoverContent = forwardRef<
-	ElementRef<typeof PopoverPrimitive.Content>,
+	ComponentRef<typeof PopoverPrimitive.Content>,
 	ComponentPropsWithoutRef<typeof PopoverPrimitive.Content>
 >(({ className, align = "center", sideOffset = 4, ...props }, ref) => (
 	<PopoverPrimitive.Portal>

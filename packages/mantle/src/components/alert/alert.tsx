@@ -1,63 +1,250 @@
+import { CheckCircle } from "@phosphor-icons/react/CheckCircle";
+import { Info } from "@phosphor-icons/react/Info";
+import { Warning } from "@phosphor-icons/react/Warning";
+import { WarningDiamond } from "@phosphor-icons/react/WarningDiamond";
+import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
-import { forwardRef } from "react";
-import type { HTMLAttributes } from "react";
-import type { VariantProps } from "../../types/index.js";
+import type {
+	ComponentProps,
+	ComponentRef,
+	HTMLAttributes,
+	ReactNode,
+} from "react";
+import { createContext, forwardRef, useContext, useMemo } from "react";
+import invariant from "tiny-invariant";
+import type { WithAsChild } from "../../types/index.js";
 import { cx } from "../../utils/cx/cx.js";
+import { SvgOnly } from "../icon/svg-only.js";
+import type { SvgAttributes } from "../icon/types.js";
 
-const alertVariants = cva("relative flex w-full gap-1.5 rounded-md border p-2.5 text-sm", {
-	variants: {
-		/**
-		 * The priority of the Alert. Indicates the importance or impact level of the Alert,
-		 * affecting its color and styling to communicate its purpose to the user.
-		 * @default "default"
-		 */
-		priority: {
-			danger: "border-danger-500/50 bg-danger-500/10 text-danger-700",
-			default: "border-neutral-500/50 bg-neutral-500/10 text-neutral-700",
-			info: "border-accent-500/50 bg-accent-500/10 text-accent-700",
-			success: "border-success-500/50 bg-success-500/10 text-success-700",
-			warning: "border-warning-500/50 bg-warning-500/10 text-warning-700",
+const priorities = [
+	//,
+	"danger",
+	"info",
+	// "neutral",
+	"success",
+	"warning",
+] as const;
+type Priority = (typeof priorities)[number];
+
+type AlertContextValue = {
+	priority: Priority;
+};
+
+const AlertContext = createContext<AlertContextValue | null>(null);
+
+function useAlertContext() {
+	const context = useContext(AlertContext);
+	invariant(context, "useAlertContext hook used outside of Alert parent!");
+	return context;
+}
+
+const alertVariants = cva(
+	"relative flex w-full gap-1.5 rounded-md border p-2.5 text-sm",
+	{
+		variants: {
+			/**
+			 * The priority of the Alert. Indicates the importance or impact level of the Alert,
+			 * affecting its color and styling to communicate its purpose to the user.
+			 */
+			priority: {
+				danger: "border-danger-500/50 bg-danger-500/10 text-danger-700",
+				info: "border-accent-500/50 bg-accent-500/10 text-accent-700",
+				// neutral: "border-neutral-500/50 bg-neutral-500/10 text-neutral-700",
+				success: "border-success-500/50 bg-success-500/10 text-success-700",
+				warning: "border-warning-500/50 bg-warning-500/10 text-warning-700",
+			} as const satisfies Record<Priority, string>,
 		},
 	},
-	defaultVariants: {
-		priority: "default",
-	},
-});
+);
 
-type AlertVariants = VariantProps<typeof alertVariants>;
+type AlertProps = ComponentProps<"div"> & {
+	/**
+	 * Indicates the importance or impact level of the Alert, affecting its
+	 * color and styling to communicate its purpose to the user.
+	 */
+	priority: Priority;
+};
 
 /**
- * Displays a callout for user attention.
+ * Displays a callout for user attention. Root container for all Alert sub-components.
+ *
+ * @example
+ * <Alert priority="info">
+ *   <AlertIcon />
+ *   <AlertContent>
+ *     <AlertTitle>Alert Title</AlertTitle>
+ *     <AlertDescription>
+ *       Alert description text.
+ *     </AlertDescription>
+ *   </AlertContent>
+ * </Alert>
+ *
+ * @see https://mantle.ngrok.com/components/alert#api-alert
  */
-const Alert = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement> & AlertVariants>(
-	({ className, priority = "default", ...props }, ref) => (
-		<div ref={ref} className={cx(alertVariants({ priority }), className)} {...props} />
-	),
+const Alert = forwardRef<ComponentRef<"div">, AlertProps>(
+	({ className, priority, ...props }, ref) => {
+		const context: AlertContextValue = useMemo(
+			() => ({ priority }),
+			[priority],
+		);
+
+		return (
+			<AlertContext.Provider value={context}>
+				<div
+					ref={ref}
+					className={cx(alertVariants({ priority }), className)}
+					{...props}
+				/>
+			</AlertContext.Provider>
+		);
+	},
 );
 Alert.displayName = "Alert";
 
-/**
- * The container for the content slot of an alert. Place the title and description as direct children.
- */
-const AlertContent = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
-	<div ref={ref} className={cx("min-w-0 flex-1", className)} {...props} />
-));
-AlertContent.displayName = "AlertContent";
+type AlertIconProps = Omit<SvgAttributes, "children"> & {
+	/**
+	 * An optional icon that renders in place of the default icon for the Alert priority.
+	 */
+	svg?: ReactNode;
+};
 
 /**
- * The title of an alert.
+ * Default `<AlertIcon>` icons for each priority.
  */
-const AlertTitle = forwardRef<HTMLParagraphElement, HTMLAttributes<HTMLHeadingElement>>(
-	({ className, ...props }, ref) => <h5 ref={ref} className={cx("font-medium", className)} {...props} />,
+const defaultIcons = {
+	danger: <Warning />,
+	info: <Info />,
+	// neutral: <BellRinging />,
+	success: <CheckCircle />,
+	warning: <WarningDiamond />,
+} as const satisfies Record<Priority, ReactNode>;
+
+/**
+ * An optional icon that visually represents the priority of the Alert.
+ *
+ * The default rendered icon be overridden with a custom icon using the `svg` prop.
+ *
+ * @example
+ * <Alert priority="info">
+ *   <AlertIcon />
+ *   <AlertContent>
+ *     <AlertTitle>Alert Title</AlertTitle>
+ *     <AlertDescription>
+ *       Alert description text.
+ *     </AlertDescription>
+ *   </AlertContent>
+ * </Alert>
+ *
+ * @see https://mantle.ngrok.com/components/alert#api-alert-icon
+ */
+const AlertIcon = forwardRef<ComponentRef<"svg">, AlertIconProps>(
+	({ className, svg, ...props }, ref) => {
+		const ctx = useAlertContext();
+		const defaultIcon = defaultIcons[ctx.priority];
+
+		return (
+			<SvgOnly
+				ref={ref}
+				className={cx("size-5", className)}
+				svg={svg ?? defaultIcon}
+				{...props}
+			/>
+		);
+	},
+);
+AlertIcon.displayName = "AlertIcon";
+
+/**
+ * The container for the content slot of an alert. Place the title and description as direct children.
+ *
+ * @example
+ * <Alert priority="info">
+ *   <AlertIcon />
+ *   <AlertContent>
+ *     <AlertTitle>Alert Title</AlertTitle>
+ *     <AlertDescription>
+ *       Alert description text.
+ *     </AlertDescription>
+ *   </AlertContent>
+ * </Alert>
+ *
+ * @see https://mantle.ngrok.com/components/alert#api-alert-content
+ */
+const AlertContent = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
+	({ className, ...props }, ref) => (
+		<div ref={ref} className={cx("min-w-0 flex-1", className)} {...props} />
+	),
+);
+AlertContent.displayName = "AlertContent";
+
+type AlertTitleProps = HTMLAttributes<HTMLHeadingElement> & WithAsChild;
+
+/**
+ * The title of an alert. Default renders as an h5 element, use asChild to render something else.
+ *
+ * @example
+ * <Alert priority="info">
+ *   <AlertIcon />
+ *   <AlertContent>
+ *     <AlertTitle>Alert Title</AlertTitle>
+ *     <AlertDescription>
+ *       Alert description text.
+ *     </AlertDescription>
+ *   </AlertContent>
+ * </Alert>
+ *
+ * @see https://mantle.ngrok.com/components/alert#api-alert-title
+ */
+const AlertTitle = forwardRef<HTMLHeadingElement, AlertTitleProps>(
+	({ asChild = false, className, ...props }, ref) => {
+		const Component = asChild ? Slot : "h5";
+
+		return (
+			<Component
+				ref={ref}
+				className={cx("font-medium", className)}
+				{...props}
+			/>
+		);
+	},
 );
 AlertTitle.displayName = "AlertTitle";
 
+type AlertDescriptionProps = ComponentProps<"p"> & WithAsChild;
+
 /**
- * The description of an alert.
+ * The optional description of an alert. Default renders as an p element, use asChild to render something else.
+ *
+ * @example
+ * <Alert priority="info">
+ *   <AlertIcon />
+ *   <AlertContent>
+ *     <AlertTitle>Alert Title</AlertTitle>
+ *     <AlertDescription>
+ *       Alert description text.
+ *     </AlertDescription>
+ *   </AlertContent>
+ * </Alert>
+ *
+ * @see https://mantle.ngrok.com/components/alert#api-alert-description
  */
-const AlertDescription = forwardRef<HTMLParagraphElement, HTMLAttributes<HTMLParagraphElement>>(
-	({ className, ...props }, ref) => <div ref={ref} className={cx("text-sm", className)} {...props} />,
+const AlertDescription = forwardRef<ComponentRef<"p">, AlertDescriptionProps>(
+	({ asChild = false, className, ...props }, ref) => {
+		const Component = asChild ? Slot : "p";
+
+		return (
+			<Component ref={ref} className={cx("text-sm", className)} {...props} />
+		);
+	},
 );
 AlertDescription.displayName = "AlertDescription";
 
-export { Alert, AlertContent, AlertTitle, AlertDescription };
+export {
+	//,
+	Alert,
+	AlertContent,
+	AlertDescription,
+	AlertIcon,
+	AlertTitle,
+};

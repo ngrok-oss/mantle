@@ -2,10 +2,13 @@
  * Filters out the "DEFAULT" key from the given object.
  */
 export function filterDefault(values: Record<string, string>) {
-	return Object.fromEntries(Object.entries(values).filter(([key]) => key !== "DEFAULT"));
+	return Object.fromEntries(
+		Object.entries(values).filter(([key]) => key !== "DEFAULT"),
+	);
 }
 
-type AnyObject = Record<string, any>;
+// biome-ignore lint/suspicious/noExplicitAny: from tailwind type defs
+type KeyValuePair<K extends keyof any = string, V = string> = Record<K, V>;
 
 type FlattenObjectOptions = {
 	parentKey: string;
@@ -15,18 +18,26 @@ type FlattenObjectOptions = {
 /**
  * Flattens an object to a single level deep object.
  */
-export function flattenObject(obj: AnyObject, options?: FlattenObjectOptions) {
-	let result: AnyObject = {};
+export function flattenObject(
+	obj: KeyValuePair,
+	options?: FlattenObjectOptions,
+) {
+	const result: KeyValuePair = {};
 	const { parentKey = "", separator = "-" } = options ?? {};
 
-	for (let key in obj) {
-		if (obj.hasOwnProperty(key)) {
-			let newKey = parentKey ? `${parentKey}${separator}${key}` : key;
+	for (const key in obj) {
+		if (Object.hasOwn(obj, key)) {
+			const newKey = parentKey ? `${parentKey}${separator}${key}` : key;
 
-			if (typeof obj[key] === "object" && obj[key] != null && !Array.isArray(obj[key])) {
-				Object.assign(result, flattenObject(obj[key], { parentKey: newKey }));
+			const value = obj[key];
+			if (value == null) {
+				continue;
+			}
+
+			if (typeof value === "object" && !Array.isArray(value)) {
+				Object.assign(result, flattenObject(value, { parentKey: newKey }));
 			} else {
-				result[newKey] = obj[key];
+				result[newKey] = value;
 			}
 		}
 	}

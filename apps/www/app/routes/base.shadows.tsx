@@ -1,14 +1,18 @@
-import type { HeadersFunction, MetaFunction } from "@remix-run/node";
+import type { HeadersFunction, MetaFunction } from "react-router";
 import { PageHeader } from "~/components/page-header";
+import type { Route } from "./+types/base.shadows";
 
-export const meta: MetaFunction = () => {
+export const meta: Route.MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — Shadows" },
-		{ name: "description", content: "mantle is ngrok's UI library and design system" },
+		{
+			name: "description",
+			content: "mantle is ngrok's UI library and design system",
+		},
 	];
 };
 
-export const headers: HeadersFunction = () => {
+export const headers: Route.HeadersFunction = () => {
 	return {
 		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
 	};
@@ -18,7 +22,9 @@ export default function Page() {
 	return (
 		<div>
 			<PageHeader id="shadows">Shadows</PageHeader>
-			<p className="font-body text-body mt-4 text-xl">Tokens for defining elevations.</p>
+			<p className="font-body text-body mt-4 text-xl">
+				Tokens for defining elevations.
+			</p>
 			<div className="text-mono mt-8 flex flex-wrap gap-8 font-mono">
 				<div className="bg-card xs:size-36 flex h-36 w-full shrink-0 items-center justify-center rounded-lg shadow-inner">
 					.shadow-inner

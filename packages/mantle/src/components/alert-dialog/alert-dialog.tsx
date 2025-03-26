@@ -3,17 +3,22 @@
 import { Info } from "@phosphor-icons/react/Info";
 import { Warning } from "@phosphor-icons/react/Warning";
 import {
+	type ComponentProps,
+	type ComponentPropsWithoutRef,
+	type ComponentRef,
+	type ReactNode,
 	createContext,
 	forwardRef,
 	useContext,
-	type ComponentProps,
-	type ComponentPropsWithoutRef,
-	type ElementRef,
-	type ReactNode,
+	useMemo,
 } from "react";
 import invariant from "tiny-invariant";
 import { cx } from "../../utils/cx/cx.js";
-import { Button, type ButtonPriority, type ButtonProps } from "../button/button.js";
+import {
+	Button,
+	type ButtonPriority,
+	type ButtonProps,
+} from "../button/button.js";
 import * as AlertDialogPrimitive from "../dialog/primitive.js";
 import { SvgOnly } from "../icon/svg-only.js";
 import type { SvgAttributes } from "../icon/types.js";
@@ -30,7 +35,10 @@ const AlertDialogContext = createContext<AlertDialogContextValue | null>(null);
 
 function useAlertDialogContext() {
 	const context = useContext(AlertDialogContext);
-	invariant(context, "AlertDialog child component used outside of AlertDialog parent!");
+	invariant(
+		context,
+		"AlertDialog child component used outside of AlertDialog parent!",
+	);
 	return context;
 }
 
@@ -46,8 +54,13 @@ type AlertDialogProps = ComponentProps<typeof AlertDialogPrimitive.Root> & {
  * The root component for the Alert Dialog
  */
 function AlertDialog({ priority, ...props }: AlertDialogProps) {
+	const context: AlertDialogContextValue = useMemo(
+		() => ({ priority }),
+		[priority],
+	);
+
 	return (
-		<AlertDialogContext.Provider value={{ priority }}>
+		<AlertDialogContext.Provider value={context}>
 			<AlertDialogPrimitive.Root {...props} />
 		</AlertDialogContext.Provider>
 	);
@@ -65,7 +78,7 @@ const AlertDialogPortal = AlertDialogPrimitive.Portal;
  * A layer that covers the inert portion of the view when the dialog is open.
  */
 const AlertDialogOverlay = forwardRef<
-	ElementRef<typeof AlertDialogPrimitive.Overlay>,
+	ComponentRef<typeof AlertDialogPrimitive.Overlay>,
 	ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Overlay>
 >(({ className, ...props }, ref) => (
 	<AlertDialogPrimitive.Overlay
@@ -85,7 +98,7 @@ AlertDialogOverlay.displayName = "AlertDialogOverlay";
  * Renders on top of the overlay and is centered in the viewport.
  */
 const AlertDialogContent = forwardRef<
-	ElementRef<typeof AlertDialogPrimitive.Content>,
+	ComponentRef<typeof AlertDialogPrimitive.Content>,
 	ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Content>
 >(({ className, onInteractOutside, onPointerDownOutside, ...props }, ref) => (
 	<AlertDialogPortal>
@@ -128,7 +141,13 @@ AlertDialogBody.displayName = "AlertDialogBody";
  * Contains the header content of the dialog, including the title and description.
  */
 const AlertDialogHeader = ({ className, ...props }: ComponentProps<"div">) => (
-	<div className={cx("flex flex-col space-y-2 text-center sm:text-start", className)} {...props} />
+	<div
+		className={cx(
+			"flex flex-col space-y-2 text-center sm:text-start",
+			className,
+		)}
+		{...props}
+	/>
 );
 AlertDialogHeader.displayName = "AlertDialogHeader";
 
@@ -136,7 +155,13 @@ AlertDialogHeader.displayName = "AlertDialogHeader";
  * Contains the footer content of the dialog, including the action and cancel buttons.
  */
 const AlertDialogFooter = ({ className, ...props }: ComponentProps<"div">) => (
-	<div className={cx("flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2", className)} {...props} />
+	<div
+		className={cx(
+			"flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2",
+			className,
+		)}
+		{...props}
+	/>
 );
 AlertDialogFooter.displayName = "AlertDialogFooter";
 
@@ -147,12 +172,15 @@ AlertDialogFooter.displayName = "AlertDialogFooter";
  * `AlertDialogContent` and exclude this component.
  */
 const AlertDialogTitle = forwardRef<
-	ElementRef<typeof AlertDialogPrimitive.Title>,
+	ComponentRef<typeof AlertDialogPrimitive.Title>,
 	ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Title>
 >(({ className, ...props }, ref) => (
 	<AlertDialogPrimitive.Title
 		ref={ref}
-		className={cx("text-strong text-center text-lg font-medium sm:text-start", className)}
+		className={cx(
+			"text-strong text-center text-lg font-medium sm:text-start",
+			className,
+		)}
 		{...props}
 	/>
 ));
@@ -165,12 +193,15 @@ AlertDialogTitle.displayName = "AlertDialogTitle";
  * exclude this component.
  */
 const AlertDialogDescription = forwardRef<
-	ElementRef<typeof AlertDialogPrimitive.Description>,
+	ComponentRef<typeof AlertDialogPrimitive.Description>,
 	ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Description>
 >(({ className, ...props }, ref) => (
 	<AlertDialogPrimitive.Description
 		ref={ref}
-		className={cx("text-body text-center text-sm font-normal sm:text-start", className)}
+		className={cx(
+			"text-body text-center text-sm font-normal sm:text-start",
+			className,
+		)}
 		{...props}
 	/>
 ));
@@ -185,7 +216,7 @@ AlertDialogDescription.displayName = "AlertDialogDescription";
  *
  * Composes around the mantle Button component.
  */
-const AlertDialogAction = forwardRef<ElementRef<"button">, ButtonProps>(
+const AlertDialogAction = forwardRef<ComponentRef<"button">, ButtonProps>(
 	(
 		{
 			//,
@@ -221,7 +252,7 @@ AlertDialogAction.displayName = "AlertDialogAction";
  *
  * Composes around the mantle Button component.
  */
-const AlertDialogCancel = forwardRef<ElementRef<"button">, ButtonProps>(
+const AlertDialogCancel = forwardRef<ComponentRef<"button">, ButtonProps>(
 	(
 		{
 			//,
@@ -257,21 +288,29 @@ type AlertDialogIconProps = Omit<SvgAttributes, "children"> & {
  *
  * Can be overridden with a custom icon using the `svg` prop.
  */
-const AlertDialogIcon = forwardRef<ElementRef<"svg">, AlertDialogIconProps>(({ className, svg, ...props }, ref) => {
-	const ctx = useAlertDialogContext();
-	const defaultColor = ctx.priority === "danger" ? "text-danger-600" : "text-accent-600";
-	const defaultIcon = ctx.priority === "danger" ? <Warning /> : <Info />;
+const AlertDialogIcon = forwardRef<ComponentRef<"svg">, AlertDialogIconProps>(
+	({ className, svg, ...props }, ref) => {
+		const ctx = useAlertDialogContext();
+		const defaultColor =
+			ctx.priority === "danger" ? "text-danger-600" : "text-accent-600";
+		const defaultIcon = ctx.priority === "danger" ? <Warning /> : <Info />;
 
-	return (
-		<SvgOnly
-			ref={ref}
-			className={cx("size-12 sm:size-7", defaultColor, className)}
-			svg={svg ?? defaultIcon}
-			{...props}
-		/>
-	);
-});
+		return (
+			<SvgOnly
+				ref={ref}
+				className={cx("size-12 sm:size-7", defaultColor, className)}
+				svg={svg ?? defaultIcon}
+				{...props}
+			/>
+		);
+	},
+);
 AlertDialogIcon.displayName = "AlertDialogIcon";
+
+/**
+ * A button that closes the Alert Dialog. (Unstyled)
+ */
+const AlertDialogClose = AlertDialogPrimitive.Close;
 
 export {
 	//,
@@ -279,6 +318,7 @@ export {
 	AlertDialogAction,
 	AlertDialogBody,
 	AlertDialogCancel,
+	AlertDialogClose,
 	AlertDialogContent,
 	AlertDialogDescription,
 	AlertDialogFooter,

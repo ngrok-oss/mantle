@@ -1,13 +1,24 @@
 import { forwardRef } from "react";
-import type { ComponentPropsWithoutRef, ElementRef } from "react";
+import type { ComponentPropsWithoutRef, ComponentRef } from "react";
 import { cx } from "../../utils/cx/cx.js";
 
 type LabelProps = ComponentPropsWithoutRef<"label"> & {
 	disabled?: boolean;
 };
 
-const Label = forwardRef<ElementRef<"label">, LabelProps>(
-	({ "aria-disabled": _ariaDisabled, children, className, disabled, onMouseDown, ...props }, ref) => (
+const Label = forwardRef<ComponentRef<"label">, LabelProps>(
+	(
+		{
+			"aria-disabled": _ariaDisabled,
+			children,
+			className,
+			disabled,
+			onMouseDown,
+			...props
+		},
+		ref,
+	) => (
+		// biome-ignore lint/a11y/noLabelWithoutControl: this is a composable label component
 		<label
 			aria-disabled={disabled ?? _ariaDisabled}
 			className={cx(

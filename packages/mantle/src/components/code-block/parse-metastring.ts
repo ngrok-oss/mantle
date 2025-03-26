@@ -1,6 +1,11 @@
 import { z } from "zod";
 
-const modes = ["file", "cli"] as const;
+const modes = [
+	//,
+	"cli",
+	"file",
+	"traffic-policy",
+] as const;
 type Mode = (typeof modes)[number];
 
 const metaSchema = z.object({
@@ -35,7 +40,9 @@ function parseMetastring(value: string | undefined): Meta {
 		return defaultMeta;
 	}
 
-	const metaJson = tokenizeMetastring(metastring).reduce<Record<string, unknown>>((acc, token) => {
+	const metaJson = tokenizeMetastring(metastring).reduce<
+		Record<string, unknown>
+	>((acc, token) => {
 		const [key, _value] = token.split("=");
 		if (!key) {
 			return acc;
@@ -58,8 +65,18 @@ function parseMetastring(value: string | undefined): Meta {
 	}
 }
 
-export { defaultMeta, parseMetastring };
-export type { Meta, MetaInput, Mode, DefaultMeta };
+export {
+	//,
+	defaultMeta,
+	parseMetastring,
+};
+export type {
+	//,
+	Meta,
+	MetaInput,
+	Mode,
+	DefaultMeta,
+};
 
 /**
  * Remove leading and trailing `"` quotes around value

@@ -10,11 +10,15 @@ import { filterDefault, flattenObject } from "./shared.js";
 const gradientStopPlugin = plugin((api: PluginAPI) => {
 	api.matchUtilities(
 		{ "stop-opacity": (value) => ({ "stop-opacity": value }) },
-		{ values: filterDefault(api.theme("opacity")), respectImportant: true, respectPrefix: true },
+		{
+			values: filterDefault(api.theme("opacity")),
+			respectImportant: true,
+			respectPrefix: true,
+		},
 	);
 
 	api.matchUtilities(
-		{ "stop-color": (value) => ({ "stop-color": value }) },
+		{ "stop-color": (value: string) => ({ "stop-color": value }) },
 		{
 			values: flattenObject(api.theme("colors")),
 			respectImportant: true,

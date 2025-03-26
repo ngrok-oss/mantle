@@ -1,7 +1,12 @@
 name: Vercel
 env:
+  DO_NOT_TRACK: 1
+  TURBO_TELEMETRY_DISABLED: 1
+  VERCEL_TELEMETRY_DISABLED: 1
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+  TURBO_TEAM: ${{ vars.TURBO_TEAM }}
 
 on:
   release:
@@ -19,13 +24,20 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version-file: ".nvmrc"
-
       - name: Install pnpm 📦
         uses: pnpm/action-setup@v4
         # use version from package.json#packageManager field
+        with:
+          run_install: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+          cache: "pnpm"
+
+      - name: Install Dependencies 📥
+        run: |
+          pnpm install
 
       - name: Install Vercel CLI
         run: pnpm install --global vercel@latest turbo@latest

@@ -1,12 +1,25 @@
 import { CaretLeft } from "@phosphor-icons/react/dist/icons/CaretLeft";
 import { CaretRight } from "@phosphor-icons/react/dist/icons/CaretRight";
 import { Slot } from "@radix-ui/react-slot";
-import { createContext, forwardRef, useContext, useState, type ComponentProps, type ElementRef } from "react";
+import {
+	type ComponentProps,
+	type ComponentRef,
+	createContext,
+	forwardRef,
+	useContext,
+	useState,
+} from "react";
 import invariant from "tiny-invariant";
 import type { WithAsChild } from "../../types/as-child.js";
 import { cx } from "../../utils/cx/cx.js";
 import { ButtonGroup, IconButton } from "../button/index.js";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../select/select.js";
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "../select/select.js";
 import { Separator } from "../separator/separator.js";
 
 type CursorPaginationContextValue = {
@@ -24,7 +37,9 @@ type CursorPaginationContextValue = {
 	setPageSize: (value: number) => void;
 };
 
-const CursorPaginationContext = createContext<CursorPaginationContextValue | undefined>(undefined);
+const CursorPaginationContext = createContext<
+	CursorPaginationContextValue | undefined
+>(undefined);
 
 type CursorPaginationProps = ComponentProps<"div"> & {
 	/**
@@ -47,8 +62,17 @@ const CursorPagination = forwardRef<HTMLDivElement, CursorPaginationProps>(
 		const [pageSize, setPageSize] = useState<number>(defaultPageSize);
 
 		return (
-			<CursorPaginationContext.Provider value={{ defaultPageSize, pageSize, setPageSize }}>
-				<div className={cx("inline-flex items-center justify-between gap-2", className)} ref={ref} {...props}>
+			<CursorPaginationContext.Provider
+				value={{ defaultPageSize, pageSize, setPageSize }}
+			>
+				<div
+					className={cx(
+						"inline-flex items-center justify-between gap-2",
+						className,
+					)}
+					ref={ref}
+					{...props}
+				>
 					{children}
 				</div>
 			</CursorPaginationContext.Provider>
@@ -57,7 +81,10 @@ const CursorPagination = forwardRef<HTMLDivElement, CursorPaginationProps>(
 );
 CursorPagination.displayName = "CursorPagination";
 
-type CursorButtonsProps = Omit<ComponentProps<typeof ButtonGroup>, "appearance"> & {
+type CursorButtonsProps = Omit<
+	ComponentProps<typeof ButtonGroup>,
+	"appearance"
+> & {
 	/**
 	 * Whether there is a next page of data to load.
 	 */
@@ -79,8 +106,14 @@ type CursorButtonsProps = Omit<ComponentProps<typeof ButtonGroup>, "appearance">
 /**
  * A pair of buttons for navigating between pages of data when using cursor-based pagination.
  */
-const CursorButtons = forwardRef<ElementRef<typeof ButtonGroup>, CursorButtonsProps>(
-	({ hasNextPage, hasPreviousPage, onNextPage, onPreviousPage, ...props }, ref) => {
+const CursorButtons = forwardRef<
+	ComponentRef<typeof ButtonGroup>,
+	CursorButtonsProps
+>(
+	(
+		{ hasNextPage, hasPreviousPage, onNextPage, onPreviousPage, ...props },
+		ref,
+	) => {
 		// TODO(cody): this _feels_ like a good spot for left and right arrow keys to navigate between pages when focused on the buttons
 
 		return (
@@ -112,7 +145,10 @@ CursorButtons.displayName = "CursorButtons";
 
 const defaultPageSizes = [5, 10, 20, 50, 100] as const;
 
-type CursorPageSizeSelectProps = Omit<ComponentProps<typeof SelectTrigger>, "children"> & {
+type CursorPageSizeSelectProps = Omit<
+	ComponentProps<typeof SelectTrigger>,
+	"children"
+> & {
 	/**
 	 * A list of page sizes to choose from. The default page size must be included in this list.
 	 */
@@ -126,11 +162,20 @@ type CursorPageSizeSelectProps = Omit<ComponentProps<typeof SelectTrigger>, "chi
 /**
  * A select input for changing the number of items per page when using cursor-based pagination.
  */
-const CursorPageSizeSelect = forwardRef<ElementRef<typeof SelectTrigger>, CursorPageSizeSelectProps>(
-	({ className, pageSizes = defaultPageSizes, onChangePageSize, ...rest }, ref) => {
+const CursorPageSizeSelect = forwardRef<
+	ComponentRef<typeof SelectTrigger>,
+	CursorPageSizeSelectProps
+>(
+	(
+		{ className, pageSizes = defaultPageSizes, onChangePageSize, ...rest },
+		ref,
+	) => {
 		const ctx = useContext(CursorPaginationContext);
 
-		invariant(ctx, "CursorPageSizeSelect must be used as a child of a CursorPagination component");
+		invariant(
+			ctx,
+			"CursorPageSizeSelect must be used as a child of a CursorPagination component",
+		);
 
 		invariant(
 			pageSizes.includes(ctx.defaultPageSize),
@@ -154,7 +199,12 @@ const CursorPageSizeSelect = forwardRef<ElementRef<typeof SelectTrigger>, Cursor
 					onChangePageSize?.(newPageSize);
 				}}
 			>
-				<SelectTrigger ref={ref} className={cx("w-auto min-w-36", className)} value={ctx.pageSize} {...rest}>
+				<SelectTrigger
+					ref={ref}
+					className={cx("w-auto min-w-36", className)}
+					value={ctx.pageSize}
+					{...rest}
+				>
 					<SelectValue />
 				</SelectTrigger>
 				<SelectContent width="trigger">
@@ -170,20 +220,31 @@ const CursorPageSizeSelect = forwardRef<ElementRef<typeof SelectTrigger>, Cursor
 );
 CursorPageSizeSelect.displayName = "CursorPageSizeSelect";
 
-type CursorPageSizeValueProps = Omit<ComponentProps<"span">, "children"> & WithAsChild;
+type CursorPageSizeValueProps = Omit<ComponentProps<"span">, "children"> &
+	WithAsChild;
 
 /**
  * Displays the current page size when using cursor-based pagination as a read-only value.
  */
-function CursorPageSizeValue({ asChild = false, className, ...props }: CursorPageSizeValueProps) {
+function CursorPageSizeValue({
+	asChild = false,
+	className,
+	...props
+}: CursorPageSizeValueProps) {
 	const ctx = useContext(CursorPaginationContext);
 
-	invariant(ctx, "CursorPageSizeValue must be used as a child of a CursorPagination component");
+	invariant(
+		ctx,
+		"CursorPageSizeValue must be used as a child of a CursorPagination component",
+	);
 
 	const Component = asChild ? Slot : "span";
 
 	return (
-		<Component className={cx("text-muted text-sm font-normal", className)} {...props}>
+		<Component
+			className={cx("text-muted text-sm font-normal", className)}
+			{...props}
+		>
 			{ctx.pageSize} per page
 		</Component>
 	);

@@ -1,36 +1,48 @@
 {
-	"private": true,
-	"name": "mantle",
-	"license": "MIT",
-  "packageManager": "pnpm@9.15.3",
-	"type": "module",
-	"engines": {
+  "private": true,
+  "name": "mantle",
+  "license": "MIT",
+  "packageManager": "pnpm@10.6.5",
+  "type": "module",
+  "engines": {
     "node": "^22.0.0"
   },
-	"scripts": {
-		"build": "turbo run build",
-		"start": "turbo run start",
-		"serve": "turbo run serve",
-		"clean": "turbo run clean",
-		"fmt:check": "prettier --check .",
-		"fmt": "prettier --write .",
-		"lint": "turbo run lint --continue -- --cache --cache-location node_modules/.cache/.eslintcache",
-		"lint:fix": "turbo run lint --continue -- --fix --cache --cache-location node_modules/.cache/.eslintcache",
-		"test": "turbo run test",
-		"test:watch": "turbo run test:watch",
-		"test:ui": "turbo run test:ui",
-		"typecheck": "turbo run typecheck"
-	},
-	"devDependencies": {
-		"@ianvs/prettier-plugin-sort-imports": "4.4.0",
-		"prettier": "3.4.2",
-		"prettier-plugin-tailwindcss": "0.6.9",
-		"turbo": "2.3.3"
-	},
-	"pnpm": {
-		"overrides": {
-			"cookie": ">=1.0.2",
-			"esbuild": ">=0.24.2"
-		}
-	}
+  "scripts": {
+    "build": "turbo run build",
+    "start": "turbo run start",
+    "serve": "turbo run serve",
+    "clean": "turbo run clean",
+    "clean:node_modules": "node ./clean-node-modules.js",
+    "fmt-lint:check": "biome check . --diagnostic-level=error",
+    "fmt-lint": "biome check . --write --diagnostic-level=error",
+    "fmt:check": "biome check --organize-imports-enabled=true --formatter-enabled=true --linter-enabled=false .",
+    "fmt": "biome check --organize-imports-enabled=true --formatter-enabled=true --linter-enabled=false --write .",
+    "lint-fmt:check": "pnpm run fmt-lint:check",
+    "lint-fmt": "pnpm run fmt-lint",
+    "lint:fix": "biome lint . --write --diagnostic-level=error",
+    "lint": "biome lint . --diagnostic-level=error",
+    "test": "turbo run test",
+    "test:watch": "turbo run test:watch",
+    "typecheck": "turbo run typecheck",
+    "changeset": "changeset",
+    "changeset:version": "changeset version",
+    "changeset:publish": "turbo run build --filter=@ngrok/mantle && changeset publish"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@changesets/changelog-github": "0.5.1",
+    "@changesets/cli": "2.28.1",
+    "turbo": "2.4.4",
+    "vitest": "3.0.9"
+  },
+  "pnpm": {
+    "overrides": {
+      "cookie": ">=1.0.2",
+      "esbuild": ">=0.25.1"
+    },
+    "onlyBuiltDependencies": [
+      "@biomejs/biome",
+      "esbuild"
+    ]
+  }
 }

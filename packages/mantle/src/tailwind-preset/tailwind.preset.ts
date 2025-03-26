@@ -351,7 +351,8 @@ const mantlePreset = {
 				xl: "0px 0px 15px 0px hsl(var(--shadow-color) / var(--shadow-first)), 0px 8px 10px -6px hsl(var(--shadow-color) / var(--shadow-second)), 0px 20px 25px -5px hsl(var(--shadow-color) / var(--shadow-second))",
 				"2xl":
 					"0px 0px 15px 0px hsl(var(--shadow-color) / var(--shadow-first)), 0px 11px 10px 0px hsl(var(--shadow-color) / var(--shadow-first)), 0px 17px 25px 2px hsl(var(--shadow-color) / var(--shadow-second))",
-				inner: "inset 0px 2px 4px 0px hsl(var(--shadow-color) / var(--shadow-first))",
+				inner:
+					"inset 0px 2px 4px 0px hsl(var(--shadow-color) / var(--shadow-first))",
 			},
 			backgroundColor: {
 				base: "hsl(var(--bg-base))",
@@ -459,6 +460,10 @@ const mantlePreset = {
 					from: { height: "var(--radix-accordion-content-height)" },
 					to: { height: "0" },
 				},
+				"fade-in": {
+					"0%": { opacity: "0" },
+					"100%": { opacity: "1" },
+				},
 				spin: {
 					from: { transform: "rotate(var(--spin-start-deg, 0))" },
 					to: { transform: "rotate(var(--spin-end-deg, 360deg))" },
@@ -491,11 +496,11 @@ const mantlePreset = {
 		pointingVariantsPlugin,
 		tailwindCssAnimatePlugin,
 		whereVariantPlugin,
-		plugin(function ({ addVariant }) {
+		plugin(({ addVariant }) => {
 			addVariant("dark-high-contrast", [":is(.dark-high-contrast &)"]);
 			addVariant("high-contrast", [":is(.light-high-contrast &)"]);
 		}),
-		plugin(function ({ addVariant }) {
+		plugin(({ addVariant }) => {
 			addVariant("not-disabled", ["&:not(:disabled)"]);
 			addVariant("not-aria-disabled", ['&:not(&[aria-disabled="true"])']);
 		}),

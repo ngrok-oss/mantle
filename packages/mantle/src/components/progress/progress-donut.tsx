@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { createContext, useContext, useId, useMemo } from "react";
-import type { ComponentProps, CSSProperties, HTMLAttributes } from "react";
+import type { CSSProperties, ComponentProps, HTMLAttributes } from "react";
 import { cx } from "../../utils/cx/cx.js";
 
 type RemValue = `${number}rem`;
@@ -24,11 +24,18 @@ const defaultContextValue = {
 	value: 0,
 } as const satisfies ProgressContextValue;
 
-const ProgressContext = createContext<ProgressContextValue>(defaultContextValue);
+const ProgressContext =
+	createContext<ProgressContextValue>(defaultContextValue);
 
 type SvgAttributes = Omit<
 	HTMLAttributes<SVGElement>,
-	"viewBox" | "role" | "aria-valuemax" | "aria-valuemin" | "aria-valuenow" | "width" | "height"
+	| "viewBox"
+	| "role"
+	| "aria-valuemax"
+	| "aria-valuemin"
+	| "aria-valuenow"
+	| "width"
+	| "height"
 >;
 
 type Props = SvgAttributes & {
@@ -61,6 +68,11 @@ type Props = SvgAttributes & {
 
 /**
  * A simple circular progress bar.
+ *
+ * @example
+ * <ProgressDonut value={60}>
+ *   <ProgressDonutIndicator />
+ * </ProgressDonut>
  */
 const ProgressDonut = ({
 	children,
@@ -71,8 +83,16 @@ const ProgressDonut = ({
 	...props
 }: Props) => {
 	const max = isValidMaxNumber(_max) ? _max : defaultMax;
-	const value = (isValidValueNumber(_value, max) ? _value : _value == null ? 0 : "indeterminate") satisfies ValueType;
-	const strokeWidthPx = deriveStrokeWidthPx(_strokeWidth ?? defaultContextValue.strokeWidth);
+	const value = (
+		isValidValueNumber(_value, max)
+			? _value
+			: _value == null
+				? 0
+				: "indeterminate"
+	) satisfies ValueType;
+	const strokeWidthPx = deriveStrokeWidthPx(
+		_strokeWidth ?? defaultContextValue.strokeWidth,
+	);
 	const valueNow = isNumber(value) ? value : undefined;
 	const radius = calcRadius(strokeWidthPx);
 
@@ -87,18 +107,21 @@ const ProgressDonut = ({
 
 	return (
 		<ProgressContext.Provider value={ctx}>
+			{/* biome-ignore lint/a11y/useFocusableInteractive: progress bars don't need to be focusable */}
 			<svg
 				aria-valuemax={max}
 				aria-valuemin={0}
 				aria-valuenow={valueNow}
 				className={clsx(
-					value === "indeterminate" && "animation-duration-[15s] transform-gpu animate-spin",
+					value === "indeterminate" &&
+						"animation-duration-[15s] transform-gpu animate-spin",
 					cx("size-6 text-gray-200 dark:text-gray-300", className),
 				)}
 				data-max={max}
 				data-min={0}
 				data-value={valueNow}
 				height="100%"
+				// biome-ignore lint/a11y/noNoninteractiveElementToInteractiveRole: this is a radial progress bar, which is possible by SVG
 				role="progressbar"
 				width="100%"
 				{...props}
@@ -127,17 +150,28 @@ type ProgressDonutIndicatorProps = Omit<ComponentProps<"g">, "children">;
 
 /**
  * The indicator for the circular progress bar.
+ *
+ * @example
+ * <ProgressDonut value={60}>
+ *   <ProgressDonutIndicator />
+ * </ProgressDonut>
  */
-const ProgressDonutIndicator = ({ className, ...props }: ProgressDonutIndicatorProps) => {
+const ProgressDonutIndicator = ({
+	className,
+	...props
+}: ProgressDonutIndicatorProps) => {
 	const gradientId = useId();
 	const ctx = useContext(ProgressContext) ?? defaultContextValue;
-	const percentage = (ctx.value == "indeterminate" ? indeterminateTailPercent : ctx.value / ctx.max) * 100;
+	const percentage =
+		(ctx.value === "indeterminate"
+			? indeterminateTailPercent
+			: ctx.value / ctx.max) * 100;
 	const strokeWidthPx = deriveStrokeWidthPx(ctx.strokeWidth);
 	const radius = calcRadius(strokeWidthPx);
 
 	return (
 		<g className={cx("text-accent-600", className)} {...props}>
-			{ctx.value == "indeterminate" && (
+			{ctx.value === "indeterminate" && (
 				<defs>
 					<linearGradient id={gradientId}>
 						<stop className="stop-opacity-100 stop-color-current" offset="0%" />
@@ -146,18 +180,22 @@ const ProgressDonutIndicator = ({ className, ...props }: ProgressDonutIndicatorP
 				</defs>
 			)}
 			<circle
-				className="[r:var(--radius)]"
+				className={clsx(
+					"[r:var(--radius)]", // set the circle radius to be the value of the calc'd CSS variable set on the style
+					"origin-center",
+				)}
 				cx="50%"
 				cy="50%"
 				fill="transparent"
 				pathLength={100}
-				stroke={ctx.value == "indeterminate" ? `url(#${gradientId})` : "currentColor"}
+				stroke={
+					ctx.value === "indeterminate" ? `url(#${gradientId})` : "currentColor"
+				}
 				strokeDasharray={100}
 				strokeDashoffset={100 - percentage}
 				strokeLinecap="round"
 				strokeWidth={strokeWidthPx}
 				style={{ "--radius": radius } as CSSProperties}
-				transform-origin="center"
 				transform="rotate(-90)" // rotate -90 degrees so it starts from the top
 			/>
 		</g>
@@ -173,7 +211,10 @@ export {
 /**
  * Clamp a value between a minimum and maximum value.
  */
-function clamp(value: number, { min, max }: { min: number; max: number }): number {
+function clamp(
+	value: number,
+	{ min, max }: { min: number; max: number },
+): number {
 	return Math.min(max, Math.max(min, value));
 }
 
@@ -182,7 +223,9 @@ function clamp(value: number, { min, max }: { min: number; max: number }): numbe
  * Note, this function clamps the stroke width to a minimum of 1 and max of 12 since
  * it is proportional to the viewbox size (0 0 32 32).
  */
-export function deriveStrokeWidthPx(strokeWidth: number | string | undefined): number {
+export function deriveStrokeWidthPx(
+	strokeWidth: number | string | undefined | null,
+): number {
 	let value = 4;
 	if (strokeWidth == null) {
 		return value;

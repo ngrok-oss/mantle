@@ -18,10 +18,11 @@ describe("parseLanguage", () => {
 	});
 
 	test("given invalid languages, returns 'sh'", () => {
-		["fake", "language-fake", "lang-fake", "lang-", "language-"].forEach((lang) => {
+		const langs = ["fake", "language-fake", "lang-fake", "lang-", "language-"];
+		for (const lang of langs) {
 			const result = parseLanguage(lang);
 			expect(result).toEqual("sh");
-		});
+		}
 	});
 
 	test("given 'lang-tsx', returns 'tsx'", () => {
@@ -35,10 +36,10 @@ describe("parseLanguage", () => {
 	});
 
 	test("given `language-${supportedLanguage}`, returns 'sh'", () => {
-		supportedLanguages.forEach((lang) => {
+		for (const lang of supportedLanguages) {
 			const className = `language-${lang}` as const;
 			const result = parseLanguage(className);
 			expect(result).toEqual(lang);
-		});
+		}
 	});
 });

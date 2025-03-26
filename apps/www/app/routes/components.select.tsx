@@ -1,5 +1,11 @@
 import { Anchor } from "@ngrok/mantle/anchor";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
+import {
+	CodeBlock,
+	CodeBlockBody,
+	CodeBlockCode,
+	CodeBlockCopyButton,
+	fmtCode,
+} from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Label } from "@ngrok/mantle/label";
 import {
@@ -12,7 +18,8 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@ngrok/mantle/select";
-import type { HeadersFunction, MetaFunction } from "@remix-run/node";
+import { useState } from "react";
+import { href } from "react-router";
 import { Example } from "~/components/example";
 import { Link } from "~/components/link";
 import { PageHeader } from "~/components/page-header";
@@ -23,20 +30,23 @@ import {
 	PropDescriptionCell,
 	PropNameCell,
 	PropRow,
-	PropsTable,
 	PropTypeCell,
+	PropsTable,
 	StringPropType,
 } from "~/components/props-table";
-import { useState } from "react";
+import type { Route } from "./+types/components.select";
 
-export const meta: MetaFunction = () => {
+export const meta: Route.MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — Select" },
-		{ name: "description", content: "mantle is ngrok's UI library and design system" },
+		{
+			name: "description",
+			content: "mantle is ngrok's UI library and design system",
+		},
 	];
 };
 
-export const headers: HeadersFunction = () => {
+export const headers: Route.HeadersFunction = () => {
 	return {
 		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
 	};
@@ -50,7 +60,8 @@ export default function Page() {
 			<section className="space-y-4">
 				<PageHeader id="select">Select</PageHeader>
 				<p className="font-body text-body text-xl">
-					Displays a list of options for the user to pick from—triggered by a button.
+					Displays a list of options for the user to pick from—triggered by a
+					button.
 				</p>
 
 				<div>
@@ -79,7 +90,10 @@ export default function Page() {
 										<SelectItem value="tomato">Tomato</SelectItem>
 										<SelectItem value="zucchini">
 											<p>Zucchini</p>
-											<p>Ex sit voluptate incididunt pariatur velit consequat reprehenderit.</p>
+											<p>
+												Ex sit voluptate incididunt pariatur velit consequat
+												reprehenderit.
+											</p>
 										</SelectItem>
 									</SelectGroup>
 								</SelectContent>
@@ -107,7 +121,10 @@ export default function Page() {
 									<SelectItem value="tomato">Tomato</SelectItem>
 									<SelectItem value="zucchini">
 										<p>Zucchini</p>
-										<p>Ex sit voluptate incididunt pariatur velit consequat reprehenderit.</p>
+										<p>
+											Ex sit voluptate incididunt pariatur velit consequat
+											reprehenderit.
+										</p>
 									</SelectItem>
 								</SelectGroup>
 							</SelectContent>
@@ -135,7 +152,10 @@ export default function Page() {
 									<SelectItem value="tomato">Tomato</SelectItem>
 									<SelectItem value="zucchini">
 										<p>Zucchini</p>
-										<p>Ex sit voluptate incididunt pariatur velit consequat reprehenderit.</p>
+										<p>
+											Ex sit voluptate incididunt pariatur velit consequat
+											reprehenderit.
+										</p>
 									</SelectItem>
 								</SelectGroup>
 							</SelectContent>
@@ -162,7 +182,10 @@ export default function Page() {
 									<SelectItem value="tomato">Tomato</SelectItem>
 									<SelectItem value="zucchini">
 										<p>Zucchini</p>
-										<p>Ex sit voluptate incididunt pariatur velit consequat reprehenderit.</p>
+										<p>
+											Ex sit voluptate incididunt pariatur velit consequat
+											reprehenderit.
+										</p>
 									</SelectItem>
 								</SelectGroup>
 							</SelectContent>
@@ -234,8 +257,10 @@ export default function Page() {
 					<header className="space-y-1">
 						<h3 className="text-xl font-medium">Custom selected value</h3>
 						<p className="font-body text-body">
-							By default the selected item's text will be rendered when selected. Sometimes you may need to render
-							something different. You can control the select and pass <InlineCode>children</InlineCode> instead.
+							By default the selected item's text will be rendered when
+							selected. Sometimes you may need to render something different.
+							You can control the select and pass{" "}
+							<InlineCode>children</InlineCode> instead.
 						</p>
 					</header>
 					<div>
@@ -258,26 +283,26 @@ export default function Page() {
 								<CodeBlockCode
 									language="tsx"
 									value={fmtCode`
-							import {
-								Select,
-								SelectContent,
-								SelectItem,
-								SelectTrigger,
-								SelectValue,
-							} from "@ngrok/mantle/select";
+										import {
+											Select,
+											SelectContent,
+											SelectItem,
+											SelectTrigger,
+											SelectValue,
+										} from "@ngrok/mantle/select";
 
-							<Select value={value} onChange={setValue}>
-								<SelectTrigger className="w-[180px]">
-									<SelectValue placeholder="Select a fruit">
-										{value === "apple" ? <>🍎 Apple!</> : <>🍑 Peach!</>}
-									</SelectValue>
-								</SelectTrigger>
-								<SelectContent width="trigger">
-									<SelectItem value="apple">Apple</SelectItem>
-									<SelectItem value="peach">Peach</SelectItem>
-								</SelectContent>
-							</Select>
-						`}
+										<Select value={value} onChange={setValue}>
+											<SelectTrigger className="w-[180px]">
+												<SelectValue placeholder="Select a fruit">
+													{value === "apple" ? <>🍎 Apple!</> : <>🍑 Peach!</>}
+												</SelectValue>
+											</SelectTrigger>
+											<SelectContent width="trigger">
+												<SelectItem value="apple">Apple</SelectItem>
+												<SelectItem value="peach">Peach</SelectItem>
+											</SelectContent>
+										</Select>
+									`}
 								/>
 							</CodeBlockBody>
 						</CodeBlock>
@@ -305,7 +330,14 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 className="text-xl font-medium">Select</h3>
+						<h3 id="api-select" className="text-xl font-medium">
+							Select
+						</h3>
+
+						<p className="font-body text-body">
+							Displays a list of options for the user to pick from—triggered by
+							a button.
+						</p>
 
 						<p className="font-body text-body">
 							All props from Radix{" "}
@@ -329,7 +361,8 @@ export default function Page() {
 							<PropDefaultValueCell />
 							<PropDescriptionCell>
 								<p>
-									Event handler called when the value changes. Use it instead of <InlineCode>onValueChange</InlineCode>.
+									Event handler called when the value changes. Use it instead of{" "}
+									<InlineCode>onValueChange</InlineCode>.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -350,22 +383,27 @@ export default function Page() {
 										<BooleanPropType value={false} />
 									</li>
 									<li>
-										<FuncPropType value={`() => "error" | "success" | "warning" | false`} />
+										<FuncPropType
+											value={`() => "error" | "success" | "warning" | false`}
+										/>
 									</li>
 								</ul>
 							</PropTypeCell>
 							<PropDefaultValueCell />
 							<PropDescriptionCell className="space-y-2">
 								<p>
-									Use the <InlineCode>validation</InlineCode> prop to show if the select trigger has a specific
-									validation status. This will change the border and outline of the select trigger.
+									Use the <InlineCode>validation</InlineCode> prop to show if
+									the select trigger has a specific validation status. This will
+									change the border and outline of the select trigger.
 								</p>
 								<p>
-									The <InlineCode>false</InlineCode> type is useful when using short-circuiting logic so that you don't
-									need to use a ternary with <InlineCode>undefined</InlineCode>.
+									The <InlineCode>false</InlineCode> type is useful when using
+									short-circuiting logic so that you don't need to use a ternary
+									with <InlineCode>undefined</InlineCode>.
 								</p>
 								<p>
-									Setting <InlineCode>validation</InlineCode> to <InlineCode>error</InlineCode> also sets{" "}
+									Setting <InlineCode>validation</InlineCode> to{" "}
+									<InlineCode>error</InlineCode> also sets{" "}
 									<InlineCode>aria-invalid</InlineCode>.
 								</p>
 							</PropDescriptionCell>
@@ -375,7 +413,15 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 className="text-xl font-medium">SelectTrigger</h3>
+						<h3 id="api-select-trigger" className="text-xl font-medium">
+							SelectTrigger
+						</h3>
+
+						<p className="font-body text-body">
+							The button that toggles the <InlineCode>Select</InlineCode>. The{" "}
+							<InlineCode>SelectContent</InlineCode> will position itself
+							adjacent to the trigger.
+						</p>
 
 						<p className="font-body text-body">
 							All props from Radix{" "}
@@ -408,22 +454,27 @@ export default function Page() {
 										<BooleanPropType value={false} />
 									</li>
 									<li>
-										<FuncPropType value={`() => "error" | "success" | "warning" | false`} />
+										<FuncPropType
+											value={`() => "error" | "success" | "warning" | false`}
+										/>
 									</li>
 								</ul>
 							</PropTypeCell>
 							<PropDefaultValueCell />
 							<PropDescriptionCell className="space-y-2">
 								<p>
-									Use the <InlineCode>validation</InlineCode> prop to show if the select trigger has a specific
-									validation status. This will change the border and outline of the select trigger.
+									Use the <InlineCode>validation</InlineCode> prop to show if
+									the select trigger has a specific validation status. This will
+									change the border and outline of the select trigger.
 								</p>
 								<p>
-									The <InlineCode>false</InlineCode> type is useful when using short-circuiting logic so that you don't
-									need to use a ternary with <InlineCode>undefined</InlineCode>.
+									The <InlineCode>false</InlineCode> type is useful when using
+									short-circuiting logic so that you don't need to use a ternary
+									with <InlineCode>undefined</InlineCode>.
 								</p>
 								<p>
-									Setting <InlineCode>validation</InlineCode> to <InlineCode>error</InlineCode> also sets{" "}
+									Setting <InlineCode>validation</InlineCode> to{" "}
+									<InlineCode>error</InlineCode> also sets{" "}
 									<InlineCode>aria-invalid</InlineCode>.
 								</p>
 							</PropDescriptionCell>
@@ -432,7 +483,18 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 className="text-xl font-medium">SelectValue</h3>
+					<h3 id="api-select-value" className="text-xl font-medium">
+						SelectValue
+					</h3>
+
+					<p className="font-body text-body">
+						The part that reflects the selected value. By default the selected
+						item's text will be rendered. if you require more control, you can
+						instead control the <InlineCode>Select</InlineCode> and pass your
+						own children. It should not be styled to ensure correct positioning.
+						An optional placeholder prop is also available for when the{" "}
+						<InlineCode>Select</InlineCode> has no value.
+					</p>
 
 					<p className="font-body text-body">
 						Radix{" "}
@@ -449,7 +511,16 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 className="text-xl font-medium">SelectContent</h3>
+						<h3 id="api-select-content" className="text-xl font-medium">
+							SelectContent
+						</h3>
+
+						<p className="font-body text-body">
+							The component that pops out when the{" "}
+							<InlineCode>Select</InlineCode> is open as a portal adjacent to
+							the <InlineCode>SelectTrigger</InlineCode> button. It contains a
+							scrolling viewport of the select items.
+						</p>
 
 						<p className="font-body text-body">
 							All props from Radix{" "}
@@ -477,13 +548,18 @@ export default function Page() {
 									</li>
 								</ul>
 							</PropTypeCell>
-							<PropDefaultValueCell />
+							<PropDefaultValueCell>
+								<StringPropType value="trigger" />
+							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									<InlineCode>trigger</InlineCode> will ensure the content is the same width as the trigger button.
+									<InlineCode>trigger</InlineCode> will ensure the content is
+									the same width as the trigger button.
 								</p>
 								<p>
-									<InlineCode>content</InlineCode> will make it the size of the content itself.
+									<InlineCode>content</InlineCode> will make it the instrinic
+									size of the content itself; it will be the width of the
+									longest/widest item.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -491,7 +567,16 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 className="text-xl font-medium">SelectGroup</h3>
+					<h3 id="api-select-group" className="text-xl font-medium">
+						SelectGroup
+					</h3>
+
+					<p className="font-body text-body">
+						A group of related options within a select menu. Similar to an html{" "}
+						<InlineCode>optgroup</InlineCode> element. Use in conjunction with{" "}
+						<InlineCode>SelectLabel</InlineCode> to ensure good accessibility
+						via automatic labelling.
+					</p>
 
 					<p className="font-body text-body">
 						Radix{" "}
@@ -507,16 +592,29 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 className="text-xl font-medium">SelectSeparator</h3>
+					<h3 id="api-select-separator" className="text-xl font-medium">
+						SelectSeparator
+					</h3>
 
 					<p className="font-body text-body">
 						Used to visually separate items in the select. Composed from{" "}
-						<Link to="/components/separator">Mantle Separator</Link>.
+						<Link to={href("/components/separator")}>Mantle Separator</Link>.
 					</p>
 				</section>
 
 				<section className="space-y-1">
-					<h3 className="text-xl font-medium">SelectItem</h3>
+					<h3 id="api-select-item" className="text-xl font-medium">
+						SelectItem
+					</h3>
+
+					<p className="font-body text-body">
+						An option within a select menu. Similar to an html{" "}
+						<InlineCode>option</InlineCode> element. Has a required{" "}
+						<InlineCode>value</InlineCode> prop that will be passed to the{" "}
+						<InlineCode>onChange</InlineCode> handler of the{" "}
+						<InlineCode>Select</InlineCode> component when this item is
+						selected. Displays the children as the option's text.
+					</p>
 
 					<p className="font-body text-body">
 						Radix{" "}
@@ -532,7 +630,16 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 className="text-xl font-medium">SelectLabel</h3>
+					<h3 id="api-select-label" className="text-xl font-medium">
+						SelectLabel
+					</h3>
+
+					<p className="font-body text-body">
+						Used to render the label of a group. It won't be focusable using
+						arrow keys. Use in conjunction with{" "}
+						<InlineCode>SelectGroup</InlineCode> to ensure good accessibility
+						via automatic labelling of a group.
+					</p>
 
 					<p className="font-body text-body">
 						Radix{" "}
@@ -542,38 +649,6 @@ export default function Page() {
 							rel="noopener noreferrer"
 						>
 							Select.Label
-						</Anchor>{" "}
-						props.
-					</p>
-				</section>
-
-				<section className="space-y-1">
-					<h3 className="text-xl font-medium">SelectScrollUpButton</h3>
-
-					<p className="font-body text-body">
-						Radix{" "}
-						<Anchor
-							href="https://www.radix-ui.com/primitives/docs/components/select#scrollupbutton"
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							Select.ScrollUpButton
-						</Anchor>{" "}
-						props.
-					</p>
-				</section>
-
-				<section className="space-y-1">
-					<h3 className="text-xl font-medium">SelectScrollDownButton</h3>
-
-					<p className="font-body text-body">
-						Radix{" "}
-						<Anchor
-							href="https://www.radix-ui.com/primitives/docs/components/select#scrolldownbutton"
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							Select.ScrollDownButton
 						</Anchor>{" "}
 						props.
 					</p>

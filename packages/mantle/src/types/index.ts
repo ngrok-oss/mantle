@@ -1,4 +1,7 @@
-export { parseBooleanish } from "./booleanish.js";
+export {
+	//,
+	parseBooleanish,
+} from "./booleanish.js";
 
 export type { WithAsChild } from "./as-child.js";
 export type { WithStyleProps } from "./with-style-props.js";

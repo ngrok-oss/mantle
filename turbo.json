@@ -1,42 +1,46 @@
 {
-	"$schema": "https://turbo.build/schema.json",
-	"globalEnv": ["VERCEL_GIT_COMMIT_SHA", "VERCEL_DEPLOYMENT_ID"],
-	"tasks": {
-		"build": {
-			"inputs": ["$TURBO_DEFAULT$", ".env*"],
-			"env": ["VERCEL"],
-			"dependsOn": ["^build"],
-			"outputs": ["**/build/**", "**/.vercel/**", "**/dist/**"]
-		},
-		"clean": {
-			"cache": false
-		},
-		"lint": {
-			"dependsOn": ["^lint"],
-			"outputs": ["node_modules/.cache/.eslintcache"]
-		},
-		"serve": {
-			"dependsOn": ["^build"],
+  "$schema": "https://turbo.build/schema.json",
+  "globalEnv": ["VERCEL_GIT_COMMIT_SHA", "VERCEL_DEPLOYMENT_ID", "VERCEL"],
+  "tasks": {
+    "build": {
+      "cache": true,
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "dependsOn": ["^build"],
+      "outputs": [
+        "**/build/**",
+        "**/.vercel/**",
+        "**/dist/**"
+      ]
+    },
+    "clean": {
+      "cache": false
+    },
+    "//#fmt-lint": {},
+    "//#fmt-lint:fix": {
+      "cache": false
+    },
+    "lint": {
+      "dependsOn": ["^lint"]
+    },
+    "serve": {
+      "dependsOn": ["^build"],
       "outputs": ["public/build/**"]
-		},
-		"start": {
-			"dependsOn": ["^build"],
-			"cache": false,
-			"persistent": true
-		},
-		"test": {
-			"outputs": []
-		},
-		"test:watch": {
-			"cache": false,
-			"persistent": true
-		},
-		"test:ui": {
-			"cache": false,
-			"persistent": true
-		},
-		"typecheck": {
-			"dependsOn": ["^build"]
-		}
-	}
+    },
+    "start": {
+      "dependsOn": ["^build"],
+      "cache": false,
+      "persistent": true
+    },
+    "test": {},
+    "test:watch": {
+      "cache": false,
+      "persistent": true
+    },
+    "typecheck": {
+      "outputs": ["**/.react-router/**"]
+    }
+  },
+  "remoteCache": {
+    "enabled": true
+  }
 }

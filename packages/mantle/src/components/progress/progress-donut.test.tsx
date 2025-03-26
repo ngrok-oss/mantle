@@ -3,7 +3,7 @@ import { deriveStrokeWidthPx } from "./progress-donut.js";
 
 describe("deriveStrokeWidthPx", () => {
 	test("given null/undefined, returns 4", () => {
-		expect(deriveStrokeWidthPx(null as any)).toBe(4);
+		expect(deriveStrokeWidthPx(null)).toBe(4);
 		expect(deriveStrokeWidthPx(undefined)).toBe(4);
 	});
 

@@ -18,7 +18,12 @@ const prefersHighContrastMediaQuery = "(prefers-contrast: more)";
 /**
  * resolvedThemes is a tuple of valid themes that have been resolved from "system" to a specific theme.
  */
-const resolvedThemes = ["light", "dark", "light-high-contrast", "dark-high-contrast"] as const;
+const resolvedThemes = [
+	"light",
+	"dark",
+	"light-high-contrast",
+	"dark-high-contrast",
+] as const;
 
 /**
  * ResolvedTheme is a type that represents a theme that has been resolved from "system" to a specific theme.
@@ -54,7 +59,8 @@ function isTheme(value: unknown): value is Theme {
 /**
  * $resolvedTheme is a helper which translates the ResolvedTheme type into a string literal type.
  */
-const $resolvedTheme = <T extends ResolvedTheme = ResolvedTheme>(value: T) => value;
+const $resolvedTheme = <T extends ResolvedTheme = ResolvedTheme>(value: T) =>
+	value;
 
 /**
  * Type predicate that checks if a value is a valid resolved theme.
@@ -100,7 +106,10 @@ function getStoredTheme(storageKey: string, defaultTheme: Theme = "system") {
 	if (isBrowser()) {
 		let storedTheme: string | null = null;
 		try {
-			storedTheme = "localStorage" in window ? window.localStorage.getItem(storageKey) : null;
+			storedTheme =
+				"localStorage" in window
+					? window.localStorage.getItem(storageKey)
+					: null;
 		} catch (_) {}
 		return isTheme(storedTheme) ? storedTheme : fallbackTheme;
 	}
@@ -115,7 +124,11 @@ type ThemeProviderProps = PropsWithChildren & {
 /**
  * ThemeProvider is a React Context Provider that provides the current theme and a function to set the theme.
  */
-function ThemeProvider({ children, defaultTheme = "system", storageKey = DEFAULT_STORAGE_KEY }: ThemeProviderProps) {
+function ThemeProvider({
+	children,
+	defaultTheme = "system",
+	storageKey = DEFAULT_STORAGE_KEY,
+}: ThemeProviderProps) {
 	const [theme, setTheme] = useState<Theme>(() => {
 		const initialTheme = getStoredTheme(storageKey, defaultTheme);
 		applyTheme(initialTheme);
@@ -130,7 +143,9 @@ function ThemeProvider({ children, defaultTheme = "system", storageKey = DEFAULT
 
 	useEffect(() => {
 		const prefersDarkMql = window.matchMedia(prefersDarkModeMediaQuery);
-		const prefersHighContrastMql = window.matchMedia(prefersHighContrastMediaQuery);
+		const prefersHighContrastMql = window.matchMedia(
+			prefersHighContrastMediaQuery,
+		);
 
 		const onChange = () => {
 			const storedTheme = getStoredTheme(storageKey, defaultTheme);
@@ -169,7 +184,11 @@ function ThemeProvider({ children, defaultTheme = "system", storageKey = DEFAULT
 		[storageKey, theme],
 	);
 
-	return <ThemeProviderContext.Provider value={value}>{children}</ThemeProviderContext.Provider>;
+	return (
+		<ThemeProviderContext.Provider value={value}>
+			{children}
+		</ThemeProviderContext.Provider>
+	);
 }
 
 /**
@@ -196,8 +215,13 @@ function applyTheme(theme: Theme) {
 	const htmlElement = window.document.documentElement;
 	htmlElement.classList.remove(...themes);
 	const prefersDarkMode = window.matchMedia(prefersDarkModeMediaQuery).matches;
-	const prefersHighContrast = window.matchMedia(prefersHighContrastMediaQuery).matches;
-	const newTheme = resolveTheme(theme, { prefersDarkMode, prefersHighContrast });
+	const prefersHighContrast = window.matchMedia(
+		prefersHighContrastMediaQuery,
+	).matches;
+	const newTheme = resolveTheme(theme, {
+		prefersDarkMode,
+		prefersHighContrast,
+	});
 	htmlElement.classList.add(newTheme);
 	htmlElement.dataset.appliedTheme = newTheme;
 	htmlElement.dataset.theme = theme;
@@ -215,8 +239,12 @@ function readThemeFromHtmlElement() {
 	}
 
 	const htmlElement = window.document.documentElement;
-	const theme = isTheme(htmlElement.dataset.theme) ? htmlElement.dataset.theme : undefined;
-	const appliedTheme = isResolvedTheme(htmlElement.dataset.appliedTheme) ? htmlElement.dataset.appliedTheme : undefined;
+	const theme = isTheme(htmlElement.dataset.theme)
+		? htmlElement.dataset.theme
+		: undefined;
+	const appliedTheme = isResolvedTheme(htmlElement.dataset.appliedTheme)
+		? htmlElement.dataset.appliedTheme
+		: undefined;
 
 	return {
 		appliedTheme,
@@ -230,10 +258,16 @@ function readThemeFromHtmlElement() {
  */
 function resolveTheme(
 	theme: Theme,
-	{ prefersDarkMode, prefersHighContrast }: { prefersDarkMode: boolean; prefersHighContrast: boolean },
+	{
+		prefersDarkMode,
+		prefersHighContrast,
+	}: { prefersDarkMode: boolean; prefersHighContrast: boolean },
 ) {
 	if (theme === "system") {
-		return determineThemeFromMediaQuery({ prefersDarkMode, prefersHighContrast });
+		return determineThemeFromMediaQuery({
+			prefersDarkMode,
+			prefersHighContrast,
+		});
 	}
 
 	return theme;
@@ -248,7 +282,9 @@ function useAppliedTheme() {
 	const theme = themeContext != null ? themeContext[0] : "system";
 
 	const prefersDarkMode = useMatchesMediaQuery(prefersDarkModeMediaQuery);
-	const prefersHighContrast = useMatchesMediaQuery(prefersHighContrastMediaQuery);
+	const prefersHighContrast = useMatchesMediaQuery(
+		prefersHighContrastMediaQuery,
+	);
 
 	return resolveTheme(theme, { prefersDarkMode, prefersHighContrast });
 }
@@ -330,7 +366,10 @@ const MantleThemeHeadContent = ({
 	<>
 		<script
 			dangerouslySetInnerHTML={{
-				__html: preventWrongThemeFlashScriptContent({ defaultTheme, storageKey }),
+				__html: preventWrongThemeFlashScriptContent({
+					defaultTheme,
+					storageKey,
+				}),
 			}}
 		/>
 		<PreloadFonts includeNunitoSans={includeNunitoSans} />
@@ -351,7 +390,11 @@ function useInitialHtmlThemeProps(props?: {
 	defaultTheme?: Theme;
 	storageKey?: string;
 }): InitialThemeProps {
-	const { className = "", defaultTheme = "system", storageKey = DEFAULT_STORAGE_KEY } = props ?? {};
+	const {
+		className = "",
+		defaultTheme = "system",
+		storageKey = DEFAULT_STORAGE_KEY,
+	} = props ?? {};
 
 	return useMemo(() => {
 		if (!isBrowser()) {
@@ -362,10 +405,17 @@ function useInitialHtmlThemeProps(props?: {
 			};
 		}
 
-		const prefersDarkMode = window.matchMedia(prefersDarkModeMediaQuery).matches;
-		const prefersHighContrast = window.matchMedia(prefersHighContrastMediaQuery).matches;
+		const prefersDarkMode = window.matchMedia(
+			prefersDarkModeMediaQuery,
+		).matches;
+		const prefersHighContrast = window.matchMedia(
+			prefersHighContrastMediaQuery,
+		).matches;
 		const initialTheme = getStoredTheme(storageKey, defaultTheme);
-		const reolvedTheme = resolveTheme(initialTheme, { prefersDarkMode, prefersHighContrast });
+		const reolvedTheme = resolveTheme(initialTheme, {
+			prefersDarkMode,
+			prefersHighContrast,
+		});
 
 		return {
 			className: clsx(className, reolvedTheme),

@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import { act, useState } from "react";
-import { createMemoryRouter, Link, RouterProvider } from "react-router-dom";
+import { Link, RouterProvider, createMemoryRouter } from "react-router";
 import { describe, expect, test } from "vitest";
 import { Button } from "./button.js";
 
@@ -14,6 +14,7 @@ describe("Button", () => {
 	test("renders a button, with `asChild`", () => {
 		render(
 			<Button asChild type="button">
+				{/* biome-ignore lint/a11y/useButtonType: test */}
 				<button>click me</button>
 			</Button>,
 		);
@@ -56,9 +57,11 @@ describe("Button", () => {
 		expect(screen.getByRole("link")).toHaveTextContent("click me");
 	});
 
-	test(`when isLoading={false}, allows click and submit events to propagate`, async () => {
+	test("when isLoading={false}, allows click and submit events to propagate", async () => {
 		const Subject = () => {
-			const [submitState, setSubmitState] = useState<"submitting" | "idle">("idle");
+			const [submitState, setSubmitState] = useState<"submitting" | "idle">(
+				"idle",
+			);
 			const [clickState, setClickState] = useState<"clicked" | "idle">("idle");
 
 			return (
@@ -93,7 +96,9 @@ describe("Button", () => {
 
 	test(`when isLoading={true}, doesn't allow click or submit events to propagate`, async () => {
 		const Subject = () => {
-			const [submitState, setSubmitState] = useState<"submitting" | "idle">("idle");
+			const [submitState, setSubmitState] = useState<"submitting" | "idle">(
+				"idle",
+			);
 			const [clickState, setClickState] = useState<"clicked" | "idle">("idle");
 
 			return (

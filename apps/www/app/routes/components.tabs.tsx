@@ -1,23 +1,38 @@
 import { Card, CardHeader, CardTitle } from "@ngrok/mantle/card";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
+import {
+	CodeBlock,
+	CodeBlockBody,
+	CodeBlockCode,
+	CodeBlockCopyButton,
+	fmtCode,
+} from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
-import { TabBadge, Tabs, TabsContent, TabsList, TabsTrigger } from "@ngrok/mantle/tabs";
+import {
+	TabBadge,
+	Tabs,
+	TabsContent,
+	TabsList,
+	TabsTrigger,
+} from "@ngrok/mantle/tabs";
 import { Globe } from "@phosphor-icons/react/Globe";
 import { ShieldCheck } from "@phosphor-icons/react/ShieldCheck";
 import { User } from "@phosphor-icons/react/User";
-import type { HeadersFunction, MetaFunction } from "@remix-run/node";
-import { Link } from "@remix-run/react";
+import { Link, href } from "react-router";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
+import type { Route } from "./+types/components.tabs";
 
-export const meta: MetaFunction = () => {
+export const meta: Route.MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — Tabs" },
-		{ name: "description", content: "mantle is ngrok's UI library and design system" },
+		{
+			name: "description",
+			content: "mantle is ngrok's UI library and design system",
+		},
 	];
 };
 
-export const headers: HeadersFunction = () => {
+export const headers: Route.HeadersFunction = () => {
 	return {
 		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
 	};
@@ -29,27 +44,31 @@ export default function Page() {
 			<section className="space-y-4">
 				<PageHeader id="tabs">Tabs</PageHeader>
 				<p className="font-body text-body text-xl">
-					A set of layered sections of content—known as tab panels—that are displayed one at a time.
+					A set of layered sections of content—known as tab panels—that are
+					displayed one at a time.
 				</p>
 				<div>
 					<Example className="mt-4 grid gap-6">
 						<p>
-							<InlineCode>asChild</InlineCode> with <InlineCode>Link</InlineCode>s
+							<InlineCode>asChild</InlineCode> with{" "}
+							<InlineCode>Link</InlineCode>s
 						</p>
 						<div className="scrollbar -mt-4 overflow-x-scroll">
 							<Tabs orientation="horizontal" defaultValue="colors">
 								<TabsList>
 									<TabsTrigger value="colors" asChild>
-										<Link to="/base/colors">Colors</Link>
+										<Link to={href("/base/colors")}>Colors</Link>
 									</TabsTrigger>
 									<TabsTrigger value="shadows" asChild>
-										<Link to="/base/shadows">Shadows</Link>
+										<Link to={href("/base/shadows")}>Shadows</Link>
 									</TabsTrigger>
 									<TabsTrigger disabled value="tailwind-variants" asChild>
-										<Link to="/base/tailwind-variants">Tailwind Variants</Link>
+										<Link to={href("/base/tailwind-variants")}>
+											Tailwind Variants
+										</Link>
 									</TabsTrigger>
 									<TabsTrigger value="typography" asChild>
-										<Link to="/base/typography">Typography</Link>
+										<Link to={href("/base/typography")}>Typography</Link>
 									</TabsTrigger>
 								</TabsList>
 							</Tabs>
@@ -136,7 +155,11 @@ export default function Page() {
 								</TabsList>
 							</Tabs>
 						</div>
-						<Tabs orientation="horizontal" defaultValue="account" className="w-100 max-w-[400px]">
+						<Tabs
+							orientation="horizontal"
+							defaultValue="account"
+							className="w-100 max-w-[400px]"
+						>
 							<TabsList>
 								<TabsTrigger value="account">
 									<User />
@@ -152,7 +175,10 @@ export default function Page() {
 								<Card>
 									<CardHeader>
 										<CardTitle>Account</CardTitle>
-										<p className="text-muted">Make changes to your account here. Click save when you're done.</p>
+										<p className="text-muted">
+											Make changes to your account here. Click save when you're
+											done.
+										</p>
 									</CardHeader>
 								</Card>
 							</TabsContent>
@@ -160,12 +186,19 @@ export default function Page() {
 								<Card>
 									<CardHeader>
 										<CardTitle>Password</CardTitle>
-										<p className="text-muted">Change your password here. After saving, you'll be logged out.</p>
+										<p className="text-muted">
+											Change your password here. After saving, you'll be logged
+											out.
+										</p>
 									</CardHeader>
 								</Card>
 							</TabsContent>
 						</Tabs>
-						<Tabs orientation="vertical" defaultValue="account" className="scrollbar max-w-xl overflow-x-scroll">
+						<Tabs
+							orientation="vertical"
+							defaultValue="account"
+							className="scrollbar max-w-xl overflow-x-scroll"
+						>
 							<TabsList>
 								<TabsTrigger value="account">Account</TabsTrigger>
 								<TabsTrigger value="password">Password</TabsTrigger>
@@ -177,7 +210,10 @@ export default function Page() {
 								<Card>
 									<CardHeader>
 										<CardTitle>Account</CardTitle>
-										<p className="text-muted">Make changes to your account here. Click save when you're done.</p>
+										<p className="text-muted">
+											Make changes to your account here. Click save when you're
+											done.
+										</p>
 									</CardHeader>
 								</Card>
 							</TabsContent>
@@ -185,7 +221,10 @@ export default function Page() {
 								<Card>
 									<CardHeader>
 										<CardTitle>Password</CardTitle>
-										<p className="text-muted">Change your password here. After saving, you'll be logged out.</p>
+										<p className="text-muted">
+											Change your password here. After saving, you'll be logged
+											out.
+										</p>
 									</CardHeader>
 								</Card>
 							</TabsContent>
@@ -279,7 +318,7 @@ export default function Page() {
 				<div>
 					<Example>
 						<Button appearance="filled" icon={<Fire weight="fill" />} asChild>
-							<Link to={route("/base/colors")}>See our colors!</Link>
+							<Link to={href("/base/colors")}>See our colors!</Link>
 						</Button>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
@@ -290,7 +329,7 @@ export default function Page() {
 								value={fmtCode`
 									import { Button } from "@ngrok/mantle/button";
 									import { Fire } from "@phosphor-icons/react";
-									import { Link } from "react-router-dom";
+									import { Link } from "react-router";
 
 									<Button appearance="filled" icon={<Fire weight="fill" />} asChild>
 										<Link to="/base/colors">See our colors!</Link>

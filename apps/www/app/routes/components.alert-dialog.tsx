@@ -13,9 +13,15 @@ import {
 } from "@ngrok/mantle/alert-dialog";
 import { Anchor } from "@ngrok/mantle/anchor";
 import { Button } from "@ngrok/mantle/button";
-import { CodeBlock, CodeBlockBody, CodeBlockCode, CodeBlockCopyButton, fmtCode } from "@ngrok/mantle/code-block";
+import {
+	CodeBlock,
+	CodeBlockBody,
+	CodeBlockCode,
+	CodeBlockCopyButton,
+	fmtCode,
+} from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
-import type { HeadersFunction, MetaFunction } from "@remix-run/node";
+import { href } from "react-router";
 import { Example } from "~/components/example";
 import { Link } from "~/components/link";
 import { PageHeader } from "~/components/page-header";
@@ -24,19 +30,23 @@ import {
 	PropDescriptionCell,
 	PropNameCell,
 	PropRow,
-	PropsTable,
 	PropTypeCell,
+	PropsTable,
 	StringPropType,
 } from "~/components/props-table";
+import type { Route } from "./+types/components.alert-dialog";
 
-export const meta: MetaFunction = () => {
+export const meta: Route.MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — AlertDialog" },
-		{ name: "description", content: "mantle is ngrok's UI library and design system" },
+		{
+			name: "description",
+			content: "mantle is ngrok's UI library and design system",
+		},
 	];
 };
 
-export const headers: HeadersFunction = () => {
+export const headers: Route.HeadersFunction = () => {
 	return {
 		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
 	};
@@ -46,11 +56,10 @@ export default function Page() {
 	return (
 		<div className="space-y-16">
 			<section className="space-y-4">
-				<PageHeader id="alert-dialog" isPreview>
-					Alert Dialog
-				</PageHeader>
+				<PageHeader id="alert-dialog">Alert Dialog</PageHeader>
 				<p className="font-body text-body text-xl">
-					A modal dialog that interrupts the user with important content and expects a response.
+					A modal dialog that interrupts the user with important content and
+					expects a response.
 				</p>
 				<div>
 					<Example className="flex-col gap-6">
@@ -64,15 +73,19 @@ export default function Page() {
 								<AlertDialogIcon />
 								<AlertDialogBody>
 									<AlertDialogHeader>
-										<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+										<AlertDialogTitle>
+											Are you absolutely sure?
+										</AlertDialogTitle>
 										<AlertDialogDescription>
-											This action cannot be undone. This will permanently delete your account and remove your data from
-											our servers.
+											This action cannot be undone. This will permanently delete
+											your account and remove your data from our servers.
 										</AlertDialogDescription>
 									</AlertDialogHeader>
 									<AlertDialogFooter>
 										<AlertDialogCancel type="button">Cancel</AlertDialogCancel>
-										<AlertDialogAction type="button">Continue</AlertDialogAction>
+										<AlertDialogAction type="button">
+											Continue
+										</AlertDialogAction>
 									</AlertDialogFooter>
 								</AlertDialogBody>
 							</AlertDialogContent>
@@ -87,15 +100,19 @@ export default function Page() {
 								<AlertDialogIcon />
 								<AlertDialogBody>
 									<AlertDialogHeader>
-										<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+										<AlertDialogTitle>
+											Are you absolutely sure?
+										</AlertDialogTitle>
 										<AlertDialogDescription>
-											This action cannot be undone. This will permanently delete your account and remove your data from
-											our servers.
+											This action cannot be undone. This will permanently delete
+											your account and remove your data from our servers.
 										</AlertDialogDescription>
 									</AlertDialogHeader>
 									<AlertDialogFooter>
 										<AlertDialogCancel type="button">Cancel</AlertDialogCancel>
-										<AlertDialogAction type="button">Continue</AlertDialogAction>
+										<AlertDialogAction type="button">
+											Continue
+										</AlertDialogAction>
 									</AlertDialogFooter>
 								</AlertDialogBody>
 							</AlertDialogContent>
@@ -111,10 +128,12 @@ export default function Page() {
 								<AlertDialogIcon />
 								<AlertDialogBody>
 									<AlertDialogHeader>
-										<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+										<AlertDialogTitle>
+											Are you absolutely sure?
+										</AlertDialogTitle>
 										<AlertDialogDescription>
-											This action cannot be undone. This will permanently delete your account and remove your data from
-											our servers.
+											This action cannot be undone. This will permanently delete
+											your account and remove your data from our servers.
 										</AlertDialogDescription>
 									</AlertDialogHeader>
 									<AlertDialogFooter>
@@ -125,7 +144,10 @@ export default function Page() {
 												window.alert("Form submitted!");
 											}}
 										>
-											<AlertDialogAction type="submit" className="w-full sm:w-fit">
+											<AlertDialogAction
+												type="submit"
+												className="w-full sm:w-fit"
+											>
 												Continue
 											</AlertDialogAction>
 										</form>
@@ -223,7 +245,8 @@ export default function Page() {
 						API Reference
 					</h2>
 					<p className="font-body text-body text-xl">
-						The <InlineCode>AlertDialog</InlineCode> components are built on top of{" "}
+						The <InlineCode>AlertDialog</InlineCode> components are built on top
+						of{" "}
 						<Anchor
 							href="https://www.radix-ui.com/primitives/docs/components/dialog"
 							target="_blank"
@@ -239,7 +262,9 @@ export default function Page() {
 					<header className="space-y-1">
 						<h3 className="text-xl font-medium">AlertDialog</h3>
 
-						<p className="font-body text-body">The root component for the Alert Dialog.</p>
+						<p className="font-body text-body">
+							The root component for the Alert Dialog.
+						</p>
 						<p className="font-body text-body">
 							All props from Radix{" "}
 							<Anchor
@@ -269,8 +294,9 @@ export default function Page() {
 							<PropDefaultValueCell />
 							<PropDescriptionCell>
 								<p>
-									Indicates the importance or impact level of the AlertDialog, affecting its color and styling to
-									communicate its purpose to the user.
+									Indicates the importance or impact level of the AlertDialog,
+									affecting its color and styling to communicate its purpose to
+									the user.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -280,7 +306,9 @@ export default function Page() {
 				<section className="space-y-1">
 					<h3 className="text-xl font-medium">AlertDialogTrigger</h3>
 
-					<p className="font-body text-body">A button that opens the Alert Dialog.</p>
+					<p className="font-body text-body">
+						A button that opens the Alert Dialog.
+					</p>
 					<p className="font-body text-body">
 						Radix{" "}
 						<Anchor
@@ -298,7 +326,8 @@ export default function Page() {
 					<h3 className="text-xl font-medium">AlertDialogContent</h3>
 
 					<p className="font-body text-body">
-						The popover Alert Dialog container. Renders on top of the overlay and is centered in the viewport.
+						The popover Alert Dialog container. Renders on top of the overlay
+						and is centered in the viewport.
 					</p>
 					<p className="font-body text-body">
 						Radix{" "}
@@ -317,7 +346,8 @@ export default function Page() {
 					<h3 className="text-xl font-medium">AlertDialogHeader</h3>
 
 					<p className="font-body text-body">
-						Contains the header content of the dialog, including the title and description.
+						Contains the header content of the dialog, including the title and
+						description.
 					</p>
 					<p className="font-body text-body">
 						Same props as a <InlineCode>{"<div>"}</InlineCode> element.
@@ -328,7 +358,8 @@ export default function Page() {
 					<h3 className="text-xl font-medium">AlertDialogFooter</h3>
 
 					<p className="font-body text-body">
-						Contains the footer content of the dialog, including the action and cancel buttons.
+						Contains the footer content of the dialog, including the action and
+						cancel buttons.
 					</p>
 					<p className="font-body text-body">
 						Same props as a <InlineCode>{"<div>"}</InlineCode> element.
@@ -338,10 +369,13 @@ export default function Page() {
 				<section className="space-y-1">
 					<h3 className="text-xl font-medium">AlertDialogTitle</h3>
 
-					<p className="font-body text-body">An accessible name to be announced when the dialog is opened.</p>
 					<p className="font-body text-body">
-						Alternatively, you can provide <InlineCode>aria-label</InlineCode> or{" "}
-						<InlineCode>aria-labelledby</InlineCode> to <InlineCode>AlertDialogContent</InlineCode> and exclude this
+						An accessible name to be announced when the dialog is opened.
+					</p>
+					<p className="font-body text-body">
+						Alternatively, you can provide <InlineCode>aria-label</InlineCode>{" "}
+						or <InlineCode>aria-labelledby</InlineCode> to{" "}
+						<InlineCode>AlertDialogContent</InlineCode> and exclude this
 						component.
 					</p>
 					<p className="font-body text-body">
@@ -360,10 +394,14 @@ export default function Page() {
 				<section className="space-y-1">
 					<h3 className="text-xl font-medium">AlertDialogDescription</h3>
 
-					<p className="font-body text-body">An accessible description to be announced when the dialog is opened.</p>
 					<p className="font-body text-body">
-						Alternatively, you can provide <InlineCode>aria-describedby</InlineCode> to{" "}
-						<InlineCode>AlertDialogContent</InlineCode> and exclude this component.
+						An accessible description to be announced when the dialog is opened.
+					</p>
+					<p className="font-body text-body">
+						Alternatively, you can provide{" "}
+						<InlineCode>aria-describedby</InlineCode> to{" "}
+						<InlineCode>AlertDialogContent</InlineCode> and exclude this
+						component.
 					</p>
 					<p className="font-body text-body">
 						Radix{" "}
@@ -382,18 +420,22 @@ export default function Page() {
 					<h3 className="text-xl font-medium">AlertDialogAction</h3>
 
 					<p className="font-body text-body">
-						A button that confirms the Alert Dialog action. Will default to <InlineCode>appearance="filled"</InlineCode>
-						, as well as the priority color from the <InlineCode>AlertDialog</InlineCode>. Does not close the alert
-						dialog by default.
+						A button that confirms the Alert Dialog action. Will default to{" "}
+						<InlineCode>appearance="filled"</InlineCode>, as well as the
+						priority color from the <InlineCode>AlertDialog</InlineCode>. Does
+						not close the alert dialog by default.
 					</p>
 					<p className="font-body text-body">
-						These buttons should be distinguished visually from the <InlineCode>AlertDialogCancel</InlineCode> button.
+						These buttons should be distinguished visually from the{" "}
+						<InlineCode>AlertDialogCancel</InlineCode> button.
 					</p>
 					<p className="font-body text-body">
-						Composes around the mantle <Link to="/components/button">Button</Link> component.
+						Composes around the mantle{" "}
+						<Link to={href("/components/button")}>Button</Link> component.
 					</p>
 					<p className="font-body text-body">
-						Same props as the <Link to="/components/button">Button</Link> component.
+						Same props as the{" "}
+						<Link to={href("/components/button")}>Button</Link> component.
 					</p>
 				</section>
 
@@ -401,17 +443,21 @@ export default function Page() {
 					<h3 className="text-xl font-medium">AlertDialogCancel</h3>
 
 					<p className="font-body text-body">
-						A button that closes the dialog and cancels the action. Will default to{" "}
-						<InlineCode>appearance="outlined"</InlineCode> and <InlineCode>priority="neutral"</InlineCode>.
+						A button that closes the dialog and cancels the action. Will default
+						to <InlineCode>appearance="outlined"</InlineCode> and{" "}
+						<InlineCode>priority="neutral"</InlineCode>.
 					</p>
 					<p className="font-body text-body">
-						This button should be distinguished visually from <InlineCode>AlertDialogAction</InlineCode> buttons.
+						This button should be distinguished visually from{" "}
+						<InlineCode>AlertDialogAction</InlineCode> buttons.
 					</p>
 					<p className="font-body text-body">
-						Composes around the mantle <Link to="/components/button">Button</Link> component.
+						Composes around the mantle{" "}
+						<Link to={href("/components/button")}>Button</Link> component.
 					</p>
 					<p className="font-body text-body">
-						Same props as the <Link to="/components/button">Button</Link> component.
+						Same props as the{" "}
+						<Link to={href("/components/button")}>Button</Link> component.
 					</p>
 				</section>
 			</section>

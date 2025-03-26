@@ -8,7 +8,9 @@ type Props = PropsWithChildren<{ container?: HTMLElement | null }>;
  *
  * Render children into a different part of the DOM.
  */
-const Portal = ({ children, container }: Props) => <>{container ? createPortal(children, container) : null}</>;
+const Portal = ({ children, container }: Props) => (
+	<>{container ? createPortal(children, container) : null}</>
+);
 
 // MARK: - Exports
 

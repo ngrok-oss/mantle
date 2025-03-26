@@ -9,20 +9,26 @@ import {
 	fmtCode,
 } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
-import { PreloadFonts, preventWrongThemeFlashScriptContent } from "@ngrok/mantle/theme-provider";
+import {
+	PreloadFonts,
+	preventWrongThemeFlashScriptContent,
+} from "@ngrok/mantle/theme-provider";
 import { FileText } from "@phosphor-icons/react/FileText";
-import type { HeadersFunction, MetaFunction } from "@remix-run/node";
-import { PageHeader } from "~/components/page-header";
 import { renderToStaticMarkup } from "react-dom/server";
+import { PageHeader } from "~/components/page-header";
+import type { Route } from "./+types/components.theme-provider";
 
-export const meta: MetaFunction = () => {
+export const meta: Route.MetaFunction = () => {
 	return [
 		{ title: "@ngrok/mantle — Theme Provider" },
-		{ name: "description", content: "mantle is ngrok's UI library and design system" },
+		{
+			name: "description",
+			content: "mantle is ngrok's UI library and design system",
+		},
 	];
 };
 
-export const headers: HeadersFunction = () => {
+export const headers: Route.HeadersFunction = () => {
 	return {
 		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
 	};
@@ -34,19 +40,21 @@ export default function Page() {
 			<header className="space-y-4">
 				<PageHeader id="theme-provider">Theme Provider</PageHeader>
 				<p className="font-body text-body text-xl">
-					ThemeProvider is a React Context Provider that provides the current theme to the application and a function to
-					change it.
+					ThemeProvider is a React Context Provider that provides the current
+					theme to the application and a function to change it.
 				</p>
 			</header>
 			<section className="font-body text-body space-y-4">
 				<p>
-					To use the <InlineCode>ThemeProvider</InlineCode>, wrap your application&apos;s entry point. This should be
-					done as high in the component tree as possible.
+					To use the <InlineCode>ThemeProvider</InlineCode>, wrap your
+					application&apos;s entry point. This should be done as high in the
+					component tree as possible.
 				</p>
 				<p>
-					You should also add the <InlineCode>MantleThemeHeadContent</InlineCode> component to the head of your
-					application to prevent a Flash of Unstyled Content (FOUC) when the app first loads as well as preload all of
-					our custom fonts.
+					You should also add the{" "}
+					<InlineCode>MantleThemeHeadContent</InlineCode> component to the head
+					of your application to prevent a Flash of Unstyled Content (FOUC) when
+					the app first loads as well as preload all of our custom fonts.
 				</p>
 				<CodeBlock>
 					<CodeBlockHeader>
@@ -89,9 +97,11 @@ export default function Page() {
 			</section>
 			<section className="space-y-4">
 				<p className="font-body text-body">
-					Sometimes you cannot use the <InlineCode>MantleThemeHeadContent</InlineCode> component because your webserver
-					is not able to render React components. In this case, you can use the copy the following script and add it to
-					your application&apos;s <InlineCode>&lt;head&gt;</InlineCode>:
+					Sometimes you cannot use the{" "}
+					<InlineCode>MantleThemeHeadContent</InlineCode> component because your
+					webserver is not able to render React components. In this case, you
+					can use the copy the following script and add it to your
+					application&apos;s <InlineCode>&lt;head&gt;</InlineCode>:
 				</p>
 				<CodeBlock>
 					<CodeBlockHeader>
@@ -113,8 +123,8 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 			</section>
 			<section className="space-y-4">
 				<p className="font-body text-body">
-					You will also need to ensure that you add the <InlineCode>PreloadFonts</InlineCode> component to your app as
-					well.
+					You will also need to ensure that you add the{" "}
+					<InlineCode>PreloadFonts</InlineCode> component to your app as well.
 				</p>
 				<CodeBlock>
 					<CodeBlockHeader>
@@ -134,8 +144,9 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 			</section>
 			<section className="space-y-4">
 				<p className="font-body text-body">
-					Then, in your application, you can use the <InlineCode>useTheme</InlineCode> hook to get and change the
-					current theme:
+					Then, in your application, you can use the{" "}
+					<InlineCode>useTheme</InlineCode> hook to get and change the current
+					theme:
 				</p>
 				<CodeBlock>
 					<CodeBlockHeader>
