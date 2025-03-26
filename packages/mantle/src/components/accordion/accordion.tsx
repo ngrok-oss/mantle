@@ -57,7 +57,7 @@ const AccordionTriggerIcon = ({
 }: Omit<IconProps, "svg">) => (
 	<Icon
 		{...props}
-		svg={<CaretDown weight="bold" />}
+		svg={<CaretDown weight="fill" />}
 		className={cx("group-data-state-open:rotate-0 -rotate-90", className)}
 	/>
 );
