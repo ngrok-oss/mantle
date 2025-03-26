@@ -11,6 +11,7 @@ import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Table, TableBody, TableCell, TableRow } from "@ngrok/mantle/table";
 import { href } from "react-router";
 import { Link } from "~/components/link";
+import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/_index";
 
 export const meta: Route.MetaFunction = () => {
@@ -32,7 +33,7 @@ export const headers: Route.HeadersFunction = () => {
 export default function Page() {
 	return (
 		<div>
-			<h1 className="text-5xl font-medium">Mantle</h1>
+			<PageHeader id="mantle">Mantle</PageHeader>
 			<p className="font-weight font-body text-body mt-4 text-xl">
 				Mantle is <Anchor href="https://ngrok.com">ngrok</Anchor>
 				&rsquo;s UI library and design system that powers its front-end.
