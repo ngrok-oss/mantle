@@ -31,7 +31,7 @@ import {
 	PropTypeCell,
 	PropsTable,
 } from "~/components/props-table";
-import type { Route } from "./+types/components.sheet";
+import type { Route } from "./+types/components.sandboxed-on-click";
 
 export const meta: Route.MetaFunction = () => {
 	return [
@@ -98,7 +98,7 @@ export default function Page() {
 	return (
 		<div className="space-y-16">
 			<section className="space-y-4">
-				<PageHeader id="sheet">SandboxedOnClick</PageHeader>
+				<PageHeader id="sandboxed-on-click">SandboxedOnClick</PageHeader>
 				<p className="font-body text-body text-xl">
 					A container that prevents the click event from bubbling out of it.
 				</p>
