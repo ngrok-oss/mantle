@@ -1,4 +1,5 @@
 import { Anchor } from "@ngrok/mantle/anchor";
+import { Button } from "@ngrok/mantle/button";
 import {
 	CodeBlock,
 	CodeBlockBody,
@@ -9,7 +10,9 @@ import {
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Label } from "@ngrok/mantle/label";
 import { TextArea } from "@ngrok/mantle/text-area";
+import { useForm } from "@tanstack/react-form";
 import type { DragEvent } from "react";
+import { z } from "zod";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import {
@@ -55,7 +58,9 @@ export default function Page() {
 			<section className="space-y-4">
 				<PageHeader id="textarea">TextArea</PageHeader>
 				<p className="font-body text-body text-xl">
-					Displays a form textarea or a component that looks like a textarea.
+					A multi-line plain-text editing control, useful when you want to allow
+					users to enter a sizeable amount of free-form text, for example a
+					comment on a review or feedback form.
 				</p>
 
 				<div>
@@ -116,6 +121,125 @@ export default function Page() {
 						</CodeBlockBody>
 					</CodeBlock>
 				</div>
+			</section>
+
+			<section className="space-y-8">
+				<header className="space-y-4">
+					<h2 id="examples" className="text-3xl font-medium">
+						Examples
+					</h2>
+				</header>
+
+				<section className="space-y-4">
+					<header className="space-y-1">
+						<h3 className="text-xl font-medium">
+							TextArea in a form with client-side validation
+						</h3>
+						<p className="font-body text-body">
+							In this example, the <InlineCode>TextArea</InlineCode> is used in
+							a form with client-side validation. The form is built using{" "}
+							<InlineCode>
+								<Anchor href="https://tanstack.com/form/latest/docs">
+									@tanstack/react-form
+								</Anchor>
+							</InlineCode>
+							and <InlineCode>zod</InlineCode> for validation. The form accepts
+							user feedback and validates the input before submission.
+						</p>
+					</header>
+					<div>
+						<Example className="flex-col w-full">
+							<FormExample />
+						</Example>
+						<CodeBlock className="rounded-b-lg rounded-t-none">
+							<CodeBlockBody>
+								<CodeBlockCopyButton />
+								<CodeBlockCode
+									language="tsx"
+									value={fmtCode`
+										import { Button } from "@ngrok/mantle/button";
+										import { Label } from "@ngrok/mantle/label";
+										import { TextArea } from "@ngrok/mantle/text-area";
+										import { useForm } from "@tanstack/react-form";
+										import { z } from "zod";
+										import { useSubmit } from "react-router";
+
+										const formSchema = z.object({
+											feedback: z.string().trim().min(1, "Please enter your feedback."),
+										});
+
+										type FormValues = z.infer<typeof formSchema>;
+
+										function FormExample() {
+											const submit = useSubmit();
+											const form = useForm({
+												defaultValues: {
+													feedback: "",
+												} satisfies FormValues,
+												validators: {
+													onSubmit: formSchema,
+												},
+												onSubmit: ({ value }) => {
+													// Handle form submission here
+													submit(value, {
+														method: "post",
+													});
+												},
+											});
+
+											return (
+												<form
+													className="space-y-4"
+													onSubmit={(event) => {
+														event.preventDefault();
+														event.stopPropagation();
+														void form.handleSubmit();
+													}}
+												>
+													<div className="space-y-1">
+														<Label className="block">Feedback:</Label>
+														<form.Field name="feedback">
+															{(field) => (
+																<TextArea
+																	id={field.name}
+																	name={field.name}
+																	onBlur={field.handleBlur}
+																	onChange={(event) => field.handleChange(event.target.value)}
+																	placeholder="Tell us about your experience…"
+																	validation={field.state.meta.errors.length > 0 && "error"}
+																	value={field.state.value}
+																/>
+															)}
+														</form.Field>
+														<form.Field name="feedback">
+															{(field) =>
+																field.state.meta.errors.map((error) => (
+																	<p
+																		key={error?.message}
+																		className="text-sm leading-4 text-danger-600"
+																	>
+																		{error?.message}
+																	</p>
+																))
+															}
+														</form.Field>
+													</div>
+													<form.Subscribe selector={(state) => state.isDirty}>
+														{(isDirty) => (
+															<Button type="submit" appearance="filled" disabled={!isDirty}>
+																Submit
+															</Button>
+														)}
+													</form.Subscribe>
+												</form>
+											);
+										}
+									`}
+								/>
+							</CodeBlockBody>
+						</CodeBlock>
+					</div>
+				</section>
 			</section>
 
 			<section className="space-y-4">
@@ -193,5 +317,73 @@ export default function Page() {
 				</PropsTable>
 			</section>
 		</div>
+	);
+}
+
+const formSchema = z.object({
+	feedback: z.string().trim().min(1, "Please enter your feedback."),
+});
+
+type FormValues = z.infer<typeof formSchema>;
+
+function FormExample() {
+	const form = useForm({
+		defaultValues: {
+			feedback: "",
+		} satisfies FormValues,
+		validators: {
+			onSubmit: formSchema,
+		},
+		onSubmit: ({ value }) => {
+			// Handle form submission here
+			window.alert(`Feedback submitted: ${JSON.stringify(value, null, 2)}`);
+		},
+	});
+
+	return (
+		<form
+			className="space-y-4 w-full"
+			onSubmit={(event) => {
+				event.preventDefault();
+				event.stopPropagation();
+				void form.handleSubmit();
+			}}
+		>
+			<div className="space-y-1">
+				<Label className="block">Feedback:</Label>
+				<form.Field name="feedback">
+					{(field) => (
+						<TextArea
+							id={field.name}
+							name={field.name}
+							onBlur={field.handleBlur}
+							onChange={(event) => field.handleChange(event.target.value)}
+							placeholder="Tell us about your experience…"
+							validation={field.state.meta.errors.length > 0 && "error"}
+							value={field.state.value}
+						/>
+					)}
+				</form.Field>
+				<form.Field name="feedback">
+					{(field) =>
+						field.state.meta.errors.map((error) => (
+							<p
+								key={error?.message}
+								className="text-sm leading-4 text-danger-600"
+							>
+								{error?.message}
+							</p>
+						))
+					}
+				</form.Field>
+			</div>
+			<form.Subscribe selector={(state) => state.isDirty}>
+				{(isDirty) => (
+					<Button type="submit" appearance="filled" disabled={!isDirty}>
+						Submit
+					</Button>
+				)}
+			</form.Subscribe>
+		</form>
 	);
 }
