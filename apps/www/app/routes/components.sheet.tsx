@@ -326,6 +326,120 @@ export default function Page() {
 						</CodeBlock>
 					</div>
 				</section>
+
+				<section className="space-y-4">
+					<header className="space-y-1">
+						<h3 className="text-xl font-medium">
+							Setting a preferred width of the Sheet
+						</h3>
+						<p className="font-body text-body">
+							You can control the{" "}
+							<span className="italic">preferred width</span> of the{" "}
+							<InlineCode>SheetContent</InlineCode> by using the{" "}
+							<InlineCode>preferredWidth</InlineCode> prop:
+						</p>
+					</header>
+					<div>
+						<Example>
+							<Sheet>
+								<SheetTrigger asChild>
+									<Button type="button" appearance="filled">
+										Open 800px wide Sheet
+									</Button>
+								</SheetTrigger>
+								<SheetContent preferredWidth="sm:max-w-[800px]">
+									<SheetHeader>
+										<SheetTitleGroup>
+											<SheetTitle>
+												Tempor pariatur fugiat fugiat cupidatat velit.
+											</SheetTitle>
+											<SheetActions>
+												<SheetCloseIconButton />
+											</SheetActions>
+										</SheetTitleGroup>
+									</SheetHeader>
+									<SheetBody className="space-y-4">
+										<p>
+											Consequat do voluptate culpa fugiat consequat nostrud duis
+											aliqua minim. Tempor voluptate cillum elit velit.
+											Voluptate aliqua ipsum aliqua dolore in nisi ea fugiat
+											aliqua velit proident amet.
+										</p>
+									</SheetBody>
+									<SheetFooter>
+										<SheetClose asChild>
+											<Button type="button">Close</Button>
+										</SheetClose>
+										<Button type="button" appearance="filled">
+											Save
+										</Button>
+									</SheetFooter>
+								</SheetContent>
+							</Sheet>
+						</Example>
+						<CodeBlock className="rounded-b-lg rounded-t-none">
+							<CodeBlockBody>
+								<CodeBlockCopyButton />
+								<CodeBlockCode
+									language="tsx"
+									value={fmtCode`
+										import { Button } from "@ngrok/mantle/button";
+										import {
+											Sheet,
+											SheetActions,
+											SheetBody,
+											SheetClose,
+											SheetCloseIconButton,
+											SheetContent,
+											SheetFooter,
+											SheetHeader,
+											SheetTitle,
+											SheetTitleGroup,
+											SheetTrigger,
+										} from "@ngrok/mantle/sheet";
+										
+										<Sheet>
+											<SheetTrigger asChild>
+												<Button type="button" appearance="filled">
+													Open 800px wide Sheet
+												</Button>
+											</SheetTrigger>
+											{/* using the 👇 \`preferredWidth\` prop */}
+											<SheetContent preferredWidth="sm:max-w-[800px]">
+												<SheetHeader>
+													<SheetTitleGroup>
+														<SheetTitle>
+															Tempor pariatur fugiat fugiat cupidatat velit.
+														</SheetTitle>
+														<SheetActions>
+															<SheetCloseIconButton />
+														</SheetActions>
+													</SheetTitleGroup>
+												</SheetHeader>
+												<SheetBody className="space-y-4">
+													<p>
+														Consequat do voluptate culpa fugiat consequat nostrud duis
+														aliqua minim. Tempor voluptate cillum elit velit.
+														Voluptate aliqua ipsum aliqua dolore in nisi ea fugiat
+														aliqua velit proident amet.
+													</p>
+												</SheetBody>
+												<SheetFooter>
+													<SheetClose asChild>
+														<Button type="button">Close</Button>
+													</SheetClose>
+													<Button type="button" appearance="filled">
+														Save
+													</Button>
+												</SheetFooter>
+											</SheetContent>
+										</Sheet>
+									`}
+								/>
+							</CodeBlockBody>
+						</CodeBlock>
+					</div>
+				</section>
 			</section>
 
 			<section className="space-y-8">
@@ -457,6 +571,24 @@ export default function Page() {
 					</header>
 
 					<PropsTable>
+						<PropRow>
+							<PropNameCell name="preferredWidth" optional />
+							<PropTypeCell>
+								<StringPropType />
+							</PropTypeCell>
+							<PropDefaultValueCell>
+								<StringPropType value="sm:max-w-[30rem]" />
+							</PropDefaultValueCell>
+							<PropDescriptionCell>
+								<p>
+									The preferred width of the{" "}
+									<InlineCode>SheetContent</InlineCode> as a tailwind{" "}
+									<InlineCode>max-w-</InlineCode> class. This is used to set the
+									max width of the <InlineCode>Sheet</InlineCode> when it is
+									open and the viewport is larger than mobile width.
+								</p>
+							</PropDescriptionCell>
+						</PropRow>
 						<PropRow>
 							<PropNameCell name="side" optional />
 							<PropTypeCell>

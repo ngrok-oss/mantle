@@ -201,19 +201,16 @@ const SheetOverlay = forwardRef<
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName;
 
 const SheetVariants = cva(
-	"bg-dialog data-state-closed:duration-100 data-state-closed:animate-out data-state-open:duration-100 data-state-open:animate-in fixed z-40 flex flex-col shadow-lg outline-none transition ease-in-out focus-within:outline-none",
+	"bg-dialog border-dialog inset-y-0 h-full w-full fixed z-40 flex flex-col shadow-lg outline-none transition ease-in-out focus-within:outline-none data-state-closed:duration-100 data-state-closed:animate-out data-state-open:duration-100 data-state-open:animate-in",
 	{
 		variants: {
 			/**
 			 * The side of the screen the sheet should slide in from.
 			 */
 			side: {
-				top: "border-dialog data-state-closed:slide-out-to-top data-state-open:slide-in-from-top inset-x-0 top-0 border-b",
-				bottom:
-					"border-dialog data-state-closed:slide-out-to-bottom data-state-open:slide-in-from-bottom inset-x-0 bottom-0 border-t",
-				left: "border-dialog data-state-closed:slide-out-to-left data-state-open:slide-in-from-left inset-y-0 left-0 h-full w-full border-r sm:max-w-[30rem]",
+				left: "data-state-closed:slide-out-to-left data-state-open:slide-in-from-left left-0 border-r",
 				right:
-					"border-dialog data-state-closed:slide-out-to-right data-state-open:slide-in-from-right inset-y-0 right-0 h-full w-full border-l sm:max-w-[30rem]",
+					"data-state-closed:slide-out-to-right data-state-open:slide-in-from-right right-0 border-l",
 			},
 		},
 		defaultVariants: {
@@ -222,10 +219,19 @@ const SheetVariants = cva(
 	},
 );
 
-type SheetContentProps = {} & ComponentPropsWithoutRef<
+type SheetContentProps = ComponentPropsWithoutRef<
 	typeof SheetPrimitive.Content
 > &
-	VariantProps<typeof SheetVariants>;
+	VariantProps<typeof SheetVariants> & {
+		/**
+		 * The preferred width of the `SheetContent` as a tailwind `max-w-` class.
+		 * This is used to set the max width of the `Sheet` when it is open and the
+		 * viewport is larger than mobile width.
+		 *
+		 * @default `sm:max-w-[30rem]`
+		 */
+		preferredWidth?: `sm:max-w-${string}`;
+	};
 
 /**
  * The main container for a `Sheet`. Should be rendered as a child of the `Sheet` component.
@@ -284,6 +290,7 @@ const SheetContent = forwardRef<ComponentRef<"div">, SheetContentProps>(
 			className,
 			onInteractOutside,
 			onPointerDownOutside,
+			preferredWidth = "sm:max-w-[30rem]",
 			side = "right",
 			...props
 		},
@@ -292,7 +299,7 @@ const SheetContent = forwardRef<ComponentRef<"div">, SheetContentProps>(
 		<SheetPortal>
 			<SheetOverlay />
 			<SheetPrimitive.Content
-				className={cx(SheetVariants({ side }), className)}
+				className={cx(SheetVariants({ side }), preferredWidth, className)}
 				onInteractOutside={(event) => {
 					preventCloseOnPromptInteraction(event);
 					onInteractOutside?.(event);
