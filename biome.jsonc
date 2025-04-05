@@ -36,6 +36,7 @@
 		"enabled": true,
 		"rules": {
 			"a11y": {
+				"noBlankTarget": "off",
 				"noInteractiveElementToNoninteractiveRole": "info",
 				"noSvgWithoutTitle": "info",
 				"useAnchorContent": "info"
