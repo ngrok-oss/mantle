@@ -1,5 +1,21 @@
 # @ngrok/mantle
 
+## 0.23.0
+
+### Minor Changes
+
+- [#478](https://github.com/ngrok-oss/mantle/pull/478) [`1b8857b`](https://github.com/ngrok-oss/mantle/commit/1b8857b0bfc23b027ffadf29f3bb8eb9a7535181) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add SandboxedOnClick component
+
+- [#477](https://github.com/ngrok-oss/mantle/pull/477) [`de42d20`](https://github.com/ngrok-oss/mantle/commit/de42d2073df5d23609df63606e2ebbd9c4565e5b) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - SheetContent: add preferredWidth prop, remove side: "top" and "bottom" options
+
+### Patch Changes
+
+- [#469](https://github.com/ngrok-oss/mantle/pull/469) [`d879af8`](https://github.com/ngrok-oss/mantle/commit/d879af88e3aff48523b94cd618dee720813ba878) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update dependencies, add dependabot config, clean up scripts
+
+- [#479](https://github.com/ngrok-oss/mantle/pull/479) [`e775e11`](https://github.com/ngrok-oss/mantle/commit/e775e1115626eb7b38480e36507e44d74ac45b5f) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - PopoverContent: prevent click events from bubbling out of the PopoverContent container
+
+- [#480](https://github.com/ngrok-oss/mantle/pull/480) [`c87c906`](https://github.com/ngrok-oss/mantle/commit/c87c906f5d91c6d5988097eb8ca8f461038355a0) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - TextArea: improve docs and intellisense
+
 ## 0.22.2
 
 ### Patch Changes
