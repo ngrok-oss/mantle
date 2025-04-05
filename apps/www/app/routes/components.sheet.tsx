@@ -333,9 +333,13 @@ export default function Page() {
 							Setting a preferred width of the Sheet
 						</h3>
 						<p className="font-body text-body">
-							You can control the{" "}
-							<span className="italic">preferred width</span> of the{" "}
-							<InlineCode>SheetContent</InlineCode> by using the{" "}
+							By default, a <InlineCode>Sheet</InlineCode>'s content width is
+							responsive with a default{" "}
+							<span className="italic">preferred width</span>: the maximum width
+							of the <InlineCode>SheetContent</InlineCode> when the window
+							viewport is larger than the mobile breakpoint (
+							<InlineCode>sm</InlineCode>). You can control the preferred width
+							of the <InlineCode>SheetContent</InlineCode> by using the{" "}
 							<InlineCode>preferredWidth</InlineCode> prop:
 						</p>
 					</header>
@@ -583,9 +587,15 @@ export default function Page() {
 								<p>
 									The preferred width of the{" "}
 									<InlineCode>SheetContent</InlineCode> as a tailwind{" "}
-									<InlineCode>max-w-</InlineCode> class. This is used to set the
-									max width of the <InlineCode>Sheet</InlineCode> when it is
-									open and the viewport is larger than mobile width.
+									<InlineCode>max-w-</InlineCode> class.
+								</p>
+								<p>
+									By default, a <InlineCode>Sheet</InlineCode>'s content width
+									is responsive with a default{" "}
+									<span className="italic">preferred width</span>: the maxiumum
+									width of the <InlineCode>SheetContent</InlineCode> when the
+									window viewport is larger than the mobile breakpoint (
+									<InlineCode>sm</InlineCode>).
 								</p>
 							</PropDescriptionCell>
 						</PropRow>

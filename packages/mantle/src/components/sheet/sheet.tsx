@@ -225,8 +225,10 @@ type SheetContentProps = ComponentPropsWithoutRef<
 	VariantProps<typeof SheetVariants> & {
 		/**
 		 * The preferred width of the `SheetContent` as a tailwind `max-w-` class.
-		 * This is used to set the max width of the `Sheet` when it is open and the
-		 * viewport is larger than mobile width.
+		 *
+		 * By default, a `Sheet`'s content width is responsive with a default
+		 * preferred width: the maximum width of the `SheetContent` when the window
+		 * viewport is larger than the mobile breakpoint (`sm`).
 		 *
 		 * @default `sm:max-w-[30rem]`
 		 */
