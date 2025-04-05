@@ -197,7 +197,9 @@ export default function Page() {
 													}}
 												>
 													<div className="space-y-1">
-														<Label className="block">Feedback:</Label>
+														<Label htmlFor="feedback" className="block">
+															Feedback:
+														</Label>
 														<form.Field name="feedback">
 															{(field) => (
 																<TextArea
@@ -350,7 +352,9 @@ function FormExample() {
 			}}
 		>
 			<div className="space-y-1">
-				<Label className="block">Feedback:</Label>
+				<Label htmlFor="feedback" className="block">
+					Feedback:
+				</Label>
 				<form.Field name="feedback">
 					{(field) => (
 						<TextArea
