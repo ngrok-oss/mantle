@@ -45,13 +45,13 @@ export default function Page() {
 								</p>
 							</div>
 							<Separator className="my-4" />
-							<Separator className="my-4" decorative={false} />
+							<Separator className="my-4" semantic />
 							<div className="flex h-5 items-center gap-4 text-sm">
-								<div>Blog</div>
+								Blog
 								<Separator orientation="vertical" />
-								<div>Docs</div>
+								Docs
 								<Separator orientation="vertical" />
-								<div>Source</div>
+								Source
 							</div>
 							<HorizontalSeparatorGroup>
 								<Separator />
@@ -82,12 +82,13 @@ export default function Page() {
 									<p className="text-muted-foreground text-sm">An open-source UI component library.</p>
 								</div>
 								<Separator className="my-4" />
-								<div className="flex h-5 items-center space-x-4 text-sm">
-									<div>Blog</div>
+								<Separator className="my-4" semantic />
+								<div className="flex h-5 items-center gap-4 text-sm">
+									Blog
 									<Separator orientation="vertical" />
-									<div>Docs</div>
+									Docs
 									<Separator orientation="vertical" />
-									<div>Source</div>
+									Source
 								</div>
 								<HorizontalSeparatorGroup>
 									<Separator />
