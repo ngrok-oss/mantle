@@ -1,5 +1,15 @@
 # @ngrok/mantle
 
+## 0.23.0
+
+### Minor Changes
+
+- [#477](https://github.com/ngrok-oss/mantle/pull/477) [`de42d20`](https://github.com/ngrok-oss/mantle/commit/de42d2073df5d23609df63606e2ebbd9c4565e5b) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - SheetContent: add preferredWidth prop, remove side: "top" and "bottom" options
+
+### Patch Changes
+
+- [#469](https://github.com/ngrok-oss/mantle/pull/469) [`d879af8`](https://github.com/ngrok-oss/mantle/commit/d879af88e3aff48523b94cd618dee720813ba878) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update dependencies, add dependabot config, clean up scripts
+
 ## 0.22.2
 
 ### Patch Changes
