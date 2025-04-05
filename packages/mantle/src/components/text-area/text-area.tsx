@@ -1,27 +1,9 @@
-import { cva } from "class-variance-authority";
+import type { ComponentProps, ComponentRef } from "react";
 import { forwardRef, useRef, useState } from "react";
-import type { TextareaHTMLAttributes } from "react";
-import type { VariantProps } from "../../types/variant-props.js";
 import { cx } from "../../utils/cx/cx.js";
 import type { WithValidation } from "../input/types.js";
 
-const textAreaVariants = cva(
-	"border-input bg-form data-drag-over:border-dashed data-drag-over:ring-4 flex min-h-24 w-full rounded-md border px-3 py-[calc(theme(spacing[2.5])-1px)] text-base focus-visible:outline-none focus-visible:ring-4 disabled:pointer-events-none disabled:opacity-50 sm:py-[calc(theme(spacing[2])-1px)] sm:text-sm",
-	{
-		variants: {
-			/**
-			 * The visual style of the textarea.
-			 */
-			appearance: {
-				monospaced: "font-mono text-[0.9375rem] sm:text-[0.8125rem]",
-			},
-		},
-	},
-);
-
-export type TextAreaVariants = VariantProps<typeof textAreaVariants>;
-
-export type TextAreaProps = TextareaHTMLAttributes<HTMLTextAreaElement> &
+type Props = ComponentProps<"textarea"> &
 	WithValidation & {
 		/**
 		 * The visual style of the textarea.
@@ -29,7 +11,27 @@ export type TextAreaProps = TextareaHTMLAttributes<HTMLTextAreaElement> &
 		appearance?: "monospaced";
 	};
 
-const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
+/**
+ * A multi-line plain-text editing control, useful when you want to allow users
+ * to enter a sizeable amount of free-form text, for example a comment on a
+ * review or feedback form.
+ *
+ * @see https://mantle.ngrok.com/components/text-area#api
+ *
+ * @example
+ * ```tsx
+ * <form>
+ *   <div>
+ *     <Label htmlFor="feedback">Feedback:</Label>
+ *     <TextArea
+ *       id="feedback"
+ *       name="feedback"
+ *       placeholder="Enter your feedback here"
+ *     />
+ *   </div>
+ * </form>
+ */
+const TextArea = forwardRef<ComponentRef<"textarea">, Props>(
 	(
 		{
 			appearance,
@@ -66,7 +68,6 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
 					"data-validation-error:border-danger-600 data-validation-error:ring-focus-danger data-validation-error:focus-visible:border-danger-600 data-validation-error:data-drag-over:border-danger-600",
 					"data-validation-success:border-success-600 data-validation-success:ring-focus-success data-validation-success:focus-visible:border-success-600 data-validation-success:data-drag-over:border-success-600",
 					"data-validation-warning:border-warning-600 data-validation-warning:ring-focus-warning data-validation-warning:focus-visible:border-warning-600 data-validation-warning:data-drag-over:border-warning-600",
-					//,
 					className,
 				)}
 				data-drag-over={isDragOver}
@@ -98,4 +99,12 @@ const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
 );
 TextArea.displayName = "TextArea";
 
-export { TextArea };
+export {
+	//,
+	TextArea,
+};
+
+export type {
+	//,
+	Props as TextAreaProps,
+};

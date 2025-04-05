@@ -128,15 +128,8 @@ export type WithInputType = {
  * @example
  * the false type is useful when using short-circuiting logic, e.g.
  *
- * ```
- * validation={Boolean(formState.errors.name) && "error"}
- * ```
- *
- * if `formState.errors.name` is falsey, then the input will show default presentation
- * this prevents you from having to use a ternary with `undefined`, e.g.
- *
- * ```
- * validation={Boolean(formState.errors.name) ? "error" : undefined}
+ * ```tsx
+ * validation={field.state.meta.errors.length > 0 && "error"}
  * ```
  */
 export type Validation = "error" | "success" | "warning" | false;
@@ -154,15 +147,8 @@ export type WithValidation = {
 	 * @example
 	 * the false type is useful when using short-circuiting logic, e.g.
 	 *
-	 * ```
-	 * validation={Boolean(formState.errors.name) && "error"}
-	 * ```
-	 *
-	 * if `formState.errors.name` is falsey, then the input will show default presentation
-	 * this prevents you from having to use a ternary with `undefined`, e.g.
-	 *
-	 * ```
-	 * validation={Boolean(formState.errors.name) ? "error" : undefined}
+	 * ```tsx
+	 * validation={field.state.meta.errors.length > 0 && "error"}
 	 * ```
 	 */
 	validation?: Validation | (() => Validation);
