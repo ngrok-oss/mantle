@@ -103,3 +103,8 @@ export {
 	//,
 	TextArea,
 };
+
+export type {
+	//,
+	Props as TextAreaProps,
+};
