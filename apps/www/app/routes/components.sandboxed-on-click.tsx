@@ -291,10 +291,10 @@ export default function Page() {
 									the <InlineCode>onClick</InlineCode> handler if the user has
 									not set <InlineCode>allowClickEventDefault</InlineCode> to
 									<InlineCode>true</InlineCode>.
-									<p>
-										This allows the user to control whether or not the default
-										behavior of the click event should be allowed.
-									</p>
+								</p>
+								<p>
+									This allows the user to control whether or not the default
+									behavior of the click event should be allowed.
 								</p>
 								<p>
 									This is useful for links or buttons that should navigate or

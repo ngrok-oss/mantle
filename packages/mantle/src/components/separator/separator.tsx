@@ -14,7 +14,8 @@ type SeparatorGroupContextShape = {
 const SeparatorGroupContext = createContext<SeparatorGroupContextShape>({});
 
 /**
- * A container to layout a group of horizontal separators.
+ * A container to layout a group of horizontal separators and other children.
+ * Overrides all children `Separator`s to be `orientation="horizontal"`.
  *
  * @see https://mantle.ngrok.com/components/separator#api-horizontal-separator-group
  *
@@ -64,7 +65,7 @@ const HorizontalSeparatorGroup = ({
 type SeparatorProps = ComponentProps<"div"> &
 	WithAsChild & {
 		/**
-		 * Either `vertical` or `horizontal`.
+		 * Either `horizontal` or `vertical`.
 		 *
 		 * @default "horizontal"
 		 */
