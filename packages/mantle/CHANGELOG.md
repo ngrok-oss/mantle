@@ -1,5 +1,15 @@
 # @ngrok/mantle
 
+## 0.23.1
+
+### Patch Changes
+
+- [#486](https://github.com/ngrok-oss/mantle/pull/486) [`671867c`](https://github.com/ngrok-oss/mantle/commit/671867cb3a23797a28a0434b86e1be1f6df28955) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Switch: improve intellisense and docs, fix readOnly prop
+
+- [#483](https://github.com/ngrok-oss/mantle/pull/483) [`247bbc4`](https://github.com/ngrok-oss/mantle/commit/247bbc45dde598f90862ebd051be8fad695f9312) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Separator, ProgressDonut: improve docs and intellisense
+
+- [#485](https://github.com/ngrok-oss/mantle/pull/485) [`13d21f3`](https://github.com/ngrok-oss/mantle/commit/13d21f3d01ae93300fc379c8439834c03fbe1d5b) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Checkbox: improve intellisense and docs
+
 ## 0.23.0
 
 ### Minor Changes
