@@ -1,3 +1,5 @@
+import { Anchor } from "@ngrok/mantle/anchor";
+import { Button } from "@ngrok/mantle/button";
 import {
 	CodeBlock,
 	CodeBlockBody,
@@ -5,10 +7,22 @@ import {
 	CodeBlockCopyButton,
 	fmtCode,
 } from "@ngrok/mantle/code-block";
+import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Label } from "@ngrok/mantle/label";
 import { Switch } from "@ngrok/mantle/switch";
+import { useForm } from "@tanstack/react-form";
+import { z } from "zod";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
+import {
+	BooleanPropType,
+	PropDefaultValueCell,
+	PropDescriptionCell,
+	PropNameCell,
+	PropRow,
+	PropTypeCell,
+	PropsTable,
+} from "~/components/props-table";
 import type { Route } from "./+types/components.switch";
 
 export const meta: Route.MetaFunction = () => {
@@ -38,37 +52,28 @@ export default function Page() {
 				</p>
 				<div>
 					<Example className="mt-4 grid gap-6">
-						<Label
-							htmlFor="airplane-mode"
-							className="flex cursor-pointer items-center gap-2 has-[:disabled]:cursor-default"
-						>
-							<Switch id="airplane-mode" readOnly />
-							<p>Airplane Mode</p>
+						<Label htmlFor="airplane-mode" className="flex items-center gap-2">
+							Airplane Mode
+							<Switch id="airplane-mode" />
 						</Label>
-						<Label
-							htmlFor="unchecked"
-							className="flex cursor-pointer items-center gap-2 has-[:disabled]:cursor-default"
-						>
+						<Label htmlFor="unchecked" className="flex items-center gap-2">
 							<Switch checked={false} id="unchecked" readOnly />
 							<p>Unchecked (readonly)</p>
 						</Label>
-						<Label
-							htmlFor="checked"
-							className="flex cursor-pointer items-center gap-2 has-[:disabled]:cursor-default"
-						>
+						<Label htmlFor="checked" className="flex items-center gap-2">
 							<Switch checked={true} id="checked" readOnly />
 							<p>Checked (readonly)</p>
 						</Label>
 						<Label
 							htmlFor="airplane-mode-disabled-unchecked"
-							className="flex cursor-pointer items-center gap-2 has-[:disabled]:cursor-default"
+							className="flex items-center gap-2"
 						>
 							<Switch disabled id="airplane-mode-disabled-unchecked" readOnly />
 							<p>Airplane Mode Disabled Unchecked (readonly)</p>
 						</Label>
 						<Label
 							htmlFor="airplane-mode-disabled-checked"
-							className="flex cursor-pointer items-center gap-2 has-[:disabled]:cursor-default"
+							className="flex items-center gap-2"
 						>
 							<Switch
 								checked
@@ -88,12 +93,9 @@ export default function Page() {
 									import { Label } from "@ngrok/mantle/label";
 									import { Switch } from "@ngrok/mantle/switch";
 
-									<Label
-										htmlFor="airplane-mode"
-										className="flex cursor-pointer items-center gap-2 has-[:disabled]:cursor-default"
-									>
+									<Label htmlFor="airplane-mode" className="flex items-center gap-2">
+										Airplane Mode
 										<Switch id="airplane-mode" />
-										<p>Airplane Mode</p>
 									</Label>
 								`}
 							/>
@@ -102,85 +104,146 @@ export default function Page() {
 				</div>
 			</section>
 
-			{/* <section className="mb-4 space-y-4">
-				<h2 id="composition" className="text-3xl font-medium">
-					Composition
-				</h2>
-				<p className="text-xl text-body font-body">
-					When you want to render <span className="italic">something else</span> as a <InlineCode>Button</InlineCode>,
-					you can use the <InlineCode>asChild</InlineCode> prop to compose. This is useful when you want to splat the{" "}
-					<InlineCode>Button</InlineCode> styling onto a <InlineCode>Link</InlineCode> from{" "}
-					<InlineCode>remix</InlineCode> or <InlineCode>react-router</InlineCode>. Keep in mind that when you use{" "}
-					<InlineCode>asChild</InlineCode> the <InlineCode>type</InlineCode> prop will <strong>NOT</strong> be passed to
-					the child component.
-				</p>
-				<div>
-					<Example>
-						<Button appearance="filled" icon={<Fire weight="fill" />} asChild>
-							<Link to={href("/base/colors")}>See our colors!</Link>
-						</Button>
-					</Example>
-					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
-								language="tsx"
-								value={fmtCode`
-									import { Button } from "@ngrok/mantle/button";
-									import { Fire } from "@phosphor-icons/react";
-									import { Link } from "react-router";
+			<section className="space-y-8">
+				<header className="space-y-4">
+					<h2 id="examples" className="text-3xl font-medium">
+						Examples
+					</h2>
+				</header>
 
-									<Button appearance="filled" icon={<Fire weight="fill" />} asChild>
-										<Link to="/base/colors">See our colors!</Link>
-									</Button>
-								`}
-							/>
-						</CodeBlockBody>
-					</CodeBlock>
-				</div>
-			</section> */}
+				<section className="space-y-4">
+					<header className="space-y-1">
+						<h3 className="text-xl font-medium">
+							Switch in a form with client-side validation
+						</h3>
+						<p className="font-body text-body">
+							In this example, the <InlineCode>Switch</InlineCode> is used in a
+							form with client-side validation. The form is built using{" "}
+							<InlineCode>
+								<Anchor href="https://tanstack.com/form/latest/docs">
+									@tanstack/react-form
+								</Anchor>
+							</InlineCode>
+							and <InlineCode>zod</InlineCode> for validation. The form accepts
+							and validates the input before submission.
+						</p>
+					</header>
+					<div>
+						<Example className="flex-col w-full">
+							<FormExample />
+						</Example>
+						<CodeBlock className="rounded-b-lg rounded-t-none">
+							<CodeBlockBody>
+								<CodeBlockCopyButton />
+								<CodeBlockCode
+									language="tsx"
+									value={fmtCode`
+										import { Button } from "@ngrok/mantle/button";
+										import { Label } from "@ngrok/mantle/label";
+										import { Switch } from "@ngrok/mantle/switch";
+										import { useForm } from "@tanstack/react-form";
+										import { z } from "zod";
+										import { useSubmit } from "react-router";
 
-			{/* <section className="mt-16 space-y-4">
-				<h2 id="api" className="text-3xl font-medium">
-					API Reference
-				</h2>
-				<p className="text-xl text-body font-body">
-					The <InlineCode>Button</InlineCode> accepts the following props in addition to the{" "}
-					<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button">
-						standard HTML button attributes
-					</Anchor>
-					.
-				</p>
+										const formSchema = z.object({
+											airplaneMode: z.boolean(),
+										});
+
+										type FormValues = z.infer<typeof formSchema>;
+
+										function FormExample() {
+											const submit = useSubmit();
+											const form = useForm({
+												defaultValues: {
+													airplaneMode: false,
+												} satisfies FormValues as FormValues,
+												validators: {
+													onSubmit: formSchema,
+												},
+												onSubmit: ({ value }) => {
+													// Handle form submission here
+													submit(value, {
+														method: "post",
+													});
+												},
+											});
+
+											return (
+												<form
+													className="space-y-4"
+													onSubmit={(event) => {
+														event.preventDefault();
+														event.stopPropagation();
+														void form.handleSubmit();
+													}}
+												>
+													<div className="space-y-1">
+														<form.Field name="airplaneMode">
+															{(field) => (
+																<Label htmlFor={field.name} className="flex items-center gap-2">
+																	Airplane Mode
+																	<Switch
+																		name={field.name}
+																		id={field.name}
+																		checked={field.state.value}
+																		onBlur={field.handleBlur}
+																		onCheckedChange={(value) => field.handleChange(value)}
+																	/>
+																</Label>
+															)}
+														</form.Field>
+														<form.Field name="airplaneMode">
+															{(field) =>
+																field.state.meta.errors.map((error) => (
+																	<p
+																		key={error?.message}
+																		className="text-sm leading-4 text-danger-600"
+																	>
+																		{error?.message}
+																	</p>
+																))
+															}
+														</form.Field>
+													</div>
+													<form.Subscribe selector={(state) => state.isDirty}>
+														{(isDirty) => (
+															<Button type="submit" appearance="filled" disabled={!isDirty}>
+																Submit
+															</Button>
+														)}
+													</form.Subscribe>
+												</form>
+											);
+										}
+									`}
+								/>
+							</CodeBlockBody>
+						</CodeBlock>
+					</div>
+				</section>
+			</section>
+
+			<section className="space-y-8">
+				<header className="space-y-4">
+					<h2 id="api" className="text-3xl font-medium">
+						API Reference
+					</h2>
+					<p className="font-body text-body text-xl">
+						The <InlineCode>Switch</InlineCode> is built on top of{" "}
+						<Anchor
+							href="https://www.radix-ui.com/primitives/docs/components/switch"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							Radix Switch
+						</Anchor>
+						. It exposes the same API with the following additional props:
+					</p>
+				</header>
+
 				<PropsTable>
 					<PropRow>
-						<PropNameCell name="appearance" optional />
-						<PropTypeCell>
-							<ul>
-								<li>
-									<StringPropType value="ghost" />
-								</li>
-								<li>
-									<StringPropType value="filled" />
-								</li>
-								<li>
-									<StringPropType value="outlined" />
-								</li>
-								<li>
-									<StringPropType value="link" />
-								</li>
-							</ul>
-						</PropTypeCell>
-						<PropDefaultValueCell>
-							<StringPropType value="outlined" />
-						</PropDefaultValueCell>
-						<PropDescriptionCell>
-							<p>
-								Defines the visual style of the <InlineCode>Button</InlineCode>.
-							</p>
-						</PropDescriptionCell>
-					</PropRow>
-					<PropRow>
-						<PropNameCell name="asChild" optional />
+						<PropNameCell name="readOnly" optional />
 						<PropTypeCell>
 							<BooleanPropType />
 						</PropTypeCell>
@@ -189,134 +252,81 @@ export default function Page() {
 						</PropDefaultValueCell>
 						<PropDescriptionCell>
 							<p>
-								Use the <InlineCode>asChild</InlineCode> prop to compose the <InlineCode>Button</InlineCode> styling and
-								functionality onto alternative element types or your own React components.
+								Makes the switch immutable, meaning the user can not edit the
+								control.
 							</p>
-						</PropDescriptionCell>
-					</PropRow>
-					<PropRow>
-						<PropNameCell name="icon" optional />
-						<PropTypeCell>
-							<ReactNodePropType />
-						</PropTypeCell>
-						<PropDefaultValueCell />
-						<PropDescriptionCell>
-							An icon to render inside the button. If the <InlineCode>state</InlineCode> is{" "}
-							<InlineCode>pending</InlineCode>, then the icon will automatically be replaced with a spinner.
-						</PropDescriptionCell>
-					</PropRow>
-					<PropRow>
-						<PropNameCell name="iconPlacement" optional />
-						<PropTypeCell>
-							<ul>
-								<li>
-									<StringPropType value="start" />
-								</li>
-								<li>
-									<StringPropType value="end" />
-								</li>
-							</ul>
-						</PropTypeCell>
-						<PropDefaultValueCell>
-							<StringPropType value="start" />
-						</PropDefaultValueCell>
-						<PropDescriptionCell>
-							<p>
-								The side that the icon will render on, if one is present. If <InlineCode>state="pending"</InlineCode>,
-								then the loading icon will also render on this side.
-							</p>
-						</PropDescriptionCell>
-					</PropRow>
-					<PropRow>
-						<PropNameCell name="isLoading" optional />
-						<PropTypeCell>
-							<BooleanPropType />
-						</PropTypeCell>
-						<PropDefaultValueCell>
-							<BooleanPropType value={false} />
-						</PropDefaultValueCell>
-						<PropDescriptionCell>
-							<p>
-								Determines whether or not the button is in a loading state, default <InlineCode>false</InlineCode>.
-								Setting <InlineCode>isLoading</InlineCode> will replace any <InlineCode>icon</InlineCode> with a
-								spinner, or add one if an icon wasn't given. It will also disable user interaction with the button and
-								set <InlineCode>aria-disabled</InlineCode>.
-							</p>
-						</PropDescriptionCell>
-					</PropRow>
-					<PropRow>
-						<PropNameCell name="priority" optional />
-						<PropTypeCell>
-							<ul>
-								<li>
-									<StringPropType value="default" />
-								</li>
-								<li>
-									<StringPropType value="danger" />
-								</li>
-								<li>
-									<StringPropType value="neutral" />
-								</li>
-							</ul>
-						</PropTypeCell>
-						<PropDefaultValueCell>
-							<StringPropType value="default" />
-						</PropDefaultValueCell>
-						<PropDescriptionCell>
-							<p>
-								Indicates the importance or impact level of the button, affecting its color and styling to communicate
-								its purpose to the user.
-							</p>
-						</PropDescriptionCell>
-					</PropRow>
-					<PropRow>
-						<PropNameCell name="type" />
-						<PropTypeCell>
-							<ul>
-								<li>
-									<StringPropType value="button" />
-								</li>
-								<li>
-									<StringPropType value="reset" />
-								</li>
-								<li>
-									<StringPropType value="submit" />
-								</li>
-							</ul>
-						</PropTypeCell>
-						<PropDefaultValueCell />
-						<PropDescriptionCell>
-							<p>
-								The default behavior of the <InlineCode>Button</InlineCode>. Unlike the native{" "}
-								<InlineCode>button</InlineCode> element, unless you use the <InlineCode>asChild</InlineCode> prop,{" "}
-								<span className="font-semibold">this prop is required and has no default value</span>. See{" "}
-								<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#type">
-									the MDN docs
-								</Anchor>{" "}
-								for more information.
-							</p>
-							<ul className="list-disc pl-5">
-								<li>
-									<p>
-										<InlineCode>"button"</InlineCode>: The button has no default behavior, and does nothing when pressed
-										by default.
-									</p>
-								</li>
-								<li>
-									<p>
-										<InlineCode>"reset"</InlineCode>: The button resets all the controls to their initial values.
-									</p>
-								</li>
-								<li>
-									<p>
-										<InlineCode>"submit"</InlineCode>: The button submits the form data to the server.
-									</p>
-								</li>
-							</ul>
 						</PropDescriptionCell>
 					</PropRow>
 				</PropsTable>
-			</section> */}
+			</section>
 		</div>
+	);
+}
+
+const formSchema = z.object({
+	airplaneMode: z.boolean(),
+});
+
+type FormValues = z.infer<typeof formSchema>;
+
+function FormExample() {
+	const form = useForm({
+		defaultValues: {
+			airplaneMode: false,
+		} satisfies FormValues as FormValues,
+		validators: {
+			onSubmit: formSchema,
+		},
+		onSubmit: ({ value }) => {
+			// Handle form submission here
+			window.alert(`Form submitted: ${JSON.stringify(value, null, 2)}`);
+		},
+	});
+
+	return (
+		<form
+			className="space-y-4 w-full"
+			onSubmit={(event) => {
+				event.preventDefault();
+				event.stopPropagation();
+				void form.handleSubmit();
+			}}
+		>
+			<div className="space-y-1">
+				<form.Field name="airplaneMode">
+					{(field) => (
+						<Label htmlFor={field.name} className="flex items-center gap-2">
+							Airplane Mode
+							<Switch
+								name={field.name}
+								id={field.name}
+								checked={field.state.value}
+								onBlur={field.handleBlur}
+								onCheckedChange={(value) => field.handleChange(value)}
+							/>
+						</Label>
+					)}
+				</form.Field>
+				<form.Field name="airplaneMode">
+					{(field) =>
+						field.state.meta.errors.map((error) => (
+							<p
+								key={error?.message}
+								className="text-sm leading-4 text-danger-600"
+							>
+								{error?.message}
+							</p>
+						))
+					}
+				</form.Field>
+			</div>
+			<form.Subscribe selector={(state) => state.isDirty}>
+				{(isDirty) => (
+					<Button type="submit" appearance="filled" disabled={!isDirty}>
+						Submit
+					</Button>
+				)}
+			</form.Subscribe>
+		</form>
 	);
 }

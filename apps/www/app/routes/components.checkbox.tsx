@@ -50,7 +50,7 @@ export default function Page() {
 				<PageHeader id="checkbox">Checkbox</PageHeader>
 				<p className="font-body text-body text-xl">
 					A form control that allows the user to toggle between checked and not
-					checked.
+					checked. Supports indeterminate state.
 				</p>
 				<div>
 					<Example>
