@@ -1,3 +1,4 @@
+import { Anchor } from "@ngrok/mantle/anchor";
 import {
 	CodeBlock,
 	CodeBlockBody,
@@ -9,6 +10,16 @@ import { InlineCode } from "@ngrok/mantle/inline-code";
 import { HorizontalSeparatorGroup, Separator } from "@ngrok/mantle/separator";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
+import {
+	BooleanPropType,
+	PropDefaultValueCell,
+	PropDescriptionCell,
+	PropNameCell,
+	PropRow,
+	PropTypeCell,
+	PropsTable,
+	StringPropType,
+} from "~/components/props-table";
 import type { Route } from "./+types/components.separator";
 
 export const meta: Route.MetaFunction = () => {
@@ -45,13 +56,13 @@ export default function Page() {
 								</p>
 							</div>
 							<Separator className="my-4" />
-							<Separator className="my-4" decorative={false} />
+							<Separator className="my-4" semantic />
 							<div className="flex h-5 items-center gap-4 text-sm">
-								<div>Blog</div>
+								Blog
 								<Separator orientation="vertical" />
-								<div>Docs</div>
+								Docs
 								<Separator orientation="vertical" />
-								<div>Source</div>
+								Source
 							</div>
 							<HorizontalSeparatorGroup>
 								<Separator />
@@ -82,12 +93,13 @@ export default function Page() {
 									<p className="text-muted-foreground text-sm">An open-source UI component library.</p>
 								</div>
 								<Separator className="my-4" />
-								<div className="flex h-5 items-center space-x-4 text-sm">
-									<div>Blog</div>
+								<Separator className="my-4" semantic />
+								<div className="flex h-5 items-center gap-4 text-sm">
+									Blog
 									<Separator orientation="vertical" />
-									<div>Docs</div>
+									Docs
 									<Separator orientation="vertical" />
-									<div>Source</div>
+									Source
 								</div>
 								<HorizontalSeparatorGroup>
 									<Separator />
@@ -235,6 +247,154 @@ export default function Page() {
 						</CodeBlockBody>
 					</CodeBlock>
 				</div>
+			</section>
+
+			<section className="space-y-8">
+				<header className="space-y-4">
+					<h2 id="api" className="text-3xl font-medium">
+						API Reference
+					</h2>
+				</header>
+
+				<section className="space-y-4">
+					<header className="space-y-1">
+						<h3 id="api-separator" className="text-xl font-medium">
+							Separator
+						</h3>
+
+						<p className="font-body text-body">
+							Visually or semantically separates content.
+						</p>
+
+						<p className="font-body text-body">
+							All props from{" "}
+							<Anchor
+								href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								div
+							</Anchor>
+							, plus:
+						</p>
+					</header>
+
+					<PropsTable>
+						<PropRow>
+							<PropNameCell name="orientation" optional />
+							<PropTypeCell>
+								<ul>
+									<li>
+										<StringPropType value="horizontal" />
+									</li>
+									<li>
+										<StringPropType value="vertical" />
+									</li>
+								</ul>
+							</PropTypeCell>
+							<PropDefaultValueCell>
+								<StringPropType value="horizontal" />
+							</PropDefaultValueCell>
+							<PropDescriptionCell>
+								<p>
+									The orientation of the separator, does it render horizontally
+									or verticallly.
+								</p>
+							</PropDescriptionCell>
+						</PropRow>
+						<PropRow>
+							<PropNameCell name="semantic" optional />
+							<PropTypeCell>
+								<BooleanPropType />
+							</PropTypeCell>
+							<PropDefaultValueCell>
+								<BooleanPropType value={false} />
+							</PropDefaultValueCell>
+							<PropDescriptionCell>
+								<p>
+									If <InlineCode>true</InlineCode>, the separator will be
+									rendered with all accessibility-related attributes and{" "}
+									<InlineCode>role="separator"</InlineCode>.
+								</p>
+								<p>
+									If <InlineCode>false</InlineCode>, the separator is purely
+									decorative and all accessibility-related attributes are
+									updated so that the rendered element is removed from the
+									accessibility tree.
+								</p>
+							</PropDescriptionCell>
+						</PropRow>
+						<PropRow>
+							<PropNameCell name="asChild" optional />
+							<PropTypeCell>
+								<BooleanPropType />
+							</PropTypeCell>
+							<PropDefaultValueCell>
+								<BooleanPropType value={false} />
+							</PropDefaultValueCell>
+							<PropDescriptionCell>
+								<p>
+									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
+									<InlineCode>Separator</InlineCode> styling and functionality
+									onto alternative element types or your own React components.
+								</p>
+							</PropDescriptionCell>
+						</PropRow>
+					</PropsTable>
+				</section>
+
+				<section className="space-y-4">
+					<header className="space-y-1">
+						<h3
+							id="api-horizontal-separator-group"
+							className="text-xl font-medium"
+						>
+							HorizontalSeparatorGroup
+						</h3>
+
+						<p className="font-body text-body">
+							A container to layout a group of horizontal separators and other
+							children.
+						</p>
+
+						<p className="font-body text-body">
+							Overrides all children <InlineCode>Separator</InlineCode>s to be{" "}
+							<InlineCode>orientation="horizontal"</InlineCode>.
+						</p>
+
+						<p className="font-body text-body">
+							All props from{" "}
+							<Anchor
+								href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								div
+							</Anchor>
+							, plus:
+						</p>
+					</header>
+
+					<PropsTable>
+						<PropRow>
+							<PropNameCell name="asChild" optional />
+							<PropTypeCell>
+								<BooleanPropType />
+							</PropTypeCell>
+							<PropDefaultValueCell>
+								<BooleanPropType value={false} />
+							</PropDefaultValueCell>
+							<PropDescriptionCell>
+								<p>
+									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
+									<InlineCode>HorizontalSeparatorGroup</InlineCode> styling and
+									functionality onto alternative element types or your own React
+									components.
+								</p>
+							</PropDescriptionCell>
+						</PropRow>
+					</PropsTable>
+				</section>
 			</section>
 		</div>
 	);

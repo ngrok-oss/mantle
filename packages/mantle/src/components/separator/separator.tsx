@@ -1,15 +1,11 @@
-import * as SeparatorPrimitive from "@radix-ui/react-separator";
 import { Slot } from "@radix-ui/react-slot";
+import type { ComponentProps, ComponentRef, HTMLAttributes } from "react";
 import { createContext, forwardRef, useContext } from "react";
-import type {
-	ComponentPropsWithoutRef,
-	ComponentRef,
-	HTMLAttributes,
-} from "react";
 import type { WithAsChild } from "../../types/as-child.js";
 import { cx } from "../../utils/cx/cx.js";
 
-type Orientation = "horizontal" | "vertical";
+const orientations = ["horizontal", "vertical"] as const;
+type Orientation = (typeof orientations)[number];
 
 type SeparatorGroupContextShape = {
 	orientation?: Orientation;
@@ -18,7 +14,29 @@ type SeparatorGroupContextShape = {
 const SeparatorGroupContext = createContext<SeparatorGroupContextShape>({});
 
 /**
- * A container to layout a group of horizontal separators.
+ * A container to layout a group of horizontal separators and other children.
+ * Overrides all children `Separator`s to be `orientation="horizontal"`.
+ *
+ * @see https://mantle.ngrok.com/components/separator#api-horizontal-separator-group
+ *
+ * @example
+ * ```tsx
+ * <HorizontalSeparatorGroup>
+ *   <Separator />
+ *   <h3>ngrok mantle</h3>
+ *   <Separator />
+ * </HorizontalSeparatorGroup>
+ *
+ * <HorizontalSeparatorGroup>
+ *   <h3>ngrok mantle</h3>
+ *   <Separator />
+ * </HorizontalSeparatorGroup>
+ *
+ * <HorizontalSeparatorGroup>
+ *   <Separator />
+ *   <h3>ngrok mantle</h3>
+ * </HorizontalSeparatorGroup>
+ * ```
  */
 const HorizontalSeparatorGroup = ({
 	className,
@@ -44,30 +62,71 @@ const HorizontalSeparatorGroup = ({
 	);
 };
 
-type SeparatorProps = ComponentPropsWithoutRef<typeof SeparatorPrimitive.Root>;
+type SeparatorProps = ComponentProps<"div"> &
+	WithAsChild & {
+		/**
+		 * Either `horizontal` or `vertical`.
+		 *
+		 * @default "horizontal"
+		 */
+		orientation?: Orientation;
+		/**
+		 * If `true`, the separator will be rendered with all accessibility-related attributes and role="separator".
+		 * If `false`, the separator is purely decorative and all accessibility-related attributes
+		 * are updated so that that the rendered element is removed from the accessibility tree.
+		 *
+		 * @default false
+		 */
+		semantic?: boolean;
+	};
 
 /**
  * Visually or semantically separates content.
+ *
+ * @see https://mantle.ngrok.com/components/separator#api-separator
+ *
+ * @example
+ * ```tsx
+ * <Separator className="my-4" />
+ *
+ * <Separator className="my-4" semantic />
+ *
+ * <div className="flex h-5 items-center gap-4 text-sm">
+ *   Blog
+ *   <Separator orientation="vertical" />
+ *   Docs
+ *   <Separator orientation="vertical" />
+ *   Source
+ * </div>
+ * ```
  */
-const Separator = forwardRef<
-	ComponentRef<typeof SeparatorPrimitive.Root>,
-	SeparatorProps
->(
+const Separator = forwardRef<ComponentRef<"div">, SeparatorProps>(
 	(
-		{ className, orientation: propOrientation, decorative = true, ...props },
+		{
+			asChild = false,
+			children,
+			className,
+			orientation: propOrientation,
+			semantic = false,
+			...props
+		},
 		ref,
 	) => {
+		const Component = asChild ? Slot : "div";
 		const ctx = useContext(SeparatorGroupContext);
 		// Prefer the orientation from the context if it's set, else fallback to the prop and then to "horizontal".
-		const orientation = ctx.orientation ?? propOrientation ?? "horizontal";
+		const orientation =
+			ctx.orientation ??
+			(isOrientation(propOrientation) ? propOrientation : "horizontal");
+		// `aria-orientation` defaults to `horizontal` so we only need it if `orientation` is vertical
+		const ariaOrientation =
+			orientation === "vertical" ? orientation : undefined;
+		const semanticProps = semantic
+			? { "aria-orientation": ariaOrientation, role: "separator" }
+			: { role: "none" };
 
 		return (
-			<SeparatorPrimitive.Root
-				ref={ref}
-				data-separator
-				aria-orientation={decorative ? undefined : orientation}
-				decorative={decorative}
-				orientation={orientation}
+			<Component
 				className={cx(
 					"separator",
 					"dark-high-contrast:bg-black high-contrast:bg-black bg-gray-500/20 dark:bg-gray-600/20",
@@ -76,6 +135,11 @@ const Separator = forwardRef<
 						: "h-full w-px",
 					className,
 				)}
+				data-orientation={orientation}
+				data-separator
+				{...semanticProps}
+				ref={ref}
+				{...(asChild ? { children } : {})} // only pass children if asChild is true
 				{...props}
 			/>
 		);
@@ -83,4 +147,14 @@ const Separator = forwardRef<
 );
 Separator.displayName = "Separator";
 
-export { HorizontalSeparatorGroup, Separator };
+export {
+	//,
+	HorizontalSeparatorGroup,
+	Separator,
+};
+
+function isOrientation(value: unknown): value is Orientation {
+	return (
+		typeof value === "string" && orientations.includes(value as Orientation)
+	);
+}

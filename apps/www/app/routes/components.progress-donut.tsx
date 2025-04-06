@@ -159,7 +159,7 @@ export default function Page() {
 				<h2 id="indeterminate" className="text-3xl font-medium">
 					Indeterminate Value
 				</h2>
-				<p className="font-body text-body text-xl">
+				<p className="font-body text-body">
 					You can set the <InlineCode>value</InlineCode> prop to{" "}
 					<InlineCode>"indeterminate"</InlineCode> to show the progress bar in
 					an indeterminate state.
@@ -195,7 +195,7 @@ export default function Page() {
 				<h2 id="dynamic-colors" className="text-3xl font-medium">
 					Dynamic Colors
 				</h2>
-				<p className="font-body text-body text-xl">
+				<p className="font-body text-body">
 					The color of the <InlineCode>ProgressDonutIndicator</InlineCode> is
 					inherited from the parent text color using{" "}
 					<InlineCode>currentColor</InlineCode>. Using this, you can easily
@@ -250,88 +250,140 @@ export default function Page() {
 					</CodeBlock>
 				</div>
 			</section>
-			<section className="space-y-4">
-				<h2 id="api" className="text-3xl font-medium">
-					API Reference
-				</h2>
-				<p className="font-body text-body text-xl">
-					The <InlineCode>ProgressDonut</InlineCode> accepts the following props
-					in addition to the{" "}
-					<Anchor href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/svg#attributes">
-						standard HTML svg attributes
-					</Anchor>
-					.
-				</p>
-				<PropsTable>
-					<PropRow>
-						<PropNameCell name="max" optional />
-						<PropTypeCell>
-							<NumberPropType />
-						</PropTypeCell>
-						<PropDefaultValueCell>
-							<NumberPropType value={100} />
-						</PropDefaultValueCell>
-						<PropDescriptionCell>
+
+			<section className="space-y-8">
+				<header className="space-y-4">
+					<h2 id="api" className="text-3xl font-medium">
+						API Reference
+					</h2>
+				</header>
+
+				<section className="space-y-4">
+					<header className="space-y-1">
+						<h3 id="api-progress-donut" className="text-xl font-medium">
+							ProgressDonut
+						</h3>
+
+						<div className="font-body text-body space-y-1">
 							<p>
-								The maximum value of the progress bar. This attribute describes
-								how much work the task indicated by the progress element
-								requires. The max attribute, if present, must have a value
-								greater than 0. The default value is 100.
-							</p>
-						</PropDescriptionCell>
-					</PropRow>
-					<PropRow>
-						<PropNameCell name="strokeWidth" optional />
-						<PropTypeCell>
-							<ul>
-								<li>
-									<NumberPropType />
-								</li>
-								<li>
-									<StringPropType value="`${number}rem`" />
-								</li>
-							</ul>
-						</PropTypeCell>
-						<PropDefaultValueCell>
-							<StringPropType value="0.25rem" />
-						</PropDefaultValueCell>
-						<PropDescriptionCell>
-							<p>
-								The width of the progress bar stroke. Note, we clamp the stroke
-								width to a minimum of 1px and max of 12px since it is
-								proportional to the viewbox size (0 0 32 32).
-							</p>
-						</PropDescriptionCell>
-					</PropRow>
-					<PropRow>
-						<PropNameCell name="value" optional />
-						<PropTypeCell>
-							<ul>
-								<li>
-									<NumberPropType />
-								</li>
-								<li>
-									<StringPropType value="indeterminate" />
-								</li>
-							</ul>
-						</PropTypeCell>
-						<PropDefaultValueCell>
-							<NumberPropType value={0} />
-						</PropDefaultValueCell>
-						<PropDescriptionCell className="space-y-2">
-							<p>
-								The current value of the progress bar. This attribute specifies
-								how much of the task that has been completed. It must be a valid
-								floating point number between 0 and max, or between 0 and 100 if
-								max is omitted.
+								A simple circular progress bar which shows the completion
+								progress of a task.
 							</p>
 							<p>
-								If set to <InlineCode>"indeterminate"</InlineCode>, the progress
-								bar is considered <strong>indeterminate</strong>.
+								The indicator color is inherited via{" "}
+								<InlineCode>currentColor</InlineCode>. Override the default (
+								<InlineCode>accent-600</InlineCode>) by setting the
+								<InlineCode>ProgressDonutIndicator</InlineCode>'s text color.
 							</p>
-						</PropDescriptionCell>
-					</PropRow>
-				</PropsTable>
+
+							<p>
+								The <InlineCode>ProgressDonut</InlineCode> accepts the following
+								props in addition to the{" "}
+								<Anchor href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/svg#attributes">
+									standard HTML svg attributes
+								</Anchor>
+								.
+							</p>
+						</div>
+					</header>
+					<PropsTable>
+						<PropRow>
+							<PropNameCell name="max" optional />
+							<PropTypeCell>
+								<NumberPropType />
+							</PropTypeCell>
+							<PropDefaultValueCell>
+								<NumberPropType value={100} />
+							</PropDefaultValueCell>
+							<PropDescriptionCell>
+								<p>
+									The maximum value of the progress bar. This attribute
+									describes how much work the task indicated by the progress
+									element requires. The max attribute, if present, must have a
+									value greater than 0. The default value is 100.
+								</p>
+							</PropDescriptionCell>
+						</PropRow>
+						<PropRow>
+							<PropNameCell name="strokeWidth" optional />
+							<PropTypeCell>
+								<ul>
+									<li>
+										<NumberPropType />
+									</li>
+									<li>
+										<StringPropType value="`${number}rem`" />
+									</li>
+								</ul>
+							</PropTypeCell>
+							<PropDefaultValueCell>
+								<StringPropType value="0.25rem" />
+							</PropDefaultValueCell>
+							<PropDescriptionCell>
+								<p>
+									The width of the progress bar stroke. Note, we clamp the
+									stroke width to a minimum of 1px and max of 12px since it is
+									proportional to the viewbox size (0 0 32 32).
+								</p>
+							</PropDescriptionCell>
+						</PropRow>
+						<PropRow>
+							<PropNameCell name="value" optional />
+							<PropTypeCell>
+								<ul>
+									<li>
+										<NumberPropType />
+									</li>
+									<li>
+										<StringPropType value="indeterminate" />
+									</li>
+								</ul>
+							</PropTypeCell>
+							<PropDefaultValueCell>
+								<NumberPropType value={0} />
+							</PropDefaultValueCell>
+							<PropDescriptionCell className="space-y-2">
+								<p>
+									The current value of the progress bar. This attribute
+									specifies how much of the task that has been completed. It
+									must be a valid floating point number between 0 and max, or
+									between 0 and 100 if max is omitted.
+								</p>
+								<p>
+									If set to <InlineCode>"indeterminate"</InlineCode>, the
+									progress bar is considered <strong>indeterminate</strong>.
+								</p>
+							</PropDescriptionCell>
+						</PropRow>
+					</PropsTable>
+				</section>
+
+				<section className="space-y-4">
+					<header className="space-y-1">
+						<h3
+							id="api-progress-donut-indicator"
+							className="text-xl font-medium"
+						>
+							ProgressDonutIndicator
+						</h3>
+
+						<p className="font-body text-body">
+							The indicator for the circular progress bar.
+						</p>
+
+						<p className="font-body text-body">
+							All props from{" "}
+							<Anchor
+								href="https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/g"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								svg g
+							</Anchor>
+							.
+						</p>
+					</header>
+				</section>
 			</section>
 		</div>
 	);

@@ -69,7 +69,10 @@ type AlertProps = ComponentProps<"div"> & {
 /**
  * Displays a callout for user attention. Root container for all Alert sub-components.
  *
+ * @see https://mantle.ngrok.com/components/alert#api-alert
+ *
  * @example
+ * ```tsx
  * <Alert priority="info">
  *   <AlertIcon />
  *   <AlertContent>
@@ -79,8 +82,7 @@ type AlertProps = ComponentProps<"div"> & {
  *     </AlertDescription>
  *   </AlertContent>
  * </Alert>
- *
- * @see https://mantle.ngrok.com/components/alert#api-alert
+ *```
  */
 const Alert = forwardRef<ComponentRef<"div">, AlertProps>(
 	({ className, priority, ...props }, ref) => {
@@ -125,7 +127,10 @@ const defaultIcons = {
  *
  * The default rendered icon be overridden with a custom icon using the `svg` prop.
  *
+ * @see https://mantle.ngrok.com/components/alert#api-alert-icon
+ *
  * @example
+ * ```tsx
  * <Alert priority="info">
  *   <AlertIcon />
  *   <AlertContent>
@@ -135,8 +140,7 @@ const defaultIcons = {
  *     </AlertDescription>
  *   </AlertContent>
  * </Alert>
- *
- * @see https://mantle.ngrok.com/components/alert#api-alert-icon
+ * ```
  */
 const AlertIcon = forwardRef<ComponentRef<"svg">, AlertIconProps>(
 	({ className, svg, ...props }, ref) => {
@@ -158,7 +162,10 @@ AlertIcon.displayName = "AlertIcon";
 /**
  * The container for the content slot of an alert. Place the title and description as direct children.
  *
+ * @see https://mantle.ngrok.com/components/alert#api-alert-content
+ *
  * @example
+ * ```tsx
  * <Alert priority="info">
  *   <AlertIcon />
  *   <AlertContent>
@@ -168,8 +175,7 @@ AlertIcon.displayName = "AlertIcon";
  *     </AlertDescription>
  *   </AlertContent>
  * </Alert>
- *
- * @see https://mantle.ngrok.com/components/alert#api-alert-content
+ *```
  */
 const AlertContent = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
 	({ className, ...props }, ref) => (
@@ -183,7 +189,10 @@ type AlertTitleProps = HTMLAttributes<HTMLHeadingElement> & WithAsChild;
 /**
  * The title of an alert. Default renders as an h5 element, use asChild to render something else.
  *
+ * @see https://mantle.ngrok.com/components/alert#api-alert-title
+ *
  * @example
+ * ```tsx
  * <Alert priority="info">
  *   <AlertIcon />
  *   <AlertContent>
@@ -193,8 +202,7 @@ type AlertTitleProps = HTMLAttributes<HTMLHeadingElement> & WithAsChild;
  *     </AlertDescription>
  *   </AlertContent>
  * </Alert>
- *
- * @see https://mantle.ngrok.com/components/alert#api-alert-title
+ *```
  */
 const AlertTitle = forwardRef<HTMLHeadingElement, AlertTitleProps>(
 	({ asChild = false, className, ...props }, ref) => {
@@ -216,7 +224,10 @@ type AlertDescriptionProps = ComponentProps<"p"> & WithAsChild;
 /**
  * The optional description of an alert. Default renders as an p element, use asChild to render something else.
  *
+ * @see https://mantle.ngrok.com/components/alert#api-alert-description
+ *
  * @example
+ * ```tsx
  * <Alert priority="info">
  *   <AlertIcon />
  *   <AlertContent>
@@ -226,8 +237,7 @@ type AlertDescriptionProps = ComponentProps<"p"> & WithAsChild;
  *     </AlertDescription>
  *   </AlertContent>
  * </Alert>
- *
- * @see https://mantle.ngrok.com/components/alert#api-alert-description
+ * ```
  */
 const AlertDescription = forwardRef<ComponentRef<"p">, AlertDescriptionProps>(
 	({ asChild = false, className, ...props }, ref) => {
