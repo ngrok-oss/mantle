@@ -113,7 +113,10 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 className="text-xl font-medium">
+						<h3
+							id="example-client-side-form-validation"
+							className="text-xl font-medium"
+						>
 							Switch in a form with client-side validation
 						</h3>
 						<p className="font-body text-body">
