@@ -67,12 +67,23 @@ type Props = SvgAttributes & {
 };
 
 /**
- * A simple circular progress bar.
+ * A simple circular progress bar which shows the completion progress of a task.
+ *
+ * The indicator color is inherited via `currentColor`. Override the default
+ * (`accent-600`) by setting the `ProgressDonutIndicator`'s text color.
+ *
+ * @see https://mantle.ngrok.com/components/progress#api-progress-donut
  *
  * @example
+ * ```tsx
  * <ProgressDonut value={60}>
  *   <ProgressDonutIndicator />
  * </ProgressDonut>
+ *
+ * <ProgressDonut value={60}>
+ *   <ProgressDonutIndicator color="text-danger-600" />
+ * </ProgressDonut>
+ * ```
  */
 const ProgressDonut = ({
 	children,
@@ -151,10 +162,18 @@ type ProgressDonutIndicatorProps = Omit<ComponentProps<"g">, "children">;
 /**
  * The indicator for the circular progress bar.
  *
+ * @see https://mantle.ngrok.com/components/progress#api-progress-donut-indicator
+ *
  * @example
+ * ```tsx
  * <ProgressDonut value={60}>
  *   <ProgressDonutIndicator />
  * </ProgressDonut>
+ *
+ * <ProgressDonut value={60}>
+ *   <ProgressDonutIndicator color="text-danger-600" />
+ * </ProgressDonut>
+ * ```
  */
 const ProgressDonutIndicator = ({
 	className,
