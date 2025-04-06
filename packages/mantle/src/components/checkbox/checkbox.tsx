@@ -27,6 +27,7 @@ type Props = Omit<
 
 /**
  * A form control that allows the user to toggle between checked and not checked.
+ * Supports indeterminate state.
  *
  * @see https://mantle.ngrok.com/components/checkbox#api
  *

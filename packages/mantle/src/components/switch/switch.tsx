@@ -10,12 +10,26 @@ import { cx } from "../../utils/cx/cx.js";
 
 type SwitchProps = ComponentPropsWithoutRef<typeof SwitchPrimitiveRoot> & {
 	/**
-	 * Makes the element not mutable, meaning the user can not edit the control
-	 * @note This is buggy and doesn't actually stop the switch from toggling
+	 * Makes the switch immutable, meaning the user can not edit the control.
 	 */
 	readOnly?: boolean;
 };
 
+/**
+ * A form control that allows the user to toggle between checked and not checked.
+ *
+ * @see https://mantle.ngrok.com/components/switch#api
+ *
+ * @example
+ * ```tsx
+ * <form>
+ *   <Label htmlFor="airplane-mode" className="flex items-center gap-2">
+ *     Airplane Mode
+ *     <Switch name="airplane-mode" id="airplane-mode" />
+ *   </Label>
+ * </form>
+ *```
+ */
 const Switch = forwardRef<
 	ComponentRef<typeof SwitchPrimitiveRoot>,
 	SwitchProps
@@ -25,7 +39,7 @@ const Switch = forwardRef<
 			"aria-readonly": _ariaReadOnly,
 			className,
 			readOnly: _readOnly,
-			onChange,
+			onClick,
 			...props
 		},
 		ref,
@@ -42,14 +56,13 @@ const Switch = forwardRef<
 					"data-state-checked:bg-blue-500 data-state-unchecked:bg-gray-400",
 					className,
 				)}
-				onChange={(event) => {
-					// TODO(cody): this doesn't actually stop the radix switch from toggling
+				onClick={(event) => {
 					if (readOnly) {
 						event.preventDefault();
 						event.stopPropagation();
 						return;
 					}
-					onChange?.(event);
+					onClick?.(event);
 				}}
 				ref={ref}
 				{...props}
