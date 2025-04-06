@@ -199,7 +199,8 @@ export default function Page() {
 								value={fmtCode`
 									import { Input, InputCapture } from "@ngrok/mantle/input";
 									import { Label } from "@ngrok/mantle/label";
-									import { Info, MagnifyingGlass } from "@phosphor-icons/react";
+									import { Info } from "@phosphor-icons/react/Info";
+									import { MagnifyingGlass } from "@phosphor-icons/react/MagnifyingGlass";
 
 									<Label className="block w-full max-w-80 space-y-1">
 										<p>Search with start icon</p>

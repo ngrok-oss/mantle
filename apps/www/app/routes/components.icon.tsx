@@ -62,7 +62,7 @@ export default function Page() {
 								language="tsx"
 								value={fmtCode`
 									import { Icon } from "@ngrok/mantle/icon";
-									import { Fire } from "@phosphor-icons/react";
+									import { Fire } from "@phosphor-icons/react/Fire";
 
 									<Icon svg={<Fire />} />
 									<Icon className="text-danger-600" svg={<Fire weight="fill" />} />
@@ -138,7 +138,7 @@ export default function Page() {
 								language="tsx"
 								value={fmtCode`
 									import { Icon } from "@ngrok/mantle/icon"
-									import { Fire } from "@phosphor-icons/react";
+									import { Fire } from "@phosphor-icons/react/Fire";
 
 									<Icon svg={<Fire />} />
 									<Icon svg={<Fire className="size-12 sm:size-16" />} />

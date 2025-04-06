@@ -148,7 +148,7 @@ export default function Page() {
 								language="tsx"
 								value={fmtCode`
 									import { IconButton } from "@ngrok/mantle/button";
-									import { Fire } from "@phosphor-icons/react";
+									import { Fire } from "@phosphor-icons/react/Fire";
 
 									<IconButton type="button" appearance="ghost" label="prestige worldwide" size="xs" icon={<Globe />} />
 									<IconButton type="button" appearance="outlined" label="prestige worldwide" size="xs" icon={<Globe />} />
@@ -222,7 +222,7 @@ export default function Page() {
 								language="tsx"
 								value={fmtCode`
 									import { IconButton } from "@ngrok/mantle/button";
-									import { Fire } from "@phosphor-icons/react";
+									import { Fire } from "@phosphor-icons/react/Fire";
 
 									<IconButton type="button" appearance="ghost" label="prestige worldwide" icon={<Globe />} />
 									<IconButton type="button" appearance="outlined" label="prestige worldwide" icon={<Globe />} />
@@ -268,7 +268,7 @@ export default function Page() {
 								language="tsx"
 								value={fmtCode`
 									import { IconButton } from "@ngrok/mantle/button";
-									import { Fire } from "@phosphor-icons/react";
+									import { Fire } from "@phosphor-icons/react/Fire";
 									import { Link, href } from "react-router";
 
 									<IconButton appearance="outlined" asChild label="prestige worldwide" icon={<Globe />}>

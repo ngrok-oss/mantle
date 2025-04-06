@@ -328,7 +328,7 @@ export default function Page() {
 								language="tsx"
 								value={fmtCode`
 									import { Button } from "@ngrok/mantle/button";
-									import { Fire } from "@phosphor-icons/react";
+									import { Fire } from "@phosphor-icons/react/Fire";
 									import { Link } from "react-router";
 
 									<Button appearance="filled" icon={<Fire weight="fill" />} asChild>

@@ -232,7 +232,7 @@ export default function Page() {
 								language="tsx"
 								value={fmtCode`
 									import { Button } from "@ngrok/mantle/button";
-									import { Fire } from "@phosphor-icons/react";
+									import { Fire } from "@phosphor-icons/react/Fire";
 
 									<Button type="button" icon={<Fire weight="fill" />}>Icon Start</Button>
 									<Button type="button" icon={<Fire weight="fill" />} iconPlacement="end">
@@ -338,7 +338,7 @@ export default function Page() {
 								language="tsx"
 								value={fmtCode`
 									import { Button } from "@ngrok/mantle/button";
-									import { Fire } from "@phosphor-icons/react";
+									import { Fire } from "@phosphor-icons/react/Fire";
 
 									<Button type="button">No Icon + Idle</Button>
 									<Button type="button" icon={<Fire weight="fill" />}>Icon Start + Idle</Button>
@@ -386,7 +386,7 @@ export default function Page() {
 								language="tsx"
 								value={fmtCode`
 									import { Button } from "@ngrok/mantle/button";
-									import { Fire } from "@phosphor-icons/react";
+									import { Fire } from "@phosphor-icons/react/Fire";
 									import { Link, href } from "react-router";
 
 									<Button appearance="filled" icon={<Fire weight="fill" />} asChild>
