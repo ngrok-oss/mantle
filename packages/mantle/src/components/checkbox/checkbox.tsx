@@ -27,6 +27,18 @@ type Props = Omit<
 
 /**
  * A form control that allows the user to toggle between checked and not checked.
+ *
+ * @see https://mantle.ngrok.com/components/checkbox#api
+ *
+ * @example
+ * ```tsx
+ * <form>
+ *   <Label htmlFor="terms" className="flex items-center gap-2">
+ *     <Checkbox name="terms" id="terms" />
+ *     Accept terms and conditions
+ *   </Label>
+ * </form>
+ * ```
  */
 const Checkbox = forwardRef<ComponentRef<"input">, Props>(
 	(

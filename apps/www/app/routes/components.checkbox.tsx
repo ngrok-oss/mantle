@@ -1,4 +1,5 @@
 import { Anchor } from "@ngrok/mantle/anchor";
+import { Button } from "@ngrok/mantle/button";
 import { Checkbox } from "@ngrok/mantle/checkbox";
 import {
 	CodeBlock,
@@ -9,6 +10,8 @@ import {
 } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Label } from "@ngrok/mantle/label";
+import { useForm } from "@tanstack/react-form";
+import { z } from "zod";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import {
@@ -155,6 +158,129 @@ export default function Page() {
 					</CodeBlock>
 				</div>
 			</section>
+
+			<section className="space-y-8">
+				<header className="space-y-4">
+					<h2 id="examples" className="text-3xl font-medium">
+						Examples
+					</h2>
+				</header>
+
+				<section className="space-y-4">
+					<header className="space-y-1">
+						<h3 className="text-xl font-medium">
+							Checkbox in a form with client-side validation
+						</h3>
+						<p className="font-body text-body">
+							In this example, the <InlineCode>Checkbox</InlineCode> is used in
+							a form with client-side validation. The form is built using{" "}
+							<InlineCode>
+								<Anchor href="https://tanstack.com/form/latest/docs">
+									@tanstack/react-form
+								</Anchor>
+							</InlineCode>
+							and <InlineCode>zod</InlineCode> for validation. The form accepts
+							and validates the input before submission.
+						</p>
+					</header>
+					<div>
+						<Example className="flex-col w-full">
+							<FormExample />
+						</Example>
+						<CodeBlock className="rounded-b-lg rounded-t-none">
+							<CodeBlockBody>
+								<CodeBlockCopyButton />
+								<CodeBlockCode
+									language="tsx"
+									value={fmtCode`
+										import { Button } from "@ngrok/mantle/button";
+										import { Label } from "@ngrok/mantle/label";
+										import { Checkbox } from "@ngrok/mantle/checkbox";
+										import { useForm } from "@tanstack/react-form";
+										import { z } from "zod";
+										import { useSubmit } from "react-router";
+
+										const formSchema = z.object({
+											acceptedTermsAndConditions: z
+												.boolean()
+												.refine((value) => value, "You must accept the terms and conditions."),
+										});
+
+										type FormValues = z.infer<typeof formSchema>;
+
+										function FormExample() {
+											const submit = useSubmit();
+											const form = useForm({
+												defaultValues: {
+													acceptedTermsAndConditions: false,
+												} satisfies FormValues as FormValues,
+												validators: {
+													onSubmit: formSchema,
+												},
+												onSubmit: ({ value }) => {
+													// Handle form submission here
+													submit(value, {
+														method: "post",
+													});
+												},
+											});
+
+											return (
+												<form
+													className="space-y-4"
+													onSubmit={(event) => {
+														event.preventDefault();
+														event.stopPropagation();
+														void form.handleSubmit();
+													}}
+												>
+													<div className="space-y-1">
+														<form.Field name="acceptedTermsAndConditions">
+															{(field) => (
+																<Label htmlFor={field.name} className="flex items-center gap-2">
+																	<Checkbox
+																		name={field.name}
+																		id={field.name}
+																		checked={field.state.value}
+																		onBlur={field.handleBlur}
+																		onChange={(event) => field.handleChange(event.target.checked)}
+																		validation={field.state.meta.errors.length > 0 && "error"}
+																	/>
+																	Accept terms and conditions
+																</Label>
+															)}
+														</form.Field>
+														<form.Field name="acceptedTermsAndConditions">
+															{(field) =>
+																field.state.meta.errors.map((error) => (
+																	<p
+																		key={error?.message}
+																		className="text-sm leading-4 text-danger-600"
+																	>
+																		{error?.message}
+																	</p>
+																))
+															}
+														</form.Field>
+													</div>
+													<form.Subscribe selector={(state) => state.isDirty}>
+														{(isDirty) => (
+															<Button type="submit" appearance="filled" disabled={!isDirty}>
+																Submit
+															</Button>
+														)}
+													</form.Subscribe>
+												</form>
+											);
+										}
+									`}
+								/>
+							</CodeBlockBody>
+						</CodeBlock>
+					</div>
+				</section>
+			</section>
+
 			<section className="space-y-4">
 				<h2 id="api" className="text-3xl font-medium">
 					API Reference
@@ -256,5 +382,76 @@ export default function Page() {
 				</PropsTable>
 			</section>
 		</div>
+	);
+}
+
+const formSchema = z.object({
+	acceptedTermsAndConditions: z
+		.boolean()
+		.refine((value) => value, "You must accept the terms and conditions."),
+});
+
+type FormValues = z.infer<typeof formSchema>;
+
+function FormExample() {
+	const form = useForm({
+		defaultValues: {
+			acceptedTermsAndConditions: false,
+		} satisfies FormValues as FormValues,
+		validators: {
+			onSubmit: formSchema,
+		},
+		onSubmit: ({ value }) => {
+			// Handle form submission here
+			window.alert(`Form submitted: ${JSON.stringify(value, null, 2)}`);
+		},
+	});
+
+	return (
+		<form
+			className="space-y-4 w-full"
+			onSubmit={(event) => {
+				event.preventDefault();
+				event.stopPropagation();
+				void form.handleSubmit();
+			}}
+		>
+			<div className="space-y-1">
+				<form.Field name="acceptedTermsAndConditions">
+					{(field) => (
+						<Label htmlFor={field.name} className="flex items-center gap-2">
+							<Checkbox
+								name={field.name}
+								id={field.name}
+								checked={field.state.value}
+								onBlur={field.handleBlur}
+								onChange={(event) => field.handleChange(event.target.checked)}
+								validation={field.state.meta.errors.length > 0 && "error"}
+							/>
+							Accept terms and conditions
+						</Label>
+					)}
+				</form.Field>
+				<form.Field name="acceptedTermsAndConditions">
+					{(field) =>
+						field.state.meta.errors.map((error) => (
+							<p
+								key={error?.message}
+								className="text-sm leading-4 text-danger-600"
+							>
+								{error?.message}
+							</p>
+						))
+					}
+				</form.Field>
+			</div>
+			<form.Subscribe selector={(state) => state.isDirty}>
+				{(isDirty) => (
+					<Button type="submit" appearance="filled" disabled={!isDirty}>
+						Submit
+					</Button>
+				)}
+			</form.Subscribe>
+		</form>
 	);
 }
