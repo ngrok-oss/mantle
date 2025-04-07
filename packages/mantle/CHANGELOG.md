@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.24.0
+
+### Minor Changes
+
+- [#491](https://github.com/ngrok-oss/mantle/pull/491) [`97538d9`](https://github.com/ngrok-oss/mantle/commit/97538d9986c5b38098729b10acd3274ce28cc98b) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Anchor: add support for icons and their placement, improve docs and intellisense
+
 ## 0.23.2
 
 ### Patch Changes
