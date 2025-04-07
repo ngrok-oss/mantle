@@ -124,6 +124,7 @@ type ButtonProps = ComponentProps<"button"> &
 		/**
 		 * The side that the icon will render on, if one is present. If `state="pending"`,
 		 * then the loading icon will also render on this side.
+		 * @default "start"
 		 */
 		iconPlacement?: "start" | "end";
 	} & (
