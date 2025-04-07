@@ -12,6 +12,7 @@ import { Shrimp } from "@phosphor-icons/react/Shrimp";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import {
+	BooleanPropType,
 	PropDefaultValueCell,
 	PropDescriptionCell,
 	PropNameCell,
@@ -177,6 +178,22 @@ export default function Page() {
 						</PropDefaultValueCell>
 						<PropDescriptionCell>
 							<p>The side that the icon will render on, if one is present</p>
+						</PropDescriptionCell>
+					</PropRow>
+					<PropRow>
+						<PropNameCell name="asChild" optional />
+						<PropTypeCell>
+							<BooleanPropType />
+						</PropTypeCell>
+						<PropDefaultValueCell>
+							<BooleanPropType value={false} />
+						</PropDefaultValueCell>
+						<PropDescriptionCell>
+							<p>
+								Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
+								<InlineCode>Anchor</InlineCode> styling and functionality onto
+								alternative element types or your own React components.
+							</p>
 						</PropDescriptionCell>
 					</PropRow>
 				</PropsTable>
