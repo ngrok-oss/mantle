@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.23.2
+
+### Patch Changes
+
+- [#489](https://github.com/ngrok-oss/mantle/pull/489) [`1c47edc`](https://github.com/ngrok-oss/mantle/commit/1c47edc8c4ac9a352befc154e11be5610f523870) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - CodeBlock: fix unescaped inner html on initial render
+
 ## 0.23.1
 
 ### Patch Changes
