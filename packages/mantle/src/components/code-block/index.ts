@@ -12,8 +12,18 @@ export {
 
 export {
 	//,
+	escapeHtml,
+} from "./escape-html.js";
+
+export {
+	//,
 	fmtCode,
 } from "./fmt-code.js";
+
+export {
+	//,
+	normalizeIndentation,
+} from "./normalize.js";
 
 export {
 	//,
