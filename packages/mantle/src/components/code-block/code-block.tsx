@@ -4,22 +4,7 @@ import { Copy } from "@phosphor-icons/react/Copy";
 import { FileText } from "@phosphor-icons/react/FileText";
 import { Terminal } from "@phosphor-icons/react/Terminal";
 import { Slot } from "@radix-ui/react-slot";
-import Prism from "prismjs";
-import "prismjs/components/prism-bash.js";
-import "prismjs/components/prism-csharp.js";
-import "prismjs/components/prism-css.js";
-import "prismjs/components/prism-go.js";
-import "prismjs/components/prism-java.js";
-import "prismjs/components/prism-javascript.js";
-import "prismjs/components/prism-json.js";
-import "prismjs/components/prism-jsx.js";
-import "prismjs/components/prism-markup.js";
-import "prismjs/components/prism-python.js";
-import "prismjs/components/prism-ruby.js";
-import "prismjs/components/prism-rust.js";
-import "prismjs/components/prism-tsx.js";
-import "prismjs/components/prism-typescript.js";
-import "prismjs/components/prism-yaml.js";
+import clsx from "clsx";
 import type {
 	ComponentProps,
 	Dispatch,
@@ -41,7 +26,10 @@ import { useCopyToClipboard } from "../../hooks/use-copy-to-clipboard.js";
 import { cx } from "../../utils/cx/cx.js";
 import { Icon } from "../icon/icon.js";
 import type { SvgAttributes } from "../icon/types.js";
+import { escapeHtml } from "./escape-html.js";
+import { Highlighter } from "./highlighter.js";
 import type { LineRange } from "./line-numbers.js";
+import { normalizeIndentation } from "./normalize.js";
 import type { Mode } from "./parse-metastring.js";
 import type { SupportedLanguage } from "./supported-languages.js";
 import {
@@ -186,28 +174,35 @@ const CodeBlockCode = forwardRef<HTMLPreElement, CodeBlockCodeProps>(
 			unregisterCodeId,
 		} = useContext(CodeBlockContext);
 
-		// trim any leading and trailing whitespace/empty lines
-		const trimmedCode = value?.trim() ?? "";
-		const [highlightedCodeInnerHtml, setHighlightedCodeInnerHtml] =
-			useState(trimmedCode);
+		// trim any leading and trailing whitespace/empty lines, convert leading tabs to spaces
+		const normalizedAndTrimmedValue = useMemo(
+			() => normalizeIndentation(value),
+			[value],
+		);
+		const [highlightedCodeInnerHtml, setHighlightedCodeInnerHtml] = useState(
+			// initialize the <code> inner html with escaped HTML since we are using
+			// dangerouslySetInnerHTML to set the inner html of the <code> element
+			// and use Prism.js to "highlight" the code in a useEffect (client-side only)
+			escapeHtml(normalizeIndentation(value)),
+		);
 
 		useEffect(() => {
-			const grammar = Prism.languages[language];
+			const grammar = Highlighter.languages[language];
 			assert(
 				grammar,
 				`CodeBlock does not support the language "${language}". The syntax highlighter does not have a grammar for this language. The supported languages are: ${supportedLanguages.join(", ")}.`,
 			);
-			const newHighlightedCodeInnerHtml = Prism.highlight(
-				trimmedCode,
+			const newHighlightedCodeInnerHtml = Highlighter.highlight(
+				normalizedAndTrimmedValue,
 				grammar,
 				language,
 			);
 			setHighlightedCodeInnerHtml(newHighlightedCodeInnerHtml);
-		}, [trimmedCode, language]);
+		}, [normalizedAndTrimmedValue, language]);
 
 		useEffect(() => {
-			setCopyText(trimmedCode);
-		}, [trimmedCode, setCopyText]);
+			setCopyText(normalizedAndTrimmedValue);
+		}, [normalizedAndTrimmedValue, setCopyText]);
 
 		useEffect(() => {
 			registerCodeId(id);
@@ -217,6 +212,8 @@ const CodeBlockCode = forwardRef<HTMLPreElement, CodeBlockCodeProps>(
 			};
 		}, [id, registerCodeId, unregisterCodeId]);
 
+		const languageClassName = formatLanguageClassName(language);
+
 		return (
 			<pre
 				aria-expanded={hasCodeExpander ? isCodeExpanded : undefined}
@@ -224,7 +221,7 @@ const CodeBlockCode = forwardRef<HTMLPreElement, CodeBlockCodeProps>(
 					"scrollbar firefox:after:mr-[3.375rem] firefox:after:inline-block firefox:after:content-[''] overflow-x-auto overflow-y-hidden p-4 pr-14",
 					"text-size-inherit text-mono m-0 font-mono",
 					"aria-collapsed:max-h-[13.6rem]",
-					formatLanguageClassName(language), // place it last because prism does weird stuff client side, causes hydration mismatches
+					languageClassName, // place it last because prism does weird stuff client side, causes hydration mismatches
 					className,
 				)}
 				data-lang={language}
@@ -241,11 +238,13 @@ const CodeBlockCode = forwardRef<HTMLPreElement, CodeBlockCodeProps>(
 				{...props}
 			>
 				<code
-					className="text-size-inherit"
+					className={clsx("text-size-inherit", languageClassName)}
+					dangerouslySetInnerHTML={{
+						__html: highlightedCodeInnerHtml,
+					}}
 					// we need to suppress the hydration warning because we are setting the innerHTML of the code block
 					// and using Prism.js to "highlight" the code in a useEffect (client-side only), which does different things on the client and server
 					suppressHydrationWarning
-					dangerouslySetInnerHTML={{ __html: highlightedCodeInnerHtml }}
 				/>
 			</pre>
 		);

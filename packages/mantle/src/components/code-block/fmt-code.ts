@@ -27,9 +27,8 @@ export function fmtCode(
 			}
 			return line.slice(minIndent);
 		})
-		.join("\n");
-	// replace all tabs with 2 spaces
-	// .replace(/\t/g, "  ")
+		.join("\n")
+		.replace(/\t/g, "  "); // replace all tabs with 2 spaces
 }
 
 /**

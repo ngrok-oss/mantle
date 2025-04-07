@@ -13,6 +13,7 @@ import Prism from "prismjs";
 import { type PropsWithChildren, useEffect, useState } from "react";
 import assert from "tiny-invariant";
 import "prismjs/components/prism-typescript.js";
+import { escapeHtml, normalizeIndentation } from "@ngrok/mantle/code-block";
 
 type PropsTableProps = WithStyleProps & PropsWithChildren;
 export const PropsTable = ({ children, className, style }: PropsTableProps) => (
@@ -56,15 +57,17 @@ export const PropNameCell = ({
 	style,
 }: PropNameCellProps) => (
 	<TableCell className={cx("align-top font-mono", className)} style={style}>
-		<p className="flex items-center">
+		<div className="flex items-center">
 			<span className="token attr-name">{name}</span>
 			{optional && (
 				<Tooltip>
 					<TooltipTrigger>?</TooltipTrigger>
-					<TooltipContent>This prop is optional.</TooltipContent>
+					<TooltipContent>
+						<p>This prop is optional.</p>
+					</TooltipContent>
 				</Tooltip>
 			)}
-		</p>
+		</div>
 	</TableCell>
 );
 
@@ -123,25 +126,32 @@ export const NumberPropType = ({ value }: { value?: number }) => (
 );
 
 export const FuncPropType = ({ value }: { value: string }) => {
-	// trim any leading and trailing whitespace/empty lines
-	const trimmedCode = value?.trim() ?? "";
-	const [highlightedCodeInnerHtml, setHighlightedCodeInnerHtml] =
-		useState(trimmedCode);
+	const normalizedCode = normalizeIndentation(value);
+	const [highlightedCodeInnerHtml, setHighlightedCodeInnerHtml] = useState(
+		escapeHtml(normalizedCode),
+	);
 
 	useEffect(() => {
 		const grammar = Prism.languages.typescript;
 		assert(grammar, "Couldn't load Prism grammar for typescript!");
 		const newHighlightedCodeInnerHtml = Prism.highlight(
-			trimmedCode,
+			normalizedCode,
 			grammar,
 			"typescript",
 		);
 		setHighlightedCodeInnerHtml(newHighlightedCodeInnerHtml);
-	}, [trimmedCode]);
+	}, [normalizedCode]);
 
 	return (
-		<pre className="language-typescript">
-			<code dangerouslySetInnerHTML={{ __html: highlightedCodeInnerHtml }} />
+		<pre className="language-typescript" tabIndex={-1}>
+			<code
+				className="language-typescript"
+				dangerouslySetInnerHTML={{ __html: highlightedCodeInnerHtml }}
+				// we need to suppress the hydration warning because we are setting the innerHTML of the code element
+				// and using Prism.js to "highlight" the code in a useEffect (client-side only),
+				// which does different things on the client and server
+				suppressHydrationWarning
+			/>
 		</pre>
 	);
 };
