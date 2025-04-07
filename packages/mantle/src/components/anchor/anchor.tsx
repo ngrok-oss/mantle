@@ -1,8 +1,10 @@
 import { Slot } from "@radix-ui/react-slot";
-import { forwardRef } from "react";
-import type { AnchorHTMLAttributes } from "react";
+import type { AnchorHTMLAttributes, ComponentRef, ReactNode } from "react";
+import { Children, cloneElement, forwardRef, isValidElement } from "react";
+import invariant from "tiny-invariant";
 import type { WithAsChild } from "../../types/as-child.js";
 import { cx } from "../../utils/cx/cx.js";
+import { Icon } from "../icon/icon.js";
 import type { Rel, Target } from "./types.js";
 
 /**
@@ -22,6 +24,15 @@ type AnchorProps = Omit<
 	"rel" | "target"
 > &
 	WithAsChild & {
+		/**
+		 * An icon to render inside the anchor
+		 */
+		icon?: ReactNode;
+		/**
+		 * The side that the icon will render on, if one is present
+		 * @default "start"
+		 */
+		iconPlacement?: "start" | "end";
 		/**
 		 * The rel attribute defines the relationship between a linked resource and the current document.
 		 *
@@ -49,23 +60,78 @@ type AnchorProps = Omit<
 /**
  * Fundamental component for rendering links to external addresses.
  *
- * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a
- *
  * @note If you need to link to an internal application route, prefer using the
  * [`react-router` `<Link>`](https://reactrouter.com/en/main/components/link)
+ *
+ * @see https://mantle.ngrok.com/components/anchor#api
+ *
+ * @example
+ * ```tsx
+ * <Anchor href="https://ngrok.com/">ngrok.com</Anchor>
+ *
+ * <Anchor href="https://ngrok.com/docs" target="_blank" icon={<Book />}>
+ *   ngrok docs
+ * </Anchor>
+ * ```
  */
-const Anchor = forwardRef<HTMLAnchorElement, AnchorProps>(
-	({ asChild, className, rel: propRel, ...props }, ref) => {
-		const Component = asChild ? Slot : "a";
+const Anchor = forwardRef<ComponentRef<"a">, AnchorProps>(
+	(
+		{
+			asChild,
+			children,
+			className,
+			rel: propRel,
+			icon,
+			iconPlacement = "start",
+			...props
+		},
+		ref,
+	) => {
 		const rel = resolveRel(propRel);
+		const componentProps = {
+			className: anchorClassNames(className),
+			ref,
+			rel,
+			...props,
+		};
+
+		if (asChild) {
+			const singleChild = Children.only(children);
+			invariant(
+				isValidElement<AnchorProps>(singleChild),
+				"When using `asChild`, Anchor must be passed a single child as a JSX tag.",
+			);
+			const grandchildren = singleChild.props?.children;
+
+			return (
+				<Slot {...componentProps}>
+					{cloneElement(
+						singleChild,
+						{},
+						<>
+							{icon && iconPlacement === "start" && (
+								<Icon className="inline-block mr-1.5" svg={icon} />
+							)}
+							{grandchildren}
+							{icon && iconPlacement === "end" && (
+								<Icon className="inline-block ml-1.5" svg={icon} />
+							)}
+						</>,
+					)}
+				</Slot>
+			);
+		}
 
 		return (
-			<Component
-				className={anchorClassNames(className)}
-				ref={ref}
-				rel={rel}
-				{...props}
-			/>
+			<a {...componentProps}>
+				{icon && iconPlacement === "start" && (
+					<Icon className="inline-block mr-1.5" svg={icon} />
+				)}
+				{children}
+				{icon && iconPlacement === "end" && (
+					<Icon className="inline-block ml-1.5" svg={icon} />
+				)}
+			</a>
 		);
 	},
 );
@@ -97,5 +163,14 @@ function resolveRel(
 	return rel?.trim() || undefined;
 }
 
-export { Anchor, anchorClassNames, resolveRel };
-export type { AnchorProps };
+export {
+	//,
+	Anchor,
+	anchorClassNames,
+	resolveRel,
+};
+
+export type {
+	//,
+	AnchorProps,
+};
