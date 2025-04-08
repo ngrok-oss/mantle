@@ -184,7 +184,7 @@ type CardTitleProps = HTMLAttributes<HTMLHeadingElement> & WithAsChild;
  * </Card>
  * ```
  */
-const CardTitle = forwardRef<HTMLParagraphElement, CardTitleProps>(
+const CardTitle = forwardRef<HTMLHeadingElement, CardTitleProps>(
 	({ className, asChild, ...props }, ref) => {
 		const Comp = asChild ? Slot : "h3";
 		return (
