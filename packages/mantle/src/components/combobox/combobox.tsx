@@ -327,12 +327,12 @@ type ComboboxItemValueProps = Omit<
  *   <ComboboxContent>
  *     <ComboboxItem value="Apple">
  *       🍎
- *       <ComboboxItemValue>
- *     </ComboboxItemValue>
+ *       <ComboboxItemValue />
+ *     </ComboboxItem>
  *     <ComboboxItem value="Banana">
  *       🍌
- *       <ComboboxItemValue>
- *     </ComboboxItemValue>
+ *       <ComboboxItemValue />
+ *     </ComboboxItem>
  *   </ComboboxContent>
  * </Combobox>
  */
