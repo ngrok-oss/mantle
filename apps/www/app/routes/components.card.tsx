@@ -158,7 +158,7 @@ export default function Page() {
 						<p className="font-body text-body">
 							A container that can be used to display content in a box
 							resembling a physical card. The root component of the all{" "}
-							<InlineCode>Card</InlineCode> sub-components. sub-components.
+							<InlineCode>Card</InlineCode> sub-components.
 						</p>
 
 						<p>
