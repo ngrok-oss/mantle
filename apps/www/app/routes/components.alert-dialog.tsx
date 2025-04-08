@@ -26,6 +26,7 @@ import { Example } from "~/components/example";
 import { Link } from "~/components/link";
 import { PageHeader } from "~/components/page-header";
 import {
+	BooleanPropType,
 	PropDefaultValueCell,
 	PropDescriptionCell,
 	PropNameCell,
@@ -77,8 +78,8 @@ export default function Page() {
 											Are you absolutely sure?
 										</AlertDialogTitle>
 										<AlertDialogDescription>
-											This action cannot be undone. This will permanently delete
-											your account and remove your data from our servers.
+											Proident quis nisi tempor irure sunt ut minim occaecat
+											mollit sunt.
 										</AlertDialogDescription>
 									</AlertDialogHeader>
 									<AlertDialogFooter>
@@ -104,8 +105,8 @@ export default function Page() {
 											Are you absolutely sure?
 										</AlertDialogTitle>
 										<AlertDialogDescription>
-											This action cannot be undone. This will permanently delete
-											your account and remove your data from our servers.
+											Proident quis nisi tempor irure sunt ut minim occaecat
+											mollit sunt.
 										</AlertDialogDescription>
 									</AlertDialogHeader>
 									<AlertDialogFooter>
@@ -132,8 +133,8 @@ export default function Page() {
 											Are you absolutely sure?
 										</AlertDialogTitle>
 										<AlertDialogDescription>
-											This action cannot be undone. This will permanently delete
-											your account and remove your data from our servers.
+											Proident quis nisi tempor irure sunt ut minim occaecat
+											mollit sunt.
 										</AlertDialogDescription>
 									</AlertDialogHeader>
 									<AlertDialogFooter>
@@ -190,8 +191,7 @@ export default function Page() {
 												<AlertDialogHeader>
 													<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
 													<AlertDialogDescription>
-														This action cannot be undone. This will permanently delete your account and remove your data from
-														our servers.
+														 Proident quis nisi tempor irure sunt ut minim occaecat mollit sunt.
 													</AlertDialogDescription>
 												</AlertDialogHeader>
 												<AlertDialogFooter>
@@ -214,8 +214,7 @@ export default function Page() {
 												<AlertDialogHeader>
 													<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
 													<AlertDialogDescription>
-														This action cannot be undone. This will permanently delete your account and remove your data from
-														our servers.
+														 Proident quis nisi tempor irure sunt ut minim occaecat mollit sunt.
 													</AlertDialogDescription>
 												</AlertDialogHeader>
 												<AlertDialogFooter>
@@ -260,7 +259,12 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 className="text-xl font-medium text-strong">AlertDialog</h3>
+						<h3
+							id="api-alert-dialog"
+							className="text-xl font-medium text-strong"
+						>
+							AlertDialog
+						</h3>
 
 						<p className="font-body text-body">
 							The root component for the Alert Dialog.
@@ -304,7 +308,10 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 className="text-xl font-medium text-strong">
+					<h3
+						id="api-alert-dialog-trigger"
+						className="text-xl font-medium text-strong"
+					>
 						AlertDialogTrigger
 					</h3>
 
@@ -325,7 +332,10 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 className="text-xl font-medium text-strong">
+					<h3
+						id="api-alert-dialog-content"
+						className="text-xl font-medium text-strong"
+					>
 						AlertDialogContent
 					</h3>
 
@@ -347,31 +357,131 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 className="text-xl font-medium text-strong">AlertDialogHeader</h3>
+					<h3
+						id="api-alert-dialog-body"
+						className="text-xl font-medium text-strong"
+					>
+						AlertDialogBody
+					</h3>
+					<p className="font-body text-body">
+						Contains the main content of the alert dialog.
+					</p>
+					<p className="font-body text-body text-xl">
+						The <InlineCode>AlertDialogBody</InlineCode> accepts the following
+						props in addition to the{" "}
+						<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes">
+							standard HTML div attributes
+						</Anchor>
+						.
+					</p>
+					<PropsTable>
+						<PropRow>
+							<PropNameCell name="asChild" optional />
+							<PropTypeCell>
+								<BooleanPropType />
+							</PropTypeCell>
+							<PropDefaultValueCell>
+								<BooleanPropType value={false} />
+							</PropDefaultValueCell>
+							<PropDescriptionCell>
+								<p>
+									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
+									<InlineCode>AlertDialogBody</InlineCode> styling and
+									functionality onto alternative element types or your own React
+									components.
+								</p>
+							</PropDescriptionCell>
+						</PropRow>
+					</PropsTable>
+				</section>
 
+				<section className="space-y-1">
+					<h3
+						id="api-alert-dialog-header"
+						className="text-xl font-medium text-strong"
+					>
+						AlertDialogHeader
+					</h3>
 					<p className="font-body text-body">
 						Contains the header content of the dialog, including the title and
 						description.
 					</p>
-					<p className="font-body text-body">
-						Same props as a <InlineCode>{"<div>"}</InlineCode> element.
+					<p className="font-body text-body text-xl">
+						The <InlineCode>AlertDialogHeader</InlineCode> accepts the following
+						props in addition to the{" "}
+						<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes">
+							standard HTML div attributes
+						</Anchor>
+						.
 					</p>
+					<PropsTable>
+						<PropRow>
+							<PropNameCell name="asChild" optional />
+							<PropTypeCell>
+								<BooleanPropType />
+							</PropTypeCell>
+							<PropDefaultValueCell>
+								<BooleanPropType value={false} />
+							</PropDefaultValueCell>
+							<PropDescriptionCell>
+								<p>
+									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
+									<InlineCode>AlertDialogHeader</InlineCode> styling and
+									functionality onto alternative element types or your own React
+									components.
+								</p>
+							</PropDescriptionCell>
+						</PropRow>
+					</PropsTable>
 				</section>
 
 				<section className="space-y-1">
-					<h3 className="text-xl font-medium text-strong">AlertDialogFooter</h3>
-
+					<h3
+						id="api-alert-dialog-footer"
+						className="text-xl font-medium text-strong"
+					>
+						AlertDialogFooter
+					</h3>
 					<p className="font-body text-body">
 						Contains the footer content of the dialog, including the action and
 						cancel buttons.
 					</p>
-					<p className="font-body text-body">
-						Same props as a <InlineCode>{"<div>"}</InlineCode> element.
+					<p className="font-body text-body text-xl">
+						The <InlineCode>AlertDialogFooter</InlineCode> accepts the following
+						props in addition to the{" "}
+						<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes">
+							standard HTML div attributes
+						</Anchor>
+						.
 					</p>
+					<PropsTable>
+						<PropRow>
+							<PropNameCell name="asChild" optional />
+							<PropTypeCell>
+								<BooleanPropType />
+							</PropTypeCell>
+							<PropDefaultValueCell>
+								<BooleanPropType value={false} />
+							</PropDefaultValueCell>
+							<PropDescriptionCell>
+								<p>
+									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
+									<InlineCode>AlertDialogFooter</InlineCode> styling and
+									functionality onto alternative element types or your own React
+									components.
+								</p>
+							</PropDescriptionCell>
+						</PropRow>
+					</PropsTable>
 				</section>
 
 				<section className="space-y-1">
-					<h3 className="text-xl font-medium text-strong">AlertDialogTitle</h3>
+					<h3
+						id="api-alert-dialog-title"
+						className="text-xl font-medium text-strong"
+					>
+						AlertDialogTitle
+					</h3>
 
 					<p className="font-body text-body">
 						An accessible name to be announced when the dialog is opened.
@@ -396,7 +506,10 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 className="text-xl font-medium text-strong">
+					<h3
+						id="api-alert-dialog-description"
+						className="text-xl font-medium text-strong"
+					>
 						AlertDialogDescription
 					</h3>
 
@@ -423,7 +536,12 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 className="text-xl font-medium text-strong">AlertDialogAction</h3>
+					<h3
+						id="api-alert-dialog-action"
+						className="text-xl font-medium text-strong"
+					>
+						AlertDialogAction
+					</h3>
 
 					<p className="font-body text-body">
 						A button that confirms the Alert Dialog action. Will default to{" "}
@@ -446,7 +564,12 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 className="text-xl font-medium text-strong">AlertDialogCancel</h3>
+					<h3
+						id="api-alert-dialog-cancel"
+						className="text-xl font-medium text-strong"
+					>
+						AlertDialogCancel
+					</h3>
 
 					<p className="font-body text-body">
 						A button that closes the dialog and cancels the action. Will default
