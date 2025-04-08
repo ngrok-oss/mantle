@@ -14,7 +14,7 @@ const metaSchema = z.object({
 	disableCopy: z.boolean().default(false),
 	mode: z.enum(modes).optional(),
 	title: z.string().trim().optional(),
-	indentWith: z.enum(indentations).optional(),
+	indentation: z.enum(indentations).optional(),
 });
 
 type MetaInput = z.input<typeof metaSchema>;
@@ -26,7 +26,7 @@ const defaultMeta = {
 	disableCopy: false,
 	mode: undefined,
 	title: undefined,
-	indentWith: undefined,
+	indentation: undefined,
 } as const satisfies Meta;
 
 type DefaultMeta = typeof defaultMeta;

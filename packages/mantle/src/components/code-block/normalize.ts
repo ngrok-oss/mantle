@@ -9,7 +9,7 @@ type Options = {
 };
 
 /**
- * Trim any leading and trailing whitespace/empty lines, convert leading leading
+ * Trim any leading and trailing whitespace/empty lines, convert leading
  * indentation to the given options.indentation
  */
 function normalizeIndentation(value: string, options?: Options): string {
