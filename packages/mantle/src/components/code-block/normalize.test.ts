@@ -3,45 +3,86 @@ import { normalizeIndentation } from "./normalize.js";
 
 describe("normalizeIndentation", () => {
 	test("given empty string, returns empty string", () => {
-		expect(normalizeIndentation("")).toBe("");
+		const value = "";
+		const expected = "";
+		expect(normalizeIndentation(value)).toBe(expected);
+		expect(normalizeIndentation(value, { indentation: "tabs" })).toBe(expected);
+		expect(normalizeIndentation(value, { indentation: "spaces" })).toBe(
+			expected,
+		);
 	});
 
 	test("given a single line string, returns the string", () => {
-		expect(normalizeIndentation("SELECT * FROM users")).toBe(
-			"SELECT * FROM users",
+		const value = "SELECT * FROM users";
+		const expected = "SELECT * FROM users";
+		expect(normalizeIndentation(value)).toBe(expected);
+		expect(normalizeIndentation(value, { indentation: "tabs" })).toBe(expected);
+		expect(normalizeIndentation(value, { indentation: "spaces" })).toBe(
+			expected,
 		);
 	});
 
 	test("given a multiline string with no indentation, returns the string", () => {
-		const example = normalizeIndentation(`
+		const value = `
 const foo = {};
 const bar = {};
 foo.bar = bar;
-`);
-
-		expect(example).toMatchInlineSnapshot(`
+bar.foo =					foo;
+`;
+		let result = normalizeIndentation(value);
+		expect(result).toMatchInlineSnapshot(`
 			"const foo = {};
 			const bar = {};
-			foo.bar = bar;"
+			foo.bar = bar;
+			bar.foo =					foo;"
+		`);
+
+		result = normalizeIndentation(value, { indentation: "spaces" });
+		expect(result).toMatchInlineSnapshot(`
+			"const foo = {};
+			const bar = {};
+			foo.bar = bar;
+			bar.foo =					foo;"
+		`);
+		result = normalizeIndentation(value, { indentation: "tabs" });
+		expect(result).toMatchInlineSnapshot(`
+			"const foo = {};
+			const bar = {};
+			foo.bar = bar;
+			bar.foo =					foo;"
 		`);
 	});
 
 	test("given a multiline string with indentation, returns the string with indentation removed", () => {
-		const example = normalizeIndentation(`
-	const foo = {};
+		const value = `
+const foo = {};
 	const bar = {};
-	foo.bar = bar;
-	`);
-
-		expect(example).toMatchInlineSnapshot(`
+		foo.bar = bar;
+	`;
+		let result = normalizeIndentation(value);
+		expect(result).toMatchInlineSnapshot(`
 			"const foo = {};
 			  const bar = {};
-			  foo.bar = bar;"
+			    foo.bar = bar;"
+		`);
+
+		result = normalizeIndentation(value, { indentation: "spaces" });
+		expect(result).toMatchInlineSnapshot(`
+			"const foo = {};
+			  const bar = {};
+			    foo.bar = bar;"
+		`);
+
+		result = normalizeIndentation(value, { indentation: "tabs" });
+		expect(result).toMatchInlineSnapshot(`
+			"const foo = {};
+				const bar = {};
+					foo.bar = bar;"
 		`);
 	});
 
 	test("given a component code example with tabs, returns the string with tabs replaced with spaces", () => {
-		const example = normalizeIndentation(`
+		const value = `
 <Alert priority="danger">
 	<AlertIcon />
 	<AlertContent>
@@ -49,14 +90,38 @@ foo.bar = bar;
 		<AlertDescription>This is a danger Alert.</AlertDescription>
 	</AlertContent>
 </Alert>
-		`);
-		expect(example).toMatchInlineSnapshot(`
+		`;
+
+		let result = normalizeIndentation(value);
+		expect(result).toMatchInlineSnapshot(`
 			"<Alert priority="danger">
 			  <AlertIcon />
 			  <AlertContent>
 			    <AlertTitle>Danger</AlertTitle>
 			    <AlertDescription>This is a danger Alert.</AlertDescription>
 			  </AlertContent>
+			</Alert>"
+		`);
+
+		result = normalizeIndentation(value, { indentation: "spaces" });
+		expect(result).toMatchInlineSnapshot(`
+			"<Alert priority="danger">
+			  <AlertIcon />
+			  <AlertContent>
+			    <AlertTitle>Danger</AlertTitle>
+			    <AlertDescription>This is a danger Alert.</AlertDescription>
+			  </AlertContent>
+			</Alert>"
+		`);
+
+		result = normalizeIndentation(value, { indentation: "tabs" });
+		expect(result).toMatchInlineSnapshot(`
+			"<Alert priority="danger">
+				<AlertIcon />
+				<AlertContent>
+					<AlertTitle>Danger</AlertTitle>
+					<AlertDescription>This is a danger Alert.</AlertDescription>
+				</AlertContent>
 			</Alert>"
 		`);
 	});

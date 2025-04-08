@@ -3,7 +3,7 @@ type Primitive = string | number | boolean | undefined | null;
 /**
  * Tagged template literal to format code blocks and normalize leading indentation
  */
-export function fmtCode(
+function fmtCode(
 	strings: TemplateStringsArray,
 	...values: Primitive[]
 ): string {
@@ -27,9 +27,13 @@ export function fmtCode(
 			}
 			return line.slice(minIndent);
 		})
-		.join("\n")
-		.replace(/\t/g, "  "); // replace all tabs with 2 spaces
+		.join("\n");
 }
+
+export {
+	//,
+	fmtCode,
+};
 
 /**
  * Find the shortest indentation of a multiline string
