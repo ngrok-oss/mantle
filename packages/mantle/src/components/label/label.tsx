@@ -3,9 +3,32 @@ import type { ComponentPropsWithoutRef, ComponentRef } from "react";
 import { cx } from "../../utils/cx/cx.js";
 
 type LabelProps = ComponentPropsWithoutRef<"label"> & {
+	/**
+	 * If set, the label will appear disabled.
+	 */
 	disabled?: boolean;
 };
 
+/**
+ * A Label represents a caption for an item in a user interface. It is used to
+ * provide a description or title for a form control, such as an input field,
+ * checkbox, radio button, etc. The label is typically displayed next to the
+ * form control and helps users understand its purpose.
+ *
+ * @see https://mantle.ngrok.com/components/label#api
+ *
+ * @example
+ * ```tsx
+ * <Label htmlFor="name">
+ *   Name: <Input type="text" id="name" />
+ * </Label>
+ *
+ * <div className="flex items-center gap-2">
+ *   <Label htmlFor="name-2">Name:</Label>
+ *   <Input type="text" id="name-2" />
+ * </div>
+ * ```
+ */
 const Label = forwardRef<ComponentRef<"label">, LabelProps>(
 	(
 		{
