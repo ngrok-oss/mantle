@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { indentations } from "./indentation.js";
 
 const modes = [
 	//,
@@ -13,6 +14,7 @@ const metaSchema = z.object({
 	disableCopy: z.boolean().default(false),
 	mode: z.enum(modes).optional(),
 	title: z.string().trim().optional(),
+	indentation: z.enum(indentations).optional(),
 });
 
 type MetaInput = z.input<typeof metaSchema>;
@@ -24,6 +26,7 @@ const defaultMeta = {
 	disableCopy: false,
 	mode: undefined,
 	title: undefined,
+	indentation: undefined,
 } as const satisfies Meta;
 
 type DefaultMeta = typeof defaultMeta;
