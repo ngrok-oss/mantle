@@ -73,70 +73,83 @@ export default function Page() {
 				</div>
 			</section>
 
-			<section className="space-y-4">
-				<h2 id="example-class-name" className="text-3xl font-medium">
-					Merging <InlineCode>className</InlineCode>s
-				</h2>
-				<p className="font-body text-body text-xl">
-					The <InlineCode>Icon</InlineCode> merges{" "}
-					<InlineCode>className</InlineCode> selectors with the following order
-					of precedence (last one wins):
-				</p>
-				<ol className="font-body text-body ml-8 list-decimal">
-					<li>
-						SvgOnly base classes (only <InlineCode>"shrink-0"</InlineCode>)
-					</li>
-					<li>Icon base classes</li>
-					<li>Icon className</li>
-					<li>svg className</li>
-				</ol>
-				<div>
-					<Example className="flex-col gap-6">
-						<div className="text-center">
-							<p>
-								When <InlineCode>className</InlineCode> is not specified:
-							</p>
-							<div className="flex items-center justify-center">
-								<Icon svg={<Fire />} />
+			<section className="space-y-8">
+				<header className="space-y-4">
+					<h2 id="examples" className="text-3xl font-medium">
+						Examples
+					</h2>
+				</header>
+
+				<section className="space-y-4">
+					<header className="space-y-1">
+						<h3
+							id="example-class-name"
+							className="text-xl font-medium text-strong"
+						>
+							Merging <InlineCode>className</InlineCode>s
+						</h3>
+					</header>
+					<p className="font-body text-body text-xl">
+						The <InlineCode>Icon</InlineCode> merges{" "}
+						<InlineCode>className</InlineCode> selectors with the following
+						order of precedence (last one wins):
+					</p>
+					<ol className="font-body text-body ml-8 list-decimal">
+						<li>
+							SvgOnly base classes (only <InlineCode>"shrink-0"</InlineCode>)
+						</li>
+						<li>Icon base classes</li>
+						<li>Icon className</li>
+						<li>svg className</li>
+					</ol>
+					<div>
+						<Example className="flex-col gap-6">
+							<div className="text-center">
+								<p>
+									When <InlineCode>className</InlineCode> is not specified:
+								</p>
+								<div className="flex items-center justify-center">
+									<Icon svg={<Fire />} />
+								</div>
 							</div>
-						</div>
-						<div className="text-center">
-							<p>
-								When <InlineCode>className</InlineCode> is only specified on{" "}
-								<InlineCode>svg</InlineCode>:
-							</p>
-							<div className="flex items-center justify-center">
-								<Icon svg={<Fire className="size-12 sm:size-16" />} />
+							<div className="text-center">
+								<p>
+									When <InlineCode>className</InlineCode> is only specified on{" "}
+									<InlineCode>svg</InlineCode>:
+								</p>
+								<div className="flex items-center justify-center">
+									<Icon svg={<Fire className="size-12 sm:size-16" />} />
+								</div>
 							</div>
-						</div>
-						<div className="text-center">
-							<p>
-								When <InlineCode>className</InlineCode> is only specified on{" "}
-								<InlineCode>Icon</InlineCode>:
-							</p>
-							<div className="flex items-center justify-center">
-								<Icon className="size-20 sm:size-28" svg={<Fire />} />
+							<div className="text-center">
+								<p>
+									When <InlineCode>className</InlineCode> is only specified on{" "}
+									<InlineCode>Icon</InlineCode>:
+								</p>
+								<div className="flex items-center justify-center">
+									<Icon className="size-20 sm:size-28" svg={<Fire />} />
+								</div>
 							</div>
-						</div>
-						<div className="text-center">
-							<p>
-								When <InlineCode>className</InlineCode> is specified on both{" "}
-								<InlineCode>svg</InlineCode> and <InlineCode>Icon</InlineCode>:
-							</p>
-							<div className="flex items-center justify-center">
-								<Icon
-									className="size-20 sm:size-28"
-									svg={<Fire className="size-12 sm:size-16" />}
-								/>
+							<div className="text-center">
+								<p>
+									When <InlineCode>className</InlineCode> is specified on both{" "}
+									<InlineCode>svg</InlineCode> and <InlineCode>Icon</InlineCode>
+									:
+								</p>
+								<div className="flex items-center justify-center">
+									<Icon
+										className="size-20 sm:size-28"
+										svg={<Fire className="size-12 sm:size-16" />}
+									/>
+								</div>
 							</div>
-						</div>
-					</Example>
-					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
-								language="tsx"
-								value={fmtCode`
+						</Example>
+						<CodeBlock className="rounded-b-lg rounded-t-none">
+							<CodeBlockBody>
+								<CodeBlockCopyButton />
+								<CodeBlockCode
+									language="tsx"
+									value={fmtCode`
 									import { Icon } from "@ngrok/mantle/icon"
 									import { Fire } from "@phosphor-icons/react/Fire";
 
@@ -145,10 +158,11 @@ export default function Page() {
 									<Icon className="size-20 sm:size-28" svg={<Fire />} />
 									<Icon className="size-20 sm:size-28" svg={<Fire className="size-12 sm:size-16" />} />
 								`}
-							/>
-						</CodeBlockBody>
-					</CodeBlock>
-				</div>
+								/>
+							</CodeBlockBody>
+						</CodeBlock>
+					</div>
+				</section>
 			</section>
 
 			<section className="space-y-4">

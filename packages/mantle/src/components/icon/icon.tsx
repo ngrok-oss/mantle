@@ -9,6 +9,7 @@ type IconProps = Omit<SvgAttributes, "children"> & {
 	 */
 	svg: ReactNode;
 };
+
 /**
  * Decorates an svg icon with automatic sizing styles and a `shrink-0` class.
  *
@@ -17,6 +18,15 @@ type IconProps = Omit<SvgAttributes, "children"> & {
  * 2. Icon base classes
  * 3. Icon className
  * 4. svg className
+ *
+ * @see https://mantle.ngrok.com/components/icon#api
+ *
+ * @example
+ * ```tsx
+ * import { Shrimp } from "@phosphor-icons/react/Shrimp";
+ *
+ * <Icon svg={<Shrimp />} />
+ * ```
  */
 const Icon = forwardRef<ComponentRef<"svg">, IconProps>(
 	({ className, style, svg, ...props }, ref) => (
