@@ -2,6 +2,7 @@
 
 import { Info } from "@phosphor-icons/react/Info";
 import { Warning } from "@phosphor-icons/react/Warning";
+import { Slot } from "@radix-ui/react-slot";
 import {
 	type ComponentProps,
 	type ComponentPropsWithoutRef,
@@ -13,6 +14,7 @@ import {
 	useMemo,
 } from "react";
 import invariant from "tiny-invariant";
+import type { WithAsChild } from "../../types/as-child.js";
 import { cx } from "../../utils/cx/cx.js";
 import {
 	Button,
@@ -51,7 +53,41 @@ type AlertDialogProps = ComponentProps<typeof AlertDialogPrimitive.Root> & {
 };
 
 /**
- * The root component for the Alert Dialog
+ * A modal dialog that interrupts the user with important content and expects a
+ * response.
+ * The root stateful component for the Alert Dialog.
+ *
+ * @see https://mantle.ngrok.com/components/alert-dialog#api-alert-dialog
+ *
+ * @example
+ * ```tsx
+ * <AlertDialog priority="danger">
+ *   <AlertDialogTrigger asChild>
+ *     <Button type="button" appearance="outlined">
+ *       Show Danger Alert Dialog
+ *     </Button>
+ *   </AlertDialogTrigger>
+ *   <AlertDialogContent>
+ *     <AlertDialogIcon />
+ *     <AlertDialogBody>
+ *       <AlertDialogHeader>
+ *         <AlertDialogTitle>
+ *           Are you absolutely sure?
+ *         </AlertDialogTitle>
+ *         <AlertDialogDescription>
+ *           Proident quis nisi tempor irure sunt ut minim occaecat mollit sunt.
+ *         </AlertDialogDescription>
+ *       </AlertDialogHeader>
+ *       <AlertDialogFooter>
+ *         <AlertDialogCancel type="button">Cancel</AlertDialogCancel>
+ *         <AlertDialogAction type="button">
+ *           Continue
+ *         </AlertDialogAction>
+ *       </AlertDialogFooter>
+ *   	</AlertDialogBody>
+ *   </AlertDialogContent>
+ * </AlertDialog>
+ * ```
  */
 function AlertDialog({ priority, ...props }: AlertDialogProps) {
 	const context: AlertDialogContextValue = useMemo(
@@ -69,13 +105,52 @@ AlertDialog.displayName = "AlertDialog";
 
 /**
  * A button that opens the Alert Dialog.
+ *
+ * @see https://mantle.ngrok.com/components/alert-dialog#api-alert-dialog-trigger
+ *
+ * @example
+ * ```tsx
+ * <AlertDialog priority="danger">
+ *   <AlertDialogTrigger asChild>
+ *     <Button type="button" appearance="outlined">
+ *       Show Danger Alert Dialog
+ *     </Button>
+ *   </AlertDialogTrigger>
+ *   <AlertDialogContent>
+ *     <AlertDialogIcon />
+ *     <AlertDialogBody>
+ *       <AlertDialogHeader>
+ *         <AlertDialogTitle>
+ *           Are you absolutely sure?
+ *         </AlertDialogTitle>
+ *         <AlertDialogDescription>
+ *           Proident quis nisi tempor irure sunt ut minim occaecat mollit sunt.
+ *         </AlertDialogDescription>
+ *       </AlertDialogHeader>
+ *       <AlertDialogFooter>
+ *         <AlertDialogCancel type="button">Cancel</AlertDialogCancel>
+ *         <AlertDialogAction type="button">
+ *           Continue
+ *         </AlertDialogAction>
+ *       </AlertDialogFooter>
+ *   	</AlertDialogBody>
+ *   </AlertDialogContent>
+ * </AlertDialog>
+ * ```
  */
 const AlertDialogTrigger = AlertDialogPrimitive.Trigger;
 
+/**
+ * The portal for the Alert Dialog.
+ *
+ * @private
+ */
 const AlertDialogPortal = AlertDialogPrimitive.Portal;
 
 /**
  * A layer that covers the inert portion of the view when the dialog is open.
+ *
+ * @private
  */
 const AlertDialogOverlay = forwardRef<
 	ComponentRef<typeof AlertDialogPrimitive.Overlay>,
@@ -96,6 +171,38 @@ AlertDialogOverlay.displayName = "AlertDialogOverlay";
  * The popover alert dialog container.
  *
  * Renders on top of the overlay and is centered in the viewport.
+ *
+ * @see https://mantle.ngrok.com/components/alert-dialog#api-alert-dialog-content
+ *
+ * @example
+ * ```tsx
+ * <AlertDialog priority="danger">
+ *   <AlertDialogTrigger asChild>
+ *     <Button type="button" appearance="outlined">
+ *       Show Danger Alert Dialog
+ *     </Button>
+ *   </AlertDialogTrigger>
+ *   <AlertDialogContent>
+ *     <AlertDialogIcon />
+ *     <AlertDialogBody>
+ *       <AlertDialogHeader>
+ *         <AlertDialogTitle>
+ *           Are you absolutely sure?
+ *         </AlertDialogTitle>
+ *         <AlertDialogDescription>
+ *           Proident quis nisi tempor irure sunt ut minim occaecat mollit sunt.
+ *         </AlertDialogDescription>
+ *       </AlertDialogHeader>
+ *       <AlertDialogFooter>
+ *         <AlertDialogCancel type="button">Cancel</AlertDialogCancel>
+ *         <AlertDialogAction type="button">
+ *           Continue
+ *         </AlertDialogAction>
+ *       </AlertDialogFooter>
+ *   	</AlertDialogBody>
+ *   </AlertDialogContent>
+ * </AlertDialog>
+ * ```
  */
 const AlertDialogContent = forwardRef<
 	ComponentRef<typeof AlertDialogPrimitive.Content>,
@@ -130,39 +237,160 @@ const AlertDialogContent = forwardRef<
 AlertDialogContent.displayName = "AlertDialogContent";
 
 /**
- * Contains the main content of the dialog.
+ * Contains the main content of the alert dialog.
+ *
+ * @see https://mantle.ngrok.com/components/alert-dialog#api-alert-dialog-body
+ *
+ * @example
+ * ```tsx
+ * <AlertDialog priority="danger">
+ *   <AlertDialogTrigger asChild>
+ *     <Button type="button" appearance="outlined">
+ *       Show Danger Alert Dialog
+ *     </Button>
+ *   </AlertDialogTrigger>
+ *   <AlertDialogContent>
+ *     <AlertDialogIcon />
+ *     <AlertDialogBody>
+ *       <AlertDialogHeader>
+ *         <AlertDialogTitle>
+ *           Are you absolutely sure?
+ *         </AlertDialogTitle>
+ *         <AlertDialogDescription>
+ *           Proident quis nisi tempor irure sunt ut minim occaecat mollit sunt.
+ *         </AlertDialogDescription>
+ *       </AlertDialogHeader>
+ *       <AlertDialogFooter>
+ *         <AlertDialogCancel type="button">Cancel</AlertDialogCancel>
+ *         <AlertDialogAction type="button">
+ *           Continue
+ *         </AlertDialogAction>
+ *       </AlertDialogFooter>
+ *   	</AlertDialogBody>
+ *   </AlertDialogContent>
+ * </AlertDialog>
+ * ```
  */
-const AlertDialogBody = ({ className, ...props }: ComponentProps<"div">) => (
-	<div className={cx("flex-1 space-y-4", className)} {...props} />
-);
+const AlertDialogBody = forwardRef<
+	ComponentRef<"div">,
+	ComponentProps<"div"> & WithAsChild
+>(({ asChild = false, className, ...props }, ref) => {
+	const Component = asChild ? Slot : "div";
+
+	return (
+		<Component
+			className={cx("flex-1 space-y-4", className)}
+			ref={ref}
+			{...props}
+		/>
+	);
+});
 AlertDialogBody.displayName = "AlertDialogBody";
 
 /**
  * Contains the header content of the dialog, including the title and description.
+ *
+ * @see https://mantle.ngrok.com/components/alert-dialog#api-alert-dialog-header
+ *
+ * @example
+ * ```tsx
+ * <AlertDialog priority="danger">
+ *   <AlertDialogTrigger asChild>
+ *     <Button type="button" appearance="outlined">
+ *       Show Danger Alert Dialog
+ *     </Button>
+ *   </AlertDialogTrigger>
+ *   <AlertDialogContent>
+ *     <AlertDialogIcon />
+ *     <AlertDialogBody>
+ *       <AlertDialogHeader>
+ *         <AlertDialogTitle>
+ *           Are you absolutely sure?
+ *         </AlertDialogTitle>
+ *         <AlertDialogDescription>
+ *           Proident quis nisi tempor irure sunt ut minim occaecat mollit sunt.
+ *         </AlertDialogDescription>
+ *       </AlertDialogHeader>
+ *       <AlertDialogFooter>
+ *         <AlertDialogCancel type="button">Cancel</AlertDialogCancel>
+ *         <AlertDialogAction type="button">
+ *           Continue
+ *         </AlertDialogAction>
+ *       </AlertDialogFooter>
+ *   	</AlertDialogBody>
+ *   </AlertDialogContent>
+ * </AlertDialog>
+ * ```
  */
-const AlertDialogHeader = ({ className, ...props }: ComponentProps<"div">) => (
-	<div
-		className={cx(
-			"flex flex-col space-y-2 text-center sm:text-start",
-			className,
-		)}
-		{...props}
-	/>
-);
+const AlertDialogHeader = forwardRef<
+	ComponentRef<"div">,
+	ComponentProps<"div"> & WithAsChild
+>(({ asChild = false, className, ...props }, ref) => {
+	const Component = asChild ? Slot : "div";
+
+	return (
+		<Component
+			className={cx(
+				"flex flex-col space-y-2 text-center sm:text-start",
+				className,
+			)}
+			{...props}
+		/>
+	);
+});
 AlertDialogHeader.displayName = "AlertDialogHeader";
 
 /**
  * Contains the footer content of the dialog, including the action and cancel buttons.
+ *
+ * @see https://mantle.ngrok.com/components/alert-dialog#api-alert-dialog-footer
+ *
+ * @example
+ * ```tsx
+ * <AlertDialog priority="danger">
+ *   <AlertDialogTrigger asChild>
+ *     <Button type="button" appearance="outlined">
+ *       Show Danger Alert Dialog
+ *     </Button>
+ *   </AlertDialogTrigger>
+ *   <AlertDialogContent>
+ *     <AlertDialogIcon />
+ *     <AlertDialogBody>
+ *       <AlertDialogHeader>
+ *         <AlertDialogTitle>
+ *           Are you absolutely sure?
+ *         </AlertDialogTitle>
+ *         <AlertDialogDescription>
+ *           Proident quis nisi tempor irure sunt ut minim occaecat mollit sunt.
+ *         </AlertDialogDescription>
+ *       </AlertDialogHeader>
+ *       <AlertDialogFooter>
+ *         <AlertDialogCancel type="button">Cancel</AlertDialogCancel>
+ *         <AlertDialogAction type="button">
+ *           Continue
+ *         </AlertDialogAction>
+ *       </AlertDialogFooter>
+ *   	</AlertDialogBody>
+ *   </AlertDialogContent>
+ * </AlertDialog>
+ * ```
  */
-const AlertDialogFooter = ({ className, ...props }: ComponentProps<"div">) => (
-	<div
-		className={cx(
-			"flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2",
-			className,
-		)}
-		{...props}
-	/>
-);
+const AlertDialogFooter = forwardRef<
+	ComponentRef<"div">,
+	ComponentProps<"div"> & WithAsChild
+>(({ asChild = false, className, ...props }, ref) => {
+	const Component = asChild ? Slot : "div";
+
+	return (
+		<Component
+			className={cx(
+				"flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2",
+				className,
+			)}
+			{...props}
+		/>
+	);
+});
 AlertDialogFooter.displayName = "AlertDialogFooter";
 
 /**
@@ -170,6 +398,38 @@ AlertDialogFooter.displayName = "AlertDialogFooter";
  *
  * Alternatively, you can provide `aria-label` or `aria-labelledby` to
  * `AlertDialogContent` and exclude this component.
+ *
+ * @see https://mantle.ngrok.com/components/alert-dialog#api-alert-dialog-title
+ *
+ * @example
+ * ```tsx
+ * <AlertDialog priority="danger">
+ *   <AlertDialogTrigger asChild>
+ *     <Button type="button" appearance="outlined">
+ *       Show Danger Alert Dialog
+ *     </Button>
+ *   </AlertDialogTrigger>
+ *   <AlertDialogContent>
+ *     <AlertDialogIcon />
+ *     <AlertDialogBody>
+ *       <AlertDialogHeader>
+ *         <AlertDialogTitle>
+ *           Are you absolutely sure?
+ *         </AlertDialogTitle>
+ *         <AlertDialogDescription>
+ *           Proident quis nisi tempor irure sunt ut minim occaecat mollit sunt.
+ *         </AlertDialogDescription>
+ *       </AlertDialogHeader>
+ *       <AlertDialogFooter>
+ *         <AlertDialogCancel type="button">Cancel</AlertDialogCancel>
+ *         <AlertDialogAction type="button">
+ *           Continue
+ *         </AlertDialogAction>
+ *       </AlertDialogFooter>
+ *   	</AlertDialogBody>
+ *   </AlertDialogContent>
+ * </AlertDialog>
+ * ```
  */
 const AlertDialogTitle = forwardRef<
 	ComponentRef<typeof AlertDialogPrimitive.Title>,
@@ -191,6 +451,38 @@ AlertDialogTitle.displayName = "AlertDialogTitle";
  *
  * Alternatively, you can provide `aria-describedby` to `AlertDialogContent` and
  * exclude this component.
+ *
+ * @see https://mantle.ngrok.com/components/alert-dialog#api-alert-dialog-description
+ *
+ * @example
+ * ```tsx
+ * <AlertDialog priority="danger">
+ *   <AlertDialogTrigger asChild>
+ *     <Button type="button" appearance="outlined">
+ *       Show Danger Alert Dialog
+ *     </Button>
+ *   </AlertDialogTrigger>
+ *   <AlertDialogContent>
+ *     <AlertDialogIcon />
+ *     <AlertDialogBody>
+ *       <AlertDialogHeader>
+ *         <AlertDialogTitle>
+ *           Are you absolutely sure?
+ *         </AlertDialogTitle>
+ *         <AlertDialogDescription>
+ *           Proident quis nisi tempor irure sunt ut minim occaecat mollit sunt.
+ *         </AlertDialogDescription>
+ *       </AlertDialogHeader>
+ *       <AlertDialogFooter>
+ *         <AlertDialogCancel type="button">Cancel</AlertDialogCancel>
+ *         <AlertDialogAction type="button">
+ *           Continue
+ *         </AlertDialogAction>
+ *       </AlertDialogFooter>
+ *   	</AlertDialogBody>
+ *   </AlertDialogContent>
+ * </AlertDialog>
+ * ```
  */
 const AlertDialogDescription = forwardRef<
 	ComponentRef<typeof AlertDialogPrimitive.Description>,
@@ -215,6 +507,38 @@ AlertDialogDescription.displayName = "AlertDialogDescription";
  * These buttons should be distinguished visually from the AlertDialogCancel button.
  *
  * Composes around the mantle Button component.
+ *
+ * @see https://mantle.ngrok.com/components/alert-dialog#api-alert-dialog-action
+ *
+ * @example
+ * ```tsx
+ * <AlertDialog priority="danger">
+ *   <AlertDialogTrigger asChild>
+ *     <Button type="button" appearance="outlined">
+ *       Show Danger Alert Dialog
+ *     </Button>
+ *   </AlertDialogTrigger>
+ *   <AlertDialogContent>
+ *     <AlertDialogIcon />
+ *     <AlertDialogBody>
+ *       <AlertDialogHeader>
+ *         <AlertDialogTitle>
+ *           Are you absolutely sure?
+ *         </AlertDialogTitle>
+ *         <AlertDialogDescription>
+ *           Proident quis nisi tempor irure sunt ut minim occaecat mollit sunt.
+ *         </AlertDialogDescription>
+ *       </AlertDialogHeader>
+ *       <AlertDialogFooter>
+ *         <AlertDialogCancel type="button">Cancel</AlertDialogCancel>
+ *         <AlertDialogAction type="button">
+ *           Continue
+ *         </AlertDialogAction>
+ *       </AlertDialogFooter>
+ *   	</AlertDialogBody>
+ *   </AlertDialogContent>
+ * </AlertDialog>
+ * ```
  */
 const AlertDialogAction = forwardRef<ComponentRef<"button">, ButtonProps>(
 	(
@@ -251,6 +575,38 @@ AlertDialogAction.displayName = "AlertDialogAction";
  * This button should be distinguished visually from AlertDialogAction buttons.
  *
  * Composes around the mantle Button component.
+ *
+ * @see https://mantle.ngrok.com/components/alert-dialog#api-alert-dialog-cancel
+ *
+ * @example
+ * ```tsx
+ * <AlertDialog priority="danger">
+ *   <AlertDialogTrigger asChild>
+ *     <Button type="button" appearance="outlined">
+ *       Show Danger Alert Dialog
+ *     </Button>
+ *   </AlertDialogTrigger>
+ *   <AlertDialogContent>
+ *     <AlertDialogIcon />
+ *     <AlertDialogBody>
+ *       <AlertDialogHeader>
+ *         <AlertDialogTitle>
+ *           Are you absolutely sure?
+ *         </AlertDialogTitle>
+ *         <AlertDialogDescription>
+ *           Proident quis nisi tempor irure sunt ut minim occaecat mollit sunt.
+ *         </AlertDialogDescription>
+ *       </AlertDialogHeader>
+ *       <AlertDialogFooter>
+ *         <AlertDialogCancel type="button">Cancel</AlertDialogCancel>
+ *         <AlertDialogAction type="button">
+ *           Continue
+ *         </AlertDialogAction>
+ *       </AlertDialogFooter>
+ *   	</AlertDialogBody>
+ *   </AlertDialogContent>
+ * </AlertDialog>
+ * ```
  */
 const AlertDialogCancel = forwardRef<ComponentRef<"button">, ButtonProps>(
 	(
@@ -287,6 +643,38 @@ type AlertDialogIconProps = Omit<SvgAttributes, "children"> & {
  * priority with the appropriate color.
  *
  * Can be overridden with a custom icon using the `svg` prop.
+ *
+ * @see https://mantle.ngrok.com/components/alert-dialog#api-alert-dialog-icon
+ *
+ * @example
+ * ```tsx
+ * <AlertDialog priority="danger">
+ *   <AlertDialogTrigger asChild>
+ *     <Button type="button" appearance="outlined">
+ *       Show Danger Alert Dialog
+ *     </Button>
+ *   </AlertDialogTrigger>
+ *   <AlertDialogContent>
+ *     <AlertDialogIcon />
+ *     <AlertDialogBody>
+ *       <AlertDialogHeader>
+ *         <AlertDialogTitle>
+ *           Are you absolutely sure?
+ *         </AlertDialogTitle>
+ *         <AlertDialogDescription>
+ *           Proident quis nisi tempor irure sunt ut minim occaecat mollit sunt.
+ *         </AlertDialogDescription>
+ *       </AlertDialogHeader>
+ *       <AlertDialogFooter>
+ *         <AlertDialogCancel type="button">Cancel</AlertDialogCancel>
+ *         <AlertDialogAction type="button">
+ *           Continue
+ *         </AlertDialogAction>
+ *       </AlertDialogFooter>
+ *   	</AlertDialogBody>
+ *   </AlertDialogContent>
+ * </AlertDialog>
+ * ```
  */
 const AlertDialogIcon = forwardRef<ComponentRef<"svg">, AlertDialogIconProps>(
 	({ className, svg, ...props }, ref) => {
@@ -309,6 +697,19 @@ AlertDialogIcon.displayName = "AlertDialogIcon";
 
 /**
  * A button that closes the Alert Dialog. (Unstyled)
+ *
+ * @see https://mantle.ngrok.com/components/alert-dialog#api-alert-dialog-close
+ *
+ * @example
+ * ```tsx
+ * <AlertDialogClose asChild>
+ *   <AlertDialogAction
+ *   	type="button"
+ *   	onClick={() => doThing()}
+ *   >
+ *   	Do thing and close
+ *   </AlertDialogAction>
+ * </AlertDialogClose>
  */
 const AlertDialogClose = AlertDialogPrimitive.Close;
 
