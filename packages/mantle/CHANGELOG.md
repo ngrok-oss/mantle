@@ -1,5 +1,17 @@
 # @ngrok/mantle
 
+## 0.25.0
+
+### Minor Changes
+
+- [#501](https://github.com/ngrok-oss/mantle/pull/501) [`a669615`](https://github.com/ngrok-oss/mantle/commit/a6696155e7fab6651d331af6bfe6459b7b8ecac1) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - CodeBlock: add support for setting the indentation used (tabs vs spaces), fallback to detecting what the given language prefers or spaces if none
+
+### Patch Changes
+
+- [#500](https://github.com/ngrok-oss/mantle/pull/500) [`275f8d1`](https://github.com/ngrok-oss/mantle/commit/275f8d1b40bbc9e87d7271ddcab4b94748fc8744) Thanks [@dependabot](https://github.com/apps/dependabot)! - update dependencies
+
+- [#501](https://github.com/ngrok-oss/mantle/pull/501) [`a669615`](https://github.com/ngrok-oss/mantle/commit/a6696155e7fab6651d331af6bfe6459b7b8ecac1) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - CodeBlock: improve documentation and intellisense
+
 ## 0.24.1
 
 ### Patch Changes
