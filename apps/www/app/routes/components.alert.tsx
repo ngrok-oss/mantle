@@ -412,7 +412,7 @@ export default function Page() {
 						API Reference
 					</h2>
 					<p className="font-body text-body text-xl">
-						The <InlineCode>Alert</InlineCode> is displays a callout for user
+						The <InlineCode>Alert</InlineCode> displays a callout for user
 						attention and is composed of several sub-components.
 					</p>
 				</header>
