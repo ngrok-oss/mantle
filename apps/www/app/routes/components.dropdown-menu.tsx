@@ -334,7 +334,9 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 className="text-xl font-medium">DropdownMenuContent</h3>
+						<h3 className="text-xl font-medium text-strong">
+							DropdownMenuContent
+						</h3>
 
 						<p className="text-body">
 							All props from Radix{" "}

@@ -151,7 +151,7 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 id="api-card" className="text-xl font-medium">
+						<h3 id="api-card" className="text-xl font-medium text-strong">
 							Card
 						</h3>
 
@@ -196,7 +196,7 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 id="api-card-body" className="text-xl font-medium">
+						<h3 id="api-card-body" className="text-xl font-medium text-strong">
 							CardBody
 						</h3>
 
@@ -240,7 +240,10 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 id="api-card-footer" className="text-xl font-medium">
+						<h3
+							id="api-card-footer"
+							className="text-xl font-medium text-strong"
+						>
 							CardFooter
 						</h3>
 
@@ -284,7 +287,10 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 id="api-card-header" className="text-xl font-medium">
+						<h3
+							id="api-card-header"
+							className="text-xl font-medium text-strong"
+						>
 							CardHeader
 						</h3>
 
@@ -328,7 +334,7 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 id="api-card-title" className="text-xl font-medium">
+						<h3 id="api-card-title" className="text-xl font-medium text-strong">
 							CardTitle
 						</h3>
 

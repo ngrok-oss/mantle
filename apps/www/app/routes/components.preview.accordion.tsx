@@ -275,7 +275,7 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 className="text-xl font-medium">AlertDialog</h3>
+						<h3 className="text-xl font-medium text-strong">AlertDialog</h3>
 
 						<p className="font-body text-body">The root component for the Alert Dialog.</p>
 						<p className="font-body text-body">
@@ -316,7 +316,7 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 className="text-xl font-medium">AlertDialogTrigger</h3>
+					<h3 className="text-xl font-medium text-strong">AlertDialogTrigger</h3>
 
 					<p className="font-body text-body">A button that opens the Alert Dialog.</p>
 					<p className="font-body text-body">
@@ -333,7 +333,7 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 className="text-xl font-medium">AlertDialogContent</h3>
+					<h3 className="text-xl font-medium text-strong">AlertDialogContent</h3>
 
 					<p className="font-body text-body">
 						The popover Alert Dialog container. Renders on top of the overlay and is centered in the viewport.
@@ -352,7 +352,7 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 className="text-xl font-medium">AlertDialogHeader</h3>
+					<h3 className="text-xl font-medium text-strong">AlertDialogHeader</h3>
 
 					<p className="font-body text-body">
 						Contains the header content of the dialog, including the title and description.
@@ -363,7 +363,7 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 className="text-xl font-medium">AlertDialogFooter</h3>
+					<h3 className="text-xl font-medium text-strong">AlertDialogFooter</h3>
 
 					<p className="font-body text-body">
 						Contains the footer content of the dialog, including the action and cancel buttons.
@@ -374,7 +374,7 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 className="text-xl font-medium">AlertDialogTitle</h3>
+					<h3 className="text-xl font-medium text-strong">AlertDialogTitle</h3>
 
 					<p className="font-body text-body">An accessible name to be announced when the dialog is opened.</p>
 					<p className="font-body text-body">
@@ -396,7 +396,7 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 className="text-xl font-medium">AlertDialogDescription</h3>
+					<h3 className="text-xl font-medium text-strong">AlertDialogDescription</h3>
 
 					<p className="font-body text-body">An accessible description to be announced when the dialog is opened.</p>
 					<p className="font-body text-body">
@@ -417,7 +417,7 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 className="text-xl font-medium">AlertDialogAction</h3>
+					<h3 className="text-xl font-medium text-strong">AlertDialogAction</h3>
 
 					<p className="font-body text-body">
 						A button that confirms the Alert Dialog action. Will default to <InlineCode>appearance="filled"</InlineCode>
@@ -436,7 +436,7 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 className="text-xl font-medium">AlertDialogCancel</h3>
+					<h3 className="text-xl font-medium text-strong">AlertDialogCancel</h3>
 
 					<p className="font-body text-body">
 						A button that closes the dialog and cancels the action. Will default to{" "}

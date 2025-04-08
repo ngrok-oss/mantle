@@ -255,7 +255,9 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 className="text-xl font-medium">Custom selected value</h3>
+						<h3 className="text-xl font-medium text-strong">
+							Custom selected value
+						</h3>
 						<p className="font-body text-body">
 							By default the selected item's text will be rendered when
 							selected. Sometimes you may need to render something different.
@@ -330,7 +332,7 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 id="api-select" className="text-xl font-medium">
+						<h3 id="api-select" className="text-xl font-medium text-strong">
 							Select
 						</h3>
 
@@ -413,7 +415,10 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 id="api-select-trigger" className="text-xl font-medium">
+						<h3
+							id="api-select-trigger"
+							className="text-xl font-medium text-strong"
+						>
 							SelectTrigger
 						</h3>
 
@@ -483,7 +488,7 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 id="api-select-value" className="text-xl font-medium">
+					<h3 id="api-select-value" className="text-xl font-medium text-strong">
 						SelectValue
 					</h3>
 
@@ -511,7 +516,10 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 id="api-select-content" className="text-xl font-medium">
+						<h3
+							id="api-select-content"
+							className="text-xl font-medium text-strong"
+						>
 							SelectContent
 						</h3>
 
@@ -567,7 +575,7 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 id="api-select-group" className="text-xl font-medium">
+					<h3 id="api-select-group" className="text-xl font-medium text-strong">
 						SelectGroup
 					</h3>
 
@@ -592,7 +600,10 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 id="api-select-separator" className="text-xl font-medium">
+					<h3
+						id="api-select-separator"
+						className="text-xl font-medium text-strong"
+					>
 						SelectSeparator
 					</h3>
 
@@ -603,7 +614,7 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 id="api-select-item" className="text-xl font-medium">
+					<h3 id="api-select-item" className="text-xl font-medium text-strong">
 						SelectItem
 					</h3>
 
@@ -630,7 +641,7 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 id="api-select-label" className="text-xl font-medium">
+					<h3 id="api-select-label" className="text-xl font-medium text-strong">
 						SelectLabel
 					</h3>
 

@@ -246,7 +246,7 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 className="text-xl font-medium">
+						<h3 className="text-xl font-medium text-strong">
 							Router or state management controlled Sheet
 						</h3>
 						<p className="font-body text-body">
@@ -329,7 +329,7 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 className="text-xl font-medium">
+						<h3 className="text-xl font-medium text-strong">
 							Setting a preferred width of the Sheet
 						</h3>
 						<p className="font-body text-body">
@@ -466,7 +466,7 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 id="api-sheet" className="text-xl font-medium">
+						<h3 id="api-sheet" className="text-xl font-medium text-strong">
 							Sheet
 						</h3>
 
@@ -493,7 +493,10 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 id="api-sheet-trigger" className="text-xl font-medium">
+						<h3
+							id="api-sheet-trigger"
+							className="text-xl font-medium text-strong"
+						>
 							SheetTrigger
 						</h3>
 
@@ -520,7 +523,7 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 id="api-sheet-close" className="text-xl font-medium">
+					<h3 id="api-sheet-close" className="text-xl font-medium text-strong">
 						SheetClose
 					</h3>
 
@@ -548,7 +551,10 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 id="api-sheet-content" className="text-xl font-medium">
+						<h3
+							id="api-sheet-content"
+							className="text-xl font-medium text-strong"
+						>
 							SheetContent
 						</h3>
 
@@ -631,7 +637,10 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 id="api-sheet-close-icon-button" className="text-xl font-medium">
+					<h3
+						id="api-sheet-close-icon-button"
+						className="text-xl font-medium text-strong"
+					>
 						SheetCloseIconButton
 					</h3>
 
@@ -649,7 +658,7 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 id="api-sheet-body" className="text-xl font-medium">
+					<h3 id="api-sheet-body" className="text-xl font-medium text-strong">
 						SheetBody
 					</h3>
 
@@ -674,7 +683,7 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 id="api-sheet-header" className="text-xl font-medium">
+					<h3 id="api-sheet-header" className="text-xl font-medium text-strong">
 						SheetHeader
 					</h3>
 
@@ -699,7 +708,7 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 id="api-sheet-footer" className="text-xl font-medium">
+					<h3 id="api-sheet-footer" className="text-xl font-medium text-strong">
 						SheetFooter
 					</h3>
 
@@ -724,7 +733,7 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-4">
-					<h3 id="api-sheet-title" className="text-xl font-medium">
+					<h3 id="api-sheet-title" className="text-xl font-medium text-strong">
 						SheetTitle
 					</h3>
 
@@ -749,7 +758,10 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-4">
-					<h3 id="api-sheet-title-group" className="text-xl font-medium">
+					<h3
+						id="api-sheet-title-group"
+						className="text-xl font-medium text-strong"
+					>
 						SheetTitleGroup
 					</h3>
 
@@ -773,7 +785,10 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-4">
-					<h3 id="api-sheet-description" className="text-xl font-medium">
+					<h3
+						id="api-sheet-description"
+						className="text-xl font-medium text-strong"
+					>
 						SheetDescription
 					</h3>
 
@@ -796,7 +811,10 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-4">
-					<h3 id="api-sheet-actions" className="text-xl font-medium">
+					<h3
+						id="api-sheet-actions"
+						className="text-xl font-medium text-strong"
+					>
 						SheetActions
 					</h3>
 

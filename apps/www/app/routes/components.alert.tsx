@@ -157,76 +157,88 @@ export default function Page() {
 				</div>
 			</section>
 
-			<section className="space-y-4">
-				<h2 id="composition" className="text-3xl font-medium">
-					Composition
-				</h2>
-				<p className="font-body text-body text-xl">
-					You can mix and match what you put inside the{" "}
-					<InlineCode>Alert</InlineCode> component to create different types of
-					Alert layouts.
-				</p>
-				<div>
-					<Example className="flex-col gap-4">
-						<div className="w-full max-w-screen-sm space-y-2">
-							<p>
-								Danger <InlineCode>Alert</InlineCode> with icon
-							</p>
-							<Alert priority="danger">
-								<AlertIcon />
-								<AlertContent>
-									<AlertTitle>Danger Will Robinson</AlertTitle>
-									<AlertDescription>
-										Cupidatat ullamco commodo laborum consectetur ut mollit et
-										nostrud amet elit ut Lorem culpa.
-									</AlertDescription>
-								</AlertContent>
-							</Alert>
-						</div>
-						<div className="w-full max-w-screen-sm space-y-2">
-							<p>
-								Danger <InlineCode>Alert</InlineCode> without icon
-							</p>
-							<Alert priority="danger">
-								<AlertContent>
-									<AlertTitle>Danger Will Robinson</AlertTitle>
-									<AlertDescription>
-										Cupidatat ullamco commodo laborum consectetur ut mollit et
-										nostrud amet elit ut Lorem culpa.
-									</AlertDescription>
-								</AlertContent>
-							</Alert>
-						</div>
-						<div className="w-full max-w-screen-sm space-y-2">
-							<p>
-								Danger <InlineCode>Alert</InlineCode> with icon and no
-								description
-							</p>
-							<Alert priority="danger">
-								<AlertIcon />
-								<AlertContent>
-									<AlertTitle>Danger Will Robinson</AlertTitle>
-								</AlertContent>
-							</Alert>
-						</div>
-						<div className="w-full max-w-screen-sm space-y-2">
-							<p>
-								Danger <InlineCode>Alert</InlineCode> without icon or
-								description
-							</p>
-							<Alert priority="danger">
-								<AlertContent>
-									<AlertTitle>Danger Will Robinson</AlertTitle>
-								</AlertContent>
-							</Alert>
-						</div>
-					</Example>
-					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
-								language="tsx"
-								value={fmtCode`
+			<section className="space-y-8">
+				<header className="space-y-4">
+					<h2 id="examples" className="text-3xl font-medium">
+						Examples
+					</h2>
+				</header>
+
+				<section className="space-y-4">
+					<header className="space-y-1">
+						<h3
+							id="example-composition"
+							className="text-xl font-medium text-strong"
+						>
+							Composition
+						</h3>
+					</header>
+					<p className="font-body text-body text-xl">
+						You can mix and match what you put inside the{" "}
+						<InlineCode>Alert</InlineCode> component to create different types
+						of Alert layouts.
+					</p>
+					<div>
+						<Example className="flex-col gap-4">
+							<div className="w-full max-w-screen-sm space-y-2">
+								<p>
+									Danger <InlineCode>Alert</InlineCode> with icon
+								</p>
+								<Alert priority="danger">
+									<AlertIcon />
+									<AlertContent>
+										<AlertTitle>Danger Will Robinson</AlertTitle>
+										<AlertDescription>
+											Cupidatat ullamco commodo laborum consectetur ut mollit et
+											nostrud amet elit ut Lorem culpa.
+										</AlertDescription>
+									</AlertContent>
+								</Alert>
+							</div>
+							<div className="w-full max-w-screen-sm space-y-2">
+								<p>
+									Danger <InlineCode>Alert</InlineCode> without icon
+								</p>
+								<Alert priority="danger">
+									<AlertContent>
+										<AlertTitle>Danger Will Robinson</AlertTitle>
+										<AlertDescription>
+											Cupidatat ullamco commodo laborum consectetur ut mollit et
+											nostrud amet elit ut Lorem culpa.
+										</AlertDescription>
+									</AlertContent>
+								</Alert>
+							</div>
+							<div className="w-full max-w-screen-sm space-y-2">
+								<p>
+									Danger <InlineCode>Alert</InlineCode> with icon and no
+									description
+								</p>
+								<Alert priority="danger">
+									<AlertIcon />
+									<AlertContent>
+										<AlertTitle>Danger Will Robinson</AlertTitle>
+									</AlertContent>
+								</Alert>
+							</div>
+							<div className="w-full max-w-screen-sm space-y-2">
+								<p>
+									Danger <InlineCode>Alert</InlineCode> without icon or
+									description
+								</p>
+								<Alert priority="danger">
+									<AlertContent>
+										<AlertTitle>Danger Will Robinson</AlertTitle>
+									</AlertContent>
+								</Alert>
+							</div>
+						</Example>
+						<CodeBlock className="rounded-b-lg rounded-t-none">
+							<CodeBlockBody>
+								<CodeBlockCopyButton />
+								<CodeBlockCode
+									language="tsx"
+									value={fmtCode`
 									import {
 										Alert,
 										AlertContent,
@@ -267,48 +279,54 @@ export default function Page() {
 										</AlertContent>
 									</Alert>
 								`}
-							/>
-						</CodeBlockBody>
-					</CodeBlock>
-				</div>
-			</section>
+								/>
+							</CodeBlockBody>
+						</CodeBlock>
+					</div>
+				</section>
 
-			<section className="space-y-4">
-				<h2 id="example-banner" className="text-3xl font-medium">
-					Banners
-				</h2>
-				<p className="font-body text-body text-xl">
-					For banner-like alerts, set <InlineCode>rounded-none</InlineCode> on
-					the <InlineCode>Alert</InlineCode> component.
-				</p>
-				<div>
-					<Example>
-						<div className="border-card min-h-56 space-y-4 border">
-							<Alert priority="info" className="rounded-none">
-								<AlertIcon />
-								<AlertContent>
-									<AlertTitle>
-										This is an info Alert as a page banner
-									</AlertTitle>
-								</AlertContent>
-							</Alert>
-							<div className="px-4">
-								<Card className="mx-auto max-w-screen-sm">
-									<CardBody>
-										<p className="my-4">
-											Laboris commodo Lorem anim consequat ut dolore proident.
-										</p>
-									</CardBody>
-								</Card>
+				<section className="space-y-4">
+					<header className="space-y-1">
+						<h3
+							id="example-banners"
+							className="text-xl font-medium text-strong"
+						>
+							Banners
+						</h3>
+					</header>
+
+					<p className="font-body text-body text-xl">
+						For banner-like alerts, set <InlineCode>rounded-none</InlineCode> on
+						the <InlineCode>Alert</InlineCode> component.
+					</p>
+					<div>
+						<Example>
+							<div className="border-card min-h-56 space-y-4 border">
+								<Alert priority="info" className="rounded-none">
+									<AlertIcon />
+									<AlertContent>
+										<AlertTitle>
+											This is an info Alert as a page banner
+										</AlertTitle>
+									</AlertContent>
+								</Alert>
+								<div className="px-4">
+									<Card className="mx-auto max-w-screen-sm">
+										<CardBody>
+											<p className="my-4">
+												Laboris commodo Lorem anim consequat ut dolore proident.
+											</p>
+										</CardBody>
+									</Card>
+								</div>
 							</div>
-						</div>
-					</Example>
-					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
-								language="tsx"
-								value={fmtCode`
+						</Example>
+						<CodeBlock className="rounded-b-lg rounded-t-none">
+							<CodeBlockBody>
+								<CodeBlockCopyButton />
+								<CodeBlockCode
+									language="tsx"
+									value={fmtCode`
 									import {
 										Alert,
 										AlertContent,
@@ -324,48 +342,48 @@ export default function Page() {
 										</AlertContent>
 									</Alert>
 								`}
-							/>
-						</CodeBlockBody>
-					</CodeBlock>
-				</div>
-				<p className="font-body text-body text-xl">
-					Depending on the context, you may want or need to remove all borders
-					except the bottom one. This can be achieved by adding{" "}
-					<InlineCode>rounded-none border-x-0 border-t-0</InlineCode> to the{" "}
-					<InlineCode>Alert</InlineCode> component.
-				</p>
-				<div>
-					<Example>
-						<div className="border-card min-h-56 space-y-4 border">
-							<Alert
-								priority="info"
-								className="rounded-none border-x-0 border-t-0"
-							>
-								<AlertIcon />
-								<AlertContent>
-									<AlertTitle>
-										This is an info Alert as a page banner with only a bottom
-										border
-									</AlertTitle>
-								</AlertContent>
-							</Alert>
-							<div className="px-4">
-								<Card className="mx-auto max-w-screen-sm">
-									<CardBody>
-										<p className="my-4">
-											Laboris commodo Lorem anim consequat ut dolore proident.
-										</p>
-									</CardBody>
-								</Card>
+								/>
+							</CodeBlockBody>
+						</CodeBlock>
+					</div>
+					<p className="font-body text-body text-xl">
+						Depending on the context, you may want or need to remove all borders
+						except the bottom one. This can be achieved by adding{" "}
+						<InlineCode>rounded-none border-x-0 border-t-0</InlineCode> to the{" "}
+						<InlineCode>Alert</InlineCode> component.
+					</p>
+					<div>
+						<Example>
+							<div className="border-card min-h-56 space-y-4 border">
+								<Alert
+									priority="info"
+									className="rounded-none border-x-0 border-t-0"
+								>
+									<AlertIcon />
+									<AlertContent>
+										<AlertTitle>
+											This is an info Alert as a page banner with only a bottom
+											border
+										</AlertTitle>
+									</AlertContent>
+								</Alert>
+								<div className="px-4">
+									<Card className="mx-auto max-w-screen-sm">
+										<CardBody>
+											<p className="my-4">
+												Laboris commodo Lorem anim consequat ut dolore proident.
+											</p>
+										</CardBody>
+									</Card>
+								</div>
 							</div>
-						</div>
-					</Example>
-					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
-								language="tsx"
-								value={fmtCode`
+						</Example>
+						<CodeBlock className="rounded-b-lg rounded-t-none">
+							<CodeBlockBody>
+								<CodeBlockCopyButton />
+								<CodeBlockCode
+									language="tsx"
+									value={fmtCode`
 									import {
 										Alert,
 										AlertContent,
@@ -381,10 +399,11 @@ export default function Page() {
 										</AlertContent>
 									</Alert>
 								`}
-							/>
-						</CodeBlockBody>
-					</CodeBlock>
-				</div>
+								/>
+							</CodeBlockBody>
+						</CodeBlock>
+					</div>
+				</section>
 			</section>
 
 			<section className="mt-16 space-y-8 font-body text-body">
@@ -393,14 +412,14 @@ export default function Page() {
 						API Reference
 					</h2>
 					<p className="font-body text-body text-xl">
-						The <InlineCode>Alert</InlineCode> is displays a callout for user
+						The <InlineCode>Alert</InlineCode> displays a callout for user
 						attention and is composed of several sub-components.
 					</p>
 				</header>
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 id="api-alert" className="text-xl font-medium">
+						<h3 id="api-alert" className="text-xl font-medium text-strong">
 							Alert
 						</h3>
 
@@ -458,7 +477,10 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 id="api-alert-content" className="text-xl font-medium">
+						<h3
+							id="api-alert-content"
+							className="text-xl font-medium text-strong"
+						>
 							AlertContent
 						</h3>
 						<p className="font-body text-body">
@@ -482,7 +504,10 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 id="api-alert-description" className="text-xl font-medium">
+						<h3
+							id="api-alert-description"
+							className="text-xl font-medium text-strong"
+						>
 							AlertDescription
 						</h3>
 						<p className="font-body text-body">
@@ -525,7 +550,7 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 id="api-alert-icon" className="text-xl font-medium">
+						<h3 id="api-alert-icon" className="text-xl font-medium text-strong">
 							AlertIcon
 						</h3>
 						<p className="font-body text-body">
@@ -565,7 +590,10 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 id="api-alert-title" className="text-xl font-medium">
+						<h3
+							id="api-alert-title"
+							className="text-xl font-medium text-strong"
+						>
 							AlertTitle
 						</h3>
 						<p className="font-body text-body">

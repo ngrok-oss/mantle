@@ -1,6 +1,7 @@
 import { Slot } from "@radix-ui/react-slot";
 import {
 	Children,
+	type ComponentProps,
 	type HTMLAttributes,
 	type ReactNode,
 	cloneElement,
@@ -15,7 +16,7 @@ import { SvgOnly } from "../icon/svg-only.js";
 const appearances = ["muted" /*"strong" */] as const;
 type Appearance = (typeof appearances)[number];
 
-type BadgeProps = HTMLAttributes<HTMLSpanElement> &
+type BadgeProps = ComponentProps<"span"> &
 	WithAsChild & {
 		/**
 		 * The color variant of the badge. Accepts named colors and functional colors from the mantle color palette.
@@ -32,7 +33,17 @@ type BadgeProps = HTMLAttributes<HTMLSpanElement> &
 	};
 
 /**
- * A Badge is a non-interactive component used to highlight important information or to visually indicate the status of an item.
+ * A Badge is a non-interactive component used to highlight important
+ * information or to visually indicate the status of an item.
+ *
+ * @see https://mantle.ngrok.com/components/badge#api
+ *
+ * @example
+ * ```tsx
+ * <Badge appearance="muted" color="success">
+ *   Succeeded
+ * </Badge>
+ * ```
  */
 const Badge = ({
 	appearance,
@@ -86,9 +97,15 @@ const Badge = ({
 
 // MARK: - Exports
 
-export { Badge };
+export {
+	//,
+	Badge,
+};
 
-export type { BadgeProps };
+export type {
+	//,
+	BadgeProps,
+};
 
 // MARK: - Private
 
