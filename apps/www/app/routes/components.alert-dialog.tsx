@@ -366,10 +366,14 @@ export default function Page() {
 					<p className="font-body text-body">
 						Contains the main content of the alert dialog.
 					</p>
-					<p className="font-body text-body">
-						Same props as a <InlineCode>{"<div>"}</InlineCode> element
+					<p className="font-body text-body text-xl">
+						The <InlineCode>AlertDialogBody</InlineCode> accepts the following
+						props in addition to the{" "}
+						<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes">
+							standard HTML div attributes
+						</Anchor>
+						.
 					</p>
-					, as well as:
 					<PropsTable>
 						<PropRow>
 							<PropNameCell name="asChild" optional />
@@ -402,10 +406,14 @@ export default function Page() {
 						Contains the header content of the dialog, including the title and
 						description.
 					</p>
-					<p className="font-body text-body">
-						Same props as a <InlineCode>{"<div>"}</InlineCode> element
+					<p className="font-body text-body text-xl">
+						The <InlineCode>AlertDialogHeader</InlineCode> accepts the following
+						props in addition to the{" "}
+						<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes">
+							standard HTML div attributes
+						</Anchor>
+						.
 					</p>
-					, as well as:
 					<PropsTable>
 						<PropRow>
 							<PropNameCell name="asChild" optional />
@@ -438,10 +446,14 @@ export default function Page() {
 						Contains the footer content of the dialog, including the action and
 						cancel buttons.
 					</p>
-					<p className="font-body text-body">
-						Same props as a <InlineCode>{"<div>"}</InlineCode> element
+					<p className="font-body text-body text-xl">
+						The <InlineCode>AlertDialogFooter</InlineCode> accepts the following
+						props in addition to the{" "}
+						<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes">
+							standard HTML div attributes
+						</Anchor>
+						.
 					</p>
-					, as well as:
 					<PropsTable>
 						<PropRow>
 							<PropNameCell name="asChild" optional />
