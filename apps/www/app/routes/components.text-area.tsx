@@ -134,7 +134,7 @@ export default function Page() {
 					<header className="space-y-1">
 						<h3
 							id="example-client-side-form-validation"
-							className="text-xl font-medium"
+							className="text-xl font-medium text-strong"
 						>
 							TextArea in a form with client-side validation
 						</h3>
