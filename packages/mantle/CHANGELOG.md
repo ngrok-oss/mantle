@@ -1,5 +1,27 @@
 # @ngrok/mantle
 
+## 0.24.1
+
+### Patch Changes
+
+- [#497](https://github.com/ngrok-oss/mantle/pull/497) [`b5526a0`](https://github.com/ngrok-oss/mantle/commit/b5526a01de147d8ca7f74e0ceca3b0a0b6f5868d) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - AlertDialog: improve intellisense and docs, support asChild
+
+- [#496](https://github.com/ngrok-oss/mantle/pull/496) [`8d88570`](https://github.com/ngrok-oss/mantle/commit/8d885708597d45decf0addf40dd5c0179f6b73c0) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Flag: improve intellisense
+
+- [#496](https://github.com/ngrok-oss/mantle/pull/496) [`8d88570`](https://github.com/ngrok-oss/mantle/commit/8d885708597d45decf0addf40dd5c0179f6b73c0) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Icon: update docs and intellisense
+
+- [#496](https://github.com/ngrok-oss/mantle/pull/496) [`8d88570`](https://github.com/ngrok-oss/mantle/commit/8d885708597d45decf0addf40dd5c0179f6b73c0) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Label: update docs and intellisense
+
+- [#496](https://github.com/ngrok-oss/mantle/pull/496) [`8d88570`](https://github.com/ngrok-oss/mantle/commit/8d885708597d45decf0addf40dd5c0179f6b73c0) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - MediaObject: update docs and intellisense, add asChild support
+
+- [#494](https://github.com/ngrok-oss/mantle/pull/494) [`c4961ac`](https://github.com/ngrok-oss/mantle/commit/c4961ac846a3d5dddac9d0c9cf371b14c63240a0) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Card: improve docs and intellisense, support asChild on all sub-components
+
+- [#496](https://github.com/ngrok-oss/mantle/pull/496) [`8d88570`](https://github.com/ngrok-oss/mantle/commit/8d885708597d45decf0addf40dd5c0179f6b73c0) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Badge: improve intellisense
+
+- [#493](https://github.com/ngrok-oss/mantle/pull/493) [`410bc33`](https://github.com/ngrok-oss/mantle/commit/410bc330fd2715ca47e1858a1c5949e02d3a7b7e) Thanks [@melanieseltzer](https://github.com/melanieseltzer)! - Combobox: fix intellisense on `ComboboxItemValue`
+
+- [#496](https://github.com/ngrok-oss/mantle/pull/496) [`8d88570`](https://github.com/ngrok-oss/mantle/commit/8d885708597d45decf0addf40dd5c0179f6b73c0) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Skeleton: update docs and intellisense, add asChild support
+
 ## 0.24.0
 
 ### Minor Changes
