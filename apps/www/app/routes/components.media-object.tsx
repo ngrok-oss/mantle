@@ -164,7 +164,7 @@ export default function Page() {
 							<PropDescriptionCell>
 								<p>
 									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-									<InlineCode>MeidaObject</InlineCode> styling and functionality
+									<InlineCode>MediaObject</InlineCode> styling and functionality
 									onto alternative element types or your own React components.
 								</p>
 							</PropDescriptionCell>
@@ -211,7 +211,7 @@ export default function Page() {
 							<PropDescriptionCell>
 								<p>
 									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-									<InlineCode>MeidaObjectMedia</InlineCode> styling and
+									<InlineCode>MediaObjectMedia</InlineCode> styling and
 									functionality onto alternative element types or your own React
 									components.
 								</p>
@@ -259,7 +259,7 @@ export default function Page() {
 							<PropDescriptionCell>
 								<p>
 									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-									<InlineCode>MeidaObjectContent</InlineCode> styling and
+									<InlineCode>MediaObjectContent</InlineCode> styling and
 									functionality onto alternative element types or your own React
 									components.
 								</p>
