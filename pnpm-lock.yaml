@@ -121,8 +121,8 @@ importers:
   packages/mantle:
     dependencies:
       '@ariakit/react':
-        specifier: 0.4.16
-        version: 0.4.16(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.4.17
+        version: 0.4.17(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@headlessui/react':
         specifier: 2.2.1
         version: 2.2.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -273,14 +273,14 @@ packages:
   '@ariakit/core@0.4.15':
     resolution: {integrity: sha512-vvxmZvkNhiisKM+Y1TbGMUfVVchV/sWu9F0xw0RYADXcimWPK31dd9JnIZs/OQ5pwAryAHmERHwuGQVESkSjwQ==}
 
-  '@ariakit/react-core@0.4.16':
-    resolution: {integrity: sha512-pBEuiTGR81WBBYJah1s9qGVDwFPrRLlTf1GR6/gr2HmE71mRY6rOhnjh4uS/OzxfVl0ydpfAV3wsXjmMPYMB5g==}
+  '@ariakit/react-core@0.4.17':
+    resolution: {integrity: sha512-kFF6n+gC/5CRQIyaMTFoBPio2xUe0k9rZhMNdUobWRmc/twfeLVkODx+8UVYaNyKilTge8G0JFqwvFKku/jKEw==}
     peerDependencies:
       react: ^17.0.0 || ^18.0.0 || ^19.0.0
       react-dom: ^17.0.0 || ^18.0.0 || ^19.0.0
 
-  '@ariakit/react@0.4.16':
-    resolution: {integrity: sha512-yKlEBPGa7CR9ynEeKDrdFWA5pZjKTzUsYtHvV4TbvwpWUaJEN1KsNf6SUim6NNH4IJ+BNa3gk7cNncx8R2sUHQ==}
+  '@ariakit/react@0.4.17':
+    resolution: {integrity: sha512-HQaIboE2axtlncJz1hRTaiQfJ1GGjhdtNcAnPwdjvl2RybfmlHowIB+HTVBp36LzroKPs/M4hPCxk7XTaqRZGg==}
     peerDependencies:
       react: ^17.0.0 || ^18.0.0 || ^19.0.0
       react-dom: ^17.0.0 || ^18.0.0 || ^19.0.0
@@ -3592,7 +3592,7 @@ snapshots:
 
   '@ariakit/core@0.4.15': {}
 
-  '@ariakit/react-core@0.4.16(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@ariakit/react-core@0.4.17(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@ariakit/core': 0.4.15
       '@floating-ui/dom': 1.6.13
@@ -3600,9 +3600,9 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
       use-sync-external-store: 1.5.0(react@18.3.1)
 
-  '@ariakit/react@0.4.16(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@ariakit/react@0.4.17(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@ariakit/react-core': 0.4.16(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@ariakit/react-core': 0.4.17(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
