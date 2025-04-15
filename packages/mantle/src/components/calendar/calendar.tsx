@@ -1,9 +1,12 @@
-import { CaretLeft } from "@phosphor-icons/react/dist/icons/CaretLeft";
-import { CaretRight } from "@phosphor-icons/react/dist/icons/CaretRight";
+"use client";
+
+import { CaretLeft } from "@phosphor-icons/react/CaretLeft";
+import { CaretRight } from "@phosphor-icons/react/CaretRight";
 import type { ComponentProps } from "react";
 import { DayPicker } from "react-day-picker";
 import { cx } from "../../utils/cx/cx.js";
 import { buttonVariants } from "../button/button.js";
+import { Icon } from "../icon/icon.js";
 
 type CalendarProps = ComponentProps<typeof DayPicker>;
 
@@ -23,54 +26,58 @@ function Calendar({
 }: CalendarProps) {
 	return (
 		<DayPicker
-			showOutsideDays={showOutsideDays}
-			className={cx("", className)}
+			animate={false}
+			components={{
+				Chevron: (iconProps) => {
+					const icon =
+						iconProps.orientation === "left" ? <CaretLeft /> : <CaretRight />;
+
+					return <Icon svg={icon} className="size-4" />;
+				},
+			}}
 			classNames={{
-				months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
-				month: "space-y-4",
-				caption: "flex justify-center pt-1 relative items-center",
-				caption_label: "text-sm font-medium",
-				nav: "flex items-center",
-				nav_button: cx(
+				root: cx("isolate", className),
+				button_next: cx(
 					buttonVariants({ appearance: "ghost", priority: "neutral" }),
-					"size-7",
+					"size-7 absolute right-0",
 				),
-				nav_button_previous: "absolute left-0",
-				nav_button_next: "absolute right-0",
-				table: "w-full border-collapse space-y-1",
-				head_row: "flex",
-				head_cell: "text-body w-7 text-[0.8rem] text-center font-normal",
-				row: "flex w-full mt-1",
-				cell: cx(
-					"overflow-hidden text-center text-sm p-0 relative focus-within:relative focus-within:z-20 size-7",
+				button_previous: cx(
+					buttonVariants({ appearance: "ghost", priority: "neutral" }),
+					"size-7 absolute left-0",
+				),
+				caption_label: "text-sm font-medium",
+				day: cx(
+					"overflow-hidden text-center text-sm p-0 relative focus-within:relative focus-within:z-20 size-7 rounded-md",
 					props.mode === "range"
 						? "first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md"
 						: "",
 				),
-				day: "day size-full rounded-md [&:not([aria-selected],_[disabled])]:hover:bg-filled-accent/15",
-				day_range_start:
-					"day-range-start [&:not(.day-range-end)]:rounded-r-none",
-				day_range_end: "day-range-end [&:not(.day-range-start)]:rounded-l-none",
-				day_selected:
-					"[&:not([disabled])]:bg-filled-accent text-on-filled [&:not([disabled])]:hover:bg-filled-accent",
-				day_today:
-					"[&:not([aria-selected],_[disabled])]:text-accent-600 font-medium [&:not([aria-selected],_[disabled])]:bg-filled-accent/10",
-				day_outside:
+				day_button:
+					"day size-full rounded-md [&:not([aria-selected],[disabled])]:hover:bg-filled-accent/15",
+				disabled: "text-muted opacity-50",
+				hidden: "invisible",
+				month: "space-y-4",
+				month_caption: "flex justify-center pt-1 relative items-center",
+				month_grid: "w-full border-collapse space-y-1",
+				months:
+					"flex flex-col sm:flex-row gap-y-4 sm:gap-x-4 sm:gap-y-0 relative",
+				nav: "flex items-center absolute inset-x-0 top-1 h-5 justify-between z-10",
+				outside:
 					"day-outside aria-selected:text-on-filled opacity-50 text-muted",
-				day_disabled: "text-muted opacity-50",
-				day_range_middle:
+				range_end: "day-range-end [&:not(.day-range-start)]:rounded-l-none",
+				range_middle:
 					"day-range-middle [&:not([disabled])]:aria-selected:bg-filled-accent/15 aria-selected:text-strong rounded-none [&:not([disabled])]:aria-selected:hover:bg-filled-accent/25",
-				day_hidden: "invisible",
+				range_start: "day-range-start [&:not(.day-range-end)]:rounded-r-none",
+				selected:
+					"[&:not([disabled])]:bg-filled-accent text-on-filled [&:not([disabled])]:hover:bg-filled-accent",
+				today:
+					"[&:not([aria-selected],_[disabled])]:text-accent-600 font-medium [&:not([aria-selected],_[disabled])]:bg-filled-accent/10 rounded-md",
+				week: "flex w-full mt-1",
+				weekday: "text-body w-7 text-[0.8rem] text-center font-normal",
+				weekdays: "flex",
 				...classNames,
 			}}
-			components={{
-				IconLeft: () => (
-					<CaretLeft className="h-4 w-4 shrink-0" weight="bold" />
-				),
-				IconRight: () => (
-					<CaretRight className="h-4 w-4 shrink-0" weight="bold" />
-				),
-			}}
+			showOutsideDays={showOutsideDays}
 			{...props}
 		/>
 	);

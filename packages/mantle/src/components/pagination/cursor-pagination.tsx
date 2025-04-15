@@ -1,5 +1,5 @@
-import { CaretLeft } from "@phosphor-icons/react/dist/icons/CaretLeft";
-import { CaretRight } from "@phosphor-icons/react/dist/icons/CaretRight";
+import { CaretLeft } from "@phosphor-icons/react/CaretLeft";
+import { CaretRight } from "@phosphor-icons/react/CaretRight";
 import { Slot } from "@radix-ui/react-slot";
 import {
 	type ComponentProps,
