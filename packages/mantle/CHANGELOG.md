@@ -1,5 +1,13 @@
 # @ngrok/mantle
 
+## 0.25.2
+
+### Patch Changes
+
+- [#515](https://github.com/ngrok-oss/mantle/pull/515) [`eb03234`](https://github.com/ngrok-oss/mantle/commit/eb03234c6ef14d63d4e7d15320a6a8123ef16237) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - PopoverContent: add preferredWidth prop, use that instead of explicit width
+
+- [#515](https://github.com/ngrok-oss/mantle/pull/515) [`eb03234`](https://github.com/ngrok-oss/mantle/commit/eb03234c6ef14d63d4e7d15320a6a8123ef16237) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Calendar: add min-w-min to months container (prevent overflow in nav)
+
 ## 0.25.1
 
 ### Patch Changes
