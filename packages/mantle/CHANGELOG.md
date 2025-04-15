@@ -1,5 +1,13 @@
 # @ngrok/mantle
 
+## 0.25.1
+
+### Patch Changes
+
+- [#513](https://github.com/ngrok-oss/mantle/pull/513) [`052f571`](https://github.com/ngrok-oss/mantle/commit/052f57113ae811c6dbefbb293c0cb22fbcfaf950) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - AlertDialogContent, DialogContent: add preferredWidth prop
+
+- [#510](https://github.com/ngrok-oss/mantle/pull/510) [`7dcc1e0`](https://github.com/ngrok-oss/mantle/commit/7dcc1e050bc181d2f193257d51a1df3092a016ef) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update dependencies
+
 ## 0.25.0
 
 ### Minor Changes
