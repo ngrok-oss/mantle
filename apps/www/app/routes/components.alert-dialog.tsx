@@ -353,7 +353,7 @@ export default function Page() {
 							>
 								Dialog.Content
 							</Anchor>{" "}
-							props, pluse:
+							props, plus:
 						</p>
 					</header>
 					<PropsTable>
