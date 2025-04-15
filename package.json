@@ -2,7 +2,7 @@
   "private": true,
   "name": "mantle",
   "license": "MIT",
-  "packageManager": "pnpm@10.8.0",
+  "packageManager": "pnpm@10.8.1",
   "type": "module",
   "engines": {
     "node": "^22.0.0"
@@ -31,14 +31,15 @@
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@changesets/changelog-github": "0.5.1",
-    "@changesets/cli": "2.28.1",
+    "@changesets/cli": "2.29.1",
     "turbo": "2.5.0",
     "vitest": "3.1.1"
   },
   "pnpm": {
     "overrides": {
       "cookie": ">=1.0.2",
-      "esbuild": ">=0.25.2"
+      "esbuild": ">=0.25.2",
+      "vite": ">=6.2.6"
     },
     "onlyBuiltDependencies": [
       "@biomejs/biome",

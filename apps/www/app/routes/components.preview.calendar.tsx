@@ -1,5 +1,5 @@
 import { Anchor } from "@ngrok/mantle/anchor";
-import { Calendar } from "@ngrok/mantle/calendar";
+import { Calendar, type DateRange } from "@ngrok/mantle/calendar";
 import {
 	CodeBlock,
 	CodeBlockBody,
@@ -9,7 +9,6 @@ import {
 } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { useState } from "react";
-import type { DateRange } from "react-day-picker";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/components.preview.calendar";
