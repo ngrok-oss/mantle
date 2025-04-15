@@ -331,29 +331,55 @@ export default function Page() {
 					</p>
 				</section>
 
-				<section className="space-y-1">
-					<h3
-						id="api-alert-dialog-content"
-						className="text-xl font-medium text-strong"
-					>
-						AlertDialogContent
-					</h3>
-
-					<p className="font-body text-body">
-						The popover Alert Dialog container. Renders on top of the overlay
-						and is centered in the viewport.
-					</p>
-					<p className="font-body text-body">
-						Radix{" "}
-						<Anchor
-							href="https://www.radix-ui.com/primitives/docs/components/dialog#content"
-							target="_blank"
-							rel="noopener noreferrer"
+				<section className="space-y-4">
+					<header className="space-y-1">
+						<h3
+							id="api-alert-dialog-content"
+							className="text-xl font-medium text-strong"
 						>
-							Dialog.Content
-						</Anchor>{" "}
-						props.
-					</p>
+							AlertDialogContent
+						</h3>
+
+						<p className="font-body text-body">
+							The popover Alert Dialog container. Renders on top of the overlay
+							and is centered in the viewport.
+						</p>
+						<p className="font-body text-body">
+							Radix{" "}
+							<Anchor
+								href="https://www.radix-ui.com/primitives/docs/components/dialog#content"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								Dialog.Content
+							</Anchor>{" "}
+							props, pluse:
+						</p>
+					</header>
+					<PropsTable>
+						<PropRow>
+							<PropNameCell name="preferredWidth" optional />
+							<PropTypeCell>
+								<StringPropType />
+							</PropTypeCell>
+							<PropDefaultValueCell>
+								<StringPropType value="max-w-md" />
+							</PropDefaultValueCell>
+							<PropDescriptionCell>
+								<p>
+									The preferred width of the{" "}
+									<InlineCode>AlertDialogContent</InlineCode> as a tailwind{" "}
+									<InlineCode>max-w-</InlineCode> class.
+								</p>
+								<p>
+									By default, a <InlineCode>AlertDialogContent</InlineCode>'s
+									content width is responsive with a default{" "}
+									<span className="italic">preferred width</span>: the maxiumum
+									width of the <InlineCode>AlertDialogContent</InlineCode>.
+								</p>
+							</PropDescriptionCell>
+						</PropRow>
+					</PropsTable>
 				</section>
 
 				<section className="space-y-1">

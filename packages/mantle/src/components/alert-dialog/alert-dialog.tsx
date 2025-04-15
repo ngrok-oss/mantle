@@ -167,6 +167,20 @@ const AlertDialogOverlay = forwardRef<
 ));
 AlertDialogOverlay.displayName = "AlertDialogOverlay";
 
+type AlertDialogContentProps = ComponentPropsWithoutRef<
+	typeof AlertDialogPrimitive.Content
+> & {
+	/**
+	 * The preferred width of the `AlertDialogContent` as a tailwind `max-w-` class.
+	 *
+	 * By default, a `AlertDialog`'s content width is responsive with a default
+	 * preferred width: the maximum width of the `AlertDialogContent`
+	 *
+	 * @default `max-w-md`
+	 */
+	preferredWidth?: `max-w-${string}`;
+};
+
 /**
  * The popover alert dialog container.
  *
@@ -206,34 +220,46 @@ AlertDialogOverlay.displayName = "AlertDialogOverlay";
  */
 const AlertDialogContent = forwardRef<
 	ComponentRef<typeof AlertDialogPrimitive.Content>,
-	ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Content>
->(({ className, onInteractOutside, onPointerDownOutside, ...props }, ref) => (
-	<AlertDialogPortal>
-		<AlertDialogOverlay />
-		<div className="fixed inset-4 z-50 flex items-center justify-center">
-			<AlertDialogPrimitive.Content
-				ref={ref}
-				className={cx(
-					"flex w-full max-w-md flex-1 flex-col items-center gap-4 sm:flex-row sm:items-start",
-					"outline-none focus-within:outline-none",
-					"p-6",
-					"border-dialog bg-dialog rounded-xl border shadow-lg transition-transform duration-200",
-					"data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 data-state-open:animate-in data-state-open:fade-in-0 data-state-open:zoom-in-95",
-					className,
-				)}
-				onInteractOutside={(event) => {
-					preventCloseOnPromptInteraction(event);
-					onInteractOutside?.(event);
-				}}
-				onPointerDownOutside={(event) => {
-					preventCloseOnPromptInteraction(event);
-					onPointerDownOutside?.(event);
-				}}
-				{...props}
-			/>
-		</div>
-	</AlertDialogPortal>
-));
+	AlertDialogContentProps
+>(
+	(
+		{
+			className,
+			onInteractOutside,
+			onPointerDownOutside,
+			preferredWidth = "max-w-md",
+			...props
+		},
+		ref,
+	) => (
+		<AlertDialogPortal>
+			<AlertDialogOverlay />
+			<div className="fixed inset-4 z-50 flex items-center justify-center">
+				<AlertDialogPrimitive.Content
+					ref={ref}
+					className={cx(
+						"flex w-full flex-1 flex-col items-center gap-4 sm:flex-row sm:items-start",
+						"outline-none focus-within:outline-none",
+						"p-6",
+						"border-dialog bg-dialog rounded-xl border shadow-lg transition-transform duration-200",
+						"data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 data-state-open:animate-in data-state-open:fade-in-0 data-state-open:zoom-in-95",
+						preferredWidth,
+						className,
+					)}
+					onInteractOutside={(event) => {
+						preventCloseOnPromptInteraction(event);
+						onInteractOutside?.(event);
+					}}
+					onPointerDownOutside={(event) => {
+						preventCloseOnPromptInteraction(event);
+						onPointerDownOutside?.(event);
+					}}
+					{...props}
+				/>
+			</div>
+		</AlertDialogPortal>
+	),
+);
 AlertDialogContent.displayName = "AlertDialogContent";
 
 /**
