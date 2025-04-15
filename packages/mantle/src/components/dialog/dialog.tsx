@@ -33,12 +33,30 @@ const DialogOverlay = forwardRef<
 ));
 DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
 
-const DialogContent = forwardRef<
-	ComponentRef<"div">,
-	ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
->(
+type DialogContentProps = ComponentPropsWithoutRef<
+	typeof DialogPrimitive.Content
+> & {
+	/**
+	 * The preferred width of the `DialogContent` as a tailwind `max-w-` class.
+	 *
+	 * By default, a `Dialog`'s content width is responsive with a default
+	 * preferred width: the maximum width of the `DialogContent`
+	 *
+	 * @default `max-w-lg`
+	 */
+	preferredWidth?: `max-w-${string}`;
+};
+
+const DialogContent = forwardRef<ComponentRef<"div">, DialogContentProps>(
 	(
-		{ children, className, onInteractOutside, onPointerDownOutside, ...props },
+		{
+			children,
+			className,
+			onInteractOutside,
+			onPointerDownOutside,
+			preferredWidth = "max-w-lg",
+			...props
+		},
 		ref,
 	) => (
 		<DialogPortal>
@@ -46,10 +64,11 @@ const DialogContent = forwardRef<
 			<div className="fixed inset-4 z-50 flex items-center justify-center">
 				<DialogPrimitive.Content
 					className={cx(
-						"flex max-h-full w-full max-w-lg flex-1 flex-col",
+						"flex max-h-full w-full flex-1 flex-col",
 						"outline-none focus-within:outline-none",
 						"border-dialog bg-dialog rounded-xl border shadow-lg transition-transform duration-200",
 						"data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 data-state-open:animate-in data-state-open:fade-in-0 data-state-open:zoom-in-95",
+						preferredWidth,
 						className,
 					)}
 					onInteractOutside={(event) => {
