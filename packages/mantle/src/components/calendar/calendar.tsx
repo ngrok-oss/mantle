@@ -86,3 +86,8 @@ export type {
 	//,
 	CalendarProps,
 };
+
+export type {
+	//,
+	DateRange,
+} from "react-day-picker";

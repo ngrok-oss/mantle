@@ -6,4 +6,5 @@ export {
 export type {
 	//,
 	CalendarProps,
+	DateRange,
 } from "./calendar.js";
