@@ -45,7 +45,7 @@ export default function Page() {
 								Open popover
 							</Button>
 						</PopoverTrigger>
-						<PopoverContent className="w-80">
+						<PopoverContent preferredWidth="max-w-96">
 							<form
 								className="grid gap-4"
 								onSubmit={(event) => {
@@ -68,7 +68,7 @@ export default function Page() {
 										/>
 									</div>
 									<div className="grid grid-cols-3 items-center gap-4">
-										<label htmlFor="maxWidth">Max. width</label>
+										<label htmlFor="maxWidth">Max width</label>
 										<Input
 											id="maxWidth"
 											defaultValue="300px"
@@ -84,7 +84,7 @@ export default function Page() {
 										/>
 									</div>
 									<div className="grid grid-cols-3 items-center gap-4">
-										<label htmlFor="maxHeight">Max. height</label>
+										<label htmlFor="maxHeight">Max height</label>
 										<Input
 											id="maxHeight"
 											defaultValue="none"
@@ -108,7 +108,7 @@ export default function Page() {
 									<PopoverTrigger asChild>
 										<Button>Open popover</Button>
 									</PopoverTrigger>
-									<PopoverContent className="w-80">
+									<PopoverContent preferredWidth="max-w-96">
 										<p>Reprehenderit veniam excepteur incididunt et ut eu.</p>
 									</PopoverContent>
 								</Popover>

@@ -1,4 +1,5 @@
 import { Anchor } from "@ngrok/mantle/anchor";
+import { IconButton } from "@ngrok/mantle/button";
 import { Calendar, type DateRange } from "@ngrok/mantle/calendar";
 import {
 	CodeBlock,
@@ -8,6 +9,8 @@ import {
 	fmtCode,
 } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
+import { Popover, PopoverContent, PopoverTrigger } from "@ngrok/mantle/popover";
+import { Calendar as CalendarIcon } from "@phosphor-icons/react/Calendar";
 import { useState } from "react";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
@@ -39,6 +42,30 @@ export const headers: Route.HeadersFunction = () => {
 	return {
 		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
 	};
+};
+
+const PopoverCalendarExample = () => {
+	const [date, setDate] = useState<Date | undefined>(undefined);
+
+	return (
+		<Popover>
+			<PopoverTrigger asChild>
+				<IconButton
+					type="button"
+					icon={<CalendarIcon />}
+					label="Open calendar popover"
+				/>
+			</PopoverTrigger>
+			<PopoverContent>
+				<Calendar
+					autoFocus
+					mode="single"
+					onSelect={(value) => setDate(value)}
+					selected={date}
+				/>
+			</PopoverContent>
+		</Popover>
+	);
 };
 
 const SingleCalendarExample = () => {
@@ -150,6 +177,10 @@ export default function Page() {
 						<div className="space-y-2">
 							<p>Single</p>
 							<SingleCalendarExample />
+						</div>
+						<div className="flex flex-col gap-2 items-center">
+							<p>Popover</p>
+							<PopoverCalendarExample />
 						</div>
 						<div className="space-y-2">
 							<p>Range</p>

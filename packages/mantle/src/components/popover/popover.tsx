@@ -49,6 +49,20 @@ PopoverAnchor.displayName = "PopoverAnchor";
 const PopoverClose = PopoverPrimitive.Close;
 PopoverClose.displayName = "PopoverClose";
 
+type PopoverContentProps = ComponentPropsWithoutRef<
+	typeof PopoverPrimitive.Content
+> & {
+	/**
+	 * The preferred width of the `PopoverContent` as a tailwind `max-w-` class.
+	 *
+	 * By default, a `Popover`'s content width is responsive with a default
+	 * preferred width: the maximum width of the `PopoverContent`
+	 *
+	 * @default `max-w-72`
+	 */
+	preferredWidth?: `max-w-${string}`;
+};
+
 /**
  * The content to render inside the popover.
  *
@@ -57,16 +71,14 @@ PopoverClose.displayName = "PopoverClose";
  *
  * https://github.com/ngrok-oss/mantle/issues
  */
-const PopoverContent = forwardRef<
-	ComponentRef<typeof PopoverPrimitive.Content>,
-	ComponentPropsWithoutRef<typeof PopoverPrimitive.Content>
->(
+const PopoverContent = forwardRef<ComponentRef<"div">, PopoverContentProps>(
 	(
 		{
 			//,
 			align = "center",
 			className,
 			onClick,
+			preferredWidth = "max-w-72",
 			sideOffset = 4,
 			...props
 		},
@@ -76,7 +88,8 @@ const PopoverContent = forwardRef<
 			<PopoverPrimitive.Content
 				align={align}
 				className={cx(
-					"text-popover-foreground border-popover bg-popover data-side-bottom:slide-in-from-top-2 data-side-left:slide-in-from-right-2 data-side-right:slide-in-from-left-2 data-side-top:slide-in-from-bottom-2 data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 data-state-open:animate-in data-state-open:fade-in-0 data-state-open:zoom-in-95 z-50 w-72 rounded-md border p-4 shadow-md outline-none",
+					"text-popover-foreground border-popover bg-popover data-side-bottom:slide-in-from-top-2 data-side-left:slide-in-from-right-2 data-side-right:slide-in-from-left-2 data-side-top:slide-in-from-bottom-2 data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 data-state-open:animate-in data-state-open:fade-in-0 data-state-open:zoom-in-95 z-50 rounded-md border p-4 shadow-md outline-none",
+					preferredWidth,
 					className,
 				)}
 				onClick={(event) => {

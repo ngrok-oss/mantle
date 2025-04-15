@@ -60,7 +60,7 @@ function Calendar({
 				month_caption: "flex justify-center pt-1 relative items-center",
 				month_grid: "w-full border-collapse space-y-1",
 				months:
-					"flex flex-col sm:flex-row gap-y-4 sm:gap-x-4 sm:gap-y-0 relative",
+					"flex flex-col sm:flex-row gap-y-4 sm:gap-x-4 sm:gap-y-0 relative max-w-min",
 				nav: "flex items-center absolute inset-x-0 top-1 h-5 justify-between z-10",
 				outside:
 					"day-outside aria-selected:text-on-filled opacity-50 text-muted",
