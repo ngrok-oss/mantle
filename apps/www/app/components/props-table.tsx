@@ -17,25 +17,17 @@ import { escapeHtml, normalizeIndentation } from "@ngrok/mantle/code-block";
 
 type PropsTableProps = WithStyleProps & PropsWithChildren;
 export const PropsTable = ({ children, className, style }: PropsTableProps) => (
-	<div
-		className={cx(
-			"scrollbar overflow-x-scroll rounded-lg border border-gray-300",
-			className,
-		)}
-		style={style}
-	>
-		<Table>
-			<TableHeader>
-				<TableRow>
-					<TableHead>Prop</TableHead>
-					<TableHead>Type</TableHead>
-					<TableHead>Default</TableHead>
-					<TableHead>Description</TableHead>
-				</TableRow>
-			</TableHeader>
-			<TableBody className="font-body text-body text-xs">{children}</TableBody>
-		</Table>
-	</div>
+	<Table className={className} style={style}>
+		<TableHead>
+			<TableRow>
+				<TableHeader>Prop</TableHeader>
+				<TableHeader>Type</TableHeader>
+				<TableHeader>Default</TableHeader>
+				<TableHeader>Description</TableHeader>
+			</TableRow>
+		</TableHead>
+		<TableBody className="font-body text-body text-xs">{children}</TableBody>
+	</Table>
 );
 
 type PropRowProps = PropsWithChildren & WithStyleProps;

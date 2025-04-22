@@ -14,7 +14,7 @@ import {
 	TableBody,
 	TableCaption,
 	TableCell,
-	TableFooter,
+	TableFoot,
 	TableHead,
 	TableHeader,
 	TableRow,
@@ -113,15 +113,15 @@ export default function Page() {
 						</p>
 						<Table>
 							<TableCaption>A list of your recent invoices.</TableCaption>
-							<TableHeader>
+							<TableHead>
 								<TableRow>
-									<TableHead className="w-[100px]">Invoice</TableHead>
-									<TableHead>Status</TableHead>
-									<TableHead>Method</TableHead>
-									<TableHead className="text-right">Amount</TableHead>
-									<TableHead className="text-right">Actions</TableHead>
+									<TableHeader className="w-[100px]">Invoice</TableHeader>
+									<TableHeader>Status</TableHeader>
+									<TableHeader>Method</TableHeader>
+									<TableHeader className="text-right">Amount</TableHeader>
+									<TableHeader className="text-right">Actions</TableHeader>
 								</TableRow>
-							</TableHeader>
+							</TableHead>
 							<TableBody>
 								{invoices.map((invoice) => (
 									<TableRow
@@ -153,13 +153,13 @@ export default function Page() {
 									</TableRow>
 								))}
 							</TableBody>
-							<TableFooter>
+							<TableFoot>
 								<TableRow>
 									<TableCell colSpan={3}>Total</TableCell>
 									<TableCell className="text-right">$2,500.00</TableCell>
 									<TableCell />
 								</TableRow>
-							</TableFooter>
+							</TableFoot>
 						</Table>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
@@ -175,7 +175,7 @@ export default function Page() {
 										TableBody,
 										TableCaption,
 										TableCell,
-										TableFooter,
+										TableFoot,
 										TableHead,
 										TableHeader,
 										TableRow,
@@ -184,15 +184,15 @@ export default function Page() {
 
 									<Table>
 										<TableCaption>A list of your recent invoices.</TableCaption>
-										<TableHeader>
+										<TableHead>
 											<TableRow>
-												<TableHead className="w-[100px]">Invoice</TableHead>
-												<TableHead>Status</TableHead>
-												<TableHead>Method</TableHead>
-												<TableHead className="text-right">Amount</TableHead>
-												<TableHead className="text-right">Actions</TableHead>
+												<TableHeader className="w-[100px]">Invoice</TableHeader>
+												<TableHeader>Status</TableHeader>
+												<TableHeader>Method</TableHeader>
+												<TableHeader className="text-right">Amount</TableHeader>
+												<TableHeader className="text-right">Actions</TableHeader>
 											</TableRow>
-										</TableHeader>
+										</TableHead>
 										<TableBody>
 											{invoices.map((invoice) => (
 												<TableRow
@@ -224,13 +224,13 @@ export default function Page() {
 												</TableRow>
 											))}
 										</TableBody>
-										<TableFooter>
+										<TableFoot>
 											<TableRow>
 												<TableCell colSpan={3}>Total</TableCell>
 												<TableCell className="text-right">$2,500.00</TableCell>
 												<TableCell />
 											</TableRow>
-										</TableFooter>
+										</TableFoot>
 									</Table>
 								`}
 							/>

@@ -4,7 +4,7 @@ export {
 	TableBody,
 	TableCaption,
 	TableCell,
-	TableFooter,
+	TableFoot,
 	TableHead,
 	TableHeader,
 	TableRow,
