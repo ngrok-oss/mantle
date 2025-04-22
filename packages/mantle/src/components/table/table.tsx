@@ -115,14 +115,33 @@ Table.displayName = "Table";
  *
  * @example
  * ```tsx
- * <TableHead>
- *   <TableRow>
- *     <TableHeader className="w-[100px]">Invoice</TableHeader>
- *     <TableHeader>Status</TableHeader>
- *     <TableHeader>Method</TableHeader>
- *     <TableHeader className="text-right">Amount</TableHeader>
- *   </TableRow>
- * </TableHead>
+ * <Table>
+ *   <TableCaption>A list of your recent invoices.</TableCaption>
+ *   <TableHead>
+ *     <TableRow>
+ *       <TableHeader className="w-[100px]">Invoice</TableHeader>
+ *       <TableHeader>Status</TableHeader>
+ *       <TableHeader>Method</TableHeader>
+ *       <TableHeader className="text-right">Amount</TableHeader>
+ *     </TableRow>
+ *   </TableHead>
+ *   <TableBody>
+ *     {invoices.map((invoice) => (
+ *       <TableRow key={invoice.invoice}>
+ *         <TableCell className="font-medium">{invoice.invoice}</TableCell>
+ *         <TableCell>{invoice.paymentStatus}</TableCell>
+ *         <TableCell>{invoice.paymentMethod}</TableCell>
+ *         <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+ *       </TableRow>
+ *     ))}
+ *   </TableBody>
+ *   <TableFoot>
+ *     <TableRow>
+ *       <TableCell colSpan={3}>Total</TableCell>
+ *       <TableCell className="text-right">$2,500.00</TableCell>
+ *     </TableRow>
+ *   </TableFoot>
+ * </Table>
  * ```
  *
  * @see https://mantle.ngrok.com/components/table#api-table-header
