@@ -205,6 +205,11 @@
       "import": "./dist/icon.js",
       "types": "./dist/icon.d.ts"
     },
+    "./icons": {
+      "@ngrok/mantle/source": "./src/components/icons/index.ts",
+      "import": "./dist/icons.js",
+      "types": "./dist/icons.d.ts" 
+    },
     "./inline-code": {
       "@ngrok/mantle/source": "./src/components/inline-code/index.ts",
       "import": "./dist/inline-code.js",
@@ -309,6 +314,11 @@
       "@ngrok/mantle/source": "./src/types/index.ts",
       "import": "./dist/types.js",
       "types": "./dist/types.d.ts"
+    },
+    "./utils/sorting": {
+      "@ngrok/mantle/source": "./src/utils/sorting/index.ts",
+      "import": "./dist/sorting.js",
+      "types": "./dist/sorting.d.ts"
     }
   }
 }
