@@ -44,7 +44,7 @@ export default function Page() {
 	return (
 		<div className="space-y-16">
 			<section className="space-y-4">
-				<PageHeader id="icon">icon</PageHeader>
+				<PageHeader id="icon">Icon</PageHeader>
 				<p className="font-body text-body text-xl">
 					Decorates an svg icon with automatic sizing. Useful when applying base
 					styles to{" "}
