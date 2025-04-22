@@ -267,7 +267,7 @@ export default function Page() {
 					</header>
 					<div>
 						<Example>
-							<Select value={example1Value} onChange={setExample1Value}>
+							<Select value={example1Value} onValueChange={setExample1Value}>
 								<SelectTrigger className="w-[180px]">
 									<SelectValue placeholder="Select a fruit">
 										{example1Value === "apple" ? <>🍎 Apple</> : <>🍑 Peach</>}
@@ -293,7 +293,7 @@ export default function Page() {
 											SelectValue,
 										} from "@ngrok/mantle/select";
 
-										<Select value={value} onChange={setValue}>
+										<Select value={value} onValueChange={setValue}>
 											<SelectTrigger className="w-[180px]">
 												<SelectValue placeholder="Select a fruit">
 													{value === "apple" ? <>🍎 Apple!</> : <>🍑 Peach!</>}
@@ -356,16 +356,13 @@ export default function Page() {
 
 					<PropsTable>
 						<PropRow>
-							<PropNameCell name="onChange" optional />
+							<PropNameCell name="onValueChange" optional />
 							<PropTypeCell>
 								<FuncPropType value="(value: string) => void" />
 							</PropTypeCell>
 							<PropDefaultValueCell />
 							<PropDescriptionCell>
-								<p>
-									Event handler called when the value changes. Use it instead of{" "}
-									<InlineCode>onValueChange</InlineCode>.
-								</p>
+								<p>Event handler called when the value changes.</p>
 							</PropDescriptionCell>
 						</PropRow>
 						<PropRow>
@@ -622,7 +619,7 @@ export default function Page() {
 						An option within a select menu. Similar to an html{" "}
 						<InlineCode>option</InlineCode> element. Has a required{" "}
 						<InlineCode>value</InlineCode> prop that will be passed to the{" "}
-						<InlineCode>onChange</InlineCode> handler of the{" "}
+						<InlineCode>onValueChange</InlineCode> handler of the{" "}
 						<InlineCode>Select</InlineCode> component when this item is
 						selected. Displays the children as the option's text.
 					</p>

@@ -7,6 +7,7 @@ import type {
 	ComponentPropsWithoutRef,
 	ComponentRef,
 	FocusEvent,
+	PropsWithChildren,
 	Ref,
 	SelectHTMLAttributes,
 } from "react";
@@ -35,22 +36,32 @@ type SelectContextType = WithValidation &
 
 const SelectContext = createContext<SelectContextType>({});
 
-type SelectProps = Omit<
-	ComponentPropsWithoutRef<typeof SelectPrimitive.Root>,
-	"onValueChange"
-> &
-	WithValidation &
-	WithAriaInvalid & {
-		/**
-		 * Event handler called when the value changes.
-		 */
-		onChange?: (value: string) => void;
-		/**
-		 * Event handler called when Select blurs.
-		 * @note this is a no-op for now until we can guarantee that it works identically to a native select onBlur
-		 */
-		onBlur?: (event: FocusEvent<HTMLButtonElement>) => void;
-	} & Pick<ComponentProps<"button">, "id">;
+type SelectProps = PropsWithChildren & {
+	autoComplete?: string;
+	defaultOpen?: boolean;
+	defaultValue?: string;
+	dir?: "ltr" | "rtl";
+	disabled?: boolean;
+	form?: string;
+	id?: string;
+	name?: string;
+	/**
+	 * Event handler called when Select blurs.
+	 * @note this is a no-op for now until we can guarantee that it works identically to a native select onBlur
+	 */
+	onBlur?: (event: FocusEvent<HTMLButtonElement>) => void;
+	/**
+	 * Event handler called when the value changes.
+	 * @deprecated Use `onValueChange` instead.
+	 */
+	onChange?: (value: string) => void;
+	onOpenChange?(open: boolean): void;
+	onValueChange?(value: string): void;
+	open?: boolean;
+	required?: boolean;
+	value?: string;
+} & WithValidation &
+	WithAriaInvalid;
 
 /**
  * Displays a list of options for the user to pick from—triggered by a button.
@@ -86,13 +97,20 @@ const Select = forwardRef<HTMLButtonElement, SelectProps>(
 			id,
 			validation,
 			onBlur,
+			onValueChange,
 			onChange,
 			...props
 		},
 		ref,
 	) => {
 		return (
-			<SelectPrimitive.Root {...props} onValueChange={onChange}>
+			<SelectPrimitive.Root
+				{...props}
+				onValueChange={(value) => {
+					onChange?.(value);
+					onValueChange?.(value);
+				}}
+			>
 				<SelectContext.Provider
 					value={{ "aria-invalid": _ariaInvalid, id, validation, onBlur, ref }}
 				>
