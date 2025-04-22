@@ -1,5 +1,21 @@
 # @ngrok/mantle
 
+## 0.26.0
+
+### Minor Changes
+
+- [#525](https://github.com/ngrok-oss/mantle/pull/525) [`bf41174`](https://github.com/ngrok-oss/mantle/commit/bf41174756a5fe1b563e5fe43ea6f80ec3df09d3) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add custom mantle icons exports (Sort, TrafficPolicyFile) and sorting helper functions, types
+
+- [#527](https://github.com/ngrok-oss/mantle/pull/527) [`f702d8a`](https://github.com/ngrok-oss/mantle/commit/f702d8a8a228eb568f3273c650b0ad00d0b35adb) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - DataTable: add DataTableHeader component, which supports column sorting by default (if enabled on the column)
+
+- [#527](https://github.com/ngrok-oss/mantle/pull/527) [`f702d8a`](https://github.com/ngrok-oss/mantle/commit/f702d8a8a228eb568f3273c650b0ad00d0b35adb) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Table: improve documentation and fix markup, exports to match html spec 1:1; improve styling and include horizontal overflow detection
+
+### Patch Changes
+
+- [#524](https://github.com/ngrok-oss/mantle/pull/524) [`38ac3db`](https://github.com/ngrok-oss/mantle/commit/38ac3dbadfa45dfa283bc4a8853966b190839776) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update dependencies
+
+- [#527](https://github.com/ngrok-oss/mantle/pull/527) [`f702d8a`](https://github.com/ngrok-oss/mantle/commit/f702d8a8a228eb568f3273c650b0ad00d0b35adb) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Table: Improve Table component docs
+
 ## 0.25.2
 
 ### Patch Changes
