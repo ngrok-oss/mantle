@@ -105,7 +105,7 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 
 				<Select
 					value={currentTheme}
-					onChange={(value) => {
+					onValueChange={(value) => {
 						const maybeNewTheme = isTheme(value) ? value : undefined;
 						if (maybeNewTheme) {
 							setTheme(maybeNewTheme);
