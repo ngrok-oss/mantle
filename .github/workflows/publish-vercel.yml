@@ -1,4 +1,9 @@
 name: Vercel
+
+permissions:
+  contents: read
+  pull-requests: write
+
 env:
   DO_NOT_TRACK: 1
   TURBO_TELEMETRY_DISABLED: 1

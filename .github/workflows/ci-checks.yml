@@ -2,6 +2,10 @@ name: CI Checks
 
 on: push
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   ci-checks:
     runs-on: ubuntu-latest
