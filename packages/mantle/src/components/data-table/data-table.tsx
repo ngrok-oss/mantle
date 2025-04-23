@@ -86,7 +86,7 @@ function DataTableHeaderSortButton<TData, TValue>({
 	...props
 }: DataTableHeaderSortButtonProps<TData, TValue>) {
 	const _sortDirection = column.getIsSorted();
-	const canSort = !disableSorting || column.getCanSort();
+	const canSort = !disableSorting && column.getCanSort();
 
 	const sortDirection: SortDirection =
 		canSort && typeof _sortDirection === "string" ? _sortDirection : "unsorted";
