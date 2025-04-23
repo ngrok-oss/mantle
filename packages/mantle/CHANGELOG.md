@@ -1,5 +1,13 @@
 # @ngrok/mantle
 
+## 0.27.1
+
+### Patch Changes
+
+- [#538](https://github.com/ngrok-oss/mantle/pull/538) [`1c2f1af`](https://github.com/ngrok-oss/mantle/commit/1c2f1af3d26841671fd53f2334d722790bd03454) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - DataTable: add most of the remaining core components
+
+- [#536](https://github.com/ngrok-oss/mantle/pull/536) [`585624a`](https://github.com/ngrok-oss/mantle/commit/585624a29920d6c92d5e2bf81ea682a56cd89f47) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - DataTable: export both DataTableHeaderSortButton and DataTableHeader, decouple behavior to make it fully customizable
+
 ## 0.27.0
 
 ### Minor Changes
