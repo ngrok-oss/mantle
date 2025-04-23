@@ -14,4 +14,7 @@ export default defineConfig({
 	resolve: {
 		conditions: ["@ngrok/mantle/source"],
 	},
+	optimizeDeps: {
+		exclude: ["@ngrok/mantle"],
+	},
 });
