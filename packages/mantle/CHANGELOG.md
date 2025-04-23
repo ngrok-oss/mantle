@@ -1,5 +1,21 @@
 # @ngrok/mantle
 
+## 0.27.0
+
+### Minor Changes
+
+- [#533](https://github.com/ngrok-oss/mantle/pull/533) [`8211d3b`](https://github.com/ngrok-oss/mantle/commit/8211d3b636a5197b305ed4774d7316cf8cf09ca6) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Tailwind Preset: replace 'text-mono' with 'text-size-mono' (so it doesn't clash with tw-merge text-\* color classes)
+
+### Patch Changes
+
+- [#533](https://github.com/ngrok-oss/mantle/pull/533) [`8211d3b`](https://github.com/ngrok-oss/mantle/commit/8211d3b636a5197b305ed4774d7316cf8cf09ca6) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - DataTable: add tests to helper methods, render example on docs site
+
+- [#533](https://github.com/ngrok-oss/mantle/pull/533) [`8211d3b`](https://github.com/ngrok-oss/mantle/commit/8211d3b636a5197b305ed4774d7316cf8cf09ca6) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Toast: change class from .mantle-prompt to .overlay-prompt, improve compat w/ legacy ui components
+
+- [#533](https://github.com/ngrok-oss/mantle/pull/533) [`8211d3b`](https://github.com/ngrok-oss/mantle/commit/8211d3b636a5197b305ed4774d7316cf8cf09ca6) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Table: fix/improve styling
+
+- [#533](https://github.com/ngrok-oss/mantle/pull/533) [`8211d3b`](https://github.com/ngrok-oss/mantle/commit/8211d3b636a5197b305ed4774d7316cf8cf09ca6) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Update dependencies
+
 ## 0.26.0
 
 ### Minor Changes
