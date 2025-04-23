@@ -31,7 +31,7 @@ import type { Route } from "./+types/components.preview.data-table";
 
 export const meta: Route.MetaFunction = () => {
 	return [
-		{ title: "@ngrok/mantle — Unreleased Data Table" },
+		{ title: "@ngrok/mantle — Data Table" },
 		{
 			name: "description",
 			content: "mantle is ngrok's UI library and design system",
