@@ -190,7 +190,7 @@ const CursorPageSizeSelect = forwardRef<
 		return (
 			<Select
 				defaultValue={`${ctx.pageSize}`}
-				onChange={(value) => {
+				onValueChange={(value) => {
 					let newPageSize = Number.parseInt(value, 10);
 					if (Number.isNaN(newPageSize)) {
 						newPageSize = ctx.defaultPageSize;

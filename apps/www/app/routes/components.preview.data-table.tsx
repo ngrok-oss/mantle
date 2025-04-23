@@ -7,10 +7,14 @@ import {
 	fmtCode,
 } from "@ngrok/mantle/code-block";
 import {
+	DataTable,
+	DataTableBody,
+	DataTableHead,
 	DataTableHeader,
 	DataTableHeaderSortButton,
+	DataTableRows,
+	EmptyDataTableRow,
 	createColumnHelper,
-	flexRender,
 	getCoreRowModel,
 	getFilteredRowModel,
 	getPaginationRowModel,
@@ -18,14 +22,8 @@ import {
 	useReactTable,
 } from "@ngrok/mantle/data-table";
 import { InlineCode } from "@ngrok/mantle/inline-code";
-import {
-	Table,
-	TableBody,
-	TableCell,
-	TableHead,
-	TableHeader,
-	TableRow,
-} from "@ngrok/mantle/table";
+import { TableCell } from "@ngrok/mantle/table";
+import { useMemo } from "react";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/components.preview.data-table";
@@ -63,7 +61,12 @@ export default function Page() {
 				</p>
 				<div>
 					<Example className="flex-col gap-6">
-						<PaymentsExample />
+						<div className="w-full">
+							<PaymentsExample />
+						</div>
+						<div className="w-full">
+							<EmptyPaymentsExample />
+						</div>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
@@ -71,9 +74,56 @@ export default function Page() {
 							<CodeBlockCode
 								language="tsx"
 								value={fmtCode`
-									import { DNE } from "@ngrok/mantle/data-table";
+									import {
+										DataTable,
+										DataTableBody,
+										DataTableHead,
+										DataTableHeader,
+										DataTableHeaderSortButton,
+										DataTableRows,
+										EmptyDataTableRow,
+										createColumnHelper,
+										getCoreRowModel,
+										getFilteredRowModel,
+										getPaginationRowModel,
+										getSortedRowModel,
+										useReactTable,
+									} from "@ngrok/mantle/data-table";
 
-									<DNE />
+									function PaymentsExample() {
+										const data = useMemo(() => examplePayments, []);
+
+										const table = useReactTable({
+											data,
+											columns,
+											getCoreRowModel: getCoreRowModel(),
+											getPaginationRowModel: getPaginationRowModel(),
+											getSortedRowModel: getSortedRowModel(),
+											getFilteredRowModel: getFilteredRowModel(),
+											initialState: {
+												pagination: {
+													pageSize: 100,
+												},
+											},
+										});
+
+										return (
+											<DataTable table={table}>
+												<DataTableHead />
+												<DataTableBody>
+													{table.getRowModel().rows.length > 0 ? (
+														<DataTableRows />
+													) : (
+														<EmptyDataTableRow>
+															<p className="flex items-center justify-center min-h-20">
+																No results.
+															</p>
+														</EmptyDataTableRow>
+													)}
+												</DataTableBody>
+											</DataTable>
+										);
+									}
 								`}
 							/>
 						</CodeBlockBody>
@@ -167,7 +217,7 @@ type Payment = {
 	email: string;
 };
 
-const data: Payment[] = [
+const examplePayments: Payment[] = [
 	{
 		id: "m5gr84i9",
 		amount: 316,
@@ -273,7 +323,9 @@ const columns = [
 	}),
 ];
 
-function PaymentsExample() {
+function EmptyPaymentsExample() {
+	const data = useMemo(() => [], []);
+
 	const table = useReactTable({
 		data,
 		columns,
@@ -289,44 +341,54 @@ function PaymentsExample() {
 	});
 
 	return (
-		<Table>
-			<TableHead>
-				{table.getHeaderGroups().map((headerGroup) => (
-					<TableRow key={headerGroup.id}>
-						{headerGroup.headers.map((header) => {
-							return header.isPlaceholder ? (
-								<TableHeader key={header.id} />
-							) : (
-								flexRender(header.column.columnDef.header, header.getContext())
-							);
-						})}
-					</TableRow>
-				))}
-			</TableHead>
-			<TableBody>
-				{table.getRowModel().rows?.length ? (
-					table.getRowModel().rows.map((row) => (
-						<TableRow
-							key={row.id}
-							className="cursor-pointer !border-0 [&_>_td]:border-b [&_>_td]:border-card-muted [&_>_td]:last:border-b-0 [&_>_td]:bg-card [&_>_td]:hover:bg-card-hover"
-							// data-state={row.getIsSelected() && "selected"}
-							// onClick={() => console.log("row", row)}
-						>
-							{row
-								.getVisibleCells()
-								.map((cell) =>
-									flexRender(cell.column.columnDef.cell, cell.getContext()),
-								)}
-						</TableRow>
-					))
+		<DataTable table={table}>
+			<DataTableHead />
+			<DataTableBody>
+				{table.getRowModel().rows.length > 0 ? (
+					<DataTableRows />
 				) : (
-					<TableRow>
-						<TableCell colSpan={columns.length} className="h-24 text-center">
+					<EmptyDataTableRow>
+						<p className="flex items-center justify-center min-h-20">
 							No results.
-						</TableCell>
-					</TableRow>
+						</p>
+					</EmptyDataTableRow>
 				)}
-			</TableBody>
-		</Table>
+			</DataTableBody>
+		</DataTable>
+	);
+}
+
+function PaymentsExample() {
+	const data = useMemo(() => examplePayments, []);
+
+	const table = useReactTable({
+		data,
+		columns,
+		getCoreRowModel: getCoreRowModel(),
+		getPaginationRowModel: getPaginationRowModel(),
+		getSortedRowModel: getSortedRowModel(),
+		getFilteredRowModel: getFilteredRowModel(),
+		initialState: {
+			pagination: {
+				pageSize: 100,
+			},
+		},
+	});
+
+	return (
+		<DataTable table={table}>
+			<DataTableHead />
+			<DataTableBody>
+				{table.getRowModel().rows.length > 0 ? (
+					<DataTableRows />
+				) : (
+					<EmptyDataTableRow>
+						<p className="flex items-center justify-center min-h-20">
+							No results.
+						</p>
+					</EmptyDataTableRow>
+				)}
+			</DataTableBody>
+		</DataTable>
 	);
 }

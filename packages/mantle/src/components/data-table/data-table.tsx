@@ -1,10 +1,20 @@
-import type { Column, HeaderContext } from "@tanstack/react-table";
+import {
+	type Column,
+	type HeaderContext,
+	type Row,
+	type Table as TableInstance,
+	flexRender,
+} from "@tanstack/react-table";
 import {
 	type ComponentProps,
 	type ComponentRef,
 	type ReactNode,
+	createContext,
 	forwardRef,
+	useContext,
+	useMemo,
 } from "react";
+import invariant from "tiny-invariant";
 import { cx } from "../../utils/cx/cx.js";
 import {
 	$timeSortingDirection,
@@ -14,7 +24,14 @@ import {
 import { Button } from "../button/button.js";
 import type { SvgAttributes } from "../icon/types.js";
 import { Sort } from "../icons/sort.js";
-import { TableHeader } from "../table/table.js";
+import {
+	Table,
+	TableBody,
+	TableCell,
+	TableHead,
+	TableHeader,
+	TableRow,
+} from "../table/table.js";
 import { getNextSortDirection } from "./helpers.js";
 import type { SortDirection } from "./types.js";
 
@@ -154,10 +171,124 @@ function DataTableHeader<TData, TValue>({
 	);
 }
 
+type DataTableContextShape<TData = unknown> = {
+	table: TableInstance<TData>;
+};
+
+const DataTableContext = createContext<DataTableContextShape<any> | null>(null);
+
+function useDataTableContext<TData>() {
+	const context = useContext(DataTableContext);
+
+	invariant(context, "useDataTableContext should only be used a not defined");
+
+	return context as DataTableContextShape<TData>;
+}
+
+type DataTableProps<TData> = ComponentProps<typeof Table> & {
+	table: TableInstance<TData>;
+};
+
+function DataTable<TData>({
+	children,
+	table,
+	...props
+}: DataTableProps<TData>) {
+	const context: DataTableContextShape<TData> = useMemo(
+		() => ({ table }),
+		[table],
+	);
+
+	return (
+		<DataTableContext.Provider value={context}>
+			<Table {...props}>{children}</Table>
+		</DataTableContext.Provider>
+	);
+}
+
+const DataTableBody = TableBody;
+DataTableBody.displayName = "DataTableBody";
+
+type DataTableHeadProps = Omit<ComponentProps<typeof TableHead>, "children">;
+
+function DataTableHead<TData>(props: DataTableHeadProps) {
+	const { table } = useDataTableContext<TData>();
+
+	return (
+		<TableHead {...props}>
+			{table.getHeaderGroups().map((headerGroup) => (
+				<TableRow key={headerGroup.id}>
+					{headerGroup.headers.map((header) => {
+						return header.isPlaceholder ? (
+							<TableHeader key={header.id} />
+						) : (
+							flexRender(header.column.columnDef.header, header.getContext())
+						);
+					})}
+				</TableRow>
+			))}
+		</TableHead>
+	);
+}
+
+function DataTableRows<TData>() {
+	const { table } = useDataTableContext<TData>();
+	const rows = table.getRowModel().rows;
+
+	return (
+		<>
+			{rows.map((row) => (
+				<DataTableRow key={row.id} row={row} />
+			))}
+		</>
+	);
+}
+
+type DataTableRowProps<TData> = Omit<
+	ComponentProps<typeof TableRow>,
+	"chidlren"
+> & {
+	row: Row<TData>;
+};
+
+function DataTableRow<TData>({ row, ...props }: DataTableRowProps<TData>) {
+	return (
+		<TableRow {...props}>
+			{row
+				.getVisibleCells()
+				.map((cell) =>
+					flexRender(cell.column.columnDef.cell, cell.getContext()),
+				)}
+		</TableRow>
+	);
+}
+
+type EmptyDataTableRowProps = ComponentProps<typeof TableRow>;
+
+function EmptyDataTableRow<TData>({
+	children,
+	...props
+}: EmptyDataTableRowProps) {
+	const { table } = useDataTableContext<TData>();
+	const numberOfColumns = table.getAllColumns().length;
+
+	return (
+		<TableRow {...props}>
+			<TableCell colSpan={numberOfColumns}>{children}</TableCell>
+		</TableRow>
+	);
+}
+
 export {
 	//,
+	DataTable,
+	DataTableBody,
+	DataTableHead,
 	DataTableHeader,
 	DataTableHeaderSortButton,
+	DataTableRow,
+	DataTableRows,
+	EmptyDataTableRow,
 };
 
 type DefaultSortIconProps = SvgAttributes & {
