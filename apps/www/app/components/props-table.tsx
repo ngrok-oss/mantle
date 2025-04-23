@@ -26,7 +26,7 @@ export const PropsTable = ({ children, className, style }: PropsTableProps) => (
 				<TableHeader>Description</TableHeader>
 			</TableRow>
 		</TableHead>
-		<TableBody className="font-body text-body text-xs">{children}</TableBody>
+		<TableBody>{children}</TableBody>
 	</Table>
 );
 
@@ -48,12 +48,12 @@ export const PropNameCell = ({
 	optional,
 	style,
 }: PropNameCellProps) => (
-	<TableCell className={cx("align-top font-mono", className)} style={style}>
-		<div className="flex items-center">
+	<TableCell className={cx("align-top", className)} style={style}>
+		<div className="flex items-start">
 			<span className="token attr-name">{name}</span>
 			{optional && (
 				<Tooltip>
-					<TooltipTrigger>?</TooltipTrigger>
+					<TooltipTrigger className="h-[1lh]">?</TooltipTrigger>
 					<TooltipContent>
 						<p>This prop is optional.</p>
 					</TooltipContent>
@@ -69,7 +69,7 @@ export const PropTypeCell = ({
 	className,
 	style,
 }: PropTypeCellProps) => (
-	<TableCell className={cx("align-top font-mono", className)} style={style}>
+	<TableCell className={cx("align-top", className)} style={style}>
 		{children}
 	</TableCell>
 );
@@ -80,7 +80,7 @@ export const PropDefaultValueCell = ({
 	className,
 	style,
 }: PropDefaultValueCellProps) => (
-	<TableCell className={cx("align-top font-mono", className)} style={style}>
+	<TableCell className={cx("align-top", className)} style={style}>
 		{children}
 	</TableCell>
 );

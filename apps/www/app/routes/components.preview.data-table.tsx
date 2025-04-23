@@ -6,7 +6,25 @@ import {
 	CodeBlockCopyButton,
 	fmtCode,
 } from "@ngrok/mantle/code-block";
+import {
+	DataTableHeader,
+	createColumnHelper,
+	flexRender,
+	getCoreRowModel,
+	getFilteredRowModel,
+	getPaginationRowModel,
+	getSortedRowModel,
+	useReactTable,
+} from "@ngrok/mantle/data-table";
 import { InlineCode } from "@ngrok/mantle/inline-code";
+import {
+	Table,
+	TableBody,
+	TableCell,
+	TableHead,
+	TableHeader,
+	TableRow,
+} from "@ngrok/mantle/table";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/components.preview.data-table";
@@ -44,7 +62,7 @@ export default function Page() {
 				</p>
 				<div>
 					<Example className="flex-col gap-6">
-						<p>Examples coming soon...</p>
+						<PaymentsExample />
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
@@ -138,5 +156,144 @@ export default function Page() {
 				</PropsTable> */}
 			</section>
 		</div>
+	);
+}
+
+type Payment = {
+	id: string;
+	amount: number;
+	status: "pending" | "processing" | "success" | "failed";
+	email: string;
+};
+
+const data: Payment[] = [
+	{
+		id: "m5gr84i9",
+		amount: 316,
+		status: "success",
+		email: "ken99@example.com",
+	},
+	{
+		id: "3u1reuv4",
+		amount: 242,
+		status: "success",
+		email: "Abe45@example.com",
+	},
+	{
+		id: "derv1ws0",
+		amount: 837,
+		status: "processing",
+		email: "Monserrat44@example.com",
+	},
+	{
+		id: "5kma53ae",
+		amount: 874,
+		status: "success",
+		email: "Silas22@example.com",
+	},
+	{
+		id: "bhqecj4p",
+		amount: 721,
+		status: "failed",
+		email: "carmella@example.com",
+	},
+];
+
+const columnHelper = createColumnHelper<Payment>();
+
+const columns = [
+	columnHelper.accessor("id", {
+		id: "id",
+		header: (props) => (
+			<DataTableHeader column={props.column} sortingMode="alphanumeric">
+				ID
+			</DataTableHeader>
+		),
+		cell: (props) => <TableCell>{props.getValue()}</TableCell>,
+	}),
+	columnHelper.accessor("amount", {
+		id: "amount",
+		header: (props) => (
+			<DataTableHeader column={props.column} sortingMode="alphanumeric">
+				Amount
+			</DataTableHeader>
+		),
+		cell: (props) => <TableCell>{props.getValue()}</TableCell>,
+	}),
+	columnHelper.accessor("status", {
+		id: "status",
+		header: (props) => (
+			<DataTableHeader column={props.column} sortingMode="alphanumeric">
+				Status
+			</DataTableHeader>
+		),
+		cell: (props) => <TableCell>{props.getValue()}</TableCell>,
+	}),
+	columnHelper.accessor("email", {
+		id: "email",
+		header: (props) => (
+			<DataTableHeader column={props.column} sortingMode="alphanumeric">
+				Email
+			</DataTableHeader>
+		),
+		cell: (props) => <TableCell>{props.getValue()}</TableCell>,
+	}),
+];
+
+function PaymentsExample() {
+	const table = useReactTable({
+		data,
+		columns,
+		getCoreRowModel: getCoreRowModel(),
+		getPaginationRowModel: getPaginationRowModel(),
+		getSortedRowModel: getSortedRowModel(),
+		getFilteredRowModel: getFilteredRowModel(),
+		initialState: {
+			pagination: {
+				pageSize: 100,
+			},
+		},
+	});
+
+	return (
+		<Table>
+			<TableHead>
+				{table.getHeaderGroups().map((headerGroup) => (
+					<TableRow key={headerGroup.id}>
+						{headerGroup.headers.map((header) => {
+							return header.isPlaceholder ? (
+								<TableHeader key={header.id} />
+							) : (
+								flexRender(header.column.columnDef.header, header.getContext())
+							);
+						})}
+					</TableRow>
+				))}
+			</TableHead>
+			<TableBody>
+				{table.getRowModel().rows?.length ? (
+					table.getRowModel().rows.map((row) => (
+						<TableRow
+							key={row.id}
+							className="cursor-pointer !border-0 [&_>_td]:border-b [&_>_td]:border-card-muted [&_>_td]:last:border-b-0 [&_>_td]:bg-card [&_>_td]:hover:bg-card-hover"
+							// data-state={row.getIsSelected() && "selected"}
+							// onClick={() => console.log("row", row)}
+						>
+							{row
+								.getVisibleCells()
+								.map((cell) =>
+									flexRender(cell.column.columnDef.cell, cell.getContext()),
+								)}
+						</TableRow>
+					))
+				) : (
+					<TableRow>
+						<TableCell colSpan={columns.length} className="h-24 text-center">
+							No results.
+						</TableCell>
+					</TableRow>
+				)}
+			</TableBody>
+		</Table>
 	);
 }

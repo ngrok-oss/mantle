@@ -9,9 +9,8 @@ import { Button } from "../button/button.js";
 import type { SvgAttributes } from "../icon/types.js";
 import { Sort } from "../icons/sort.js";
 import { TableHeader } from "../table/table.js";
-
-const sortDirections = [...baseSortingDirections, "unsorted"] as const;
-type SortDirection = (typeof sortDirections)[number];
+import { getNextSortDirection } from "./helpers.js";
+import type { SortDirection } from "./types.js";
 
 type DataTableColumnHeaderProps<TData, TValue> = ComponentProps<
 	typeof TableHeader
@@ -138,11 +137,14 @@ function toggleNextSortingDirection<TData, TValue>(
 		return;
 	}
 
-	const _sortDirection = column.getIsSorted();
-	const sortDirection: SortDirection =
-		typeof _sortDirection === "string" ? _sortDirection : "unsorted";
+	const sortDirection = column.getIsSorted();
+	const currentSortDirection: SortDirection =
+		typeof sortDirection === "string" ? sortDirection : "unsorted";
 
-	const nextSortDirection = getNextSortDirection(sortDirection, sortingMode);
+	const nextSortDirection = getNextSortDirection(
+		currentSortDirection,
+		sortingMode,
+	);
 
 	switch (nextSortDirection) {
 		case "unsorted":
@@ -157,26 +159,4 @@ function toggleNextSortingDirection<TData, TValue>(
 		default:
 			return;
 	}
-}
-
-function getNextSortDirection(
-	currentSortDirection: SortDirection,
-	sortingMode: SortingMode,
-) {
-	const sortOrder =
-		sortingMode === "alphanumeric"
-			? (["unsorted", "asc", "desc"] as const satisfies SortDirection[])
-			: (["unsorted", "desc", "asc"] as const satisfies SortDirection[]);
-
-	return getNextInCircularList(sortOrder, currentSortDirection) ?? "unsorted";
-}
-
-function getNextInCircularList<T>(
-	list: T[],
-	currentItem: T,
-	fallback?: T | undefined,
-) {
-	const currentIndex = list.findIndex((item) => item === currentItem);
-	const nextIndex = (currentIndex + 1) % list.length;
-	return list.at(nextIndex) ?? fallback;
 }
