@@ -35,6 +35,47 @@ import {
 import { getNextSortDirection } from "./helpers.js";
 import type { SortDirection } from "./types.js";
 
+type DataTableContextShape<TData = unknown> = {
+	table: TableInstance<TData>;
+};
+
+const DataTableContext = createContext<DataTableContextShape<any> | null>(null);
+
+/**
+ * @private
+ */
+function useDataTableContext<TData>() {
+	const context = useContext(DataTableContext);
+
+	invariant(
+		context,
+		"useDataTableContext should only be used within a DataTable child component",
+	);
+
+	return context as DataTableContextShape<TData>;
+}
+
+type DataTableProps<TData> = ComponentProps<typeof Table> & {
+	table: TableInstance<TData>;
+};
+
+function DataTable<TData>({
+	children,
+	table,
+	...props
+}: DataTableProps<TData>) {
+	const context: DataTableContextShape<TData> = useMemo(
+		() => ({ table }),
+		[table],
+	);
+
+	return (
+		<DataTableContext.Provider value={context}>
+			<Table {...props}>{children}</Table>
+		</DataTableContext.Provider>
+	);
+}
+
 type DataTableHeaderSortButtonProps<TData, TValue> = Omit<
 	ComponentProps<typeof Button>,
 	"icon"
@@ -168,41 +209,6 @@ function DataTableHeader<TData, TValue>({
 		>
 			{children}
 		</TableHeader>
-	);
-}
-
-type DataTableContextShape<TData = unknown> = {
-	table: TableInstance<TData>;
-};
-
-const DataTableContext = createContext<DataTableContextShape<any> | null>(null);
-
-function useDataTableContext<TData>() {
-	const context = useContext(DataTableContext);
-
-	invariant(context, "useDataTableContext should only be used a not defined");
-
-	return context as DataTableContextShape<TData>;
-}
-
-type DataTableProps<TData> = ComponentProps<typeof Table> & {
-	table: TableInstance<TData>;
-};
-
-function DataTable<TData>({
-	children,
-	table,
-	...props
-}: DataTableProps<TData>) {
-	const context: DataTableContextShape<TData> = useMemo(
-		() => ({ table }),
-		[table],
-	);
-
-	return (
-		<DataTableContext.Provider value={context}>
-			<Table {...props}>{children}</Table>
-		</DataTableContext.Provider>
 	);
 }
 
