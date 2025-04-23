@@ -1,7 +1,13 @@
 import type { Column, HeaderContext } from "@tanstack/react-table";
-import type { ComponentProps, ReactNode } from "react";
+import {
+	type ComponentProps,
+	type ComponentRef,
+	type ReactNode,
+	forwardRef,
+} from "react";
 import { cx } from "../../utils/cx/cx.js";
 import {
+	$timeSortingDirection,
 	type SortingMode,
 	sortingDirections as baseSortingDirections,
 } from "../../utils/sorting/direction.js";
@@ -12,24 +18,46 @@ import { TableHeader } from "../table/table.js";
 import { getNextSortDirection } from "./helpers.js";
 import type { SortDirection } from "./types.js";
 
-type DataTableColumnHeaderProps<TData, TValue> = ComponentProps<
-	typeof TableHeader
+type DataTableHeaderSortButtonProps<TData, TValue> = Omit<
+	ComponentProps<typeof Button>,
+	"icon"
 > &
-	Pick<HeaderContext<TData, TValue>, "column"> & {
-		/**
-		 * Use this to render a custom sort icon for the column if it is sortable
-		 * and you want to override the default sort icon
-		 */
-		sortIcon?: (sortDirection: SortDirection) => ReactNode;
-		/**
-		 * The sorting mode of the column, whether it is alphanumeric or time based.
-		 */
-		sortingMode: SortingMode;
-	};
+	Pick<HeaderContext<TData, TValue>, "column"> &
+	(
+		| {
+				/**
+				 * Disable sorting for this column.
+				 * It will prevent the sorting direction from being toggled and any icon
+				 * from being shown.
+				 */
+				disableSorting: true;
+				/**
+				 * Use this to render a custom sort icon for the column if it is sortable
+				 * and you want to override the default sort icon
+				 */
+				sortIcon?: undefined;
+				/**
+				 * The sorting mode of the column, whether it is alphanumeric or time based.
+				 */
+				sortingMode?: undefined;
+		  }
+		| {
+				disableSorting?: false;
+				/**
+				 * Use this to render a custom sort icon for the column if it is sortable
+				 * and you want to override the default sort icon
+				 */
+				sortIcon?: (sortDirection: SortDirection) => ReactNode;
+				/**
+				 * The sorting mode of the column, whether it is alphanumeric or time based.
+				 */
+				sortingMode: SortingMode;
+		  }
+	);
 
 /**
- * The header for a column in a data table.
- * If the column is sortable, clicking the header will toggle the sorting
+ * A sortable button toggle for a column header in a data table.
+ * If the column is sortable, clicking the button will toggle the sorting
  * direction.
  *
  * @example
@@ -46,49 +74,82 @@ type DataTableColumnHeaderProps<TData, TValue> = ComponentProps<
  *   unsorted ➡️ descending ➡️ ascending ➡️ unsorted ➡️ ...
  * ```
  */
-function DataTableHeader<TData, TValue>({
+function DataTableHeaderSortButton<TData, TValue>({
 	children,
 	className,
 	column,
-	sortIcon: propsSortIcon,
+	disableSorting = false,
+	iconPlacement = "end",
 	sortingMode,
+	sortIcon: propSortIcon,
+	onClick,
 	...props
-}: DataTableColumnHeaderProps<TData, TValue>) {
+}: DataTableHeaderSortButtonProps<TData, TValue>) {
 	const _sortDirection = column.getIsSorted();
-	const canSort = column.getCanSort();
+	const canSort = !disableSorting || column.getCanSort();
 
 	const sortDirection: SortDirection =
 		canSort && typeof _sortDirection === "string" ? _sortDirection : "unsorted";
 
-	const sortIcon = propsSortIcon?.(sortDirection) ?? (
+	const sortIcon = propSortIcon?.(sortDirection) ?? (
 		<DefaultSortIcon mode={sortingMode} direction={sortDirection} />
 	);
 
 	return (
-		<TableHeader className={cx("px-0", className)} {...props}>
-			<Button
-				className="flex justify-start w-full h-full rounded-none"
-				type="button"
-				appearance="ghost"
-				priority="neutral"
-				iconPlacement="end"
-				data-sort-direction={sortDirection}
-				icon={sortIcon}
-				onClick={() => {
-					if (!canSort) {
-						return;
-					}
-					toggleNextSortingDirection(column, sortingMode);
-				}}
-			>
-				{sortDirection !== "unsorted" && (
-					<span className="sr-only">
-						Sorted in {sortDirection === "asc" ? "ascending" : "descending"}{" "}
-						order
-					</span>
-				)}
-				{children}
-			</Button>
+		<Button
+			appearance="ghost"
+			className={cx("flex justify-start w-full h-full rounded-none", className)}
+			data-sort-direction={sortDirection}
+			data-table-header-action
+			icon={sortIcon}
+			iconPlacement={iconPlacement}
+			onClick={(event) => {
+				onClick?.(event);
+				if (event.defaultPrevented) {
+					return;
+				}
+				if (!canSort || disableSorting || typeof sortingMode === "undefined") {
+					return;
+				}
+				toggleNextSortingDirection(column, sortingMode);
+			}}
+			priority="neutral"
+			type="button"
+			{...props}
+		>
+			{canSort && sortDirection !== "unsorted" && (
+				<span className="sr-only">
+					Column sorted in{" "}
+					{sortingMode === "alphanumeric"
+						? sortDirection === "asc"
+							? "ascending"
+							: "descending"
+						: $timeSortingDirection(sortDirection)}{" "}
+					order
+				</span>
+			)}
+			{children}
+		</Button>
+	);
+}
+
+type DataTableHeaderProps = ComponentProps<typeof TableHeader>;
+
+/**
+ * A header for a data table.
+ * This is typically used to wrap the `DataTableHeaderSortButton` component.
+ */
+function DataTableHeader<TData, TValue>({
+	children,
+	className,
+	...props
+}: DataTableHeaderProps) {
+	return (
+		<TableHeader
+			className={cx("has-[[data-table-header-action]]:px-0", className)}
+			{...props}
+		>
+			{children}
 		</TableHeader>
 	);
 }
@@ -96,16 +157,17 @@ function DataTableHeader<TData, TValue>({
 export {
 	//,
 	DataTableHeader,
+	DataTableHeaderSortButton,
 };
 
 type DefaultSortIconProps = SvgAttributes & {
-	direction: SortDirection;
-	mode: SortingMode;
+	direction: SortDirection | undefined;
+	mode: SortingMode | undefined;
 };
 
 function DefaultSortIcon({ direction, mode, ...props }: DefaultSortIconProps) {
-	if (direction === "unsorted") {
-		return null;
+	if (direction === "unsorted" || !mode || !direction) {
+		return <svg aria-hidden {...props} />;
 	}
 
 	return <Sort mode={mode} direction={direction} {...props} />;

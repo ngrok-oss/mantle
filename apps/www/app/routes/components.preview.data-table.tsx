@@ -8,6 +8,7 @@ import {
 } from "@ngrok/mantle/code-block";
 import {
 	DataTableHeader,
+	DataTableHeaderSortButton,
 	createColumnHelper,
 	flexRender,
 	getCoreRowModel,
@@ -205,38 +206,70 @@ const columns = [
 	columnHelper.accessor("id", {
 		id: "id",
 		header: (props) => (
-			<DataTableHeader column={props.column} sortingMode="alphanumeric">
-				ID
+			<DataTableHeader>
+				<DataTableHeaderSortButton
+					column={props.column}
+					sortingMode="alphanumeric"
+				>
+					ID
+				</DataTableHeaderSortButton>
 			</DataTableHeader>
 		),
-		cell: (props) => <TableCell>{props.getValue()}</TableCell>,
+		cell: (props) => (
+			<TableCell key={props.cell.id}>{props.getValue()}</TableCell>
+		),
 	}),
 	columnHelper.accessor("amount", {
 		id: "amount",
 		header: (props) => (
-			<DataTableHeader column={props.column} sortingMode="alphanumeric">
-				Amount
+			<DataTableHeader className="w-[200px]">
+				<DataTableHeaderSortButton
+					className="justify-end"
+					column={props.column}
+					iconPlacement="start"
+					sortingMode="alphanumeric"
+				>
+					Amount
+				</DataTableHeaderSortButton>
 			</DataTableHeader>
 		),
-		cell: (props) => <TableCell>{props.getValue()}</TableCell>,
+		cell: (props) => (
+			<TableCell key={props.cell.id} className="text-right">
+				{props.getValue()}
+			</TableCell>
+		),
 	}),
 	columnHelper.accessor("status", {
 		id: "status",
 		header: (props) => (
-			<DataTableHeader column={props.column} sortingMode="alphanumeric">
-				Status
+			<DataTableHeader>
+				<DataTableHeaderSortButton
+					column={props.column}
+					sortingMode="alphanumeric"
+				>
+					Status
+				</DataTableHeaderSortButton>
 			</DataTableHeader>
 		),
-		cell: (props) => <TableCell>{props.getValue()}</TableCell>,
+		cell: (props) => (
+			<TableCell key={props.cell.id}>{props.getValue()}</TableCell>
+		),
 	}),
 	columnHelper.accessor("email", {
 		id: "email",
 		header: (props) => (
-			<DataTableHeader column={props.column} sortingMode="alphanumeric">
-				Email
+			<DataTableHeader>
+				<DataTableHeaderSortButton
+					column={props.column}
+					sortingMode="alphanumeric"
+				>
+					Email
+				</DataTableHeaderSortButton>
 			</DataTableHeader>
 		),
-		cell: (props) => <TableCell>{props.getValue()}</TableCell>,
+		cell: (props) => (
+			<TableCell key={props.cell.id}>{props.getValue()}</TableCell>
+		),
 	}),
 ];
 
