@@ -90,7 +90,7 @@ const Table = forwardRef<ComponentRef<"table">, ComponentProps<"table">>(
 			>
 				<table
 					ref={ref}
-					className="table-auto border-separate caption-bottom border-spacing-0 w-full text-left text-sm font-mono"
+					className="table-auto border-separate caption-bottom border-spacing-0 w-full text-left"
 					{...props}
 				>
 					{children}
@@ -150,7 +150,7 @@ const TableHead = forwardRef<ComponentRef<"thead">, ComponentProps<"thead">>(
 	({ className, ...props }, ref) => (
 		<thead
 			ref={ref}
-			className={cx("bg-base [&_tr]:border-b", className)}
+			className={cx("text-strong bg-base [&_tr]:border-b", className)}
 			{...props}
 		/>
 	),
@@ -201,7 +201,11 @@ TableHead.displayName = "TableHead";
  * @see https://mantle.ngrok.com/components/table#api-table-body
  */
 const TableBody = forwardRef<ComponentRef<"tbody">, ComponentProps<"tbody">>(
-	(props, ref) => <tbody ref={ref} {...props} />,
+	({ children, className, ...props }, ref) => (
+		<tbody className={cx("text-body", className)} ref={ref} {...props}>
+			{children}
+		</tbody>
+	),
 );
 TableBody.displayName = "TableBody";
 
@@ -255,7 +259,7 @@ const TableFoot = forwardRef<ComponentRef<"tfoot">, ComponentProps<"tfoot">>(
 		<tfoot
 			ref={ref}
 			className={cx(
-				"bg-gray-50/50 font-medium [&>tr:first-child>td]:border-t",
+				"bg-gray-50/50 font-medium [&>tr:first-child>td]:border-t text-body",
 				className,
 			)}
 			{...props}
@@ -370,7 +374,7 @@ const TableHeader = forwardRef<ComponentRef<"th">, ComponentProps<"th">>(
 		<th
 			ref={ref}
 			className={cx(
-				"text-muted-foreground h-12 px-4 text-left align-middle font-medium [&:has([role=checkbox])]:pr-0",
+				"h-12 px-4 text-left align-middle text-sm font-medium [&:has([role=checkbox])]:pr-0",
 				className,
 			)}
 			{...props}
@@ -426,7 +430,7 @@ const TableCell = forwardRef<ComponentRef<"td">, ComponentProps<"td">>(
 		<td
 			ref={ref}
 			className={cx(
-				"p-4 align-middle [&:has([role=checkbox])]:pr-0",
+				"p-4 align-middle [&:has([role=checkbox])]:pr-0 font-mono text-size-mono",
 				className,
 			)}
 			{...props}

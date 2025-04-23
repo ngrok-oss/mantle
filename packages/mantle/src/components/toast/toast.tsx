@@ -54,7 +54,7 @@ const Toaster = ({
 	return (
 		<ToastPrimitive.Toaster
 			className={cx(
-				"toaster mantle-prompt pointer-events-auto font-sans *:duration-200",
+				"toaster overlay-prompt pointer-events-auto font-sans *:duration-200",
 				className,
 			)}
 			containerAriaLabel={containerAriaLabel}
@@ -301,7 +301,7 @@ export function preventCloseOnPromptInteraction(
 		return;
 	}
 
-	if (event.target.closest(".mantle-prompt")) {
+	if (event.target.closest(".overlay-prompt")) {
 		event.preventDefault();
 	}
 }

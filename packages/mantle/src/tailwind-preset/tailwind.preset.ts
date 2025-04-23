@@ -446,7 +446,7 @@ const mantlePreset = {
 			},
 			fontSize: {
 				"size-inherit": "inherit",
-				mono: ["0.8125rem", "1.25"] as const,
+				"size-mono": ["0.8125rem", "1.25rem"] as const,
 			},
 			fontWeight: {
 				initial: "initial",
