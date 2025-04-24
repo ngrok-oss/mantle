@@ -18,7 +18,7 @@ import path from "node:path";
  *  // ...
  * }
  */
-function resolveMantleContentGlob(require: NodeRequire) {
+function resolveMantleContentGlob(require: NodeJS.Require) {
 	try {
 		/**
 		 * use the tailwind-preset module path since it is dual exported as cjs and esm
@@ -28,10 +28,10 @@ function resolveMantleContentGlob(require: NodeRequire) {
 
 		/**
 		 * resolve the glob path to all mantle component content
-		 * need to go up two levels to get to the mantle package root since the
+		 * need to go up one level to get to the mantle package dist dir since the
 		 * tailwind-preset exists at node_modules/@ngrok/mantle/dist/tailwind-preset.js
 		 */
-		return path.join(presetPath, "..", "..", "**", "*.js");
+		return path.join(presetPath, "..", "**", "*.js");
 	} catch (error) {
 		console.warn(error);
 

@@ -6,11 +6,12 @@ import {
 import type { Config } from "tailwindcss";
 
 const require = createRequire(import.meta.url);
+const mantleContentGlob = resolveMantleContentGlob(require);
 
 export default {
 	presets: [mantlePreset],
 	content: [
-		resolveMantleContentGlob(require),
+		mantleContentGlob,
 		"./app/**/*.tsx",
 		"../../packages/mantle/src/**/*.{ts,tsx}",
 	],
