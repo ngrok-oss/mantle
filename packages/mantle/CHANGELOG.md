@@ -1,5 +1,15 @@
 # @ngrok/mantle
 
+## 0.27.2
+
+### Patch Changes
+
+- [#544](https://github.com/ngrok-oss/mantle/pull/544) [`cc043a7`](https://github.com/ngrok-oss/mantle/commit/cc043a74bd909c4c1c4d77027fee10c8ae5653db) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - DataTable: fix react key errors in DataTableHead and DataTableRow
+
+- [#546](https://github.com/ngrok-oss/mantle/pull/546) [`44cc9b9`](https://github.com/ngrok-oss/mantle/commit/44cc9b9d3eef4f09a87579350e12d12fcf7d78aa) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - DataTable: fix hover styles, add DataTableActionCell
+
+- [#546](https://github.com/ngrok-oss/mantle/pull/546) [`44cc9b9`](https://github.com/ngrok-oss/mantle/commit/44cc9b9d3eef4f09a87579350e12d12fcf7d78aa) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Tailwind Preset: fix content glob, should point to dist folder now
+
 ## 0.27.1
 
 ### Patch Changes
