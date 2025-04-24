@@ -8,6 +8,7 @@ import {
 import {
 	type ComponentProps,
 	type ComponentRef,
+	Fragment,
 	type ReactNode,
 	createContext,
 	forwardRef,
@@ -224,13 +225,15 @@ function DataTableHead<TData>(props: DataTableHeadProps) {
 		<TableHead {...props}>
 			{table.getHeaderGroups().map((headerGroup) => (
 				<TableRow key={headerGroup.id}>
-					{headerGroup.headers.map((header) => {
-						return header.isPlaceholder ? (
-							<TableHeader key={header.id} />
-						) : (
-							flexRender(header.column.columnDef.header, header.getContext())
-						);
-					})}
+					{headerGroup.headers.map((header) => (
+						<Fragment key={header.id}>
+							{header.isPlaceholder ? (
+								<TableHeader key={header.id} />
+							) : (
+								flexRender(header.column.columnDef.header, header.getContext())
+							)}
+						</Fragment>
+					))}
 				</TableRow>
 			))}
 		</TableHead>
@@ -260,11 +263,11 @@ type DataTableRowProps<TData> = Omit<
 function DataTableRow<TData>({ row, ...props }: DataTableRowProps<TData>) {
 	return (
 		<TableRow {...props}>
-			{row
-				.getVisibleCells()
-				.map((cell) =>
-					flexRender(cell.column.columnDef.cell, cell.getContext()),
-				)}
+			{row.getVisibleCells().map((cell) => (
+				<Fragment key={cell.id}>
+					{flexRender(cell.column.columnDef.cell, cell.getContext())}
+				</Fragment>
+			))}
 		</TableRow>
 	);
 }
