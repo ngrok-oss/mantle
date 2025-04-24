@@ -39,7 +39,7 @@
     "overrides": {
       "cookie": ">=1.0.2",
       "esbuild": ">=0.25.3",
-      "vite": ">=6.3.2"
+      "vite": ">=6.3.3"
     },
     "onlyBuiltDependencies": [
       "@biomejs/biome",
