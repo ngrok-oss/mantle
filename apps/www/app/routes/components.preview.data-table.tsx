@@ -1,4 +1,5 @@
 import { Anchor } from "@ngrok/mantle/anchor";
+import { IconButton } from "@ngrok/mantle/button";
 import {
 	CodeBlock,
 	CodeBlockBody,
@@ -8,12 +9,13 @@ import {
 } from "@ngrok/mantle/code-block";
 import {
 	DataTable,
+	DataTableActionCell,
 	DataTableBody,
+	DataTableEmptyRow,
 	DataTableHead,
 	DataTableHeader,
 	DataTableHeaderSortButton,
 	DataTableRows,
-	EmptyDataTableRow,
 	createColumnHelper,
 	getCoreRowModel,
 	getFilteredRowModel,
@@ -21,8 +23,18 @@ import {
 	getSortedRowModel,
 	useReactTable,
 } from "@ngrok/mantle/data-table";
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuTrigger,
+} from "@ngrok/mantle/dropdown-menu";
+import { Icon } from "@ngrok/mantle/icon";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { TableCell } from "@ngrok/mantle/table";
+import { DotsThree } from "@phosphor-icons/react/DotsThree";
+import { PencilSimple } from "@phosphor-icons/react/PencilSimple";
+import { TrashSimple } from "@phosphor-icons/react/TrashSimple";
 import { useMemo } from "react";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
@@ -76,12 +88,13 @@ export default function Page() {
 								value={fmtCode`
 									import {
 										DataTable,
+										DataTableActionCell,
 										DataTableBody,
+										DataTableEmptyRow,
 										DataTableHead,
 										DataTableHeader,
 										DataTableHeaderSortButton,
 										DataTableRows,
-										EmptyDataTableRow,
 										createColumnHelper,
 										getCoreRowModel,
 										getFilteredRowModel,
@@ -89,6 +102,114 @@ export default function Page() {
 										getSortedRowModel,
 										useReactTable,
 									} from "@ngrok/mantle/data-table";
+
+									type Payment = {
+										id: string;
+										amount: number;
+										status: "pending" | "processing" | "success" | "failed";
+										email: string;
+									};
+
+									const columnHelper = createColumnHelper<Payment>();
+									const columns = [
+										columnHelper.accessor("id", {
+											id: "id",
+											header: (props) => (
+												<DataTableHeader>
+													<DataTableHeaderSortButton
+														column={props.column}
+														sortingMode="alphanumeric"
+													>
+														ID
+													</DataTableHeaderSortButton>
+												</DataTableHeader>
+											),
+											cell: (props) => (
+												<TableCell key={props.cell.id}>{props.getValue()}</TableCell>
+											),
+										}),
+										columnHelper.accessor("amount", {
+											id: "amount",
+											header: (props) => (
+												<DataTableHeader className="w-[200px]">
+													<DataTableHeaderSortButton
+														className="justify-end"
+														column={props.column}
+														iconPlacement="start"
+														sortingMode="alphanumeric"
+													>
+														Amount
+													</DataTableHeaderSortButton>
+												</DataTableHeader>
+											),
+											cell: (props) => (
+												<TableCell key={props.cell.id} className="text-right">
+													{props.getValue()}
+												</TableCell>
+											),
+										}),
+										columnHelper.accessor("status", {
+											id: "status",
+											header: (props) => (
+												<DataTableHeader>
+													<DataTableHeaderSortButton
+														column={props.column}
+														sortingMode="alphanumeric"
+													>
+														Status
+													</DataTableHeaderSortButton>
+												</DataTableHeader>
+											),
+											cell: (props) => (
+												<TableCell key={props.cell.id}>{props.getValue()}</TableCell>
+											),
+										}),
+										columnHelper.accessor("email", {
+											id: "email",
+											header: (props) => (
+												<DataTableHeader>
+													<DataTableHeaderSortButton
+														column={props.column}
+														sortingMode="alphanumeric"
+													>
+														Email
+													</DataTableHeaderSortButton>
+												</DataTableHeader>
+											),
+											cell: (props) => (
+												<TableCell key={props.cell.id}>{props.getValue()}</TableCell>
+											),
+										}),
+										columnHelper.display({
+											id: "actions",
+											header: () => <DataTableHeader />,
+											cell: () => (
+												<DataTableActionCell>
+													<DropdownMenu>
+														<DropdownMenuTrigger asChild>
+															<IconButton
+																appearance="outlined"
+																className="max-w rounded"
+																type="button"
+																size="sm"
+																label="Open actions"
+																icon={<DotsThree weight="bold" />}
+															/>
+														</DropdownMenuTrigger>
+														<DropdownMenuContent align="end">
+															<DropdownMenuItem className="flex items-center gap-2">
+																<Icon svg={<PencilSimple />} /> Edit
+															</DropdownMenuItem>
+															<DropdownMenuItem className="text-danger-600 flex items-center gap-2">
+																<Icon svg={<TrashSimple />} />
+																Delete
+															</DropdownMenuItem>
+														</DropdownMenuContent>
+													</DropdownMenu>
+												</DataTableActionCell>
+											),
+										}),
+									];
 
 									function PaymentsExample() {
 										const data = useMemo(() => examplePayments, []);
@@ -114,11 +235,11 @@ export default function Page() {
 													{table.getRowModel().rows.length > 0 ? (
 														<DataTableRows />
 													) : (
-														<EmptyDataTableRow>
+														<DataTableEmptyRow>
 															<p className="flex items-center justify-center min-h-20">
 																No results.
 															</p>
-														</EmptyDataTableRow>
+														</DataTableEmptyRow>
 													)}
 												</DataTableBody>
 											</DataTable>
@@ -321,6 +442,35 @@ const columns = [
 			<TableCell key={props.cell.id}>{props.getValue()}</TableCell>
 		),
 	}),
+	columnHelper.display({
+		id: "actions",
+		header: () => <DataTableHeader />,
+		cell: () => (
+			<DataTableActionCell>
+				<DropdownMenu>
+					<DropdownMenuTrigger asChild>
+						<IconButton
+							appearance="outlined"
+							className="max-w rounded"
+							type="button"
+							size="sm"
+							label="Open actions"
+							icon={<DotsThree weight="bold" />}
+						/>
+					</DropdownMenuTrigger>
+					<DropdownMenuContent align="end">
+						<DropdownMenuItem className="flex items-center gap-2">
+							<Icon svg={<PencilSimple />} /> Edit
+						</DropdownMenuItem>
+						<DropdownMenuItem className="text-danger-600 flex items-center gap-2">
+							<Icon svg={<TrashSimple />} />
+							Delete
+						</DropdownMenuItem>
+					</DropdownMenuContent>
+				</DropdownMenu>
+			</DataTableActionCell>
+		),
+	}),
 ];
 
 function EmptyPaymentsExample() {
@@ -347,11 +497,11 @@ function EmptyPaymentsExample() {
 				{table.getRowModel().rows.length > 0 ? (
 					<DataTableRows />
 				) : (
-					<EmptyDataTableRow>
+					<DataTableEmptyRow>
 						<p className="flex items-center justify-center min-h-20">
 							No results.
 						</p>
-					</EmptyDataTableRow>
+					</DataTableEmptyRow>
 				)}
 			</DataTableBody>
 		</DataTable>
@@ -382,11 +532,11 @@ function PaymentsExample() {
 				{table.getRowModel().rows.length > 0 ? (
 					<DataTableRows />
 				) : (
-					<EmptyDataTableRow>
+					<DataTableEmptyRow>
 						<p className="flex items-center justify-center min-h-20">
 							No results.
 						</p>
-					</EmptyDataTableRow>
+					</DataTableEmptyRow>
 				)}
 			</DataTableBody>
 		</DataTable>

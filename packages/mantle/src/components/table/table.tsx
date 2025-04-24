@@ -316,7 +316,7 @@ const TableRow = forwardRef<ComponentRef<"tr">, ComponentProps<"tr">>(
 			ref={ref}
 			className={cx(
 				// "data-state-selected:bg-gray-200",
-				"[&>td]:border-b [&>td]:border-gray-300 [&>td]:last:border-b-0 [&>td]:bg-card [&>td]:hover:bg-gray-200/50",
+				"[&>td]:border-b [&>td]:border-gray-300 [&>td]:last:border-b-0 [&>td]:bg-card [&>td]:hover:bg-card-hover",
 				className,
 			)}
 			{...props}

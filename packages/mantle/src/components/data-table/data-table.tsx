@@ -272,12 +272,12 @@ function DataTableRow<TData>({ row, ...props }: DataTableRowProps<TData>) {
 	);
 }
 
-type EmptyDataTableRowProps = ComponentProps<typeof TableRow>;
+type DataTableEmptyRowProps = ComponentProps<typeof TableRow>;
 
-function EmptyDataTableRow<TData>({
+function DataTableEmptyRow<TData>({
 	children,
 	...props
-}: EmptyDataTableRowProps) {
+}: DataTableEmptyRowProps) {
 	const { table } = useDataTableContext<TData>();
 	const numberOfColumns = table.getAllColumns().length;
 
@@ -288,16 +288,38 @@ function EmptyDataTableRow<TData>({
 	);
 }
 
+type DataTableActionCellProps = ComponentProps<typeof TableCell>;
+
+function DataTableActionCell({
+	children,
+	className,
+	...props
+}: DataTableActionCellProps) {
+	return (
+		<TableCell
+			className={cx(
+				"w-min sticky z-10 right-0 top-px -bottom-px",
+				"group-data-[sticky-active]/table:[box-shadow:inset_10px_0_8px_-8px_hsl(0deg_0%_0%_/_15%)]",
+				className,
+			)}
+			{...props}
+		>
+			{children}
+		</TableCell>
+	);
+}
+
 export {
 	//,
 	DataTable,
+	DataTableActionCell,
 	DataTableBody,
+	DataTableEmptyRow,
 	DataTableHead,
 	DataTableHeader,
 	DataTableHeaderSortButton,
 	DataTableRow,
 	DataTableRows,
-	EmptyDataTableRow,
 };
 
 type DefaultSortIconProps = SvgAttributes & {
