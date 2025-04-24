@@ -255,7 +255,7 @@ function DataTableRows<TData>() {
 
 type DataTableRowProps<TData> = Omit<
 	ComponentProps<typeof TableRow>,
-	"chidlren"
+	"children"
 > & {
 	row: Row<TData>;
 };
@@ -298,13 +298,12 @@ function DataTableActionCell({
 	return (
 		<TableCell
 			className={cx(
-				"w-min sticky z-10 right-0 top-px -bottom-px",
-				"group-data-[sticky-active]/table:[box-shadow:inset_10px_0_8px_-8px_hsl(0deg_0%_0%_/_15%)]",
+				"sticky z-10 right-0 top-px -bottom-px group-data-[sticky-active]/table:[box-shadow:inset_10px_0_8px_-8px_hsl(0deg_0%_0%_/_15%)]",
 				className,
 			)}
 			{...props}
 		>
-			{children}
+			<div className="flex justify-end">{children}</div>
 		</TableCell>
 	);
 }

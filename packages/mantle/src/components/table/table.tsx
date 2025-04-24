@@ -147,12 +147,14 @@ Table.displayName = "Table";
  * @see https://mantle.ngrok.com/components/table#api-table-header
  */
 const TableHead = forwardRef<ComponentRef<"thead">, ComponentProps<"thead">>(
-	({ className, ...props }, ref) => (
+	({ children, className, ...props }, ref) => (
 		<thead
 			ref={ref}
 			className={cx("text-strong bg-base [&_tr]:border-b", className)}
 			{...props}
-		/>
+		>
+			{children}
+		</thead>
 	),
 );
 TableHead.displayName = "TableHead";
@@ -255,7 +257,7 @@ TableBody.displayName = "TableBody";
  * @see https://mantle.ngrok.com/components/table#api-table-foot
  */
 const TableFoot = forwardRef<ComponentRef<"tfoot">, ComponentProps<"tfoot">>(
-	({ className, ...props }, ref) => (
+	({ children, className, ...props }, ref) => (
 		<tfoot
 			ref={ref}
 			className={cx(
@@ -263,7 +265,9 @@ const TableFoot = forwardRef<ComponentRef<"tfoot">, ComponentProps<"tfoot">>(
 				className,
 			)}
 			{...props}
-		/>
+		>
+			{children}
+		</tfoot>
 	),
 );
 TableFoot.displayName = "TableFoot";
@@ -311,7 +315,7 @@ TableFoot.displayName = "TableFoot";
  * @see https://mantle.ngrok.com/components/table#api-table-row
  */
 const TableRow = forwardRef<ComponentRef<"tr">, ComponentProps<"tr">>(
-	({ className, ...props }, ref) => (
+	({ children, className, ...props }, ref) => (
 		<tr
 			ref={ref}
 			className={cx(
@@ -320,7 +324,9 @@ const TableRow = forwardRef<ComponentRef<"tr">, ComponentProps<"tr">>(
 				className,
 			)}
 			{...props}
-		/>
+		>
+			{children}
+		</tr>
 	),
 );
 TableRow.displayName = "TableRow";
@@ -370,7 +376,7 @@ TableRow.displayName = "TableRow";
  * @see https://mantle.ngrok.com/components/table#api-table-header
  */
 const TableHeader = forwardRef<ComponentRef<"th">, ComponentProps<"th">>(
-	({ className, ...props }, ref) => (
+	({ children, className, ...props }, ref) => (
 		<th
 			ref={ref}
 			className={cx(
@@ -378,7 +384,9 @@ const TableHeader = forwardRef<ComponentRef<"th">, ComponentProps<"th">>(
 				className,
 			)}
 			{...props}
-		/>
+		>
+			{children}
+		</th>
 	),
 );
 TableHead.displayName = "TableHead";
@@ -426,7 +434,7 @@ TableHead.displayName = "TableHead";
  * @see https://mantle.ngrok.com/components/table#api-table-cell
  */
 const TableCell = forwardRef<ComponentRef<"td">, ComponentProps<"td">>(
-	({ className, ...props }, ref) => (
+	({ children, className, ...props }, ref) => (
 		<td
 			ref={ref}
 			className={cx(
@@ -434,7 +442,9 @@ const TableCell = forwardRef<ComponentRef<"td">, ComponentProps<"td">>(
 				className,
 			)}
 			{...props}
-		/>
+		>
+			{children}
+		</td>
 	),
 );
 TableCell.displayName = "TableCell";
@@ -484,7 +494,7 @@ TableCell.displayName = "TableCell";
 const TableCaption = forwardRef<
 	ComponentRef<"caption">,
 	ComponentProps<"caption">
->(({ className, ...props }, ref) => (
+>(({ children, className, ...props }, ref) => (
 	<caption
 		ref={ref}
 		className={cx(
@@ -492,7 +502,9 @@ const TableCaption = forwardRef<
 			className,
 		)}
 		{...props}
-	/>
+	>
+		{children}
+	</caption>
 ));
 TableCaption.displayName = "TableCaption";
 
