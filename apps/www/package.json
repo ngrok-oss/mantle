@@ -36,7 +36,7 @@
     "@cfg/tsconfig": "workspace:*",
     "@commander-js/extra-typings": "13.1.0",
     "@react-router/dev": "7.5.2",
-    "@types/node": "22.15.0",
+    "@types/node": "22.15.2",
     "@types/prismjs": "1.26.5",
     "@types/react": "18.3.20",
     "@types/react-dom": "18.3.6",
