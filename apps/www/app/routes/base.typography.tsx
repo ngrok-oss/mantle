@@ -5,6 +5,7 @@ import {
 	TableCell,
 	TableHead,
 	TableHeader,
+	TableRoot,
 	TableRow,
 } from "@ngrok/mantle/table";
 import { PageHeader } from "~/components/page-header";
@@ -101,62 +102,64 @@ export default function Page() {
 				monospace typeface.
 			</p>
 
-			<Table>
-				<TableHead>
-					<TableRow>
-						<TableHeader>Class</TableHeader>
-						<TableHeader>Fonts</TableHeader>
-						<TableHeader>Description</TableHeader>
-					</TableRow>
-				</TableHead>
-				<TableBody className="text-body text-xs">
-					<TableRow>
-						<TableCell className="space-x-1 space-y-1">
-							<InlineCode className="break-keep">font-sans</InlineCode>
-							<InlineCode className="break-keep">default</InlineCode>
-						</TableCell>
-						<TableCell className="space-y-1">
-							<p className="font-sans">Euclid Square</p>
-							<p className="font-mono">
-								"Euclid Square", ui-sans-serif, system-ui, sans-serif
-							</p>
-						</TableCell>
-						<TableCell>
-							The default font for rendering UI and headings.
-						</TableCell>
-					</TableRow>
-					<TableRow>
-						<TableCell>
-							<InlineCode className="break-keep">font-body</InlineCode>
-						</TableCell>
-						<TableCell className="space-y-1">
-							<p className="font-body">Nunito Sans</p>
-							<p className="font-mono">
-								"Nunito Sans", ui-sans-serif, system-ui, sans-serif
-							</p>
-						</TableCell>
-						<TableCell>
-							Best when used in longform writing like prose documentation.
-						</TableCell>
-					</TableRow>
-					<TableRow>
-						<TableCell>
-							<InlineCode className="break-keep">font-mono</InlineCode>
-						</TableCell>
-						<TableCell className="space-y-1">
-							<p className="font-mono">IBM Plex Mono</p>
-							<p className="font-mono">
-								"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco,
-								Consolas, "Liberation Mono", "Courier New", monospace
-							</p>
-						</TableCell>
-						<TableCell>
-							Used to render code and tokens. Take care to adjust the size a
-							step down in most applications.
-						</TableCell>
-					</TableRow>
-				</TableBody>
-			</Table>
+			<TableRoot>
+				<Table>
+					<TableHead>
+						<TableRow>
+							<TableHeader>Class</TableHeader>
+							<TableHeader>Fonts</TableHeader>
+							<TableHeader>Description</TableHeader>
+						</TableRow>
+					</TableHead>
+					<TableBody className="text-body text-xs">
+						<TableRow>
+							<TableCell className="space-x-1 space-y-1">
+								<InlineCode className="break-keep">font-sans</InlineCode>
+								<InlineCode className="break-keep">default</InlineCode>
+							</TableCell>
+							<TableCell className="space-y-1">
+								<p className="font-sans">Euclid Square</p>
+								<p className="font-mono">
+									"Euclid Square", ui-sans-serif, system-ui, sans-serif
+								</p>
+							</TableCell>
+							<TableCell>
+								The default font for rendering UI and headings.
+							</TableCell>
+						</TableRow>
+						<TableRow>
+							<TableCell>
+								<InlineCode className="break-keep">font-body</InlineCode>
+							</TableCell>
+							<TableCell className="space-y-1">
+								<p className="font-body">Nunito Sans</p>
+								<p className="font-mono">
+									"Nunito Sans", ui-sans-serif, system-ui, sans-serif
+								</p>
+							</TableCell>
+							<TableCell>
+								Best when used in longform writing like prose documentation.
+							</TableCell>
+						</TableRow>
+						<TableRow>
+							<TableCell>
+								<InlineCode className="break-keep">font-mono</InlineCode>
+							</TableCell>
+							<TableCell className="space-y-1">
+								<p className="font-mono">IBM Plex Mono</p>
+								<p className="font-mono">
+									"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco,
+									Consolas, "Liberation Mono", "Courier New", monospace
+								</p>
+							</TableCell>
+							<TableCell>
+								Used to render code and tokens. Take care to adjust the size a
+								step down in most applications.
+							</TableCell>
+						</TableRow>
+					</TableBody>
+				</Table>
+			</TableRoot>
 		</div>
 	);
 }

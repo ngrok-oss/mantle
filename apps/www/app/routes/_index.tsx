@@ -8,7 +8,13 @@ import {
 	fmtCode,
 } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
-import { Table, TableBody, TableCell, TableRow } from "@ngrok/mantle/table";
+import {
+	Table,
+	TableBody,
+	TableCell,
+	TableRoot,
+	TableRow,
+} from "@ngrok/mantle/table";
 import { href } from "react-router";
 import { Link } from "~/components/link";
 import { PageHeader } from "~/components/page-header";
@@ -78,66 +84,68 @@ export default function Page() {
 				preferred package manager:
 			</p>
 
-			<Table>
-				<TableBody>
-					<TableRow>
-						<TableCell className="font-body">npm</TableCell>
-						<TableCell>
-							<CodeBlock>
-								<CodeBlockBody>
-									<CodeBlockCopyButton />
-									<CodeBlockCode
-										language="sh"
-										value={fmtCode`npm install -E @ngrok/mantle`}
-									/>
-								</CodeBlockBody>
-							</CodeBlock>
-						</TableCell>
-					</TableRow>
-					<TableRow>
-						<TableCell className="font-body">yarn</TableCell>
-						<TableCell>
-							<CodeBlock>
-								<CodeBlockBody>
-									<CodeBlockCopyButton />
-									<CodeBlockCode
-										language="sh"
-										value={fmtCode`yarn add -E @ngrok/mantle`}
-									/>
-								</CodeBlockBody>
-							</CodeBlock>
-						</TableCell>
-					</TableRow>
-					<TableRow>
-						<TableCell className="font-body">pnpm</TableCell>
-						<TableCell>
-							<CodeBlock>
-								<CodeBlockBody>
-									<CodeBlockCopyButton />
-									<CodeBlockCode
-										language="sh"
-										value={fmtCode`pnpm add -E @ngrok/mantle`}
-									/>
-								</CodeBlockBody>
-							</CodeBlock>
-						</TableCell>
-					</TableRow>
-					<TableRow>
-						<TableCell className="font-body">bun</TableCell>
-						<TableCell>
-							<CodeBlock>
-								<CodeBlockBody>
-									<CodeBlockCopyButton />
-									<CodeBlockCode
-										language="sh"
-										value={fmtCode`bun add -E @ngrok/mantle`}
-									/>
-								</CodeBlockBody>
-							</CodeBlock>
-						</TableCell>
-					</TableRow>
-				</TableBody>
-			</Table>
+			<TableRoot>
+				<Table>
+					<TableBody>
+						<TableRow>
+							<TableCell className="font-body">npm</TableCell>
+							<TableCell>
+								<CodeBlock>
+									<CodeBlockBody>
+										<CodeBlockCopyButton />
+										<CodeBlockCode
+											language="sh"
+											value={fmtCode`npm install -E @ngrok/mantle`}
+										/>
+									</CodeBlockBody>
+								</CodeBlock>
+							</TableCell>
+						</TableRow>
+						<TableRow>
+							<TableCell className="font-body">yarn</TableCell>
+							<TableCell>
+								<CodeBlock>
+									<CodeBlockBody>
+										<CodeBlockCopyButton />
+										<CodeBlockCode
+											language="sh"
+											value={fmtCode`yarn add -E @ngrok/mantle`}
+										/>
+									</CodeBlockBody>
+								</CodeBlock>
+							</TableCell>
+						</TableRow>
+						<TableRow>
+							<TableCell className="font-body">pnpm</TableCell>
+							<TableCell>
+								<CodeBlock>
+									<CodeBlockBody>
+										<CodeBlockCopyButton />
+										<CodeBlockCode
+											language="sh"
+											value={fmtCode`pnpm add -E @ngrok/mantle`}
+										/>
+									</CodeBlockBody>
+								</CodeBlock>
+							</TableCell>
+						</TableRow>
+						<TableRow>
+							<TableCell className="font-body">bun</TableCell>
+							<TableCell>
+								<CodeBlock>
+									<CodeBlockBody>
+										<CodeBlockCopyButton />
+										<CodeBlockCode
+											language="sh"
+											value={fmtCode`bun add -E @ngrok/mantle`}
+										/>
+									</CodeBlockBody>
+								</CodeBlock>
+							</TableCell>
+						</TableRow>
+					</TableBody>
+				</Table>
+			</TableRoot>
 
 			<section>
 				<h2 className="mt-8 text-xl font-medium">Tailwind Configuration</h2>

@@ -7,5 +7,6 @@ export {
 	TableFoot,
 	TableHead,
 	TableHeader,
+	TableRoot,
 	TableRow,
 } from "./table.js";

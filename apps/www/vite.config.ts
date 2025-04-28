@@ -14,10 +14,4 @@ export default defineConfig({
 	resolve: {
 		conditions: ["@ngrok/mantle/source"],
 	},
-	// optimizeDeps: {
-	// 	exclude: ["@ngrok/mantle"], // ✅ exclude from optimizeDeps bundling
-	// },
-	// ssr: {
-	// 	noExternal: ["@ngrok/mantle"], // ✅ keep @ngrok/mantle internal during SSR
-	// },
 });

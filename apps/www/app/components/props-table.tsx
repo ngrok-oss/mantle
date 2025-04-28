@@ -5,6 +5,7 @@ import {
 	TableCell,
 	TableHead,
 	TableHeader,
+	TableRoot,
 	TableRow,
 } from "@ngrok/mantle/table";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@ngrok/mantle/tooltip";
@@ -17,17 +18,19 @@ import { escapeHtml, normalizeIndentation } from "@ngrok/mantle/code-block";
 
 type PropsTableProps = WithStyleProps & PropsWithChildren;
 export const PropsTable = ({ children, className, style }: PropsTableProps) => (
-	<Table className={className} style={style}>
-		<TableHead>
-			<TableRow>
-				<TableHeader>Prop</TableHeader>
-				<TableHeader>Type</TableHeader>
-				<TableHeader>Default</TableHeader>
-				<TableHeader>Description</TableHeader>
-			</TableRow>
-		</TableHead>
-		<TableBody>{children}</TableBody>
-	</Table>
+	<TableRoot className={className} style={style}>
+		<Table>
+			<TableHead>
+				<TableRow>
+					<TableHeader>Prop</TableHeader>
+					<TableHeader>Type</TableHeader>
+					<TableHeader>Default</TableHeader>
+					<TableHeader>Description</TableHeader>
+				</TableRow>
+			</TableHead>
+			<TableBody>{children}</TableBody>
+		</Table>
+	</TableRoot>
 );
 
 type PropRowProps = PropsWithChildren & WithStyleProps;
