@@ -49,7 +49,6 @@ const TableRoot = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
 	({ children, className, ...props }, ref) => {
 		const horizontalOverflow =
 			useHorizontalOverflowObserver<ComponentRef<"div">>();
-		composeRefs;
 
 		return (
 			<div
