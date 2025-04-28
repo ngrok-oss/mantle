@@ -17,6 +17,7 @@ import {
 	TableFoot,
 	TableHead,
 	TableHeader,
+	TableRoot,
 	TableRow,
 } from "@ngrok/mantle/table";
 import { Book } from "@phosphor-icons/react/Book";
@@ -111,56 +112,58 @@ export default function Page() {
 							navigates you to{" "}
 							<Anchor href="https://ngrok.com/docs">the ngrok docs.</Anchor>
 						</p>
-						<Table>
-							<TableCaption>A list of your recent invoices.</TableCaption>
-							<TableHead>
-								<TableRow>
-									<TableHeader className="w-[100px]">Invoice</TableHeader>
-									<TableHeader>Status</TableHeader>
-									<TableHeader>Method</TableHeader>
-									<TableHeader className="text-right">Amount</TableHeader>
-									<TableHeader className="text-right">Actions</TableHeader>
-								</TableRow>
-							</TableHead>
-							<TableBody>
-								{invoices.map((invoice) => (
-									<TableRow
-										key={invoice.invoice}
-										className="cursor-pointer"
-										onClick={() => {
-											window.alert(`Clicked on ${invoice.invoice}!`);
-										}}
-									>
-										<TableCell className="font-medium">
-											{invoice.invoice}
-										</TableCell>
-										<TableCell>{invoice.paymentStatus}</TableCell>
-										<TableCell>{invoice.paymentMethod}</TableCell>
-										<TableCell className="text-right">
-											{invoice.totalAmount}
-										</TableCell>
-										<TableCell className="text-right">
-											<SandboxedOnClick allowClickEventDefault>
-												<IconButton
-													label="See ngrok docs"
-													icon={<Book />}
-													asChild
-												>
-													<a href="https://ngrok.com/docs" target="_blank" />
-												</IconButton>
-											</SandboxedOnClick>
-										</TableCell>
+						<TableRoot>
+							<Table>
+								<TableCaption>A list of your recent invoices.</TableCaption>
+								<TableHead>
+									<TableRow>
+										<TableHeader className="w-[100px]">Invoice</TableHeader>
+										<TableHeader>Status</TableHeader>
+										<TableHeader>Method</TableHeader>
+										<TableHeader className="text-right">Amount</TableHeader>
+										<TableHeader className="text-right">Actions</TableHeader>
 									</TableRow>
-								))}
-							</TableBody>
-							<TableFoot>
-								<TableRow>
-									<TableCell colSpan={3}>Total</TableCell>
-									<TableCell className="text-right">$2,500.00</TableCell>
-									<TableCell />
-								</TableRow>
-							</TableFoot>
-						</Table>
+								</TableHead>
+								<TableBody>
+									{invoices.map((invoice) => (
+										<TableRow
+											key={invoice.invoice}
+											className="cursor-pointer"
+											onClick={() => {
+												window.alert(`Clicked on ${invoice.invoice}!`);
+											}}
+										>
+											<TableCell className="font-medium">
+												{invoice.invoice}
+											</TableCell>
+											<TableCell>{invoice.paymentStatus}</TableCell>
+											<TableCell>{invoice.paymentMethod}</TableCell>
+											<TableCell className="text-right">
+												{invoice.totalAmount}
+											</TableCell>
+											<TableCell className="text-right">
+												<SandboxedOnClick allowClickEventDefault>
+													<IconButton
+														label="See ngrok docs"
+														icon={<Book />}
+														asChild
+													>
+														<a href="https://ngrok.com/docs" target="_blank" />
+													</IconButton>
+												</SandboxedOnClick>
+											</TableCell>
+										</TableRow>
+									))}
+								</TableBody>
+								<TableFoot>
+									<TableRow>
+										<TableCell colSpan={3}>Total</TableCell>
+										<TableCell className="text-right">$2,500.00</TableCell>
+										<TableCell />
+									</TableRow>
+								</TableFoot>
+							</Table>
+						</TableRoot>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
@@ -178,60 +181,63 @@ export default function Page() {
 										TableFoot,
 										TableHead,
 										TableHeader,
+										TableRoot,
 										TableRow,
 									} from "@ngrok/mantle/table";
 									import { Book } from "@phosphor-icons/react/Book";
 
-									<Table>
-										<TableCaption>A list of your recent invoices.</TableCaption>
-										<TableHead>
-											<TableRow>
-												<TableHeader className="w-[100px]">Invoice</TableHeader>
-												<TableHeader>Status</TableHeader>
-												<TableHeader>Method</TableHeader>
-												<TableHeader className="text-right">Amount</TableHeader>
-												<TableHeader className="text-right">Actions</TableHeader>
-											</TableRow>
-										</TableHead>
-										<TableBody>
-											{invoices.map((invoice) => (
-												<TableRow
-													key={invoice.invoice}
-													className="cursor-pointer"
-													onClick={() => {
-														window.alert(\`Clicked on \${invoice.invoice}!\`);
-													}}
-												>
-													<TableCell className="font-medium">
-														{invoice.invoice}
-													</TableCell>
-													<TableCell>{invoice.paymentStatus}</TableCell>
-													<TableCell>{invoice.paymentMethod}</TableCell>
-													<TableCell className="text-right">
-														{invoice.totalAmount}
-													</TableCell>
-													<TableCell className="text-right">
-														<SandboxedOnClick allowClickEventDefault>
-															<IconButton
-																label="See ngrok docs"
-																icon={<Book />}
-																asChild
-															>
-																<a href="https://ngrok.com/docs" target="_blank" />
-															</IconButton>
-														</SandboxedOnClick>
-													</TableCell>
+									<TableRoot>
+										<Table>
+											<TableCaption>A list of your recent invoices.</TableCaption>
+											<TableHead>
+												<TableRow>
+													<TableHeader className="w-[100px]">Invoice</TableHeader>
+													<TableHeader>Status</TableHeader>
+													<TableHeader>Method</TableHeader>
+													<TableHeader className="text-right">Amount</TableHeader>
+													<TableHeader className="text-right">Actions</TableHeader>
 												</TableRow>
-											))}
-										</TableBody>
-										<TableFoot>
-											<TableRow>
-												<TableCell colSpan={3}>Total</TableCell>
-												<TableCell className="text-right">$2,500.00</TableCell>
-												<TableCell />
-											</TableRow>
-										</TableFoot>
-									</Table>
+											</TableHead>
+											<TableBody>
+												{invoices.map((invoice) => (
+													<TableRow
+														key={invoice.invoice}
+														className="cursor-pointer"
+														onClick={() => {
+															window.alert(\`Clicked on \${invoice.invoice}!\`);
+														}}
+													>
+														<TableCell className="font-medium">
+															{invoice.invoice}
+														</TableCell>
+														<TableCell>{invoice.paymentStatus}</TableCell>
+														<TableCell>{invoice.paymentMethod}</TableCell>
+														<TableCell className="text-right">
+															{invoice.totalAmount}
+														</TableCell>
+														<TableCell className="text-right">
+															<SandboxedOnClick allowClickEventDefault>
+																<IconButton
+																	label="See ngrok docs"
+																	icon={<Book />}
+																	asChild
+																>
+																	<a href="https://ngrok.com/docs" target="_blank" />
+																</IconButton>
+															</SandboxedOnClick>
+														</TableCell>
+													</TableRow>
+												))}
+											</TableBody>
+											<TableFoot>
+												<TableRow>
+													<TableCell colSpan={3}>Total</TableCell>
+													<TableCell className="text-right">$2,500.00</TableCell>
+													<TableCell />
+												</TableRow>
+											</TableFoot>
+										</Table>
+									</TableRoot>
 								`}
 							/>
 						</CodeBlockBody>

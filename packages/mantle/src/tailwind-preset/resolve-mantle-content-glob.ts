@@ -37,7 +37,7 @@ function resolveMantleContentGlob(require: NodeJS.Require) {
 
 		// unlikely, BUT if require.resolve throws, just return a best guess glob of the mantle package
 		// assumes the mantle package is hoisted to the root node_modules
-		return "node_modules/@ngrok/mantle/**/*.js";
+		return "node_modules/@ngrok/mantle/dist/**/*.js";
 	}
 }
 

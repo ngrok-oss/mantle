@@ -31,6 +31,7 @@ import {
 	TableCell,
 	TableHead,
 	TableHeader,
+	TableRoot,
 	TableRow,
 } from "../table/table.js";
 import { getNextSortDirection } from "./helpers.js";
@@ -56,7 +57,7 @@ function useDataTableContext<TData>() {
 	return context as DataTableContextShape<TData>;
 }
 
-type DataTableProps<TData> = ComponentProps<typeof Table> & {
+type DataTableProps<TData> = ComponentProps<typeof TableRoot> & {
 	table: TableInstance<TData>;
 };
 
@@ -72,7 +73,9 @@ function DataTable<TData>({
 
 	return (
 		<DataTableContext.Provider value={context}>
-			<Table {...props}>{children}</Table>
+			<TableRoot {...props}>
+				<Table>{children}</Table>
+			</TableRoot>
 		</DataTableContext.Provider>
 	);
 }

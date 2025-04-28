@@ -1,6 +1,80 @@
 import type { ComponentProps, ComponentRef } from "react";
 import { forwardRef, useEffect, useMemo, useRef, useState } from "react";
+import { composeRefs } from "../../utils/compose-refs/compose-refs.js";
 import { cx } from "../../utils/cx/cx.js";
+
+/**
+ * The `<TableRoot>` is the root container element for all `<Table>`s.
+ * It provides styling and additional functionality, such as horizontal overflow
+ * detection.
+ *
+ * Must be used as the parent of a `<Table>`.
+ *
+ * @example
+ * ```tsx
+ * <TableRoot>
+ *   <Table>
+ *     <TableCaption>A list of your recent invoices.</TableCaption>
+ *     <TableHead>
+ *       <TableRow>
+ *         <TableHeader className="w-[100px]">Invoice</TableHeader>
+ *         <TableHeader>Status</TableHeader>
+ *         <TableHeader>Method</TableHeader>
+ *         <TableHeader className="text-right">Amount</TableHeader>
+ *       </TableRow>
+ *     </TableHead>
+ *     <TableBody>
+ *       {invoices.map((invoice) => (
+ *         <TableRow key={invoice.invoice}>
+ *           <TableCell className="font-medium">{invoice.invoice}</TableCell>
+ *           <TableCell>{invoice.paymentStatus}</TableCell>
+ *           <TableCell>{invoice.paymentMethod}</TableCell>
+ *           <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+ *         </TableRow>
+ *       ))}
+ *     </TableBody>
+ *     <TableFoot>
+ *       <TableRow>
+ *         <TableCell colSpan={3}>Total</TableCell>
+ *         <TableCell className="text-right">$2,500.00</TableCell>
+ *       </TableRow>
+ *     </TableFoot>
+ *   </Table>
+ * </TableRoot>
+ * ```
+ *
+ * @see https://mantle.ngrok.com/components/table#api-table-root
+ */
+const TableRoot = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
+	({ children, className, ...props }, ref) => {
+		const horizontalOverflow =
+			useHorizontalOverflowObserver<ComponentRef<"div">>();
+
+		return (
+			<div
+				className={cx(
+					"group/table scrollbar overflow-x-auto rounded-lg border border-card bg-white dark:bg-gray-100 relative w-full",
+					className,
+				)}
+				data-sticky-active={
+					(horizontalOverflow.state.hasOverflow &&
+						!horizontalOverflow.state.scrolledToEnd) ||
+					undefined
+				}
+				data-x-overflow={horizontalOverflow.state.hasOverflow}
+				data-x-scroll-end={
+					horizontalOverflow.state.hasOverflow &&
+					horizontalOverflow.state.scrolledToEnd
+				}
+				ref={composeRefs(horizontalOverflow.ref, ref)}
+				{...props}
+			>
+				{children}
+			</div>
+		);
+	},
+);
+TableRoot.displayName = "TableRoot";
 
 /**
  * The `<Table>` is a structured way to display data in rows and columns. The API
@@ -34,68 +108,52 @@ import { cx } from "../../utils/cx/cx.js";
  *
  * @example
  * ```tsx
- * <Table>
- *   <TableCaption>A list of your recent invoices.</TableCaption>
- *   <TableHead>
- *     <TableRow>
- *       <TableHeader className="w-[100px]">Invoice</TableHeader>
- *       <TableHeader>Status</TableHeader>
- *       <TableHeader>Method</TableHeader>
- *       <TableHeader className="text-right">Amount</TableHeader>
- *     </TableRow>
- *   </TableHead>
- *   <TableBody>
- *     {invoices.map((invoice) => (
- *       <TableRow key={invoice.invoice}>
- *         <TableCell className="font-medium">{invoice.invoice}</TableCell>
- *         <TableCell>{invoice.paymentStatus}</TableCell>
- *         <TableCell>{invoice.paymentMethod}</TableCell>
- *         <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+ * <TableRoot>
+ *   <Table>
+ *     <TableCaption>A list of your recent invoices.</TableCaption>
+ *     <TableHead>
+ *       <TableRow>
+ *         <TableHeader className="w-[100px]">Invoice</TableHeader>
+ *         <TableHeader>Status</TableHeader>
+ *         <TableHeader>Method</TableHeader>
+ *         <TableHeader className="text-right">Amount</TableHeader>
  *       </TableRow>
- *     ))}
- *   </TableBody>
- *   <TableFoot>
- *     <TableRow>
- *       <TableCell colSpan={3}>Total</TableCell>
- *       <TableCell className="text-right">$2,500.00</TableCell>
- *     </TableRow>
- *   </TableFoot>
- * </Table>
+ *     </TableHead>
+ *     <TableBody>
+ *       {invoices.map((invoice) => (
+ *         <TableRow key={invoice.invoice}>
+ *           <TableCell className="font-medium">{invoice.invoice}</TableCell>
+ *           <TableCell>{invoice.paymentStatus}</TableCell>
+ *           <TableCell>{invoice.paymentMethod}</TableCell>
+ *           <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+ *         </TableRow>
+ *       ))}
+ *     </TableBody>
+ *     <TableFoot>
+ *       <TableRow>
+ *         <TableCell colSpan={3}>Total</TableCell>
+ *         <TableCell className="text-right">$2,500.00</TableCell>
+ *       </TableRow>
+ *     </TableFoot>
+ *   </Table>
+ * </TableRoot>
  * ```
  *
  * @see https://mantle.ngrok.com/components/table#api-table
  */
 const Table = forwardRef<ComponentRef<"table">, ComponentProps<"table">>(
-	({ children, className, style, ...props }, ref) => {
-		const horizontalOverflow =
-			useHorizontalOverflowObserver<ComponentRef<"div">>();
-
+	({ children, className, ...props }, ref) => {
 		return (
-			<div
+			<table
+				ref={ref}
 				className={cx(
-					"group/table scrollbar overflow-auto rounded-lg border border-gray-300 bg-white dark:bg-gray-100 relative",
+					"table-auto border-collapse caption-bottom w-full min-w-full text-left",
 					className,
 				)}
-				data-sticky-active={
-					(horizontalOverflow.state.hasOverflow &&
-						!horizontalOverflow.state.scrolledToEnd) ||
-					undefined
-				}
-				data-x-overflow={horizontalOverflow.state.hasOverflow}
-				data-x-scroll-end={
-					horizontalOverflow.state.hasOverflow &&
-					horizontalOverflow.state.scrolledToEnd
-				}
-				ref={horizontalOverflow.ref}
+				{...props}
 			>
-				<table
-					ref={ref}
-					className="table-auto border-separate caption-bottom border-spacing-0 w-full text-left"
-					{...props}
-				>
-					{children}
-				</table>
-			</div>
+				{children}
+			</table>
 		);
 	},
 );
@@ -115,33 +173,35 @@ Table.displayName = "Table";
  *
  * @example
  * ```tsx
- * <Table>
- *   <TableCaption>A list of your recent invoices.</TableCaption>
- *   <TableHead>
- *     <TableRow>
- *       <TableHeader className="w-[100px]">Invoice</TableHeader>
- *       <TableHeader>Status</TableHeader>
- *       <TableHeader>Method</TableHeader>
- *       <TableHeader className="text-right">Amount</TableHeader>
- *     </TableRow>
- *   </TableHead>
- *   <TableBody>
- *     {invoices.map((invoice) => (
- *       <TableRow key={invoice.invoice}>
- *         <TableCell className="font-medium">{invoice.invoice}</TableCell>
- *         <TableCell>{invoice.paymentStatus}</TableCell>
- *         <TableCell>{invoice.paymentMethod}</TableCell>
- *         <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+ * <TableRoot>
+ *   <Table>
+ *     <TableCaption>A list of your recent invoices.</TableCaption>
+ *     <TableHead>
+ *       <TableRow>
+ *         <TableHeader className="w-[100px]">Invoice</TableHeader>
+ *         <TableHeader>Status</TableHeader>
+ *         <TableHeader>Method</TableHeader>
+ *         <TableHeader className="text-right">Amount</TableHeader>
  *       </TableRow>
- *     ))}
- *   </TableBody>
- *   <TableFoot>
- *     <TableRow>
- *       <TableCell colSpan={3}>Total</TableCell>
- *       <TableCell className="text-right">$2,500.00</TableCell>
- *     </TableRow>
- *   </TableFoot>
- * </Table>
+ *     </TableHead>
+ *     <TableBody>
+ *       {invoices.map((invoice) => (
+ *         <TableRow key={invoice.invoice}>
+ *           <TableCell className="font-medium">{invoice.invoice}</TableCell>
+ *           <TableCell>{invoice.paymentStatus}</TableCell>
+ *           <TableCell>{invoice.paymentMethod}</TableCell>
+ *           <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+ *         </TableRow>
+ *       ))}
+ *     </TableBody>
+ *     <TableFoot>
+ *       <TableRow>
+ *         <TableCell colSpan={3}>Total</TableCell>
+ *         <TableCell className="text-right">$2,500.00</TableCell>
+ *       </TableRow>
+ *     </TableFoot>
+ *   </Table>
+ * </TableRoot>
  * ```
  *
  * @see https://mantle.ngrok.com/components/table#api-table-header
@@ -150,7 +210,13 @@ const TableHead = forwardRef<ComponentRef<"thead">, ComponentProps<"thead">>(
 	({ children, className, ...props }, ref) => (
 		<thead
 			ref={ref}
-			className={cx("text-strong bg-base [&_tr]:border-b", className)}
+			className={cx(
+				//,
+				"border-b border-card-muted",
+				"divide-y divide-card-muted",
+				"text-strong bg-base",
+				className,
+			)}
 			{...props}
 		>
 			{children}
@@ -171,40 +237,52 @@ TableHead.displayName = "TableHead";
  *
  * @example
  * ```tsx
- * <Table>
- *   <TableCaption>A list of your recent invoices.</TableCaption>
- *   <TableHead>
- *     <TableRow>
- *       <TableHeader className="w-[100px]">Invoice</TableHeader>
- *       <TableHeader>Status</TableHeader>
- *       <TableHeader>Method</TableHeader>
- *       <TableHeader className="text-right">Amount</TableHeader>
- *     </TableRow>
- *   </TableHead>
- *   <TableBody>
- *     {invoices.map((invoice) => (
- *       <TableRow key={invoice.invoice}>
- *         <TableCell className="font-medium">{invoice.invoice}</TableCell>
- *         <TableCell>{invoice.paymentStatus}</TableCell>
- *         <TableCell>{invoice.paymentMethod}</TableCell>
- *         <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+ * <TableRoot>
+ *   <Table>
+ *     <TableCaption>A list of your recent invoices.</TableCaption>
+ *     <TableHead>
+ *       <TableRow>
+ *         <TableHeader className="w-[100px]">Invoice</TableHeader>
+ *         <TableHeader>Status</TableHeader>
+ *         <TableHeader>Method</TableHeader>
+ *         <TableHeader className="text-right">Amount</TableHeader>
  *       </TableRow>
- *     ))}
- *   </TableBody>
- *   <TableFoot>
- *     <TableRow>
- *       <TableCell colSpan={3}>Total</TableCell>
- *       <TableCell className="text-right">$2,500.00</TableCell>
- *     </TableRow>
- *   </TableFoot>
- * </Table>
+ *     </TableHead>
+ *     <TableBody>
+ *       {invoices.map((invoice) => (
+ *         <TableRow key={invoice.invoice}>
+ *           <TableCell className="font-medium">{invoice.invoice}</TableCell>
+ *           <TableCell>{invoice.paymentStatus}</TableCell>
+ *           <TableCell>{invoice.paymentMethod}</TableCell>
+ *           <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+ *         </TableRow>
+ *       ))}
+ *     </TableBody>
+ *     <TableFoot>
+ *       <TableRow>
+ *         <TableCell colSpan={3}>Total</TableCell>
+ *         <TableCell className="text-right">$2,500.00</TableCell>
+ *       </TableRow>
+ *     </TableFoot>
+ *   </Table>
+ * </TableRoot>
  * ```
  *
  * @see https://mantle.ngrok.com/components/table#api-table-body
  */
 const TableBody = forwardRef<ComponentRef<"tbody">, ComponentProps<"tbody">>(
 	({ children, className, ...props }, ref) => (
-		<tbody className={cx("text-body", className)} ref={ref} {...props}>
+		<tbody
+			className={cx(
+				//,
+				"border-t border-card-muted",
+				"divide-y divide-card-muted",
+				"text-body",
+				className,
+			)}
+			ref={ref}
+			{...props}
+		>
 			{children}
 		</tbody>
 	),
@@ -225,33 +303,35 @@ TableBody.displayName = "TableBody";
  *
  * @example
  * ```tsx
- * <Table>
- *   <TableCaption>A list of your recent invoices.</TableCaption>
- *   <TableHead>
- *     <TableRow>
- *       <TableHeader className="w-[100px]">Invoice</TableHeader>
- *       <TableHeader>Status</TableHeader>
- *       <TableHeader>Method</TableHeader>
- *       <TableHeader className="text-right">Amount</TableHeader>
- *     </TableRow>
- *   </TableHead>
- *   <TableBody>
- *     {invoices.map((invoice) => (
- *       <TableRow key={invoice.invoice}>
- *         <TableCell className="font-medium">{invoice.invoice}</TableCell>
- *         <TableCell>{invoice.paymentStatus}</TableCell>
- *         <TableCell>{invoice.paymentMethod}</TableCell>
- *         <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+ * <TableRoot>
+ *   <Table>
+ *     <TableCaption>A list of your recent invoices.</TableCaption>
+ *     <TableHead>
+ *       <TableRow>
+ *         <TableHeader className="w-[100px]">Invoice</TableHeader>
+ *         <TableHeader>Status</TableHeader>
+ *         <TableHeader>Method</TableHeader>
+ *         <TableHeader className="text-right">Amount</TableHeader>
  *       </TableRow>
- *     ))}
- *   </TableBody>
- *   <TableFoot>
- *     <TableRow>
- *       <TableCell colSpan={3}>Total</TableCell>
- *       <TableCell className="text-right">$2,500.00</TableCell>
- *     </TableRow>
- *   </TableFoot>
- * </Table>
+ *     </TableHead>
+ *     <TableBody>
+ *       {invoices.map((invoice) => (
+ *         <TableRow key={invoice.invoice}>
+ *           <TableCell className="font-medium">{invoice.invoice}</TableCell>
+ *           <TableCell>{invoice.paymentStatus}</TableCell>
+ *           <TableCell>{invoice.paymentMethod}</TableCell>
+ *           <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+ *         </TableRow>
+ *       ))}
+ *     </TableBody>
+ *     <TableFoot>
+ *       <TableRow>
+ *         <TableCell colSpan={3}>Total</TableCell>
+ *         <TableCell className="text-right">$2,500.00</TableCell>
+ *       </TableRow>
+ *     </TableFoot>
+ *   </Table>
+ * </TableRoot>
  * ```
  *
  * @see https://mantle.ngrok.com/components/table#api-table-foot
@@ -261,7 +341,10 @@ const TableFoot = forwardRef<ComponentRef<"tfoot">, ComponentProps<"tfoot">>(
 		<tfoot
 			ref={ref}
 			className={cx(
-				"bg-gray-50/50 font-medium [&>tr:first-child>td]:border-t text-body",
+				//,
+				"bg-gray-50/50 font-medium text-body",
+				"border-t border-card-muted",
+				"divide-y divide-card-muted",
 				className,
 			)}
 			{...props}
@@ -283,33 +366,35 @@ TableFoot.displayName = "TableFoot";
  *
  * @example
  * ```tsx
- * <Table>
- *   <TableCaption>A list of your recent invoices.</TableCaption>
- *   <TableHead>
- *     <TableRow>
- *       <TableHeader className="w-[100px]">Invoice</TableHeader>
- *       <TableHeader>Status</TableHeader>
- *       <TableHeader>Method</TableHeader>
- *       <TableHeader className="text-right">Amount</TableHeader>
- *     </TableRow>
- *   </TableHead>
- *   <TableBody>
- *     {invoices.map((invoice) => (
- *       <TableRow key={invoice.invoice}>
- *         <TableCell className="font-medium">{invoice.invoice}</TableCell>
- *         <TableCell>{invoice.paymentStatus}</TableCell>
- *         <TableCell>{invoice.paymentMethod}</TableCell>
- *         <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+ * <TableRoot>
+ *   <Table>
+ *     <TableCaption>A list of your recent invoices.</TableCaption>
+ *     <TableHead>
+ *       <TableRow>
+ *         <TableHeader className="w-[100px]">Invoice</TableHeader>
+ *         <TableHeader>Status</TableHeader>
+ *         <TableHeader>Method</TableHeader>
+ *         <TableHeader className="text-right">Amount</TableHeader>
  *       </TableRow>
- *     ))}
- *   </TableBody>
- *   <TableFoot>
- *     <TableRow>
- *       <TableCell colSpan={3}>Total</TableCell>
- *       <TableCell className="text-right">$2,500.00</TableCell>
- *     </TableRow>
- *   </TableFoot>
- * </Table>
+ *     </TableHead>
+ *     <TableBody>
+ *       {invoices.map((invoice) => (
+ *         <TableRow key={invoice.invoice}>
+ *           <TableCell className="font-medium">{invoice.invoice}</TableCell>
+ *           <TableCell>{invoice.paymentStatus}</TableCell>
+ *           <TableCell>{invoice.paymentMethod}</TableCell>
+ *           <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+ *         </TableRow>
+ *       ))}
+ *     </TableBody>
+ *     <TableFoot>
+ *       <TableRow>
+ *         <TableCell colSpan={3}>Total</TableCell>
+ *         <TableCell className="text-right">$2,500.00</TableCell>
+ *       </TableRow>
+ *     </TableFoot>
+ *   </Table>
+ * </TableRoot>
  * ```
  *
  * @see https://mantle.ngrok.com/components/table#api-table-row
@@ -320,7 +405,7 @@ const TableRow = forwardRef<ComponentRef<"tr">, ComponentProps<"tr">>(
 			ref={ref}
 			className={cx(
 				// "data-state-selected:bg-gray-200",
-				"[&>td]:border-b [&>td]:border-gray-300 [&>td]:last:border-b-0 [&>td]:bg-card [&>td]:hover:bg-card-hover",
+				"[&>td]:bg-card [&>td]:hover:bg-card-hover",
 				className,
 			)}
 			{...props}
@@ -344,33 +429,35 @@ TableRow.displayName = "TableRow";
  *
  * @example
  * ```tsx
- * <Table>
- *   <TableCaption>A list of your recent invoices.</TableCaption>
- *   <TableHead>
- *     <TableRow>
- *       <TableHeader className="w-[100px]">Invoice</TableHeader>
- *       <TableHeader>Status</TableHeader>
- *       <TableHeader>Method</TableHeader>
- *       <TableHeader className="text-right">Amount</TableHeader>
- *     </TableRow>
- *   </TableHead>
- *   <TableBody>
- *     {invoices.map((invoice) => (
- *       <TableRow key={invoice.invoice}>
- *         <TableCell className="font-medium">{invoice.invoice}</TableCell>
- *         <TableCell>{invoice.paymentStatus}</TableCell>
- *         <TableCell>{invoice.paymentMethod}</TableCell>
- *         <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+ * <TableRoot>
+ *   <Table>
+ *     <TableCaption>A list of your recent invoices.</TableCaption>
+ *     <TableHead>
+ *       <TableRow>
+ *         <TableHeader className="w-[100px]">Invoice</TableHeader>
+ *         <TableHeader>Status</TableHeader>
+ *         <TableHeader>Method</TableHeader>
+ *         <TableHeader className="text-right">Amount</TableHeader>
  *       </TableRow>
- *     ))}
- *   </TableBody>
- *   <TableFoot>
- *     <TableRow>
- *       <TableCell colSpan={3}>Total</TableCell>
- *       <TableCell className="text-right">$2,500.00</TableCell>
- *     </TableRow>
- *   </TableFoot>
- * </Table>
+ *     </TableHead>
+ *     <TableBody>
+ *       {invoices.map((invoice) => (
+ *         <TableRow key={invoice.invoice}>
+ *           <TableCell className="font-medium">{invoice.invoice}</TableCell>
+ *           <TableCell>{invoice.paymentStatus}</TableCell>
+ *           <TableCell>{invoice.paymentMethod}</TableCell>
+ *           <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+ *         </TableRow>
+ *       ))}
+ *     </TableBody>
+ *     <TableFoot>
+ *       <TableRow>
+ *         <TableCell colSpan={3}>Total</TableCell>
+ *         <TableCell className="text-right">$2,500.00</TableCell>
+ *       </TableRow>
+ *     </TableFoot>
+ *   </Table>
+ * </TableRoot>
  * ```
  *
  * @see https://mantle.ngrok.com/components/table#api-table-header
@@ -402,33 +489,35 @@ TableHead.displayName = "TableHead";
  *
  * @example
  * ```tsx
- * <Table>
- *   <TableCaption>A list of your recent invoices.</TableCaption>
- *   <TableHead>
- *     <TableRow>
- *       <TableHeader className="w-[100px]">Invoice</TableHeader>
- *       <TableHeader>Status</TableHeader>
- *       <TableHeader>Method</TableHeader>
- *       <TableHeader className="text-right">Amount</TableHeader>
- *     </TableRow>
- *   </TableHead>
- *   <TableBody>
- *     {invoices.map((invoice) => (
- *       <TableRow key={invoice.invoice}>
- *         <TableCell className="font-medium">{invoice.invoice}</TableCell>
- *         <TableCell>{invoice.paymentStatus}</TableCell>
- *         <TableCell>{invoice.paymentMethod}</TableCell>
- *         <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+ * <TableRoot>
+ *   <Table>
+ *     <TableCaption>A list of your recent invoices.</TableCaption>
+ *     <TableHead>
+ *       <TableRow>
+ *         <TableHeader className="w-[100px]">Invoice</TableHeader>
+ *         <TableHeader>Status</TableHeader>
+ *         <TableHeader>Method</TableHeader>
+ *         <TableHeader className="text-right">Amount</TableHeader>
  *       </TableRow>
- *     ))}
- *   </TableBody>
- *   <TableFoot>
- *     <TableRow>
- *       <TableCell colSpan={3}>Total</TableCell>
- *       <TableCell className="text-right">$2,500.00</TableCell>
- *     </TableRow>
- *   </TableFoot>
- * </Table>
+ *     </TableHead>
+ *     <TableBody>
+ *       {invoices.map((invoice) => (
+ *         <TableRow key={invoice.invoice}>
+ *           <TableCell className="font-medium">{invoice.invoice}</TableCell>
+ *           <TableCell>{invoice.paymentStatus}</TableCell>
+ *           <TableCell>{invoice.paymentMethod}</TableCell>
+ *           <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+ *         </TableRow>
+ *       ))}
+ *     </TableBody>
+ *     <TableFoot>
+ *       <TableRow>
+ *         <TableCell colSpan={3}>Total</TableCell>
+ *         <TableCell className="text-right">$2,500.00</TableCell>
+ *       </TableRow>
+ *     </TableFoot>
+ *   </Table>
+ * </TableRoot>
  * ```
  *
  * @see https://mantle.ngrok.com/components/table#api-table-cell
@@ -460,33 +549,35 @@ TableCell.displayName = "TableCell";
  *
  * @example
  * ```tsx
- * <Table>
- *   <TableCaption>A list of your recent invoices.</TableCaption>
- *   <TableHead>
- *     <TableRow>
- *       <TableHeader className="w-[100px]">Invoice</TableHeader>
- *       <TableHeader>Status</TableHeader>
- *       <TableHeader>Method</TableHeader>
- *       <TableHeader className="text-right">Amount</TableHeader>
- *     </TableRow>
- *   </TableHead>
- *   <TableBody>
- *     {invoices.map((invoice) => (
- *       <TableRow key={invoice.invoice}>
- *         <TableCell className="font-medium">{invoice.invoice}</TableCell>
- *         <TableCell>{invoice.paymentStatus}</TableCell>
- *         <TableCell>{invoice.paymentMethod}</TableCell>
- *         <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+ * <TableRoot>
+ *   <Table>
+ *     <TableCaption>A list of your recent invoices.</TableCaption>
+ *     <TableHead>
+ *       <TableRow>
+ *         <TableHeader className="w-[100px]">Invoice</TableHeader>
+ *         <TableHeader>Status</TableHeader>
+ *         <TableHeader>Method</TableHeader>
+ *         <TableHeader className="text-right">Amount</TableHeader>
  *       </TableRow>
- *     ))}
- *   </TableBody>
- *   <TableFoot>
- *     <TableRow>
- *       <TableCell colSpan={3}>Total</TableCell>
- *       <TableCell className="text-right">$2,500.00</TableCell>
- *     </TableRow>
- *   </TableFoot>
- * </Table>
+ *     </TableHead>
+ *     <TableBody>
+ *       {invoices.map((invoice) => (
+ *         <TableRow key={invoice.invoice}>
+ *           <TableCell className="font-medium">{invoice.invoice}</TableCell>
+ *           <TableCell>{invoice.paymentStatus}</TableCell>
+ *           <TableCell>{invoice.paymentMethod}</TableCell>
+ *           <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+ *         </TableRow>
+ *       ))}
+ *     </TableBody>
+ *     <TableFoot>
+ *       <TableRow>
+ *         <TableCell colSpan={3}>Total</TableCell>
+ *         <TableCell className="text-right">$2,500.00</TableCell>
+ *       </TableRow>
+ *     </TableFoot>
+ *   </Table>
+ * </TableRoot>
  * ```
  *
  * @see https://mantle.ngrok.com/components/table#api-table-caption
@@ -498,7 +589,8 @@ const TableCaption = forwardRef<
 	<caption
 		ref={ref}
 		className={cx(
-			"border-t border-gray-300 py-4 text-sm text-gray-500",
+			"py-4 text-sm text-gray-500",
+			"border-t border-card-muted",
 			className,
 		)}
 		{...props}
@@ -517,6 +609,7 @@ export {
 	TableFoot,
 	TableHead,
 	TableHeader,
+	TableRoot,
 	TableRow,
 };
 
