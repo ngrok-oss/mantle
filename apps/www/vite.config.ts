@@ -3,8 +3,8 @@ import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
-	server: {
-		port: 3333,
+	optimizeDeps: {
+		exclude: ["@ngrok/mantle"],
 	},
 	plugins: [
 		//,
@@ -13,5 +13,8 @@ export default defineConfig({
 	],
 	resolve: {
 		conditions: ["@ngrok/mantle/source"],
+	},
+	server: {
+		port: 3333,
 	},
 });
