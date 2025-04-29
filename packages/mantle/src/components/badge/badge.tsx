@@ -2,7 +2,6 @@ import { Slot } from "@radix-ui/react-slot";
 import {
 	Children,
 	type ComponentProps,
-	type HTMLAttributes,
 	type ReactNode,
 	cloneElement,
 	isValidElement,

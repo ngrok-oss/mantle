@@ -1,10 +1,12 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["src/**/*", "assets/**/*"],
-  "exclude": ["**/*.test.*"],
   "compilerOptions": {
+    "noEmit": false,
+    "outDir": "dist",
     /* does not play nice with tsup */
     "composite": false,
-    "outDir": "dist",
-  }
+    "incremental": false
+  },
+  "include": ["src/**/*"],
+  "exclude": ["src/**/*.test.*"]
 }

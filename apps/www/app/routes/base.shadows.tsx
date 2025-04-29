@@ -1,4 +1,3 @@
-import type { HeadersFunction, MetaFunction } from "react-router";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/base.shadows";
 
