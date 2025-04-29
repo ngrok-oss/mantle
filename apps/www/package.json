@@ -18,7 +18,7 @@
   "dependencies": {
     "@ngrok/mantle": "workspace:*",
     "@phosphor-icons/react": "2.1.7",
-    "@react-router/fs-routes": "7.5.2",
+    "@react-router/fs-routes": "7.5.3",
     "@react-router/node": "7.5.2",
     "@react-router/serve": "7.5.2",
     "@tanstack/react-form": "1.8.0",
