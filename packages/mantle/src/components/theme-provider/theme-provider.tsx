@@ -91,7 +91,9 @@ const initialState: ThemeProviderState = ["system", () => null];
 /**
  * ThemeProviderContext is a React Context that provides the current theme and a function to set the theme.
  */
-const ThemeProviderContext = createContext<ThemeProviderState | null>(null);
+const ThemeProviderContext = createContext<ThemeProviderState | null>(
+	initialState,
+);
 
 /**
  * isBrowser returns true if the code is running in a browser environment.

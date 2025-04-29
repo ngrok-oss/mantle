@@ -3,6 +3,23 @@
   "version": "1.0.0",
   "private": true,
   "files": [
-    "*.json"
-  ]
+    "*.json",
+    "*.d.ts"
+  ],
+  "devDependencies": {
+    "@total-typescript/ts-reset": "0.6.1",
+    "react": "19.1.0"
+  },
+  "peerDependencies": {
+    "react": "^19.1.0"
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    "./css.d.ts": "./css.d.ts",
+    "./reset.d.ts": "./reset.d.ts",
+    "./svg.d.ts": "./svg.d.ts",
+    "./tsconfig.client-package.json": "./tsconfig.client-package.json",
+    "./tsconfig.server-package.json": "./tsconfig.server-package.json",
+    "./tsconfig.web-app.json": "./tsconfig.web-app.json"
+  }
 }

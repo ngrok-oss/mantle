@@ -1,8 +1,14 @@
 {
-  "extends": "@cfg/tsconfig/tsconfig.react-library.json",
-  "exclude": ["dist", "node_modules"],
+  "extends": "@cfg/tsconfig/tsconfig.client-package.json",
   "compilerOptions": {
-    "noEmit": true,
-    "types": ["vitest/globals", "@testing-library/jest-dom"]
-  }
+    "types": [
+      "@cfg/tsconfig/css.d.ts",
+      "@cfg/tsconfig/reset.d.ts",
+      "@cfg/tsconfig/svg.d.ts",
+      "vitest/globals",
+      "@testing-library/jest-dom"
+    ],
+  },
+  "include": ["src/**/*"],
+  "exclude": ["src/**/README.*"]
 }

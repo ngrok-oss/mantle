@@ -1,6 +1,5 @@
 import { SortAscending } from "@phosphor-icons/react/SortAscending";
 import { SortDescending } from "@phosphor-icons/react/SortDescending";
-import { type ComponentRef, forwardRef } from "react";
 import {
 	$timeSortingDirection,
 	type AlphanumericSortingDirection,

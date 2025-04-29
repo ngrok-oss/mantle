@@ -7,11 +7,9 @@ import {
 } from "@tanstack/react-table";
 import {
 	type ComponentProps,
-	type ComponentRef,
 	Fragment,
 	type ReactNode,
 	createContext,
-	forwardRef,
 	useContext,
 	useMemo,
 } from "react";
@@ -20,7 +18,6 @@ import { cx } from "../../utils/cx/cx.js";
 import {
 	$timeSortingDirection,
 	type SortingMode,
-	sortingDirections as baseSortingDirections,
 } from "../../utils/sorting/direction.js";
 import { Button } from "../button/button.js";
 import type { SvgAttributes } from "../icon/types.js";

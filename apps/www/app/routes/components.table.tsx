@@ -18,7 +18,6 @@ import {
 	TableRoot,
 	TableRow,
 } from "@ngrok/mantle/table";
-import { useMemo } from "react";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/components.table";

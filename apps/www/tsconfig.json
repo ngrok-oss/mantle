@@ -1,7 +1,6 @@
 {
-  "extends": "@cfg/tsconfig/tsconfig.react-app.json",
+  "extends": "@cfg/tsconfig/tsconfig.web-app.json",
   "include": [
-    "env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     ".react-router/types/**/*",
@@ -14,10 +13,10 @@
     "types": [
       "@react-router/node",
       "vite/client",
+      "@cfg/tsconfig/css.d.ts",
+      "@cfg/tsconfig/reset.d.ts",
+      "@cfg/tsconfig/svg.d.ts",
     ],
-    "skipLibCheck": true,
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
     "customConditions": [
       "@ngrok/mantle/source"
     ],
