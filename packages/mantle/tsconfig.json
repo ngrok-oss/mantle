@@ -12,12 +12,3 @@
   "include": ["src/**/*"],
   "exclude": ["src/**/README.*"]
 }
-
-// {
-//   "extends": "@cfg/tsconfig/tsconfig.react-library.json",
-//   "exclude": ["dist", "node_modules"],
-//   "compilerOptions": {
-//     "noEmit": true,
-//     "types": ["vitest/globals", "@testing-library/jest-dom"]
-//   }
-// }
