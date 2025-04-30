@@ -30,7 +30,7 @@
     "prebuild": "pnpm run clean",
     "test:watch": "TZ=UTC vitest watch",
     "test": "TZ=UTC vitest run",
-    "typecheck": "tsc"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@ariakit/react": "0.4.17",
