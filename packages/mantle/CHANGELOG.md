@@ -1,5 +1,17 @@
 # @ngrok/mantle
 
+## 0.27.3
+
+### Patch Changes
+
+- [#559](https://github.com/ngrok-oss/mantle/pull/559) [`9da7027`](https://github.com/ngrok-oss/mantle/commit/9da7027f0009b0f57df385377c73da262177efee) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - tsconfig: improve tsconfigs and remove unused imports/vars
+
+- [#551](https://github.com/ngrok-oss/mantle/pull/551) [`fceb2ef`](https://github.com/ngrok-oss/mantle/commit/fceb2effdc828719a340110e5e3fd216d88ae564) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Table: improve component design and styling
+
+- [#576](https://github.com/ngrok-oss/mantle/pull/576) [`ce359c0`](https://github.com/ngrok-oss/mantle/commit/ce359c0e5046d00af54814693dddad7b95099d66) Thanks [@dependabot](https://github.com/apps/dependabot)! - update dependencies
+
+- [#568](https://github.com/ngrok-oss/mantle/pull/568) [`3d9c378`](https://github.com/ngrok-oss/mantle/commit/3d9c378c01d278e6376e8a668d465d93666b281a) Thanks [@dependabot](https://github.com/apps/dependabot)! - update dependencies
+
 ## 0.27.2
 
 ### Patch Changes
