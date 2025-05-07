@@ -32,14 +32,14 @@
     "@biomejs/biome": "1.9.4",
     "@changesets/changelog-github": "0.5.1",
     "@changesets/cli": "2.29.3",
-    "@types/node": "22.15.8",
-    "turbo": "2.5.2",
+    "@types/node": "22.15.14",
+    "turbo": "2.5.3",
     "vitest": "3.1.3"
   },
   "pnpm": {
     "overrides": {
       "cookie": ">=1.0.2",
-      "esbuild": ">=0.25.3",
+      "esbuild": ">=0.25.4",
       "vite": ">=6.3.5"
     },
     "onlyBuiltDependencies": [
