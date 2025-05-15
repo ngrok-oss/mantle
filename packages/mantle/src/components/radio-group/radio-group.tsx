@@ -303,7 +303,7 @@ const RadioButton = forwardRef<ComponentRef<"div">, RadioButtonProps>(
 					"aria-enabled:cursor-pointer focus:outline-none",
 					"first-of-type:rounded-bl-md first-of-type:rounded-tl-md last-of-type:rounded-br-md last-of-type:rounded-tr-md",
 					"aria-enabled:hover:z-1 aria-enabled:hover:border-accent-600 aria-disabled:opacity-50",
-					"aria-checked:z-1 aria-checked:border-accent-500/40 aria-checked:bg-accent-500/10 not-disabled:hover:aria-checked:border-accent-600",
+					"aria-checked:z-1 aria-checked:border-accent-500/40 aria-checked:bg-accent-500/10 aria-enabled:hover:aria-checked:border-accent-600",
 					"has-[.radio-indicator:first-child]:pl-2 has-[.radio-indicator:last-child]:pr-2",
 					className,
 				)}
