@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.27.4
+
+### Patch Changes
+
+- [#589](https://github.com/ngrok-oss/mantle/pull/589) [`2eb2764`](https://github.com/ngrok-oss/mantle/commit/2eb2764c12bcb0cab0e9d99801dc1b8e0ed60dc4) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - RadioButton: don't highlight border on hover when checked AND disabled
+
 ## 0.27.3
 
 ### Patch Changes
