@@ -6,6 +6,7 @@ import {
 	CodeBlockCopyButton,
 	fmtCode,
 } from "@ngrok/mantle/code-block";
+import { Icon } from "@ngrok/mantle/icon";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import {
 	TabBadge,
@@ -21,7 +22,6 @@ import { Link, href } from "react-router";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/components.tabs";
-import { Icon } from "@ngrok/mantle/icon";
 
 export const meta: Route.MetaFunction = () => {
 	return [
