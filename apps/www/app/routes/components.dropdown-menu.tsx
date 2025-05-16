@@ -26,11 +26,11 @@ import {
 import { Icon } from "@ngrok/mantle/icon";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import type { Theme } from "@ngrok/mantle/theme-provider";
-import { DesktopIcon } from "@phosphor-icons/react/Desktop";
-import { GearIcon } from "@phosphor-icons/react/Gear";
-import { MoonIcon } from "@phosphor-icons/react/Moon";
-import { SignOutIcon } from "@phosphor-icons/react/SignOut";
-import { SunIcon } from "@phosphor-icons/react/Sun";
+import { Desktop as DesktopIcon } from "@phosphor-icons/react/Desktop";
+import { Gear as GearIcon } from "@phosphor-icons/react/Gear";
+import { Moon as MoonIcon } from "@phosphor-icons/react/Moon";
+import { SignOut as SignOutIcon } from "@phosphor-icons/react/SignOut";
+import { Sun as SunIcon } from "@phosphor-icons/react/Sun";
 import { useState } from "react";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";

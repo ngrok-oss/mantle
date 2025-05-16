@@ -1,4 +1,4 @@
-import { CircleNotchIcon } from "@phosphor-icons/react/CircleNotch";
+import { CircleNotch as CircleNotchIcon } from "@phosphor-icons/react/CircleNotch";
 import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
 import clsx from "clsx";

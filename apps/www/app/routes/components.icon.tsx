@@ -8,7 +8,7 @@ import {
 } from "@ngrok/mantle/code-block";
 import { Icon } from "@ngrok/mantle/icon";
 import { InlineCode } from "@ngrok/mantle/inline-code";
-import { FireIcon } from "@phosphor-icons/react/Fire";
+import { Fire as FireIcon } from "@phosphor-icons/react/Fire";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import {
@@ -65,7 +65,7 @@ export default function Page() {
 								language="tsx"
 								value={fmtCode`
 									import { Icon } from "@ngrok/mantle/icon";
-									import { FireIcon } from "@phosphor-icons/react/Fire";
+									import { Fire as FireIcon } from "@phosphor-icons/react/Fire";
 
 									<Icon svg={<FireIcon />} />
 									<Icon className="text-danger-600" svg={<FireIcon weight="fill" />} />
@@ -154,7 +154,7 @@ export default function Page() {
 									language="tsx"
 									value={fmtCode`
 									import { Icon } from "@ngrok/mantle/icon"
-									import { FireIcon } from "@phosphor-icons/react/Fire";
+									import { Fire as FireIcon } from "@phosphor-icons/react/Fire";
 
 									<Icon svg={<FireIcon />} />
 									<Icon svg={<FireIcon className="size-12 sm:size-16" />} />

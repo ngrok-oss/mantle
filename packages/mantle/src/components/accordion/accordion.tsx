@@ -1,6 +1,6 @@
 "use client";
 
-import { CaretDownIcon } from "@phosphor-icons/react/CaretDown";
+import { CaretDown as CaretDownIcon } from "@phosphor-icons/react/CaretDown";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import {
 	type ComponentPropsWithoutRef,

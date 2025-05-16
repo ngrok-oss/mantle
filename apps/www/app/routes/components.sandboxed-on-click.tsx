@@ -20,7 +20,7 @@ import {
 	TableRoot,
 	TableRow,
 } from "@ngrok/mantle/table";
-import { BookIcon } from "@phosphor-icons/react/Book";
+import { Book as BookIcon } from "@phosphor-icons/react/Book";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import {
@@ -184,7 +184,7 @@ export default function Page() {
 										TableRoot,
 										TableRow,
 									} from "@ngrok/mantle/table";
-									import { BookIcon } from "@phosphor-icons/react/Book";
+									import { Book as BookIcon } from "@phosphor-icons/react/Book";
 
 									<TableRoot>
 										<Table>

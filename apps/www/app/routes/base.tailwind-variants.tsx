@@ -9,8 +9,8 @@ import {
 	TableRoot,
 	TableRow,
 } from "@ngrok/mantle/table";
-import { CheckIcon } from "@phosphor-icons/react/Check";
-import { XIcon } from "@phosphor-icons/react/X";
+import { Check as CheckIcon } from "@phosphor-icons/react/Check";
+import { X as XIcon } from "@phosphor-icons/react/X";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/base.tailwind-variants";
 

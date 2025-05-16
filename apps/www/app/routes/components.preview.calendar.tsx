@@ -10,7 +10,7 @@ import {
 } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Popover, PopoverContent, PopoverTrigger } from "@ngrok/mantle/popover";
-import { CalendarIcon } from "@phosphor-icons/react/Calendar";
+import { Calendar as CalendarIcon } from "@phosphor-icons/react/Calendar";
 import { useState } from "react";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";

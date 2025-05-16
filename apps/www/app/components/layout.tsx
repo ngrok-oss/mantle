@@ -12,9 +12,9 @@ import {
 } from "@ngrok/mantle/select";
 import { $theme, isTheme, useTheme } from "@ngrok/mantle/theme-provider";
 import type { WithStyleProps } from "@ngrok/mantle/types";
-import { ListIcon } from "@phosphor-icons/react/List";
-import { SunIcon } from "@phosphor-icons/react/Sun";
-import { XIcon } from "@phosphor-icons/react/X";
+import { List as ListIcon } from "@phosphor-icons/react/List";
+import { Sun as SunIcon } from "@phosphor-icons/react/Sun";
+import { X as XIcon } from "@phosphor-icons/react/X";
 import type { PropsWithChildren } from "react";
 import { Link, href } from "react-router";
 import { NavLink } from "./nav-link";
