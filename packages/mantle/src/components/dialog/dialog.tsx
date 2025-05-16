@@ -1,4 +1,4 @@
-import { XIcon } from "@phosphor-icons/react/X";
+import { X as XIcon } from "@phosphor-icons/react/X";
 import type {
 	ComponentProps,
 	ComponentPropsWithoutRef,

@@ -1,4 +1,4 @@
-import { XIcon } from "@phosphor-icons/react/X";
+import { X as XIcon } from "@phosphor-icons/react/X";
 import { type VariantProps, cva } from "class-variance-authority";
 import type {
 	ComponentPropsWithoutRef,

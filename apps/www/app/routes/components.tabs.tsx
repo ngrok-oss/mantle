@@ -15,9 +15,9 @@ import {
 	TabsList,
 	TabsTrigger,
 } from "@ngrok/mantle/tabs";
-import { GlobeIcon } from "@phosphor-icons/react/Globe";
-import { ShieldCheckIcon } from "@phosphor-icons/react/ShieldCheck";
-import { UserIcon } from "@phosphor-icons/react/User";
+import { Globe as GlobeIcon } from "@phosphor-icons/react/Globe";
+import { ShieldCheck as ShieldCheckIcon } from "@phosphor-icons/react/ShieldCheck";
+import { User as UserIcon } from "@phosphor-icons/react/User";
 import { Link, href } from "react-router";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
@@ -330,7 +330,7 @@ export default function Page() {
 								language="tsx"
 								value={fmtCode`
 									import { Button } from "@ngrok/mantle/button";
-									import { FireIcon } from "@phosphor-icons/react/Fire";
+									import { Fire as FireIcon } from "@phosphor-icons/react/Fire";
 									import { Link } from "react-router";
 
 									<Button appearance="filled" icon={<FireIcon weight="fill" />} asChild>

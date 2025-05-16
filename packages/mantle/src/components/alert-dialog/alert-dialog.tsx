@@ -1,7 +1,7 @@
 "use client";
 
-import { InfoIcon } from "@phosphor-icons/react/Info";
-import { WarningIcon } from "@phosphor-icons/react/Warning";
+import { Info as InfoIcon } from "@phosphor-icons/react/Info";
+import { Warning as WarningIcon } from "@phosphor-icons/react/Warning";
 import { Slot } from "@radix-ui/react-slot";
 import {
 	type ComponentProps,
