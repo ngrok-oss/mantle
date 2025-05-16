@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.28.0
+
+### Minor Changes
+
+- [#591](https://github.com/ngrok-oss/mantle/pull/591) [`2cf4f4c`](https://github.com/ngrok-oss/mantle/commit/2cf4f4c6cd219172f6d8131a4a6b2270152b53d4) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Update phosphor icons to new suffix Icon imports
+
 ## 0.27.4
 
 ### Patch Changes
