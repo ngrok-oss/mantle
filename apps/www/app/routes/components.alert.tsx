@@ -15,7 +15,7 @@ import {
 	fmtCode,
 } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
-import { Shrimp } from "@phosphor-icons/react/Shrimp";
+import { ShrimpIcon } from "@phosphor-icons/react/Shrimp";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import {
@@ -93,7 +93,7 @@ export default function Page() {
 							</AlertContent>
 						</Alert>
 						<Alert priority="danger">
-							<AlertIcon svg={<Shrimp />} />
+							<AlertIcon svg={<ShrimpIcon />} />
 							<AlertContent>
 								<AlertTitle>Danger w/ custom icon</AlertTitle>
 								<AlertDescription>This is a danger Alert.</AlertDescription>
@@ -113,7 +113,7 @@ export default function Page() {
 										AlertTitle,
 										AlertIcon,
 									} from "@ngrok/mantle/alert";
-									import { Shrimp } from "@phosphor-icons/react/Shrimp";
+									import { ShrimpIcon } from "@phosphor-icons/react/Shrimp";
 
 									<Alert priority="danger">
 										<AlertIcon />
@@ -144,7 +144,7 @@ export default function Page() {
 										</AlertContent>
 									</Alert>
 									<Alert priority="danger">
-										<AlertIcon svg={<Shrimp />} />
+										<AlertIcon svg={<ShrimpIcon />} />
 										<AlertContent>
 											<AlertTitle>Danger w/ custom icon</AlertTitle>
 											<AlertDescription>This is a danger Alert.</AlertDescription>

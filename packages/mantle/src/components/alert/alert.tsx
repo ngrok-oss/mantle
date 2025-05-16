@@ -1,7 +1,7 @@
-import { CheckCircle } from "@phosphor-icons/react/CheckCircle";
-import { Info } from "@phosphor-icons/react/Info";
-import { Warning } from "@phosphor-icons/react/Warning";
-import { WarningDiamond } from "@phosphor-icons/react/WarningDiamond";
+import { CheckCircleIcon } from "@phosphor-icons/react/CheckCircle";
+import { InfoIcon } from "@phosphor-icons/react/Info";
+import { WarningIcon } from "@phosphor-icons/react/Warning";
+import { WarningDiamondIcon } from "@phosphor-icons/react/WarningDiamond";
 import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
 import type {
@@ -115,11 +115,11 @@ type AlertIconProps = Omit<SvgAttributes, "children"> & {
  * Default `<AlertIcon>` icons for each priority.
  */
 const defaultIcons = {
-	danger: <Warning />,
-	info: <Info />,
+	danger: <WarningIcon />,
+	info: <InfoIcon />,
 	// neutral: <BellRinging />,
-	success: <CheckCircle />,
-	warning: <WarningDiamond />,
+	success: <CheckCircleIcon />,
+	warning: <WarningDiamondIcon />,
 } as const satisfies Record<Priority, ReactNode>;
 
 /**

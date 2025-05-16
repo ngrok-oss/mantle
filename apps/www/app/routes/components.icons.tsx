@@ -4,7 +4,7 @@ import { Icon } from "@ngrok/mantle/icon";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Input } from "@ngrok/mantle/input";
 import { Label } from "@ngrok/mantle/label";
-import { Check } from "@phosphor-icons/react/Check";
+import { CheckIcon } from "@phosphor-icons/react/Check";
 import { useForm } from "@tanstack/react-form";
 import Fuse, { type IFuseOptions } from "fuse.js";
 import { type ComponentRef, useRef, useState } from "react";
@@ -174,7 +174,7 @@ function ListItem({ item }: { item: IconData }) {
 				{wasCopied && (
 					<div className="flex absolute right-2.5 top-2.5 z-10 rounded bg-filled-success text-on-filled hover:bg-filled-success focus:bg-filled-success focus-visible:border-success-600 focus-visible:ring-focus-success w-auto gap-1 border-transparent items-center pl-2 pr-1.5 hover:border-transparent">
 						<p className="text-sm text-strong">Copied</p>
-						<Icon svg={<Check className="size-4" weight="bold" />} />
+						<Icon svg={<CheckIcon weight="bold" />} className="size-4" />
 					</div>
 				)}
 				<Icon className="size-10" svg={item.Icon} />

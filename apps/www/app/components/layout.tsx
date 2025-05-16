@@ -12,9 +12,9 @@ import {
 } from "@ngrok/mantle/select";
 import { $theme, isTheme, useTheme } from "@ngrok/mantle/theme-provider";
 import type { WithStyleProps } from "@ngrok/mantle/types";
-import { List } from "@phosphor-icons/react/List";
-import { Sun } from "@phosphor-icons/react/Sun";
-import { X } from "@phosphor-icons/react/X";
+import { ListIcon } from "@phosphor-icons/react/List";
+import { SunIcon } from "@phosphor-icons/react/Sun";
+import { XIcon } from "@phosphor-icons/react/X";
 import type { PropsWithChildren } from "react";
 import { Link, href } from "react-router";
 import { NavLink } from "./nav-link";
@@ -80,7 +80,7 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 					appearance="outlined"
 					label="Menu"
 					size="md"
-					icon={showNavigation ? <X /> : <List />}
+					icon={showNavigation ? <XIcon /> : <ListIcon />}
 				/>
 
 				<Link
@@ -122,7 +122,7 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 						{/* TODO: this should probably have a title/tooltip instead that describes what it is since we ain't got a spot for a label */}
 						<span className="sr-only">Theme Switcher</span>
 						<SelectTrigger className="w-min">
-							<Icon className="mr-1" svg={<Sun />} />
+							<Icon className="mr-1" svg={<SunIcon />} />
 						</SelectTrigger>
 					</div>
 					<SelectContent width="content">

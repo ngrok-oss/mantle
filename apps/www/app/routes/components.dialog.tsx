@@ -19,7 +19,7 @@ import {
 } from "@ngrok/mantle/dialog";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@ngrok/mantle/tooltip";
-import { TrashSimple } from "@phosphor-icons/react/TrashSimple";
+import { TrashSimpleIcon } from "@phosphor-icons/react/TrashSimple";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/components.dialog";
@@ -258,7 +258,7 @@ export default function Page() {
 											type="button"
 											label="Delete"
 											size="sm"
-											icon={<TrashSimple />}
+											icon={<TrashSimpleIcon />}
 										/>
 									</DialogTrigger>
 								</TooltipTrigger>
@@ -305,7 +305,7 @@ export default function Page() {
 										<Tooltip>
 											<TooltipTrigger asChild>
 												<DialogTrigger asChild>
-													<IconButton type="button" label="Delete" size="sm" icon={<TrashSimple />} />
+													<IconButton type="button" label="Delete" size="sm" icon={<TrashSimpleIcon />} />
 												</DialogTrigger>
 											</TooltipTrigger>
 											<TooltipContent>

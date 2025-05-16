@@ -9,7 +9,7 @@ import {
 } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@ngrok/mantle/tooltip";
-import { Globe } from "@phosphor-icons/react/Globe";
+import { GlobeIcon } from "@phosphor-icons/react/Globe";
 import type { PropsWithChildren } from "react";
 import { Link, href } from "react-router";
 import { Example } from "~/components/example";
@@ -70,14 +70,14 @@ export default function Page() {
 									appearance="ghost"
 									label="prestige worldwide"
 									size="xs"
-									icon={<Globe />}
+									icon={<GlobeIcon />}
 								/>
 								<IconButton
 									type="button"
 									appearance="outlined"
 									label="prestige worldwide"
 									size="xs"
-									icon={<Globe />}
+									icon={<GlobeIcon />}
 								/>
 							</div>
 						</div>
@@ -89,14 +89,14 @@ export default function Page() {
 									appearance="ghost"
 									label="prestige worldwide"
 									size="sm"
-									icon={<Globe />}
+									icon={<GlobeIcon />}
 								/>
 								<IconButton
 									type="button"
 									appearance="outlined"
 									label="prestige worldwide"
 									size="sm"
-									icon={<Globe />}
+									icon={<GlobeIcon />}
 								/>
 							</div>
 						</div>
@@ -107,13 +107,13 @@ export default function Page() {
 									type="button"
 									appearance="ghost"
 									label="prestige worldwide"
-									icon={<Globe />}
+									icon={<GlobeIcon />}
 								/>
 								<IconButton
 									type="button"
 									appearance="outlined"
 									label="prestige worldwide"
-									icon={<Globe />}
+									icon={<GlobeIcon />}
 								/>
 							</div>
 						</div>
@@ -126,7 +126,7 @@ export default function Page() {
 										type="button"
 										appearance="ghost"
 										label="prestige worldwide"
-										icon={<Globe />}
+										icon={<GlobeIcon />}
 									/>
 								</DisabledTooltip>
 								<DisabledTooltip>
@@ -135,7 +135,7 @@ export default function Page() {
 										type="button"
 										appearance="outlined"
 										label="prestige worldwide"
-										icon={<Globe />}
+										icon={<GlobeIcon />}
 									/>
 								</DisabledTooltip>
 							</div>
@@ -148,16 +148,16 @@ export default function Page() {
 								language="tsx"
 								value={fmtCode`
 									import { IconButton } from "@ngrok/mantle/button";
-									import { Fire } from "@phosphor-icons/react/Fire";
+									import { GlobeIcon } from "@phosphor-icons/react/Globe";
 
-									<IconButton type="button" appearance="ghost" label="prestige worldwide" size="xs" icon={<Globe />} />
-									<IconButton type="button" appearance="outlined" label="prestige worldwide" size="xs" icon={<Globe />} />
+									<IconButton type="button" appearance="ghost" label="prestige worldwide" size="xs" icon={<GlobeIcon />} />
+									<IconButton type="button" appearance="outlined" label="prestige worldwide" size="xs" icon={<GlobeIcon />} />
 
-									<IconButton type="button" appearance="ghost" label="prestige worldwide" size="sm" icon={<Globe />} />
-									<IconButton type="button" appearance="outlined" label="prestige worldwide" size="sm" icon={<Globe />} />
+									<IconButton type="button" appearance="ghost" label="prestige worldwide" size="sm" icon={<GlobeIcon />} />
+									<IconButton type="button" appearance="outlined" label="prestige worldwide" size="sm" icon={<GlobeIcon />} />
 
-									<IconButton type="button" appearance="ghost" label="prestige worldwide" size="md" icon={<Globe />} />
-									<IconButton type="button" appearance="outlined" label="prestige worldwide" size="md" icon={<Globe />} />
+									<IconButton type="button" appearance="ghost" label="prestige worldwide" size="md" icon={<GlobeIcon />} />
+									<IconButton type="button" appearance="outlined" label="prestige worldwide" size="md" icon={<GlobeIcon />} />
 								`}
 							/>
 						</CodeBlockBody>
@@ -185,13 +185,13 @@ export default function Page() {
 									type="button"
 									appearance="ghost"
 									label="prestige worldwide"
-									icon={<Globe />}
+									icon={<GlobeIcon />}
 								/>
 								<IconButton
 									type="button"
 									appearance="outlined"
 									label="prestige worldwide"
-									icon={<Globe />}
+									icon={<GlobeIcon />}
 								/>
 							</div>
 						</div>
@@ -203,14 +203,14 @@ export default function Page() {
 									appearance="ghost"
 									label="prestige worldwide"
 									isLoading
-									icon={<Globe />}
+									icon={<GlobeIcon />}
 								/>
 								<IconButton
 									type="button"
 									appearance="outlined"
 									label="prestige worldwide"
 									isLoading
-									icon={<Globe />}
+									icon={<GlobeIcon />}
 								/>
 							</div>
 						</div>
@@ -222,13 +222,13 @@ export default function Page() {
 								language="tsx"
 								value={fmtCode`
 									import { IconButton } from "@ngrok/mantle/button";
-									import { Fire } from "@phosphor-icons/react/Fire";
+									import { GlobeIcon } from "@phosphor-icons/react/Globe";
 
-									<IconButton type="button" appearance="ghost" label="prestige worldwide" icon={<Globe />} />
-									<IconButton type="button" appearance="outlined" label="prestige worldwide" icon={<Globe />} />
+									<IconButton type="button" appearance="ghost" label="prestige worldwide" icon={<GlobeIcon />} />
+									<IconButton type="button" appearance="outlined" label="prestige worldwide" icon={<GlobeIcon />} />
 
-									<IconButton type="button" appearance="ghost" label="prestige worldwide" isLoading icon={<Globe />} />
-									<IconButton type="button" appearance="outlined" label="prestige worldwide" isLoading icon={<Globe />} />
+									<IconButton type="button" appearance="ghost" label="prestige worldwide" isLoading icon={<GlobeIcon />} />
+									<IconButton type="button" appearance="outlined" label="prestige worldwide" isLoading icon={<GlobeIcon />} />
 								`}
 							/>
 						</CodeBlockBody>
@@ -256,7 +256,7 @@ export default function Page() {
 							appearance="outlined"
 							asChild
 							label="prestige worldwide"
-							icon={<Globe />}
+							icon={<GlobeIcon />}
 						>
 							<Link to={href("/base/colors")} />
 						</IconButton>
@@ -268,10 +268,10 @@ export default function Page() {
 								language="tsx"
 								value={fmtCode`
 									import { IconButton } from "@ngrok/mantle/button";
-									import { Fire } from "@phosphor-icons/react/Fire";
+									import { GlobeIcon } from "@phosphor-icons/react/Globe";
 									import { Link, href } from "react-router";
 
-									<IconButton appearance="outlined" asChild label="prestige worldwide" icon={<Globe />}>
+									<IconButton appearance="outlined" asChild label="prestige worldwide" icon={<GlobeIcon />}>
 										<Link to={href("/base/colors")} />
 									</IconButton>
 								`}

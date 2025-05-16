@@ -7,8 +7,8 @@ import {
 	fmtCode,
 } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
-import { Book } from "@phosphor-icons/react/Book";
-import { Shrimp } from "@phosphor-icons/react/Shrimp";
+import { BookIcon } from "@phosphor-icons/react/Book";
+import { ShrimpIcon } from "@phosphor-icons/react/Shrimp";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import {
@@ -87,7 +87,7 @@ export default function Page() {
 						</p>
 						<p>
 							You can add icons! This one renders at the start:{" "}
-							<Anchor href="https://ngrok.com/docs" icon={<Book />}>
+							<Anchor href="https://ngrok.com/docs" icon={<BookIcon />}>
 								ngrok docs
 							</Anchor>
 							!
@@ -96,7 +96,7 @@ export default function Page() {
 							And this icon renders at the end:{" "}
 							<Anchor
 								href="https://dashboard.ngrok.com"
-								icon={<Shrimp />}
+								icon={<ShrimpIcon />}
 								iconPlacement="end"
 							>
 								ngrok dashboard
@@ -111,22 +111,22 @@ export default function Page() {
 								language="tsx"
 								value={fmtCode`
 								import { Anchor } from "@ngrok/mantle/anchor";
-								import { Book } from "@phosphor-icons/react/Book";
-								import { Shrimp } from "@phosphor-icons/react/Shrimp";
+								import { BookIcon } from "@phosphor-icons/react/Book";
+								import { ShrimpIcon } from "@phosphor-icons/react/Shrimp";
 
 								<p>
 									This link will go to <Anchor href="https://ngrok.com/">ngrok.com</Anchor>!
 								</p>
 								<p>
 									You can add icons! This one renders at the start:{" "}
-									<Anchor href="https://ngrok.com/docs" icon={<Book />}>
+									<Anchor href="https://ngrok.com/docs" icon={<BookIcon />}>
 										ngrok docs
 									</Anchor>
 									!
 								</p>
 								<p>
 									And this icon renders at the end:{" "}
-									<Anchor href="https://dashboard.ngrok.com" icon={<Shrimp />} iconPlacement="end">
+									<Anchor href="https://dashboard.ngrok.com" icon={<ShrimpIcon />} iconPlacement="end">
 										ngrok dashboard
 									</Anchor>
 									!

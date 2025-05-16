@@ -1,4 +1,4 @@
-import { CircleNotch } from "@phosphor-icons/react/CircleNotch";
+import { CircleNotchIcon } from "@phosphor-icons/react/CircleNotch";
 import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
 import { Children, cloneElement, forwardRef, isValidElement } from "react";
@@ -147,7 +147,7 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 	) => {
 		const disabled = parseBooleanish(_ariaDisabled ?? _disabled ?? isLoading);
 		const icon = isLoading ? (
-			<CircleNotch className="animate-spin" />
+			<CircleNotchIcon className="animate-spin" />
 		) : (
 			propIcon
 		);

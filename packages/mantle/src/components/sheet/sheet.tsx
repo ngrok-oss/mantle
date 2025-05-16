@@ -1,4 +1,4 @@
-import { X } from "@phosphor-icons/react/X";
+import { XIcon } from "@phosphor-icons/react/X";
 import { type VariantProps, cva } from "class-variance-authority";
 import type {
 	ComponentPropsWithoutRef,
@@ -381,7 +381,7 @@ const SheetCloseIconButton = ({
 	<SheetPrimitive.Close asChild>
 		<IconButton
 			appearance={appearance}
-			icon={<X />}
+			icon={<XIcon />}
 			label={label}
 			size={size}
 			type={type}

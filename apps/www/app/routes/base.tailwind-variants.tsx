@@ -9,8 +9,8 @@ import {
 	TableRoot,
 	TableRow,
 } from "@ngrok/mantle/table";
-import { Check } from "@phosphor-icons/react/Check";
-import { X } from "@phosphor-icons/react/X";
+import { CheckIcon } from "@phosphor-icons/react/Check";
+import { XIcon } from "@phosphor-icons/react/X";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/base.tailwind-variants";
 
@@ -53,11 +53,11 @@ export default function Page() {
 							<TableCell>
 								<Icon
 									className="text-success-600 firefox:block hidden size-4"
-									svg={<Check weight="bold" />}
+									svg={<CheckIcon weight="bold" />}
 								/>
 								<Icon
 									className="text-danger-600 firefox:hidden block size-4"
-									svg={<X weight="bold" />}
+									svg={<XIcon weight="bold" />}
 								/>
 							</TableCell>
 							<TableCell>
@@ -71,11 +71,11 @@ export default function Page() {
 							<TableCell>
 								<Icon
 									className="text-success-600 pointer-coarse:block hidden size-4"
-									svg={<Check weight="bold" />}
+									svg={<CheckIcon weight="bold" />}
 								/>
 								<Icon
 									className="text-danger-600 pointer-coarse:hidden block size-4"
-									svg={<X weight="bold" />}
+									svg={<XIcon weight="bold" />}
 								/>
 							</TableCell>
 							<TableCell>
@@ -92,11 +92,11 @@ export default function Page() {
 							<TableCell>
 								<Icon
 									className="text-success-600 pointer-fine:block hidden size-4"
-									svg={<Check weight="bold" />}
+									svg={<CheckIcon weight="bold" />}
 								/>
 								<Icon
 									className="text-danger-600 pointer-fine:hidden block size-4"
-									svg={<X weight="bold" />}
+									svg={<XIcon weight="bold" />}
 								/>
 							</TableCell>
 							<TableCell>
@@ -113,11 +113,11 @@ export default function Page() {
 							<TableCell>
 								<Icon
 									className="text-success-600 pointer-none:block hidden size-4"
-									svg={<Check weight="bold" />}
+									svg={<CheckIcon weight="bold" />}
 								/>
 								<Icon
 									className="text-danger-600 pointer-none:hidden block size-4"
-									svg={<X weight="bold" />}
+									svg={<XIcon weight="bold" />}
 								/>
 							</TableCell>
 							<TableCell>
@@ -133,11 +133,11 @@ export default function Page() {
 							<TableCell>
 								<Icon
 									className="text-success-600 hover-hover:block hidden size-4"
-									svg={<Check weight="bold" />}
+									svg={<CheckIcon weight="bold" />}
 								/>
 								<Icon
 									className="text-danger-600 hover-hover:hidden block size-4"
-									svg={<X weight="bold" />}
+									svg={<XIcon weight="bold" />}
 								/>
 							</TableCell>
 							<TableCell>
@@ -151,11 +151,11 @@ export default function Page() {
 							<TableCell>
 								<Icon
 									className="text-success-600 hover-none:block hidden size-4"
-									svg={<Check weight="bold" />}
+									svg={<CheckIcon weight="bold" />}
 								/>
 								<Icon
 									className="text-danger-600 hover-none:hidden block size-4"
-									svg={<X weight="bold" />}
+									svg={<XIcon weight="bold" />}
 								/>
 							</TableCell>
 							<TableCell>
@@ -169,11 +169,11 @@ export default function Page() {
 							<TableCell>
 								<Icon
 									className="text-success-600 high-contrast:block hidden size-4"
-									svg={<Check weight="bold" />}
+									svg={<CheckIcon weight="bold" />}
 								/>
 								<Icon
 									className="text-danger-600 high-contrast:hidden block size-4"
-									svg={<X weight="bold" />}
+									svg={<XIcon weight="bold" />}
 								/>
 							</TableCell>
 							<TableCell>
@@ -189,11 +189,11 @@ export default function Page() {
 							<TableCell>
 								<Icon
 									className="text-success-600 dark-high-contrast:block hidden size-4"
-									svg={<Check weight="bold" />}
+									svg={<CheckIcon weight="bold" />}
 								/>
 								<Icon
 									className="text-danger-600 dark-high-contrast:hidden block size-4"
-									svg={<X weight="bold" />}
+									svg={<XIcon weight="bold" />}
 								/>
 							</TableCell>
 							<TableCell>
@@ -215,88 +215,88 @@ export default function Page() {
 					firefox:{" "}
 					<Icon
 						className="text-success-700 firefox:block hidden size-4"
-						svg={<Check weight="bold" />}
+						svg={<CheckIcon weight="bold" />}
 					/>
 					<Icon
 						className="text-danger-700 firefox:hidden block size-4"
-						svg={<X weight="bold" />}
+						svg={<XIcon weight="bold" />}
 					/>
 				</li>
 				<li className="pointer-coarse:border-green-600 pointer-coarse:bg-green-600/10 flex items-center justify-between gap-1 rounded-lg border border-red-600 bg-red-600/10 p-4">
 					pointer-coarse:{" "}
 					<Icon
 						className="text-success-700 pointer-coarse:block hidden size-4"
-						svg={<Check weight="bold" />}
+						svg={<CheckIcon weight="bold" />}
 					/>
 					<Icon
 						className="text-danger-700 pointer-coarse:hidden block size-4"
-						svg={<X weight="bold" />}
+						svg={<XIcon weight="bold" />}
 					/>
 				</li>
 				<li className="pointer-fine:border-green-600 pointer-fine:bg-green-600/10 flex items-center justify-between gap-1 rounded-lg border border-red-600 bg-red-600/10 p-4">
 					pointer-fine:{" "}
 					<Icon
 						className="text-success-700 pointer-fine:block hidden size-4"
-						svg={<Check weight="bold" />}
+						svg={<CheckIcon weight="bold" />}
 					/>
 					<Icon
 						className="text-danger-700 pointer-fine:hidden block size-4"
-						svg={<X weight="bold" />}
+						svg={<XIcon weight="bold" />}
 					/>
 				</li>
 				<li className="pointer-none:border-green-600 pointer-none:bg-green-600/10 flex items-center justify-between gap-1 rounded-lg border border-red-600 bg-red-600/10 p-4">
 					pointer-none:{" "}
 					<Icon
 						className="text-success-700 pointer-none:block hidden size-4"
-						svg={<Check weight="bold" />}
+						svg={<CheckIcon weight="bold" />}
 					/>
 					<Icon
 						className="text-danger-700 pointer-none:hidden block size-4"
-						svg={<X weight="bold" />}
+						svg={<XIcon weight="bold" />}
 					/>
 				</li>
 				<li className="hover-hover:border-green-600 hover-hover:bg-green-600/10 flex items-center justify-between gap-1 rounded-lg border border-red-600 bg-red-600/10 p-4">
 					hover-hover:{" "}
 					<Icon
 						className="text-success-700 hover-hover:block hidden size-4"
-						svg={<Check weight="bold" />}
+						svg={<CheckIcon weight="bold" />}
 					/>
 					<Icon
 						className="text-danger-700 hover-hover:hidden block size-4"
-						svg={<X weight="bold" />}
+						svg={<XIcon weight="bold" />}
 					/>
 				</li>
 				<li className="hover-none:border-green-600 hover-none:bg-green-600/10 flex items-center justify-between gap-1 rounded-lg border border-red-600 bg-red-600/10 p-4">
 					hover-none:{" "}
 					<Icon
 						className="text-success-700 hover-none:block hidden size-4"
-						svg={<Check weight="bold" />}
+						svg={<CheckIcon weight="bold" />}
 					/>
 					<Icon
 						className="text-danger-700 hover-none:hidden block size-4"
-						svg={<X weight="bold" />}
+						svg={<XIcon weight="bold" />}
 					/>
 				</li>
 				<li className="dark-high-contrast:border-green-600 dark-high-contrast:bg-green-600/10 flex items-center justify-between gap-1 rounded-lg border border-red-600 bg-red-600/10 p-4">
 					dark-high-contrast:{" "}
 					<Icon
 						className="text-success-700 dark-high-contrast:block hidden size-4"
-						svg={<Check weight="bold" />}
+						svg={<CheckIcon weight="bold" />}
 					/>
 					<Icon
 						className="text-danger-700 dark-high-contrast:hidden block size-4"
-						svg={<X weight="bold" />}
+						svg={<XIcon weight="bold" />}
 					/>
 				</li>
 				<li className="high-contrast:border-green-600 high-contrast:bg-green-600/10 flex items-center justify-between gap-1 rounded-lg border border-red-600 bg-red-600/10 p-4">
 					high-contrast:{" "}
 					<Icon
 						className="text-success-700 high-contrast:block hidden size-4"
-						svg={<Check weight="bold" />}
+						svg={<CheckIcon weight="bold" />}
 					/>
 					<Icon
 						className="text-danger-700 high-contrast:hidden block size-4"
-						svg={<X weight="bold" />}
+						svg={<XIcon weight="bold" />}
 					/>
 				</li>
 			</ul>

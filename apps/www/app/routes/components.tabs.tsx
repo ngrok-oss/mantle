@@ -14,13 +14,14 @@ import {
 	TabsList,
 	TabsTrigger,
 } from "@ngrok/mantle/tabs";
-import { Globe } from "@phosphor-icons/react/Globe";
-import { ShieldCheck } from "@phosphor-icons/react/ShieldCheck";
-import { User } from "@phosphor-icons/react/User";
+import { GlobeIcon } from "@phosphor-icons/react/Globe";
+import { ShieldCheckIcon } from "@phosphor-icons/react/ShieldCheck";
+import { UserIcon } from "@phosphor-icons/react/User";
 import { Link, href } from "react-router";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/components.tabs";
+import { Icon } from "@ngrok/mantle/icon";
 
 export const meta: Route.MetaFunction = () => {
 	return [
@@ -89,19 +90,19 @@ export default function Page() {
 							<Tabs orientation="horizontal" defaultValue="tab-1">
 								<TabsList>
 									<TabsTrigger value="tab-1">
-										<Globe />
+										<Icon svg={<GlobeIcon />} />
 										Tab Title
 									</TabsTrigger>
 									<TabsTrigger value="tab-2">
-										<Globe />
+										<Icon svg={<GlobeIcon />} />
 										Tab Title
 									</TabsTrigger>
 									<TabsTrigger disabled value="tab-3">
-										<Globe />
+										<Icon svg={<GlobeIcon />} />
 										Tab Title
 									</TabsTrigger>
 									<TabsTrigger value="tab-4">
-										<Globe />
+										<Icon svg={<GlobeIcon />} />
 										Tab Title
 									</TabsTrigger>
 								</TabsList>
@@ -133,22 +134,22 @@ export default function Page() {
 							<Tabs orientation="horizontal" defaultValue="tab-1">
 								<TabsList>
 									<TabsTrigger value="tab-1">
-										<Globe />
+										<Icon svg={<GlobeIcon />} />
 										Tab Title
 										<TabBadge>32</TabBadge>
 									</TabsTrigger>
 									<TabsTrigger value="tab-2">
-										<Globe />
+										<Icon svg={<GlobeIcon />} />
 										Tab Title
 										<TabBadge>32</TabBadge>
 									</TabsTrigger>
 									<TabsTrigger disabled value="tab-3">
-										<Globe />
+										<Icon svg={<GlobeIcon />} />
 										Tab Title
 										<TabBadge>32</TabBadge>
 									</TabsTrigger>
 									<TabsTrigger value="tab-4">
-										<Globe />
+										<Icon svg={<GlobeIcon />} />
 										Tab Title
 										<TabBadge>32</TabBadge>
 									</TabsTrigger>
@@ -162,12 +163,12 @@ export default function Page() {
 						>
 							<TabsList>
 								<TabsTrigger value="account">
-									<User />
+									<Icon svg={<UserIcon />} />
 									Account
 									<TabBadge>2</TabBadge>
 								</TabsTrigger>
 								<TabsTrigger value="password">
-									<ShieldCheck />
+									<Icon svg={<ShieldCheckIcon />} />
 									Password
 								</TabsTrigger>
 							</TabsList>
@@ -238,18 +239,19 @@ export default function Page() {
 								value={fmtCode`
 									import { Button } from "@ngrok/mantle/button";
 									import { Card, CardBody, CardFooter, CardHeader, CardTitle } from "@ngrok/mantle/card";
+									import { Icon } from "@ngrok/mantle/icon";
 									import { Input, PasswordInput } from "@ngrok/mantle/input";
 									import { TabBadge, Tabs, TabsContent, TabsList, TabsTrigger } from "@ngrok/mantle/tabs";
 
 									<Tabs orientation="horizontal" defaultValue="account" className="w-[400px]">
 										<TabsList>
 											<TabsTrigger value="account">
-												<User />
+												<Icon svg={<UserIcon />} />
 												Account
 												<TabBadge>2</TabBadge>
 											</TabsTrigger>
 											<TabsTrigger value="password">
-												<ShieldCheck />
+												<Icon svg={<ShieldCheckIcon />} />
 												Password
 											</TabsTrigger>
 										</TabsList>
@@ -328,10 +330,10 @@ export default function Page() {
 								language="tsx"
 								value={fmtCode`
 									import { Button } from "@ngrok/mantle/button";
-									import { Fire } from "@phosphor-icons/react/Fire";
+									import { FireIcon } from "@phosphor-icons/react/Fire";
 									import { Link } from "react-router";
 
-									<Button appearance="filled" icon={<Fire weight="fill" />} asChild>
+									<Button appearance="filled" icon={<FireIcon weight="fill" />} asChild>
 										<Link to="/base/colors">See our colors!</Link>
 									</Button>
 								`}

@@ -1,7 +1,7 @@
 "use client";
 
-import { CaretLeft } from "@phosphor-icons/react/CaretLeft";
-import { CaretRight } from "@phosphor-icons/react/CaretRight";
+import { CaretLeftIcon } from "@phosphor-icons/react/CaretLeft";
+import { CaretRightIcon } from "@phosphor-icons/react/CaretRight";
 import type { ComponentProps } from "react";
 import { DayPicker } from "react-day-picker";
 import { cx } from "../../utils/cx/cx.js";
@@ -30,7 +30,11 @@ function Calendar({
 			components={{
 				Chevron: (iconProps) => {
 					const icon =
-						iconProps.orientation === "left" ? <CaretLeft /> : <CaretRight />;
+						iconProps.orientation === "left" ? (
+							<CaretLeftIcon />
+						) : (
+							<CaretRightIcon />
+						);
 
 					return <Icon svg={icon} className="size-4" />;
 				},

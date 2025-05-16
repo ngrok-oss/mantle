@@ -21,7 +21,7 @@ import {
 } from "../../utils/sorting/direction.js";
 import { Button } from "../button/button.js";
 import type { SvgAttributes } from "../icon/types.js";
-import { Sort } from "../icons/sort.js";
+import { SortIcon } from "../icons/sort.js";
 import {
 	Table,
 	TableBody,
@@ -331,7 +331,7 @@ function DefaultSortIcon({ direction, mode, ...props }: DefaultSortIconProps) {
 		return <svg aria-hidden {...props} />;
 	}
 
-	return <Sort mode={mode} direction={direction} {...props} />;
+	return <SortIcon mode={mode} direction={direction} {...props} />;
 }
 
 /**

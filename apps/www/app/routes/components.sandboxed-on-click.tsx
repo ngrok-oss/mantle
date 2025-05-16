@@ -20,7 +20,7 @@ import {
 	TableRoot,
 	TableRow,
 } from "@ngrok/mantle/table";
-import { Book } from "@phosphor-icons/react/Book";
+import { BookIcon } from "@phosphor-icons/react/Book";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import {
@@ -145,7 +145,7 @@ export default function Page() {
 												<SandboxedOnClick allowClickEventDefault>
 													<IconButton
 														label="See ngrok docs"
-														icon={<Book />}
+														icon={<BookIcon />}
 														asChild
 													>
 														<a href="https://ngrok.com/docs" target="_blank" />
@@ -184,7 +184,7 @@ export default function Page() {
 										TableRoot,
 										TableRow,
 									} from "@ngrok/mantle/table";
-									import { Book } from "@phosphor-icons/react/Book";
+									import { BookIcon } from "@phosphor-icons/react/Book";
 
 									<TableRoot>
 										<Table>
@@ -219,7 +219,7 @@ export default function Page() {
 															<SandboxedOnClick allowClickEventDefault>
 																<IconButton
 																	label="See ngrok docs"
-																	icon={<Book />}
+																	icon={<BookIcon />}
 																	asChild
 																>
 																	<a href="https://ngrok.com/docs" target="_blank" />

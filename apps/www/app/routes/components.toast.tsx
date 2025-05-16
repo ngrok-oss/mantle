@@ -46,7 +46,7 @@ import {
 	ToastMessage,
 	makeToast,
 } from "@ngrok/mantle/toast";
-import { X } from "@phosphor-icons/react/X";
+import { XIcon } from "@phosphor-icons/react/X";
 import { useState } from "react";
 import invariant from "tiny-invariant";
 import { Example } from "~/components/example";
@@ -111,7 +111,7 @@ export default function Page() {
 											type="button"
 											appearance="ghost"
 											size="xs"
-											icon={<X />}
+											icon={<XIcon />}
 											label="Dismiss toast"
 										/>
 									</ToastAction>
@@ -149,7 +149,7 @@ export default function Page() {
 														type="button"
 														appearance="ghost"
 														size="xs"
-														icon={<X />}
+														icon={<XIcon />}
 														label="Dismiss toast"
 													/>
 												</ToastAction>
@@ -196,7 +196,7 @@ export default function Page() {
 														type="button"
 														appearance="ghost"
 														size="xs"
-														icon={<X />}
+														icon={<XIcon />}
 														label="Dismiss toast"
 													/>
 												</ToastAction>
@@ -247,7 +247,7 @@ export default function Page() {
 														type="button"
 														appearance="ghost"
 														size="xs"
-														icon={<X />}
+														icon={<XIcon />}
 														label="Dismiss toast"
 													/>
 												</ToastAction>
@@ -288,7 +288,7 @@ export default function Page() {
 													Laborum ea anim adipisicing in Lorem incididunt mollit ipsum reprehenderit.
 												</ToastMessage>
 												<ToastAction asChild>
-													<IconButton type="button" appearance="ghost" size="xs" icon={<X />} label="Dismiss toast" />
+													<IconButton type="button" appearance="ghost" size="xs" icon={<XIcon />} label="Dismiss toast" />
 												</ToastAction>
 											</Toast>,
 										)

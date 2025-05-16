@@ -8,7 +8,7 @@ import {
 } from "@ngrok/mantle/code-block";
 import { Icon } from "@ngrok/mantle/icon";
 import { InlineCode } from "@ngrok/mantle/inline-code";
-import { Fire } from "@phosphor-icons/react/Fire";
+import { FireIcon } from "@phosphor-icons/react/Fire";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import {
@@ -52,8 +52,11 @@ export default function Page() {
 				</p>
 				<div>
 					<Example>
-						<Icon svg={<Fire />} />
-						<Icon className="text-danger-600" svg={<Fire weight="fill" />} />
+						<Icon svg={<FireIcon />} />
+						<Icon
+							className="text-danger-600"
+							svg={<FireIcon weight="fill" />}
+						/>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
@@ -62,10 +65,10 @@ export default function Page() {
 								language="tsx"
 								value={fmtCode`
 									import { Icon } from "@ngrok/mantle/icon";
-									import { Fire } from "@phosphor-icons/react/Fire";
+									import { FireIcon } from "@phosphor-icons/react/Fire";
 
-									<Icon svg={<Fire />} />
-									<Icon className="text-danger-600" svg={<Fire weight="fill" />} />
+									<Icon svg={<FireIcon />} />
+									<Icon className="text-danger-600" svg={<FireIcon weight="fill" />} />
 								`}
 							/>
 						</CodeBlockBody>
@@ -109,7 +112,7 @@ export default function Page() {
 									When <InlineCode>className</InlineCode> is not specified:
 								</p>
 								<div className="flex items-center justify-center">
-									<Icon svg={<Fire />} />
+									<Icon svg={<FireIcon />} />
 								</div>
 							</div>
 							<div className="text-center">
@@ -118,7 +121,7 @@ export default function Page() {
 									<InlineCode>svg</InlineCode>:
 								</p>
 								<div className="flex items-center justify-center">
-									<Icon svg={<Fire className="size-12 sm:size-16" />} />
+									<Icon svg={<FireIcon className="size-12 sm:size-16" />} />
 								</div>
 							</div>
 							<div className="text-center">
@@ -127,7 +130,7 @@ export default function Page() {
 									<InlineCode>Icon</InlineCode>:
 								</p>
 								<div className="flex items-center justify-center">
-									<Icon className="size-20 sm:size-28" svg={<Fire />} />
+									<Icon className="size-20 sm:size-28" svg={<FireIcon />} />
 								</div>
 							</div>
 							<div className="text-center">
@@ -139,7 +142,7 @@ export default function Page() {
 								<div className="flex items-center justify-center">
 									<Icon
 										className="size-20 sm:size-28"
-										svg={<Fire className="size-12 sm:size-16" />}
+										svg={<FireIcon className="size-12 sm:size-16" />}
 									/>
 								</div>
 							</div>
@@ -151,12 +154,12 @@ export default function Page() {
 									language="tsx"
 									value={fmtCode`
 									import { Icon } from "@ngrok/mantle/icon"
-									import { Fire } from "@phosphor-icons/react/Fire";
+									import { FireIcon } from "@phosphor-icons/react/Fire";
 
-									<Icon svg={<Fire />} />
-									<Icon svg={<Fire className="size-12 sm:size-16" />} />
-									<Icon className="size-20 sm:size-28" svg={<Fire />} />
-									<Icon className="size-20 sm:size-28" svg={<Fire className="size-12 sm:size-16" />} />
+									<Icon svg={<FireIcon />} />
+									<Icon svg={<FireIcon className="size-12 sm:size-16" />} />
+									<Icon className="size-20 sm:size-28" svg={<FireIcon />} />
+									<Icon className="size-20 sm:size-28" svg={<FireIcon className="size-12 sm:size-16" />} />
 								`}
 								/>
 							</CodeBlockBody>

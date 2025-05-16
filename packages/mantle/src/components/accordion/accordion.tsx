@@ -1,6 +1,6 @@
 "use client";
 
-import { CaretDown } from "@phosphor-icons/react/CaretDown";
+import { CaretDownIcon } from "@phosphor-icons/react/CaretDown";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import {
 	type ComponentPropsWithoutRef,
@@ -57,7 +57,7 @@ const AccordionTriggerIcon = ({
 }: Omit<IconProps, "svg">) => (
 	<Icon
 		{...props}
-		svg={<CaretDown weight="fill" />}
+		svg={<CaretDownIcon weight="fill" />}
 		className={cx("group-data-state-open:rotate-0 -rotate-90", className)}
 	/>
 );

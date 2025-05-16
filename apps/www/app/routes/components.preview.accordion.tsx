@@ -17,7 +17,7 @@ import {
 	fmtCode,
 } from "@ngrok/mantle/code-block";
 import { Separator } from "@ngrok/mantle/separator";
-import { Plus } from "@phosphor-icons/react/Plus";
+import { PlusIcon } from "@phosphor-icons/react/Plus";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/components.preview.accordion";
@@ -85,7 +85,7 @@ export default function Page() {
 											<AccordionTriggerIcon />
 										</AccordionTrigger>
 										<Separator orientation="horizontal" className="flex-1" />
-										<Button type="button" appearance="link" icon={<Plus />}>
+										<Button type="button" appearance="link" icon={<PlusIcon />}>
 											<span className="xs:inline hidden">Add Rule</span>
 										</Button>
 									</h2>
@@ -118,7 +118,7 @@ export default function Page() {
 											<AccordionTriggerIcon />
 										</AccordionTrigger>
 										<Separator orientation="horizontal" className="flex-1" />
-										<Button type="button" appearance="link" icon={<Plus />}>
+										<Button type="button" appearance="link" icon={<PlusIcon />}>
 											<span className="xs:inline hidden">Add Rule</span>
 										</Button>
 									</h2>
@@ -151,7 +151,7 @@ export default function Page() {
 											<AccordionTriggerIcon />
 										</AccordionTrigger>
 										<Separator orientation="horizontal" className="flex-1" />
-										<Button type="button" appearance="link" icon={<Plus />}>
+										<Button type="button" appearance="link" icon={<PlusIcon />}>
 											<span className="xs:inline hidden">Add Rule</span>
 										</Button>
 									</h2>
@@ -194,7 +194,7 @@ export default function Page() {
 														<AccordionTriggerIcon />
 													</AccordionTrigger>
 													<Separator orientation="horizontal" className="flex-1" />
-													<Button type="button" appearance="link" icon={<Plus />}>
+													<Button type="button" appearance="link" icon={<PlusIcon />}>
 														Add Rule
 													</Button>
 												</h2>
@@ -216,7 +216,7 @@ export default function Page() {
 														<AccordionTriggerIcon />
 													</AccordionTrigger>
 													<Separator orientation="horizontal" className="flex-1" />
-													<Button type="button" appearance="link" icon={<Plus />}>
+													<Button type="button" appearance="link" icon={<PlusIcon />}>
 														Add Rule
 													</Button>
 												</h2>
@@ -238,7 +238,7 @@ export default function Page() {
 														<AccordionTriggerIcon />
 													</AccordionTrigger>
 													<Separator orientation="horizontal" className="flex-1" />
-													<Button type="button" appearance="link" icon={<Plus />}>
+													<Button type="button" appearance="link" icon={<PlusIcon />}>
 														Add Rule
 													</Button>
 												</h2>

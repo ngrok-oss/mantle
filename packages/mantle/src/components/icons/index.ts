@@ -1,2 +1,2 @@
-export { Sort } from "./sort.js";
-export { TrafficPolicyFile } from "./traffic-policy-file.js";
+export { SortIcon } from "./sort.js";
+export { TrafficPolicyFileIcon } from "./traffic-policy-file.js";

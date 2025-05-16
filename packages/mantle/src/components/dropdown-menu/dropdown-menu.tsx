@@ -1,9 +1,10 @@
-import { CaretRight } from "@phosphor-icons/react/CaretRight";
-import { Check } from "@phosphor-icons/react/Check";
+import { CaretRightIcon } from "@phosphor-icons/react/CaretRight";
+import { CheckIcon } from "@phosphor-icons/react/Check";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import type { ComponentPropsWithoutRef, ComponentRef } from "react";
 import { forwardRef } from "react";
 import { cx } from "../../utils/cx/cx.js";
+import { Icon } from "../icon/icon.js";
 import { Separator } from "../separator/separator.js";
 
 const DropdownMenu = DropdownMenuPrimitive.Root;
@@ -37,7 +38,7 @@ const DropdownMenuSubTrigger = forwardRef<
 	>
 		{children}
 		<span className="absolute right-2 flex items-center">
-			<CaretRight className="size-4 shrink-0" weight="bold" />
+			<Icon svg={<CaretRightIcon weight="bold" />} className="size-4" />
 		</span>
 	</DropdownMenuPrimitive.SubTrigger>
 ));
@@ -139,7 +140,7 @@ const DropdownMenuCheckboxItem = forwardRef<
 	>
 		<span className="absolute right-2 flex items-center">
 			<DropdownMenuPrimitive.ItemIndicator>
-				<Check className="size-5 shrink-0 sm:size-4" weight="bold" />
+				<Icon svg={<CheckIcon weight="bold" />} className="size-4" />
 			</DropdownMenuPrimitive.ItemIndicator>
 		</span>
 		{children}
@@ -172,7 +173,7 @@ const DropdownMenuRadioItem = forwardRef<
 	>
 		<span className="absolute right-2 items-center hidden group-aria-checked/dropdown-menu-radio-item:flex">
 			<DropdownMenuPrimitive.ItemIndicator>
-				<Check className="size-4 shrink-0" weight="bold" />
+				<Icon svg={<CheckIcon weight="bold" />} className="size-4" />
 			</DropdownMenuPrimitive.ItemIndicator>
 		</span>
 		{children}

@@ -1,7 +1,8 @@
-import { Eye } from "@phosphor-icons/react/Eye";
-import { EyeClosed } from "@phosphor-icons/react/EyeClosed";
+import { EyeIcon } from "@phosphor-icons/react/Eye";
+import { EyeClosedIcon } from "@phosphor-icons/react/EyeClosed";
 import { forwardRef, useEffect, useState } from "react";
 import type { InputHTMLAttributes } from "react";
+import { Icon } from "../icon/icon.js";
 import { Input, InputCapture } from "./input.js";
 import type { InputType, WithAutoComplete, WithValidation } from "./types.js";
 
@@ -28,7 +29,7 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
 	({ onValueVisibilityChange, showValue = false, ...props }, ref) => {
 		const [showPassword, setShowPassword] = useState<boolean>(showValue);
 		const type: PasswordInputType = showPassword ? "text" : "password";
-		const EyeCon = showPassword ? Eye : EyeClosed;
+		const EyeCon = showPassword ? EyeIcon : EyeClosedIcon;
 
 		useEffect(() => {
 			setShowPassword(showValue);
@@ -49,7 +50,7 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
 					<span className="sr-only">
 						Turn password visibility {showPassword ? "off" : "on"}
 					</span>
-					<EyeCon aria-hidden />
+					<Icon svg={<EyeCon aria-hidden />} />
 				</button>
 			</Input>
 		);

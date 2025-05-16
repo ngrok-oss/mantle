@@ -23,9 +23,9 @@ import {
 	SheetTitleGroup,
 	SheetTrigger,
 } from "@ngrok/mantle/sheet";
-import { ListMagnifyingGlass } from "@phosphor-icons/react/ListMagnifyingGlass";
-import { TerminalWindow } from "@phosphor-icons/react/TerminalWindow";
-import { TrashSimple } from "@phosphor-icons/react/TrashSimple";
+import { ListMagnifyingGlassIcon } from "@phosphor-icons/react/ListMagnifyingGlass";
+import { TerminalWindowIcon } from "@phosphor-icons/react/TerminalWindow";
+import { TrashSimpleIcon } from "@phosphor-icons/react/TrashSimple";
 import { useState } from "react";
 import { Link, href } from "react-router";
 import { Example } from "~/components/example";
@@ -84,19 +84,19 @@ export default function Page() {
 											<IconButton
 												appearance="ghost"
 												type="button"
-												icon={<TerminalWindow />}
+												icon={<TerminalWindowIcon />}
 												label="Start a Tunnel"
 											/>
 											<IconButton
 												appearance="ghost"
 												type="button"
-												icon={<ListMagnifyingGlass />}
+												icon={<ListMagnifyingGlassIcon />}
 												label="See Traffic"
 											/>
 											<IconButton
 												appearance="ghost"
 												type="button"
-												icon={<TrashSimple />}
+												icon={<TrashSimpleIcon />}
 												label="Delete"
 											/>
 											<Separator orientation="vertical" className="h-[80%]" />
@@ -193,9 +193,9 @@ export default function Page() {
 										SheetTitleGroup,
 										SheetTrigger,
 									} from "@ngrok/mantle/sheet";
-									import { ListMagnifyingGlass } from "@phosphor-icons/react/ListMagnifyingGlass";
-									import { TerminalWindow } from "@phosphor-icons/react/TerminalWindow";
-									import { TrashSimple } from "@phosphor-icons/react/TrashSimple";
+									import { ListMagnifyingGlassIcon } from "@phosphor-icons/react/ListMagnifyingGlass";
+									import { TerminalWindowIcon } from "@phosphor-icons/react/TerminalWindow";
+									import { TrashSimpleIcon } from "@phosphor-icons/react/TrashSimple";
 
 									<Sheet>
 										<SheetTrigger asChild>
@@ -206,9 +206,9 @@ export default function Page() {
 												<SheetTitleGroup>
 													<SheetTitle>Are you absolutely sure?</SheetTitle>
 													<SheetActions>
-														<IconButton appearance="ghost" type="button" icon={<TerminalWindow />} label="Start a Tunnel" />
-														<IconButton appearance="ghost" type="button" icon={<ListMagnifyingGlass />} label="See Traffic" />
-														<IconButton appearance="ghost" type="button" icon={<TrashSimple />} label="Delete" />
+														<IconButton appearance="ghost" type="button" icon={<TerminalWindowIcon />} label="Start a Tunnel" />
+														<IconButton appearance="ghost" type="button" icon={<ListMagnifyingGlassIcon />} label="See Traffic" />
+														<IconButton appearance="ghost" type="button" icon={<TrashSimpleIcon />} label="Delete" />
 														<Separator orientation="vertical" className="h-[80%]" />
 														<SheetCloseIconButton />
 													</SheetActions>
