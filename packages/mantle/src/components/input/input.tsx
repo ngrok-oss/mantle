@@ -1,6 +1,6 @@
-import { CheckCircle } from "@phosphor-icons/react/CheckCircle";
-import { Warning } from "@phosphor-icons/react/Warning";
-import { WarningDiamond } from "@phosphor-icons/react/WarningDiamond";
+import { CheckCircleIcon } from "@phosphor-icons/react/CheckCircle";
+import { WarningIcon } from "@phosphor-icons/react/Warning";
+import { WarningDiamondIcon } from "@phosphor-icons/react/WarningDiamond";
 import clsx from "clsx";
 import type {
 	ComponentRef,
@@ -12,6 +12,7 @@ import type {
 import { createContext, forwardRef, useContext, useRef } from "react";
 import { composeRefs } from "../../utils/compose-refs/compose-refs.js";
 import { cx } from "../../utils/cx/cx.js";
+import { Icon } from "../icon/icon.js";
 import type {
 	Validation,
 	WithAutoComplete,
@@ -241,19 +242,19 @@ const ValidationFeedback = ({
 							"input has failed validation.",
 						)}
 					</span>
-					<Warning aria-hidden weight="fill" />
+					<Icon svg={<WarningIcon aria-hidden weight="fill" />} />
 				</div>
 			);
 		case "success":
 			return (
 				<div className="text-success-600 pointer-events-none order-last select-none">
-					<CheckCircle weight="fill" />
+					<Icon svg={<CheckCircleIcon weight="fill" />} />
 				</div>
 			);
 		case "warning":
 			return (
 				<div className="text-warning-600 pointer-events-none order-last select-none">
-					<WarningDiamond weight="fill" />
+					<Icon svg={<WarningDiamondIcon weight="fill" />} />
 				</div>
 			);
 		default:

@@ -9,7 +9,7 @@ import {
 } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@ngrok/mantle/tooltip";
-import { Fire } from "@phosphor-icons/react/Fire";
+import { FireIcon } from "@phosphor-icons/react/Fire";
 import type { PropsWithChildren } from "react";
 import { Link, href } from "react-router";
 import { Example } from "~/components/example";
@@ -213,12 +213,12 @@ export default function Page() {
 				<div>
 					<Example>
 						<div className="flex items-center gap-2">
-							<Button type="button" icon={<Fire weight="fill" />}>
+							<Button type="button" icon={<FireIcon weight="fill" />}>
 								Icon Start
 							</Button>
 							<Button
 								type="button"
-								icon={<Fire weight="fill" />}
+								icon={<FireIcon weight="fill" />}
 								iconPlacement="end"
 							>
 								Icon End
@@ -232,10 +232,10 @@ export default function Page() {
 								language="tsx"
 								value={fmtCode`
 									import { Button } from "@ngrok/mantle/button";
-									import { Fire } from "@phosphor-icons/react/Fire";
+									import { FireIcon } from "@phosphor-icons/react/Fire";
 
-									<Button type="button" icon={<Fire weight="fill" />}>Icon Start</Button>
-									<Button type="button" icon={<Fire weight="fill" />} iconPlacement="end">
+									<Button type="button" icon={<FireIcon weight="fill" />}>Icon Start</Button>
+									<Button type="button" icon={<FireIcon weight="fill" />} iconPlacement="end">
 										Icon End
 									</Button>
 								`}
@@ -263,12 +263,12 @@ export default function Page() {
 							<p className="mb-2 text-center font-mono text-xs">Idle</p>
 							<div className="flex flex-wrap items-center justify-center gap-2">
 								<Button type="button">No Icon + Idle</Button>
-								<Button type="button" icon={<Fire weight="fill" />}>
+								<Button type="button" icon={<FireIcon weight="fill" />}>
 									Icon Start + Idle
 								</Button>
 								<Button
 									type="button"
-									icon={<Fire weight="fill" />}
+									icon={<FireIcon weight="fill" />}
 									iconPlacement="end"
 								>
 									Icon End + Idle
@@ -278,14 +278,14 @@ export default function Page() {
 								<Button
 									type="button"
 									appearance="link"
-									icon={<Fire weight="fill" />}
+									icon={<FireIcon weight="fill" />}
 								>
 									Link + Icon Start + Idle
 								</Button>
 								<Button
 									type="button"
 									appearance="link"
-									icon={<Fire weight="fill" />}
+									icon={<FireIcon weight="fill" />}
 									iconPlacement="end"
 								>
 									Link + Icon End + Idle
@@ -298,12 +298,16 @@ export default function Page() {
 								<Button type="button" isLoading>
 									No Icon + isLoading
 								</Button>
-								<Button type="button" icon={<Fire weight="fill" />} isLoading>
+								<Button
+									type="button"
+									icon={<FireIcon weight="fill" />}
+									isLoading
+								>
 									Icon Start + isLoading
 								</Button>
 								<Button
 									type="button"
-									icon={<Fire weight="fill" />}
+									icon={<FireIcon weight="fill" />}
 									iconPlacement="end"
 									isLoading
 								>
@@ -314,7 +318,7 @@ export default function Page() {
 								<Button
 									type="button"
 									appearance="link"
-									icon={<Fire weight="fill" />}
+									icon={<FireIcon weight="fill" />}
 									isLoading
 								>
 									Link + Icon Start + isLoading
@@ -322,7 +326,7 @@ export default function Page() {
 								<Button
 									type="button"
 									appearance="link"
-									icon={<Fire weight="fill" />}
+									icon={<FireIcon weight="fill" />}
 									iconPlacement="end"
 									isLoading
 								>
@@ -338,18 +342,18 @@ export default function Page() {
 								language="tsx"
 								value={fmtCode`
 									import { Button } from "@ngrok/mantle/button";
-									import { Fire } from "@phosphor-icons/react/Fire";
+									import { FireIcon } from "@phosphor-icons/react/Fire";
 
 									<Button type="button">No Icon + Idle</Button>
-									<Button type="button" icon={<Fire weight="fill" />}>Icon Start + Idle</Button>
-									<Button type="button" icon={<Fire weight="fill" />} iconPlacement="end">
+									<Button type="button" icon={<FireIcon weight="fill" />}>Icon Start + Idle</Button>
+									<Button type="button" icon={<FireIcon weight="fill" />} iconPlacement="end">
 										Icon End + Idle
 									</Button>
 									<Button type="button" isLoading>No Icon + isLoading</Button>
-									<Button type="button" icon={<Fire weight="fill" />} isLoading>
+									<Button type="button" icon={<FireIcon weight="fill" />} isLoading>
 										Icon Start + isLoading
 									</Button>
-									<Button type="button" icon={<Fire weight="fill" />} iconPlacement="end" isLoading>
+									<Button type="button" icon={<FireIcon weight="fill" />} iconPlacement="end" isLoading>
 										Icon End + isLoading
 									</Button>
 								`}
@@ -375,7 +379,11 @@ export default function Page() {
 				</p>
 				<div>
 					<Example>
-						<Button appearance="filled" icon={<Fire weight="fill" />} asChild>
+						<Button
+							appearance="filled"
+							icon={<FireIcon weight="fill" />}
+							asChild
+						>
 							<Link to={href("/base/colors")}>See our colors!</Link>
 						</Button>
 					</Example>
@@ -386,10 +394,10 @@ export default function Page() {
 								language="tsx"
 								value={fmtCode`
 									import { Button } from "@ngrok/mantle/button";
-									import { Fire } from "@phosphor-icons/react/Fire";
+									import { FireIcon } from "@phosphor-icons/react/Fire";
 									import { Link, href } from "react-router";
 
-									<Button appearance="filled" icon={<Fire weight="fill" />} asChild>
+									<Button appearance="filled" icon={<FireIcon weight="fill" />} asChild>
 										<Link to={href("/base/colors")}>See our colors!</Link>
 									</Button>
 								`}

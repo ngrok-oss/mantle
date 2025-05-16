@@ -10,8 +10,8 @@ import {
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Input, InputCapture } from "@ngrok/mantle/input";
 import { Label } from "@ngrok/mantle/label";
-import { Info } from "@phosphor-icons/react/Info";
-import { MagnifyingGlass } from "@phosphor-icons/react/MagnifyingGlass";
+import { InfoIcon } from "@phosphor-icons/react/Info";
+import { MagnifyingGlassIcon } from "@phosphor-icons/react/MagnifyingGlass";
 import { Link, href } from "react-router";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
@@ -137,7 +137,7 @@ export default function Page() {
 						<Label className="block w-full max-w-80 space-y-1">
 							<p>Search with start icon</p>
 							<Input className="max-w-64" placeholder="Search...">
-								<MagnifyingGlass />
+								<MagnifyingGlassIcon />
 								<InputCapture />
 							</Input>
 						</Label>
@@ -145,15 +145,15 @@ export default function Page() {
 							<p>Search with end icon</p>
 							<Input className="max-w-64" placeholder="Search...">
 								<InputCapture />
-								<Info />
+								<InfoIcon />
 							</Input>
 						</Label>
 						<Label className="block w-full max-w-80 space-y-1">
 							<p>Search with start and end icons</p>
 							<Input className="max-w-64" placeholder="Search...">
-								<MagnifyingGlass />
+								<MagnifyingGlassIcon />
 								<InputCapture />
-								<Info />
+								<InfoIcon />
 							</Input>
 						</Label>
 						<Label className="block w-full max-w-80 space-y-1">
@@ -163,7 +163,7 @@ export default function Page() {
 								placeholder="Search..."
 								validation="error"
 							>
-								<MagnifyingGlass />
+								<MagnifyingGlassIcon />
 								<InputCapture />
 							</Input>
 						</Label>
@@ -175,7 +175,7 @@ export default function Page() {
 								validation="error"
 							>
 								<InputCapture />
-								<Info />
+								<InfoIcon />
 							</Input>
 						</Label>
 						<Label className="block w-full max-w-80 space-y-1">
@@ -185,9 +185,9 @@ export default function Page() {
 								validation="error"
 								placeholder="Search..."
 							>
-								<MagnifyingGlass />
+								<MagnifyingGlassIcon />
 								<InputCapture />
-								<Info />
+								<InfoIcon />
 							</Input>
 						</Label>
 					</Example>
@@ -199,13 +199,13 @@ export default function Page() {
 								value={fmtCode`
 									import { Input, InputCapture } from "@ngrok/mantle/input";
 									import { Label } from "@ngrok/mantle/label";
-									import { Info } from "@phosphor-icons/react/Info";
-									import { MagnifyingGlass } from "@phosphor-icons/react/MagnifyingGlass";
+									import { InfoIcon } from "@phosphor-icons/react/Info";
+									import { MagnifyingGlassIcon } from "@phosphor-icons/react/MagnifyingGlass";
 
 									<Label className="block w-full max-w-80 space-y-1">
 										<p>Search with start icon</p>
 										<Input className="max-w-64" placeholder="Search...">
-											<MagnifyingGlass />
+											<MagnifyingGlassIcon />
 											<InputCapture />
 										</Input>
 									</Label>
@@ -213,21 +213,21 @@ export default function Page() {
 										<p>Search with end icon</p>
 										<Input className="max-w-64" placeholder="Search...">
 											<InputCapture />
-											<Info />
+											<InfoIcon />
 										</Input>
 									</Label>
 									<Label className="block w-full max-w-80 space-y-1">
 										<p>Search with start and end icons</p>
 										<Input className="max-w-64" placeholder="Search...">
-											<MagnifyingGlass />
+											<MagnifyingGlassIcon />
 											<InputCapture />
-											<Info />
+											<InfoIcon />
 										</Input>
 									</Label>
 									<Label className="block w-full max-w-80 space-y-1">
 										<p>Search with start icon (error)</p>
 										<Input className="max-w-64" placeholder="Search..." validation="error">
-											<MagnifyingGlass />
+											<MagnifyingGlassIcon />
 											<InputCapture />
 										</Input>
 									</Label>
@@ -235,15 +235,15 @@ export default function Page() {
 										<p>Search with end icon (error)</p>
 										<Input className="max-w-64" placeholder="Search..." validation="error">
 											<InputCapture />
-											<Info />
+											<InfoIcon />
 										</Input>
 									</Label>
 									<Label className="block w-full max-w-80 space-y-1">
 										<p>Search with start and end icons (error)</p>
 										<Input className="max-w-64" validation="error" placeholder="Search...">
-											<MagnifyingGlass />
+											<MagnifyingGlassIcon />
 											<InputCapture />
-											<Info />
+											<InfoIcon />
 										</Input>
 									</Label>
 								`}

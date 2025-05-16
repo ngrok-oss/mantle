@@ -1,8 +1,8 @@
-import { CaretDown } from "@phosphor-icons/react/CaretDown";
-import { Check } from "@phosphor-icons/react/Check";
-import { Copy } from "@phosphor-icons/react/Copy";
-import { FileText } from "@phosphor-icons/react/FileText";
-import { Terminal } from "@phosphor-icons/react/Terminal";
+import { CaretDownIcon } from "@phosphor-icons/react/CaretDown";
+import { CheckIcon } from "@phosphor-icons/react/Check";
+import { CopyIcon } from "@phosphor-icons/react/Copy";
+import { FileTextIcon } from "@phosphor-icons/react/FileText";
+import { TerminalIcon } from "@phosphor-icons/react/Terminal";
 import { Slot } from "@radix-ui/react-slot";
 import clsx from "clsx";
 import type {
@@ -29,7 +29,7 @@ import type { WithAsChild } from "../../types/as-child.js";
 import { cx } from "../../utils/cx/cx.js";
 import { Icon } from "../icon/icon.js";
 import type { SvgAttributes } from "../icon/types.js";
-import { TrafficPolicyFile } from "../icons/traffic-policy-file.js";
+import { TrafficPolicyFileIcon } from "../icons/traffic-policy-file.js";
 import { escapeHtml } from "./escape-html.js";
 import { Highlighter } from "./highlighter.js";
 import { type Indentation, inferIndentation } from "./indentation.js";
@@ -506,10 +506,10 @@ const CodeBlockCopyButton = forwardRef<
 				{wasCopied ? (
 					<>
 						Copied
-						<Check className="size-4 shrink-0" weight="bold" />
+						<Icon svg={<CheckIcon weight="bold" />} className="size-4" />
 					</>
 				) : (
-					<Copy className="-ml-px size-5 shrink-0" />
+					<Icon svg={<CopyIcon />} className="-ml-px" />
 				)}
 			</Component>
 		);
@@ -582,13 +582,13 @@ const CodeBlockExpanderButton = forwardRef<
 			}}
 		>
 			{isCodeExpanded ? "Show less" : "Show more"}{" "}
-			<CaretDown
+			<Icon
+				svg={<CaretDownIcon weight="bold" />}
 				className={cx(
-					"size-4 shrink-0",
+					"size-4",
 					isCodeExpanded && "rotate-180",
 					"transition-all duration-150",
 				)}
-				weight="bold"
 			/>
 		</Component>
 	);
@@ -657,13 +657,13 @@ function CodeBlockIcon({
 	if (preset != null) {
 		switch (preset) {
 			case "file":
-				svg = <FileText weight="fill" />;
+				svg = <FileTextIcon weight="fill" />;
 				break;
 			case "cli":
-				svg = <Terminal weight="fill" />;
+				svg = <TerminalIcon weight="fill" />;
 				break;
 			case "traffic-policy":
-				svg = <TrafficPolicyFile />;
+				svg = <TrafficPolicyFileIcon />;
 				break;
 		}
 	}

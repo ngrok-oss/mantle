@@ -1,9 +1,9 @@
 "use client";
 
-import { CheckCircle } from "@phosphor-icons/react/CheckCircle";
-import { Info } from "@phosphor-icons/react/Info";
-import { Warning } from "@phosphor-icons/react/Warning";
-import { WarningDiamond } from "@phosphor-icons/react/WarningDiamond";
+import { CheckCircleIcon } from "@phosphor-icons/react/CheckCircle";
+import { InfoIcon } from "@phosphor-icons/react/Info";
+import { WarningIcon } from "@phosphor-icons/react/Warning";
+import { WarningDiamondIcon } from "@phosphor-icons/react/WarningDiamond";
 import { Slot } from "@radix-ui/react-slot";
 import {
 	type ComponentProps,
@@ -178,7 +178,7 @@ const ToastIcon = forwardRef<ComponentRef<"svg">, ToastIconProps>(
 					<Icon
 						className={cx("text-danger-600", className)}
 						ref={ref}
-						svg={svg ?? <Warning weight="fill" />}
+						svg={svg ?? <WarningIcon weight="fill" />}
 						{...props}
 					/>
 				);
@@ -187,7 +187,7 @@ const ToastIcon = forwardRef<ComponentRef<"svg">, ToastIconProps>(
 					<Icon
 						className={cx("text-warning-600", className)}
 						ref={ref}
-						svg={svg ?? <WarningDiamond weight="fill" />}
+						svg={svg ?? <WarningDiamondIcon weight="fill" />}
 						{...props}
 					/>
 				);
@@ -196,7 +196,7 @@ const ToastIcon = forwardRef<ComponentRef<"svg">, ToastIconProps>(
 					<Icon
 						className={cx("text-success-600", className)}
 						ref={ref}
-						svg={svg ?? <CheckCircle weight="fill" />}
+						svg={svg ?? <CheckCircleIcon weight="fill" />}
 						{...props}
 					/>
 				);
@@ -206,7 +206,7 @@ const ToastIcon = forwardRef<ComponentRef<"svg">, ToastIconProps>(
 						//
 						className={cx("text-accent-600", className)}
 						ref={ref}
-						svg={<Info weight="fill" />}
+						svg={<InfoIcon weight="fill" />}
 						{...props}
 					/>
 				);

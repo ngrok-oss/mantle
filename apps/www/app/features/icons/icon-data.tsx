@@ -1,4 +1,4 @@
-import { Sort, TrafficPolicyFile } from "@ngrok/mantle/icons";
+import { SortIcon, TrafficPolicyFileIcon } from "@ngrok/mantle/icons";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import type { ReactNode } from "react";
 
@@ -24,7 +24,7 @@ const iconData = [
 				</p>
 			</div>
 		),
-		Icon: <Sort mode="time" direction="newest-to-oldest" />,
+		Icon: <SortIcon mode="time" direction="newest-to-oldest" />,
 		tags: [
 			//,
 			"desc",
@@ -49,7 +49,7 @@ const iconData = [
 				</p>
 			</div>
 		),
-		Icon: <Sort mode="time" direction="oldest-to-newest" />,
+		Icon: <SortIcon mode="time" direction="oldest-to-newest" />,
 		tags: [
 			//,
 			"asc",
@@ -74,7 +74,7 @@ const iconData = [
 				</p>
 			</div>
 		),
-		Icon: <Sort mode="alphanumeric" direction="asc" />,
+		Icon: <SortIcon mode="alphanumeric" direction="asc" />,
 		tags: [
 			//,
 			"alphanumeric",
@@ -98,7 +98,7 @@ const iconData = [
 				</p>
 			</div>
 		),
-		Icon: <Sort mode="alphanumeric" direction="desc" />,
+		Icon: <SortIcon mode="alphanumeric" direction="desc" />,
 		tags: [
 			//,
 			"alphanumeric",
@@ -115,7 +115,7 @@ const iconData = [
 		description: (
 			<p className="text-muted">The ngrok traffic policy file icon</p>
 		),
-		Icon: <TrafficPolicyFile />,
+		Icon: <TrafficPolicyFileIcon />,
 		tags: [
 			//,
 			"file",

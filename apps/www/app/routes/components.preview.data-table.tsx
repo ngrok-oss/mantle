@@ -32,9 +32,9 @@ import {
 import { Icon } from "@ngrok/mantle/icon";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { TableCell } from "@ngrok/mantle/table";
-import { DotsThree } from "@phosphor-icons/react/DotsThree";
-import { PencilSimple } from "@phosphor-icons/react/PencilSimple";
-import { TrashSimple } from "@phosphor-icons/react/TrashSimple";
+import { DotsThreeIcon } from "@phosphor-icons/react/DotsThree";
+import { PencilSimpleIcon } from "@phosphor-icons/react/PencilSimple";
+import { TrashSimpleIcon } from "@phosphor-icons/react/TrashSimple";
 import { useMemo } from "react";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
@@ -455,15 +455,15 @@ const columns = [
 							type="button"
 							size="sm"
 							label="Open actions"
-							icon={<DotsThree weight="bold" />}
+							icon={<DotsThreeIcon weight="bold" />}
 						/>
 					</DropdownMenuTrigger>
 					<DropdownMenuContent align="end">
 						<DropdownMenuItem className="flex items-center gap-2">
-							<Icon svg={<PencilSimple />} /> Edit
+							<Icon svg={<PencilSimpleIcon />} /> Edit
 						</DropdownMenuItem>
 						<DropdownMenuItem className="text-danger-600 flex items-center gap-2">
-							<Icon svg={<TrashSimple />} />
+							<Icon svg={<TrashSimpleIcon />} />
 							Delete
 						</DropdownMenuItem>
 					</DropdownMenuContent>

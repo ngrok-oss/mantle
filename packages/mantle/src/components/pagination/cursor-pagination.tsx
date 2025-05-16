@@ -1,5 +1,5 @@
-import { CaretLeft } from "@phosphor-icons/react/CaretLeft";
-import { CaretRight } from "@phosphor-icons/react/CaretRight";
+import { CaretLeftIcon } from "@phosphor-icons/react/CaretLeft";
+import { CaretRightIcon } from "@phosphor-icons/react/CaretRight";
 import { Slot } from "@radix-ui/react-slot";
 import {
 	type ComponentProps,
@@ -121,7 +121,7 @@ const CursorButtons = forwardRef<
 				<IconButton
 					appearance="ghost"
 					disabled={!hasPreviousPage}
-					icon={<CaretLeft />}
+					icon={<CaretLeftIcon />}
 					label="Previous page"
 					onClick={onPreviousPage}
 					size="sm"
@@ -131,7 +131,7 @@ const CursorButtons = forwardRef<
 				<IconButton
 					appearance="ghost"
 					disabled={!hasNextPage}
-					icon={<CaretRight />}
+					icon={<CaretRightIcon />}
 					label="Next page"
 					onClick={onNextPage}
 					size="sm"

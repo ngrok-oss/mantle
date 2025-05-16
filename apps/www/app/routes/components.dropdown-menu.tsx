@@ -23,13 +23,14 @@ import {
 	DropdownMenuSubTrigger,
 	DropdownMenuTrigger,
 } from "@ngrok/mantle/dropdown-menu";
+import { Icon } from "@ngrok/mantle/icon";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import type { Theme } from "@ngrok/mantle/theme-provider";
-import { Desktop } from "@phosphor-icons/react/Desktop";
-import { Gear } from "@phosphor-icons/react/Gear";
-import { Moon } from "@phosphor-icons/react/Moon";
-import { SignOut } from "@phosphor-icons/react/SignOut";
-import { Sun } from "@phosphor-icons/react/Sun";
+import { DesktopIcon } from "@phosphor-icons/react/Desktop";
+import { GearIcon } from "@phosphor-icons/react/Gear";
+import { MoonIcon } from "@phosphor-icons/react/Moon";
+import { SignOutIcon } from "@phosphor-icons/react/SignOut";
+import { SunIcon } from "@phosphor-icons/react/Sun";
 import { useState } from "react";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
@@ -90,29 +91,29 @@ export default function Page() {
 									}}
 								>
 									<DropdownMenuRadioItem value="system">
-										<Desktop />
+										<Icon svg={<DesktopIcon />} />
 										System Preference
 									</DropdownMenuRadioItem>
 									<DropdownMenuRadioItem value="light">
-										<Sun />
+										<Icon svg={<SunIcon />} />
 										Light Mode
 									</DropdownMenuRadioItem>
 									<DropdownMenuRadioItem value="dark">
-										<Moon />
+										<Icon svg={<MoonIcon />} />
 										Dark Mode
 									</DropdownMenuRadioItem>
 									<DropdownMenuRadioItem value="light-high-contrast">
-										<Sun weight="fill" />
+										<Icon svg={<SunIcon weight="fill" />} />
 										Light High Contrast
 									</DropdownMenuRadioItem>
 									<DropdownMenuRadioItem value="dark-high-contrast">
-										<Moon weight="fill" />
+										<Icon svg={<MoonIcon weight="fill" />} />
 										Dark High Contrast
 									</DropdownMenuRadioItem>
 								</DropdownMenuRadioGroup>
 								<DropdownMenuSeparator />
 								<DropdownMenuItem className="flex items-center gap-2">
-									<Gear />
+									<Icon svg={<GearIcon />} />
 									User Settings
 								</DropdownMenuItem>
 								<DropdownMenuSeparator />
@@ -154,7 +155,7 @@ export default function Page() {
 								</DropdownMenuGroup>
 								<DropdownMenuSeparator />
 								<DropdownMenuItem className="flex items-center gap-2">
-									<SignOut />
+									<Icon svg={<SignOutIcon />} />
 									Log out
 								</DropdownMenuItem>
 							</DropdownMenuContent>
@@ -180,29 +181,29 @@ export default function Page() {
 									}}
 								>
 									<DropdownMenuRadioItem value="system">
-										<Desktop />
+										<Icon svg={<DesktopIcon />} />
 										System Preference
 									</DropdownMenuRadioItem>
 									<DropdownMenuRadioItem value="light">
-										<Sun />
+										<Icon svg={<SunIcon />} />
 										Light Mode
 									</DropdownMenuRadioItem>
 									<DropdownMenuRadioItem value="dark">
-										<Moon />
+										<Icon svg={<MoonIcon />} />
 										Dark Mode
 									</DropdownMenuRadioItem>
 									<DropdownMenuRadioItem value="light-high-contrast">
-										<Sun weight="fill" />
+										<Icon svg={<SunIcon weight="fill" />} />
 										Light High Contrast
 									</DropdownMenuRadioItem>
 									<DropdownMenuRadioItem value="dark-high-contrast">
-										<Moon weight="fill" />
+										<Icon svg={<MoonIcon weight="fill" />} />
 										Dark High Contrast
 									</DropdownMenuRadioItem>
 								</DropdownMenuRadioGroup>
 								<DropdownMenuSeparator />
 								<DropdownMenuItem className="flex items-center gap-2">
-									<Gear />
+									<Icon svg={<GearIcon />} />
 									User Settings
 								</DropdownMenuItem>
 								<DropdownMenuSeparator />
@@ -244,7 +245,7 @@ export default function Page() {
 								</DropdownMenuGroup>
 								<DropdownMenuSeparator />
 								<DropdownMenuItem className="flex items-center gap-2">
-									<SignOut />
+									<Icon svg={<SignOutIcon />} />
 									Log out
 								</DropdownMenuItem>
 							</DropdownMenuContent>
@@ -266,6 +267,7 @@ export default function Page() {
 							DropdownMenuSeparator,
 							DropdownMenuTrigger,
 						} from "@ngrok/mantle/dropdown-menu";
+						import { Icon } from "@ngrok/mantle/icon";
 
 						<DropdownMenu>
 							<DropdownMenuTrigger asChild>
@@ -275,33 +277,33 @@ export default function Page() {
 								<DropdownMenuLabel>micah@ngrok.com</DropdownMenuLabel>
 								<DropdownMenuSeparator />
 								<DropdownMenuRadioItem name="theme" value="system">
-									<Desktop />
+									<Icon svg={<DesktopIcon />} />
 									System Preference
 								</DropdownMenuRadioItem>
 								<DropdownMenuRadioItem name="theme" value="light">
-									<Sun />
+									<Icon svg={<SunIcon />} />
 									Light Mode
 								</DropdownMenuRadioItem>
 								<DropdownMenuRadioItem name="theme" value="dark">
-									<Moon />
+									<Icon svg={<MoonIcon />} />
 									Dark Mode
 								</DropdownMenuRadioItem>
 								<DropdownMenuRadioItem name="theme" value="light-high-contrast">
-									<Sun weight="fill" />
+									<Icon svg={<SunIcon weight="fill" />} />
 									Light High Contrast
 								</DropdownMenuRadioItem>
 								<DropdownMenuRadioItem name="theme" value="dark-high-contrast">
-									<Moon weight="fill" />
+									<Icon svg={<MoonIcon weight="fill" />} />
 									Dark High Contrast
 								</DropdownMenuRadioItem>
 								<DropdownMenuSeparator />
 								<DropdownMenuItem>
-									<Gear />
+									<Icon svg={<GearIcon />} />
 									User Settings
 								</DropdownMenuItem>
 								<DropdownMenuSeparator />
 								<DropdownMenuItem>
-									<SignOut />
+									<Icon svg={<SignOutIcon />} />
 									Log out
 								</DropdownMenuItem>
 							</DropdownMenuContent>

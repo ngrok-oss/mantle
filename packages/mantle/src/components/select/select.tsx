@@ -1,6 +1,6 @@
-import { CaretDown } from "@phosphor-icons/react/CaretDown";
-import { CaretUp } from "@phosphor-icons/react/CaretUp";
-import { Check } from "@phosphor-icons/react/Check";
+import { CaretDownIcon } from "@phosphor-icons/react/CaretDown";
+import { CaretUpIcon } from "@phosphor-icons/react/CaretUp";
+import { CheckIcon } from "@phosphor-icons/react/Check";
 import * as SelectPrimitive from "@radix-ui/react-select";
 import type {
 	ComponentProps,
@@ -14,6 +14,7 @@ import type {
 import { createContext, forwardRef, useContext } from "react";
 import { composeRefs } from "../../utils/compose-refs/compose-refs.js";
 import { cx } from "../../utils/cx/cx.js";
+import { Icon } from "../icon/icon.js";
 import type { WithValidation } from "../input/types.js";
 import { Separator } from "../separator/separator.js";
 
@@ -240,7 +241,7 @@ const SelectTrigger = forwardRef<
 			>
 				{children}
 				<SelectPrimitive.Icon asChild>
-					<CaretDown className="size-4 shrink-0" weight="bold" />
+					<Icon svg={<CaretDownIcon weight="bold" />} className="size-4" />
 				</SelectPrimitive.Icon>
 			</SelectPrimitive.Trigger>
 		);
@@ -264,7 +265,7 @@ const SelectScrollUpButton = forwardRef<
 		)}
 		{...props}
 	>
-		<CaretUp className="size-4 shrink-0" weight="bold" />
+		<Icon svg={<CaretUpIcon weight="bold" />} className="size-4" />
 	</SelectPrimitive.ScrollUpButton>
 ));
 SelectScrollUpButton.displayName = "SelectScrollUpButton";
@@ -285,7 +286,7 @@ const SelectScrollDownButton = forwardRef<
 		)}
 		{...props}
 	>
-		<CaretDown className="size-4 shrink-0" weight="bold" />
+		<Icon svg={<CaretDownIcon weight="bold" />} className="size-4" />
 	</SelectPrimitive.ScrollDownButton>
 ));
 SelectScrollDownButton.displayName = "SelectScrollDownButton";
@@ -432,7 +433,7 @@ const SelectItem = forwardRef<
 	>
 		<SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
 		<SelectPrimitive.ItemIndicator className="absolute right-2 flex h-3.5 w-3.5 items-center justify-center">
-			<Check className="size-4 shrink-0" weight="bold" />
+			<Icon svg={<CheckIcon weight="bold" />} className="size-4" />
 		</SelectPrimitive.ItemIndicator>
 	</SelectPrimitive.Item>
 ));

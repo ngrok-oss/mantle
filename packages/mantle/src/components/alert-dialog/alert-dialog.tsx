@@ -1,7 +1,7 @@
 "use client";
 
-import { Info } from "@phosphor-icons/react/Info";
-import { Warning } from "@phosphor-icons/react/Warning";
+import { InfoIcon } from "@phosphor-icons/react/Info";
+import { WarningIcon } from "@phosphor-icons/react/Warning";
 import { Slot } from "@radix-ui/react-slot";
 import {
 	type ComponentProps,
@@ -707,7 +707,8 @@ const AlertDialogIcon = forwardRef<ComponentRef<"svg">, AlertDialogIconProps>(
 		const ctx = useAlertDialogContext();
 		const defaultColor =
 			ctx.priority === "danger" ? "text-danger-600" : "text-accent-600";
-		const defaultIcon = ctx.priority === "danger" ? <Warning /> : <Info />;
+		const defaultIcon =
+			ctx.priority === "danger" ? <WarningIcon /> : <InfoIcon />;
 
 		return (
 			<SvgOnly

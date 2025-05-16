@@ -1,5 +1,5 @@
-import { SortAscending } from "@phosphor-icons/react/SortAscending";
-import { SortDescending } from "@phosphor-icons/react/SortDescending";
+import { SortAscendingIcon } from "@phosphor-icons/react/SortAscending";
+import { SortDescendingIcon } from "@phosphor-icons/react/SortDescending";
 import {
 	$timeSortingDirection,
 	type AlphanumericSortingDirection,
@@ -35,14 +35,14 @@ type Props = SvgAttributes &
  * A sorting icon that can be used to indicate the sorting direction of a table column or list.
  * It is aware of the sorting mode (alphanumeric or time) and the sorting direction (ascending or descending).
  */
-const Sort = ({ mode, direction, ...props }: Props) => {
+const SortIcon = ({ mode, direction, ...props }: Props) => {
 	switch (mode) {
 		case "alphanumeric": {
 			switch (direction) {
 				case "asc":
-					return <SortAscending {...props} />;
+					return <SortAscendingIcon {...props} />;
 				case "desc":
-					return <SortDescending {...props} />;
+					return <SortDescendingIcon {...props} />;
 				default:
 					throw new Error(
 						`Invalid alphanumeric sorting direction given: "${direction}"`,
@@ -54,9 +54,9 @@ const Sort = ({ mode, direction, ...props }: Props) => {
 
 			switch (timeSortingDirection) {
 				case "oldest-to-newest":
-					return <SortDescending {...props} />;
+					return <SortDescendingIcon {...props} />;
 				case "newest-to-oldest":
-					return <SortAscending {...props} />;
+					return <SortAscendingIcon {...props} />;
 				default:
 					throw new Error(
 						`Invalid time sorting direction given: "${direction}"`,
@@ -65,9 +65,9 @@ const Sort = ({ mode, direction, ...props }: Props) => {
 		}
 	}
 };
-Sort.displayName = "Sort";
+SortIcon.displayName = "SortIcon";
 
 export {
 	//,
-	Sort,
+	SortIcon,
 };

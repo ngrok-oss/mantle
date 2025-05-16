@@ -9,7 +9,7 @@ import {
 } from "@ngrok/mantle/code-block";
 import { colors } from "@ngrok/mantle/color";
 import { InlineCode } from "@ngrok/mantle/inline-code";
-import { GlobeHemisphereWest } from "@phosphor-icons/react/GlobeHemisphereWest";
+import { GlobeHemisphereWestIcon } from "@phosphor-icons/react/GlobeHemisphereWest";
 import { href } from "react-router";
 import { Example } from "~/components/example";
 import { Link } from "~/components/link";
@@ -63,7 +63,7 @@ export default function Page() {
 									<Badge
 										appearance="muted"
 										color={color}
-										icon={<GlobeHemisphereWest />}
+										icon={<GlobeHemisphereWestIcon />}
 									>
 										Muted {color}
 									</Badge>
@@ -78,12 +78,12 @@ export default function Page() {
 								language="tsx"
 								value={fmtCode`
 									import { Badge } from "@ngrok/mantle/badge";
-									import { GlobeHemisphereWest } from "@phosphor-icons/react/GlobeHemisphereWest";
+									import { GlobeHemisphereWestIcon } from "@phosphor-icons/react/GlobeHemisphereWest";
 
 									<Badge appearance="muted" color="neutral">
 										Muted neutral
 									</Badge>
-									<Badge appearance="muted" color="neutral" icon={<GlobeHemisphereWest />}>
+									<Badge appearance="muted" color="neutral" icon={<GlobeHemisphereWestIcon />}>
 										Muted neutral
 									</Badge>
 								`}
@@ -110,7 +110,7 @@ export default function Page() {
 							appearance="muted"
 							asChild
 							color="pink"
-							icon={<GlobeHemisphereWest />}
+							icon={<GlobeHemisphereWestIcon />}
 						>
 							<Link to={href("/base/colors")}>See our colors!</Link>
 						</Badge>
@@ -122,10 +122,10 @@ export default function Page() {
 								language="tsx"
 								value={fmtCode`
 									import { Badge } from "@ngrok/mantle/badge";
-									import { GlobeHemisphereWest } from "@phosphor-icons/react/GlobeHemisphereWest";
+									import { GlobeHemisphereWestIcon } from "@phosphor-icons/react/GlobeHemisphereWest";
 									import { Link, href } from "react-router";
 
-									<Badge appearance="muted" asChild color="pink" icon={<GlobeHemisphereWest />}>
+									<Badge appearance="muted" asChild color="pink" icon={<GlobeHemisphereWestIcon />}>
 										<Link to={href("/base/colors")}>See our colors!</Link>
 									</Badge>
 								`}

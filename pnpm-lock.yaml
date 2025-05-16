@@ -38,8 +38,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/mantle
       '@phosphor-icons/react':
-        specifier: 2.1.7
-        version: 2.1.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 2.1.8
+        version: 2.1.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@react-router/fs-routes':
         specifier: 7.6.0
         version: 7.6.0(@react-router/dev@7.6.0(@react-router/serve@7.6.0(react-router@7.6.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.8.3))(@types/node@22.15.18)(jiti@1.21.7)(react-router@7.6.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.8.3)(vite@6.3.5(@types/node@22.15.18)(jiti@1.21.7)(yaml@2.8.0))(yaml@2.8.0))(typescript@5.8.3)
@@ -199,8 +199,8 @@ importers:
         specifier: workspace:*
         version: link:../../config/tsconfig
       '@phosphor-icons/react':
-        specifier: 2.1.7
-        version: 2.1.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 2.1.8
+        version: 2.1.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@testing-library/dom':
         specifier: 10.4.0
         version: 10.4.0
@@ -823,8 +823,8 @@ packages:
     resolution: {integrity: sha512-gGq0NJkIGSwdbUt4yhdF8ZrmkGKVz9vAdVzpOfnom+V8PLSmSOVhZwbNvZZS1EYcJN5hzzKBxmmVVAInM6HQLg==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
 
-  '@phosphor-icons/react@2.1.7':
-    resolution: {integrity: sha512-g2e2eVAn1XG2a+LI09QU3IORLhnFNAFkNbo2iwbX6NOKSLOwvEMmTa7CgOzEbgNWR47z8i8kwjdvYZ5fkGx1mQ==}
+  '@phosphor-icons/react@2.1.8':
+    resolution: {integrity: sha512-RxJlAkErO+t50DsY82ga9RGOULK6Jux0MdmXqvDjtOzG3PYQFz6rjdUU2q06lPMMbJTT+d+qurKYmF7i2Uv74A==}
     engines: {node: '>=10'}
     peerDependencies:
       react: '>= 16.8'
@@ -4097,7 +4097,7 @@ snapshots:
     dependencies:
       which: 3.0.1
 
-  '@phosphor-icons/react@2.1.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@phosphor-icons/react@2.1.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)

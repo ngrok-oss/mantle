@@ -11,8 +11,9 @@ import {
 	HoverCardContent,
 	HoverCardTrigger,
 } from "@ngrok/mantle/hover-card";
-import { Calendar } from "@phosphor-icons/react/Calendar";
-import { Shrimp } from "@phosphor-icons/react/Shrimp";
+import { Icon } from "@ngrok/mantle/icon";
+import { CalendarIcon } from "@phosphor-icons/react/Calendar";
+import { ShrimpIcon } from "@phosphor-icons/react/Shrimp";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/components.hover-card";
@@ -51,7 +52,7 @@ export default function Page() {
 						<HoverCardContent className="w-80">
 							<div className="flex justify-between space-x-4">
 								<div className="flex size-16 shrink-0 items-center justify-center rounded-full bg-pink-300">
-									<Shrimp className="size-12" />
+									<Icon svg={<ShrimpIcon />} className="size-12" />
 								</div>
 								<div className="space-y-1">
 									<h4 className="text-sm font-semibold">@ngrok/mantle</h4>
@@ -59,7 +60,10 @@ export default function Page() {
 										The Design System – created and maintained by @ngrok.
 									</p>
 									<div className="flex items-center pt-2">
-										<Calendar className="mr-2 h-4 w-4 opacity-70" />{" "}
+										<Icon
+											svg={<CalendarIcon />}
+											className="mr-2 h-4 w-4 opacity-70"
+										/>{" "}
 										<span className="text-muted-foreground text-xs">
 											Joined November 2023
 										</span>
@@ -77,8 +81,9 @@ export default function Page() {
 							value={fmtCode`
 								import { Button } from "@ngrok/mantle/button";
 								import { HoverCard, HoverCardContent, HoverCardTrigger } from "@ngrok/mantle/hover-card";
-								import { Calendar } from "@phosphor-icons/react/Calendar";
-								import { Shrimp } from "@phosphor-icons/react/Shrimp";
+								import { Icon } from "@ngrok/mantle/icon";
+								import { CalendarIcon } from "@phosphor-icons/react/Calendar";
+								import { ShrimpIcon } from "@phosphor-icons/react/Shrimp";
 
 								<HoverCard>
 									<HoverCardTrigger asChild>
@@ -89,13 +94,13 @@ export default function Page() {
 									<HoverCardContent className="w-80">
 										<div className="flex justify-between space-x-4">
 											<div className="flex size-16 shrink-0 items-center justify-center rounded-full bg-pink-300">
-												<Shrimp className="size-12" />
+												<Icon svg={<ShrimpIcon />} className="size-12" />
 											</div>
 											<div className="space-y-1">
 												<h4 className="text-sm font-semibold">@ngrok/mantle</h4>
 												<p className="text-sm">The Design System – created and maintained by @ngrok.</p>
 												<div className="flex items-center pt-2">
-													<Calendar className="mr-2 h-4 w-4 opacity-70" />{" "}
+													<Icon svg={<CalendarIcon />} className="mr-2 h-4 w-4 opacity-70" />{" "}
 													<span className="text-muted-foreground text-xs">Joined November 2023</span>
 												</div>
 											</div>

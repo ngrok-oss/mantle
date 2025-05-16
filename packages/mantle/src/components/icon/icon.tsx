@@ -23,9 +23,9 @@ type IconProps = Omit<SvgAttributes, "children"> & {
  *
  * @example
  * ```tsx
- * import { Shrimp } from "@phosphor-icons/react/Shrimp";
+ * import { ShrimpIcon } from "@phosphor-icons/react/Shrimp";
  *
- * <Icon svg={<Shrimp />} />
+ * <Icon svg={<ShrimpIcon />} />
  * ```
  */
 const Icon = forwardRef<ComponentRef<"svg">, IconProps>(

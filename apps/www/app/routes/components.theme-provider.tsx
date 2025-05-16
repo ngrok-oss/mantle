@@ -5,6 +5,7 @@ import {
 	CodeBlockCopyButton,
 	CodeBlockExpanderButton,
 	CodeBlockHeader,
+	CodeBlockIcon,
 	CodeBlockTitle,
 	fmtCode,
 } from "@ngrok/mantle/code-block";
@@ -13,7 +14,7 @@ import {
 	PreloadFonts,
 	preventWrongThemeFlashScriptContent,
 } from "@ngrok/mantle/theme-provider";
-import { FileText } from "@phosphor-icons/react/FileText";
+import { FileTextIcon } from "@phosphor-icons/react/FileText";
 import { renderToStaticMarkup } from "react-dom/server";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/components.theme-provider";
@@ -58,7 +59,7 @@ export default function Page() {
 				</p>
 				<CodeBlock>
 					<CodeBlockHeader>
-						<FileText className="h-5 w-5" weight="fill" />
+						<CodeBlockIcon svg={<FileTextIcon weight="fill" />} />
 						<CodeBlockTitle>root.tsx</CodeBlockTitle>
 					</CodeBlockHeader>
 					<CodeBlockBody>
@@ -105,7 +106,7 @@ export default function Page() {
 				</p>
 				<CodeBlock>
 					<CodeBlockHeader>
-						<FileText className="h-5 w-5" weight="fill" />
+						<CodeBlockIcon svg={<FileTextIcon weight="fill" />} />
 						<CodeBlockTitle>index.html</CodeBlockTitle>
 					</CodeBlockHeader>
 					<CodeBlockBody>
@@ -128,7 +129,7 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 				</p>
 				<CodeBlock>
 					<CodeBlockHeader>
-						<FileText className="h-5 w-5" weight="fill" />
+						<CodeBlockIcon svg={<FileTextIcon weight="fill" />} />
 						<CodeBlockTitle>index.html</CodeBlockTitle>
 					</CodeBlockHeader>
 					<CodeBlockBody>
@@ -150,7 +151,7 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 				</p>
 				<CodeBlock>
 					<CodeBlockHeader>
-						<FileText className="h-5 w-5" weight="fill" />
+						<CodeBlockIcon svg={<FileTextIcon weight="fill" />} />
 						<CodeBlockTitle>app.tsx</CodeBlockTitle>
 					</CodeBlockHeader>
 					<CodeBlockBody>

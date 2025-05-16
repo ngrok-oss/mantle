@@ -3,7 +3,7 @@ import type { SvgAttributes } from "../icon/types.js";
 /**
  * An icon representing a traffic policy file.
  */
-function TrafficPolicyFile(props: SvgAttributes) {
+function TrafficPolicyFileIcon(props: SvgAttributes) {
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -22,5 +22,5 @@ function TrafficPolicyFile(props: SvgAttributes) {
 
 export {
 	//,
-	TrafficPolicyFile,
+	TrafficPolicyFileIcon,
 };
