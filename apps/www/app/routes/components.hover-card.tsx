@@ -12,8 +12,8 @@ import {
 	HoverCardTrigger,
 } from "@ngrok/mantle/hover-card";
 import { Icon } from "@ngrok/mantle/icon";
-import { CalendarIcon } from "@phosphor-icons/react/Calendar";
-import { ShrimpIcon } from "@phosphor-icons/react/Shrimp";
+import { CalendarIcon } from "@phosphor-icons/react";
+import { ShrimpIcon } from "@phosphor-icons/react";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/components.hover-card";
@@ -82,8 +82,8 @@ export default function Page() {
 								import { Button } from "@ngrok/mantle/button";
 								import { HoverCard, HoverCardContent, HoverCardTrigger } from "@ngrok/mantle/hover-card";
 								import { Icon } from "@ngrok/mantle/icon";
-								import { CalendarIcon } from "@phosphor-icons/react/Calendar";
-								import { ShrimpIcon } from "@phosphor-icons/react/Shrimp";
+								import { CalendarIcon } from "@phosphor-icons/react";
+								import { ShrimpIcon } from "@phosphor-icons/react";
 
 								<HoverCard>
 									<HoverCardTrigger asChild>

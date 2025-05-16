@@ -1,9 +1,9 @@
 "use client";
 
-import { CheckCircleIcon } from "@phosphor-icons/react/CheckCircle";
-import { InfoIcon } from "@phosphor-icons/react/Info";
-import { WarningIcon } from "@phosphor-icons/react/Warning";
-import { WarningDiamondIcon } from "@phosphor-icons/react/WarningDiamond";
+import { CheckCircleIcon } from "@phosphor-icons/react";
+import { InfoIcon } from "@phosphor-icons/react";
+import { WarningIcon } from "@phosphor-icons/react";
+import { WarningDiamondIcon } from "@phosphor-icons/react";
 import { Slot } from "@radix-ui/react-slot";
 import {
 	type ComponentProps,

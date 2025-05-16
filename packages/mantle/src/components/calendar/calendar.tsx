@@ -1,7 +1,7 @@
 "use client";
 
-import { CaretLeftIcon } from "@phosphor-icons/react/CaretLeft";
-import { CaretRightIcon } from "@phosphor-icons/react/CaretRight";
+import { CaretLeftIcon } from "@phosphor-icons/react";
+import { CaretRightIcon } from "@phosphor-icons/react";
 import type { ComponentProps } from "react";
 import { DayPicker } from "react-day-picker";
 import { cx } from "../../utils/cx/cx.js";

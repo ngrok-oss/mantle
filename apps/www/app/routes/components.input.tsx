@@ -10,8 +10,8 @@ import {
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Input, InputCapture } from "@ngrok/mantle/input";
 import { Label } from "@ngrok/mantle/label";
-import { InfoIcon } from "@phosphor-icons/react/Info";
-import { MagnifyingGlassIcon } from "@phosphor-icons/react/MagnifyingGlass";
+import { InfoIcon } from "@phosphor-icons/react";
+import { MagnifyingGlassIcon } from "@phosphor-icons/react";
 import { Link, href } from "react-router";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
@@ -199,8 +199,8 @@ export default function Page() {
 								value={fmtCode`
 									import { Input, InputCapture } from "@ngrok/mantle/input";
 									import { Label } from "@ngrok/mantle/label";
-									import { InfoIcon } from "@phosphor-icons/react/Info";
-									import { MagnifyingGlassIcon } from "@phosphor-icons/react/MagnifyingGlass";
+									import { InfoIcon } from "@phosphor-icons/react";
+									import { MagnifyingGlassIcon } from "@phosphor-icons/react";
 
 									<Label className="block w-full max-w-80 space-y-1">
 										<p>Search with start icon</p>

@@ -1,7 +1,7 @@
 import { Badge } from "@ngrok/mantle/badge";
 import type { WithStyleProps } from "@ngrok/mantle/types";
-import { HandPalmIcon } from "@phosphor-icons/react/HandPalm";
-import { SparkleIcon } from "@phosphor-icons/react/Sparkle";
+import { HandPalmIcon } from "@phosphor-icons/react";
+import { SparkleIcon } from "@phosphor-icons/react";
 
 const PreviewBadge = ({ className, style }: WithStyleProps) => (
 	<Badge

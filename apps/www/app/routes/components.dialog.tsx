@@ -19,7 +19,7 @@ import {
 } from "@ngrok/mantle/dialog";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@ngrok/mantle/tooltip";
-import { TrashSimpleIcon } from "@phosphor-icons/react/TrashSimple";
+import { TrashSimpleIcon } from "@phosphor-icons/react";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/components.dialog";

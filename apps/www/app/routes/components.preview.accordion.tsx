@@ -17,7 +17,7 @@ import {
 	fmtCode,
 } from "@ngrok/mantle/code-block";
 import { Separator } from "@ngrok/mantle/separator";
-import { PlusIcon } from "@phosphor-icons/react/Plus";
+import { PlusIcon } from "@phosphor-icons/react";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/components.preview.accordion";

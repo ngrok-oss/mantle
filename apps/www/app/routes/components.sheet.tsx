@@ -23,9 +23,9 @@ import {
 	SheetTitleGroup,
 	SheetTrigger,
 } from "@ngrok/mantle/sheet";
-import { ListMagnifyingGlassIcon } from "@phosphor-icons/react/ListMagnifyingGlass";
-import { TerminalWindowIcon } from "@phosphor-icons/react/TerminalWindow";
-import { TrashSimpleIcon } from "@phosphor-icons/react/TrashSimple";
+import { ListMagnifyingGlassIcon } from "@phosphor-icons/react";
+import { TerminalWindowIcon } from "@phosphor-icons/react";
+import { TrashSimpleIcon } from "@phosphor-icons/react";
 import { useState } from "react";
 import { Link, href } from "react-router";
 import { Example } from "~/components/example";
@@ -193,9 +193,9 @@ export default function Page() {
 										SheetTitleGroup,
 										SheetTrigger,
 									} from "@ngrok/mantle/sheet";
-									import { ListMagnifyingGlassIcon } from "@phosphor-icons/react/ListMagnifyingGlass";
-									import { TerminalWindowIcon } from "@phosphor-icons/react/TerminalWindow";
-									import { TrashSimpleIcon } from "@phosphor-icons/react/TrashSimple";
+									import { ListMagnifyingGlassIcon } from "@phosphor-icons/react";
+									import { TerminalWindowIcon } from "@phosphor-icons/react";
+									import { TrashSimpleIcon } from "@phosphor-icons/react";
 
 									<Sheet>
 										<SheetTrigger asChild>

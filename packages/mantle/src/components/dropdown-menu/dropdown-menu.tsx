@@ -1,5 +1,5 @@
-import { CaretRightIcon } from "@phosphor-icons/react/CaretRight";
-import { CheckIcon } from "@phosphor-icons/react/Check";
+import { CaretRightIcon } from "@phosphor-icons/react";
+import { CheckIcon } from "@phosphor-icons/react";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import type { ComponentPropsWithoutRef, ComponentRef } from "react";
 import { forwardRef } from "react";

@@ -1,5 +1,5 @@
-import { EyeIcon } from "@phosphor-icons/react/Eye";
-import { EyeClosedIcon } from "@phosphor-icons/react/EyeClosed";
+import { EyeIcon } from "@phosphor-icons/react";
+import { EyeClosedIcon } from "@phosphor-icons/react";
 import { forwardRef, useEffect, useState } from "react";
 import type { InputHTMLAttributes } from "react";
 import { Icon } from "../icon/icon.js";

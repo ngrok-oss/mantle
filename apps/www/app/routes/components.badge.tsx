@@ -9,7 +9,7 @@ import {
 } from "@ngrok/mantle/code-block";
 import { colors } from "@ngrok/mantle/color";
 import { InlineCode } from "@ngrok/mantle/inline-code";
-import { GlobeHemisphereWestIcon } from "@phosphor-icons/react/GlobeHemisphereWest";
+import { GlobeHemisphereWestIcon } from "@phosphor-icons/react";
 import { href } from "react-router";
 import { Example } from "~/components/example";
 import { Link } from "~/components/link";
@@ -78,7 +78,7 @@ export default function Page() {
 								language="tsx"
 								value={fmtCode`
 									import { Badge } from "@ngrok/mantle/badge";
-									import { GlobeHemisphereWestIcon } from "@phosphor-icons/react/GlobeHemisphereWest";
+									import { GlobeHemisphereWestIcon } from "@phosphor-icons/react";
 
 									<Badge appearance="muted" color="neutral">
 										Muted neutral
@@ -122,7 +122,7 @@ export default function Page() {
 								language="tsx"
 								value={fmtCode`
 									import { Badge } from "@ngrok/mantle/badge";
-									import { GlobeHemisphereWestIcon } from "@phosphor-icons/react/GlobeHemisphereWest";
+									import { GlobeHemisphereWestIcon } from "@phosphor-icons/react";
 									import { Link, href } from "react-router";
 
 									<Badge appearance="muted" asChild color="pink" icon={<GlobeHemisphereWestIcon />}>

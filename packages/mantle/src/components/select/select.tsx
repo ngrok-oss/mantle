@@ -1,6 +1,6 @@
-import { CaretDownIcon } from "@phosphor-icons/react/CaretDown";
-import { CaretUpIcon } from "@phosphor-icons/react/CaretUp";
-import { CheckIcon } from "@phosphor-icons/react/Check";
+import { CaretDownIcon } from "@phosphor-icons/react";
+import { CaretUpIcon } from "@phosphor-icons/react";
+import { CheckIcon } from "@phosphor-icons/react";
 import * as SelectPrimitive from "@radix-ui/react-select";
 import type {
 	ComponentProps,

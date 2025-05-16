@@ -1,5 +1,5 @@
-import { SortAscendingIcon } from "@phosphor-icons/react/SortAscending";
-import { SortDescendingIcon } from "@phosphor-icons/react/SortDescending";
+import { SortAscendingIcon } from "@phosphor-icons/react";
+import { SortDescendingIcon } from "@phosphor-icons/react";
 import {
 	$timeSortingDirection,
 	type AlphanumericSortingDirection,

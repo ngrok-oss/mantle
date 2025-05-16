@@ -1,6 +1,6 @@
-import { CheckCircleIcon } from "@phosphor-icons/react/CheckCircle";
-import { WarningIcon } from "@phosphor-icons/react/Warning";
-import { WarningDiamondIcon } from "@phosphor-icons/react/WarningDiamond";
+import { CheckCircleIcon } from "@phosphor-icons/react";
+import { WarningIcon } from "@phosphor-icons/react";
+import { WarningDiamondIcon } from "@phosphor-icons/react";
 import clsx from "clsx";
 import type {
 	ComponentRef,

@@ -16,7 +16,7 @@ import {
 	ComboboxItemValue,
 	ComboboxSeparator,
 } from "@ngrok/mantle/combobox";
-import { CirclesThreePlusIcon } from "@phosphor-icons/react/CirclesThreePlus";
+import { CirclesThreePlusIcon } from "@phosphor-icons/react";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/components.preview.combobox";
@@ -106,7 +106,7 @@ export default function Page() {
 									ComboboxItemValue,
 									ComboboxSeparator,
 								} from "@ngrok/mantle/combobox";
-								import { CirclesThreePlusIcon } from "@phosphor-icons/react/CirclesThreePlus";
+								import { CirclesThreePlusIcon } from "@phosphor-icons/react";
 
 								<Combobox>
 									<ComboboxInput />
