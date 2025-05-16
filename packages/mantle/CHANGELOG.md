@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.28.1
+
+### Patch Changes
+
+- [#595](https://github.com/ngrok-oss/mantle/pull/595) [`26cdffa`](https://github.com/ngrok-oss/mantle/commit/26cdffa6a10da1a6eb7b868db892f3c60e15bef6) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Revert phosphor update
+
 ## 0.28.0
 
 ### Minor Changes
