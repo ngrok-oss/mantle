@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@ngrok/mantle": "workspace:*",
-    "@phosphor-icons/react": "2.1.7",
+    "@phosphor-icons/react": "2.1.8",
     "@react-router/fs-routes": "7.6.0",
     "@react-router/node": "7.6.0",
     "@react-router/serve": "7.6.0",
