@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.29.0
+
+### Minor Changes
+
+- [#603](https://github.com/ngrok-oss/mantle/pull/603) [`264dc1b`](https://github.com/ngrok-oss/mantle/commit/264dc1b8947b9c44fac3eef97e22446c249e0f17) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update dependencies; use named \*Icon imports from phosphor
+
 ## 0.28.1
 
 ### Patch Changes
