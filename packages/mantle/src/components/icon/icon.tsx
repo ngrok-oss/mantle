@@ -23,7 +23,7 @@ type IconProps = Omit<SvgAttributes, "children"> & {
  *
  * @example
  * ```tsx
- * import { Shrimp as ShrimpIcon } from "@phosphor-icons/react/Shrimp";
+ * import { ShrimpIcon } from "@phosphor-icons/react/Shrimp";
  *
  * <Icon svg={<ShrimpIcon />} />
  * ```

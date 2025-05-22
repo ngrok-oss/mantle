@@ -14,7 +14,7 @@ import {
 	PreloadFonts,
 	preventWrongThemeFlashScriptContent,
 } from "@ngrok/mantle/theme-provider";
-import { FileText as FileTextIcon } from "@phosphor-icons/react/FileText";
+import { FileTextIcon } from "@phosphor-icons/react/FileText";
 import { renderToStaticMarkup } from "react-dom/server";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/components.theme-provider";

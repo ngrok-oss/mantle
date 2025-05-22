@@ -1,8 +1,8 @@
-import { CaretDown as CaretDownIcon } from "@phosphor-icons/react/CaretDown";
-import { Check as CheckIcon } from "@phosphor-icons/react/Check";
-import { Copy as CopyIcon } from "@phosphor-icons/react/Copy";
-import { FileText as FileTextIcon } from "@phosphor-icons/react/FileText";
-import { Terminal as TerminalIcon } from "@phosphor-icons/react/Terminal";
+import { CaretDownIcon } from "@phosphor-icons/react/CaretDown";
+import { CheckIcon } from "@phosphor-icons/react/Check";
+import { CopyIcon } from "@phosphor-icons/react/Copy";
+import { FileTextIcon } from "@phosphor-icons/react/FileText";
+import { TerminalIcon } from "@phosphor-icons/react/Terminal";
 import { Slot } from "@radix-ui/react-slot";
 import clsx from "clsx";
 import type {

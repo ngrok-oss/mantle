@@ -7,8 +7,8 @@ import {
 	fmtCode,
 } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
-import { Book as BookIcon } from "@phosphor-icons/react/Book";
-import { Shrimp as ShrimpIcon } from "@phosphor-icons/react/Shrimp";
+import { BookIcon } from "@phosphor-icons/react/Book";
+import { ShrimpIcon } from "@phosphor-icons/react/Shrimp";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import {
@@ -111,8 +111,8 @@ export default function Page() {
 								language="tsx"
 								value={fmtCode`
 								import { Anchor } from "@ngrok/mantle/anchor";
-								import { Book as BookIcon } from "@phosphor-icons/react/Book";
-								import { Shrimp as ShrimpIcon } from "@phosphor-icons/react/Shrimp";
+								import { BookIcon } from "@phosphor-icons/react/Book";
+								import { ShrimpIcon } from "@phosphor-icons/react/Shrimp";
 
 								<p>
 									This link will go to <Anchor href="https://ngrok.com/">ngrok.com</Anchor>!
