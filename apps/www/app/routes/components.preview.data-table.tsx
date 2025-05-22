@@ -32,9 +32,9 @@ import {
 import { Icon } from "@ngrok/mantle/icon";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { TableCell } from "@ngrok/mantle/table";
-import { DotsThree as DotsThreeIcon } from "@phosphor-icons/react/DotsThree";
-import { PencilSimple as PencilSimpleIcon } from "@phosphor-icons/react/PencilSimple";
-import { TrashSimple as TrashSimpleIcon } from "@phosphor-icons/react/TrashSimple";
+import { DotsThreeIcon } from "@phosphor-icons/react/DotsThree";
+import { PencilSimpleIcon } from "@phosphor-icons/react/PencilSimple";
+import { TrashSimpleIcon } from "@phosphor-icons/react/TrashSimple";
 import { useMemo } from "react";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";

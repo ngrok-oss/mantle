@@ -4,7 +4,7 @@ import { Icon } from "@ngrok/mantle/icon";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Input } from "@ngrok/mantle/input";
 import { Label } from "@ngrok/mantle/label";
-import { Check as CheckIcon } from "@phosphor-icons/react/Check";
+import { CheckIcon } from "@phosphor-icons/react/Check";
 import { useForm } from "@tanstack/react-form";
 import Fuse, { type IFuseOptions } from "fuse.js";
 import { type ComponentRef, useRef, useState } from "react";

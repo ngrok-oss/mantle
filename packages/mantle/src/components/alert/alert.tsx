@@ -1,7 +1,7 @@
-import { CheckCircle as CheckCircleIcon } from "@phosphor-icons/react/CheckCircle";
-import { Info as InfoIcon } from "@phosphor-icons/react/Info";
-import { Warning as WarningIcon } from "@phosphor-icons/react/Warning";
-import { WarningDiamond as WarningDiamondIcon } from "@phosphor-icons/react/WarningDiamond";
+import { CheckCircleIcon } from "@phosphor-icons/react/CheckCircle";
+import { InfoIcon } from "@phosphor-icons/react/Info";
+import { WarningIcon } from "@phosphor-icons/react/Warning";
+import { WarningDiamondIcon } from "@phosphor-icons/react/WarningDiamond";
 import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
 import type {

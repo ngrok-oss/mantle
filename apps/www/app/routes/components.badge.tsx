@@ -9,7 +9,7 @@ import {
 } from "@ngrok/mantle/code-block";
 import { colors } from "@ngrok/mantle/color";
 import { InlineCode } from "@ngrok/mantle/inline-code";
-import { GlobeHemisphereWest as GlobeHemisphereWestIcon } from "@phosphor-icons/react/GlobeHemisphereWest";
+import { GlobeHemisphereWestIcon } from "@phosphor-icons/react/GlobeHemisphereWest";
 import { href } from "react-router";
 import { Example } from "~/components/example";
 import { Link } from "~/components/link";

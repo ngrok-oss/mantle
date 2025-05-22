@@ -46,7 +46,7 @@ import {
 	ToastMessage,
 	makeToast,
 } from "@ngrok/mantle/toast";
-import { X as XIcon } from "@phosphor-icons/react/X";
+import { XIcon } from "@phosphor-icons/react/X";
 import { useState } from "react";
 import invariant from "tiny-invariant";
 import { Example } from "~/components/example";
