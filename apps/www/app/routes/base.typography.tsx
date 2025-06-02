@@ -102,7 +102,7 @@ export default function Page() {
 				monospace typeface.
 			</p>
 
-			<TableRoot>
+			<TableRoot className="mt-4">
 				<Table>
 					<TableHead>
 						<TableRow>

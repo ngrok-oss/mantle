@@ -275,9 +275,9 @@ const TableBody = forwardRef<ComponentRef<"tbody">, ComponentProps<"tbody">>(
 		<tbody
 			className={cx(
 				//,
-				"border-t border-card-muted",
 				"divide-y divide-card-muted",
 				"text-body",
+				"[thead+&]:border-t [thead+&]:border-card-muted",
 				className,
 			)}
 			ref={ref}
@@ -405,7 +405,7 @@ const TableRow = forwardRef<ComponentRef<"tr">, ComponentProps<"tr">>(
 			ref={ref}
 			className={cx(
 				// "data-state-selected:bg-gray-200",
-				"[&>td]:bg-card [&>td]:hover:bg-card-hover",
+				"[&>td]:bg-card [tbody:has(tr:not(:only-child))>&>td]:hover:bg-card-hover",
 				className,
 			)}
 			{...props}

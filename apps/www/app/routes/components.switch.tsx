@@ -51,38 +51,53 @@ export default function Page() {
 					checked.
 				</p>
 				<div>
-					<Example className="mt-4 grid gap-6">
-						<Label htmlFor="airplane-mode" className="flex items-center gap-2">
-							Airplane Mode
-							<Switch id="airplane-mode" />
-						</Label>
-						<Label htmlFor="unchecked" className="flex items-center gap-2">
-							<Switch checked={false} id="unchecked" readOnly />
-							<p>Unchecked (readonly)</p>
-						</Label>
-						<Label htmlFor="checked" className="flex items-center gap-2">
-							<Switch checked={true} id="checked" readOnly />
-							<p>Checked (readonly)</p>
-						</Label>
-						<Label
-							htmlFor="airplane-mode-disabled-unchecked"
-							className="flex items-center gap-2"
-						>
-							<Switch disabled id="airplane-mode-disabled-unchecked" readOnly />
-							<p>Airplane Mode Disabled Unchecked (readonly)</p>
-						</Label>
-						<Label
-							htmlFor="airplane-mode-disabled-checked"
-							className="flex items-center gap-2"
-						>
-							<Switch
-								checked
-								disabled
-								id="airplane-mode-disabled-checked"
-								readOnly
-							/>
-							<p>Airplane Mode Disabled Checked (readonly)</p>
-						</Label>
+					<Example className="mt-4 grid place-items-center">
+						<div className="flex flex-col gap-6">
+							<Label
+								htmlFor="airplane-mode"
+								className="self-start inline-flex items-center gap-2"
+							>
+								Airplane Mode
+								<Switch id="airplane-mode" />
+							</Label>
+							<Label
+								htmlFor="unchecked"
+								className="self-start inline-flex items-center gap-2"
+							>
+								<Switch checked={false} id="unchecked" readOnly />
+								<p>Unchecked (readonly)</p>
+							</Label>
+							<Label
+								htmlFor="checked"
+								className="self-start inline-flex items-center gap-2"
+							>
+								<Switch checked={true} id="checked" readOnly />
+								<p>Checked (readonly)</p>
+							</Label>
+							<Label
+								htmlFor="airplane-mode-disabled-unchecked"
+								className="self-start inline-flex items-center gap-2"
+							>
+								<Switch
+									disabled
+									id="airplane-mode-disabled-unchecked"
+									readOnly
+								/>
+								<p>Airplane Mode Disabled Unchecked (readonly)</p>
+							</Label>
+							<Label
+								htmlFor="airplane-mode-disabled-checked"
+								className="self-start inline-flex items-center gap-2"
+							>
+								<Switch
+									checked
+									disabled
+									id="airplane-mode-disabled-checked"
+									readOnly
+								/>
+								<p>Airplane Mode Disabled Checked (readonly)</p>
+							</Label>
+						</div>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
 						<CodeBlockBody>
@@ -298,7 +313,10 @@ function FormExample() {
 			<div className="space-y-1">
 				<form.Field name="airplaneMode">
 					{(field) => (
-						<Label htmlFor={field.name} className="flex items-center gap-2">
+						<Label
+							htmlFor={field.name}
+							className="inline-flex items-center gap-2"
+						>
 							Airplane Mode
 							<Switch
 								name={field.name}
