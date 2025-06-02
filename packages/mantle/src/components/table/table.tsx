@@ -275,9 +275,9 @@ const TableBody = forwardRef<ComponentRef<"tbody">, ComponentProps<"tbody">>(
 		<tbody
 			className={cx(
 				//,
-				"border-t border-card-muted",
 				"divide-y divide-card-muted",
 				"text-body",
+				"[thead+&]:border-t [thead+&]:border-card-muted",
 				className,
 			)}
 			ref={ref}
