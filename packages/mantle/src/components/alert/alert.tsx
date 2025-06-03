@@ -79,6 +79,7 @@ type AlertProps = ComponentProps<"div"> & {
  *   <AlertIcon />
  *   <AlertContent>
  *     <AlertTitle>Alert Title</AlertTitle>
+ * 	   <AlertDismissIconButton />
  *     <AlertDescription>
  *       Alert description text.
  *     </AlertDescription>
@@ -137,6 +138,7 @@ const defaultIcons = {
  *   <AlertIcon />
  *   <AlertContent>
  *     <AlertTitle>Alert Title</AlertTitle>
+ *     <AlertDismissIconButton />
  *     <AlertDescription>
  *       Alert description text.
  *     </AlertDescription>
@@ -172,6 +174,7 @@ AlertIcon.displayName = "AlertIcon";
  *   <AlertIcon />
  *   <AlertContent>
  *     <AlertTitle>Alert Title</AlertTitle>
+ *     <AlertDismissIconButton />
  *     <AlertDescription>
  *       Alert description text.
  *     </AlertDescription>
@@ -206,6 +209,7 @@ type AlertTitleProps = HTMLAttributes<HTMLHeadingElement> & WithAsChild;
  *   <AlertIcon />
  *   <AlertContent>
  *     <AlertTitle>Alert Title</AlertTitle>
+ *     <AlertDismissIconButton />
  *     <AlertDescription>
  *       Alert description text.
  *     </AlertDescription>
@@ -241,6 +245,7 @@ type AlertDescriptionProps = ComponentProps<"p"> & WithAsChild;
  *   <AlertIcon />
  *   <AlertContent>
  *     <AlertTitle>Alert Title</AlertTitle>
+ *     <AlertDismissIconButton />
  *     <AlertDescription>
  *       Alert description text.
  *     </AlertDescription>
