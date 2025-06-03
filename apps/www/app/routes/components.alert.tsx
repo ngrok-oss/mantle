@@ -2,9 +2,9 @@ import {
 	Alert,
 	AlertContent,
 	AlertDescription,
+	AlertDismissIconButton,
 	AlertIcon,
 	AlertTitle,
-	AlertDismissIconButton,
 } from "@ngrok/mantle/alert";
 import { Anchor } from "@ngrok/mantle/anchor";
 import { Card, CardBody } from "@ngrok/mantle/card";
@@ -186,7 +186,8 @@ export default function Page() {
 						<Example className="flex-col gap-4">
 							<div className="w-full max-w-screen-sm space-y-2">
 								<p>
-									Danger <InlineCode>Alert</InlineCode> with icon and <InlineCode>AlertDismissIconButton</InlineCode>
+									Danger <InlineCode>Alert</InlineCode> with icon and{" "}
+									<InlineCode>AlertDismissIconButton</InlineCode>
 								</p>
 								<Alert priority="danger">
 									<AlertIcon />
@@ -229,10 +230,10 @@ export default function Page() {
 							<div className="w-full max-w-screen-sm space-y-2">
 								<p>
 									Danger <InlineCode>Alert</InlineCode> without icon or
-									description, but including <InlineCode>AlertDismissIconButton</InlineCode>.
+									description, but including{" "}
+									<InlineCode>AlertDismissIconButton</InlineCode>.
 								</p>
 								<Alert priority="danger">
-
 									<AlertContent>
 										<AlertTitle>Danger Will Robinson</AlertTitle>
 										<AlertDismissIconButton />
@@ -496,7 +497,9 @@ export default function Page() {
 							The container for the content slot of an{" "}
 							<InlineCode>Alert</InlineCode>. Place the{" "}
 							<InlineCode>AlertTitle</InlineCode> and{" "}
-							<InlineCode>AlertDescription</InlineCode> and <InlineCode>AlertDismissIconButton</InlineCode> as direct children.
+							<InlineCode>AlertDescription</InlineCode> and{" "}
+							<InlineCode>AlertDismissIconButton</InlineCode> as direct
+							children.
 						</p>
 						<p className="font-body text-body">
 							All props from{" "}

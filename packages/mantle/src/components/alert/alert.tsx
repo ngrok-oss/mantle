@@ -2,6 +2,7 @@ import { CheckCircleIcon } from "@phosphor-icons/react/CheckCircle";
 import { InfoIcon } from "@phosphor-icons/react/Info";
 import { WarningIcon } from "@phosphor-icons/react/Warning";
 import { WarningDiamondIcon } from "@phosphor-icons/react/WarningDiamond";
+import { XIcon } from "@phosphor-icons/react/X";
 import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
 import type {
@@ -14,9 +15,8 @@ import { createContext, forwardRef, useContext, useMemo } from "react";
 import invariant from "tiny-invariant";
 import type { WithAsChild } from "../../types/index.js";
 import { cx } from "../../utils/cx/cx.js";
-import { SvgOnly } from "../icon/svg-only.js";
 import { IconButton, type IconButtonProps } from "../button/icon-button.js";
-import { XIcon } from "@phosphor-icons/react/X";
+import { SvgOnly } from "../icon/svg-only.js";
 import type { SvgAttributes } from "../icon/types.js";
 
 const priorities = [
@@ -181,7 +181,11 @@ AlertIcon.displayName = "AlertIcon";
  */
 const AlertContent = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
 	({ className, ...props }, ref) => (
-		<div ref={ref} className={cx("min-w-0 flex-1 pr-6", className)} {...props} />
+		<div
+			ref={ref}
+			className={cx("min-w-0 flex-1 pr-6", className)}
+			{...props}
+		/>
 	),
 );
 AlertContent.displayName = "AlertContent";
@@ -271,12 +275,16 @@ const AlertDismissIconButton = ({
 			className={cx(
 				"right-1.5 top-1.5 absolute",
 				{
-					"text-danger-700 not-disabled:hover:text-danger-800 not-disabled:active:text-danger-900": ctx.priority === "danger",
-					"text-accent-700 not-disabled:hover:text-accent-800 not-disabled:active:text-accent-900": ctx.priority === "info",
-					"text-success-700 not-disabled:hover:text-success-800 not-disabled:active:text-success-900": ctx.priority === "success",
-					"text-warning-700 not-disabled:hover:text-warning-800 not-disabled:active:text-warning-900": ctx.priority === "warning",
+					"text-danger-700 not-disabled:hover:text-danger-800 not-disabled:active:text-danger-900":
+						ctx.priority === "danger",
+					"text-accent-700 not-disabled:hover:text-accent-800 not-disabled:active:text-accent-900":
+						ctx.priority === "info",
+					"text-success-700 not-disabled:hover:text-success-800 not-disabled:active:text-success-900":
+						ctx.priority === "success",
+					"text-warning-700 not-disabled:hover:text-warning-800 not-disabled:active:text-warning-900":
+						ctx.priority === "warning",
 				},
-				className
+				className,
 			)}
 			type={type}
 			{...props}
