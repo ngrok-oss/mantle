@@ -183,7 +183,10 @@ const AlertContent = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
 	({ className, ...props }, ref) => (
 		<div
 			ref={ref}
-			className={cx("min-w-0 flex-1 pr-6", className)}
+			className={cx(
+				"min-w-0 flex-1 has-[[data-alert-dismiss]]:pr-6",
+				className,
+			)}
 			{...props}
 		/>
 	),
@@ -272,6 +275,7 @@ const AlertDismissIconButton = ({
 			icon={<XIcon />}
 			label={label}
 			size={size}
+			data-alert-dismiss
 			className={cx(
 				"right-1.5 top-1.5 absolute",
 				{
