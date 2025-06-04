@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.30.1
+
+### Patch Changes
+
+- [#609](https://github.com/ngrok-oss/mantle/pull/609) [`fc8b793`](https://github.com/ngrok-oss/mantle/commit/fc8b793e1c7ea43b7575cff89f15ed645f3c9ce7) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update dependencies
+
 ## 0.30.0
 
 ### Minor Changes
