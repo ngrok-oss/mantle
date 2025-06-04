@@ -19,7 +19,7 @@
     "@ngrok/mantle": "workspace:*",
     "@phosphor-icons/react": "2.1.10",
     "@react-router/fs-routes": "7.6.0",
-    "@react-router/node": "7.6.0",
+    "@react-router/node": "7.6.2",
     "@react-router/serve": "7.6.0",
     "@tanstack/react-form": "1.11.3",
     "@vercel/react-router": "1.1.0",
