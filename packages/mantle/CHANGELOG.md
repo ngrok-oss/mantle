@@ -1,5 +1,15 @@
 # @ngrok/mantle
 
+## 0.30.0
+
+### Minor Changes
+
+- [#620](https://github.com/ngrok-oss/mantle/pull/620) [`c76d1bd`](https://github.com/ngrok-oss/mantle/commit/c76d1bd1c32fbc84ccbe69a176e8ea06326cfd28) Thanks [@aaronshekey](https://github.com/aaronshekey)! - Add `AlertDismissIconButton` to `Alert` component
+
+### Patch Changes
+
+- [#617](https://github.com/ngrok-oss/mantle/pull/617) [`c72c6e1`](https://github.com/ngrok-oss/mantle/commit/c72c6e1228f5b62a0fa7ec39957ac71081df2667) Thanks [@aaronshekey](https://github.com/aaronshekey)! - Table edge case refinements and a sans serif font on tooltips by default
+
 ## 0.29.0
 
 ### Minor Changes
