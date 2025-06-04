@@ -5,4 +5,5 @@ export {
 	AlertDescription,
 	AlertIcon,
 	AlertTitle,
+	AlertDismissIconButton,
 } from "./alert.js";

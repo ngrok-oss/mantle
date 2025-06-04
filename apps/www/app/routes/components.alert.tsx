@@ -2,6 +2,7 @@ import {
 	Alert,
 	AlertContent,
 	AlertDescription,
+	AlertDismissIconButton,
 	AlertIcon,
 	AlertTitle,
 } from "@ngrok/mantle/alert";
@@ -68,6 +69,7 @@ export default function Page() {
 							<AlertIcon />
 							<AlertContent>
 								<AlertTitle>Info</AlertTitle>
+								<AlertDismissIconButton />
 								<AlertDescription>This is an info Alert.</AlertDescription>
 							</AlertContent>
 						</Alert>
@@ -112,6 +114,7 @@ export default function Page() {
 										AlertDescription,
 										AlertTitle,
 										AlertIcon,
+										AlertDismissIconButton,
 									} from "@ngrok/mantle/alert";
 									import { ShrimpIcon } from "@phosphor-icons/react/Shrimp";
 
@@ -126,6 +129,7 @@ export default function Page() {
 										<AlertIcon />
 										<AlertContent>
 											<AlertTitle>Info</AlertTitle>
+											<AlertDismissIconButton />
 											<AlertDescription>This is an info Alert.</AlertDescription>
 										</AlertContent>
 									</Alert>
@@ -182,12 +186,14 @@ export default function Page() {
 						<Example className="flex-col gap-4">
 							<div className="w-full max-w-screen-sm space-y-2">
 								<p>
-									Danger <InlineCode>Alert</InlineCode> with icon
+									Danger <InlineCode>Alert</InlineCode> with icon and{" "}
+									<InlineCode>AlertDismissIconButton</InlineCode>
 								</p>
 								<Alert priority="danger">
 									<AlertIcon />
 									<AlertContent>
 										<AlertTitle>Danger Will Robinson</AlertTitle>
+										<AlertDismissIconButton />
 										<AlertDescription>
 											Cupidatat ullamco commodo laborum consectetur ut mollit et
 											nostrud amet elit ut Lorem culpa.
@@ -224,11 +230,13 @@ export default function Page() {
 							<div className="w-full max-w-screen-sm space-y-2">
 								<p>
 									Danger <InlineCode>Alert</InlineCode> without icon or
-									description
+									description, but including{" "}
+									<InlineCode>AlertDismissIconButton</InlineCode>.
 								</p>
 								<Alert priority="danger">
 									<AlertContent>
 										<AlertTitle>Danger Will Robinson</AlertTitle>
+										<AlertDismissIconButton />
 									</AlertContent>
 								</Alert>
 							</div>
@@ -247,11 +255,12 @@ export default function Page() {
 										AlertIcon,
 									} from "@ngrok/mantle/alert";
 
-									// Danger Alert with icon
+									// Danger Alert with icon and Dismiss Icon Button
 									<Alert priority="danger">
 										<AlertIcon />
 										<AlertContent>
 											<AlertTitle>Danger Will Robinson</AlertTitle>
+											<AlertDismissIconButton />
 											<AlertDescription>This is a danger alert.</AlertDescription>
 										</AlertContent>
 									</Alert>
@@ -272,10 +281,11 @@ export default function Page() {
 										</AlertContent>
 									</Alert>
 
-									// Danger Alert without icon or description
+									// Danger Alert without icon or description, but including a Dismiss Icon Button
 									<Alert priority="danger">
 										<AlertContent>
 											<AlertTitle>Danger Will Robinson</AlertTitle>
+											<AlertDismissIconButton />
 										</AlertContent>
 									</Alert>
 								`}
@@ -487,7 +497,9 @@ export default function Page() {
 							The container for the content slot of an{" "}
 							<InlineCode>Alert</InlineCode>. Place the{" "}
 							<InlineCode>AlertTitle</InlineCode> and{" "}
-							<InlineCode>AlertDescription</InlineCode> as direct children.
+							<InlineCode>AlertDescription</InlineCode> and{" "}
+							<InlineCode>AlertDismissIconButton</InlineCode> as direct
+							children.
 						</p>
 						<p className="font-body text-body">
 							All props from{" "}

@@ -2,6 +2,7 @@ import { CheckCircleIcon } from "@phosphor-icons/react/CheckCircle";
 import { InfoIcon } from "@phosphor-icons/react/Info";
 import { WarningIcon } from "@phosphor-icons/react/Warning";
 import { WarningDiamondIcon } from "@phosphor-icons/react/WarningDiamond";
+import { XIcon } from "@phosphor-icons/react/X";
 import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
 import type {
@@ -14,6 +15,7 @@ import { createContext, forwardRef, useContext, useMemo } from "react";
 import invariant from "tiny-invariant";
 import type { WithAsChild } from "../../types/index.js";
 import { cx } from "../../utils/cx/cx.js";
+import { IconButton, type IconButtonProps } from "../button/icon-button.js";
 import { SvgOnly } from "../icon/svg-only.js";
 import type { SvgAttributes } from "../icon/types.js";
 
@@ -77,6 +79,7 @@ type AlertProps = ComponentProps<"div"> & {
  *   <AlertIcon />
  *   <AlertContent>
  *     <AlertTitle>Alert Title</AlertTitle>
+ * 	   <AlertDismissIconButton />
  *     <AlertDescription>
  *       Alert description text.
  *     </AlertDescription>
@@ -135,6 +138,7 @@ const defaultIcons = {
  *   <AlertIcon />
  *   <AlertContent>
  *     <AlertTitle>Alert Title</AlertTitle>
+ *     <AlertDismissIconButton />
  *     <AlertDescription>
  *       Alert description text.
  *     </AlertDescription>
@@ -170,6 +174,7 @@ AlertIcon.displayName = "AlertIcon";
  *   <AlertIcon />
  *   <AlertContent>
  *     <AlertTitle>Alert Title</AlertTitle>
+ *     <AlertDismissIconButton />
  *     <AlertDescription>
  *       Alert description text.
  *     </AlertDescription>
@@ -179,7 +184,14 @@ AlertIcon.displayName = "AlertIcon";
  */
 const AlertContent = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
 	({ className, ...props }, ref) => (
-		<div ref={ref} className={cx("min-w-0 flex-1", className)} {...props} />
+		<div
+			ref={ref}
+			className={cx(
+				"min-w-0 flex-1 has-[[data-alert-dismiss]]:pr-6",
+				className,
+			)}
+			{...props}
+		/>
 	),
 );
 AlertContent.displayName = "AlertContent";
@@ -197,6 +209,7 @@ type AlertTitleProps = HTMLAttributes<HTMLHeadingElement> & WithAsChild;
  *   <AlertIcon />
  *   <AlertContent>
  *     <AlertTitle>Alert Title</AlertTitle>
+ *     <AlertDismissIconButton />
  *     <AlertDescription>
  *       Alert description text.
  *     </AlertDescription>
@@ -232,6 +245,7 @@ type AlertDescriptionProps = ComponentProps<"p"> & WithAsChild;
  *   <AlertIcon />
  *   <AlertContent>
  *     <AlertTitle>Alert Title</AlertTitle>
+ *     <AlertDismissIconButton />
  *     <AlertDescription>
  *       Alert description text.
  *     </AlertDescription>
@@ -250,6 +264,43 @@ const AlertDescription = forwardRef<ComponentRef<"p">, AlertDescriptionProps>(
 );
 AlertDescription.displayName = "AlertDescription";
 
+type AlertDismissIconButtonProps = Partial<Omit<IconButtonProps, "icon">>;
+const AlertDismissIconButton = ({
+	size = "sm",
+	type = "button",
+	label = "Dismiss Alert",
+	appearance = "ghost",
+	className,
+	...props
+}: AlertDismissIconButtonProps) => {
+	const ctx = useAlertContext();
+	return (
+		<IconButton
+			appearance={appearance}
+			icon={<XIcon />}
+			label={label}
+			size={size}
+			data-alert-dismiss
+			className={cx(
+				"right-1.5 top-1.5 absolute",
+				{
+					"text-danger-700 not-disabled:hover:text-danger-800 not-disabled:active:text-danger-900":
+						ctx.priority === "danger",
+					"text-accent-700 not-disabled:hover:text-accent-800 not-disabled:active:text-accent-900":
+						ctx.priority === "info",
+					"text-success-700 not-disabled:hover:text-success-800 not-disabled:active:text-success-900":
+						ctx.priority === "success",
+					"text-warning-700 not-disabled:hover:text-warning-800 not-disabled:active:text-warning-900":
+						ctx.priority === "warning",
+				},
+				className,
+			)}
+			type={type}
+			{...props}
+		/>
+	);
+};
+
 export {
 	//,
 	Alert,
@@ -257,4 +308,5 @@ export {
 	AlertDescription,
 	AlertIcon,
 	AlertTitle,
+	AlertDismissIconButton,
 };
