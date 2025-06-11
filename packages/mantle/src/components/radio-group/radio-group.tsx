@@ -107,14 +107,14 @@ const DefaultRadioIndicator = ({
 }: RadioStateContextValue) => (
 	<span
 		className={cx(
-			"border-form flex size-4 items-center justify-center rounded-full border",
+			"border-form flex size-4 items-center justify-center rounded-full border shrink-0",
 			disabled && "cursor-default opacity-50",
 			checked && "border-accent-500 bg-accent-500",
 			focus && !disabled && "border-accent-600 ring-focus-accent ring-4",
 			hover && "border-accent-600",
 		)}
 	>
-		{checked && <span className="size-2 rounded-full bg-[#fff]" />}
+		{checked && <span className="size-2 rounded-full bg-[#fff] shrink-0" />}
 	</span>
 );
 
@@ -136,7 +136,7 @@ const RadioIndicator = ({
 	return (
 		<div
 			className={cx(
-				"radio-indicator inline-flex size-5 select-none items-center justify-center",
+				"radio-indicator inline-flex size-5 select-none items-center justify-center shrink-0",
 				className,
 			)}
 			{...props}
