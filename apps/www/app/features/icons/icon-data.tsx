@@ -1,4 +1,5 @@
 import { SortIcon, TrafficPolicyFileIcon } from "@ngrok/mantle/icons";
+import { AutoThemeIcon, ThemeIcon } from "@ngrok/mantle/icons";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import type { ReactNode } from "react";
 
@@ -120,6 +121,82 @@ const iconData = [
 			//,
 			"file",
 			"traffic policy",
+		],
+	},
+	{
+		id: "Auto-Theme-Icon",
+		name: "AutoThemeIcon",
+		description: (
+			<p>An icon that automatically adapts to the current applied theme.</p>
+		),
+		Icon: <AutoThemeIcon />,
+		tags: [
+			//,
+			"theme",
+			"auto",
+			"light",
+			"dark",
+			"light-high-contrast",
+			"dark-high-contrast",
+		],
+	},
+	{
+		id: "Theme-Icon-System",
+		name: "ThemeIcon",
+		description: <p>An icon that adapts to a specific theme (system)</p>,
+		Icon: <ThemeIcon theme="system" />,
+		tags: [
+			//,
+			"theme",
+			"system",
+		],
+	},
+	{
+		id: "Theme-Icon-Light",
+		name: "ThemeIcon",
+		description: <p>An icon that adapts to a specific theme (light)</p>,
+		Icon: <ThemeIcon theme="light" />,
+		tags: [
+			//,
+			"theme",
+			"light",
+		],
+	},
+	{
+		id: "Theme-Icon-Dark",
+		name: "ThemeIcon",
+		description: <p>An icon that adapts to a specific theme (dark)</p>,
+		Icon: <ThemeIcon theme="dark" />,
+		tags: [
+			//,
+			"theme",
+			"dark",
+		],
+	},
+	{
+		id: "Theme-Icon-Light-High-Contrast",
+		name: "ThemeIcon",
+		description: (
+			<p>An icon that adapts to a specific theme (light-high-contrast)</p>
+		),
+		Icon: <ThemeIcon theme="light-high-contrast" />,
+		tags: [
+			//,
+			"theme",
+			"light-high-contrast",
+		],
+	},
+	{
+		id: "Theme-Icon-Dark-High-Contrast",
+		name: "ThemeIcon",
+		description: (
+			<p>An icon that adapts to a specific theme (dark-high-contrast)</p>
+		),
+		Icon: <ThemeIcon theme="dark-high-contrast" />,
+		tags: [
+			//,
+			"theme",
+			"dark-high-contrast",
 		],
 	},
 ] as const satisfies IconData[];

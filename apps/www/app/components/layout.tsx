@@ -2,6 +2,7 @@ import { Anchor } from "@ngrok/mantle/anchor";
 import { IconButton } from "@ngrok/mantle/button";
 import { cx } from "@ngrok/mantle/cx";
 import { Icon, type SvgAttributes } from "@ngrok/mantle/icon";
+import { AutoThemeIcon, ThemeIcon } from "@ngrok/mantle/icons";
 import {
 	Select,
 	SelectContent,
@@ -13,7 +14,6 @@ import {
 import { $theme, isTheme, useTheme } from "@ngrok/mantle/theme-provider";
 import type { WithStyleProps } from "@ngrok/mantle/types";
 import { ListIcon } from "@phosphor-icons/react/List";
-import { SunIcon } from "@phosphor-icons/react/Sun";
 import { XIcon } from "@phosphor-icons/react/X";
 import type { PropsWithChildren } from "react";
 import { Link, href } from "react-router";
@@ -122,19 +122,40 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 						{/* TODO: this should probably have a title/tooltip instead that describes what it is since we ain't got a spot for a label */}
 						<span className="sr-only">Theme Switcher</span>
 						<SelectTrigger className="w-min">
-							<Icon className="mr-1" svg={<SunIcon />} />
+							<Icon className="mr-1" svg={<AutoThemeIcon />} />
 						</SelectTrigger>
 					</div>
 					<SelectContent width="content">
 						<SelectGroup>
 							<SelectLabel>Choose a theme</SelectLabel>
-							<SelectItem value={$theme("system")}>System</SelectItem>
-							<SelectItem value={$theme("light")}>Light</SelectItem>
-							<SelectItem value={$theme("dark")}>Dark</SelectItem>
-							<SelectItem value={$theme("light-high-contrast")}>
+							<SelectItem
+								icon={<ThemeIcon theme="system" />}
+								value={$theme("system")}
+							>
+								System
+							</SelectItem>
+							<SelectItem
+								icon={<ThemeIcon theme="light" />}
+								value={$theme("light")}
+							>
+								Light
+							</SelectItem>
+							<SelectItem
+								icon={<ThemeIcon theme="dark" />}
+								value={$theme("dark")}
+							>
+								Dark
+							</SelectItem>
+							<SelectItem
+								icon={<ThemeIcon theme="light-high-contrast" />}
+								value={$theme("light-high-contrast")}
+							>
 								Light High Contrast
 							</SelectItem>
-							<SelectItem value={$theme("dark-high-contrast")}>
+							<SelectItem
+								icon={<ThemeIcon theme="dark-high-contrast" />}
+								value={$theme("dark-high-contrast")}
+							>
 								Dark High Contrast
 							</SelectItem>
 						</SelectGroup>
