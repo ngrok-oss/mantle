@@ -8,6 +8,7 @@ import type {
 	ComponentRef,
 	FocusEvent,
 	PropsWithChildren,
+	ReactNode,
 	Ref,
 	SelectHTMLAttributes,
 } from "react";
@@ -396,6 +397,10 @@ const SelectLabel = forwardRef<
 ));
 SelectLabel.displayName = "SelectLabel";
 
+type SelectItemProps = ComponentPropsWithoutRef<typeof SelectPrimitive.Item> & {
+	icon?: ReactNode;
+};
+
 /**
  * An option within a select menu. Similar to an html `<option>` element.
  * Has a required `value` prop that will be passed to the `onChange` handler of the `Select` component when this item is selected.
@@ -417,12 +422,12 @@ SelectLabel.displayName = "SelectLabel";
  */
 const SelectItem = forwardRef<
 	ComponentRef<typeof SelectPrimitive.Item>,
-	ComponentPropsWithoutRef<typeof SelectPrimitive.Item>
->(({ className, children, ...props }, ref) => (
+	SelectItemProps
+>(({ className, children, icon, ...props }, ref) => (
 	<SelectPrimitive.Item
 		ref={ref}
 		className={cx(
-			"relative flex w-full cursor-pointer select-none items-center rounded py-1.5 pl-2 pr-8 text-sm outline-none",
+			"relative flex gap-2 w-full cursor-pointer select-none items-center rounded py-1.5 pl-2 pr-8 text-sm outline-none",
 			"focus:bg-popover-hover",
 			"data-disabled:pointer-events-none data-disabled:opacity-50",
 			"data-state-checked:bg-filled-accent data-state-checked:text-on-filled",
@@ -431,6 +436,7 @@ const SelectItem = forwardRef<
 		)}
 		{...props}
 	>
+		{icon && <Icon svg={icon} />}
 		<SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
 		<SelectPrimitive.ItemIndicator className="absolute right-2 flex h-3.5 w-3.5 items-center justify-center">
 			<Icon svg={<CheckIcon weight="bold" />} className="size-4" />
