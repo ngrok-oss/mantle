@@ -1,5 +1,19 @@
 # @ngrok/mantle
 
+## 0.31.0
+
+### Minor Changes
+
+- [#633](https://github.com/ngrok-oss/mantle/pull/633) [`0632cca`](https://github.com/ngrok-oss/mantle/commit/0632cca37f5376072f086256dfc25c69c973e53c) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - SelectItem: allow for icon slot
+
+- [#633](https://github.com/ngrok-oss/mantle/pull/633) [`0632cca`](https://github.com/ngrok-oss/mantle/commit/0632cca37f5376072f086256dfc25c69c973e53c) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Icons: export AutoThemeIcon and ThemeIcon
+
+### Patch Changes
+
+- [#631](https://github.com/ngrok-oss/mantle/pull/631) [`2d18988`](https://github.com/ngrok-oss/mantle/commit/2d18988384fee665f88aa316e2bec112434cb35c) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update dependencies
+
+- [#609](https://github.com/ngrok-oss/mantle/pull/609) [`fc8b793`](https://github.com/ngrok-oss/mantle/commit/fc8b793e1c7ea43b7575cff89f15ed645f3c9ce7) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update dependencies
+
 ## 0.30.0
 
 ### Minor Changes
