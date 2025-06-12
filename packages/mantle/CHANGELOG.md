@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.31.1
+
+### Patch Changes
+
+- [#635](https://github.com/ngrok-oss/mantle/pull/635) [`baa2d7f`](https://github.com/ngrok-oss/mantle/commit/baa2d7fe2008c1e14baeec8618209e48c2ce835b) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - RadioIndicator: add shrink-0 so the indicator does not shrink in flex contexts
+
 ## 0.31.0
 
 ### Minor Changes
