@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.31.2
+
+### Patch Changes
+
+- [#643](https://github.com/ngrok-oss/mantle/pull/643) [`148dd76`](https://github.com/ngrok-oss/mantle/commit/148dd764cbcbd4025503e0cbcfb2a5ea24a40b76) Thanks [@aaronshekey](https://github.com/aaronshekey)! - Fix breakpoint configuration to allow for arbitrary breakpoint
+
 ## 0.31.1
 
 ### Patch Changes
