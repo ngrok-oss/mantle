@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@cfg/tsconfig": "workspace:*",
-    "@react-router/dev": "7.6.2",
+    "@react-router/dev": "7.6.3",
     "@types/prismjs": "1.26.5",
     "@types/react": "18.3.23",
     "@types/react-dom": "18.3.7",
