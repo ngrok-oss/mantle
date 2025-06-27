@@ -20,7 +20,7 @@
     "@phosphor-icons/react": "2.1.10",
     "@react-router/fs-routes": "7.6.2",
     "@react-router/node": "7.6.2",
-    "@react-router/serve": "7.6.2",
+    "@react-router/serve": "7.6.3",
     "@tanstack/react-form": "1.12.3",
     "@vercel/react-router": "1.1.2",
     "fuse.js": "7.1.0",
