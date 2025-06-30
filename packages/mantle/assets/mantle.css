@@ -90,20 +90,20 @@
 	--font-mono: "IBMPlexMono", ui-monospace, SFMono-Regular, Menlo, Monaco,
 		Consolas, "Liberation Mono", "Courier New", monospace;
 
-	/* custom accent colors have to first exist in the @theme block, then get overridden by the light and dark modes */
-	--color-accent-50: inherit;
-	--color-accent-100: inherit;
-	--color-accent-200: inherit;
-	--color-accent-300: inherit;
-	--color-accent-400: inherit;
-	--color-accent-500: inherit;
-	--color-accent-600: inherit;
-	--color-accent-700: inherit;
-	--color-accent-800: inherit;
-	--color-accent-900: inherit;
-	--color-accent-950: inherit;
 	--breakpoint-xs: 30rem;
 
+	/* Custom accent colors have to first exist in the @theme block, then get overridden by the light and dark modes */
+	--color-accent-50:;
+	--color-accent-100:;
+	--color-accent-200:;
+	--color-accent-300:;
+	--color-accent-400:;
+	--color-accent-500:;
+	--color-accent-600:;
+	--color-accent-700:;
+	--color-accent-800:;
+	--color-accent-900:;
+	--color-accent-950:;
 }
 
 @layer theme {
