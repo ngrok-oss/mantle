@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 /* import for webpack support in crusty */
 @import "sonner/dist/styles.css";
 
@@ -76,10 +78,6 @@
 	src: url("https://assets.ngrok.com/fonts/ibm-plex-mono/IBMPlexMono-SemiBoldItalic.woff")
 		format("woff");
 }
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 /**
  * provide an a11y escape hatch for those that prefer less motion
@@ -1506,12 +1504,14 @@
 
 	/* tooltip */
 
-	--bg-tooltip: var(--tw-black);
-	--text-tooltip: var(--neutral-900);
+	--bg-tooltip: var(--gray-800);
+	--text-tooltip: var(--tw-white);
 
 	/* form tokens */
 
 	--bg-form: var(--neutral-50);
+	--bg-form-hover: var(--neutral-500) / 0.05;
+	--bg-form-active: var(--neutral-500) / 0.1;
 	--border-form: var(--neutral-300);
 
 	/* theme tokens */
@@ -1522,23 +1522,32 @@
 	--bg-filled-warning: var(--warning-500);
 	--bg-filled-success: var(--success-500);
 
-	--bg-filled-neutral-hover: var(--neutral-500) / 0.9;
-	--bg-filled-accent-hover: var(--accent-500) / 0.9;
-	--bg-filled-danger-hover: var(--danger-500) / 0.9;
-	--bg-filled-warning-hover: var(--warning-500) / 0.9;
-	--bg-filled-success-hover: var(--success-500) / 0.9;
+	--bg-filled-neutral-hover: var(--neutral-600);
+	--bg-filled-accent-hover: var(--accent-600);
+	--bg-filled-danger-hover: var(--danger-600);
+	--bg-filled-warning-hover: var(--warning-600);
+	--bg-filled-success-hover: var(--success-600);
 
-	--bg-filled-neutral-active: var(--neutral-500) / 0.8;
-	--bg-filled-accent-active: var(--accent-500) / 0.8;
-	--bg-filled-danger-active: var(--danger-500) / 0.8;
-	--bg-filled-warning-active: var(--warning-500) / 0.8;
-	--bg-filled-success-active: var(--success-500) / 0.8;
+	--bg-filled-neutral-active: var(--neutral-700);
+	--bg-filled-accent-active: var(--accent-700);
+	--bg-filled-danger-active: var(--danger-700);
+	--bg-filled-warning-active: var(--warning-700);
+	--bg-filled-success-active: var(--success-700);
+
+	/* focus tokens */
+
+	--ring-focus-neutral: var(--neutral-500) / 0.3;
+	--ring-focus-accent: var(--accent-500) / 0.3;
+	--ring-focus-danger: var(--danger-500) / 0.3;
+	--ring-focus-warning: var(--warning-500) / 0.3;
+	--ring-focus-success: var(--success-500) / 0.3;
 
 	/* shadow tokens */
 
-	--shadow-first: 15%;
-	--shadow-second: 30%;
-	--navigation-shadow: hsl(0deg 0% 0% / 40%);
+	--shadow-color: 0 0% 0%;
+	--shadow-first: 5%;
+	--shadow-second: 10%;
+	--navigation-shadow: hsl(0deg 0% 0% / 10%);
 }
 
 :root.light-high-contrast,
