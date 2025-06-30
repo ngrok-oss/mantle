@@ -45,8 +45,6 @@ export default function Page() {
 				&rsquo;s UI library and design system that powers its front-end.
 			</p>
 
-			<div className="bg-filled-accent size-10" />
-
 			<h2 id="overview" className="mt-8 text-3xl font-medium">
 				Overview
 			</h2>
