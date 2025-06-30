@@ -102,6 +102,8 @@
 	--color-accent-800: inherit;
 	--color-accent-900: inherit;
 	--color-accent-950: inherit;
+	--breakpoint-xs: 30rem;
+
 }
 
 @layer theme {
