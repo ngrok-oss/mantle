@@ -150,11 +150,7 @@ export default function Page() {
 			<section>
 				<h2 className="mt-8 text-xl font-medium">Tailwind Configuration</h2>
 				<p className="font-body text-body mt-3">
-					Then, add the{" "}
-					<Anchor href="https://tailwindcss.com/docs/presets">
-						tailwind preset
-					</Anchor>{" "}
-					and mantle content to your tailwind configuration:
+					Then, add the mantle content to your tailwind configuration:
 				</p>
 				<CodeBlock className="mt-4">
 					<CodeBlockHeader>tailwind.config.ts</CodeBlockHeader>
@@ -164,13 +160,12 @@ export default function Page() {
 							language="ts"
 							value={fmtCode`
 								import { createRequire } from "node:module";
-								import { mantlePreset, resolveMantleContentGlob } from "@ngrok/mantle/tailwind-preset";
+								import { resolveMantleContentGlob } from "@ngrok/mantle/tailwind-preset";
 								import type { Config } from "tailwindcss";
 
 								const require = createRequire(import.meta.url);
 
 								export default {
-									presets: [mantlePreset],
 									content: [resolveMantleContentGlob(require), "./app/**/*.tsx"], // 👈 don't forget to swap out app content glob here!
 									// ... the rest of your tailwind config!
 								} satisfies Config;
