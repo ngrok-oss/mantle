@@ -1271,6 +1271,55 @@ export default function Page() {
 					</div>
 				</div>
 
+				<h3 id="accent" className="mt-8 text-xl font-medium">
+					Accent
+				</h3>
+				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
+					<div className="flex flex-grow flex-col gap-1 font-mono">
+						<div className="bg-accent-950 h-10 w-full rounded" />
+						950
+					</div>
+					<div className="flex flex-grow flex-col gap-1 font-mono">
+						<div className="bg-accent-900 h-10 w-full rounded" />
+						900
+					</div>
+					<div className="flex flex-grow flex-col gap-1 font-mono">
+						<div className="bg-accent-800 h-10 w-full rounded" />
+						800
+					</div>
+					<div className="flex flex-grow flex-col gap-1 font-mono">
+						<div className="bg-accent-700 h-10 w-full rounded" />
+						700
+					</div>
+					<div className="flex flex-grow flex-col gap-1 font-mono">
+						<div className="bg-accent-600 h-10 w-full rounded" />
+						600
+					</div>
+					<div className="flex flex-grow flex-col gap-1 font-mono">
+						<div className="bg-accent-500 h-10 w-full rounded" />
+						500
+					</div>
+					<div className="flex flex-grow flex-col gap-1 font-mono">
+						<div className="bg-accent-400 h-10 w-full rounded" />
+						400
+					</div>
+					<div className="flex flex-grow flex-col gap-1 font-mono">
+						<div className="bg-accent-300 h-10 w-full rounded" />
+						300
+					</div>
+					<div className="flex flex-grow flex-col gap-1 font-mono">
+						<div className="bg-accent-200 h-10 w-full rounded" />
+						200
+					</div>
+					<div className="flex flex-grow flex-col gap-1 font-mono">
+						<div className="bg-accent-100 h-10 w-full rounded" />
+						100
+					</div>
+					<div className="flex flex-grow flex-col gap-1 font-mono">
+						<div className="bg-accent-50 h-10 w-full rounded" />
+						50
+					</div>
+				</div>
 				<h3 id="blue" className="mt-8 text-xl font-medium">
 					Blue
 				</h3>

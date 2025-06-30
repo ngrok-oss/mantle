@@ -89,6 +89,19 @@
 		"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 	--font-mono: "IBMPlexMono", ui-monospace, SFMono-Regular, Menlo, Monaco,
 		Consolas, "Liberation Mono", "Courier New", monospace;
+
+	/* custom accent colors have to first exist in the @theme block, then get overridden by the light and dark modes */
+	--color-accent-50: inherit;
+	--color-accent-100: inherit;
+	--color-accent-200: inherit;
+	--color-accent-300: inherit;
+	--color-accent-400: inherit;
+	--color-accent-500: inherit;
+	--color-accent-600: inherit;
+	--color-accent-700: inherit;
+	--color-accent-800: inherit;
+	--color-accent-900: inherit;
+	--color-accent-950: inherit;
 }
 
 @layer theme {
@@ -97,7 +110,6 @@
 			/* ngrok custom blue (600 is current button)
       * These are required as they are referenced by both light and dark modes.
       * Replaces the Tailwind blue and a single value of gray.
-      * Not to be used directly.
       */
 			color-scheme: light;
 
@@ -113,6 +125,18 @@
 			--color-blue-800: oklch(39.8% 0.1951 268.1);
 			--color-blue-900: oklch(35.3% 0.1525 269.7);
 			--color-blue-950: oklch(26.6% 0.0958 273.2);
+
+			--color-accent-50: var(--color-blue-50);
+			--color-accent-100: var(--color-blue-100);
+			--color-accent-200: var(--color-blue-200);
+			--color-accent-300: var(--color-blue-300);
+			--color-accent-400: var(--color-blue-400);
+			--color-accent-500: var(--color-blue-500);
+			--color-accent-600: var(--color-blue-600);
+			--color-accent-700: var(--color-blue-700);
+			--color-accent-800: var(--color-blue-800);
+			--color-accent-900: var(--color-blue-900);
+			--color-accent-950: var(--color-blue-950);
 
 			/* Custom ngrok gray with just a little purple in it */
 			--color-gray-50: oklch(98.4% 0.0017 258.6);
@@ -261,6 +285,17 @@
 			--color-blue-800: oklch(86.7% 0.0622 264.2);
 			--color-blue-900: oklch(92.7% 0.0337 265.8);
 			--color-blue-950: oklch(96.8% 0.015 265.9);
+			--color-accent-50: var(--color-blue-50);
+			--color-accent-100: var(--color-blue-100);
+			--color-accent-200: var(--color-blue-200);
+			--color-accent-300: var(--color-blue-300);
+			--color-accent-400: var(--color-blue-400);
+			--color-accent-500: var(--color-blue-500);
+			--color-accent-600: var(--color-blue-600);
+			--color-accent-700: var(--color-blue-700);
+			--color-accent-800: var(--color-blue-800);
+			--color-accent-900: var(--color-blue-900);
+			--color-accent-950: var(--color-blue-950);
 			--color-indigo-50: oklch(25.7% 0.09 281.288);
 			--color-indigo-100: oklch(35.9% 0.144 278.697);
 			--color-indigo-200: oklch(39.8% 0.195 277.366);
