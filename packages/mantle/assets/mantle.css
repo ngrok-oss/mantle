@@ -562,20 +562,20 @@
 }
 
 @utility bg-filled-accent {
-	background-color: var(--color-blue-500);
+	background-color: var(--color-accent-500);
 }
 
 @utility bg-filled-accent-hover {
 	@variant light {
-		background-color: var(--color-blue-600);
+		background-color: var(--color-accent-600);
 	}
 
 	@variant dark {
-		background-color: color-mix(in srgb, var(--color-blue-500) 90%, transparent);
+		background-color: color-mix(in srgb, var(--color-accent-500) 90%, transparent);
 		@supports (color: color-mix(in lab, red, red)) {
 			background-color: color-mix(
 				in oklab,
-				var(--color-blue-500) 90%,
+				var(--color-accent-500) 90%,
 				transparent
 			);
 		}
@@ -584,55 +584,102 @@
 
 @utility bg-filled-accent-active {
 	@variant light {
-		background-color: var(--color-blue-700);
+		background-color: var(--color-accent-700);
 	}
 
 	@variant dark {
-		background-color: color-mix(in srgb, var(--color-blue-500) 80%, transparent);
+		background-color: color-mix(in srgb, var(--color-accent-500) 80%, transparent);
 		@supports (color: color-mix(in lab, red, red)) {
 			background-color: color-mix(
 				in oklab,
-				var(--color-blue-500) 80%,
+				var(--color-accent-500) 80%,
 				transparent
 			);
 		}
 	}
 }
 
-@utility text-body {
-	color: color-mix(in srgb, var(--color-black) 70%, transparent);
-	@supports (color: color-mix(in lab, red, red)) {
-		color: color-mix(
-			in oklab,
-			var(--color-black) 70%,
-			transparent
-		);
+
+
+@utility text-strong {
+	@variant light {
+		color: var(--color-neutral-950);
+	}
+
+	@variant dark {
+		color: var(--color-black);
 	}
 }
 
-@utility text-strong {
-	color: var(--black);
+@utility text-body {
+	@variant light {
+		color: color-mix(in srgb, var(--color-neutral-950) 75%, transparent);
+		@supports (color: color-mix(in lab, red, red)) {
+			color: color-mix(
+				in oklab,
+				var(--color-neutral-950) 75%,
+				transparent
+			);
+		}
+	}
+
+	@variant dark {
+		color: color-mix(in srgb, var(--color-black) 70%, transparent);
+		@supports (color: color-mix(in lab, red, red)) {
+			color: color-mix(
+				in oklab,
+				var(--color-black) 70%,
+				transparent
+			);
+		}
+	}
 }
 
 @utility text-muted {
-	color: color-mix(in srgb, var(--color-black) 50%, transparent);
-	@supports (color: color-mix(in lab, red, red)) {
-		color: color-mix(
-			in oklab,
-			var(--color-black) 50%,
-			transparent
-		);
+	@variant light {
+		color: color-mix(in srgb, var(--color-neutral-950) 60%, transparent);
+		@supports (color: color-mix(in lab, red, red)) {
+			color: color-mix(
+				in oklab,
+				var(--color-neutral-950) 60%,
+				transparent
+			);
+		}
+	}
+
+	@variant dark {
+		color: color-mix(in srgb, var(--color-black) 50%, transparent);
+		@supports (color: color-mix(in lab, red, red)) {
+			color: color-mix(
+				in oklab,
+				var(--color-black) 50%,
+				transparent
+			);
+		}
 	}
 }
 
 @utility text-placeholder {
-	color: color-mix(in srgb, var(--color-black) 30%, transparent);
-	@supports (color: color-mix(in lab, red, red)) {
-		color: color-mix(
-			in oklab,
-			var(--color-black) 30%,
-			transparent
-		);
+	@variant light {
+		color: color-mix(in srgb, var(--color-neutral-950) 50%, transparent);
+		@supports (color: color-mix(in lab, red, red)) {
+			color: color-mix(
+				in oklab,
+				var(--color-neutral-950) 50%,
+				transparent
+			);
+		}
+	}
+
+	@variant dark {
+		color: color-mix(in srgb, var(--color-black) 30%, transparent);
+		@supports (color: color-mix(in lab, red, red)) {
+			color: color-mix(
+				in oklab,
+				var(--color-black) 30%,
+				transparent
+			);
+		}
 	}
 }
 
