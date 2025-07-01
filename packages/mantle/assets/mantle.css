@@ -1,5 +1,4 @@
-/* biome-ignore lint/style/useImportType: <this is custom tailwind config syntax> */
-@import "tailwindcss" source("./");
+@import "tailwindcss" source("../../../");
 
 /* import for webpack support in crusty */
 @import "sonner/dist/styles.css";
