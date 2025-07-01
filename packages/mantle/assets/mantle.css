@@ -686,3 +686,17 @@
 @utility text-on-filled {
 	color: #fff;
 }
+
+@utility bg-tooltip {
+	@variant light {
+		background-color: var(--color-gray-800);
+	}
+
+	@variant dark {
+		background-color: #000;
+	}
+}
+
+@utility text-tooltip {
+	color: #fff;
+}
