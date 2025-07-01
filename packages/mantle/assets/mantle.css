@@ -697,28 +697,30 @@
 }
 
 @utility scrollbar {
-	@supports selector(::-webkit-scrollbar) {
-		.scrollbar::-webkit-scrollbar {
-			width: 0.5rem;
-			height: 0.5rem;
-			background-color: transparent;
-		}
+	scrollbar-color: --alpha(var(--color-neutral-800) / 50%) transparent;
+}
 
-		.scrollbar::-webkit-scrollbar-track {
-			border-radius: 0.5rem;
-			background-color: transparent;
-		}
-
-		.scrollbar::-webkit-scrollbar-thumb {
-			border-radius: 0.5rem;
-			background-color: --alpha(var(--color-neutral-800) / 50%);
-		}
-
-		.scrollbar::-webkit-scrollbar-corner {
-			background-color: transparent;
-			border-color: transparent;
-		}
+/* Figure out how to do this within the @utility syntax */
+@supports selector(::-webkit-scrollbar) {
+	.scrollbar::-webkit-scrollbar {
+		width: 0.5rem;
+		height: 0.5rem;
+		background-color: transparent;
 	}
 
-	scrollbar-color: --alpha(var(--color-neutral-800) / 50%) transparent;
+	.scrollbar::-webkit-scrollbar-track {
+		border-radius: 0.5rem;
+		background-color: transparent;
+	}
+
+	.scrollbar::-webkit-scrollbar-thumb {
+		border-radius: 0.5rem;
+		background-color: --alpha(var(--color-neutral-800) / 50%);
+	}
+
+	.scrollbar::-webkit-scrollbar-corner {
+		background-color: transparent;
+		border-color: transparent;
+	}
+}
 }
