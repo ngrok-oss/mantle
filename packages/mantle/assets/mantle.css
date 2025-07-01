@@ -565,7 +565,52 @@
 	background-color: var(--color-neutral-50);
 }
 
+@utility bg-base-hover {
+	background-color: var(--color-neutral-100);
+}
+
+/* Cards */
+
 @utility bg-card {
+	@variant light {
+		background-color: #fff;
+	}
+
+	@variant dark {
+		background-color: var(--color-neutral-100);
+	}
+}
+
+@utility bg-card-hover {
+	@variant light {
+		background-color: var(--color-neutral-100);
+	}
+
+	@variant dark {
+		background-color: var(--color-neutral-200);
+	}
+}
+
+@utility border-card {
+	border-color: var(--color-neutral-300);
+}
+
+@utility border-card-muted {
+	border-color: var(--color-neutral-200);
+}
+
+/* Dividers don't work */
+@utility divide-card {
+	border-color: var(--color-neutral-300);
+}
+
+@utility divide-card-muted {
+	border-color: var(--color-neutral-200);
+}
+
+
+
+@utility bg-popover {
 	@variant light {
 		background-color: #fff;
 	}
