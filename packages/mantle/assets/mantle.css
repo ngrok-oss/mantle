@@ -607,8 +607,6 @@
 	border-color: var(--color-neutral-200);
 }
 
-
-
 @utility bg-popover {
 	@variant light {
 		background-color: #fff;
@@ -629,14 +627,7 @@
 	}
 
 	@variant dark {
-		background-color: color-mix(in srgb, var(--color-accent-500) 90%, transparent);
-		@supports (color: color-mix(in lab, red, red)) {
-			background-color: color-mix(
-				in oklab,
-				var(--color-accent-500) 90%,
-				transparent
-			);
-		}
+		background-color: --alpha(var(--color-accent-500) / 90%);
 	}
 }
 
@@ -646,14 +637,7 @@
 	}
 
 	@variant dark {
-		background-color: color-mix(in srgb, var(--color-accent-500) 80%, transparent);
-		@supports (color: color-mix(in lab, red, red)) {
-			background-color: color-mix(
-				in oklab,
-				var(--color-accent-500) 80%,
-				transparent
-			);
-		}
+		background-color: --alpha(var(--color-accent-500) / 80%);
 	}
 }
 
@@ -669,73 +653,31 @@
 
 @utility text-body {
 	@variant light {
-		color: color-mix(in srgb, var(--color-neutral-950) 75%, transparent);
-		@supports (color: color-mix(in lab, red, red)) {
-			color: color-mix(
-				in oklab,
-				var(--color-neutral-950) 75%,
-				transparent
-			);
-		}
+		color: --alpha(var(--color-neutral-950) / 75%);
 	}
 
 	@variant dark {
-		color: color-mix(in srgb, var(--color-black) 70%, transparent);
-		@supports (color: color-mix(in lab, red, red)) {
-			color: color-mix(
-				in oklab,
-				var(--color-black) 70%,
-				transparent
-			);
-		}
+		color: --alpha(var(--color-black) / 70%);
 	}
 }
 
 @utility text-muted {
 	@variant light {
-		color: color-mix(in srgb, var(--color-neutral-950) 60%, transparent);
-		@supports (color: color-mix(in lab, red, red)) {
-			color: color-mix(
-				in oklab,
-				var(--color-neutral-950) 60%,
-				transparent
-			);
-		}
+		color: --alpha(var(--color-neutral-950) / 60%);
 	}
 
 	@variant dark {
-		color: color-mix(in srgb, var(--color-black) 50%, transparent);
-		@supports (color: color-mix(in lab, red, red)) {
-			color: color-mix(
-				in oklab,
-				var(--color-black) 50%,
-				transparent
-			);
-		}
+		color: --alpha(var(--color-black) / 50%);
 	}
 }
 
 @utility text-placeholder {
 	@variant light {
-		color: color-mix(in srgb, var(--color-neutral-950) 50%, transparent);
-		@supports (color: color-mix(in lab, red, red)) {
-			color: color-mix(
-				in oklab,
-				var(--color-neutral-950) 50%,
-				transparent
-			);
-		}
+		color: --alpha(var(--color-neutral-950) / 50%);
 	}
 
 	@variant dark {
-		color: color-mix(in srgb, var(--color-black) 30%, transparent);
-		@supports (color: color-mix(in lab, red, red)) {
-			color: color-mix(
-				in oklab,
-				var(--color-black) 30%,
-				transparent
-			);
-		}
+		color: --alpha(var(--color-black) / 30%);
 	}
 }
 
