@@ -162,9 +162,9 @@
 	* {
 		@variant light {
 			/* ngrok custom blue (600 is current button)
-      * These are required as they are referenced by both light and dark modes.
-      * Replaces the Tailwind blue and a single value of gray.
-      */
+			* These are required as they are referenced by both light and dark modes.
+			* Replaces the Tailwind blue and a single value of gray.
+			*/
 			color-scheme: light;
 
 			/* These are customized to be ngrok's colors */
@@ -265,6 +265,7 @@
 			 * These are required as they are referenced by both light and dark modes.
 			 */
 			--color-white: #000;
+			--color-black: #fff;
 
 			--color-red-50: oklch(25.8% 0.092 26.042);
 			--color-red-100: oklch(39.6% 0.141 25.723);
@@ -560,10 +561,6 @@
 	}
 }
 
-@utility text-on-filled {
-	color: #fff;
-}
-
 @utility bg-filled-accent {
 	background-color: var(--color-blue-500);
 }
@@ -600,4 +597,45 @@
 			);
 		}
 	}
+}
+
+@utility text-body {
+	color: color-mix(in srgb, var(--color-black) 70%, transparent);
+	@supports (color: color-mix(in lab, red, red)) {
+		color: color-mix(
+			in oklab,
+			var(--color-black) 70%,
+			transparent
+		);
+	}
+}
+
+@utility text-strong {
+	color: var(--black);
+}
+
+@utility text-muted {
+	color: color-mix(in srgb, var(--color-black) 50%, transparent);
+	@supports (color: color-mix(in lab, red, red)) {
+		color: color-mix(
+			in oklab,
+			var(--color-black) 50%,
+			transparent
+		);
+	}
+}
+
+@utility text-placeholder {
+	color: color-mix(in srgb, var(--color-black) 30%, transparent);
+	@supports (color: color-mix(in lab, red, red)) {
+		color: color-mix(
+			in oklab,
+			var(--color-black) 30%,
+			transparent
+		);
+	}
+}
+
+@utility text-on-filled {
+	color: #fff;
 }
