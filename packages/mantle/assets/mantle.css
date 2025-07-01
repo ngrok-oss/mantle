@@ -251,9 +251,6 @@
 			--color-neutral-800: var(--color-gray-800);
 			--color-neutral-900: var(--color-gray-900);
 			--color-neutral-950: var(--color-gray-950);
-
-			/* --background-color-filled-accent: var(--color-blue-500);
-			--background-color-filled-accent-hover: var(--color-blue-600); */
 		}
 
 		@variant dark {
@@ -697,4 +694,31 @@
 
 @utility text-tooltip {
 	color: #fff;
+}
+
+@utility scrollbar {
+	@supports selector(::-webkit-scrollbar) {
+		.scrollbar::-webkit-scrollbar {
+			width: 0.5rem;
+			height: 0.5rem;
+			background-color: transparent;
+		}
+
+		.scrollbar::-webkit-scrollbar-track {
+			border-radius: 0.5rem;
+			background-color: transparent;
+		}
+
+		.scrollbar::-webkit-scrollbar-thumb {
+			border-radius: 0.5rem;
+			background-color: --alpha(var(--color-neutral-800) / 50%);
+		}
+
+		.scrollbar::-webkit-scrollbar-corner {
+			background-color: transparent;
+			border-color: transparent;
+		}
+	}
+
+	scrollbar-color: --alpha(var(--color-neutral-800) / 50%) transparent;
 }
