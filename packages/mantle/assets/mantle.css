@@ -561,6 +561,20 @@
 	}
 }
 
+@utility bg-base {
+	background-color: var(--color-neutral-50);
+}
+
+@utility bg-card {
+	@variant light {
+		background-color: #fff;
+	}
+
+	@variant dark {
+		background-color: var(--color-neutral-100);
+	}
+}
+
 @utility bg-filled-accent {
 	background-color: var(--color-accent-500);
 }
@@ -598,8 +612,6 @@
 		}
 	}
 }
-
-
 
 @utility text-strong {
 	@variant light {
