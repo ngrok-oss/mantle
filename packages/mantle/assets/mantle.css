@@ -593,8 +593,8 @@
 			--color-neutral-950: var(--color-gray-950);
 
 			--shadow-color: 0 0% 0%;
-			--shadow-first-opacity: 100%;
-			--shadow-second-opacity: 100%;
+			--shadow-first-opacity: 15%;
+			--shadow-second-opacity: 30%;
 		}
 	}
 }
