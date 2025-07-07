@@ -964,3 +964,24 @@
 		background-color: --alpha(var(--color-success-500) / 80%);
 	}
 }
+
+/* Focus token utilities */
+@utility ring-focus-neutral {
+	--tw-ring-color: --alpha(var(--color-neutral-500) / 30%);
+}
+
+@utility ring-focus-accent {
+	--tw-ring-color: --alpha(var(--color-accent-500) / 30%);
+}
+
+@utility ring-focus-danger {
+	--tw-ring-color: --alpha(var(--color-danger-500) / 30%);
+}
+
+@utility ring-focus-warning {
+	--tw-ring-color: --alpha(var(--color-warning-500) / 30%);
+}
+
+@utility ring-focus-success {
+	--tw-ring-color: --alpha(var(--color-success-500) / 30%);
+}
