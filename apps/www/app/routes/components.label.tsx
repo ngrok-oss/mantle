@@ -50,14 +50,17 @@ export default function Page() {
 				<div>
 					<Example className="grid gap-6">
 						<Label htmlFor="name">
-							Name <Input type="text" id="name" />
+							<span className="font-medium">Name</span>{" "}
+							<Input type="text" id="name" />
 						</Label>
 						<div className="flex items-center gap-2">
-							<Label htmlFor="name-2">Name</Label>
+							<Label htmlFor="name-2" className="font-medium">
+								Name
+							</Label>
 							<Input type="text" id="name-2" />
 						</div>
 						<Label htmlFor="name-disabled">
-							Name{" "}
+							<span className="font-medium">Name</span>{" "}
 							<Input
 								type="text"
 								id="name"
@@ -78,11 +81,11 @@ export default function Page() {
 									import { Label } from "@ngrok/mantle/label";
 
 									<Label htmlFor="name">
-										Name: <Input type="text" id="name" />
+										<span className="font-medium">Name</span> <Input type="text" id="name" />
 									</Label>
 
 									<div className="flex items-center gap-2">
-										<Label htmlFor="name-2">Name:</Label>
+										<Label htmlFor="name-2" className="font-medium">Name:</Label>
 										<Input type="text" id="name-2" />
 									</div>
 								`}
