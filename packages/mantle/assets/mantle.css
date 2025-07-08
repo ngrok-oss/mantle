@@ -985,3 +985,70 @@
 @utility ring-focus-success {
 	--tw-ring-color: --alpha(var(--color-success-500) / 30%);
 }
+
+
+/**
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: var(--color-gray-500);
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: var(--color-indigo-600);
+}
+
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: var(--color-green-600);
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+	color: var(--color-green-600);
+}
+
+.token.selector,
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+	color: var(--color-blue-600);
+}
+
+.token.function,
+.token.class-name {
+	color: var(--color-blue-600);
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+	color: var(--color-yellow-600);
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+
+.token.italic {
+	font-style: italic;
+}
