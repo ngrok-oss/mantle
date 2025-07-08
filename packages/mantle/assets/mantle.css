@@ -79,8 +79,8 @@
 		format("woff");
 }
 
-@custom-variant light (&:where(.light, .light *));
-@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant light (&:where(.light, .light *, [data-theme="light"], [data-applied-theme="light"]));
+@custom-variant dark (&:where(.dark, .dark *, [data-theme="dark"], [data-applied-theme="dark"]));
 
 @theme {
 	--font-sans: "EuclidSquare", ui-sans-serif, system-ui, sans-serif,
