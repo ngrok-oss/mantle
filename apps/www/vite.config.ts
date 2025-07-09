@@ -24,4 +24,10 @@ export default defineConfig({
 			],
 		},
 	},
+	ssr: {
+		noExternal: [
+			// https://github.com/phosphor-icons/react/issues/45#issuecomment-2721119452
+			"@phosphor-icons/react",
+		],
+	},
 });
