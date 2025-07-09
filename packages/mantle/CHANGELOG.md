@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.31.5
+
+### Patch Changes
+
+- [#662](https://github.com/ngrok-oss/mantle/pull/662) [`1cfccd6`](https://github.com/ngrok-oss/mantle/commit/1cfccd66c5e4091c34553436e422e2e1cda356a4) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Sprinkle use client everywhere
+
 ## 0.31.4
 
 ### Patch Changes
