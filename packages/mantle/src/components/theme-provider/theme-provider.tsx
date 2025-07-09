@@ -311,13 +311,17 @@ export function determineThemeFromMediaQuery({
 	return prefersDarkMode ? "dark" : "light";
 }
 
-function preventWrongThemeFlashScriptContent({
-	defaultTheme = "system",
-	storageKey = DEFAULT_STORAGE_KEY,
-}: {
+type PreventWrongThemeFlashScriptContentOptions = {
 	defaultTheme?: Theme;
 	storageKey?: string;
-}) {
+};
+
+function preventWrongThemeFlashScriptContent(
+	options?: PreventWrongThemeFlashScriptContentOptions,
+) {
+	const { defaultTheme = "system", storageKey = DEFAULT_STORAGE_KEY } =
+		options ?? {};
+
 	return `
 (function() {
 	const themes = ${JSON.stringify(themes)};
