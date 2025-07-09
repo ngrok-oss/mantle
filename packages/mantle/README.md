@@ -18,14 +18,23 @@
 
 ## Installation
 
-Install `@ngrok/mantle` with your preferred package manager:
+Install `@ngrok/mantle` and all of the required `peerDependencies` with your preferred package manager:
 
-| package manager | command                      |
-| --------------- | ---------------------------- |
-| npm             | npm install -E @ngrok/mantle |
-| yarn            | yarn add -E @ngrok/mantle    |
-| pnpm            | pnpm add -E @ngrok/mantle    |
-| bun             | bun add -E @ngrok/mantle     |
+| package manager | command                                                         |
+| --------------- | --------------------------------------------------------------- |
+| npm             | npm install -E @ngrok/mantle @phosphor-icons/react date-fns zod |
+| pnpm            | pnpm add -E @ngrok/mantle @phosphor-icons/react date-fns zod    |
+| bun             | bun add -E @ngrok/mantle @phosphor-icons/react date-fns zod     |
+| yarn            | yarn add -E @ngrok/mantle @phosphor-icons/react date-fns zod    |
+
+Also install the required `devDependencies`:
+
+| package manager | command                                                |
+| --------------- | ------------------------------------------------------ |
+| npm             | npm install -DE tailwindcss@3.4.1 postcss autoprefixer |
+| pnpm            | pnpm add -DE tailwindcss@3.4.1 postcss autoprefixer    |
+| bun             | bun add -DE tailwindcss@3.4.1 postcss autoprefixer     |
+| yarn            | yarn add -DE tailwindcss@3.4.1 postcss autoprefixer    |
 
 Then, add the [preset](https://tailwindcss.com/docs/presets) and mantle content to your tailwind configuration.
 
@@ -43,7 +52,7 @@ export default {
 } satisfies Config;
 ```
 
-Next, check out the [Overview & Setup](https://mantle.ngrok.com/) and [Theme Provider](https://mantle.ngrok.com/components/theme-provider) usage docs and start using mantle components in your application!
+Next, check out the [Overview & Setup](https://mantle.ngrok.com/) docs and start using mantle components in your application!
 
 ## Contributing
 
