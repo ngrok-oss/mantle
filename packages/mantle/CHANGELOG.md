@@ -1,5 +1,17 @@
 # @ngrok/mantle
 
+## 0.31.3
+
+### Patch Changes
+
+- [#642](https://github.com/ngrok-oss/mantle/pull/642) [`1bb8fdd`](https://github.com/ngrok-oss/mantle/commit/1bb8fdd7769f39dfc5fd2556cee5a8d08e3d006d) Thanks [@dependabot](https://github.com/apps/dependabot)! - update dependencies
+
+- [#651](https://github.com/ngrok-oss/mantle/pull/651) [`57d5b60`](https://github.com/ngrok-oss/mantle/commit/57d5b6054b96c5e68ecafa35099aabcb1adbdce7) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update dependencies
+
+- [#659](https://github.com/ngrok-oss/mantle/pull/659) [`1d43071`](https://github.com/ngrok-oss/mantle/commit/1d43071a93f4d5d618dd503ddf9dfbd2a89adf6b) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Fix mantle react, react-dom peer dependencies range
+
+- [#658](https://github.com/ngrok-oss/mantle/pull/658) [`ad402db`](https://github.com/ngrok-oss/mantle/commit/ad402dbf34c05825538f89ddb4ee03cf778a0bce) Thanks [@melanieseltzer](https://github.com/melanieseltzer)! - Fix bug where `setValueOnClick` prop was destructured (to set a default) but then never passed along and used (so the consumer could never override it).
+
 ## 0.31.2
 
 ### Patch Changes
