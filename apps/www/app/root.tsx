@@ -52,13 +52,13 @@ export default function App() {
 				<ThemeProvider>
 					<AutoScrollToHash />
 					<TooltipProvider>
+						<Toaster />
 						<NavigationProvider>
 							<Layout currentVersion={currentVersion}>
 								<Outlet />
 							</Layout>
 						</NavigationProvider>
 					</TooltipProvider>
-					<Toaster />
 				</ThemeProvider>
 				<ScrollRestoration />
 				<Scripts />
