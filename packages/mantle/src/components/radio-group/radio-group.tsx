@@ -1,3 +1,5 @@
+"use client";
+
 import {
 	Radio as HeadlessRadio,
 	RadioGroup as HeadlessRadioGroup,

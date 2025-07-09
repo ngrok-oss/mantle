@@ -1,3 +1,5 @@
+"use client";
+
 import * as Primitive from "@ariakit/react";
 import { Slot } from "@radix-ui/react-slot";
 import {

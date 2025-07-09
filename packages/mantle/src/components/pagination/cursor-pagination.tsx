@@ -1,3 +1,5 @@
+"use client";
+
 import { CaretLeftIcon } from "@phosphor-icons/react/CaretLeft";
 import { CaretRightIcon } from "@phosphor-icons/react/CaretRight";
 import { Slot } from "@radix-ui/react-slot";

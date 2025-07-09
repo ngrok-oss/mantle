@@ -1,3 +1,5 @@
+"use client";
+
 import type { ComponentProps, ComponentRef } from "react";
 import { forwardRef, useRef, useState } from "react";
 import { cx } from "../../utils/cx/cx.js";

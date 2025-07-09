@@ -1,3 +1,5 @@
+"use client";
+
 import { CheckCircleIcon } from "@phosphor-icons/react/CheckCircle";
 import { WarningIcon } from "@phosphor-icons/react/Warning";
 import { WarningDiamondIcon } from "@phosphor-icons/react/WarningDiamond";
