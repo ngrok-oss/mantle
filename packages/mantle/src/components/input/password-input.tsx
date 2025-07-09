@@ -1,3 +1,5 @@
+"use client";
+
 import { EyeIcon } from "@phosphor-icons/react/Eye";
 import { EyeClosedIcon } from "@phosphor-icons/react/EyeClosed";
 import { forwardRef, useEffect, useState } from "react";

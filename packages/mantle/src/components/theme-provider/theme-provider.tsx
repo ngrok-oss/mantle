@@ -1,3 +1,5 @@
+"use client";
+
 import clsx from "clsx";
 import type { ComponentProps, PropsWithChildren } from "react";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";

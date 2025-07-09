@@ -1,3 +1,5 @@
+"use client";
+
 import clsx from "clsx";
 import { forwardRef, useEffect, useRef, useState } from "react";
 import type { ComponentPropsWithoutRef, ComponentRef } from "react";
