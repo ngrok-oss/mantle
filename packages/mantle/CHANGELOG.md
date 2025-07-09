@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.31.4
+
+### Patch Changes
+
+- [#660](https://github.com/ngrok-oss/mantle/pull/660) [`2fddd06`](https://github.com/ngrok-oss/mantle/commit/2fddd06a2d7ac056f022a96d64888230bb261dcf) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Change peerDependencies for react and react-dom
+
 ## 0.31.3
 
 ### Patch Changes
