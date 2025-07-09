@@ -181,7 +181,6 @@ const ComboboxItem = forwardRef<
 			children,
 			className,
 			focusOnHover = true,
-			setValueOnClick = true,
 			value,
 			...props
 		},
