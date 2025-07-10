@@ -4,6 +4,13 @@ const indentations = ["tabs", "spaces"] as const;
 type Indentation = (typeof indentations)[number];
 
 /**
+ * Type Predicate: checks if the given value is a valid indentation type.
+ */
+function isIndentation(input: unknown): input is Indentation {
+	return indentations.includes(input as Indentation);
+}
+
+/**
  * Infers the indentation type based on the language and preferred indentation.
  *
  * @param language - The language to check.
@@ -33,6 +40,7 @@ export {
 	//,
 	indentations,
 	inferIndentation,
+	isIndentation,
 };
 
 export type {

@@ -1,5 +1,5 @@
-import { z } from "zod";
-import { indentations } from "./indentation.js";
+import { parseBooleanish } from "../../types/booleanish.js";
+import { type Indentation, isIndentation } from "./indentation.js";
 
 const modes = [
 	//,
@@ -9,24 +9,28 @@ const modes = [
 ] as const;
 type Mode = (typeof modes)[number];
 
-const metaSchema = z.object({
-	collapsible: z.boolean().default(false),
-	disableCopy: z.boolean().default(false),
-	mode: z.enum(modes).optional(),
-	title: z.string().trim().optional(),
-	indentation: z.enum(indentations).optional(),
-});
+type MetaInput = {
+	collapsible?: boolean | undefined;
+	disableCopy?: boolean | undefined;
+	indentation?: Indentation | undefined;
+	mode?: Mode | undefined;
+	title?: string | undefined;
+};
 
-type MetaInput = z.input<typeof metaSchema>;
-
-type Meta = z.infer<typeof metaSchema>;
+type Meta = {
+	collapsible: boolean;
+	disableCopy: boolean;
+	indentation?: Indentation | undefined;
+	mode?: Mode | undefined;
+	title?: string | undefined;
+};
 
 const defaultMeta = {
 	collapsible: false,
 	disableCopy: false,
+	indentation: undefined,
 	mode: undefined,
 	title: undefined,
-	indentation: undefined,
 } as const satisfies Meta;
 
 type DefaultMeta = typeof defaultMeta;
@@ -37,8 +41,8 @@ type DefaultMeta = typeof defaultMeta;
  * Useful for parsing the metastring from a markdown code block to pass into the
  * CodeBlock components as props.
  */
-function parseMetastring(value: string | undefined): Meta {
-	const metastring = value?.trim() ?? "";
+function parseMetastring(input: string | undefined): Meta {
+	const metastring = input?.trim() ?? "";
 	if (!metastring) {
 		return defaultMeta;
 	}
@@ -46,17 +50,17 @@ function parseMetastring(value: string | undefined): Meta {
 	const metaJson = tokenizeMetastring(metastring).reduce<
 		Record<string, unknown>
 	>((acc, token) => {
-		const [key, _value] = token.split("=");
+		const [key, value] = token.split("=");
 		if (!key) {
 			return acc;
 		}
-		const value = normalizeValue(_value);
-		acc[key] = value ?? true;
+		const normalizedValue = normalizeValue(value);
+		acc[key] = normalizedValue ?? true;
 		return acc;
 	}, {});
 
 	try {
-		const parsed = metaSchema.parse(metaJson);
+		const parsed = parseMetaJson(metaJson);
 
 		// return the parsed meta object, with default values filled in
 		return {
@@ -120,4 +124,42 @@ export function tokenizeMetastring(value: string | undefined): string[] {
 	}
 
 	return result;
+}
+
+/**
+ * Type Predicate: checks if the given value is a valid mode.
+ * @private
+ */
+function isMode(input: unknown): input is Mode {
+	return modes.includes(input as Mode);
+}
+
+/**
+ * Parses a meta JSON object into a Meta object.
+ * @private
+ */
+function parseMetaJson(input: Record<string, unknown>): Meta {
+	const {
+		collapsible = defaultMeta.collapsible,
+		disableCopy = defaultMeta.disableCopy,
+		indentation = defaultMeta.indentation,
+		mode = defaultMeta.mode,
+		title = defaultMeta.title,
+	} = input;
+
+	return {
+		collapsible:
+			typeof collapsible === "string" || typeof collapsible === "boolean"
+				? parseBooleanish(collapsible)
+				: defaultMeta.collapsible,
+		disableCopy:
+			typeof disableCopy === "string" || typeof disableCopy === "boolean"
+				? parseBooleanish(disableCopy)
+				: defaultMeta.disableCopy,
+		indentation: isIndentation(indentation)
+			? indentation
+			: defaultMeta.indentation,
+		mode: isMode(mode) ? mode : defaultMeta.mode,
+		title: typeof title === "string" ? title.trim() : defaultMeta.title,
+	};
 }
