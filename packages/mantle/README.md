@@ -20,12 +20,12 @@
 
 Install `@ngrok/mantle` and all of the required `peerDependencies` with your preferred package manager:
 
-| package manager | command                                                         |
-| --------------- | --------------------------------------------------------------- |
-| npm             | npm install -E @ngrok/mantle @phosphor-icons/react date-fns zod |
-| pnpm            | pnpm add -E @ngrok/mantle @phosphor-icons/react date-fns zod    |
-| bun             | bun add -E @ngrok/mantle @phosphor-icons/react date-fns zod     |
-| yarn            | yarn add -E @ngrok/mantle @phosphor-icons/react date-fns zod    |
+| package manager | command                                                     |
+| --------------- | ----------------------------------------------------------- |
+| npm             | npm install -E @ngrok/mantle @phosphor-icons/react date-fns |
+| pnpm            | pnpm add -E @ngrok/mantle @phosphor-icons/react date-fns    |
+| bun             | bun add -E @ngrok/mantle @phosphor-icons/react date-fns     |
+| yarn            | yarn add -E @ngrok/mantle @phosphor-icons/react date-fns    |
 
 Also install the required `devDependencies`:
 

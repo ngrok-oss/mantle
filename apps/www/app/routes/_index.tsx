@@ -178,7 +178,7 @@ function isPackageManager(value: unknown): value is PackageManager {
 	);
 }
 
-const prodDependencies = "@ngrok/mantle @phosphor-icons/react date-fns zod";
+const prodDependencies = "@ngrok/mantle @phosphor-icons/react date-fns";
 const devDependencies = "tailwindcss@3.4.1 postcss autoprefixer";
 
 const primaryInstallationCommand = {
