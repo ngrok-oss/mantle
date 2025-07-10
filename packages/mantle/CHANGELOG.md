@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.31.6
+
+### Patch Changes
+
+- [#670](https://github.com/ngrok-oss/mantle/pull/670) [`bc3e6ac`](https://github.com/ngrok-oss/mantle/commit/bc3e6ac87bd453b7af82dddad013cd9fd7de0671) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - remove zod as a peerDependency of mantle
+
 ## 0.31.5
 
 ### Patch Changes
