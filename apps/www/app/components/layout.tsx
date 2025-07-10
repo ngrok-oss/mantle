@@ -298,6 +298,12 @@ function Navigation({ className, style }: WithStyleProps) {
 					</NavLink>
 				</li>
 
+				<li>
+					<NavLink to={href("/philosophy")} prefetch="intent">
+						Philosophy
+					</NavLink>
+				</li>
+
 				<li className="mt-6 text-xs font-medium uppercase tracking-wider">
 					Base
 				</li>
