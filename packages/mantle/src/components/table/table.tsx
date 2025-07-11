@@ -1,6 +1,7 @@
 import type { ComponentProps, ComponentRef } from "react";
 import { forwardRef, useEffect, useMemo, useRef, useState } from "react";
 import { composeRefs } from "../../utils/compose-refs/compose-refs.js";
+import { createNamespacedComponent } from "../../utils/create-namespaced-component.js";
 import { cx } from "../../utils/cx/cx.js";
 
 /**
@@ -45,7 +46,7 @@ import { cx } from "../../utils/cx/cx.js";
  *
  * @see https://mantle.ngrok.com/components/table#api-table-root
  */
-const TableRoot = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
+const Root = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
 	({ children, className, ...props }, ref) => {
 		const horizontalOverflow =
 			useHorizontalOverflowObserver<ComponentRef<"div">>();
@@ -74,7 +75,7 @@ const TableRoot = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
 		);
 	},
 );
-TableRoot.displayName = "TableRoot";
+Root.displayName = "TableRoot";
 
 /**
  * The `<Table>` is a structured way to display data in rows and columns. The API
@@ -141,23 +142,24 @@ TableRoot.displayName = "TableRoot";
  *
  * @see https://mantle.ngrok.com/components/table#api-table
  */
-const Table = forwardRef<ComponentRef<"table">, ComponentProps<"table">>(
-	({ children, className, ...props }, ref) => {
-		return (
-			<table
-				ref={ref}
-				className={cx(
-					"table-auto border-collapse caption-bottom w-full min-w-full text-left",
-					className,
-				)}
-				{...props}
-			>
-				{children}
-			</table>
-		);
-	},
-);
-Table.displayName = "Table";
+const TableComponent = forwardRef<
+	ComponentRef<"table">,
+	ComponentProps<"table">
+>(({ children, className, ...props }, ref) => {
+	return (
+		<table
+			ref={ref}
+			className={cx(
+				"table-auto border-collapse caption-bottom w-full min-w-full text-left",
+				className,
+			)}
+			{...props}
+		>
+			{children}
+		</table>
+	);
+});
+TableComponent.displayName = "Table";
 
 /**
  * The `<TableHead>` is a container for the table's column headers.
@@ -206,7 +208,7 @@ Table.displayName = "Table";
  *
  * @see https://mantle.ngrok.com/components/table#api-table-header
  */
-const TableHead = forwardRef<ComponentRef<"thead">, ComponentProps<"thead">>(
+const Head = forwardRef<ComponentRef<"thead">, ComponentProps<"thead">>(
 	({ children, className, ...props }, ref) => (
 		<thead
 			ref={ref}
@@ -223,7 +225,7 @@ const TableHead = forwardRef<ComponentRef<"thead">, ComponentProps<"thead">>(
 		</thead>
 	),
 );
-TableHead.displayName = "TableHead";
+Head.displayName = "TableHead";
 
 /**
  * The `<TableBody>` encapsulates a set of `<TableRow>`s, indicating that they
@@ -270,7 +272,7 @@ TableHead.displayName = "TableHead";
  *
  * @see https://mantle.ngrok.com/components/table#api-table-body
  */
-const TableBody = forwardRef<ComponentRef<"tbody">, ComponentProps<"tbody">>(
+const Body = forwardRef<ComponentRef<"tbody">, ComponentProps<"tbody">>(
 	({ children, className, ...props }, ref) => (
 		<tbody
 			className={cx(
@@ -287,7 +289,7 @@ const TableBody = forwardRef<ComponentRef<"tbody">, ComponentProps<"tbody">>(
 		</tbody>
 	),
 );
-TableBody.displayName = "TableBody";
+Body.displayName = "TableBody";
 
 /**
  * The `<TableFoot>` encapsulates a set of `<TableRow>`s, indicating that they
@@ -336,7 +338,7 @@ TableBody.displayName = "TableBody";
  *
  * @see https://mantle.ngrok.com/components/table#api-table-foot
  */
-const TableFoot = forwardRef<ComponentRef<"tfoot">, ComponentProps<"tfoot">>(
+const Foot = forwardRef<ComponentRef<"tfoot">, ComponentProps<"tfoot">>(
 	({ children, className, ...props }, ref) => (
 		<tfoot
 			ref={ref}
@@ -353,7 +355,7 @@ const TableFoot = forwardRef<ComponentRef<"tfoot">, ComponentProps<"tfoot">>(
 		</tfoot>
 	),
 );
-TableFoot.displayName = "TableFoot";
+Foot.displayName = "TableFoot";
 
 /**
  * The `<TableRow>` defines a row of cells in a table. The row's cells can then
@@ -399,7 +401,7 @@ TableFoot.displayName = "TableFoot";
  *
  * @see https://mantle.ngrok.com/components/table#api-table-row
  */
-const TableRow = forwardRef<ComponentRef<"tr">, ComponentProps<"tr">>(
+const Row = forwardRef<ComponentRef<"tr">, ComponentProps<"tr">>(
 	({ children, className, ...props }, ref) => (
 		<tr
 			ref={ref}
@@ -414,7 +416,7 @@ const TableRow = forwardRef<ComponentRef<"tr">, ComponentProps<"tr">>(
 		</tr>
 	),
 );
-TableRow.displayName = "TableRow";
+Row.displayName = "TableRow";
 
 /**
  * The `<TableHeader>` defines a cell as the header of a group of table cells
@@ -462,7 +464,7 @@ TableRow.displayName = "TableRow";
  *
  * @see https://mantle.ngrok.com/components/table#api-table-header
  */
-const TableHeader = forwardRef<ComponentRef<"th">, ComponentProps<"th">>(
+const Header = forwardRef<ComponentRef<"th">, ComponentProps<"th">>(
 	({ children, className, ...props }, ref) => (
 		<th
 			ref={ref}
@@ -476,7 +478,7 @@ const TableHeader = forwardRef<ComponentRef<"th">, ComponentProps<"th">>(
 		</th>
 	),
 );
-TableHead.displayName = "TableHead";
+Header.displayName = "TableHeader";
 
 /**
  * The `<TableCell>` defines a cell of a table that contains data and may be
@@ -522,7 +524,7 @@ TableHead.displayName = "TableHead";
  *
  * @see https://mantle.ngrok.com/components/table#api-table-cell
  */
-const TableCell = forwardRef<ComponentRef<"td">, ComponentProps<"td">>(
+const Cell = forwardRef<ComponentRef<"td">, ComponentProps<"td">>(
 	({ children, className, ...props }, ref) => (
 		<td
 			ref={ref}
@@ -536,7 +538,7 @@ const TableCell = forwardRef<ComponentRef<"td">, ComponentProps<"td">>(
 		</td>
 	),
 );
-TableCell.displayName = "TableCell";
+Cell.displayName = "TableCell";
 
 /**
  * The optional `<TableCaption>` specifies the caption (or title) of a table,
@@ -582,35 +584,41 @@ TableCell.displayName = "TableCell";
  *
  * @see https://mantle.ngrok.com/components/table#api-table-caption
  */
-const TableCaption = forwardRef<
-	ComponentRef<"caption">,
-	ComponentProps<"caption">
->(({ children, className, ...props }, ref) => (
-	<caption
-		ref={ref}
-		className={cx(
-			"py-4 text-sm text-gray-500",
-			"border-t border-card-muted",
-			className,
-		)}
-		{...props}
-	>
-		{children}
-	</caption>
-));
-TableCaption.displayName = "TableCaption";
+const Caption = forwardRef<ComponentRef<"caption">, ComponentProps<"caption">>(
+	({ children, className, ...props }, ref) => (
+		<caption
+			ref={ref}
+			className={cx(
+				"py-4 text-sm text-gray-500",
+				"border-t border-card-muted",
+				className,
+			)}
+			{...props}
+		>
+			{children}
+		</caption>
+	),
+);
+Caption.displayName = "TableCaption";
+
+const Table = createNamespacedComponent(
+	TableComponent,
+	{
+		Body,
+		Caption,
+		Cell,
+		Foot,
+		Head,
+		Header,
+		Root,
+		Row,
+	},
+	"Table",
+);
 
 export {
 	//,
 	Table,
-	TableBody,
-	TableCaption,
-	TableCell,
-	TableFoot,
-	TableHead,
-	TableHeader,
-	TableRoot,
-	TableRow,
 };
 
 /**

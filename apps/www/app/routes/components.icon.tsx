@@ -1,11 +1,5 @@
 import { Anchor } from "@ngrok/mantle/anchor";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { Icon } from "@ngrok/mantle/icon";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { FireIcon } from "@phosphor-icons/react/Fire";
@@ -59,9 +53,9 @@ export default function Page() {
 						/>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
 									import { Icon } from "@ngrok/mantle/icon";
@@ -71,7 +65,7 @@ export default function Page() {
 									<Icon className="text-danger-600" svg={<FireIcon weight="fill" />} />
 								`}
 							/>
-						</CodeBlockBody>
+						</CodeBlock.Body>
 					</CodeBlock>
 				</div>
 			</section>
@@ -148,9 +142,9 @@ export default function Page() {
 							</div>
 						</Example>
 						<CodeBlock className="rounded-b-lg rounded-t-none">
-							<CodeBlockBody>
-								<CodeBlockCopyButton />
-								<CodeBlockCode
+							<CodeBlock.Body>
+								<CodeBlock.CopyButton />
+								<CodeBlock.Code
 									language="tsx"
 									value={fmtCode`
 									import { Icon } from "@ngrok/mantle/icon"
@@ -162,7 +156,7 @@ export default function Page() {
 									<Icon className="size-20 sm:size-28" svg={<FireIcon className="size-12 sm:size-16" />} />
 								`}
 								/>
-							</CodeBlockBody>
+							</CodeBlock.Body>
 						</CodeBlock>
 					</div>
 				</section>

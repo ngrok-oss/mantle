@@ -1,4 +1,4 @@
-import { type ComponentProps, type ComponentType, createElement } from "react";
+import type { ComponentType } from "react";
 
 /**
  * Creates a namespaced component by combining a root component with an object containing sub-components.
@@ -33,8 +33,8 @@ import { type ComponentProps, type ComponentType, createElement } from "react";
  * ```
  */
 function createNamespacedComponent<
-	TRoot extends ComponentType,
-	TSubComponents extends Record<PropertyKey, ComponentType>,
+	TRoot extends ComponentType<any>,
+	TSubComponents extends Record<PropertyKey, ComponentType<any>>,
 >(
 	Root: TRoot,
 	subComponents: TSubComponents,

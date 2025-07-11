@@ -1,14 +1,8 @@
 import { Button, IconButton } from "@ngrok/mantle/button";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { Dialog } from "@ngrok/mantle/dialog";
 import { InlineCode } from "@ngrok/mantle/inline-code";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@ngrok/mantle/tooltip";
+import { Tooltip } from "@ngrok/mantle/tooltip";
 import { TrashSimpleIcon } from "@phosphor-icons/react/TrashSimple";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
@@ -191,9 +185,9 @@ export default function Page() {
 						</Dialog>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
 									import { Dialog } from "@ngrok/mantle/dialog";
@@ -222,7 +216,7 @@ export default function Page() {
 									</Dialog>
 							`}
 							/>
-						</CodeBlockBody>
+						</CodeBlock.Body>
 					</CodeBlock>
 				</div>
 			</section>
@@ -242,7 +236,7 @@ export default function Page() {
 					<Example>
 						<Dialog>
 							<Tooltip>
-								<TooltipTrigger asChild>
+								<Tooltip.Trigger asChild>
 									<Dialog.Trigger asChild>
 										<IconButton
 											type="button"
@@ -251,10 +245,10 @@ export default function Page() {
 											icon={<TrashSimpleIcon />}
 										/>
 									</Dialog.Trigger>
-								</TooltipTrigger>
-								<TooltipContent>
+								</Tooltip.Trigger>
+								<Tooltip.Content>
 									<p>Delete</p>
-								</TooltipContent>
+								</Tooltip.Content>
 							</Tooltip>
 
 							<Dialog.Content>
@@ -286,21 +280,21 @@ export default function Page() {
 						</Dialog>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
 									<Dialog>
 										<Tooltip>
-											<TooltipTrigger asChild>
+											<Tooltip.Trigger asChild>
 												<Dialog.Trigger asChild>
 													<IconButton type="button" label="Delete" size="sm" icon={<TrashSimpleIcon />} />
 												</Dialog.Trigger>
-											</TooltipTrigger>
-											<TooltipContent>
+											</Tooltip.Trigger>
+											<Tooltip.Content>
 												<p>Delete</p>
-											</TooltipContent>
+											</Tooltip.Content>
 										</Tooltip>
 
 										<Dialog.Content>
@@ -328,7 +322,7 @@ export default function Page() {
 									</Dialog>
 								`}
 							/>
-						</CodeBlockBody>
+						</CodeBlock.Body>
 					</CodeBlock>
 				</div>
 			</section>

@@ -1,25 +1,7 @@
-import {
-	AlertDialog,
-	AlertDialogAction,
-	AlertDialogBody,
-	AlertDialogCancel,
-	AlertDialogContent,
-	AlertDialogDescription,
-	AlertDialogFooter,
-	AlertDialogHeader,
-	AlertDialogIcon,
-	AlertDialogTitle,
-	AlertDialogTrigger,
-} from "@ngrok/mantle/alert-dialog";
+import { AlertDialog } from "@ngrok/mantle/alert-dialog";
 import { Anchor } from "@ngrok/mantle/anchor";
 import { Button } from "@ngrok/mantle/button";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { href } from "react-router";
 import { Example } from "~/components/example";
@@ -65,175 +47,169 @@ export default function Page() {
 				<div>
 					<Example className="flex-col gap-6">
 						<AlertDialog priority="info">
-							<AlertDialogTrigger asChild>
+							<AlertDialog.Trigger asChild>
 								<Button type="button" appearance="outlined">
 									Show Info Alert Dialog
 								</Button>
-							</AlertDialogTrigger>
-							<AlertDialogContent>
-								<AlertDialogIcon />
-								<AlertDialogBody>
-									<AlertDialogHeader>
-										<AlertDialogTitle>
+							</AlertDialog.Trigger>
+							<AlertDialog.Content>
+								<AlertDialog.Icon />
+								<AlertDialog.Body>
+									<AlertDialog.Header>
+										<AlertDialog.Title>
 											Are you absolutely sure?
-										</AlertDialogTitle>
-										<AlertDialogDescription>
+										</AlertDialog.Title>
+										<AlertDialog.Description>
 											Proident quis nisi tempor irure sunt ut minim occaecat
 											mollit sunt.
-										</AlertDialogDescription>
-									</AlertDialogHeader>
-									<AlertDialogFooter>
-										<AlertDialogCancel type="button">Cancel</AlertDialogCancel>
-										<AlertDialogAction type="button">
+										</AlertDialog.Description>
+									</AlertDialog.Header>
+									<AlertDialog.Footer>
+										<AlertDialog.Cancel type="button">
+											Cancel
+										</AlertDialog.Cancel>
+										<AlertDialog.Action type="button">
 											Continue
-										</AlertDialogAction>
-									</AlertDialogFooter>
-								</AlertDialogBody>
-							</AlertDialogContent>
+										</AlertDialog.Action>
+									</AlertDialog.Footer>
+								</AlertDialog.Body>
+							</AlertDialog.Content>
 						</AlertDialog>
 						<AlertDialog priority="danger">
-							<AlertDialogTrigger asChild>
+							<AlertDialog.Trigger asChild>
 								<Button type="button" appearance="outlined">
 									Show Danger Alert Dialog
 								</Button>
-							</AlertDialogTrigger>
-							<AlertDialogContent>
-								<AlertDialogIcon />
-								<AlertDialogBody>
-									<AlertDialogHeader>
-										<AlertDialogTitle>
+							</AlertDialog.Trigger>
+							<AlertDialog.Content>
+								<AlertDialog.Icon />
+								<AlertDialog.Body>
+									<AlertDialog.Header>
+										<AlertDialog.Title>
 											Are you absolutely sure?
-										</AlertDialogTitle>
-										<AlertDialogDescription>
+										</AlertDialog.Title>
+										<AlertDialog.Description>
 											Proident quis nisi tempor irure sunt ut minim occaecat
 											mollit sunt.
-										</AlertDialogDescription>
-									</AlertDialogHeader>
-									<AlertDialogFooter>
-										<AlertDialogCancel type="button">Cancel</AlertDialogCancel>
-										<AlertDialogAction type="button">
+										</AlertDialog.Description>
+									</AlertDialog.Header>
+									<AlertDialog.Footer>
+										<AlertDialog.Cancel type="button">
+											Cancel
+										</AlertDialog.Cancel>
+										<AlertDialog.Action type="button">
 											Continue
-										</AlertDialogAction>
-									</AlertDialogFooter>
-								</AlertDialogBody>
-							</AlertDialogContent>
+										</AlertDialog.Action>
+									</AlertDialog.Footer>
+								</AlertDialog.Body>
+							</AlertDialog.Content>
 						</AlertDialog>
 
 						<AlertDialog priority="danger">
-							<AlertDialogTrigger asChild>
+							<AlertDialog.Trigger asChild>
 								<Button type="button" appearance="outlined">
 									With a form
 								</Button>
-							</AlertDialogTrigger>
-							<AlertDialogContent>
-								<AlertDialogIcon />
-								<AlertDialogBody>
-									<AlertDialogHeader>
-										<AlertDialogTitle>
+							</AlertDialog.Trigger>
+							<AlertDialog.Content>
+								<AlertDialog.Icon />
+								<AlertDialog.Body>
+									<AlertDialog.Header>
+										<AlertDialog.Title>
 											Are you absolutely sure?
-										</AlertDialogTitle>
-										<AlertDialogDescription>
+										</AlertDialog.Title>
+										<AlertDialog.Description>
 											Proident quis nisi tempor irure sunt ut minim occaecat
 											mollit sunt.
-										</AlertDialogDescription>
-									</AlertDialogHeader>
-									<AlertDialogFooter>
-										<AlertDialogCancel type="button">Cancel</AlertDialogCancel>
+										</AlertDialog.Description>
+									</AlertDialog.Header>
+									<AlertDialog.Footer>
+										<AlertDialog.Cancel type="button">
+											Cancel
+										</AlertDialog.Cancel>
 										<form
 											onSubmit={(event) => {
 												event.preventDefault();
 												window.alert("Form submitted!");
 											}}
 										>
-											<AlertDialogAction
+											<AlertDialog.Action
 												type="submit"
 												className="w-full sm:w-fit"
 											>
 												Continue
-											</AlertDialogAction>
+											</AlertDialog.Action>
 										</form>
-									</AlertDialogFooter>
-								</AlertDialogBody>
-							</AlertDialogContent>
+									</AlertDialog.Footer>
+								</AlertDialog.Body>
+							</AlertDialog.Content>
 						</AlertDialog>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
-									import {
-										AlertDialog,
-										AlertDialogAction,
-										AlertDialogBody,
-										AlertDialogCancel,
-										AlertDialogContent,
-										AlertDialogDescription,
-										AlertDialogFooter,
-										AlertDialogHeader,
-										AlertDialogIcon,
-										AlertDialogTitle,
-										AlertDialogTrigger,
-									} from "@ngrok/mantle/alert-dialog";
+									import { AlertDialog } from "@ngrok/mantle/alert-dialog";
 									import { Button } from "@ngrok/mantle/button";
 
 									<AlertDialog priority="info">
-										<AlertDialogTrigger asChild>
+										<AlertDialog.Trigger asChild>
 											<Button type="button" appearance="outlined">
 												Show Info Alert Dialog
 											</Button>
-										</AlertDialogTrigger>
+										</AlertDialog.Trigger>
 
-										<AlertDialogContent>
-											<AlertDialogIcon />
-											<AlertDialogBody>
-												<AlertDialogHeader>
-													<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-													<AlertDialogDescription>
+										<AlertDialog.Content>
+											<AlertDialog.Icon />
+											<AlertDialog.Body>
+												<AlertDialog.Header>
+													<AlertDialog.Title>Are you absolutely sure?</AlertDialog.Title>
+													<AlertDialog.Description>
 														 Proident quis nisi tempor irure sunt ut minim occaecat mollit sunt.
-													</AlertDialogDescription>
-												</AlertDialogHeader>
-												<AlertDialogFooter>
-													<AlertDialogCancel type="button">Cancel</AlertDialogCancel>
-													<AlertDialogAction type="button">Continue</AlertDialogAction>
-												</AlertDialogFooter>
-											</AlertDialogBody>
-										</AlertDialogContent>
+													</AlertDialog.Description>
+												</AlertDialog.Header>
+												<AlertDialog.Footer>
+													<AlertDialog.Cancel type="button">Cancel</AlertDialog.Cancel>
+													<AlertDialog.Action type="button">Continue</AlertDialog.Action>
+												</AlertDialog.Footer>
+											</AlertDialog.Body>
+										</AlertDialog.Content>
 									</AlertDialog>
 
 									<AlertDialog priority="danger">
-										<AlertDialogTrigger asChild>
+										<AlertDialog.Trigger asChild>
 											<Button type="button" appearance="outlined">
 												With a form
 											</Button>
-										</AlertDialogTrigger>
-										<AlertDialogContent>
-											<AlertDialogIcon />
-											<AlertDialogBody>
-												<AlertDialogHeader>
-													<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-													<AlertDialogDescription>
+										</AlertDialog.Trigger>
+										<AlertDialog.Content>
+											<AlertDialog.Icon />
+											<AlertDialog.Body>
+												<AlertDialog.Header>
+													<AlertDialog.Title>Are you absolutely sure?</AlertDialog.Title>
+													<AlertDialog.Description>
 														 Proident quis nisi tempor irure sunt ut minim occaecat mollit sunt.
-													</AlertDialogDescription>
-												</AlertDialogHeader>
-												<AlertDialogFooter>
-													<AlertDialogCancel type="button">Cancel</AlertDialogCancel>
+													</AlertDialog.Description>
+												</AlertDialog.Header>
+												<AlertDialog.Footer>
+													<AlertDialog.Cancel type="button">Cancel</AlertDialog.Cancel>
 													<form
 														onSubmit={(event) => {
 															event.preventDefault();
 															window.alert("Form submitted!");
 														}}
 													>
-														<AlertDialogAction type="submit">Continue</AlertDialogAction>
+														<AlertDialog.Action type="submit">Continue</AlertDialog.Action>
 													</form>
-												</AlertDialogFooter>
-											</AlertDialogBody>
-										</AlertDialogContent>
+												</AlertDialog.Footer>
+											</AlertDialog.Body>
+										</AlertDialog.Content>
 									</AlertDialog>
 								`}
 							/>
-						</CodeBlockBody>
+						</CodeBlock.Body>
 					</CodeBlock>
 				</div>
 			</section>
@@ -312,7 +288,7 @@ export default function Page() {
 						id="api-alert-dialog-trigger"
 						className="text-xl font-medium text-strong"
 					>
-						AlertDialogTrigger
+						AlertDialog.Trigger
 					</h3>
 
 					<p className="font-body text-body">
@@ -337,7 +313,7 @@ export default function Page() {
 							id="api-alert-dialog-content"
 							className="text-xl font-medium text-strong"
 						>
-							AlertDialogContent
+							AlertDialog.Content
 						</h3>
 
 						<p className="font-body text-body">
@@ -368,14 +344,14 @@ export default function Page() {
 							<PropDescriptionCell>
 								<p>
 									The preferred width of the{" "}
-									<InlineCode>AlertDialogContent</InlineCode> as a tailwind{" "}
+									<InlineCode>AlertDialog.Content</InlineCode> as a tailwind{" "}
 									<InlineCode>max-w-</InlineCode> class.
 								</p>
 								<p>
-									By default, a <InlineCode>AlertDialogContent</InlineCode>'s
+									By default, a <InlineCode>AlertDialog.Content</InlineCode>'s
 									content width is responsive with a default{" "}
 									<span className="italic">preferred width</span>: the maxiumum
-									width of the <InlineCode>AlertDialogContent</InlineCode>.
+									width of the <InlineCode>AlertDialog.Content</InlineCode>.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -387,13 +363,13 @@ export default function Page() {
 						id="api-alert-dialog-body"
 						className="text-xl font-medium text-strong"
 					>
-						AlertDialogBody
+						AlertDialog.Body
 					</h3>
 					<p className="font-body text-body">
 						Contains the main content of the alert dialog.
 					</p>
 					<p className="font-body text-body text-xl">
-						The <InlineCode>AlertDialogBody</InlineCode> accepts the following
+						The <InlineCode>AlertDialog.Body</InlineCode> accepts the following
 						props in addition to the{" "}
 						<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes">
 							standard HTML div attributes
@@ -412,7 +388,7 @@ export default function Page() {
 							<PropDescriptionCell>
 								<p>
 									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-									<InlineCode>AlertDialogBody</InlineCode> styling and
+									<InlineCode>AlertDialog.Body</InlineCode> styling and
 									functionality onto alternative element types or your own React
 									components.
 								</p>
@@ -426,15 +402,15 @@ export default function Page() {
 						id="api-alert-dialog-header"
 						className="text-xl font-medium text-strong"
 					>
-						AlertDialogHeader
+						AlertDialog.Header
 					</h3>
 					<p className="font-body text-body">
 						Contains the header content of the dialog, including the title and
 						description.
 					</p>
 					<p className="font-body text-body text-xl">
-						The <InlineCode>AlertDialogHeader</InlineCode> accepts the following
-						props in addition to the{" "}
+						The <InlineCode>AlertDialog.Header</InlineCode> accepts the
+						following props in addition to the{" "}
 						<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes">
 							standard HTML div attributes
 						</Anchor>
@@ -452,7 +428,7 @@ export default function Page() {
 							<PropDescriptionCell>
 								<p>
 									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-									<InlineCode>AlertDialogHeader</InlineCode> styling and
+									<InlineCode>AlertDialog.Header</InlineCode> styling and
 									functionality onto alternative element types or your own React
 									components.
 								</p>
@@ -466,15 +442,15 @@ export default function Page() {
 						id="api-alert-dialog-footer"
 						className="text-xl font-medium text-strong"
 					>
-						AlertDialogFooter
+						AlertDialog.Footer
 					</h3>
 					<p className="font-body text-body">
 						Contains the footer content of the dialog, including the action and
 						cancel buttons.
 					</p>
 					<p className="font-body text-body text-xl">
-						The <InlineCode>AlertDialogFooter</InlineCode> accepts the following
-						props in addition to the{" "}
+						The <InlineCode>AlertDialog.Footer</InlineCode> accepts the
+						following props in addition to the{" "}
 						<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes">
 							standard HTML div attributes
 						</Anchor>
@@ -492,7 +468,7 @@ export default function Page() {
 							<PropDescriptionCell>
 								<p>
 									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-									<InlineCode>AlertDialogFooter</InlineCode> styling and
+									<InlineCode>AlertDialog.Footer</InlineCode> styling and
 									functionality onto alternative element types or your own React
 									components.
 								</p>
@@ -506,7 +482,7 @@ export default function Page() {
 						id="api-alert-dialog-title"
 						className="text-xl font-medium text-strong"
 					>
-						AlertDialogTitle
+						AlertDialog.Title
 					</h3>
 
 					<p className="font-body text-body">
@@ -515,7 +491,7 @@ export default function Page() {
 					<p className="font-body text-body">
 						Alternatively, you can provide <InlineCode>aria-label</InlineCode>{" "}
 						or <InlineCode>aria-labelledby</InlineCode> to{" "}
-						<InlineCode>AlertDialogContent</InlineCode> and exclude this
+						<InlineCode>AlertDialog.Content</InlineCode> and exclude this
 						component.
 					</p>
 					<p className="font-body text-body">
@@ -536,7 +512,7 @@ export default function Page() {
 						id="api-alert-dialog-description"
 						className="text-xl font-medium text-strong"
 					>
-						AlertDialogDescription
+						AlertDialog.Description
 					</h3>
 
 					<p className="font-body text-body">
@@ -545,7 +521,7 @@ export default function Page() {
 					<p className="font-body text-body">
 						Alternatively, you can provide{" "}
 						<InlineCode>aria-describedby</InlineCode> to{" "}
-						<InlineCode>AlertDialogContent</InlineCode> and exclude this
+						<InlineCode>AlertDialog.Content</InlineCode> and exclude this
 						component.
 					</p>
 					<p className="font-body text-body">
@@ -566,7 +542,7 @@ export default function Page() {
 						id="api-alert-dialog-action"
 						className="text-xl font-medium text-strong"
 					>
-						AlertDialogAction
+						AlertDialog.Action
 					</h3>
 
 					<p className="font-body text-body">
@@ -577,7 +553,7 @@ export default function Page() {
 					</p>
 					<p className="font-body text-body">
 						These buttons should be distinguished visually from the{" "}
-						<InlineCode>AlertDialogCancel</InlineCode> button.
+						<InlineCode>AlertDialog.Cancel</InlineCode> button.
 					</p>
 					<p className="font-body text-body">
 						Composes around the mantle{" "}
@@ -594,7 +570,7 @@ export default function Page() {
 						id="api-alert-dialog-cancel"
 						className="text-xl font-medium text-strong"
 					>
-						AlertDialogCancel
+						AlertDialog.Cancel
 					</h3>
 
 					<p className="font-body text-body">
@@ -604,7 +580,7 @@ export default function Page() {
 					</p>
 					<p className="font-body text-body">
 						This button should be distinguished visually from{" "}
-						<InlineCode>AlertDialogAction</InlineCode> buttons.
+						<InlineCode>AlertDialog.Action</InlineCode> buttons.
 					</p>
 					<p className="font-body text-body">
 						Composes around the mantle{" "}

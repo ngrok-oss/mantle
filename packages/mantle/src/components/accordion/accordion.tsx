@@ -7,10 +7,11 @@ import {
 	type ComponentRef,
 	forwardRef,
 } from "react";
+import { createNamespacedComponent } from "../../utils/create-namespaced-component.js";
 import { cx } from "../../utils/cx/cx.js";
 import { Icon, type IconProps } from "../icon/icon.js";
 
-const Accordion = forwardRef<
+const Root = forwardRef<
 	ComponentRef<"div">,
 	ComponentPropsWithoutRef<typeof AccordionPrimitive.Root>
 >(({ className, ...props }, ref) => (
@@ -20,12 +21,12 @@ const Accordion = forwardRef<
 		{...props}
 	/>
 ));
-Accordion.displayName = "Accordion";
+Root.displayName = "Accordion";
 
-const AccordionItem = AccordionPrimitive.Item;
-AccordionItem.displayName = "AccordionItem";
+const Item = AccordionPrimitive.Item;
+Item.displayName = "AccordionItem";
 
-const AccordionHeading = forwardRef<
+const Heading = forwardRef<
 	ComponentRef<"div">,
 	ComponentPropsWithoutRef<typeof AccordionPrimitive.Header>
 >(({ className, ...props }, ref) => (
@@ -35,9 +36,9 @@ const AccordionHeading = forwardRef<
 		{...props}
 	/>
 ));
-AccordionHeading.displayName = "AccordionHeading";
+Heading.displayName = "AccordionHeading";
 
-const AccordionTrigger = forwardRef<
+const Trigger = forwardRef<
 	ComponentRef<"button">,
 	ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
 >(({ className, children, ...props }, ref) => (
@@ -49,12 +50,9 @@ const AccordionTrigger = forwardRef<
 		{children}
 	</AccordionPrimitive.Trigger>
 ));
-AccordionTrigger.displayName = "AccordionTrigger";
+Trigger.displayName = "AccordionTrigger";
 
-const AccordionTriggerIcon = ({
-	className,
-	...props
-}: Omit<IconProps, "svg">) => (
+const TriggerIcon = ({ className, ...props }: Omit<IconProps, "svg">) => (
 	<Icon
 		{...props}
 		svg={<CaretDownIcon weight="fill" />}
@@ -62,7 +60,7 @@ const AccordionTriggerIcon = ({
 	/>
 );
 
-const AccordionContent = forwardRef<
+const Content = forwardRef<
 	ComponentRef<"div">,
 	ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>
 >(({ className, children, ...props }, ref) => (
@@ -77,14 +75,21 @@ const AccordionContent = forwardRef<
 		{children}
 	</AccordionPrimitive.Content>
 ));
-AccordionContent.displayName = "AccordionContent";
+Content.displayName = "AccordionContent";
+
+const Accordion = createNamespacedComponent(
+	Root,
+	{
+		Content,
+		Heading,
+		Item,
+		Trigger,
+		TriggerIcon,
+	},
+	"Accordion",
+);
 
 export {
 	//,
 	Accordion,
-	AccordionContent,
-	AccordionHeading,
-	AccordionItem,
-	AccordionTrigger,
-	AccordionTriggerIcon,
 };

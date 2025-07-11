@@ -1,14 +1,4 @@
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	CodeBlockExpanderButton,
-	CodeBlockHeader,
-	CodeBlockIcon,
-	CodeBlockTitle,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import {
 	PreloadFonts,
@@ -58,13 +48,13 @@ export default function Page() {
 					the app first loads as well as preload all of our custom fonts.
 				</p>
 				<CodeBlock>
-					<CodeBlockHeader>
-						<CodeBlockIcon svg={<FileTextIcon weight="fill" />} />
-						<CodeBlockTitle>root.tsx</CodeBlockTitle>
-					</CodeBlockHeader>
-					<CodeBlockBody>
-						<CodeBlockCopyButton />
-						<CodeBlockCode
+					<CodeBlock.Header>
+						<CodeBlock.Icon svg={<FileTextIcon weight="fill" />} />
+						<CodeBlock.Title>root.tsx</CodeBlock.Title>
+					</CodeBlock.Header>
+					<CodeBlock.Body>
+						<CodeBlock.CopyButton />
+						<CodeBlock.Code
 							language="tsx"
 							value={fmtCode`
 							import { MantleThemeHeadContent, ThemeProvider } from "@ngrok/mantle/theme-provider";
@@ -92,8 +82,8 @@ export default function Page() {
 							}
 						`}
 						/>
-						<CodeBlockExpanderButton />
-					</CodeBlockBody>
+						<CodeBlock.ExpanderButton />
+					</CodeBlock.Body>
 				</CodeBlock>
 			</section>
 			<section className="space-y-4">
@@ -105,21 +95,21 @@ export default function Page() {
 					application&apos;s <InlineCode>&lt;head&gt;</InlineCode>:
 				</p>
 				<CodeBlock>
-					<CodeBlockHeader>
-						<CodeBlockIcon svg={<FileTextIcon weight="fill" />} />
-						<CodeBlockTitle>index.html</CodeBlockTitle>
-					</CodeBlockHeader>
-					<CodeBlockBody>
-						<CodeBlockCopyButton />
-						<CodeBlockCode
+					<CodeBlock.Header>
+						<CodeBlock.Icon svg={<FileTextIcon weight="fill" />} />
+						<CodeBlock.Title>index.html</CodeBlock.Title>
+					</CodeBlock.Header>
+					<CodeBlock.Body>
+						<CodeBlock.CopyButton />
+						<CodeBlock.Code
 							language="html"
 							value={fmtCode`<script>
 ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 </script>
 `}
 						/>
-						<CodeBlockExpanderButton />
-					</CodeBlockBody>
+						<CodeBlock.ExpanderButton />
+					</CodeBlock.Body>
 				</CodeBlock>
 			</section>
 			<section className="space-y-4">
@@ -128,19 +118,19 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 					<InlineCode>PreloadFonts</InlineCode> component to your app as well.
 				</p>
 				<CodeBlock>
-					<CodeBlockHeader>
-						<CodeBlockIcon svg={<FileTextIcon weight="fill" />} />
-						<CodeBlockTitle>index.html</CodeBlockTitle>
-					</CodeBlockHeader>
-					<CodeBlockBody>
-						<CodeBlockCopyButton />
-						<CodeBlockCode
+					<CodeBlock.Header>
+						<CodeBlock.Icon svg={<FileTextIcon weight="fill" />} />
+						<CodeBlock.Title>index.html</CodeBlock.Title>
+					</CodeBlock.Header>
+					<CodeBlock.Body>
+						<CodeBlock.CopyButton />
+						<CodeBlock.Code
 							language="html"
 							value={fmtCode`<head>\n\t${renderToStaticMarkup(<PreloadFonts />)
 								.split("/><")
 								.join("/>\n\t<")}\n</head>`}
 						/>
-					</CodeBlockBody>
+					</CodeBlock.Body>
 				</CodeBlock>
 			</section>
 			<section className="space-y-4">
@@ -150,22 +140,17 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 					theme:
 				</p>
 				<CodeBlock>
-					<CodeBlockHeader>
-						<CodeBlockIcon svg={<FileTextIcon weight="fill" />} />
-						<CodeBlockTitle>app.tsx</CodeBlockTitle>
-					</CodeBlockHeader>
-					<CodeBlockBody>
-						<CodeBlockCopyButton />
-						<CodeBlockCode
+					<CodeBlock.Header>
+						<CodeBlock.Icon svg={<FileTextIcon weight="fill" />} />
+						<CodeBlock.Title>app.tsx</CodeBlock.Title>
+					</CodeBlock.Header>
+					<CodeBlock.Body>
+						<CodeBlock.CopyButton />
+						<CodeBlock.Code
 							language="tsx"
 							value={fmtCode`
 							import {
 								Select,
-								SelectContent,
-								SelectGroup,
-								SelectItem,
-								SelectLabel,
-								SelectTrigger,
 							} from "@ngrok/mantle/select";
 							import { isTheme, theme, useTheme } from "@ngrok/mantle/theme-provider";
 
@@ -185,20 +170,20 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 										>
 											<div className="ml-auto">
 												<span className="sr-only">Theme Switcher</span>
-												<SelectTrigger className="w-min">
+												<Select.Trigger className="w-min">
 													<Sun className="mr-1 h-6 w-6" />
-												</SelectTrigger>
+												</Select.Trigger>
 											</div>
-											<SelectContent>
-												<SelectGroup>
-													<SelectLabel>Choose a theme</SelectLabel>
-													<SelectItem value={theme("system")}>System</SelectItem>
-													<SelectItem value={theme("light")}>Light</SelectItem>
-													<SelectItem value={theme("dark")}>Dark</SelectItem>
-													<SelectItem value={theme("light-high-contrast")}>Light High Contrast</SelectItem>
-													<SelectItem value={theme("dark-high-contrast")}>Dark High Contrast</SelectItem>
-												</SelectGroup>
-											</SelectContent>
+											<Select.Content>
+												<Select.Group>
+													<Select.Label>Choose a theme</Select.Label>
+													<Select.Item value={theme("system")}>System</Select.Item>
+													<Select.Item value={theme("light")}>Light</Select.Item>
+													<Select.Item value={theme("dark")}>Dark</Select.Item>
+													<Select.Item value={theme("light-high-contrast")}>Light High Contrast</Select.Item>
+													<Select.Item value={theme("dark-high-contrast")}>Dark High Contrast</Select.Item>
+												</Select.Group>
+											</Select.Content>
 										</Select>
 										{/* The rest of your app... */}
 									</>
@@ -206,8 +191,8 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 							}
 `}
 						/>
-					</CodeBlockBody>
-					<CodeBlockExpanderButton />
+					</CodeBlock.Body>
+					<CodeBlock.ExpanderButton />
 				</CodeBlock>
 			</section>
 		</div>

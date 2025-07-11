@@ -1,12 +1,6 @@
 import { Anchor } from "@ngrok/mantle/anchor";
 import { Button } from "@ngrok/mantle/button";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Label } from "@ngrok/mantle/label";
 import { Switch } from "@ngrok/mantle/switch";
@@ -100,9 +94,9 @@ export default function Page() {
 						</div>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
 									import { Label } from "@ngrok/mantle/label";
@@ -114,7 +108,7 @@ export default function Page() {
 									</Label>
 								`}
 							/>
-						</CodeBlockBody>
+						</CodeBlock.Body>
 					</CodeBlock>
 				</div>
 			</section>
@@ -151,9 +145,9 @@ export default function Page() {
 							<FormExample />
 						</Example>
 						<CodeBlock className="rounded-b-lg rounded-t-none">
-							<CodeBlockBody>
-								<CodeBlockCopyButton />
-								<CodeBlockCode
+							<CodeBlock.Body>
+								<CodeBlock.CopyButton />
+								<CodeBlock.Code
 									language="tsx"
 									value={fmtCode`
 										import { Button } from "@ngrok/mantle/button";
@@ -235,7 +229,7 @@ export default function Page() {
 										}
 									`}
 								/>
-							</CodeBlockBody>
+							</CodeBlock.Body>
 						</CodeBlock>
 					</div>
 				</section>

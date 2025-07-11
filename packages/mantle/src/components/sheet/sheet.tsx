@@ -6,13 +6,14 @@ import type {
 	HTMLAttributes,
 } from "react";
 import { forwardRef } from "react";
+import { createNamespacedComponent } from "../../utils/create-namespaced-component.js";
 import { cx } from "../../utils/cx/cx.js";
 import { IconButton, type IconButtonProps } from "../button/icon-button.js";
 import * as SheetPrimitive from "../dialog/primitive.js";
 import { preventCloseOnPromptInteraction } from "../toast/toast.js";
 
 /**
- * The root component for a `Sheet`. Should compose the `SheetTrigger` and `SheetContent`.
+ * The root component for a `Sheet`. Should compose the `Sheet.Trigger` and `Sheet.Content`.
  * Acts as a stateful provider for the Sheet's open/closed state.
  *
  * @see https://mantle.ngrok.com/components/sheet#api-sheet
@@ -21,16 +22,16 @@ import { preventCloseOnPromptInteraction } from "../toast/toast.js";
  * ```tsx
  * // Triggering a stateful sheet
  * <Sheet>
- *   <SheetTrigger asChild>
+ *   <Sheet.Trigger asChild>
  *     <Button type="button" appearance="filled">
  *       Open Sheet
  *     </Button>
- *   </SheetTrigger>
- *   <SheetContent>
- *     <SheetHeader>
- *       <SheetTitleGroup>
- *         <SheetTitle>Are you absolutely sure?</SheetTitle>
- *         <SheetActions>
+ *   </Sheet.Trigger>
+ *   <Sheet.Content>
+ *     <Sheet.Header>
+ *       <Sheet.TitleGroup>
+ *         <Sheet.Title>Are you absolutely sure?</Sheet.Title>
+ *         <Sheet.Actions>
  *           <IconButton
  *             appearance="ghost"
  *             type="button"
@@ -38,30 +39,30 @@ import { preventCloseOnPromptInteraction } from "../toast/toast.js";
  *             label="Delete"
  *           />
  *           <Separator orientation="vertical" className="h-[80%]" />
- *           <SheetCloseIconButton />
- *         </SheetActions>
- *       </SheetTitleGroup>
- *       <SheetDescription>
+ *           <Sheet.CloseIconButton />
+ *         </Sheet.Actions>
+ *       </Sheet.TitleGroup>
+ *       <Sheet.Description>
  *         This action cannot be undone. This will permanently delete your account and remove your data from our servers.
- *       </SheetDescription>
- *     </SheetHeader>
- *     <SheetBody>
+ *       </Sheet.Description>
+ *     </Sheet.Header>
+ *     <Sheet.Body>
  *       <p>
  *         Consequat do voluptate culpa fugiat consequat nostrud duis
  *         aliqua minim. Tempor voluptate cillum elit velit. Voluptate
  *         aliqua ipsum aliqua dolore in nisi ea fugiat aliqua velit
  *         proident amet.
  *       </p>
- *     </SheetBody>
- *     <SheetFooter>
- *       <SheetClose asChild>
+ *     </Sheet.Body>
+ *     <Sheet.Footer>
+ *       <Sheet.Close asChild>
  *         <Button type="button">Close</Button>
- *       </SheetClose>
+ *       </Sheet.Close>
  *       <Button type="button" appearance="filled">
  *         Save
  *       </Button>
- *     </SheetFooter>
- *   </SheetContent>
+ *     </Sheet.Footer>
+ *   </Sheet.Content>
  * </Sheet>
  * ```
  *
@@ -69,11 +70,11 @@ import { preventCloseOnPromptInteraction } from "../toast/toast.js";
  * ```tsx
  * // Sheet without a trigger (e.g. router controlled)
  * <Sheet open opOpenChange={() => onClose()}>
- *   <SheetContent>
- *     <SheetHeader>
- *       <SheetTitleGroup>
- *         <SheetTitle>Are you absolutely sure?</SheetTitle>
- *         <SheetActions>
+ *   <Sheet.Content>
+ *     <Sheet.Header>
+ *       <Sheet.TitleGroup>
+ *         <Sheet.Title>Are you absolutely sure?</Sheet.Title>
+ *         <Sheet.Actions>
  *           <IconButton
  *             appearance="ghost"
  *             type="button"
@@ -81,34 +82,34 @@ import { preventCloseOnPromptInteraction } from "../toast/toast.js";
  *             label="Delete"
  *           />
  *           <Separator orientation="vertical" className="h-[80%]" />
- *           <SheetCloseIconButton />
- *         </SheetActions>
- *       </SheetTitleGroup>
- *       <SheetDescription>
+ *           <Sheet.CloseIconButton />
+ *         </Sheet.Actions>
+ *       </Sheet.TitleGroup>
+ *       <Sheet.Description>
  *         This action cannot be undone. This will permanently delete your account and remove your data from our servers.
- *       </SheetDescription>
- *     </SheetHeader>
- *     <SheetBody>
+ *       </Sheet.Description>
+ *     </Sheet.Header>
+ *     <Sheet.Body>
  *       <p>
  *         Consequat do voluptate culpa fugiat consequat nostrud duis
  *         aliqua minim. Tempor voluptate cillum elit velit. Voluptate
  *         aliqua ipsum aliqua dolore in nisi ea fugiat aliqua velit
  *         proident amet.
  *       </p>
- *     </SheetBody>
- *     <SheetFooter>
- *       <SheetClose asChild>
+ *     </Sheet.Body>
+ *     <Sheet.Footer>
+ *       <Sheet.Close asChild>
  *         <Button type="button">Close</Button>
- *       </SheetClose>
+ *       </Sheet.Close>
  *       <Button type="button" appearance="filled">
  *         Save
  *       </Button>
- *     </SheetFooter>
- *   </SheetContent>
+ *     </Sheet.Footer>
+ *   </Sheet.Content>
  * </Sheet>
  * ```
  */
-const Sheet = SheetPrimitive.Root;
+const Root = SheetPrimitive.Root;
 
 /**
  * The button trigger for a `Sheet`. Should be rendered as a child of the `Sheet` component.
@@ -119,27 +120,27 @@ const Sheet = SheetPrimitive.Root;
  * @example
  * ```tsx
  * <Sheet>
- *   <SheetTrigger asChild>
+ *   <Sheet.Trigger asChild>
  *     <Button type="button" appearance="filled">
  *       Open Sheet
  *     </Button>
- *   </SheetTrigger>
- *   <SheetContent>
+ *   </Sheet.Trigger>
+ *   <Sheet.Content>
  *     <p>
  *       Consequat do voluptate culpa fugiat consequat nostrud duis
  *       aliqua minim. Tempor voluptate cillum elit velit. Voluptate
  *       aliqua ipsum aliqua dolore in nisi ea fugiat aliqua velit
  *       proident amet.
  *     </p>
- *   </SheetContent>
+ *   </Sheet.Content>
  * </Sheet>
  * ```
  */
-const SheetTrigger = SheetPrimitive.Trigger;
+const Trigger = SheetPrimitive.Trigger;
 
 /**
- * The close button for a `Sheet`. Should be rendered as a child of the `SheetContent` component.
- * Usually contained within the `SheetFooter` component.
+ * The close button for a `Sheet`. Should be rendered as a child of the `Sheet.Content` component.
+ * Usually contained within the `Sheet.Footer` component.
  * Renders an unstyled button by default, but can be customized with the `asChild` prop.
  *
  * @see https://mantle.ngrok.com/components/sheet#api-sheet-close
@@ -147,45 +148,45 @@ const SheetTrigger = SheetPrimitive.Trigger;
  * @example
  * ```tsx
  * <Sheet>
- *   <SheetTrigger asChild>
+ *   <Sheet.Trigger asChild>
  *     <Button type="button" appearance="filled">
  *       Open Sheet
  *     </Button>
- *   </SheetTrigger>
- *   <SheetContent>
+ *   </Sheet.Trigger>
+ *   <Sheet.Content>
  *     <p>
  *       Consequat do voluptate culpa fugiat consequat nostrud duis
  *       aliqua minim. Tempor voluptate cillum elit velit. Voluptate
  *       aliqua ipsum aliqua dolore in nisi ea fugiat aliqua velit
  *       proident amet.
  *     </p>
- *     <SheetFooter>
- *       <SheetClose asChild>
+ *     <Sheet.Footer>
+ *       <Sheet.Close asChild>
  *         <Button type="button">Close</Button>
- *       </SheetClose>
- *     </SheetFooter>
- *   </SheetContent>
+ *       </Sheet.Close>
+ *     </Sheet.Footer>
+ *   </Sheet.Content>
  * </Sheet>
  * ```
  */
-const SheetClose = SheetPrimitive.Close;
+const Close = SheetPrimitive.Close;
 
 /**
  * The portal for a sheet. Should be rendered as a child of the `Sheet` component.
- * Renders a portal that the `SheetOverlay` and `SheetContent` is rendered into.
+ * Renders a portal that the `Sheet.Overlay` and `Sheet.Content` is rendered into.
  *
  * @private
  */
-const SheetPortal = SheetPrimitive.Portal;
+const Portal = SheetPrimitive.Portal;
 
 /**
- * The overlay backdrop for a sheet. Should be rendered as a child of the `SheetPortal` component.
+ * The overlay backdrop for a sheet. Should be rendered as a child of the `Sheet.Portal` component.
  *
- * You likely don't need to use this component directly, as it is used internally by the `SheetContent` component.
+ * You likely don't need to use this component directly, as it is used internally by the `Sheet.Content` component.
  *
  * @private
  */
-const SheetOverlay = forwardRef<
+const Overlay = forwardRef<
 	ComponentRef<typeof SheetPrimitive.Overlay>,
 	ComponentPropsWithoutRef<typeof SheetPrimitive.Overlay>
 >(({ className, ...props }, ref) => (
@@ -198,7 +199,7 @@ const SheetOverlay = forwardRef<
 		ref={ref}
 	/>
 ));
-SheetOverlay.displayName = SheetPrimitive.Overlay.displayName;
+Overlay.displayName = SheetPrimitive.Overlay.displayName;
 
 const SheetVariants = cva(
 	"bg-dialog border-dialog inset-y-0 h-full w-full fixed z-40 flex flex-col shadow-lg outline-none transition ease-in-out focus-within:outline-none data-state-closed:duration-100 data-state-closed:animate-out data-state-open:duration-100 data-state-open:animate-in",
@@ -238,7 +239,7 @@ type SheetContentProps = ComponentPropsWithoutRef<
 /**
  * The main container for a `Sheet`. Should be rendered as a child of the `Sheet` component.
  * Renders on top of the overlay backdrop.
- * Should contain the `SheetHeader`, `SheetBody`, and `SheetFooter`.
+ * Should contain the `Sheet.Header`, `Sheet.Body`, and `Sheet.Footer`.
  *
  * @see https://mantle.ngrok.com/components/sheet#api-sheet-content
  *
@@ -246,11 +247,11 @@ type SheetContentProps = ComponentPropsWithoutRef<
  * ```tsx
  * // Sheet without a trigger (e.g. router controlled)
  * <Sheet open opOpenChange={() => onClose()}>
- *   <SheetContent>
- *     <SheetHeader>
- *       <SheetTitleGroup>
- *         <SheetTitle>Are you absolutely sure?</SheetTitle>
- *         <SheetActions>
+ *   <Sheet.Content>
+ *     <Sheet.Header>
+ *       <Sheet.TitleGroup>
+ *         <Sheet.Title>Are you absolutely sure?</Sheet.Title>
+ *         <Sheet.Actions>
  *           <IconButton
  *             appearance="ghost"
  *             type="button"
@@ -258,34 +259,34 @@ type SheetContentProps = ComponentPropsWithoutRef<
  *             label="Delete"
  *           />
  *           <Separator orientation="vertical" className="h-[80%]" />
- *           <SheetCloseIconButton />
- *         </SheetActions>
- *       </SheetTitleGroup>
- *       <SheetDescription>
+ *           <Sheet.CloseIconButton />
+ *         </Sheet.Actions>
+ *       </Sheet.TitleGroup>
+ *       <Sheet.Description>
  *         This action cannot be undone. This will permanently delete your account and remove your data from our servers.
- *       </SheetDescription>
- *     </SheetHeader>
- *     <SheetBody>
+ *       </Sheet.Description>
+ *     </Sheet.Header>
+ *     <Sheet.Body>
  *       <p>
  *         Consequat do voluptate culpa fugiat consequat nostrud duis
  *         aliqua minim. Tempor voluptate cillum elit velit. Voluptate
  *         aliqua ipsum aliqua dolore in nisi ea fugiat aliqua velit
  *         proident amet.
  *       </p>
- *     </SheetBody>
- *     <SheetFooter>
- *       <SheetClose asChild>
+ *     </Sheet.Body>
+ *     <Sheet.Footer>
+ *       <Sheet.Close asChild>
  *         <Button type="button">Close</Button>
- *       </SheetClose>
+ *       </Sheet.Close>
  *       <Button type="button" appearance="filled">
  *         Save
  *       </Button>
- *     </SheetFooter>
- *   </SheetContent>
+ *     </Sheet.Footer>
+ *   </Sheet.Content>
  * </Sheet>
  * ```
  */
-const SheetContent = forwardRef<ComponentRef<"div">, SheetContentProps>(
+const Content = forwardRef<ComponentRef<"div">, SheetContentProps>(
 	(
 		{
 			children,
@@ -298,8 +299,8 @@ const SheetContent = forwardRef<ComponentRef<"div">, SheetContentProps>(
 		},
 		ref,
 	) => (
-		<SheetPortal>
-			<SheetOverlay />
+		<Portal>
+			<Overlay />
 			<SheetPrimitive.Content
 				className={cx(SheetVariants({ side }), preferredWidth, className)}
 				onInteractOutside={(event) => {
@@ -315,16 +316,16 @@ const SheetContent = forwardRef<ComponentRef<"div">, SheetContentProps>(
 			>
 				{children}
 			</SheetPrimitive.Content>
-		</SheetPortal>
+		</Portal>
 	),
 );
-SheetContent.displayName = SheetPrimitive.Content.displayName;
+Content.displayName = SheetPrimitive.Content.displayName;
 
 type SheetCloseIconButtonProps = Partial<Omit<IconButtonProps, "icon">>;
 
 /**
  * An icon button that closes the `Sheet` when clicked.
- * Should be rendered within the `SheetHeader` as a child of `SheetActions`.
+ * Should be rendered within the `Sheet.Header` as a child of `Sheet.Actions`.
  *
  * @see https://mantle.ngrok.com/components/sheet#api-sheet-close-icon-button
  *
@@ -332,11 +333,11 @@ type SheetCloseIconButtonProps = Partial<Omit<IconButtonProps, "icon">>;
  * ```tsx
  * // Sheet without a trigger (e.g. router controlled)
  * <Sheet open opOpenChange={() => onClose()}>
- *   <SheetContent>
- *     <SheetHeader>
- *       <SheetTitleGroup>
- *         <SheetTitle>Are you absolutely sure?</SheetTitle>
- *         <SheetActions>
+ *   <Sheet.Content>
+ *     <Sheet.Header>
+ *       <Sheet.TitleGroup>
+ *         <Sheet.Title>Are you absolutely sure?</Sheet.Title>
+ *         <Sheet.Actions>
  *           <IconButton
  *             appearance="ghost"
  *             type="button"
@@ -344,34 +345,34 @@ type SheetCloseIconButtonProps = Partial<Omit<IconButtonProps, "icon">>;
  *             label="Delete"
  *           />
  *           <Separator orientation="vertical" className="h-[80%]" />
- *           <SheetCloseIconButton />
- *         </SheetActions>
- *       </SheetTitleGroup>
- *       <SheetDescription>
+ *           <Sheet.CloseIconButton />
+ *         </Sheet.Actions>
+ *       </Sheet.TitleGroup>
+ *       <Sheet.Description>
  *         This action cannot be undone. This will permanently delete your account and remove your data from our servers.
- *       </SheetDescription>
- *     </SheetHeader>
- *     <SheetBody>
+ *       </Sheet.Description>
+ *     </Sheet.Header>
+ *     <Sheet.Body>
  *       <p>
  *         Consequat do voluptate culpa fugiat consequat nostrud duis
  *         aliqua minim. Tempor voluptate cillum elit velit. Voluptate
  *         aliqua ipsum aliqua dolore in nisi ea fugiat aliqua velit
  *         proident amet.
  *       </p>
- *     </SheetBody>
- *     <SheetFooter>
- *       <SheetClose asChild>
+ *     </Sheet.Body>
+ *     <Sheet.Footer>
+ *       <Sheet.Close asChild>
  *         <Button type="button">Close</Button>
- *       </SheetClose>
+ *       </Sheet.Close>
  *       <Button type="button" appearance="filled">
  *         Save
  *       </Button>
- *     </SheetFooter>
- *   </SheetContent>
+ *     </Sheet.Footer>
+ *   </Sheet.Content>
  * </Sheet>
  * ```
  */
-const SheetCloseIconButton = ({
+const CloseIconButton = ({
 	size = "md",
 	type = "button",
 	label = "Close Sheet",
@@ -392,7 +393,7 @@ const SheetCloseIconButton = ({
 
 /**
  * The body container for a `Sheet`. This is where you would typically place the main content of the sheet, such as forms or text.
- * Should be rendered as a child of `SheetContent`.
+ * Should be rendered as a child of `Sheet.Content`.
  *
  * @see https://mantle.ngrok.com/components/sheet#api-sheet-body
  *
@@ -400,11 +401,11 @@ const SheetCloseIconButton = ({
  * ```tsx
  * // Sheet without a trigger (e.g. router controlled)
  * <Sheet open opOpenChange={() => onClose()}>
- *   <SheetContent>
- *     <SheetHeader>
- *       <SheetTitleGroup>
- *         <SheetTitle>Are you absolutely sure?</SheetTitle>
- *         <SheetActions>
+ *   <Sheet.Content>
+ *     <Sheet.Header>
+ *       <Sheet.TitleGroup>
+ *         <Sheet.Title>Are you absolutely sure?</Sheet.Title>
+ *         <Sheet.Actions>
  *           <IconButton
  *             appearance="ghost"
  *             type="button"
@@ -412,34 +413,34 @@ const SheetCloseIconButton = ({
  *             label="Delete"
  *           />
  *           <Separator orientation="vertical" className="h-[80%]" />
- *           <SheetCloseIconButton />
- *         </SheetActions>
- *       </SheetTitleGroup>
- *       <SheetDescription>
+ *           <Sheet.CloseIconButton />
+ *         </Sheet.Actions>
+ *       </Sheet.TitleGroup>
+ *       <Sheet.Description>
  *         This action cannot be undone. This will permanently delete your account and remove your data from our servers.
- *       </SheetDescription>
- *     </SheetHeader>
- *     <SheetBody>
+ *       </Sheet.Description>
+ *     </Sheet.Header>
+ *     <Sheet.Body>
  *       <p>
  *         Consequat do voluptate culpa fugiat consequat nostrud duis
  *         aliqua minim. Tempor voluptate cillum elit velit. Voluptate
  *         aliqua ipsum aliqua dolore in nisi ea fugiat aliqua velit
  *         proident amet.
  *       </p>
- *     </SheetBody>
- *     <SheetFooter>
- *       <SheetClose asChild>
+ *     </Sheet.Body>
+ *     <Sheet.Footer>
+ *       <Sheet.Close asChild>
  *         <Button type="button">Close</Button>
- *       </SheetClose>
+ *       </Sheet.Close>
  *       <Button type="button" appearance="filled">
  *         Save
  *       </Button>
- *     </SheetFooter>
- *   </SheetContent>
+ *     </Sheet.Footer>
+ *   </Sheet.Content>
  * </Sheet>
  * ```
  */
-const SheetBody = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => (
+const Body = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => (
 	<div
 		className={cx("scrollbar text-body flex-1 overflow-y-auto p-6", className)}
 		{...props}
@@ -495,10 +496,7 @@ const SheetBody = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => (
  * </Sheet>
  * ```
  */
-const SheetHeader = ({
-	className,
-	...props
-}: HTMLAttributes<HTMLDivElement>) => (
+const Header = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => (
 	<div
 		className={cx(
 			"border-dialog-muted flex shrink-0 flex-col gap-2 border-b py-4 pl-6 pr-4",
@@ -558,10 +556,7 @@ const SheetHeader = ({
  * </Sheet>
  * ```
  */
-const SheetFooter = ({
-	className,
-	...props
-}: HTMLAttributes<HTMLDivElement>) => (
+const Footer = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => (
 	<div
 		className={cx(
 			"border-dialog-muted flex shrink-0 justify-end gap-2 border-t px-6 py-2.5",
@@ -620,7 +615,7 @@ const SheetFooter = ({
  * </Sheet>
  * ```
  */
-const SheetTitle = forwardRef<
+const Title = forwardRef<
 	ComponentRef<typeof SheetPrimitive.Title>,
 	ComponentPropsWithoutRef<typeof SheetPrimitive.Title>
 >(({ className, ...props }, ref) => (
@@ -630,7 +625,7 @@ const SheetTitle = forwardRef<
 		{...props}
 	/>
 ));
-SheetTitle.displayName = SheetPrimitive.Title.displayName;
+Title.displayName = SheetPrimitive.Title.displayName;
 
 /**
  * A group container for the title and actions of a sheet. Typically rendered as a child of `SheetHeader`.
@@ -680,7 +675,7 @@ SheetTitle.displayName = SheetPrimitive.Title.displayName;
  * </Sheet>
  * ```
  */
-const SheetTitleGroup = forwardRef<
+const TitleGroup = forwardRef<
 	ComponentRef<"div">,
 	HTMLAttributes<HTMLDivElement>
 >(({ children, className, ...props }, ref) => (
@@ -692,7 +687,7 @@ const SheetTitleGroup = forwardRef<
 		{children}
 	</div>
 ));
-SheetTitleGroup.displayName = "SheetTitleGroup";
+TitleGroup.displayName = "SheetTitleGroup";
 
 /**
  * A description for a sheet. Typically rendered as a child of `SheetHeader`.
@@ -742,7 +737,7 @@ SheetTitleGroup.displayName = "SheetTitleGroup";
  * </Sheet>
  * ```
  */
-const SheetDescription = forwardRef<
+const Description = forwardRef<
 	ComponentRef<typeof SheetPrimitive.Description>,
 	ComponentPropsWithoutRef<typeof SheetPrimitive.Description>
 >(({ className, ...props }, ref) => (
@@ -752,7 +747,7 @@ const SheetDescription = forwardRef<
 		{...props}
 	/>
 ));
-SheetDescription.displayName = SheetPrimitive.Description.displayName;
+Description.displayName = SheetPrimitive.Description.displayName;
 
 /**
  * A group container for the actions of a `Sheet`. Typically rendered as a child of `SheetTitleGroup`.
@@ -802,32 +797,38 @@ SheetDescription.displayName = SheetPrimitive.Description.displayName;
  * </Sheet>
  * ```
  */
-const SheetActions = forwardRef<
-	ComponentRef<"div">,
-	HTMLAttributes<HTMLDivElement>
->(({ children, className, ...props }, ref) => (
-	<div
-		className={cx("flex h-full items-center gap-2", className)}
-		{...props}
-		ref={ref}
-	>
-		{children}
-	</div>
-));
-SheetActions.displayName = "SheetActions";
+const Actions = forwardRef<ComponentRef<"div">, HTMLAttributes<HTMLDivElement>>(
+	({ children, className, ...props }, ref) => (
+		<div
+			className={cx("flex h-full items-center gap-2", className)}
+			{...props}
+			ref={ref}
+		>
+			{children}
+		</div>
+	),
+);
+Actions.displayName = "SheetActions";
+
+const Sheet = createNamespacedComponent(
+	Root,
+	{
+		Actions,
+		Body,
+		Close,
+		CloseIconButton,
+		Content,
+		Description,
+		Footer,
+		Header,
+		Title,
+		TitleGroup,
+		Trigger,
+	},
+	"Sheet",
+);
 
 export {
 	//,
 	Sheet,
-	SheetActions,
-	SheetBody,
-	SheetClose,
-	SheetCloseIconButton,
-	SheetContent,
-	SheetDescription,
-	SheetFooter,
-	SheetHeader,
-	SheetTitle,
-	SheetTitleGroup,
-	SheetTrigger,
 };

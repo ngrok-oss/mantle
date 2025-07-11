@@ -26,6 +26,7 @@ import type {
 	ReactNode,
 } from "react";
 import type { WithAsChild } from "../../types/as-child.js";
+import { createNamespacedComponent } from "../../utils/create-namespaced-component.js";
 import { cx } from "../../utils/cx/cx.js";
 import { isInput } from "../input/is-input.js";
 
@@ -36,11 +37,11 @@ type RadioGroupProps = PropsWithChildren<
 /**
  * A group of radio items. It manages the state of the children radios. Unstyled and simple.
  */
-const RadioGroup = forwardRef<
+const Root = forwardRef<
 	ComponentRef<typeof HeadlessRadioGroup>,
 	RadioGroupProps
 >((props, ref) => <HeadlessRadioGroup {...props} ref={ref} />);
-RadioGroup.displayName = "RadioGroup";
+Root.displayName = "RadioGroup";
 
 /**
  * The shape of the radio state context.
@@ -72,7 +73,7 @@ type RadioItemProps = Omit<HeadlessRadioProps, "children"> & PropsWithChildren;
  * A simple radio item that can be used inside a radio group. The "conventional" use-case.
  * Must be a child of `RadioGroup`.
  */
-const RadioItem = forwardRef<ComponentRef<"div">, RadioItemProps>(
+const Item = forwardRef<ComponentRef<"div">, RadioItemProps>(
 	({ children, className, ...props }, ref) => (
 		<HeadlessRadio
 			className={cx(
@@ -91,7 +92,7 @@ const RadioItem = forwardRef<ComponentRef<"div">, RadioItemProps>(
 		</HeadlessRadio>
 	),
 );
-RadioItem.displayName = "RadioItem";
+Item.displayName = "RadioItem";
 
 type RadioIndicatorProps = Omit<HTMLAttributes<HTMLDivElement>, "children"> & {
 	children?: ReactNode | ((context: RadioStateContextValue) => ReactNode);
@@ -128,11 +129,7 @@ const DefaultRadioIndicator = ({
  * - a different component
  * - a render-props function that receives the radio state context and should return a component.
  */
-const RadioIndicator = ({
-	children,
-	className,
-	...props
-}: RadioIndicatorProps) => {
+const Indicator = ({ children, className, ...props }: RadioIndicatorProps) => {
 	const ctx = useContext(RadioStateContext);
 
 	return (
@@ -157,26 +154,21 @@ const RadioIndicator = ({
 /**
  * A group of radio list items. Use RadioListItem as direct children.
  */
-const RadioGroupList = forwardRef<
-	ComponentRef<typeof RadioGroup>,
-	RadioGroupProps
->(({ className, ...props }, ref) => {
-	return (
-		<RadioGroup
-			className={clsx("-space-y-px", className)}
-			{...props}
-			ref={ref}
-		/>
-	);
-});
-RadioGroupList.displayName = "RadioGroupList";
+const List = forwardRef<ComponentRef<typeof Root>, RadioGroupProps>(
+	({ className, ...props }, ref) => {
+		return (
+			<Root className={clsx("-space-y-px", className)} {...props} ref={ref} />
+		);
+	},
+);
+List.displayName = "RadioGroupList";
 
 type RadioListItemProps = RadioItemProps;
 
 /**
  * A radio list item that is used inside a `RadioGroupList`.
  */
-const RadioListItem = forwardRef<ComponentRef<"div">, RadioListItemProps>(
+const ListItem = forwardRef<ComponentRef<"div">, RadioListItemProps>(
 	({ children, className, ...props }, ref) => {
 		return (
 			<HeadlessRadio
@@ -205,7 +197,7 @@ const RadioListItem = forwardRef<ComponentRef<"div">, RadioListItemProps>(
 		);
 	},
 );
-RadioListItem.displayName = "RadioListItem";
+ListItem.displayName = "RadioListItem";
 
 type RadioItemContentProps = HTMLAttributes<HTMLDivElement> & WithAsChild;
 
@@ -214,7 +206,7 @@ type RadioCardProps = RadioItemProps;
 /**
  * A radio card item. Use it as a child of `RadioGroup`
  */
-const RadioCard = forwardRef<ComponentRef<"div">, RadioCardProps>(
+const Card = forwardRef<ComponentRef<"div">, RadioCardProps>(
 	({ children, className, ...props }, ref) => {
 		return (
 			<HeadlessRadio
@@ -242,13 +234,13 @@ const RadioCard = forwardRef<ComponentRef<"div">, RadioCardProps>(
 		);
 	},
 );
-RadioCard.displayName = "RadioCard";
+Card.displayName = "RadioCard";
 
 /**
  * The content of any radio item. Use it to wrap any labels, descriptions, or content of a radio item.
  * Use it as a child of `RadioItem`, `RadioListItem`, or `RadioCard`.
  */
-const RadioItemContent = ({
+const ItemContent = ({
 	asChild = false,
 	children,
 	className,
@@ -274,26 +266,25 @@ const RadioItemContent = ({
 /**
  * An inline group of radio buttons. Use RadioButton as direct children.
  */
-const RadioButtonGroup = forwardRef<
-	ComponentRef<typeof RadioGroup>,
-	RadioGroupProps
->(({ className, ...props }, ref) => {
-	return (
-		<RadioGroup
-			className={clsx("flex flex-row flex-nowrap -space-x-px", className)}
-			{...props}
-			ref={ref}
-		/>
-	);
-});
-RadioButtonGroup.displayName = "RadioButtonGroup";
+const ButtonGroup = forwardRef<ComponentRef<typeof Root>, RadioGroupProps>(
+	({ className, ...props }, ref) => {
+		return (
+			<Root
+				className={clsx("flex flex-row flex-nowrap -space-x-px", className)}
+				{...props}
+				ref={ref}
+			/>
+		);
+	},
+);
+ButtonGroup.displayName = "RadioButtonGroup";
 
 type RadioButtonProps = RadioItemProps;
 
 /**
  * A radio button that is used inside a `RadioButtonGroup`.
  */
-const RadioButton = forwardRef<ComponentRef<"div">, RadioButtonProps>(
+const Button = forwardRef<ComponentRef<"div">, RadioButtonProps>(
 	({ children, className, ...props }, ref) => {
 		return (
 			<HeadlessRadio
@@ -323,7 +314,7 @@ const RadioButton = forwardRef<ComponentRef<"div">, RadioButtonProps>(
 		);
 	},
 );
-RadioButton.displayName = "RadioButton";
+Button.displayName = "RadioButton";
 
 type RadioInputSandboxProps = HTMLAttributes<HTMLDivElement>;
 
@@ -331,7 +322,7 @@ type RadioInputSandboxProps = HTMLAttributes<HTMLDivElement>;
  * A sandbox container for input elements composed within radio group items.
  * It prevents the default behavior of the radio group when clicking on the input element or accepting keyboard input.
  */
-const RadioInputSandbox = ({
+const InputSandbox = ({
 	children,
 	onClick,
 	onKeyDown,
@@ -390,16 +381,23 @@ const RadioInputSandbox = ({
 	);
 };
 
+const RadioGroup = createNamespacedComponent(
+	Root,
+	{
+		Button,
+		ButtonGroup,
+		Card,
+		Indicator,
+		InputSandbox,
+		Item,
+		ItemContent,
+		List,
+		ListItem,
+	},
+	"RadioGroup",
+);
+
 export {
 	//
-	RadioButton,
-	RadioButtonGroup,
-	RadioCard,
 	RadioGroup,
-	RadioGroupList,
-	RadioIndicator,
-	RadioInputSandbox,
-	RadioItem,
-	RadioItemContent,
-	RadioListItem,
 };

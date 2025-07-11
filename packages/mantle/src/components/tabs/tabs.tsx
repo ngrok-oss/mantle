@@ -20,6 +20,7 @@ import {
 } from "react";
 import invariant from "tiny-invariant";
 import { parseBooleanish } from "../../types/booleanish.js";
+import { createNamespacedComponent } from "../../utils/create-namespaced-component.js";
 import { cx } from "../../utils/cx/cx.js";
 
 type TabsStateContextValue = {
@@ -30,7 +31,7 @@ const TabsStateContext = createContext<TabsStateContextValue>({
 	orientation: "horizontal",
 });
 
-const Tabs = forwardRef<
+const Root = forwardRef<
 	ComponentRef<typeof TabsPrimitiveRoot>,
 	ComponentPropsWithoutRef<typeof TabsPrimitiveRoot>
 >(({ className, children, orientation = "horizontal", ...props }, ref) => (
@@ -49,9 +50,9 @@ const Tabs = forwardRef<
 		</TabsStateContext.Provider>
 	</TabsPrimitiveRoot>
 ));
-Tabs.displayName = "Tabs";
+Root.displayName = "Tabs";
 
-const TabsList = forwardRef<
+const List = forwardRef<
 	ComponentRef<typeof TabsPrimitiveList>,
 	ComponentPropsWithoutRef<typeof TabsPrimitiveList>
 >(({ className, ...props }, ref) => {
@@ -72,7 +73,7 @@ const TabsList = forwardRef<
 		/>
 	);
 });
-TabsList.displayName = "TabsList";
+List.displayName = "TabsList";
 
 type TabsTriggerProps = ComponentPropsWithoutRef<typeof TabsPrimitiveTrigger>;
 
@@ -93,7 +94,7 @@ const TabsTriggerDecoration = () => {
 	);
 };
 
-const TabsTrigger = forwardRef<
+const Trigger = forwardRef<
 	ComponentRef<typeof TabsPrimitiveTrigger>,
 	TabsTriggerProps
 >(
@@ -177,9 +178,9 @@ const TabsTrigger = forwardRef<
 		);
 	},
 );
-TabsTrigger.displayName = "TabsTrigger";
+Trigger.displayName = "TabsTrigger";
 
-const TabBadge = ({
+const Badge = ({
 	className,
 	children,
 	...props
@@ -197,7 +198,7 @@ const TabBadge = ({
 	</span>
 );
 
-const TabsContent = forwardRef<
+const Content = forwardRef<
 	ComponentRef<typeof TabsPrimitiveContent>,
 	ComponentPropsWithoutRef<typeof TabsPrimitiveContent>
 >(({ className, ...props }, ref) => (
@@ -210,13 +211,20 @@ const TabsContent = forwardRef<
 		{...props}
 	/>
 ));
-TabsContent.displayName = "TabsContent";
+Content.displayName = "TabsContent";
+
+const Tabs = createNamespacedComponent(
+	Root,
+	{
+		Badge,
+		Content,
+		List,
+		Trigger,
+	},
+	"Tabs",
+);
 
 export {
 	//
-	TabBadge,
 	Tabs,
-	TabsContent,
-	TabsList,
-	TabsTrigger,
 };

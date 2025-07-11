@@ -28,6 +28,7 @@ import {
 import assert from "tiny-invariant";
 import { useCopyToClipboard } from "../../hooks/use-copy-to-clipboard.js";
 import type { WithAsChild } from "../../types/as-child.js";
+import { createNamespacedComponent } from "../../utils/create-namespaced-component.js";
 import { cx } from "../../utils/cx/cx.js";
 import { Icon } from "../icon/icon.js";
 import type { SvgAttributes } from "../icon/types.js";
@@ -96,7 +97,7 @@ const CodeBlockContext = createContext<CodeBlockContextType>({
  * </CodeBlock>
  * ```
  */
-const CodeBlock = forwardRef<
+const Root = forwardRef<
 	ComponentRef<"div">,
 	ComponentProps<"div"> & WithAsChild
 >(({ asChild = false, className, ...props }, ref) => {
@@ -153,7 +154,7 @@ const CodeBlock = forwardRef<
 		</CodeBlockContext.Provider>
 	);
 });
-CodeBlock.displayName = "CodeBlock";
+Root.displayName = "CodeBlock";
 
 /**
  * The body of the `CodeBlock`. This is where the `CodeBlockCode` and optional
@@ -176,7 +177,7 @@ CodeBlock.displayName = "CodeBlock";
  * </CodeBlock>
  * ```
  */
-const CodeBlockBody = forwardRef<
+const Body = forwardRef<
 	ComponentRef<"div">,
 	ComponentProps<"div"> & WithAsChild
 >(({ asChild = false, className, ...props }, ref) => {
@@ -186,7 +187,7 @@ const CodeBlockBody = forwardRef<
 		<Component className={cx("relative", className)} ref={ref} {...props} />
 	);
 });
-CodeBlockBody.displayName = "CodeBlockBody";
+Body.displayName = "CodeBlockBody";
 
 type CodeBlockCodeProps = Omit<ComponentProps<"pre">, "children"> & {
 	/**
@@ -236,7 +237,7 @@ type CodeBlockCodeProps = Omit<ComponentProps<"pre">, "children"> & {
  * </CodeBlock>
  * ```
  */
-const CodeBlockCode = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
+const Code = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
 	(
 		{
 			className,
@@ -337,7 +338,7 @@ const CodeBlockCode = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
 		);
 	},
 );
-CodeBlockCode.displayName = "CodeBlockCode";
+Code.displayName = "CodeBlockCode";
 
 /**
  * The (optional) header slot of the `CodeBlock`. This is where things like the
@@ -360,7 +361,7 @@ CodeBlockCode.displayName = "CodeBlockCode";
  * </CodeBlock>
  * ```
  */
-const CodeBlockHeader = forwardRef<
+const Header = forwardRef<
 	ComponentRef<"div">,
 	ComponentProps<"div"> & WithAsChild
 >(({ asChild = false, className, ...props }, ref) => {
@@ -377,7 +378,7 @@ const CodeBlockHeader = forwardRef<
 		/>
 	);
 });
-CodeBlockHeader.displayName = "CodeBlockHeader";
+Header.displayName = "CodeBlockHeader";
 
 /**
  * The (optional) title of the `CodeBlock`. Default renders as an h3 element,
@@ -400,7 +401,7 @@ CodeBlockHeader.displayName = "CodeBlockHeader";
  * </CodeBlock>
  * ```
  */
-const CodeBlockTitle = forwardRef<
+const Title = forwardRef<
 	HTMLHeadingElement,
 	HTMLAttributes<HTMLHeadingElement> & { asChild?: boolean }
 >(({ asChild = false, className, ...props }, ref) => {
@@ -414,7 +415,7 @@ const CodeBlockTitle = forwardRef<
 		/>
 	);
 });
-CodeBlockTitle.displayName = "CodeBlockTitle";
+Title.displayName = "CodeBlockTitle";
 
 type CodeBlockCopyButtonProps = Omit<
 	ComponentProps<"button">,
@@ -453,10 +454,7 @@ type CodeBlockCopyButtonProps = Omit<
  * </CodeBlock>
  * ```
  */
-const CodeBlockCopyButton = forwardRef<
-	ComponentRef<"button">,
-	CodeBlockCopyButtonProps
->(
+const CopyButton = forwardRef<ComponentRef<"button">, CodeBlockCopyButtonProps>(
 	(
 		{ asChild = false, className, onCopy, onCopyError, onClick, ...props },
 		ref,
@@ -517,7 +515,7 @@ const CodeBlockCopyButton = forwardRef<
 		);
 	},
 );
-CodeBlockCopyButton.displayName = "CodeBlockCopyButton";
+CopyButton.displayName = "CodeBlockCopyButton";
 
 type CodeBlockExpanderButtonProps = Omit<
 	ComponentProps<"button">,
@@ -550,7 +548,7 @@ type CodeBlockExpanderButtonProps = Omit<
  * </CodeBlock>
  * ```
  */
-const CodeBlockExpanderButton = forwardRef<
+const ExpanderButton = forwardRef<
 	ComponentRef<"button">,
 	CodeBlockExpanderButtonProps
 >(({ asChild = false, className, onClick, ...props }, ref) => {
@@ -595,7 +593,7 @@ const CodeBlockExpanderButton = forwardRef<
 		</Component>
 	);
 });
-CodeBlockExpanderButton.displayName = "CodeBlockExpanderButton";
+ExpanderButton.displayName = "CodeBlockExpanderButton";
 
 type CodeBlockIconProps = Omit<SvgAttributes, "children"> &
 	(
@@ -649,12 +647,12 @@ type CodeBlockIconProps = Omit<SvgAttributes, "children"> &
  * </CodeBlock>
  * ```
  */
-function CodeBlockIcon({
+const CodeBlockIcon = ({
 	className,
 	preset,
 	svg: _svgProp,
 	...props
-}: CodeBlockIconProps) {
+}: CodeBlockIconProps) => {
 	let svg = _svgProp;
 	if (preset != null) {
 		switch (preset) {
@@ -671,15 +669,20 @@ function CodeBlockIcon({
 	}
 
 	return <Icon className={className} svg={svg} {...props} />;
-}
-
-export {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	CodeBlockExpanderButton,
-	CodeBlockHeader,
-	CodeBlockIcon,
-	CodeBlockTitle,
 };
+
+const CodeBlock = createNamespacedComponent(
+	Root,
+	{
+		Body,
+		Code,
+		CopyButton,
+		ExpanderButton,
+		Header,
+		Icon: CodeBlockIcon,
+		Title,
+	},
+	"CodeBlock",
+);
+
+export { CodeBlock };

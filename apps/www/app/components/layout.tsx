@@ -3,14 +3,7 @@ import { IconButton } from "@ngrok/mantle/button";
 import { cx } from "@ngrok/mantle/cx";
 import { Icon, type SvgAttributes } from "@ngrok/mantle/icon";
 import { AutoThemeIcon, ThemeIcon } from "@ngrok/mantle/icons";
-import {
-	Select,
-	SelectContent,
-	SelectGroup,
-	SelectItem,
-	SelectLabel,
-	SelectTrigger,
-} from "@ngrok/mantle/select";
+import { Select } from "@ngrok/mantle/select";
 import { $theme, isTheme, useTheme } from "@ngrok/mantle/theme-provider";
 import type { WithStyleProps } from "@ngrok/mantle/types";
 import { ListIcon } from "@phosphor-icons/react/List";
@@ -121,45 +114,45 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 					<div className="ml-auto">
 						{/* TODO: this should probably have a title/tooltip instead that describes what it is since we ain't got a spot for a label */}
 						<span className="sr-only">Theme Switcher</span>
-						<SelectTrigger className="w-min">
+						<Select.Trigger className="w-min">
 							<Icon className="mr-1" svg={<AutoThemeIcon />} />
-						</SelectTrigger>
+						</Select.Trigger>
 					</div>
-					<SelectContent width="content">
-						<SelectGroup>
-							<SelectLabel>Choose a theme</SelectLabel>
-							<SelectItem
+					<Select.Content width="content">
+						<Select.Group>
+							<Select.Label>Choose a theme</Select.Label>
+							<Select.Item
 								icon={<ThemeIcon theme="system" />}
 								value={$theme("system")}
 							>
 								System
-							</SelectItem>
-							<SelectItem
+							</Select.Item>
+							<Select.Item
 								icon={<ThemeIcon theme="light" />}
 								value={$theme("light")}
 							>
 								Light
-							</SelectItem>
-							<SelectItem
+							</Select.Item>
+							<Select.Item
 								icon={<ThemeIcon theme="dark" />}
 								value={$theme("dark")}
 							>
 								Dark
-							</SelectItem>
-							<SelectItem
+							</Select.Item>
+							<Select.Item
 								icon={<ThemeIcon theme="light-high-contrast" />}
 								value={$theme("light-high-contrast")}
 							>
 								Light High Contrast
-							</SelectItem>
-							<SelectItem
+							</Select.Item>
+							<Select.Item
 								icon={<ThemeIcon theme="dark-high-contrast" />}
 								value={$theme("dark-high-contrast")}
 							>
 								Dark High Contrast
-							</SelectItem>
-						</SelectGroup>
-					</SelectContent>
+							</Select.Item>
+						</Select.Group>
+					</Select.Content>
 				</Select>
 			</header>
 			{showNavigation && (

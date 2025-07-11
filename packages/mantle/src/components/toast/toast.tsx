@@ -17,6 +17,7 @@ import * as ToastPrimitive from "sonner";
 import type { WithAsChild } from "../../types/as-child.js";
 import type { WithStyleProps } from "../../types/with-style-props.js";
 import { cx } from "../../utils/cx/cx.js";
+import { createNamespacedComponent } from "../../utils/create-namespaced-component.js";
 import { Icon } from "../icon/icon.js";
 import type { SvgOnlyProps } from "../icon/svg-only.js";
 import { useAppliedTheme } from "../theme-provider/theme-provider.js";
@@ -40,7 +41,7 @@ type ToasterProps = WithStyleProps &
  * Only one `<Toaster />` should be rendered in an app a time, preferably at the
  * root level of the app.
  */
-const Toaster = ({
+const ToastToaster = ({
 	//,
 	className,
 	containerAriaLabel,
@@ -133,7 +134,7 @@ type ToastProps = ComponentProps<"div"> &
  * A succinct message with a priority that is displayed temporarily.
  * Toasts are used to provide feedback to the user without interrupting their workflow.
  */
-const Toast = forwardRef<ComponentRef<"div">, ToastProps>(
+const ToastRoot = forwardRef<ComponentRef<"div">, ToastProps>(
 	({ asChild, children, className, priority, ...props }, ref) => {
 		const Component = asChild ? Slot : "div";
 
@@ -271,14 +272,21 @@ const ToastMessage = forwardRef<ComponentRef<"p">, ToastMessageProps>(
 	},
 );
 
+const Toast = createNamespacedComponent(
+	ToastRoot,
+	{
+		Action: ToastAction,
+		Icon: ToastIcon,
+		Message: ToastMessage,
+		Toaster: ToastToaster,
+	},
+	"Toast",
+);
+
 export {
 	//,
 	makeToast,
 	Toast,
-	ToastAction,
-	Toaster,
-	ToastIcon,
-	ToastMessage,
 };
 
 export type {

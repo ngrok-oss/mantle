@@ -1,28 +1,8 @@
-import {
-	Alert,
-	AlertContent,
-	AlertDescription,
-	AlertIcon,
-} from "@ngrok/mantle/alert";
+import { Alert } from "@ngrok/mantle/alert";
 import { Anchor } from "@ngrok/mantle/anchor";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	CodeBlockHeader,
-	CodeBlockIcon,
-	CodeBlockTitle,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@ngrok/mantle/select";
+import { Select } from "@ngrok/mantle/select";
 import { preventWrongThemeFlashScriptContent } from "@ngrok/mantle/theme-provider";
 import { FileHtmlIcon, FileTsxIcon } from "@phosphor-icons/react";
 import { useState } from "react";
@@ -136,10 +116,10 @@ export default function Page() {
 					and mantle content to your tailwind configuration:
 				</p>
 				<CodeBlock className="mt-4">
-					<CodeBlockHeader>tailwind.config.ts</CodeBlockHeader>
-					<CodeBlockBody>
-						<CodeBlockCopyButton />
-						<CodeBlockCode
+					<CodeBlock.Header>tailwind.config.ts</CodeBlock.Header>
+					<CodeBlock.Body>
+						<CodeBlock.CopyButton />
+						<CodeBlock.Code
 							language="ts"
 							value={fmtCode`
 								import { createRequire } from "node:module";
@@ -155,7 +135,7 @@ export default function Page() {
 								} satisfies Config;
 							`}
 						/>
-					</CodeBlockBody>
+					</CodeBlock.Body>
 				</CodeBlock>
 			</section>
 
@@ -210,64 +190,64 @@ function InstallationInstructions() {
 				the required <InlineCode>peerDependencies</InlineCode>:
 			</p>
 			<Alert priority="info">
-				<AlertIcon />
-				<AlertContent>
-					<AlertDescription>
+				<Alert.Icon />
+				<Alert.Content>
+					<Alert.Description>
 						Mantle supports <InlineCode>react</InlineCode> and{" "}
 						<InlineCode>react-dom</InlineCode> versions 18 and 19.
-					</AlertDescription>
-				</AlertContent>
+					</Alert.Description>
+				</Alert.Content>
 			</Alert>
 			<CodeBlock>
-				<CodeBlockHeader>
-					<CodeBlockIcon preset="cli" />
-					<CodeBlockTitle className="flex-1">
+				<CodeBlock.Header>
+					<CodeBlock.Icon preset="cli" />
+					<CodeBlock.Title className="flex-1">
 						mantle and dependencies installation
-					</CodeBlockTitle>
+					</CodeBlock.Title>
 					<PackageManagerSelect
 						value={preferredPackageManager}
 						onChange={setPrefferedPackageManager}
 					/>
-				</CodeBlockHeader>
-				<CodeBlockBody>
-					<CodeBlockCopyButton />
-					<CodeBlockCode
+				</CodeBlock.Header>
+				<CodeBlock.Body>
+					<CodeBlock.CopyButton />
+					<CodeBlock.Code
 						language="sh"
 						value={fmtCode`${primaryInstallationCommand[preferredPackageManager]}`}
 					/>
-				</CodeBlockBody>
+				</CodeBlock.Body>
 			</CodeBlock>
 			<p className="font-body text-body">
 				You will also need to install the following{" "}
 				<InlineCode>devDependencies</InlineCode>:
 			</p>
 			<Alert priority="warning">
-				<AlertIcon />
-				<AlertContent>
-					<AlertDescription>
+				<Alert.Icon />
+				<Alert.Content>
+					<Alert.Description>
 						Mantle only supports <InlineCode>tailwindcss</InlineCode> version 3
 						at this time. We are in the process of upgrading to version 4.
-					</AlertDescription>
-				</AlertContent>
+					</Alert.Description>
+				</Alert.Content>
 			</Alert>
 			<CodeBlock>
-				<CodeBlockHeader>
-					<CodeBlockIcon preset="cli" />
-					<CodeBlockTitle className="flex-1">
+				<CodeBlock.Header>
+					<CodeBlock.Icon preset="cli" />
+					<CodeBlock.Title className="flex-1">
 						mantle devDependencies installation
-					</CodeBlockTitle>
+					</CodeBlock.Title>
 					<PackageManagerSelect
 						value={preferredPackageManager}
 						onChange={setPrefferedPackageManager}
 					/>
-				</CodeBlockHeader>
-				<CodeBlockBody>
-					<CodeBlockCopyButton />
-					<CodeBlockCode
+				</CodeBlock.Header>
+				<CodeBlock.Body>
+					<CodeBlock.CopyButton />
+					<CodeBlock.Code
 						language="sh"
 						value={fmtCode`${devDependenciesInstallationCommand[preferredPackageManager]}`}
 					/>
-				</CodeBlockBody>
+				</CodeBlock.Body>
 			</CodeBlock>
 		</div>
 	);
@@ -288,16 +268,16 @@ function PackageManagerSelect({ value, onChange }: PackageManagerSelectProps) {
 				}
 			}}
 		>
-			<SelectTrigger className="w-24">
-				<SelectValue />
-			</SelectTrigger>
-			<SelectContent>
+			<Select.Trigger className="w-24">
+				<Select.Value />
+			</Select.Trigger>
+			<Select.Content>
 				{packageManagers.map((packageManager) => (
-					<SelectItem key={packageManager} value={packageManager}>
+					<Select.Item key={packageManager} value={packageManager}>
 						{packageManager}
-					</SelectItem>
+					</Select.Item>
 				))}
-			</SelectContent>
+			</Select.Content>
 		</Select>
 	);
 }
@@ -335,16 +315,16 @@ function ApplicationScaffoldingSection() {
 						}
 					}}
 				>
-					<SelectTrigger className="w-32 inline-flex">
-						<SelectValue />
-					</SelectTrigger>
-					<SelectContent width="content">
+					<Select.Trigger className="w-32 inline-flex">
+						<Select.Value />
+					</Select.Trigger>
+					<Select.Content width="content">
 						{applicationTemplates.map((template) => (
-							<SelectItem key={template} value={template}>
+							<Select.Item key={template} value={template}>
 								{template}
-							</SelectItem>
+							</Select.Item>
 						))}
-					</SelectContent>
+					</Select.Content>
 				</Select>{" "}
 				application…
 			</p>
@@ -371,12 +351,12 @@ function ApplicationTemplate({ template }: { template: ApplicationTemplate }) {
 		default:
 			return (
 				<Alert priority="danger">
-					<AlertIcon />
-					<AlertContent>
-						<AlertDescription>
+					<Alert.Icon />
+					<Alert.Content>
+						<Alert.Description>
 							Unknown application template: {template}
-						</AlertDescription>
-					</AlertContent>
+						</Alert.Description>
+					</Alert.Content>
 				</Alert>
 			);
 	}
@@ -398,25 +378,25 @@ function ReactRouterScaffolding() {
 				to your app to enable theme selection, toasts, and tooltips.
 			</p>
 			<Alert priority="warning">
-				<AlertIcon />
-				<AlertContent>
-					<AlertDescription>
+				<Alert.Icon />
+				<Alert.Content>
+					<Alert.Description>
 						It is critical to include the{" "}
 						<InlineCode>MantleThemeHeadContent</InlineCode> in the{" "}
 						<InlineCode>head</InlineCode> of your app to prevent a flash of
 						unstyled content (FOUC). This component will inject the necessary
 						script to prevent the FOUC.
-					</AlertDescription>
-				</AlertContent>
+					</Alert.Description>
+				</Alert.Content>
 			</Alert>
 			<CodeBlock>
-				<CodeBlockHeader>
-					<CodeBlockIcon svg={<FileTsxIcon />} />{" "}
-					<CodeBlockTitle>app/root.tsx</CodeBlockTitle>
-				</CodeBlockHeader>
-				<CodeBlockBody>
-					<CodeBlockCopyButton />
-					<CodeBlockCode
+				<CodeBlock.Header>
+					<CodeBlock.Icon svg={<FileTsxIcon />} />{" "}
+					<CodeBlock.Title>app/root.tsx</CodeBlock.Title>
+				</CodeBlock.Header>
+				<CodeBlock.Body>
+					<CodeBlock.CopyButton />
+					<CodeBlock.Code
 						language="tsx"
 						value={fmtCode`
 							import {
@@ -424,8 +404,8 @@ function ReactRouterScaffolding() {
 								ThemeProvider,
 								useInitialHtmlThemeProps,
 							} from "@ngrok/mantle/theme-provider";
-							import { Toaster } from "@ngrok/mantle/toast";
-							import { TooltipProvider } from "@ngrok/mantle/tooltip";
+							import { Toast } from "@ngrok/mantle/toast";
+							import { Tooltip } from "@ngrok/mantle/tooltip";
 							import {
 								isRouteErrorResponse,
 								Links,
@@ -456,10 +436,10 @@ function ReactRouterScaffolding() {
 										</head>
 										<body>
 											<ThemeProvider>
-												<TooltipProvider>
-													<Toaster />
+												<Tooltip.Provider>
+													<Toast.Toaster />
 													{children}
-												</TooltipProvider>
+												</Tooltip.Provider>
 											</ThemeProvider>
 											<ScrollRestoration />
 											<Scripts />
@@ -503,7 +483,7 @@ function ReactRouterScaffolding() {
 
 						`}
 					/>
-				</CodeBlockBody>
+				</CodeBlock.Body>
 			</CodeBlock>
 		</div>
 	);
@@ -513,13 +493,13 @@ function NextJsScaffolding() {
 	return (
 		<div className="space-y-4">
 			<Alert priority="danger">
-				<AlertIcon />
-				<AlertContent>
-					<AlertDescription>
+				<Alert.Icon />
+				<Alert.Content>
+					<Alert.Description>
 						Mantle does not yet support Next.js 15, especially with react 19 and
 						RSC. We are working on adding support for it soon.
-					</AlertDescription>
-				</AlertContent>
+					</Alert.Description>
+				</Alert.Content>
 			</Alert>
 		</div>
 	);
@@ -541,36 +521,36 @@ function ViteScaffolding() {
 				to your app to enable theme selection, toasts, and tooltips.
 			</p>
 			<CodeBlock>
-				<CodeBlockHeader>
-					<CodeBlockIcon svg={<FileTsxIcon />} />{" "}
-					<CodeBlockTitle>src/main.tsx</CodeBlockTitle>
-				</CodeBlockHeader>
-				<CodeBlockBody>
-					<CodeBlockCopyButton />
-					<CodeBlockCode
+				<CodeBlock.Header>
+					<CodeBlock.Icon svg={<FileTsxIcon />} />{" "}
+					<CodeBlock.Title>src/main.tsx</CodeBlock.Title>
+				</CodeBlock.Header>
+				<CodeBlock.Body>
+					<CodeBlock.CopyButton />
+					<CodeBlock.Code
 						language="tsx"
 						value={fmtCode`
 							import { StrictMode } from "react"
 							import { createRoot } from "react-dom/client"
 							import { ThemeProvider } from "@ngrok/mantle/theme-provider";
-							import { Toaster } from "@ngrok/mantle/toast";
-							import { TooltipProvider } from "@ngrok/mantle/tooltip";
+							import { Toast } from "@ngrok/mantle/toast";
+							import { Tooltip } from "@ngrok/mantle/tooltip";
 							import "@ngrok/mantle/mantle.css"; // 👈 add this import to include mantle styles!
 							import App from "./App.tsx"
 
 							createRoot(document.getElementById("root")!).render(
 								<StrictMode>
 									<ThemeProvider>
-										<TooltipProvider>
-											<Toaster />
+										<Tooltip.Provider>
+											<Toast.Toaster />
 											<App />
-										</TooltipProvider>
+										</Tooltip.Provider>
 									</ThemeProvider>
 								</StrictMode>,
 							)
 						`}
 					/>
-				</CodeBlockBody>
+				</CodeBlock.Body>
 			</CodeBlock>
 
 			<p className="font-body text-body">
@@ -578,24 +558,24 @@ function ViteScaffolding() {
 				your <InlineCode>index.html</InlineCode> to include our script:
 			</p>
 			<Alert priority="warning">
-				<AlertIcon />
-				<AlertContent>
-					<AlertDescription>
+				<Alert.Icon />
+				<Alert.Content>
+					<Alert.Description>
 						While mantle supports any type of react application, vite is not the
 						primary target. For now, you will need to manually include the
 						following script in the <InlineCode>head</InlineCode> of your app.
 						We plan to add a vite plugin in the future to automate this.
-					</AlertDescription>
-				</AlertContent>
+					</Alert.Description>
+				</Alert.Content>
 			</Alert>
 			<CodeBlock>
-				<CodeBlockHeader>
-					<CodeBlockIcon svg={<FileHtmlIcon />} />{" "}
-					<CodeBlockTitle>index.html</CodeBlockTitle>
-				</CodeBlockHeader>
-				<CodeBlockBody>
-					<CodeBlockCopyButton />
-					<CodeBlockCode
+				<CodeBlock.Header>
+					<CodeBlock.Icon svg={<FileHtmlIcon />} />{" "}
+					<CodeBlock.Title>index.html</CodeBlock.Title>
+				</CodeBlock.Header>
+				<CodeBlock.Body>
+					<CodeBlock.CopyButton />
+					<CodeBlock.Code
 						language="html"
 						value={fmtCode`
 <!doctype html>
@@ -614,7 +594,7 @@ function ViteScaffolding() {
 </html>
 						`}
 					/>
-				</CodeBlockBody>
+				</CodeBlock.Body>
 			</CodeBlock>
 		</div>
 	);
@@ -635,20 +615,20 @@ function ReactSpaScaffolding() {
 				to your app to enable theme selection, toasts, and tooltips.
 			</p>
 			<CodeBlock>
-				<CodeBlockHeader>
-					<CodeBlockIcon svg={<FileTsxIcon />} />{" "}
-					<CodeBlockTitle>root.tsx</CodeBlockTitle>
-				</CodeBlockHeader>
-				<CodeBlockBody>
-					<CodeBlockCopyButton />
-					<CodeBlockCode
+				<CodeBlock.Header>
+					<CodeBlock.Icon svg={<FileTsxIcon />} />{" "}
+					<CodeBlock.Title>root.tsx</CodeBlock.Title>
+				</CodeBlock.Header>
+				<CodeBlock.Body>
+					<CodeBlock.CopyButton />
+					<CodeBlock.Code
 						language="tsx"
 						value={fmtCode`
 							import { StrictMode } from "react"
 							import { createRoot } from "react-dom/client"
 							import { ThemeProvider } from "@ngrok/mantle/theme-provider";
-							import { Toaster } from "@ngrok/mantle/toast";
-							import { TooltipProvider } from "@ngrok/mantle/tooltip";
+							import { Toast } from "@ngrok/mantle/toast";
+							import { Tooltip } from "@ngrok/mantle/tooltip";
 							import "@ngrok/mantle/mantle.css"; // 👈 add this import to include mantle styles!
 							import App from "./App.tsx"
 
@@ -663,16 +643,16 @@ function ReactSpaScaffolding() {
 							root.render(
 								<StrictMode>
 									<ThemeProvider>
-										<TooltipProvider>
-											<Toaster />
+										<Tooltip.Provider>
+											<Toast.Toaster />
 											<App />
-										</TooltipProvider>
+										</Tooltip.Provider>
 									</ThemeProvider>
 								</StrictMode>,
 							);
 						`}
 					/>
-				</CodeBlockBody>
+				</CodeBlock.Body>
 			</CodeBlock>
 
 			<p className="font-body text-body">
@@ -680,30 +660,30 @@ function ReactSpaScaffolding() {
 				your <InlineCode>index.html</InlineCode> to include our script:
 			</p>
 			<Alert priority="warning">
-				<AlertIcon />
-				<AlertContent>
-					<AlertDescription>
+				<Alert.Icon />
+				<Alert.Content>
+					<Alert.Description>
 						While mantle supports any type of react application, arbitrary react
 						SPA apps are not the primary target. For now, you will need to
 						manually include the following script in the{" "}
 						<InlineCode>head</InlineCode> of your app.
-					</AlertDescription>
-				</AlertContent>
+					</Alert.Description>
+				</Alert.Content>
 			</Alert>
 			<CodeBlock>
-				<CodeBlockHeader>
-					<CodeBlockIcon svg={<FileHtmlIcon />} />{" "}
-					<CodeBlockTitle>index.html</CodeBlockTitle>
-				</CodeBlockHeader>
-				<CodeBlockBody>
-					<CodeBlockCopyButton />
-					<CodeBlockCode
+				<CodeBlock.Header>
+					<CodeBlock.Icon svg={<FileHtmlIcon />} />{" "}
+					<CodeBlock.Title>index.html</CodeBlock.Title>
+				</CodeBlock.Header>
+				<CodeBlock.Body>
+					<CodeBlock.CopyButton />
+					<CodeBlock.Code
 						language="html"
 						value={fmtCode`
 <script>${preventWrongThemeFlashScriptContent()}</script>
 						`}
 					/>
-				</CodeBlockBody>
+				</CodeBlock.Body>
 			</CodeBlock>
 		</div>
 	);

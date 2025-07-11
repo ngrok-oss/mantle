@@ -84,44 +84,44 @@ const foo = {};
 	test("given a component code example with tabs, returns the string with tabs replaced with spaces", () => {
 		const value = `
 <Alert priority="danger">
-	<AlertIcon />
-	<AlertContent>
-		<AlertTitle>Danger</AlertTitle>
-		<AlertDescription>This is a danger Alert.</AlertDescription>
-	</AlertContent>
+	<Alert.Icon />
+	<Alert.Content>
+		<Alert.Title>Danger</Alert.Title>
+		<Alert.Description>This is a danger Alert.</Alert.Description>
+	</Alert.Content>
 </Alert>
 		`;
 
 		let result = normalizeIndentation(value);
 		expect(result).toMatchInlineSnapshot(`
 			"<Alert priority="danger">
-			  <AlertIcon />
-			  <AlertContent>
-			    <AlertTitle>Danger</AlertTitle>
-			    <AlertDescription>This is a danger Alert.</AlertDescription>
-			  </AlertContent>
+			  <Alert.Icon />
+			  <Alert.Content>
+			    <Alert.Title>Danger</Alert.Title>
+			    <Alert.Description>This is a danger Alert.</Alert.Description>
+			  </Alert.Content>
 			</Alert>"
 		`);
 
 		result = normalizeIndentation(value, { indentation: "spaces" });
 		expect(result).toMatchInlineSnapshot(`
 			"<Alert priority="danger">
-			  <AlertIcon />
-			  <AlertContent>
-			    <AlertTitle>Danger</AlertTitle>
-			    <AlertDescription>This is a danger Alert.</AlertDescription>
-			  </AlertContent>
+			  <Alert.Icon />
+			  <Alert.Content>
+			    <Alert.Title>Danger</Alert.Title>
+			    <Alert.Description>This is a danger Alert.</Alert.Description>
+			  </Alert.Content>
 			</Alert>"
 		`);
 
 		result = normalizeIndentation(value, { indentation: "tabs" });
 		expect(result).toMatchInlineSnapshot(`
 			"<Alert priority="danger">
-				<AlertIcon />
-				<AlertContent>
-					<AlertTitle>Danger</AlertTitle>
-					<AlertDescription>This is a danger Alert.</AlertDescription>
-				</AlertContent>
+				<Alert.Icon />
+				<Alert.Content>
+					<Alert.Title>Danger</Alert.Title>
+					<Alert.Description>This is a danger Alert.</Alert.Description>
+				</Alert.Content>
 			</Alert>"
 		`);
 	});

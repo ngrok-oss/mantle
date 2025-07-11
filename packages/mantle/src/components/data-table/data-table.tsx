@@ -15,6 +15,7 @@ import {
 } from "react";
 import invariant from "tiny-invariant";
 import { cx } from "../../utils/cx/cx.js";
+import { createNamespacedComponent } from "../../utils/create-namespaced-component.js";
 import {
 	$timeSortingDirection,
 	type SortingMode,
@@ -22,15 +23,7 @@ import {
 import { Button } from "../button/button.js";
 import type { SvgAttributes } from "../icon/types.js";
 import { SortIcon } from "../icons/sort.js";
-import {
-	Table,
-	TableBody,
-	TableCell,
-	TableHead,
-	TableHeader,
-	TableRoot,
-	TableRow,
-} from "../table/table.js";
+import { Table } from "../table/table.js";
 import { getNextSortDirection } from "./helpers.js";
 import type { SortDirection } from "./types.js";
 
@@ -54,11 +47,11 @@ function useDataTableContext<TData>() {
 	return context as DataTableContextShape<TData>;
 }
 
-type DataTableProps<TData> = ComponentProps<typeof TableRoot> & {
+type DataTableProps<TData> = ComponentProps<typeof Table.Root> & {
 	table: TableInstance<TData>;
 };
 
-function DataTable<TData>({
+function DataTableRoot<TData>({
 	children,
 	table,
 	...props
@@ -70,9 +63,9 @@ function DataTable<TData>({
 
 	return (
 		<DataTableContext.Provider value={context}>
-			<TableRoot {...props}>
+			<Table.Root {...props}>
 				<Table>{children}</Table>
-			</TableRoot>
+			</Table.Root>
 		</DataTableContext.Provider>
 	);
 }
@@ -192,7 +185,7 @@ function DataTableHeaderSortButton<TData, TValue>({
 	);
 }
 
-type DataTableHeaderProps = ComponentProps<typeof TableHeader>;
+type DataTableHeaderProps = ComponentProps<typeof Table.Header>;
 
 /**
  * A header for a data table.
@@ -204,39 +197,39 @@ function DataTableHeader<TData, TValue>({
 	...props
 }: DataTableHeaderProps) {
 	return (
-		<TableHeader
+		<Table.Header
 			className={cx("has-[[data-table-header-action]]:px-0", className)}
 			{...props}
 		>
 			{children}
-		</TableHeader>
+		</Table.Header>
 	);
 }
 
-const DataTableBody = TableBody;
+const DataTableBody = Table.Body;
 DataTableBody.displayName = "DataTableBody";
 
-type DataTableHeadProps = Omit<ComponentProps<typeof TableHead>, "children">;
+type DataTableHeadProps = Omit<ComponentProps<typeof Table.Head>, "children">;
 
 function DataTableHead<TData>(props: DataTableHeadProps) {
 	const { table } = useDataTableContext<TData>();
 
 	return (
-		<TableHead {...props}>
+		<Table.Head {...props}>
 			{table.getHeaderGroups().map((headerGroup) => (
-				<TableRow key={headerGroup.id}>
+				<Table.Row key={headerGroup.id}>
 					{headerGroup.headers.map((header) => (
 						<Fragment key={header.id}>
 							{header.isPlaceholder ? (
-								<TableHeader key={header.id} />
+								<Table.Header key={header.id} />
 							) : (
 								flexRender(header.column.columnDef.header, header.getContext())
 							)}
 						</Fragment>
 					))}
-				</TableRow>
+				</Table.Row>
 			))}
-		</TableHead>
+		</Table.Head>
 	);
 }
 
@@ -254,7 +247,7 @@ function DataTableRows<TData>() {
 }
 
 type DataTableRowProps<TData> = Omit<
-	ComponentProps<typeof TableRow>,
+	ComponentProps<typeof Table.Row>,
 	"children"
 > & {
 	row: Row<TData>;
@@ -262,17 +255,17 @@ type DataTableRowProps<TData> = Omit<
 
 function DataTableRow<TData>({ row, ...props }: DataTableRowProps<TData>) {
 	return (
-		<TableRow {...props}>
+		<Table.Row {...props}>
 			{row.getVisibleCells().map((cell) => (
 				<Fragment key={cell.id}>
 					{flexRender(cell.column.columnDef.cell, cell.getContext())}
 				</Fragment>
 			))}
-		</TableRow>
+		</Table.Row>
 	);
 }
 
-type DataTableEmptyRowProps = ComponentProps<typeof TableRow>;
+type DataTableEmptyRowProps = ComponentProps<typeof Table.Row>;
 
 function DataTableEmptyRow<TData>({
 	children,
@@ -282,13 +275,13 @@ function DataTableEmptyRow<TData>({
 	const numberOfColumns = table.getAllColumns().length;
 
 	return (
-		<TableRow {...props}>
-			<TableCell colSpan={numberOfColumns}>{children}</TableCell>
-		</TableRow>
+		<Table.Row {...props}>
+			<Table.Cell colSpan={numberOfColumns}>{children}</Table.Cell>
+		</Table.Row>
 	);
 }
 
-type DataTableActionCellProps = ComponentProps<typeof TableCell>;
+type DataTableActionCellProps = ComponentProps<typeof Table.Cell>;
 
 function DataTableActionCell({
 	children,
@@ -296,7 +289,7 @@ function DataTableActionCell({
 	...props
 }: DataTableActionCellProps) {
 	return (
-		<TableCell
+		<Table.Cell
 			className={cx(
 				"sticky z-10 right-0 top-px -bottom-px group-data-[sticky-active]/table:[box-shadow:inset_10px_0_8px_-8px_hsl(0deg_0%_0%_/_15%)]",
 				className,
@@ -304,21 +297,28 @@ function DataTableActionCell({
 			{...props}
 		>
 			<div className="flex justify-end">{children}</div>
-		</TableCell>
+		</Table.Cell>
 	);
 }
+
+const DataTable = createNamespacedComponent(
+	DataTableRoot,
+	{
+		ActionCell: DataTableActionCell,
+		Body: DataTableBody,
+		EmptyRow: DataTableEmptyRow,
+		Head: DataTableHead,
+		Header: DataTableHeader,
+		HeaderSortButton: DataTableHeaderSortButton,
+		Row: DataTableRow,
+		Rows: DataTableRows,
+	},
+	"DataTable",
+);
 
 export {
 	//,
 	DataTable,
-	DataTableActionCell,
-	DataTableBody,
-	DataTableEmptyRow,
-	DataTableHead,
-	DataTableHeader,
-	DataTableHeaderSortButton,
-	DataTableRow,
-	DataTableRows,
 };
 
 type DefaultSortIconProps = SvgAttributes & {

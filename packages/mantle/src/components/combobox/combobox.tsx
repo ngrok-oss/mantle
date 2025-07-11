@@ -10,6 +10,7 @@ import {
 	forwardRef,
 } from "react";
 import type { WithAsChild } from "../../types/as-child.js";
+import { createNamespacedComponent } from "../../utils/create-namespaced-component.js";
 import { cx } from "../../utils/cx/cx.js";
 import type { WithValidation } from "../input/types.js";
 import { Separator } from "../separator/separator.js";
@@ -21,14 +22,14 @@ type ComboboxProps = Primitive.ComboboxProviderProps;
  *
  * @example
  * <Combobox>
- *   <ComboboxInput />
- *   <ComboboxContent>
- *     <ComboboxItem value="Apple" />
- *     <ComboboxItem value="Banana" />
- *   </ComboboxContent>
+ *   <Combobox.Input />
+ *   <Combobox.Content>
+ *     <Combobox.Item value="Apple" />
+ *     <Combobox.Item value="Banana" />
+ *   </Combobox.Content>
  * </Combobox>
  */
-const Combobox = ({ children, ...props }: ComboboxProps) => {
+const Root = ({ children, ...props }: ComboboxProps) => {
 	return (
 		<Primitive.ComboboxProvider {...props}>
 			{children}
@@ -47,14 +48,14 @@ type ComboboxInputProps = Omit<
  *
  * @example
  * <Combobox>
- *   <ComboboxInput />
- *   <ComboboxContent>
- *     <ComboboxItem value="Apple" />
- *     <ComboboxItem value="Banana" />
- *   </ComboboxContent>
+ *   <Combobox.Input />
+ *   <Combobox.Content>
+ *     <Combobox.Item value="Apple" />
+ *     <Combobox.Item value="Banana" />
+ *   </Combobox.Content>
  * </Combobox>
  */
-const ComboboxInput = forwardRef<ComponentRef<"input">, ComboboxInputProps>(
+const Input = forwardRef<ComponentRef<"input">, ComboboxInputProps>(
 	(
 		{
 			"aria-invalid": _ariaInvalid,
@@ -100,7 +101,7 @@ const ComboboxInput = forwardRef<ComponentRef<"input">, ComboboxInputProps>(
 		);
 	},
 );
-ComboboxInput.displayName = "ComboboxInput";
+Input.displayName = "ComboboxInput";
 
 type ComboboxContentProps = Omit<Primitive.ComboboxPopoverProps, "render"> &
 	WithAsChild;
@@ -110,14 +111,14 @@ type ComboboxContentProps = Omit<Primitive.ComboboxPopoverProps, "render"> &
  *
  * @example
  * <Combobox>
- *   <ComboboxInput />
- *   <ComboboxContent>
- *     <ComboboxItem value="Apple" />
- *     <ComboboxItem value="Banana" />
- *   </ComboboxContent>
+ *   <Combobox.Input />
+ *   <Combobox.Content>
+ *     <Combobox.Item value="Apple" />
+ *     <Combobox.Item value="Banana" />
+ *   </Combobox.Content>
  * </Combobox>
  */
-const ComboboxContent = forwardRef<
+const Content = forwardRef<
 	ComponentRef<typeof Primitive.ComboboxPopover>,
 	ComboboxContentProps
 >(
@@ -153,7 +154,7 @@ const ComboboxContent = forwardRef<
 		);
 	},
 );
-ComboboxContent.displayName = "ComboboxContent";
+Content.displayName = "ComboboxContent";
 
 type ComboboxItemProps = Omit<Primitive.ComboboxItemProps, "render"> &
 	WithAsChild;
@@ -165,15 +166,15 @@ const ComboboxItemValueContext = createContext<string | undefined>(undefined);
  *
  * @example
  * <Combobox>
- *   <ComboboxInput />
- *   <ComboboxContent>
- *     <ComboboxItem value="Apple" />
- *     <ComboboxItem value="Banana" />
- *     <ComboboxItem value="Orange" />
- *   </ComboboxContent>
+ *   <Combobox.Input />
+ *   <Combobox.Content>
+ *     <Combobox.Item value="Apple" />
+ *     <Combobox.Item value="Banana" />
+ *     <Combobox.Item value="Orange" />
+ *   </Combobox.Content>
  * </Combobox>
  */
-const ComboboxItem = forwardRef<
+const Item = forwardRef<
 	ComponentRef<typeof Primitive.ComboboxItem>,
 	ComboboxItemProps
 >(
@@ -213,7 +214,7 @@ const ComboboxItem = forwardRef<
 		);
 	},
 );
-ComboboxItem.displayName = "ComboboxItem";
+Item.displayName = "ComboboxItem";
 
 type ComboboxGroupProps = Omit<Primitive.ComboboxGroupProps, "render"> &
 	WithAsChild;
@@ -227,17 +228,17 @@ type ComboboxGroupProps = Omit<Primitive.ComboboxGroupProps, "render"> &
  *
  * @example
  * <Combobox>
- *   <ComboboxInput />
- *   <ComboboxContent>
- *     <ComboboxGroup>
- *       <ComboboxGroupLabel>Fruits</ComboboxGroupLabel>
- *       <ComboboxItem value="Apple" />
- *       <ComboboxItem value="Banana" />
- *     </ComboboxGroup>
- *   </ComboboxContent>
+ *   <Combobox.Input />
+ *   <Combobox.Content>
+ *     <Combobox.Group>
+ *       <Combobox.GroupLabel>Fruits</Combobox.GroupLabel>
+ *       <Combobox.Item value="Apple" />
+ *       <Combobox.Item value="Banana" />
+ *     </Combobox.Group>
+ *   </Combobox.Content>
  * </Combobox>
  */
-const ComboboxGroup = forwardRef<
+const Group = forwardRef<
 	ComponentRef<typeof Primitive.ComboboxGroup>,
 	ComboboxGroupProps
 >(({ asChild = false, children, className, ...props }, ref) => {
@@ -256,7 +257,7 @@ const ComboboxGroup = forwardRef<
 		</Primitive.ComboboxGroup>
 	);
 });
-ComboboxGroup.displayName = "ComboboxGroup";
+Group.displayName = "ComboboxGroup";
 
 type ComboboxGroupLabelProps = Omit<
 	Primitive.ComboboxGroupLabelProps,
@@ -273,17 +274,17 @@ type ComboboxGroupLabelProps = Omit<
  *
  * @example
  * <Combobox>
- *   <ComboboxInput />
- *   <ComboboxContent>
- *     <ComboboxGroup>
- *       <ComboboxGroupLabel>Fruits</ComboboxGroupLabel>
- *       <ComboboxItem value="Apple" />
- *       <ComboboxItem value="Banana" />
- *     </ComboboxGroup>
- *   </ComboboxContent>
+ *   <Combobox.Input />
+ *   <Combobox.Content>
+ *     <Combobox.Group>
+ *       <Combobox.GroupLabel>Fruits</Combobox.GroupLabel>
+ *       <Combobox.Item value="Apple" />
+ *       <Combobox.Item value="Banana" />
+ *     </Combobox.Group>
+ *   </Combobox.Content>
  * </Combobox>
  */
-const ComboboxGroupLabel = forwardRef<
+const GroupLabel = forwardRef<
 	ComponentRef<typeof Primitive.ComboboxGroupLabel>,
 	ComboboxGroupLabelProps
 >(({ asChild = false, children, className, ...props }, ref) => {
@@ -302,7 +303,7 @@ const ComboboxGroupLabel = forwardRef<
 		</Primitive.ComboboxGroupLabel>
 	);
 });
-ComboboxGroupLabel.displayName = "ComboboxGroupLabel";
+GroupLabel.displayName = "ComboboxGroupLabel";
 
 type ComboboxItemValueProps = Omit<
 	Primitive.ComboboxItemValueProps<"span">,
@@ -324,20 +325,20 @@ type ComboboxItemValueProps = Omit<
  *
  * @example
  * <Combobox>
- *   <ComboboxInput />
- *   <ComboboxContent>
- *     <ComboboxItem value="Apple">
+ *   <Combobox.Input />
+ *   <Combobox.Content>
+ *     <Combobox.Item value="Apple">
  *       🍎
- *       <ComboboxItemValue />
- *     </ComboboxItem>
- *     <ComboboxItem value="Banana">
+ *       <Combobox.ItemValue />
+ *     </Combobox.Item>
+ *     <Combobox.Item value="Banana">
  *       🍌
- *       <ComboboxItemValue />
- *     </ComboboxItem>
- *   </ComboboxContent>
+ *       <Combobox.ItemValue />
+ *     </Combobox.Item>
+ *   </Combobox.Content>
  * </Combobox>
  */
-const ComboboxItemValue = forwardRef<
+const ItemValue = forwardRef<
 	ComponentRef<typeof Primitive.ComboboxItemValue>,
 	ComboboxItemValueProps
 >(({ asChild = false, className, ...props }, ref) => {
@@ -357,23 +358,24 @@ const ComboboxItemValue = forwardRef<
 		/>
 	);
 });
+ItemValue.displayName = "ComboboxItemValue";
 
 /**
  * Renders a separator between ComboboxItems or ComboboxGroups.
  *
  * @example
  * <Combobox>
- *   <ComboboxInput />
- *   <ComboboxContent>
- *     <ComboboxGroup>
- *       <ComboboxItem value="Apple" />
- *       <ComboboxItem value="Banana" />
- *     </ComboboxGroup>
- *     <ComboboxSeparator />
- *     <ComboboxItem>
+ *   <Combobox.Input />
+ *   <Combobox.Content>
+ *     <Combobox.Group>
+ *       <Combobox.Item value="Apple" />
+ *       <Combobox.Item value="Banana" />
+ *     </Combobox.Group>
+ *     <Combobox.Separator />
+ *     <Combobox.Item>
  *       Click me!
- *     </ComboboxItem>
- *   </ComboboxContent>
+ *     </Combobox.Item>
+ *   </Combobox.Content>
  * </Combobox>
  */
 const ComboboxSeparator = forwardRef<
@@ -388,14 +390,21 @@ const ComboboxSeparator = forwardRef<
 ));
 ComboboxSeparator.displayName = "ComboboxSeparator";
 
+const Combobox = createNamespacedComponent(
+	Root,
+	{
+		Content,
+		Group,
+		GroupLabel,
+		Input,
+		Item,
+		ItemValue,
+		Separator: ComboboxSeparator,
+	},
+	"Combobox",
+);
+
 export {
 	//,
 	Combobox,
-	ComboboxContent,
-	ComboboxGroup,
-	ComboboxGroupLabel,
-	ComboboxInput,
-	ComboboxItem,
-	ComboboxItemValue,
-	ComboboxSeparator,
 };

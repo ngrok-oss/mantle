@@ -2,11 +2,11 @@
 
 ## Status
 
-**ACCEPTED** - Approved on 2025-07-11
+**IMPLEMENTED** - Completed on 2025-07-11
 
 - [ ] Proposed
 - [x] Accepted  
-- [ ] Implemented
+- [x] Implemented
 - [ ] Superseded
 
 ## Decision Drivers
@@ -90,9 +90,9 @@ We will migrate 16 Mantle components to use a namespace pattern where the main e
 
 ## Migration Scope
 
-### Total Components: 16
+### Total Components: 20
 
-- **Pure Namespace Pattern**: 13 components
+- **Pure Namespace Pattern**: 17 components
 - **Mixed Pattern**: 3 components (namespace + named exports)
 
 ### Excluded Components (DO NOT MIGRATE)
@@ -103,7 +103,7 @@ We will migrate 16 Mantle components to use a namespace pattern where the main e
 
 ## Component Migration Lists
 
-### Pure Namespace Pattern (13 components)
+### Pure Namespace Pattern (16 components)
 
 1. **`alert-dialog`** - 11 exports
    - `AlertDialog` → `AlertDialog` (root component)
@@ -133,7 +133,21 @@ We will migrate 16 Mantle components to use a namespace pattern where the main e
    - `SheetTitleGroup` → `Sheet.TitleGroup`
    - `SheetTrigger` → `Sheet.Trigger`
 
-3. **`dropdown-menu`** - 16 exports
+3. **`dialog`** - 11 exports
+   - `Dialog` → `Dialog` (root component)
+   - `DialogBody` → `Dialog.Body`
+   - `DialogClose` → `Dialog.Close`
+   - `DialogCloseIconButton` → `Dialog.CloseIconButton`
+   - `DialogContent` → `Dialog.Content`
+   - `DialogDescription` → `Dialog.Description`
+   - `DialogFooter` → `Dialog.Footer`
+   - `DialogHeader` → `Dialog.Header`
+   - `DialogOverlay` → `Dialog.Overlay`
+   - `DialogPortal` → `Dialog.Portal`
+   - `DialogTitle` → `Dialog.Title`
+   - `DialogTrigger` → `Dialog.Trigger`
+
+4. **`dropdown-menu`** - 16 exports
    - `DropdownMenu` → `DropdownMenu` (root component)
    - `DropdownMenuCheckboxItem` → `DropdownMenu.CheckboxItem`
    - `DropdownMenuContent` → `DropdownMenu.Content`
@@ -150,7 +164,7 @@ We will migrate 16 Mantle components to use a namespace pattern where the main e
    - `DropdownMenuSubTrigger` → `DropdownMenu.SubTrigger`
    - `DropdownMenuTrigger` → `DropdownMenu.Trigger`
 
-4. **`table`** - 9 exports
+5. **`table`** - 9 exports
    - `Table` → `Table` (root component)
    - `TableBody` → `Table.Body`
    - `TableCaption` → `Table.Caption`
@@ -161,7 +175,7 @@ We will migrate 16 Mantle components to use a namespace pattern where the main e
    - `TableRoot` → `Table.Root` (note: TableRoot becomes Table.Root property)
    - `TableRow` → `Table.Row`
 
-5. **`accordion`** - 6 exports
+6. **`accordion`** - 6 exports
    - `Accordion` → `Accordion` (root component)
    - `AccordionContent` → `Accordion.Content`
    - `AccordionHeading` → `Accordion.Heading`
@@ -169,14 +183,14 @@ We will migrate 16 Mantle components to use a namespace pattern where the main e
    - `AccordionTrigger` → `Accordion.Trigger`
    - `AccordionTriggerIcon` → `Accordion.TriggerIcon`
 
-6. **`tabs`** - 5 exports
+7. **`tabs`** - 5 exports
    - `Tabs` → `Tabs` (root component)
    - `TabsContent` → `Tabs.Content`
    - `TabsList` → `Tabs.List`
    - `TabsTrigger` → `Tabs.Trigger`
    - `TabBadge` → `Tabs.Badge`
 
-7. **`select`** - 8 exports
+8. **`select`** - 8 exports
    - `Select` → `Select` (root component)
    - `SelectContent` → `Select.Content`
    - `SelectGroup` → `Select.Group`
@@ -186,7 +200,7 @@ We will migrate 16 Mantle components to use a namespace pattern where the main e
    - `SelectTrigger` → `Select.Trigger`
    - `SelectValue` → `Select.Value`
 
-8. **`combobox`** - 9 exports
+9. **`combobox`** - 9 exports
    - `Combobox` → `Combobox` (root component)
    - `ComboboxContent` → `Combobox.Content`
    - `ComboboxGroup` → `Combobox.Group`
@@ -196,17 +210,17 @@ We will migrate 16 Mantle components to use a namespace pattern where the main e
    - `ComboboxItemValue` → `Combobox.ItemValue`
    - `ComboboxSeparator` → `Combobox.Separator`
 
-9. **`code-block`** - 8 exports
-   - `CodeBlock` → `CodeBlock` (root component)
-   - `CodeBlockBody` → `CodeBlock.Body`
-   - `CodeBlockCode` → `CodeBlock.Code`
-   - `CodeBlockCopyButton` → `CodeBlock.CopyButton`
-   - `CodeBlockExpanderButton` → `CodeBlock.ExpanderButton`
-   - `CodeBlockHeader` → `CodeBlock.Header`
-   - `CodeBlockIcon` → `CodeBlock.Icon`
-   - `CodeBlockTitle` → `CodeBlock.Title`
+10. **`code-block`** - 8 exports
+    - `CodeBlock` → `CodeBlock` (root component)
+    - `CodeBlockBody` → `CodeBlock.Body`
+    - `CodeBlockCode` → `CodeBlock.Code`
+    - `CodeBlockCopyButton` → `CodeBlock.CopyButton`
+    - `CodeBlockExpanderButton` → `CodeBlock.ExpanderButton`
+    - `CodeBlockHeader` → `CodeBlock.Header`
+    - `CodeBlockIcon` → `CodeBlock.Icon`
+    - `CodeBlockTitle` → `CodeBlock.Title`
 
-10. **`alert`** - 6 exports
+11. **`alert`** - 6 exports
     - `Alert` → `Alert` (root component)
     - `AlertContent` → `Alert.Content`
     - `AlertDescription` → `Alert.Description`
@@ -214,14 +228,14 @@ We will migrate 16 Mantle components to use a namespace pattern where the main e
     - `AlertIcon` → `Alert.Icon`
     - `AlertTitle` → `Alert.Title`
 
-11. **`card`** - 5 exports
+12. **`card`** - 5 exports
     - `Card` → `Card` (root component)
     - `CardBody` → `Card.Body`
     - `CardFooter` → `Card.Footer`
     - `CardHeader` → `Card.Header`
     - `CardTitle` → `Card.Title`
 
-12. **`radio-group`** - 11 exports
+13. **`radio-group`** - 11 exports
     - `RadioGroup` → `RadioGroup` (root component)
     - `RadioButton` → `RadioGroup.Button`
     - `RadioButtonGroup` → `RadioGroup.ButtonGroup`
@@ -233,26 +247,26 @@ We will migrate 16 Mantle components to use a namespace pattern where the main e
     - `RadioItemContent` → `RadioGroup.ItemContent`
     - `RadioListItem` → `RadioGroup.ListItem`
 
-13. **`popover`** - 5 exports
+14. **`popover`** - 5 exports
     - `Popover` → `Popover` (root component)
     - `PopoverAnchor` → `Popover.Anchor`
     - `PopoverClose` → `Popover.Close`
     - `PopoverContent` → `Popover.Content`
     - `PopoverTrigger` → `Popover.Trigger`
 
-14. **`hover-card`** - 4 exports
+15. **`hover-card`** - 4 exports
     - `HoverCard` → `HoverCard` (root component)
     - `HoverCardContent` → `HoverCard.Content`
     - `HoverCardPortal` → `HoverCard.Portal`
     - `HoverCardTrigger` → `HoverCard.Trigger`
 
-15. **`tooltip`** - 4 exports
+16. **`tooltip`** - 4 exports
     - `Tooltip` → `Tooltip` (root component)
     - `TooltipContent` → `Tooltip.Content`
     - `TooltipProvider` → `Tooltip.Provider`
     - `TooltipTrigger` → `Tooltip.Trigger`
 
-16. **`media-object`** - 3 exports
+17. **`media-object`** - 3 exports
     - `MediaObject` → `MediaObject` (root component)
     - `MediaObjectContent` → `MediaObject.Content`
     - `MediaObjectMedia` → `MediaObject.Media`
@@ -657,7 +671,7 @@ Use these commands to validate your changes after each component migration:
 ### 1. Lint and Format
 
 ```bash
-pnpm -w fmt-liint
+pnpm -w fmt-lint
 ```
 
 ### 2. Type Checking
@@ -722,25 +736,25 @@ You can use Playwright or similar tools to test against the live dev server at h
 
 ### Before Migration
 
-- [ ] Identify all cross-component dependencies
-- [ ] Run full test suite
-- [ ] Document current bundle sizes
-- [ ] Verify all examples work
+- [x] Identify all cross-component dependencies
+- [x] Run full test suite
+- [x] Document current bundle sizes
+- [x] Verify all examples work
 
 ### During Migration
 
-- [ ] Test each component individually
-- [ ] Run all validation commands
-- [ ] Check React DevTools component names
-- [ ] Test Hot Module Replacement
+- [x] Test each component individually
+- [x] Run all validation commands
+- [x] Check React DevTools component names
+- [x] Test Hot Module Replacement
 
 ### After Migration
 
-- [ ] Run full test suite
-- [ ] Compare bundle sizes
-- [ ] Test all www examples at http://localhost:3333
-- [ ] Verify tree-shaking works
-- [ ] Check component display names in React DevTools
+- [x] Run full test suite
+- [x] Compare bundle sizes
+- [x] Test all www examples at http://localhost:3333
+- [x] Verify tree-shaking works
+- [x] Check component display names in React DevTools
 
 ## Troubleshooting Guide
 
@@ -784,31 +798,31 @@ If issues arise, components can be quickly rolled back:
 
 ### Component Level
 
-- [ ] All component functionality preserved
-- [ ] TypeScript types work correctly
-- [ ] Display names preserved for debugging
-- [ ] Tree-shaking works properly
+- [x] All component functionality preserved
+- [x] TypeScript types work correctly
+- [x] Display names preserved for debugging
+- [x] Tree-shaking works properly
 
 ### Developer Experience
 
-- [ ] Namespace pattern works as expected
-- [ ] IDE autocomplete works
-- [ ] Error messages are clear
-- [ ] Hot reload works correctly
+- [x] Namespace pattern works as expected
+- [x] IDE autocomplete works
+- [x] Error messages are clear
+- [x] Hot reload works correctly
 
 ### Documentation
 
-- [ ] All examples updated
-- [ ] Code blocks syntactically correct
-- [ ] Interactive examples work
-- [ ] Migration guide available
+- [x] All examples updated
+- [x] Code blocks syntactically correct
+- [x] Interactive examples work
+- [x] Migration guide available
 
 ### Performance
 
-- [ ] Bundle size not significantly increased
-- [ ] Tree-shaking works correctly
-- [ ] No runtime performance regression
-- [ ] Build times not significantly increased
+- [x] Bundle size not significantly increased
+- [x] Tree-shaking works correctly
+- [x] No runtime performance regression
+- [x] Build times not significantly increased
 
 ## Timeline Summary
 

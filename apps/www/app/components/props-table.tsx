@@ -1,14 +1,6 @@
 import { cx } from "@ngrok/mantle/cx";
-import {
-	Table,
-	TableBody,
-	TableCell,
-	TableHead,
-	TableHeader,
-	TableRoot,
-	TableRow,
-} from "@ngrok/mantle/table";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@ngrok/mantle/tooltip";
+import { Table } from "@ngrok/mantle/table";
+import { Tooltip } from "@ngrok/mantle/tooltip";
 import type { WithStyleProps } from "@ngrok/mantle/types";
 import Prism from "prismjs";
 import { type PropsWithChildren, useEffect, useState } from "react";
@@ -18,26 +10,26 @@ import { escapeHtml, normalizeIndentation } from "@ngrok/mantle/code-block";
 
 type PropsTableProps = WithStyleProps & PropsWithChildren;
 export const PropsTable = ({ children, className, style }: PropsTableProps) => (
-	<TableRoot className={className} style={style}>
+	<Table.Root className={className} style={style}>
 		<Table>
-			<TableHead>
-				<TableRow>
-					<TableHeader>Prop</TableHeader>
-					<TableHeader>Type</TableHeader>
-					<TableHeader>Default</TableHeader>
-					<TableHeader>Description</TableHeader>
-				</TableRow>
-			</TableHead>
-			<TableBody>{children}</TableBody>
+			<Table.Head>
+				<Table.Row>
+					<Table.Header>Prop</Table.Header>
+					<Table.Header>Type</Table.Header>
+					<Table.Header>Default</Table.Header>
+					<Table.Header>Description</Table.Header>
+				</Table.Row>
+			</Table.Head>
+			<Table.Body>{children}</Table.Body>
 		</Table>
-	</TableRoot>
+	</Table.Root>
 );
 
 type PropRowProps = PropsWithChildren & WithStyleProps;
 export const PropRow = ({ children, className, style }: PropRowProps) => (
-	<TableRow className={className} style={style}>
+	<Table.Row className={className} style={style}>
 		{children}
-	</TableRow>
+	</Table.Row>
 );
 
 type PropNameCellProps = WithStyleProps & {
@@ -51,19 +43,19 @@ export const PropNameCell = ({
 	optional,
 	style,
 }: PropNameCellProps) => (
-	<TableCell className={cx("align-top", className)} style={style}>
+	<Table.Cell className={cx("align-top", className)} style={style}>
 		<div className="flex items-start">
 			<span className="token attr-name">{name}</span>
 			{optional && (
 				<Tooltip>
-					<TooltipTrigger className="h-[1lh]">?</TooltipTrigger>
-					<TooltipContent>
+					<Tooltip.Trigger className="h-[1lh]">?</Tooltip.Trigger>
+					<Tooltip.Content>
 						<p>This prop is optional.</p>
-					</TooltipContent>
+					</Tooltip.Content>
 				</Tooltip>
 			)}
 		</div>
-	</TableCell>
+	</Table.Cell>
 );
 
 type PropTypeCellProps = WithStyleProps & PropsWithChildren;
@@ -72,9 +64,9 @@ export const PropTypeCell = ({
 	className,
 	style,
 }: PropTypeCellProps) => (
-	<TableCell className={cx("align-top", className)} style={style}>
+	<Table.Cell className={cx("align-top", className)} style={style}>
 		{children}
-	</TableCell>
+	</Table.Cell>
 );
 
 type PropDefaultValueCellProps = WithStyleProps & PropsWithChildren;
@@ -83,9 +75,9 @@ export const PropDefaultValueCell = ({
 	className,
 	style,
 }: PropDefaultValueCellProps) => (
-	<TableCell className={cx("align-top", className)} style={style}>
+	<Table.Cell className={cx("align-top", className)} style={style}>
 		{children}
-	</TableCell>
+	</Table.Cell>
 );
 
 type PropDescriptionCellProps = WithStyleProps & PropsWithChildren;
@@ -94,9 +86,9 @@ export const PropDescriptionCell = ({
 	className,
 	style,
 }: PropDescriptionCellProps) => (
-	<TableCell className={cx("align-top", className)} style={style}>
+	<Table.Cell className={cx("align-top", className)} style={style}>
 		{children}
-	</TableCell>
+	</Table.Cell>
 );
 
 export const ObjectPropType = ({ name }: { name: string }) => (

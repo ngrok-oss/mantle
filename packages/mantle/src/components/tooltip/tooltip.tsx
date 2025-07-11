@@ -1,6 +1,7 @@
 import { Content, Provider, Root, Trigger } from "@radix-ui/react-tooltip";
 import { forwardRef } from "react";
 import type { ComponentPropsWithoutRef, ComponentRef } from "react";
+import { createNamespacedComponent } from "../../utils/create-namespaced-component.js";
 import { cx } from "../../utils/cx/cx.js";
 
 /**
@@ -29,7 +30,7 @@ const TooltipProvider = ({
  *
  * https://github.com/ngrok-oss/mantle/issues
  */
-const Tooltip = Root;
+const TooltipRoot = Root;
 
 /**
  * The trigger button that opens the tooltip.
@@ -67,10 +68,17 @@ const TooltipContent = forwardRef<
 ));
 TooltipContent.displayName = "TooltipContent";
 
+const Tooltip = createNamespacedComponent(
+	TooltipRoot,
+	{
+		Content: TooltipContent,
+		Provider: TooltipProvider,
+		Trigger: TooltipTrigger,
+	},
+	"Tooltip",
+);
+
 export {
 	//,
 	Tooltip,
-	TooltipContent,
-	TooltipProvider,
-	TooltipTrigger,
 };

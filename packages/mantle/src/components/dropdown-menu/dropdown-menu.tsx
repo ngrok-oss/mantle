@@ -3,23 +3,24 @@ import { CheckIcon } from "@phosphor-icons/react/Check";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import type { ComponentPropsWithoutRef, ComponentRef } from "react";
 import { forwardRef } from "react";
+import { createNamespacedComponent } from "../../utils/create-namespaced-component.js";
 import { cx } from "../../utils/cx/cx.js";
 import { Icon } from "../icon/icon.js";
 import { Separator } from "../separator/separator.js";
 
-const DropdownMenu = DropdownMenuPrimitive.Root;
+const Root = DropdownMenuPrimitive.Root;
 
-const DropdownMenuTrigger = DropdownMenuPrimitive.Trigger;
+const Trigger = DropdownMenuPrimitive.Trigger;
 
-const DropdownMenuGroup = DropdownMenuPrimitive.Group;
+const Group = DropdownMenuPrimitive.Group;
 
-const DropdownMenuPortal = DropdownMenuPrimitive.Portal;
+const Portal = DropdownMenuPrimitive.Portal;
 
-const DropdownMenuSub = DropdownMenuPrimitive.Sub;
+const Sub = DropdownMenuPrimitive.Sub;
 
-const DropdownMenuRadioGroup = DropdownMenuPrimitive.RadioGroup;
+const RadioGroup = DropdownMenuPrimitive.RadioGroup;
 
-const DropdownMenuSubTrigger = forwardRef<
+const SubTrigger = forwardRef<
 	ComponentRef<typeof DropdownMenuPrimitive.SubTrigger>,
 	ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubTrigger> & {
 		inset?: boolean;
@@ -42,13 +43,13 @@ const DropdownMenuSubTrigger = forwardRef<
 		</span>
 	</DropdownMenuPrimitive.SubTrigger>
 ));
-DropdownMenuSubTrigger.displayName = "DropdownMenuSubTrigger";
+SubTrigger.displayName = "DropdownMenuSubTrigger";
 
-const DropdownMenuSubContent = forwardRef<
+const SubContent = forwardRef<
 	ComponentRef<typeof DropdownMenuPrimitive.SubContent>,
 	ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubContent>
 >(({ className, loop = true, ...props }, ref) => (
-	<DropdownMenuPortal>
+	<Portal>
 		<DropdownMenuPrimitive.SubContent
 			className={cx(
 				"scrollbar",
@@ -60,9 +61,9 @@ const DropdownMenuSubContent = forwardRef<
 			ref={ref}
 			{...props}
 		/>
-	</DropdownMenuPortal>
+	</Portal>
 ));
-DropdownMenuSubContent.displayName = "DropdownMenuSubContent";
+SubContent.displayName = "DropdownMenuSubContent";
 
 type DropdownMenuContentProps = ComponentPropsWithoutRef<
 	typeof DropdownMenuPrimitive.Content
@@ -73,11 +74,11 @@ type DropdownMenuContentProps = ComponentPropsWithoutRef<
 	width?: "trigger" | "content";
 };
 
-const DropdownMenuContent = forwardRef<
+const Content = forwardRef<
 	ComponentRef<typeof DropdownMenuPrimitive.Content>,
 	DropdownMenuContentProps
 >(({ className, onClick, loop = true, width, ...props }, ref) => (
-	<DropdownMenuPortal>
+	<Portal>
 		<DropdownMenuPrimitive.Content
 			ref={ref}
 			className={cx(
@@ -99,11 +100,11 @@ const DropdownMenuContent = forwardRef<
 			}}
 			{...props}
 		/>
-	</DropdownMenuPortal>
+	</Portal>
 ));
-DropdownMenuContent.displayName = "DropdownMenuContent";
+Content.displayName = "DropdownMenuContent";
 
-const DropdownMenuItem = forwardRef<
+const Item = forwardRef<
 	ComponentRef<typeof DropdownMenuPrimitive.Item>,
 	ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Item> & {
 		inset?: boolean;
@@ -120,9 +121,9 @@ const DropdownMenuItem = forwardRef<
 		{...props}
 	/>
 ));
-DropdownMenuItem.displayName = "DropdownMenuItem";
+Item.displayName = "DropdownMenuItem";
 
-const DropdownMenuCheckboxItem = forwardRef<
+const CheckboxItem = forwardRef<
 	ComponentRef<typeof DropdownMenuPrimitive.CheckboxItem>,
 	ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.CheckboxItem>
 >(({ className, children, checked, ...props }, ref) => (
@@ -146,7 +147,7 @@ const DropdownMenuCheckboxItem = forwardRef<
 		{children}
 	</DropdownMenuPrimitive.CheckboxItem>
 ));
-DropdownMenuCheckboxItem.displayName = "DropdownMenuCheckboxItem";
+CheckboxItem.displayName = "DropdownMenuCheckboxItem";
 
 type DropdownMenuRadioItemProps = ComponentPropsWithoutRef<
 	typeof DropdownMenuPrimitive.RadioItem
@@ -155,33 +156,32 @@ type DropdownMenuRadioItemProps = ComponentPropsWithoutRef<
 	id?: string;
 };
 
-const DropdownMenuRadioItem = forwardRef<
-	ComponentRef<"input">,
-	DropdownMenuRadioItemProps
->(({ className, children, ...props }, ref) => (
-	<DropdownMenuPrimitive.RadioItem
-		className={cx(
-			"group/dropdown-menu-radio-item",
-			"text-strong data-disabled:pointer-events-none data-disabled:opacity-50 relative flex cursor-pointer select-none items-center gap-2 rounded py-1.5 px-2 text-sm font-normal outline-none",
-			"data-highlighted:bg-popover-hover data-highlighted:dark:bg-popover-hover",
-			"aria-checked:!bg-filled-accent aria-checked:text-on-filled aria-checked:font-medium aria-checked:pr-9",
-			"[&>svg]:size-5 [&_svg]:shrink-0",
-			className,
-		)}
-		ref={ref}
-		{...props}
-	>
-		<span className="absolute right-2 items-center hidden group-aria-checked/dropdown-menu-radio-item:flex">
-			<DropdownMenuPrimitive.ItemIndicator>
-				<Icon svg={<CheckIcon weight="bold" />} className="size-4" />
-			</DropdownMenuPrimitive.ItemIndicator>
-		</span>
-		{children}
-	</DropdownMenuPrimitive.RadioItem>
-));
-DropdownMenuRadioItem.displayName = "DropdownMenuRadioItem";
+const RadioItem = forwardRef<ComponentRef<"input">, DropdownMenuRadioItemProps>(
+	({ className, children, ...props }, ref) => (
+		<DropdownMenuPrimitive.RadioItem
+			className={cx(
+				"group/dropdown-menu-radio-item",
+				"text-strong data-disabled:pointer-events-none data-disabled:opacity-50 relative flex cursor-pointer select-none items-center gap-2 rounded py-1.5 px-2 text-sm font-normal outline-none",
+				"data-highlighted:bg-popover-hover data-highlighted:dark:bg-popover-hover",
+				"aria-checked:!bg-filled-accent aria-checked:text-on-filled aria-checked:font-medium aria-checked:pr-9",
+				"[&>svg]:size-5 [&_svg]:shrink-0",
+				className,
+			)}
+			ref={ref}
+			{...props}
+		>
+			<span className="absolute right-2 items-center hidden group-aria-checked/dropdown-menu-radio-item:flex">
+				<DropdownMenuPrimitive.ItemIndicator>
+					<Icon svg={<CheckIcon weight="bold" />} className="size-4" />
+				</DropdownMenuPrimitive.ItemIndicator>
+			</span>
+			{children}
+		</DropdownMenuPrimitive.RadioItem>
+	),
+);
+RadioItem.displayName = "DropdownMenuRadioItem";
 
-const DropdownMenuLabel = forwardRef<
+const Label = forwardRef<
 	ComponentRef<typeof DropdownMenuPrimitive.Label>,
 	ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Label> & {
 		inset?: boolean;
@@ -197,7 +197,7 @@ const DropdownMenuLabel = forwardRef<
 		{...props}
 	/>
 ));
-DropdownMenuLabel.displayName = "DropdownMenuLabel";
+Label.displayName = "DropdownMenuLabel";
 
 const DropdownMenuSeparator = forwardRef<
 	ComponentRef<typeof Separator>,
@@ -211,7 +211,7 @@ const DropdownMenuSeparator = forwardRef<
 ));
 DropdownMenuSeparator.displayName = "DropdownMenuSeparator";
 
-const DropdownMenuShortcut = ({
+const Shortcut = ({
 	className,
 	...props
 }: React.HTMLAttributes<HTMLSpanElement>) => {
@@ -222,22 +222,27 @@ const DropdownMenuShortcut = ({
 		/>
 	);
 };
-DropdownMenuShortcut.displayName = "DropdownMenuShortcut";
+Shortcut.displayName = "DropdownMenuShortcut";
 
-export {
-	DropdownMenu,
-	DropdownMenuCheckboxItem,
-	DropdownMenuContent,
-	DropdownMenuGroup,
-	DropdownMenuItem,
-	DropdownMenuLabel,
-	DropdownMenuPortal,
-	DropdownMenuRadioGroup,
-	DropdownMenuRadioItem,
-	DropdownMenuSeparator,
-	DropdownMenuShortcut,
-	DropdownMenuSub,
-	DropdownMenuSubContent,
-	DropdownMenuSubTrigger,
-	DropdownMenuTrigger,
-};
+const DropdownMenu = createNamespacedComponent(
+	Root,
+	{
+		CheckboxItem,
+		Content,
+		Group,
+		Item,
+		Label,
+		Portal,
+		RadioGroup,
+		RadioItem,
+		Separator: DropdownMenuSeparator,
+		Shortcut,
+		Sub,
+		SubContent,
+		SubTrigger,
+		Trigger,
+	},
+	"DropdownMenu",
+);
+
+export { DropdownMenu };

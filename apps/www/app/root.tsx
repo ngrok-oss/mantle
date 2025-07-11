@@ -4,8 +4,8 @@ import {
 	ThemeProvider,
 	useInitialHtmlThemeProps,
 } from "@ngrok/mantle/theme-provider";
-import { Toaster } from "@ngrok/mantle/toast";
-import { TooltipProvider } from "@ngrok/mantle/tooltip";
+import { Toast } from "@ngrok/mantle/toast";
+import { Tooltip } from "@ngrok/mantle/tooltip";
 import {
 	Links,
 	Meta,
@@ -51,14 +51,14 @@ export default function App() {
 			<body className="bg-base h-full min-h-full overflow-y-scroll">
 				<ThemeProvider>
 					<AutoScrollToHash />
-					<TooltipProvider>
-						<Toaster />
+					<Tooltip.Provider>
+						<Toast.Toaster />
 						<NavigationProvider>
 							<Layout currentVersion={currentVersion}>
 								<Outlet />
 							</Layout>
 						</NavigationProvider>
-					</TooltipProvider>
+					</Tooltip.Provider>
 				</ThemeProvider>
 				<ScrollRestoration />
 				<Scripts />

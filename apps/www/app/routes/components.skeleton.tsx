@@ -1,17 +1,7 @@
 import { Anchor } from "@ngrok/mantle/anchor";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
-import {
-	MediaObject,
-	MediaObjectContent,
-	MediaObjectMedia,
-} from "@ngrok/mantle/media-object";
+import { MediaObject } from "@ngrok/mantle/media-object";
 import { Skeleton } from "@ngrok/mantle/skeleton";
 import { href } from "react-router";
 import { Example } from "~/components/example";
@@ -60,9 +50,9 @@ export default function Page() {
 						<Skeleton className="w-full" />
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
 									import { Skeleton } from "@ngrok/mantle/skeleton";
@@ -70,7 +60,7 @@ export default function Page() {
 									<Skeleton className="w-full" />
 								`}
 							/>
-						</CodeBlockBody>
+						</CodeBlock.Body>
 					</CodeBlock>
 				</div>
 			</section>
@@ -99,36 +89,36 @@ export default function Page() {
 					<div>
 						<Example>
 							<MediaObject className="w-full max-w-96 items-center">
-								<MediaObjectMedia>
+								<MediaObject.Media>
 									<Skeleton className="h-12 w-12 rounded-full" />
-								</MediaObjectMedia>
-								<MediaObjectContent className="space-y-3">
+								</MediaObject.Media>
+								<MediaObject.Content className="space-y-3">
 									<Skeleton className="w-full" />
 									<Skeleton className="w-4/5" />
-								</MediaObjectContent>
+								</MediaObject.Content>
 							</MediaObject>
 						</Example>
 						<CodeBlock className="rounded-b-lg rounded-t-none">
-							<CodeBlockBody>
-								<CodeBlockCopyButton />
-								<CodeBlockCode
+							<CodeBlock.Body>
+								<CodeBlock.CopyButton />
+								<CodeBlock.Code
 									language="tsx"
 									value={fmtCode`
-									import { MediaObject, MediaObjectMedia, MediaObjectContent } from "@ngrok/mantle/media-object";
+									import { MediaObject } from "@ngrok/mantle/media-object";
 									import { Skeleton } from "@ngrok/mantle/skeleton";
 
 									<MediaObject className="w-full max-w-96 items-center">
-										<MediaObjectMedia>
+										<MediaObject.Media>
 											<Skeleton className="h-12 w-12 rounded-full" />
-										</MediaObjectMedia>
-										<MediaObjectContent className="space-y-3">
+										</MediaObject.Media>
+										<MediaObject.Content className="space-y-3">
 											<Skeleton className="w-full" />
 											<Skeleton className="w-4/5" />
-										</MediaObjectContent>
+										</MediaObject.Content>
 									</MediaObject>
 								`}
 								/>
-							</CodeBlockBody>
+							</CodeBlock.Body>
 						</CodeBlock>
 					</div>
 				</section>

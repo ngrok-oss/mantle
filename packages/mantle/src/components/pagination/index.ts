@@ -1,8 +1,5 @@
 export {
 	//,
-	CursorButtons,
-	CursorPageSizeSelect,
-	CursorPageSizeValue,
 	CursorPagination,
 } from "./cursor-pagination.js";
 export {
