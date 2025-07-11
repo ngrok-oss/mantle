@@ -80,8 +80,8 @@ importers:
         specifier: 3.1.1
         version: 3.1.1(react@18.3.1)
       zod:
-        specifier: 4.0.3
-        version: 4.0.3
+        specifier: 4.0.5
+        version: 4.0.5
     devDependencies:
       '@cfg/tsconfig':
         specifier: workspace:*
@@ -3464,8 +3464,8 @@ packages:
     engines: {node: '>= 14.6'}
     hasBin: true
 
-  zod@4.0.3:
-    resolution: {integrity: sha512-V78FonTAxtGAyF2xR75x0YoW8uKXdQiusoPtzbT07vH3mZiGdTQN6INuivHyYT6M2V2YRFDEKIF4ylTJh54EXg==}
+  zod@4.0.5:
+    resolution: {integrity: sha512-/5UuuRPStvHXu7RS+gmvRf4NXrNxpSllGwDnCBcJZtQsKrviYXm54yDGV2KYNLT5kq0lHGcl7lqWJLgSaG+tgA==}
 
 snapshots:
 
@@ -6713,4 +6713,4 @@ snapshots:
 
   yaml@2.8.0: {}
 
-  zod@4.0.3: {}
+  zod@4.0.5: {}
