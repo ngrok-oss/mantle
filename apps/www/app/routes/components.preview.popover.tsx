@@ -1,13 +1,7 @@
 import { Button } from "@ngrok/mantle/button";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { Input } from "@ngrok/mantle/input";
-import { Popover, PopoverContent, PopoverTrigger } from "@ngrok/mantle/popover";
+import { Popover } from "@ngrok/mantle/popover";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/components.preview.popover";
@@ -40,12 +34,12 @@ export default function Page() {
 			<div>
 				<Example className="gap-2">
 					<Popover>
-						<PopoverTrigger asChild>
+						<Popover.Trigger asChild>
 							<Button type="button" appearance="filled">
 								Open popover
 							</Button>
-						</PopoverTrigger>
-						<PopoverContent preferredWidth="max-w-96">
+						</Popover.Trigger>
+						<Popover.Content preferredWidth="max-w-96">
 							<form
 								className="grid gap-4"
 								onSubmit={(event) => {
@@ -93,28 +87,28 @@ export default function Page() {
 									</div>
 								</div>
 							</form>
-						</PopoverContent>
+						</Popover.Content>
 					</Popover>
 				</Example>
 				<CodeBlock className="rounded-b-lg rounded-t-none">
-					<CodeBlockBody>
-						<CodeBlockCopyButton />
-						<CodeBlockCode
+					<CodeBlock.Body>
+						<CodeBlock.CopyButton />
+						<CodeBlock.Code
 							language="tsx"
 							value={fmtCode`
-								import { Popover, PopoverContent, PopoverTrigger } from "@ngrok/mantle/popover";
+								import { Popover } from "@ngrok/mantle/popover";
 
 								<Popover>
-									<PopoverTrigger asChild>
+									<Popover.Trigger asChild>
 										<Button>Open popover</Button>
-									</PopoverTrigger>
-									<PopoverContent preferredWidth="max-w-96">
+									</Popover.Trigger>
+									<Popover.Content preferredWidth="max-w-96">
 										<p>Reprehenderit veniam excepteur incididunt et ut eu.</p>
-									</PopoverContent>
+									</Popover.Content>
 								</Popover>
 							`}
 						/>
-					</CodeBlockBody>
+					</CodeBlock.Body>
 				</CodeBlock>
 			</div>
 		</div>

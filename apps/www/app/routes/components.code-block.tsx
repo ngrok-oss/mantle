@@ -1,13 +1,6 @@
 import { Anchor } from "@ngrok/mantle/anchor";
 import {
 	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	CodeBlockExpanderButton,
-	CodeBlockHeader,
-	CodeBlockIcon,
-	CodeBlockTitle,
 	fmtCode,
 	supportedLanguages,
 } from "@ngrok/mantle/code-block";
@@ -58,13 +51,13 @@ export default function Page() {
 				<div>
 					<Example>
 						<CodeBlock>
-							<CodeBlockHeader>
-								<CodeBlockIcon preset="file" />
-								<CodeBlockTitle>ngrok-example.js</CodeBlockTitle>
-							</CodeBlockHeader>
-							<CodeBlockBody>
-								<CodeBlockCopyButton />
-								<CodeBlockCode
+							<CodeBlock.Header>
+								<CodeBlock.Icon preset="file" />
+								<CodeBlock.Title>ngrok-example.js</CodeBlock.Title>
+							</CodeBlock.Header>
+							<CodeBlock.Body>
+								<CodeBlock.CopyButton />
+								<CodeBlock.Code
 									language="js"
 									value={fmtCode`
 										const listener = await ngrok.connect({
@@ -111,42 +104,35 @@ export default function Page() {
 										});
 									`}
 								/>
-							</CodeBlockBody>
-							<CodeBlockExpanderButton />
+							</CodeBlock.Body>
+							<CodeBlock.ExpanderButton />
 						</CodeBlock>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
-									import {
-										CodeBlock,
-										CodeBlockBody,
-										CodeBlockCode,
-										CodeBlockCopyButton,
-										CodeBlockExpanderButton,
-										CodeBlockHeader,
-										CodeBlockIcon,
-										CodeBlockTitle,
-										fmtCode,
-									} from "@ngrok/mantle/code-block";
+								import {
+								CodeBlock,
+								fmtCode,
+								} from "@ngrok/mantle/code-block";
 
 									<CodeBlock>
-										<CodeBlockHeader>
-											<CodeBlockIcon preset="file" />
-											<CodeBlockTitle>…</CodeBlockTitle>
-										</CodeBlockHeader>
-										<CodeBlockBody>
-											<CodeBlockCopyButton />
-											<CodeBlockCode language="…" value={fmtCode\`…\`} />
-										</CodeBlockBody>
-										<CodeBlockExpanderButton />
+										<CodeBlock.Header>
+											<CodeBlock.Icon preset="file" />
+											<CodeBlock.Title>…</CodeBlock.Title>
+										</CodeBlock.Header>
+										<CodeBlock.Body>
+											<CodeBlock.CopyButton />
+											<CodeBlock.Code language="…" value={fmtCode\`…\`} />
+										</CodeBlock.Body>
+										<CodeBlock.ExpanderButton />
 									</CodeBlock>
 								`}
 							/>
-						</CodeBlockBody>
+						</CodeBlock.Body>
 					</CodeBlock>
 				</div>
 			</section>
@@ -175,38 +161,38 @@ export default function Page() {
 					<div>
 						<Example>
 							<CodeBlock>
-								<CodeBlockHeader>
-									<CodeBlockIcon preset="cli" />
-									<CodeBlockTitle>Command Line</CodeBlockTitle>
-								</CodeBlockHeader>
-								<CodeBlockBody>
-									<CodeBlockCopyButton />
-									<CodeBlockCode
+								<CodeBlock.Header>
+									<CodeBlock.Icon preset="cli" />
+									<CodeBlock.Title>Command Line</CodeBlock.Title>
+								</CodeBlock.Header>
+								<CodeBlock.Body>
+									<CodeBlock.CopyButton />
+									<CodeBlock.Code
 										language="sh"
 										value={fmtCode`sudo unzip ~/Downloads/ngrok-v3-stable-darwin.zip -d /usr/local/bin`}
 									/>
-								</CodeBlockBody>
+								</CodeBlock.Body>
 							</CodeBlock>
 						</Example>
 						<CodeBlock className="rounded-b-lg rounded-t-none">
-							<CodeBlockBody>
-								<CodeBlockCopyButton />
-								<CodeBlockCode
+							<CodeBlock.Body>
+								<CodeBlock.CopyButton />
+								<CodeBlock.Code
 									language="tsx"
 									value={fmtCode`
 										<CodeBlock>
-											<CodeBlockHeader>
-												<CodeBlockIcon preset="cli" />
-												<CodeBlockTitle>Command Line</CodeBlockTitle>
-											</CodeBlockHeader>
-											<CodeBlockBody>
-												<CodeBlockCopyButton />
-												<CodeBlockCode language="sh" value={fmtCode\`sudo unzip ~/Downloads/ngrok-v3-stable-darwin.zip -d /usr/local/bin\`} />
-											</CodeBlockBody>
+											<CodeBlock.Header>
+												<CodeBlock.Icon preset="cli" />
+												<CodeBlock.Title>Command Line</CodeBlock.Title>
+											</CodeBlock.Header>
+											<CodeBlock.Body>
+												<CodeBlock.CopyButton />
+												<CodeBlock.Code language="sh" value={fmtCode\`sudo unzip ~/Downloads/ngrok-v3-stable-darwin.zip -d /usr/local/bin\`} />
+											</CodeBlock.Body>
 										</CodeBlock>
 									`}
 								/>
-							</CodeBlockBody>
+							</CodeBlock.Body>
 						</CodeBlock>
 					</div>
 				</section>
@@ -228,13 +214,13 @@ export default function Page() {
 					<div>
 						<Example>
 							<CodeBlock>
-								<CodeBlockHeader>
-									<CodeBlockIcon preset="file" />
-									<CodeBlockTitle>ngrok-example.js</CodeBlockTitle>
-								</CodeBlockHeader>
-								<CodeBlockBody>
-									<CodeBlockCopyButton />
-									<CodeBlockCode
+								<CodeBlock.Header>
+									<CodeBlock.Icon preset="file" />
+									<CodeBlock.Title>ngrok-example.js</CodeBlock.Title>
+								</CodeBlock.Header>
+								<CodeBlock.Body>
+									<CodeBlock.CopyButton />
+									<CodeBlock.Code
 										language="js"
 										value={fmtCode`
 											const http = require('http');
@@ -255,23 +241,23 @@ export default function Page() {
 											// really long line here that should wrap around and stuff Officia ipsum sint eu labore esse deserunt aliqua quis irure.
 										`}
 									/>
-								</CodeBlockBody>
+								</CodeBlock.Body>
 							</CodeBlock>
 						</Example>
 						<CodeBlock className="rounded-b-lg rounded-t-none">
-							<CodeBlockBody>
-								<CodeBlockCopyButton />
-								<CodeBlockCode
+							<CodeBlock.Body>
+								<CodeBlock.CopyButton />
+								<CodeBlock.Code
 									language="tsx"
 									value={fmtCode`
 										<CodeBlock>
-											<CodeBlockHeader>
-												<CodeBlockIcon preset="file" />
-												<CodeBlockTitle>ngrok-example.js</CodeBlockTitle>
-											</CodeBlockHeader>
-											<CodeBlockBody>
-												<CodeBlockCopyButton />
-												<CodeBlockCode
+											<CodeBlock.Header>
+												<CodeBlock.Icon preset="file" />
+												<CodeBlock.Title>ngrok-example.js</CodeBlock.Title>
+											</CodeBlock.Header>
+											<CodeBlock.Body>
+												<CodeBlock.CopyButton />
+												<CodeBlock.Code
 													language="js"
 													value={fmtCode\`
 														const http = require('http');
@@ -292,12 +278,12 @@ export default function Page() {
 														// really long line here that should wrap around and stuff Officia ipsum sint eu labore esse deserunt aliqua quis irure.
 													\`}
 												/>
-											</CodeBlockBody>
+											</CodeBlock.Body>
 										</CodeBlock>
 									`}
 								/>
-							</CodeBlockBody>
-							<CodeBlockExpanderButton />
+							</CodeBlock.Body>
+							<CodeBlock.ExpanderButton />
 						</CodeBlock>
 					</div>
 				</section>
@@ -322,8 +308,8 @@ export default function Page() {
 					<div>
 						<Example>
 							<CodeBlock>
-								<CodeBlockBody>
-									<CodeBlockCode
+								<CodeBlock.Body>
+									<CodeBlock.Code
 										language="js"
 										value={fmtCode`
 											const http = require('http');
@@ -338,18 +324,18 @@ export default function Page() {
 											});
 										`}
 									/>
-								</CodeBlockBody>
+								</CodeBlock.Body>
 							</CodeBlock>
 						</Example>
 						<CodeBlock className="rounded-b-lg rounded-t-none">
-							<CodeBlockBody>
-								<CodeBlockCopyButton />
-								<CodeBlockCode
+							<CodeBlock.Body>
+								<CodeBlock.CopyButton />
+								<CodeBlock.Code
 									language="tsx"
 									value={fmtCode`
 										<CodeBlock>
-											<CodeBlockBody>
-												<CodeBlockCode
+											<CodeBlock.Body>
+												<CodeBlock.Code
 													language="js"
 													value={fmtCode\`
 														const http = require('http');
@@ -364,12 +350,12 @@ export default function Page() {
 														});
 													\`}
 												/>
-											</CodeBlockBody>
+											</CodeBlock.Body>
 										</CodeBlock>
 									`}
 								/>
-							</CodeBlockBody>
-							<CodeBlockExpanderButton />
+							</CodeBlock.Body>
+							<CodeBlock.ExpanderButton />
 						</CodeBlock>
 					</div>
 				</section>
@@ -391,33 +377,33 @@ export default function Page() {
 					<div>
 						<Example>
 							<CodeBlock>
-								<CodeBlockBody>
-									<CodeBlockCopyButton />
-									<CodeBlockCode
+								<CodeBlock.Body>
+									<CodeBlock.CopyButton />
+									<CodeBlock.Code
 										language="sh"
 										value={fmtCode`ffmpeg -i multichannel.mxf -map 0:v:0 -map 0:a:0 -map 0:a:0 -c:a:0 ac3 -b:a:0 640k -ac:a:1 2 -c:a:1 aac -b:2 128k out.mp4`}
 									/>
-								</CodeBlockBody>
+								</CodeBlock.Body>
 							</CodeBlock>
 						</Example>
 						<CodeBlock className="rounded-b-lg rounded-t-none">
-							<CodeBlockBody>
-								<CodeBlockCopyButton />
-								<CodeBlockCode
+							<CodeBlock.Body>
+								<CodeBlock.CopyButton />
+								<CodeBlock.Code
 									language="tsx"
 									value={fmtCode`
 										<CodeBlock>
-											<CodeBlockBody>
-												<CodeBlockCopyButton />
-												<CodeBlockCode
+											<CodeBlock.Body>
+												<CodeBlock.CopyButton />
+												<CodeBlock.Code
 													language="sh"
 													value={fmtCode\`ffmpeg -i multichannel.mxf -map 0:v:0 -map 0:a:0 -map 0:a:0 -c:a:0 ac3 -b:a:0 640k -ac:a:1 2 -c:a:1 aac -b:2 128k out.mp4\`}
 												/>
-											</CodeBlockBody>
+											</CodeBlock.Body>
 										</CodeBlock>
 									`}
 								/>
-							</CodeBlockBody>
+							</CodeBlock.Body>
 						</CodeBlock>
 					</div>
 				</section>
@@ -445,13 +431,13 @@ export default function Page() {
 					<div>
 						<Example className="flex-col gap-4">
 							<CodeBlock>
-								<CodeBlockHeader>
-									<CodeBlockIcon preset="traffic-policy" />
-									<CodeBlockTitle>traffic-policy.yaml</CodeBlockTitle>
-								</CodeBlockHeader>
-								<CodeBlockBody>
-									<CodeBlockCopyButton />
-									<CodeBlockCode
+								<CodeBlock.Header>
+									<CodeBlock.Icon preset="traffic-policy" />
+									<CodeBlock.Title>traffic-policy.yaml</CodeBlock.Title>
+								</CodeBlock.Header>
+								<CodeBlock.Body>
+									<CodeBlock.CopyButton />
+									<CodeBlock.Code
 										language="yaml"
 										value={fmtCode`
 											# yaml indentation MUST use spaces (we infer this for you)
@@ -463,18 +449,18 @@ export default function Page() {
 														content: Hello, World!
 										`}
 									/>
-								</CodeBlockBody>
+								</CodeBlock.Body>
 							</CodeBlock>
 							<CodeBlock>
-								<CodeBlockHeader>
-									<CodeBlockIcon preset="file" />
-									<CodeBlockTitle>
+								<CodeBlock.Header>
+									<CodeBlock.Icon preset="file" />
+									<CodeBlock.Title>
 										ngrok-example.js (using space indentation)
-									</CodeBlockTitle>
-								</CodeBlockHeader>
-								<CodeBlockBody>
-									<CodeBlockCopyButton />
-									<CodeBlockCode
+									</CodeBlock.Title>
+								</CodeBlock.Header>
+								<CodeBlock.Body>
+									<CodeBlock.CopyButton />
+									<CodeBlock.Code
 										language="js"
 										indentation="spaces"
 										value={fmtCode`
@@ -497,23 +483,23 @@ export default function Page() {
 											});
 										`}
 									/>
-								</CodeBlockBody>
+								</CodeBlock.Body>
 							</CodeBlock>
 						</Example>
 						<CodeBlock className="rounded-b-lg rounded-t-none">
-							<CodeBlockBody>
-								<CodeBlockCopyButton />
-								<CodeBlockCode
+							<CodeBlock.Body>
+								<CodeBlock.CopyButton />
+								<CodeBlock.Code
 									language="tsx"
 									value={fmtCode`
 										<CodeBlock>
-											<CodeBlockHeader>
-												<CodeBlockIcon preset="file" />
-												<CodeBlockTitle>traffic-policy.yaml</CodeBlockTitle>
-											</CodeBlockHeader>
-											<CodeBlockBody>
-												<CodeBlockCopyButton />
-												<CodeBlockCode
+											<CodeBlock.Header>
+												<CodeBlock.Icon preset="file" />
+												<CodeBlock.Title>traffic-policy.yaml</CodeBlock.Title>
+											</CodeBlock.Header>
+											<CodeBlock.Body>
+												<CodeBlock.CopyButton />
+												<CodeBlock.Code
 													language="yaml"
 													value={fmtCode\`
 														# yaml indentation MUST use spaces (we infer this for you)
@@ -525,17 +511,17 @@ export default function Page() {
 																	content: Hello, World!
 													\`}
 												/>
-											</CodeBlockBody>
+											</CodeBlock.Body>
 										</CodeBlock>
 
 										<CodeBlock>
-											<CodeBlockHeader>
-												<CodeBlockIcon preset="file" />
-												<CodeBlockTitle>ngrok-example.js (using space indentation)</CodeBlockTitle>
-											</CodeBlockHeader>
-											<CodeBlockBody>
-												<CodeBlockCopyButton />
-												<CodeBlockCode
+											<CodeBlock.Header>
+												<CodeBlock.Icon preset="file" />
+												<CodeBlock.Title>ngrok-example.js (using space indentation)</CodeBlock.Title>
+											</CodeBlock.Header>
+											<CodeBlock.Body>
+												<CodeBlock.CopyButton />
+												<CodeBlock.Code
 													language="js"
 													indentation="spaces"
 													value={fmtCode\`
@@ -558,12 +544,12 @@ export default function Page() {
 														});
 													\`}
 												/>
-											</CodeBlockBody>
+											</CodeBlock.Body>
 										</CodeBlock>
 									`}
 								/>
-							</CodeBlockBody>
-							<CodeBlockExpanderButton />
+							</CodeBlock.Body>
+							<CodeBlock.ExpanderButton />
 						</CodeBlock>
 					</div>
 				</section>

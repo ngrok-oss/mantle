@@ -1,6 +1,7 @@
 import * as PopoverPrimitive from "@radix-ui/react-popover";
 import { forwardRef } from "react";
 import type { ComponentPropsWithoutRef, ComponentRef } from "react";
+import { createNamespacedComponent } from "../../utils/create-namespaced-component.js";
 import { cx } from "../../utils/cx/cx.js";
 
 /**
@@ -13,8 +14,7 @@ import { cx } from "../../utils/cx/cx.js";
  *
  * https://github.com/ngrok-oss/mantle/issues
  */
-const Popover = PopoverPrimitive.Root;
-Popover.displayName = "Popover";
+const Root = PopoverPrimitive.Root;
 
 /**
  * The trigger button that opens the popover.
@@ -24,8 +24,7 @@ Popover.displayName = "Popover";
  *
  * https://github.com/ngrok-oss/mantle/issues
  */
-const PopoverTrigger = PopoverPrimitive.Trigger;
-PopoverTrigger.displayName = "PopoverTrigger";
+const Trigger = PopoverPrimitive.Trigger;
 
 /**
  * An optional element to position the PopoverContent against. If this part is not used, the content will position alongside the PopoverTrigger.
@@ -35,8 +34,7 @@ PopoverTrigger.displayName = "PopoverTrigger";
  *
  * https://github.com/ngrok-oss/mantle/issues
  */
-const PopoverAnchor = PopoverPrimitive.Anchor;
-PopoverAnchor.displayName = "PopoverAnchor";
+const Anchor = PopoverPrimitive.Anchor;
 
 /**
  * A button that closes an open popover.
@@ -46,8 +44,7 @@ PopoverAnchor.displayName = "PopoverAnchor";
  *
  * https://github.com/ngrok-oss/mantle/issues
  */
-const PopoverClose = PopoverPrimitive.Close;
-PopoverClose.displayName = "PopoverClose";
+const Close = PopoverPrimitive.Close;
 
 type PopoverContentProps = ComponentPropsWithoutRef<
 	typeof PopoverPrimitive.Content
@@ -71,7 +68,7 @@ type PopoverContentProps = ComponentPropsWithoutRef<
  *
  * https://github.com/ngrok-oss/mantle/issues
  */
-const PopoverContent = forwardRef<ComponentRef<"div">, PopoverContentProps>(
+const Content = forwardRef<ComponentRef<"div">, PopoverContentProps>(
 	(
 		{
 			//,
@@ -107,13 +104,20 @@ const PopoverContent = forwardRef<ComponentRef<"div">, PopoverContentProps>(
 		</PopoverPrimitive.Portal>
 	),
 );
-PopoverContent.displayName = "PopoverContent";
+Content.displayName = "PopoverContent";
+
+const Popover = createNamespacedComponent(
+	Root,
+	{
+		Anchor,
+		Close,
+		Content,
+		Trigger,
+	},
+	"Popover",
+);
 
 export {
 	//,
 	Popover,
-	PopoverAnchor,
-	PopoverClose,
-	PopoverContent,
-	PopoverTrigger,
 };

@@ -1,28 +1,7 @@
 import { Anchor } from "@ngrok/mantle/anchor";
 import { Button } from "@ngrok/mantle/button";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
-import {
-	DropdownMenu,
-	DropdownMenuCheckboxItem,
-	DropdownMenuContent,
-	DropdownMenuGroup,
-	DropdownMenuItem,
-	DropdownMenuLabel,
-	DropdownMenuRadioGroup,
-	DropdownMenuRadioItem,
-	DropdownMenuSeparator,
-	DropdownMenuShortcut,
-	DropdownMenuSub,
-	DropdownMenuSubContent,
-	DropdownMenuSubTrigger,
-	DropdownMenuTrigger,
-} from "@ngrok/mantle/dropdown-menu";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
+import { DropdownMenu } from "@ngrok/mantle/dropdown-menu";
 import { Icon } from "@ngrok/mantle/icon";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import type { Theme } from "@ngrok/mantle/theme-provider";
@@ -76,93 +55,93 @@ export default function Page() {
 				<div>
 					<Example className="flex-col gap-6">
 						<DropdownMenu>
-							<DropdownMenuTrigger asChild>
+							<DropdownMenu.Trigger asChild>
 								<Button type="button" appearance="filled">
 									Open Menu
 								</Button>
-							</DropdownMenuTrigger>
-							<DropdownMenuContent>
-								<DropdownMenuLabel>micah@ngrok.com</DropdownMenuLabel>
-								<DropdownMenuSeparator />
-								<DropdownMenuRadioGroup
+							</DropdownMenu.Trigger>
+							<DropdownMenu.Content>
+								<DropdownMenu.Label>micah@ngrok.com</DropdownMenu.Label>
+								<DropdownMenu.Separator />
+								<DropdownMenu.RadioGroup
 									value={selectedTheme}
 									onValueChange={(value) => {
 										setSelectedTheme(value as Theme);
 									}}
 								>
-									<DropdownMenuRadioItem value="system">
+									<DropdownMenu.RadioItem value="system">
 										<Icon svg={<DesktopIcon />} />
 										System Preference
-									</DropdownMenuRadioItem>
-									<DropdownMenuRadioItem value="light">
+									</DropdownMenu.RadioItem>
+									<DropdownMenu.RadioItem value="light">
 										<Icon svg={<SunIcon />} />
 										Light Mode
-									</DropdownMenuRadioItem>
-									<DropdownMenuRadioItem value="dark">
+									</DropdownMenu.RadioItem>
+									<DropdownMenu.RadioItem value="dark">
 										<Icon svg={<MoonIcon />} />
 										Dark Mode
-									</DropdownMenuRadioItem>
-									<DropdownMenuRadioItem value="light-high-contrast">
+									</DropdownMenu.RadioItem>
+									<DropdownMenu.RadioItem value="light-high-contrast">
 										<Icon svg={<SunIcon weight="fill" />} />
 										Light High Contrast
-									</DropdownMenuRadioItem>
-									<DropdownMenuRadioItem value="dark-high-contrast">
+									</DropdownMenu.RadioItem>
+									<DropdownMenu.RadioItem value="dark-high-contrast">
 										<Icon svg={<MoonIcon weight="fill" />} />
 										Dark High Contrast
-									</DropdownMenuRadioItem>
-								</DropdownMenuRadioGroup>
-								<DropdownMenuSeparator />
-								<DropdownMenuItem className="flex items-center gap-2">
+									</DropdownMenu.RadioItem>
+								</DropdownMenu.RadioGroup>
+								<DropdownMenu.Separator />
+								<DropdownMenu.Item className="flex items-center gap-2">
 									<Icon svg={<GearIcon />} />
 									User Settings
-								</DropdownMenuItem>
-								<DropdownMenuSeparator />
-								<DropdownMenuCheckboxItem
+								</DropdownMenu.Item>
+								<DropdownMenu.Separator />
+								<DropdownMenu.CheckboxItem
 									checked={enableNotifications}
 									onCheckedChange={(value) => {
 										setEnableNotifications(value);
 									}}
 								>
 									Enable Notifications
-								</DropdownMenuCheckboxItem>
-								<DropdownMenuGroup>
-									<DropdownMenuItem>Team</DropdownMenuItem>
-									<DropdownMenuSub>
-										<DropdownMenuSubTrigger>
+								</DropdownMenu.CheckboxItem>
+								<DropdownMenu.Group>
+									<DropdownMenu.Item>Team</DropdownMenu.Item>
+									<DropdownMenu.Sub>
+										<DropdownMenu.SubTrigger>
 											Invite users
-										</DropdownMenuSubTrigger>
-										<DropdownMenuSubContent>
-											<DropdownMenuItem>Email</DropdownMenuItem>
-											<DropdownMenuItem>Message</DropdownMenuItem>
-											<DropdownMenuItem>Email</DropdownMenuItem>
-											<DropdownMenuItem>Email</DropdownMenuItem>
-											<DropdownMenuItem>Email</DropdownMenuItem>
-											<DropdownMenuItem>Email</DropdownMenuItem>
-											<DropdownMenuItem>Email</DropdownMenuItem>
-											<DropdownMenuItem>Email</DropdownMenuItem>
-											<DropdownMenuItem>Email</DropdownMenuItem>
-											<DropdownMenuItem>Email</DropdownMenuItem>
-											<DropdownMenuItem>Email</DropdownMenuItem>
-											<DropdownMenuItem>Email</DropdownMenuItem>
-											<DropdownMenuSeparator />
-											<DropdownMenuItem>More...</DropdownMenuItem>
-										</DropdownMenuSubContent>
-									</DropdownMenuSub>
-									<DropdownMenuItem>
+										</DropdownMenu.SubTrigger>
+										<DropdownMenu.SubContent>
+											<DropdownMenu.Item>Email</DropdownMenu.Item>
+											<DropdownMenu.Item>Message</DropdownMenu.Item>
+											<DropdownMenu.Item>Email</DropdownMenu.Item>
+											<DropdownMenu.Item>Email</DropdownMenu.Item>
+											<DropdownMenu.Item>Email</DropdownMenu.Item>
+											<DropdownMenu.Item>Email</DropdownMenu.Item>
+											<DropdownMenu.Item>Email</DropdownMenu.Item>
+											<DropdownMenu.Item>Email</DropdownMenu.Item>
+											<DropdownMenu.Item>Email</DropdownMenu.Item>
+											<DropdownMenu.Item>Email</DropdownMenu.Item>
+											<DropdownMenu.Item>Email</DropdownMenu.Item>
+											<DropdownMenu.Item>Email</DropdownMenu.Item>
+											<DropdownMenu.Separator />
+											<DropdownMenu.Item>More...</DropdownMenu.Item>
+										</DropdownMenu.SubContent>
+									</DropdownMenu.Sub>
+									<DropdownMenu.Item>
 										New Team
-										<DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
-									</DropdownMenuItem>
-								</DropdownMenuGroup>
-								<DropdownMenuSeparator />
-								<DropdownMenuItem className="flex items-center gap-2">
+										<DropdownMenu.Shortcut>⌘+T</DropdownMenu.Shortcut>
+									</DropdownMenu.Item>
+								</DropdownMenu.Group>
+								<DropdownMenu.Separator />
+								<DropdownMenu.Item className="flex items-center gap-2">
 									<Icon svg={<SignOutIcon />} />
 									Log out
-								</DropdownMenuItem>
-							</DropdownMenuContent>
+								</DropdownMenu.Item>
+							</DropdownMenu.Content>
 						</DropdownMenu>
 
 						<DropdownMenu>
-							<DropdownMenuTrigger asChild>
+							<DropdownMenu.Trigger asChild>
 								<Button
 									type="button"
 									appearance="filled"
@@ -170,147 +149,147 @@ export default function Page() {
 								>
 									Content Width Matches Trigger Width (Extra Wide)
 								</Button>
-							</DropdownMenuTrigger>
-							<DropdownMenuContent width="trigger">
-								<DropdownMenuLabel>micah@ngrok.com</DropdownMenuLabel>
-								<DropdownMenuSeparator />
-								<DropdownMenuRadioGroup
+							</DropdownMenu.Trigger>
+							<DropdownMenu.Content width="trigger">
+								<DropdownMenu.Label>micah@ngrok.com</DropdownMenu.Label>
+								<DropdownMenu.Separator />
+								<DropdownMenu.RadioGroup
 									value={selectedTheme}
 									onValueChange={(value) => {
 										setSelectedTheme(value as Theme);
 									}}
 								>
-									<DropdownMenuRadioItem value="system">
+									<DropdownMenu.RadioItem value="system">
 										<Icon svg={<DesktopIcon />} />
 										System Preference
-									</DropdownMenuRadioItem>
-									<DropdownMenuRadioItem value="light">
+									</DropdownMenu.RadioItem>
+									<DropdownMenu.RadioItem value="light">
 										<Icon svg={<SunIcon />} />
 										Light Mode
-									</DropdownMenuRadioItem>
-									<DropdownMenuRadioItem value="dark">
+									</DropdownMenu.RadioItem>
+									<DropdownMenu.RadioItem value="dark">
 										<Icon svg={<MoonIcon />} />
 										Dark Mode
-									</DropdownMenuRadioItem>
-									<DropdownMenuRadioItem value="light-high-contrast">
+									</DropdownMenu.RadioItem>
+									<DropdownMenu.RadioItem value="light-high-contrast">
 										<Icon svg={<SunIcon weight="fill" />} />
 										Light High Contrast
-									</DropdownMenuRadioItem>
-									<DropdownMenuRadioItem value="dark-high-contrast">
+									</DropdownMenu.RadioItem>
+									<DropdownMenu.RadioItem value="dark-high-contrast">
 										<Icon svg={<MoonIcon weight="fill" />} />
 										Dark High Contrast
-									</DropdownMenuRadioItem>
-								</DropdownMenuRadioGroup>
-								<DropdownMenuSeparator />
-								<DropdownMenuItem className="flex items-center gap-2">
+									</DropdownMenu.RadioItem>
+								</DropdownMenu.RadioGroup>
+								<DropdownMenu.Separator />
+								<DropdownMenu.Item className="flex items-center gap-2">
 									<Icon svg={<GearIcon />} />
 									User Settings
-								</DropdownMenuItem>
-								<DropdownMenuSeparator />
-								<DropdownMenuCheckboxItem
+								</DropdownMenu.Item>
+								<DropdownMenu.Separator />
+								<DropdownMenu.CheckboxItem
 									checked={enableNotifications}
 									onCheckedChange={(value) => {
 										setEnableNotifications(value);
 									}}
 								>
 									Enable Notifications
-								</DropdownMenuCheckboxItem>
-								<DropdownMenuGroup>
-									<DropdownMenuItem>Team</DropdownMenuItem>
-									<DropdownMenuSub>
-										<DropdownMenuSubTrigger>
+								</DropdownMenu.CheckboxItem>
+								<DropdownMenu.Group>
+									<DropdownMenu.Item>Team</DropdownMenu.Item>
+									<DropdownMenu.Sub>
+										<DropdownMenu.SubTrigger>
 											Invite users
-										</DropdownMenuSubTrigger>
-										<DropdownMenuSubContent>
-											<DropdownMenuItem>Email</DropdownMenuItem>
-											<DropdownMenuItem>Message</DropdownMenuItem>
-											<DropdownMenuItem>Email</DropdownMenuItem>
-											<DropdownMenuItem>Email</DropdownMenuItem>
-											<DropdownMenuItem>Email</DropdownMenuItem>
-											<DropdownMenuItem>Email</DropdownMenuItem>
-											<DropdownMenuItem>Email</DropdownMenuItem>
-											<DropdownMenuItem>Email</DropdownMenuItem>
-											<DropdownMenuItem>Email</DropdownMenuItem>
-											<DropdownMenuItem>Email</DropdownMenuItem>
-											<DropdownMenuItem>Email</DropdownMenuItem>
-											<DropdownMenuItem>Email</DropdownMenuItem>
-											<DropdownMenuSeparator />
-											<DropdownMenuItem>More...</DropdownMenuItem>
-										</DropdownMenuSubContent>
-									</DropdownMenuSub>
-									<DropdownMenuItem>
+										</DropdownMenu.SubTrigger>
+										<DropdownMenu.SubContent>
+											<DropdownMenu.Item>Email</DropdownMenu.Item>
+											<DropdownMenu.Item>Message</DropdownMenu.Item>
+											<DropdownMenu.Item>Email</DropdownMenu.Item>
+											<DropdownMenu.Item>Email</DropdownMenu.Item>
+											<DropdownMenu.Item>Email</DropdownMenu.Item>
+											<DropdownMenu.Item>Email</DropdownMenu.Item>
+											<DropdownMenu.Item>Email</DropdownMenu.Item>
+											<DropdownMenu.Item>Email</DropdownMenu.Item>
+											<DropdownMenu.Item>Email</DropdownMenu.Item>
+											<DropdownMenu.Item>Email</DropdownMenu.Item>
+											<DropdownMenu.Item>Email</DropdownMenu.Item>
+											<DropdownMenu.Item>Email</DropdownMenu.Item>
+											<DropdownMenu.Separator />
+											<DropdownMenu.Item>More...</DropdownMenu.Item>
+										</DropdownMenu.SubContent>
+									</DropdownMenu.Sub>
+									<DropdownMenu.Item>
 										New Team
-										<DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
-									</DropdownMenuItem>
-								</DropdownMenuGroup>
-								<DropdownMenuSeparator />
-								<DropdownMenuItem className="flex items-center gap-2">
+										<DropdownMenu.Shortcut>⌘+T</DropdownMenu.Shortcut>
+									</DropdownMenu.Item>
+								</DropdownMenu.Group>
+								<DropdownMenu.Separator />
+								<DropdownMenu.Item className="flex items-center gap-2">
 									<Icon svg={<SignOutIcon />} />
 									Log out
-								</DropdownMenuItem>
-							</DropdownMenuContent>
+								</DropdownMenu.Item>
+							</DropdownMenu.Content>
 						</DropdownMenu>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
 						import { Button } from "@ngrok/mantle/button";
 						import {
 							DropdownMenu,
-							DropdownMenuContent,
-							DropdownMenuItem,
-							DropdownMenuLabel,
-							DropdownMenuRadioItem,
-							DropdownMenuSeparator,
-							DropdownMenuTrigger,
+							DropdownMenu.Content,
+							DropdownMenu.Item,
+							DropdownMenu.Label,
+							DropdownMenu.RadioItem,
+							DropdownMenu.Separator,
+							DropdownMenu.Trigger,
 						} from "@ngrok/mantle/dropdown-menu";
 						import { Icon } from "@ngrok/mantle/icon";
 
 						<DropdownMenu>
-							<DropdownMenuTrigger asChild>
+							<DropdownMenu.Trigger asChild>
 								<Button appearance="filled" type="button">Open Menu</Button>
-							</DropdownMenuTrigger>
-							<DropdownMenuContent>
-								<DropdownMenuLabel>micah@ngrok.com</DropdownMenuLabel>
-								<DropdownMenuSeparator />
-								<DropdownMenuRadioItem name="theme" value="system">
+							</DropdownMenu.Trigger>
+							<DropdownMenu.Content>
+								<DropdownMenu.Label>micah@ngrok.com</DropdownMenu.Label>
+								<DropdownMenu.Separator />
+								<DropdownMenu.RadioItem name="theme" value="system">
 									<Icon svg={<DesktopIcon />} />
 									System Preference
-								</DropdownMenuRadioItem>
-								<DropdownMenuRadioItem name="theme" value="light">
+								</DropdownMenu.RadioItem>
+								<DropdownMenu.RadioItem name="theme" value="light">
 									<Icon svg={<SunIcon />} />
 									Light Mode
-								</DropdownMenuRadioItem>
-								<DropdownMenuRadioItem name="theme" value="dark">
+								</DropdownMenu.RadioItem>
+								<DropdownMenu.RadioItem name="theme" value="dark">
 									<Icon svg={<MoonIcon />} />
 									Dark Mode
-								</DropdownMenuRadioItem>
-								<DropdownMenuRadioItem name="theme" value="light-high-contrast">
+								</DropdownMenu.RadioItem>
+								<DropdownMenu.RadioItem name="theme" value="light-high-contrast">
 									<Icon svg={<SunIcon weight="fill" />} />
 									Light High Contrast
-								</DropdownMenuRadioItem>
-								<DropdownMenuRadioItem name="theme" value="dark-high-contrast">
+								</DropdownMenu.RadioItem>
+								<DropdownMenu.RadioItem name="theme" value="dark-high-contrast">
 									<Icon svg={<MoonIcon weight="fill" />} />
 									Dark High Contrast
-								</DropdownMenuRadioItem>
-								<DropdownMenuSeparator />
-								<DropdownMenuItem>
+								</DropdownMenu.RadioItem>
+								<DropdownMenu.Separator />
+								<DropdownMenu.Item>
 									<Icon svg={<GearIcon />} />
 									User Settings
-								</DropdownMenuItem>
-								<DropdownMenuSeparator />
-								<DropdownMenuItem>
+								</DropdownMenu.Item>
+								<DropdownMenu.Separator />
+								<DropdownMenu.Item>
 									<Icon svg={<SignOutIcon />} />
 									Log out
-								</DropdownMenuItem>
-							</DropdownMenuContent>
+								</DropdownMenu.Item>
+							</DropdownMenu.Content>
 						</DropdownMenu>
 					`}
 							/>
-						</CodeBlockBody>
+						</CodeBlock.Body>
 					</CodeBlock>
 				</div>
 			</section>
@@ -337,7 +316,7 @@ export default function Page() {
 				<section className="space-y-4">
 					<header className="space-y-1">
 						<h3 className="text-xl font-medium text-strong">
-							DropdownMenuContent
+							DropdownMenu.Content
 						</h3>
 
 						<p className="text-body">

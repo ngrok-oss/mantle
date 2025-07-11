@@ -1,13 +1,7 @@
 import { Anchor } from "@ngrok/mantle/anchor";
 import { Button } from "@ngrok/mantle/button";
 import { Checkbox } from "@ngrok/mantle/checkbox";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Label } from "@ngrok/mantle/label";
 import { useForm } from "@tanstack/react-form";
@@ -128,9 +122,9 @@ export default function Page() {
 						</div>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
 							import { Checkbox } from "@ngrok/mantle/checkbox";
@@ -154,7 +148,7 @@ export default function Page() {
 							</Label>
 						`}
 							/>
-						</CodeBlockBody>
+						</CodeBlock.Body>
 					</CodeBlock>
 				</div>
 			</section>
@@ -191,9 +185,9 @@ export default function Page() {
 							<FormExample />
 						</Example>
 						<CodeBlock className="rounded-b-lg rounded-t-none">
-							<CodeBlockBody>
-								<CodeBlockCopyButton />
-								<CodeBlockCode
+							<CodeBlock.Body>
+								<CodeBlock.CopyButton />
+								<CodeBlock.Code
 									language="tsx"
 									value={fmtCode`
 										import { Button } from "@ngrok/mantle/button";
@@ -278,7 +272,7 @@ export default function Page() {
 										}
 									`}
 								/>
-							</CodeBlockBody>
+							</CodeBlock.Body>
 						</CodeBlock>
 					</div>
 				</section>

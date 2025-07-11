@@ -14,6 +14,7 @@ import type {
 import { createContext, forwardRef, useContext, useMemo } from "react";
 import invariant from "tiny-invariant";
 import type { WithAsChild } from "../../types/index.js";
+import { createNamespacedComponent } from "../../utils/create-namespaced-component.js";
 import { cx } from "../../utils/cx/cx.js";
 import { IconButton, type IconButtonProps } from "../button/icon-button.js";
 import { SvgOnly } from "../icon/svg-only.js";
@@ -76,18 +77,18 @@ type AlertProps = ComponentProps<"div"> & {
  * @example
  * ```tsx
  * <Alert priority="info">
- *   <AlertIcon />
- *   <AlertContent>
- *     <AlertTitle>Alert Title</AlertTitle>
- * 	   <AlertDismissIconButton />
- *     <AlertDescription>
+ *   <Alert.Icon />
+ *   <Alert.Content>
+ *     <Alert.Title>Alert Title</Alert.Title>
+ * 	   <Alert.DismissIconButton />
+ *     <Alert.Description>
  *       Alert description text.
- *     </AlertDescription>
- *   </AlertContent>
+ *     </Alert.Description>
+ *   </Alert.Content>
  * </Alert>
  *```
  */
-const Alert = forwardRef<ComponentRef<"div">, AlertProps>(
+const Root = forwardRef<ComponentRef<"div">, AlertProps>(
 	({ className, priority, ...props }, ref) => {
 		const context: AlertContextValue = useMemo(
 			() => ({ priority }),
@@ -105,7 +106,7 @@ const Alert = forwardRef<ComponentRef<"div">, AlertProps>(
 		);
 	},
 );
-Alert.displayName = "Alert";
+Root.displayName = "Alert";
 
 type AlertIconProps = Omit<SvgAttributes, "children"> & {
 	/**
@@ -115,7 +116,7 @@ type AlertIconProps = Omit<SvgAttributes, "children"> & {
 };
 
 /**
- * Default `<AlertIcon>` icons for each priority.
+ * Default `<Alert.Icon>` icons for each priority.
  */
 const defaultIcons = {
 	danger: <WarningIcon />,
@@ -135,18 +136,18 @@ const defaultIcons = {
  * @example
  * ```tsx
  * <Alert priority="info">
- *   <AlertIcon />
- *   <AlertContent>
- *     <AlertTitle>Alert Title</AlertTitle>
- *     <AlertDismissIconButton />
- *     <AlertDescription>
+ *   <Alert.Icon />
+ *   <Alert.Content>
+ *     <Alert.Title>Alert Title</Alert.Title>
+ *     <Alert.DismissIconButton />
+ *     <Alert.Description>
  *       Alert description text.
- *     </AlertDescription>
- *   </AlertContent>
+ *     </Alert.Description>
+ *   </Alert.Content>
  * </Alert>
  * ```
  */
-const AlertIcon = forwardRef<ComponentRef<"svg">, AlertIconProps>(
+const Icon = forwardRef<ComponentRef<"svg">, AlertIconProps>(
 	({ className, svg, ...props }, ref) => {
 		const ctx = useAlertContext();
 		const defaultIcon = defaultIcons[ctx.priority];
@@ -161,7 +162,7 @@ const AlertIcon = forwardRef<ComponentRef<"svg">, AlertIconProps>(
 		);
 	},
 );
-AlertIcon.displayName = "AlertIcon";
+Icon.displayName = "AlertIcon";
 
 /**
  * The container for the content slot of an alert. Place the title and description as direct children.
@@ -171,18 +172,18 @@ AlertIcon.displayName = "AlertIcon";
  * @example
  * ```tsx
  * <Alert priority="info">
- *   <AlertIcon />
- *   <AlertContent>
- *     <AlertTitle>Alert Title</AlertTitle>
- *     <AlertDismissIconButton />
- *     <AlertDescription>
+ *   <Alert.Icon />
+ *   <Alert.Content>
+ *     <Alert.Title>Alert Title</Alert.Title>
+ *     <Alert.DismissIconButton />
+ *     <Alert.Description>
  *       Alert description text.
- *     </AlertDescription>
- *   </AlertContent>
+ *     </Alert.Description>
+ *   </Alert.Content>
  * </Alert>
  *```
  */
-const AlertContent = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
+const Content = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
 	({ className, ...props }, ref) => (
 		<div
 			ref={ref}
@@ -194,7 +195,7 @@ const AlertContent = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
 		/>
 	),
 );
-AlertContent.displayName = "AlertContent";
+Content.displayName = "AlertContent";
 
 type AlertTitleProps = HTMLAttributes<HTMLHeadingElement> & WithAsChild;
 
@@ -206,18 +207,18 @@ type AlertTitleProps = HTMLAttributes<HTMLHeadingElement> & WithAsChild;
  * @example
  * ```tsx
  * <Alert priority="info">
- *   <AlertIcon />
- *   <AlertContent>
- *     <AlertTitle>Alert Title</AlertTitle>
- *     <AlertDismissIconButton />
- *     <AlertDescription>
+ *   <Alert.Icon />
+ *   <Alert.Content>
+ *     <Alert.Title>Alert Title</Alert.Title>
+ *     <Alert.DismissIconButton />
+ *     <Alert.Description>
  *       Alert description text.
- *     </AlertDescription>
- *   </AlertContent>
+ *     </Alert.Description>
+ *   </Alert.Content>
  * </Alert>
  *```
  */
-const AlertTitle = forwardRef<HTMLHeadingElement, AlertTitleProps>(
+const Title = forwardRef<HTMLHeadingElement, AlertTitleProps>(
 	({ asChild = false, className, ...props }, ref) => {
 		const Component = asChild ? Slot : "h5";
 
@@ -230,7 +231,7 @@ const AlertTitle = forwardRef<HTMLHeadingElement, AlertTitleProps>(
 		);
 	},
 );
-AlertTitle.displayName = "AlertTitle";
+Title.displayName = "AlertTitle";
 
 type AlertDescriptionProps = ComponentProps<"p"> & WithAsChild;
 
@@ -242,18 +243,18 @@ type AlertDescriptionProps = ComponentProps<"p"> & WithAsChild;
  * @example
  * ```tsx
  * <Alert priority="info">
- *   <AlertIcon />
- *   <AlertContent>
- *     <AlertTitle>Alert Title</AlertTitle>
- *     <AlertDismissIconButton />
- *     <AlertDescription>
+ *   <Alert.Icon />
+ *   <Alert.Content>
+ *     <Alert.Title>Alert Title</Alert.Title>
+ *     <Alert.DismissIconButton />
+ *     <Alert.Description>
  *       Alert description text.
- *     </AlertDescription>
- *   </AlertContent>
+ *     </Alert.Description>
+ *   </Alert.Content>
  * </Alert>
  * ```
  */
-const AlertDescription = forwardRef<ComponentRef<"p">, AlertDescriptionProps>(
+const Description = forwardRef<ComponentRef<"p">, AlertDescriptionProps>(
 	({ asChild = false, className, ...props }, ref) => {
 		const Component = asChild ? Slot : "p";
 
@@ -262,10 +263,10 @@ const AlertDescription = forwardRef<ComponentRef<"p">, AlertDescriptionProps>(
 		);
 	},
 );
-AlertDescription.displayName = "AlertDescription";
+Description.displayName = "AlertDescription";
 
 type AlertDismissIconButtonProps = Partial<Omit<IconButtonProps, "icon">>;
-const AlertDismissIconButton = ({
+const DismissIconButton = ({
 	size = "sm",
 	type = "button",
 	label = "Dismiss Alert",
@@ -300,13 +301,21 @@ const AlertDismissIconButton = ({
 		/>
 	);
 };
+DismissIconButton.displayName = "AlertDismissIconButton";
+
+const Alert = createNamespacedComponent(
+	Root,
+	{
+		Content,
+		Description,
+		DismissIconButton,
+		Icon,
+		Title,
+	},
+	"Alert",
+);
 
 export {
 	//,
 	Alert,
-	AlertContent,
-	AlertDescription,
-	AlertIcon,
-	AlertTitle,
-	AlertDismissIconButton,
 };

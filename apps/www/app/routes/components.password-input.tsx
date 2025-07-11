@@ -1,12 +1,6 @@
 import { Anchor } from "@ngrok/mantle/anchor";
 import { Button } from "@ngrok/mantle/button";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { PasswordInput } from "@ngrok/mantle/input";
 import { Label } from "@ngrok/mantle/label";
@@ -87,9 +81,9 @@ export default function Page() {
 						</Label>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
 									import { PasswordInput } from "@ngrok/mantle/input";
@@ -98,7 +92,7 @@ export default function Page() {
 									<PasswordInput invalid />
 								`}
 							/>
-						</CodeBlockBody>
+						</CodeBlock.Body>
 					</CodeBlock>
 				</div>
 			</section>

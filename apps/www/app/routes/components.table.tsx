@@ -1,23 +1,7 @@
 import { Anchor } from "@ngrok/mantle/anchor";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
-import {
-	Table,
-	TableBody,
-	TableCaption,
-	TableCell,
-	TableFoot,
-	TableHead,
-	TableHeader,
-	TableRoot,
-	TableRow,
-} from "@ngrok/mantle/table";
+import { Table } from "@ngrok/mantle/table";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/components.table";
@@ -52,55 +36,45 @@ export default function Page() {
 						<ExampleTable />
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
-									import {
-										Table,
-										TableBody,
-										TableCaption,
-										TableCell,
-										TableFoot,
-										TableHead,
-										TableHeader,
-										TableRoot,
-										TableRow,
-									} from "@ngrok/mantle/table";
+									import { Table } from "@ngrok/mantle/table";
 
-									<TableRoot>
+									<Table.Root>
 										<Table>
-											<TableCaption>A list of your recent invoices.</TableCaption>
-											<TableHead>
-												<TableRow>
-													<TableHeader className="w-[100px]">Invoice</TableHeader>
-													<TableHeader>Status</TableHeader>
-													<TableHeader>Method</TableHeader>
-													<TableHeader className="text-right">Amount</TableHeader>
-												</TableRow>
-											</TableHead>
-											<TableBody>
+											<Table.Caption>A list of your recent invoices.</Table.Caption>
+											<Table.Head>
+												<Table.Row>
+													<Table.Header className="w-[100px]">Invoice</Table.Header>
+													<Table.Header>Status</Table.Header>
+													<Table.Header>Method</Table.Header>
+													<Table.Header className="text-right">Amount</Table.Header>
+												</Table.Row>
+											</Table.Head>
+											<Table.Body>
 												{invoices.map((invoice) => (
-													<TableRow key={invoice.invoice}>
-														<TableCell className="font-medium">{invoice.invoice}</TableCell>
-														<TableCell>{invoice.paymentStatus}</TableCell>
-														<TableCell>{invoice.paymentMethod}</TableCell>
-														<TableCell className="text-right">{invoice.totalAmount}</TableCell>
-													</TableRow>
+													<Table.Row key={invoice.invoice}>
+														<Table.Cell className="font-medium">{invoice.invoice}</Table.Cell>
+														<Table.Cell>{invoice.paymentStatus}</Table.Cell>
+														<Table.Cell>{invoice.paymentMethod}</Table.Cell>
+														<Table.Cell className="text-right">{invoice.totalAmount}</Table.Cell>
+													</Table.Row>
 												))}
-											</TableBody>
-											<TableFoot>
-												<TableRow>
-													<TableCell colSpan={3}>Total</TableCell>
-													<TableCell className="text-right">$2,500.00</TableCell>
-												</TableRow>
-											</TableFoot>
+											</Table.Body>
+											<Table.Foot>
+												<Table.Row>
+													<Table.Cell colSpan={3}>Total</Table.Cell>
+													<Table.Cell className="text-right">$2,500.00</Table.Cell>
+												</Table.Row>
+											</Table.Foot>
 										</Table>
-									</TableRoot>
+									</Table.Root>
 								`}
 							/>
-						</CodeBlockBody>
+						</CodeBlock.Body>
 					</CodeBlock>
 				</div>
 			</section>
@@ -568,36 +542,36 @@ const invoices = [
 
 const ExampleTable = () => {
 	return (
-		<TableRoot>
+		<Table.Root>
 			<Table>
-				<TableCaption>A list of your recent invoices.</TableCaption>
-				<TableHead>
-					<TableRow>
-						<TableHeader className="w-[100px]">Invoice</TableHeader>
-						<TableHeader>Status</TableHeader>
-						<TableHeader>Method</TableHeader>
-						<TableHeader className="text-right">Amount</TableHeader>
-					</TableRow>
-				</TableHead>
-				<TableBody>
+				<Table.Caption>A list of your recent invoices.</Table.Caption>
+				<Table.Head>
+					<Table.Row>
+						<Table.Header className="w-[100px]">Invoice</Table.Header>
+						<Table.Header>Status</Table.Header>
+						<Table.Header>Method</Table.Header>
+						<Table.Header className="text-right">Amount</Table.Header>
+					</Table.Row>
+				</Table.Head>
+				<Table.Body>
 					{invoices.map((invoice) => (
-						<TableRow key={invoice.invoice}>
-							<TableCell className="font-medium">{invoice.invoice}</TableCell>
-							<TableCell>{invoice.paymentStatus}</TableCell>
-							<TableCell>{invoice.paymentMethod}</TableCell>
-							<TableCell className="text-right">
+						<Table.Row key={invoice.invoice}>
+							<Table.Cell className="font-medium">{invoice.invoice}</Table.Cell>
+							<Table.Cell>{invoice.paymentStatus}</Table.Cell>
+							<Table.Cell>{invoice.paymentMethod}</Table.Cell>
+							<Table.Cell className="text-right">
 								{invoice.totalAmount}
-							</TableCell>
-						</TableRow>
+							</Table.Cell>
+						</Table.Row>
 					))}
-				</TableBody>
-				<TableFoot>
-					<TableRow>
-						<TableCell colSpan={3}>Total</TableCell>
-						<TableCell className="text-right">$2,500.00</TableCell>
-					</TableRow>
-				</TableFoot>
+				</Table.Body>
+				<Table.Foot>
+					<Table.Row>
+						<Table.Cell colSpan={3}>Total</Table.Cell>
+						<Table.Cell className="text-right">$2,500.00</Table.Cell>
+					</Table.Row>
+				</Table.Foot>
 			</Table>
-		</TableRoot>
+		</Table.Root>
 	);
 };

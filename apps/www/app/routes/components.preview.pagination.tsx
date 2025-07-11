@@ -1,16 +1,5 @@
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
-import {
-	CursorButtons,
-	CursorPageSizeSelect,
-	CursorPagination,
-} from "@ngrok/mantle/pagination";
-import { CursorPageSizeValue } from "node_modules/@ngrok/mantle/src/components/pagination/cursor-pagination";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
+import { CursorPagination } from "@ngrok/mantle/pagination";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/components.preview.pagination";
@@ -56,43 +45,43 @@ export default function Page() {
 				<div>
 					<Example className="flex flex-col gap-6">
 						<CursorPagination defaultPageSize={100}>
-							<CursorPageSizeSelect />
-							<CursorButtons hasNextPage hasPreviousPage />
+							<CursorPagination.PageSizeSelect />
+							<CursorPagination.Buttons hasNextPage hasPreviousPage />
 						</CursorPagination>
 
 						<CursorPagination defaultPageSize={100}>
-							<CursorPageSizeValue />
-							<CursorButtons hasNextPage hasPreviousPage />
+							<CursorPagination.PageSizeValue />
+							<CursorPagination.Buttons hasNextPage hasPreviousPage />
 						</CursorPagination>
 
 						<CursorPagination defaultPageSize={100}>
-							<CursorButtons hasNextPage hasPreviousPage={false} />
+							<CursorPagination.Buttons hasNextPage hasPreviousPage={false} />
 						</CursorPagination>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
-									import { CursorButtons, CursorPageSizeSelect, CursorPagination } from "@ngrok/mantle/pagination";
+									import { CursorPagination } from "@ngrok/mantle/pagination";
 
 									<CursorPagination defaultPageSize={100}>
-										<CursorPageSizeSelect />
-										<CursorButtons hasNextPage hasPreviousPage />
+										<CursorPagination.PageSizeSelect />
+										<CursorPagination.Buttons hasNextPage hasPreviousPage />
 									</CursorPagination>
 
 									<CursorPagination defaultPageSize={100}>
-										<CursorPageSizeValue />
-										<CursorButtons hasNextPage hasPreviousPage />
+										<CursorPagination.PageSizeValue />
+										<CursorPagination.Buttons hasNextPage hasPreviousPage />
 									</CursorPagination>
 
 									<CursorPagination defaultPageSize={20}>
-										<CursorButtons hasNextPage hasPreviousPage={false} />
+										<CursorPagination.Buttons hasNextPage hasPreviousPage={false} />
 									</CursorPagination>
 								`}
 							/>
-						</CodeBlockBody>
+						</CodeBlock.Body>
 					</CodeBlock>
 				</div>
 			</section>

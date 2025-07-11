@@ -32,14 +32,19 @@ function Root(props: ComponentPropsWithoutRef<typeof DialogPrimitive.Root>) {
 		</InternalDialogContext.Provider>
 	);
 }
+Root.displayName = "PrimitiveDialogRoot";
 
 const Trigger = DialogPrimitive.Trigger;
+Trigger.displayName = "PrimitiveDialogTrigger";
 
 const Portal = DialogPrimitive.Portal;
+Portal.displayName = "PrimitiveDialogPortal";
 
 const Close = DialogPrimitive.Close;
+Close.displayName = "PrimitiveDialogClose";
 
 const Overlay = DialogPrimitive.Overlay;
+Overlay.displayName = "PrimitiveDialogOverlay";
 
 const Content = forwardRef<
 	ComponentRef<"div">,
@@ -56,8 +61,10 @@ const Content = forwardRef<
 		/>
 	);
 });
+Content.displayName = "PrimitiveDialogContent";
 
 const Title = DialogPrimitive.Title;
+Title.displayName = "PrimitiveDialogTitle";
 
 const Description = forwardRef<
 	ComponentRef<"p">,
@@ -72,6 +79,7 @@ const Description = forwardRef<
 
 	return <DialogPrimitive.Description ref={ref} {...props} />;
 });
+Description.displayName = "PrimitiveDialogDescription";
 
 export {
 	//,

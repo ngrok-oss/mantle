@@ -1,20 +1,8 @@
-import { Card, CardHeader, CardTitle } from "@ngrok/mantle/card";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { Card } from "@ngrok/mantle/card";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { Icon } from "@ngrok/mantle/icon";
 import { InlineCode } from "@ngrok/mantle/inline-code";
-import {
-	TabBadge,
-	Tabs,
-	TabsContent,
-	TabsList,
-	TabsTrigger,
-} from "@ngrok/mantle/tabs";
+import { Tabs } from "@ngrok/mantle/tabs";
 import { GlobeIcon } from "@phosphor-icons/react/Globe";
 import { ShieldCheckIcon } from "@phosphor-icons/react/ShieldCheck";
 import { UserIcon } from "@phosphor-icons/react/User";
@@ -56,104 +44,104 @@ export default function Page() {
 						</p>
 						<div className="scrollbar -mt-4 overflow-x-scroll">
 							<Tabs orientation="horizontal" defaultValue="colors">
-								<TabsList>
-									<TabsTrigger value="colors" asChild>
+								<Tabs.List>
+									<Tabs.Trigger value="colors" asChild>
 										<Link to={href("/base/colors")}>Colors</Link>
-									</TabsTrigger>
-									<TabsTrigger value="shadows" asChild>
+									</Tabs.Trigger>
+									<Tabs.Trigger value="shadows" asChild>
 										<Link to={href("/base/shadows")}>Shadows</Link>
-									</TabsTrigger>
-									<TabsTrigger disabled value="tailwind-variants" asChild>
+									</Tabs.Trigger>
+									<Tabs.Trigger disabled value="tailwind-variants" asChild>
 										<Link to={href("/base/tailwind-variants")}>
 											Tailwind Variants
 										</Link>
-									</TabsTrigger>
-									<TabsTrigger value="typography" asChild>
+									</Tabs.Trigger>
+									<Tabs.Trigger value="typography" asChild>
 										<Link to={href("/base/typography")}>Typography</Link>
-									</TabsTrigger>
-								</TabsList>
+									</Tabs.Trigger>
+								</Tabs.List>
 							</Tabs>
 						</div>
 						<div className="scrollbar overflow-x-scroll">
 							<Tabs orientation="horizontal" defaultValue="tab-1">
-								<TabsList>
-									<TabsTrigger value="tab-1">Tab Title</TabsTrigger>
-									<TabsTrigger value="tab-2">Tab Title</TabsTrigger>
-									<TabsTrigger disabled value="tab-3">
+								<Tabs.List>
+									<Tabs.Trigger value="tab-1">Tab Title</Tabs.Trigger>
+									<Tabs.Trigger value="tab-2">Tab Title</Tabs.Trigger>
+									<Tabs.Trigger disabled value="tab-3">
 										Tab Title
-									</TabsTrigger>
-									<TabsTrigger value="tab-4">Tab Title</TabsTrigger>
-								</TabsList>
+									</Tabs.Trigger>
+									<Tabs.Trigger value="tab-4">Tab Title</Tabs.Trigger>
+								</Tabs.List>
 							</Tabs>
 						</div>
 						<div className="scrollbar overflow-x-scroll">
 							<Tabs orientation="horizontal" defaultValue="tab-1">
-								<TabsList>
-									<TabsTrigger value="tab-1">
+								<Tabs.List>
+									<Tabs.Trigger value="tab-1">
 										<Icon svg={<GlobeIcon />} />
 										Tab Title
-									</TabsTrigger>
-									<TabsTrigger value="tab-2">
+									</Tabs.Trigger>
+									<Tabs.Trigger value="tab-2">
 										<Icon svg={<GlobeIcon />} />
 										Tab Title
-									</TabsTrigger>
-									<TabsTrigger disabled value="tab-3">
+									</Tabs.Trigger>
+									<Tabs.Trigger disabled value="tab-3">
 										<Icon svg={<GlobeIcon />} />
 										Tab Title
-									</TabsTrigger>
-									<TabsTrigger value="tab-4">
+									</Tabs.Trigger>
+									<Tabs.Trigger value="tab-4">
 										<Icon svg={<GlobeIcon />} />
 										Tab Title
-									</TabsTrigger>
-								</TabsList>
+									</Tabs.Trigger>
+								</Tabs.List>
 							</Tabs>
 						</div>
 						<div className="scrollbar overflow-x-scroll">
 							<Tabs orientation="horizontal" defaultValue="tab-1">
-								<TabsList>
-									<TabsTrigger value="tab-1">
+								<Tabs.List>
+									<Tabs.Trigger value="tab-1">
 										Tab Title
-										<TabBadge>32</TabBadge>
-									</TabsTrigger>
-									<TabsTrigger value="tab-2">
+										<Tabs.Badge>32</Tabs.Badge>
+									</Tabs.Trigger>
+									<Tabs.Trigger value="tab-2">
 										Tab Title
-										<TabBadge>32</TabBadge>
-									</TabsTrigger>
-									<TabsTrigger disabled value="tab-3">
+										<Tabs.Badge>32</Tabs.Badge>
+									</Tabs.Trigger>
+									<Tabs.Trigger disabled value="tab-3">
 										Tab Title
-										<TabBadge>32</TabBadge>
-									</TabsTrigger>
-									<TabsTrigger value="tab-4">
+										<Tabs.Badge>32</Tabs.Badge>
+									</Tabs.Trigger>
+									<Tabs.Trigger value="tab-4">
 										Tab Title
-										<TabBadge>32</TabBadge>
-									</TabsTrigger>
-								</TabsList>
+										<Tabs.Badge>32</Tabs.Badge>
+									</Tabs.Trigger>
+								</Tabs.List>
 							</Tabs>
 						</div>
 						<div className="scrollbar overflow-x-scroll">
 							<Tabs orientation="horizontal" defaultValue="tab-1">
-								<TabsList>
-									<TabsTrigger value="tab-1">
+								<Tabs.List>
+									<Tabs.Trigger value="tab-1">
 										<Icon svg={<GlobeIcon />} />
 										Tab Title
-										<TabBadge>32</TabBadge>
-									</TabsTrigger>
-									<TabsTrigger value="tab-2">
+										<Tabs.Badge>32</Tabs.Badge>
+									</Tabs.Trigger>
+									<Tabs.Trigger value="tab-2">
 										<Icon svg={<GlobeIcon />} />
 										Tab Title
-										<TabBadge>32</TabBadge>
-									</TabsTrigger>
-									<TabsTrigger disabled value="tab-3">
+										<Tabs.Badge>32</Tabs.Badge>
+									</Tabs.Trigger>
+									<Tabs.Trigger disabled value="tab-3">
 										<Icon svg={<GlobeIcon />} />
 										Tab Title
-										<TabBadge>32</TabBadge>
-									</TabsTrigger>
-									<TabsTrigger value="tab-4">
+										<Tabs.Badge>32</Tabs.Badge>
+									</Tabs.Trigger>
+									<Tabs.Trigger value="tab-4">
 										<Icon svg={<GlobeIcon />} />
 										Tab Title
-										<TabBadge>32</TabBadge>
-									</TabsTrigger>
-								</TabsList>
+										<Tabs.Badge>32</Tabs.Badge>
+									</Tabs.Trigger>
+								</Tabs.List>
 							</Tabs>
 						</div>
 						<Tabs
@@ -161,107 +149,107 @@ export default function Page() {
 							defaultValue="account"
 							className="w-100 max-w-[400px]"
 						>
-							<TabsList>
-								<TabsTrigger value="account">
+							<Tabs.List>
+								<Tabs.Trigger value="account">
 									<Icon svg={<UserIcon />} />
 									Account
-									<TabBadge>2</TabBadge>
-								</TabsTrigger>
-								<TabsTrigger value="password">
+									<Tabs.Badge>2</Tabs.Badge>
+								</Tabs.Trigger>
+								<Tabs.Trigger value="password">
 									<Icon svg={<ShieldCheckIcon />} />
 									Password
-								</TabsTrigger>
-							</TabsList>
-							<TabsContent value="account">
+								</Tabs.Trigger>
+							</Tabs.List>
+							<Tabs.Content value="account">
 								<Card>
-									<CardHeader>
-										<CardTitle>Account</CardTitle>
+									<Card.Header>
+										<Card.Title>Account</Card.Title>
 										<p className="text-muted">
 											Make changes to your account here. Click save when you're
 											done.
 										</p>
-									</CardHeader>
+									</Card.Header>
 								</Card>
-							</TabsContent>
-							<TabsContent value="password">
+							</Tabs.Content>
+							<Tabs.Content value="password">
 								<Card>
-									<CardHeader>
-										<CardTitle>Password</CardTitle>
+									<Card.Header>
+										<Card.Title>Password</Card.Title>
 										<p className="text-muted">
 											Change your password here. After saving, you'll be logged
 											out.
 										</p>
-									</CardHeader>
+									</Card.Header>
 								</Card>
-							</TabsContent>
+							</Tabs.Content>
 						</Tabs>
 						<Tabs
 							orientation="vertical"
 							defaultValue="account"
 							className="scrollbar max-w-xl overflow-x-scroll"
 						>
-							<TabsList>
-								<TabsTrigger value="account">Account</TabsTrigger>
-								<TabsTrigger value="password">Password</TabsTrigger>
-								<TabsTrigger value="disabled-tab" disabled>
+							<Tabs.List>
+								<Tabs.Trigger value="account">Account</Tabs.Trigger>
+								<Tabs.Trigger value="password">Password</Tabs.Trigger>
+								<Tabs.Trigger value="disabled-tab" disabled>
 									Disabled tab
-								</TabsTrigger>
-							</TabsList>
-							<TabsContent value="account">
+								</Tabs.Trigger>
+							</Tabs.List>
+							<Tabs.Content value="account">
 								<Card>
-									<CardHeader>
-										<CardTitle>Account</CardTitle>
+									<Card.Header>
+										<Card.Title>Account</Card.Title>
 										<p className="text-muted">
 											Make changes to your account here. Click save when you're
 											done.
 										</p>
-									</CardHeader>
+									</Card.Header>
 								</Card>
-							</TabsContent>
-							<TabsContent value="password">
+							</Tabs.Content>
+							<Tabs.Content value="password">
 								<Card>
-									<CardHeader>
-										<CardTitle>Password</CardTitle>
+									<Card.Header>
+										<Card.Title>Password</Card.Title>
 										<p className="text-muted">
 											Change your password here. After saving, you'll be logged
 											out.
 										</p>
-									</CardHeader>
+									</Card.Header>
 								</Card>
-							</TabsContent>
+							</Tabs.Content>
 						</Tabs>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
 									import { Button } from "@ngrok/mantle/button";
-									import { Card, CardBody, CardFooter, CardHeader, CardTitle } from "@ngrok/mantle/card";
+									import { Card } from "@ngrok/mantle/card";
 									import { Icon } from "@ngrok/mantle/icon";
 									import { Input, PasswordInput } from "@ngrok/mantle/input";
-									import { TabBadge, Tabs, TabsContent, TabsList, TabsTrigger } from "@ngrok/mantle/tabs";
+									import { Tabs } from "@ngrok/mantle/tabs";
 
 									<Tabs orientation="horizontal" defaultValue="account" className="w-[400px]">
-										<TabsList>
-											<TabsTrigger value="account">
+										<Tabs.List>
+											<Tabs.Trigger value="account">
 												<Icon svg={<UserIcon />} />
 												Account
-												<TabBadge>2</TabBadge>
-											</TabsTrigger>
-											<TabsTrigger value="password">
+												<Tabs.Badge>2</Tabs.Badge>
+											</Tabs.Trigger>
+											<Tabs.Trigger value="password">
 												<Icon svg={<ShieldCheckIcon />} />
 												Password
-											</TabsTrigger>
-										</TabsList>
-										<TabsContent value="account">
+											</Tabs.Trigger>
+										</Tabs.List>
+										<Tabs.Content value="account">
 											<Card>
-												<CardHeader>
-													<CardTitle>Account</CardTitle>
+												<Card.Header>
+													<Card.Title>Account</Card.Title>
 													<p className="text-muted">Make changes to your account here. Click save when you're done.</p>
-												</CardHeader>
-												<CardBody className="space-y-2">
+												</Card.Header>
+												<Card.Body className="space-y-2">
 													<div className="space-y-1">
 														<label htmlFor="name">Name</label>
 														<Input id="name" defaultValue="Cody Price" />
@@ -270,19 +258,19 @@ export default function Page() {
 														<label htmlFor="username">Username</label>
 														<Input id="username" defaultValue="@cody-dot-js" />
 													</div>
-												</CardBody>
-												<CardFooter>
+												</Card.Body>
+												<Card.Footer>
 													<Button type="button">Save changes</Button>
-												</CardFooter>
+												</Card.Footer>
 											</Card>
-										</TabsContent>
-										<TabsContent value="password">
+										</Tabs.Content>
+										<Tabs.Content value="password">
 											<Card>
-												<CardHeader>
-													<CardTitle>Password</CardTitle>
+												<Card.Header>
+													<Card.Title>Password</Card.Title>
 													<p className="text-muted">Change your password here. After saving, you'll be logged out.</p>
-												</CardHeader>
-												<CardBody className="space-y-2">
+												</Card.Header>
+												<Card.Body className="space-y-2">
 													<div className="space-y-1">
 														<label htmlFor="current">Current password</label>
 														<PasswordInput id="current" />
@@ -291,16 +279,16 @@ export default function Page() {
 														<label htmlFor="new">New password</label>
 														<PasswordInput id="new" />
 													</div>
-												</CardBody>
-												<CardFooter>
+												</Card.Body>
+												<Card.Footer>
 													<Button type="button">Save password</Button>
-												</CardFooter>
+												</Card.Footer>
 											</Card>
-										</TabsContent>
+										</Tabs.Content>
 									</Tabs>
 								`}
 							/>
-						</CodeBlockBody>
+						</CodeBlock.Body>
 					</CodeBlock>
 				</div>
 			</section>
@@ -324,9 +312,9 @@ export default function Page() {
 						</Button>
 					</Example>
 					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
 									import { Button } from "@ngrok/mantle/button";
@@ -338,7 +326,7 @@ export default function Page() {
 									</Button>
 								`}
 							/>
-						</CodeBlockBody>
+						</CodeBlock.Body>
 					</CodeBlock>
 				</div>
 			</section> */}

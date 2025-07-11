@@ -1,14 +1,6 @@
 import { Icon } from "@ngrok/mantle/icon";
 import { InlineCode } from "@ngrok/mantle/inline-code";
-import {
-	Table,
-	TableBody,
-	TableCell,
-	TableHead,
-	TableHeader,
-	TableRoot,
-	TableRow,
-} from "@ngrok/mantle/table";
+import { Table } from "@ngrok/mantle/table";
 import { CheckIcon } from "@phosphor-icons/react/Check";
 import { XIcon } from "@phosphor-icons/react/X";
 import { PageHeader } from "~/components/page-header";
@@ -38,19 +30,19 @@ export default function Page() {
 				Additional Tailwind variants added by our Tailwind preset.
 			</p>
 
-			<TableRoot>
+			<Table.Root>
 				<Table>
-					<TableHead>
-						<TableRow>
-							<TableHeader />
-							<TableHeader>Class</TableHeader>
+					<Table.Head>
+						<Table.Row>
+							<Table.Header />
+							<Table.Header>Class</Table.Header>
 
-							<TableHeader>Description</TableHeader>
-						</TableRow>
-					</TableHead>
-					<TableBody className="font-body text-body">
-						<TableRow>
-							<TableCell>
+							<Table.Header>Description</Table.Header>
+						</Table.Row>
+					</Table.Head>
+					<Table.Body className="font-body text-body">
+						<Table.Row>
+							<Table.Cell>
 								<Icon
 									className="text-success-600 firefox:block hidden size-4"
 									svg={<CheckIcon weight="bold" />}
@@ -59,16 +51,16 @@ export default function Page() {
 									className="text-danger-600 firefox:hidden block size-4"
 									svg={<XIcon weight="bold" />}
 								/>
-							</TableCell>
-							<TableCell>
+							</Table.Cell>
+							<Table.Cell>
 								<InlineCode className="break-keep">.firefox:</InlineCode>
-							</TableCell>
+							</Table.Cell>
 
-							<TableCell>Apply a class to Firefox browsers.</TableCell>
-						</TableRow>
+							<Table.Cell>Apply a class to Firefox browsers.</Table.Cell>
+						</Table.Row>
 
-						<TableRow>
-							<TableCell>
+						<Table.Row>
+							<Table.Cell>
 								<Icon
 									className="text-success-600 pointer-coarse:block hidden size-4"
 									svg={<CheckIcon weight="bold" />}
@@ -77,19 +69,19 @@ export default function Page() {
 									className="text-danger-600 pointer-coarse:hidden block size-4"
 									svg={<XIcon weight="bold" />}
 								/>
-							</TableCell>
-							<TableCell>
+							</Table.Cell>
+							<Table.Cell>
 								<InlineCode className="break-keep">.pointer-coarse:</InlineCode>
-							</TableCell>
+							</Table.Cell>
 
-							<TableCell>
+							<Table.Cell>
 								Apply a class only when the user’s cursor is coarse. This
 								generally means touch devices.
-							</TableCell>
-						</TableRow>
+							</Table.Cell>
+						</Table.Row>
 
-						<TableRow>
-							<TableCell>
+						<Table.Row>
+							<Table.Cell>
 								<Icon
 									className="text-success-600 pointer-fine:block hidden size-4"
 									svg={<CheckIcon weight="bold" />}
@@ -98,19 +90,19 @@ export default function Page() {
 									className="text-danger-600 pointer-fine:hidden block size-4"
 									svg={<XIcon weight="bold" />}
 								/>
-							</TableCell>
-							<TableCell>
+							</Table.Cell>
+							<Table.Cell>
 								<InlineCode className="break-keep">.pointer-fine:</InlineCode>
-							</TableCell>
+							</Table.Cell>
 
-							<TableCell>
+							<Table.Cell>
 								Apply a class only when the user’s cursor is fine. This applies
 								to most mice and trackpads.
-							</TableCell>
-						</TableRow>
+							</Table.Cell>
+						</Table.Row>
 
-						<TableRow>
-							<TableCell>
+						<Table.Row>
+							<Table.Cell>
 								<Icon
 									className="text-success-600 pointer-none:block hidden size-4"
 									svg={<CheckIcon weight="bold" />}
@@ -119,18 +111,18 @@ export default function Page() {
 									className="text-danger-600 pointer-none:hidden block size-4"
 									svg={<XIcon weight="bold" />}
 								/>
-							</TableCell>
-							<TableCell>
+							</Table.Cell>
+							<Table.Cell>
 								<InlineCode className="break-keep">.pointer-none:</InlineCode>
-							</TableCell>
+							</Table.Cell>
 
-							<TableCell>
+							<Table.Cell>
 								Apply a class if the device has no primary pointer.
-							</TableCell>
-						</TableRow>
+							</Table.Cell>
+						</Table.Row>
 
-						<TableRow>
-							<TableCell>
+						<Table.Row>
+							<Table.Cell>
 								<Icon
 									className="text-success-600 hover-hover:block hidden size-4"
 									svg={<CheckIcon weight="bold" />}
@@ -139,16 +131,16 @@ export default function Page() {
 									className="text-danger-600 hover-hover:hidden block size-4"
 									svg={<XIcon weight="bold" />}
 								/>
-							</TableCell>
-							<TableCell>
+							</Table.Cell>
+							<Table.Cell>
 								<InlineCode className="break-keep">.hover-hover:</InlineCode>
-							</TableCell>
+							</Table.Cell>
 
-							<TableCell>Apply a class if hover is supported.</TableCell>
-						</TableRow>
+							<Table.Cell>Apply a class if hover is supported.</Table.Cell>
+						</Table.Row>
 
-						<TableRow>
-							<TableCell>
+						<Table.Row>
+							<Table.Cell>
 								<Icon
 									className="text-success-600 hover-none:block hidden size-4"
 									svg={<CheckIcon weight="bold" />}
@@ -157,16 +149,16 @@ export default function Page() {
 									className="text-danger-600 hover-none:hidden block size-4"
 									svg={<XIcon weight="bold" />}
 								/>
-							</TableCell>
-							<TableCell>
+							</Table.Cell>
+							<Table.Cell>
 								<InlineCode className="break-keep">.hover-none:</InlineCode>
-							</TableCell>
+							</Table.Cell>
 
-							<TableCell>Apply a class if hover is unsupported</TableCell>
-						</TableRow>
+							<Table.Cell>Apply a class if hover is unsupported</Table.Cell>
+						</Table.Row>
 
-						<TableRow>
-							<TableCell>
+						<Table.Row>
+							<Table.Cell>
 								<Icon
 									className="text-success-600 high-contrast:block hidden size-4"
 									svg={<CheckIcon weight="bold" />}
@@ -175,18 +167,18 @@ export default function Page() {
 									className="text-danger-600 high-contrast:hidden block size-4"
 									svg={<XIcon weight="bold" />}
 								/>
-							</TableCell>
-							<TableCell>
+							</Table.Cell>
+							<Table.Cell>
 								<InlineCode className="break-keep">.high-contrast:</InlineCode>
-							</TableCell>
+							</Table.Cell>
 
-							<TableCell>
+							<Table.Cell>
 								Apply a class if high contrast theming is enabled.
-							</TableCell>
-						</TableRow>
+							</Table.Cell>
+						</Table.Row>
 
-						<TableRow>
-							<TableCell>
+						<Table.Row>
+							<Table.Cell>
 								<Icon
 									className="text-success-600 dark-high-contrast:block hidden size-4"
 									svg={<CheckIcon weight="bold" />}
@@ -195,20 +187,20 @@ export default function Page() {
 									className="text-danger-600 dark-high-contrast:hidden block size-4"
 									svg={<XIcon weight="bold" />}
 								/>
-							</TableCell>
-							<TableCell>
+							</Table.Cell>
+							<Table.Cell>
 								<InlineCode className="break-keep">
 									.dark-high-contrast:
 								</InlineCode>
-							</TableCell>
+							</Table.Cell>
 
-							<TableCell>
+							<Table.Cell>
 								Apply a class if high contrast and dark themes are applied.
-							</TableCell>
-						</TableRow>
-					</TableBody>
+							</Table.Cell>
+						</Table.Row>
+					</Table.Body>
 				</Table>
-			</TableRoot>
+			</Table.Root>
 
 			<ul className="mt-8 flex flex-wrap gap-4 font-mono text-xs">
 				<li className="firefox:border-green-600 firefox:bg-green-600/10 flex items-center justify-between gap-1 rounded-lg border border-red-600 bg-red-600/10 p-4">

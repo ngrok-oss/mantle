@@ -2,6 +2,7 @@ import { Slot } from "@radix-ui/react-slot";
 import type { ComponentProps } from "react";
 import { forwardRef } from "react";
 import type { WithAsChild } from "../../types/as-child.js";
+import { createNamespacedComponent } from "../../utils/create-namespaced-component.js";
 import { cx } from "../../utils/cx/cx.js";
 
 type Props = ComponentProps<"div"> & WithAsChild;
@@ -16,7 +17,7 @@ type Props = ComponentProps<"div"> & WithAsChild;
  *
  * Use flexbox utilities to change the alignment of the media and content.
  *
- * Compose the media object with the `MediaObjectMedia` and `MediaObjectContent`
+ * Compose the media object with the `MediaObject.Media` and `MediaObject.Content`
  * components as direct children.
  *
  * @see https://mantle.ngrok.com/components/media-object#api-media-object
@@ -24,16 +25,16 @@ type Props = ComponentProps<"div"> & WithAsChild;
  * @example
  * ```tsx
  * <MediaObject>
- *   <MediaObjectMedia>
+ *   <MediaObject.Media>
  *     <ExampleMedia />
- *   </MediaObjectMedia>
- *   <MediaObjectContent>
+ *   </MediaObject.Media>
+ *   <MediaObject.Content>
  *     <p>Ea culpa id id ea minim labore.</p>
- *   </MediaObjectContent>
+ *   </MediaObject.Content>
  * </MediaObject>
  * ```
  */
-const MediaObject = forwardRef<HTMLDivElement, Props>(
+const Root = forwardRef<HTMLDivElement, Props>(
 	({ asChild = false, className, children, style }, ref) => {
 		const Component = asChild ? Slot : "div";
 
@@ -48,7 +49,7 @@ const MediaObject = forwardRef<HTMLDivElement, Props>(
 		);
 	},
 );
-MediaObject.displayName = "MediaObject";
+Root.displayName = "MediaObject";
 
 /**
  * The container for an image or icon to display in the media slot of the media object.
@@ -58,16 +59,16 @@ MediaObject.displayName = "MediaObject";
  * @example
  * ```tsx
  * <MediaObject>
- *   <MediaObjectMedia>
+ *   <MediaObject.Media>
  *     <ExampleMedia />
- *   </MediaObjectMedia>
- *   <MediaObjectContent>
+ *   </MediaObject.Media>
+ *   <MediaObject.Content>
  *     <p>Ea culpa id id ea minim labore.</p>
- *   </MediaObjectContent>
+ *   </MediaObject.Content>
  * </MediaObject>
  * ```
  */
-const MediaObjectMedia = forwardRef<HTMLDivElement, Props>(
+const Media = forwardRef<HTMLDivElement, Props>(
 	({ asChild = false, className, children, style }, ref) => {
 		const Component = asChild ? Slot : "div";
 
@@ -82,7 +83,7 @@ const MediaObjectMedia = forwardRef<HTMLDivElement, Props>(
 		);
 	},
 );
-MediaObjectMedia.displayName = "MediaObjectMedia";
+Media.displayName = "MediaObjectMedia";
 
 /**
  * The container for the content slot of a media object.
@@ -92,16 +93,16 @@ MediaObjectMedia.displayName = "MediaObjectMedia";
  * @example
  * ```tsx
  * <MediaObject>
- *   <MediaObjectMedia>
+ *   <MediaObject.Media>
  *     <ExampleMedia />
- *   </MediaObjectMedia>
- *   <MediaObjectContent>
+ *   </MediaObject.Media>
+ *   <MediaObject.Content>
  *     <p>Ea culpa id id ea minim labore.</p>
- *   </MediaObjectContent>
+ *   </MediaObject.Content>
  * </MediaObject>
  * ```
  */
-const MediaObjectContent = forwardRef<HTMLDivElement, Props>(
+const Content = forwardRef<HTMLDivElement, Props>(
 	({ asChild = false, className, children, style }, ref) => {
 		const Component = asChild ? Slot : "div";
 
@@ -116,11 +117,18 @@ const MediaObjectContent = forwardRef<HTMLDivElement, Props>(
 		);
 	},
 );
-MediaObjectContent.displayName = "MediaObjectContent";
+Content.displayName = "MediaObjectContent";
+
+const MediaObject = createNamespacedComponent(
+	Root,
+	{
+		Content,
+		Media,
+	},
+	"MediaObject",
+);
 
 export {
 	//,
 	MediaObject,
-	MediaObjectContent,
-	MediaObjectMedia,
 };

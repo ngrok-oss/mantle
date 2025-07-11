@@ -13,15 +13,10 @@ import {
 } from "react";
 import invariant from "tiny-invariant";
 import type { WithAsChild } from "../../types/as-child.js";
+import { createNamespacedComponent } from "../../utils/create-namespaced-component.js";
 import { cx } from "../../utils/cx/cx.js";
 import { ButtonGroup, IconButton } from "../button/index.js";
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "../select/select.js";
+import { Select } from "../select/select.js";
 import { Separator } from "../separator/separator.js";
 
 type CursorPaginationContextValue = {
@@ -59,7 +54,7 @@ type CursorPaginationProps = ComponentProps<"div"> & {
  * of data. It doesn't let you jump to a specific page or know how many total pages
  * there are, but it's more efficient for large or real-time data sets.
  */
-const CursorPagination = forwardRef<HTMLDivElement, CursorPaginationProps>(
+const Root = forwardRef<HTMLDivElement, CursorPaginationProps>(
 	({ className, children, defaultPageSize, ...props }, ref) => {
 		const [pageSize, setPageSize] = useState<number>(defaultPageSize);
 
@@ -81,7 +76,7 @@ const CursorPagination = forwardRef<HTMLDivElement, CursorPaginationProps>(
 		);
 	},
 );
-CursorPagination.displayName = "CursorPagination";
+Root.displayName = "CursorPagination";
 
 type CursorButtonsProps = Omit<
 	ComponentProps<typeof ButtonGroup>,
@@ -108,7 +103,7 @@ type CursorButtonsProps = Omit<
 /**
  * A pair of buttons for navigating between pages of data when using cursor-based pagination.
  */
-const CursorButtons = forwardRef<
+const Buttons = forwardRef<
 	ComponentRef<typeof ButtonGroup>,
 	CursorButtonsProps
 >(
@@ -143,12 +138,12 @@ const CursorButtons = forwardRef<
 		);
 	},
 );
-CursorButtons.displayName = "CursorButtons";
+Buttons.displayName = "CursorButtons";
 
 const defaultPageSizes = [5, 10, 20, 50, 100] as const;
 
 type CursorPageSizeSelectProps = Omit<
-	ComponentProps<typeof SelectTrigger>,
+	ComponentProps<typeof Select.Trigger>,
 	"children"
 > & {
 	/**
@@ -164,8 +159,8 @@ type CursorPageSizeSelectProps = Omit<
 /**
  * A select input for changing the number of items per page when using cursor-based pagination.
  */
-const CursorPageSizeSelect = forwardRef<
-	ComponentRef<typeof SelectTrigger>,
+const PageSizeSelect = forwardRef<
+	ComponentRef<typeof Select.Trigger>,
 	CursorPageSizeSelectProps
 >(
 	(
@@ -201,26 +196,26 @@ const CursorPageSizeSelect = forwardRef<
 					onChangePageSize?.(newPageSize);
 				}}
 			>
-				<SelectTrigger
+				<Select.Trigger
 					ref={ref}
 					className={cx("w-auto min-w-36", className)}
 					value={ctx.pageSize}
 					{...rest}
 				>
-					<SelectValue />
-				</SelectTrigger>
-				<SelectContent width="trigger">
+					<Select.Value />
+				</Select.Trigger>
+				<Select.Content width="trigger">
 					{pageSizes.map((size) => (
-						<SelectItem key={size} value={`${size}`}>
+						<Select.Item key={size} value={`${size}`}>
 							{size} per page
-						</SelectItem>
+						</Select.Item>
 					))}
-				</SelectContent>
+				</Select.Content>
 			</Select>
 		);
 	},
 );
-CursorPageSizeSelect.displayName = "CursorPageSizeSelect";
+PageSizeSelect.displayName = "CursorPageSizeSelect";
 
 type CursorPageSizeValueProps = Omit<ComponentProps<"span">, "children"> &
 	WithAsChild;
@@ -228,7 +223,7 @@ type CursorPageSizeValueProps = Omit<ComponentProps<"span">, "children"> &
 /**
  * Displays the current page size when using cursor-based pagination as a read-only value.
  */
-function CursorPageSizeValue({
+function PageSizeValue({
 	asChild = false,
 	className,
 	...props
@@ -252,11 +247,18 @@ function CursorPageSizeValue({
 	);
 }
 
+const CursorPagination = createNamespacedComponent(
+	Root,
+	{
+		Buttons,
+		PageSizeSelect,
+		PageSizeValue,
+	},
+	"CursorPagination",
+);
+
 export {
 	//,
-	CursorButtons,
-	CursorPageSizeSelect,
-	CursorPageSizeValue,
 	CursorPagination,
 };
 

@@ -3,9 +3,10 @@
 import * as HoverCardPrimitive from "@radix-ui/react-hover-card";
 import { forwardRef } from "react";
 import type { ComponentPropsWithoutRef, ComponentRef } from "react";
+import { createNamespacedComponent } from "../../utils/create-namespaced-component.js";
 import { cx } from "../../utils/cx/cx.js";
 
-const HoverCard = ({
+const Root = ({
 	closeDelay = 300,
 	openDelay = 100,
 	...props
@@ -16,9 +17,9 @@ const HoverCard = ({
 		{...props}
 	/>
 );
-HoverCard.displayName = "HoverCard";
+Root.displayName = "HoverCard";
 
-const HoverCardTrigger = HoverCardPrimitive.Trigger;
+const Trigger = HoverCardPrimitive.Trigger;
 
 /**
  * The portal for a HoverCard. Should be rendered as a child of the `HoverCard` component.
@@ -26,13 +27,13 @@ const HoverCardTrigger = HoverCardPrimitive.Trigger;
  *
  * You likely don't need to use this component directly, as it is used internally by the `HoverCardContent` component.
  */
-const HoverCardPortal = HoverCardPrimitive.Portal;
+const Portal = HoverCardPrimitive.Portal;
 
-const HoverCardContent = forwardRef<
+const Content = forwardRef<
 	ComponentRef<typeof HoverCardPrimitive.Content>,
 	ComponentPropsWithoutRef<typeof HoverCardPrimitive.Content>
 >(({ className, onClick, align = "center", sideOffset = 4, ...props }, ref) => (
-	<HoverCardPortal>
+	<Portal>
 		<HoverCardPrimitive.Content
 			ref={ref}
 			align={align}
@@ -51,14 +52,21 @@ const HoverCardContent = forwardRef<
 			}}
 			{...props}
 		/>
-	</HoverCardPortal>
+	</Portal>
 ));
-HoverCardContent.displayName = HoverCardPrimitive.Content.displayName;
+Content.displayName = HoverCardPrimitive.Content.displayName;
+
+const HoverCard = createNamespacedComponent(
+	Root,
+	{
+		Content,
+		Portal,
+		Trigger,
+	},
+	"HoverCard",
+);
 
 export {
 	//,
 	HoverCard,
-	HoverCardContent,
-	HoverCardPortal,
-	HoverCardTrigger,
 };
