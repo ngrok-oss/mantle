@@ -16,8 +16,8 @@ import {
 import * as ToastPrimitive from "sonner";
 import type { WithAsChild } from "../../types/as-child.js";
 import type { WithStyleProps } from "../../types/with-style-props.js";
-import { cx } from "../../utils/cx/cx.js";
 import { createNamespacedComponent } from "../../utils/create-namespaced-component.js";
+import { cx } from "../../utils/cx/cx.js";
 import { Icon } from "../icon/icon.js";
 import type { SvgOnlyProps } from "../icon/svg-only.js";
 import { useAppliedTheme } from "../theme-provider/theme-provider.js";

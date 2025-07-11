@@ -3,11 +3,7 @@ import { Button, IconButton } from "@ngrok/mantle/button";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { Dialog } from "@ngrok/mantle/dialog";
 import { Sheet } from "@ngrok/mantle/sheet";
-import {
-	type Priority,
-	Toast,
-	makeToast,
-} from "@ngrok/mantle/toast";
+import { type Priority, Toast, makeToast } from "@ngrok/mantle/toast";
 import { XIcon } from "@phosphor-icons/react/X";
 import { useState } from "react";
 import invariant from "tiny-invariant";
