@@ -17,17 +17,7 @@ import {
 	CodeBlockCopyButton,
 	fmtCode,
 } from "@ngrok/mantle/code-block";
-import {
-	Dialog,
-	DialogBody,
-	DialogClose,
-	DialogCloseIconButton,
-	DialogContent,
-	DialogFooter,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger,
-} from "@ngrok/mantle/dialog";
+import { Dialog } from "@ngrok/mantle/dialog";
 import {
 	Sheet,
 	SheetBody,
@@ -168,19 +158,19 @@ export default function Page() {
 						</SheetContent>
 					</Sheet>
 					<Dialog>
-						<DialogTrigger asChild>
+						<Dialog.Trigger asChild>
 							<Button type="button" appearance="filled">
 								Open dialog
 							</Button>
-						</DialogTrigger>
-						<DialogContent>
-							<DialogHeader>
-								<DialogTitle>
+						</Dialog.Trigger>
+						<Dialog.Content>
+							<Dialog.Header>
+								<Dialog.Title>
 									Are you absolutely sure? aslkdfjas dlfksdoijfoasdjf ioadsjfi
-								</DialogTitle>
-								<DialogCloseIconButton />
-							</DialogHeader>
-							<DialogBody>
+								</Dialog.Title>
+								<Dialog.CloseIconButton />
+							</Dialog.Header>
+							<Dialog.Body>
 								<Button
 									type="button"
 									onClick={() =>
@@ -206,9 +196,9 @@ export default function Page() {
 								>
 									Show Toast
 								</Button>
-							</DialogBody>
-							<DialogFooter>
-								<DialogClose asChild>
+							</Dialog.Body>
+							<Dialog.Footer>
+								<Dialog.Close asChild>
 									<Button
 										type="button"
 										priority="neutral"
@@ -216,9 +206,9 @@ export default function Page() {
 									>
 										Cancel
 									</Button>
-								</DialogClose>
-							</DialogFooter>
-						</DialogContent>
+								</Dialog.Close>
+							</Dialog.Footer>
+						</Dialog.Content>
 					</Dialog>
 					<AlertDialog priority="info">
 						<AlertDialogTrigger asChild>
