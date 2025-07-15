@@ -111,8 +111,8 @@ importers:
         specifier: '>=7.0.4'
         version: 7.0.4(@types/node@22.16.2)(jiti@1.21.7)(yaml@2.8.0)
       vite-plugin-devtools-json:
-        specifier: 0.2.1
-        version: 0.2.1(vite@7.0.4(@types/node@22.16.2)(jiti@1.21.7)(yaml@2.8.0))
+        specifier: 0.3.0
+        version: 0.3.0(vite@7.0.4(@types/node@22.16.2)(jiti@1.21.7)(yaml@2.8.0))
       vite-tsconfig-paths:
         specifier: 5.1.4
         version: 5.1.4(typescript@5.8.3)(vite@7.0.4(@types/node@22.16.2)(jiti@1.21.7)(yaml@2.8.0))
@@ -3301,8 +3301,8 @@ packages:
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
     hasBin: true
 
-  vite-plugin-devtools-json@0.2.1:
-    resolution: {integrity: sha512-5aiNvf/iLTuLR1dUqoI5CLLGgeK2hd6u+tA+RIp7GUZDyAcM6ECaUEWOOtGpidbcxbkKq++KtmSqA3jhMbPwMA==}
+  vite-plugin-devtools-json@0.3.0:
+    resolution: {integrity: sha512-y8QdN/uZNV0Jj96H9R3s7G9jtcSuyssk8EwSfWaY+NUAdy7976d7rjtXJzqmeCcgp4CZywcTyUc+k6zpPFHdeg==}
     peerDependencies:
       vite: '>=7.0.4'
 
@@ -6574,7 +6574,7 @@ snapshots:
       - tsx
       - yaml
 
-  vite-plugin-devtools-json@0.2.1(vite@7.0.4(@types/node@22.16.2)(jiti@1.21.7)(yaml@2.8.0)):
+  vite-plugin-devtools-json@0.3.0(vite@7.0.4(@types/node@22.16.2)(jiti@1.21.7)(yaml@2.8.0)):
     dependencies:
       uuid: 11.1.0
       vite: 7.0.4(@types/node@22.16.2)(jiti@1.21.7)(yaml@2.8.0)
