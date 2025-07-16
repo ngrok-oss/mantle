@@ -80,7 +80,7 @@ export default function Page() {
 								<ProgressBar.Root value={45} className="w-24">
 									<ProgressBar.Indicator className="bg-warning-600" />
 								</ProgressBar.Root>
-								In ProgressBar
+								In Progress
 							</div>
 
 							<div className="flex items-center gap-3 text-sm">

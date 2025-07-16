@@ -137,8 +137,9 @@ type IndicatorProps = ComponentProps<typeof ProgressPrimitive.Indicator>;
  */
 function Indicator({ className, style, ...props }: IndicatorProps) {
 	const ctx = useContext(ProgressContext);
+	const { max } = ctx;
 	const value = ctx.value === "indeterminate" ? 0 : ctx.value;
-	const translatePercent = ctx.max - value;
+	const translatePercent = ((max - value) / max) * 100;
 
 	return (
 		<ProgressPrimitive.Indicator
