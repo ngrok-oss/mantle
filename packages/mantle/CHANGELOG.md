@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.32.0
+
+### Minor Changes
+
+- [#675](https://github.com/ngrok-oss/mantle/pull/675) [`4a65a5a`](https://github.com/ngrok-oss/mantle/commit/4a65a5ac00c0d656f0771503fbe1f8ffeada8057) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add ProgressBar component
+
 ## 0.31.6
 
 ### Patch Changes
