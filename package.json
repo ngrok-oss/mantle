@@ -46,5 +46,8 @@
       "@biomejs/biome",
       "esbuild"
     ]
+  },
+  "dependencies": {
+    "@radix-ui/react-progress": "1.1.7"
   }
 }
