@@ -1,5 +1,13 @@
 # @ngrok/mantle
 
+## 0.32.1
+
+### Patch Changes
+
+- [#678](https://github.com/ngrok-oss/mantle/pull/678) [`c303597`](https://github.com/ngrok-oss/mantle/commit/c30359783e449583ac522bddb36ef92225e5ba84) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add explicit displayNames to all mantle components
+
+- [#680](https://github.com/ngrok-oss/mantle/pull/680) [`7b6b15a`](https://github.com/ngrok-oss/mantle/commit/7b6b15afdcc42104dbefb9a1213d694c2c7d39dd) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - add missing intellisense jsdocs to all mantle components
+
 ## 0.32.0
 
 ### Minor Changes
