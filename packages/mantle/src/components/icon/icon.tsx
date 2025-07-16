@@ -39,6 +39,7 @@ const Icon = forwardRef<ComponentRef<"svg">, IconProps>(
 		/>
 	),
 );
+Icon.displayName = "Icon";
 
 export {
 	//,

@@ -300,6 +300,7 @@ const AlertDismissIconButton = ({
 		/>
 	);
 };
+AlertDismissIconButton.displayName = "AlertDismissIconButton";
 
 export {
 	//,

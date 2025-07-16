@@ -18,6 +18,7 @@ const TooltipProvider = ({
 }: ComponentPropsWithoutRef<typeof Provider>) => (
 	<Provider delayDuration={delayDuration ?? 0} {...props} />
 );
+TooltipProvider.displayName = "TooltipProvider";
 
 /**
  * A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.
@@ -30,6 +31,7 @@ const TooltipProvider = ({
  * https://github.com/ngrok-oss/mantle/issues
  */
 const Tooltip = Root;
+Tooltip.displayName = "Tooltip";
 
 /**
  * The trigger button that opens the tooltip.
@@ -40,6 +42,7 @@ const Tooltip = Root;
  * https://github.com/ngrok-oss/mantle/issues
  */
 const TooltipTrigger = Trigger;
+TooltipTrigger.displayName = "TooltipTrigger";
 
 /**
  * The content to render inside the tooltip.

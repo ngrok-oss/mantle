@@ -95,6 +95,7 @@ function Flag({
 		</div>
 	);
 }
+Flag.displayName = "Flag";
 
 export {
 	//,

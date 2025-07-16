@@ -8,16 +8,22 @@ import { Icon } from "../icon/icon.js";
 import { Separator } from "../separator/separator.js";
 
 const DropdownMenu = DropdownMenuPrimitive.Root;
+DropdownMenu.displayName = "DropdownMenu";
 
 const DropdownMenuTrigger = DropdownMenuPrimitive.Trigger;
+DropdownMenuTrigger.displayName = "DropdownMenuTrigger";
 
 const DropdownMenuGroup = DropdownMenuPrimitive.Group;
+DropdownMenuGroup.displayName = "DropdownMenuGroup";
 
 const DropdownMenuPortal = DropdownMenuPrimitive.Portal;
+DropdownMenuPortal.displayName = "DropdownMenuPortal";
 
 const DropdownMenuSub = DropdownMenuPrimitive.Sub;
+DropdownMenuSub.displayName = "DropdownMenuSub";
 
 const DropdownMenuRadioGroup = DropdownMenuPrimitive.RadioGroup;
+DropdownMenuRadioGroup.displayName = "DropdownMenuRadioGroup";
 
 const DropdownMenuSubTrigger = forwardRef<
 	ComponentRef<typeof DropdownMenuPrimitive.SubTrigger>,

@@ -139,6 +139,7 @@ AlertDialog.displayName = "AlertDialog";
  * ```
  */
 const AlertDialogTrigger = AlertDialogPrimitive.Trigger;
+AlertDialogTrigger.displayName = "AlertDialogTrigger";
 
 /**
  * The portal for the Alert Dialog.
@@ -146,6 +147,7 @@ const AlertDialogTrigger = AlertDialogPrimitive.Trigger;
  * @private
  */
 const AlertDialogPortal = AlertDialogPrimitive.Portal;
+AlertDialogPortal.displayName = "AlertDialogPortal";
 
 /**
  * A layer that covers the inert portion of the view when the dialog is open.
@@ -739,6 +741,7 @@ AlertDialogIcon.displayName = "AlertDialogIcon";
  * </AlertDialogClose>
  */
 const AlertDialogClose = AlertDialogPrimitive.Close;
+AlertDialogClose.displayName = "AlertDialogClose";
 
 export {
 	//,

@@ -46,6 +46,7 @@ const PreloadFonts = ({ includeNunitoSans = false }: Props) => (
 		{includeNunitoSans && <NunitoSans />}
 	</>
 );
+PreloadFonts.displayName = "PreloadFonts";
 
 export {
 	//,

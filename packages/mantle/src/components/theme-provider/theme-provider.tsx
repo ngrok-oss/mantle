@@ -194,6 +194,7 @@ function ThemeProvider({
 		</ThemeProviderContext.Provider>
 	);
 }
+ThemeProvider.displayName = "ThemeProvider";
 
 /**
  * useTheme returns the current theme and a function to set the theme.
@@ -383,6 +384,7 @@ const MantleThemeHeadContent = ({
 		<PreloadFonts includeNunitoSans={includeNunitoSans} />
 	</>
 );
+MantleThemeHeadContent.displayName = "MantleThemeHeadContent";
 
 type InitialThemeProps = {
 	className: string;

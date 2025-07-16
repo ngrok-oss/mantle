@@ -19,6 +19,7 @@ const HoverCard = ({
 HoverCard.displayName = "HoverCard";
 
 const HoverCardTrigger = HoverCardPrimitive.Trigger;
+HoverCardTrigger.displayName = "HoverCardTrigger";
 
 /**
  * The portal for a HoverCard. Should be rendered as a child of the `HoverCard` component.
@@ -27,6 +28,7 @@ const HoverCardTrigger = HoverCardPrimitive.Trigger;
  * You likely don't need to use this component directly, as it is used internally by the `HoverCardContent` component.
  */
 const HoverCardPortal = HoverCardPrimitive.Portal;
+HoverCardPortal.displayName = "HoverCardPortal";
 
 const HoverCardContent = forwardRef<
 	ComponentRef<typeof HoverCardPrimitive.Content>,

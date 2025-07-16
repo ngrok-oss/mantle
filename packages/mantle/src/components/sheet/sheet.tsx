@@ -109,6 +109,7 @@ import { preventCloseOnPromptInteraction } from "../toast/toast.js";
  * ```
  */
 const Sheet = SheetPrimitive.Root;
+Sheet.displayName = "Sheet";
 
 /**
  * The button trigger for a `Sheet`. Should be rendered as a child of the `Sheet` component.
@@ -136,6 +137,7 @@ const Sheet = SheetPrimitive.Root;
  * ```
  */
 const SheetTrigger = SheetPrimitive.Trigger;
+SheetTrigger.displayName = "SheetTrigger";
 
 /**
  * The close button for a `Sheet`. Should be rendered as a child of the `SheetContent` component.
@@ -169,6 +171,7 @@ const SheetTrigger = SheetPrimitive.Trigger;
  * ```
  */
 const SheetClose = SheetPrimitive.Close;
+SheetClose.displayName = "SheetClose";
 
 /**
  * The portal for a sheet. Should be rendered as a child of the `Sheet` component.
@@ -177,6 +180,7 @@ const SheetClose = SheetPrimitive.Close;
  * @private
  */
 const SheetPortal = SheetPrimitive.Portal;
+SheetPortal.displayName = "SheetPortal";
 
 /**
  * The overlay backdrop for a sheet. Should be rendered as a child of the `SheetPortal` component.
@@ -389,6 +393,7 @@ const SheetCloseIconButton = ({
 		/>
 	</SheetPrimitive.Close>
 );
+SheetCloseIconButton.displayName = "SheetCloseIconButton";
 
 /**
  * The body container for a `Sheet`. This is where you would typically place the main content of the sheet, such as forms or text.
@@ -445,6 +450,7 @@ const SheetBody = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => (
 		{...props}
 	/>
 );
+SheetBody.displayName = "SheetBody";
 
 /**
  * The header container for a `Sheet`. This is where you would typically place the title, description, and actions.
@@ -508,6 +514,7 @@ const SheetHeader = ({
 		{...props}
 	/>
 );
+SheetHeader.displayName = "SheetHeader";
 
 /**
  * The footer container for a `Sheet`. This is where you would typically place close and submit buttons.
@@ -570,6 +577,7 @@ const SheetFooter = ({
 		{...props}
 	/>
 );
+SheetFooter.displayName = "SheetFooter";
 
 /**
  * The title for a `Sheet`. Typically rendered as a child of `SheetTitleGroup`.

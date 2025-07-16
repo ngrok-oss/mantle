@@ -157,6 +157,7 @@ const ProgressDonut = ({
 		</ProgressContext.Provider>
 	);
 };
+ProgressDonut.displayName = "ProgressDonut";
 
 /**
  * Length (value) of the progress indicator tail when the progress bar is indeterminate.
@@ -226,6 +227,7 @@ const ProgressDonutIndicator = ({
 		</g>
 	);
 };
+ProgressDonutIndicator.displayName = "ProgressDonutIndicator";
 
 export {
 	//,
