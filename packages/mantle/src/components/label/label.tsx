@@ -15,7 +15,7 @@ type LabelProps = ComponentPropsWithoutRef<"label"> & {
  * checkbox, radio button, etc. The label is typically displayed next to the
  * form control and helps users understand its purpose.
  *
- * @see https://mantle.ngrok.com/components/label#api
+ * @see https://mantle.ngrok.com/components/label#api-label
  *
  * @example
  * ```tsx

@@ -3,7 +3,16 @@ import type { HTMLAttributes } from "react";
 import { cx } from "../../utils/cx/cx.js";
 
 /**
- * A component to render inline code.
+ * A component to render inline code with syntax highlighting and styling.
+ *
+ * @see https://mantle.ngrok.com/components/inline-code#api-inline-code
+ *
+ * @example
+ * ```tsx
+ * <p>
+ *   Use the <InlineCode>console.log()</InlineCode> function to debug your code.
+ * </p>
+ * ```
  */
 const InlineCode = forwardRef<HTMLSpanElement, HTMLAttributes<HTMLSpanElement>>(
 	({ className, ...props }, ref) => (

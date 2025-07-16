@@ -7,9 +7,49 @@ import { cx } from "../../utils/cx/cx.js";
 import { Icon } from "../icon/icon.js";
 import { Separator } from "../separator/separator.js";
 
+/**
+ * A menu of options or actions, triggered by a button.
+ * This is the root, stateful component that manages the open/closed state of the dropdown menu.
+ *
+ * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu
+ *
+ * @example
+ * ```tsx
+ * <DropdownMenu>
+ *   <DropdownMenuTrigger asChild>
+ *     <Button type="button" appearance="outlined">
+ *       Open Menu
+ *     </Button>
+ *   </DropdownMenuTrigger>
+ *   <DropdownMenuContent>
+ *     <DropdownMenuItem>Item 1</DropdownMenuItem>
+ *     <DropdownMenuItem>Item 2</DropdownMenuItem>
+ *   </DropdownMenuContent>
+ * </DropdownMenu>
+ * ```
+ */
 const DropdownMenu = DropdownMenuPrimitive.Root;
 DropdownMenu.displayName = "DropdownMenu";
 
+/**
+ * The trigger button that opens the dropdown menu.
+ *
+ * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-trigger
+ *
+ * @example
+ * ```tsx
+ * <DropdownMenu>
+ *   <DropdownMenuTrigger asChild>
+ *     <Button type="button" appearance="outlined">
+ *       Open Menu
+ *     </Button>
+ *   </DropdownMenuTrigger>
+ *   <DropdownMenuContent>
+ *     <DropdownMenuItem>Item 1</DropdownMenuItem>
+ *   </DropdownMenuContent>
+ * </DropdownMenu>
+ * ```
+ */
 const DropdownMenuTrigger = DropdownMenuPrimitive.Trigger;
 DropdownMenuTrigger.displayName = "DropdownMenuTrigger";
 
@@ -79,6 +119,26 @@ type DropdownMenuContentProps = ComponentPropsWithoutRef<
 	width?: "trigger" | "content";
 };
 
+/**
+ * The container for the dropdown menu content.
+ *
+ * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-content
+ *
+ * @example
+ * ```tsx
+ * <DropdownMenu>
+ *   <DropdownMenuTrigger asChild>
+ *     <Button type="button" appearance="outlined">
+ *       Open Menu
+ *     </Button>
+ *   </DropdownMenuTrigger>
+ *   <DropdownMenuContent>
+ *     <DropdownMenuItem>Item 1</DropdownMenuItem>
+ *     <DropdownMenuItem>Item 2</DropdownMenuItem>
+ *   </DropdownMenuContent>
+ * </DropdownMenu>
+ * ```
+ */
 const DropdownMenuContent = forwardRef<
 	ComponentRef<typeof DropdownMenuPrimitive.Content>,
 	DropdownMenuContentProps
@@ -109,6 +169,26 @@ const DropdownMenuContent = forwardRef<
 ));
 DropdownMenuContent.displayName = "DropdownMenuContent";
 
+/**
+ * An item in the dropdown menu.
+ *
+ * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-item
+ *
+ * @example
+ * ```tsx
+ * <DropdownMenu>
+ *   <DropdownMenuTrigger asChild>
+ *     <Button type="button" appearance="outlined">
+ *       Open Menu
+ *     </Button>
+ *   </DropdownMenuTrigger>
+ *   <DropdownMenuContent>
+ *     <DropdownMenuItem>Item 1</DropdownMenuItem>
+ *     <DropdownMenuItem>Item 2</DropdownMenuItem>
+ *   </DropdownMenuContent>
+ * </DropdownMenu>
+ * ```
+ */
 const DropdownMenuItem = forwardRef<
 	ComponentRef<typeof DropdownMenuPrimitive.Item>,
 	ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Item> & {

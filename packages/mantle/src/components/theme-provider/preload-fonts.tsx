@@ -27,8 +27,14 @@ type Props = {
 };
 
 /**
- * Preload custom fonts used in the theme. This should be added to the head of the document in your application, preferably as high as possible.
- * Normally you won't use this directly, but instead use the `MantleThemeHeadContent` component which includes this.
+ * Preload custom fonts used in the theme.
+ *
+ * @see https://mantle.ngrok.com/components/theme-provider#api-preload-fonts
+ *
+ * @example
+ * ```tsx
+ * <PreloadFonts includeNunitoSans />
+ * ```
  */
 const PreloadFonts = ({ includeNunitoSans = false }: Props) => (
 	<>

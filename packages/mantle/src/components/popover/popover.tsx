@@ -4,14 +4,24 @@ import type { ComponentPropsWithoutRef, ComponentRef } from "react";
 import { cx } from "../../utils/cx/cx.js";
 
 /**
- * A popover is a floating overlay that appears above other elements on the page.
- * Displays rich content in a portal, triggered by a button.
+ * A floating overlay that displays rich content in a portal, triggered by a button.
  * This is the root, stateful component that manages the open/closed state of the popover.
  *
- * @preview This component is in `preview` mode which means the API is not stable and may change.
- * There may also be bugs! Please file an issue if you find any! <3
+ * @see https://mantle.ngrok.com/components/popover#api-popover
  *
- * https://github.com/ngrok-oss/mantle/issues
+ * @example
+ * ```tsx
+ * <Popover>
+ *   <PopoverTrigger asChild>
+ *     <Button type="button" appearance="outlined">
+ *       Open Popover
+ *     </Button>
+ *   </PopoverTrigger>
+ *   <PopoverContent>
+ *     <p>This is the popover content.</p>
+ *   </PopoverContent>
+ * </Popover>
+ * ```
  */
 const Popover = PopoverPrimitive.Root;
 Popover.displayName = "Popover";
@@ -19,10 +29,21 @@ Popover.displayName = "Popover";
 /**
  * The trigger button that opens the popover.
  *
- * @preview This component is in `preview` mode which means the API is not stable and may change.
- * There may also be bugs! Please file an issue if you find any! <3
+ * @see https://mantle.ngrok.com/components/popover#api-popover-trigger
  *
- * https://github.com/ngrok-oss/mantle/issues
+ * @example
+ * ```tsx
+ * <Popover>
+ *   <PopoverTrigger asChild>
+ *     <Button type="button" appearance="outlined">
+ *       Open Popover
+ *     </Button>
+ *   </PopoverTrigger>
+ *   <PopoverContent>
+ *     <p>This is the popover content.</p>
+ *   </PopoverContent>
+ * </Popover>
+ * ```
  */
 const PopoverTrigger = PopoverPrimitive.Trigger;
 PopoverTrigger.displayName = "PopoverTrigger";
@@ -30,10 +51,24 @@ PopoverTrigger.displayName = "PopoverTrigger";
 /**
  * An optional element to position the PopoverContent against. If this part is not used, the content will position alongside the PopoverTrigger.
  *
- * @preview This component is in `preview` mode which means the API is not stable and may change.
- * There may also be bugs! Please file an issue if you find any! <3
+ * @see https://mantle.ngrok.com/components/popover#api-popover-anchor
  *
- * https://github.com/ngrok-oss/mantle/issues
+ * @example
+ * ```tsx
+ * <Popover>
+ *   <PopoverTrigger asChild>
+ *     <Button type="button" appearance="outlined">
+ *       Open Popover
+ *     </Button>
+ *   </PopoverTrigger>
+ *   <PopoverAnchor asChild>
+ *     <div>Anchor element</div>
+ *   </PopoverAnchor>
+ *   <PopoverContent>
+ *     <p>This is the popover content.</p>
+ *   </PopoverContent>
+ * </Popover>
+ * ```
  */
 const PopoverAnchor = PopoverPrimitive.Anchor;
 PopoverAnchor.displayName = "PopoverAnchor";
@@ -41,10 +76,24 @@ PopoverAnchor.displayName = "PopoverAnchor";
 /**
  * A button that closes an open popover.
  *
- * @preview This component is in `preview` mode which means the API is not stable and may change.
- * There may also be bugs! Please file an issue if you find any! <3
+ * @see https://mantle.ngrok.com/components/popover#api-popover-close
  *
- * https://github.com/ngrok-oss/mantle/issues
+ * @example
+ * ```tsx
+ * <Popover>
+ *   <PopoverTrigger asChild>
+ *     <Button type="button" appearance="outlined">
+ *       Open Popover
+ *     </Button>
+ *   </PopoverTrigger>
+ *   <PopoverContent>
+ *     <p>This is the popover content.</p>
+ *     <PopoverClose asChild>
+ *       <Button type="button">Close</Button>
+ *     </PopoverClose>
+ *   </PopoverContent>
+ * </Popover>
+ * ```
  */
 const PopoverClose = PopoverPrimitive.Close;
 PopoverClose.displayName = "PopoverClose";
@@ -66,10 +115,21 @@ type PopoverContentProps = ComponentPropsWithoutRef<
 /**
  * The content to render inside the popover.
  *
- * @preview This component is in `preview` mode which means the API is not stable and may change.
- * There may also be bugs! Please file an issue if you find any! <3
+ * @see https://mantle.ngrok.com/components/popover#api-popover-content
  *
- * https://github.com/ngrok-oss/mantle/issues
+ * @example
+ * ```tsx
+ * <Popover>
+ *   <PopoverTrigger asChild>
+ *     <Button type="button" appearance="outlined">
+ *       Open Popover
+ *     </Button>
+ *   </PopoverTrigger>
+ *   <PopoverContent>
+ *     <p>This is the popover content.</p>
+ *   </PopoverContent>
+ * </Popover>
+ * ```
  */
 const PopoverContent = forwardRef<ComponentRef<"div">, PopoverContentProps>(
 	(
