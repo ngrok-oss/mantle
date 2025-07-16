@@ -32,6 +32,7 @@ function Root(props: ComponentPropsWithoutRef<typeof DialogPrimitive.Root>) {
 		</InternalDialogContext.Provider>
 	);
 }
+Root.displayName = "Root";
 
 const Trigger = DialogPrimitive.Trigger;
 
@@ -56,6 +57,7 @@ const Content = forwardRef<
 		/>
 	);
 });
+Content.displayName = "Content";
 
 const Title = DialogPrimitive.Title;
 
@@ -72,6 +74,7 @@ const Description = forwardRef<
 
 	return <DialogPrimitive.Description ref={ref} {...props} />;
 });
+Description.displayName = "Description";
 
 export {
 	//,

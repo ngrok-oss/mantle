@@ -11,12 +11,16 @@ import { preventCloseOnPromptInteraction } from "../toast/toast.js";
 import * as DialogPrimitive from "./primitive.js";
 
 const Dialog = DialogPrimitive.Root;
+Dialog.displayName = "Dialog";
 
 const DialogTrigger = DialogPrimitive.Trigger;
+DialogTrigger.displayName = "DialogTrigger";
 
 const DialogPortal = DialogPrimitive.Portal;
+DialogPortal.displayName = "DialogPortal";
 
 const DialogClose = DialogPrimitive.Close;
+DialogClose.displayName = "DialogClose";
 
 const DialogOverlay = forwardRef<
 	ComponentRef<"div">,
@@ -31,7 +35,7 @@ const DialogOverlay = forwardRef<
 		{...props}
 	/>
 ));
-DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
+DialogOverlay.displayName = "DialogOverlay";
 
 type DialogContentProps = ComponentPropsWithoutRef<
 	typeof DialogPrimitive.Content
@@ -88,7 +92,7 @@ const DialogContent = forwardRef<ComponentRef<"div">, DialogContentProps>(
 		</DialogPortal>
 	),
 );
-DialogContent.displayName = DialogPrimitive.Content.displayName;
+DialogContent.displayName = "DialogContent";
 
 const DialogHeader = ({
 	className,
@@ -157,7 +161,7 @@ const DialogTitle = forwardRef<
 		{...props}
 	/>
 ));
-DialogTitle.displayName = DialogPrimitive.Title.displayName;
+DialogTitle.displayName = "DialogTitle";
 
 const DialogDescription = forwardRef<
 	ComponentRef<"p">,
@@ -169,7 +173,7 @@ const DialogDescription = forwardRef<
 		{...props}
 	/>
 ));
-DialogDescription.displayName = DialogPrimitive.Description.displayName;
+DialogDescription.displayName = "DialogDescription";
 
 export {
 	Dialog,

@@ -153,6 +153,7 @@ Select.displayName = "Select";
  * @see https://mantle.ngrok.com/components/select#api-select-group
  */
 const SelectGroup = SelectPrimitive.Group;
+SelectGroup.displayName = "SelectGroup";
 
 /**
  * The part that reflects the selected value. By default the selected item's text will be rendered. if you require more control, you can instead control the select and pass your own children. It should not be styled to ensure correct positioning. An optional placeholder prop is also available for when the select has no value.

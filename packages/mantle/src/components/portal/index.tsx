@@ -11,6 +11,7 @@ type Props = PropsWithChildren<{ container?: HTMLElement | null }>;
 const Portal = ({ children, container }: Props) => (
 	<>{container ? createPortal(children, container) : null}</>
 );
+Portal.displayName = "Portal";
 
 // MARK: - Exports
 

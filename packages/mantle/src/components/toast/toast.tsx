@@ -70,6 +70,7 @@ const Toaster = ({
 		/>
 	);
 };
+Toaster.displayName = "Toaster";
 
 const ToastIdContext = createContext<string | number>("");
 
@@ -161,6 +162,7 @@ const Toast = forwardRef<ComponentRef<"div">, ToastProps>(
 		);
 	},
 );
+Toast.displayName = "Toast";
 
 type ToastIconProps = Partial<SvgOnlyProps>;
 
@@ -215,6 +217,7 @@ const ToastIcon = forwardRef<ComponentRef<"svg">, ToastIconProps>(
 		}
 	},
 );
+ToastIcon.displayName = "ToastIcon";
 
 type ToastActionProps = ComponentProps<"button"> & WithAsChild;
 
@@ -250,6 +253,7 @@ const ToastAction = forwardRef<ComponentRef<"button">, ToastActionProps>(
 		);
 	},
 );
+ToastAction.displayName = "ToastAction";
 
 type ToastMessageProps = ComponentProps<"p"> & WithAsChild;
 
@@ -270,6 +274,7 @@ const ToastMessage = forwardRef<ComponentRef<"p">, ToastMessageProps>(
 		);
 	},
 );
+ToastMessage.displayName = "ToastMessage";
 
 export {
 	//,

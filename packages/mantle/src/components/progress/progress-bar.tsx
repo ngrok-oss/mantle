@@ -112,6 +112,7 @@ function Root({
 		</ProgressContext.Provider>
 	);
 }
+Root.displayName = "Root";
 
 type IndicatorProps = ComponentProps<typeof ProgressPrimitive.Indicator>;
 
@@ -153,6 +154,7 @@ function Indicator({ className, style, ...props }: IndicatorProps) {
 		/>
 	);
 }
+Indicator.displayName = "Indicator";
 
 /**
  * A horizontal progress bar component that shows the completion progress of a task.

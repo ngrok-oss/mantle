@@ -43,6 +43,7 @@ const SvgOnly = forwardRef<ComponentRef<"svg">, SvgOnlyProps>(
 		});
 	},
 );
+SvgOnly.displayName = "SvgOnly";
 
 export {
 	//,

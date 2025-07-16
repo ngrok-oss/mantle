@@ -109,6 +109,7 @@ import { preventCloseOnPromptInteraction } from "../toast/toast.js";
  * ```
  */
 const Sheet = SheetPrimitive.Root;
+Sheet.displayName = "Sheet";
 
 /**
  * The button trigger for a `Sheet`. Should be rendered as a child of the `Sheet` component.
@@ -136,6 +137,7 @@ const Sheet = SheetPrimitive.Root;
  * ```
  */
 const SheetTrigger = SheetPrimitive.Trigger;
+SheetTrigger.displayName = "SheetTrigger";
 
 /**
  * The close button for a `Sheet`. Should be rendered as a child of the `SheetContent` component.
@@ -169,6 +171,7 @@ const SheetTrigger = SheetPrimitive.Trigger;
  * ```
  */
 const SheetClose = SheetPrimitive.Close;
+SheetClose.displayName = "SheetClose";
 
 /**
  * The portal for a sheet. Should be rendered as a child of the `Sheet` component.
@@ -177,6 +180,7 @@ const SheetClose = SheetPrimitive.Close;
  * @private
  */
 const SheetPortal = SheetPrimitive.Portal;
+SheetPortal.displayName = "SheetPortal";
 
 /**
  * The overlay backdrop for a sheet. Should be rendered as a child of the `SheetPortal` component.
