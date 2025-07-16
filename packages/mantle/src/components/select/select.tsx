@@ -173,6 +173,7 @@ SelectGroup.displayName = "SelectGroup";
  * @see https://mantle.ngrok.com/components/select#api-select-value
  */
 const SelectValue = SelectPrimitive.Value;
+SelectValue.displayName = "SelectValue";
 
 type SelectTriggerProps = ComponentPropsWithoutRef<
 	typeof SelectPrimitive.Trigger

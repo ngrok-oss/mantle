@@ -131,6 +131,7 @@ const DialogCloseIconButton = ({
 		/>
 	</DialogPrimitive.Close>
 );
+DialogCloseIconButton.displayName = "DialogCloseIconButton";
 
 const DialogBody = ({ className, ...props }: ComponentProps<"div">) => (
 	<div

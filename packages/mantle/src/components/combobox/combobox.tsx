@@ -35,6 +35,7 @@ const Combobox = ({ children, ...props }: ComboboxProps) => {
 		</Primitive.ComboboxProvider>
 	);
 };
+Combobox.displayName = "Combobox";
 
 type ComboboxInputProps = Omit<
 	Primitive.ComboboxProps,
@@ -357,6 +358,7 @@ const ComboboxItemValue = forwardRef<
 		/>
 	);
 });
+ComboboxItemValue.displayName = "ComboboxItemValue";
 
 /**
  * Renders a separator between ComboboxItems or ComboboxGroups.

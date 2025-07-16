@@ -225,6 +225,7 @@ const InputContainer = ({
 		</InputContext.Provider>
 	);
 };
+InputContainer.displayName = "InputContainer";
 
 export { Input, InputCapture };
 export type { InputProps, InputCaptureProps };
@@ -263,3 +264,4 @@ const ValidationFeedback = ({
 			return null;
 	}
 };
+ValidationFeedback.displayName = "ValidationFeedback";

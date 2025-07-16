@@ -251,6 +251,7 @@ function CursorPageSizeValue({
 		</Component>
 	);
 }
+CursorPageSizeValue.displayName = "CursorPageSizeValue";
 
 export {
 	//,

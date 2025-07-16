@@ -672,6 +672,7 @@ function CodeBlockIcon({
 
 	return <Icon className={className} svg={svg} {...props} />;
 }
+CodeBlockIcon.displayName = "CodeBlockIcon";
 
 export {
 	CodeBlock,

@@ -153,6 +153,7 @@ const RadioIndicator = ({
 		</div>
 	);
 };
+RadioIndicator.displayName = "RadioIndicator";
 
 /**
  * A group of radio list items. Use RadioListItem as direct children.
@@ -270,6 +271,7 @@ const RadioItemContent = ({
 		</Component>
 	);
 };
+RadioItemContent.displayName = "RadioItemContent";
 
 /**
  * An inline group of radio buttons. Use RadioButton as direct children.
@@ -389,6 +391,7 @@ const RadioInputSandbox = ({
 		</div>
 	);
 };
+RadioInputSandbox.displayName = "RadioInputSandbox";
 
 export {
 	//

@@ -92,6 +92,7 @@ const TabsTriggerDecoration = () => {
 		/>
 	);
 };
+TabsTriggerDecoration.displayName = "TabsTriggerDecoration";
 
 const TabsTrigger = forwardRef<
 	ComponentRef<typeof TabsPrimitiveTrigger>,
@@ -196,6 +197,7 @@ const TabBadge = ({
 		{children}
 	</span>
 );
+TabBadge.displayName = "TabBadge";
 
 const TabsContent = forwardRef<
 	ComponentRef<typeof TabsPrimitiveContent>,

@@ -476,7 +476,7 @@ const TableHeader = forwardRef<ComponentRef<"th">, ComponentProps<"th">>(
 		</th>
 	),
 );
-TableHead.displayName = "TableHead";
+TableHeader.displayName = "TableHeader";
 
 /**
  * The `<TableCell>` defines a cell of a table that contains data and may be

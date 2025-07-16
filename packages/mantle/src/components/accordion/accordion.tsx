@@ -61,6 +61,7 @@ const AccordionTriggerIcon = ({
 		className={cx("group-data-state-open:rotate-0 -rotate-90", className)}
 	/>
 );
+AccordionTriggerIcon.displayName = "AccordionTriggerIcon";
 
 const AccordionContent = forwardRef<
 	ComponentRef<"div">,
