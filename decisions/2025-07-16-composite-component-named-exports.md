@@ -88,9 +88,9 @@ We will migrate 17 Mantle components to use a simple POJO namespace pattern wher
 
 ## Migration Scope
 
-### Total Components: 21
+### Total Components: 22
 
-- **Pure Namespace Pattern**: 17 components (including 1 already migrated)
+- **Pure Namespace Pattern**: 18 components (including 1 already migrated)
 - **Mixed Pattern**: 3 components (namespace + named exports)
 
 ### Already Migrated Components
@@ -108,7 +108,7 @@ We will migrate 17 Mantle components to use a simple POJO namespace pattern wher
 
 ## Component Migration Lists
 
-### Pure Namespace Pattern (16 components to migrate)
+### Pure Namespace Pattern (17 components to migrate)
 
 1. **`alert-dialog`** - 11 exports
    - `AlertDialog` → `AlertDialog` (root component)
@@ -276,7 +276,7 @@ We will migrate 17 Mantle components to use a simple POJO namespace pattern wher
     - `MediaObjectContent` → `MediaObject.Content`
     - `MediaObjectMedia` → `MediaObject.Media`
 
-17. **`progress-donut`** - 2 exports
+18. **`progress-donut`** - 2 exports
     - `ProgressDonut` → `ProgressDonut` (root component)
     - `ProgressDonutIndicator` → `ProgressDonut.Indicator`
 
