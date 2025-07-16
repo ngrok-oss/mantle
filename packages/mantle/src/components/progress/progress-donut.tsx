@@ -2,13 +2,13 @@ import clsx from "clsx";
 import { createContext, useContext, useId, useMemo } from "react";
 import type { CSSProperties, ComponentProps, HTMLAttributes } from "react";
 import { cx } from "../../utils/cx/cx.js";
-import type { ValueType } from "./types.js";
 import {
 	clamp,
 	isNumber,
 	isValidMaxNumber,
 	isValidValueNumber,
 } from "./math.js";
+import type { ValueType } from "./types.js";
 
 type RemValue = `${number}rem`;
 type StrokeWidth = number | RemValue;

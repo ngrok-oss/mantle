@@ -169,8 +169,8 @@ export default function Page() {
 				<p className="font-body text-body">
 					You can set the <InlineCode>value</InlineCode> prop to{" "}
 					<InlineCode>"indeterminate"</InlineCode> to show the progress bar in
-					an indeterminate state. Currently, this displays as a progress bar at 0%
-					but maintains accessibility attributes for screen readers.
+					an indeterminate state. Currently, this displays as a progress bar at
+					0% but maintains accessibility attributes for screen readers.
 				</p>
 				<div>
 					<Example>
@@ -201,8 +201,8 @@ export default function Page() {
 					Dynamic Colors
 				</h2>
 				<p className="font-body text-body">
-					The color of the <InlineCode>ProgressBar.Indicator</InlineCode> can
-					be customized using the <InlineCode>className</InlineCode> prop. This
+					The color of the <InlineCode>ProgressBar.Indicator</InlineCode> can be
+					customized using the <InlineCode>className</InlineCode> prop. This
 					allows you to change colors based on the current progress value or
 					application state.
 				</p>
@@ -289,8 +289,8 @@ export default function Page() {
 							</p>
 
 							<p>
-								The <InlineCode>ProgressBar.Root</InlineCode> accepts the following
-								props in addition to the{" "}
+								The <InlineCode>ProgressBar.Root</InlineCode> accepts the
+								following props in addition to the{" "}
 								<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes">
 									standard HTML div attributes
 								</Anchor>
@@ -358,8 +358,8 @@ export default function Page() {
 
 						<p className="font-body text-body">
 							The indicator portion of the progress bar that shows the completed
-							progress. This component is automatically positioned and sized based
-							on the current value relative to the maximum value.
+							progress. This component is automatically positioned and sized
+							based on the current value relative to the maximum value.
 						</p>
 
 						<p className="font-body text-body">

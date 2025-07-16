@@ -47,7 +47,7 @@ type RootProps = ComponentProps<"div"> & {
 
 /**
  * Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.
- * 
+ *
  * A horizontal progress bar that shows the completion progress of a task.
  * Use this component for linear progress indication.
  *
@@ -117,7 +117,7 @@ type IndicatorProps = ComponentProps<typeof ProgressPrimitive.Indicator>;
 
 /**
  * Displays the progress indicator, which visually represents the completion progress of a task.
- * 
+ *
  * The visual indicator that shows the actual progress within the progress bar.
  * This component should be used inside a ProgressBar.Root component.
  *
@@ -155,11 +155,11 @@ function Indicator({ className, style, ...props }: IndicatorProps) {
 
 /**
  * A horizontal progress bar component that shows the completion progress of a task.
- * 
+ *
  * @example
  * ```tsx
  * import { ProgressBar } from "@ngrok/mantle/progress";
- * 
+ *
  * <ProgressBar.Root value={60}>
  *   <ProgressBar.Indicator />
  * </ProgressBar.Root>
