@@ -53,8 +53,8 @@ importers:
         specifier: 1.14.1
         version: 1.14.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@vercel/react-router':
-        specifier: 1.2.1
-        version: 1.2.1(@react-router/dev@7.6.3(@react-router/serve@7.6.3(react-router@7.6.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.8.3))(@types/node@22.16.4)(jiti@1.21.7)(react-router@7.6.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.8.3)(vite@7.0.4(@types/node@22.16.4)(jiti@1.21.7)(yaml@2.8.0))(yaml@2.8.0))(@react-router/node@7.6.3(react-router@7.6.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.8.3))(isbot@5.1.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 1.2.2
+        version: 1.2.2(@react-router/dev@7.6.3(@react-router/serve@7.6.3(react-router@7.6.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.8.3))(@types/node@22.16.4)(jiti@1.21.7)(react-router@7.6.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.8.3)(vite@7.0.4(@types/node@22.16.4)(jiti@1.21.7)(yaml@2.8.0))(yaml@2.8.0))(@react-router/node@7.6.3(react-router@7.6.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.8.3))(isbot@5.1.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       fuse.js:
         specifier: 7.1.0
         version: 7.1.0
@@ -1587,8 +1587,8 @@ packages:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
 
-  '@vercel/react-router@1.2.1':
-    resolution: {integrity: sha512-5rPOAB/i7lWyg0nx9EbHX21iHPaBR3Lzbf2Ak/4DWhnli4a3dNes0wAovgGF9QZwgrJetppo1LNzWgr4ug6r6A==}
+  '@vercel/react-router@1.2.2':
+    resolution: {integrity: sha512-XCyMeSwJtzeRfPHI+IWugCKrWYKcaw1ODAi6EauHeMzPNdeDgIbsFW1vqCEoWdAq9Cdc5e8g7BD99teD1hKSQw==}
     peerDependencies:
       '@react-router/dev': '7'
       '@react-router/node': '7'
@@ -4921,7 +4921,7 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@vercel/react-router@1.2.1(@react-router/dev@7.6.3(@react-router/serve@7.6.3(react-router@7.6.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.8.3))(@types/node@22.16.4)(jiti@1.21.7)(react-router@7.6.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.8.3)(vite@7.0.4(@types/node@22.16.4)(jiti@1.21.7)(yaml@2.8.0))(yaml@2.8.0))(@react-router/node@7.6.3(react-router@7.6.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.8.3))(isbot@5.1.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@vercel/react-router@1.2.2(@react-router/dev@7.6.3(@react-router/serve@7.6.3(react-router@7.6.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.8.3))(@types/node@22.16.4)(jiti@1.21.7)(react-router@7.6.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.8.3)(vite@7.0.4(@types/node@22.16.4)(jiti@1.21.7)(yaml@2.8.0))(yaml@2.8.0))(@react-router/node@7.6.3(react-router@7.6.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.8.3))(isbot@5.1.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@react-router/dev': 7.6.3(@react-router/serve@7.6.3(react-router@7.6.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.8.3))(@types/node@22.16.4)(jiti@1.21.7)(react-router@7.6.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.8.3)(vite@7.0.4(@types/node@22.16.4)(jiti@1.21.7)(yaml@2.8.0))(yaml@2.8.0)
       '@react-router/node': 7.6.3(react-router@7.6.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.8.3)
