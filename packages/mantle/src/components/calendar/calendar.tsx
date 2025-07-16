@@ -16,6 +16,23 @@ type CalendarProps = ComponentProps<typeof DayPicker>;
  * @preview This component is in `preview` mode which means the API is not stable and may change.
  * There may also be bugs! Please file an issue if you find any! <3
  *
+ * @see https://mantle.ngrok.com/components/calendar#api-calendar
+ *
+ * @example
+ * ```tsx
+ * <Calendar
+ *   mode="single"
+ *   selected={selectedDate}
+ *   onSelect={setSelectedDate}
+ * />
+ *
+ * <Calendar
+ *   mode="range"
+ *   selected={dateRange}
+ *   onSelect={setDateRange}
+ * />
+ * ```
+ *
  * https://github.com/ngrok-oss/mantle/issues
  */
 function Calendar({

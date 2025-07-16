@@ -35,6 +35,23 @@ type RadioGroupProps = PropsWithChildren<
 
 /**
  * A group of radio items. It manages the state of the children radios. Unstyled and simple.
+ * Used as the root component for grouping related radio items where only one can be selected.
+ *
+ * @see https://mantle.ngrok.com/components/radio-group#api-radio-group
+ *
+ * @example
+ * ```tsx
+ * <RadioGroup value={value} onValueChange={setValue}>
+ *   <RadioItem value="option1">
+ *     <RadioIndicator />
+ *     <span>Option 1</span>
+ *   </RadioItem>
+ *   <RadioItem value="option2">
+ *     <RadioIndicator />
+ *     <span>Option 2</span>
+ *   </RadioItem>
+ * </RadioGroup>
+ * ```
  */
 const RadioGroup = forwardRef<
 	ComponentRef<typeof HeadlessRadioGroup>,
@@ -71,6 +88,18 @@ type RadioItemProps = Omit<HeadlessRadioProps, "children"> & PropsWithChildren;
 /**
  * A simple radio item that can be used inside a radio group. The "conventional" use-case.
  * Must be a child of `RadioGroup`.
+ *
+ * @see https://mantle.ngrok.com/components/radio-group#api-radio-item
+ *
+ * @example
+ * ```tsx
+ * <RadioGroup value={value} onValueChange={setValue}>
+ *   <RadioItem value="option1">
+ *     <RadioIndicator />
+ *     <span>Option 1</span>
+ *   </RadioItem>
+ * </RadioGroup>
+ * ```
  */
 const RadioItem = forwardRef<ComponentRef<"div">, RadioItemProps>(
 	({ children, className, ...props }, ref) => (
@@ -127,6 +156,16 @@ const DefaultRadioIndicator = ({
  * You can customize the indicator by passing children:
  * - a different component
  * - a render-props function that receives the radio state context and should return a component.
+ *
+ * @see https://mantle.ngrok.com/components/radio-group#api-radio-indicator
+ *
+ * @example
+ * ```tsx
+ * <RadioItem value="option1">
+ *   <RadioIndicator />
+ *   <span>Option 1</span>
+ * </RadioItem>
+ * ```
  */
 const RadioIndicator = ({
 	children,

@@ -70,7 +70,10 @@ type SelectProps = PropsWithChildren & {
 /**
  * Displays a list of options for the user to pick from—triggered by a button.
  *
+ * @see https://mantle.ngrok.com/components/select#api-select
+ *
  * @example
+ * ```tsx
  * <Select>
  *   <SelectTrigger>
  *     <SelectValue placeholder="Select a fruit" />
@@ -90,8 +93,7 @@ type SelectProps = PropsWithChildren & {
  *     </SelectGroup>
  *   </SelectContent>
  * </Select>
- *
- * @see https://mantle.ngrok.com/components/select#api-select
+ * ```
  */
 const Select = forwardRef<HTMLButtonElement, SelectProps>(
 	(
@@ -184,7 +186,10 @@ type SelectTriggerProps = ComponentPropsWithoutRef<
 /**
  * The button that toggles the select. The SelectContent will position itself adjacent to the trigger.
  *
+ * @see https://mantle.ngrok.com/components/select#api-select-trigger
+ *
  * @example
+ * ```tsx
  * <Select>
  *   <SelectTrigger>
  *     <SelectValue placeholder="Select a fruit" />
@@ -195,8 +200,7 @@ type SelectTriggerProps = ComponentPropsWithoutRef<
  *     <SelectItem value="cherry">Cherry</SelectItem>
  *   </SelectContent>
  * </Select>
- *
- * @see https://mantle.ngrok.com/components/select#api-select-trigger
+ * ```
  */
 const SelectTrigger = forwardRef<
 	ComponentRef<typeof SelectPrimitive.Trigger>,

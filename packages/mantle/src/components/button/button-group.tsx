@@ -26,6 +26,17 @@ type ButtonGroupProps = ComponentProps<"fieldset"> & ButtonGroupVariants;
 
 /**
  * A contained group of related buttons.
+ *
+ * @see https://mantle.ngrok.com/components/button-group#api-button-group
+ *
+ * @example
+ * ```tsx
+ * <ButtonGroup appearance="panel">
+ *   <IconButton icon={<Bold />} label="Bold" />
+ *   <IconButton icon={<Italic />} label="Italic" />
+ *   <IconButton icon={<Underline />} label="Underline" />
+ * </ButtonGroup>
+ * ```
  */
 const ButtonGroup = forwardRef<ComponentRef<"fieldset">, ButtonGroupProps>(
 	({ appearance, className, children, ...props }, ref) => {

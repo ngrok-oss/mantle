@@ -63,7 +63,7 @@ type AnchorProps = Omit<
  * @note If you need to link to an internal application route, prefer using the
  * [`react-router` `<Link>`](https://reactrouter.com/en/main/components/link)
  *
- * @see https://mantle.ngrok.com/components/anchor#api
+ * @see https://mantle.ngrok.com/components/anchor#api-anchor
  *
  * @example
  * ```tsx

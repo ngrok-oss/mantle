@@ -127,6 +127,15 @@ type ThemeProviderProps = PropsWithChildren & {
 
 /**
  * ThemeProvider is a React Context Provider that provides the current theme and a function to set the theme.
+ *
+ * @see https://mantle.ngrok.com/components/theme-provider#api-theme-provider
+ *
+ * @example
+ * ```tsx
+ * <ThemeProvider defaultTheme="system" storageKey="app-theme">
+ *   <App />
+ * </ThemeProvider>
+ * ```
  */
 function ThemeProvider({
 	children,

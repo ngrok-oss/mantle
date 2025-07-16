@@ -18,7 +18,7 @@ type Props = ComponentProps<"textarea"> &
  * to enter a sizeable amount of free-form text, for example a comment on a
  * review or feedback form.
  *
- * @see https://mantle.ngrok.com/components/text-area#api
+ * @see https://mantle.ngrok.com/components/text-area#api-text-area
  *
  * @example
  * ```tsx
@@ -32,6 +32,7 @@ type Props = ComponentProps<"textarea"> &
  *     />
  *   </div>
  * </form>
+ * ```
  */
 const TextArea = forwardRef<ComponentRef<"textarea">, Props>(
 	(

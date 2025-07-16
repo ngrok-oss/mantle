@@ -125,7 +125,18 @@ type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
  * as submitting a form or opening a dialog.
  * Renders only a single icon as children with an accessible, screen-reader-only label.
  *
- * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button
+ * @see https://mantle.ngrok.com/components/button#api-icon-button
+ *
+ * @example
+ * ```tsx
+ * <IconButton
+ *   type="button"
+ *   icon={<TrashIcon />}
+ *   label="Delete item"
+ *   appearance="ghost"
+ *   size="sm"
+ * />
+ * ```
  */
 const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 	(

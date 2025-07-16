@@ -27,6 +27,21 @@ type PasswordInputProps = Omit<
 
 type PasswordInputType = Extract<InputType, "text" | "password">;
 
+/**
+ * A specialized input component for password entry with a toggle button to show/hide the password value.
+ * Provides enhanced security UX by allowing users to verify their input while maintaining privacy.
+ *
+ * @see https://mantle.ngrok.com/components/input#api-password-input
+ *
+ * @example
+ * ```tsx
+ * <PasswordInput
+ *   placeholder="Enter your password"
+ *   showValue={false}
+ *   onValueVisibilityChange={(visible) => console.log('Password visible:', visible)}
+ * />
+ * ```
+ */
 const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
 	({ onValueVisibilityChange, showValue = false, ...props }, ref) => {
 		const [showPassword, setShowPassword] = useState<boolean>(showValue);
