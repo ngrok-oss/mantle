@@ -46,13 +46,11 @@ export default function Page() {
 				<PageHeader id="progress">Progress Bar</PageHeader>
 				<p className="font-body text-body text-xl">
 					Displays an indicator showing the completion progress of a task as a
-					linear progress bar with customizable colors and a 1px gap between
-					indicator and track.
+					linear progress bar with customizable colors.
 				</p>
 				<p className="font-body text-body text-xl">
-					The progress bar consists of three visual elements: the indicator
-					(filled portion), the track (unfilled portion), and the container
-					background that shows through the 1px gap.
+					The progress bar consists of an indicator (filled portion) that shows
+					the current progress value against a background container.
 				</p>
 				<div>
 					<Example className="flex-col gap-6">
@@ -280,12 +278,11 @@ export default function Page() {
 						<div className="font-body text-body space-y-1">
 							<p>
 								A linear progress bar that displays completion progress with
-								customizable colors and a 1px gap between indicator and track.
+								customizable colors.
 							</p>
 							<p>
-								The progress bar consists of three visual elements: the
-								indicator (filled portion), the track (unfilled portion), and
-								the container background that shows through the 1px gap.
+								The progress bar consists of an indicator (filled portion) that
+								shows the current progress value against a background container.
 							</p>
 
 							<p>
