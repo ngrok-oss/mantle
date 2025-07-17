@@ -1,11 +1,5 @@
 import { Button, IconButton } from "@ngrok/mantle/button";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import {
 	Dialog,
 	DialogBody,
@@ -200,10 +194,10 @@ export default function Page() {
 							</DialogContent>
 						</Dialog>
 					</Example>
-					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
 							import { Dialog, DialogBody, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@ngrok/mantle/dialog";
@@ -232,8 +226,8 @@ export default function Page() {
 							</Dialog>
 						`}
 							/>
-						</CodeBlockBody>
-					</CodeBlock>
+						</CodeBlock.Body>
+					</CodeBlock.Root>
 				</div>
 			</section>
 
@@ -295,10 +289,10 @@ export default function Page() {
 							</DialogContent>
 						</Dialog>
 					</Example>
-					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
 									<Dialog>
@@ -338,8 +332,8 @@ export default function Page() {
 									</Dialog>
 								`}
 							/>
-						</CodeBlockBody>
-					</CodeBlock>
+						</CodeBlock.Body>
+					</CodeBlock.Root>
 				</div>
 			</section>
 		</div>

@@ -6,13 +6,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@ngrok/mantle/card";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
@@ -87,10 +81,10 @@ export default function Page() {
 							</CardFooter>
 						</Card>
 					</Example>
-					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
 								import { Card, CardBody, CardFooter, CardHeader, CardTitle } from "@ngrok/mantle/card";
@@ -132,8 +126,8 @@ export default function Page() {
 								</Card>
 							`}
 							/>
-						</CodeBlockBody>
-					</CodeBlock>
+						</CodeBlock.Body>
+					</CodeBlock.Root>
 				</div>
 			</section>
 

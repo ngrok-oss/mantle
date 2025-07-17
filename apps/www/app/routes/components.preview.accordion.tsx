@@ -9,13 +9,7 @@ import {
 import { Badge } from "@ngrok/mantle/badge";
 import { Button } from "@ngrok/mantle/button";
 import { Card, CardBody } from "@ngrok/mantle/card";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { Separator } from "@ngrok/mantle/separator";
 import { PlusIcon } from "@phosphor-icons/react/Plus";
 import { Example } from "~/components/example";
@@ -164,10 +158,10 @@ export default function Page() {
 							</AccordionItem>
 						</Accordion>
 					</Example>
-					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
 									import {
@@ -250,8 +244,8 @@ export default function Page() {
 									</Accordion>
 								`}
 							/>
-						</CodeBlockBody>
-					</CodeBlock>
+						</CodeBlock.Body>
+					</CodeBlock.Root>
 				</div>
 			</section>
 

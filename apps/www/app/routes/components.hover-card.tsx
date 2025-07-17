@@ -1,11 +1,5 @@
 import { Button } from "@ngrok/mantle/button";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import {
 	HoverCard,
 	HoverCardContent,
@@ -73,10 +67,10 @@ export default function Page() {
 						</HoverCardContent>
 					</HoverCard>
 				</Example>
-				<CodeBlock className="rounded-b-lg rounded-t-none">
-					<CodeBlockBody>
-						<CodeBlockCopyButton />
-						<CodeBlockCode
+				<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+					<CodeBlock.Body>
+						<CodeBlock.CopyButton />
+						<CodeBlock.Code
 							language="tsx"
 							value={fmtCode`
 								import { Button } from "@ngrok/mantle/button";
@@ -109,8 +103,8 @@ export default function Page() {
 								</HoverCard>
 							`}
 						/>
-					</CodeBlockBody>
-				</CodeBlock>
+					</CodeBlock.Body>
+				</CodeBlock.Root>
 			</div>
 		</div>
 	);

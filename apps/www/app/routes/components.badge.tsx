@@ -1,12 +1,6 @@
 import { Anchor } from "@ngrok/mantle/anchor";
 import { Badge } from "@ngrok/mantle/badge";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { colors } from "@ngrok/mantle/color";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { GlobeHemisphereWestIcon } from "@phosphor-icons/react/GlobeHemisphereWest";
@@ -71,10 +65,10 @@ export default function Page() {
 							))}
 						</ul>
 					</Example>
-					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
 									import { Badge } from "@ngrok/mantle/badge";
@@ -88,8 +82,8 @@ export default function Page() {
 									</Badge>
 								`}
 							/>
-						</CodeBlockBody>
-					</CodeBlock>
+						</CodeBlock.Body>
+					</CodeBlock.Root>
 				</div>
 			</section>
 
@@ -115,10 +109,10 @@ export default function Page() {
 							<Link to={href("/base/colors")}>See our colors!</Link>
 						</Badge>
 					</Example>
-					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
 									import { Badge } from "@ngrok/mantle/badge";
@@ -130,8 +124,8 @@ export default function Page() {
 									</Badge>
 								`}
 							/>
-						</CodeBlockBody>
-					</CodeBlock>
+						</CodeBlock.Body>
+					</CodeBlock.Root>
 				</div>
 			</section>
 

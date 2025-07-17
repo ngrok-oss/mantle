@@ -1,11 +1,5 @@
 import { Button } from "@ngrok/mantle/button";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import {
 	Tooltip,
 	TooltipContent,
@@ -57,10 +51,10 @@ export default function Page() {
 						</Tooltip>
 					</TooltipProvider>
 				</Example>
-				<CodeBlock className="rounded-b-lg rounded-t-none">
-					<CodeBlockBody>
-						<CodeBlockCopyButton />
-						<CodeBlockCode
+				<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+					<CodeBlock.Body>
+						<CodeBlock.CopyButton />
+						<CodeBlock.Code
 							language="tsx"
 							value={fmtCode`
 								import { Button } from "@ngrok/mantle/button";
@@ -80,8 +74,8 @@ export default function Page() {
 								</TooltipProvider>
 							`}
 						/>
-					</CodeBlockBody>
-				</CodeBlock>
+					</CodeBlock.Body>
+				</CodeBlock.Root>
 			</div>
 		</div>
 	);

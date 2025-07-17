@@ -13,13 +13,7 @@ import {
 } from "@ngrok/mantle/alert-dialog";
 import { Anchor } from "@ngrok/mantle/anchor";
 import { Button } from "@ngrok/mantle/button";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { href } from "react-router";
 import { Example } from "~/components/example";
@@ -157,10 +151,10 @@ export default function Page() {
 							</AlertDialogContent>
 						</AlertDialog>
 					</Example>
-					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
 									import {
@@ -233,8 +227,8 @@ export default function Page() {
 									</AlertDialog>
 								`}
 							/>
-						</CodeBlockBody>
-					</CodeBlock>
+						</CodeBlock.Body>
+					</CodeBlock.Root>
 				</div>
 			</section>
 

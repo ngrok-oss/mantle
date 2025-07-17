@@ -1,12 +1,5 @@
 import { Anchor } from "@ngrok/mantle/anchor";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	CodeBlockExpanderButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Input, InputCapture } from "@ngrok/mantle/input";
 import { Label } from "@ngrok/mantle/label";
@@ -89,10 +82,10 @@ export default function Page() {
 							</div>
 						</div>
 					</Example>
-					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
 									import { Input } from "@ngrok/mantle/input";
@@ -103,8 +96,8 @@ export default function Page() {
 									<Input placeholder="Enter a username" validation="warning" />
 								`}
 							/>
-						</CodeBlockBody>
-					</CodeBlock>
+						</CodeBlock.Body>
+					</CodeBlock.Root>
 				</div>
 			</section>
 
@@ -191,10 +184,10 @@ export default function Page() {
 							</Input>
 						</Label>
 					</Example>
-					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
 									import { Input, InputCapture } from "@ngrok/mantle/input";
@@ -248,9 +241,9 @@ export default function Page() {
 									</Label>
 								`}
 							/>
-							<CodeBlockExpanderButton />
-						</CodeBlockBody>
-					</CodeBlock>
+							<CodeBlock.ExpanderButton />
+						</CodeBlock.Body>
+					</CodeBlock.Root>
 				</div>
 			</section>
 

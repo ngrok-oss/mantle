@@ -8,13 +8,7 @@ import {
 } from "@ngrok/mantle/alert";
 import { Anchor } from "@ngrok/mantle/anchor";
 import { Card, CardBody } from "@ngrok/mantle/card";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { ShrimpIcon } from "@phosphor-icons/react/Shrimp";
 import { Example } from "~/components/example";
@@ -102,10 +96,10 @@ export default function Page() {
 							</AlertContent>
 						</Alert>
 					</Example>
-					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
 									import {
@@ -156,8 +150,8 @@ export default function Page() {
 									</Alert>
 								`}
 							/>
-						</CodeBlockBody>
-					</CodeBlock>
+						</CodeBlock.Body>
+					</CodeBlock.Root>
 				</div>
 			</section>
 
@@ -241,10 +235,10 @@ export default function Page() {
 								</Alert>
 							</div>
 						</Example>
-						<CodeBlock className="rounded-b-lg rounded-t-none">
-							<CodeBlockBody>
-								<CodeBlockCopyButton />
-								<CodeBlockCode
+						<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+							<CodeBlock.Body>
+								<CodeBlock.CopyButton />
+								<CodeBlock.Code
 									language="tsx"
 									value={fmtCode`
 									import {
@@ -290,8 +284,8 @@ export default function Page() {
 									</Alert>
 								`}
 								/>
-							</CodeBlockBody>
-						</CodeBlock>
+							</CodeBlock.Body>
+						</CodeBlock.Root>
 					</div>
 				</section>
 
@@ -331,10 +325,10 @@ export default function Page() {
 								</div>
 							</div>
 						</Example>
-						<CodeBlock className="rounded-b-lg rounded-t-none">
-							<CodeBlockBody>
-								<CodeBlockCopyButton />
-								<CodeBlockCode
+						<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+							<CodeBlock.Body>
+								<CodeBlock.CopyButton />
+								<CodeBlock.Code
 									language="tsx"
 									value={fmtCode`
 									import {
@@ -353,8 +347,8 @@ export default function Page() {
 									</Alert>
 								`}
 								/>
-							</CodeBlockBody>
-						</CodeBlock>
+							</CodeBlock.Body>
+						</CodeBlock.Root>
 					</div>
 					<p className="font-body text-body text-xl">
 						Depending on the context, you may want or need to remove all borders
@@ -388,10 +382,10 @@ export default function Page() {
 								</div>
 							</div>
 						</Example>
-						<CodeBlock className="rounded-b-lg rounded-t-none">
-							<CodeBlockBody>
-								<CodeBlockCopyButton />
-								<CodeBlockCode
+						<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+							<CodeBlock.Body>
+								<CodeBlock.CopyButton />
+								<CodeBlock.Code
 									language="tsx"
 									value={fmtCode`
 									import {
@@ -410,8 +404,8 @@ export default function Page() {
 									</Alert>
 								`}
 								/>
-							</CodeBlockBody>
-						</CodeBlock>
+							</CodeBlock.Body>
+						</CodeBlock.Root>
 					</div>
 				</section>
 			</section>

@@ -62,34 +62,34 @@ type AlertDialogProps = ComponentProps<typeof AlertDialogPrimitive.Root> & {
  * @example
  * ```tsx
  * <AlertDialog priority="danger">
- *   <AlertDialogTrigger asChild>
+ *   <AlertDialog.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Show Danger Alert Dialog
  *     </Button>
- *   </AlertDialogTrigger>
- *   <AlertDialogContent>
- *     <AlertDialogIcon />
- *     <AlertDialogBody>
- *       <AlertDialogHeader>
- *         <AlertDialogTitle>
+ *   </AlertDialog.Trigger>
+ *   <AlertDialog.Content>
+ *     <AlertDialog.Icon />
+ *     <AlertDialog.Body>
+ *       <AlertDialog.Header>
+ *         <AlertDialog.Title>
  *           Are you absolutely sure?
- *         </AlertDialogTitle>
- *         <AlertDialogDescription>
+ *         </AlertDialog.Title>
+ *         <AlertDialog.Description>
  *           Proident quis nisi tempor irure sunt ut minim occaecat mollit sunt.
- *         </AlertDialogDescription>
- *       </AlertDialogHeader>
- *       <AlertDialogFooter>
- *         <AlertDialogCancel type="button">Cancel</AlertDialogCancel>
- *         <AlertDialogAction type="button">
+ *         </AlertDialog.Description>
+ *       </AlertDialog.Header>
+ *       <AlertDialog.Footer>
+ *         <AlertDialog.Cancel type="button">Cancel</AlertDialog.Cancel>
+ *         <AlertDialog.Action type="button">
  *           Continue
- *         </AlertDialogAction>
- *       </AlertDialogFooter>
- *   	</AlertDialogBody>
- *   </AlertDialogContent>
+ *         </AlertDialog.Action>
+ *       </AlertDialog.Footer>
+ *   	</AlertDialog.Body>
+ *   </AlertDialog.Content>
  * </AlertDialog>
  * ```
  */
-function AlertDialog({ priority, ...props }: AlertDialogProps) {
+function Root({ priority, ...props }: AlertDialogProps) {
 	const context: AlertDialogContextValue = useMemo(
 		() => ({ priority }),
 		[priority],
@@ -101,7 +101,7 @@ function AlertDialog({ priority, ...props }: AlertDialogProps) {
 		</AlertDialogContext.Provider>
 	);
 }
-AlertDialog.displayName = "AlertDialog";
+Root.displayName = "AlertDialog";
 
 /**
  * A button that opens the Alert Dialog.
@@ -745,7 +745,7 @@ AlertDialogClose.displayName = "AlertDialogClose";
 
 export {
 	//,
-	AlertDialog,
+	Root as AlertDialog,
 	AlertDialogAction,
 	AlertDialogBody,
 	AlertDialogCancel,

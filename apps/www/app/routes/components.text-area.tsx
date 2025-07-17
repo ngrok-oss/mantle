@@ -1,12 +1,6 @@
 import { Anchor } from "@ngrok/mantle/anchor";
 import { Button } from "@ngrok/mantle/button";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Label } from "@ngrok/mantle/label";
 import { TextArea } from "@ngrok/mantle/text-area";
@@ -105,10 +99,10 @@ export default function Page() {
 							/>
 						</Label>
 					</Example>
-					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
 									import { TextArea } from "@ngrok/mantle/text-area";
@@ -118,8 +112,8 @@ export default function Page() {
 									<TextArea placeholder="Tell us about your experience…" validation="error" />
 								`}
 							/>
-						</CodeBlockBody>
-					</CodeBlock>
+						</CodeBlock.Body>
+					</CodeBlock.Root>
 				</div>
 			</section>
 
@@ -154,10 +148,10 @@ export default function Page() {
 						<Example className="flex-col w-full">
 							<FormExample />
 						</Example>
-						<CodeBlock className="rounded-b-lg rounded-t-none">
-							<CodeBlockBody>
-								<CodeBlockCopyButton />
-								<CodeBlockCode
+						<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+							<CodeBlock.Body>
+								<CodeBlock.CopyButton />
+								<CodeBlock.Code
 									language="tsx"
 									value={fmtCode`
 										import { Button } from "@ngrok/mantle/button";
@@ -241,8 +235,8 @@ export default function Page() {
 										}
 									`}
 								/>
-							</CodeBlockBody>
-						</CodeBlock>
+							</CodeBlock.Body>
+						</CodeBlock.Root>
 					</div>
 				</section>
 			</section>

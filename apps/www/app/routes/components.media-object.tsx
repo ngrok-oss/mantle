@@ -1,11 +1,5 @@
 import { Anchor } from "@ngrok/mantle/anchor";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import {
 	MediaObject,
@@ -87,10 +81,10 @@ export default function Page() {
 								</MediaObjectContent>
 							</MediaObject>
 						</Example>
-						<CodeBlock className="rounded-b-lg rounded-t-none">
-							<CodeBlockBody>
-								<CodeBlockCopyButton />
-								<CodeBlockCode
+						<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+							<CodeBlock.Body>
+								<CodeBlock.CopyButton />
+								<CodeBlock.Code
 									language="tsx"
 									value={fmtCode`
 										import { MediaObject, MediaObjectContent, MediaObjectMedia } from "@ngrok/mantle/media-object";
@@ -110,8 +104,8 @@ export default function Page() {
 										</MediaObject>
 									`}
 								/>
-							</CodeBlockBody>
-						</CodeBlock>
+							</CodeBlock.Body>
+						</CodeBlock.Root>
 					</div>
 				</div>
 			</section>
