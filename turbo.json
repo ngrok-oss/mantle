@@ -37,6 +37,7 @@
       "persistent": true
     },
     "typecheck": {
+      "cache": false,
       "outputs": ["**/.react-router/**"]
     }
   },
