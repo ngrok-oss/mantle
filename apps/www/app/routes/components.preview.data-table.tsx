@@ -1,12 +1,6 @@
 import { Anchor } from "@ngrok/mantle/anchor";
 import { IconButton } from "@ngrok/mantle/button";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import {
 	DataTable,
 	DataTableActionCell,
@@ -31,7 +25,7 @@ import {
 } from "@ngrok/mantle/dropdown-menu";
 import { Icon } from "@ngrok/mantle/icon";
 import { InlineCode } from "@ngrok/mantle/inline-code";
-import { TableCell } from "@ngrok/mantle/table";
+import { Table } from "@ngrok/mantle/table";
 import { DotsThreeIcon } from "@phosphor-icons/react/DotsThree";
 import { PencilSimpleIcon } from "@phosphor-icons/react/PencilSimple";
 import { TrashSimpleIcon } from "@phosphor-icons/react/TrashSimple";
@@ -80,10 +74,10 @@ export default function Page() {
 							<EmptyPaymentsExample />
 						</div>
 					</Example>
-					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
 									import {
@@ -125,7 +119,7 @@ export default function Page() {
 												</DataTableHeader>
 											),
 											cell: (props) => (
-												<TableCell key={props.cell.id}>{props.getValue()}</TableCell>
+												<Table.Cell key={props.cell.id}>{props.getValue()}</Table.Cell>
 											),
 										}),
 										columnHelper.accessor("amount", {
@@ -143,9 +137,9 @@ export default function Page() {
 												</DataTableHeader>
 											),
 											cell: (props) => (
-												<TableCell key={props.cell.id} className="text-right">
+												<Table.Cell key={props.cell.id} className="text-right">
 													{props.getValue()}
-												</TableCell>
+												</Table.Cell>
 											),
 										}),
 										columnHelper.accessor("status", {
@@ -161,7 +155,7 @@ export default function Page() {
 												</DataTableHeader>
 											),
 											cell: (props) => (
-												<TableCell key={props.cell.id}>{props.getValue()}</TableCell>
+												<Table.Cell key={props.cell.id}>{props.getValue()}</Table.Cell>
 											),
 										}),
 										columnHelper.accessor("email", {
@@ -177,7 +171,7 @@ export default function Page() {
 												</DataTableHeader>
 											),
 											cell: (props) => (
-												<TableCell key={props.cell.id}>{props.getValue()}</TableCell>
+												<Table.Cell key={props.cell.id}>{props.getValue()}</Table.Cell>
 											),
 										}),
 										columnHelper.display({
@@ -247,8 +241,8 @@ export default function Page() {
 									}
 								`}
 							/>
-						</CodeBlockBody>
-					</CodeBlock>
+						</CodeBlock.Body>
+					</CodeBlock.Root>
 				</div>
 			</div>
 			<section className="space-y-4">
@@ -387,7 +381,7 @@ const columns = [
 			</DataTableHeader>
 		),
 		cell: (props) => (
-			<TableCell key={props.cell.id}>{props.getValue()}</TableCell>
+			<Table.Cell key={props.cell.id}>{props.getValue()}</Table.Cell>
 		),
 	}),
 	columnHelper.accessor("amount", {
@@ -405,9 +399,9 @@ const columns = [
 			</DataTableHeader>
 		),
 		cell: (props) => (
-			<TableCell key={props.cell.id} className="text-right">
+			<Table.Cell key={props.cell.id} className="text-right">
 				{props.getValue()}
-			</TableCell>
+			</Table.Cell>
 		),
 	}),
 	columnHelper.accessor("status", {
@@ -423,7 +417,7 @@ const columns = [
 			</DataTableHeader>
 		),
 		cell: (props) => (
-			<TableCell key={props.cell.id}>{props.getValue()}</TableCell>
+			<Table.Cell key={props.cell.id}>{props.getValue()}</Table.Cell>
 		),
 	}),
 	columnHelper.accessor("email", {
@@ -439,7 +433,7 @@ const columns = [
 			</DataTableHeader>
 		),
 		cell: (props) => (
-			<TableCell key={props.cell.id}>{props.getValue()}</TableCell>
+			<Table.Cell key={props.cell.id}>{props.getValue()}</Table.Cell>
 		),
 	}),
 	columnHelper.display({

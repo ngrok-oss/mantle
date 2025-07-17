@@ -1,10 +1,4 @@
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
@@ -38,10 +32,10 @@ export default function Page() {
 				<Example>
 					<InlineCode>npm install @ngrok/mantle</InlineCode>
 				</Example>
-				<CodeBlock className="rounded-b-lg rounded-t-none">
-					<CodeBlockBody>
-						<CodeBlockCopyButton />
-						<CodeBlockCode
+				<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+					<CodeBlock.Body>
+						<CodeBlock.CopyButton />
+						<CodeBlock.Code
 							language="tsx"
 							value={fmtCode`
 						import { InlineCode } from "@ngrok/mantle/inline-code";
@@ -49,8 +43,8 @@ export default function Page() {
 						<InlineCode>npm install @ngrok/mantle</InlineCode>
 					`}
 						/>
-					</CodeBlockBody>
-				</CodeBlock>
+					</CodeBlock.Body>
+				</CodeBlock.Root>
 			</div>
 		</div>
 	);

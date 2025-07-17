@@ -5,16 +5,7 @@ import {
 	AlertIcon,
 } from "@ngrok/mantle/alert";
 import { Anchor } from "@ngrok/mantle/anchor";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	CodeBlockHeader,
-	CodeBlockIcon,
-	CodeBlockTitle,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import {
 	Select,
@@ -135,11 +126,11 @@ export default function Page() {
 					</Anchor>{" "}
 					and mantle content to your tailwind configuration:
 				</p>
-				<CodeBlock className="mt-4">
-					<CodeBlockHeader>tailwind.config.ts</CodeBlockHeader>
-					<CodeBlockBody>
-						<CodeBlockCopyButton />
-						<CodeBlockCode
+				<CodeBlock.Root className="mt-4">
+					<CodeBlock.Header>tailwind.config.ts</CodeBlock.Header>
+					<CodeBlock.Body>
+						<CodeBlock.CopyButton />
+						<CodeBlock.Code
 							language="ts"
 							value={fmtCode`
 								import { createRequire } from "node:module";
@@ -155,8 +146,8 @@ export default function Page() {
 								} satisfies Config;
 							`}
 						/>
-					</CodeBlockBody>
-				</CodeBlock>
+					</CodeBlock.Body>
+				</CodeBlock.Root>
 			</section>
 
 			<ApplicationScaffoldingSection />
@@ -218,25 +209,25 @@ function InstallationInstructions() {
 					</AlertDescription>
 				</AlertContent>
 			</Alert>
-			<CodeBlock>
-				<CodeBlockHeader>
-					<CodeBlockIcon preset="cli" />
-					<CodeBlockTitle className="flex-1">
+			<CodeBlock.Root>
+				<CodeBlock.Header>
+					<CodeBlock.Icon preset="cli" />
+					<CodeBlock.Title className="flex-1">
 						mantle and dependencies installation
-					</CodeBlockTitle>
+					</CodeBlock.Title>
 					<PackageManagerSelect
 						value={preferredPackageManager}
 						onChange={setPrefferedPackageManager}
 					/>
-				</CodeBlockHeader>
-				<CodeBlockBody>
-					<CodeBlockCopyButton />
-					<CodeBlockCode
+				</CodeBlock.Header>
+				<CodeBlock.Body>
+					<CodeBlock.CopyButton />
+					<CodeBlock.Code
 						language="sh"
 						value={fmtCode`${primaryInstallationCommand[preferredPackageManager]}`}
 					/>
-				</CodeBlockBody>
-			</CodeBlock>
+				</CodeBlock.Body>
+			</CodeBlock.Root>
 			<p className="font-body text-body">
 				You will also need to install the following{" "}
 				<InlineCode>devDependencies</InlineCode>:
@@ -250,25 +241,25 @@ function InstallationInstructions() {
 					</AlertDescription>
 				</AlertContent>
 			</Alert>
-			<CodeBlock>
-				<CodeBlockHeader>
-					<CodeBlockIcon preset="cli" />
-					<CodeBlockTitle className="flex-1">
+			<CodeBlock.Root>
+				<CodeBlock.Header>
+					<CodeBlock.Icon preset="cli" />
+					<CodeBlock.Title className="flex-1">
 						mantle devDependencies installation
-					</CodeBlockTitle>
+					</CodeBlock.Title>
 					<PackageManagerSelect
 						value={preferredPackageManager}
 						onChange={setPrefferedPackageManager}
 					/>
-				</CodeBlockHeader>
-				<CodeBlockBody>
-					<CodeBlockCopyButton />
-					<CodeBlockCode
+				</CodeBlock.Header>
+				<CodeBlock.Body>
+					<CodeBlock.CopyButton />
+					<CodeBlock.Code
 						language="sh"
 						value={fmtCode`${devDependenciesInstallationCommand[preferredPackageManager]}`}
 					/>
-				</CodeBlockBody>
-			</CodeBlock>
+				</CodeBlock.Body>
+			</CodeBlock.Root>
 		</div>
 	);
 }
@@ -409,14 +400,14 @@ function ReactRouterScaffolding() {
 					</AlertDescription>
 				</AlertContent>
 			</Alert>
-			<CodeBlock>
-				<CodeBlockHeader>
-					<CodeBlockIcon svg={<FileTsxIcon />} />{" "}
-					<CodeBlockTitle>app/root.tsx</CodeBlockTitle>
-				</CodeBlockHeader>
-				<CodeBlockBody>
-					<CodeBlockCopyButton />
-					<CodeBlockCode
+			<CodeBlock.Root>
+				<CodeBlock.Header>
+					<CodeBlock.Icon svg={<FileTsxIcon />} />{" "}
+					<CodeBlock.Title>app/root.tsx</CodeBlock.Title>
+				</CodeBlock.Header>
+				<CodeBlock.Body>
+					<CodeBlock.CopyButton />
+					<CodeBlock.Code
 						language="tsx"
 						value={fmtCode`
 							import {
@@ -503,8 +494,8 @@ function ReactRouterScaffolding() {
 
 						`}
 					/>
-				</CodeBlockBody>
-			</CodeBlock>
+				</CodeBlock.Body>
+			</CodeBlock.Root>
 		</div>
 	);
 }
@@ -540,14 +531,14 @@ function ViteScaffolding() {
 				<Link to={href("/components/preview/tooltip")}>Tooltip Provider</Link>{" "}
 				to your app to enable theme selection, toasts, and tooltips.
 			</p>
-			<CodeBlock>
-				<CodeBlockHeader>
-					<CodeBlockIcon svg={<FileTsxIcon />} />{" "}
-					<CodeBlockTitle>src/main.tsx</CodeBlockTitle>
-				</CodeBlockHeader>
-				<CodeBlockBody>
-					<CodeBlockCopyButton />
-					<CodeBlockCode
+			<CodeBlock.Root>
+				<CodeBlock.Header>
+					<CodeBlock.Icon svg={<FileTsxIcon />} />{" "}
+					<CodeBlock.Title>src/main.tsx</CodeBlock.Title>
+				</CodeBlock.Header>
+				<CodeBlock.Body>
+					<CodeBlock.CopyButton />
+					<CodeBlock.Code
 						language="tsx"
 						value={fmtCode`
 							import { StrictMode } from "react"
@@ -570,8 +561,8 @@ function ViteScaffolding() {
 							)
 						`}
 					/>
-				</CodeBlockBody>
-			</CodeBlock>
+				</CodeBlock.Body>
+			</CodeBlock.Root>
 
 			<p className="font-body text-body">
 				To prevent a flash of unstyled content (FOUC), you will need to update
@@ -588,14 +579,14 @@ function ViteScaffolding() {
 					</AlertDescription>
 				</AlertContent>
 			</Alert>
-			<CodeBlock>
-				<CodeBlockHeader>
-					<CodeBlockIcon svg={<FileHtmlIcon />} />{" "}
-					<CodeBlockTitle>index.html</CodeBlockTitle>
-				</CodeBlockHeader>
-				<CodeBlockBody>
-					<CodeBlockCopyButton />
-					<CodeBlockCode
+			<CodeBlock.Root>
+				<CodeBlock.Header>
+					<CodeBlock.Icon svg={<FileHtmlIcon />} />{" "}
+					<CodeBlock.Title>index.html</CodeBlock.Title>
+				</CodeBlock.Header>
+				<CodeBlock.Body>
+					<CodeBlock.CopyButton />
+					<CodeBlock.Code
 						language="html"
 						value={fmtCode`
 <!doctype html>
@@ -614,8 +605,8 @@ function ViteScaffolding() {
 </html>
 						`}
 					/>
-				</CodeBlockBody>
-			</CodeBlock>
+				</CodeBlock.Body>
+			</CodeBlock.Root>
 		</div>
 	);
 }
@@ -634,14 +625,14 @@ function ReactSpaScaffolding() {
 				<Link to={href("/components/preview/tooltip")}>Tooltip Provider</Link>{" "}
 				to your app to enable theme selection, toasts, and tooltips.
 			</p>
-			<CodeBlock>
-				<CodeBlockHeader>
-					<CodeBlockIcon svg={<FileTsxIcon />} />{" "}
-					<CodeBlockTitle>root.tsx</CodeBlockTitle>
-				</CodeBlockHeader>
-				<CodeBlockBody>
-					<CodeBlockCopyButton />
-					<CodeBlockCode
+			<CodeBlock.Root>
+				<CodeBlock.Header>
+					<CodeBlock.Icon svg={<FileTsxIcon />} />{" "}
+					<CodeBlock.Title>root.tsx</CodeBlock.Title>
+				</CodeBlock.Header>
+				<CodeBlock.Body>
+					<CodeBlock.CopyButton />
+					<CodeBlock.Code
 						language="tsx"
 						value={fmtCode`
 							import { StrictMode } from "react"
@@ -672,8 +663,8 @@ function ReactSpaScaffolding() {
 							);
 						`}
 					/>
-				</CodeBlockBody>
-			</CodeBlock>
+				</CodeBlock.Body>
+			</CodeBlock.Root>
 
 			<p className="font-body text-body">
 				To prevent a flash of unstyled content (FOUC), you will need to update
@@ -690,21 +681,21 @@ function ReactSpaScaffolding() {
 					</AlertDescription>
 				</AlertContent>
 			</Alert>
-			<CodeBlock>
-				<CodeBlockHeader>
-					<CodeBlockIcon svg={<FileHtmlIcon />} />{" "}
-					<CodeBlockTitle>index.html</CodeBlockTitle>
-				</CodeBlockHeader>
-				<CodeBlockBody>
-					<CodeBlockCopyButton />
-					<CodeBlockCode
+			<CodeBlock.Root>
+				<CodeBlock.Header>
+					<CodeBlock.Icon svg={<FileHtmlIcon />} />{" "}
+					<CodeBlock.Title>index.html</CodeBlock.Title>
+				</CodeBlock.Header>
+				<CodeBlock.Body>
+					<CodeBlock.CopyButton />
+					<CodeBlock.Code
 						language="html"
 						value={fmtCode`
 <script>${preventWrongThemeFlashScriptContent()}</script>
 						`}
 					/>
-				</CodeBlockBody>
-			</CodeBlock>
+				</CodeBlock.Body>
+			</CodeBlock.Root>
 		</div>
 	);
 }

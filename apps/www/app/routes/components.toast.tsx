@@ -10,13 +10,7 @@ import {
 	AlertDialogTrigger,
 } from "@ngrok/mantle/alert-dialog";
 import { Button, IconButton } from "@ngrok/mantle/button";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import {
 	Dialog,
 	DialogBody,
@@ -264,10 +258,10 @@ export default function Page() {
 						</AlertDialogContent>
 					</AlertDialog>
 				</Example>
-				<CodeBlock className="rounded-b-lg rounded-t-none">
-					<CodeBlockBody>
-						<CodeBlockCopyButton />
-						<CodeBlockCode
+				<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+					<CodeBlock.Body>
+						<CodeBlock.CopyButton />
+						<CodeBlock.Code
 							language="tsx"
 							value={fmtCode`
 								import { Button } from "@ngrok/mantle/button";
@@ -298,8 +292,8 @@ export default function Page() {
 								</Button>
 							`}
 						/>
-					</CodeBlockBody>
-				</CodeBlock>
+					</CodeBlock.Body>
+				</CodeBlock.Root>
 			</div>
 		</div>
 	);

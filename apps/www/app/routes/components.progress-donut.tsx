@@ -1,11 +1,5 @@
 import { Anchor } from "@ngrok/mantle/anchor";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { ProgressDonut, ProgressDonutIndicator } from "@ngrok/mantle/progress";
 import { useState } from "react";
@@ -107,10 +101,10 @@ export default function Page() {
 							</div>
 						</div>
 					</Example>
-					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
 									import { ProgressDonut, ProgressDonutIndicator } from "@ngrok/mantle/progress";
@@ -151,8 +145,8 @@ export default function Page() {
 									</div>
 								`}
 							/>
-						</CodeBlockBody>
-					</CodeBlock>
+						</CodeBlock.Body>
+					</CodeBlock.Root>
 				</div>
 			</div>
 			<section className="space-y-4">
@@ -174,10 +168,10 @@ export default function Page() {
 							<ProgressDonutIndicator />
 						</ProgressDonut>
 					</Example>
-					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
 									import { ProgressDonut, ProgressDonutIndicator } from "@ngrok/mantle/progress";
@@ -187,8 +181,8 @@ export default function Page() {
 									</ProgressDonut>
 								`}
 							/>
-						</CodeBlockBody>
-					</CodeBlock>
+						</CodeBlock.Body>
+					</CodeBlock.Root>
 				</div>
 			</section>
 			<section className="space-y-4">
@@ -205,10 +199,10 @@ export default function Page() {
 					<Example>
 						<DynamicColorsExample />
 					</Example>
-					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
 									import { ProgressDonut, ProgressDonutIndicator } from "@ngrok/mantle/progress";
@@ -246,8 +240,8 @@ export default function Page() {
 									};
 								`}
 							/>
-						</CodeBlockBody>
-					</CodeBlock>
+						</CodeBlock.Body>
+					</CodeBlock.Root>
 				</div>
 			</section>
 

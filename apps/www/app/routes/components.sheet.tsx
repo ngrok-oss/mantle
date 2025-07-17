@@ -1,12 +1,6 @@
 import { Anchor } from "@ngrok/mantle/anchor";
 import { Button, IconButton } from "@ngrok/mantle/button";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Separator } from "@ngrok/mantle/separator";
 import {
@@ -171,10 +165,10 @@ export default function Page() {
 							</SheetContent>
 						</Sheet>
 					</Example>
-					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
 									import { Button, IconButton } from "@ngrok/mantle/button";
@@ -232,8 +226,8 @@ export default function Page() {
 									</Sheet>
 								`}
 							/>
-						</CodeBlockBody>
-					</CodeBlock>
+						</CodeBlock.Body>
+					</CodeBlock.Root>
 				</div>
 			</section>
 
@@ -260,10 +254,10 @@ export default function Page() {
 						<Example>
 							<WithoutTriggerExample />
 						</Example>
-						<CodeBlock className="rounded-b-lg rounded-t-none">
-							<CodeBlockBody>
-								<CodeBlockCopyButton />
-								<CodeBlockCode
+						<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+							<CodeBlock.Body>
+								<CodeBlock.CopyButton />
+								<CodeBlock.Code
 									language="tsx"
 									value={fmtCode`
 										import { Button } from "@ngrok/mantle/button";
@@ -322,8 +316,8 @@ export default function Page() {
 										}
 									`}
 								/>
-							</CodeBlockBody>
-						</CodeBlock>
+							</CodeBlock.Body>
+						</CodeBlock.Root>
 					</div>
 				</section>
 
@@ -381,10 +375,10 @@ export default function Page() {
 								</SheetContent>
 							</Sheet>
 						</Example>
-						<CodeBlock className="rounded-b-lg rounded-t-none">
-							<CodeBlockBody>
-								<CodeBlockCopyButton />
-								<CodeBlockCode
+						<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+							<CodeBlock.Body>
+								<CodeBlock.CopyButton />
+								<CodeBlock.Code
 									language="tsx"
 									value={fmtCode`
 										import { Button } from "@ngrok/mantle/button";
@@ -440,8 +434,8 @@ export default function Page() {
 										</Sheet>
 									`}
 								/>
-							</CodeBlockBody>
-						</CodeBlock>
+							</CodeBlock.Body>
+						</CodeBlock.Root>
 					</div>
 				</section>
 			</section>

@@ -1,13 +1,7 @@
 import { Anchor } from "@ngrok/mantle/anchor";
 import { IconButton } from "@ngrok/mantle/button";
 import { Calendar, type DateRange } from "@ngrok/mantle/calendar";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Popover, PopoverContent, PopoverTrigger } from "@ngrok/mantle/popover";
 import { CalendarIcon } from "@phosphor-icons/react/Calendar";
@@ -202,10 +196,10 @@ export default function Page() {
 							<DisabledDaysCalendarExample />
 						</div>
 					</Example>
-					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
 									import { Calendar } from "@ngrok/mantle/calendar";
@@ -217,8 +211,8 @@ export default function Page() {
 									/>
 								`}
 							/>
-						</CodeBlockBody>
-					</CodeBlock>
+						</CodeBlock.Body>
+					</CodeBlock.Root>
 				</div>
 			</section>
 

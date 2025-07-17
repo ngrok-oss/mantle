@@ -1,13 +1,6 @@
 import { Anchor } from "@ngrok/mantle/anchor";
 import {
 	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	CodeBlockExpanderButton,
-	CodeBlockHeader,
-	CodeBlockIcon,
-	CodeBlockTitle,
 	fmtCode,
 	supportedLanguages,
 } from "@ngrok/mantle/code-block";
@@ -57,14 +50,14 @@ export default function Page() {
 
 				<div>
 					<Example>
-						<CodeBlock>
-							<CodeBlockHeader>
-								<CodeBlockIcon preset="file" />
-								<CodeBlockTitle>ngrok-example.js</CodeBlockTitle>
-							</CodeBlockHeader>
-							<CodeBlockBody>
-								<CodeBlockCopyButton />
-								<CodeBlockCode
+						<CodeBlock.Root>
+							<CodeBlock.Header>
+								<CodeBlock.Icon preset="file" />
+								<CodeBlock.Title>ngrok-example.js</CodeBlock.Title>
+							</CodeBlock.Header>
+							<CodeBlock.Body>
+								<CodeBlock.CopyButton />
+								<CodeBlock.Code
 									language="js"
 									value={fmtCode`
 										const listener = await ngrok.connect({
@@ -111,43 +104,36 @@ export default function Page() {
 										});
 									`}
 								/>
-							</CodeBlockBody>
-							<CodeBlockExpanderButton />
-						</CodeBlock>
+							</CodeBlock.Body>
+							<CodeBlock.ExpanderButton />
+						</CodeBlock.Root>
 					</Example>
-					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
 									import {
 										CodeBlock,
-										CodeBlockBody,
-										CodeBlockCode,
-										CodeBlockCopyButton,
-										CodeBlockExpanderButton,
-										CodeBlockHeader,
-										CodeBlockIcon,
-										CodeBlockTitle,
 										fmtCode,
 									} from "@ngrok/mantle/code-block";
 
-									<CodeBlock>
-										<CodeBlockHeader>
-											<CodeBlockIcon preset="file" />
-											<CodeBlockTitle>…</CodeBlockTitle>
-										</CodeBlockHeader>
-										<CodeBlockBody>
-											<CodeBlockCopyButton />
-											<CodeBlockCode language="…" value={fmtCode\`…\`} />
-										</CodeBlockBody>
-										<CodeBlockExpanderButton />
-									</CodeBlock>
+									<CodeBlock.Root>
+										<CodeBlock.Header>
+											<CodeBlock.Icon preset="file" />
+											<CodeBlock.Title>…</CodeBlock.Title>
+										</CodeBlock.Header>
+										<CodeBlock.Body>
+											<CodeBlock.CopyButton />
+											<CodeBlock.Code language="…" value={fmtCode\`…\`} />
+										</CodeBlock.Body>
+										<CodeBlock.ExpanderButton />
+									</CodeBlock.Root>
 								`}
 							/>
-						</CodeBlockBody>
-					</CodeBlock>
+						</CodeBlock.Body>
+					</CodeBlock.Root>
 				</div>
 			</section>
 
@@ -174,40 +160,40 @@ export default function Page() {
 
 					<div>
 						<Example>
-							<CodeBlock>
-								<CodeBlockHeader>
-									<CodeBlockIcon preset="cli" />
-									<CodeBlockTitle>Command Line</CodeBlockTitle>
-								</CodeBlockHeader>
-								<CodeBlockBody>
-									<CodeBlockCopyButton />
-									<CodeBlockCode
+							<CodeBlock.Root>
+								<CodeBlock.Header>
+									<CodeBlock.Icon preset="cli" />
+									<CodeBlock.Title>Command Line</CodeBlock.Title>
+								</CodeBlock.Header>
+								<CodeBlock.Body>
+									<CodeBlock.CopyButton />
+									<CodeBlock.Code
 										language="sh"
 										value={fmtCode`sudo unzip ~/Downloads/ngrok-v3-stable-darwin.zip -d /usr/local/bin`}
 									/>
-								</CodeBlockBody>
-							</CodeBlock>
+								</CodeBlock.Body>
+							</CodeBlock.Root>
 						</Example>
-						<CodeBlock className="rounded-b-lg rounded-t-none">
-							<CodeBlockBody>
-								<CodeBlockCopyButton />
-								<CodeBlockCode
+						<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+							<CodeBlock.Body>
+								<CodeBlock.CopyButton />
+								<CodeBlock.Code
 									language="tsx"
 									value={fmtCode`
-										<CodeBlock>
-											<CodeBlockHeader>
-												<CodeBlockIcon preset="cli" />
-												<CodeBlockTitle>Command Line</CodeBlockTitle>
-											</CodeBlockHeader>
-											<CodeBlockBody>
-												<CodeBlockCopyButton />
-												<CodeBlockCode language="sh" value={fmtCode\`sudo unzip ~/Downloads/ngrok-v3-stable-darwin.zip -d /usr/local/bin\`} />
-											</CodeBlockBody>
-										</CodeBlock>
+										<CodeBlock.Root>
+											<CodeBlock.Header>
+												<CodeBlock.Icon preset="cli" />
+												<CodeBlock.Title>Command Line</CodeBlock.Title>
+											</CodeBlock.Header>
+											<CodeBlock.Body>
+												<CodeBlock.CopyButton />
+												<CodeBlock.Code language="sh" value={fmtCode\`sudo unzip ~/Downloads/ngrok-v3-stable-darwin.zip -d /usr/local/bin\`} />
+											</CodeBlock.Body>
+										</CodeBlock.Root>
 									`}
 								/>
-							</CodeBlockBody>
-						</CodeBlock>
+							</CodeBlock.Body>
+						</CodeBlock.Root>
 					</div>
 				</section>
 
@@ -227,14 +213,14 @@ export default function Page() {
 					</header>
 					<div>
 						<Example>
-							<CodeBlock>
-								<CodeBlockHeader>
-									<CodeBlockIcon preset="file" />
-									<CodeBlockTitle>ngrok-example.js</CodeBlockTitle>
-								</CodeBlockHeader>
-								<CodeBlockBody>
-									<CodeBlockCopyButton />
-									<CodeBlockCode
+							<CodeBlock.Root>
+								<CodeBlock.Header>
+									<CodeBlock.Icon preset="file" />
+									<CodeBlock.Title>ngrok-example.js</CodeBlock.Title>
+								</CodeBlock.Header>
+								<CodeBlock.Body>
+									<CodeBlock.CopyButton />
+									<CodeBlock.Code
 										language="js"
 										value={fmtCode`
 											const http = require('http');
@@ -255,23 +241,23 @@ export default function Page() {
 											// really long line here that should wrap around and stuff Officia ipsum sint eu labore esse deserunt aliqua quis irure.
 										`}
 									/>
-								</CodeBlockBody>
-							</CodeBlock>
+								</CodeBlock.Body>
+							</CodeBlock.Root>
 						</Example>
-						<CodeBlock className="rounded-b-lg rounded-t-none">
-							<CodeBlockBody>
-								<CodeBlockCopyButton />
-								<CodeBlockCode
+						<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+							<CodeBlock.Body>
+								<CodeBlock.CopyButton />
+								<CodeBlock.Code
 									language="tsx"
 									value={fmtCode`
-										<CodeBlock>
-											<CodeBlockHeader>
-												<CodeBlockIcon preset="file" />
-												<CodeBlockTitle>ngrok-example.js</CodeBlockTitle>
-											</CodeBlockHeader>
-											<CodeBlockBody>
-												<CodeBlockCopyButton />
-												<CodeBlockCode
+										<CodeBlock.Root>
+											<CodeBlock.Header>
+												<CodeBlock.Icon preset="file" />
+												<CodeBlock.Title>ngrok-example.js</CodeBlock.Title>
+											</CodeBlock.Header>
+											<CodeBlock.Body>
+												<CodeBlock.CopyButton />
+												<CodeBlock.Code
 													language="js"
 													value={fmtCode\`
 														const http = require('http');
@@ -292,13 +278,13 @@ export default function Page() {
 														// really long line here that should wrap around and stuff Officia ipsum sint eu labore esse deserunt aliqua quis irure.
 													\`}
 												/>
-											</CodeBlockBody>
-										</CodeBlock>
+											</CodeBlock.Body>
+										</CodeBlock.Root>
 									`}
 								/>
-							</CodeBlockBody>
-							<CodeBlockExpanderButton />
-						</CodeBlock>
+							</CodeBlock.Body>
+							<CodeBlock.ExpanderButton />
+						</CodeBlock.Root>
 					</div>
 				</section>
 
@@ -321,9 +307,9 @@ export default function Page() {
 					</header>
 					<div>
 						<Example>
-							<CodeBlock>
-								<CodeBlockBody>
-									<CodeBlockCode
+							<CodeBlock.Root>
+								<CodeBlock.Body>
+									<CodeBlock.Code
 										language="js"
 										value={fmtCode`
 											const http = require('http');
@@ -338,18 +324,18 @@ export default function Page() {
 											});
 										`}
 									/>
-								</CodeBlockBody>
-							</CodeBlock>
+								</CodeBlock.Body>
+							</CodeBlock.Root>
 						</Example>
-						<CodeBlock className="rounded-b-lg rounded-t-none">
-							<CodeBlockBody>
-								<CodeBlockCopyButton />
-								<CodeBlockCode
+						<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+							<CodeBlock.Body>
+								<CodeBlock.CopyButton />
+								<CodeBlock.Code
 									language="tsx"
 									value={fmtCode`
-										<CodeBlock>
-											<CodeBlockBody>
-												<CodeBlockCode
+										<CodeBlock.Root>
+											<CodeBlock.Body>
+												<CodeBlock.Code
 													language="js"
 													value={fmtCode\`
 														const http = require('http');
@@ -364,13 +350,13 @@ export default function Page() {
 														});
 													\`}
 												/>
-											</CodeBlockBody>
-										</CodeBlock>
+											</CodeBlock.Body>
+										</CodeBlock.Root>
 									`}
 								/>
-							</CodeBlockBody>
-							<CodeBlockExpanderButton />
-						</CodeBlock>
+							</CodeBlock.Body>
+							<CodeBlock.ExpanderButton />
+						</CodeBlock.Root>
 					</div>
 				</section>
 
@@ -390,35 +376,35 @@ export default function Page() {
 					</header>
 					<div>
 						<Example>
-							<CodeBlock>
-								<CodeBlockBody>
-									<CodeBlockCopyButton />
-									<CodeBlockCode
+							<CodeBlock.Root>
+								<CodeBlock.Body>
+									<CodeBlock.CopyButton />
+									<CodeBlock.Code
 										language="sh"
 										value={fmtCode`ffmpeg -i multichannel.mxf -map 0:v:0 -map 0:a:0 -map 0:a:0 -c:a:0 ac3 -b:a:0 640k -ac:a:1 2 -c:a:1 aac -b:2 128k out.mp4`}
 									/>
-								</CodeBlockBody>
-							</CodeBlock>
+								</CodeBlock.Body>
+							</CodeBlock.Root>
 						</Example>
-						<CodeBlock className="rounded-b-lg rounded-t-none">
-							<CodeBlockBody>
-								<CodeBlockCopyButton />
-								<CodeBlockCode
+						<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+							<CodeBlock.Body>
+								<CodeBlock.CopyButton />
+								<CodeBlock.Code
 									language="tsx"
 									value={fmtCode`
-										<CodeBlock>
-											<CodeBlockBody>
-												<CodeBlockCopyButton />
-												<CodeBlockCode
+										<CodeBlock.Root>
+											<CodeBlock.Body>
+												<CodeBlock.CopyButton />
+												<CodeBlock.Code
 													language="sh"
 													value={fmtCode\`ffmpeg -i multichannel.mxf -map 0:v:0 -map 0:a:0 -map 0:a:0 -c:a:0 ac3 -b:a:0 640k -ac:a:1 2 -c:a:1 aac -b:2 128k out.mp4\`}
 												/>
-											</CodeBlockBody>
-										</CodeBlock>
+											</CodeBlock.Body>
+										</CodeBlock.Root>
 									`}
 								/>
-							</CodeBlockBody>
-						</CodeBlock>
+							</CodeBlock.Body>
+						</CodeBlock.Root>
 					</div>
 				</section>
 
@@ -439,19 +425,19 @@ export default function Page() {
 							code is displayed and copied correctly and is easy to read.
 							However, you can override this by passing the{" "}
 							<InlineCode>indentation</InlineCode> prop to the{" "}
-							<InlineCode>CodeBlockCode</InlineCode>.
+							<InlineCode>CodeBlock.Code</InlineCode>.
 						</p>
 					</header>
 					<div>
 						<Example className="flex-col gap-4">
-							<CodeBlock>
-								<CodeBlockHeader>
-									<CodeBlockIcon preset="traffic-policy" />
-									<CodeBlockTitle>traffic-policy.yaml</CodeBlockTitle>
-								</CodeBlockHeader>
-								<CodeBlockBody>
-									<CodeBlockCopyButton />
-									<CodeBlockCode
+							<CodeBlock.Root>
+								<CodeBlock.Header>
+									<CodeBlock.Icon preset="traffic-policy" />
+									<CodeBlock.Title>traffic-policy.yaml</CodeBlock.Title>
+								</CodeBlock.Header>
+								<CodeBlock.Body>
+									<CodeBlock.CopyButton />
+									<CodeBlock.Code
 										language="yaml"
 										value={fmtCode`
 											# yaml indentation MUST use spaces (we infer this for you)
@@ -463,18 +449,18 @@ export default function Page() {
 														content: Hello, World!
 										`}
 									/>
-								</CodeBlockBody>
-							</CodeBlock>
-							<CodeBlock>
-								<CodeBlockHeader>
-									<CodeBlockIcon preset="file" />
-									<CodeBlockTitle>
+								</CodeBlock.Body>
+							</CodeBlock.Root>
+							<CodeBlock.Root>
+								<CodeBlock.Header>
+									<CodeBlock.Icon preset="file" />
+									<CodeBlock.Title>
 										ngrok-example.js (using space indentation)
-									</CodeBlockTitle>
-								</CodeBlockHeader>
-								<CodeBlockBody>
-									<CodeBlockCopyButton />
-									<CodeBlockCode
+									</CodeBlock.Title>
+								</CodeBlock.Header>
+								<CodeBlock.Body>
+									<CodeBlock.CopyButton />
+									<CodeBlock.Code
 										language="js"
 										indentation="spaces"
 										value={fmtCode`
@@ -497,23 +483,23 @@ export default function Page() {
 											});
 										`}
 									/>
-								</CodeBlockBody>
-							</CodeBlock>
+								</CodeBlock.Body>
+							</CodeBlock.Root>
 						</Example>
-						<CodeBlock className="rounded-b-lg rounded-t-none">
-							<CodeBlockBody>
-								<CodeBlockCopyButton />
-								<CodeBlockCode
+						<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+							<CodeBlock.Body>
+								<CodeBlock.CopyButton />
+								<CodeBlock.Code
 									language="tsx"
 									value={fmtCode`
-										<CodeBlock>
-											<CodeBlockHeader>
-												<CodeBlockIcon preset="file" />
-												<CodeBlockTitle>traffic-policy.yaml</CodeBlockTitle>
-											</CodeBlockHeader>
-											<CodeBlockBody>
-												<CodeBlockCopyButton />
-												<CodeBlockCode
+										<CodeBlock.Root>
+											<CodeBlock.Header>
+												<CodeBlock.Icon preset="file" />
+												<CodeBlock.Title>traffic-policy.yaml</CodeBlock.Title>
+											</CodeBlock.Header>
+											<CodeBlock.Body>
+												<CodeBlock.CopyButton />
+												<CodeBlock.Code
 													language="yaml"
 													value={fmtCode\`
 														# yaml indentation MUST use spaces (we infer this for you)
@@ -525,17 +511,17 @@ export default function Page() {
 																	content: Hello, World!
 													\`}
 												/>
-											</CodeBlockBody>
-										</CodeBlock>
+											</CodeBlock.Body>
+										</CodeBlock.Root>
 
-										<CodeBlock>
-											<CodeBlockHeader>
-												<CodeBlockIcon preset="file" />
-												<CodeBlockTitle>ngrok-example.js (using space indentation)</CodeBlockTitle>
-											</CodeBlockHeader>
-											<CodeBlockBody>
-												<CodeBlockCopyButton />
-												<CodeBlockCode
+										<CodeBlock.Root>
+											<CodeBlock.Header>
+												<CodeBlock.Icon preset="file" />
+												<CodeBlock.Title>ngrok-example.js (using space indentation)</CodeBlock.Title>
+											</CodeBlock.Header>
+											<CodeBlock.Body>
+												<CodeBlock.CopyButton />
+												<CodeBlock.Code
 													language="js"
 													indentation="spaces"
 													value={fmtCode\`
@@ -558,13 +544,13 @@ export default function Page() {
 														});
 													\`}
 												/>
-											</CodeBlockBody>
-										</CodeBlock>
+											</CodeBlock.Body>
+										</CodeBlock.Root>
 									`}
 								/>
-							</CodeBlockBody>
-							<CodeBlockExpanderButton />
-						</CodeBlock>
+							</CodeBlock.Body>
+							<CodeBlock.ExpanderButton />
+						</CodeBlock.Root>
 					</div>
 				</section>
 			</section>
@@ -632,12 +618,12 @@ export default function Page() {
 							id="api-code-block-body"
 							className="text-xl font-medium text-strong"
 						>
-							CodeBlockBody
+							CodeBlock.Body
 						</h3>
 						<p className="font-body text-body">
 							The body of the <InlineCode>CodeBlock</InlineCode>. This is where
-							the <InlineCode>CodeBlockCode</InlineCode> and optional{" "}
-							<InlineCode>CodeBlockCopyButton</InlineCode> are rendered as
+							the <InlineCode>CodeBlock.Code</InlineCode> and optional{" "}
+							<InlineCode>CodeBlock.CopyButton</InlineCode> are rendered as
 							direct children.
 						</p>
 						<p className="font-body text-body">
@@ -665,7 +651,7 @@ export default function Page() {
 							<PropDescriptionCell>
 								<p>
 									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-									<InlineCode>CodeBlockBody</InlineCode> styling and
+									<InlineCode>CodeBlock.Body</InlineCode> styling and
 									functionality onto alternative element types or your own React
 									components.
 								</p>
@@ -680,7 +666,7 @@ export default function Page() {
 							id="api-code-block-code"
 							className="text-xl font-medium text-strong"
 						>
-							CodeBlockCode
+							CodeBlock.Code
 						</h3>
 						<p className="font-body text-body">
 							The <InlineCode>CodeBlock</InlineCode> content. This is where the
@@ -773,13 +759,13 @@ export default function Page() {
 							id="api-code-block-header"
 							className="text-xl font-medium text-strong"
 						>
-							CodeBlockHeader
+							CodeBlock.Header
 						</h3>
 						<p className="font-body text-body">
 							An optional header slot of the <InlineCode>CodeBlock</InlineCode>.
 							This is where things like the
-							<InlineCode>CodeBlockIcon</InlineCode> and{" "}
-							<InlineCode>CodeBlockTitle</InlineCode> are rendered.
+							<InlineCode>CodeBlock.Icon</InlineCode> and{" "}
+							<InlineCode>CodeBlock.Title</InlineCode> are rendered.
 						</p>
 						<p className="font-body text-body">
 							All props from{" "}
@@ -805,7 +791,7 @@ export default function Page() {
 							<PropDescriptionCell>
 								<p>
 									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-									<InlineCode>CodeBlockHeader</InlineCode> styling and
+									<InlineCode>CodeBlock.Header</InlineCode> styling and
 									functionality onto alternative element types or your own React
 									components.
 								</p>
@@ -820,7 +806,7 @@ export default function Page() {
 							id="api-code-block-title"
 							className="text-xl font-medium text-strong"
 						>
-							CodeBlockTitle
+							CodeBlock.Title
 						</h3>
 						<p className="font-body text-body">
 							The (optional) title of a <InlineCode>CodeBlock</InlineCode>.
@@ -851,7 +837,7 @@ export default function Page() {
 							<PropDescriptionCell>
 								<p>
 									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-									<InlineCode>CodeBlockTitle</InlineCode> styling and
+									<InlineCode>CodeBlock.Title</InlineCode> styling and
 									functionality onto alternative element types or your own React
 									components.
 								</p>
@@ -866,12 +852,12 @@ export default function Page() {
 							id="api-code-block-copy-button"
 							className="text-xl font-medium text-strong"
 						>
-							CodeBlockCopyButton
+							CodeBlock.CopyButton
 						</h3>
 						<p className="font-body text-body">
 							The (optional) copy button of the{" "}
 							<InlineCode>CodeBlock</InlineCode>. Render this as a child of the
-							<InlineCode>CodeBlockBody</InlineCode> to allow users to copy the
+							<InlineCode>CodeBlock.Body</InlineCode> to allow users to copy the
 							code block contents to their clipboard.
 						</p>
 						<p className="font-body text-body">
@@ -921,7 +907,7 @@ export default function Page() {
 							<PropDescriptionCell>
 								<p>
 									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-									<InlineCode>CodeBlockCopyButton</InlineCode> styling and
+									<InlineCode>CodeBlock.CopyButton</InlineCode> styling and
 									functionality onto alternative element types or your own React
 									components.
 								</p>
@@ -936,12 +922,12 @@ export default function Page() {
 							id="api-code-block-expander-button"
 							className="text-xl font-medium text-strong"
 						>
-							CodeBlockExpanderButton
+							CodeBlock.ExpanderButton
 						</h3>
 						<p className="font-body text-body">
 							The (optional) expander button of the{" "}
 							<InlineCode>CodeBlock</InlineCode>. Render this as a child of the
-							<InlineCode>CodeBlockBody</InlineCode> to allow users to
+							<InlineCode>CodeBlock.Body</InlineCode> to allow users to
 							expand/collapse the code block contents.
 						</p>
 						<p className="font-body text-body">
@@ -968,7 +954,7 @@ export default function Page() {
 							<PropDescriptionCell>
 								<p>
 									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-									<InlineCode>CodeBlockExpanderButton</InlineCode> styling and
+									<InlineCode>CodeBlock.ExpanderButton</InlineCode> styling and
 									functionality onto alternative element types or your own React
 									components.
 								</p>
@@ -983,7 +969,7 @@ export default function Page() {
 							id="api-code-block-icon"
 							className="text-xl font-medium text-strong"
 						>
-							CodeBlockIcon
+							CodeBlock.Icon
 						</h3>
 						<p className="font-body text-body">
 							A small icon that represents the type of code block being

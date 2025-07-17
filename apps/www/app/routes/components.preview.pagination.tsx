@@ -1,10 +1,4 @@
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import {
 	CursorButtons,
 	CursorPageSizeSelect,
@@ -69,10 +63,10 @@ export default function Page() {
 							<CursorButtons hasNextPage hasPreviousPage={false} />
 						</CursorPagination>
 					</Example>
-					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
 									import { CursorButtons, CursorPageSizeSelect, CursorPagination } from "@ngrok/mantle/pagination";
@@ -92,8 +86,8 @@ export default function Page() {
 									</CursorPagination>
 								`}
 							/>
-						</CodeBlockBody>
-					</CodeBlock>
+						</CodeBlock.Body>
+					</CodeBlock.Root>
 				</div>
 			</section>
 

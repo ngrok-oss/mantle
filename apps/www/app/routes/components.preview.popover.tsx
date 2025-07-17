@@ -1,11 +1,5 @@
 import { Button } from "@ngrok/mantle/button";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { Input } from "@ngrok/mantle/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@ngrok/mantle/popover";
 import { Example } from "~/components/example";
@@ -96,10 +90,10 @@ export default function Page() {
 						</PopoverContent>
 					</Popover>
 				</Example>
-				<CodeBlock className="rounded-b-lg rounded-t-none">
-					<CodeBlockBody>
-						<CodeBlockCopyButton />
-						<CodeBlockCode
+				<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+					<CodeBlock.Body>
+						<CodeBlock.CopyButton />
+						<CodeBlock.Code
 							language="tsx"
 							value={fmtCode`
 								import { Popover, PopoverContent, PopoverTrigger } from "@ngrok/mantle/popover";
@@ -114,8 +108,8 @@ export default function Page() {
 								</Popover>
 							`}
 						/>
-					</CodeBlockBody>
-				</CodeBlock>
+					</CodeBlock.Body>
+				</CodeBlock.Root>
 			</div>
 		</div>
 	);
