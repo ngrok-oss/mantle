@@ -19,21 +19,21 @@ import { Icon, type IconProps } from "../icon/icon.js";
  * @example
  * ```tsx
  * <Accordion type="single" collapsible>
- *   <AccordionItem value="item-1">
- *     <AccordionHeading>
- *       <AccordionTrigger>
- *         <AccordionTriggerIcon />
+ *   <Accordion.Item value="item-1">
+ *     <Accordion.Heading>
+ *       <Accordion.Trigger>
+ *         <Accordion.TriggerIcon />
  *         Is it accessible?
- *       </AccordionTrigger>
- *     </AccordionHeading>
- *     <AccordionContent>
+ *       </Accordion.Trigger>
+ *     </Accordion.Heading>
+ *     <Accordion.Content>
  *       Yes. It adheres to the WAI-ARIA design pattern.
- *     </AccordionContent>
- *   </AccordionItem>
+ *     </Accordion.Content>
+ *   </Accordion.Item>
  * </Accordion>
  * ```
  */
-const Accordion = forwardRef<
+const Root = forwardRef<
 	ComponentRef<"div">,
 	ComponentPropsWithoutRef<typeof AccordionPrimitive.Root>
 >(({ className, ...props }, ref) => (
@@ -43,7 +43,7 @@ const Accordion = forwardRef<
 		{...props}
 	/>
 ));
-Accordion.displayName = "Accordion";
+Root.displayName = "Accordion";
 
 /**
  * Contains all the parts of a collapsible section.
@@ -54,22 +54,22 @@ Accordion.displayName = "Accordion";
  * @example
  * ```tsx
  * <Accordion type="single" collapsible>
- *   <AccordionItem value="item-1">
- *     <AccordionHeading>
- *       <AccordionTrigger>
- *         <AccordionTriggerIcon />
+ *   <Accordion.Item value="item-1">
+ *     <Accordion.Heading>
+ *       <Accordion.Trigger>
+ *         <Accordion.TriggerIcon />
  *         Is it accessible?
- *       </AccordionTrigger>
- *     </AccordionHeading>
- *     <AccordionContent>
+ *       </Accordion.Trigger>
+ *     </Accordion.Heading>
+ *     <Accordion.Content>
  *       Yes. It adheres to the WAI-ARIA design pattern.
- *     </AccordionContent>
- *   </AccordionItem>
+ *     </Accordion.Content>
+ *   </Accordion.Item>
  * </Accordion>
  * ```
  */
-const AccordionItem = AccordionPrimitive.Item;
-AccordionItem.displayName = "AccordionItem";
+const Item = AccordionPrimitive.Item;
+Item.displayName = "AccordionItem";
 
 /**
  * Wraps an AccordionTrigger.
@@ -80,21 +80,21 @@ AccordionItem.displayName = "AccordionItem";
  * @example
  * ```tsx
  * <Accordion type="single" collapsible>
- *   <AccordionItem value="item-1">
- *     <AccordionHeading>
- *       <AccordionTrigger>
- *         <AccordionTriggerIcon />
+ *   <Accordion.Item value="item-1">
+ *     <Accordion.Heading>
+ *       <Accordion.Trigger>
+ *         <Accordion.TriggerIcon />
  *         Is it accessible?
- *       </AccordionTrigger>
- *     </AccordionHeading>
- *     <AccordionContent>
+ *       </Accordion.Trigger>
+ *     </Accordion.Heading>
+ *     <Accordion.Content>
  *       Yes. It adheres to the WAI-ARIA design pattern.
- *     </AccordionContent>
- *   </AccordionItem>
+ *     </Accordion.Content>
+ *   </Accordion.Item>
  * </Accordion>
  * ```
  */
-const AccordionHeading = forwardRef<
+const Heading = forwardRef<
 	ComponentRef<"div">,
 	ComponentPropsWithoutRef<typeof AccordionPrimitive.Header>
 >(({ className, ...props }, ref) => (
@@ -104,7 +104,7 @@ const AccordionHeading = forwardRef<
 		{...props}
 	/>
 ));
-AccordionHeading.displayName = "AccordionHeading";
+Heading.displayName = "AccordionHeading";
 
 /**
  * Toggles the collapsed state of its associated item.
@@ -115,21 +115,21 @@ AccordionHeading.displayName = "AccordionHeading";
  * @example
  * ```tsx
  * <Accordion type="single" collapsible>
- *   <AccordionItem value="item-1">
- *     <AccordionHeading>
- *       <AccordionTrigger>
- *         <AccordionTriggerIcon />
+ *   <Accordion.Item value="item-1">
+ *     <Accordion.Heading>
+ *       <Accordion.Trigger>
+ *         <Accordion.TriggerIcon />
  *         Is it accessible?
- *       </AccordionTrigger>
- *     </AccordionHeading>
- *     <AccordionContent>
+ *       </Accordion.Trigger>
+ *     </Accordion.Heading>
+ *     <Accordion.Content>
  *       Yes. It adheres to the WAI-ARIA design pattern.
- *     </AccordionContent>
- *   </AccordionItem>
+ *     </Accordion.Content>
+ *   </Accordion.Item>
  * </Accordion>
  * ```
  */
-const AccordionTrigger = forwardRef<
+const Trigger = forwardRef<
 	ComponentRef<"button">,
 	ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
 >(({ className, children, ...props }, ref) => (
@@ -141,7 +141,7 @@ const AccordionTrigger = forwardRef<
 		{children}
 	</AccordionPrimitive.Trigger>
 ));
-AccordionTrigger.displayName = "AccordionTrigger";
+Trigger.displayName = "AccordionTrigger";
 
 /**
  * An icon that indicates the expanded/collapsed state of the accordion trigger.
@@ -152,31 +152,28 @@ AccordionTrigger.displayName = "AccordionTrigger";
  * @example
  * ```tsx
  * <Accordion type="single" collapsible>
- *   <AccordionItem value="item-1">
- *     <AccordionHeading>
- *       <AccordionTrigger>
- *         <AccordionTriggerIcon />
+ *   <Accordion.Item value="item-1">
+ *     <Accordion.Heading>
+ *       <Accordion.Trigger>
+ *         <Accordion.TriggerIcon />
  *         Is it accessible?
- *       </AccordionTrigger>
- *     </AccordionHeading>
- *     <AccordionContent>
+ *       </Accordion.Trigger>
+ *     </Accordion.Heading>
+ *     <Accordion.Content>
  *       Yes. It adheres to the WAI-ARIA design pattern.
- *     </AccordionContent>
- *   </AccordionItem>
+ *     </Accordion.Content>
+ *   </Accordion.Item>
  * </Accordion>
  * ```
  */
-const AccordionTriggerIcon = ({
-	className,
-	...props
-}: Omit<IconProps, "svg">) => (
+const TriggerIcon = ({ className, ...props }: Omit<IconProps, "svg">) => (
 	<Icon
 		{...props}
 		svg={<CaretDownIcon weight="fill" />}
 		className={cx("group-data-state-open:rotate-0 -rotate-90", className)}
 	/>
 );
-AccordionTriggerIcon.displayName = "AccordionTriggerIcon";
+TriggerIcon.displayName = "AccordionTriggerIcon";
 
 /**
  * Contains the collapsible content for an item.
@@ -187,21 +184,21 @@ AccordionTriggerIcon.displayName = "AccordionTriggerIcon";
  * @example
  * ```tsx
  * <Accordion type="single" collapsible>
- *   <AccordionItem value="item-1">
- *     <AccordionHeading>
- *       <AccordionTrigger>
- *         <AccordionTriggerIcon />
+ *   <Accordion.Item value="item-1">
+ *     <Accordion.Heading>
+ *       <Accordion.Trigger>
+ *         <Accordion.TriggerIcon />
  *         Is it accessible?
- *       </AccordionTrigger>
- *     </AccordionHeading>
- *     <AccordionContent>
+ *       </Accordion.Trigger>
+ *     </Accordion.Heading>
+ *     <Accordion.Content>
  *       Yes. It adheres to the WAI-ARIA design pattern.
- *     </AccordionContent>
- *   </AccordionItem>
+ *     </Accordion.Content>
+ *   </Accordion.Item>
  * </Accordion>
  * ```
  */
-const AccordionContent = forwardRef<
+const Content = forwardRef<
 	ComponentRef<"div">,
 	ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>
 >(({ className, children, ...props }, ref) => (
@@ -216,14 +213,27 @@ const AccordionContent = forwardRef<
 		{children}
 	</AccordionPrimitive.Content>
 ));
-AccordionContent.displayName = "AccordionContent";
+Content.displayName = "AccordionContent";
+
+/**
+ * An accordion namespace object that contains the accordion components.
+ */
+const Accordion = Root as typeof Root & {
+	Root: typeof Root;
+	Content: typeof Content;
+	Heading: typeof Heading;
+	Item: typeof Item;
+	Trigger: typeof Trigger;
+	TriggerIcon: typeof TriggerIcon;
+};
+Accordion.Root = Root;
+Accordion.Content = Content;
+Accordion.Heading = Heading;
+Accordion.Item = Item;
+Accordion.Trigger = Trigger;
+Accordion.TriggerIcon = TriggerIcon;
 
 export {
 	//,
 	Accordion,
-	AccordionContent,
-	AccordionHeading,
-	AccordionItem,
-	AccordionTrigger,
-	AccordionTriggerIcon,
 };

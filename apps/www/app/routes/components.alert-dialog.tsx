@@ -1,16 +1,4 @@
-import {
-	AlertDialog,
-	AlertDialogAction,
-	AlertDialogBody,
-	AlertDialogCancel,
-	AlertDialogContent,
-	AlertDialogDescription,
-	AlertDialogFooter,
-	AlertDialogHeader,
-	AlertDialogIcon,
-	AlertDialogTitle,
-	AlertDialogTrigger,
-} from "@ngrok/mantle/alert-dialog";
+import { AlertDialog } from "@ngrok/mantle/alert-dialog";
 import { Anchor } from "@ngrok/mantle/anchor";
 import { Button } from "@ngrok/mantle/button";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
@@ -58,98 +46,104 @@ export default function Page() {
 				</p>
 				<div>
 					<Example className="flex-col gap-6">
-						<AlertDialog priority="info">
-							<AlertDialogTrigger asChild>
+						<AlertDialog.Root priority="info">
+							<AlertDialog.Trigger asChild>
 								<Button type="button" appearance="outlined">
 									Show Info Alert Dialog
 								</Button>
-							</AlertDialogTrigger>
-							<AlertDialogContent>
-								<AlertDialogIcon />
-								<AlertDialogBody>
-									<AlertDialogHeader>
-										<AlertDialogTitle>
+							</AlertDialog.Trigger>
+							<AlertDialog.Content>
+								<AlertDialog.Icon />
+								<AlertDialog.Body>
+									<AlertDialog.Header>
+										<AlertDialog.Title>
 											Are you absolutely sure?
-										</AlertDialogTitle>
-										<AlertDialogDescription>
+										</AlertDialog.Title>
+										<AlertDialog.Description>
 											Proident quis nisi tempor irure sunt ut minim occaecat
 											mollit sunt.
-										</AlertDialogDescription>
-									</AlertDialogHeader>
-									<AlertDialogFooter>
-										<AlertDialogCancel type="button">Cancel</AlertDialogCancel>
-										<AlertDialogAction type="button">
+										</AlertDialog.Description>
+									</AlertDialog.Header>
+									<AlertDialog.Footer>
+										<AlertDialog.Cancel type="button">
+											Cancel
+										</AlertDialog.Cancel>
+										<AlertDialog.Action type="button">
 											Continue
-										</AlertDialogAction>
-									</AlertDialogFooter>
-								</AlertDialogBody>
-							</AlertDialogContent>
-						</AlertDialog>
-						<AlertDialog priority="danger">
-							<AlertDialogTrigger asChild>
+										</AlertDialog.Action>
+									</AlertDialog.Footer>
+								</AlertDialog.Body>
+							</AlertDialog.Content>
+						</AlertDialog.Root>
+						<AlertDialog.Root priority="danger">
+							<AlertDialog.Trigger asChild>
 								<Button type="button" appearance="outlined">
 									Show Danger Alert Dialog
 								</Button>
-							</AlertDialogTrigger>
-							<AlertDialogContent>
-								<AlertDialogIcon />
-								<AlertDialogBody>
-									<AlertDialogHeader>
-										<AlertDialogTitle>
+							</AlertDialog.Trigger>
+							<AlertDialog.Content>
+								<AlertDialog.Icon />
+								<AlertDialog.Body>
+									<AlertDialog.Header>
+										<AlertDialog.Title>
 											Are you absolutely sure?
-										</AlertDialogTitle>
-										<AlertDialogDescription>
+										</AlertDialog.Title>
+										<AlertDialog.Description>
 											Proident quis nisi tempor irure sunt ut minim occaecat
 											mollit sunt.
-										</AlertDialogDescription>
-									</AlertDialogHeader>
-									<AlertDialogFooter>
-										<AlertDialogCancel type="button">Cancel</AlertDialogCancel>
-										<AlertDialogAction type="button">
+										</AlertDialog.Description>
+									</AlertDialog.Header>
+									<AlertDialog.Footer>
+										<AlertDialog.Cancel type="button">
+											Cancel
+										</AlertDialog.Cancel>
+										<AlertDialog.Action type="button">
 											Continue
-										</AlertDialogAction>
-									</AlertDialogFooter>
-								</AlertDialogBody>
-							</AlertDialogContent>
-						</AlertDialog>
+										</AlertDialog.Action>
+									</AlertDialog.Footer>
+								</AlertDialog.Body>
+							</AlertDialog.Content>
+						</AlertDialog.Root>
 
-						<AlertDialog priority="danger">
-							<AlertDialogTrigger asChild>
+						<AlertDialog.Root priority="danger">
+							<AlertDialog.Trigger asChild>
 								<Button type="button" appearance="outlined">
 									With a form
 								</Button>
-							</AlertDialogTrigger>
-							<AlertDialogContent>
-								<AlertDialogIcon />
-								<AlertDialogBody>
-									<AlertDialogHeader>
-										<AlertDialogTitle>
+							</AlertDialog.Trigger>
+							<AlertDialog.Content>
+								<AlertDialog.Icon />
+								<AlertDialog.Body>
+									<AlertDialog.Header>
+										<AlertDialog.Title>
 											Are you absolutely sure?
-										</AlertDialogTitle>
-										<AlertDialogDescription>
+										</AlertDialog.Title>
+										<AlertDialog.Description>
 											Proident quis nisi tempor irure sunt ut minim occaecat
 											mollit sunt.
-										</AlertDialogDescription>
-									</AlertDialogHeader>
-									<AlertDialogFooter>
-										<AlertDialogCancel type="button">Cancel</AlertDialogCancel>
+										</AlertDialog.Description>
+									</AlertDialog.Header>
+									<AlertDialog.Footer>
+										<AlertDialog.Cancel type="button">
+											Cancel
+										</AlertDialog.Cancel>
 										<form
 											onSubmit={(event) => {
 												event.preventDefault();
 												window.alert("Form submitted!");
 											}}
 										>
-											<AlertDialogAction
+											<AlertDialog.Action
 												type="submit"
 												className="w-full sm:w-fit"
 											>
 												Continue
-											</AlertDialogAction>
+											</AlertDialog.Action>
 										</form>
-									</AlertDialogFooter>
-								</AlertDialogBody>
-							</AlertDialogContent>
-						</AlertDialog>
+									</AlertDialog.Footer>
+								</AlertDialog.Body>
+							</AlertDialog.Content>
+						</AlertDialog.Root>
 					</Example>
 					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
 						<CodeBlock.Body>
@@ -157,74 +151,62 @@ export default function Page() {
 							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
-									import {
-										AlertDialog,
-										AlertDialogAction,
-										AlertDialogBody,
-										AlertDialogCancel,
-										AlertDialogContent,
-										AlertDialogDescription,
-										AlertDialogFooter,
-										AlertDialogHeader,
-										AlertDialogIcon,
-										AlertDialogTitle,
-										AlertDialogTrigger,
-									} from "@ngrok/mantle/alert-dialog";
+									import { AlertDialog } from "@ngrok/mantle/alert-dialog";
 									import { Button } from "@ngrok/mantle/button";
 
-									<AlertDialog priority="info">
-										<AlertDialogTrigger asChild>
+									<AlertDialog.Root priority="info">
+										<AlertDialog.Trigger asChild>
 											<Button type="button" appearance="outlined">
 												Show Info Alert Dialog
 											</Button>
-										</AlertDialogTrigger>
+										</AlertDialog.Trigger>
 
-										<AlertDialogContent>
-											<AlertDialogIcon />
-											<AlertDialogBody>
-												<AlertDialogHeader>
-													<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-													<AlertDialogDescription>
+										<AlertDialog.Content>
+											<AlertDialog.Icon />
+											<AlertDialog.Body>
+												<AlertDialog.Header>
+													<AlertDialog.Title>Are you absolutely sure?</AlertDialog.Title>
+													<AlertDialog.Description>
 														 Proident quis nisi tempor irure sunt ut minim occaecat mollit sunt.
-													</AlertDialogDescription>
-												</AlertDialogHeader>
-												<AlertDialogFooter>
-													<AlertDialogCancel type="button">Cancel</AlertDialogCancel>
-													<AlertDialogAction type="button">Continue</AlertDialogAction>
-												</AlertDialogFooter>
-											</AlertDialogBody>
-										</AlertDialogContent>
-									</AlertDialog>
+													</AlertDialog.Description>
+												</AlertDialog.Header>
+												<AlertDialog.Footer>
+													<AlertDialog.Cancel type="button">Cancel</AlertDialog.Cancel>
+													<AlertDialog.Action type="button">Continue</AlertDialog.Action>
+												</AlertDialog.Footer>
+											</AlertDialog.Body>
+										</AlertDialog.Content>
+									</AlertDialog.Root>
 
-									<AlertDialog priority="danger">
-										<AlertDialogTrigger asChild>
+									<AlertDialog.Root priority="danger">
+										<AlertDialog.Trigger asChild>
 											<Button type="button" appearance="outlined">
 												With a form
 											</Button>
-										</AlertDialogTrigger>
-										<AlertDialogContent>
-											<AlertDialogIcon />
-											<AlertDialogBody>
-												<AlertDialogHeader>
-													<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-													<AlertDialogDescription>
+										</AlertDialog.Trigger>
+										<AlertDialog.Content>
+											<AlertDialog.Icon />
+											<AlertDialog.Body>
+												<AlertDialog.Header>
+													<AlertDialog.Title>Are you absolutely sure?</AlertDialog.Title>
+													<AlertDialog.Description>
 														 Proident quis nisi tempor irure sunt ut minim occaecat mollit sunt.
-													</AlertDialogDescription>
-												</AlertDialogHeader>
-												<AlertDialogFooter>
-													<AlertDialogCancel type="button">Cancel</AlertDialogCancel>
+													</AlertDialog.Description>
+												</AlertDialog.Header>
+												<AlertDialog.Footer>
+													<AlertDialog.Cancel type="button">Cancel</AlertDialog.Cancel>
 													<form
 														onSubmit={(event) => {
 															event.preventDefault();
 															window.alert("Form submitted!");
 														}}
 													>
-														<AlertDialogAction type="submit">Continue</AlertDialogAction>
+														<AlertDialog.Action type="submit">Continue</AlertDialog.Action>
 													</form>
-												</AlertDialogFooter>
-											</AlertDialogBody>
-										</AlertDialogContent>
-									</AlertDialog>
+												</AlertDialog.Footer>
+											</AlertDialog.Body>
+										</AlertDialog.Content>
+									</AlertDialog.Root>
 								`}
 							/>
 						</CodeBlock.Body>

@@ -1,45 +1,9 @@
-import {
-	AlertDialog,
-	AlertDialogBody,
-	AlertDialogCancel,
-	AlertDialogContent,
-	AlertDialogFooter,
-	AlertDialogHeader,
-	AlertDialogIcon,
-	AlertDialogTitle,
-	AlertDialogTrigger,
-} from "@ngrok/mantle/alert-dialog";
+import { AlertDialog } from "@ngrok/mantle/alert-dialog";
 import { Button, IconButton } from "@ngrok/mantle/button";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
-import {
-	Dialog,
-	DialogBody,
-	DialogClose,
-	DialogCloseIconButton,
-	DialogContent,
-	DialogFooter,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger,
-} from "@ngrok/mantle/dialog";
-import {
-	Sheet,
-	SheetBody,
-	SheetClose,
-	SheetContent,
-	SheetFooter,
-	SheetHeader,
-	SheetTitle,
-	SheetTrigger,
-} from "@ngrok/mantle/sheet";
-import {
-	type Priority,
-	Toast,
-	ToastAction,
-	ToastIcon,
-	ToastMessage,
-	makeToast,
-} from "@ngrok/mantle/toast";
+import { Dialog } from "@ngrok/mantle/dialog";
+import { Sheet } from "@ngrok/mantle/sheet";
+import { type Priority, Toast, makeToast } from "@ngrok/mantle/toast";
 import { XIcon } from "@phosphor-icons/react/X";
 import { useState } from "react";
 import invariant from "tiny-invariant";
@@ -94,13 +58,13 @@ export default function Page() {
 						appearance="filled"
 						onClick={() => {
 							makeToast(
-								<Toast priority={priority}>
-									<ToastIcon />
-									<ToastMessage>
+								<Toast.Root priority={priority}>
+									<Toast.Icon />
+									<Toast.Message>
 										Laborum ea anim adipisicing in Lorem incididunt mollit ipsum
 										reprehenderit.
-									</ToastMessage>
-									<ToastAction asChild>
+									</Toast.Message>
+									<Toast.Action asChild>
 										<IconButton
 											type="button"
 											appearance="ghost"
@@ -108,8 +72,8 @@ export default function Page() {
 											icon={<XIcon />}
 											label="Dismiss toast"
 										/>
-									</ToastAction>
-								</Toast>,
+									</Toast.Action>
+								</Toast.Root>,
 							);
 
 							setPriorityIndex((prev) => prev + 1);
@@ -117,28 +81,28 @@ export default function Page() {
 					>
 						Show Toast
 					</Button>
-					<Sheet>
-						<SheetTrigger asChild>
+					<Sheet.Root>
+						<Sheet.Trigger asChild>
 							<Button type="button" appearance="filled">
 								Open Sheet
 							</Button>
-						</SheetTrigger>
-						<SheetContent>
-							<SheetHeader>
-								<SheetTitle>Are you absolutely sure?</SheetTitle>
-							</SheetHeader>
-							<SheetBody className="space-y-4">
+						</Sheet.Trigger>
+						<Sheet.Content>
+							<Sheet.Header>
+								<Sheet.Title>Are you absolutely sure?</Sheet.Title>
+							</Sheet.Header>
+							<Sheet.Body className="space-y-4">
 								<Button
 									type="button"
 									onClick={() =>
 										makeToast(
-											<Toast priority="warning">
-												<ToastIcon />
-												<ToastMessage>
+											<Toast.Root priority="warning">
+												<Toast.Icon />
+												<Toast.Message>
 													Laborum ea anim adipisicing in Lorem incididunt mollit
 													ipsum reprehenderit.
-												</ToastMessage>
-												<ToastAction asChild>
+												</Toast.Message>
+												<Toast.Action asChild>
 													<IconButton
 														type="button"
 														appearance="ghost"
@@ -146,46 +110,46 @@ export default function Page() {
 														icon={<XIcon />}
 														label="Dismiss toast"
 													/>
-												</ToastAction>
-											</Toast>,
+												</Toast.Action>
+											</Toast.Root>,
 										)
 									}
 								>
 									Show Toast
 								</Button>
-							</SheetBody>
-							<SheetFooter>
-								<SheetClose asChild>
+							</Sheet.Body>
+							<Sheet.Footer>
+								<Sheet.Close asChild>
 									<Button type="button">Close</Button>
-								</SheetClose>
-							</SheetFooter>
-						</SheetContent>
-					</Sheet>
-					<Dialog>
-						<DialogTrigger asChild>
+								</Sheet.Close>
+							</Sheet.Footer>
+						</Sheet.Content>
+					</Sheet.Root>
+					<Dialog.Root>
+						<Dialog.Trigger asChild>
 							<Button type="button" appearance="filled">
 								Open dialog
 							</Button>
-						</DialogTrigger>
-						<DialogContent>
-							<DialogHeader>
-								<DialogTitle>
+						</Dialog.Trigger>
+						<Dialog.Content>
+							<Dialog.Header>
+								<Dialog.Title>
 									Are you absolutely sure? aslkdfjas dlfksdoijfoasdjf ioadsjfi
-								</DialogTitle>
-								<DialogCloseIconButton />
-							</DialogHeader>
-							<DialogBody>
+								</Dialog.Title>
+								<Dialog.CloseIconButton />
+							</Dialog.Header>
+							<Dialog.Body>
 								<Button
 									type="button"
 									onClick={() =>
 										makeToast(
-											<Toast priority="danger">
-												<ToastIcon />
-												<ToastMessage>
+											<Toast.Root priority="danger">
+												<Toast.Icon />
+												<Toast.Message>
 													Laborum ea anim adipisicing in Lorem incididunt mollit
 													ipsum reprehenderit.
-												</ToastMessage>
-												<ToastAction asChild>
+												</Toast.Message>
+												<Toast.Action asChild>
 													<IconButton
 														type="button"
 														appearance="ghost"
@@ -193,16 +157,16 @@ export default function Page() {
 														icon={<XIcon />}
 														label="Dismiss toast"
 													/>
-												</ToastAction>
-											</Toast>,
+												</Toast.Action>
+											</Toast.Root>,
 										)
 									}
 								>
 									Show Toast
 								</Button>
-							</DialogBody>
-							<DialogFooter>
-								<DialogClose asChild>
+							</Dialog.Body>
+							<Dialog.Footer>
+								<Dialog.Close asChild>
 									<Button
 										type="button"
 										priority="neutral"
@@ -210,33 +174,35 @@ export default function Page() {
 									>
 										Cancel
 									</Button>
-								</DialogClose>
-							</DialogFooter>
-						</DialogContent>
-					</Dialog>
-					<AlertDialog priority="info">
-						<AlertDialogTrigger asChild>
+								</Dialog.Close>
+							</Dialog.Footer>
+						</Dialog.Content>
+					</Dialog.Root>
+					<AlertDialog.Root priority="info">
+						<AlertDialog.Trigger asChild>
 							<Button type="button" appearance="filled">
 								Show Info Alert Dialog
 							</Button>
-						</AlertDialogTrigger>
-						<AlertDialogContent>
-							<AlertDialogIcon />
-							<AlertDialogBody>
-								<AlertDialogHeader>
-									<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-								</AlertDialogHeader>
+						</AlertDialog.Trigger>
+						<AlertDialog.Content>
+							<AlertDialog.Icon />
+							<AlertDialog.Body>
+								<AlertDialog.Header>
+									<AlertDialog.Title>
+										Are you absolutely sure?
+									</AlertDialog.Title>
+								</AlertDialog.Header>
 								<Button
 									type="button"
 									onClick={() =>
 										makeToast(
-											<Toast priority="success">
-												<ToastIcon />
-												<ToastMessage>
+											<Toast.Root priority="success">
+												<Toast.Icon />
+												<Toast.Message>
 													Laborum ea anim adipisicing in Lorem incididunt mollit
 													ipsum reprehenderit.
-												</ToastMessage>
-												<ToastAction asChild>
+												</Toast.Message>
+												<Toast.Action asChild>
 													<IconButton
 														type="button"
 														appearance="ghost"
@@ -244,19 +210,19 @@ export default function Page() {
 														icon={<XIcon />}
 														label="Dismiss toast"
 													/>
-												</ToastAction>
-											</Toast>,
+												</Toast.Action>
+											</Toast.Root>,
 										)
 									}
 								>
 									Show Toast
 								</Button>
-								<AlertDialogFooter>
-									<AlertDialogCancel type="button">Cancel</AlertDialogCancel>
-								</AlertDialogFooter>
-							</AlertDialogBody>
-						</AlertDialogContent>
-					</AlertDialog>
+								<AlertDialog.Footer>
+									<AlertDialog.Cancel type="button">Cancel</AlertDialog.Cancel>
+								</AlertDialog.Footer>
+							</AlertDialog.Body>
+						</AlertDialog.Content>
+					</AlertDialog.Root>
 				</Example>
 				<CodeBlock.Root className="rounded-b-lg rounded-t-none">
 					<CodeBlock.Body>
@@ -265,7 +231,7 @@ export default function Page() {
 							language="tsx"
 							value={fmtCode`
 								import { Button } from "@ngrok/mantle/button";
-								import { makeToast, Toast, ToastAction, ToastIcon, ToastMessage } from "@ngrok/mantle/toast";
+								import { makeToast, Toast } from "@ngrok/mantle/toast";
 
 								// Only one <Toaster /> should be rendered at a time
 								// add it to the root of your app
@@ -276,15 +242,15 @@ export default function Page() {
 									onClick={() =>
 										// make some toast! 🍞😋
 										makeToast(
-											<Toast priority="success">
-												<ToastIcon />
-												<ToastMessage>
+											<Toast.Root priority="success">
+												<Toast.Icon />
+												<Toast.Message>
 													Laborum ea anim adipisicing in Lorem incididunt mollit ipsum reprehenderit.
-												</ToastMessage>
-												<ToastAction asChild>
+												</Toast.Message>
+												<Toast.Action asChild>
 													<IconButton type="button" appearance="ghost" size="xs" icon={<XIcon />} label="Dismiss toast" />
-												</ToastAction>
-											</Toast>,
+												</Toast.Action>
+											</Toast.Root>,
 										)
 									}
 								>

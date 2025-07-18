@@ -1,7 +1,7 @@
 import { Anchor } from "@ngrok/mantle/anchor";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
-import { ProgressDonut, ProgressDonutIndicator } from "@ngrok/mantle/progress";
+import { ProgressDonut } from "@ngrok/mantle/progress";
 import { useState } from "react";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
@@ -46,56 +46,56 @@ export default function Page() {
 					The indicator color is inherited via{" "}
 					<InlineCode>currentColor</InlineCode>. Override the default (
 					<InlineCode>accent-600</InlineCode>) by setting the
-					<InlineCode>ProgressDonutIndicator</InlineCode>'s text color.
+					<InlineCode>ProgressDonut.Indicator</InlineCode>'s text color.
 				</p>
 				<div>
 					<Example className="flex-col gap-6">
-						<ProgressDonut
+						<ProgressDonut.Root
 							value={60}
 							className="size-10"
 							strokeWidth="0.375rem"
 						>
-							<ProgressDonutIndicator />
-						</ProgressDonut>
+							<ProgressDonut.Indicator />
+						</ProgressDonut.Root>
 
-						<ProgressDonut
+						<ProgressDonut.Root
 							value={60}
 							className="size-10"
 							strokeWidth="0.375rem"
 						>
-							<ProgressDonutIndicator className="text-fuchsia-600" />
-						</ProgressDonut>
+							<ProgressDonut.Indicator className="text-fuchsia-600" />
+						</ProgressDonut.Root>
 
 						<div className="flex flex-col gap-2">
 							<div className="flex items-center gap-1.5 text-sm">
-								<ProgressDonut value={100} className="size-6">
-									<ProgressDonutIndicator />
-								</ProgressDonut>
+								<ProgressDonut.Root value={100} className="size-6">
+									<ProgressDonut.Indicator />
+								</ProgressDonut.Root>
 								Data transfer out
 							</div>
 
 							<div className="flex items-center gap-1.5 text-xs">
 								<div className="grid w-6 place-items-center">
-									<ProgressDonut
+									<ProgressDonut.Root
 										value={100}
 										className="size-4"
 										strokeWidth="0.1875rem"
 									>
-										<ProgressDonutIndicator />
-									</ProgressDonut>
+										<ProgressDonut.Indicator />
+									</ProgressDonut.Root>
 								</div>
 								Included
 							</div>
 
 							<div className="flex items-center gap-1.5 text-xs">
 								<div className="grid w-6 place-items-center">
-									<ProgressDonut
+									<ProgressDonut.Root
 										className="size-4"
 										value="indeterminate"
 										strokeWidth="0.1875rem"
 									>
-										<ProgressDonutIndicator />
-									</ProgressDonut>
+										<ProgressDonut.Indicator />
+									</ProgressDonut.Root>
 								</div>
 								Additional
 							</div>
@@ -107,38 +107,38 @@ export default function Page() {
 							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
-									import { ProgressDonut, ProgressDonutIndicator } from "@ngrok/mantle/progress";
+									import { ProgressDonut } from "@ngrok/mantle/progress";
 
-									<ProgressDonut value={60} className="size-10" strokeWidth="0.375rem">
-										<ProgressDonutIndicator />
-									</ProgressDonut>
+									<ProgressDonut.Root value={60} className="size-10" strokeWidth="0.375rem">
+										<ProgressDonut.Indicator />
+									</ProgressDonut.Root>
 
-									<ProgressDonut value={60} className="size-10" strokeWidth="0.375rem">
-										<ProgressDonutIndicator className="text-fuchsia-600" />
-									</ProgressDonut>
+									<ProgressDonut.Root value={60} className="size-10" strokeWidth="0.375rem">
+										<ProgressDonut.Indicator className="text-fuchsia-600" />
+									</ProgressDonut.Root>
 
 									<div className="flex flex-col gap-2">
 										<div className="flex items-center gap-1.5 text-sm">
-											<ProgressDonut value={100} className="size-6">
-												<ProgressDonutIndicator />
-											</ProgressDonut>
+											<ProgressDonut.Root value={100} className="size-6">
+												<ProgressDonut.Indicator />
+											</ProgressDonut.Root>
 											Data transfer out
 										</div>
 
 										<div className="flex items-center gap-1.5 text-xs">
 											<div className="grid w-6 place-items-center">
-												<ProgressDonut value={100} className="size-4" strokeWidth="0.1875rem">
-													<ProgressDonutIndicator />
-												</ProgressDonut>
+												<ProgressDonut.Root value={100} className="size-4" strokeWidth="0.1875rem">
+													<ProgressDonut.Indicator />
+												</ProgressDonut.Root>
 											</div>
 											Included
 										</div>
 
 										<div className="flex items-center gap-1.5 text-xs">
 											<div className="grid w-6 place-items-center">
-												<ProgressDonut value={25} className="size-4" strokeWidth="0.1875rem">
-													<ProgressDonutIndicator className="text-success-600" />
-												</ProgressDonut>
+												<ProgressDonut.Root value={25} className="size-4" strokeWidth="0.1875rem">
+													<ProgressDonut.Indicator className="text-success-600" />
+												</ProgressDonut.Root>
 											</div>
 											Additional
 										</div>
@@ -160,13 +160,13 @@ export default function Page() {
 				</p>
 				<div>
 					<Example>
-						<ProgressDonut
+						<ProgressDonut.Root
 							className="size-10"
 							value="indeterminate"
 							strokeWidth="0.375rem"
 						>
-							<ProgressDonutIndicator />
-						</ProgressDonut>
+							<ProgressDonut.Indicator />
+						</ProgressDonut.Root>
 					</Example>
 					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
 						<CodeBlock.Body>
@@ -174,11 +174,11 @@ export default function Page() {
 							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
-									import { ProgressDonut, ProgressDonutIndicator } from "@ngrok/mantle/progress";
+									import { ProgressDonut } from "@ngrok/mantle/progress";
 
-									<ProgressDonut className="size-10" value="indeterminate" strokeWidth="0.375rem">
-										<ProgressDonutIndicator />
-									</ProgressDonut>
+									<ProgressDonut.Root className="size-10" value="indeterminate" strokeWidth="0.375rem">
+										<ProgressDonut.Indicator />
+									</ProgressDonut.Root>
 								`}
 							/>
 						</CodeBlock.Body>
@@ -190,7 +190,7 @@ export default function Page() {
 					Dynamic Colors
 				</h2>
 				<p className="font-body text-body">
-					The color of the <InlineCode>ProgressDonutIndicator</InlineCode> is
+					The color of the <InlineCode>ProgressDonut.Indicator</InlineCode> is
 					inherited from the parent text color using{" "}
 					<InlineCode>currentColor</InlineCode>. Using this, you can easily
 					change the color of it based on the current progress value.
@@ -205,7 +205,7 @@ export default function Page() {
 							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
-									import { ProgressDonut, ProgressDonutIndicator } from "@ngrok/mantle/progress";
+									import { ProgressDonut } from "@ngrok/mantle/progress";
 
 									const Example = () => {
 										const [value, setValue] = useState(0);
@@ -227,9 +227,9 @@ export default function Page() {
 
 										return (
 											<form className="space-y-4">
-												<ProgressDonut value={value} className="size-10" strokeWidth="0.375rem">
-													<ProgressDonutIndicator className={computeColor()} />
-												</ProgressDonut>
+												<ProgressDonut.Root value={value} className="size-10" strokeWidth="0.375rem">
+													<ProgressDonut.Indicator className={computeColor()} />
+												</ProgressDonut.Root>
 												<label className="block space-y-1">
 													<p>Value:</p>
 													<input type="range" min={0} max={100} value={value} onChange={(e) => setValue(Number(e.target.value))} /> (
@@ -270,7 +270,7 @@ export default function Page() {
 								The indicator color is inherited via{" "}
 								<InlineCode>currentColor</InlineCode>. Override the default (
 								<InlineCode>accent-600</InlineCode>) by setting the
-								<InlineCode>ProgressDonutIndicator</InlineCode>'s text color.
+								<InlineCode>ProgressDonut.Indicator</InlineCode>'s text color.
 							</p>
 
 							<p>
@@ -361,7 +361,7 @@ export default function Page() {
 							id="api-progress-donut-indicator"
 							className="text-xl font-medium text-strong"
 						>
-							ProgressDonutIndicator
+							ProgressDonut.Indicator
 						</h3>
 
 						<p className="font-body text-body">
@@ -406,9 +406,13 @@ const DynamicColorsExample = () => {
 
 	return (
 		<form className="space-y-4">
-			<ProgressDonut value={value} className="size-10" strokeWidth="0.375rem">
-				<ProgressDonutIndicator className={computeColor()} />
-			</ProgressDonut>
+			<ProgressDonut.Root
+				value={value}
+				className="size-10"
+				strokeWidth="0.375rem"
+			>
+				<ProgressDonut.Indicator className={computeColor()} />
+			</ProgressDonut.Root>
 			<label className="block space-y-1">
 				<p>Value: {value}%</p>
 				<input

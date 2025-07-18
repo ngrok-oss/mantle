@@ -13,19 +13,19 @@ import { cx } from "../../utils/cx/cx.js";
  *
  * @example
  * ```tsx
- * <HoverCard>
- *   <HoverCardTrigger asChild>
+ * <HoverCard.Root>
+ *   <HoverCard.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Hover me
  *     </Button>
- *   </HoverCardTrigger>
- *   <HoverCardContent>
+ *   </HoverCard.Trigger>
+ *   <HoverCard.Content>
  *     <p>This is the hover card content.</p>
- *   </HoverCardContent>
- * </HoverCard>
+ *   </HoverCard.Content>
+ * </HoverCard.Root>
  * ```
  */
-const HoverCard = ({
+const Root = ({
 	closeDelay = 300,
 	openDelay = 100,
 	...props
@@ -36,7 +36,7 @@ const HoverCard = ({
 		{...props}
 	/>
 );
-HoverCard.displayName = "HoverCard";
+Root.displayName = "HoverCard";
 
 /**
  * The trigger element that opens the hover card when hovered.
@@ -45,29 +45,29 @@ HoverCard.displayName = "HoverCard";
  *
  * @example
  * ```tsx
- * <HoverCard>
- *   <HoverCardTrigger asChild>
+ * <HoverCard.Root>
+ *   <HoverCard.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Hover me
  *     </Button>
- *   </HoverCardTrigger>
- *   <HoverCardContent>
+ *   </HoverCard.Trigger>
+ *   <HoverCard.Content>
  *     <p>This is the hover card content.</p>
- *   </HoverCardContent>
- * </HoverCard>
+ *   </HoverCard.Content>
+ * </HoverCard.Root>
  * ```
  */
-const HoverCardTrigger = HoverCardPrimitive.Trigger;
-HoverCardTrigger.displayName = "HoverCardTrigger";
+const Trigger = HoverCardPrimitive.Trigger;
+Trigger.displayName = "HoverCardTrigger";
 
 /**
  * The portal for a HoverCard. Should be rendered as a child of the `HoverCard` component.
- * Renders a portal that the `HoverCardContent` is rendered into.
+ * Renders a portal that the `HoverCard.Content` is rendered into.
  *
- * You likely don't need to use this component directly, as it is used internally by the `HoverCardContent` component.
+ * You likely don't need to use this component directly, as it is used internally by the `HoverCard.Content` component.
  */
-const HoverCardPortal = HoverCardPrimitive.Portal;
-HoverCardPortal.displayName = "HoverCardPortal";
+const Portal = HoverCardPrimitive.Portal;
+Portal.displayName = "HoverCardPortal";
 
 /**
  * The content to render inside the hover card.
@@ -76,23 +76,23 @@ HoverCardPortal.displayName = "HoverCardPortal";
  *
  * @example
  * ```tsx
- * <HoverCard>
- *   <HoverCardTrigger asChild>
+ * <HoverCard.Root>
+ *   <HoverCard.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Hover me
  *     </Button>
- *   </HoverCardTrigger>
- *   <HoverCardContent>
+ *   </HoverCard.Trigger>
+ *   <HoverCard.Content>
  *     <p>This is the hover card content.</p>
- *   </HoverCardContent>
- * </HoverCard>
+ *   </HoverCard.Content>
+ * </HoverCard.Root>
  * ```
  */
-const HoverCardContent = forwardRef<
+const Content = forwardRef<
 	ComponentRef<typeof HoverCardPrimitive.Content>,
 	ComponentPropsWithoutRef<typeof HoverCardPrimitive.Content>
 >(({ className, onClick, align = "center", sideOffset = 4, ...props }, ref) => (
-	<HoverCardPortal>
+	<Portal>
 		<HoverCardPrimitive.Content
 			ref={ref}
 			align={align}
@@ -111,14 +111,21 @@ const HoverCardContent = forwardRef<
 			}}
 			{...props}
 		/>
-	</HoverCardPortal>
+	</Portal>
 ));
-HoverCardContent.displayName = HoverCardPrimitive.Content.displayName;
+Content.displayName = HoverCardPrimitive.Content.displayName;
+
+/**
+ * A hover card namespace object that contains the hover card components.
+ */
+const HoverCard = {
+	Root,
+	Content,
+	Portal,
+	Trigger,
+} as const;
 
 export {
 	//,
 	HoverCard,
-	HoverCardContent,
-	HoverCardPortal,
-	HoverCardTrigger,
 };

@@ -3,8 +3,8 @@
 ## Status
 
 - [x] Proposed
-- [ ] Accepted  
-- [ ] Implemented
+- [x] Accepted  
+- [x] Implemented 2025-07-18
 - [ ] Superseded
 
 ## Decision Drivers
@@ -268,7 +268,7 @@ We will migrate 17 Mantle components to use a simple POJO namespace pattern wher
 16. **`tooltip`** - 4 exports
     - `Tooltip` → `Tooltip` (root component)
     - `TooltipContent` → `Tooltip.Content`
-    - `TooltipProvider` → `Tooltip.Provider`
+    - `TooltipProvider` → `TooltipProvider`
     - `TooltipTrigger` → `Tooltip.Trigger`
 
 17. **`media-object`** - 3 exports

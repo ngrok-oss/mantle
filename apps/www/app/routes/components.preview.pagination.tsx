@@ -1,10 +1,5 @@
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
-import {
-	CursorButtons,
-	CursorPageSizeSelect,
-	CursorPagination,
-} from "@ngrok/mantle/pagination";
-import { CursorPageSizeValue } from "node_modules/@ngrok/mantle/src/components/pagination/cursor-pagination";
+import { CursorPagination } from "@ngrok/mantle/pagination";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/components.preview.pagination";
@@ -49,19 +44,19 @@ export default function Page() {
 				</p>
 				<div>
 					<Example className="flex flex-col gap-6">
-						<CursorPagination defaultPageSize={100}>
-							<CursorPageSizeSelect />
-							<CursorButtons hasNextPage hasPreviousPage />
-						</CursorPagination>
+						<CursorPagination.Root defaultPageSize={100}>
+							<CursorPagination.PageSizeSelect />
+							<CursorPagination.Buttons hasNextPage hasPreviousPage />
+						</CursorPagination.Root>
 
-						<CursorPagination defaultPageSize={100}>
-							<CursorPageSizeValue />
-							<CursorButtons hasNextPage hasPreviousPage />
-						</CursorPagination>
+						<CursorPagination.Root defaultPageSize={100}>
+							<CursorPagination.PageSizeValue />
+							<CursorPagination.Buttons hasNextPage hasPreviousPage />
+						</CursorPagination.Root>
 
-						<CursorPagination defaultPageSize={100}>
-							<CursorButtons hasNextPage hasPreviousPage={false} />
-						</CursorPagination>
+						<CursorPagination.Root defaultPageSize={100}>
+							<CursorPagination.Buttons hasNextPage hasPreviousPage={false} />
+						</CursorPagination.Root>
 					</Example>
 					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
 						<CodeBlock.Body>
@@ -69,21 +64,21 @@ export default function Page() {
 							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
-									import { CursorButtons, CursorPageSizeSelect, CursorPagination } from "@ngrok/mantle/pagination";
+									import { CursorPagination } from "@ngrok/mantle/pagination";
 
-									<CursorPagination defaultPageSize={100}>
-										<CursorPageSizeSelect />
-										<CursorButtons hasNextPage hasPreviousPage />
-									</CursorPagination>
+									<CursorPagination.Root defaultPageSize={100}>
+										<CursorPagination.PageSizeSelect />
+										<CursorPagination.Buttons hasNextPage hasPreviousPage />
+									</CursorPagination.Root>
 
-									<CursorPagination defaultPageSize={100}>
-										<CursorPageSizeValue />
-										<CursorButtons hasNextPage hasPreviousPage />
-									</CursorPagination>
+									<CursorPagination.Root defaultPageSize={100}>
+										<CursorPagination.PageSizeValue />
+										<CursorPagination.Buttons hasNextPage hasPreviousPage />
+									</CursorPagination.Root>
 
-									<CursorPagination defaultPageSize={20}>
-										<CursorButtons hasNextPage hasPreviousPage={false} />
-									</CursorPagination>
+									<CursorPagination.Root defaultPageSize={20}>
+										<CursorPagination.Buttons hasNextPage hasPreviousPage={false} />
+									</CursorPagination.Root>
 								`}
 							/>
 						</CodeBlock.Body>
