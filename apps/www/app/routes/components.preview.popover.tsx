@@ -1,7 +1,7 @@
 import { Button } from "@ngrok/mantle/button";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { Input } from "@ngrok/mantle/input";
-import { Popover, PopoverContent, PopoverTrigger } from "@ngrok/mantle/popover";
+import { Popover } from "@ngrok/mantle/popover";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/components.preview.popover";
@@ -33,13 +33,13 @@ export default function Page() {
 			</p>
 			<div>
 				<Example className="gap-2">
-					<Popover>
-						<PopoverTrigger asChild>
+					<Popover.Root>
+						<Popover.Trigger asChild>
 							<Button type="button" appearance="filled">
 								Open popover
 							</Button>
-						</PopoverTrigger>
-						<PopoverContent preferredWidth="max-w-96">
+						</Popover.Trigger>
+						<Popover.Content preferredWidth="max-w-96">
 							<form
 								className="grid gap-4"
 								onSubmit={(event) => {
@@ -87,8 +87,8 @@ export default function Page() {
 									</div>
 								</div>
 							</form>
-						</PopoverContent>
-					</Popover>
+						</Popover.Content>
+					</Popover.Root>
 				</Example>
 				<CodeBlock.Root className="rounded-b-lg rounded-t-none">
 					<CodeBlock.Body>
@@ -96,16 +96,16 @@ export default function Page() {
 						<CodeBlock.Code
 							language="tsx"
 							value={fmtCode`
-								import { Popover, PopoverContent, PopoverTrigger } from "@ngrok/mantle/popover";
+								import { Popover } from "@ngrok/mantle/popover";
 
-								<Popover>
-									<PopoverTrigger asChild>
+								<Popover.Root>
+									<Popover.Trigger asChild>
 										<Button>Open popover</Button>
-									</PopoverTrigger>
-									<PopoverContent preferredWidth="max-w-96">
+									</Popover.Trigger>
+									<Popover.Content preferredWidth="max-w-96">
 										<p>Reprehenderit veniam excepteur incididunt et ut eu.</p>
-									</PopoverContent>
-								</Popover>
+									</Popover.Content>
+								</Popover.Root>
 							`}
 						/>
 					</CodeBlock.Body>

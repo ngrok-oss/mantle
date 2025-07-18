@@ -2,7 +2,7 @@ import { Anchor } from "@ngrok/mantle/anchor";
 import { IconButton } from "@ngrok/mantle/button";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@ngrok/mantle/tooltip";
+import { Tooltip } from "@ngrok/mantle/tooltip";
 import { GlobeIcon } from "@phosphor-icons/react/Globe";
 import type { PropsWithChildren } from "react";
 import { Link, href } from "react-router";
@@ -37,10 +37,10 @@ export const headers: Route.HeadersFunction = () => {
 };
 
 const DisabledTooltip = ({ children }: PropsWithChildren) => (
-	<Tooltip>
-		<TooltipTrigger asChild>{children}</TooltipTrigger>
-		<TooltipContent>Tooltips work on disabled buttons!</TooltipContent>
-	</Tooltip>
+	<Tooltip.Root>
+		<Tooltip.Trigger asChild>{children}</Tooltip.Trigger>
+		<Tooltip.Content>Tooltips work on disabled buttons!</Tooltip.Content>
+	</Tooltip.Root>
 );
 
 export default function Page() {

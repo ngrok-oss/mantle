@@ -15,21 +15,21 @@ import { Separator } from "../separator/separator.js";
  *
  * @example
  * ```tsx
- * <DropdownMenu>
- *   <DropdownMenuTrigger asChild>
+ * <DropdownMenu.Root>
+ *   <DropdownMenu.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Open Menu
  *     </Button>
- *   </DropdownMenuTrigger>
- *   <DropdownMenuContent>
- *     <DropdownMenuItem>Item 1</DropdownMenuItem>
- *     <DropdownMenuItem>Item 2</DropdownMenuItem>
- *   </DropdownMenuContent>
- * </DropdownMenu>
+ *   </DropdownMenu.Trigger>
+ *   <DropdownMenu.Content>
+ *     <DropdownMenu.Item>Item 1</DropdownMenu.Item>
+ *     <DropdownMenu.Item>Item 2</DropdownMenu.Item>
+ *   </DropdownMenu.Content>
+ * </DropdownMenu.Root>
  * ```
  */
-const DropdownMenu = DropdownMenuPrimitive.Root;
-DropdownMenu.displayName = "DropdownMenu";
+const Root = DropdownMenuPrimitive.Root;
+Root.displayName = "DropdownMenu";
 
 /**
  * The trigger button that opens the dropdown menu.
@@ -38,34 +38,34 @@ DropdownMenu.displayName = "DropdownMenu";
  *
  * @example
  * ```tsx
- * <DropdownMenu>
- *   <DropdownMenuTrigger asChild>
+ * <DropdownMenu.Root>
+ *   <DropdownMenu.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Open Menu
  *     </Button>
- *   </DropdownMenuTrigger>
- *   <DropdownMenuContent>
- *     <DropdownMenuItem>Item 1</DropdownMenuItem>
- *   </DropdownMenuContent>
- * </DropdownMenu>
+ *   </DropdownMenu.Trigger>
+ *   <DropdownMenu.Content>
+ *     <DropdownMenu.Item>Item 1</DropdownMenu.Item>
+ *   </DropdownMenu.Content>
+ * </DropdownMenu.Root>
  * ```
  */
-const DropdownMenuTrigger = DropdownMenuPrimitive.Trigger;
-DropdownMenuTrigger.displayName = "DropdownMenuTrigger";
+const Trigger = DropdownMenuPrimitive.Trigger;
+Trigger.displayName = "DropdownMenuTrigger";
 
-const DropdownMenuGroup = DropdownMenuPrimitive.Group;
-DropdownMenuGroup.displayName = "DropdownMenuGroup";
+const Group = DropdownMenuPrimitive.Group;
+Group.displayName = "DropdownMenuGroup";
 
-const DropdownMenuPortal = DropdownMenuPrimitive.Portal;
-DropdownMenuPortal.displayName = "DropdownMenuPortal";
+const Portal = DropdownMenuPrimitive.Portal;
+Portal.displayName = "DropdownMenuPortal";
 
-const DropdownMenuSub = DropdownMenuPrimitive.Sub;
-DropdownMenuSub.displayName = "DropdownMenuSub";
+const Sub = DropdownMenuPrimitive.Sub;
+Sub.displayName = "DropdownMenuSub";
 
-const DropdownMenuRadioGroup = DropdownMenuPrimitive.RadioGroup;
-DropdownMenuRadioGroup.displayName = "DropdownMenuRadioGroup";
+const RadioGroup = DropdownMenuPrimitive.RadioGroup;
+RadioGroup.displayName = "DropdownMenuRadioGroup";
 
-const DropdownMenuSubTrigger = forwardRef<
+const SubTrigger = forwardRef<
 	ComponentRef<typeof DropdownMenuPrimitive.SubTrigger>,
 	ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubTrigger> & {
 		inset?: boolean;
@@ -88,13 +88,13 @@ const DropdownMenuSubTrigger = forwardRef<
 		</span>
 	</DropdownMenuPrimitive.SubTrigger>
 ));
-DropdownMenuSubTrigger.displayName = "DropdownMenuSubTrigger";
+SubTrigger.displayName = "DropdownMenuSubTrigger";
 
-const DropdownMenuSubContent = forwardRef<
+const SubContent = forwardRef<
 	ComponentRef<typeof DropdownMenuPrimitive.SubContent>,
 	ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubContent>
 >(({ className, loop = true, ...props }, ref) => (
-	<DropdownMenuPortal>
+	<Portal>
 		<DropdownMenuPrimitive.SubContent
 			className={cx(
 				"scrollbar",
@@ -106,9 +106,9 @@ const DropdownMenuSubContent = forwardRef<
 			ref={ref}
 			{...props}
 		/>
-	</DropdownMenuPortal>
+	</Portal>
 ));
-DropdownMenuSubContent.displayName = "DropdownMenuSubContent";
+SubContent.displayName = "DropdownMenuSubContent";
 
 type DropdownMenuContentProps = ComponentPropsWithoutRef<
 	typeof DropdownMenuPrimitive.Content
@@ -126,24 +126,24 @@ type DropdownMenuContentProps = ComponentPropsWithoutRef<
  *
  * @example
  * ```tsx
- * <DropdownMenu>
- *   <DropdownMenuTrigger asChild>
+ * <DropdownMenu.Root>
+ *   <DropdownMenu.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Open Menu
  *     </Button>
- *   </DropdownMenuTrigger>
- *   <DropdownMenuContent>
- *     <DropdownMenuItem>Item 1</DropdownMenuItem>
- *     <DropdownMenuItem>Item 2</DropdownMenuItem>
- *   </DropdownMenuContent>
- * </DropdownMenu>
+ *   </DropdownMenu.Trigger>
+ *   <DropdownMenu.Content>
+ *     <DropdownMenu.Item>Item 1</DropdownMenu.Item>
+ *     <DropdownMenu.Item>Item 2</DropdownMenu.Item>
+ *   </DropdownMenu.Content>
+ * </DropdownMenu.Root>
  * ```
  */
-const DropdownMenuContent = forwardRef<
+const Content = forwardRef<
 	ComponentRef<typeof DropdownMenuPrimitive.Content>,
 	DropdownMenuContentProps
 >(({ className, onClick, loop = true, width, ...props }, ref) => (
-	<DropdownMenuPortal>
+	<Portal>
 		<DropdownMenuPrimitive.Content
 			ref={ref}
 			className={cx(
@@ -165,9 +165,9 @@ const DropdownMenuContent = forwardRef<
 			}}
 			{...props}
 		/>
-	</DropdownMenuPortal>
+	</Portal>
 ));
-DropdownMenuContent.displayName = "DropdownMenuContent";
+Content.displayName = "DropdownMenuContent";
 
 /**
  * An item in the dropdown menu.
@@ -176,20 +176,20 @@ DropdownMenuContent.displayName = "DropdownMenuContent";
  *
  * @example
  * ```tsx
- * <DropdownMenu>
- *   <DropdownMenuTrigger asChild>
+ * <DropdownMenu.Root>
+ *   <DropdownMenu.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Open Menu
  *     </Button>
- *   </DropdownMenuTrigger>
- *   <DropdownMenuContent>
- *     <DropdownMenuItem>Item 1</DropdownMenuItem>
- *     <DropdownMenuItem>Item 2</DropdownMenuItem>
- *   </DropdownMenuContent>
- * </DropdownMenu>
+ *   </DropdownMenu.Trigger>
+ *   <DropdownMenu.Content>
+ *     <DropdownMenu.Item>Item 1</DropdownMenu.Item>
+ *     <DropdownMenu.Item>Item 2</DropdownMenu.Item>
+ *   </DropdownMenu.Content>
+ * </DropdownMenu.Root>
  * ```
  */
-const DropdownMenuItem = forwardRef<
+const Item = forwardRef<
 	ComponentRef<typeof DropdownMenuPrimitive.Item>,
 	ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Item> & {
 		inset?: boolean;
@@ -206,9 +206,9 @@ const DropdownMenuItem = forwardRef<
 		{...props}
 	/>
 ));
-DropdownMenuItem.displayName = "DropdownMenuItem";
+Item.displayName = "DropdownMenuItem";
 
-const DropdownMenuCheckboxItem = forwardRef<
+const CheckboxItem = forwardRef<
 	ComponentRef<typeof DropdownMenuPrimitive.CheckboxItem>,
 	ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.CheckboxItem>
 >(({ className, children, checked, ...props }, ref) => (
@@ -232,7 +232,7 @@ const DropdownMenuCheckboxItem = forwardRef<
 		{children}
 	</DropdownMenuPrimitive.CheckboxItem>
 ));
-DropdownMenuCheckboxItem.displayName = "DropdownMenuCheckboxItem";
+CheckboxItem.displayName = "DropdownMenuCheckboxItem";
 
 type DropdownMenuRadioItemProps = ComponentPropsWithoutRef<
 	typeof DropdownMenuPrimitive.RadioItem
@@ -241,33 +241,32 @@ type DropdownMenuRadioItemProps = ComponentPropsWithoutRef<
 	id?: string;
 };
 
-const DropdownMenuRadioItem = forwardRef<
-	ComponentRef<"input">,
-	DropdownMenuRadioItemProps
->(({ className, children, ...props }, ref) => (
-	<DropdownMenuPrimitive.RadioItem
-		className={cx(
-			"group/dropdown-menu-radio-item",
-			"text-strong data-disabled:pointer-events-none data-disabled:opacity-50 relative flex cursor-pointer select-none items-center gap-2 rounded py-1.5 px-2 text-sm font-normal outline-none",
-			"data-highlighted:bg-popover-hover data-highlighted:dark:bg-popover-hover",
-			"aria-checked:!bg-filled-accent aria-checked:text-on-filled aria-checked:font-medium aria-checked:pr-9",
-			"[&>svg]:size-5 [&_svg]:shrink-0",
-			className,
-		)}
-		ref={ref}
-		{...props}
-	>
-		<span className="absolute right-2 items-center hidden group-aria-checked/dropdown-menu-radio-item:flex">
-			<DropdownMenuPrimitive.ItemIndicator>
-				<Icon svg={<CheckIcon weight="bold" />} className="size-4" />
-			</DropdownMenuPrimitive.ItemIndicator>
-		</span>
-		{children}
-	</DropdownMenuPrimitive.RadioItem>
-));
-DropdownMenuRadioItem.displayName = "DropdownMenuRadioItem";
+const RadioItem = forwardRef<ComponentRef<"input">, DropdownMenuRadioItemProps>(
+	({ className, children, ...props }, ref) => (
+		<DropdownMenuPrimitive.RadioItem
+			className={cx(
+				"group/dropdown-menu-radio-item",
+				"text-strong data-disabled:pointer-events-none data-disabled:opacity-50 relative flex cursor-pointer select-none items-center gap-2 rounded py-1.5 px-2 text-sm font-normal outline-none",
+				"data-highlighted:bg-popover-hover data-highlighted:dark:bg-popover-hover",
+				"aria-checked:!bg-filled-accent aria-checked:text-on-filled aria-checked:font-medium aria-checked:pr-9",
+				"[&>svg]:size-5 [&_svg]:shrink-0",
+				className,
+			)}
+			ref={ref}
+			{...props}
+		>
+			<span className="absolute right-2 items-center hidden group-aria-checked/dropdown-menu-radio-item:flex">
+				<DropdownMenuPrimitive.ItemIndicator>
+					<Icon svg={<CheckIcon weight="bold" />} className="size-4" />
+				</DropdownMenuPrimitive.ItemIndicator>
+			</span>
+			{children}
+		</DropdownMenuPrimitive.RadioItem>
+	),
+);
+RadioItem.displayName = "DropdownMenuRadioItem";
 
-const DropdownMenuLabel = forwardRef<
+const Label = forwardRef<
 	ComponentRef<typeof DropdownMenuPrimitive.Label>,
 	ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Label> & {
 		inset?: boolean;
@@ -283,9 +282,9 @@ const DropdownMenuLabel = forwardRef<
 		{...props}
 	/>
 ));
-DropdownMenuLabel.displayName = "DropdownMenuLabel";
+Label.displayName = "DropdownMenuLabel";
 
-const DropdownMenuSeparator = forwardRef<
+const DropdownSeparator = forwardRef<
 	ComponentRef<typeof Separator>,
 	ComponentPropsWithoutRef<typeof Separator>
 >(({ className, ...props }, ref) => (
@@ -295,9 +294,9 @@ const DropdownMenuSeparator = forwardRef<
 		{...props}
 	/>
 ));
-DropdownMenuSeparator.displayName = "DropdownMenuSeparator";
+DropdownSeparator.displayName = "DropdownMenuSeparator";
 
-const DropdownMenuShortcut = ({
+const Shortcut = ({
 	className,
 	...props
 }: React.HTMLAttributes<HTMLSpanElement>) => {
@@ -308,22 +307,30 @@ const DropdownMenuShortcut = ({
 		/>
 	);
 };
-DropdownMenuShortcut.displayName = "DropdownMenuShortcut";
+Shortcut.displayName = "DropdownMenuShortcut";
+
+/**
+ * A dropdown menu namespace object that contains the dropdown menu components.
+ */
+const DropdownMenu = {
+	Root,
+	CheckboxItem,
+	Content,
+	Group,
+	Item,
+	Label,
+	Portal,
+	RadioGroup,
+	RadioItem,
+	Separator: DropdownSeparator,
+	Shortcut,
+	Sub,
+	SubContent,
+	SubTrigger,
+	Trigger,
+} as const;
 
 export {
+	//,
 	DropdownMenu,
-	DropdownMenuCheckboxItem,
-	DropdownMenuContent,
-	DropdownMenuGroup,
-	DropdownMenuItem,
-	DropdownMenuLabel,
-	DropdownMenuPortal,
-	DropdownMenuRadioGroup,
-	DropdownMenuRadioItem,
-	DropdownMenuSeparator,
-	DropdownMenuShortcut,
-	DropdownMenuSub,
-	DropdownMenuSubContent,
-	DropdownMenuSubTrigger,
-	DropdownMenuTrigger,
 };

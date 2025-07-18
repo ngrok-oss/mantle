@@ -84,7 +84,7 @@ type AlertDialogProps = ComponentProps<typeof AlertDialogPrimitive.Root> & {
  *           Continue
  *         </AlertDialog.Action>
  *       </AlertDialog.Footer>
- *   	</AlertDialog.Body>
+ *     </AlertDialog.Body>
  *   </AlertDialog.Content>
  * </AlertDialog>
  * ```
@@ -111,35 +111,35 @@ Root.displayName = "AlertDialog";
  * @example
  * ```tsx
  * <AlertDialog priority="danger">
- *   <AlertDialogTrigger asChild>
+ *   <AlertDialog.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Show Danger Alert Dialog
  *     </Button>
- *   </AlertDialogTrigger>
- *   <AlertDialogContent>
- *     <AlertDialogIcon />
- *     <AlertDialogBody>
- *       <AlertDialogHeader>
- *         <AlertDialogTitle>
+ *   </AlertDialog.Trigger>
+ *   <AlertDialog.Content>
+ *     <AlertDialog.Icon />
+ *     <AlertDialog.Body>
+ *       <AlertDialog.Header>
+ *         <AlertDialog.Title>
  *           Are you absolutely sure?
- *         </AlertDialogTitle>
- *         <AlertDialogDescription>
+ *         </AlertDialog.Title>
+ *         <AlertDialog.Description>
  *           Proident quis nisi tempor irure sunt ut minim occaecat mollit sunt.
- *         </AlertDialogDescription>
- *       </AlertDialogHeader>
- *       <AlertDialogFooter>
- *         <AlertDialogCancel type="button">Cancel</AlertDialogCancel>
- *         <AlertDialogAction type="button">
+ *         </AlertDialog.Description>
+ *       </AlertDialog.Header>
+ *       <AlertDialog.Footer>
+ *         <AlertDialog.Cancel type="button">Cancel</AlertDialog.Cancel>
+ *         <AlertDialog.Action type="button">
  *           Continue
- *         </AlertDialogAction>
- *       </AlertDialogFooter>
- *   	</AlertDialogBody>
- *   </AlertDialogContent>
+ *         </AlertDialog.Action>
+ *       </AlertDialog.Footer>
+ *     </AlertDialog.Body>
+ *   </AlertDialog.Content>
  * </AlertDialog>
  * ```
  */
-const AlertDialogTrigger = AlertDialogPrimitive.Trigger;
-AlertDialogTrigger.displayName = "AlertDialogTrigger";
+const Trigger = AlertDialogPrimitive.Trigger;
+Trigger.displayName = "AlertDialogTrigger";
 
 /**
  * The portal for the Alert Dialog.
@@ -193,34 +193,34 @@ type AlertDialogContentProps = ComponentPropsWithoutRef<
  * @example
  * ```tsx
  * <AlertDialog priority="danger">
- *   <AlertDialogTrigger asChild>
+ *   <AlertDialog.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Show Danger Alert Dialog
  *     </Button>
- *   </AlertDialogTrigger>
- *   <AlertDialogContent>
- *     <AlertDialogIcon />
- *     <AlertDialogBody>
- *       <AlertDialogHeader>
- *         <AlertDialogTitle>
+ *   </AlertDialog.Trigger>
+ *   <AlertDialog.Content>
+ *     <AlertDialog.Icon />
+ *     <AlertDialog.Body>
+ *       <AlertDialog.Header>
+ *         <AlertDialog.Title>
  *           Are you absolutely sure?
- *         </AlertDialogTitle>
- *         <AlertDialogDescription>
+ *         </AlertDialog.Title>
+ *         <AlertDialog.Description>
  *           Proident quis nisi tempor irure sunt ut minim occaecat mollit sunt.
- *         </AlertDialogDescription>
- *       </AlertDialogHeader>
- *       <AlertDialogFooter>
- *         <AlertDialogCancel type="button">Cancel</AlertDialogCancel>
- *         <AlertDialogAction type="button">
+ *         </AlertDialog.Description>
+ *       </AlertDialog.Header>
+ *       <AlertDialog.Footer>
+ *         <AlertDialog.Cancel type="button">Cancel</AlertDialog.Cancel>
+ *         <AlertDialog.Action type="button">
  *           Continue
- *         </AlertDialogAction>
- *       </AlertDialogFooter>
- *   	</AlertDialogBody>
- *   </AlertDialogContent>
+ *         </AlertDialog.Action>
+ *       </AlertDialog.Footer>
+ *     </AlertDialog.Body>
+ *   </AlertDialog.Content>
  * </AlertDialog>
  * ```
  */
-const AlertDialogContent = forwardRef<
+const Content = forwardRef<
 	ComponentRef<typeof AlertDialogPrimitive.Content>,
 	AlertDialogContentProps
 >(
@@ -262,7 +262,7 @@ const AlertDialogContent = forwardRef<
 		</AlertDialogPortal>
 	),
 );
-AlertDialogContent.displayName = "AlertDialogContent";
+Content.displayName = "AlertDialogContent";
 
 /**
  * Contains the main content of the alert dialog.
@@ -272,34 +272,34 @@ AlertDialogContent.displayName = "AlertDialogContent";
  * @example
  * ```tsx
  * <AlertDialog priority="danger">
- *   <AlertDialogTrigger asChild>
+ *   <AlertDialog.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Show Danger Alert Dialog
  *     </Button>
- *   </AlertDialogTrigger>
- *   <AlertDialogContent>
- *     <AlertDialogIcon />
- *     <AlertDialogBody>
- *       <AlertDialogHeader>
- *         <AlertDialogTitle>
+ *   </AlertDialog.Trigger>
+ *   <AlertDialog.Content>
+ *     <AlertDialog.Icon />
+ *     <AlertDialog.Body>
+ *       <AlertDialog.Header>
+ *         <AlertDialog.Title>
  *           Are you absolutely sure?
- *         </AlertDialogTitle>
- *         <AlertDialogDescription>
+ *         </AlertDialog.Title>
+ *         <AlertDialog.Description>
  *           Proident quis nisi tempor irure sunt ut minim occaecat mollit sunt.
- *         </AlertDialogDescription>
- *       </AlertDialogHeader>
- *       <AlertDialogFooter>
- *         <AlertDialogCancel type="button">Cancel</AlertDialogCancel>
- *         <AlertDialogAction type="button">
+ *         </AlertDialog.Description>
+ *       </AlertDialog.Header>
+ *       <AlertDialog.Footer>
+ *         <AlertDialog.Cancel type="button">Cancel</AlertDialog.Cancel>
+ *         <AlertDialog.Action type="button">
  *           Continue
- *         </AlertDialogAction>
- *       </AlertDialogFooter>
- *   	</AlertDialogBody>
- *   </AlertDialogContent>
+ *         </AlertDialog.Action>
+ *       </AlertDialog.Footer>
+ *     </AlertDialog.Body>
+ *   </AlertDialog.Content>
  * </AlertDialog>
  * ```
  */
-const AlertDialogBody = forwardRef<
+const Body = forwardRef<
 	ComponentRef<"div">,
 	ComponentProps<"div"> & WithAsChild
 >(({ asChild = false, className, ...props }, ref) => {
@@ -313,7 +313,7 @@ const AlertDialogBody = forwardRef<
 		/>
 	);
 });
-AlertDialogBody.displayName = "AlertDialogBody";
+Body.displayName = "AlertDialogBody";
 
 /**
  * Contains the header content of the dialog, including the title and description.
@@ -323,34 +323,34 @@ AlertDialogBody.displayName = "AlertDialogBody";
  * @example
  * ```tsx
  * <AlertDialog priority="danger">
- *   <AlertDialogTrigger asChild>
+ *   <AlertDialog.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Show Danger Alert Dialog
  *     </Button>
- *   </AlertDialogTrigger>
- *   <AlertDialogContent>
- *     <AlertDialogIcon />
- *     <AlertDialogBody>
- *       <AlertDialogHeader>
- *         <AlertDialogTitle>
+ *   </AlertDialog.Trigger>
+ *   <AlertDialog.Content>
+ *     <AlertDialog.Icon />
+ *     <AlertDialog.Body>
+ *       <AlertDialog.Header>
+ *         <AlertDialog.Title>
  *           Are you absolutely sure?
- *         </AlertDialogTitle>
- *         <AlertDialogDescription>
+ *         </AlertDialog.Title>
+ *         <AlertDialog.Description>
  *           Proident quis nisi tempor irure sunt ut minim occaecat mollit sunt.
- *         </AlertDialogDescription>
- *       </AlertDialogHeader>
- *       <AlertDialogFooter>
- *         <AlertDialogCancel type="button">Cancel</AlertDialogCancel>
- *         <AlertDialogAction type="button">
+ *         </AlertDialog.Description>
+ *       </AlertDialog.Header>
+ *       <AlertDialog.Footer>
+ *         <AlertDialog.Cancel type="button">Cancel</AlertDialog.Cancel>
+ *         <AlertDialog.Action type="button">
  *           Continue
- *         </AlertDialogAction>
- *       </AlertDialogFooter>
- *   	</AlertDialogBody>
- *   </AlertDialogContent>
+ *         </AlertDialog.Action>
+ *       </AlertDialog.Footer>
+ *     </AlertDialog.Body>
+ *   </AlertDialog.Content>
  * </AlertDialog>
  * ```
  */
-const AlertDialogHeader = forwardRef<
+const Header = forwardRef<
 	ComponentRef<"div">,
 	ComponentProps<"div"> & WithAsChild
 >(({ asChild = false, className, ...props }, ref) => {
@@ -366,7 +366,7 @@ const AlertDialogHeader = forwardRef<
 		/>
 	);
 });
-AlertDialogHeader.displayName = "AlertDialogHeader";
+Header.displayName = "AlertDialogHeader";
 
 /**
  * Contains the footer content of the dialog, including the action and cancel buttons.
@@ -376,34 +376,34 @@ AlertDialogHeader.displayName = "AlertDialogHeader";
  * @example
  * ```tsx
  * <AlertDialog priority="danger">
- *   <AlertDialogTrigger asChild>
+ *   <AlertDialog.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Show Danger Alert Dialog
  *     </Button>
- *   </AlertDialogTrigger>
- *   <AlertDialogContent>
- *     <AlertDialogIcon />
- *     <AlertDialogBody>
- *       <AlertDialogHeader>
- *         <AlertDialogTitle>
+ *   </AlertDialog.Trigger>
+ *   <AlertDialog.Content>
+ *     <AlertDialog.Icon />
+ *     <AlertDialog.Body>
+ *       <AlertDialog.Header>
+ *         <AlertDialog.Title>
  *           Are you absolutely sure?
- *         </AlertDialogTitle>
- *         <AlertDialogDescription>
+ *         </AlertDialog.Title>
+ *         <AlertDialog.Description>
  *           Proident quis nisi tempor irure sunt ut minim occaecat mollit sunt.
- *         </AlertDialogDescription>
- *       </AlertDialogHeader>
- *       <AlertDialogFooter>
- *         <AlertDialogCancel type="button">Cancel</AlertDialogCancel>
- *         <AlertDialogAction type="button">
+ *         </AlertDialog.Description>
+ *       </AlertDialog.Header>
+ *       <AlertDialog.Footer>
+ *         <AlertDialog.Cancel type="button">Cancel</AlertDialog.Cancel>
+ *         <AlertDialog.Action type="button">
  *           Continue
- *         </AlertDialogAction>
- *       </AlertDialogFooter>
- *   	</AlertDialogBody>
- *   </AlertDialogContent>
+ *         </AlertDialog.Action>
+ *       </AlertDialog.Footer>
+ *     </AlertDialog.Body>
+ *   </AlertDialog.Content>
  * </AlertDialog>
  * ```
  */
-const AlertDialogFooter = forwardRef<
+const Footer = forwardRef<
 	ComponentRef<"div">,
 	ComponentProps<"div"> & WithAsChild
 >(({ asChild = false, className, ...props }, ref) => {
@@ -419,7 +419,7 @@ const AlertDialogFooter = forwardRef<
 		/>
 	);
 });
-AlertDialogFooter.displayName = "AlertDialogFooter";
+Footer.displayName = "AlertDialogFooter";
 
 /**
  * An accessible name to be announced when the dialog is opened.
@@ -432,34 +432,34 @@ AlertDialogFooter.displayName = "AlertDialogFooter";
  * @example
  * ```tsx
  * <AlertDialog priority="danger">
- *   <AlertDialogTrigger asChild>
+ *   <AlertDialog.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Show Danger Alert Dialog
  *     </Button>
- *   </AlertDialogTrigger>
- *   <AlertDialogContent>
- *     <AlertDialogIcon />
- *     <AlertDialogBody>
- *       <AlertDialogHeader>
- *         <AlertDialogTitle>
+ *   </AlertDialog.Trigger>
+ *   <AlertDialog.Content>
+ *     <AlertDialog.Icon />
+ *     <AlertDialog.Body>
+ *       <AlertDialog.Header>
+ *         <AlertDialog.Title>
  *           Are you absolutely sure?
- *         </AlertDialogTitle>
- *         <AlertDialogDescription>
+ *         </AlertDialog.Title>
+ *         <AlertDialog.Description>
  *           Proident quis nisi tempor irure sunt ut minim occaecat mollit sunt.
- *         </AlertDialogDescription>
- *       </AlertDialogHeader>
- *       <AlertDialogFooter>
- *         <AlertDialogCancel type="button">Cancel</AlertDialogCancel>
- *         <AlertDialogAction type="button">
+ *         </AlertDialog.Description>
+ *       </AlertDialog.Header>
+ *       <AlertDialog.Footer>
+ *         <AlertDialog.Cancel type="button">Cancel</AlertDialog.Cancel>
+ *         <AlertDialog.Action type="button">
  *           Continue
- *         </AlertDialogAction>
- *       </AlertDialogFooter>
- *   	</AlertDialogBody>
- *   </AlertDialogContent>
+ *         </AlertDialog.Action>
+ *       </AlertDialog.Footer>
+ *     </AlertDialog.Body>
+ *   </AlertDialog.Content>
  * </AlertDialog>
  * ```
  */
-const AlertDialogTitle = forwardRef<
+const Title = forwardRef<
 	ComponentRef<typeof AlertDialogPrimitive.Title>,
 	ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Title>
 >(({ className, ...props }, ref) => (
@@ -472,7 +472,7 @@ const AlertDialogTitle = forwardRef<
 		{...props}
 	/>
 ));
-AlertDialogTitle.displayName = "AlertDialogTitle";
+Title.displayName = "AlertDialogTitle";
 
 /**
  * An accessible description to be announced when the dialog is opened.
@@ -485,34 +485,34 @@ AlertDialogTitle.displayName = "AlertDialogTitle";
  * @example
  * ```tsx
  * <AlertDialog priority="danger">
- *   <AlertDialogTrigger asChild>
+ *   <AlertDialog.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Show Danger Alert Dialog
  *     </Button>
- *   </AlertDialogTrigger>
- *   <AlertDialogContent>
- *     <AlertDialogIcon />
- *     <AlertDialogBody>
- *       <AlertDialogHeader>
- *         <AlertDialogTitle>
+ *   </AlertDialog.Trigger>
+ *   <AlertDialog.Content>
+ *     <AlertDialog.Icon />
+ *     <AlertDialog.Body>
+ *       <AlertDialog.Header>
+ *         <AlertDialog.Title>
  *           Are you absolutely sure?
- *         </AlertDialogTitle>
- *         <AlertDialogDescription>
+ *         </AlertDialog.Title>
+ *         <AlertDialog.Description>
  *           Proident quis nisi tempor irure sunt ut minim occaecat mollit sunt.
- *         </AlertDialogDescription>
- *       </AlertDialogHeader>
- *       <AlertDialogFooter>
- *         <AlertDialogCancel type="button">Cancel</AlertDialogCancel>
- *         <AlertDialogAction type="button">
+ *         </AlertDialog.Description>
+ *       </AlertDialog.Header>
+ *       <AlertDialog.Footer>
+ *         <AlertDialog.Cancel type="button">Cancel</AlertDialog.Cancel>
+ *         <AlertDialog.Action type="button">
  *           Continue
- *         </AlertDialogAction>
- *       </AlertDialogFooter>
- *   	</AlertDialogBody>
- *   </AlertDialogContent>
+ *         </AlertDialog.Action>
+ *       </AlertDialog.Footer>
+ *     </AlertDialog.Body>
+ *   </AlertDialog.Content>
  * </AlertDialog>
  * ```
  */
-const AlertDialogDescription = forwardRef<
+const Description = forwardRef<
 	ComponentRef<typeof AlertDialogPrimitive.Description>,
 	ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Description>
 >(({ className, ...props }, ref) => (
@@ -525,7 +525,7 @@ const AlertDialogDescription = forwardRef<
 		{...props}
 	/>
 ));
-AlertDialogDescription.displayName = "AlertDialogDescription";
+Description.displayName = "AlertDialogDescription";
 
 /**
  * A button that confirms the Alert Dialog action.
@@ -541,34 +541,34 @@ AlertDialogDescription.displayName = "AlertDialogDescription";
  * @example
  * ```tsx
  * <AlertDialog priority="danger">
- *   <AlertDialogTrigger asChild>
+ *   <AlertDialog.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Show Danger Alert Dialog
  *     </Button>
- *   </AlertDialogTrigger>
- *   <AlertDialogContent>
- *     <AlertDialogIcon />
- *     <AlertDialogBody>
- *       <AlertDialogHeader>
- *         <AlertDialogTitle>
+ *   </AlertDialog.Trigger>
+ *   <AlertDialog.Content>
+ *     <AlertDialog.Icon />
+ *     <AlertDialog.Body>
+ *       <AlertDialog.Header>
+ *         <AlertDialog.Title>
  *           Are you absolutely sure?
- *         </AlertDialogTitle>
- *         <AlertDialogDescription>
+ *         </AlertDialog.Title>
+ *         <AlertDialog.Description>
  *           Proident quis nisi tempor irure sunt ut minim occaecat mollit sunt.
- *         </AlertDialogDescription>
- *       </AlertDialogHeader>
- *       <AlertDialogFooter>
- *         <AlertDialogCancel type="button">Cancel</AlertDialogCancel>
- *         <AlertDialogAction type="button">
+ *         </AlertDialog.Description>
+ *       </AlertDialog.Header>
+ *       <AlertDialog.Footer>
+ *         <AlertDialog.Cancel type="button">Cancel</AlertDialog.Cancel>
+ *         <AlertDialog.Action type="button">
  *           Continue
- *         </AlertDialogAction>
- *       </AlertDialogFooter>
- *   	</AlertDialogBody>
- *   </AlertDialogContent>
+ *         </AlertDialog.Action>
+ *       </AlertDialog.Footer>
+ *     </AlertDialog.Body>
+ *   </AlertDialog.Content>
  * </AlertDialog>
  * ```
  */
-const AlertDialogAction = forwardRef<ComponentRef<"button">, ButtonProps>(
+const Action = forwardRef<ComponentRef<"button">, ButtonProps>(
 	(
 		{
 			//,
@@ -594,7 +594,7 @@ const AlertDialogAction = forwardRef<ComponentRef<"button">, ButtonProps>(
 		);
 	},
 );
-AlertDialogAction.displayName = "AlertDialogAction";
+Action.displayName = "AlertDialogAction";
 
 /**
  * A button that closes the dialog and cancels the action.
@@ -609,34 +609,34 @@ AlertDialogAction.displayName = "AlertDialogAction";
  * @example
  * ```tsx
  * <AlertDialog priority="danger">
- *   <AlertDialogTrigger asChild>
+ *   <AlertDialog.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Show Danger Alert Dialog
  *     </Button>
- *   </AlertDialogTrigger>
- *   <AlertDialogContent>
- *     <AlertDialogIcon />
- *     <AlertDialogBody>
- *       <AlertDialogHeader>
- *         <AlertDialogTitle>
+ *   </AlertDialog.Trigger>
+ *   <AlertDialog.Content>
+ *     <AlertDialog.Icon />
+ *     <AlertDialog.Body>
+ *       <AlertDialog.Header>
+ *         <AlertDialog.Title>
  *           Are you absolutely sure?
- *         </AlertDialogTitle>
- *         <AlertDialogDescription>
+ *         </AlertDialog.Title>
+ *         <AlertDialog.Description>
  *           Proident quis nisi tempor irure sunt ut minim occaecat mollit sunt.
- *         </AlertDialogDescription>
- *       </AlertDialogHeader>
- *       <AlertDialogFooter>
- *         <AlertDialogCancel type="button">Cancel</AlertDialogCancel>
- *         <AlertDialogAction type="button">
+ *         </AlertDialog.Description>
+ *       </AlertDialog.Header>
+ *       <AlertDialog.Footer>
+ *         <AlertDialog.Cancel type="button">Cancel</AlertDialog.Cancel>
+ *         <AlertDialog.Action type="button">
  *           Continue
- *         </AlertDialogAction>
- *       </AlertDialogFooter>
- *   	</AlertDialogBody>
- *   </AlertDialogContent>
+ *         </AlertDialog.Action>
+ *       </AlertDialog.Footer>
+ *     </AlertDialog.Body>
+ *   </AlertDialog.Content>
  * </AlertDialog>
  * ```
  */
-const AlertDialogCancel = forwardRef<ComponentRef<"button">, ButtonProps>(
+const Cancel = forwardRef<ComponentRef<"button">, ButtonProps>(
 	(
 		{
 			//,
@@ -658,7 +658,7 @@ const AlertDialogCancel = forwardRef<ComponentRef<"button">, ButtonProps>(
 		</AlertDialogPrimitive.Close>
 	),
 );
-AlertDialogCancel.displayName = "AlertDialogCancel";
+Cancel.displayName = "AlertDialogCancel";
 
 type AlertDialogIconProps = Omit<SvgAttributes, "children"> & {
 	svg?: ReactNode;
@@ -677,34 +677,34 @@ type AlertDialogIconProps = Omit<SvgAttributes, "children"> & {
  * @example
  * ```tsx
  * <AlertDialog priority="danger">
- *   <AlertDialogTrigger asChild>
+ *   <AlertDialog.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Show Danger Alert Dialog
  *     </Button>
- *   </AlertDialogTrigger>
- *   <AlertDialogContent>
- *     <AlertDialogIcon />
- *     <AlertDialogBody>
- *       <AlertDialogHeader>
- *         <AlertDialogTitle>
+ *   </AlertDialog.Trigger>
+ *   <AlertDialog.Content>
+ *     <AlertDialog.Icon />
+ *     <AlertDialog.Body>
+ *       <AlertDialog.Header>
+ *         <AlertDialog.Title>
  *           Are you absolutely sure?
- *         </AlertDialogTitle>
- *         <AlertDialogDescription>
+ *         </AlertDialog.Title>
+ *         <AlertDialog.Description>
  *           Proident quis nisi tempor irure sunt ut minim occaecat mollit sunt.
- *         </AlertDialogDescription>
- *       </AlertDialogHeader>
- *       <AlertDialogFooter>
- *         <AlertDialogCancel type="button">Cancel</AlertDialogCancel>
- *         <AlertDialogAction type="button">
+ *         </AlertDialog.Description>
+ *       </AlertDialog.Header>
+ *       <AlertDialog.Footer>
+ *         <AlertDialog.Cancel type="button">Cancel</AlertDialog.Cancel>
+ *         <AlertDialog.Action type="button">
  *           Continue
- *         </AlertDialogAction>
- *       </AlertDialogFooter>
- *   	</AlertDialogBody>
- *   </AlertDialogContent>
+ *         </AlertDialog.Action>
+ *       </AlertDialog.Footer>
+ *     </AlertDialog.Body>
+ *   </AlertDialog.Content>
  * </AlertDialog>
  * ```
  */
-const AlertDialogIcon = forwardRef<ComponentRef<"svg">, AlertDialogIconProps>(
+const Icon = forwardRef<ComponentRef<"svg">, AlertDialogIconProps>(
 	({ className, svg, ...props }, ref) => {
 		const ctx = useAlertDialogContext();
 		const defaultColor =
@@ -722,7 +722,7 @@ const AlertDialogIcon = forwardRef<ComponentRef<"svg">, AlertDialogIconProps>(
 		);
 	},
 );
-AlertDialogIcon.displayName = "AlertDialogIcon";
+Icon.displayName = "AlertDialogIcon";
 
 /**
  * A button that closes the Alert Dialog. (Unstyled)
@@ -731,30 +731,37 @@ AlertDialogIcon.displayName = "AlertDialogIcon";
  *
  * @example
  * ```tsx
- * <AlertDialogClose asChild>
- *   <AlertDialogAction
- *   	type="button"
- *   	onClick={() => doThing()}
+ * <AlertDialog.Close asChild>
+ *   <AlertDialog.Action
+ *     type="button"
+ *     onClick={() => doThing()}
  *   >
- *   	Do thing and close
- *   </AlertDialogAction>
- * </AlertDialogClose>
+ *     Do thing and close
+ *   </AlertDialog.Action>
+ * </AlertDialog.Close>
  */
-const AlertDialogClose = AlertDialogPrimitive.Close;
-AlertDialogClose.displayName = "AlertDialogClose";
+const Close = AlertDialogPrimitive.Close;
+Close.displayName = "AlertDialogClose";
+
+/**
+ * An alert dialog namespace object that contains the alert dialog components.
+ */
+const AlertDialog = {
+	Root,
+	Action,
+	Body,
+	Cancel,
+	Close,
+	Content,
+	Description,
+	Footer,
+	Header,
+	Icon,
+	Title,
+	Trigger,
+} as const;
 
 export {
 	//,
-	Root as AlertDialog,
-	AlertDialogAction,
-	AlertDialogBody,
-	AlertDialogCancel,
-	AlertDialogClose,
-	AlertDialogContent,
-	AlertDialogDescription,
-	AlertDialogFooter,
-	AlertDialogHeader,
-	AlertDialogIcon,
-	AlertDialogTitle,
-	AlertDialogTrigger,
+	AlertDialog,
 };

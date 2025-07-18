@@ -3,13 +3,6 @@ import { IconButton } from "@ngrok/mantle/button";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import {
 	DataTable,
-	DataTableActionCell,
-	DataTableBody,
-	DataTableEmptyRow,
-	DataTableHead,
-	DataTableHeader,
-	DataTableHeaderSortButton,
-	DataTableRows,
 	createColumnHelper,
 	getCoreRowModel,
 	getFilteredRowModel,
@@ -17,12 +10,7 @@ import {
 	getSortedRowModel,
 	useReactTable,
 } from "@ngrok/mantle/data-table";
-import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuTrigger,
-} from "@ngrok/mantle/dropdown-menu";
+import { DropdownMenu } from "@ngrok/mantle/dropdown-menu";
 import { Icon } from "@ngrok/mantle/icon";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Table } from "@ngrok/mantle/table";
@@ -82,13 +70,6 @@ export default function Page() {
 								value={fmtCode`
 									import {
 										DataTable,
-										DataTableActionCell,
-										DataTableBody,
-										DataTableEmptyRow,
-										DataTableHead,
-										DataTableHeader,
-										DataTableHeaderSortButton,
-										DataTableRows,
 										createColumnHelper,
 										getCoreRowModel,
 										getFilteredRowModel,
@@ -109,14 +90,14 @@ export default function Page() {
 										columnHelper.accessor("id", {
 											id: "id",
 											header: (props) => (
-												<DataTableHeader>
-													<DataTableHeaderSortButton
+												<DataTable.Header>
+													<DataTable.HeaderSortButton
 														column={props.column}
 														sortingMode="alphanumeric"
 													>
 														ID
-													</DataTableHeaderSortButton>
-												</DataTableHeader>
+													</DataTable.HeaderSortButton>
+												</DataTable.Header>
 											),
 											cell: (props) => (
 												<Table.Cell key={props.cell.id}>{props.getValue()}</Table.Cell>
@@ -125,16 +106,16 @@ export default function Page() {
 										columnHelper.accessor("amount", {
 											id: "amount",
 											header: (props) => (
-												<DataTableHeader className="w-[200px]">
-													<DataTableHeaderSortButton
+												<DataTable.Header className="w-[200px]">
+													<DataTable.HeaderSortButton
 														className="justify-end"
 														column={props.column}
 														iconPlacement="start"
 														sortingMode="alphanumeric"
 													>
 														Amount
-													</DataTableHeaderSortButton>
-												</DataTableHeader>
+													</DataTable.HeaderSortButton>
+												</DataTable.Header>
 											),
 											cell: (props) => (
 												<Table.Cell key={props.cell.id} className="text-right">
@@ -145,14 +126,14 @@ export default function Page() {
 										columnHelper.accessor("status", {
 											id: "status",
 											header: (props) => (
-												<DataTableHeader>
-													<DataTableHeaderSortButton
+												<DataTable.Header>
+													<DataTable.HeaderSortButton
 														column={props.column}
 														sortingMode="alphanumeric"
 													>
 														Status
-													</DataTableHeaderSortButton>
-												</DataTableHeader>
+													</DataTable.HeaderSortButton>
+												</DataTable.Header>
 											),
 											cell: (props) => (
 												<Table.Cell key={props.cell.id}>{props.getValue()}</Table.Cell>
@@ -161,14 +142,14 @@ export default function Page() {
 										columnHelper.accessor("email", {
 											id: "email",
 											header: (props) => (
-												<DataTableHeader>
-													<DataTableHeaderSortButton
+												<DataTable.Header>
+													<DataTable.HeaderSortButton
 														column={props.column}
 														sortingMode="alphanumeric"
 													>
 														Email
-													</DataTableHeaderSortButton>
-												</DataTableHeader>
+													</DataTable.HeaderSortButton>
+												</DataTable.Header>
 											),
 											cell: (props) => (
 												<Table.Cell key={props.cell.id}>{props.getValue()}</Table.Cell>
@@ -176,11 +157,11 @@ export default function Page() {
 										}),
 										columnHelper.display({
 											id: "actions",
-											header: () => <DataTableHeader />,
+											header: () => <DataTable.Header />,
 											cell: () => (
-												<DataTableActionCell>
-													<DropdownMenu>
-														<DropdownMenuTrigger asChild>
+												<DataTable.ActionCell>
+													<DropdownMenu.Root>
+														<DropdownMenu.Trigger asChild>
 															<IconButton
 																appearance="outlined"
 																className="max-w rounded"
@@ -189,18 +170,18 @@ export default function Page() {
 																label="Open actions"
 																icon={<DotsThree weight="bold" />}
 															/>
-														</DropdownMenuTrigger>
-														<DropdownMenuContent align="end">
-															<DropdownMenuItem className="flex items-center gap-2">
+														</DropdownMenu.Trigger>
+														<DropdownMenu.Content align="end">
+															<DropdownMenu.Item className="flex items-center gap-2">
 																<Icon svg={<PencilSimple />} /> Edit
-															</DropdownMenuItem>
-															<DropdownMenuItem className="text-danger-600 flex items-center gap-2">
+															</DropdownMenu.Item>
+															<DropdownMenu.Item className="text-danger-600 flex items-center gap-2">
 																<Icon svg={<TrashSimple />} />
 																Delete
-															</DropdownMenuItem>
-														</DropdownMenuContent>
-													</DropdownMenu>
-												</DataTableActionCell>
+															</DropdownMenu.Item>
+														</DropdownMenu.Content>
+													</DropdownMenu.Root>
+												</DataTable.ActionCell>
 											),
 										}),
 									];
@@ -223,20 +204,20 @@ export default function Page() {
 										});
 
 										return (
-											<DataTable table={table}>
-												<DataTableHead />
-												<DataTableBody>
+											<DataTable.Root table={table}>
+												<DataTable.Head />
+												<DataTable.Body>
 													{table.getRowModel().rows.length > 0 ? (
-														<DataTableRows />
+														<DataTable.Rows />
 													) : (
-														<DataTableEmptyRow>
+														<DataTable.EmptyRow>
 															<p className="flex items-center justify-center min-h-20">
 																No results.
 															</p>
-														</DataTableEmptyRow>
+														</DataTable.EmptyRow>
 													)}
-												</DataTableBody>
-											</DataTable>
+												</DataTable.Body>
+											</DataTable.Root>
 										);
 									}
 								`}
@@ -371,14 +352,14 @@ const columns = [
 	columnHelper.accessor("id", {
 		id: "id",
 		header: (props) => (
-			<DataTableHeader>
-				<DataTableHeaderSortButton
+			<DataTable.Header>
+				<DataTable.HeaderSortButton
 					column={props.column}
 					sortingMode="alphanumeric"
 				>
 					ID
-				</DataTableHeaderSortButton>
-			</DataTableHeader>
+				</DataTable.HeaderSortButton>
+			</DataTable.Header>
 		),
 		cell: (props) => (
 			<Table.Cell key={props.cell.id}>{props.getValue()}</Table.Cell>
@@ -387,16 +368,16 @@ const columns = [
 	columnHelper.accessor("amount", {
 		id: "amount",
 		header: (props) => (
-			<DataTableHeader className="w-[200px]">
-				<DataTableHeaderSortButton
+			<DataTable.Header className="w-[200px]">
+				<DataTable.HeaderSortButton
 					className="justify-end"
 					column={props.column}
 					iconPlacement="start"
 					sortingMode="alphanumeric"
 				>
 					Amount
-				</DataTableHeaderSortButton>
-			</DataTableHeader>
+				</DataTable.HeaderSortButton>
+			</DataTable.Header>
 		),
 		cell: (props) => (
 			<Table.Cell key={props.cell.id} className="text-right">
@@ -407,14 +388,14 @@ const columns = [
 	columnHelper.accessor("status", {
 		id: "status",
 		header: (props) => (
-			<DataTableHeader>
-				<DataTableHeaderSortButton
+			<DataTable.Header>
+				<DataTable.HeaderSortButton
 					column={props.column}
 					sortingMode="alphanumeric"
 				>
 					Status
-				</DataTableHeaderSortButton>
-			</DataTableHeader>
+				</DataTable.HeaderSortButton>
+			</DataTable.Header>
 		),
 		cell: (props) => (
 			<Table.Cell key={props.cell.id}>{props.getValue()}</Table.Cell>
@@ -423,14 +404,14 @@ const columns = [
 	columnHelper.accessor("email", {
 		id: "email",
 		header: (props) => (
-			<DataTableHeader>
-				<DataTableHeaderSortButton
+			<DataTable.Header>
+				<DataTable.HeaderSortButton
 					column={props.column}
 					sortingMode="alphanumeric"
 				>
 					Email
-				</DataTableHeaderSortButton>
-			</DataTableHeader>
+				</DataTable.HeaderSortButton>
+			</DataTable.Header>
 		),
 		cell: (props) => (
 			<Table.Cell key={props.cell.id}>{props.getValue()}</Table.Cell>
@@ -438,11 +419,11 @@ const columns = [
 	}),
 	columnHelper.display({
 		id: "actions",
-		header: () => <DataTableHeader />,
+		header: () => <DataTable.Header />,
 		cell: () => (
-			<DataTableActionCell>
-				<DropdownMenu>
-					<DropdownMenuTrigger asChild>
+			<DataTable.ActionCell>
+				<DropdownMenu.Root>
+					<DropdownMenu.Trigger asChild>
 						<IconButton
 							appearance="outlined"
 							className="max-w rounded"
@@ -451,18 +432,18 @@ const columns = [
 							label="Open actions"
 							icon={<DotsThreeIcon weight="bold" />}
 						/>
-					</DropdownMenuTrigger>
-					<DropdownMenuContent align="end">
-						<DropdownMenuItem className="flex items-center gap-2">
+					</DropdownMenu.Trigger>
+					<DropdownMenu.Content align="end">
+						<DropdownMenu.Item className="flex items-center gap-2">
 							<Icon svg={<PencilSimpleIcon />} /> Edit
-						</DropdownMenuItem>
-						<DropdownMenuItem className="text-danger-600 flex items-center gap-2">
+						</DropdownMenu.Item>
+						<DropdownMenu.Item className="text-danger-600 flex items-center gap-2">
 							<Icon svg={<TrashSimpleIcon />} />
 							Delete
-						</DropdownMenuItem>
-					</DropdownMenuContent>
-				</DropdownMenu>
-			</DataTableActionCell>
+						</DropdownMenu.Item>
+					</DropdownMenu.Content>
+				</DropdownMenu.Root>
+			</DataTable.ActionCell>
 		),
 	}),
 ];
@@ -485,20 +466,20 @@ function EmptyPaymentsExample() {
 	});
 
 	return (
-		<DataTable table={table}>
-			<DataTableHead />
-			<DataTableBody>
+		<DataTable.Root table={table}>
+			<DataTable.Head />
+			<DataTable.Body>
 				{table.getRowModel().rows.length > 0 ? (
-					<DataTableRows />
+					<DataTable.Rows />
 				) : (
-					<DataTableEmptyRow>
+					<DataTable.EmptyRow>
 						<p className="flex items-center justify-center min-h-20">
 							No results.
 						</p>
-					</DataTableEmptyRow>
+					</DataTable.EmptyRow>
 				)}
-			</DataTableBody>
-		</DataTable>
+			</DataTable.Body>
+		</DataTable.Root>
 	);
 }
 
@@ -520,19 +501,19 @@ function PaymentsExample() {
 	});
 
 	return (
-		<DataTable table={table}>
-			<DataTableHead />
-			<DataTableBody>
+		<DataTable.Root table={table}>
+			<DataTable.Head />
+			<DataTable.Body>
 				{table.getRowModel().rows.length > 0 ? (
-					<DataTableRows />
+					<DataTable.Rows />
 				) : (
-					<DataTableEmptyRow>
+					<DataTable.EmptyRow>
 						<p className="flex items-center justify-center min-h-20">
 							No results.
 						</p>
-					</DataTableEmptyRow>
+					</DataTable.EmptyRow>
 				)}
-			</DataTableBody>
-		</DataTable>
+			</DataTable.Body>
+		</DataTable.Root>
 	);
 }

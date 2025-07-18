@@ -59,18 +59,14 @@ type DataTableProps<TData> = ComponentProps<typeof Table.Root> & {
  * @example
  * ```tsx
  * <DataTable table={table}>
- *   <DataTableHead />
- *   <DataTableBody>
- *     <DataTableRows />
- *   </DataTableBody>
+ *   <DataTable.Head />
+ *   <DataTable.Body>
+ *     <DataTable.Rows />
+ *   </DataTable.Body>
  * </DataTable>
  * ```
  */
-function DataTable<TData>({
-	children,
-	table,
-	...props
-}: DataTableProps<TData>) {
+function Root<TData>({ children, table, ...props }: DataTableProps<TData>) {
 	const context: DataTableContextShape<TData> = useMemo(
 		() => ({ table }),
 		[table],
@@ -131,19 +127,19 @@ type DataTableHeaderSortButtonProps<TData, TValue> = Omit<
  *
  * @example
  * ```tsx
- * <DataTableHeaderSortButton
+ * <DataTable.HeaderSortButton
  *   column={column}
  *   sortingMode="alphanumeric"
  * >
  *   Column Title
- * </DataTableHeaderSortButton>
+ * </DataTable.HeaderSortButton>
  * ```
  *
  * Each click cycles through:
  * - For alphanumeric sorting: unsorted ➡️ ascending ➡️ descending ➡️ unsorted
  * - For time sorting: unsorted ➡️ newest-to-oldest ➡️ oldest-to-newest ➡️ unsorted
  */
-function DataTableHeaderSortButton<TData, TValue>({
+function HeaderSortButton<TData, TValue>({
 	children,
 	className,
 	column,
@@ -206,20 +202,20 @@ type DataTableHeaderProps = ComponentProps<typeof Table.Header>;
 
 /**
  * A header for a data table.
- * This is typically used to wrap the `DataTableHeaderSortButton` component.
+ * This is typically used to wrap the `DataTable.HeaderSortButton` component.
  *
  * @see https://mantle.ngrok.com/components/data-table#api-data-table-header
  *
  * @example
  * ```tsx
- * <DataTableHeader>
- *   <DataTableHeaderSortButton column={column} sortingMode="alphanumeric">
+ * <DataTable.Header>
+ *   <DataTable.HeaderSortButton column={column} sortingMode="alphanumeric">
  *     Column Title
- *   </DataTableHeaderSortButton>
- * </DataTableHeader>
+ *   </DataTable.HeaderSortButton>
+ * </DataTable.Header>
  * ```
  */
-function DataTableHeader<TData, TValue>({
+function Header<TData, TValue>({
 	children,
 	className,
 	...props
@@ -234,12 +230,12 @@ function DataTableHeader<TData, TValue>({
 	);
 }
 
-const DataTableBody = Table.Body;
-DataTableBody.displayName = "DataTableBody";
+const Body = Table.Body;
+Body.displayName = "DataTableBody";
 
 type DataTableHeadProps = Omit<ComponentProps<typeof Table.Head>, "children">;
 
-function DataTableHead<TData>(props: DataTableHeadProps) {
+function Head<TData>(props: DataTableHeadProps) {
 	const { table } = useDataTableContext<TData>();
 
 	return (
@@ -261,14 +257,14 @@ function DataTableHead<TData>(props: DataTableHeadProps) {
 	);
 }
 
-function DataTableRows<TData>() {
+function Rows<TData>() {
 	const { table } = useDataTableContext<TData>();
 	const rows = table.getRowModel().rows;
 
 	return (
 		<>
 			{rows.map((row) => (
-				<DataTableRow key={row.id} row={row} />
+				<RowComponent key={row.id} row={row} />
 			))}
 		</>
 	);
@@ -281,7 +277,7 @@ type DataTableRowProps<TData> = Omit<
 	row: Row<TData>;
 };
 
-function DataTableRow<TData>({ row, ...props }: DataTableRowProps<TData>) {
+function RowComponent<TData>({ row, ...props }: DataTableRowProps<TData>) {
 	return (
 		<Table.Row {...props}>
 			{row.getVisibleCells().map((cell) => (
@@ -295,10 +291,7 @@ function DataTableRow<TData>({ row, ...props }: DataTableRowProps<TData>) {
 
 type DataTableEmptyRowProps = ComponentProps<typeof Table.Row>;
 
-function DataTableEmptyRow<TData>({
-	children,
-	...props
-}: DataTableEmptyRowProps) {
+function EmptyRow<TData>({ children, ...props }: DataTableEmptyRowProps) {
 	const { table } = useDataTableContext<TData>();
 	const numberOfColumns = table.getAllColumns().length;
 
@@ -311,7 +304,7 @@ function DataTableEmptyRow<TData>({
 
 type DataTableActionCellProps = ComponentProps<typeof Table.Cell>;
 
-function DataTableActionCell({
+function ActionCell({
 	children,
 	className,
 	...props
@@ -329,17 +322,32 @@ function DataTableActionCell({
 	);
 }
 
+// Set display names to preserve original component names for debugging
+Root.displayName = "DataTable";
+ActionCell.displayName = "DataTableActionCell";
+Body.displayName = "DataTableBody";
+EmptyRow.displayName = "DataTableEmptyRow";
+Head.displayName = "DataTableHead";
+Header.displayName = "DataTableHeader";
+HeaderSortButton.displayName = "DataTableHeaderSortButton";
+RowComponent.displayName = "DataTableRow";
+Rows.displayName = "DataTableRows";
+
+const DataTable = {
+	Root,
+	ActionCell,
+	Body,
+	EmptyRow,
+	Head,
+	Header,
+	HeaderSortButton,
+	Row: RowComponent,
+	Rows,
+} as const;
+
 export {
 	//,
 	DataTable,
-	DataTableActionCell,
-	DataTableBody,
-	DataTableEmptyRow,
-	DataTableHead,
-	DataTableHeader,
-	DataTableHeaderSortButton,
-	DataTableRow,
-	DataTableRows,
 };
 
 type DefaultSortIconProps = SvgAttributes & {

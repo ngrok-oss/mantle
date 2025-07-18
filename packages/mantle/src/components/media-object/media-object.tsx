@@ -23,14 +23,14 @@ type Props = ComponentProps<"div"> & WithAsChild;
  *
  * @example
  * ```tsx
- * <MediaObject>
+ * <MediaObject.Root>
  *   <MediaObjectMedia>
  *     <ExampleMedia />
  *   </MediaObjectMedia>
  *   <MediaObjectContent>
  *     <p>Ea culpa id id ea minim labore.</p>
  *   </MediaObjectContent>
- * </MediaObject>
+ * </MediaObject.Root>
  * ```
  */
 const MediaObject = forwardRef<HTMLDivElement, Props>(
@@ -57,14 +57,14 @@ MediaObject.displayName = "MediaObject";
  *
  * @example
  * ```tsx
- * <MediaObject>
+ * <MediaObject.Root>
  *   <MediaObjectMedia>
  *     <ExampleMedia />
  *   </MediaObjectMedia>
  *   <MediaObjectContent>
  *     <p>Ea culpa id id ea minim labore.</p>
  *   </MediaObjectContent>
- * </MediaObject>
+ * </MediaObject.Root>
  * ```
  */
 const MediaObjectMedia = forwardRef<HTMLDivElement, Props>(
@@ -91,14 +91,14 @@ MediaObjectMedia.displayName = "MediaObjectMedia";
  *
  * @example
  * ```tsx
- * <MediaObject>
+ * <MediaObject.Root>
  *   <MediaObjectMedia>
  *     <ExampleMedia />
  *   </MediaObjectMedia>
  *   <MediaObjectContent>
  *     <p>Ea culpa id id ea minim labore.</p>
  *   </MediaObjectContent>
- * </MediaObject>
+ * </MediaObject.Root>
  * ```
  */
 const MediaObjectContent = forwardRef<HTMLDivElement, Props>(

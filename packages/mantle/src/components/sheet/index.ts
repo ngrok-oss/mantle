@@ -1,15 +1,4 @@
 export {
 	//,
 	Sheet,
-	SheetActions,
-	SheetBody,
-	SheetClose,
-	SheetCloseIconButton,
-	SheetContent,
-	SheetDescription,
-	SheetFooter,
-	SheetHeader,
-	SheetTitle,
-	SheetTitleGroup,
-	SheetTrigger,
 } from "./sheet.js";

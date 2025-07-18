@@ -3,20 +3,7 @@ import { Button, IconButton } from "@ngrok/mantle/button";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Separator } from "@ngrok/mantle/separator";
-import {
-	Sheet,
-	SheetActions,
-	SheetBody,
-	SheetClose,
-	SheetCloseIconButton,
-	SheetContent,
-	SheetDescription,
-	SheetFooter,
-	SheetHeader,
-	SheetTitle,
-	SheetTitleGroup,
-	SheetTrigger,
-} from "@ngrok/mantle/sheet";
+import { Sheet } from "@ngrok/mantle/sheet";
 import { ListMagnifyingGlassIcon } from "@phosphor-icons/react/ListMagnifyingGlass";
 import { TerminalWindowIcon } from "@phosphor-icons/react/TerminalWindow";
 import { TrashSimpleIcon } from "@phosphor-icons/react/TrashSimple";
@@ -64,17 +51,17 @@ export default function Page() {
 
 				<div>
 					<Example>
-						<Sheet>
-							<SheetTrigger asChild>
+						<Sheet.Root>
+							<Sheet.Trigger asChild>
 								<Button type="button" appearance="filled">
 									Open Sheet
 								</Button>
-							</SheetTrigger>
-							<SheetContent>
-								<SheetHeader>
-									<SheetTitleGroup>
-										<SheetTitle>Are you absolutely sure?</SheetTitle>
-										<SheetActions>
+							</Sheet.Trigger>
+							<Sheet.Content>
+								<Sheet.Header>
+									<Sheet.TitleGroup>
+										<Sheet.Title>Are you absolutely sure?</Sheet.Title>
+										<Sheet.Actions>
 											<IconButton
 												appearance="ghost"
 												type="button"
@@ -94,15 +81,15 @@ export default function Page() {
 												label="Delete"
 											/>
 											<Separator orientation="vertical" className="h-[80%]" />
-											<SheetCloseIconButton />
-										</SheetActions>
-									</SheetTitleGroup>
-									<SheetDescription>
+											<Sheet.CloseIconButton />
+										</Sheet.Actions>
+									</Sheet.TitleGroup>
+									<Sheet.Description>
 										This action cannot be undone. This will permanently delete
 										your account and remove your data from our servers.
-									</SheetDescription>
-								</SheetHeader>
-								<SheetBody className="space-y-4">
+									</Sheet.Description>
+								</Sheet.Header>
+								<Sheet.Body className="space-y-4">
 									<p>
 										Consequat do voluptate culpa fugiat consequat nostrud duis
 										aliqua minim. Tempor voluptate cillum elit velit. Voluptate
@@ -153,17 +140,17 @@ export default function Page() {
 										ullamco consectetur labore quis do occaecat. Veniam id
 										laboris adipisicing fugiat.
 									</p>
-								</SheetBody>
-								<SheetFooter>
-									<SheetClose asChild>
+								</Sheet.Body>
+								<Sheet.Footer>
+									<Sheet.Close asChild>
 										<Button type="button">Close</Button>
-									</SheetClose>
+									</Sheet.Close>
 									<Button type="button" appearance="filled">
 										Save
 									</Button>
-								</SheetFooter>
-							</SheetContent>
-						</Sheet>
+								</Sheet.Footer>
+							</Sheet.Content>
+						</Sheet.Root>
 					</Example>
 					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
 						<CodeBlock.Body>
@@ -173,57 +160,44 @@ export default function Page() {
 								value={fmtCode`
 									import { Button, IconButton } from "@ngrok/mantle/button";
 									import { Separator } from "@ngrok/mantle/separator";
-									import {
-										Sheet,
-										SheetActions,
-										SheetBody,
-										SheetClose,
-										SheetCloseIconButton,
-										SheetContent,
-										SheetDescription,
-										SheetFooter,
-										SheetHeader,
-										SheetTitle,
-										SheetTitleGroup,
-										SheetTrigger,
-									} from "@ngrok/mantle/sheet";
+									import { Sheet } from "@ngrok/mantle/sheet";
 									import { ListMagnifyingGlassIcon } from "@phosphor-icons/react/ListMagnifyingGlass";
 									import { TerminalWindowIcon } from "@phosphor-icons/react/TerminalWindow";
 									import { TrashSimpleIcon } from "@phosphor-icons/react/TrashSimple";
 
-									<Sheet>
-										<SheetTrigger asChild>
+									<Sheet.Root>
+										<Sheet.Trigger asChild>
 											<Button type="button" appearance="filled">Open Sheet</Button>
-										</SheetTrigger>
-										<SheetContent>
-											<SheetHeader>
-												<SheetTitleGroup>
-													<SheetTitle>Are you absolutely sure?</SheetTitle>
-													<SheetActions>
+										</Sheet.Trigger>
+										<Sheet.Content>
+											<Sheet.Header>
+												<Sheet.TitleGroup>
+													<Sheet.Title>Are you absolutely sure?</Sheet.Title>
+													<Sheet.Actions>
 														<IconButton appearance="ghost" type="button" icon={<TerminalWindowIcon />} label="Start a Tunnel" />
 														<IconButton appearance="ghost" type="button" icon={<ListMagnifyingGlassIcon />} label="See Traffic" />
 														<IconButton appearance="ghost" type="button" icon={<TrashSimpleIcon />} label="Delete" />
 														<Separator orientation="vertical" className="h-[80%]" />
-														<SheetCloseIconButton />
-													</SheetActions>
-												</SheetTitleGroup>
-												<SheetDescription>
+														<Sheet.CloseIconButton />
+													</Sheet.Actions>
+												</Sheet.TitleGroup>
+												<Sheet.Description>
 													This action cannot be undone. This will permanently delete your account and remove your data from our
 													servers.
-												</SheetDescription>
-											</SheetHeader>
-											<SheetBody className="space-y-4">
+												</Sheet.Description>
+											</Sheet.Header>
+											<Sheet.Body className="space-y-4">
 												<p>
 													Lorem ipsum
 												</p>
-											</SheetBody>
-											<SheetFooter>
-												<SheetClose asChild>
+											</Sheet.Body>
+											<Sheet.Footer>
+												<Sheet.Close asChild>
 													<Button type="button">Close</Button>
-												</SheetClose>
-											</SheetFooter>
-										</SheetContent>
-									</Sheet>
+												</Sheet.Close>
+											</Sheet.Footer>
+										</Sheet.Content>
+									</Sheet.Root>
 								`}
 							/>
 						</CodeBlock.Body>
@@ -247,7 +221,7 @@ export default function Page() {
 							You can control when to render a Sheet with a router or via
 							outside state management. This will allow you to open and close
 							the Sheet programmatically without using a{" "}
-							<InlineCode>SheetTrigger</InlineCode>.
+							<InlineCode>Sheet.Trigger</InlineCode>.
 						</p>
 					</header>
 					<div>
@@ -261,20 +235,7 @@ export default function Page() {
 									language="tsx"
 									value={fmtCode`
 										import { Button } from "@ngrok/mantle/button";
-										import {
-											Sheet,
-											SheetActions,
-											SheetBody,
-											SheetClose,
-											SheetCloseIconButton,
-											SheetContent,
-											SheetDescription,
-											SheetFooter,
-											SheetHeader,
-											SheetTitle,
-											SheetTitleGroup,
-											SheetTrigger,
-										} from "@ngrok/mantle/sheet";
+										import { Sheet } from "@ngrok/mantle/sheet";
 										import { useNavigate } from "react-router";
 										
 										// this is a react-router route module component export
@@ -282,36 +243,34 @@ export default function Page() {
 											const navigate = useNavigate();
 
 											return (
-												<Sheet open onOpenChange={() => navigate("..")}>
-													<SheetContent>
-														<SheetHeader>
-															<SheetTitleGroup>
-																<SheetTitle>A controlled Sheet</SheetTitle>
-																<SheetActions>
-																	<SheetCloseIconButton />
-																</SheetActions>
-															</SheetTitleGroup>
-															<SheetDescription>
+												<Sheet.Root open onOpenChange={() => navigate("..")}>
+													<Sheet.Content>
+														<Sheet.Header>
+															<Sheet.TitleGroup>
+																<Sheet.Title>A controlled Sheet</Sheet.Title>
+																<Sheet.Actions>
+																	<Sheet.CloseIconButton />
+																</Sheet.Actions>
+															</Sheet.TitleGroup>
+															<Sheet.Description>
 																This sheet is controlled by a router or state manager.
-															</SheetDescription>
-														</SheetHeader>
-														<SheetBody>
+															</Sheet.Description>
+														</Sheet.Header>
+														<Sheet.Body>
 															<p>
 																Consequat do voluptate culpa fugiat consequat nostrud duis
 																aliqua minim. Tempor voluptate cillum elit velit. Voluptate
 																aliqua ipsum aliqua dolore in nisi ea fugiat aliqua velit
 																proident amet.
 															</p>
-														</SheetBody>
-														<SheetFooter>
-															<SheetFooter>
-																<SheetClose asChild>
-																	<Button type="button">Close</Button>
-																</SheetClose>
-															</SheetFooter>
-														</SheetFooter>
-													</SheetContent>
-												</Sheet>
+														</Sheet.Body>
+														<Sheet.Footer>
+															<Sheet.Close asChild>
+																<Button type="button">Close</Button>
+															</Sheet.Close>
+														</Sheet.Footer>
+													</Sheet.Content>
+												</Sheet.Root>
 											);
 										}
 									`}
@@ -330,50 +289,50 @@ export default function Page() {
 							By default, a <InlineCode>Sheet</InlineCode>'s content width is
 							responsive with a default{" "}
 							<span className="italic">preferred width</span>: the maximum width
-							of the <InlineCode>SheetContent</InlineCode> when the window
+							of the <InlineCode>Sheet.Content</InlineCode> when the window
 							viewport is larger than the mobile breakpoint (
 							<InlineCode>sm</InlineCode>). You can control the preferred width
-							of the <InlineCode>SheetContent</InlineCode> by using the{" "}
+							of the <InlineCode>Sheet.Content</InlineCode> by using the{" "}
 							<InlineCode>preferredWidth</InlineCode> prop:
 						</p>
 					</header>
 					<div>
 						<Example>
-							<Sheet>
-								<SheetTrigger asChild>
+							<Sheet.Root>
+								<Sheet.Trigger asChild>
 									<Button type="button" appearance="filled">
 										Open 800px wide Sheet
 									</Button>
-								</SheetTrigger>
-								<SheetContent preferredWidth="sm:max-w-[800px]">
-									<SheetHeader>
-										<SheetTitleGroup>
-											<SheetTitle>
+								</Sheet.Trigger>
+								<Sheet.Content preferredWidth="sm:max-w-[800px]">
+									<Sheet.Header>
+										<Sheet.TitleGroup>
+											<Sheet.Title>
 												Tempor pariatur fugiat fugiat cupidatat velit.
-											</SheetTitle>
-											<SheetActions>
-												<SheetCloseIconButton />
-											</SheetActions>
-										</SheetTitleGroup>
-									</SheetHeader>
-									<SheetBody className="space-y-4">
+											</Sheet.Title>
+											<Sheet.Actions>
+												<Sheet.CloseIconButton />
+											</Sheet.Actions>
+										</Sheet.TitleGroup>
+									</Sheet.Header>
+									<Sheet.Body className="space-y-4">
 										<p>
 											Consequat do voluptate culpa fugiat consequat nostrud duis
 											aliqua minim. Tempor voluptate cillum elit velit.
 											Voluptate aliqua ipsum aliqua dolore in nisi ea fugiat
 											aliqua velit proident amet.
 										</p>
-									</SheetBody>
-									<SheetFooter>
-										<SheetClose asChild>
+									</Sheet.Body>
+									<Sheet.Footer>
+										<Sheet.Close asChild>
 											<Button type="button">Close</Button>
-										</SheetClose>
+										</Sheet.Close>
 										<Button type="button" appearance="filled">
 											Save
 										</Button>
-									</SheetFooter>
-								</SheetContent>
-							</Sheet>
+									</Sheet.Footer>
+								</Sheet.Content>
+							</Sheet.Root>
 						</Example>
 						<CodeBlock.Root className="rounded-b-lg rounded-t-none">
 							<CodeBlock.Body>
@@ -382,56 +341,44 @@ export default function Page() {
 									language="tsx"
 									value={fmtCode`
 										import { Button } from "@ngrok/mantle/button";
-										import {
-											Sheet,
-											SheetActions,
-											SheetBody,
-											SheetClose,
-											SheetCloseIconButton,
-											SheetContent,
-											SheetFooter,
-											SheetHeader,
-											SheetTitle,
-											SheetTitleGroup,
-											SheetTrigger,
-										} from "@ngrok/mantle/sheet";
+										import { Sheet } from "@ngrok/mantle/sheet";
 										
-										<Sheet>
-											<SheetTrigger asChild>
+										<Sheet.Root>
+											<Sheet.Trigger asChild>
 												<Button type="button" appearance="filled">
 													Open 800px wide Sheet
 												</Button>
-											</SheetTrigger>
+											</Sheet.Trigger>
 											{/* using the 👇 \`preferredWidth\` prop */}
-											<SheetContent preferredWidth="sm:max-w-[800px]">
-												<SheetHeader>
-													<SheetTitleGroup>
-														<SheetTitle>
+											<Sheet.Content preferredWidth="sm:max-w-[800px]">
+												<Sheet.Header>
+													<Sheet.TitleGroup>
+														<Sheet.Title>
 															Tempor pariatur fugiat fugiat cupidatat velit.
-														</SheetTitle>
-														<SheetActions>
-															<SheetCloseIconButton />
-														</SheetActions>
-													</SheetTitleGroup>
-												</SheetHeader>
-												<SheetBody className="space-y-4">
+														</Sheet.Title>
+														<Sheet.Actions>
+															<Sheet.CloseIconButton />
+														</Sheet.Actions>
+													</Sheet.TitleGroup>
+												</Sheet.Header>
+												<Sheet.Body className="space-y-4">
 													<p>
 														Consequat do voluptate culpa fugiat consequat nostrud duis
 														aliqua minim. Tempor voluptate cillum elit velit.
 														Voluptate aliqua ipsum aliqua dolore in nisi ea fugiat
 														aliqua velit proident amet.
 													</p>
-												</SheetBody>
-												<SheetFooter>
-													<SheetClose asChild>
+												</Sheet.Body>
+												<Sheet.Footer>
+													<Sheet.Close asChild>
 														<Button type="button">Close</Button>
-													</SheetClose>
+													</Sheet.Close>
 													<Button type="button" appearance="filled">
 														Save
 													</Button>
-												</SheetFooter>
-											</SheetContent>
-										</Sheet>
+												</Sheet.Footer>
+											</Sheet.Content>
+										</Sheet.Root>
 									`}
 								/>
 							</CodeBlock.Body>
@@ -466,9 +413,9 @@ export default function Page() {
 
 						<p className="font-body text-body">
 							The root component for a <InlineCode>Sheet</InlineCode>. Should
-							compose the <InlineCode>SheetTrigger</InlineCode> and{" "}
-							<InlineCode>SheetContent</InlineCode>. Acts as a stateful provider
-							for the Sheet's open/closed state.
+							compose the <InlineCode>Sheet.Trigger</InlineCode> and{" "}
+							<InlineCode>Sheet.Content</InlineCode>. Acts as a stateful
+							provider for the Sheet's open/closed state.
 						</p>
 
 						<p className="font-body text-body">
@@ -523,9 +470,9 @@ export default function Page() {
 
 					<p className="font-body text-body">
 						The close button for a <InlineCode>Sheet</InlineCode>. Should be
-						rendered as a child of the <InlineCode>SheetContent</InlineCode>{" "}
+						rendered as a child of the <InlineCode>Sheet.Content</InlineCode>{" "}
 						component. Usually contained within the{" "}
-						<InlineCode>SheetFooter</InlineCode> component. Renders an unstyled{" "}
+						<InlineCode>Sheet.Footer</InlineCode> component. Renders an unstyled{" "}
 						<InlineCode>button</InlineCode> by default, but can be customized
 						with the <InlineCode>asChild</InlineCode> prop.
 					</p>
@@ -556,9 +503,9 @@ export default function Page() {
 							The main container for a <InlineCode>Sheet</InlineCode>. Should be
 							rendered as a child of the <InlineCode>Sheet</InlineCode>{" "}
 							component. Renders on top of the overlay backdrop. Should contain
-							the <InlineCode>SheetHeader</InlineCode>,{" "}
-							<InlineCode>SheetBody</InlineCode>, and{" "}
-							<InlineCode>SheetFooter</InlineCode>.
+							the <InlineCode>Sheet.Header</InlineCode>,{" "}
+							<InlineCode>Sheet.Body</InlineCode>, and{" "}
+							<InlineCode>Sheet.Footer</InlineCode>.
 						</p>
 
 						<p className="font-body text-body">
@@ -586,14 +533,14 @@ export default function Page() {
 							<PropDescriptionCell>
 								<p>
 									The preferred width of the{" "}
-									<InlineCode>SheetContent</InlineCode> as a tailwind{" "}
+									<InlineCode>Sheet.Content</InlineCode> as a tailwind{" "}
 									<InlineCode>max-w-</InlineCode> class.
 								</p>
 								<p>
 									By default, a <InlineCode>Sheet</InlineCode>'s content width
 									is responsive with a default{" "}
 									<span className="italic">preferred width</span>: the maxiumum
-									width of the <InlineCode>SheetContent</InlineCode> when the
+									width of the <InlineCode>Sheet.Content</InlineCode> when the
 									window viewport is larger than the mobile breakpoint (
 									<InlineCode>sm</InlineCode>).
 								</p>
@@ -641,7 +588,7 @@ export default function Page() {
 					<p className="font-body text-body">
 						An icon button that closes the <InlineCode>Sheet</InlineCode> when
 						clicked. Should be rendered within the{" "}
-						<InlineCode>SheetHeader</InlineCode> as a child of{" "}
+						<InlineCode>Sheet.Header</InlineCode> as a child of{" "}
 						<InlineCode>SheetActions</InlineCode>.
 					</p>
 
@@ -660,7 +607,7 @@ export default function Page() {
 						The body container for a <InlineCode>Sheet</InlineCode>. This is
 						where you would typically place the main content of the sheet, such
 						as forms or text. Should be rendered as a child of{" "}
-						<InlineCode>SheetContent</InlineCode>.
+						<InlineCode>Sheet.Content</InlineCode>.
 					</p>
 
 					<p>
@@ -685,7 +632,7 @@ export default function Page() {
 						The header container for a <InlineCode>Sheet</InlineCode>. This is
 						where you would typically place the title, description, and actions.
 						Should be rendered as a child of{" "}
-						<InlineCode>SheetContent</InlineCode>.
+						<InlineCode>Sheet.Content</InlineCode>.
 					</p>
 
 					<p>
@@ -710,7 +657,7 @@ export default function Page() {
 						The footer container for a <InlineCode>Sheet</InlineCode>. This is
 						where you would typically place close and submit buttons. Should be
 						rendered as a child of
-						<InlineCode>SheetContent</InlineCode>.
+						<InlineCode>Sheet.Content</InlineCode>.
 					</p>
 
 					<p>
@@ -762,7 +709,7 @@ export default function Page() {
 					<p className="font-body text-body">
 						A group container for the title and actions of a{" "}
 						<InlineCode>Sheet</InlineCode>. Typically rendered as a child of{" "}
-						<InlineCode>SheetHeader</InlineCode>.
+						<InlineCode>Sheet.Header</InlineCode>.
 					</p>
 
 					<p>
@@ -788,7 +735,7 @@ export default function Page() {
 
 					<p className="font-body text-body">
 						A description for a <InlineCode>Sheet</InlineCode>. Typically
-						rendered as a child of <InlineCode>SheetHeader</InlineCode>.
+						rendered as a child of <InlineCode>Sheet.Header</InlineCode>.
 					</p>
 
 					<p className="font-body text-body">
@@ -844,36 +791,34 @@ function WithoutTriggerExample() {
 				Open Sheet
 			</Button>
 			{isOpen && ( // 👈 this could be controlled by a router or state manager
-				<Sheet open onOpenChange={() => setIsOpen(false)}>
-					<SheetContent>
-						<SheetHeader>
-							<SheetTitleGroup>
-								<SheetTitle>A controlled Sheet</SheetTitle>
-								<SheetActions>
-									<SheetCloseIconButton />
-								</SheetActions>
-							</SheetTitleGroup>
-							<SheetDescription>
+				<Sheet.Root open onOpenChange={() => setIsOpen(false)}>
+					<Sheet.Content>
+						<Sheet.Header>
+							<Sheet.TitleGroup>
+								<Sheet.Title>A controlled Sheet</Sheet.Title>
+								<Sheet.Actions>
+									<Sheet.CloseIconButton />
+								</Sheet.Actions>
+							</Sheet.TitleGroup>
+							<Sheet.Description>
 								This sheet is controlled by a router or state manager.
-							</SheetDescription>
-						</SheetHeader>
-						<SheetBody>
+							</Sheet.Description>
+						</Sheet.Header>
+						<Sheet.Body>
 							<p>
 								Consequat do voluptate culpa fugiat consequat nostrud duis
 								aliqua minim. Tempor voluptate cillum elit velit. Voluptate
 								aliqua ipsum aliqua dolore in nisi ea fugiat aliqua velit
 								proident amet.
 							</p>
-						</SheetBody>
-						<SheetFooter>
-							<SheetFooter>
-								<SheetClose asChild>
-									<Button type="button">Close</Button>
-								</SheetClose>
-							</SheetFooter>
-						</SheetFooter>
-					</SheetContent>
-				</Sheet>
+						</Sheet.Body>
+						<Sheet.Footer>
+							<Sheet.Close asChild>
+								<Button type="button">Close</Button>
+							</Sheet.Close>
+						</Sheet.Footer>
+					</Sheet.Content>
+				</Sheet.Root>
 			)}
 		</>
 	);

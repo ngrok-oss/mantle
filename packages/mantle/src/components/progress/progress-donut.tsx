@@ -76,22 +76,22 @@ type Props = SvgAttributes & {
  * A simple circular progress bar which shows the completion progress of a task.
  *
  * The indicator color is inherited via `currentColor`. Override the default
- * (`accent-600`) by setting the `ProgressDonutIndicator`'s text color.
+ * (`accent-600`) by setting the `ProgressDonut.Indicator`'s text color.
  *
  * @see https://mantle.ngrok.com/components/progress#api-progress-donut
  *
  * @example
  * ```tsx
- * <ProgressDonut value={60}>
- *   <ProgressDonutIndicator />
- * </ProgressDonut>
+ * <ProgressDonut.Root value={60}>
+ *   <ProgressDonut.Indicator />
+ * </ProgressDonut.Root>
  *
- * <ProgressDonut value={60}>
- *   <ProgressDonutIndicator color="text-danger-600" />
- * </ProgressDonut>
+ * <ProgressDonut.Root value={60}>
+ *   <ProgressDonut.Indicator color="text-danger-600" />
+ * </ProgressDonut.Root>
  * ```
  */
-const ProgressDonut = ({
+const Root = ({
 	children,
 	className,
 	max: _max = defaultMax,
@@ -157,7 +157,7 @@ const ProgressDonut = ({
 		</ProgressContext.Provider>
 	);
 };
-ProgressDonut.displayName = "ProgressDonut";
+Root.displayName = "ProgressDonut";
 
 /**
  * Length (value) of the progress indicator tail when the progress bar is indeterminate.
@@ -173,19 +173,16 @@ type ProgressDonutIndicatorProps = Omit<ComponentProps<"g">, "children">;
  *
  * @example
  * ```tsx
- * <ProgressDonut value={60}>
- *   <ProgressDonutIndicator />
- * </ProgressDonut>
+ * <ProgressDonut.Root value={60}>
+ *   <ProgressDonut.Indicator />
+ * </ProgressDonut.Root>
  *
- * <ProgressDonut value={60}>
- *   <ProgressDonutIndicator color="text-danger-600" />
- * </ProgressDonut>
+ * <ProgressDonut.Root value={60}>
+ *   <ProgressDonut.Indicator color="text-danger-600" />
+ * </ProgressDonut.Root>
  * ```
  */
-const ProgressDonutIndicator = ({
-	className,
-	...props
-}: ProgressDonutIndicatorProps) => {
+const Indicator = ({ className, ...props }: ProgressDonutIndicatorProps) => {
 	const gradientId = useId();
 	const ctx = useContext(ProgressContext) ?? defaultContextValue;
 	const percentage =
@@ -227,12 +224,28 @@ const ProgressDonutIndicator = ({
 		</g>
 	);
 };
-ProgressDonutIndicator.displayName = "ProgressDonutIndicator";
+Indicator.displayName = "ProgressDonutIndicator";
+
+/**
+ * A circular progress bar component that shows the completion progress of a task.
+ *
+ * @example
+ * ```tsx
+ * import { ProgressDonut } from "@ngrok/mantle/progress";
+ *
+ * <ProgressDonut.Root value={60}>
+ *   <ProgressDonut.Indicator />
+ * </ProgressDonut.Root>
+ * ```
+ */
+const ProgressDonut = {
+	Root,
+	Indicator,
+} as const;
 
 export {
 	//,
 	ProgressDonut,
-	ProgressDonutIndicator,
 };
 
 /**

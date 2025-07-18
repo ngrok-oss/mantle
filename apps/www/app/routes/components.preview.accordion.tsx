@@ -1,14 +1,7 @@
-import {
-	Accordion,
-	AccordionContent,
-	AccordionHeading,
-	AccordionItem,
-	AccordionTrigger,
-	AccordionTriggerIcon,
-} from "@ngrok/mantle/accordion";
+import { Accordion } from "@ngrok/mantle/accordion";
 import { Badge } from "@ngrok/mantle/badge";
 import { Button } from "@ngrok/mantle/button";
-import { Card, CardBody } from "@ngrok/mantle/card";
+import { Card } from "@ngrok/mantle/card";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { Separator } from "@ngrok/mantle/separator";
 import { PlusIcon } from "@phosphor-icons/react/Plus";
@@ -59,13 +52,13 @@ export default function Page() {
 							type="multiple"
 							defaultValue={["on_tcp_connect", "on_http_response"]}
 						>
-							<AccordionItem value="on_tcp_connect">
-								<AccordionHeading
+							<Accordion.Item value="on_tcp_connect">
+								<Accordion.Heading
 									className="mx-4 flex items-center gap-2"
 									asChild
 								>
 									<h2>
-										<AccordionTrigger>
+										<Accordion.Trigger>
 											<span className="font-mono text-sm font-medium">
 												on_tcp_connect
 											</span>
@@ -76,29 +69,29 @@ export default function Page() {
 											>
 												3
 											</Badge>
-											<AccordionTriggerIcon />
-										</AccordionTrigger>
+											<Accordion.TriggerIcon />
+										</Accordion.Trigger>
 										<Separator orientation="horizontal" className="flex-1" />
 										<Button type="button" appearance="link" icon={<PlusIcon />}>
 											<span className="xs:inline hidden">Add Rule</span>
 										</Button>
 									</h2>
-								</AccordionHeading>
-								<AccordionContent>
-									<Card>
-										<CardBody>
+								</Accordion.Heading>
+								<Accordion.Content>
+									<Card.Root>
+										<Card.Body>
 											Proident irure consequat Lorem incididunt ullamco.
-										</CardBody>
-									</Card>
-								</AccordionContent>
-							</AccordionItem>
-							<AccordionItem value="on_http_request">
-								<AccordionHeading
+										</Card.Body>
+									</Card.Root>
+								</Accordion.Content>
+							</Accordion.Item>
+							<Accordion.Item value="on_http_request">
+								<Accordion.Heading
 									className="mx-4 flex items-center gap-2"
 									asChild
 								>
 									<h2>
-										<AccordionTrigger>
+										<Accordion.Trigger>
 											<span className="font-mono text-sm font-medium">
 												on_http_request
 											</span>
@@ -109,29 +102,29 @@ export default function Page() {
 											>
 												2
 											</Badge>
-											<AccordionTriggerIcon />
-										</AccordionTrigger>
+											<Accordion.TriggerIcon />
+										</Accordion.Trigger>
 										<Separator orientation="horizontal" className="flex-1" />
 										<Button type="button" appearance="link" icon={<PlusIcon />}>
 											<span className="xs:inline hidden">Add Rule</span>
 										</Button>
 									</h2>
-								</AccordionHeading>
-								<AccordionContent>
-									<Card>
-										<CardBody>
+								</Accordion.Heading>
+								<Accordion.Content>
+									<Card.Root>
+										<Card.Body>
 											Excepteur amet laboris occaecat anim minim reprehenderit.
-										</CardBody>
-									</Card>
-								</AccordionContent>
-							</AccordionItem>
-							<AccordionItem value="on_http_response">
-								<AccordionHeading
+										</Card.Body>
+									</Card.Root>
+								</Accordion.Content>
+							</Accordion.Item>
+							<Accordion.Item value="on_http_response">
+								<Accordion.Heading
 									className="mx-4 flex items-center gap-2"
 									asChild
 								>
 									<h2>
-										<AccordionTrigger>
+										<Accordion.Trigger>
 											<span className="font-mono text-sm font-medium">
 												on_http_response
 											</span>
@@ -142,20 +135,20 @@ export default function Page() {
 											>
 												0
 											</Badge>
-											<AccordionTriggerIcon />
-										</AccordionTrigger>
+											<Accordion.TriggerIcon />
+										</Accordion.Trigger>
 										<Separator orientation="horizontal" className="flex-1" />
 										<Button type="button" appearance="link" icon={<PlusIcon />}>
 											<span className="xs:inline hidden">Add Rule</span>
 										</Button>
 									</h2>
-								</AccordionHeading>
-								<AccordionContent>
+								</Accordion.Heading>
+								<Accordion.Content>
 									<p className="text-center">
 										This phase does not have any rules defined
 									</p>
-								</AccordionContent>
-							</AccordionItem>
+								</Accordion.Content>
+							</Accordion.Item>
 						</Accordion>
 					</Example>
 					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
@@ -164,83 +157,76 @@ export default function Page() {
 							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
-									import {
-										Accordion,
-										AccordionContent,
-										AccordionHeading,
-										AccordionItem,
-										AccordionTrigger,
-										AccordionTriggerIcon,
-									} from "@ngrok/mantle/accordion";
+									import { Accordion } from "@ngrok/mantle/accordion";
 									import { Badge } from "@ngrok/mantle/badge";
 									import { Button } from "@ngrok/mantle/button";
-									import { Card, CardBody } from "@ngrok/mantle/card";
+									import { Card } from "@ngrok/mantle/card";
 
 									<Accordion type="multiple" defaultValue={["on_tcp_connect", "on_http_response"]}>
-										<AccordionItem value="on_tcp_connect">
-											<AccordionHeading className="mx-4 flex items-center gap-2" asChild>
+										<Accordion.Item value="on_tcp_connect">
+											<Accordion.Heading className="mx-4 flex items-center gap-2" asChild>
 												<h2>
-													<AccordionTrigger>
+													<Accordion.Trigger>
 														<span className="font-mono text-sm font-medium">on_tcp_connect</span>
 														<Badge appearance="muted" color="neutral" className="rounded-full">
 															3
 														</Badge>
-														<AccordionTriggerIcon />
-													</AccordionTrigger>
+														<Accordion.TriggerIcon />
+													</Accordion.Trigger>
 													<Separator orientation="horizontal" className="flex-1" />
 													<Button type="button" appearance="link" icon={<PlusIcon />}>
 														Add Rule
 													</Button>
 												</h2>
-											</AccordionHeading>
-											<AccordionContent>
-												<Card>
-													<CardBody>Proident irure consequat Lorem incididunt ullamco.</CardBody>
-												</Card>
-											</AccordionContent>
-										</AccordionItem>
-										<AccordionItem value="on_http_request">
-											<AccordionHeading className="mx-4 flex items-center gap-2" asChild>
+											</Accordion.Heading>
+											<Accordion.Content>
+												<Card.Root>
+													<Card.Body>Proident irure consequat Lorem incididunt ullamco.</Card.Body>
+												</Card.Root>
+											</Accordion.Content>
+										</Accordion.Item>
+										<Accordion.Item value="on_http_request">
+											<Accordion.Heading className="mx-4 flex items-center gap-2" asChild>
 												<h2>
-													<AccordionTrigger>
+													<Accordion.Trigger>
 														<span className="font-mono text-sm font-medium">on_http_request</span>
 														<Badge appearance="muted" color="neutral" className="rounded-full">
 															2
 														</Badge>
-														<AccordionTriggerIcon />
-													</AccordionTrigger>
+														<Accordion.TriggerIcon />
+													</Accordion.Trigger>
 													<Separator orientation="horizontal" className="flex-1" />
 													<Button type="button" appearance="link" icon={<PlusIcon />}>
 														Add Rule
 													</Button>
 												</h2>
-											</AccordionHeading>
-											<AccordionContent>
-												<Card>
-													<CardBody>Excepteur amet laboris occaecat anim minim reprehenderit.</CardBody>
-												</Card>
-											</AccordionContent>
-										</AccordionItem>
-										<AccordionItem value="on_http_response">
-											<AccordionHeading className="mx-4 flex items-center gap-2" asChild>
+											</Accordion.Heading>
+											<Accordion.Content>
+												<Card.Root>
+													<Card.Body>Excepteur amet laboris occaecat anim minim reprehenderit.</Card.Body>
+												</Card.Root>
+											</Accordion.Content>
+										</Accordion.Item>
+										<Accordion.Item value="on_http_response">
+											<Accordion.Heading className="mx-4 flex items-center gap-2" asChild>
 												<h2>
-													<AccordionTrigger>
+													<Accordion.Trigger>
 														<span className="font-mono text-sm font-medium">on_http_response</span>
 														<Badge appearance="muted" color="neutral" className="rounded-full">
 															0
 														</Badge>
-														<AccordionTriggerIcon />
-													</AccordionTrigger>
+														<Accordion.TriggerIcon />
+													</Accordion.Trigger>
 													<Separator orientation="horizontal" className="flex-1" />
 													<Button type="button" appearance="link" icon={<PlusIcon />}>
 														Add Rule
 													</Button>
 												</h2>
-											</AccordionHeading>
-											<AccordionContent>
+											</Accordion.Heading>
+											<Accordion.Content>
 												<p className="text-center">This phase does not have any rules defined</p>
-											</AccordionContent>
-										</AccordionItem>
+											</Accordion.Content>
+										</Accordion.Item>
 									</Accordion>
 								`}
 							/>

@@ -79,7 +79,7 @@ type AlertProps = ComponentProps<"div"> & {
  *   <AlertIcon />
  *   <AlertContent>
  *     <AlertTitle>Alert Title</AlertTitle>
- * 	   <AlertDismissIconButton />
+ *      <AlertDismissIconButton />
  *     <AlertDescription>
  *       Alert description text.
  *     </AlertDescription>
@@ -87,7 +87,7 @@ type AlertProps = ComponentProps<"div"> & {
  * </Alert>
  *```
  */
-const Alert = forwardRef<ComponentRef<"div">, AlertProps>(
+const Root = forwardRef<ComponentRef<"div">, AlertProps>(
 	({ className, priority, ...props }, ref) => {
 		const context: AlertContextValue = useMemo(
 			() => ({ priority }),
@@ -105,7 +105,7 @@ const Alert = forwardRef<ComponentRef<"div">, AlertProps>(
 		);
 	},
 );
-Alert.displayName = "Alert";
+Root.displayName = "Alert";
 
 type AlertIconProps = Omit<SvgAttributes, "children"> & {
 	/**
@@ -146,7 +146,7 @@ const defaultIcons = {
  * </Alert>
  * ```
  */
-const AlertIcon = forwardRef<ComponentRef<"svg">, AlertIconProps>(
+const Icon = forwardRef<ComponentRef<"svg">, AlertIconProps>(
 	({ className, svg, ...props }, ref) => {
 		const ctx = useAlertContext();
 		const defaultIcon = defaultIcons[ctx.priority];
@@ -161,7 +161,7 @@ const AlertIcon = forwardRef<ComponentRef<"svg">, AlertIconProps>(
 		);
 	},
 );
-AlertIcon.displayName = "AlertIcon";
+Icon.displayName = "AlertIcon";
 
 /**
  * The container for the content slot of an alert. Place the title and description as direct children.
@@ -182,7 +182,7 @@ AlertIcon.displayName = "AlertIcon";
  * </Alert>
  *```
  */
-const AlertContent = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
+const Content = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
 	({ className, ...props }, ref) => (
 		<div
 			ref={ref}
@@ -194,7 +194,7 @@ const AlertContent = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
 		/>
 	),
 );
-AlertContent.displayName = "AlertContent";
+Content.displayName = "AlertContent";
 
 type AlertTitleProps = HTMLAttributes<HTMLHeadingElement> & WithAsChild;
 
@@ -217,7 +217,7 @@ type AlertTitleProps = HTMLAttributes<HTMLHeadingElement> & WithAsChild;
  * </Alert>
  *```
  */
-const AlertTitle = forwardRef<HTMLHeadingElement, AlertTitleProps>(
+const Title = forwardRef<HTMLHeadingElement, AlertTitleProps>(
 	({ asChild = false, className, ...props }, ref) => {
 		const Component = asChild ? Slot : "h5";
 
@@ -230,7 +230,7 @@ const AlertTitle = forwardRef<HTMLHeadingElement, AlertTitleProps>(
 		);
 	},
 );
-AlertTitle.displayName = "AlertTitle";
+Title.displayName = "AlertTitle";
 
 type AlertDescriptionProps = ComponentProps<"p"> & WithAsChild;
 
@@ -253,7 +253,7 @@ type AlertDescriptionProps = ComponentProps<"p"> & WithAsChild;
  * </Alert>
  * ```
  */
-const AlertDescription = forwardRef<ComponentRef<"p">, AlertDescriptionProps>(
+const Description = forwardRef<ComponentRef<"p">, AlertDescriptionProps>(
 	({ asChild = false, className, ...props }, ref) => {
 		const Component = asChild ? Slot : "p";
 
@@ -262,10 +262,10 @@ const AlertDescription = forwardRef<ComponentRef<"p">, AlertDescriptionProps>(
 		);
 	},
 );
-AlertDescription.displayName = "AlertDescription";
+Description.displayName = "AlertDescription";
 
 type AlertDismissIconButtonProps = Partial<Omit<IconButtonProps, "icon">>;
-const AlertDismissIconButton = ({
+const DismissIconButton = ({
 	size = "sm",
 	type = "button",
 	label = "Dismiss Alert",
@@ -300,14 +300,18 @@ const AlertDismissIconButton = ({
 		/>
 	);
 };
-AlertDismissIconButton.displayName = "AlertDismissIconButton";
+DismissIconButton.displayName = "AlertDismissIconButton";
+
+const Alert = {
+	Root,
+	Content,
+	Description,
+	DismissIconButton,
+	Icon,
+	Title,
+} as const;
 
 export {
 	//,
 	Alert,
-	AlertContent,
-	AlertDescription,
-	AlertIcon,
-	AlertTitle,
-	AlertDismissIconButton,
 };

@@ -1,6 +1,6 @@
 import { cx } from "@ngrok/mantle/cx";
 import { Table } from "@ngrok/mantle/table";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@ngrok/mantle/tooltip";
+import { Tooltip } from "@ngrok/mantle/tooltip";
 import type { WithStyleProps } from "@ngrok/mantle/types";
 import Prism from "prismjs";
 import { type PropsWithChildren, useEffect, useState } from "react";
@@ -47,12 +47,12 @@ export const PropNameCell = ({
 		<div className="flex items-start">
 			<span className="token attr-name">{name}</span>
 			{optional && (
-				<Tooltip>
-					<TooltipTrigger className="h-[1lh]">?</TooltipTrigger>
-					<TooltipContent>
+				<Tooltip.Root>
+					<Tooltip.Trigger className="h-[1lh]">?</Tooltip.Trigger>
+					<Tooltip.Content>
 						<p>This prop is optional.</p>
-					</TooltipContent>
-				</Tooltip>
+					</Tooltip.Content>
+				</Tooltip.Root>
 			)}
 		</div>
 	</Table.Cell>
