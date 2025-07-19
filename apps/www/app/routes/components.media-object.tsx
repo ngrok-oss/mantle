@@ -1,11 +1,7 @@
 import { Anchor } from "@ngrok/mantle/anchor";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
-import {
-	MediaObject,
-	MediaObjectContent,
-	MediaObjectMedia,
-} from "@ngrok/mantle/media-object";
+import { MediaObject } from "@ngrok/mantle/media-object";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import {
@@ -56,18 +52,18 @@ export default function Page() {
 					</p>
 					<p>
 						Compose the <InlineCode>&lt;MediaObject&gt;</InlineCode> with the{" "}
-						<InlineCode>&lt;MediaObjectMedia&gt;</InlineCode> and{" "}
-						<InlineCode>&lt;MediaObjectContent&gt;</InlineCode> components as
+						<InlineCode>&lt;MediaObject.Media&gt;</InlineCode> and{" "}
+						<InlineCode>&lt;MediaObject.Content&gt;</InlineCode> components as
 						direct children.
 					</p>
 
 					<div>
 						<Example>
-							<MediaObject>
-								<MediaObjectMedia>
+							<MediaObject.Root>
+								<MediaObject.Media>
 									<ExampleMedia />
-								</MediaObjectMedia>
-								<MediaObjectContent>
+								</MediaObject.Media>
+								<MediaObject.Content>
 									<h4 className="text-lg font-bold">Lorem ipsum</h4>
 									<p className="mb-4 mt-1">
 										Repudiandae sint consequuntur vel. Amet ut nobis explicabo
@@ -78,8 +74,8 @@ export default function Page() {
 										Ea eiusmod eiusmod aute reprehenderit exercitation eu ea id
 										adipisicing occaecat.
 									</p>
-								</MediaObjectContent>
-							</MediaObject>
+								</MediaObject.Content>
+							</MediaObject.Root>
 						</Example>
 						<CodeBlock.Root className="rounded-b-lg rounded-t-none">
 							<CodeBlock.Body>
@@ -87,21 +83,21 @@ export default function Page() {
 								<CodeBlock.Code
 									language="tsx"
 									value={fmtCode`
-										import { MediaObject, MediaObjectContent, MediaObjectMedia } from "@ngrok/mantle/media-object";
+										import { MediaObject } from "@ngrok/mantle/media-object";
 
-										<MediaObject>
-											<MediaObjectMedia>
+										<MediaObject.Root>
+											<MediaObject.Media>
 												<ExampleMedia />
-											</MediaObjectMedia>
-											<MediaObjectContent>
+											</MediaObject.Media>
+											<MediaObject.Content>
 												<h4 className="text-lg font-bold">Lorem ipsum</h4>
 												<p className="mb-4 mt-1">
 													Repudiandae sint consequuntur vel. Amet ut nobis explicabo numquam expedita quia omnis voluptatem. Minus
 													quidem ipsam quia iusto.
 												</p>
 												<p>Ea eiusmod eiusmod aute reprehenderit exercitation eu ea id adipisicing occaecat.</p>
-											</MediaObjectContent>
-										</MediaObject>
+											</MediaObject.Content>
+										</MediaObject.Root>
 									`}
 								/>
 							</CodeBlock.Body>
@@ -123,14 +119,14 @@ export default function Page() {
 							id="api-media-object"
 							className="text-xl font-medium text-strong"
 						>
-							MediaObject
+							MediaObject.Root
 						</h3>
 
 						<p className="font-body text-body">
 							The <InlineCode>MediaObject</InlineCode> is an image/icon (media)
 							to the left, with descriptive content (title and
 							subtitle/description) to the right. Root container for all{" "}
-							<InlineCode>MediaObject</InlineCode> sub-components.
+							<InlineCode>MediaObject.Root</InlineCode> sub-components.
 						</p>
 
 						<p>
@@ -172,7 +168,7 @@ export default function Page() {
 							id="api-media-object-media"
 							className="text-xl font-medium text-strong"
 						>
-							MediaObjectMedia
+							MediaObject.Media
 						</h3>
 
 						<p className="font-body text-body">
@@ -205,7 +201,7 @@ export default function Page() {
 							<PropDescriptionCell>
 								<p>
 									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-									<InlineCode>MediaObjectMedia</InlineCode> styling and
+									<InlineCode>MediaObject.Media</InlineCode> styling and
 									functionality onto alternative element types or your own React
 									components.
 								</p>
@@ -220,7 +216,7 @@ export default function Page() {
 							id="api-media-object-content"
 							className="text-xl font-medium text-strong"
 						>
-							MediaObjectContent
+							MediaObject.Content
 						</h3>
 
 						<p className="font-body text-body">
@@ -253,7 +249,7 @@ export default function Page() {
 							<PropDescriptionCell>
 								<p>
 									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-									<InlineCode>MediaObjectContent</InlineCode> styling and
+									<InlineCode>MediaObject.Content</InlineCode> styling and
 									functionality onto alternative element types or your own React
 									components.
 								</p>

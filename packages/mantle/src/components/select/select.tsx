@@ -495,6 +495,34 @@ SelectSeparatorComponent.displayName = "SelectSeparator";
  * A select namespace object that contains the select components.
  */
 const Select = {
+	/**
+	 * Displays a list of options for the user to pick from—triggered by a button.
+	 *
+	 * @see https://mantle.ngrok.com/components/select#api-select
+	 *
+	 * @example
+	 * ```tsx
+	 * <Select.Root>
+	 *   <Select.Trigger>
+	 *     <Select.Value placeholder="Select a fruit" />
+	 *   </Select.Trigger>
+	 *   <Select.Content>
+	 *     <Select.Group>
+	 *       <Select.Label>Fruits</Select.Label>
+	 *       <Select.Item value="apple">Apple</Select.Item>
+	 *       <Select.Item value="banana">Banana</Select.Item>
+	 *       <Select.Item value="cherry">Cherry</Select.Item>
+	 *     </Select.Group>
+	 *     <Select.Separator />
+	 *     <Select.Group>
+	 *       <Select.Label>Veggies</Select.Label>
+	 *       <Select.Item value="carrot">Carrot</Select.Item>
+	 *       <Select.Item value="cucumber">Cucumber</Select.Item>
+	 *     </Select.Group>
+	 *   </Select.Content>
+	 * </Select.Root>
+	 * ```
+	 */
 	Root,
 	Content,
 	Group,
