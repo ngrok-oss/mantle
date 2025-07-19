@@ -1,11 +1,7 @@
 import { Anchor } from "@ngrok/mantle/anchor";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
-import {
-	MediaObject,
-	MediaObjectContent,
-	MediaObjectMedia,
-} from "@ngrok/mantle/media-object";
+import { MediaObject } from "@ngrok/mantle/media-object";
 import { Skeleton } from "@ngrok/mantle/skeleton";
 import { href } from "react-router";
 import { Example } from "~/components/example";
@@ -92,15 +88,15 @@ export default function Page() {
 					</header>
 					<div>
 						<Example>
-							<MediaObject className="w-full max-w-96 items-center">
-								<MediaObjectMedia>
+							<MediaObject.Root className="w-full max-w-96 items-center">
+								<MediaObject.Media>
 									<Skeleton className="h-12 w-12 rounded-full" />
-								</MediaObjectMedia>
-								<MediaObjectContent className="space-y-3">
+								</MediaObject.Media>
+								<MediaObject.Content className="space-y-3">
 									<Skeleton className="w-full" />
 									<Skeleton className="w-4/5" />
-								</MediaObjectContent>
-							</MediaObject>
+								</MediaObject.Content>
+							</MediaObject.Root>
 						</Example>
 						<CodeBlock.Root className="rounded-b-lg rounded-t-none">
 							<CodeBlock.Body>
@@ -108,18 +104,18 @@ export default function Page() {
 								<CodeBlock.Code
 									language="tsx"
 									value={fmtCode`
-									import { MediaObject, MediaObjectMedia, MediaObjectContent } from "@ngrok/mantle/media-object";
+									import { MediaObject } from "@ngrok/mantle/media-object";
 									import { Skeleton } from "@ngrok/mantle/skeleton";
 
-									<MediaObject className="w-full max-w-96 items-center">
-										<MediaObjectMedia>
+									<MediaObject.Root className="w-full max-w-96 items-center">
+										<MediaObject.Media>
 											<Skeleton className="h-12 w-12 rounded-full" />
-										</MediaObjectMedia>
-										<MediaObjectContent className="space-y-3">
+										</MediaObject.Media>
+										<MediaObject.Content className="space-y-3">
 											<Skeleton className="w-full" />
 											<Skeleton className="w-4/5" />
-										</MediaObjectContent>
-									</MediaObject>
+										</MediaObject.Content>
+									</MediaObject.Root>
 								`}
 								/>
 							</CodeBlock.Body>
