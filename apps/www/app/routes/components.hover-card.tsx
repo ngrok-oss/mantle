@@ -1,16 +1,6 @@
 import { Button } from "@ngrok/mantle/button";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
-import {
-	HoverCard,
-	HoverCardContent,
-	HoverCardTrigger,
-} from "@ngrok/mantle/hover-card";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
+import { HoverCard } from "@ngrok/mantle/hover-card";
 import { Icon } from "@ngrok/mantle/icon";
 import { CalendarIcon } from "@phosphor-icons/react/Calendar";
 import { ShrimpIcon } from "@phosphor-icons/react/Shrimp";
@@ -43,13 +33,13 @@ export default function Page() {
 			</p>
 			<div>
 				<Example className="gap-2">
-					<HoverCard>
-						<HoverCardTrigger asChild>
+					<HoverCard.Root>
+						<HoverCard.Trigger asChild>
 							<Button type="button" appearance="link">
 								Open Hover Card
 							</Button>
-						</HoverCardTrigger>
-						<HoverCardContent className="w-80">
+						</HoverCard.Trigger>
+						<HoverCard.Content className="w-80">
 							<div className="flex justify-between space-x-4">
 								<div className="flex size-16 shrink-0 items-center justify-center rounded-full bg-pink-300">
 									<Icon svg={<ShrimpIcon />} className="size-12" />
@@ -70,28 +60,28 @@ export default function Page() {
 									</div>
 								</div>
 							</div>
-						</HoverCardContent>
-					</HoverCard>
+						</HoverCard.Content>
+					</HoverCard.Root>
 				</Example>
-				<CodeBlock className="rounded-b-lg rounded-t-none">
-					<CodeBlockBody>
-						<CodeBlockCopyButton />
-						<CodeBlockCode
+				<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+					<CodeBlock.Body>
+						<CodeBlock.CopyButton />
+						<CodeBlock.Code
 							language="tsx"
 							value={fmtCode`
 								import { Button } from "@ngrok/mantle/button";
-								import { HoverCard, HoverCardContent, HoverCardTrigger } from "@ngrok/mantle/hover-card";
+								import { HoverCard } from "@ngrok/mantle/hover-card";
 								import { Icon } from "@ngrok/mantle/icon";
 								import { CalendarIcon } from "@phosphor-icons/react/Calendar";
 								import { ShrimpIcon } from "@phosphor-icons/react/Shrimp";
 
-								<HoverCard>
-									<HoverCardTrigger asChild>
+								<HoverCard.Root>
+									<HoverCard.Trigger asChild>
 										<Button type="button" appearance="link">
 											Open Hover Card
 										</Button>
-									</HoverCardTrigger>
-									<HoverCardContent className="w-80">
+									</HoverCard.Trigger>
+									<HoverCard.Content className="w-80">
 										<div className="flex justify-between space-x-4">
 											<div className="flex size-16 shrink-0 items-center justify-center rounded-full bg-pink-300">
 												<Icon svg={<ShrimpIcon />} className="size-12" />
@@ -105,12 +95,12 @@ export default function Page() {
 												</div>
 											</div>
 										</div>
-									</HoverCardContent>
-								</HoverCard>
+									</HoverCard.Content>
+								</HoverCard.Root>
 							`}
 						/>
-					</CodeBlockBody>
-				</CodeBlock>
+					</CodeBlock.Body>
+				</CodeBlock.Root>
 			</div>
 		</div>
 	);

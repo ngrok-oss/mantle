@@ -14,26 +14,26 @@ type CardProps = ComponentProps<"div"> & WithAsChild;
  *
  * @example
  * ```tsx
- * <Card>
- *   <CardBody>
+ * <Card.Root>
+ *   <Card.Body>
  *     <p>Laborum in aute officia adipisicing elit velit.</p>
- *   </CardBody>
- * </Card>
+ *   </Card.Body>
+ * </Card.Root>
  *
- * <Card>
- *   <CardHeader>
- *     <CardTitle>Card Title Here</CardTitle>
- *   </CardHeader>
- *   <CardBody>
+ * <Card.Root>
+ *   <Card.Header>
+ *     <Card.Title>Card Title Here</Card.Title>
+ *   </Card.Header>
+ *   <Card.Body>
  *     <p>Laborum in aute officia adipisicing elit velit.</p>
- *   </CardBody>
- *   <CardFooter>
+ *   </Card.Body>
+ *   <Card.Footer>
  *     <p>Card footer</p>
- *   </CardFooter>
- * </Card>
+ *   </Card.Footer>
+ * </Card.Root>
  * ```
  */
-const Card = forwardRef<ComponentRef<"div">, CardProps>(
+const Root = forwardRef<ComponentRef<"div">, CardProps>(
 	({ asChild = false, className, children, ...rest }, ref) => {
 		const Component = asChild ? Slot : "div";
 
@@ -51,7 +51,7 @@ const Card = forwardRef<ComponentRef<"div">, CardProps>(
 		);
 	},
 );
-Card.displayName = "Card";
+Root.displayName = "Card";
 
 /**
  * The main content of a card. Usually composed as a direct child of a `Card` component.
@@ -60,26 +60,26 @@ Card.displayName = "Card";
  *
  * @example
  * ```tsx
- * <Card>
- *   <CardBody>
+ * <Card.Root>
+ *   <Card.Body>
  *     <p>Laborum in aute officia adipisicing elit velit.</p>
- *   </CardBody>
- * </Card>
+ *   </Card.Body>
+ * </Card.Root>
  *
- * <Card>
- *   <CardHeader>
- *     <CardTitle>Card Title Here</CardTitle>
- *   </CardHeader>
- *   <CardBody>
+ * <Card.Root>
+ *   <Card.Header>
+ *     <Card.Title>Card Title Here</Card.Title>
+ *   </Card.Header>
+ *   <Card.Body>
  *     <p>Laborum in aute officia adipisicing elit velit.</p>
- *   </CardBody>
- *   <CardFooter>
+ *   </Card.Body>
+ *   <Card.Footer>
  *     <p>Card footer</p>
- *   </CardFooter>
- * </Card>
+ *   </Card.Footer>
+ * </Card.Root>
  * ```
  */
-const CardBody = forwardRef<ComponentRef<"div">, CardProps>(
+const Body = forwardRef<ComponentRef<"div">, CardProps>(
 	({ asChild = false, className, children, ...rest }, ref) => {
 		const Component = asChild ? Slot : "div";
 
@@ -90,7 +90,7 @@ const CardBody = forwardRef<ComponentRef<"div">, CardProps>(
 		);
 	},
 );
-CardBody.displayName = "CardBody";
+Body.displayName = "CardBody";
 
 /**
  * The footer container of a card. Usually composed as a direct child of a `Card` component.
@@ -99,20 +99,20 @@ CardBody.displayName = "CardBody";
  *
  * @example
  * ```tsx
- * <Card>
- *   <CardHeader>
- *     <CardTitle>Card Title Here</CardTitle>
- *   </CardHeader>
- *   <CardBody>
+ * <Card.Root>
+ *   <Card.Header>
+ *     <Card.Title>Card Title Here</Card.Title>
+ *   </Card.Header>
+ *   <Card.Body>
  *     <p>Laborum in aute officia adipisicing elit velit.</p>
- *   </CardBody>
- *   <CardFooter>
+ *   </Card.Body>
+ *   <Card.Footer>
  *     <p>Card footer</p>
- *   </CardFooter>
- * </Card>
+ *   </Card.Footer>
+ * </Card.Root>
  * ```
  */
-const CardFooter = forwardRef<ComponentRef<"div">, CardProps>(
+const Footer = forwardRef<ComponentRef<"div">, CardProps>(
 	({ asChild = false, className, children, ...rest }, ref) => {
 		const Component = asChild ? Slot : "div";
 
@@ -123,7 +123,7 @@ const CardFooter = forwardRef<ComponentRef<"div">, CardProps>(
 		);
 	},
 );
-CardFooter.displayName = "CardFooter";
+Footer.displayName = "CardFooter";
 
 /**
  * The header container of a card. Usually composed as a direct child of a `Card` component.
@@ -132,20 +132,20 @@ CardFooter.displayName = "CardFooter";
  *
  * @example
  * ```tsx
- * <Card>
- *   <CardHeader>
- *     <CardTitle>Card Title Here</CardTitle>
- *   </CardHeader>
- *   <CardBody>
+ * <Card.Root>
+ *   <Card.Header>
+ *     <Card.Title>Card Title Here</Card.Title>
+ *   </Card.Header>
+ *   <Card.Body>
  *     <p>Laborum in aute officia adipisicing elit velit.</p>
- *   </CardBody>
- *   <CardFooter>
+ *   </Card.Body>
+ *   <Card.Footer>
  *     <p>Card footer</p>
- *   </CardFooter>
- * </Card>
+ *   </Card.Footer>
+ * </Card.Root>
  * ```
  */
-const CardHeader = forwardRef<ComponentRef<"div">, CardProps>(
+const Header = forwardRef<ComponentRef<"div">, CardProps>(
 	({ asChild = false, className, children, ...rest }, ref) => {
 		const Component = asChild ? Slot : "div";
 
@@ -156,12 +156,12 @@ const CardHeader = forwardRef<ComponentRef<"div">, CardProps>(
 		);
 	},
 );
-CardHeader.displayName = "CardHeader";
+Header.displayName = "CardHeader";
 
 type CardTitleProps = HTMLAttributes<HTMLHeadingElement> & WithAsChild;
 
 /**
- * The title of a card. Usually composed as a direct child of a `CardHeader`
+ * The title of a card. Usually composed as a direct child of a `Card.Header`
  * component.
  * Renders as an `h3` element by default, but can be changed to any other
  * element by using the `asChild` prop. It is preferred to use a heading element
@@ -171,20 +171,20 @@ type CardTitleProps = HTMLAttributes<HTMLHeadingElement> & WithAsChild;
  *
  * @example
  * ```tsx
- * <Card>
- *   <CardHeader>
- *     <CardTitle>Card Title Here</CardTitle>
- *   </CardHeader>
- *   <CardBody>
+ * <Card.Root>
+ *   <Card.Header>
+ *     <Card.Title>Card Title Here</Card.Title>
+ *   </Card.Header>
+ *   <Card.Body>
  *     <p>Laborum in aute officia adipisicing elit velit.</p>
- *   </CardBody>
- *   <CardFooter>
+ *   </Card.Body>
+ *   <Card.Footer>
  *     <p>Card footer</p>
- *   </CardFooter>
- * </Card>
+ *   </Card.Footer>
+ * </Card.Root>
  * ```
  */
-const CardTitle = forwardRef<HTMLHeadingElement, CardTitleProps>(
+const Title = forwardRef<HTMLHeadingElement, CardTitleProps>(
 	({ className, asChild, ...props }, ref) => {
 		const Comp = asChild ? Slot : "h3";
 		return (
@@ -196,15 +196,33 @@ const CardTitle = forwardRef<HTMLHeadingElement, CardTitleProps>(
 		);
 	},
 );
-CardTitle.displayName = "CardTitle";
+Title.displayName = "CardTitle";
+
+/**
+ * A container used to display content in a box, resembling a physical card.
+ *
+ * @example
+ * ```tsx
+ * import { Card } from "@ngrok/mantle/card";
+ *
+ * <Card.Root>
+ *   <Card.Body>
+ *     <p>Laborum in aute officia adipisicing elit velit.</p>
+ *   </Card.Body>
+ * </Card.Root>
+ * ```
+ */
+const Card = {
+	Root,
+	Body,
+	Footer,
+	Header,
+	Title,
+} as const;
 
 export {
 	//,
 	Card,
-	CardBody,
-	CardFooter,
-	CardHeader,
-	CardTitle,
 };
 
 export type {

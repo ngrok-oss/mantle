@@ -1,14 +1,4 @@
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	CodeBlockExpanderButton,
-	CodeBlockHeader,
-	CodeBlockIcon,
-	CodeBlockTitle,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import {
 	PreloadFonts,
@@ -57,14 +47,14 @@ export default function Page() {
 					of your application to prevent a Flash of Unstyled Content (FOUC) when
 					the app first loads as well as preload all of our custom fonts.
 				</p>
-				<CodeBlock>
-					<CodeBlockHeader>
-						<CodeBlockIcon svg={<FileTextIcon weight="fill" />} />
-						<CodeBlockTitle>root.tsx</CodeBlockTitle>
-					</CodeBlockHeader>
-					<CodeBlockBody>
-						<CodeBlockCopyButton />
-						<CodeBlockCode
+				<CodeBlock.Root>
+					<CodeBlock.Header>
+						<CodeBlock.Icon svg={<FileTextIcon weight="fill" />} />
+						<CodeBlock.Title>root.tsx</CodeBlock.Title>
+					</CodeBlock.Header>
+					<CodeBlock.Body>
+						<CodeBlock.CopyButton />
+						<CodeBlock.Code
 							language="tsx"
 							value={fmtCode`
 							import { MantleThemeHeadContent, ThemeProvider } from "@ngrok/mantle/theme-provider";
@@ -92,9 +82,9 @@ export default function Page() {
 							}
 						`}
 						/>
-						<CodeBlockExpanderButton />
-					</CodeBlockBody>
-				</CodeBlock>
+						<CodeBlock.ExpanderButton />
+					</CodeBlock.Body>
+				</CodeBlock.Root>
 			</section>
 			<section className="space-y-4">
 				<p className="font-body text-body">
@@ -104,44 +94,44 @@ export default function Page() {
 					can use the copy the following script and add it to your
 					application&apos;s <InlineCode>&lt;head&gt;</InlineCode>:
 				</p>
-				<CodeBlock>
-					<CodeBlockHeader>
-						<CodeBlockIcon svg={<FileTextIcon weight="fill" />} />
-						<CodeBlockTitle>index.html</CodeBlockTitle>
-					</CodeBlockHeader>
-					<CodeBlockBody>
-						<CodeBlockCopyButton />
-						<CodeBlockCode
+				<CodeBlock.Root>
+					<CodeBlock.Header>
+						<CodeBlock.Icon svg={<FileTextIcon weight="fill" />} />
+						<CodeBlock.Title>index.html</CodeBlock.Title>
+					</CodeBlock.Header>
+					<CodeBlock.Body>
+						<CodeBlock.CopyButton />
+						<CodeBlock.Code
 							language="html"
 							value={fmtCode`<script>
 ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 </script>
 `}
 						/>
-						<CodeBlockExpanderButton />
-					</CodeBlockBody>
-				</CodeBlock>
+						<CodeBlock.ExpanderButton />
+					</CodeBlock.Body>
+				</CodeBlock.Root>
 			</section>
 			<section className="space-y-4">
 				<p className="font-body text-body">
 					You will also need to ensure that you add the{" "}
 					<InlineCode>PreloadFonts</InlineCode> component to your app as well.
 				</p>
-				<CodeBlock>
-					<CodeBlockHeader>
-						<CodeBlockIcon svg={<FileTextIcon weight="fill" />} />
-						<CodeBlockTitle>index.html</CodeBlockTitle>
-					</CodeBlockHeader>
-					<CodeBlockBody>
-						<CodeBlockCopyButton />
-						<CodeBlockCode
+				<CodeBlock.Root>
+					<CodeBlock.Header>
+						<CodeBlock.Icon svg={<FileTextIcon weight="fill" />} />
+						<CodeBlock.Title>index.html</CodeBlock.Title>
+					</CodeBlock.Header>
+					<CodeBlock.Body>
+						<CodeBlock.CopyButton />
+						<CodeBlock.Code
 							language="html"
 							value={fmtCode`<head>\n\t${renderToStaticMarkup(<PreloadFonts />)
 								.split("/><")
 								.join("/>\n\t<")}\n</head>`}
 						/>
-					</CodeBlockBody>
-				</CodeBlock>
+					</CodeBlock.Body>
+				</CodeBlock.Root>
 			</section>
 			<section className="space-y-4">
 				<p className="font-body text-body">
@@ -149,14 +139,14 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 					<InlineCode>useTheme</InlineCode> hook to get and change the current
 					theme:
 				</p>
-				<CodeBlock>
-					<CodeBlockHeader>
-						<CodeBlockIcon svg={<FileTextIcon weight="fill" />} />
-						<CodeBlockTitle>app.tsx</CodeBlockTitle>
-					</CodeBlockHeader>
-					<CodeBlockBody>
-						<CodeBlockCopyButton />
-						<CodeBlockCode
+				<CodeBlock.Root>
+					<CodeBlock.Header>
+						<CodeBlock.Icon svg={<FileTextIcon weight="fill" />} />
+						<CodeBlock.Title>app.tsx</CodeBlock.Title>
+					</CodeBlock.Header>
+					<CodeBlock.Body>
+						<CodeBlock.CopyButton />
+						<CodeBlock.Code
 							language="tsx"
 							value={fmtCode`
 							import {
@@ -206,9 +196,9 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 							}
 `}
 						/>
-					</CodeBlockBody>
-					<CodeBlockExpanderButton />
-				</CodeBlock>
+					</CodeBlock.Body>
+					<CodeBlock.ExpanderButton />
+				</CodeBlock.Root>
 			</section>
 		</div>
 	);

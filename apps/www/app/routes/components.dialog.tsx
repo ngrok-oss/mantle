@@ -1,24 +1,8 @@
 import { Button, IconButton } from "@ngrok/mantle/button";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
-import {
-	Dialog,
-	DialogBody,
-	DialogClose,
-	DialogCloseIconButton,
-	DialogContent,
-	DialogFooter,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger,
-} from "@ngrok/mantle/dialog";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
+import { Dialog } from "@ngrok/mantle/dialog";
 import { InlineCode } from "@ngrok/mantle/inline-code";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@ngrok/mantle/tooltip";
+import { Tooltip } from "@ngrok/mantle/tooltip";
 import { TrashSimpleIcon } from "@phosphor-icons/react/TrashSimple";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
@@ -51,30 +35,30 @@ export default function Page() {
 				</p>
 				<div>
 					<Example className="flex-col gap-6">
-						<Dialog>
-							<DialogTrigger asChild>
+						<Dialog.Root>
+							<Dialog.Trigger asChild>
 								<Button type="button" appearance="filled">
 									Open dialog
 								</Button>
-							</DialogTrigger>
-							<DialogContent>
-								<DialogHeader>
-									<DialogTitle>
+							</Dialog.Trigger>
+							<Dialog.Content>
+								<Dialog.Header>
+									<Dialog.Title>
 										Are you absolutely sure? aslkdfjas dlfksdoijfoasdjf ioadsjfi
-									</DialogTitle>
-									<DialogCloseIconButton />
-								</DialogHeader>
-								<DialogBody>
+									</Dialog.Title>
+									<Dialog.CloseIconButton />
+								</Dialog.Header>
+								<Dialog.Body>
 									This action cannot be undone. This will permanently delete
 									your account and remove your data from our servers.
-								</DialogBody>
-								<DialogFooter>
-									<DialogClose asChild>
+								</Dialog.Body>
+								<Dialog.Footer>
+									<Dialog.Close asChild>
 										<Button type="button" priority="danger" appearance="filled">
 											Delete
 										</Button>
-									</DialogClose>
-									<DialogClose asChild>
+									</Dialog.Close>
+									<Dialog.Close asChild>
 										<Button
 											type="button"
 											priority="neutral"
@@ -82,33 +66,33 @@ export default function Page() {
 										>
 											Cancel
 										</Button>
-									</DialogClose>
-								</DialogFooter>
-							</DialogContent>
-						</Dialog>
-						<Dialog>
-							<DialogTrigger asChild>
+									</Dialog.Close>
+								</Dialog.Footer>
+							</Dialog.Content>
+						</Dialog.Root>
+						<Dialog.Root>
+							<Dialog.Trigger asChild>
 								<Button type="button" appearance="filled">
 									Open dialog (no close button)
 								</Button>
-							</DialogTrigger>
-							<DialogContent>
-								<DialogHeader>
-									<DialogTitle>
+							</Dialog.Trigger>
+							<Dialog.Content>
+								<Dialog.Header>
+									<Dialog.Title>
 										Are you absolutely sure? aslkdfjas dlfksdoijfoasdjf ioadsjfi
-									</DialogTitle>
-								</DialogHeader>
-								<DialogBody>
+									</Dialog.Title>
+								</Dialog.Header>
+								<Dialog.Body>
 									This action cannot be undone. This will permanently delete
 									your account and remove your data from our servers.
-								</DialogBody>
-								<DialogFooter>
-									<DialogClose asChild>
+								</Dialog.Body>
+								<Dialog.Footer>
+									<Dialog.Close asChild>
 										<Button type="button" priority="danger" appearance="filled">
 											Delete
 										</Button>
-									</DialogClose>
-									<DialogClose asChild>
+									</Dialog.Close>
+									<Dialog.Close asChild>
 										<Button
 											type="button"
 											priority="neutral"
@@ -116,22 +100,22 @@ export default function Page() {
 										>
 											Cancel
 										</Button>
-									</DialogClose>
-								</DialogFooter>
-							</DialogContent>
-						</Dialog>
-						<Dialog>
-							<DialogTrigger asChild>
+									</Dialog.Close>
+								</Dialog.Footer>
+							</Dialog.Content>
+						</Dialog.Root>
+						<Dialog.Root>
+							<Dialog.Trigger asChild>
 								<Button type="button" appearance="filled">
 									Open dialog (tall boi)
 								</Button>
-							</DialogTrigger>
-							<DialogContent>
-								<DialogHeader>
-									<DialogTitle>Tall boi example</DialogTitle>
-									<DialogCloseIconButton />
-								</DialogHeader>
-								<DialogBody className="flex flex-col gap-4">
+							</Dialog.Trigger>
+							<Dialog.Content>
+								<Dialog.Header>
+									<Dialog.Title>Tall boi example</Dialog.Title>
+									<Dialog.CloseIconButton />
+								</Dialog.Header>
+								<Dialog.Body className="flex flex-col gap-4">
 									<p>
 										Consequat velit minim labore esse aliqua laboris non laborum
 										qui labore duis reprehenderit.
@@ -180,14 +164,14 @@ export default function Page() {
 									</p>
 									<p>Exercitation officia sunt sit sint.</p>
 									<p>Velit eu deserunt proident Lorem sit proident ut minim.</p>
-								</DialogBody>
-								<DialogFooter>
-									<DialogClose asChild>
+								</Dialog.Body>
+								<Dialog.Footer>
+									<Dialog.Close asChild>
 										<Button type="button" priority="danger" appearance="filled">
 											Delete
 										</Button>
-									</DialogClose>
-									<DialogClose asChild>
+									</Dialog.Close>
+									<Dialog.Close asChild>
 										<Button
 											type="button"
 											priority="neutral"
@@ -195,45 +179,45 @@ export default function Page() {
 										>
 											Cancel
 										</Button>
-									</DialogClose>
-								</DialogFooter>
-							</DialogContent>
-						</Dialog>
+									</Dialog.Close>
+								</Dialog.Footer>
+							</Dialog.Content>
+						</Dialog.Root>
 					</Example>
-					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
-							import { Dialog, DialogBody, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@ngrok/mantle/dialog";
+							import { Dialog } from "@ngrok/mantle/dialog";
 
-							<Dialog>
-								<DialogTrigger asChild>
+							<Dialog.Root>
+								<Dialog.Trigger asChild>
 									<Button type="button">Open dialog</Button>
-								</DialogTrigger>
-								<DialogContent>
-									<DialogHeader>
-										<DialogTitle>Are you absolutely sure?</DialogTitle>
-									</DialogHeader>
-									<DialogBody>
+								</Dialog.Trigger>
+								<Dialog.Content>
+									<Dialog.Header>
+										<Dialog.Title>Are you absolutely sure?</Dialog.Title>
+									</Dialog.Header>
+									<Dialog.Body>
 										This action cannot be undone. This will permanently delete your account and remove your data from our
 										servers.
-									</DialogBody>
-									<DialogFooter>
+									</Dialog.Body>
+									<Dialog.Footer>
 										<Button type="button">
 											Delete
 										</Button>
 										<Button type="button">
 											Cancel
 										</Button>
-									</DialogFooter>
-								</DialogContent>
-							</Dialog>
+									</Dialog.Footer>
+								</Dialog.Content>
+							</Dialog.Root>
 						`}
 							/>
-						</CodeBlockBody>
-					</CodeBlock>
+						</CodeBlock.Body>
+					</CodeBlock.Root>
 				</div>
 			</section>
 
@@ -250,39 +234,39 @@ export default function Page() {
 				</p>
 				<div>
 					<Example>
-						<Dialog>
-							<Tooltip>
-								<TooltipTrigger asChild>
-									<DialogTrigger asChild>
+						<Dialog.Root>
+							<Tooltip.Root>
+								<Tooltip.Trigger asChild>
+									<Dialog.Trigger asChild>
 										<IconButton
 											type="button"
 											label="Delete"
 											size="sm"
 											icon={<TrashSimpleIcon />}
 										/>
-									</DialogTrigger>
-								</TooltipTrigger>
-								<TooltipContent>
+									</Dialog.Trigger>
+								</Tooltip.Trigger>
+								<Tooltip.Content>
 									<p>Delete</p>
-								</TooltipContent>
-							</Tooltip>
+								</Tooltip.Content>
+							</Tooltip.Root>
 
-							<DialogContent>
-								<DialogHeader>
-									<DialogTitle>Are you absolutely sure?</DialogTitle>
-									<DialogCloseIconButton />
-								</DialogHeader>
-								<DialogBody>
+							<Dialog.Content>
+								<Dialog.Header>
+									<Dialog.Title>Are you absolutely sure?</Dialog.Title>
+									<Dialog.CloseIconButton />
+								</Dialog.Header>
+								<Dialog.Body>
 									This action cannot be undone. This will permanently delete
 									your account and remove your data from our servers.
-								</DialogBody>
-								<DialogFooter>
-									<DialogClose asChild>
+								</Dialog.Body>
+								<Dialog.Footer>
+									<Dialog.Close asChild>
 										<Button type="button" priority="danger" appearance="filled">
 											Delete
 										</Button>
-									</DialogClose>
-									<DialogClose asChild>
+									</Dialog.Close>
+									<Dialog.Close asChild>
 										<Button
 											type="button"
 											priority="neutral"
@@ -290,56 +274,56 @@ export default function Page() {
 										>
 											Cancel
 										</Button>
-									</DialogClose>
-								</DialogFooter>
-							</DialogContent>
-						</Dialog>
+									</Dialog.Close>
+								</Dialog.Footer>
+							</Dialog.Content>
+						</Dialog.Root>
 					</Example>
-					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
-									<Dialog>
-										<Tooltip>
-											<TooltipTrigger asChild>
-												<DialogTrigger asChild>
+									<Dialog.Root>
+										<Tooltip.Root>
+											<Tooltip.Trigger asChild>
+												<Dialog.Trigger asChild>
 													<IconButton type="button" label="Delete" size="sm" icon={<TrashSimpleIcon />} />
-												</DialogTrigger>
-											</TooltipTrigger>
-											<TooltipContent>
+												</Dialog.Trigger>
+											</Tooltip.Trigger>
+											<Tooltip.Content>
 												<p>Delete</p>
-											</TooltipContent>
-										</Tooltip>
+											</Tooltip.Content>
+										</Tooltip.Root>
 
-										<DialogContent>
-											<DialogHeader>
-												<DialogTitle>Are you absolutely sure?</DialogTitle>
-												<DialogCloseIconButton />
-											</DialogHeader>
-											<DialogBody>
+										<Dialog.Content>
+											<Dialog.Header>
+												<Dialog.Title>Are you absolutely sure?</Dialog.Title>
+												<Dialog.CloseIconButton />
+											</Dialog.Header>
+											<Dialog.Body>
 												This action cannot be undone. This will permanently delete your account and remove your data from our
 												servers.
-											</DialogBody>
-											<DialogFooter>
-												<DialogClose asChild>
+											</Dialog.Body>
+											<Dialog.Footer>
+												<Dialog.Close asChild>
 													<Button type="button" priority="danger" appearance="filled">
 														Delete
 													</Button>
-												</DialogClose>
-												<DialogClose asChild>
+												</Dialog.Close>
+												<Dialog.Close asChild>
 													<Button type="button" priority="neutral" appearance="outlined">
 														Cancel
 													</Button>
-												</DialogClose>
-											</DialogFooter>
-										</DialogContent>
-									</Dialog>
+												</Dialog.Close>
+											</Dialog.Footer>
+										</Dialog.Content>
+									</Dialog.Root>
 								`}
 							/>
-						</CodeBlockBody>
-					</CodeBlock>
+						</CodeBlock.Body>
+					</CodeBlock.Root>
 				</div>
 			</section>
 		</div>

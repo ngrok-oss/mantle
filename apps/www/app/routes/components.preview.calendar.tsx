@@ -1,15 +1,9 @@
 import { Anchor } from "@ngrok/mantle/anchor";
 import { IconButton } from "@ngrok/mantle/button";
 import { Calendar, type DateRange } from "@ngrok/mantle/calendar";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
-import { Popover, PopoverContent, PopoverTrigger } from "@ngrok/mantle/popover";
+import { Popover } from "@ngrok/mantle/popover";
 import { CalendarIcon } from "@phosphor-icons/react/Calendar";
 import { useState } from "react";
 import { Example } from "~/components/example";
@@ -48,23 +42,23 @@ const PopoverCalendarExample = () => {
 	const [date, setDate] = useState<Date | undefined>(undefined);
 
 	return (
-		<Popover>
-			<PopoverTrigger asChild>
+		<Popover.Root>
+			<Popover.Trigger asChild>
 				<IconButton
 					type="button"
 					icon={<CalendarIcon />}
 					label="Open calendar popover"
 				/>
-			</PopoverTrigger>
-			<PopoverContent>
+			</Popover.Trigger>
+			<Popover.Content>
 				<Calendar
 					autoFocus
 					mode="single"
 					onSelect={(value) => setDate(value)}
 					selected={date}
 				/>
-			</PopoverContent>
-		</Popover>
+			</Popover.Content>
+		</Popover.Root>
 	);
 };
 
@@ -202,10 +196,10 @@ export default function Page() {
 							<DisabledDaysCalendarExample />
 						</div>
 					</Example>
-					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
 									import { Calendar } from "@ngrok/mantle/calendar";
@@ -217,8 +211,8 @@ export default function Page() {
 									/>
 								`}
 							/>
-						</CodeBlockBody>
-					</CodeBlock>
+						</CodeBlock.Body>
+					</CodeBlock.Root>
 				</div>
 			</section>
 

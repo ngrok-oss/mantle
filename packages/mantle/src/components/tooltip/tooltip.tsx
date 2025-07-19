@@ -33,20 +33,20 @@ TooltipProvider.displayName = "TooltipProvider";
  *
  * @example
  * ```tsx
- * <Tooltip>
- *   <TooltipTrigger asChild>
+ * <Tooltip.Root>
+ *   <Tooltip.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Hover me
  *     </Button>
- *   </TooltipTrigger>
- *   <TooltipContent>
+ *   </Tooltip.Trigger>
+ *   <Tooltip.Content>
  *     This is a tooltip
- *   </TooltipContent>
- * </Tooltip>
+ *   </Tooltip.Content>
+ * </Tooltip.Root>
  * ```
  */
-const Tooltip = Root;
-Tooltip.displayName = "Tooltip";
+const TooltipRoot = Root;
+TooltipRoot.displayName = "Tooltip";
 
 /**
  * The trigger button that opens the tooltip.
@@ -55,16 +55,16 @@ Tooltip.displayName = "Tooltip";
  *
  * @example
  * ```tsx
- * <Tooltip>
- *   <TooltipTrigger asChild>
+ * <Tooltip.Root>
+ *   <Tooltip.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Hover me
  *     </Button>
- *   </TooltipTrigger>
- *   <TooltipContent>
+ *   </Tooltip.Trigger>
+ *   <Tooltip.Content>
  *     This is a tooltip
- *   </TooltipContent>
- * </Tooltip>
+ *   </Tooltip.Content>
+ * </Tooltip.Root>
  * ```
  */
 const TooltipTrigger = Trigger;
@@ -77,16 +77,16 @@ TooltipTrigger.displayName = "TooltipTrigger";
  *
  * @example
  * ```tsx
- * <Tooltip>
- *   <TooltipTrigger asChild>
+ * <Tooltip.Root>
+ *   <Tooltip.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Hover me
  *     </Button>
- *   </TooltipTrigger>
- *   <TooltipContent>
+ *   </Tooltip.Trigger>
+ *   <Tooltip.Content>
  *     This is a tooltip
- *   </TooltipContent>
- * </Tooltip>
+ *   </Tooltip.Content>
+ * </Tooltip.Root>
  * ```
  */
 const TooltipContent = forwardRef<
@@ -107,10 +107,14 @@ const TooltipContent = forwardRef<
 ));
 TooltipContent.displayName = "TooltipContent";
 
+const Tooltip = {
+	Root: TooltipRoot,
+	Content: TooltipContent,
+	Trigger: TooltipTrigger,
+} as const;
+
 export {
 	//,
 	Tooltip,
-	TooltipContent,
 	TooltipProvider,
-	TooltipTrigger,
 };

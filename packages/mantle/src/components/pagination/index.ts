@@ -1,3 +1,4 @@
+// Export namespace object and named exports for cursor pagination
 export {
 	//,
 	CursorButtons,
@@ -5,6 +6,8 @@ export {
 	CursorPageSizeValue,
 	CursorPagination,
 } from "./cursor-pagination.js";
+
+// Export utility functions as named exports
 export {
 	//,
 	getOffsetPaginatedSlice,

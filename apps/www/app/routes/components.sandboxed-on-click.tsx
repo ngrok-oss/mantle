@@ -1,25 +1,9 @@
 import { Anchor } from "@ngrok/mantle/anchor";
 import { IconButton } from "@ngrok/mantle/button";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { SandboxedOnClick } from "@ngrok/mantle/sandboxed-on-click";
-import {
-	Table,
-	TableBody,
-	TableCaption,
-	TableCell,
-	TableFoot,
-	TableHead,
-	TableHeader,
-	TableRoot,
-	TableRow,
-} from "@ngrok/mantle/table";
+import { Table } from "@ngrok/mantle/table";
 import { BookIcon } from "@phosphor-icons/react/Book";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
@@ -112,36 +96,36 @@ export default function Page() {
 							navigates you to{" "}
 							<Anchor href="https://ngrok.com/docs">the ngrok docs.</Anchor>
 						</p>
-						<TableRoot>
-							<Table>
-								<TableCaption>A list of your recent invoices.</TableCaption>
-								<TableHead>
-									<TableRow>
-										<TableHeader className="w-[100px]">Invoice</TableHeader>
-										<TableHeader>Status</TableHeader>
-										<TableHeader>Method</TableHeader>
-										<TableHeader className="text-right">Amount</TableHeader>
-										<TableHeader className="text-right">Actions</TableHeader>
-									</TableRow>
-								</TableHead>
-								<TableBody>
+						<Table.Root>
+							<Table.Element>
+								<Table.Caption>A list of your recent invoices.</Table.Caption>
+								<Table.Head>
+									<Table.Row>
+										<Table.Header className="w-[100px]">Invoice</Table.Header>
+										<Table.Header>Status</Table.Header>
+										<Table.Header>Method</Table.Header>
+										<Table.Header className="text-right">Amount</Table.Header>
+										<Table.Header className="text-right">Actions</Table.Header>
+									</Table.Row>
+								</Table.Head>
+								<Table.Body>
 									{invoices.map((invoice) => (
-										<TableRow
+										<Table.Row
 											key={invoice.invoice}
 											className="cursor-pointer"
 											onClick={() => {
 												window.alert(`Clicked on ${invoice.invoice}!`);
 											}}
 										>
-											<TableCell className="font-medium">
+											<Table.Cell className="font-medium">
 												{invoice.invoice}
-											</TableCell>
-											<TableCell>{invoice.paymentStatus}</TableCell>
-											<TableCell>{invoice.paymentMethod}</TableCell>
-											<TableCell className="text-right">
+											</Table.Cell>
+											<Table.Cell>{invoice.paymentStatus}</Table.Cell>
+											<Table.Cell>{invoice.paymentMethod}</Table.Cell>
+											<Table.Cell className="text-right">
 												{invoice.totalAmount}
-											</TableCell>
-											<TableCell className="text-right">
+											</Table.Cell>
+											<Table.Cell className="text-right">
 												<SandboxedOnClick allowClickEventDefault>
 													<IconButton
 														label="See ngrok docs"
@@ -151,71 +135,71 @@ export default function Page() {
 														<a href="https://ngrok.com/docs" target="_blank" />
 													</IconButton>
 												</SandboxedOnClick>
-											</TableCell>
-										</TableRow>
+											</Table.Cell>
+										</Table.Row>
 									))}
-								</TableBody>
-								<TableFoot>
-									<TableRow>
-										<TableCell colSpan={3}>Total</TableCell>
-										<TableCell className="text-right">$2,500.00</TableCell>
-										<TableCell />
-									</TableRow>
-								</TableFoot>
-							</Table>
-						</TableRoot>
+								</Table.Body>
+								<Table.Foot>
+									<Table.Row>
+										<Table.Cell colSpan={3}>Total</Table.Cell>
+										<Table.Cell className="text-right">$2,500.00</Table.Cell>
+										<Table.Cell />
+									</Table.Row>
+								</Table.Foot>
+							</Table.Element>
+						</Table.Root>
 					</Example>
-					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
 									import { IconButton } from "@ngrok/mantle/button";
 									import { SandboxedOnClick } from "@ngrok/mantle/sandboxed-on-click";
 									import {
 										Table,
-										TableBody,
-										TableCaption,
-										TableCell,
-										TableFoot,
-										TableHead,
-										TableHeader,
-										TableRoot,
-										TableRow,
+										Table.Body,
+										Table.Caption,
+										Table.Cell,
+										Table.Foot,
+										Table.Head,
+										Table.Header,
+										Table.Root,
+										Table.Row,
 									} from "@ngrok/mantle/table";
 									import { BookIcon } from "@phosphor-icons/react/Book";
 
-									<TableRoot>
-										<Table>
-											<TableCaption>A list of your recent invoices.</TableCaption>
-											<TableHead>
-												<TableRow>
-													<TableHeader className="w-[100px]">Invoice</TableHeader>
-													<TableHeader>Status</TableHeader>
-													<TableHeader>Method</TableHeader>
-													<TableHeader className="text-right">Amount</TableHeader>
-													<TableHeader className="text-right">Actions</TableHeader>
-												</TableRow>
-											</TableHead>
-											<TableBody>
+									<Table.Root>
+										<Table.Element>
+											<Table.Caption>A list of your recent invoices.</Table.Caption>
+											<Table.Head>
+												<Table.Row>
+													<Table.Header className="w-[100px]">Invoice</Table.Header>
+													<Table.Header>Status</Table.Header>
+													<Table.Header>Method</Table.Header>
+													<Table.Header className="text-right">Amount</Table.Header>
+													<Table.Header className="text-right">Actions</Table.Header>
+												</Table.Row>
+											</Table.Head>
+											<Table.Body>
 												{invoices.map((invoice) => (
-													<TableRow
+													<Table.Row
 														key={invoice.invoice}
 														className="cursor-pointer"
 														onClick={() => {
 															window.alert(\`Clicked on \${invoice.invoice}!\`);
 														}}
 													>
-														<TableCell className="font-medium">
+														<Table.Cell className="font-medium">
 															{invoice.invoice}
-														</TableCell>
-														<TableCell>{invoice.paymentStatus}</TableCell>
-														<TableCell>{invoice.paymentMethod}</TableCell>
-														<TableCell className="text-right">
+														</Table.Cell>
+														<Table.Cell>{invoice.paymentStatus}</Table.Cell>
+														<Table.Cell>{invoice.paymentMethod}</Table.Cell>
+														<Table.Cell className="text-right">
 															{invoice.totalAmount}
-														</TableCell>
-														<TableCell className="text-right">
+														</Table.Cell>
+														<Table.Cell className="text-right">
 															<SandboxedOnClick allowClickEventDefault>
 																<IconButton
 																	label="See ngrok docs"
@@ -225,23 +209,23 @@ export default function Page() {
 																	<a href="https://ngrok.com/docs" target="_blank" />
 																</IconButton>
 															</SandboxedOnClick>
-														</TableCell>
-													</TableRow>
+														</Table.Cell>
+													</Table.Row>
 												))}
-											</TableBody>
-											<TableFoot>
-												<TableRow>
-													<TableCell colSpan={3}>Total</TableCell>
-													<TableCell className="text-right">$2,500.00</TableCell>
-													<TableCell />
-												</TableRow>
-											</TableFoot>
-										</Table>
-									</TableRoot>
+											</Table.Body>
+											<Table.Foot>
+												<Table.Row>
+													<Table.Cell colSpan={3}>Total</Table.Cell>
+													<Table.Cell className="text-right">$2,500.00</Table.Cell>
+													<Table.Cell />
+												</Table.Row>
+											</Table.Foot>
+										</Table.Element>
+									</Table.Root>
 								`}
 							/>
-						</CodeBlockBody>
-					</CodeBlock>
+						</CodeBlock.Body>
+					</CodeBlock.Root>
 				</div>
 			</section>
 
