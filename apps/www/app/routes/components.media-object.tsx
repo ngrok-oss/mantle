@@ -119,6 +119,7 @@ export default function Page() {
 							id="api-media-object"
 							className="text-xl font-medium text-strong"
 						>
+							<span id="api-media-object-root" />
 							MediaObject.Root
 						</h3>
 

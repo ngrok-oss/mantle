@@ -258,6 +258,7 @@ export default function Page() {
 							id="api-progress-donut"
 							className="text-xl font-medium text-strong"
 						>
+							<span id="api-progress-donut-root" />
 							ProgressDonut
 						</h3>
 

@@ -239,6 +239,7 @@ export default function Page() {
 							id="api-alert-dialog"
 							className="text-xl font-medium text-strong"
 						>
+							<span id="api-alert-dialog-root" />
 							AlertDialog
 						</h3>
 
@@ -590,6 +591,101 @@ export default function Page() {
 						Same props as the{" "}
 						<Link to={href("/components/button")}>Button</Link> component.
 					</p>
+				</section>
+
+				<section className="space-y-4">
+					<header className="space-y-1">
+						<h3
+							id="api-alert-dialog-icon"
+							className="text-xl font-medium text-strong"
+						>
+							AlertDialog.Icon
+						</h3>
+
+						<p className="font-body text-body">
+							An icon displayed in the alert dialog, usually to indicate the
+							type of alert.
+						</p>
+
+						<p>
+							All props from{" "}
+							<Anchor
+								href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								div
+							</Anchor>
+							, plus:
+						</p>
+					</header>
+
+					<PropsTable>
+						<PropRow>
+							<PropNameCell name="asChild" optional />
+							<PropTypeCell>
+								<BooleanPropType />
+							</PropTypeCell>
+							<PropDefaultValueCell>
+								<BooleanPropType value={false} />
+							</PropDefaultValueCell>
+							<PropDescriptionCell>
+								<p>
+									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
+									<InlineCode>AlertDialog.Icon</InlineCode> styling and
+									functionality onto alternative element types or your own React
+									components.
+								</p>
+							</PropDescriptionCell>
+						</PropRow>
+					</PropsTable>
+				</section>
+
+				<section className="space-y-4">
+					<header className="space-y-1">
+						<h3
+							id="api-alert-dialog-close"
+							className="text-xl font-medium text-strong"
+						>
+							AlertDialog.Close
+						</h3>
+
+						<p className="font-body text-body">
+							A button that closes the dialog.
+						</p>
+
+						<p>
+							All props from{" "}
+							<Anchor
+								href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								button
+							</Anchor>
+							, plus:
+						</p>
+					</header>
+
+					<PropsTable>
+						<PropRow>
+							<PropNameCell name="asChild" optional />
+							<PropTypeCell>
+								<BooleanPropType />
+							</PropTypeCell>
+							<PropDefaultValueCell>
+								<BooleanPropType value={false} />
+							</PropDefaultValueCell>
+							<PropDescriptionCell>
+								<p>
+									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
+									<InlineCode>AlertDialog.Close</InlineCode> styling and
+									functionality onto alternative element types or your own React
+									components.
+								</p>
+							</PropDescriptionCell>
+						</PropRow>
+					</PropsTable>
 				</section>
 			</section>
 		</div>

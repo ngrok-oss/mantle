@@ -129,6 +129,7 @@ export default function Page() {
 							id="api-table-element"
 							className="text-xl font-medium text-strong"
 						>
+							<span id="api-table" />
 							Table.Element
 						</h3>
 
