@@ -446,18 +446,61 @@ const RadioGroup = {
 	 * A radio button that is used inside a RadioGroup.ButtonGroup for inline grouped radio options.
 	 *
 	 * @see https://mantle.ngrok.com/components/radio-group#api-radio-button
+	 *
+	 * @example
+	 * ```tsx
+	 * <RadioGroup.Root defaultValue="option1">
+	 *   <RadioGroup.ButtonGroup>
+	 *     <RadioGroup.Button value="option1">Option 1</RadioGroup.Button>
+	 *     <RadioGroup.Button value="option2">Option 2</RadioGroup.Button>
+	 *     <RadioGroup.Button value="option3">Option 3</RadioGroup.Button>
+	 *   </RadioGroup.ButtonGroup>
+	 * </RadioGroup.Root>
+	 * ```
 	 */
 	Button,
 	/**
 	 * An inline group of radio buttons. Use RadioGroup.Button as direct children for horizontal radio layouts.
 	 *
 	 * @see https://mantle.ngrok.com/components/radio-group#api-radio-button-group
+	 *
+	 * @example
+	 * ```tsx
+	 * <RadioGroup.Root defaultValue="small">
+	 *   <Label htmlFor="size-group">Size</Label>
+	 *   <RadioGroup.ButtonGroup>
+	 *     <RadioGroup.Button value="small">Small</RadioGroup.Button>
+	 *     <RadioGroup.Button value="medium">Medium</RadioGroup.Button>
+	 *     <RadioGroup.Button value="large">Large</RadioGroup.Button>
+	 *   </RadioGroup.ButtonGroup>
+	 * </RadioGroup.Root>
+	 * ```
 	 */
 	ButtonGroup,
 	/**
 	 * A radio card item with enhanced styling. Use it as a child of RadioGroup for card-based radio options.
 	 *
 	 * @see https://mantle.ngrok.com/components/radio-group#api-radio-card
+	 *
+	 * @example
+	 * ```tsx
+	 * <RadioGroup.Root defaultValue="basic">
+	 *   <div className="space-y-3">
+	 *     <RadioGroup.Card value="basic">
+	 *       <RadioGroup.ItemContent>
+	 *         <Text weight="strong">Basic Plan</Text>
+	 *         <Text>$10/month</Text>
+	 *       </RadioGroup.ItemContent>
+	 *     </RadioGroup.Card>
+	 *     <RadioGroup.Card value="pro">
+	 *       <RadioGroup.ItemContent>
+	 *         <Text weight="strong">Pro Plan</Text>
+	 *         <Text>$25/month</Text>
+	 *       </RadioGroup.ItemContent>
+	 *     </RadioGroup.Card>
+	 *   </div>
+	 * </RadioGroup.Root>
+	 * ```
 	 */
 	Card,
 	/**
@@ -478,6 +521,21 @@ const RadioGroup = {
 	 * A sandbox container for input elements composed within radio group items. Prevents default radio behavior.
 	 *
 	 * @see https://mantle.ngrok.com/components/radio-group#api-radio-input-sandbox
+	 *
+	 * @example
+	 * ```tsx
+	 * <RadioGroup.Root defaultValue="custom">
+	 *   <RadioGroup.Item value="custom">
+	 *     <RadioGroup.Indicator />
+	 *     <RadioGroup.ItemContent>
+	 *       <Text>Custom amount</Text>
+	 *       <RadioGroup.InputSandbox>
+	 *         <Input type="number" placeholder="Enter amount" />
+	 *       </RadioGroup.InputSandbox>
+	 *     </RadioGroup.ItemContent>
+	 *   </RadioGroup.Item>
+	 * </RadioGroup.Root>
+	 * ```
 	 */
 	InputSandbox,
 	/**
@@ -498,18 +556,69 @@ const RadioGroup = {
 	 * The content wrapper for any radio item. Use it to wrap labels, descriptions, or content of a radio item.
 	 *
 	 * @see https://mantle.ngrok.com/components/radio-group#api-radio-item-content
+	 *
+	 * @example
+	 * ```tsx
+	 * <RadioGroup.Root defaultValue="option1">
+	 *   <RadioGroup.Item value="option1">
+	 *     <RadioGroup.Indicator />
+	 *     <RadioGroup.ItemContent>
+	 *       <Text weight="strong">Option 1</Text>
+	 *       <Text size="sm">Description for option 1</Text>
+	 *     </RadioGroup.ItemContent>
+	 *   </RadioGroup.Item>
+	 * </RadioGroup.Root>
+	 * ```
 	 */
 	ItemContent,
 	/**
 	 * A group of radio list items with connected borders. Use RadioGroup.ListItem as direct children.
 	 *
 	 * @see https://mantle.ngrok.com/components/radio-group#api-radio-list
+	 *
+	 * @example
+	 * ```tsx
+	 * <RadioGroup.Root defaultValue="option1">
+	 *   <RadioGroup.List>
+	 *     <RadioGroup.ListItem value="option1">
+	 *       <RadioGroup.ItemContent>
+	 *         <Text>Option 1</Text>
+	 *       </RadioGroup.ItemContent>
+	 *     </RadioGroup.ListItem>
+	 *     <RadioGroup.ListItem value="option2">
+	 *       <RadioGroup.ItemContent>
+	 *         <Text>Option 2</Text>
+	 *       </RadioGroup.ItemContent>
+	 *     </RadioGroup.ListItem>
+	 *   </RadioGroup.List>
+	 * </RadioGroup.Root>
+	 * ```
 	 */
 	List,
 	/**
 	 * A radio list item that is used inside a RadioGroup.List for connected list-style radio options.
 	 *
 	 * @see https://mantle.ngrok.com/components/radio-group#api-radio-list-item
+	 *
+	 * @example
+	 * ```tsx
+	 * <RadioGroup.Root defaultValue="item1">
+	 *   <RadioGroup.List>
+	 *     <RadioGroup.ListItem value="item1">
+	 *       <RadioGroup.ItemContent>
+	 *         <Text>List Item 1</Text>
+	 *         <Text size="sm" className="text-muted">First option</Text>
+	 *       </RadioGroup.ItemContent>
+	 *     </RadioGroup.ListItem>
+	 *     <RadioGroup.ListItem value="item2">
+	 *       <RadioGroup.ItemContent>
+	 *         <Text>List Item 2</Text>
+	 *         <Text size="sm" className="text-muted">Second option</Text>
+	 *       </RadioGroup.ItemContent>
+	 *     </RadioGroup.ListItem>
+	 *   </RadioGroup.List>
+	 * </RadioGroup.Root>
+	 * ```
 	 */
 	ListItem,
 	/**

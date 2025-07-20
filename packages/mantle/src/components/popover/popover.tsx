@@ -211,24 +211,90 @@ const Popover = {
 	 * An optional element to position the PopoverContent against. If not used, content positions alongside the trigger.
 	 *
 	 * @see https://mantle.ngrok.com/components/popover#api-popover-anchor
+	 *
+	 * @example
+	 * ```tsx
+	 * <Popover.Root>
+	 *   <Popover.Anchor asChild>
+	 *     <div>Position relative to this element</div>
+	 *   </Popover.Anchor>
+	 *   <Popover.Trigger asChild>
+	 *     <Button type="button">Open Popover</Button>
+	 *   </Popover.Trigger>
+	 *   <Popover.Content>
+	 *     <Text>This popover is positioned relative to the anchor.</Text>
+	 *   </Popover.Content>
+	 * </Popover.Root>
+	 * ```
 	 */
 	Anchor,
 	/**
 	 * A button that closes an open popover. Can be placed anywhere within the popover content.
 	 *
 	 * @see https://mantle.ngrok.com/components/popover#api-popover-close
+	 *
+	 * @example
+	 * ```tsx
+	 * <Popover.Root>
+	 *   <Popover.Trigger asChild>
+	 *     <Button type="button">Settings</Button>
+	 *   </Popover.Trigger>
+	 *   <Popover.Content>
+	 *     <div className="flex items-center justify-between">
+	 *       <Text>Settings Panel</Text>
+	 *       <Popover.Close asChild>
+	 *         <Button type="button" appearance="ghost" size="sm">✕</Button>
+	 *       </Popover.Close>
+	 *     </div>
+	 *     <Text>Configure your preferences here.</Text>
+	 *   </Popover.Content>
+	 * </Popover.Root>
+	 * ```
 	 */
 	Close,
 	/**
 	 * The content to render inside the popover. Appears in a portal with rich styling and animations.
 	 *
 	 * @see https://mantle.ngrok.com/components/popover#api-popover-content
+	 *
+	 * @example
+	 * ```tsx
+	 * <Popover.Root>
+	 *   <Popover.Trigger asChild>
+	 *     <Button type="button">Show Info</Button>
+	 *   </Popover.Trigger>
+	 *   <Popover.Content side="top" align="center">
+	 *     <div className="space-y-2">
+	 *       <Text weight="strong">Additional Information</Text>
+	 *       <Text>This is the content inside the popover.</Text>
+	 *       <Button type="button" size="sm">Action</Button>
+	 *     </div>
+	 *   </Popover.Content>
+	 * </Popover.Root>
+	 * ```
 	 */
 	Content,
 	/**
 	 * The trigger button that opens the popover when clicked or focused.
 	 *
 	 * @see https://mantle.ngrok.com/components/popover#api-popover-trigger
+	 *
+	 * @example
+	 * ```tsx
+	 * <Popover.Root>
+	 *   <Popover.Trigger asChild>
+	 *     <Button type="button" appearance="outlined">
+	 *       Options
+	 *     </Button>
+	 *   </Popover.Trigger>
+	 *   <Popover.Content>
+	 *     <div className="space-y-2">
+	 *       <Button type="button" variant="ghost">Edit</Button>
+	 *       <Button type="button" variant="ghost">Delete</Button>
+	 *     </div>
+	 *   </Popover.Content>
+	 * </Popover.Root>
+	 * ```
 	 */
 	Trigger,
 } as const;

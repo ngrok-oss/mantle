@@ -438,6 +438,15 @@ export type {
  * even when a modaled view (e.g. dialog, sheet, etc) is open and a focus trap is active.
  *
  * Without this, interacting with the prompt would close the modaled view.
+ *
+ * @example
+ * ```tsx
+ * <Dialog.Root onInteractOutside={preventCloseOnPromptInteraction}>
+ *   <Dialog.Content>
+ *     <p>Dialog content</p>
+ *   </Dialog.Content>
+ * </Dialog.Root>
+ * ```
  */
 export function preventCloseOnPromptInteraction(
 	event: CustomEvent | PointerEvent | MouseEvent | TouchEvent | FocusEvent,
