@@ -519,6 +519,29 @@ const Dialog = {
 	 * A button that closes the dialog when clicked.
 	 *
 	 * @see https://mantle.ngrok.com/components/dialog#api-dialog-close
+	 *
+	 * @example
+	 * ```tsx
+	 * <Dialog.Root>
+	 *   <Dialog.Trigger asChild>
+	 *     <Button type="button">Open Dialog</Button>
+	 *   </Dialog.Trigger>
+	 *   <Dialog.Content>
+	 *     <Dialog.Header>
+	 *       <Dialog.Title>Confirm Action</Dialog.Title>
+	 *     </Dialog.Header>
+	 *     <Dialog.Body>
+	 *       <Text>Are you sure you want to proceed?</Text>
+	 *     </Dialog.Body>
+	 *     <Dialog.Footer>
+	 *       <Dialog.Close asChild>
+	 *         <Button type="button" appearance="outlined">Cancel</Button>
+	 *       </Dialog.Close>
+	 *       <Button type="submit">Confirm</Button>
+	 *     </Dialog.Footer>
+	 *   </Dialog.Content>
+	 * </Dialog.Root>
+	 * ```
 	 */
 	Close,
 	/**
@@ -673,12 +696,49 @@ const Dialog = {
 	 * The overlay backdrop for the dialog.
 	 *
 	 * @see https://mantle.ngrok.com/components/dialog#api-dialog-overlay
+	 *
+	 * @example
+	 * ```tsx
+	 * <Dialog.Root>
+	 *   <Dialog.Portal>
+	 *     <Dialog.Overlay />
+	 *     <Dialog.Content>
+	 *       <Dialog.Header>
+	 *         <Dialog.Title>Dialog Title</Dialog.Title>
+	 *       </Dialog.Header>
+	 *       <Dialog.Body>
+	 *         <Text>Dialog content here.</Text>
+	 *       </Dialog.Body>
+	 *     </Dialog.Content>
+	 *   </Dialog.Portal>
+	 * </Dialog.Root>
+	 * ```
 	 */
 	Overlay,
 	/**
 	 * The portal container for the dialog.
 	 *
 	 * @see https://mantle.ngrok.com/components/dialog#api-dialog-portal
+	 *
+	 * @example
+	 * ```tsx
+	 * <Dialog.Root>
+	 *   <Dialog.Trigger asChild>
+	 *     <Button type="button">Open Dialog</Button>
+	 *   </Dialog.Trigger>
+	 *   <Dialog.Portal>
+	 *     <Dialog.Overlay />
+	 *     <Dialog.Content>
+	 *       <Dialog.Header>
+	 *         <Dialog.Title>Portal Dialog</Dialog.Title>
+	 *       </Dialog.Header>
+	 *       <Dialog.Body>
+	 *         <Text>This dialog is rendered in a portal.</Text>
+	 *       </Dialog.Body>
+	 *     </Dialog.Content>
+	 *   </Dialog.Portal>
+	 * </Dialog.Root>
+	 * ```
 	 */
 	Portal,
 	/**

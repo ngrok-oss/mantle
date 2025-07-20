@@ -294,6 +294,18 @@ export {
  * Derive the stroke width in pixels as a number value or pixels/rem from a string value.
  * Note, this function clamps the stroke width to a minimum of 1 and max of 12 since
  * it is proportional to the viewbox size (0 0 32 32).
+ *
+ * @example
+ * ```tsx
+ * const strokeWidth1 = deriveStrokeWidthPx(8);
+ * // Returns: 8
+ *
+ * const strokeWidth2 = deriveStrokeWidthPx("0.5rem");
+ * // Returns: 8 (0.5 * 16)
+ *
+ * const strokeWidth3 = deriveStrokeWidthPx(20);
+ * // Returns: 12 (clamped to maximum)
+ * ```
  */
 export function deriveStrokeWidthPx(
 	strokeWidth: number | string | undefined | null,

@@ -306,6 +306,21 @@ function useAppliedTheme() {
 /**
  * determineThemeFromMediaQuery returns the theme that should be used based on the user's media query preferences.
  * @private
+ *
+ * @example
+ * ```tsx
+ * const theme = determineThemeFromMediaQuery({
+ *   prefersDarkMode: true,
+ *   prefersHighContrast: false
+ * });
+ * // Returns: "dark"
+ *
+ * const themeWithContrast = determineThemeFromMediaQuery({
+ *   prefersDarkMode: false,
+ *   prefersHighContrast: true
+ * });
+ * // Returns: "light-high-contrast"
+ * ```
  */
 export function determineThemeFromMediaQuery({
 	prefersDarkMode,

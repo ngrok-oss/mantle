@@ -88,6 +88,15 @@ export type {
 /**
  * Remove leading and trailing `"` quotes around value
  * @private
+ *
+ * @example
+ * ```tsx
+ * const normalized = normalizeValue('"hello world"');
+ * // Returns: "hello world"
+ *
+ * const unchanged = normalizeValue('hello');
+ * // Returns: "hello"
+ * ```
  */
 export function normalizeValue(value: string | undefined) {
 	return value?.trim().replace(/^"(.*)"$/, "$1");
@@ -97,6 +106,15 @@ export function normalizeValue(value: string | undefined) {
  * Splits a metastring into an array of tokens that can be parsed into a meta object.
  * Should allow for quotes and spaces in tokens
  * @private
+ *
+ * @example
+ * ```tsx
+ * const tokens = tokenizeMetastring('title="My File" collapsible mode=cli');
+ * // Returns: ['title="My File"', 'collapsible', 'mode=cli']
+ *
+ * const simpleTokens = tokenizeMetastring('collapsible disableCopy');
+ * // Returns: ['collapsible', 'disableCopy']
+ * ```
  */
 export function tokenizeMetastring(value: string | undefined): string[] {
 	const input = value?.trim() ?? "";
