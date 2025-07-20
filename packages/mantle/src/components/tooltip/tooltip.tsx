@@ -107,9 +107,89 @@ const TooltipContent = forwardRef<
 ));
 TooltipContent.displayName = "TooltipContent";
 
+/**
+ * A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.
+ * This is the root, stateful component that manages the open/closed state of the tooltip.
+ * Will throw if you have not wrapped your app in a `TooltipProvider`.
+ *
+ * @see https://mantle.ngrok.com/components/tooltip
+ *
+ * @example
+ * ```tsx
+ * <Tooltip.Root>
+ *   <Tooltip.Trigger asChild>
+ *     <Button type="button" appearance="outlined">
+ *       Hover me
+ *     </Button>
+ *   </Tooltip.Trigger>
+ *   <Tooltip.Content>
+ *     This is a tooltip
+ *   </Tooltip.Content>
+ * </Tooltip.Root>
+ * ```
+ */
 const Tooltip = {
+	/**
+	 * A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.
+	 * This is the root, stateful component that manages the open/closed state of the tooltip.
+	 * Will throw if you have not wrapped your app in a `TooltipProvider`.
+	 *
+	 * @see https://mantle.ngrok.com/components/tooltip#api-tooltip
+	 *
+	 * @example
+	 * ```tsx
+	 * <Tooltip.Root>
+	 *   <Tooltip.Trigger asChild>
+	 *     <Button type="button" appearance="outlined">
+	 *       Hover me
+	 *     </Button>
+	 *   </Tooltip.Trigger>
+	 *   <Tooltip.Content>
+	 *     This is a tooltip
+	 *   </Tooltip.Content>
+	 * </Tooltip.Root>
+	 * ```
+	 */
 	Root: TooltipRoot,
+	/**
+	 * The content to render inside the tooltip.
+	 *
+	 * @see https://mantle.ngrok.com/components/tooltip#api-tooltip-content
+	 *
+	 * @example
+	 * ```tsx
+	 * <Tooltip.Root>
+	 *   <Tooltip.Trigger asChild>
+	 *     <Button type="button" appearance="outlined">
+	 *       Hover me
+	 *     </Button>
+	 *   </Tooltip.Trigger>
+	 *   <Tooltip.Content>
+	 *     This is a tooltip
+	 *   </Tooltip.Content>
+	 * </Tooltip.Root>
+	 * ```
+	 */
 	Content: TooltipContent,
+	/**
+	 * The trigger button that opens the tooltip.
+	 *
+	 * @see https://mantle.ngrok.com/components/tooltip#api-tooltip-trigger
+	 *
+	 * @example
+	 * ```tsx
+	 * <Tooltip.Root>
+	 *   <Tooltip.Trigger asChild>
+	 *     <Button type="button" appearance="outlined">
+	 *       Hover me
+	 *     </Button>
+	 *   </Tooltip.Trigger>
+	 *   <Tooltip.Content>
+	 *     This is a tooltip
+	 *   </Tooltip.Content>
+	 * </Tooltip.Root>
+	 * ```
+	 */
 	Trigger: TooltipTrigger,
 } as const;
 

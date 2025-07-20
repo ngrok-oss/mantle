@@ -116,12 +116,60 @@ const Content = forwardRef<
 Content.displayName = HoverCardPrimitive.Content.displayName;
 
 /**
- * A hover card namespace object that contains the hover card components.
+ * A floating card that appears when a user hovers over a trigger element.
+ *
+ * @see https://mantle.ngrok.com/components/hover-card
+ *
+ * @example
+ * ```tsx
+ * <HoverCard.Root>
+ *   <HoverCard.Trigger asChild>
+ *     <Button type="button" appearance="outlined">
+ *       Hover me
+ *     </Button>
+ *   </HoverCard.Trigger>
+ *   <HoverCard.Content>
+ *     <p>This is the hover card content.</p>
+ *   </HoverCard.Content>
+ * </HoverCard.Root>
+ * ```
  */
 const HoverCard = {
+	/**
+	 * The root, stateful component that manages the open/closed state of the hover card.
+	 *
+	 * @see https://mantle.ngrok.com/components/hover-card#api-hover-card
+	 *
+	 * @example
+	 * ```tsx
+	 * <HoverCard.Root>
+	 *   <HoverCard.Trigger asChild>
+	 *     <Button>Hover me</Button>
+	 *   </HoverCard.Trigger>
+	 *   <HoverCard.Content>
+	 *     <p>This is the hover card content.</p>
+	 *   </HoverCard.Content>
+	 * </HoverCard.Root>
+	 * ```
+	 */
 	Root,
+	/**
+	 * The content to render inside the hover card. Appears in a portal with rich styling and animations.
+	 *
+	 * @see https://mantle.ngrok.com/components/hover-card#api-hover-card-content
+	 */
 	Content,
+	/**
+	 * The portal container for rendering hover card content outside the normal DOM tree.
+	 *
+	 * @see https://mantle.ngrok.com/components/hover-card#api-hover-card-portal
+	 */
 	Portal,
+	/**
+	 * The trigger element that opens the hover card when hovered.
+	 *
+	 * @see https://mantle.ngrok.com/components/hover-card#api-hover-card-trigger
+	 */
 	Trigger,
 } as const;
 

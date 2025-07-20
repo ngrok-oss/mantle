@@ -341,10 +341,81 @@ const Message = forwardRef<ComponentRef<"p">, ToastMessageProps>(
 );
 Message.displayName = "ToastMessage";
 
+/**
+ * A succinct message that is displayed temporarily. Toasts are used to provide
+ * feedback to the user without interrupting their workflow.
+ *
+ * @see https://mantle.ngrok.com/components/toast
+ *
+ * @example
+ * ```tsx
+ * makeToast(
+ *   <Toast.Root priority="success">
+ *     <Toast.Icon />
+ *     <Toast.Message>Operation completed successfully!</Toast.Message>
+ *     <Toast.Action>Dismiss</Toast.Action>
+ *   </Toast.Root>
+ * );
+ * ```
+ */
 const Toast = {
+	/**
+	 * A succinct message with a priority that is displayed temporarily.
+	 *
+	 * @see https://mantle.ngrok.com/components/toast#api-toast-root
+	 *
+	 * @example
+	 * ```tsx
+	 * <Toast.Root priority="success">
+	 *   <Toast.Icon />
+	 *   <Toast.Message>Changes saved successfully!</Toast.Message>
+	 *   <Toast.Action>Undo</Toast.Action>
+	 * </Toast.Root>
+	 * ```
+	 */
 	Root,
+	/**
+	 * A button that dismisses the toast when clicked.
+	 *
+	 * @see https://mantle.ngrok.com/components/toast#api-toast-action
+	 *
+	 * @example
+	 * ```tsx
+	 * <Toast.Root priority="info">
+	 *   <Toast.Icon />
+	 *   <Toast.Message>File uploaded successfully</Toast.Message>
+	 *   <Toast.Action>View File</Toast.Action>
+	 * </Toast.Root>
+	 * ```
+	 */
 	Action,
+	/**
+	 * An icon that visually represents the priority of the toast.
+	 *
+	 * @see https://mantle.ngrok.com/components/toast#api-toast-icon
+	 *
+	 * @example
+	 * ```tsx
+	 * <Toast.Root priority="warning">
+	 *   <Toast.Icon />
+	 *   <Toast.Message>Warning message</Toast.Message>
+	 * </Toast.Root>
+	 * ```
+	 */
 	Icon,
+	/**
+	 * The message content of the toast.
+	 *
+	 * @see https://mantle.ngrok.com/components/toast#api-toast-message
+	 *
+	 * @example
+	 * ```tsx
+	 * <Toast.Root priority="success">
+	 *   <Toast.Icon />
+	 *   <Toast.Message>Your changes have been saved</Toast.Message>
+	 * </Toast.Root>
+	 * ```
+	 */
 	Message,
 } as const;
 

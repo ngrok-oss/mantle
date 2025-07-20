@@ -157,19 +157,75 @@ function Indicator({ className, style, ...props }: IndicatorProps) {
 Indicator.displayName = "Indicator";
 
 /**
- * A horizontal progress bar component that shows the completion progress of a task.
+ * Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.
+ *
+ * A horizontal progress bar that shows the completion progress of a task.
+ * Use this component for linear progress indication.
+ *
+ * @see https://mantle.ngrok.com/components/progress
  *
  * @example
  * ```tsx
- * import { ProgressBar } from "@ngrok/mantle/progress";
- *
  * <ProgressBar.Root value={60}>
+ *   <ProgressBar.Indicator />
+ * </ProgressBar.Root>
+ *
+ * <ProgressBar.Root value={75} max={100}>
+ *   <ProgressBar.Indicator />
+ * </ProgressBar.Root>
+ *
+ * // Indeterminate progress
+ * <ProgressBar.Root value="indeterminate">
  *   <ProgressBar.Indicator />
  * </ProgressBar.Root>
  * ```
  */
 const ProgressBar = {
+	/**
+	 * Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.
+	 *
+	 * A horizontal progress bar that shows the completion progress of a task.
+	 * Use this component for linear progress indication.
+	 *
+	 * @see https://mantle.ngrok.com/components/progress#api-progress-bar
+	 *
+	 * @example
+	 * ```tsx
+	 * <ProgressBar.Root value={60}>
+	 *   <ProgressBar.Indicator />
+	 * </ProgressBar.Root>
+	 *
+	 * <ProgressBar.Root value={75} max={100}>
+	 *   <ProgressBar.Indicator />
+	 * </ProgressBar.Root>
+	 *
+	 * // Indeterminate progress
+	 * <ProgressBar.Root value="indeterminate">
+	 *   <ProgressBar.Indicator />
+	 * </ProgressBar.Root>
+	 * ```
+	 */
 	Root,
+	/**
+	 * Displays the progress indicator, which visually represents the completion progress of a task.
+	 *
+	 * The visual indicator that shows the actual progress within the progress bar.
+	 * This component should be used inside a ProgressBar.Root component.
+	 *
+	 * @see https://mantle.ngrok.com/components/progress#api-progress-bar-indicator
+	 *
+	 * @example
+	 * ```tsx
+	 * <ProgressBar.Root value={60}>
+	 *   <ProgressBar.Indicator />
+	 * </ProgressBar.Root>
+	 *
+	 * // Custom styled indicator
+	 * <ProgressBar.Root value={60}>
+	 *   <ProgressBar.Indicator className="bg-success-600" />
+	 * </ProgressBar.Root>
+	 * ```
+	 */
 	Indicator,
 } as const;
 

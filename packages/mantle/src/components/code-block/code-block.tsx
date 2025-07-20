@@ -672,12 +672,12 @@ function CodeBlockIconComponent({
 CodeBlockIconComponent.displayName = "CodeBlockIcon";
 
 /**
- * A code block component that renders and applies syntax highlighting to blocks of code.
+ * Code blocks render and apply syntax highlighting to blocks of code.
+ *
+ * @see https://mantle.ngrok.com/components/code-block
  *
  * @example
  * ```tsx
- * import { CodeBlock } from "@ngrok/mantle/code-block";
- *
  * <CodeBlock.Root>
  *   <CodeBlock.Header>
  *     <CodeBlock.Icon preset="file" />
@@ -692,13 +692,154 @@ CodeBlockIconComponent.displayName = "CodeBlockIcon";
  * ```
  */
 const CodeBlock = {
+	/**
+	 * Code blocks render and apply syntax highlighting to blocks of code.
+	 * This is the root component for all code block components.
+	 *
+	 * @see https://mantle.ngrok.com/components/code-block#api-code-block-root
+	 *
+	 * @example
+	 * ```tsx
+	 * <CodeBlock.Root>
+	 *   <CodeBlock.Header>
+	 *     <CodeBlock.Icon preset="file" />
+	 *     <CodeBlock.Title>…</CodeBlock.Title>
+	 *   </CodeBlock.Header>
+	 *   <CodeBlock.Body>
+	 *     <CodeBlock.CopyButton />
+	 *     <CodeBlock.Code language="…" value={fmtCode\`…\`} />
+	 *   </CodeBlock.Body>
+	 *   <CodeBlock.ExpanderButton />
+	 * </CodeBlock.Root>
+	 * ```
+	 */
 	Root,
+	/**
+	 * The body of the `CodeBlock`. This is where the `CodeBlock.Code` and optional
+	 * `CodeBlock.CopyButton` is rendered.
+	 *
+	 * @see https://mantle.ngrok.com/components/code-block#api-code-block-body
+	 *
+	 * @example
+	 * ```tsx
+	 * <CodeBlock.Root>
+	 *   <CodeBlock.Body>
+	 *     <CodeBlock.CopyButton />
+	 *     <CodeBlock.Code language="…" value={fmtCode\`…\`} />
+	 *   </CodeBlock.Body>
+	 * </CodeBlock.Root>
+	 * ```
+	 */
 	Body,
+	/**
+	 * The `CodeBlock` content. This is where the code is rendered and syntax highlighted.
+	 *
+	 * @see https://mantle.ngrok.com/components/code-block#api-code-block-code
+	 *
+	 * @example
+	 * ```tsx
+	 * <CodeBlock.Root>
+	 *   <CodeBlock.Body>
+	 *     <CodeBlock.Code
+	 *       language="sh"
+	 *       value={fmtCode`ffmpeg -i multichannel.mxf -map 0:v:0 -map 0:a:0`}
+	 *     />
+	 *   </CodeBlock.Body>
+	 * </CodeBlock.Root>
+	 * ```
+	 */
 	Code,
+	/**
+	 * The (optional) copy button of the `CodeBlock`. Render this as a child of the
+	 * `CodeBlock.Body` to allow users to copy the code block contents to their
+	 * clipboard.
+	 *
+	 * @see https://mantle.ngrok.com/components/code-block#api-code-block-copy-button
+	 *
+	 * @example
+	 * ```tsx
+	 * <CodeBlock.Root>
+	 *   <CodeBlock.Body>
+	 *     <CodeBlock.CopyButton />
+	 *     <CodeBlock.Code language="…" value={fmtCode\`…\`} />
+	 *   </CodeBlock.Body>
+	 * </CodeBlock.Root>
+	 * ```
+	 */
 	CopyButton,
+	/**
+	 * The (optional) expander button of the `CodeBlock`. Render this as a child of the
+	 * `CodeBlock.Body` to allow users to expand/collapse the code block contents.
+	 *
+	 * @see https://mantle.ngrok.com/components/code-block#api-code-block-expander-button
+	 *
+	 * @example
+	 * ```tsx
+	 * <CodeBlock.Root>
+	 *   <CodeBlock.Body>
+	 *     <CodeBlock.Code language="…" value={fmtCode\`…\`} />
+	 *   </CodeBlock.Body>
+	 *   <CodeBlock.ExpanderButton />
+	 * </CodeBlock.Root>
+	 * ```
+	 */
 	ExpanderButton,
+	/**
+	 * The (optional) header slot of the `CodeBlock`. This is where things like the
+	 * `CodeBlock.Icon` and `CodeBlock.Title` are rendered.
+	 *
+	 * @see https://mantle.ngrok.com/components/code-block#api-code-block-header
+	 *
+	 * @example
+	 * ```tsx
+	 * <CodeBlock.Root>
+	 *   <CodeBlock.Header>
+	 *     <CodeBlock.Icon preset="file" />
+	 *     <CodeBlock.Title>…</CodeBlock.Title>
+	 *   </CodeBlock.Header>
+	 *   <CodeBlock.Body>
+	 *     <CodeBlock.Code language="…" value={fmtCode\`…\`} />
+	 *   </CodeBlock.Body>
+	 * </CodeBlock.Root>
+	 * ```
+	 */
 	Header,
+	/**
+	 * A small icon that represents the type of code block being displayed,
+	 * rendered as an SVG next to the code block title in the code block header.
+	 *
+	 * You can pass in a custom SVG component or use one of the presets
+	 * (pass only one of `svg` or `preset`).
+	 *
+	 * @see https://mantle.ngrok.com/components/code-block#api-code-block-icon
+	 *
+	 * @example
+	 * ```tsx
+	 * <CodeBlock.Root>
+	 *   <CodeBlock.Header>
+	 *     <CodeBlock.Icon preset="file" />
+	 *     <CodeBlock.Title>…</CodeBlock.Title>
+	 *   </CodeBlock.Header>
+	 * </CodeBlock.Root>
+	 * ```
+	 */
 	Icon: CodeBlockIconComponent,
+	/**
+	 * The (optional) title of the `CodeBlock`. Default renders as an h3 element,
+	 * use asChild to render something else.
+	 *
+	 * @see https://mantle.ngrok.com/components/code-block#api-code-block-title
+	 *
+	 * @example
+	 * ```tsx
+	 * <CodeBlock.Root>
+	 *   <CodeBlock.Header>
+	 *     <CodeBlock.Icon preset="file" />
+	 *     <CodeBlock.Title>example.js</CodeBlock.Title>
+	 *   </CodeBlock.Header>
+	 * </CodeBlock.Root>
+	 * ```
+	 */
 	Title,
 } as const;
 

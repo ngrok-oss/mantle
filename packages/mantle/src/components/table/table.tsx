@@ -600,17 +600,395 @@ const Caption = forwardRef<ComponentRef<"caption">, ComponentProps<"caption">>(
 Caption.displayName = "TableCaption";
 
 /**
- * A table namespace object that contains the table components.
+ * A structured way to display data in rows and columns. The API matches the
+ * HTML table element 1:1.
+ *
+ * @see https://mantle.ngrok.com/components/table
+ *
+ * @example
+ * ```tsx
+ * <Table.Root>
+ *   <Table.Element>
+ *     <Table.Caption>A list of your recent invoices.</Table.Caption>
+ *     <Table.Head>
+ *       <Table.Row>
+ *         <Table.Header className="w-[100px]">Invoice</Table.Header>
+ *         <Table.Header>Status</Table.Header>
+ *         <Table.Header>Method</Table.Header>
+ *         <Table.Header className="text-right">Amount</Table.Header>
+ *       </Table.Row>
+ *     </Table.Head>
+ *     <Table.Body>
+ *       {invoices.map((invoice) => (
+ *         <Table.Row key={invoice.invoice}>
+ *           <Table.Cell className="font-medium">{invoice.invoice}</Table.Cell>
+ *           <Table.Cell>{invoice.paymentStatus}</Table.Cell>
+ *           <Table.Cell>{invoice.paymentMethod}</Table.Cell>
+ *           <Table.Cell className="text-right">{invoice.totalAmount}</Table.Cell>
+ *         </Table.Row>
+ *       ))}
+ *     </Table.Body>
+ *     <Table.Foot>
+ *       <Table.Row>
+ *         <Table.Cell colSpan={3}>Total</Table.Cell>
+ *         <Table.Cell className="text-right">$2,500.00</Table.Cell>
+ *       </Table.Row>
+ *     </Table.Foot>
+ *   </Table.Element>
+ * </Table.Root>
+ * ```
  */
 const Table = {
+	/**
+	 * The body section of the table. Encapsulates a set of table rows comprising the body of a table's main data.
+	 *
+	 * @see https://mantle.ngrok.com/components/table#api-table-body
+	 *
+	 * @example
+	 * ```tsx
+	 * <Table.Root>
+	 *   <Table.Element>
+	 *     <Table.Caption>A list of your recent invoices.</Table.Caption>
+	 *     <Table.Head>
+	 *       <Table.Row>
+	 *         <Table.Header className="w-[100px]">Invoice</Table.Header>
+	 *         <Table.Header>Status</Table.Header>
+	 *         <Table.Header>Method</Table.Header>
+	 *         <Table.Header className="text-right">Amount</Table.Header>
+	 *       </Table.Row>
+	 *     </Table.Head>
+	 *     <Table.Body>
+	 *       {invoices.map((invoice) => (
+	 *         <Table.Row key={invoice.invoice}>
+	 *           <Table.Cell className="font-medium">{invoice.invoice}</Table.Cell>
+	 *           <Table.Cell>{invoice.paymentStatus}</Table.Cell>
+	 *           <Table.Cell>{invoice.paymentMethod}</Table.Cell>
+	 *           <Table.Cell className="text-right">{invoice.totalAmount}</Table.Cell>
+	 *         </Table.Row>
+	 *       ))}
+	 *     </Table.Body>
+	 *     <Table.Foot>
+	 *       <Table.Row>
+	 *         <Table.Cell colSpan={3}>Total</Table.Cell>
+	 *         <Table.Cell className="text-right">$2,500.00</Table.Cell>
+	 *       </Table.Row>
+	 *     </Table.Foot>
+	 *   </Table.Element>
+	 * </Table.Root>
+	 * ```
+	 */
 	Body,
+	/**
+	 * An optional caption that specifies the caption (or title) of a table, providing an accessible description.
+	 *
+	 * @see https://mantle.ngrok.com/components/table#api-table-caption
+	 *
+	 * @example
+	 * ```tsx
+	 * <Table.Root>
+	 *   <Table.Element>
+	 *     <Table.Caption>A list of your recent invoices.</Table.Caption>
+	 *     <Table.Head>
+	 *       <Table.Row>
+	 *         <Table.Header className="w-[100px]">Invoice</Table.Header>
+	 *         <Table.Header>Status</Table.Header>
+	 *         <Table.Header>Method</Table.Header>
+	 *         <Table.Header className="text-right">Amount</Table.Header>
+	 *       </Table.Row>
+	 *     </Table.Head>
+	 *     <Table.Body>
+	 *       {invoices.map((invoice) => (
+	 *         <Table.Row key={invoice.invoice}>
+	 *           <Table.Cell className="font-medium">{invoice.invoice}</Table.Cell>
+	 *           <Table.Cell>{invoice.paymentStatus}</Table.Cell>
+	 *           <Table.Cell>{invoice.paymentMethod}</Table.Cell>
+	 *           <Table.Cell className="text-right">{invoice.totalAmount}</Table.Cell>
+	 *         </Table.Row>
+	 *       ))}
+	 *     </Table.Body>
+	 *     <Table.Foot>
+	 *       <Table.Row>
+	 *         <Table.Cell colSpan={3}>Total</Table.Cell>
+	 *         <Table.Cell className="text-right">$2,500.00</Table.Cell>
+	 *       </Table.Row>
+	 *     </Table.Foot>
+	 *   </Table.Element>
+	 * </Table.Root>
+	 * ```
+	 */
 	Caption,
+	/**
+	 * A cell that contains data and may be used as a child of a table row.
+	 *
+	 * @see https://mantle.ngrok.com/components/table#api-table-cell
+	 *
+	 * @example
+	 * ```tsx
+	 * <Table.Root>
+	 *   <Table.Element>
+	 *     <Table.Caption>A list of your recent invoices.</Table.Caption>
+	 *     <Table.Head>
+	 *       <Table.Row>
+	 *         <Table.Header className="w-[100px]">Invoice</Table.Header>
+	 *         <Table.Header>Status</Table.Header>
+	 *         <Table.Header>Method</Table.Header>
+	 *         <Table.Header className="text-right">Amount</Table.Header>
+	 *       </Table.Row>
+	 *     </Table.Head>
+	 *     <Table.Body>
+	 *       {invoices.map((invoice) => (
+	 *         <Table.Row key={invoice.invoice}>
+	 *           <Table.Cell className="font-medium">{invoice.invoice}</Table.Cell>
+	 *           <Table.Cell>{invoice.paymentStatus}</Table.Cell>
+	 *           <Table.Cell>{invoice.paymentMethod}</Table.Cell>
+	 *           <Table.Cell className="text-right">{invoice.totalAmount}</Table.Cell>
+	 *         </Table.Row>
+	 *       ))}
+	 *     </Table.Body>
+	 *     <Table.Foot>
+	 *       <Table.Row>
+	 *         <Table.Cell colSpan={3}>Total</Table.Cell>
+	 *         <Table.Cell className="text-right">$2,500.00</Table.Cell>
+	 *       </Table.Row>
+	 *     </Table.Foot>
+	 *   </Table.Element>
+	 * </Table.Root>
+	 * ```
+	 */
 	Cell,
+	/**
+	 * A structured way to display data in rows and columns. The API matches the HTML table element 1:1.
+	 *
+	 * @see https://mantle.ngrok.com/components/table#api-table-element
+	 *
+	 * @example
+	 * ```tsx
+	 * <Table.Root>
+	 *   <Table.Element>
+	 *     <Table.Caption>A list of your recent invoices.</Table.Caption>
+	 *     <Table.Head>
+	 *       <Table.Row>
+	 *         <Table.Header className="w-[100px]">Invoice</Table.Header>
+	 *         <Table.Header>Status</Table.Header>
+	 *         <Table.Header>Method</Table.Header>
+	 *         <Table.Header className="text-right">Amount</Table.Header>
+	 *       </Table.Row>
+	 *     </Table.Head>
+	 *     <Table.Body>
+	 *       {invoices.map((invoice) => (
+	 *         <Table.Row key={invoice.invoice}>
+	 *           <Table.Cell className="font-medium">{invoice.invoice}</Table.Cell>
+	 *           <Table.Cell>{invoice.paymentStatus}</Table.Cell>
+	 *           <Table.Cell>{invoice.paymentMethod}</Table.Cell>
+	 *           <Table.Cell className="text-right">{invoice.totalAmount}</Table.Cell>
+	 *         </Table.Row>
+	 *       ))}
+	 *     </Table.Body>
+	 *     <Table.Foot>
+	 *       <Table.Row>
+	 *         <Table.Cell colSpan={3}>Total</Table.Cell>
+	 *         <Table.Cell className="text-right">$2,500.00</Table.Cell>
+	 *       </Table.Row>
+	 *     </Table.Foot>
+	 *   </Table.Element>
+	 * </Table.Root>
+	 * ```
+	 */
 	Element,
+	/**
+	 * The foot section of a table. Encapsulates a set of table rows comprising the foot with summary information.
+	 *
+	 * @see https://mantle.ngrok.com/components/table#api-table-foot
+	 *
+	 * @example
+	 * ```tsx
+	 * <Table.Root>
+	 *   <Table.Element>
+	 *     <Table.Caption>A list of your recent invoices.</Table.Caption>
+	 *     <Table.Head>
+	 *       <Table.Row>
+	 *         <Table.Header className="w-[100px]">Invoice</Table.Header>
+	 *         <Table.Header>Status</Table.Header>
+	 *         <Table.Header>Method</Table.Header>
+	 *         <Table.Header className="text-right">Amount</Table.Header>
+	 *       </Table.Row>
+	 *     </Table.Head>
+	 *     <Table.Body>
+	 *       {invoices.map((invoice) => (
+	 *         <Table.Row key={invoice.invoice}>
+	 *           <Table.Cell className="font-medium">{invoice.invoice}</Table.Cell>
+	 *           <Table.Cell>{invoice.paymentStatus}</Table.Cell>
+	 *           <Table.Cell>{invoice.paymentMethod}</Table.Cell>
+	 *           <Table.Cell className="text-right">{invoice.totalAmount}</Table.Cell>
+	 *         </Table.Row>
+	 *       ))}
+	 *     </Table.Body>
+	 *     <Table.Foot>
+	 *       <Table.Row>
+	 *         <Table.Cell colSpan={3}>Total</Table.Cell>
+	 *         <Table.Cell className="text-right">$2,500.00</Table.Cell>
+	 *       </Table.Row>
+	 *     </Table.Foot>
+	 *   </Table.Element>
+	 * </Table.Root>
+	 * ```
+	 */
 	Foot,
+	/**
+	 * The head section of a table. Contains the table's column headers information.
+	 *
+	 * @see https://mantle.ngrok.com/components/table#api-table-header
+	 *
+	 * @example
+	 * ```tsx
+	 * <Table.Root>
+	 *   <Table.Element>
+	 *     <Table.Caption>A list of your recent invoices.</Table.Caption>
+	 *     <Table.Head>
+	 *       <Table.Row>
+	 *         <Table.Header className="w-[100px]">Invoice</Table.Header>
+	 *         <Table.Header>Status</Table.Header>
+	 *         <Table.Header>Method</Table.Header>
+	 *         <Table.Header className="text-right">Amount</Table.Header>
+	 *       </Table.Row>
+	 *     </Table.Head>
+	 *     <Table.Body>
+	 *       {invoices.map((invoice) => (
+	 *         <Table.Row key={invoice.invoice}>
+	 *           <Table.Cell className="font-medium">{invoice.invoice}</Table.Cell>
+	 *           <Table.Cell>{invoice.paymentStatus}</Table.Cell>
+	 *           <Table.Cell>{invoice.paymentMethod}</Table.Cell>
+	 *           <Table.Cell className="text-right">{invoice.totalAmount}</Table.Cell>
+	 *         </Table.Row>
+	 *       ))}
+	 *     </Table.Body>
+	 *     <Table.Foot>
+	 *       <Table.Row>
+	 *         <Table.Cell colSpan={3}>Total</Table.Cell>
+	 *         <Table.Cell className="text-right">$2,500.00</Table.Cell>
+	 *       </Table.Row>
+	 *     </Table.Foot>
+	 *   </Table.Element>
+	 * </Table.Root>
+	 * ```
+	 */
 	Head,
+	/**
+	 * A cell that defines the header of a group of table cells as a child of a table row.
+	 *
+	 * @see https://mantle.ngrok.com/components/table#api-table-header
+	 *
+	 * @example
+	 * ```tsx
+	 * <Table.Root>
+	 *   <Table.Element>
+	 *     <Table.Caption>A list of your recent invoices.</Table.Caption>
+	 *     <Table.Head>
+	 *       <Table.Row>
+	 *         <Table.Header className="w-[100px]">Invoice</Table.Header>
+	 *         <Table.Header>Status</Table.Header>
+	 *         <Table.Header>Method</Table.Header>
+	 *         <Table.Header className="text-right">Amount</Table.Header>
+	 *       </Table.Row>
+	 *     </Table.Head>
+	 *     <Table.Body>
+	 *       {invoices.map((invoice) => (
+	 *         <Table.Row key={invoice.invoice}>
+	 *           <Table.Cell className="font-medium">{invoice.invoice}</Table.Cell>
+	 *           <Table.Cell>{invoice.paymentStatus}</Table.Cell>
+	 *           <Table.Cell>{invoice.paymentMethod}</Table.Cell>
+	 *           <Table.Cell className="text-right">{invoice.totalAmount}</Table.Cell>
+	 *         </Table.Row>
+	 *       ))}
+	 *     </Table.Body>
+	 *     <Table.Foot>
+	 *       <Table.Row>
+	 *         <Table.Cell colSpan={3}>Total</Table.Cell>
+	 *         <Table.Cell className="text-right">$2,500.00</Table.Cell>
+	 *       </Table.Row>
+	 *     </Table.Foot>
+	 *   </Table.Element>
+	 * </Table.Root>
+	 * ```
+	 */
 	Header,
+	/**
+	 * The root container element for all tables. Provides styling and additional functionality like horizontal overflow detection.
+	 *
+	 * @see https://mantle.ngrok.com/components/table#api-table-root
+	 *
+	 * @example
+	 * ```tsx
+	 * <Table.Root>
+	 *   <Table.Element>
+	 *     <Table.Caption>A list of your recent invoices.</Table.Caption>
+	 *     <Table.Head>
+	 *       <Table.Row>
+	 *         <Table.Header className="w-[100px]">Invoice</Table.Header>
+	 *         <Table.Header>Status</Table.Header>
+	 *         <Table.Header>Method</Table.Header>
+	 *         <Table.Header className="text-right">Amount</Table.Header>
+	 *       </Table.Row>
+	 *     </Table.Head>
+	 *     <Table.Body>
+	 *       {invoices.map((invoice) => (
+	 *         <Table.Row key={invoice.invoice}>
+	 *           <Table.Cell className="font-medium">{invoice.invoice}</Table.Cell>
+	 *           <Table.Cell>{invoice.paymentStatus}</Table.Cell>
+	 *           <Table.Cell>{invoice.paymentMethod}</Table.Cell>
+	 *           <Table.Cell className="text-right">{invoice.totalAmount}</Table.Cell>
+	 *         </Table.Row>
+	 *       ))}
+	 *     </Table.Body>
+	 *     <Table.Foot>
+	 *       <Table.Row>
+	 *         <Table.Cell colSpan={3}>Total</Table.Cell>
+	 *         <Table.Cell className="text-right">$2,500.00</Table.Cell>
+	 *       </Table.Row>
+	 *     </Table.Foot>
+	 *   </Table.Element>
+	 * </Table.Root>
+	 * ```
+	 */
 	Root,
+	/**
+	 * Defines a row of cells in a table. Contains a mix of table cells and table headers.
+	 *
+	 * @see https://mantle.ngrok.com/components/table#api-table-row
+	 *
+	 * @example
+	 * ```tsx
+	 * <Table.Root>
+	 *   <Table.Element>
+	 *     <Table.Caption>A list of your recent invoices.</Table.Caption>
+	 *     <Table.Head>
+	 *       <Table.Row>
+	 *         <Table.Header className="w-[100px]">Invoice</Table.Header>
+	 *         <Table.Header>Status</Table.Header>
+	 *         <Table.Header>Method</Table.Header>
+	 *         <Table.Header className="text-right">Amount</Table.Header>
+	 *       </Table.Row>
+	 *     </Table.Head>
+	 *     <Table.Body>
+	 *       {invoices.map((invoice) => (
+	 *         <Table.Row key={invoice.invoice}>
+	 *           <Table.Cell className="font-medium">{invoice.invoice}</Table.Cell>
+	 *           <Table.Cell>{invoice.paymentStatus}</Table.Cell>
+	 *           <Table.Cell>{invoice.paymentMethod}</Table.Cell>
+	 *           <Table.Cell className="text-right">{invoice.totalAmount}</Table.Cell>
+	 *         </Table.Row>
+	 *       ))}
+	 *     </Table.Body>
+	 *     <Table.Foot>
+	 *       <Table.Row>
+	 *         <Table.Cell colSpan={3}>Total</Table.Cell>
+	 *         <Table.Cell className="text-right">$2,500.00</Table.Cell>
+	 *       </Table.Row>
+	 *     </Table.Foot>
+	 *   </Table.Element>
+	 * </Table.Root>
+	 * ```
+	 */
 	Row,
 } as const;
 

@@ -199,24 +199,125 @@ const Title = forwardRef<HTMLHeadingElement, CardTitleProps>(
 Title.displayName = "CardTitle";
 
 /**
- * A container used to display content in a box, resembling a physical card.
+ * A container that can be used to display content in a box resembling a
+ * physical card.
+ *
+ * @see https://mantle.ngrok.com/components/card
  *
  * @example
  * ```tsx
- * import { Card } from "@ngrok/mantle/card";
- *
  * <Card.Root>
  *   <Card.Body>
  *     <p>Laborum in aute officia adipisicing elit velit.</p>
  *   </Card.Body>
  * </Card.Root>
+ *
+ * <Card.Root>
+ *   <Card.Header>
+ *     <Card.Title>Card Title Here</Card.Title>
+ *   </Card.Header>
+ *   <Card.Body>
+ *     <p>Laborum in aute officia adipisicing elit velit.</p>
+ *   </Card.Body>
+ *   <Card.Footer>
+ *     <p>Card footer</p>
+ *   </Card.Footer>
+ * </Card.Root>
  * ```
  */
 const Card = {
+	/**
+	 * A container that can be used to display content in a box resembling a physical card.
+	 *
+	 * @see https://mantle.ngrok.com/components/card#api-card-root
+	 *
+	 * @example
+	 * ```tsx
+	 * <Card.Root>
+	 *   <Card.Body>
+	 *     <p>Laborum in aute officia adipisicing elit velit.</p>
+	 *   </Card.Body>
+	 * </Card.Root>
+	 * ```
+	 */
 	Root,
+	/**
+	 * The main content of a card.
+	 *
+	 * @see https://mantle.ngrok.com/components/card#api-card-body
+	 *
+	 * @example
+	 * ```tsx
+	 * <Card.Root>
+	 *   <Card.Body>
+	 *     <p>Laborum in aute officia adipisicing elit velit.</p>
+	 *   </Card.Body>
+	 * </Card.Root>
+	 * ```
+	 */
 	Body,
+	/**
+	 * The footer container of a card.
+	 *
+	 * @see https://mantle.ngrok.com/components/card#api-card-footer
+	 *
+	 * @example
+	 * ```tsx
+	 * <Card.Root>
+	 *   <Card.Header>
+	 *     <Card.Title>Card Title Here</Card.Title>
+	 *   </Card.Header>
+	 *   <Card.Body>
+	 *     <p>Laborum in aute officia adipisicing elit velit.</p>
+	 *   </Card.Body>
+	 *   <Card.Footer>
+	 *     <p>Card footer</p>
+	 *   </Card.Footer>
+	 * </Card.Root>
+	 * ```
+	 */
 	Footer,
+	/**
+	 * The header container of a card.
+	 *
+	 * @see https://mantle.ngrok.com/components/card#api-card-header
+	 *
+	 * @example
+	 * ```tsx
+	 * <Card.Root>
+	 *   <Card.Header>
+	 *     <Card.Title>Card Title Here</Card.Title>
+	 *   </Card.Header>
+	 *   <Card.Body>
+	 *     <p>Laborum in aute officia adipisicing elit velit.</p>
+	 *   </Card.Body>
+	 *   <Card.Footer>
+	 *     <p>Card footer</p>
+	 *   </Card.Footer>
+	 * </Card.Root>
+	 * ```
+	 */
 	Header,
+	/**
+	 * The title of a card.
+	 *
+	 * @see https://mantle.ngrok.com/components/card#api-card-title
+	 *
+	 * @example
+	 * ```tsx
+	 * <Card.Root>
+	 *   <Card.Header>
+	 *     <Card.Title>Card Title Here</Card.Title>
+	 *   </Card.Header>
+	 *   <Card.Body>
+	 *     <p>Laborum in aute officia adipisicing elit velit.</p>
+	 *   </Card.Body>
+	 *   <Card.Footer>
+	 *     <p>Card footer</p>
+	 *   </Card.Footer>
+	 * </Card.Root>
+	 * ```
+	 */
 	Title,
 } as const;
 

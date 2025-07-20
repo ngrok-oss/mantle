@@ -302,12 +302,128 @@ const DismissIconButton = ({
 };
 DismissIconButton.displayName = "AlertDismissIconButton";
 
+/**
+ * Displays a callout for user attention.
+ *
+ * @see https://mantle.ngrok.com/components/alert
+ *
+ * @example
+ * ```tsx
+ * <Alert priority="info">
+ *   <AlertIcon />
+ *   <AlertContent>
+ *     <AlertTitle>Alert Title</AlertTitle>
+ *      <AlertDismissIconButton />
+ *     <AlertDescription>
+ *       Alert description text.
+ *     </AlertDescription>
+ *   </AlertContent>
+ * </Alert>
+ *```
+ */
 const Alert = {
+	/**
+	 * The root container of the alert component.
+	 *
+	 * @see https://mantle.ngrok.com/components/alert#api-alert-root
+	 *
+	 * @example
+	 * ```tsx
+	 * <Alert.Root priority="info">
+	 *   <Alert.Icon />
+	 *   <Alert.Content>
+	 *     <Alert.Title>Alert Title</Alert.Title>
+	 *     <Alert.Description>Alert description</Alert.Description>
+	 *   </Alert.Content>
+	 * </Alert.Root>
+	 * ```
+	 */
 	Root,
+	/**
+	 * The container for the content slot of an alert.
+	 *
+	 * @see https://mantle.ngrok.com/components/alert#api-alert-content
+	 *
+	 * @example
+	 * ```tsx
+	 * <Alert.Root priority="info">
+	 *   <Alert.Icon />
+	 *   <Alert.Content>
+	 *     <Alert.Title>Alert Title</Alert.Title>
+	 *     <Alert.Description>Alert description text.</Alert.Description>
+	 *   </Alert.Content>
+	 * </Alert.Root>
+	 * ```
+	 */
 	Content,
+	/**
+	 * The optional description of an alert.
+	 *
+	 * @see https://mantle.ngrok.com/components/alert#api-alert-description
+	 *
+	 * @example
+	 * ```tsx
+	 * <Alert.Root priority="info">
+	 *   <Alert.Icon />
+	 *   <Alert.Content>
+	 *     <Alert.Title>Alert Title</Alert.Title>
+	 *     <Alert.Description>Alert description text.</Alert.Description>
+	 *   </Alert.Content>
+	 * </Alert.Root>
+	 * ```
+	 */
 	Description,
+	/**
+	 * An optional dismiss button that can be used to close the alert.
+	 *
+	 * @see https://mantle.ngrok.com/components/alert#api-alert-dismiss-icon-button
+	 *
+	 * @example
+	 * ```tsx
+	 * <Alert.Root priority="info">
+	 *   <Alert.Icon />
+	 *   <Alert.Content>
+	 *     <Alert.Title>Alert Title</Alert.Title>
+	 *     <Alert.DismissIconButton />
+	 *     <Alert.Description>Alert description text.</Alert.Description>
+	 *   </Alert.Content>
+	 * </Alert.Root>
+	 * ```
+	 */
 	DismissIconButton,
+	/**
+	 * An optional icon that visually represents the priority of the Alert.
+	 *
+	 * @see https://mantle.ngrok.com/components/alert#api-alert-icon
+	 *
+	 * @example
+	 * ```tsx
+	 * <Alert.Root priority="info">
+	 *   <Alert.Icon />
+	 *   <Alert.Content>
+	 *     <Alert.Title>Alert Title</Alert.Title>
+	 *     <Alert.Description>Alert description text.</Alert.Description>
+	 *   </Alert.Content>
+	 * </Alert.Root>
+	 * ```
+	 */
 	Icon,
+	/**
+	 * The title of an alert.
+	 *
+	 * @see https://mantle.ngrok.com/components/alert#api-alert-title
+	 *
+	 * @example
+	 * ```tsx
+	 * <Alert.Root priority="info">
+	 *   <Alert.Icon />
+	 *   <Alert.Content>
+	 *     <Alert.Title>Alert Title</Alert.Title>
+	 *     <Alert.Description>Alert description text.</Alert.Description>
+	 *   </Alert.Content>
+	 * </Alert.Root>
+	 * ```
+	 */
 	Title,
 } as const;
 
