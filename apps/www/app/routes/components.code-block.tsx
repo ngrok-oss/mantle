@@ -570,6 +570,7 @@ export default function Page() {
 				<section className="space-y-4">
 					<header className="space-y-1">
 						<h3 id="api-code-block" className="text-xl font-medium text-strong">
+							<span id="api-code-block-root" />
 							CodeBlock
 						</h3>
 

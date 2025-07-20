@@ -266,6 +266,7 @@ export default function Page() {
 							id="api-progress-bar-root"
 							className="text-xl font-medium text-strong"
 						>
+							<span id="api-progress-bar" />
 							ProgressBar.Root
 						</h3>
 

@@ -140,6 +140,7 @@ export default function Page() {
 				<section className="space-y-4">
 					<header className="space-y-1">
 						<h3 id="api-card" className="text-xl font-medium text-strong">
+							<span id="api-card-root" />
 							Card
 						</h3>
 

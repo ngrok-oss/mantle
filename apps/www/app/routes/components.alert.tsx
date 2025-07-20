@@ -392,6 +392,7 @@ export default function Page() {
 				<section className="space-y-4">
 					<header className="space-y-1">
 						<h3 id="api-alert" className="text-xl font-medium text-strong">
+							<span id="api-alert-root" />
 							Alert
 						</h3>
 
@@ -601,6 +602,53 @@ export default function Page() {
 									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
 									<InlineCode>AlertTitle</InlineCode> styling and functionality
 									onto alternative element types or your own React components.
+								</p>
+							</PropDescriptionCell>
+						</PropRow>
+					</PropsTable>
+				</section>
+
+				<section className="space-y-4">
+					<header className="space-y-1">
+						<h3
+							id="api-alert-dismiss-icon-button"
+							className="text-xl font-medium text-strong"
+						>
+							Alert.DismissIconButton
+						</h3>
+
+						<p className="font-body text-body">
+							A dismiss icon button that closes the alert when clicked.
+						</p>
+
+						<p>
+							All props from{" "}
+							<Anchor
+								href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								button
+							</Anchor>
+							, plus:
+						</p>
+					</header>
+
+					<PropsTable>
+						<PropRow>
+							<PropNameCell name="asChild" optional />
+							<PropTypeCell>
+								<BooleanPropType />
+							</PropTypeCell>
+							<PropDefaultValueCell>
+								<BooleanPropType value={false} />
+							</PropDefaultValueCell>
+							<PropDescriptionCell>
+								<p>
+									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
+									<InlineCode>Alert.DismissIconButton</InlineCode> styling and
+									functionality onto alternative element types or your own React
+									components.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
