@@ -1,3 +1,4 @@
+import { Anchor } from "@ngrok/mantle/anchor";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import {
@@ -7,6 +8,17 @@ import {
 import { FileTextIcon } from "@phosphor-icons/react/FileText";
 import { renderToStaticMarkup } from "react-dom/server";
 import { PageHeader } from "~/components/page-header";
+import {
+	BooleanPropType,
+	PropDefaultValueCell,
+	PropDescriptionCell,
+	PropNameCell,
+	PropRow,
+	PropTypeCell,
+	PropsTable,
+	ReactNodePropType,
+	StringPropType,
+} from "~/components/props-table";
 import type { Route } from "./+types/components.theme-provider";
 
 export const meta: Route.MetaFunction = () => {
@@ -199,6 +211,168 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 					</CodeBlock.Body>
 					<CodeBlock.ExpanderButton />
 				</CodeBlock.Root>
+			</section>
+
+			<section className="space-y-4">
+				<h2 id="api" className="text-3xl font-medium">
+					API Reference
+				</h2>
+
+				<div className="space-y-8">
+					<div className="space-y-4">
+						<h3 id="api-theme-provider" className="text-2xl font-medium">
+							ThemeProvider
+						</h3>
+						<p className="font-body text-body text-xl">
+							The <InlineCode>ThemeProvider</InlineCode> accepts the following
+							props in addition to the{" "}
+							<Anchor href="https://react.dev/reference/react/PropsWithChildren">
+								PropsWithChildren
+							</Anchor>
+							.
+						</p>
+						<PropsTable>
+							<PropRow>
+								<PropNameCell name="children" />
+								<PropTypeCell>
+									<ReactNodePropType />
+								</PropTypeCell>
+								<PropDefaultValueCell />
+								<PropDescriptionCell>
+									<p>
+										The React components to be wrapped by the theme provider
+										context.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+							<PropRow>
+								<PropNameCell name="defaultTheme" optional />
+								<PropTypeCell>
+									<ul>
+										<li>
+											<StringPropType value="system" />
+										</li>
+										<li>
+											<StringPropType value="light" />
+										</li>
+										<li>
+											<StringPropType value="dark" />
+										</li>
+										<li>
+											<StringPropType value="light-high-contrast" />
+										</li>
+										<li>
+											<StringPropType value="dark-high-contrast" />
+										</li>
+									</ul>
+								</PropTypeCell>
+								<PropDefaultValueCell>
+									<StringPropType value="system" />
+								</PropDefaultValueCell>
+								<PropDescriptionCell>
+									<p>
+										The default theme to use when no theme is stored in
+										localStorage. The <InlineCode>system</InlineCode> theme will
+										automatically resolve to the user's preferred color scheme.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+							<PropRow>
+								<PropNameCell name="storageKey" optional />
+								<PropTypeCell>
+									<StringPropType />
+								</PropTypeCell>
+								<PropDefaultValueCell>
+									<StringPropType value="mantle-ui-theme" />
+								</PropDefaultValueCell>
+								<PropDescriptionCell>
+									<p>
+										The key used to store the theme preference in localStorage.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+						</PropsTable>
+					</div>
+
+					<div className="space-y-4">
+						<h3
+							id="api-mantle-theme-head-content"
+							className="text-2xl font-medium"
+						>
+							MantleThemeHeadContent
+						</h3>
+						<p className="font-body text-body text-xl">
+							The <InlineCode>MantleThemeHeadContent</InlineCode> component
+							prevents Flash of Unstyled Content (FOUC) and preloads fonts. It
+							accepts the following props:
+						</p>
+						<PropsTable>
+							<PropRow>
+								<PropNameCell name="defaultTheme" optional />
+								<PropTypeCell>
+									<ul>
+										<li>
+											<StringPropType value="system" />
+										</li>
+										<li>
+											<StringPropType value="light" />
+										</li>
+										<li>
+											<StringPropType value="dark" />
+										</li>
+										<li>
+											<StringPropType value="light-high-contrast" />
+										</li>
+										<li>
+											<StringPropType value="dark-high-contrast" />
+										</li>
+									</ul>
+								</PropTypeCell>
+								<PropDefaultValueCell>
+									<StringPropType value="system" />
+								</PropDefaultValueCell>
+								<PropDescriptionCell>
+									<p>
+										The default theme to use in the FOUC prevention script.
+										Should match the <InlineCode>defaultTheme</InlineCode> prop
+										of your <InlineCode>ThemeProvider</InlineCode>.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+							<PropRow>
+								<PropNameCell name="storageKey" optional />
+								<PropTypeCell>
+									<StringPropType />
+								</PropTypeCell>
+								<PropDefaultValueCell>
+									<StringPropType value="mantle-ui-theme" />
+								</PropDefaultValueCell>
+								<PropDescriptionCell>
+									<p>
+										The localStorage key to check for theme preference. Should
+										match the <InlineCode>storageKey</InlineCode> prop of your{" "}
+										<InlineCode>ThemeProvider</InlineCode>.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+							<PropRow>
+								<PropNameCell name="includeNunitoSans" optional />
+								<PropTypeCell>
+									<BooleanPropType />
+								</PropTypeCell>
+								<PropDefaultValueCell>
+									<BooleanPropType value={false} />
+								</PropDefaultValueCell>
+								<PropDescriptionCell>
+									<p>
+										Whether to include preload links for the Nunito Sans font
+										family.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+						</PropsTable>
+					</div>
+				</div>
 			</section>
 		</div>
 	);
