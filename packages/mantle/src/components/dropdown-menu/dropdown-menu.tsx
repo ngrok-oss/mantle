@@ -310,23 +310,127 @@ const Shortcut = ({
 Shortcut.displayName = "DropdownMenuShortcut";
 
 /**
- * A dropdown menu namespace object that contains the dropdown menu components.
+ * A menu of options or actions, triggered by a button.
+ *
+ * @see https://mantle.ngrok.com/components/dropdown-menu
+ *
+ * @example
+ * ```tsx
+ * <DropdownMenu.Root>
+ *   <DropdownMenu.Trigger asChild>
+ *     <Button type="button" appearance="outlined">
+ *       Open Menu
+ *     </Button>
+ *   </DropdownMenu.Trigger>
+ *   <DropdownMenu.Content>
+ *     <DropdownMenu.Item>Item 1</DropdownMenu.Item>
+ *     <DropdownMenu.Item>Item 2</DropdownMenu.Item>
+ *   </DropdownMenu.Content>
+ * </DropdownMenu.Root>
+ * ```
  */
 const DropdownMenu = {
+	/**
+	 * The root, stateful component that manages the open/closed state of the dropdown menu.
+	 *
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu
+	 *
+	 * @example
+	 * ```tsx
+	 * <DropdownMenu.Root>
+	 *   <DropdownMenu.Trigger asChild>
+	 *     <Button>Open Menu</Button>
+	 *   </DropdownMenu.Trigger>
+	 *   <DropdownMenu.Content>
+	 *     <DropdownMenu.Item>Item 1</DropdownMenu.Item>
+	 *   </DropdownMenu.Content>
+	 * </DropdownMenu.Root>
+	 * ```
+	 */
 	Root,
+	/**
+	 * A checkbox item in the dropdown menu that can be toggled on and off.
+	 *
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-checkbox-item
+	 */
 	CheckboxItem,
+	/**
+	 * The container for the dropdown menu content. Appears in a portal with scrolling and animations.
+	 *
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-content
+	 */
 	Content,
+	/**
+	 * A group container for organizing related dropdown menu items.
+	 *
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-group
+	 */
 	Group,
+	/**
+	 * A standard item in the dropdown menu that can be selected or activated.
+	 *
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-item
+	 */
 	Item,
+	/**
+	 * A label for grouping and describing sections within the dropdown menu.
+	 *
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-label
+	 */
 	Label,
+	/**
+	 * The portal container for rendering dropdown content outside the normal DOM tree.
+	 *
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-portal
+	 */
 	Portal,
+	/**
+	 * A radio group container for exclusive selection within the dropdown menu.
+	 *
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-radio-group
+	 */
 	RadioGroup,
+	/**
+	 * A radio item in the dropdown menu where only one item in the group can be selected.
+	 *
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-radio-item
+	 */
 	RadioItem,
+	/**
+	 * A visual separator for dividing sections within the dropdown menu.
+	 *
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-separator
+	 */
 	Separator: DropdownSeparator,
+	/**
+	 * A keyboard shortcut indicator for dropdown menu items.
+	 *
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-shortcut
+	 */
 	Shortcut,
+	/**
+	 * A submenu container for creating nested dropdown menus.
+	 *
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-sub
+	 */
 	Sub,
+	/**
+	 * The content container for submenu items.
+	 *
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-sub-content
+	 */
 	SubContent,
+	/**
+	 * The trigger item that opens a submenu when hovered or focused.
+	 *
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-sub-trigger
+	 */
 	SubTrigger,
+	/**
+	 * The trigger button that opens the dropdown menu.
+	 *
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-trigger
+	 */
 	Trigger,
 } as const;
 

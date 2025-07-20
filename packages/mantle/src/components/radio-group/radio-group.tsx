@@ -423,18 +423,110 @@ const InputSandbox = ({
 InputSandbox.displayName = "RadioInputSandbox";
 
 /**
- * A radio group namespace object that contains the radio group components.
+ * A group of radio items. It manages the state of the children radios.
+ *
+ * @see https://mantle.ngrok.com/components/radio-group
+ *
+ * @example
+ * ```tsx
+ * <RadioGroup value={value} onValueChange={setValue}>
+ *   <RadioGroup.Item value="option1">
+ *     <RadioGroup.Indicator />
+ *     <span>Option 1</span>
+ *   </RadioGroup.Item>
+ *   <RadioGroup.Item value="option2">
+ *     <RadioGroup.Indicator />
+ *     <span>Option 2</span>
+ *   </RadioGroup.Item>
+ * </RadioGroup>
+ * ```
  */
 const RadioGroup = {
+	/**
+	 * A radio button that is used inside a RadioGroup.ButtonGroup for inline grouped radio options.
+	 *
+	 * @see https://mantle.ngrok.com/components/radio-group#api-radio-button
+	 */
 	Button,
+	/**
+	 * An inline group of radio buttons. Use RadioGroup.Button as direct children for horizontal radio layouts.
+	 *
+	 * @see https://mantle.ngrok.com/components/radio-group#api-radio-button-group
+	 */
 	ButtonGroup,
+	/**
+	 * A radio card item with enhanced styling. Use it as a child of RadioGroup for card-based radio options.
+	 *
+	 * @see https://mantle.ngrok.com/components/radio-group#api-radio-card
+	 */
 	Card,
+	/**
+	 * The selection indicator for any radio item. Shows the checked state with customizable appearance.
+	 *
+	 * @see https://mantle.ngrok.com/components/radio-group#api-radio-indicator
+	 *
+	 * @example
+	 * ```tsx
+	 * <RadioGroup.Item value="option1">
+	 *   <RadioGroup.Indicator />
+	 *   <span>Option 1</span>
+	 * </RadioGroup.Item>
+	 * ```
+	 */
 	Indicator,
+	/**
+	 * A sandbox container for input elements composed within radio group items. Prevents default radio behavior.
+	 *
+	 * @see https://mantle.ngrok.com/components/radio-group#api-radio-input-sandbox
+	 */
 	InputSandbox,
+	/**
+	 * A simple radio item that can be used inside a radio group. The conventional use-case for basic radio options.
+	 *
+	 * @see https://mantle.ngrok.com/components/radio-group#api-radio-item
+	 *
+	 * @example
+	 * ```tsx
+	 * <RadioGroup.Item value="option1">
+	 *   <RadioGroup.Indicator />
+	 *   <span>Option 1</span>
+	 * </RadioGroup.Item>
+	 * ```
+	 */
 	Item,
+	/**
+	 * The content wrapper for any radio item. Use it to wrap labels, descriptions, or content of a radio item.
+	 *
+	 * @see https://mantle.ngrok.com/components/radio-group#api-radio-item-content
+	 */
 	ItemContent,
+	/**
+	 * A group of radio list items with connected borders. Use RadioGroup.ListItem as direct children.
+	 *
+	 * @see https://mantle.ngrok.com/components/radio-group#api-radio-list
+	 */
 	List,
+	/**
+	 * A radio list item that is used inside a RadioGroup.List for connected list-style radio options.
+	 *
+	 * @see https://mantle.ngrok.com/components/radio-group#api-radio-list-item
+	 */
 	ListItem,
+	/**
+	 * The root radio group component. Manages the state of the children radios where only one can be selected.
+	 *
+	 * @see https://mantle.ngrok.com/components/radio-group#api-radio-group
+	 *
+	 * @example
+	 * ```tsx
+	 * <RadioGroup.Root value={value} onValueChange={setValue}>
+	 *   <RadioGroup.Item value="option1">
+	 *     <RadioGroup.Indicator />
+	 *     <span>Option 1</span>
+	 *   </RadioGroup.Item>
+	 * </RadioGroup.Root>
+	 * ```
+	 */
 	Root,
 } as const;
 

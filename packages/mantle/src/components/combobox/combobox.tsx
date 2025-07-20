@@ -390,14 +390,181 @@ const ComboboxSeparatorComponent = forwardRef<
 ));
 ComboboxSeparatorComponent.displayName = "ComboboxSeparator";
 
+/**
+ * Fill in a React input field with autocomplete & autosuggest functionalities.
+ * Choose from a list of suggested values with full keyboard support.
+ * This component is based on the WAI-ARIA Combobox Pattern and is powered by the
+ * ariakit Combobox.
+ *
+ * @see https://www.w3.org/WAI/ARIA/apg/patterns/combobox/
+ * @see https://ariakit.org/components/combobox
+ *
+ * @see https://mantle.ngrok.com/components/combobox
+ *
+ * @example
+ * <Combobox.Root>
+ *   <Combobox.Input />
+ *   <Combobox.Content>
+ *     <Combobox.Item value="Apple" />
+ *     <Combobox.Item value="Banana" />
+ *   </Combobox.Content>
+ * </Combobox.Root>
+ */
 const Combobox = {
+	/**
+	 * Root component for a combobox. Provides a combobox store that controls the state of Combobox components.
+	 *
+	 * @see https://mantle.ngrok.com/components/combobox#api-combobox-root
+	 *
+	 * @example
+	 * ```tsx
+	 * <Combobox.Root>
+	 *   <Combobox.Input />
+	 *   <Combobox.Content>
+	 *     <Combobox.Item value="Apple" />
+	 *     <Combobox.Item value="Banana" />
+	 *   </Combobox.Content>
+	 * </Combobox.Root>
+	 * ```
+	 */
 	Root,
+	/**
+	 * Renders a popover that contains combobox content, e.g. Combobox.Items, Combobox.Groups, and Combobox.Separators.
+	 *
+	 * @see https://mantle.ngrok.com/components/combobox#api-combobox-content
+	 *
+	 * @example
+	 * ```tsx
+	 * <Combobox.Root>
+	 *   <Combobox.Input />
+	 *   <Combobox.Content>
+	 *     <Combobox.Item value="Apple" />
+	 *     <Combobox.Item value="Banana" />
+	 *   </Combobox.Content>
+	 * </Combobox.Root>
+	 * ```
+	 */
 	Content,
+	/**
+	 * Renders a group for Combobox.Item elements.
+	 *
+	 * @see https://mantle.ngrok.com/components/combobox#api-combobox-group
+	 *
+	 * @example
+	 * ```tsx
+	 * <Combobox.Root>
+	 *   <Combobox.Input />
+	 *   <Combobox.Content>
+	 *     <Combobox.Group>
+	 *       <Combobox.GroupLabel>Fruits</Combobox.GroupLabel>
+	 *       <Combobox.Item value="Apple" />
+	 *       <Combobox.Item value="Banana" />
+	 *     </Combobox.Group>
+	 *   </Combobox.Content>
+	 * </Combobox.Root>
+	 * ```
+	 */
 	Group,
+	/**
+	 * Renders a label in a combobox group.
+	 *
+	 * @see https://mantle.ngrok.com/components/combobox#api-combobox-group-label
+	 *
+	 * @example
+	 * ```tsx
+	 * <Combobox.Root>
+	 *   <Combobox.Input />
+	 *   <Combobox.Content>
+	 *     <Combobox.Group>
+	 *       <Combobox.GroupLabel>Fruits</Combobox.GroupLabel>
+	 *       <Combobox.Item value="Apple" />
+	 *       <Combobox.Item value="Banana" />
+	 *     </Combobox.Group>
+	 *   </Combobox.Content>
+	 * </Combobox.Root>
+	 * ```
+	 */
 	GroupLabel,
+	/**
+	 * Renders a combobox input element that can be used to filter a list of items.
+	 *
+	 * @see https://mantle.ngrok.com/components/combobox#api-combobox-input
+	 *
+	 * @example
+	 * ```tsx
+	 * <Combobox.Root>
+	 *   <Combobox.Input />
+	 *   <Combobox.Content>
+	 *     <Combobox.Item value="Apple" />
+	 *     <Combobox.Item value="Banana" />
+	 *   </Combobox.Content>
+	 * </Combobox.Root>
+	 * ```
+	 */
 	Input,
+	/**
+	 * Renders a combobox item inside a Combobox.Content component.
+	 *
+	 * @see https://mantle.ngrok.com/components/combobox#api-combobox-item
+	 *
+	 * @example
+	 * ```tsx
+	 * <Combobox.Root>
+	 *   <Combobox.Input />
+	 *   <Combobox.Content>
+	 *     <Combobox.Item value="Apple" />
+	 *     <Combobox.Item value="Banana" />
+	 *     <Combobox.Item value="Orange" />
+	 *   </Combobox.Content>
+	 * </Combobox.Root>
+	 * ```
+	 */
 	Item,
+	/**
+	 * Highlights the match between the current Combobox.Input value and parent Combobox.Item value.
+	 *
+	 * @see https://mantle.ngrok.com/components/combobox#api-combobox-item-value
+	 *
+	 * @example
+	 * ```tsx
+	 * <Combobox.Root>
+	 *   <Combobox.Input />
+	 *   <Combobox.Content>
+	 *     <Combobox.Item value="Apple">
+	 *       🍎
+	 *       <Combobox.ItemValue />
+	 *     </Combobox.Item>
+	 *     <Combobox.Item value="Banana">
+	 *       🍌
+	 *       <Combobox.ItemValue />
+	 *     </Combobox.Item>
+	 *   </Combobox.Content>
+	 * </Combobox.Root>
+	 * ```
+	 */
 	ItemValue,
+	/**
+	 * Renders a separator between Combobox.Items or Combobox.Groups.
+	 *
+	 * @see https://mantle.ngrok.com/components/combobox#api-combobox-separator
+	 *
+	 * @example
+	 * ```tsx
+	 * <Combobox.Root>
+	 *   <Combobox.Input />
+	 *   <Combobox.Content>
+	 *     <Combobox.Group>
+	 *       <Combobox.Item value="Apple" />
+	 *       <Combobox.Item value="Banana" />
+	 *     </Combobox.Group>
+	 *     <Combobox.Separator />
+	 *     <Combobox.Item>
+	 *       Click me!
+	 *     </Combobox.Item>
+	 *   </Combobox.Content>
+	 * </Combobox.Root>
+	 * ```
+	 */
 	Separator: ComboboxSeparatorComponent,
 } as const;
 

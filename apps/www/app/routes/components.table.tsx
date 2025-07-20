@@ -125,8 +125,11 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 id="api-table" className="text-xl font-medium text-strong">
-							Table
+						<h3
+							id="api-table-element"
+							className="text-xl font-medium text-strong"
+						>
+							Table.Element
 						</h3>
 
 						<div className="space-y-1 font-body text-body">

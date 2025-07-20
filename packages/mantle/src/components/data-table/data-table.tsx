@@ -333,15 +333,142 @@ HeaderSortButton.displayName = "DataTableHeaderSortButton";
 RowComponent.displayName = "DataTableRow";
 Rows.displayName = "DataTableRows";
 
+/**
+ * A data table component that provides sorting and other data table functionality.
+ * Built on top of TanStack Table for advanced table features.
+ *
+ * @see https://mantle.ngrok.com/components/data-table
+ *
+ * @example
+ * ```tsx
+ * <DataTable table={table}>
+ *   <DataTable.Head />
+ *   <DataTable.Body>
+ *     <DataTable.Rows />
+ *   </DataTable.Body>
+ * </DataTable>
+ * ```
+ */
 const DataTable = {
+	/**
+	 * The root container of the data table component.
+	 *
+	 * @see https://mantle.ngrok.com/components/data-table#api-data-table
+	 *
+	 * @example
+	 * ```tsx
+	 * <DataTable.Root table={table}>
+	 *   <DataTable.Head />
+	 *   <DataTable.Body>
+	 *     <DataTable.Rows />
+	 *   </DataTable.Body>
+	 * </DataTable.Root>
+	 * ```
+	 */
 	Root,
+	/**
+	 * A sticky action cell positioned at the end of each row for action buttons.
+	 *
+	 * @see https://mantle.ngrok.com/components/data-table#api-data-table-action-cell
+	 *
+	 * @example
+	 * ```tsx
+	 * <DataTable.ActionCell>
+	 *   <Button size="sm">Edit</Button>
+	 *   <Button size="sm">Delete</Button>
+	 * </DataTable.ActionCell>
+	 * ```
+	 */
 	ActionCell,
+	/**
+	 * The table body container for rows of data.
+	 *
+	 * @see https://mantle.ngrok.com/components/data-table#api-data-table-body
+	 *
+	 * @example
+	 * ```tsx
+	 * <DataTable.Body>
+	 *   <DataTable.Rows />
+	 * </DataTable.Body>
+	 * ```
+	 */
 	Body,
+	/**
+	 * An empty state row that spans all columns when there's no data to display.
+	 *
+	 * @see https://mantle.ngrok.com/components/data-table#api-data-table-empty-row
+	 *
+	 * @example
+	 * ```tsx
+	 * <DataTable.EmptyRow>
+	 *   No data available
+	 * </DataTable.EmptyRow>
+	 * ```
+	 */
 	EmptyRow,
+	/**
+	 * The table header container that renders column headers automatically.
+	 *
+	 * @see https://mantle.ngrok.com/components/data-table#api-data-table-head
+	 *
+	 * @example
+	 * ```tsx
+	 * <DataTable.Head />
+	 * ```
+	 */
 	Head,
+	/**
+	 * A header cell component optimized for data table header actions.
+	 *
+	 * @see https://mantle.ngrok.com/components/data-table#api-data-table-header
+	 *
+	 * @example
+	 * ```tsx
+	 * <DataTable.Header>
+	 *   <DataTable.HeaderSortButton column={column} sortingMode="alphanumeric">
+	 *     Column Title
+	 *   </DataTable.HeaderSortButton>
+	 * </DataTable.Header>
+	 * ```
+	 */
 	Header,
+	/**
+	 * A sortable button toggle for column headers with sorting functionality.
+	 *
+	 * @see https://mantle.ngrok.com/components/data-table#api-data-table-header-sort-button
+	 *
+	 * @example
+	 * ```tsx
+	 * <DataTable.HeaderSortButton
+	 *   column={column}
+	 *   sortingMode="alphanumeric"
+	 * >
+	 *   Column Title
+	 * </DataTable.HeaderSortButton>
+	 * ```
+	 */
 	HeaderSortButton,
+	/**
+	 * A single data table row component for rendering custom row layouts.
+	 *
+	 * @see https://mantle.ngrok.com/components/data-table#api-data-table-row
+	 *
+	 * @example
+	 * ```tsx
+	 * <DataTable.Row row={row} />
+	 * ```
+	 */
 	Row: RowComponent,
+	/**
+	 * Container that renders all table rows automatically from the table data.
+	 *
+	 * @see https://mantle.ngrok.com/components/data-table#api-data-table-rows
+	 *
+	 * @example
+	 * ```tsx
+	 * <DataTable.Rows />
+	 * ```
+	 */
 	Rows,
 } as const;
 

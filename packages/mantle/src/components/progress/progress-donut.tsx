@@ -227,19 +227,61 @@ const Indicator = ({ className, ...props }: ProgressDonutIndicatorProps) => {
 Indicator.displayName = "ProgressDonutIndicator";
 
 /**
- * A circular progress bar component that shows the completion progress of a task.
+ * A simple circular progress bar which shows the completion progress of a task.
+ *
+ * The indicator color is inherited via `currentColor`. Override the default
+ * (`accent-600`) by setting the `ProgressDonut.Indicator`'s text color.
+ *
+ * @see https://mantle.ngrok.com/components/progress
  *
  * @example
  * ```tsx
- * import { ProgressDonut } from "@ngrok/mantle/progress";
- *
  * <ProgressDonut.Root value={60}>
  *   <ProgressDonut.Indicator />
+ * </ProgressDonut.Root>
+ *
+ * <ProgressDonut.Root value={60}>
+ *   <ProgressDonut.Indicator color="text-danger-600" />
  * </ProgressDonut.Root>
  * ```
  */
 const ProgressDonut = {
+	/**
+	 * A simple circular progress bar which shows the completion progress of a task.
+	 *
+	 * The indicator color is inherited via `currentColor`. Override the default
+	 * (`accent-600`) by setting the `ProgressDonut.Indicator`'s text color.
+	 *
+	 * @see https://mantle.ngrok.com/components/progress#api-progress-donut-root
+	 *
+	 * @example
+	 * ```tsx
+	 * <ProgressDonut.Root value={60}>
+	 *   <ProgressDonut.Indicator />
+	 * </ProgressDonut.Root>
+	 *
+	 * <ProgressDonut.Root value={60}>
+	 *   <ProgressDonut.Indicator color="text-danger-600" />
+	 * </ProgressDonut.Root>
+	 * ```
+	 */
 	Root,
+	/**
+	 * The indicator for the circular progress bar.
+	 *
+	 * @see https://mantle.ngrok.com/components/progress#api-progress-donut-indicator
+	 *
+	 * @example
+	 * ```tsx
+	 * <ProgressDonut.Root value={60}>
+	 *   <ProgressDonut.Indicator />
+	 * </ProgressDonut.Root>
+	 *
+	 * <ProgressDonut.Root value={60}>
+	 *   <ProgressDonut.Indicator color="text-danger-600" />
+	 * </ProgressDonut.Root>
+	 * ```
+	 */
 	Indicator,
 } as const;
 
