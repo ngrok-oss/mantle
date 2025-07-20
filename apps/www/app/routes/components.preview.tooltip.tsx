@@ -1,17 +1,6 @@
 import { Button } from "@ngrok/mantle/button";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
-import {
-	Tooltip,
-	TooltipContent,
-	TooltipProvider,
-	TooltipTrigger,
-} from "@ngrok/mantle/tooltip";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
+import { Tooltip, TooltipProvider } from "@ngrok/mantle/tooltip";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/components.preview.tooltip";
@@ -45,43 +34,43 @@ export default function Page() {
 			<div>
 				<Example>
 					<TooltipProvider>
-						<Tooltip>
-							<TooltipTrigger asChild>
+						<Tooltip.Root>
+							<Tooltip.Trigger asChild>
 								<Button type="button" appearance="filled" priority="default">
 									Add to library
 								</Button>
-							</TooltipTrigger>
-							<TooltipContent>
+							</Tooltip.Trigger>
+							<Tooltip.Content>
 								<p>This feature is part of your plan</p>
-							</TooltipContent>
-						</Tooltip>
+							</Tooltip.Content>
+						</Tooltip.Root>
 					</TooltipProvider>
 				</Example>
-				<CodeBlock className="rounded-b-lg rounded-t-none">
-					<CodeBlockBody>
-						<CodeBlockCopyButton />
-						<CodeBlockCode
+				<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+					<CodeBlock.Body>
+						<CodeBlock.CopyButton />
+						<CodeBlock.Code
 							language="tsx"
 							value={fmtCode`
 								import { Button } from "@ngrok/mantle/button";
-								import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@ngrok/mantle/tooltip";
+								import { Tooltip, TooltipProvider } from "@ngrok/mantle/tooltip";
 
 								<TooltipProvider>
-									<Tooltip>
-										<TooltipTrigger asChild>
+									<Tooltip.Root>
+										<Tooltip.Trigger asChild>
 											<Button appearance="filled" priority="default">
 												Hover
 											</Button>
-										</TooltipTrigger>
-										<TooltipContent>
+										</Tooltip.Trigger>
+										<Tooltip.Content>
 											<p>Add to library</p>
-										</TooltipContent>
-									</Tooltip>
+										</Tooltip.Content>
+									</Tooltip.Root>
 								</TooltipProvider>
 							`}
 						/>
-					</CodeBlockBody>
-				</CodeBlock>
+					</CodeBlock.Body>
+				</CodeBlock.Root>
 			</div>
 		</div>
 	);

@@ -1,18 +1,6 @@
 import { Anchor } from "@ngrok/mantle/anchor";
-import {
-	Card,
-	CardBody,
-	CardFooter,
-	CardHeader,
-	CardTitle,
-} from "@ngrok/mantle/card";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { Card } from "@ngrok/mantle/card";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
@@ -54,86 +42,86 @@ export default function Page() {
 				</p>
 				<div>
 					<Example className="flex-col gap-4">
-						<Card>
-							<CardBody>
+						<Card.Root>
+							<Card.Body>
 								<p>Laborum in aute officia adipisicing elit velit.</p>
-							</CardBody>
-						</Card>
-						<Card className="shadow-lg">
-							<CardHeader>
-								<CardTitle>Card Title Here</CardTitle>
-							</CardHeader>
-							<CardBody>
+							</Card.Body>
+						</Card.Root>
+						<Card.Root className="shadow-lg">
+							<Card.Header>
+								<Card.Title>Card Title Here</Card.Title>
+							</Card.Header>
+							<Card.Body>
 								<p>Laborum in aute officia adipisicing elit velit.</p>
-							</CardBody>
-							<CardFooter>
+							</Card.Body>
+							<Card.Footer>
 								<p>Card footer</p>
-							</CardFooter>
-						</Card>
-						<Card>
-							<CardHeader>
-								<CardTitle>Card Title Here</CardTitle>
-							</CardHeader>
-							<CardBody>
+							</Card.Footer>
+						</Card.Root>
+						<Card.Root>
+							<Card.Header>
+								<Card.Title>Card Title Here</Card.Title>
+							</Card.Header>
+							<Card.Body>
 								<p>Laborum in aute officia adipisicing elit velit.</p>
-							</CardBody>
-						</Card>
-						<Card>
-							<CardBody>
+							</Card.Body>
+						</Card.Root>
+						<Card.Root>
+							<Card.Body>
 								<p>Laborum in aute officia adipisicing elit velit.</p>
-							</CardBody>
-							<CardFooter>
+							</Card.Body>
+							<Card.Footer>
 								<p>Card footer</p>
-							</CardFooter>
-						</Card>
+							</Card.Footer>
+						</Card.Root>
 					</Example>
-					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
-								import { Card, CardBody, CardFooter, CardHeader, CardTitle } from "@ngrok/mantle/card";
+								import { Card } from "@ngrok/mantle/card";
 
-								<Card>
-									<CardBody>
+								<Card.Root>
+									<Card.Body>
 										<p>Laborum in aute officia adipisicing elit velit.</p>
-									</CardBody>
-								</Card>
+									</Card.Body>
+								</Card.Root>
 
-								<Card className="shadow-lg">
-									<CardHeader>
-										<CardTitle>Card Title Here</CardTitle>
-									</CardHeader>
-									<CardBody>
+								<Card.Root className="shadow-lg">
+									<Card.Header>
+										<Card.Title>Card Title Here</Card.Title>
+									</Card.Header>
+									<Card.Body>
 										<p>Laborum in aute officia adipisicing elit velit.</p>
-									</CardBody>
-									<CardFooter>
+									</Card.Body>
+									<Card.Footer>
 										<p>Card footer</p>
-									</CardFooter>
-								</Card>
+									</Card.Footer>
+								</Card.Root>
 
-								<Card>
-									<CardHeader>
-										<CardTitle>Card Title Here</CardTitle>
-									</CardHeader>
-									<CardBody>
+								<Card.Root>
+									<Card.Header>
+										<Card.Title>Card Title Here</Card.Title>
+									</Card.Header>
+									<Card.Body>
 										<p>Laborum in aute officia adipisicing elit velit.</p>
-									</CardBody>
-								</Card>
+									</Card.Body>
+								</Card.Root>
 
-								<Card>
-									<CardBody>
+								<Card.Root>
+									<Card.Body>
 										<p>Laborum in aute officia adipisicing elit velit.</p>
-									</CardBody>
-									<CardFooter>
+									</Card.Body>
+									<Card.Footer>
 										<p>Card footer</p>
-									</CardFooter>
-								</Card>
+									</Card.Footer>
+								</Card.Root>
 							`}
 							/>
-						</CodeBlockBody>
-					</CodeBlock>
+						</CodeBlock.Body>
+					</CodeBlock.Root>
 				</div>
 			</section>
 
@@ -152,6 +140,7 @@ export default function Page() {
 				<section className="space-y-4">
 					<header className="space-y-1">
 						<h3 id="api-card" className="text-xl font-medium text-strong">
+							<span id="api-card-root" />
 							Card
 						</h3>
 
@@ -197,12 +186,12 @@ export default function Page() {
 				<section className="space-y-4">
 					<header className="space-y-1">
 						<h3 id="api-card-body" className="text-xl font-medium text-strong">
-							CardBody
+							Card.Body
 						</h3>
 
 						<p className="font-body text-body">
 							The main content of a card. Usually composed as a direct child of
-							a <InlineCode>Card</InlineCode> component.
+							a <InlineCode>Card.Root</InlineCode> component.
 						</p>
 
 						<p>
@@ -230,7 +219,7 @@ export default function Page() {
 							<PropDescriptionCell>
 								<p>
 									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-									<InlineCode>CardBody</InlineCode> styling and functionality
+									<InlineCode>Card.Body</InlineCode> styling and functionality
 									onto alternative element types or your own React components.
 								</p>
 							</PropDescriptionCell>
@@ -244,12 +233,12 @@ export default function Page() {
 							id="api-card-footer"
 							className="text-xl font-medium text-strong"
 						>
-							CardFooter
+							Card.Footer
 						</h3>
 
 						<p className="font-body text-body">
 							The footer container of a card. Usually composed as a direct child
-							of a <InlineCode>Card</InlineCode> component.
+							of a <InlineCode>Card.Root</InlineCode> component.
 						</p>
 
 						<p>
@@ -277,7 +266,7 @@ export default function Page() {
 							<PropDescriptionCell>
 								<p>
 									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-									<InlineCode>CardFooter</InlineCode> styling and functionality
+									<InlineCode>Card.Footer</InlineCode> styling and functionality
 									onto alternative element types or your own React components.
 								</p>
 							</PropDescriptionCell>
@@ -291,12 +280,12 @@ export default function Page() {
 							id="api-card-header"
 							className="text-xl font-medium text-strong"
 						>
-							CardHeader
+							Card.Header
 						</h3>
 
 						<p className="font-body text-body">
 							The header container of a card. Usually composed as a direct child
-							of a <InlineCode>Card</InlineCode> component.
+							of a <InlineCode>Card.Root</InlineCode> component.
 						</p>
 
 						<p>
@@ -324,7 +313,7 @@ export default function Page() {
 							<PropDescriptionCell>
 								<p>
 									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-									<InlineCode>CardHeader</InlineCode> styling and functionality
+									<InlineCode>Card.Header</InlineCode> styling and functionality
 									onto alternative element types or your own React components.
 								</p>
 							</PropDescriptionCell>
@@ -335,12 +324,12 @@ export default function Page() {
 				<section className="space-y-4">
 					<header className="space-y-1">
 						<h3 id="api-card-title" className="text-xl font-medium text-strong">
-							CardTitle
+							Card.Title
 						</h3>
 
 						<p className="font-body text-body">
 							The title of a card. Usually composed as a direct child of a
-							<InlineCode>CardHeader</InlineCode> component. Renders as an{" "}
+							<InlineCode>Card.Header</InlineCode> component. Renders as an{" "}
 							<InlineCode>h3</InlineCode> element by default, but can be changed
 							to any other element by using the <InlineCode>asChild</InlineCode>{" "}
 							prop. It is preferred to use a heading element (
@@ -372,7 +361,7 @@ export default function Page() {
 							<PropDescriptionCell>
 								<p>
 									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-									<InlineCode>CardTitle</InlineCode> styling and functionality
+									<InlineCode>Card.Title</InlineCode> styling and functionality
 									onto alternative element types or your own React components.
 								</p>
 							</PropDescriptionCell>

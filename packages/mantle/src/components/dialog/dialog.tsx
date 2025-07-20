@@ -18,34 +18,34 @@ import * as DialogPrimitive from "./primitive.js";
  *
  * @example
  * ```tsx
- * <Dialog>
- *   <DialogTrigger asChild>
+ * <Dialog.Root>
+ *   <Dialog.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Open Dialog
  *     </Button>
- *   </DialogTrigger>
- *   <DialogContent>
- *     <DialogHeader>
- *       <DialogTitle>Dialog Title</DialogTitle>
- *       <DialogCloseIconButton />
- *     </DialogHeader>
- *     <DialogBody>
+ *   </Dialog.Trigger>
+ *   <Dialog.Content>
+ *     <Dialog.Header>
+ *       <Dialog.Title>Dialog Title</Dialog.Title>
+ *       <Dialog.CloseIconButton />
+ *     </Dialog.Header>
+ *     <Dialog.Body>
  *       <p>This is the dialog content.</p>
- *     </DialogBody>
- *     <DialogFooter>
+ *     </Dialog.Body>
+ *     <Dialog.Footer>
  *       <Button type="button" appearance="outlined">
  *         Cancel
  *       </Button>
  *       <Button type="button" appearance="filled">
  *         Save
  *       </Button>
- *     </DialogFooter>
- *   </DialogContent>
- * </Dialog>
+ *     </Dialog.Footer>
+ *   </Dialog.Content>
+ * </Dialog.Root>
  * ```
  */
-const Dialog = DialogPrimitive.Root;
-Dialog.displayName = "Dialog";
+const Root = DialogPrimitive.Root;
+Root.displayName = "Dialog";
 
 /**
  * A button that opens the dialog.
@@ -54,33 +54,33 @@ Dialog.displayName = "Dialog";
  *
  * @example
  * ```tsx
- * <Dialog>
- *   <DialogTrigger asChild>
+ * <Dialog.Root>
+ *   <Dialog.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Open Dialog
  *     </Button>
- *   </DialogTrigger>
- *   <DialogContent>
- *     <DialogHeader>
- *       <DialogTitle>Dialog Title</DialogTitle>
- *     </DialogHeader>
- *     <DialogBody>
+ *   </Dialog.Trigger>
+ *   <Dialog.Content>
+ *     <Dialog.Header>
+ *       <Dialog.Title>Dialog Title</Dialog.Title>
+ *     </Dialog.Header>
+ *     <Dialog.Body>
  *       <p>This is the dialog content.</p>
- *     </DialogBody>
- *   </DialogContent>
- * </Dialog>
+ *     </Dialog.Body>
+ *   </Dialog.Content>
+ * </Dialog.Root>
  * ```
  */
-const DialogTrigger = DialogPrimitive.Trigger;
-DialogTrigger.displayName = "DialogTrigger";
+const Trigger = DialogPrimitive.Trigger;
+Trigger.displayName = "DialogTrigger";
 
-const DialogPortal = DialogPrimitive.Portal;
-DialogPortal.displayName = "DialogPortal";
+const Portal = DialogPrimitive.Portal;
+Portal.displayName = "DialogPortal";
 
-const DialogClose = DialogPrimitive.Close;
-DialogClose.displayName = "DialogClose";
+const Close = DialogPrimitive.Close;
+Close.displayName = "DialogClose";
 
-const DialogOverlay = forwardRef<
+const Overlay = forwardRef<
 	ComponentRef<"div">,
 	ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
 >(({ className, ...props }, ref) => (
@@ -93,16 +93,14 @@ const DialogOverlay = forwardRef<
 		{...props}
 	/>
 ));
-DialogOverlay.displayName = "DialogOverlay";
+Overlay.displayName = "DialogOverlay";
 
-type DialogContentProps = ComponentPropsWithoutRef<
-	typeof DialogPrimitive.Content
-> & {
+type ContentProps = ComponentPropsWithoutRef<typeof DialogPrimitive.Content> & {
 	/**
-	 * The preferred width of the `DialogContent` as a tailwind `max-w-` class.
+	 * The preferred width of the `Dialog.Content` as a tailwind `max-w-` class.
 	 *
 	 * By default, a `Dialog`'s content width is responsive with a default
-	 * preferred width: the maximum width of the `DialogContent`
+	 * preferred width: the maximum width of the `Dialog.Content`
 	 *
 	 * @default `max-w-lg`
 	 */
@@ -117,33 +115,33 @@ type DialogContentProps = ComponentPropsWithoutRef<
  *
  * @example
  * ```tsx
- * <Dialog>
- *   <DialogTrigger asChild>
+ * <Dialog.Root>
+ *   <Dialog.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Open Dialog
  *     </Button>
- *   </DialogTrigger>
- *   <DialogContent>
- *     <DialogHeader>
- *       <DialogTitle>Dialog Title</DialogTitle>
- *       <DialogCloseIconButton />
- *     </DialogHeader>
- *     <DialogBody>
+ *   </Dialog.Trigger>
+ *   <Dialog.Content>
+ *     <Dialog.Header>
+ *       <Dialog.Title>Dialog Title</Dialog.Title>
+ *       <Dialog.CloseIconButton />
+ *     </Dialog.Header>
+ *     <Dialog.Body>
  *       <p>This is the dialog content.</p>
- *     </DialogBody>
- *     <DialogFooter>
+ *     </Dialog.Body>
+ *     <Dialog.Footer>
  *       <Button type="button" appearance="outlined">
  *         Cancel
  *       </Button>
  *       <Button type="button" appearance="filled">
  *         Save
  *       </Button>
- *     </DialogFooter>
- *   </DialogContent>
- * </Dialog>
+ *     </Dialog.Footer>
+ *   </Dialog.Content>
+ * </Dialog.Root>
  * ```
  */
-const DialogContent = forwardRef<ComponentRef<"div">, DialogContentProps>(
+const Content = forwardRef<ComponentRef<"div">, ContentProps>(
 	(
 		{
 			children,
@@ -155,8 +153,8 @@ const DialogContent = forwardRef<ComponentRef<"div">, DialogContentProps>(
 		},
 		ref,
 	) => (
-		<DialogPortal>
-			<DialogOverlay />
+		<Portal>
+			<Overlay />
 			<div className="fixed inset-4 z-50 flex items-center justify-center">
 				<DialogPrimitive.Content
 					className={cx(
@@ -181,10 +179,10 @@ const DialogContent = forwardRef<ComponentRef<"div">, DialogContentProps>(
 					{children}
 				</DialogPrimitive.Content>
 			</div>
-		</DialogPortal>
+		</Portal>
 	),
 );
-DialogContent.displayName = "DialogContent";
+Content.displayName = "DialogContent";
 
 /**
  * Contains the header content of the dialog, including the title and close button.
@@ -193,29 +191,25 @@ DialogContent.displayName = "DialogContent";
  *
  * @example
  * ```tsx
- * <Dialog>
- *   <DialogTrigger asChild>
+ * <Dialog.Root>
+ *   <Dialog.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Open Dialog
  *     </Button>
- *   </DialogTrigger>
- *   <DialogContent>
- *     <DialogHeader>
- *       <DialogTitle>Dialog Title</DialogTitle>
- *       <DialogCloseIconButton />
- *     </DialogHeader>
- *     <DialogBody>
+ *   </Dialog.Trigger>
+ *   <Dialog.Content>
+ *     <Dialog.Header>
+ *       <Dialog.Title>Dialog Title</Dialog.Title>
+ *       <Dialog.CloseIconButton />
+ *     </Dialog.Header>
+ *     <Dialog.Body>
  *       <p>This is the dialog content.</p>
- *     </DialogBody>
- *   </DialogContent>
- * </Dialog>
+ *     </Dialog.Body>
+ *   </Dialog.Content>
+ * </Dialog.Root>
  * ```
  */
-const DialogHeader = ({
-	className,
-	children,
-	...props
-}: ComponentProps<"div">) => (
+const Header = ({ className, children, ...props }: ComponentProps<"div">) => (
 	<div
 		className={cx(
 			"border-dialog-muted text-strong relative flex shrink-0 items-center justify-between gap-2 border-b px-6 py-4",
@@ -227,9 +221,9 @@ const DialogHeader = ({
 		{children}
 	</div>
 );
-DialogHeader.displayName = "DialogHeader";
+Header.displayName = "DialogHeader";
 
-type DialogCloseIconButtonProps = Partial<Omit<IconButtonProps, "icon">>;
+type CloseIconButtonProps = Partial<Omit<IconButtonProps, "icon">>;
 
 /**
  * An icon button that closes the dialog when clicked.
@@ -238,31 +232,31 @@ type DialogCloseIconButtonProps = Partial<Omit<IconButtonProps, "icon">>;
  *
  * @example
  * ```tsx
- * <Dialog>
- *   <DialogTrigger asChild>
+ * <Dialog.Root>
+ *   <Dialog.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Open Dialog
  *     </Button>
- *   </DialogTrigger>
- *   <DialogContent>
- *     <DialogHeader>
- *       <DialogTitle>Dialog Title</DialogTitle>
- *       <DialogCloseIconButton />
- *     </DialogHeader>
- *     <DialogBody>
+ *   </Dialog.Trigger>
+ *   <Dialog.Content>
+ *     <Dialog.Header>
+ *       <Dialog.Title>Dialog Title</Dialog.Title>
+ *       <Dialog.CloseIconButton />
+ *     </Dialog.Header>
+ *     <Dialog.Body>
  *       <p>This is the dialog content.</p>
- *     </DialogBody>
- *   </DialogContent>
- * </Dialog>
+ *     </Dialog.Body>
+ *   </Dialog.Content>
+ * </Dialog.Root>
  * ```
  */
-const DialogCloseIconButton = ({
+const CloseIconButton = ({
 	size = "md",
 	type = "button",
 	label = "Close Dialog",
 	appearance = "ghost",
 	...props
-}: DialogCloseIconButtonProps) => (
+}: CloseIconButtonProps) => (
 	<DialogPrimitive.Close asChild>
 		<IconButton
 			appearance={appearance}
@@ -274,7 +268,7 @@ const DialogCloseIconButton = ({
 		/>
 	</DialogPrimitive.Close>
 );
-DialogCloseIconButton.displayName = "DialogCloseIconButton";
+CloseIconButton.displayName = "DialogCloseIconButton";
 
 /**
  * Contains the main content of the dialog.
@@ -283,30 +277,30 @@ DialogCloseIconButton.displayName = "DialogCloseIconButton";
  *
  * @example
  * ```tsx
- * <Dialog>
- *   <DialogTrigger asChild>
+ * <Dialog.Root>
+ *   <Dialog.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Open Dialog
  *     </Button>
- *   </DialogTrigger>
- *   <DialogContent>
- *     <DialogHeader>
- *       <DialogTitle>Dialog Title</DialogTitle>
- *     </DialogHeader>
- *     <DialogBody>
+ *   </Dialog.Trigger>
+ *   <Dialog.Content>
+ *     <Dialog.Header>
+ *       <Dialog.Title>Dialog Title</Dialog.Title>
+ *     </Dialog.Header>
+ *     <Dialog.Body>
  *       <p>This is the dialog content.</p>
- *     </DialogBody>
- *   </DialogContent>
- * </Dialog>
+ *     </Dialog.Body>
+ *   </Dialog.Content>
+ * </Dialog.Root>
  * ```
  */
-const DialogBody = ({ className, ...props }: ComponentProps<"div">) => (
+const Body = ({ className, ...props }: ComponentProps<"div">) => (
 	<div
 		className={cx("scrollbar text-body flex-1 overflow-y-auto p-6", className)}
 		{...props}
 	/>
 );
-DialogBody.displayName = "DialogBody";
+Body.displayName = "DialogBody";
 
 /**
  * Contains the footer content of the dialog, including action buttons.
@@ -315,32 +309,32 @@ DialogBody.displayName = "DialogBody";
  *
  * @example
  * ```tsx
- * <Dialog>
- *   <DialogTrigger asChild>
+ * <Dialog.Root>
+ *   <Dialog.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Open Dialog
  *     </Button>
- *   </DialogTrigger>
- *   <DialogContent>
- *     <DialogHeader>
- *       <DialogTitle>Dialog Title</DialogTitle>
- *     </DialogHeader>
- *     <DialogBody>
+ *   </Dialog.Trigger>
+ *   <Dialog.Content>
+ *     <Dialog.Header>
+ *       <Dialog.Title>Dialog Title</Dialog.Title>
+ *     </Dialog.Header>
+ *     <Dialog.Body>
  *       <p>This is the dialog content.</p>
- *     </DialogBody>
- *     <DialogFooter>
+ *     </Dialog.Body>
+ *     <Dialog.Footer>
  *       <Button type="button" appearance="outlined">
  *         Cancel
  *       </Button>
  *       <Button type="button" appearance="filled">
  *         Save
  *       </Button>
- *     </DialogFooter>
- *   </DialogContent>
- * </Dialog>
+ *     </Dialog.Footer>
+ *   </Dialog.Content>
+ * </Dialog.Root>
  * ```
  */
-const DialogFooter = ({ className, ...props }: ComponentProps<"div">) => (
+const Footer = ({ className, ...props }: ComponentProps<"div">) => (
 	<div
 		className={cx(
 			"border-dialog-muted flex shrink-0 flex-row-reverse gap-2 border-t px-6 py-4",
@@ -349,7 +343,7 @@ const DialogFooter = ({ className, ...props }: ComponentProps<"div">) => (
 		{...props}
 	/>
 );
-DialogFooter.displayName = "DialogFooter";
+Footer.displayName = "DialogFooter";
 
 /**
  * An accessible name to be announced when the dialog is opened.
@@ -358,25 +352,25 @@ DialogFooter.displayName = "DialogFooter";
  *
  * @example
  * ```tsx
- * <Dialog>
- *   <DialogTrigger asChild>
+ * <Dialog.Root>
+ *   <Dialog.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Open Dialog
  *     </Button>
- *   </DialogTrigger>
- *   <DialogContent>
- *     <DialogHeader>
- *       <DialogTitle>Dialog Title</DialogTitle>
- *       <DialogCloseIconButton />
- *     </DialogHeader>
- *     <DialogBody>
+ *   </Dialog.Trigger>
+ *   <Dialog.Content>
+ *     <Dialog.Header>
+ *       <Dialog.Title>Dialog Title</Dialog.Title>
+ *       <Dialog.CloseIconButton />
+ *     </Dialog.Header>
+ *     <Dialog.Body>
  *       <p>This is the dialog content.</p>
- *     </DialogBody>
- *   </DialogContent>
- * </Dialog>
+ *     </Dialog.Body>
+ *   </Dialog.Content>
+ * </Dialog.Root>
  * ```
  */
-const DialogTitle = forwardRef<
+const Title = forwardRef<
 	ComponentRef<typeof DialogPrimitive.Title>,
 	ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
 >(({ className, ...props }, ref) => (
@@ -386,7 +380,7 @@ const DialogTitle = forwardRef<
 		{...props}
 	/>
 ));
-DialogTitle.displayName = "DialogTitle";
+Title.displayName = "DialogTitle";
 
 /**
  * An accessible description to be announced when the dialog is opened.
@@ -395,27 +389,27 @@ DialogTitle.displayName = "DialogTitle";
  *
  * @example
  * ```tsx
- * <Dialog>
- *   <DialogTrigger asChild>
+ * <Dialog.Root>
+ *   <Dialog.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Open Dialog
  *     </Button>
- *   </DialogTrigger>
- *   <DialogContent>
- *     <DialogHeader>
- *       <DialogTitle>Dialog Title</DialogTitle>
- *       <DialogDescription>
+ *   </Dialog.Trigger>
+ *   <Dialog.Content>
+ *     <Dialog.Header>
+ *       <Dialog.Title>Dialog Title</Dialog.Title>
+ *       <Dialog.Description>
  *         This is an optional description.
- *       </DialogDescription>
- *     </DialogHeader>
- *     <DialogBody>
+ *       </Dialog.Description>
+ *     </Dialog.Header>
+ *     <Dialog.Body>
  *       <p>This is the dialog content.</p>
- *     </DialogBody>
- *   </DialogContent>
- * </Dialog>
+ *     </Dialog.Body>
+ *   </Dialog.Content>
+ * </Dialog.Root>
  * ```
  */
-const DialogDescription = forwardRef<
+const Description = forwardRef<
 	ComponentRef<"p">,
 	ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
 >(({ className, ...props }, ref) => (
@@ -425,19 +419,379 @@ const DialogDescription = forwardRef<
 		{...props}
 	/>
 ));
-DialogDescription.displayName = "DialogDescription";
+Description.displayName = "DialogDescription";
 
-export {
-	Dialog,
-	DialogBody,
-	DialogClose,
-	DialogCloseIconButton,
-	DialogContent,
-	DialogDescription,
-	DialogFooter,
-	DialogHeader,
-	DialogOverlay,
-	DialogPortal,
-	DialogTitle,
-	DialogTrigger,
-};
+/**
+ * A window overlaid on either the primary window or another dialog window.
+ *
+ * @see https://mantle.ngrok.com/components/dialog
+ *
+ * @example
+ * ```tsx
+ * <Dialog.Root>
+ *   <Dialog.Trigger asChild>
+ *     <Button type="button" appearance="outlined">
+ *       Open Dialog
+ *     </Button>
+ *   </Dialog.Trigger>
+ *   <Dialog.Content>
+ *     <Dialog.Header>
+ *       <Dialog.Title>Dialog Title</Dialog.Title>
+ *       <Dialog.CloseIconButton />
+ *     </Dialog.Header>
+ *     <Dialog.Body>
+ *       <p>This is the dialog content.</p>
+ *     </Dialog.Body>
+ *     <Dialog.Footer>
+ *       <Button type="button" appearance="outlined">
+ *         Cancel
+ *       </Button>
+ *       <Button type="button" appearance="filled">
+ *         Save
+ *       </Button>
+ *     </Dialog.Footer>
+ *   </Dialog.Content>
+ * </Dialog.Root>
+ * ```
+ */
+const Dialog = {
+	/**
+	 * A window overlaid on either the primary window or another dialog window.
+	 * The root stateful component for the Dialog.
+	 *
+	 * @see https://mantle.ngrok.com/components/dialog#api-dialog
+	 *
+	 * @example
+	 * ```tsx
+	 * <Dialog.Root>
+	 *   <Dialog.Trigger asChild>
+	 *     <Button type="button" appearance="outlined">
+	 *       Open Dialog
+	 *     </Button>
+	 *   </Dialog.Trigger>
+	 *   <Dialog.Content>
+	 *     <Dialog.Header>
+	 *       <Dialog.Title>Dialog Title</Dialog.Title>
+	 *       <Dialog.CloseIconButton />
+	 *     </Dialog.Header>
+	 *     <Dialog.Body>
+	 *       <p>This is the dialog content.</p>
+	 *     </Dialog.Body>
+	 *     <Dialog.Footer>
+	 *       <Button type="button" appearance="outlined">
+	 *         Cancel
+	 *       </Button>
+	 *       <Button type="button" appearance="filled">
+	 *         Save
+	 *       </Button>
+	 *     </Dialog.Footer>
+	 *   </Dialog.Content>
+	 * </Dialog.Root>
+	 * ```
+	 */
+	Root,
+	/**
+	 * Contains the main content of the dialog.
+	 *
+	 * @see https://mantle.ngrok.com/components/dialog#api-dialog-body
+	 *
+	 * @example
+	 * ```tsx
+	 * <Dialog.Root>
+	 *   <Dialog.Trigger asChild>
+	 *     <Button type="button" appearance="outlined">
+	 *       Open Dialog
+	 *     </Button>
+	 *   </Dialog.Trigger>
+	 *   <Dialog.Content>
+	 *     <Dialog.Header>
+	 *       <Dialog.Title>Dialog Title</Dialog.Title>
+	 *     </Dialog.Header>
+	 *     <Dialog.Body>
+	 *       <p>This is the dialog content.</p>
+	 *     </Dialog.Body>
+	 *   </Dialog.Content>
+	 * </Dialog.Root>
+	 * ```
+	 */
+	Body,
+	/**
+	 * A button that closes the dialog when clicked.
+	 *
+	 * @see https://mantle.ngrok.com/components/dialog#api-dialog-close
+	 *
+	 * @example
+	 * ```tsx
+	 * <Dialog.Root>
+	 *   <Dialog.Trigger asChild>
+	 *     <Button type="button">Open Dialog</Button>
+	 *   </Dialog.Trigger>
+	 *   <Dialog.Content>
+	 *     <Dialog.Header>
+	 *       <Dialog.Title>Confirm Action</Dialog.Title>
+	 *     </Dialog.Header>
+	 *     <Dialog.Body>
+	 *       <Text>Are you sure you want to proceed?</Text>
+	 *     </Dialog.Body>
+	 *     <Dialog.Footer>
+	 *       <Dialog.Close asChild>
+	 *         <Button type="button" appearance="outlined">Cancel</Button>
+	 *       </Dialog.Close>
+	 *       <Button type="submit">Confirm</Button>
+	 *     </Dialog.Footer>
+	 *   </Dialog.Content>
+	 * </Dialog.Root>
+	 * ```
+	 */
+	Close,
+	/**
+	 * An icon button that closes the dialog when clicked.
+	 *
+	 * @see https://mantle.ngrok.com/components/dialog#api-dialog-close-icon-button
+	 *
+	 * @example
+	 * ```tsx
+	 * <Dialog.Root>
+	 *   <Dialog.Trigger asChild>
+	 *     <Button type="button" appearance="outlined">
+	 *       Open Dialog
+	 *     </Button>
+	 *   </Dialog.Trigger>
+	 *   <Dialog.Content>
+	 *     <Dialog.Header>
+	 *       <Dialog.Title>Dialog Title</Dialog.Title>
+	 *       <Dialog.CloseIconButton />
+	 *     </Dialog.Header>
+	 *     <Dialog.Body>
+	 *       <p>This is the dialog content.</p>
+	 *     </Dialog.Body>
+	 *   </Dialog.Content>
+	 * </Dialog.Root>
+	 * ```
+	 */
+	CloseIconButton,
+	/**
+	 * The container for the dialog content.
+	 * Renders on top of the overlay and is centered in the viewport.
+	 *
+	 * @see https://mantle.ngrok.com/components/dialog#api-dialog-content
+	 *
+	 * @example
+	 * ```tsx
+	 * <Dialog.Root>
+	 *   <Dialog.Trigger asChild>
+	 *     <Button type="button" appearance="outlined">
+	 *       Open Dialog
+	 *     </Button>
+	 *   </Dialog.Trigger>
+	 *   <Dialog.Content>
+	 *     <Dialog.Header>
+	 *       <Dialog.Title>Dialog Title</Dialog.Title>
+	 *       <Dialog.CloseIconButton />
+	 *     </Dialog.Header>
+	 *     <Dialog.Body>
+	 *       <p>This is the dialog content.</p>
+	 *     </Dialog.Body>
+	 *     <Dialog.Footer>
+	 *       <Button type="button" appearance="outlined">
+	 *         Cancel
+	 *       </Button>
+	 *       <Button type="button" appearance="filled">
+	 *         Save
+	 *       </Button>
+	 *     </Dialog.Footer>
+	 *   </Dialog.Content>
+	 * </Dialog.Root>
+	 * ```
+	 */
+	Content,
+	/**
+	 * An accessible description to be announced when the dialog is opened.
+	 *
+	 * @see https://mantle.ngrok.com/components/dialog#api-dialog-description
+	 *
+	 * @example
+	 * ```tsx
+	 * <Dialog.Root>
+	 *   <Dialog.Trigger asChild>
+	 *     <Button type="button" appearance="outlined">
+	 *       Open Dialog
+	 *     </Button>
+	 *   </Dialog.Trigger>
+	 *   <Dialog.Content>
+	 *     <Dialog.Header>
+	 *       <Dialog.Title>Dialog Title</Dialog.Title>
+	 *       <Dialog.Description>
+	 *         This is an optional description.
+	 *       </Dialog.Description>
+	 *     </Dialog.Header>
+	 *     <Dialog.Body>
+	 *       <p>This is the dialog content.</p>
+	 *     </Dialog.Body>
+	 *   </Dialog.Content>
+	 * </Dialog.Root>
+	 * ```
+	 */
+	Description,
+	/**
+	 * Contains the footer content of the dialog, including action buttons.
+	 *
+	 * @see https://mantle.ngrok.com/components/dialog#api-dialog-footer
+	 *
+	 * @example
+	 * ```tsx
+	 * <Dialog.Root>
+	 *   <Dialog.Trigger asChild>
+	 *     <Button type="button" appearance="outlined">
+	 *       Open Dialog
+	 *     </Button>
+	 *   </Dialog.Trigger>
+	 *   <Dialog.Content>
+	 *     <Dialog.Header>
+	 *       <Dialog.Title>Dialog Title</Dialog.Title>
+	 *     </Dialog.Header>
+	 *     <Dialog.Body>
+	 *       <p>This is the dialog content.</p>
+	 *     </Dialog.Body>
+	 *     <Dialog.Footer>
+	 *       <Button type="button" appearance="outlined">
+	 *         Cancel
+	 *       </Button>
+	 *       <Button type="button" appearance="filled">
+	 *         Save
+	 *       </Button>
+	 *     </Dialog.Footer>
+	 *   </Dialog.Content>
+	 * </Dialog.Root>
+	 * ```
+	 */
+	Footer,
+	/**
+	 * Contains the header content of the dialog, including the title and close button.
+	 *
+	 * @see https://mantle.ngrok.com/components/dialog#api-dialog-header
+	 *
+	 * @example
+	 * ```tsx
+	 * <Dialog.Root>
+	 *   <Dialog.Trigger asChild>
+	 *     <Button type="button" appearance="outlined">
+	 *       Open Dialog
+	 *     </Button>
+	 *   </Dialog.Trigger>
+	 *   <Dialog.Content>
+	 *     <Dialog.Header>
+	 *       <Dialog.Title>Dialog Title</Dialog.Title>
+	 *       <Dialog.CloseIconButton />
+	 *     </Dialog.Header>
+	 *     <Dialog.Body>
+	 *       <p>This is the dialog content.</p>
+	 *     </Dialog.Body>
+	 *   </Dialog.Content>
+	 * </Dialog.Root>
+	 * ```
+	 */
+	Header,
+	/**
+	 * The overlay backdrop for the dialog.
+	 *
+	 * @see https://mantle.ngrok.com/components/dialog#api-dialog-overlay
+	 *
+	 * @example
+	 * ```tsx
+	 * <Dialog.Root>
+	 *   <Dialog.Portal>
+	 *     <Dialog.Overlay />
+	 *     <Dialog.Content>
+	 *       <Dialog.Header>
+	 *         <Dialog.Title>Dialog Title</Dialog.Title>
+	 *       </Dialog.Header>
+	 *       <Dialog.Body>
+	 *         <Text>Dialog content here.</Text>
+	 *       </Dialog.Body>
+	 *     </Dialog.Content>
+	 *   </Dialog.Portal>
+	 * </Dialog.Root>
+	 * ```
+	 */
+	Overlay,
+	/**
+	 * The portal container for the dialog.
+	 *
+	 * @see https://mantle.ngrok.com/components/dialog#api-dialog-portal
+	 *
+	 * @example
+	 * ```tsx
+	 * <Dialog.Root>
+	 *   <Dialog.Trigger asChild>
+	 *     <Button type="button">Open Dialog</Button>
+	 *   </Dialog.Trigger>
+	 *   <Dialog.Portal>
+	 *     <Dialog.Overlay />
+	 *     <Dialog.Content>
+	 *       <Dialog.Header>
+	 *         <Dialog.Title>Portal Dialog</Dialog.Title>
+	 *       </Dialog.Header>
+	 *       <Dialog.Body>
+	 *         <Text>This dialog is rendered in a portal.</Text>
+	 *       </Dialog.Body>
+	 *     </Dialog.Content>
+	 *   </Dialog.Portal>
+	 * </Dialog.Root>
+	 * ```
+	 */
+	Portal,
+	/**
+	 * An accessible name to be announced when the dialog is opened.
+	 *
+	 * @see https://mantle.ngrok.com/components/dialog#api-dialog-title
+	 *
+	 * @example
+	 * ```tsx
+	 * <Dialog.Root>
+	 *   <Dialog.Trigger asChild>
+	 *     <Button type="button" appearance="outlined">
+	 *       Open Dialog
+	 *     </Button>
+	 *   </Dialog.Trigger>
+	 *   <Dialog.Content>
+	 *     <Dialog.Header>
+	 *       <Dialog.Title>Dialog Title</Dialog.Title>
+	 *       <Dialog.CloseIconButton />
+	 *     </Dialog.Header>
+	 *     <Dialog.Body>
+	 *       <p>This is the dialog content.</p>
+	 *     </Dialog.Body>
+	 *   </Dialog.Content>
+	 * </Dialog.Root>
+	 * ```
+	 */
+	Title,
+	/**
+	 * A button that opens the dialog.
+	 *
+	 * @see https://mantle.ngrok.com/components/dialog#api-dialog-trigger
+	 *
+	 * @example
+	 * ```tsx
+	 * <Dialog.Root>
+	 *   <Dialog.Trigger asChild>
+	 *     <Button type="button" appearance="outlined">
+	 *       Open Dialog
+	 *     </Button>
+	 *   </Dialog.Trigger>
+	 *   <Dialog.Content>
+	 *     <Dialog.Header>
+	 *       <Dialog.Title>Dialog Title</Dialog.Title>
+	 *     </Dialog.Header>
+	 *     <Dialog.Body>
+	 *       <p>This is the dialog content.</p>
+	 *     </Dialog.Body>
+	 *   </Dialog.Content>
+	 * </Dialog.Root>
+	 * ```
+	 */
+	Trigger,
+} as const;
+
+export { Dialog };

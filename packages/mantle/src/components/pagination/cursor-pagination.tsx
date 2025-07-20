@@ -15,13 +15,7 @@ import invariant from "tiny-invariant";
 import type { WithAsChild } from "../../types/as-child.js";
 import { cx } from "../../utils/cx/cx.js";
 import { ButtonGroup, IconButton } from "../button/index.js";
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "../select/select.js";
+import { Select } from "../select/select.js";
 import { Separator } from "../separator/separator.js";
 
 type CursorPaginationContextValue = {
@@ -64,17 +58,17 @@ type CursorPaginationProps = ComponentProps<"div"> & {
  * @example
  * ```tsx
  * <CursorPagination defaultPageSize={10}>
- *   <CursorButtons
+ *   <CursorPagination.Buttons
  *     hasNextPage={hasNext}
  *     hasPreviousPage={hasPrevious}
  *     onNextPage={handleNext}
  *     onPreviousPage={handlePrevious}
  *   />
- *   <CursorPageSizeSelect />
+ *   <CursorPagination.PageSizeSelect />
  * </CursorPagination>
  * ```
  */
-const CursorPagination = forwardRef<HTMLDivElement, CursorPaginationProps>(
+const Root = forwardRef<HTMLDivElement, CursorPaginationProps>(
 	({ className, children, defaultPageSize, ...props }, ref) => {
 		const [pageSize, setPageSize] = useState<number>(defaultPageSize);
 
@@ -96,7 +90,7 @@ const CursorPagination = forwardRef<HTMLDivElement, CursorPaginationProps>(
 		);
 	},
 );
-CursorPagination.displayName = "CursorPagination";
+Root.displayName = "CursorPagination";
 
 type CursorButtonsProps = Omit<
 	ComponentProps<typeof ButtonGroup>,
@@ -127,7 +121,7 @@ type CursorButtonsProps = Omit<
  *
  * @example
  * ```tsx
- * <CursorButtons
+ * <CursorPagination.Buttons
  *   hasNextPage={hasNext}
  *   hasPreviousPage={hasPrevious}
  *   onNextPage={() => loadNextPage()}
@@ -135,7 +129,7 @@ type CursorButtonsProps = Omit<
  * />
  * ```
  */
-const CursorButtons = forwardRef<
+const Buttons = forwardRef<
 	ComponentRef<typeof ButtonGroup>,
 	CursorButtonsProps
 >(
@@ -170,12 +164,12 @@ const CursorButtons = forwardRef<
 		);
 	},
 );
-CursorButtons.displayName = "CursorButtons";
+Buttons.displayName = "CursorButtons";
 
 const defaultPageSizes = [5, 10, 20, 50, 100] as const;
 
 type CursorPageSizeSelectProps = Omit<
-	ComponentProps<typeof SelectTrigger>,
+	ComponentProps<typeof Select.Trigger>,
 	"children"
 > & {
 	/**
@@ -195,14 +189,14 @@ type CursorPageSizeSelectProps = Omit<
  *
  * @example
  * ```tsx
- * <CursorPageSizeSelect
+ * <CursorPagination.PageSizeSelect
  *   pageSizes={[10, 20, 50, 100]}
  *   onChangePageSize={(size) => console.log('Page size changed to:', size)}
  * />
  * ```
  */
-const CursorPageSizeSelect = forwardRef<
-	ComponentRef<typeof SelectTrigger>,
+const PageSizeSelect = forwardRef<
+	ComponentRef<typeof Select.Trigger>,
 	CursorPageSizeSelectProps
 >(
 	(
@@ -227,7 +221,7 @@ const CursorPageSizeSelect = forwardRef<
 		);
 
 		return (
-			<Select
+			<Select.Root
 				defaultValue={`${ctx.pageSize}`}
 				onValueChange={(value) => {
 					let newPageSize = Number.parseInt(value, 10);
@@ -238,26 +232,26 @@ const CursorPageSizeSelect = forwardRef<
 					onChangePageSize?.(newPageSize);
 				}}
 			>
-				<SelectTrigger
+				<Select.Trigger
 					ref={ref}
 					className={cx("w-auto min-w-36", className)}
 					value={ctx.pageSize}
 					{...rest}
 				>
-					<SelectValue />
-				</SelectTrigger>
-				<SelectContent width="trigger">
+					<Select.Value />
+				</Select.Trigger>
+				<Select.Content width="trigger">
 					{pageSizes.map((size) => (
-						<SelectItem key={size} value={`${size}`}>
+						<Select.Item key={size} value={`${size}`}>
 							{size} per page
-						</SelectItem>
+						</Select.Item>
 					))}
-				</SelectContent>
-			</Select>
+				</Select.Content>
+			</Select.Root>
 		);
 	},
 );
-CursorPageSizeSelect.displayName = "CursorPageSizeSelect";
+PageSizeSelect.displayName = "CursorPageSizeSelect";
 
 type CursorPageSizeValueProps = Omit<ComponentProps<"span">, "children"> &
 	WithAsChild;
@@ -271,11 +265,11 @@ type CursorPageSizeValueProps = Omit<ComponentProps<"span">, "children"> &
  * ```tsx
  * <div className="flex items-center gap-2">
  *   <span>Items per page:</span>
- *   <CursorPageSizeValue />
+ *   <CursorPagination.PageSizeValue />
  * </div>
  * ```
  */
-function CursorPageSizeValue({
+function PageSizeValue({
 	asChild = false,
 	className,
 	...props
@@ -298,13 +292,100 @@ function CursorPageSizeValue({
 		</Component>
 	);
 }
-CursorPageSizeValue.displayName = "CursorPageSizeValue";
+PageSizeValue.displayName = "CursorPageSizeValue";
+
+/**
+ * A pagination component for use with cursor-based pagination.
+ *
+ * Cursor-based pagination is a way of loading data in chunks by using a cursor
+ * from the last item on the current page to know where to start the next set,
+ * making sure nothing is missed or repeated. Like a linked list, but for chunks
+ * of data. It doesn't let you jump to a specific page or know how many total pages
+ * there are, but it's more efficient for large or real-time data sets.
+ *
+ * @see https://mantle.ngrok.com/components/cursor-pagination
+ *
+ * @example
+ * ```tsx
+ * <CursorPagination defaultPageSize={10}>
+ *   <CursorPagination.Buttons
+ *     hasNextPage={hasNext}
+ *     hasPreviousPage={hasPrevious}
+ *     onNextPage={handleNext}
+ *     onPreviousPage={handlePrevious}
+ *   />
+ *   <CursorPagination.PageSizeSelect />
+ * </CursorPagination>
+ * ```
+ */
+const CursorPagination = {
+	/**
+	 * The root container of the cursor pagination component.
+	 *
+	 * @see https://mantle.ngrok.com/components/cursor-pagination#api-cursor-pagination
+	 *
+	 * @example
+	 * ```tsx
+	 * <CursorPagination.Root defaultPageSize={10}>
+	 *   <CursorPagination.Buttons
+	 *     hasNextPage={hasNext}
+	 *     hasPreviousPage={hasPrevious}
+	 *     onNextPage={handleNext}
+	 *     onPreviousPage={handlePrevious}
+	 *   />
+	 *   <CursorPagination.PageSizeSelect />
+	 * </CursorPagination.Root>
+	 * ```
+	 */
+	Root,
+	/**
+	 * A pair of buttons for navigating between pages of data when using cursor-based pagination.
+	 *
+	 * @see https://mantle.ngrok.com/components/cursor-pagination#api-cursor-buttons
+	 *
+	 * @example
+	 * ```tsx
+	 * <CursorPagination.Buttons
+	 *   hasNextPage={hasNext}
+	 *   hasPreviousPage={hasPrevious}
+	 *   onNextPage={() => loadNextPage()}
+	 *   onPreviousPage={() => loadPreviousPage()}
+	 * />
+	 * ```
+	 */
+	Buttons,
+	/**
+	 * A select input for changing the number of items per page when using cursor-based pagination.
+	 *
+	 * @see https://mantle.ngrok.com/components/cursor-pagination#api-cursor-page-size-select
+	 *
+	 * @example
+	 * ```tsx
+	 * <CursorPagination.PageSizeSelect
+	 *   pageSizes={[10, 20, 50, 100]}
+	 *   onChangePageSize={(size) => console.log('Page size changed to:', size)}
+	 * />
+	 * ```
+	 */
+	PageSizeSelect,
+	/**
+	 * Displays the current page size when using cursor-based pagination as a read-only value.
+	 *
+	 * @see https://mantle.ngrok.com/components/cursor-pagination#api-cursor-page-size-value
+	 *
+	 * @example
+	 * ```tsx
+	 * <div className="flex items-center gap-2">
+	 *   <span>Items per page:</span>
+	 *   <CursorPagination.PageSizeValue />
+	 * </div>
+	 * ```
+	 */
+	PageSizeValue,
+} as const;
 
 export {
 	//,
-	CursorButtons,
-	CursorPageSizeSelect,
-	CursorPageSizeValue,
 	CursorPagination,
 };
 

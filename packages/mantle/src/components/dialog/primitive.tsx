@@ -46,6 +46,10 @@ Close.displayName = "DialogPrimitiveClose";
 const Overlay = DialogPrimitive.Overlay;
 Overlay.displayName = "DialogPrimitiveOverlay";
 
+/**
+ * The main content container of the dialog primitive.
+ * This is a low-level primitive used by higher-level dialog components.
+ */
 const Content = forwardRef<
 	ComponentRef<"div">,
 	ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
@@ -65,6 +69,10 @@ Content.displayName = "DialogPrimitiveContent";
 
 const Title = DialogPrimitive.Title;
 
+/**
+ * An accessible description for the dialog primitive.
+ * This is a low-level primitive used by higher-level dialog components.
+ */
 const Description = forwardRef<
 	ComponentRef<"p">,
 	ComponentPropsWithoutRef<typeof DialogPrimitive.Description>

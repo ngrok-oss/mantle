@@ -1,23 +1,8 @@
 import { Anchor } from "@ngrok/mantle/anchor";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Label } from "@ngrok/mantle/label";
-import {
-	Select,
-	SelectContent,
-	SelectGroup,
-	SelectItem,
-	SelectLabel,
-	SelectSeparator,
-	SelectTrigger,
-	SelectValue,
-} from "@ngrok/mantle/select";
+import { Select } from "@ngrok/mantle/select";
 import { useState } from "react";
 import { href } from "react-router";
 import { Example } from "~/components/example";
@@ -68,181 +53,172 @@ export default function Page() {
 					<Example className="flex-col gap-4">
 						<Label className="w-full max-w-64" htmlFor="fruits">
 							<p>Fruits</p>
-							<Select id="fruits" name="number">
-								<SelectTrigger>
-									<SelectValue placeholder="Select a fruit" />
-								</SelectTrigger>
-								<SelectContent width="trigger">
-									<SelectGroup>
-										<SelectLabel>Fruits</SelectLabel>
-										<SelectItem value="apple">Apple</SelectItem>
-										<SelectItem value="banana">Banana</SelectItem>
-										<SelectItem value="blueberry">Blueberry</SelectItem>
-										<SelectItem value="grapes">Grapes</SelectItem>
-										<SelectItem value="pineapple">Pineapple</SelectItem>
-									</SelectGroup>
-									<SelectSeparator />
-									<SelectGroup>
-										<SelectLabel>Vegetables</SelectLabel>
-										<SelectItem value="carrot">Carrot</SelectItem>
-										<SelectItem value="cucumber">Cucumber</SelectItem>
-										<SelectItem value="lettuce">Lettuce</SelectItem>
-										<SelectItem value="tomato">Tomato</SelectItem>
-										<SelectItem value="zucchini">
+							<Select.Root id="fruits" name="number">
+								<Select.Trigger>
+									<Select.Value placeholder="Select a fruit" />
+								</Select.Trigger>
+								<Select.Content width="trigger">
+									<Select.Group>
+										<Select.Label>Fruits</Select.Label>
+										<Select.Item value="apple">Apple</Select.Item>
+										<Select.Item value="banana">Banana</Select.Item>
+										<Select.Item value="blueberry">Blueberry</Select.Item>
+										<Select.Item value="grapes">Grapes</Select.Item>
+										<Select.Item value="pineapple">Pineapple</Select.Item>
+									</Select.Group>
+									<Select.Separator />
+									<Select.Group>
+										<Select.Label>Vegetables</Select.Label>
+										<Select.Item value="carrot">Carrot</Select.Item>
+										<Select.Item value="cucumber">Cucumber</Select.Item>
+										<Select.Item value="lettuce">Lettuce</Select.Item>
+										<Select.Item value="tomato">Tomato</Select.Item>
+										<Select.Item value="zucchini">
 											<p>Zucchini</p>
 											<p>
 												Ex sit voluptate incididunt pariatur velit consequat
 												reprehenderit.
 											</p>
-										</SelectItem>
-									</SelectGroup>
-								</SelectContent>
-							</Select>
+										</Select.Item>
+									</Select.Group>
+								</Select.Content>
+							</Select.Root>
 						</Label>
-						<Select validation="error">
-							<SelectTrigger className="max-w-64">
-								<SelectValue placeholder="Select a fruit" />
-							</SelectTrigger>
-							<SelectContent>
-								<SelectGroup>
-									<SelectLabel>Fruits</SelectLabel>
-									<SelectItem value="apple">Apple</SelectItem>
-									<SelectItem value="banana">Banana</SelectItem>
-									<SelectItem value="blueberry">Blueberry</SelectItem>
-									<SelectItem value="grapes">Grapes</SelectItem>
-									<SelectItem value="pineapple">Pineapple</SelectItem>
-								</SelectGroup>
-								<SelectSeparator />
-								<SelectGroup>
-									<SelectLabel>Vegetables</SelectLabel>
-									<SelectItem value="carrot">Carrot</SelectItem>
-									<SelectItem value="cucumber">Cucumber</SelectItem>
-									<SelectItem value="lettuce">Lettuce</SelectItem>
-									<SelectItem value="tomato">Tomato</SelectItem>
-									<SelectItem value="zucchini">
+						<Select.Root validation="error">
+							<Select.Trigger className="max-w-64">
+								<Select.Value placeholder="Select a fruit" />
+							</Select.Trigger>
+							<Select.Content>
+								<Select.Group>
+									<Select.Label>Fruits</Select.Label>
+									<Select.Item value="apple">Apple</Select.Item>
+									<Select.Item value="banana">Banana</Select.Item>
+									<Select.Item value="blueberry">Blueberry</Select.Item>
+									<Select.Item value="grapes">Grapes</Select.Item>
+									<Select.Item value="pineapple">Pineapple</Select.Item>
+								</Select.Group>
+								<Select.Separator />
+								<Select.Group>
+									<Select.Label>Vegetables</Select.Label>
+									<Select.Item value="carrot">Carrot</Select.Item>
+									<Select.Item value="cucumber">Cucumber</Select.Item>
+									<Select.Item value="lettuce">Lettuce</Select.Item>
+									<Select.Item value="tomato">Tomato</Select.Item>
+									<Select.Item value="zucchini">
 										<p>Zucchini</p>
 										<p>
 											Ex sit voluptate incididunt pariatur velit consequat
 											reprehenderit.
 										</p>
-									</SelectItem>
-								</SelectGroup>
-							</SelectContent>
-						</Select>
+									</Select.Item>
+								</Select.Group>
+							</Select.Content>
+						</Select.Root>
 
-						<Select validation="success">
-							<SelectTrigger className="max-w-64">
-								<SelectValue placeholder="Select a fruit" />
-							</SelectTrigger>
-							<SelectContent>
-								<SelectGroup>
-									<SelectLabel>Fruits</SelectLabel>
-									<SelectItem value="apple">Apple</SelectItem>
-									<SelectItem value="banana">Banana</SelectItem>
-									<SelectItem value="blueberry">Blueberry</SelectItem>
-									<SelectItem value="grapes">Grapes</SelectItem>
-									<SelectItem value="pineapple">Pineapple</SelectItem>
-								</SelectGroup>
-								<SelectSeparator />
-								<SelectGroup>
-									<SelectLabel>Vegetables</SelectLabel>
-									<SelectItem value="carrot">Carrot</SelectItem>
-									<SelectItem value="cucumber">Cucumber</SelectItem>
-									<SelectItem value="lettuce">Lettuce</SelectItem>
-									<SelectItem value="tomato">Tomato</SelectItem>
-									<SelectItem value="zucchini">
+						<Select.Root validation="success">
+							<Select.Trigger className="max-w-64">
+								<Select.Value placeholder="Select a fruit" />
+							</Select.Trigger>
+							<Select.Content>
+								<Select.Group>
+									<Select.Label>Fruits</Select.Label>
+									<Select.Item value="apple">Apple</Select.Item>
+									<Select.Item value="banana">Banana</Select.Item>
+									<Select.Item value="blueberry">Blueberry</Select.Item>
+									<Select.Item value="grapes">Grapes</Select.Item>
+									<Select.Item value="pineapple">Pineapple</Select.Item>
+								</Select.Group>
+								<Select.Separator />
+								<Select.Group>
+									<Select.Label>Vegetables</Select.Label>
+									<Select.Item value="carrot">Carrot</Select.Item>
+									<Select.Item value="cucumber">Cucumber</Select.Item>
+									<Select.Item value="lettuce">Lettuce</Select.Item>
+									<Select.Item value="tomato">Tomato</Select.Item>
+									<Select.Item value="zucchini">
 										<p>Zucchini</p>
 										<p>
 											Ex sit voluptate incididunt pariatur velit consequat
 											reprehenderit.
 										</p>
-									</SelectItem>
-								</SelectGroup>
-							</SelectContent>
-						</Select>
-						<Select validation="warning">
-							<SelectTrigger className="max-w-64">
-								<SelectValue placeholder="Select a fruit" />
-							</SelectTrigger>
-							<SelectContent>
-								<SelectGroup>
-									<SelectLabel>Fruits</SelectLabel>
-									<SelectItem value="apple">Apple</SelectItem>
-									<SelectItem value="banana">Banana</SelectItem>
-									<SelectItem value="blueberry">Blueberry</SelectItem>
-									<SelectItem value="grapes">Grapes</SelectItem>
-									<SelectItem value="pineapple">Pineapple</SelectItem>
-								</SelectGroup>
-								<SelectSeparator />
-								<SelectGroup>
-									<SelectLabel>Vegetables</SelectLabel>
-									<SelectItem value="carrot">Carrot</SelectItem>
-									<SelectItem value="cucumber">Cucumber</SelectItem>
-									<SelectItem value="lettuce">Lettuce</SelectItem>
-									<SelectItem value="tomato">Tomato</SelectItem>
-									<SelectItem value="zucchini">
+									</Select.Item>
+								</Select.Group>
+							</Select.Content>
+						</Select.Root>
+						<Select.Root validation="warning">
+							<Select.Trigger className="max-w-64">
+								<Select.Value placeholder="Select a fruit" />
+							</Select.Trigger>
+							<Select.Content>
+								<Select.Group>
+									<Select.Label>Fruits</Select.Label>
+									<Select.Item value="apple">Apple</Select.Item>
+									<Select.Item value="banana">Banana</Select.Item>
+									<Select.Item value="blueberry">Blueberry</Select.Item>
+									<Select.Item value="grapes">Grapes</Select.Item>
+									<Select.Item value="pineapple">Pineapple</Select.Item>
+								</Select.Group>
+								<Select.Separator />
+								<Select.Group>
+									<Select.Label>Vegetables</Select.Label>
+									<Select.Item value="carrot">Carrot</Select.Item>
+									<Select.Item value="cucumber">Cucumber</Select.Item>
+									<Select.Item value="lettuce">Lettuce</Select.Item>
+									<Select.Item value="tomato">Tomato</Select.Item>
+									<Select.Item value="zucchini">
 										<p>Zucchini</p>
 										<p>
 											Ex sit voluptate incididunt pariatur velit consequat
 											reprehenderit.
 										</p>
-									</SelectItem>
-								</SelectGroup>
-							</SelectContent>
-						</Select>
+									</Select.Item>
+								</Select.Group>
+							</Select.Content>
+						</Select.Root>
 					</Example>
-					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
 									import { Label } from "@ngrok/mantle/label";
-									import {
-										Select,
-										SelectContent,
-										SelectGroup,
-										SelectItem,
-										SelectLabel,
-										SelectSeparator,
-										SelectTrigger,
-										SelectValue,
-									} from "@ngrok/mantle/select";
+									import { Select } from "@ngrok/mantle/select";
 
 									<Label className="w-full max-w-64" htmlFor="fruits">
 										<p>Fruits</p>
-										<Select id="fruits" name="number">
-											<SelectTrigger>
-												<SelectValue placeholder="Select a fruit" />
-											</SelectTrigger>
-											<SelectContent width="trigger">
-												<SelectGroup>
-													<SelectLabel>Fruits</SelectLabel>
-													<SelectItem value="apple">Apple</SelectItem>
-													<SelectItem value="banana">Banana</SelectItem>
-													<SelectItem value="blueberry">Blueberry</SelectItem>
-													<SelectItem value="grapes">Grapes</SelectItem>
-													<SelectItem value="pineapple">Pineapple</SelectItem>
-												</SelectGroup>
-												<SelectSeparator />
-												<SelectGroup>
-													<SelectLabel>Vegetables</SelectLabel>
-													<SelectItem value="carrot">Carrot</SelectItem>
-													<SelectItem value="cucumber">Cucumber</SelectItem>
-													<SelectItem value="lettuce">Lettuce</SelectItem>
-													<SelectItem value="tomato">Tomato</SelectItem>
-													<SelectItem value="zucchini">
+										<Select.Root id="fruits" name="number">
+											<Select.Trigger>
+												<Select.Value placeholder="Select a fruit" />
+											</Select.Trigger>
+											<Select.Content width="trigger">
+												<Select.Group>
+													<Select.Label>Fruits</Select.Label>
+													<Select.Item value="apple">Apple</Select.Item>
+													<Select.Item value="banana">Banana</Select.Item>
+													<Select.Item value="blueberry">Blueberry</Select.Item>
+													<Select.Item value="grapes">Grapes</Select.Item>
+													<Select.Item value="pineapple">Pineapple</Select.Item>
+												</Select.Group>
+												<Select.Separator />
+												<Select.Group>
+													<Select.Label>Vegetables</Select.Label>
+													<Select.Item value="carrot">Carrot</Select.Item>
+													<Select.Item value="cucumber">Cucumber</Select.Item>
+													<Select.Item value="lettuce">Lettuce</Select.Item>
+													<Select.Item value="tomato">Tomato</Select.Item>
+													<Select.Item value="zucchini">
 														<p>Zucchini</p>
 														<p>Ex sit voluptate incididunt pariatur velit consequat reprehenderit.</p>
-													</SelectItem>
-												</SelectGroup>
-											</SelectContent>
-										</Select>
+													</Select.Item>
+												</Select.Group>
+											</Select.Content>
+										</Select.Root>
 									</Label>
 								`}
 							/>
-						</CodeBlockBody>
-					</CodeBlock>
+						</CodeBlock.Body>
+					</CodeBlock.Root>
 				</div>
 			</section>
 
@@ -267,47 +243,44 @@ export default function Page() {
 					</header>
 					<div>
 						<Example>
-							<Select value={example1Value} onValueChange={setExample1Value}>
-								<SelectTrigger className="w-[180px]">
-									<SelectValue placeholder="Select a fruit">
+							<Select.Root
+								value={example1Value}
+								onValueChange={setExample1Value}
+							>
+								<Select.Trigger className="w-[180px]">
+									<Select.Value placeholder="Select a fruit">
 										{example1Value === "apple" ? <>🍎 Apple</> : <>🍑 Peach</>}
-									</SelectValue>
-								</SelectTrigger>
-								<SelectContent width="trigger">
-									<SelectItem value="apple">Apple</SelectItem>
-									<SelectItem value="peach">Peach</SelectItem>
-								</SelectContent>
-							</Select>
+									</Select.Value>
+								</Select.Trigger>
+								<Select.Content width="trigger">
+									<Select.Item value="apple">Apple</Select.Item>
+									<Select.Item value="peach">Peach</Select.Item>
+								</Select.Content>
+							</Select.Root>
 						</Example>
-						<CodeBlock className="rounded-b-lg rounded-t-none">
-							<CodeBlockBody>
-								<CodeBlockCopyButton />
-								<CodeBlockCode
+						<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+							<CodeBlock.Body>
+								<CodeBlock.CopyButton />
+								<CodeBlock.Code
 									language="tsx"
 									value={fmtCode`
-										import {
-											Select,
-											SelectContent,
-											SelectItem,
-											SelectTrigger,
-											SelectValue,
-										} from "@ngrok/mantle/select";
+										import { Select } from "@ngrok/mantle/select";
 
-										<Select value={value} onValueChange={setValue}>
-											<SelectTrigger className="w-[180px]">
-												<SelectValue placeholder="Select a fruit">
+										<Select.Root value={value} onValueChange={setValue}>
+											<Select.Trigger className="w-[180px]">
+												<Select.Value placeholder="Select a fruit">
 													{value === "apple" ? <>🍎 Apple!</> : <>🍑 Peach!</>}
-												</SelectValue>
-											</SelectTrigger>
-											<SelectContent width="trigger">
-												<SelectItem value="apple">Apple</SelectItem>
-												<SelectItem value="peach">Peach</SelectItem>
-											</SelectContent>
-										</Select>
+												</Select.Value>
+											</Select.Trigger>
+											<Select.Content width="trigger">
+												<Select.Item value="apple">Apple</Select.Item>
+												<Select.Item value="peach">Peach</Select.Item>
+											</Select.Content>
+										</Select.Root>
 									`}
 								/>
-							</CodeBlockBody>
-						</CodeBlock>
+							</CodeBlock.Body>
+						</CodeBlock.Root>
 					</div>
 				</section>
 			</section>
@@ -416,12 +389,12 @@ export default function Page() {
 							id="api-select-trigger"
 							className="text-xl font-medium text-strong"
 						>
-							SelectTrigger
+							Select.Trigger
 						</h3>
 
 						<p className="font-body text-body">
 							The button that toggles the <InlineCode>Select</InlineCode>. The{" "}
-							<InlineCode>SelectContent</InlineCode> will position itself
+							<InlineCode>Select.Content</InlineCode> will position itself
 							adjacent to the trigger.
 						</p>
 
@@ -486,7 +459,7 @@ export default function Page() {
 
 				<section className="space-y-1">
 					<h3 id="api-select-value" className="text-xl font-medium text-strong">
-						SelectValue
+						Select.Value
 					</h3>
 
 					<p className="font-body text-body">
@@ -517,13 +490,13 @@ export default function Page() {
 							id="api-select-content"
 							className="text-xl font-medium text-strong"
 						>
-							SelectContent
+							Select.Content
 						</h3>
 
 						<p className="font-body text-body">
 							The component that pops out when the{" "}
 							<InlineCode>Select</InlineCode> is open as a portal adjacent to
-							the <InlineCode>SelectTrigger</InlineCode> button. It contains a
+							the <InlineCode>Select.Trigger</InlineCode> button. It contains a
 							scrolling viewport of the select items.
 						</p>
 
@@ -573,13 +546,13 @@ export default function Page() {
 
 				<section className="space-y-1">
 					<h3 id="api-select-group" className="text-xl font-medium text-strong">
-						SelectGroup
+						Select.Group
 					</h3>
 
 					<p className="font-body text-body">
 						A group of related options within a select menu. Similar to an html{" "}
 						<InlineCode>optgroup</InlineCode> element. Use in conjunction with{" "}
-						<InlineCode>SelectLabel</InlineCode> to ensure good accessibility
+						<InlineCode>Select.Label</InlineCode> to ensure good accessibility
 						via automatic labelling.
 					</p>
 
@@ -601,7 +574,7 @@ export default function Page() {
 						id="api-select-separator"
 						className="text-xl font-medium text-strong"
 					>
-						SelectSeparator
+						Select.Separator
 					</h3>
 
 					<p className="font-body text-body">
@@ -612,7 +585,7 @@ export default function Page() {
 
 				<section className="space-y-1">
 					<h3 id="api-select-item" className="text-xl font-medium text-strong">
-						SelectItem
+						Select.Item
 					</h3>
 
 					<p className="font-body text-body">
@@ -639,13 +612,13 @@ export default function Page() {
 
 				<section className="space-y-1">
 					<h3 id="api-select-label" className="text-xl font-medium text-strong">
-						SelectLabel
+						Select.Label
 					</h3>
 
 					<p className="font-body text-body">
 						Used to render the label of a group. It won't be focusable using
 						arrow keys. Use in conjunction with{" "}
-						<InlineCode>SelectGroup</InlineCode> to ensure good accessibility
+						<InlineCode>Select.Group</InlineCode> to ensure good accessibility
 						via automatic labelling of a group.
 					</p>
 

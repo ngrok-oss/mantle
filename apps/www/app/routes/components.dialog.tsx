@@ -1,27 +1,22 @@
 import { Button, IconButton } from "@ngrok/mantle/button";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
-import {
-	Dialog,
-	DialogBody,
-	DialogClose,
-	DialogCloseIconButton,
-	DialogContent,
-	DialogFooter,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger,
-} from "@ngrok/mantle/dialog";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
+import { Dialog } from "@ngrok/mantle/dialog";
 import { InlineCode } from "@ngrok/mantle/inline-code";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@ngrok/mantle/tooltip";
+import { Tooltip } from "@ngrok/mantle/tooltip";
 import { TrashSimpleIcon } from "@phosphor-icons/react/TrashSimple";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
+import {
+	BooleanPropType,
+	PropDefaultValueCell,
+	PropDescriptionCell,
+	PropNameCell,
+	PropRow,
+	PropTypeCell,
+	PropsTable,
+	ReactNodePropType,
+	StringPropType,
+} from "~/components/props-table";
 import type { Route } from "./+types/components.dialog";
 
 export const meta: Route.MetaFunction = () => {
@@ -51,30 +46,30 @@ export default function Page() {
 				</p>
 				<div>
 					<Example className="flex-col gap-6">
-						<Dialog>
-							<DialogTrigger asChild>
+						<Dialog.Root>
+							<Dialog.Trigger asChild>
 								<Button type="button" appearance="filled">
 									Open dialog
 								</Button>
-							</DialogTrigger>
-							<DialogContent>
-								<DialogHeader>
-									<DialogTitle>
+							</Dialog.Trigger>
+							<Dialog.Content>
+								<Dialog.Header>
+									<Dialog.Title>
 										Are you absolutely sure? aslkdfjas dlfksdoijfoasdjf ioadsjfi
-									</DialogTitle>
-									<DialogCloseIconButton />
-								</DialogHeader>
-								<DialogBody>
+									</Dialog.Title>
+									<Dialog.CloseIconButton />
+								</Dialog.Header>
+								<Dialog.Body>
 									This action cannot be undone. This will permanently delete
 									your account and remove your data from our servers.
-								</DialogBody>
-								<DialogFooter>
-									<DialogClose asChild>
+								</Dialog.Body>
+								<Dialog.Footer>
+									<Dialog.Close asChild>
 										<Button type="button" priority="danger" appearance="filled">
 											Delete
 										</Button>
-									</DialogClose>
-									<DialogClose asChild>
+									</Dialog.Close>
+									<Dialog.Close asChild>
 										<Button
 											type="button"
 											priority="neutral"
@@ -82,33 +77,33 @@ export default function Page() {
 										>
 											Cancel
 										</Button>
-									</DialogClose>
-								</DialogFooter>
-							</DialogContent>
-						</Dialog>
-						<Dialog>
-							<DialogTrigger asChild>
+									</Dialog.Close>
+								</Dialog.Footer>
+							</Dialog.Content>
+						</Dialog.Root>
+						<Dialog.Root>
+							<Dialog.Trigger asChild>
 								<Button type="button" appearance="filled">
 									Open dialog (no close button)
 								</Button>
-							</DialogTrigger>
-							<DialogContent>
-								<DialogHeader>
-									<DialogTitle>
+							</Dialog.Trigger>
+							<Dialog.Content>
+								<Dialog.Header>
+									<Dialog.Title>
 										Are you absolutely sure? aslkdfjas dlfksdoijfoasdjf ioadsjfi
-									</DialogTitle>
-								</DialogHeader>
-								<DialogBody>
+									</Dialog.Title>
+								</Dialog.Header>
+								<Dialog.Body>
 									This action cannot be undone. This will permanently delete
 									your account and remove your data from our servers.
-								</DialogBody>
-								<DialogFooter>
-									<DialogClose asChild>
+								</Dialog.Body>
+								<Dialog.Footer>
+									<Dialog.Close asChild>
 										<Button type="button" priority="danger" appearance="filled">
 											Delete
 										</Button>
-									</DialogClose>
-									<DialogClose asChild>
+									</Dialog.Close>
+									<Dialog.Close asChild>
 										<Button
 											type="button"
 											priority="neutral"
@@ -116,22 +111,22 @@ export default function Page() {
 										>
 											Cancel
 										</Button>
-									</DialogClose>
-								</DialogFooter>
-							</DialogContent>
-						</Dialog>
-						<Dialog>
-							<DialogTrigger asChild>
+									</Dialog.Close>
+								</Dialog.Footer>
+							</Dialog.Content>
+						</Dialog.Root>
+						<Dialog.Root>
+							<Dialog.Trigger asChild>
 								<Button type="button" appearance="filled">
 									Open dialog (tall boi)
 								</Button>
-							</DialogTrigger>
-							<DialogContent>
-								<DialogHeader>
-									<DialogTitle>Tall boi example</DialogTitle>
-									<DialogCloseIconButton />
-								</DialogHeader>
-								<DialogBody className="flex flex-col gap-4">
+							</Dialog.Trigger>
+							<Dialog.Content>
+								<Dialog.Header>
+									<Dialog.Title>Tall boi example</Dialog.Title>
+									<Dialog.CloseIconButton />
+								</Dialog.Header>
+								<Dialog.Body className="flex flex-col gap-4">
 									<p>
 										Consequat velit minim labore esse aliqua laboris non laborum
 										qui labore duis reprehenderit.
@@ -180,14 +175,14 @@ export default function Page() {
 									</p>
 									<p>Exercitation officia sunt sit sint.</p>
 									<p>Velit eu deserunt proident Lorem sit proident ut minim.</p>
-								</DialogBody>
-								<DialogFooter>
-									<DialogClose asChild>
+								</Dialog.Body>
+								<Dialog.Footer>
+									<Dialog.Close asChild>
 										<Button type="button" priority="danger" appearance="filled">
 											Delete
 										</Button>
-									</DialogClose>
-									<DialogClose asChild>
+									</Dialog.Close>
+									<Dialog.Close asChild>
 										<Button
 											type="button"
 											priority="neutral"
@@ -195,45 +190,45 @@ export default function Page() {
 										>
 											Cancel
 										</Button>
-									</DialogClose>
-								</DialogFooter>
-							</DialogContent>
-						</Dialog>
+									</Dialog.Close>
+								</Dialog.Footer>
+							</Dialog.Content>
+						</Dialog.Root>
 					</Example>
-					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
-							import { Dialog, DialogBody, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@ngrok/mantle/dialog";
+							import { Dialog } from "@ngrok/mantle/dialog";
 
-							<Dialog>
-								<DialogTrigger asChild>
+							<Dialog.Root>
+								<Dialog.Trigger asChild>
 									<Button type="button">Open dialog</Button>
-								</DialogTrigger>
-								<DialogContent>
-									<DialogHeader>
-										<DialogTitle>Are you absolutely sure?</DialogTitle>
-									</DialogHeader>
-									<DialogBody>
+								</Dialog.Trigger>
+								<Dialog.Content>
+									<Dialog.Header>
+										<Dialog.Title>Are you absolutely sure?</Dialog.Title>
+									</Dialog.Header>
+									<Dialog.Body>
 										This action cannot be undone. This will permanently delete your account and remove your data from our
 										servers.
-									</DialogBody>
-									<DialogFooter>
+									</Dialog.Body>
+									<Dialog.Footer>
 										<Button type="button">
 											Delete
 										</Button>
 										<Button type="button">
 											Cancel
 										</Button>
-									</DialogFooter>
-								</DialogContent>
-							</Dialog>
+									</Dialog.Footer>
+								</Dialog.Content>
+							</Dialog.Root>
 						`}
 							/>
-						</CodeBlockBody>
-					</CodeBlock>
+						</CodeBlock.Body>
+					</CodeBlock.Root>
 				</div>
 			</section>
 
@@ -250,39 +245,39 @@ export default function Page() {
 				</p>
 				<div>
 					<Example>
-						<Dialog>
-							<Tooltip>
-								<TooltipTrigger asChild>
-									<DialogTrigger asChild>
+						<Dialog.Root>
+							<Tooltip.Root>
+								<Tooltip.Trigger asChild>
+									<Dialog.Trigger asChild>
 										<IconButton
 											type="button"
 											label="Delete"
 											size="sm"
 											icon={<TrashSimpleIcon />}
 										/>
-									</DialogTrigger>
-								</TooltipTrigger>
-								<TooltipContent>
+									</Dialog.Trigger>
+								</Tooltip.Trigger>
+								<Tooltip.Content>
 									<p>Delete</p>
-								</TooltipContent>
-							</Tooltip>
+								</Tooltip.Content>
+							</Tooltip.Root>
 
-							<DialogContent>
-								<DialogHeader>
-									<DialogTitle>Are you absolutely sure?</DialogTitle>
-									<DialogCloseIconButton />
-								</DialogHeader>
-								<DialogBody>
+							<Dialog.Content>
+								<Dialog.Header>
+									<Dialog.Title>Are you absolutely sure?</Dialog.Title>
+									<Dialog.CloseIconButton />
+								</Dialog.Header>
+								<Dialog.Body>
 									This action cannot be undone. This will permanently delete
 									your account and remove your data from our servers.
-								</DialogBody>
-								<DialogFooter>
-									<DialogClose asChild>
+								</Dialog.Body>
+								<Dialog.Footer>
+									<Dialog.Close asChild>
 										<Button type="button" priority="danger" appearance="filled">
 											Delete
 										</Button>
-									</DialogClose>
-									<DialogClose asChild>
+									</Dialog.Close>
+									<Dialog.Close asChild>
 										<Button
 											type="button"
 											priority="neutral"
@@ -290,56 +285,408 @@ export default function Page() {
 										>
 											Cancel
 										</Button>
-									</DialogClose>
-								</DialogFooter>
-							</DialogContent>
-						</Dialog>
+									</Dialog.Close>
+								</Dialog.Footer>
+							</Dialog.Content>
+						</Dialog.Root>
 					</Example>
-					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
-									<Dialog>
-										<Tooltip>
-											<TooltipTrigger asChild>
-												<DialogTrigger asChild>
+									<Dialog.Root>
+										<Tooltip.Root>
+											<Tooltip.Trigger asChild>
+												<Dialog.Trigger asChild>
 													<IconButton type="button" label="Delete" size="sm" icon={<TrashSimpleIcon />} />
-												</DialogTrigger>
-											</TooltipTrigger>
-											<TooltipContent>
+												</Dialog.Trigger>
+											</Tooltip.Trigger>
+											<Tooltip.Content>
 												<p>Delete</p>
-											</TooltipContent>
-										</Tooltip>
+											</Tooltip.Content>
+										</Tooltip.Root>
 
-										<DialogContent>
-											<DialogHeader>
-												<DialogTitle>Are you absolutely sure?</DialogTitle>
-												<DialogCloseIconButton />
-											</DialogHeader>
-											<DialogBody>
+										<Dialog.Content>
+											<Dialog.Header>
+												<Dialog.Title>Are you absolutely sure?</Dialog.Title>
+												<Dialog.CloseIconButton />
+											</Dialog.Header>
+											<Dialog.Body>
 												This action cannot be undone. This will permanently delete your account and remove your data from our
 												servers.
-											</DialogBody>
-											<DialogFooter>
-												<DialogClose asChild>
+											</Dialog.Body>
+											<Dialog.Footer>
+												<Dialog.Close asChild>
 													<Button type="button" priority="danger" appearance="filled">
 														Delete
 													</Button>
-												</DialogClose>
-												<DialogClose asChild>
+												</Dialog.Close>
+												<Dialog.Close asChild>
 													<Button type="button" priority="neutral" appearance="outlined">
 														Cancel
 													</Button>
-												</DialogClose>
-											</DialogFooter>
-										</DialogContent>
-									</Dialog>
+												</Dialog.Close>
+											</Dialog.Footer>
+										</Dialog.Content>
+									</Dialog.Root>
 								`}
 							/>
-						</CodeBlockBody>
-					</CodeBlock>
+						</CodeBlock.Body>
+					</CodeBlock.Root>
+				</div>
+			</section>
+
+			<section className="space-y-4">
+				<h2 id="api" className="text-3xl font-medium">
+					API Reference
+				</h2>
+				<p className="font-body text-body text-xl">
+					The <InlineCode>Dialog</InlineCode> component is built on top of Radix
+					UI Dialog and provides a complete set of sub-components for building
+					modal dialogs.
+				</p>
+
+				<div className="space-y-8">
+					<div>
+						<h3 className="text-xl font-medium mb-4">Dialog.Root</h3>
+						<p className="mb-4 text-muted-foreground">
+							The root stateful component that manages the open/closed state of
+							the dialog.
+						</p>
+						<PropsTable>
+							<PropRow>
+								<PropNameCell name="open" optional />
+								<PropTypeCell>
+									<BooleanPropType />
+								</PropTypeCell>
+								<PropDefaultValueCell />
+								<PropDescriptionCell>
+									<p>
+										The controlled open state of the dialog. Must be used in
+										conjunction with <InlineCode>onOpenChange</InlineCode>.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+							<PropRow>
+								<PropNameCell name="onOpenChange" optional />
+								<PropTypeCell>
+									<InlineCode>(open: boolean) =&gt; void</InlineCode>
+								</PropTypeCell>
+								<PropDefaultValueCell />
+								<PropDescriptionCell>
+									<p>
+										Event handler called when the open state of the dialog
+										changes.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+							<PropRow>
+								<PropNameCell name="defaultOpen" optional />
+								<PropTypeCell>
+									<BooleanPropType />
+								</PropTypeCell>
+								<PropDefaultValueCell>
+									<BooleanPropType value={false} />
+								</PropDefaultValueCell>
+								<PropDescriptionCell>
+									<p>
+										The open state of the dialog when it is initially rendered.
+										Use when you do not need to control its open state.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+							<PropRow>
+								<PropNameCell name="modal" optional />
+								<PropTypeCell>
+									<BooleanPropType />
+								</PropTypeCell>
+								<PropDefaultValueCell>
+									<BooleanPropType value={true} />
+								</PropDefaultValueCell>
+								<PropDescriptionCell>
+									<p>
+										The modality of the dialog. When set to{" "}
+										<InlineCode>true</InlineCode>, interaction with outside
+										elements will be disabled and only dialog content will be
+										visible to screen readers.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+						</PropsTable>
+					</div>
+
+					<div>
+						<h3 className="text-xl font-medium mb-4">Dialog.Trigger</h3>
+						<p className="mb-4 text-muted-foreground">
+							A button that opens the dialog.
+						</p>
+						<PropsTable>
+							<PropRow>
+								<PropNameCell name="asChild" optional />
+								<PropTypeCell>
+									<BooleanPropType />
+								</PropTypeCell>
+								<PropDefaultValueCell>
+									<BooleanPropType value={false} />
+								</PropDefaultValueCell>
+								<PropDescriptionCell>
+									<p>
+										Use the <InlineCode>asChild</InlineCode> prop to compose the
+										trigger functionality onto your own component.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+						</PropsTable>
+					</div>
+
+					<div>
+						<h3 className="text-xl font-medium mb-4">Dialog.Content</h3>
+						<p className="mb-4 text-muted-foreground">
+							The container for the dialog content. Renders on top of the
+							overlay and is centered in the viewport.
+						</p>
+						<PropsTable>
+							<PropRow>
+								<PropNameCell name="preferredWidth" optional />
+								<PropTypeCell>
+									<InlineCode>`max-w-$&#123;string&#125;`</InlineCode>
+								</PropTypeCell>
+								<PropDefaultValueCell>
+									<StringPropType value="max-w-lg" />
+								</PropDefaultValueCell>
+								<PropDescriptionCell>
+									<p>
+										The preferred width of the dialog content as a Tailwind{" "}
+										<InlineCode>max-w-</InlineCode> class. Controls the maximum
+										width of the dialog.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+							<PropRow>
+								<PropNameCell name="onEscapeKeyDown" optional />
+								<PropTypeCell>
+									<InlineCode>(event: KeyboardEvent) =&gt; void</InlineCode>
+								</PropTypeCell>
+								<PropDefaultValueCell />
+								<PropDescriptionCell>
+									<p>
+										Event handler called when the escape key is down. It can be
+										prevented by calling{" "}
+										<InlineCode>event.preventDefault</InlineCode>.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+							<PropRow>
+								<PropNameCell name="onInteractOutside" optional />
+								<PropTypeCell>
+									<InlineCode>(event: Event) =&gt; void</InlineCode>
+								</PropTypeCell>
+								<PropDefaultValueCell />
+								<PropDescriptionCell>
+									<p>
+										Event handler called when the user interacts outside the
+										component. It can be prevented by calling{" "}
+										<InlineCode>event.preventDefault</InlineCode>.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+						</PropsTable>
+					</div>
+
+					<div>
+						<h3 className="text-xl font-medium mb-4">Dialog.Header</h3>
+						<p className="mb-4 text-muted-foreground">
+							Contains the header content of the dialog, including the title and
+							close button.
+						</p>
+						<PropsTable>
+							<PropRow>
+								<PropNameCell name="children" />
+								<PropTypeCell>
+									<ReactNodePropType />
+								</PropTypeCell>
+								<PropDefaultValueCell />
+								<PropDescriptionCell>
+									<p>The content to render inside the dialog header.</p>
+								</PropDescriptionCell>
+							</PropRow>
+						</PropsTable>
+					</div>
+
+					<div>
+						<h3 className="text-xl font-medium mb-4">Dialog.Body</h3>
+						<p className="mb-4 text-muted-foreground">
+							Contains the main content of the dialog.
+						</p>
+						<PropsTable>
+							<PropRow>
+								<PropNameCell name="children" />
+								<PropTypeCell>
+									<ReactNodePropType />
+								</PropTypeCell>
+								<PropDefaultValueCell />
+								<PropDescriptionCell>
+									<p>The content to render inside the dialog body.</p>
+								</PropDescriptionCell>
+							</PropRow>
+						</PropsTable>
+					</div>
+
+					<div>
+						<h3 className="text-xl font-medium mb-4">Dialog.Footer</h3>
+						<p className="mb-4 text-muted-foreground">
+							Contains the footer content of the dialog, including action
+							buttons.
+						</p>
+						<PropsTable>
+							<PropRow>
+								<PropNameCell name="children" />
+								<PropTypeCell>
+									<ReactNodePropType />
+								</PropTypeCell>
+								<PropDefaultValueCell />
+								<PropDescriptionCell>
+									<p>
+										The content to render inside the dialog footer. Typically
+										contains action buttons.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+						</PropsTable>
+					</div>
+
+					<div>
+						<h3 className="text-xl font-medium mb-4">Dialog.Title</h3>
+						<p className="mb-4 text-muted-foreground">
+							An accessible name to be announced when the dialog is opened.
+						</p>
+						<PropsTable>
+							<PropRow>
+								<PropNameCell name="children" />
+								<PropTypeCell>
+									<ReactNodePropType />
+								</PropTypeCell>
+								<PropDefaultValueCell />
+								<PropDescriptionCell>
+									<p>The title text for the dialog.</p>
+								</PropDescriptionCell>
+							</PropRow>
+						</PropsTable>
+					</div>
+
+					<div>
+						<h3 className="text-xl font-medium mb-4">Dialog.Description</h3>
+						<p className="mb-4 text-muted-foreground">
+							An accessible description to be announced when the dialog is
+							opened.
+						</p>
+						<PropsTable>
+							<PropRow>
+								<PropNameCell name="children" />
+								<PropTypeCell>
+									<ReactNodePropType />
+								</PropTypeCell>
+								<PropDefaultValueCell />
+								<PropDescriptionCell>
+									<p>
+										The description text for the dialog. Enhances accessibility
+										by providing additional context.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+						</PropsTable>
+					</div>
+
+					<div>
+						<h3 className="text-xl font-medium mb-4">Dialog.Close</h3>
+						<p className="mb-4 text-muted-foreground">
+							A button that closes the dialog when clicked.
+						</p>
+						<PropsTable>
+							<PropRow>
+								<PropNameCell name="asChild" optional />
+								<PropTypeCell>
+									<BooleanPropType />
+								</PropTypeCell>
+								<PropDefaultValueCell>
+									<BooleanPropType value={false} />
+								</PropDefaultValueCell>
+								<PropDescriptionCell>
+									<p>
+										Use the <InlineCode>asChild</InlineCode> prop to compose the
+										close functionality onto your own component.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+						</PropsTable>
+					</div>
+
+					<div>
+						<h3 className="text-xl font-medium mb-4">Dialog.CloseIconButton</h3>
+						<p className="mb-4 text-muted-foreground">
+							An icon button that closes the dialog when clicked.
+						</p>
+						<PropsTable>
+							<PropRow>
+								<PropNameCell name="size" optional />
+								<PropTypeCell>
+									<ul>
+										<li>
+											<StringPropType value="sm" />
+										</li>
+										<li>
+											<StringPropType value="md" />
+										</li>
+										<li>
+											<StringPropType value="lg" />
+										</li>
+									</ul>
+								</PropTypeCell>
+								<PropDefaultValueCell>
+									<StringPropType value="md" />
+								</PropDefaultValueCell>
+								<PropDescriptionCell>
+									<p>The size of the close icon button.</p>
+								</PropDescriptionCell>
+							</PropRow>
+							<PropRow>
+								<PropNameCell name="label" optional />
+								<PropTypeCell>
+									<StringPropType />
+								</PropTypeCell>
+								<PropDefaultValueCell>
+									<StringPropType value="Close Dialog" />
+								</PropDefaultValueCell>
+								<PropDescriptionCell>
+									<p>
+										The accessible label for the close button. Important for
+										screen readers.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+							<PropRow>
+								<PropNameCell name="appearance" optional />
+								<PropTypeCell>
+									<ul>
+										<li>
+											<StringPropType value="ghost" />
+										</li>
+										<li>
+											<StringPropType value="outlined" />
+										</li>
+									</ul>
+								</PropTypeCell>
+								<PropDefaultValueCell>
+									<StringPropType value="ghost" />
+								</PropDefaultValueCell>
+								<PropDescriptionCell>
+									<p>The visual appearance of the close icon button.</p>
+								</PropDescriptionCell>
+							</PropRow>
+						</PropsTable>
+					</div>
 				</div>
 			</section>
 		</div>

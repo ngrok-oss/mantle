@@ -1,20 +1,7 @@
-import {
-	Alert,
-	AlertContent,
-	AlertDescription,
-	AlertDismissIconButton,
-	AlertIcon,
-	AlertTitle,
-} from "@ngrok/mantle/alert";
+import { Alert } from "@ngrok/mantle/alert";
 import { Anchor } from "@ngrok/mantle/anchor";
-import { Card, CardBody } from "@ngrok/mantle/card";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { Card } from "@ngrok/mantle/card";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { ShrimpIcon } from "@phosphor-icons/react/Shrimp";
 import { Example } from "~/components/example";
@@ -58,106 +45,99 @@ export default function Page() {
 				</p>
 				<div>
 					<Example className="flex-col gap-2">
-						<Alert priority="danger">
-							<AlertIcon />
-							<AlertContent>
-								<AlertTitle>Danger</AlertTitle>
-								<AlertDescription>This is a danger Alert.</AlertDescription>
-							</AlertContent>
-						</Alert>
-						<Alert priority="info">
-							<AlertIcon />
-							<AlertContent>
-								<AlertTitle>Info</AlertTitle>
-								<AlertDismissIconButton />
-								<AlertDescription>This is an info Alert.</AlertDescription>
-							</AlertContent>
-						</Alert>
-						{/* <Alert priority="neutral">
-							<AlertIcon />
-							<AlertContent>
-								<AlertTitle>Neutral</AlertTitle>
-								<AlertDescription>This is a neutral Alert.</AlertDescription>
-							</AlertContent>
-						</Alert> */}
-						<Alert priority="success">
-							<AlertIcon />
-							<AlertContent>
-								<AlertTitle>Success</AlertTitle>
-								<AlertDescription>This is a success Alert.</AlertDescription>
-							</AlertContent>
-						</Alert>
-						<Alert priority="warning">
-							<AlertIcon />
-							<AlertContent>
-								<AlertTitle>Warning</AlertTitle>
-								<AlertDescription>This is a warning Alert.</AlertDescription>
-							</AlertContent>
-						</Alert>
-						<Alert priority="danger">
-							<AlertIcon svg={<ShrimpIcon />} />
-							<AlertContent>
-								<AlertTitle>Danger w/ custom icon</AlertTitle>
-								<AlertDescription>This is a danger Alert.</AlertDescription>
-							</AlertContent>
-						</Alert>
+						<Alert.Root priority="danger">
+							<Alert.Icon />
+							<Alert.Content>
+								<Alert.Title>Danger</Alert.Title>
+								<Alert.Description>This is a danger Alert.</Alert.Description>
+							</Alert.Content>
+						</Alert.Root>
+						<Alert.Root priority="info">
+							<Alert.Icon />
+							<Alert.Content>
+								<Alert.Title>Info</Alert.Title>
+								<Alert.DismissIconButton />
+								<Alert.Description>This is an info Alert.</Alert.Description>
+							</Alert.Content>
+						</Alert.Root>
+						{/* <Alert.Root priority="neutral">
+							<Alert.Icon />
+							<Alert.Content>
+								<Alert.Title>Neutral</Alert.Title>
+								<Alert.Description>This is a neutral Alert.</Alert.Description>
+							</Alert.Content>
+						</Alert.Root> */}
+						<Alert.Root priority="success">
+							<Alert.Icon />
+							<Alert.Content>
+								<Alert.Title>Success</Alert.Title>
+								<Alert.Description>This is a success Alert.</Alert.Description>
+							</Alert.Content>
+						</Alert.Root>
+						<Alert.Root priority="warning">
+							<Alert.Icon />
+							<Alert.Content>
+								<Alert.Title>Warning</Alert.Title>
+								<Alert.Description>This is a warning Alert.</Alert.Description>
+							</Alert.Content>
+						</Alert.Root>
+						<Alert.Root priority="danger">
+							<Alert.Icon svg={<ShrimpIcon />} />
+							<Alert.Content>
+								<Alert.Title>Danger w/ custom icon</Alert.Title>
+								<Alert.Description>This is a danger Alert.</Alert.Description>
+							</Alert.Content>
+						</Alert.Root>
 					</Example>
-					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
-									import {
-										Alert,
-										AlertContent,
-										AlertDescription,
-										AlertTitle,
-										AlertIcon,
-										AlertDismissIconButton,
-									} from "@ngrok/mantle/alert";
+									import { Alert } from "@ngrok/mantle/alert";
 									import { ShrimpIcon } from "@phosphor-icons/react/Shrimp";
 
-									<Alert priority="danger">
-										<AlertIcon />
-										<AlertContent>
-											<AlertTitle>Danger</AlertTitle>
-											<AlertDescription>This is a danger Alert.</AlertDescription>
-										</AlertContent>
-									</Alert>
-									<Alert priority="info">
-										<AlertIcon />
-										<AlertContent>
-											<AlertTitle>Info</AlertTitle>
-											<AlertDismissIconButton />
-											<AlertDescription>This is an info Alert.</AlertDescription>
-										</AlertContent>
-									</Alert>
-									<Alert priority="success">
-										<AlertIcon />
-										<AlertContent>
-											<AlertTitle>Success</AlertTitle>
-											<AlertDescription>This is a success Alert.</AlertDescription>
-										</AlertContent>
-									</Alert>
-									<Alert priority="warning">
-										<AlertIcon />
-										<AlertContent>
-											<AlertTitle>Warning</AlertTitle>
-											<AlertDescription>This is a warning Alert.</AlertDescription>
-										</AlertContent>
-									</Alert>
-									<Alert priority="danger">
-										<AlertIcon svg={<ShrimpIcon />} />
-										<AlertContent>
-											<AlertTitle>Danger w/ custom icon</AlertTitle>
-											<AlertDescription>This is a danger Alert.</AlertDescription>
-										</AlertContent>
-									</Alert>
+									<Alert.Root priority="danger">
+										<Alert.Icon />
+										<Alert.Content>
+											<Alert.Title>Danger</Alert.Title>
+											<Alert.Description>This is a danger Alert.</Alert.Description>
+										</Alert.Content>
+									</Alert.Root>
+									<Alert.Root priority="info">
+										<Alert.Icon />
+										<Alert.Content>
+											<Alert.Title>Info</Alert.Title>
+											<Alert.DismissIconButton />
+											<Alert.Description>This is an info Alert.</Alert.Description>
+										</Alert.Content>
+									</Alert.Root>
+									<Alert.Root priority="success">
+										<Alert.Icon />
+										<Alert.Content>
+											<Alert.Title>Success</Alert.Title>
+											<Alert.Description>This is a success Alert.</Alert.Description>
+										</Alert.Content>
+									</Alert.Root>
+									<Alert.Root priority="warning">
+										<Alert.Icon />
+										<Alert.Content>
+											<Alert.Title>Warning</Alert.Title>
+											<Alert.Description>This is a warning Alert.</Alert.Description>
+										</Alert.Content>
+									</Alert.Root>
+									<Alert.Root priority="danger">
+										<Alert.Icon svg={<ShrimpIcon />} />
+										<Alert.Content>
+											<Alert.Title>Danger w/ custom icon</Alert.Title>
+											<Alert.Description>This is a danger Alert.</Alert.Description>
+										</Alert.Content>
+									</Alert.Root>
 								`}
 							/>
-						</CodeBlockBody>
-					</CodeBlock>
+						</CodeBlock.Body>
+					</CodeBlock.Root>
 				</div>
 			</section>
 
@@ -189,43 +169,43 @@ export default function Page() {
 									Danger <InlineCode>Alert</InlineCode> with icon and{" "}
 									<InlineCode>AlertDismissIconButton</InlineCode>
 								</p>
-								<Alert priority="danger">
-									<AlertIcon />
-									<AlertContent>
-										<AlertTitle>Danger Will Robinson</AlertTitle>
-										<AlertDismissIconButton />
-										<AlertDescription>
+								<Alert.Root priority="danger">
+									<Alert.Icon />
+									<Alert.Content>
+										<Alert.Title>Danger Will Robinson</Alert.Title>
+										<Alert.DismissIconButton />
+										<Alert.Description>
 											Cupidatat ullamco commodo laborum consectetur ut mollit et
 											nostrud amet elit ut Lorem culpa.
-										</AlertDescription>
-									</AlertContent>
-								</Alert>
+										</Alert.Description>
+									</Alert.Content>
+								</Alert.Root>
 							</div>
 							<div className="w-full max-w-screen-sm space-y-2">
 								<p>
 									Danger <InlineCode>Alert</InlineCode> without icon
 								</p>
-								<Alert priority="danger">
-									<AlertContent>
-										<AlertTitle>Danger Will Robinson</AlertTitle>
-										<AlertDescription>
+								<Alert.Root priority="danger">
+									<Alert.Content>
+										<Alert.Title>Danger Will Robinson</Alert.Title>
+										<Alert.Description>
 											Cupidatat ullamco commodo laborum consectetur ut mollit et
 											nostrud amet elit ut Lorem culpa.
-										</AlertDescription>
-									</AlertContent>
-								</Alert>
+										</Alert.Description>
+									</Alert.Content>
+								</Alert.Root>
 							</div>
 							<div className="w-full max-w-screen-sm space-y-2">
 								<p>
 									Danger <InlineCode>Alert</InlineCode> with icon and no
 									description
 								</p>
-								<Alert priority="danger">
-									<AlertIcon />
-									<AlertContent>
-										<AlertTitle>Danger Will Robinson</AlertTitle>
-									</AlertContent>
-								</Alert>
+								<Alert.Root priority="danger">
+									<Alert.Icon />
+									<Alert.Content>
+										<Alert.Title>Danger Will Robinson</Alert.Title>
+									</Alert.Content>
+								</Alert.Root>
 							</div>
 							<div className="w-full max-w-screen-sm space-y-2">
 								<p>
@@ -233,65 +213,59 @@ export default function Page() {
 									description, but including{" "}
 									<InlineCode>AlertDismissIconButton</InlineCode>.
 								</p>
-								<Alert priority="danger">
-									<AlertContent>
-										<AlertTitle>Danger Will Robinson</AlertTitle>
-										<AlertDismissIconButton />
-									</AlertContent>
-								</Alert>
+								<Alert.Root priority="danger">
+									<Alert.Content>
+										<Alert.Title>Danger Will Robinson</Alert.Title>
+										<Alert.DismissIconButton />
+									</Alert.Content>
+								</Alert.Root>
 							</div>
 						</Example>
-						<CodeBlock className="rounded-b-lg rounded-t-none">
-							<CodeBlockBody>
-								<CodeBlockCopyButton />
-								<CodeBlockCode
+						<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+							<CodeBlock.Body>
+								<CodeBlock.CopyButton />
+								<CodeBlock.Code
 									language="tsx"
 									value={fmtCode`
-									import {
-										Alert,
-										AlertContent,
-										AlertDescription,
-										AlertTitle,
-										AlertIcon,
-									} from "@ngrok/mantle/alert";
+									import { Alert } from "@ngrok/mantle/alert";
 
 									// Danger Alert with icon and Dismiss Icon Button
-									<Alert priority="danger">
-										<AlertIcon />
-										<AlertContent>
-											<AlertTitle>Danger Will Robinson</AlertTitle>
-											<AlertDismissIconButton />
-											<AlertDescription>This is a danger alert.</AlertDescription>
-										</AlertContent>
-									</Alert>
+									<Alert.Root priority="danger">
+										<Alert.Icon />
+										<Alert.Content>
+											<Alert.Title>Danger Will Robinson</Alert.Title>
+											<Alert.DismissIconButton />
+											<Alert.Description>This is a danger alert.</Alert.Description>
+										</Alert.Content>
+									</Alert.Root>
 
 									// Danger Alert without icon
-									<Alert priority="danger">
-										<AlertContent>
-											<AlertTitle>Danger Will Robinson</AlertTitle>
-											<AlertDescription>This is a danger alert.</AlertDescription>
-										</AlertContent>
-									</Alert>
+									<Alert.Root priority="danger">
+										<Alert.Content>
+											<Alert.Title>Danger Will Robinson</Alert.Title>
+											<Alert.Description>This is a danger alert.</Alert.Description>
+										</Alert.Content>
+									</Alert.Root>
 
 									// Danger Alert with icon and no description
-									<Alert priority="danger">
-										<AlertIcon />
-										<AlertContent>
-											<AlertTitle>Danger Will Robinson</AlertTitle>
-										</AlertContent>
-									</Alert>
+									<Alert.Root priority="danger">
+										<Alert.Icon />
+										<Alert.Content>
+											<Alert.Title>Danger Will Robinson</Alert.Title>
+										</Alert.Content>
+									</Alert.Root>
 
 									// Danger Alert without icon or description, but including a Dismiss Icon Button
-									<Alert priority="danger">
-										<AlertContent>
-											<AlertTitle>Danger Will Robinson</AlertTitle>
-											<AlertDismissIconButton />
-										</AlertContent>
-									</Alert>
+									<Alert.Root priority="danger">
+										<Alert.Content>
+											<Alert.Title>Danger Will Robinson</Alert.Title>
+											<Alert.DismissIconButton />
+										</Alert.Content>
+									</Alert.Root>
 								`}
 								/>
-							</CodeBlockBody>
-						</CodeBlock>
+							</CodeBlock.Body>
+						</CodeBlock.Root>
 					</div>
 				</section>
 
@@ -312,49 +286,43 @@ export default function Page() {
 					<div>
 						<Example>
 							<div className="border-card min-h-56 space-y-4 border">
-								<Alert priority="info" className="rounded-none">
-									<AlertIcon />
-									<AlertContent>
-										<AlertTitle>
+								<Alert.Root priority="info" className="rounded-none">
+									<Alert.Icon />
+									<Alert.Content>
+										<Alert.Title>
 											This is an info Alert as a page banner
-										</AlertTitle>
-									</AlertContent>
-								</Alert>
+										</Alert.Title>
+									</Alert.Content>
+								</Alert.Root>
 								<div className="px-4">
-									<Card className="mx-auto max-w-screen-sm">
-										<CardBody>
+									<Card.Root className="mx-auto max-w-screen-sm">
+										<Card.Body>
 											<p className="my-4">
 												Laboris commodo Lorem anim consequat ut dolore proident.
 											</p>
-										</CardBody>
-									</Card>
+										</Card.Body>
+									</Card.Root>
 								</div>
 							</div>
 						</Example>
-						<CodeBlock className="rounded-b-lg rounded-t-none">
-							<CodeBlockBody>
-								<CodeBlockCopyButton />
-								<CodeBlockCode
+						<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+							<CodeBlock.Body>
+								<CodeBlock.CopyButton />
+								<CodeBlock.Code
 									language="tsx"
 									value={fmtCode`
-									import {
-										Alert,
-										AlertContent,
-										AlertDescription,
-										AlertTitle,
-										AlertIcon,
-									} from "@ngrok/mantle/alert";
+									import { Alert } from "@ngrok/mantle/alert";
 
-									<Alert priority="info" className="rounded-none">
-										<AlertIcon />
-										<AlertContent>
-											<AlertTitle>This is an info Alert as a page banner</AlertTitle>
-										</AlertContent>
-									</Alert>
+									<Alert.Root priority="info" className="rounded-none">
+										<Alert.Icon />
+										<Alert.Content>
+											<Alert.Title>This is an info Alert as a page banner</Alert.Title>
+										</Alert.Content>
+									</Alert.Root>
 								`}
 								/>
-							</CodeBlockBody>
-						</CodeBlock>
+							</CodeBlock.Body>
+						</CodeBlock.Root>
 					</div>
 					<p className="font-body text-body text-xl">
 						Depending on the context, you may want or need to remove all borders
@@ -365,53 +333,47 @@ export default function Page() {
 					<div>
 						<Example>
 							<div className="border-card min-h-56 space-y-4 border">
-								<Alert
+								<Alert.Root
 									priority="info"
 									className="rounded-none border-x-0 border-t-0"
 								>
-									<AlertIcon />
-									<AlertContent>
-										<AlertTitle>
+									<Alert.Icon />
+									<Alert.Content>
+										<Alert.Title>
 											This is an info Alert as a page banner with only a bottom
 											border
-										</AlertTitle>
-									</AlertContent>
-								</Alert>
+										</Alert.Title>
+									</Alert.Content>
+								</Alert.Root>
 								<div className="px-4">
-									<Card className="mx-auto max-w-screen-sm">
-										<CardBody>
+									<Card.Root className="mx-auto max-w-screen-sm">
+										<Card.Body>
 											<p className="my-4">
 												Laboris commodo Lorem anim consequat ut dolore proident.
 											</p>
-										</CardBody>
-									</Card>
+										</Card.Body>
+									</Card.Root>
 								</div>
 							</div>
 						</Example>
-						<CodeBlock className="rounded-b-lg rounded-t-none">
-							<CodeBlockBody>
-								<CodeBlockCopyButton />
-								<CodeBlockCode
+						<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+							<CodeBlock.Body>
+								<CodeBlock.CopyButton />
+								<CodeBlock.Code
 									language="tsx"
 									value={fmtCode`
-									import {
-										Alert,
-										AlertContent,
-										AlertDescription,
-										AlertTitle,
-										AlertIcon,
-									} from "@ngrok/mantle/alert";
+									import { Alert } from "@ngrok/mantle/alert";
 
-									<Alert priority="info" className="rounded-none border-x-0 border-t-0">
-										<AlertIcon />
-										<AlertContent>
-											<AlertTitle>This is an info Alert as a page banner</AlertTitle>
-										</AlertContent>
-									</Alert>
+									<Alert.Root priority="info" className="rounded-none border-x-0 border-t-0">
+										<Alert.Icon />
+										<Alert.Content>
+											<Alert.Title>This is an info Alert as a page banner</Alert.Title>
+										</Alert.Content>
+									</Alert.Root>
 								`}
 								/>
-							</CodeBlockBody>
-						</CodeBlock>
+							</CodeBlock.Body>
+						</CodeBlock.Root>
 					</div>
 				</section>
 			</section>
@@ -430,6 +392,7 @@ export default function Page() {
 				<section className="space-y-4">
 					<header className="space-y-1">
 						<h3 id="api-alert" className="text-xl font-medium text-strong">
+							<span id="api-alert-root" />
 							Alert
 						</h3>
 
@@ -639,6 +602,53 @@ export default function Page() {
 									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
 									<InlineCode>AlertTitle</InlineCode> styling and functionality
 									onto alternative element types or your own React components.
+								</p>
+							</PropDescriptionCell>
+						</PropRow>
+					</PropsTable>
+				</section>
+
+				<section className="space-y-4">
+					<header className="space-y-1">
+						<h3
+							id="api-alert-dismiss-icon-button"
+							className="text-xl font-medium text-strong"
+						>
+							Alert.DismissIconButton
+						</h3>
+
+						<p className="font-body text-body">
+							A dismiss icon button that closes the alert when clicked.
+						</p>
+
+						<p>
+							All props from{" "}
+							<Anchor
+								href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								button
+							</Anchor>
+							, plus:
+						</p>
+					</header>
+
+					<PropsTable>
+						<PropRow>
+							<PropNameCell name="asChild" optional />
+							<PropTypeCell>
+								<BooleanPropType />
+							</PropTypeCell>
+							<PropDefaultValueCell>
+								<BooleanPropType value={false} />
+							</PropDefaultValueCell>
+							<PropDescriptionCell>
+								<p>
+									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
+									<InlineCode>Alert.DismissIconButton</InlineCode> styling and
+									functionality onto alternative element types or your own React
+									components.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>

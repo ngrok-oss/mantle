@@ -1,23 +1,7 @@
 import { Anchor } from "@ngrok/mantle/anchor";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
-import {
-	Table,
-	TableBody,
-	TableCaption,
-	TableCell,
-	TableFoot,
-	TableHead,
-	TableHeader,
-	TableRoot,
-	TableRow,
-} from "@ngrok/mantle/table";
+import { Table } from "@ngrok/mantle/table";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/components.table";
@@ -51,57 +35,47 @@ export default function Page() {
 					<Example className="gap-2">
 						<ExampleTable />
 					</Example>
-					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
-									import {
-										Table,
-										TableBody,
-										TableCaption,
-										TableCell,
-										TableFoot,
-										TableHead,
-										TableHeader,
-										TableRoot,
-										TableRow,
-									} from "@ngrok/mantle/table";
+									import { Table } from "@ngrok/mantle/table";
 
-									<TableRoot>
-										<Table>
-											<TableCaption>A list of your recent invoices.</TableCaption>
-											<TableHead>
-												<TableRow>
-													<TableHeader className="w-[100px]">Invoice</TableHeader>
-													<TableHeader>Status</TableHeader>
-													<TableHeader>Method</TableHeader>
-													<TableHeader className="text-right">Amount</TableHeader>
-												</TableRow>
-											</TableHead>
-											<TableBody>
+									<Table.Root>
+										<Table.Element>
+											<Table.Caption>A list of your recent invoices.</Table.Caption>
+											<Table.Head>
+												<Table.Row>
+													<Table.Header className="w-[100px]">Invoice</Table.Header>
+													<Table.Header>Status</Table.Header>
+													<Table.Header>Method</Table.Header>
+													<Table.Header className="text-right">Amount</Table.Header>
+												</Table.Row>
+											</Table.Head>
+											<Table.Body>
 												{invoices.map((invoice) => (
-													<TableRow key={invoice.invoice}>
-														<TableCell className="font-medium">{invoice.invoice}</TableCell>
-														<TableCell>{invoice.paymentStatus}</TableCell>
-														<TableCell>{invoice.paymentMethod}</TableCell>
-														<TableCell className="text-right">{invoice.totalAmount}</TableCell>
-													</TableRow>
+													<Table.Row key={invoice.invoice}>
+														<Table.Cell className="font-medium">{invoice.invoice}</Table.Cell>
+														<Table.Cell>{invoice.paymentStatus}</Table.Cell>
+														<Table.Cell>{invoice.paymentMethod}</Table.Cell>
+														<Table.Cell className="text-right">{invoice.totalAmount}</Table.Cell>
+													</Table.Row>
 												))}
-											</TableBody>
-											<TableFoot>
-												<TableRow>
-													<TableCell colSpan={3}>Total</TableCell>
-													<TableCell className="text-right">$2,500.00</TableCell>
-												</TableRow>
-											</TableFoot>
-										</Table>
-									</TableRoot>
+											</Table.Body>
+											<Table.Foot>
+												<Table.Row>
+													<Table.Cell colSpan={3}>Total</Table.Cell>
+													<Table.Cell className="text-right">$2,500.00</Table.Cell>
+												</Table.Row>
+											</Table.Foot>
+										</Table.Element>
+									</Table.Root>
 								`}
 							/>
-						</CodeBlockBody>
-					</CodeBlock>
+						</CodeBlock.Body>
+					</CodeBlock.Root>
 				</div>
 			</section>
 
@@ -121,7 +95,7 @@ export default function Page() {
 				<section className="space-y-4">
 					<header className="space-y-1">
 						<h3 id="api-table-root" className="text-xl font-medium text-strong">
-							TableRoot
+							Table.Root
 						</h3>
 
 						<div className="space-y-1 font-body text-body">
@@ -151,8 +125,12 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 id="api-table" className="text-xl font-medium text-strong">
-							Table
+						<h3
+							id="api-table-element"
+							className="text-xl font-medium text-strong"
+						>
+							<span id="api-table" />
+							Table.Element
 						</h3>
 
 						<div className="space-y-1 font-body text-body">
@@ -164,27 +142,27 @@ export default function Page() {
 							<p>Permitted content in this order:</p>
 							<ol className="list-decimal ml-8 space-y-1">
 								<li>
-									optional: <InlineCode>TableCaption</InlineCode>
+									optional: <InlineCode>Table.Caption</InlineCode>
 								</li>
 								<li>
 									0 or more: <InlineCode>colgroup</InlineCode> elements
 								</li>
 								<li>
-									optional: <InlineCode>TableHead</InlineCode>
+									optional: <InlineCode>Table.Head</InlineCode>
 								</li>
 								<li>
 									either one of the following:
 									<ul className="list-disc ml-8 space-y-1">
 										<li>
-											0 or more: <InlineCode>TableBody</InlineCode>
+											0 or more: <InlineCode>Table.Body</InlineCode>
 										</li>
 										<li>
-											0 or more: <InlineCode>TableRow</InlineCode>
+											0 or more: <InlineCode>Table.Row</InlineCode>
 										</li>
 									</ul>
 								</li>
 								<li>
-									optional: <InlineCode>TableFoot</InlineCode>
+									optional: <InlineCode>Table.Foot</InlineCode>
 								</li>
 							</ol>
 							<p>
@@ -233,32 +211,32 @@ export default function Page() {
 				<section className="space-y-4">
 					<header className="space-y-1">
 						<h3 id="api-table-head" className="text-xl font-medium text-strong">
-							TableHead
+							Table.Head
 						</h3>
 
 						<div className="space-y-1 font-body text-body">
 							<p>
-								The <InlineCode>TableHead</InlineCode> is a container for the
+								The <InlineCode>Table.Head</InlineCode> is a container for the
 								table's column headers. Encapsulates a set of{" "}
-								<InlineCode>TableRow</InlineCode>s, indicating that they
+								<InlineCode>Table.Row</InlineCode>s, indicating that they
 								comprise the head of a table with information about the table's
 								columns. This is usually in the form of column headers (
-								<InlineCode>TableHeader</InlineCode>).
+								<InlineCode>Table.Header</InlineCode>).
 							</p>
 
 							<p>
 								Must be used as a child of a <InlineCode>Table</InlineCode>. It
 								should only come after any
-								<InlineCode>TableCaption</InlineCode> or{" "}
+								<InlineCode>Table.Caption</InlineCode> or{" "}
 								<InlineCode>colgroup</InlineCode> and before any
-								<InlineCode>TableBody</InlineCode> or{" "}
-								<InlineCode>TableFoot</InlineCode>.
+								<InlineCode>Table.Body</InlineCode> or{" "}
+								<InlineCode>Table.Foot</InlineCode>.
 							</p>
 
 							<p>Permitted content:</p>
 							<ol className="list-decimal ml-8 space-y-1">
 								<li>
-									0 or more: <InlineCode>TableRow</InlineCode>
+									0 or more: <InlineCode>Table.Row</InlineCode>
 								</li>
 							</ol>
 							<p>
@@ -278,28 +256,28 @@ export default function Page() {
 				<section className="space-y-4">
 					<header className="space-y-1">
 						<h3 id="api-table-body" className="text-xl font-medium text-strong">
-							TableBody
+							Table.Body
 						</h3>
 
 						<div className="space-y-1 font-body text-body">
 							<p>
-								The <InlineCode>TableBody</InlineCode> encapsulates a set of{" "}
-								<InlineCode>TableRow</InlineCode>s, indicating they they
+								The <InlineCode>Table.Body</InlineCode> encapsulates a set of{" "}
+								<InlineCode>Table.Row</InlineCode>s, indicating they they
 								comprise the body of a table's (main) data.
 							</p>
 
 							<p>
 								Must be used as a child of a <InlineCode>Table</InlineCode> and
 								only come after any
-								<InlineCode>TableCaption</InlineCode>,
+								<InlineCode>Table.Caption</InlineCode>,
 								<InlineCode>colgroup</InlineCode>, or{" "}
-								<InlineCode>TableHead</InlineCode>.
+								<InlineCode>Table.Head</InlineCode>.
 							</p>
 
 							<p>Permitted content:</p>
 							<ol className="list-decimal ml-8 space-y-1">
 								<li>
-									0 or more: <InlineCode>TableRow</InlineCode>
+									0 or more: <InlineCode>Table.Row</InlineCode>
 								</li>
 							</ol>
 							<p>
@@ -319,13 +297,13 @@ export default function Page() {
 				<section className="space-y-4">
 					<header className="space-y-1">
 						<h3 id="api-table-foot" className="text-xl font-medium text-strong">
-							TableFoot
+							Table.Foot
 						</h3>
 
 						<div className="space-y-1 font-body text-body">
 							<p>
-								The <InlineCode>TableFoot</InlineCode> encapsulates a set of{" "}
-								<InlineCode>TableRow</InlineCode>s, indicating that they
+								The <InlineCode>Table.Foot</InlineCode> encapsulates a set of{" "}
+								<InlineCode>Table.Row</InlineCode>s, indicating that they
 								comprise the foot of a table with information about the table's
 								columns. This is usually a summary of the columns, e.g., a sum
 								of the given numbers in a column.
@@ -334,16 +312,16 @@ export default function Page() {
 							<p>
 								Must be used as a child of a <InlineCode>Table</InlineCode> and
 								only come after any
-								<InlineCode>TableCaption</InlineCode>,
+								<InlineCode>Table.Caption</InlineCode>,
 								<InlineCode>colgroup</InlineCode>,
-								<InlineCode>TableHead</InlineCode>, and{" "}
-								<InlineCode>TableBody</InlineCode>.
+								<InlineCode>Table.Head</InlineCode>, and{" "}
+								<InlineCode>Table.Body</InlineCode>.
 							</p>
 
 							<p>Permitted content:</p>
 							<ol className="list-decimal ml-8 space-y-1">
 								<li>
-									0 or more: <InlineCode>TableRow</InlineCode>
+									0 or more: <InlineCode>Table.Row</InlineCode>
 								</li>
 							</ol>
 							<p>
@@ -363,28 +341,28 @@ export default function Page() {
 				<section className="space-y-4">
 					<header className="space-y-1">
 						<h3 id="api-table-row" className="text-xl font-medium text-strong">
-							TableRow
+							Table.Row
 						</h3>
 
 						<div className="space-y-1 font-body text-body">
 							<p>
-								The <InlineCode>TableRow</InlineCode> defines a row of cells in
+								The <InlineCode>Table.Row</InlineCode> defines a row of cells in
 								a table. The row's cells can then be established using a mix of{" "}
-								<InlineCode>TableCell</InlineCode> and{" "}
-								<InlineCode>TableHeader</InlineCode> components.
+								<InlineCode>Table.Cell</InlineCode> and{" "}
+								<InlineCode>Table.Header</InlineCode> components.
 							</p>
 
 							<p>
-								Must be used as a child of a <InlineCode>TableHead</InlineCode>,{" "}
-								<InlineCode>TableBody</InlineCode>, or{" "}
-								<InlineCode>TableFoot</InlineCode>.
+								Must be used as a child of a <InlineCode>Table.Head</InlineCode>
+								, <InlineCode>Table.Body</InlineCode>, or{" "}
+								<InlineCode>Table.Foot</InlineCode>.
 							</p>
 
 							<p>Permitted content:</p>
 							<ol className="list-decimal ml-8 space-y-1">
 								<li>
-									0 or more: <InlineCode>TableHeader</InlineCode> or{" "}
-									<InlineCode>TableCell</InlineCode>
+									0 or more: <InlineCode>Table.Header</InlineCode> or{" "}
+									<InlineCode>Table.Cell</InlineCode>
 								</li>
 							</ol>
 							<p>
@@ -407,19 +385,19 @@ export default function Page() {
 							id="api-table-header"
 							className="text-xl font-medium text-strong"
 						>
-							TableHeader
+							Table.Header
 						</h3>
 
 						<div className="space-y-1 font-body text-body">
 							<p>
-								The <InlineCode>TableHeader</InlineCode> defines a cell as the
+								The <InlineCode>Table.Header</InlineCode> defines a cell as the
 								header of a group of table cells and may be used as a child of a{" "}
-								<InlineCode>TableRow</InlineCode>. The exact nature of this
+								<InlineCode>Table.Row</InlineCode>. The exact nature of this
 								group is defined by the scope and headers attributes.
 							</p>
 
 							<p>
-								Must be used as a child of a <InlineCode>TableRow</InlineCode>.
+								Must be used as a child of a <InlineCode>Table.Row</InlineCode>.
 							</p>
 
 							<p>Permitted content:</p>
@@ -446,18 +424,18 @@ export default function Page() {
 				<section className="space-y-4">
 					<header className="space-y-1">
 						<h3 id="api-table-cell" className="text-xl font-medium text-strong">
-							TableCell
+							Table.Cell
 						</h3>
 
 						<div className="space-y-1 font-body text-body">
 							<p>
-								The <InlineCode>TableCell</InlineCode> defines a cell of a table
-								that contains data and may be used as a child of a{" "}
-								<InlineCode>TableRow</InlineCode>.
+								The <InlineCode>Table.Cell</InlineCode> defines a cell of a
+								table that contains data and may be used as a child of a{" "}
+								<InlineCode>Table.Row</InlineCode>.
 							</p>
 
 							<p>
-								Must be used as a child of a <InlineCode>TableRow</InlineCode>.
+								Must be used as a child of a <InlineCode>Table.Row</InlineCode>.
 							</p>
 
 							<p>Permitted content:</p>
@@ -484,14 +462,14 @@ export default function Page() {
 							id="api-table-caption"
 							className="text-xl font-medium text-strong"
 						>
-							TableCaption
+							Table.Caption
 						</h3>
 
 						<div className="space-y-1 font-body text-body">
 							<p>
-								The optional <InlineCode>TableCaption</InlineCode> specifies the
-								caption (or title) of a table, providing the table an accessible
-								description.
+								The optional <InlineCode>Table.Caption</InlineCode> specifies
+								the caption (or title) of a table, providing the table an
+								accessible description.
 							</p>
 
 							<p>
@@ -568,36 +546,36 @@ const invoices = [
 
 const ExampleTable = () => {
 	return (
-		<TableRoot>
-			<Table>
-				<TableCaption>A list of your recent invoices.</TableCaption>
-				<TableHead>
-					<TableRow>
-						<TableHeader className="w-[100px]">Invoice</TableHeader>
-						<TableHeader>Status</TableHeader>
-						<TableHeader>Method</TableHeader>
-						<TableHeader className="text-right">Amount</TableHeader>
-					</TableRow>
-				</TableHead>
-				<TableBody>
+		<Table.Root>
+			<Table.Element>
+				<Table.Caption>A list of your recent invoices.</Table.Caption>
+				<Table.Head>
+					<Table.Row>
+						<Table.Header className="w-[100px]">Invoice</Table.Header>
+						<Table.Header>Status</Table.Header>
+						<Table.Header>Method</Table.Header>
+						<Table.Header className="text-right">Amount</Table.Header>
+					</Table.Row>
+				</Table.Head>
+				<Table.Body>
 					{invoices.map((invoice) => (
-						<TableRow key={invoice.invoice}>
-							<TableCell className="font-medium">{invoice.invoice}</TableCell>
-							<TableCell>{invoice.paymentStatus}</TableCell>
-							<TableCell>{invoice.paymentMethod}</TableCell>
-							<TableCell className="text-right">
+						<Table.Row key={invoice.invoice}>
+							<Table.Cell className="font-medium">{invoice.invoice}</Table.Cell>
+							<Table.Cell>{invoice.paymentStatus}</Table.Cell>
+							<Table.Cell>{invoice.paymentMethod}</Table.Cell>
+							<Table.Cell className="text-right">
 								{invoice.totalAmount}
-							</TableCell>
-						</TableRow>
+							</Table.Cell>
+						</Table.Row>
 					))}
-				</TableBody>
-				<TableFoot>
-					<TableRow>
-						<TableCell colSpan={3}>Total</TableCell>
-						<TableCell className="text-right">$2,500.00</TableCell>
-					</TableRow>
-				</TableFoot>
-			</Table>
-		</TableRoot>
+				</Table.Body>
+				<Table.Foot>
+					<Table.Row>
+						<Table.Cell colSpan={3}>Total</Table.Cell>
+						<Table.Cell className="text-right">$2,500.00</Table.Cell>
+					</Table.Row>
+				</Table.Foot>
+			</Table.Element>
+		</Table.Root>
 	);
 };

@@ -17,7 +17,7 @@ import * as ToastPrimitive from "sonner";
 import type { WithAsChild } from "../../types/as-child.js";
 import type { WithStyleProps } from "../../types/with-style-props.js";
 import { cx } from "../../utils/cx/cx.js";
-import { Icon } from "../icon/icon.js";
+import { Icon as IconComponent } from "../icon/icon.js";
 import type { SvgOnlyProps } from "../icon/svg-only.js";
 import { useAppliedTheme } from "../theme-provider/theme-provider.js";
 
@@ -97,7 +97,7 @@ type MakeToastOptions = {
 };
 
 /**
- * Create a toast. Provide a `<Toast>` component as the `children` to be rendered
+ * Create a toast. Provide a `<Toast.Root>` component as the `children` to be rendered
  * inside the `<Toaster />` section.
  *
  * @see https://mantle.ngrok.com/components/toast#api-make-toast
@@ -105,11 +105,11 @@ type MakeToastOptions = {
  * @example
  * ```tsx
  * makeToast(
- *   <Toast priority="success">
- *     <ToastIcon />
- *     <ToastMessage>Operation completed successfully!</ToastMessage>
- *     <ToastAction>Dismiss</ToastAction>
- *   </Toast>
+ *   <Toast.Root priority="success">
+ *     <Toast.Icon />
+ *     <Toast.Message>Operation completed successfully!</Toast.Message>
+ *     <Toast.Action>Dismiss</Toast.Action>
+ *   </Toast.Root>
  * );
  * ```
  */
@@ -161,14 +161,14 @@ type ToastProps = ComponentProps<"div"> &
  *
  * @example
  * ```tsx
- * <Toast priority="success">
- *   <ToastIcon />
- *   <ToastMessage>Changes saved successfully!</ToastMessage>
- *   <ToastAction>Undo</ToastAction>
- * </Toast>
+ * <Toast.Root priority="success">
+ *   <Toast.Icon />
+ *   <Toast.Message>Changes saved successfully!</Toast.Message>
+ *   <Toast.Action>Undo</Toast.Action>
+ * </Toast.Root>
  * ```
  */
-const Toast = forwardRef<ComponentRef<"div">, ToastProps>(
+const Root = forwardRef<ComponentRef<"div">, ToastProps>(
 	({ asChild, children, className, priority, ...props }, ref) => {
 		const Component = asChild ? Slot : "div";
 
@@ -196,7 +196,7 @@ const Toast = forwardRef<ComponentRef<"div">, ToastProps>(
 		);
 	},
 );
-Toast.displayName = "Toast";
+Root.displayName = "Toast";
 
 type ToastIconProps = Partial<SvgOnlyProps>;
 
@@ -208,20 +208,20 @@ type ToastIconProps = Partial<SvgOnlyProps>;
  *
  * @example
  * ```tsx
- * <Toast priority="warning">
- *   <ToastIcon />
- *   <ToastMessage>Warning message</ToastMessage>
- * </Toast>
+ * <Toast.Root priority="warning">
+ *   <Toast.Icon />
+ *   <Toast.Message>Warning message</Toast.Message>
+ * </Toast.Root>
  * ```
  */
-const ToastIcon = forwardRef<ComponentRef<"svg">, ToastIconProps>(
+const Icon = forwardRef<ComponentRef<"svg">, ToastIconProps>(
 	({ className, svg, ...props }, ref) => {
 		const ctx = useContext(ToastStateContext);
 
 		switch (ctx.priority) {
 			case "danger":
 				return (
-					<Icon
+					<IconComponent
 						className={cx("text-danger-600", className)}
 						ref={ref}
 						svg={svg ?? <WarningIcon weight="fill" />}
@@ -230,7 +230,7 @@ const ToastIcon = forwardRef<ComponentRef<"svg">, ToastIconProps>(
 				);
 			case "warning":
 				return (
-					<Icon
+					<IconComponent
 						className={cx("text-warning-600", className)}
 						ref={ref}
 						svg={svg ?? <WarningDiamondIcon weight="fill" />}
@@ -239,7 +239,7 @@ const ToastIcon = forwardRef<ComponentRef<"svg">, ToastIconProps>(
 				);
 			case "success":
 				return (
-					<Icon
+					<IconComponent
 						className={cx("text-success-600", className)}
 						ref={ref}
 						svg={svg ?? <CheckCircleIcon weight="fill" />}
@@ -248,7 +248,7 @@ const ToastIcon = forwardRef<ComponentRef<"svg">, ToastIconProps>(
 				);
 			case "info":
 				return (
-					<Icon
+					<IconComponent
 						//
 						className={cx("text-accent-600", className)}
 						ref={ref}
@@ -261,7 +261,7 @@ const ToastIcon = forwardRef<ComponentRef<"svg">, ToastIconProps>(
 		}
 	},
 );
-ToastIcon.displayName = "ToastIcon";
+Icon.displayName = "ToastIcon";
 
 type ToastActionProps = ComponentProps<"button"> & WithAsChild;
 
@@ -273,14 +273,14 @@ type ToastActionProps = ComponentProps<"button"> & WithAsChild;
  *
  * @example
  * ```tsx
- * <Toast priority="info">
- *   <ToastIcon />
- *   <ToastMessage>File uploaded successfully</ToastMessage>
- *   <ToastAction>View File</ToastAction>
- * </Toast>
+ * <Toast.Root priority="info">
+ *   <Toast.Icon />
+ *   <Toast.Message>File uploaded successfully</Toast.Message>
+ *   <Toast.Action>View File</Toast.Action>
+ * </Toast.Root>
  * ```
  */
-const ToastAction = forwardRef<ComponentRef<"button">, ToastActionProps>(
+const Action = forwardRef<ComponentRef<"button">, ToastActionProps>(
 	({ asChild, className, onClick, ...props }, ref) => {
 		const ctx = useContext(ToastIdContext);
 
@@ -308,7 +308,7 @@ const ToastAction = forwardRef<ComponentRef<"button">, ToastActionProps>(
 		);
 	},
 );
-ToastAction.displayName = "ToastAction";
+Action.displayName = "ToastAction";
 
 type ToastMessageProps = ComponentProps<"p"> & WithAsChild;
 
@@ -319,13 +319,13 @@ type ToastMessageProps = ComponentProps<"p"> & WithAsChild;
  *
  * @example
  * ```tsx
- * <Toast priority="success">
- *   <ToastIcon />
- *   <ToastMessage>Your changes have been saved</ToastMessage>
- * </Toast>
+ * <Toast.Root priority="success">
+ *   <Toast.Icon />
+ *   <Toast.Message>Your changes have been saved</Toast.Message>
+ * </Toast.Root>
  * ```
  */
-const ToastMessage = forwardRef<ComponentRef<"p">, ToastMessageProps>(
+const Message = forwardRef<ComponentRef<"p">, ToastMessageProps>(
 	({ asChild, className, ...props }, ref) => {
 		const Component = asChild ? Slot : "p";
 
@@ -339,16 +339,91 @@ const ToastMessage = forwardRef<ComponentRef<"p">, ToastMessageProps>(
 		);
 	},
 );
-ToastMessage.displayName = "ToastMessage";
+Message.displayName = "ToastMessage";
+
+/**
+ * A succinct message that is displayed temporarily. Toasts are used to provide
+ * feedback to the user without interrupting their workflow.
+ *
+ * @see https://mantle.ngrok.com/components/toast
+ *
+ * @example
+ * ```tsx
+ * makeToast(
+ *   <Toast.Root priority="success">
+ *     <Toast.Icon />
+ *     <Toast.Message>Operation completed successfully!</Toast.Message>
+ *     <Toast.Action>Dismiss</Toast.Action>
+ *   </Toast.Root>
+ * );
+ * ```
+ */
+const Toast = {
+	/**
+	 * A succinct message with a priority that is displayed temporarily.
+	 *
+	 * @see https://mantle.ngrok.com/components/toast#api-toast-root
+	 *
+	 * @example
+	 * ```tsx
+	 * <Toast.Root priority="success">
+	 *   <Toast.Icon />
+	 *   <Toast.Message>Changes saved successfully!</Toast.Message>
+	 *   <Toast.Action>Undo</Toast.Action>
+	 * </Toast.Root>
+	 * ```
+	 */
+	Root,
+	/**
+	 * A button that dismisses the toast when clicked.
+	 *
+	 * @see https://mantle.ngrok.com/components/toast#api-toast-action
+	 *
+	 * @example
+	 * ```tsx
+	 * <Toast.Root priority="info">
+	 *   <Toast.Icon />
+	 *   <Toast.Message>File uploaded successfully</Toast.Message>
+	 *   <Toast.Action>View File</Toast.Action>
+	 * </Toast.Root>
+	 * ```
+	 */
+	Action,
+	/**
+	 * An icon that visually represents the priority of the toast.
+	 *
+	 * @see https://mantle.ngrok.com/components/toast#api-toast-icon
+	 *
+	 * @example
+	 * ```tsx
+	 * <Toast.Root priority="warning">
+	 *   <Toast.Icon />
+	 *   <Toast.Message>Warning message</Toast.Message>
+	 * </Toast.Root>
+	 * ```
+	 */
+	Icon,
+	/**
+	 * The message content of the toast.
+	 *
+	 * @see https://mantle.ngrok.com/components/toast#api-toast-message
+	 *
+	 * @example
+	 * ```tsx
+	 * <Toast.Root priority="success">
+	 *   <Toast.Icon />
+	 *   <Toast.Message>Your changes have been saved</Toast.Message>
+	 * </Toast.Root>
+	 * ```
+	 */
+	Message,
+} as const;
 
 export {
 	//,
 	makeToast,
 	Toast,
-	ToastAction,
 	Toaster,
-	ToastIcon,
-	ToastMessage,
 };
 
 export type {
@@ -363,6 +438,15 @@ export type {
  * even when a modaled view (e.g. dialog, sheet, etc) is open and a focus trap is active.
  *
  * Without this, interacting with the prompt would close the modaled view.
+ *
+ * @example
+ * ```tsx
+ * <Dialog.Root onInteractOutside={preventCloseOnPromptInteraction}>
+ *   <Dialog.Content>
+ *     <p>Dialog content</p>
+ *   </Dialog.Content>
+ * </Dialog.Root>
+ * ```
  */
 export function preventCloseOnPromptInteraction(
 	event: CustomEvent | PointerEvent | MouseEvent | TouchEvent | FocusEvent,

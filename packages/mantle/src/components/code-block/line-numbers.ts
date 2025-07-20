@@ -5,6 +5,15 @@ export type LineRange = `${number}-${number}`;
 
 /**
  * Given a list of line ranges and numbers, resolves them into a unique list of line numbers as a set.
+ *
+ * @example
+ * ```tsx
+ * const highlightedLines = resolveLineNumbers(1, "3-5", 7, "10-12");
+ * // Returns: Set {1, 3, 4, 5, 7, 10, 11, 12}
+ *
+ * const singleLine = resolveLineNumbers(42);
+ * // Returns: Set {42}
+ * ```
  */
 export function resolveLineNumbers(
 	...items: (LineRange | number)[]

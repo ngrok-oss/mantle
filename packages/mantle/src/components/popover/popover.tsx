@@ -11,20 +11,20 @@ import { cx } from "../../utils/cx/cx.js";
  *
  * @example
  * ```tsx
- * <Popover>
- *   <PopoverTrigger asChild>
+ * <Popover.Root>
+ *   <Popover.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Open Popover
  *     </Button>
- *   </PopoverTrigger>
- *   <PopoverContent>
+ *   </Popover.Trigger>
+ *   <Popover.Content>
  *     <p>This is the popover content.</p>
- *   </PopoverContent>
- * </Popover>
+ *   </Popover.Content>
+ * </Popover.Root>
  * ```
  */
-const Popover = PopoverPrimitive.Root;
-Popover.displayName = "Popover";
+const Root = PopoverPrimitive.Root;
+Root.displayName = "Popover";
 
 /**
  * The trigger button that opens the popover.
@@ -33,20 +33,20 @@ Popover.displayName = "Popover";
  *
  * @example
  * ```tsx
- * <Popover>
- *   <PopoverTrigger asChild>
+ * <Popover.Root>
+ *   <Popover.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Open Popover
  *     </Button>
- *   </PopoverTrigger>
- *   <PopoverContent>
+ *   </Popover.Trigger>
+ *   <Popover.Content>
  *     <p>This is the popover content.</p>
- *   </PopoverContent>
- * </Popover>
+ *   </Popover.Content>
+ * </Popover.Root>
  * ```
  */
-const PopoverTrigger = PopoverPrimitive.Trigger;
-PopoverTrigger.displayName = "PopoverTrigger";
+const Trigger = PopoverPrimitive.Trigger;
+Trigger.displayName = "PopoverTrigger";
 
 /**
  * An optional element to position the PopoverContent against. If this part is not used, the content will position alongside the PopoverTrigger.
@@ -55,23 +55,23 @@ PopoverTrigger.displayName = "PopoverTrigger";
  *
  * @example
  * ```tsx
- * <Popover>
- *   <PopoverTrigger asChild>
+ * <Popover.Root>
+ *   <Popover.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Open Popover
  *     </Button>
- *   </PopoverTrigger>
- *   <PopoverAnchor asChild>
+ *   </Popover.Trigger>
+ *   <Popover.Anchor asChild>
  *     <div>Anchor element</div>
- *   </PopoverAnchor>
- *   <PopoverContent>
+ *   </Popover.Anchor>
+ *   <Popover.Content>
  *     <p>This is the popover content.</p>
- *   </PopoverContent>
- * </Popover>
+ *   </Popover.Content>
+ * </Popover.Root>
  * ```
  */
-const PopoverAnchor = PopoverPrimitive.Anchor;
-PopoverAnchor.displayName = "PopoverAnchor";
+const Anchor = PopoverPrimitive.Anchor;
+Anchor.displayName = "PopoverAnchor";
 
 /**
  * A button that closes an open popover.
@@ -80,23 +80,23 @@ PopoverAnchor.displayName = "PopoverAnchor";
  *
  * @example
  * ```tsx
- * <Popover>
- *   <PopoverTrigger asChild>
+ * <Popover.Root>
+ *   <Popover.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Open Popover
  *     </Button>
- *   </PopoverTrigger>
- *   <PopoverContent>
+ *   </Popover.Trigger>
+ *   <Popover.Content>
  *     <p>This is the popover content.</p>
- *     <PopoverClose asChild>
+ *     <Popover.Close asChild>
  *       <Button type="button">Close</Button>
- *     </PopoverClose>
- *   </PopoverContent>
- * </Popover>
+ *     </Popover.Close>
+ *   </Popover.Content>
+ * </Popover.Root>
  * ```
  */
-const PopoverClose = PopoverPrimitive.Close;
-PopoverClose.displayName = "PopoverClose";
+const Close = PopoverPrimitive.Close;
+Close.displayName = "PopoverClose";
 
 type PopoverContentProps = ComponentPropsWithoutRef<
 	typeof PopoverPrimitive.Content
@@ -119,19 +119,19 @@ type PopoverContentProps = ComponentPropsWithoutRef<
  *
  * @example
  * ```tsx
- * <Popover>
- *   <PopoverTrigger asChild>
+ * <Popover.Root>
+ *   <Popover.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Open Popover
  *     </Button>
- *   </PopoverTrigger>
- *   <PopoverContent>
+ *   </Popover.Trigger>
+ *   <Popover.Content>
  *     <p>This is the popover content.</p>
- *   </PopoverContent>
- * </Popover>
+ *   </Popover.Content>
+ * </Popover.Root>
  * ```
  */
-const PopoverContent = forwardRef<ComponentRef<"div">, PopoverContentProps>(
+const Content = forwardRef<ComponentRef<"div">, PopoverContentProps>(
 	(
 		{
 			//,
@@ -167,13 +167,139 @@ const PopoverContent = forwardRef<ComponentRef<"div">, PopoverContentProps>(
 		</PopoverPrimitive.Portal>
 	),
 );
-PopoverContent.displayName = "PopoverContent";
+Content.displayName = "PopoverContent";
+
+/**
+ * A floating overlay that displays rich content in a portal, triggered by a button.
+ *
+ * @see https://mantle.ngrok.com/components/popover
+ *
+ * @example
+ * ```tsx
+ * <Popover.Root>
+ *   <Popover.Trigger asChild>
+ *     <Button type="button" appearance="outlined">
+ *       Open Popover
+ *     </Button>
+ *   </Popover.Trigger>
+ *   <Popover.Content>
+ *     <p>This is the popover content.</p>
+ *   </Popover.Content>
+ * </Popover.Root>
+ * ```
+ */
+const Popover = {
+	/**
+	 * The root, stateful component that manages the open/closed state of the popover.
+	 *
+	 * @see https://mantle.ngrok.com/components/popover#api-popover
+	 *
+	 * @example
+	 * ```tsx
+	 * <Popover.Root>
+	 *   <Popover.Trigger asChild>
+	 *     <Button>Open popover</Button>
+	 *   </Popover.Trigger>
+	 *   <Popover.Content>
+	 *     <p>This is the popover content.</p>
+	 *   </Popover.Content>
+	 * </Popover.Root>
+	 * ```
+	 */
+	Root,
+	/**
+	 * An optional element to position the PopoverContent against. If not used, content positions alongside the trigger.
+	 *
+	 * @see https://mantle.ngrok.com/components/popover#api-popover-anchor
+	 *
+	 * @example
+	 * ```tsx
+	 * <Popover.Root>
+	 *   <Popover.Anchor asChild>
+	 *     <div>Position relative to this element</div>
+	 *   </Popover.Anchor>
+	 *   <Popover.Trigger asChild>
+	 *     <Button type="button">Open Popover</Button>
+	 *   </Popover.Trigger>
+	 *   <Popover.Content>
+	 *     <Text>This popover is positioned relative to the anchor.</Text>
+	 *   </Popover.Content>
+	 * </Popover.Root>
+	 * ```
+	 */
+	Anchor,
+	/**
+	 * A button that closes an open popover. Can be placed anywhere within the popover content.
+	 *
+	 * @see https://mantle.ngrok.com/components/popover#api-popover-close
+	 *
+	 * @example
+	 * ```tsx
+	 * <Popover.Root>
+	 *   <Popover.Trigger asChild>
+	 *     <Button type="button">Settings</Button>
+	 *   </Popover.Trigger>
+	 *   <Popover.Content>
+	 *     <div className="flex items-center justify-between">
+	 *       <Text>Settings Panel</Text>
+	 *       <Popover.Close asChild>
+	 *         <Button type="button" appearance="ghost" size="sm">✕</Button>
+	 *       </Popover.Close>
+	 *     </div>
+	 *     <Text>Configure your preferences here.</Text>
+	 *   </Popover.Content>
+	 * </Popover.Root>
+	 * ```
+	 */
+	Close,
+	/**
+	 * The content to render inside the popover. Appears in a portal with rich styling and animations.
+	 *
+	 * @see https://mantle.ngrok.com/components/popover#api-popover-content
+	 *
+	 * @example
+	 * ```tsx
+	 * <Popover.Root>
+	 *   <Popover.Trigger asChild>
+	 *     <Button type="button">Show Info</Button>
+	 *   </Popover.Trigger>
+	 *   <Popover.Content side="top" align="center">
+	 *     <div className="space-y-2">
+	 *       <Text weight="strong">Additional Information</Text>
+	 *       <Text>This is the content inside the popover.</Text>
+	 *       <Button type="button" size="sm">Action</Button>
+	 *     </div>
+	 *   </Popover.Content>
+	 * </Popover.Root>
+	 * ```
+	 */
+	Content,
+	/**
+	 * The trigger button that opens the popover when clicked or focused.
+	 *
+	 * @see https://mantle.ngrok.com/components/popover#api-popover-trigger
+	 *
+	 * @example
+	 * ```tsx
+	 * <Popover.Root>
+	 *   <Popover.Trigger asChild>
+	 *     <Button type="button" appearance="outlined">
+	 *       Options
+	 *     </Button>
+	 *   </Popover.Trigger>
+	 *   <Popover.Content>
+	 *     <div className="space-y-2">
+	 *       <Button type="button" variant="ghost">Edit</Button>
+	 *       <Button type="button" variant="ghost">Delete</Button>
+	 *     </div>
+	 *   </Popover.Content>
+	 * </Popover.Root>
+	 * ```
+	 */
+	Trigger,
+} as const;
 
 export {
 	//,
 	Popover,
-	PopoverAnchor,
-	PopoverClose,
-	PopoverContent,
-	PopoverTrigger,
 };

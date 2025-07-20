@@ -13,19 +13,19 @@ import { cx } from "../../utils/cx/cx.js";
  *
  * @example
  * ```tsx
- * <HoverCard>
- *   <HoverCardTrigger asChild>
+ * <HoverCard.Root>
+ *   <HoverCard.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Hover me
  *     </Button>
- *   </HoverCardTrigger>
- *   <HoverCardContent>
+ *   </HoverCard.Trigger>
+ *   <HoverCard.Content>
  *     <p>This is the hover card content.</p>
- *   </HoverCardContent>
- * </HoverCard>
+ *   </HoverCard.Content>
+ * </HoverCard.Root>
  * ```
  */
-const HoverCard = ({
+const Root = ({
 	closeDelay = 300,
 	openDelay = 100,
 	...props
@@ -36,7 +36,7 @@ const HoverCard = ({
 		{...props}
 	/>
 );
-HoverCard.displayName = "HoverCard";
+Root.displayName = "HoverCard";
 
 /**
  * The trigger element that opens the hover card when hovered.
@@ -45,29 +45,29 @@ HoverCard.displayName = "HoverCard";
  *
  * @example
  * ```tsx
- * <HoverCard>
- *   <HoverCardTrigger asChild>
+ * <HoverCard.Root>
+ *   <HoverCard.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Hover me
  *     </Button>
- *   </HoverCardTrigger>
- *   <HoverCardContent>
+ *   </HoverCard.Trigger>
+ *   <HoverCard.Content>
  *     <p>This is the hover card content.</p>
- *   </HoverCardContent>
- * </HoverCard>
+ *   </HoverCard.Content>
+ * </HoverCard.Root>
  * ```
  */
-const HoverCardTrigger = HoverCardPrimitive.Trigger;
-HoverCardTrigger.displayName = "HoverCardTrigger";
+const Trigger = HoverCardPrimitive.Trigger;
+Trigger.displayName = "HoverCardTrigger";
 
 /**
  * The portal for a HoverCard. Should be rendered as a child of the `HoverCard` component.
- * Renders a portal that the `HoverCardContent` is rendered into.
+ * Renders a portal that the `HoverCard.Content` is rendered into.
  *
- * You likely don't need to use this component directly, as it is used internally by the `HoverCardContent` component.
+ * You likely don't need to use this component directly, as it is used internally by the `HoverCard.Content` component.
  */
-const HoverCardPortal = HoverCardPrimitive.Portal;
-HoverCardPortal.displayName = "HoverCardPortal";
+const Portal = HoverCardPrimitive.Portal;
+Portal.displayName = "HoverCardPortal";
 
 /**
  * The content to render inside the hover card.
@@ -76,23 +76,23 @@ HoverCardPortal.displayName = "HoverCardPortal";
  *
  * @example
  * ```tsx
- * <HoverCard>
- *   <HoverCardTrigger asChild>
+ * <HoverCard.Root>
+ *   <HoverCard.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Hover me
  *     </Button>
- *   </HoverCardTrigger>
- *   <HoverCardContent>
+ *   </HoverCard.Trigger>
+ *   <HoverCard.Content>
  *     <p>This is the hover card content.</p>
- *   </HoverCardContent>
- * </HoverCard>
+ *   </HoverCard.Content>
+ * </HoverCard.Root>
  * ```
  */
-const HoverCardContent = forwardRef<
+const Content = forwardRef<
 	ComponentRef<typeof HoverCardPrimitive.Content>,
 	ComponentPropsWithoutRef<typeof HoverCardPrimitive.Content>
 >(({ className, onClick, align = "center", sideOffset = 4, ...props }, ref) => (
-	<HoverCardPortal>
+	<Portal>
 		<HoverCardPrimitive.Content
 			ref={ref}
 			align={align}
@@ -111,14 +111,116 @@ const HoverCardContent = forwardRef<
 			}}
 			{...props}
 		/>
-	</HoverCardPortal>
+	</Portal>
 ));
-HoverCardContent.displayName = HoverCardPrimitive.Content.displayName;
+Content.displayName = HoverCardPrimitive.Content.displayName;
+
+/**
+ * A floating card that appears when a user hovers over a trigger element.
+ *
+ * @see https://mantle.ngrok.com/components/hover-card
+ *
+ * @example
+ * ```tsx
+ * <HoverCard.Root>
+ *   <HoverCard.Trigger asChild>
+ *     <Button type="button" appearance="outlined">
+ *       Hover me
+ *     </Button>
+ *   </HoverCard.Trigger>
+ *   <HoverCard.Content>
+ *     <p>This is the hover card content.</p>
+ *   </HoverCard.Content>
+ * </HoverCard.Root>
+ * ```
+ */
+const HoverCard = {
+	/**
+	 * The root, stateful component that manages the open/closed state of the hover card.
+	 *
+	 * @see https://mantle.ngrok.com/components/hover-card#api-hover-card
+	 *
+	 * @example
+	 * ```tsx
+	 * <HoverCard.Root>
+	 *   <HoverCard.Trigger asChild>
+	 *     <Button>Hover me</Button>
+	 *   </HoverCard.Trigger>
+	 *   <HoverCard.Content>
+	 *     <p>This is the hover card content.</p>
+	 *   </HoverCard.Content>
+	 * </HoverCard.Root>
+	 * ```
+	 */
+	Root,
+	/**
+	 * The content to render inside the hover card. Appears in a portal with rich styling and animations.
+	 *
+	 * @see https://mantle.ngrok.com/components/hover-card#api-hover-card-content
+	 *
+	 * @example
+	 * ```tsx
+	 * <HoverCard.Root>
+	 *   <HoverCard.Trigger asChild>
+	 *     <Button type="button" variant="link">@username</Button>
+	 *   </HoverCard.Trigger>
+	 *   <HoverCard.Content side="top">
+	 *     <div className="space-y-2">
+	 *       <Text weight="strong">User Profile</Text>
+	 *       <Text>Additional information about the user.</Text>
+	 *       <Button type="button" size="sm">Follow</Button>
+	 *     </div>
+	 *   </HoverCard.Content>
+	 * </HoverCard.Root>
+	 * ```
+	 */
+	Content,
+	/**
+	 * The portal container for rendering hover card content outside the normal DOM tree.
+	 *
+	 * @see https://mantle.ngrok.com/components/hover-card#api-hover-card-portal
+	 *
+	 * @example
+	 * ```tsx
+	 * <HoverCard.Root>
+	 *   <HoverCard.Trigger asChild>
+	 *     <Text>Hover over me</Text>
+	 *   </HoverCard.Trigger>
+	 *   <HoverCard.Portal>
+	 *     <HoverCard.Content>
+	 *       <Text>This content is rendered in a portal.</Text>
+	 *     </HoverCard.Content>
+	 *   </HoverCard.Portal>
+	 * </HoverCard.Root>
+	 * ```
+	 */
+	Portal,
+	/**
+	 * The trigger element that opens the hover card when hovered.
+	 *
+	 * @see https://mantle.ngrok.com/components/hover-card#api-hover-card-trigger
+	 *
+	 * @example
+	 * ```tsx
+	 * <HoverCard.Root>
+	 *   <HoverCard.Trigger asChild>
+	 *     <Button type="button" variant="ghost">
+	 *       Hover for details
+	 *     </Button>
+	 *   </HoverCard.Trigger>
+	 *   <HoverCard.Content>
+	 *     <div className="space-y-1">
+	 *       <Text weight="strong">Quick Info</Text>
+	 *       <Text>This appears when you hover over the trigger.</Text>
+	 *     </div>
+	 *   </HoverCard.Content>
+	 * </HoverCard.Root>
+	 * ```
+	 */
+	Trigger,
+} as const;
 
 export {
 	//,
 	HoverCard,
-	HoverCardContent,
-	HoverCardPortal,
-	HoverCardTrigger,
 };

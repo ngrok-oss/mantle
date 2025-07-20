@@ -1,21 +1,22 @@
 import { Button } from "@ngrok/mantle/button";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
-import {
-	HoverCard,
-	HoverCardContent,
-	HoverCardTrigger,
-} from "@ngrok/mantle/hover-card";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
+import { HoverCard } from "@ngrok/mantle/hover-card";
 import { Icon } from "@ngrok/mantle/icon";
+import { InlineCode } from "@ngrok/mantle/inline-code";
 import { CalendarIcon } from "@phosphor-icons/react/Calendar";
 import { ShrimpIcon } from "@phosphor-icons/react/Shrimp";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
+import {
+	BooleanPropType,
+	PropDefaultValueCell,
+	PropDescriptionCell,
+	PropNameCell,
+	PropRow,
+	PropTypeCell,
+	PropsTable,
+	StringPropType,
+} from "~/components/props-table";
 import type { Route } from "./+types/components.hover-card";
 
 export const meta: Route.MetaFunction = () => {
@@ -43,13 +44,13 @@ export default function Page() {
 			</p>
 			<div>
 				<Example className="gap-2">
-					<HoverCard>
-						<HoverCardTrigger asChild>
+					<HoverCard.Root>
+						<HoverCard.Trigger asChild>
 							<Button type="button" appearance="link">
 								Open Hover Card
 							</Button>
-						</HoverCardTrigger>
-						<HoverCardContent className="w-80">
+						</HoverCard.Trigger>
+						<HoverCard.Content className="w-80">
 							<div className="flex justify-between space-x-4">
 								<div className="flex size-16 shrink-0 items-center justify-center rounded-full bg-pink-300">
 									<Icon svg={<ShrimpIcon />} className="size-12" />
@@ -70,28 +71,28 @@ export default function Page() {
 									</div>
 								</div>
 							</div>
-						</HoverCardContent>
-					</HoverCard>
+						</HoverCard.Content>
+					</HoverCard.Root>
 				</Example>
-				<CodeBlock className="rounded-b-lg rounded-t-none">
-					<CodeBlockBody>
-						<CodeBlockCopyButton />
-						<CodeBlockCode
+				<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+					<CodeBlock.Body>
+						<CodeBlock.CopyButton />
+						<CodeBlock.Code
 							language="tsx"
 							value={fmtCode`
 								import { Button } from "@ngrok/mantle/button";
-								import { HoverCard, HoverCardContent, HoverCardTrigger } from "@ngrok/mantle/hover-card";
+								import { HoverCard } from "@ngrok/mantle/hover-card";
 								import { Icon } from "@ngrok/mantle/icon";
 								import { CalendarIcon } from "@phosphor-icons/react/Calendar";
 								import { ShrimpIcon } from "@phosphor-icons/react/Shrimp";
 
-								<HoverCard>
-									<HoverCardTrigger asChild>
+								<HoverCard.Root>
+									<HoverCard.Trigger asChild>
 										<Button type="button" appearance="link">
 											Open Hover Card
 										</Button>
-									</HoverCardTrigger>
-									<HoverCardContent className="w-80">
+									</HoverCard.Trigger>
+									<HoverCard.Content className="w-80">
 										<div className="flex justify-between space-x-4">
 											<div className="flex size-16 shrink-0 items-center justify-center rounded-full bg-pink-300">
 												<Icon svg={<ShrimpIcon />} className="size-12" />
@@ -105,13 +106,319 @@ export default function Page() {
 												</div>
 											</div>
 										</div>
-									</HoverCardContent>
-								</HoverCard>
+									</HoverCard.Content>
+								</HoverCard.Root>
 							`}
 						/>
-					</CodeBlockBody>
-				</CodeBlock>
+					</CodeBlock.Body>
+				</CodeBlock.Root>
 			</div>
+
+			<section className="space-y-4">
+				<h2 id="api" className="text-3xl font-medium">
+					API Reference
+				</h2>
+				<p className="font-body text-body text-xl">
+					The <InlineCode>HoverCard</InlineCode> component is built on top of
+					Radix UI Hover Card and provides a floating card that appears when a
+					user hovers over a trigger element.
+				</p>
+
+				<div className="space-y-8">
+					<div>
+						<h3 className="text-xl font-medium mb-4">HoverCard.Root</h3>
+						<p className="mb-4 text-muted-foreground">
+							The root stateful component that manages the open/closed state of
+							the hover card.
+						</p>
+						<PropsTable>
+							<PropRow>
+								<PropNameCell name="open" optional />
+								<PropTypeCell>
+									<BooleanPropType />
+								</PropTypeCell>
+								<PropDefaultValueCell />
+								<PropDescriptionCell>
+									<p>
+										The controlled open state of the hover card. Must be used in
+										conjunction with <InlineCode>onOpenChange</InlineCode>.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+							<PropRow>
+								<PropNameCell name="onOpenChange" optional />
+								<PropTypeCell>
+									<InlineCode>(open: boolean) =&gt; void</InlineCode>
+								</PropTypeCell>
+								<PropDefaultValueCell />
+								<PropDescriptionCell>
+									<p>
+										Event handler called when the open state of the hover card
+										changes.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+							<PropRow>
+								<PropNameCell name="defaultOpen" optional />
+								<PropTypeCell>
+									<BooleanPropType />
+								</PropTypeCell>
+								<PropDefaultValueCell>
+									<BooleanPropType value={false} />
+								</PropDefaultValueCell>
+								<PropDescriptionCell>
+									<p>
+										The open state of the hover card when it is initially
+										rendered. Use when you do not need to control its open
+										state.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+							<PropRow>
+								<PropNameCell name="openDelay" optional />
+								<PropTypeCell>
+									<InlineCode>number</InlineCode>
+								</PropTypeCell>
+								<PropDefaultValueCell>
+									<InlineCode>100</InlineCode>
+								</PropDefaultValueCell>
+								<PropDescriptionCell>
+									<p>
+										The duration in milliseconds from when the mouse enters the
+										trigger until the hover card opens.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+							<PropRow>
+								<PropNameCell name="closeDelay" optional />
+								<PropTypeCell>
+									<InlineCode>number</InlineCode>
+								</PropTypeCell>
+								<PropDefaultValueCell>
+									<InlineCode>300</InlineCode>
+								</PropDefaultValueCell>
+								<PropDescriptionCell>
+									<p>
+										The duration in milliseconds from when the mouse leaves the
+										trigger or content until the hover card closes.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+						</PropsTable>
+					</div>
+
+					<div>
+						<h3 className="text-xl font-medium mb-4">HoverCard.Trigger</h3>
+						<p className="mb-4 text-muted-foreground">
+							The trigger element that opens the hover card when hovered.
+						</p>
+						<PropsTable>
+							<PropRow>
+								<PropNameCell name="asChild" optional />
+								<PropTypeCell>
+									<BooleanPropType />
+								</PropTypeCell>
+								<PropDefaultValueCell>
+									<BooleanPropType value={false} />
+								</PropDefaultValueCell>
+								<PropDescriptionCell>
+									<p>
+										Use the <InlineCode>asChild</InlineCode> prop to compose the
+										trigger functionality onto your own component.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+						</PropsTable>
+					</div>
+
+					<div>
+						<h3 className="text-xl font-medium mb-4">HoverCard.Content</h3>
+						<p className="mb-4 text-muted-foreground">
+							The content to render inside the hover card. Appears in a portal
+							with rich styling and animations.
+						</p>
+						<PropsTable>
+							<PropRow>
+								<PropNameCell name="side" optional />
+								<PropTypeCell>
+									<ul>
+										<li>
+											<StringPropType value="top" />
+										</li>
+										<li>
+											<StringPropType value="right" />
+										</li>
+										<li>
+											<StringPropType value="bottom" />
+										</li>
+										<li>
+											<StringPropType value="left" />
+										</li>
+									</ul>
+								</PropTypeCell>
+								<PropDefaultValueCell>
+									<StringPropType value="bottom" />
+								</PropDefaultValueCell>
+								<PropDescriptionCell>
+									<p>
+										The preferred side of the trigger to render against when
+										open. Will be reversed when collisions occur and{" "}
+										<InlineCode>avoidCollisions</InlineCode> is enabled.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+							<PropRow>
+								<PropNameCell name="align" optional />
+								<PropTypeCell>
+									<ul>
+										<li>
+											<StringPropType value="start" />
+										</li>
+										<li>
+											<StringPropType value="center" />
+										</li>
+										<li>
+											<StringPropType value="end" />
+										</li>
+									</ul>
+								</PropTypeCell>
+								<PropDefaultValueCell>
+									<StringPropType value="center" />
+								</PropDefaultValueCell>
+								<PropDescriptionCell>
+									<p>
+										The preferred alignment against the trigger. May change when
+										collisions occur.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+							<PropRow>
+								<PropNameCell name="sideOffset" optional />
+								<PropTypeCell>
+									<InlineCode>number</InlineCode>
+								</PropTypeCell>
+								<PropDefaultValueCell>
+									<InlineCode>4</InlineCode>
+								</PropDefaultValueCell>
+								<PropDescriptionCell>
+									<p>
+										The distance in pixels from the trigger. This is the
+										distance between the trigger and the hover card content.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+							<PropRow>
+								<PropNameCell name="alignOffset" optional />
+								<PropTypeCell>
+									<InlineCode>number</InlineCode>
+								</PropTypeCell>
+								<PropDefaultValueCell>
+									<InlineCode>0</InlineCode>
+								</PropDefaultValueCell>
+								<PropDescriptionCell>
+									<p>
+										An offset in pixels from the <InlineCode>start</InlineCode>{" "}
+										or <InlineCode>end</InlineCode> alignment options.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+							<PropRow>
+								<PropNameCell name="avoidCollisions" optional />
+								<PropTypeCell>
+									<BooleanPropType />
+								</PropTypeCell>
+								<PropDefaultValueCell>
+									<BooleanPropType value={true} />
+								</PropDefaultValueCell>
+								<PropDescriptionCell>
+									<p>
+										When <InlineCode>true</InlineCode>, overrides the{" "}
+										<InlineCode>side</InlineCode> and{" "}
+										<InlineCode>align</InlineCode> preferences to prevent
+										collisions with boundary edges.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+							<PropRow>
+								<PropNameCell name="collisionBoundary" optional />
+								<PropTypeCell>
+									<InlineCode>
+										Element | null | Array&lt;Element | null&gt;
+									</InlineCode>
+								</PropTypeCell>
+								<PropDefaultValueCell>
+									<InlineCode>[]</InlineCode>
+								</PropDefaultValueCell>
+								<PropDescriptionCell>
+									<p>
+										The element used as the collision boundary. By default this
+										is the viewport, though you can provide additional
+										element(s) to be included in this check.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+							<PropRow>
+								<PropNameCell name="collisionPadding" optional />
+								<PropTypeCell>
+									<InlineCode>
+										number | Partial&lt;Record&lt;Side, number&gt;&gt;
+									</InlineCode>
+								</PropTypeCell>
+								<PropDefaultValueCell>
+									<InlineCode>0</InlineCode>
+								</PropDefaultValueCell>
+								<PropDescriptionCell>
+									<p>
+										The distance in pixels from the boundary edges where
+										collision detection should occur. Accepts a number (same for
+										all sides), or a partial padding object.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+							<PropRow>
+								<PropNameCell name="sticky" optional />
+								<PropTypeCell>
+									<ul>
+										<li>
+											<StringPropType value="partial" />
+										</li>
+										<li>
+											<StringPropType value="always" />
+										</li>
+									</ul>
+								</PropTypeCell>
+								<PropDefaultValueCell>
+									<StringPropType value="partial" />
+								</PropDefaultValueCell>
+								<PropDescriptionCell>
+									<p>
+										The sticky behavior on the align axis.{" "}
+										<InlineCode>"partial"</InlineCode> will keep the content in
+										the boundary as long as the trigger is at least partially in
+										the boundary whilst <InlineCode>"always"</InlineCode> will
+										keep the content in the boundary regardless.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+							<PropRow>
+								<PropNameCell name="hideWhenDetached" optional />
+								<PropTypeCell>
+									<BooleanPropType />
+								</PropTypeCell>
+								<PropDefaultValueCell>
+									<BooleanPropType value={false} />
+								</PropDefaultValueCell>
+								<PropDescriptionCell>
+									<p>
+										Whether to hide the content when the trigger becomes fully
+										occluded.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+						</PropsTable>
+					</div>
+				</div>
+			</section>
 		</div>
 	);
 }

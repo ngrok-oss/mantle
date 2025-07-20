@@ -22,15 +22,7 @@ import {
 import { Button } from "../button/button.js";
 import type { SvgAttributes } from "../icon/types.js";
 import { SortIcon } from "../icons/sort.js";
-import {
-	Table,
-	TableBody,
-	TableCell,
-	TableHead,
-	TableHeader,
-	TableRoot,
-	TableRow,
-} from "../table/table.js";
+import { Table } from "../table/table.js";
 import { getNextSortDirection } from "./helpers.js";
 import type { SortDirection } from "./types.js";
 
@@ -54,7 +46,7 @@ function useDataTableContext<TData>() {
 	return context as DataTableContextShape<TData>;
 }
 
-type DataTableProps<TData> = ComponentProps<typeof TableRoot> & {
+type DataTableProps<TData> = ComponentProps<typeof Table.Root> & {
 	table: TableInstance<TData>;
 };
 
@@ -67,18 +59,14 @@ type DataTableProps<TData> = ComponentProps<typeof TableRoot> & {
  * @example
  * ```tsx
  * <DataTable table={table}>
- *   <DataTableHead />
- *   <DataTableBody>
- *     <DataTableRows />
- *   </DataTableBody>
+ *   <DataTable.Head />
+ *   <DataTable.Body>
+ *     <DataTable.Rows />
+ *   </DataTable.Body>
  * </DataTable>
  * ```
  */
-function DataTable<TData>({
-	children,
-	table,
-	...props
-}: DataTableProps<TData>) {
+function Root<TData>({ children, table, ...props }: DataTableProps<TData>) {
 	const context: DataTableContextShape<TData> = useMemo(
 		() => ({ table }),
 		[table],
@@ -86,9 +74,9 @@ function DataTable<TData>({
 
 	return (
 		<DataTableContext.Provider value={context}>
-			<TableRoot {...props}>
-				<Table>{children}</Table>
-			</TableRoot>
+			<Table.Root {...props}>
+				<Table.Element>{children}</Table.Element>
+			</Table.Root>
 		</DataTableContext.Provider>
 	);
 }
@@ -139,19 +127,19 @@ type DataTableHeaderSortButtonProps<TData, TValue> = Omit<
  *
  * @example
  * ```tsx
- * <DataTableHeaderSortButton
+ * <DataTable.HeaderSortButton
  *   column={column}
  *   sortingMode="alphanumeric"
  * >
  *   Column Title
- * </DataTableHeaderSortButton>
+ * </DataTable.HeaderSortButton>
  * ```
  *
  * Each click cycles through:
  * - For alphanumeric sorting: unsorted ➡️ ascending ➡️ descending ➡️ unsorted
  * - For time sorting: unsorted ➡️ newest-to-oldest ➡️ oldest-to-newest ➡️ unsorted
  */
-function DataTableHeaderSortButton<TData, TValue>({
+function HeaderSortButton<TData, TValue>({
 	children,
 	className,
 	column,
@@ -210,122 +198,119 @@ function DataTableHeaderSortButton<TData, TValue>({
 	);
 }
 
-type DataTableHeaderProps = ComponentProps<typeof TableHeader>;
+type DataTableHeaderProps = ComponentProps<typeof Table.Header>;
 
 /**
  * A header for a data table.
- * This is typically used to wrap the `DataTableHeaderSortButton` component.
+ * This is typically used to wrap the `DataTable.HeaderSortButton` component.
  *
  * @see https://mantle.ngrok.com/components/data-table#api-data-table-header
  *
  * @example
  * ```tsx
- * <DataTableHeader>
- *   <DataTableHeaderSortButton column={column} sortingMode="alphanumeric">
+ * <DataTable.Header>
+ *   <DataTable.HeaderSortButton column={column} sortingMode="alphanumeric">
  *     Column Title
- *   </DataTableHeaderSortButton>
- * </DataTableHeader>
+ *   </DataTable.HeaderSortButton>
+ * </DataTable.Header>
  * ```
  */
-function DataTableHeader<TData, TValue>({
+function Header<TData, TValue>({
 	children,
 	className,
 	...props
 }: DataTableHeaderProps) {
 	return (
-		<TableHeader
+		<Table.Header
 			className={cx("has-[[data-table-header-action]]:px-0", className)}
 			{...props}
 		>
 			{children}
-		</TableHeader>
+		</Table.Header>
 	);
 }
 
-const DataTableBody = TableBody;
-DataTableBody.displayName = "DataTableBody";
+const Body = Table.Body;
+Body.displayName = "DataTableBody";
 
-type DataTableHeadProps = Omit<ComponentProps<typeof TableHead>, "children">;
+type DataTableHeadProps = Omit<ComponentProps<typeof Table.Head>, "children">;
 
-function DataTableHead<TData>(props: DataTableHeadProps) {
+function Head<TData>(props: DataTableHeadProps) {
 	const { table } = useDataTableContext<TData>();
 
 	return (
-		<TableHead {...props}>
+		<Table.Head {...props}>
 			{table.getHeaderGroups().map((headerGroup) => (
-				<TableRow key={headerGroup.id}>
+				<Table.Row key={headerGroup.id}>
 					{headerGroup.headers.map((header) => (
 						<Fragment key={header.id}>
 							{header.isPlaceholder ? (
-								<TableHeader key={header.id} />
+								<Table.Header key={header.id} />
 							) : (
 								flexRender(header.column.columnDef.header, header.getContext())
 							)}
 						</Fragment>
 					))}
-				</TableRow>
+				</Table.Row>
 			))}
-		</TableHead>
+		</Table.Head>
 	);
 }
 
-function DataTableRows<TData>() {
+function Rows<TData>() {
 	const { table } = useDataTableContext<TData>();
 	const rows = table.getRowModel().rows;
 
 	return (
 		<>
 			{rows.map((row) => (
-				<DataTableRow key={row.id} row={row} />
+				<RowComponent key={row.id} row={row} />
 			))}
 		</>
 	);
 }
 
 type DataTableRowProps<TData> = Omit<
-	ComponentProps<typeof TableRow>,
+	ComponentProps<typeof Table.Row>,
 	"children"
 > & {
 	row: Row<TData>;
 };
 
-function DataTableRow<TData>({ row, ...props }: DataTableRowProps<TData>) {
+function RowComponent<TData>({ row, ...props }: DataTableRowProps<TData>) {
 	return (
-		<TableRow {...props}>
+		<Table.Row {...props}>
 			{row.getVisibleCells().map((cell) => (
 				<Fragment key={cell.id}>
 					{flexRender(cell.column.columnDef.cell, cell.getContext())}
 				</Fragment>
 			))}
-		</TableRow>
+		</Table.Row>
 	);
 }
 
-type DataTableEmptyRowProps = ComponentProps<typeof TableRow>;
+type DataTableEmptyRowProps = ComponentProps<typeof Table.Row>;
 
-function DataTableEmptyRow<TData>({
-	children,
-	...props
-}: DataTableEmptyRowProps) {
+function EmptyRow<TData>({ children, ...props }: DataTableEmptyRowProps) {
 	const { table } = useDataTableContext<TData>();
 	const numberOfColumns = table.getAllColumns().length;
 
 	return (
-		<TableRow {...props}>
-			<TableCell colSpan={numberOfColumns}>{children}</TableCell>
-		</TableRow>
+		<Table.Row {...props}>
+			<Table.Cell colSpan={numberOfColumns}>{children}</Table.Cell>
+		</Table.Row>
 	);
 }
 
-type DataTableActionCellProps = ComponentProps<typeof TableCell>;
+type DataTableActionCellProps = ComponentProps<typeof Table.Cell>;
 
-function DataTableActionCell({
+function ActionCell({
 	children,
 	className,
 	...props
 }: DataTableActionCellProps) {
 	return (
-		<TableCell
+		<Table.Cell
 			className={cx(
 				"sticky z-10 right-0 top-px -bottom-px group-data-[sticky-active]/table:[box-shadow:inset_10px_0_8px_-8px_hsl(0deg_0%_0%_/_15%)]",
 				className,
@@ -333,21 +318,163 @@ function DataTableActionCell({
 			{...props}
 		>
 			<div className="flex justify-end">{children}</div>
-		</TableCell>
+		</Table.Cell>
 	);
 }
+
+// Set display names to preserve original component names for debugging
+Root.displayName = "DataTable";
+ActionCell.displayName = "DataTableActionCell";
+Body.displayName = "DataTableBody";
+EmptyRow.displayName = "DataTableEmptyRow";
+Head.displayName = "DataTableHead";
+Header.displayName = "DataTableHeader";
+HeaderSortButton.displayName = "DataTableHeaderSortButton";
+RowComponent.displayName = "DataTableRow";
+Rows.displayName = "DataTableRows";
+
+/**
+ * A data table component that provides sorting and other data table functionality.
+ * Built on top of TanStack Table for advanced table features.
+ *
+ * @see https://mantle.ngrok.com/components/data-table
+ *
+ * @example
+ * ```tsx
+ * <DataTable table={table}>
+ *   <DataTable.Head />
+ *   <DataTable.Body>
+ *     <DataTable.Rows />
+ *   </DataTable.Body>
+ * </DataTable>
+ * ```
+ */
+const DataTable = {
+	/**
+	 * The root container of the data table component.
+	 *
+	 * @see https://mantle.ngrok.com/components/data-table#api-data-table
+	 *
+	 * @example
+	 * ```tsx
+	 * <DataTable.Root table={table}>
+	 *   <DataTable.Head />
+	 *   <DataTable.Body>
+	 *     <DataTable.Rows />
+	 *   </DataTable.Body>
+	 * </DataTable.Root>
+	 * ```
+	 */
+	Root,
+	/**
+	 * A sticky action cell positioned at the end of each row for action buttons.
+	 *
+	 * @see https://mantle.ngrok.com/components/data-table#api-data-table-action-cell
+	 *
+	 * @example
+	 * ```tsx
+	 * <DataTable.ActionCell>
+	 *   <Button size="sm">Edit</Button>
+	 *   <Button size="sm">Delete</Button>
+	 * </DataTable.ActionCell>
+	 * ```
+	 */
+	ActionCell,
+	/**
+	 * The table body container for rows of data.
+	 *
+	 * @see https://mantle.ngrok.com/components/data-table#api-data-table-body
+	 *
+	 * @example
+	 * ```tsx
+	 * <DataTable.Body>
+	 *   <DataTable.Rows />
+	 * </DataTable.Body>
+	 * ```
+	 */
+	Body,
+	/**
+	 * An empty state row that spans all columns when there's no data to display.
+	 *
+	 * @see https://mantle.ngrok.com/components/data-table#api-data-table-empty-row
+	 *
+	 * @example
+	 * ```tsx
+	 * <DataTable.EmptyRow>
+	 *   No data available
+	 * </DataTable.EmptyRow>
+	 * ```
+	 */
+	EmptyRow,
+	/**
+	 * The table header container that renders column headers automatically.
+	 *
+	 * @see https://mantle.ngrok.com/components/data-table#api-data-table-head
+	 *
+	 * @example
+	 * ```tsx
+	 * <DataTable.Head />
+	 * ```
+	 */
+	Head,
+	/**
+	 * A header cell component optimized for data table header actions.
+	 *
+	 * @see https://mantle.ngrok.com/components/data-table#api-data-table-header
+	 *
+	 * @example
+	 * ```tsx
+	 * <DataTable.Header>
+	 *   <DataTable.HeaderSortButton column={column} sortingMode="alphanumeric">
+	 *     Column Title
+	 *   </DataTable.HeaderSortButton>
+	 * </DataTable.Header>
+	 * ```
+	 */
+	Header,
+	/**
+	 * A sortable button toggle for column headers with sorting functionality.
+	 *
+	 * @see https://mantle.ngrok.com/components/data-table#api-data-table-header-sort-button
+	 *
+	 * @example
+	 * ```tsx
+	 * <DataTable.HeaderSortButton
+	 *   column={column}
+	 *   sortingMode="alphanumeric"
+	 * >
+	 *   Column Title
+	 * </DataTable.HeaderSortButton>
+	 * ```
+	 */
+	HeaderSortButton,
+	/**
+	 * A single data table row component for rendering custom row layouts.
+	 *
+	 * @see https://mantle.ngrok.com/components/data-table#api-data-table-row
+	 *
+	 * @example
+	 * ```tsx
+	 * <DataTable.Row row={row} />
+	 * ```
+	 */
+	Row: RowComponent,
+	/**
+	 * Container that renders all table rows automatically from the table data.
+	 *
+	 * @see https://mantle.ngrok.com/components/data-table#api-data-table-rows
+	 *
+	 * @example
+	 * ```tsx
+	 * <DataTable.Rows />
+	 * ```
+	 */
+	Rows,
+} as const;
 
 export {
 	//,
 	DataTable,
-	DataTableActionCell,
-	DataTableBody,
-	DataTableEmptyRow,
-	DataTableHead,
-	DataTableHeader,
-	DataTableHeaderSortButton,
-	DataTableRow,
-	DataTableRows,
 };
 
 type DefaultSortIconProps = SvgAttributes & {

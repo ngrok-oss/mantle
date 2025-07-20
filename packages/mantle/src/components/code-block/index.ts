@@ -1,13 +1,6 @@
 export {
 	//,
 	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	CodeBlockExpanderButton,
-	CodeBlockHeader,
-	CodeBlockIcon,
-	CodeBlockTitle,
 } from "./code-block.js";
 
 export {
