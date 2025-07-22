@@ -628,6 +628,11 @@
 	}
 }
 
+@utility text-size-mono {
+	line-height: 1.25rem;
+	font-size: var(--text-size-mono);
+}
+
 @utility bg-base {
 	background-color: var(--color-neutral-50);
 }
