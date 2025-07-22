@@ -1,3 +1,5 @@
+"use client";
+
 import clsx from "clsx";
 import type { ComponentProps, PropsWithChildren } from "react";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
@@ -125,6 +127,15 @@ type ThemeProviderProps = PropsWithChildren & {
 
 /**
  * ThemeProvider is a React Context Provider that provides the current theme and a function to set the theme.
+ *
+ * @see https://mantle.ngrok.com/components/theme-provider#api-theme-provider
+ *
+ * @example
+ * ```tsx
+ * <ThemeProvider defaultTheme="system" storageKey="app-theme">
+ *   <App />
+ * </ThemeProvider>
+ * ```
  */
 function ThemeProvider({
 	children,
@@ -192,6 +203,7 @@ function ThemeProvider({
 		</ThemeProviderContext.Provider>
 	);
 }
+ThemeProvider.displayName = "ThemeProvider";
 
 /**
  * useTheme returns the current theme and a function to set the theme.
@@ -309,13 +321,17 @@ export function determineThemeFromMediaQuery({
 	return prefersDarkMode ? "dark" : "light";
 }
 
-function preventWrongThemeFlashScriptContent({
-	defaultTheme = "system",
-	storageKey = DEFAULT_STORAGE_KEY,
-}: {
+type PreventWrongThemeFlashScriptContentOptions = {
 	defaultTheme?: Theme;
 	storageKey?: string;
-}) {
+};
+
+function preventWrongThemeFlashScriptContent(
+	options?: PreventWrongThemeFlashScriptContentOptions,
+) {
+	const { defaultTheme = "system", storageKey = DEFAULT_STORAGE_KEY } =
+		options ?? {};
+
 	return `
 (function() {
 	const themes = ${JSON.stringify(themes)};
@@ -377,6 +393,7 @@ const MantleThemeHeadContent = ({
 		<PreloadFonts includeNunitoSans={includeNunitoSans} />
 	</>
 );
+MantleThemeHeadContent.displayName = "MantleThemeHeadContent";
 
 type InitialThemeProps = {
 	className: string;

@@ -1,3 +1,5 @@
+"use client";
+
 import clsx from "clsx";
 import { forwardRef, useEffect, useRef, useState } from "react";
 import type { ComponentPropsWithoutRef, ComponentRef } from "react";
@@ -29,7 +31,7 @@ type Props = Omit<
  * A form control that allows the user to toggle between checked and not checked.
  * Supports indeterminate state.
  *
- * @see https://mantle.ngrok.com/components/checkbox#api
+ * @see https://mantle.ngrok.com/components/checkbox#api-checkbox
  *
  * @example
  * ```tsx

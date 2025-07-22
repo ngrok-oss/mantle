@@ -2,10 +2,16 @@ import clsx from "clsx";
 import { createContext, useContext, useId, useMemo } from "react";
 import type { CSSProperties, ComponentProps, HTMLAttributes } from "react";
 import { cx } from "../../utils/cx/cx.js";
+import {
+	clamp,
+	isNumber,
+	isValidMaxNumber,
+	isValidValueNumber,
+} from "./math.js";
+import type { ValueType } from "./types.js";
 
 type RemValue = `${number}rem`;
 type StrokeWidth = number | RemValue;
-type ValueType = number | "indeterminate";
 
 /**
  * The default maximum value of the progress bar.
@@ -151,6 +157,7 @@ const ProgressDonut = ({
 		</ProgressContext.Provider>
 	);
 };
+ProgressDonut.displayName = "ProgressDonut";
 
 /**
  * Length (value) of the progress indicator tail when the progress bar is indeterminate.
@@ -220,22 +227,13 @@ const ProgressDonutIndicator = ({
 		</g>
 	);
 };
+ProgressDonutIndicator.displayName = "ProgressDonutIndicator";
 
 export {
 	//,
 	ProgressDonut,
 	ProgressDonutIndicator,
 };
-
-/**
- * Clamp a value between a minimum and maximum value.
- */
-function clamp(
-	value: number,
-	{ min, max }: { min: number; max: number },
-): number {
-	return Math.min(max, Math.max(min, value));
-}
 
 /**
  * Derive the stroke width in pixels as a number value or pixels/rem from a string value.
@@ -260,27 +258,6 @@ export function deriveStrokeWidthPx(
 
 	const stroke = Number.isNaN(value) ? 4 : value;
 	return clamp(stroke, { min: 1, max: 12 });
-}
-
-/**
- * Check if a value is a number.
- */
-function isNumber(value: unknown): value is number {
-	return typeof value === "number";
-}
-
-/**
- * Check if a value is a valid number within the range of 0 to `max`.
- */
-function isValidValueNumber(value: unknown, max: number): value is number {
-	return isNumber(value) && !Number.isNaN(value) && value <= max && value >= 0;
-}
-
-/**
- * Check if a value is a valid number greater than 0.
- */
-function isValidMaxNumber(value: unknown): value is number {
-	return isNumber(value) && !Number.isNaN(value) && value > 0;
 }
 
 /**

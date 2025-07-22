@@ -13,13 +13,7 @@ type IconProps = Omit<SvgAttributes, "children"> & {
 /**
  * Decorates an svg icon with automatic sizing styles and a `shrink-0` class.
  *
- * Merges `className` selectors with the following order of precedence (last one wins):
- * 1. SvgOnly base classes
- * 2. Icon base classes
- * 3. Icon className
- * 4. svg className
- *
- * @see https://mantle.ngrok.com/components/icon#api
+ * @see https://mantle.ngrok.com/components/icon#api-icon
  *
  * @example
  * ```tsx
@@ -39,6 +33,7 @@ const Icon = forwardRef<ComponentRef<"svg">, IconProps>(
 		/>
 	),
 );
+Icon.displayName = "Icon";
 
 export {
 	//,

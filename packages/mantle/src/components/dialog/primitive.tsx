@@ -1,3 +1,5 @@
+"use client";
+
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import {
 	type ComponentPropsWithoutRef,
@@ -30,14 +32,19 @@ function Root(props: ComponentPropsWithoutRef<typeof DialogPrimitive.Root>) {
 		</InternalDialogContext.Provider>
 	);
 }
+Root.displayName = "DialogPrimitiveRoot";
 
 const Trigger = DialogPrimitive.Trigger;
+Trigger.displayName = "DialogPrimitiveTrigger";
 
 const Portal = DialogPrimitive.Portal;
+Portal.displayName = "DialogPrimitivePortal";
 
 const Close = DialogPrimitive.Close;
+Close.displayName = "DialogPrimitiveClose";
 
 const Overlay = DialogPrimitive.Overlay;
+Overlay.displayName = "DialogPrimitiveOverlay";
 
 const Content = forwardRef<
 	ComponentRef<"div">,
@@ -54,6 +61,7 @@ const Content = forwardRef<
 		/>
 	);
 });
+Content.displayName = "DialogPrimitiveContent";
 
 const Title = DialogPrimitive.Title;
 
@@ -70,6 +78,7 @@ const Description = forwardRef<
 
 	return <DialogPrimitive.Description ref={ref} {...props} />;
 });
+Description.displayName = "DialogPrimitiveDescription";
 
 export {
 	//,

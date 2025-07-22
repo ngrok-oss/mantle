@@ -13,16 +13,16 @@ type SvgOnlyProps = Omit<SvgAttributes, "children"> & {
 
 /**
  * Accepts a single SVG icon element and decorates it with `shrink-0` class.
- *
- * Merges `className` selectors with the following order of precedence (last one wins):
- * 1. SvgOnly base classes ("shrink-0")
- * 2. SvgOnly className
- * 3. svg className
- *
  * You probably want to use the `Icon` component instead.
  *
- * The main difference between `Icon` and `SvgOnly` is that `SvgOnly` does not
- * apply any default sizing styles, only `shrink-0`.
+ * @see https://mantle.ngrok.com/components/icon#api-svg-only
+ *
+ * @example
+ * ```tsx
+ * import { ShrimpIcon } from "@phosphor-icons/react/Shrimp";
+ *
+ * <SvgOnly svg={<ShrimpIcon />} />
+ * ```
  */
 const SvgOnly = forwardRef<ComponentRef<"svg">, SvgOnlyProps>(
 	({ className, style, svg, ...props }, ref) => {
@@ -43,6 +43,7 @@ const SvgOnly = forwardRef<ComponentRef<"svg">, SvgOnlyProps>(
 		});
 	},
 );
+SvgOnly.displayName = "SvgOnly";
 
 export {
 	//,

@@ -10,6 +10,29 @@ import {
 import { cx } from "../../utils/cx/cx.js";
 import { Icon, type IconProps } from "../icon/icon.js";
 
+/**
+ * A vertically stacked set of interactive headings that each reveal a section of content.
+ * The root component that contains all accordion items.
+ *
+ * @see https://mantle.ngrok.com/components/accordion#api-accordion
+ *
+ * @example
+ * ```tsx
+ * <Accordion type="single" collapsible>
+ *   <AccordionItem value="item-1">
+ *     <AccordionHeading>
+ *       <AccordionTrigger>
+ *         <AccordionTriggerIcon />
+ *         Is it accessible?
+ *       </AccordionTrigger>
+ *     </AccordionHeading>
+ *     <AccordionContent>
+ *       Yes. It adheres to the WAI-ARIA design pattern.
+ *     </AccordionContent>
+ *   </AccordionItem>
+ * </Accordion>
+ * ```
+ */
 const Accordion = forwardRef<
 	ComponentRef<"div">,
 	ComponentPropsWithoutRef<typeof AccordionPrimitive.Root>
@@ -22,9 +45,55 @@ const Accordion = forwardRef<
 ));
 Accordion.displayName = "Accordion";
 
+/**
+ * Contains all the parts of a collapsible section.
+ * A single accordion item that can be expanded or collapsed.
+ *
+ * @see https://mantle.ngrok.com/components/accordion#api-accordion-item
+ *
+ * @example
+ * ```tsx
+ * <Accordion type="single" collapsible>
+ *   <AccordionItem value="item-1">
+ *     <AccordionHeading>
+ *       <AccordionTrigger>
+ *         <AccordionTriggerIcon />
+ *         Is it accessible?
+ *       </AccordionTrigger>
+ *     </AccordionHeading>
+ *     <AccordionContent>
+ *       Yes. It adheres to the WAI-ARIA design pattern.
+ *     </AccordionContent>
+ *   </AccordionItem>
+ * </Accordion>
+ * ```
+ */
 const AccordionItem = AccordionPrimitive.Item;
 AccordionItem.displayName = "AccordionItem";
 
+/**
+ * Wraps an AccordionTrigger.
+ * Contains the accordion trigger and provides proper heading semantics.
+ *
+ * @see https://mantle.ngrok.com/components/accordion#api-accordion-heading
+ *
+ * @example
+ * ```tsx
+ * <Accordion type="single" collapsible>
+ *   <AccordionItem value="item-1">
+ *     <AccordionHeading>
+ *       <AccordionTrigger>
+ *         <AccordionTriggerIcon />
+ *         Is it accessible?
+ *       </AccordionTrigger>
+ *     </AccordionHeading>
+ *     <AccordionContent>
+ *       Yes. It adheres to the WAI-ARIA design pattern.
+ *     </AccordionContent>
+ *   </AccordionItem>
+ * </Accordion>
+ * ```
+ */
 const AccordionHeading = forwardRef<
 	ComponentRef<"div">,
 	ComponentPropsWithoutRef<typeof AccordionPrimitive.Header>
@@ -37,6 +106,29 @@ const AccordionHeading = forwardRef<
 ));
 AccordionHeading.displayName = "AccordionHeading";
 
+/**
+ * Toggles the collapsed state of its associated item.
+ * The interactive element that expands or collapses the accordion content.
+ *
+ * @see https://mantle.ngrok.com/components/accordion#api-accordion-trigger
+ *
+ * @example
+ * ```tsx
+ * <Accordion type="single" collapsible>
+ *   <AccordionItem value="item-1">
+ *     <AccordionHeading>
+ *       <AccordionTrigger>
+ *         <AccordionTriggerIcon />
+ *         Is it accessible?
+ *       </AccordionTrigger>
+ *     </AccordionHeading>
+ *     <AccordionContent>
+ *       Yes. It adheres to the WAI-ARIA design pattern.
+ *     </AccordionContent>
+ *   </AccordionItem>
+ * </Accordion>
+ * ```
+ */
 const AccordionTrigger = forwardRef<
 	ComponentRef<"button">,
 	ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
@@ -51,6 +143,29 @@ const AccordionTrigger = forwardRef<
 ));
 AccordionTrigger.displayName = "AccordionTrigger";
 
+/**
+ * An icon that indicates the expanded/collapsed state of the accordion trigger.
+ * Rotates based on the accordion item state to provide visual feedback.
+ *
+ * @see https://mantle.ngrok.com/components/accordion#api-accordion-trigger-icon
+ *
+ * @example
+ * ```tsx
+ * <Accordion type="single" collapsible>
+ *   <AccordionItem value="item-1">
+ *     <AccordionHeading>
+ *       <AccordionTrigger>
+ *         <AccordionTriggerIcon />
+ *         Is it accessible?
+ *       </AccordionTrigger>
+ *     </AccordionHeading>
+ *     <AccordionContent>
+ *       Yes. It adheres to the WAI-ARIA design pattern.
+ *     </AccordionContent>
+ *   </AccordionItem>
+ * </Accordion>
+ * ```
+ */
 const AccordionTriggerIcon = ({
 	className,
 	...props
@@ -61,7 +176,31 @@ const AccordionTriggerIcon = ({
 		className={cx("group-data-state-open:rotate-0 -rotate-90", className)}
 	/>
 );
+AccordionTriggerIcon.displayName = "AccordionTriggerIcon";
 
+/**
+ * Contains the collapsible content for an item.
+ * The content area that is revealed when the accordion item is expanded.
+ *
+ * @see https://mantle.ngrok.com/components/accordion#api-accordion-content
+ *
+ * @example
+ * ```tsx
+ * <Accordion type="single" collapsible>
+ *   <AccordionItem value="item-1">
+ *     <AccordionHeading>
+ *       <AccordionTrigger>
+ *         <AccordionTriggerIcon />
+ *         Is it accessible?
+ *       </AccordionTrigger>
+ *     </AccordionHeading>
+ *     <AccordionContent>
+ *       Yes. It adheres to the WAI-ARIA design pattern.
+ *     </AccordionContent>
+ *   </AccordionItem>
+ * </Accordion>
+ * ```
+ */
 const AccordionContent = forwardRef<
 	ComponentRef<"div">,
 	ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>

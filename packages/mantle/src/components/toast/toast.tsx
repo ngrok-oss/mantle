@@ -39,6 +39,16 @@ type ToasterProps = WithStyleProps &
  *
  * Only one `<Toaster />` should be rendered in an app a time, preferably at the
  * root level of the app.
+ *
+ * @see https://mantle.ngrok.com/components/toast#api-toaster
+ *
+ * @example
+ * ```tsx
+ * <Toaster
+ *   position="top-right"
+ *   duration_ms={5000}
+ * />
+ * ```
  */
 const Toaster = ({
 	//,
@@ -70,6 +80,7 @@ const Toaster = ({
 		/>
 	);
 };
+Toaster.displayName = "Toaster";
 
 const ToastIdContext = createContext<string | number>("");
 
@@ -88,6 +99,19 @@ type MakeToastOptions = {
 /**
  * Create a toast. Provide a `<Toast>` component as the `children` to be rendered
  * inside the `<Toaster />` section.
+ *
+ * @see https://mantle.ngrok.com/components/toast#api-make-toast
+ *
+ * @example
+ * ```tsx
+ * makeToast(
+ *   <Toast priority="success">
+ *     <ToastIcon />
+ *     <ToastMessage>Operation completed successfully!</ToastMessage>
+ *     <ToastAction>Dismiss</ToastAction>
+ *   </Toast>
+ * );
+ * ```
  */
 function makeToast(children: ReactNode, options?: MakeToastOptions) {
 	return ToastPrimitive.toast.custom(
@@ -132,6 +156,17 @@ type ToastProps = ComponentProps<"div"> &
 /**
  * A succinct message with a priority that is displayed temporarily.
  * Toasts are used to provide feedback to the user without interrupting their workflow.
+ *
+ * @see https://mantle.ngrok.com/components/toast#api-toast
+ *
+ * @example
+ * ```tsx
+ * <Toast priority="success">
+ *   <ToastIcon />
+ *   <ToastMessage>Changes saved successfully!</ToastMessage>
+ *   <ToastAction>Undo</ToastAction>
+ * </Toast>
+ * ```
  */
 const Toast = forwardRef<ComponentRef<"div">, ToastProps>(
 	({ asChild, children, className, priority, ...props }, ref) => {
@@ -161,12 +196,23 @@ const Toast = forwardRef<ComponentRef<"div">, ToastProps>(
 		);
 	},
 );
+Toast.displayName = "Toast";
 
 type ToastIconProps = Partial<SvgOnlyProps>;
 
 /**
  * An icon that visually represents the priority of the toast.
  * If you do not provide an icon, the default icon and color for the priority is used.
+ *
+ * @see https://mantle.ngrok.com/components/toast#api-toast-icon
+ *
+ * @example
+ * ```tsx
+ * <Toast priority="warning">
+ *   <ToastIcon />
+ *   <ToastMessage>Warning message</ToastMessage>
+ * </Toast>
+ * ```
  */
 const ToastIcon = forwardRef<ComponentRef<"svg">, ToastIconProps>(
 	({ className, svg, ...props }, ref) => {
@@ -215,12 +261,24 @@ const ToastIcon = forwardRef<ComponentRef<"svg">, ToastIconProps>(
 		}
 	},
 );
+ToastIcon.displayName = "ToastIcon";
 
 type ToastActionProps = ComponentProps<"button"> & WithAsChild;
 
 /**
  * A button that dismisses the toast when clicked.
  * You can prevent the toast from being dismissed `onClick` by calling `event.preventDefault()`
+ *
+ * @see https://mantle.ngrok.com/components/toast#api-toast-action
+ *
+ * @example
+ * ```tsx
+ * <Toast priority="info">
+ *   <ToastIcon />
+ *   <ToastMessage>File uploaded successfully</ToastMessage>
+ *   <ToastAction>View File</ToastAction>
+ * </Toast>
+ * ```
  */
 const ToastAction = forwardRef<ComponentRef<"button">, ToastActionProps>(
 	({ asChild, className, onClick, ...props }, ref) => {
@@ -250,11 +308,22 @@ const ToastAction = forwardRef<ComponentRef<"button">, ToastActionProps>(
 		);
 	},
 );
+ToastAction.displayName = "ToastAction";
 
 type ToastMessageProps = ComponentProps<"p"> & WithAsChild;
 
 /**
  * The message content of the toast.
+ *
+ * @see https://mantle.ngrok.com/components/toast#api-toast-message
+ *
+ * @example
+ * ```tsx
+ * <Toast priority="success">
+ *   <ToastIcon />
+ *   <ToastMessage>Your changes have been saved</ToastMessage>
+ * </Toast>
+ * ```
  */
 const ToastMessage = forwardRef<ComponentRef<"p">, ToastMessageProps>(
 	({ asChild, className, ...props }, ref) => {
@@ -270,6 +339,7 @@ const ToastMessage = forwardRef<ComponentRef<"p">, ToastMessageProps>(
 		);
 	},
 );
+ToastMessage.displayName = "ToastMessage";
 
 export {
 	//,

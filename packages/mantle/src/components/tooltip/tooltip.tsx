@@ -7,10 +7,14 @@ import { cx } from "../../utils/cx/cx.js";
  * Wraps your app to provide global functionality to your tooltips.
  * Only one instance of this component should be rendered in your app, preferably at the root.
  *
- * @preview This component is in `preview` mode which means the API is not stable and may change.
- * There may also be bugs! Please file an issue if you find any! <3
+ * @see https://mantle.ngrok.com/components/tooltip#api-tooltip-provider
  *
- * https://github.com/ngrok-oss/mantle/issues
+ * @example
+ * ```tsx
+ * <TooltipProvider>
+ *   <App />
+ * </TooltipProvider>
+ * ```
  */
 const TooltipProvider = ({
 	delayDuration = 0,
@@ -18,36 +22,72 @@ const TooltipProvider = ({
 }: ComponentPropsWithoutRef<typeof Provider>) => (
 	<Provider delayDuration={delayDuration ?? 0} {...props} />
 );
+TooltipProvider.displayName = "TooltipProvider";
 
 /**
  * A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.
  * This is the root, stateful component that manages the open/closed state of the tooltip.
  * Will throw if you have not wrapped your app in a `TooltipProvider`.
  *
- * @preview This component is in `preview` mode which means the API is not stable and may change.
- * There may also be bugs! Please file an issue if you find any! <3
+ * @see https://mantle.ngrok.com/components/tooltip#api-tooltip
  *
- * https://github.com/ngrok-oss/mantle/issues
+ * @example
+ * ```tsx
+ * <Tooltip>
+ *   <TooltipTrigger asChild>
+ *     <Button type="button" appearance="outlined">
+ *       Hover me
+ *     </Button>
+ *   </TooltipTrigger>
+ *   <TooltipContent>
+ *     This is a tooltip
+ *   </TooltipContent>
+ * </Tooltip>
+ * ```
  */
 const Tooltip = Root;
+Tooltip.displayName = "Tooltip";
 
 /**
  * The trigger button that opens the tooltip.
  *
- * @preview This component is in `preview` mode which means the API is not stable and may change.
- * There may also be bugs! Please file an issue if you find any! <3
+ * @see https://mantle.ngrok.com/components/tooltip#api-tooltip-trigger
  *
- * https://github.com/ngrok-oss/mantle/issues
+ * @example
+ * ```tsx
+ * <Tooltip>
+ *   <TooltipTrigger asChild>
+ *     <Button type="button" appearance="outlined">
+ *       Hover me
+ *     </Button>
+ *   </TooltipTrigger>
+ *   <TooltipContent>
+ *     This is a tooltip
+ *   </TooltipContent>
+ * </Tooltip>
+ * ```
  */
 const TooltipTrigger = Trigger;
+TooltipTrigger.displayName = "TooltipTrigger";
 
 /**
  * The content to render inside the tooltip.
  *
- * @preview This component is in `preview` mode which means the API is not stable and may change.
- * There may also be bugs! Please file an issue if you find any! <3
+ * @see https://mantle.ngrok.com/components/tooltip#api-tooltip-content
  *
- * https://github.com/ngrok-oss/mantle/issues
+ * @example
+ * ```tsx
+ * <Tooltip>
+ *   <TooltipTrigger asChild>
+ *     <Button type="button" appearance="outlined">
+ *       Hover me
+ *     </Button>
+ *   </TooltipTrigger>
+ *   <TooltipContent>
+ *     This is a tooltip
+ *   </TooltipContent>
+ * </Tooltip>
+ * ```
  */
 const TooltipContent = forwardRef<
 	ComponentRef<typeof Content>,

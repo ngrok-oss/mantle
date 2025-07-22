@@ -30,6 +30,28 @@ const TabsStateContext = createContext<TabsStateContextValue>({
 	orientation: "horizontal",
 });
 
+/**
+ * A set of layered sections of content—known as tab panels—that are displayed one at a time.
+ * The root component that provides context for all tab components.
+ *
+ * @see https://mantle.ngrok.com/components/tabs#api-tabs
+ *
+ * @example
+ * ```tsx
+ * <Tabs defaultValue="account">
+ *   <TabsList>
+ *     <TabsTrigger value="account">Account</TabsTrigger>
+ *     <TabsTrigger value="password">Password</TabsTrigger>
+ *   </TabsList>
+ *   <TabsContent value="account">
+ *     <p>Make changes to your account here.</p>
+ *   </TabsContent>
+ *   <TabsContent value="password">
+ *     <p>Change your password here.</p>
+ *   </TabsContent>
+ * </Tabs>
+ * ```
+ */
 const Tabs = forwardRef<
 	ComponentRef<typeof TabsPrimitiveRoot>,
 	ComponentPropsWithoutRef<typeof TabsPrimitiveRoot>
@@ -51,6 +73,25 @@ const Tabs = forwardRef<
 ));
 Tabs.displayName = "Tabs";
 
+/**
+ * Contains the triggers that are aligned along the edge of the active content.
+ * The container for tab triggers that provides the visual layout for tab navigation.
+ *
+ * @see https://mantle.ngrok.com/components/tabs#api-tabs-list
+ *
+ * @example
+ * ```tsx
+ * <Tabs defaultValue="account">
+ *   <TabsList>
+ *     <TabsTrigger value="account">Account</TabsTrigger>
+ *     <TabsTrigger value="password">Password</TabsTrigger>
+ *   </TabsList>
+ *   <TabsContent value="account">
+ *     <p>Make changes to your account here.</p>
+ *   </TabsContent>
+ * </Tabs>
+ * ```
+ */
 const TabsList = forwardRef<
 	ComponentRef<typeof TabsPrimitiveList>,
 	ComponentPropsWithoutRef<typeof TabsPrimitiveList>
@@ -92,7 +133,27 @@ const TabsTriggerDecoration = () => {
 		/>
 	);
 };
+TabsTriggerDecoration.displayName = "TabsTriggerDecoration";
 
+/**
+ * The button that activates its associated content.
+ * A clickable tab trigger that switches between different tab content panels.
+ *
+ * @see https://mantle.ngrok.com/components/tabs#api-tabs-trigger
+ *
+ * @example
+ * ```tsx
+ * <Tabs defaultValue="account">
+ *   <TabsList>
+ *     <TabsTrigger value="account">Account</TabsTrigger>
+ *     <TabsTrigger value="password">Password</TabsTrigger>
+ *   </TabsList>
+ *   <TabsContent value="account">
+ *     <p>Make changes to your account here.</p>
+ *   </TabsContent>
+ * </Tabs>
+ * ```
+ */
 const TabsTrigger = forwardRef<
 	ComponentRef<typeof TabsPrimitiveTrigger>,
 	TabsTriggerProps
@@ -179,6 +240,24 @@ const TabsTrigger = forwardRef<
 );
 TabsTrigger.displayName = "TabsTrigger";
 
+/**
+ * A badge component that can be used inside tab triggers to display additional information.
+ * Typically used to show counts or status indicators within tab headers.
+ *
+ * @see https://mantle.ngrok.com/components/tabs#api-tab-badge
+ *
+ * @example
+ * ```tsx
+ * <Tabs defaultValue="account">
+ *   <TabsList>
+ *     <TabsTrigger value="account">
+ *       Account <TabBadge>5</TabBadge>
+ *     </TabsTrigger>
+ *     <TabsTrigger value="password">Password</TabsTrigger>
+ *   </TabsList>
+ * </Tabs>
+ * ```
+ */
 const TabBadge = ({
 	className,
 	children,
@@ -196,7 +275,30 @@ const TabBadge = ({
 		{children}
 	</span>
 );
+TabBadge.displayName = "TabBadge";
 
+/**
+ * Contains the content associated with each trigger.
+ * The content panel that displays when its corresponding tab trigger is active.
+ *
+ * @see https://mantle.ngrok.com/components/tabs#api-tabs-content
+ *
+ * @example
+ * ```tsx
+ * <Tabs defaultValue="account">
+ *   <TabsList>
+ *     <TabsTrigger value="account">Account</TabsTrigger>
+ *     <TabsTrigger value="password">Password</TabsTrigger>
+ *   </TabsList>
+ *   <TabsContent value="account">
+ *     <p>Make changes to your account here.</p>
+ *   </TabsContent>
+ *   <TabsContent value="password">
+ *     <p>Change your password here.</p>
+ *   </TabsContent>
+ * </Tabs>
+ * ```
+ */
 const TabsContent = forwardRef<
 	ComponentRef<typeof TabsPrimitiveContent>,
 	ComponentPropsWithoutRef<typeof TabsPrimitiveContent>

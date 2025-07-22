@@ -188,7 +188,14 @@ type ButtonProps = ComponentProps<"button"> &
  * other assistive technology. Once activated, it then performs an action, such
  * as submitting a form or opening a dialog.
  *
- * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button
+ * @see https://mantle.ngrok.com/components/button#api-button
+ *
+ * @example
+ * ```tsx
+ * <Button type="button" appearance="filled" priority="default">
+ *   Click me
+ * </Button>
+ * ```
  */
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 	(

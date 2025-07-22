@@ -1,3 +1,5 @@
+"use client";
+
 import { CaretDownIcon } from "@phosphor-icons/react/CaretDown";
 import { CaretUpIcon } from "@phosphor-icons/react/CaretUp";
 import { CheckIcon } from "@phosphor-icons/react/Check";
@@ -68,7 +70,10 @@ type SelectProps = PropsWithChildren & {
 /**
  * Displays a list of options for the user to pick from—triggered by a button.
  *
+ * @see https://mantle.ngrok.com/components/select#api-select
+ *
  * @example
+ * ```tsx
  * <Select>
  *   <SelectTrigger>
  *     <SelectValue placeholder="Select a fruit" />
@@ -88,8 +93,7 @@ type SelectProps = PropsWithChildren & {
  *     </SelectGroup>
  *   </SelectContent>
  * </Select>
- *
- * @see https://mantle.ngrok.com/components/select#api-select
+ * ```
  */
 const Select = forwardRef<HTMLButtonElement, SelectProps>(
 	(
@@ -151,6 +155,7 @@ Select.displayName = "Select";
  * @see https://mantle.ngrok.com/components/select#api-select-group
  */
 const SelectGroup = SelectPrimitive.Group;
+SelectGroup.displayName = "SelectGroup";
 
 /**
  * The part that reflects the selected value. By default the selected item's text will be rendered. if you require more control, you can instead control the select and pass your own children. It should not be styled to ensure correct positioning. An optional placeholder prop is also available for when the select has no value.
@@ -170,6 +175,7 @@ const SelectGroup = SelectPrimitive.Group;
  * @see https://mantle.ngrok.com/components/select#api-select-value
  */
 const SelectValue = SelectPrimitive.Value;
+SelectValue.displayName = "SelectValue";
 
 type SelectTriggerProps = ComponentPropsWithoutRef<
 	typeof SelectPrimitive.Trigger
@@ -180,7 +186,10 @@ type SelectTriggerProps = ComponentPropsWithoutRef<
 /**
  * The button that toggles the select. The SelectContent will position itself adjacent to the trigger.
  *
+ * @see https://mantle.ngrok.com/components/select#api-select-trigger
+ *
  * @example
+ * ```tsx
  * <Select>
  *   <SelectTrigger>
  *     <SelectValue placeholder="Select a fruit" />
@@ -191,8 +200,7 @@ type SelectTriggerProps = ComponentPropsWithoutRef<
  *     <SelectItem value="cherry">Cherry</SelectItem>
  *   </SelectContent>
  * </Select>
- *
- * @see https://mantle.ngrok.com/components/select#api-select-trigger
+ * ```
  */
 const SelectTrigger = forwardRef<
 	ComponentRef<typeof SelectPrimitive.Trigger>,

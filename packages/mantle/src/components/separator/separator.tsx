@@ -61,6 +61,7 @@ const HorizontalSeparatorGroup = ({
 		</SeparatorGroupContext.Provider>
 	);
 };
+HorizontalSeparatorGroup.displayName = "HorizontalSeparatorGroup";
 
 type SeparatorProps = ComponentProps<"div"> &
 	WithAsChild & {

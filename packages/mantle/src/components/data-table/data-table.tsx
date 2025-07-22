@@ -58,6 +58,22 @@ type DataTableProps<TData> = ComponentProps<typeof TableRoot> & {
 	table: TableInstance<TData>;
 };
 
+/**
+ * A data table component that provides sorting and other data table functionality.
+ * Built on top of TanStack Table for advanced table features.
+ *
+ * @see https://mantle.ngrok.com/components/data-table#api-data-table
+ *
+ * @example
+ * ```tsx
+ * <DataTable table={table}>
+ *   <DataTableHead />
+ *   <DataTableBody>
+ *     <DataTableRows />
+ *   </DataTableBody>
+ * </DataTable>
+ * ```
+ */
 function DataTable<TData>({
 	children,
 	table,
@@ -119,19 +135,21 @@ type DataTableHeaderSortButtonProps<TData, TValue> = Omit<
  * If the column is sortable, clicking the button will toggle the sorting
  * direction.
  *
+ * @see https://mantle.ngrok.com/components/data-table#api-data-table-header-sort-button
+ *
  * @example
- * ```md
- * Each click cycles through...
- *
- * For alphanumeric sorting:
- *   unsorted ➡️ ascending ➡️ descending ➡️ unsorted ➡️ ...
- *
- * For time sorting:
- *   unsorted ➡️ newest-to-oldest ➡️ oldest-to-newest ➡️ unsorted ➡️ ...
- *
- *   this is equivalent to the inverse of alphanumeric sorting, or
- *   unsorted ➡️ descending ➡️ ascending ➡️ unsorted ➡️ ...
+ * ```tsx
+ * <DataTableHeaderSortButton
+ *   column={column}
+ *   sortingMode="alphanumeric"
+ * >
+ *   Column Title
+ * </DataTableHeaderSortButton>
  * ```
+ *
+ * Each click cycles through:
+ * - For alphanumeric sorting: unsorted ➡️ ascending ➡️ descending ➡️ unsorted
+ * - For time sorting: unsorted ➡️ newest-to-oldest ➡️ oldest-to-newest ➡️ unsorted
  */
 function DataTableHeaderSortButton<TData, TValue>({
 	children,
@@ -197,6 +215,17 @@ type DataTableHeaderProps = ComponentProps<typeof TableHeader>;
 /**
  * A header for a data table.
  * This is typically used to wrap the `DataTableHeaderSortButton` component.
+ *
+ * @see https://mantle.ngrok.com/components/data-table#api-data-table-header
+ *
+ * @example
+ * ```tsx
+ * <DataTableHeader>
+ *   <DataTableHeaderSortButton column={column} sortingMode="alphanumeric">
+ *     Column Title
+ *   </DataTableHeaderSortButton>
+ * </DataTableHeader>
+ * ```
  */
 function DataTableHeader<TData, TValue>({
 	children,

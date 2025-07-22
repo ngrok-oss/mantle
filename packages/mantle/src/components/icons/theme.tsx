@@ -19,6 +19,7 @@ function AutoThemeIcon(props: SvgAttributes) {
 
 	return <ThemeIcon theme={appliedTheme} {...props} />;
 }
+AutoThemeIcon.displayName = "AutoThemeIcon";
 
 type ThemeIconProps = SvgAttributes & { theme: Theme };
 
@@ -45,6 +46,7 @@ function ThemeIcon({ theme, ...props }: ThemeIconProps) {
 			return <MoonIcon {...props} weight="fill" />;
 	}
 }
+ThemeIcon.displayName = "ThemeIcon";
 
 export {
 	//,

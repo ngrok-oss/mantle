@@ -1,3 +1,5 @@
+"use client";
+
 import { Slot } from "@radix-ui/react-slot";
 import type {
 	ComponentProps,
@@ -77,9 +79,6 @@ type Props = ComponentProps<"div"> & WithAsChild & BaseProps;
 
 /**
  * A container that prevents the click event from bubbling out of it.
- *
- * Good to use when you want to provide some action buttons inside of a table
- * row or list item that navigates on click.
  *
  * @see https://mantle.ngrok.com/components/sandboxed-on-click#api-sandboxed-on-click
  *

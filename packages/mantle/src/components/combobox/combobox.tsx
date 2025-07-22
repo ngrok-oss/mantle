@@ -1,3 +1,5 @@
+"use client";
+
 import * as Primitive from "@ariakit/react";
 import { Slot } from "@radix-ui/react-slot";
 import {
@@ -33,6 +35,7 @@ const Combobox = ({ children, ...props }: ComboboxProps) => {
 		</Primitive.ComboboxProvider>
 	);
 };
+Combobox.displayName = "Combobox";
 
 type ComboboxInputProps = Omit<
 	Primitive.ComboboxProps,
@@ -181,7 +184,6 @@ const ComboboxItem = forwardRef<
 			children,
 			className,
 			focusOnHover = true,
-			setValueOnClick = true,
 			value,
 			...props
 		},
@@ -356,6 +358,7 @@ const ComboboxItemValue = forwardRef<
 		/>
 	);
 });
+ComboboxItemValue.displayName = "ComboboxItemValue";
 
 /**
  * Renders a separator between ComboboxItems or ComboboxGroups.

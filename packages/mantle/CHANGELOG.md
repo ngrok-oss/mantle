@@ -1,5 +1,49 @@
 # @ngrok/mantle
 
+## 0.32.1
+
+### Patch Changes
+
+- [#678](https://github.com/ngrok-oss/mantle/pull/678) [`c303597`](https://github.com/ngrok-oss/mantle/commit/c30359783e449583ac522bddb36ef92225e5ba84) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add explicit displayNames to all mantle components
+
+- [#680](https://github.com/ngrok-oss/mantle/pull/680) [`7b6b15a`](https://github.com/ngrok-oss/mantle/commit/7b6b15afdcc42104dbefb9a1213d694c2c7d39dd) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - add missing intellisense jsdocs to all mantle components
+
+## 0.32.0
+
+### Minor Changes
+
+- [#675](https://github.com/ngrok-oss/mantle/pull/675) [`4a65a5a`](https://github.com/ngrok-oss/mantle/commit/4a65a5ac00c0d656f0771503fbe1f8ffeada8057) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add ProgressBar component
+
+## 0.31.6
+
+### Patch Changes
+
+- [#670](https://github.com/ngrok-oss/mantle/pull/670) [`bc3e6ac`](https://github.com/ngrok-oss/mantle/commit/bc3e6ac87bd453b7af82dddad013cd9fd7de0671) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - remove zod as a peerDependency of mantle
+
+## 0.31.5
+
+### Patch Changes
+
+- [#662](https://github.com/ngrok-oss/mantle/pull/662) [`1cfccd6`](https://github.com/ngrok-oss/mantle/commit/1cfccd66c5e4091c34553436e422e2e1cda356a4) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Sprinkle use client everywhere
+
+## 0.31.4
+
+### Patch Changes
+
+- [#660](https://github.com/ngrok-oss/mantle/pull/660) [`2fddd06`](https://github.com/ngrok-oss/mantle/commit/2fddd06a2d7ac056f022a96d64888230bb261dcf) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Change peerDependencies for react and react-dom
+
+## 0.31.3
+
+### Patch Changes
+
+- [#642](https://github.com/ngrok-oss/mantle/pull/642) [`1bb8fdd`](https://github.com/ngrok-oss/mantle/commit/1bb8fdd7769f39dfc5fd2556cee5a8d08e3d006d) Thanks [@dependabot](https://github.com/apps/dependabot)! - update dependencies
+
+- [#651](https://github.com/ngrok-oss/mantle/pull/651) [`57d5b60`](https://github.com/ngrok-oss/mantle/commit/57d5b6054b96c5e68ecafa35099aabcb1adbdce7) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update dependencies
+
+- [#659](https://github.com/ngrok-oss/mantle/pull/659) [`1d43071`](https://github.com/ngrok-oss/mantle/commit/1d43071a93f4d5d618dd503ddf9dfbd2a89adf6b) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Fix mantle react, react-dom peer dependencies range
+
+- [#658](https://github.com/ngrok-oss/mantle/pull/658) [`ad402db`](https://github.com/ngrok-oss/mantle/commit/ad402dbf34c05825538f89ddb4ee03cf778a0bce) Thanks [@melanieseltzer](https://github.com/melanieseltzer)! - Fix bug where `setValueOnClick` prop was destructured (to set a default) but then never passed along and used (so the consumer could never override it).
+
 ## 0.31.2
 
 ### Patch Changes

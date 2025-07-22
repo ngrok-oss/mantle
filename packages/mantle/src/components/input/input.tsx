@@ -1,3 +1,5 @@
+"use client";
+
 import { CheckCircleIcon } from "@phosphor-icons/react/CheckCircle";
 import { WarningIcon } from "@phosphor-icons/react/Warning";
 import { WarningDiamondIcon } from "@phosphor-icons/react/WarningDiamond";
@@ -33,7 +35,19 @@ type InputProps = Omit<
 	PropsWithChildren;
 
 /**
- * Used to create interactive controls for web-based forms in order to accept data from the user
+ * Used to create interactive controls for web-based forms in order to accept data from the user.
+ * A versatile input element that supports various types, validation states, and can be composed with other elements.
+ *
+ * @see https://mantle.ngrok.com/components/input#api-input
+ *
+ * @example
+ * ```tsx
+ * <Input
+ *   type="email"
+ *   placeholder="Enter your email"
+ *   validation="success"
+ * />
+ * ```
  */
 const Input = forwardRef<HTMLInputElement, InputProps>(
 	({ children, className, ...props }, forwardedRef) => {
@@ -75,6 +89,17 @@ type InputCaptureProps = Omit<
 
 /**
  * The actual <input /> element that captures user input.
+ * Used internally by Input component or when you need direct control over the input element.
+ *
+ * @see https://mantle.ngrok.com/components/input#api-input-capture
+ *
+ * @example
+ * ```tsx
+ * <Input>
+ *   <InputCapture />
+ *   <Icon svg={<SearchIcon />} />
+ * </Input>
+ * ```
  */
 const InputCapture = forwardRef<HTMLInputElement, InputCaptureProps>(
 	(
@@ -223,6 +248,7 @@ const InputContainer = ({
 		</InputContext.Provider>
 	);
 };
+InputContainer.displayName = "InputContainer";
 
 export { Input, InputCapture };
 export type { InputProps, InputCaptureProps };
@@ -261,3 +287,4 @@ const ValidationFeedback = ({
 			return null;
 	}
 };
+ValidationFeedback.displayName = "ValidationFeedback";

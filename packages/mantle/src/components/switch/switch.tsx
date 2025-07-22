@@ -18,7 +18,7 @@ type SwitchProps = ComponentPropsWithoutRef<typeof SwitchPrimitiveRoot> & {
 /**
  * A form control that allows the user to toggle between checked and not checked.
  *
- * @see https://mantle.ngrok.com/components/switch#api
+ * @see https://mantle.ngrok.com/components/switch#api-switch
  *
  * @example
  * ```tsx
@@ -28,7 +28,7 @@ type SwitchProps = ComponentPropsWithoutRef<typeof SwitchPrimitiveRoot> & {
  *     <Switch name="airplane-mode" id="airplane-mode" />
  *   </Label>
  * </form>
- *```
+ * ```
  */
 const Switch = forwardRef<
 	ComponentRef<typeof SwitchPrimitiveRoot>,
