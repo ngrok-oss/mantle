@@ -11,7 +11,7 @@ export default defineConfig({
 	plugins: [
 		//
 		devtoolsJson(),
-		tailwindcss() as any,
+		tailwindcss(),
 		reactRouter(),
 		tsconfigPaths(),
 	],
