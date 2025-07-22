@@ -672,7 +672,6 @@
 	}
 }
 
-
 @utility divide-card-muted {
 	:where(& > :not(:last-child)) {
 		border-color: var(--color-neutral-200);
@@ -764,6 +763,16 @@
 
 	@variant dark {
 		background-color: #000;
+	}
+}
+
+@utility bg-overlay {
+	@variant light {
+		background-color: --alpha(#000 / 12%);
+	}
+
+	@variant dark {
+		background-color: --alpha(#000 / 60%);
 	}
 }
 
