@@ -111,6 +111,8 @@
 @custom-variant aria-invalid (&[aria-invalid="true"]);
 @custom-variant aria-unchecked (&[aria-checked="false"]);
 
+@custom-variant where (:where(&));
+
 @theme {
 	--font-sans: "EuclidSquare", ui-sans-serif, system-ui, sans-serif,
 		"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
