@@ -215,6 +215,7 @@ const TableHead = forwardRef<ComponentRef<"thead">, ComponentProps<"thead">>(
 				"border-b border-card-muted",
 				"divide-y divide-card-muted",
 				"text-strong bg-base",
+				"[&>tr]:bg-base", // Row styling
 				className,
 			)}
 			{...props}
@@ -278,6 +279,7 @@ const TableBody = forwardRef<ComponentRef<"tbody">, ComponentProps<"tbody">>(
 				"divide-y divide-card-muted",
 				"text-body",
 				"[thead+&]:border-t [thead+&]:border-card-muted",
+				"[&>tr]:bg-card [&>tr]:not-only:hover:bg-card-hover", // Body row styling
 				className,
 			)}
 			ref={ref}
@@ -342,9 +344,10 @@ const TableFoot = forwardRef<ComponentRef<"tfoot">, ComponentProps<"tfoot">>(
 			ref={ref}
 			className={cx(
 				//,
-				"bg-gray-50/50 font-medium text-body",
+				"font-medium text-body",
 				"border-t border-card-muted",
 				"divide-y divide-card-muted",
+				"[&>tr]:bg-gray-50/50 [&>tr]:hover:bg-card-hover", // Row styling
 				className,
 			)}
 			{...props}
@@ -404,8 +407,7 @@ const TableRow = forwardRef<ComponentRef<"tr">, ComponentProps<"tr">>(
 		<tr
 			ref={ref}
 			className={cx(
-				// "data-state-selected:bg-gray-200",
-				"[&>td]:bg-card [tbody:has(tr:not(:only-child))>&>td]:hover:bg-card-hover",
+				// This could be removed, or simplified
 				className,
 			)}
 			{...props}
