@@ -45,6 +45,9 @@
     "onlyBuiltDependencies": [
       "@biomejs/biome",
       "esbuild"
+    ],
+    "ignoredBuiltDependencies": [
+      "@tailwindcss/oxide"
     ]
   }
 }

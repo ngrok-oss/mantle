@@ -1270,7 +1270,6 @@ export default function Page() {
 						50
 					</div>
 				</div>
-
 				<h3 id="blue" className="mt-8 text-xl font-medium">
 					Blue
 				</h3>
