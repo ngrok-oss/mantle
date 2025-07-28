@@ -178,7 +178,7 @@ const TabsTrigger = forwardRef<
 				"group/tab-trigger relative flex cursor-pointer items-center gap-1 whitespace-nowrap py-3 text-sm font-medium text-gray-600",
 				ctx.orientation === "horizontal" && "rounded-tl-md rounded-tr-md",
 				ctx.orientation === "vertical" && "rounded-bl-md rounded-tl-md pr-3",
-				"ring-focus-accent outline-none",
+				"ring-focus-accent outline-hidden",
 				"aria-disabled:cursor-default aria-disabled:opacity-50",
 				"focus-visible:ring-4",
 				"[&>svg]:shrink-0 [&>svg]:size-5",
@@ -306,7 +306,7 @@ const TabsContent = forwardRef<
 	<TabsPrimitiveContent
 		ref={ref}
 		className={cx(
-			"focus-visible:ring-focus-accent outline-none focus-visible:ring-4",
+			"focus-visible:ring-focus-accent outline-hidden focus-visible:ring-4",
 			className,
 		)}
 		{...props}

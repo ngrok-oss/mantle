@@ -136,7 +136,7 @@ const InputCapture = forwardRef<HTMLInputElement, InputCaptureProps>(
 				aria-invalid={ariaInvalid}
 				data-validation={validationValue}
 				className={cx(
-					"placeholder:text-placeholder min-w-0 flex-1 bg-transparent text-left autofill:shadow-[inset_0_0_0px_1000px_hsl(var(--blue-50))] focus:outline-none",
+					"placeholder:text-placeholder min-w-0 flex-1 bg-transparent text-left autofill:shadow-[inset_0_0_0px_1000px_hsl(var(--blue-50))] focus:outline-hidden",
 					className,
 				)}
 				ref={composeRefs(ref, ctxForwardedRef, ctxInnerRef)}
@@ -222,7 +222,7 @@ const InputContainer = ({
 				data-validation={validation || undefined}
 				className={cx(
 					"pointer-coarse:text-base h-9 text-sm",
-					"bg-form relative flex w-full items-center gap-1.5 rounded-md border px-3 py-2 file:border-0 file:bg-transparent file:text-sm file:font-medium focus-within:outline-none focus-within:ring-4 focus-visible:outline-none focus-visible:ring-4",
+					"bg-form relative flex w-full items-center gap-1.5 rounded-md border px-3 py-2 file:border-0 file:bg-transparent file:text-sm file:font-medium focus-within:outline-hidden focus-within:ring-4 focus-visible:outline-hidden focus-visible:ring-4",
 					"aria-disabled:opacity-50",
 					"has-[input:not(:first-child)]:ps-2.5 has-[input:not(:last-child)]:pe-2.5 [&>:not(input)]:shrink-0 [&_svg]:size-5",
 					"border-form text-strong has-[:focus-visible]:border-accent-600 has-[:focus-visible]:ring-focus-accent",
