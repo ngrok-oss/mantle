@@ -1112,6 +1112,9 @@
 	--tw-ring-color: --alpha(var(--color-success-500) / 30%);
 }
 
+@utility animation-duration-* {
+  animation-duration: --value([length]);
+}
 
 /**
  * prism.js default theme for JavaScript, CSS and HTML
