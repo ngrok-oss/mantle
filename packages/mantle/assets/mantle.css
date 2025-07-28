@@ -1118,6 +1118,8 @@
 
 @utility stop-opacity-* {
   stop-opacity: --value([percentage]);
+  stop-opacity: calc(--value(integer) * 1%);
+  stop-opacity: --value(--opacity-*);
 }
 
 
