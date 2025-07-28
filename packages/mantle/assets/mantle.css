@@ -1112,6 +1112,15 @@
 	--tw-ring-color: --alpha(var(--color-success-500) / 30%);
 }
 
+@utility stop-color-current {
+	stop-color: currentColor;
+}
+
+@utility stop-opacity-* {
+  stop-opacity: --value([percentage]);
+}
+
+
 @utility animation-duration-* {
   animation-duration: --value([length]);
 }
