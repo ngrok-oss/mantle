@@ -70,11 +70,11 @@ function Calendar({
 				day: cx(
 					"overflow-hidden text-center text-sm p-0 relative focus-within:relative focus-within:z-20 size-7 rounded-md",
 					props.mode === "range"
-						? "first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md"
+						? "first:has-aria-selected:rounded-l-md last:has-aria-selected:rounded-r-md"
 						: "",
 				),
 				day_button:
-					"day size-full rounded-md [&:not([aria-selected],[disabled])]:hover:bg-filled-accent/15",
+					"day size-full rounded-md not-aria-selected:not-disabled:hover:bg-filled-accent/15 cursor-pointer",
 				disabled: "text-muted opacity-50",
 				hidden: "invisible",
 				month: "space-y-4",
@@ -87,12 +87,12 @@ function Calendar({
 					"day-outside aria-selected:text-on-filled opacity-50 text-muted",
 				range_end: "day-range-end [&:not(.day-range-start)]:rounded-l-none",
 				range_middle:
-					"day-range-middle [&:not([disabled])]:aria-selected:bg-filled-accent/15 aria-selected:text-strong rounded-none [&:not([disabled])]:aria-selected:hover:bg-filled-accent/25",
+					"day-range-middle not-disabled:aria-selected:bg-filled-accent/15 aria-selected:text-strong rounded-none not-disabled:aria-selected:hover:bg-filled-accent/25",
 				range_start: "day-range-start [&:not(.day-range-end)]:rounded-r-none",
 				selected:
-					"[&:not([disabled])]:bg-filled-accent text-on-filled [&:not([disabled])]:hover:bg-filled-accent",
+					"not-disabled:bg-filled-accent text-on-filled not-disabled:hover:bg-filled-accent",
 				today:
-					"[&:not([aria-selected],_[disabled])]:text-accent-600 font-medium [&:not([aria-selected],_[disabled])]:bg-filled-accent/10 rounded-md",
+					"not-aria-selected:not-disabled:text-accent-600 font-medium not-aria-selected:not-disabled:bg-filled-accent/10 rounded-md",
 				week: "flex w-full mt-1",
 				weekday: "text-body w-7 text-[0.8rem] text-center font-normal",
 				weekdays: "flex",
