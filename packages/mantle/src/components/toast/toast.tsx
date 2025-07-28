@@ -292,7 +292,7 @@ const ToastAction = forwardRef<ComponentRef<"button">, ToastActionProps>(
 					//,
 					"shrink-0",
 					// 👇 wiggle the bits so that icon buttons toast actions are aligned with the toast icon
-					"data-[icon-button]:-mr-0.5 data-[icon-button]:-mt-0.5 data-[icon-button]:rounded-sm",
+					"data-[icon-button]:-mr-0.5 data-[icon-button]:-mt-0.5 data-[icon-button]:rounded-xs",
 					className,
 				)}
 				onClick={(event) => {
