@@ -317,9 +317,12 @@
 			--color-neutral-900: var(--color-gray-900);
 			--color-neutral-950: var(--color-gray-950);
 
+			--bg-popover: var(--white);
+
 			--shadow-color: 0 0% 0%;
 			--shadow-first-opacity: 5%;
 			--shadow-second-opacity: 10%;
+			--navigation-shadow: hsl(var(--shadow-color) / 10%);
 		}
 
 		@variant dark {
@@ -623,9 +626,13 @@
 			--color-neutral-900: var(--color-gray-900);
 			--color-neutral-950: var(--color-gray-950);
 
+			--bg-popover: var(--neutral-100);
+
 			--shadow-color: 0 0% 0%;
 			--shadow-first-opacity: 15%;
 			--shadow-second-opacity: 30%;
+
+			--navigation-shadow: hsl(var(--shadow-color) / 40%);
 		}
 	}
 }
@@ -813,6 +820,64 @@
 		background-color: transparent;
 		border-color: transparent;
 	}
+}
+
+@utility scroll-shadow {
+	/* Shadow Cover TOP */
+	background: linear-gradient(
+			var(--color-neutral-50) 30%,
+			--alpha(var(--color-neutral-50) / 0%)
+		)
+		center top,
+		/* Shadow Cover BOTTOM */ linear-gradient(
+			--alpha(var(--color-neutral-50) / 0%),
+			var(--color-neutral-50) 70%
+		)
+		center bottom,
+		/* Shadow TOP */ radial-gradient(
+			farthest-side at 50% 0,
+			var(--navigation-shadow),
+			rgb(0 0 0 / 0%)
+		)
+		center top,
+		/* Shadow BOTTOM */ radial-gradient(
+			farthest-side at 50% 100%,
+			var(--navigation-shadow),
+			rgb(0 0 0 / 0%)
+		)
+		center bottom;
+	background-repeat: no-repeat;
+	background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
+	background-attachment: local, local, scroll, scroll;
+}
+
+@utility nav-scroll-shadow {
+	/* Shadow Cover TOP */
+	background: linear-gradient(
+			var(--bg-popover) 30%,
+			--alpha(var(--bg-popover) / 0%)
+		)
+		center top,
+		/* Shadow Cover BOTTOM */ linear-gradient(
+			--alpha(var(--bg-popover) / 0%),
+			var(--bg-popover) 70%
+		)
+		center bottom,
+		/* Shadow TOP */ radial-gradient(
+			farthest-side at 50% 0,
+			var(--navigation-shadow),
+			rgb(0 0 0 / 0%)
+		)
+		center top,
+		/* Shadow BOTTOM */ radial-gradient(
+			farthest-side at 50% 100%,
+			var(--navigation-shadow),
+			rgb(0 0 0 / 0%)
+		)
+		center bottom;
+	background-repeat: no-repeat;
+	background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
+	background-attachment: local, local, scroll, scroll;
 }
 
 @utility bg-checked-icon {
