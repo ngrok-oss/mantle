@@ -140,7 +140,7 @@
 
 	--breakpoint-xs: 30rem;
 
-	/* Custom accent colors have to first exist in the @theme block, then get overridden by the light and dark modes */
+	/* TODO Solve this: Custom accent colors have to first exist in the @theme block, then get overridden by the light and dark modes */
 	--color-accent-50: ;
 	--color-accent-100: ;
 	--color-accent-200: ;
@@ -200,6 +200,74 @@
 	--color-neutral-800: ;
 	--color-neutral-900: ;
 	--color-neutral-950: ;
+
+	/* Tokens */
+	--background-color-base: ;
+	--background-color-card: ;
+	--background-color-popover: ;
+	--background-color-dialog: ;
+	--background-color-base-hover: ;
+	--background-color-card-hover: ;
+	--background-color-popover-hover: ;
+	--background-color-dialog-hover: ;
+
+	--border-color-base: ;
+	--border-color-card: ;
+	--border-color-popover: ;
+	--border-color-dialog: ;
+	--border-color-base-muted: ;
+	--border-color-card-muted: ;
+	--border-color-popover-muted: ;
+	--border-color-dialog-muted: ;
+
+	--text-color-strong: ;
+	--text-color-body: ;
+	--text-color-muted: ;
+	--text-color-placeholder: ;
+	--text-color-on-filled: ;
+
+	/* overlay */
+
+	--background-color-overlay: ;
+
+	/* Tooltip */
+
+	--background-color-tooltip: ;
+	--text-color-tooltip: ;
+
+	/* form tokens */
+
+	--background-color-form: ;
+	--background-color-form-hover: ;
+	--background-color-form-active: ;
+	--border-color-form: ;
+
+	/* theme tokens */
+
+	--background-color-filled-neutral: ;
+	--background-color-filled-accent:;
+	--background-color-filled-danger:;
+	--background-color-filled-warning: ;
+	--background-color-filled-success: ;
+
+	--background-color-filled-neutral-hover: ;
+	--background-color-filled-accent-hover:;
+	--background-color-filled-danger-hover:;
+	--background-color-filled-warning-hover: ;
+	--background-color-filled-success-hover: ;
+
+	--background-color-filled-neutral-active: ;
+	--background-color-filled-accent-active:;
+	--background-color-filled-danger-active:;
+	--background-color-filled-warning-active: ;
+	--background-color-filled-success-active: ;
+
+	/* focus tokens */
+	--ring-color-focus-neutral: ;
+	--ring-color-focus-accent: ;
+	--ring-color-focus-danger: ;
+	--ring-color-focus-warning: ;
+	--ring-color-focus-success: ;
 
 	--text-size-mono: 0.8125rem;
 	--text-size-inherit: inherit;
@@ -334,7 +402,69 @@
 			--color-neutral-900: var(--color-gray-900);
 			--color-neutral-950: var(--color-gray-950);
 
-			--bg-popover: var(--white);
+			--background-color-base: var(--color-neutral-50);
+			--background-color-card: var(--color-white);
+			--background-color-popover: var(--color-white);
+			--background-color-dialog: var(--color-white);
+			--background-color-base-hover: var(--color-neutral-100);
+			--background-color-card-hover: var(--color-neutral-100);
+			--background-color-popover-hover: var(--color-neutral-100);
+			--background-color-dialog-hover: var(--color-neutral-100);
+
+			--border-color-base: var(--color-neutral-300);
+			--border-color-card: var(--color-neutral-300);
+			--border-color-popover: var(--color-neutral-300);
+			--border-color-dialog: var(--color-neutral-300);
+			--border-color-base-muted: var(--color-neutral-200);
+			--border-color-card-muted: var(--color-neutral-200);
+			--border-color-popover-muted: var(--color-neutral-200);
+			--border-color-dialog-muted: var(--color-neutral-200);
+
+			--text-color-strong: var(--color-neutral-950);
+			--text-color-body: --alpha(var(--color-neutral-950) / 0.75);
+			--text-color-muted: --alpha(var(--color-neutral-950) / 0.6);
+			--text-color-placeholder: --alpha(var(--color-neutral-950) / 0.5);
+			--text-color-on-filled: #fff;
+
+			/* overlay */
+			--background-color-overlay: --alpha(#000 / 0.12);
+
+			/* Tooltip */
+			--background-color-tooltip: var(--color-neutral-800);
+			--text-color-tooltip: #fff;
+
+			/* form tokens */
+
+			--background-color-form: var(--color-white);
+			--background-color-form-hover: --alpha(var(--color-neutral-500) / 0.05);
+			--background-color-form-active: --alpha(var(--color-neutral-500) / 0.1);
+			--border-color-form: var(--color-neutral-300);
+
+			/* theme tokens */
+			--background-color-filled-neutral: var(--color-neutral-500);
+			--background-color-filled-accent: var(--color-accent-500);
+			--background-color-filled-danger: var(--color-danger-500);
+			--background-color-filled-warning: var(--color-warning-500);
+			--background-color-filled-success: var(--color-success-500);
+
+			--background-color-filled-neutral-hover: var(--color-neutral-600);
+			--background-color-filled-accent-hover: var(--color-accent-600);
+			--background-color-filled-danger-hover: var(--color-danger-600);
+			--background-color-filled-warning-hover: var(--color-warning-600);
+			--background-color-filled-success-hover: var(--color-success-600);
+
+			--background-color-filled-neutral-active: var(--color-neutral-700);
+			--background-color-filled-accent-active: var(--color-accent-700);
+			--background-color-filled-danger-active: var(--color-danger-700);
+			--background-color-filled-warning-active: var(--color-warning-700);
+			--background-color-filled-success-active: var(--color-success-700);
+
+			/* focus tokens */
+			--ring-color-focus-neutral: --alpha(var(--color-neutral-500) / 0.3);
+			--ring-color-focus-accent: --alpha(var(--color-accent-500) / 0.3);
+			--ring-color-focus-danger: --alpha(var(--color-danger-500) / 0.3);
+			--ring-color-focus-warning: --alpha(var(--color-warning-500) / 0.3);
+			--ring-color-focus-success: --alpha(var(--color-success-500) / 0.3);
 
 			--shadow-color: 0 0% 0%;
 			--shadow-first-opacity: 5%;
@@ -643,7 +773,69 @@
 			--color-neutral-900: var(--color-gray-900);
 			--color-neutral-950: var(--color-gray-950);
 
-			--bg-popover: var(--neutral-100);
+			--background-color-base: var(--color-neutral-50);
+			--background-color-card: var(--color-neutral-100);
+			--background-color-popover: var(--color-neutral-100);
+			--background-color-dialog: var(--color-neutral-50);
+			--background-color-base-hover: var(--color-neutral-100);
+			--background-color-card-hover: var(--color-neutral-200);
+			--background-color-popover-hover: var(--color-neutral-200);
+			--background-color-dialog-hover: var(--color-neutral-100);
+
+			--border-color-base: var(--color-neutral-300);
+			--border-color-card: var(--color-neutral-300);
+			--border-color-popover: var(--color-neutral-300);
+			--border-color-dialog: var(--color-neutral-300);
+			--border-color-base-muted: var(--color-neutral-200);
+			--border-color-card-muted: var(--color-neutral-200);
+			--border-color-popover-muted: var(--color-neutral-200);
+			--border-color-dialog-muted: var(--color-neutral-200);
+
+			--text-color-strong: #fff;
+			--text-color-body: --alpha(#fff / 0.7);
+			--text-color-muted: --alpha(#fff / 0.5);
+			--text-color-placeholder: --alpha(#fff / 0.4);
+			--text-color-on-filled: #fff;
+
+			/* overlay */
+			--background-color-overlay: --alpha(#000 / 0.6);
+
+			/* Tooltip */
+			--background-color-tooltip: #000;
+			--text-color-tooltip: #fff;
+
+			/* form tokens */
+
+			--background-color-form: var(--color-neutral-50);
+			--background-color-form-hover: --alpha(var(--color-neutral-500) / 0.05);
+			--background-color-form-active: --alpha(var(--color-neutral-500) / 0.1);
+			--border-color-form: var(--color-neutral-300);
+
+			/* theme tokens */
+			--background-color-filled-neutral: var(--color-neutral-500);
+			--background-color-filled-accent: var(--color-accent-500);
+			--background-color-filled-danger: var(--color-danger-500);
+			--background-color-filled-warning: var(--color-warning-500);
+			--background-color-filled-success: var(--color-success-500);
+
+			--background-color-filled-neutral-hover: --alpha(var(--color-neutral-500) / 0.9);
+			--background-color-filled-accent-hover: --alpha(var(--color-accent-500) / 0.9);
+			--background-color-filled-danger-hover: --alpha(var(--color-danger-500) / 0.9);
+			--background-color-filled-warning-hover: --alpha(var(--color-warning-500) / 0.9);
+			--background-color-filled-success-hover: --alpha(var(--color-success-500) / 0.9);
+
+			--background-color-filled-neutral-active: --alpha(var(--color-neutral-500) / 0.8);
+			--background-color-filled-accent-active: --alpha(var(--color-accent-500) / 0.8);
+			--background-color-filled-danger-active: --alpha(var(--color-danger-500) / 0.8);
+			--background-color-filled-warning-active: --alpha(var(--color-warning-500) / 0.8);
+			--background-color-filled-success-active: --alpha(var(--color-success-500) / 0.8);
+
+			/* focus tokens */
+			--ring-color-focus-neutral: --alpha(var(--color-neutral-500) / 0.5);
+			--ring-color-focus-accent: --alpha(var(--color-accent-500) / 0.5);
+			--ring-color-focus-danger: --alpha(var(--color-danger-500) / 0.5);
+			--ring-color-focus-warning: --alpha(var(--color-warning-500) / 0.5);
+			--ring-color-focus-success: --alpha(var(--color-success-500) / 0.5);
 
 			--shadow-color: 0 0% 0%;
 			--shadow-first-opacity: 15%;
@@ -659,43 +851,6 @@
 	font-size: var(--text-size-mono);
 }
 
-@utility bg-base {
-	background-color: var(--color-neutral-50);
-}
-
-@utility bg-base-hover {
-	background-color: var(--color-neutral-100);
-}
-
-/* Cards */
-@utility bg-card {
-	@variant light {
-		background-color: #fff;
-	}
-
-	@variant dark {
-		background-color: var(--color-neutral-100);
-	}
-}
-
-@utility bg-card-hover {
-	@variant light {
-		background-color: var(--color-neutral-100);
-	}
-
-	@variant dark {
-		background-color: var(--color-neutral-200);
-	}
-}
-
-@utility border-card {
-	border-color: var(--color-neutral-300);
-}
-
-@utility border-card-muted {
-	border-color: var(--color-neutral-200);
-}
-
 /* Dividers need an extra selector to work */
 @utility divide-card {
 	:where(& > :not(:last-child)) {
@@ -707,108 +862,6 @@
 	:where(& > :not(:last-child)) {
 		border-color: var(--color-neutral-200);
 	}
-}
-
-@utility bg-popover {
-	@variant light {
-		background-color: #fff;
-	}
-
-	@variant dark {
-		background-color: var(--color-neutral-100);
-	}
-}
-
-@utility bg-filled-accent {
-	background-color: var(--color-accent-500);
-}
-
-@utility bg-filled-accent-hover {
-	@variant light {
-		background-color: var(--color-accent-600);
-	}
-
-	@variant dark {
-		background-color: --alpha(var(--color-accent-500) / 90%);
-	}
-}
-
-@utility bg-filled-accent-active {
-	@variant light {
-		background-color: var(--color-accent-700);
-	}
-
-	@variant dark {
-		background-color: --alpha(var(--color-accent-500) / 80%);
-	}
-}
-
-@utility text-strong {
-	@variant light {
-		color: var(--color-neutral-950);
-	}
-
-	@variant dark {
-		color: var(--color-black);
-	}
-}
-
-@utility text-body {
-	@variant light {
-		color: --alpha(var(--color-neutral-950) / 75%);
-	}
-
-	@variant dark {
-		color: --alpha(var(--color-black) / 70%);
-	}
-}
-
-@utility text-muted {
-	@variant light {
-		color: --alpha(var(--color-neutral-950) / 60%);
-	}
-
-	@variant dark {
-		color: --alpha(var(--color-black) / 50%);
-	}
-}
-
-@utility text-placeholder {
-	@variant light {
-		color: --alpha(var(--color-neutral-950) / 50%);
-	}
-
-	@variant dark {
-		color: --alpha(var(--color-black) / 30%);
-	}
-}
-
-@utility text-on-filled {
-	color: #fff;
-}
-
-@utility bg-tooltip {
-	@variant light {
-		background-color: var(--color-gray-800);
-	}
-
-	@variant dark {
-		background-color: #000;
-	}
-}
-
-@utility bg-overlay {
-	@variant light {
-		background-color: --alpha(#000 / 12%);
-	}
-
-	@variant dark {
-		background-color: --alpha(#000 / 60%);
-	}
-}
-
-@utility text-tooltip {
-	color: #fff;
 }
 
 @utility scrollbar {
@@ -904,214 +957,6 @@
 	background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 16 16'%3e%3cpath fill='white' d='M4 8c0-.55228.44772-1 1-1h6c.5523 0 1 .44772 1 1s-.4477 1-1 1H5c-.55228 0-1-.44772-1-1Z'/%3e%3c/svg%3e");
 }
 
-/* Background utilities */
-@utility bg-popover-hover {
-	@variant light {
-		background-color: var(--color-neutral-100);
-	}
-
-	@variant dark {
-		background-color: var(--color-neutral-200);
-	}
-}
-
-@utility bg-dialog {
-	@variant light {
-		background-color: #fff;
-	}
-
-	@variant dark {
-		background-color: var(--color-neutral-50);
-	}
-}
-
-@utility bg-dialog-hover {
-	@variant light {
-		background-color: var(--color-neutral-100);
-	}
-
-	@variant dark {
-		background-color: var(--color-neutral-100);
-	}
-}
-
-/* Border utilities */
-@utility border-base {
-	border-color: var(--color-neutral-300);
-}
-
-@utility border-base-muted {
-	border-color: var(--color-neutral-200);
-}
-
-@utility border-popover {
-	border-color: var(--color-neutral-300);
-}
-
-@utility border-popover-muted {
-	border-color: var(--color-neutral-200);
-}
-
-@utility border-dialog {
-	border-color: var(--color-neutral-300);
-}
-
-@utility border-dialog-muted {
-	border-color: var(--color-neutral-200);
-}
-
-/* Overlay utilities */
-@utility bg-overlay {
-	@variant dark {
-		background-color: --alpha(#000 / 60%);
-	}
-}
-
-/* Form utilities */
-@utility bg-form {
-	@variant light {
-		background-color: #fff;
-	}
-
-	@variant dark {
-		background-color: var(--color-neutral-50);
-	}
-}
-
-@utility bg-form-hover {
-	@variant light {
-		background-color: --alpha(var(--color-neutral-500) / 5%);
-	}
-}
-
-@utility bg-form-active {
-	@variant light {
-		background-color: --alpha(var(--color-neutral-500) / 10%);
-	}
-}
-
-@utility border-form {
-	border-color: var(--color-neutral-300);
-}
-
-/* Theme token utilities */
-@utility bg-filled-neutral {
-	background-color: var(--color-neutral-500);
-}
-
-@utility bg-filled-danger {
-	background-color: var(--color-danger-500);
-}
-
-@utility bg-filled-warning {
-	background-color: var(--color-warning-500);
-}
-
-@utility bg-filled-success {
-	background-color: var(--color-success-500);
-}
-
-@utility bg-filled-neutral-hover {
-	@variant light {
-		background-color: var(--color-neutral-600);
-	}
-
-	@variant dark {
-		background-color: --alpha(var(--color-neutral-500) / 90%);
-	}
-}
-
-@utility bg-filled-danger-hover {
-	@variant light {
-		background-color: var(--color-danger-600);
-	}
-
-	@variant dark {
-		background-color: --alpha(var(--color-danger-500) / 90%);
-	}
-}
-
-@utility bg-filled-warning-hover {
-	@variant light {
-		background-color: var(--color-warning-600);
-	}
-
-	@variant dark {
-		background-color: --alpha(var(--color-warning-500) / 90%);
-	}
-}
-
-@utility bg-filled-success-hover {
-	@variant light {
-		background-color: var(--color-success-600);
-	}
-
-	@variant dark {
-		background-color: --alpha(var(--color-success-500) / 90%);
-	}
-}
-
-@utility bg-filled-neutral-active {
-	@variant light {
-		background-color: var(--color-neutral-700);
-	}
-
-	@variant dark {
-		background-color: --alpha(var(--color-neutral-500) / 80%);
-	}
-}
-
-@utility bg-filled-danger-active {
-	@variant light {
-		background-color: var(--color-danger-700);
-	}
-
-	@variant dark {
-		background-color: --alpha(var(--color-danger-500) / 80%);
-	}
-}
-
-@utility bg-filled-warning-active {
-	@variant light {
-		background-color: var(--color-warning-700);
-	}
-
-	@variant dark {
-		background-color: --alpha(var(--color-warning-500) / 80%);
-	}
-}
-
-@utility bg-filled-success-active {
-	@variant light {
-		background-color: var(--color-success-700);
-	}
-
-	@variant dark {
-		background-color: --alpha(var(--color-success-500) / 80%);
-	}
-}
-
-/* Focus token utilities */
-@utility ring-focus-neutral {
-	--tw-ring-color: --alpha(var(--color-neutral-500) / 30%);
-}
-
-@utility ring-focus-accent {
-	--tw-ring-color: --alpha(var(--color-accent-500) / 30%);
-}
-
-@utility ring-focus-danger {
-	--tw-ring-color: --alpha(var(--color-danger-500) / 30%);
-}
-
-@utility ring-focus-warning {
-	--tw-ring-color: --alpha(var(--color-warning-500) / 30%);
-}
-
-@utility ring-focus-success {
-	--tw-ring-color: --alpha(var(--color-success-500) / 30%);
-}
-
 @utility stop-color-current {
 	stop-color: currentColor;
 }
@@ -1121,7 +966,6 @@
   stop-opacity: calc(--value(integer) * 1%);
   stop-opacity: --value(--opacity-*);
 }
-
 
 @utility animation-duration-* {
   animation-duration: --value([length]);
