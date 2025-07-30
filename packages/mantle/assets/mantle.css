@@ -269,6 +269,9 @@
 	--ring-color-focus-warning: ;
 	--ring-color-focus-success: ;
 
+	--divide-color-card: ;
+	--divide-color-card-muted: ;
+
 	--text-size-mono: 0.8125rem;
 	--text-size-inherit: inherit;
 
@@ -470,6 +473,9 @@
 			--shadow-first-opacity: 5%;
 			--shadow-second-opacity: 10%;
 			--navigation-shadow: hsl(var(--shadow-color) / 10%);
+
+			--divide-color-card: var(--color-neutral-300);
+			--divide-color-card-muted: var(--color-neutral-200);
 		}
 
 		@variant dark {
@@ -842,6 +848,9 @@
 			--shadow-second-opacity: 30%;
 
 			--navigation-shadow: hsl(var(--shadow-color) / 40%);
+
+			--divide-color-card: var(--color-neutral-300);
+			--divide-color-card-muted: var(--color-neutral-200);
 		}
 	}
 }
@@ -849,19 +858,6 @@
 @utility text-size-mono {
 	line-height: 1.25rem;
 	font-size: var(--text-size-mono);
-}
-
-/* Dividers need an extra selector to work */
-@utility divide-card {
-	:where(& > :not(:last-child)) {
-		border-color: var(--color-neutral-300);
-	}
-}
-
-@utility divide-card-muted {
-	:where(& > :not(:last-child)) {
-		border-color: var(--color-neutral-200);
-	}
 }
 
 @utility scrollbar {
