@@ -50,8 +50,8 @@ importers:
         specifier: 7.7.0
         version: 7.7.0(react-router@7.7.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.8.3)
       '@tanstack/react-form':
-        specifier: 1.14.1
-        version: 1.14.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 1.15.1
+        version: 1.15.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@vercel/react-router':
         specifier: 1.2.2
         version: 1.2.2(@react-router/dev@7.7.0(@react-router/serve@7.7.0(react-router@7.7.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.8.3))(@types/node@22.16.4)(jiti@1.21.7)(react-router@7.7.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.8.3)(vite@7.0.5(@types/node@22.16.4)(jiti@1.21.7)(yaml@2.8.0))(yaml@2.8.0))(@react-router/node@7.7.0(react-router@7.7.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.8.3))(isbot@5.1.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1448,11 +1448,11 @@ packages:
   '@swc/helpers@0.5.17':
     resolution: {integrity: sha512-5IKx/Y13RsYd+sauPb2x+U/xZikHjolzfuDgTAl/Tdf3Q8rslRvC19NKDLgAJQ6wsqADk10ntlv08nPFw/gO/A==}
 
-  '@tanstack/form-core@1.14.0':
-    resolution: {integrity: sha512-uAOW3IxkT/Cmy8JlznK8S/LSpvtHjpUQi2wyuPqVfJ04y95WuV90SO+VKtb9TrNp51QLrrTFBR8tMEuzqp5wmA==}
+  '@tanstack/form-core@1.15.1':
+    resolution: {integrity: sha512-Z8+29KhaGko5VSmnt0iUpB7wlFqOsLCSL3EhC2F/xm/qMq6BzR0yJVpeunN8pwfnlVnkUAO7I8yxT9VS/7ncBA==}
 
-  '@tanstack/react-form@1.14.1':
-    resolution: {integrity: sha512-Ioja3zcLZj082OdCH6pFNv15fD4UTfnJgKIXxY7Iumio8EcYLXSuxzanqNWewFvftshUFHknSEa7QtyOAkFs0Q==}
+  '@tanstack/react-form@1.15.1':
+    resolution: {integrity: sha512-t/PAcckw8hwgZCpVKB8NTi0tP5I6ANJhYRsc4nH5TiW1VWPvPpeyNIHvbLGTcXLxnYB9aId2tfDqFWwGBFMBuA==}
     peerDependencies:
       '@tanstack/react-start': ^1.112.0
       react: ^17.0.0 || ^18.0.0 || ^19.0.0
@@ -2977,6 +2977,7 @@ packages:
   source-map@0.8.0-beta.0:
     resolution: {integrity: sha512-2ymg6oRBpebeZi9UUNsgQ89bhx01TcTkmNTGnNO88imTmbSgy4nfujrgVEFKWpMTEGA11EDkTt7mqObTPdigIA==}
     engines: {node: '>= 8'}
+    deprecated: The work that was done in this beta branch won't be included in future versions
 
   spawndamnit@3.0.1:
     resolution: {integrity: sha512-MmnduQUuHCoFckZoWnXsTg7JaiLBJrKFj9UI2MbRPGaJeVpsLcVBu6P/IGZovziM/YBsellCmsprgNA+w0CzVg==}
@@ -4770,13 +4771,13 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@tanstack/form-core@1.14.0':
+  '@tanstack/form-core@1.15.1':
     dependencies:
       '@tanstack/store': 0.7.2
 
-  '@tanstack/react-form@1.14.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@tanstack/react-form@1.15.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@tanstack/form-core': 1.14.0
+      '@tanstack/form-core': 1.15.1
       '@tanstack/react-store': 0.7.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       decode-formdata: 0.9.0
       devalue: 5.1.1
