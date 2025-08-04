@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.32.2
+
+### Patch Changes
+
+- [#695](https://github.com/ngrok-oss/mantle/pull/695) [`0b342d7`](https://github.com/ngrok-oss/mantle/commit/0b342d7675e53317324636309be01d76dfd7b63a) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update headlessui and sonner dependencies
+
 ## 0.32.1
 
 ### Patch Changes
