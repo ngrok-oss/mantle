@@ -326,6 +326,11 @@ type PreventWrongThemeFlashScriptContentOptions = {
 	storageKey?: string;
 };
 
+/**
+ * preventWrongThemeFlashScriptContent generates a script that prevents the wrong theme from flashing on initial page load.
+ * It checks localStorage for a stored theme, and if none is found, it sets the default theme.
+ * It also applies the correct theme to the `<html>` element based on the user's media query preferences.
+ */
 function preventWrongThemeFlashScriptContent(
 	options?: PreventWrongThemeFlashScriptContentOptions,
 ) {
@@ -368,18 +373,38 @@ function preventWrongThemeFlashScriptContent(
 }
 
 type MantleThemeHeadContentProps = {
+	/**
+	 * The default theme to use if no theme is stored in localStorage.
+	 * @default "system"
+	 */
 	defaultTheme?: Theme;
+	/**
+	 * An optional CSP nonce to allowlist this inline script. Using this can help
+	 * you to avoid using the CSP `unsafe-inline` directive, which disables
+	 * XSS protection and would allowlist all inline scripts or styles.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/nonce
+	 */
+	nonce?: string;
+	/**
+	 * The key used to store the theme in localStorage.
+	 * @default "mantle-ui-theme"
+	 */
 	storageKey?: string;
 } & ComponentProps<typeof PreloadFonts>;
 
 /**
- * MantleThemeHeadContent is a React component that prevents the wrong theme from flashing on initial page load.
+ * MantleThemeHeadContent is a React component that renders a script to prevent
+ * Flash of Unstyled Content (FOUC), or the wrong theme from flashing on initial
+ * page load.
+ *
  * Render as high as possible in the <head> element.
  */
 const MantleThemeHeadContent = ({
 	defaultTheme = "system",
-	storageKey = DEFAULT_STORAGE_KEY,
 	includeNunitoSans = false,
+	nonce,
+	storageKey = DEFAULT_STORAGE_KEY,
 }: MantleThemeHeadContentProps) => (
 	<>
 		<script
@@ -389,6 +414,7 @@ const MantleThemeHeadContent = ({
 					storageKey,
 				}),
 			}}
+			nonce={nonce}
 		/>
 		<PreloadFonts includeNunitoSans={includeNunitoSans} />
 	</>
