@@ -60,8 +60,8 @@
   "devDependencies": {
     "@cfg/tsconfig": "workspace:*",
     "@phosphor-icons/react": "2.1.10",
-    "@testing-library/dom": "10.4.0",
-    "@testing-library/jest-dom": "6.6.3",
+    "@testing-library/dom": "10.4.1",
+    "@testing-library/jest-dom": "6.6.4",
     "@testing-library/react": "16.3.0",
     "@testing-library/user-event": "14.6.1",
     "@types/prismjs": "1.26.5",
@@ -75,10 +75,10 @@
     "postcss": "8.5.6",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "react-router": "7.7.0",
+    "react-router": "7.7.1",
     "tailwindcss": "3.4.17",
     "tsup": "8.5.0",
-    "typescript": "5.8.3"
+    "typescript": "5.9.2"
   },
   "peerDependencies": {
     "@phosphor-icons/react": "^2.1.10",
