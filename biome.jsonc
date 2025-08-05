@@ -14,15 +14,16 @@
 			".react-router/",
 			".turbo",
 			".vercel",
+			"*.css",
 			"*.json",
 			"*.md",
 			"*.svg",
 			"*.yaml",
+			"build",
 			"bun.lockb",
 			"dist",
 			"node_modules",
-			"public",
-			"build"
+			"public"
 		]
 	},
 	"formatter": {

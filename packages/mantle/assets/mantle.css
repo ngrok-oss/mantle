@@ -1676,13 +1676,13 @@
 }
 
 @utility stop-opacity-* {
-  stop-opacity: --value([percentage]);
-  stop-opacity: calc(--value(integer) * 1%);
-  stop-opacity: --value(--opacity-*);
+	stop-opacity: --value([percentage]);
+	stop-opacity: calc(--value(integer) * 1%);
+	stop-opacity: --value(--opacity-*);
 }
 
 @utility animation-duration-* {
-  animation-duration: --value([length]);
+	animation-duration: --value([length]);
 }
 
 /* Prism styles */
