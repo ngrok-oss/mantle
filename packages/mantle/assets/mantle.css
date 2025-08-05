@@ -1,5 +1,7 @@
-@import "tailwindcss" source("../../../");
+@import "tailwindcss";
 @import "tw-animate-css";
+
+@source "../dist";
 
 /* import for webpack support in crusty */
 @import "sonner/dist/styles.css";
