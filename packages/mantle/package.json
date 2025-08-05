@@ -94,12 +94,6 @@
   "exports": {
     "./mantle.css": "./assets/mantle.css",
     "./package.json": "./package.json",
-    "./tailwind-preset": {
-      "@ngrok/mantle/source": "./src/tailwind-preset/index.ts",
-      "types": "./dist/tailwind-preset.d.ts",
-      "import": "./dist/tailwind-preset.js",
-      "require": "./dist/tailwind-preset.cjs"
-    },
     "./accordion": {
       "@ngrok/mantle/source": "./src/components/accordion/index.ts",
       "import": "./dist/accordion.js",
