@@ -1,5 +1,17 @@
 # @ngrok/mantle
 
+## 0.32.3
+
+### Patch Changes
+
+- [#699](https://github.com/ngrok-oss/mantle/pull/699) [`82f26dc`](https://github.com/ngrok-oss/mantle/commit/82f26dccb2605cf9a1dab9e4d8d91d45f929e24d) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add nonce prop to MantleThemeHeadContent, update doc blocks
+
+## 0.32.2
+
+### Patch Changes
+
+- [#695](https://github.com/ngrok-oss/mantle/pull/695) [`0b342d7`](https://github.com/ngrok-oss/mantle/commit/0b342d7675e53317324636309be01d76dfd7b63a) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update headlessui and sonner dependencies
+
 ## 0.32.1
 
 ### Patch Changes
