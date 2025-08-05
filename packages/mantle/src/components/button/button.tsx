@@ -16,7 +16,7 @@ import { cx } from "../../utils/cx/cx.js";
 import { Icon } from "../icon/index.js";
 
 const buttonVariants = cva(
-	"inline-flex cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap rounded-md focus-within:outline-hidden focus-visible:ring-4 disabled:cursor-default disabled:opacity-50 [&>*]:focus-within:outline-hidden",
+	"inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-md focus-within:outline-hidden focus-visible:ring-4 disabled:cursor-default disabled:opacity-50 [&>*]:focus-within:outline-hidden",
 	{
 		variants: {
 			/**

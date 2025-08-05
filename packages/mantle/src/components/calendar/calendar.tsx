@@ -60,11 +60,11 @@ function Calendar({
 				root: cx("isolate", className),
 				button_next: cx(
 					buttonVariants({ appearance: "ghost", priority: "neutral" }),
-					"size-7 absolute right-0 cursor-pointer",
+					"size-7 absolute right-0",
 				),
 				button_previous: cx(
 					buttonVariants({ appearance: "ghost", priority: "neutral" }),
-					"size-7 absolute left-0 cursor-pointer",
+					"size-7 absolute left-0",
 				),
 				caption_label: "text-sm font-medium",
 				day: cx(
@@ -74,7 +74,7 @@ function Calendar({
 						: "",
 				),
 				day_button:
-					"day size-full rounded-md not-aria-selected:not-disabled:hover:bg-filled-accent/15 cursor-pointer",
+					"day size-full rounded-md not-aria-selected:not-disabled:hover:bg-filled-accent/15",
 				disabled: "text-muted opacity-50",
 				hidden: "invisible",
 				month: "space-y-4",
