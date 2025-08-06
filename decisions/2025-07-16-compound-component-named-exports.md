@@ -16,6 +16,20 @@
 - Reduction of import statement complexity
 - Tree-shaking and bundle size optimization (at the component boundary only)
 
+## Key Trade-offs and Design Philosophy
+
+### Developer Experience vs. Tree Shaking
+
+This migration trades off some "tree shakeability" in the academic sense only. In reality, if you are importing something like `Dialog`, chances are you are using most, if not all of the sub-composite components as well.
+
+**🔑 Key Thought**: The potential bytes saved of individual component exports are so minimal relative to the benefits to developer experience of compound component exports.
+
+We still get tree shaking between mantle component boundaries, but we "lose" isolated component module (file) tree shaking.
+
+### What is Tree Shaking?
+
+**Tree shaking** is a non-standard optimization technique that allows a bundler (like `vite` or `webpack`) to remove unused code from your compiled JS bundle output to minimize what you need to ship to the browser.
+
 ## Overview
 
 This document outlines the complete migration plan for converting Mantle compound components from individual named exports to namespace-based exports. The goal is to improve developer experience by allowing usage like `<Dialog.Root>` instead of importing many individual components.
@@ -29,6 +43,8 @@ A **compound component** is a design pattern where a single logical component is
 - `DropdownMenu` with `DropdownMenu.Root`, `DropdownMenu.Trigger`, `DropdownMenu.Content`, `DropdownMenu.Item`, etc.
 
 These components are designed to be used together and share state or context through React patterns like Context API or compound component composition.
+
+The goal is to improve developer experience by allowing usage like `<Dialog.Root>` so that all sub-components of the Dialog are discoverable (with IntelliSense and examples!) directly off of the imported component! This is in contrast to how it currently works with importing many individual components (e.g. `Dialog`, `DialogContent`, `DialogBody`, etc.) which aren't very discoverable! You are forced to know how to compose and what the sub-components are called before you use them: not very developer friendly!
 
 ## Background
 
