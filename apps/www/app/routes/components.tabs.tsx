@@ -1,26 +1,26 @@
-import { Card, CardHeader, CardTitle } from "@ngrok/mantle/card";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { Anchor } from "@ngrok/mantle/anchor";
+import { Card } from "@ngrok/mantle/card";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { Icon } from "@ngrok/mantle/icon";
 import { InlineCode } from "@ngrok/mantle/inline-code";
-import {
-	TabBadge,
-	Tabs,
-	TabsContent,
-	TabsList,
-	TabsTrigger,
-} from "@ngrok/mantle/tabs";
+import { Tabs } from "@ngrok/mantle/tabs";
 import { GlobeIcon } from "@phosphor-icons/react/Globe";
 import { ShieldCheckIcon } from "@phosphor-icons/react/ShieldCheck";
 import { UserIcon } from "@phosphor-icons/react/User";
 import { Link, href } from "react-router";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
+import {
+	BooleanPropType,
+	PropDefaultValueCell,
+	PropDescriptionCell,
+	PropNameCell,
+	PropRow,
+	PropTypeCell,
+	PropsTable,
+	ReactNodePropType,
+	StringPropType,
+} from "~/components/props-table";
 import type { Route } from "./+types/components.tabs";
 
 export const meta: Route.MetaFunction = () => {
@@ -55,213 +55,213 @@ export default function Page() {
 							<InlineCode>Link</InlineCode>s
 						</p>
 						<div className="scrollbar -mt-4 overflow-x-scroll">
-							<Tabs orientation="horizontal" defaultValue="colors">
-								<TabsList>
-									<TabsTrigger value="colors" asChild>
+							<Tabs.Root orientation="horizontal" defaultValue="colors">
+								<Tabs.List>
+									<Tabs.Trigger value="colors" asChild>
 										<Link to={href("/base/colors")}>Colors</Link>
-									</TabsTrigger>
-									<TabsTrigger value="shadows" asChild>
+									</Tabs.Trigger>
+									<Tabs.Trigger value="shadows" asChild>
 										<Link to={href("/base/shadows")}>Shadows</Link>
-									</TabsTrigger>
-									<TabsTrigger disabled value="tailwind-variants" asChild>
+									</Tabs.Trigger>
+									<Tabs.Trigger disabled value="tailwind-variants" asChild>
 										<Link to={href("/base/tailwind-variants")}>
 											Tailwind Variants
 										</Link>
-									</TabsTrigger>
-									<TabsTrigger value="typography" asChild>
+									</Tabs.Trigger>
+									<Tabs.Trigger value="typography" asChild>
 										<Link to={href("/base/typography")}>Typography</Link>
-									</TabsTrigger>
-								</TabsList>
-							</Tabs>
+									</Tabs.Trigger>
+								</Tabs.List>
+							</Tabs.Root>
 						</div>
 						<div className="scrollbar overflow-x-scroll">
-							<Tabs orientation="horizontal" defaultValue="tab-1">
-								<TabsList>
-									<TabsTrigger value="tab-1">Tab Title</TabsTrigger>
-									<TabsTrigger value="tab-2">Tab Title</TabsTrigger>
-									<TabsTrigger disabled value="tab-3">
+							<Tabs.Root orientation="horizontal" defaultValue="tab-1">
+								<Tabs.List>
+									<Tabs.Trigger value="tab-1">Tab Title</Tabs.Trigger>
+									<Tabs.Trigger value="tab-2">Tab Title</Tabs.Trigger>
+									<Tabs.Trigger disabled value="tab-3">
 										Tab Title
-									</TabsTrigger>
-									<TabsTrigger value="tab-4">Tab Title</TabsTrigger>
-								</TabsList>
-							</Tabs>
+									</Tabs.Trigger>
+									<Tabs.Trigger value="tab-4">Tab Title</Tabs.Trigger>
+								</Tabs.List>
+							</Tabs.Root>
 						</div>
 						<div className="scrollbar overflow-x-scroll">
-							<Tabs orientation="horizontal" defaultValue="tab-1">
-								<TabsList>
-									<TabsTrigger value="tab-1">
+							<Tabs.Root orientation="horizontal" defaultValue="tab-1">
+								<Tabs.List>
+									<Tabs.Trigger value="tab-1">
 										<Icon svg={<GlobeIcon />} />
 										Tab Title
-									</TabsTrigger>
-									<TabsTrigger value="tab-2">
+									</Tabs.Trigger>
+									<Tabs.Trigger value="tab-2">
 										<Icon svg={<GlobeIcon />} />
 										Tab Title
-									</TabsTrigger>
-									<TabsTrigger disabled value="tab-3">
+									</Tabs.Trigger>
+									<Tabs.Trigger disabled value="tab-3">
 										<Icon svg={<GlobeIcon />} />
 										Tab Title
-									</TabsTrigger>
-									<TabsTrigger value="tab-4">
+									</Tabs.Trigger>
+									<Tabs.Trigger value="tab-4">
 										<Icon svg={<GlobeIcon />} />
 										Tab Title
-									</TabsTrigger>
-								</TabsList>
-							</Tabs>
+									</Tabs.Trigger>
+								</Tabs.List>
+							</Tabs.Root>
 						</div>
 						<div className="scrollbar overflow-x-scroll">
-							<Tabs orientation="horizontal" defaultValue="tab-1">
-								<TabsList>
-									<TabsTrigger value="tab-1">
+							<Tabs.Root orientation="horizontal" defaultValue="tab-1">
+								<Tabs.List>
+									<Tabs.Trigger value="tab-1">
 										Tab Title
-										<TabBadge>32</TabBadge>
-									</TabsTrigger>
-									<TabsTrigger value="tab-2">
+										<Tabs.Badge>32</Tabs.Badge>
+									</Tabs.Trigger>
+									<Tabs.Trigger value="tab-2">
 										Tab Title
-										<TabBadge>32</TabBadge>
-									</TabsTrigger>
-									<TabsTrigger disabled value="tab-3">
+										<Tabs.Badge>32</Tabs.Badge>
+									</Tabs.Trigger>
+									<Tabs.Trigger disabled value="tab-3">
 										Tab Title
-										<TabBadge>32</TabBadge>
-									</TabsTrigger>
-									<TabsTrigger value="tab-4">
+										<Tabs.Badge>32</Tabs.Badge>
+									</Tabs.Trigger>
+									<Tabs.Trigger value="tab-4">
 										Tab Title
-										<TabBadge>32</TabBadge>
-									</TabsTrigger>
-								</TabsList>
-							</Tabs>
+										<Tabs.Badge>32</Tabs.Badge>
+									</Tabs.Trigger>
+								</Tabs.List>
+							</Tabs.Root>
 						</div>
 						<div className="scrollbar overflow-x-scroll">
-							<Tabs orientation="horizontal" defaultValue="tab-1">
-								<TabsList>
-									<TabsTrigger value="tab-1">
+							<Tabs.Root orientation="horizontal" defaultValue="tab-1">
+								<Tabs.List>
+									<Tabs.Trigger value="tab-1">
 										<Icon svg={<GlobeIcon />} />
 										Tab Title
-										<TabBadge>32</TabBadge>
-									</TabsTrigger>
-									<TabsTrigger value="tab-2">
+										<Tabs.Badge>32</Tabs.Badge>
+									</Tabs.Trigger>
+									<Tabs.Trigger value="tab-2">
 										<Icon svg={<GlobeIcon />} />
 										Tab Title
-										<TabBadge>32</TabBadge>
-									</TabsTrigger>
-									<TabsTrigger disabled value="tab-3">
+										<Tabs.Badge>32</Tabs.Badge>
+									</Tabs.Trigger>
+									<Tabs.Trigger disabled value="tab-3">
 										<Icon svg={<GlobeIcon />} />
 										Tab Title
-										<TabBadge>32</TabBadge>
-									</TabsTrigger>
-									<TabsTrigger value="tab-4">
+										<Tabs.Badge>32</Tabs.Badge>
+									</Tabs.Trigger>
+									<Tabs.Trigger value="tab-4">
 										<Icon svg={<GlobeIcon />} />
 										Tab Title
-										<TabBadge>32</TabBadge>
-									</TabsTrigger>
-								</TabsList>
-							</Tabs>
+										<Tabs.Badge>32</Tabs.Badge>
+									</Tabs.Trigger>
+								</Tabs.List>
+							</Tabs.Root>
 						</div>
-						<Tabs
+						<Tabs.Root
 							orientation="horizontal"
 							defaultValue="account"
 							className="w-100 max-w-[400px]"
 						>
-							<TabsList>
-								<TabsTrigger value="account">
+							<Tabs.List>
+								<Tabs.Trigger value="account">
 									<Icon svg={<UserIcon />} />
 									Account
-									<TabBadge>2</TabBadge>
-								</TabsTrigger>
-								<TabsTrigger value="password">
+									<Tabs.Badge>2</Tabs.Badge>
+								</Tabs.Trigger>
+								<Tabs.Trigger value="password">
 									<Icon svg={<ShieldCheckIcon />} />
 									Password
-								</TabsTrigger>
-							</TabsList>
-							<TabsContent value="account">
-								<Card>
-									<CardHeader>
-										<CardTitle>Account</CardTitle>
+								</Tabs.Trigger>
+							</Tabs.List>
+							<Tabs.Content value="account">
+								<Card.Root>
+									<Card.Header>
+										<Card.Title>Account</Card.Title>
 										<p className="text-muted">
 											Make changes to your account here. Click save when you're
 											done.
 										</p>
-									</CardHeader>
-								</Card>
-							</TabsContent>
-							<TabsContent value="password">
-								<Card>
-									<CardHeader>
-										<CardTitle>Password</CardTitle>
+									</Card.Header>
+								</Card.Root>
+							</Tabs.Content>
+							<Tabs.Content value="password">
+								<Card.Root>
+									<Card.Header>
+										<Card.Title>Password</Card.Title>
 										<p className="text-muted">
 											Change your password here. After saving, you'll be logged
 											out.
 										</p>
-									</CardHeader>
-								</Card>
-							</TabsContent>
-						</Tabs>
-						<Tabs
+									</Card.Header>
+								</Card.Root>
+							</Tabs.Content>
+						</Tabs.Root>
+						<Tabs.Root
 							orientation="vertical"
 							defaultValue="account"
 							className="scrollbar max-w-xl overflow-x-scroll"
 						>
-							<TabsList>
-								<TabsTrigger value="account">Account</TabsTrigger>
-								<TabsTrigger value="password">Password</TabsTrigger>
-								<TabsTrigger value="disabled-tab" disabled>
+							<Tabs.List>
+								<Tabs.Trigger value="account">Account</Tabs.Trigger>
+								<Tabs.Trigger value="password">Password</Tabs.Trigger>
+								<Tabs.Trigger value="disabled-tab" disabled>
 									Disabled tab
-								</TabsTrigger>
-							</TabsList>
-							<TabsContent value="account">
-								<Card>
-									<CardHeader>
-										<CardTitle>Account</CardTitle>
+								</Tabs.Trigger>
+							</Tabs.List>
+							<Tabs.Content value="account">
+								<Card.Root>
+									<Card.Header>
+										<Card.Title>Account</Card.Title>
 										<p className="text-muted">
 											Make changes to your account here. Click save when you're
 											done.
 										</p>
-									</CardHeader>
-								</Card>
-							</TabsContent>
-							<TabsContent value="password">
-								<Card>
-									<CardHeader>
-										<CardTitle>Password</CardTitle>
+									</Card.Header>
+								</Card.Root>
+							</Tabs.Content>
+							<Tabs.Content value="password">
+								<Card.Root>
+									<Card.Header>
+										<Card.Title>Password</Card.Title>
 										<p className="text-muted">
 											Change your password here. After saving, you'll be logged
 											out.
 										</p>
-									</CardHeader>
-								</Card>
-							</TabsContent>
-						</Tabs>
+									</Card.Header>
+								</Card.Root>
+							</Tabs.Content>
+						</Tabs.Root>
 					</Example>
-					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
 									import { Button } from "@ngrok/mantle/button";
-									import { Card, CardBody, CardFooter, CardHeader, CardTitle } from "@ngrok/mantle/card";
+									import { Card } from "@ngrok/mantle/card";
 									import { Icon } from "@ngrok/mantle/icon";
 									import { Input, PasswordInput } from "@ngrok/mantle/input";
-									import { TabBadge, Tabs, TabsContent, TabsList, TabsTrigger } from "@ngrok/mantle/tabs";
+									import { Tabs } from "@ngrok/mantle/tabs";
 
-									<Tabs orientation="horizontal" defaultValue="account" className="w-[400px]">
-										<TabsList>
-											<TabsTrigger value="account">
+									<Tabs.Root orientation="horizontal" defaultValue="account" className="w-[400px]">
+										<Tabs.List>
+											<Tabs.Trigger value="account">
 												<Icon svg={<UserIcon />} />
 												Account
-												<TabBadge>2</TabBadge>
-											</TabsTrigger>
-											<TabsTrigger value="password">
+												<Tabs.Badge>2</Tabs.Badge>
+											</Tabs.Trigger>
+											<Tabs.Trigger value="password">
 												<Icon svg={<ShieldCheckIcon />} />
 												Password
-											</TabsTrigger>
-										</TabsList>
-										<TabsContent value="account">
-											<Card>
-												<CardHeader>
-													<CardTitle>Account</CardTitle>
+											</Tabs.Trigger>
+										</Tabs.List>
+										<Tabs.Content value="account">
+											<Card.Root>
+												<Card.Header>
+													<Card.Title>Account</Card.Title>
 													<p className="text-muted">Make changes to your account here. Click save when you're done.</p>
-												</CardHeader>
-												<CardBody className="space-y-2">
+												</Card.Header>
+												<Card.Body className="space-y-2">
 													<div className="space-y-1">
 														<label htmlFor="name">Name</label>
 														<Input id="name" defaultValue="Cody Price" />
@@ -270,19 +270,19 @@ export default function Page() {
 														<label htmlFor="username">Username</label>
 														<Input id="username" defaultValue="@cody-dot-js" />
 													</div>
-												</CardBody>
-												<CardFooter>
+												</Card.Body>
+												<Card.Footer>
 													<Button type="button">Save changes</Button>
-												</CardFooter>
-											</Card>
-										</TabsContent>
-										<TabsContent value="password">
-											<Card>
-												<CardHeader>
-													<CardTitle>Password</CardTitle>
+												</Card.Footer>
+											</Card.Root>
+										</Tabs.Content>
+										<Tabs.Content value="password">
+											<Card.Root>
+												<Card.Header>
+													<Card.Title>Password</Card.Title>
 													<p className="text-muted">Change your password here. After saving, you'll be logged out.</p>
-												</CardHeader>
-												<CardBody className="space-y-2">
+												</Card.Header>
+												<Card.Body className="space-y-2">
 													<div className="space-y-1">
 														<label htmlFor="current">Current password</label>
 														<PasswordInput id="current" />
@@ -291,235 +291,280 @@ export default function Page() {
 														<label htmlFor="new">New password</label>
 														<PasswordInput id="new" />
 													</div>
-												</CardBody>
-												<CardFooter>
+												</Card.Body>
+												<Card.Footer>
 													<Button type="button">Save password</Button>
-												</CardFooter>
-											</Card>
-										</TabsContent>
-									</Tabs>
+												</Card.Footer>
+											</Card.Root>
+										</Tabs.Content>
+									</Tabs.Root>
 								`}
 							/>
-						</CodeBlockBody>
-					</CodeBlock>
+						</CodeBlock.Body>
+					</CodeBlock.Root>
 				</div>
 			</section>
 
-			{/* <section className="mb-4 space-y-4">
-				<h2 id="composition" className="text-3xl font-medium">
-					Composition
-				</h2>
-				<p className="text-xl text-body font-body">
-					When you want to render <span className="italic">something else</span> as a <InlineCode>Button</InlineCode>,
-					you can use the <InlineCode>asChild</InlineCode> prop to compose. This is useful when you want to splat the{" "}
-					<InlineCode>Button</InlineCode> styling onto a <InlineCode>Link</InlineCode> from{" "}
-					<InlineCode>remix</InlineCode> or <InlineCode>react-router</InlineCode>. Keep in mind that when you use{" "}
-					<InlineCode>asChild</InlineCode> the <InlineCode>type</InlineCode> prop will <strong>NOT</strong> be passed to
-					the child component.
-				</p>
-				<div>
-					<Example>
-						<Button appearance="filled" icon={<Fire weight="fill" />} asChild>
-							<Link to={href("/base/colors")}>See our colors!</Link>
-						</Button>
-					</Example>
-					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
-								language="tsx"
-								value={fmtCode`
-									import { Button } from "@ngrok/mantle/button";
-									import { FireIcon } from "@phosphor-icons/react/Fire";
-									import { Link } from "react-router";
-
-									<Button appearance="filled" icon={<FireIcon weight="fill" />} asChild>
-										<Link to="/base/colors">See our colors!</Link>
-									</Button>
-								`}
-							/>
-						</CodeBlockBody>
-					</CodeBlock>
-				</div>
-			</section> */}
-
-			{/* <section className="mt-16 space-y-4">
+			<section className="space-y-4">
 				<h2 id="api" className="text-3xl font-medium">
 					API Reference
 				</h2>
-				<p className="text-xl text-body font-body">
-					The <InlineCode>Button</InlineCode> accepts the following props in addition to the{" "}
-					<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button">
-						standard HTML button attributes
-					</Anchor>
-					.
+				<p className="font-body text-body text-xl">
+					The <InlineCode>Tabs</InlineCode> components accept the following
+					props.
 				</p>
-				<PropsTable>
-					<PropRow>
-						<PropNameCell name="appearance" optional />
-						<PropTypeCell>
-							<ul>
-								<li>
-									<StringPropType value="ghost" />
-								</li>
-								<li>
-									<StringPropType value="filled" />
-								</li>
-								<li>
-									<StringPropType value="outlined" />
-								</li>
-								<li>
-									<StringPropType value="link" />
-								</li>
-							</ul>
-						</PropTypeCell>
-						<PropDefaultValueCell>
-							<StringPropType value="outlined" />
-						</PropDefaultValueCell>
-						<PropDescriptionCell>
-							<p>
-								Defines the visual style of the <InlineCode>Button</InlineCode>.
-							</p>
-						</PropDescriptionCell>
-					</PropRow>
-					<PropRow>
-						<PropNameCell name="asChild" optional />
-						<PropTypeCell>
-							<BooleanPropType />
-						</PropTypeCell>
-						<PropDefaultValueCell>
-							<BooleanPropType value={false} />
-						</PropDefaultValueCell>
-						<PropDescriptionCell>
-							<p>
-								Use the <InlineCode>asChild</InlineCode> prop to compose the <InlineCode>Button</InlineCode> styling and
-								functionality onto alternative element types or your own React components.
-							</p>
-						</PropDescriptionCell>
-					</PropRow>
-					<PropRow>
-						<PropNameCell name="icon" optional />
-						<PropTypeCell>
-							<ReactNodePropType />
-						</PropTypeCell>
-						<PropDefaultValueCell />
-						<PropDescriptionCell>
-							An icon to render inside the button. If the <InlineCode>state</InlineCode> is{" "}
-							<InlineCode>pending</InlineCode>, then the icon will automatically be replaced with a spinner.
-						</PropDescriptionCell>
-					</PropRow>
-					<PropRow>
-						<PropNameCell name="iconPlacement" optional />
-						<PropTypeCell>
-							<ul>
-								<li>
-									<StringPropType value="start" />
-								</li>
-								<li>
-									<StringPropType value="end" />
-								</li>
-							</ul>
-						</PropTypeCell>
-						<PropDefaultValueCell>
-							<StringPropType value="start" />
-						</PropDefaultValueCell>
-						<PropDescriptionCell>
-							<p>
-								The side that the icon will render on, if one is present. If <InlineCode>state="pending"</InlineCode>,
-								then the loading icon will also render on this side.
-							</p>
-						</PropDescriptionCell>
-					</PropRow>
-					<PropRow>
-						<PropNameCell name="isLoading" optional />
-						<PropTypeCell>
-							<BooleanPropType />
-						</PropTypeCell>
-						<PropDefaultValueCell>
-							<BooleanPropType value={false} />
-						</PropDefaultValueCell>
-						<PropDescriptionCell>
-							<p>
-								Determines whether or not the button is in a loading state, default <InlineCode>false</InlineCode>.
-								Setting <InlineCode>isLoading</InlineCode> will replace any <InlineCode>icon</InlineCode> with a
-								spinner, or add one if an icon wasn't given. It will also disable user interaction with the button and
-								set <InlineCode>aria-disabled</InlineCode>.
-							</p>
-						</PropDescriptionCell>
-					</PropRow>
-					<PropRow>
-						<PropNameCell name="priority" optional />
-						<PropTypeCell>
-							<ul>
-								<li>
-									<StringPropType value="default" />
-								</li>
-								<li>
-									<StringPropType value="danger" />
-								</li>
-								<li>
-									<StringPropType value="neutral" />
-								</li>
-							</ul>
-						</PropTypeCell>
-						<PropDefaultValueCell>
-							<StringPropType value="default" />
-						</PropDefaultValueCell>
-						<PropDescriptionCell>
-							<p>
-								Indicates the importance or impact level of the button, affecting its color and styling to communicate
-								its purpose to the user.
-							</p>
-						</PropDescriptionCell>
-					</PropRow>
-					<PropRow>
-						<PropNameCell name="type" />
-						<PropTypeCell>
-							<ul>
-								<li>
-									<StringPropType value="button" />
-								</li>
-								<li>
-									<StringPropType value="reset" />
-								</li>
-								<li>
-									<StringPropType value="submit" />
-								</li>
-							</ul>
-						</PropTypeCell>
-						<PropDefaultValueCell />
-						<PropDescriptionCell>
-							<p>
-								The default behavior of the <InlineCode>Button</InlineCode>. Unlike the native{" "}
-								<InlineCode>button</InlineCode> element, unless you use the <InlineCode>asChild</InlineCode> prop,{" "}
-								<span className="font-semibold">this prop is required and has no default value</span>. See{" "}
-								<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#type">
-									the MDN docs
-								</Anchor>{" "}
-								for more information.
-							</p>
-							<ul className="list-disc pl-5">
-								<li>
+
+				<div className="space-y-8">
+					<div className="space-y-4">
+						<h3 id="api-tabs-root" className="text-2xl font-medium">
+							Tabs.Root
+						</h3>
+						<p className="font-body text-body">
+							The root container of the tabs component that provides context for
+							all tab components. Based on{" "}
+							<Anchor href="https://www.radix-ui.com/primitives/docs/components/tabs#root">
+								Radix Tabs Root
+							</Anchor>
+							.
+						</p>
+						<PropsTable>
+							<PropRow>
+								<PropNameCell name="defaultValue" optional />
+								<PropTypeCell>
+									<StringPropType />
+								</PropTypeCell>
+								<PropDefaultValueCell />
+								<PropDescriptionCell>
 									<p>
-										<InlineCode>"button"</InlineCode>: The button has no default behavior, and does nothing when pressed
-										by default.
+										The value of the tab that should be active when initially
+										rendered. Use when you do not need to control the state of
+										the tabs.
 									</p>
-								</li>
-								<li>
+								</PropDescriptionCell>
+							</PropRow>
+							<PropRow>
+								<PropNameCell name="value" optional />
+								<PropTypeCell>
+									<StringPropType />
+								</PropTypeCell>
+								<PropDefaultValueCell />
+								<PropDescriptionCell>
 									<p>
-										<InlineCode>"reset"</InlineCode>: The button resets all the controls to their initial values.
+										The controlled value of the tab to activate. Should be used
+										in conjunction with <InlineCode>onValueChange</InlineCode>.
 									</p>
-								</li>
-								<li>
+								</PropDescriptionCell>
+							</PropRow>
+							<PropRow>
+								<PropNameCell name="onValueChange" optional />
+								<PropTypeCell>
+									<StringPropType value="(value: string) => void" />
+								</PropTypeCell>
+								<PropDefaultValueCell />
+								<PropDescriptionCell>
+									<p>Event handler called when the value changes.</p>
+								</PropDescriptionCell>
+							</PropRow>
+							<PropRow>
+								<PropNameCell name="orientation" optional />
+								<PropTypeCell>
+									<ul>
+										<li>
+											<StringPropType value="horizontal" />
+										</li>
+										<li>
+											<StringPropType value="vertical" />
+										</li>
+									</ul>
+								</PropTypeCell>
+								<PropDefaultValueCell>
+									<StringPropType value="horizontal" />
+								</PropDefaultValueCell>
+								<PropDescriptionCell>
+									<p>The orientation of the tabs.</p>
+								</PropDescriptionCell>
+							</PropRow>
+							<PropRow>
+								<PropNameCell name="className" optional />
+								<PropTypeCell>
+									<StringPropType />
+								</PropTypeCell>
+								<PropDefaultValueCell />
+								<PropDescriptionCell>
 									<p>
-										<InlineCode>"submit"</InlineCode>: The button submits the form data to the server.
+										Additional CSS classes to apply to the tabs root element.
 									</p>
-								</li>
-							</ul>
-						</PropDescriptionCell>
-					</PropRow>
-				</PropsTable>
-			</section> */}
+								</PropDescriptionCell>
+							</PropRow>
+						</PropsTable>
+					</div>
+
+					<div className="space-y-4">
+						<h3 id="api-tabs-list" className="text-2xl font-medium">
+							Tabs.List
+						</h3>
+						<p className="font-body text-body">
+							Contains the triggers that are aligned along the edge of the
+							active content. Based on{" "}
+							<Anchor href="https://www.radix-ui.com/primitives/docs/components/tabs#list">
+								Radix Tabs List
+							</Anchor>
+							.
+						</p>
+						<PropsTable>
+							<PropRow>
+								<PropNameCell name="className" optional />
+								<PropTypeCell>
+									<StringPropType />
+								</PropTypeCell>
+								<PropDefaultValueCell />
+								<PropDescriptionCell>
+									<p>
+										Additional CSS classes to apply to the tabs list element.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+						</PropsTable>
+					</div>
+
+					<div className="space-y-4">
+						<h3 id="api-tabs-trigger" className="text-2xl font-medium">
+							Tabs.Trigger
+						</h3>
+						<p className="font-body text-body">
+							The button that activates its associated content. Based on{" "}
+							<Anchor href="https://www.radix-ui.com/primitives/docs/components/tabs#trigger">
+								Radix Tabs Trigger
+							</Anchor>
+							.
+						</p>
+						<PropsTable>
+							<PropRow>
+								<PropNameCell name="value" />
+								<PropTypeCell>
+									<StringPropType />
+								</PropTypeCell>
+								<PropDefaultValueCell />
+								<PropDescriptionCell>
+									<p>
+										A unique value that associates the trigger with a content.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+							<PropRow>
+								<PropNameCell name="asChild" optional />
+								<PropTypeCell>
+									<BooleanPropType />
+								</PropTypeCell>
+								<PropDefaultValueCell>
+									<BooleanPropType value={false} />
+								</PropDefaultValueCell>
+								<PropDescriptionCell>
+									<p>
+										Use the <InlineCode>asChild</InlineCode> prop to compose the
+										trigger styling and functionality onto alternative element
+										types or your own React components.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+							<PropRow>
+								<PropNameCell name="disabled" optional />
+								<PropTypeCell>
+									<BooleanPropType />
+								</PropTypeCell>
+								<PropDefaultValueCell>
+									<BooleanPropType value={false} />
+								</PropDefaultValueCell>
+								<PropDescriptionCell>
+									<p>
+										When <InlineCode>true</InlineCode>, prevents the user from
+										interacting with the tab.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+							<PropRow>
+								<PropNameCell name="className" optional />
+								<PropTypeCell>
+									<StringPropType />
+								</PropTypeCell>
+								<PropDefaultValueCell />
+								<PropDescriptionCell>
+									<p>Additional CSS classes to apply to the trigger element.</p>
+								</PropDescriptionCell>
+							</PropRow>
+						</PropsTable>
+					</div>
+
+					<div className="space-y-4">
+						<h3 id="api-tabs-content" className="text-2xl font-medium">
+							Tabs.Content
+						</h3>
+						<p className="font-body text-body">
+							Contains the content associated with each trigger. Based on{" "}
+							<Anchor href="https://www.radix-ui.com/primitives/docs/components/tabs#content">
+								Radix Tabs Content
+							</Anchor>
+							.
+						</p>
+						<PropsTable>
+							<PropRow>
+								<PropNameCell name="value" />
+								<PropTypeCell>
+									<StringPropType />
+								</PropTypeCell>
+								<PropDefaultValueCell />
+								<PropDescriptionCell>
+									<p>
+										A unique value that associates the content with a trigger.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+							<PropRow>
+								<PropNameCell name="className" optional />
+								<PropTypeCell>
+									<StringPropType />
+								</PropTypeCell>
+								<PropDefaultValueCell />
+								<PropDescriptionCell>
+									<p>Additional CSS classes to apply to the content element.</p>
+								</PropDescriptionCell>
+							</PropRow>
+						</PropsTable>
+					</div>
+
+					<div className="space-y-4">
+						<h3 id="api-tabs-badge" className="text-2xl font-medium">
+							Tabs.Badge
+						</h3>
+						<p className="font-body text-body">
+							A badge component that can be used inside tab triggers to display
+							additional information like counts or status indicators.
+						</p>
+						<PropsTable>
+							<PropRow>
+								<PropNameCell name="children" />
+								<PropTypeCell>
+									<ReactNodePropType />
+								</PropTypeCell>
+								<PropDefaultValueCell />
+								<PropDescriptionCell>
+									<p>The content to be rendered inside the badge.</p>
+								</PropDescriptionCell>
+							</PropRow>
+							<PropRow>
+								<PropNameCell name="className" optional />
+								<PropTypeCell>
+									<StringPropType />
+								</PropTypeCell>
+								<PropDefaultValueCell />
+								<PropDescriptionCell>
+									<p>Additional CSS classes to apply to the badge element.</p>
+								</PropDescriptionCell>
+							</PropRow>
+						</PropsTable>
+					</div>
+				</div>
+			</section>
 		</div>
 	);
 }

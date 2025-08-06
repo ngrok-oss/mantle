@@ -79,7 +79,7 @@ type AlertProps = ComponentProps<"div"> & {
  *   <AlertIcon />
  *   <AlertContent>
  *     <AlertTitle>Alert Title</AlertTitle>
- * 	   <AlertDismissIconButton />
+ *      <AlertDismissIconButton />
  *     <AlertDescription>
  *       Alert description text.
  *     </AlertDescription>
@@ -87,7 +87,7 @@ type AlertProps = ComponentProps<"div"> & {
  * </Alert>
  *```
  */
-const Alert = forwardRef<ComponentRef<"div">, AlertProps>(
+const Root = forwardRef<ComponentRef<"div">, AlertProps>(
 	({ className, priority, ...props }, ref) => {
 		const context: AlertContextValue = useMemo(
 			() => ({ priority }),
@@ -105,7 +105,7 @@ const Alert = forwardRef<ComponentRef<"div">, AlertProps>(
 		);
 	},
 );
-Alert.displayName = "Alert";
+Root.displayName = "Alert";
 
 type AlertIconProps = Omit<SvgAttributes, "children"> & {
 	/**
@@ -146,7 +146,7 @@ const defaultIcons = {
  * </Alert>
  * ```
  */
-const AlertIcon = forwardRef<ComponentRef<"svg">, AlertIconProps>(
+const Icon = forwardRef<ComponentRef<"svg">, AlertIconProps>(
 	({ className, svg, ...props }, ref) => {
 		const ctx = useAlertContext();
 		const defaultIcon = defaultIcons[ctx.priority];
@@ -161,7 +161,7 @@ const AlertIcon = forwardRef<ComponentRef<"svg">, AlertIconProps>(
 		);
 	},
 );
-AlertIcon.displayName = "AlertIcon";
+Icon.displayName = "AlertIcon";
 
 /**
  * The container for the content slot of an alert. Place the title and description as direct children.
@@ -182,7 +182,7 @@ AlertIcon.displayName = "AlertIcon";
  * </Alert>
  *```
  */
-const AlertContent = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
+const Content = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
 	({ className, ...props }, ref) => (
 		<div
 			ref={ref}
@@ -194,7 +194,7 @@ const AlertContent = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
 		/>
 	),
 );
-AlertContent.displayName = "AlertContent";
+Content.displayName = "AlertContent";
 
 type AlertTitleProps = HTMLAttributes<HTMLHeadingElement> & WithAsChild;
 
@@ -217,7 +217,7 @@ type AlertTitleProps = HTMLAttributes<HTMLHeadingElement> & WithAsChild;
  * </Alert>
  *```
  */
-const AlertTitle = forwardRef<HTMLHeadingElement, AlertTitleProps>(
+const Title = forwardRef<HTMLHeadingElement, AlertTitleProps>(
 	({ asChild = false, className, ...props }, ref) => {
 		const Component = asChild ? Slot : "h5";
 
@@ -230,7 +230,7 @@ const AlertTitle = forwardRef<HTMLHeadingElement, AlertTitleProps>(
 		);
 	},
 );
-AlertTitle.displayName = "AlertTitle";
+Title.displayName = "AlertTitle";
 
 type AlertDescriptionProps = ComponentProps<"p"> & WithAsChild;
 
@@ -253,7 +253,7 @@ type AlertDescriptionProps = ComponentProps<"p"> & WithAsChild;
  * </Alert>
  * ```
  */
-const AlertDescription = forwardRef<ComponentRef<"p">, AlertDescriptionProps>(
+const Description = forwardRef<ComponentRef<"p">, AlertDescriptionProps>(
 	({ asChild = false, className, ...props }, ref) => {
 		const Component = asChild ? Slot : "p";
 
@@ -262,10 +262,10 @@ const AlertDescription = forwardRef<ComponentRef<"p">, AlertDescriptionProps>(
 		);
 	},
 );
-AlertDescription.displayName = "AlertDescription";
+Description.displayName = "AlertDescription";
 
 type AlertDismissIconButtonProps = Partial<Omit<IconButtonProps, "icon">>;
-const AlertDismissIconButton = ({
+const DismissIconButton = ({
 	size = "sm",
 	type = "button",
 	label = "Dismiss Alert",
@@ -300,14 +300,134 @@ const AlertDismissIconButton = ({
 		/>
 	);
 };
-AlertDismissIconButton.displayName = "AlertDismissIconButton";
+DismissIconButton.displayName = "AlertDismissIconButton";
+
+/**
+ * Displays a callout for user attention.
+ *
+ * @see https://mantle.ngrok.com/components/alert
+ *
+ * @example
+ * ```tsx
+ * <Alert priority="info">
+ *   <AlertIcon />
+ *   <AlertContent>
+ *     <AlertTitle>Alert Title</AlertTitle>
+ *      <AlertDismissIconButton />
+ *     <AlertDescription>
+ *       Alert description text.
+ *     </AlertDescription>
+ *   </AlertContent>
+ * </Alert>
+ *```
+ */
+const Alert = {
+	/**
+	 * The root container of the alert component.
+	 *
+	 * @see https://mantle.ngrok.com/components/alert#api-alert-root
+	 *
+	 * @example
+	 * ```tsx
+	 * <Alert.Root priority="info">
+	 *   <Alert.Icon />
+	 *   <Alert.Content>
+	 *     <Alert.Title>Alert Title</Alert.Title>
+	 *     <Alert.Description>Alert description</Alert.Description>
+	 *   </Alert.Content>
+	 * </Alert.Root>
+	 * ```
+	 */
+	Root,
+	/**
+	 * The container for the content slot of an alert.
+	 *
+	 * @see https://mantle.ngrok.com/components/alert#api-alert-content
+	 *
+	 * @example
+	 * ```tsx
+	 * <Alert.Root priority="info">
+	 *   <Alert.Icon />
+	 *   <Alert.Content>
+	 *     <Alert.Title>Alert Title</Alert.Title>
+	 *     <Alert.Description>Alert description text.</Alert.Description>
+	 *   </Alert.Content>
+	 * </Alert.Root>
+	 * ```
+	 */
+	Content,
+	/**
+	 * The optional description of an alert.
+	 *
+	 * @see https://mantle.ngrok.com/components/alert#api-alert-description
+	 *
+	 * @example
+	 * ```tsx
+	 * <Alert.Root priority="info">
+	 *   <Alert.Icon />
+	 *   <Alert.Content>
+	 *     <Alert.Title>Alert Title</Alert.Title>
+	 *     <Alert.Description>Alert description text.</Alert.Description>
+	 *   </Alert.Content>
+	 * </Alert.Root>
+	 * ```
+	 */
+	Description,
+	/**
+	 * An optional dismiss button that can be used to close the alert.
+	 *
+	 * @see https://mantle.ngrok.com/components/alert#api-alert-dismiss-icon-button
+	 *
+	 * @example
+	 * ```tsx
+	 * <Alert.Root priority="info">
+	 *   <Alert.Icon />
+	 *   <Alert.Content>
+	 *     <Alert.Title>Alert Title</Alert.Title>
+	 *     <Alert.DismissIconButton />
+	 *     <Alert.Description>Alert description text.</Alert.Description>
+	 *   </Alert.Content>
+	 * </Alert.Root>
+	 * ```
+	 */
+	DismissIconButton,
+	/**
+	 * An optional icon that visually represents the priority of the Alert.
+	 *
+	 * @see https://mantle.ngrok.com/components/alert#api-alert-icon
+	 *
+	 * @example
+	 * ```tsx
+	 * <Alert.Root priority="info">
+	 *   <Alert.Icon />
+	 *   <Alert.Content>
+	 *     <Alert.Title>Alert Title</Alert.Title>
+	 *     <Alert.Description>Alert description text.</Alert.Description>
+	 *   </Alert.Content>
+	 * </Alert.Root>
+	 * ```
+	 */
+	Icon,
+	/**
+	 * The title of an alert.
+	 *
+	 * @see https://mantle.ngrok.com/components/alert#api-alert-title
+	 *
+	 * @example
+	 * ```tsx
+	 * <Alert.Root priority="info">
+	 *   <Alert.Icon />
+	 *   <Alert.Content>
+	 *     <Alert.Title>Alert Title</Alert.Title>
+	 *     <Alert.Description>Alert description text.</Alert.Description>
+	 *   </Alert.Content>
+	 * </Alert.Root>
+	 * ```
+	 */
+	Title,
+} as const;
 
 export {
 	//,
 	Alert,
-	AlertContent,
-	AlertDescription,
-	AlertIcon,
-	AlertTitle,
-	AlertDismissIconButton,
 };

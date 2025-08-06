@@ -1,10 +1,8 @@
 export {
 	//,
-	CursorButtons,
-	CursorPageSizeSelect,
-	CursorPageSizeValue,
 	CursorPagination,
 } from "./cursor-pagination.js";
+
 export {
 	//,
 	getOffsetPaginatedSlice,
@@ -18,6 +16,7 @@ export type {
 	CursorPageSizeValueProps,
 	CursorPaginationProps,
 } from "./cursor-pagination.js";
+
 export type {
 	//,
 	OffsetPaginationState,

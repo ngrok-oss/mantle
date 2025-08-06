@@ -1,14 +1,5 @@
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	CodeBlockExpanderButton,
-	CodeBlockHeader,
-	CodeBlockIcon,
-	CodeBlockTitle,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { Anchor } from "@ngrok/mantle/anchor";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import {
 	PreloadFonts,
@@ -17,6 +8,17 @@ import {
 import { FileTextIcon } from "@phosphor-icons/react/FileText";
 import { renderToStaticMarkup } from "react-dom/server";
 import { PageHeader } from "~/components/page-header";
+import {
+	BooleanPropType,
+	PropDefaultValueCell,
+	PropDescriptionCell,
+	PropNameCell,
+	PropRow,
+	PropTypeCell,
+	PropsTable,
+	ReactNodePropType,
+	StringPropType,
+} from "~/components/props-table";
 import type { Route } from "./+types/components.theme-provider";
 
 export const meta: Route.MetaFunction = () => {
@@ -57,14 +59,14 @@ export default function Page() {
 					of your application to prevent a Flash of Unstyled Content (FOUC) when
 					the app first loads as well as preload all of our custom fonts.
 				</p>
-				<CodeBlock>
-					<CodeBlockHeader>
-						<CodeBlockIcon svg={<FileTextIcon weight="fill" />} />
-						<CodeBlockTitle>root.tsx</CodeBlockTitle>
-					</CodeBlockHeader>
-					<CodeBlockBody>
-						<CodeBlockCopyButton />
-						<CodeBlockCode
+				<CodeBlock.Root>
+					<CodeBlock.Header>
+						<CodeBlock.Icon svg={<FileTextIcon weight="fill" />} />
+						<CodeBlock.Title>root.tsx</CodeBlock.Title>
+					</CodeBlock.Header>
+					<CodeBlock.Body>
+						<CodeBlock.CopyButton />
+						<CodeBlock.Code
 							language="tsx"
 							value={fmtCode`
 							import { MantleThemeHeadContent, ThemeProvider } from "@ngrok/mantle/theme-provider";
@@ -92,9 +94,9 @@ export default function Page() {
 							}
 						`}
 						/>
-						<CodeBlockExpanderButton />
-					</CodeBlockBody>
-				</CodeBlock>
+						<CodeBlock.ExpanderButton />
+					</CodeBlock.Body>
+				</CodeBlock.Root>
 			</section>
 			<section className="space-y-4">
 				<p className="font-body text-body">
@@ -104,44 +106,44 @@ export default function Page() {
 					can use the copy the following script and add it to your
 					application&apos;s <InlineCode>&lt;head&gt;</InlineCode>:
 				</p>
-				<CodeBlock>
-					<CodeBlockHeader>
-						<CodeBlockIcon svg={<FileTextIcon weight="fill" />} />
-						<CodeBlockTitle>index.html</CodeBlockTitle>
-					</CodeBlockHeader>
-					<CodeBlockBody>
-						<CodeBlockCopyButton />
-						<CodeBlockCode
+				<CodeBlock.Root>
+					<CodeBlock.Header>
+						<CodeBlock.Icon svg={<FileTextIcon weight="fill" />} />
+						<CodeBlock.Title>index.html</CodeBlock.Title>
+					</CodeBlock.Header>
+					<CodeBlock.Body>
+						<CodeBlock.CopyButton />
+						<CodeBlock.Code
 							language="html"
 							value={fmtCode`<script>
 ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 </script>
 `}
 						/>
-						<CodeBlockExpanderButton />
-					</CodeBlockBody>
-				</CodeBlock>
+						<CodeBlock.ExpanderButton />
+					</CodeBlock.Body>
+				</CodeBlock.Root>
 			</section>
 			<section className="space-y-4">
 				<p className="font-body text-body">
 					You will also need to ensure that you add the{" "}
 					<InlineCode>PreloadFonts</InlineCode> component to your app as well.
 				</p>
-				<CodeBlock>
-					<CodeBlockHeader>
-						<CodeBlockIcon svg={<FileTextIcon weight="fill" />} />
-						<CodeBlockTitle>index.html</CodeBlockTitle>
-					</CodeBlockHeader>
-					<CodeBlockBody>
-						<CodeBlockCopyButton />
-						<CodeBlockCode
+				<CodeBlock.Root>
+					<CodeBlock.Header>
+						<CodeBlock.Icon svg={<FileTextIcon weight="fill" />} />
+						<CodeBlock.Title>index.html</CodeBlock.Title>
+					</CodeBlock.Header>
+					<CodeBlock.Body>
+						<CodeBlock.CopyButton />
+						<CodeBlock.Code
 							language="html"
 							value={fmtCode`<head>\n\t${renderToStaticMarkup(<PreloadFonts />)
 								.split("/><")
 								.join("/>\n\t<")}\n</head>`}
 						/>
-					</CodeBlockBody>
-				</CodeBlock>
+					</CodeBlock.Body>
+				</CodeBlock.Root>
 			</section>
 			<section className="space-y-4">
 				<p className="font-body text-body">
@@ -149,14 +151,14 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 					<InlineCode>useTheme</InlineCode> hook to get and change the current
 					theme:
 				</p>
-				<CodeBlock>
-					<CodeBlockHeader>
-						<CodeBlockIcon svg={<FileTextIcon weight="fill" />} />
-						<CodeBlockTitle>app.tsx</CodeBlockTitle>
-					</CodeBlockHeader>
-					<CodeBlockBody>
-						<CodeBlockCopyButton />
-						<CodeBlockCode
+				<CodeBlock.Root>
+					<CodeBlock.Header>
+						<CodeBlock.Icon svg={<FileTextIcon weight="fill" />} />
+						<CodeBlock.Title>app.tsx</CodeBlock.Title>
+					</CodeBlock.Header>
+					<CodeBlock.Body>
+						<CodeBlock.CopyButton />
+						<CodeBlock.Code
 							language="tsx"
 							value={fmtCode`
 							import {
@@ -206,9 +208,171 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 							}
 `}
 						/>
-					</CodeBlockBody>
-					<CodeBlockExpanderButton />
-				</CodeBlock>
+					</CodeBlock.Body>
+					<CodeBlock.ExpanderButton />
+				</CodeBlock.Root>
+			</section>
+
+			<section className="space-y-4">
+				<h2 id="api" className="text-3xl font-medium">
+					API Reference
+				</h2>
+
+				<div className="space-y-8">
+					<div className="space-y-4">
+						<h3 id="api-theme-provider" className="text-2xl font-medium">
+							ThemeProvider
+						</h3>
+						<p className="font-body text-body text-xl">
+							The <InlineCode>ThemeProvider</InlineCode> accepts the following
+							props in addition to the{" "}
+							<Anchor href="https://react.dev/reference/react/PropsWithChildren">
+								PropsWithChildren
+							</Anchor>
+							.
+						</p>
+						<PropsTable>
+							<PropRow>
+								<PropNameCell name="children" />
+								<PropTypeCell>
+									<ReactNodePropType />
+								</PropTypeCell>
+								<PropDefaultValueCell />
+								<PropDescriptionCell>
+									<p>
+										The React components to be wrapped by the theme provider
+										context.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+							<PropRow>
+								<PropNameCell name="defaultTheme" optional />
+								<PropTypeCell>
+									<ul>
+										<li>
+											<StringPropType value="system" />
+										</li>
+										<li>
+											<StringPropType value="light" />
+										</li>
+										<li>
+											<StringPropType value="dark" />
+										</li>
+										<li>
+											<StringPropType value="light-high-contrast" />
+										</li>
+										<li>
+											<StringPropType value="dark-high-contrast" />
+										</li>
+									</ul>
+								</PropTypeCell>
+								<PropDefaultValueCell>
+									<StringPropType value="system" />
+								</PropDefaultValueCell>
+								<PropDescriptionCell>
+									<p>
+										The default theme to use when no theme is stored in
+										localStorage. The <InlineCode>system</InlineCode> theme will
+										automatically resolve to the user's preferred color scheme.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+							<PropRow>
+								<PropNameCell name="storageKey" optional />
+								<PropTypeCell>
+									<StringPropType />
+								</PropTypeCell>
+								<PropDefaultValueCell>
+									<StringPropType value="mantle-ui-theme" />
+								</PropDefaultValueCell>
+								<PropDescriptionCell>
+									<p>
+										The key used to store the theme preference in localStorage.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+						</PropsTable>
+					</div>
+
+					<div className="space-y-4">
+						<h3
+							id="api-mantle-theme-head-content"
+							className="text-2xl font-medium"
+						>
+							MantleThemeHeadContent
+						</h3>
+						<p className="font-body text-body text-xl">
+							The <InlineCode>MantleThemeHeadContent</InlineCode> component
+							prevents Flash of Unstyled Content (FOUC) and preloads fonts. It
+							accepts the following props:
+						</p>
+						<PropsTable>
+							<PropRow>
+								<PropNameCell name="defaultTheme" optional />
+								<PropTypeCell>
+									<ul>
+										<li>
+											<StringPropType value="system" />
+										</li>
+										<li>
+											<StringPropType value="light" />
+										</li>
+										<li>
+											<StringPropType value="dark" />
+										</li>
+										<li>
+											<StringPropType value="light-high-contrast" />
+										</li>
+										<li>
+											<StringPropType value="dark-high-contrast" />
+										</li>
+									</ul>
+								</PropTypeCell>
+								<PropDefaultValueCell>
+									<StringPropType value="system" />
+								</PropDefaultValueCell>
+								<PropDescriptionCell>
+									<p>
+										The default theme to use in the FOUC prevention script.
+										Should match the <InlineCode>defaultTheme</InlineCode> prop
+										of your <InlineCode>ThemeProvider</InlineCode>.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+							<PropRow>
+								<PropNameCell name="storageKey" optional />
+								<PropTypeCell>
+									<StringPropType />
+								</PropTypeCell>
+								<PropDefaultValueCell>
+									<StringPropType value="mantle-ui-theme" />
+								</PropDefaultValueCell>
+								<PropDescriptionCell>
+									<p>
+										The localStorage key to check for theme preference. Should
+										match the <InlineCode>storageKey</InlineCode> prop of your{" "}
+										<InlineCode>ThemeProvider</InlineCode>.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+							<PropRow>
+								<PropNameCell name="includeNunitoSans" optional />
+								<PropTypeCell>
+									<BooleanPropType />
+								</PropTypeCell>
+								<PropDefaultValueCell>
+									<BooleanPropType value={false} />
+								</PropDefaultValueCell>
+								<PropDescriptionCell>
+									<p>
+										Whether to include preload links for the Nunito Sans font
+										family.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+						</PropsTable>
+					</div>
+				</div>
 			</section>
 		</div>
 	);

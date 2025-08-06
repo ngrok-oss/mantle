@@ -42,22 +42,22 @@ type RadioGroupProps = PropsWithChildren<
  * @example
  * ```tsx
  * <RadioGroup value={value} onValueChange={setValue}>
- *   <RadioItem value="option1">
- *     <RadioIndicator />
+ *   <RadioGroup.Item value="option1">
+ *     <RadioGroup.Indicator />
  *     <span>Option 1</span>
- *   </RadioItem>
- *   <RadioItem value="option2">
- *     <RadioIndicator />
+ *   </RadioGroup.Item>
+ *   <RadioGroup.Item value="option2">
+ *     <RadioGroup.Indicator />
  *     <span>Option 2</span>
- *   </RadioItem>
+ *   </RadioGroup.Item>
  * </RadioGroup>
  * ```
  */
-const RadioGroup = forwardRef<
+const Root = forwardRef<
 	ComponentRef<typeof HeadlessRadioGroup>,
 	RadioGroupProps
 >((props, ref) => <HeadlessRadioGroup {...props} ref={ref} />);
-RadioGroup.displayName = "RadioGroup";
+Root.displayName = "RadioGroup";
 
 /**
  * The shape of the radio state context.
@@ -94,14 +94,14 @@ type RadioItemProps = Omit<HeadlessRadioProps, "children"> & PropsWithChildren;
  * @example
  * ```tsx
  * <RadioGroup value={value} onValueChange={setValue}>
- *   <RadioItem value="option1">
- *     <RadioIndicator />
+ *   <RadioGroup.Item value="option1">
+ *     <RadioGroup.Indicator />
  *     <span>Option 1</span>
- *   </RadioItem>
+ *   </RadioGroup.Item>
  * </RadioGroup>
  * ```
  */
-const RadioItem = forwardRef<ComponentRef<"div">, RadioItemProps>(
+const Item = forwardRef<ComponentRef<"div">, RadioItemProps>(
 	({ children, className, ...props }, ref) => (
 		<HeadlessRadio
 			className={cx(
@@ -120,7 +120,7 @@ const RadioItem = forwardRef<ComponentRef<"div">, RadioItemProps>(
 		</HeadlessRadio>
 	),
 );
-RadioItem.displayName = "RadioItem";
+Item.displayName = "RadioItem";
 
 type RadioIndicatorProps = Omit<HTMLAttributes<HTMLDivElement>, "children"> & {
 	children?: ReactNode | ((context: RadioStateContextValue) => ReactNode);
@@ -151,7 +151,7 @@ const DefaultRadioIndicator = ({
 
 /**
  * The selection indicator for any radio item.
- * Use it as a child of `RadioItem`, `RadioListItem`, or `RadioCard`.
+ * Use it as a child of `RadioGroup.Item`, `RadioGroup.ListItem`, or `RadioGroup.Card`.
  * By default, it's a circle that changes color when checked.
  * You can customize the indicator by passing children:
  * - a different component
@@ -161,17 +161,13 @@ const DefaultRadioIndicator = ({
  *
  * @example
  * ```tsx
- * <RadioItem value="option1">
- *   <RadioIndicator />
+ * <RadioGroup.Item value="option1">
+ *   <RadioGroup.Indicator />
  *   <span>Option 1</span>
- * </RadioItem>
+ * </RadioGroup.Item>
  * ```
  */
-const RadioIndicator = ({
-	children,
-	className,
-	...props
-}: RadioIndicatorProps) => {
+const Indicator = ({ children, className, ...props }: RadioIndicatorProps) => {
 	const ctx = useContext(RadioStateContext);
 
 	return (
@@ -192,31 +188,26 @@ const RadioIndicator = ({
 		</div>
 	);
 };
-RadioIndicator.displayName = "RadioIndicator";
+Indicator.displayName = "RadioIndicator";
 
 /**
- * A group of radio list items. Use RadioListItem as direct children.
+ * A group of radio list items. Use RadioGroup.ListItem as direct children.
  */
-const RadioGroupList = forwardRef<
-	ComponentRef<typeof RadioGroup>,
-	RadioGroupProps
->(({ className, ...props }, ref) => {
-	return (
-		<RadioGroup
-			className={clsx("-space-y-px", className)}
-			{...props}
-			ref={ref}
-		/>
-	);
-});
-RadioGroupList.displayName = "RadioGroupList";
+const List = forwardRef<ComponentRef<typeof Root>, RadioGroupProps>(
+	({ className, ...props }, ref) => {
+		return (
+			<Root className={clsx("-space-y-px", className)} {...props} ref={ref} />
+		);
+	},
+);
+List.displayName = "RadioGroupList";
 
 type RadioListItemProps = RadioItemProps;
 
 /**
- * A radio list item that is used inside a `RadioGroupList`.
+ * A radio list item that is used inside a `RadioGroup.List`.
  */
-const RadioListItem = forwardRef<ComponentRef<"div">, RadioListItemProps>(
+const ListItem = forwardRef<ComponentRef<"div">, RadioListItemProps>(
 	({ children, className, ...props }, ref) => {
 		return (
 			<HeadlessRadio
@@ -245,7 +236,7 @@ const RadioListItem = forwardRef<ComponentRef<"div">, RadioListItemProps>(
 		);
 	},
 );
-RadioListItem.displayName = "RadioListItem";
+ListItem.displayName = "RadioListItem";
 
 type RadioItemContentProps = HTMLAttributes<HTMLDivElement> & WithAsChild;
 
@@ -254,7 +245,7 @@ type RadioCardProps = RadioItemProps;
 /**
  * A radio card item. Use it as a child of `RadioGroup`
  */
-const RadioCard = forwardRef<ComponentRef<"div">, RadioCardProps>(
+const Card = forwardRef<ComponentRef<"div">, RadioCardProps>(
 	({ children, className, ...props }, ref) => {
 		return (
 			<HeadlessRadio
@@ -282,13 +273,13 @@ const RadioCard = forwardRef<ComponentRef<"div">, RadioCardProps>(
 		);
 	},
 );
-RadioCard.displayName = "RadioCard";
+Card.displayName = "RadioCard";
 
 /**
  * The content of any radio item. Use it to wrap any labels, descriptions, or content of a radio item.
- * Use it as a child of `RadioItem`, `RadioListItem`, or `RadioCard`.
+ * Use it as a child of `RadioGroup.Item`, `RadioGroup.ListItem`, or `RadioGroup.Card`.
  */
-const RadioItemContent = ({
+const ItemContent = ({
 	asChild = false,
 	children,
 	className,
@@ -310,31 +301,30 @@ const RadioItemContent = ({
 		</Component>
 	);
 };
-RadioItemContent.displayName = "RadioItemContent";
+ItemContent.displayName = "RadioItemContent";
 
 /**
- * An inline group of radio buttons. Use RadioButton as direct children.
+ * An inline group of radio buttons. Use RadioGroup.Button as direct children.
  */
-const RadioButtonGroup = forwardRef<
-	ComponentRef<typeof RadioGroup>,
-	RadioGroupProps
->(({ className, ...props }, ref) => {
-	return (
-		<RadioGroup
-			className={clsx("flex flex-row flex-nowrap -space-x-px", className)}
-			{...props}
-			ref={ref}
-		/>
-	);
-});
-RadioButtonGroup.displayName = "RadioButtonGroup";
+const ButtonGroup = forwardRef<ComponentRef<typeof Root>, RadioGroupProps>(
+	({ className, ...props }, ref) => {
+		return (
+			<Root
+				className={clsx("flex flex-row flex-nowrap -space-x-px", className)}
+				{...props}
+				ref={ref}
+			/>
+		);
+	},
+);
+ButtonGroup.displayName = "RadioButtonGroup";
 
 type RadioButtonProps = RadioItemProps;
 
 /**
- * A radio button that is used inside a `RadioButtonGroup`.
+ * A radio button that is used inside a `RadioGroup.ButtonGroup`.
  */
-const RadioButton = forwardRef<ComponentRef<"div">, RadioButtonProps>(
+const Button = forwardRef<ComponentRef<"div">, RadioButtonProps>(
 	({ children, className, ...props }, ref) => {
 		return (
 			<HeadlessRadio
@@ -364,7 +354,7 @@ const RadioButton = forwardRef<ComponentRef<"div">, RadioButtonProps>(
 		);
 	},
 );
-RadioButton.displayName = "RadioButton";
+Button.displayName = "RadioButton";
 
 type RadioInputSandboxProps = HTMLAttributes<HTMLDivElement>;
 
@@ -372,7 +362,7 @@ type RadioInputSandboxProps = HTMLAttributes<HTMLDivElement>;
  * A sandbox container for input elements composed within radio group items.
  * It prevents the default behavior of the radio group when clicking on the input element or accepting keyboard input.
  */
-const RadioInputSandbox = ({
+const InputSandbox = ({
 	children,
 	onClick,
 	onKeyDown,
@@ -430,18 +420,226 @@ const RadioInputSandbox = ({
 		</div>
 	);
 };
-RadioInputSandbox.displayName = "RadioInputSandbox";
+InputSandbox.displayName = "RadioInputSandbox";
+
+/**
+ * A group of radio items. It manages the state of the children radios.
+ *
+ * @see https://mantle.ngrok.com/components/radio-group
+ *
+ * @example
+ * ```tsx
+ * <RadioGroup value={value} onValueChange={setValue}>
+ *   <RadioGroup.Item value="option1">
+ *     <RadioGroup.Indicator />
+ *     <span>Option 1</span>
+ *   </RadioGroup.Item>
+ *   <RadioGroup.Item value="option2">
+ *     <RadioGroup.Indicator />
+ *     <span>Option 2</span>
+ *   </RadioGroup.Item>
+ * </RadioGroup>
+ * ```
+ */
+const RadioGroup = {
+	/**
+	 * A radio button that is used inside a RadioGroup.ButtonGroup for inline grouped radio options.
+	 *
+	 * @see https://mantle.ngrok.com/components/radio-group#api-radio-button
+	 *
+	 * @example
+	 * ```tsx
+	 * <RadioGroup.Root defaultValue="option1">
+	 *   <RadioGroup.ButtonGroup>
+	 *     <RadioGroup.Button value="option1">Option 1</RadioGroup.Button>
+	 *     <RadioGroup.Button value="option2">Option 2</RadioGroup.Button>
+	 *     <RadioGroup.Button value="option3">Option 3</RadioGroup.Button>
+	 *   </RadioGroup.ButtonGroup>
+	 * </RadioGroup.Root>
+	 * ```
+	 */
+	Button,
+	/**
+	 * An inline group of radio buttons. Use RadioGroup.Button as direct children for horizontal radio layouts.
+	 *
+	 * @see https://mantle.ngrok.com/components/radio-group#api-radio-button-group
+	 *
+	 * @example
+	 * ```tsx
+	 * <RadioGroup.Root defaultValue="small">
+	 *   <Label htmlFor="size-group">Size</Label>
+	 *   <RadioGroup.ButtonGroup>
+	 *     <RadioGroup.Button value="small">Small</RadioGroup.Button>
+	 *     <RadioGroup.Button value="medium">Medium</RadioGroup.Button>
+	 *     <RadioGroup.Button value="large">Large</RadioGroup.Button>
+	 *   </RadioGroup.ButtonGroup>
+	 * </RadioGroup.Root>
+	 * ```
+	 */
+	ButtonGroup,
+	/**
+	 * A radio card item with enhanced styling. Use it as a child of RadioGroup for card-based radio options.
+	 *
+	 * @see https://mantle.ngrok.com/components/radio-group#api-radio-card
+	 *
+	 * @example
+	 * ```tsx
+	 * <RadioGroup.Root defaultValue="basic">
+	 *   <div className="space-y-3">
+	 *     <RadioGroup.Card value="basic">
+	 *       <RadioGroup.ItemContent>
+	 *         <Text weight="strong">Basic Plan</Text>
+	 *         <Text>$10/month</Text>
+	 *       </RadioGroup.ItemContent>
+	 *     </RadioGroup.Card>
+	 *     <RadioGroup.Card value="pro">
+	 *       <RadioGroup.ItemContent>
+	 *         <Text weight="strong">Pro Plan</Text>
+	 *         <Text>$25/month</Text>
+	 *       </RadioGroup.ItemContent>
+	 *     </RadioGroup.Card>
+	 *   </div>
+	 * </RadioGroup.Root>
+	 * ```
+	 */
+	Card,
+	/**
+	 * The selection indicator for any radio item. Shows the checked state with customizable appearance.
+	 *
+	 * @see https://mantle.ngrok.com/components/radio-group#api-radio-indicator
+	 *
+	 * @example
+	 * ```tsx
+	 * <RadioGroup.Item value="option1">
+	 *   <RadioGroup.Indicator />
+	 *   <span>Option 1</span>
+	 * </RadioGroup.Item>
+	 * ```
+	 */
+	Indicator,
+	/**
+	 * A sandbox container for input elements composed within radio group items. Prevents default radio behavior.
+	 *
+	 * @see https://mantle.ngrok.com/components/radio-group#api-radio-input-sandbox
+	 *
+	 * @example
+	 * ```tsx
+	 * <RadioGroup.Root defaultValue="custom">
+	 *   <RadioGroup.Item value="custom">
+	 *     <RadioGroup.Indicator />
+	 *     <RadioGroup.ItemContent>
+	 *       <Text>Custom amount</Text>
+	 *       <RadioGroup.InputSandbox>
+	 *         <Input type="number" placeholder="Enter amount" />
+	 *       </RadioGroup.InputSandbox>
+	 *     </RadioGroup.ItemContent>
+	 *   </RadioGroup.Item>
+	 * </RadioGroup.Root>
+	 * ```
+	 */
+	InputSandbox,
+	/**
+	 * A simple radio item that can be used inside a radio group. The conventional use-case for basic radio options.
+	 *
+	 * @see https://mantle.ngrok.com/components/radio-group#api-radio-item
+	 *
+	 * @example
+	 * ```tsx
+	 * <RadioGroup.Item value="option1">
+	 *   <RadioGroup.Indicator />
+	 *   <span>Option 1</span>
+	 * </RadioGroup.Item>
+	 * ```
+	 */
+	Item,
+	/**
+	 * The content wrapper for any radio item. Use it to wrap labels, descriptions, or content of a radio item.
+	 *
+	 * @see https://mantle.ngrok.com/components/radio-group#api-radio-item-content
+	 *
+	 * @example
+	 * ```tsx
+	 * <RadioGroup.Root defaultValue="option1">
+	 *   <RadioGroup.Item value="option1">
+	 *     <RadioGroup.Indicator />
+	 *     <RadioGroup.ItemContent>
+	 *       <Text weight="strong">Option 1</Text>
+	 *       <Text size="sm">Description for option 1</Text>
+	 *     </RadioGroup.ItemContent>
+	 *   </RadioGroup.Item>
+	 * </RadioGroup.Root>
+	 * ```
+	 */
+	ItemContent,
+	/**
+	 * A group of radio list items with connected borders. Use RadioGroup.ListItem as direct children.
+	 *
+	 * @see https://mantle.ngrok.com/components/radio-group#api-radio-list
+	 *
+	 * @example
+	 * ```tsx
+	 * <RadioGroup.Root defaultValue="option1">
+	 *   <RadioGroup.List>
+	 *     <RadioGroup.ListItem value="option1">
+	 *       <RadioGroup.ItemContent>
+	 *         <Text>Option 1</Text>
+	 *       </RadioGroup.ItemContent>
+	 *     </RadioGroup.ListItem>
+	 *     <RadioGroup.ListItem value="option2">
+	 *       <RadioGroup.ItemContent>
+	 *         <Text>Option 2</Text>
+	 *       </RadioGroup.ItemContent>
+	 *     </RadioGroup.ListItem>
+	 *   </RadioGroup.List>
+	 * </RadioGroup.Root>
+	 * ```
+	 */
+	List,
+	/**
+	 * A radio list item that is used inside a RadioGroup.List for connected list-style radio options.
+	 *
+	 * @see https://mantle.ngrok.com/components/radio-group#api-radio-list-item
+	 *
+	 * @example
+	 * ```tsx
+	 * <RadioGroup.Root defaultValue="item1">
+	 *   <RadioGroup.List>
+	 *     <RadioGroup.ListItem value="item1">
+	 *       <RadioGroup.ItemContent>
+	 *         <Text>List Item 1</Text>
+	 *         <Text size="sm" className="text-muted">First option</Text>
+	 *       </RadioGroup.ItemContent>
+	 *     </RadioGroup.ListItem>
+	 *     <RadioGroup.ListItem value="item2">
+	 *       <RadioGroup.ItemContent>
+	 *         <Text>List Item 2</Text>
+	 *         <Text size="sm" className="text-muted">Second option</Text>
+	 *       </RadioGroup.ItemContent>
+	 *     </RadioGroup.ListItem>
+	 *   </RadioGroup.List>
+	 * </RadioGroup.Root>
+	 * ```
+	 */
+	ListItem,
+	/**
+	 * The root radio group component. Manages the state of the children radios where only one can be selected.
+	 *
+	 * @see https://mantle.ngrok.com/components/radio-group#api-radio-group
+	 *
+	 * @example
+	 * ```tsx
+	 * <RadioGroup.Root value={value} onValueChange={setValue}>
+	 *   <RadioGroup.Item value="option1">
+	 *     <RadioGroup.Indicator />
+	 *     <span>Option 1</span>
+	 *   </RadioGroup.Item>
+	 * </RadioGroup.Root>
+	 * ```
+	 */
+	Root,
+} as const;
 
 export {
 	//
-	RadioButton,
-	RadioButtonGroup,
-	RadioCard,
 	RadioGroup,
-	RadioGroupList,
-	RadioIndicator,
-	RadioInputSandbox,
-	RadioItem,
-	RadioItemContent,
-	RadioListItem,
 };

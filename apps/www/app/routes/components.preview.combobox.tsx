@@ -1,21 +1,6 @@
 import { Anchor } from "@ngrok/mantle/anchor";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
-import {
-	Combobox,
-	ComboboxContent,
-	ComboboxGroup,
-	ComboboxGroupLabel,
-	ComboboxInput,
-	ComboboxItem,
-	ComboboxItemValue,
-	ComboboxSeparator,
-} from "@ngrok/mantle/combobox";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
+import { Combobox } from "@ngrok/mantle/combobox";
 import { CirclesThreePlusIcon } from "@phosphor-icons/react/CirclesThreePlus";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
@@ -58,91 +43,82 @@ export default function Page() {
 			</p>
 			<div>
 				<Example className="gap-2">
-					<Combobox>
-						<ComboboxInput />
-						<ComboboxContent>
-							<ComboboxGroup>
-								<ComboboxGroupLabel>
+					<Combobox.Root>
+						<Combobox.Input />
+						<Combobox.Content>
+							<Combobox.Group>
+								<Combobox.GroupLabel>
 									Choose an ngrok subdomain
-								</ComboboxGroupLabel>
-								<ComboboxItem value="https://" disabled>
-									<ComboboxItemValue />
-								</ComboboxItem>
-								<ComboboxItem value="https://${random}.ngrok.app">
+								</Combobox.GroupLabel>
+								<Combobox.Item value="https://" disabled>
+									<Combobox.ItemValue />
+								</Combobox.Item>
+								<Combobox.Item value="https://${random}.ngrok.app">
 									<CirclesThreePlusIcon
 										weight="duotone"
 										className="text-accent-600"
 									/>
-									<ComboboxItemValue />
-								</ComboboxItem>
-								<ComboboxItem value="https://${random}.ngrok.dev">
-									<ComboboxItemValue />
-								</ComboboxItem>
-								<ComboboxItem value="https://${random}.ngrok.io">
-									<ComboboxItemValue />
-								</ComboboxItem>
-							</ComboboxGroup>
-							<ComboboxSeparator />
-							<ComboboxItem>
+									<Combobox.ItemValue />
+								</Combobox.Item>
+								<Combobox.Item value="https://${random}.ngrok.dev">
+									<Combobox.ItemValue />
+								</Combobox.Item>
+								<Combobox.Item value="https://${random}.ngrok.io">
+									<Combobox.ItemValue />
+								</Combobox.Item>
+							</Combobox.Group>
+							<Combobox.Separator />
+							<Combobox.Item>
 								Sit dolor enim eiusmod nulla nostrud officia in magna deserunt
 								ut ex veniam cillum.
-							</ComboboxItem>
-						</ComboboxContent>
-					</Combobox>
+							</Combobox.Item>
+						</Combobox.Content>
+					</Combobox.Root>
 				</Example>
-				<CodeBlock className="rounded-b-lg rounded-t-none">
-					<CodeBlockBody>
-						<CodeBlockCopyButton />
-						<CodeBlockCode
+				<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+					<CodeBlock.Body>
+						<CodeBlock.CopyButton />
+						<CodeBlock.Code
 							language="tsx"
 							value={fmtCode`
-								import {
-									Combobox,
-									ComboboxContent,
-									ComboboxGroup,
-									ComboboxGroupLabel,
-									ComboboxInput,
-									ComboboxItem,
-									ComboboxItemValue,
-									ComboboxSeparator,
-								} from "@ngrok/mantle/combobox";
+								import { Combobox } from "@ngrok/mantle/combobox";
 								import { CirclesThreePlusIcon } from "@phosphor-icons/react/CirclesThreePlus";
 
-								<Combobox>
-									<ComboboxInput />
-									<ComboboxContent>
-										<ComboboxGroup>
-											<ComboboxGroupLabel>
+								<Combobox.Root>
+									<Combobox.Input />
+									<Combobox.Content>
+										<Combobox.Group>
+											<Combobox.GroupLabel>
 												Choose an ngrok subdomain
-											</ComboboxGroupLabel>
-											<ComboboxItem value="https://" disabled>
-												<ComboboxItemValue />
-											</ComboboxItem>
-											<ComboboxItem value="https://\${random}.ngrok.app">
+											</Combobox.GroupLabel>
+											<Combobox.Item value="https://" disabled>
+												<Combobox.ItemValue />
+											</Combobox.Item>
+											<Combobox.Item value="https://\${random}.ngrok.app">
 												<CirclesThreePlusIcon
 													weight="duotone"
 													className="text-accent-600"
 												/>
-												<ComboboxItemValue />
-											</ComboboxItem>
-											<ComboboxItem value="https://\${random}.ngrok.dev">
-												<ComboboxItemValue />
-											</ComboboxItem>
-											<ComboboxItem value="https://\${random}.ngrok.io">
-												<ComboboxItemValue />
-											</ComboboxItem>
-										</ComboboxGroup>
-										<ComboboxSeparator />
-										<ComboboxItem>
+												<Combobox.ItemValue />
+											</Combobox.Item>
+											<Combobox.Item value="https://\${random}.ngrok.dev">
+												<Combobox.ItemValue />
+											</Combobox.Item>
+											<Combobox.Item value="https://\${random}.ngrok.io">
+												<Combobox.ItemValue />
+											</Combobox.Item>
+										</Combobox.Group>
+										<Combobox.Separator />
+										<Combobox.Item>
 											Sit dolor enim eiusmod nulla nostrud officia in magna deserunt
 											ut ex veniam cillum.
-										</ComboboxItem>
-									</ComboboxContent>
-								</Combobox>
+										</Combobox.Item>
+									</Combobox.Content>
+								</Combobox.Root>
 							`}
 						/>
-					</CodeBlockBody>
-				</CodeBlock>
+					</CodeBlock.Body>
+				</CodeBlock.Root>
 			</div>
 		</div>
 	);
