@@ -1,4 +1,4 @@
-# Mantle Composite Component Named Exports
+# Mantle Compound Component Named Exports
 
 ## Status
 
@@ -18,7 +18,17 @@
 
 ## Overview
 
-This document outlines the complete migration plan for converting Mantle composite components from individual named exports to namespace-based exports. The goal is to improve developer experience by allowing usage like `<Dialog.Root>` instead of importing many individual components.
+This document outlines the complete migration plan for converting Mantle compound components from individual named exports to namespace-based exports. The goal is to improve developer experience by allowing usage like `<Dialog.Root>` instead of importing many individual components.
+
+### What is a Compound Component?
+
+A **compound component** is a design pattern where a single logical component is composed of multiple sub-components that are composed together to create a cohesive user interface. Examples include:
+
+- `Dialog` with `Dialog.Root`, `Dialog.Content`, `Dialog.Header`, `Dialog.Title`, etc.
+- `Table` with `Table.Root`, `Table.Header`, `Table.Body`, `Table.Row`, `Table.Cell`, etc.
+- `DropdownMenu` with `DropdownMenu.Root`, `DropdownMenu.Trigger`, `DropdownMenu.Content`, `DropdownMenu.Item`, etc.
+
+These components are designed to be used together and share state or context through React patterns like Context API or compound component composition.
 
 ## Background
 
@@ -373,7 +383,7 @@ Certain components serve as providers or have different architectural roles and 
 - **`Toaster`** - Global toast container, separate from individual toast instances  
 - **Utility functions** - Like `makeToast`, these remain as named exports
 
-These components are excluded from the namespace pattern because they serve foundational/provider roles rather than being part of the composite component structure.
+These components are excluded from the namespace pattern because they serve foundational/provider roles rather than being part of the compound component structure.
 
 ### Migration Pattern
 
