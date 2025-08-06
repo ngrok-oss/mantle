@@ -4,7 +4,7 @@
 
 - [x] Proposed
 - [x] Accepted  
-- [x] Implemented 2025-07-18
+- [x] Implemented 2025-08-06
 - [ ] Superseded
 
 ## Decision Drivers
