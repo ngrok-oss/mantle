@@ -87,9 +87,14 @@
 @custom-variant light-high-contrast (&:where(.light-high-contrast, .light-high-contrast *, [data-theme="light-high-contrast"], [data-applied-theme="light-high-contrast"]));
 @custom-variant dark-high-contrast (&:where(.dark-high-contrast, .dark-high-contrast *, [data-theme="dark-high-contrast"], [data-applied-theme="dark-high-contrast"]));
 
-@custom-variant data-active-item (&[data-state~=active-item]);
-@custom-variant data-drag-over (&[data-drag-over="true"]);
+@custom-variant aria-collapsed (&[aria-expanded="false"]);
+@custom-variant aria-disabled (&[aria-disabled="true"]);
+@custom-variant aria-invalid (&[aria-invalid="true"]);
+@custom-variant aria-unchecked (&[aria-checked="false"]);
+
+@custom-variant data-active-item (&[data-active-item~="true"]);
 @custom-variant data-disabled (&[data-disabled]);
+@custom-variant data-drag-over (&[data-drag-over="true"]);
 @custom-variant data-highlighted (&[data-highlighted]);
 @custom-variant data-orientation-horizontal (&[data-orientation="horizontal"]);
 @custom-variant data-orientation-vertical (&[data-orientation="vertical"]);
@@ -111,11 +116,6 @@
 @custom-variant data-validation-error (&[data-validation="error"]);
 @custom-variant data-validation-success (&[data-validation="success"]);
 @custom-variant data-validation-warning (&[data-validation="warning"]);
-
-@custom-variant aria-collapsed (&[aria-expanded="false"]);
-@custom-variant aria-invalid (&[aria-invalid="true"]);
-@custom-variant aria-unchecked (&[aria-checked="false"]);
-@custom-variant aria-disabled (&[aria-disabled="true"]);
 
 @custom-variant where (:where(&));
 
