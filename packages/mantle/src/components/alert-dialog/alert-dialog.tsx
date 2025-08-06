@@ -61,7 +61,7 @@ type AlertDialogProps = ComponentProps<typeof AlertDialogPrimitive.Root> & {
  *
  * @example
  * ```tsx
- * <AlertDialog priority="danger">
+ * <AlertDialog.Root priority="danger">
  *   <AlertDialog.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Show Danger Alert Dialog
@@ -86,7 +86,7 @@ type AlertDialogProps = ComponentProps<typeof AlertDialogPrimitive.Root> & {
  *       </AlertDialog.Footer>
  *     </AlertDialog.Body>
  *   </AlertDialog.Content>
- * </AlertDialog>
+ * </AlertDialog.Root>
  * ```
  */
 function Root({ priority, ...props }: AlertDialogProps) {
@@ -110,7 +110,7 @@ Root.displayName = "AlertDialog";
  *
  * @example
  * ```tsx
- * <AlertDialog priority="danger">
+ * <AlertDialog.Root priority="danger">
  *   <AlertDialog.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Show Danger Alert Dialog
@@ -135,7 +135,7 @@ Root.displayName = "AlertDialog";
  *       </AlertDialog.Footer>
  *     </AlertDialog.Body>
  *   </AlertDialog.Content>
- * </AlertDialog>
+ * </AlertDialog.Root>
  * ```
  */
 const Trigger = AlertDialogPrimitive.Trigger;
@@ -192,7 +192,7 @@ type AlertDialogContentProps = ComponentPropsWithoutRef<
  *
  * @example
  * ```tsx
- * <AlertDialog priority="danger">
+ * <AlertDialog.Root priority="danger">
  *   <AlertDialog.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Show Danger Alert Dialog
@@ -217,7 +217,7 @@ type AlertDialogContentProps = ComponentPropsWithoutRef<
  *       </AlertDialog.Footer>
  *     </AlertDialog.Body>
  *   </AlertDialog.Content>
- * </AlertDialog>
+ * </AlertDialog.Root>
  * ```
  */
 const Content = forwardRef<
@@ -271,7 +271,7 @@ Content.displayName = "AlertDialogContent";
  *
  * @example
  * ```tsx
- * <AlertDialog priority="danger">
+ * <AlertDialog.Root priority="danger">
  *   <AlertDialog.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Show Danger Alert Dialog
@@ -296,7 +296,7 @@ Content.displayName = "AlertDialogContent";
  *       </AlertDialog.Footer>
  *     </AlertDialog.Body>
  *   </AlertDialog.Content>
- * </AlertDialog>
+ * </AlertDialog.Root>
  * ```
  */
 const Body = forwardRef<
@@ -322,7 +322,7 @@ Body.displayName = "AlertDialogBody";
  *
  * @example
  * ```tsx
- * <AlertDialog priority="danger">
+ * <AlertDialog.Root priority="danger">
  *   <AlertDialog.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Show Danger Alert Dialog
@@ -347,7 +347,7 @@ Body.displayName = "AlertDialogBody";
  *       </AlertDialog.Footer>
  *     </AlertDialog.Body>
  *   </AlertDialog.Content>
- * </AlertDialog>
+ * </AlertDialog.Root>
  * ```
  */
 const Header = forwardRef<
@@ -375,7 +375,7 @@ Header.displayName = "AlertDialogHeader";
  *
  * @example
  * ```tsx
- * <AlertDialog priority="danger">
+ * <AlertDialog.Root priority="danger">
  *   <AlertDialog.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Show Danger Alert Dialog
@@ -400,7 +400,7 @@ Header.displayName = "AlertDialogHeader";
  *       </AlertDialog.Footer>
  *     </AlertDialog.Body>
  *   </AlertDialog.Content>
- * </AlertDialog>
+ * </AlertDialog.Root>
  * ```
  */
 const Footer = forwardRef<
@@ -431,7 +431,7 @@ Footer.displayName = "AlertDialogFooter";
  *
  * @example
  * ```tsx
- * <AlertDialog priority="danger">
+ * <AlertDialog.Root priority="danger">
  *   <AlertDialog.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Show Danger Alert Dialog
@@ -456,7 +456,7 @@ Footer.displayName = "AlertDialogFooter";
  *       </AlertDialog.Footer>
  *     </AlertDialog.Body>
  *   </AlertDialog.Content>
- * </AlertDialog>
+ * </AlertDialog.Root>
  * ```
  */
 const Title = forwardRef<
@@ -484,7 +484,7 @@ Title.displayName = "AlertDialogTitle";
  *
  * @example
  * ```tsx
- * <AlertDialog priority="danger">
+ * <AlertDialog.Root priority="danger">
  *   <AlertDialog.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Show Danger Alert Dialog
@@ -509,7 +509,7 @@ Title.displayName = "AlertDialogTitle";
  *       </AlertDialog.Footer>
  *     </AlertDialog.Body>
  *   </AlertDialog.Content>
- * </AlertDialog>
+ * </AlertDialog.Root>
  * ```
  */
 const Description = forwardRef<
@@ -540,7 +540,7 @@ Description.displayName = "AlertDialogDescription";
  *
  * @example
  * ```tsx
- * <AlertDialog priority="danger">
+ * <AlertDialog.Root priority="danger">
  *   <AlertDialog.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Show Danger Alert Dialog
@@ -565,7 +565,7 @@ Description.displayName = "AlertDialogDescription";
  *       </AlertDialog.Footer>
  *     </AlertDialog.Body>
  *   </AlertDialog.Content>
- * </AlertDialog>
+ * </AlertDialog.Root>
  * ```
  */
 const Action = forwardRef<ComponentRef<"button">, ButtonProps>(
@@ -608,7 +608,7 @@ Action.displayName = "AlertDialogAction";
  *
  * @example
  * ```tsx
- * <AlertDialog priority="danger">
+ * <AlertDialog.Root priority="danger">
  *   <AlertDialog.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Show Danger Alert Dialog
@@ -633,7 +633,7 @@ Action.displayName = "AlertDialogAction";
  *       </AlertDialog.Footer>
  *     </AlertDialog.Body>
  *   </AlertDialog.Content>
- * </AlertDialog>
+ * </AlertDialog.Root>
  * ```
  */
 const Cancel = forwardRef<ComponentRef<"button">, ButtonProps>(
@@ -676,7 +676,7 @@ type AlertDialogIconProps = Omit<SvgAttributes, "children"> & {
  *
  * @example
  * ```tsx
- * <AlertDialog priority="danger">
+ * <AlertDialog.Root priority="danger">
  *   <AlertDialog.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Show Danger Alert Dialog
@@ -701,7 +701,7 @@ type AlertDialogIconProps = Omit<SvgAttributes, "children"> & {
  *       </AlertDialog.Footer>
  *     </AlertDialog.Body>
  *   </AlertDialog.Content>
- * </AlertDialog>
+ * </AlertDialog.Root>
  * ```
  */
 const Icon = forwardRef<ComponentRef<"svg">, AlertDialogIconProps>(
@@ -751,7 +751,7 @@ Close.displayName = "AlertDialogClose";
  *
  * @example
  * ```tsx
- * <AlertDialog priority="danger">
+ * <AlertDialog.Root priority="danger">
  *   <AlertDialog.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Show Danger Alert Dialog
@@ -776,7 +776,7 @@ Close.displayName = "AlertDialogClose";
  *       </AlertDialog.Footer>
  *     </AlertDialog.Body>
  *   </AlertDialog.Content>
- * </AlertDialog>
+ * </AlertDialog.Root>
  * ```
  */
 const AlertDialog = {
