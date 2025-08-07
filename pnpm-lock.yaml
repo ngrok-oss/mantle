@@ -42,19 +42,19 @@ importers:
         version: 2.1.10(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@react-router/fs-routes':
         specifier: 7.7.1
-        version: 7.7.1(@react-router/dev@7.7.1(@react-router/serve@7.7.1(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2))(@types/node@22.17.0)(jiti@1.21.7)(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2)(vite@7.0.6(@types/node@22.17.0)(jiti@1.21.7)(yaml@2.8.1))(yaml@2.8.1))(typescript@5.9.2)
+        version: 7.7.1(@react-router/dev@7.7.1(@react-router/serve@7.8.0(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2))(@types/node@22.17.0)(jiti@1.21.7)(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2)(vite@7.0.6(@types/node@22.17.0)(jiti@1.21.7)(yaml@2.8.1))(yaml@2.8.1))(typescript@5.9.2)
       '@react-router/node':
         specifier: 7.7.1
         version: 7.7.1(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2)
       '@react-router/serve':
-        specifier: 7.7.1
-        version: 7.7.1(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2)
+        specifier: 7.8.0
+        version: 7.8.0(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2)
       '@tanstack/react-form':
         specifier: 1.18.0
         version: 1.18.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@vercel/react-router':
         specifier: 1.2.2
-        version: 1.2.2(@react-router/dev@7.7.1(@react-router/serve@7.7.1(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2))(@types/node@22.17.0)(jiti@1.21.7)(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2)(vite@7.0.6(@types/node@22.17.0)(jiti@1.21.7)(yaml@2.8.1))(yaml@2.8.1))(@react-router/node@7.7.1(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2))(isbot@5.1.29)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 1.2.2(@react-router/dev@7.7.1(@react-router/serve@7.8.0(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2))(@types/node@22.17.0)(jiti@1.21.7)(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2)(vite@7.0.6(@types/node@22.17.0)(jiti@1.21.7)(yaml@2.8.1))(yaml@2.8.1))(@react-router/node@7.7.1(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2))(isbot@5.1.29)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       fuse.js:
         specifier: 7.1.0
         version: 7.1.0
@@ -88,7 +88,7 @@ importers:
         version: link:../../config/tsconfig
       '@react-router/dev':
         specifier: 7.7.1
-        version: 7.7.1(@react-router/serve@7.7.1(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2))(@types/node@22.17.0)(jiti@1.21.7)(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2)(vite@7.0.6(@types/node@22.17.0)(jiti@1.21.7)(yaml@2.8.1))(yaml@2.8.1)
+        version: 7.7.1(@react-router/serve@7.8.0(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2))(@types/node@22.17.0)(jiti@1.21.7)(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2)(vite@7.0.6(@types/node@22.17.0)(jiti@1.21.7)(yaml@2.8.1))(yaml@2.8.1)
       '@types/prismjs':
         specifier: 1.26.5
         version: 1.26.5
@@ -1291,12 +1291,12 @@ packages:
       wrangler:
         optional: true
 
-  '@react-router/express@7.7.1':
-    resolution: {integrity: sha512-OEZwIM7i/KPSDjwVRg3LqeNIwG41U+SeFOwMjhZRFfyrnwghHfvWsDajf73r4ccMh+RRHcP1GIN6VSU3XZk7MA==}
+  '@react-router/express@7.8.0':
+    resolution: {integrity: sha512-lNUwux5IfMqczIL3gXZ/mauPUoVz65fSLPnUTkP7hkh/P7fcsPtYkmcixuaWb+882lY+Glf157OdoIMbcSMBaA==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       express: ^4.17.1 || ^5
-      react-router: 7.7.1
+      react-router: 7.8.0
       typescript: ^5.1.0
     peerDependenciesMeta:
       typescript:
@@ -1322,12 +1322,22 @@ packages:
       typescript:
         optional: true
 
-  '@react-router/serve@7.7.1':
-    resolution: {integrity: sha512-LyAiX+oI+6O6j2xWPUoKW+cgayUf3USBosSMv73Jtwi99XUhSDu2MUhM+BB+AbrYRubauZ83QpZTROiXoaf8jA==}
+  '@react-router/node@7.8.0':
+    resolution: {integrity: sha512-/FFN9vqI2EHPwDCHTvsMInhrYvwJ5SlCeyUr1oWUxH47JyYkooVFks5++M4VkrTgj2ZBsMjPPKy0xRNTQdtBDA==}
+    engines: {node: '>=20.0.0'}
+    peerDependencies:
+      react-router: 7.8.0
+      typescript: ^5.1.0
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+
+  '@react-router/serve@7.8.0':
+    resolution: {integrity: sha512-DokCv1GfOMt9KHu+k3WYY9sP5nOEzq7za+Vi3dWPHoY5oP0wgv8S4DnTPU08ASY8iFaF38NAzapbSFfu6Xfr0Q==}
     engines: {node: '>=20.0.0'}
     hasBin: true
     peerDependencies:
-      react-router: 7.7.1
+      react-router: 7.8.0
 
   '@react-stately/flags@3.1.2':
     resolution: {integrity: sha512-2HjFcZx1MyQXoPqcBGALwWWmgFVUk2TuKVIQxCbRq7fPyWXIl6VHcakCLurdtYC2Iks7zizvz0Idv48MQ38DWg==}
@@ -4592,7 +4602,7 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@react-router/dev@7.7.1(@react-router/serve@7.7.1(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2))(@types/node@22.17.0)(jiti@1.21.7)(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2)(vite@7.0.6(@types/node@22.17.0)(jiti@1.21.7)(yaml@2.8.1))(yaml@2.8.1)':
+  '@react-router/dev@7.7.1(@react-router/serve@7.8.0(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2))(@types/node@22.17.0)(jiti@1.21.7)(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2)(vite@7.0.6(@types/node@22.17.0)(jiti@1.21.7)(yaml@2.8.1))(yaml@2.8.1)':
     dependencies:
       '@babel/core': 7.28.0
       '@babel/generator': 7.28.0
@@ -4624,7 +4634,7 @@ snapshots:
       vite: 7.0.6(@types/node@22.17.0)(jiti@1.21.7)(yaml@2.8.1)
       vite-node: 3.2.4(@types/node@22.17.0)(jiti@1.21.7)(yaml@2.8.1)
     optionalDependencies:
-      '@react-router/serve': 7.7.1(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2)
+      '@react-router/serve': 7.8.0(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2)
       typescript: 5.9.2
     transitivePeerDependencies:
       - '@types/node'
@@ -4642,17 +4652,17 @@ snapshots:
       - tsx
       - yaml
 
-  '@react-router/express@7.7.1(express@4.21.2)(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2)':
+  '@react-router/express@7.8.0(express@4.21.2)(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2)':
     dependencies:
-      '@react-router/node': 7.7.1(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2)
+      '@react-router/node': 7.8.0(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2)
       express: 4.21.2
       react-router: 7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     optionalDependencies:
       typescript: 5.9.2
 
-  '@react-router/fs-routes@7.7.1(@react-router/dev@7.7.1(@react-router/serve@7.7.1(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2))(@types/node@22.17.0)(jiti@1.21.7)(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2)(vite@7.0.6(@types/node@22.17.0)(jiti@1.21.7)(yaml@2.8.1))(yaml@2.8.1))(typescript@5.9.2)':
+  '@react-router/fs-routes@7.7.1(@react-router/dev@7.7.1(@react-router/serve@7.8.0(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2))(@types/node@22.17.0)(jiti@1.21.7)(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2)(vite@7.0.6(@types/node@22.17.0)(jiti@1.21.7)(yaml@2.8.1))(yaml@2.8.1))(typescript@5.9.2)':
     dependencies:
-      '@react-router/dev': 7.7.1(@react-router/serve@7.7.1(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2))(@types/node@22.17.0)(jiti@1.21.7)(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2)(vite@7.0.6(@types/node@22.17.0)(jiti@1.21.7)(yaml@2.8.1))(yaml@2.8.1)
+      '@react-router/dev': 7.7.1(@react-router/serve@7.8.0(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2))(@types/node@22.17.0)(jiti@1.21.7)(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2)(vite@7.0.6(@types/node@22.17.0)(jiti@1.21.7)(yaml@2.8.1))(yaml@2.8.1)
       minimatch: 9.0.5
     optionalDependencies:
       typescript: 5.9.2
@@ -4664,10 +4674,17 @@ snapshots:
     optionalDependencies:
       typescript: 5.9.2
 
-  '@react-router/serve@7.7.1(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2)':
+  '@react-router/node@7.8.0(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2)':
     dependencies:
-      '@react-router/express': 7.7.1(express@4.21.2)(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2)
-      '@react-router/node': 7.7.1(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2)
+      '@mjackson/node-fetch-server': 0.2.0
+      react-router: 7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+    optionalDependencies:
+      typescript: 5.9.2
+
+  '@react-router/serve@7.8.0(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2)':
+    dependencies:
+      '@react-router/express': 7.8.0(express@4.21.2)(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2)
+      '@react-router/node': 7.8.0(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2)
       compression: 1.8.1
       express: 4.21.2
       get-port: 5.1.1
@@ -4897,9 +4914,9 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@vercel/react-router@1.2.2(@react-router/dev@7.7.1(@react-router/serve@7.7.1(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2))(@types/node@22.17.0)(jiti@1.21.7)(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2)(vite@7.0.6(@types/node@22.17.0)(jiti@1.21.7)(yaml@2.8.1))(yaml@2.8.1))(@react-router/node@7.7.1(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2))(isbot@5.1.29)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@vercel/react-router@1.2.2(@react-router/dev@7.7.1(@react-router/serve@7.8.0(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2))(@types/node@22.17.0)(jiti@1.21.7)(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2)(vite@7.0.6(@types/node@22.17.0)(jiti@1.21.7)(yaml@2.8.1))(yaml@2.8.1))(@react-router/node@7.7.1(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2))(isbot@5.1.29)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@react-router/dev': 7.7.1(@react-router/serve@7.7.1(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2))(@types/node@22.17.0)(jiti@1.21.7)(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2)(vite@7.0.6(@types/node@22.17.0)(jiti@1.21.7)(yaml@2.8.1))(yaml@2.8.1)
+      '@react-router/dev': 7.7.1(@react-router/serve@7.8.0(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2))(@types/node@22.17.0)(jiti@1.21.7)(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2)(vite@7.0.6(@types/node@22.17.0)(jiti@1.21.7)(yaml@2.8.1))(yaml@2.8.1)
       '@react-router/node': 7.7.1(react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.2)
       '@vercel/static-config': 3.1.1
       isbot: 5.1.29
