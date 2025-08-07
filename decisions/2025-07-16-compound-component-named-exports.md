@@ -1,10 +1,10 @@
-# Mantle Composite Component Named Exports
+# Mantle Compound Component Named Exports
 
 ## Status
 
 - [x] Proposed
-- [ ] Accepted  
-- [ ] Implemented
+- [x] Accepted  
+- [x] Implemented 2025-08-06
 - [ ] Superseded
 
 ## Decision Drivers
@@ -16,9 +16,35 @@
 - Reduction of import statement complexity
 - Tree-shaking and bundle size optimization (at the component boundary only)
 
+## Key Trade-offs and Design Philosophy
+
+### Developer Experience vs. Tree Shaking
+
+This migration trades off some "tree shakeability" in the academic sense only. In reality, if you are importing something like `Dialog`, chances are you are using most, if not all of the sub-composite components as well.
+
+**🔑 Key Thought**: The potential bytes saved of individual component exports are so minimal relative to the benefits to developer experience of compound component exports.
+
+We still get tree shaking between mantle component boundaries, but we "lose" isolated component module (file) tree shaking.
+
+### What is Tree Shaking?
+
+**Tree shaking** is a non-standard optimization technique that allows a bundler (like `vite` or `webpack`) to remove unused code from your compiled JS bundle output to minimize what you need to ship to the browser.
+
 ## Overview
 
-This document outlines the complete migration plan for converting Mantle composite components from individual named exports to namespace-based exports. The goal is to improve developer experience by allowing usage like `<Dialog.Root>` instead of importing many individual components.
+This document outlines the complete migration plan for converting Mantle compound components from individual named exports to namespace-based exports. The goal is to improve developer experience by allowing usage like `<Dialog.Root>` instead of importing many individual components.
+
+### What is a Compound Component?
+
+A **compound component** is a design pattern where a single logical component is composed of multiple sub-components that are composed together to create a cohesive user interface. Examples include:
+
+- `Dialog` with `Dialog.Root`, `Dialog.Content`, `Dialog.Header`, `Dialog.Title`, etc.
+- `Table` with `Table.Root`, `Table.Header`, `Table.Body`, `Table.Row`, `Table.Cell`, etc.
+- `DropdownMenu` with `DropdownMenu.Root`, `DropdownMenu.Trigger`, `DropdownMenu.Content`, `DropdownMenu.Item`, etc.
+
+These components are designed to be used together and share state or context through React patterns like Context API or compound component composition.
+
+The goal is to improve developer experience by allowing usage like `<Dialog.Root>` so that all sub-components of the Dialog are discoverable (with IntelliSense and examples!) directly off of the imported component! This is in contrast to how it currently works with importing many individual components (e.g. `Dialog`, `DialogContent`, `DialogBody`, etc.) which aren't very discoverable! You are forced to know how to compose and what the sub-components are called before you use them: not very developer friendly!
 
 ## Background
 
@@ -265,11 +291,11 @@ We will migrate 17 Mantle components to use a simple POJO namespace pattern wher
     - `HoverCardPortal` → `HoverCard.Portal`
     - `HoverCardTrigger` → `HoverCard.Trigger`
 
-16. **`tooltip`** - 4 exports
-    - `Tooltip` → `Tooltip` (root component)
-    - `TooltipContent` → `Tooltip.Content`
-    - `TooltipProvider` → `Tooltip.Provider`
-    - `TooltipTrigger` → `Tooltip.Trigger`
+16. **`tooltip`** - 3 exports (1 named export)
+- `Tooltip` → `Tooltip` (root component)
+- `TooltipContent` → `Tooltip.Content`
+- `TooltipTrigger` → `Tooltip.Trigger`
+- `TooltipProvider` → `TooltipProvider` (remains as named export)
 
 17. **`media-object`** - 3 exports
     - `MediaObject` → `MediaObject` (root component)
@@ -293,28 +319,87 @@ These components have both namespace objects AND named exports:
    - **Named Exports**: `export * from "@tanstack/react-table"`
 
 3. **`toast`**
-   - **Namespace**: `Toast` (root component), `Toast.Action`, `Toast.Icon`, `Toast.Message`, `Toast.Toaster`
-   - **Named Exports**: `makeToast`
+   - **Namespace**: `Toast` (root component), `Toast.Action`, `Toast.Icon`, `Toast.Message`
+   - **Named Exports**: `makeToast`, `Toaster` (provider component)
 
 ## Implementation Details
 
-### Using Simple POJO Pattern
+### Using Enhanced POJO Pattern with Inline JSDoc
 
-The migration uses a simple Plain Old JavaScript Object pattern, exactly like the already-migrated ProgressBar component.
+The migration uses a Plain Old JavaScript Object pattern with **inline JSDoc documentation** for each property to ensure proper IntelliSense support in IDEs. This addresses the issue where JSDoc comments on individual components don't carry over to the namespace object properties.
 
-#### Pattern Example:
+#### Enhanced Pattern Example:
 
 ```tsx
-// Example implementation (based on ProgressBar)
+// Enhanced implementation with inline JSDoc
 const Dialog = {
+  /**
+   * The root component of the dialog.
+   * 
+   * @see https://mantle.ngrok.com/components/dialog#api-dialog-root
+   * 
+   * @example
+   * ```tsx
+   * <Dialog.Root>
+   *   <Dialog.Trigger>Open</Dialog.Trigger>
+   *   <Dialog.Content>
+   *     <Dialog.Title>Title</Dialog.Title>
+   *   </Dialog.Content>
+   * </Dialog.Root>
+   * ```
+   */
   Root,
+  /**
+   * The content container of the dialog.
+   * 
+   * @see https://mantle.ngrok.com/components/dialog#api-dialog-content
+   * 
+   * @example
+   * ```tsx
+   * <Dialog.Content>
+   *   <Dialog.Header>
+   *     <Dialog.Title>Dialog Title</Dialog.Title>
+   *   </Dialog.Header>
+   *   <Dialog.Body>Content goes here</Dialog.Body>
+   * </Dialog.Content>
+   * ```
+   */
   Content,
+  /**
+   * The header section of the dialog.
+   */
   Header,
+  /**
+   * The body section of the dialog.
+   */
   Body,
+  /**
+   * The footer section of the dialog.
+   */
   Footer,
   // ... other components
 } as const;
 ```
+
+### Why Enhanced Documentation is Required
+
+Without inline JSDoc comments, developers lose the helpful documentation, examples, and links when using the namespace pattern. This enhanced approach ensures:
+
+1. **Full JSDoc documentation** appears in IDE tooltips
+2. **Usage examples** are available for each sub-component  
+3. **Links to documentation** are preserved
+4. **Type information** remains intact
+5. **Developer experience** is not degraded from the individual export pattern
+
+### Provider Components Exception
+
+Certain components serve as providers or have different architectural roles and should remain as individual named exports:
+
+- **`TooltipProvider`** - Context provider component, not part of tooltip composition
+- **`Toaster`** - Global toast container, separate from individual toast instances  
+- **Utility functions** - Like `makeToast`, these remain as named exports
+
+These components are excluded from the namespace pattern because they serve foundational/provider roles rather than being part of the compound component structure.
 
 ### Migration Pattern
 
@@ -346,15 +431,40 @@ Root.displayName = "Dialog"; // Keep original display name for debugging
 Content.displayName = "DialogContent"; // Keep original display name for debugging
 ```
 
-#### Step 3: Create Simple POJO Namespace Object
+#### Step 3: Create Enhanced POJO Namespace Object with Inline JSDoc
 ```tsx
 const Dialog = {
+  /**
+   * The root component of the dialog.
+   * 
+   * @see https://mantle.ngrok.com/components/dialog#api-dialog-root
+   * 
+   * @example
+   * ```tsx
+   * <Dialog.Root>
+   *   <Dialog.Trigger>Open</Dialog.Trigger>
+   *   <Dialog.Content>
+   *     <Dialog.Title>Title</Dialog.Title>
+   *   </Dialog.Content>
+   * </Dialog.Root>
+   * ```
+   */
   Root,
+  /**
+   * The content container of the dialog.
+   * 
+   * @see https://mantle.ngrok.com/components/dialog#api-dialog-content
+   */
   Content,
+  /**
+   * The header section of the dialog.
+   */
   Header,
-  // ... other components
+  // ... other components with inline JSDoc
 } as const;
 ```
+
+**Important**: Each property in the namespace object must include comprehensive JSDoc documentation to preserve the developer experience from individual exports.
 
 #### Step 4: Update Exports
 ```tsx
@@ -498,11 +608,52 @@ Description.displayName = "AlertDescription";
 DismissIconButton.displayName = "AlertDismissIconButton";
 
 const Alert = {
+  /**
+   * The root container of the alert component.
+   * 
+   * @see https://mantle.ngrok.com/components/alert#api-alert-root
+   * 
+   * @example
+   * ```tsx
+   * <Alert.Root>
+   *   <Alert.Icon />
+   *   <Alert.Content>
+   *     <Alert.Title>Alert Title</Alert.Title>
+   *     <Alert.Description>Alert description</Alert.Description>
+   *   </Alert.Content>
+   * </Alert.Root>
+   * ```
+   */
   Root,
+  /**
+   * The content container of the alert.
+   * 
+   * @see https://mantle.ngrok.com/components/alert#api-alert-content
+   */
   Content,
+  /**
+   * The description text of the alert.
+   * 
+   * @see https://mantle.ngrok.com/components/alert#api-alert-description
+   */
   Description,
+  /**
+   * A button to dismiss the alert.
+   * 
+   * @see https://mantle.ngrok.com/components/alert#api-alert-dismiss-icon-button
+   */
   DismissIconButton,
+  /**
+   * The icon for the alert.
+   * 
+   * @see https://mantle.ngrok.com/components/alert#api-alert-icon
+   */
   Icon,
+  /**
+   * The title of the alert.
+   * 
+   * @see https://mantle.ngrok.com/components/alert#api-alert-title
+   */
   Title,
 } as const;
 
@@ -559,15 +710,44 @@ Message.displayName = "ToastMessage";
 Toaster.displayName = "Toaster";
 
 const Toast = {
+  /**
+   * The root container of the toast component.
+   * 
+   * @see https://mantle.ngrok.com/components/toast#api-toast-root
+   * 
+   * @example
+   * ```tsx
+   * <Toast.Root>
+   *   <Toast.Icon />
+   *   <Toast.Message>Toast message</Toast.Message>
+   *   <Toast.Action>Action</Toast.Action>
+   * </Toast.Root>
+   * ```
+   */
   Root,
+  /**
+   * An action button for the toast.
+   * 
+   * @see https://mantle.ngrok.com/components/toast#api-toast-action
+   */
   Action,
+  /**
+   * The icon for the toast.
+   * 
+   * @see https://mantle.ngrok.com/components/toast#api-toast-icon
+   */
   Icon,
+  /**
+   * The message content of the toast.
+   * 
+   * @see https://mantle.ngrok.com/components/toast#api-toast-message
+   */
   Message,
-  Toaster,
 } as const;
 
 export {
   makeToast, // Keep as named export
+  Toaster,   // Provider component - keep as named export
   Toast,     // Namespace object
 };
 ```
@@ -705,6 +885,8 @@ You can use Playwright or similar tools to test against the live dev server at h
 - [ ] Refs work correctly
 - [ ] Display names are preserved
 - [ ] TypeScript types are correct
+- [ ] JSDoc documentation appears in IDE tooltips for namespace properties
+- [ ] IntelliSense provides proper autocomplete with documentation
 
 ### Integration Tests
 
@@ -805,9 +987,11 @@ If issues arise, components can be quickly rolled back:
 ### Developer Experience
 
 - [x] Namespace pattern works as expected
-- [x] IDE autocomplete works
+- [x] IDE autocomplete works with full JSDoc documentation
+- [x] JSDoc examples and links appear in tooltips
 - [x] Error messages are clear
 - [x] Hot reload works correctly
+- [x] IntelliSense experience matches or exceeds individual exports
 
 ### Documentation
 
@@ -853,7 +1037,10 @@ If issues arise, components can be quickly rolled back:
 
 - **Take your time** - This is a large migration, accuracy is more important than speed
 - **Test everything** - Run all validation commands after each change
-- **Follow the pattern** - Use the examples provided, don't deviate
+- **Follow the enhanced pattern** - Use the inline JSDoc examples provided, don't deviate
+- **Document all properties** - Every property in the namespace object needs comprehensive JSDoc
+- **Test IntelliSense** - Verify that JSDoc documentation appears in IDE tooltips
+- **Copy existing JSDoc** - Use the original component JSDoc as a starting point for inline docs
 - **Document changes** - Keep notes of any issues or deviations
 - **Ask for help** - If you're stuck, ask for assistance
 - **Check your work** - Run all validation commands before considering a phase complete

@@ -15,21 +15,21 @@ import { Separator } from "../separator/separator.js";
  *
  * @example
  * ```tsx
- * <DropdownMenu>
- *   <DropdownMenuTrigger asChild>
+ * <DropdownMenu.Root>
+ *   <DropdownMenu.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Open Menu
  *     </Button>
- *   </DropdownMenuTrigger>
- *   <DropdownMenuContent>
- *     <DropdownMenuItem>Item 1</DropdownMenuItem>
- *     <DropdownMenuItem>Item 2</DropdownMenuItem>
- *   </DropdownMenuContent>
- * </DropdownMenu>
+ *   </DropdownMenu.Trigger>
+ *   <DropdownMenu.Content>
+ *     <DropdownMenu.Item>Item 1</DropdownMenu.Item>
+ *     <DropdownMenu.Item>Item 2</DropdownMenu.Item>
+ *   </DropdownMenu.Content>
+ * </DropdownMenu.Root>
  * ```
  */
-const DropdownMenu = DropdownMenuPrimitive.Root;
-DropdownMenu.displayName = "DropdownMenu";
+const Root = DropdownMenuPrimitive.Root;
+Root.displayName = "DropdownMenu";
 
 /**
  * The trigger button that opens the dropdown menu.
@@ -38,34 +38,42 @@ DropdownMenu.displayName = "DropdownMenu";
  *
  * @example
  * ```tsx
- * <DropdownMenu>
- *   <DropdownMenuTrigger asChild>
+ * <DropdownMenu.Root>
+ *   <DropdownMenu.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Open Menu
  *     </Button>
- *   </DropdownMenuTrigger>
- *   <DropdownMenuContent>
- *     <DropdownMenuItem>Item 1</DropdownMenuItem>
- *   </DropdownMenuContent>
- * </DropdownMenu>
+ *   </DropdownMenu.Trigger>
+ *   <DropdownMenu.Content>
+ *     <DropdownMenu.Item>Item 1</DropdownMenu.Item>
+ *   </DropdownMenu.Content>
+ * </DropdownMenu.Root>
  * ```
  */
-const DropdownMenuTrigger = DropdownMenuPrimitive.Trigger;
-DropdownMenuTrigger.displayName = "DropdownMenuTrigger";
+const Trigger = DropdownMenuPrimitive.Trigger;
+Trigger.displayName = "DropdownMenuTrigger";
 
-const DropdownMenuGroup = DropdownMenuPrimitive.Group;
-DropdownMenuGroup.displayName = "DropdownMenuGroup";
+const Group = DropdownMenuPrimitive.Group;
+Group.displayName = "DropdownMenuGroup";
 
-const DropdownMenuPortal = DropdownMenuPrimitive.Portal;
-DropdownMenuPortal.displayName = "DropdownMenuPortal";
+/**
+ * The portal container for rendering dropdown content outside the normal DOM tree.
+ */
+const Portal = DropdownMenuPrimitive.Portal;
+Portal.displayName = "DropdownMenuPortal";
 
-const DropdownMenuSub = DropdownMenuPrimitive.Sub;
-DropdownMenuSub.displayName = "DropdownMenuSub";
+const Sub = DropdownMenuPrimitive.Sub;
+Sub.displayName = "DropdownMenuSub";
 
-const DropdownMenuRadioGroup = DropdownMenuPrimitive.RadioGroup;
-DropdownMenuRadioGroup.displayName = "DropdownMenuRadioGroup";
+const RadioGroup = DropdownMenuPrimitive.RadioGroup;
+RadioGroup.displayName = "DropdownMenuRadioGroup";
 
-const DropdownMenuSubTrigger = forwardRef<
+/**
+ * A trigger for a dropdown menu sub-menu.
+ *
+ * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-sub-trigger
+ */
+const SubTrigger = forwardRef<
 	ComponentRef<typeof DropdownMenuPrimitive.SubTrigger>,
 	ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubTrigger> & {
 		inset?: boolean;
@@ -88,13 +96,18 @@ const DropdownMenuSubTrigger = forwardRef<
 		</span>
 	</DropdownMenuPrimitive.SubTrigger>
 ));
-DropdownMenuSubTrigger.displayName = "DropdownMenuSubTrigger";
+SubTrigger.displayName = "DropdownMenuSubTrigger";
 
-const DropdownMenuSubContent = forwardRef<
+/**
+ * The content container for a dropdown menu sub-menu.
+ *
+ * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-sub-content
+ */
+const SubContent = forwardRef<
 	ComponentRef<typeof DropdownMenuPrimitive.SubContent>,
 	ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubContent>
 >(({ className, loop = true, ...props }, ref) => (
-	<DropdownMenuPortal>
+	<Portal>
 		<DropdownMenuPrimitive.SubContent
 			className={cx(
 				"scrollbar",
@@ -106,9 +119,9 @@ const DropdownMenuSubContent = forwardRef<
 			ref={ref}
 			{...props}
 		/>
-	</DropdownMenuPortal>
+	</Portal>
 ));
-DropdownMenuSubContent.displayName = "DropdownMenuSubContent";
+SubContent.displayName = "DropdownMenuSubContent";
 
 type DropdownMenuContentProps = ComponentPropsWithoutRef<
 	typeof DropdownMenuPrimitive.Content
@@ -126,24 +139,24 @@ type DropdownMenuContentProps = ComponentPropsWithoutRef<
  *
  * @example
  * ```tsx
- * <DropdownMenu>
- *   <DropdownMenuTrigger asChild>
+ * <DropdownMenu.Root>
+ *   <DropdownMenu.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Open Menu
  *     </Button>
- *   </DropdownMenuTrigger>
- *   <DropdownMenuContent>
- *     <DropdownMenuItem>Item 1</DropdownMenuItem>
- *     <DropdownMenuItem>Item 2</DropdownMenuItem>
- *   </DropdownMenuContent>
- * </DropdownMenu>
+ *   </DropdownMenu.Trigger>
+ *   <DropdownMenu.Content>
+ *     <DropdownMenu.Item>Item 1</DropdownMenu.Item>
+ *     <DropdownMenu.Item>Item 2</DropdownMenu.Item>
+ *   </DropdownMenu.Content>
+ * </DropdownMenu.Root>
  * ```
  */
-const DropdownMenuContent = forwardRef<
+const Content = forwardRef<
 	ComponentRef<typeof DropdownMenuPrimitive.Content>,
 	DropdownMenuContentProps
 >(({ className, onClick, loop = true, width, ...props }, ref) => (
-	<DropdownMenuPortal>
+	<Portal>
 		<DropdownMenuPrimitive.Content
 			ref={ref}
 			className={cx(
@@ -165,9 +178,9 @@ const DropdownMenuContent = forwardRef<
 			}}
 			{...props}
 		/>
-	</DropdownMenuPortal>
+	</Portal>
 ));
-DropdownMenuContent.displayName = "DropdownMenuContent";
+Content.displayName = "DropdownMenuContent";
 
 /**
  * An item in the dropdown menu.
@@ -176,20 +189,20 @@ DropdownMenuContent.displayName = "DropdownMenuContent";
  *
  * @example
  * ```tsx
- * <DropdownMenu>
- *   <DropdownMenuTrigger asChild>
+ * <DropdownMenu.Root>
+ *   <DropdownMenu.Trigger asChild>
  *     <Button type="button" appearance="outlined">
  *       Open Menu
  *     </Button>
- *   </DropdownMenuTrigger>
- *   <DropdownMenuContent>
- *     <DropdownMenuItem>Item 1</DropdownMenuItem>
- *     <DropdownMenuItem>Item 2</DropdownMenuItem>
- *   </DropdownMenuContent>
- * </DropdownMenu>
+ *   </DropdownMenu.Trigger>
+ *   <DropdownMenu.Content>
+ *     <DropdownMenu.Item>Item 1</DropdownMenu.Item>
+ *     <DropdownMenu.Item>Item 2</DropdownMenu.Item>
+ *   </DropdownMenu.Content>
+ * </DropdownMenu.Root>
  * ```
  */
-const DropdownMenuItem = forwardRef<
+const Item = forwardRef<
 	ComponentRef<typeof DropdownMenuPrimitive.Item>,
 	ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Item> & {
 		inset?: boolean;
@@ -206,9 +219,14 @@ const DropdownMenuItem = forwardRef<
 		{...props}
 	/>
 ));
-DropdownMenuItem.displayName = "DropdownMenuItem";
+Item.displayName = "DropdownMenuItem";
 
-const DropdownMenuCheckboxItem = forwardRef<
+/**
+ * A menu item with a checkbox that can be controlled or uncontrolled.
+ *
+ * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-checkbox-item
+ */
+const CheckboxItem = forwardRef<
 	ComponentRef<typeof DropdownMenuPrimitive.CheckboxItem>,
 	ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.CheckboxItem>
 >(({ className, children, checked, ...props }, ref) => (
@@ -232,7 +250,7 @@ const DropdownMenuCheckboxItem = forwardRef<
 		{children}
 	</DropdownMenuPrimitive.CheckboxItem>
 ));
-DropdownMenuCheckboxItem.displayName = "DropdownMenuCheckboxItem";
+CheckboxItem.displayName = "DropdownMenuCheckboxItem";
 
 type DropdownMenuRadioItemProps = ComponentPropsWithoutRef<
 	typeof DropdownMenuPrimitive.RadioItem
@@ -241,33 +259,43 @@ type DropdownMenuRadioItemProps = ComponentPropsWithoutRef<
 	id?: string;
 };
 
-const DropdownMenuRadioItem = forwardRef<
-	ComponentRef<"input">,
-	DropdownMenuRadioItemProps
->(({ className, children, ...props }, ref) => (
-	<DropdownMenuPrimitive.RadioItem
-		className={cx(
-			"group/dropdown-menu-radio-item",
-			"text-strong data-disabled:pointer-events-none data-disabled:opacity-50 relative flex cursor-pointer select-none items-center gap-2 rounded py-1.5 px-2 text-sm font-normal outline-hidden",
-			"data-highlighted:bg-popover-hover data-highlighted:dark:bg-popover-hover",
-			"aria-checked:!bg-filled-accent aria-checked:text-on-filled aria-checked:font-medium aria-checked:pr-9",
-			"[&>svg]:size-5 [&_svg]:shrink-0",
-			className,
-		)}
-		ref={ref}
-		{...props}
-	>
-		<span className="absolute right-2 items-center hidden group-aria-checked/dropdown-menu-radio-item:flex">
-			<DropdownMenuPrimitive.ItemIndicator>
-				<Icon svg={<CheckIcon weight="bold" />} className="size-4" />
-			</DropdownMenuPrimitive.ItemIndicator>
-		</span>
-		{children}
-	</DropdownMenuPrimitive.RadioItem>
-));
-DropdownMenuRadioItem.displayName = "DropdownMenuRadioItem";
+/**
+ * A menu item with a radio button that can be controlled or uncontrolled.
+ * Used within a RadioGroup to create a set of mutually exclusive options.
+ *
+ * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-radio-item
+ */
+const RadioItem = forwardRef<ComponentRef<"input">, DropdownMenuRadioItemProps>(
+	({ className, children, ...props }, ref) => (
+		<DropdownMenuPrimitive.RadioItem
+			className={cx(
+				"group/dropdown-menu-radio-item",
+				"text-strong data-disabled:pointer-events-none data-disabled:opacity-50 relative flex cursor-pointer select-none items-center gap-2 rounded py-1.5 px-2 text-sm font-normal outline-none",
+				"data-highlighted:bg-popover-hover data-highlighted:dark:bg-popover-hover",
+				"aria-checked:!bg-filled-accent aria-checked:text-on-filled aria-checked:font-medium aria-checked:pr-9",
+				"[&>svg]:size-5 [&_svg]:shrink-0",
+				className,
+			)}
+			ref={ref}
+			{...props}
+		>
+			<span className="absolute right-2 items-center hidden group-aria-checked/dropdown-menu-radio-item:flex">
+				<DropdownMenuPrimitive.ItemIndicator>
+					<Icon svg={<CheckIcon weight="bold" />} className="size-4" />
+				</DropdownMenuPrimitive.ItemIndicator>
+			</span>
+			{children}
+		</DropdownMenuPrimitive.RadioItem>
+	),
+);
+RadioItem.displayName = "DropdownMenuRadioItem";
 
-const DropdownMenuLabel = forwardRef<
+/**
+ * A label for a group of dropdown menu items.
+ *
+ * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-label
+ */
+const Label = forwardRef<
 	ComponentRef<typeof DropdownMenuPrimitive.Label>,
 	ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Label> & {
 		inset?: boolean;
@@ -283,9 +311,14 @@ const DropdownMenuLabel = forwardRef<
 		{...props}
 	/>
 ));
-DropdownMenuLabel.displayName = "DropdownMenuLabel";
+Label.displayName = "DropdownMenuLabel";
 
-const DropdownMenuSeparator = forwardRef<
+/**
+ * A visual separator between dropdown menu items or groups.
+ *
+ * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-separator
+ */
+const DropdownSeparator = forwardRef<
 	ComponentRef<typeof Separator>,
 	ComponentPropsWithoutRef<typeof Separator>
 >(({ className, ...props }, ref) => (
@@ -295,9 +328,9 @@ const DropdownMenuSeparator = forwardRef<
 		{...props}
 	/>
 ));
-DropdownMenuSeparator.displayName = "DropdownMenuSeparator";
+DropdownSeparator.displayName = "DropdownMenuSeparator";
 
-const DropdownMenuShortcut = ({
+const Shortcut = ({
 	className,
 	...props
 }: React.HTMLAttributes<HTMLSpanElement>) => {
@@ -308,22 +341,307 @@ const DropdownMenuShortcut = ({
 		/>
 	);
 };
-DropdownMenuShortcut.displayName = "DropdownMenuShortcut";
+Shortcut.displayName = "DropdownMenuShortcut";
+
+/**
+ * A menu of options or actions, triggered by a button.
+ *
+ * @see https://mantle.ngrok.com/components/dropdown-menu
+ *
+ * @example
+ * ```tsx
+ * <DropdownMenu.Root>
+ *   <DropdownMenu.Trigger asChild>
+ *     <Button type="button" appearance="outlined">
+ *       Open Menu
+ *     </Button>
+ *   </DropdownMenu.Trigger>
+ *   <DropdownMenu.Content>
+ *     <DropdownMenu.Item>Item 1</DropdownMenu.Item>
+ *     <DropdownMenu.Item>Item 2</DropdownMenu.Item>
+ *   </DropdownMenu.Content>
+ * </DropdownMenu.Root>
+ * ```
+ */
+const DropdownMenu = {
+	/**
+	 * The root, stateful component that manages the open/closed state of the dropdown menu.
+	 *
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu
+	 *
+	 * @example
+	 * ```tsx
+	 * <DropdownMenu.Root>
+	 *   <DropdownMenu.Trigger asChild>
+	 *     <Button>Open Menu</Button>
+	 *   </DropdownMenu.Trigger>
+	 *   <DropdownMenu.Content>
+	 *     <DropdownMenu.Item>Item 1</DropdownMenu.Item>
+	 *   </DropdownMenu.Content>
+	 * </DropdownMenu.Root>
+	 * ```
+	 */
+	Root,
+	/**
+	 * A checkbox item in the dropdown menu that can be toggled on and off.
+	 *
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-checkbox-item
+	 *
+	 * @example
+	 * ```tsx
+	 * <DropdownMenu.Root>
+	 *   <DropdownMenu.Trigger>Open</DropdownMenu.Trigger>
+	 *   <DropdownMenu.Content>
+	 *     <DropdownMenu.CheckboxItem checked={true} onCheckedChange={setChecked}>
+	 *       Show notifications
+	 *     </DropdownMenu.CheckboxItem>
+	 *   </DropdownMenu.Content>
+	 * </DropdownMenu.Root>
+	 * ```
+	 */
+	CheckboxItem,
+	/**
+	 * The container for the dropdown menu content. Appears in a portal with scrolling and animations.
+	 *
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-content
+	 *
+	 * @example
+	 * ```tsx
+	 * <DropdownMenu.Root>
+	 *   <DropdownMenu.Trigger>Open</DropdownMenu.Trigger>
+	 *   <DropdownMenu.Content width="trigger">
+	 *     <DropdownMenu.Item>Edit</DropdownMenu.Item>
+	 *     <DropdownMenu.Item>Delete</DropdownMenu.Item>
+	 *   </DropdownMenu.Content>
+	 * </DropdownMenu.Root>
+	 * ```
+	 */
+	Content,
+	/**
+	 * A group container for organizing related dropdown menu items.
+	 *
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-group
+	 *
+	 * @example
+	 * ```tsx
+	 * <DropdownMenu.Root>
+	 *   <DropdownMenu.Trigger>Open</DropdownMenu.Trigger>
+	 *   <DropdownMenu.Content>
+	 *     <DropdownMenu.Group>
+	 *       <DropdownMenu.Label>Account</DropdownMenu.Label>
+	 *       <DropdownMenu.Item>Profile</DropdownMenu.Item>
+	 *       <DropdownMenu.Item>Settings</DropdownMenu.Item>
+	 *     </DropdownMenu.Group>
+	 *   </DropdownMenu.Content>
+	 * </DropdownMenu.Root>
+	 * ```
+	 */
+	Group,
+	/**
+	 * A standard item in the dropdown menu that can be selected or activated.
+	 *
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-item
+	 *
+	 * @example
+	 * ```tsx
+	 * <DropdownMenu.Root>
+	 *   <DropdownMenu.Trigger>Open</DropdownMenu.Trigger>
+	 *   <DropdownMenu.Content>
+	 *     <DropdownMenu.Item onSelect={() => handleEdit()}>
+	 *       Edit
+	 *     </DropdownMenu.Item>
+	 *     <DropdownMenu.Item disabled>
+	 *       Delete
+	 *     </DropdownMenu.Item>
+	 *   </DropdownMenu.Content>
+	 * </DropdownMenu.Root>
+	 * ```
+	 */
+	Item,
+	/**
+	 * A label for grouping and describing sections within the dropdown menu.
+	 *
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-label
+	 *
+	 * @example
+	 * ```tsx
+	 * <DropdownMenu.Root>
+	 *   <DropdownMenu.Trigger>Open</DropdownMenu.Trigger>
+	 *   <DropdownMenu.Content>
+	 *     <DropdownMenu.Label>My Account</DropdownMenu.Label>
+	 *     <DropdownMenu.Item>Profile</DropdownMenu.Item>
+	 *     <DropdownMenu.Item>Settings</DropdownMenu.Item>
+	 *   </DropdownMenu.Content>
+	 * </DropdownMenu.Root>
+	 * ```
+	 */
+	Label,
+	/**
+	 * A radio group container for exclusive selection within the dropdown menu.
+	 *
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-radio-group
+	 *
+	 * @example
+	 * ```tsx
+	 * <DropdownMenu.Root>
+	 *   <DropdownMenu.Trigger>Open</DropdownMenu.Trigger>
+	 *   <DropdownMenu.Content>
+	 *     <DropdownMenu.RadioGroup value={value} onValueChange={setValue}>
+	 *       <DropdownMenu.RadioItem value="option1">Option 1</DropdownMenu.RadioItem>
+	 *       <DropdownMenu.RadioItem value="option2">Option 2</DropdownMenu.RadioItem>
+	 *     </DropdownMenu.RadioGroup>
+	 *   </DropdownMenu.Content>
+	 * </DropdownMenu.Root>
+	 * ```
+	 */
+	RadioGroup,
+	/**
+	 * A radio item in the dropdown menu where only one item in the group can be selected.
+	 *
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-radio-item
+	 *
+	 * @example
+	 * ```tsx
+	 * <DropdownMenu.Root>
+	 *   <DropdownMenu.Trigger>Open</DropdownMenu.Trigger>
+	 *   <DropdownMenu.Content>
+	 *     <DropdownMenu.RadioGroup value="small" onValueChange={setSize}>
+	 *       <DropdownMenu.RadioItem value="small">Small</DropdownMenu.RadioItem>
+	 *       <DropdownMenu.RadioItem value="medium">Medium</DropdownMenu.RadioItem>
+	 *       <DropdownMenu.RadioItem value="large">Large</DropdownMenu.RadioItem>
+	 *     </DropdownMenu.RadioGroup>
+	 *   </DropdownMenu.Content>
+	 * </DropdownMenu.Root>
+	 * ```
+	 */
+	RadioItem,
+	/**
+	 * A visual separator for dividing sections within the dropdown menu.
+	 *
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-separator
+	 *
+	 * @example
+	 * ```tsx
+	 * <DropdownMenu.Root>
+	 *   <DropdownMenu.Trigger>Open</DropdownMenu.Trigger>
+	 *   <DropdownMenu.Content>
+	 *     <DropdownMenu.Item>Edit</DropdownMenu.Item>
+	 *     <DropdownMenu.Item>Copy</DropdownMenu.Item>
+	 *     <DropdownMenu.Separator />
+	 *     <DropdownMenu.Item>Delete</DropdownMenu.Item>
+	 *   </DropdownMenu.Content>
+	 * </DropdownMenu.Root>
+	 * ```
+	 */
+	Separator: DropdownSeparator,
+	/**
+	 * A keyboard shortcut indicator for dropdown menu items.
+	 *
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-shortcut
+	 *
+	 * @example
+	 * ```tsx
+	 * <DropdownMenu.Root>
+	 *   <DropdownMenu.Trigger>Open</DropdownMenu.Trigger>
+	 *   <DropdownMenu.Content>
+	 *     <DropdownMenu.Item>
+	 *       Save
+	 *       <DropdownMenu.Shortcut>⌘S</DropdownMenu.Shortcut>
+	 *     </DropdownMenu.Item>
+	 *   </DropdownMenu.Content>
+	 * </DropdownMenu.Root>
+	 * ```
+	 */
+	Shortcut,
+	/**
+	 * A submenu container for creating nested dropdown menus.
+	 *
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-sub
+	 *
+	 * @example
+	 * ```tsx
+	 * <DropdownMenu.Root>
+	 *   <DropdownMenu.Trigger>Open</DropdownMenu.Trigger>
+	 *   <DropdownMenu.Content>
+	 *     <DropdownMenu.Sub>
+	 *       <DropdownMenu.SubTrigger>More options</DropdownMenu.SubTrigger>
+	 *       <DropdownMenu.SubContent>
+	 *         <DropdownMenu.Item>Sub item 1</DropdownMenu.Item>
+	 *         <DropdownMenu.Item>Sub item 2</DropdownMenu.Item>
+	 *       </DropdownMenu.SubContent>
+	 *     </DropdownMenu.Sub>
+	 *   </DropdownMenu.Content>
+	 * </DropdownMenu.Root>
+	 * ```
+	 */
+	Sub,
+	/**
+	 * The content container for submenu items.
+	 *
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-sub-content
+	 *
+	 * @example
+	 * ```tsx
+	 * <DropdownMenu.Root>
+	 *   <DropdownMenu.Trigger>Open</DropdownMenu.Trigger>
+	 *   <DropdownMenu.Content>
+	 *     <DropdownMenu.Sub>
+	 *       <DropdownMenu.SubTrigger>Export</DropdownMenu.SubTrigger>
+	 *       <DropdownMenu.SubContent>
+	 *         <DropdownMenu.Item>Export as PDF</DropdownMenu.Item>
+	 *         <DropdownMenu.Item>Export as CSV</DropdownMenu.Item>
+	 *       </DropdownMenu.SubContent>
+	 *     </DropdownMenu.Sub>
+	 *   </DropdownMenu.Content>
+	 * </DropdownMenu.Root>
+	 * ```
+	 */
+	SubContent,
+	/**
+	 * The trigger item that opens a submenu when hovered or focused.
+	 *
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-sub-trigger
+	 *
+	 * @example
+	 * ```tsx
+	 * <DropdownMenu.Root>
+	 *   <DropdownMenu.Trigger>Open</DropdownMenu.Trigger>
+	 *   <DropdownMenu.Content>
+	 *     <DropdownMenu.Sub>
+	 *       <DropdownMenu.SubTrigger>Share</DropdownMenu.SubTrigger>
+	 *       <DropdownMenu.SubContent>
+	 *         <DropdownMenu.Item>Email</DropdownMenu.Item>
+	 *         <DropdownMenu.Item>Copy link</DropdownMenu.Item>
+	 *       </DropdownMenu.SubContent>
+	 *     </DropdownMenu.Sub>
+	 *   </DropdownMenu.Content>
+	 * </DropdownMenu.Root>
+	 * ```
+	 */
+	SubTrigger,
+	/**
+	 * The trigger button that opens the dropdown menu.
+	 *
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-trigger
+	 *
+	 * @example
+	 * ```tsx
+	 * <DropdownMenu.Root>
+	 *   <DropdownMenu.Trigger asChild>
+	 *     <Button type="button" appearance="outlined">
+	 *       Open Menu
+	 *     </Button>
+	 *   </DropdownMenu.Trigger>
+	 *   <DropdownMenu.Content>
+	 *     <DropdownMenu.Item>Item 1</DropdownMenu.Item>
+	 *   </DropdownMenu.Content>
+	 * </DropdownMenu.Root>
+	 * ```
+	 */
+	Trigger,
+} as const;
 
 export {
+	//,
 	DropdownMenu,
-	DropdownMenuCheckboxItem,
-	DropdownMenuContent,
-	DropdownMenuGroup,
-	DropdownMenuItem,
-	DropdownMenuLabel,
-	DropdownMenuPortal,
-	DropdownMenuRadioGroup,
-	DropdownMenuRadioItem,
-	DropdownMenuSeparator,
-	DropdownMenuShortcut,
-	DropdownMenuSub,
-	DropdownMenuSubContent,
-	DropdownMenuSubTrigger,
-	DropdownMenuTrigger,
 };

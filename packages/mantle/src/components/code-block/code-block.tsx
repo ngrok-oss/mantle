@@ -29,7 +29,7 @@ import assert from "tiny-invariant";
 import { useCopyToClipboard } from "../../hooks/use-copy-to-clipboard.js";
 import type { WithAsChild } from "../../types/as-child.js";
 import { cx } from "../../utils/cx/cx.js";
-import { Icon } from "../icon/icon.js";
+import { Icon as MantleIcon } from "../icon/icon.js";
 import type { SvgAttributes } from "../icon/types.js";
 import { TrafficPolicyFileIcon } from "../icons/traffic-policy-file.js";
 import { escapeHtml } from "./escape-html.js";
@@ -83,20 +83,20 @@ const CodeBlockContext = createContext<CodeBlockContextType>({
  *
  * @example
  * ```tsx
- * <CodeBlock>
- *   <CodeBlockHeader>
- *     <CodeBlockIcon preset="file" />
- *     <CodeBlockTitle>…</CodeBlockTitle>
- *   </CodeBlockHeader>
- *   <CodeBlockBody>
- *     <CodeBlockCopyButton />
- *     <CodeBlockCode language="…" value={fmtCode\`…\`} />
- *   </CodeBlockBody>
- *   <CodeBlockExpanderButton />
- * </CodeBlock>
+ * <CodeBlock.Root>
+ *   <CodeBlock.Header>
+ *     <CodeBlock.Icon preset="file" />
+ *     <CodeBlock.Title>…</CodeBlock.Title>
+ *   </CodeBlock.Header>
+ *   <CodeBlock.Body>
+ *     <CodeBlock.CopyButton />
+ *     <CodeBlock.Code language="…" value={fmtCode\`…\`} />
+ *   </CodeBlock.Body>
+ *   <CodeBlock.ExpanderButton />
+ * </CodeBlock.Root>
  * ```
  */
-const CodeBlock = forwardRef<
+const Root = forwardRef<
 	ComponentRef<"div">,
 	ComponentProps<"div"> & WithAsChild
 >(({ asChild = false, className, ...props }, ref) => {
@@ -153,30 +153,30 @@ const CodeBlock = forwardRef<
 		</CodeBlockContext.Provider>
 	);
 });
-CodeBlock.displayName = "CodeBlock";
+Root.displayName = "CodeBlock";
 
 /**
- * The body of the `CodeBlock`. This is where the `CodeBlockCode` and optional
- * `CodeBlockCopyButton` is rendered.
+ * The body of the `CodeBlock`. This is where the `CodeBlock.Code` and optional
+ * `CodeBlock.CopyButton` is rendered.
  *
  * @see https://mantle.ngrok.com/components/code-block#api-code-block-body
  *
  * @example
  * ```tsx
- * <CodeBlock>
- *   <CodeBlockHeader>
- *     <CodeBlockIcon preset="file" />
- *     <CodeBlockTitle>…</CodeBlockTitle>
- *   </CodeBlockHeader>
- *   <CodeBlockBody>
- *     <CodeBlockCopyButton />
- *     <CodeBlockCode language="…" value={fmtCode\`…\`} />
- *   </CodeBlockBody>
- *   <CodeBlockExpanderButton />
- * </CodeBlock>
+ * <CodeBlock.Root>
+ *   <CodeBlock.Header>
+ *     <CodeBlock.Icon preset="file" />
+ *     <CodeBlock.Title>…</CodeBlock.Title>
+ *   </CodeBlock.Header>
+ *   <CodeBlock.Body>
+ *     <CodeBlock.CopyButton />
+ *     <CodeBlock.Code language="…" value={fmtCode\`…\`} />
+ *   </CodeBlock.Body>
+ *   <CodeBlock.ExpanderButton />
+ * </CodeBlock.Root>
  * ```
  */
-const CodeBlockBody = forwardRef<
+const Body = forwardRef<
 	ComponentRef<"div">,
 	ComponentProps<"div"> & WithAsChild
 >(({ asChild = false, className, ...props }, ref) => {
@@ -186,7 +186,7 @@ const CodeBlockBody = forwardRef<
 		<Component className={cx("relative", className)} ref={ref} {...props} />
 	);
 });
-CodeBlockBody.displayName = "CodeBlockBody";
+Body.displayName = "CodeBlockBody";
 
 type CodeBlockCodeProps = Omit<ComponentProps<"pre">, "children"> & {
 	/**
@@ -220,23 +220,23 @@ type CodeBlockCodeProps = Omit<ComponentProps<"pre">, "children"> & {
  *
  * @example
  * ```tsx
- * <CodeBlock>
- *   <CodeBlockHeader>
- *     <CodeBlockIcon preset="file" />
- *     <CodeBlockTitle>…</CodeBlockTitle>
- *   </CodeBlockHeader>
- *   <CodeBlockBody>
- *     <CodeBlockCopyButton />
- *     <CodeBlockCode
+ * <CodeBlock.Root>
+ *   <CodeBlock.Header>
+ *     <CodeBlock.Icon preset="file" />
+ *     <CodeBlock.Title>…</CodeBlock.Title>
+ *   </CodeBlock.Header>
+ *   <CodeBlock.Body>
+ *     <CodeBlock.CopyButton />
+ *     <CodeBlock.Code
  *       language="sh"
  *       value={fmtCode`ffmpeg -i multichannel.mxf -map 0:v:0 -map 0:a:0 -map 0:a:0 -c:a:0 ac3 -b:a:0 640k -ac:a:1 2 -c:a:1 aac -b:2 128k out.mp4`}
  *     />
- *   </CodeBlockBody>
- *   <CodeBlockExpanderButton />
- * </CodeBlock>
+ *   </CodeBlock.Body>
+ *   <CodeBlock.ExpanderButton />
+ * </CodeBlock.Root>
  * ```
  */
-const CodeBlockCode = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
+const Code = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
 	(
 		{
 			className,
@@ -337,30 +337,30 @@ const CodeBlockCode = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
 		);
 	},
 );
-CodeBlockCode.displayName = "CodeBlockCode";
+Code.displayName = "CodeBlockCode";
 
 /**
  * The (optional) header slot of the `CodeBlock`. This is where things like the
- * `CodeBlockIcon` and `CodeBlockTitle` are rendered.
+ * `CodeBlock.Icon` and `CodeBlock.Title` are rendered.
  *
  * @see https://mantle.ngrok.com/components/code-block#api-code-block-header
  *
  * @example
  * ```tsx
- * <CodeBlock>
- *   <CodeBlockHeader>
- *     <CodeBlockIcon preset="file" />
- *     <CodeBlockTitle>…</CodeBlockTitle>
- *   </CodeBlockHeader>
- *   <CodeBlockBody>
- *     <CodeBlockCopyButton />
- *     <CodeBlockCode language="…" value={fmtCode\`…\`} />
- *   </CodeBlockBody>
- *   <CodeBlockExpanderButton />
- * </CodeBlock>
+ * <CodeBlock.Root>
+ *   <CodeBlock.Header>
+ *     <CodeBlock.Icon preset="file" />
+ *     <CodeBlock.Title>…</CodeBlock.Title>
+ *   </CodeBlock.Header>
+ *   <CodeBlock.Body>
+ *     <CodeBlock.CopyButton />
+ *     <CodeBlock.Code language="…" value={fmtCode\`…\`} />
+ *   </CodeBlock.Body>
+ *   <CodeBlock.ExpanderButton />
+ * </CodeBlock.Root>
  * ```
  */
-const CodeBlockHeader = forwardRef<
+const Header = forwardRef<
 	ComponentRef<"div">,
 	ComponentProps<"div"> & WithAsChild
 >(({ asChild = false, className, ...props }, ref) => {
@@ -377,7 +377,7 @@ const CodeBlockHeader = forwardRef<
 		/>
 	);
 });
-CodeBlockHeader.displayName = "CodeBlockHeader";
+Header.displayName = "CodeBlockHeader";
 
 /**
  * The (optional) title of the `CodeBlock`. Default renders as an h3 element,
@@ -387,20 +387,20 @@ CodeBlockHeader.displayName = "CodeBlockHeader";
  *
  * @example
  * ```tsx
- * <CodeBlock>
- *   <CodeBlockHeader>
- *     <CodeBlockIcon preset="file" />
- *     <CodeBlockTitle>…</CodeBlockTitle>
- *   </CodeBlockHeader>
- *   <CodeBlockBody>
- *     <CodeBlockCopyButton />
- *     <CodeBlockCode language="…" value={fmtCode\`…\`} />
- *   </CodeBlockBody>
- *   <CodeBlockExpanderButton />
- * </CodeBlock>
+ * <CodeBlock.Root>
+ *   <CodeBlock.Header>
+ *     <CodeBlock.Icon preset="file" />
+ *     <CodeBlock.Title>…</CodeBlock.Title>
+ *   </CodeBlock.Header>
+ *   <CodeBlock.Body>
+ *     <CodeBlock.CopyButton />
+ *     <CodeBlock.Code language="…" value={fmtCode\`…\`} />
+ *   </CodeBlock.Body>
+ *   <CodeBlock.ExpanderButton />
+ * </CodeBlock.Root>
  * ```
  */
-const CodeBlockTitle = forwardRef<
+const Title = forwardRef<
 	HTMLHeadingElement,
 	HTMLAttributes<HTMLHeadingElement> & { asChild?: boolean }
 >(({ asChild = false, className, ...props }, ref) => {
@@ -414,7 +414,7 @@ const CodeBlockTitle = forwardRef<
 		/>
 	);
 });
-CodeBlockTitle.displayName = "CodeBlockTitle";
+Title.displayName = "CodeBlockTitle";
 
 type CodeBlockCopyButtonProps = Omit<
 	ComponentProps<"button">,
@@ -433,30 +433,27 @@ type CodeBlockCopyButtonProps = Omit<
 
 /**
  * The (optional) copy button of the `CodeBlock`. Render this as a child of the
- * `CodeBlockBody` to allow users to copy the code block contents to their
+ * `CodeBlock.Body` to allow users to copy the code block contents to their
  * clipboard.
  *
  * @see https://mantle.ngrok.com/components/code-block#api-code-block-copy-button
  *
  * @example
  * ```tsx
- * <CodeBlock>
- *   <CodeBlockHeader>
- *     <CodeBlockIcon preset="file" />
- *     <CodeBlockTitle>…</CodeBlockTitle>
- *   </CodeBlockHeader>
- *   <CodeBlockBody>
- *     <CodeBlockCopyButton />
- *     <CodeBlockCode language="…" value={fmtCode\`…\`} />
- *   </CodeBlockBody>
- *   <CodeBlockExpanderButton />
- * </CodeBlock>
+ * <CodeBlock.Root>
+ *   <CodeBlock.Header>
+ *     <CodeBlock.Icon preset="file" />
+ *     <CodeBlock.Title>…</CodeBlock.Title>
+ *   </CodeBlock.Header>
+ *   <CodeBlock.Body>
+ *     <CodeBlock.CopyButton />
+ *     <CodeBlock.Code language="…" value={fmtCode\`…\`} />
+ *   </CodeBlock.Body>
+ *   <CodeBlock.ExpanderButton />
+ * </CodeBlock.Root>
  * ```
  */
-const CodeBlockCopyButton = forwardRef<
-	ComponentRef<"button">,
-	CodeBlockCopyButtonProps
->(
+const CopyButton = forwardRef<ComponentRef<"button">, CodeBlockCopyButtonProps>(
 	(
 		{ asChild = false, className, onCopy, onCopyError, onClick, ...props },
 		ref,
@@ -508,16 +505,16 @@ const CodeBlockCopyButton = forwardRef<
 				{wasCopied ? (
 					<>
 						Copied
-						<Icon svg={<CheckIcon weight="bold" />} className="size-4" />
+						<MantleIcon svg={<CheckIcon weight="bold" />} className="size-4" />
 					</>
 				) : (
-					<Icon svg={<CopyIcon />} className="-ml-px" />
+					<MantleIcon svg={<CopyIcon />} className="-ml-px" />
 				)}
 			</Component>
 		);
 	},
 );
-CodeBlockCopyButton.displayName = "CodeBlockCopyButton";
+CopyButton.displayName = "CodeBlockCopyButton";
 
 type CodeBlockExpanderButtonProps = Omit<
 	ComponentProps<"button">,
@@ -527,7 +524,7 @@ type CodeBlockExpanderButtonProps = Omit<
 
 /**
  * The (optional) expander button of the `CodeBlock`. Render this as a child of the
- * `CodeBlockBody` to allow users to expand/collapse the code block contents.
+ * `CodeBlock.Body` to allow users to expand/collapse the code block contents.
  *
  * @note If this component is preset, the `CodeBlock` will automatically know
  * that it should be collapsible. Don't use this component if you don't want
@@ -537,20 +534,20 @@ type CodeBlockExpanderButtonProps = Omit<
  *
  * @example
  * ```tsx
- * <CodeBlock>
- *   <CodeBlockHeader>
- *     <CodeBlockIcon preset="file" />
- *     <CodeBlockTitle>…</CodeBlockTitle>
- *   </CodeBlockHeader>
- *   <CodeBlockBody>
- *     <CodeBlockCopyButton />
- *     <CodeBlockCode language="…" value={fmtCode\`…\`} />
- *   </CodeBlockBody>
- *   <CodeBlockExpanderButton />
- * </CodeBlock>
+ * <CodeBlock.Root>
+ *   <CodeBlock.Header>
+ *     <CodeBlock.Icon preset="file" />
+ *     <CodeBlock.Title>…</CodeBlock.Title>
+ *   </CodeBlock.Header>
+ *   <CodeBlock.Body>
+ *     <CodeBlock.CopyButton />
+ *     <CodeBlock.Code language="…" value={fmtCode\`…\`} />
+ *   </CodeBlock.Body>
+ *   <CodeBlock.ExpanderButton />
+ * </CodeBlock.Root>
  * ```
  */
-const CodeBlockExpanderButton = forwardRef<
+const ExpanderButton = forwardRef<
 	ComponentRef<"button">,
 	CodeBlockExpanderButtonProps
 >(({ asChild = false, className, onClick, ...props }, ref) => {
@@ -584,7 +581,7 @@ const CodeBlockExpanderButton = forwardRef<
 			}}
 		>
 			{isCodeExpanded ? "Show less" : "Show more"}{" "}
-			<Icon
+			<MantleIcon
 				svg={<CaretDownIcon weight="bold" />}
 				className={cx(
 					"size-4",
@@ -595,7 +592,7 @@ const CodeBlockExpanderButton = forwardRef<
 		</Component>
 	);
 });
-CodeBlockExpanderButton.displayName = "CodeBlockExpanderButton";
+ExpanderButton.displayName = "CodeBlockExpanderButton";
 
 type CodeBlockIconProps = Omit<SvgAttributes, "children"> &
 	(
@@ -636,20 +633,20 @@ type CodeBlockIconProps = Omit<SvgAttributes, "children"> &
  *
  * @example
  * ```tsx
- * <CodeBlock>
- *   <CodeBlockHeader>
- *     <CodeBlockIcon preset="file" />
- *     <CodeBlockTitle>…</CodeBlockTitle>
- *   </CodeBlockHeader>
- *   <CodeBlockBody>
- *     <CodeBlockCopyButton />
- *     <CodeBlockCode language="…" value={fmtCode\`…\`} />
- *   </CodeBlockBody>
- *   <CodeBlockExpanderButton />
- * </CodeBlock>
+ * <CodeBlock.Root>
+ *   <CodeBlock.Header>
+ *     <CodeBlock.Icon preset="file" />
+ *     <CodeBlock.Title>…</CodeBlock.Title>
+ *   </CodeBlock.Header>
+ *   <CodeBlock.Body>
+ *     <CodeBlock.CopyButton />
+ *     <CodeBlock.Code language="…" value={fmtCode\`…\`} />
+ *   </CodeBlock.Body>
+ *   <CodeBlock.ExpanderButton />
+ * </CodeBlock.Root>
  * ```
  */
-function CodeBlockIcon({
+function CodeBlockIconComponent({
 	className,
 	preset,
 	svg: _svgProp,
@@ -670,17 +667,183 @@ function CodeBlockIcon({
 		}
 	}
 
-	return <Icon className={className} svg={svg} {...props} />;
+	return <MantleIcon className={className} svg={svg} {...props} />;
 }
-CodeBlockIcon.displayName = "CodeBlockIcon";
+CodeBlockIconComponent.displayName = "CodeBlockIcon";
+
+/**
+ * Code blocks render and apply syntax highlighting to blocks of code.
+ *
+ * @see https://mantle.ngrok.com/components/code-block
+ *
+ * @example
+ * ```tsx
+ * <CodeBlock.Root>
+ *   <CodeBlock.Header>
+ *     <CodeBlock.Icon preset="file" />
+ *     <CodeBlock.Title>…</CodeBlock.Title>
+ *   </CodeBlock.Header>
+ *   <CodeBlock.Body>
+ *     <CodeBlock.CopyButton />
+ *     <CodeBlock.Code language="…" value={fmtCode\`…\`} />
+ *   </CodeBlock.Body>
+ *   <CodeBlock.ExpanderButton />
+ * </CodeBlock.Root>
+ * ```
+ */
+const CodeBlock = {
+	/**
+	 * Code blocks render and apply syntax highlighting to blocks of code.
+	 * This is the root component for all code block components.
+	 *
+	 * @see https://mantle.ngrok.com/components/code-block#api-code-block-root
+	 *
+	 * @example
+	 * ```tsx
+	 * <CodeBlock.Root>
+	 *   <CodeBlock.Header>
+	 *     <CodeBlock.Icon preset="file" />
+	 *     <CodeBlock.Title>…</CodeBlock.Title>
+	 *   </CodeBlock.Header>
+	 *   <CodeBlock.Body>
+	 *     <CodeBlock.CopyButton />
+	 *     <CodeBlock.Code language="…" value={fmtCode\`…\`} />
+	 *   </CodeBlock.Body>
+	 *   <CodeBlock.ExpanderButton />
+	 * </CodeBlock.Root>
+	 * ```
+	 */
+	Root,
+	/**
+	 * The body of the `CodeBlock`. This is where the `CodeBlock.Code` and optional
+	 * `CodeBlock.CopyButton` is rendered.
+	 *
+	 * @see https://mantle.ngrok.com/components/code-block#api-code-block-body
+	 *
+	 * @example
+	 * ```tsx
+	 * <CodeBlock.Root>
+	 *   <CodeBlock.Body>
+	 *     <CodeBlock.CopyButton />
+	 *     <CodeBlock.Code language="…" value={fmtCode\`…\`} />
+	 *   </CodeBlock.Body>
+	 * </CodeBlock.Root>
+	 * ```
+	 */
+	Body,
+	/**
+	 * The `CodeBlock` content. This is where the code is rendered and syntax highlighted.
+	 *
+	 * @see https://mantle.ngrok.com/components/code-block#api-code-block-code
+	 *
+	 * @example
+	 * ```tsx
+	 * <CodeBlock.Root>
+	 *   <CodeBlock.Body>
+	 *     <CodeBlock.Code
+	 *       language="sh"
+	 *       value={fmtCode`ffmpeg -i multichannel.mxf -map 0:v:0 -map 0:a:0`}
+	 *     />
+	 *   </CodeBlock.Body>
+	 * </CodeBlock.Root>
+	 * ```
+	 */
+	Code,
+	/**
+	 * The (optional) copy button of the `CodeBlock`. Render this as a child of the
+	 * `CodeBlock.Body` to allow users to copy the code block contents to their
+	 * clipboard.
+	 *
+	 * @see https://mantle.ngrok.com/components/code-block#api-code-block-copy-button
+	 *
+	 * @example
+	 * ```tsx
+	 * <CodeBlock.Root>
+	 *   <CodeBlock.Body>
+	 *     <CodeBlock.CopyButton />
+	 *     <CodeBlock.Code language="…" value={fmtCode\`…\`} />
+	 *   </CodeBlock.Body>
+	 * </CodeBlock.Root>
+	 * ```
+	 */
+	CopyButton,
+	/**
+	 * The (optional) expander button of the `CodeBlock`. Render this as a child of the
+	 * `CodeBlock.Body` to allow users to expand/collapse the code block contents.
+	 *
+	 * @see https://mantle.ngrok.com/components/code-block#api-code-block-expander-button
+	 *
+	 * @example
+	 * ```tsx
+	 * <CodeBlock.Root>
+	 *   <CodeBlock.Body>
+	 *     <CodeBlock.Code language="…" value={fmtCode\`…\`} />
+	 *   </CodeBlock.Body>
+	 *   <CodeBlock.ExpanderButton />
+	 * </CodeBlock.Root>
+	 * ```
+	 */
+	ExpanderButton,
+	/**
+	 * The (optional) header slot of the `CodeBlock`. This is where things like the
+	 * `CodeBlock.Icon` and `CodeBlock.Title` are rendered.
+	 *
+	 * @see https://mantle.ngrok.com/components/code-block#api-code-block-header
+	 *
+	 * @example
+	 * ```tsx
+	 * <CodeBlock.Root>
+	 *   <CodeBlock.Header>
+	 *     <CodeBlock.Icon preset="file" />
+	 *     <CodeBlock.Title>…</CodeBlock.Title>
+	 *   </CodeBlock.Header>
+	 *   <CodeBlock.Body>
+	 *     <CodeBlock.Code language="…" value={fmtCode\`…\`} />
+	 *   </CodeBlock.Body>
+	 * </CodeBlock.Root>
+	 * ```
+	 */
+	Header,
+	/**
+	 * A small icon that represents the type of code block being displayed,
+	 * rendered as an SVG next to the code block title in the code block header.
+	 *
+	 * You can pass in a custom SVG component or use one of the presets
+	 * (pass only one of `svg` or `preset`).
+	 *
+	 * @see https://mantle.ngrok.com/components/code-block#api-code-block-icon
+	 *
+	 * @example
+	 * ```tsx
+	 * <CodeBlock.Root>
+	 *   <CodeBlock.Header>
+	 *     <CodeBlock.Icon preset="file" />
+	 *     <CodeBlock.Title>…</CodeBlock.Title>
+	 *   </CodeBlock.Header>
+	 * </CodeBlock.Root>
+	 * ```
+	 */
+	Icon: CodeBlockIconComponent,
+	/**
+	 * The (optional) title of the `CodeBlock`. Default renders as an h3 element,
+	 * use asChild to render something else.
+	 *
+	 * @see https://mantle.ngrok.com/components/code-block#api-code-block-title
+	 *
+	 * @example
+	 * ```tsx
+	 * <CodeBlock.Root>
+	 *   <CodeBlock.Header>
+	 *     <CodeBlock.Icon preset="file" />
+	 *     <CodeBlock.Title>example.js</CodeBlock.Title>
+	 *   </CodeBlock.Header>
+	 * </CodeBlock.Root>
+	 * ```
+	 */
+	Title,
+} as const;
 
 export {
+	//,
 	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	CodeBlockExpanderButton,
-	CodeBlockHeader,
-	CodeBlockIcon,
-	CodeBlockTitle,
 };

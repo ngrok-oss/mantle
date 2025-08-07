@@ -76,22 +76,22 @@ type Props = SvgAttributes & {
  * A simple circular progress bar which shows the completion progress of a task.
  *
  * The indicator color is inherited via `currentColor`. Override the default
- * (`accent-600`) by setting the `ProgressDonutIndicator`'s text color.
+ * (`accent-600`) by setting the `ProgressDonut.Indicator`'s text color.
  *
  * @see https://mantle.ngrok.com/components/progress#api-progress-donut
  *
  * @example
  * ```tsx
- * <ProgressDonut value={60}>
- *   <ProgressDonutIndicator />
- * </ProgressDonut>
+ * <ProgressDonut.Root value={60}>
+ *   <ProgressDonut.Indicator />
+ * </ProgressDonut.Root>
  *
- * <ProgressDonut value={60}>
- *   <ProgressDonutIndicator color="text-danger-600" />
- * </ProgressDonut>
+ * <ProgressDonut.Root value={60}>
+ *   <ProgressDonut.Indicator color="text-danger-600" />
+ * </ProgressDonut.Root>
  * ```
  */
-const ProgressDonut = ({
+const Root = ({
 	children,
 	className,
 	max: _max = defaultMax,
@@ -156,7 +156,7 @@ const ProgressDonut = ({
 		</ProgressContext.Provider>
 	);
 };
-ProgressDonut.displayName = "ProgressDonut";
+Root.displayName = "ProgressDonut";
 
 /**
  * Length (value) of the progress indicator tail when the progress bar is indeterminate.
@@ -172,19 +172,16 @@ type ProgressDonutIndicatorProps = Omit<ComponentProps<"g">, "children">;
  *
  * @example
  * ```tsx
- * <ProgressDonut value={60}>
- *   <ProgressDonutIndicator />
- * </ProgressDonut>
+ * <ProgressDonut.Root value={60}>
+ *   <ProgressDonut.Indicator />
+ * </ProgressDonut.Root>
  *
- * <ProgressDonut value={60}>
- *   <ProgressDonutIndicator color="text-danger-600" />
- * </ProgressDonut>
+ * <ProgressDonut.Root value={60}>
+ *   <ProgressDonut.Indicator color="text-danger-600" />
+ * </ProgressDonut.Root>
  * ```
  */
-const ProgressDonutIndicator = ({
-	className,
-	...props
-}: ProgressDonutIndicatorProps) => {
+const Indicator = ({ className, ...props }: ProgressDonutIndicatorProps) => {
 	const gradientId = useId();
 	const ctx = useContext(ProgressContext) ?? defaultContextValue;
 	const percentage =
@@ -226,18 +223,88 @@ const ProgressDonutIndicator = ({
 		</g>
 	);
 };
-ProgressDonutIndicator.displayName = "ProgressDonutIndicator";
+Indicator.displayName = "ProgressDonutIndicator";
+
+/**
+ * A simple circular progress bar which shows the completion progress of a task.
+ *
+ * The indicator color is inherited via `currentColor`. Override the default
+ * (`accent-600`) by setting the `ProgressDonut.Indicator`'s text color.
+ *
+ * @see https://mantle.ngrok.com/components/progress
+ *
+ * @example
+ * ```tsx
+ * <ProgressDonut.Root value={60}>
+ *   <ProgressDonut.Indicator />
+ * </ProgressDonut.Root>
+ *
+ * <ProgressDonut.Root value={60}>
+ *   <ProgressDonut.Indicator color="text-danger-600" />
+ * </ProgressDonut.Root>
+ * ```
+ */
+const ProgressDonut = {
+	/**
+	 * A simple circular progress bar which shows the completion progress of a task.
+	 *
+	 * The indicator color is inherited via `currentColor`. Override the default
+	 * (`accent-600`) by setting the `ProgressDonut.Indicator`'s text color.
+	 *
+	 * @see https://mantle.ngrok.com/components/progress#api-progress-donut-root
+	 *
+	 * @example
+	 * ```tsx
+	 * <ProgressDonut.Root value={60}>
+	 *   <ProgressDonut.Indicator />
+	 * </ProgressDonut.Root>
+	 *
+	 * <ProgressDonut.Root value={60}>
+	 *   <ProgressDonut.Indicator color="text-danger-600" />
+	 * </ProgressDonut.Root>
+	 * ```
+	 */
+	Root,
+	/**
+	 * The indicator for the circular progress bar.
+	 *
+	 * @see https://mantle.ngrok.com/components/progress#api-progress-donut-indicator
+	 *
+	 * @example
+	 * ```tsx
+	 * <ProgressDonut.Root value={60}>
+	 *   <ProgressDonut.Indicator />
+	 * </ProgressDonut.Root>
+	 *
+	 * <ProgressDonut.Root value={60}>
+	 *   <ProgressDonut.Indicator color="text-danger-600" />
+	 * </ProgressDonut.Root>
+	 * ```
+	 */
+	Indicator,
+} as const;
 
 export {
 	//,
 	ProgressDonut,
-	ProgressDonutIndicator,
 };
 
 /**
  * Derive the stroke width in pixels as a number value or pixels/rem from a string value.
  * Note, this function clamps the stroke width to a minimum of 1 and max of 12 since
  * it is proportional to the viewbox size (0 0 32 32).
+ *
+ * @example
+ * ```tsx
+ * const strokeWidth1 = deriveStrokeWidthPx(8);
+ * // Returns: 8
+ *
+ * const strokeWidth2 = deriveStrokeWidthPx("0.5rem");
+ * // Returns: 8 (0.5 * 16)
+ *
+ * const strokeWidth3 = deriveStrokeWidthPx(20);
+ * // Returns: 12 (clamped to maximum)
+ * ```
  */
 export function deriveStrokeWidthPx(
 	strokeWidth: number | string | undefined | null,

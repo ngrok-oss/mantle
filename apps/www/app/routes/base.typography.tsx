@@ -1,13 +1,5 @@
 import { InlineCode } from "@ngrok/mantle/inline-code";
-import {
-	Table,
-	TableBody,
-	TableCell,
-	TableHead,
-	TableHeader,
-	TableRoot,
-	TableRow,
-} from "@ngrok/mantle/table";
+import { Table } from "@ngrok/mantle/table";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/base.typography";
 
@@ -102,64 +94,64 @@ export default function Page() {
 				monospace typeface.
 			</p>
 
-			<TableRoot className="mt-4">
-				<Table>
-					<TableHead>
-						<TableRow>
-							<TableHeader>Class</TableHeader>
-							<TableHeader>Fonts</TableHeader>
-							<TableHeader>Description</TableHeader>
-						</TableRow>
-					</TableHead>
-					<TableBody className="text-body text-xs">
-						<TableRow>
-							<TableCell className="space-x-1 space-y-1">
+			<Table.Root className="mt-4">
+				<Table.Element>
+					<Table.Head>
+						<Table.Row>
+							<Table.Header>Class</Table.Header>
+							<Table.Header>Fonts</Table.Header>
+							<Table.Header>Description</Table.Header>
+						</Table.Row>
+					</Table.Head>
+					<Table.Body className="text-body text-xs">
+						<Table.Row>
+							<Table.Cell className="space-x-1 space-y-1">
 								<InlineCode className="break-keep">font-sans</InlineCode>
 								<InlineCode className="break-keep">default</InlineCode>
-							</TableCell>
-							<TableCell className="space-y-1">
+							</Table.Cell>
+							<Table.Cell className="space-y-1">
 								<p className="font-sans">Euclid Square</p>
 								<p className="font-mono">
 									"Euclid Square", ui-sans-serif, system-ui, sans-serif
 								</p>
-							</TableCell>
-							<TableCell>
+							</Table.Cell>
+							<Table.Cell>
 								The default font for rendering UI and headings.
-							</TableCell>
-						</TableRow>
-						<TableRow>
-							<TableCell>
+							</Table.Cell>
+						</Table.Row>
+						<Table.Row>
+							<Table.Cell>
 								<InlineCode className="break-keep">font-body</InlineCode>
-							</TableCell>
-							<TableCell className="space-y-1">
+							</Table.Cell>
+							<Table.Cell className="space-y-1">
 								<p className="font-body">Nunito Sans</p>
 								<p className="font-mono">
 									"Nunito Sans", ui-sans-serif, system-ui, sans-serif
 								</p>
-							</TableCell>
-							<TableCell>
+							</Table.Cell>
+							<Table.Cell>
 								Best when used in longform writing like prose documentation.
-							</TableCell>
-						</TableRow>
-						<TableRow>
-							<TableCell>
+							</Table.Cell>
+						</Table.Row>
+						<Table.Row>
+							<Table.Cell>
 								<InlineCode className="break-keep">font-mono</InlineCode>
-							</TableCell>
-							<TableCell className="space-y-1">
+							</Table.Cell>
+							<Table.Cell className="space-y-1">
 								<p className="font-mono">IBM Plex Mono</p>
 								<p className="font-mono">
 									"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco,
 									Consolas, "Liberation Mono", "Courier New", monospace
 								</p>
-							</TableCell>
-							<TableCell>
+							</Table.Cell>
+							<Table.Cell>
 								Used to render code and tokens. Take care to adjust the size a
 								step down in most applications.
-							</TableCell>
-						</TableRow>
-					</TableBody>
-				</Table>
-			</TableRoot>
+							</Table.Cell>
+						</Table.Row>
+					</Table.Body>
+				</Table.Element>
+			</Table.Root>
 		</div>
 	);
 }

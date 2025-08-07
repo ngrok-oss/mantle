@@ -1,11 +1,5 @@
 import { Anchor } from "@ngrok/mantle/anchor";
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { Flag } from "@ngrok/mantle/flag";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Example } from "~/components/example";
@@ -51,10 +45,10 @@ export default function Page() {
 						<Flag code="JP" loading="lazy" />
 						<Flag code="ES" loading="eager" />
 					</Example>
-					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
 									import { Flag } from "@ngrok/mantle/flag";
@@ -64,8 +58,8 @@ export default function Page() {
 									<Flag code="ES" loading="eager" />
 								`}
 							/>
-						</CodeBlockBody>
-					</CodeBlock>
+						</CodeBlock.Body>
+					</CodeBlock.Root>
 				</div>
 			</div>
 			<section className="space-y-4">

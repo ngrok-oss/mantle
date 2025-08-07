@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.40.0
+
+### Minor Changes (0.x breaking)
+
+- [#687](https://github.com/ngrok-oss/mantle/pull/687) [`a3b49ab`](https://github.com/ngrok-oss/mantle/commit/a3b49ab9a832c6636416792b73d648dc782265c3) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Implement composite named exports
+
 ## 0.32.3
 
 ### Patch Changes

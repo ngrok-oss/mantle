@@ -1,21 +1,5 @@
-import {
-	CodeBlock,
-	CodeBlockBody,
-	CodeBlockCode,
-	CodeBlockCopyButton,
-	fmtCode,
-} from "@ngrok/mantle/code-block";
-import {
-	RadioButton,
-	RadioButtonGroup,
-	RadioCard,
-	RadioGroup,
-	RadioGroupList,
-	RadioIndicator,
-	RadioItem,
-	RadioItemContent,
-	RadioListItem,
-} from "@ngrok/mantle/radio-group";
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
+import { RadioGroup } from "@ngrok/mantle/radio-group";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/components.radio-group";
@@ -47,56 +31,56 @@ export default function Page() {
 				</p>
 				<div>
 					<Example className="mt-4 grid gap-6">
-						<RadioGroup defaultValue="compact">
-							<RadioItem value="default" id="simple-1">
-								<RadioIndicator />
-								<RadioItemContent asChild>
+						<RadioGroup.Root defaultValue="compact">
+							<RadioGroup.Item value="default" id="simple-1">
+								<RadioGroup.Indicator />
+								<RadioGroup.ItemContent asChild>
 									<label htmlFor="simple-1">Default</label>
-								</RadioItemContent>
-							</RadioItem>
-							<RadioItem value="comfortable" id="simple-2" disabled>
-								<RadioIndicator />
-								<RadioItemContent asChild>
+								</RadioGroup.ItemContent>
+							</RadioGroup.Item>
+							<RadioGroup.Item value="comfortable" id="simple-2" disabled>
+								<RadioGroup.Indicator />
+								<RadioGroup.ItemContent asChild>
 									<label htmlFor="simple-2">Comfortable</label>
-								</RadioItemContent>
-							</RadioItem>
-							<RadioItem value="compact" id="simple-3">
-								<RadioIndicator />
-								<RadioItemContent asChild>
+								</RadioGroup.ItemContent>
+							</RadioGroup.Item>
+							<RadioGroup.Item value="compact" id="simple-3">
+								<RadioGroup.Indicator />
+								<RadioGroup.ItemContent asChild>
 									<label htmlFor="simple-3">Compact</label>
-								</RadioItemContent>
-							</RadioItem>
-							<RadioItem value="roomy" id="simple-4">
-								<RadioIndicator />
-								<RadioItemContent asChild>
+								</RadioGroup.ItemContent>
+							</RadioGroup.Item>
+							<RadioGroup.Item value="roomy" id="simple-4">
+								<RadioGroup.Indicator />
+								<RadioGroup.ItemContent asChild>
 									<label htmlFor="simple-4">Roomy</label>
-								</RadioItemContent>
-							</RadioItem>
-						</RadioGroup>
+								</RadioGroup.ItemContent>
+							</RadioGroup.Item>
+						</RadioGroup.Root>
 
-						<RadioButtonGroup defaultValue="production">
-							<RadioButton value="development">Dev</RadioButton>
-							<RadioButton disabled value="staging">
+						<RadioGroup.ButtonGroup defaultValue="production">
+							<RadioGroup.Button value="development">Dev</RadioGroup.Button>
+							<RadioGroup.Button disabled value="staging">
 								Staging
-							</RadioButton>
-							<RadioButton value="production">Prod</RadioButton>
-						</RadioButtonGroup>
+							</RadioGroup.Button>
+							<RadioGroup.Button value="production">Prod</RadioGroup.Button>
+						</RadioGroup.ButtonGroup>
 
-						<RadioGroupList defaultValue="comfortable">
-							<RadioListItem value="default" disabled id="rli1">
-								<RadioIndicator />
-								<RadioItemContent>
+						<RadioGroup.List defaultValue="comfortable">
+							<RadioGroup.ListItem value="default" disabled id="rli1">
+								<RadioGroup.Indicator />
+								<RadioGroup.ItemContent>
 									<label className="text-strong font-medium" htmlFor="rli1">
 										Default
 									</label>
 									<p className="text-body">
 										Laborum esse cillum incididunt est dolore.
 									</p>
-								</RadioItemContent>
-							</RadioListItem>
-							<RadioListItem value="comfortable" id="rli2">
-								<RadioIndicator />
-								<RadioItemContent>
+								</RadioGroup.ItemContent>
+							</RadioGroup.ListItem>
+							<RadioGroup.ListItem value="comfortable" id="rli2">
+								<RadioGroup.Indicator />
+								<RadioGroup.ItemContent>
 									<label className="text-strong font-medium" htmlFor="rli2">
 										Comfortable
 									</label>
@@ -104,36 +88,36 @@ export default function Page() {
 										Ea laboris tempor laborum officia ea adipisicing
 										exercitation.
 									</p>
-								</RadioItemContent>
-							</RadioListItem>
-							<RadioListItem value="compact" id="rli3">
-								<RadioIndicator />
-								<RadioItemContent>
+								</RadioGroup.ItemContent>
+							</RadioGroup.ListItem>
+							<RadioGroup.ListItem value="compact" id="rli3">
+								<RadioGroup.Indicator />
+								<RadioGroup.ItemContent>
 									<label className="text-strong font-medium" htmlFor="rli3">
 										Compact
 									</label>
 									<p className="text-body">
 										Adipisicing est dolore velit magna dolor voluptate velit.
 									</p>
-								</RadioItemContent>
-							</RadioListItem>
-							<RadioListItem value="roomy" id="rli4">
-								<RadioIndicator />
-								<RadioItemContent>
+								</RadioGroup.ItemContent>
+							</RadioGroup.ListItem>
+							<RadioGroup.ListItem value="roomy" id="rli4">
+								<RadioGroup.Indicator />
+								<RadioGroup.ItemContent>
 									<label className="text-strong font-medium" htmlFor="rli4">
 										Roomy
 									</label>
 									<p className="text-body">
 										Tempor dolore Lorem exercitation id nisi aliquip elit.
 									</p>
-								</RadioItemContent>
-							</RadioListItem>
-						</RadioGroupList>
+								</RadioGroup.ItemContent>
+							</RadioGroup.ListItem>
+						</RadioGroup.List>
 
-						<RadioGroupList defaultValue="mixed">
-							<RadioListItem value="mixed" disabled id="rld1">
-								<RadioIndicator />
-								<RadioItemContent>
+						<RadioGroup.List defaultValue="mixed">
+							<RadioGroup.ListItem value="mixed" disabled id="rld1">
+								<RadioGroup.Indicator />
+								<RadioGroup.ItemContent>
 									<label className="text-strong font-medium" htmlFor="rld1">
 										Mixed
 									</label>
@@ -141,26 +125,30 @@ export default function Page() {
 										Only new workspace members are required to use SSO. Existing
 										members can still log in with other methods.
 									</p>
-								</RadioItemContent>
-							</RadioListItem>
-							<RadioListItem value="strict" id="rld2" disabled>
-								<RadioIndicator />
-								<RadioItemContent>
+								</RadioGroup.ItemContent>
+							</RadioGroup.ListItem>
+							<RadioGroup.ListItem value="strict" id="rld2" disabled>
+								<RadioGroup.Indicator />
+								<RadioGroup.ItemContent>
 									<label className="text-strong font-medium" htmlFor="rld2">
 										Strict
 									</label>
 									<p className="text-body">
 										All workspace members are required to log in with SSO.
 									</p>
-								</RadioItemContent>
-							</RadioListItem>
-						</RadioGroupList>
+								</RadioGroup.ItemContent>
+							</RadioGroup.ListItem>
+						</RadioGroup.List>
 
-						<RadioGroup
+						<RadioGroup.Root
 							className="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4"
 							defaultValue="existing"
 						>
-							<RadioCard className="flex" value="newsletter" id="radiocard-1">
+							<RadioGroup.Card
+								className="flex"
+								value="newsletter"
+								id="radiocard-1"
+							>
 								<div className="flex-1">
 									<label
 										htmlFor="radiocard-1"
@@ -173,9 +161,13 @@ export default function Page() {
 									</p>
 									<p className="mt-6 text-sm font-medium">621 users</p>
 								</div>
-								<RadioIndicator />
-							</RadioCard>
-							<RadioCard className="flex" value="existing" id="radiocard-2">
+								<RadioGroup.Indicator />
+							</RadioGroup.Card>
+							<RadioGroup.Card
+								className="flex"
+								value="existing"
+								id="radiocard-2"
+							>
 								<div className="flex-1">
 									<label
 										htmlFor="radiocard-2"
@@ -188,9 +180,9 @@ export default function Page() {
 									</p>
 									<p className="mt-6 text-sm font-medium">1200 users</p>
 								</div>
-								<RadioIndicator />
-							</RadioCard>
-							<RadioCard className="flex" value="trial" id="radiocard-3">
+								<RadioGroup.Indicator />
+							</RadioGroup.Card>
+							<RadioGroup.Card className="flex" value="trial" id="radiocard-3">
 								<div className="flex-1">
 									<label
 										htmlFor="radiocard-3"
@@ -203,102 +195,92 @@ export default function Page() {
 									</p>
 									<p className="mt-6 text-sm font-medium">2740 Users</p>
 								</div>
-								<RadioIndicator />
-							</RadioCard>
-						</RadioGroup>
+								<RadioGroup.Indicator />
+							</RadioGroup.Card>
+						</RadioGroup.Root>
 					</Example>
-					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
-									import {
-										RadioButton,
-										RadioButtonGroup,
-										RadioCard,
-										RadioGroup,
-										RadioGroupList,
-										RadioIndicator,
-										RadioItem,
-										RadioItemContent,
-										RadioListItem,
-									} from "@ngrok/mantle/radio-group";
+									import { RadioGroup } from "@ngrok/mantle/radio-group";
 
-									<RadioGroup defaultValue="comfortable">
-										<RadioItem className="py-1" value="default" id="simple-1">
-											<RadioIndicator />
-											<RadioItemContent asChild>
+									<RadioGroup.Root defaultValue="comfortable">
+										<RadioGroup.Item className="py-1" value="default" id="simple-1">
+											<RadioGroup.Indicator />
+											<RadioGroup.ItemContent asChild>
 												<label htmlFor="simple-1">Default</label>
-											</RadioItemContent>
-										</RadioItem>
-										<RadioItem className="py-1" value="comfortable" id="simple-2" disabled>
-											<RadioIndicator />
-											<RadioItemContent asChild>
+											</RadioGroup.ItemContent>
+										</RadioGroup.Item>
+										<RadioGroup.Item className="py-1" value="comfortable" id="simple-2" disabled>
+											<RadioGroup.Indicator />
+											<RadioGroup.ItemContent asChild>
 												<label htmlFor="simple-2">Comfortable</label>
-											</RadioItemContent>
-										</RadioItem>
-										<RadioItem className="py-1" value="compact" id="simple-3">
-											<RadioIndicator />
-											<RadioItemContent asChild>
+											</RadioGroup.ItemContent>
+										</RadioGroup.Item>
+										<RadioGroup.Item className="py-1" value="compact" id="simple-3">
+											<RadioGroup.Indicator />
+											<RadioGroup.ItemContent asChild>
 												<label htmlFor="simple-3">Compact</label>
-											</RadioItemContent>
-										</RadioItem>
-										<RadioItem className="py-1" value="roomy" id="simple-4">
-											<RadioIndicator />
-											<RadioItemContent asChild>
+											</RadioGroup.ItemContent>
+										</RadioGroup.Item>
+										<RadioGroup.Item className="py-1" value="roomy" id="simple-4">
+											<RadioGroup.Indicator />
+											<RadioGroup.ItemContent asChild>
 												<label htmlFor="simple-4">Roomy</label>
-											</RadioItemContent>
-										</RadioItem>
-									</RadioGroup>
+											</RadioGroup.ItemContent>
+										</RadioGroup.Item>
+									</RadioGroup.Root>
 
-									<RadioButtonGroup defaultValue="production">
-										<RadioButton value="development">Development</RadioButton>
-										<RadioButton value="staging">Staging</RadioButton>
-										<RadioButton value="production">Production</RadioButton>
-									</RadioButtonGroup>
+									<RadioGroup.ButtonGroup defaultValue="production">
+										<RadioGroup.Button value="development">Development</RadioGroup.Button>
+										<RadioGroup.Button value="staging">Staging</RadioGroup.Button>
+										<RadioGroup.Button value="production">Production</RadioGroup.Button>
+									</RadioGroup.ButtonGroup>
 
-									<RadioGroupList defaultValue="comfortable">
-										<RadioListItem value="default" disabled id="rli1">
-											<RadioIndicator />
-											<RadioItemContent>
+									<RadioGroup.List defaultValue="comfortable">
+										<RadioGroup.ListItem value="default" disabled id="rli1">
+											<RadioGroup.Indicator />
+											<RadioGroup.ItemContent>
 												<label className="font-medium text-strong" htmlFor="rli1">
 													Default
 												</label>
 												<p className="text-body">Laborum esse cillum incididunt est dolore.</p>
-											</RadioItemContent>
-										</RadioListItem>
-										<RadioListItem value="comfortable" id="rli2">
-											<RadioIndicator />
-											<RadioItemContent>
+											</RadioGroup.ItemContent>
+										</RadioGroup.ListItem>
+										<RadioGroup.ListItem value="comfortable" id="rli2">
+											<RadioGroup.Indicator />
+											<RadioGroup.ItemContent>
 												<label className="font-medium text-strong" htmlFor="rli2">
 													Comfortable
 												</label>
 												<p className="text-body">Ea laboris tempor laborum officia ea adipisicing exercitation.</p>
-											</RadioItemContent>
-										</RadioListItem>
-										<RadioListItem value="compact" id="rli3">
-											<RadioIndicator />
-											<RadioItemContent>
+											</RadioGroup.ItemContent>
+										</RadioGroup.ListItem>
+										<RadioGroup.ListItem value="compact" id="rli3">
+											<RadioGroup.Indicator />
+											<RadioGroup.ItemContent>
 												<label className="font-medium text-strong" htmlFor="rli3">
 													Compact
 												</label>
 												<p className="text-body">Adipisicing est dolore velit magna dolor voluptate velit.</p>
-											</RadioItemContent>
-										</RadioListItem>
-										<RadioListItem value="roomy" id="rli4">
-											<RadioIndicator />
-											<RadioItemContent>
+											</RadioGroup.ItemContent>
+										</RadioGroup.ListItem>
+										<RadioGroup.ListItem value="roomy" id="rli4">
+											<RadioGroup.Indicator />
+											<RadioGroup.ItemContent>
 												<label className="font-medium text-strong" htmlFor="rli4">
 													Roomy
 												</label>
 												<p className="text-body">Tempor dolore Lorem exercitation id nisi aliquip elit.</p>
-											</RadioItemContent>
-										</RadioListItem>
-									</RadioGroupList>
+											</RadioGroup.ItemContent>
+										</RadioGroup.ListItem>
+									</RadioGroup.List>
 
-									<RadioGroup className="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4" defaultValue="existing">
-										<RadioCard className="flex" value="newsletter" id="radiocard-1">
+									<RadioGroup.Root className="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4" defaultValue="existing">
+										<RadioGroup.Card className="flex" value="newsletter" id="radiocard-1">
 											<div className="flex-1">
 												<label htmlFor="radiocard-1" className="block text-sm font-medium text-strong">
 													Newsletter
@@ -306,9 +288,9 @@ export default function Page() {
 												<p className="mt-1 flex items-center text-sm text-gray-500">Last message sent an hour ago</p>
 												<p className="mt-6 text-sm font-medium">621 users</p>
 											</div>
-											<RadioIndicator />
-										</RadioCard>
-										<RadioCard className="flex" value="existing" id="radiocard-2">
+											<RadioGroup.Indicator />
+										</RadioGroup.Card>
+										<RadioGroup.Card className="flex" value="existing" id="radiocard-2">
 											<div className="flex-1">
 												<label htmlFor="radiocard-2" className="block text-sm font-medium text-strong">
 													Existing Customers
@@ -316,9 +298,9 @@ export default function Page() {
 												<p className="mt-1 flex items-center text-sm text-gray-500">Last message sent 2 weeks ago</p>
 												<p className="mt-6 text-sm font-medium">1200 users</p>
 											</div>
-											<RadioIndicator />
-										</RadioCard>
-										<RadioCard className="flex" value="trial" id="radiocard-3">
+											<RadioGroup.Indicator />
+										</RadioGroup.Card>
+										<RadioGroup.Card className="flex" value="trial" id="radiocard-3">
 											<div className="flex-1">
 												<label htmlFor="radiocard-3" className="block text-sm font-medium text-strong">
 													Trial Users
@@ -326,13 +308,13 @@ export default function Page() {
 												<p className="mt-1 flex items-center text-sm text-gray-500">Last message sent 4 days ago</p>
 												<p className="mt-6 text-sm font-medium">2740 Users</p>
 											</div>
-											<RadioIndicator />
-										</RadioCard>
-									</RadioGroup>
+											<RadioGroup.Indicator />
+										</RadioGroup.Card>
+									</RadioGroup.Root>
 								`}
 							/>
-						</CodeBlockBody>
-					</CodeBlock>
+						</CodeBlock.Body>
+					</CodeBlock.Root>
 				</div>
 			</section>
 
@@ -354,10 +336,10 @@ export default function Page() {
 							<Link to={href("/base/colors")}>See our colors!</Link>
 						</Button>
 					</Example>
-					<CodeBlock className="rounded-b-lg rounded-t-none">
-						<CodeBlockBody>
-							<CodeBlockCopyButton />
-							<CodeBlockCode
+					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
 									import { Button } from "@ngrok/mantle/button";
@@ -369,8 +351,8 @@ export default function Page() {
 									</Button>
 								`}
 							/>
-						</CodeBlockBody>
-					</CodeBlock>
+						</CodeBlock.Body>
+					</CodeBlock.Root>
 				</div>
 			</section> */}
 
