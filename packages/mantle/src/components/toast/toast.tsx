@@ -64,7 +64,7 @@ const Toaster = ({
 	return (
 		<ToastPrimitive.Toaster
 			className={cx(
-				"toaster overlay-prompt pointer-events-auto font-sans *:duration-200",
+				"toaster overlay-prompt pointer-events-auto *:duration-200",
 				className,
 			)}
 			containerAriaLabel={containerAriaLabel}
@@ -332,7 +332,7 @@ const Message = forwardRef<ComponentRef<"p">, ToastMessageProps>(
 		return (
 			<Component
 				//
-				className={cx("text-strong flex-1 text-sm", className)}
+				className={cx("text-strong flex-1 text-sm font-sans", className)}
 				ref={ref}
 				{...props}
 			/>
