@@ -23,7 +23,7 @@ const NgrokLogo = () => (
 );
 
 const MantleLogo = () => (
-	<svg xmlns="http://www.w3.org/2000/svg" width="94" height="34">
+	<svg width="94" height="34">
 		<path
 			fill="var(--color-gray-600)"
 			d="M23.492 25.826V17.45c0-1.239-.306-2.21-.916-2.913-.61-.702-1.433-1.054-2.469-1.054-.924 0-1.71.278-2.357.833-.63.536-1.082 1.276-1.36 2.219.037.259.056.462.056.61v8.682h-1.942V17.45c0-1.239-.305-2.21-.915-2.913-.61-.702-1.434-1.054-2.47-1.054-.887 0-1.654.25-2.301.75-.63.48-1.082 1.137-1.36 1.969v9.625H5.517v-13.87h1.941v1.61c.925-1.258 2.303-1.887 4.133-1.887 1.831 0 3.2.814 4.106 2.441 1.072-1.627 2.635-2.44 4.688-2.44 1.553 0 2.783.49 3.69 1.47.905.98 1.358 2.311 1.358 3.994v8.682h-1.941ZM34.888 26.104c-2.034 0-3.717-.694-5.049-2.08-1.313-1.406-1.97-3.117-1.97-5.133 0-2.015.657-3.717 1.97-5.104 1.332-1.405 3.015-2.108 5.049-2.108 2.016 0 3.624.657 4.826 1.97v-1.692h1.942v13.87h-1.942v-1.693c-1.202 1.313-2.81 1.97-4.826 1.97Zm.083-1.803c1.073 0 2.016-.232 2.83-.694a5.205 5.205 0 0 0 1.913-1.83v-5.77a5.205 5.205 0 0 0-1.914-1.831c-.813-.463-1.756-.694-2.829-.694-1.498 0-2.728.527-3.69 1.581-.942 1.036-1.414 2.312-1.414 3.828 0 1.517.472 2.802 1.415 3.856.961 1.036 2.191 1.554 3.689 1.554ZM45.454 25.826v-13.87h1.942v1.942c.943-1.479 2.46-2.219 4.55-2.219 1.534 0 2.783.49 3.744 1.47.98.98 1.47 2.312 1.47 3.995v8.682H55.22v-8.405c0-1.257-.333-2.228-.999-2.912-.647-.685-1.553-1.027-2.718-1.027-1.055 0-1.933.287-2.636.86-.684.555-1.174 1.304-1.47 2.247v9.237h-1.942ZM66.04 25.965c-1.146 0-2.108-.342-2.885-1.026-.758-.685-1.137-1.674-1.137-2.968v-8.184h-3.523v-1.83h3.523V8.1h1.942v3.856h4.327v1.83H63.96v8.017c0 .832.203 1.443.61 1.83.426.39.971.583 1.637.583.74 0 1.424-.175 2.053-.527l.582 1.665c-.777.407-1.71.61-2.802.61ZM70.629 25.826V5.576h1.941v20.25H70.63ZM82.368 26.104c-2.127 0-3.847-.685-5.16-2.053-1.313-1.387-1.97-3.107-1.97-5.16 0-2.034.676-3.744 2.026-5.131 1.35-1.387 3.07-2.08 5.16-2.08 1.867 0 3.42.628 4.66 1.886 1.238 1.257 1.858 2.968 1.858 5.131v.527H77.236c0 1.443.48 2.654 1.442 3.634.962.962 2.192 1.443 3.69 1.443 1.11 0 2.015-.213 2.718-.638.721-.444 1.34-1.1 1.859-1.97l1.58 1.026c-1.312 2.257-3.365 3.385-6.157 3.385Zm-4.966-8.6h9.515c-.185-1.239-.694-2.219-1.526-2.94-.832-.721-1.85-1.082-3.051-1.082-1.202 0-2.275.37-3.218 1.11-.924.721-1.498 1.692-1.72 2.912Z"
@@ -157,12 +157,12 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 			</header>
 			{showNavigation && (
 				<div className="bg-card fixed bottom-0 left-0 right-0 top-20 z-50 p-4 md:hidden">
-					<Navigation className="scrollbar h-full overflow-auto overscroll-contain" />
+					<Navigation className="scrollbar h-full overflow-auto overscroll-contain -ml-2" />
 				</div>
 			)}
 			<div className="flex gap-4">
 				<div className="bottom-0 hidden w-44 md:block">
-					<div className="fixed bottom-0 top-20 w-44">
+					<div className="fixed bottom-0 top-20 w-44 -ml-2">
 						<Navigation className="scrollbar scroll-shadow h-full overflow-y-auto py-4" />
 					</div>
 				</div>
@@ -283,7 +283,7 @@ function Navigation({ className, style }: WithStyleProps) {
 	return (
 		<nav className={cx("text-sm", className)} style={style}>
 			<ul className="flex flex-col">
-				<li className="mb-2 text-xs font-medium uppercase tracking-wider">
+				<li className="mb-2 text-xs font-medium uppercase tracking-wider pl-2">
 					Welcome
 				</li>
 
@@ -299,7 +299,7 @@ function Navigation({ className, style }: WithStyleProps) {
 					</NavLink>
 				</li>
 
-				<li className="mt-6 text-xs font-medium uppercase tracking-wider">
+				<li className="mt-6 text-xs font-medium uppercase tracking-wider pl-2">
 					Base
 				</li>
 
@@ -326,7 +326,7 @@ function Navigation({ className, style }: WithStyleProps) {
 					</li>
 				</ul>
 
-				<li className="mt-6 text-xs font-medium uppercase tracking-wider">
+				<li className="mt-6 text-xs font-medium uppercase tracking-wider pl-2">
 					Components
 				</li>
 				<ul className="mt-2">
@@ -342,7 +342,7 @@ function Navigation({ className, style }: WithStyleProps) {
 					))}
 				</ul>
 
-				<li className="mt-6 text-xs font-medium uppercase tracking-wider">
+				<li className="mt-6 text-xs font-medium uppercase tracking-wider pl-2">
 					Preview Components
 				</li>
 				<ul className="mt-2">
