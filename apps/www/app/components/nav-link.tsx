@@ -13,7 +13,7 @@ export function NavLink({ className, to, ...props }: NavLinkProps) {
 				cx(
 					"text-muted hover:text-strong block py-1",
 					(args.isActive || args.isPending) &&
-						"text-accent-600 hover:text-accent-600 font-medium",
+						"text-accent-600 hover:text-accent-600 font-medium high-contrast:bg-filled-accent high-contrast:text-on-filled high-contrast:hover:text-on-filled high-contrast:rounded-md high-contrast:px-2 high-contrast:-ml-2",
 					typeof className === "function" ? className(args) : className,
 				)
 			}
