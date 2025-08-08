@@ -1135,7 +1135,7 @@
 	--background-color-form: var(--color-white);
 	--background-color-form-hover: --alpha(var(--color-neutral-500) / 0.05);
 	--background-color-form-active: --alpha(var(--color-neutral-500) / 0.1);
-	--background-color-overlay: --alpha(var(--color-black) / 0.8);
+	--background-color-overlay: --alpha(var(--color-white) / 0.6);
 
 	--border-color-base: var(--color-neutral-300);
 	--border-color-card: var(--color-neutral-300);
