@@ -36,17 +36,16 @@ Also install the required `devDependencies`:
 | bun             | bun add -DE tailwindcss@3.4.1 postcss autoprefixer     |
 | yarn            | yarn add -DE tailwindcss@3.4.1 postcss autoprefixer    |
 
-Then, add the [preset](https://tailwindcss.com/docs/presets) and mantle content to your tailwind configuration.
+Then, add the mantle content to your tailwind configuration.
 
 ```ts
 import { createRequire } from "node:module";
-import { mantlePreset, resolveMantleContentGlob } from "@ngrok/mantle/tailwind-preset";
+import { resolveMantleContentGlob } from "@ngrok/mantle/tailwind-preset";
 import type { Config } from "tailwindcss";
 
 const require = createRequire(import.meta.url);
 
 export default {
-	presets: [mantlePreset],
 	content: [resolveMantleContentGlob(require), "./app/**/*.tsx"], // 👈 don't forget to swap out app content glob here!
 	// ... the rest of your tailwind config!
 } satisfies Config;

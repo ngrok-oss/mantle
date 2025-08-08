@@ -160,7 +160,7 @@ const AlertDialogOverlay = forwardRef<
 >(({ className, ...props }, ref) => (
 	<AlertDialogPrimitive.Overlay
 		className={cx(
-			"data-state-open:animate-in data-state-closed:animate-out data-state-closed:fade-out-0 data-state-open:fade-in-0 bg-overlay fixed inset-0 z-50 backdrop-blur-sm",
+			"data-state-open:animate-in data-state-closed:animate-out data-state-closed:fade-out-0 data-state-open:fade-in-0 bg-overlay fixed inset-0 z-50 backdrop-blur-xs",
 			className,
 		)}
 		{...props}
@@ -241,7 +241,7 @@ const Content = forwardRef<
 					ref={ref}
 					className={cx(
 						"flex w-full flex-1 flex-col items-center gap-4 sm:flex-row sm:items-start",
-						"outline-none focus-within:outline-none",
+						"outline-hidden focus-within:outline-hidden",
 						"p-6",
 						"border-dialog bg-dialog rounded-xl border shadow-lg transition-transform duration-200",
 						"data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 data-state-open:animate-in data-state-open:fade-in-0 data-state-open:zoom-in-95",

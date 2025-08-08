@@ -169,7 +169,7 @@ function ListItem({ item }: { item: IconData }) {
 						setWasCopied(false);
 					}, 2000);
 				}}
-				className="h-full border border-card-muted hover:border-card flex flex-col items-center gap-1 justify-center relative bg-card ring-accent-600 hover:bg-card-hover focus-visible:bg-card-hover group w-full cursor-pointer rounded-md px-4 py-3 focus:outline-none focus-visible:ring-2"
+				className="h-full border border-card-muted hover:border-card flex flex-col items-center gap-1 justify-center relative bg-card ring-accent-600 hover:bg-card-hover focus-visible:bg-card-hover group w-full cursor-pointer rounded-md px-4 py-3 focus:outline-hidden focus-visible:ring-2"
 			>
 				{wasCopied && (
 					<div className="flex absolute right-2.5 top-2.5 z-10 rounded bg-filled-success text-on-filled hover:bg-filled-success focus:bg-filled-success focus-visible:border-success-600 focus-visible:ring-focus-success w-auto gap-1 border-transparent items-center pl-2 pr-1.5 hover:border-transparent">

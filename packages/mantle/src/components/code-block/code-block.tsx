@@ -305,7 +305,7 @@ const Code = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
 			<pre
 				aria-expanded={hasCodeExpander ? isCodeExpanded : undefined}
 				className={cx(
-					"scrollbar firefox:after:mr-[3.375rem] firefox:after:inline-block firefox:after:content-[''] overflow-x-auto overflow-y-hidden p-4 pr-14",
+					"scrollbar overflow-x-auto overflow-y-hidden p-4 pr-14",
 					"text-size-inherit text-size-mono m-0 font-mono",
 					"aria-collapsed:max-h-[13.6rem]",
 					languageClassName, // place it last because prism does weird stuff client side, causes hydration mismatches
@@ -469,7 +469,7 @@ const CopyButton = forwardRef<ComponentRef<"button">, CodeBlockCopyButtonProps>(
 			<Component
 				type="button"
 				className={cx(
-					"focus-visible:border-accent-600 focus-visible:ring-focus-accent absolute right-2.5 top-2.5 z-10 flex size-7 items-center justify-center rounded border border-gray-300 bg-gray-50 shadow-[-1rem_0_0.75rem_-0.375rem_hsl(var(--gray-50)),1rem_0_0_-0.25rem_hsl(var(--gray-50))] hover:border-gray-400 hover:bg-gray-200 focus-visible:outline-none focus-visible:ring-4",
+					"focus-visible:border-accent-600 focus-visible:ring-focus-accent absolute right-2.5 top-2.5 z-10 flex size-7 items-center justify-center rounded border border-gray-300 bg-gray-50 shadow-[-1rem_0_0.75rem_-0.375rem_var(--color-gray-50),1rem_0_0_-0.25rem_var(--color-gray-50)] hover:border-gray-400 hover:bg-gray-200 focus-visible:outline-hidden focus-visible:ring-4",
 					wasCopied &&
 						"bg-filled-success text-on-filled hover:bg-filled-success focus:bg-filled-success focus-visible:border-success-600 focus-visible:ring-focus-success w-auto gap-1 border-transparent pl-2 pr-1.5 hover:border-transparent",
 					className,

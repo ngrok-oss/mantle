@@ -87,7 +87,7 @@ const Overlay = forwardRef<
 	<DialogPrimitive.Overlay
 		ref={ref}
 		className={cx(
-			"bg-overlay data-state-closed:animate-out data-state-closed:fade-out-0 data-state-open:animate-in data-state-open:fade-in-0 fixed inset-0 z-50 backdrop-blur-sm",
+			"bg-overlay data-state-closed:animate-out data-state-closed:fade-out-0 data-state-open:animate-in data-state-open:fade-in-0 fixed inset-0 z-50 backdrop-blur-xs",
 			className,
 		)}
 		{...props}
@@ -159,7 +159,7 @@ const Content = forwardRef<ComponentRef<"div">, ContentProps>(
 				<DialogPrimitive.Content
 					className={cx(
 						"flex max-h-full w-full flex-1 flex-col",
-						"outline-none focus-within:outline-none",
+						"outline-hidden focus-within:outline-hidden",
 						"border-dialog bg-dialog rounded-xl border shadow-lg transition-transform duration-200",
 						"data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 data-state-open:animate-in data-state-open:fade-in-0 data-state-open:zoom-in-95",
 						preferredWidth,

@@ -86,7 +86,7 @@ const Input = forwardRef<ComponentRef<"input">, ComboboxInputProps>(
 					"placeholder:text-placeholder",
 					"aria-disabled:opacity-50",
 					"hover:border-neutral-400",
-					"focus:outline-none focus:ring-4 aria-expanded:ring-4",
+					"focus:outline-hidden focus:ring-4 aria-expanded:ring-4",
 					"focus:border-accent-600 focus:ring-focus-accent aria-expanded:border-accent-600 aria-expanded:ring-focus-accent",
 					"data-validation-success:border-success-600 data-validation-success:focus:border-success-600 data-validation-success:focus:ring-focus-success data-validation-success:aria-expanded:border-success-600 data-validation-success:aria-expanded:ring-focus-success",
 					"data-validation-warning:border-warning-600 data-validation-warning:focus:border-warning-600 data-validation-warning:focus:ring-focus-warning data-validation-warning:aria-expanded:border-warning-600 data-validation-warning:aria-expanded:ring-focus-warning",
