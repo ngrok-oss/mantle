@@ -47,13 +47,7 @@ const commonOptions = {
 	// if we set this to true, it will "race" between the two builds and wipe away type declarations
 	// for one of the builds. rm -rf dist is run as a "prebuild" script to avoid this issue
 	clean: false,
-	external: [
-		"@phosphor-icons/react",
-		"react",
-		"react-dom",
-		"tailwindcss",
-		"zod",
-	],
+	external: ["@phosphor-icons/react", "react", "react-dom", "tailwindcss"],
 	minify: true,
 	sourcemap: true,
 	target: "es2022",

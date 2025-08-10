@@ -255,9 +255,6 @@ importers:
       typescript:
         specifier: 5.9.2
         version: 5.9.2
-      zod:
-        specifier: 4.0.14
-        version: 4.0.14
 
 packages:
 
@@ -3551,9 +3548,6 @@ packages:
   zimmerframe@1.1.2:
     resolution: {integrity: sha512-rAbqEGa8ovJy4pyBxZM70hg4pE6gDgaQ0Sl9M3enG3I0d6H4XSAM3GeNGLKnsBpuijUow064sf7ww1nutC5/3w==}
 
-  zod@4.0.14:
-    resolution: {integrity: sha512-nGFJTnJN6cM2v9kXL+SOBq3AtjQby3Mv5ySGFof5UGRHrRioSJ5iG680cYNjE/yWk671nROcpPj4hAS8nyLhSw==}
-
   zod@4.0.17:
     resolution: {integrity: sha512-1PHjlYRevNxxdy2JZ8JcNAw7rX8V9P1AKkP+x/xZfxB0K5FYfuV+Ug6P/6NVSR2jHQ+FzDDoDHS04nYUsOIyLQ==}
 
@@ -6844,7 +6838,5 @@ snapshots:
   yallist@5.0.0: {}
 
   zimmerframe@1.1.2: {}
-
-  zod@4.0.14: {}
 
   zod@4.0.17: {}
