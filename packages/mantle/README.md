@@ -29,27 +29,12 @@ Install `@ngrok/mantle` and all of the required `peerDependencies` with your pre
 
 Also install the required `devDependencies`:
 
-| package manager | command                                                |
-| --------------- | ------------------------------------------------------ |
-| npm             | npm install -DE tailwindcss@3.4.1 postcss autoprefixer |
-| pnpm            | pnpm add -DE tailwindcss@3.4.1 postcss autoprefixer    |
-| bun             | bun add -DE tailwindcss@3.4.1 postcss autoprefixer     |
-| yarn            | yarn add -DE tailwindcss@3.4.1 postcss autoprefixer    |
-
-Then, add the mantle content to your tailwind configuration.
-
-```ts
-import { createRequire } from "node:module";
-import { resolveMantleContentGlob } from "@ngrok/mantle/tailwind-preset";
-import type { Config } from "tailwindcss";
-
-const require = createRequire(import.meta.url);
-
-export default {
-	content: [resolveMantleContentGlob(require), "./app/**/*.tsx"], // 👈 don't forget to swap out app content glob here!
-	// ... the rest of your tailwind config!
-} satisfies Config;
-```
+| package manager | command                     |
+| --------------- | --------------------------- |
+| npm             | npm install -DE tailwindcss |
+| pnpm            | pnpm add -DE tailwindcss    |
+| bun             | bun add -DE tailwindcss     |
+| yarn            | yarn add -DE tailwindcss    |
 
 Next, check out the [Overview & Setup](https://mantle.ngrok.com/) docs and start using mantle components in your application!
 
