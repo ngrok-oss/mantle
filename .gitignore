@@ -32,3 +32,4 @@ build
 .parcel-cache
 .turbo
 .react-router
+.direnv-initialized
