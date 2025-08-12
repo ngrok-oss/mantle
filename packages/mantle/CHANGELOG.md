@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.40.1
+
+### Patch Changes
+
+- [#711](https://github.com/ngrok-oss/mantle/pull/711) [`3f531c5`](https://github.com/ngrok-oss/mantle/commit/3f531c587caa33a532fb0cc2434cb15d321a302d) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Update ariakit (combobox improvements)
+
 ## 0.40.0
 
 ### Minor Changes (0.x breaking)
