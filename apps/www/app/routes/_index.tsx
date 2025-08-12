@@ -135,7 +135,8 @@ function isApplicationTemplate(value: unknown): value is ApplicationTemplate {
 	);
 }
 
-const prodDependencies = "@ngrok/mantle @phosphor-icons/react date-fns";
+const prodDependencies =
+	"@ngrok/mantle @phosphor-icons/react date-fns react react-dom";
 const devDependencies = "tailwindcss";
 
 const primaryInstallationCommand = {
