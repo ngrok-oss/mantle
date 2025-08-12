@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.50.0
+
+### Minor Changes (0.x breaking)
+
+- [#656](https://github.com/ngrok-oss/mantle/pull/656) [`e0846f8`](https://github.com/ngrok-oss/mantle/commit/e0846f8f5dc22ef63efc2fcb776b9161f4eace20) Thanks [@aaronshekey](https://github.com/aaronshekey)! - Migrate mantle to Tailwind v4
+
 ## 0.40.1
 
 ### Patch Changes
