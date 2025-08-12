@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.50.1
+
+### Patch Changes
+
+- [#714](https://github.com/ngrok-oss/mantle/pull/714) [`6507acf`](https://github.com/ngrok-oss/mantle/commit/6507acf7248389e94a6c841802241e14621df324) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Fix missing production dependency for tw-animate-css
+
 ## 0.50.0
 
 ### Minor Changes (0.x breaking)
