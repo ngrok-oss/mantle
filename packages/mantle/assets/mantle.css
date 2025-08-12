@@ -1353,6 +1353,10 @@
   }
 }
 
+@utility cursor-inherit {
+	cursor: inherit;
+}
+
 @utility text-size-mono {
 	line-height: 1.25rem;
 	font-size: var(--text-size-mono);
