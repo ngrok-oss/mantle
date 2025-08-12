@@ -38,9 +38,10 @@
   },
   "pnpm": {
     "overrides": {
+      "@vitejs/plugin-react": ">=5.0.0",
       "cookie": ">=1.0.2",
       "esbuild": ">=0.25.8",
-      "vite": ">=7.1.1"
+      "vite": ">=7.1.2"
     },
     "onlyBuiltDependencies": [
       "@biomejs/biome",
