@@ -100,46 +100,7 @@ export default function Page() {
 				<Anchor href="https://github.com/ngrok-oss/mantle">GitHub</Anchor>.
 			</p>
 
-			<h2 id="setup" className="text-3xl font-medium mt-12 mb-4">
-				Setup
-			</h2>
-
-			<InstallationInstructions />
-
-			<section>
-				<h3 className="mt-8 text-xl font-medium">Tailwind Configuration</h3>
-				<p className="font-body text-body mt-3">
-					Then, add the{" "}
-					<Anchor href="https://tailwindcss.com/docs/presets">
-						tailwind preset
-					</Anchor>{" "}
-					and mantle content to your tailwind configuration:
-				</p>
-				<CodeBlock.Root className="mt-4">
-					<CodeBlock.Header>tailwind.config.ts</CodeBlock.Header>
-					<CodeBlock.Body>
-						<CodeBlock.CopyButton />
-						<CodeBlock.Code
-							language="ts"
-							value={fmtCode`
-								import { createRequire } from "node:module";
-								import { mantlePreset, resolveMantleContentGlob } from "@ngrok/mantle/tailwind-preset";
-								import type { Config } from "tailwindcss";
-
-								const require = createRequire(import.meta.url);
-
-								export default {
-									presets: [mantlePreset],
-									content: [resolveMantleContentGlob(require), "./app/**/*.tsx"], // 👈 don't forget to swap out app content glob here!
-									// ... the rest of your tailwind config!
-								} satisfies Config;
-							`}
-						/>
-					</CodeBlock.Body>
-				</CodeBlock.Root>
-			</section>
-
-			<ApplicationScaffoldingSection />
+			<SetupInstructions />
 		</div>
 	);
 }
@@ -158,8 +119,25 @@ function isPackageManager(value: unknown): value is PackageManager {
 	);
 }
 
-const prodDependencies = "@ngrok/mantle @phosphor-icons/react date-fns";
-const devDependencies = "tailwindcss@3.4.1 postcss autoprefixer";
+const applicationTemplates = [
+	//,
+	"react-router",
+	"next",
+	"vite",
+	"react spa",
+] as const;
+type ApplicationTemplate = (typeof applicationTemplates)[number];
+
+function isApplicationTemplate(value: unknown): value is ApplicationTemplate {
+	return (
+		typeof value === "string" &&
+		applicationTemplates.includes(value as ApplicationTemplate)
+	);
+}
+
+const prodDependencies =
+	"@ngrok/mantle @phosphor-icons/react date-fns react react-dom";
+const devDependencies = "tailwindcss";
 
 const primaryInstallationCommand = {
 	npm: `npm install -E ${prodDependencies}`,
@@ -173,83 +151,129 @@ const devDependenciesInstallationCommand = {
 	bun: `bun add -DE ${devDependencies}`,
 } as const satisfies Record<PackageManager, string>;
 
-function InstallationInstructions() {
+const additionalDevDependencies = {
+	"react spa": "",
+	"react-router": "@tailwindcss/vite",
+	vite: "@tailwindcss/vite",
+	next: "@tailwindcss/postcss postcss",
+} as const satisfies Record<ApplicationTemplate, string>;
+
+function SetupInstructions() {
+	const [applicationTemplate, setApplicationTemplate] =
+		useState<ApplicationTemplate>("react-router");
+
 	const [preferredPackageManager, setPrefferedPackageManager] =
 		useLocalStorage<PackageManager>(
 			"preferredPackageManager",
 			$packageManager("pnpm"),
 		);
 
+	const devDependencies = [
+		//,
+		devDependenciesInstallationCommand[preferredPackageManager],
+		additionalDevDependencies[applicationTemplate],
+	]
+		.filter(Boolean)
+		.join(" ");
+
 	return (
-		<div className="space-y-4">
-			<h3 id="installation" className="text-xl font-medium">
-				Installation
-			</h3>
-			<p className="font-body text-body">
-				Start by installing <InlineCode>@ngrok/mantle</InlineCode> and all of
-				the required <InlineCode>peerDependencies</InlineCode>:
+		<section>
+			<h2 id="setup" className="text-3xl font-medium mt-12 mb-4">
+				Setup
+			</h2>
+
+			<p className="font-body text-body mt-3 mb-4">
+				I want to use <InlineCode>mantle</InlineCode> in my{" "}
+				<Select.Root
+					value={applicationTemplate}
+					onValueChange={(value) => {
+						if (isApplicationTemplate(value)) {
+							setApplicationTemplate(value);
+						}
+					}}
+				>
+					<Select.Trigger className="w-32 inline-flex">
+						<Select.Value />
+					</Select.Trigger>
+					<Select.Content width="content">
+						{applicationTemplates.map((template) => (
+							<Select.Item key={template} value={template}>
+								{template}
+							</Select.Item>
+						))}
+					</Select.Content>
+				</Select.Root>{" "}
+				application…
 			</p>
-			<Alert.Root priority="info">
-				<Alert.Icon />
-				<Alert.Content>
-					<Alert.Description>
-						Mantle supports <InlineCode>react</InlineCode> and{" "}
-						<InlineCode>react-dom</InlineCode> versions 18 and 19.
-					</Alert.Description>
-				</Alert.Content>
-			</Alert.Root>
-			<CodeBlock.Root>
-				<CodeBlock.Header>
-					<CodeBlock.Icon preset="cli" />
-					<CodeBlock.Title className="flex-1">
-						mantle and dependencies installation
-					</CodeBlock.Title>
-					<PackageManagerSelect
-						value={preferredPackageManager}
-						onChange={setPrefferedPackageManager}
-					/>
-				</CodeBlock.Header>
-				<CodeBlock.Body>
-					<CodeBlock.CopyButton />
-					<CodeBlock.Code
-						language="sh"
-						value={fmtCode`${primaryInstallationCommand[preferredPackageManager]}`}
-					/>
-				</CodeBlock.Body>
-			</CodeBlock.Root>
-			<p className="font-body text-body">
-				You will also need to install the following{" "}
-				<InlineCode>devDependencies</InlineCode>:
-			</p>
-			<Alert.Root priority="warning">
-				<Alert.Icon />
-				<Alert.Content>
-					<Alert.Description>
-						Mantle only supports <InlineCode>tailwindcss</InlineCode> version 3
-						at this time. We are in the process of upgrading to version 4.
-					</Alert.Description>
-				</Alert.Content>
-			</Alert.Root>
-			<CodeBlock.Root>
-				<CodeBlock.Header>
-					<CodeBlock.Icon preset="cli" />
-					<CodeBlock.Title className="flex-1">
-						mantle devDependencies installation
-					</CodeBlock.Title>
-					<PackageManagerSelect
-						value={preferredPackageManager}
-						onChange={setPrefferedPackageManager}
-					/>
-				</CodeBlock.Header>
-				<CodeBlock.Body>
-					<CodeBlock.CopyButton />
-					<CodeBlock.Code
-						language="sh"
-						value={fmtCode`${devDependenciesInstallationCommand[preferredPackageManager]}`}
-					/>
-				</CodeBlock.Body>
-			</CodeBlock.Root>
-		</div>
+
+			<div className="space-y-4">
+				<h3 id="installation" className="text-xl font-medium">
+					Installation
+				</h3>
+				<p className="font-body text-body">
+					Start by installing <InlineCode>@ngrok/mantle</InlineCode> and all of
+					the required <InlineCode>peerDependencies</InlineCode>:
+				</p>
+				<Alert.Root priority="info">
+					<Alert.Icon />
+					<Alert.Content>
+						<Alert.Description>
+							Mantle supports <InlineCode>react</InlineCode> and{" "}
+							<InlineCode>react-dom</InlineCode> versions 18 and 19.
+						</Alert.Description>
+					</Alert.Content>
+				</Alert.Root>
+				<CodeBlock.Root>
+					<CodeBlock.Header>
+						<CodeBlock.Icon preset="cli" />
+						<CodeBlock.Title className="flex-1">
+							mantle and dependencies installation
+						</CodeBlock.Title>
+						<PackageManagerSelect
+							value={preferredPackageManager}
+							onChange={setPrefferedPackageManager}
+						/>
+					</CodeBlock.Header>
+					<CodeBlock.Body>
+						<CodeBlock.CopyButton />
+						<CodeBlock.Code
+							language="sh"
+							value={fmtCode`${primaryInstallationCommand[preferredPackageManager]}`}
+						/>
+					</CodeBlock.Body>
+				</CodeBlock.Root>
+				<p className="font-body text-body">
+					You will also need to install the following{" "}
+					<InlineCode>devDependencies</InlineCode>:
+				</p>
+				<CodeBlock.Root>
+					<CodeBlock.Header>
+						<CodeBlock.Icon preset="cli" />
+						<CodeBlock.Title className="flex-1">
+							mantle devDependencies installation
+						</CodeBlock.Title>
+						<PackageManagerSelect
+							value={preferredPackageManager}
+							onChange={setPrefferedPackageManager}
+						/>
+					</CodeBlock.Header>
+					<CodeBlock.Body>
+						<CodeBlock.CopyButton />
+						<CodeBlock.Code language="sh" value={fmtCode`${devDependencies}`} />
+					</CodeBlock.Body>
+				</CodeBlock.Root>
+			</div>
+
+			<section className="mt-8 space-y-4">
+				<h3 className="text-xl font-medium">Application Scaffolding</h3>
+				<ApplicationTemplate template={applicationTemplate} />
+				<p className="font-body text-body mt-4">
+					You are now ready to use mantle components in your application! For
+					example, you can use the{" "}
+					<Link to={href("/components/button")}>Button</Link>!
+				</p>
+			</section>
+		</section>
 	);
 }
 
@@ -282,62 +306,6 @@ function PackageManagerSelect({ value, onChange }: PackageManagerSelectProps) {
 	);
 }
 
-const applicationTemplates = [
-	//,
-	"react-router",
-	"next",
-	"vite",
-	"react spa",
-] as const;
-type ApplicationTemplate = (typeof applicationTemplates)[number];
-
-function isApplicationTemplate(value: unknown): value is ApplicationTemplate {
-	return (
-		typeof value === "string" &&
-		applicationTemplates.includes(value as ApplicationTemplate)
-	);
-}
-
-function ApplicationScaffoldingSection() {
-	const [applicationTemplate, setApplicationTemplate] =
-		useState<ApplicationTemplate>("react-router");
-
-	return (
-		<section>
-			<h3 className="mt-8 text-xl font-medium">Application Scaffolding</h3>
-			<p className="font-body text-body mt-3 mb-4">
-				I want to use <InlineCode>mantle</InlineCode> in my{" "}
-				<Select.Root
-					value={applicationTemplate}
-					onValueChange={(value) => {
-						if (isApplicationTemplate(value)) {
-							setApplicationTemplate(value);
-						}
-					}}
-				>
-					<Select.Trigger className="w-32 inline-flex">
-						<Select.Value />
-					</Select.Trigger>
-					<Select.Content width="content">
-						{applicationTemplates.map((template) => (
-							<Select.Item key={template} value={template}>
-								{template}
-							</Select.Item>
-						))}
-					</Select.Content>
-				</Select.Root>{" "}
-				application…
-			</p>
-			<ApplicationTemplate template={applicationTemplate} />
-			<p className="font-body text-body mt-4">
-				You are now ready to use mantle components in your application! For
-				example, you can use the{" "}
-				<Link to={href("/components/button")}>Button</Link>!
-			</p>
-		</section>
-	);
-}
-
 function ApplicationTemplate({ template }: { template: ApplicationTemplate }) {
 	switch (template) {
 		case "react-router":
@@ -366,9 +334,39 @@ function ReactRouterScaffolding() {
 	return (
 		<div className="space-y-4">
 			<p className="font-body text-body">
-				In your react-router app&rsquo;s <InlineCode>src/root.tsx</InlineCode>{" "}
-				file, import the <InlineCode>mantle.css</InlineCode> file to apply the
-				mantle styles.
+				We need to add the <InlineCode>@tailwindcss/vite</InlineCode> plugin to
+				your Vite configuration.
+			</p>
+			<CodeBlock.Root>
+				<CodeBlock.Header>
+					<CodeBlock.Icon preset="file" />
+					<CodeBlock.Title>vite.config.ts</CodeBlock.Title>
+				</CodeBlock.Header>
+				<CodeBlock.Body>
+					<CodeBlock.CopyButton />
+					<CodeBlock.Code
+						language="ts"
+						value={fmtCode`
+						import { reactRouter } from "@react-router/dev/vite";
+						import { defineConfig } from "vite";
+						import tsconfigPaths from "vite-tsconfig-paths";
+						import tailwindcss from "@tailwindcss/vite"; // import tailwindcss vite plugin
+
+						export default defineConfig({
+							plugins: [
+								tailwindcss(), // add tailwindcss plugin
+								reactRouter(),
+								tsconfigPaths(),
+							],
+						});
+						`}
+					/>
+				</CodeBlock.Body>
+			</CodeBlock.Root>
+			<p className="font-body text-body">
+				Then, in your react-router app&rsquo;s{" "}
+				<InlineCode>src/root.tsx</InlineCode> file, import the{" "}
+				<InlineCode>mantle.css</InlineCode> file to apply the mantle styles.
 			</p>
 			<p className="font-body text-body">
 				We will also add the{" "}
@@ -509,9 +507,35 @@ function ViteScaffolding() {
 	return (
 		<div className="space-y-4 mt-3">
 			<p className="font-body text-body">
-				In your vite app&rsquo;s <InlineCode>src/main.tsx</InlineCode> file,
-				import the <InlineCode>mantle.css</InlineCode> file to apply the mantle
-				styles.
+				We need to add the <InlineCode>@tailwindcss/vite</InlineCode> plugin to
+				your Vite configuration.
+			</p>
+			<CodeBlock.Root>
+				<CodeBlock.Header>
+					<CodeBlock.Icon preset="file" />
+					<CodeBlock.Title>vite.config.ts</CodeBlock.Title>
+				</CodeBlock.Header>
+				<CodeBlock.Body>
+					<CodeBlock.CopyButton />
+					<CodeBlock.Code
+						language="ts"
+						value={fmtCode`
+						import { defineConfig } from "vite";
+						import tailwindcss from "@tailwindcss/vite"; // import tailwindcss vite plugin
+
+						export default defineConfig({
+							plugins: [
+								tailwindcss(), // add tailwindcss plugin
+							],
+						});
+						`}
+					/>
+				</CodeBlock.Body>
+			</CodeBlock.Root>
+			<p className="font-body text-body">
+				Then, in your vite app&rsquo;s <InlineCode>src/main.tsx</InlineCode>{" "}
+				file, import the <InlineCode>mantle.css</InlineCode> file to apply the
+				mantle styles.
 			</p>
 			<p className="font-body text-body">
 				We will also add the{" "}

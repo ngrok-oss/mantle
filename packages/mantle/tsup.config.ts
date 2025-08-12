@@ -47,13 +47,7 @@ const commonOptions = {
 	// if we set this to true, it will "race" between the two builds and wipe away type declarations
 	// for one of the builds. rm -rf dist is run as a "prebuild" script to avoid this issue
 	clean: false,
-	external: [
-		"@phosphor-icons/react",
-		"react",
-		"react-dom",
-		"tailwindcss",
-		"zod",
-	],
+	external: ["@phosphor-icons/react", "react", "react-dom", "tailwindcss"],
 	minify: true,
 	sourcemap: true,
 	target: "es2022",
@@ -70,14 +64,6 @@ export default defineConfig((options) => [
 			...utilPackages,
 			hooks: "./src/hooks/index.ts",
 			types: "./src/types/index.ts",
-		},
-		...options,
-	},
-	{
-		...commonOptions,
-		format: ["esm", "cjs"], // we need to dual publish the tailwind preset for now because postcss expects cjs
-		entry: {
-			"tailwind-preset": "./src/tailwind-preset/index.ts",
 		},
 		...options,
 	},

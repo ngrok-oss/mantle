@@ -56,7 +56,7 @@ export default function Page() {
 				<div className="text-strong flex flex-grow flex-col gap-1">
 					<div className="h-10 w-full rounded bg-neutral-950" />
 					<div className="flex items-center justify-between">
-						Strong
+						<span className="text-strong">Strong</span>
 						<InlineCode>.text-strong</InlineCode>
 					</div>
 				</div>

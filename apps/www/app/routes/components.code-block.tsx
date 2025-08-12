@@ -429,7 +429,7 @@ export default function Page() {
 						</p>
 					</header>
 					<div>
-						<Example className="flex-col gap-4">
+						<Example className="flex-wrap gap-4">
 							<CodeBlock.Root>
 								<CodeBlock.Header>
 									<CodeBlock.Icon preset="traffic-policy" />

@@ -81,7 +81,7 @@ const SubTrigger = forwardRef<
 >(({ className, inset, children, ...props }, ref) => (
 	<DropdownMenuPrimitive.SubTrigger
 		className={cx(
-			"focus:bg-accent data-state-open:bg-accent relative flex cursor-pointer select-none items-center rounded py-1.5 pl-2 pr-9 text-sm outline-none",
+			"focus:bg-accent data-state-open:bg-accent relative flex select-none items-center rounded py-1.5 pl-2 pr-9 text-sm outline-hidden",
 			"data-highlighted:bg-popover-hover data-state-open:bg-popover-hover",
 			"[&>svg]:size-5 [&_svg]:shrink-0",
 			inset && "pl-8",
@@ -161,7 +161,7 @@ const Content = forwardRef<
 			ref={ref}
 			className={cx(
 				"scrollbar",
-				"text-popover-foreground border-popover bg-popover p-1.25 z-50 min-w-[8rem] overflow-hidden rounded-md border shadow-xl outline-none",
+				"text-popover-foreground border-popover bg-popover p-1.25 z-50 min-w-[8rem] overflow-hidden rounded-md border shadow-xl outline-hidden",
 				"data-side-bottom:slide-in-from-top-2 data-side-left:slide-in-from-right-2 data-side-right:slide-in-from-left-2 data-side-top:slide-in-from-bottom-2 data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 data-state-open:animate-in data-state-open:fade-in-0 data-state-open:zoom-in-95",
 				"my-2 max-h-[calc(var(--radix-dropdown-menu-content-available-height)_-_16px)] overflow-auto",
 				width === "trigger" && "w-[var(--radix-dropdown-menu-trigger-width)]",
@@ -211,7 +211,7 @@ const Item = forwardRef<
 	<DropdownMenuPrimitive.Item
 		ref={ref}
 		className={cx(
-			"focus:bg-accent focus:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50 data-highlighted:bg-popover-hover data-active-item:dark:bg-popover-hover relative flex cursor-pointer select-none items-center rounded px-2 py-1.5 text-sm font-normal outline-none transition-colors",
+			"focus:bg-accent focus:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50 data-highlighted:bg-popover-hover data-active-item:dark:bg-popover-hover relative flex cursor-pointer select-none items-center rounded px-2 py-1.5 text-sm font-normal outline-hidden transition-colors",
 			"[&>svg]:size-5 [&_svg]:shrink-0",
 			inset && "pl-8",
 			className,
@@ -233,7 +233,7 @@ const CheckboxItem = forwardRef<
 	<DropdownMenuPrimitive.CheckboxItem
 		ref={ref}
 		className={cx(
-			"text-strong data-disabled:pointer-events-none data-disabled:opacity-50 relative flex cursor-pointer select-none items-center gap-2 rounded py-1.5 pl-2 pr-9 text-sm font-normal outline-none",
+			"text-strong data-disabled:pointer-events-none data-disabled:opacity-50 relative flex cursor-pointer select-none items-center gap-2 rounded py-1.5 pl-2 pr-9 text-sm font-normal outline-hidden",
 			"data-highlighted:bg-popover-hover data-highlighted:dark:bg-popover-hover",
 			"aria-checked:!bg-filled-accent aria-checked:text-on-filled aria-checked:font-medium",
 			"[&>svg]:size-5 [&_svg]:shrink-0",

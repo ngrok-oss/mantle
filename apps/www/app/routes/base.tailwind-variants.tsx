@@ -8,7 +8,7 @@ import type { Route } from "./+types/base.tailwind-variants";
 
 export const meta: Route.MetaFunction = () => {
 	return [
-		{ title: "@ngrok/mantle — Shadows" },
+		{ title: "@ngrok/mantle — Variants" },
 		{
 			name: "description",
 			content: "mantle is ngrok's UI library and design system",
@@ -41,24 +41,6 @@ export default function Page() {
 						</Table.Row>
 					</Table.Head>
 					<Table.Body className="font-body text-body">
-						<Table.Row>
-							<Table.Cell>
-								<Icon
-									className="text-success-600 firefox:block hidden size-4"
-									svg={<CheckIcon weight="bold" />}
-								/>
-								<Icon
-									className="text-danger-600 firefox:hidden block size-4"
-									svg={<XIcon weight="bold" />}
-								/>
-							</Table.Cell>
-							<Table.Cell>
-								<InlineCode className="break-keep">.firefox:</InlineCode>
-							</Table.Cell>
-
-							<Table.Cell>Apply a class to Firefox browsers.</Table.Cell>
-						</Table.Row>
-
 						<Table.Row>
 							<Table.Cell>
 								<Icon
@@ -203,17 +185,6 @@ export default function Page() {
 			</Table.Root>
 
 			<ul className="mt-8 flex flex-wrap gap-4 font-mono text-xs">
-				<li className="firefox:border-green-600 firefox:bg-green-600/10 flex items-center justify-between gap-1 rounded-lg border border-red-600 bg-red-600/10 p-4">
-					firefox:{" "}
-					<Icon
-						className="text-success-700 firefox:block hidden size-4"
-						svg={<CheckIcon weight="bold" />}
-					/>
-					<Icon
-						className="text-danger-700 firefox:hidden block size-4"
-						svg={<XIcon weight="bold" />}
-					/>
-				</li>
 				<li className="pointer-coarse:border-green-600 pointer-coarse:bg-green-600/10 flex items-center justify-between gap-1 rounded-lg border border-red-600 bg-red-600/10 p-4">
 					pointer-coarse:{" "}
 					<Icon
