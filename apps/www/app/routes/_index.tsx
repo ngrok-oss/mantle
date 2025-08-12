@@ -218,7 +218,7 @@ function SetupInstructions() {
 					<Alert.Content>
 						<Alert.Description>
 							Mantle supports <InlineCode>react</InlineCode> and{" "}
-							<InlineCode>react-dom</InlineCode> version 19 and above.
+							<InlineCode>react-dom</InlineCode> versions 18 and 19.
 						</Alert.Description>
 					</Alert.Content>
 				</Alert.Root>
