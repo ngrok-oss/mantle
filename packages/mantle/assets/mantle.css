@@ -86,7 +86,6 @@
 @custom-variant dark-high-contrast (&:where(.dark-high-contrast, .dark-high-contrast *, [data-theme="dark-high-contrast"], [data-applied-theme="dark-high-contrast"]));
 
 @custom-variant aria-collapsed (&[aria-expanded="false"]);
-@custom-variant aria-disabled (&[aria-disabled="true"]);
 @custom-variant aria-invalid (&[aria-invalid="true"]);
 @custom-variant aria-unchecked (&[aria-checked="false"]);
 
