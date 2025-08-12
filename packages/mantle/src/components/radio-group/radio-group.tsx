@@ -215,9 +215,9 @@ const ListItem = forwardRef<ComponentRef<"div">, RadioListItemProps>(
 				className={cx(
 					"group/radio border-form [&_label]:cursor-inherit relative flex select-none gap-2 border px-3 py-2 text-sm",
 					"cursor-pointer aria-disabled:cursor-default focus:outline-hidden",
-					"focus-visible:ring-focus-accent aria-enabled:focus-visible:border-accent-600 focus-visible:ring-4",
+					"focus-visible:ring-focus-accent not-aria-disabled:focus-visible:border-accent-600 focus-visible:ring-4",
 					"first-of-type:rounded-tl-md first-of-type:rounded-tr-md last-of-type:rounded-bl-md last-of-type:rounded-br-md",
-					"aria-disabled:border-form/50 aria-enabled:hover:z-1 aria-enabled:hover:border-accent-600",
+					"aria-disabled:border-form/50 not-aria-disabled:hover:z-1 not-aria-disabled:hover:border-accent-600",
 					"aria-checked:z-1 aria-checked:border-accent-500/40 aria-checked:bg-accent-500/10 dark-high-contrast:aria-checked:border-accent-400 high-contrast:aria-checked:border-accent-400 not-aria-disabled:hover:aria-checked:border-accent-600",
 					"has-[.radio-indicator:first-child]:pl-2 has-[.radio-indicator:last-child]:pr-2",
 					className,
@@ -253,10 +253,10 @@ const Card = forwardRef<ComponentRef<"div">, RadioCardProps>(
 				className={clsx(
 					"group/radio border-card bg-card [&_label]:cursor-inherit relative rounded-md border p-4 text-sm",
 					"cursor-pointer aria-disabled:cursor-default focus:outline-hidden",
-					"focus-visible:ring-focus-accent aria-enabled:focus-visible:border-accent-600 focus-visible:ring-4",
+					"focus-visible:ring-focus-accent not-aria-disabled:focus-visible:border-accent-600 focus-visible:ring-4",
 					"first-of-type:rounded-tl-md first-of-type:rounded-tr-md last-of-type:rounded-bl-md last-of-type:rounded-br-md",
-					"aria-disabled:border-form/50 aria-enabled:hover:z-1 aria-enabled:hover:border-accent-600",
-					"aria-checked:z-1 aria-checked:border-accent-500/40 aria-checked:bg-accent-500/10 aria-enabled:hover:aria-checked:border-accent-600 dark-high-contrast:aria-checked:border-accent-400 high-contrast:aria-checked:border-accent-400",
+					"aria-disabled:border-form/50 not-aria-disabled:hover:z-1 not-aria-disabled:hover:border-accent-600",
+					"aria-checked:z-1 aria-checked:border-accent-500/40 aria-checked:bg-accent-500/10 not-aria-disabled:hover:aria-checked:border-accent-600 dark-high-contrast:aria-checked:border-accent-400 high-contrast:aria-checked:border-accent-400",
 					className,
 				)}
 				{...props}
@@ -332,11 +332,11 @@ const Button = forwardRef<ComponentRef<"div">, RadioButtonProps>(
 				className={cx(
 					"group/radio border-form [&_label]:cursor-inherit relative flex flex-1 select-none items-center justify-center gap-2 border px-3 text-sm",
 					"h-9",
-					"focus-visible:ring-focus-accent aria-enabled:focus-visible:border-accent-600 focus-visible:ring-4",
+					"focus-visible:ring-focus-accent not-aria-disabled:focus-visible:border-accent-600 focus-visible:ring-4",
 					"cursor-pointer aria-disabled:cursor-default focus:outline-hidden",
 					"first-of-type:rounded-bl-md first-of-type:rounded-tl-md last-of-type:rounded-br-md last-of-type:rounded-tr-md",
-					"aria-enabled:hover:z-1 aria-enabled:hover:border-accent-600 aria-disabled:opacity-50",
-					"aria-checked:z-1 aria-checked:border-accent-500/40 aria-checked:bg-accent-500/10 aria-enabled:hover:aria-checked:border-accent-600",
+					"not-aria-disabled:hover:z-1 not-aria-disabled:hover:border-accent-600 aria-disabled:opacity-50",
+					"aria-checked:z-1 aria-checked:border-accent-500/40 aria-checked:bg-accent-500/10 not-aria-disabled:hover:aria-checked:border-accent-600",
 					"has-[.radio-indicator:first-child]:pl-2 has-[.radio-indicator:last-child]:pr-2",
 					className,
 				)}
