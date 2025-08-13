@@ -258,6 +258,7 @@
 :root[data-applied-theme="dark"] {
 	color-scheme: dark;
 
+	/* Semantic colors: white becomes black and black becomes white in dark mode */
 	--color-white: oklch(0% 0 0);
 	--color-black: oklch(100% 0 0);
 
@@ -895,6 +896,7 @@
 :root[data-applied-theme="dark-high-contrast"] {
 	color-scheme: dark;
 
+	/* Semantic colors: white becomes black and black becomes white in dark mode */
 	--color-white: oklch(0% 0 0);
 	--color-black: oklch(100% 0 0);
 
