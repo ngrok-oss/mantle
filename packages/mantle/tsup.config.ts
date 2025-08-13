@@ -1,6 +1,5 @@
 import fs from "node:fs";
 import { defineConfig } from "tsup";
-import type { Options } from "tsup";
 
 /**
  * A set of package names that should not be published to npm
@@ -42,22 +41,18 @@ const utilPackages = allUtils.reduce<Record<string, string>>((acc, name) => {
 	return acc;
 }, {});
 
-const commonOptions = {
-	dts: true,
-	// if we set this to true, it will "race" between the two builds and wipe away type declarations
-	// for one of the builds. rm -rf dist is run as a "prebuild" script to avoid this issue
-	clean: false,
-	external: ["@phosphor-icons/react", "react", "react-dom", "tailwindcss"],
-	minify: true,
-	sourcemap: true,
-	target: "es2022",
-	tsconfig: "tsconfig.build.json",
-	injectStyle: false,
-} satisfies Options;
-
 export default defineConfig((options) => [
 	{
-		...commonOptions,
+		dts: true,
+		// if we set this to true, it will "race" between the two builds and wipe away type declarations
+		// for one of the builds. rm -rf dist is run as a "prebuild" script to avoid this issue
+		clean: false,
+		external: ["@phosphor-icons/react", "react", "react-dom", "tailwindcss"],
+		minify: true,
+		sourcemap: true,
+		target: "es2022",
+		tsconfig: "tsconfig.build.json",
+		injectStyle: false,
 		format: "esm",
 		entry: {
 			...componentPackages,
