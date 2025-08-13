@@ -312,7 +312,7 @@ function ActionCell({
 	return (
 		<Table.Cell
 			className={cx(
-				"sticky z-10 right-0 top-px -bottom-px group-data-[sticky-active]/table:[box-shadow:inset_10px_0_8px_-8px_hsl(0deg_0%_0%_/_15%)]",
+				"sticky z-10 right-0 top-px -bottom-px group-data-[sticky-active]/table:[box-shadow:inset_10px_0_8px_-8px_oklch(0_0_0_/_15%)]",
 				className,
 			)}
 			{...props}

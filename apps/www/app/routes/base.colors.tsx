@@ -1,6 +1,7 @@
 import { Anchor } from "@ngrok/mantle/anchor";
 import { cx } from "@ngrok/mantle/cx";
 import { InlineCode } from "@ngrok/mantle/inline-code";
+import { useAppliedTheme } from "@ngrok/mantle/theme-provider";
 import { HashNavLink } from "~/components/hash-nav-link";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/base.colors";
@@ -22,6 +23,8 @@ export const headers: Route.HeadersFunction = () => {
 };
 
 export default function Page() {
+	const appliedTheme = useAppliedTheme();
+
 	return (
 		<div className="relative flex flex-row-reverse gap-9">
 			<nav className="sticky top-6 hidden w-44 self-start lg:block">
@@ -431,12 +434,30 @@ export default function Page() {
 				<p className="font-body text-body mt-3">
 					Mantle&rsquo;s colors are delivered as CSS variables via
 					Tailwind&rsquo;s API eg. <InlineCode>.text-blue-500</InlineCode>. They
-					can be directly accessed via <InlineCode>var(--blue-500)</InlineCode>{" "}
-					but do note that you&rsquo;ll need to wrap everything in{" "}
-					<InlineCode>hsl()</InlineCode> like so:{" "}
-					<InlineCode>hsl(var(--blue-500))</InlineCode>. This allows for
-					Tailwind operations like <InlineCode>text-blue-500/25</InlineCode>.
+					can be directly accessed via{" "}
+					<InlineCode>var(--color-blue-500)</InlineCode> and use{" "}
+					<InlineCode>oklch()</InlineCode> color space.
 				</p>
+
+				<h2 id="black-and-white" className="mt-8 text-3xl font-medium">
+					Black and White Color Variables
+				</h2>
+				<p className="font-body text-body mt-3 mb-2">
+					Mantle overrides what "black" and "white" mean depending on the theme.
+					We transformed these colors to be semantic colors instead of literal
+					colors. For dark modes, we swap them so that white is actually black
+					and vice versa. Pay attention to the example below when swapping
+					between our themes!
+				</p>
+				<div className="bg-white flex flex-col items-center justify-center p-6 border border-card rounded text-black gap-2">
+					<p>
+						This renders <InlineCode>bg-white</InlineCode> and color{" "}
+						<InlineCode>text-black</InlineCode>.
+					</p>
+					<p>
+						The current applied theme is <InlineCode>{appliedTheme}</InlineCode>
+					</p>
+				</div>
 
 				<h2 id="overrides" className="mt-8 text-3xl font-medium">
 					Overrides
