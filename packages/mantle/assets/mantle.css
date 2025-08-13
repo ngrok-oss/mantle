@@ -212,8 +212,15 @@
 	--border-color-dialog-muted: var(--color-neutral-200);
 	--border-color-form: var(--color-neutral-300);
 
+	--divide-color-base: var(--color-neutral-300);
 	--divide-color-card: var(--color-neutral-300);
+	--divide-color-popover: var(--color-neutral-300);
+	--divide-color-dialog: var(--color-neutral-300);
+	--divide-color-base-muted: var(--color-neutral-200);
 	--divide-color-card-muted: var(--color-neutral-200);
+	--divide-color-popover-muted: var(--color-neutral-200);
+	--divide-color-dialog-muted: var(--color-neutral-200);
+	--divide-color-form: var(--color-neutral-300);
 
 	--text-color-strong: var(--color-neutral-950);
 	--text-color-body: --alpha(var(--color-neutral-950) / 0.75);
@@ -549,8 +556,15 @@
 	--border-color-dialog-muted: var(--color-neutral-200);
 	--border-color-form: var(--color-neutral-300);
 
+	--divide-color-base: var(--color-neutral-300);
 	--divide-color-card: var(--color-neutral-300);
+	--divide-color-popover: var(--color-neutral-300);
+	--divide-color-dialog: var(--color-neutral-300);
+	--divide-color-base-muted: var(--color-neutral-200);
 	--divide-color-card-muted: var(--color-neutral-200);
+	--divide-color-popover-muted: var(--color-neutral-200);
+	--divide-color-dialog-muted: var(--color-neutral-200);
+	--divide-color-form: var(--color-neutral-300);
 
 	--text-color-strong: #fff;
 	--text-color-body: --alpha(#fff / 0.7);
@@ -850,8 +864,15 @@
 	--border-color-dialog-muted: var(--color-neutral-300);
 	--border-color-form: var(--color-neutral-300);
 
+	--divide-color-base: var(--color-neutral-300);
 	--divide-color-card: var(--color-neutral-300);
-	--divide-color-card-muted: var(--color-neutral-200);
+	--divide-color-popover: var(--color-neutral-300);
+	--divide-color-dialog: var(--color-neutral-300);
+	--divide-color-base-muted: var(--color-neutral-300);
+	--divide-color-card-muted: var(--color-neutral-300);
+	--divide-color-popover-muted: var(--color-neutral-300);
+	--divide-color-dialog-muted: var(--color-neutral-300);
+	--divide-color-form: var(--color-neutral-300);
 
 	--text-color-strong: var(--color-black);
 	--text-color-body: var(--color-neutral-950);
@@ -1151,8 +1172,15 @@
 	--border-color-dialog-muted: var(--color-neutral-300);
 	--border-color-form: var(--color-neutral-300);
 
+	--divide-color-base: var(--color-neutral-300);
 	--divide-color-card: var(--color-neutral-300);
+	--divide-color-popover: var(--color-neutral-300);
+	--divide-color-dialog: var(--color-neutral-300);
+	--divide-color-base-muted: var(--color-neutral-300);
 	--divide-color-card-muted: var(--color-neutral-300);
+	--divide-color-popover-muted: var(--color-neutral-300);
+	--divide-color-dialog-muted: var(--color-neutral-300);
+	--divide-color-form: var(--color-neutral-300);
 
 	--text-color-strong: var(--color-black);
 	--text-color-body: var(--color-neutral-950);
