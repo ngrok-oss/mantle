@@ -1,5 +1,13 @@
 # @ngrok/mantle
 
+## 0.50.3
+
+### Patch Changes
+
+- [#719](https://github.com/ngrok-oss/mantle/pull/719) [`7cab99c`](https://github.com/ngrok-oss/mantle/commit/7cab99cb6fa934beae615be4e90391ec0727482b) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Toast: for toast message, use font-body instead of font-sans
+
+- [#721](https://github.com/ngrok-oss/mantle/pull/721) [`31c6ec0`](https://github.com/ngrok-oss/mantle/commit/31c6ec03a466da457e875eb61c7fee07ba56b3a3) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - DataTable: export cell component too
+
 ## 0.50.2
 
 ### Patch Changes
