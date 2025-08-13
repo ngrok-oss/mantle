@@ -1,5 +1,13 @@
 # @ngrok/mantle
 
+## 0.50.2
+
+### Patch Changes
+
+- [#717](https://github.com/ngrok-oss/mantle/pull/717) [`024cf70`](https://github.com/ngrok-oss/mantle/commit/024cf70f82bd0aed57992ecaa4002868861ecce2) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Colors: fix dark mode swap of white and black as semantic colors
+
+- [#717](https://github.com/ngrok-oss/mantle/pull/717) [`024cf70`](https://github.com/ngrok-oss/mantle/commit/024cf70f82bd0aed57992ecaa4002868861ecce2) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - replace remaining hsl() usages with oklch() and --color-\* css vars
+
 ## 0.50.1
 
 ### Patch Changes
