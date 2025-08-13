@@ -332,7 +332,7 @@ const Message = forwardRef<ComponentRef<"p">, ToastMessageProps>(
 		return (
 			<Component
 				//
-				className={cx("text-strong flex-1 text-sm font-sans", className)}
+				className={cx("text-strong flex-1 text-sm font-body", className)}
 				ref={ref}
 				{...props}
 			/>
