@@ -258,6 +258,9 @@
 :root[data-applied-theme="dark"] {
 	color-scheme: dark;
 
+	--color-white: oklch(0% 0 0);
+	--color-black: oklch(100% 0 0);
+
 	/* Reverse all the color values */
 	--color-neutral-50: oklch(21.5% 0.0215 281.2);
 	--color-neutral-100: oklch(27% 0.0262 279.5);
@@ -592,8 +595,8 @@
 :root[data-applied-theme="light-high-contrast"] {
 	color-scheme: light;
 
-	--color-white: #fff;
-	--color-black: #000;
+	--color-white: oklch(100% 0 0);
+	--color-black: oklch(0% 0 0);
 
 	--color-amber-50: oklch(98.69% 0.0214 95.28);
 	--color-amber-100: oklch(96.21% 0.0568 95.34);
@@ -892,8 +895,8 @@
 :root[data-applied-theme="dark-high-contrast"] {
 	color-scheme: dark;
 
-	--color-white: #000;
-	--color-black: #fff;
+	--color-white: oklch(0% 0 0);
+	--color-black: oklch(100% 0 0);
 
 	--color-amber-50: oklch(27.91% 0.0742 45.64);
 	--color-amber-100: oklch(41.05% 0.1031 46.59);
