@@ -12,8 +12,6 @@ import {
 } from "@ngrok/mantle/data-table";
 import { DropdownMenu } from "@ngrok/mantle/dropdown-menu";
 import { Icon } from "@ngrok/mantle/icon";
-import { InlineCode } from "@ngrok/mantle/inline-code";
-import { Table } from "@ngrok/mantle/table";
 import { DotsThreeIcon } from "@phosphor-icons/react/DotsThree";
 import { PencilSimpleIcon } from "@phosphor-icons/react/PencilSimple";
 import { TrashSimpleIcon } from "@phosphor-icons/react/TrashSimple";
@@ -100,7 +98,7 @@ export default function Page() {
 												</DataTable.Header>
 											),
 											cell: (props) => (
-												<Table.Cell key={props.cell.id}>{props.getValue()}</Table.Cell>
+												<DataTable.Cell key={props.cell.id}>{props.getValue()}</DataTable.Cell>
 											),
 										}),
 										columnHelper.accessor("amount", {
@@ -118,9 +116,9 @@ export default function Page() {
 												</DataTable.Header>
 											),
 											cell: (props) => (
-												<Table.Cell key={props.cell.id} className="text-right">
+												<DataTable.Cell key={props.cell.id} className="text-right">
 													{props.getValue()}
-												</Table.Cell>
+												</DataTable.Cell>
 											),
 										}),
 										columnHelper.accessor("status", {
@@ -136,7 +134,7 @@ export default function Page() {
 												</DataTable.Header>
 											),
 											cell: (props) => (
-												<Table.Cell key={props.cell.id}>{props.getValue()}</Table.Cell>
+												<DataTable.Cell key={props.cell.id}>{props.getValue()}</DataTable.Cell>
 											),
 										}),
 										columnHelper.accessor("email", {
@@ -152,7 +150,7 @@ export default function Page() {
 												</DataTable.Header>
 											),
 											cell: (props) => (
-												<Table.Cell key={props.cell.id}>{props.getValue()}</Table.Cell>
+												<DataTable.Cell key={props.cell.id}>{props.getValue()}</DataTable.Cell>
 											),
 										}),
 										columnHelper.display({
@@ -230,77 +228,6 @@ export default function Page() {
 				<h2 id="api" className="text-3xl font-medium">
 					API Reference
 				</h2>
-				<p className="font-body text-body text-xl">
-					The <InlineCode>DataTable</InlineCode> accepts the following props in
-					addition to...
-				</p>
-				{/* <PropsTable>
-					<PropRow>
-						<PropNameCell name="max" optional />
-						<PropTypeCell>
-							<NumberPropType />
-						</PropTypeCell>
-						<PropDefaultValueCell>
-							<NumberPropType value={100} />
-						</PropDefaultValueCell>
-						<PropDescriptionCell>
-							<p>
-								The maximum value of the progress bar. This attribute describes how much work the task indicated by the
-								progress element requires. The max attribute, if present, must have a value greater than 0. The default
-								value is 100.
-							</p>
-						</PropDescriptionCell>
-					</PropRow>
-					<PropRow>
-						<PropNameCell name="strokeWidth" optional />
-						<PropTypeCell>
-							<ul>
-								<li>
-									<NumberPropType />
-								</li>
-								<li>
-									<StringPropType value="`${number}rem`" />
-								</li>
-							</ul>
-						</PropTypeCell>
-						<PropDefaultValueCell>
-							<StringPropType value="0.25rem" />
-						</PropDefaultValueCell>
-						<PropDescriptionCell>
-							<p>
-								The width of the progress bar stroke. Note, we clamp the stroke width to a minimum of 1px and max of
-								12px since it is proportional to the viewbox size (0 0 32 32).
-							</p>
-						</PropDescriptionCell>
-					</PropRow>
-					<PropRow>
-						<PropNameCell name="value" optional />
-						<PropTypeCell>
-							<ul>
-								<li>
-									<NumberPropType />
-								</li>
-								<li>
-									<StringPropType value="indeterminate" />
-								</li>
-							</ul>
-						</PropTypeCell>
-						<PropDefaultValueCell>
-							<NumberPropType value={0} />
-						</PropDefaultValueCell>
-						<PropDescriptionCell className="space-y-2">
-							<p>
-								The current value of the progress bar. This attribute specifies how much of the task that has been
-								completed. It must be a valid floating point number between 0 and max, or between 0 and 100 if max is
-								omitted.
-							</p>
-							<p>
-								If set to <InlineCode>"indeterminate"</InlineCode>, the progress bar is considered{" "}
-								<strong>indeterminate</strong>.
-							</p>
-						</PropDescriptionCell>
-					</PropRow>
-				</PropsTable> */}
 			</section>
 		</div>
 	);
@@ -362,7 +289,7 @@ const columns = [
 			</DataTable.Header>
 		),
 		cell: (props) => (
-			<Table.Cell key={props.cell.id}>{props.getValue()}</Table.Cell>
+			<DataTable.Cell key={props.cell.id}>{props.getValue()}</DataTable.Cell>
 		),
 	}),
 	columnHelper.accessor("amount", {
@@ -380,9 +307,9 @@ const columns = [
 			</DataTable.Header>
 		),
 		cell: (props) => (
-			<Table.Cell key={props.cell.id} className="text-right">
+			<DataTable.Cell key={props.cell.id} className="text-right">
 				{props.getValue()}
-			</Table.Cell>
+			</DataTable.Cell>
 		),
 	}),
 	columnHelper.accessor("status", {
@@ -398,7 +325,7 @@ const columns = [
 			</DataTable.Header>
 		),
 		cell: (props) => (
-			<Table.Cell key={props.cell.id}>{props.getValue()}</Table.Cell>
+			<DataTable.Cell key={props.cell.id}>{props.getValue()}</DataTable.Cell>
 		),
 	}),
 	columnHelper.accessor("email", {
@@ -414,7 +341,7 @@ const columns = [
 			</DataTable.Header>
 		),
 		cell: (props) => (
-			<Table.Cell key={props.cell.id}>{props.getValue()}</Table.Cell>
+			<DataTable.Cell key={props.cell.id}>{props.getValue()}</DataTable.Cell>
 		),
 	}),
 	columnHelper.display({
