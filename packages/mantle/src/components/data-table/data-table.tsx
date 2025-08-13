@@ -381,6 +381,19 @@ const DataTable = {
 	 */
 	ActionCell,
 	/**
+	 * A table cell component for rendering individual data cells.
+	 *
+	 * @see https://mantle.ngrok.com/components/data-table#api-data-table-cell
+	 *
+	 * @example
+	 * ```tsx
+	 * <DataTable.Cell>
+	 *   Cell content
+	 * </DataTable.Cell>
+	 * ```
+	 */
+	Cell: Table.Cell,
+	/**
 	 * The table body container for rows of data.
 	 *
 	 * @see https://mantle.ngrok.com/components/data-table#api-data-table-body
