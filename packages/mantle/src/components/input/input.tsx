@@ -136,7 +136,7 @@ const InputCapture = forwardRef<HTMLInputElement, InputCaptureProps>(
 				aria-invalid={ariaInvalid}
 				data-validation={validationValue}
 				className={cx(
-					"placeholder:text-placeholder min-w-0 flex-1 bg-transparent text-left autofill:shadow-[inset_0_0_0px_1000px_hsl(var(--blue-50))] focus:outline-hidden",
+					"placeholder:text-placeholder min-w-0 flex-1 bg-transparent text-left autofill:shadow-[inset_0_0_0px_1000px_var(--color-blue-50)] focus:outline-hidden",
 					className,
 				)}
 				ref={composeRefs(ref, ctxForwardedRef, ctxInnerRef)}
@@ -229,7 +229,7 @@ const InputContainer = ({
 					"data-validation-success:border-success-600 has-[:focus-visible]:data-validation-success:border-success-600 has-[:focus-visible]:data-validation-success:ring-focus-success",
 					"data-validation-warning:border-warning-600 has-[:focus-visible]:data-validation-warning:border-warning-600 has-[:focus-visible]:data-validation-warning:ring-focus-warning",
 					"data-validation-error:border-danger-600 has-[:focus-visible]:data-validation-error:border-danger-600 has-[:focus-visible]:data-validation-error:ring-focus-danger",
-					"autofill:shadow-[inset_0_0_0px_1000px_hsl(var(--blue-50))] has-[:autofill]:bg-blue-50 has-[:autofill]:[-webkit-text-fill-color:hsl(var(--text-strong))]", // Autofill styling on the input itself and any children with autofill styling
+					"autofill:shadow-[inset_0_0_0px_1000px_var(--color-blue-50)] has-[:autofill]:bg-blue-50 has-[:autofill]:[-webkit-text-fill-color:var(--text-color-strong)]", // Autofill styling on the input itself and any children with autofill styling
 					className,
 				)}
 				onClick={() => {

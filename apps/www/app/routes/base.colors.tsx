@@ -435,11 +435,8 @@ export default function Page() {
 					Mantle&rsquo;s colors are delivered as CSS variables via
 					Tailwind&rsquo;s API eg. <InlineCode>.text-blue-500</InlineCode>. They
 					can be directly accessed via{" "}
-					<InlineCode>var(--color-blue-500)</InlineCode> but do note that
-					you&rsquo;ll need to wrap everything in <InlineCode>hsl()</InlineCode>{" "}
-					like so: <InlineCode>hsl(var(--color-blue-500))</InlineCode>. This
-					allows for Tailwind operations like{" "}
-					<InlineCode>text-blue-500/25</InlineCode>.
+					<InlineCode>var(--color-blue-500)</InlineCode> and use{" "}
+					<InlineCode>oklch()</InlineCode> color space.
 				</p>
 
 				<h2 id="black-and-white" className="mt-8 text-3xl font-medium">
