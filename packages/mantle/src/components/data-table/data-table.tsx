@@ -1,8 +1,8 @@
 import {
 	type Column,
 	type HeaderContext,
-	type Row,
 	type Table as TableInstance,
+	type Row as TableRow,
 	flexRender,
 } from "@tanstack/react-table";
 import {
@@ -258,7 +258,7 @@ function Head<TData>(props: DataTableHeadProps) {
 }
 
 type RowsProps<TData> = {
-	children?: (row: Row<TData>) => ReactNode;
+	children?: (row: TableRow<TData>) => ReactNode;
 };
 
 function Rows<TData>({ children }: RowsProps<TData>) {
@@ -266,20 +266,20 @@ function Rows<TData>({ children }: RowsProps<TData>) {
 	const rows = table.getRowModel().rows;
 
 	if (typeof children === "function") {
-		return rows.map((row) => <Fragment key={row.id}>{children(row)}</Fragment>);
+		return rows.map((row) => children(row));
 	}
 
-	return rows.map((row) => <RowComponent key={row.id} row={row} />);
+	return rows.map((row) => <Row key={row.id} row={row} />);
 }
 
 type DataTableRowProps<TData> = Omit<
 	ComponentProps<typeof Table.Row>,
 	"children"
 > & {
-	row: Row<TData>;
+	row: TableRow<TData>;
 };
 
-function RowComponent<TData>({ row, ...props }: DataTableRowProps<TData>) {
+function Row<TData>({ row, ...props }: DataTableRowProps<TData>) {
 	return (
 		<Table.Row {...props}>
 			{row.getVisibleCells().map((cell) => (
@@ -332,7 +332,7 @@ EmptyRow.displayName = "DataTableEmptyRow";
 Head.displayName = "DataTableHead";
 Header.displayName = "DataTableHeader";
 HeaderSortButton.displayName = "DataTableHeaderSortButton";
-RowComponent.displayName = "DataTableRow";
+Row.displayName = "DataTableRow";
 Rows.displayName = "DataTableRows";
 
 /**
@@ -473,7 +473,7 @@ const DataTable = {
 	 * <DataTable.Row row={row} />
 	 * ```
 	 */
-	Row: RowComponent,
+	Row,
 	/**
 	 * Container that renders all table rows automatically from the table data.
 	 *
