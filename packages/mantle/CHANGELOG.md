@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.50.4
+
+### Patch Changes
+
+- [#722](https://github.com/ngrok-oss/mantle/pull/722) [`961e157`](https://github.com/ngrok-oss/mantle/commit/961e15757e9147818a9527126b77c002975d58c8) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - DataTable: support passing fn as child to DataTable.Rows
+
 ## 0.50.3
 
 ### Patch Changes
