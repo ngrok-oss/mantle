@@ -257,17 +257,19 @@ function Head<TData>(props: DataTableHeadProps) {
 	);
 }
 
-function Rows<TData>() {
+type RowsProps<TData> = {
+	children?: (row: Row<TData>) => ReactNode;
+};
+
+function Rows<TData>({ children }: RowsProps<TData>) {
 	const { table } = useDataTableContext<TData>();
 	const rows = table.getRowModel().rows;
 
-	return (
-		<>
-			{rows.map((row) => (
-				<RowComponent key={row.id} row={row} />
-			))}
-		</>
-	);
+	if (typeof children === "function") {
+		return rows.map((row) => <Fragment key={row.id}>{children(row)}</Fragment>);
+	}
+
+	return rows.map((row) => <RowComponent key={row.id} row={row} />);
 }
 
 type DataTableRowProps<TData> = Omit<
@@ -481,6 +483,14 @@ const DataTable = {
 	 * ```tsx
 	 * <DataTable.Rows />
 	 * ```
+	 *
+	 * If you want to customize the rendering of each row, you can pass a function as children:
+	 * ```tsx
+	 * <DataTable.Rows>
+	 *   {(row) => (
+	 *     <DataTable.Row key={row.id} row={row} onClick={() => onClickRow(row)} />
+	 *   )}
+	 * </DataTable.Rows>
 	 */
 	Rows,
 } as const;
