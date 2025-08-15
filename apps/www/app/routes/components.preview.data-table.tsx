@@ -201,12 +201,23 @@ export default function Page() {
 											},
 										});
 
+										const rows = table.getRowModel().rows;
+
 										return (
 											<DataTable.Root table={table}>
 												<DataTable.Head />
 												<DataTable.Body>
-													{table.getRowModel().rows.length > 0 ? (
-														<DataTable.Rows />
+													{rows.length > 0 ? (
+														rows.map((row) => (
+															<DataTable.Row
+																className="cursor-pointer"
+																key={row.id}
+																onClick={() => {
+																	window.alert(\`Clicked payment row: \${row.original.id}\`);
+																}}
+																row={row}
+															/>
+														))
 													) : (
 														<DataTable.EmptyRow>
 															<p className="flex items-center justify-center min-h-20">
@@ -392,12 +403,23 @@ function EmptyPaymentsExample() {
 		},
 	});
 
+	const rows = table.getRowModel().rows;
+
 	return (
 		<DataTable.Root table={table}>
 			<DataTable.Head />
 			<DataTable.Body>
-				{table.getRowModel().rows.length > 0 ? (
-					<DataTable.Rows />
+				{rows.length > 0 ? (
+					rows.map((row) => (
+						<DataTable.Row
+							className="cursor-pointer"
+							key={row.id}
+							onClick={() => {
+								window.alert(`Clicked payment row: ${row.original.id}`);
+							}}
+							row={row}
+						/>
+					))
 				) : (
 					<DataTable.EmptyRow>
 						<p className="flex items-center justify-center min-h-20">
@@ -427,12 +449,23 @@ function PaymentsExample() {
 		},
 	});
 
+	const rows = table.getRowModel().rows;
+
 	return (
 		<DataTable.Root table={table}>
 			<DataTable.Head />
 			<DataTable.Body>
-				{table.getRowModel().rows.length > 0 ? (
-					<DataTable.Rows />
+				{rows.length > 0 ? (
+					rows.map((row) => (
+						<DataTable.Row
+							className="cursor-pointer"
+							key={row.id}
+							onClick={() => {
+								window.alert(`Clicked payment row: ${row.original.id}`);
+							}}
+							row={row}
+						/>
+					))
 				) : (
 					<DataTable.EmptyRow>
 						<p className="flex items-center justify-center min-h-20">
