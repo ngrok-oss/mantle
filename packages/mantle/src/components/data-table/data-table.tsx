@@ -257,21 +257,6 @@ function Head<TData>(props: DataTableHeadProps) {
 	);
 }
 
-type RowsProps<TData> = {
-	children?: (row: TableRow<TData>) => ReactNode;
-};
-
-function Rows<TData>({ children }: RowsProps<TData>) {
-	const { table } = useDataTableContext<TData>();
-	const rows = table.getRowModel().rows;
-
-	if (typeof children === "function") {
-		return rows.map((row) => children(row));
-	}
-
-	return rows.map((row) => <Row key={row.id} row={row} />);
-}
-
 type DataTableRowProps<TData> = Omit<
 	ComponentProps<typeof Table.Row>,
 	"children"
@@ -333,7 +318,6 @@ Head.displayName = "DataTableHead";
 Header.displayName = "DataTableHeader";
 HeaderSortButton.displayName = "DataTableHeaderSortButton";
 Row.displayName = "DataTableRow";
-Rows.displayName = "DataTableRows";
 
 /**
  * A data table component that provides sorting and other data table functionality.
@@ -474,25 +458,6 @@ const DataTable = {
 	 * ```
 	 */
 	Row,
-	/**
-	 * Container that renders all table rows automatically from the table data.
-	 *
-	 * @see https://mantle.ngrok.com/components/data-table#api-data-table-rows
-	 *
-	 * @example
-	 * ```tsx
-	 * <DataTable.Rows />
-	 * ```
-	 *
-	 * If you want to customize the rendering of each row, you can pass a function as children:
-	 * ```tsx
-	 * <DataTable.Rows>
-	 *   {(row) => (
-	 *     <DataTable.Row key={row.id} row={row} onClick={() => onClickRow(row)} />
-	 *   )}
-	 * </DataTable.Rows>
-	 */
-	Rows,
 } as const;
 
 export {
