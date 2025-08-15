@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.51.1
+
+### Patch Changes
+
+- [#731](https://github.com/ngrok-oss/mantle/pull/731) [`cd19eb1`](https://github.com/ngrok-oss/mantle/commit/cd19eb172a1bcad11137eecb9a0bd5f32e192088) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - DropdownMenu: support tooltips on disabled dropdown menu items
+
 ## 0.51.0
 
 ### Minor Changes
