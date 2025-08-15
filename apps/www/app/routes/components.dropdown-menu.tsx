@@ -5,6 +5,7 @@ import { DropdownMenu } from "@ngrok/mantle/dropdown-menu";
 import { Icon } from "@ngrok/mantle/icon";
 import { InlineCode } from "@ngrok/mantle/inline-code";
 import type { Theme } from "@ngrok/mantle/theme-provider";
+import { Tooltip } from "@ngrok/mantle/tooltip";
 import { DesktopIcon } from "@phosphor-icons/react/Desktop";
 import { GearIcon } from "@phosphor-icons/react/Gear";
 import { MoonIcon } from "@phosphor-icons/react/Moon";
@@ -61,7 +62,7 @@ export default function Page() {
 								</Button>
 							</DropdownMenu.Trigger>
 							<DropdownMenu.Content>
-								<DropdownMenu.Label>micah@ngrok.com</DropdownMenu.Label>
+								<DropdownMenu.Label>corby.pickles@ngork.com</DropdownMenu.Label>
 								<DropdownMenu.Separator />
 								<DropdownMenu.RadioGroup
 									value={selectedTheme}
@@ -91,10 +92,20 @@ export default function Page() {
 									</DropdownMenu.RadioItem>
 								</DropdownMenu.RadioGroup>
 								<DropdownMenu.Separator />
-								<DropdownMenu.Item className="flex items-center gap-2">
-									<Icon svg={<GearIcon />} />
-									User Settings
-								</DropdownMenu.Item>
+								<Tooltip.Root>
+									<Tooltip.Trigger asChild>
+										<DropdownMenu.Item
+											className="flex items-center gap-2"
+											disabled
+										>
+											<Icon svg={<GearIcon />} />
+											User Settings
+										</DropdownMenu.Item>
+									</Tooltip.Trigger>
+									<Tooltip.Content side="left">
+										Only winners get user settings.
+									</Tooltip.Content>
+								</Tooltip.Root>
 								<DropdownMenu.Separator />
 								<DropdownMenu.CheckboxItem
 									checked={enableNotifications}
@@ -151,7 +162,7 @@ export default function Page() {
 								</Button>
 							</DropdownMenu.Trigger>
 							<DropdownMenu.Content width="trigger">
-								<DropdownMenu.Label>micah@ngrok.com</DropdownMenu.Label>
+								<DropdownMenu.Label>corby.pickles@ngork.com</DropdownMenu.Label>
 								<DropdownMenu.Separator />
 								<DropdownMenu.RadioGroup
 									value={selectedTheme}
@@ -245,7 +256,7 @@ export default function Page() {
 								<Button appearance="filled" type="button">Open Menu</Button>
 							</DropdownMenu.Trigger>
 							<DropdownMenu.Content>
-								<DropdownMenu.Label>micah@ngrok.com</DropdownMenu.Label>
+								<DropdownMenu.Label>corby.pickles@ngork.com</DropdownMenu.Label>
 								<DropdownMenu.Separator />
 								<DropdownMenu.RadioItem name="theme" value="system">
 									<Icon svg={<DesktopIcon />} />
