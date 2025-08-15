@@ -1,5 +1,15 @@
 # @ngrok/mantle
 
+## 0.51.0
+
+### Minor Changes
+
+- [#730](https://github.com/ngrok-oss/mantle/pull/730) [`e61565f`](https://github.com/ngrok-oss/mantle/commit/e61565f9dc66197c65f377afed37642a99822856) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - DataTable: remove DataTable.Rows convenience component; instead prefer to map over rows directly
+
+### Patch Changes
+
+- [#728](https://github.com/ngrok-oss/mantle/pull/728) [`521d59f`](https://github.com/ngrok-oss/mantle/commit/521d59ffe88f8af4aae54d49b365593eeef0621f) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update dependencies
+
 ## 0.50.4
 
 ### Patch Changes
