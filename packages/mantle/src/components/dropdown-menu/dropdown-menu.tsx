@@ -211,7 +211,10 @@ const Item = forwardRef<
 	<DropdownMenuPrimitive.Item
 		ref={ref}
 		className={cx(
-			"focus:bg-accent focus:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50 data-highlighted:bg-popover-hover data-active-item:dark:bg-popover-hover relative flex cursor-pointer select-none items-center rounded px-2 py-1.5 text-sm font-normal outline-hidden transition-colors",
+			"relative flex cursor-pointer select-none items-center rounded px-2 py-1.5 text-sm font-normal outline-hidden transition-colors",
+			"data-highlighted:bg-popover-hover data-active-item:dark:bg-popover-hover",
+			"focus:bg-accent focus:text-accent-foreground",
+			"data-disabled:cursor-default data-disabled:opacity-50",
 			"[&>svg]:size-5 [&_svg]:shrink-0",
 			inset && "pl-8",
 			className,
