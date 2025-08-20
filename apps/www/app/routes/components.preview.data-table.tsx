@@ -195,6 +195,12 @@ export default function Page() {
 											getSortedRowModel: getSortedRowModel(),
 											getFilteredRowModel: getFilteredRowModel(),
 											initialState: {
+												sorting: [
+													{
+														id: "email",
+														desc: false,
+													},
+												],
 												pagination: {
 													pageSize: 100,
 												},
@@ -397,6 +403,12 @@ function EmptyPaymentsExample() {
 		getSortedRowModel: getSortedRowModel(),
 		getFilteredRowModel: getFilteredRowModel(),
 		initialState: {
+			sorting: [
+				{
+					id: "email",
+					desc: false,
+				},
+			],
 			pagination: {
 				pageSize: 100,
 			},
@@ -443,6 +455,12 @@ function PaymentsExample() {
 		getSortedRowModel: getSortedRowModel(),
 		getFilteredRowModel: getFilteredRowModel(),
 		initialState: {
+			sorting: [
+				{
+					id: "email",
+					desc: false,
+				},
+			],
 			pagination: {
 				pageSize: 100,
 			},
