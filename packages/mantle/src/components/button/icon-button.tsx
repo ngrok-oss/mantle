@@ -1,7 +1,7 @@
 import { CircleNotchIcon } from "@phosphor-icons/react/CircleNotch";
 import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
-import { Children, cloneElement, forwardRef, isValidElement } from "react";
+import { Children, cloneElement, isValidElement } from "react";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 import type { VariantProps, WithAsChild } from "../../types/index.js";
 import { parseBooleanish } from "../../types/index.js";
@@ -138,65 +138,59 @@ type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
  * />
  * ```
  */
-const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
-	(
-		{
-			"aria-disabled": _ariaDisabled,
-			appearance,
-			asChild = false,
-			children,
+function IconButton({
+	"aria-disabled": _ariaDisabled,
+	appearance,
+	asChild = false,
+	children,
+	className,
+	disabled: _disabled,
+	icon: propIcon,
+	isLoading = false,
+	label,
+	size,
+	type,
+	...props
+}: IconButtonProps) {
+	const disabled = parseBooleanish(_ariaDisabled ?? _disabled ?? isLoading);
+	const icon = isLoading ? (
+		<CircleNotchIcon className="animate-spin" />
+	) : (
+		propIcon
+	);
+
+	const buttonProps = {
+		"aria-disabled": disabled,
+		"data-icon-button": true,
+		"data-loading": isLoading,
+		"data-size": size,
+		className: cx(
+			"icon-button",
+			iconButtonVariants({ appearance, isLoading, size }),
 			className,
-			disabled: _disabled,
-			icon: propIcon,
-			isLoading = false,
-			label,
-			size,
-			type,
-			...props
-		},
-		ref,
-	) => {
-		const disabled = parseBooleanish(_ariaDisabled ?? _disabled ?? isLoading);
-		const icon = isLoading ? (
-			<CircleNotchIcon className="animate-spin" />
-		) : (
-			propIcon
-		);
+		),
+		disabled,
+		...props,
+	};
 
-		const buttonProps = {
-			"aria-disabled": disabled,
-			"data-icon-button": true,
-			"data-loading": isLoading,
-			"data-size": size,
-			className: cx(
-				"icon-button",
-				iconButtonVariants({ appearance, isLoading, size }),
-				className,
-			),
-			disabled,
-			ref,
-			...props,
-		};
-
-		if (asChild) {
-			const singleChild = Children.only(children);
-			const isValidChild = isValidElement(singleChild);
-
-			return (
-				<Slot {...buttonProps}>
-					{isValidChild && cloneElement(singleChild, {}, <Icon svg={icon} />)}
-				</Slot>
-			);
-		}
+	if (asChild) {
+		const singleChild = Children.only(children);
+		const isValidChild = isValidElement(singleChild);
 
 		return (
-			<button {...buttonProps} type={type}>
-				<span className="sr-only">{label}</span>
-				<Icon svg={icon} />
-			</button>
+			<Slot {...buttonProps}>
+				{isValidChild && cloneElement(singleChild, {}, <Icon svg={icon} />)}
+			</Slot>
 		);
-	},
-);
+	}
+
+	return (
+		<button {...buttonProps} type={type}>
+			<span className="sr-only">{label}</span>
+			<Icon svg={icon} />
+		</button>
+	);
+}
 IconButton.displayName = "IconButton";
 
 export {

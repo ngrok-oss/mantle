@@ -2,13 +2,13 @@ import { CircleNotchIcon } from "@phosphor-icons/react/CircleNotch";
 import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
 import clsx from "clsx";
-import { Children, cloneElement, forwardRef, isValidElement } from "react";
 import type {
 	ButtonHTMLAttributes,
 	ComponentProps,
 	PropsWithChildren,
 	ReactNode,
 } from "react";
+import { Children, cloneElement, isValidElement } from "react";
 import invariant from "tiny-invariant";
 import { parseBooleanish } from "../../types/index.js";
 import type { VariantProps } from "../../types/variant-props.js";
@@ -197,88 +197,82 @@ type ButtonProps = ComponentProps<"button"> &
  * </Button>
  * ```
  */
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-	(
-		{
-			"aria-disabled": _ariaDisabled,
-			appearance = "outlined",
-			asChild,
-			children,
+function Button({
+	"aria-disabled": _ariaDisabled,
+	appearance = "outlined",
+	asChild,
+	children,
+	className,
+	disabled: _disabled,
+	icon: propIcon,
+	iconPlacement = "start",
+	isLoading = false,
+	priority = "default",
+	type,
+	...props
+}: ButtonProps) {
+	const disabled = parseBooleanish(_ariaDisabled ?? _disabled ?? isLoading);
+	const icon = isLoading ? (
+		<CircleNotchIcon className="animate-spin" />
+	) : (
+		propIcon
+	);
+
+	/**
+	 * If the button has an icon and is not a link, add padding-start or padding-end to the button depending on the icon placement.
+	 */
+	const hasSpecialIconPadding = icon && appearance !== "link";
+
+	const buttonProps = {
+		"aria-disabled": disabled,
+		className: cx(
+			buttonVariants({ appearance, priority, isLoading }),
+			hasSpecialIconPadding && iconPlacement === "start" && "ps-2.5",
+			hasSpecialIconPadding && iconPlacement === "end" && "pe-2.5",
 			className,
-			disabled: _disabled,
-			icon: propIcon,
-			iconPlacement = "start",
-			isLoading = false,
-			priority = "default",
-			type,
-			...props
-		},
-		ref,
-	) => {
-		const disabled = parseBooleanish(_ariaDisabled ?? _disabled ?? isLoading);
-		const icon = isLoading ? (
-			<CircleNotchIcon className="animate-spin" />
-		) : (
-			propIcon
+		),
+		"data-loading": isLoading,
+		disabled,
+		...props,
+	};
+
+	if (asChild) {
+		const singleChild = Children.only(children);
+		invariant(
+			isValidElement<ButtonProps>(singleChild),
+			"When using `asChild`, Button must be passed a single child as a JSX tag.",
 		);
-
-		/**
-		 * If the button has an icon and is not a link, add padding-start or padding-end to the button depending on the icon placement.
-		 */
-		const hasSpecialIconPadding = icon && appearance !== "link";
-
-		const buttonProps = {
-			"aria-disabled": disabled,
-			className: cx(
-				buttonVariants({ appearance, priority, isLoading }),
-				hasSpecialIconPadding && iconPlacement === "start" && "ps-2.5",
-				hasSpecialIconPadding && iconPlacement === "end" && "pe-2.5",
-				className,
-			),
-			"data-loading": isLoading,
-			disabled,
-			ref,
-			...props,
-		};
-
-		if (asChild) {
-			const singleChild = Children.only(children);
-			invariant(
-				isValidElement<ButtonProps>(singleChild),
-				"When using `asChild`, Button must be passed a single child as a JSX tag.",
-			);
-			const grandchildren = singleChild.props?.children;
-
-			return (
-				<Slot {...buttonProps}>
-					{cloneElement(
-						singleChild,
-						{},
-						<InnerContent
-							appearance={appearance}
-							icon={icon}
-							iconPlacement={iconPlacement}
-						>
-							{grandchildren}
-						</InnerContent>,
-					)}
-				</Slot>
-			);
-		}
+		const grandchildren = singleChild.props?.children;
 
 		return (
-			<button {...buttonProps} type={type}>
-				<InnerContent
-					appearance={appearance}
-					icon={icon}
-					iconPlacement={iconPlacement}
-				>
-					{children}
-				</InnerContent>
-			</button>
+			<Slot {...buttonProps}>
+				{cloneElement(
+					singleChild,
+					{},
+					<InnerContent
+						appearance={appearance}
+						icon={icon}
+						iconPlacement={iconPlacement}
+					>
+						{grandchildren}
+					</InnerContent>,
+				)}
+			</Slot>
 		);
-	},
-);
+	}
+
+	return (
+		<button {...buttonProps} type={type}>
+			<InnerContent
+				appearance={appearance}
+				icon={icon}
+				iconPlacement={iconPlacement}
+			>
+				{children}
+			</InnerContent>
+		</button>
+	);
+}
 Button.displayName = "Button";
 
 export {
@@ -289,9 +283,9 @@ export {
 
 export type {
 	//,
-	ButtonProps,
 	ButtonAppearance,
 	ButtonPriority,
+	ButtonProps,
 };
 
 type InnerContentProps = PropsWithChildren &
