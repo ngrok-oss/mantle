@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.51.2
+
+### Patch Changes
+
+- [#733](https://github.com/ngrok-oss/mantle/pull/733) [`55565dc`](https://github.com/ngrok-oss/mantle/commit/55565dcbb954f938f4f08ec2171959532a595813) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update react-day-picker and tw-animate-css
+
 ## 0.51.1
 
 ### Patch Changes
