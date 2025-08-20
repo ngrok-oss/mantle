@@ -291,25 +291,27 @@ export type {
 type InnerContentProps = PropsWithChildren &
 	Pick<ButtonProps, "appearance" | "icon" | "iconPlacement">;
 
-const InnerContent = ({
+function InnerContent({
 	appearance,
 	children,
 	icon,
 	iconPlacement,
-}: InnerContentProps) => (
-	<span
-		className={clsx(
-			"inline-flex items-center gap-1.5 focus-within:outline-hidden focus-visible:outline-hidden",
-			appearance === "link" &&
-				"hover:underline group-disabled/button-link:no-underline",
-		)}
-	>
-		{icon && (
-			<Icon
-				svg={icon}
-				className={clsx(iconPlacement === "end" && "order-last")}
-			/>
-		)}
-		{children}
-	</span>
-);
+}: InnerContentProps) {
+	return (
+		<span
+			className={clsx(
+				"inline-flex items-center gap-1.5 focus-within:outline-hidden focus-visible:outline-hidden",
+				appearance === "link" &&
+					"hover:underline group-disabled/button-link:no-underline",
+			)}
+		>
+			{icon && (
+				<Icon
+					svg={icon}
+					className={clsx(iconPlacement === "end" && "order-last")}
+				/>
+			)}
+			{children}
+		</span>
+	);
+}
