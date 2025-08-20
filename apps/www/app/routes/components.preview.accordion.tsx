@@ -48,7 +48,7 @@ export default function Page() {
 				</p>
 				<div>
 					<Example className="flex-col gap-6">
-						<Accordion
+						<Accordion.Root
 							type="multiple"
 							defaultValue={["on_tcp_connect", "on_http_response"]}
 						>
@@ -149,7 +149,7 @@ export default function Page() {
 									</p>
 								</Accordion.Content>
 							</Accordion.Item>
-						</Accordion>
+						</Accordion.Root>
 					</Example>
 					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
 						<CodeBlock.Body>
@@ -162,7 +162,7 @@ export default function Page() {
 									import { Button } from "@ngrok/mantle/button";
 									import { Card } from "@ngrok/mantle/card";
 
-									<Accordion type="multiple" defaultValue={["on_tcp_connect", "on_http_response"]}>
+									<Accordion.Root type="multiple" defaultValue={["on_tcp_connect", "on_http_response"]}>
 										<Accordion.Item value="on_tcp_connect">
 											<Accordion.Heading className="mx-4 flex items-center gap-2" asChild>
 												<h2>
@@ -227,7 +227,7 @@ export default function Page() {
 												<p className="text-center">This phase does not have any rules defined</p>
 											</Accordion.Content>
 										</Accordion.Item>
-									</Accordion>
+									</Accordion.Root>
 								`}
 							/>
 						</CodeBlock.Body>

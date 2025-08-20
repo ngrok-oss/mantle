@@ -794,4 +794,7 @@ const Dialog = {
 	Trigger,
 } as const;
 
-export { Dialog };
+export {
+	//,
+	Dialog,
+};
