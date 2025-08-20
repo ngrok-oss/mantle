@@ -4,6 +4,14 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    groups:
+      react-router:
+        patterns:
+          - "@react-router/dev"
+          - "@react-router/fs-routes"
+          - "@react-router/node"
+          - "@react-router/serve"
+          - "react-router"
 
   - package-ecosystem: "github-actions"
     directory: "/"
