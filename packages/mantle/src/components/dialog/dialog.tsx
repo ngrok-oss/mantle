@@ -1,10 +1,5 @@
 import { XIcon } from "@phosphor-icons/react/X";
-import type {
-	ComponentProps,
-	ComponentPropsWithoutRef,
-	ComponentRef,
-} from "react";
-import { forwardRef } from "react";
+import type { ComponentProps } from "react";
 import { cx } from "../../utils/cx/cx.js";
 import { IconButton, type IconButtonProps } from "../button/icon-button.js";
 import { preventCloseOnPromptInteraction } from "../toast/toast.js";
@@ -80,22 +75,23 @@ Portal.displayName = "DialogPortal";
 const Close = DialogPrimitive.Close;
 Close.displayName = "DialogClose";
 
-const Overlay = forwardRef<
-	ComponentRef<"div">,
-	ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
->(({ className, ...props }, ref) => (
-	<DialogPrimitive.Overlay
-		ref={ref}
-		className={cx(
-			"bg-overlay data-state-closed:animate-out data-state-closed:fade-out-0 data-state-open:animate-in data-state-open:fade-in-0 fixed inset-0 z-50 backdrop-blur-xs",
-			className,
-		)}
-		{...props}
-	/>
-));
+function Overlay({
+	className,
+	...props
+}: ComponentProps<typeof DialogPrimitive.Overlay>) {
+	return (
+		<DialogPrimitive.Overlay
+			className={cx(
+				"bg-overlay data-state-closed:animate-out data-state-closed:fade-out-0 data-state-open:animate-in data-state-open:fade-in-0 fixed inset-0 z-50 backdrop-blur-xs",
+				className,
+			)}
+			{...props}
+		/>
+	);
+}
 Overlay.displayName = "DialogOverlay";
 
-type ContentProps = ComponentPropsWithoutRef<typeof DialogPrimitive.Content> & {
+type ContentProps = ComponentProps<typeof DialogPrimitive.Content> & {
 	/**
 	 * The preferred width of the `Dialog.Content` as a tailwind `max-w-` class.
 	 *
@@ -141,18 +137,15 @@ type ContentProps = ComponentPropsWithoutRef<typeof DialogPrimitive.Content> & {
  * </Dialog.Root>
  * ```
  */
-const Content = forwardRef<ComponentRef<"div">, ContentProps>(
-	(
-		{
-			children,
-			className,
-			onInteractOutside,
-			onPointerDownOutside,
-			preferredWidth = "max-w-lg",
-			...props
-		},
-		ref,
-	) => (
+function Content({
+	children,
+	className,
+	onInteractOutside,
+	onPointerDownOutside,
+	preferredWidth = "max-w-lg",
+	...props
+}: ContentProps) {
+	return (
 		<Portal>
 			<Overlay />
 			<div className="fixed inset-4 z-50 flex items-center justify-center">
@@ -173,15 +166,14 @@ const Content = forwardRef<ComponentRef<"div">, ContentProps>(
 						preventCloseOnPromptInteraction(event);
 						onPointerDownOutside?.(event);
 					}}
-					ref={ref}
 					{...props}
 				>
 					{children}
 				</DialogPrimitive.Content>
 			</div>
 		</Portal>
-	),
-);
+	);
+}
 Content.displayName = "DialogContent";
 
 /**
@@ -370,16 +362,18 @@ Footer.displayName = "DialogFooter";
  * </Dialog.Root>
  * ```
  */
-const Title = forwardRef<
-	ComponentRef<typeof DialogPrimitive.Title>,
-	ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
->(({ className, ...props }, ref) => (
-	<DialogPrimitive.Title
-		ref={ref}
-		className={cx("text-strong truncate text-lg font-medium", className)}
-		{...props}
-	/>
-));
+function Title({
+	className,
+	...props
+}: ComponentProps<typeof DialogPrimitive.Title>) {
+	return (
+		<DialogPrimitive.Title
+			//
+			className={cx("text-strong truncate text-lg font-medium", className)}
+			{...props}
+		/>
+	);
+}
 Title.displayName = "DialogTitle";
 
 /**
@@ -411,16 +405,18 @@ Title.displayName = "DialogTitle";
  * </Dialog.Root>
  * ```
  */
-const Description = forwardRef<
-	ComponentRef<typeof DialogPrimitive.Description>,
-	ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
->(({ className, ...props }, ref) => (
-	<DialogPrimitive.Description
-		ref={ref}
-		className={cx("text-muted", className)}
-		{...props}
-	/>
-));
+function Description({
+	className,
+	...props
+}: ComponentProps<typeof DialogPrimitive.Description>) {
+	return (
+		<DialogPrimitive.Description
+			//
+			className={cx("text-muted", className)}
+			{...props}
+		/>
+	);
+}
 Description.displayName = "DialogDescription";
 
 /**

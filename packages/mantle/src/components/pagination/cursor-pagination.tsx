@@ -5,9 +5,7 @@ import { CaretRightIcon } from "@phosphor-icons/react/CaretRight";
 import { Slot } from "@radix-ui/react-slot";
 import {
 	type ComponentProps,
-	type ComponentRef,
 	createContext,
-	forwardRef,
 	useContext,
 	useState,
 } from "react";
@@ -68,29 +66,31 @@ type CursorPaginationProps = ComponentProps<"div"> & {
  * </CursorPagination>
  * ```
  */
-const Root = forwardRef<HTMLDivElement, CursorPaginationProps>(
-	({ className, children, defaultPageSize, ...props }, ref) => {
-		const [pageSize, setPageSize] = useState<number>(defaultPageSize);
+function Root({
+	className,
+	children,
+	defaultPageSize,
+	...props
+}: CursorPaginationProps) {
+	const [pageSize, setPageSize] = useState<number>(defaultPageSize);
 
-		return (
-			<CursorPaginationContext.Provider
-				value={{ defaultPageSize, pageSize, setPageSize }}
+	return (
+		<CursorPaginationContext.Provider
+			value={{ defaultPageSize, pageSize, setPageSize }}
+		>
+			<div
+				className={cx(
+					"inline-flex items-center justify-between gap-2",
+					className,
+				)}
+				{...props}
 			>
-				<div
-					className={cx(
-						"inline-flex items-center justify-between gap-2",
-						className,
-					)}
-					ref={ref}
-					{...props}
-				>
-					{children}
-				</div>
-			</CursorPaginationContext.Provider>
-		);
-	},
-);
-Root.displayName = "CursorPagination";
+				{children}
+			</div>
+		</CursorPaginationContext.Provider>
+	);
+}
+Root.displayName = "CursorPaginationRoot";
 
 type CursorButtonsProps = Omit<
 	ComponentProps<typeof ButtonGroup>,
@@ -129,41 +129,39 @@ type CursorButtonsProps = Omit<
  * />
  * ```
  */
-const Buttons = forwardRef<
-	ComponentRef<typeof ButtonGroup>,
-	CursorButtonsProps
->(
-	(
-		{ hasNextPage, hasPreviousPage, onNextPage, onPreviousPage, ...props },
-		ref,
-	) => {
-		// TODO(cody): this _feels_ like a good spot for left and right arrow keys to navigate between pages when focused on the buttons
+function Buttons({
+	hasNextPage,
+	hasPreviousPage,
+	onNextPage,
+	onPreviousPage,
+	...props
+}: CursorButtonsProps) {
+	// TODO(cody): this _feels_ like a good spot for left and right arrow keys to navigate between pages when focused on the buttons
 
-		return (
-			<ButtonGroup appearance="panel" ref={ref} {...props}>
-				<IconButton
-					appearance="ghost"
-					disabled={!hasPreviousPage}
-					icon={<CaretLeftIcon />}
-					label="Previous page"
-					onClick={onPreviousPage}
-					size="sm"
-					type="button"
-				/>
-				<Separator orientation="vertical" className="min-h-5" />
-				<IconButton
-					appearance="ghost"
-					disabled={!hasNextPage}
-					icon={<CaretRightIcon />}
-					label="Next page"
-					onClick={onNextPage}
-					size="sm"
-					type="button"
-				/>
-			</ButtonGroup>
-		);
-	},
-);
+	return (
+		<ButtonGroup appearance="panel" {...props}>
+			<IconButton
+				appearance="ghost"
+				disabled={!hasPreviousPage}
+				icon={<CaretLeftIcon />}
+				label="Previous page"
+				onClick={onPreviousPage}
+				size="sm"
+				type="button"
+			/>
+			<Separator orientation="vertical" className="min-h-5" />
+			<IconButton
+				appearance="ghost"
+				disabled={!hasNextPage}
+				icon={<CaretRightIcon />}
+				label="Next page"
+				onClick={onNextPage}
+				size="sm"
+				type="button"
+			/>
+		</ButtonGroup>
+	);
+}
 Buttons.displayName = "CursorButtons";
 
 const defaultPageSizes = [5, 10, 20, 50, 100] as const;
@@ -195,62 +193,58 @@ type CursorPageSizeSelectProps = Omit<
  * />
  * ```
  */
-const PageSizeSelect = forwardRef<
-	ComponentRef<typeof Select.Trigger>,
-	CursorPageSizeSelectProps
->(
-	(
-		{ className, pageSizes = defaultPageSizes, onChangePageSize, ...rest },
-		ref,
-	) => {
-		const ctx = useContext(CursorPaginationContext);
+function PageSizeSelect({
+	className,
+	pageSizes = defaultPageSizes,
+	onChangePageSize,
+	...rest
+}: CursorPageSizeSelectProps) {
+	const ctx = useContext(CursorPaginationContext);
 
-		invariant(
-			ctx,
-			"CursorPageSizeSelect must be used as a child of a CursorPagination component",
-		);
+	invariant(
+		ctx,
+		"CursorPageSizeSelect must be used as a child of a CursorPagination component",
+	);
 
-		invariant(
-			pageSizes.includes(ctx.defaultPageSize),
-			"CursorPagination.defaultPageSize must be included in CursorPageSizeSelect.pageSizes",
-		);
+	invariant(
+		pageSizes.includes(ctx.defaultPageSize),
+		"CursorPagination.defaultPageSize must be included in CursorPageSizeSelect.pageSizes",
+	);
 
-		invariant(
-			pageSizes.includes(ctx.pageSize),
-			"CursorPagination.pageSize must be included in CursorPageSizeSelect.pageSizes",
-		);
+	invariant(
+		pageSizes.includes(ctx.pageSize),
+		"CursorPagination.pageSize must be included in CursorPageSizeSelect.pageSizes",
+	);
 
-		return (
-			<Select.Root
-				defaultValue={`${ctx.pageSize}`}
-				onValueChange={(value) => {
-					let newPageSize = Number.parseInt(value, 10);
-					if (Number.isNaN(newPageSize)) {
-						newPageSize = ctx.defaultPageSize;
-					}
-					ctx.setPageSize(newPageSize);
-					onChangePageSize?.(newPageSize);
-				}}
+	return (
+		<Select.Root
+			defaultValue={`${ctx.pageSize}`}
+			onValueChange={(value) => {
+				let newPageSize = Number.parseInt(value, 10);
+				if (Number.isNaN(newPageSize)) {
+					newPageSize = ctx.defaultPageSize;
+				}
+				ctx.setPageSize(newPageSize);
+				onChangePageSize?.(newPageSize);
+			}}
+		>
+			<Select.Trigger
+				className={cx("w-auto min-w-36", className)}
+				value={ctx.pageSize}
+				{...rest}
 			>
-				<Select.Trigger
-					ref={ref}
-					className={cx("w-auto min-w-36", className)}
-					value={ctx.pageSize}
-					{...rest}
-				>
-					<Select.Value />
-				</Select.Trigger>
-				<Select.Content width="trigger">
-					{pageSizes.map((size) => (
-						<Select.Item key={size} value={`${size}`}>
-							{size} per page
-						</Select.Item>
-					))}
-				</Select.Content>
-			</Select.Root>
-		);
-	},
-);
+				<Select.Value />
+			</Select.Trigger>
+			<Select.Content width="trigger">
+				{pageSizes.map((size) => (
+					<Select.Item key={size} value={`${size}`}>
+						{size} per page
+					</Select.Item>
+				))}
+			</Select.Content>
+		</Select.Root>
+	);
+}
 PageSizeSelect.displayName = "CursorPageSizeSelect";
 
 type CursorPageSizeValueProps = Omit<ComponentProps<"span">, "children"> &

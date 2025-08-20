@@ -5,7 +5,6 @@ import { WarningIcon } from "@phosphor-icons/react/Warning";
 import { Slot } from "@radix-ui/react-slot";
 import {
 	type ComponentProps,
-	type ComponentRef,
 	type ReactNode,
 	createContext,
 	useContext,
@@ -412,6 +411,9 @@ Footer.displayName = "AlertDialogFooter";
 
 /**
  * An accessible name to be announced when the dialog is opened.
+ *
+ * Normally renders as an `h2` element, but can be overridden with `asChild`
+ * to render as a different heading element.
  *
  * Alternatively, you can provide `aria-label` or `aria-labelledby` to
  * `AlertDialogContent` and exclude this component.

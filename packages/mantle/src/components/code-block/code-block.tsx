@@ -9,7 +9,6 @@ import { Slot } from "@radix-ui/react-slot";
 import clsx from "clsx";
 import type {
 	ComponentProps,
-	ComponentRef,
 	Dispatch,
 	ReactNode,
 	SetStateAction,

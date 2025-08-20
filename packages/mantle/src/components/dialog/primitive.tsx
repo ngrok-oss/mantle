@@ -3,10 +3,9 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { Slot } from "@radix-ui/react-slot";
 import {
+	type ComponentProps,
 	type ComponentPropsWithoutRef,
-	type ComponentRef,
 	createContext,
-	forwardRef,
 	useContext,
 	useEffect,
 	useState,
@@ -22,7 +21,7 @@ const InternalDialogContext = createContext<InternalDialogContextValue>({
 	setHasDescription: () => {},
 });
 
-function Root(props: ComponentPropsWithoutRef<typeof DialogPrimitive.Root>) {
+function Root(props: ComponentProps<typeof DialogPrimitive.Root>) {
 	const [hasDescription, setHasDescription] = useState(false);
 
 	return (
@@ -51,34 +50,39 @@ Overlay.displayName = "DialogPrimitiveOverlay";
  * The main content container of the dialog primitive.
  * This is a low-level primitive used by higher-level dialog components.
  */
-const Content = forwardRef<
-	ComponentRef<"div">,
-	ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
->((props, ref) => {
+function Content(props: ComponentProps<typeof DialogPrimitive.Content>) {
 	const ctx = useContext(InternalDialogContext);
 
 	return (
 		<DialogPrimitive.Content
-			ref={ref}
 			// If there's no description, we remove the default applied aria-describedby attribute from radix dialog
 			{...(!ctx.hasDescription ? { "aria-describedby": undefined } : {})}
 			{...props}
 		/>
 	);
-});
+}
 Content.displayName = "DialogPrimitiveContent";
 
+/**
+ * An accessible title for the dialog primitive.
+ * This is a low-level primitive used by higher-level dialog components.
+ *
+ * Normally renders as an `h2` element, but can be overridden with `asChild`
+ * to render as a different heading element.
+ */
 const Title = DialogPrimitive.Title;
+
+type DescriptionProps = ComponentPropsWithoutRef<
+	typeof DialogPrimitive.Description
+> &
+	Pick<ComponentProps<"div">, "ref">;
 
 /**
  * An accessible description for the dialog primitive.
  * This is a low-level primitive used by higher-level dialog components.
  * Renders as a `div` by default, but can be changed to any other element using the `asChild` prop.
  */
-const Description = forwardRef<
-	ComponentRef<"div">,
-	ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
->(({ asChild, children, ...props }, ref) => {
+function Description(props: DescriptionProps) {
 	const ctx = useContext(InternalDialogContext);
 
 	useEffect(() => {
@@ -86,14 +90,8 @@ const Description = forwardRef<
 		return () => ctx.setHasDescription(false);
 	}, [ctx]);
 
-	const Component = asChild ? Slot : "div";
-
-	return (
-		<DialogPrimitive.Description ref={ref} asChild>
-			<Component {...props}>{children}</Component>
-		</DialogPrimitive.Description>
-	);
-});
+	return <DialogPrimitive.Description {...props} />;
+}
 Description.displayName = "DialogPrimitiveDescription";
 
 export {

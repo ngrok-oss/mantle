@@ -1,5 +1,4 @@
-import { forwardRef } from "react";
-import type { HTMLAttributes } from "react";
+import type { ComponentProps } from "react";
 import { cx } from "../../utils/cx/cx.js";
 
 /**
@@ -14,18 +13,18 @@ import { cx } from "../../utils/cx/cx.js";
  * </p>
  * ```
  */
-const Code = forwardRef<HTMLSpanElement, HTMLAttributes<HTMLSpanElement>>(
-	({ className, ...props }, ref) => (
+function Code({ className, ...props }: ComponentProps<"code">) {
+	return (
 		<code
-			ref={ref}
+			//
 			className={cx(
 				"border-card rounded-md border bg-gray-500/5 px-1 py-0.5 font-mono text-[0.8em]",
 				className,
 			)}
 			{...props}
 		/>
-	),
-);
+	);
+}
 Code.displayName = "Code";
 
 export {

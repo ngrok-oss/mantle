@@ -1,8 +1,7 @@
 "use client";
 
 import * as HoverCardPrimitive from "@radix-ui/react-hover-card";
-import { forwardRef } from "react";
-import type { ComponentPropsWithoutRef, ComponentRef } from "react";
+import type { ComponentProps } from "react";
 import { cx } from "../../utils/cx/cx.js";
 
 /**
@@ -25,18 +24,20 @@ import { cx } from "../../utils/cx/cx.js";
  * </HoverCard.Root>
  * ```
  */
-const Root = ({
+function Root({
 	closeDelay = 300,
 	openDelay = 100,
 	...props
-}: ComponentPropsWithoutRef<typeof HoverCardPrimitive.Root>) => (
-	<HoverCardPrimitive.Root
-		closeDelay={closeDelay}
-		openDelay={openDelay}
-		{...props}
-	/>
-);
-Root.displayName = "HoverCard";
+}: ComponentProps<typeof HoverCardPrimitive.Root>) {
+	return (
+		<HoverCardPrimitive.Root
+			closeDelay={closeDelay}
+			openDelay={openDelay}
+			{...props}
+		/>
+	);
+}
+Root.displayName = "HoverCardRoot";
 
 /**
  * The trigger element that opens the hover card when hovered.
@@ -88,31 +89,35 @@ Portal.displayName = "HoverCardPortal";
  * </HoverCard.Root>
  * ```
  */
-const Content = forwardRef<
-	ComponentRef<typeof HoverCardPrimitive.Content>,
-	ComponentPropsWithoutRef<typeof HoverCardPrimitive.Content>
->(({ className, onClick, align = "center", sideOffset = 4, ...props }, ref) => (
-	<Portal>
-		<HoverCardPrimitive.Content
-			ref={ref}
-			align={align}
-			sideOffset={sideOffset}
-			className={cx(
-				"bg-popover border-popover z-50 w-64 rounded-md border p-4 shadow-md outline-hidden",
-				"data-state-open:animate-in data-state-closed:animate-out data-state-closed:fade-out-0 data-state-open:fade-in-0 data-state-closed:zoom-out-95 data-state-open:zoom-in-95 data-side-bottom:slide-in-from-top-2 data-side-left:slide-in-from-right-2 data-side-right:slide-in-from-left-2 data-side-top:slide-in-from-bottom-2",
-				className,
-			)}
-			onClick={(event) => {
-				/**
-				 * Prevent the click event from propagating up to parent/containing elements
-				 */
-				event.stopPropagation();
-				onClick?.(event);
-			}}
-			{...props}
-		/>
-	</Portal>
-));
+function Content({
+	className,
+	onClick,
+	align = "center",
+	sideOffset = 4,
+	...props
+}: ComponentProps<typeof HoverCardPrimitive.Content>) {
+	return (
+		<Portal>
+			<HoverCardPrimitive.Content
+				align={align}
+				sideOffset={sideOffset}
+				className={cx(
+					"bg-popover border-popover z-50 w-64 rounded-md border p-4 shadow-md outline-hidden",
+					"data-state-open:animate-in data-state-closed:animate-out data-state-closed:fade-out-0 data-state-open:fade-in-0 data-state-closed:zoom-out-95 data-state-open:zoom-in-95 data-side-bottom:slide-in-from-top-2 data-side-left:slide-in-from-right-2 data-side-right:slide-in-from-left-2 data-side-top:slide-in-from-bottom-2",
+					className,
+				)}
+				onClick={(event) => {
+					/**
+					 * Prevent the click event from propagating up to parent/containing elements
+					 */
+					event.stopPropagation();
+					onClick?.(event);
+				}}
+				{...props}
+			/>
+		</Portal>
+	);
+}
 Content.displayName = HoverCardPrimitive.Content.displayName;
 
 /**
