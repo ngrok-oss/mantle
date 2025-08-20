@@ -18,7 +18,7 @@ import { Icon, type IconProps } from "../icon/icon.js";
  *
  * @example
  * ```tsx
- * <Accordion type="single" collapsible>
+ * <Accordion.Root type="single" collapsible>
  *   <Accordion.Item value="item-1">
  *     <Accordion.Heading>
  *       <Accordion.Trigger>
@@ -30,7 +30,7 @@ import { Icon, type IconProps } from "../icon/icon.js";
  *       Yes. It adheres to the WAI-ARIA design pattern.
  *     </Accordion.Content>
  *   </Accordion.Item>
- * </Accordion>
+ * </Accordion.Root>
  * ```
  */
 const Root = forwardRef<
@@ -53,7 +53,7 @@ Root.displayName = "Accordion";
  *
  * @example
  * ```tsx
- * <Accordion type="single" collapsible>
+ * <Accordion.Root type="single" collapsible>
  *   <Accordion.Item value="item-1">
  *     <Accordion.Heading>
  *       <Accordion.Trigger>
@@ -65,7 +65,7 @@ Root.displayName = "Accordion";
  *       Yes. It adheres to the WAI-ARIA design pattern.
  *     </Accordion.Content>
  *   </Accordion.Item>
- * </Accordion>
+ * </Accordion.Root>
  * ```
  */
 const Item = AccordionPrimitive.Item;
@@ -79,7 +79,7 @@ Item.displayName = "AccordionItem";
  *
  * @example
  * ```tsx
- * <Accordion type="single" collapsible>
+ * <Accordion.Root type="single" collapsible>
  *   <Accordion.Item value="item-1">
  *     <Accordion.Heading>
  *       <Accordion.Trigger>
@@ -91,7 +91,7 @@ Item.displayName = "AccordionItem";
  *       Yes. It adheres to the WAI-ARIA design pattern.
  *     </Accordion.Content>
  *   </Accordion.Item>
- * </Accordion>
+ * </Accordion.Root>
  * ```
  */
 const Heading = forwardRef<
@@ -114,7 +114,7 @@ Heading.displayName = "AccordionHeading";
  *
  * @example
  * ```tsx
- * <Accordion type="single" collapsible>
+ * <Accordion.Root type="single" collapsible>
  *   <Accordion.Item value="item-1">
  *     <Accordion.Heading>
  *       <Accordion.Trigger>
@@ -126,7 +126,7 @@ Heading.displayName = "AccordionHeading";
  *       Yes. It adheres to the WAI-ARIA design pattern.
  *     </Accordion.Content>
  *   </Accordion.Item>
- * </Accordion>
+ * </Accordion.Root>
  * ```
  */
 const Trigger = forwardRef<
@@ -151,7 +151,7 @@ Trigger.displayName = "AccordionTrigger";
  *
  * @example
  * ```tsx
- * <Accordion type="single" collapsible>
+ * <Accordion.Root type="single" collapsible>
  *   <Accordion.Item value="item-1">
  *     <Accordion.Heading>
  *       <Accordion.Trigger>
@@ -163,7 +163,7 @@ Trigger.displayName = "AccordionTrigger";
  *       Yes. It adheres to the WAI-ARIA design pattern.
  *     </Accordion.Content>
  *   </Accordion.Item>
- * </Accordion>
+ * </Accordion.Root>
  * ```
  */
 const TriggerIcon = ({ className, ...props }: Omit<IconProps, "svg">) => (
@@ -183,7 +183,7 @@ TriggerIcon.displayName = "AccordionTriggerIcon";
  *
  * @example
  * ```tsx
- * <Accordion type="single" collapsible>
+ * <Accordion.Root type="single" collapsible>
  *   <Accordion.Item value="item-1">
  *     <Accordion.Heading>
  *       <Accordion.Trigger>
@@ -195,7 +195,7 @@ TriggerIcon.displayName = "AccordionTriggerIcon";
  *       Yes. It adheres to the WAI-ARIA design pattern.
  *     </Accordion.Content>
  *   </Accordion.Item>
- * </Accordion>
+ * </Accordion.Root>
  * ```
  */
 const Content = forwardRef<
@@ -222,7 +222,7 @@ Content.displayName = "AccordionContent";
  *
  * @example
  * ```tsx
- * <Accordion type="single" collapsible>
+ * <Accordion.Root type="single" collapsible>
  *   <Accordion.Item value="item-1">
  *     <Accordion.Heading>
  *       <Accordion.Trigger>
@@ -234,7 +234,7 @@ Content.displayName = "AccordionContent";
  *       Yes. It adheres to the WAI-ARIA design pattern.
  *     </Accordion.Content>
  *   </Accordion.Item>
- * </Accordion>
+ * </Accordion.Root>
  * ```
  */
 const Accordion = {
@@ -246,7 +246,7 @@ const Accordion = {
 	 *
 	 * @example
 	 * ```tsx
-	 * <Accordion type="single" collapsible>
+	 * <Accordion.Root type="single" collapsible>
 	 *   <Accordion.Item value="item-1">
 	 *     <Accordion.Heading>
 	 *       <Accordion.Trigger>
@@ -258,7 +258,7 @@ const Accordion = {
 	 *       Yes. It adheres to the WAI-ARIA design pattern.
 	 *     </Accordion.Content>
 	 *   </Accordion.Item>
-	 * </Accordion>
+	 * </Accordion.Root>
 	 * ```
 	 */
 	Root,
@@ -270,7 +270,7 @@ const Accordion = {
 	 *
 	 * @example
 	 * ```tsx
-	 * <Accordion type="single" collapsible>
+	 * <Accordion.Root type="single" collapsible>
 	 *   <Accordion.Item value="item-1">
 	 *     <Accordion.Heading>
 	 *       <Accordion.Trigger>
@@ -282,7 +282,7 @@ const Accordion = {
 	 *       Yes. It adheres to the WAI-ARIA design pattern.
 	 *     </Accordion.Content>
 	 *   </Accordion.Item>
-	 * </Accordion>
+	 * </Accordion.Root>
 	 * ```
 	 */
 	Content,
@@ -294,7 +294,7 @@ const Accordion = {
 	 *
 	 * @example
 	 * ```tsx
-	 * <Accordion type="single" collapsible>
+	 * <Accordion.Root type="single" collapsible>
 	 *   <Accordion.Item value="item-1">
 	 *     <Accordion.Heading>
 	 *       <Accordion.Trigger>
@@ -306,7 +306,7 @@ const Accordion = {
 	 *       Yes. It adheres to the WAI-ARIA design pattern.
 	 *     </Accordion.Content>
 	 *   </Accordion.Item>
-	 * </Accordion>
+	 * </Accordion.Root>
 	 * ```
 	 */
 	Heading,
@@ -318,7 +318,7 @@ const Accordion = {
 	 *
 	 * @example
 	 * ```tsx
-	 * <Accordion type="single" collapsible>
+	 * <Accordion.Root type="single" collapsible>
 	 *   <Accordion.Item value="item-1">
 	 *     <Accordion.Heading>
 	 *       <Accordion.Trigger>
@@ -330,7 +330,7 @@ const Accordion = {
 	 *       Yes. It adheres to the WAI-ARIA design pattern.
 	 *     </Accordion.Content>
 	 *   </Accordion.Item>
-	 * </Accordion>
+	 * </Accordion.Root>
 	 * ```
 	 */
 	Item,
@@ -342,7 +342,7 @@ const Accordion = {
 	 *
 	 * @example
 	 * ```tsx
-	 * <Accordion type="single" collapsible>
+	 * <Accordion.Root type="single" collapsible>
 	 *   <Accordion.Item value="item-1">
 	 *     <Accordion.Heading>
 	 *       <Accordion.Trigger>
@@ -354,7 +354,7 @@ const Accordion = {
 	 *       Yes. It adheres to the WAI-ARIA design pattern.
 	 *     </Accordion.Content>
 	 *   </Accordion.Item>
-	 * </Accordion>
+	 * </Accordion.Root>
 	 * ```
 	 */
 	Trigger,
@@ -366,7 +366,7 @@ const Accordion = {
 	 *
 	 * @example
 	 * ```tsx
-	 * <Accordion type="single" collapsible>
+	 * <Accordion.Root type="single" collapsible>
 	 *   <Accordion.Item value="item-1">
 	 *     <Accordion.Heading>
 	 *       <Accordion.Trigger>
@@ -378,7 +378,7 @@ const Accordion = {
 	 *       Yes. It adheres to the WAI-ARIA design pattern.
 	 *     </Accordion.Content>
 	 *   </Accordion.Item>
-	 * </Accordion>
+	 * </Accordion.Root>
 	 * ```
 	 */
 	TriggerIcon,
