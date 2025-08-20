@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.51.3
+
+### Patch Changes
+
+- [#740](https://github.com/ngrok-oss/mantle/pull/740) [`bbfd6d4`](https://github.com/ngrok-oss/mantle/commit/bbfd6d418d51e8780c108fb905c42fbdb44e95ec) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Accordion: fix export object for compound component definition
+
 ## 0.51.2
 
 ### Patch Changes
