@@ -11,13 +11,11 @@ import type {
 	ComponentProps,
 	ComponentRef,
 	Dispatch,
-	HTMLAttributes,
 	ReactNode,
 	SetStateAction,
 } from "react";
 import {
 	createContext,
-	forwardRef,
 	useContext,
 	useEffect,
 	useId,
@@ -96,10 +94,11 @@ const CodeBlockContext = createContext<CodeBlockContextType>({
  * </CodeBlock.Root>
  * ```
  */
-const Root = forwardRef<
-	ComponentRef<"div">,
-	ComponentProps<"div"> & WithAsChild
->(({ asChild = false, className, ...props }, ref) => {
+function Root({
+	asChild = false,
+	className,
+	...props
+}: ComponentProps<"div"> & WithAsChild) {
 	const [copyText, setCopyText] = useState("");
 	const [hasCodeExpander, setHasCodeExpander] = useState(false);
 	const [isCodeExpanded, setIsCodeExpanded] = useState(false);
@@ -147,13 +146,12 @@ const Root = forwardRef<
 					"[&_svg]:shrink-0",
 					className,
 				)}
-				ref={ref}
 				{...props}
 			/>
 		</CodeBlockContext.Provider>
 	);
-});
-Root.displayName = "CodeBlock";
+}
+Root.displayName = "CodeBlockRoot";
 
 /**
  * The body of the `CodeBlock`. This is where the `CodeBlock.Code` and optional
@@ -176,16 +174,21 @@ Root.displayName = "CodeBlock";
  * </CodeBlock.Root>
  * ```
  */
-const Body = forwardRef<
-	ComponentRef<"div">,
-	ComponentProps<"div"> & WithAsChild
->(({ asChild = false, className, ...props }, ref) => {
+function Body({
+	asChild = false,
+	className,
+	...props
+}: ComponentProps<"div"> & WithAsChild) {
 	const Component = asChild ? Slot : "div";
 
 	return (
-		<Component className={cx("relative", className)} ref={ref} {...props} />
+		<Component
+			//
+			className={cx("relative", className)}
+			{...props}
+		/>
 	);
-});
+}
 Body.displayName = "CodeBlockBody";
 
 type CodeBlockCodeProps = Omit<ComponentProps<"pre">, "children"> & {
@@ -236,107 +239,101 @@ type CodeBlockCodeProps = Omit<ComponentProps<"pre">, "children"> & {
  * </CodeBlock.Root>
  * ```
  */
-const Code = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
-	(
-		{
-			className,
-			highlightLines: _unusedHighlightLines, // not implemented yet
-			indentation: propIndentation,
-			language = "text",
-			showLineNumbers: _unusedShowLineNumbers, // not implemented yet
-			style,
-			tabIndex,
-			value,
-			...props
-		},
-		ref,
-	) => {
-		const id = useId();
-		const {
-			hasCodeExpander,
-			isCodeExpanded,
-			registerCodeId,
-			setCopyText,
-			unregisterCodeId,
-		} = useContext(CodeBlockContext);
-		const indentation = inferIndentation(language, propIndentation);
+function Code({
+	className,
+	highlightLines: _unusedHighlightLines, // not implemented yet
+	indentation: propIndentation,
+	language = "text",
+	showLineNumbers: _unusedShowLineNumbers, // not implemented yet
+	style,
+	tabIndex,
+	value,
+	...props
+}: CodeBlockCodeProps) {
+	const id = useId();
+	const {
+		hasCodeExpander,
+		isCodeExpanded,
+		registerCodeId,
+		setCopyText,
+		unregisterCodeId,
+	} = useContext(CodeBlockContext);
+	const indentation = inferIndentation(language, propIndentation);
 
-		// trim any leading and trailing whitespace/empty lines, convert leading tabs to spaces
-		const normalizedAndTrimmedValue = useMemo(
-			() => normalizeIndentation(value, { indentation }),
-			[value, indentation],
+	// trim any leading and trailing whitespace/empty lines, convert leading tabs to spaces
+	const normalizedAndTrimmedValue = useMemo(
+		() => normalizeIndentation(value, { indentation }),
+		[value, indentation],
+	);
+	const [highlightedCodeInnerHtml, setHighlightedCodeInnerHtml] = useState(
+		// initialize the <code> inner html with escaped HTML since we are using
+		// dangerouslySetInnerHTML to set the inner html of the <code> element
+		// and use Prism.js to "highlight" the code in a useEffect (client-side only)
+		escapeHtml(normalizeIndentation(value, { indentation })),
+	);
+
+	useEffect(() => {
+		const grammar = Highlighter.languages[language];
+		assert(
+			grammar,
+			`CodeBlock does not support the language "${language}". The syntax highlighter does not have a grammar for this language. The supported languages are: ${supportedLanguages.join(", ")}.`,
 		);
-		const [highlightedCodeInnerHtml, setHighlightedCodeInnerHtml] = useState(
-			// initialize the <code> inner html with escaped HTML since we are using
-			// dangerouslySetInnerHTML to set the inner html of the <code> element
-			// and use Prism.js to "highlight" the code in a useEffect (client-side only)
-			escapeHtml(normalizeIndentation(value, { indentation })),
+		const newHighlightedCodeInnerHtml = Highlighter.highlight(
+			normalizedAndTrimmedValue,
+			grammar,
+			language,
 		);
+		setHighlightedCodeInnerHtml(newHighlightedCodeInnerHtml);
+	}, [normalizedAndTrimmedValue, language]);
 
-		useEffect(() => {
-			const grammar = Highlighter.languages[language];
-			assert(
-				grammar,
-				`CodeBlock does not support the language "${language}". The syntax highlighter does not have a grammar for this language. The supported languages are: ${supportedLanguages.join(", ")}.`,
-			);
-			const newHighlightedCodeInnerHtml = Highlighter.highlight(
-				normalizedAndTrimmedValue,
-				grammar,
-				language,
-			);
-			setHighlightedCodeInnerHtml(newHighlightedCodeInnerHtml);
-		}, [normalizedAndTrimmedValue, language]);
+	useEffect(() => {
+		setCopyText(normalizedAndTrimmedValue);
+	}, [normalizedAndTrimmedValue, setCopyText]);
 
-		useEffect(() => {
-			setCopyText(normalizedAndTrimmedValue);
-		}, [normalizedAndTrimmedValue, setCopyText]);
+	useEffect(() => {
+		registerCodeId(id);
 
-		useEffect(() => {
-			registerCodeId(id);
+		return () => {
+			unregisterCodeId(id);
+		};
+	}, [id, registerCodeId, unregisterCodeId]);
 
-			return () => {
-				unregisterCodeId(id);
-			};
-		}, [id, registerCodeId, unregisterCodeId]);
+	const languageClassName = formatLanguageClassName(language);
 
-		const languageClassName = formatLanguageClassName(language);
-
-		return (
-			<pre
-				aria-expanded={hasCodeExpander ? isCodeExpanded : undefined}
-				className={cx(
-					"scrollbar overflow-x-auto overflow-y-hidden p-4 pr-14",
-					"text-size-inherit text-size-mono m-0 font-mono",
-					"aria-collapsed:max-h-[13.6rem]",
-					languageClassName, // place it last because prism does weird stuff client side, causes hydration mismatches
-					className,
-				)}
-				data-lang={language}
-				id={id}
-				ref={ref}
-				style={{
-					...style,
-					tabSize: 2,
-					MozTabSize: 2,
+	return (
+		<pre
+			aria-expanded={hasCodeExpander ? isCodeExpanded : undefined}
+			className={cx(
+				"scrollbar overflow-x-auto overflow-y-hidden p-4 pr-14",
+				"text-size-inherit text-size-mono m-0 font-mono",
+				"aria-collapsed:max-h-[13.6rem]",
+				languageClassName, // place it last because prism does weird stuff client side, causes hydration mismatches
+				className,
+			)}
+			data-lang={language}
+			id={id}
+			style={{
+				...style,
+				tabSize: 2,
+				MozTabSize: 2,
+			}}
+			// prism.js adds a tabindex of 0 to the pre element by default (unless it's set)
+			// this is unnecessary, we do not want this automatic behavior!
+			tabIndex={tabIndex ?? -1}
+			{...props}
+		>
+			<code
+				className={clsx("text-size-inherit", languageClassName)}
+				dangerouslySetInnerHTML={{
+					__html: highlightedCodeInnerHtml,
 				}}
-				// prism.js adds a tabindex of 0 to the pre element by default (unless it's set)
-				// this is unnecessary, we do not want this automatic behavior!
-				tabIndex={tabIndex ?? -1}
-				{...props}
-			>
-				<code
-					className={clsx("text-size-inherit", languageClassName)}
-					dangerouslySetInnerHTML={{
-						__html: highlightedCodeInnerHtml,
-					}}
-					// we need to suppress the hydration warning because we are setting the innerHTML of the code block
-					// and using Prism.js to "highlight" the code in a useEffect (client-side only), which does different things on the client and server
-					suppressHydrationWarning
-				/>
-			</pre>
-		);
-	},
-);
+				// we need to suppress the hydration warning because we are setting the innerHTML of the code block
+				// and using Prism.js to "highlight" the code in a useEffect (client-side only), which does different things on the client and server
+				suppressHydrationWarning
+			/>
+		</pre>
+	);
+}
 Code.displayName = "CodeBlockCode";
 
 /**
@@ -360,10 +357,11 @@ Code.displayName = "CodeBlockCode";
  * </CodeBlock.Root>
  * ```
  */
-const Header = forwardRef<
-	ComponentRef<"div">,
-	ComponentProps<"div"> & WithAsChild
->(({ asChild = false, className, ...props }, ref) => {
+function Header({
+	asChild = false,
+	className,
+	...props
+}: ComponentProps<"div"> & WithAsChild) {
 	const Component = asChild ? Slot : "div";
 
 	return (
@@ -372,11 +370,10 @@ const Header = forwardRef<
 				"flex items-center gap-1 border-b border-gray-300 bg-gray-100 px-4 py-2 text-gray-700",
 				className,
 			)}
-			ref={ref}
 			{...props}
 		/>
 	);
-});
+}
 Header.displayName = "CodeBlockHeader";
 
 /**
@@ -400,20 +397,21 @@ Header.displayName = "CodeBlockHeader";
  * </CodeBlock.Root>
  * ```
  */
-const Title = forwardRef<
-	HTMLHeadingElement,
-	HTMLAttributes<HTMLHeadingElement> & { asChild?: boolean }
->(({ asChild = false, className, ...props }, ref) => {
+function Title({
+	asChild = false,
+	className,
+	...props
+}: ComponentProps<"h3"> & WithAsChild) {
 	const Component = asChild ? Slot : "h3";
 
 	return (
 		<Component
-			ref={ref}
+			//
 			className={cx("text-size-mono m-0 font-mono font-normal", className)}
 			{...props}
 		/>
 	);
-});
+}
 Title.displayName = "CodeBlockTitle";
 
 type CodeBlockCopyButtonProps = Omit<
@@ -453,67 +451,68 @@ type CodeBlockCopyButtonProps = Omit<
  * </CodeBlock.Root>
  * ```
  */
-const CopyButton = forwardRef<ComponentRef<"button">, CodeBlockCopyButtonProps>(
-	(
-		{ asChild = false, className, onCopy, onCopyError, onClick, ...props },
-		ref,
-	) => {
-		const { copyText } = useContext(CodeBlockContext);
-		const [, copyToClipboard] = useCopyToClipboard();
-		const [wasCopied, setWasCopied] = useState(false);
-		const timeoutHandle = useRef<number>(0);
+function CopyButton({
+	asChild = false,
+	className,
+	onCopy,
+	onCopyError,
+	onClick,
+	...props
+}: CodeBlockCopyButtonProps) {
+	const { copyText } = useContext(CodeBlockContext);
+	const [, copyToClipboard] = useCopyToClipboard();
+	const [wasCopied, setWasCopied] = useState(false);
+	const timeoutHandle = useRef<number>(0);
 
-		const Component = asChild ? Slot : "button";
+	const Component = asChild ? Slot : "button";
 
-		return (
-			<Component
-				type="button"
-				className={cx(
-					"focus-visible:border-accent-600 focus-visible:ring-focus-accent absolute right-2.5 top-2.5 z-10 flex size-7 items-center justify-center rounded border border-gray-300 bg-gray-50 shadow-[-1rem_0_0.75rem_-0.375rem_var(--color-gray-50),1rem_0_0_-0.25rem_var(--color-gray-50)] hover:border-gray-400 hover:bg-gray-200 focus-visible:outline-hidden focus-visible:ring-4",
-					wasCopied &&
-						"bg-filled-success text-on-filled hover:bg-filled-success focus:bg-filled-success focus-visible:border-success-600 focus-visible:ring-focus-success w-auto gap-1 border-transparent pl-2 pr-1.5 hover:border-transparent",
-					className,
-				)}
-				ref={ref}
-				onClick={async (event) => {
-					try {
-						onClick?.(event);
-						if (event.defaultPrevented) {
-							// Clear any existing timeout
-							window.clearTimeout(timeoutHandle.current);
-							return;
-						}
-
-						await copyToClipboard(copyText);
-						onCopy?.(copyText);
-						setWasCopied(true);
-
+	return (
+		<Component
+			type="button"
+			className={cx(
+				"focus-visible:border-accent-600 focus-visible:ring-focus-accent absolute right-2.5 top-2.5 z-10 flex size-7 items-center justify-center rounded border border-gray-300 bg-gray-50 shadow-[-1rem_0_0.75rem_-0.375rem_var(--color-gray-50),1rem_0_0_-0.25rem_var(--color-gray-50)] hover:border-gray-400 hover:bg-gray-200 focus-visible:outline-hidden focus-visible:ring-4",
+				wasCopied &&
+					"bg-filled-success text-on-filled hover:bg-filled-success focus:bg-filled-success focus-visible:border-success-600 focus-visible:ring-focus-success w-auto gap-1 border-transparent pl-2 pr-1.5 hover:border-transparent",
+				className,
+			)}
+			onClick={async (event) => {
+				try {
+					onClick?.(event);
+					if (event.defaultPrevented) {
 						// Clear any existing timeout
 						window.clearTimeout(timeoutHandle.current);
-
-						// Reset the copied state after a short delay
-						timeoutHandle.current = window.setTimeout(() => {
-							setWasCopied(false);
-						}, 2000);
-					} catch (error) {
-						onCopyError?.(error);
+						return;
 					}
-				}}
-				{...props}
-			>
-				<span className="sr-only">Copy code</span>
-				{wasCopied ? (
-					<>
-						Copied
-						<MantleIcon svg={<CheckIcon weight="bold" />} className="size-4" />
-					</>
-				) : (
-					<MantleIcon svg={<CopyIcon />} className="-ml-px" />
-				)}
-			</Component>
-		);
-	},
-);
+
+					await copyToClipboard(copyText);
+					onCopy?.(copyText);
+					setWasCopied(true);
+
+					// Clear any existing timeout
+					window.clearTimeout(timeoutHandle.current);
+
+					// Reset the copied state after a short delay
+					timeoutHandle.current = window.setTimeout(() => {
+						setWasCopied(false);
+					}, 2000);
+				} catch (error) {
+					onCopyError?.(error);
+				}
+			}}
+			{...props}
+		>
+			<span className="sr-only">Copy code</span>
+			{wasCopied ? (
+				<>
+					Copied
+					<MantleIcon svg={<CheckIcon weight="bold" />} className="size-4" />
+				</>
+			) : (
+				<MantleIcon svg={<CopyIcon />} className="-ml-px" />
+			)}
+		</Component>
+	);
+}
 CopyButton.displayName = "CodeBlockCopyButton";
 
 type CodeBlockExpanderButtonProps = Omit<
@@ -547,10 +546,12 @@ type CodeBlockExpanderButtonProps = Omit<
  * </CodeBlock.Root>
  * ```
  */
-const ExpanderButton = forwardRef<
-	ComponentRef<"button">,
-	CodeBlockExpanderButtonProps
->(({ asChild = false, className, onClick, ...props }, ref) => {
+function ExpanderButton({
+	asChild = false,
+	className,
+	onClick,
+	...props
+}: CodeBlockExpanderButtonProps) {
 	const { codeId, isCodeExpanded, setIsCodeExpanded, setHasCodeExpander } =
 		useContext(CodeBlockContext);
 
@@ -573,7 +574,6 @@ const ExpanderButton = forwardRef<
 				"flex w-full items-center justify-center gap-0.5 border-t border-gray-300 bg-gray-50 px-4 py-2 font-sans text-gray-700 hover:bg-gray-100",
 				className,
 			)}
-			ref={ref}
 			type="button"
 			onClick={(event) => {
 				setIsCodeExpanded((prev) => !prev);
@@ -591,7 +591,7 @@ const ExpanderButton = forwardRef<
 			/>
 		</Component>
 	);
-});
+}
 ExpanderButton.displayName = "CodeBlockExpanderButton";
 
 type CodeBlockIconProps = Omit<SvgAttributes, "children"> &

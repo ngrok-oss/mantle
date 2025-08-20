@@ -1,5 +1,10 @@
 import { Slot } from "@radix-ui/react-slot";
-import type { AnchorHTMLAttributes, ComponentRef, ReactNode } from "react";
+import type {
+	AnchorHTMLAttributes,
+	ComponentProps,
+	ComponentRef,
+	ReactNode,
+} from "react";
 import { Children, cloneElement, forwardRef, isValidElement } from "react";
 import invariant from "tiny-invariant";
 import type { WithAsChild } from "../../types/as-child.js";
@@ -19,10 +24,7 @@ const anchorClassNames = (className?: string) =>
 /**
  * The props for the `Anchor` component.
  */
-type AnchorProps = Omit<
-	AnchorHTMLAttributes<HTMLAnchorElement>,
-	"rel" | "target"
-> &
+type AnchorProps = Omit<ComponentProps<"a">, "rel" | "target"> &
 	WithAsChild & {
 		/**
 		 * An icon to render inside the anchor
@@ -74,67 +76,61 @@ type AnchorProps = Omit<
  * </Anchor>
  * ```
  */
-const Anchor = forwardRef<ComponentRef<"a">, AnchorProps>(
-	(
-		{
-			asChild,
-			children,
-			className,
-			rel: propRel,
-			icon,
-			iconPlacement = "start",
-			...props
-		},
-		ref,
-	) => {
-		const rel = resolveRel(propRel);
-		const componentProps = {
-			className: anchorClassNames(className),
-			ref,
-			rel,
-			...props,
-		};
+function Anchor({
+	asChild,
+	children,
+	className,
+	rel: propRel,
+	icon,
+	iconPlacement = "start",
+	...props
+}: AnchorProps) {
+	const rel = resolveRel(propRel);
+	const componentProps = {
+		className: anchorClassNames(className),
+		rel,
+		...props,
+	};
 
-		if (asChild) {
-			const singleChild = Children.only(children);
-			invariant(
-				isValidElement<AnchorProps>(singleChild),
-				"When using `asChild`, Anchor must be passed a single child as a JSX tag.",
-			);
-			const grandchildren = singleChild.props?.children;
-
-			return (
-				<Slot {...componentProps}>
-					{cloneElement(
-						singleChild,
-						{},
-						<>
-							{icon && iconPlacement === "start" && (
-								<Icon className="inline-block mr-1.5" svg={icon} />
-							)}
-							{grandchildren}
-							{icon && iconPlacement === "end" && (
-								<Icon className="inline-block ml-1.5" svg={icon} />
-							)}
-						</>,
-					)}
-				</Slot>
-			);
-		}
+	if (asChild) {
+		const singleChild = Children.only(children);
+		invariant(
+			isValidElement<AnchorProps>(singleChild),
+			"When using `asChild`, Anchor must be passed a single child as a JSX tag.",
+		);
+		const grandchildren = singleChild.props?.children;
 
 		return (
-			<a {...componentProps}>
-				{icon && iconPlacement === "start" && (
-					<Icon className="inline-block mr-1.5" svg={icon} />
+			<Slot {...componentProps}>
+				{cloneElement(
+					singleChild,
+					{},
+					<>
+						{icon && iconPlacement === "start" && (
+							<Icon className="inline-block mr-1.5" svg={icon} />
+						)}
+						{grandchildren}
+						{icon && iconPlacement === "end" && (
+							<Icon className="inline-block ml-1.5" svg={icon} />
+						)}
+					</>,
 				)}
-				{children}
-				{icon && iconPlacement === "end" && (
-					<Icon className="inline-block ml-1.5" svg={icon} />
-				)}
-			</a>
+			</Slot>
 		);
-	},
-);
+	}
+
+	return (
+		<a {...componentProps}>
+			{icon && iconPlacement === "start" && (
+				<Icon className="inline-block mr-1.5" svg={icon} />
+			)}
+			{children}
+			{icon && iconPlacement === "end" && (
+				<Icon className="inline-block ml-1.5" svg={icon} />
+			)}
+		</a>
+	);
+}
 Anchor.displayName = "Anchor";
 
 /**

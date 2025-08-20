@@ -5,11 +5,9 @@ import { WarningIcon } from "@phosphor-icons/react/Warning";
 import { Slot } from "@radix-ui/react-slot";
 import {
 	type ComponentProps,
-	type ComponentPropsWithoutRef,
 	type ComponentRef,
 	type ReactNode,
 	createContext,
-	forwardRef,
 	useContext,
 	useMemo,
 } from "react";
@@ -154,22 +152,23 @@ AlertDialogPortal.displayName = "AlertDialogPortal";
  *
  * @private
  */
-const AlertDialogOverlay = forwardRef<
-	ComponentRef<typeof AlertDialogPrimitive.Overlay>,
-	ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Overlay>
->(({ className, ...props }, ref) => (
-	<AlertDialogPrimitive.Overlay
-		className={cx(
-			"data-state-open:animate-in data-state-closed:animate-out data-state-closed:fade-out-0 data-state-open:fade-in-0 bg-overlay fixed inset-0 z-50 backdrop-blur-xs",
-			className,
-		)}
-		{...props}
-		ref={ref}
-	/>
-));
+function AlertDialogOverlay({
+	className,
+	...props
+}: ComponentProps<typeof AlertDialogPrimitive.Overlay>) {
+	return (
+		<AlertDialogPrimitive.Overlay
+			className={cx(
+				"data-state-open:animate-in data-state-closed:animate-out data-state-closed:fade-out-0 data-state-open:fade-in-0 bg-overlay fixed inset-0 z-50 backdrop-blur-xs",
+				className,
+			)}
+			{...props}
+		/>
+	);
+}
 AlertDialogOverlay.displayName = "AlertDialogOverlay";
 
-type AlertDialogContentProps = ComponentPropsWithoutRef<
+type AlertDialogContentProps = ComponentProps<
 	typeof AlertDialogPrimitive.Content
 > & {
 	/**
@@ -220,25 +219,18 @@ type AlertDialogContentProps = ComponentPropsWithoutRef<
  * </AlertDialog.Root>
  * ```
  */
-const Content = forwardRef<
-	ComponentRef<typeof AlertDialogPrimitive.Content>,
-	AlertDialogContentProps
->(
-	(
-		{
-			className,
-			onInteractOutside,
-			onPointerDownOutside,
-			preferredWidth = "max-w-md",
-			...props
-		},
-		ref,
-	) => (
+function Content({
+	className,
+	onInteractOutside,
+	onPointerDownOutside,
+	preferredWidth = "max-w-md",
+	...props
+}: AlertDialogContentProps) {
+	return (
 		<AlertDialogPortal>
 			<AlertDialogOverlay />
 			<div className="fixed inset-4 z-50 flex items-center justify-center">
 				<AlertDialogPrimitive.Content
-					ref={ref}
 					className={cx(
 						"flex w-full flex-1 flex-col items-center gap-4 sm:flex-row sm:items-start",
 						"outline-hidden focus-within:outline-hidden",
@@ -260,9 +252,11 @@ const Content = forwardRef<
 				/>
 			</div>
 		</AlertDialogPortal>
-	),
-);
+	);
+}
 Content.displayName = "AlertDialogContent";
+
+type BodyProps = ComponentProps<"div"> & WithAsChild;
 
 /**
  * Contains the main content of the alert dialog.
@@ -299,21 +293,20 @@ Content.displayName = "AlertDialogContent";
  * </AlertDialog.Root>
  * ```
  */
-const Body = forwardRef<
-	ComponentRef<"div">,
-	ComponentProps<"div"> & WithAsChild
->(({ asChild = false, className, ...props }, ref) => {
+function Body({ asChild = false, className, ...props }: BodyProps) {
 	const Component = asChild ? Slot : "div";
 
 	return (
 		<Component
+			//
 			className={cx("flex-1 space-y-4", className)}
-			ref={ref}
 			{...props}
 		/>
 	);
-});
+}
 Body.displayName = "AlertDialogBody";
+
+type HeaderProps = ComponentProps<"div"> & WithAsChild;
 
 /**
  * Contains the header content of the dialog, including the title and description.
@@ -350,10 +343,7 @@ Body.displayName = "AlertDialogBody";
  * </AlertDialog.Root>
  * ```
  */
-const Header = forwardRef<
-	ComponentRef<"div">,
-	ComponentProps<"div"> & WithAsChild
->(({ asChild = false, className, ...props }, ref) => {
+function Header({ asChild = false, className, ...props }: HeaderProps) {
 	const Component = asChild ? Slot : "div";
 
 	return (
@@ -365,8 +355,10 @@ const Header = forwardRef<
 			{...props}
 		/>
 	);
-});
+}
 Header.displayName = "AlertDialogHeader";
+
+type FooterProps = ComponentProps<"div"> & WithAsChild;
 
 /**
  * Contains the footer content of the dialog, including the action and cancel buttons.
@@ -403,10 +395,7 @@ Header.displayName = "AlertDialogHeader";
  * </AlertDialog.Root>
  * ```
  */
-const Footer = forwardRef<
-	ComponentRef<"div">,
-	ComponentProps<"div"> & WithAsChild
->(({ asChild = false, className, ...props }, ref) => {
+function Footer({ asChild = false, className, ...props }: FooterProps) {
 	const Component = asChild ? Slot : "div";
 
 	return (
@@ -418,7 +407,7 @@ const Footer = forwardRef<
 			{...props}
 		/>
 	);
-});
+}
 Footer.displayName = "AlertDialogFooter";
 
 /**
@@ -459,19 +448,20 @@ Footer.displayName = "AlertDialogFooter";
  * </AlertDialog.Root>
  * ```
  */
-const Title = forwardRef<
-	ComponentRef<typeof AlertDialogPrimitive.Title>,
-	ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Title>
->(({ className, ...props }, ref) => (
-	<AlertDialogPrimitive.Title
-		ref={ref}
-		className={cx(
-			"text-strong text-center text-lg font-medium sm:text-start",
-			className,
-		)}
-		{...props}
-	/>
-));
+function Title({
+	className,
+	...props
+}: ComponentProps<typeof AlertDialogPrimitive.Title>) {
+	return (
+		<AlertDialogPrimitive.Title
+			className={cx(
+				"text-strong text-center text-lg font-medium sm:text-start",
+				className,
+			)}
+			{...props}
+		/>
+	);
+}
 Title.displayName = "AlertDialogTitle";
 
 /**
@@ -514,19 +504,20 @@ Title.displayName = "AlertDialogTitle";
  * </AlertDialog.Root>
  * ```
  */
-const Description = forwardRef<
-	ComponentRef<typeof AlertDialogPrimitive.Description>,
-	ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Description>
->(({ className, ...props }, ref) => (
-	<AlertDialogPrimitive.Description
-		ref={ref}
-		className={cx(
-			"text-body text-center text-sm font-normal sm:text-start",
-			className,
-		)}
-		{...props}
-	/>
-));
+function Description({
+	className,
+	...props
+}: ComponentProps<typeof AlertDialogPrimitive.Description>) {
+	return (
+		<AlertDialogPrimitive.Description
+			className={cx(
+				"text-body text-center text-sm font-normal sm:text-start",
+				className,
+			)}
+			{...props}
+		/>
+	);
+}
 Description.displayName = "AlertDialogDescription";
 
 /**
@@ -570,32 +561,26 @@ Description.displayName = "AlertDialogDescription";
  * </AlertDialog.Root>
  * ```
  */
-const Action = forwardRef<ComponentRef<"button">, ButtonProps>(
-	(
-		{
-			//,
-			appearance = "filled",
-			...props
-		},
-		ref,
-	) => {
-		const ctx = useAlertDialogContext();
-		let buttonPriority: NonNullable<ButtonPriority> = "default";
-		if (ctx.priority === "danger") {
-			buttonPriority = "danger";
-		}
+function Action({
+	//,
+	appearance = "filled",
+	...props
+}: ButtonProps) {
+	const ctx = useAlertDialogContext();
+	let buttonPriority: NonNullable<ButtonPriority> = "default";
+	if (ctx.priority === "danger") {
+		buttonPriority = "danger";
+	}
 
-		return (
-			<Button
-				//
-				appearance={appearance}
-				priority={buttonPriority}
-				ref={ref}
-				{...props}
-			/>
-		);
-	},
-);
+	return (
+		<Button
+			//
+			appearance={appearance}
+			priority={buttonPriority}
+			{...props}
+		/>
+	);
+}
 Action.displayName = "AlertDialogAction";
 
 /**
@@ -638,28 +623,24 @@ Action.displayName = "AlertDialogAction";
  * </AlertDialog.Root>
  * ```
  */
-const Cancel = forwardRef<ComponentRef<"button">, ButtonProps>(
-	(
-		{
-			//,
-			appearance = "outlined",
-			className,
-			priority = "neutral",
-			...props
-		},
-		ref,
-	) => (
+function Cancel({
+	//,
+	appearance = "outlined",
+	className,
+	priority = "neutral",
+	...props
+}: ButtonProps) {
+	return (
 		<AlertDialogPrimitive.Close asChild>
 			<Button
 				appearance={appearance}
 				className={cx("mt-2 sm:mt-0", className)}
 				priority={priority}
-				ref={ref}
 				{...props}
 			/>
 		</AlertDialogPrimitive.Close>
-	),
-);
+	);
+}
 Cancel.displayName = "AlertDialogCancel";
 
 type AlertDialogIconProps = Omit<SvgAttributes, "children"> & {
@@ -706,24 +687,21 @@ type AlertDialogIconProps = Omit<SvgAttributes, "children"> & {
  * </AlertDialog.Root>
  * ```
  */
-const Icon = forwardRef<ComponentRef<"svg">, AlertDialogIconProps>(
-	({ className, svg, ...props }, ref) => {
-		const ctx = useAlertDialogContext();
-		const defaultColor =
-			ctx.priority === "danger" ? "text-danger-600" : "text-accent-600";
-		const defaultIcon =
-			ctx.priority === "danger" ? <WarningIcon /> : <InfoIcon />;
+function Icon({ className, svg, ...props }: AlertDialogIconProps) {
+	const ctx = useAlertDialogContext();
+	const defaultColor =
+		ctx.priority === "danger" ? "text-danger-600" : "text-accent-600";
+	const defaultIcon =
+		ctx.priority === "danger" ? <WarningIcon /> : <InfoIcon />;
 
-		return (
-			<SvgOnly
-				ref={ref}
-				className={cx("size-12 sm:size-7", defaultColor, className)}
-				svg={svg ?? defaultIcon}
-				{...props}
-			/>
-		);
-	},
-);
+	return (
+		<SvgOnly
+			className={cx("size-12 sm:size-7", defaultColor, className)}
+			svg={svg ?? defaultIcon}
+			{...props}
+		/>
+	);
+}
 Icon.displayName = "AlertDialogIcon";
 
 /**

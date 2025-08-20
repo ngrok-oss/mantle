@@ -2,13 +2,7 @@
 
 import * as Primitive from "@ariakit/react";
 import { Slot } from "@radix-ui/react-slot";
-import {
-	type ComponentPropsWithoutRef,
-	type ComponentRef,
-	type ElementRef,
-	createContext,
-	forwardRef,
-} from "react";
+import { type ComponentProps, createContext } from "react";
 import type { WithAsChild } from "../../types/as-child.js";
 import { cx } from "../../utils/cx/cx.js";
 import type { WithValidation } from "../input/types.js";
@@ -28,13 +22,13 @@ type ComboboxProps = Primitive.ComboboxProviderProps;
  *   </Combobox.Content>
  * </Combobox.Root>
  */
-const Root = ({ children, ...props }: ComboboxProps) => {
+function Root({ children, ...props }: ComboboxProps) {
 	return (
 		<Primitive.ComboboxProvider {...props}>
 			{children}
 		</Primitive.ComboboxProvider>
 	);
-};
+}
 Root.displayName = "Combobox";
 
 type ComboboxInputProps = Omit<
@@ -55,52 +49,46 @@ type ComboboxInputProps = Omit<
  *   </Combobox.Content>
  * </Combobox.Root>
  */
-const Input = forwardRef<ComponentRef<"input">, ComboboxInputProps>(
-	(
-		{
-			"aria-invalid": _ariaInvalid,
-			autoComplete = "list",
-			autoSelect = "always",
-			className,
-			validation: _validation,
-			...props
-		},
-		ref,
-	) => {
-		const isInvalid = _ariaInvalid != null && _ariaInvalid !== "false";
-		const validation = isInvalid
-			? "error"
-			: typeof _validation === "function"
-				? _validation()
-				: _validation;
-		const ariaInvalid = _ariaInvalid ?? validation === "error";
+function Input({
+	"aria-invalid": _ariaInvalid,
+	autoComplete = "list",
+	autoSelect = "always",
+	className,
+	validation: _validation,
+	...props
+}: ComboboxInputProps) {
+	const isInvalid = _ariaInvalid != null && _ariaInvalid !== "false";
+	const validation = isInvalid
+		? "error"
+		: typeof _validation === "function"
+			? _validation()
+			: _validation;
+	const ariaInvalid = _ariaInvalid ?? validation === "error";
 
-		return (
-			<Primitive.Combobox
-				aria-invalid={ariaInvalid}
-				autoComplete={autoComplete}
-				autoSelect={autoSelect}
-				className={cx(
-					"pointer-coarse:text-base h-9 text-sm",
-					"bg-form relative block w-full rounded-md border px-3 py-2 border-form text-strong",
-					"placeholder:text-placeholder",
-					"aria-disabled:opacity-50",
-					"hover:border-neutral-400",
-					"focus:outline-hidden focus:ring-4 aria-expanded:ring-4",
-					"focus:border-accent-600 focus:ring-focus-accent aria-expanded:border-accent-600 aria-expanded:ring-focus-accent",
-					"data-validation-success:border-success-600 data-validation-success:focus:border-success-600 data-validation-success:focus:ring-focus-success data-validation-success:aria-expanded:border-success-600 data-validation-success:aria-expanded:ring-focus-success",
-					"data-validation-warning:border-warning-600 data-validation-warning:focus:border-warning-600 data-validation-warning:focus:ring-focus-warning data-validation-warning:aria-expanded:border-warning-600 data-validation-warning:aria-expanded:ring-focus-warning",
-					"data-validation-error:border-danger-600 data-validation-error:focus:border-danger-600 data-validation-error:focus:ring-focus-danger data-validation-error:aria-expanded:border-danger-600 data-validation-error:aria-expanded:ring-focus-danger",
-					"autofill:shadow-[var(--color-blue-50)] autofill:bg-blue-50 autofill:[-webkit-text-fill-color:var(--text-color-strong)]", // Autofill styling on the input itself and any children with autofill styling
-					className,
-				)}
-				data-validation={validation || undefined}
-				ref={ref}
-				{...props}
-			/>
-		);
-	},
-);
+	return (
+		<Primitive.Combobox
+			aria-invalid={ariaInvalid}
+			autoComplete={autoComplete}
+			autoSelect={autoSelect}
+			className={cx(
+				"pointer-coarse:text-base h-9 text-sm",
+				"bg-form relative block w-full rounded-md border px-3 py-2 border-form text-strong",
+				"placeholder:text-placeholder",
+				"aria-disabled:opacity-50",
+				"hover:border-neutral-400",
+				"focus:outline-hidden focus:ring-4 aria-expanded:ring-4",
+				"focus:border-accent-600 focus:ring-focus-accent aria-expanded:border-accent-600 aria-expanded:ring-focus-accent",
+				"data-validation-success:border-success-600 data-validation-success:focus:border-success-600 data-validation-success:focus:ring-focus-success data-validation-success:aria-expanded:border-success-600 data-validation-success:aria-expanded:ring-focus-success",
+				"data-validation-warning:border-warning-600 data-validation-warning:focus:border-warning-600 data-validation-warning:focus:ring-focus-warning data-validation-warning:aria-expanded:border-warning-600 data-validation-warning:aria-expanded:ring-focus-warning",
+				"data-validation-error:border-danger-600 data-validation-error:focus:border-danger-600 data-validation-error:focus:ring-focus-danger data-validation-error:aria-expanded:border-danger-600 data-validation-error:aria-expanded:ring-focus-danger",
+				"autofill:shadow-[var(--color-blue-50)] autofill:bg-blue-50 autofill:[-webkit-text-fill-color:var(--text-color-strong)]", // Autofill styling on the input itself and any children with autofill styling
+				className,
+			)}
+			data-validation={validation || undefined}
+			{...props}
+		/>
+	);
+}
 Input.displayName = "ComboboxInput";
 
 type ComboboxContentProps = Omit<Primitive.ComboboxPopoverProps, "render"> &
@@ -118,42 +106,29 @@ type ComboboxContentProps = Omit<Primitive.ComboboxPopoverProps, "render"> &
  *   </Combobox.Content>
  * </Combobox.Root>
  */
-const Content = forwardRef<
-	ComponentRef<typeof Primitive.ComboboxPopover>,
-	ComboboxContentProps
->(
-	(
-		{
-			asChild = false,
-			children,
-			className,
-			sameWidth = true,
-			unmountOnHide = true,
-			...props
-		},
-		ref,
-	) => {
-		return (
-			<Primitive.ComboboxPopover
-				className={cx(
-					"border-popover bg-popover relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border shadow-md p-1 my-1",
-					className,
-				)}
-				ref={ref}
-				render={
-					asChild
-						? ({ ref, ...childProps }) => <Slot ref={ref} {...childProps} />
-						: undefined
-				}
-				sameWidth={sameWidth}
-				unmountOnHide={unmountOnHide}
-				{...props}
-			>
-				{children}
-			</Primitive.ComboboxPopover>
-		);
-	},
-);
+function Content({
+	asChild = false,
+	children,
+	className,
+	sameWidth = true,
+	unmountOnHide = true,
+	...props
+}: ComboboxContentProps) {
+	return (
+		<Primitive.ComboboxPopover
+			className={cx(
+				"border-popover bg-popover relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border shadow-md p-1 my-1",
+				className,
+			)}
+			render={asChild ? (childProps) => <Slot {...childProps} /> : undefined}
+			sameWidth={sameWidth}
+			unmountOnHide={unmountOnHide}
+			{...props}
+		>
+			{children}
+		</Primitive.ComboboxPopover>
+	);
+}
 Content.displayName = "ComboboxContent";
 
 type ComboboxItemProps = Omit<Primitive.ComboboxItemProps, "render"> &
@@ -174,46 +149,33 @@ const ComboboxItemValueContext = createContext<string | undefined>(undefined);
  *   </Combobox.Content>
  * </Combobox.Root>
  */
-const Item = forwardRef<
-	ComponentRef<typeof Primitive.ComboboxItem>,
-	ComboboxItemProps
->(
-	(
-		{
-			asChild = false,
-			children,
-			className,
-			focusOnHover = true,
-			value,
-			...props
-		},
-		ref,
-	) => {
-		return (
-			<ComboboxItemValueContext.Provider value={value}>
-				<Primitive.ComboboxItem
-					className={cx(
-						"cursor-pointer rounded px-2 py-1.5 text-sm flex min-w-0 gap-2 items-center",
-						"data-active-item:bg-popover-hover",
-						"aria-disabled:opacity-50",
-						className,
-					)}
-					focusOnHover={focusOnHover}
-					ref={ref}
-					render={
-						asChild
-							? ({ ref, ...childProps }) => <Slot ref={ref} {...childProps} />
-							: undefined
-					}
-					value={value}
-					{...props}
-				>
-					{children}
-				</Primitive.ComboboxItem>
-			</ComboboxItemValueContext.Provider>
-		);
-	},
-);
+function Item({
+	asChild = false,
+	children,
+	className,
+	focusOnHover = true,
+	value,
+	...props
+}: ComboboxItemProps) {
+	return (
+		<ComboboxItemValueContext.Provider value={value}>
+			<Primitive.ComboboxItem
+				className={cx(
+					"cursor-pointer rounded px-2 py-1.5 text-sm flex min-w-0 gap-2 items-center",
+					"data-active-item:bg-popover-hover",
+					"aria-disabled:opacity-50",
+					className,
+				)}
+				focusOnHover={focusOnHover}
+				render={asChild ? (childProps) => <Slot {...childProps} /> : undefined}
+				value={value}
+				{...props}
+			>
+				{children}
+			</Primitive.ComboboxItem>
+		</ComboboxItemValueContext.Provider>
+	);
+}
 Item.displayName = "ComboboxItem";
 
 type ComboboxGroupProps = Omit<Primitive.ComboboxGroupProps, "render"> &
@@ -238,25 +200,21 @@ type ComboboxGroupProps = Omit<Primitive.ComboboxGroupProps, "render"> &
  *   </Combobox.Content>
  * </Combobox.Root>
  */
-const Group = forwardRef<
-	ComponentRef<typeof Primitive.ComboboxGroup>,
-	ComboboxGroupProps
->(({ asChild = false, children, className, ...props }, ref) => {
+function Group({
+	asChild = false,
+	children,
+	className,
+	...props
+}: ComboboxGroupProps) {
 	return (
 		<Primitive.ComboboxGroup
-			className={cx("", className)}
-			ref={ref}
-			render={
-				asChild
-					? ({ ref, ...childProps }) => <Slot ref={ref} {...childProps} />
-					: undefined
-			}
+			render={asChild ? (childProps) => <Slot {...childProps} /> : undefined}
 			{...props}
 		>
 			{children}
 		</Primitive.ComboboxGroup>
 	);
-});
+}
 Group.displayName = "ComboboxGroup";
 
 type ComboboxGroupLabelProps = Omit<
@@ -284,25 +242,22 @@ type ComboboxGroupLabelProps = Omit<
  *   </Combobox.Content>
  * </Combobox.Root>
  */
-const GroupLabel = forwardRef<
-	ComponentRef<typeof Primitive.ComboboxGroupLabel>,
-	ComboboxGroupLabelProps
->(({ asChild = false, children, className, ...props }, ref) => {
+function GroupLabel({
+	asChild = false,
+	children,
+	className,
+	...props
+}: ComboboxGroupLabelProps) {
 	return (
 		<Primitive.ComboboxGroupLabel
 			className={cx("text-muted px-2 py-1 text-xs font-medium", className)}
-			ref={ref}
-			render={
-				asChild
-					? ({ ref, ...childProps }) => <Slot ref={ref} {...childProps} />
-					: undefined
-			}
+			render={asChild ? (childProps) => <Slot {...childProps} /> : undefined}
 			{...props}
 		>
 			{children}
 		</Primitive.ComboboxGroupLabel>
 	);
-});
+}
 GroupLabel.displayName = "ComboboxGroupLabel";
 
 type ComboboxItemValueProps = Omit<
@@ -338,26 +293,22 @@ type ComboboxItemValueProps = Omit<
  *   </Combobox.Content>
  * </Combobox.Root>
  */
-const ItemValue = forwardRef<
-	ComponentRef<typeof Primitive.ComboboxItemValue>,
-	ComboboxItemValueProps
->(({ asChild = false, className, ...props }, ref) => {
+function ItemValue({
+	asChild = false,
+	className,
+	...props
+}: ComboboxItemValueProps) {
 	return (
 		<Primitive.ComboboxItemValue
 			className={cx(
 				"data-[user-value]:*:font-bold flex-1 shrink-0 text-strong font-normal",
 				className,
 			)}
-			ref={ref}
-			render={
-				asChild
-					? ({ ref, ...childProps }) => <Slot ref={ref} {...childProps} />
-					: undefined
-			}
+			render={asChild ? (childProps) => <Slot {...childProps} /> : undefined}
 			{...props}
 		/>
 	);
-});
+}
 ItemValue.displayName = "ComboboxItemValue";
 
 /**
@@ -378,17 +329,19 @@ ItemValue.displayName = "ComboboxItemValue";
  *   </Combobox.Content>
  * </Combobox.Root>
  */
-const ComboboxSeparatorComponent = forwardRef<
-	ElementRef<typeof Separator>,
-	ComponentPropsWithoutRef<typeof Separator>
->(({ className, ...props }, ref) => (
-	<Separator
-		ref={ref}
-		className={cx("-mx-1.25 my-1 w-auto", className)}
-		{...props}
-	/>
-));
-ComboboxSeparatorComponent.displayName = "ComboboxSeparator";
+function ComboboxSeparator({
+	className,
+	...props
+}: ComponentProps<typeof Separator>) {
+	return (
+		<Separator
+			//
+			className={cx("-mx-1.25 my-1 w-auto", className)}
+			{...props}
+		/>
+	);
+}
+ComboboxSeparator.displayName = "ComboboxSeparator";
 
 /**
  * Fill in a React input field with autocomplete & autosuggest functionalities.
@@ -565,7 +518,7 @@ const Combobox = {
 	 * </Combobox.Root>
 	 * ```
 	 */
-	Separator: ComboboxSeparatorComponent,
+	Separator: ComboboxSeparator,
 } as const;
 
 export {
