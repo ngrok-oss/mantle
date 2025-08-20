@@ -195,6 +195,12 @@ export default function Page() {
 											getSortedRowModel: getSortedRowModel(),
 											getFilteredRowModel: getFilteredRowModel(),
 											initialState: {
+												sorting: [
+													{
+														id: "email",
+														desc: false,
+													},
+												],
 												pagination: {
 													pageSize: 100,
 												},
