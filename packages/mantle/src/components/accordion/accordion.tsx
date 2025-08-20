@@ -216,22 +216,173 @@ const Content = forwardRef<
 Content.displayName = "AccordionContent";
 
 /**
- * An accordion namespace object that contains the accordion components.
+ * A vertically stacked set of interactive headings that each reveal a section of content.
+ *
+ * @see https://mantle.ngrok.com/components/accordion
+ *
+ * @example
+ * ```tsx
+ * <Accordion type="single" collapsible>
+ *   <Accordion.Item value="item-1">
+ *     <Accordion.Heading>
+ *       <Accordion.Trigger>
+ *         <Accordion.TriggerIcon />
+ *         Is it accessible?
+ *       </Accordion.Trigger>
+ *     </Accordion.Heading>
+ *     <Accordion.Content>
+ *       Yes. It adheres to the WAI-ARIA design pattern.
+ *     </Accordion.Content>
+ *   </Accordion.Item>
+ * </Accordion>
+ * ```
  */
-const Accordion = Root as typeof Root & {
-	Root: typeof Root;
-	Content: typeof Content;
-	Heading: typeof Heading;
-	Item: typeof Item;
-	Trigger: typeof Trigger;
-	TriggerIcon: typeof TriggerIcon;
-};
-Accordion.Root = Root;
-Accordion.Content = Content;
-Accordion.Heading = Heading;
-Accordion.Item = Item;
-Accordion.Trigger = Trigger;
-Accordion.TriggerIcon = TriggerIcon;
+const Accordion = {
+	/**
+	 * A vertically stacked set of interactive headings that each reveal a section of content.
+	 * The root component that contains all accordion items.
+	 *
+	 * @see https://mantle.ngrok.com/components/accordion#api-accordion
+	 *
+	 * @example
+	 * ```tsx
+	 * <Accordion type="single" collapsible>
+	 *   <Accordion.Item value="item-1">
+	 *     <Accordion.Heading>
+	 *       <Accordion.Trigger>
+	 *         <Accordion.TriggerIcon />
+	 *         Is it accessible?
+	 *       </Accordion.Trigger>
+	 *     </Accordion.Heading>
+	 *     <Accordion.Content>
+	 *       Yes. It adheres to the WAI-ARIA design pattern.
+	 *     </Accordion.Content>
+	 *   </Accordion.Item>
+	 * </Accordion>
+	 * ```
+	 */
+	Root,
+	/**
+	 * Contains the collapsible content for an item.
+	 * The content area that is revealed when the accordion item is expanded.
+	 *
+	 * @see https://mantle.ngrok.com/components/accordion#api-accordion-content
+	 *
+	 * @example
+	 * ```tsx
+	 * <Accordion type="single" collapsible>
+	 *   <Accordion.Item value="item-1">
+	 *     <Accordion.Heading>
+	 *       <Accordion.Trigger>
+	 *         <Accordion.TriggerIcon />
+	 *         Is it accessible?
+	 *       </Accordion.Trigger>
+	 *     </Accordion.Heading>
+	 *     <Accordion.Content>
+	 *       Yes. It adheres to the WAI-ARIA design pattern.
+	 *     </Accordion.Content>
+	 *   </Accordion.Item>
+	 * </Accordion>
+	 * ```
+	 */
+	Content,
+	/**
+	 * Wraps an AccordionTrigger.
+	 * Contains the accordion trigger and provides proper heading semantics.
+	 *
+	 * @see https://mantle.ngrok.com/components/accordion#api-accordion-heading
+	 *
+	 * @example
+	 * ```tsx
+	 * <Accordion type="single" collapsible>
+	 *   <Accordion.Item value="item-1">
+	 *     <Accordion.Heading>
+	 *       <Accordion.Trigger>
+	 *         <Accordion.TriggerIcon />
+	 *         Is it accessible?
+	 *       </Accordion.Trigger>
+	 *     </Accordion.Heading>
+	 *     <Accordion.Content>
+	 *       Yes. It adheres to the WAI-ARIA design pattern.
+	 *     </Accordion.Content>
+	 *   </Accordion.Item>
+	 * </Accordion>
+	 * ```
+	 */
+	Heading,
+	/**
+	 * Contains all the parts of a collapsible section.
+	 * A single accordion item that can be expanded or collapsed.
+	 *
+	 * @see https://mantle.ngrok.com/components/accordion#api-accordion-item
+	 *
+	 * @example
+	 * ```tsx
+	 * <Accordion type="single" collapsible>
+	 *   <Accordion.Item value="item-1">
+	 *     <Accordion.Heading>
+	 *       <Accordion.Trigger>
+	 *         <Accordion.TriggerIcon />
+	 *         Is it accessible?
+	 *       </Accordion.Trigger>
+	 *     </Accordion.Heading>
+	 *     <Accordion.Content>
+	 *       Yes. It adheres to the WAI-ARIA design pattern.
+	 *     </Accordion.Content>
+	 *   </Accordion.Item>
+	 * </Accordion>
+	 * ```
+	 */
+	Item,
+	/**
+	 * Toggles the collapsed state of its associated item.
+	 * The interactive element that expands or collapses the accordion content.
+	 *
+	 * @see https://mantle.ngrok.com/components/accordion#api-accordion-trigger
+	 *
+	 * @example
+	 * ```tsx
+	 * <Accordion type="single" collapsible>
+	 *   <Accordion.Item value="item-1">
+	 *     <Accordion.Heading>
+	 *       <Accordion.Trigger>
+	 *         <Accordion.TriggerIcon />
+	 *         Is it accessible?
+	 *       </Accordion.Trigger>
+	 *     </Accordion.Heading>
+	 *     <Accordion.Content>
+	 *       Yes. It adheres to the WAI-ARIA design pattern.
+	 *     </Accordion.Content>
+	 *   </Accordion.Item>
+	 * </Accordion>
+	 * ```
+	 */
+	Trigger,
+	/**
+	 * An icon that indicates the expanded/collapsed state of the accordion trigger.
+	 * Rotates based on the accordion item state to provide visual feedback.
+	 *
+	 * @see https://mantle.ngrok.com/components/accordion#api-accordion-trigger-icon
+	 *
+	 * @example
+	 * ```tsx
+	 * <Accordion type="single" collapsible>
+	 *   <Accordion.Item value="item-1">
+	 *     <Accordion.Heading>
+	 *       <Accordion.Trigger>
+	 *         <Accordion.TriggerIcon />
+	 *         Is it accessible?
+	 *       </Accordion.Trigger>
+	 *     </Accordion.Heading>
+	 *     <Accordion.Content>
+	 *       Yes. It adheres to the WAI-ARIA design pattern.
+	 *     </Accordion.Content>
+	 *   </Accordion.Item>
+	 * </Accordion>
+	 * ```
+	 */
+	TriggerIcon,
+} as const;
 
 export {
 	//,
