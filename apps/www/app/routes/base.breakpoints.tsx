@@ -1,7 +1,7 @@
 import { Card } from "@ngrok/mantle/card";
 import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
-import { useBreakpoint } from "@ngrok/mantle/hooks";
+import { useBreakpoint, useIsBelowBreakpoint } from "@ngrok/mantle/hooks";
 import { Table } from "@ngrok/mantle/table";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/base.breakpoints";
@@ -24,6 +24,8 @@ export const headers: Route.HeadersFunction = () => {
 
 export default function Page() {
 	const currentBreakpoint = useBreakpoint();
+	const isBelowMd = useIsBelowBreakpoint("md");
+	const isBelowLg = useIsBelowBreakpoint("lg");
 
 	return (
 		<div className="space-y-8">
@@ -35,15 +37,40 @@ export default function Page() {
 			</div>
 
 			<section className="space-y-4">
-				<h2 className="text-2xl font-semibold">Current Breakpoint</h2>
-				<Card.Root className="max-w-sm">
-					<Card.Body className="flex items-center justify-between">
-						<span>Current breakpoint:</span>
-						<Code className="text-lg font-bold">{currentBreakpoint}</Code>
-					</Card.Body>
-				</Card.Root>
+				<h2 className="text-2xl font-semibold">Live Demo</h2>
+				<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+					<Card.Root>
+						<Card.Header>
+							<Card.Title>Current Breakpoint</Card.Title>
+						</Card.Header>
+						<Card.Body className="flex items-center justify-between">
+							<span>Current breakpoint:</span>
+							<Code className="text-lg font-bold">{currentBreakpoint}</Code>
+						</Card.Body>
+					</Card.Root>
+
+					<Card.Root>
+						<Card.Header>
+							<Card.Title>Below Medium?</Card.Title>
+						</Card.Header>
+						<Card.Body className="flex items-center justify-between">
+							<span>Below md (768px):</span>
+							<Code className="text-lg font-bold">{isBelowMd.toString()}</Code>
+						</Card.Body>
+					</Card.Root>
+
+					<Card.Root>
+						<Card.Header>
+							<Card.Title>Below Large?</Card.Title>
+						</Card.Header>
+						<Card.Body className="flex items-center justify-between">
+							<span>Below lg (1024px):</span>
+							<Code className="text-lg font-bold">{isBelowLg.toString()}</Code>
+						</Card.Body>
+					</Card.Root>
+				</div>
 				<p className="text-sm text-muted">
-					Resize your browser window to see the breakpoint change in real-time.
+					Resize your browser window to see the values change in real-time.
 				</p>
 			</section>
 
@@ -197,6 +224,68 @@ export default function Page() {
 						<Code>"default"</Code>, <Code>"sm"</Code>, <Code>"md"</Code>,{" "}
 						<Code>"lg"</Code>, <Code>"xl"</Code>, or <Code>"2xl"</Code>.
 					</p>
+				</div>
+			</section>
+
+			<section className="space-y-4">
+				<h2 className="text-2xl font-semibold">useIsBelowBreakpoint Hook</h2>
+				<p className="font-body text-body text-lg">
+					The <Code>useIsBelowBreakpoint</Code> hook returns <Code>true</Code>{" "}
+					if the current viewport width is below the specified breakpoint.
+					Perfect for mobile-first responsive design patterns.
+				</p>
+
+				<CodeBlock.Root>
+					<CodeBlock.Body>
+						<CodeBlock.CopyButton />
+						<CodeBlock.Code
+							language="tsx"
+							value={fmtCode`
+								import { useIsBelowBreakpoint } from "@ngrok/mantle/hooks";
+								
+								function ResponsiveSidebar() {
+									const isMobile = useIsBelowBreakpoint("md");
+									
+									return (
+										<aside className={isMobile ? "mobile-sidebar" : "desktop-sidebar"}>
+											{isMobile ? <MobileNav /> : <DesktopNav />}
+										</aside>
+									);
+								}
+							`}
+						/>
+					</CodeBlock.Body>
+				</CodeBlock.Root>
+
+				<div className="space-y-2">
+					<h3 className="text-lg font-semibold">Parameters</h3>
+					<p className="text-body">
+						Accepts a <Code>TailwindBreakpoint</Code> which can be one of:{" "}
+						<Code>"sm"</Code>, <Code>"md"</Code>, <Code>"lg"</Code>,{" "}
+						<Code>"xl"</Code>, or <Code>"2xl"</Code>.
+					</p>
+				</div>
+
+				<div className="space-y-2">
+					<h3 className="text-lg font-semibold">Common Use Cases</h3>
+					<ul className="list-disc list-inside space-y-1 text-body">
+						<li>
+							<strong>Mobile detection:</strong>{" "}
+							<Code>useIsBelowBreakpoint("md")</Code> for mobile-first layouts
+						</li>
+						<li>
+							<strong>Conditional rendering:</strong> Show/hide components based
+							on screen size
+						</li>
+						<li>
+							<strong>Dynamic styling:</strong> Apply different CSS classes for
+							mobile vs desktop
+						</li>
+						<li>
+							<strong>Component adaptation:</strong> Switch between mobile and
+							desktop component variants
+						</li>
+					</ul>
 				</div>
 			</section>
 		</div>
