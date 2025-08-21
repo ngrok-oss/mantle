@@ -307,6 +307,11 @@ function Navigation({ className, style }: WithStyleProps) {
 
 				<ul className="mt-2">
 					<li>
+						<NavLink to={href("/base/breakpoints")} prefetch="intent">
+							Breakpoints
+						</NavLink>
+					</li>
+					<li>
 						<NavLink to={href("/base/colors")} prefetch="intent">
 							Colors
 						</NavLink>
@@ -317,13 +322,13 @@ function Navigation({ className, style }: WithStyleProps) {
 						</NavLink>
 					</li>
 					<li>
-						<NavLink to={href("/base/typography")} prefetch="intent">
-							Typography
+						<NavLink to={href("/base/tailwind-variants")} prefetch="intent">
+							Tailwind Variants
 						</NavLink>
 					</li>
 					<li>
-						<NavLink to={href("/base/tailwind-variants")} prefetch="intent">
-							Tailwind Variants
+						<NavLink to={href("/base/typography")} prefetch="intent">
+							Typography
 						</NavLink>
 					</li>
 				</ul>
