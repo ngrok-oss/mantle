@@ -1,17 +1,17 @@
-import { Anchor } from "@ngrok/mantle/anchor";
-import { Card } from "@ngrok/mantle/card";
+import { BrowserOnly } from "@ngrok/mantle/browser-only";
 import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import {
-	BooleanPropType,
+	FuncPropType,
 	PropDefaultValueCell,
 	PropDescriptionCell,
 	PropNameCell,
 	PropRow,
 	PropTypeCell,
 	PropsTable,
+	ReactNodePropType,
 } from "~/components/props-table";
 import type { Route } from "./+types/components.browser-only";
 
@@ -35,45 +35,33 @@ export default function Page() {
 	return (
 		<div className="space-y-16">
 			<section className="space-y-4">
-				<PageHeader id="card">BrowserOnly</PageHeader>
+				<PageHeader id="browser-only">BrowserOnly</PageHeader>
 				<p className="font-body text-body text-xl">
-					A container used to display content in a box, resembling a physical
-					card.
+					A wrapper component that ensures its children only render in the
+					browser, after hydration has completed.
 				</p>
 				<div>
 					<Example className="flex-col gap-4">
-						<Card.Root>
-							<Card.Body>
-								<p>Laborum in aute officia adipisicing elit velit.</p>
-							</Card.Body>
-						</Card.Root>
-						<Card.Root className="shadow-lg">
-							<Card.Header>
-								<Card.Title>Card Title Here</Card.Title>
-							</Card.Header>
-							<Card.Body>
-								<p>Laborum in aute officia adipisicing elit velit.</p>
-							</Card.Body>
-							<Card.Footer>
-								<p>Card footer</p>
-							</Card.Footer>
-						</Card.Root>
-						<Card.Root>
-							<Card.Header>
-								<Card.Title>Card Title Here</Card.Title>
-							</Card.Header>
-							<Card.Body>
-								<p>Laborum in aute officia adipisicing elit velit.</p>
-							</Card.Body>
-						</Card.Root>
-						<Card.Root>
-							<Card.Body>
-								<p>Laborum in aute officia adipisicing elit velit.</p>
-							</Card.Body>
-							<Card.Footer>
-								<p>Card footer</p>
-							</Card.Footer>
-						</Card.Root>
+						<BrowserOnly
+							fallback={
+								<div className="h-8 w-32 bg-gray-200 animate-pulse rounded" />
+							}
+						>
+							{() => <p>This only renders in the browser after hydration!</p>}
+						</BrowserOnly>
+						<BrowserOnly
+							fallback={
+								<div className="h-20 bg-gray-100 rounded p-4">Loading...</div>
+							}
+						>
+							{() => (
+								<div className="p-4 border rounded">
+									<p>Browser-only content with window dimensions:</p>
+									<p>Width: {window.innerWidth}px</p>
+									<p>Height: {window.innerHeight}px</p>
+								</div>
+							)}
+						</BrowserOnly>
 					</Example>
 					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
 						<CodeBlock.Body>
@@ -81,43 +69,21 @@ export default function Page() {
 							<CodeBlock.Code
 								language="tsx"
 								value={fmtCode`
-								import { Card } from "@ngrok/mantle/card";
+								import { BrowserOnly } from "@ngrok/mantle/browser-only";
 
-								<Card.Root>
-									<Card.Body>
-										<p>Laborum in aute officia adipisicing elit velit.</p>
-									</Card.Body>
-								</Card.Root>
+								<BrowserOnly fallback={<div className="h-8 w-32 bg-gray-200 animate-pulse rounded" />}>
+									{() => <p>This only renders in the browser after hydration!</p>}
+								</BrowserOnly>
 
-								<Card.Root className="shadow-lg">
-									<Card.Header>
-										<Card.Title>Card Title Here</Card.Title>
-									</Card.Header>
-									<Card.Body>
-										<p>Laborum in aute officia adipisicing elit velit.</p>
-									</Card.Body>
-									<Card.Footer>
-										<p>Card footer</p>
-									</Card.Footer>
-								</Card.Root>
-
-								<Card.Root>
-									<Card.Header>
-										<Card.Title>Card Title Here</Card.Title>
-									</Card.Header>
-									<Card.Body>
-										<p>Laborum in aute officia adipisicing elit velit.</p>
-									</Card.Body>
-								</Card.Root>
-
-								<Card.Root>
-									<Card.Body>
-										<p>Laborum in aute officia adipisicing elit velit.</p>
-									</Card.Body>
-									<Card.Footer>
-										<p>Card footer</p>
-									</Card.Footer>
-								</Card.Root>
+								<BrowserOnly fallback={<div className="h-20 bg-gray-100 rounded p-4">Loading...</div>}>
+									{() => (
+										<div className="p-4 border rounded">
+											<p>Browser-only content with window dimensions:</p>
+											<p>Width: {window.innerWidth}px</p>
+											<p>Height: {window.innerHeight}px</p>
+										</div>
+									)}
+								</BrowserOnly>
 							`}
 							/>
 						</CodeBlock.Body>
@@ -131,237 +97,57 @@ export default function Page() {
 						API Reference
 					</h2>
 					<p className="font-body text-body text-xl">
-						The <Code>Card</Code> is a container used to display content in a
-						box, resembling a physical card. It is composed of several
-						sub-components.
+						The <Code>BrowserOnly</Code> component ensures its children only
+						render in the browser, after hydration has completed. This is useful
+						for components that rely on browser-only APIs.
 					</p>
 				</header>
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 id="api-card" className="text-xl font-medium text-strong">
-							<span id="api-card-root" />
-							Card
-						</h3>
-
-						<p className="font-body text-body">
-							A container that can be used to display content in a box
-							resembling a physical card. The root component of the all{" "}
-							<Code>Card</Code> sub-components.
-						</p>
-
-						<p>
-							All props from{" "}
-							<Anchor
-								href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
-								target="_blank"
-								rel="noopener noreferrer"
-							>
-								div
-							</Anchor>
-							, plus:
-						</p>
-					</header>
-
-					<PropsTable>
-						<PropRow>
-							<PropNameCell name="asChild" optional />
-							<PropTypeCell>
-								<BooleanPropType />
-							</PropTypeCell>
-							<PropDefaultValueCell>
-								<BooleanPropType value={false} />
-							</PropDefaultValueCell>
-							<PropDescriptionCell>
-								<p>
-									Use the <Code>asChild</Code> prop to compose the{" "}
-									<Code>Card</Code> styling and functionality onto alternative
-									element types or your own React components.
-								</p>
-							</PropDescriptionCell>
-						</PropRow>
-					</PropsTable>
-				</section>
-
-				<section className="space-y-4">
-					<header className="space-y-1">
-						<h3 id="api-card-body" className="text-xl font-medium text-strong">
-							Card.Body
-						</h3>
-
-						<p className="font-body text-body">
-							The main content of a card. Usually composed as a direct child of
-							a <Code>Card.Root</Code> component.
-						</p>
-
-						<p>
-							All props from{" "}
-							<Anchor
-								href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
-								target="_blank"
-								rel="noopener noreferrer"
-							>
-								div
-							</Anchor>
-							, plus:
-						</p>
-					</header>
-
-					<PropsTable>
-						<PropRow>
-							<PropNameCell name="asChild" optional />
-							<PropTypeCell>
-								<BooleanPropType />
-							</PropTypeCell>
-							<PropDefaultValueCell>
-								<BooleanPropType value={false} />
-							</PropDefaultValueCell>
-							<PropDescriptionCell>
-								<p>
-									Use the <Code>asChild</Code> prop to compose the{" "}
-									<Code>Card.Body</Code> styling and functionality onto
-									alternative element types or your own React components.
-								</p>
-							</PropDescriptionCell>
-						</PropRow>
-					</PropsTable>
-				</section>
-
-				<section className="space-y-4">
-					<header className="space-y-1">
 						<h3
-							id="api-card-footer"
+							id="api-browser-only"
 							className="text-xl font-medium text-strong"
 						>
-							Card.Footer
+							BrowserOnly
 						</h3>
 
 						<p className="font-body text-body">
-							The footer container of a card. Usually composed as a direct child
-							of a <Code>Card.Root</Code> component.
-						</p>
-
-						<p>
-							All props from{" "}
-							<Anchor
-								href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
-								target="_blank"
-								rel="noopener noreferrer"
-							>
-								div
-							</Anchor>
-							, plus:
+							A wrapper component that ensures its children only render in the
+							browser, after hydration has completed. Useful for components that
+							rely on browser-only APIs like <Code>window</Code>,{" "}
+							<Code>document</Code>,<Code>localStorage</Code>, or media queries.
 						</p>
 					</header>
 
 					<PropsTable>
 						<PropRow>
-							<PropNameCell name="asChild" optional />
+							<PropNameCell name="children" />
 							<PropTypeCell>
-								<BooleanPropType />
+								<FuncPropType value="() => ReactNode" />
 							</PropTypeCell>
-							<PropDefaultValueCell>
-								<BooleanPropType value={false} />
-							</PropDefaultValueCell>
+							<PropDefaultValueCell>—</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Use the <Code>asChild</Code> prop to compose the{" "}
-									<Code>Card.Footer</Code> styling and functionality onto
-									alternative element types or your own React components.
+									Children must be a render function so that evaluation is
+									deferred until after hydration has occurred.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
-					</PropsTable>
-				</section>
-
-				<section className="space-y-4">
-					<header className="space-y-1">
-						<h3
-							id="api-card-header"
-							className="text-xl font-medium text-strong"
-						>
-							Card.Header
-						</h3>
-
-						<p className="font-body text-body">
-							The header container of a card. Usually composed as a direct child
-							of a <Code>Card.Root</Code> component.
-						</p>
-
-						<p>
-							All props from{" "}
-							<Anchor
-								href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
-								target="_blank"
-								rel="noopener noreferrer"
-							>
-								div
-							</Anchor>
-							, plus:
-						</p>
-					</header>
-
-					<PropsTable>
 						<PropRow>
-							<PropNameCell name="asChild" optional />
+							<PropNameCell name="fallback" optional />
 							<PropTypeCell>
-								<BooleanPropType />
+								<ReactNodePropType />
 							</PropTypeCell>
 							<PropDefaultValueCell>
-								<BooleanPropType value={false} />
+								<Code>null</Code>
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Use the <Code>asChild</Code> prop to compose the{" "}
-									<Code>Card.Header</Code> styling and functionality onto
-									alternative element types or your own React components.
-								</p>
-							</PropDescriptionCell>
-						</PropRow>
-					</PropsTable>
-				</section>
-
-				<section className="space-y-4">
-					<header className="space-y-1">
-						<h3 id="api-card-title" className="text-xl font-medium text-strong">
-							Card.Title
-						</h3>
-
-						<p className="font-body text-body">
-							The title of a card. Usually composed as a direct child of a
-							<Code>Card.Header</Code> component. Renders as an <Code>h3</Code>{" "}
-							element by default, but can be changed to any other element by
-							using the <Code>asChild</Code> prop. It is preferred to use a
-							heading element (<Code>h1-h6</Code>) for accessibility reasons.
-						</p>
-
-						<p>
-							All props from{" "}
-							<Anchor
-								href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements#attributes"
-								target="_blank"
-								rel="noopener noreferrer"
-							>
-								h1-h6
-							</Anchor>
-							, plus:
-						</p>
-					</header>
-
-					<PropsTable>
-						<PropRow>
-							<PropNameCell name="asChild" optional />
-							<PropTypeCell>
-								<BooleanPropType />
-							</PropTypeCell>
-							<PropDefaultValueCell>
-								<BooleanPropType value={false} />
-							</PropDefaultValueCell>
-							<PropDescriptionCell>
-								<p>
-									Use the <Code>asChild</Code> prop to compose the{" "}
-									<Code>Card.Title</Code> styling and functionality onto
-									alternative element types or your own React components.
+									Optional fallback to render on the server (and during
+									hydration) before the client-only children are mounted.
+									Ideally, this should be the same dimensions as the eventual
+									children to avoid layout shift.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
