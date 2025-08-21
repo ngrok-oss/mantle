@@ -1,7 +1,7 @@
 import { Anchor } from "@ngrok/mantle/anchor";
 import { Button } from "@ngrok/mantle/button";
+import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
-import { InlineCode } from "@ngrok/mantle/inline-code";
 import { PasswordInput } from "@ngrok/mantle/input";
 import { Label } from "@ngrok/mantle/label";
 import { useState } from "react";
@@ -102,8 +102,8 @@ export default function Page() {
 					API Reference
 				</h2>
 				<p className="font-body text-body text-xl">
-					The <InlineCode>PasswordInput</InlineCode> accepts the following props
-					in addition to the{" "}
+					The <Code>PasswordInput</Code> accepts the following props in addition
+					to the{" "}
 					<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input">
 						standard HTML input attributes
 					</Anchor>
@@ -160,19 +160,18 @@ export default function Page() {
 						<PropDefaultValueCell />
 						<PropDescriptionCell className="space-y-2">
 							<p>
-								Use the <InlineCode>validation</InlineCode> prop to show if the
-								input has a specific validation status. This will change the
-								border and outline of the input.
+								Use the <Code>validation</Code> prop to show if the input has a
+								specific validation status. This will change the border and
+								outline of the input.
 							</p>
 							<p>
-								The <InlineCode>false</InlineCode> type is useful when using
+								The <Code>false</Code> type is useful when using
 								short-circuiting logic so that you don't need to use a ternary
-								with <InlineCode>undefined</InlineCode>.
+								with <Code>undefined</Code>.
 							</p>
 							<p>
-								Setting <InlineCode>validation</InlineCode> to{" "}
-								<InlineCode>error</InlineCode> also sets{" "}
-								<InlineCode>aria-invalid</InlineCode>.
+								Setting <Code>validation</Code> to <Code>error</Code> also sets{" "}
+								<Code>aria-invalid</Code>.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>

@@ -1,6 +1,6 @@
 import { Anchor } from "@ngrok/mantle/anchor";
+import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
-import { InlineCode } from "@ngrok/mantle/inline-code";
 import {
 	PreloadFonts,
 	preventWrongThemeFlashScriptContent,
@@ -49,15 +49,15 @@ export default function Page() {
 			</header>
 			<section className="font-body text-body space-y-4">
 				<p>
-					To use the <InlineCode>ThemeProvider</InlineCode>, wrap your
-					application&apos;s entry point. This should be done as high in the
-					component tree as possible.
+					To use the <Code>ThemeProvider</Code>, wrap your application&apos;s
+					entry point. This should be done as high in the component tree as
+					possible.
 				</p>
 				<p>
-					You should also add the{" "}
-					<InlineCode>MantleThemeHeadContent</InlineCode> component to the head
-					of your application to prevent a Flash of Unstyled Content (FOUC) when
-					the app first loads as well as preload all of our custom fonts.
+					You should also add the <Code>MantleThemeHeadContent</Code> component
+					to the head of your application to prevent a Flash of Unstyled Content
+					(FOUC) when the app first loads as well as preload all of our custom
+					fonts.
 				</p>
 				<CodeBlock.Root>
 					<CodeBlock.Header>
@@ -100,11 +100,10 @@ export default function Page() {
 			</section>
 			<section className="space-y-4">
 				<p className="font-body text-body">
-					Sometimes you cannot use the{" "}
-					<InlineCode>MantleThemeHeadContent</InlineCode> component because your
-					webserver is not able to render React components. In this case, you
-					can use the copy the following script and add it to your
-					application&apos;s <InlineCode>&lt;head&gt;</InlineCode>:
+					Sometimes you cannot use the <Code>MantleThemeHeadContent</Code>{" "}
+					component because your webserver is not able to render React
+					components. In this case, you can use the copy the following script
+					and add it to your application&apos;s <Code>&lt;head&gt;</Code>:
 				</p>
 				<CodeBlock.Root>
 					<CodeBlock.Header>
@@ -127,7 +126,7 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 			<section className="space-y-4">
 				<p className="font-body text-body">
 					You will also need to ensure that you add the{" "}
-					<InlineCode>PreloadFonts</InlineCode> component to your app as well.
+					<Code>PreloadFonts</Code> component to your app as well.
 				</p>
 				<CodeBlock.Root>
 					<CodeBlock.Header>
@@ -147,9 +146,8 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 			</section>
 			<section className="space-y-4">
 				<p className="font-body text-body">
-					Then, in your application, you can use the{" "}
-					<InlineCode>useTheme</InlineCode> hook to get and change the current
-					theme:
+					Then, in your application, you can use the <Code>useTheme</Code> hook
+					to get and change the current theme:
 				</p>
 				<CodeBlock.Root>
 					<CodeBlock.Header>
@@ -224,8 +222,8 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 							ThemeProvider
 						</h3>
 						<p className="font-body text-body text-xl">
-							The <InlineCode>ThemeProvider</InlineCode> accepts the following
-							props in addition to the{" "}
+							The <Code>ThemeProvider</Code> accepts the following props in
+							addition to the{" "}
 							<Anchor href="https://react.dev/reference/react/PropsWithChildren">
 								PropsWithChildren
 							</Anchor>
@@ -272,7 +270,7 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 								<PropDescriptionCell>
 									<p>
 										The default theme to use when no theme is stored in
-										localStorage. The <InlineCode>system</InlineCode> theme will
+										localStorage. The <Code>system</Code> theme will
 										automatically resolve to the user's preferred color scheme.
 									</p>
 								</PropDescriptionCell>
@@ -302,9 +300,9 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 							MantleThemeHeadContent
 						</h3>
 						<p className="font-body text-body text-xl">
-							The <InlineCode>MantleThemeHeadContent</InlineCode> component
-							prevents Flash of Unstyled Content (FOUC) and preloads fonts. It
-							accepts the following props:
+							The <Code>MantleThemeHeadContent</Code> component prevents Flash
+							of Unstyled Content (FOUC) and preloads fonts. It accepts the
+							following props:
 						</p>
 						<PropsTable>
 							<PropRow>
@@ -334,8 +332,8 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 								<PropDescriptionCell>
 									<p>
 										The default theme to use in the FOUC prevention script.
-										Should match the <InlineCode>defaultTheme</InlineCode> prop
-										of your <InlineCode>ThemeProvider</InlineCode>.
+										Should match the <Code>defaultTheme</Code> prop of your{" "}
+										<Code>ThemeProvider</Code>.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -350,8 +348,8 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 								<PropDescriptionCell>
 									<p>
 										The localStorage key to check for theme preference. Should
-										match the <InlineCode>storageKey</InlineCode> prop of your{" "}
-										<InlineCode>ThemeProvider</InlineCode>.
+										match the <Code>storageKey</Code> prop of your{" "}
+										<Code>ThemeProvider</Code>.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>

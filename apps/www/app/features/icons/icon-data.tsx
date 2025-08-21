@@ -1,6 +1,6 @@
+import { Code } from "@ngrok/mantle/code";
 import { SortIcon, TrafficPolicyFileIcon } from "@ngrok/mantle/icons";
 import { AutoThemeIcon, ThemeIcon } from "@ngrok/mantle/icons";
-import { InlineCode } from "@ngrok/mantle/inline-code";
 import type { ReactNode } from "react";
 
 type IconData = {
@@ -18,10 +18,10 @@ const iconData = [
 		description: (
 			<div className="text-center space-y-1">
 				<p>
-					<InlineCode>mode="time"</InlineCode>
+					<Code>mode="time"</Code>
 				</p>
 				<p>
-					<InlineCode>direction="newest-to-oldest"</InlineCode>
+					<Code>direction="newest-to-oldest"</Code>
 				</p>
 			</div>
 		),
@@ -43,10 +43,10 @@ const iconData = [
 		description: (
 			<div className="text-center space-y-1">
 				<p>
-					<InlineCode>mode="time"</InlineCode>
+					<Code>mode="time"</Code>
 				</p>
 				<p>
-					<InlineCode>direction="oldest-to-newest"</InlineCode>
+					<Code>direction="oldest-to-newest"</Code>
 				</p>
 			</div>
 		),
@@ -68,10 +68,10 @@ const iconData = [
 		description: (
 			<div className="text-center space-y-1">
 				<p>
-					<InlineCode>mode="alphanumeric"</InlineCode>
+					<Code>mode="alphanumeric"</Code>
 				</p>
 				<p>
-					<InlineCode>direction="asc"</InlineCode>
+					<Code>direction="asc"</Code>
 				</p>
 			</div>
 		),
@@ -92,10 +92,10 @@ const iconData = [
 		description: (
 			<div className="text-center space-y-1">
 				<p>
-					<InlineCode>mode="alphanumeric"</InlineCode>
+					<Code>mode="alphanumeric"</Code>
 				</p>
 				<p>
-					<InlineCode>direction="desc"</InlineCode>
+					<Code>direction="desc"</Code>
 				</p>
 			</div>
 		),

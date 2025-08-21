@@ -1,6 +1,6 @@
 import { Anchor } from "@ngrok/mantle/anchor";
+import { Code } from "@ngrok/mantle/code";
 import { cx } from "@ngrok/mantle/cx";
-import { InlineCode } from "@ngrok/mantle/inline-code";
 import { useAppliedTheme } from "@ngrok/mantle/theme-provider";
 import { HashNavLink } from "~/components/hash-nav-link";
 import { PageHeader } from "~/components/page-header";
@@ -433,10 +433,9 @@ export default function Page() {
 				</h2>
 				<p className="font-body text-body mt-3">
 					Mantle&rsquo;s colors are delivered as CSS variables via
-					Tailwind&rsquo;s API eg. <InlineCode>.text-blue-500</InlineCode>. They
-					can be directly accessed via{" "}
-					<InlineCode>var(--color-blue-500)</InlineCode> and use{" "}
-					<InlineCode>oklch()</InlineCode> color space.
+					Tailwind&rsquo;s API eg. <Code>.text-blue-500</Code>. They can be
+					directly accessed via <Code>var(--color-blue-500)</Code> and use{" "}
+					<Code>oklch()</Code> color space.
 				</p>
 
 				<h2 id="black-and-white" className="mt-8 text-3xl font-medium">
@@ -451,11 +450,11 @@ export default function Page() {
 				</p>
 				<div className="bg-white flex flex-col items-center justify-center p-6 border border-card rounded text-black gap-2">
 					<p>
-						This renders <InlineCode>bg-white</InlineCode> and color{" "}
-						<InlineCode>text-black</InlineCode>.
+						This renders <Code>bg-white</Code> and color <Code>text-black</Code>
+						.
 					</p>
 					<p>
-						The current applied theme is <InlineCode>{appliedTheme}</InlineCode>
+						The current applied theme is <Code>{appliedTheme}</Code>
 					</p>
 				</div>
 
@@ -465,14 +464,14 @@ export default function Page() {
 				<p className="font-body text-body mt-3">
 					Most colors should appropriately swap for sensible values in dark and
 					high contrast modes. However, there are often cases where you&rsquo;ll
-					need to specify an override. The <InlineCode>dark:</InlineCode>{" "}
-					variant is well-documented on{" "}
+					need to specify an override. The <Code>dark:</Code> variant is
+					well-documented on{" "}
 					<Anchor href="https://tailwindcss.com/docs/dark-mode">
 						Tailwind&rsquo;s website
 					</Anchor>
 					. Mantle provides additional variants for high contrast and dark high
-					contrast mode with <InlineCode>high-contrast:</InlineCode> and{" "}
-					<InlineCode>dark-high-contrast:</InlineCode> respectively.
+					contrast mode with <Code>high-contrast:</Code> and{" "}
+					<Code>dark-high-contrast:</Code> respectively.
 				</p>
 
 				<h2 id="functional-colors" className="mt-8 text-3xl font-medium">

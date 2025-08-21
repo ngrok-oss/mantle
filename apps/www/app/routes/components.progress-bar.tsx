@@ -1,6 +1,6 @@
 import { Anchor } from "@ngrok/mantle/anchor";
+import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
-import { InlineCode } from "@ngrok/mantle/inline-code";
 import { ProgressBar } from "@ngrok/mantle/progress";
 import { useState } from "react";
 import { Example } from "~/components/example";
@@ -126,9 +126,8 @@ export default function Page() {
 					Custom Maximum Value
 				</h2>
 				<p className="font-body text-body">
-					You can set a custom maximum value using the{" "}
-					<InlineCode>max</InlineCode> prop. The progress value will be
-					calculated as a percentage of this maximum.
+					You can set a custom maximum value using the <Code>max</Code> prop.
+					The progress value will be calculated as a percentage of this maximum.
 				</p>
 				<div>
 					<Example>
@@ -159,10 +158,10 @@ export default function Page() {
 					Indeterminate Value
 				</h2>
 				<p className="font-body text-body">
-					You can set the <InlineCode>value</InlineCode> prop to{" "}
-					<InlineCode>"indeterminate"</InlineCode> to show the progress bar in
-					an indeterminate state. Currently, this displays as a progress bar at
-					0% but maintains accessibility attributes for screen readers.
+					You can set the <Code>value</Code> prop to{" "}
+					<Code>"indeterminate"</Code> to show the progress bar in an
+					indeterminate state. Currently, this displays as a progress bar at 0%
+					but maintains accessibility attributes for screen readers.
 				</p>
 				<div>
 					<Example>
@@ -193,10 +192,9 @@ export default function Page() {
 					Dynamic Colors
 				</h2>
 				<p className="font-body text-body">
-					The color of the <InlineCode>ProgressBar.Indicator</InlineCode> can be
-					customized using the <InlineCode>className</InlineCode> prop. This
-					allows you to change colors based on the current progress value or
-					application state.
+					The color of the <Code>ProgressBar.Indicator</Code> can be customized
+					using the <Code>className</Code> prop. This allows you to change
+					colors based on the current progress value or application state.
 				</p>
 				<div>
 					<Example>
@@ -281,8 +279,8 @@ export default function Page() {
 							</p>
 
 							<p>
-								The <InlineCode>ProgressBar.Root</InlineCode> accepts the
-								following props in addition to the{" "}
+								The <Code>ProgressBar.Root</Code> accepts the following props in
+								addition to the{" "}
 								<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes">
 									standard HTML div attributes
 								</Anchor>
@@ -331,8 +329,8 @@ export default function Page() {
 									between 0 and 100 if max is omitted.
 								</p>
 								<p>
-									If set to <InlineCode>"indeterminate"</InlineCode>, the
-									progress bar is considered <strong>indeterminate</strong>.
+									If set to <Code>"indeterminate"</Code>, the progress bar is
+									considered <strong>indeterminate</strong>.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>

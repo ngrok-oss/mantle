@@ -1,7 +1,7 @@
 import { Anchor } from "@ngrok/mantle/anchor";
 import { IconButton } from "@ngrok/mantle/button";
+import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
-import { InlineCode } from "@ngrok/mantle/inline-code";
 import { SandboxedOnClick } from "@ngrok/mantle/sandboxed-on-click";
 import { Table } from "@ngrok/mantle/table";
 import { BookIcon } from "@phosphor-icons/react/Book";
@@ -90,10 +90,9 @@ export default function Page() {
 				<div>
 					<Example className="flex-col gap-4">
 						<p>
-							Each table row will trigger a{" "}
-							<InlineCode>window.alert()</InlineCode> when clicked. The icon
-							button is wrapped in <InlineCode>SandboxedOnClick</InlineCode> and
-							navigates you to{" "}
+							Each table row will trigger a <Code>window.alert()</Code> when
+							clicked. The icon button is wrapped in{" "}
+							<Code>SandboxedOnClick</Code> and navigates you to{" "}
 							<Anchor href="https://ngrok.com/docs">the ngrok docs.</Anchor>
 						</p>
 						<Table.Root>
@@ -280,10 +279,10 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Only call <InlineCode>event.preventDefault()</InlineCode> in
-									the <InlineCode>onClick</InlineCode> handler if the user has
-									not set <InlineCode>allowClickEventDefault</InlineCode> to
-									<InlineCode>true</InlineCode>.
+									Only call <Code>event.preventDefault()</Code> in the{" "}
+									<Code>onClick</Code> handler if the user has not set{" "}
+									<Code>allowClickEventDefault</Code> to
+									<Code>true</Code>.
 								</p>
 								<p>
 									This allows the user to control whether or not the default
@@ -305,9 +304,9 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-									<InlineCode>SandboxedOnClick</InlineCode> functionality onto
-									alternative element types or your own React components.
+									Use the <Code>asChild</Code> prop to compose the{" "}
+									<Code>SandboxedOnClick</Code> functionality onto alternative
+									element types or your own React components.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>

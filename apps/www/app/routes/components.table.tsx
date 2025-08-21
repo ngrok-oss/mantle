@@ -1,6 +1,6 @@
 import { Anchor } from "@ngrok/mantle/anchor";
+import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
-import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Table } from "@ngrok/mantle/table";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
@@ -29,7 +29,7 @@ export default function Page() {
 				<PageHeader id="table">Table</PageHeader>
 				<p className="font-body text-body text-xl">
 					A structured way to display data in rows and columns. The API matches
-					the HTML <InlineCode>table</InlineCode> element 1:1.
+					the HTML <Code>table</Code> element 1:1.
 				</p>
 				<div>
 					<Example className="gap-2">
@@ -85,10 +85,9 @@ export default function Page() {
 						API Reference
 					</h2>
 					<p className="font-body text-body text-xl">
-						The <InlineCode>Table</InlineCode> is structured way to display data
-						in rows and columns. The API matches the HTML{" "}
-						<InlineCode>table</InlineCode> element 1:1. It is composed of
-						several sub-components.
+						The <Code>Table</Code> is structured way to display data in rows and
+						columns. The API matches the HTML <Code>table</Code> element 1:1. It
+						is composed of several sub-components.
 					</p>
 				</header>
 
@@ -100,9 +99,8 @@ export default function Page() {
 
 						<div className="space-y-1 font-body text-body">
 							<p>
-								Root container for all <InlineCode>Table</InlineCode>{" "}
-								sub-components. Should be the parent of all other table
-								sub-components.
+								Root container for all <Code>Table</Code> sub-components. Should
+								be the parent of all other table sub-components.
 							</p>
 
 							<p>
@@ -135,41 +133,39 @@ export default function Page() {
 
 						<div className="space-y-1 font-body text-body">
 							<p>
-								The API matches the HTML <InlineCode>table</InlineCode> element
-								1:1.
+								The API matches the HTML <Code>table</Code> element 1:1.
 							</p>
 
 							<p>Permitted content in this order:</p>
 							<ol className="list-decimal ml-8 space-y-1">
 								<li>
-									optional: <InlineCode>Table.Caption</InlineCode>
+									optional: <Code>Table.Caption</Code>
 								</li>
 								<li>
-									0 or more: <InlineCode>colgroup</InlineCode> elements
+									0 or more: <Code>colgroup</Code> elements
 								</li>
 								<li>
-									optional: <InlineCode>Table.Head</InlineCode>
+									optional: <Code>Table.Head</Code>
 								</li>
 								<li>
 									either one of the following:
 									<ul className="list-disc ml-8 space-y-1">
 										<li>
-											0 or more: <InlineCode>Table.Body</InlineCode>
+											0 or more: <Code>Table.Body</Code>
 										</li>
 										<li>
-											0 or more: <InlineCode>Table.Row</InlineCode>
+											0 or more: <Code>Table.Row</Code>
 										</li>
 									</ul>
 								</li>
 								<li>
-									optional: <InlineCode>Table.Foot</InlineCode>
+									optional: <Code>Table.Foot</Code>
 								</li>
 							</ol>
 							<p>
 								Establishes a table formatting context. Elements inside the{" "}
-								<InlineCode>Table</InlineCode> generate rectangular boxes. Each
-								box occupies a number of table cells according to the following
-								rules:
+								<Code>Table</Code> generate rectangular boxes. Each box occupies
+								a number of table cells according to the following rules:
 							</p>
 							<ul className="list-disc ml-8 space-y-1">
 								<li>
@@ -216,27 +212,25 @@ export default function Page() {
 
 						<div className="space-y-1 font-body text-body">
 							<p>
-								The <InlineCode>Table.Head</InlineCode> is a container for the
-								table's column headers. Encapsulates a set of{" "}
-								<InlineCode>Table.Row</InlineCode>s, indicating that they
-								comprise the head of a table with information about the table's
-								columns. This is usually in the form of column headers (
-								<InlineCode>Table.Header</InlineCode>).
+								The <Code>Table.Head</Code> is a container for the table's
+								column headers. Encapsulates a set of <Code>Table.Row</Code>s,
+								indicating that they comprise the head of a table with
+								information about the table's columns. This is usually in the
+								form of column headers (<Code>Table.Header</Code>).
 							</p>
 
 							<p>
-								Must be used as a child of a <InlineCode>Table</InlineCode>. It
-								should only come after any
-								<InlineCode>Table.Caption</InlineCode> or{" "}
-								<InlineCode>colgroup</InlineCode> and before any
-								<InlineCode>Table.Body</InlineCode> or{" "}
-								<InlineCode>Table.Foot</InlineCode>.
+								Must be used as a child of a <Code>Table</Code>. It should only
+								come after any
+								<Code>Table.Caption</Code> or <Code>colgroup</Code> and before
+								any
+								<Code>Table.Body</Code> or <Code>Table.Foot</Code>.
 							</p>
 
 							<p>Permitted content:</p>
 							<ol className="list-decimal ml-8 space-y-1">
 								<li>
-									0 or more: <InlineCode>Table.Row</InlineCode>
+									0 or more: <Code>Table.Row</Code>
 								</li>
 							</ol>
 							<p>
@@ -261,23 +255,22 @@ export default function Page() {
 
 						<div className="space-y-1 font-body text-body">
 							<p>
-								The <InlineCode>Table.Body</InlineCode> encapsulates a set of{" "}
-								<InlineCode>Table.Row</InlineCode>s, indicating they they
-								comprise the body of a table's (main) data.
+								The <Code>Table.Body</Code> encapsulates a set of{" "}
+								<Code>Table.Row</Code>s, indicating they they comprise the body
+								of a table's (main) data.
 							</p>
 
 							<p>
-								Must be used as a child of a <InlineCode>Table</InlineCode> and
-								only come after any
-								<InlineCode>Table.Caption</InlineCode>,
-								<InlineCode>colgroup</InlineCode>, or{" "}
-								<InlineCode>Table.Head</InlineCode>.
+								Must be used as a child of a <Code>Table</Code> and only come
+								after any
+								<Code>Table.Caption</Code>,<Code>colgroup</Code>, or{" "}
+								<Code>Table.Head</Code>.
 							</p>
 
 							<p>Permitted content:</p>
 							<ol className="list-decimal ml-8 space-y-1">
 								<li>
-									0 or more: <InlineCode>Table.Row</InlineCode>
+									0 or more: <Code>Table.Row</Code>
 								</li>
 							</ol>
 							<p>
@@ -302,26 +295,24 @@ export default function Page() {
 
 						<div className="space-y-1 font-body text-body">
 							<p>
-								The <InlineCode>Table.Foot</InlineCode> encapsulates a set of{" "}
-								<InlineCode>Table.Row</InlineCode>s, indicating that they
-								comprise the foot of a table with information about the table's
-								columns. This is usually a summary of the columns, e.g., a sum
-								of the given numbers in a column.
+								The <Code>Table.Foot</Code> encapsulates a set of{" "}
+								<Code>Table.Row</Code>s, indicating that they comprise the foot
+								of a table with information about the table's columns. This is
+								usually a summary of the columns, e.g., a sum of the given
+								numbers in a column.
 							</p>
 
 							<p>
-								Must be used as a child of a <InlineCode>Table</InlineCode> and
-								only come after any
-								<InlineCode>Table.Caption</InlineCode>,
-								<InlineCode>colgroup</InlineCode>,
-								<InlineCode>Table.Head</InlineCode>, and{" "}
-								<InlineCode>Table.Body</InlineCode>.
+								Must be used as a child of a <Code>Table</Code> and only come
+								after any
+								<Code>Table.Caption</Code>,<Code>colgroup</Code>,
+								<Code>Table.Head</Code>, and <Code>Table.Body</Code>.
 							</p>
 
 							<p>Permitted content:</p>
 							<ol className="list-decimal ml-8 space-y-1">
 								<li>
-									0 or more: <InlineCode>Table.Row</InlineCode>
+									0 or more: <Code>Table.Row</Code>
 								</li>
 							</ol>
 							<p>
@@ -346,23 +337,22 @@ export default function Page() {
 
 						<div className="space-y-1 font-body text-body">
 							<p>
-								The <InlineCode>Table.Row</InlineCode> defines a row of cells in
-								a table. The row's cells can then be established using a mix of{" "}
-								<InlineCode>Table.Cell</InlineCode> and{" "}
-								<InlineCode>Table.Header</InlineCode> components.
+								The <Code>Table.Row</Code> defines a row of cells in a table.
+								The row's cells can then be established using a mix of{" "}
+								<Code>Table.Cell</Code> and <Code>Table.Header</Code>{" "}
+								components.
 							</p>
 
 							<p>
-								Must be used as a child of a <InlineCode>Table.Head</InlineCode>
-								, <InlineCode>Table.Body</InlineCode>, or{" "}
-								<InlineCode>Table.Foot</InlineCode>.
+								Must be used as a child of a <Code>Table.Head</Code>,{" "}
+								<Code>Table.Body</Code>, or <Code>Table.Foot</Code>.
 							</p>
 
 							<p>Permitted content:</p>
 							<ol className="list-decimal ml-8 space-y-1">
 								<li>
-									0 or more: <InlineCode>Table.Header</InlineCode> or{" "}
-									<InlineCode>Table.Cell</InlineCode>
+									0 or more: <Code>Table.Header</Code> or{" "}
+									<Code>Table.Cell</Code>
 								</li>
 							</ol>
 							<p>
@@ -390,14 +380,14 @@ export default function Page() {
 
 						<div className="space-y-1 font-body text-body">
 							<p>
-								The <InlineCode>Table.Header</InlineCode> defines a cell as the
-								header of a group of table cells and may be used as a child of a{" "}
-								<InlineCode>Table.Row</InlineCode>. The exact nature of this
-								group is defined by the scope and headers attributes.
+								The <Code>Table.Header</Code> defines a cell as the header of a
+								group of table cells and may be used as a child of a{" "}
+								<Code>Table.Row</Code>. The exact nature of this group is
+								defined by the scope and headers attributes.
 							</p>
 
 							<p>
-								Must be used as a child of a <InlineCode>Table.Row</InlineCode>.
+								Must be used as a child of a <Code>Table.Row</Code>.
 							</p>
 
 							<p>Permitted content:</p>
@@ -429,13 +419,13 @@ export default function Page() {
 
 						<div className="space-y-1 font-body text-body">
 							<p>
-								The <InlineCode>Table.Cell</InlineCode> defines a cell of a
-								table that contains data and may be used as a child of a{" "}
-								<InlineCode>Table.Row</InlineCode>.
+								The <Code>Table.Cell</Code> defines a cell of a table that
+								contains data and may be used as a child of a{" "}
+								<Code>Table.Row</Code>.
 							</p>
 
 							<p>
-								Must be used as a child of a <InlineCode>Table.Row</InlineCode>.
+								Must be used as a child of a <Code>Table.Row</Code>.
 							</p>
 
 							<p>Permitted content:</p>
@@ -467,14 +457,13 @@ export default function Page() {
 
 						<div className="space-y-1 font-body text-body">
 							<p>
-								The optional <InlineCode>Table.Caption</InlineCode> specifies
-								the caption (or title) of a table, providing the table an
-								accessible description.
+								The optional <Code>Table.Caption</Code> specifies the caption
+								(or title) of a table, providing the table an accessible
+								description.
 							</p>
 
 							<p>
-								If used, must be the first child of a{" "}
-								<InlineCode>Table</InlineCode>.
+								If used, must be the first child of a <Code>Table</Code>.
 							</p>
 
 							<p>Permitted content:</p>

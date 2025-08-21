@@ -1,7 +1,7 @@
 import { Anchor } from "@ngrok/mantle/anchor";
+import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { Flag } from "@ngrok/mantle/flag";
-import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import {
@@ -67,8 +67,7 @@ export default function Page() {
 					API Reference
 				</h2>
 				<p className="font-body text-body text-xl">
-					The <InlineCode>Flag</InlineCode> accepts the following props in
-					addition to the{" "}
+					The <Code>Flag</Code> accepts the following props in addition to the{" "}
 					<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes">
 						standard HTML div attributes
 					</Anchor>

@@ -1,6 +1,6 @@
 import { Anchor } from "@ngrok/mantle/anchor";
+import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
-import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Label } from "@ngrok/mantle/label";
 import { Select } from "@ngrok/mantle/select";
 import { useState } from "react";
@@ -237,8 +237,7 @@ export default function Page() {
 						<p className="font-body text-body">
 							By default the selected item's text will be rendered when
 							selected. Sometimes you may need to render something different.
-							You can control the select and pass{" "}
-							<InlineCode>children</InlineCode> instead.
+							You can control the select and pass <Code>children</Code> instead.
 						</p>
 					</header>
 					<div>
@@ -291,7 +290,7 @@ export default function Page() {
 						API Reference
 					</h2>
 					<p className="font-body text-body text-xl">
-						The <InlineCode>Select</InlineCode> components are built on top of{" "}
+						The <Code>Select</Code> components are built on top of{" "}
 						<Anchor
 							href="https://www.radix-ui.com/primitives/docs/components/select"
 							target="_blank"
@@ -364,19 +363,18 @@ export default function Page() {
 							<PropDefaultValueCell />
 							<PropDescriptionCell className="space-y-2">
 								<p>
-									Use the <InlineCode>validation</InlineCode> prop to show if
-									the select trigger has a specific validation status. This will
-									change the border and outline of the select trigger.
+									Use the <Code>validation</Code> prop to show if the select
+									trigger has a specific validation status. This will change the
+									border and outline of the select trigger.
 								</p>
 								<p>
-									The <InlineCode>false</InlineCode> type is useful when using
+									The <Code>false</Code> type is useful when using
 									short-circuiting logic so that you don't need to use a ternary
-									with <InlineCode>undefined</InlineCode>.
+									with <Code>undefined</Code>.
 								</p>
 								<p>
-									Setting <InlineCode>validation</InlineCode> to{" "}
-									<InlineCode>error</InlineCode> also sets{" "}
-									<InlineCode>aria-invalid</InlineCode>.
+									Setting <Code>validation</Code> to <Code>error</Code> also
+									sets <Code>aria-invalid</Code>.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -393,9 +391,9 @@ export default function Page() {
 						</h3>
 
 						<p className="font-body text-body">
-							The button that toggles the <InlineCode>Select</InlineCode>. The{" "}
-							<InlineCode>Select.Content</InlineCode> will position itself
-							adjacent to the trigger.
+							The button that toggles the <Code>Select</Code>. The{" "}
+							<Code>Select.Content</Code> will position itself adjacent to the
+							trigger.
 						</p>
 
 						<p className="font-body text-body">
@@ -438,19 +436,18 @@ export default function Page() {
 							<PropDefaultValueCell />
 							<PropDescriptionCell className="space-y-2">
 								<p>
-									Use the <InlineCode>validation</InlineCode> prop to show if
-									the select trigger has a specific validation status. This will
-									change the border and outline of the select trigger.
+									Use the <Code>validation</Code> prop to show if the select
+									trigger has a specific validation status. This will change the
+									border and outline of the select trigger.
 								</p>
 								<p>
-									The <InlineCode>false</InlineCode> type is useful when using
+									The <Code>false</Code> type is useful when using
 									short-circuiting logic so that you don't need to use a ternary
-									with <InlineCode>undefined</InlineCode>.
+									with <Code>undefined</Code>.
 								</p>
 								<p>
-									Setting <InlineCode>validation</InlineCode> to{" "}
-									<InlineCode>error</InlineCode> also sets{" "}
-									<InlineCode>aria-invalid</InlineCode>.
+									Setting <Code>validation</Code> to <Code>error</Code> also
+									sets <Code>aria-invalid</Code>.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -465,10 +462,10 @@ export default function Page() {
 					<p className="font-body text-body">
 						The part that reflects the selected value. By default the selected
 						item's text will be rendered. if you require more control, you can
-						instead control the <InlineCode>Select</InlineCode> and pass your
-						own children. It should not be styled to ensure correct positioning.
-						An optional placeholder prop is also available for when the{" "}
-						<InlineCode>Select</InlineCode> has no value.
+						instead control the <Code>Select</Code> and pass your own children.
+						It should not be styled to ensure correct positioning. An optional
+						placeholder prop is also available for when the <Code>Select</Code>{" "}
+						has no value.
 					</p>
 
 					<p className="font-body text-body">
@@ -494,10 +491,9 @@ export default function Page() {
 						</h3>
 
 						<p className="font-body text-body">
-							The component that pops out when the{" "}
-							<InlineCode>Select</InlineCode> is open as a portal adjacent to
-							the <InlineCode>Select.Trigger</InlineCode> button. It contains a
-							scrolling viewport of the select items.
+							The component that pops out when the <Code>Select</Code> is open
+							as a portal adjacent to the <Code>Select.Trigger</Code> button. It
+							contains a scrolling viewport of the select items.
 						</p>
 
 						<p className="font-body text-body">
@@ -531,13 +527,13 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									<InlineCode>trigger</InlineCode> will ensure the content is
-									the same width as the trigger button.
+									<Code>trigger</Code> will ensure the content is the same width
+									as the trigger button.
 								</p>
 								<p>
-									<InlineCode>content</InlineCode> will make it the instrinic
-									size of the content itself; it will be the width of the
-									longest/widest item.
+									<Code>content</Code> will make it the instrinic size of the
+									content itself; it will be the width of the longest/widest
+									item.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -551,9 +547,9 @@ export default function Page() {
 
 					<p className="font-body text-body">
 						A group of related options within a select menu. Similar to an html{" "}
-						<InlineCode>optgroup</InlineCode> element. Use in conjunction with{" "}
-						<InlineCode>Select.Label</InlineCode> to ensure good accessibility
-						via automatic labelling.
+						<Code>optgroup</Code> element. Use in conjunction with{" "}
+						<Code>Select.Label</Code> to ensure good accessibility via automatic
+						labelling.
 					</p>
 
 					<p className="font-body text-body">
@@ -590,11 +586,10 @@ export default function Page() {
 
 					<p className="font-body text-body">
 						An option within a select menu. Similar to an html{" "}
-						<InlineCode>option</InlineCode> element. Has a required{" "}
-						<InlineCode>value</InlineCode> prop that will be passed to the{" "}
-						<InlineCode>onValueChange</InlineCode> handler of the{" "}
-						<InlineCode>Select</InlineCode> component when this item is
-						selected. Displays the children as the option's text.
+						<Code>option</Code> element. Has a required <Code>value</Code> prop
+						that will be passed to the <Code>onValueChange</Code> handler of the{" "}
+						<Code>Select</Code> component when this item is selected. Displays
+						the children as the option's text.
 					</p>
 
 					<p className="font-body text-body">
@@ -617,9 +612,8 @@ export default function Page() {
 
 					<p className="font-body text-body">
 						Used to render the label of a group. It won't be focusable using
-						arrow keys. Use in conjunction with{" "}
-						<InlineCode>Select.Group</InlineCode> to ensure good accessibility
-						via automatic labelling of a group.
+						arrow keys. Use in conjunction with <Code>Select.Group</Code> to
+						ensure good accessibility via automatic labelling of a group.
 					</p>
 
 					<p className="font-body text-body">

@@ -1,5 +1,5 @@
+import { Code } from "@ngrok/mantle/code";
 import { Icon } from "@ngrok/mantle/icon";
-import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Table } from "@ngrok/mantle/table";
 import { CheckIcon } from "@phosphor-icons/react/Check";
 import { XIcon } from "@phosphor-icons/react/X";
@@ -53,7 +53,7 @@ export default function Page() {
 								/>
 							</Table.Cell>
 							<Table.Cell>
-								<InlineCode className="break-keep">.pointer-coarse:</InlineCode>
+								<Code className="break-keep">.pointer-coarse:</Code>
 							</Table.Cell>
 
 							<Table.Cell>
@@ -74,7 +74,7 @@ export default function Page() {
 								/>
 							</Table.Cell>
 							<Table.Cell>
-								<InlineCode className="break-keep">.pointer-fine:</InlineCode>
+								<Code className="break-keep">.pointer-fine:</Code>
 							</Table.Cell>
 
 							<Table.Cell>
@@ -95,7 +95,7 @@ export default function Page() {
 								/>
 							</Table.Cell>
 							<Table.Cell>
-								<InlineCode className="break-keep">.pointer-none:</InlineCode>
+								<Code className="break-keep">.pointer-none:</Code>
 							</Table.Cell>
 
 							<Table.Cell>
@@ -115,7 +115,7 @@ export default function Page() {
 								/>
 							</Table.Cell>
 							<Table.Cell>
-								<InlineCode className="break-keep">.hover-hover:</InlineCode>
+								<Code className="break-keep">.hover-hover:</Code>
 							</Table.Cell>
 
 							<Table.Cell>Apply a class if hover is supported.</Table.Cell>
@@ -133,7 +133,7 @@ export default function Page() {
 								/>
 							</Table.Cell>
 							<Table.Cell>
-								<InlineCode className="break-keep">.hover-none:</InlineCode>
+								<Code className="break-keep">.hover-none:</Code>
 							</Table.Cell>
 
 							<Table.Cell>Apply a class if hover is unsupported</Table.Cell>
@@ -151,7 +151,7 @@ export default function Page() {
 								/>
 							</Table.Cell>
 							<Table.Cell>
-								<InlineCode className="break-keep">.high-contrast:</InlineCode>
+								<Code className="break-keep">.high-contrast:</Code>
 							</Table.Cell>
 
 							<Table.Cell>
@@ -171,9 +171,7 @@ export default function Page() {
 								/>
 							</Table.Cell>
 							<Table.Cell>
-								<InlineCode className="break-keep">
-									.dark-high-contrast:
-								</InlineCode>
+								<Code className="break-keep">.dark-high-contrast:</Code>
 							</Table.Cell>
 
 							<Table.Cell>

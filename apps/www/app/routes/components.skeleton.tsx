@@ -1,6 +1,6 @@
 import { Anchor } from "@ngrok/mantle/anchor";
+import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
-import { InlineCode } from "@ngrok/mantle/inline-code";
 import { MediaObject } from "@ngrok/mantle/media-object";
 import { Skeleton } from "@ngrok/mantle/skeleton";
 import { href } from "react-router";
@@ -41,9 +41,9 @@ export default function Page() {
 				<PageHeader id="skeleton">Skeleton</PageHeader>
 				<p className="font-body text-body mt-4 text-xl">
 					Use to show a placeholder while content is loading. By using a{" "}
-					<InlineCode>Skeleton</InlineCode>, you can give the user an idea of
-					what the content will look like, reducing the perceived loading time
-					and CLS (Cumulative Layout Shift).
+					<Code>Skeleton</Code>, you can give the user an idea of what the
+					content will look like, reducing the perceived loading time and CLS
+					(Cumulative Layout Shift).
 				</p>
 				<div>
 					<Example>
@@ -129,8 +129,8 @@ export default function Page() {
 					API Reference
 				</h2>
 				<p className="font-body text-body text-xl">
-					The <InlineCode>Skeleton</InlineCode> accepts the following props in
-					addition to the{" "}
+					The <Code>Skeleton</Code> accepts the following props in addition to
+					the{" "}
 					<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes">
 						standard HTML div attributes
 					</Anchor>
@@ -147,9 +147,9 @@ export default function Page() {
 						</PropDefaultValueCell>
 						<PropDescriptionCell>
 							<p>
-								Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-								<InlineCode>Skeleton</InlineCode> styling and functionality onto
-								alternative element types or your own React components.
+								Use the <Code>asChild</Code> prop to compose the{" "}
+								<Code>Skeleton</Code> styling and functionality onto alternative
+								element types or your own React components.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>

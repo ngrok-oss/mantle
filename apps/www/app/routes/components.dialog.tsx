@@ -1,7 +1,7 @@
 import { Button, IconButton } from "@ngrok/mantle/button";
+import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { Dialog } from "@ngrok/mantle/dialog";
-import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Tooltip } from "@ngrok/mantle/tooltip";
 import { TrashSimpleIcon } from "@phosphor-icons/react/TrashSimple";
 import { Example } from "~/components/example";
@@ -239,9 +239,9 @@ export default function Page() {
 				<p className="font-body text-body text-xl">
 					In some cases, you might wish to have a tooltip over the dialog
 					trigger. This is helpful if the dialog trigger is an{" "}
-					<InlineCode>IconButton</InlineCode> and you wish to provide more
-					context to what the button does. You can compose them both together to
-					where the dialog trigger is also the tooltip trigger.
+					<Code>IconButton</Code> and you wish to provide more context to what
+					the button does. You can compose them both together to where the
+					dialog trigger is also the tooltip trigger.
 				</p>
 				<div>
 					<Example>
@@ -343,9 +343,9 @@ export default function Page() {
 					API Reference
 				</h2>
 				<p className="font-body text-body text-xl">
-					The <InlineCode>Dialog</InlineCode> component is built on top of Radix
-					UI Dialog and provides a complete set of sub-components for building
-					modal dialogs.
+					The <Code>Dialog</Code> component is built on top of Radix UI Dialog
+					and provides a complete set of sub-components for building modal
+					dialogs.
 				</p>
 
 				<div className="space-y-8">
@@ -365,14 +365,14 @@ export default function Page() {
 								<PropDescriptionCell>
 									<p>
 										The controlled open state of the dialog. Must be used in
-										conjunction with <InlineCode>onOpenChange</InlineCode>.
+										conjunction with <Code>onOpenChange</Code>.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
 							<PropRow>
 								<PropNameCell name="onOpenChange" optional />
 								<PropTypeCell>
-									<InlineCode>(open: boolean) =&gt; void</InlineCode>
+									<Code>(open: boolean) =&gt; void</Code>
 								</PropTypeCell>
 								<PropDefaultValueCell />
 								<PropDescriptionCell>
@@ -407,10 +407,9 @@ export default function Page() {
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
-										The modality of the dialog. When set to{" "}
-										<InlineCode>true</InlineCode>, interaction with outside
-										elements will be disabled and only dialog content will be
-										visible to screen readers.
+										The modality of the dialog. When set to <Code>true</Code>,
+										interaction with outside elements will be disabled and only
+										dialog content will be visible to screen readers.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -433,8 +432,8 @@ export default function Page() {
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
-										Use the <InlineCode>asChild</InlineCode> prop to compose the
-										trigger functionality onto your own component.
+										Use the <Code>asChild</Code> prop to compose the trigger
+										functionality onto your own component.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -451,7 +450,7 @@ export default function Page() {
 							<PropRow>
 								<PropNameCell name="preferredWidth" optional />
 								<PropTypeCell>
-									<InlineCode>`max-w-$&#123;string&#125;`</InlineCode>
+									<Code>`max-w-$&#123;string&#125;`</Code>
 								</PropTypeCell>
 								<PropDefaultValueCell>
 									<StringPropType value="max-w-lg" />
@@ -459,36 +458,35 @@ export default function Page() {
 								<PropDescriptionCell>
 									<p>
 										The preferred width of the dialog content as a Tailwind{" "}
-										<InlineCode>max-w-</InlineCode> class. Controls the maximum
-										width of the dialog.
+										<Code>max-w-</Code> class. Controls the maximum width of the
+										dialog.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
 							<PropRow>
 								<PropNameCell name="onEscapeKeyDown" optional />
 								<PropTypeCell>
-									<InlineCode>(event: KeyboardEvent) =&gt; void</InlineCode>
+									<Code>(event: KeyboardEvent) =&gt; void</Code>
 								</PropTypeCell>
 								<PropDefaultValueCell />
 								<PropDescriptionCell>
 									<p>
 										Event handler called when the escape key is down. It can be
-										prevented by calling{" "}
-										<InlineCode>event.preventDefault</InlineCode>.
+										prevented by calling <Code>event.preventDefault</Code>.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
 							<PropRow>
 								<PropNameCell name="onInteractOutside" optional />
 								<PropTypeCell>
-									<InlineCode>(event: Event) =&gt; void</InlineCode>
+									<Code>(event: Event) =&gt; void</Code>
 								</PropTypeCell>
 								<PropDefaultValueCell />
 								<PropDescriptionCell>
 									<p>
 										Event handler called when the user interacts outside the
 										component. It can be prevented by calling{" "}
-										<InlineCode>event.preventDefault</InlineCode>.
+										<Code>event.preventDefault</Code>.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -615,8 +613,8 @@ export default function Page() {
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
-										Use the <InlineCode>asChild</InlineCode> prop to compose the
-										close functionality onto your own component.
+										Use the <Code>asChild</Code> prop to compose the close
+										functionality onto your own component.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>

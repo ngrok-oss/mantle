@@ -1,8 +1,8 @@
 import { Anchor } from "@ngrok/mantle/anchor";
 import { Badge } from "@ngrok/mantle/badge";
+import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { colors } from "@ngrok/mantle/color";
-import { InlineCode } from "@ngrok/mantle/inline-code";
 import { GlobeHemisphereWestIcon } from "@phosphor-icons/react/GlobeHemisphereWest";
 import { href } from "react-router";
 import { Example } from "~/components/example";
@@ -93,10 +93,9 @@ export default function Page() {
 				</h2>
 				<p className="font-body text-body text-xl">
 					When you want to render <span className="italic">something else</span>{" "}
-					as a <InlineCode>Badge</InlineCode>, you can use the{" "}
-					<InlineCode>asChild</InlineCode> prop to compose. This is useful when
-					you want to splat the <InlineCode>Badge</InlineCode> styling onto a{" "}
-					<InlineCode>react-router</InlineCode> <InlineCode>Link</InlineCode>.
+					as a <Code>Badge</Code>, you can use the <Code>asChild</Code> prop to
+					compose. This is useful when you want to splat the <Code>Badge</Code>{" "}
+					styling onto a <Code>react-router</Code> <Code>Link</Code>.
 				</p>
 				<div>
 					<Example>
@@ -134,8 +133,7 @@ export default function Page() {
 					API Reference
 				</h2>
 				<p className="font-body text-body text-xl">
-					The <InlineCode>Badge</InlineCode> accepts the following props in
-					addition to the{" "}
+					The <Code>Badge</Code> accepts the following props in addition to the{" "}
 					<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span">
 						standard HTML span attributes
 					</Anchor>
@@ -154,9 +152,8 @@ export default function Page() {
 						<PropDefaultValueCell />
 						<PropDescriptionCell>
 							<p>
-								Defines the visual style of the <InlineCode>Badge</InlineCode>.
-								Currently only supports the <InlineCode>muted</InlineCode>{" "}
-								variant.
+								Defines the visual style of the <Code>Badge</Code>. Currently
+								only supports the <Code>muted</Code> variant.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>
@@ -170,9 +167,9 @@ export default function Page() {
 						</PropDefaultValueCell>
 						<PropDescriptionCell>
 							<p>
-								Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-								<InlineCode>Badge</InlineCode> styling and functionality onto
-								alternative element types or your own React components.
+								Use the <Code>asChild</Code> prop to compose the{" "}
+								<Code>Badge</Code> styling and functionality onto alternative
+								element types or your own React components.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>
@@ -192,9 +189,9 @@ export default function Page() {
 						</PropDefaultValueCell>
 						<PropDescriptionCell>
 							<p>
-								The color variant of the <InlineCode>Badge</InlineCode>.
-								Supports all <Link to={href("/base/colors")}>named colors</Link>
-								, both functional and from the color palette.
+								The color variant of the <Code>Badge</Code>. Supports all{" "}
+								<Link to={href("/base/colors")}>named colors</Link>, both
+								functional and from the color palette.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>

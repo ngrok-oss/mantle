@@ -1,8 +1,8 @@
 import { Alert } from "@ngrok/mantle/alert";
 import { Anchor } from "@ngrok/mantle/anchor";
 import { Card } from "@ngrok/mantle/card";
+import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
-import { InlineCode } from "@ngrok/mantle/inline-code";
 import { ShrimpIcon } from "@phosphor-icons/react/Shrimp";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
@@ -158,16 +158,15 @@ export default function Page() {
 						</h3>
 					</header>
 					<p className="font-body text-body text-xl">
-						You can mix and match what you put inside the{" "}
-						<InlineCode>Alert</InlineCode> component to create different types
-						of Alert layouts.
+						You can mix and match what you put inside the <Code>Alert</Code>{" "}
+						component to create different types of Alert layouts.
 					</p>
 					<div>
 						<Example className="flex-col gap-4">
 							<div className="w-full max-w-screen-sm space-y-2">
 								<p>
-									Danger <InlineCode>Alert</InlineCode> with icon and{" "}
-									<InlineCode>AlertDismissIconButton</InlineCode>
+									Danger <Code>Alert</Code> with icon and{" "}
+									<Code>AlertDismissIconButton</Code>
 								</p>
 								<Alert.Root priority="danger">
 									<Alert.Icon />
@@ -183,7 +182,7 @@ export default function Page() {
 							</div>
 							<div className="w-full max-w-screen-sm space-y-2">
 								<p>
-									Danger <InlineCode>Alert</InlineCode> without icon
+									Danger <Code>Alert</Code> without icon
 								</p>
 								<Alert.Root priority="danger">
 									<Alert.Content>
@@ -197,8 +196,7 @@ export default function Page() {
 							</div>
 							<div className="w-full max-w-screen-sm space-y-2">
 								<p>
-									Danger <InlineCode>Alert</InlineCode> with icon and no
-									description
+									Danger <Code>Alert</Code> with icon and no description
 								</p>
 								<Alert.Root priority="danger">
 									<Alert.Icon />
@@ -209,9 +207,8 @@ export default function Page() {
 							</div>
 							<div className="w-full max-w-screen-sm space-y-2">
 								<p>
-									Danger <InlineCode>Alert</InlineCode> without icon or
-									description, but including{" "}
-									<InlineCode>AlertDismissIconButton</InlineCode>.
+									Danger <Code>Alert</Code> without icon or description, but
+									including <Code>AlertDismissIconButton</Code>.
 								</p>
 								<Alert.Root priority="danger">
 									<Alert.Content>
@@ -280,8 +277,8 @@ export default function Page() {
 					</header>
 
 					<p className="font-body text-body text-xl">
-						For banner-like alerts, set <InlineCode>rounded-none</InlineCode> on
-						the <InlineCode>Alert</InlineCode> component.
+						For banner-like alerts, set <Code>rounded-none</Code> on the{" "}
+						<Code>Alert</Code> component.
 					</p>
 					<div>
 						<Example>
@@ -327,8 +324,8 @@ export default function Page() {
 					<p className="font-body text-body text-xl">
 						Depending on the context, you may want or need to remove all borders
 						except the bottom one. This can be achieved by adding{" "}
-						<InlineCode>rounded-none border-x-0 border-t-0</InlineCode> to the{" "}
-						<InlineCode>Alert</InlineCode> component.
+						<Code>rounded-none border-x-0 border-t-0</Code> to the{" "}
+						<Code>Alert</Code> component.
 					</p>
 					<div>
 						<Example>
@@ -384,8 +381,8 @@ export default function Page() {
 						API Reference
 					</h2>
 					<p className="font-body text-body text-xl">
-						The <InlineCode>Alert</InlineCode> displays a callout for user
-						attention and is composed of several sub-components.
+						The <Code>Alert</Code> displays a callout for user attention and is
+						composed of several sub-components.
 					</p>
 				</header>
 
@@ -398,7 +395,7 @@ export default function Page() {
 
 						<p className="font-body text-body">
 							Displays a callout for user attention. Root container for all{" "}
-							<InlineCode>Alert</InlineCode> sub-components.
+							<Code>Alert</Code> sub-components.
 						</p>
 
 						<p>
@@ -440,8 +437,8 @@ export default function Page() {
 							<PropDescriptionCell>
 								<p>
 									Indicates the importance or impact level of the{" "}
-									<InlineCode>Alert</InlineCode>, affecting its color and
-									styling to communicate its purpose to the user.
+									<Code>Alert</Code>, affecting its color and styling to
+									communicate its purpose to the user.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -457,12 +454,9 @@ export default function Page() {
 							AlertContent
 						</h3>
 						<p className="font-body text-body">
-							The container for the content slot of an{" "}
-							<InlineCode>Alert</InlineCode>. Place the{" "}
-							<InlineCode>AlertTitle</InlineCode> and{" "}
-							<InlineCode>AlertDescription</InlineCode> and{" "}
-							<InlineCode>AlertDismissIconButton</InlineCode> as direct
-							children.
+							The container for the content slot of an <Code>Alert</Code>. Place
+							the <Code>AlertTitle</Code> and <Code>AlertDescription</Code> and{" "}
+							<Code>AlertDismissIconButton</Code> as direct children.
 						</p>
 						<p className="font-body text-body">
 							All props from{" "}
@@ -486,10 +480,9 @@ export default function Page() {
 							AlertDescription
 						</h3>
 						<p className="font-body text-body">
-							The optional description of an <InlineCode>Alert</InlineCode>.
-							Renders as a <InlineCode>div</InlineCode> by default, but can be
-							changed to any other element using the{" "}
-							<InlineCode>asChild</InlineCode> prop.
+							The optional description of an <Code>Alert</Code>. Renders as a{" "}
+							<Code>div</Code> by default, but can be changed to any other
+							element using the <Code>asChild</Code> prop.
 						</p>
 						<p className="font-body text-body">
 							All props from{" "}
@@ -514,10 +507,9 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-									<InlineCode>AlertDescription</InlineCode> styling and
-									functionality onto alternative element types or your own React
-									components.
+									Use the <Code>asChild</Code> prop to compose the{" "}
+									<Code>AlertDescription</Code> styling and functionality onto
+									alternative element types or your own React components.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -531,9 +523,8 @@ export default function Page() {
 						</h3>
 						<p className="font-body text-body">
 							An optional icon that visually represents the priority of the{" "}
-							<InlineCode>Alert</InlineCode>. The default rendered icon be
-							overridden with a custom icon using the{" "}
-							<InlineCode>svg</InlineCode> prop.
+							<Code>Alert</Code>. The default rendered icon be overridden with a
+							custom icon using the <Code>svg</Code> prop.
 						</p>
 						<p className="font-body text-body">
 							All props from{" "}
@@ -557,7 +548,7 @@ export default function Page() {
 							<PropDescriptionCell>
 								<p>
 									An optional icon that renders in place of the default icon for
-									the <InlineCode>Alert</InlineCode> priority.
+									the <Code>Alert</Code> priority.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -573,9 +564,9 @@ export default function Page() {
 							AlertTitle
 						</h3>
 						<p className="font-body text-body">
-							The title of an <InlineCode>Alert</InlineCode>. Default renders as
-							an <InlineCode>h5</InlineCode> element; use{" "}
-							<InlineCode>asChild</InlineCode> to render something else.
+							The title of an <Code>Alert</Code>. Default renders as an{" "}
+							<Code>h5</Code> element; use <Code>asChild</Code> to render
+							something else.
 						</p>
 						<p className="font-body text-body">
 							All props from{" "}
@@ -600,9 +591,9 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-									<InlineCode>AlertTitle</InlineCode> styling and functionality
-									onto alternative element types or your own React components.
+									Use the <Code>asChild</Code> prop to compose the{" "}
+									<Code>AlertTitle</Code> styling and functionality onto
+									alternative element types or your own React components.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -646,10 +637,9 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-									<InlineCode>Alert.DismissIconButton</InlineCode> styling and
-									functionality onto alternative element types or your own React
-									components.
+									Use the <Code>asChild</Code> prop to compose the{" "}
+									<Code>Alert.DismissIconButton</Code> styling and functionality
+									onto alternative element types or your own React components.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>

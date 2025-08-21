@@ -1,6 +1,6 @@
 import { Anchor } from "@ngrok/mantle/anchor";
+import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
-import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Input, InputCapture } from "@ngrok/mantle/input";
 import { Label } from "@ngrok/mantle/label";
 import { InfoIcon } from "@phosphor-icons/react/Info";
@@ -107,23 +107,21 @@ export default function Page() {
 				</h2>
 				<p className="font-body text-body text-xl">
 					You can compose additional visual or functional elements within the{" "}
-					<InlineCode>Input</InlineCode> using <InlineCode>children</InlineCode>
-					. The examples below show you how to render start and end icons or
-					buttons. The{" "}
+					<Code>Input</Code> using <Code>children</Code>. The examples below
+					show you how to render start and end icons or buttons. The{" "}
 					<Anchor asChild>
 						<Link to={href("/components/password-input")}>Password Input</Link>
 					</Anchor>{" "}
 					is built using this API under the hood! Keep in mind that you will
-					need to manually pass the <InlineCode>InputCapture</InlineCode>{" "}
-					component as children too because it is responsible for rendering the
-					actual form <InlineCode>input</InlineCode> element! We provide an{" "}
-					<InlineCode>InputCapture</InlineCode> component for you when you don't
-					use the <InlineCode>children</InlineCode> API.
+					need to manually pass the <Code>InputCapture</Code> component as
+					children too because it is responsible for rendering the actual form{" "}
+					<Code>input</Code> element! We provide an <Code>InputCapture</Code>{" "}
+					component for you when you don't use the <Code>children</Code> API.
 				</p>
 				<p className="font-body text-body text-xl">
 					Note: when composing with interactive content (e.g. a{" "}
-					<InlineCode>button</InlineCode>), you will need to consider whether or
-					not that element should be tab-indexable or receive focus!
+					<Code>button</Code>), you will need to consider whether or not that
+					element should be tab-indexable or receive focus!
 				</p>
 				<div>
 					<Example className="grid grid-cols-2 place-items-center gap-6">
@@ -252,8 +250,7 @@ export default function Page() {
 					API Reference
 				</h2>
 				<p className="font-body text-body text-xl">
-					The <InlineCode>Input</InlineCode> accepts the following props in
-					addition to the{" "}
+					The <Code>Input</Code> accepts the following props in addition to the{" "}
 					<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input">
 						standard HTML input attributes
 					</Anchor>
@@ -286,19 +283,18 @@ export default function Page() {
 						<PropDefaultValueCell />
 						<PropDescriptionCell className="space-y-2">
 							<p>
-								Use the <InlineCode>validation</InlineCode> prop to show if the
-								input has a specific validation status. This will change the
-								border and outline of the input.
+								Use the <Code>validation</Code> prop to show if the input has a
+								specific validation status. This will change the border and
+								outline of the input.
 							</p>
 							<p>
-								The <InlineCode>false</InlineCode> type is useful when using
+								The <Code>false</Code> type is useful when using
 								short-circuiting logic so that you don't need to use a ternary
-								with <InlineCode>undefined</InlineCode>.
+								with <Code>undefined</Code>.
 							</p>
 							<p>
-								Setting <InlineCode>validation</InlineCode> to{" "}
-								<InlineCode>error</InlineCode> also sets{" "}
-								<InlineCode>aria-invalid</InlineCode>.
+								Setting <Code>validation</Code> to <Code>error</Code> also sets{" "}
+								<Code>aria-invalid</Code>.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>
