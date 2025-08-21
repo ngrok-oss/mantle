@@ -384,6 +384,8 @@ Title.displayName = "DialogTitle";
 
 /**
  * An accessible description to be announced when the dialog is opened.
+ * Renders as a `div` by default, but can be changed to any other element using
+ * the `asChild` prop.
  *
  * @see https://mantle.ngrok.com/components/dialog#api-dialog-description
  *
@@ -410,7 +412,7 @@ Title.displayName = "DialogTitle";
  * ```
  */
 const Description = forwardRef<
-	ComponentRef<"p">,
+	ComponentRef<typeof DialogPrimitive.Description>,
 	ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
 >(({ className, ...props }, ref) => (
 	<DialogPrimitive.Description

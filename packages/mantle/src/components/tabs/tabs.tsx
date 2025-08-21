@@ -38,7 +38,7 @@ const TabsStateContext = createContext<TabsStateContextValue>({
  *
  * @example
  * ```tsx
- * <Tabs defaultValue="account">
+ * <Tabs.Root defaultValue="account">
  *   <Tabs.List>
  *     <Tabs.Trigger value="account">Account</Tabs.Trigger>
  *     <Tabs.Trigger value="password">Password</Tabs.Trigger>
@@ -49,7 +49,7 @@ const TabsStateContext = createContext<TabsStateContextValue>({
  *   <Tabs.Content value="password">
  *     <p>Change your password here.</p>
  *   </Tabs.Content>
- * </Tabs>
+ * </Tabs.Root>
  * ```
  */
 const Root = forwardRef<
@@ -81,7 +81,7 @@ Root.displayName = "Tabs";
  *
  * @example
  * ```tsx
- * <Tabs defaultValue="account">
+ * <Tabs.Root defaultValue="account">
  *   <Tabs.List>
  *     <Tabs.Trigger value="account">Account</Tabs.Trigger>
  *     <Tabs.Trigger value="password">Password</Tabs.Trigger>
@@ -89,7 +89,7 @@ Root.displayName = "Tabs";
  *   <Tabs.Content value="account">
  *     <p>Make changes to your account here.</p>
  *   </Tabs.Content>
- * </Tabs>
+ * </Tabs.Root>
  * ```
  */
 const List = forwardRef<
@@ -143,7 +143,7 @@ TabsTriggerDecoration.displayName = "TabsTriggerDecoration";
  *
  * @example
  * ```tsx
- * <Tabs defaultValue="account">
+ * <Tabs.Root defaultValue="account">
  *   <Tabs.List>
  *     <Tabs.Trigger value="account">Account</Tabs.Trigger>
  *     <Tabs.Trigger value="password">Password</Tabs.Trigger>
@@ -151,7 +151,7 @@ TabsTriggerDecoration.displayName = "TabsTriggerDecoration";
  *   <Tabs.Content value="account">
  *     <p>Make changes to your account here.</p>
  *   </Tabs.Content>
- * </Tabs>
+ * </Tabs.Root>
  * ```
  */
 const Trigger = forwardRef<
@@ -248,14 +248,14 @@ Trigger.displayName = "TabsTrigger";
  *
  * @example
  * ```tsx
- * <Tabs defaultValue="account">
+ * <Tabs.Root defaultValue="account">
  *   <Tabs.List>
  *     <Tabs.Trigger value="account">
  *       Account <Tabs.Badge>5</Tabs.Badge>
  *     </Tabs.Trigger>
  *     <Tabs.Trigger value="password">Password</Tabs.Trigger>
  *   </Tabs.List>
- * </Tabs>
+ * </Tabs.Root>
  * ```
  */
 const Badge = ({
@@ -285,7 +285,7 @@ Badge.displayName = "TabBadge";
  *
  * @example
  * ```tsx
- * <Tabs defaultValue="account">
+ * <Tabs.Root defaultValue="account">
  *   <Tabs.List>
  *     <Tabs.Trigger value="account">Account</Tabs.Trigger>
  *     <Tabs.Trigger value="password">Password</Tabs.Trigger>
@@ -296,7 +296,7 @@ Badge.displayName = "TabBadge";
  *   <Tabs.Content value="password">
  *     <p>Change your password here.</p>
  *   </Tabs.Content>
- * </Tabs>
+ * </Tabs.Root>
  * ```
  */
 const Content = forwardRef<
@@ -322,7 +322,7 @@ Content.displayName = "TabsContent";
  *
  * @example
  * ```tsx
- * <Tabs defaultValue="account">
+ * <Tabs.Root defaultValue="account">
  *   <Tabs.List>
  *     <Tabs.Trigger value="account">Account</Tabs.Trigger>
  *     <Tabs.Trigger value="password">Password</Tabs.Trigger>
@@ -333,7 +333,7 @@ Content.displayName = "TabsContent";
  *   <Tabs.Content value="password">
  *     <p>Change your password here.</p>
  *   </Tabs.Content>
- * </Tabs>
+ * </Tabs.Root>
  * ```
  */
 const Tabs = {

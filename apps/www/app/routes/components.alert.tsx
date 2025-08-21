@@ -487,8 +487,9 @@ export default function Page() {
 						</h3>
 						<p className="font-body text-body">
 							The optional description of an <InlineCode>Alert</InlineCode>.
-							Default renders as a <InlineCode>p</InlineCode> element; use{" "}
-							<InlineCode>asChild</InlineCode> to render something else.
+							Renders as a <InlineCode>div</InlineCode> by default, but can be
+							changed to any other element using the{" "}
+							<InlineCode>asChild</InlineCode> prop.
 						</p>
 						<p className="font-body text-body">
 							All props from{" "}

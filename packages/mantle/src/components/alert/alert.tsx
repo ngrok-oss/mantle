@@ -232,10 +232,12 @@ const Title = forwardRef<HTMLHeadingElement, AlertTitleProps>(
 );
 Title.displayName = "AlertTitle";
 
-type AlertDescriptionProps = ComponentProps<"p"> & WithAsChild;
+type AlertDescriptionProps = ComponentProps<"div"> & WithAsChild;
 
 /**
- * The optional description of an alert. Default renders as an p element, use asChild to render something else.
+ * The optional description of an alert.
+ * Renders as a `div` by default, but can be changed to any other element using
+ * the `asChild` prop.
  *
  * @see https://mantle.ngrok.com/components/alert#api-alert-description
  *
@@ -253,9 +255,9 @@ type AlertDescriptionProps = ComponentProps<"p"> & WithAsChild;
  * </Alert>
  * ```
  */
-const Description = forwardRef<ComponentRef<"p">, AlertDescriptionProps>(
+const Description = forwardRef<ComponentRef<"div">, AlertDescriptionProps>(
 	({ asChild = false, className, ...props }, ref) => {
-		const Component = asChild ? Slot : "p";
+		const Component = asChild ? Slot : "div";
 
 		return (
 			<Component ref={ref} className={cx("text-sm", className)} {...props} />

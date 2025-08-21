@@ -476,6 +476,8 @@ Title.displayName = "AlertDialogTitle";
 
 /**
  * An accessible description to be announced when the dialog is opened.
+ * Renders as a `div` by default, but can be changed to any other element using
+ * the `asChild` prop.
  *
  * Alternatively, you can provide `aria-describedby` to `AlertDialogContent` and
  * exclude this component.
