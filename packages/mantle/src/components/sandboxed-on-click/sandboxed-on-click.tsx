@@ -1,13 +1,7 @@
 "use client";
 
 import { Slot } from "@radix-ui/react-slot";
-import type {
-	ComponentProps,
-	ComponentRef,
-	HTMLAttributes,
-	MouseEventHandler,
-} from "react";
-import { forwardRef } from "react";
+import type { ComponentProps, HTMLAttributes, MouseEventHandler } from "react";
 import type { WithAsChild } from "../../types/as-child.js";
 
 type BaseProps = {
@@ -94,31 +88,25 @@ type Props = ComponentProps<"div"> & WithAsChild & BaseProps;
  *   </TableRowCell>
  * </TableRow>
  */
-const SandboxedOnClick = forwardRef<ComponentRef<"div">, Props>(
-	(
-		{
-			//,
-			allowClickEventDefault = false,
-			asChild = false,
-			children,
-			onClick,
-			...props
-		},
-		ref,
-	) => {
-		const Component = asChild ? Slot : "div";
+function SandboxedOnClick({
+	//,
+	allowClickEventDefault = false,
+	asChild = false,
+	children,
+	onClick,
+	...props
+}: Props) {
+	const Component = asChild ? Slot : "div";
 
-		return (
-			<Component
-				ref={ref}
-				{...props}
-				{...sandboxedOnClickProps({ allowClickEventDefault, onClick })}
-			>
-				{children}
-			</Component>
-		);
-	},
-);
+	return (
+		<Component
+			{...props}
+			{...sandboxedOnClickProps({ allowClickEventDefault, onClick })}
+		>
+			{children}
+		</Component>
+	);
+}
 SandboxedOnClick.displayName = "SandboxedOnClick";
 
 export {

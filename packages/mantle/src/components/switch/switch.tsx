@@ -3,12 +3,11 @@ import {
 	Thumb as SwitchPrimitiveThumb,
 } from "@radix-ui/react-switch";
 import clsx from "clsx";
-import { forwardRef } from "react";
-import type { ComponentPropsWithoutRef, ComponentRef } from "react";
+import type { ComponentProps } from "react";
 import { parseBooleanish } from "../../types/booleanish.js";
 import { cx } from "../../utils/cx/cx.js";
 
-type SwitchProps = ComponentPropsWithoutRef<typeof SwitchPrimitiveRoot> & {
+type SwitchProps = ComponentProps<typeof SwitchPrimitiveRoot> & {
 	/**
 	 * Makes the switch immutable, meaning the user can not edit the control.
 	 */
@@ -30,53 +29,44 @@ type SwitchProps = ComponentPropsWithoutRef<typeof SwitchPrimitiveRoot> & {
  * </form>
  * ```
  */
-const Switch = forwardRef<
-	ComponentRef<typeof SwitchPrimitiveRoot>,
-	SwitchProps
->(
-	(
-		{
-			"aria-readonly": _ariaReadOnly,
-			className,
-			readOnly: _readOnly,
-			onClick,
-			...props
-		},
-		ref,
-	) => {
-		const readOnly = parseBooleanish(_readOnly ?? _ariaReadOnly);
+function Switch({
+	"aria-readonly": _ariaReadOnly,
+	className,
+	readOnly: _readOnly,
+	onClick,
+	...props
+}: SwitchProps) {
+	const readOnly = parseBooleanish(_readOnly ?? _ariaReadOnly);
 
-		return (
-			<SwitchPrimitiveRoot
-				aria-readonly={readOnly}
-				className={cx(
-					"peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full outline-hidden",
-					"disabled:cursor-default disabled:opacity-50",
-					"focus-visible:border-accent-600 focus-visible:ring-focus-accent focus-visible:outline-hidden focus-visible:ring-4",
-					"data-state-checked:bg-blue-500 data-state-unchecked:bg-gray-400",
-					className,
+	return (
+		<SwitchPrimitiveRoot
+			aria-readonly={readOnly}
+			className={cx(
+				"peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full outline-hidden",
+				"disabled:cursor-default disabled:opacity-50",
+				"focus-visible:border-accent-600 focus-visible:ring-focus-accent focus-visible:outline-hidden focus-visible:ring-4",
+				"data-state-checked:bg-blue-500 data-state-unchecked:bg-gray-400",
+				className,
+			)}
+			onClick={(event) => {
+				if (readOnly) {
+					event.preventDefault();
+					event.stopPropagation();
+					return;
+				}
+				onClick?.(event);
+			}}
+			{...props}
+		>
+			<SwitchPrimitiveThumb
+				className={clsx(
+					"pointer-events-none block size-4 rounded-full bg-[#fff] shadow-md ring-0 transition-transform",
+					"data-state-checked:translate-x-[1.125rem] data-state-unchecked:translate-x-[0.125rem]",
 				)}
-				onClick={(event) => {
-					if (readOnly) {
-						event.preventDefault();
-						event.stopPropagation();
-						return;
-					}
-					onClick?.(event);
-				}}
-				ref={ref}
-				{...props}
-			>
-				<SwitchPrimitiveThumb
-					className={clsx(
-						"pointer-events-none block size-4 rounded-full bg-[#fff] shadow-md ring-0 transition-transform",
-						"data-state-checked:translate-x-[1.125rem] data-state-unchecked:translate-x-[0.125rem]",
-					)}
-				/>
-			</SwitchPrimitiveRoot>
-		);
-	},
-);
+			/>
+		</SwitchPrimitiveRoot>
+	);
+}
 Switch.displayName = "Switch";
 
 export {

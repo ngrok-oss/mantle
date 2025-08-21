@@ -1,6 +1,6 @@
 import { Slot } from "@radix-ui/react-slot";
-import type { ComponentProps, ComponentRef, HTMLAttributes } from "react";
-import { createContext, forwardRef, useContext } from "react";
+import type { ComponentProps } from "react";
+import { createContext, useContext } from "react";
 import type { WithAsChild } from "../../types/as-child.js";
 import { cx } from "../../utils/cx/cx.js";
 
@@ -43,7 +43,7 @@ const HorizontalSeparatorGroup = ({
 	children,
 	asChild,
 	...props
-}: HTMLAttributes<HTMLDivElement> & WithAsChild) => {
+}: ComponentProps<"div"> & WithAsChild) => {
 	const Comp = asChild ? Slot : "div";
 
 	return (
@@ -101,51 +101,44 @@ type SeparatorProps = ComponentProps<"div"> &
  * </div>
  * ```
  */
-const Separator = forwardRef<ComponentRef<"div">, SeparatorProps>(
-	(
-		{
-			asChild = false,
-			children,
-			className,
-			orientation: propOrientation,
-			semantic = false,
-			...props
-		},
-		ref,
-	) => {
-		const Component = asChild ? Slot : "div";
-		const ctx = useContext(SeparatorGroupContext);
-		// Prefer the orientation from the context if it's set, else fallback to the prop and then to "horizontal".
-		const orientation =
-			ctx.orientation ??
-			(isOrientation(propOrientation) ? propOrientation : "horizontal");
-		// `aria-orientation` defaults to `horizontal` so we only need it if `orientation` is vertical
-		const ariaOrientation =
-			orientation === "vertical" ? orientation : undefined;
-		const semanticProps = semantic
-			? { "aria-orientation": ariaOrientation, role: "separator" }
-			: { role: "none" };
+function Separator({
+	asChild = false,
+	children,
+	className,
+	orientation: propOrientation,
+	semantic = false,
+	...props
+}: SeparatorProps) {
+	const Component = asChild ? Slot : "div";
+	const ctx = useContext(SeparatorGroupContext);
+	// Prefer the orientation from the context if it's set, else fallback to the prop and then to "horizontal".
+	const orientation =
+		ctx.orientation ??
+		(isOrientation(propOrientation) ? propOrientation : "horizontal");
+	// `aria-orientation` defaults to `horizontal` so we only need it if `orientation` is vertical
+	const ariaOrientation = orientation === "vertical" ? orientation : undefined;
+	const semanticProps = semantic
+		? { "aria-orientation": ariaOrientation, role: "separator" }
+		: { role: "none" };
 
-		return (
-			<Component
-				className={cx(
-					"separator",
-					"dark-high-contrast:bg-black high-contrast:bg-black bg-gray-500/20 dark:bg-gray-600/20",
-					orientation === "horizontal"
-						? "h-px w-full group-data-[horizontal-separator-group]:flex-1"
-						: "h-full w-px",
-					className,
-				)}
-				data-orientation={orientation}
-				data-separator
-				{...semanticProps}
-				ref={ref}
-				{...(asChild ? { children } : {})} // only pass children if asChild is true
-				{...props}
-			/>
-		);
-	},
-);
+	return (
+		<Component
+			className={cx(
+				"separator",
+				"dark-high-contrast:bg-black high-contrast:bg-black bg-gray-500/20 dark:bg-gray-600/20",
+				orientation === "horizontal"
+					? "h-px w-full group-data-[horizontal-separator-group]:flex-1"
+					: "h-full w-px",
+				className,
+			)}
+			data-orientation={orientation}
+			data-separator
+			{...semanticProps}
+			{...(asChild ? { children } : {})} // only pass children if asChild is true
+			{...props}
+		/>
+	);
+}
 Separator.displayName = "Separator";
 
 export {

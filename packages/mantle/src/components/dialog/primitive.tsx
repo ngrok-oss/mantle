@@ -82,7 +82,7 @@ type DescriptionProps = ComponentPropsWithoutRef<
  * This is a low-level primitive used by higher-level dialog components.
  * Renders as a `div` by default, but can be changed to any other element using the `asChild` prop.
  */
-function Description(props: DescriptionProps) {
+function Description({ asChild, children, ...props }: DescriptionProps) {
 	const ctx = useContext(InternalDialogContext);
 
 	useEffect(() => {
@@ -90,7 +90,13 @@ function Description(props: DescriptionProps) {
 		return () => ctx.setHasDescription(false);
 	}, [ctx]);
 
-	return <DialogPrimitive.Description {...props} />;
+	const Component = asChild ? Slot : "div";
+
+	return (
+		<DialogPrimitive.Description {...props} asChild>
+			<Component>{children}</Component>
+		</DialogPrimitive.Description>
+	);
 }
 Description.displayName = "DialogPrimitiveDescription";
 

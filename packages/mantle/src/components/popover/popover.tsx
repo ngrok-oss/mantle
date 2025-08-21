@@ -1,6 +1,5 @@
 import * as PopoverPrimitive from "@radix-ui/react-popover";
-import { forwardRef } from "react";
-import type { ComponentPropsWithoutRef, ComponentRef } from "react";
+import type { ComponentProps } from "react";
 import { cx } from "../../utils/cx/cx.js";
 
 /**
@@ -98,9 +97,7 @@ Anchor.displayName = "PopoverAnchor";
 const Close = PopoverPrimitive.Close;
 Close.displayName = "PopoverClose";
 
-type PopoverContentProps = ComponentPropsWithoutRef<
-	typeof PopoverPrimitive.Content
-> & {
+type PopoverContentProps = ComponentProps<typeof PopoverPrimitive.Content> & {
 	/**
 	 * The preferred width of the `PopoverContent` as a tailwind `max-w-` class.
 	 *
@@ -131,19 +128,16 @@ type PopoverContentProps = ComponentPropsWithoutRef<
  * </Popover.Root>
  * ```
  */
-const Content = forwardRef<ComponentRef<"div">, PopoverContentProps>(
-	(
-		{
-			//,
-			align = "center",
-			className,
-			onClick,
-			preferredWidth = "max-w-72",
-			sideOffset = 4,
-			...props
-		},
-		ref,
-	) => (
+function Content({
+	//,
+	align = "center",
+	className,
+	onClick,
+	preferredWidth = "max-w-72",
+	sideOffset = 4,
+	...props
+}: PopoverContentProps) {
+	return (
 		<PopoverPrimitive.Portal>
 			<PopoverPrimitive.Content
 				align={align}
@@ -160,13 +154,12 @@ const Content = forwardRef<ComponentRef<"div">, PopoverContentProps>(
 					event.stopPropagation();
 					onClick?.(event);
 				}}
-				ref={ref}
 				sideOffset={sideOffset}
 				{...props}
 			/>
 		</PopoverPrimitive.Portal>
-	),
-);
+	);
+}
 Content.displayName = "PopoverContent";
 
 /**
