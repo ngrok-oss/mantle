@@ -518,6 +518,9 @@ export default function Page() {
 
 					<p className="font-body text-body">
 						An accessible description to be announced when the dialog is opened.
+						Renders as a <InlineCode>div</InlineCode> by default, but can be
+						changed to any other element using the{" "}
+						<InlineCode>asChild</InlineCode> prop.
 					</p>
 					<p className="font-body text-body">
 						Alternatively, you can provide{" "}

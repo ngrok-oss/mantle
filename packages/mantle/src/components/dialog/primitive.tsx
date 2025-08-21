@@ -1,6 +1,7 @@
 "use client";
 
 import * as DialogPrimitive from "@radix-ui/react-dialog";
+import { Slot } from "@radix-ui/react-slot";
 import {
 	type ComponentPropsWithoutRef,
 	type ComponentRef,
@@ -72,11 +73,12 @@ const Title = DialogPrimitive.Title;
 /**
  * An accessible description for the dialog primitive.
  * This is a low-level primitive used by higher-level dialog components.
+ * Renders as a `div` by default, but can be changed to any other element using the `asChild` prop.
  */
 const Description = forwardRef<
-	ComponentRef<"p">,
+	ComponentRef<"div">,
 	ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
->((props, ref) => {
+>(({ asChild, children, ...props }, ref) => {
 	const ctx = useContext(InternalDialogContext);
 
 	useEffect(() => {
@@ -84,7 +86,13 @@ const Description = forwardRef<
 		return () => ctx.setHasDescription(false);
 	}, [ctx]);
 
-	return <DialogPrimitive.Description ref={ref} {...props} />;
+	const Component = asChild ? Slot : "div";
+
+	return (
+		<DialogPrimitive.Description ref={ref} asChild>
+			<Component {...props}>{children}</Component>
+		</DialogPrimitive.Description>
+	);
 });
 Description.displayName = "DialogPrimitiveDescription";
 
