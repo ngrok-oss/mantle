@@ -1,5 +1,25 @@
 # @ngrok/mantle
 
+## 0.52.0
+
+### Minor Changes
+
+- [#748](https://github.com/ngrok-oss/mantle/pull/748) [`2e7509c`](https://github.com/ngrok-oss/mantle/commit/2e7509c937086d51bd7c8dfa00d57cf2dc105212) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - add useIsBelowBreakpoint hook, improve performance of breakpoint hooks
+
+- [#745](https://github.com/ngrok-oss/mantle/pull/745) [`9611901`](https://github.com/ngrok-oss/mantle/commit/9611901fc1db0daec0691044dcf95535bdf75218) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Rename InlineCode to Code
+
+- [#746](https://github.com/ngrok-oss/mantle/pull/746) [`639eed2`](https://github.com/ngrok-oss/mantle/commit/639eed24e29b23856fec43b99ea11a20fe9da0eb) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add useIsHydrated hook
+
+- [#746](https://github.com/ngrok-oss/mantle/pull/746) [`639eed2`](https://github.com/ngrok-oss/mantle/commit/639eed24e29b23856fec43b99ea11a20fe9da0eb) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add useBreakpoint hook
+
+- [#746](https://github.com/ngrok-oss/mantle/pull/746) [`639eed2`](https://github.com/ngrok-oss/mantle/commit/639eed24e29b23856fec43b99ea11a20fe9da0eb) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add BrowserOnly component
+
+### Patch Changes
+
+- [#743](https://github.com/ngrok-oss/mantle/pull/743) [`9e2621c`](https://github.com/ngrok-oss/mantle/commit/9e2621c83d289ff71f864c1405dccd8367a139a0) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Switch Alert, Dialog, and AlertDialog Description components to render a div instead of a p by default
+
+- [#746](https://github.com/ngrok-oss/mantle/pull/746) [`639eed2`](https://github.com/ngrok-oss/mantle/commit/639eed24e29b23856fec43b99ea11a20fe9da0eb) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Update hooks documentation for useMatchesMediaQuery and useCopyToClipboard
+
 ## 0.51.3
 
 ### Patch Changes
