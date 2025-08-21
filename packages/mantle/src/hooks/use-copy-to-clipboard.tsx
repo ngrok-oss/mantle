@@ -18,7 +18,7 @@ function useCopyToClipboard() {
 					throw new Error("writeText not supported");
 				}
 			} catch (_) {
-				oldSchoolCopy(value);
+				copyToClipboardPolyfill(value);
 				setState(value);
 			}
 		};
@@ -37,7 +37,7 @@ export {
 /**
  * A fallback copy to clipboard function for older browsers.
  */
-function oldSchoolCopy(text: string) {
+function copyToClipboardPolyfill(text: string) {
 	const tempTextArea = document.createElement("textarea");
 	tempTextArea.value = text;
 	document.body.appendChild(tempTextArea);
