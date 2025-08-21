@@ -132,6 +132,11 @@
       "import": "./dist/checkbox.js",
       "types": "./dist/checkbox.d.ts"
     },
+    "./code": {
+      "@ngrok/mantle/source": "./src/components/code/index.ts",
+      "import": "./dist/code.js",
+      "types": "./dist/code.d.ts"
+    },
     "./code-block": {
       "@ngrok/mantle/source": "./src/components/code-block/index.ts",
       "import": "./dist/code-block.js",
@@ -197,11 +202,6 @@
       "@ngrok/mantle/source": "./src/components/icons/index.ts",
       "import": "./dist/icons.js",
       "types": "./dist/icons.d.ts"
-    },
-    "./inline-code": {
-      "@ngrok/mantle/source": "./src/components/inline-code/index.ts",
-      "import": "./dist/inline-code.js",
-      "types": "./dist/inline-code.d.ts"
     },
     "./input": {
       "@ngrok/mantle/source": "./src/components/input/index.ts",

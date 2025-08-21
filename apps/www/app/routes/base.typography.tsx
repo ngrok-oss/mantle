@@ -1,4 +1,4 @@
-import { InlineCode } from "@ngrok/mantle/inline-code";
+import { Code } from "@ngrok/mantle/code";
 import { Table } from "@ngrok/mantle/table";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/base.typography";
@@ -57,7 +57,7 @@ export default function Page() {
 					<div className="h-10 w-full rounded bg-neutral-950" />
 					<div className="flex items-center justify-between">
 						<span className="text-strong">Strong</span>
-						<InlineCode>.text-strong</InlineCode>
+						<Code>.text-strong</Code>
 					</div>
 				</div>
 
@@ -65,7 +65,7 @@ export default function Page() {
 					<div className="h-10 w-full rounded bg-neutral-950/75" />
 					<div className="flex items-center justify-between">
 						<span className="text-body">Body</span>
-						<InlineCode>.text-body</InlineCode>
+						<Code>.text-body</Code>
 					</div>
 				</div>
 
@@ -73,7 +73,7 @@ export default function Page() {
 					<div className="h-10 w-full rounded bg-neutral-950/60" />
 					<div className="flex items-center justify-between">
 						<span className="text-muted">Muted</span>
-						<InlineCode>.text-muted</InlineCode>
+						<Code>.text-muted</Code>
 					</div>
 				</div>
 
@@ -81,7 +81,7 @@ export default function Page() {
 					<div className="h-10 w-full rounded bg-neutral-950/50" />
 					<div className="flex items-center justify-between">
 						<span className="text-placeholder">Placeholder</span>
-						<InlineCode>.text-placeholder</InlineCode>
+						<Code>.text-placeholder</Code>
 					</div>
 				</div>
 			</div>
@@ -89,9 +89,8 @@ export default function Page() {
 			<h2 className="mt-12 text-3xl font-medium">Fonts</h2>
 			<p className="font-body text-body mt-3">
 				Mantle specifies Euclid as the default font for UI and headings. It
-				extends Tailwind by providing Nunito Sans as a{" "}
-				<InlineCode>font-body</InlineCode>. We also use IBM Plex Mono as a
-				monospace typeface.
+				extends Tailwind by providing Nunito Sans as a <Code>font-body</Code>.
+				We also use IBM Plex Mono as a monospace typeface.
 			</p>
 
 			<Table.Root className="mt-4">
@@ -106,8 +105,8 @@ export default function Page() {
 					<Table.Body className="text-body text-xs">
 						<Table.Row>
 							<Table.Cell className="space-x-1 space-y-1">
-								<InlineCode className="break-keep">font-sans</InlineCode>
-								<InlineCode className="break-keep">default</InlineCode>
+								<Code className="break-keep">font-sans</Code>
+								<Code className="break-keep">default</Code>
 							</Table.Cell>
 							<Table.Cell className="space-y-1">
 								<p className="font-sans">Euclid Square</p>
@@ -121,7 +120,7 @@ export default function Page() {
 						</Table.Row>
 						<Table.Row>
 							<Table.Cell>
-								<InlineCode className="break-keep">font-body</InlineCode>
+								<Code className="break-keep">font-body</Code>
 							</Table.Cell>
 							<Table.Cell className="space-y-1">
 								<p className="font-body">Nunito Sans</p>
@@ -135,7 +134,7 @@ export default function Page() {
 						</Table.Row>
 						<Table.Row>
 							<Table.Cell>
-								<InlineCode className="break-keep">font-mono</InlineCode>
+								<Code className="break-keep">font-mono</Code>
 							</Table.Cell>
 							<Table.Cell className="space-y-1">
 								<p className="font-mono">IBM Plex Mono</p>

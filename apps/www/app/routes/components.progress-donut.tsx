@@ -1,6 +1,6 @@
 import { Anchor } from "@ngrok/mantle/anchor";
+import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
-import { InlineCode } from "@ngrok/mantle/inline-code";
 import { ProgressDonut } from "@ngrok/mantle/progress";
 import { useState } from "react";
 import { Example } from "~/components/example";
@@ -43,10 +43,9 @@ export default function Page() {
 					circular progress bar.
 				</p>
 				<p className="font-body text-body text-xl">
-					The indicator color is inherited via{" "}
-					<InlineCode>currentColor</InlineCode>. Override the default (
-					<InlineCode>accent-600</InlineCode>) by setting the
-					<InlineCode>ProgressDonut.Indicator</InlineCode>'s text color.
+					The indicator color is inherited via <Code>currentColor</Code>.
+					Override the default (<Code>accent-600</Code>) by setting the
+					<Code>ProgressDonut.Indicator</Code>'s text color.
 				</p>
 				<div>
 					<Example className="flex-col gap-6">
@@ -154,9 +153,9 @@ export default function Page() {
 					Indeterminate Value
 				</h2>
 				<p className="font-body text-body">
-					You can set the <InlineCode>value</InlineCode> prop to{" "}
-					<InlineCode>"indeterminate"</InlineCode> to show the progress bar in
-					an indeterminate state.
+					You can set the <Code>value</Code> prop to{" "}
+					<Code>"indeterminate"</Code> to show the progress bar in an
+					indeterminate state.
 				</p>
 				<div>
 					<Example>
@@ -190,10 +189,10 @@ export default function Page() {
 					Dynamic Colors
 				</h2>
 				<p className="font-body text-body">
-					The color of the <InlineCode>ProgressDonut.Indicator</InlineCode> is
-					inherited from the parent text color using{" "}
-					<InlineCode>currentColor</InlineCode>. Using this, you can easily
-					change the color of it based on the current progress value.
+					The color of the <Code>ProgressDonut.Indicator</Code> is inherited
+					from the parent text color using <Code>currentColor</Code>. Using
+					this, you can easily change the color of it based on the current
+					progress value.
 				</p>
 				<div>
 					<Example>
@@ -268,15 +267,14 @@ export default function Page() {
 								progress of a task.
 							</p>
 							<p>
-								The indicator color is inherited via{" "}
-								<InlineCode>currentColor</InlineCode>. Override the default (
-								<InlineCode>accent-600</InlineCode>) by setting the
-								<InlineCode>ProgressDonut.Indicator</InlineCode>'s text color.
+								The indicator color is inherited via <Code>currentColor</Code>.
+								Override the default (<Code>accent-600</Code>) by setting the
+								<Code>ProgressDonut.Indicator</Code>'s text color.
 							</p>
 
 							<p>
-								The <InlineCode>ProgressDonut</InlineCode> accepts the following
-								props in addition to the{" "}
+								The <Code>ProgressDonut</Code> accepts the following props in
+								addition to the{" "}
 								<Anchor href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/svg#attributes">
 									standard HTML svg attributes
 								</Anchor>
@@ -348,8 +346,8 @@ export default function Page() {
 									between 0 and 100 if max is omitted.
 								</p>
 								<p>
-									If set to <InlineCode>"indeterminate"</InlineCode>, the
-									progress bar is considered <strong>indeterminate</strong>.
+									If set to <Code>"indeterminate"</Code>, the progress bar is
+									considered <strong>indeterminate</strong>.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>

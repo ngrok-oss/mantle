@@ -1,7 +1,7 @@
 import { Alert } from "@ngrok/mantle/alert";
 import { Anchor } from "@ngrok/mantle/anchor";
+import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
-import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Select } from "@ngrok/mantle/select";
 import { preventWrongThemeFlashScriptContent } from "@ngrok/mantle/theme-provider";
 import { FileHtmlIcon, FileTsxIcon } from "@phosphor-icons/react";
@@ -80,7 +80,7 @@ export default function Page() {
 				In addition, custom-designed icons tailored to ngrok’s needs are
 				available through the{" "}
 				<Link to={href("/components/icons")}>
-					<InlineCode>@ngrok/mantle/icons</InlineCode>
+					<Code>@ngrok/mantle/icons</Code>
 				</Link>{" "}
 				module.
 			</p>
@@ -183,7 +183,7 @@ function SetupInstructions() {
 			</h2>
 
 			<p className="font-body text-body mt-3 mb-4">
-				I want to use <InlineCode>mantle</InlineCode> in my{" "}
+				I want to use <Code>mantle</Code> in my{" "}
 				<Select.Root
 					value={applicationTemplate}
 					onValueChange={(value) => {
@@ -211,15 +211,15 @@ function SetupInstructions() {
 					Installation
 				</h3>
 				<p className="font-body text-body">
-					Start by installing <InlineCode>@ngrok/mantle</InlineCode> and all of
-					the required <InlineCode>peerDependencies</InlineCode>:
+					Start by installing <Code>@ngrok/mantle</Code> and all of the required{" "}
+					<Code>peerDependencies</Code>:
 				</p>
 				<Alert.Root priority="info">
 					<Alert.Icon />
 					<Alert.Content>
 						<Alert.Description>
-							Mantle supports <InlineCode>react</InlineCode> and{" "}
-							<InlineCode>react-dom</InlineCode> versions 18 and 19.
+							Mantle supports <Code>react</Code> and <Code>react-dom</Code>{" "}
+							versions 18 and 19.
 						</Alert.Description>
 					</Alert.Content>
 				</Alert.Root>
@@ -244,7 +244,7 @@ function SetupInstructions() {
 				</CodeBlock.Root>
 				<p className="font-body text-body">
 					You will also need to install the following{" "}
-					<InlineCode>devDependencies</InlineCode>:
+					<Code>devDependencies</Code>:
 				</p>
 				<CodeBlock.Root>
 					<CodeBlock.Header>
@@ -334,8 +334,8 @@ function ReactRouterScaffolding() {
 	return (
 		<div className="space-y-4">
 			<p className="font-body text-body">
-				We need to add the <InlineCode>@tailwindcss/vite</InlineCode> plugin to
-				your Vite configuration.
+				We need to add the <Code>@tailwindcss/vite</Code> plugin to your Vite
+				configuration.
 			</p>
 			<CodeBlock.Root>
 				<CodeBlock.Header>
@@ -364,9 +364,8 @@ function ReactRouterScaffolding() {
 				</CodeBlock.Body>
 			</CodeBlock.Root>
 			<p className="font-body text-body">
-				Then, in your react-router app&rsquo;s{" "}
-				<InlineCode>src/root.tsx</InlineCode> file, import the{" "}
-				<InlineCode>mantle.css</InlineCode> file to apply the mantle styles.
+				Then, in your react-router app&rsquo;s <Code>src/root.tsx</Code> file,
+				import the <Code>mantle.css</Code> file to apply the mantle styles.
 			</p>
 			<p className="font-body text-body">
 				We will also add the{" "}
@@ -379,11 +378,10 @@ function ReactRouterScaffolding() {
 				<Alert.Icon />
 				<Alert.Content>
 					<Alert.Description>
-						It is critical to include the{" "}
-						<InlineCode>MantleThemeHeadContent</InlineCode> in the{" "}
-						<InlineCode>head</InlineCode> of your app to prevent a flash of
-						unstyled content (FOUC). This component will inject the necessary
-						script to prevent the FOUC.
+						It is critical to include the <Code>MantleThemeHeadContent</Code> in
+						the <Code>head</Code> of your app to prevent a flash of unstyled
+						content (FOUC). This component will inject the necessary script to
+						prevent the FOUC.
 					</Alert.Description>
 				</Alert.Content>
 			</Alert.Root>
@@ -507,8 +505,8 @@ function ViteScaffolding() {
 	return (
 		<div className="space-y-4 mt-3">
 			<p className="font-body text-body">
-				We need to add the <InlineCode>@tailwindcss/vite</InlineCode> plugin to
-				your Vite configuration.
+				We need to add the <Code>@tailwindcss/vite</Code> plugin to your Vite
+				configuration.
 			</p>
 			<CodeBlock.Root>
 				<CodeBlock.Header>
@@ -533,9 +531,8 @@ function ViteScaffolding() {
 				</CodeBlock.Body>
 			</CodeBlock.Root>
 			<p className="font-body text-body">
-				Then, in your vite app&rsquo;s <InlineCode>src/main.tsx</InlineCode>{" "}
-				file, import the <InlineCode>mantle.css</InlineCode> file to apply the
-				mantle styles.
+				Then, in your vite app&rsquo;s <Code>src/main.tsx</Code> file, import
+				the <Code>mantle.css</Code> file to apply the mantle styles.
 			</p>
 			<p className="font-body text-body">
 				We will also add the{" "}
@@ -579,7 +576,7 @@ function ViteScaffolding() {
 
 			<p className="font-body text-body">
 				To prevent a flash of unstyled content (FOUC), you will need to update
-				your <InlineCode>index.html</InlineCode> to include our script:
+				your <Code>index.html</Code> to include our script:
 			</p>
 			<Alert.Root priority="warning">
 				<Alert.Icon />
@@ -587,8 +584,8 @@ function ViteScaffolding() {
 					<Alert.Description>
 						While mantle supports any type of react application, vite is not the
 						primary target. For now, you will need to manually include the
-						following script in the <InlineCode>head</InlineCode> of your app.
-						We plan to add a vite plugin in the future to automate this.
+						following script in the <Code>head</Code> of your app. We plan to
+						add a vite plugin in the future to automate this.
 					</Alert.Description>
 				</Alert.Content>
 			</Alert.Root>
@@ -629,7 +626,7 @@ function ReactSpaScaffolding() {
 		<div className="space-y-4">
 			<p className="font-body text-body">
 				In your react app&rsquo;s entry/root file, import the{" "}
-				<InlineCode>mantle.css</InlineCode> file to apply the mantle styles.
+				<Code>mantle.css</Code> file to apply the mantle styles.
 			</p>
 			<p className="font-body text-body">
 				We will also add the{" "}
@@ -681,7 +678,7 @@ function ReactSpaScaffolding() {
 
 			<p className="font-body text-body">
 				To prevent a flash of unstyled content (FOUC), you will need to update
-				your <InlineCode>index.html</InlineCode> to include our script:
+				your <Code>index.html</Code> to include our script:
 			</p>
 			<Alert.Root priority="warning">
 				<Alert.Icon />
@@ -689,8 +686,8 @@ function ReactSpaScaffolding() {
 					<Alert.Description>
 						While mantle supports any type of react application, arbitrary react
 						SPA apps are not the primary target. For now, you will need to
-						manually include the following script in the{" "}
-						<InlineCode>head</InlineCode> of your app.
+						manually include the following script in the <Code>head</Code> of
+						your app.
 					</Alert.Description>
 				</Alert.Content>
 			</Alert.Root>

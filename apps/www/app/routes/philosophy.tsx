@@ -1,5 +1,5 @@
 import { Anchor } from "@ngrok/mantle/anchor";
-import { InlineCode } from "@ngrok/mantle/inline-code";
+import { Code } from "@ngrok/mantle/code";
 import { href } from "react-router";
 import { Link } from "~/components/link";
 import { PageHeader } from "~/components/page-header";
@@ -71,8 +71,8 @@ export default function PhilosophyPage() {
 						This approach gives us the best of both worlds: robust, accessible
 						functionality from battle-tested libraries, combined with ngrok's
 						unique visual design language. Components can be composed together
-						naturally, and the <InlineCode>asChild</InlineCode> pattern allows
-						for deep composition when needed.
+						naturally, and the <Code>asChild</Code> pattern allows for deep
+						composition when needed.
 					</p>
 				</section>
 
@@ -84,9 +84,9 @@ export default function PhilosophyPage() {
 						Mantle starts with semantic HTML as the foundation for every
 						component. We believe that the right HTML element for the job should
 						always be the starting point, not an afterthought. This means using{" "}
-						<InlineCode>&lt;button&gt;</InlineCode> elements for buttons,{" "}
-						<InlineCode>&lt;input&gt;</InlineCode> elements for form controls,
-						and proper heading hierarchy for content structure.
+						<Code>&lt;button&gt;</Code> elements for buttons,{" "}
+						<Code>&lt;input&gt;</Code> elements for form controls, and proper
+						heading hierarchy for content structure.
 					</p>
 					<p className="font-body text-body mt-3">
 						Semantic markup provides a solid foundation that works across all
@@ -157,8 +157,8 @@ export default function PhilosophyPage() {
 						inherently accessible. A properly structured{" "}
 						<Link to={href("/components/button")}>Button</Link> component works
 						with screen readers because it's built on a real{" "}
-						<InlineCode>&lt;button&gt;</InlineCode> element, not a styled{" "}
-						<InlineCode>&lt;div&gt;</InlineCode> with click handlers.
+						<Code>&lt;button&gt;</Code> element, not a styled{" "}
+						<Code>&lt;div&gt;</Code> with click handlers.
 					</p>
 					<p className="font-body text-body mt-3">
 						This approach means that ngrok's applications are usable by
@@ -204,10 +204,10 @@ export default function PhilosophyPage() {
 					</p>
 					<p className="font-body text-body mt-3">
 						Component variants are typed using{" "}
-						<InlineCode>class-variance-authority</InlineCode>, providing
-						autocomplete and validation for styling options without requiring
-						explicit type annotations. This gives you the benefits of strong
-						typing while keeping the API approachable.
+						<Code>class-variance-authority</Code>, providing autocomplete and
+						validation for styling options without requiring explicit type
+						annotations. This gives you the benefits of strong typing while
+						keeping the API approachable.
 					</p>
 				</section>
 

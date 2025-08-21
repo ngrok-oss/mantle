@@ -1,7 +1,7 @@
 import { Anchor } from "@ngrok/mantle/anchor";
 import { Button } from "@ngrok/mantle/button";
+import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
-import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Label } from "@ngrok/mantle/label";
 import { Switch } from "@ngrok/mantle/switch";
 import { useForm } from "@tanstack/react-form";
@@ -129,15 +129,15 @@ export default function Page() {
 							Switch in a form with client-side validation
 						</h3>
 						<p className="font-body text-body">
-							In this example, the <InlineCode>Switch</InlineCode> is used in a
-							form with client-side validation. The form is built using{" "}
-							<InlineCode>
+							In this example, the <Code>Switch</Code> is used in a form with
+							client-side validation. The form is built using{" "}
+							<Code>
 								<Anchor href="https://tanstack.com/form/latest/docs">
 									@tanstack/react-form
 								</Anchor>
-							</InlineCode>
-							and <InlineCode>zod</InlineCode> for validation. The form accepts
-							and validates the input before submission.
+							</Code>
+							and <Code>zod</Code> for validation. The form accepts and
+							validates the input before submission.
 						</p>
 					</header>
 					<div>
@@ -241,7 +241,7 @@ export default function Page() {
 						API Reference
 					</h2>
 					<p className="font-body text-body text-xl">
-						The <InlineCode>Switch</InlineCode> is built on top of{" "}
+						The <Code>Switch</Code> is built on top of{" "}
 						<Anchor
 							href="https://www.radix-ui.com/primitives/docs/components/switch"
 							target="_blank"

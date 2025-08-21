@@ -1,9 +1,9 @@
 import { AlertDialog } from "@ngrok/mantle/alert-dialog";
 import { Anchor } from "@ngrok/mantle/anchor";
 import { Button, IconButton } from "@ngrok/mantle/button";
+import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { Dialog } from "@ngrok/mantle/dialog";
-import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Sheet } from "@ngrok/mantle/sheet";
 import { type Priority, Toast, makeToast } from "@ngrok/mantle/toast";
 import { XIcon } from "@phosphor-icons/react/X";
@@ -286,8 +286,8 @@ export default function Page() {
 							Toaster
 						</h3>
 						<p className="font-body text-body text-xl">
-							The <InlineCode>Toaster</InlineCode> component renders all toasts.
-							It accepts the following props:
+							The <Code>Toaster</Code> component renders all toasts. It accepts
+							the following props:
 						</p>
 						<PropsTable>
 							<PropRow>
@@ -372,8 +372,8 @@ export default function Page() {
 							Toast.Root
 						</h3>
 						<p className="font-body text-body text-xl">
-							The <InlineCode>Toast.Root</InlineCode> is the container for a
-							toast message. It accepts the following props in addition to the{" "}
+							The <Code>Toast.Root</Code> is the container for a toast message.
+							It accepts the following props in addition to the{" "}
 							<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div">
 								standard HTML div attributes
 							</Anchor>
@@ -416,10 +416,9 @@ export default function Page() {
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
-										Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-										<InlineCode>Toast.Root</InlineCode> styling and
-										functionality onto alternative element types or your own
-										React components.
+										Use the <Code>asChild</Code> prop to compose the{" "}
+										<Code>Toast.Root</Code> styling and functionality onto
+										alternative element types or your own React components.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -431,9 +430,9 @@ export default function Page() {
 							Toast.Icon
 						</h3>
 						<p className="font-body text-body text-xl">
-							The <InlineCode>Toast.Icon</InlineCode> displays an icon
-							representing the toast priority. If no custom icon is provided, a
-							default icon for the priority is used.
+							The <Code>Toast.Icon</Code> displays an icon representing the
+							toast priority. If no custom icon is provided, a default icon for
+							the priority is used.
 						</p>
 						<PropsTable>
 							<PropRow>
@@ -457,9 +456,8 @@ export default function Page() {
 							Toast.Message
 						</h3>
 						<p className="font-body text-body text-xl">
-							The <InlineCode>Toast.Message</InlineCode> contains the main text
-							content of the toast. It accepts the following props in addition
-							to the{" "}
+							The <Code>Toast.Message</Code> contains the main text content of
+							the toast. It accepts the following props in addition to the{" "}
 							<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p">
 								standard HTML paragraph attributes
 							</Anchor>
@@ -476,10 +474,9 @@ export default function Page() {
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
-										Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-										<InlineCode>Toast.Message</InlineCode> styling and
-										functionality onto alternative element types or your own
-										React components.
+										Use the <Code>asChild</Code> prop to compose the{" "}
+										<Code>Toast.Message</Code> styling and functionality onto
+										alternative element types or your own React components.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -491,9 +488,8 @@ export default function Page() {
 							Toast.Action
 						</h3>
 						<p className="font-body text-body text-xl">
-							The <InlineCode>Toast.Action</InlineCode> is a button that
-							dismisses the toast when clicked. It accepts the following props
-							in addition to the{" "}
+							The <Code>Toast.Action</Code> is a button that dismisses the toast
+							when clicked. It accepts the following props in addition to the{" "}
 							<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button">
 								standard HTML button attributes
 							</Anchor>
@@ -510,19 +506,17 @@ export default function Page() {
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
-										Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-										<InlineCode>Toast.Action</InlineCode> styling and
-										functionality onto alternative element types or your own
-										React components.
+										Use the <Code>asChild</Code> prop to compose the{" "}
+										<Code>Toast.Action</Code> styling and functionality onto
+										alternative element types or your own React components.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
 						</PropsTable>
 						<p className="font-body text-body">
 							<strong>Note:</strong> You can prevent the toast from being
-							dismissed on click by calling{" "}
-							<InlineCode>event.preventDefault()</InlineCode> in your{" "}
-							<InlineCode>onClick</InlineCode> handler.
+							dismissed on click by calling <Code>event.preventDefault()</Code>{" "}
+							in your <Code>onClick</Code> handler.
 						</p>
 					</div>
 
@@ -531,8 +525,8 @@ export default function Page() {
 							makeToast
 						</h3>
 						<p className="font-body text-body text-xl">
-							The <InlineCode>makeToast</InlineCode> function creates and
-							displays a toast. It accepts the following parameters:
+							The <Code>makeToast</Code> function creates and displays a toast.
+							It accepts the following parameters:
 						</p>
 						<PropsTable>
 							<PropRow>
@@ -544,7 +538,7 @@ export default function Page() {
 								<PropDescriptionCell>
 									<p>
 										The React component to render inside the toast container.
-										Typically a <InlineCode>Toast.Root</InlineCode> component.
+										Typically a <Code>Toast.Root</Code> component.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -560,12 +554,12 @@ export default function Page() {
 									</p>
 									<ul className="mt-2 list-disc list-inside space-y-1">
 										<li>
-											<InlineCode>duration_ms</InlineCode> (number, optional):
-											Time in milliseconds before auto-dismissal
+											<Code>duration_ms</Code> (number, optional): Time in
+											milliseconds before auto-dismissal
 										</li>
 										<li>
-											<InlineCode>id</InlineCode> (string, optional): Custom ID
-											for the toast
+											<Code>id</Code> (string, optional): Custom ID for the
+											toast
 										</li>
 									</ul>
 								</PropDescriptionCell>

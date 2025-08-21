@@ -1,8 +1,8 @@
 import { Anchor } from "@ngrok/mantle/anchor";
 import { Button } from "@ngrok/mantle/button";
 import { Checkbox } from "@ngrok/mantle/checkbox";
+import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
-import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Label } from "@ngrok/mantle/label";
 import { useForm } from "@tanstack/react-form";
 import { z } from "zod";
@@ -169,15 +169,15 @@ export default function Page() {
 							Checkbox in a form with client-side validation
 						</h3>
 						<p className="font-body text-body">
-							In this example, the <InlineCode>Checkbox</InlineCode> is used in
-							a form with client-side validation. The form is built using{" "}
-							<InlineCode>
+							In this example, the <Code>Checkbox</Code> is used in a form with
+							client-side validation. The form is built using{" "}
+							<Code>
 								<Anchor href="https://tanstack.com/form/latest/docs">
 									@tanstack/react-form
 								</Anchor>
-							</InlineCode>
-							and <InlineCode>zod</InlineCode> for validation. The form accepts
-							and validates the input before submission.
+							</Code>
+							and <Code>zod</Code> for validation. The form accepts and
+							validates the input before submission.
 						</p>
 					</header>
 					<div>
@@ -283,8 +283,8 @@ export default function Page() {
 					API Reference
 				</h2>
 				<p className="font-body text-body text-xl">
-					The <InlineCode>Checkbox</InlineCode> accepts the following props in
-					addition to the{" "}
+					The <Code>Checkbox</Code> accepts the following props in addition to
+					the{" "}
 					<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox">
 						standard HTML checkbox input attributes
 					</Anchor>
@@ -307,10 +307,9 @@ export default function Page() {
 						<PropDescriptionCell>
 							<p>
 								Whether the checkbox is checked or not. Setting this to{" "}
-								<InlineCode>indeterminate</InlineCode> will show the
-								indeterminate state. This is useful for when the checkbox is in
-								a parent-child relationship, but this requires manual,
-								controlled state.
+								<Code>indeterminate</Code> will show the indeterminate state.
+								This is useful for when the checkbox is in a parent-child
+								relationship, but this requires manual, controlled state.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>
@@ -360,19 +359,18 @@ export default function Page() {
 						<PropDefaultValueCell />
 						<PropDescriptionCell className="space-y-2">
 							<p>
-								Use the <InlineCode>validation</InlineCode> prop to show if the
-								checkbox has a specific validation status. This will change the
-								border and outline of the checkbox.
+								Use the <Code>validation</Code> prop to show if the checkbox has
+								a specific validation status. This will change the border and
+								outline of the checkbox.
 							</p>
 							<p>
-								The <InlineCode>false</InlineCode> type is useful when using
+								The <Code>false</Code> type is useful when using
 								short-circuiting logic so that you don't need to use a ternary
-								with <InlineCode>undefined</InlineCode>.
+								with <Code>undefined</Code>.
 							</p>
 							<p>
-								Setting <InlineCode>validation</InlineCode> to{" "}
-								<InlineCode>error</InlineCode> also sets{" "}
-								<InlineCode>aria-invalid</InlineCode>.
+								Setting <Code>validation</Code> to <Code>error</Code> also sets{" "}
+								<Code>aria-invalid</Code>.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>

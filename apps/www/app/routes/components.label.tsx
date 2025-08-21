@@ -1,6 +1,6 @@
 import { Anchor } from "@ngrok/mantle/anchor";
+import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
-import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Input } from "@ngrok/mantle/input";
 import { Label } from "@ngrok/mantle/label";
 import { Example } from "~/components/example";
@@ -38,8 +38,8 @@ export default function Page() {
 			<section className="space-y-4">
 				<PageHeader id="label">Label</PageHeader>
 				<p className="font-body text-body text-xl">
-					A <InlineCode>Label</InlineCode> represents a caption for an item in a
-					user interface. Renders an accessible label associated with controls.
+					A <Code>Label</Code> represents a caption for an item in a user
+					interface. Renders an accessible label associated with controls.
 				</p>
 				<div>
 					<Example className="grid gap-6">
@@ -94,8 +94,7 @@ export default function Page() {
 					API Reference
 				</h2>
 				<p className="font-body text-body text-xl">
-					The <InlineCode>Label</InlineCode> accepts the following props in
-					addition to the{" "}
+					The <Code>Label</Code> accepts the following props in addition to the{" "}
 					<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label#attributes">
 						standard HTML label attributes
 					</Anchor>
@@ -112,8 +111,8 @@ export default function Page() {
 						</PropDefaultValueCell>
 						<PropDescriptionCell>
 							<p>
-								Use the <InlineCode>disabled</InlineCode> prop to explicitly
-								render the label in a disabled state.
+								Use the <Code>disabled</Code> prop to explicitly render the
+								label in a disabled state.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>

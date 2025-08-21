@@ -1,7 +1,7 @@
 import { Anchor } from "@ngrok/mantle/anchor";
 import { Button } from "@ngrok/mantle/button";
+import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
-import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Label } from "@ngrok/mantle/label";
 import { TextArea } from "@ngrok/mantle/text-area";
 import { useForm } from "@tanstack/react-form";
@@ -133,15 +133,15 @@ export default function Page() {
 							TextArea in a form with client-side validation
 						</h3>
 						<p className="font-body text-body">
-							In this example, the <InlineCode>TextArea</InlineCode> is used in
-							a form with client-side validation. The form is built using{" "}
-							<InlineCode>
+							In this example, the <Code>TextArea</Code> is used in a form with
+							client-side validation. The form is built using{" "}
+							<Code>
 								<Anchor href="https://tanstack.com/form/latest/docs">
 									@tanstack/react-form
 								</Anchor>
-							</InlineCode>
-							and <InlineCode>zod</InlineCode> for validation. The form accepts
-							user feedback and validates the input before submission.
+							</Code>
+							and <Code>zod</Code> for validation. The form accepts user
+							feedback and validates the input before submission.
 						</p>
 					</header>
 					<div>
@@ -246,8 +246,8 @@ export default function Page() {
 					API Reference
 				</h2>
 				<p className="font-body text-body text-xl">
-					The <InlineCode>TextArea</InlineCode> accepts the following props in
-					addition to the{" "}
+					The <Code>TextArea</Code> accepts the following props in addition to
+					the{" "}
 					<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea">
 						standard HTML textarea attributes
 					</Anchor>
@@ -266,8 +266,7 @@ export default function Page() {
 						<PropDefaultValueCell />
 						<PropDescriptionCell>
 							<p>
-								Defines the visual style of the{" "}
-								<InlineCode>TextArea</InlineCode>.
+								Defines the visual style of the <Code>TextArea</Code>.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>
@@ -297,19 +296,18 @@ export default function Page() {
 						<PropDefaultValueCell />
 						<PropDescriptionCell className="space-y-2">
 							<p>
-								Use the <InlineCode>validation</InlineCode> prop to show if the
-								textarea has a specific validation status. This will change the
-								border and outline of the textarea.
+								Use the <Code>validation</Code> prop to show if the textarea has
+								a specific validation status. This will change the border and
+								outline of the textarea.
 							</p>
 							<p>
-								The <InlineCode>false</InlineCode> type is useful when using
+								The <Code>false</Code> type is useful when using
 								short-circuiting logic so that you don't need to use a ternary
-								with <InlineCode>undefined</InlineCode>.
+								with <Code>undefined</Code>.
 							</p>
 							<p>
-								Setting <InlineCode>validation</InlineCode> to{" "}
-								<InlineCode>error</InlineCode> also sets{" "}
-								<InlineCode>aria-invalid</InlineCode>.
+								Setting <Code>validation</Code> to <Code>error</Code> also sets{" "}
+								<Code>aria-invalid</Code>.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>

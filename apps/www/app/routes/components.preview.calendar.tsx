@@ -1,8 +1,8 @@
 import { Anchor } from "@ngrok/mantle/anchor";
 import { IconButton } from "@ngrok/mantle/button";
 import { Calendar, type DateRange } from "@ngrok/mantle/calendar";
+import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
-import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Popover } from "@ngrok/mantle/popover";
 import { CalendarIcon } from "@phosphor-icons/react/Calendar";
 import { useState } from "react";
@@ -221,7 +221,7 @@ export default function Page() {
 					API Reference
 				</h2>
 				<p className="font-body text-body text-xl">
-					The <InlineCode>Calendar</InlineCode> is built on top of{" "}
+					The <Code>Calendar</Code> is built on top of{" "}
 					<Anchor href="https://react-day-picker.js.org/">
 						React DayPicker
 					</Anchor>
@@ -251,7 +251,7 @@ export default function Page() {
 						</PropDefaultValueCell>
 						<PropDescriptionCell>
 							<p>
-								Defines the visual style of the <InlineCode>Button</InlineCode>.
+								Defines the visual style of the <Code>Button</Code>.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>
@@ -265,7 +265,7 @@ export default function Page() {
 						</PropDefaultValueCell>
 						<PropDescriptionCell>
 							<p>
-								Use the <InlineCode>asChild</InlineCode> prop to compose the <InlineCode>Button</InlineCode> styling and
+								Use the <Code>asChild</Code> prop to compose the <Code>Button</Code> styling and
 								functionality onto alternative element types or your own React components.
 							</p>
 						</PropDescriptionCell>
@@ -277,8 +277,8 @@ export default function Page() {
 						</PropTypeCell>
 						<PropDefaultValueCell />
 						<PropDescriptionCell>
-							An icon to render inside the button. If the <InlineCode>state</InlineCode> is{" "}
-							<InlineCode>pending</InlineCode>, then the icon will automatically be replaced with a spinner.
+							An icon to render inside the button. If the <Code>state</Code> is{" "}
+							<Code>pending</Code>, then the icon will automatically be replaced with a spinner.
 						</PropDescriptionCell>
 					</PropRow>
 					<PropRow>
@@ -298,7 +298,7 @@ export default function Page() {
 						</PropDefaultValueCell>
 						<PropDescriptionCell>
 							<p>
-								The side that the icon will render on, if one is present. If <InlineCode>state="pending"</InlineCode>,
+								The side that the icon will render on, if one is present. If <Code>state="pending"</Code>,
 								then the loading icon will also render on this side.
 							</p>
 						</PropDescriptionCell>
@@ -313,10 +313,10 @@ export default function Page() {
 						</PropDefaultValueCell>
 						<PropDescriptionCell>
 							<p>
-								Determines whether or not the button is in a loading state, default <InlineCode>false</InlineCode>.
-								Setting <InlineCode>isLoading</InlineCode> will replace any <InlineCode>icon</InlineCode> with a
+								Determines whether or not the button is in a loading state, default <Code>false</Code>.
+								Setting <Code>isLoading</Code> will replace any <Code>icon</Code> with a
 								spinner, or add one if an icon wasn't given. It will also disable user interaction with the button and
-								set <InlineCode>aria-disabled</InlineCode>.
+								set <Code>aria-disabled</Code>.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>
@@ -363,8 +363,8 @@ export default function Page() {
 						<PropDefaultValueCell />
 						<PropDescriptionCell>
 							<p>
-								The default behavior of the <InlineCode>Button</InlineCode>. Unlike the native{" "}
-								<InlineCode>button</InlineCode> element, unless you use the <InlineCode>asChild</InlineCode> prop,{" "}
+								The default behavior of the <Code>Button</Code>. Unlike the native{" "}
+								<Code>button</Code> element, unless you use the <Code>asChild</Code> prop,{" "}
 								<span className="font-semibold">this prop is required and has no default value</span>. See{" "}
 								<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#type">
 									the MDN docs
@@ -374,18 +374,18 @@ export default function Page() {
 							<ul className="list-disc pl-5">
 								<li>
 									<p>
-										<InlineCode>"button"</InlineCode>: The button has no default behavior, and does nothing when pressed
+										<Code>"button"</Code>: The button has no default behavior, and does nothing when pressed
 										by default.
 									</p>
 								</li>
 								<li>
 									<p>
-										<InlineCode>"reset"</InlineCode>: The button resets all the controls to their initial values.
+										<Code>"reset"</Code>: The button resets all the controls to their initial values.
 									</p>
 								</li>
 								<li>
 									<p>
-										<InlineCode>"submit"</InlineCode>: The button submits the form data to the server.
+										<Code>"submit"</Code>: The button submits the form data to the server.
 									</p>
 								</li>
 							</ul>

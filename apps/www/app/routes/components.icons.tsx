@@ -1,7 +1,7 @@
 import { Button } from "@ngrok/mantle/button";
+import { Code } from "@ngrok/mantle/code";
 import { useCopyToClipboard } from "@ngrok/mantle/hooks";
 import { Icon } from "@ngrok/mantle/icon";
-import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Input } from "@ngrok/mantle/input";
 import { Label } from "@ngrok/mantle/label";
 import { CheckIcon } from "@phosphor-icons/react/Check";
@@ -112,8 +112,7 @@ export default function Page({ loaderData }: Route.ComponentProps) {
 						{(field) => (
 							<div className="space-y-4 text-center">
 								<p className="text-strong">
-									No results found for{" "}
-									<InlineCode>{field.state.value}</InlineCode>
+									No results found for <Code>{field.state.value}</Code>
 								</p>
 								<Form
 									method="GET"

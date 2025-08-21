@@ -1,6 +1,6 @@
 import { Anchor } from "@ngrok/mantle/anchor";
+import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
-import { InlineCode } from "@ngrok/mantle/inline-code";
 import { MediaObject } from "@ngrok/mantle/media-object";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
@@ -43,18 +43,18 @@ export default function Page() {
 				<div className="font-body text-body space-y-4">
 					<p>
 						Change the spacing between the media and content by passing a{" "}
-						<InlineCode>gap-*</InlineCode> class. The default{" "}
-						<InlineCode>gap</InlineCode> is <InlineCode>gap-4</InlineCode>.
+						<Code>gap-*</Code> class. The default <Code>gap</Code> is{" "}
+						<Code>gap-4</Code>.
 					</p>
 					<p>
-						Use <InlineCode>flexbox</InlineCode> utilities to change the
-						alignment of the media and content.
+						Use <Code>flexbox</Code> utilities to change the alignment of the
+						media and content.
 					</p>
 					<p>
-						Compose the <InlineCode>&lt;MediaObject&gt;</InlineCode> with the{" "}
-						<InlineCode>&lt;MediaObject.Media&gt;</InlineCode> and{" "}
-						<InlineCode>&lt;MediaObject.Content&gt;</InlineCode> components as
-						direct children.
+						Compose the <Code>&lt;MediaObject&gt;</Code> with the{" "}
+						<Code>&lt;MediaObject.Media&gt;</Code> and{" "}
+						<Code>&lt;MediaObject.Content&gt;</Code> components as direct
+						children.
 					</p>
 
 					<div>
@@ -124,10 +124,10 @@ export default function Page() {
 						</h3>
 
 						<p className="font-body text-body">
-							The <InlineCode>MediaObject</InlineCode> is an image/icon (media)
-							to the left, with descriptive content (title and
-							subtitle/description) to the right. Root container for all{" "}
-							<InlineCode>MediaObject.Root</InlineCode> sub-components.
+							The <Code>MediaObject</Code> is an image/icon (media) to the left,
+							with descriptive content (title and subtitle/description) to the
+							right. Root container for all <Code>MediaObject.Root</Code>{" "}
+							sub-components.
 						</p>
 
 						<p>
@@ -154,9 +154,9 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-									<InlineCode>MediaObject</InlineCode> styling and functionality
-									onto alternative element types or your own React components.
+									Use the <Code>asChild</Code> prop to compose the{" "}
+									<Code>MediaObject</Code> styling and functionality onto
+									alternative element types or your own React components.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -174,7 +174,7 @@ export default function Page() {
 
 						<p className="font-body text-body">
 							The container for an image or icon to display in the media slot of
-							the <InlineCode>MediaObject</InlineCode>.
+							the <Code>MediaObject</Code>.
 						</p>
 
 						<p>
@@ -201,10 +201,9 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-									<InlineCode>MediaObject.Media</InlineCode> styling and
-									functionality onto alternative element types or your own React
-									components.
+									Use the <Code>asChild</Code> prop to compose the{" "}
+									<Code>MediaObject.Media</Code> styling and functionality onto
+									alternative element types or your own React components.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -221,8 +220,7 @@ export default function Page() {
 						</h3>
 
 						<p className="font-body text-body">
-							The container for the content slot of a{" "}
-							<InlineCode>MediaObject</InlineCode>
+							The container for the content slot of a <Code>MediaObject</Code>
 						</p>
 
 						<p>
@@ -249,10 +247,9 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-									<InlineCode>MediaObject.Content</InlineCode> styling and
-									functionality onto alternative element types or your own React
-									components.
+									Use the <Code>asChild</Code> prop to compose the{" "}
+									<Code>MediaObject.Content</Code> styling and functionality
+									onto alternative element types or your own React components.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>

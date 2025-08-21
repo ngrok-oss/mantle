@@ -3,18 +3,18 @@ import type { HTMLAttributes } from "react";
 import { cx } from "../../utils/cx/cx.js";
 
 /**
- * A component to render inline code with syntax highlighting and styling.
+ * Marks text to signify a short fragment of inline computer code.
  *
- * @see https://mantle.ngrok.com/components/inline-code#api-inline-code
+ * @see https://mantle.ngrok.com/components/code#api-code
  *
  * @example
  * ```tsx
  * <p>
- *   Use the <InlineCode>console.log()</InlineCode> function to debug your code.
+ *   Use the <Code>console.log()</Code> function to debug your code.
  * </p>
  * ```
  */
-const InlineCode = forwardRef<HTMLSpanElement, HTMLAttributes<HTMLSpanElement>>(
+const Code = forwardRef<HTMLSpanElement, HTMLAttributes<HTMLSpanElement>>(
 	({ className, ...props }, ref) => (
 		<code
 			ref={ref}
@@ -26,6 +26,9 @@ const InlineCode = forwardRef<HTMLSpanElement, HTMLAttributes<HTMLSpanElement>>(
 		/>
 	),
 );
-InlineCode.displayName = "InlineCode";
+Code.displayName = "Code";
 
-export { InlineCode };
+export {
+	//,
+	Code,
+};

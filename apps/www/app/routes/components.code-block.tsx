@@ -1,10 +1,10 @@
 import { Anchor } from "@ngrok/mantle/anchor";
+import { Code } from "@ngrok/mantle/code";
 import {
 	CodeBlock,
 	fmtCode,
 	supportedLanguages,
 } from "@ngrok/mantle/code-block";
-import { InlineCode } from "@ngrok/mantle/inline-code";
 import { href } from "react-router";
 import { Example } from "~/components/example";
 import { Link } from "~/components/link";
@@ -424,8 +424,7 @@ export default function Page() {
 							will use spaces for indentation. This is done to ensure that the
 							code is displayed and copied correctly and is easy to read.
 							However, you can override this by passing the{" "}
-							<InlineCode>indentation</InlineCode> prop to the{" "}
-							<InlineCode>CodeBlock.Code</InlineCode>.
+							<Code>indentation</Code> prop to the <Code>CodeBlock.Code</Code>.
 						</p>
 					</header>
 					<div>
@@ -561,9 +560,8 @@ export default function Page() {
 						API Reference
 					</h2>
 					<p className="font-body text-body text-xl">
-						The <InlineCode>CodeBlock</InlineCode> render and apply syntax
-						highlighting to blocks of code and is composed of several
-						sub-components.
+						The <Code>CodeBlock</Code> render and apply syntax highlighting to
+						blocks of code and is composed of several sub-components.
 					</p>
 				</header>
 
@@ -576,7 +574,7 @@ export default function Page() {
 
 						<p className="font-body text-body">
 							Code blocks render and apply syntax highlighting to blocks of
-							code. Root container for all <InlineCode>CodeBlock</InlineCode>{" "}
+							code. Root container for all <Code>CodeBlock</Code>{" "}
 							sub-components.
 						</p>
 
@@ -604,9 +602,9 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-									<InlineCode>CodeBlock</InlineCode> styling and functionality
-									onto alternative element types or your own React components.
+									Use the <Code>asChild</Code> prop to compose the{" "}
+									<Code>CodeBlock</Code> styling and functionality onto
+									alternative element types or your own React components.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -622,10 +620,9 @@ export default function Page() {
 							CodeBlock.Body
 						</h3>
 						<p className="font-body text-body">
-							The body of the <InlineCode>CodeBlock</InlineCode>. This is where
-							the <InlineCode>CodeBlock.Code</InlineCode> and optional{" "}
-							<InlineCode>CodeBlock.CopyButton</InlineCode> are rendered as
-							direct children.
+							The body of the <Code>CodeBlock</Code>. This is where the{" "}
+							<Code>CodeBlock.Code</Code> and optional{" "}
+							<Code>CodeBlock.CopyButton</Code> are rendered as direct children.
 						</p>
 						<p className="font-body text-body">
 							All props from{" "}
@@ -651,10 +648,9 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-									<InlineCode>CodeBlock.Body</InlineCode> styling and
-									functionality onto alternative element types or your own React
-									components.
+									Use the <Code>asChild</Code> prop to compose the{" "}
+									<Code>CodeBlock.Body</Code> styling and functionality onto
+									alternative element types or your own React components.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -670,8 +666,8 @@ export default function Page() {
 							CodeBlock.Code
 						</h3>
 						<p className="font-body text-body">
-							The <InlineCode>CodeBlock</InlineCode> content. This is where the
-							code is rendered and syntax highlighted.
+							The <Code>CodeBlock</Code> content. This is where the code is
+							rendered and syntax highlighted.
 						</p>
 						<p className="font-body text-body">
 							All props from{" "}
@@ -694,11 +690,11 @@ export default function Page() {
 							<PropDefaultValueCell />
 							<PropDescriptionCell>
 								<p>
-									The code to display in the <InlineCode>CodeBlock</InlineCode>.
-									Should be code formatted as a string. This code will be passed
-									to our syntax highlighter. You should strongly consider
-									wrapping this input with the <InlineCode>fmtCode</InlineCode>{" "}
-									tagged template literal function helper.
+									The code to display in the <Code>CodeBlock</Code>. Should be
+									code formatted as a string. This code will be passed to our
+									syntax highlighter. You should strongly consider wrapping this
+									input with the <Code>fmtCode</Code> tagged template literal
+									function helper.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -718,15 +714,14 @@ export default function Page() {
 							<PropDescriptionCell>
 								<p>
 									The type of indentation to use. Can be either{" "}
-									<InlineCode>spaces</InlineCode> or{" "}
-									<InlineCode>tabs</InlineCode>. By default, the code block code
-									will detect the preferred (or required) indentation of the
-									given language. This is important for languages that require a
-									certain indentation style; for example, Python and YAML are
-									space-indented languages, so the code block will use spaces
-									for indentation. This is done to ensure that the code is
-									displayed and copied correctly and is easy to read. However,
-									you can override this behavior with this prop.
+									<Code>spaces</Code> or <Code>tabs</Code>. By default, the code
+									block code will detect the preferred (or required) indentation
+									of the given language. This is important for languages that
+									require a certain indentation style; for example, Python and
+									YAML are space-indented languages, so the code block will use
+									spaces for indentation. This is done to ensure that the code
+									is displayed and copied correctly and is easy to read.
+									However, you can override this behavior with this prop.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -746,8 +741,8 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									The language of the <InlineCode>CodeBlock</InlineCode>. This
-									will be used to determine how to syntax highlight the code.
+									The language of the <Code>CodeBlock</Code>. This will be used
+									to determine how to syntax highlight the code.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -763,10 +758,10 @@ export default function Page() {
 							CodeBlock.Header
 						</h3>
 						<p className="font-body text-body">
-							An optional header slot of the <InlineCode>CodeBlock</InlineCode>.
-							This is where things like the
-							<InlineCode>CodeBlock.Icon</InlineCode> and{" "}
-							<InlineCode>CodeBlock.Title</InlineCode> are rendered.
+							An optional header slot of the <Code>CodeBlock</Code>. This is
+							where things like the
+							<Code>CodeBlock.Icon</Code> and <Code>CodeBlock.Title</Code> are
+							rendered.
 						</p>
 						<p className="font-body text-body">
 							All props from{" "}
@@ -791,10 +786,9 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-									<InlineCode>CodeBlock.Header</InlineCode> styling and
-									functionality onto alternative element types or your own React
-									components.
+									Use the <Code>asChild</Code> prop to compose the{" "}
+									<Code>CodeBlock.Header</Code> styling and functionality onto
+									alternative element types or your own React components.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -810,9 +804,9 @@ export default function Page() {
 							CodeBlock.Title
 						</h3>
 						<p className="font-body text-body">
-							The (optional) title of a <InlineCode>CodeBlock</InlineCode>.
-							Default renders as an <InlineCode>h3</InlineCode> element; use{" "}
-							<InlineCode>asChild</InlineCode> to render something else.
+							The (optional) title of a <Code>CodeBlock</Code>. Default renders
+							as an <Code>h3</Code> element; use <Code>asChild</Code> to render
+							something else.
 						</p>
 						<p className="font-body text-body">
 							All props from{" "}
@@ -837,10 +831,9 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-									<InlineCode>CodeBlock.Title</InlineCode> styling and
-									functionality onto alternative element types or your own React
-									components.
+									Use the <Code>asChild</Code> prop to compose the{" "}
+									<Code>CodeBlock.Title</Code> styling and functionality onto
+									alternative element types or your own React components.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -856,10 +849,10 @@ export default function Page() {
 							CodeBlock.CopyButton
 						</h3>
 						<p className="font-body text-body">
-							The (optional) copy button of the{" "}
-							<InlineCode>CodeBlock</InlineCode>. Render this as a child of the
-							<InlineCode>CodeBlock.Body</InlineCode> to allow users to copy the
-							code block contents to their clipboard.
+							The (optional) copy button of the <Code>CodeBlock</Code>. Render
+							this as a child of the
+							<Code>CodeBlock.Body</Code> to allow users to copy the code block
+							contents to their clipboard.
 						</p>
 						<p className="font-body text-body">
 							All props from{" "}
@@ -907,10 +900,9 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-									<InlineCode>CodeBlock.CopyButton</InlineCode> styling and
-									functionality onto alternative element types or your own React
-									components.
+									Use the <Code>asChild</Code> prop to compose the{" "}
+									<Code>CodeBlock.CopyButton</Code> styling and functionality
+									onto alternative element types or your own React components.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -926,10 +918,10 @@ export default function Page() {
 							CodeBlock.ExpanderButton
 						</h3>
 						<p className="font-body text-body">
-							The (optional) expander button of the{" "}
-							<InlineCode>CodeBlock</InlineCode>. Render this as a child of the
-							<InlineCode>CodeBlock.Body</InlineCode> to allow users to
-							expand/collapse the code block contents.
+							The (optional) expander button of the <Code>CodeBlock</Code>.
+							Render this as a child of the
+							<Code>CodeBlock.Body</Code> to allow users to expand/collapse the
+							code block contents.
 						</p>
 						<p className="font-body text-body">
 							All props from{" "}
@@ -954,8 +946,8 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-									<InlineCode>CodeBlock.ExpanderButton</InlineCode> styling and
+									Use the <Code>asChild</Code> prop to compose the{" "}
+									<Code>CodeBlock.ExpanderButton</Code> styling and
 									functionality onto alternative element types or your own React
 									components.
 								</p>
@@ -977,7 +969,7 @@ export default function Page() {
 							displayed, rendered as an SVG next to the code block title in the
 							code block header. You can pass in a custom SVG component or use
 							one of the presets (you can exclusively pass one of{" "}
-							<InlineCode>svg</InlineCode> or <InlineCode>preset</InlineCode>).
+							<Code>svg</Code> or <Code>preset</Code>).
 						</p>
 						<p className="font-body text-body">
 							All props from{" "}
@@ -997,8 +989,8 @@ export default function Page() {
 							<PropDescriptionCell>
 								<p>
 									A custom icon to display in the code block header. You can
-									exclusively pass one of <InlineCode>svg</InlineCode> or{" "}
-									<InlineCode>preset</InlineCode>
+									exclusively pass one of <Code>svg</Code> or{" "}
+									<Code>preset</Code>
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -1021,8 +1013,8 @@ export default function Page() {
 							<PropDescriptionCell>
 								<p>
 									A preset icon to display in the code block header. You can
-									exclusively pass one of <InlineCode>svg</InlineCode> or{" "}
-									<InlineCode>preset</InlineCode>
+									exclusively pass one of <Code>svg</Code> or{" "}
+									<Code>preset</Code>
 								</p>
 							</PropDescriptionCell>
 						</PropRow>

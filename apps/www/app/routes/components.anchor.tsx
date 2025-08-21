@@ -1,6 +1,6 @@
 import { Anchor } from "@ngrok/mantle/anchor";
+import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
-import { InlineCode } from "@ngrok/mantle/inline-code";
 import { BookIcon } from "@phosphor-icons/react/Book";
 import { ShrimpIcon } from "@phosphor-icons/react/Shrimp";
 import { Example } from "~/components/example";
@@ -44,17 +44,15 @@ export default function Page() {
 				</p>
 				<div className="font-body text-body space-y-4">
 					<p>
-						The <InlineCode>&lt;Anchor&gt;</InlineCode> element, with its{" "}
-						<InlineCode>href</InlineCode> attribute, creates a hyperlink to web
-						pages, files, email addresses, locations in the same page, or
-						anything else a URL can address.
+						The <Code>&lt;Anchor&gt;</Code> element, with its <Code>href</Code>{" "}
+						attribute, creates a hyperlink to web pages, files, email addresses,
+						locations in the same page, or anything else a URL can address.
 					</p>
 					<p>
-						Content within each <InlineCode>&lt;Anchor&gt;</InlineCode> should
-						indicate the link&rsquo;s destination. If the{" "}
-						<InlineCode>href</InlineCode> attribute is present, pressing the
-						enter key while focused on the{" "}
-						<InlineCode>&lt;Anchor&gt;</InlineCode> element will activate it.
+						Content within each <Code>&lt;Anchor&gt;</Code> should indicate the
+						link&rsquo;s destination. If the <Code>href</Code> attribute is
+						present, pressing the enter key while focused on the{" "}
+						<Code>&lt;Anchor&gt;</Code> element will activate it.
 					</p>
 					<p>
 						See the{" "}
@@ -67,8 +65,7 @@ export default function Page() {
 						If you need to link to an internal application route, prefer using
 						the{" "}
 						<Anchor href="https://reactrouter.com/en/main/components/link">
-							<InlineCode>react-router</InlineCode>{" "}
-							<InlineCode>&lt;Link&gt;</InlineCode>
+							<Code>react-router</Code> <Code>&lt;Link&gt;</Code>
 						</Anchor>
 						.
 					</p>
@@ -137,8 +134,7 @@ export default function Page() {
 					API Reference
 				</h2>
 				<p className="font-body text-body text-xl">
-					The <InlineCode>Anchor</InlineCode> accepts the following props in
-					addition to the{" "}
+					The <Code>Anchor</Code> accepts the following props in addition to the{" "}
 					<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attributes">
 						standard HTML anchor attributes
 					</Anchor>
@@ -184,9 +180,9 @@ export default function Page() {
 						</PropDefaultValueCell>
 						<PropDescriptionCell>
 							<p>
-								Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-								<InlineCode>Anchor</InlineCode> styling and functionality onto
-								alternative element types or your own React components.
+								Use the <Code>asChild</Code> prop to compose the{" "}
+								<Code>Anchor</Code> styling and functionality onto alternative
+								element types or your own React components.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>

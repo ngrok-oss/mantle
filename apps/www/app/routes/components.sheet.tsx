@@ -1,7 +1,7 @@
 import { Anchor } from "@ngrok/mantle/anchor";
 import { Button, IconButton } from "@ngrok/mantle/button";
+import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
-import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Separator } from "@ngrok/mantle/separator";
 import { Sheet } from "@ngrok/mantle/sheet";
 import { ListMagnifyingGlassIcon } from "@phosphor-icons/react/ListMagnifyingGlass";
@@ -221,7 +221,7 @@ export default function Page() {
 							You can control when to render a Sheet with a router or via
 							outside state management. This will allow you to open and close
 							the Sheet programmatically without using a{" "}
-							<InlineCode>Sheet.Trigger</InlineCode>.
+							<Code>Sheet.Trigger</Code>.
 						</p>
 					</header>
 					<div>
@@ -286,14 +286,13 @@ export default function Page() {
 							Setting a preferred width of the Sheet
 						</h3>
 						<p className="font-body text-body">
-							By default, a <InlineCode>Sheet</InlineCode>'s content width is
-							responsive with a default{" "}
-							<span className="italic">preferred width</span>: the maximum width
-							of the <InlineCode>Sheet.Content</InlineCode> when the window
-							viewport is larger than the mobile breakpoint (
-							<InlineCode>sm</InlineCode>). You can control the preferred width
-							of the <InlineCode>Sheet.Content</InlineCode> by using the{" "}
-							<InlineCode>preferredWidth</InlineCode> prop:
+							By default, a <Code>Sheet</Code>'s content width is responsive
+							with a default <span className="italic">preferred width</span>:
+							the maximum width of the <Code>Sheet.Content</Code> when the
+							window viewport is larger than the mobile breakpoint (
+							<Code>sm</Code>). You can control the preferred width of the{" "}
+							<Code>Sheet.Content</Code> by using the{" "}
+							<Code>preferredWidth</Code> prop:
 						</p>
 					</header>
 					<div>
@@ -393,7 +392,7 @@ export default function Page() {
 						API Reference
 					</h2>
 					<p className="font-body text-body text-xl">
-						The <InlineCode>Sheet</InlineCode> components are built on top of{" "}
+						The <Code>Sheet</Code> components are built on top of{" "}
 						<Anchor
 							href="https://www.radix-ui.com/primitives/docs/components/dialog"
 							target="_blank"
@@ -412,10 +411,9 @@ export default function Page() {
 						</h3>
 
 						<p className="font-body text-body">
-							The root component for a <InlineCode>Sheet</InlineCode>. Should
-							compose the <InlineCode>Sheet.Trigger</InlineCode> and{" "}
-							<InlineCode>Sheet.Content</InlineCode>. Acts as a stateful
-							provider for the Sheet's open/closed state.
+							The root component for a <Code>Sheet</Code>. Should compose the{" "}
+							<Code>Sheet.Trigger</Code> and <Code>Sheet.Content</Code>. Acts as
+							a stateful provider for the Sheet's open/closed state.
 						</p>
 
 						<p className="font-body text-body">
@@ -442,11 +440,10 @@ export default function Page() {
 						</h3>
 
 						<p className="font-body text-body">
-							The button trigger for a <InlineCode>Sheet</InlineCode>. Should be
-							rendered as a child of the <InlineCode>Sheet</InlineCode>{" "}
-							component. Renders an unstyled <InlineCode>button</InlineCode> by
-							default, but can be customized with the{" "}
-							<InlineCode>asChild</InlineCode> prop.
+							The button trigger for a <Code>Sheet</Code>. Should be rendered as
+							a child of the <Code>Sheet</Code> component. Renders an unstyled{" "}
+							<Code>button</Code> by default, but can be customized with the{" "}
+							<Code>asChild</Code> prop.
 						</p>
 
 						<p className="font-body text-body">
@@ -469,12 +466,11 @@ export default function Page() {
 					</h3>
 
 					<p className="font-body text-body">
-						The close button for a <InlineCode>Sheet</InlineCode>. Should be
-						rendered as a child of the <InlineCode>Sheet.Content</InlineCode>{" "}
-						component. Usually contained within the{" "}
-						<InlineCode>Sheet.Footer</InlineCode> component. Renders an unstyled{" "}
-						<InlineCode>button</InlineCode> by default, but can be customized
-						with the <InlineCode>asChild</InlineCode> prop.
+						The close button for a <Code>Sheet</Code>. Should be rendered as a
+						child of the <Code>Sheet.Content</Code> component. Usually contained
+						within the <Code>Sheet.Footer</Code> component. Renders an unstyled{" "}
+						<Code>button</Code> by default, but can be customized with the{" "}
+						<Code>asChild</Code> prop.
 					</p>
 
 					<p className="font-body text-body">
@@ -500,12 +496,10 @@ export default function Page() {
 						</h3>
 
 						<p className="font-body text-body">
-							The main container for a <InlineCode>Sheet</InlineCode>. Should be
-							rendered as a child of the <InlineCode>Sheet</InlineCode>{" "}
-							component. Renders on top of the overlay backdrop. Should contain
-							the <InlineCode>Sheet.Header</InlineCode>,{" "}
-							<InlineCode>Sheet.Body</InlineCode>, and{" "}
-							<InlineCode>Sheet.Footer</InlineCode>.
+							The main container for a <Code>Sheet</Code>. Should be rendered as
+							a child of the <Code>Sheet</Code> component. Renders on top of the
+							overlay backdrop. Should contain the <Code>Sheet.Header</Code>,{" "}
+							<Code>Sheet.Body</Code>, and <Code>Sheet.Footer</Code>.
 						</p>
 
 						<p className="font-body text-body">
@@ -532,17 +526,15 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									The preferred width of the{" "}
-									<InlineCode>Sheet.Content</InlineCode> as a tailwind{" "}
-									<InlineCode>max-w-</InlineCode> class.
+									The preferred width of the <Code>Sheet.Content</Code> as a
+									tailwind <Code>max-w-</Code> class.
 								</p>
 								<p>
-									By default, a <InlineCode>Sheet</InlineCode>'s content width
-									is responsive with a default{" "}
-									<span className="italic">preferred width</span>: the maxiumum
-									width of the <InlineCode>Sheet.Content</InlineCode> when the
-									window viewport is larger than the mobile breakpoint (
-									<InlineCode>sm</InlineCode>).
+									By default, a <Code>Sheet</Code>'s content width is responsive
+									with a default <span className="italic">preferred width</span>
+									: the maxiumum width of the <Code>Sheet.Content</Code> when
+									the window viewport is larger than the mobile breakpoint (
+									<Code>sm</Code>).
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -586,10 +578,9 @@ export default function Page() {
 					</h3>
 
 					<p className="font-body text-body">
-						An icon button that closes the <InlineCode>Sheet</InlineCode> when
-						clicked. Should be rendered within the{" "}
-						<InlineCode>Sheet.Header</InlineCode> as a child of{" "}
-						<InlineCode>SheetActions</InlineCode>.
+						An icon button that closes the <Code>Sheet</Code> when clicked.
+						Should be rendered within the <Code>Sheet.Header</Code> as a child
+						of <Code>SheetActions</Code>.
 					</p>
 
 					<p className="font-body text-body">
@@ -604,10 +595,9 @@ export default function Page() {
 					</h3>
 
 					<p className="font-body text-body">
-						The body container for a <InlineCode>Sheet</InlineCode>. This is
-						where you would typically place the main content of the sheet, such
-						as forms or text. Should be rendered as a child of{" "}
-						<InlineCode>Sheet.Content</InlineCode>.
+						The body container for a <Code>Sheet</Code>. This is where you would
+						typically place the main content of the sheet, such as forms or
+						text. Should be rendered as a child of <Code>Sheet.Content</Code>.
 					</p>
 
 					<p>
@@ -629,10 +619,9 @@ export default function Page() {
 					</h3>
 
 					<p className="font-body text-body">
-						The header container for a <InlineCode>Sheet</InlineCode>. This is
-						where you would typically place the title, description, and actions.
-						Should be rendered as a child of{" "}
-						<InlineCode>Sheet.Content</InlineCode>.
+						The header container for a <Code>Sheet</Code>. This is where you
+						would typically place the title, description, and actions. Should be
+						rendered as a child of <Code>Sheet.Content</Code>.
 					</p>
 
 					<p>
@@ -654,10 +643,10 @@ export default function Page() {
 					</h3>
 
 					<p className="font-body text-body">
-						The footer container for a <InlineCode>Sheet</InlineCode>. This is
-						where you would typically place close and submit buttons. Should be
-						rendered as a child of
-						<InlineCode>Sheet.Content</InlineCode>.
+						The footer container for a <Code>Sheet</Code>. This is where you
+						would typically place close and submit buttons. Should be rendered
+						as a child of
+						<Code>Sheet.Content</Code>.
 					</p>
 
 					<p>
@@ -679,10 +668,9 @@ export default function Page() {
 					</h3>
 
 					<p className="font-body text-body">
-						The title for a <InlineCode>Sheet</InlineCode>. Typically rendered
-						as a child of <InlineCode>SheetTitleGroup</InlineCode>. Defaults to
-						an <InlineCode>h2</InlineCode> element, but can be changed via the{" "}
-						<InlineCode>asChild</InlineCode> prop.
+						The title for a <Code>Sheet</Code>. Typically rendered as a child of{" "}
+						<Code>SheetTitleGroup</Code>. Defaults to an <Code>h2</Code>{" "}
+						element, but can be changed via the <Code>asChild</Code> prop.
 					</p>
 
 					<p className="font-body text-body">
@@ -707,9 +695,8 @@ export default function Page() {
 					</h3>
 
 					<p className="font-body text-body">
-						A group container for the title and actions of a{" "}
-						<InlineCode>Sheet</InlineCode>. Typically rendered as a child of{" "}
-						<InlineCode>Sheet.Header</InlineCode>.
+						A group container for the title and actions of a <Code>Sheet</Code>.
+						Typically rendered as a child of <Code>Sheet.Header</Code>.
 					</p>
 
 					<p>
@@ -734,8 +721,8 @@ export default function Page() {
 					</h3>
 
 					<p className="font-body text-body">
-						A description for a <InlineCode>Sheet</InlineCode>. Typically
-						rendered as a child of <InlineCode>Sheet.Header</InlineCode>.
+						A description for a <Code>Sheet</Code>. Typically rendered as a
+						child of <Code>Sheet.Header</Code>.
 					</p>
 
 					<p className="font-body text-body">
@@ -760,9 +747,8 @@ export default function Page() {
 					</h3>
 
 					<p className="font-body text-body">
-						A group container for the actions of a{" "}
-						<InlineCode>Sheet</InlineCode>. Typically rendered as a child of{" "}
-						<InlineCode>SheetTitleGroup</InlineCode>.
+						A group container for the actions of a <Code>Sheet</Code>. Typically
+						rendered as a child of <Code>SheetTitleGroup</Code>.
 					</p>
 
 					<p>

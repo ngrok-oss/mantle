@@ -1,7 +1,7 @@
 import { Anchor } from "@ngrok/mantle/anchor";
 import { Button } from "@ngrok/mantle/button";
+import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
-import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Tooltip } from "@ngrok/mantle/tooltip";
 import { FireIcon } from "@phosphor-icons/react/Fire";
 import type { PropsWithChildren } from "react";
@@ -199,10 +199,10 @@ export default function Page() {
 					Icon and Positioning
 				</h2>
 				<p className="font-body text-body text-xl">
-					Use the <InlineCode>icon</InlineCode> prop to add an icon to the
-					button. By default, it will render on the logical start side of the
-					button. Use the <InlineCode>iconPlacement</InlineCode> prop to change
-					the side the icon is rendered on.
+					Use the <Code>icon</Code> prop to add an icon to the button. By
+					default, it will render on the logical start side of the button. Use
+					the <Code>iconPlacement</Code> prop to change the side the icon is
+					rendered on.
 				</p>
 				<div>
 					<Example>
@@ -244,12 +244,11 @@ export default function Page() {
 					isLoading
 				</h2>
 				<p className="font-body text-body text-xl">
-					<InlineCode>isLoading</InlineCode> determines whether or not the
-					button is in a loading state, default <InlineCode>false</InlineCode>.
-					Setting <InlineCode>isLoading</InlineCode> will replace any{" "}
-					<InlineCode>icon</InlineCode> with a spinner, or add one if an icon
-					wasn't given. It will also disable user interaction with the button
-					and set <InlineCode>aria-disabled</InlineCode>.
+					<Code>isLoading</Code> determines whether or not the button is in a
+					loading state, default <Code>false</Code>. Setting{" "}
+					<Code>isLoading</Code> will replace any <Code>icon</Code> with a
+					spinner, or add one if an icon wasn't given. It will also disable user
+					interaction with the button and set <Code>aria-disabled</Code>.
 				</p>
 				<div>
 					<Example className="flex-col gap-4">
@@ -363,13 +362,11 @@ export default function Page() {
 				</h2>
 				<p className="font-body text-body text-xl">
 					When you want to render <span className="italic">something else</span>{" "}
-					as a <InlineCode>Button</InlineCode>, you can use the{" "}
-					<InlineCode>asChild</InlineCode> prop to compose. This is useful when
-					you want to splat the <InlineCode>Button</InlineCode> styling onto a{" "}
-					<InlineCode>react-router</InlineCode> <InlineCode>Link</InlineCode>.
-					Keep in mind that when you use <InlineCode>asChild</InlineCode> the{" "}
-					<InlineCode>type</InlineCode> prop will <strong>NOT</strong> be passed
-					to the child component.
+					as a <Code>Button</Code>, you can use the <Code>asChild</Code> prop to
+					compose. This is useful when you want to splat the <Code>Button</Code>{" "}
+					styling onto a <Code>react-router</Code> <Code>Link</Code>. Keep in
+					mind that when you use <Code>asChild</Code> the <Code>type</Code> prop
+					will <strong>NOT</strong> be passed to the child component.
 				</p>
 				<div>
 					<Example>
@@ -406,8 +403,7 @@ export default function Page() {
 					API Reference
 				</h2>
 				<p className="font-body text-body text-xl">
-					The <InlineCode>Button</InlineCode> accepts the following props in
-					addition to the{" "}
+					The <Code>Button</Code> accepts the following props in addition to the{" "}
 					<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button">
 						standard HTML button attributes
 					</Anchor>
@@ -437,7 +433,7 @@ export default function Page() {
 						</PropDefaultValueCell>
 						<PropDescriptionCell>
 							<p>
-								Defines the visual style of the <InlineCode>Button</InlineCode>.
+								Defines the visual style of the <Code>Button</Code>.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>
@@ -451,9 +447,9 @@ export default function Page() {
 						</PropDefaultValueCell>
 						<PropDescriptionCell>
 							<p>
-								Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-								<InlineCode>Button</InlineCode> styling and functionality onto
-								alternative element types or your own React components.
+								Use the <Code>asChild</Code> prop to compose the{" "}
+								<Code>Button</Code> styling and functionality onto alternative
+								element types or your own React components.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>
@@ -464,9 +460,9 @@ export default function Page() {
 						</PropTypeCell>
 						<PropDefaultValueCell />
 						<PropDescriptionCell>
-							An icon to render inside the button. If the{" "}
-							<InlineCode>state</InlineCode> is <InlineCode>pending</InlineCode>
-							, then the icon will automatically be replaced with a spinner.
+							An icon to render inside the button. If the <Code>state</Code> is{" "}
+							<Code>pending</Code>, then the icon will automatically be replaced
+							with a spinner.
 						</PropDescriptionCell>
 					</PropRow>
 					<PropRow>
@@ -487,8 +483,8 @@ export default function Page() {
 						<PropDescriptionCell>
 							<p>
 								The side that the icon will render on, if one is present. If{" "}
-								<InlineCode>state="pending"</InlineCode>, then the loading icon
-								will also render on this side.
+								<Code>state="pending"</Code>, then the loading icon will also
+								render on this side.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>
@@ -503,11 +499,10 @@ export default function Page() {
 						<PropDescriptionCell>
 							<p>
 								Determines whether or not the button is in a loading state,
-								default <InlineCode>false</InlineCode>. Setting{" "}
-								<InlineCode>isLoading</InlineCode> will replace any{" "}
-								<InlineCode>icon</InlineCode> with a spinner, or add one if an
+								default <Code>false</Code>. Setting <Code>isLoading</Code> will
+								replace any <Code>icon</Code> with a spinner, or add one if an
 								icon wasn't given. It will also disable user interaction with
-								the button and set <InlineCode>aria-disabled</InlineCode>.
+								the button and set <Code>aria-disabled</Code>.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>
@@ -555,9 +550,9 @@ export default function Page() {
 						<PropDefaultValueCell />
 						<PropDescriptionCell>
 							<p>
-								The default behavior of the <InlineCode>Button</InlineCode>.
-								Unlike the native <InlineCode>button</InlineCode> element,
-								unless you use the <InlineCode>asChild</InlineCode> prop,{" "}
+								The default behavior of the <Code>Button</Code>. Unlike the
+								native <Code>button</Code> element, unless you use the{" "}
+								<Code>asChild</Code> prop,{" "}
 								<span className="font-semibold">
 									this prop is required and has no default value
 								</span>
@@ -570,20 +565,20 @@ export default function Page() {
 							<ul className="list-disc pl-5">
 								<li>
 									<p>
-										<InlineCode>"button"</InlineCode>: The button has no default
-										behavior, and does nothing when pressed by default.
+										<Code>"button"</Code>: The button has no default behavior,
+										and does nothing when pressed by default.
 									</p>
 								</li>
 								<li>
 									<p>
-										<InlineCode>"reset"</InlineCode>: The button resets all the
-										controls to their initial values.
+										<Code>"reset"</Code>: The button resets all the controls to
+										their initial values.
 									</p>
 								</li>
 								<li>
 									<p>
-										<InlineCode>"submit"</InlineCode>: The button submits the
-										form data to the server.
+										<Code>"submit"</Code>: The button submits the form data to
+										the server.
 									</p>
 								</li>
 							</ul>

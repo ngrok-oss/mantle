@@ -1,8 +1,8 @@
 import { Button } from "@ngrok/mantle/button";
+import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { HoverCard } from "@ngrok/mantle/hover-card";
 import { Icon } from "@ngrok/mantle/icon";
-import { InlineCode } from "@ngrok/mantle/inline-code";
 import { CalendarIcon } from "@phosphor-icons/react/Calendar";
 import { ShrimpIcon } from "@phosphor-icons/react/Shrimp";
 import { Example } from "~/components/example";
@@ -119,9 +119,9 @@ export default function Page() {
 					API Reference
 				</h2>
 				<p className="font-body text-body text-xl">
-					The <InlineCode>HoverCard</InlineCode> component is built on top of
-					Radix UI Hover Card and provides a floating card that appears when a
-					user hovers over a trigger element.
+					The <Code>HoverCard</Code> component is built on top of Radix UI Hover
+					Card and provides a floating card that appears when a user hovers over
+					a trigger element.
 				</p>
 
 				<div className="space-y-8">
@@ -141,14 +141,14 @@ export default function Page() {
 								<PropDescriptionCell>
 									<p>
 										The controlled open state of the hover card. Must be used in
-										conjunction with <InlineCode>onOpenChange</InlineCode>.
+										conjunction with <Code>onOpenChange</Code>.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
 							<PropRow>
 								<PropNameCell name="onOpenChange" optional />
 								<PropTypeCell>
-									<InlineCode>(open: boolean) =&gt; void</InlineCode>
+									<Code>(open: boolean) =&gt; void</Code>
 								</PropTypeCell>
 								<PropDefaultValueCell />
 								<PropDescriptionCell>
@@ -177,10 +177,10 @@ export default function Page() {
 							<PropRow>
 								<PropNameCell name="openDelay" optional />
 								<PropTypeCell>
-									<InlineCode>number</InlineCode>
+									<Code>number</Code>
 								</PropTypeCell>
 								<PropDefaultValueCell>
-									<InlineCode>100</InlineCode>
+									<Code>100</Code>
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
@@ -192,10 +192,10 @@ export default function Page() {
 							<PropRow>
 								<PropNameCell name="closeDelay" optional />
 								<PropTypeCell>
-									<InlineCode>number</InlineCode>
+									<Code>number</Code>
 								</PropTypeCell>
 								<PropDefaultValueCell>
-									<InlineCode>300</InlineCode>
+									<Code>300</Code>
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
@@ -223,8 +223,8 @@ export default function Page() {
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
-										Use the <InlineCode>asChild</InlineCode> prop to compose the
-										trigger functionality onto your own component.
+										Use the <Code>asChild</Code> prop to compose the trigger
+										functionality onto your own component.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -263,7 +263,7 @@ export default function Page() {
 									<p>
 										The preferred side of the trigger to render against when
 										open. Will be reversed when collisions occur and{" "}
-										<InlineCode>avoidCollisions</InlineCode> is enabled.
+										<Code>avoidCollisions</Code> is enabled.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -295,10 +295,10 @@ export default function Page() {
 							<PropRow>
 								<PropNameCell name="sideOffset" optional />
 								<PropTypeCell>
-									<InlineCode>number</InlineCode>
+									<Code>number</Code>
 								</PropTypeCell>
 								<PropDefaultValueCell>
-									<InlineCode>4</InlineCode>
+									<Code>4</Code>
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
@@ -310,15 +310,15 @@ export default function Page() {
 							<PropRow>
 								<PropNameCell name="alignOffset" optional />
 								<PropTypeCell>
-									<InlineCode>number</InlineCode>
+									<Code>number</Code>
 								</PropTypeCell>
 								<PropDefaultValueCell>
-									<InlineCode>0</InlineCode>
+									<Code>0</Code>
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
-										An offset in pixels from the <InlineCode>start</InlineCode>{" "}
-										or <InlineCode>end</InlineCode> alignment options.
+										An offset in pixels from the <Code>start</Code> or{" "}
+										<Code>end</Code> alignment options.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -332,22 +332,19 @@ export default function Page() {
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
-										When <InlineCode>true</InlineCode>, overrides the{" "}
-										<InlineCode>side</InlineCode> and{" "}
-										<InlineCode>align</InlineCode> preferences to prevent
-										collisions with boundary edges.
+										When <Code>true</Code>, overrides the <Code>side</Code> and{" "}
+										<Code>align</Code> preferences to prevent collisions with
+										boundary edges.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
 							<PropRow>
 								<PropNameCell name="collisionBoundary" optional />
 								<PropTypeCell>
-									<InlineCode>
-										Element | null | Array&lt;Element | null&gt;
-									</InlineCode>
+									<Code>Element | null | Array&lt;Element | null&gt;</Code>
 								</PropTypeCell>
 								<PropDefaultValueCell>
-									<InlineCode>[]</InlineCode>
+									<Code>[]</Code>
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
@@ -360,12 +357,12 @@ export default function Page() {
 							<PropRow>
 								<PropNameCell name="collisionPadding" optional />
 								<PropTypeCell>
-									<InlineCode>
+									<Code>
 										number | Partial&lt;Record&lt;Side, number&gt;&gt;
-									</InlineCode>
+									</Code>
 								</PropTypeCell>
 								<PropDefaultValueCell>
-									<InlineCode>0</InlineCode>
+									<Code>0</Code>
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
@@ -393,10 +390,10 @@ export default function Page() {
 								<PropDescriptionCell>
 									<p>
 										The sticky behavior on the align axis.{" "}
-										<InlineCode>"partial"</InlineCode> will keep the content in
-										the boundary as long as the trigger is at least partially in
-										the boundary whilst <InlineCode>"always"</InlineCode> will
-										keep the content in the boundary regardless.
+										<Code>"partial"</Code> will keep the content in the boundary
+										as long as the trigger is at least partially in the boundary
+										whilst <Code>"always"</Code> will keep the content in the
+										boundary regardless.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>

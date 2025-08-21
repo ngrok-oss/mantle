@@ -1,9 +1,9 @@
 import { Anchor } from "@ngrok/mantle/anchor";
 import { Button } from "@ngrok/mantle/button";
+import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { DropdownMenu } from "@ngrok/mantle/dropdown-menu";
 import { Icon } from "@ngrok/mantle/icon";
-import { InlineCode } from "@ngrok/mantle/inline-code";
 import type { Theme } from "@ngrok/mantle/theme-provider";
 import { Tooltip } from "@ngrok/mantle/tooltip";
 import { DesktopIcon } from "@phosphor-icons/react/Desktop";
@@ -303,8 +303,7 @@ export default function Page() {
 						API Reference
 					</h2>
 					<p className="font-body text-body text-xl">
-						The <InlineCode>DropdownMenu</InlineCode> components are built on
-						top of{" "}
+						The <Code>DropdownMenu</Code> components are built on top of{" "}
 						<Anchor
 							href="https://www.radix-ui.com/primitives/docs/components/dropdown-menu"
 							target="_blank"
@@ -351,12 +350,12 @@ export default function Page() {
 							<PropDefaultValueCell />
 							<PropDescriptionCell>
 								<p>
-									<InlineCode>trigger</InlineCode> will ensure the dropdown
-									content is the same width as the trigger button.
+									<Code>trigger</Code> will ensure the dropdown content is the
+									same width as the trigger button.
 								</p>
 								<p>
-									<InlineCode>content</InlineCode> will make the dropdown
-									content use the intrinsic content width.
+									<Code>content</Code> will make the dropdown content use the
+									intrinsic content width.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>

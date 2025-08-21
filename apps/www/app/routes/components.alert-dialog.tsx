@@ -1,8 +1,8 @@
 import { AlertDialog } from "@ngrok/mantle/alert-dialog";
 import { Anchor } from "@ngrok/mantle/anchor";
 import { Button } from "@ngrok/mantle/button";
+import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
-import { InlineCode } from "@ngrok/mantle/inline-code";
 import { href } from "react-router";
 import { Example } from "~/components/example";
 import { Link } from "~/components/link";
@@ -220,8 +220,7 @@ export default function Page() {
 						API Reference
 					</h2>
 					<p className="font-body text-body text-xl">
-						The <InlineCode>AlertDialog</InlineCode> components are built on top
-						of{" "}
+						The <Code>AlertDialog</Code> components are built on top of{" "}
 						<Anchor
 							href="https://www.radix-ui.com/primitives/docs/components/dialog"
 							target="_blank"
@@ -344,15 +343,14 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									The preferred width of the{" "}
-									<InlineCode>AlertDialogContent</InlineCode> as a tailwind{" "}
-									<InlineCode>max-w-</InlineCode> class.
+									The preferred width of the <Code>AlertDialogContent</Code> as
+									a tailwind <Code>max-w-</Code> class.
 								</p>
 								<p>
-									By default, a <InlineCode>AlertDialogContent</InlineCode>'s
-									content width is responsive with a default{" "}
+									By default, a <Code>AlertDialogContent</Code>'s content width
+									is responsive with a default{" "}
 									<span className="italic">preferred width</span>: the maxiumum
-									width of the <InlineCode>AlertDialogContent</InlineCode>.
+									width of the <Code>AlertDialogContent</Code>.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -370,8 +368,8 @@ export default function Page() {
 						Contains the main content of the alert dialog.
 					</p>
 					<p className="font-body text-body text-xl">
-						The <InlineCode>AlertDialogBody</InlineCode> accepts the following
-						props in addition to the{" "}
+						The <Code>AlertDialogBody</Code> accepts the following props in
+						addition to the{" "}
 						<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes">
 							standard HTML div attributes
 						</Anchor>
@@ -388,10 +386,9 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-									<InlineCode>AlertDialogBody</InlineCode> styling and
-									functionality onto alternative element types or your own React
-									components.
+									Use the <Code>asChild</Code> prop to compose the{" "}
+									<Code>AlertDialogBody</Code> styling and functionality onto
+									alternative element types or your own React components.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -410,8 +407,8 @@ export default function Page() {
 						description.
 					</p>
 					<p className="font-body text-body text-xl">
-						The <InlineCode>AlertDialogHeader</InlineCode> accepts the following
-						props in addition to the{" "}
+						The <Code>AlertDialogHeader</Code> accepts the following props in
+						addition to the{" "}
 						<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes">
 							standard HTML div attributes
 						</Anchor>
@@ -428,10 +425,9 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-									<InlineCode>AlertDialogHeader</InlineCode> styling and
-									functionality onto alternative element types or your own React
-									components.
+									Use the <Code>asChild</Code> prop to compose the{" "}
+									<Code>AlertDialogHeader</Code> styling and functionality onto
+									alternative element types or your own React components.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -450,8 +446,8 @@ export default function Page() {
 						cancel buttons.
 					</p>
 					<p className="font-body text-body text-xl">
-						The <InlineCode>AlertDialogFooter</InlineCode> accepts the following
-						props in addition to the{" "}
+						The <Code>AlertDialogFooter</Code> accepts the following props in
+						addition to the{" "}
 						<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes">
 							standard HTML div attributes
 						</Anchor>
@@ -468,10 +464,9 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-									<InlineCode>AlertDialogFooter</InlineCode> styling and
-									functionality onto alternative element types or your own React
-									components.
+									Use the <Code>asChild</Code> prop to compose the{" "}
+									<Code>AlertDialogFooter</Code> styling and functionality onto
+									alternative element types or your own React components.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -490,10 +485,9 @@ export default function Page() {
 						An accessible name to be announced when the dialog is opened.
 					</p>
 					<p className="font-body text-body">
-						Alternatively, you can provide <InlineCode>aria-label</InlineCode>{" "}
-						or <InlineCode>aria-labelledby</InlineCode> to{" "}
-						<InlineCode>AlertDialogContent</InlineCode> and exclude this
-						component.
+						Alternatively, you can provide <Code>aria-label</Code> or{" "}
+						<Code>aria-labelledby</Code> to <Code>AlertDialogContent</Code> and
+						exclude this component.
 					</p>
 					<p className="font-body text-body">
 						Radix{" "}
@@ -518,15 +512,12 @@ export default function Page() {
 
 					<p className="font-body text-body">
 						An accessible description to be announced when the dialog is opened.
-						Renders as a <InlineCode>div</InlineCode> by default, but can be
-						changed to any other element using the{" "}
-						<InlineCode>asChild</InlineCode> prop.
+						Renders as a <Code>div</Code> by default, but can be changed to any
+						other element using the <Code>asChild</Code> prop.
 					</p>
 					<p className="font-body text-body">
-						Alternatively, you can provide{" "}
-						<InlineCode>aria-describedby</InlineCode> to{" "}
-						<InlineCode>AlertDialogContent</InlineCode> and exclude this
-						component.
+						Alternatively, you can provide <Code>aria-describedby</Code> to{" "}
+						<Code>AlertDialogContent</Code> and exclude this component.
 					</p>
 					<p className="font-body text-body">
 						Radix{" "}
@@ -551,13 +542,13 @@ export default function Page() {
 
 					<p className="font-body text-body">
 						A button that confirms the Alert Dialog action. Will default to{" "}
-						<InlineCode>appearance="filled"</InlineCode>, as well as the
-						priority color from the <InlineCode>AlertDialog</InlineCode>. Does
-						not close the alert dialog by default.
+						<Code>appearance="filled"</Code>, as well as the priority color from
+						the <Code>AlertDialog</Code>. Does not close the alert dialog by
+						default.
 					</p>
 					<p className="font-body text-body">
 						These buttons should be distinguished visually from the{" "}
-						<InlineCode>AlertDialogCancel</InlineCode> button.
+						<Code>AlertDialogCancel</Code> button.
 					</p>
 					<p className="font-body text-body">
 						Composes around the mantle{" "}
@@ -579,12 +570,12 @@ export default function Page() {
 
 					<p className="font-body text-body">
 						A button that closes the dialog and cancels the action. Will default
-						to <InlineCode>appearance="outlined"</InlineCode> and{" "}
-						<InlineCode>priority="neutral"</InlineCode>.
+						to <Code>appearance="outlined"</Code> and{" "}
+						<Code>priority="neutral"</Code>.
 					</p>
 					<p className="font-body text-body">
 						This button should be distinguished visually from{" "}
-						<InlineCode>AlertDialogAction</InlineCode> buttons.
+						<Code>AlertDialogAction</Code> buttons.
 					</p>
 					<p className="font-body text-body">
 						Composes around the mantle{" "}
@@ -634,10 +625,9 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-									<InlineCode>AlertDialog.Icon</InlineCode> styling and
-									functionality onto alternative element types or your own React
-									components.
+									Use the <Code>asChild</Code> prop to compose the{" "}
+									<Code>AlertDialog.Icon</Code> styling and functionality onto
+									alternative element types or your own React components.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -681,10 +671,9 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-									<InlineCode>AlertDialog.Close</InlineCode> styling and
-									functionality onto alternative element types or your own React
-									components.
+									Use the <Code>asChild</Code> prop to compose the{" "}
+									<Code>AlertDialog.Close</Code> styling and functionality onto
+									alternative element types or your own React components.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>

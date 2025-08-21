@@ -1,6 +1,6 @@
 import { Anchor } from "@ngrok/mantle/anchor";
+import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
-import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
 import {
@@ -14,11 +14,11 @@ import {
 	ReactNodePropType,
 	StringPropType,
 } from "~/components/props-table";
-import type { Route } from "./+types/components.inline-code";
+import type { Route } from "./+types/components.code";
 
 export const meta: Route.MetaFunction = () => {
 	return [
-		{ title: "@ngrok/mantle — InlineCode" },
+		{ title: "@ngrok/mantle — Code" },
 		{
 			name: "description",
 			content: "mantle is ngrok's UI library and design system",
@@ -35,14 +35,14 @@ export const headers: Route.HeadersFunction = () => {
 export default function Page() {
 	return (
 		<div className="space-y-4">
-			<PageHeader id="inline-code">Inline Code</PageHeader>
+			<PageHeader id="inline-code">Code</PageHeader>
 			<p className="font-body text-body text-xl">
 				Marks text to signify a short fragment of inline computer code.
 			</p>
 
 			<div>
 				<Example>
-					<InlineCode>npm install @ngrok/mantle</InlineCode>
+					<Code>npm install @ngrok/mantle</Code>
 				</Example>
 				<CodeBlock.Root className="rounded-b-lg rounded-t-none">
 					<CodeBlock.Body>
@@ -50,9 +50,9 @@ export default function Page() {
 						<CodeBlock.Code
 							language="tsx"
 							value={fmtCode`
-						import { InlineCode } from "@ngrok/mantle/inline-code";
+						import { Code } from "@ngrok/mantle/code";
 
-						<InlineCode>npm install @ngrok/mantle</InlineCode>
+						<Code>npm install @ngrok/mantle</Code>
 					`}
 						/>
 					</CodeBlock.Body>
@@ -64,8 +64,8 @@ export default function Page() {
 					API Reference
 				</h2>
 				<p className="font-body text-body text-xl">
-					The <InlineCode>InlineCode</InlineCode> accepts the following props in
-					addition to the{" "}
+					The <Code>InlineCode</Code> accepts the following props in addition to
+					the{" "}
 					<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/code">
 						standard HTML code attributes
 					</Anchor>
@@ -82,9 +82,9 @@ export default function Page() {
 						</PropDefaultValueCell>
 						<PropDescriptionCell>
 							<p>
-								Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-								<InlineCode>InlineCode</InlineCode> styling and functionality
-								onto alternative element types or your own React components.
+								Use the <Code>asChild</Code> prop to compose the{" "}
+								<Code>InlineCode</Code> styling and functionality onto
+								alternative element types or your own React components.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>

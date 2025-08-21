@@ -1,8 +1,8 @@
 import { Anchor } from "@ngrok/mantle/anchor";
 import { Card } from "@ngrok/mantle/card";
+import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { Icon } from "@ngrok/mantle/icon";
-import { InlineCode } from "@ngrok/mantle/inline-code";
 import { Tabs } from "@ngrok/mantle/tabs";
 import { GlobeIcon } from "@phosphor-icons/react/Globe";
 import { ShieldCheckIcon } from "@phosphor-icons/react/ShieldCheck";
@@ -51,8 +51,7 @@ export default function Page() {
 				<div>
 					<Example className="mt-4 grid gap-6">
 						<p>
-							<InlineCode>asChild</InlineCode> with{" "}
-							<InlineCode>Link</InlineCode>s
+							<Code>asChild</Code> with <Code>Link</Code>s
 						</p>
 						<div className="scrollbar -mt-4 overflow-x-scroll">
 							<Tabs.Root orientation="horizontal" defaultValue="colors">
@@ -310,8 +309,7 @@ export default function Page() {
 					API Reference
 				</h2>
 				<p className="font-body text-body text-xl">
-					The <InlineCode>Tabs</InlineCode> components accept the following
-					props.
+					The <Code>Tabs</Code> components accept the following props.
 				</p>
 
 				<div className="space-y-8">
@@ -351,7 +349,7 @@ export default function Page() {
 								<PropDescriptionCell>
 									<p>
 										The controlled value of the tab to activate. Should be used
-										in conjunction with <InlineCode>onValueChange</InlineCode>.
+										in conjunction with <Code>onValueChange</Code>.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -461,9 +459,9 @@ export default function Page() {
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
-										Use the <InlineCode>asChild</InlineCode> prop to compose the
-										trigger styling and functionality onto alternative element
-										types or your own React components.
+										Use the <Code>asChild</Code> prop to compose the trigger
+										styling and functionality onto alternative element types or
+										your own React components.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -477,8 +475,8 @@ export default function Page() {
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
-										When <InlineCode>true</InlineCode>, prevents the user from
-										interacting with the tab.
+										When <Code>true</Code>, prevents the user from interacting
+										with the tab.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>

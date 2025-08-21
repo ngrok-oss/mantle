@@ -241,7 +241,7 @@ export default function Page() {
 						API Reference
 					</h2>
 					<p className="font-body text-body text-xl">
-						The <InlineCode>AlertDialog</InlineCode> components are built on top of{" "}
+						The <Code>AlertDialog</Code> components are built on top of{" "}
 						<Anchor
 							href="https://www.radix-ui.com/primitives/docs/components/dialog"
 							target="_blank"
@@ -338,7 +338,7 @@ export default function Page() {
 						Contains the header content of the dialog, including the title and description.
 					</p>
 					<p className="font-body text-body">
-						Same props as a <InlineCode>{"<div>"}</InlineCode> element.
+						Same props as a <Code>{"<div>"}</Code> element.
 					</p>
 				</section>
 
@@ -349,7 +349,7 @@ export default function Page() {
 						Contains the footer content of the dialog, including the action and cancel buttons.
 					</p>
 					<p className="font-body text-body">
-						Same props as a <InlineCode>{"<div>"}</InlineCode> element.
+						Same props as a <Code>{"<div>"}</Code> element.
 					</p>
 				</section>
 
@@ -358,8 +358,8 @@ export default function Page() {
 
 					<p className="font-body text-body">An accessible name to be announced when the dialog is opened.</p>
 					<p className="font-body text-body">
-						Alternatively, you can provide <InlineCode>aria-label</InlineCode> or{" "}
-						<InlineCode>aria-labelledby</InlineCode> to <InlineCode>AlertDialogContent</InlineCode> and exclude this
+						Alternatively, you can provide <Code>aria-label</Code> or{" "}
+						<Code>aria-labelledby</Code> to <Code>AlertDialogContent</Code> and exclude this
 						component.
 					</p>
 					<p className="font-body text-body">
@@ -380,8 +380,8 @@ export default function Page() {
 
 					<p className="font-body text-body">An accessible description to be announced when the dialog is opened.</p>
 					<p className="font-body text-body">
-						Alternatively, you can provide <InlineCode>aria-describedby</InlineCode> to{" "}
-						<InlineCode>AlertDialogContent</InlineCode> and exclude this component.
+						Alternatively, you can provide <Code>aria-describedby</Code> to{" "}
+						<Code>AlertDialogContent</Code> and exclude this component.
 					</p>
 					<p className="font-body text-body">
 						Radix{" "}
@@ -400,12 +400,12 @@ export default function Page() {
 					<h3 className="text-xl font-medium text-strong">AlertDialogAction</h3>
 
 					<p className="font-body text-body">
-						A button that confirms the Alert Dialog action. Will default to <InlineCode>appearance="filled"</InlineCode>
-						, as well as the priority color from the <InlineCode>AlertDialog</InlineCode>. Does not close the alert
+						A button that confirms the Alert Dialog action. Will default to <Code>appearance="filled"</Code>
+						, as well as the priority color from the <Code>AlertDialog</Code>. Does not close the alert
 						dialog by default.
 					</p>
 					<p className="font-body text-body">
-						These buttons should be distinguished visually from the <InlineCode>AlertDialogCancel</InlineCode> button.
+						These buttons should be distinguished visually from the <Code>AlertDialogCancel</Code> button.
 					</p>
 					<p className="font-body text-body">
 						Composes around the mantle <Link to="/components/button">Button</Link> component.
@@ -420,10 +420,10 @@ export default function Page() {
 
 					<p className="font-body text-body">
 						A button that closes the dialog and cancels the action. Will default to{" "}
-						<InlineCode>appearance="outlined"</InlineCode> and <InlineCode>priority="neutral"</InlineCode>.
+						<Code>appearance="outlined"</Code> and <Code>priority="neutral"</Code>.
 					</p>
 					<p className="font-body text-body">
-						This button should be distinguished visually from <InlineCode>AlertDialogAction</InlineCode> buttons.
+						This button should be distinguished visually from <Code>AlertDialogAction</Code> buttons.
 					</p>
 					<p className="font-body text-body">
 						Composes around the mantle <Link to="/components/button">Button</Link> component.

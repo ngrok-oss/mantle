@@ -1,6 +1,6 @@
 import { Anchor } from "@ngrok/mantle/anchor";
+import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
-import { InlineCode } from "@ngrok/mantle/inline-code";
 import { HorizontalSeparatorGroup, Separator } from "@ngrok/mantle/separator";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
@@ -122,9 +122,8 @@ export default function Page() {
 				</h2>
 				<p className="font-body text-body text-xl">
 					When you want to render <span className="italic">something else</span>{" "}
-					as a <InlineCode>HorizontalSeparatorGroup</InlineCode> or{" "}
-					<InlineCode>Separator</InlineCode>, you can use the{" "}
-					<InlineCode>asChild</InlineCode> prop to compose.
+					as a <Code>HorizontalSeparatorGroup</Code> or <Code>Separator</Code>,
+					you can use the <Code>asChild</Code> prop to compose.
 				</p>
 				<div>
 					<Example>
@@ -306,15 +305,14 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									If <InlineCode>true</InlineCode>, the separator will be
-									rendered with all accessibility-related attributes and{" "}
-									<InlineCode>role="separator"</InlineCode>.
+									If <Code>true</Code>, the separator will be rendered with all
+									accessibility-related attributes and{" "}
+									<Code>role="separator"</Code>.
 								</p>
 								<p>
-									If <InlineCode>false</InlineCode>, the separator is purely
-									decorative and all accessibility-related attributes are
-									updated so that the rendered element is removed from the
-									accessibility tree.
+									If <Code>false</Code>, the separator is purely decorative and
+									all accessibility-related attributes are updated so that the
+									rendered element is removed from the accessibility tree.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -328,9 +326,9 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-									<InlineCode>Separator</InlineCode> styling and functionality
-									onto alternative element types or your own React components.
+									Use the <Code>asChild</Code> prop to compose the{" "}
+									<Code>Separator</Code> styling and functionality onto
+									alternative element types or your own React components.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -352,8 +350,8 @@ export default function Page() {
 						</p>
 
 						<p className="font-body text-body">
-							Overrides all children <InlineCode>Separator</InlineCode>s to be{" "}
-							<InlineCode>orientation="horizontal"</InlineCode>.
+							Overrides all children <Code>Separator</Code>s to be{" "}
+							<Code>orientation="horizontal"</Code>.
 						</p>
 
 						<p className="font-body text-body">
@@ -380,8 +378,8 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Use the <InlineCode>asChild</InlineCode> prop to compose the{" "}
-									<InlineCode>HorizontalSeparatorGroup</InlineCode> styling and
+									Use the <Code>asChild</Code> prop to compose the{" "}
+									<Code>HorizontalSeparatorGroup</Code> styling and
 									functionality onto alternative element types or your own React
 									components.
 								</p>

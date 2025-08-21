@@ -1,7 +1,7 @@
 import { Anchor } from "@ngrok/mantle/anchor";
+import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { Icon } from "@ngrok/mantle/icon";
-import { InlineCode } from "@ngrok/mantle/inline-code";
 import { FireIcon } from "@phosphor-icons/react/Fire";
 import { Example } from "~/components/example";
 import { PageHeader } from "~/components/page-header";
@@ -83,17 +83,16 @@ export default function Page() {
 							id="example-class-name"
 							className="text-xl font-medium text-strong"
 						>
-							Merging <InlineCode>className</InlineCode>s
+							Merging <Code>className</Code>s
 						</h3>
 					</header>
 					<p className="font-body text-body text-xl">
-						The <InlineCode>Icon</InlineCode> merges{" "}
-						<InlineCode>className</InlineCode> selectors with the following
-						order of precedence (last one wins):
+						The <Code>Icon</Code> merges <Code>className</Code> selectors with
+						the following order of precedence (last one wins):
 					</p>
 					<ol className="font-body text-body ml-8 list-decimal">
 						<li>
-							SvgOnly base classes (only <InlineCode>"shrink-0"</InlineCode>)
+							SvgOnly base classes (only <Code>"shrink-0"</Code>)
 						</li>
 						<li>Icon base classes</li>
 						<li>Icon className</li>
@@ -103,7 +102,7 @@ export default function Page() {
 						<Example className="flex-col gap-6">
 							<div className="text-center">
 								<p>
-									When <InlineCode>className</InlineCode> is not specified:
+									When <Code>className</Code> is not specified:
 								</p>
 								<div className="flex items-center justify-center">
 									<Icon svg={<FireIcon />} />
@@ -111,8 +110,8 @@ export default function Page() {
 							</div>
 							<div className="text-center">
 								<p>
-									When <InlineCode>className</InlineCode> is only specified on{" "}
-									<InlineCode>svg</InlineCode>:
+									When <Code>className</Code> is only specified on{" "}
+									<Code>svg</Code>:
 								</p>
 								<div className="flex items-center justify-center">
 									<Icon svg={<FireIcon className="size-12 sm:size-16" />} />
@@ -120,8 +119,8 @@ export default function Page() {
 							</div>
 							<div className="text-center">
 								<p>
-									When <InlineCode>className</InlineCode> is only specified on{" "}
-									<InlineCode>Icon</InlineCode>:
+									When <Code>className</Code> is only specified on{" "}
+									<Code>Icon</Code>:
 								</p>
 								<div className="flex items-center justify-center">
 									<Icon className="size-20 sm:size-28" svg={<FireIcon />} />
@@ -129,9 +128,8 @@ export default function Page() {
 							</div>
 							<div className="text-center">
 								<p>
-									When <InlineCode>className</InlineCode> is specified on both{" "}
-									<InlineCode>svg</InlineCode> and <InlineCode>Icon</InlineCode>
-									:
+									When <Code>className</Code> is specified on both{" "}
+									<Code>svg</Code> and <Code>Icon</Code>:
 								</p>
 								<div className="flex items-center justify-center">
 									<Icon
@@ -167,7 +165,7 @@ export default function Page() {
 					API Reference
 				</h2>
 				<p className="font-body text-body text-xl">
-					The <InlineCode>Icon</InlineCode> accepts the following props:
+					The <Code>Icon</Code> accepts the following props:
 				</p>
 				<PropsTable>
 					<PropRow>
@@ -192,15 +190,13 @@ export default function Page() {
 						<PropDefaultValueCell />
 						<PropDescriptionCell>
 							An object with CSS styles, for example{" "}
-							<InlineCode>{`{ fontWeight: 'bold', margin: 20 }`}</InlineCode>.
-							Similarly to the DOM style property, the CSS property names need
-							to be written as camelCase, for example{" "}
-							<InlineCode>fontWeight</InlineCode> instead of{" "}
-							<InlineCode>font-weight</InlineCode>. You can pass strings or
-							numbers as values. If you pass a number, like{" "}
-							<InlineCode>width: 100</InlineCode>, React will automatically
-							append px (“pixels”) to the value unless it’s a unitless property.
-							See
+							<Code>{`{ fontWeight: 'bold', margin: 20 }`}</Code>. Similarly to
+							the DOM style property, the CSS property names need to be written
+							as camelCase, for example <Code>fontWeight</Code> instead of{" "}
+							<Code>font-weight</Code>. You can pass strings or numbers as
+							values. If you pass a number, like <Code>width: 100</Code>, React
+							will automatically append px (“pixels”) to the value unless it’s a
+							unitless property. See
 							<Anchor href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/style">
 								the MDN docs
 							</Anchor>
