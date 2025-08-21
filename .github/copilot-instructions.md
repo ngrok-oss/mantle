@@ -1,7 +1,7 @@
-# Copilot review rules (repo-wide)
+# Copilot PR Review Rules
 
-- Reviews must **not** comment on formatting or placeholders already enforced by tools (Prettier, ESLint, Biome, etc).
-- Treat the following as intentional sentinels; do **not** suggest edits on lines matching them:
-  - A line that is exactly `//,`
-  - Any line containing `copilot:ignore`
-- Only leave comments for correctness, security, performance, or test gaps. Use `[issue]` or `[suggestion]`; never `[nitpick]` on the patterns above.
+- Always treat [AGENT.md](../AGENT.md) as the authoritative reference for repo structure, conventions, and workflows.
+- Do not comment on code patterns or placeholders documented in AGENT.md (e.g., sentinel comments like `//,`).
+- Assume formatting/linting is already enforced by `pnpm run fmt-lint`; do not duplicate those checks.
+- Focus feedback on correctness, security, performance, and missing tests.
+- Avoid suggesting changes to intentional patterns documented in AGENT.md.
