@@ -5,13 +5,8 @@ import { WarningDiamondIcon } from "@phosphor-icons/react/WarningDiamond";
 import { XIcon } from "@phosphor-icons/react/X";
 import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
-import type {
-	ComponentProps,
-	ComponentRef,
-	HTMLAttributes,
-	ReactNode,
-} from "react";
-import { createContext, forwardRef, useContext, useMemo } from "react";
+import type { ComponentProps, ReactNode } from "react";
+import { createContext, useContext, useMemo } from "react";
 import invariant from "tiny-invariant";
 import type { WithAsChild } from "../../types/index.js";
 import { cx } from "../../utils/cx/cx.js";
@@ -87,25 +82,16 @@ type AlertProps = ComponentProps<"div"> & {
  * </Alert>
  *```
  */
-const Root = forwardRef<ComponentRef<"div">, AlertProps>(
-	({ className, priority, ...props }, ref) => {
-		const context: AlertContextValue = useMemo(
-			() => ({ priority }),
-			[priority],
-		);
+function Root({ className, priority, ...props }: AlertProps) {
+	const context: AlertContextValue = useMemo(() => ({ priority }), [priority]);
 
-		return (
-			<AlertContext.Provider value={context}>
-				<div
-					ref={ref}
-					className={cx(alertVariants({ priority }), className)}
-					{...props}
-				/>
-			</AlertContext.Provider>
-		);
-	},
-);
-Root.displayName = "Alert";
+	return (
+		<AlertContext.Provider value={context}>
+			<div className={cx(alertVariants({ priority }), className)} {...props} />
+		</AlertContext.Provider>
+	);
+}
+Root.displayName = "AlertRoot";
 
 type AlertIconProps = Omit<SvgAttributes, "children"> & {
 	/**
@@ -146,21 +132,18 @@ const defaultIcons = {
  * </Alert>
  * ```
  */
-const Icon = forwardRef<ComponentRef<"svg">, AlertIconProps>(
-	({ className, svg, ...props }, ref) => {
-		const ctx = useAlertContext();
-		const defaultIcon = defaultIcons[ctx.priority];
+function Icon({ className, svg, ...props }: AlertIconProps) {
+	const ctx = useAlertContext();
+	const defaultIcon = defaultIcons[ctx.priority];
 
-		return (
-			<SvgOnly
-				ref={ref}
-				className={cx("size-5", className)}
-				svg={svg ?? defaultIcon}
-				{...props}
-			/>
-		);
-	},
-);
+	return (
+		<SvgOnly
+			className={cx("size-5", className)}
+			svg={svg ?? defaultIcon}
+			{...props}
+		/>
+	);
+}
 Icon.displayName = "AlertIcon";
 
 /**
@@ -182,21 +165,20 @@ Icon.displayName = "AlertIcon";
  * </Alert>
  *```
  */
-const Content = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
-	({ className, ...props }, ref) => (
+function Content({ className, ...props }: ComponentProps<"div">) {
+	return (
 		<div
-			ref={ref}
 			className={cx(
 				"min-w-0 flex-1 has-[[data-alert-dismiss]]:pr-6",
 				className,
 			)}
 			{...props}
 		/>
-	),
-);
+	);
+}
 Content.displayName = "AlertContent";
 
-type AlertTitleProps = HTMLAttributes<HTMLHeadingElement> & WithAsChild;
+type AlertTitleProps = ComponentProps<"h5"> & WithAsChild;
 
 /**
  * The title of an alert. Default renders as an h5 element, use asChild to render something else.
@@ -217,19 +199,17 @@ type AlertTitleProps = HTMLAttributes<HTMLHeadingElement> & WithAsChild;
  * </Alert>
  *```
  */
-const Title = forwardRef<HTMLHeadingElement, AlertTitleProps>(
-	({ asChild = false, className, ...props }, ref) => {
-		const Component = asChild ? Slot : "h5";
+function Title({ asChild = false, className, ...props }: AlertTitleProps) {
+	const Component = asChild ? Slot : "h5";
 
-		return (
-			<Component
-				ref={ref}
-				className={cx("font-medium", className)}
-				{...props}
-			/>
-		);
-	},
-);
+	return (
+		<Component
+			//
+			className={cx("font-medium", className)}
+			{...props}
+		/>
+	);
+}
 Title.displayName = "AlertTitle";
 
 type AlertDescriptionProps = ComponentProps<"div"> & WithAsChild;
@@ -255,27 +235,35 @@ type AlertDescriptionProps = ComponentProps<"div"> & WithAsChild;
  * </Alert>
  * ```
  */
-const Description = forwardRef<ComponentRef<"div">, AlertDescriptionProps>(
-	({ asChild = false, className, ...props }, ref) => {
-		const Component = asChild ? Slot : "div";
+function Description({
+	asChild = false,
+	className,
+	...props
+}: AlertDescriptionProps) {
+	const Component = asChild ? Slot : "div";
 
-		return (
-			<Component ref={ref} className={cx("text-sm", className)} {...props} />
-		);
-	},
-);
+	return (
+		<Component
+			//
+			className={cx("text-sm", className)}
+			{...props}
+		/>
+	);
+}
 Description.displayName = "AlertDescription";
 
 type AlertDismissIconButtonProps = Partial<Omit<IconButtonProps, "icon">>;
-const DismissIconButton = ({
+
+function DismissIconButton({
 	size = "sm",
 	type = "button",
 	label = "Dismiss Alert",
 	appearance = "ghost",
 	className,
 	...props
-}: AlertDismissIconButtonProps) => {
+}: AlertDismissIconButtonProps) {
 	const ctx = useAlertContext();
+
 	return (
 		<IconButton
 			appearance={appearance}
@@ -301,7 +289,7 @@ const DismissIconButton = ({
 			{...props}
 		/>
 	);
-};
+}
 DismissIconButton.displayName = "AlertDismissIconButton";
 
 /**

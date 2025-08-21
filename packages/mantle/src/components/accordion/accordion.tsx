@@ -2,11 +2,7 @@
 
 import { CaretDownIcon } from "@phosphor-icons/react/CaretDown";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
-import {
-	type ComponentPropsWithoutRef,
-	type ComponentRef,
-	forwardRef,
-} from "react";
+import type { ComponentProps } from "react";
 import { cx } from "../../utils/cx/cx.js";
 import { Icon, type IconProps } from "../icon/icon.js";
 
@@ -33,17 +29,18 @@ import { Icon, type IconProps } from "../icon/icon.js";
  * </Accordion.Root>
  * ```
  */
-const Root = forwardRef<
-	ComponentRef<"div">,
-	ComponentPropsWithoutRef<typeof AccordionPrimitive.Root>
->(({ className, ...props }, ref) => (
-	<AccordionPrimitive.Root
-		ref={ref}
-		className={cx("w-full space-y-2.5", className)}
-		{...props}
-	/>
-));
-Root.displayName = "Accordion";
+function Root({
+	className,
+	...props
+}: ComponentProps<typeof AccordionPrimitive.Root>) {
+	return (
+		<AccordionPrimitive.Root
+			className={cx("w-full space-y-2.5", className)}
+			{...props}
+		/>
+	);
+}
+Root.displayName = "AccordionRoot";
 
 /**
  * Contains all the parts of a collapsible section.
@@ -94,16 +91,17 @@ Item.displayName = "AccordionItem";
  * </Accordion.Root>
  * ```
  */
-const Heading = forwardRef<
-	ComponentRef<"div">,
-	ComponentPropsWithoutRef<typeof AccordionPrimitive.Header>
->(({ className, ...props }, ref) => (
-	<AccordionPrimitive.Header
-		ref={ref}
-		className={cx("flex items-center gap-2", className)}
-		{...props}
-	/>
-));
+function Heading({
+	className,
+	...props
+}: ComponentProps<typeof AccordionPrimitive.Header>) {
+	return (
+		<AccordionPrimitive.Header
+			className={cx("flex items-center gap-2", className)}
+			{...props}
+		/>
+	);
+}
 Heading.displayName = "AccordionHeading";
 
 /**
@@ -129,18 +127,20 @@ Heading.displayName = "AccordionHeading";
  * </Accordion.Root>
  * ```
  */
-const Trigger = forwardRef<
-	ComponentRef<"button">,
-	ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
->(({ className, children, ...props }, ref) => (
-	<AccordionPrimitive.Trigger
-		ref={ref}
-		className={cx("group flex items-center gap-1.5", className)}
-		{...props}
-	>
-		{children}
-	</AccordionPrimitive.Trigger>
-));
+function Trigger({
+	className,
+	children,
+	...props
+}: ComponentProps<typeof AccordionPrimitive.Trigger>) {
+	return (
+		<AccordionPrimitive.Trigger
+			className={cx("group flex items-center gap-1.5", className)}
+			{...props}
+		>
+			{children}
+		</AccordionPrimitive.Trigger>
+	);
+}
 Trigger.displayName = "AccordionTrigger";
 
 /**
@@ -166,13 +166,15 @@ Trigger.displayName = "AccordionTrigger";
  * </Accordion.Root>
  * ```
  */
-const TriggerIcon = ({ className, ...props }: Omit<IconProps, "svg">) => (
-	<Icon
-		{...props}
-		svg={<CaretDownIcon weight="fill" />}
-		className={cx("group-data-state-open:rotate-0 -rotate-90", className)}
-	/>
-);
+function TriggerIcon({ className, ...props }: Omit<IconProps, "svg">) {
+	return (
+		<Icon
+			{...props}
+			svg={<CaretDownIcon weight="fill" />}
+			className={cx("group-data-state-open:rotate-0 -rotate-90", className)}
+		/>
+	);
+}
 TriggerIcon.displayName = "AccordionTriggerIcon";
 
 /**
@@ -198,21 +200,23 @@ TriggerIcon.displayName = "AccordionTriggerIcon";
  * </Accordion.Root>
  * ```
  */
-const Content = forwardRef<
-	ComponentRef<"div">,
-	ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>
->(({ className, children, ...props }, ref) => (
-	<AccordionPrimitive.Content
-		ref={ref}
-		className={cx(
-			"data-state-closed:animate-accordion-up data-state-open:animate-accordion-down overflow-hidden pt-4",
-			className,
-		)}
-		{...props}
-	>
-		{children}
-	</AccordionPrimitive.Content>
-));
+function Content({
+	className,
+	children,
+	...props
+}: ComponentProps<typeof AccordionPrimitive.Content>) {
+	return (
+		<AccordionPrimitive.Content
+			className={cx(
+				"data-state-closed:animate-accordion-up data-state-open:animate-accordion-down overflow-hidden pt-4",
+				className,
+			)}
+			{...props}
+		>
+			{children}
+		</AccordionPrimitive.Content>
+	);
+}
 Content.displayName = "AccordionContent";
 
 /**

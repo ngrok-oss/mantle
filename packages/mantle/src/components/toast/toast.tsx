@@ -7,10 +7,8 @@ import { WarningDiamondIcon } from "@phosphor-icons/react/WarningDiamond";
 import { Slot } from "@radix-ui/react-slot";
 import {
 	type ComponentProps,
-	type ComponentRef,
 	type ReactNode,
 	createContext,
-	forwardRef,
 	useContext,
 } from "react";
 import * as ToastPrimitive from "sonner";
@@ -168,34 +166,37 @@ type ToastProps = ComponentProps<"div"> &
  * </Toast.Root>
  * ```
  */
-const Root = forwardRef<ComponentRef<"div">, ToastProps>(
-	({ asChild, children, className, priority, ...props }, ref) => {
-		const Component = asChild ? Slot : "div";
+function Root({
+	asChild,
+	children,
+	className,
+	priority,
+	...props
+}: ToastProps) {
+	const Component = asChild ? Slot : "div";
 
-		return (
-			<ToastStateContext.Provider value={{ priority }}>
-				<Component
-					className={cx(
-						"relative flex items-start gap-2 text-sm",
-						"p-3 pl-[0.9375rem]",
-						"bg-popover high-contrast:border-popover rounded rounded-r-[0.3125rem] border border-gray-500/35 shadow-lg",
-						/**
-						 * Do not apply overflow-hidden because we want the priority bar accent
-						 * to overlap the toast border, else the border flows over the
-						 * priority bar.
-						 */
-						className,
-					)}
-					ref={ref}
-					{...props}
-				>
-					<PriorityBarAccent priority={priority} />
-					{children}
-				</Component>
-			</ToastStateContext.Provider>
-		);
-	},
-);
+	return (
+		<ToastStateContext.Provider value={{ priority }}>
+			<Component
+				className={cx(
+					"relative flex items-start gap-2 text-sm",
+					"p-3 pl-[0.9375rem]",
+					"bg-popover high-contrast:border-popover rounded rounded-r-[0.3125rem] border border-gray-500/35 shadow-lg",
+					/**
+					 * Do not apply overflow-hidden because we want the priority bar accent
+					 * to overlap the toast border, else the border flows over the
+					 * priority bar.
+					 */
+					className,
+				)}
+				{...props}
+			>
+				<PriorityBarAccent priority={priority} />
+				{children}
+			</Component>
+		</ToastStateContext.Provider>
+	);
+}
 Root.displayName = "Toast";
 
 type ToastIconProps = Partial<SvgOnlyProps>;
@@ -214,53 +215,50 @@ type ToastIconProps = Partial<SvgOnlyProps>;
  * </Toast.Root>
  * ```
  */
-const Icon = forwardRef<ComponentRef<"svg">, ToastIconProps>(
-	({ className, svg, ...props }, ref) => {
-		const ctx = useContext(ToastStateContext);
+function Icon({ className, svg, ...props }: ToastIconProps) {
+	const ctx = useContext(ToastStateContext);
 
-		switch (ctx.priority) {
-			case "danger":
-				return (
-					<IconComponent
-						className={cx("text-danger-600", className)}
-						ref={ref}
-						svg={svg ?? <WarningIcon weight="fill" />}
-						{...props}
-					/>
-				);
-			case "warning":
-				return (
-					<IconComponent
-						className={cx("text-warning-600", className)}
-						ref={ref}
-						svg={svg ?? <WarningDiamondIcon weight="fill" />}
-						{...props}
-					/>
-				);
-			case "success":
-				return (
-					<IconComponent
-						className={cx("text-success-600", className)}
-						ref={ref}
-						svg={svg ?? <CheckCircleIcon weight="fill" />}
-						{...props}
-					/>
-				);
-			case "info":
-				return (
-					<IconComponent
-						//
-						className={cx("text-accent-600", className)}
-						ref={ref}
-						svg={<InfoIcon weight="fill" />}
-						{...props}
-					/>
-				);
-			default:
-				throw new Error(`Unreachable Case: ${ctx.priority}`);
-		}
-	},
-);
+	switch (ctx.priority) {
+		case "danger":
+			return (
+				<IconComponent
+					//
+					className={cx("text-danger-600", className)}
+					svg={svg ?? <WarningIcon weight="fill" />}
+					{...props}
+				/>
+			);
+		case "warning":
+			return (
+				<IconComponent
+					//
+					className={cx("text-warning-600", className)}
+					svg={svg ?? <WarningDiamondIcon weight="fill" />}
+					{...props}
+				/>
+			);
+		case "success":
+			return (
+				<IconComponent
+					//
+					className={cx("text-success-600", className)}
+					svg={svg ?? <CheckCircleIcon weight="fill" />}
+					{...props}
+				/>
+			);
+		case "info":
+			return (
+				<IconComponent
+					//
+					className={cx("text-accent-600", className)}
+					svg={<InfoIcon weight="fill" />}
+					{...props}
+				/>
+			);
+		default:
+			throw new Error(`Unreachable Case: ${ctx.priority}`);
+	}
+}
 Icon.displayName = "ToastIcon";
 
 type ToastActionProps = ComponentProps<"button"> & WithAsChild;
@@ -280,34 +278,31 @@ type ToastActionProps = ComponentProps<"button"> & WithAsChild;
  * </Toast.Root>
  * ```
  */
-const Action = forwardRef<ComponentRef<"button">, ToastActionProps>(
-	({ asChild, className, onClick, ...props }, ref) => {
-		const ctx = useContext(ToastIdContext);
+function Action({ asChild, className, onClick, ...props }: ToastActionProps) {
+	const ctx = useContext(ToastIdContext);
 
-		const Component = asChild ? Slot : "button";
+	const Component = asChild ? Slot : "button";
 
-		return (
-			<Component
-				className={cx(
-					//,
-					"shrink-0",
-					// 👇 wiggle the bits so that icon buttons toast actions are aligned with the toast icon
-					"data-[icon-button]:-mr-0.5 data-[icon-button]:-mt-0.5 data-[icon-button]:rounded-xs",
-					className,
-				)}
-				onClick={(event) => {
-					onClick?.(event);
-					if (event.defaultPrevented) {
-						return;
-					}
-					ToastPrimitive.toast.dismiss(ctx);
-				}}
-				ref={ref}
-				{...props}
-			/>
-		);
-	},
-);
+	return (
+		<Component
+			className={cx(
+				//,
+				"shrink-0",
+				// 👇 wiggle the bits so that icon buttons toast actions are aligned with the toast icon
+				"data-[icon-button]:-mr-0.5 data-[icon-button]:-mt-0.5 data-[icon-button]:rounded-xs",
+				className,
+			)}
+			onClick={(event) => {
+				onClick?.(event);
+				if (event.defaultPrevented) {
+					return;
+				}
+				ToastPrimitive.toast.dismiss(ctx);
+			}}
+			{...props}
+		/>
+	);
+}
 Action.displayName = "ToastAction";
 
 type ToastMessageProps = ComponentProps<"p"> & WithAsChild;
@@ -325,20 +320,17 @@ type ToastMessageProps = ComponentProps<"p"> & WithAsChild;
  * </Toast.Root>
  * ```
  */
-const Message = forwardRef<ComponentRef<"p">, ToastMessageProps>(
-	({ asChild, className, ...props }, ref) => {
-		const Component = asChild ? Slot : "p";
+function Message({ asChild, className, ...props }: ToastMessageProps) {
+	const Component = asChild ? Slot : "p";
 
-		return (
-			<Component
-				//
-				className={cx("text-strong flex-1 text-sm font-body", className)}
-				ref={ref}
-				{...props}
-			/>
-		);
-	},
-);
+	return (
+		<Component
+			//
+			className={cx("text-strong flex-1 text-sm font-body", className)}
+			{...props}
+		/>
+	);
+}
 Message.displayName = "ToastMessage";
 
 /**

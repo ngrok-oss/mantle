@@ -230,8 +230,15 @@ function Header<TData, TValue>({
 	);
 }
 
-const Body = Table.Body;
+function Body(props: ComponentProps<typeof Table.Body>) {
+	return <Body {...props} />;
+}
 Body.displayName = "DataTableBody";
+
+function Cell(props: ComponentProps<typeof Table.Cell>) {
+	return <Table.Cell {...props} />;
+}
+Cell.displayName = "DataTableCell";
 
 type DataTableHeadProps = Omit<ComponentProps<typeof Table.Head>, "children">;
 
@@ -378,7 +385,7 @@ const DataTable = {
 	 * </DataTable.Cell>
 	 * ```
 	 */
-	Cell: Table.Cell,
+	Cell,
 	/**
 	 * The table body container for rows of data.
 	 *

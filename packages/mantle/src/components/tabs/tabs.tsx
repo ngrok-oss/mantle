@@ -5,16 +5,11 @@ import {
 	Trigger as TabsPrimitiveTrigger,
 } from "@radix-ui/react-tabs";
 import clsx from "clsx";
-import type {
-	ComponentPropsWithoutRef,
-	ComponentRef,
-	HTMLAttributes,
-} from "react";
+import type { ComponentProps } from "react";
 import {
 	Children,
 	cloneElement,
 	createContext,
-	forwardRef,
 	isValidElement,
 	useContext,
 } from "react";
@@ -52,26 +47,29 @@ const TabsStateContext = createContext<TabsStateContextValue>({
  * </Tabs.Root>
  * ```
  */
-const Root = forwardRef<
-	ComponentRef<typeof TabsPrimitiveRoot>,
-	ComponentPropsWithoutRef<typeof TabsPrimitiveRoot>
->(({ className, children, orientation = "horizontal", ...props }, ref) => (
-	<TabsPrimitiveRoot
-		className={cx(
-			"flex gap-4",
-			orientation === "horizontal" ? "flex-col" : "flex-row",
-			className,
-		)}
-		orientation={orientation}
-		ref={ref}
-		{...props}
-	>
-		<TabsStateContext.Provider value={{ orientation }}>
-			{children}
-		</TabsStateContext.Provider>
-	</TabsPrimitiveRoot>
-));
-Root.displayName = "Tabs";
+function Root({
+	className,
+	children,
+	orientation = "horizontal",
+	...props
+}: ComponentProps<typeof TabsPrimitiveRoot>) {
+	return (
+		<TabsPrimitiveRoot
+			className={cx(
+				"flex gap-4",
+				orientation === "horizontal" ? "flex-col" : "flex-row",
+				className,
+			)}
+			orientation={orientation}
+			{...props}
+		>
+			<TabsStateContext.Provider value={{ orientation }}>
+				{children}
+			</TabsStateContext.Provider>
+		</TabsPrimitiveRoot>
+	);
+}
+Root.displayName = "TabsRoot";
 
 /**
  * Contains the triggers that are aligned along the edge of the active content.
@@ -92,10 +90,10 @@ Root.displayName = "Tabs";
  * </Tabs.Root>
  * ```
  */
-const List = forwardRef<
-	ComponentRef<typeof TabsPrimitiveList>,
-	ComponentPropsWithoutRef<typeof TabsPrimitiveList>
->(({ className, ...props }, ref) => {
+function List({
+	className,
+	...props
+}: ComponentProps<typeof TabsPrimitiveList>) {
 	const ctx = useContext(TabsStateContext);
 
 	return (
@@ -108,32 +106,13 @@ const List = forwardRef<
 					: "flex-col items-end gap-[0.875rem] self-stretch border-r",
 				className,
 			)}
-			ref={ref}
 			{...props}
 		/>
 	);
-});
+}
 List.displayName = "TabsList";
 
-type TabsTriggerProps = ComponentPropsWithoutRef<typeof TabsPrimitiveTrigger>;
-
-const TabsTriggerDecoration = () => {
-	const ctx = useContext(TabsStateContext);
-
-	return (
-		<span
-			aria-hidden
-			className={clsx(
-				"group-data-state-active/tab-trigger:bg-blue-600 absolute z-0",
-				ctx.orientation === "horizontal" &&
-					"-bottom-px left-0 right-0 h-[0.1875rem]",
-				ctx.orientation === "vertical" &&
-					"-right-px bottom-0 top-0 w-[0.1875rem]",
-			)}
-		/>
-	);
-};
-TabsTriggerDecoration.displayName = "TabsTriggerDecoration";
+type TabsTriggerProps = ComponentProps<typeof TabsPrimitiveTrigger>;
 
 /**
  * The button that activates its associated content.
@@ -154,90 +133,82 @@ TabsTriggerDecoration.displayName = "TabsTriggerDecoration";
  * </Tabs.Root>
  * ```
  */
-const Trigger = forwardRef<
-	ComponentRef<typeof TabsPrimitiveTrigger>,
-	TabsTriggerProps
->(
-	(
-		{
-			"aria-disabled": _ariaDisabled,
-			asChild = false,
-			children,
-			className,
-			disabled: _disabled,
-			...props
-		},
-		ref,
-	) => {
-		const ctx = useContext(TabsStateContext);
-		const disabled = parseBooleanish(_ariaDisabled ?? _disabled);
+function Trigger({
+	"aria-disabled": _ariaDisabled,
+	asChild = false,
+	children,
+	className,
+	disabled: _disabled,
+	...props
+}: TabsTriggerProps) {
+	const ctx = useContext(TabsStateContext);
+	const disabled = parseBooleanish(_ariaDisabled ?? _disabled);
 
-		const tabsTriggerProps = {
-			"aria-disabled": _ariaDisabled ?? _disabled,
-			className: cx(
-				"group/tab-trigger relative flex cursor-pointer items-center gap-1 whitespace-nowrap py-3 text-sm font-medium text-gray-600",
-				ctx.orientation === "horizontal" && "rounded-tl-md rounded-tr-md",
-				ctx.orientation === "vertical" && "rounded-bl-md rounded-tl-md pr-3",
-				"ring-focus-accent outline-hidden",
-				"aria-disabled:cursor-default aria-disabled:opacity-50",
-				"focus-visible:ring-4",
-				"[&>svg]:shrink-0 [&>svg]:size-5",
-				"not-aria-disabled:hover:text-gray-900 not-aria-disabled:hover:data-state-active:text-blue-600",
-				"data-state-active:text-blue-600",
-				className,
-			),
-			disabled,
-			...props,
+	const tabsTriggerProps = {
+		"aria-disabled": _ariaDisabled ?? _disabled,
+		className: cx(
+			"group/tab-trigger relative flex cursor-pointer items-center gap-1 whitespace-nowrap py-3 text-sm font-medium text-gray-600",
+			ctx.orientation === "horizontal" && "rounded-tl-md rounded-tr-md",
+			ctx.orientation === "vertical" && "rounded-bl-md rounded-tl-md pr-3",
+			"ring-focus-accent outline-hidden",
+			"aria-disabled:cursor-default aria-disabled:opacity-50",
+			"focus-visible:ring-4",
+			"[&>svg]:shrink-0 [&>svg]:size-5",
+			"not-aria-disabled:hover:text-gray-900 not-aria-disabled:hover:data-state-active:text-blue-600",
+			"data-state-active:text-blue-600",
+			className,
+		),
+		disabled,
+		...props,
+	};
+
+	if (asChild) {
+		const singleChild = Children.only(children);
+		invariant(
+			isValidElement<TabsTriggerProps>(singleChild),
+			"When using `asChild`, TabsTrigger must be passed a single child as a JSX tag.",
+		);
+		const grandchildren = singleChild.props?.children;
+
+		const cloneProps = {
+			...(disabled
+				? /**
+					 * When disabled, prevent anchor/link children from being clickable by
+					 * removing their href/to props!
+					 * This is necessary because `<a>` doesn't support the `disabled`
+					 * attribute and would be navigable. We could use `pointer-events-none`
+					 * instead, but don't by default because it would also prevent tooltip
+					 * interactions, which may be surprising.
+					 */
+					{ href: undefined, to: undefined }
+				: /**
+					 * when NOT disabled, allow keyboard navigation to the trigger,
+					 * even for asChild anchors/links
+					 */
+					{ tabIndex: 0 }),
 		};
 
-		if (asChild) {
-			const singleChild = Children.only(children);
-			invariant(
-				isValidElement<TabsTriggerProps>(singleChild),
-				"When using `asChild`, TabsTrigger must be passed a single child as a JSX tag.",
-			);
-			const grandchildren = singleChild.props?.children;
-
-			const cloneProps = {
-				...(disabled
-					? /**
-						 * When disabled, prevent anchor/link children from being clickable by
-						 * removing their href/to props!
-						 * This is necessary because `<a>` doesn't support the `disabled`
-						 * attribute and would be navigable. We could use `pointer-events-none`
-						 * instead, but don't by default because it would also prevent tooltip
-						 * interactions, which may be surprising.
-						 */
-						{ href: undefined, to: undefined }
-					: /**
-						 * when NOT disabled, allow keyboard navigation to the trigger,
-						 * even for asChild anchors/links
-						 */
-						{ tabIndex: 0 }),
-			};
-
-			return (
-				<TabsPrimitiveTrigger asChild {...tabsTriggerProps} ref={ref}>
-					{cloneElement(
-						disabled ? <button type="button" /> : singleChild,
-						cloneProps,
-						<>
-							<TabsTriggerDecoration />
-							{grandchildren}
-						</>,
-					)}
-				</TabsPrimitiveTrigger>
-			);
-		}
-
 		return (
-			<TabsPrimitiveTrigger ref={ref} {...tabsTriggerProps}>
-				<TabsTriggerDecoration />
-				{children}
+			<TabsPrimitiveTrigger asChild {...tabsTriggerProps}>
+				{cloneElement(
+					disabled ? <button type="button" /> : singleChild,
+					cloneProps,
+					<>
+						<TabsTriggerDecoration />
+						{grandchildren}
+					</>,
+				)}
 			</TabsPrimitiveTrigger>
 		);
-	},
-);
+	}
+
+	return (
+		<TabsPrimitiveTrigger {...tabsTriggerProps}>
+			<TabsTriggerDecoration />
+			{children}
+		</TabsPrimitiveTrigger>
+	);
+}
 Trigger.displayName = "TabsTrigger";
 
 /**
@@ -258,23 +229,21 @@ Trigger.displayName = "TabsTrigger";
  * </Tabs.Root>
  * ```
  */
-const Badge = ({
-	className,
-	children,
-	...props
-}: HTMLAttributes<HTMLSpanElement>) => (
-	<span
-		className={cx(
-			"rounded-full bg-gray-500/20 px-1.5 text-xs font-medium text-gray-600",
-			"group-data-state-active/tab-trigger:bg-blue-500/20 group-data-state-active/tab-trigger:text-blue-700 group-hover/tab-trigger:group-enabled/tab-trigger:group-data-state-active/tab-trigger:text-blue-700",
-			"group-hover/tab-trigger:group-enabled/tab-trigger:text-gray-700",
-			className,
-		)}
-		{...props}
-	>
-		{children}
-	</span>
-);
+function Badge({ className, children, ...props }: ComponentProps<"span">) {
+	return (
+		<span
+			className={cx(
+				"rounded-full bg-gray-500/20 px-1.5 text-xs font-medium text-gray-600",
+				"group-data-state-active/tab-trigger:bg-blue-500/20 group-data-state-active/tab-trigger:text-blue-700 group-hover/tab-trigger:group-enabled/tab-trigger:group-data-state-active/tab-trigger:text-blue-700",
+				"group-hover/tab-trigger:group-enabled/tab-trigger:text-gray-700",
+				className,
+			)}
+			{...props}
+		>
+			{children}
+		</span>
+	);
+}
 Badge.displayName = "TabBadge";
 
 /**
@@ -299,19 +268,21 @@ Badge.displayName = "TabBadge";
  * </Tabs.Root>
  * ```
  */
-const Content = forwardRef<
-	ComponentRef<typeof TabsPrimitiveContent>,
-	ComponentPropsWithoutRef<typeof TabsPrimitiveContent>
->(({ className, ...props }, ref) => (
-	<TabsPrimitiveContent
-		ref={ref}
-		className={cx(
-			"focus-visible:ring-focus-accent outline-hidden focus-visible:ring-4",
-			className,
-		)}
-		{...props}
-	/>
-));
+function Content({
+	className,
+	...props
+}: ComponentProps<typeof TabsPrimitiveContent>) {
+	return (
+		<TabsPrimitiveContent
+			//
+			className={cx(
+				"focus-visible:ring-focus-accent outline-hidden focus-visible:ring-4",
+				className,
+			)}
+			{...props}
+		/>
+	);
+}
 Content.displayName = "TabsContent";
 
 /**
@@ -434,3 +405,25 @@ export {
 	//
 	Tabs,
 };
+
+/**
+ * A decorative element that visually indicates the active tab trigger.
+ * @private
+ */
+function TabsTriggerDecoration() {
+	const ctx = useContext(TabsStateContext);
+
+	return (
+		<span
+			aria-hidden
+			className={clsx(
+				"group-data-state-active/tab-trigger:bg-blue-600 absolute z-0",
+				ctx.orientation === "horizontal" &&
+					"-bottom-px left-0 right-0 h-[0.1875rem]",
+				ctx.orientation === "vertical" &&
+					"-right-px bottom-0 top-0 w-[0.1875rem]",
+			)}
+		/>
+	);
+}
+TabsTriggerDecoration.displayName = "TabsTriggerDecoration";

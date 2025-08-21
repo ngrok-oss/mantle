@@ -1,5 +1,5 @@
 import type { ComponentProps, ComponentRef } from "react";
-import { forwardRef, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { composeRefs } from "../../utils/compose-refs/compose-refs.js";
 import { cx } from "../../utils/cx/cx.js";
 
@@ -45,35 +45,33 @@ import { cx } from "../../utils/cx/cx.js";
  *
  * @see https://mantle.ngrok.com/components/table#api-table-root
  */
-const Root = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
-	({ children, className, ...props }, ref) => {
-		const horizontalOverflow =
-			useHorizontalOverflowObserver<ComponentRef<"div">>();
+function Root({ children, className, ref, ...props }: ComponentProps<"div">) {
+	const horizontalOverflow =
+		useHorizontalOverflowObserver<ComponentRef<"div">>();
 
-		return (
-			<div
-				className={cx(
-					"group/table scrollbar overflow-x-auto rounded-lg border border-card bg-white dark:bg-gray-100 relative w-full",
-					className,
-				)}
-				data-sticky-active={
-					(horizontalOverflow.state.hasOverflow &&
-						!horizontalOverflow.state.scrolledToEnd) ||
-					undefined
-				}
-				data-x-overflow={horizontalOverflow.state.hasOverflow}
-				data-x-scroll-end={
-					horizontalOverflow.state.hasOverflow &&
-					horizontalOverflow.state.scrolledToEnd
-				}
-				ref={composeRefs(horizontalOverflow.ref, ref)}
-				{...props}
-			>
-				{children}
-			</div>
-		);
-	},
-);
+	return (
+		<div
+			className={cx(
+				"group/table scrollbar overflow-x-auto rounded-lg border border-card bg-white dark:bg-gray-100 relative w-full",
+				className,
+			)}
+			data-sticky-active={
+				(horizontalOverflow.state.hasOverflow &&
+					!horizontalOverflow.state.scrolledToEnd) ||
+				undefined
+			}
+			data-x-overflow={horizontalOverflow.state.hasOverflow}
+			data-x-scroll-end={
+				horizontalOverflow.state.hasOverflow &&
+				horizontalOverflow.state.scrolledToEnd
+			}
+			ref={composeRefs(horizontalOverflow.ref, ref)}
+			{...props}
+		>
+			{children}
+		</div>
+	);
+}
 Root.displayName = "TableRoot";
 
 /**
@@ -141,22 +139,20 @@ Root.displayName = "TableRoot";
  *
  * @see https://mantle.ngrok.com/components/table#api-table
  */
-const Element = forwardRef<ComponentRef<"table">, ComponentProps<"table">>(
-	({ children, className, ...props }, ref) => {
-		return (
-			<table
-				ref={ref}
-				className={cx(
-					"table-auto border-collapse caption-bottom w-full min-w-full text-left",
-					className,
-				)}
-				{...props}
-			>
-				{children}
-			</table>
-		);
-	},
-);
+function Element({ children, className, ...props }: ComponentProps<"table">) {
+	return (
+		<table
+			//
+			className={cx(
+				"table-auto border-collapse caption-bottom w-full min-w-full text-left",
+				className,
+			)}
+			{...props}
+		>
+			{children}
+		</table>
+	);
+}
 Element.displayName = "TableElement";
 
 /**
@@ -206,10 +202,9 @@ Element.displayName = "TableElement";
  *
  * @see https://mantle.ngrok.com/components/table#api-table-header
  */
-const Head = forwardRef<ComponentRef<"thead">, ComponentProps<"thead">>(
-	({ children, className, ...props }, ref) => (
+function Head({ children, className, ...props }: ComponentProps<"thead">) {
+	return (
 		<thead
-			ref={ref}
 			className={cx(
 				//,
 				"border-b border-card-muted",
@@ -222,8 +217,8 @@ const Head = forwardRef<ComponentRef<"thead">, ComponentProps<"thead">>(
 		>
 			{children}
 		</thead>
-	),
-);
+	);
+}
 Head.displayName = "TableHead";
 
 /**
@@ -271,8 +266,8 @@ Head.displayName = "TableHead";
  *
  * @see https://mantle.ngrok.com/components/table#api-table-body
  */
-const Body = forwardRef<ComponentRef<"tbody">, ComponentProps<"tbody">>(
-	({ children, className, ...props }, ref) => (
+function Body({ children, className, ...props }: ComponentProps<"tbody">) {
+	return (
 		<tbody
 			className={cx(
 				//,
@@ -282,13 +277,12 @@ const Body = forwardRef<ComponentRef<"tbody">, ComponentProps<"tbody">>(
 				"[&>tr]:bg-card [&>tr]:not-only:hover:bg-card-hover", // Body row styling
 				className,
 			)}
-			ref={ref}
 			{...props}
 		>
 			{children}
 		</tbody>
-	),
-);
+	);
+}
 Body.displayName = "TableBody";
 
 /**
@@ -338,10 +332,9 @@ Body.displayName = "TableBody";
  *
  * @see https://mantle.ngrok.com/components/table#api-table-foot
  */
-const Foot = forwardRef<ComponentRef<"tfoot">, ComponentProps<"tfoot">>(
-	({ children, className, ...props }, ref) => (
+function Foot({ children, className, ...props }: ComponentProps<"tfoot">) {
+	return (
 		<tfoot
-			ref={ref}
 			className={cx(
 				//,
 				"font-medium text-body",
@@ -354,8 +347,8 @@ const Foot = forwardRef<ComponentRef<"tfoot">, ComponentProps<"tfoot">>(
 		>
 			{children}
 		</tfoot>
-	),
-);
+	);
+}
 Foot.displayName = "TableFoot";
 
 /**
@@ -402,20 +395,9 @@ Foot.displayName = "TableFoot";
  *
  * @see https://mantle.ngrok.com/components/table#api-table-row
  */
-const Row = forwardRef<ComponentRef<"tr">, ComponentProps<"tr">>(
-	({ children, className, ...props }, ref) => (
-		<tr
-			ref={ref}
-			className={cx(
-				// This could be removed, or simplified
-				className,
-			)}
-			{...props}
-		>
-			{children}
-		</tr>
-	),
-);
+function Row(props: ComponentProps<"tr">) {
+	return <tr {...props} />;
+}
 Row.displayName = "TableRow";
 
 /**
@@ -464,10 +446,9 @@ Row.displayName = "TableRow";
  *
  * @see https://mantle.ngrok.com/components/table#api-table-header
  */
-const Header = forwardRef<ComponentRef<"th">, ComponentProps<"th">>(
-	({ children, className, ...props }, ref) => (
+function Header({ children, className, ...props }: ComponentProps<"th">) {
+	return (
 		<th
-			ref={ref}
 			className={cx(
 				"h-12 px-4 text-left align-middle text-sm font-medium [&:has([role=checkbox])]:pr-0",
 				className,
@@ -476,8 +457,8 @@ const Header = forwardRef<ComponentRef<"th">, ComponentProps<"th">>(
 		>
 			{children}
 		</th>
-	),
-);
+	);
+}
 Header.displayName = "TableHeader";
 
 /**
@@ -524,10 +505,10 @@ Header.displayName = "TableHeader";
  *
  * @see https://mantle.ngrok.com/components/table#api-table-cell
  */
-const Cell = forwardRef<ComponentRef<"td">, ComponentProps<"td">>(
-	({ children, className, ...props }, ref) => (
+function Cell({ children, className, ...props }: ComponentProps<"td">) {
+	return (
 		<td
-			ref={ref}
+			//
 			className={cx(
 				"p-4 align-middle [&:has([role=checkbox])]:pr-0 font-mono text-size-mono",
 				className,
@@ -536,8 +517,8 @@ const Cell = forwardRef<ComponentRef<"td">, ComponentProps<"td">>(
 		>
 			{children}
 		</td>
-	),
-);
+	);
+}
 Cell.displayName = "TableCell";
 
 /**
@@ -584,10 +565,10 @@ Cell.displayName = "TableCell";
  *
  * @see https://mantle.ngrok.com/components/table#api-table-caption
  */
-const Caption = forwardRef<ComponentRef<"caption">, ComponentProps<"caption">>(
-	({ children, className, ...props }, ref) => (
+function Caption({ children, className, ...props }: ComponentProps<"caption">) {
+	return (
 		<caption
-			ref={ref}
+			//
 			className={cx(
 				"py-4 text-sm text-gray-500",
 				"border-t border-card-muted",
@@ -597,8 +578,8 @@ const Caption = forwardRef<ComponentRef<"caption">, ComponentProps<"caption">>(
 		>
 			{children}
 		</caption>
-	),
-);
+	);
+}
 Caption.displayName = "TableCaption";
 
 /**

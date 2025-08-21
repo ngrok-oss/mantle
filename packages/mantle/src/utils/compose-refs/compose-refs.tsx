@@ -1,7 +1,7 @@
 import type { Ref } from "react";
 import { useCallback } from "react";
 
-type PossibleRef<T> = Ref<T> | undefined;
+type PossibleRef<T> = Ref<T> | undefined | null;
 
 /**
  * A utility to compose multiple refs together

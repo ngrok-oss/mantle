@@ -1,11 +1,6 @@
 import { XIcon } from "@phosphor-icons/react/X";
 import { type VariantProps, cva } from "class-variance-authority";
-import type {
-	ComponentPropsWithoutRef,
-	ComponentRef,
-	HTMLAttributes,
-} from "react";
-import { forwardRef } from "react";
+import type { ComponentProps } from "react";
 import { cx } from "../../utils/cx/cx.js";
 import { IconButton, type IconButtonProps } from "../button/icon-button.js";
 import * as SheetPrimitive from "../dialog/primitive.js";
@@ -189,19 +184,20 @@ SheetPortal.displayName = "SheetPortal";
  *
  * @private
  */
-const SheetOverlay = forwardRef<
-	ComponentRef<typeof SheetPrimitive.Overlay>,
-	ComponentPropsWithoutRef<typeof SheetPrimitive.Overlay>
->(({ className, ...props }, ref) => (
-	<SheetPrimitive.Overlay
-		className={cx(
-			"bg-overlay data-state-closed:animate-out data-state-closed:fade-out-0 data-state-open:animate-in data-state-open:fade-in-0 fixed inset-0 z-40 backdrop-blur-xs",
-			className,
-		)}
-		{...props}
-		ref={ref}
-	/>
-));
+function SheetOverlay({
+	className,
+	...props
+}: ComponentProps<typeof SheetPrimitive.Overlay>) {
+	return (
+		<SheetPrimitive.Overlay
+			className={cx(
+				"bg-overlay data-state-closed:animate-out data-state-closed:fade-out-0 data-state-open:animate-in data-state-open:fade-in-0 fixed inset-0 z-40 backdrop-blur-xs",
+				className,
+			)}
+			{...props}
+		/>
+	);
+}
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName;
 
 const SheetVariants = cva(
@@ -223,9 +219,7 @@ const SheetVariants = cva(
 	},
 );
 
-type SheetContentProps = ComponentPropsWithoutRef<
-	typeof SheetPrimitive.Content
-> &
+type SheetContentProps = ComponentProps<typeof SheetPrimitive.Content> &
 	VariantProps<typeof SheetVariants> & {
 		/**
 		 * The preferred width of the `Sheet.Content` as a tailwind `max-w-` class.
@@ -289,19 +283,16 @@ type SheetContentProps = ComponentPropsWithoutRef<
  * </Sheet.Root>
  * ```
  */
-const Content = forwardRef<ComponentRef<"div">, SheetContentProps>(
-	(
-		{
-			children,
-			className,
-			onInteractOutside,
-			onPointerDownOutside,
-			preferredWidth = "sm:max-w-[30rem]",
-			side = "right",
-			...props
-		},
-		ref,
-	) => (
+function Content({
+	children,
+	className,
+	onInteractOutside,
+	onPointerDownOutside,
+	preferredWidth = "sm:max-w-[30rem]",
+	side = "right",
+	...props
+}: SheetContentProps) {
+	return (
 		<SheetPortal>
 			<SheetOverlay />
 			<SheetPrimitive.Content
@@ -314,14 +305,13 @@ const Content = forwardRef<ComponentRef<"div">, SheetContentProps>(
 					preventCloseOnPromptInteraction(event);
 					onPointerDownOutside?.(event);
 				}}
-				ref={ref}
 				{...props}
 			>
 				{children}
 			</SheetPrimitive.Content>
 		</SheetPortal>
-	),
-);
+	);
+}
 Content.displayName = SheetPrimitive.Content.displayName;
 
 type SheetCloseIconButtonProps = Partial<Omit<IconButtonProps, "icon">>;
@@ -444,12 +434,18 @@ CloseIconButton.displayName = "SheetCloseIconButton";
  * </Sheet.Root>
  * ```
  */
-const Body = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => (
-	<div
-		className={cx("scrollbar text-body flex-1 overflow-y-auto p-6", className)}
-		{...props}
-	/>
-);
+function Body({ className, ...props }: ComponentProps<"div">) {
+	return (
+		<div
+			//
+			className={cx(
+				"scrollbar text-body flex-1 overflow-y-auto p-6",
+				className,
+			)}
+			{...props}
+		/>
+	);
+}
 Body.displayName = "SheetBody";
 
 /**
@@ -501,16 +497,18 @@ Body.displayName = "SheetBody";
  * </Sheet.Root>
  * ```
  */
-const Header = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => (
-	<div
-		className={cx(
-			"border-dialog-muted flex shrink-0 flex-col gap-2 border-b py-4 pl-6 pr-4",
-			"has-[.icon-button]:pr-4", // when there are actions in the header, shorten the padding
-			className,
-		)}
-		{...props}
-	/>
-);
+function Header({ className, ...props }: ComponentProps<"div">) {
+	return (
+		<div
+			className={cx(
+				"border-dialog-muted flex shrink-0 flex-col gap-2 border-b py-4 pl-6 pr-4",
+				"has-[.icon-button]:pr-4", // when there are actions in the header, shorten the padding
+				className,
+			)}
+			{...props}
+		/>
+	);
+}
 Header.displayName = "SheetHeader";
 
 /**
@@ -562,15 +560,17 @@ Header.displayName = "SheetHeader";
  * </Sheet.Root>
  * ```
  */
-const Footer = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => (
-	<div
-		className={cx(
-			"border-dialog-muted flex shrink-0 justify-end gap-2 border-t px-6 py-2.5",
-			className,
-		)}
-		{...props}
-	/>
-);
+function Footer({ className, ...props }: ComponentProps<"div">) {
+	return (
+		<div
+			className={cx(
+				"border-dialog-muted flex shrink-0 justify-end gap-2 border-t px-6 py-2.5",
+				className,
+			)}
+			{...props}
+		/>
+	);
+}
 Footer.displayName = "SheetFooter";
 
 /**
@@ -622,16 +622,21 @@ Footer.displayName = "SheetFooter";
  * </Sheet.Root>
  * ```
  */
-const Title = forwardRef<
-	ComponentRef<typeof SheetPrimitive.Title>,
-	ComponentPropsWithoutRef<typeof SheetPrimitive.Title>
->(({ className, ...props }, ref) => (
-	<SheetPrimitive.Title
-		ref={ref}
-		className={cx("text-strong flex-1 truncate text-lg font-medium", className)}
-		{...props}
-	/>
-));
+function Title({
+	className,
+	...props
+}: ComponentProps<typeof SheetPrimitive.Title>) {
+	return (
+		<SheetPrimitive.Title
+			//
+			className={cx(
+				"text-strong flex-1 truncate text-lg font-medium",
+				className,
+			)}
+			{...props}
+		/>
+	);
+}
 Title.displayName = SheetPrimitive.Title.displayName;
 
 /**
@@ -682,18 +687,16 @@ Title.displayName = SheetPrimitive.Title.displayName;
  * </Sheet.Root>
  * ```
  */
-const TitleGroup = forwardRef<
-	ComponentRef<"div">,
-	HTMLAttributes<HTMLDivElement>
->(({ children, className, ...props }, ref) => (
-	<div
-		className={cx("flex items-center justify-between gap-2", className)}
-		{...props}
-		ref={ref}
-	>
-		{children}
-	</div>
-));
+function TitleGroup({ children, className, ...props }: ComponentProps<"div">) {
+	return (
+		<div
+			className={cx("flex items-center justify-between gap-2", className)}
+			{...props}
+		>
+			{children}
+		</div>
+	);
+}
 TitleGroup.displayName = "SheetTitleGroup";
 
 /**
@@ -744,16 +747,18 @@ TitleGroup.displayName = "SheetTitleGroup";
  * </Sheet.Root>
  * ```
  */
-const Description = forwardRef<
-	ComponentRef<typeof SheetPrimitive.Description>,
-	ComponentPropsWithoutRef<typeof SheetPrimitive.Description>
->(({ className, ...props }, ref) => (
-	<SheetPrimitive.Description
-		ref={ref}
-		className={cx("text-body text-sm", className)}
-		{...props}
-	/>
-));
+function Description({
+	className,
+	...props
+}: ComponentProps<typeof SheetPrimitive.Description>) {
+	return (
+		<SheetPrimitive.Description
+			//
+			className={cx("text-body text-sm", className)}
+			{...props}
+		/>
+	);
+}
 Description.displayName = SheetPrimitive.Description.displayName;
 
 /**
@@ -804,17 +809,17 @@ Description.displayName = SheetPrimitive.Description.displayName;
  * </Sheet.Root>
  * ```
  */
-const Actions = forwardRef<ComponentRef<"div">, HTMLAttributes<HTMLDivElement>>(
-	({ children, className, ...props }, ref) => (
+function Actions({ children, className, ...props }: ComponentProps<"div">) {
+	return (
 		<div
+			//
 			className={cx("flex h-full items-center gap-2", className)}
 			{...props}
-			ref={ref}
 		>
 			{children}
 		</div>
-	),
-);
+	);
+}
 Actions.displayName = "SheetActions";
 
 /**

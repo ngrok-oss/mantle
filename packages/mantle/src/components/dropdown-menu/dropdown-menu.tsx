@@ -1,8 +1,7 @@
 import { CaretRightIcon } from "@phosphor-icons/react/CaretRight";
 import { CheckIcon } from "@phosphor-icons/react/Check";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
-import type { ComponentPropsWithoutRef, ComponentRef } from "react";
-import { forwardRef } from "react";
+import type { ComponentProps } from "react";
 import { cx } from "../../utils/cx/cx.js";
 import { Icon } from "../icon/icon.js";
 import { Separator } from "../separator/separator.js";
@@ -29,7 +28,7 @@ import { Separator } from "../separator/separator.js";
  * ```
  */
 const Root = DropdownMenuPrimitive.Root;
-Root.displayName = "DropdownMenu";
+Root.displayName = "DropdownMenuRoot";
 
 /**
  * The trigger button that opens the dropdown menu.
@@ -73,29 +72,32 @@ RadioGroup.displayName = "DropdownMenuRadioGroup";
  *
  * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-sub-trigger
  */
-const SubTrigger = forwardRef<
-	ComponentRef<typeof DropdownMenuPrimitive.SubTrigger>,
-	ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubTrigger> & {
-		inset?: boolean;
-	}
->(({ className, inset, children, ...props }, ref) => (
-	<DropdownMenuPrimitive.SubTrigger
-		className={cx(
-			"focus:bg-accent data-state-open:bg-accent relative flex select-none items-center rounded py-1.5 pl-2 pr-9 text-sm outline-hidden",
-			"data-highlighted:bg-popover-hover data-state-open:bg-popover-hover",
-			"[&>svg]:size-5 [&_svg]:shrink-0",
-			inset && "pl-8",
-			className,
-		)}
-		ref={ref}
-		{...props}
-	>
-		{children}
-		<span className="absolute right-2 flex items-center">
-			<Icon svg={<CaretRightIcon weight="bold" />} className="size-4" />
-		</span>
-	</DropdownMenuPrimitive.SubTrigger>
-));
+function SubTrigger({
+	className,
+	inset,
+	children,
+	...props
+}: ComponentProps<typeof DropdownMenuPrimitive.SubTrigger> & {
+	inset?: boolean;
+}) {
+	return (
+		<DropdownMenuPrimitive.SubTrigger
+			className={cx(
+				"focus:bg-accent data-state-open:bg-accent relative flex select-none items-center rounded py-1.5 pl-2 pr-9 text-sm outline-hidden",
+				"data-highlighted:bg-popover-hover data-state-open:bg-popover-hover",
+				"[&>svg]:size-5 [&_svg]:shrink-0",
+				inset && "pl-8",
+				className,
+			)}
+			{...props}
+		>
+			{children}
+			<span className="absolute right-2 flex items-center">
+				<Icon svg={<CaretRightIcon weight="bold" />} className="size-4" />
+			</span>
+		</DropdownMenuPrimitive.SubTrigger>
+	);
+}
 SubTrigger.displayName = "DropdownMenuSubTrigger";
 
 /**
@@ -103,27 +105,29 @@ SubTrigger.displayName = "DropdownMenuSubTrigger";
  *
  * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-sub-content
  */
-const SubContent = forwardRef<
-	ComponentRef<typeof DropdownMenuPrimitive.SubContent>,
-	ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubContent>
->(({ className, loop = true, ...props }, ref) => (
-	<Portal>
-		<DropdownMenuPrimitive.SubContent
-			className={cx(
-				"scrollbar",
-				"text-popover-foreground border-popover bg-popover p-1.25 data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 data-state-open:animate-in data-state-open:fade-in-0 data-state-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 min-w-[8rem] overflow-hidden rounded-md border shadow-xl",
-				"my-2 max-h-[calc(var(--radix-dropdown-menu-content-available-height)_-_16px)] overflow-auto",
-				className,
-			)}
-			loop={loop}
-			ref={ref}
-			{...props}
-		/>
-	</Portal>
-));
+function SubContent({
+	className,
+	loop = true,
+	...props
+}: ComponentProps<typeof DropdownMenuPrimitive.SubContent>) {
+	return (
+		<Portal>
+			<DropdownMenuPrimitive.SubContent
+				className={cx(
+					"scrollbar",
+					"text-popover-foreground border-popover bg-popover p-1.25 data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 data-state-open:animate-in data-state-open:fade-in-0 data-state-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 min-w-[8rem] overflow-hidden rounded-md border shadow-xl",
+					"my-2 max-h-[calc(var(--radix-dropdown-menu-content-available-height)_-_16px)] overflow-auto",
+					className,
+				)}
+				loop={loop}
+				{...props}
+			/>
+		</Portal>
+	);
+}
 SubContent.displayName = "DropdownMenuSubContent";
 
-type DropdownMenuContentProps = ComponentPropsWithoutRef<
+type DropdownMenuContentProps = ComponentProps<
 	typeof DropdownMenuPrimitive.Content
 > & {
 	/**
@@ -152,34 +156,38 @@ type DropdownMenuContentProps = ComponentPropsWithoutRef<
  * </DropdownMenu.Root>
  * ```
  */
-const Content = forwardRef<
-	ComponentRef<typeof DropdownMenuPrimitive.Content>,
-	DropdownMenuContentProps
->(({ className, onClick, loop = true, width, ...props }, ref) => (
-	<Portal>
-		<DropdownMenuPrimitive.Content
-			ref={ref}
-			className={cx(
-				"scrollbar",
-				"text-popover-foreground border-popover bg-popover p-1.25 z-50 min-w-[8rem] overflow-hidden rounded-md border shadow-xl outline-hidden",
-				"data-side-bottom:slide-in-from-top-2 data-side-left:slide-in-from-right-2 data-side-right:slide-in-from-left-2 data-side-top:slide-in-from-bottom-2 data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 data-state-open:animate-in data-state-open:fade-in-0 data-state-open:zoom-in-95",
-				"my-2 max-h-[calc(var(--radix-dropdown-menu-content-available-height)_-_16px)] overflow-auto",
-				width === "trigger" && "w-[var(--radix-dropdown-menu-trigger-width)]",
-				className,
-			)}
-			loop={loop}
-			onClick={(event) => {
-				/**
-				 * Prevent the click event from propagating up to parent/containing elements
-				 * of the DropdownMenu
-				 */
-				event.stopPropagation();
-				onClick?.(event);
-			}}
-			{...props}
-		/>
-	</Portal>
-));
+function Content({
+	className,
+	onClick,
+	loop = true,
+	width,
+	...props
+}: DropdownMenuContentProps) {
+	return (
+		<Portal>
+			<DropdownMenuPrimitive.Content
+				className={cx(
+					"scrollbar",
+					"text-popover-foreground border-popover bg-popover p-1.25 z-50 min-w-[8rem] overflow-hidden rounded-md border shadow-xl outline-hidden",
+					"data-side-bottom:slide-in-from-top-2 data-side-left:slide-in-from-right-2 data-side-right:slide-in-from-left-2 data-side-top:slide-in-from-bottom-2 data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 data-state-open:animate-in data-state-open:fade-in-0 data-state-open:zoom-in-95",
+					"my-2 max-h-[calc(var(--radix-dropdown-menu-content-available-height)_-_16px)] overflow-auto",
+					width === "trigger" && "w-[var(--radix-dropdown-menu-trigger-width)]",
+					className,
+				)}
+				loop={loop}
+				onClick={(event) => {
+					/**
+					 * Prevent the click event from propagating up to parent/containing elements
+					 * of the DropdownMenu
+					 */
+					event.stopPropagation();
+					onClick?.(event);
+				}}
+				{...props}
+			/>
+		</Portal>
+	);
+}
 Content.displayName = "DropdownMenuContent";
 
 /**
@@ -202,26 +210,28 @@ Content.displayName = "DropdownMenuContent";
  * </DropdownMenu.Root>
  * ```
  */
-const Item = forwardRef<
-	ComponentRef<typeof DropdownMenuPrimitive.Item>,
-	ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Item> & {
-		inset?: boolean;
-	}
->(({ className, inset, ...props }, ref) => (
-	<DropdownMenuPrimitive.Item
-		ref={ref}
-		className={cx(
-			"relative flex cursor-pointer select-none items-center rounded px-2 py-1.5 text-sm font-normal outline-hidden transition-colors",
-			"data-highlighted:bg-popover-hover data-active-item:dark:bg-popover-hover",
-			"focus:bg-accent focus:text-accent-foreground",
-			"data-disabled:cursor-default data-disabled:opacity-50",
-			"[&>svg]:size-5 [&_svg]:shrink-0",
-			inset && "pl-8",
-			className,
-		)}
-		{...props}
-	/>
-));
+function Item({
+	className,
+	inset,
+	...props
+}: ComponentProps<typeof DropdownMenuPrimitive.Item> & {
+	inset?: boolean;
+}) {
+	return (
+		<DropdownMenuPrimitive.Item
+			className={cx(
+				"relative flex cursor-pointer select-none items-center rounded px-2 py-1.5 text-sm font-normal outline-hidden transition-colors",
+				"data-highlighted:bg-popover-hover data-active-item:dark:bg-popover-hover",
+				"focus:bg-accent focus:text-accent-foreground",
+				"data-disabled:cursor-default data-disabled:opacity-50",
+				"[&>svg]:size-5 [&_svg]:shrink-0",
+				inset && "pl-8",
+				className,
+			)}
+			{...props}
+		/>
+	);
+}
 Item.displayName = "DropdownMenuItem";
 
 /**
@@ -229,33 +239,36 @@ Item.displayName = "DropdownMenuItem";
  *
  * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-checkbox-item
  */
-const CheckboxItem = forwardRef<
-	ComponentRef<typeof DropdownMenuPrimitive.CheckboxItem>,
-	ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.CheckboxItem>
->(({ className, children, checked, ...props }, ref) => (
-	<DropdownMenuPrimitive.CheckboxItem
-		ref={ref}
-		className={cx(
-			"text-strong data-disabled:pointer-events-none data-disabled:opacity-50 relative flex cursor-pointer select-none items-center gap-2 rounded py-1.5 pl-2 pr-9 text-sm font-normal outline-hidden",
-			"data-highlighted:bg-popover-hover data-highlighted:dark:bg-popover-hover",
-			"aria-checked:!bg-filled-accent aria-checked:text-on-filled aria-checked:font-medium",
-			"[&>svg]:size-5 [&_svg]:shrink-0",
-			className,
-		)}
-		checked={checked}
-		{...props}
-	>
-		<span className="absolute right-2 flex items-center">
-			<DropdownMenuPrimitive.ItemIndicator>
-				<Icon svg={<CheckIcon weight="bold" />} className="size-4" />
-			</DropdownMenuPrimitive.ItemIndicator>
-		</span>
-		{children}
-	</DropdownMenuPrimitive.CheckboxItem>
-));
+function CheckboxItem({
+	className,
+	children,
+	checked,
+	...props
+}: ComponentProps<typeof DropdownMenuPrimitive.CheckboxItem>) {
+	return (
+		<DropdownMenuPrimitive.CheckboxItem
+			className={cx(
+				"text-strong data-disabled:pointer-events-none data-disabled:opacity-50 relative flex cursor-pointer select-none items-center gap-2 rounded py-1.5 pl-2 pr-9 text-sm font-normal outline-hidden",
+				"data-highlighted:bg-popover-hover data-highlighted:dark:bg-popover-hover",
+				"aria-checked:!bg-filled-accent aria-checked:text-on-filled aria-checked:font-medium",
+				"[&>svg]:size-5 [&_svg]:shrink-0",
+				className,
+			)}
+			checked={checked}
+			{...props}
+		>
+			<span className="absolute right-2 flex items-center">
+				<DropdownMenuPrimitive.ItemIndicator>
+					<Icon svg={<CheckIcon weight="bold" />} className="size-4" />
+				</DropdownMenuPrimitive.ItemIndicator>
+			</span>
+			{children}
+		</DropdownMenuPrimitive.CheckboxItem>
+	);
+}
 CheckboxItem.displayName = "DropdownMenuCheckboxItem";
 
-type DropdownMenuRadioItemProps = ComponentPropsWithoutRef<
+type DropdownMenuRadioItemProps = ComponentProps<
 	typeof DropdownMenuPrimitive.RadioItem
 > & {
 	name?: string;
@@ -268,8 +281,12 @@ type DropdownMenuRadioItemProps = ComponentPropsWithoutRef<
  *
  * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-radio-item
  */
-const RadioItem = forwardRef<ComponentRef<"input">, DropdownMenuRadioItemProps>(
-	({ className, children, ...props }, ref) => (
+function RadioItem({
+	className,
+	children,
+	...props
+}: DropdownMenuRadioItemProps) {
+	return (
 		<DropdownMenuPrimitive.RadioItem
 			className={cx(
 				"group/dropdown-menu-radio-item",
@@ -279,7 +296,6 @@ const RadioItem = forwardRef<ComponentRef<"input">, DropdownMenuRadioItemProps>(
 				"[&>svg]:size-5 [&_svg]:shrink-0",
 				className,
 			)}
-			ref={ref}
 			{...props}
 		>
 			<span className="absolute right-2 items-center hidden group-aria-checked/dropdown-menu-radio-item:flex">
@@ -289,8 +305,8 @@ const RadioItem = forwardRef<ComponentRef<"input">, DropdownMenuRadioItemProps>(
 			</span>
 			{children}
 		</DropdownMenuPrimitive.RadioItem>
-	),
-);
+	);
+}
 RadioItem.displayName = "DropdownMenuRadioItem";
 
 /**
@@ -298,22 +314,24 @@ RadioItem.displayName = "DropdownMenuRadioItem";
  *
  * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-label
  */
-const Label = forwardRef<
-	ComponentRef<typeof DropdownMenuPrimitive.Label>,
-	ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Label> & {
-		inset?: boolean;
-	}
->(({ className, inset, ...props }, ref) => (
-	<DropdownMenuPrimitive.Label
-		ref={ref}
-		className={cx(
-			"px-2 py-1.5 text-sm font-semibold",
-			inset && "pl-8",
-			className,
-		)}
-		{...props}
-	/>
-));
+function Label({
+	className,
+	inset,
+	...props
+}: ComponentProps<typeof DropdownMenuPrimitive.Label> & {
+	inset?: boolean;
+}) {
+	return (
+		<DropdownMenuPrimitive.Label
+			className={cx(
+				"px-2 py-1.5 text-sm font-semibold",
+				inset && "pl-8",
+				className,
+			)}
+			{...props}
+		/>
+	);
+}
 Label.displayName = "DropdownMenuLabel";
 
 /**
@@ -321,29 +339,29 @@ Label.displayName = "DropdownMenuLabel";
  *
  * @see https://mantle.ngrok.com/components/dropdown-menu#api-dropdown-menu-separator
  */
-const DropdownSeparator = forwardRef<
-	ComponentRef<typeof Separator>,
-	ComponentPropsWithoutRef<typeof Separator>
->(({ className, ...props }, ref) => (
-	<Separator
-		ref={ref}
-		className={cx("-mx-1.25 my-1 w-auto", className)}
-		{...props}
-	/>
-));
-DropdownSeparator.displayName = "DropdownMenuSeparator";
-
-const Shortcut = ({
+function DropdownSeparator({
 	className,
 	...props
-}: React.HTMLAttributes<HTMLSpanElement>) => {
+}: ComponentProps<typeof Separator>) {
+	return (
+		<Separator
+			//
+			className={cx("-mx-1.25 my-1 w-auto", className)}
+			{...props}
+		/>
+	);
+}
+DropdownSeparator.displayName = "DropdownMenuSeparator";
+
+function Shortcut({ className, ...props }: ComponentProps<"span">) {
 	return (
 		<span
+			//
 			className={cx("ml-auto text-xs tracking-widest opacity-60", className)}
 			{...props}
 		/>
 	);
-};
+}
 Shortcut.displayName = "DropdownMenuShortcut";
 
 /**

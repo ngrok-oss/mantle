@@ -1,8 +1,7 @@
-import { forwardRef } from "react";
-import type { ComponentPropsWithoutRef, ComponentRef } from "react";
+import type { ComponentProps } from "react";
 import { cx } from "../../utils/cx/cx.js";
 
-type LabelProps = ComponentPropsWithoutRef<"label"> & {
+type LabelProps = ComponentProps<"label"> & {
 	/**
 	 * If set, the label will appear disabled.
 	 */
@@ -29,18 +28,15 @@ type LabelProps = ComponentPropsWithoutRef<"label"> & {
  * </div>
  * ```
  */
-const Label = forwardRef<ComponentRef<"label">, LabelProps>(
-	(
-		{
-			"aria-disabled": _ariaDisabled,
-			children,
-			className,
-			disabled,
-			onMouseDown,
-			...props
-		},
-		ref,
-	) => (
+function Label({
+	"aria-disabled": _ariaDisabled,
+	children,
+	className,
+	disabled,
+	onMouseDown,
+	...props
+}: LabelProps) {
+	return (
 		// biome-ignore lint/a11y/noLabelWithoutControl: this is a composable label component
 		<label
 			aria-disabled={disabled ?? _ariaDisabled}
@@ -62,13 +58,12 @@ const Label = forwardRef<ComponentRef<"label">, LabelProps>(
 					event.preventDefault();
 				}
 			}}
-			ref={ref}
 			{...props}
 		>
 			{children}
 		</label>
-	),
-);
+	);
+}
 Label.displayName = "Label";
 
 export {

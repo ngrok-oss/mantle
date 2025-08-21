@@ -5,13 +5,12 @@ import { WarningIcon } from "@phosphor-icons/react/Warning";
 import { WarningDiamondIcon } from "@phosphor-icons/react/WarningDiamond";
 import clsx from "clsx";
 import type {
+	ComponentProps,
 	ComponentRef,
-	ForwardedRef,
-	InputHTMLAttributes,
-	MutableRefObject,
 	PropsWithChildren,
+	RefObject,
 } from "react";
-import { createContext, forwardRef, useContext, useRef } from "react";
+import { createContext, useContext, useRef } from "react";
 import { composeRefs } from "../../utils/compose-refs/compose-refs.js";
 import { cx } from "../../utils/cx/cx.js";
 import { Icon } from "../icon/icon.js";
@@ -27,10 +26,7 @@ type BaseProps = WithAutoComplete & WithInputType & WithValidation;
 /**
  * The props for the `Input` component.
  */
-type InputProps = Omit<
-	InputHTMLAttributes<HTMLInputElement>,
-	"autoComplete" | "type"
-> &
+type InputProps = Omit<ComponentProps<"input">, "autoComplete" | "type"> &
 	BaseProps &
 	PropsWithChildren;
 
@@ -49,40 +45,28 @@ type InputProps = Omit<
  * />
  * ```
  */
-const Input = forwardRef<HTMLInputElement, InputProps>(
-	({ children, className, ...props }, forwardedRef) => {
-		const hasChildren = Boolean(children);
-		const innerRef = useRef<ComponentRef<"input">>(null);
+function Input({ children, className, ...props }: InputProps) {
+	const hasChildren = Boolean(children);
+	const innerRef = useRef<ComponentRef<"input">>(null);
 
-		if (hasChildren) {
-			return (
-				<InputContainer
-					className={className}
-					forwardedRef={forwardedRef}
-					innerRef={innerRef}
-					{...props}
-				>
-					{children}
-				</InputContainer>
-			);
-		}
-
+	if (hasChildren) {
 		return (
-			<InputContainer
-				{...props}
-				className={className}
-				forwardedRef={forwardedRef}
-				innerRef={innerRef}
-			>
-				<InputCapture {...props} />
+			<InputContainer className={className} innerRef={innerRef} {...props}>
+				{children}
 			</InputContainer>
 		);
-	},
-);
+	}
+
+	return (
+		<InputContainer {...props} className={className} innerRef={innerRef}>
+			<InputCapture {...props} />
+		</InputContainer>
+	);
+}
 Input.displayName = "Input";
 
 type InputCaptureProps = Omit<
-	InputHTMLAttributes<HTMLInputElement>,
+	ComponentProps<"input">,
 	"autoComplete" | "type"
 > &
 	BaseProps;
@@ -101,65 +85,52 @@ type InputCaptureProps = Omit<
  * </Input>
  * ```
  */
-const InputCapture = forwardRef<HTMLInputElement, InputCaptureProps>(
-	(
-		{
-			"aria-invalid": _ariaInvalid,
-			className,
-			validation: _validation,
-			...restProps
-		},
-		ref,
-	) => {
-		const {
-			"aria-invalid": ctxAriaInvalid,
-			forwardedRef: ctxForwardedRef,
-			innerRef: ctxInnerRef,
-			validation: ctxValidation,
-			...ctx
-		} = useContext(InputContext);
+function InputCapture({
+	"aria-invalid": _ariaInvalid,
+	className,
+	validation: _validation,
+	ref,
+	...restProps
+}: InputCaptureProps) {
+	const {
+		"aria-invalid": ctxAriaInvalid,
+		ref: ctxForwardedRef,
+		innerRef: ctxInnerRef,
+		validation: ctxValidation,
+		...ctx
+	} = useContext(InputContext);
 
-		const validation = ctxValidation ?? _validation;
-		const validationValue =
-			(typeof validation === "function" ? validation() : validation) ||
-			undefined;
-		const ariaInvalid =
-			ctxAriaInvalid ?? _ariaInvalid ?? validation === "error";
-		const props = {
-			...ctx,
-			...restProps,
-			type: restProps.type ?? ctx.type ?? "text",
-		};
+	const validation = ctxValidation ?? _validation;
+	const validationValue =
+		(typeof validation === "function" ? validation() : validation) || undefined;
+	const ariaInvalid = ctxAriaInvalid ?? _ariaInvalid ?? validation === "error";
+	const props = {
+		...ctx,
+		...restProps,
+		type: restProps.type ?? ctx.type ?? "text",
+	};
 
-		return (
-			<input
-				aria-invalid={ariaInvalid}
-				data-validation={validationValue}
-				className={cx(
-					"placeholder:text-placeholder min-w-0 flex-1 bg-transparent text-left autofill:shadow-[inset_0_0_0px_1000px_var(--color-blue-50)] focus:outline-hidden",
-					className,
-				)}
-				ref={composeRefs(ref, ctxForwardedRef, ctxInnerRef)}
-				{...props}
-			/>
-		);
-	},
-);
+	return (
+		<input
+			aria-invalid={ariaInvalid}
+			data-validation={validationValue}
+			className={cx(
+				"placeholder:text-placeholder min-w-0 flex-1 bg-transparent text-left autofill:shadow-[inset_0_0_0px_1000px_var(--color-blue-50)] focus:outline-hidden",
+				className,
+			)}
+			ref={composeRefs(ref, ctxForwardedRef, ctxInnerRef)}
+			{...props}
+		/>
+	);
+}
 InputCapture.displayName = "InputCapture";
 
-type InputContextType = Omit<
-	InputHTMLAttributes<HTMLInputElement>,
-	"autoComplete" | "type"
-> &
+type InputContextType = Omit<ComponentProps<"input">, "autoComplete" | "type"> &
 	BaseProps & {
 		/**
 		 * inner ref for the input element, controlled by `Input`
 		 */
-		innerRef: MutableRefObject<HTMLInputElement | null>;
-		/**
-		 * forwarded ref to the input element, forwarded from `Input` to `InputCapture`
-		 */
-		forwardedRef?: ForwardedRef<HTMLInputElement>;
+		innerRef: RefObject<HTMLInputElement | null>;
 	};
 
 const InputContext = createContext<InputContextType>({
@@ -167,34 +138,29 @@ const InputContext = createContext<InputContextType>({
 	innerRef: { current: null },
 });
 
-type InputContainerProps = InputHTMLAttributes<HTMLInputElement> &
+type InputContainerProps = ComponentProps<"input"> &
 	BaseProps & {
 		/**
 		 * @private inner ref for the input element, controlled by `Input`
 		 */
-		innerRef: MutableRefObject<HTMLInputElement | null>;
-		/**
-		 * @private ref to the input element, forwarded from `Input` to `InputCapture`
-		 */
-		forwardedRef: ForwardedRef<HTMLInputElement>;
+		innerRef: RefObject<HTMLInputElement | null>;
 	};
 
 /**
  * The container for the input element.
  */
-const InputContainer = ({
+function InputContainer({
 	"aria-invalid": _ariaInvalid,
 	"aria-disabled": _ariaDisabled,
 	children,
 	className,
 	disabled,
-	forwardedRef,
 	innerRef,
 	style,
 	type,
 	validation: _validation,
 	...props
-}: InputContainerProps) => {
+}: InputContainerProps) {
 	const isInvalid = _ariaInvalid != null && _ariaInvalid !== "false";
 	const validation = isInvalid
 		? "error"
@@ -212,7 +178,6 @@ const InputContainer = ({
 				type,
 				validation,
 				...props,
-				forwardedRef,
 				innerRef,
 			}}
 		>
@@ -247,16 +212,25 @@ const InputContainer = ({
 			</div>
 		</InputContext.Provider>
 	);
-};
+}
 InputContainer.displayName = "InputContainer";
 
-export { Input, InputCapture };
-export type { InputProps, InputCaptureProps };
+export {
+	//,
+	Input,
+	InputCapture,
+};
 
-const ValidationFeedback = ({
+export type {
+	//,
+	InputProps,
+	InputCaptureProps,
+};
+
+function ValidationFeedback({
 	name,
 	validation,
-}: { name?: string; validation: Validation | undefined }) => {
+}: { name?: string; validation: Validation | undefined }) {
 	switch (validation) {
 		case "error":
 			return (
@@ -286,5 +260,5 @@ const ValidationFeedback = ({
 		default:
 			return null;
 	}
-};
+}
 ValidationFeedback.displayName = "ValidationFeedback";

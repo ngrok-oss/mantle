@@ -1,5 +1,5 @@
 import { Slot } from "@radix-ui/react-slot";
-import { type ComponentProps, type ComponentRef, forwardRef } from "react";
+import type { ComponentProps } from "react";
 import type { SelfClosingWithAsChild } from "../../types/as-child.js";
 import { cx } from "../../utils/cx/cx.js";
 
@@ -24,22 +24,21 @@ type Props = Exclude<ComponentProps<"div">, "children"> &
  * <Skeleton className="h-12 w-12 rounded-full" />
  * ```
  */
-const Skeleton = forwardRef<ComponentRef<"div">, Props>(
-	({ asChild = false, className, ...props }, ref) => {
-		const Component = asChild ? Slot : "div";
+function Skeleton({ asChild = false, className, ...props }: Props) {
+	const Component = asChild ? Slot : "div";
 
-		return (
-			<Component
-				className={cx(
-					"dark-high-contrast:bg-black/30 high-contrast:bg-black/30 h-4 animate-pulse rounded-md bg-gray-300/25 dark:bg-gray-950/10",
-					className,
-				)}
-				ref={ref}
-				{...props}
-			/>
-		);
-	},
-);
+	return (
+		<Component
+			//
+			className={cx(
+				"dark-high-contrast:bg-black/30 high-contrast:bg-black/30 h-4 animate-pulse rounded-md bg-gray-300/25 dark:bg-gray-950/10",
+				className,
+			)}
+			{...props}
+		/>
+	);
+}
+
 Skeleton.displayName = "Skeleton";
 
 export {
