@@ -2,6 +2,7 @@
 
 import type { ComponentProps, ComponentRef } from "react";
 import { forwardRef, useRef, useState } from "react";
+import { composeRefs } from "../../utils/compose-refs/compose-refs.js";
 import { cx } from "../../utils/cx/cx.js";
 import type { WithValidation } from "../input/types.js";
 
@@ -56,7 +57,7 @@ const TextArea = forwardRef<ComponentRef<"textarea">, Props>(
 				: _validation;
 		const ariaInvalid = _ariaInvalid ?? validation === "error";
 		const [isDragOver, setIsDragOver] = useState(false);
-		const _ref = useRef<HTMLTextAreaElement | null>(null);
+		const innerRef = useRef<ComponentRef<"textarea">>(null);
 
 		return (
 			<textarea
@@ -84,17 +85,10 @@ const TextArea = forwardRef<ComponentRef<"textarea">, Props>(
 				}}
 				onDropCapture={(event) => {
 					setIsDragOver(false);
-					_ref.current?.focus();
+					innerRef.current?.focus();
 					onDropCapture?.(event);
 				}}
-				ref={(node) => {
-					_ref.current = node;
-					if (typeof ref === "function") {
-						ref(node);
-					} else if (ref) {
-						ref.current = node;
-					}
-				}}
+				ref={composeRefs(innerRef, ref)}
 				{...props}
 			/>
 		);
