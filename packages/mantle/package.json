@@ -112,6 +112,11 @@
       "import": "./dist/badge.js",
       "types": "./dist/badge.d.ts"
     },
+    "./browser-only": {
+      "@ngrok/mantle/source": "./src/components/browser-only/index.ts",
+      "import": "./dist/browser-only.js",
+      "types": "./dist/browser-only.d.ts"
+    },
     "./button": {
       "@ngrok/mantle/source": "./src/components/button/index.ts",
       "import": "./dist/button.js",
