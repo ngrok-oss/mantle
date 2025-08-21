@@ -15,14 +15,7 @@ import { useSyncExternalStore } from "react";
  * "md"  // ≥48rem (768px)
  * "sm"  // ≥40rem (640px)
  */
-const tailwindBreakpoints = [
-	//,
-	"2xl",
-	"xl",
-	"lg",
-	"md",
-	"sm",
-] as const;
+const tailwindBreakpoints = ["2xl", "xl", "lg", "md", "sm"] as const;
 
 /**
  * A valid Tailwind CSS breakpoint identifier.
@@ -53,11 +46,7 @@ type TailwindBreakpoint = (typeof tailwindBreakpoints)[number];
  * "xl"      // ≥80rem (1280px)
  * "2xl"     // ≥96rem (1536px)
  */
-const breakpoints = [
-	//,
-	"default",
-	...tailwindBreakpoints,
-] as const;
+const breakpoints = ["default", ...tailwindBreakpoints] as const;
 
 /**
  * A valid Mantle breakpoint identifier.
@@ -80,23 +69,45 @@ type Breakpoint = (typeof breakpoints)[number];
 /**
  * React hook that returns the current breakpoint based on the viewport width.
  *
- * This hook uses a single media query subscription that efficiently tracks
- * all breakpoints and returns the largest one that currently matches.
+ * Uses a singleton subscription to a set of min-width media queries and returns
+ * the largest matching breakpoint. Designed for React 18+ with
+ * `useSyncExternalStore`.
  *
  * @returns {Breakpoint} The current breakpoint that matches the viewport width.
  *
  * @example
  * const breakpoint = useBreakpoint();
- *
  * if (breakpoint === "lg") {
  *   // Do something for large screens and above
  * }
  */
 function useBreakpoint(): Breakpoint {
 	return useSyncExternalStore(
-		subscribe,
-		getCurrentBreakpoint,
+		subscribeToBreakpointChanges,
+		getCurrentBreakpointSnapshot,
 		() => "default", // SSR fallback
+	);
+}
+
+/**
+ * React hook that returns true if the current viewport width is below the specified breakpoint.
+ *
+ * This hook uses `window.matchMedia` with a max-width media query and leverages
+ * `useSyncExternalStore` to stay compliant with React's concurrent rendering model.
+ *
+ * @param {TailwindBreakpoint} breakpoint - The breakpoint to check against (e.g., "md", "lg").
+ *
+ * @returns {boolean} `true` if the viewport width is below the breakpoint, otherwise `false`.
+ *
+ * @example
+ * // Check if viewport is below medium (768px)
+ * const isBelowMd = useIsBelowBreakpoint("md");
+ */
+function useIsBelowBreakpoint(breakpoint: TailwindBreakpoint): boolean {
+	return useSyncExternalStore(
+		createBelowBreakpointSubscribe(breakpoint),
+		createBelowBreakpointGetSnapshot(breakpoint),
+		() => false, // SSR fallback - assume desktop
 	);
 }
 
@@ -104,11 +115,13 @@ export {
 	//,
 	breakpoints,
 	useBreakpoint,
+	useIsBelowBreakpoint,
 };
 
 export type {
 	//,
 	Breakpoint,
+	TailwindBreakpoint,
 };
 
 /**
@@ -121,25 +134,146 @@ export type {
  */
 type MinWidthQuery = `(min-width: ${number}rem)`;
 
-// Breakpoint definitions with their minimum widths in rem
-const breakpointQueries = {
-	"2xl": "(min-width: 96rem)", // 1536px
-	xl: "(min-width: 80rem)", // 1280px
-	lg: "(min-width: 64rem)", // 1024px
-	md: "(min-width: 48rem)", // 768px
-	sm: "(min-width: 40rem)", // 640px
-} as const satisfies Record<TailwindBreakpoint, MinWidthQuery>;
-
 /**
- * Get the current breakpoint by checking media queries from largest to smallest
+ * A CSS media query string representing a maximum width in `rem` units.
+ *
+ * @example
+ * const query: MaxWidthQuery = "(max-width: 47.99rem)";
  *
  * @private
  */
+type MaxWidthQuery = `(max-width: ${number}rem)`;
+
+/**
+ * Precomputed min-width media query strings for each Tailwind breakpoint.
+ *
+ * Using constants avoids template string work in hot paths and ensures type
+ * safety against the `MinWidthQuery` template literal type.
+ *
+ * @remarks
+ * These are expressed in `rem`. If your CSS breakpoints are in `px`, consider
+ * aligning units to avoid JS/CSS drift when `html{font-size}` changes.
+ *
+ * @private
+ */
+const breakpointQueries = {
+	"2xl": "(min-width: 96rem)" as const,
+	xl: "(min-width: 80rem)" as const,
+	lg: "(min-width: 64rem)" as const,
+	md: "(min-width: 48rem)" as const,
+	sm: "(min-width: 40rem)" as const,
+} as const satisfies Record<TailwindBreakpoint, MinWidthQuery>;
+
+/**
+ * Precomputed max-width media query strings used by `useIsBelowBreakpoint`.
+ *
+ * The `-0.01rem` offset avoids overlap at exact boundaries.
+ *
+ * @private
+ */
+const belowBreakpointQueries = {
+	"2xl": "(max-width: 95.99rem)" as const, // 96 - 0.01
+	xl: "(max-width: 79.99rem)" as const, // 80 - 0.01
+	lg: "(max-width: 63.99rem)" as const, // 64 - 0.01
+	md: "(max-width: 47.99rem)" as const, // 48 - 0.01
+	sm: "(max-width: 39.99rem)" as const, // 40 - 0.01
+} as const satisfies Record<TailwindBreakpoint, MaxWidthQuery>;
+
+/**
+ * Lazily-initialized cache of `MediaQueryList` objects for min-width queries.
+ *
+ * Initialized on first access to remain SSR-safe (no `window` at import time).
+ *
+ * @private
+ */
+let minWidthMQLs: Record<TailwindBreakpoint, MediaQueryList> | null = null;
+
+/**
+ * Lazily-initialized cache of `MediaQueryList` objects for max-width queries.
+ *
+ * Used by `useIsBelowBreakpoint`. Also SSR-safe by lazy access.
+ *
+ * @private
+ */
+let maxWidthMQLs: Record<TailwindBreakpoint, MediaQueryList> | null = null;
+
+/**
+ * Get (and lazily create) the cached `MediaQueryList` objects for min-width queries.
+ *
+ * @returns A record of `MediaQueryList` keyed by Tailwind breakpoint.
+ * @private
+ */
+function getMinWidthMQLs(): Record<TailwindBreakpoint, MediaQueryList> {
+	if (!minWidthMQLs) {
+		minWidthMQLs = {
+			"2xl": window.matchMedia(breakpointQueries["2xl"]),
+			xl: window.matchMedia(breakpointQueries.xl),
+			lg: window.matchMedia(breakpointQueries.lg),
+			md: window.matchMedia(breakpointQueries.md),
+			sm: window.matchMedia(breakpointQueries.sm),
+		};
+	}
+	return minWidthMQLs;
+}
+
+/**
+ * Get (and lazily create) the cached `MediaQueryList` for a specific max-width breakpoint.
+ *
+ * @param breakpoint - Tailwind breakpoint identifier (e.g., "md").
+ * @returns The corresponding `MediaQueryList`.
+ * @private
+ */
+function getMaxWidthMQL(breakpoint: TailwindBreakpoint): MediaQueryList {
+	if (!maxWidthMQLs) {
+		maxWidthMQLs = {
+			"2xl": window.matchMedia(belowBreakpointQueries["2xl"]),
+			xl: window.matchMedia(belowBreakpointQueries.xl),
+			lg: window.matchMedia(belowBreakpointQueries.lg),
+			md: window.matchMedia(belowBreakpointQueries.md),
+			sm: window.matchMedia(belowBreakpointQueries.sm),
+		};
+	}
+	return maxWidthMQLs[breakpoint];
+}
+
+/**
+ * Current breakpoint value used by the singleton store backing `useBreakpoint`.
+ *
+ * Initialized to `"default"` and updated on media-query change events.
+ *
+ * @private
+ */
+let currentBreakpointValue: Breakpoint = "default";
+
+/**
+ * Set of component listeners subscribed to the singleton breakpoint store.
+ *
+ * Each listener is invoked when the current breakpoint value changes.
+ *
+ * @private
+ */
+const breakpointListeners = new Set<() => void>();
+
+/**
+ * Flag indicating whether global media-query listeners are currently attached.
+ *
+ * Prevents duplicate registrations and enables full teardown when unused.
+ *
+ * @private
+ */
+let breakpointSubscriptionActive = false;
+
+/**
+ * Compute the current breakpoint by checking cached min-width MQLs
+ * from largest to smallest.
+ *
+ * @returns {Breakpoint} The largest matching breakpoint, or `"default"`.
+ * @private
+ */
 function getCurrentBreakpoint(): Breakpoint {
-	// Check from largest to smallest breakpoint
+	const mqls = getMinWidthMQLs();
 	for (const breakpoint of tailwindBreakpoints) {
-		const query = breakpointQueries[breakpoint];
-		if (window.matchMedia(query).matches) {
+		if (mqls[breakpoint].matches) {
 			return breakpoint;
 		}
 	}
@@ -147,26 +281,133 @@ function getCurrentBreakpoint(): Breakpoint {
 }
 
 /**
- * Subscribe to breakpoint changes across all media queries.
- * Hoisted outside the hook to avoid recreating on each render.
+ * Update the current breakpoint value and notify all listeners.
+ *
+ * Uses `requestAnimationFrame` to coalesce rapid resize events and minimize
+ * re-renders during active window resizing.
  *
  * @private
  */
-function subscribe(callback: () => void) {
-	// Create a single listener that tracks all breakpoint changes
-	const mediaQueries = Object.values(breakpointQueries).map((query) =>
-		window.matchMedia(query),
-	);
+let breakpointUpdatePending = false;
+function updateCurrentBreakpoint() {
+	if (!breakpointUpdatePending) {
+		breakpointUpdatePending = true;
+		requestAnimationFrame(() => {
+			breakpointUpdatePending = false;
+			const newBreakpoint = getCurrentBreakpoint();
+			if (newBreakpoint !== currentBreakpointValue) {
+				currentBreakpointValue = newBreakpoint;
+				for (const listener of breakpointListeners) {
+					listener();
+				}
+			}
+		});
+	}
+}
 
-	// Add the same callback to all media queries
-	for (const mq of mediaQueries) {
-		mq.addEventListener("change", callback);
+/**
+ * Subscribe a component to breakpoint changes (singleton pattern).
+ *
+ * Ensures only one set of MQL listeners exists app-wide. Also reconciles the
+ * `useSyncExternalStore` initial snapshot/subscribe race by invoking the
+ * subscriber once on mount.
+ *
+ * @param callback - Listener invoked when the breakpoint value may have changed.
+ * @returns Cleanup function to unsubscribe the listener.
+ * @private
+ */
+function subscribeToBreakpointChanges(callback: () => void) {
+	breakpointListeners.add(callback);
+
+	// Attach global listeners once
+	if (!breakpointSubscriptionActive) {
+		breakpointSubscriptionActive = true;
+		const mqls = getMinWidthMQLs();
+
+		// Initialize current value synchronously
+		currentBreakpointValue = getCurrentBreakpoint();
+
+		// Attach listeners to all breakpoint MQLs
+		for (const mql of Object.values(mqls)) {
+			mql.addEventListener("change", updateCurrentBreakpoint);
+		}
 	}
 
-	// Return cleanup function
+	// Reconcile initial getSnapshot vs subscribe ordering
+	callback();
+
+	// Cleanup
 	return () => {
-		for (const mq of mediaQueries) {
-			mq.removeEventListener("change", callback);
+		breakpointListeners.delete(callback);
+
+		// Tear down global listeners when no one is listening
+		if (breakpointListeners.size === 0 && breakpointSubscriptionActive) {
+			breakpointSubscriptionActive = false;
+			const mqls = getMinWidthMQLs();
+			for (const mql of Object.values(mqls)) {
+				mql.removeEventListener("change", updateCurrentBreakpoint);
+			}
 		}
+	};
+}
+
+/**
+ * Return the current breakpoint value from the singleton store.
+ *
+ * Used as the `getSnapshot` for `useSyncExternalStore`.
+ *
+ * @returns {Breakpoint} The latest computed breakpoint.
+ * @private
+ */
+function getCurrentBreakpointSnapshot(): Breakpoint {
+	return currentBreakpointValue;
+}
+
+/**
+ * Factory to create a `subscribe` function for a specific "below" breakpoint.
+ *
+ * Uses a cached `MediaQueryList` and rAF-throttled change handler to avoid
+ * bursty updates during resize.
+ *
+ * @param breakpoint - Tailwind breakpoint identifier (e.g., "lg").
+ * @returns A `subscribe` function suitable for `useSyncExternalStore`.
+ * @private
+ */
+function createBelowBreakpointSubscribe(breakpoint: TailwindBreakpoint) {
+	return (callback: () => void) => {
+		const mediaQuery = getMaxWidthMQL(breakpoint);
+
+		// rAF throttle the change callback during active resize
+		let pending = false;
+		const onChange = () => {
+			if (!pending) {
+				pending = true;
+				requestAnimationFrame(() => {
+					pending = false;
+					callback();
+				});
+			}
+		};
+
+		mediaQuery.addEventListener("change", onChange);
+		return () => {
+			mediaQuery.removeEventListener("change", onChange);
+		};
+	};
+}
+
+/**
+ * Factory to create a `getSnapshot` function for a specific "below" breakpoint.
+ *
+ * Uses the cached `MediaQueryList` for the target breakpoint.
+ *
+ * @param breakpoint - Tailwind breakpoint identifier (e.g., "lg").
+ * @returns A function that returns `true` when the viewport is below the breakpoint.
+ * @private
+ */
+function createBelowBreakpointGetSnapshot(breakpoint: TailwindBreakpoint) {
+	return () => {
+		const mediaQuery = getMaxWidthMQL(breakpoint);
+		return mediaQuery.matches;
 	};
 }

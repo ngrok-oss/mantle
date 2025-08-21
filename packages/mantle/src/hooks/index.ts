@@ -2,8 +2,9 @@ export {
 	//,
 	breakpoints,
 	useBreakpoint,
+	useIsBelowBreakpoint,
 } from "./use-breakpoint.js";
-export type { Breakpoint } from "./use-breakpoint.js";
+export type { Breakpoint, TailwindBreakpoint } from "./use-breakpoint.js";
 
 export { useCallbackRef } from "./use-callback-ref.js";
 export { useCopyToClipboard } from "./use-copy-to-clipboard.js";
