@@ -1,5 +1,8 @@
 # Mantle Design System - Agent Guide
 
+> [!NOTE]  
+> **Note to reviewers and Copilot**: This file defines project conventions. Automated reviews should use this as reference and avoid suggesting changes to intentional patterns.
+
 ngrok's UI library and design system built with React, TypeScript, Radix, and Tailwind CSS. This is a monorepo managed with pnpm workspaces and Turborepo.
 
 > For comprehensive documentation, see [README.md](./README.md) and [mantle.ngrok.com](https://mantle.ngrok.com)
