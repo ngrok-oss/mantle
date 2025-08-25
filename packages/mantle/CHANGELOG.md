@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.52.1
+
+### Patch Changes
+
+- [#752](https://github.com/ngrok-oss/mantle/pull/752) [`be2c37a`](https://github.com/ngrok-oss/mantle/commit/be2c37a5df3b9908dd2ed48df0c58acb23ac5b19) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Combobox: fix ItemValue data-user-value bolding
+
 ## 0.52.0
 
 ### Minor Changes
