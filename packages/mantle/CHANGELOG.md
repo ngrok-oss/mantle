@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.52.2
+
+### Patch Changes
+
+- [#760](https://github.com/ngrok-oss/mantle/pull/760) [`9b8ea0b`](https://github.com/ngrok-oss/mantle/commit/9b8ea0b409420effb979f4f9a752fc3ed5d962b5) Thanks [@melanieseltzer](https://github.com/melanieseltzer)! - ProgressDonut: add `indeterminateRotationSpeed` prop to control spin speed. Fix default `animation-duration-[15s]` so it no longer overrides consumer-provided `animation-duration-*` classes.
+
 ## 0.52.1
 
 ### Patch Changes
