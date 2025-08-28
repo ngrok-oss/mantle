@@ -38,7 +38,7 @@
   },
   "pnpm": {
     "overrides": {
-      "@vitejs/plugin-react": ">=5.0.1",
+      "@vitejs/plugin-react": ">=5.0.2",
       "cookie": ">=1.0.2",
       "esbuild": ">=0.25.9",
       "vite": ">=7.1.3"
