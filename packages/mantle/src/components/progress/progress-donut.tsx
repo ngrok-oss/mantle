@@ -70,6 +70,15 @@ type Props = SvgAttributes & {
 	 * @default 0
 	 */
 	value?: ValueType | undefined;
+	/**
+	 * Controls the rotation speed of the indeterminate spinner state.
+	 *
+	 * Accepts a Tailwind `animation-duration-*` utility (e.g. `animation-duration-[2s]`).
+	 *
+	 * This prop is applied in addition to `animate-spin` to control the speed of the indeterminate spinner.
+	 * @default `animation-duration-[15s]`
+	 */
+	indeterminateRotationSpeed?: `animation-duration-${string}`;
 };
 
 /**
@@ -97,6 +106,7 @@ const Root = ({
 	max: _max = defaultMax,
 	strokeWidth: _strokeWidth = 4,
 	value: _value,
+	indeterminateRotationSpeed,
 	...props
 }: Props) => {
 	const max = isValidMaxNumber(_max) ? _max : defaultMax;
@@ -129,9 +139,18 @@ const Root = ({
 				aria-valuemax={max}
 				aria-valuemin={0}
 				aria-valuenow={valueNow}
-				className={clsx(
-					value === "indeterminate" && "animation-duration-[15s] animate-spin",
-					cx("size-6 text-gray-200 dark:text-gray-300", className),
+				className={cx(
+					"size-6 text-gray-200 dark:text-gray-300",
+					value === "indeterminate" && [
+						"animate-spin",
+						// Default duration only if consumer hasn't set one.
+						// Without this guard, both our `[15s]` and consumer overrides (e.g. `[2s]`)
+						// end up in the DOM. Since tw-animate-css utilities aren't currently deduped by
+						// tailwind-merge, whichever class Tailwind happened to emit last wins,
+						// which isn't reliable.
+						indeterminateRotationSpeed ?? "animation-duration-[15s]",
+					],
+					className,
 				)}
 				data-max={max}
 				data-min={0}
