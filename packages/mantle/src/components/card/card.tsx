@@ -41,7 +41,7 @@ const Root = forwardRef<ComponentRef<"div">, CardProps>(
 			<Component
 				ref={ref}
 				className={cx(
-					"divide-card-muted border-card bg-card relative divide-y rounded-md border",
+					"border-card bg-card relative rounded-md border",
 					className,
 				)}
 				{...rest}
@@ -84,7 +84,14 @@ const Body = forwardRef<ComponentRef<"div">, CardProps>(
 		const Component = asChild ? Slot : "div";
 
 		return (
-			<Component ref={ref} className={cx("p-6", className)} {...rest}>
+			<Component
+				ref={ref}
+				className={cx(
+					"p-6 border-t border-card-muted first:border-t-0",
+					className,
+				)}
+				{...rest}
+			>
 				{children}
 			</Component>
 		);
@@ -117,7 +124,14 @@ const Footer = forwardRef<ComponentRef<"div">, CardProps>(
 		const Component = asChild ? Slot : "div";
 
 		return (
-			<Component ref={ref} className={cx("px-6 py-3", className)} {...rest}>
+			<Component
+				ref={ref}
+				className={cx(
+					"px-6 py-3 border-t border-card-muted first:border-t-0",
+					className,
+				)}
+				{...rest}
+			>
 				{children}
 			</Component>
 		);
@@ -150,7 +164,14 @@ const Header = forwardRef<ComponentRef<"div">, CardProps>(
 		const Component = asChild ? Slot : "div";
 
 		return (
-			<Component ref={ref} className={cx("px-6 py-3", className)} {...rest}>
+			<Component
+				ref={ref}
+				className={cx(
+					"px-6 py-3 border-t border-card-muted first:border-t-0",
+					className,
+				)}
+				{...rest}
+			>
 				{children}
 			</Component>
 		);
