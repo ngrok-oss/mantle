@@ -17,6 +17,8 @@ export default defineConfig({
 		tsconfigPaths(),
 	],
 	resolve: {
+		// Ensure Mantle components resolve to source in dev mode (not dist)
+		// so client HMR picks up changes immediately
 		conditions: ["@ngrok/mantle/source"],
 	},
 	server: {
@@ -32,5 +34,11 @@ export default defineConfig({
 			// https://github.com/phosphor-icons/react/issues/45#issuecomment-2721119452
 			"@phosphor-icons/react",
 		],
+		resolve: {
+			// Same as above, but for the SSR renderer.
+			// Without this, the server falls back to dist and causes hydration mismatches
+			// (className warnings, missing styles, etc.) on hard refresh.
+			conditions: ["@ngrok/mantle/source"],
+		},
 	},
 });
