@@ -305,6 +305,21 @@ export default function Page() {
 					</header>
 					<PropsTable>
 						<PropRow>
+							<PropNameCell name="indeterminateRotationSpeed" optional />
+							<PropTypeCell>
+								<Code>`animation-duration-$&#123;string&#125;`</Code>
+							</PropTypeCell>
+							<PropDefaultValueCell>
+								<StringPropType value="animation-duration-[15s]" />
+							</PropDefaultValueCell>
+							<PropDescriptionCell>
+								<p>
+									Controls the rotation speed of the indeterminate spinner
+									state, as a Tailwind <Code>animation-duration-*</Code> class.
+								</p>
+							</PropDescriptionCell>
+						</PropRow>
+						<PropRow>
 							<PropNameCell name="max" optional />
 							<PropTypeCell>
 								<NumberPropType />
@@ -369,21 +384,6 @@ export default function Page() {
 								<p>
 									If set to <Code>"indeterminate"</Code>, the progress bar is
 									considered <strong>indeterminate</strong>.
-								</p>
-							</PropDescriptionCell>
-						</PropRow>
-						<PropRow>
-							<PropNameCell name="indeterminateRotationSpeed" optional />
-							<PropTypeCell>
-								<Code>`animation-duration-$&#123;string&#125;`</Code>
-							</PropTypeCell>
-							<PropDefaultValueCell>
-								<StringPropType value="animation-duration-[15s]" />
-							</PropDefaultValueCell>
-							<PropDescriptionCell>
-								<p>
-									Controls the rotation speed of the indeterminate spinner
-									state, as a Tailwind <Code>animation-duration-*</Code> class.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
