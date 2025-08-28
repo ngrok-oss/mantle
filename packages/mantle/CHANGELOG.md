@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.52.3
+
+### Patch Changes
+
+- [#763](https://github.com/ngrok-oss/mantle/pull/763) [`fe24bbb`](https://github.com/ngrok-oss/mantle/commit/fe24bbbfb36d9b325b7b92d1a29d53c7ab73cb5b) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Card: fix how we render borders between Card.Header, Card.Body, and Card.Footer
+
 ## 0.52.2
 
 ### Patch Changes
