@@ -90,7 +90,7 @@ export default function Page() {
 								<div className="grid w-6 place-items-center">
 									<ProgressDonut.Root
 										className="size-4"
-										value="indeterminate"
+										value={25}
 										strokeWidth="0.1875rem"
 									>
 										<ProgressDonut.Indicator />
@@ -157,11 +157,23 @@ export default function Page() {
 					<Code>"indeterminate"</Code> to show the progress bar in an
 					indeterminate state.
 				</p>
+				<p className="font-body text-body">
+					You can control the rotation speed with the{" "}
+					<Code>indeterminateRotationSpeed</Code> prop.
+				</p>
 				<div>
-					<Example>
+					<Example className="flex-col gap-6">
 						<ProgressDonut.Root
 							className="size-10"
 							value="indeterminate"
+							strokeWidth="0.375rem"
+						>
+							<ProgressDonut.Indicator />
+						</ProgressDonut.Root>
+						<ProgressDonut.Root
+							className="size-10"
+							value="indeterminate"
+							indeterminateRotationSpeed="animation-duration-[2s]"
 							strokeWidth="0.375rem"
 						>
 							<ProgressDonut.Indicator />
@@ -176,6 +188,15 @@ export default function Page() {
 									import { ProgressDonut } from "@ngrok/mantle/progress";
 
 									<ProgressDonut.Root className="size-10" value="indeterminate" strokeWidth="0.375rem">
+										<ProgressDonut.Indicator />
+									</ProgressDonut.Root>
+
+									<ProgressDonut.Root
+										className="size-10"
+										value="indeterminate"
+										indeterminateRotationSpeed="animation-duration-[2s]"
+										strokeWidth="0.375rem"
+									>
 										<ProgressDonut.Indicator />
 									</ProgressDonut.Root>
 								`}
