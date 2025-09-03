@@ -5,7 +5,6 @@ import { WarningDiamondIcon } from "@phosphor-icons/react/WarningDiamond";
 import { XIcon } from "@phosphor-icons/react/X";
 import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
-import clsx from "clsx";
 import type {
 	ComponentProps,
 	ComponentRef,
@@ -143,7 +142,7 @@ const Root = forwardRef<ComponentRef<"div">, AlertProps>(
 			<AlertContext.Provider value={context}>
 				<div
 					ref={ref}
-					className={clsx(alertVariants({ appearance, priority }), className)}
+					className={cx(alertVariants({ appearance, priority }), className)}
 					{...props}
 				/>
 			</AlertContext.Provider>

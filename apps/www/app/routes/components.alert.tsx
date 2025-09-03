@@ -277,7 +277,8 @@ export default function Page() {
 					</header>
 
 					<p className="font-body text-body text-xl">
-						For banner-like alerts, use the <Code>appearance="banner"</Code> prop.
+						For banner-like alerts, use the <Code>appearance="banner"</Code>{" "}
+						prop.
 					</p>
 					<div>
 						<Example>
@@ -322,8 +323,8 @@ export default function Page() {
 					</div>
 					<p className="font-body text-body text-xl">
 						For alerts that need only a bottom border, you can combine the{" "}
-						<Code>appearance="banner"</Code> prop with{" "}
-						<Code>border-t-0</Code> class.
+						<Code>appearance="banner"</Code> prop with <Code>border-t-0</Code>{" "}
+						class.
 					</p>
 					<div>
 						<Example>
@@ -428,10 +429,10 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Controls the visual style of the <Code>Alert</Code>. "default" 
-									provides standard rounded corners and borders. "banner" creates 
-									a banner-style alert with no rounded corners, sticky positioning, 
-									and no left/right borders.
+									Controls the visual style of the <Code>Alert</Code>. "default"
+									provides standard rounded corners and borders. "banner"
+									creates a banner-style alert with no rounded corners, sticky
+									positioning, and no left/right borders.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
