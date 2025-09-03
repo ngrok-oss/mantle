@@ -1,5 +1,13 @@
 # @ngrok/mantle
 
+## 0.52.4
+
+### Patch Changes
+
+- [#767](https://github.com/ngrok-oss/mantle/pull/767) [`10899b2`](https://github.com/ngrok-oss/mantle/commit/10899b27d6b3dcc49222a558af86210cf99b82dc) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update tw-animate-css
+
+- [#768](https://github.com/ngrok-oss/mantle/pull/768) [`b8cd5d3`](https://github.com/ngrok-oss/mantle/commit/b8cd5d35dcbe349c4d88d22786a4ec6dd1faeb35) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Alert: add appearance prop to support "banner" alerts
+
 ## 0.52.3
 
 ### Patch Changes
