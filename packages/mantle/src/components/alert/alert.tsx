@@ -29,6 +29,9 @@ const priorities = [
 ] as const;
 type Priority = (typeof priorities)[number];
 
+const appearances = ["banner", "default"] as const;
+type Appearance = (typeof appearances)[number];
+
 type AlertContextValue = {
 	priority: Priority;
 };
@@ -56,7 +59,40 @@ const alertVariants = cva(
 				success: "border-success-500/50 bg-success-500/10 text-success-700",
 				warning: "border-warning-500/50 bg-warning-500/10 text-warning-700",
 			} as const satisfies Record<Priority, string>,
+			/**
+			 * Controls the visual style of the Alert.
+			 * - "default" provides standard rounded corners and borders.
+			 * - "banner" creates a banner-style alert with no rounded corners, sticky positioning, and no left/right borders.
+			 *
+			 * @default "default"
+			 */
+			appearance: {
+				banner: "border-x-0 rounded-none z-50 sticky",
+				default: "",
+			} as const satisfies Record<Appearance, string>,
 		},
+		compoundVariants: [
+			{
+				priority: "danger",
+				appearance: "banner",
+				className: "", // placeholder for different bg-color (color-mix w/ bg-popover)
+			},
+			{
+				priority: "info",
+				appearance: "banner",
+				className: "", // placeholder for different bg-color (color-mix w/ bg-popover)
+			},
+			{
+				priority: "success",
+				appearance: "banner",
+				className: "", // placeholder for different bg-color (color-mix w/ bg-popover)
+			},
+			{
+				priority: "warning",
+				appearance: "banner",
+				className: "", // placeholder for different bg-color (color-mix w/ bg-popover)
+			},
+		],
 	},
 );
 
@@ -66,6 +102,14 @@ type AlertProps = ComponentProps<"div"> & {
 	 * color and styling to communicate its purpose to the user.
 	 */
 	priority: Priority;
+	/**
+	 * Controls the visual style of the Alert.
+	 * - "default" provides standard rounded corners and borders.
+	 * - "banner" creates a banner-style alert with no rounded corners, sticky positioning, and no left/right borders.
+	 *
+	 * @default "default"
+	 */
+	appearance?: Appearance;
 };
 
 /**
@@ -88,7 +132,7 @@ type AlertProps = ComponentProps<"div"> & {
  *```
  */
 const Root = forwardRef<ComponentRef<"div">, AlertProps>(
-	({ className, priority, ...props }, ref) => {
+	({ appearance = "default", className, priority, ...props }, ref) => {
 		const context: AlertContextValue = useMemo(
 			() => ({ priority }),
 			[priority],
@@ -98,7 +142,7 @@ const Root = forwardRef<ComponentRef<"div">, AlertProps>(
 			<AlertContext.Provider value={context}>
 				<div
 					ref={ref}
-					className={cx(alertVariants({ priority }), className)}
+					className={cx(alertVariants({ appearance, priority }), className)}
 					{...props}
 				/>
 			</AlertContext.Provider>

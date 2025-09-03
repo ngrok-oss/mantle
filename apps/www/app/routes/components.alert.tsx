@@ -277,13 +277,13 @@ export default function Page() {
 					</header>
 
 					<p className="font-body text-body text-xl">
-						For banner-like alerts, set <Code>rounded-none</Code> on the{" "}
-						<Code>Alert</Code> component.
+						For banner-like alerts, use the <Code>appearance="banner"</Code>{" "}
+						prop.
 					</p>
 					<div>
 						<Example>
 							<div className="border-card min-h-56 space-y-4 border">
-								<Alert.Root priority="info" className="rounded-none">
+								<Alert.Root priority="info" appearance="banner">
 									<Alert.Icon />
 									<Alert.Content>
 										<Alert.Title>
@@ -310,7 +310,7 @@ export default function Page() {
 									value={fmtCode`
 									import { Alert } from "@ngrok/mantle/alert";
 
-									<Alert.Root priority="info" className="rounded-none">
+									<Alert.Root priority="info" appearance="banner">
 										<Alert.Icon />
 										<Alert.Content>
 											<Alert.Title>This is an info Alert as a page banner</Alert.Title>
@@ -322,17 +322,17 @@ export default function Page() {
 						</CodeBlock.Root>
 					</div>
 					<p className="font-body text-body text-xl">
-						Depending on the context, you may want or need to remove all borders
-						except the bottom one. This can be achieved by adding{" "}
-						<Code>rounded-none border-x-0 border-t-0</Code> to the{" "}
-						<Code>Alert</Code> component.
+						For alerts that need only a bottom border, you can combine the{" "}
+						<Code>appearance="banner"</Code> prop with <Code>border-t-0</Code>{" "}
+						class.
 					</p>
 					<div>
 						<Example>
 							<div className="border-card min-h-56 space-y-4 border">
 								<Alert.Root
 									priority="info"
-									className="rounded-none border-x-0 border-t-0"
+									appearance="banner"
+									className="border-t-0"
 								>
 									<Alert.Icon />
 									<Alert.Content>
@@ -361,10 +361,10 @@ export default function Page() {
 									value={fmtCode`
 									import { Alert } from "@ngrok/mantle/alert";
 
-									<Alert.Root priority="info" className="rounded-none border-x-0 border-t-0">
+									<Alert.Root priority="info" appearance="banner" className="border-t-0">
 										<Alert.Icon />
 										<Alert.Content>
-											<Alert.Title>This is an info Alert as a page banner</Alert.Title>
+											<Alert.Title>This is an info Alert as a page banner with only a bottom border</Alert.Title>
 										</Alert.Content>
 									</Alert.Root>
 								`}
@@ -412,6 +412,30 @@ export default function Page() {
 					</header>
 
 					<PropsTable>
+						<PropRow>
+							<PropNameCell name="appearance" optional />
+							<PropTypeCell>
+								<ul>
+									<li>
+										<StringPropType value="default" />
+									</li>
+									<li>
+										<StringPropType value="banner" />
+									</li>
+								</ul>
+							</PropTypeCell>
+							<PropDefaultValueCell>
+								<StringPropType value="default" />
+							</PropDefaultValueCell>
+							<PropDescriptionCell>
+								<p>
+									Controls the visual style of the <Code>Alert</Code>. "default"
+									provides standard rounded corners and borders. "banner"
+									creates a banner-style alert with no rounded corners, sticky
+									positioning, and no left/right borders.
+								</p>
+							</PropDescriptionCell>
+						</PropRow>
 						<PropRow>
 							<PropNameCell name="priority" />
 							<PropTypeCell>
