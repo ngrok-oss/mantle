@@ -67,7 +67,7 @@ const alertVariants = cva(
 			 * @default "default"
 			 */
 			appearance: {
-				banner: "border-x-0 rounded-none z-50 sticky",
+				banner: "border-x-0 border-t-0 rounded-none z-50 sticky",
 				default: "",
 			} as const satisfies Record<Appearance, string>,
 		},
