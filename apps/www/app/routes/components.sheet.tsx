@@ -10,6 +10,7 @@ import { TrashSimpleIcon } from "@phosphor-icons/react/TrashSimple";
 import { useState } from "react";
 import { Link, href } from "react-router";
 import { Example } from "~/components/example";
+import { HashLinkHeading } from "~/components/hash-link-heading";
 import { PageHeader } from "~/components/page-header";
 import {
 	PropDefaultValueCell,
@@ -207,16 +208,19 @@ export default function Page() {
 
 			<section className="space-y-8">
 				<header className="space-y-4">
-					<h2 id="examples" className="text-3xl font-medium">
-						Examples
-					</h2>
+					<HashLinkHeading id="examples" className="text-3xl font-medium">
+						<h2>Examples</h2>
+					</HashLinkHeading>
 				</header>
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 className="text-xl font-medium text-strong">
-							Router or state management controlled Sheet
-						</h3>
+						<HashLinkHeading
+							id="router-or-state-management-controlled-sheet"
+							className="text-xl font-medium text-strong"
+						>
+							<h3>Router or state management controlled Sheet</h3>
+						</HashLinkHeading>
 						<p className="font-body text-body">
 							You can control when to render a Sheet with a router or via
 							outside state management. This will allow you to open and close
@@ -282,9 +286,12 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 className="text-xl font-medium text-strong">
-							Setting a preferred width of the Sheet
-						</h3>
+						<HashLinkHeading
+							id="setting-a-preferred-width-of-the-sheet"
+							className="text-xl font-medium text-strong"
+						>
+							<h3>Setting a preferred width of the Sheet</h3>
+						</HashLinkHeading>
 						<p className="font-body text-body">
 							By default, a <Code>Sheet</Code>'s content width is responsive
 							with a default <span className="italic">preferred width</span>:
@@ -388,9 +395,9 @@ export default function Page() {
 
 			<section className="space-y-8">
 				<header className="space-y-4">
-					<h2 id="api" className="text-3xl font-medium">
-						API Reference
-					</h2>
+					<HashLinkHeading id="api" className="text-3xl font-medium">
+						<h2>API Reference</h2>
+					</HashLinkHeading>
 					<p className="font-body text-body text-xl">
 						The <Code>Sheet</Code> components are built on top of{" "}
 						<Anchor
@@ -406,9 +413,12 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 id="api-sheet" className="text-xl font-medium text-strong">
-							Sheet
-						</h3>
+						<HashLinkHeading
+							id="api-sheet"
+							className="text-xl font-medium text-strong"
+						>
+							<h3>Sheet</h3>
+						</HashLinkHeading>
 
 						<p className="font-body text-body">
 							The root component for a <Code>Sheet</Code>. Should compose the{" "}
@@ -432,12 +442,12 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3
+						<HashLinkHeading
 							id="api-sheet-trigger"
 							className="text-xl font-medium text-strong"
 						>
-							SheetTrigger
-						</h3>
+							<h3>SheetTrigger</h3>
+						</HashLinkHeading>
 
 						<p className="font-body text-body">
 							The button trigger for a <Code>Sheet</Code>. Should be rendered as
@@ -461,9 +471,12 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 id="api-sheet-close" className="text-xl font-medium text-strong">
-						SheetClose
-					</h3>
+					<HashLinkHeading
+						id="api-sheet-close"
+						className="text-xl font-medium text-strong"
+					>
+						<h3>SheetClose</h3>
+					</HashLinkHeading>
 
 					<p className="font-body text-body">
 						The close button for a <Code>Sheet</Code>. Should be rendered as a
@@ -488,12 +501,12 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3
+						<HashLinkHeading
 							id="api-sheet-content"
 							className="text-xl font-medium text-strong"
 						>
-							SheetContent
-						</h3>
+							<h3>SheetContent</h3>
+						</HashLinkHeading>
 
 						<p className="font-body text-body">
 							The main container for a <Code>Sheet</Code>. Should be rendered as
@@ -570,12 +583,12 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3
+					<HashLinkHeading
 						id="api-sheet-close-icon-button"
 						className="text-xl font-medium text-strong"
 					>
-						SheetCloseIconButton
-					</h3>
+						<h3>SheetCloseIconButton</h3>
+					</HashLinkHeading>
 
 					<p className="font-body text-body">
 						An icon button that closes the <Code>Sheet</Code> when clicked.
@@ -590,9 +603,12 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 id="api-sheet-body" className="text-xl font-medium text-strong">
-						SheetBody
-					</h3>
+					<HashLinkHeading
+						id="api-sheet-body"
+						className="text-xl font-medium text-strong"
+					>
+						<h3>SheetBody</h3>
+					</HashLinkHeading>
 
 					<p className="font-body text-body">
 						The body container for a <Code>Sheet</Code>. This is where you would
@@ -614,9 +630,12 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 id="api-sheet-header" className="text-xl font-medium text-strong">
-						SheetHeader
-					</h3>
+					<HashLinkHeading
+						id="api-sheet-header"
+						className="text-xl font-medium text-strong"
+					>
+						<h3>SheetHeader</h3>
+					</HashLinkHeading>
 
 					<p className="font-body text-body">
 						The header container for a <Code>Sheet</Code>. This is where you
@@ -638,9 +657,12 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 id="api-sheet-footer" className="text-xl font-medium text-strong">
-						SheetFooter
-					</h3>
+					<HashLinkHeading
+						id="api-sheet-footer"
+						className="text-xl font-medium text-strong"
+					>
+						<h3>SheetFooter</h3>
+					</HashLinkHeading>
 
 					<p className="font-body text-body">
 						The footer container for a <Code>Sheet</Code>. This is where you
@@ -663,9 +685,12 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-4">
-					<h3 id="api-sheet-title" className="text-xl font-medium text-strong">
-						SheetTitle
-					</h3>
+					<HashLinkHeading
+						id="api-sheet-title"
+						className="text-xl font-medium text-strong"
+					>
+						<h3>SheetTitle</h3>
+					</HashLinkHeading>
 
 					<p className="font-body text-body">
 						The title for a <Code>Sheet</Code>. Typically rendered as a child of{" "}
@@ -687,12 +712,12 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-4">
-					<h3
+					<HashLinkHeading
 						id="api-sheet-title-group"
 						className="text-xl font-medium text-strong"
 					>
-						SheetTitleGroup
-					</h3>
+						<h3>SheetTitleGroup</h3>
+					</HashLinkHeading>
 
 					<p className="font-body text-body">
 						A group container for the title and actions of a <Code>Sheet</Code>.
@@ -713,12 +738,12 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-4">
-					<h3
+					<HashLinkHeading
 						id="api-sheet-description"
 						className="text-xl font-medium text-strong"
 					>
-						SheetDescription
-					</h3>
+						<h3>SheetDescription</h3>
+					</HashLinkHeading>
 
 					<p className="font-body text-body">
 						A description for a <Code>Sheet</Code>. Typically rendered as a
@@ -739,12 +764,12 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-4">
-					<h3
+					<HashLinkHeading
 						id="api-sheet-actions"
 						className="text-xl font-medium text-strong"
 					>
-						SheetActions
-					</h3>
+						<h3>SheetActions</h3>
+					</HashLinkHeading>
 
 					<p className="font-body text-body">
 						A group container for the actions of a <Code>Sheet</Code>. Typically

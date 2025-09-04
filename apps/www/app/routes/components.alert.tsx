@@ -5,6 +5,7 @@ import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { ShrimpIcon } from "@phosphor-icons/react/Shrimp";
 import { Example } from "~/components/example";
+import { HashLinkHeading } from "~/components/hash-link-heading";
 import { PageHeader } from "~/components/page-header";
 import {
 	BooleanPropType,
@@ -143,19 +144,16 @@ export default function Page() {
 
 			<section className="space-y-8">
 				<header className="space-y-4">
-					<h2 id="examples" className="text-3xl font-medium">
-						Examples
-					</h2>
+					<HashLinkHeading id="examples">
+						<h2 className="text-3xl font-medium">Examples</h2>
+					</HashLinkHeading>
 				</header>
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3
-							id="example-composition"
-							className="text-xl font-medium text-strong"
-						>
-							Composition
-						</h3>
+						<HashLinkHeading id="example-composition">
+							<h3 className="text-xl font-medium text-strong">Composition</h3>
+						</HashLinkHeading>
 					</header>
 					<p className="font-body text-body text-xl">
 						You can mix and match what you put inside the <Code>Alert</Code>{" "}
@@ -268,12 +266,9 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3
-							id="example-banners"
-							className="text-xl font-medium text-strong"
-						>
-							Banners
-						</h3>
+						<HashLinkHeading id="example-banners">
+							<h3 className="text-xl font-medium text-strong">Banners</h3>
+						</HashLinkHeading>
 					</header>
 
 					<p className="font-body text-body text-xl">
@@ -327,9 +322,9 @@ export default function Page() {
 
 			<section className="mt-16 space-y-8 font-body text-body">
 				<header className="space-y-4">
-					<h2 id="api" className="text-3xl font-medium text-strong">
-						API Reference
-					</h2>
+					<HashLinkHeading id="api">
+						<h2 className="text-3xl font-medium text-strong">API Reference</h2>
+					</HashLinkHeading>
 					<p className="font-body text-body text-xl">
 						The <Code>Alert</Code> displays a callout for user attention and is
 						composed of several sub-components.
@@ -338,10 +333,12 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 id="api-alert" className="text-xl font-medium text-strong">
-							<span id="api-alert-root" />
-							Alert
-						</h3>
+						<HashLinkHeading id="api-alert">
+							<h3 className="text-xl font-medium text-strong">
+								<span id="api-alert-root" />
+								Alert
+							</h3>
+						</HashLinkHeading>
 
 						<p className="font-body text-body">
 							Displays a callout for user attention. Root container for all{" "}
@@ -421,12 +418,9 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3
-							id="api-alert-content"
-							className="text-xl font-medium text-strong"
-						>
-							AlertContent
-						</h3>
+						<HashLinkHeading id="api-alert-content">
+							<h3 className="text-xl font-medium text-strong">AlertContent</h3>
+						</HashLinkHeading>
 						<p className="font-body text-body">
 							The container for the content slot of an <Code>Alert</Code>. Place
 							the <Code>AlertTitle</Code> and <Code>AlertDescription</Code> and{" "}
@@ -447,12 +441,11 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3
-							id="api-alert-description"
-							className="text-xl font-medium text-strong"
-						>
-							AlertDescription
-						</h3>
+						<HashLinkHeading id="api-alert-description">
+							<h3 className="text-xl font-medium text-strong">
+								AlertDescription
+							</h3>
+						</HashLinkHeading>
 						<p className="font-body text-body">
 							The optional description of an <Code>Alert</Code>. Renders as a{" "}
 							<Code>div</Code> by default, but can be changed to any other
@@ -492,9 +485,9 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 id="api-alert-icon" className="text-xl font-medium text-strong">
-							AlertIcon
-						</h3>
+						<HashLinkHeading id="api-alert-icon">
+							<h3 className="text-xl font-medium text-strong">AlertIcon</h3>
+						</HashLinkHeading>
 						<p className="font-body text-body">
 							An optional icon that visually represents the priority of the{" "}
 							<Code>Alert</Code>. The default rendered icon be overridden with a
@@ -531,12 +524,9 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3
-							id="api-alert-title"
-							className="text-xl font-medium text-strong"
-						>
-							AlertTitle
-						</h3>
+						<HashLinkHeading id="api-alert-title">
+							<h3 className="text-xl font-medium text-strong">AlertTitle</h3>
+						</HashLinkHeading>
 						<p className="font-body text-body">
 							The title of an <Code>Alert</Code>. Default renders as an{" "}
 							<Code>h5</Code> element; use <Code>asChild</Code> to render
@@ -576,12 +566,11 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3
-							id="api-alert-dismiss-icon-button"
-							className="text-xl font-medium text-strong"
-						>
-							Alert.DismissIconButton
-						</h3>
+						<HashLinkHeading id="api-alert-dismiss-icon-button">
+							<h3 className="text-xl font-medium text-strong">
+								Alert.DismissIconButton
+							</h3>
+						</HashLinkHeading>
 
 						<p className="font-body text-body">
 							A dismiss icon button that closes the alert when clicked.

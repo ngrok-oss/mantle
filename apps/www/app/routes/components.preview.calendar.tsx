@@ -7,6 +7,7 @@ import { Popover } from "@ngrok/mantle/popover";
 import { CalendarIcon } from "@phosphor-icons/react/Calendar";
 import { useState } from "react";
 import { Example } from "~/components/example";
+import { HashLinkHeading } from "~/components/hash-link-heading";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/components.preview.calendar";
 
@@ -217,9 +218,9 @@ export default function Page() {
 			</section>
 
 			<section className="space-y-4">
-				<h2 id="api" className="text-3xl font-medium">
-					API Reference
-				</h2>
+				<HashLinkHeading id="api" className="text-3xl font-medium">
+					<h2>API Reference</h2>
+				</HashLinkHeading>
 				<p className="font-body text-body text-xl">
 					The <Code>Calendar</Code> is built on top of{" "}
 					<Anchor href="https://react-day-picker.js.org/">

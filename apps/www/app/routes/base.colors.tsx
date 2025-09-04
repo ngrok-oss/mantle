@@ -2,6 +2,7 @@ import { Anchor } from "@ngrok/mantle/anchor";
 import { Code } from "@ngrok/mantle/code";
 import { cx } from "@ngrok/mantle/cx";
 import { useAppliedTheme } from "@ngrok/mantle/theme-provider";
+import { HashLinkHeading } from "~/components/hash-link-heading";
 import { HashNavLink } from "~/components/hash-nav-link";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/base.colors";
@@ -414,9 +415,9 @@ export default function Page() {
 					with dark and high contrast modes.
 				</p>
 
-				<h2 id="tailwind" className="mt-8 text-3xl font-medium">
-					Tailwind
-				</h2>
+				<HashLinkHeading id="tailwind" className="mt-8 text-3xl font-medium">
+					<h2>Tailwind</h2>
+				</HashLinkHeading>
 				<p className="font-body text-body mt-3">
 					Mantle uses Tailwind under the hood for all its CSS styling. However,
 					we differ from Tailwind when it comes to colors. Mantle provides a
@@ -428,9 +429,9 @@ export default function Page() {
 					provide dark variant classes as an override.
 				</p>
 
-				<h2 id="variables" className="mt-8 text-3xl font-medium">
-					Variables
-				</h2>
+				<HashLinkHeading id="variables" className="mt-8 text-3xl font-medium">
+					<h2>Variables</h2>
+				</HashLinkHeading>
 				<p className="font-body text-body mt-3">
 					Mantle&rsquo;s colors are delivered as CSS variables via
 					Tailwind&rsquo;s API eg. <Code>.text-blue-500</Code>. They can be
@@ -438,9 +439,12 @@ export default function Page() {
 					<Code>oklch()</Code> color space.
 				</p>
 
-				<h2 id="black-and-white" className="mt-8 text-3xl font-medium">
-					Black and White Color Variables
-				</h2>
+				<HashLinkHeading
+					id="black-and-white"
+					className="mt-8 text-3xl font-medium"
+				>
+					<h2>Black and White Color Variables</h2>
+				</HashLinkHeading>
 				<p className="font-body text-body mt-3 mb-2">
 					Mantle overrides what "black" and "white" mean depending on the theme.
 					We transformed these colors to be semantic colors instead of literal
@@ -458,9 +462,9 @@ export default function Page() {
 					</p>
 				</div>
 
-				<h2 id="overrides" className="mt-8 text-3xl font-medium">
-					Overrides
-				</h2>
+				<HashLinkHeading id="overrides" className="mt-8 text-3xl font-medium">
+					<h2>Overrides</h2>
+				</HashLinkHeading>
 				<p className="font-body text-body mt-3">
 					Most colors should appropriately swap for sensible values in dark and
 					high contrast modes. However, there are often cases where you&rsquo;ll
@@ -474,18 +478,21 @@ export default function Page() {
 					<Code>dark-high-contrast:</Code> respectively.
 				</p>
 
-				<h2 id="functional-colors" className="mt-8 text-3xl font-medium">
-					Functional Colors
-				</h2>
+				<HashLinkHeading
+					id="functional-colors"
+					className="mt-8 text-3xl font-medium"
+				>
+					<h2>Functional Colors</h2>
+				</HashLinkHeading>
 				<p className="font-body text-body mt-3">
 					Mantle generally limits its color choices to the following functional
 					colors for primary actions, and various states like danger and
 					warnings.
 				</p>
 
-				<h3 id="neutral" className="mt-8 text-xl font-medium">
-					Neutral
-				</h3>
+				<HashLinkHeading id="neutral" className="mt-8 text-xl font-medium">
+					<h3>Neutral</h3>
+				</HashLinkHeading>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
 						<div className="h-10 w-full rounded bg-neutral-950" />
@@ -533,9 +540,9 @@ export default function Page() {
 					</div>
 				</div>
 
-				<h3 id="accent" className="mt-8 text-xl font-medium">
-					Accent
-				</h3>
+				<HashLinkHeading id="accent" className="mt-8 text-xl font-medium">
+					<h3>Accent</h3>
+				</HashLinkHeading>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
 						<div className="bg-accent-950 h-10 w-full rounded" />
@@ -583,12 +590,12 @@ export default function Page() {
 					</div>
 				</div>
 
-				<h3
+				<HashLinkHeading
 					id="success"
 					className="mt-8 flex items-center gap-2 text-xl font-medium"
 				>
-					Success
-				</h3>
+					<h3>Success</h3>
+				</HashLinkHeading>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
 						<div className="bg-success-950 h-10 w-full rounded" />
@@ -636,9 +643,9 @@ export default function Page() {
 					</div>
 				</div>
 
-				<h3 id="danger" className="mt-8 text-xl font-medium">
-					Danger
-				</h3>
+				<HashLinkHeading id="danger" className="mt-8 text-xl font-medium">
+					<h3>Danger</h3>
+				</HashLinkHeading>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
 						<div className="bg-danger-950 h-10 w-full rounded" />
@@ -686,9 +693,9 @@ export default function Page() {
 					</div>
 				</div>
 
-				<h3 id="warning" className="mt-8 text-xl font-medium">
-					Warning
-				</h3>
+				<HashLinkHeading id="warning" className="mt-8 text-xl font-medium">
+					<h3>Warning</h3>
+				</HashLinkHeading>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
 						<div className="bg-warning-950 h-10 w-full rounded" />
@@ -736,9 +743,12 @@ export default function Page() {
 					</div>
 				</div>
 
-				<h2 id="extended-palette" className="mt-16 text-3xl font-medium">
-					Extended Palette
-				</h2>
+				<HashLinkHeading
+					id="extended-palette"
+					className="mt-16 text-3xl font-medium"
+				>
+					<h2>Extended Palette</h2>
+				</HashLinkHeading>
 				<p className="font-body text-body mt-3">
 					Mantle also supports the entirety of Tailwind&rsquo;s color palette in
 					light, dark, and high contrast variants. These are to be used when
@@ -747,9 +757,9 @@ export default function Page() {
 					eg. slate, zinc, etc. since we only want to use our own custom branded
 					gray.
 				</p>
-				<h3 id="gray" className="mt-8 text-xl font-medium">
-					Gray
-				</h3>
+				<HashLinkHeading id="gray" className="mt-8 text-xl font-medium">
+					<h3>Gray</h3>
+				</HashLinkHeading>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
 						<div className="h-10 w-full rounded bg-gray-950" />
@@ -796,9 +806,9 @@ export default function Page() {
 						50
 					</div>
 				</div>
-				<h3 id="red" className="mt-8 text-xl font-medium">
-					Red
-				</h3>
+				<HashLinkHeading id="red" className="mt-8 text-xl font-medium">
+					<h3>Red</h3>
+				</HashLinkHeading>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
 						<div className="h-10 w-full rounded bg-red-950" />
@@ -845,9 +855,9 @@ export default function Page() {
 						50
 					</div>
 				</div>
-				<h3 id="orange" className="mt-8 text-xl font-medium">
-					Orange
-				</h3>
+				<HashLinkHeading id="orange" className="mt-8 text-xl font-medium">
+					<h3>Orange</h3>
+				</HashLinkHeading>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
 						<div className="h-10 w-full rounded bg-orange-950" />
@@ -894,9 +904,9 @@ export default function Page() {
 						50
 					</div>
 				</div>
-				<h3 id="amber" className="mt-8 text-xl font-medium">
-					Amber
-				</h3>
+				<HashLinkHeading id="amber" className="mt-8 text-xl font-medium">
+					<h3>Amber</h3>
+				</HashLinkHeading>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
 						<div className="h-10 w-full rounded bg-amber-950" />
@@ -943,9 +953,9 @@ export default function Page() {
 						50
 					</div>
 				</div>
-				<h3 id="yellow" className="mt-8 text-xl font-medium">
-					Yellow
-				</h3>
+				<HashLinkHeading id="yellow" className="mt-8 text-xl font-medium">
+					<h3>Yellow</h3>
+				</HashLinkHeading>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
 						<div className="h-10 w-full rounded bg-yellow-950" />
@@ -992,9 +1002,9 @@ export default function Page() {
 						50
 					</div>
 				</div>
-				<h3 id="lime" className="mt-8 text-xl font-medium">
-					Lime
-				</h3>
+				<HashLinkHeading id="lime" className="mt-8 text-xl font-medium">
+					<h3>Lime</h3>
+				</HashLinkHeading>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
 						<div className="h-10 w-full rounded bg-lime-950" />
@@ -1041,12 +1051,12 @@ export default function Page() {
 						50
 					</div>
 				</div>
-				<h3
+				<HashLinkHeading
 					id="green"
 					className="mt-8 flex items-center gap-2 text-xl font-medium"
 				>
-					Green
-				</h3>
+					<h3>Green</h3>
+				</HashLinkHeading>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
 						<div className="h-10 w-full rounded bg-green-950" />
@@ -1093,9 +1103,9 @@ export default function Page() {
 						50
 					</div>
 				</div>
-				<h3 id="emerald" className="mt-8 text-xl font-medium">
-					Emerald
-				</h3>
+				<HashLinkHeading id="emerald" className="mt-8 text-xl font-medium">
+					<h3>Emerald</h3>
+				</HashLinkHeading>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
 						<div className="h-10 w-full rounded bg-emerald-950" />
@@ -1142,9 +1152,9 @@ export default function Page() {
 						50
 					</div>
 				</div>
-				<h3 id="teal" className="mt-8 text-xl font-medium">
-					Teal
-				</h3>
+				<HashLinkHeading id="teal" className="mt-8 text-xl font-medium">
+					<h3>Teal</h3>
+				</HashLinkHeading>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
 						<div className="h-10 w-full rounded bg-teal-950" />
@@ -1191,9 +1201,9 @@ export default function Page() {
 						50
 					</div>
 				</div>
-				<h3 id="cyan" className="mt-8 text-xl font-medium">
-					Cyan
-				</h3>
+				<HashLinkHeading id="cyan" className="mt-8 text-xl font-medium">
+					<h3>Cyan</h3>
+				</HashLinkHeading>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
 						<div className="h-10 w-full rounded bg-cyan-950" />
@@ -1241,9 +1251,9 @@ export default function Page() {
 					</div>
 				</div>
 
-				<h3 id="sky" className="mt-8 text-xl font-medium">
-					Sky
-				</h3>
+				<HashLinkHeading id="sky" className="mt-8 text-xl font-medium">
+					<h3>Sky</h3>
+				</HashLinkHeading>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
 						<div className="h-10 w-full rounded bg-sky-950" />
@@ -1290,9 +1300,9 @@ export default function Page() {
 						50
 					</div>
 				</div>
-				<h3 id="blue" className="mt-8 text-xl font-medium">
-					Blue
-				</h3>
+				<HashLinkHeading id="blue" className="mt-8 text-xl font-medium">
+					<h3>Blue</h3>
+				</HashLinkHeading>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
 						<div className="h-10 w-full rounded bg-blue-950" />
@@ -1340,9 +1350,9 @@ export default function Page() {
 					</div>
 				</div>
 
-				<h3 id="indigo" className="mt-8 text-xl font-medium">
-					Indigo
-				</h3>
+				<HashLinkHeading id="indigo" className="mt-8 text-xl font-medium">
+					<h3>Indigo</h3>
+				</HashLinkHeading>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
 						<div className="h-10 w-full rounded bg-indigo-950" />
@@ -1390,9 +1400,9 @@ export default function Page() {
 					</div>
 				</div>
 
-				<h3 id="violet" className="mt-8 text-xl font-medium">
-					Violet
-				</h3>
+				<HashLinkHeading id="violet" className="mt-8 text-xl font-medium">
+					<h3>Violet</h3>
+				</HashLinkHeading>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
 						<div className="h-10 w-full rounded bg-violet-950" />
@@ -1439,9 +1449,9 @@ export default function Page() {
 						50
 					</div>
 				</div>
-				<h3 id="purple" className="mt-8 text-xl font-medium">
-					Purple
-				</h3>
+				<HashLinkHeading id="purple" className="mt-8 text-xl font-medium">
+					<h3>Purple</h3>
+				</HashLinkHeading>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
 						<div className="h-10 w-full rounded bg-purple-950" />
@@ -1488,9 +1498,9 @@ export default function Page() {
 						50
 					</div>
 				</div>
-				<h3 id="fuchsia" className="mt-8 text-xl font-medium">
-					Fuchsia
-				</h3>
+				<HashLinkHeading id="fuchsia" className="mt-8 text-xl font-medium">
+					<h3>Fuchsia</h3>
+				</HashLinkHeading>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
 						<div className="h-10 w-full rounded bg-fuchsia-950" />
@@ -1538,9 +1548,9 @@ export default function Page() {
 					</div>
 				</div>
 
-				<h3 id="pink" className="mt-8 text-xl font-medium">
-					Pink
-				</h3>
+				<HashLinkHeading id="pink" className="mt-8 text-xl font-medium">
+					<h3>Pink</h3>
+				</HashLinkHeading>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
 						<div className="h-10 w-full rounded bg-pink-950" />
@@ -1587,9 +1597,9 @@ export default function Page() {
 						50
 					</div>
 				</div>
-				<h3 id="rose" className="mt-8 text-xl font-medium">
-					Rose
-				</h3>
+				<HashLinkHeading id="rose" className="mt-8 text-xl font-medium">
+					<h3>Rose</h3>
+				</HashLinkHeading>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
 					<div className="flex flex-grow flex-col gap-1 font-mono">
 						<div className="h-10 w-full rounded bg-rose-950" />

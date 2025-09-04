@@ -6,6 +6,7 @@ import { Icon } from "@ngrok/mantle/icon";
 import { CalendarIcon } from "@phosphor-icons/react/Calendar";
 import { ShrimpIcon } from "@phosphor-icons/react/Shrimp";
 import { Example } from "~/components/example";
+import { HashLinkHeading } from "~/components/hash-link-heading";
 import { PageHeader } from "~/components/page-header";
 import {
 	BooleanPropType,
@@ -115,9 +116,9 @@ export default function Page() {
 			</div>
 
 			<section className="space-y-4">
-				<h2 id="api" className="text-3xl font-medium">
-					API Reference
-				</h2>
+				<HashLinkHeading id="api">
+					<h2 className="text-3xl font-medium">API Reference</h2>
+				</HashLinkHeading>
 				<p className="font-body text-body text-xl">
 					The <Code>HoverCard</Code> component is built on top of Radix UI Hover
 					Card and provides a floating card that appears when a user hovers over
@@ -126,7 +127,9 @@ export default function Page() {
 
 				<div className="space-y-8">
 					<div>
-						<h3 className="text-xl font-medium mb-4">HoverCard.Root</h3>
+						<HashLinkHeading id="hover-card-root">
+							<h3 className="text-xl font-medium mb-4">HoverCard.Root</h3>
+						</HashLinkHeading>
 						<p className="mb-4 text-muted-foreground">
 							The root stateful component that manages the open/closed state of
 							the hover card.
@@ -208,7 +211,9 @@ export default function Page() {
 					</div>
 
 					<div>
-						<h3 className="text-xl font-medium mb-4">HoverCard.Trigger</h3>
+						<HashLinkHeading id="hover-card-trigger">
+							<h3 className="text-xl font-medium mb-4">HoverCard.Trigger</h3>
+						</HashLinkHeading>
 						<p className="mb-4 text-muted-foreground">
 							The trigger element that opens the hover card when hovered.
 						</p>
@@ -232,7 +237,9 @@ export default function Page() {
 					</div>
 
 					<div>
-						<h3 className="text-xl font-medium mb-4">HoverCard.Content</h3>
+						<HashLinkHeading id="hover-card-content">
+							<h3 className="text-xl font-medium mb-4">HoverCard.Content</h3>
+						</HashLinkHeading>
 						<p className="mb-4 text-muted-foreground">
 							The content to render inside the hover card. Appears in a portal
 							with rich styling and animations.

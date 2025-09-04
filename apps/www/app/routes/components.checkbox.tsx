@@ -7,6 +7,7 @@ import { Label } from "@ngrok/mantle/label";
 import { useForm } from "@tanstack/react-form";
 import { z } from "zod";
 import { Example } from "~/components/example";
+import { HashLinkHeading } from "~/components/hash-link-heading";
 import { PageHeader } from "~/components/page-header";
 import {
 	BooleanPropType,
@@ -155,19 +156,18 @@ export default function Page() {
 
 			<section className="space-y-8">
 				<header className="space-y-4">
-					<h2 id="examples" className="text-3xl font-medium">
-						Examples
-					</h2>
+					<HashLinkHeading id="examples">
+						<h2 className="text-3xl font-medium">Examples</h2>
+					</HashLinkHeading>
 				</header>
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3
-							id="example-client-side-form-validation"
-							className="text-xl font-medium text-strong"
-						>
-							Checkbox in a form with client-side validation
-						</h3>
+						<HashLinkHeading id="example-client-side-form-validation">
+							<h3 className="text-xl font-medium text-strong">
+								Checkbox in a form with client-side validation
+							</h3>
+						</HashLinkHeading>
 						<p className="font-body text-body">
 							In this example, the <Code>Checkbox</Code> is used in a form with
 							client-side validation. The form is built using{" "}
@@ -279,9 +279,9 @@ export default function Page() {
 			</section>
 
 			<section className="space-y-4">
-				<h2 id="api" className="text-3xl font-medium">
-					API Reference
-				</h2>
+				<HashLinkHeading id="api">
+					<h2 className="text-3xl font-medium">API Reference</h2>
+				</HashLinkHeading>
 				<p className="font-body text-body text-xl">
 					The <Code>Checkbox</Code> accepts the following props in addition to
 					the{" "}

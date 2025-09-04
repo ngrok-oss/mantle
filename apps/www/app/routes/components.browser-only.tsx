@@ -2,6 +2,7 @@ import { BrowserOnly } from "@ngrok/mantle/browser-only";
 import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { Example } from "~/components/example";
+import { HashLinkHeading } from "~/components/hash-link-heading";
 import { PageHeader } from "~/components/page-header";
 import {
 	FuncPropType,
@@ -93,9 +94,12 @@ export default function Page() {
 
 			<section className="mt-16 space-y-8 font-body text-body">
 				<header className="space-y-4">
-					<h2 id="api" className="text-3xl font-medium text-strong">
-						API Reference
-					</h2>
+					<HashLinkHeading
+						id="api"
+						className="text-3xl font-medium text-strong"
+					>
+						<h2>API Reference</h2>
+					</HashLinkHeading>
 					<p className="font-body text-body text-xl">
 						The <Code>BrowserOnly</Code> component ensures its children only
 						render in the browser, after hydration has completed. This is useful
@@ -105,12 +109,12 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3
+						<HashLinkHeading
 							id="api-browser-only"
 							className="text-xl font-medium text-strong"
 						>
-							BrowserOnly
-						</h3>
+							<h3>BrowserOnly</h3>
+						</HashLinkHeading>
 
 						<p className="font-body text-body">
 							A wrapper component that ensures its children only render in the

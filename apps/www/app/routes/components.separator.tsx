@@ -3,6 +3,7 @@ import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { HorizontalSeparatorGroup, Separator } from "@ngrok/mantle/separator";
 import { Example } from "~/components/example";
+import { HashLinkHeading } from "~/components/hash-link-heading";
 import { PageHeader } from "~/components/page-header";
 import {
 	BooleanPropType,
@@ -117,9 +118,9 @@ export default function Page() {
 			</section>
 
 			<section className="space-y-4">
-				<h2 id="composition" className="text-3xl font-medium">
-					Composition
-				</h2>
+				<HashLinkHeading id="composition" className="text-3xl font-medium">
+					<h2>Composition</h2>
+				</HashLinkHeading>
 				<p className="font-body text-body text-xl">
 					When you want to render <span className="italic">something else</span>{" "}
 					as a <Code>HorizontalSeparatorGroup</Code> or <Code>Separator</Code>,
@@ -244,16 +245,19 @@ export default function Page() {
 
 			<section className="space-y-8">
 				<header className="space-y-4">
-					<h2 id="api" className="text-3xl font-medium">
-						API Reference
-					</h2>
+					<HashLinkHeading id="api" className="text-3xl font-medium">
+						<h2>API Reference</h2>
+					</HashLinkHeading>
 				</header>
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 id="api-separator" className="text-xl font-medium text-strong">
-							Separator
-						</h3>
+						<HashLinkHeading
+							id="api-separator"
+							className="text-xl font-medium text-strong"
+						>
+							<h3>Separator</h3>
+						</HashLinkHeading>
 
 						<p className="font-body text-body">
 							Visually or semantically separates content.
@@ -337,12 +341,12 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3
+						<HashLinkHeading
 							id="api-horizontal-separator-group"
 							className="text-xl font-medium text-strong"
 						>
-							HorizontalSeparatorGroup
-						</h3>
+							<h3>HorizontalSeparatorGroup</h3>
+						</HashLinkHeading>
 
 						<p className="font-body text-body">
 							A container to layout a group of horizontal separators and other

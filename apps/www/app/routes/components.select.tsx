@@ -6,6 +6,7 @@ import { Select } from "@ngrok/mantle/select";
 import { useState } from "react";
 import { href } from "react-router";
 import { Example } from "~/components/example";
+import { HashLinkHeading } from "~/components/hash-link-heading";
 import { Link } from "~/components/link";
 import { PageHeader } from "~/components/page-header";
 import {
@@ -224,16 +225,19 @@ export default function Page() {
 
 			<section className="space-y-8">
 				<header className="space-y-4">
-					<h2 id="examples" className="text-3xl font-medium">
-						Examples
-					</h2>
+					<HashLinkHeading id="examples" className="text-3xl font-medium">
+						<h2>Examples</h2>
+					</HashLinkHeading>
 				</header>
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 className="text-xl font-medium text-strong">
-							Custom selected value
-						</h3>
+						<HashLinkHeading
+							id="custom-selected-value"
+							className="text-xl font-medium text-strong"
+						>
+							<h3>Custom selected value</h3>
+						</HashLinkHeading>
 						<p className="font-body text-body">
 							By default the selected item's text will be rendered when
 							selected. Sometimes you may need to render something different.
@@ -286,9 +290,9 @@ export default function Page() {
 
 			<section className="space-y-8">
 				<header className="space-y-4">
-					<h2 id="api" className="text-3xl font-medium">
-						API Reference
-					</h2>
+					<HashLinkHeading id="api" className="text-3xl font-medium">
+						<h2>API Reference</h2>
+					</HashLinkHeading>
 					<p className="font-body text-body text-xl">
 						The <Code>Select</Code> components are built on top of{" "}
 						<Anchor
@@ -304,9 +308,12 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 id="api-select" className="text-xl font-medium text-strong">
-							Select
-						</h3>
+						<HashLinkHeading
+							id="api-select"
+							className="text-xl font-medium text-strong"
+						>
+							<h3>Select</h3>
+						</HashLinkHeading>
 
 						<p className="font-body text-body">
 							Displays a list of options for the user to pick from—triggered by
@@ -383,12 +390,12 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3
+						<HashLinkHeading
 							id="api-select-trigger"
 							className="text-xl font-medium text-strong"
 						>
-							Select.Trigger
-						</h3>
+							<h3>Select.Trigger</h3>
+						</HashLinkHeading>
 
 						<p className="font-body text-body">
 							The button that toggles the <Code>Select</Code>. The{" "}
@@ -455,9 +462,12 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 id="api-select-value" className="text-xl font-medium text-strong">
-						Select.Value
-					</h3>
+					<HashLinkHeading
+						id="api-select-value"
+						className="text-xl font-medium text-strong"
+					>
+						<h3>Select.Value</h3>
+					</HashLinkHeading>
 
 					<p className="font-body text-body">
 						The part that reflects the selected value. By default the selected
@@ -483,12 +493,12 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3
+						<HashLinkHeading
 							id="api-select-content"
 							className="text-xl font-medium text-strong"
 						>
-							Select.Content
-						</h3>
+							<h3>Select.Content</h3>
+						</HashLinkHeading>
 
 						<p className="font-body text-body">
 							The component that pops out when the <Code>Select</Code> is open
@@ -541,9 +551,12 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 id="api-select-group" className="text-xl font-medium text-strong">
-						Select.Group
-					</h3>
+					<HashLinkHeading
+						id="api-select-group"
+						className="text-xl font-medium text-strong"
+					>
+						<h3>Select.Group</h3>
+					</HashLinkHeading>
 
 					<p className="font-body text-body">
 						A group of related options within a select menu. Similar to an html{" "}
@@ -566,12 +579,12 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3
+					<HashLinkHeading
 						id="api-select-separator"
 						className="text-xl font-medium text-strong"
 					>
-						Select.Separator
-					</h3>
+						<h3>Select.Separator</h3>
+					</HashLinkHeading>
 
 					<p className="font-body text-body">
 						Used to visually separate items in the select. Composed from{" "}
@@ -580,9 +593,12 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 id="api-select-item" className="text-xl font-medium text-strong">
-						Select.Item
-					</h3>
+					<HashLinkHeading
+						id="api-select-item"
+						className="text-xl font-medium text-strong"
+					>
+						<h3>Select.Item</h3>
+					</HashLinkHeading>
 
 					<p className="font-body text-body">
 						An option within a select menu. Similar to an html{" "}
@@ -606,9 +622,12 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3 id="api-select-label" className="text-xl font-medium text-strong">
-						Select.Label
-					</h3>
+					<HashLinkHeading
+						id="api-select-label"
+						className="text-xl font-medium text-strong"
+					>
+						<h3>Select.Label</h3>
+					</HashLinkHeading>
 
 					<p className="font-body text-body">
 						Used to render the label of a group. It won't be focusable using

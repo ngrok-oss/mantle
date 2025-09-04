@@ -3,6 +3,7 @@ import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { Table } from "@ngrok/mantle/table";
 import { Example } from "~/components/example";
+import { HashLinkHeading } from "~/components/hash-link-heading";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/components.table";
 
@@ -81,9 +82,12 @@ export default function Page() {
 
 			<section className="mt-16 space-y-8 font-body text-body">
 				<header className="space-y-4">
-					<h2 id="api" className="text-3xl font-medium text-strong">
-						API Reference
-					</h2>
+					<HashLinkHeading
+						id="api"
+						className="text-3xl font-medium text-strong"
+					>
+						<h2>API Reference</h2>
+					</HashLinkHeading>
 					<p className="font-body text-body text-xl">
 						The <Code>Table</Code> is structured way to display data in rows and
 						columns. The API matches the HTML <Code>table</Code> element 1:1. It
@@ -93,9 +97,12 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 id="api-table-root" className="text-xl font-medium text-strong">
-							Table.Root
-						</h3>
+						<HashLinkHeading
+							id="api-table-root"
+							className="text-xl font-medium text-strong"
+						>
+							<h3>Table.Root</h3>
+						</HashLinkHeading>
 
 						<div className="space-y-1 font-body text-body">
 							<p>
@@ -123,13 +130,15 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3
+						<HashLinkHeading
 							id="api-table-element"
 							className="text-xl font-medium text-strong"
 						>
-							<span id="api-table" />
-							Table.Element
-						</h3>
+							<h3>
+								<span id="api-table" />
+								Table.Element
+							</h3>
+						</HashLinkHeading>
 
 						<div className="space-y-1 font-body text-body">
 							<p>
@@ -206,9 +215,12 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 id="api-table-head" className="text-xl font-medium text-strong">
-							Table.Head
-						</h3>
+						<HashLinkHeading
+							id="api-table-head"
+							className="text-xl font-medium text-strong"
+						>
+							<h3>Table.Head</h3>
+						</HashLinkHeading>
 
 						<div className="space-y-1 font-body text-body">
 							<p>

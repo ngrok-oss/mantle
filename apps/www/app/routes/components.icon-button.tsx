@@ -7,6 +7,7 @@ import { GlobeIcon } from "@phosphor-icons/react/Globe";
 import type { PropsWithChildren } from "react";
 import { Link, href } from "react-router";
 import { Example } from "~/components/example";
+import { HashLinkHeading } from "~/components/hash-link-heading";
 import { PageHeader } from "~/components/page-header";
 import {
 	BooleanPropType,
@@ -160,9 +161,9 @@ export default function Page() {
 			</section>
 
 			<section className="space-y-4">
-				<h2 id="example-loading" className="text-3xl font-medium">
-					isLoading
-				</h2>
+				<HashLinkHeading id="example-loading">
+					<h2 className="text-3xl font-medium">isLoading</h2>
+				</HashLinkHeading>
 				<p className="font-body text-body text-xl">
 					<Code>isLoading</Code> determines whether or not the icon button is in
 					a loading state, default <Code>false</Code>. Setting{" "}
@@ -231,9 +232,9 @@ export default function Page() {
 			</section>
 
 			<section className="space-y-4">
-				<h2 id="composition" className="text-3xl font-medium">
-					Composition
-				</h2>
+				<HashLinkHeading id="composition">
+					<h2 className="text-3xl font-medium">Composition</h2>
+				</HashLinkHeading>
 				<p className="font-body text-body text-xl">
 					When you want to render <span className="italic">something else</span>{" "}
 					as a <Code>IconButton</Code>, you can use the <Code>asChild</Code>{" "}
@@ -275,9 +276,9 @@ export default function Page() {
 			</section>
 
 			<section className="space-y-4">
-				<h2 id="api" className="text-3xl font-medium">
-					API Reference
-				</h2>
+				<HashLinkHeading id="api">
+					<h2 className="text-3xl font-medium">API Reference</h2>
+				</HashLinkHeading>
 				<p className="font-body text-body text-xl">
 					The <Code>IconButton</Code> accepts the following props in addition to
 					the{" "}

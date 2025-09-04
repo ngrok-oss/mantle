@@ -196,7 +196,7 @@ export default function Page() {
 			</section>
 
 			<section className="space-y-4">
-				<HashLinkHeading id="example-icon">
+				<HashLinkHeading id="icon-and-positioning">
 					<h2 className="text-3xl font-medium">Icon and Positioning</h2>
 				</HashLinkHeading>
 				<p className="font-body text-body text-xl">
@@ -241,7 +241,7 @@ export default function Page() {
 			</section>
 
 			<section className="space-y-4">
-				<HashLinkHeading id="example-loading">
+				<HashLinkHeading id="is-loading">
 					<h2 className="text-3xl font-medium">isLoading</h2>
 				</HashLinkHeading>
 				<p className="font-body text-body text-xl">

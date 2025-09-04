@@ -3,6 +3,7 @@ import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { MediaObject } from "@ngrok/mantle/media-object";
 import { Example } from "~/components/example";
+import { HashLinkHeading } from "~/components/hash-link-heading";
 import { PageHeader } from "~/components/page-header";
 import {
 	BooleanPropType,
@@ -108,20 +109,19 @@ export default function Page() {
 
 			<section className="mt-16 space-y-8 font-body text-body">
 				<header className="space-y-4">
-					<h2 id="api" className="text-3xl font-medium text-strong">
-						API Reference
-					</h2>
+					<HashLinkHeading id="api">
+						<h2 className="text-3xl font-medium text-strong">API Reference</h2>
+					</HashLinkHeading>
 				</header>
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3
-							id="api-media-object"
-							className="text-xl font-medium text-strong"
-						>
-							<span id="api-media-object-root" />
-							MediaObject.Root
-						</h3>
+						<HashLinkHeading id="api-media-object">
+							<h3 className="text-xl font-medium text-strong">
+								<span id="api-media-object-root" />
+								MediaObject.Root
+							</h3>
+						</HashLinkHeading>
 
 						<p className="font-body text-body">
 							The <Code>MediaObject</Code> is an image/icon (media) to the left,
@@ -165,12 +165,11 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3
-							id="api-media-object-media"
-							className="text-xl font-medium text-strong"
-						>
-							MediaObject.Media
-						</h3>
+						<HashLinkHeading id="api-media-object-media">
+							<h3 className="text-xl font-medium text-strong">
+								MediaObject.Media
+							</h3>
+						</HashLinkHeading>
 
 						<p className="font-body text-body">
 							The container for an image or icon to display in the media slot of
@@ -212,12 +211,11 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3
-							id="api-media-object-content"
-							className="text-xl font-medium text-strong"
-						>
-							MediaObject.Content
-						</h3>
+						<HashLinkHeading id="api-media-object-content">
+							<h3 className="text-xl font-medium text-strong">
+								MediaObject.Content
+							</h3>
+						</HashLinkHeading>
 
 						<p className="font-body text-body">
 							The container for the content slot of a <Code>MediaObject</Code>
