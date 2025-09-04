@@ -87,7 +87,7 @@ function HashLinkHeading({ id, className, children, ...props }: Props) {
              Using a relative `to=.\#id` keeps SPA navigation semantics. */}
 					<Link
 						to={`.${hashUrl}`}
-						className="group-hover:underline cursor-pointer -ml-6 pl-6 block"
+						className="group-hover:underline cursor-pointer -ml-6 pl-6 block focus:outline-hidden focus-visible:ring-3 focus-visible:ring-focus-accent rounded"
 					>
 						{grandchildren}
 					</Link>

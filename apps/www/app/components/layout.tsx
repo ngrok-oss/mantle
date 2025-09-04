@@ -78,7 +78,7 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 
 				<Link
 					to={href("/")}
-					className="static top-auto flex sm:top-[1.4rem] md:fixed"
+					className="px-1 static top-auto flex sm:top-[1.4rem] md:fixed focus:outline-hidden focus-visible:ring-3 focus-visible:ring-focus-accent rounded"
 				>
 					<NgrokLogo />
 					<MantleLogo />
@@ -157,13 +157,13 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 			</header>
 			{showNavigation && (
 				<div className="bg-card fixed bottom-0 left-0 right-0 top-20 z-50 p-4 md:hidden">
-					<Navigation className="scrollbar h-full overflow-auto overscroll-contain" />
+					<Navigation className="scrollbar h-full overflow-auto px-1 overscroll-contain" />
 				</div>
 			)}
 			<div className="flex gap-4">
 				<div className="bottom-0 hidden w-44 md:block">
 					<div className="fixed bottom-0 top-20 w-44">
-						<Navigation className="scrollbar scroll-shadow h-full overflow-y-auto py-4" />
+						<Navigation className="scrollbar scroll-shadow h-full overflow-y-auto px-1 py-4" />
 					</div>
 				</div>
 				<article className="bg-card w-0 flex-1 p-4 shadow-2xl sm:mb-4 sm:rounded-lg md:p-9 lg:mb-9">
