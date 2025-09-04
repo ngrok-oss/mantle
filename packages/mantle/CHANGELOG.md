@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.52.5
+
+### Patch Changes
+
+- [#770](https://github.com/ngrok-oss/mantle/pull/770) [`9f55e0e`](https://github.com/ngrok-oss/mantle/commit/9f55e0ecebbb3dcaa0644a973038a758d1681acf) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Alert: when appearance="banner", also remove the top border
+
 ## 0.52.4
 
 ### Patch Changes
