@@ -278,7 +278,8 @@ export default function Page() {
 
 					<p className="font-body text-body text-xl">
 						For banner-like alerts, use the <Code>appearance="banner"</Code>{" "}
-						prop.
+						prop. This automatically removes the top, left, and right borders,
+						leaving only the bottom border.
 					</p>
 					<div>
 						<Example>
@@ -314,57 +315,6 @@ export default function Page() {
 										<Alert.Icon />
 										<Alert.Content>
 											<Alert.Title>This is an info Alert as a page banner</Alert.Title>
-										</Alert.Content>
-									</Alert.Root>
-								`}
-								/>
-							</CodeBlock.Body>
-						</CodeBlock.Root>
-					</div>
-					<p className="font-body text-body text-xl">
-						For alerts that need only a bottom border, you can combine the{" "}
-						<Code>appearance="banner"</Code> prop with <Code>border-t-0</Code>{" "}
-						class.
-					</p>
-					<div>
-						<Example>
-							<div className="border-card min-h-56 space-y-4 border">
-								<Alert.Root
-									priority="info"
-									appearance="banner"
-									className="border-t-0"
-								>
-									<Alert.Icon />
-									<Alert.Content>
-										<Alert.Title>
-											This is an info Alert as a page banner with only a bottom
-											border
-										</Alert.Title>
-									</Alert.Content>
-								</Alert.Root>
-								<div className="px-4">
-									<Card.Root className="mx-auto max-w-screen-sm">
-										<Card.Body>
-											<p className="my-4">
-												Laboris commodo Lorem anim consequat ut dolore proident.
-											</p>
-										</Card.Body>
-									</Card.Root>
-								</div>
-							</div>
-						</Example>
-						<CodeBlock.Root className="rounded-b-lg rounded-t-none">
-							<CodeBlock.Body>
-								<CodeBlock.CopyButton />
-								<CodeBlock.Code
-									language="tsx"
-									value={fmtCode`
-									import { Alert } from "@ngrok/mantle/alert";
-
-									<Alert.Root priority="info" appearance="banner" className="border-t-0">
-										<Alert.Icon />
-										<Alert.Content>
-											<Alert.Title>This is an info Alert as a page banner with only a bottom border</Alert.Title>
 										</Alert.Content>
 									</Alert.Root>
 								`}
@@ -432,7 +382,7 @@ export default function Page() {
 									Controls the visual style of the <Code>Alert</Code>. "default"
 									provides standard rounded corners and borders. "banner"
 									creates a banner-style alert with no rounded corners, sticky
-									positioning, and no left/right borders.
+									positioning, and no top, left, or right borders.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
