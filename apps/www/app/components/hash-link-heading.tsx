@@ -61,7 +61,10 @@ function HashLinkHeading({ id, className, children, ...props }: Props) {
 	 * This component expects exactly one React element child so we can clone it
 	 * and inject classes. (Common pattern when using an `asChild`-style Slot.)
 	 */
-		"HashLinkHeading must be passed a single heading element child (`h1`–`h6`).",
+	const singleChild = Children.only(children);
+	invariant(
+		isValidElement<Props>(singleChild),
+		"HashLinkHeading must be passed a single heading element child (`h1`-`h6`).",
 	);
 	const grandchildren = singleChild.props?.children;
 
