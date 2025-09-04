@@ -1,4 +1,5 @@
 import { cx } from "@ngrok/mantle/cx";
+import { useIsHydrated } from "@ngrok/mantle/hooks";
 import { Icon } from "@ngrok/mantle/icon";
 import { LinkIcon } from "@phosphor-icons/react/Link";
 import { Slot } from "@radix-ui/react-slot";
@@ -8,7 +9,7 @@ import {
 	cloneElement,
 	isValidElement,
 } from "react";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import invariant from "tiny-invariant";
 
 type Props = Omit<
@@ -46,6 +47,20 @@ type Props = Omit<
  * - The link icon is non-interactive (pointer-events disabled) and only appears on hover.
  */
 function HashLinkHeading({ id, className, children, ...props }: Props) {
+	const location = useLocation();
+	const isHydrated = useIsHydrated();
+	const hashUrl = `#${id}`;
+
+	/**
+	 * True when the page is hydrated *and* the current URL hash targets this heading.
+	 * We gate on hydration because `location.hash` is meaningless during SSR.
+	 */
+	const isTarget = isHydrated && location.hash === hashUrl;
+
+	/**
+	 * This component expects exactly one React element child so we can clone it
+	 * and inject classes. (Common pattern when using an `asChild`-style Slot.)
+	 */
 	const singleChild = Children.only(children);
 	invariant(
 		isValidElement<Props>(singleChild),
@@ -54,20 +69,34 @@ function HashLinkHeading({ id, className, children, ...props }: Props) {
 	const grandchildren = singleChild.props?.children;
 
 	return (
-		<Slot id={id} className={cx("group relative", className)} {...props}>
+		<Slot id={id} {...props}>
 			{cloneElement(
 				singleChild,
-				{},
+				{
+					className: cx(
+						className,
+						singleChild.props.className,
+						"group relative transition-colors",
+						// `:target` is unreliable for client-side route changes,
+						// so we reflect the match via `useLocation` instead.
+						isHydrated && isTarget && "text-accent-600",
+					),
+				},
 				<>
+					{/* Clickable heading text: routes to the same page with this hash.
+             Using a relative `to=.\#id` keeps SPA navigation semantics. */}
 					<Link
-						to={`.#${id}`}
+						to={`.${hashUrl}`}
 						className="group-hover:underline cursor-pointer -ml-6 pl-6 block"
 					>
 						{grandchildren}
 					</Link>
+					{/* Link icon: appears on hover to hint deep-linking without stealing focus.
+             Absolutely positioned into the left gutter; non-interactive for a11y. */}
 					<Icon
-						svg={<LinkIcon />}
+						aria-hidden
 						className="absolute -left-6 top-1/2 -translate-y-1/2 opacity-0 transition-opacity group-hover:opacity-70 pointer-events-none"
+						svg={<LinkIcon />}
 					/>
 				</>,
 			)}
