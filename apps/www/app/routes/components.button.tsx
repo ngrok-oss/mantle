@@ -7,6 +7,7 @@ import { FireIcon } from "@phosphor-icons/react/Fire";
 import type { PropsWithChildren } from "react";
 import { Link, href } from "react-router";
 import { Example } from "~/components/example";
+import { HashLinkHeading } from "~/components/hash-link-heading";
 import { PageHeader } from "~/components/page-header";
 import {
 	BooleanPropType,
@@ -195,9 +196,9 @@ export default function Page() {
 			</section>
 
 			<section className="space-y-4">
-				<h2 id="example-icon" className="text-3xl font-medium">
-					Icon and Positioning
-				</h2>
+				<HashLinkHeading id="example-icon">
+					<h2 className="text-3xl font-medium">Icon and Positioning</h2>
+				</HashLinkHeading>
 				<p className="font-body text-body text-xl">
 					Use the <Code>icon</Code> prop to add an icon to the button. By
 					default, it will render on the logical start side of the button. Use
@@ -240,9 +241,9 @@ export default function Page() {
 			</section>
 
 			<section className="space-y-4">
-				<h2 id="example-loading" className="text-3xl font-medium">
-					isLoading
-				</h2>
+				<HashLinkHeading id="example-loading">
+					<h2 className="text-3xl font-medium">isLoading</h2>
+				</HashLinkHeading>
 				<p className="font-body text-body text-xl">
 					<Code>isLoading</Code> determines whether or not the button is in a
 					loading state, default <Code>false</Code>. Setting{" "}
@@ -357,9 +358,9 @@ export default function Page() {
 			</section>
 
 			<section className="space-y-4">
-				<h2 id="composition" className="text-3xl font-medium">
-					Composition
-				</h2>
+				<HashLinkHeading id="composition">
+					<h2 className="text-3xl font-medium">Composition</h2>
+				</HashLinkHeading>
 				<p className="font-body text-body text-xl">
 					When you want to render <span className="italic">something else</span>{" "}
 					as a <Code>Button</Code>, you can use the <Code>asChild</Code> prop to
@@ -399,9 +400,9 @@ export default function Page() {
 			</section>
 
 			<section className="space-y-4">
-				<h2 id="api" className="text-3xl font-medium">
-					API Reference
-				</h2>
+				<HashLinkHeading id="api">
+					<h2 className="text-3xl font-medium">API Reference</h2>
+				</HashLinkHeading>
 				<p className="font-body text-body text-xl">
 					The <Code>Button</Code> accepts the following props in addition to the{" "}
 					<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button">
