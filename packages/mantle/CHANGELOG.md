@@ -1,5 +1,13 @@
 # @ngrok/mantle
 
+## 0.52.6
+
+### Patch Changes
+
+- [#775](https://github.com/ngrok-oss/mantle/pull/775) [`3519c45`](https://github.com/ngrok-oss/mantle/commit/3519c45582baf2d2c74daeaddece917062c392db) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - anchor: fix ring class on focus-visible
+
+- [#773](https://github.com/ngrok-oss/mantle/pull/773) [`17dcb26`](https://github.com/ngrok-oss/mantle/commit/17dcb264e1dd504c5cb78bd20ec0a32acfb7a503) Thanks [@dependabot](https://github.com/apps/dependabot)! - update tailwindcss min peer dep
+
 ## 0.52.5
 
 ### Patch Changes
