@@ -163,7 +163,7 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 			<div className="flex gap-4">
 				<div className="bottom-0 hidden w-44 md:block">
 					<div className="fixed bottom-0 top-20 w-44">
-						<Navigation className="scrollbar scroll-shadow h-full overflow-auto px-1 py-4" />
+						<Navigation className="scrollbar scroll-shadow h-full overflow-y-auto px-1 py-4" />
 					</div>
 				</div>
 				<article className="bg-card w-0 flex-1 p-4 shadow-2xl sm:mb-4 sm:rounded-lg md:p-9 lg:mb-9">
