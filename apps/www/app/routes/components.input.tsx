@@ -7,6 +7,7 @@ import { InfoIcon } from "@phosphor-icons/react/Info";
 import { MagnifyingGlassIcon } from "@phosphor-icons/react/MagnifyingGlass";
 import { Link, href } from "react-router";
 import { Example } from "~/components/example";
+import { HashLinkHeading } from "~/components/hash-link-heading";
 import { PageHeader } from "~/components/page-header";
 import {
 	BooleanPropType,
@@ -102,9 +103,9 @@ export default function Page() {
 			</section>
 
 			<section className="space-y-4">
-				<h2 id="composition" className="text-3xl font-medium">
-					Composition
-				</h2>
+				<HashLinkHeading id="composition" className="text-3xl font-medium">
+					<h2>Composition</h2>
+				</HashLinkHeading>
 				<p className="font-body text-body text-xl">
 					You can compose additional visual or functional elements within the{" "}
 					<Code>Input</Code> using <Code>children</Code>. The examples below
@@ -246,9 +247,9 @@ export default function Page() {
 			</section>
 
 			<section className="space-y-4">
-				<h2 id="api" className="text-3xl font-medium">
-					API Reference
-				</h2>
+				<HashLinkHeading id="api" className="text-3xl font-medium">
+					<h2>API Reference</h2>
+				</HashLinkHeading>
 				<p className="font-body text-body text-xl">
 					The <Code>Input</Code> accepts the following props in addition to the{" "}
 					<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input">

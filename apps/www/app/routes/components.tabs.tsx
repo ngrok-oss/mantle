@@ -9,6 +9,7 @@ import { ShieldCheckIcon } from "@phosphor-icons/react/ShieldCheck";
 import { UserIcon } from "@phosphor-icons/react/User";
 import { Link, href } from "react-router";
 import { Example } from "~/components/example";
+import { HashLinkHeading } from "~/components/hash-link-heading";
 import { PageHeader } from "~/components/page-header";
 import {
 	BooleanPropType,
@@ -305,9 +306,9 @@ export default function Page() {
 			</section>
 
 			<section className="space-y-4">
-				<h2 id="api" className="text-3xl font-medium">
-					API Reference
-				</h2>
+				<HashLinkHeading id="api" className="text-3xl font-medium">
+					<h2>API Reference</h2>
+				</HashLinkHeading>
 				<p className="font-body text-body text-xl">
 					The <Code>Tabs</Code> components accept the following props.
 				</p>

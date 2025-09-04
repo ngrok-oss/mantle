@@ -4,6 +4,7 @@ import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { ProgressBar } from "@ngrok/mantle/progress";
 import { useState } from "react";
 import { Example } from "~/components/example";
+import { HashLinkHeading } from "~/components/hash-link-heading";
 import { PageHeader } from "~/components/page-header";
 import {
 	NumberPropType,
@@ -122,9 +123,9 @@ export default function Page() {
 			</div>
 
 			<section className="space-y-4">
-				<h2 id="custom-max" className="text-3xl font-medium">
-					Custom Maximum Value
-				</h2>
+				<HashLinkHeading id="custom-max" className="text-3xl font-medium">
+					<h2>Custom Maximum Value</h2>
+				</HashLinkHeading>
 				<p className="font-body text-body">
 					You can set a custom maximum value using the <Code>max</Code> prop.
 					The progress value will be calculated as a percentage of this maximum.
@@ -154,9 +155,9 @@ export default function Page() {
 			</section>
 
 			<section className="space-y-4">
-				<h2 id="indeterminate" className="text-3xl font-medium">
-					Indeterminate Value
-				</h2>
+				<HashLinkHeading id="indeterminate" className="text-3xl font-medium">
+					<h2>Indeterminate Value</h2>
+				</HashLinkHeading>
 				<p className="font-body text-body">
 					You can set the <Code>value</Code> prop to{" "}
 					<Code>"indeterminate"</Code> to show the progress bar in an
@@ -188,9 +189,9 @@ export default function Page() {
 			</section>
 
 			<section className="space-y-4">
-				<h2 id="dynamic-colors" className="text-3xl font-medium">
-					Dynamic Colors
-				</h2>
+				<HashLinkHeading id="dynamic-colors" className="text-3xl font-medium">
+					<h2>Dynamic Colors</h2>
+				</HashLinkHeading>
 				<p className="font-body text-body">
 					The color of the <Code>ProgressBar.Indicator</Code> can be customized
 					using the <Code>className</Code> prop. This allows you to change
@@ -253,20 +254,22 @@ export default function Page() {
 
 			<section className="space-y-8">
 				<header className="space-y-4">
-					<h2 id="api" className="text-3xl font-medium">
-						API Reference
-					</h2>
+					<HashLinkHeading id="api" className="text-3xl font-medium">
+						<h2>API Reference</h2>
+					</HashLinkHeading>
 				</header>
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3
+						<HashLinkHeading
 							id="api-progress-bar-root"
 							className="text-xl font-medium text-strong"
 						>
-							<span id="api-progress-bar" />
-							ProgressBar.Root
-						</h3>
+							<h3>
+								<span id="api-progress-bar" />
+								ProgressBar.Root
+							</h3>
+						</HashLinkHeading>
 
 						<div className="font-body text-body space-y-1">
 							<p>
@@ -339,12 +342,12 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3
+						<HashLinkHeading
 							id="api-progress-bar-indicator"
 							className="text-xl font-medium text-strong"
 						>
-							ProgressBar.Indicator
-						</h3>
+							<h3>ProgressBar.Indicator</h3>
+						</HashLinkHeading>
 
 						<p className="font-body text-body">
 							The indicator portion of the progress bar that shows the completed

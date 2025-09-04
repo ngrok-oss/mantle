@@ -3,6 +3,7 @@ import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { useBreakpoint, useIsBelowBreakpoint } from "@ngrok/mantle/hooks";
 import { Table } from "@ngrok/mantle/table";
+import { HashLinkHeading } from "~/components/hash-link-heading";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/base.breakpoints";
 
@@ -37,7 +38,9 @@ export default function Page() {
 			</div>
 
 			<section className="space-y-4">
-				<h2 className="text-2xl font-semibold">Live Demo</h2>
+				<HashLinkHeading id="live-demo" className="text-2xl font-semibold">
+					<h2>Live Demo</h2>
+				</HashLinkHeading>
 				<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
 					<Card.Root>
 						<Card.Header>
@@ -75,7 +78,12 @@ export default function Page() {
 			</section>
 
 			<section className="space-y-4">
-				<h2 className="text-2xl font-semibold">Breakpoint Values</h2>
+				<HashLinkHeading
+					id="breakpoint-values"
+					className="text-2xl font-semibold"
+				>
+					<h2>Breakpoint Values</h2>
+				</HashLinkHeading>
 				<p className="font-body text-body text-lg">
 					There are six breakpoints by default, inspired by common device
 					resolutions:

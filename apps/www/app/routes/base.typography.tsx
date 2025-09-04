@@ -1,5 +1,6 @@
 import { Code } from "@ngrok/mantle/code";
 import { Table } from "@ngrok/mantle/table";
+import { HashLinkHeading } from "~/components/hash-link-heading";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/base.typography";
 
@@ -28,7 +29,9 @@ export default function Page() {
 				readability.
 			</p>
 
-			<h2 className="mt-8 text-3xl font-medium">Scale</h2>
+			<HashLinkHeading id="scale" className="mt-8">
+				<h2 className="text-3xl font-medium">Scale</h2>
+			</HashLinkHeading>
 			<p className="font-body text-body mt-3">
 				Mantle provides a general type scale for various headers throughout our
 				products. Do note that our text styling is independent of the actual
@@ -45,7 +48,9 @@ export default function Page() {
 				Heading 6
 			</h6>
 
-			<h2 className="mt-12 text-3xl font-medium">Colors</h2>
+			<HashLinkHeading id="colors" className="mt-12">
+				<h2 className="text-3xl font-medium">Colors</h2>
+			</HashLinkHeading>
 			<p className="font-body text-body mt-3">
 				When possible, it’s preferred to render text using the following tokens.
 				This helps provide heirarchy outside of font size, and makes sure our
@@ -86,7 +91,9 @@ export default function Page() {
 				</div>
 			</div>
 
-			<h2 className="mt-12 text-3xl font-medium">Fonts</h2>
+			<HashLinkHeading id="fonts" className="mt-12">
+				<h2 className="text-3xl font-medium">Fonts</h2>
+			</HashLinkHeading>
 			<p className="font-body text-body mt-3">
 				Mantle specifies Euclid as the default font for UI and headings. It
 				extends Tailwind by providing Nunito Sans as a <Code>font-body</Code>.

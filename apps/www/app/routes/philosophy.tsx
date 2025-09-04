@@ -1,6 +1,7 @@
 import { Anchor } from "@ngrok/mantle/anchor";
 import { Code } from "@ngrok/mantle/code";
 import { href } from "react-router";
+import { HashLinkHeading } from "~/components/hash-link-heading";
 import { Link } from "~/components/link";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/philosophy";
@@ -34,9 +35,9 @@ export default function PhilosophyPage() {
 
 			<div className="mt-8 space-y-8">
 				<section>
-					<h2 id="why-philosophy" className="text-3xl font-medium">
-						Why Philosophy Matters
-					</h2>
+					<HashLinkHeading id="why-philosophy" className="text-3xl font-medium">
+						<h2>Why Philosophy Matters</h2>
+					</HashLinkHeading>
 					<p className="font-body text-body mt-3">
 						A clear philosophy guides every decision in Mantle's design and
 						implementation. It ensures consistency across components, helps
@@ -53,12 +54,12 @@ export default function PhilosophyPage() {
 				</section>
 
 				<section>
-					<h2
+					<HashLinkHeading
 						id="composition-over-configuration"
 						className="text-3xl font-medium"
 					>
-						Composition Over Configuration
-					</h2>
+						<h2>Composition Over Configuration</h2>
+					</HashLinkHeading>
 					<p className="font-body text-body mt-3">
 						Mantle embraces the power of composition by building on proven
 						primitives rather than reinventing the wheel. We compose around
@@ -77,9 +78,12 @@ export default function PhilosophyPage() {
 				</section>
 
 				<section>
-					<h2 id="semantic-markup-first" className="text-3xl font-medium">
-						Semantic Markup First
-					</h2>
+					<HashLinkHeading
+						id="semantic-markup-first"
+						className="text-3xl font-medium"
+					>
+						<h2>Semantic Markup First</h2>
+					</HashLinkHeading>
 					<p className="font-body text-body mt-3">
 						Mantle starts with semantic HTML as the foundation for every
 						component. We believe that the right HTML element for the job should
@@ -105,9 +109,12 @@ export default function PhilosophyPage() {
 				</section>
 
 				<section>
-					<h2 id="progressive-enhancement" className="text-3xl font-medium">
-						Progressive Enhancement
-					</h2>
+					<HashLinkHeading
+						id="progressive-enhancement"
+						className="text-3xl font-medium"
+					>
+						<h2>Progressive Enhancement</h2>
+					</HashLinkHeading>
 					<p className="font-body text-body mt-3">
 						Mantle progressively enhances standard DOM elements, improving
 						usability and accessibility while filling functional gaps. Rather
@@ -124,9 +131,12 @@ export default function PhilosophyPage() {
 				</section>
 
 				<section>
-					<h2 id="developer-experience" className="text-3xl font-medium">
-						Developer Experience is Key
-					</h2>
+					<HashLinkHeading
+						id="developer-experience"
+						className="text-3xl font-medium"
+					>
+						<h2>Developer Experience is Key</h2>
+					</HashLinkHeading>
 					<p className="font-body text-body mt-3">
 						Mantle prioritizes developer ergonomics through strong TypeScript
 						typing, clear APIs, and comprehensive documentation. We believe that
@@ -142,9 +152,12 @@ export default function PhilosophyPage() {
 				</section>
 
 				<section>
-					<h2 id="accessibility-first" className="text-3xl font-medium">
-						Accessibility First
-					</h2>
+					<HashLinkHeading
+						id="accessibility-first"
+						className="text-3xl font-medium"
+					>
+						<h2>Accessibility First</h2>
+					</HashLinkHeading>
 					<p className="font-body text-body mt-3">
 						Accessibility isn't an afterthought in Mantle—it's built into the
 						foundation. By starting with semantic HTML and leveraging primitives
@@ -170,9 +183,12 @@ export default function PhilosophyPage() {
 				</section>
 
 				<section>
-					<h2 id="tailwind-as-design-language" className="text-3xl font-medium">
-						Tailwind as Design Language
-					</h2>
+					<HashLinkHeading
+						id="tailwind-as-design-language"
+						className="text-3xl font-medium"
+					>
+						<h2>Tailwind as Design Language</h2>
+					</HashLinkHeading>
 					<p className="font-body text-body mt-3">
 						Mantle uses{" "}
 						<Anchor href="https://tailwindcss.com">Tailwind CSS</Anchor> as both
@@ -190,12 +206,12 @@ export default function PhilosophyPage() {
 				</section>
 
 				<section>
-					<h2
+					<HashLinkHeading
 						id="type-safety-without-complexity"
 						className="text-3xl font-medium"
 					>
-						Type Safety Without Complexity
-					</h2>
+						<h2>Type Safety Without Complexity</h2>
+					</HashLinkHeading>
 					<p className="font-body text-body mt-3">
 						While Mantle is built with TypeScript, we avoid forcing developers
 						to wrestle with complex generics or internal types. Instead, we
@@ -212,9 +228,12 @@ export default function PhilosophyPage() {
 				</section>
 
 				<section>
-					<h2 id="modular-architecture" className="text-3xl font-medium">
-						Modular Architecture
-					</h2>
+					<HashLinkHeading
+						id="modular-architecture"
+						className="text-3xl font-medium"
+					>
+						<h2>Modular Architecture</h2>
+					</HashLinkHeading>
 					<p className="font-body text-body mt-3">
 						Mantle is designed with modularity in mind. Each component can be
 						imported individually, reducing bundle size and allowing teams to
@@ -231,9 +250,12 @@ export default function PhilosophyPage() {
 				</section>
 
 				<section>
-					<h2 id="performance-by-default" className="text-3xl font-medium">
-						Performance by Default
-					</h2>
+					<HashLinkHeading
+						id="performance-by-default"
+						className="text-3xl font-medium"
+					>
+						<h2>Performance by Default</h2>
+					</HashLinkHeading>
 					<p className="font-body text-body mt-3">
 						Mantle components are optimized for performance out of the box. By
 						using efficient styling approaches, minimizing re-renders, and
@@ -249,9 +271,12 @@ export default function PhilosophyPage() {
 				</section>
 
 				<section>
-					<h2 id="evolution-not-revolution" className="text-3xl font-medium">
-						Evolution, Not Revolution
-					</h2>
+					<HashLinkHeading
+						id="evolution-not-revolution"
+						className="text-3xl font-medium"
+					>
+						<h2>Evolution, Not Revolution</h2>
+					</HashLinkHeading>
 					<p className="font-body text-body mt-3">
 						Mantle is designed to evolve with ngrok's needs and the broader web
 						platform. We prefer evolutionary improvements over revolutionary
@@ -267,9 +292,12 @@ export default function PhilosophyPage() {
 				</section>
 
 				<section>
-					<h2 id="consistent-mental-models" className="text-3xl font-medium">
-						Consistent Mental Models
-					</h2>
+					<HashLinkHeading
+						id="consistent-mental-models"
+						className="text-3xl font-medium"
+					>
+						<h2>Consistent Mental Models</h2>
+					</HashLinkHeading>
 					<p className="font-body text-body mt-3">
 						Across all of Mantle's components, we maintain consistent mental
 						models and naming conventions. If you understand how one component

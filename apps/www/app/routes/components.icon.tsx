@@ -4,6 +4,7 @@ import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { Icon } from "@ngrok/mantle/icon";
 import { FireIcon } from "@phosphor-icons/react/Fire";
 import { Example } from "~/components/example";
+import { HashLinkHeading } from "~/components/hash-link-heading";
 import { PageHeader } from "~/components/page-header";
 import {
 	ObjectPropType,
@@ -72,19 +73,21 @@ export default function Page() {
 
 			<section className="space-y-8">
 				<header className="space-y-4">
-					<h2 id="examples" className="text-3xl font-medium">
-						Examples
-					</h2>
+					<HashLinkHeading id="examples" className="text-3xl font-medium">
+						<h2>Examples</h2>
+					</HashLinkHeading>
 				</header>
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3
+						<HashLinkHeading
 							id="example-class-name"
 							className="text-xl font-medium text-strong"
 						>
-							Merging <Code>className</Code>s
-						</h3>
+							<h3>
+								Merging <Code>className</Code>s
+							</h3>
+						</HashLinkHeading>
 					</header>
 					<p className="font-body text-body text-xl">
 						The <Code>Icon</Code> merges <Code>className</Code> selectors with
@@ -161,9 +164,9 @@ export default function Page() {
 			</section>
 
 			<section className="space-y-4">
-				<h2 id="api" className="text-3xl font-medium">
-					API Reference
-				</h2>
+				<HashLinkHeading id="api" className="text-3xl font-medium">
+					<h2>API Reference</h2>
+				</HashLinkHeading>
 				<p className="font-body text-body text-xl">
 					The <Code>Icon</Code> accepts the following props:
 				</p>

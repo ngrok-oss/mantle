@@ -10,6 +10,7 @@ import { XIcon } from "@phosphor-icons/react/X";
 import { useState } from "react";
 import invariant from "tiny-invariant";
 import { Example } from "~/components/example";
+import { HashLinkHeading } from "~/components/hash-link-heading";
 import { PageHeader } from "~/components/page-header";
 import {
 	BooleanPropType,
@@ -276,9 +277,9 @@ export default function Page() {
 			</div>
 
 			<section className="space-y-4">
-				<h2 id="api" className="text-3xl font-medium">
-					API Reference
-				</h2>
+				<HashLinkHeading id="api" className="text-3xl font-medium">
+					<h2>API Reference</h2>
+				</HashLinkHeading>
 
 				<div className="space-y-8">
 					<div className="space-y-4">

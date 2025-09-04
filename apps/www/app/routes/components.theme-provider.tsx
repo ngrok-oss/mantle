@@ -7,6 +7,7 @@ import {
 } from "@ngrok/mantle/theme-provider";
 import { FileTextIcon } from "@phosphor-icons/react/FileText";
 import { renderToStaticMarkup } from "react-dom/server";
+import { HashLinkHeading } from "~/components/hash-link-heading";
 import { PageHeader } from "~/components/page-header";
 import {
 	BooleanPropType,
@@ -212,15 +213,18 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 			</section>
 
 			<section className="space-y-4">
-				<h2 id="api" className="text-3xl font-medium">
-					API Reference
-				</h2>
+				<HashLinkHeading id="api" className="text-3xl font-medium">
+					<h2>API Reference</h2>
+				</HashLinkHeading>
 
 				<div className="space-y-8">
 					<div className="space-y-4">
-						<h3 id="api-theme-provider" className="text-2xl font-medium">
-							ThemeProvider
-						</h3>
+						<HashLinkHeading
+							id="api-theme-provider"
+							className="text-2xl font-medium"
+						>
+							<h3>ThemeProvider</h3>
+						</HashLinkHeading>
 						<p className="font-body text-body text-xl">
 							The <Code>ThemeProvider</Code> accepts the following props in
 							addition to the{" "}
@@ -293,12 +297,12 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 					</div>
 
 					<div className="space-y-4">
-						<h3
+						<HashLinkHeading
 							id="api-mantle-theme-head-content"
 							className="text-2xl font-medium"
 						>
-							MantleThemeHeadContent
-						</h3>
+							<h3>MantleThemeHeadContent</h3>
+						</HashLinkHeading>
 						<p className="font-body text-body text-xl">
 							The <Code>MantleThemeHeadContent</Code> component prevents Flash
 							of Unstyled Content (FOUC) and preloads fonts. It accepts the

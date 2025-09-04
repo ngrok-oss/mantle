@@ -17,6 +17,7 @@ import { PencilSimpleIcon } from "@phosphor-icons/react/PencilSimple";
 import { TrashSimpleIcon } from "@phosphor-icons/react/TrashSimple";
 import { useMemo } from "react";
 import { Example } from "~/components/example";
+import { HashLinkHeading } from "~/components/hash-link-heading";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/components.preview.data-table";
 
@@ -242,9 +243,9 @@ export default function Page() {
 				</div>
 			</div>
 			<section className="space-y-4">
-				<h2 id="api" className="text-3xl font-medium">
-					API Reference
-				</h2>
+				<HashLinkHeading id="api" className="text-3xl font-medium">
+					<h2>API Reference</h2>
+				</HashLinkHeading>
 			</section>
 		</div>
 	);

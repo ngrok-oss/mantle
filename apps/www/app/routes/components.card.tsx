@@ -3,6 +3,7 @@ import { Card } from "@ngrok/mantle/card";
 import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { Example } from "~/components/example";
+import { HashLinkHeading } from "~/components/hash-link-heading";
 import { PageHeader } from "~/components/page-header";
 import {
 	BooleanPropType,
@@ -127,9 +128,12 @@ export default function Page() {
 
 			<section className="mt-16 space-y-8 font-body text-body">
 				<header className="space-y-4">
-					<h2 id="api" className="text-3xl font-medium text-strong">
-						API Reference
-					</h2>
+					<HashLinkHeading
+						id="api"
+						className="text-3xl font-medium text-strong"
+					>
+						<h2>API Reference</h2>
+					</HashLinkHeading>
 					<p className="font-body text-body text-xl">
 						The <Code>Card</Code> is a container used to display content in a
 						box, resembling a physical card. It is composed of several
@@ -139,10 +143,15 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 id="api-card" className="text-xl font-medium text-strong">
-							<span id="api-card-root" />
-							Card
-						</h3>
+						<HashLinkHeading
+							id="api-card"
+							className="text-xl font-medium text-strong"
+						>
+							<h3>
+								<span id="api-card-root" />
+								Card
+							</h3>
+						</HashLinkHeading>
 
 						<p className="font-body text-body">
 							A container that can be used to display content in a box
@@ -185,9 +194,12 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 id="api-card-body" className="text-xl font-medium text-strong">
-							Card.Body
-						</h3>
+						<HashLinkHeading
+							id="api-card-body"
+							className="text-xl font-medium text-strong"
+						>
+							<h3>Card.Body</h3>
+						</HashLinkHeading>
 
 						<p className="font-body text-body">
 							The main content of a card. Usually composed as a direct child of
@@ -229,12 +241,12 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3
+						<HashLinkHeading
 							id="api-card-footer"
 							className="text-xl font-medium text-strong"
 						>
-							Card.Footer
-						</h3>
+							<h3>Card.Footer</h3>
+						</HashLinkHeading>
 
 						<p className="font-body text-body">
 							The footer container of a card. Usually composed as a direct child
@@ -276,12 +288,12 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3
+						<HashLinkHeading
 							id="api-card-header"
 							className="text-xl font-medium text-strong"
 						>
-							Card.Header
-						</h3>
+							<h3>Card.Header</h3>
+						</HashLinkHeading>
 
 						<p className="font-body text-body">
 							The header container of a card. Usually composed as a direct child
@@ -323,9 +335,12 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 id="api-card-title" className="text-xl font-medium text-strong">
-							Card.Title
-						</h3>
+						<HashLinkHeading
+							id="api-card-title"
+							className="text-xl font-medium text-strong"
+						>
+							<h3>Card.Title</h3>
+						</HashLinkHeading>
 
 						<p className="font-body text-body">
 							The title of a card. Usually composed as a direct child of a

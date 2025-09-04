@@ -5,6 +5,7 @@ import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { href } from "react-router";
 import { Example } from "~/components/example";
+import { HashLinkHeading } from "~/components/hash-link-heading";
 import { Link } from "~/components/link";
 import { PageHeader } from "~/components/page-header";
 import {
@@ -216,9 +217,9 @@ export default function Page() {
 
 			<section className="space-y-8">
 				<header className="space-y-4">
-					<h2 id="api" className="text-3xl font-medium">
-						API Reference
-					</h2>
+					<HashLinkHeading id="api">
+						<h2 className="text-3xl font-medium">API Reference</h2>
+					</HashLinkHeading>
 					<p className="font-body text-body text-xl">
 						The <Code>AlertDialog</Code> components are built on top of{" "}
 						<Anchor
@@ -234,13 +235,12 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3
-							id="api-alert-dialog"
-							className="text-xl font-medium text-strong"
-						>
-							<span id="api-alert-dialog-root" />
-							AlertDialog
-						</h3>
+						<HashLinkHeading id="api-alert-dialog">
+							<h3 className="text-xl font-medium text-strong">
+								<span id="api-alert-dialog-root" />
+								AlertDialog
+							</h3>
+						</HashLinkHeading>
 
 						<p className="font-body text-body">
 							The root component for the Alert Dialog.
@@ -284,12 +284,11 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3
-						id="api-alert-dialog-trigger"
-						className="text-xl font-medium text-strong"
-					>
-						AlertDialogTrigger
-					</h3>
+					<HashLinkHeading id="api-alert-dialog-trigger">
+						<h3 className="text-xl font-medium text-strong">
+							AlertDialogTrigger
+						</h3>
+					</HashLinkHeading>
 
 					<p className="font-body text-body">
 						A button that opens the Alert Dialog.
@@ -309,12 +308,11 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3
-							id="api-alert-dialog-content"
-							className="text-xl font-medium text-strong"
-						>
-							AlertDialogContent
-						</h3>
+						<HashLinkHeading id="api-alert-dialog-content">
+							<h3 className="text-xl font-medium text-strong">
+								AlertDialogContent
+							</h3>
+						</HashLinkHeading>
 
 						<p className="font-body text-body">
 							The popover Alert Dialog container. Renders on top of the overlay
@@ -358,12 +356,9 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3
-						id="api-alert-dialog-body"
-						className="text-xl font-medium text-strong"
-					>
-						AlertDialogBody
-					</h3>
+					<HashLinkHeading id="api-alert-dialog-body">
+						<h3 className="text-xl font-medium text-strong">AlertDialogBody</h3>
+					</HashLinkHeading>
 					<p className="font-body text-body">
 						Contains the main content of the alert dialog.
 					</p>
@@ -396,12 +391,11 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3
-						id="api-alert-dialog-header"
-						className="text-xl font-medium text-strong"
-					>
-						AlertDialogHeader
-					</h3>
+					<HashLinkHeading id="api-alert-dialog-header">
+						<h3 className="text-xl font-medium text-strong">
+							AlertDialogHeader
+						</h3>
+					</HashLinkHeading>
 					<p className="font-body text-body">
 						Contains the header content of the dialog, including the title and
 						description.
@@ -435,12 +429,11 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3
-						id="api-alert-dialog-footer"
-						className="text-xl font-medium text-strong"
-					>
-						AlertDialogFooter
-					</h3>
+					<HashLinkHeading id="api-alert-dialog-footer">
+						<h3 className="text-xl font-medium text-strong">
+							AlertDialogFooter
+						</h3>
+					</HashLinkHeading>
 					<p className="font-body text-body">
 						Contains the footer content of the dialog, including the action and
 						cancel buttons.
@@ -474,12 +467,11 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3
-						id="api-alert-dialog-title"
-						className="text-xl font-medium text-strong"
-					>
-						AlertDialogTitle
-					</h3>
+					<HashLinkHeading id="api-alert-dialog-title">
+						<h3 className="text-xl font-medium text-strong">
+							AlertDialogTitle
+						</h3>
+					</HashLinkHeading>
 
 					<p className="font-body text-body">
 						An accessible name to be announced when the dialog is opened.
@@ -503,12 +495,11 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3
-						id="api-alert-dialog-description"
-						className="text-xl font-medium text-strong"
-					>
-						AlertDialogDescription
-					</h3>
+					<HashLinkHeading id="api-alert-dialog-description">
+						<h3 className="text-xl font-medium text-strong">
+							AlertDialogDescription
+						</h3>
+					</HashLinkHeading>
 
 					<p className="font-body text-body">
 						An accessible description to be announced when the dialog is opened.
@@ -533,12 +524,11 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3
-						id="api-alert-dialog-action"
-						className="text-xl font-medium text-strong"
-					>
-						AlertDialogAction
-					</h3>
+					<HashLinkHeading id="api-alert-dialog-action">
+						<h3 className="text-xl font-medium text-strong">
+							AlertDialogAction
+						</h3>
+					</HashLinkHeading>
 
 					<p className="font-body text-body">
 						A button that confirms the Alert Dialog action. Will default to{" "}
@@ -561,12 +551,11 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-1">
-					<h3
-						id="api-alert-dialog-cancel"
-						className="text-xl font-medium text-strong"
-					>
-						AlertDialogCancel
-					</h3>
+					<HashLinkHeading id="api-alert-dialog-cancel">
+						<h3 className="text-xl font-medium text-strong">
+							AlertDialogCancel
+						</h3>
+					</HashLinkHeading>
 
 					<p className="font-body text-body">
 						A button that closes the dialog and cancels the action. Will default
@@ -589,12 +578,11 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3
-							id="api-alert-dialog-icon"
-							className="text-xl font-medium text-strong"
-						>
-							AlertDialog.Icon
-						</h3>
+						<HashLinkHeading id="api-alert-dialog-icon">
+							<h3 className="text-xl font-medium text-strong">
+								AlertDialog.Icon
+							</h3>
+						</HashLinkHeading>
 
 						<p className="font-body text-body">
 							An icon displayed in the alert dialog, usually to indicate the
@@ -636,12 +624,11 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3
-							id="api-alert-dialog-close"
-							className="text-xl font-medium text-strong"
-						>
-							AlertDialog.Close
-						</h3>
+						<HashLinkHeading id="api-alert-dialog-close">
+							<h3 className="text-xl font-medium text-strong">
+								AlertDialog.Close
+							</h3>
+						</HashLinkHeading>
 
 						<p className="font-body text-body">
 							A button that closes the dialog.

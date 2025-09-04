@@ -7,6 +7,7 @@ import {
 } from "@ngrok/mantle/code-block";
 import { href } from "react-router";
 import { Example } from "~/components/example";
+import { HashLinkHeading } from "~/components/hash-link-heading";
 import { Link } from "~/components/link";
 import { PageHeader } from "~/components/page-header";
 import {
@@ -138,18 +139,18 @@ export default function Page() {
 			</section>
 
 			<section className="space-y-8">
-				<h2 id="examples" className="text-3xl font-medium">
-					Examples
-				</h2>
+				<HashLinkHeading id="examples" className="text-3xl font-medium">
+					<h2>Examples</h2>
+				</HashLinkHeading>
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3
+						<HashLinkHeading
 							id="example-single-line-with-header"
 							className="text-xl font-medium text-strong"
 						>
-							Single Line with a Header
-						</h3>
+							<h3>Single Line with a Header</h3>
+						</HashLinkHeading>
 						<p className="font-body text-body">
 							Many code blocks will be single line command line prompts and
 							should be able to render with a header and copy button. This makes
@@ -199,12 +200,12 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3
+						<HashLinkHeading
 							id="example-horizontal-scrolling"
 							className="text-xl font-medium text-strong"
 						>
-							Horizontal Scrolling
-						</h3>
+							<h3>Horizontal Scrolling</h3>
+						</HashLinkHeading>
 						<p className="font-body text-body">
 							This example is included to demonstrate that code blocks can
 							scroll horizontally if the content is too wide. Mantle attempts to
@@ -290,12 +291,12 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3
+						<HashLinkHeading
 							id="example-no-header-or-copy-button"
 							className="text-xl font-medium text-strong"
 						>
-							No Header or Copy Button
-						</h3>
+							<h3>No Header or Copy Button</h3>
+						</HashLinkHeading>
 						<p className="font-body text-body">
 							This is the most simple example of our code block component. While
 							very useful, the copy button is optional. It is also perfectly
@@ -362,12 +363,12 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3
+						<HashLinkHeading
 							id="example-single-line-with-horizontal-scrolling"
 							className="text-xl font-medium text-strong"
 						>
-							Single Line with Horizontal Scrolling
-						</h3>
+							<h3>Single Line with Horizontal Scrolling</h3>
+						</HashLinkHeading>
 						<p className="font-body text-body">
 							This example is included to show the interaction between the copy
 							button and horizontal scrolling on a single verbose terminal
@@ -410,12 +411,12 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3
+						<HashLinkHeading
 							id="example-overriding-default-language-indentation"
 							className="text-xl font-medium text-strong"
 						>
-							Overriding default language indentation
-						</h3>
+							<h3>Overriding default language indentation</h3>
+						</HashLinkHeading>
 						<p className="font-body text-body">
 							By default, the code block code will detect the preferred (or
 							required) indentation of the given language. This is important for
@@ -556,9 +557,12 @@ export default function Page() {
 
 			<section className="mt-16 space-y-8 font-body text-body">
 				<header className="space-y-4">
-					<h2 id="api" className="text-3xl font-medium text-strong">
-						API Reference
-					</h2>
+					<HashLinkHeading
+						id="api"
+						className="text-3xl font-medium text-strong"
+					>
+						<h2>API Reference</h2>
+					</HashLinkHeading>
 					<p className="font-body text-body text-xl">
 						The <Code>CodeBlock</Code> render and apply syntax highlighting to
 						blocks of code and is composed of several sub-components.
@@ -567,10 +571,15 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 id="api-code-block" className="text-xl font-medium text-strong">
-							<span id="api-code-block-root" />
-							CodeBlock
-						</h3>
+						<HashLinkHeading
+							id="api-code-block"
+							className="text-xl font-medium text-strong"
+						>
+							<h3>
+								<span id="api-code-block-root" />
+								CodeBlock
+							</h3>
+						</HashLinkHeading>
 
 						<p className="font-body text-body">
 							Code blocks render and apply syntax highlighting to blocks of
@@ -613,12 +622,12 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3
+						<HashLinkHeading
 							id="api-code-block-body"
 							className="text-xl font-medium text-strong"
 						>
-							CodeBlock.Body
-						</h3>
+							<h3>CodeBlock.Body</h3>
+						</HashLinkHeading>
 						<p className="font-body text-body">
 							The body of the <Code>CodeBlock</Code>. This is where the{" "}
 							<Code>CodeBlock.Code</Code> and optional{" "}
@@ -659,12 +668,12 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3
+						<HashLinkHeading
 							id="api-code-block-code"
 							className="text-xl font-medium text-strong"
 						>
-							CodeBlock.Code
-						</h3>
+							<h3>CodeBlock.Code</h3>
+						</HashLinkHeading>
 						<p className="font-body text-body">
 							The <Code>CodeBlock</Code> content. This is where the code is
 							rendered and syntax highlighted.
@@ -751,12 +760,12 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3
+						<HashLinkHeading
 							id="api-code-block-header"
 							className="text-xl font-medium text-strong"
 						>
-							CodeBlock.Header
-						</h3>
+							<h3>CodeBlock.Header</h3>
+						</HashLinkHeading>
 						<p className="font-body text-body">
 							An optional header slot of the <Code>CodeBlock</Code>. This is
 							where things like the
@@ -797,12 +806,12 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3
+						<HashLinkHeading
 							id="api-code-block-title"
 							className="text-xl font-medium text-strong"
 						>
-							CodeBlock.Title
-						</h3>
+							<h3>CodeBlock.Title</h3>
+						</HashLinkHeading>
 						<p className="font-body text-body">
 							The (optional) title of a <Code>CodeBlock</Code>. Default renders
 							as an <Code>h3</Code> element; use <Code>asChild</Code> to render
@@ -842,12 +851,12 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3
+						<HashLinkHeading
 							id="api-code-block-copy-button"
 							className="text-xl font-medium text-strong"
 						>
-							CodeBlock.CopyButton
-						</h3>
+							<h3>CodeBlock.CopyButton</h3>
+						</HashLinkHeading>
 						<p className="font-body text-body">
 							The (optional) copy button of the <Code>CodeBlock</Code>. Render
 							this as a child of the
@@ -911,12 +920,12 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3
+						<HashLinkHeading
 							id="api-code-block-expander-button"
 							className="text-xl font-medium text-strong"
 						>
-							CodeBlock.ExpanderButton
-						</h3>
+							<h3>CodeBlock.ExpanderButton</h3>
+						</HashLinkHeading>
 						<p className="font-body text-body">
 							The (optional) expander button of the <Code>CodeBlock</Code>.
 							Render this as a child of the
@@ -958,12 +967,12 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3
+						<HashLinkHeading
 							id="api-code-block-icon"
 							className="text-xl font-medium text-strong"
 						>
-							CodeBlock.Icon
-						</h3>
+							<h3>CodeBlock.Icon</h3>
+						</HashLinkHeading>
 						<p className="font-body text-body">
 							A small icon that represents the type of code block being
 							displayed, rendered as an SVG next to the code block title in the

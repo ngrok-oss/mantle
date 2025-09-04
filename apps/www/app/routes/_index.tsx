@@ -8,6 +8,7 @@ import { FileHtmlIcon, FileTsxIcon } from "@phosphor-icons/react";
 import { useState } from "react";
 import { href } from "react-router";
 import { useLocalStorage } from "usehooks-ts";
+import { HashLinkHeading } from "~/components/hash-link-heading";
 import { Link } from "~/components/link";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/_index";
@@ -37,9 +38,9 @@ export default function Page() {
 				&rsquo;s UI library and design system that powers its front-end.
 			</p>
 
-			<h2 id="overview" className="mt-8 text-3xl font-medium">
-				Overview
-			</h2>
+			<HashLinkHeading id="overview" className="mt-8 text-3xl font-medium">
+				<h2>Overview</h2>
+			</HashLinkHeading>
 			<p className="font-body text-body mt-3">
 				Mantle is a carefully designed system of{" "}
 				<Anchor href="https://react.dev">React</Anchor> components and utilities
@@ -85,9 +86,9 @@ export default function Page() {
 				module.
 			</p>
 
-			<h3 id="status" className="mt-8 text-xl font-medium">
-				Status
-			</h3>
+			<HashLinkHeading id="status" className="mt-8 text-xl font-medium">
+				<h3>Status</h3>
+			</HashLinkHeading>
 			<p className="font-body text-body mt-3">
 				Mantle is a work in progress that&rsquo;s currently adding components.
 				It intends to replace new and existing ngrok user interfaces.
@@ -178,9 +179,9 @@ function SetupInstructions() {
 
 	return (
 		<section>
-			<h2 id="setup" className="text-3xl font-medium mt-12 mb-4">
-				Setup
-			</h2>
+			<HashLinkHeading id="setup" className="text-3xl font-medium mt-12 mb-4">
+				<h2>Setup</h2>
+			</HashLinkHeading>
 
 			<p className="font-body text-body mt-3 mb-4">
 				I want to use <Code>mantle</Code> in my{" "}
@@ -207,9 +208,9 @@ function SetupInstructions() {
 			</p>
 
 			<div className="space-y-4">
-				<h3 id="installation" className="text-xl font-medium">
-					Installation
-				</h3>
+				<HashLinkHeading id="installation" className="text-xl font-medium">
+					<h3>Installation</h3>
+				</HashLinkHeading>
 				<p className="font-body text-body">
 					Start by installing <Code>@ngrok/mantle</Code> and all of the required{" "}
 					<Code>peerDependencies</Code>:
@@ -265,7 +266,12 @@ function SetupInstructions() {
 			</div>
 
 			<section className="mt-8 space-y-4">
-				<h3 className="text-xl font-medium">Application Scaffolding</h3>
+				<HashLinkHeading
+					id="application-scaffolding"
+					className="text-xl font-medium"
+				>
+					<h3>Application Scaffolding</h3>
+				</HashLinkHeading>
 				<ApplicationTemplate template={applicationTemplate} />
 				<p className="font-body text-body mt-4">
 					You are now ready to use mantle components in your application! For

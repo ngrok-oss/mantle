@@ -13,6 +13,7 @@ import { SignOutIcon } from "@phosphor-icons/react/SignOut";
 import { SunIcon } from "@phosphor-icons/react/Sun";
 import { useState } from "react";
 import { Example } from "~/components/example";
+import { HashLinkHeading } from "~/components/hash-link-heading";
 import { PageHeader } from "~/components/page-header";
 import {
 	PropDefaultValueCell,
@@ -299,9 +300,9 @@ export default function Page() {
 
 			<section className="space-y-8">
 				<header className="space-y-4">
-					<h2 id="api" className="text-3xl font-medium">
-						API Reference
-					</h2>
+					<HashLinkHeading id="api" className="text-3xl font-medium">
+						<h2>API Reference</h2>
+					</HashLinkHeading>
 					<p className="font-body text-body text-xl">
 						The <Code>DropdownMenu</Code> components are built on top of{" "}
 						<Anchor
@@ -317,9 +318,12 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3 className="text-xl font-medium text-strong">
-							DropdownMenuContent
-						</h3>
+						<HashLinkHeading
+							id="api-dropdown-menu-content"
+							className="text-xl font-medium text-strong"
+						>
+							<h3>DropdownMenuContent</h3>
+						</HashLinkHeading>
 
 						<p className="text-body">
 							All props from Radix{" "}

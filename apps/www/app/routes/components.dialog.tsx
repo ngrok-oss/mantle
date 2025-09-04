@@ -5,6 +5,7 @@ import { Dialog } from "@ngrok/mantle/dialog";
 import { Tooltip } from "@ngrok/mantle/tooltip";
 import { TrashSimpleIcon } from "@phosphor-icons/react/TrashSimple";
 import { Example } from "~/components/example";
+import { HashLinkHeading } from "~/components/hash-link-heading";
 import { PageHeader } from "~/components/page-header";
 import {
 	BooleanPropType,
@@ -233,9 +234,9 @@ export default function Page() {
 			</section>
 
 			<section className="space-y-4">
-				<h2 id="composition" className="text-3xl font-medium">
-					Composition
-				</h2>
+				<HashLinkHeading id="composition" className="text-3xl font-medium">
+					<h2>Composition</h2>
+				</HashLinkHeading>
 				<p className="font-body text-body text-xl">
 					In some cases, you might wish to have a tooltip over the dialog
 					trigger. This is helpful if the dialog trigger is an{" "}
@@ -339,9 +340,9 @@ export default function Page() {
 			</section>
 
 			<section className="space-y-4">
-				<h2 id="api" className="text-3xl font-medium">
-					API Reference
-				</h2>
+				<HashLinkHeading id="api" className="text-3xl font-medium">
+					<h2>API Reference</h2>
+				</HashLinkHeading>
 				<p className="font-body text-body text-xl">
 					The <Code>Dialog</Code> component is built on top of Radix UI Dialog
 					and provides a complete set of sub-components for building modal
@@ -350,7 +351,12 @@ export default function Page() {
 
 				<div className="space-y-8">
 					<div>
-						<h3 className="text-xl font-medium mb-4">Dialog.Root</h3>
+						<HashLinkHeading
+							id="dialog-root"
+							className="text-xl font-medium mb-4"
+						>
+							<h3>Dialog.Root</h3>
+						</HashLinkHeading>
 						<p className="mb-4 text-muted-foreground">
 							The root stateful component that manages the open/closed state of
 							the dialog.
@@ -417,7 +423,12 @@ export default function Page() {
 					</div>
 
 					<div>
-						<h3 className="text-xl font-medium mb-4">Dialog.Trigger</h3>
+						<HashLinkHeading
+							id="dialog-trigger"
+							className="text-xl font-medium mb-4"
+						>
+							<h3>Dialog.Trigger</h3>
+						</HashLinkHeading>
 						<p className="mb-4 text-muted-foreground">
 							A button that opens the dialog.
 						</p>
@@ -441,7 +452,12 @@ export default function Page() {
 					</div>
 
 					<div>
-						<h3 className="text-xl font-medium mb-4">Dialog.Content</h3>
+						<HashLinkHeading
+							id="dialog-content"
+							className="text-xl font-medium mb-4"
+						>
+							<h3>Dialog.Content</h3>
+						</HashLinkHeading>
 						<p className="mb-4 text-muted-foreground">
 							The container for the dialog content. Renders on top of the
 							overlay and is centered in the viewport.
@@ -494,7 +510,12 @@ export default function Page() {
 					</div>
 
 					<div>
-						<h3 className="text-xl font-medium mb-4">Dialog.Header</h3>
+						<HashLinkHeading
+							id="dialog-header"
+							className="text-xl font-medium mb-4"
+						>
+							<h3>Dialog.Header</h3>
+						</HashLinkHeading>
 						<p className="mb-4 text-muted-foreground">
 							Contains the header content of the dialog, including the title and
 							close button.
@@ -514,7 +535,12 @@ export default function Page() {
 					</div>
 
 					<div>
-						<h3 className="text-xl font-medium mb-4">Dialog.Body</h3>
+						<HashLinkHeading
+							id="dialog-body"
+							className="text-xl font-medium mb-4"
+						>
+							<h3>Dialog.Body</h3>
+						</HashLinkHeading>
 						<p className="mb-4 text-muted-foreground">
 							Contains the main content of the dialog.
 						</p>
@@ -533,7 +559,12 @@ export default function Page() {
 					</div>
 
 					<div>
-						<h3 className="text-xl font-medium mb-4">Dialog.Footer</h3>
+						<HashLinkHeading
+							id="dialog-footer"
+							className="text-xl font-medium mb-4"
+						>
+							<h3>Dialog.Footer</h3>
+						</HashLinkHeading>
 						<p className="mb-4 text-muted-foreground">
 							Contains the footer content of the dialog, including action
 							buttons.
@@ -556,7 +587,12 @@ export default function Page() {
 					</div>
 
 					<div>
-						<h3 className="text-xl font-medium mb-4">Dialog.Title</h3>
+						<HashLinkHeading
+							id="dialog-title"
+							className="text-xl font-medium mb-4"
+						>
+							<h3>Dialog.Title</h3>
+						</HashLinkHeading>
 						<p className="mb-4 text-muted-foreground">
 							An accessible name to be announced when the dialog is opened.
 						</p>
@@ -575,7 +611,12 @@ export default function Page() {
 					</div>
 
 					<div>
-						<h3 className="text-xl font-medium mb-4">Dialog.Description</h3>
+						<HashLinkHeading
+							id="dialog-description"
+							className="text-xl font-medium mb-4"
+						>
+							<h3>Dialog.Description</h3>
+						</HashLinkHeading>
 						<p className="mb-4 text-muted-foreground">
 							An accessible description to be announced when the dialog is
 							opened.
@@ -598,7 +639,12 @@ export default function Page() {
 					</div>
 
 					<div>
-						<h3 className="text-xl font-medium mb-4">Dialog.Close</h3>
+						<HashLinkHeading
+							id="dialog-close"
+							className="text-xl font-medium mb-4"
+						>
+							<h3>Dialog.Close</h3>
+						</HashLinkHeading>
 						<p className="mb-4 text-muted-foreground">
 							A button that closes the dialog when clicked.
 						</p>
@@ -622,7 +668,12 @@ export default function Page() {
 					</div>
 
 					<div>
-						<h3 className="text-xl font-medium mb-4">Dialog.CloseIconButton</h3>
+						<HashLinkHeading
+							id="dialog-close-icon-button"
+							className="text-xl font-medium mb-4"
+						>
+							<h3>Dialog.CloseIconButton</h3>
+						</HashLinkHeading>
 						<p className="mb-4 text-muted-foreground">
 							An icon button that closes the dialog when clicked.
 						</p>

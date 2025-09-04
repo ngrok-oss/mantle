@@ -6,6 +6,7 @@ import { SandboxedOnClick } from "@ngrok/mantle/sandboxed-on-click";
 import { Table } from "@ngrok/mantle/table";
 import { BookIcon } from "@phosphor-icons/react/Book";
 import { Example } from "~/components/example";
+import { HashLinkHeading } from "~/components/hash-link-heading";
 import { PageHeader } from "~/components/page-header";
 import {
 	BooleanPropType,
@@ -230,19 +231,19 @@ export default function Page() {
 
 			<section className="space-y-8">
 				<header className="space-y-4">
-					<h2 id="api" className="text-3xl font-medium">
-						API Reference
-					</h2>
+					<HashLinkHeading id="api" className="text-3xl font-medium">
+						<h2>API Reference</h2>
+					</HashLinkHeading>
 				</header>
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<h3
+						<HashLinkHeading
 							id="api-sandboxed-on-click"
 							className="text-xl font-medium text-strong"
 						>
-							SandboxedOnClick
-						</h3>
+							<h3>SandboxedOnClick</h3>
+						</HashLinkHeading>
 
 						<p className="font-body text-body">
 							A container that prevents the click event from bubbling out of it.

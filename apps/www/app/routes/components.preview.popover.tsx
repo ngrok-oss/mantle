@@ -3,6 +3,7 @@ import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { Input } from "@ngrok/mantle/input";
 import { Popover } from "@ngrok/mantle/popover";
 import { Example } from "~/components/example";
+import { HashLinkHeading } from "~/components/hash-link-heading";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/components.preview.popover";
 
@@ -47,7 +48,12 @@ export default function Page() {
 								}}
 							>
 								<div className="space-y-2">
-									<h4 className="font-medium leading-none">Dimensions</h4>
+									<HashLinkHeading
+										id="dimensions"
+										className="font-medium leading-none"
+									>
+										<h4>Dimensions</h4>
+									</HashLinkHeading>
 									<p className="text-sm text-gray-700">
 										Set the dimensions for the layer.
 									</p>
