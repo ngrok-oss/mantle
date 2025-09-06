@@ -1,50 +1,57 @@
 import { CircleNotchIcon } from "@phosphor-icons/react/CircleNotch";
 import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
+import { clsx } from "clsx";
 import { Children, cloneElement, forwardRef, isValidElement } from "react";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
+import invariant from "tiny-invariant";
 import type { VariantProps, WithAsChild } from "../../types/index.js";
 import { parseBooleanish } from "../../types/index.js";
 import { cx } from "../../utils/cx/cx.js";
 import { Icon } from "../icon/index.js";
 
-const iconButtonVariants = cva(
-	"inline-flex shrink-0 items-center justify-center rounded-[var(--icon-button-border-radius,0.375rem)] border focus-within:outline-hidden focus-visible:ring-4 disabled:cursor-default disabled:opacity-50",
-	{
-		variants: {
-			/**
-			 * Defines the visual style of the Button.
-			 */
-			appearance: {
-				ghost:
-					"text-strong focus-visible:ring-focus-accent not-disabled:hover:bg-neutral-500/10 not-disabled:hover:text-strong not-disabled:active:bg-neutral-500/15 not-disabled:active:text-strong border-transparent",
-				outlined:
-					"border-form bg-form text-strong focus-visible:border-accent-600 focus-visible:ring-focus-accent not-disabled:hover:border-neutral-400 not-disabled:hover:bg-form-hover not-disabled:hover:text-strong not-disabled:active:border-neutral-400 not-disabled:active:bg-neutral-500/10 not-disabled:active:text-strong focus-visible:not-disabled:active:border-accent-600",
-			},
-			/**
-			 * Whether or not the button is in a loading state, default `false`. Setting `isLoading` will
-			 * replace the `icon` with a spinner.
-			 * It will also disable user interaction with the button and set `aria-disabled`.
-			 */
-			isLoading: {
-				false: "",
-				true: "opacity-50",
-			},
-			/**
-			 * The size of the IconButton.
-			 */
-			size: {
-				xs: "size-6",
-				sm: "size-7",
-				md: "size-9",
-			},
+const baseIconButtonClasses = clsx(
+	"icon-button",
+	"inline-flex shrink-0 items-center justify-center rounded-[var(--icon-button-border-radius,0.375rem)] border",
+	"focus:outline-hidden focus-visible:ring-4",
+	"disabled:cursor-default disabled:opacity-50",
+	"not-disabled:active:scale-[0.97]",
+);
+
+const iconButtonVariants = cva("", {
+	variants: {
+		/**
+		 * Defines the visual style of the Button.
+		 */
+		appearance: {
+			ghost:
+				"text-strong focus-visible:ring-focus-accent not-disabled:hover:bg-neutral-500/10 not-disabled:hover:text-strong not-disabled:active:bg-neutral-500/15 not-disabled:active:text-strong border-transparent",
+			outlined:
+				"border-form bg-form text-strong focus-visible:border-accent-600 focus-visible:ring-focus-accent not-disabled:hover:border-neutral-400 not-disabled:hover:bg-form-hover not-disabled:hover:text-strong not-disabled:active:border-neutral-400 not-disabled:active:bg-neutral-500/10 not-disabled:active:text-strong focus-visible:not-disabled:active:border-accent-600",
 		},
-		defaultVariants: {
-			appearance: "outlined",
-			size: "md",
+		/**
+		 * Whether or not the button is in a loading state, default `false`. Setting `isLoading` will
+		 * replace the `icon` with a spinner.
+		 * It will also disable user interaction with the button and set `aria-disabled`.
+		 */
+		isLoading: {
+			false: "",
+			true: "opacity-50",
+		},
+		/**
+		 * The size of the IconButton.
+		 */
+		size: {
+			xs: "size-6",
+			sm: "size-7",
+			md: "size-9",
 		},
 	},
-);
+	defaultVariants: {
+		appearance: "outlined",
+		size: "md",
+	},
+});
 
 type IconButtonVariants = VariantProps<typeof iconButtonVariants>;
 
@@ -165,26 +172,29 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 
 		const buttonProps = {
 			"aria-disabled": disabled,
-			"data-icon-button": true,
-			"data-loading": isLoading,
-			"data-size": size,
 			className: cx(
-				"icon-button",
+				baseIconButtonClasses,
 				iconButtonVariants({ appearance, isLoading, size }),
 				className,
 			),
+			"data-disabled": disabled,
+			"data-icon-button": true,
+			"data-loading": isLoading,
+			"data-size": size,
 			disabled,
 			ref,
 			...props,
 		};
 
 		if (asChild) {
-			const singleChild = Children.only(children);
-			const isValidChild = isValidElement(singleChild);
+			invariant(
+				isValidElement(children) && Children.only(children),
+				"When using `asChild`, IconButton must be passed a single child as a JSX tag.",
+			);
 
 			return (
 				<Slot {...buttonProps}>
-					{isValidChild && cloneElement(singleChild, {}, <Icon svg={icon} />)}
+					{cloneElement(children, {}, <Icon svg={icon} />)}
 				</Slot>
 			);
 		}
@@ -203,6 +213,7 @@ export {
 	//,
 	IconButton,
 	iconButtonVariants,
+	baseIconButtonClasses,
 };
 
 export type {

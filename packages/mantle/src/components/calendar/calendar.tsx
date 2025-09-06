@@ -5,7 +5,10 @@ import { CaretRightIcon } from "@phosphor-icons/react/CaretRight";
 import type { ComponentProps } from "react";
 import { DayPicker } from "react-day-picker";
 import { cx } from "../../utils/cx/cx.js";
-import { buttonVariants } from "../button/button.js";
+import {
+	baseIconButtonClasses,
+	iconButtonVariants,
+} from "../button/icon-button.js";
 import { Icon } from "../icon/icon.js";
 
 type CalendarProps = ComponentProps<typeof DayPicker>;
@@ -59,12 +62,14 @@ function Calendar({
 			classNames={{
 				root: cx("isolate", className),
 				button_next: cx(
-					buttonVariants({ appearance: "ghost", priority: "neutral" }),
-					"size-7 absolute right-0",
+					baseIconButtonClasses,
+					iconButtonVariants({ appearance: "ghost", size: "sm" }),
+					"absolute right-0",
 				),
 				button_previous: cx(
-					buttonVariants({ appearance: "ghost", priority: "neutral" }),
-					"size-7 absolute left-0",
+					baseIconButtonClasses,
+					iconButtonVariants({ appearance: "ghost", size: "sm" }),
+					"absolute left-0",
 				),
 				caption_label: "text-sm font-medium",
 				day: cx(
