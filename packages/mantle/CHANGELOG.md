@@ -1,5 +1,13 @@
 # @ngrok/mantle
 
+## 0.52.7
+
+### Patch Changes
+
+- [#777](https://github.com/ngrok-oss/mantle/pull/777) [`a484cab`](https://github.com/ngrok-oss/mantle/commit/a484cab854475ccc0e4288d2a6046e896bbe553a) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Button: remove the need for inner span
+
+- [#779](https://github.com/ngrok-oss/mantle/pull/779) [`37f40bd`](https://github.com/ngrok-oss/mantle/commit/37f40bd43c97665e412600ce991cb70a83524ae6) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Button, IconButton: add active:scale-[0.97]
+
 ## 0.52.6
 
 ### Patch Changes
