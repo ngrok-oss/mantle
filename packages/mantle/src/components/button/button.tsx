@@ -2,13 +2,8 @@ import { CircleNotchIcon } from "@phosphor-icons/react/CircleNotch";
 import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
 import clsx from "clsx";
+import type { ComponentProps, ReactNode } from "react";
 import { Children, cloneElement, forwardRef, isValidElement } from "react";
-import type {
-	ButtonHTMLAttributes,
-	ComponentProps,
-	PropsWithChildren,
-	ReactNode,
-} from "react";
 import invariant from "tiny-invariant";
 import { parseBooleanish } from "../../types/index.js";
 import type { VariantProps } from "../../types/variant-props.js";
@@ -157,7 +152,7 @@ type ButtonProps = ComponentProps<"button"> &
 				 *
 				 * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#type
 				 */
-				type?: ButtonHTMLAttributes<HTMLButtonElement>["type"];
+				type?: ComponentProps<"button">["type"];
 		  }
 		| {
 				asChild?: false | undefined;
@@ -175,10 +170,7 @@ type ButtonProps = ComponentProps<"button"> &
 				 *
 				 * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#type
 				 */
-				type: Exclude<
-					ButtonHTMLAttributes<HTMLButtonElement>["type"],
-					undefined
-				>;
+				type: Exclude<ComponentProps<"button">["type"], undefined>;
 		  }
 	);
 
@@ -235,6 +227,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 				hasSpecialIconPadding && iconPlacement === "end" && "pe-2.5",
 				className,
 			),
+			"data-disabled": disabled,
 			"data-loading": isLoading,
 			disabled,
 			ref,
@@ -247,20 +240,21 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 				isValidElement<ButtonProps>(singleChild),
 				"When using `asChild`, Button must be passed a single child as a JSX tag.",
 			);
-			const grandchildren = singleChild.props?.children;
 
 			return (
 				<Slot {...buttonProps}>
 					{cloneElement(
 						singleChild,
 						{},
-						<InnerContent
-							appearance={appearance}
-							icon={icon}
-							iconPlacement={iconPlacement}
-						>
-							{grandchildren}
-						</InnerContent>,
+						<>
+							{icon && (
+								<Icon
+									svg={icon}
+									className={clsx(iconPlacement === "end" && "order-last")}
+								/>
+							)}
+							{singleChild.props.children}
+						</>,
 					)}
 				</Slot>
 			);
@@ -268,13 +262,13 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
 		return (
 			<button {...buttonProps} type={type}>
-				<InnerContent
-					appearance={appearance}
-					icon={icon}
-					iconPlacement={iconPlacement}
-				>
-					{children}
-				</InnerContent>
+				{icon && (
+					<Icon
+						svg={icon}
+						className={clsx(iconPlacement === "end" && "order-last")}
+					/>
+				)}
+				{children}
 			</button>
 		);
 	},
@@ -289,33 +283,7 @@ export {
 
 export type {
 	//,
-	ButtonProps,
 	ButtonAppearance,
 	ButtonPriority,
+	ButtonProps,
 };
-
-type InnerContentProps = PropsWithChildren &
-	Pick<ButtonProps, "appearance" | "icon" | "iconPlacement">;
-
-const InnerContent = ({
-	appearance,
-	children,
-	icon,
-	iconPlacement,
-}: InnerContentProps) => (
-	<span
-		className={clsx(
-			"inline-flex items-center gap-1.5 focus-within:outline-hidden focus-visible:outline-hidden",
-			appearance === "link" &&
-				"hover:underline group-disabled/button-link:no-underline",
-		)}
-	>
-		{icon && (
-			<Icon
-				svg={icon}
-				className={clsx(iconPlacement === "end" && "order-last")}
-			/>
-		)}
-		{children}
-	</span>
-);
