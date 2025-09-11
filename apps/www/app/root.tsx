@@ -37,7 +37,7 @@ export default function App() {
 	});
 
 	return (
-		<html id="ngrok" {...initialHtmlThemeProps} lang="en-US" dir="ltr">
+		<html {...initialHtmlThemeProps} lang="en-US" dir="ltr">
 			<head>
 				<meta charSet="utf-8" />
 				<MantleThemeHeadContent includeNunitoSans />

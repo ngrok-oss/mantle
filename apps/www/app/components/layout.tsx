@@ -8,7 +8,7 @@ import { $theme, isTheme, useTheme } from "@ngrok/mantle/theme-provider";
 import type { WithStyleProps } from "@ngrok/mantle/types";
 import { ListIcon } from "@phosphor-icons/react/List";
 import { XIcon } from "@phosphor-icons/react/X";
-import type { PropsWithChildren } from "react";
+import { type ComponentRef, type PropsWithChildren, useRef } from "react";
 import { Link, href } from "react-router";
 import { NavLink } from "./nav-link";
 import { useNavigation } from "./navigation-context";
@@ -57,12 +57,24 @@ type Props = PropsWithChildren &
 export function Layout({ children, className, currentVersion, style }: Props) {
 	const [currentTheme, setTheme] = useTheme();
 	const { showNavigation, setShowNavigation } = useNavigation();
+	const mainRef = useRef<ComponentRef<"main">>(null);
 
 	return (
-		<main
+		<div
 			className={cx("mx-auto h-full max-w-7xl sm:px-4", className)}
 			style={style}
 		>
+			<Link
+				className="sr-only"
+				onClick={() => {
+					mainRef.current?.focus({ preventScroll: true });
+				}}
+				to={{
+					hash: "#main",
+				}}
+			>
+				Skip to main content
+			</Link>
 			<header className="xs:gap-4 flex h-20 items-center gap-3 px-4 sm:px-0">
 				<IconButton
 					className="md:hidden"
@@ -166,11 +178,16 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 						<Navigation className="scrollbar scroll-shadow h-full overflow-y-auto px-1 py-4" />
 					</div>
 				</div>
-				<article className="bg-card w-0 flex-1 p-4 shadow-2xl sm:mb-4 sm:rounded-lg md:p-9 lg:mb-9">
+				<main
+					className="bg-card w-0 flex-1 p-4 shadow-2xl sm:mb-4 sm:rounded-lg md:p-9 lg:mb-9 focus:outline-hidden"
+					tabIndex={-1}
+					ref={mainRef}
+					id="main"
+				>
 					{children}
-				</article>
+				</main>
 			</div>
-		</main>
+		</div>
 	);
 }
 
