@@ -136,7 +136,7 @@ const Content = forwardRef<
 		return (
 			<Primitive.ComboboxPopover
 				className={cx(
-					"border-popover bg-popover relative z-50 max-h-96 min-w-[8rem] scrollbar overflow-hidden overflow-y-scroll rounded-md border shadow-md p-1 my-1",
+					"border-popover bg-popover relative z-50 max-h-96 min-w-[8rem] scrollbar overflow-y-scroll overflow-x-hidden rounded-md border shadow-md p-1 my-1 focus:outline-hidden",
 					className,
 				)}
 				ref={ref}
