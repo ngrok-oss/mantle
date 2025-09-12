@@ -25,7 +25,7 @@ export const headers: Route.HeadersFunction = () => {
 export default function Page() {
 	return (
 		<div className="space-y-4">
-			<PageHeader id="hover-card" isPreview>
+			<PageHeader id="combobox" isPreview>
 				Combobox
 			</PageHeader>
 			<p className="font-body text-body text-xl">
