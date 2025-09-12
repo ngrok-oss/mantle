@@ -66,6 +66,27 @@ export default function Page() {
 								<Combobox.Item value="https://${random}.ngrok.io">
 									<Combobox.ItemValue />
 								</Combobox.Item>
+								<Combobox.Item value="https://${random}.ngrok.free">
+									<Combobox.ItemValue />
+								</Combobox.Item>
+								<Combobox.Item value="https://${random}.ngrok.pizza">
+									<Combobox.ItemValue />
+								</Combobox.Item>
+								<Combobox.Item value="https://${random}.ngrok.ninja">
+									<Combobox.ItemValue />
+								</Combobox.Item>
+								<Combobox.Item value="https://${random}.ngrok.wtf">
+									<Combobox.ItemValue />
+								</Combobox.Item>
+								<Combobox.Item value="https://${random}.ngrok.biz">
+									<Combobox.ItemValue />
+								</Combobox.Item>
+								<Combobox.Item value="https://${random}.ngrok.online">
+									<Combobox.ItemValue />
+								</Combobox.Item>
+								<Combobox.Item value="https://${random}.ngrok.space">
+									<Combobox.ItemValue />
+								</Combobox.Item>
 							</Combobox.Group>
 							<Combobox.Separator />
 							<Combobox.Item>
