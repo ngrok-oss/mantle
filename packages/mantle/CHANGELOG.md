@@ -1,5 +1,15 @@
 # @ngrok/mantle
 
+## 0.52.8
+
+### Patch Changes
+
+- [#790](https://github.com/ngrok-oss/mantle/pull/790) [`2806bb4`](https://github.com/ngrok-oss/mantle/commit/2806bb4efd2cedaf5e6b1a4a3e40a79ed7a31f8d) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Combobox: fix scrolling presentation in content
+
+- [#790](https://github.com/ngrok-oss/mantle/pull/790) [`2806bb4`](https://github.com/ngrok-oss/mantle/commit/2806bb4efd2cedaf5e6b1a4a3e40a79ed7a31f8d) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Combobox: bump up spacing between input and content
+
+- [#789](https://github.com/ngrok-oss/mantle/pull/789) [`df7b954`](https://github.com/ngrok-oss/mantle/commit/df7b9546cfb478605528450346560f9fd8d70582) Thanks [@dependabot](https://github.com/apps/dependabot)! - bump headlessui version
+
 ## 0.52.7
 
 ### Patch Changes
