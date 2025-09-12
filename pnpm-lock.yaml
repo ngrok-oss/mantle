@@ -85,8 +85,8 @@ importers:
         specifier: 3.1.1
         version: 3.1.1(react@18.3.1)
       zod:
-        specifier: 4.1.5
-        version: 4.1.5
+        specifier: 4.1.8
+        version: 4.1.8
     devDependencies:
       '@cfg/tsconfig':
         specifier: workspace:*
@@ -3547,8 +3547,8 @@ packages:
   zimmerframe@1.1.4:
     resolution: {integrity: sha512-B58NGBEoc8Y9MWWCQGl/gq9xBCe4IiKM0a2x7GZdQKOW5Exr8S1W24J6OgM1njK8xCRGvAJIL/MxXHf6SkmQKQ==}
 
-  zod@4.1.5:
-    resolution: {integrity: sha512-rcUUZqlLJgBC33IT3PNMgsCq6TzLQEG/Ei/KTCU0PedSWRMAXoOUN+4t/0H+Q8bdnLPdqUYnvboJT0bn/229qg==}
+  zod@4.1.8:
+    resolution: {integrity: sha512-5R1P+WwQqmmMIEACyzSvo4JXHY5WiAFHRMg+zBZKgKS+Q1viRa0C1hmUKtHltoIFKtIdki3pRxkmpP74jnNYHQ==}
 
 snapshots:
 
@@ -6831,4 +6831,4 @@ snapshots:
 
   zimmerframe@1.1.4: {}
 
-  zod@4.1.5: {}
+  zod@4.1.8: {}
