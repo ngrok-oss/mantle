@@ -25,7 +25,7 @@ export const headers: Route.HeadersFunction = () => {
 export default function Page() {
 	return (
 		<div className="space-y-4">
-			<PageHeader id="hover-card" isPreview>
+			<PageHeader id="combobox" isPreview>
 				Combobox
 			</PageHeader>
 			<p className="font-body text-body text-xl">
@@ -64,6 +64,42 @@ export default function Page() {
 									<Combobox.ItemValue />
 								</Combobox.Item>
 								<Combobox.Item value="https://${random}.ngrok.io">
+									<Combobox.ItemValue />
+								</Combobox.Item>
+								<Combobox.Item value="https://${random}.ngrok.free">
+									<Combobox.ItemValue />
+								</Combobox.Item>
+								<Combobox.Item value="https://${random}.ngrok.pizza">
+									<Combobox.ItemValue />
+								</Combobox.Item>
+								<Combobox.Item value="https://${random}.ngrok.ninja">
+									<Combobox.ItemValue />
+								</Combobox.Item>
+								<Combobox.Item value="https://${random}.ngrok.wtf">
+									<Combobox.ItemValue />
+								</Combobox.Item>
+								<Combobox.Item value="https://${random}.ngrok.biz">
+									<Combobox.ItemValue />
+								</Combobox.Item>
+								<Combobox.Item value="https://${random}.ngrok.online">
+									<Combobox.ItemValue />
+								</Combobox.Item>
+								<Combobox.Item value="https://${random}.ngrok.space">
+									<Combobox.ItemValue />
+								</Combobox.Item>
+								<Combobox.Item value="https://${random}.ngrok.tld0">
+									<Combobox.ItemValue />
+								</Combobox.Item>
+								<Combobox.Item value="https://${random}.ngrok.tld1">
+									<Combobox.ItemValue />
+								</Combobox.Item>
+								<Combobox.Item value="https://${random}.ngrok.tld2">
+									<Combobox.ItemValue />
+								</Combobox.Item>
+								<Combobox.Item value="https://${random}.ngrok.tld3">
+									<Combobox.ItemValue />
+								</Combobox.Item>
+								<Combobox.Item value="https://${random}.ngrok.tld4">
 									<Combobox.ItemValue />
 								</Combobox.Item>
 							</Combobox.Group>
