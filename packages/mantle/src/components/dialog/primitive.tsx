@@ -44,7 +44,20 @@ Portal.displayName = "DialogPrimitivePortal";
 const Close = DialogPrimitive.Close;
 Close.displayName = "DialogPrimitiveClose";
 
-const Overlay = DialogPrimitive.Overlay;
+const Overlay = forwardRef<
+	ComponentRef<typeof DialogPrimitive.Overlay>,
+	ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
+>((props, ref) => (
+	<DialogPrimitive.Overlay
+		/**
+		 * Mark the overlay with a data attribute so we can target it, e.g. in
+		 * event handlers
+		 */
+		data-overlay
+		ref={ref}
+		{...props}
+	/>
+));
 Overlay.displayName = "DialogPrimitiveOverlay";
 
 /**
