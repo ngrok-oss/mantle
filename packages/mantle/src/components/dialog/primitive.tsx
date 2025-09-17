@@ -44,7 +44,20 @@ Portal.displayName = "DialogPrimitivePortal";
 const Close = DialogPrimitive.Close;
 Close.displayName = "DialogPrimitiveClose";
 
-const Overlay = DialogPrimitive.Overlay;
+const Overlay = forwardRef<
+	ComponentRef<typeof DialogPrimitive.Overlay>,
+	ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
+>((props, ref) => (
+	<DialogPrimitive.Overlay
+		/**
+		 * Mark the overlay with a data attribute so we can target it, e.g. in
+		 * event handlers
+		 */
+		data-overlay
+		ref={ref}
+		{...props}
+	/>
+));
 Overlay.displayName = "DialogPrimitiveOverlay";
 
 /**
@@ -96,6 +109,16 @@ const Description = forwardRef<
 });
 Description.displayName = "DialogPrimitiveDescription";
 
+/**
+ * Type guard to check if the event target is the overlay component
+ */
+function isDialogOverlayTarget(target: EventTarget | null): boolean {
+	if (target instanceof HTMLElement) {
+		return target.hasAttribute("data-overlay");
+	}
+	return false;
+}
+
 export {
 	//,
 	Root,
@@ -106,4 +129,5 @@ export {
 	Content,
 	Description,
 	Title,
+	isDialogOverlayTarget,
 };

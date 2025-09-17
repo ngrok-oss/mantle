@@ -1,7 +1,9 @@
 import { Button, IconButton } from "@ngrok/mantle/button";
 import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
-import { Dialog } from "@ngrok/mantle/dialog";
+import { Dialog, isDialogOverlayTarget } from "@ngrok/mantle/dialog";
+import { Input } from "@ngrok/mantle/input";
+import { Label } from "@ngrok/mantle/label";
 import { Tooltip } from "@ngrok/mantle/tooltip";
 import { TrashSimpleIcon } from "@phosphor-icons/react/TrashSimple";
 import { Example } from "~/components/example";
@@ -53,7 +55,22 @@ export default function Page() {
 									Open dialog
 								</Button>
 							</Dialog.Trigger>
-							<Dialog.Content>
+							<Dialog.Content
+								onPointerDownOutside={(event) => {
+									/**
+									 * only allow closing when clicking outside the dialog if the
+									 * click is not on the overlay itself
+									 *
+									 * this allows for clicking on form autofill plugins, like
+									 * 1password, which renders as a sibling to the dialog content
+									 * and visually positions itself inside inputs
+									 */
+									if (isDialogOverlayTarget(event.target)) {
+										return;
+									}
+									event.preventDefault();
+								}}
+							>
 								<Dialog.Header>
 									<Dialog.Title>
 										Are you absolutely sure? aslkdfjas dlfksdoijfoasdjf ioadsjfi
@@ -61,8 +78,21 @@ export default function Page() {
 									<Dialog.CloseIconButton />
 								</Dialog.Header>
 								<Dialog.Body>
-									This action cannot be undone. This will permanently delete
-									your account and remove your data from our servers.
+									<p>
+										This action cannot be undone. This will permanently delete
+										your account and remove your data from our servers.
+									</p>
+									<form onSubmit={(event) => event.preventDefault()}>
+										<Label htmlFor="email">
+											Email input to trigger 1password plugin
+										</Label>
+										<Input
+											type="email"
+											autoComplete="email"
+											id="email"
+											name="email"
+										/>
+									</form>
 								</Dialog.Body>
 								<Dialog.Footer>
 									<Dialog.Close asChild>
