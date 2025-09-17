@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.52.9
+
+### Patch Changes
+
+- [#797](https://github.com/ngrok-oss/mantle/pull/797) [`a5a1b91`](https://github.com/ngrok-oss/mantle/commit/a5a1b91428b682c32657540c84ff1912368bf734) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Dialog Overlay Primitive: add data-overlay attribute to Overlay primitive
+
 ## 0.52.8
 
 ### Patch Changes
