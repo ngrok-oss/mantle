@@ -109,6 +109,16 @@ const Description = forwardRef<
 });
 Description.displayName = "DialogPrimitiveDescription";
 
+/**
+ * Type guard to check if the event target is the overlay component
+ */
+function isDialogOverlayTarget(target: EventTarget | null): boolean {
+	if (target instanceof HTMLElement) {
+		return target.hasAttribute("data-overlay");
+	}
+	return false;
+}
+
 export {
 	//,
 	Root,
@@ -119,4 +129,5 @@ export {
 	Content,
 	Description,
 	Title,
+	isDialogOverlayTarget,
 };
