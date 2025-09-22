@@ -112,6 +112,17 @@ export default function Page() {
 							</Table.Row>
 							<Table.Row>
 								<Table.Cell>
+									<Code>xs</Code>
+								</Table.Cell>
+								<Table.Cell>
+									30rem <span className="text-muted">(480px)</span>
+								</Table.Cell>
+								<Table.Cell>
+									<Code>@media (width &gt;= 30rem) &#123; ... &#125;</Code>
+								</Table.Cell>
+							</Table.Row>
+							<Table.Row>
+								<Table.Cell>
 									<Code>sm</Code>
 								</Table.Cell>
 								<Table.Cell>
@@ -229,8 +240,9 @@ export default function Page() {
 					<h3 className="text-lg font-medium">Return Value</h3>
 					<p className="text-body">
 						Returns a <Code>Breakpoint</Code> type that can be one of:{" "}
-						<Code>"default"</Code>, <Code>"sm"</Code>, <Code>"md"</Code>,{" "}
-						<Code>"lg"</Code>, <Code>"xl"</Code>, or <Code>"2xl"</Code>.
+						<Code>"default"</Code>, <Code>"xs"</Code>, <Code>"sm"</Code>,{" "}
+						<Code>"md"</Code>, <Code>"lg"</Code>, <Code>"xl"</Code>, or{" "}
+						<Code>"2xl"</Code>.
 					</p>
 				</div>
 			</section>
@@ -269,8 +281,8 @@ export default function Page() {
 					<h3 className="text-lg font-medium">Parameters</h3>
 					<p className="text-body">
 						Accepts a <Code>TailwindBreakpoint</Code> which can be one of:{" "}
-						<Code>"sm"</Code>, <Code>"md"</Code>, <Code>"lg"</Code>,{" "}
-						<Code>"xl"</Code>, or <Code>"2xl"</Code>.
+						<Code>"xs"</Code>, <Code>"sm"</Code>, <Code>"md"</Code>,{" "}
+						<Code>"lg"</Code>, <Code>"xl"</Code>, or <Code>"2xl"</Code>.
 					</p>
 				</div>
 
