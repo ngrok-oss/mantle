@@ -485,7 +485,7 @@ function preventWrongThemeFlashScriptContent(
 
 	// 4) Handle persistence/migration synchronously to prevent FOUC
 	const hadValidCookie = isTheme(cookieTheme);
-	try{
+	try {
 		// Migrate from localStorage to cookies if needed
 		if (isTheme(lsTheme)) {
 			writeCookie(KEY, lsTheme);
