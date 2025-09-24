@@ -76,7 +76,7 @@ function isResolvedTheme(value: unknown): value is ResolvedTheme {
 }
 
 /**
- * DEFAULT_STORAGE_KEY is the default key used to store the theme in localStorage.
+ * DEFAULT_STORAGE_KEY is the default key used to store the theme in cookies.
  */
 const DEFAULT_STORAGE_KEY = "mantle-ui-theme";
 
@@ -103,25 +103,77 @@ const ThemeProviderContext = createContext<ThemeProviderState | null>(
 const isBrowser = () => typeof window !== "undefined";
 
 /**
- * Gets the stored theme from localStorage or returns the default theme if no theme is stored.
+ * Sets a cookie with appropriate domain for the current hostname.
+ * Uses .ngrok.com for ngrok domains, otherwise no domain (current domain only).
+ */
+function setCookie(name: string, value: string) {
+	if (!isBrowser()) {
+		return;
+	}
+
+	try {
+		const expires = new Date();
+		expires.setFullYear(expires.getFullYear() + 1); // 1 year expiration
+
+		// Only set .ngrok.com domain for ngrok domains, otherwise let it default to current domain
+		const { hostname, protocol } = window.location;
+		const domainAttribute =
+			hostname === "ngrok.com" || hostname.endsWith(".ngrok.com")
+				? "; domain=.ngrok.com"
+				: "";
+		const secureAttribute = protocol === "https:" ? "; Secure" : "";
+
+		document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires.toUTCString()}; path=/${domainAttribute}; SameSite=Lax${secureAttribute}`;
+	} catch (_) {
+		// silently swallow errors
+	}
+}
+
+/**
+ * Gets the stored theme from cookies or returns the default theme if no theme is stored.
  */
 function getStoredTheme(storageKey: string, defaultTheme: Theme = "system") {
 	const fallbackTheme = defaultTheme ?? "system";
 	if (isBrowser()) {
 		let storedTheme: string | null = null;
 		try {
-			storedTheme =
-				"localStorage" in window
-					? window.localStorage.getItem(storageKey)
-					: null;
+			const cookies = document.cookie.split(";");
+			const themeCookie = cookies.find((cookie) =>
+				cookie.trim().startsWith(`${storageKey}=`),
+			);
+			if (themeCookie) {
+				const cookieValue = themeCookie.trim().substring(storageKey.length + 1);
+				storedTheme = cookieValue ? decodeURIComponent(cookieValue) : null;
+			}
 		} catch (_) {}
 		return isTheme(storedTheme) ? storedTheme : fallbackTheme;
 	}
 	return fallbackTheme;
 }
 
+/**
+ * Props for the {@link ThemeProvider} component.
+ */
 type ThemeProviderProps = PropsWithChildren & {
+	/**
+	 * The initial theme to apply if no value is found in storage.
+	 *
+	 * Possible values {@link themes}:
+	 * - `"system"` – follow the user’s system preferences (default).
+	 * - `"light"` – force light mode.
+	 * - `"dark"` – force dark mode.
+	 * - `"light-high-contrast"` – light mode with increased contrast.
+	 * - `"dark-high-contrast"` – dark mode with increased contrast.
+	 */
 	defaultTheme?: Theme;
+
+	/**
+	 * The key used to persist the selected theme in cookies or storage.
+	 *
+	 * Defaults to `"theme"` (or the {@link DEFAULT_STORAGE_KEY} constant).
+	 * Useful if you need to isolate theme settings across multiple apps
+	 * or contexts.
+	 */
 	storageKey?: string;
 };
 
@@ -185,11 +237,7 @@ function ThemeProvider({
 		() => [
 			theme,
 			(theme: Theme) => {
-				try {
-					if ("localStorage" in window) {
-						window.localStorage.setItem(storageKey, theme);
-					}
-				} catch (_) {}
+				setCookie(storageKey, theme);
 				setTheme(theme);
 				applyTheme(theme);
 			},
@@ -343,7 +391,7 @@ type PreventWrongThemeFlashScriptContentOptions = {
 
 /**
  * preventWrongThemeFlashScriptContent generates a script that prevents the wrong theme from flashing on initial page load.
- * It checks localStorage for a stored theme, and if none is found, it sets the default theme.
+ * It checks cookies for a stored theme, and if none is found, it sets the default theme.
  * It also applies the correct theme to the `<html>` element based on the user's media query preferences.
  */
 function preventWrongThemeFlashScriptContent(
@@ -352,44 +400,112 @@ function preventWrongThemeFlashScriptContent(
 	const { defaultTheme = "system", storageKey = DEFAULT_STORAGE_KEY } =
 		options ?? {};
 
+	// Only resolved themes are ever applied as classes
+	const resolved = resolvedThemes;
+
 	return `
 (function() {
-	const themes = ${JSON.stringify(themes)};
-	const isTheme = (value) => typeof value === "string" && themes.includes(value);
-	const fallbackTheme = "${defaultTheme}" ?? "system";
-	let maybeStoredTheme = null;
-	try {
-		maybeStoredTheme = "localStorage" in window ? window.localStorage.getItem("${storageKey}") : null;
-	} catch (_) {}
-	const hasStoredTheme = isTheme(maybeStoredTheme);
-	if (!hasStoredTheme && "localStorage" in window) {
-		try {
-			window.localStorage.setItem("${storageKey}", fallbackTheme);
-		} catch (_) {}
+	const RESOLVED = ${JSON.stringify(resolved)};
+	const DEF = "${defaultTheme}";
+	const KEY = "${storageKey}";
+	const doc = document, root = doc.documentElement;
+
+	function isTheme(v) {
+		return typeof v === "string" && (v === "system" || RESOLVED.indexOf(v) > -1);
 	}
-	const themePreference = hasStoredTheme ? maybeStoredTheme : fallbackTheme;
-	const prefersDarkMode = window.matchMedia("${prefersDarkModeMediaQuery}").matches;
-	const prefersHighContrast = window.matchMedia("${prefersHighContrastMediaQuery}").matches;
-	let initialTheme = themePreference;
-	if (initialTheme === "system") {
-		if (prefersHighContrast) {
-			initialTheme = prefersDarkMode ? "dark-high-contrast" : "light-high-contrast";
-		} else {
-			initialTheme = prefersDarkMode ? "dark" : "light";
+
+	function readCookie(name){
+		// Efficient single-pass cookie lookup: "; name=value"
+		const all = "; " + doc.cookie, token = "; " + name + "=";
+		const startIdx = all.indexOf(token);
+		if (startIdx < 0) {
+			return null;
+		}
+		const endIdx = all.indexOf(";", startIdx + token.length);
+		const rawValue = all.slice(startIdx + token.length, endIdx < 0 ? void 0 : endIdx) || null;
+		try { 
+			return rawValue ? decodeURIComponent(rawValue) : null;
+		} catch(_) { 
+			return rawValue;
 		}
 	}
-	const htmlElement = document.documentElement;
-	htmlElement.classList.remove(...themes);
-	htmlElement.classList.add(initialTheme);
-	htmlElement.dataset.appliedTheme = initialTheme;
-	htmlElement.dataset.theme = themePreference;
+
+	function writeCookie(name, val) {
+		try {
+			const expires = new Date(); 
+			expires.setFullYear(expires.getFullYear() + 1);
+			const hostname = location.hostname;
+			const protocol = location.protocol;
+			const isDotNgrok = (hostname === "ngrok.com" || hostname.endsWith(".ngrok.com"));
+			const domain = isDotNgrok ? "; domain=.ngrok.com" : "";
+			const secure = protocol === "https:" ? "; Secure" : "";
+			doc.cookie = name + "=" + encodeURIComponent(val) + "; expires=" + expires.toUTCString() + "; path=/" + domain + "; SameSite=Lax" + secure;
+		} catch(_) {}
+	}
+
+	// 1) Read preference: cookie first, fallback to localStorage (migration support)
+	let cookieTheme = null, lsTheme = null, storedTheme = null;
+	try { 
+		cookieTheme = readCookie(KEY);
+	} catch(_) {}
+	
+	if (isTheme(cookieTheme)) { 
+		storedTheme = cookieTheme;
+	} else {
+		try { 
+			lsTheme = window.localStorage && window.localStorage.getItem(KEY);
+		} catch(_) {}
+		if (isTheme(lsTheme)) {
+			storedTheme = lsTheme;
+		}
+	}
+
+	const preference = isTheme(storedTheme) ? storedTheme : DEF;
+
+	// 2) Resolve only when needed to avoid unnecessary media queries
+	let resolvedTheme = preference;
+	if (preference === "system") {
+		const isDark = matchMedia("${prefersDarkModeMediaQuery}").matches;
+		const isHighContrast = matchMedia("${prefersHighContrastMediaQuery}").matches;
+		resolvedTheme = isHighContrast 
+			? (isDark ? "dark-high-contrast" : "light-high-contrast")
+			: (isDark ? "dark" : "light");
+	}
+
+	// 3) Only touch DOM if we actually need to change something (SSR optimization)
+	if (root.dataset.appliedTheme !== resolvedTheme || root.dataset.theme !== preference) {
+		// Remove all theme classes, add the correct one
+		for (let i = 0; i < RESOLVED.length; i++) {
+			root.classList.remove(RESOLVED[i]);
+		}
+		root.classList.add(resolvedTheme);
+		root.dataset.appliedTheme = resolvedTheme;
+		root.dataset.theme = preference;
+	}
+
+	// 4) Defer persistence/migration to keep the hot path read-only
+	const hadValidCookie = isTheme(cookieTheme);
+	(window.requestIdleCallback || setTimeout)(function() {
+		try{
+			// Migrate from localStorage to cookies if needed
+			if (isTheme(lsTheme)) {
+				writeCookie(KEY, lsTheme);
+				try { 
+					window.localStorage.removeItem(KEY);
+				} catch(_) {}
+			} else if (!hadValidCookie) {
+				// Set default cookie if none existed
+				writeCookie(KEY, preference);
+			}
+		} catch (_) {}
+	}, 0);
 })();
 `.trim();
 }
 
 type MantleThemeHeadContentProps = {
 	/**
-	 * The default theme to use if no theme is stored in localStorage.
+	 * The default theme to use if no theme is stored in cookies.
 	 * @default "system"
 	 */
 	defaultTheme?: Theme;
@@ -402,7 +518,7 @@ type MantleThemeHeadContentProps = {
 	 */
 	nonce?: string;
 	/**
-	 * The key used to store the theme in localStorage.
+	 * The key used to store the theme in cookies.
 	 * @default "mantle-ui-theme"
 	 */
 	storageKey?: string;
@@ -472,14 +588,14 @@ function useInitialHtmlThemeProps(props?: {
 			prefersHighContrastMediaQuery,
 		).matches;
 		const initialTheme = getStoredTheme(storageKey, defaultTheme);
-		const reolvedTheme = resolveTheme(initialTheme, {
+		const resolvedTheme = resolveTheme(initialTheme, {
 			prefersDarkMode,
 			prefersHighContrast,
 		});
 
 		return {
-			className: clsx(className, reolvedTheme),
-			"data-applied-theme": reolvedTheme,
+			className: clsx(className, resolvedTheme),
+			"data-applied-theme": resolvedTheme,
 			"data-theme": initialTheme,
 		};
 	}, [className, defaultTheme, storageKey]);
