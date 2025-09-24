@@ -6,15 +6,16 @@ permissions:
   contents: read
   pull-requests: write
 
+env:
+  DO_NOT_TRACK: 1
+  TURBO_TELEMETRY_DISABLED: 1
+  VERCEL_TELEMETRY_DISABLED: 1
+  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+  TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+
 jobs:
   ci-checks:
     runs-on: ubuntu-latest
-    env:
-      DO_NOT_TRACK: 1
-      TURBO_TELEMETRY_DISABLED: 1
-      VERCEL_TELEMETRY_DISABLED: 1
-      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v4

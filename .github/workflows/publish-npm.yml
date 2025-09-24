@@ -10,16 +10,16 @@ permissions:
   contents: write
   pull-requests: write
 
+env:
+  DO_NOT_TRACK: 1
+  TURBO_TELEMETRY_DISABLED: 1
+  VERCEL_TELEMETRY_DISABLED: 1
+  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+  TURBO_TEAM: ${{ vars.TURBO_TEAM }}
 jobs:
   publish:
     runs-on: ubuntu-latest
     if: github.repository == 'ngrok-oss/mantle'
-    env:
-      DO_NOT_TRACK: 1
-      TURBO_TELEMETRY_DISABLED: 1
-      VERCEL_TELEMETRY_DISABLED: 1
-      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
     steps:
       - uses: actions/create-github-app-token@v2
         id: generate-token
