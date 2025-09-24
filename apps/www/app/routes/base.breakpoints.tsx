@@ -38,7 +38,7 @@ export default function Page() {
 			</div>
 
 			<section className="space-y-4">
-				<HashLinkHeading id="live-demo" className="text-2xl font-semibold">
+				<HashLinkHeading id="live-demo" className="text-2xl font-medium">
 					<h2>Live Demo</h2>
 				</HashLinkHeading>
 				<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -80,7 +80,7 @@ export default function Page() {
 			<section className="space-y-4">
 				<HashLinkHeading
 					id="breakpoint-values"
-					className="text-2xl font-semibold"
+					className="text-2xl font-medium"
 				>
 					<h2>Breakpoint Values</h2>
 				</HashLinkHeading>
@@ -108,6 +108,17 @@ export default function Page() {
 								</Table.Cell>
 								<Table.Cell>
 									<span className="text-muted">No media query</span>
+								</Table.Cell>
+							</Table.Row>
+							<Table.Row>
+								<Table.Cell>
+									<Code>xs</Code>
+								</Table.Cell>
+								<Table.Cell>
+									30rem <span className="text-muted">(480px)</span>
+								</Table.Cell>
+								<Table.Cell>
+									<Code>@media (width &gt;= 30rem) &#123; ... &#125;</Code>
 								</Table.Cell>
 							</Table.Row>
 							<Table.Row>
@@ -171,7 +182,7 @@ export default function Page() {
 			</section>
 
 			<section className="space-y-4">
-				<h2 className="text-2xl font-semibold">useBreakpoint Hook</h2>
+				<h2 className="text-2xl font-medium">useBreakpoint Hook</h2>
 				<p className="font-body text-body text-lg">
 					The <Code>useBreakpoint</Code> hook returns the current breakpoint
 					based on the viewport width. It efficiently tracks all breakpoints and
@@ -185,10 +196,10 @@ export default function Page() {
 							language="tsx"
 							value={fmtCode`
 								import { useBreakpoint } from "@ngrok/mantle/hooks";
-								
+
 								function ResponsiveComponent() {
 									const breakpoint = useBreakpoint();
-									
+
 									return (
 										<div>
 											<p>Current breakpoint: {breakpoint}</p>
@@ -204,7 +215,7 @@ export default function Page() {
 				</CodeBlock.Root>
 
 				<div className="space-y-2">
-					<h3 className="text-lg font-semibold">Features</h3>
+					<h3 className="text-lg font-medium">Features</h3>
 					<ul className="list-disc list-inside space-y-1 text-body">
 						<li>
 							<strong>Performance optimized:</strong> Uses a single subscription
@@ -226,17 +237,18 @@ export default function Page() {
 				</div>
 
 				<div className="space-y-2">
-					<h3 className="text-lg font-semibold">Return Value</h3>
+					<h3 className="text-lg font-medium">Return Value</h3>
 					<p className="text-body">
 						Returns a <Code>Breakpoint</Code> type that can be one of:{" "}
-						<Code>"default"</Code>, <Code>"sm"</Code>, <Code>"md"</Code>,{" "}
-						<Code>"lg"</Code>, <Code>"xl"</Code>, or <Code>"2xl"</Code>.
+						<Code>"default"</Code>, <Code>"xs"</Code>, <Code>"sm"</Code>,{" "}
+						<Code>"md"</Code>, <Code>"lg"</Code>, <Code>"xl"</Code>, or{" "}
+						<Code>"2xl"</Code>.
 					</p>
 				</div>
 			</section>
 
 			<section className="space-y-4">
-				<h2 className="text-2xl font-semibold">useIsBelowBreakpoint Hook</h2>
+				<h2 className="text-2xl font-medium">useIsBelowBreakpoint Hook</h2>
 				<p className="font-body text-body text-lg">
 					The <Code>useIsBelowBreakpoint</Code> hook returns <Code>true</Code>{" "}
 					if the current viewport width is below the specified breakpoint.
@@ -250,10 +262,10 @@ export default function Page() {
 							language="tsx"
 							value={fmtCode`
 								import { useIsBelowBreakpoint } from "@ngrok/mantle/hooks";
-								
+
 								function ResponsiveSidebar() {
 									const isMobile = useIsBelowBreakpoint("md");
-									
+
 									return (
 										<aside className={isMobile ? "mobile-sidebar" : "desktop-sidebar"}>
 											{isMobile ? <MobileNav /> : <DesktopNav />}
@@ -266,16 +278,16 @@ export default function Page() {
 				</CodeBlock.Root>
 
 				<div className="space-y-2">
-					<h3 className="text-lg font-semibold">Parameters</h3>
+					<h3 className="text-lg font-medium">Parameters</h3>
 					<p className="text-body">
 						Accepts a <Code>TailwindBreakpoint</Code> which can be one of:{" "}
-						<Code>"sm"</Code>, <Code>"md"</Code>, <Code>"lg"</Code>,{" "}
-						<Code>"xl"</Code>, or <Code>"2xl"</Code>.
+						<Code>"xs"</Code>, <Code>"sm"</Code>, <Code>"md"</Code>,{" "}
+						<Code>"lg"</Code>, <Code>"xl"</Code>, or <Code>"2xl"</Code>.
 					</p>
 				</div>
 
 				<div className="space-y-2">
-					<h3 className="text-lg font-semibold">Common Use Cases</h3>
+					<h3 className="text-lg font-medium">Common Use Cases</h3>
 					<ul className="list-disc list-inside space-y-1 text-body">
 						<li>
 							<strong>Mobile detection:</strong>{" "}

@@ -120,7 +120,8 @@ export default function Page() {
 							A wrapper component that ensures its children only render in the
 							browser, after hydration has completed. Useful for components that
 							rely on browser-only APIs like <Code>window</Code>,{" "}
-							<Code>document</Code>,<Code>localStorage</Code>, or media queries.
+							<Code>document</Code>, <Code>localStorage</Code>, or media
+							queries.
 						</p>
 					</header>
 
