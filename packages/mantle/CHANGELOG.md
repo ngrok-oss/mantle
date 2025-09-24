@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.54.0
+
+### Minor Changes
+
+- [#806](https://github.com/ngrok-oss/mantle/pull/806) [`c1162a4`](https://github.com/ngrok-oss/mantle/commit/c1162a40080c574acb76fba83f24b0c4d756a18b) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Switch from localStorage to cookie for theme preference storage primitive
+
 ## 0.53.0
 
 ### Minor Changes
