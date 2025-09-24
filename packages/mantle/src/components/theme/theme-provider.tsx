@@ -76,7 +76,7 @@ function isResolvedTheme(value: unknown): value is ResolvedTheme {
 }
 
 /**
- * DEFAULT_STORAGE_KEY is the default key used to store the theme in localStorage.
+ * DEFAULT_STORAGE_KEY is the default key used to store the theme in cookies.
  */
 const DEFAULT_STORAGE_KEY = "mantle-ui-theme";
 
@@ -103,25 +103,76 @@ const ThemeProviderContext = createContext<ThemeProviderState | null>(
 const isBrowser = () => typeof window !== "undefined";
 
 /**
- * Gets the stored theme from localStorage or returns the default theme if no theme is stored.
+ * Sets a cookie with appropriate domain for the current hostname.
+ * Uses .ngrok.com for ngrok domains, otherwise no domain (current domain only).
+ */
+function setCookie(name: string, value: string) {
+	if (!isBrowser()) {
+		return;
+	}
+
+	try {
+		const expires = new Date();
+		expires.setFullYear(expires.getFullYear() + 1); // 1 year expiration
+
+		// Only set .ngrok.com domain for ngrok domains, otherwise let it default to current domain
+		const hostname = window.location.hostname;
+		const domainAttribute =
+			hostname.includes(".ngrok.com") || hostname === "ngrok.com"
+				? "; domain=.ngrok.com"
+				: "";
+
+		document.cookie = `${name}=${value}; expires=${expires.toUTCString()}; path=/${domainAttribute}; SameSite=Lax`;
+	} catch (_) {
+		// silently swallow errors
+	}
+}
+
+/**
+ * Gets the stored theme from cookies or returns the default theme if no theme is stored.
  */
 function getStoredTheme(storageKey: string, defaultTheme: Theme = "system") {
 	const fallbackTheme = defaultTheme ?? "system";
 	if (isBrowser()) {
 		let storedTheme: string | null = null;
 		try {
-			storedTheme =
-				"localStorage" in window
-					? window.localStorage.getItem(storageKey)
-					: null;
+			const cookies = document.cookie.split(";");
+			const themeCookie = cookies.find((cookie) =>
+				cookie.trim().startsWith(`${storageKey}=`),
+			);
+			if (themeCookie) {
+				const cookieValue = themeCookie.split("=")[1];
+				storedTheme = cookieValue || null;
+			}
 		} catch (_) {}
 		return isTheme(storedTheme) ? storedTheme : fallbackTheme;
 	}
 	return fallbackTheme;
 }
 
+/**
+ * Props for the {@link ThemeProvider} component.
+ */
 type ThemeProviderProps = PropsWithChildren & {
+	/**
+	 * The initial theme to apply if no value is found in storage.
+	 *
+	 * Possible values {@link themes}:
+	 * - `"system"` – follow the user’s system preferences (default).
+	 * - `"light"` – force light mode.
+	 * - `"dark"` – force dark mode.
+	 * - `"light-high-contrast"` – light mode with increased contrast.
+	 * - `"dark-high-contrast"` – dark mode with increased contrast.
+	 */
 	defaultTheme?: Theme;
+
+	/**
+	 * The key used to persist the selected theme in cookies or storage.
+	 *
+	 * Defaults to `"theme"` (or the {@link DEFAULT_STORAGE_KEY} constant).
+	 * Useful if you need to isolate theme settings across multiple apps
+	 * or contexts.
+	 */
 	storageKey?: string;
 };
 
@@ -185,11 +236,7 @@ function ThemeProvider({
 		() => [
 			theme,
 			(theme: Theme) => {
-				try {
-					if ("localStorage" in window) {
-						window.localStorage.setItem(storageKey, theme);
-					}
-				} catch (_) {}
+				setCookie(storageKey, theme);
 				setTheme(theme);
 				applyTheme(theme);
 			},
@@ -343,7 +390,7 @@ type PreventWrongThemeFlashScriptContentOptions = {
 
 /**
  * preventWrongThemeFlashScriptContent generates a script that prevents the wrong theme from flashing on initial page load.
- * It checks localStorage for a stored theme, and if none is found, it sets the default theme.
+ * It checks cookies for a stored theme, and if none is found, it sets the default theme.
  * It also applies the correct theme to the `<html>` element based on the user's media query preferences.
  */
 function preventWrongThemeFlashScriptContent(
@@ -357,14 +404,52 @@ function preventWrongThemeFlashScriptContent(
 	const themes = ${JSON.stringify(themes)};
 	const isTheme = (value) => typeof value === "string" && themes.includes(value);
 	const fallbackTheme = "${defaultTheme}" ?? "system";
+	
+	function getCookie(name) {
+		const cookies = document.cookie.split(';');
+		const cookie = cookies.find(c => c.trim().startsWith(name + '='));
+		return cookie ? cookie.split('=')[1] || null : null;
+	}
+	
+	function setCookie(name, value) {
+		const expires = new Date();
+		expires.setFullYear(expires.getFullYear() + 1);
+		
+		// Only set .ngrok.com domain for ngrok domains, otherwise let it default to current domain
+		const hostname = window.location.hostname;
+		const domainAttribute = (hostname.includes('.ngrok.com') || hostname === 'ngrok.com') 
+			? '; domain=.ngrok.com' 
+			: '';
+		
+		document.cookie = name + '=' + value + '; expires=' + expires.toUTCString() + '; path=/' + domainAttribute + '; SameSite=Lax';
+	}
+	
 	let maybeStoredTheme = null;
+	
+	// First check localStorage for backwards compatibility
 	try {
-		maybeStoredTheme = "localStorage" in window ? window.localStorage.getItem("${storageKey}") : null;
+		if ("localStorage" in window) {
+			const localStorageTheme = window.localStorage.getItem("${storageKey}");
+			if (isTheme(localStorageTheme)) {
+				// Migrate to cookie and remove from localStorage
+				setCookie("${storageKey}", localStorageTheme);
+				window.localStorage.removeItem("${storageKey}");
+				maybeStoredTheme = localStorageTheme;
+			}
+		}
 	} catch (_) {}
-	const hasStoredTheme = isTheme(maybeStoredTheme);
-	if (!hasStoredTheme && "localStorage" in window) {
+	
+	// If not found in localStorage, check cookies
+	if (!maybeStoredTheme) {
 		try {
-			window.localStorage.setItem("${storageKey}", fallbackTheme);
+			maybeStoredTheme = getCookie("${storageKey}");
+		} catch (_) {}
+	}
+	
+	const hasStoredTheme = isTheme(maybeStoredTheme);
+	if (!hasStoredTheme) {
+		try {
+			setCookie("${storageKey}", fallbackTheme);
 		} catch (_) {}
 	}
 	const themePreference = hasStoredTheme ? maybeStoredTheme : fallbackTheme;
@@ -389,7 +474,7 @@ function preventWrongThemeFlashScriptContent(
 
 type MantleThemeHeadContentProps = {
 	/**
-	 * The default theme to use if no theme is stored in localStorage.
+	 * The default theme to use if no theme is stored in cookies.
 	 * @default "system"
 	 */
 	defaultTheme?: Theme;
@@ -402,7 +487,7 @@ type MantleThemeHeadContentProps = {
 	 */
 	nonce?: string;
 	/**
-	 * The key used to store the theme in localStorage.
+	 * The key used to store the theme in cookies.
 	 * @default "mantle-ui-theme"
 	 */
 	storageKey?: string;

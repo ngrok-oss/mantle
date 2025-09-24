@@ -48,18 +48,26 @@ export default function Page() {
 					theme to the application and a function to change it.
 				</p>
 			</header>
-			<section className="font-body text-body space-y-4">
-				<p>
-					To use the <Code>ThemeProvider</Code>, wrap your application&apos;s
-					entry point. This should be done as high in the component tree as
-					possible.
-				</p>
-				<p>
-					You should also add the <Code>MantleThemeHeadContent</Code> component
-					to the head of your application to prevent a Flash of Unstyled Content
-					(FOUC) when the app first loads as well as preload all of our custom
-					fonts.
-				</p>
+			<section className="space-y-6">
+				<HashLinkHeading id="setup" className="text-2xl font-medium">
+					<h2>Setup</h2>
+				</HashLinkHeading>
+				<div className="font-body text-body space-y-4">
+					<p>
+						To use the <Code>ThemeProvider</Code>, wrap your application&apos;s
+						entry point. This should be done as high in the component tree as
+						possible.
+					</p>
+					<p>
+						You should also add the <Code>MantleThemeHeadContent</Code>{" "}
+						component to the head of your application to prevent a Flash of
+						Unstyled Content (FOUC) when the app first loads as well as preload
+						all of our custom fonts.{" "}
+						<strong>
+							This is the recommended approach for most applications.
+						</strong>
+					</p>
+				</div>
 				<CodeBlock.Root>
 					<CodeBlock.Header>
 						<CodeBlock.Icon svg={<FileTextIcon weight="fill" />} />
@@ -99,13 +107,28 @@ export default function Page() {
 					</CodeBlock.Body>
 				</CodeBlock.Root>
 			</section>
-			<section className="space-y-4">
-				<p className="font-body text-body">
-					Sometimes you cannot use the <Code>MantleThemeHeadContent</Code>{" "}
-					component because your webserver is not able to render React
-					components. In this case, you can use the copy the following script
-					and add it to your application&apos;s <Code>&lt;head&gt;</Code>:
-				</p>
+
+			<section className="space-y-6">
+				<HashLinkHeading
+					id="custom-head-content"
+					className="text-2xl font-medium"
+				>
+					<h2>Custom Head Content</h2>
+				</HashLinkHeading>
+				<div className="font-body text-body space-y-4">
+					<p>
+						<strong>
+							Only use this section if you cannot use{" "}
+							<Code>MantleThemeHeadContent</Code>.
+						</strong>
+					</p>
+					<p>
+						Sometimes you cannot use the <Code>MantleThemeHeadContent</Code>{" "}
+						component because your web server is not able to render React
+						components. In this case, you can copy the following script and add
+						it to your application&apos;s <Code>&lt;head&gt;</Code>:
+					</p>
+				</div>
 				<CodeBlock.Root>
 					<CodeBlock.Header>
 						<CodeBlock.Icon svg={<FileTextIcon weight="fill" />} />
@@ -123,32 +146,46 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 						<CodeBlock.ExpanderButton />
 					</CodeBlock.Body>
 				</CodeBlock.Root>
+
+				<div className="space-y-4">
+					<HashLinkHeading
+						id="custom-font-preloading"
+						className="text-xl font-medium"
+					>
+						<h3>Font Preloading</h3>
+					</HashLinkHeading>
+					<p className="font-body text-body">
+						You will also need to ensure that you add the{" "}
+						<Code>PreloadFonts</Code> component to your app as well if
+						you&apos;re using the custom setup.
+					</p>
+					<CodeBlock.Root>
+						<CodeBlock.Header>
+							<CodeBlock.Icon svg={<FileTextIcon weight="fill" />} />
+							<CodeBlock.Title>index.html</CodeBlock.Title>
+						</CodeBlock.Header>
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
+								language="html"
+								value={fmtCode`<head>\n\t${renderToStaticMarkup(
+									<PreloadFonts />,
+								)
+									.split("/><")
+									.join("/>\n\t<")}\n</head>`}
+							/>
+						</CodeBlock.Body>
+					</CodeBlock.Root>
+				</div>
 			</section>
-			<section className="space-y-4">
+
+			<section className="space-y-6">
+				<HashLinkHeading id="usage" className="text-2xl font-medium">
+					<h2>Usage</h2>
+				</HashLinkHeading>
 				<p className="font-body text-body">
-					You will also need to ensure that you add the{" "}
-					<Code>PreloadFonts</Code> component to your app as well.
-				</p>
-				<CodeBlock.Root>
-					<CodeBlock.Header>
-						<CodeBlock.Icon svg={<FileTextIcon weight="fill" />} />
-						<CodeBlock.Title>index.html</CodeBlock.Title>
-					</CodeBlock.Header>
-					<CodeBlock.Body>
-						<CodeBlock.CopyButton />
-						<CodeBlock.Code
-							language="html"
-							value={fmtCode`<head>\n\t${renderToStaticMarkup(<PreloadFonts />)
-								.split("/><")
-								.join("/>\n\t<")}\n</head>`}
-						/>
-					</CodeBlock.Body>
-				</CodeBlock.Root>
-			</section>
-			<section className="space-y-4">
-				<p className="font-body text-body">
-					Then, in your application, you can use the <Code>useTheme</Code> hook
-					to get and change the current theme:
+					In your application, you can use the <Code>useTheme</Code> hook to get
+					and change the current theme:
 				</p>
 				<CodeBlock.Root>
 					<CodeBlock.Header>
@@ -273,9 +310,9 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
-										The default theme to use when no theme is stored in
-										localStorage. The <Code>system</Code> theme will
-										automatically resolve to the user's preferred color scheme.
+										The default theme to use when no theme is stored in cookies.
+										The <Code>system</Code> theme will automatically resolve to
+										the user's preferred color scheme.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -288,9 +325,7 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 									<StringPropType value="mantle-ui-theme" />
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
-									<p>
-										The key used to store the theme preference in localStorage.
-									</p>
+									<p>The key used to store the theme preference in cookies.</p>
 								</PropDescriptionCell>
 							</PropRow>
 						</PropsTable>
@@ -351,8 +386,8 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
-										The localStorage key to check for theme preference. Should
-										match the <Code>storageKey</Code> prop of your{" "}
+										The cookie key to check for theme preference. Should match
+										the <Code>storageKey</Code> prop of your{" "}
 										<Code>ThemeProvider</Code>.
 									</p>
 								</PropDescriptionCell>
