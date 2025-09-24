@@ -67,7 +67,7 @@
     "@types/prismjs": "1.26.5",
     "@types/react": "18.3.24",
     "@types/react-dom": "18.3.7",
-    "browserslist": "4.26.0",
+    "browserslist": "4.26.2",
     "date-fns": "4.1.0",
     "jsdom": "27.0.0",
     "react": "18.3.1",
