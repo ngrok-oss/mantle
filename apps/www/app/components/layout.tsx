@@ -4,7 +4,7 @@ import { cx } from "@ngrok/mantle/cx";
 import { Icon, type SvgAttributes } from "@ngrok/mantle/icon";
 import { AutoThemeIcon, ThemeIcon } from "@ngrok/mantle/icons";
 import { Select } from "@ngrok/mantle/select";
-import { $theme, isTheme, useTheme } from "@ngrok/mantle/theme-provider";
+import { $theme, isTheme, useTheme } from "@ngrok/mantle/theme";
 import type { WithStyleProps } from "@ngrok/mantle/types";
 import { ListIcon } from "@phosphor-icons/react/List";
 import { XIcon } from "@phosphor-icons/react/X";
@@ -228,7 +228,7 @@ const prodReadyComponents = [
 	"Table",
 	"Tabs",
 	"Text Area",
-	"Theme Provider",
+	"Theme",
 	"Toast",
 ] as const;
 
@@ -284,7 +284,7 @@ const prodReadyComponentRouteLookup = {
 	Table: "/components/table",
 	Tabs: "/components/tabs",
 	"Text Area": "/components/text-area",
-	"Theme Provider": "/components/theme-provider",
+	Theme: "/components/theme",
 	Toast: "/components/toast",
 } as const satisfies Record<(typeof prodReadyComponents)[number], Route>;
 
