@@ -483,22 +483,20 @@ function preventWrongThemeFlashScriptContent(
 		root.dataset.theme = preference;
 	}
 
-	// 4) Defer persistence/migration to keep the hot path read-only
+	// 4) Handle persistence/migration synchronously to prevent FOUC
 	const hadValidCookie = isTheme(cookieTheme);
-	(window.requestIdleCallback || setTimeout)(function() {
-		try{
-			// Migrate from localStorage to cookies if needed
-			if (isTheme(lsTheme)) {
-				writeCookie(KEY, lsTheme);
-				try { 
-					window.localStorage.removeItem(KEY);
-				} catch(_) {}
-			} else if (!hadValidCookie) {
-				// Set default cookie if none existed
-				writeCookie(KEY, preference);
-			}
-		} catch (_) {}
-	}, 0);
+	try{
+		// Migrate from localStorage to cookies if needed
+		if (isTheme(lsTheme)) {
+			writeCookie(KEY, lsTheme);
+			try { 
+				window.localStorage.removeItem(KEY);
+			} catch(_) {}
+		} else if (!hadValidCookie) {
+			// Set default cookie if none existed
+			writeCookie(KEY, preference);
+		}
+	} catch (_) {}
 })();
 `.trim();
 }
