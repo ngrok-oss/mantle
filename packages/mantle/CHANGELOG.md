@@ -1,5 +1,17 @@
 # @ngrok/mantle
 
+## 0.53.0
+
+### Minor Changes
+
+- [#804](https://github.com/ngrok-oss/mantle/pull/804) [`9286f3a`](https://github.com/ngrok-oss/mantle/commit/9286f3afb365ae4a7f8881905e8890a0ef7740ef) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Rename theme-provider export to theme
+
+### Patch Changes
+
+- [#803](https://github.com/ngrok-oss/mantle/pull/803) [`165981f`](https://github.com/ngrok-oss/mantle/commit/165981f4334a389da899787530cf8b80c2ff52a9) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update react day picker dependency
+
+- [#801](https://github.com/ngrok-oss/mantle/pull/801) [`47ecff2`](https://github.com/ngrok-oss/mantle/commit/47ecff27f9bea00f5d4b4fc72fb9d281fb331174) Thanks [@aaronshekey](https://github.com/aaronshekey)! - Add the xs breakpoint to the breakpoint component
+
 ## 0.52.9
 
 ### Patch Changes
