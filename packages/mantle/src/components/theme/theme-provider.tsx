@@ -436,7 +436,7 @@ function preventWrongThemeFlashScriptContent(
 			expires.setFullYear(expires.getFullYear() + 1);
 			const hostname = location.hostname;
 			const protocol = location.protocol;
-			const isDotNgrok = (hostname === "ngrok.com" || hostname.indexOf(".ngrok.com") === hostname.length - 10);
+			const isDotNgrok = (hostname === "ngrok.com" || hostname.endsWith(".ngrok.com"));
 			const domain = isDotNgrok ? "; domain=.ngrok.com" : "";
 			const secure = protocol === "https:" ? "; Secure" : "";
 			doc.cookie = name + "=" + encodeURIComponent(val) + "; expires=" + expires.toUTCString() + "; path=/" + domain + "; SameSite=Lax" + secure;
