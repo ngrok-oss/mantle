@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.54.1
+
+### Patch Changes
+
+- [#808](https://github.com/ngrok-oss/mantle/pull/808) [`1f943b7`](https://github.com/ngrok-oss/mantle/commit/1f943b7266c9bf3464d4271b8fdc93a421f59eab) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - remove microtask in FOUC script
+
 ## 0.54.0
 
 ### Minor Changes
