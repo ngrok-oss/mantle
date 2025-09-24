@@ -4,7 +4,7 @@ import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import {
 	PreloadFonts,
 	preventWrongThemeFlashScriptContent,
-} from "@ngrok/mantle/theme-provider";
+} from "@ngrok/mantle/theme";
 import { FileTextIcon } from "@phosphor-icons/react/FileText";
 import { renderToStaticMarkup } from "react-dom/server";
 import { HashLinkHeading } from "~/components/hash-link-heading";
@@ -20,11 +20,11 @@ import {
 	ReactNodePropType,
 	StringPropType,
 } from "~/components/props-table";
-import type { Route } from "./+types/components.theme-provider";
+import type { Route } from "./+types/components.theme";
 
 export const meta: Route.MetaFunction = () => {
 	return [
-		{ title: "@ngrok/mantle — Theme Provider" },
+		{ title: "@ngrok/mantle — Theme" },
 		{
 			name: "description",
 			content: "mantle is ngrok's UI library and design system",
@@ -42,7 +42,7 @@ export default function Page() {
 	return (
 		<div className="space-y-8">
 			<header className="space-y-4">
-				<PageHeader id="theme-provider">Theme Provider</PageHeader>
+				<PageHeader id="theme-provider">Theme</PageHeader>
 				<p className="font-body text-body text-xl">
 					ThemeProvider is a React Context Provider that provides the current
 					theme to the application and a function to change it.
@@ -70,7 +70,7 @@ export default function Page() {
 						<CodeBlock.Code
 							language="tsx"
 							value={fmtCode`
-							import { MantleThemeHeadContent, ThemeProvider } from "@ngrok/mantle/theme-provider";
+							import { MantleThemeHeadContent, ThemeProvider } from "@ngrok/mantle/theme";
 
 							export default function App() {
 								return (
@@ -168,7 +168,7 @@ ${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
 								SelectLabel,
 								SelectTrigger,
 							} from "@ngrok/mantle/select";
-							import { isTheme, theme, useTheme } from "@ngrok/mantle/theme-provider";
+							import { isTheme, theme, useTheme } from "@ngrok/mantle/theme";
 
 							function App() {
 								const [currentTheme, setTheme] = useTheme();

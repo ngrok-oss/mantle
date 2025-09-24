@@ -3,7 +3,7 @@ import { Anchor } from "@ngrok/mantle/anchor";
 import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { Select } from "@ngrok/mantle/select";
-import { preventWrongThemeFlashScriptContent } from "@ngrok/mantle/theme-provider";
+import { preventWrongThemeFlashScriptContent } from "@ngrok/mantle/theme";
 import { FileHtmlIcon, FileTsxIcon } from "@phosphor-icons/react";
 import { useState } from "react";
 import { href } from "react-router";
@@ -375,7 +375,7 @@ function ReactRouterScaffolding() {
 			</p>
 			<p className="font-body text-body">
 				We will also add the{" "}
-				<Link to={href("/components/theme-provider")}>Theme Provider</Link>,{" "}
+				<Link to={href("/components/theme")}>Theme Provider</Link>,{" "}
 				<Link to={href("/components/toast")}>Toaster</Link>, and{" "}
 				<Link to={href("/components/preview/tooltip")}>Tooltip Provider</Link>{" "}
 				to your app to enable theme selection, toasts, and tooltips.
@@ -405,7 +405,7 @@ function ReactRouterScaffolding() {
 								MantleThemeHeadContent,
 								ThemeProvider,
 								useInitialHtmlThemeProps,
-							} from "@ngrok/mantle/theme-provider";
+							} from "@ngrok/mantle/theme";
 							import { Toaster } from "@ngrok/mantle/toast";
 							import { TooltipProvider } from "@ngrok/mantle/tooltip";
 							import {
@@ -542,7 +542,7 @@ function ViteScaffolding() {
 			</p>
 			<p className="font-body text-body">
 				We will also add the{" "}
-				<Link to={href("/components/theme-provider")}>Theme Provider</Link>,{" "}
+				<Link to={href("/components/theme")}>Theme Provider</Link>,{" "}
 				<Link to={href("/components/toast")}>Toaster</Link>, and{" "}
 				<Link to={href("/components/preview/tooltip")}>Tooltip Provider</Link>{" "}
 				to your app to enable theme selection, toasts, and tooltips.
@@ -559,7 +559,7 @@ function ViteScaffolding() {
 						value={fmtCode`
 							import { StrictMode } from "react"
 							import { createRoot } from "react-dom/client"
-							import { ThemeProvider } from "@ngrok/mantle/theme-provider";
+							import { ThemeProvider } from "@ngrok/mantle/theme";
 							import { Toaster } from "@ngrok/mantle/toast";
 							import { TooltipProvider } from "@ngrok/mantle/tooltip";
 							import "@ngrok/mantle/mantle.css"; // 👈 add this import to include mantle styles!
@@ -636,7 +636,7 @@ function ReactSpaScaffolding() {
 			</p>
 			<p className="font-body text-body">
 				We will also add the{" "}
-				<Link to={href("/components/theme-provider")}>Theme Provider</Link>,{" "}
+				<Link to={href("/components/theme")}>Theme Provider</Link>,{" "}
 				<Link to={href("/components/toast")}>Toaster</Link>, and{" "}
 				<Link to={href("/components/preview/tooltip")}>Tooltip Provider</Link>{" "}
 				to your app to enable theme selection, toasts, and tooltips.
@@ -653,7 +653,7 @@ function ReactSpaScaffolding() {
 						value={fmtCode`
 							import { StrictMode } from "react"
 							import { createRoot } from "react-dom/client"
-							import { ThemeProvider } from "@ngrok/mantle/theme-provider";
+							import { ThemeProvider } from "@ngrok/mantle/theme";
 							import { Toaster } from "@ngrok/mantle/toast";
 							import { TooltipProvider } from "@ngrok/mantle/tooltip";
 							import "@ngrok/mantle/mantle.css"; // 👈 add this import to include mantle styles!

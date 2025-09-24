@@ -288,10 +288,10 @@
       "import": "./dist/text-area.js",
       "types": "./dist/text-area.d.ts"
     },
-    "./theme-provider": {
-      "@ngrok/mantle/source": "./src/components/theme-provider/index.ts",
-      "import": "./dist/theme-provider.js",
-      "types": "./dist/theme-provider.d.ts"
+    "./theme": {
+      "@ngrok/mantle/source": "./src/components/theme/index.ts",
+      "import": "./dist/theme.js",
+      "types": "./dist/theme.d.ts"
     },
     "./toast": {
       "@ngrok/mantle/source": "./src/components/toast/index.ts",

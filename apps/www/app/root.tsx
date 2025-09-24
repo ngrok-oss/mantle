@@ -3,7 +3,7 @@ import {
 	MantleThemeHeadContent,
 	ThemeProvider,
 	useInitialHtmlThemeProps,
-} from "@ngrok/mantle/theme-provider";
+} from "@ngrok/mantle/theme";
 import { Toaster } from "@ngrok/mantle/toast";
 import { TooltipProvider } from "@ngrok/mantle/tooltip";
 import {

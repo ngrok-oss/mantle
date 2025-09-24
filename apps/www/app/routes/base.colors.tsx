@@ -1,7 +1,7 @@
 import { Anchor } from "@ngrok/mantle/anchor";
 import { Code } from "@ngrok/mantle/code";
 import { cx } from "@ngrok/mantle/cx";
-import { useAppliedTheme } from "@ngrok/mantle/theme-provider";
+import { useAppliedTheme } from "@ngrok/mantle/theme";
 import { HashLinkHeading } from "~/components/hash-link-heading";
 import { HashNavLink } from "~/components/hash-nav-link";
 import { PageHeader } from "~/components/page-header";

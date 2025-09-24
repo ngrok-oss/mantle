@@ -19,7 +19,7 @@ import type { WithStyleProps } from "../../types/with-style-props.js";
 import { cx } from "../../utils/cx/cx.js";
 import { Icon as IconComponent } from "../icon/icon.js";
 import type { SvgOnlyProps } from "../icon/svg-only.js";
-import { useAppliedTheme } from "../theme-provider/theme-provider.js";
+import { useAppliedTheme } from "../theme/theme-provider.js";
 
 type ToasterPrimitiveProps = ComponentProps<typeof ToastPrimitive.Toaster>;
 type ToasterPrimitiveTheme = ToasterPrimitiveProps["theme"];

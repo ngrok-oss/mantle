@@ -4,7 +4,7 @@ import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { DropdownMenu } from "@ngrok/mantle/dropdown-menu";
 import { Icon } from "@ngrok/mantle/icon";
-import type { Theme } from "@ngrok/mantle/theme-provider";
+import type { Theme } from "@ngrok/mantle/theme";
 import { Tooltip } from "@ngrok/mantle/tooltip";
 import { DesktopIcon } from "@phosphor-icons/react/Desktop";
 import { GearIcon } from "@phosphor-icons/react/Gear";
