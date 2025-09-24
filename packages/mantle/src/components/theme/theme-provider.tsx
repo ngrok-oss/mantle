@@ -116,13 +116,14 @@ function setCookie(name: string, value: string) {
 		expires.setFullYear(expires.getFullYear() + 1); // 1 year expiration
 
 		// Only set .ngrok.com domain for ngrok domains, otherwise let it default to current domain
-		const hostname = window.location.hostname;
+		const { hostname, protocol } = window.location;
 		const domainAttribute =
-			hostname.includes(".ngrok.com") || hostname === "ngrok.com"
+			hostname === "ngrok.com" || hostname.endsWith(".ngrok.com")
 				? "; domain=.ngrok.com"
 				: "";
+		const secureAttribute = protocol === "https:" ? "; Secure" : "";
 
-		document.cookie = `${name}=${value}; expires=${expires.toUTCString()}; path=/${domainAttribute}; SameSite=Lax`;
+		document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires.toUTCString()}; path=/${domainAttribute}; SameSite=Lax${secureAttribute}`;
 	} catch (_) {
 		// silently swallow errors
 	}
@@ -141,8 +142,8 @@ function getStoredTheme(storageKey: string, defaultTheme: Theme = "system") {
 				cookie.trim().startsWith(`${storageKey}=`),
 			);
 			if (themeCookie) {
-				const cookieValue = themeCookie.split("=")[1];
-				storedTheme = cookieValue || null;
+				const cookieValue = themeCookie.trim().substring(storageKey.length + 1);
+				storedTheme = cookieValue ? decodeURIComponent(cookieValue) : null;
 			}
 		} catch (_) {}
 		return isTheme(storedTheme) ? storedTheme : fallbackTheme;
@@ -399,75 +400,105 @@ function preventWrongThemeFlashScriptContent(
 	const { defaultTheme = "system", storageKey = DEFAULT_STORAGE_KEY } =
 		options ?? {};
 
+	// Only resolved themes are ever applied as classes
+	const resolved = resolvedThemes;
+
 	return `
 (function() {
-	const themes = ${JSON.stringify(themes)};
-	const isTheme = (value) => typeof value === "string" && themes.includes(value);
-	const fallbackTheme = "${defaultTheme}" ?? "system";
-	
-	function getCookie(name) {
-		const cookies = document.cookie.split(';');
-		const cookie = cookies.find(c => c.trim().startsWith(name + '='));
-		return cookie ? cookie.split('=')[1] || null : null;
+	const RESOLVED = ${JSON.stringify(resolved)};
+	const DEF = "${defaultTheme}";
+	const KEY = "${storageKey}";
+	const doc = document, root = doc.documentElement;
+
+	function isTheme(v) {
+		return typeof v === "string" && (v === "system" || RESOLVED.indexOf(v) > -1);
 	}
-	
-	function setCookie(name, value) {
-		const expires = new Date();
-		expires.setFullYear(expires.getFullYear() + 1);
-		
-		// Only set .ngrok.com domain for ngrok domains, otherwise let it default to current domain
-		const hostname = window.location.hostname;
-		const domainAttribute = (hostname.includes('.ngrok.com') || hostname === 'ngrok.com') 
-			? '; domain=.ngrok.com' 
-			: '';
-		
-		document.cookie = name + '=' + value + '; expires=' + expires.toUTCString() + '; path=/' + domainAttribute + '; SameSite=Lax';
+
+	function readCookie(name){
+		// Efficient single-pass cookie lookup: "; name=value"
+		const all = "; " + doc.cookie, token = "; " + name + "=";
+		const startIdx = all.indexOf(token);
+		if (startIdx < 0) {
+			return null;
+		}
+		const endIdx = all.indexOf(";", startIdx + token.length);
+		const rawValue = all.slice(startIdx + token.length, endIdx < 0 ? void 0 : endIdx) || null;
+		try { 
+			return rawValue ? decodeURIComponent(rawValue) : null;
+		} catch(_) { 
+			return rawValue;
+		}
 	}
+
+	function writeCookie(name, val) {
+		try {
+			const expires = new Date(); 
+			expires.setFullYear(expires.getFullYear() + 1);
+			const hostname = location.hostname;
+			const protocol = location.protocol;
+			const isDotNgrok = (hostname === "ngrok.com" || hostname.indexOf(".ngrok.com") === hostname.length - 10);
+			const domain = isDotNgrok ? "; domain=.ngrok.com" : "";
+			const secure = protocol === "https:" ? "; Secure" : "";
+			doc.cookie = name + "=" + encodeURIComponent(val) + "; expires=" + expires.toUTCString() + "; path=/" + domain + "; SameSite=Lax" + secure;
+		} catch(_) {}
+	}
+
+	// 1) Read preference: cookie first, fallback to localStorage (migration support)
+	let cookieTheme = null, lsTheme = null, storedTheme = null;
+	try { 
+		cookieTheme = readCookie(KEY);
+	} catch(_) {}
 	
-	let maybeStoredTheme = null;
-	
-	// First check localStorage for backwards compatibility
-	try {
-		if ("localStorage" in window) {
-			const localStorageTheme = window.localStorage.getItem("${storageKey}");
-			if (isTheme(localStorageTheme)) {
-				// Migrate to cookie and remove from localStorage
-				setCookie("${storageKey}", localStorageTheme);
-				window.localStorage.removeItem("${storageKey}");
-				maybeStoredTheme = localStorageTheme;
+	if (isTheme(cookieTheme)) { 
+		storedTheme = cookieTheme;
+	} else {
+		try { 
+			lsTheme = window.localStorage && window.localStorage.getItem(KEY);
+		} catch(_) {}
+		if (isTheme(lsTheme)) {
+			storedTheme = lsTheme;
+		}
+	}
+
+	const preference = isTheme(storedTheme) ? storedTheme : DEF;
+
+	// 2) Resolve only when needed to avoid unnecessary media queries
+	let resolvedTheme = preference;
+	if (preference === "system") {
+		const isDark = matchMedia("${prefersDarkModeMediaQuery}").matches;
+		const isHighContrast = matchMedia("${prefersHighContrastMediaQuery}").matches;
+		resolvedTheme = isHighContrast 
+			? (isDark ? "dark-high-contrast" : "light-high-contrast")
+			: (isDark ? "dark" : "light");
+	}
+
+	// 3) Only touch DOM if we actually need to change something (SSR optimization)
+	if (root.dataset.appliedTheme !== resolvedTheme || root.dataset.theme !== preference) {
+		// Remove all theme classes, add the correct one
+		for (let i = 0; i < RESOLVED.length; i++) {
+			root.classList.remove(RESOLVED[i]);
+		}
+		root.classList.add(resolvedTheme);
+		root.dataset.appliedTheme = resolvedTheme;
+		root.dataset.theme = preference;
+	}
+
+	// 4) Defer persistence/migration to keep the hot path read-only
+	const hadValidCookie = isTheme(cookieTheme);
+	(window.requestIdleCallback || setTimeout)(function() {
+		try{
+			// Migrate from localStorage to cookies if needed
+			if (isTheme(lsTheme)) {
+				writeCookie(KEY, lsTheme);
+				try { 
+					window.localStorage.removeItem(KEY);
+				} catch(_) {}
+			} else if (!hadValidCookie) {
+				// Set default cookie if none existed
+				writeCookie(KEY, preference);
 			}
-		}
-	} catch (_) {}
-	
-	// If not found in localStorage, check cookies
-	if (!maybeStoredTheme) {
-		try {
-			maybeStoredTheme = getCookie("${storageKey}");
 		} catch (_) {}
-	}
-	
-	const hasStoredTheme = isTheme(maybeStoredTheme);
-	if (!hasStoredTheme) {
-		try {
-			setCookie("${storageKey}", fallbackTheme);
-		} catch (_) {}
-	}
-	const themePreference = hasStoredTheme ? maybeStoredTheme : fallbackTheme;
-	const prefersDarkMode = window.matchMedia("${prefersDarkModeMediaQuery}").matches;
-	const prefersHighContrast = window.matchMedia("${prefersHighContrastMediaQuery}").matches;
-	let initialTheme = themePreference;
-	if (initialTheme === "system") {
-		if (prefersHighContrast) {
-			initialTheme = prefersDarkMode ? "dark-high-contrast" : "light-high-contrast";
-		} else {
-			initialTheme = prefersDarkMode ? "dark" : "light";
-		}
-	}
-	const htmlElement = document.documentElement;
-	htmlElement.classList.remove(...themes);
-	htmlElement.classList.add(initialTheme);
-	htmlElement.dataset.appliedTheme = initialTheme;
-	htmlElement.dataset.theme = themePreference;
+	}, 0);
 })();
 `.trim();
 }
@@ -557,14 +588,14 @@ function useInitialHtmlThemeProps(props?: {
 			prefersHighContrastMediaQuery,
 		).matches;
 		const initialTheme = getStoredTheme(storageKey, defaultTheme);
-		const reolvedTheme = resolveTheme(initialTheme, {
+		const resolvedTheme = resolveTheme(initialTheme, {
 			prefersDarkMode,
 			prefersHighContrast,
 		});
 
 		return {
-			className: clsx(className, reolvedTheme),
-			"data-applied-theme": reolvedTheme,
+			className: clsx(className, resolvedTheme),
+			"data-applied-theme": resolvedTheme,
 			"data-theme": initialTheme,
 		};
 	}, [className, defaultTheme, storageKey]);
