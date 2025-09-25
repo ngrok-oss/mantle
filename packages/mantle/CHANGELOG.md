@@ -1,5 +1,13 @@
 # @ngrok/mantle
 
+## 0.54.3
+
+### Patch Changes
+
+- [#813](https://github.com/ngrok-oss/mantle/pull/813) [`30580b7`](https://github.com/ngrok-oss/mantle/commit/30580b7c30b07421d2226143a3b0f5e2b46568c5) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump tw-animate-css
+
+- [#815](https://github.com/ngrok-oss/mantle/pull/815) [`dd1eb1f`](https://github.com/ngrok-oss/mantle/commit/dd1eb1f5efeff8e044c808ea0f57267abc47ee55) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add visibilitychange handler for ThemeProvider
+
 ## 0.54.2
 
 ### Patch Changes
