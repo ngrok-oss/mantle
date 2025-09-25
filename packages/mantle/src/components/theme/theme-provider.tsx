@@ -310,11 +310,20 @@ function ThemeProvider({
 			syncThemeFromCookie();
 		}
 
+		function onVisibilityChange() {
+			if (document.visibilityState === "visible") {
+				syncThemeFromCookie();
+			}
+		}
+
 		prefersDarkMql.addEventListener("change", onChange);
 		prefersHighContrastMql.addEventListener("change", onChange);
 
 		// pageshow fires on bfcache restore (event.persisted === true) and some restore-from-freeze cases.
 		window.addEventListener("pageshow", onChange);
+
+		// visibilitychange to handle coming back to a tab
+		document.addEventListener("visibilitychange", onVisibilityChange);
 
 		// don't forget to clean up your slop!
 		return () => {
@@ -322,6 +331,7 @@ function ThemeProvider({
 			prefersDarkMql.removeEventListener("change", onChange);
 			prefersHighContrastMql.removeEventListener("change", onChange);
 			window.removeEventListener("pageshow", onChange);
+			document.removeEventListener("visibilitychange", onVisibilityChange);
 
 			try {
 				broadcastChannelRef.current?.close();
