@@ -271,11 +271,10 @@ function ThemeProvider({
 	const broadcastChannelRef = useRef<BroadcastChannel | null>(null);
 
 	useEffect(() => {
-		// always read from the cookie as the source of truth
 		function syncThemeFromCookie(next?: Theme) {
-			const storedTheme = next ?? getStoredTheme(storageKey, defaultTheme);
-			setTheme(storedTheme);
-			applyTheme(storedTheme);
+			const newTheme = next ?? getStoredTheme(storageKey, defaultTheme);
+			setTheme(newTheme);
+			applyTheme(newTheme);
 		}
 
 		// initial sync in case defaultTheme or storageKey changed
