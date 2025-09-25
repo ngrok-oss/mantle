@@ -2,7 +2,14 @@
 
 import clsx from "clsx";
 import type { ComponentProps, PropsWithChildren } from "react";
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import {
+	createContext,
+	useContext,
+	useEffect,
+	useMemo,
+	useRef,
+	useState,
+} from "react";
 import invariant from "tiny-invariant";
 import { useMatchesMediaQuery } from "../../hooks/use-matches-media-query.js";
 import { PreloadFonts } from "./preload-fonts.js";
@@ -79,6 +86,66 @@ function isResolvedTheme(value: unknown): value is ResolvedTheme {
  * DEFAULT_STORAGE_KEY is the default key used to store the theme in cookies.
  */
 const DEFAULT_STORAGE_KEY = "mantle-ui-theme";
+
+/**
+ * Notifies other open tabs (same origin) that the theme changed.
+ *
+ * Prefers a shared {@link BroadcastChannel} for immediate, reliable delivery.
+ * Falls back to writing a unique “ping” value to `localStorage`, which triggers
+ * the cross-tab `storage` event. Both mechanisms only work across the same origin.
+ *
+ * Uses a timestamp to ensure the storage value always changes so the event fires.
+ *
+ * @remarks
+ * - Same-origin only: BroadcastChannel and the `storage` event do not cross subdomains
+ *   or different schemes/ports. For cross-subdomain sync, use a postMessage hub or server push.
+ * - This function is fire-and-forget and intentionally swallows errors.
+ * - Receivers should re-read the cookie/source of truth and then apply the theme;
+ *   don’t trust the payload blindly.
+ *
+ * @example
+ * // Sender (inside your setter)
+ * notifyOtherTabs(nextTheme, {
+ *   broadcastChannel: broadcastChannelRef.current,
+ *   pingKey: `${storageKey}__ping`,
+ * });
+ *
+ * @example
+ * // Receiver (setup once per tab)
+ * const bc = new BroadcastChannel(storageKey);
+ * bc.onmessage = () => syncThemeFromCookie();
+ * window.addEventListener('storage', (e) => {
+ *   if (e.key === `${storageKey}__ping`) syncThemeFromCookie();
+ * });
+ */
+function notifyOtherTabs(
+	theme: Theme,
+	options: {
+		broadcastChannel: BroadcastChannel | null;
+		pingKey: `${string}__ping`;
+	},
+) {
+	const { broadcastChannel, pingKey } = options;
+
+	// first try BroadcastChannel
+	try {
+		if (broadcastChannel) {
+			broadcastChannel.postMessage({
+				theme,
+				timestamp: Date.now(),
+			});
+			return;
+		}
+	} catch (_) {}
+
+	// fallback to storage event: write a "ping" key (not the real storageKey)
+	try {
+		localStorage.setItem(
+			pingKey,
+			JSON.stringify({ theme, timestamp: Date.now() }),
+		);
+	} catch (_) {}
+}
 
 /**
  * ThemeProviderState is the shape of the state returned by the ThemeProviderContext.
@@ -194,52 +261,87 @@ function ThemeProvider({
 	defaultTheme = "system",
 	storageKey = DEFAULT_STORAGE_KEY,
 }: ThemeProviderProps) {
+	// Init once from cookie and apply immediately to avoid flashes
 	const [theme, setTheme] = useState<Theme>(() => {
-		const initialTheme = getStoredTheme(storageKey, defaultTheme);
-		applyTheme(initialTheme);
-		return initialTheme;
+		const storedTheme = getStoredTheme(storageKey, defaultTheme);
+		applyTheme(storedTheme);
+		return storedTheme;
 	});
 
-	useEffect(() => {
-		const storedTheme = getStoredTheme(storageKey, defaultTheme);
-		setTheme(storedTheme);
-		applyTheme(storedTheme);
-	}, [defaultTheme, storageKey]);
+	const broadcastChannelRef = useRef<BroadcastChannel | null>(null);
 
 	useEffect(() => {
+		// always read from the cookie as the source of truth
+		function syncThemeFromCookie(next?: Theme) {
+			const storedTheme = next ?? getStoredTheme(storageKey, defaultTheme);
+			setTheme(storedTheme);
+			applyTheme(storedTheme);
+		}
+
+		// initial sync in case defaultTheme or storageKey changed
+		syncThemeFromCookie();
+
+		// add cross-tab listeners (prefer broadcast channel, use localStorage as fallback)
+		try {
+			if ("BroadcastChannel" in window) {
+				broadcastChannelRef.current = new BroadcastChannel(storageKey);
+				broadcastChannelRef.current.onmessage = (event) => {
+					const value: unknown = event?.data?.theme;
+					if (isTheme(value)) {
+						syncThemeFromCookie(value);
+					}
+				};
+			}
+		} catch (_) {}
+
+		const onStorage = (event: StorageEvent) => {
+			if (event.key === `${storageKey}__ping`) {
+				syncThemeFromCookie();
+			}
+		};
+		window.addEventListener("storage", onStorage);
+
+		// add media query listeners for system theme changes
 		const prefersDarkMql = window.matchMedia(prefersDarkModeMediaQuery);
 		const prefersHighContrastMql = window.matchMedia(
 			prefersHighContrastMediaQuery,
 		);
 
-		const onChange = () => {
-			const storedTheme = getStoredTheme(storageKey, defaultTheme);
-
-			// If the stored theme is not "system", then the user has explicitly set a theme and we should not
-			// automatically change the theme when the user's system preferences change.
-			if (storedTheme !== "system") {
-				return;
-			}
-
-			applyTheme("system");
-		};
+		function onChange() {
+			syncThemeFromCookie();
+		}
 
 		prefersDarkMql.addEventListener("change", onChange);
 		prefersHighContrastMql.addEventListener("change", onChange);
 
+		// pageshow fires on bfcache restore (event.persisted === true) and some restore-from-freeze cases.
+		window.addEventListener("pageshow", onChange);
+
+		// don't forget to clean up your slop!
 		return () => {
+			window.removeEventListener("storage", onStorage);
 			prefersDarkMql.removeEventListener("change", onChange);
 			prefersHighContrastMql.removeEventListener("change", onChange);
+			window.removeEventListener("pageshow", onChange);
+
+			try {
+				broadcastChannelRef.current?.close();
+			} catch (_) {}
+			broadcastChannelRef.current = null;
 		};
 	}, [defaultTheme, storageKey]);
 
 	const value: ThemeProviderState = useMemo(
 		() => [
 			theme,
-			(theme: Theme) => {
-				setCookie(storageKey, theme);
-				setTheme(theme);
-				applyTheme(theme);
+			(next: Theme) => {
+				setCookie(storageKey, next);
+				setTheme(next);
+				applyTheme(next);
+				notifyOtherTabs(next, {
+					broadcastChannel: broadcastChannelRef.current,
+					pingKey: `${storageKey}__ping`,
+				});
 			},
 		],
 		[storageKey, theme],
@@ -274,19 +376,36 @@ function applyTheme(theme: Theme) {
 		return;
 	}
 
-	const htmlElement = window.document.documentElement;
-	htmlElement.classList.remove(...themes);
+	const html = window.document.documentElement;
+
 	const prefersDarkMode = window.matchMedia(prefersDarkModeMediaQuery).matches;
 	const prefersHighContrast = window.matchMedia(
 		prefersHighContrastMediaQuery,
 	).matches;
-	const newTheme = resolveTheme(theme, {
+
+	const resolvedTheme = resolveTheme(theme, {
 		prefersDarkMode,
 		prefersHighContrast,
 	});
-	htmlElement.classList.add(newTheme);
-	htmlElement.dataset.appliedTheme = newTheme;
-	htmlElement.dataset.theme = theme;
+
+	const htmlTheme = html.dataset.theme;
+	const htmlAppliedTheme = html.dataset.appliedTheme;
+
+	const currentTheme = isTheme(htmlTheme) ? htmlTheme : undefined;
+	const currentResolvedTheme = isResolvedTheme(htmlAppliedTheme)
+		? htmlAppliedTheme
+		: undefined;
+
+	if (currentTheme === theme && currentResolvedTheme === resolvedTheme) {
+		// nothing to do: input theme and resolved class already match
+		return;
+	}
+
+	// Clear any stale theme class, then apply the new one
+	html.classList.remove(...resolvedThemes); // ✅ remove all potential theme classes
+	html.classList.add(resolvedTheme);
+	html.dataset.theme = theme;
+	html.dataset.appliedTheme = resolvedTheme;
 }
 
 /**
@@ -552,7 +671,7 @@ MantleThemeHeadContent.displayName = "MantleThemeHeadContent";
 
 type InitialThemeProps = {
 	className: string;
-	"data-applied-theme": Omit<Theme, "system">;
+	"data-applied-theme": ResolvedTheme;
 	"data-theme": Theme;
 };
 
@@ -574,7 +693,7 @@ function useInitialHtmlThemeProps(props?: {
 		if (!isBrowser()) {
 			return {
 				className: clsx(className),
-				"data-applied-theme": "system",
+				"data-applied-theme": "light", // assume light on server
 				"data-theme": "system",
 			};
 		}
