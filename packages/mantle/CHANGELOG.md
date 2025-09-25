@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.54.2
+
+### Patch Changes
+
+- [#810](https://github.com/ngrok-oss/mantle/pull/810) [`8005c93`](https://github.com/ngrok-oss/mantle/commit/8005c937d5780c45c2a3573023df5967851e08d2) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Theme: fix cross-tab theme sync when the cookie changes
+
 ## 0.54.1
 
 ### Patch Changes
