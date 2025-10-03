@@ -226,6 +226,12 @@ export default function Page() {
 					</header>
 
 					<p>
+						<strong>Dependencies:</strong> This component and hook require{" "}
+						<Code>react-router</Code> as a peer dependency. Make sure to install
+						it in your project.
+					</p>
+
+					<p>
 						If your content is loaded asynchronously and may not exist by the
 						next animation frame, consider enhancing the hook with a short retry
 						loop or a <Code>MutationObserver</Code>.
