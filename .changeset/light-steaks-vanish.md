@@ -2,4 +2,4 @@
 "@ngrok/mantle": patch
 ---
 
-useAutoScrollToHash: remove dependency array so it runs on every state update
+AutoScrollToHash + useAutoScrollToHash: switch to context provider, allow for programmatic scrollToHash()

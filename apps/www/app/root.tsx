@@ -50,15 +50,16 @@ export default function App() {
 			</head>
 			<body className="bg-base h-full min-h-full overflow-y-scroll">
 				<ThemeProvider>
-					<AutoScrollToHash />
-					<TooltipProvider>
-						<Toaster />
-						<NavigationProvider>
-							<Layout currentVersion={currentVersion}>
-								<Outlet />
-							</Layout>
-						</NavigationProvider>
-					</TooltipProvider>
+					<AutoScrollToHash>
+						<TooltipProvider>
+							<Toaster />
+							<NavigationProvider>
+								<Layout currentVersion={currentVersion}>
+									<Outlet />
+								</Layout>
+							</NavigationProvider>
+						</TooltipProvider>
+					</AutoScrollToHash>
 				</ThemeProvider>
 				<ScrollRestoration />
 				<Scripts />
