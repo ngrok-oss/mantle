@@ -7,16 +7,44 @@ import { relativePath } from "./relative-path.js";
  */
 async function getWorkspaces() {
 	const filepath = relativePath("..", "pnpm-workspace.yaml");
-	const data = await fs.readFile(filepath, "utf8");
+	const yamlContent = await fs.readFile(filepath, "utf8");
 
-	// Extract directory names using regex
-	const lines = data.split("\n"); // Split the content into lines
-	const directories = lines
-		.map((line) => line.trim()) // Remove leading/trailing whitespace
-		.filter((line) => line.startsWith("-")) // Only keep lines that start with `-`
-		.map((line) => line.replace(/^- "?(.+?)\/\*"?.*$/, "$1"));
+	const lines = yamlContent.split("\n");
 
-	return directories;
+	// Find the packages section boundaries
+	const packagesIndex = lines.findIndex((line) => line.trim() === "packages:");
+	if (packagesIndex === -1) {
+		return []; // No packages section found!
+	}
+
+	const startIndex = packagesIndex + 1;
+	let endIndex = startIndex;
+
+	// Find the end of the packages list (last line starting with "  -")
+	for (let i = startIndex; i < lines.length; i++) {
+		const line = lines[i];
+		const trimmedLine = line?.trim() ?? "";
+
+		if (trimmedLine.startsWith("-")) {
+			endIndex = i;
+		} else {
+			// End of packages list
+			break;
+		}
+	}
+
+	// Extract and parse the package directories
+	const packageLines = lines.slice(startIndex, endIndex + 1);
+	const workspaceDirectories = packageLines
+		.map((line) => line.trim())
+		.filter((line) => line.startsWith("-"))
+		.map((line) => {
+			const match = line.match(/^- "?(.+?)\/\*"?.*$/);
+			return match ? match[1] : null;
+		})
+		.filter(Boolean);
+
+	return workspaceDirectories;
 }
 
 /**

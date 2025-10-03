@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "@ariakit/react": "0.4.18",
-    "@headlessui/react": "2.2.8",
+    "@headlessui/react": "2.2.9",
     "@radix-ui/react-accordion": "1.2.12",
     "@radix-ui/react-dialog": "1.1.15",
     "@radix-ui/react-dropdown-menu": "2.1.16",
@@ -59,30 +59,30 @@
   },
   "devDependencies": {
     "@cfg/tsconfig": "workspace:*",
-    "@phosphor-icons/react": "2.1.10",
+    "@phosphor-icons/react": "catalog:",
     "@testing-library/dom": "10.4.1",
-    "@testing-library/jest-dom": "6.8.0",
+    "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "16.3.0",
     "@testing-library/user-event": "14.6.1",
     "@types/prismjs": "1.26.5",
-    "@types/react": "18.3.24",
-    "@types/react-dom": "18.3.7",
-    "browserslist": "4.26.2",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "browserslist": "4.26.3",
     "date-fns": "4.1.0",
     "jsdom": "27.0.0",
-    "react": "18.3.1",
-    "react-dom": "18.3.1",
-    "react-router": "7.9.2",
-    "tailwindcss": "4.1.13",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "react-router": "catalog:",
+    "tailwindcss": "catalog:",
     "tsup": "8.5.0",
-    "typescript": "5.9.2"
+    "typescript": "catalog:"
   },
   "peerDependencies": {
     "@phosphor-icons/react": "^2.1.10",
     "date-fns": "^4.1.0",
     "react": "^18 || ^19",
     "react-dom": "^18 || ^19",
-    "tailwindcss": "^4.1.13"
+    "tailwindcss": "^4.1.14"
   },
   "exports": {
     "./mantle.css": "./assets/mantle.css",
