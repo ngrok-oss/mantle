@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.55.2
+
+### Patch Changes
+
+- [#828](https://github.com/ngrok-oss/mantle/pull/828) [`5cdda38`](https://github.com/ngrok-oss/mantle/commit/5cdda38c1278e0fa24f84816ecfc5065db2b6591) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - AutoScrollToHash + useAutoScrollToHash: switch to context provider, allow for programmatic scrollToHash()
+
 ## 0.55.1
 
 ### Patch Changes
