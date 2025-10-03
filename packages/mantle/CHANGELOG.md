@@ -1,5 +1,15 @@
 # @ngrok/mantle
 
+## 0.55.0
+
+### Minor Changes
+
+- [#825](https://github.com/ngrok-oss/mantle/pull/825) [`d9dfa70`](https://github.com/ngrok-oss/mantle/commit/d9dfa703c8f3029a00f8fbd8b4f066fdfc0d3f92) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Export AutoScrollToHash, useAutoScrollToHash, and useScrollBehavior
+
+### Patch Changes
+
+- [#823](https://github.com/ngrok-oss/mantle/pull/823) [`05ca536`](https://github.com/ngrok-oss/mantle/commit/05ca536b24ca024d44c31bb53d6d6388a02887a4) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update dependencies
+
 ## 0.54.3
 
 ### Patch Changes
