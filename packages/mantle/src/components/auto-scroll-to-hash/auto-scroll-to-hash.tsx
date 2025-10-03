@@ -19,6 +19,8 @@ import { useScrollBehavior } from "../../hooks/use-scroll-behavior.js";
  * @remarks
  * If your content is loaded asynchronously and may not exist by the next animation
  * frame, consider enhancing the hook with a short retry loop or a `MutationObserver`.
+ *
+ * **Note:** This component requires `react-router` as a peer dependency.
  */
 function AutoScrollToHash() {
 	useAutoScrollToHash();
@@ -45,6 +47,9 @@ type Props = {
  *   useAutoScrollToHash();
  *   return <>{page content}</>;
  * }
+ *
+ * @remarks
+ * **Note:** This hook requires `react-router` as a peer dependency.
  *
  * @see {@link useScrollBehavior} for how the scroll behavior is chosen.
  */
