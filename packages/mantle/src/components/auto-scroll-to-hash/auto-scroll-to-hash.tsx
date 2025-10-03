@@ -53,11 +53,8 @@ function useAutoScrollToHash({ disabled = false }: Props = {}) {
 	const scrollBehavior = useScrollBehavior();
 
 	useIsomorphicLayoutEffect(() => {
-		if (disabled) {
-			return () => {};
-		}
-		if (!hash) {
-			return () => {};
+		if (disabled || !hash) {
+			return;
 		}
 
 		// Strip leading '#' and consider both raw and decoded forms.
