@@ -59,7 +59,7 @@
   },
   "devDependencies": {
     "@cfg/tsconfig": "workspace:*",
-    "@phosphor-icons/react": "2.1.10",
+    "@phosphor-icons/react": "catalog:",
     "@testing-library/dom": "10.4.1",
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "16.3.0",

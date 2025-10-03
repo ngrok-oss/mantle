@@ -6,6 +6,9 @@ settings:
 
 catalogs:
   default:
+    '@phosphor-icons/react':
+      specifier: 2.1.10
+      version: 2.1.10
     '@react-router/dev':
       specifier: 7.9.3
       version: 7.9.3
@@ -78,7 +81,7 @@ importers:
         specifier: workspace:*
         version: link:../../packages/mantle
       '@phosphor-icons/react':
-        specifier: 2.1.10
+        specifier: 'catalog:'
         version: 2.1.10(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-slot':
         specifier: 1.2.3
@@ -248,7 +251,7 @@ importers:
         specifier: workspace:*
         version: link:../../config/tsconfig
       '@phosphor-icons/react':
-        specifier: 2.1.10
+        specifier: 'catalog:'
         version: 2.1.10(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@testing-library/dom':
         specifier: 10.4.1
