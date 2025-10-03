@@ -107,6 +107,11 @@
       "import": "./dist/anchor.js",
       "types": "./dist/anchor.d.ts"
     },
+    "./auto-scroll-to-hash": {
+      "@ngrok/mantle/source": "./src/components/auto-scroll-to-hash/index.ts",
+      "import": "./dist/auto-scroll-to-hash.js",
+      "types": "./dist/auto-scroll-to-hash.d.ts"
+    },
     "./badge": {
       "@ngrok/mantle/source": "./src/components/badge/index.ts",
       "import": "./dist/badge.js",

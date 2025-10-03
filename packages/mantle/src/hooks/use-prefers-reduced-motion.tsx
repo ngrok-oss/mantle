@@ -8,10 +8,26 @@ import { useEffect, useState } from "react";
 const query = "(prefers-reduced-motion: no-preference)";
 
 /**
- * usePrefersReducedMotion returns true if the user has opted out of animations
+ * Returns `true` when the user has opted out of animations (i.e., prefers reduced motion).
+ *
+ * Implementation notes:
+ * - Uses the `(prefers-reduced-motion: no-preference)` media query and inverts it.
+ *   This keeps the “default” mental model explicit: if the system hasn’t opted out,
+ *   animations are allowed.
+ * - Defaults to `true` on the server to avoid animating before hydration. The initial
+ *   client effect reads the *real* preference and updates state.
+ *
+ * @example
+ * // Conditionally shorten or skip transitions
+ * const reduce = usePrefersReducedMotion();
+ * const duration = reduce ? 0 : 200;
+ *
+ * @remarks
+ * If you need to support very old browsers that lack `MediaQueryList.addEventListener`,
+ * consider falling back to `addListener/removeListener`.
  */
-export function usePrefersReducedMotion() {
-	// default to no animations, since we don't know what the user's preference is on the server
+export function usePrefersReducedMotion(): boolean {
+	// Default to no animations on SSR/first paint; update on mount with the real value.
 	const [prefersReducedMotion, setPrefersReducedMotion] = useState(true);
 
 	useEffect(() => {

@@ -1,4 +1,5 @@
 import "@ngrok/mantle/mantle.css";
+import { AutoScrollToHash } from "@ngrok/mantle/auto-scroll-to-hash";
 import {
 	MantleThemeHeadContent,
 	ThemeProvider,
@@ -14,7 +15,6 @@ import {
 	ScrollRestoration,
 	useLoaderData,
 } from "react-router";
-import { AutoScrollToHash } from "./components/auto-scroll-to-hash";
 import { Layout } from "./components/layout";
 import { NavigationProvider } from "./components/navigation-context";
 
