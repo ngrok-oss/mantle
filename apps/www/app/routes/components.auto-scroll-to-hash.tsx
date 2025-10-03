@@ -6,7 +6,6 @@ import { Example } from "~/components/example";
 import { HashLinkHeading } from "~/components/hash-link-heading";
 import { PageHeader } from "~/components/page-header";
 import {
-	BooleanPropType,
 	PropDefaultValueCell,
 	PropDescriptionCell,
 	PropNameCell,
@@ -38,15 +37,16 @@ export default function Page() {
 			<section className="space-y-4">
 				<PageHeader id="auto-scroll-to-hash">AutoScrollToHash</PageHeader>
 				<p className="font-body text-body my-4 text-xl">
-					A component and hook that automatically scrolls to elements matching
-					the URL hash.
+					A context provider and hook that automatically scrolls to elements
+					matching the URL hash.
 				</p>
 				<div className="font-body text-body space-y-4">
 					<p>
-						The <Code>AutoScrollToHash</Code> component and{" "}
-						<Code>useAutoScrollToHash</Code> hook automatically scroll to the
-						element identified by the current URL hash (e.g.,{" "}
-						<Code>#subscription</Code>).
+						The <Code>AutoScrollToHash</Code> provider component automatically
+						scrolls to the element identified by the current URL hash (e.g.,{" "}
+						<Code>#subscription</Code>). It wraps your app and provides a
+						context that enables the <Code>useAutoScrollToHash</Code> hook to
+						programmatically trigger scrolling.
 					</p>
 					<p>
 						The scroll behavior respects user motion preferences, using smooth
@@ -57,7 +57,10 @@ export default function Page() {
 					<div>
 						<Example>
 							<div className="space-y-4">
-								<p>Add the component to your layout or page:</p>
+								<p>
+									Wrap your app with the provider (typically in your root
+									layout):
+								</p>
 								<div className="space-y-2">
 									<div
 										id="section-1"
@@ -92,12 +95,13 @@ export default function Page() {
 									value={fmtCode`
 										import { AutoScrollToHash } from "@ngrok/mantle/auto-scroll-to-hash";
 
-										function Layout() {
+										function App() {
 											return (
-												<div>
-													<AutoScrollToHash />
-													{/* Your page content */}
-												</div>
+												<Router>
+													<AutoScrollToHash>
+														{/* Your page content */}
+													</AutoScrollToHash>
+												</Router>
 											);
 										}
 									`}
@@ -107,7 +111,10 @@ export default function Page() {
 					</div>
 
 					<div className="space-y-4">
-						<p>Or use the hook directly in your component:</p>
+						<p>
+							Use the hook to programmatically trigger scrolling after
+							asynchronous content loads:
+						</p>
 						<CodeBlock.Root>
 							<CodeBlock.Body>
 								<CodeBlock.CopyButton />
@@ -116,14 +123,16 @@ export default function Page() {
 									value={fmtCode`
 										import { useAutoScrollToHash } from "@ngrok/mantle/auto-scroll-to-hash";
 
-										function Page() {
-											useAutoScrollToHash();
-											return (
-												<div>
-													<h1 id="top">Page Title</h1>
-													<section id="content">Content here</section>
-												</div>
-											);
+										function DetailsTab({ ready }: { ready: boolean }) {
+											const reScroll = useAutoScrollToHash();
+
+											useEffect(() => {
+												if (ready) {
+													reScroll();
+												}
+											}, [ready, reScroll]);
+
+											return <div id="subscription">...</div>;
 										}
 									`}
 								/>
@@ -149,13 +158,26 @@ export default function Page() {
 						</HashLinkHeading>
 
 						<p className="font-body text-body">
-							A component that automatically scrolls to the element matching the
-							current URL hash. Uses <Code>useAutoScrollToHash</Code> internally
-							and renders nothing.
+							A context provider component that automatically scrolls to the
+							element matching the current URL hash. Must wrap your application
+							to enable the <Code>useAutoScrollToHash</Code> hook.
 						</p>
 
-						<p>This component accepts no props.</p>
+						<p>This component accepts a single prop:</p>
 					</header>
+
+					<PropsTable>
+						<PropRow>
+							<PropNameCell name="children" />
+							<PropTypeCell>
+								<Code>ReactNode</Code>
+							</PropTypeCell>
+							<PropDefaultValueCell>—</PropDefaultValueCell>
+							<PropDescriptionCell>
+								<p>The app content to wrap with the auto-scroll context.</p>
+							</PropDescriptionCell>
+						</PropRow>
+					</PropsTable>
 				</section>
 
 				<section className="space-y-4">
@@ -167,30 +189,23 @@ export default function Page() {
 						</HashLinkHeading>
 
 						<p className="font-body text-body">
-							A hook that scrolls the element identified by{" "}
-							<Code>location.hash</Code> into view. Attempts both the raw ID and
-							a decoded ID for robustness. Respects user motion preferences via{" "}
-							<Code>useScrollBehavior</Code>.
+							A hook that returns a stable callback for programmatically
+							triggering the hash-based scroll. Use this when the target element
+							is rendered asynchronously (e.g., after lazy-loading, tab
+							switching, or fetching data). Must be used within an{" "}
+							<Code>AutoScrollToHash</Code> provider.
 						</p>
 					</header>
 
-					<PropsTable>
-						<PropRow>
-							<PropNameCell name="disabled" optional />
-							<PropTypeCell>
-								<BooleanPropType />
-							</PropTypeCell>
-							<PropDefaultValueCell>
-								<BooleanPropType value={false} />
-							</PropDefaultValueCell>
-							<PropDescriptionCell>
-								<p>
-									When <Code>true</Code>, suppresses automatic scrolling to hash
-									targets.
-								</p>
-							</PropDescriptionCell>
-						</PropRow>
-					</PropsTable>
+					<p className="font-body text-body">
+						<strong>Returns:</strong> A stable <Code>() =&gt; void</Code>{" "}
+						function that scrolls the hash target into view if present.
+					</p>
+
+					<p className="font-body text-body">
+						<strong>Throws:</strong> An error if used outside an{" "}
+						<Code>AutoScrollToHash</Code> provider.
+					</p>
 				</section>
 
 				<section className="space-y-4">
