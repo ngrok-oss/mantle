@@ -87,7 +87,7 @@ function useAutoScrollToHash({ disabled = false }: Props = {}) {
 		return () => {
 			window.cancelAnimationFrame(handle);
 		};
-	}, [hash, disabled, scrollBehavior]);
+	});
 }
 
 export {
