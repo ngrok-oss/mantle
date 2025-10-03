@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.55.1
+
+### Patch Changes
+
+- [#826](https://github.com/ngrok-oss/mantle/pull/826) [`48ce32d`](https://github.com/ngrok-oss/mantle/commit/48ce32d29cb6102620c3658fc5f435608e202248) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add react-router to peer dependencies of mantle, document AutoScrollToHash peerDep on react-router
+
 ## 0.55.0
 
 ### Minor Changes
