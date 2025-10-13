@@ -22,7 +22,7 @@
     "@react-router/fs-routes": "catalog:",
     "@react-router/node": "catalog:",
     "@react-router/serve": "catalog:",
-    "@tanstack/react-form": "1.23.5",
+    "@tanstack/react-form": "1.23.7",
     "@vercel/react-router": "1.2.3",
     "fuse.js": "7.1.0",
     "isbot": "5.1.31",
