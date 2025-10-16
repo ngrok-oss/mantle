@@ -1,5 +1,13 @@
 # @ngrok/mantle
 
+## 0.55.3
+
+### Patch Changes
+
+- [#834](https://github.com/ngrok-oss/mantle/pull/834) [`235593b`](https://github.com/ngrok-oss/mantle/commit/235593be593f2d510ce1917792118c8fa0861ff9) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update ariakit and react-day-picker
+
+- [#837](https://github.com/ngrok-oss/mantle/pull/837) [`ba79d27`](https://github.com/ngrok-oss/mantle/commit/ba79d27dd3d04039c81d86cf41abe23d192e13d3) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Theme: improve cookie parsing and reduce risk of FOUC, hydration issues
+
 ## 0.55.2
 
 ### Patch Changes

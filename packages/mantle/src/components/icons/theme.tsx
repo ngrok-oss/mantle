@@ -2,7 +2,8 @@ import { DesktopIcon } from "@phosphor-icons/react/Desktop";
 import { MoonIcon } from "@phosphor-icons/react/Moon";
 import { SunIcon } from "@phosphor-icons/react/Sun";
 import type { SvgAttributes } from "../icon/types.js";
-import { type Theme, useAppliedTheme } from "../theme/theme-provider.js";
+import { useAppliedTheme } from "../theme/theme-provider.js";
+import type { Theme } from "../theme/themes.js";
 
 /**
  * An icon that automatically adapts to the current applied theme.
