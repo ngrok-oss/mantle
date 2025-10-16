@@ -78,25 +78,31 @@ export default function Page() {
 						<CodeBlock.Code
 							language="tsx"
 							value={fmtCode`
-							import { MantleThemeHeadContent, ThemeProvider } from "@ngrok/mantle/theme";
+						import { MantleThemeHeadContent, ThemeProvider, useInitialHtmlThemeProps } from "@ngrok/mantle/theme";
 
-							export default function App() {
-								return (
-									<html className="h-full" lang="en-US" dir="ltr">
-										<head>
-											// 👇 add this as high in the <head> as possible!
-											<MantleThemeHeadContent />
-											<meta charSet="utf-8" />
-											<meta name="author" content="ngrok" />
-											<meta name="viewport" content="width=device-width, initial-scale=1" />
-											<Meta />
-											<Links />
-										</head>
-										<body className="h-full min-h-full overflow-y-scroll bg-body">
-											// 👇 wrap your app entry in the ThemeProvider
-											<ThemeProvider>
-												<Outlet />
-											</ThemeProvider>
+						export default function App() {
+						// 👇 get the initial theme props to prevent hydration errors
+						const initialHtmlThemeProps = useInitialHtmlThemeProps({
+						className: "h-full",
+						});
+
+						return (
+						// 👇 spread the theme props onto the <html> element
+						<html {...initialHtmlThemeProps} lang="en-US" dir="ltr">
+						<head>
+						// 👇 add this as high in the <head> as possible!
+						 <MantleThemeHeadContent />
+						 <meta charSet="utf-8" />
+						<meta name="author" content="ngrok" />
+						<meta name="viewport" content="width=device-width, initial-scale=1" />
+						<Meta />
+						<Links />
+						</head>
+						 <body className="h-full min-h-full overflow-y-scroll bg-body">
+						   // 👇 wrap your app entry in the ThemeProvider
+						    <ThemeProvider>
+						      <Outlet />
+						      </ThemeProvider>
 										</body>
 									</html>
 								);
@@ -284,51 +290,13 @@ ${preventWrongThemeFlashScriptContent()}
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
-							<PropRow>
-								<PropNameCell name="defaultTheme" optional />
-								<PropTypeCell>
-									<ul>
-										<li>
-											<StringPropType value="system" />
-										</li>
-										<li>
-											<StringPropType value="light" />
-										</li>
-										<li>
-											<StringPropType value="dark" />
-										</li>
-										<li>
-											<StringPropType value="light-high-contrast" />
-										</li>
-										<li>
-											<StringPropType value="dark-high-contrast" />
-										</li>
-									</ul>
-								</PropTypeCell>
-								<PropDefaultValueCell>
-									<StringPropType value="system" />
-								</PropDefaultValueCell>
-								<PropDescriptionCell>
-									<p>
-										The default theme to use when no theme is stored in cookies.
-										The <Code>system</Code> theme will automatically resolve to
-										the user's preferred color scheme.
-									</p>
-								</PropDescriptionCell>
-							</PropRow>
-							<PropRow>
-								<PropNameCell name="storageKey" optional />
-								<PropTypeCell>
-									<StringPropType />
-								</PropTypeCell>
-								<PropDefaultValueCell>
-									<StringPropType value="mantle-ui-theme" />
-								</PropDefaultValueCell>
-								<PropDescriptionCell>
-									<p>The key used to store the theme preference in cookies.</p>
-								</PropDescriptionCell>
-							</PropRow>
 						</PropsTable>
+						<p className="font-body text-body mt-4">
+							<strong>Note:</strong> The <Code>ThemeProvider</Code> uses a
+							hardcoded storage key of <Code>mantle-ui-theme</Code> and defaults
+							to <Code>system</Code> theme. These values are managed internally
+							and do not require configuration.
+						</p>
 					</div>
 
 					<div className="space-y-4">
@@ -345,54 +313,6 @@ ${preventWrongThemeFlashScriptContent()}
 						</p>
 						<PropsTable>
 							<PropRow>
-								<PropNameCell name="defaultTheme" optional />
-								<PropTypeCell>
-									<ul>
-										<li>
-											<StringPropType value="system" />
-										</li>
-										<li>
-											<StringPropType value="light" />
-										</li>
-										<li>
-											<StringPropType value="dark" />
-										</li>
-										<li>
-											<StringPropType value="light-high-contrast" />
-										</li>
-										<li>
-											<StringPropType value="dark-high-contrast" />
-										</li>
-									</ul>
-								</PropTypeCell>
-								<PropDefaultValueCell>
-									<StringPropType value="system" />
-								</PropDefaultValueCell>
-								<PropDescriptionCell>
-									<p>
-										The default theme to use in the FOUC prevention script.
-										Should match the <Code>defaultTheme</Code> prop of your{" "}
-										<Code>ThemeProvider</Code>.
-									</p>
-								</PropDescriptionCell>
-							</PropRow>
-							<PropRow>
-								<PropNameCell name="storageKey" optional />
-								<PropTypeCell>
-									<StringPropType />
-								</PropTypeCell>
-								<PropDefaultValueCell>
-									<StringPropType value="mantle-ui-theme" />
-								</PropDefaultValueCell>
-								<PropDescriptionCell>
-									<p>
-										The cookie key to check for theme preference. Should match
-										the <Code>storageKey</Code> prop of your{" "}
-										<Code>ThemeProvider</Code>.
-									</p>
-								</PropDescriptionCell>
-							</PropRow>
-							<PropRow>
 								<PropNameCell name="includeNunitoSans" optional />
 								<PropTypeCell>
 									<BooleanPropType />
@@ -407,7 +327,71 @@ ${preventWrongThemeFlashScriptContent()}
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
+							<PropRow>
+								<PropNameCell name="nonce" optional />
+								<PropTypeCell>
+									<StringPropType />
+								</PropTypeCell>
+								<PropDefaultValueCell />
+								<PropDescriptionCell>
+									<p>
+										An optional CSP nonce to allowlist the inline FOUC
+										prevention script. Using this helps avoid the CSP{" "}
+										<Code>unsafe-inline</Code> directive, which disables XSS
+										protection and would allowlist all inline scripts or styles.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
 						</PropsTable>
+						<p className="font-body text-body mt-4">
+							<strong>Note:</strong> The FOUC prevention script uses hardcoded
+							values for storage key (<Code>mantle-ui-theme</Code>) and default
+							theme (<Code>system</Code>) to ensure consistency with{" "}
+							<Code>ThemeProvider</Code>.
+						</p>
+					</div>
+
+					<div className="space-y-4">
+						<HashLinkHeading
+							id="api-use-initial-html-theme-props"
+							className="text-2xl font-medium"
+						>
+							<h3>useInitialHtmlThemeProps</h3>
+						</HashLinkHeading>
+						<p className="font-body text-body text-xl">
+							The <Code>useInitialHtmlThemeProps</Code> hook returns props that
+							should be applied to the <Code>&lt;html&gt;</Code> element to
+							prevent React hydration errors. It accepts the following options:
+						</p>
+						<PropsTable>
+							<PropRow>
+								<PropNameCell name="className" optional />
+								<PropTypeCell>
+									<StringPropType />
+								</PropTypeCell>
+								<PropDefaultValueCell>
+									<StringPropType value="" />
+								</PropDefaultValueCell>
+								<PropDescriptionCell>
+									<p>
+										Additional CSS classes to apply to the{" "}
+										<Code>&lt;html&gt;</Code> element. These will be combined
+										with the theme class.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+						</PropsTable>
+						<p className="font-body text-body mt-4">
+							<strong>Returns:</strong> An object with <Code>className</Code>,{" "}
+							<Code>data-theme</Code>, and <Code>data-applied-theme</Code> props
+							to spread onto your <Code>&lt;html&gt;</Code> element.
+						</p>
+						<p className="font-body text-body mt-2">
+							<strong>Note:</strong> On the server, this defaults to{" "}
+							<Code>system</Code> theme (resolved to <Code>light</Code>). On the
+							client, it reads the current theme from cookies to match what the
+							FOUC prevention script applied, ensuring React hydration succeeds.
+						</p>
 					</div>
 				</div>
 			</section>
