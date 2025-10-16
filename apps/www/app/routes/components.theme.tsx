@@ -139,7 +139,7 @@ export default function Page() {
 						<CodeBlock.Code
 							language="html"
 							value={fmtCode`<script>
-${preventWrongThemeFlashScriptContent({ defaultTheme: "system" })}
+${preventWrongThemeFlashScriptContent()}
 </script>
 `}
 						/>

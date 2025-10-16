@@ -1,9 +1,11 @@
 import { Anchor } from "@ngrok/mantle/anchor";
+import { BrowserOnly } from "@ngrok/mantle/browser-only";
 import { IconButton } from "@ngrok/mantle/button";
 import { cx } from "@ngrok/mantle/cx";
 import { Icon, type SvgAttributes } from "@ngrok/mantle/icon";
 import { AutoThemeIcon, ThemeIcon } from "@ngrok/mantle/icons";
 import { Select } from "@ngrok/mantle/select";
+import { Skeleton } from "@ngrok/mantle/skeleton";
 import { $theme, isTheme, useTheme } from "@ngrok/mantle/theme";
 import type { WithStyleProps } from "@ngrok/mantle/types";
 import { ListIcon } from "@phosphor-icons/react/List";
@@ -127,7 +129,11 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 						{/* TODO: this should probably have a title/tooltip instead that describes what it is since we ain't got a spot for a label */}
 						<span className="sr-only">Theme Switcher</span>
 						<Select.Trigger className="w-min">
-							<Icon className="mr-1" svg={<AutoThemeIcon />} />
+							<BrowserOnly
+								fallback={<Skeleton className="rounded-full size-5 mr-1" />}
+							>
+								{() => <Icon className="mr-1" svg={<AutoThemeIcon />} />}
+							</BrowserOnly>
 						</Select.Trigger>
 					</div>
 					<Select.Content width="content">
