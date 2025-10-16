@@ -1,20 +1,24 @@
 export {
 	//,
-	$resolvedTheme,
-	$theme,
-	applyTheme,
-	isResolvedTheme,
-	isTheme,
+	getStoredTheme,
 	MantleThemeHeadContent,
 	preventWrongThemeFlashScriptContent,
 	readThemeFromHtmlElement,
-	resolvedThemes,
 	ThemeProvider,
-	themes,
 	useAppliedTheme,
 	useInitialHtmlThemeProps,
 	useTheme,
 } from "./theme-provider.js";
+
+export {
+	//,
+	$theme,
+	$resolvedTheme,
+	isResolvedTheme,
+	isTheme,
+	resolvedThemes,
+	themes,
+} from "./themes.js";
 
 export {
 	//,
@@ -24,5 +28,5 @@ export {
 export type {
 	//,
 	Theme,
-	ThemeProviderProps,
-} from "./theme-provider.js";
+	ResolvedTheme,
+} from "./themes.js";

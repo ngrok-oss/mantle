@@ -1,5 +1,6 @@
+import { cx } from "@ngrok/mantle/cx";
+import { useScrollBehavior } from "@ngrok/mantle/hooks";
 import "@ngrok/mantle/mantle.css";
-import { AutoScrollToHash } from "@ngrok/mantle/auto-scroll-to-hash";
 import {
 	MantleThemeHeadContent,
 	ThemeProvider,
@@ -18,10 +19,11 @@ import {
 import { Layout } from "./components/layout";
 import { NavigationProvider } from "./components/navigation-context";
 
-export const loader = async () => {
+export const loader = async ({ request }: { request: Request }) => {
 	const packageJson = await import("@ngrok/mantle/package.json");
 	const commitSha = process.env.VERCEL_GIT_COMMIT_SHA;
 	const deploymentId = process.env.VERCEL_DEPLOYMENT_ID;
+
 	return {
 		currentVersion: packageJson.default.version,
 		commitSha,
@@ -35,6 +37,7 @@ export default function App() {
 	const initialHtmlThemeProps = useInitialHtmlThemeProps({
 		className: "h-full",
 	});
+	const scrollBehavior = useScrollBehavior();
 
 	return (
 		<html {...initialHtmlThemeProps} lang="en-US" dir="ltr">
@@ -48,18 +51,21 @@ export default function App() {
 				<Meta />
 				<Links />
 			</head>
-			<body className="bg-base h-full min-h-full overflow-y-scroll">
+			<body
+				className={cx(
+					"bg-base h-full min-h-full overflow-y-scroll",
+					scrollBehavior === "smooth" && "scroll-smooth",
+				)}
+			>
 				<ThemeProvider>
-					<AutoScrollToHash>
-						<TooltipProvider>
-							<Toaster />
-							<NavigationProvider>
-								<Layout currentVersion={currentVersion}>
-									<Outlet />
-								</Layout>
-							</NavigationProvider>
-						</TooltipProvider>
-					</AutoScrollToHash>
+					<TooltipProvider>
+						<Toaster />
+						<NavigationProvider>
+							<Layout currentVersion={currentVersion}>
+								<Outlet />
+							</Layout>
+						</NavigationProvider>
+					</TooltipProvider>
 				</ThemeProvider>
 				<ScrollRestoration />
 				<Scripts />

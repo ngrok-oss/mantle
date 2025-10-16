@@ -1,6 +1,5 @@
 "use client";
 
-import clsx from "clsx";
 import type { ComponentProps, PropsWithChildren } from "react";
 import {
 	createContext,
@@ -12,7 +11,17 @@ import {
 } from "react";
 import invariant from "tiny-invariant";
 import { useMatchesMediaQuery } from "../../hooks/use-matches-media-query.js";
+import { cx } from "../../utils/cx/cx.js";
+import { canUseDOM } from "../browser-only/browser-only.js";
 import { PreloadFonts } from "./preload-fonts.js";
+import {
+	type ResolvedTheme,
+	type Theme,
+	isResolvedTheme,
+	isTheme,
+	resolvedThemes,
+	themes,
+} from "./themes.js";
 
 /**
  * prefersDarkModeMediaQuery is the media query used to detect if the user prefers dark mode.
@@ -25,127 +34,15 @@ const prefersDarkModeMediaQuery = "(prefers-color-scheme: dark)";
 const prefersHighContrastMediaQuery = "(prefers-contrast: more)";
 
 /**
- * resolvedThemes is a tuple of valid themes that have been resolved from "system" to a specific theme.
+ * THEME_STORAGE_KEY is the key used to store the theme in cookies.
  */
-const resolvedThemes = [
-	"light",
-	"dark",
-	"light-high-contrast",
-	"dark-high-contrast",
-] as const;
+const THEME_STORAGE_KEY = "mantle-ui-theme";
 
 /**
- * ResolvedTheme is a type that represents a theme that has been resolved from "system" to a specific theme.
+ * DEFAULT_THEME is the initial theme to apply if no value is found in storage.
+ * {@link themes}
  */
-type ResolvedTheme = (typeof resolvedThemes)[number];
-
-/**
- * themes is a tuple of valid themes.
- */
-const themes = ["system", ...resolvedThemes] as const;
-
-/**
- * Theme is a string literal type that represents a valid theme.
- */
-type Theme = (typeof themes)[number];
-
-/**
- * $theme is a helper which translates the Theme type into a string literal type.
- */
-const $theme = <T extends Theme = Theme>(value: T) => value;
-
-/**
- * Type predicate that checks if a value is a valid theme.
- */
-function isTheme(value: unknown): value is Theme {
-	if (typeof value !== "string") {
-		return false;
-	}
-
-	return themes.includes(value as Theme);
-}
-
-/**
- * $resolvedTheme is a helper which translates the ResolvedTheme type into a string literal type.
- */
-const $resolvedTheme = <T extends ResolvedTheme = ResolvedTheme>(value: T) =>
-	value;
-
-/**
- * Type predicate that checks if a value is a valid resolved theme.
- */
-function isResolvedTheme(value: unknown): value is ResolvedTheme {
-	if (typeof value !== "string") {
-		return false;
-	}
-
-	return resolvedThemes.includes(value as ResolvedTheme);
-}
-
-/**
- * DEFAULT_STORAGE_KEY is the default key used to store the theme in cookies.
- */
-const DEFAULT_STORAGE_KEY = "mantle-ui-theme";
-
-/**
- * Notifies other open tabs (same origin) that the theme changed.
- *
- * Prefers a shared {@link BroadcastChannel} for immediate, reliable delivery.
- * Falls back to writing a unique “ping” value to `localStorage`, which triggers
- * the cross-tab `storage` event. Both mechanisms only work across the same origin.
- *
- * Uses a timestamp to ensure the storage value always changes so the event fires.
- *
- * @remarks
- * - Same-origin only: BroadcastChannel and the `storage` event do not cross subdomains
- *   or different schemes/ports. For cross-subdomain sync, use a postMessage hub or server push.
- * - This function is fire-and-forget and intentionally swallows errors.
- * - Receivers should re-read the cookie/source of truth and then apply the theme;
- *   don’t trust the payload blindly.
- *
- * @example
- * // Sender (inside your setter)
- * notifyOtherTabs(nextTheme, {
- *   broadcastChannel: broadcastChannelRef.current,
- *   pingKey: `${storageKey}__ping`,
- * });
- *
- * @example
- * // Receiver (setup once per tab)
- * const bc = new BroadcastChannel(storageKey);
- * bc.onmessage = () => syncThemeFromCookie();
- * window.addEventListener('storage', (e) => {
- *   if (e.key === `${storageKey}__ping`) syncThemeFromCookie();
- * });
- */
-function notifyOtherTabs(
-	theme: Theme,
-	options: {
-		broadcastChannel: BroadcastChannel | null;
-		pingKey: `${string}__ping`;
-	},
-) {
-	const { broadcastChannel, pingKey } = options;
-
-	// first try BroadcastChannel
-	try {
-		if (broadcastChannel) {
-			broadcastChannel.postMessage({
-				theme,
-				timestamp: Date.now(),
-			});
-			return;
-		}
-	} catch (_) {}
-
-	// fallback to storage event: write a "ping" key (not the real storageKey)
-	try {
-		localStorage.setItem(
-			pingKey,
-			JSON.stringify({ theme, timestamp: Date.now() }),
-		);
-	} catch (_) {}
-}
+const DEFAULT_THEME = "system" satisfies Theme;
 
 /**
  * ThemeProviderState is the shape of the state returned by the ThemeProviderContext.
@@ -164,85 +61,7 @@ const ThemeProviderContext = createContext<ThemeProviderState | null>(
 	initialState,
 );
 
-/**
- * isBrowser returns true if the code is running in a browser environment.
- */
-const isBrowser = () => typeof window !== "undefined";
-
-/**
- * Sets a cookie with appropriate domain for the current hostname.
- * Uses .ngrok.com for ngrok domains, otherwise no domain (current domain only).
- */
-function setCookie(name: string, value: string) {
-	if (!isBrowser()) {
-		return;
-	}
-
-	try {
-		const expires = new Date();
-		expires.setFullYear(expires.getFullYear() + 1); // 1 year expiration
-
-		// Only set .ngrok.com domain for ngrok domains, otherwise let it default to current domain
-		const { hostname, protocol } = window.location;
-		const domainAttribute =
-			hostname === "ngrok.com" || hostname.endsWith(".ngrok.com")
-				? "; domain=.ngrok.com"
-				: "";
-		const secureAttribute = protocol === "https:" ? "; Secure" : "";
-
-		document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires.toUTCString()}; path=/${domainAttribute}; SameSite=Lax${secureAttribute}`;
-	} catch (_) {
-		// silently swallow errors
-	}
-}
-
-/**
- * Gets the stored theme from cookies or returns the default theme if no theme is stored.
- */
-function getStoredTheme(storageKey: string, defaultTheme: Theme = "system") {
-	const fallbackTheme = defaultTheme ?? "system";
-	if (isBrowser()) {
-		let storedTheme: string | null = null;
-		try {
-			const cookies = document.cookie.split(";");
-			const themeCookie = cookies.find((cookie) =>
-				cookie.trim().startsWith(`${storageKey}=`),
-			);
-			if (themeCookie) {
-				const cookieValue = themeCookie.trim().substring(storageKey.length + 1);
-				storedTheme = cookieValue ? decodeURIComponent(cookieValue) : null;
-			}
-		} catch (_) {}
-		return isTheme(storedTheme) ? storedTheme : fallbackTheme;
-	}
-	return fallbackTheme;
-}
-
-/**
- * Props for the {@link ThemeProvider} component.
- */
-type ThemeProviderProps = PropsWithChildren & {
-	/**
-	 * The initial theme to apply if no value is found in storage.
-	 *
-	 * Possible values {@link themes}:
-	 * - `"system"` – follow the user’s system preferences (default).
-	 * - `"light"` – force light mode.
-	 * - `"dark"` – force dark mode.
-	 * - `"light-high-contrast"` – light mode with increased contrast.
-	 * - `"dark-high-contrast"` – dark mode with increased contrast.
-	 */
-	defaultTheme?: Theme;
-
-	/**
-	 * The key used to persist the selected theme in cookies or storage.
-	 *
-	 * Defaults to `"theme"` (or the {@link DEFAULT_STORAGE_KEY} constant).
-	 * Useful if you need to isolate theme settings across multiple apps
-	 * or contexts.
-	 */
-	storageKey?: string;
-};
+type ThemeProviderProps = PropsWithChildren;
 
 /**
  * ThemeProvider is a React Context Provider that provides the current theme and a function to set the theme.
@@ -256,15 +75,13 @@ type ThemeProviderProps = PropsWithChildren & {
  * </ThemeProvider>
  * ```
  */
-function ThemeProvider({
-	children,
-	defaultTheme = "system",
-	storageKey = DEFAULT_STORAGE_KEY,
-}: ThemeProviderProps) {
+function ThemeProvider({ children }: ThemeProviderProps) {
 	// Init once from cookie and apply immediately to avoid flashes
 	const [theme, setTheme] = useState<Theme>(() => {
-		const storedTheme = getStoredTheme(storageKey, defaultTheme);
-		applyTheme(storedTheme);
+		const storedTheme = getStoredTheme({
+			cookie: canUseDOM() ? document.cookie : null,
+		});
+		applyThemeToHtml(storedTheme);
 		return storedTheme;
 	});
 
@@ -272,9 +89,9 @@ function ThemeProvider({
 
 	useEffect(() => {
 		function syncThemeFromCookie(next?: Theme) {
-			const newTheme = next ?? getStoredTheme(storageKey, defaultTheme);
+			const newTheme = next ?? getStoredTheme({ cookie: document.cookie });
 			setTheme(newTheme);
-			applyTheme(newTheme);
+			applyThemeToHtml(newTheme);
 		}
 
 		// initial sync in case defaultTheme or storageKey changed
@@ -283,7 +100,7 @@ function ThemeProvider({
 		// add cross-tab listeners (prefer broadcast channel, use localStorage as fallback)
 		try {
 			if ("BroadcastChannel" in window) {
-				broadcastChannelRef.current = new BroadcastChannel(storageKey);
+				broadcastChannelRef.current = new BroadcastChannel(THEME_STORAGE_KEY);
 				broadcastChannelRef.current.onmessage = (event) => {
 					const value: unknown = event?.data?.theme;
 					if (isTheme(value)) {
@@ -293,11 +110,11 @@ function ThemeProvider({
 			}
 		} catch (_) {}
 
-		const onStorage = (event: StorageEvent) => {
-			if (event.key === `${storageKey}__ping`) {
+		function onStorage(event: StorageEvent) {
+			if (event.key === `${THEME_STORAGE_KEY}__ping`) {
 				syncThemeFromCookie();
 			}
-		};
+		}
 		window.addEventListener("storage", onStorage);
 
 		// add media query listeners for system theme changes
@@ -338,22 +155,22 @@ function ThemeProvider({
 			} catch (_) {}
 			broadcastChannelRef.current = null;
 		};
-	}, [defaultTheme, storageKey]);
+	}, []);
 
 	const value: ThemeProviderState = useMemo(
 		() => [
 			theme,
 			(next: Theme) => {
-				setCookie(storageKey, next);
+				setCookie(next);
 				setTheme(next);
-				applyTheme(next);
+				applyThemeToHtml(next);
 				notifyOtherTabs(next, {
 					broadcastChannel: broadcastChannelRef.current,
-					pingKey: `${storageKey}__ping`,
+					pingKey: `${THEME_STORAGE_KEY}__ping`,
 				});
 			},
 		],
-		[storageKey, theme],
+		[theme],
 	);
 
 	return (
@@ -380,8 +197,8 @@ function useTheme() {
 /**
  * Applies the given theme to the `<html>` element.
  */
-function applyTheme(theme: Theme) {
-	if (!isBrowser()) {
+function applyThemeToHtml(theme: Theme) {
+	if (!canUseDOM()) {
 		return;
 	}
 
@@ -421,7 +238,7 @@ function applyTheme(theme: Theme) {
  * Read the theme and applied theme from the `<html>` element.
  */
 function readThemeFromHtmlElement() {
-	if (!isBrowser()) {
+	if (!canUseDOM()) {
 		return {
 			appliedTheme: undefined,
 			theme: undefined,
@@ -512,129 +329,160 @@ export function determineThemeFromMediaQuery({
 	return prefersDarkMode ? "dark" : "light";
 }
 
-type PreventWrongThemeFlashScriptContentOptions = {
-	defaultTheme?: Theme;
-	storageKey?: string;
-};
+/**
+ * Script that runs synchronously to prevent FOUC by applying the correct theme
+ * before the page renders. This is the actual function that gets stringified and inlined.
+ */
+function preventThemeFlash(args: {
+	storageKey: string;
+	defaultTheme: Theme;
+	themes: readonly Theme[];
+	resolvedThemes: readonly ResolvedTheme[];
+	prefersDarkModeMediaQuery: string;
+	prefersHighContrastMediaQuery: string;
+}) {
+	const {
+		storageKey,
+		defaultTheme,
+		themes,
+		resolvedThemes,
+		prefersDarkModeMediaQuery,
+		prefersHighContrastMediaQuery,
+	} = args;
+
+	function isTheme(value: unknown): value is Theme {
+		return typeof value === "string" && themes.includes(value as Theme);
+	}
+
+	function getThemeFromCookie(name: string): string | null {
+		const cookie = document.cookie;
+		if (!cookie) {
+			return null;
+		}
+
+		try {
+			const cookies = cookie.split(";");
+			const themeCookie = cookies.find((c) => c.trim().startsWith(`${name}=`));
+			const cookieValue = themeCookie?.split("=")[1];
+			const storedTheme = cookieValue ? decodeURIComponent(cookieValue) : null;
+			return storedTheme;
+		} catch (_) {
+			return null;
+		}
+	}
+
+	function buildCookie(name: string, val: string): string {
+		const expires = new Date();
+		expires.setFullYear(expires.getFullYear() + 1);
+		const hostname = location.hostname;
+		const protocol = location.protocol;
+		const domainAttribute =
+			hostname === "ngrok.com" || hostname.endsWith(".ngrok.com")
+				? "; domain=.ngrok.com"
+				: "";
+		const secureAttribute = protocol === "https:" ? "; Secure" : "";
+		return `${name}=${encodeURIComponent(val)}; expires=${expires.toUTCString()}; path=/${domainAttribute}; SameSite=Lax${secureAttribute}`;
+	}
+
+	function writeCookie(name: string, val: string): void {
+		try {
+			document.cookie = buildCookie(name, val);
+		} catch (_) {}
+	}
+
+	function resolveThemeValue(
+		theme: Theme,
+		isDark: boolean,
+		isHighContrast: boolean,
+	): ResolvedTheme {
+		if (theme === "system") {
+			if (isHighContrast) {
+				return isDark ? "dark-high-contrast" : "light-high-contrast";
+			}
+			return isDark ? "dark" : "light";
+		}
+		return theme;
+	}
+
+	// 1) Read preference: cookie first, fallback to localStorage (migration support)
+	let cookieTheme: string | null = null;
+	let lsTheme: string | null = null;
+	let storedTheme: Theme | null = null;
+
+	try {
+		cookieTheme = getThemeFromCookie(storageKey);
+	} catch (_) {}
+
+	if (isTheme(cookieTheme)) {
+		storedTheme = cookieTheme;
+	} else {
+		try {
+			lsTheme = window.localStorage?.getItem(storageKey) ?? null;
+		} catch (_) {}
+		if (isTheme(lsTheme)) {
+			storedTheme = lsTheme;
+		}
+	}
+
+	const preference = isTheme(storedTheme) ? storedTheme : defaultTheme;
+
+	// 2) Resolve theme based on media queries
+	const isDark = matchMedia(prefersDarkModeMediaQuery).matches;
+	const isHighContrast = matchMedia(prefersHighContrastMediaQuery).matches;
+	const resolvedTheme = resolveThemeValue(preference, isDark, isHighContrast);
+
+	const html = document.documentElement;
+	// 3) Apply theme to DOM (same order as applyThemeToHtml)
+	if (
+		html.dataset.appliedTheme !== resolvedTheme ||
+		html.dataset.theme !== preference
+	) {
+		// Remove all theme classes
+		for (const themeClass of resolvedThemes as readonly string[]) {
+			html.classList.remove(themeClass);
+		}
+		// Add resolved theme class
+		html.classList.add(resolvedTheme);
+		// Set data attributes
+		html.dataset.theme = preference;
+		html.dataset.appliedTheme = resolvedTheme;
+	}
+
+	// 4) Handle persistence/migration synchronously to prevent FOUC
+	const hadValidCookie = isTheme(cookieTheme);
+	try {
+		if (isTheme(lsTheme) && !hadValidCookie) {
+			// Migrate from localStorage to cookie
+			writeCookie(storageKey, lsTheme);
+			try {
+				window.localStorage.removeItem(storageKey);
+			} catch (_) {}
+		} else if (!hadValidCookie) {
+			// Set default cookie if none existed
+			writeCookie(storageKey, preference);
+		}
+	} catch (_) {}
+}
 
 /**
  * preventWrongThemeFlashScriptContent generates a script that prevents the wrong theme from flashing on initial page load.
  * It checks cookies for a stored theme, and if none is found, it sets the default theme.
  * It also applies the correct theme to the `<html>` element based on the user's media query preferences.
  */
-function preventWrongThemeFlashScriptContent(
-	options?: PreventWrongThemeFlashScriptContentOptions,
-) {
-	const { defaultTheme = "system", storageKey = DEFAULT_STORAGE_KEY } =
-		options ?? {};
+function preventWrongThemeFlashScriptContent() {
+	const args = {
+		storageKey: THEME_STORAGE_KEY,
+		defaultTheme: DEFAULT_THEME,
+		themes,
+		resolvedThemes,
+		prefersDarkModeMediaQuery,
+		prefersHighContrastMediaQuery,
+	} as const satisfies Parameters<typeof preventThemeFlash>[0];
 
-	// Only resolved themes are ever applied as classes
-	const resolved = resolvedThemes;
-
-	return `
-(function() {
-	const RESOLVED = ${JSON.stringify(resolved)};
-	const DEF = "${defaultTheme}";
-	const KEY = "${storageKey}";
-	const doc = document, root = doc.documentElement;
-
-	function isTheme(v) {
-		return typeof v === "string" && (v === "system" || RESOLVED.indexOf(v) > -1);
-	}
-
-	function readCookie(name){
-		// Efficient single-pass cookie lookup: "; name=value"
-		const all = "; " + doc.cookie, token = "; " + name + "=";
-		const startIdx = all.indexOf(token);
-		if (startIdx < 0) {
-			return null;
-		}
-		const endIdx = all.indexOf(";", startIdx + token.length);
-		const rawValue = all.slice(startIdx + token.length, endIdx < 0 ? void 0 : endIdx) || null;
-		try { 
-			return rawValue ? decodeURIComponent(rawValue) : null;
-		} catch(_) { 
-			return rawValue;
-		}
-	}
-
-	function writeCookie(name, val) {
-		try {
-			const expires = new Date(); 
-			expires.setFullYear(expires.getFullYear() + 1);
-			const hostname = location.hostname;
-			const protocol = location.protocol;
-			const isDotNgrok = (hostname === "ngrok.com" || hostname.endsWith(".ngrok.com"));
-			const domain = isDotNgrok ? "; domain=.ngrok.com" : "";
-			const secure = protocol === "https:" ? "; Secure" : "";
-			doc.cookie = name + "=" + encodeURIComponent(val) + "; expires=" + expires.toUTCString() + "; path=/" + domain + "; SameSite=Lax" + secure;
-		} catch(_) {}
-	}
-
-	// 1) Read preference: cookie first, fallback to localStorage (migration support)
-	let cookieTheme = null, lsTheme = null, storedTheme = null;
-	try { 
-		cookieTheme = readCookie(KEY);
-	} catch(_) {}
-	
-	if (isTheme(cookieTheme)) { 
-		storedTheme = cookieTheme;
-	} else {
-		try { 
-			lsTheme = window.localStorage && window.localStorage.getItem(KEY);
-		} catch(_) {}
-		if (isTheme(lsTheme)) {
-			storedTheme = lsTheme;
-		}
-	}
-
-	const preference = isTheme(storedTheme) ? storedTheme : DEF;
-
-	// 2) Resolve only when needed to avoid unnecessary media queries
-	let resolvedTheme = preference;
-	if (preference === "system") {
-		const isDark = matchMedia("${prefersDarkModeMediaQuery}").matches;
-		const isHighContrast = matchMedia("${prefersHighContrastMediaQuery}").matches;
-		resolvedTheme = isHighContrast 
-			? (isDark ? "dark-high-contrast" : "light-high-contrast")
-			: (isDark ? "dark" : "light");
-	}
-
-	// 3) Only touch DOM if we actually need to change something (SSR optimization)
-	if (root.dataset.appliedTheme !== resolvedTheme || root.dataset.theme !== preference) {
-		// Remove all theme classes, add the correct one
-		for (let i = 0; i < RESOLVED.length; i++) {
-			root.classList.remove(RESOLVED[i]);
-		}
-		root.classList.add(resolvedTheme);
-		root.dataset.appliedTheme = resolvedTheme;
-		root.dataset.theme = preference;
-	}
-
-	// 4) Handle persistence/migration synchronously to prevent FOUC
-	const hadValidCookie = isTheme(cookieTheme);
-	try {
-		// Migrate from localStorage to cookies if needed
-		if (isTheme(lsTheme)) {
-			writeCookie(KEY, lsTheme);
-			try { 
-				window.localStorage.removeItem(KEY);
-			} catch(_) {}
-		} else if (!hadValidCookie) {
-			// Set default cookie if none existed
-			writeCookie(KEY, preference);
-		}
-	} catch (_) {}
-})();
-`.trim();
+	return `(${preventThemeFlash.toString()})(${JSON.stringify(args)})`;
 }
 
 type MantleThemeHeadContentProps = {
-	/**
-	 * The default theme to use if no theme is stored in cookies.
-	 * @default "system"
-	 */
-	defaultTheme?: Theme;
 	/**
 	 * An optional CSP nonce to allowlist this inline script. Using this can help
 	 * you to avoid using the CSP `unsafe-inline` directive, which disables
@@ -643,11 +491,6 @@ type MantleThemeHeadContentProps = {
 	 * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/nonce
 	 */
 	nonce?: string;
-	/**
-	 * The key used to store the theme in cookies.
-	 * @default "mantle-ui-theme"
-	 */
-	storageKey?: string;
 } & ComponentProps<typeof PreloadFonts>;
 
 /**
@@ -658,20 +501,16 @@ type MantleThemeHeadContentProps = {
  * Render as high as possible in the <head> element.
  */
 const MantleThemeHeadContent = ({
-	defaultTheme = "system",
 	includeNunitoSans = false,
 	nonce,
-	storageKey = DEFAULT_STORAGE_KEY,
 }: MantleThemeHeadContentProps) => (
 	<>
 		<script
 			dangerouslySetInnerHTML={{
-				__html: preventWrongThemeFlashScriptContent({
-					defaultTheme,
-					storageKey,
-				}),
+				__html: preventWrongThemeFlashScriptContent(),
 			}}
 			nonce={nonce}
+			suppressHydrationWarning
 		/>
 		<PreloadFonts includeNunitoSans={includeNunitoSans} />
 	</>
@@ -684,70 +523,187 @@ type InitialThemeProps = {
 	"data-theme": Theme;
 };
 
+type UseInitialHtmlThemePropsOptions = {
+	className?: string;
+};
+
 /**
  * useInitialHtmlThemeProps returns the initial props that should be applied to the <html> element to prevent react hydration errors.
  */
-function useInitialHtmlThemeProps(props?: {
-	className?: string;
-	defaultTheme?: Theme;
-	storageKey?: string;
-}): InitialThemeProps {
-	const {
-		className = "",
-		defaultTheme = "system",
-		storageKey = DEFAULT_STORAGE_KEY,
-	} = props ?? {};
+function useInitialHtmlThemeProps(
+	props: UseInitialHtmlThemePropsOptions = {},
+): InitialThemeProps {
+	const { className = "" } = props ?? {};
 
 	return useMemo(() => {
-		if (!isBrowser()) {
-			return {
-				className: clsx(className),
-				"data-applied-theme": "light", // assume light on server
-				"data-theme": "system",
-			};
+		let initialTheme: Theme;
+		let resolvedTheme: ResolvedTheme;
+
+		if (!canUseDOM()) {
+			initialTheme = DEFAULT_THEME;
+			resolvedTheme = "light"; // assume "light" for SSR
+		} else {
+			const prefersDarkMode = window.matchMedia(
+				prefersDarkModeMediaQuery,
+			).matches;
+			const prefersHighContrast = window.matchMedia(
+				prefersHighContrastMediaQuery,
+			).matches;
+			initialTheme = getStoredTheme({ cookie: document.cookie });
+			resolvedTheme = resolveTheme(initialTheme, {
+				prefersDarkMode,
+				prefersHighContrast,
+			});
 		}
 
-		const prefersDarkMode = window.matchMedia(
-			prefersDarkModeMediaQuery,
-		).matches;
-		const prefersHighContrast = window.matchMedia(
-			prefersHighContrastMediaQuery,
-		).matches;
-		const initialTheme = getStoredTheme(storageKey, defaultTheme);
-		const resolvedTheme = resolveTheme(initialTheme, {
-			prefersDarkMode,
-			prefersHighContrast,
-		});
-
 		return {
-			className: clsx(className, resolvedTheme),
+			className: cx(className, resolvedTheme),
 			"data-applied-theme": resolvedTheme,
 			"data-theme": initialTheme,
 		};
-	}, [className, defaultTheme, storageKey]);
+	}, [className]);
+}
+
+type GetStoredThemeOptions = {
+	/**
+	 * raw Cookie header (SSR) or document.cookie (client)
+	 */
+	cookie: string | null | undefined;
+};
+
+/**
+ * Returns the persisted UI theme from a Cookie header string.
+ *
+ * Looks for a cookie named by {@link THEME_STORAGE_KEY} and returns its value **iff**
+ * it’s a valid `Theme` per `isTheme`. Otherwise, falls back to
+ * {@link DEFAULT_THEME}. This function never throws; malformed encodings or
+ * missing cookies quietly return the default.
+ *
+ * @example
+ * getStoredTheme({ cookie: `${THEME_STORAGE_KEY}=dark; session=abc` }) // "dark"
+ * @example
+ * getStoredTheme({ cookie: "" }) // DEFAULT_THEME
+ */
+function getStoredTheme({ cookie }: GetStoredThemeOptions): Theme {
+	if (!cookie) {
+		return DEFAULT_THEME;
+	}
+
+	try {
+		const cookies = cookie.split(";");
+		const themeCookie = cookies.find((cookie) =>
+			cookie.trim().startsWith(`${THEME_STORAGE_KEY}=`),
+		);
+		const cookieValue = themeCookie?.split("=")[1];
+		const storedTheme = cookieValue
+			? globalThis.decodeURIComponent(cookieValue)
+			: null;
+
+		return isTheme(storedTheme) ? storedTheme : DEFAULT_THEME;
+	} catch (_) {
+		return DEFAULT_THEME;
+	}
 }
 
 export {
 	//,
-	$resolvedTheme,
-	$theme,
-	applyTheme,
-	isResolvedTheme,
-	isTheme,
+	getStoredTheme,
 	MantleThemeHeadContent,
 	preventWrongThemeFlashScriptContent,
 	readThemeFromHtmlElement,
-	resolvedThemes,
 	ThemeProvider,
-	themes,
 	useAppliedTheme,
 	useInitialHtmlThemeProps,
 	useTheme,
 };
 
-export type {
-	//,
-	ResolvedTheme,
-	Theme,
-	ThemeProviderProps,
-};
+/**
+ * Notifies other open tabs (same origin) that the theme changed.
+ *
+ * Prefers a shared {@link BroadcastChannel} for immediate, reliable delivery.
+ * Falls back to writing a unique “ping” value to `localStorage`, which triggers
+ * the cross-tab `storage` event. Both mechanisms only work across the same origin.
+ *
+ * Uses a timestamp to ensure the storage value always changes so the event fires.
+ *
+ * @remarks
+ * - Same-origin only: BroadcastChannel and the `storage` event do not cross subdomains
+ *   or different schemes/ports. For cross-subdomain sync, use a postMessage hub or server push.
+ * - This function is fire-and-forget and intentionally swallows errors.
+ * - Receivers should re-read the cookie/source of truth and then apply the theme;
+ *   don’t trust the payload blindly.
+ *
+ * @example
+ * // Sender (inside your setter)
+ * notifyOtherTabs(nextTheme, {
+ *   broadcastChannel: broadcastChannelRef.current,
+ *   pingKey: `${storageKey}__ping`,
+ * });
+ *
+ * @example
+ * // Receiver (setup once per tab)
+ * const bc = new BroadcastChannel(storageKey);
+ * bc.onmessage = () => syncThemeFromCookie();
+ * window.addEventListener('storage', (e) => {
+ *   if (e.key === `${storageKey}__ping`) syncThemeFromCookie();
+ * });
+ */
+function notifyOtherTabs(
+	theme: Theme,
+	options: {
+		broadcastChannel: BroadcastChannel | null;
+		pingKey: `${string}__ping`;
+	},
+) {
+	const { broadcastChannel, pingKey } = options;
+
+	// first try BroadcastChannel
+	try {
+		if (broadcastChannel) {
+			broadcastChannel.postMessage({
+				theme,
+				timestamp: Date.now(),
+			});
+			return;
+		}
+	} catch (_) {}
+
+	// fallback to storage event: write a "ping" key (not the real storageKey)
+	try {
+		localStorage.setItem(
+			pingKey,
+			JSON.stringify({ theme, timestamp: Date.now() }),
+		);
+	} catch (_) {}
+}
+
+function buildThemeCookie(value: string) {
+	const expires = new Date();
+	expires.setFullYear(expires.getFullYear() + 1); // 1 year expiration
+
+	// Only set .ngrok.com domain for ngrok domains, otherwise let it default to current domain
+	const { hostname, protocol } = window.location;
+	const domainAttribute =
+		hostname === "ngrok.com" || hostname.endsWith(".ngrok.com")
+			? "; domain=.ngrok.com"
+			: "";
+	const secureAttribute = protocol === "https:" ? "; Secure" : "";
+
+	return `${THEME_STORAGE_KEY}=${encodeURIComponent(value)}; expires=${expires.toUTCString()}; path=/${domainAttribute}; SameSite=Lax${secureAttribute}` as const;
+}
+
+/**
+ * Sets a cookie with appropriate domain for the current hostname.
+ * Uses .ngrok.com for ngrok domains, otherwise no domain (current domain only).
+ */
+function setCookie(value: string) {
+	if (!canUseDOM()) {
+		return;
+	}
+
+	try {
+		document.cookie = buildThemeCookie(value);
+	} catch (_) {
+		// silently swallow errors
+	}
+}
