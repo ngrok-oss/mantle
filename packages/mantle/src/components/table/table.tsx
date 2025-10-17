@@ -53,7 +53,7 @@ const Root = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
 		return (
 			<div
 				className={cx(
-					"group/table scrollbar overflow-x-auto rounded-lg border border-card bg-white dark:bg-gray-100 relative w-full",
+					"group/table scrollbar overflow-x-auto overscroll-x-none rounded-lg border border-card bg-white dark:bg-gray-100 relative w-full",
 					className,
 				)}
 				data-sticky-active={
