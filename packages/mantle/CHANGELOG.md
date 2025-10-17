@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.55.4
+
+### Patch Changes
+
+- [#840](https://github.com/ngrok-oss/mantle/pull/840) [`6d60f2e`](https://github.com/ngrok-oss/mantle/commit/6d60f2ec304241a3a5d98f78c0349eabae78826b) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Table: set overscroll-x-none on Table.Root
+
 ## 0.55.3
 
 ### Patch Changes
