@@ -186,6 +186,13 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 			...props,
 		};
 
+		const innerChildren = (
+			<>
+				<span className="sr-only">{label}</span>
+				<Icon svg={icon} />
+			</>
+		);
+
 		if (asChild) {
 			invariant(
 				isValidElement(children) && Children.only(children),
@@ -194,15 +201,14 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 
 			return (
 				<Slot {...buttonProps}>
-					{cloneElement(children, {}, <Icon svg={icon} />)}
+					{cloneElement(children, {}, innerChildren)}
 				</Slot>
 			);
 		}
 
 		return (
 			<button {...buttonProps} type={type}>
-				<span className="sr-only">{label}</span>
-				<Icon svg={icon} />
+				{innerChildren}
 			</button>
 		);
 	},
