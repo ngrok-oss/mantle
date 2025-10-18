@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.55.5
+
+### Patch Changes
+
+- [#842](https://github.com/ngrok-oss/mantle/pull/842) [`0bdcaba`](https://github.com/ngrok-oss/mantle/commit/0bdcaba1b72080d4b90545ca3d3d559b6aed9b22) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - IconButton: add in sr-only label as inner children when using asChild
+
 ## 0.55.4
 
 ### Patch Changes
