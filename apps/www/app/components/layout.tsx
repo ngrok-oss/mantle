@@ -484,7 +484,7 @@ function CommandPalette() {
 								</Link>
 							</Command.Item>
 						))}
-						<Command.Item asChild>
+						<Command.Item asChild onSelect={() => setOpen(false)}>
 							<a
 								href="https://github.com/ngrok-oss/mantle"
 								target="_blank"
@@ -495,7 +495,7 @@ function CommandPalette() {
 								<ShareIcon />
 							</a>
 						</Command.Item>
-						<Command.Item asChild>
+						<Command.Item asChild onSelect={() => setOpen(false)}>
 							<a
 								href="https://github.com/ngrok-oss/mantle/releases"
 								target="_blank"
