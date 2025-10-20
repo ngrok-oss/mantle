@@ -31,9 +31,15 @@ import { PreviewBadge } from "~/components/badges";
 import { NavLink } from "./nav-link";
 import { useNavigation } from "./navigation-context";
 
+function MetaKey() {
+	const isMac = navigator.userAgent.toLowerCase().includes("mac");
+	return isMac ? "⌘" : "Ctrl";
+}
+
 function useHotkey(key: string, callback: () => void) {
 	useEffect(() => {
 		const down = (e: KeyboardEvent) => {
+			console.log(e.key, e.metaKey, e.ctrlKey);
 			if (e.key === key && (e.metaKey || e.ctrlKey)) {
 				e.preventDefault();
 				callback();
@@ -457,7 +463,7 @@ function CommandPalette() {
 				<MagnifyingGlassIcon />
 				Search
 				<kbd className="bg-muted text-muted pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none">
-					⌘ K
+					<MetaKey /> K
 				</kbd>
 			</Button>
 			<Command.Dialog open={open} onOpenChange={setOpen}>
