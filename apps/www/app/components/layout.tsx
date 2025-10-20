@@ -349,6 +349,11 @@ const previewComponentsRouteLookup = {
 
 const welcomePages = ["Overview & Setup", "Philosophy"] as const;
 
+const welcomeRoutes = {
+	"Overview & Setup": "/",
+	Philosophy: "/philosophy",
+} as const satisfies Record<(typeof welcomePages)[number], Route>;
+
 const basePages = [
 	"Breakpoints",
 	"Colors",
@@ -356,11 +361,6 @@ const basePages = [
 	"Tailwind Variants",
 	"Typography",
 ] as const;
-
-const welcomeRoutes = {
-	"Overview & Setup": "/",
-	Philosophy: "/philosophy",
-} as const satisfies Record<(typeof welcomePages)[number], Route>;
 
 const baseRoutes = {
 	Breakpoints: "/base/breakpoints",
