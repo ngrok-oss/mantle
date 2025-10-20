@@ -9,7 +9,14 @@ import { Select } from "@ngrok/mantle/select";
 import { Skeleton } from "@ngrok/mantle/skeleton";
 import { $theme, isTheme, useTheme } from "@ngrok/mantle/theme";
 import type { WithStyleProps } from "@ngrok/mantle/types";
-import { MagnifyingGlassIcon } from "@phosphor-icons/react";
+import {
+	ArrowRightIcon,
+	MagnifyingGlassIcon,
+	MonitorIcon,
+	MoonIcon,
+	ShareIcon,
+	SunIcon,
+} from "@phosphor-icons/react";
 import { ListIcon } from "@phosphor-icons/react/List";
 import { XIcon } from "@phosphor-icons/react/X";
 import {
@@ -20,6 +27,7 @@ import {
 	useState,
 } from "react";
 import { Link, href, useNavigate } from "react-router";
+import { PreviewBadge } from "~/components/badges";
 import { NavLink } from "./nav-link";
 import { useNavigation } from "./navigation-context";
 
@@ -435,6 +443,7 @@ function Navigation({ className, style }: WithStyleProps) {
 function CommandPalette() {
 	const navigate = useNavigate();
 	const [open, setOpen] = useState(false);
+	const [, setTheme] = useTheme();
 	useHotkey("k", () => setOpen(true));
 
 	return (
@@ -471,12 +480,32 @@ function CommandPalette() {
 									className="flex items-center gap-2 justify-between"
 								>
 									{page}
-									<span className="text-muted text-xs">
-										{welcomeRoutes[page]}
-									</span>
+									<ArrowRightIcon />
 								</Link>
 							</Command.Item>
 						))}
+						<Command.Item asChild>
+							<a
+								href="https://github.com/ngrok-oss/mantle"
+								target="_blank"
+								rel="noopener noreferrer"
+								className="flex items-center gap-2 justify-between"
+							>
+								GitHub Repository
+								<ShareIcon />
+							</a>
+						</Command.Item>
+						<Command.Item asChild>
+							<a
+								href="https://github.com/ngrok-oss/mantle/releases"
+								target="_blank"
+								rel="noopener noreferrer"
+								className="flex items-center gap-2 justify-between"
+							>
+								GitHub Releases
+								<ShareIcon />
+							</a>
+						</Command.Item>
 					</Command.Group>
 					<Command.Separator />
 					<Command.Group heading="Base">
@@ -494,8 +523,13 @@ function CommandPalette() {
 									prefetch="intent"
 									className="flex items-center gap-2 justify-between"
 								>
-									{page}
-									<span className="text-muted text-xs">{baseRoutes[page]}</span>
+									<span className="flex items-center gap-2">
+										{page}
+										<span className="text-muted text-xs">
+											{baseRoutes[page]}
+										</span>
+									</span>
+									<ArrowRightIcon />
 								</Link>
 							</Command.Item>
 						))}
@@ -515,16 +549,25 @@ function CommandPalette() {
 									to={prodReadyComponentRouteLookup[component]}
 									className="flex items-center gap-2 justify-between"
 								>
-									{component}
-									<span className="text-muted text-xs">
-										{prodReadyComponentRouteLookup[component]}
+									<span className="flex items-center gap-2">
+										{component}
+										<span className="text-muted text-xs">
+											{prodReadyComponentRouteLookup[component]}
+										</span>
 									</span>
+									<ArrowRightIcon />
 								</Link>
 							</Command.Item>
 						))}
 					</Command.Group>
 					<Command.Separator />
-					<Command.Group heading="Preview Components">
+					<Command.Group
+						heading={
+							<span className="flex items-center gap-2">
+								Preview Components <PreviewBadge />
+							</span>
+						}
+					>
 						{previewComponents.map((component) => (
 							<Command.Item
 								key={component}
@@ -538,13 +581,64 @@ function CommandPalette() {
 									to={previewComponentsRouteLookup[component]}
 									className="flex items-center gap-2 justify-between"
 								>
-									{component}
-									<span className="text-muted text-xs">
-										{previewComponentsRouteLookup[component]}
+									<span className="flex items-center gap-2">
+										{component}
+										<span className="text-muted text-xs">
+											{previewComponentsRouteLookup[component]}
+										</span>
 									</span>
+									<ArrowRightIcon />
 								</Link>
 							</Command.Item>
 						))}
+					</Command.Group>
+					<Command.Separator />
+					<Command.Group heading="Theme">
+						<Command.Item
+							onSelect={() => {
+								setTheme("system");
+								setOpen(false);
+							}}
+						>
+							<MonitorIcon />
+							Use System theme
+						</Command.Item>
+						<Command.Item
+							onSelect={() => {
+								setTheme("light");
+								setOpen(false);
+							}}
+						>
+							<SunIcon />
+							Use Light theme
+						</Command.Item>
+						<Command.Item
+							onSelect={() => {
+								setTheme("dark");
+								setOpen(false);
+							}}
+						>
+							<MoonIcon />
+							Use Dark theme
+						</Command.Item>
+						<Command.Item
+							onSelect={() => {
+								setTheme("light-high-contrast");
+								setOpen(false);
+							}}
+						>
+							<SunIcon weight="fill" />
+							Use Light High Contrast theme
+						</Command.Item>
+						<Command.Item
+							onSelect={() => {
+								setTheme("dark-high-contrast");
+								setOpen(false);
+							}}
+						>
+							<MoonIcon weight="fill" />
+							Use Dark High Contrast theme
+						</Command.Item>
 					</Command.Group>
 				</Command.List>
 			</Command.Dialog>
