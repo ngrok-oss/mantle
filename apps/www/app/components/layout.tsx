@@ -1,6 +1,7 @@
 import { Anchor } from "@ngrok/mantle/anchor";
 import { BrowserOnly } from "@ngrok/mantle/browser-only";
-import { IconButton } from "@ngrok/mantle/button";
+import { Button, IconButton } from "@ngrok/mantle/button";
+import { Command } from "@ngrok/mantle/command";
 import { cx } from "@ngrok/mantle/cx";
 import { Icon, type SvgAttributes } from "@ngrok/mantle/icon";
 import { AutoThemeIcon, ThemeIcon } from "@ngrok/mantle/icons";
@@ -8,12 +9,32 @@ import { Select } from "@ngrok/mantle/select";
 import { Skeleton } from "@ngrok/mantle/skeleton";
 import { $theme, isTheme, useTheme } from "@ngrok/mantle/theme";
 import type { WithStyleProps } from "@ngrok/mantle/types";
+import { MagnifyingGlassIcon } from "@phosphor-icons/react";
 import { ListIcon } from "@phosphor-icons/react/List";
 import { XIcon } from "@phosphor-icons/react/X";
-import { type ComponentRef, type PropsWithChildren, useRef } from "react";
-import { Link, href } from "react-router";
+import {
+	type ComponentRef,
+	type PropsWithChildren,
+	useEffect,
+	useRef,
+	useState,
+} from "react";
+import { Link, href, useNavigate } from "react-router";
 import { NavLink } from "./nav-link";
 import { useNavigation } from "./navigation-context";
+
+function useHotkey(key: string, callback: () => void) {
+	useEffect(() => {
+		const down = (e: KeyboardEvent) => {
+			if (e.key === key && (e.metaKey || e.ctrlKey)) {
+				e.preventDefault();
+				callback();
+			}
+		};
+		document.addEventListener("keydown", down);
+		return () => document.removeEventListener("keydown", down);
+	});
+}
 
 const NgrokLogo = () => (
 	<svg width="82" height="34" className="xs:block hidden">
@@ -116,62 +137,66 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 					</IconButton>
 				</div>
 
-				<Select.Root
-					value={currentTheme}
-					onValueChange={(value) => {
-						const maybeNewTheme = isTheme(value) ? value : undefined;
-						if (maybeNewTheme) {
-							setTheme(maybeNewTheme);
-						}
-					}}
-				>
-					<div className="ml-auto">
-						{/* TODO: this should probably have a title/tooltip instead that describes what it is since we ain't got a spot for a label */}
-						<span className="sr-only">Theme Switcher</span>
-						<Select.Trigger className="w-min">
-							<BrowserOnly
-								fallback={<Skeleton className="rounded-full size-5 mr-1" />}
-							>
-								{() => <Icon className="mr-1" svg={<AutoThemeIcon />} />}
-							</BrowserOnly>
-						</Select.Trigger>
-					</div>
-					<Select.Content width="content">
-						<Select.Group>
-							<Select.Label>Choose a theme</Select.Label>
-							<Select.Item
-								icon={<ThemeIcon theme="system" />}
-								value={$theme("system")}
-							>
-								System
-							</Select.Item>
-							<Select.Item
-								icon={<ThemeIcon theme="light" />}
-								value={$theme("light")}
-							>
-								Light
-							</Select.Item>
-							<Select.Item
-								icon={<ThemeIcon theme="dark" />}
-								value={$theme("dark")}
-							>
-								Dark
-							</Select.Item>
-							<Select.Item
-								icon={<ThemeIcon theme="light-high-contrast" />}
-								value={$theme("light-high-contrast")}
-							>
-								Light High Contrast
-							</Select.Item>
-							<Select.Item
-								icon={<ThemeIcon theme="dark-high-contrast" />}
-								value={$theme("dark-high-contrast")}
-							>
-								Dark High Contrast
-							</Select.Item>
-						</Select.Group>
-					</Select.Content>
-				</Select.Root>
+				<div className="flex items-center gap-2 ml-auto">
+					<CommandPalette />
+
+					<Select.Root
+						value={currentTheme}
+						onValueChange={(value) => {
+							const maybeNewTheme = isTheme(value) ? value : undefined;
+							if (maybeNewTheme) {
+								setTheme(maybeNewTheme);
+							}
+						}}
+					>
+						<div className="ml-auto">
+							{/* TODO: this should probably have a title/tooltip instead that describes what it is since we ain't got a spot for a label */}
+							<span className="sr-only">Theme Switcher</span>
+							<Select.Trigger className="w-min">
+								<BrowserOnly
+									fallback={<Skeleton className="rounded-full size-5 mr-1" />}
+								>
+									{() => <Icon className="mr-1" svg={<AutoThemeIcon />} />}
+								</BrowserOnly>
+							</Select.Trigger>
+						</div>
+						<Select.Content width="content">
+							<Select.Group>
+								<Select.Label>Choose a theme</Select.Label>
+								<Select.Item
+									icon={<ThemeIcon theme="system" />}
+									value={$theme("system")}
+								>
+									System
+								</Select.Item>
+								<Select.Item
+									icon={<ThemeIcon theme="light" />}
+									value={$theme("light")}
+								>
+									Light
+								</Select.Item>
+								<Select.Item
+									icon={<ThemeIcon theme="dark" />}
+									value={$theme("dark")}
+								>
+									Dark
+								</Select.Item>
+								<Select.Item
+									icon={<ThemeIcon theme="light-high-contrast" />}
+									value={$theme("light-high-contrast")}
+								>
+									Light High Contrast
+								</Select.Item>
+								<Select.Item
+									icon={<ThemeIcon theme="dark-high-contrast" />}
+									value={$theme("dark-high-contrast")}
+								>
+									Dark High Contrast
+								</Select.Item>
+							</Select.Group>
+						</Select.Content>
+					</Select.Root>
+				</div>
 			</header>
 			{showNavigation && (
 				<div className="bg-card fixed bottom-0 left-0 right-0 top-20 z-50 p-4 md:hidden">
@@ -308,6 +333,29 @@ const previewComponentsRouteLookup = {
 	Tooltip: "/components/preview/tooltip",
 } as const satisfies Record<(typeof previewComponents)[number], Route>;
 
+const welcomePages = ["Overview & Setup", "Philosophy"] as const;
+
+const basePages = [
+	"Breakpoints",
+	"Colors",
+	"Shadows",
+	"Tailwind Variants",
+	"Typography",
+] as const;
+
+const welcomeRoutes = {
+	"Overview & Setup": "/",
+	Philosophy: "/philosophy",
+} as const satisfies Record<(typeof welcomePages)[number], Route>;
+
+const baseRoutes = {
+	Breakpoints: "/base/breakpoints",
+	Colors: "/base/colors",
+	Shadows: "/base/shadows",
+	"Tailwind Variants": "/base/tailwind-variants",
+	Typography: "/base/typography",
+} as const satisfies Record<(typeof basePages)[number], Route>;
+
 function Navigation({ className, style }: WithStyleProps) {
 	return (
 		<nav className={cx("text-sm", className)} style={style}>
@@ -316,48 +364,26 @@ function Navigation({ className, style }: WithStyleProps) {
 					Welcome
 				</li>
 
-				<li>
-					<NavLink to="/" prefetch="intent">
-						Overview &amp; Setup
-					</NavLink>
-				</li>
-
-				<li>
-					<NavLink to={href("/philosophy")} prefetch="intent">
-						Philosophy
-					</NavLink>
-				</li>
+				{welcomePages.map((page) => (
+					<li key={page}>
+						<NavLink to={welcomeRoutes[page]} prefetch="intent">
+							{page}
+						</NavLink>
+					</li>
+				))}
 
 				<li className="mt-6 text-xs font-medium uppercase tracking-wider">
 					Base
 				</li>
 
 				<ul className="mt-2">
-					<li>
-						<NavLink to={href("/base/breakpoints")} prefetch="intent">
-							Breakpoints
-						</NavLink>
-					</li>
-					<li>
-						<NavLink to={href("/base/colors")} prefetch="intent">
-							Colors
-						</NavLink>
-					</li>
-					<li>
-						<NavLink to={href("/base/shadows")} prefetch="intent">
-							Shadows
-						</NavLink>
-					</li>
-					<li>
-						<NavLink to={href("/base/tailwind-variants")} prefetch="intent">
-							Tailwind Variants
-						</NavLink>
-					</li>
-					<li>
-						<NavLink to={href("/base/typography")} prefetch="intent">
-							Typography
-						</NavLink>
-					</li>
+					{basePages.map((page) => (
+						<li key={page}>
+							<NavLink to={baseRoutes[page]} prefetch="intent">
+								{page}
+							</NavLink>
+						</li>
+					))}
 				</ul>
 
 				<li className="mt-6 text-xs font-medium uppercase tracking-wider">
@@ -403,5 +429,125 @@ function Navigation({ className, style }: WithStyleProps) {
 				</ul> */}
 			</ul>
 		</nav>
+	);
+}
+
+function CommandPalette() {
+	const navigate = useNavigate();
+	const [open, setOpen] = useState(false);
+	useHotkey("k", () => setOpen(true));
+
+	return (
+		<>
+			<Button
+				type="button"
+				onClick={() => setOpen(true)}
+				appearance="outlined"
+				priority="neutral"
+			>
+				<MagnifyingGlassIcon />
+				Search
+				<kbd className="bg-muted text-muted pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none">
+					⌘ K
+				</kbd>
+			</Button>
+			<Command.Dialog open={open} onOpenChange={setOpen}>
+				<Command.Input placeholder="Search Mantle..." />
+				<Command.List>
+					<Command.Empty>No results found.</Command.Empty>
+					<Command.Group heading="Welcome">
+						{welcomePages.map((page) => (
+							<Command.Item
+								key={page}
+								onSelect={() => {
+									navigate(welcomeRoutes[page]);
+									setOpen(false);
+								}}
+								asChild
+							>
+								<Link
+									to={welcomeRoutes[page]}
+									prefetch="intent"
+									className="flex items-center gap-2 justify-between"
+								>
+									{page}
+									<span className="text-muted text-xs">
+										{welcomeRoutes[page]}
+									</span>
+								</Link>
+							</Command.Item>
+						))}
+					</Command.Group>
+					<Command.Separator />
+					<Command.Group heading="Base">
+						{basePages.map((page) => (
+							<Command.Item
+								key={page}
+								onSelect={() => {
+									navigate(baseRoutes[page]);
+									setOpen(false);
+								}}
+								asChild
+							>
+								<Link
+									to={baseRoutes[page]}
+									prefetch="intent"
+									className="flex items-center gap-2 justify-between"
+								>
+									{page}
+									<span className="text-muted text-xs">{baseRoutes[page]}</span>
+								</Link>
+							</Command.Item>
+						))}
+					</Command.Group>
+					<Command.Separator />
+					<Command.Group heading="Components">
+						{prodReadyComponents.map((component) => (
+							<Command.Item
+								key={component}
+								onSelect={() => {
+									navigate(prodReadyComponentRouteLookup[component]);
+									setOpen(false);
+								}}
+								asChild
+							>
+								<Link
+									to={prodReadyComponentRouteLookup[component]}
+									className="flex items-center gap-2 justify-between"
+								>
+									{component}
+									<span className="text-muted text-xs">
+										{prodReadyComponentRouteLookup[component]}
+									</span>
+								</Link>
+							</Command.Item>
+						))}
+					</Command.Group>
+					<Command.Separator />
+					<Command.Group heading="Preview Components">
+						{previewComponents.map((component) => (
+							<Command.Item
+								key={component}
+								onSelect={() => {
+									navigate(previewComponentsRouteLookup[component]);
+									setOpen(false);
+								}}
+								asChild
+							>
+								<Link
+									to={previewComponentsRouteLookup[component]}
+									className="flex items-center gap-2 justify-between"
+								>
+									{component}
+									<span className="text-muted text-xs">
+										{previewComponentsRouteLookup[component]}
+									</span>
+								</Link>
+							</Command.Item>
+						))}
+					</Command.Group>
+				</Command.List>
+			</Command.Dialog>
+		</>
 	);
 }

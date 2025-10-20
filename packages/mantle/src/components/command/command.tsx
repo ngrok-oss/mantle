@@ -92,7 +92,7 @@ const CommandDialog = ({
 	showCloseButton?: boolean;
 }) => (
 	<Dialog.Root {...props}>
-		<Dialog.Header className="sr-only">
+		<Dialog.Header className="sr-only absolute">
 			<Dialog.Title>{title}</Dialog.Title>
 			<Dialog.Description>{description}</Dialog.Description>
 		</Dialog.Header>
