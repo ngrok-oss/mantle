@@ -29,6 +29,38 @@ function useHotkey(key: string, callback: () => void) {
 	});
 }
 
+function CommandExample() {
+	return (
+		<Command.Root className="rounded-lg border border-dialog shadow-lg bg-dialog md:min-w-[450px]">
+			<Command.Input placeholder="Type a command or search..." />
+			<Command.List>
+				<Command.Empty>No results found.</Command.Empty>
+				<Command.Group heading="Suggestions">
+					<Command.Item>
+						<CalendarIcon />
+						<span>Calendar</span>
+					</Command.Item>
+					<Command.Item>
+						<SmileyIcon />
+						<span>Search Emoji</span>
+					</Command.Item>
+					<Command.Item>
+						<CalculatorIcon />
+						<span>Calculator</span>
+					</Command.Item>
+				</Command.Group>
+				<Command.Separator />
+				<Command.Group heading="Settings">
+					<Command.Item>
+						<UserIcon />
+						<span>Profile</span>
+					</Command.Item>
+				</Command.Group>
+			</Command.List>
+		</Command.Root>
+	);
+}
+
 function CommandDialogExample() {
 	const [open, setOpen] = useState(false);
 	useHotkey("k", () => setOpen(!open));
@@ -42,7 +74,7 @@ function CommandDialogExample() {
 				</kbd>
 				or
 				<Button type="button" onClick={() => setOpen(!open)}>
-					Open Command Palette
+					Open Command Dialog
 				</Button>
 			</p>
 			<Command.Dialog open={open} onOpenChange={setOpen}>
@@ -96,7 +128,74 @@ export default function Page() {
 				</PageHeader>
 				<p className="font-body text-body text-xl">
 					A command palette that allows users to search and execute commands.
+					Built on top of <Anchor href="https://cmdk.paco.me/">cmdk</Anchor>.
 				</p>
+
+				<header className="space-y-4">
+					<HashLinkHeading id="command-example">
+						<h3 className="text-xl font-medium text-strong">
+							<span id="command-example" />
+							Command Example
+						</h3>
+					</HashLinkHeading>
+				</header>
+
+				<div>
+					<Example className="flex flex-col gap-6">
+						<CommandExample />
+					</Example>
+					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
+								language="tsx"
+								value={fmtCode`
+						function CommandExample() {
+							return (
+								<Command.Root className="rounded-lg border border-dialog shadow-lg bg-dialog md:min-w-[450px]">
+									<Command.Input placeholder="Type a command or search..." />
+									<Command.List>
+										<Command.Empty>No results found.</Command.Empty>
+										<Command.Group heading="Suggestions">
+											<Command.Item>
+												<CalendarIcon />
+												<span>Calendar</span>
+											</Command.Item>
+											<Command.Item>
+												<SmileyIcon />
+												<span>Search Emoji</span>
+											</Command.Item>
+											<Command.Item>
+												<CalculatorIcon />
+												<span>Calculator</span>
+											</Command.Item>
+										</Command.Group>
+										<Command.Separator />
+										<Command.Group heading="Settings">
+											<Command.Item>
+												<UserIcon />
+												<span>Profile</span>
+											</Command.Item>
+										</Command.Group>
+									</Command.List>
+								</Command.Root>
+							);
+						}
+								`}
+							/>
+						</CodeBlock.Body>
+					</CodeBlock.Root>
+				</div>
+
+				<header className="space-y-4">
+					<HashLinkHeading id="command-dialog-example">
+						<h3 className="text-xl font-medium text-strong">
+							<span id="command-dialog-example" />
+							Command Dialog Example
+						</h3>
+					</HashLinkHeading>
+				</header>
+
 				<div>
 					<Example className="flex flex-col gap-6">
 						<CommandDialogExample />
@@ -145,7 +244,7 @@ export default function Page() {
 										</kbd>
 										or
 										<Button type="button" onClick={() => setOpen(!open)}>
-											Open Command Palette
+											Open Command Dialog
 										</Button>
 									</p>
 									<Command.Dialog open={open} onOpenChange={setOpen}>
