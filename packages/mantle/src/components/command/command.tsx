@@ -1,7 +1,7 @@
 "use client";
 
 import { MagnifyingGlassIcon } from "@phosphor-icons/react/MagnifyingGlass";
-import { Command as CommandPrimitive } from "cmdk";
+import { Command as CommandPrimitive, useCommandState } from "cmdk";
 
 import {
 	type ComponentPropsWithoutRef,
@@ -11,6 +11,31 @@ import {
 import { cx } from "../../utils/cx/cx.js";
 import { Dialog } from "../dialog/dialog.js";
 
+/**
+ * The root component for the Command. It provides the context for all other command sub-components.
+ *
+ * @see https://mantle.ngrok.com/components/command#api-command-root
+ *
+ * @example
+ * ```tsx
+ * <Command.Root>
+ *   <Command.Input placeholder="Type a command or search..." />
+ *   <Command.List>
+ *     <Command.Empty>No results found.</Command.Empty>
+ *     <Command.Group heading="Suggestions">
+ *       <Command.Item>
+ *         <span>Calendar</span>
+ *       </Command.Item>
+ *     </Command.Group>
+ *     <Command.Separator />
+ *     <Command.Group heading="Settings">
+ *       <Command.Item>
+ *         <span>Profile</span>
+ *       </Command.Item>
+ *     </Command.Group>
+ *   </Command.List>
+ * </Command.Root>
+ */
 const CommandRoot = forwardRef<
 	ComponentRef<"div">,
 	ComponentPropsWithoutRef<typeof CommandPrimitive>
@@ -27,6 +52,32 @@ const CommandRoot = forwardRef<
 ));
 CommandRoot.displayName = "Command";
 
+/**
+ * A window overlaid on either the primary window or another dialog window.
+ * The root stateful component for the CommandDialog.
+ *
+ * @see https://mantle.ngrok.com/components/command#api-command-dialog
+ *
+ * @example
+ * ```tsx
+ * <Command.Dialog>
+ *   <Command.Input placeholder="Type a command or search..." />
+ *   <Command.List>
+ *     <Command.Empty>No results found.</Command.Empty>
+ *     <Command.Group heading="Suggestions">
+ *       <Command.Item>
+ *         <span>Calendar</span>
+ *       </Command.Item>
+ *     </Command.Group>
+ *     <Command.Separator />
+ *     <Command.Group heading="Settings">
+ *       <Command.Item>
+ *         <span>Profile</span>
+ *       </Command.Item>
+ *     </Command.Group>
+ *   </Command.List>
+ * </Command.Dialog>
+ */
 const CommandDialog = ({
 	title = "Command Palette",
 	description = "Search for a command to run...",
@@ -59,6 +110,31 @@ const CommandDialog = ({
 );
 CommandDialog.displayName = "CommandDialog";
 
+/**
+ * The input component for the Command. It provides the input for the command palette.
+ *
+ * @see https://mantle.ngrok.com/components/command#api-command-input
+ *
+ * @example
+ * ```tsx
+ * <Command.Dialog>
+ *   <Command.Input placeholder="Type a command or search..." />
+ *   <Command.List>
+ *     <Command.Empty>No results found.</Command.Empty>
+ *     <Command.Group heading="Suggestions">
+ *       <Command.Item>
+ *         <span>Calendar</span>
+ *       </Command.Item>
+ *     </Command.Group>
+ *     <Command.Separator />
+ *     <Command.Group heading="Settings">
+ *       <Command.Item>
+ *         <span>Profile</span>
+ *       </Command.Item>
+ *     </Command.Group>
+ *   </Command.List>
+ * </Command.Dialog>
+ */
 const CommandInput = forwardRef<
 	ComponentRef<"div">,
 	ComponentPropsWithoutRef<typeof CommandPrimitive.Input>
@@ -81,6 +157,31 @@ const CommandInput = forwardRef<
 ));
 CommandInput.displayName = "CommandInput";
 
+/**
+ * The list component for the Command. It provides the list for the command palette.
+ *
+ * @see https://mantle.ngrok.com/components/command#api-command-list
+ *
+ * @example
+ * ```tsx
+ * <Command.Dialog>
+ *   <Command.Input placeholder="Type a command or search..." />
+ *   <Command.List>
+ *     <Command.Empty>No results found.</Command.Empty>
+ *     <Command.Group heading="Suggestions">
+ *       <Command.Item>
+ *         <span>Calendar</span>
+ *       </Command.Item>
+ *     </Command.Group>
+ *     <Command.Separator />
+ *     <Command.Group heading="Settings">
+ *       <Command.Item>
+ *         <span>Profile</span>
+ *       </Command.Item>
+ *     </Command.Group>
+ *   </Command.List>
+ * </Command.Dialog>
+ */
 const CommandList = forwardRef<
 	ComponentRef<"div">,
 	ComponentPropsWithoutRef<typeof CommandPrimitive.List>
@@ -97,6 +198,31 @@ const CommandList = forwardRef<
 ));
 CommandList.displayName = "CommandList";
 
+/**
+ * The empty component for the Command. It provides the empty state for the command palette.
+ *
+ * @see https://mantle.ngrok.com/components/command#api-command-empty
+ *
+ * @example
+ * ```tsx
+ * <Command.Dialog>
+ *   <Command.Input placeholder="Type a command or search..." />
+ *   <Command.List>
+ *     <Command.Empty>No results found.</Command.Empty>
+ *     <Command.Group heading="Suggestions">
+ *       <Command.Item>
+ *         <span>Calendar</span>
+ *       </Command.Item>
+ *     </Command.Group>
+ *     <Command.Separator />
+ *     <Command.Group heading="Settings">
+ *       <Command.Item>
+ *         <span>Profile</span>
+ *       </Command.Item>
+ *     </Command.Group>
+ *   </Command.List>
+ * </Command.Dialog>
+ */
 const CommandEmpty = forwardRef<
 	ComponentRef<"div">,
 	ComponentPropsWithoutRef<typeof CommandPrimitive.Empty>
@@ -110,6 +236,31 @@ const CommandEmpty = forwardRef<
 ));
 CommandEmpty.displayName = "CommandEmpty";
 
+/**
+ * The group component for the Command. It provides the group for the command palette.
+ *
+ * @see https://mantle.ngrok.com/components/command#api-command-group
+ *
+ * @example
+ * ```tsx
+ * <Command.Dialog>
+ *   <Command.Input placeholder="Type a command or search..." />
+ *   <Command.List>
+ *     <Command.Empty>No results found.</Command.Empty>
+ *     <Command.Group heading="Suggestions">
+ *       <Command.Item>
+ *         <span>Calendar</span>
+ *       </Command.Item>
+ *     </Command.Group>
+ *     <Command.Separator />
+ *     <Command.Group heading="Settings">
+ *       <Command.Item>
+ *         <span>Profile</span>
+ *       </Command.Item>
+ *     </Command.Group>
+ *   </Command.List>
+ * </Command.Dialog>
+ */
 const CommandGroup = forwardRef<
 	ComponentRef<"div">,
 	ComponentPropsWithoutRef<typeof CommandPrimitive.Group>
@@ -126,6 +277,31 @@ const CommandGroup = forwardRef<
 ));
 CommandGroup.displayName = "CommandGroup";
 
+/**
+ * The separator component for the Command. It provides the separator for the command palette.
+ *
+ * @see https://mantle.ngrok.com/components/command#api-command-separator
+ *
+ * @example
+ * ```tsx
+ * <Command.Dialog>
+ *   <Command.Input placeholder="Type a command or search..." />
+ *   <Command.List>
+ *     <Command.Empty>No results found.</Command.Empty>
+ *     <Command.Group heading="Suggestions">
+ *       <Command.Item>
+ *         <span>Calendar</span>
+ *       </Command.Item>
+ *     </Command.Group>
+ *     <Command.Separator />
+ *     <Command.Group heading="Settings">
+ *       <Command.Item>
+ *         <span>Profile</span>
+ *       </Command.Item>
+ *     </Command.Group>
+ *   </Command.List>
+ * </Command.Dialog>
+ */
 const CommandSeparator = forwardRef<
 	ComponentRef<"div">,
 	ComponentPropsWithoutRef<typeof CommandPrimitive.Separator>
@@ -142,6 +318,31 @@ const CommandSeparator = forwardRef<
 ));
 CommandSeparator.displayName = "CommandSeparator";
 
+/**
+ * The item component for the Command. It provides the item for the command palette.
+ *
+ * @see https://mantle.ngrok.com/components/command#api-command-item
+ *
+ * @example
+ * ```tsx
+ * <Command.Dialog>
+ *   <Command.Input placeholder="Type a command or search..." />
+ *   <Command.List>
+ *     <Command.Empty>No results found.</Command.Empty>
+ *     <Command.Group heading="Suggestions">
+ *       <Command.Item>
+ *         <span>Calendar</span>
+ *       </Command.Item>
+ *     </Command.Group>
+ *     <Command.Separator />
+ *     <Command.Group heading="Settings">
+ *       <Command.Item>
+ *         <span>Profile</span>
+ *       </Command.Item>
+ *     </Command.Group>
+ *   </Command.List>
+ * </Command.Dialog>
+ */
 const CommandItem = forwardRef<
 	ComponentRef<"div">,
 	ComponentPropsWithoutRef<typeof CommandPrimitive.Item>
@@ -158,6 +359,32 @@ const CommandItem = forwardRef<
 ));
 CommandItem.displayName = "CommandItem";
 
+/**
+ * The shortcut component for the Command. It provides the shortcut for the command palette.
+ *
+ * @see https://mantle.ngrok.com/components/command#api-command-shortcut
+ *
+ * @example
+ * ```tsx
+ * <Command.Dialog>
+ *   <Command.Input placeholder="Type a command or search..." />
+ *   <Command.List>
+ *     <Command.Empty>No results found.</Command.Empty>
+ *     <Command.Group heading="Suggestions">
+ *       <Command.Item>
+ *         <span>Calendar</span>
+ *       </Command.Item>
+ *     </Command.Group>
+ *     <Command.Separator />
+ *     <Command.Group heading="Settings">
+ *       <Command.Item>
+ *         <span>Profile</span>
+ *         <Command.Shortcut>⌘,</Command.Shortcut>
+ *       </Command.Item>
+ *     </Command.Group>
+ *   </Command.List>
+ * </Command.Dialog>
+ */
 const CommandShortcut = forwardRef<
 	ComponentRef<"span">,
 	ComponentPropsWithoutRef<"span">
@@ -171,6 +398,31 @@ const CommandShortcut = forwardRef<
 ));
 CommandShortcut.displayName = "CommandShortcut";
 
+/**
+ * The command component for the Command. It provides the command for the command palette.
+ *
+ * @see https://mantle.ngrok.com/components/command#api-command
+ *
+ * @example
+ * ```tsx
+ * <Command.Dialog>
+ *   <Command.Input placeholder="Type a command or search..." />
+ *   <Command.List>
+ *     <Command.Empty>No results found.</Command.Empty>
+ *     <Command.Group heading="Suggestions">
+ *       <Command.Item>
+ *         <span>Calendar</span>
+ *       </Command.Item>
+ *     </Command.Group>
+ *     <Command.Separator />
+ *     <Command.Group heading="Settings">
+ *       <Command.Item>
+ *         <span>Profile</span>
+ *       </Command.Item>
+ *     </Command.Group>
+ *   </Command.List>
+ * </Command.Dialog>
+ */
 const Command = {
 	Root: CommandRoot,
 	Dialog: CommandDialog,
@@ -183,4 +435,4 @@ const Command = {
 	Separator: CommandSeparator,
 };
 
-export { Command };
+export { Command, useCommandState };
