@@ -53,6 +53,30 @@ const CommandRoot = forwardRef<
 CommandRoot.displayName = "Command";
 
 /**
+ * The props for the CommandDialog component.
+ *
+ * @see https://mantle.ngrok.com/components/command#api-command-dialog
+ */
+type CommandDialogProps = ComponentPropsWithoutRef<typeof Dialog.Root> & {
+	/**
+	 * The title of the command dialog.
+	 */
+	title?: string;
+	/**
+	 * The description of the command dialog.
+	 */
+	description?: string;
+	/**
+	 * Class name(s) to apply to the command dialog content.
+	 */
+	className?: string;
+	/**
+	 * Whether to show the close button.
+	 */
+	showCloseButton?: boolean;
+};
+
+/**
  * A window overlaid on either the primary window or another dialog window.
  * The root stateful component for the CommandDialog.
  *
@@ -85,12 +109,7 @@ const CommandDialog = ({
 	className,
 	showCloseButton = true,
 	...props
-}: ComponentPropsWithoutRef<typeof Dialog.Root> & {
-	title?: string;
-	description?: string;
-	className?: string;
-	showCloseButton?: boolean;
-}) => (
+}: CommandDialogProps) => (
 	<Dialog.Root {...props}>
 		<Dialog.Header className="sr-only absolute">
 			<Dialog.Title>{title}</Dialog.Title>
@@ -424,15 +443,126 @@ CommandShortcut.displayName = "CommandShortcut";
  * </Command.Dialog>
  */
 const Command = {
+	/**
+	 * The root component for the Command component.
+	 *
+	 * @see https://mantle.ngrok.com/components/command#api-command-root
+	 *
+	 * @example
+	 * ```tsx
+	 * <Command.Root>
+	 *   <Command.Input placeholder="Type a command or search..." />
+	 *   <Command.List>
+	 *     <Command.Empty>No results found.</Command.Empty>
+	 *   </Command.List>
+	 * </Command.Root>
+	 * ```
+	 */
 	Root: CommandRoot,
+	/**
+	 * The dialog component for the Command component.
+	 *
+	 * @see https://mantle.ngrok.com/components/command#api-command-dialog
+	 *
+	 * @example
+	 * ```tsx
+	 * <Command.Dialog>
+	 *   <Command.Input placeholder="Type a command or search..." />
+	 *   <Command.List>
+	 *     <Command.Empty>No results found.</Command.Empty>
+	 *   </Command.List>
+	 * </Command.Dialog>
+	 * ```
+	 */
 	Dialog: CommandDialog,
+	/**
+	 * The input component for the Command component.
+	 *
+	 * @see https://mantle.ngrok.com/components/command#api-command-input
+	 *
+	 * @example
+	 * ```tsx
+	 * <Command.Input placeholder="Type a command or search..." />
+	 * ```
+	 */
 	Input: CommandInput,
+	/**
+	 * The list component for the Command component.
+	 *
+	 * @see https://mantle.ngrok.com/components/command#api-command-list
+	 *
+	 * @example
+	 * ```tsx
+	 * <Command.List>
+	 *   <Command.Empty>No results found.</Command.Empty>
+	 * </Command.List>
+	 */
 	List: CommandList,
+	/**
+	 * The empty component for the Command component.
+	 *
+	 * @see https://mantle.ngrok.com/components/command#api-command-empty
+	 *
+	 * @example
+	 * ```tsx
+	 * <Command.Empty>No results found.</Command.Empty>
+	 * ```
+	 */
 	Empty: CommandEmpty,
+	/**
+	 * The group component for the Command component.
+	 *
+	 * @see https://mantle.ngrok.com/components/command#api-command-group
+	 *
+	 * @example
+	 * ```tsx
+	 * <Command.Group heading="Suggestions">
+	 *   <Command.Item>
+	 *     Calendar
+	 *   </Command.Item>
+	 * </Command.Group>
+	 * ```
+	 */
 	Group: CommandGroup,
+	/**
+	 * The item component for the Command component.
+	 *
+	 * @see https://mantle.ngrok.com/components/command#api-command-item
+	 *
+	 * @example
+	 * ```tsx
+	 * <Command.Item>
+	 *   Calendar
+	 * </Command.Item>
+	 * ```
+	 */
 	Item: CommandItem,
+	/**
+	 * The shortcut component for the Command component.
+	 *
+	 * @see https://mantle.ngrok.com/components/command#api-command-shortcut
+	 *
+	 * @example
+	 * ```tsx
+	 * <Command.Shortcut>⌘,</Command.Shortcut>
+	 * ```
+	 */
 	Shortcut: CommandShortcut,
+	/**
+	 * The seprator component for the Command component.
+	 *
+	 * @see https://mantle.ngrok.com/components/command#api-command-separator
+	 *
+	 * @example
+	 * ```tsx
+	 * <Command.Separator />
+	 * ```
+	 */
 	Separator: CommandSeparator,
-};
+} as const;
 
-export { Command, useCommandState };
+export {
+	//,
+	Command,
+	useCommandState,
+};
