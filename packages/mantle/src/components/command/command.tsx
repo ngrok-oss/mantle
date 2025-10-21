@@ -190,7 +190,7 @@ const CommandList = forwardRef<
 		ref={ref}
 		data-slot="command-list"
 		className={cx(
-			"max-h-[300px] scroll-py-1 overflow-x-hidden overflow-y-auto",
+			"max-h-[300px] scroll-py-1 overflow-x-hidden overflow-y-auto scrollbar",
 			className,
 		)}
 		{...props}

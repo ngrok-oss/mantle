@@ -26,14 +26,14 @@ function MetaKey() {
 
 function useHotkey(key: string, callback: () => void) {
 	useEffect(() => {
-		const down = (e: KeyboardEvent) => {
-			if (e.key === key && (e.metaKey || e.ctrlKey)) {
-				e.preventDefault();
+		const keydown = (event: KeyboardEvent) => {
+			if (event.key === key && (event.metaKey || event.ctrlKey)) {
+				event.preventDefault();
 				callback();
 			}
 		};
-		document.addEventListener("keydown", down);
-		return () => document.removeEventListener("keydown", down);
+		document.addEventListener("keydown", keydown);
+		return () => document.removeEventListener("keydown", keydown);
 	});
 }
 
@@ -237,14 +237,14 @@ export default function Page() {
 
 						function useHotkey(key: string, callback: () => void) {
 							useEffect(() => {
-								const down = (e: KeyboardEvent) => {
-									if (e.key === key && (e.metaKey || e.ctrlKey)) {
-										e.preventDefault();
+								const keydown = (event: KeyboardEvent) => {
+									if (event.key === key && (event.metaKey || event.ctrlKey)) {
+										event.preventDefault();
 										callback();
 									}
 								};
-								document.addEventListener("keydown", down);
-								return () => document.removeEventListener("keydown", down);
+								document.addEventListener("keydown", keydown);
+								return () => document.removeEventListener("keydown", keydown);
 							});
 						}
 

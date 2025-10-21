@@ -11,10 +11,10 @@ import { $theme, isTheme, useTheme } from "@ngrok/mantle/theme";
 import type { WithStyleProps } from "@ngrok/mantle/types";
 import {
 	ArrowRightIcon,
+	ArrowSquareOutIcon,
 	MagnifyingGlassIcon,
 	MonitorIcon,
 	MoonIcon,
-	ShareIcon,
 	SunIcon,
 } from "@phosphor-icons/react";
 import { ListIcon } from "@phosphor-icons/react/List";
@@ -41,14 +41,14 @@ function MetaKey() {
 
 function useHotkey(key: string, callback: () => void) {
 	useEffect(() => {
-		const down = (e: KeyboardEvent) => {
-			if (e.key === key && (e.metaKey || e.ctrlKey)) {
-				e.preventDefault();
+		const keydown = (event: KeyboardEvent) => {
+			if (event.key === key && (event.metaKey || event.ctrlKey)) {
+				event.preventDefault();
 				callback();
 			}
 		};
-		document.addEventListener("keydown", down);
-		return () => document.removeEventListener("keydown", down);
+		document.addEventListener("keydown", keydown);
+		return () => document.removeEventListener("keydown", keydown);
 	});
 }
 
@@ -135,7 +135,7 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 					<MantleLogo />
 				</Link>
 
-				<div className="flex items-center gap-2 -ml-1 md:ml-48">
+				<div className="flex flex-col sm:flex-row items-center gap-2 -ml-1 md:ml-48">
 					<Anchor
 						className="text-strong font-mono text-xs"
 						href="https://github.com/ngrok-oss/mantle/releases"
@@ -148,6 +148,7 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 						asChild
 						icon={<GitHub />}
 						label="link to ngrok mantle GitHub"
+						className="hidden sm:inline-flex"
 					>
 						<a href="https://github.com/ngrok-oss/mantle" target="_blank" />
 					</IconButton>
@@ -456,6 +457,15 @@ function CommandPalette({ currentVersion }: { currentVersion: string }) {
 
 	return (
 		<>
+			<IconButton
+				icon={<MagnifyingGlassIcon />}
+				onClick={() => setOpen(true)}
+				className="flex sm:hidden"
+				label="Search Mantle"
+				type="button"
+				appearance="outlined"
+				size="md"
+			/>
 			<Button
 				type="button"
 				onClick={() => setOpen(true)}
@@ -502,7 +512,7 @@ function CommandPalette({ currentVersion }: { currentVersion: string }) {
 								className="flex items-center gap-2 justify-between"
 							>
 								GitHub Repository
-								<ShareIcon />
+								<ArrowSquareOutIcon />
 							</a>
 						</Command.Item>
 						<Command.Item asChild onSelect={() => setOpen(false)}>
@@ -518,7 +528,7 @@ function CommandPalette({ currentVersion }: { currentVersion: string }) {
 										version {currentVersion}
 									</span>
 								</span>
-								<ShareIcon />
+								<ArrowSquareOutIcon />
 							</a>
 						</Command.Item>
 					</Command.Group>
