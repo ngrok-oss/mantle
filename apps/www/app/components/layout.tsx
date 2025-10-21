@@ -27,19 +27,21 @@ import {
 	useState,
 } from "react";
 import { Link, href, useNavigate } from "react-router";
+import { useIsMounted } from "usehooks-ts";
 import { PreviewBadge } from "~/components/badges";
 import { NavLink } from "./nav-link";
 import { useNavigation } from "./navigation-context";
 
 function MetaKey() {
+	const mounted = useIsMounted();
 	const isMac = navigator.userAgent.toLowerCase().includes("mac");
+	if (!mounted() || !navigator) return "";
 	return isMac ? "⌘" : "Ctrl";
 }
 
 function useHotkey(key: string, callback: () => void) {
 	useEffect(() => {
 		const down = (e: KeyboardEvent) => {
-			console.log(e.key, e.metaKey, e.ctrlKey);
 			if (e.key === key && (e.metaKey || e.ctrlKey)) {
 				e.preventDefault();
 				callback();
