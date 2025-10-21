@@ -154,7 +154,7 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 				</div>
 
 				<div className="flex items-center gap-2 ml-auto">
-					<CommandPalette />
+					<CommandPalette currentVersion={currentVersion} />
 
 					<Select.Root
 						value={currentTheme}
@@ -448,7 +448,7 @@ function Navigation({ className, style }: WithStyleProps) {
 	);
 }
 
-function CommandPalette() {
+function CommandPalette({ currentVersion }: { currentVersion: string }) {
 	const navigate = useNavigate();
 	const [open, setOpen] = useState(false);
 	const [, setTheme] = useTheme();
@@ -461,7 +461,9 @@ function CommandPalette() {
 				onClick={() => setOpen(true)}
 				appearance="outlined"
 				priority="neutral"
+				className="hidden sm:flex"
 			>
+				<span className="sr-only">Search Mantle</span>
 				<MagnifyingGlassIcon />
 				Search
 				<kbd className="bg-muted text-muted pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none">
@@ -510,7 +512,12 @@ function CommandPalette() {
 								rel="noopener noreferrer"
 								className="flex items-center gap-2 justify-between"
 							>
-								GitHub Releases
+								<span className="flex items-start sm:items-center gap-x-2 gap-y-1 flex-col sm:flex-row">
+									GitHub Releases
+									<span className="text-muted text-xs">
+										version {currentVersion}
+									</span>
+								</span>
 								<ShareIcon />
 							</a>
 						</Command.Item>
@@ -531,7 +538,7 @@ function CommandPalette() {
 									prefetch="intent"
 									className="flex items-center gap-2 justify-between"
 								>
-									<span className="flex items-center gap-2">
+									<span className="flex items-start sm:items-center gap-x-2 gap-y-1 flex-col sm:flex-row">
 										{page}
 										<span className="text-muted text-xs">
 											{baseRoutes[page]}
@@ -557,7 +564,7 @@ function CommandPalette() {
 									to={prodReadyComponentRouteLookup[component]}
 									className="flex items-center gap-2 justify-between"
 								>
-									<span className="flex items-center gap-2">
+									<span className="flex items-start sm:items-center gap-x-2 gap-y-1 flex-col sm:flex-row">
 										{component}
 										<span className="text-muted text-xs">
 											{prodReadyComponentRouteLookup[component]}
@@ -589,7 +596,7 @@ function CommandPalette() {
 									to={previewComponentsRouteLookup[component]}
 									className="flex items-center gap-2 justify-between"
 								>
-									<span className="flex items-center gap-2">
+									<span className="flex items-start sm:items-center gap-x-2 gap-y-1 flex-col sm:flex-row">
 										{component}
 										<span className="text-muted text-xs">
 											{previewComponentsRouteLookup[component]}
