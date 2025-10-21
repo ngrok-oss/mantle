@@ -3,6 +3,7 @@ import { BrowserOnly } from "@ngrok/mantle/browser-only";
 import { Button, IconButton } from "@ngrok/mantle/button";
 import { Command } from "@ngrok/mantle/command";
 import { cx } from "@ngrok/mantle/cx";
+import { DropdownMenu } from "@ngrok/mantle/dropdown-menu";
 import { Icon, type SvgAttributes } from "@ngrok/mantle/icon";
 import { AutoThemeIcon, ThemeIcon } from "@ngrok/mantle/icons";
 import { Select } from "@ngrok/mantle/select";
@@ -137,7 +138,7 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 
 				<div className="flex flex-col sm:flex-row items-center gap-2 -ml-1 md:ml-48">
 					<Anchor
-						className="text-strong font-mono text-xs"
+						className="text-strong font-mono text-xs hidden sm:inline-block"
 						href="https://github.com/ngrok-oss/mantle/releases"
 					>
 						{currentVersion}
@@ -152,9 +153,44 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 					>
 						<a href="https://github.com/ngrok-oss/mantle" target="_blank" />
 					</IconButton>
+
+					<DropdownMenu.Root>
+						<DropdownMenu.Trigger asChild>
+							<IconButton
+								icon={<GitHub />}
+								label="link to ngrok Mantle GitHub"
+								type="button"
+								className="inline-flex sm:hidden"
+							/>
+						</DropdownMenu.Trigger>
+						<DropdownMenu.Content>
+							<DropdownMenu.Item asChild>
+								<a
+									href="https://github.com/ngrok-oss/mantle/releases"
+									target="_blank"
+									className="justify-between gap-4"
+								>
+									<span>
+										Version <span className="font-mono">{currentVersion}</span>
+									</span>
+									<ArrowSquareOutIcon className="text-muted" />
+								</a>
+							</DropdownMenu.Item>
+							<DropdownMenu.Item asChild>
+								<a
+									href="https://github.com/ngrok-oss/mantle"
+									target="_blank"
+									className="justify-between gap-4"
+								>
+									GitHub Repo
+									<ArrowSquareOutIcon className="text-muted" />
+								</a>
+							</DropdownMenu.Item>
+						</DropdownMenu.Content>
+					</DropdownMenu.Root>
 				</div>
 
-				<div className="flex items-center gap-2 ml-auto">
+				<div className="flex items-center gap-3 ml-auto">
 					<CommandPalette currentVersion={currentVersion} />
 
 					<Select.Root
@@ -449,6 +485,14 @@ function Navigation({ className, style }: WithStyleProps) {
 	);
 }
 
+function ItemName({ children }: PropsWithChildren) {
+	return (
+		<span className="flex items-start sm:items-center gap-x-2 gap-y-1 flex-col sm:flex-row">
+			{children}
+		</span>
+	);
+}
+
 function CommandPalette({ currentVersion }: { currentVersion: string }) {
 	const navigate = useNavigate();
 	const [open, setOpen] = useState(false);
@@ -511,7 +555,12 @@ function CommandPalette({ currentVersion }: { currentVersion: string }) {
 								rel="noopener noreferrer"
 								className="flex items-center gap-2 justify-between"
 							>
-								GitHub Repository
+								<ItemName>
+									GitHub Repo
+									<span className="text-muted text-xs font-mono">
+										ngrok-oss/mantle
+									</span>
+								</ItemName>
 								<ArrowSquareOutIcon />
 							</a>
 						</Command.Item>
@@ -522,12 +571,12 @@ function CommandPalette({ currentVersion }: { currentVersion: string }) {
 								rel="noopener noreferrer"
 								className="flex items-center gap-2 justify-between"
 							>
-								<span className="flex items-start sm:items-center gap-x-2 gap-y-1 flex-col sm:flex-row">
+								<ItemName>
 									GitHub Releases
-									<span className="text-muted text-xs">
+									<span className="text-muted text-xs font-mono">
 										version {currentVersion}
 									</span>
-								</span>
+								</ItemName>
 								<ArrowSquareOutIcon />
 							</a>
 						</Command.Item>
@@ -548,12 +597,12 @@ function CommandPalette({ currentVersion }: { currentVersion: string }) {
 									prefetch="intent"
 									className="flex items-center gap-2 justify-between"
 								>
-									<span className="flex items-start sm:items-center gap-x-2 gap-y-1 flex-col sm:flex-row">
+									<ItemName>
 										{page}
 										<span className="text-muted text-xs">
 											{baseRoutes[page]}
 										</span>
-									</span>
+									</ItemName>
 									<ArrowRightIcon />
 								</Link>
 							</Command.Item>
@@ -574,12 +623,12 @@ function CommandPalette({ currentVersion }: { currentVersion: string }) {
 									to={prodReadyComponentRouteLookup[component]}
 									className="flex items-center gap-2 justify-between"
 								>
-									<span className="flex items-start sm:items-center gap-x-2 gap-y-1 flex-col sm:flex-row">
+									<ItemName>
 										{component}
 										<span className="text-muted text-xs">
 											{prodReadyComponentRouteLookup[component]}
 										</span>
-									</span>
+									</ItemName>
 									<ArrowRightIcon />
 								</Link>
 							</Command.Item>
@@ -606,12 +655,12 @@ function CommandPalette({ currentVersion }: { currentVersion: string }) {
 									to={previewComponentsRouteLookup[component]}
 									className="flex items-center gap-2 justify-between"
 								>
-									<span className="flex items-start sm:items-center gap-x-2 gap-y-1 flex-col sm:flex-row">
+									<ItemName>
 										{component}
 										<span className="text-muted text-xs">
 											{previewComponentsRouteLookup[component]}
 										</span>
-									</span>
+									</ItemName>
 									<ArrowRightIcon />
 								</Link>
 							</Command.Item>
