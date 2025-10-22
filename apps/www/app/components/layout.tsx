@@ -1,14 +1,10 @@
 import { Anchor } from "@ngrok/mantle/anchor";
-import { BrowserOnly } from "@ngrok/mantle/browser-only";
 import { Button, IconButton } from "@ngrok/mantle/button";
 import { Command } from "@ngrok/mantle/command";
 import { cx } from "@ngrok/mantle/cx";
 import { DropdownMenu } from "@ngrok/mantle/dropdown-menu";
-import { Icon, type SvgAttributes } from "@ngrok/mantle/icon";
-import { AutoThemeIcon, ThemeIcon } from "@ngrok/mantle/icons";
-import { Select } from "@ngrok/mantle/select";
-import { Skeleton } from "@ngrok/mantle/skeleton";
-import { $theme, isTheme, useTheme } from "@ngrok/mantle/theme";
+import type { SvgAttributes } from "@ngrok/mantle/icon";
+import { useTheme } from "@ngrok/mantle/theme";
 import type { WithStyleProps } from "@ngrok/mantle/types";
 import {
 	ArrowRightIcon,
@@ -30,6 +26,7 @@ import {
 import { Link, href, useNavigate } from "react-router";
 import { useIsMounted } from "usehooks-ts";
 import { PreviewBadge } from "~/components/badges";
+import { ThemeSwitcher } from "~/components/theme-switcher";
 import { NavLink } from "./nav-link";
 import { useNavigation } from "./navigation-context";
 
@@ -95,7 +92,6 @@ type Props = PropsWithChildren &
 	};
 
 export function Layout({ children, className, currentVersion, style }: Props) {
-	const [currentTheme, setTheme] = useTheme();
 	const { showNavigation, setShowNavigation } = useNavigation();
 	const mainRef = useRef<ComponentRef<"main">>(null);
 
@@ -193,62 +189,7 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 				<div className="flex items-center gap-3 ml-auto">
 					<CommandPalette currentVersion={currentVersion} />
 
-					<Select.Root
-						value={currentTheme}
-						onValueChange={(value) => {
-							const maybeNewTheme = isTheme(value) ? value : undefined;
-							if (maybeNewTheme) {
-								setTheme(maybeNewTheme);
-							}
-						}}
-					>
-						<div className="ml-auto">
-							{/* TODO: this should probably have a title/tooltip instead that describes what it is since we ain't got a spot for a label */}
-							<span className="sr-only">Theme Switcher</span>
-							<Select.Trigger className="w-min">
-								<BrowserOnly
-									fallback={<Skeleton className="rounded-full size-5 mr-1" />}
-								>
-									{() => <Icon className="mr-1" svg={<AutoThemeIcon />} />}
-								</BrowserOnly>
-							</Select.Trigger>
-						</div>
-						<Select.Content width="content">
-							<Select.Group>
-								<Select.Label>Choose a theme</Select.Label>
-								<Select.Item
-									icon={<ThemeIcon theme="system" />}
-									value={$theme("system")}
-								>
-									System
-								</Select.Item>
-								<Select.Item
-									icon={<ThemeIcon theme="light" />}
-									value={$theme("light")}
-								>
-									Light
-								</Select.Item>
-								<Select.Item
-									icon={<ThemeIcon theme="dark" />}
-									value={$theme("dark")}
-								>
-									Dark
-								</Select.Item>
-								<Select.Item
-									icon={<ThemeIcon theme="light-high-contrast" />}
-									value={$theme("light-high-contrast")}
-								>
-									Light High Contrast
-								</Select.Item>
-								<Select.Item
-									icon={<ThemeIcon theme="dark-high-contrast" />}
-									value={$theme("dark-high-contrast")}
-								>
-									Dark High Contrast
-								</Select.Item>
-							</Select.Group>
-						</Select.Content>
-					</Select.Root>
+					<ThemeSwitcher />
 				</div>
 			</header>
 			{showNavigation && (
