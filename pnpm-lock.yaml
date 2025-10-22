@@ -117,7 +117,7 @@ importers:
         specifier: 'catalog:'
         version: 18.3.1(react@18.3.1)
       react-hotkeys-hook:
-        specifier: ^5.2.1
+        specifier: 5.2.1
         version: 5.2.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-router:
         specifier: 'catalog:'
