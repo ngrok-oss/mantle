@@ -9,6 +9,7 @@ import type { WithStyleProps } from "@ngrok/mantle/types";
 import {
 	ArrowRightIcon,
 	ArrowSquareOutIcon,
+	CheckIcon,
 	MagnifyingGlassIcon,
 	MonitorIcon,
 	MoonIcon,
@@ -19,10 +20,10 @@ import { XIcon } from "@phosphor-icons/react/X";
 import {
 	type ComponentRef,
 	type PropsWithChildren,
-	useEffect,
 	useRef,
 	useState,
 } from "react";
+import { useHotkeys } from "react-hotkeys-hook";
 import { Link, href, useNavigate } from "react-router";
 import { useIsMounted } from "usehooks-ts";
 import { PreviewBadge } from "~/components/badges";
@@ -35,19 +36,6 @@ function MetaKey() {
 	const isMac = navigator.userAgent.toLowerCase().includes("mac");
 	if (!mounted() || !navigator) return "";
 	return isMac ? "⌘" : "Ctrl";
-}
-
-function useHotkey(key: string, callback: () => void) {
-	useEffect(() => {
-		const keydown = (event: KeyboardEvent) => {
-			if (event.key === key && (event.metaKey || event.ctrlKey)) {
-				event.preventDefault();
-				callback();
-			}
-		};
-		document.addEventListener("keydown", keydown);
-		return () => document.removeEventListener("keydown", keydown);
-	});
 }
 
 const NgrokLogo = () => (
@@ -437,8 +425,8 @@ function ItemName({ children }: PropsWithChildren) {
 function CommandPalette({ currentVersion }: { currentVersion: string }) {
 	const navigate = useNavigate();
 	const [open, setOpen] = useState(false);
-	const [, setTheme] = useTheme();
-	useHotkey("k", () => setOpen(true));
+	const [currentTheme, setTheme] = useTheme();
+	useHotkeys("mod+k", () => setOpen(true), [setOpen]);
 
 	return (
 		<>
@@ -617,6 +605,7 @@ function CommandPalette({ currentVersion }: { currentVersion: string }) {
 						>
 							<MonitorIcon />
 							Use System theme
+							{currentTheme === "system" ? <CheckIcon /> : null}
 						</Command.Item>
 						<Command.Item
 							onSelect={() => {
@@ -626,6 +615,7 @@ function CommandPalette({ currentVersion }: { currentVersion: string }) {
 						>
 							<SunIcon />
 							Use Light theme
+							{currentTheme === "light" ? <CheckIcon /> : null}
 						</Command.Item>
 						<Command.Item
 							onSelect={() => {
@@ -635,6 +625,7 @@ function CommandPalette({ currentVersion }: { currentVersion: string }) {
 						>
 							<MoonIcon />
 							Use Dark theme
+							{currentTheme === "dark" ? <CheckIcon /> : null}
 						</Command.Item>
 						<Command.Item
 							onSelect={() => {
@@ -644,6 +635,7 @@ function CommandPalette({ currentVersion }: { currentVersion: string }) {
 						>
 							<SunIcon weight="fill" />
 							Use Light High Contrast theme
+							{currentTheme === "light-high-contrast" ? <CheckIcon /> : null}
 						</Command.Item>
 						<Command.Item
 							onSelect={() => {
@@ -653,6 +645,7 @@ function CommandPalette({ currentVersion }: { currentVersion: string }) {
 						>
 							<MoonIcon weight="fill" />
 							Use Dark High Contrast theme
+							{currentTheme === "dark-high-contrast" ? <CheckIcon /> : null}
 						</Command.Item>
 					</Command.Group>
 				</Command.List>
