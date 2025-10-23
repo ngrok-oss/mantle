@@ -50,6 +50,7 @@
     "@uidotdev/usehooks": "2.4.1",
     "class-variance-authority": "0.7.1",
     "clsx": "2.1.1",
+    "cmdk": "1.1.1",
     "prismjs": "1.30.0",
     "react-day-picker": "9.11.1",
     "sonner": "2.0.7",
@@ -162,6 +163,11 @@
       "@ngrok/mantle/source": "./src/components/combobox/index.ts",
       "import": "./dist/combobox.js",
       "types": "./dist/combobox.d.ts"
+    },
+    "./command": {
+      "@ngrok/mantle/source": "./src/components/command/index.ts",
+      "import": "./dist/command.js",
+      "types": "./dist/command.d.ts"
     },
     "./compose-refs": {
       "@ngrok/mantle/source": "./src/utils/compose-refs/index.ts",

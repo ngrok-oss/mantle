@@ -1,19 +1,42 @@
 import { Anchor } from "@ngrok/mantle/anchor";
-import { BrowserOnly } from "@ngrok/mantle/browser-only";
-import { IconButton } from "@ngrok/mantle/button";
+import { Button, IconButton } from "@ngrok/mantle/button";
+import { Command } from "@ngrok/mantle/command";
 import { cx } from "@ngrok/mantle/cx";
-import { Icon, type SvgAttributes } from "@ngrok/mantle/icon";
-import { AutoThemeIcon, ThemeIcon } from "@ngrok/mantle/icons";
-import { Select } from "@ngrok/mantle/select";
-import { Skeleton } from "@ngrok/mantle/skeleton";
-import { $theme, isTheme, useTheme } from "@ngrok/mantle/theme";
+import { DropdownMenu } from "@ngrok/mantle/dropdown-menu";
+import type { SvgAttributes } from "@ngrok/mantle/icon";
+import { useTheme } from "@ngrok/mantle/theme";
 import type { WithStyleProps } from "@ngrok/mantle/types";
+import {
+	ArrowRightIcon,
+	ArrowSquareOutIcon,
+	CheckIcon,
+	MagnifyingGlassIcon,
+	MonitorIcon,
+	MoonIcon,
+	SunIcon,
+} from "@phosphor-icons/react";
 import { ListIcon } from "@phosphor-icons/react/List";
 import { XIcon } from "@phosphor-icons/react/X";
-import { type ComponentRef, type PropsWithChildren, useRef } from "react";
-import { Link, href } from "react-router";
+import {
+	type ComponentRef,
+	type PropsWithChildren,
+	useRef,
+	useState,
+} from "react";
+import { useHotkeys } from "react-hotkeys-hook";
+import { Link, href, useNavigate } from "react-router";
+import { useIsMounted } from "usehooks-ts";
+import { PreviewBadge } from "~/components/badges";
+import { ThemeSwitcher } from "~/components/theme-switcher";
 import { NavLink } from "./nav-link";
 import { useNavigation } from "./navigation-context";
+
+function MetaKey() {
+	const mounted = useIsMounted();
+	const isMac = navigator.userAgent.toLowerCase().includes("mac");
+	if (!mounted() || !navigator) return "";
+	return isMac ? "⌘" : "Ctrl";
+}
 
 const NgrokLogo = () => (
 	<svg width="82" height="34" className="xs:block hidden">
@@ -57,7 +80,6 @@ type Props = PropsWithChildren &
 	};
 
 export function Layout({ children, className, currentVersion, style }: Props) {
-	const [currentTheme, setTheme] = useTheme();
 	const { showNavigation, setShowNavigation } = useNavigation();
 	const mainRef = useRef<ComponentRef<"main">>(null);
 
@@ -98,9 +120,9 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 					<MantleLogo />
 				</Link>
 
-				<div className="flex items-center gap-2 -ml-1 md:ml-48">
+				<div className="flex flex-col sm:flex-row items-center gap-2 -ml-1 md:ml-48">
 					<Anchor
-						className="text-strong font-mono text-xs"
+						className="text-strong font-mono text-xs hidden sm:inline-block"
 						href="https://github.com/ngrok-oss/mantle/releases"
 					>
 						{currentVersion}
@@ -111,67 +133,52 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 						asChild
 						icon={<GitHub />}
 						label="link to ngrok mantle GitHub"
+						className="hidden sm:inline-flex"
 					>
 						<a href="https://github.com/ngrok-oss/mantle" target="_blank" />
 					</IconButton>
+
+					<DropdownMenu.Root>
+						<DropdownMenu.Trigger asChild>
+							<IconButton
+								icon={<GitHub />}
+								label="link to ngrok Mantle GitHub"
+								type="button"
+								className="inline-flex sm:hidden"
+							/>
+						</DropdownMenu.Trigger>
+						<DropdownMenu.Content>
+							<DropdownMenu.Item asChild>
+								<a
+									href="https://github.com/ngrok-oss/mantle/releases"
+									target="_blank"
+									className="justify-between gap-4"
+								>
+									<span>
+										Version <span className="font-mono">{currentVersion}</span>
+									</span>
+									<ArrowSquareOutIcon className="text-muted" />
+								</a>
+							</DropdownMenu.Item>
+							<DropdownMenu.Item asChild>
+								<a
+									href="https://github.com/ngrok-oss/mantle"
+									target="_blank"
+									className="justify-between gap-4"
+								>
+									GitHub Repo
+									<ArrowSquareOutIcon className="text-muted" />
+								</a>
+							</DropdownMenu.Item>
+						</DropdownMenu.Content>
+					</DropdownMenu.Root>
 				</div>
 
-				<Select.Root
-					value={currentTheme}
-					onValueChange={(value) => {
-						const maybeNewTheme = isTheme(value) ? value : undefined;
-						if (maybeNewTheme) {
-							setTheme(maybeNewTheme);
-						}
-					}}
-				>
-					<div className="ml-auto">
-						{/* TODO: this should probably have a title/tooltip instead that describes what it is since we ain't got a spot for a label */}
-						<span className="sr-only">Theme Switcher</span>
-						<Select.Trigger className="w-min">
-							<BrowserOnly
-								fallback={<Skeleton className="rounded-full size-5 mr-1" />}
-							>
-								{() => <Icon className="mr-1" svg={<AutoThemeIcon />} />}
-							</BrowserOnly>
-						</Select.Trigger>
-					</div>
-					<Select.Content width="content">
-						<Select.Group>
-							<Select.Label>Choose a theme</Select.Label>
-							<Select.Item
-								icon={<ThemeIcon theme="system" />}
-								value={$theme("system")}
-							>
-								System
-							</Select.Item>
-							<Select.Item
-								icon={<ThemeIcon theme="light" />}
-								value={$theme("light")}
-							>
-								Light
-							</Select.Item>
-							<Select.Item
-								icon={<ThemeIcon theme="dark" />}
-								value={$theme("dark")}
-							>
-								Dark
-							</Select.Item>
-							<Select.Item
-								icon={<ThemeIcon theme="light-high-contrast" />}
-								value={$theme("light-high-contrast")}
-							>
-								Light High Contrast
-							</Select.Item>
-							<Select.Item
-								icon={<ThemeIcon theme="dark-high-contrast" />}
-								value={$theme("dark-high-contrast")}
-							>
-								Dark High Contrast
-							</Select.Item>
-						</Select.Group>
-					</Select.Content>
-				</Select.Root>
+				<div className="flex items-center gap-3 ml-auto">
+					<CommandPalette currentVersion={currentVersion} />
+
+					<ThemeSwitcher />
+				</div>
 			</header>
 			{showNavigation && (
 				<div className="bg-card fixed bottom-0 left-0 right-0 top-20 z-50 p-4 md:hidden">
@@ -249,6 +256,7 @@ const previewComponents = [
 	"Accordion",
 	"Calendar",
 	"Combobox",
+	"Command",
 	"Data Table",
 	"Pagination",
 	"Popover",
@@ -300,11 +308,35 @@ const previewComponentsRouteLookup = {
 	Accordion: "/components/preview/accordion",
 	Calendar: "/components/preview/calendar",
 	Combobox: "/components/preview/combobox",
+	Command: "/components/preview/command",
 	"Data Table": "/components/preview/data-table",
 	Pagination: "/components/preview/pagination",
 	Popover: "/components/preview/popover",
 	Tooltip: "/components/preview/tooltip",
 } as const satisfies Record<(typeof previewComponents)[number], Route>;
+
+const welcomePages = ["Overview & Setup", "Philosophy"] as const;
+
+const welcomeRoutes = {
+	"Overview & Setup": "/",
+	Philosophy: "/philosophy",
+} as const satisfies Record<(typeof welcomePages)[number], Route>;
+
+const basePages = [
+	"Breakpoints",
+	"Colors",
+	"Shadows",
+	"Tailwind Variants",
+	"Typography",
+] as const;
+
+const baseRoutes = {
+	Breakpoints: "/base/breakpoints",
+	Colors: "/base/colors",
+	Shadows: "/base/shadows",
+	"Tailwind Variants": "/base/tailwind-variants",
+	Typography: "/base/typography",
+} as const satisfies Record<(typeof basePages)[number], Route>;
 
 function Navigation({ className, style }: WithStyleProps) {
 	return (
@@ -314,48 +346,26 @@ function Navigation({ className, style }: WithStyleProps) {
 					Welcome
 				</li>
 
-				<li>
-					<NavLink to="/" prefetch="intent">
-						Overview &amp; Setup
-					</NavLink>
-				</li>
-
-				<li>
-					<NavLink to={href("/philosophy")} prefetch="intent">
-						Philosophy
-					</NavLink>
-				</li>
+				{welcomePages.map((page) => (
+					<li key={page}>
+						<NavLink to={welcomeRoutes[page]} prefetch="intent">
+							{page}
+						</NavLink>
+					</li>
+				))}
 
 				<li className="mt-6 text-xs font-medium uppercase tracking-wider">
 					Base
 				</li>
 
 				<ul className="mt-2">
-					<li>
-						<NavLink to={href("/base/breakpoints")} prefetch="intent">
-							Breakpoints
-						</NavLink>
-					</li>
-					<li>
-						<NavLink to={href("/base/colors")} prefetch="intent">
-							Colors
-						</NavLink>
-					</li>
-					<li>
-						<NavLink to={href("/base/shadows")} prefetch="intent">
-							Shadows
-						</NavLink>
-					</li>
-					<li>
-						<NavLink to={href("/base/tailwind-variants")} prefetch="intent">
-							Tailwind Variants
-						</NavLink>
-					</li>
-					<li>
-						<NavLink to={href("/base/typography")} prefetch="intent">
-							Typography
-						</NavLink>
-					</li>
+					{basePages.map((page) => (
+						<li key={page}>
+							<NavLink to={baseRoutes[page]} prefetch="intent">
+								{page}
+							</NavLink>
+						</li>
+					))}
 				</ul>
 
 				<li className="mt-6 text-xs font-medium uppercase tracking-wider">
@@ -401,5 +411,245 @@ function Navigation({ className, style }: WithStyleProps) {
 				</ul> */}
 			</ul>
 		</nav>
+	);
+}
+
+function ItemName({ children }: PropsWithChildren) {
+	return (
+		<span className="flex items-start sm:items-center gap-x-2 gap-y-1 flex-col sm:flex-row">
+			{children}
+		</span>
+	);
+}
+
+function CommandPalette({ currentVersion }: { currentVersion: string }) {
+	const navigate = useNavigate();
+	const [open, setOpen] = useState(false);
+	const [currentTheme, setTheme] = useTheme();
+	useHotkeys("mod+k", () => setOpen(true), [setOpen]);
+
+	return (
+		<>
+			<IconButton
+				icon={<MagnifyingGlassIcon />}
+				onClick={() => setOpen(true)}
+				className="flex sm:hidden"
+				label="Search Mantle"
+				type="button"
+				appearance="outlined"
+				size="md"
+			/>
+			<Button
+				type="button"
+				onClick={() => setOpen(true)}
+				appearance="outlined"
+				priority="neutral"
+				className="hidden sm:flex"
+			>
+				<span className="sr-only">Search Mantle</span>
+				<MagnifyingGlassIcon />
+				Search
+				<kbd className="bg-muted text-muted pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none">
+					<MetaKey /> K
+				</kbd>
+			</Button>
+			<Command.Dialog open={open} onOpenChange={setOpen}>
+				<Command.Input placeholder="Search Mantle..." />
+				<Command.List>
+					<Command.Empty>No results found.</Command.Empty>
+					<Command.Group heading="Welcome">
+						{welcomePages.map((page) => (
+							<Command.Item
+								key={page}
+								onSelect={() => {
+									navigate(welcomeRoutes[page]);
+									setOpen(false);
+								}}
+								asChild
+							>
+								<Link
+									to={welcomeRoutes[page]}
+									prefetch="intent"
+									className="flex items-center gap-2 justify-between"
+								>
+									{page}
+									<ArrowRightIcon />
+								</Link>
+							</Command.Item>
+						))}
+						<Command.Item asChild onSelect={() => setOpen(false)}>
+							<a
+								href="https://github.com/ngrok-oss/mantle"
+								target="_blank"
+								rel="noopener noreferrer"
+								className="flex items-center gap-2 justify-between"
+							>
+								<ItemName>
+									GitHub Repo
+									<span className="text-muted text-xs font-mono">
+										ngrok-oss/mantle
+									</span>
+								</ItemName>
+								<ArrowSquareOutIcon />
+							</a>
+						</Command.Item>
+						<Command.Item asChild onSelect={() => setOpen(false)}>
+							<a
+								href="https://github.com/ngrok-oss/mantle/releases"
+								target="_blank"
+								rel="noopener noreferrer"
+								className="flex items-center gap-2 justify-between"
+							>
+								<ItemName>
+									GitHub Releases
+									<span className="text-muted text-xs font-mono">
+										version {currentVersion}
+									</span>
+								</ItemName>
+								<ArrowSquareOutIcon />
+							</a>
+						</Command.Item>
+					</Command.Group>
+					<Command.Separator />
+					<Command.Group heading="Base">
+						{basePages.map((page) => (
+							<Command.Item
+								key={page}
+								onSelect={() => {
+									navigate(baseRoutes[page]);
+									setOpen(false);
+								}}
+								asChild
+							>
+								<Link
+									to={baseRoutes[page]}
+									prefetch="intent"
+									className="flex items-center gap-2 justify-between"
+								>
+									<ItemName>
+										{page}
+										<span className="text-muted text-xs">
+											{baseRoutes[page]}
+										</span>
+									</ItemName>
+									<ArrowRightIcon />
+								</Link>
+							</Command.Item>
+						))}
+					</Command.Group>
+					<Command.Separator />
+					<Command.Group heading="Components">
+						{prodReadyComponents.map((component) => (
+							<Command.Item
+								key={component}
+								onSelect={() => {
+									navigate(prodReadyComponentRouteLookup[component]);
+									setOpen(false);
+								}}
+								asChild
+							>
+								<Link
+									to={prodReadyComponentRouteLookup[component]}
+									className="flex items-center gap-2 justify-between"
+								>
+									<ItemName>
+										{component}
+										<span className="text-muted text-xs">
+											{prodReadyComponentRouteLookup[component]}
+										</span>
+									</ItemName>
+									<ArrowRightIcon />
+								</Link>
+							</Command.Item>
+						))}
+					</Command.Group>
+					<Command.Separator />
+					<Command.Group
+						heading={
+							<span className="flex items-center gap-2">
+								Preview Components <PreviewBadge />
+							</span>
+						}
+					>
+						{previewComponents.map((component) => (
+							<Command.Item
+								key={component}
+								onSelect={() => {
+									navigate(previewComponentsRouteLookup[component]);
+									setOpen(false);
+								}}
+								asChild
+							>
+								<Link
+									to={previewComponentsRouteLookup[component]}
+									className="flex items-center gap-2 justify-between"
+								>
+									<ItemName>
+										{component}
+										<span className="text-muted text-xs">
+											{previewComponentsRouteLookup[component]}
+										</span>
+									</ItemName>
+									<ArrowRightIcon />
+								</Link>
+							</Command.Item>
+						))}
+					</Command.Group>
+					<Command.Separator />
+					<Command.Group heading="Theme">
+						<Command.Item
+							onSelect={() => {
+								setTheme("system");
+								setOpen(false);
+							}}
+						>
+							<MonitorIcon />
+							Use System theme
+							{currentTheme === "system" ? <CheckIcon /> : null}
+						</Command.Item>
+						<Command.Item
+							onSelect={() => {
+								setTheme("light");
+								setOpen(false);
+							}}
+						>
+							<SunIcon />
+							Use Light theme
+							{currentTheme === "light" ? <CheckIcon /> : null}
+						</Command.Item>
+						<Command.Item
+							onSelect={() => {
+								setTheme("dark");
+								setOpen(false);
+							}}
+						>
+							<MoonIcon />
+							Use Dark theme
+							{currentTheme === "dark" ? <CheckIcon /> : null}
+						</Command.Item>
+						<Command.Item
+							onSelect={() => {
+								setTheme("light-high-contrast");
+								setOpen(false);
+							}}
+						>
+							<SunIcon weight="fill" />
+							Use Light High Contrast theme
+							{currentTheme === "light-high-contrast" ? <CheckIcon /> : null}
+						</Command.Item>
+						<Command.Item
+							onSelect={() => {
+								setTheme("dark-high-contrast");
+								setOpen(false);
+							}}
+						>
+							<MoonIcon weight="fill" />
+							Use Dark High Contrast theme
+							{currentTheme === "dark-high-contrast" ? <CheckIcon /> : null}
+						</Command.Item>
+					</Command.Group>
+				</Command.List>
+			</Command.Dialog>
+		</>
 	);
 }
