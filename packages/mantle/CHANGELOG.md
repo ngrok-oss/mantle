@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.56.0
+
+### Minor Changes
+
+- [#839](https://github.com/ngrok-oss/mantle/pull/839) [`7dc6877`](https://github.com/ngrok-oss/mantle/commit/7dc68778486e90dd92867c7ecd15450610bd6b8a) Thanks [@randseay](https://github.com/randseay)! - Implement Command component
+
 ## 0.55.5
 
 ### Patch Changes
