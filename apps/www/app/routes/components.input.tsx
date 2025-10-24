@@ -23,19 +23,7 @@ import {
 import type { Route } from "./+types/components.input";
 
 export const meta: Route.MetaFunction = () => {
-	return [
-		{ title: "@ngrok/mantle — Input" },
-		{
-			name: "description",
-			content: "mantle is ngrok's UI library and design system",
-		},
-	];
-};
-
-export const headers: Route.HeadersFunction = () => {
-	return {
-		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
-	};
+	return [{ title: "@ngrok/mantle — Input" }];
 };
 
 export default function Page() {

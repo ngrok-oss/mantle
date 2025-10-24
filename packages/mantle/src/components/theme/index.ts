@@ -22,8 +22,8 @@ export {
 
 export {
 	//,
-	PreloadFonts,
-} from "./preload-fonts.js";
+	PreloadCoreFonts,
+} from "./fonts.js";
 
 export type {
 	//,

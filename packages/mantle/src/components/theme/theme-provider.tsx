@@ -1,6 +1,6 @@
 "use client";
 
-import type { ComponentProps, PropsWithChildren } from "react";
+import type { PropsWithChildren } from "react";
 import {
 	createContext,
 	useContext,
@@ -13,7 +13,7 @@ import invariant from "tiny-invariant";
 import { useMatchesMediaQuery } from "../../hooks/use-matches-media-query.js";
 import { cx } from "../../utils/cx/cx.js";
 import { canUseDOM } from "../browser-only/browser-only.js";
-import { PreloadFonts } from "./preload-fonts.js";
+import { PreloadCoreFonts } from "./fonts.js";
 import {
 	type ResolvedTheme,
 	type Theme,
@@ -491,28 +491,80 @@ type MantleThemeHeadContentProps = {
 	 * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/nonce
 	 */
 	nonce?: string;
-} & ComponentProps<typeof PreloadFonts>;
+};
+
+export type PreventWrongThemeFlashScriptProps = MantleThemeHeadContentProps;
 
 /**
- * MantleThemeHeadContent is a React component that renders a script to prevent
- * Flash of Unstyled Content (FOUC), or the wrong theme from flashing on initial
- * page load.
+ * Renders an inline script that prevents Flash of Unstyled Content (FOUC) or the
+ * wrong theme flashing on first paint.
  *
- * Render as high as possible in the <head> element.
+ * Use this when you want full control of the `<head>` contents. For a packaged,
+ * one-stop solution that also handles font preloads, use {@link MantleThemeHeadContent}.
+ * To add font preloads alongside this script, pair it with {@link PreloadCoreFonts}.
+ *
+ * Place this as early as possible in the `<head>`.
+ *
+ * @example
+ * ```tsx
+ * <head>
+ *   <PreventWrongThemeFlashScript nonce={nonce} />
+ *   <PreloadCoreFonts />
+ * </head>
+ * ```
+ *
+ * @param nonce - Optional CSP nonce to allowlist the inline script under a strict CSP.
+ * @returns {JSX.Element} A script tag injected before first paint.
+ * @see PreloadCoreFonts
+ * @see MantleThemeHeadContent
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/nonce
  */
-const MantleThemeHeadContent = ({
-	includeNunitoSans = false,
+const PreventWrongThemeFlashScript = ({
 	nonce,
-}: MantleThemeHeadContentProps) => (
+}: PreventWrongThemeFlashScriptProps) => (
+	<script
+		dangerouslySetInnerHTML={{
+			__html: preventWrongThemeFlashScriptContent(),
+		}}
+		nonce={nonce}
+		suppressHydrationWarning
+	/>
+);
+PreventWrongThemeFlashScript.displayName = "PreventWrongThemeFlashScript";
+
+/**
+ * Renders the Mantle theme `<head>` content:
+ * - an inline script to prevent FOUC / wrong-theme flash, and
+ * - preload links for the core fonts.
+ *
+ * Use this when you want the one-liner that “just works.”
+ * If you prefer fine-grained control, use {@link PreventWrongThemeFlashScript}
+ * and {@link PreloadCoreFonts} directly.
+ *
+ * Place this as early as possible in the `<head>` so it runs before first paint
+ * and fonts start fetching ASAP.
+ *
+ * @example
+ * ```tsx
+ * <head>
+ *   // Performance hints for the CDN (recommended)
+ *   <link rel="preconnect" href={assetsCdnOrigin} crossOrigin="anonymous" />
+ *   <link rel="dns-prefetch" href={assetsCdnOrigin} />
+ *
+ *   <MantleThemeHeadContent nonce={nonce} />
+ * </head>
+ * ```
+ *
+ * @param nonce - Optional CSP nonce to allowlist the inline script under a strict CSP.
+ * @returns JSX.Element fragment containing the script and font preloads.
+ * @see PreventWrongThemeFlashScript
+ * @see PreloadCoreFonts
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/nonce
+ */
+const MantleThemeHeadContent = ({ nonce }: MantleThemeHeadContentProps) => (
 	<>
-		<script
-			dangerouslySetInnerHTML={{
-				__html: preventWrongThemeFlashScriptContent(),
-			}}
-			nonce={nonce}
-			suppressHydrationWarning
-		/>
-		<PreloadFonts includeNunitoSans={includeNunitoSans} />
+		<PreventWrongThemeFlashScript nonce={nonce} />
+		<PreloadCoreFonts />
 	</>
 );
 MantleThemeHeadContent.displayName = "MantleThemeHeadContent";
@@ -606,12 +658,13 @@ function getStoredTheme({ cookie }: GetStoredThemeOptions): Theme {
 }
 
 export {
+	MantleThemeHeadContent,
+	PreventWrongThemeFlashScript,
+	ThemeProvider,
 	//,
 	getStoredTheme,
-	MantleThemeHeadContent,
 	preventWrongThemeFlashScriptContent,
 	readThemeFromHtmlElement,
-	ThemeProvider,
 	useAppliedTheme,
 	useInitialHtmlThemeProps,
 	useTheme,

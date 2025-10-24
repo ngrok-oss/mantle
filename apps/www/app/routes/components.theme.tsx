@@ -2,7 +2,7 @@ import { Anchor } from "@ngrok/mantle/anchor";
 import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import {
-	PreloadFonts,
+	PreloadCoreFonts,
 	preventWrongThemeFlashScriptContent,
 } from "@ngrok/mantle/theme";
 import { FileTextIcon } from "@phosphor-icons/react/FileText";
@@ -23,19 +23,7 @@ import {
 import type { Route } from "./+types/components.theme";
 
 export const meta: Route.MetaFunction = () => {
-	return [
-		{ title: "@ngrok/mantle — Theme" },
-		{
-			name: "description",
-			content: "mantle is ngrok's UI library and design system",
-		},
-	];
-};
-
-export const headers: Route.HeadersFunction = () => {
-	return {
-		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
-	};
+	return [{ title: "@ngrok/mantle — Theme" }];
 };
 
 export default function Page() {
@@ -162,7 +150,7 @@ ${preventWrongThemeFlashScriptContent()}
 					</HashLinkHeading>
 					<p className="font-body text-body">
 						You will also need to ensure that you add the{" "}
-						<Code>PreloadFonts</Code> component to your app as well if
+						<Code>PreloadCoreFonts</Code> component to your app as well if
 						you&apos;re using the custom setup.
 					</p>
 					<CodeBlock.Root>
@@ -175,7 +163,7 @@ ${preventWrongThemeFlashScriptContent()}
 							<CodeBlock.Code
 								language="html"
 								value={fmtCode`<head>\n\t${renderToStaticMarkup(
-									<PreloadFonts />,
+									<PreloadCoreFonts />,
 								)
 									.split("/><")
 									.join("/>\n\t<")}\n</head>`}

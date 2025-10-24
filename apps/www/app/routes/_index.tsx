@@ -14,19 +14,7 @@ import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/_index";
 
 export const meta: Route.MetaFunction = () => {
-	return [
-		{ title: "@ngrok/mantle" },
-		{
-			name: "description",
-			content: "mantle is ngrok's UI library and design system",
-		},
-	];
-};
-
-export const headers: Route.HeadersFunction = () => {
-	return {
-		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
-	};
+	return [{ title: "@ngrok/mantle" }];
 };
 
 export default function Page() {
