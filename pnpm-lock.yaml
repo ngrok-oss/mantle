@@ -12,9 +12,6 @@ catalogs:
     '@react-router/dev':
       specifier: 7.9.4
       version: 7.9.4
-    '@react-router/fs-routes':
-      specifier: 7.9.4
-      version: 7.9.4
     '@react-router/node':
       specifier: 7.9.4
       version: 7.9.4
@@ -86,9 +83,6 @@ importers:
       '@radix-ui/react-slot':
         specifier: 1.2.3
         version: 1.2.3(@types/react@18.3.26)(react@18.3.1)
-      '@react-router/fs-routes':
-        specifier: 'catalog:'
-        version: 7.9.4(@react-router/dev@7.9.4(@react-router/serve@7.9.4(react-router@7.9.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.3))(@types/node@22.18.12)(jiti@2.6.1)(lightningcss@1.30.2)(react-router@7.9.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.3)(vite@7.1.12(@types/node@22.18.12)(jiti@2.6.1)(lightningcss@1.30.2)))(typescript@5.9.3)
       '@react-router/node':
         specifier: 'catalog:'
         version: 7.9.4(react-router@7.9.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.3)
@@ -1368,16 +1362,6 @@ packages:
       typescript:
         optional: true
 
-  '@react-router/fs-routes@7.9.4':
-    resolution: {integrity: sha512-k3IWKOGiPDJqGsoqKaI4V1WY4ulfG5/lWLlI0G5p1Yij4eDyYW3D+p/+inBFs49Oxsc/PbB2rnAXY4j5Bjruhg==}
-    engines: {node: '>=20.0.0'}
-    peerDependencies:
-      '@react-router/dev': ^7.9.4
-      typescript: ^5.1.0
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-
   '@react-router/node@7.9.4':
     resolution: {integrity: sha512-sdeDNRaqAB71BR2hPlhcQbPbrXh8uGJUjLVc+NpRiPsQbv6B8UvIucN4IX9YGVJkw3UxVQBn2vPSwxACAck32Q==}
     engines: {node: '>=20.0.0'}
@@ -1897,8 +1881,8 @@ packages:
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
 
-  baseline-browser-mapping@2.8.19:
-    resolution: {integrity: sha512-zoKGUdu6vb2jd3YOq0nnhEDQVbPcHhco3UImJrv5dSkvxTc2pl2WjOPsjZXDwPDSl5eghIMuY3R6J9NDKF3KcQ==}
+  baseline-browser-mapping@2.8.20:
+    resolution: {integrity: sha512-JMWsdF+O8Orq3EMukbUN1QfbLK9mX2CkUmQBcW2T0s8OmdAUL5LLM/6wFwSrqXzlXB13yhyK9gTKS1rIizOduQ==}
     hasBin: true
 
   basic-auth@2.0.1:
@@ -4841,13 +4825,6 @@ snapshots:
     optionalDependencies:
       typescript: 5.9.3
 
-  '@react-router/fs-routes@7.9.4(@react-router/dev@7.9.4(@react-router/serve@7.9.4(react-router@7.9.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.3))(@types/node@22.18.12)(jiti@2.6.1)(lightningcss@1.30.2)(react-router@7.9.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.3)(vite@7.1.12(@types/node@22.18.12)(jiti@2.6.1)(lightningcss@1.30.2)))(typescript@5.9.3)':
-    dependencies:
-      '@react-router/dev': 7.9.4(@react-router/serve@7.9.4(react-router@7.9.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.3))(@types/node@22.18.12)(jiti@2.6.1)(lightningcss@1.30.2)(react-router@7.9.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.3)(vite@7.1.12(@types/node@22.18.12)(jiti@2.6.1)(lightningcss@1.30.2))
-      minimatch: 9.0.5
-    optionalDependencies:
-      typescript: 5.9.3
-
   '@react-router/node@7.9.4(react-router@7.9.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.9.3)':
     dependencies:
       '@mjackson/node-fetch-server': '@remix-run/node-fetch-server@0.10.0'
@@ -5311,7 +5288,7 @@ snapshots:
 
   balanced-match@1.0.2: {}
 
-  baseline-browser-mapping@2.8.19: {}
+  baseline-browser-mapping@2.8.20: {}
 
   basic-auth@2.0.1:
     dependencies:
@@ -5357,7 +5334,7 @@ snapshots:
 
   browserslist@4.27.0:
     dependencies:
-      baseline-browser-mapping: 2.8.19
+      baseline-browser-mapping: 2.8.20
       caniuse-lite: 1.0.30001751
       electron-to-chromium: 1.5.239
       node-releases: 2.0.26
