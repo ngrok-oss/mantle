@@ -22,7 +22,10 @@ export {
 
 export {
 	//,
+	assetsCdnOrigin,
+	fontHref,
 	PreloadCoreFonts,
+	PreloadInterFonts,
 } from "./fonts.js";
 
 export type {

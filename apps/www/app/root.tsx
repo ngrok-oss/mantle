@@ -2,6 +2,7 @@ import { cx } from "@ngrok/mantle/cx";
 import { useScrollBehavior } from "@ngrok/mantle/hooks";
 import {
 	MantleThemeHeadContent,
+	PreloadInterFonts,
 	ThemeProvider,
 	useInitialHtmlThemeProps,
 } from "@ngrok/mantle/theme";
@@ -141,7 +142,9 @@ export function Layout({ children }: PropsWithChildren) {
 		<html {...initialHtmlThemeProps} lang="en-US" dir="ltr">
 			<head>
 				<meta charSet="utf-8" />
+				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<MantleThemeHeadContent nonce={nonce} />
+				<PreloadInterFonts />
 				<meta name="author" content="ngrok" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<meta name="commit-sha" content={loaderData?.commitSha} />

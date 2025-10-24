@@ -18,13 +18,9 @@ const assetsCdnOrigin = "https://assets.ngrok.com";
 const cdnBase = `${assetsCdnOrigin}/fonts`;
 
 /**
- * Canonical list of font paths (relative to the CDN fonts base).
- *
- * These are string literal types via `as const`, so consumers get autocompletion and
- * type safety when constructing URLs.
- * @internal
+ * Canonical list of core font paths (relative to the CDN fonts base).
  */
-const fonts = [
+const coreFonts = [
 	"/euclid-square/EuclidSquare-Regular-WebS.woff",
 	"/euclid-square/EuclidSquare-RegularItalic-WebS.woff",
 	"/euclid-square/EuclidSquare-Medium-WebS.woff",
@@ -82,7 +78,7 @@ function fontHref<T extends FontPath = FontPath>(font: T) {
  */
 const PreloadCoreFonts = () => (
 	<>
-		{fonts.map((font) => (
+		{coreFonts.map((font) => (
 			<link
 				key={font}
 				rel="preload"
@@ -96,8 +92,54 @@ const PreloadCoreFonts = () => (
 );
 PreloadCoreFonts.displayName = "PreloadCoreFonts";
 
+/**
+ * Canonical list of inter font paths (relative to the CDN fonts base).
+ */
+const interFonts = [
+	"/inter/Inter-VariableFont.ttf",
+	"/inter/Inter-Italic-VariableFont.ttf",
+] as const;
+
+/**
+ * Preload optional Inter variable fonts (roman + italic).
+ *
+ * Use this when the UI opts into the Inter typeface. Keep it near other font
+ * preloads and add `preconnect`/`dns-prefetch` for the CDN to minimize latency.
+ *
+ * @example
+ * ```tsx
+ * <head>
+ *   <meta charSet="utf-8" />
+ *   <meta name="viewport" content="width=device-width, initial-scale=1" />
+ *
+ *   // Preconnect and DNS-prefetch to the assets CDN
+ *   // either here or in app root headers
+ *   <link rel="preconnect" href={assetsCdnOrigin} crossOrigin="anonymous" />
+ *   <link rel="dns-prefetch" href={assetsCdnOrigin} />
+ *   <MantleThemeHeadContent />
+ *   <PreloadInterFonts />
+ * </head>
+ * ```
+ */
+const PreloadInterFonts = () => (
+	<>
+		{interFonts.map((font) => (
+			<link
+				key={font}
+				rel="preload"
+				href={fontHref(font)}
+				as="font"
+				type="font/ttf"
+				crossOrigin="anonymous"
+			/>
+		))}
+	</>
+);
+
 export {
 	//,
-	PreloadCoreFonts,
 	assetsCdnOrigin,
+	fontHref,
+	PreloadCoreFonts,
+	PreloadInterFonts,
 };

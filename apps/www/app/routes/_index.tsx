@@ -417,10 +417,10 @@ function ReactRouterScaffolding() {
 									<html {...initialHtmlThemeProps} lang="en-US" dir="ltr">
 										<head>
 											<meta charSet="utf-8" />
+											<meta name="viewport" content="width=device-width, initial-scale=1" />
 											{/* 👇 The MantleThemeHeadContent should be rendered at the top of your <head>
 													to prevent a flash of unstyled content (FOUC)! */}
 											<MantleThemeHeadContent />
-											<meta name="viewport" content="width=device-width, initial-scale=1" />
 											<Meta />
 											<Links />
 										</head>
