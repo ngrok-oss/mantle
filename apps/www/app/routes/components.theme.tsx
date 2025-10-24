@@ -10,7 +10,6 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { HashLinkHeading } from "~/components/hash-link-heading";
 import { PageHeader } from "~/components/page-header";
 import {
-	BooleanPropType,
 	PropDefaultValueCell,
 	PropDescriptionCell,
 	PropNameCell,
@@ -296,25 +295,10 @@ ${preventWrongThemeFlashScriptContent()}
 						</HashLinkHeading>
 						<p className="font-body text-body text-xl">
 							The <Code>MantleThemeHeadContent</Code> component prevents Flash
-							of Unstyled Content (FOUC) and preloads fonts. It accepts the
+							of Unstyled Content (FOUC) and preloads core fonts. It accepts the
 							following props:
 						</p>
 						<PropsTable>
-							<PropRow>
-								<PropNameCell name="includeNunitoSans" optional />
-								<PropTypeCell>
-									<BooleanPropType />
-								</PropTypeCell>
-								<PropDefaultValueCell>
-									<BooleanPropType value={false} />
-								</PropDefaultValueCell>
-								<PropDescriptionCell>
-									<p>
-										Whether to include preload links for the Nunito Sans font
-										family.
-									</p>
-								</PropDescriptionCell>
-							</PropRow>
 							<PropRow>
 								<PropNameCell name="nonce" optional />
 								<PropTypeCell>
@@ -336,6 +320,50 @@ ${preventWrongThemeFlashScriptContent()}
 							values for storage key (<Code>mantle-ui-theme</Code>) and default
 							theme (<Code>system</Code>) to ensure consistency with{" "}
 							<Code>ThemeProvider</Code>.
+						</p>
+					</div>
+
+					<div className="space-y-4">
+						<HashLinkHeading
+							id="api-prevent-wrong-theme-flash-script"
+							className="text-2xl font-medium"
+						>
+							<h3>PreventWrongThemeFlashScript</h3>
+						</HashLinkHeading>
+						<p className="font-body text-body text-xl">
+							The <Code>PreventWrongThemeFlashScript</Code> component renders
+							only the inline script to prevent FOUC. Use this when you want
+							full control over font preloading. It accepts the following props:
+						</p>
+						<PropsTable>
+							<PropRow>
+								<PropNameCell name="nonce" optional />
+								<PropTypeCell>
+									<StringPropType />
+								</PropTypeCell>
+								<PropDefaultValueCell />
+								<PropDescriptionCell>
+									<p>
+										An optional CSP nonce to allowlist the inline FOUC
+										prevention script.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+						</PropsTable>
+					</div>
+
+					<div className="space-y-4">
+						<HashLinkHeading
+							id="api-preload-core-fonts"
+							className="text-2xl font-medium"
+						>
+							<h3>PreloadCoreFonts</h3>
+						</HashLinkHeading>
+						<p className="font-body text-body text-xl">
+							The <Code>PreloadCoreFonts</Code> component renders preload links
+							for the core fonts used in Mantle (Euclid Square and IBM Plex
+							Mono). This component takes no props and is automatically included
+							in <Code>MantleThemeHeadContent</Code>.
 						</p>
 					</div>
 
