@@ -14,8 +14,8 @@ env:
   TURBO_TEAM: ${{ vars.TURBO_TEAM }}
 
 on:
-  release:
-    types: [published]
+  # release:
+  #   types: [published]
   workflow_dispatch: # Can be manually run as well
 
 jobs:
