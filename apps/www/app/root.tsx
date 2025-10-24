@@ -146,7 +146,6 @@ export function Layout({ children }: PropsWithChildren) {
 				<MantleThemeHeadContent nonce={nonce} />
 				<PreloadInterFonts />
 				<meta name="author" content="ngrok" />
-				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<meta name="commit-sha" content={loaderData?.commitSha} />
 				<meta name="deployment-id" content={loaderData?.deploymentId} />
 				<Meta />
