@@ -44,7 +44,7 @@ type FontPath = `/${string}` | (string & {});
  */
 function fontHref<T extends FontPath = FontPath>(font: T) {
 	const path = font.startsWith("/") ? font : `/${font}`;
-	return `${cdnBase}/${path}` as const;
+	return `${cdnBase}${path}` as const;
 }
 
 /**
