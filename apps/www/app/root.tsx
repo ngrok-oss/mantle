@@ -25,72 +25,6 @@ import { useNonce } from "./components/nonce";
 import "./global.css";
 import { canonicalDomain } from "./utilities/canonical-origin";
 
-const title = "@ngrok/mantle";
-const description = "mantle is ngrok's UI library and design system";
-
-export const meta: Route.MetaFunction = () => {
-	return [
-		{ title },
-		{
-			//,
-			name: "description",
-			content: description,
-		},
-		{
-			//,
-			property: "og:locale",
-			content: "en_US",
-		},
-		{
-			//,
-			property: "og:type",
-			content: "website",
-		},
-		{
-			//,
-			property: "og:site_name",
-			content: "ngrok blog",
-		},
-		{
-			name: "og:title",
-			property: "og:title",
-			content: title,
-		},
-		{
-			name: "og:description",
-			property: "og:description",
-			content: description,
-		},
-		{
-			name: "twitter:card",
-			content: "summary_large_image",
-		},
-		{
-			name: "twitter:domain",
-			content: canonicalDomain,
-		},
-		{
-			name: "twitter:title",
-			property: "twitter:title",
-			content: title,
-		},
-		{
-			name: "twitter:description",
-			content: description,
-		},
-		{
-			name: "og:image",
-			property: "og:image",
-			content: "/og-image.png",
-		},
-		{
-			name: "twitter:image",
-			property: "twitter:image",
-			content: "/og-image.png",
-		},
-	];
-};
-
 type PreconnectTarget = Readonly<{
 	href: string;
 	crossOrigin?: boolean;
@@ -130,6 +64,9 @@ export const loader = async (_: Route.LoaderArgs) => {
 	};
 };
 
+const title = "@ngrok/mantle";
+const description = "mantle is ngrok's UI library and design system";
+
 export function Layout({ children }: PropsWithChildren) {
 	const loaderData = useRouteLoaderData<typeof loader>("root");
 	const initialHtmlThemeProps = useInitialHtmlThemeProps({
@@ -143,6 +80,27 @@ export function Layout({ children }: PropsWithChildren) {
 			<head>
 				<meta charSet="utf-8" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
+				<title>{title}</title>
+				<meta name="description" content={description} />
+				<meta property="og:locale" content="en_US" />
+				<meta property="og:type" content="website" />
+				<meta property="og:site_name" content="ngrok blog" />
+				<meta name="og:title" property="og:title" content={title} />
+				<meta
+					name="og:description"
+					property="og:description"
+					content={description}
+				/>
+				<meta name="twitter:card" content="summary_large_image" />
+				<meta name="twitter:domain" content={canonicalDomain} />
+				<meta name="twitter:title" property="twitter:title" content={title} />
+				<meta name="twitter:description" content={description} />
+				<meta name="og:image" property="og:image" content="/og-image.png" />
+				<meta
+					name="twitter:image"
+					property="twitter:image"
+					content="/og-image.png"
+				/>
 				<MantleThemeHeadContent nonce={nonce} />
 				<PreloadInterFonts />
 				<meta name="author" content="ngrok" />
