@@ -425,20 +425,21 @@ function CommandPalette({
 	return (
 		<>
 			<IconButton
-				icon={<MagnifyingGlassIcon />}
-				onClick={() => setOpen(true)}
-				className="flex sm:hidden"
-				label="Search Mantle"
-				type="button"
 				appearance="outlined"
+				className="flex sm:hidden"
+				icon={<MagnifyingGlassIcon />}
+				label="Search Mantle"
+				onClick={() => setOpen(true)}
 				size="md"
+				type="button"
 			/>
 			<Button
-				type="button"
-				onClick={() => setOpen(true)}
 				appearance="outlined"
-				priority="neutral"
 				className="hidden sm:flex"
+				icon={<MagnifyingGlassIcon />}
+				onClick={() => setOpen(true)}
+				priority="neutral"
+				type="button"
 			>
 				<span className="sr-only">Search Mantle</span>
 				Search
