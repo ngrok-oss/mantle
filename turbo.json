@@ -15,10 +15,6 @@
     "clean": {
       "cache": false
     },
-    "//#fmt-lint": {},
-    "//#fmt-lint:fix": {
-      "cache": false
-    },
     "lint": {
       "dependsOn": ["^lint"]
     },
