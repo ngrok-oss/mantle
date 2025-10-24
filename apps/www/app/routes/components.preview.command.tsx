@@ -2,7 +2,7 @@ import { Anchor } from "@ngrok/mantle/anchor";
 import { Button } from "@ngrok/mantle/button";
 import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
-import { Command } from "@ngrok/mantle/command";
+import { Command, MetaKey } from "@ngrok/mantle/command";
 import {
 	CalculatorIcon,
 	CalendarIcon,
@@ -12,17 +12,9 @@ import {
 	UserIcon,
 } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
-import { useIsMounted } from "usehooks-ts";
 import { Example } from "~/components/example";
 import { HashLinkHeading } from "~/components/hash-link-heading";
 import { PageHeader } from "~/components/page-header";
-
-function MetaKey() {
-	const mounted = useIsMounted();
-	const isMac = navigator.userAgent.toLowerCase().includes("mac");
-	if (!mounted() || !navigator) return "";
-	return isMac ? "⌘" : "Ctrl";
-}
 
 function useHotkey(key: string, callback: () => void) {
 	useEffect(() => {
@@ -224,7 +216,7 @@ export default function Page() {
 								language="tsx"
 								value={fmtCode`
 						import { Button } from "@ngrok/mantle/button";
-						import { Command } from "@ngrok/mantle/command";
+						import { Command, MetaKey } from "@ngrok/mantle/command";
 						import {
 							CalculatorIcon,
 							CalendarIcon,
@@ -257,7 +249,10 @@ export default function Page() {
 									<p className="text-muted-foreground text-sm gap-2 flex items-center">
 										Press{" "}
 										<kbd className="bg-muted text-muted pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none">
-											<span className="text-xs">⌘</span>J
+											<span className="text-xs">
+												<MetaKey />
+											</span>
+											J
 										</kbd>
 										or
 										<Button type="button" onClick={() => setOpen(!open)}>
@@ -287,17 +282,23 @@ export default function Page() {
 												<Command.Item>
 													<UserIcon />
 													<span>Profile</span>
-													<Command.Shortcut>⌘P</Command.Shortcut>
+													<Command.Shortcut>
+														<MetaKey /> P
+													</Command.Shortcut>
 												</Command.Item>
 												<Command.Item>
 													<CreditCardIcon />
 													<span>Billing</span>
-													<Command.Shortcut>⌘B</Command.Shortcut>
+													<Command.Shortcut>
+														<MetaKey /> B
+													</Command.Shortcut>
 												</Command.Item>
 												<Command.Item>
 													<GearIcon />
 													<span>Settings</span>
-													<Command.Shortcut>⌘S</Command.Shortcut>
+													<Command.Shortcut>
+														<MetaKey /> S
+													</Command.Shortcut>
 												</Command.Item>
 											</Command.Group>
 										</Command.List>
@@ -525,6 +526,51 @@ export default function Page() {
 						The shortcut component for the Command. It provides the shortcut for
 						the command palette.
 					</p>
+				</section>
+
+				<section className="space-y-4">
+					<header className="space-y-1">
+						<HashLinkHeading id="api-meta-key">
+							<h3 className="text-xl font-medium text-strong">
+								<span id="api-meta-key" />
+								MetaKey
+							</h3>
+						</HashLinkHeading>
+					</header>
+
+					<p className="font-body text-body">
+						The <Code>MetaKey</Code> component renders the platform-appropriate
+						meta key label (<Code>⌘</Code> for macOS/iOS or <Code>Ctrl</Code>{" "}
+						for other platforms). It detects the platform on mount and is
+						SSR-safe, defaulting to <Code>Ctrl</Code> to avoid hydration
+						mismatches.
+					</p>
+
+					<p className="font-body text-body">
+						Use it in keyboard shortcut hints and <Code>Command.Shortcut</Code>{" "}
+						labels to ensure the correct modifier key is displayed for each
+						platform.
+					</p>
+
+					<CodeBlock.Root>
+						<CodeBlock.Body>
+							<CodeBlock.CopyButton />
+							<CodeBlock.Code
+								language="tsx"
+								value={fmtCode`
+									import { Command, MetaKey } from "@ngrok/mantle/command";
+
+									<kbd>
+										<MetaKey /> K
+									</kbd>
+
+									<Command.Shortcut>
+										<MetaKey /> S
+									</Command.Shortcut>
+								`}
+							/>
+						</CodeBlock.Body>
+					</CodeBlock.Root>
 				</section>
 
 				<section className="space-y-4">
