@@ -84,7 +84,7 @@ export function Layout({ children }: PropsWithChildren) {
 				<meta name="description" content={description} />
 				<meta property="og:locale" content="en_US" />
 				<meta property="og:type" content="website" />
-				<meta property="og:site_name" content="ngrok blog" />
+				<meta property="og:site_name" content="@ngrok/mantle" />
 				<meta name="og:title" property="og:title" content={title} />
 				<meta
 					name="og:description"
