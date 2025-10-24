@@ -9,4 +9,5 @@ export default {
 		//,
 		isVercelDeploy && vercelPreset(),
 	].filter(Boolean),
+	prerender: true,
 } satisfies Config;
