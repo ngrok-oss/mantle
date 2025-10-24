@@ -2,7 +2,8 @@ import { Anchor } from "@ngrok/mantle/anchor";
 import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import {
-	PreloadFonts,
+	PreloadCoreFonts,
+	PreloadInterFonts,
 	preventWrongThemeFlashScriptContent,
 } from "@ngrok/mantle/theme";
 import { FileTextIcon } from "@phosphor-icons/react/FileText";
@@ -10,7 +11,6 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { HashLinkHeading } from "~/components/hash-link-heading";
 import { PageHeader } from "~/components/page-header";
 import {
-	BooleanPropType,
 	PropDefaultValueCell,
 	PropDescriptionCell,
 	PropNameCell,
@@ -23,19 +23,7 @@ import {
 import type { Route } from "./+types/components.theme";
 
 export const meta: Route.MetaFunction = () => {
-	return [
-		{ title: "@ngrok/mantle — Theme" },
-		{
-			name: "description",
-			content: "mantle is ngrok's UI library and design system",
-		},
-	];
-};
-
-export const headers: Route.HeadersFunction = () => {
-	return {
-		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
-	};
+	return [{ title: "@ngrok/mantle — Theme" }];
 };
 
 export default function Page() {
@@ -162,7 +150,7 @@ ${preventWrongThemeFlashScriptContent()}
 					</HashLinkHeading>
 					<p className="font-body text-body">
 						You will also need to ensure that you add the{" "}
-						<Code>PreloadFonts</Code> component to your app as well if
+						<Code>PreloadCoreFonts</Code> component to your app as well if
 						you&apos;re using the custom setup.
 					</p>
 					<CodeBlock.Root>
@@ -175,7 +163,10 @@ ${preventWrongThemeFlashScriptContent()}
 							<CodeBlock.Code
 								language="html"
 								value={fmtCode`<head>\n\t${renderToStaticMarkup(
-									<PreloadFonts />,
+									<>
+										<PreloadCoreFonts />
+										<PreloadInterFonts />
+									</>,
 								)
 									.split("/><")
 									.join("/>\n\t<")}\n</head>`}
@@ -308,25 +299,10 @@ ${preventWrongThemeFlashScriptContent()}
 						</HashLinkHeading>
 						<p className="font-body text-body text-xl">
 							The <Code>MantleThemeHeadContent</Code> component prevents Flash
-							of Unstyled Content (FOUC) and preloads fonts. It accepts the
+							of Unstyled Content (FOUC) and preloads core fonts. It accepts the
 							following props:
 						</p>
 						<PropsTable>
-							<PropRow>
-								<PropNameCell name="includeNunitoSans" optional />
-								<PropTypeCell>
-									<BooleanPropType />
-								</PropTypeCell>
-								<PropDefaultValueCell>
-									<BooleanPropType value={false} />
-								</PropDefaultValueCell>
-								<PropDescriptionCell>
-									<p>
-										Whether to include preload links for the Nunito Sans font
-										family.
-									</p>
-								</PropDescriptionCell>
-							</PropRow>
 							<PropRow>
 								<PropNameCell name="nonce" optional />
 								<PropTypeCell>
@@ -349,6 +325,85 @@ ${preventWrongThemeFlashScriptContent()}
 							theme (<Code>system</Code>) to ensure consistency with{" "}
 							<Code>ThemeProvider</Code>.
 						</p>
+					</div>
+
+					<div className="space-y-4">
+						<HashLinkHeading
+							id="api-prevent-wrong-theme-flash-script"
+							className="text-2xl font-medium"
+						>
+							<h3>PreventWrongThemeFlashScript</h3>
+						</HashLinkHeading>
+						<p className="font-body text-body text-xl">
+							The <Code>PreventWrongThemeFlashScript</Code> component renders
+							only the inline script to prevent FOUC. Use this when you want
+							full control over font preloading. It accepts the following props:
+						</p>
+						<PropsTable>
+							<PropRow>
+								<PropNameCell name="nonce" optional />
+								<PropTypeCell>
+									<StringPropType />
+								</PropTypeCell>
+								<PropDefaultValueCell />
+								<PropDescriptionCell>
+									<p>
+										An optional CSP nonce to allowlist the inline FOUC
+										prevention script.
+									</p>
+								</PropDescriptionCell>
+							</PropRow>
+						</PropsTable>
+					</div>
+
+					<div className="space-y-4">
+						<HashLinkHeading
+							id="api-preload-core-fonts"
+							className="text-2xl font-medium"
+						>
+							<h3>PreloadCoreFonts</h3>
+						</HashLinkHeading>
+						<p className="font-body text-body text-xl">
+							The <Code>PreloadCoreFonts</Code> component renders preload links
+							for the core fonts used in Mantle (Euclid Square and IBM Plex
+							Mono). This component takes no props and is automatically included
+							in <Code>MantleThemeHeadContent</Code>.
+						</p>
+					</div>
+
+					<div className="space-y-4">
+						<HashLinkHeading
+							id="api-preload-inter-fonts"
+							className="text-2xl font-medium"
+						>
+							<h3>PreloadInterFonts</h3>
+						</HashLinkHeading>
+						<p className="font-body text-body text-xl">
+							The <Code>PreloadInterFonts</Code> component renders preload links
+							for the optional Inter variable fonts (roman and italic). Use this
+							when your UI opts into the Inter typeface. This component takes no
+							props.
+						</p>
+						<CodeBlock.Root>
+							<CodeBlock.Header>
+								<CodeBlock.Icon svg={<FileTextIcon weight="fill" />} />
+								<CodeBlock.Title>root.tsx</CodeBlock.Title>
+							</CodeBlock.Header>
+							<CodeBlock.Body>
+								<CodeBlock.CopyButton />
+								<CodeBlock.Code
+									language="tsx"
+									value={fmtCode`
+										import { MantleThemeHeadContent, PreloadInterFonts } from "@ngrok/mantle/theme";
+
+										<head>
+											<MantleThemeHeadContent />
+											<PreloadInterFonts />
+										</head>
+									`}
+								/>
+							</CodeBlock.Body>
+						</CodeBlock.Root>
 					</div>
 
 					<div className="space-y-4">

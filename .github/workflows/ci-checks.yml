@@ -39,12 +39,12 @@ jobs:
 
       - name: Fmt and Lint Check 🧹
         run: |
-          pnpm run fmt-lint:check
+          pnpm run fmt:check
 
       - name: Build 🏗️
         run: |
           pnpm run build
-      
+
       - name: Typecheck 🔎
         run: |
           pnpm run typecheck

@@ -5,22 +5,25 @@ import { useAppliedTheme } from "@ngrok/mantle/theme";
 import { HashLinkHeading } from "~/components/hash-link-heading";
 import { HashNavLink } from "~/components/hash-nav-link";
 import { PageHeader } from "~/components/page-header";
+import { makeCanonicalUrl } from "~/utilities/canonical-origin";
 import type { Route } from "./+types/base.colors";
 
-export const meta: Route.MetaFunction = () => {
+export const meta: Route.MetaFunction = ({ location }) => {
+	const canonicalUrl = makeCanonicalUrl(location.pathname);
+
 	return [
 		{ title: "@ngrok/mantle — Colors" },
 		{
-			name: "description",
-			content: "mantle is ngrok's UI library and design system",
+			//,
+			name: "og:url",
+			property: "og:url",
+			content: canonicalUrl,
+		},
+		{
+			name: "twitter:url",
+			content: canonicalUrl,
 		},
 	];
-};
-
-export const headers: Route.HeadersFunction = () => {
-	return {
-		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
-	};
 };
 
 export default function Page() {

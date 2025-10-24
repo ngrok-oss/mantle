@@ -76,7 +76,7 @@ function GitHub(props: SvgAttributes) {
 
 type Props = PropsWithChildren &
 	WithStyleProps & {
-		currentVersion: string;
+		currentVersion: string | undefined;
 	};
 
 export function Layout({ children, className, currentVersion, style }: Props) {
@@ -422,7 +422,9 @@ function ItemName({ children }: PropsWithChildren) {
 	);
 }
 
-function CommandPalette({ currentVersion }: { currentVersion: string }) {
+function CommandPalette({
+	currentVersion,
+}: { currentVersion: string | undefined }) {
 	const navigate = useNavigate();
 	const [open, setOpen] = useState(false);
 	const [currentTheme, setTheme] = useTheme();

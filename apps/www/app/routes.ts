@@ -1,4 +1,89 @@
-import type { RouteConfig } from "@react-router/dev/routes";
-import { flatRoutes } from "@react-router/fs-routes";
+import { type RouteConfig, index, route } from "@react-router/dev/routes";
 
-export default flatRoutes() satisfies RouteConfig;
+export default [
+	index("./routes/_index.tsx"),
+	route("philosophy", "./routes/philosophy.tsx"),
+	route("base/breakpoints", "./routes/base.breakpoints.tsx"),
+	route("base/colors", "./routes/base.colors.tsx"),
+	route("base/shadows", "./routes/base.shadows.tsx"),
+	route("base/tailwind-variants", "./routes/base.tailwind-variants.tsx"),
+	route("base/typography", "./routes/base.typography.tsx"),
+	route(
+		"components/inline-code",
+		"./routes/components._redirect.inline-code.tsx",
+	),
+	route("components/alert-dialog", "./routes/components.alert-dialog.tsx"),
+	route("components/alert", "./routes/components.alert.tsx"),
+	route("components/anchor", "./routes/components.anchor.tsx"),
+	route(
+		"components/auto-scroll-to-hash",
+		"./routes/components.auto-scroll-to-hash.tsx",
+	),
+	route("components/badge", "./routes/components.badge.tsx"),
+	route("components/browser-only", "./routes/components.browser-only.tsx"),
+	route("components/button", "./routes/components.button.tsx"),
+	route("components/card", "./routes/components.card.tsx"),
+	route("components/checkbox", "./routes/components.checkbox.tsx"),
+	route("components/code-block", "./routes/components.code-block.tsx"),
+	route("components/code", "./routes/components.code.tsx"),
+	route("components/dialog", "./routes/components.dialog.tsx"),
+	route("components/dropdown-menu", "./routes/components.dropdown-menu.tsx"),
+	route("components/flag", "./routes/components.flag.tsx"),
+	route("components/hover-card", "./routes/components.hover-card.tsx"),
+	route("components/icon-button", "./routes/components.icon-button.tsx"),
+	route("components/icon", "./routes/components.icon.tsx"),
+	route("components/icons", "./routes/components.icons.tsx"),
+	route("components/input", "./routes/components.input.tsx"),
+	route("components/label", "./routes/components.label.tsx"),
+	route("components/media-object", "./routes/components.media-object.tsx"),
+	route("components/password-input", "./routes/components.password-input.tsx"),
+	route(
+		"components/preview/accordion",
+		"./routes/components.preview.accordion.tsx",
+	),
+	route(
+		"components/preview/calendar",
+		"./routes/components.preview.calendar.tsx",
+	),
+	route(
+		"components/preview/combobox",
+		"./routes/components.preview.combobox.tsx",
+	),
+	route(
+		"components/preview/command",
+		"./routes/components.preview.command.tsx",
+	),
+	route(
+		"components/preview/data-table",
+		"./routes/components.preview.data-table.tsx",
+	),
+	route(
+		"components/preview/pagination",
+		"./routes/components.preview.pagination.tsx",
+	),
+	route(
+		"components/preview/popover",
+		"./routes/components.preview.popover.tsx",
+	),
+	route(
+		"components/preview/tooltip",
+		"./routes/components.preview.tooltip.tsx",
+	),
+	route("components/progress-bar", "./routes/components.progress-bar.tsx"),
+	route("components/progress-donut", "./routes/components.progress-donut.tsx"),
+	route("components/radio-group", "./routes/components.radio-group.tsx"),
+	route(
+		"components/sandboxed-on-click",
+		"./routes/components.sandboxed-on-click.tsx",
+	),
+	route("components/select", "./routes/components.select.tsx"),
+	route("components/separator", "./routes/components.separator.tsx"),
+	route("components/sheet", "./routes/components.sheet.tsx"),
+	route("components/skeleton", "./routes/components.skeleton.tsx"),
+	route("components/switch", "./routes/components.switch.tsx"),
+	route("components/table", "./routes/components.table.tsx"),
+	route("components/tabs", "./routes/components.tabs.tsx"),
+	route("components/text-area", "./routes/components.text-area.tsx"),
+	route("components/theme", "./routes/components.theme.tsx"),
+	route("components/toast", "./routes/components.toast.tsx"),
+] satisfies RouteConfig;

@@ -2,7 +2,7 @@
   "private": true,
   "name": "mantle",
   "license": "MIT",
-  "packageManager": "pnpm@10.18.3",
+  "packageManager": "pnpm@10.19.0",
   "type": "module",
   "engines": {
     "node": "^22.0.0"
@@ -13,12 +13,8 @@
     "serve": "turbo run serve",
     "clean": "turbo run clean",
     "clean:node_modules": "node ./scripts/clean-node-modules.js",
-    "fmt-lint:check": "biome check . --diagnostic-level=error",
-    "fmt-lint": "biome check . --write --diagnostic-level=error",
-    "fmt:check": "biome check --organize-imports-enabled=true --formatter-enabled=true --linter-enabled=false .",
-    "fmt": "biome check --organize-imports-enabled=true --formatter-enabled=true --linter-enabled=false --write .",
-    "lint-fmt:check": "pnpm run fmt-lint:check",
-    "lint-fmt": "pnpm run fmt-lint",
+    "fmt:check": "biome check . --diagnostic-level=error",
+    "fmt": "biome check . --write --diagnostic-level=error",
     "lint:fix": "biome lint . --write --diagnostic-level=error",
     "lint": "biome lint . --diagnostic-level=error",
     "test": "turbo run test",
@@ -32,7 +28,7 @@
     "@biomejs/biome": "1.9.4",
     "@changesets/changelog-github": "0.5.1",
     "@changesets/cli": "2.29.7",
-    "@types/node": "22.18.11",
+    "@types/node": "22.18.12",
     "turbo": "2.5.8",
     "vitest": "3.2.4"
   },

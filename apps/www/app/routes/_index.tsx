@@ -14,19 +14,7 @@ import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/_index";
 
 export const meta: Route.MetaFunction = () => {
-	return [
-		{ title: "@ngrok/mantle" },
-		{
-			name: "description",
-			content: "mantle is ngrok's UI library and design system",
-		},
-	];
-};
-
-export const headers: Route.HeadersFunction = () => {
-	return {
-		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
-	};
+	return [{ title: "@ngrok/mantle" }];
 };
 
 export default function Page() {
@@ -429,10 +417,10 @@ function ReactRouterScaffolding() {
 									<html {...initialHtmlThemeProps} lang="en-US" dir="ltr">
 										<head>
 											<meta charSet="utf-8" />
+											<meta name="viewport" content="width=device-width, initial-scale=1" />
 											{/* 👇 The MantleThemeHeadContent should be rendered at the top of your <head>
 													to prevent a flash of unstyled content (FOUC)! */}
 											<MantleThemeHeadContent />
-											<meta name="viewport" content="width=device-width, initial-scale=1" />
 											<Meta />
 											<Links />
 										</head>

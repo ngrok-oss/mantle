@@ -22,8 +22,11 @@ export {
 
 export {
 	//,
-	PreloadFonts,
-} from "./preload-fonts.js";
+	assetsCdnOrigin,
+	fontHref,
+	PreloadCoreFonts,
+	PreloadInterFonts,
+} from "./fonts.js";
 
 export type {
 	//,

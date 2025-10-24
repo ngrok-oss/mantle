@@ -17,12 +17,6 @@ export const meta: Route.MetaFunction = () => {
 	];
 };
 
-export const headers: Route.HeadersFunction = () => {
-	return {
-		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
-	};
-};
-
 export default function PhilosophyPage() {
 	return (
 		<div>
