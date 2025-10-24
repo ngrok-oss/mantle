@@ -3,6 +3,7 @@ import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import {
 	PreloadCoreFonts,
+	PreloadInterFonts,
 	preventWrongThemeFlashScriptContent,
 } from "@ngrok/mantle/theme";
 import { FileTextIcon } from "@phosphor-icons/react/FileText";
@@ -162,7 +163,10 @@ ${preventWrongThemeFlashScriptContent()}
 							<CodeBlock.Code
 								language="html"
 								value={fmtCode`<head>\n\t${renderToStaticMarkup(
-									<PreloadCoreFonts />,
+									<>
+										<PreloadCoreFonts />
+										<PreloadInterFonts />
+									</>,
 								)
 									.split("/><")
 									.join("/>\n\t<")}\n</head>`}
@@ -365,6 +369,41 @@ ${preventWrongThemeFlashScriptContent()}
 							Mono). This component takes no props and is automatically included
 							in <Code>MantleThemeHeadContent</Code>.
 						</p>
+					</div>
+
+					<div className="space-y-4">
+						<HashLinkHeading
+							id="api-preload-inter-fonts"
+							className="text-2xl font-medium"
+						>
+							<h3>PreloadInterFonts</h3>
+						</HashLinkHeading>
+						<p className="font-body text-body text-xl">
+							The <Code>PreloadInterFonts</Code> component renders preload links
+							for the optional Inter variable fonts (roman and italic). Use this
+							when your UI opts into the Inter typeface. This component takes no
+							props.
+						</p>
+						<CodeBlock.Root>
+							<CodeBlock.Header>
+								<CodeBlock.Icon svg={<FileTextIcon weight="fill" />} />
+								<CodeBlock.Title>root.tsx</CodeBlock.Title>
+							</CodeBlock.Header>
+							<CodeBlock.Body>
+								<CodeBlock.CopyButton />
+								<CodeBlock.Code
+									language="tsx"
+									value={fmtCode`
+										import { MantleThemeHeadContent, PreloadInterFonts } from "@ngrok/mantle/theme";
+
+										<head>
+											<MantleThemeHeadContent />
+											<PreloadInterFonts />
+										</head>
+									`}
+								/>
+							</CodeBlock.Body>
+						</CodeBlock.Root>
 					</div>
 
 					<div className="space-y-4">
