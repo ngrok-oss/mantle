@@ -1,5 +1,13 @@
 # @ngrok/mantle
 
+## 0.57.1
+
+### Patch Changes
+
+- [#852](https://github.com/ngrok-oss/mantle/pull/852) [`d5cbefb`](https://github.com/ngrok-oss/mantle/commit/d5cbefbbb04d507380c90f1e1a5d6642a6a3790c) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Command: export MetaKey component for platform-aware keyboard shortcuts
+
+  Extract MetaKey as a reusable SSR-safe component that displays the appropriate modifier key (⌘ for macOS/iOS, Ctrl for others) in keyboard shortcut hints.
+
 ## 0.57.0
 
 ### Minor Changes
