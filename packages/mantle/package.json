@@ -68,9 +68,9 @@
     "@types/prismjs": "1.26.5",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
-    "browserslist": "4.26.3",
+    "browserslist": "4.27.0",
     "date-fns": "4.1.0",
-    "jsdom": "27.0.0",
+    "jsdom": "27.0.1",
     "react": "catalog:",
     "react-dom": "catalog:",
     "react-router": "catalog:",
@@ -84,7 +84,7 @@
     "react": "^18 || ^19",
     "react-dom": "^18 || ^19",
     "react-router": "^7",
-    "tailwindcss": "^4.1.14"
+    "tailwindcss": "^4.1.16"
   },
   "exports": {
     "./mantle.css": "./assets/mantle.css",
