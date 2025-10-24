@@ -1,6 +1,6 @@
 import { Anchor } from "@ngrok/mantle/anchor";
 import { Button, IconButton } from "@ngrok/mantle/button";
-import { Command } from "@ngrok/mantle/command";
+import { Command, MetaKey } from "@ngrok/mantle/command";
 import { cx } from "@ngrok/mantle/cx";
 import { DropdownMenu } from "@ngrok/mantle/dropdown-menu";
 import type { SvgAttributes } from "@ngrok/mantle/icon";
@@ -25,18 +25,10 @@ import {
 } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 import { Link, href, useNavigate } from "react-router";
-import { useIsMounted } from "usehooks-ts";
 import { PreviewBadge } from "~/components/badges";
 import { ThemeSwitcher } from "~/components/theme-switcher";
 import { NavLink } from "./nav-link";
 import { useNavigation } from "./navigation-context";
-
-function MetaKey() {
-	const mounted = useIsMounted();
-	const isMac = navigator.userAgent.toLowerCase().includes("mac");
-	if (!mounted() || !navigator) return "";
-	return isMac ? "⌘" : "Ctrl";
-}
 
 const NgrokLogo = () => (
 	<svg width="82" height="34" className="xs:block hidden">
@@ -449,7 +441,6 @@ function CommandPalette({
 				className="hidden sm:flex"
 			>
 				<span className="sr-only">Search Mantle</span>
-				<MagnifyingGlassIcon />
 				Search
 				<kbd className="bg-muted text-muted pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none">
 					<MetaKey /> K

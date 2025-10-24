@@ -14,7 +14,7 @@ import { Dialog } from "../dialog/dialog.js";
 /**
  * The root component for the Command. It provides the context for all other command sub-components.
  *
- * @see https://mantle.ngrok.com/components/command#api-command-root
+ * @see https://mantle.ngrok.com/components/preview/command#api-command-root
  *
  * @example
  * ```tsx
@@ -55,7 +55,7 @@ CommandRoot.displayName = "Command";
 /**
  * The props for the CommandDialog component.
  *
- * @see https://mantle.ngrok.com/components/command#api-command-dialog
+ * @see https://mantle.ngrok.com/components/preview/command#api-command-dialog
  */
 type CommandDialogProps = ComponentPropsWithoutRef<typeof Dialog.Root> & {
 	/**
@@ -80,7 +80,7 @@ type CommandDialogProps = ComponentPropsWithoutRef<typeof Dialog.Root> & {
  * A window overlaid on either the primary window or another dialog window.
  * The root stateful component for the CommandDialog.
  *
- * @see https://mantle.ngrok.com/components/command#api-command-dialog
+ * @see https://mantle.ngrok.com/components/preview/command#api-command-dialog
  *
  * @example
  * ```tsx
@@ -116,7 +116,7 @@ const CommandDialog = ({
 			<Dialog.Description>{description}</Dialog.Description>
 		</Dialog.Header>
 		<Dialog.Content className={cx("overflow-hidden p-0 relative", className)}>
-			<CommandRoot className="[&_[cmdk-group-heading]]:text-muted **:data-[slot=command-input-wrapper]:h-12 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group]]:px-2 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5">
+			<CommandRoot className="**:[[cmdk-group-heading]]:text-muted **:data-[slot=command-input-wrapper]:h-12 **:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:font-medium **:[[cmdk-group]]:px-2 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 **:[[cmdk-input]]:h-12 **:[[cmdk-item]]:px-2 **:[[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5">
 				{children}
 			</CommandRoot>
 			{showCloseButton && (
@@ -132,7 +132,7 @@ CommandDialog.displayName = "CommandDialog";
 /**
  * The input component for the Command. It provides the input for the command palette.
  *
- * @see https://mantle.ngrok.com/components/command#api-command-input
+ * @see https://mantle.ngrok.com/components/preview/command#api-command-input
  *
  * @example
  * ```tsx
@@ -179,7 +179,7 @@ CommandInput.displayName = "CommandInput";
 /**
  * The list component for the Command. It provides the list for the command palette.
  *
- * @see https://mantle.ngrok.com/components/command#api-command-list
+ * @see https://mantle.ngrok.com/components/preview/command#api-command-list
  *
  * @example
  * ```tsx
@@ -220,7 +220,7 @@ CommandList.displayName = "CommandList";
 /**
  * The empty component for the Command. It provides the empty state for the command palette.
  *
- * @see https://mantle.ngrok.com/components/command#api-command-empty
+ * @see https://mantle.ngrok.com/components/preview/command#api-command-empty
  *
  * @example
  * ```tsx
@@ -258,7 +258,7 @@ CommandEmpty.displayName = "CommandEmpty";
 /**
  * The group component for the Command. It provides the group for the command palette.
  *
- * @see https://mantle.ngrok.com/components/command#api-command-group
+ * @see https://mantle.ngrok.com/components/preview/command#api-command-group
  *
  * @example
  * ```tsx
@@ -288,7 +288,7 @@ const CommandGroup = forwardRef<
 		ref={ref}
 		data-slot="command-group"
 		className={cx(
-			"[&_[cmdk-group-heading]]:text-muted overflow-hidden p-1 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium",
+			"**:[[cmdk-group-heading]]:text-muted overflow-hidden p-1 **:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:py-1.5 **:[[cmdk-group-heading]]:text-xs **:[[cmdk-group-heading]]:font-medium",
 			className,
 		)}
 		{...props}
@@ -299,7 +299,7 @@ CommandGroup.displayName = "CommandGroup";
 /**
  * The separator component for the Command. It provides the separator for the command palette.
  *
- * @see https://mantle.ngrok.com/components/command#api-command-separator
+ * @see https://mantle.ngrok.com/components/preview/command#api-command-separator
  *
  * @example
  * ```tsx
@@ -340,7 +340,7 @@ CommandSeparator.displayName = "CommandSeparator";
 /**
  * The item component for the Command. It provides the item for the command palette.
  *
- * @see https://mantle.ngrok.com/components/command#api-command-item
+ * @see https://mantle.ngrok.com/components/preview/command#api-command-item
  *
  * @example
  * ```tsx
@@ -381,7 +381,7 @@ CommandItem.displayName = "CommandItem";
 /**
  * The shortcut component for the Command. It provides the shortcut for the command palette.
  *
- * @see https://mantle.ngrok.com/components/command#api-command-shortcut
+ * @see https://mantle.ngrok.com/components/preview/command#api-command-shortcut
  *
  * @example
  * ```tsx
@@ -420,7 +420,7 @@ CommandShortcut.displayName = "CommandShortcut";
 /**
  * The command component for the Command. It provides the command for the command palette.
  *
- * @see https://mantle.ngrok.com/components/command#api-command
+ * @see https://mantle.ngrok.com/components/preview/command#api-command
  *
  * @example
  * ```tsx
@@ -446,7 +446,7 @@ const Command = {
 	/**
 	 * The root component for the Command component.
 	 *
-	 * @see https://mantle.ngrok.com/components/command#api-command-root
+	 * @see https://mantle.ngrok.com/components/preview/command#api-command-root
 	 *
 	 * @example
 	 * ```tsx
@@ -462,7 +462,7 @@ const Command = {
 	/**
 	 * The dialog component for the Command component.
 	 *
-	 * @see https://mantle.ngrok.com/components/command#api-command-dialog
+	 * @see https://mantle.ngrok.com/components/preview/command#api-command-dialog
 	 *
 	 * @example
 	 * ```tsx
@@ -478,7 +478,7 @@ const Command = {
 	/**
 	 * The input component for the Command component.
 	 *
-	 * @see https://mantle.ngrok.com/components/command#api-command-input
+	 * @see https://mantle.ngrok.com/components/preview/command#api-command-input
 	 *
 	 * @example
 	 * ```tsx
@@ -489,7 +489,7 @@ const Command = {
 	/**
 	 * The list component for the Command component.
 	 *
-	 * @see https://mantle.ngrok.com/components/command#api-command-list
+	 * @see https://mantle.ngrok.com/components/preview/command#api-command-list
 	 *
 	 * @example
 	 * ```tsx
@@ -501,7 +501,7 @@ const Command = {
 	/**
 	 * The empty component for the Command component.
 	 *
-	 * @see https://mantle.ngrok.com/components/command#api-command-empty
+	 * @see https://mantle.ngrok.com/components/preview/command#api-command-empty
 	 *
 	 * @example
 	 * ```tsx
@@ -512,7 +512,7 @@ const Command = {
 	/**
 	 * The group component for the Command component.
 	 *
-	 * @see https://mantle.ngrok.com/components/command#api-command-group
+	 * @see https://mantle.ngrok.com/components/preview/command#api-command-group
 	 *
 	 * @example
 	 * ```tsx
@@ -527,7 +527,7 @@ const Command = {
 	/**
 	 * The item component for the Command component.
 	 *
-	 * @see https://mantle.ngrok.com/components/command#api-command-item
+	 * @see https://mantle.ngrok.com/components/preview/command#api-command-item
 	 *
 	 * @example
 	 * ```tsx
@@ -540,7 +540,7 @@ const Command = {
 	/**
 	 * The shortcut component for the Command component.
 	 *
-	 * @see https://mantle.ngrok.com/components/command#api-command-shortcut
+	 * @see https://mantle.ngrok.com/components/preview/command#api-command-shortcut
 	 *
 	 * @example
 	 * ```tsx
@@ -551,7 +551,7 @@ const Command = {
 	/**
 	 * The seprator component for the Command component.
 	 *
-	 * @see https://mantle.ngrok.com/components/command#api-command-separator
+	 * @see https://mantle.ngrok.com/components/preview/command#api-command-separator
 	 *
 	 * @example
 	 * ```tsx
