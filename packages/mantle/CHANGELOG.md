@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.57.0
+
+### Minor Changes
+
+- [#849](https://github.com/ngrok-oss/mantle/pull/849) [`a83221a`](https://github.com/ngrok-oss/mantle/commit/a83221adbe84a309c77b19378ad5ed973584dee7) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Remove EuclidSquare bold/semibold; export new theme font helper components
+
 ## 0.56.0
 
 ### Minor Changes
