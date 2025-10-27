@@ -143,7 +143,7 @@ const Root = forwardRef<
 		<CodeBlockContext.Provider value={context}>
 			<Component
 				className={cx(
-					"text-size-mono overflow-hidden rounded-md border border-gray-300 bg-gray-50 font-mono",
+					"text-mono overflow-hidden rounded-md border border-gray-300 bg-gray-50 font-mono",
 					"[&_svg]:shrink-0",
 					className,
 				)}
@@ -306,7 +306,7 @@ const Code = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
 				aria-expanded={hasCodeExpander ? isCodeExpanded : undefined}
 				className={cx(
 					"scrollbar overflow-x-auto overflow-y-hidden p-4 pr-14",
-					"text-size-inherit text-size-mono m-0 font-mono",
+					"text-mono m-0 font-mono",
 					"aria-collapsed:max-h-[13.6rem]",
 					languageClassName, // place it last because prism does weird stuff client side, causes hydration mismatches
 					className,
@@ -325,7 +325,7 @@ const Code = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
 				{...props}
 			>
 				<code
-					className={clsx("text-size-inherit", languageClassName)}
+					className={clsx("text-inherit", languageClassName)}
 					dangerouslySetInnerHTML={{
 						__html: highlightedCodeInnerHtml,
 					}}
@@ -409,7 +409,7 @@ const Title = forwardRef<
 	return (
 		<Component
 			ref={ref}
-			className={cx("text-size-mono m-0 font-mono font-normal", className)}
+			className={cx("text-mono m-0 font-mono font-normal", className)}
 			{...props}
 		/>
 	);
