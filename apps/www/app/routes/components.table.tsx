@@ -549,7 +549,9 @@ const ExampleTable = () => {
 				<Table.Body>
 					{invoices.map((invoice) => (
 						<Table.Row key={invoice.invoice}>
-							<Table.Cell className="font-medium">{invoice.invoice}</Table.Cell>
+							<Table.Cell className="font-medium text-base leading-5">
+								{invoice.invoice}
+							</Table.Cell>
 							<Table.Cell>{invoice.paymentStatus}</Table.Cell>
 							<Table.Cell>{invoice.paymentMethod}</Table.Cell>
 							<Table.Cell className="text-right">

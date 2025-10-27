@@ -1,5 +1,13 @@
 import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
+import { extendTailwindMerge } from "tailwind-merge";
+
+const twMerge = extendTailwindMerge({
+	extend: {
+		classGroups: {
+			"font-size": ["text-mono"],
+		},
+	},
+});
 
 /**
  * Conditionally add Tailwind (and other) CSS classes.
