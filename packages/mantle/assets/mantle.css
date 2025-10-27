@@ -1196,6 +1196,7 @@
 
 	--text-mono: 0.8125rem;
 	--text-mono--line-height: 1.25rem;
+	--text-size-inherit: inherit;
 
 	--shadow-sm: 0px 1px 2px 0
 		--alpha(var(--shadow-color) / var(--shadow-first-opacity));

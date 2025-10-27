@@ -67,4 +67,12 @@ describe("cx", () => {
 	test("text-mono with other classes and text-xl override", () => {
 		expect(cx("font-mono text-mono p-4 text-xl")).toBe("font-mono p-4 text-xl");
 	});
+
+	test("text-size-inherit can be overridden by text-base", () => {
+		expect(cx("text-size-inherit text-base")).toBe("text-base");
+	});
+
+	test("text-base can be overridden by text-size-inherit", () => {
+		expect(cx("text-base text-size-inherit")).toBe("text-size-inherit");
+	});
 });
