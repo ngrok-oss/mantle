@@ -529,7 +529,7 @@ const Cell = forwardRef<ComponentRef<"td">, ComponentProps<"td">>(
 		<td
 			ref={ref}
 			className={cx(
-				"p-4 align-middle [&:has([role=checkbox])]:pr-0 font-mono text-size-mono",
+				"p-4 align-middle [&:has([role=checkbox])]:pr-0 font-mono text-mono",
 				className,
 			)}
 			{...props}
