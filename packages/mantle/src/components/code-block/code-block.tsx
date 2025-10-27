@@ -306,7 +306,7 @@ const Code = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
 				aria-expanded={hasCodeExpander ? isCodeExpanded : undefined}
 				className={cx(
 					"scrollbar overflow-x-auto overflow-y-hidden p-4 pr-14",
-					"text-inherit text-mono m-0 font-mono",
+					"text-mono m-0 font-mono",
 					"aria-collapsed:max-h-[13.6rem]",
 					languageClassName, // place it last because prism does weird stuff client side, causes hydration mismatches
 					className,
