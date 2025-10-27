@@ -325,7 +325,7 @@ const Code = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
 				{...props}
 			>
 				<code
-					className={clsx("text-inherit", languageClassName)}
+					className={clsx("text-size-inherit", languageClassName)}
 					dangerouslySetInnerHTML={{
 						__html: highlightedCodeInnerHtml,
 					}}
