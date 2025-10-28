@@ -30,7 +30,7 @@
     "@changesets/cli": "2.29.7",
     "@types/node": "22.18.12",
     "turbo": "2.5.8",
-    "vitest": "3.2.4"
+    "vitest": "4.0.4"
   },
   "pnpm": {
     "overrides": {
