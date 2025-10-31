@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.57.5
+
+### Patch Changes
+
+- [#864](https://github.com/ngrok-oss/mantle/pull/864) [`aa7f600`](https://github.com/ngrok-oss/mantle/commit/aa7f600d4abcc7d063da1911e2f2e0acc2d82bb3) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add `filter` and `shouldFilter` props to `Command.Dialog` for custom filtering behavior
+
 ## 0.57.4
 
 ### Patch Changes
