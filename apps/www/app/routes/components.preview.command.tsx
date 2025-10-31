@@ -371,6 +371,14 @@ export default function Page() {
 								<Code>Command Dialog</Code>
 							</Anchor>
 						</p>
+
+						<p className="font-body text-body">
+							Additional props include <Code>title</Code>,{" "}
+							<Code>description</Code>, <Code>className</Code>,{" "}
+							<Code>showCloseButton</Code>, <Code>filter</Code>, and{" "}
+							<Code>shouldFilter</Code> to customize the dialog appearance and
+							filtering behavior.
+						</p>
 					</header>
 				</section>
 
