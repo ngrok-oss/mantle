@@ -11,6 +11,8 @@ import {
 import { cx } from "../../utils/cx/cx.js";
 import { Dialog } from "../dialog/dialog.js";
 
+type CommandRootProps = ComponentPropsWithoutRef<typeof CommandPrimitive>;
+
 /**
  * The root component for the Command. It provides the context for all other command sub-components.
  *
@@ -36,20 +38,19 @@ import { Dialog } from "../dialog/dialog.js";
  *   </Command.List>
  * </Command.Root>
  */
-const CommandRoot = forwardRef<
-	ComponentRef<"div">,
-	ComponentPropsWithoutRef<typeof CommandPrimitive>
->(({ className, ...props }, ref) => (
-	<CommandPrimitive
-		ref={ref}
-		data-slot="command"
-		className={cx(
-			"bg-popover flex h-full w-full flex-col overflow-hidden rounded-md",
-			className,
-		)}
-		{...props}
-	/>
-));
+const CommandRoot = forwardRef<ComponentRef<"div">, CommandRootProps>(
+	({ className, ...props }, ref) => (
+		<CommandPrimitive
+			ref={ref}
+			data-slot="command"
+			className={cx(
+				"bg-popover flex h-full w-full flex-col overflow-hidden rounded-md",
+				className,
+			)}
+			{...props}
+		/>
+	),
+);
 CommandRoot.displayName = "Command";
 
 /**
@@ -74,6 +75,18 @@ type CommandDialogProps = ComponentPropsWithoutRef<typeof Dialog.Root> & {
 	 * Whether to show the close button.
 	 */
 	showCloseButton?: boolean;
+	/**
+	 * Custom filter function for the command list.
+	 *
+	 * @see https://github.com/pacocoursey/cmdk?tab=readme-ov-file#filtering
+	 */
+	filter?: CommandRootProps["filter"];
+	/**
+	 * Whether to enable filtering of command items. When false, disables built-in filtering.
+	 *
+	 * @see https://github.com/pacocoursey/cmdk?tab=readme-ov-file#filtering
+	 */
+	shouldFilter?: CommandRootProps["shouldFilter"];
 };
 
 /**
@@ -103,11 +116,13 @@ type CommandDialogProps = ComponentPropsWithoutRef<typeof Dialog.Root> & {
  * </Command.Dialog>
  */
 const CommandDialog = ({
-	title = "Command Palette",
-	description = "Search for a command to run...",
 	children,
 	className,
+	description = "Search for a command to run...",
+	filter,
+	shouldFilter,
 	showCloseButton = true,
+	title = "Command Palette",
 	...props
 }: CommandDialogProps) => (
 	<Dialog.Root {...props}>
@@ -116,7 +131,11 @@ const CommandDialog = ({
 			<Dialog.Description>{description}</Dialog.Description>
 		</Dialog.Header>
 		<Dialog.Content className={cx("overflow-hidden p-0 relative", className)}>
-			<CommandRoot className="**:[[cmdk-group-heading]]:text-muted **:data-[slot=command-input-wrapper]:h-12 **:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:font-medium **:[[cmdk-group]]:px-2 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 **:[[cmdk-input]]:h-12 **:[[cmdk-item]]:px-2 **:[[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5">
+			<CommandRoot
+				className="**:[[cmdk-group-heading]]:text-muted **:data-[slot=command-input-wrapper]:h-12 **:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:font-medium **:[[cmdk-group]]:px-2 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 **:[[cmdk-input]]:h-12 **:[[cmdk-item]]:px-2 **:[[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5"
+				filter={filter}
+				shouldFilter={shouldFilter}
+			>
 				{children}
 			</CommandRoot>
 			{showCloseButton && (
