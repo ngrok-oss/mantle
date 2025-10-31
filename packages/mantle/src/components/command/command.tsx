@@ -4,7 +4,6 @@ import { MagnifyingGlassIcon } from "@phosphor-icons/react/MagnifyingGlass";
 import { Command as CommandPrimitive, useCommandState } from "cmdk";
 
 import {
-	type ComponentProps,
 	type ComponentPropsWithoutRef,
 	type ComponentRef,
 	forwardRef,
