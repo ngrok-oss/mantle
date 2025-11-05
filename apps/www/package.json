@@ -18,7 +18,7 @@
   "dependencies": {
     "@ngrok/mantle": "workspace:*",
     "@phosphor-icons/react": "catalog:",
-    "@radix-ui/react-slot": "1.2.3",
+    "@radix-ui/react-slot": "1.2.4",
     "@react-router/node": "catalog:",
     "@react-router/serve": "catalog:",
     "@tanstack/react-form": "1.23.8",
