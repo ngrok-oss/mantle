@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.58.1
+
+### Patch Changes
+
+- [#871](https://github.com/ngrok-oss/mantle/pull/871) [`61b3eee`](https://github.com/ngrok-oss/mantle/commit/61b3eee335b17bcb12a5df170f070b60d82a1c42) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Update Kbd bg color
+
 ## 0.58.0
 
 ### Minor Changes
