@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.58.2
+
+### Patch Changes
+
+- [#873](https://github.com/ngrok-oss/mantle/pull/873) [`f8170b9`](https://github.com/ngrok-oss/mantle/commit/f8170b9f2a73cde6aa5dfc44b10f64f3c2eb8180) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update dependencies; add static white, static black, and ff00ff as colors
+
 ## 0.58.1
 
 ### Patch Changes
