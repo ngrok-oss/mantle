@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.58.0
+
+### Minor Changes
+
+- [#869](https://github.com/ngrok-oss/mantle/pull/869) [`e38e79a`](https://github.com/ngrok-oss/mantle/commit/e38e79a664f26a1793c74f2d4056c2194bb72507) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add Kbd component and documentation page for keyboard shortcuts
+
 ## 0.57.5
 
 ### Patch Changes
