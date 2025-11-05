@@ -70,7 +70,7 @@
     "@types/react-dom": "catalog:",
     "browserslist": "4.27.0",
     "date-fns": "4.1.0",
-    "jsdom": "27.0.1",
+    "jsdom": "27.1.0",
     "react": "catalog:",
     "react-dom": "catalog:",
     "react-router": "catalog:",
