@@ -4,6 +4,7 @@ import { Command, MetaKey } from "@ngrok/mantle/command";
 import { cx } from "@ngrok/mantle/cx";
 import { DropdownMenu } from "@ngrok/mantle/dropdown-menu";
 import type { SvgAttributes } from "@ngrok/mantle/icon";
+import { Kbd } from "@ngrok/mantle/kbd";
 import { useTheme } from "@ngrok/mantle/theme";
 import type { WithStyleProps } from "@ngrok/mantle/types";
 import {
@@ -443,9 +444,10 @@ function CommandPalette({
 			>
 				<span className="sr-only">Search Mantle</span>
 				Search
-				<kbd className="bg-muted text-muted pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none">
-					<MetaKey /> K
-				</kbd>
+				<span className="inline-flex gap-1 items-center pointer-events-none select-none">
+					<MetaKey />
+					<Kbd>K</Kbd>
+				</span>
 			</Button>
 			<Command.Dialog open={open} onOpenChange={setOpen}>
 				<Command.Input placeholder="Search Mantle..." />

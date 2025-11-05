@@ -225,6 +225,11 @@
       "import": "./dist/input.js",
       "types": "./dist/input.d.ts"
     },
+    "./kbd": {
+      "@ngrok/mantle/source": "./src/components/kbd/index.ts",
+      "import": "./dist/kbd.js",
+      "types": "./dist/kbd.d.ts"
+    },
     "./label": {
       "@ngrok/mantle/source": "./src/components/label/index.ts",
       "import": "./dist/label.js",
