@@ -34,6 +34,7 @@ export default [
 	route("components/icon", "./routes/components.icon.tsx"),
 	route("components/icons", "./routes/components.icons.tsx"),
 	route("components/input", "./routes/components.input.tsx"),
+	route("components/kbd", "./routes/components.kbd.tsx"),
 	route("components/label", "./routes/components.label.tsx"),
 	route("components/media-object", "./routes/components.media-object.tsx"),
 	route("components/password-input", "./routes/components.password-input.tsx"),

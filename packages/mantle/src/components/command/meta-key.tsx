@@ -1,19 +1,36 @@
-import { useEffect, useState } from "react";
+import { type ComponentProps, useEffect, useState } from "react";
+import { cx } from "../../utils/cx/cx.js";
+import { Kbd } from "../kbd/kdb.js";
+
+type Props = Omit<ComponentProps<"kbd">, "children">;
+
+type Mod = "⌘" | "⌃";
 
 /**
- * Renders the platform-appropriate meta key label (⌘ or Ctrl).
+ * Renders the platform-appropriate meta key kbd (⌘ or ⌃).
  *
- * - Initializes to `"Ctrl"` to avoid SSR mismatch.
+ * - Initializes to `"⌃"` to avoid SSR mismatch.
  * - Updates on mount using `detectMetaKey()`.
  */
-function MetaKey() {
-	const [label, setLabel] = useState<"⌘" | "Ctrl">("Ctrl");
+function MetaKey({ className, ...props }: Props) {
+	const [glyph, setGlyph] = useState<Mod>("⌃");
 
 	useEffect(() => {
-		setLabel(detectMetaKey());
+		setGlyph(detectMetaKey());
 	}, []);
 
-	return <span suppressHydrationWarning>{label}</span>;
+	const label = glyph === "⌘" ? "Command" : "Control";
+
+	return (
+		<Kbd
+			{...props}
+			suppressHydrationWarning
+			className={cx(glyph === "⌃" && "font-medium", className)}
+		>
+			<span className="sr-only">{label}</span>
+			{glyph}
+		</Kbd>
+	);
 }
 
 export {
@@ -37,13 +54,13 @@ function hasUAData(
 /**
  * Detects the appropriate meta key label for the current platform.
  *
- * SSR-safe: returns `"Ctrl"` when `navigator` is not available.
+ * SSR-safe: returns `"⌃"` when `navigator` is not available.
  *
- * @returns `"⌘"` for Apple platforms; otherwise `"Ctrl"`.
+ * @returns `"⌘"` for Apple platforms; otherwise `"⌃"`.
  */
-function detectMetaKey(): "⌘" | "Ctrl" {
+function detectMetaKey(): Mod {
 	if (typeof navigator === "undefined") {
-		return "Ctrl"; // SSR default
+		return "⌃"; // SSR default
 	}
 
 	let platform = "";
@@ -62,5 +79,5 @@ function detectMetaKey(): "⌘" | "Ctrl" {
 		return "⌘";
 	}
 
-	return "Ctrl";
+	return "⌃";
 }
