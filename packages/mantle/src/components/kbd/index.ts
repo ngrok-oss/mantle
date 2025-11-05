@@ -1,4 +1,4 @@
 export {
 	//,
 	Kbd,
-} from "./kdb.js";
+} from "./kbd.js";

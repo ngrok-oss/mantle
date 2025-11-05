@@ -1,6 +1,6 @@
 import { type ComponentProps, useEffect, useState } from "react";
 import { cx } from "../../utils/cx/cx.js";
-import { Kbd } from "../kbd/kdb.js";
+import { Kbd } from "../kbd/kbd.js";
 
 type Props = Omit<ComponentProps<"kbd">, "children">;
 
