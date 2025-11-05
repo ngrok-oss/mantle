@@ -124,14 +124,20 @@
 	}
 }
 
+@theme {
+	--color-white: oklch(100% 0 0);
+	--color-black: oklch(0% 0 0);
+	--color-static-white: oklch(100% 0 0);
+	--color-static-black: oklch(0% 0 0);
+	--color-ff00ff: oklch(0.70188 0.35257 328.35);
+	--color-ff00ff: color(display-p3 0.94164 0 0.99869);
+}
+
 :root,
 :root.light,
 :root[data-theme="light"],
 :root[data-applied-theme="light"] {
 	color-scheme: light;
-
-	--color-white: oklch(100% 0 0);
-	--color-black: oklch(0% 0 0);
 
 	--color-neutral-50: oklch(98.4% 0.0017 258.6);
 	--color-neutral-100: oklch(96.7% 0.0032 261.6);
