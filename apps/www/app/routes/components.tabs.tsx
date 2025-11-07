@@ -3,6 +3,7 @@ import { Card } from "@ngrok/mantle/card";
 import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { Icon } from "@ngrok/mantle/icon";
+import { Separator } from "@ngrok/mantle/separator";
 import { Tabs } from "@ngrok/mantle/tabs";
 import { GlobeIcon } from "@phosphor-icons/react/Globe";
 import { ShieldCheckIcon } from "@phosphor-icons/react/ShieldCheck";
@@ -42,7 +43,7 @@ export default function Page() {
 						<p>
 							<Code>asChild</Code> with <Code>Link</Code>s
 						</p>
-						<div className="scrollbar -mt-4 overflow-x-scroll">
+						<div className="scrollbar -m-1 p-1 overflow-x-scroll">
 							<Tabs.Root orientation="horizontal" defaultValue="colors">
 								<Tabs.List>
 									<Tabs.Trigger value="colors" asChild>
@@ -62,7 +63,7 @@ export default function Page() {
 								</Tabs.List>
 							</Tabs.Root>
 						</div>
-						<div className="scrollbar overflow-x-scroll">
+						<div className="scrollbar -m-1 p-1 overflow-x-scroll">
 							<Tabs.Root orientation="horizontal" defaultValue="tab-1">
 								<Tabs.List>
 									<Tabs.Trigger value="tab-1">Tab Title</Tabs.Trigger>
@@ -74,7 +75,7 @@ export default function Page() {
 								</Tabs.List>
 							</Tabs.Root>
 						</div>
-						<div className="scrollbar overflow-x-scroll">
+						<div className="scrollbar -m-1 p-1 overflow-x-scroll">
 							<Tabs.Root orientation="horizontal" defaultValue="tab-1">
 								<Tabs.List>
 									<Tabs.Trigger value="tab-1">
@@ -96,7 +97,7 @@ export default function Page() {
 								</Tabs.List>
 							</Tabs.Root>
 						</div>
-						<div className="scrollbar overflow-x-scroll">
+						<div className="scrollbar -m-1 p-1 overflow-x-scroll">
 							<Tabs.Root orientation="horizontal" defaultValue="tab-1">
 								<Tabs.List>
 									<Tabs.Trigger value="tab-1">
@@ -118,7 +119,7 @@ export default function Page() {
 								</Tabs.List>
 							</Tabs.Root>
 						</div>
-						<div className="scrollbar overflow-x-scroll">
+						<div className="scrollbar -m-1 p-1 overflow-x-scroll">
 							<Tabs.Root orientation="horizontal" defaultValue="tab-1">
 								<Tabs.List>
 									<Tabs.Trigger value="tab-1">
@@ -186,7 +187,213 @@ export default function Page() {
 						<Tabs.Root
 							orientation="vertical"
 							defaultValue="account"
-							className="scrollbar max-w-xl overflow-x-scroll"
+							className="scrollbar max-w-xl -m-1 p-1 overflow-x-scroll"
+						>
+							<Tabs.List>
+								<Tabs.Trigger value="account">Account</Tabs.Trigger>
+								<Tabs.Trigger value="password">Password</Tabs.Trigger>
+								<Tabs.Trigger value="disabled-tab" disabled>
+									Disabled tab
+								</Tabs.Trigger>
+							</Tabs.List>
+							<Tabs.Content value="account">
+								<Card.Root>
+									<Card.Header>
+										<Card.Title>Account</Card.Title>
+										<p className="text-muted">
+											Make changes to your account here. Click save when you're
+											done.
+										</p>
+									</Card.Header>
+								</Card.Root>
+							</Tabs.Content>
+							<Tabs.Content value="password">
+								<Card.Root>
+									<Card.Header>
+										<Card.Title>Password</Card.Title>
+										<p className="text-muted">
+											Change your password here. After saving, you'll be logged
+											out.
+										</p>
+									</Card.Header>
+								</Card.Root>
+							</Tabs.Content>
+						</Tabs.Root>
+
+						<Separator />
+						<h2 className="text-lg">
+							With <Code>appearance="pill"</Code> prop
+						</h2>
+						<p>
+							<Code>asChild</Code> with <Code>Link</Code>s
+						</p>
+						<div className="scrollbar -m-1 p-1 overflow-x-scroll">
+							<Tabs.Root
+								appearance="pill"
+								orientation="horizontal"
+								defaultValue="colors"
+							>
+								<Tabs.List>
+									<Tabs.Trigger value="colors" asChild>
+										<Link to={href("/base/colors")}>Colors</Link>
+									</Tabs.Trigger>
+									<Tabs.Trigger value="shadows" asChild>
+										<Link to={href("/base/shadows")}>Shadows</Link>
+									</Tabs.Trigger>
+									<Tabs.Trigger disabled value="tailwind-variants" asChild>
+										<Link to={href("/base/tailwind-variants")}>
+											Tailwind Variants
+										</Link>
+									</Tabs.Trigger>
+									<Tabs.Trigger value="typography" asChild>
+										<Link to={href("/base/typography")}>Typography</Link>
+									</Tabs.Trigger>
+								</Tabs.List>
+							</Tabs.Root>
+						</div>
+						<div className="scrollbar -m-1 p-1 overflow-x-scroll">
+							<Tabs.Root
+								appearance="pill"
+								orientation="horizontal"
+								defaultValue="tab-1"
+							>
+								<Tabs.List>
+									<Tabs.Trigger value="tab-1">Tab Title</Tabs.Trigger>
+									<Tabs.Trigger value="tab-2">Tab Title</Tabs.Trigger>
+									<Tabs.Trigger disabled value="tab-3">
+										Tab Title
+									</Tabs.Trigger>
+									<Tabs.Trigger value="tab-4">Tab Title</Tabs.Trigger>
+								</Tabs.List>
+							</Tabs.Root>
+						</div>
+						<div className="scrollbar -m-1 p-1 overflow-x-scroll">
+							<Tabs.Root
+								appearance="pill"
+								orientation="horizontal"
+								defaultValue="tab-1"
+							>
+								<Tabs.List>
+									<Tabs.Trigger value="tab-1">
+										<Icon svg={<GlobeIcon />} />
+										Tab Title
+									</Tabs.Trigger>
+									<Tabs.Trigger value="tab-2">
+										<Icon svg={<GlobeIcon />} />
+										Tab Title
+									</Tabs.Trigger>
+									<Tabs.Trigger disabled value="tab-3">
+										<Icon svg={<GlobeIcon />} />
+										Tab Title
+									</Tabs.Trigger>
+									<Tabs.Trigger value="tab-4">
+										<Icon svg={<GlobeIcon />} />
+										Tab Title
+									</Tabs.Trigger>
+								</Tabs.List>
+							</Tabs.Root>
+						</div>
+						<div className="scrollbar -m-1 p-1 overflow-x-scroll">
+							<Tabs.Root
+								appearance="pill"
+								orientation="horizontal"
+								defaultValue="tab-1"
+							>
+								<Tabs.List>
+									<Tabs.Trigger value="tab-1">
+										Tab Title
+										<Tabs.Badge>32</Tabs.Badge>
+									</Tabs.Trigger>
+									<Tabs.Trigger value="tab-2">
+										Tab Title
+										<Tabs.Badge>32</Tabs.Badge>
+									</Tabs.Trigger>
+									<Tabs.Trigger disabled value="tab-3">
+										Tab Title
+										<Tabs.Badge>32</Tabs.Badge>
+									</Tabs.Trigger>
+									<Tabs.Trigger value="tab-4">
+										Tab Title
+										<Tabs.Badge>32</Tabs.Badge>
+									</Tabs.Trigger>
+								</Tabs.List>
+							</Tabs.Root>
+						</div>
+						<div className="scrollbar -m-1 p-1 overflow-x-scroll">
+							<Tabs.Root
+								appearance="pill"
+								orientation="horizontal"
+								defaultValue="tab-1"
+							>
+								<Tabs.List>
+									<Tabs.Trigger value="tab-1">
+										<Icon svg={<GlobeIcon />} />
+										Tab Title
+										<Tabs.Badge>32</Tabs.Badge>
+									</Tabs.Trigger>
+									<Tabs.Trigger value="tab-2">
+										<Icon svg={<GlobeIcon />} />
+										Tab Title
+										<Tabs.Badge>32</Tabs.Badge>
+									</Tabs.Trigger>
+									<Tabs.Trigger disabled value="tab-3">
+										<Icon svg={<GlobeIcon />} />
+										Tab Title
+										<Tabs.Badge>32</Tabs.Badge>
+									</Tabs.Trigger>
+									<Tabs.Trigger value="tab-4">
+										<Icon svg={<GlobeIcon />} />
+										Tab Title
+										<Tabs.Badge>32</Tabs.Badge>
+									</Tabs.Trigger>
+								</Tabs.List>
+							</Tabs.Root>
+						</div>
+						<Tabs.Root
+							appearance="pill"
+							orientation="horizontal"
+							defaultValue="account"
+							className="w-100 max-w-[400px]"
+						>
+							<Tabs.List>
+								<Tabs.Trigger value="account">
+									<Icon svg={<UserIcon />} />
+									Account
+									<Tabs.Badge>2</Tabs.Badge>
+								</Tabs.Trigger>
+								<Tabs.Trigger value="password">
+									<Icon svg={<ShieldCheckIcon />} />
+									Password
+								</Tabs.Trigger>
+							</Tabs.List>
+							<Tabs.Content value="account">
+								<Card.Root>
+									<Card.Header>
+										<Card.Title>Account</Card.Title>
+										<p className="text-muted">
+											Make changes to your account here. Click save when you're
+											done.
+										</p>
+									</Card.Header>
+								</Card.Root>
+							</Tabs.Content>
+							<Tabs.Content value="password">
+								<Card.Root>
+									<Card.Header>
+										<Card.Title>Password</Card.Title>
+										<p className="text-muted">
+											Change your password here. After saving, you'll be logged
+											out.
+										</p>
+									</Card.Header>
+								</Card.Root>
+							</Tabs.Content>
+						</Tabs.Root>
+						<Tabs.Root
+							appearance="pill"
+							orientation="vertical"
+							defaultValue="account"
+							className="scrollbar max-w-xl -m-1 p-1 overflow-x-scroll"
 						>
 							<Tabs.List>
 								<Tabs.Trigger value="account">Account</Tabs.Trigger>
@@ -231,7 +438,7 @@ export default function Page() {
 									import { Input, PasswordInput } from "@ngrok/mantle/input";
 									import { Tabs } from "@ngrok/mantle/tabs";
 
-									<Tabs.Root orientation="horizontal" defaultValue="account" className="w-[400px]">
+									<Tabs.Root appearance="classic" orientation="horizontal" defaultValue="account" className="w-[400px]">
 										<Tabs.List>
 											<Tabs.Trigger value="account">
 												<Icon svg={<UserIcon />} />
@@ -369,6 +576,29 @@ export default function Page() {
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>The orientation of the tabs.</p>
+								</PropDescriptionCell>
+							</PropRow>
+							<PropRow>
+								<PropNameCell name="appearance" optional />
+								<PropTypeCell>
+									<ul>
+										<li>
+											<StringPropType value="classic" />
+										</li>
+										<li>
+											<StringPropType value="pill" />
+										</li>
+									</ul>
+								</PropTypeCell>
+								<PropDefaultValueCell>
+									<StringPropType value="classic" />
+								</PropDefaultValueCell>
+								<PropDescriptionCell>
+									<p>
+										The appearance of the tabs. Classic appearance shows the tab
+										list with an underline; pill appearance shows each tab as a
+										pill.
+									</p>
 								</PropDescriptionCell>
 							</PropRow>
 							<PropRow>

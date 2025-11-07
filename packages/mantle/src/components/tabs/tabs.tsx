@@ -4,6 +4,7 @@ import {
 	Root as TabsPrimitiveRoot,
 	Trigger as TabsPrimitiveTrigger,
 } from "@radix-ui/react-tabs";
+import { cva } from "class-variance-authority";
 import clsx from "clsx";
 import type {
 	ComponentPropsWithoutRef,
@@ -22,12 +23,17 @@ import invariant from "tiny-invariant";
 import { parseBooleanish } from "../../types/booleanish.js";
 import { cx } from "../../utils/cx/cx.js";
 
+type Orientation = "horizontal" | "vertical";
+type Appearance = "classic" | "pill";
+
 type TabsStateContextValue = {
-	orientation: "horizontal" | "vertical";
+	orientation: Orientation;
+	appearance: Appearance;
 };
 
 const TabsStateContext = createContext<TabsStateContextValue>({
 	orientation: "horizontal",
+	appearance: "classic",
 });
 
 /**
@@ -54,24 +60,75 @@ const TabsStateContext = createContext<TabsStateContextValue>({
  */
 const Root = forwardRef<
 	ComponentRef<typeof TabsPrimitiveRoot>,
-	ComponentPropsWithoutRef<typeof TabsPrimitiveRoot>
->(({ className, children, orientation = "horizontal", ...props }, ref) => (
-	<TabsPrimitiveRoot
-		className={cx(
-			"flex gap-4",
-			orientation === "horizontal" ? "flex-col" : "flex-row",
+	ComponentPropsWithoutRef<typeof TabsPrimitiveRoot> & {
+		/**
+		 * The appearance of the tabs. Classic appearance shows the tab
+		 * list with an underline; pill appearance shows each tab as a pill.
+		 * @default "classic"
+		 */
+		appearance?: "classic" | "pill";
+	}
+>(
+	(
+		{
 			className,
-		)}
-		orientation={orientation}
-		ref={ref}
-		{...props}
-	>
-		<TabsStateContext.Provider value={{ orientation }}>
-			{children}
-		</TabsStateContext.Provider>
-	</TabsPrimitiveRoot>
-));
+			children,
+			orientation = "horizontal",
+			appearance = "classic",
+			...props
+		},
+		ref,
+	) => (
+		<TabsPrimitiveRoot
+			className={cx(
+				"flex gap-4",
+				orientation === "horizontal" ? "flex-col" : "flex-row",
+				className,
+			)}
+			orientation={orientation}
+			ref={ref}
+			{...props}
+		>
+			<TabsStateContext.Provider value={{ orientation, appearance }}>
+				{children}
+			</TabsStateContext.Provider>
+		</TabsPrimitiveRoot>
+	),
+);
 Root.displayName = "Tabs";
+
+/**
+ * Variants for the List component
+ */
+const listVariants = cva("flex border-gray-200", {
+	variants: {
+		orientation: {
+			horizontal: "flex-row items-center",
+			vertical: "flex-col items-end gap-3.5 self-stretch",
+		} as const satisfies Record<Orientation, string>,
+		appearance: {
+			classic: "",
+			pill: "",
+		} as const satisfies Record<Appearance, string>,
+	},
+	compoundVariants: [
+		{
+			orientation: "horizontal",
+			appearance: "pill",
+			className: "gap-1",
+		},
+		{
+			orientation: "horizontal",
+			appearance: "classic",
+			className: "gap-6 border-b",
+		},
+		{
+			orientation: "vertical",
+			appearance: "classic",
+			className: "border-r",
+		},
+	],
+});
 
 /**
  * Contains the triggers that are aligned along the edge of the active content.
@@ -96,18 +153,12 @@ const List = forwardRef<
 	ComponentRef<typeof TabsPrimitiveList>,
 	ComponentPropsWithoutRef<typeof TabsPrimitiveList>
 >(({ className, ...props }, ref) => {
-	const ctx = useContext(TabsStateContext);
+	const { orientation, appearance } = useContext(TabsStateContext);
 
 	return (
 		<TabsPrimitiveList
-			aria-orientation={ctx.orientation}
-			className={cx(
-				"flex border-gray-200",
-				ctx.orientation === "horizontal"
-					? "flex-row items-center gap-6 border-b"
-					: "flex-col items-end gap-[0.875rem] self-stretch border-r",
-				className,
-			)}
+			aria-orientation={orientation}
+			className={cx(listVariants({ orientation, appearance }), className)}
 			ref={ref}
 			{...props}
 		/>
@@ -117,23 +168,68 @@ List.displayName = "TabsList";
 
 type TabsTriggerProps = ComponentPropsWithoutRef<typeof TabsPrimitiveTrigger>;
 
+/**
+ * Variants for the TabsTriggerDecoration component
+ */
+const triggerDecorationVariants = cva("absolute z-0", {
+	variants: {
+		orientation: {
+			horizontal: "-bottom-px left-0 right-0 h-[0.1875rem]",
+			vertical: "-right-px bottom-0 top-0 w-[0.1875rem]",
+		} as const satisfies Record<Orientation, string>,
+		appearance: {
+			classic: "group-data-state-active/tab-trigger:bg-blue-600",
+			pill: "hidden",
+		} as const satisfies Record<Appearance, string>,
+	},
+});
+
 const TabsTriggerDecoration = () => {
-	const ctx = useContext(TabsStateContext);
+	const { orientation, appearance } = useContext(TabsStateContext);
 
 	return (
 		<span
 			aria-hidden
-			className={clsx(
-				"group-data-state-active/tab-trigger:bg-blue-600 absolute z-0",
-				ctx.orientation === "horizontal" &&
-					"-bottom-px left-0 right-0 h-[0.1875rem]",
-				ctx.orientation === "vertical" &&
-					"-right-px bottom-0 top-0 w-[0.1875rem]",
-			)}
+			className={clsx(triggerDecorationVariants({ orientation, appearance }))}
 		/>
 	);
 };
 TabsTriggerDecoration.displayName = "TabsTriggerDecoration";
+
+/**
+ * Variants for the Trigger component
+ */
+const triggerVariants = cva(
+	cx(
+		"group/tab-trigger relative flex cursor-pointer items-center gap-1 whitespace-nowrap py-3 text-sm font-medium text-gray-600",
+		"ring-focus-accent outline-hidden",
+		"aria-disabled:cursor-default aria-disabled:opacity-50",
+		"focus-visible:ring-4",
+		"[&>svg]:shrink-0 [&>svg]:size-5",
+		"not-aria-disabled:hover:text-gray-900",
+	),
+	{
+		variants: {
+			orientation: {
+				horizontal: "rounded-tl-md rounded-tr-md",
+				vertical: "rounded-bl-md rounded-tl-md pr-3",
+			} as const satisfies Record<Orientation, string>,
+			appearance: {
+				classic: cx(
+					"not-aria-disabled:hover:data-state-active:text-blue-600",
+					"data-state-active:text-blue-600",
+				),
+				pill: cx(
+					"not-aria-disabled:hover:data-state-active:text-blue-700",
+					"not-aria-disabled:hover:data-state-active:bg-accent-500/20",
+					"data-state-active:text-blue-700",
+					"data-state-active:bg-accent-500/20",
+					"rounded-full py-2 px-3",
+				),
+			} as const satisfies Record<Appearance, string>,
+		},
+	},
+);
 
 /**
  * The button that activates its associated content.
@@ -169,23 +265,12 @@ const Trigger = forwardRef<
 		},
 		ref,
 	) => {
-		const ctx = useContext(TabsStateContext);
+		const { orientation, appearance } = useContext(TabsStateContext);
 		const disabled = parseBooleanish(_ariaDisabled ?? _disabled);
 
 		const tabsTriggerProps = {
 			"aria-disabled": _ariaDisabled ?? _disabled,
-			className: cx(
-				"group/tab-trigger relative flex cursor-pointer items-center gap-1 whitespace-nowrap py-3 text-sm font-medium text-gray-600",
-				ctx.orientation === "horizontal" && "rounded-tl-md rounded-tr-md",
-				ctx.orientation === "vertical" && "rounded-bl-md rounded-tl-md pr-3",
-				"ring-focus-accent outline-hidden",
-				"aria-disabled:cursor-default aria-disabled:opacity-50",
-				"focus-visible:ring-4",
-				"[&>svg]:shrink-0 [&>svg]:size-5",
-				"not-aria-disabled:hover:text-gray-900 not-aria-disabled:hover:data-state-active:text-blue-600",
-				"data-state-active:text-blue-600",
-				className,
-			),
+			className: cx(triggerVariants({ orientation, appearance }), className),
 			disabled,
 			...props,
 		};
