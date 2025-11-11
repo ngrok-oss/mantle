@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.58.3
+
+### Patch Changes
+
+- [#879](https://github.com/ngrok-oss/mantle/pull/879) [`8a66858`](https://github.com/ngrok-oss/mantle/commit/8a6685805fa2dc540a5e03a550ebf66e13cae644) Thanks [@acrobat130](https://github.com/acrobat130)! - enable an appearance prop on the tabs root component that allows the user to specify pill-style tabs
+
 ## 0.58.2
 
 ### Patch Changes
