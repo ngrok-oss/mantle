@@ -60,6 +60,10 @@ export default defineConfig((options) => [
 			hooks: "./src/hooks/index.ts",
 			types: "./src/types/index.ts",
 		},
+		onSuccess: async () => {
+			// Copy mantle.css to dist for production builds
+			await fs.promises.copyFile("./src/mantle.css", "./dist/mantle.css");
+		},
 		...options,
 	},
 ]);
