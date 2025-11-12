@@ -1,5 +1,16 @@
 # @ngrok/mantle
 
+## 0.58.4
+
+### Patch Changes
+
+- [#878](https://github.com/ngrok-oss/mantle/pull/878) [`9ecfcd4`](https://github.com/ngrok-oss/mantle/commit/9ecfcd47242496ad382451183a241cd76fd843b5) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update dependencies; bump min version of tailwind
+
+- [#883](https://github.com/ngrok-oss/mantle/pull/883) [`e3d39ef`](https://github.com/ngrok-oss/mantle/commit/e3d39ef80e1ead067b2a27f3e960d45a432be732) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - move mantle.css to src/ and improve HMR
+  - Moved `mantle.css` from `packages/mantle/assets/` to `packages/mantle/src/` to enable proper hot module reload during development
+  - Updated `mantle.css` package export to use source conditions (`@ngrok/mantle/source` → `src/mantle.css`, `default` → `dist/mantle.css`), matching the pattern used for component exports
+  - Added build step to copy `mantle.css` to `dist/` directory for production builds
+
 ## 0.58.3
 
 ### Patch Changes
