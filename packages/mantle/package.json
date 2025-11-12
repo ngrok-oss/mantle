@@ -18,7 +18,6 @@
   ],
   "files": [
     "dist",
-    "assets",
     "package.json"
   ],
   "engines": {
@@ -87,7 +86,10 @@
     "tailwindcss": "^4.1.16"
   },
   "exports": {
-    "./mantle.css": "./assets/mantle.css",
+    "./mantle.css": {
+      "@ngrok/mantle/source": "./src/mantle.css",
+      "default": "./dist/mantle.css"
+    },
     "./package.json": "./package.json",
     "./accordion": {
       "@ngrok/mantle/source": "./src/components/accordion/index.ts",

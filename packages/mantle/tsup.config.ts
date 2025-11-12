@@ -1,6 +1,8 @@
 import fs from "node:fs";
 import { defineConfig } from "tsup";
 
+const MANTLE_CSS_SRC = new URL("./src/mantle.css", import.meta.url);
+
 /**
  * A set of package names that should not be published to npm
  */
@@ -59,6 +61,14 @@ export default defineConfig((options) => [
 			...utilPackages,
 			hooks: "./src/hooks/index.ts",
 			types: "./src/types/index.ts",
+		},
+		onSuccess: async () => {
+			try {
+				await fs.promises.copyFile(MANTLE_CSS_SRC, "./dist/mantle.css");
+			} catch (error) {
+				console.error("Failed to copy mantle.css to dist:", error);
+				throw error;
+			}
 		},
 		...options,
 	},
