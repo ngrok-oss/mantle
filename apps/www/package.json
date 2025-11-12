@@ -37,7 +37,7 @@
   "devDependencies": {
     "@cfg/tsconfig": "workspace:*",
     "@react-router/dev": "catalog:",
-    "@tailwindcss/vite": "4.1.16",
+    "@tailwindcss/vite": "4.1.17",
     "@types/prismjs": "1.26.5",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",

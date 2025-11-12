@@ -53,7 +53,7 @@
     "prismjs": "1.30.0",
     "react-day-picker": "9.11.1",
     "sonner": "2.0.7",
-    "tailwind-merge": "3.3.1",
+    "tailwind-merge": "3.4.0",
     "tiny-invariant": "1.3.3",
     "tw-animate-css": "1.4.0"
   },
@@ -67,7 +67,7 @@
     "@types/prismjs": "1.26.5",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
-    "browserslist": "4.27.0",
+    "browserslist": "4.28.0",
     "date-fns": "4.1.0",
     "happy-dom": "20.0.10",
     "react": "catalog:",
@@ -83,7 +83,7 @@
     "react": "^18 || ^19",
     "react-dom": "^18 || ^19",
     "react-router": "^7",
-    "tailwindcss": "^4.1.16"
+    "tailwindcss": "^4.1.17"
   },
   "exports": {
     "./mantle.css": {
