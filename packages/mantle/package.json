@@ -74,7 +74,7 @@
     "react-dom": "catalog:",
     "react-router": "catalog:",
     "tailwindcss": "catalog:",
-    "tsup": "8.5.0",
+    "tsup": "8.5.1",
     "typescript": "catalog:"
   },
   "peerDependencies": {
