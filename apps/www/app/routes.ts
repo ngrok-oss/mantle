@@ -66,10 +66,6 @@ export default [
 		"components/preview/popover",
 		"./routes/components.preview.popover.tsx",
 	),
-	route(
-		"components/preview/tooltip",
-		"./routes/components.preview.tooltip.tsx",
-	),
 	route("components/progress-bar", "./routes/components.progress-bar.tsx"),
 	route("components/progress-donut", "./routes/components.progress-donut.tsx"),
 	route("components/radio-group", "./routes/components.radio-group.tsx"),
@@ -87,4 +83,5 @@ export default [
 	route("components/text-area", "./routes/components.text-area.tsx"),
 	route("components/theme", "./routes/components.theme.tsx"),
 	route("components/toast", "./routes/components.toast.tsx"),
+	route("components/tooltip", "./routes/components.tooltip.tsx"),
 ] satisfies RouteConfig;

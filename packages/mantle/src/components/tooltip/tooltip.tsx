@@ -1,13 +1,17 @@
-import { Content, Provider, Root, Trigger } from "@radix-ui/react-tooltip";
+import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 import { forwardRef } from "react";
-import type { ComponentPropsWithoutRef, ComponentRef } from "react";
+import type {
+	ComponentProps,
+	ComponentPropsWithoutRef,
+	ComponentRef,
+} from "react";
 import { cx } from "../../utils/cx/cx.js";
 
 /**
  * Wraps your app to provide global functionality to your tooltips.
  * Only one instance of this component should be rendered in your app, preferably at the root.
  *
- * @see https://mantle.ngrok.com/components/tooltip#api-tooltip-provider
+ * @see https://mantle.ngrok.com/tooltip#tooltip-provider
  *
  * @example
  * ```tsx
@@ -19,17 +23,21 @@ import { cx } from "../../utils/cx/cx.js";
 const TooltipProvider = ({
 	delayDuration = 0,
 	...props
-}: ComponentPropsWithoutRef<typeof Provider>) => (
-	<Provider delayDuration={delayDuration ?? 0} {...props} />
+}: ComponentPropsWithoutRef<typeof TooltipPrimitive.Provider>) => (
+	<TooltipPrimitive.Provider
+		data-slot="tooltip-provider"
+		delayDuration={delayDuration ?? 0}
+		{...props}
+	/>
 );
-TooltipProvider.displayName = "TooltipProvider";
+TooltipProvider.displayName = "Tooltip.Provider";
 
 /**
  * A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.
  * This is the root, stateful component that manages the open/closed state of the tooltip.
  * Will throw if you have not wrapped your app in a `TooltipProvider`.
  *
- * @see https://mantle.ngrok.com/components/tooltip#api-tooltip
+ * @see https://mantle.ngrok.com/tooltip#tooltip-root
  *
  * @example
  * ```tsx
@@ -45,13 +53,15 @@ TooltipProvider.displayName = "TooltipProvider";
  * </Tooltip.Root>
  * ```
  */
-const TooltipRoot = Root;
-TooltipRoot.displayName = "Tooltip";
+function Root(props: ComponentProps<typeof TooltipPrimitive.Root>) {
+	return <TooltipPrimitive.Root data-slot="tooltip" {...props} />;
+}
+Root.displayName = "Tooltip.Root";
 
 /**
  * The trigger button that opens the tooltip.
  *
- * @see https://mantle.ngrok.com/components/tooltip#api-tooltip-trigger
+ * @see https://mantle.ngrok.com/tooltip#tooltip-trigger
  *
  * @example
  * ```tsx
@@ -67,13 +77,15 @@ TooltipRoot.displayName = "Tooltip";
  * </Tooltip.Root>
  * ```
  */
-const TooltipTrigger = Trigger;
-TooltipTrigger.displayName = "TooltipTrigger";
+function Trigger(props: ComponentProps<typeof TooltipPrimitive.Trigger>) {
+	return <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...props} />;
+}
+Trigger.displayName = "Tooltip.Trigger";
 
 /**
  * The content to render inside the tooltip.
  *
- * @see https://mantle.ngrok.com/components/tooltip#api-tooltip-content
+ * @see https://mantle.ngrok.com/tooltip#tooltip-content
  *
  * @example
  * ```tsx
@@ -89,30 +101,36 @@ TooltipTrigger.displayName = "TooltipTrigger";
  * </Tooltip.Root>
  * ```
  */
-const TooltipContent = forwardRef<
-	ComponentRef<typeof Content>,
-	ComponentPropsWithoutRef<typeof Content>
+const Content = forwardRef<
+	ComponentRef<typeof TooltipPrimitive.Content>,
+	ComponentPropsWithoutRef<typeof TooltipPrimitive.Content>
 >(({ children, className, sideOffset = 4, ...props }, ref) => (
-	<Content
-		ref={ref}
-		sideOffset={sideOffset}
-		className={cx(
-			"bg-tooltip text-tooltip animate-in fade-in-0 zoom-in-95 data-side-bottom:slide-in-from-top-2 data-side-left:slide-in-from-right-2 data-side-right:slide-in-from-left-2 data-side-top:slide-in-from-bottom-2 data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 z-50 max-w-72 overflow-hidden break-words rounded-md px-3 py-1.5 text-sm shadow font-sans",
-			className,
-		)}
-		{...props}
-	>
-		{children}
-	</Content>
+	<TooltipPrimitive.Portal>
+		<TooltipPrimitive.Content
+			className={cx(
+				"bg-tooltip text-tooltip animate-in fade-in-0 zoom-in-95 data-side-bottom:slide-in-from-top-2 data-side-left:slide-in-from-right-2 data-side-right:slide-in-from-left-2 data-side-top:slide-in-from-bottom-2 data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 z-50 max-w-72 overflow-visible wrap-break-word rounded-md px-3 py-1.5 text-sm font-sans shadow",
+				className,
+			)}
+			data-slot="tooltip-content"
+			ref={ref}
+			sideOffset={sideOffset}
+			{...props}
+		>
+			{children}
+			<TooltipPrimitive.Arrow asChild>
+				<div className="bg-tooltip z-50 size-2.5 translate-y-[calc(-50%-2px)] rotate-45 rounded-xs" />
+			</TooltipPrimitive.Arrow>
+		</TooltipPrimitive.Content>
+	</TooltipPrimitive.Portal>
 ));
-TooltipContent.displayName = "TooltipContent";
+Content.displayName = "Tooltip.Content";
 
 /**
  * A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.
  * This is the root, stateful component that manages the open/closed state of the tooltip.
  * Will throw if you have not wrapped your app in a `TooltipProvider`.
  *
- * @see https://mantle.ngrok.com/components/tooltip
+ * @see https://mantle.ngrok.com/tooltip
  *
  * @example
  * ```tsx
@@ -134,7 +152,7 @@ const Tooltip = {
 	 * This is the root, stateful component that manages the open/closed state of the tooltip.
 	 * Will throw if you have not wrapped your app in a `TooltipProvider`.
 	 *
-	 * @see https://mantle.ngrok.com/components/tooltip#api-tooltip
+	 * @see https://mantle.ngrok.com/tooltip#tooltip-root
 	 *
 	 * @example
 	 * ```tsx
@@ -150,11 +168,11 @@ const Tooltip = {
 	 * </Tooltip.Root>
 	 * ```
 	 */
-	Root: TooltipRoot,
+	Root,
 	/**
 	 * The content to render inside the tooltip.
 	 *
-	 * @see https://mantle.ngrok.com/components/tooltip#api-tooltip-content
+	 * @see https://mantle.ngrok.com/tooltip#tooltip-content
 	 *
 	 * @example
 	 * ```tsx
@@ -170,11 +188,11 @@ const Tooltip = {
 	 * </Tooltip.Root>
 	 * ```
 	 */
-	Content: TooltipContent,
+	Content,
 	/**
 	 * The trigger button that opens the tooltip.
 	 *
-	 * @see https://mantle.ngrok.com/components/tooltip#api-tooltip-trigger
+	 * @see https://mantle.ngrok.com/tooltip#tooltip-trigger
 	 *
 	 * @example
 	 * ```tsx
@@ -190,7 +208,7 @@ const Tooltip = {
 	 * </Tooltip.Root>
 	 * ```
 	 */
-	Trigger: TooltipTrigger,
+	Trigger,
 } as const;
 
 export {
