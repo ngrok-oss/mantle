@@ -11,7 +11,7 @@ import { cx } from "../../utils/cx/cx.js";
  * Wraps your app to provide global functionality to your tooltips.
  * Only one instance of this component should be rendered in your app, preferably at the root.
  *
- * @see https://mantle.ngrok.com/tooltip#tooltip-provider
+ * @see https://mantle.ngrok.com/components/tooltip#tooltip-provider
  *
  * @example
  * ```tsx
@@ -37,7 +37,7 @@ TooltipProvider.displayName = "Tooltip.Provider";
  * This is the root, stateful component that manages the open/closed state of the tooltip.
  * Will throw if you have not wrapped your app in a `TooltipProvider`.
  *
- * @see https://mantle.ngrok.com/tooltip#tooltip-root
+ * @see https://mantle.ngrok.com/components/tooltip#tooltip-root
  *
  * @example
  * ```tsx
@@ -61,7 +61,7 @@ Root.displayName = "Tooltip.Root";
 /**
  * The trigger button that opens the tooltip.
  *
- * @see https://mantle.ngrok.com/tooltip#tooltip-trigger
+ * @see https://mantle.ngrok.com/components/tooltip#tooltip-trigger
  *
  * @example
  * ```tsx
@@ -85,7 +85,7 @@ Trigger.displayName = "Tooltip.Trigger";
 /**
  * The content to render inside the tooltip.
  *
- * @see https://mantle.ngrok.com/tooltip#tooltip-content
+ * @see https://mantle.ngrok.com/components/tooltip#tooltip-content
  *
  * @example
  * ```tsx
@@ -130,7 +130,7 @@ Content.displayName = "Tooltip.Content";
  * This is the root, stateful component that manages the open/closed state of the tooltip.
  * Will throw if you have not wrapped your app in a `TooltipProvider`.
  *
- * @see https://mantle.ngrok.com/tooltip
+ * @see https://mantle.ngrok.com/components/tooltip
  *
  * @example
  * ```tsx
@@ -152,7 +152,7 @@ const Tooltip = {
 	 * This is the root, stateful component that manages the open/closed state of the tooltip.
 	 * Will throw if you have not wrapped your app in a `TooltipProvider`.
 	 *
-	 * @see https://mantle.ngrok.com/tooltip#tooltip-root
+	 * @see https://mantle.ngrok.com/components/tooltip#tooltip-root
 	 *
 	 * @example
 	 * ```tsx
@@ -172,7 +172,7 @@ const Tooltip = {
 	/**
 	 * The content to render inside the tooltip.
 	 *
-	 * @see https://mantle.ngrok.com/tooltip#tooltip-content
+	 * @see https://mantle.ngrok.com/components/tooltip#tooltip-content
 	 *
 	 * @example
 	 * ```tsx
@@ -192,7 +192,7 @@ const Tooltip = {
 	/**
 	 * The trigger button that opens the tooltip.
 	 *
-	 * @see https://mantle.ngrok.com/tooltip#tooltip-trigger
+	 * @see https://mantle.ngrok.com/components/tooltip#tooltip-trigger
 	 *
 	 * @example
 	 * ```tsx
