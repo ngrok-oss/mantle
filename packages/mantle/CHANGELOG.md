@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.59.1
+
+### Patch Changes
+
+- [#887](https://github.com/ngrok-oss/mantle/pull/887) [`eeca62d`](https://github.com/ngrok-oss/mantle/commit/eeca62d79949a0932c1906bcabf079dbd5a3089c) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Fix tooltip jsdoc urls
+
 ## 0.59.0
 
 ### Minor Changes
