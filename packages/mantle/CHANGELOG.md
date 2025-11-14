@@ -1,5 +1,18 @@
 # @ngrok/mantle
 
+## 0.59.0
+
+### Minor Changes
+
+- [#885](https://github.com/ngrok-oss/mantle/pull/885) [`918bdd9`](https://github.com/ngrok-oss/mantle/commit/918bdd9078d1edffc7d670326f0600623a4406cc) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Promote Tooltip component out of preview
+
+  The Tooltip component has been promoted from preview to stable. This includes:
+  - Updated documentation route from `/components/preview/tooltip` to `/components/tooltip`
+  - Updated all JSDoc URLs to reflect the new documentation path
+  - Added comprehensive API reference for TooltipProvider, Tooltip.Root, Tooltip.Trigger, and Tooltip.Content
+  - Improved tooltip arrow styling with proper positioning and background matching
+  - Fixed Tailwind 4 dev mode class scanning by adding `@source "../src"` to mantle.css
+
 ## 0.58.4
 
 ### Patch Changes
