@@ -365,8 +365,8 @@ function ReactRouterScaffolding() {
 				We will also add the{" "}
 				<Link to={href("/components/theme")}>Theme Provider</Link>,{" "}
 				<Link to={href("/components/toast")}>Toaster</Link>, and{" "}
-				<Link to={href("/components/preview/tooltip")}>Tooltip Provider</Link>{" "}
-				to your app to enable theme selection, toasts, and tooltips.
+				<Link to={href("/components/tooltip")}>Tooltip Provider</Link> to your
+				app to enable theme selection, toasts, and tooltips.
 			</p>
 			<Alert.Root priority="warning">
 				<Alert.Icon />
@@ -532,8 +532,8 @@ function ViteScaffolding() {
 				We will also add the{" "}
 				<Link to={href("/components/theme")}>Theme Provider</Link>,{" "}
 				<Link to={href("/components/toast")}>Toaster</Link>, and{" "}
-				<Link to={href("/components/preview/tooltip")}>Tooltip Provider</Link>{" "}
-				to your app to enable theme selection, toasts, and tooltips.
+				<Link to={href("/components/tooltip")}>Tooltip Provider</Link> to your
+				app to enable theme selection, toasts, and tooltips.
 			</p>
 			<CodeBlock.Root>
 				<CodeBlock.Header>
@@ -626,8 +626,8 @@ function ReactSpaScaffolding() {
 				We will also add the{" "}
 				<Link to={href("/components/theme")}>Theme Provider</Link>,{" "}
 				<Link to={href("/components/toast")}>Toaster</Link>, and{" "}
-				<Link to={href("/components/preview/tooltip")}>Tooltip Provider</Link>{" "}
-				to your app to enable theme selection, toasts, and tooltips.
+				<Link to={href("/components/tooltip")}>Tooltip Provider</Link> to your
+				app to enable theme selection, toasts, and tooltips.
 			</p>
 			<CodeBlock.Root>
 				<CodeBlock.Header>

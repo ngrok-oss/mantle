@@ -2,6 +2,7 @@
 @import "tw-animate-css";
 @import "sonner/dist/styles.css"; /* import for webpack support in crusty */
 
+@source "../src";
 @source "../dist";
 
 /* Euclid Square */

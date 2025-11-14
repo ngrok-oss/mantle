@@ -237,6 +237,7 @@ const prodReadyComponents = [
 	"Text Area",
 	"Theme",
 	"Toast",
+	"Tooltip",
 ] as const;
 
 /**
@@ -253,7 +254,6 @@ const previewComponents = [
 	"Data Table",
 	"Pagination",
 	"Popover",
-	"Tooltip",
 ] as const;
 
 type Route = Parameters<typeof href>[0];
@@ -295,6 +295,7 @@ const prodReadyComponentRouteLookup = {
 	"Text Area": "/components/text-area",
 	Theme: "/components/theme",
 	Toast: "/components/toast",
+	Tooltip: "/components/tooltip",
 } as const satisfies Record<(typeof prodReadyComponents)[number], Route>;
 
 const previewComponentsRouteLookup = {
@@ -305,7 +306,6 @@ const previewComponentsRouteLookup = {
 	"Data Table": "/components/preview/data-table",
 	Pagination: "/components/preview/pagination",
 	Popover: "/components/preview/popover",
-	Tooltip: "/components/preview/tooltip",
 } as const satisfies Record<(typeof previewComponents)[number], Route>;
 
 const welcomePages = ["Overview & Setup", "Philosophy"] as const;
