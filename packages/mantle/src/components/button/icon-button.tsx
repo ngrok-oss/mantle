@@ -177,6 +177,7 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 				iconButtonVariants({ appearance, isLoading, size }),
 				className,
 			),
+			"data-appearance": appearance,
 			"data-disabled": disabled,
 			"data-icon-button": true,
 			"data-loading": isLoading,
