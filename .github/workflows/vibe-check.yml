@@ -1,20 +1,26 @@
-name: CI Checks
+name: Vibe Check
 
-on: push
+on:
+  push:
+  workflow_dispatch:
+
+concurrency:
+  group: vibe-check-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
-  contents: read
+  contents: write
   pull-requests: write
 
 env:
   DO_NOT_TRACK: 1
-  TURBO_TELEMETRY_DISABLED: 1
-  VERCEL_TELEMETRY_DISABLED: 1
-  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
   TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+  TURBO_TELEMETRY_DISABLED: 1
+  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+  VERCEL_TELEMETRY_DISABLED: 1
 
 jobs:
-  ci-checks:
+  vibe-check:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
