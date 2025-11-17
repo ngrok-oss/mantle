@@ -1,7 +1,6 @@
 "use client";
 
 import * as Primitive from "@ariakit/react";
-import { Slot } from "@radix-ui/react-slot";
 import {
 	type ComponentPropsWithoutRef,
 	type ComponentRef,
@@ -13,6 +12,7 @@ import type { WithAsChild } from "../../types/as-child.js";
 import { cx } from "../../utils/cx/cx.js";
 import type { WithValidation } from "../input/types.js";
 import { Separator } from "../separator/separator.js";
+import { Slot } from "../slot/index.js";
 
 type ComboboxProps = Primitive.ComboboxProviderProps;
 

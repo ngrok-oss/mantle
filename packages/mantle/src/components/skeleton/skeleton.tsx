@@ -1,7 +1,7 @@
-import { Slot } from "@radix-ui/react-slot";
 import { type ComponentProps, type ComponentRef, forwardRef } from "react";
 import type { SelfClosingWithAsChild } from "../../types/as-child.js";
 import { cx } from "../../utils/cx/cx.js";
+import { Slot } from "../slot/index.js";
 
 type Props = Exclude<ComponentProps<"div">, "children"> &
 	SelfClosingWithAsChild;

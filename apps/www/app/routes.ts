@@ -77,6 +77,7 @@ export default [
 	route("components/separator", "./routes/components.separator.tsx"),
 	route("components/sheet", "./routes/components.sheet.tsx"),
 	route("components/skeleton", "./routes/components.skeleton.tsx"),
+	route("components/slot", "./routes/components.slot.tsx"),
 	route("components/switch", "./routes/components.switch.tsx"),
 	route("components/table", "./routes/components.table.tsx"),
 	route("components/tabs", "./routes/components.tabs.tsx"),

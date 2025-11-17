@@ -1,4 +1,3 @@
-import { Slot } from "@radix-ui/react-slot";
 import {
 	Children,
 	type ComponentProps,
@@ -11,6 +10,7 @@ import type { WithAsChild } from "../../types/as-child.js";
 import type { Color } from "../../utils/color/index.js";
 import { cx } from "../../utils/cx/cx.js";
 import { SvgOnly } from "../icon/svg-only.js";
+import { Slot } from "../slot/index.js";
 
 const appearances = ["muted" /*"strong" */] as const;
 type Appearance = (typeof appearances)[number];

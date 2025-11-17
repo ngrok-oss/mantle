@@ -8,7 +8,6 @@ import type {
 	RadioGroupProps as HeadlessRadioGroupProps,
 	RadioProps as HeadlessRadioProps,
 } from "@headlessui/react";
-import { Slot } from "@radix-ui/react-slot";
 import clsx from "clsx";
 import {
 	Children,
@@ -28,6 +27,7 @@ import type {
 import type { WithAsChild } from "../../types/as-child.js";
 import { cx } from "../../utils/cx/cx.js";
 import { isInput } from "../input/is-input.js";
+import { Slot } from "../slot/index.js";
 
 type RadioGroupProps = PropsWithChildren<
 	Omit<HeadlessRadioGroupProps, "as" | "children">

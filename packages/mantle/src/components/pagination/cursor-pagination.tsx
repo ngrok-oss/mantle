@@ -2,7 +2,6 @@
 
 import { CaretLeftIcon } from "@phosphor-icons/react/CaretLeft";
 import { CaretRightIcon } from "@phosphor-icons/react/CaretRight";
-import { Slot } from "@radix-ui/react-slot";
 import {
 	type ComponentProps,
 	type ComponentRef,
@@ -17,6 +16,7 @@ import { cx } from "../../utils/cx/cx.js";
 import { ButtonGroup, IconButton } from "../button/index.js";
 import { Select } from "../select/select.js";
 import { Separator } from "../separator/separator.js";
+import { Slot } from "../slot/index.js";
 
 type CursorPaginationContextValue = {
 	/**

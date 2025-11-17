@@ -1,7 +1,6 @@
 "use client";
 
 import * as DialogPrimitive from "@radix-ui/react-dialog";
-import { Slot } from "@radix-ui/react-slot";
 import {
 	type ComponentPropsWithoutRef,
 	type ComponentRef,
@@ -11,6 +10,7 @@ import {
 	useEffect,
 	useState,
 } from "react";
+import { Slot } from "../slot/index.js";
 
 type InternalDialogContextValue = {
 	hasDescription: boolean;

@@ -1,6 +1,5 @@
 "use client";
 
-import { Slot } from "@radix-ui/react-slot";
 import type {
 	ComponentProps,
 	ComponentRef,
@@ -9,6 +8,7 @@ import type {
 } from "react";
 import { forwardRef } from "react";
 import type { WithAsChild } from "../../types/as-child.js";
+import { Slot } from "../slot/index.js";
 
 type BaseProps = {
 	/**

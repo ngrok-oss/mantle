@@ -1,8 +1,8 @@
-import { Slot } from "@radix-ui/react-slot";
 import type { ComponentProps, ComponentRef, HTMLAttributes } from "react";
 import { createContext, forwardRef, useContext } from "react";
 import type { WithAsChild } from "../../types/as-child.js";
 import { cx } from "../../utils/cx/cx.js";
+import { Slot } from "../slot/index.js";
 
 const orientations = ["horizontal", "vertical"] as const;
 type Orientation = (typeof orientations)[number];
