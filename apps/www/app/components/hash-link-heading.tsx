@@ -1,8 +1,8 @@
 import { cx } from "@ngrok/mantle/cx";
 import { useIsHydrated } from "@ngrok/mantle/hooks";
 import { Icon } from "@ngrok/mantle/icon";
+import { Slot } from "@ngrok/mantle/slot";
 import { LinkIcon } from "@phosphor-icons/react/Link";
-import { Slot } from "@radix-ui/react-slot";
 import {
 	Children,
 	type ComponentProps,

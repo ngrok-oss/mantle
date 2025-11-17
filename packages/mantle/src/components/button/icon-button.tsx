@@ -1,5 +1,4 @@
 import { CircleNotchIcon } from "@phosphor-icons/react/CircleNotch";
-import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
 import { clsx } from "clsx";
 import { Children, cloneElement, forwardRef, isValidElement } from "react";
@@ -9,6 +8,7 @@ import type { VariantProps, WithAsChild } from "../../types/index.js";
 import { parseBooleanish } from "../../types/index.js";
 import { cx } from "../../utils/cx/cx.js";
 import { Icon } from "../icon/index.js";
+import { Slot } from "../slot/index.js";
 
 const baseIconButtonClasses = clsx(
 	"icon-button",

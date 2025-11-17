@@ -2,7 +2,6 @@
 
 import { InfoIcon } from "@phosphor-icons/react/Info";
 import { WarningIcon } from "@phosphor-icons/react/Warning";
-import { Slot } from "@radix-ui/react-slot";
 import {
 	type ComponentProps,
 	type ComponentPropsWithoutRef,
@@ -24,6 +23,7 @@ import {
 import * as AlertDialogPrimitive from "../dialog/primitive.js";
 import { SvgOnly } from "../icon/svg-only.js";
 import type { SvgAttributes } from "../icon/types.js";
+import { Slot } from "../slot/index.js";
 import { preventCloseOnPromptInteraction } from "../toast/toast.js";
 
 const priorities = ["info", "danger"] as const;

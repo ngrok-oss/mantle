@@ -3,7 +3,6 @@ import { InfoIcon } from "@phosphor-icons/react/Info";
 import { WarningIcon } from "@phosphor-icons/react/Warning";
 import { WarningDiamondIcon } from "@phosphor-icons/react/WarningDiamond";
 import { XIcon } from "@phosphor-icons/react/X";
-import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
 import type {
 	ComponentProps,
@@ -18,6 +17,7 @@ import { cx } from "../../utils/cx/cx.js";
 import { IconButton, type IconButtonProps } from "../button/icon-button.js";
 import { SvgOnly } from "../icon/svg-only.js";
 import type { SvgAttributes } from "../icon/types.js";
+import { Slot } from "../slot/index.js";
 
 const priorities = [
 	//,

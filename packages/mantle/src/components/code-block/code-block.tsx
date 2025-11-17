@@ -5,7 +5,6 @@ import { CheckIcon } from "@phosphor-icons/react/Check";
 import { CopyIcon } from "@phosphor-icons/react/Copy";
 import { FileTextIcon } from "@phosphor-icons/react/FileText";
 import { TerminalIcon } from "@phosphor-icons/react/Terminal";
-import { Slot } from "@radix-ui/react-slot";
 import clsx from "clsx";
 import type {
 	ComponentProps,
@@ -32,6 +31,7 @@ import { cx } from "../../utils/cx/cx.js";
 import { Icon as MantleIcon } from "../icon/icon.js";
 import type { SvgAttributes } from "../icon/types.js";
 import { TrafficPolicyFileIcon } from "../icons/traffic-policy-file.js";
+import { Slot } from "../slot/index.js";
 import { escapeHtml } from "./escape-html.js";
 import { Highlighter } from "./highlighter.js";
 import { type Indentation, inferIndentation } from "./indentation.js";

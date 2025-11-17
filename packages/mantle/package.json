@@ -287,6 +287,11 @@
       "import": "./dist/skeleton.js",
       "types": "./dist/skeleton.d.ts"
     },
+    "./slot": {
+      "@ngrok/mantle/source": "./src/components/slot/index.ts",
+      "import": "./dist/slot.js",
+      "types": "./dist/slot.d.ts"
+    },
     "./switch": {
       "@ngrok/mantle/source": "./src/components/switch/index.ts",
       "import": "./dist/switch.js",

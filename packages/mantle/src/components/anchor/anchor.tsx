@@ -1,10 +1,10 @@
-import { Slot } from "@radix-ui/react-slot";
 import type { AnchorHTMLAttributes, ComponentRef, ReactNode } from "react";
 import { Children, cloneElement, forwardRef, isValidElement } from "react";
 import invariant from "tiny-invariant";
 import type { WithAsChild } from "../../types/as-child.js";
 import { cx } from "../../utils/cx/cx.js";
 import { Icon } from "../icon/icon.js";
+import { Slot } from "../slot/index.js";
 import type { Rel, Target } from "./types.js";
 
 /**

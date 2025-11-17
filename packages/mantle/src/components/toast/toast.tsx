@@ -4,7 +4,6 @@ import { CheckCircleIcon } from "@phosphor-icons/react/CheckCircle";
 import { InfoIcon } from "@phosphor-icons/react/Info";
 import { WarningIcon } from "@phosphor-icons/react/Warning";
 import { WarningDiamondIcon } from "@phosphor-icons/react/WarningDiamond";
-import { Slot } from "@radix-ui/react-slot";
 import {
 	type ComponentProps,
 	type ComponentRef,
@@ -19,6 +18,7 @@ import type { WithStyleProps } from "../../types/with-style-props.js";
 import { cx } from "../../utils/cx/cx.js";
 import { Icon as IconComponent } from "../icon/icon.js";
 import type { SvgOnlyProps } from "../icon/svg-only.js";
+import { Slot } from "../slot/index.js";
 import { useAppliedTheme } from "../theme/theme-provider.js";
 
 type ToasterPrimitiveProps = ComponentProps<typeof ToastPrimitive.Toaster>;
