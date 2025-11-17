@@ -1,5 +1,17 @@
 # @ngrok/mantle
 
+## 0.60.0
+
+### Minor Changes
+
+- [#896](https://github.com/ngrok-oss/mantle/pull/896) [`b58edd7`](https://github.com/ngrok-oss/mantle/commit/b58edd7c1c97c06ce113a90717c947d6822342c3) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add Slot component with automatic className merging
+
+  Introduces a new `@ngrok/mantle/slot` component that wraps Radix UI's Slot with automatic Tailwind CSS className merging using `cx`. All internal components now use the Mantle Slot instead of importing directly from Radix UI, providing consistent className merge behavior across the design system where child classes take priority over parent classes.
+
+### Patch Changes
+
+- [#893](https://github.com/ngrok-oss/mantle/pull/893) [`0507080`](https://github.com/ngrok-oss/mantle/commit/05070800b4cf647c9abcf2565902d5b1a1deb976) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Button, IconButton: add data-appearance, data-priority to DOM
+
 ## 0.59.1
 
 ### Patch Changes
