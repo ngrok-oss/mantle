@@ -222,7 +222,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 				"inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-md",
 				"focus:outline-hidden focus-visible:ring-4",
 				"disabled:cursor-default disabled:opacity-50",
-				"not-disabled:active:scale-[0.97]",
+				"not-disabled:active:scale-97 ease-out transition-transform duration-150",
 				buttonVariants({ appearance, priority, isLoading }),
 				hasSpecialIconPadding && iconPlacement === "start" && "ps-2.5",
 				hasSpecialIconPadding && iconPlacement === "end" && "pe-2.5",
