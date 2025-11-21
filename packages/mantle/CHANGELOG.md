@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.60.1
+
+### Patch Changes
+
+- [#900](https://github.com/ngrok-oss/mantle/pull/900) [`5174f39`](https://github.com/ngrok-oss/mantle/commit/5174f3906faf163e575b9cb62f3970c4d426f0df) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Button, IconButton: scale w/ transition ease-out
+
 ## 0.60.0
 
 ### Minor Changes
