@@ -1,8 +1,7 @@
 import { CircleNotchIcon } from "@phosphor-icons/react/CircleNotch";
 import { cva } from "class-variance-authority";
-import { clsx } from "clsx";
-import { Children, cloneElement, forwardRef, isValidElement } from "react";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
+import { Children, cloneElement, forwardRef, isValidElement } from "react";
 import invariant from "tiny-invariant";
 import type { VariantProps, WithAsChild } from "../../types/index.js";
 import { parseBooleanish } from "../../types/index.js";
@@ -10,15 +9,15 @@ import { cx } from "../../utils/cx/cx.js";
 import { Icon } from "../icon/index.js";
 import { Slot } from "../slot/index.js";
 
-const baseIconButtonClasses = clsx(
+const baseIconButtonClasses = cx(
 	"icon-button",
 	"inline-flex shrink-0 items-center justify-center rounded-[var(--icon-button-border-radius,0.375rem)] border",
 	"focus:outline-hidden focus-visible:ring-4",
 	"disabled:cursor-default disabled:opacity-50",
-	"not-disabled:active:scale-[0.97]",
+	"not-disabled:active:scale-97 ease-out transition-transform duration-150",
 );
 
-const iconButtonVariants = cva("", {
+const iconButtonVariants = cva(baseIconButtonClasses, {
 	variants: {
 		/**
 		 * Defines the visual style of the Button.
@@ -173,7 +172,6 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 		const buttonProps = {
 			"aria-disabled": disabled,
 			className: cx(
-				baseIconButtonClasses,
 				iconButtonVariants({ appearance, isLoading, size }),
 				className,
 			),
@@ -217,10 +215,10 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 IconButton.displayName = "IconButton";
 
 export {
+	baseIconButtonClasses,
 	//,
 	IconButton,
 	iconButtonVariants,
-	baseIconButtonClasses,
 };
 
 export type {
