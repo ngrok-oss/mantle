@@ -32,7 +32,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@ariakit/react": "0.4.19",
+    "@ariakit/react": "0.4.20",
     "@headlessui/react": "2.2.9",
     "@radix-ui/react-accordion": "1.2.12",
     "@radix-ui/react-dialog": "1.1.15",
