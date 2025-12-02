@@ -45,7 +45,7 @@ export default function Page() {
 									<Icon svg={<ShrimpIcon />} className="size-12" />
 								</div>
 								<div className="space-y-1">
-									<h4 className="text-sm font-semibold">@ngrok/mantle</h4>
+									<h4 className="text-sm font-medium">@ngrok/mantle</h4>
 									<p className="text-sm">
 										The Design System – created and maintained by @ngrok.
 									</p>
@@ -87,7 +87,7 @@ export default function Page() {
 												<Icon svg={<ShrimpIcon />} className="size-12" />
 											</div>
 											<div className="space-y-1">
-												<h4 className="text-sm font-semibold">@ngrok/mantle</h4>
+												<h4 className="text-sm font-medium">@ngrok/mantle</h4>
 												<p className="text-sm">The Design System – created and maintained by @ngrok.</p>
 												<div className="flex items-center pt-2">
 													<Icon svg={<CalendarIcon />} className="mr-2 h-4 w-4 opacity-70" />{" "}

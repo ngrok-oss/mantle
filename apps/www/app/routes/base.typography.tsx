@@ -83,9 +83,8 @@ export default function Page() {
 				<h2 className="text-3xl font-medium">Fonts</h2>
 			</HashLinkHeading>
 			<p className="font-body text-body mt-3">
-				Mantle specifies Euclid as the default font for UI and headings. It
-				extends Tailwind by providing Nunito Sans as a <Code>font-body</Code>.
-				We also use IBM Plex Mono as a monospace typeface.
+				Mantle specifies Euclid as the default font for UI and headings. We also
+				use IBM Plex Mono as a monospace typeface.
 			</p>
 
 			<Table.Root className="mt-4">

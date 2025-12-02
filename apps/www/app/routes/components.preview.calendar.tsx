@@ -354,7 +354,7 @@ export default function Page() {
 							<p>
 								The default behavior of the <Code>Button</Code>. Unlike the native{" "}
 								<Code>button</Code> element, unless you use the <Code>asChild</Code> prop,{" "}
-								<span className="font-semibold">this prop is required and has no default value</span>. See{" "}
+								<span className="font-medium">this prop is required and has no default value</span>. See{" "}
 								<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#type">
 									the MDN docs
 								</Anchor>{" "}
