@@ -2,7 +2,6 @@ import { cx } from "@ngrok/mantle/cx";
 import { useScrollBehavior } from "@ngrok/mantle/hooks";
 import {
 	MantleThemeHeadContent,
-	PreloadInterFonts,
 	ThemeProvider,
 	useInitialHtmlThemeProps,
 } from "@ngrok/mantle/theme";
@@ -102,7 +101,6 @@ export function Layout({ children }: PropsWithChildren) {
 					content="/og-image.png"
 				/>
 				<MantleThemeHeadContent nonce={nonce} />
-				<PreloadInterFonts />
 				<meta name="author" content="ngrok" />
 				<meta name="commit-sha" content={loaderData?.commitSha} />
 				<meta name="deployment-id" content={loaderData?.deploymentId} />
