@@ -76,7 +76,7 @@ function HashLinkHeading({ id, className, children, ...props }: Props) {
 					className: cx(
 						className,
 						singleChild.props.className,
-						"group relative transition-colors",
+						"group",
 						// `:target` is unreliable for client-side route changes,
 						// so we reflect the match via `useLocation` instead.
 						isHydrated && isTarget && "text-accent-600",
@@ -87,17 +87,17 @@ function HashLinkHeading({ id, className, children, ...props }: Props) {
              Using a relative `to=.\#id` keeps SPA navigation semantics. */}
 					<Link
 						to={`.${hashUrl}`}
-						className="group-hover:underline cursor-pointer -ml-6 pl-6 block focus:outline-hidden focus-visible:ring-3 focus-visible:ring-focus-accent rounded"
+						className="group-hover:text-accent-600 cursor-pointer flex focus:outline-hidden focus-visible:ring-3 focus-visible:ring-focus-accent rounded relative gap-2 items-center"
 					>
 						{grandchildren}
-					</Link>
-					{/* Link icon: appears on hover to hint deep-linking without stealing focus.
+						{/* Link icon: appears on hover to hint deep-linking without stealing focus.
              Absolutely positioned into the left gutter; non-interactive for a11y. */}
-					<Icon
-						aria-hidden
-						className="absolute -left-6 top-1/2 -translate-y-1/2 opacity-0 transition-opacity group-hover:opacity-70 pointer-events-none"
-						svg={<LinkIcon />}
-					/>
+						<Icon
+							aria-hidden
+							className="opacity-0 transition-opacity group-hover:opacity-70 pointer-events-none"
+							svg={<LinkIcon />}
+						/>
+					</Link>
 				</>,
 			)}
 		</Slot>
