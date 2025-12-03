@@ -210,20 +210,20 @@ export default function Page() {
 					<h3 className="text-lg font-medium">Features</h3>
 					<ul className="list-disc list-inside space-y-1 text-body">
 						<li>
-							<strong className="font-medium">Performance optimized:</strong>{" "}
-							Uses a single subscription for all breakpoint changes
+							<strong>Performance optimized:</strong> Uses a single subscription
+							for all breakpoint changes
 						</li>
 						<li>
-							<strong className="font-medium">SSR compatible:</strong> Returns{" "}
-							<Code>default</Code> during server-side rendering
+							<strong>SSR compatible:</strong> Returns <Code>default</Code>{" "}
+							during server-side rendering
 						</li>
 						<li>
-							<strong className="font-medium">Real-time updates:</strong>{" "}
-							Automatically updates when the viewport size changes
+							<strong>Real-time updates:</strong> Automatically updates when the
+							viewport size changes
 						</li>
 						<li>
-							<strong className="font-medium">TypeScript support:</strong> Fully
-							typed with autocompletion for all breakpoints
+							<strong>TypeScript support:</strong> Fully typed with
+							autocompletion for all breakpoints
 						</li>
 					</ul>
 				</div>
@@ -282,20 +282,20 @@ export default function Page() {
 					<h3 className="text-lg font-medium">Common Use Cases</h3>
 					<ul className="list-disc list-inside space-y-1 text-body">
 						<li>
-							<strong className="font-medium">Mobile detection:</strong>{" "}
+							<strong>Mobile detection:</strong>{" "}
 							<Code>useIsBelowBreakpoint("md")</Code> for mobile-first layouts
 						</li>
 						<li>
-							<strong className="font-medium">Conditional rendering:</strong>{" "}
-							Show/hide components based on screen size
+							<strong>Conditional rendering:</strong> Show/hide components based
+							on screen size
 						</li>
 						<li>
-							<strong className="font-medium">Dynamic styling:</strong> Apply
-							different CSS classes for mobile vs desktop
+							<strong>Dynamic styling:</strong> Apply different CSS classes for
+							mobile vs desktop
 						</li>
 						<li>
-							<strong className="font-medium">Component adaptation:</strong>{" "}
-							Switch between mobile and desktop component variants
+							<strong>Component adaptation:</strong> Switch between mobile and
+							desktop component variants
 						</li>
 					</ul>
 				</div>
