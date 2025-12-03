@@ -106,7 +106,6 @@ export default function Page() {
 					<header className="space-y-1">
 						<HashLinkHeading id="api-media-object">
 							<h3 className="text-xl font-medium text-strong">
-								<span id="api-media-object-root" />
 								MediaObject.Root
 							</h3>
 						</HashLinkHeading>
