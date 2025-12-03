@@ -36,7 +36,7 @@ export default function Page() {
 						</Card.Header>
 						<Card.Body className="flex items-center justify-between">
 							<span>Current breakpoint:</span>
-							<Code className="text-lg font-bold">{currentBreakpoint}</Code>
+							<Code className="text-lg font-medium">{currentBreakpoint}</Code>
 						</Card.Body>
 					</Card.Root>
 
@@ -46,7 +46,9 @@ export default function Page() {
 						</Card.Header>
 						<Card.Body className="flex items-center justify-between">
 							<span>Below md (768px):</span>
-							<Code className="text-lg font-bold">{isBelowMd.toString()}</Code>
+							<Code className="text-lg font-medium">
+								{isBelowMd.toString()}
+							</Code>
 						</Card.Body>
 					</Card.Root>
 
@@ -56,7 +58,9 @@ export default function Page() {
 						</Card.Header>
 						<Card.Body className="flex items-center justify-between">
 							<span>Below lg (1024px):</span>
-							<Code className="text-lg font-bold">{isBelowLg.toString()}</Code>
+							<Code className="text-lg font-medium">
+								{isBelowLg.toString()}
+							</Code>
 						</Card.Body>
 					</Card.Root>
 				</div>
