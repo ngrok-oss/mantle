@@ -1366,6 +1366,11 @@
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
+
+  b,
+  strong {
+  	font-weight: 500;
+  }
 }
 
 @utility cursor-inherit {
