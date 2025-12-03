@@ -76,12 +76,12 @@ export default function Page() {
 				>
 					<h2>Breakpoint Values</h2>
 				</HashLinkHeading>
-				<p className="font-body text-body text-lg">
+				<p className="font-body text-body">
 					There are six breakpoints by default, inspired by common device
 					resolutions:
 				</p>
 
-				<Table.Root className="max-w-2xl mx-auto">
+				<Table.Root>
 					<Table.Element>
 						<Table.Head>
 							<Table.Row>
@@ -174,8 +174,13 @@ export default function Page() {
 			</section>
 
 			<section className="space-y-4">
-				<h2 className="text-2xl font-medium">useBreakpoint Hook</h2>
-				<p className="font-body text-body text-lg">
+				<HashLinkHeading
+					id="usebreakpoint-hook"
+					className="text-2xl font-medium"
+				>
+					<h2>useBreakpoint Hook</h2>
+				</HashLinkHeading>
+				<p className="font-body text-body">
 					The <Code>useBreakpoint</Code> hook returns the current breakpoint
 					based on the viewport width. It efficiently tracks all breakpoints and
 					returns the largest one that currently matches.
@@ -207,7 +212,9 @@ export default function Page() {
 				</CodeBlock.Root>
 
 				<div className="space-y-2">
-					<h3 className="text-lg font-medium">Features</h3>
+					<HashLinkHeading id="features" className="text-lg font-medium">
+						<h3>Features</h3>
+					</HashLinkHeading>
 					<ul className="list-disc list-inside space-y-1 text-body">
 						<li>
 							<strong>Performance optimized:</strong> Uses a single subscription
@@ -229,7 +236,9 @@ export default function Page() {
 				</div>
 
 				<div className="space-y-2">
-					<h3 className="text-lg font-medium">Return Value</h3>
+					<HashLinkHeading id="return-values" className="text-lg font-medium">
+						<h3>Return Value</h3>
+					</HashLinkHeading>
 					<p className="text-body">
 						Returns a <Code>Breakpoint</Code> type that can be one of:{" "}
 						<Code>"default"</Code>, <Code>"xs"</Code>, <Code>"sm"</Code>,{" "}
@@ -240,7 +249,12 @@ export default function Page() {
 			</section>
 
 			<section className="space-y-4">
-				<h2 className="text-2xl font-medium">useIsBelowBreakpoint Hook</h2>
+				<HashLinkHeading
+					id="useisbelowbreakpoint-hook"
+					className="text-2xl font-medium"
+				>
+					<h2>useIsBelowBreakpoint Hook</h2>
+				</HashLinkHeading>
 				<p className="font-body text-body text-lg">
 					The <Code>useIsBelowBreakpoint</Code> hook returns <Code>true</Code>{" "}
 					if the current viewport width is below the specified breakpoint.
@@ -270,7 +284,9 @@ export default function Page() {
 				</CodeBlock.Root>
 
 				<div className="space-y-2">
-					<h3 className="text-lg font-medium">Parameters</h3>
+					<HashLinkHeading id="parameters" className="text-lg font-medium">
+						<h3>Parameters</h3>
+					</HashLinkHeading>
 					<p className="text-body">
 						Accepts a <Code>TailwindBreakpoint</Code> which can be one of:{" "}
 						<Code>"xs"</Code>, <Code>"sm"</Code>, <Code>"md"</Code>,{" "}
@@ -279,7 +295,12 @@ export default function Page() {
 				</div>
 
 				<div className="space-y-2">
-					<h3 className="text-lg font-medium">Common Use Cases</h3>
+					<HashLinkHeading
+						id="common-use-cases"
+						className="text-lg font-medium"
+					>
+						<h3>Common Use Cases</h3>
+					</HashLinkHeading>
 					<ul className="list-disc list-inside space-y-1 text-body">
 						<li>
 							<strong>Mobile detection:</strong>{" "}

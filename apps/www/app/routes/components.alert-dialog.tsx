@@ -222,11 +222,10 @@ export default function Page() {
 				</header>
 
 				<section className="space-y-4">
-					<header className="space-y-1">
-						<HashLinkHeading id="api-alert-dialog">
+					<header className="space-y-2">
+						<HashLinkHeading id="api-alert-dialog-root">
 							<h3 className="text-xl font-medium text-strong">
-								<span id="api-alert-dialog-root" />
-								AlertDialog
+								AlertDialog.Root
 							</h3>
 						</HashLinkHeading>
 
@@ -271,7 +270,7 @@ export default function Page() {
 					</PropsTable>
 				</section>
 
-				<section className="space-y-1">
+				<section className="space-y-2">
 					<HashLinkHeading id="api-alert-dialog-trigger">
 						<h3 className="text-xl font-medium text-strong">
 							AlertDialogTrigger
@@ -295,7 +294,7 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-4">
-					<header className="space-y-1">
+					<header className="space-y-2">
 						<HashLinkHeading id="api-alert-dialog-content">
 							<h3 className="text-xl font-medium text-strong">
 								AlertDialogContent
@@ -343,14 +342,14 @@ export default function Page() {
 					</PropsTable>
 				</section>
 
-				<section className="space-y-1">
+				<section className="space-y-2">
 					<HashLinkHeading id="api-alert-dialog-body">
 						<h3 className="text-xl font-medium text-strong">AlertDialogBody</h3>
 					</HashLinkHeading>
 					<p className="font-body text-body">
 						Contains the main content of the alert dialog.
 					</p>
-					<p className="font-body text-body text-xl">
+					<p className="font-body text-body">
 						The <Code>AlertDialogBody</Code> accepts the following props in
 						addition to the{" "}
 						<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes">
@@ -378,7 +377,7 @@ export default function Page() {
 					</PropsTable>
 				</section>
 
-				<section className="space-y-1">
+				<section className="space-y-2">
 					<HashLinkHeading id="api-alert-dialog-header">
 						<h3 className="text-xl font-medium text-strong">
 							AlertDialogHeader
@@ -388,7 +387,7 @@ export default function Page() {
 						Contains the header content of the dialog, including the title and
 						description.
 					</p>
-					<p className="font-body text-body text-xl">
+					<p className="font-body text-body">
 						The <Code>AlertDialogHeader</Code> accepts the following props in
 						addition to the{" "}
 						<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes">
@@ -416,7 +415,7 @@ export default function Page() {
 					</PropsTable>
 				</section>
 
-				<section className="space-y-1">
+				<section className="space-y-2">
 					<HashLinkHeading id="api-alert-dialog-footer">
 						<h3 className="text-xl font-medium text-strong">
 							AlertDialogFooter
@@ -426,7 +425,7 @@ export default function Page() {
 						Contains the footer content of the dialog, including the action and
 						cancel buttons.
 					</p>
-					<p className="font-body text-body text-xl">
+					<p className="font-body text-body">
 						The <Code>AlertDialogFooter</Code> accepts the following props in
 						addition to the{" "}
 						<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes">
@@ -454,7 +453,7 @@ export default function Page() {
 					</PropsTable>
 				</section>
 
-				<section className="space-y-1">
+				<section className="space-y-2">
 					<HashLinkHeading id="api-alert-dialog-title">
 						<h3 className="text-xl font-medium text-strong">
 							AlertDialogTitle
@@ -482,7 +481,7 @@ export default function Page() {
 					</p>
 				</section>
 
-				<section className="space-y-1">
+				<section className="space-y-2">
 					<HashLinkHeading id="api-alert-dialog-description">
 						<h3 className="text-xl font-medium text-strong">
 							AlertDialogDescription
@@ -511,7 +510,7 @@ export default function Page() {
 					</p>
 				</section>
 
-				<section className="space-y-1">
+				<section className="space-y-2">
 					<HashLinkHeading id="api-alert-dialog-action">
 						<h3 className="text-xl font-medium text-strong">
 							AlertDialogAction
@@ -538,7 +537,7 @@ export default function Page() {
 					</p>
 				</section>
 
-				<section className="space-y-1">
+				<section className="space-y-2">
 					<HashLinkHeading id="api-alert-dialog-cancel">
 						<h3 className="text-xl font-medium text-strong">
 							AlertDialogCancel
@@ -565,7 +564,7 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-4">
-					<header className="space-y-1">
+					<header className="space-y-2">
 						<HashLinkHeading id="api-alert-dialog-icon">
 							<h3 className="text-xl font-medium text-strong">
 								AlertDialog.Icon
@@ -577,7 +576,7 @@ export default function Page() {
 							type of alert.
 						</p>
 
-						<p>
+						<p className="font-body text-body">
 							All props from{" "}
 							<Anchor
 								href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes"
@@ -611,7 +610,7 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-4">
-					<header className="space-y-1">
+					<header className="space-y-2">
 						<HashLinkHeading id="api-alert-dialog-close">
 							<h3 className="text-xl font-medium text-strong">
 								AlertDialog.Close
@@ -622,7 +621,7 @@ export default function Page() {
 							A button that closes the dialog.
 						</p>
 
-						<p>
+						<p className="font-body text-body">
 							All props from{" "}
 							<Anchor
 								href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes"
