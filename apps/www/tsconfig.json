@@ -3,6 +3,7 @@
   "include": [
     "**/*.ts",
     "**/*.tsx",
+    "**/*.mdx",
     ".react-router/types/**/*",
   ],
   "compilerOptions": {
@@ -16,6 +17,7 @@
       "@cfg/tsconfig/css.d.ts",
       "@cfg/tsconfig/reset.d.ts",
       "@cfg/tsconfig/svg.d.ts",
+      "./app/types/mdx.d.ts",
     ],
     "customConditions": [
       "@ngrok/mantle/source"
