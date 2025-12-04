@@ -103,7 +103,7 @@ describe("Slot", () => {
 		 * - child `className` = most specific, on the asChild child
 		 */
 		const baseClassName = "text-gray-500 underline";
-		const componentClassName = "text-red-500 font-semibold";
+		const componentClassName = "text-red-500 font-medium";
 		const parentMerged = `${baseClassName} ${componentClassName}`;
 
 		const { container } = render(
@@ -128,7 +128,7 @@ describe("Slot", () => {
 		expect(link).not.toHaveClass("underline");
 
 		// Non-conflicting things like font weight from the component can still survive
-		expect(link).toHaveClass("font-semibold");
+		expect(link).toHaveClass("font-medium");
 	});
 
 	it("forwards refs to the underlying DOM element", () => {

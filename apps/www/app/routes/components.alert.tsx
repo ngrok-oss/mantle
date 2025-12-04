@@ -143,7 +143,7 @@ export default function Page() {
 							<h3 className="text-xl font-medium text-strong">Composition</h3>
 						</HashLinkHeading>
 					</header>
-					<p className="font-body text-body text-xl">
+					<p className="font-body text-body">
 						You can mix and match what you put inside the <Code>Alert</Code>{" "}
 						component to create different types of Alert layouts.
 					</p>
@@ -259,7 +259,7 @@ export default function Page() {
 						</HashLinkHeading>
 					</header>
 
-					<p className="font-body text-body text-xl">
+					<p className="font-body text-body">
 						For banner-like alerts, use the <Code>appearance="banner"</Code>{" "}
 						prop. This automatically removes the top, left, and right borders,
 						leaving only the bottom border.
@@ -320,12 +320,9 @@ export default function Page() {
 				</header>
 
 				<section className="space-y-4">
-					<header className="space-y-1">
-						<HashLinkHeading id="api-alert">
-							<h3 className="text-xl font-medium text-strong">
-								<span id="api-alert-root" />
-								Alert
-							</h3>
+					<header className="space-y-2">
+						<HashLinkHeading id="api-alert-root">
+							<h3 className="text-xl font-medium text-strong">Alert.Root</h3>
 						</HashLinkHeading>
 
 						<p className="font-body text-body">
@@ -381,9 +378,6 @@ export default function Page() {
 									<li>
 										<StringPropType value="info" />
 									</li>
-									{/* <li>
-										<StringPropType value="neutral" />
-									</li> */}
 									<li>
 										<StringPropType value="success" />
 									</li>
@@ -405,7 +399,7 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-4">
-					<header className="space-y-1">
+					<header className="space-y-2">
 						<HashLinkHeading id="api-alert-content">
 							<h3 className="text-xl font-medium text-strong">AlertContent</h3>
 						</HashLinkHeading>
@@ -428,7 +422,7 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-4">
-					<header className="space-y-1">
+					<header className="space-y-2">
 						<HashLinkHeading id="api-alert-description">
 							<h3 className="text-xl font-medium text-strong">
 								AlertDescription
@@ -472,7 +466,7 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-4">
-					<header className="space-y-1">
+					<header className="space-y-2">
 						<HashLinkHeading id="api-alert-icon">
 							<h3 className="text-xl font-medium text-strong">AlertIcon</h3>
 						</HashLinkHeading>
@@ -511,7 +505,7 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-4">
-					<header className="space-y-1">
+					<header className="space-y-2">
 						<HashLinkHeading id="api-alert-title">
 							<h3 className="text-xl font-medium text-strong">AlertTitle</h3>
 						</HashLinkHeading>
@@ -553,7 +547,7 @@ export default function Page() {
 				</section>
 
 				<section className="space-y-4">
-					<header className="space-y-1">
+					<header className="space-y-2">
 						<HashLinkHeading id="api-alert-dismiss-icon-button">
 							<h3 className="text-xl font-medium text-strong">
 								Alert.DismissIconButton

@@ -54,21 +54,21 @@ export default function Page() {
 										id="section-1"
 										className="rounded border border-gray-300 p-4"
 									>
-										<h3 className="font-bold">Section 1</h3>
+										<h3 className="font-medium">Section 1</h3>
 										<p>This section can be linked with #section-1</p>
 									</div>
 									<div
 										id="section-2"
 										className="rounded border border-gray-300 p-4"
 									>
-										<h3 className="font-bold">Section 2</h3>
+										<h3 className="font-medium">Section 2</h3>
 										<p>This section can be linked with #section-2</p>
 									</div>
 									<div
 										id="section-3"
 										className="rounded border border-gray-300 p-4"
 									>
-										<h3 className="font-bold">Section 3</h3>
+										<h3 className="font-medium">Section 3</h3>
 										<p>This section can be linked with #section-3</p>
 									</div>
 								</div>

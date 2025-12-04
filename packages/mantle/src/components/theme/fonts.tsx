@@ -92,54 +92,9 @@ const PreloadCoreFonts = () => (
 );
 PreloadCoreFonts.displayName = "PreloadCoreFonts";
 
-/**
- * Canonical list of inter font paths (relative to the CDN fonts base).
- */
-const interFonts = [
-	"/inter/Inter-VariableFont.ttf",
-	"/inter/Inter-Italic-VariableFont.ttf",
-] as const;
-
-/**
- * Preload optional Inter variable fonts (roman + italic).
- *
- * Use this when the UI opts into the Inter typeface. Keep it near other font
- * preloads and add `preconnect`/`dns-prefetch` for the CDN to minimize latency.
- *
- * @example
- * ```tsx
- * <head>
- *   <meta charSet="utf-8" />
- *   <meta name="viewport" content="width=device-width, initial-scale=1" />
- *
- *   // Preconnect and DNS-prefetch to the assets CDN
- *   // either here or in app root headers
- *   <link rel="preconnect" href={assetsCdnOrigin} crossOrigin="anonymous" />
- *   <link rel="dns-prefetch" href={assetsCdnOrigin} />
- *   <MantleThemeHeadContent />
- *   <PreloadInterFonts />
- * </head>
- * ```
- */
-const PreloadInterFonts = () => (
-	<>
-		{interFonts.map((font) => (
-			<link
-				key={font}
-				rel="preload"
-				href={fontHref(font)}
-				as="font"
-				type="font/ttf"
-				crossOrigin="anonymous"
-			/>
-		))}
-	</>
-);
-
 export {
 	//,
 	assetsCdnOrigin,
 	fontHref,
 	PreloadCoreFonts,
-	PreloadInterFonts,
 };

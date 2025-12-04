@@ -542,7 +542,7 @@ export default function Page() {
 								The default behavior of the <Code>Button</Code>. Unlike the
 								native <Code>button</Code> element, unless you use the{" "}
 								<Code>asChild</Code> prop,{" "}
-								<span className="font-semibold">
+								<span className="font-medium">
 									this prop is required and has no default value
 								</span>
 								. See{" "}

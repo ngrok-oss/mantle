@@ -53,7 +53,7 @@ export default function Page() {
 									<ExampleMedia />
 								</MediaObject.Media>
 								<MediaObject.Content>
-									<h4 className="text-lg font-bold">Lorem ipsum</h4>
+									<h4 className="text-lg font-medium">Lorem ipsum</h4>
 									<p className="mb-4 mt-1">
 										Repudiandae sint consequuntur vel. Amet ut nobis explicabo
 										numquam expedita quia omnis voluptatem. Minus quidem ipsam
@@ -79,7 +79,7 @@ export default function Page() {
 												<ExampleMedia />
 											</MediaObject.Media>
 											<MediaObject.Content>
-												<h4 className="text-lg font-bold">Lorem ipsum</h4>
+												<h4 className="text-lg font-medium">Lorem ipsum</h4>
 												<p className="mb-4 mt-1">
 													Repudiandae sint consequuntur vel. Amet ut nobis explicabo numquam expedita quia omnis voluptatem. Minus
 													quidem ipsam quia iusto.
@@ -106,7 +106,6 @@ export default function Page() {
 					<header className="space-y-1">
 						<HashLinkHeading id="api-media-object">
 							<h3 className="text-xl font-medium text-strong">
-								<span id="api-media-object-root" />
 								MediaObject.Root
 							</h3>
 						</HashLinkHeading>

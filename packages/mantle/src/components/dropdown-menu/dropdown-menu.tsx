@@ -307,7 +307,7 @@ const Label = forwardRef<
 	<DropdownMenuPrimitive.Label
 		ref={ref}
 		className={cx(
-			"px-2 py-1.5 text-sm font-semibold",
+			"px-2 py-1.5 text-sm font-medium",
 			inset && "pl-8",
 			className,
 		)}

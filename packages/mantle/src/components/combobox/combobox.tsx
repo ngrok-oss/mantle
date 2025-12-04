@@ -345,7 +345,7 @@ const ItemValue = forwardRef<
 	return (
 		<Primitive.ComboboxItemValue
 			className={cx(
-				"*:data-[user-value]:font-bold flex-1 shrink-0 text-strong font-normal",
+				"*:data-[user-value]:font-medium flex-1 shrink-0 text-strong font-normal",
 				className,
 			)}
 			ref={ref}
