@@ -69,7 +69,7 @@
     "@types/react-dom": "catalog:",
     "browserslist": "4.28.0",
     "date-fns": "4.1.0",
-    "happy-dom": "20.0.10",
+    "happy-dom": "20.0.11",
     "react": "catalog:",
     "react-dom": "catalog:",
     "react-router": "catalog:",

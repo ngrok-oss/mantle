@@ -29,7 +29,7 @@
     "@changesets/changelog-github": "0.5.1",
     "@changesets/cli": "2.29.7",
     "@types/node": "24.10.1",
-    "happy-dom": "20.0.10",
+    "happy-dom": "20.0.11",
     "turbo": "2.6.1",
     "vitest": "4.0.13"
   },
