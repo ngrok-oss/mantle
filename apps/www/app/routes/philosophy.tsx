@@ -1,5 +1,6 @@
-import type { Route } from "./+types/philosophy";
+import { MdxLayout } from "~/components/mdx-layout";
 import PhilosophyContent from "~/content/philosophy.mdx";
+import type { Route } from "./+types/philosophy";
 
 export const meta: Route.MetaFunction = () => {
 	return [
@@ -13,5 +14,9 @@ export const meta: Route.MetaFunction = () => {
 };
 
 export default function PhilosophyPage() {
-	return <PhilosophyContent />;
+	return (
+		<MdxLayout>
+			<PhilosophyContent />
+		</MdxLayout>
+	);
 }

@@ -257,6 +257,11 @@
       "import": "./dist/progress.js",
       "types": "./dist/progress.d.ts"
     },
+    "./prose": {
+      "@ngrok/mantle/source": "./src/components/prose/index.ts",
+      "import": "./dist/prose.js",
+      "types": "./dist/prose.d.ts"
+    },
     "./radio-group": {
       "@ngrok/mantle/source": "./src/components/radio-group/index.ts",
       "import": "./dist/radio-group.js",

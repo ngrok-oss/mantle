@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "@ngrok/mantle/mantle.css";
+@plugin "@tailwindcss/typography";
 
 @theme {
 	--max-width-prose: 68ch;

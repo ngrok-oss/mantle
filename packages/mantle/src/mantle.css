@@ -1373,6 +1373,11 @@
   }
 }
 
+@utility prose-mantle {
+  --tw-prose-body: var(--text-color-body);
+  --tw-prose-headings: var(--text-color-strong);
+}
+
 @utility cursor-inherit {
 	cursor: inherit;
 }
