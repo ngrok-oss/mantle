@@ -18,14 +18,7 @@ import { cx } from "../../utils/cx/cx.js";
  */
 const Prose = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
 	({ className, ...props }, ref) => (
-		<div
-			ref={ref}
-			className={cx(
-				"prose prose-mantle prose-a:no-underline prose-a:font-normal prose-h1:text-4xl prose-h2:text-2xl prose-h3:text-xl prose-h4:text-lg prose-h5:text-lg prose-h6:text-lg",
-				className,
-			)}
-			{...props}
-		/>
+		<div ref={ref} className={cx("prose", className)} {...props} />
 	),
 );
 Prose.displayName = "Prose";

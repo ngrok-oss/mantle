@@ -65,8 +65,12 @@ export default defineConfig((options) => [
 		onSuccess: async () => {
 			try {
 				await fs.promises.copyFile(MANTLE_CSS_SRC, "./dist/mantle.css");
+				await fs.promises.copyFile(
+					"./tailwind.config.js",
+					"./dist/tailwind.config.js",
+				);
 			} catch (error) {
-				console.error("Failed to copy mantle.css to dist:", error);
+				console.error("Failed to copy files to dist:", error);
 				throw error;
 			}
 		},

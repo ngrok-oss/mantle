@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "sonner/dist/styles.css"; /* import for webpack support in crusty */
+@config "./tailwind.config.js"; /* support for tailwind/typography customization */
 
 @source "../src";
 @source "../dist";
@@ -1371,11 +1372,6 @@
   strong {
   	font-weight: 500;
   }
-}
-
-@utility prose-mantle {
-  --tw-prose-body: var(--text-color-body);
-  --tw-prose-headings: var(--text-color-strong);
 }
 
 @utility cursor-inherit {
