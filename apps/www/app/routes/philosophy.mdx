@@ -3,12 +3,48 @@ import { Code } from "@ngrok/mantle/code";
 import { href } from "react-router";
 import { HashLinkHeading } from "~/components/hash-link-heading";
 import { Link } from "~/components/link";
+import { MdxLayout } from "~/components/mdx-layout";
+import { PageHeader } from "~/components/page-header";
+import { makeCanonicalUrl } from "~/utilities/canonical-origin";
+
+export const meta = ({ location }) => {
+	const canonicalUrl = makeCanonicalUrl(location.pathname);
+	return [
+		{ title: "Philosophy - @ngrok/mantle" },
+		{
+			name: "description",
+			content: "The design principles and architectural decisions that guide Mantle's development, ensuring a consistent, accessible, and maintainable design system.",
+		},
+		{
+			name: "og:url",
+			property: "og:url",
+			content: canonicalUrl,
+		},
+		{
+			name: "twitter:url",
+			content: canonicalUrl,
+		},
+	];
+};
+
+export default function Layout({ children }) {
+	return (
+		<MdxLayout>
+			<PageHeader
+				id="philosophy"
+				title="Philosophy"
+				description="The design principles and architectural philosophy behind mantle, ngrok's UI library and design system"
+			/>
+			{children}
+		</MdxLayout>
+	);
+}
 
 <HashLinkHeading id="why-philosophy">
 ## Why Philosophy Matters
 </HashLinkHeading>
 
-A clear philosophy guides every decision in Mantle’s design and implementation. It ensures consistency across components, helps developers understand the “why” behind design choices, and provides a foundation for making decisions about new features and improvements.
+A clear philosophy guides every decision in Mantle's design and implementation. It ensures consistency across components, helps developers understand the "why" behind design choices, and provides a foundation for making decisions about new features and improvements.
 
 From choosing to build on semantic HTML foundations to selecting primitive libraries that prioritize accessibility, every architectural decision in Mantle reflects our commitment to creating a design system that works for everyone, everywhere.
 
@@ -18,7 +54,7 @@ From choosing to build on semantic HTML foundations to selecting primitive libra
 
 Mantle embraces the power of composition by building on proven primitives rather than reinventing the wheel. We compose around established, unstyled primitive component libraries like <Anchor href="https://www.radix-ui.com">Radix UI</Anchor>, <Anchor href="https://ariakit.org">Ariakit</Anchor>, and <Anchor href="https://headlessui.com">Headless UI</Anchor>.
 
-This approach gives us the best of both worlds: robust, accessible functionality from battle-tested libraries, combined with ngrok’s unique visual design language. Components can be composed together naturally, and the <Code>asChild</Code> pattern allows for deep composition when needed.
+This approach gives us the best of both worlds: robust, accessible functionality from battle-tested libraries, combined with ngrok's unique visual design language. Components can be composed together naturally, and the <Code>asChild</Code> pattern allows for deep composition when needed.
 
 <HashLinkHeading id="semantic-markup-first">
 ## Semantic Markup First
@@ -36,7 +72,7 @@ By starting with the right semantic elements, we get keyboard navigation, focus 
 
 Mantle progressively enhances standard DOM elements, improving usability and accessibility while filling functional gaps. Rather than creating entirely new paradigms, we build upon familiar HTML patterns that developers already understand.
 
-This means our components work as you’d expect them to, with additional features layered on top. A <Link to={href("/components/button")}>Button</Link> is still a button, but with enhanced styling, loading states, and accessibility features.
+This means our components work as you'd expect them to, with additional features layered on top. A <Link to={href("/components/button")}>Button</Link> is still a button, but with enhanced styling, loading states, and accessibility features.
 
 <HashLinkHeading id="developer-experience">
 ## Developer Experience is Key
@@ -50,17 +86,17 @@ Every component is built with TypeScript from the ground up, providing rich Inte
 ## Accessibility First
 </HashLinkHeading>
 
-Accessibility isn't an afterthought in Mantle—it’s built into the foundation. By starting with semantic HTML and leveraging primitives that already implement WAI-ARIA patterns correctly, we ensure that every component works well with screen readers, keyboard navigation, and other assistive technologies.
+Accessibility isn't an afterthought in Mantle—it's built into the foundation. By starting with semantic HTML and leveraging primitives that already implement WAI-ARIA patterns correctly, we ensure that every component works well with screen readers, keyboard navigation, and other assistive technologies.
 
-Our commitment to semantic markup means that components are inherently accessible. A properly structured <Link to={href("/components/button")}>Button</Link> component works with screen readers because it’s built on a real <Code>&lt;button&gt;</Code> element, not a styled <Code>&lt;div&gt;</Code> with click handlers.
+Our commitment to semantic markup means that components are inherently accessible. A properly structured <Link to={href("/components/button")}>Button</Link> component works with screen readers because it's built on a real <Code>&lt;button&gt;</Code> element, not a styled <Code>&lt;div&gt;</Code> with click handlers.
 
-This approach means that ngrok’s applications are usable by everyone, regardless of their abilities or how they interact with the web. It also ensures compliance with web standards and accessibility guidelines without requiring extensive additional work.
+This approach means that ngrok's applications are usable by everyone, regardless of their abilities or how they interact with the web. It also ensures compliance with web standards and accessibility guidelines without requiring extensive additional work.
 
 <HashLinkHeading id="tailwind-as-design-language">
 ## Tailwind as Design Language
 </HashLinkHeading>
 
-Mantle uses <Anchor href="https://tailwindcss.com">Tailwind CSS</Anchor> as both a styling solution and a design language. Our custom <Link to={href("/base/tailwind-variants")}>Tailwind preset</Link> defines ngrok’s design tokens—colors, spacing, typography, and more—in a way that’s both consistent and flexible.
+Mantle uses <Anchor href="https://tailwindcss.com">Tailwind CSS</Anchor> as both a styling solution and a design language. Our custom <Link to={href("/base/tailwind-variants")}>Tailwind preset</Link> defines ngrok's design tokens—colors, spacing, typography, and more—in a way that's both consistent and flexible.
 
 This approach allows developers to extend components naturally using familiar utility classes, while ensuring that custom styling still adheres to the design system. The design tokens are semantic, meaning they adapt to different themes and contexts automatically.
 
@@ -68,7 +104,7 @@ This approach allows developers to extend components naturally using familiar ut
 ## Type Safety Without Complexity
 </HashLinkHeading>
 
-While Mantle is built with TypeScript, we avoid forcing developers to wrestle with complex generics or internal types. Instead, we leverage TypeScript’s type inference to provide excellent development experience with minimal cognitive overhead.
+While Mantle is built with TypeScript, we avoid forcing developers to wrestle with complex generics or internal types. Instead, we leverage TypeScript's type inference to provide excellent development experience with minimal cognitive overhead.
 
 Component variants are typed using <Code>class-variance-authority</Code>, providing autocomplete and validation for styling options without requiring explicit type annotations. This gives you the benefits of strong typing while keeping the API approachable.
 
@@ -78,13 +114,13 @@ Component variants are typed using <Code>class-variance-authority</Code>, provid
 
 Mantle is designed with modularity in mind. Each component can be imported individually, reducing bundle size and allowing teams to adopt the design system incrementally. The modular export pattern means you only pay for what you use.
 
-This architecture also makes it easy to extend or customize components for specific use cases without affecting the rest of the system. Teams can build their own abstractions on top of Mantle’s primitives while maintaining consistency with the broader design system.
+This architecture also makes it easy to extend or customize components for specific use cases without affecting the rest of the system. Teams can build their own abstractions on top of Mantle's primitives while maintaining consistency with the broader design system.
 
 <HashLinkHeading id="performance-by-default">
 ## Performance by Default
 </HashLinkHeading>
 
-Mantle components are optimized for performance out of the box. By using efficient styling approaches, minimizing re-renders, and leveraging React’s built-in optimizations, we ensure that using Mantle doesn’t compromise your application’s performance.
+Mantle components are optimized for performance out of the box. By using efficient styling approaches, minimizing re-renders, and leveraging React's built-in optimizations, we ensure that using Mantle doesn't compromise your application's performance.
 
 The component library is tree-shakable, TypeScript compilation is optimized, and runtime performance is a key consideration in every architectural decision. We believe that good performance is a feature, not an optimization.
 
@@ -92,7 +128,7 @@ The component library is tree-shakable, TypeScript compilation is optimized, and
 ## Evolution, Not Revolution
 </HashLinkHeading>
 
-Mantle is designed to evolve with ngrok’s needs and the broader web platform. We prefer evolutionary improvements over revolutionary changes, ensuring that existing code continues to work as the design system grows.
+Mantle is designed to evolve with ngrok's needs and the broader web platform. We prefer evolutionary improvements over revolutionary changes, ensuring that existing code continues to work as the design system grows.
 
 This philosophy extends to our approach to web standards, framework compatibility, and API design. We build on stable foundations and evolve thoughtfully, prioritizing long-term maintainability over short-term convenience.
 
@@ -100,6 +136,6 @@ This philosophy extends to our approach to web standards, framework compatibilit
 ## Consistent Mental Models
 </HashLinkHeading>
 
-Across all of Mantle’s components, we maintain consistent mental models and naming conventions. If you understand how one component works, you can reasonably predict how others will behave.
+Across all of Mantle's components, we maintain consistent mental models and naming conventions. If you understand how one component works, you can reasonably predict how others will behave.
 
 This consistency extends to prop names, variant patterns, event handling, and composition patterns. Learning Mantle once means understanding the entire system, reducing the cognitive load on developers and making the codebase more maintainable.

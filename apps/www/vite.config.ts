@@ -12,7 +12,9 @@ export default defineConfig({
 	},
 	plugins: [
 		//
-		mdx(),
+		mdx({
+			providerImportSource: "@mdx-js/react",
+		}),
 		devtoolsJson(),
 		tailwindcss(),
 		reactRouter(),
