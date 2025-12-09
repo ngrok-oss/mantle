@@ -94,7 +94,7 @@ function HashLinkHeading({ id, className, children, ...props }: Props) {
              Absolutely positioned into the left gutter; non-interactive for a11y. */}
 						<Icon
 							aria-hidden
-							className="opacity-0 transition-opacity group-hover:opacity-70 pointer-events-none"
+							className="opacity-0 group-hover:opacity-70 pointer-events-none"
 							svg={<LinkIcon />}
 						/>
 					</Link>
