@@ -1,5 +1,4 @@
 import { Alert } from "@ngrok/mantle/alert";
-import { Anchor } from "@ngrok/mantle/anchor";
 import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { Select } from "@ngrok/mantle/select";
@@ -10,92 +9,8 @@ import { href } from "react-router";
 import { useLocalStorage } from "usehooks-ts";
 import { HashLinkHeading } from "~/components/hash-link-heading";
 import { Link } from "~/components/link";
-import { PageHeader } from "~/components/page-header";
-import type { Route } from "./+types/_index";
-
-export const meta: Route.MetaFunction = () => {
-	return [{ title: "@ngrok/mantle" }];
-};
-
-export default function Page() {
-	return (
-		<div>
-			<PageHeader id="mantle">Mantle</PageHeader>
-			<p className="font-weight font-body text-body mt-4 text-xl">
-				Mantle is <Anchor href="https://ngrok.com">ngrok</Anchor>
-				&rsquo;s UI library and design system that powers its front-end.
-			</p>
-
-			<HashLinkHeading id="overview" className="mt-8 text-3xl font-medium">
-				<h2>Overview</h2>
-			</HashLinkHeading>
-			<p className="font-body text-body mt-3">
-				Mantle is a carefully designed system of{" "}
-				<Anchor href="https://react.dev">React</Anchor> components and utilities
-				that establishes a unified design language and consistent user
-				experience across ngrok’s web applications. Built with flexibility,
-				extensibility, and developer ergonomics in mind, Mantle prioritizes
-				accessibility, performance, and long-term maintainability. Developed in{" "}
-				<Anchor href="https://www.typescriptlang.org/">TypeScript</Anchor>, it
-				offers strong typing, rich IDE support, and increased confidence through
-				compile-time safety. Mantle empowers ngrok’s developers to craft
-				interfaces that align seamlessly with the company’s brand, design
-				principles, and engineering standards. By progressively enhancing
-				standard DOM elements, it not only improves usability and accessibility,
-				but also fills functional gaps—providing a robust foundation for
-				building cohesive, modern UIs throughout the platform.
-			</p>
-
-			<p className="font-body text-body mt-3">
-				All of Mantle&rsquo;s components are styled using{" "}
-				<Anchor href="https://tailwindcss.com">Tailwind</Anchor>. and we compose
-				around the following unstyled primitive component libraries:
-			</p>
-			<ul className="list-disc pl-6 font-body text-body mt-3">
-				<li>
-					<Anchor href="https://www.radix-ui.com">Radix</Anchor>
-				</li>
-				<li>
-					<Anchor href="https://ariakit.org/components">Ariakit</Anchor>
-				</li>
-				<li>
-					<Anchor href="https://headlessui.com/">Headless UI</Anchor>
-				</li>
-			</ul>
-			<p className="font-body text-body mt-3">
-				Mantle uses{" "}
-				<Anchor href="https://phosphoricons.com/">Phosphor Icons</Anchor> as the
-				primary icon library, providing a versatile and consistent set of icons.
-				In addition, custom-designed icons tailored to ngrok’s needs are
-				available through the{" "}
-				<Link to={href("/components/icons")}>
-					<Code>@ngrok/mantle/icons</Code>
-				</Link>{" "}
-				module.
-			</p>
-
-			<HashLinkHeading id="status" className="mt-8 text-xl font-medium">
-				<h3>Status</h3>
-			</HashLinkHeading>
-			<p className="font-body text-body mt-3">
-				Mantle is a work in progress that&rsquo;s currently adding components.
-				It intends to replace new and existing ngrok user interfaces.
-			</p>
-
-			<p className="font-body text-body mt-3">
-				Mantle is available in its alpha state on{" "}
-				<Anchor href="https://www.npmjs.com/package/@ngrok/mantle">NPM</Anchor>.
-				It is open source and available on{" "}
-				<Anchor href="https://github.com/ngrok-oss/mantle">GitHub</Anchor>.
-			</p>
-
-			<SetupInstructions />
-		</div>
-	);
-}
 
 const packageManagers = ["npm", "pnpm", "bun"] as const;
-
 type PackageManager = (typeof packageManagers)[number];
 
 const $packageManager = <T extends PackageManager = PackageManager>(value: T) =>
@@ -109,7 +24,6 @@ function isPackageManager(value: unknown): value is PackageManager {
 }
 
 const applicationTemplates = [
-	//,
 	"react-router",
 	"next",
 	"vite",
@@ -147,130 +61,6 @@ const additionalDevDependencies = {
 	next: "@tailwindcss/postcss postcss",
 } as const satisfies Record<ApplicationTemplate, string>;
 
-function SetupInstructions() {
-	const [applicationTemplate, setApplicationTemplate] =
-		useState<ApplicationTemplate>("react-router");
-
-	const [preferredPackageManager, setPrefferedPackageManager] =
-		useLocalStorage<PackageManager>(
-			"preferredPackageManager",
-			$packageManager("pnpm"),
-		);
-
-	const devDependencies = [
-		//,
-		devDependenciesInstallationCommand[preferredPackageManager],
-		additionalDevDependencies[applicationTemplate],
-	]
-		.filter(Boolean)
-		.join(" ");
-
-	return (
-		<section>
-			<HashLinkHeading id="setup" className="text-3xl font-medium mt-12 mb-4">
-				<h2>Setup</h2>
-			</HashLinkHeading>
-
-			<p className="font-body text-body mt-3 mb-4">
-				I want to use <Code>mantle</Code> in my{" "}
-				<Select.Root
-					value={applicationTemplate}
-					onValueChange={(value) => {
-						if (isApplicationTemplate(value)) {
-							setApplicationTemplate(value);
-						}
-					}}
-				>
-					<Select.Trigger className="w-32 inline-flex">
-						<Select.Value />
-					</Select.Trigger>
-					<Select.Content width="content">
-						{applicationTemplates.map((template) => (
-							<Select.Item key={template} value={template}>
-								{template}
-							</Select.Item>
-						))}
-					</Select.Content>
-				</Select.Root>{" "}
-				application…
-			</p>
-
-			<div className="space-y-4">
-				<HashLinkHeading id="installation" className="text-xl font-medium">
-					<h3>Installation</h3>
-				</HashLinkHeading>
-				<p className="font-body text-body">
-					Start by installing <Code>@ngrok/mantle</Code> and all of the required{" "}
-					<Code>peerDependencies</Code>:
-				</p>
-				<Alert.Root priority="info">
-					<Alert.Icon />
-					<Alert.Content>
-						<Alert.Description>
-							Mantle supports <Code>react</Code> and <Code>react-dom</Code>{" "}
-							versions 18 and 19.
-						</Alert.Description>
-					</Alert.Content>
-				</Alert.Root>
-				<CodeBlock.Root>
-					<CodeBlock.Header>
-						<CodeBlock.Icon preset="cli" />
-						<CodeBlock.Title className="flex-1">
-							mantle and dependencies installation
-						</CodeBlock.Title>
-						<PackageManagerSelect
-							value={preferredPackageManager}
-							onChange={setPrefferedPackageManager}
-						/>
-					</CodeBlock.Header>
-					<CodeBlock.Body>
-						<CodeBlock.CopyButton />
-						<CodeBlock.Code
-							language="sh"
-							value={fmtCode`${primaryInstallationCommand[preferredPackageManager]}`}
-						/>
-					</CodeBlock.Body>
-				</CodeBlock.Root>
-				<p className="font-body text-body">
-					You will also need to install the following{" "}
-					<Code>devDependencies</Code>:
-				</p>
-				<CodeBlock.Root>
-					<CodeBlock.Header>
-						<CodeBlock.Icon preset="cli" />
-						<CodeBlock.Title className="flex-1">
-							mantle devDependencies installation
-						</CodeBlock.Title>
-						<PackageManagerSelect
-							value={preferredPackageManager}
-							onChange={setPrefferedPackageManager}
-						/>
-					</CodeBlock.Header>
-					<CodeBlock.Body>
-						<CodeBlock.CopyButton />
-						<CodeBlock.Code language="sh" value={fmtCode`${devDependencies}`} />
-					</CodeBlock.Body>
-				</CodeBlock.Root>
-			</div>
-
-			<section className="mt-8 space-y-4">
-				<HashLinkHeading
-					id="application-scaffolding"
-					className="text-xl font-medium"
-				>
-					<h3>Application Scaffolding</h3>
-				</HashLinkHeading>
-				<ApplicationTemplate template={applicationTemplate} />
-				<p className="font-body text-body mt-4">
-					You are now ready to use mantle components in your application! For
-					example, you can use the{" "}
-					<Link to={href("/components/button")}>Button</Link>!
-				</p>
-			</section>
-		</section>
-	);
-}
-
 type PackageManagerSelectProps = {
 	value: PackageManager;
 	onChange: (value: PackageManager) => void;
@@ -298,30 +88,6 @@ function PackageManagerSelect({ value, onChange }: PackageManagerSelectProps) {
 			</Select.Content>
 		</Select.Root>
 	);
-}
-
-function ApplicationTemplate({ template }: { template: ApplicationTemplate }) {
-	switch (template) {
-		case "react-router":
-			return <ReactRouterScaffolding />;
-		case "next":
-			return <NextJsScaffolding />;
-		case "vite":
-			return <ViteScaffolding />;
-		case "react spa":
-			return <ReactSpaScaffolding />;
-		default:
-			return (
-				<Alert.Root priority="danger">
-					<Alert.Icon />
-					<Alert.Content>
-						<Alert.Description>
-							Unknown application template: {template}
-						</Alert.Description>
-					</Alert.Content>
-				</Alert.Root>
-			);
-	}
 }
 
 function ReactRouterScaffolding() {
@@ -701,5 +467,156 @@ function ReactSpaScaffolding() {
 				</CodeBlock.Body>
 			</CodeBlock.Root>
 		</div>
+	);
+}
+
+function ApplicationTemplateScaffolding({
+	template,
+}: {
+	template: ApplicationTemplate;
+}) {
+	switch (template) {
+		case "react-router":
+			return <ReactRouterScaffolding />;
+		case "next":
+			return <NextJsScaffolding />;
+		case "vite":
+			return <ViteScaffolding />;
+		case "react spa":
+			return <ReactSpaScaffolding />;
+		default:
+			return (
+				<Alert.Root priority="danger">
+					<Alert.Icon />
+					<Alert.Content>
+						<Alert.Description>
+							Unknown application template: {template}
+						</Alert.Description>
+					</Alert.Content>
+				</Alert.Root>
+			);
+	}
+}
+
+export function SetupSection() {
+	const [applicationTemplate, setApplicationTemplate] =
+		useState<ApplicationTemplate>("react-router");
+
+	const [preferredPackageManager, setPrefferedPackageManager] =
+		useLocalStorage<PackageManager>(
+			"preferredPackageManager",
+			$packageManager("pnpm"),
+		);
+
+	const devDeps = [
+		devDependenciesInstallationCommand[preferredPackageManager],
+		additionalDevDependencies[applicationTemplate],
+	]
+		.filter(Boolean)
+		.join(" ");
+
+	return (
+		<section>
+			<HashLinkHeading id="setup" className="text-3xl font-medium mt-12 mb-4">
+				<h2>Setup</h2>
+			</HashLinkHeading>
+
+			<p className="font-body text-body mt-3 mb-4">
+				I want to use <Code>mantle</Code> in my{" "}
+				<Select.Root
+					value={applicationTemplate}
+					onValueChange={(value) => {
+						if (isApplicationTemplate(value)) {
+							setApplicationTemplate(value);
+						}
+					}}
+				>
+					<Select.Trigger className="w-32 inline-flex">
+						<Select.Value />
+					</Select.Trigger>
+					<Select.Content width="content">
+						{applicationTemplates.map((template) => (
+							<Select.Item key={template} value={template}>
+								{template}
+							</Select.Item>
+						))}
+					</Select.Content>
+				</Select.Root>{" "}
+				application…
+			</p>
+
+			<div className="space-y-4">
+				<HashLinkHeading id="installation" className="text-xl font-medium">
+					<h3>Installation</h3>
+				</HashLinkHeading>
+				<p className="font-body text-body">
+					Start by installing <Code>@ngrok/mantle</Code> and all of the required{" "}
+					<Code>peerDependencies</Code>:
+				</p>
+				<Alert.Root priority="info">
+					<Alert.Icon />
+					<Alert.Content>
+						<Alert.Description>
+							Mantle supports <Code>react</Code> and <Code>react-dom</Code>{" "}
+							versions 18 and 19.
+						</Alert.Description>
+					</Alert.Content>
+				</Alert.Root>
+				<CodeBlock.Root>
+					<CodeBlock.Header>
+						<CodeBlock.Icon preset="cli" />
+						<CodeBlock.Title className="flex-1">
+							mantle and dependencies installation
+						</CodeBlock.Title>
+						<PackageManagerSelect
+							value={preferredPackageManager}
+							onChange={setPrefferedPackageManager}
+						/>
+					</CodeBlock.Header>
+					<CodeBlock.Body>
+						<CodeBlock.CopyButton />
+						<CodeBlock.Code
+							language="sh"
+							value={fmtCode`${primaryInstallationCommand[preferredPackageManager]}`}
+						/>
+					</CodeBlock.Body>
+				</CodeBlock.Root>
+				<p className="font-body text-body">
+					You will also need to install the following{" "}
+					<Code>devDependencies</Code>:
+				</p>
+				<CodeBlock.Root>
+					<CodeBlock.Header>
+						<CodeBlock.Icon preset="cli" />
+						<CodeBlock.Title className="flex-1">
+							mantle devDependencies installation
+						</CodeBlock.Title>
+						<PackageManagerSelect
+							value={preferredPackageManager}
+							onChange={setPrefferedPackageManager}
+						/>
+					</CodeBlock.Header>
+					<CodeBlock.Body>
+						<CodeBlock.CopyButton />
+						<CodeBlock.Code language="sh" value={fmtCode`${devDeps}`} />
+					</CodeBlock.Body>
+				</CodeBlock.Root>
+			</div>
+
+			<section className="mt-8 space-y-4">
+				<HashLinkHeading
+					id="application-scaffolding"
+					className="text-xl font-medium"
+				>
+					<h3>Application Scaffolding</h3>
+				</HashLinkHeading>
+				<ApplicationTemplateScaffolding template={applicationTemplate} />
+				<p className="font-body text-body mt-4">
+					You are now ready to use mantle components in your application! For
+					example, you can use the{" "}
+					<Link to={href("/components/button")}>Button</Link>!
+				</p>
+			</section>
+		</section>
 	);
 }

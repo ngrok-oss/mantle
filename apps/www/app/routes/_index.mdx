@@ -1,0 +1,66 @@
+import { Anchor } from "@ngrok/mantle/anchor";
+import { Code } from "@ngrok/mantle/code";
+import { href } from "react-router";
+import { HashLinkHeading } from "~/components/hash-link-heading";
+import { Link } from "~/components/link";
+import { MdxLayout } from "~/components/mdx-layout";
+import { PageHeader } from "~/components/page-header";
+import { makeCanonicalUrl } from "~/utilities/canonical-origin";
+import { SetupSection } from "./_index.setup";
+
+export const meta = ({ location }) => {
+	const canonicalUrl = makeCanonicalUrl(location.pathname);
+	return [
+		{ title: "@ngrok/mantle" },
+		{
+			name: "description",
+			content: "Mantle is ngrok's UI library and design system that powers its front-end.",
+		},
+		{
+			name: "og:url",
+			property: "og:url",
+			content: canonicalUrl,
+		},
+		{
+			name: "twitter:url",
+			content: canonicalUrl,
+		},
+	];
+};
+
+export default function Layout({ children }) {
+	return (
+		<MdxLayout>
+			<PageHeader id="mantle">Mantle</PageHeader>
+			{children}
+			<SetupSection />
+		</MdxLayout>
+	);
+}
+
+<p className="font-weight font-body text-body mt-4 text-xl">
+	Mantle is <Anchor href="https://ngrok.com">ngrok</Anchor>
+	’s UI library and design system that powers its front-end.
+</p>
+
+<HashLinkHeading id="overview">
+## Overview
+</HashLinkHeading>
+
+Mantle is a carefully designed system of <Anchor href="https://react.dev">React</Anchor> components and utilities that establishes a unified design language and consistent user experience across ngrok’s web applications. Built with flexibility, extensibility, and developer ergonomics in mind, Mantle prioritizes accessibility, performance, and long-term maintainability. Developed in <Anchor href="https://www.typescriptlang.org/">TypeScript</Anchor>, it offers strong typing, rich IDE support, and increased confidence through compile-time safety. Mantle empowers ngrok’s developers to craft interfaces that align seamlessly with the company’s brand, design principles, and engineering standards. By progressively enhancing standard DOM elements, it not only improves usability and accessibility, but also fills functional gaps—providing a robust foundation for building cohesive, modern UIs throughout the platform.
+
+All of Mantle’s components are styled using <Anchor href="https://tailwindcss.com">Tailwind</Anchor>. and we compose around the following unstyled primitive component libraries:
+
+- <Anchor href="https://www.radix-ui.com">Radix</Anchor>
+- <Anchor href="https://ariakit.org/components">Ariakit</Anchor>
+- <Anchor href="https://headlessui.com/">Headless UI</Anchor>
+
+Mantle uses <Anchor href="https://phosphoricons.com/">Phosphor Icons</Anchor> as the primary icon library, providing a versatile and consistent set of icons. In addition, custom-designed icons tailored to ngrok's needs are available through the <Link to={href("/components/icons")}><Code>@ngrok/mantle/icons</Code></Link> module.
+
+<HashLinkHeading id="status">
+### Status
+</HashLinkHeading>
+
+Mantle is a work in progress that’s currently adding components. It intends to replace new and existing ngrok user interfaces.
+
+Mantle is available in its alpha state on <Anchor href="https://www.npmjs.com/package/@ngrok/mantle">NPM</Anchor>. It is open source and available on <Anchor href="https://github.com/ngrok-oss/mantle">GitHub</Anchor>.
