@@ -45,7 +45,7 @@ function useAlertContext() {
 }
 
 const alertVariants = cva(
-	"relative flex w-full gap-1.5 rounded-md border p-2.5 text-sm",
+	"not-prose relative flex w-full gap-1.5 rounded-md border p-2.5 text-sm",
 	{
 		variants: {
 			/**

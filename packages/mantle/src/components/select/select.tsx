@@ -233,7 +233,7 @@ const Trigger = forwardRef<
 			<SelectPrimitive.Trigger
 				aria-invalid={ariaInvalid}
 				className={cx(
-					"h-9 text-sm",
+					"not-prose h-9 text-sm",
 					"border-form bg-form text-strong placeholder:text-placeholder hover:bg-form-hover hover:text-strong flex w-full items-center justify-between gap-1.5 rounded-md border px-3 py-2 disabled:pointer-events-none disabled:opacity-50 [&>span]:line-clamp-1 [&>span]:text-left",
 					"hover:border-neutral-400",
 					"focus:outline-hidden focus:ring-4 aria-expanded:ring-4",

@@ -205,7 +205,7 @@ const SheetOverlay = forwardRef<
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName;
 
 const SheetVariants = cva(
-	"bg-dialog border-dialog inset-y-0 h-full w-full fixed z-40 flex flex-col shadow-lg outline-hidden transition ease-in-out focus-within:outline-hidden data-state-closed:duration-100 data-state-closed:animate-out data-state-open:duration-100 data-state-open:animate-in",
+	"not-prose bg-dialog border-dialog inset-y-0 h-full w-full fixed z-40 flex flex-col shadow-lg outline-hidden transition ease-in-out focus-within:outline-hidden data-state-closed:duration-100 data-state-closed:animate-out data-state-open:duration-100 data-state-open:animate-in",
 	{
 		variants: {
 			/**

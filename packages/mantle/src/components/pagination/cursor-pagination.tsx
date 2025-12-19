@@ -78,7 +78,7 @@ const Root = forwardRef<HTMLDivElement, CursorPaginationProps>(
 			>
 				<div
 					className={cx(
-						"inline-flex items-center justify-between gap-2",
+						"not-prose inline-flex items-center justify-between gap-2",
 						className,
 					)}
 					ref={ref}

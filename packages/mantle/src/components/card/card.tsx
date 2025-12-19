@@ -41,7 +41,7 @@ const Root = forwardRef<ComponentRef<"div">, CardProps>(
 			<Component
 				ref={ref}
 				className={cx(
-					"border-card bg-card relative rounded-md border",
+					"not-prose border-card bg-card relative rounded-md border",
 					className,
 				)}
 				{...rest}

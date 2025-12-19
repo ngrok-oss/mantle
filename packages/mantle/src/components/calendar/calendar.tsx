@@ -47,6 +47,7 @@ function Calendar({
 	return (
 		<DayPicker
 			animate={false}
+			className={cx("not-prose", className)}
 			components={{
 				Chevron: (iconProps) => {
 					const icon =
@@ -60,7 +61,7 @@ function Calendar({
 				},
 			}}
 			classNames={{
-				root: cx("isolate", className),
+				root: "isolate",
 				button_next: cx(
 					baseIconButtonClasses,
 					iconButtonVariants({ appearance: "ghost", size: "sm" }),

@@ -51,7 +51,7 @@ const HorizontalSeparatorGroup = ({
 			<Comp
 				data-horizontal-separator-group
 				className={cx(
-					"group flex items-center gap-2 [&_*:not([data-separator])]:shrink-0",
+					"not-prose group flex items-center gap-2 [&_*:not([data-separator])]:shrink-0",
 					className,
 				)}
 				{...props}
@@ -129,7 +129,7 @@ const Separator = forwardRef<ComponentRef<"div">, SeparatorProps>(
 		return (
 			<Component
 				className={cx(
-					"separator",
+					"not-prose separator",
 					"dark-high-contrast:bg-black high-contrast:bg-black bg-gray-500/20 dark:bg-gray-600/20",
 					orientation === "horizontal"
 						? "h-px w-full group-data-[horizontal-separator-group]:flex-1"

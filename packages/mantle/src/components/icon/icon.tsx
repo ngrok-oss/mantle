@@ -26,7 +26,7 @@ const Icon = forwardRef<ComponentRef<"svg">, IconProps>(
 	({ className, style, svg, ...props }, ref) => (
 		<SvgOnly
 			ref={ref}
-			className={cx("size-5", className)}
+			className={cx("not-prose size-5", className)}
 			style={style}
 			svg={svg}
 			{...props}

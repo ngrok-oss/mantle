@@ -12,7 +12,7 @@ import type { Rel, Target } from "./types.js";
  */
 const anchorClassNames = (className?: string) =>
 	cx(
-		"cursor-pointer rounded bg-transparent text-accent-600 hover:underline focus:outline-hidden focus-visible:ring-3 focus-visible:ring-focus-accent",
+		"not-prose cursor-pointer rounded bg-transparent text-accent-600 hover:underline focus:outline-hidden focus-visible:ring-3 focus-visible:ring-focus-accent",
 		className,
 	);
 

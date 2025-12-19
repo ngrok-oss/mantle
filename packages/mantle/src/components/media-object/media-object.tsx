@@ -18,7 +18,7 @@ const Root = forwardRef<HTMLDivElement, Props>(
 		return (
 			<Component
 				ref={ref}
-				className={cx("flex gap-4", className)}
+				className={cx("not-prose flex gap-4", className)}
 				style={style}
 			>
 				{children}

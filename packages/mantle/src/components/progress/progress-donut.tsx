@@ -140,7 +140,7 @@ const Root = ({
 				aria-valuemin={0}
 				aria-valuenow={valueNow}
 				className={cx(
-					"size-6 text-gray-200 dark:text-gray-300",
+					"not-prose size-6 text-gray-200 dark:text-gray-300",
 					value === "indeterminate" && [
 						"animate-spin",
 						// Default duration only if consumer hasn't set one.

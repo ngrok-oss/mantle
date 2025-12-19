@@ -143,7 +143,7 @@ const Root = forwardRef<
 		<CodeBlockContext.Provider value={context}>
 			<Component
 				className={cx(
-					"text-mono overflow-hidden rounded-md border border-gray-300 bg-gray-50 font-mono",
+					"not-prose text-mono overflow-hidden rounded-md border border-gray-300 bg-gray-50 font-mono",
 					"[&_svg]:shrink-0",
 					className,
 				)}

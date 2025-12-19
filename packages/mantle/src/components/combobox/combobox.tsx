@@ -81,7 +81,7 @@ const Input = forwardRef<ComponentRef<"input">, ComboboxInputProps>(
 				autoComplete={autoComplete}
 				autoSelect={autoSelect}
 				className={cx(
-					"pointer-coarse:text-base h-9 text-sm",
+					"not-prose pointer-coarse:text-base h-9 text-sm",
 					"bg-form relative block w-full rounded-md border px-3 py-2 border-form text-strong",
 					"placeholder:text-placeholder",
 					"aria-disabled:opacity-50",

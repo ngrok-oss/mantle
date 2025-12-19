@@ -219,7 +219,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 		const buttonProps = {
 			"aria-disabled": disabled,
 			className: cx(
-				"inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-md",
+				"not-prose inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-md",
 				"focus:outline-hidden focus-visible:ring-4",
 				"disabled:cursor-default disabled:opacity-50",
 				"not-disabled:active:scale-97 ease-out transition-transform duration-150",

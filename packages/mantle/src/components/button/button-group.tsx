@@ -4,7 +4,7 @@ import type { VariantProps } from "../../types/index.js";
 import { cx } from "../../utils/cx/cx.js";
 
 const buttonGroupVariants = cva(
-	"border-form inline-flex items-center rounded-md",
+	"not-prose border-form inline-flex items-center rounded-md",
 	{
 		variants: {
 			/**

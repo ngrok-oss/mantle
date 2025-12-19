@@ -100,7 +100,7 @@ function Root({
 			<ProgressPrimitive.Root
 				data-slot="progress"
 				className={cx(
-					"bg-base-hover dark:bg-base shadow-inner relative h-3 w-full overflow-hidden rounded-md",
+					"not-prose bg-base-hover dark:bg-base shadow-inner relative h-3 w-full overflow-hidden rounded-md",
 					className,
 				)}
 				value={valueNow}

@@ -39,7 +39,7 @@ const Root = forwardRef<
 >(({ className, ...props }, ref) => (
 	<AccordionPrimitive.Root
 		ref={ref}
-		className={cx("w-full space-y-2.5", className)}
+		className={cx("not-prose w-full space-y-2.5", className)}
 		{...props}
 	/>
 ));

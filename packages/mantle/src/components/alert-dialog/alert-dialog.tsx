@@ -240,7 +240,7 @@ const Content = forwardRef<
 				<AlertDialogPrimitive.Content
 					ref={ref}
 					className={cx(
-						"flex w-full flex-1 flex-col items-center gap-4 sm:flex-row sm:items-start",
+						"not-prose flex w-full flex-1 flex-col items-center gap-4 sm:flex-row sm:items-start",
 						"outline-hidden focus-within:outline-hidden",
 						"p-6",
 						"border-dialog bg-dialog rounded-xl border shadow-lg transition-transform duration-200",

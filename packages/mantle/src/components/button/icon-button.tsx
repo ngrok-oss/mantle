@@ -10,7 +10,7 @@ import { Icon } from "../icon/index.js";
 import { Slot } from "../slot/index.js";
 
 const baseIconButtonClasses = cx(
-	"icon-button",
+	"not-prose icon-button",
 	"inline-flex shrink-0 items-center justify-center rounded-[var(--icon-button-border-radius,0.375rem)] border",
 	"focus:outline-hidden focus-visible:ring-4",
 	"disabled:cursor-default disabled:opacity-50",

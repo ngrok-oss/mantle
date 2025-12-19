@@ -81,7 +81,7 @@ const Root = forwardRef<
 	) => (
 		<TabsPrimitiveRoot
 			className={cx(
-				"flex gap-4",
+				"not-prose flex gap-4",
 				orientation === "horizontal" ? "flex-col" : "flex-row",
 				className,
 			)}

@@ -160,7 +160,7 @@ const Content = forwardRef<
 		<DropdownMenuPrimitive.Content
 			ref={ref}
 			className={cx(
-				"scrollbar",
+				"not-prose scrollbar",
 				"text-popover-foreground border-popover bg-popover p-1.25 z-50 min-w-[8rem] overflow-hidden rounded-md border shadow-xl outline-hidden",
 				"data-side-bottom:slide-in-from-top-2 data-side-left:slide-in-from-right-2 data-side-right:slide-in-from-left-2 data-side-top:slide-in-from-bottom-2 data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 data-state-open:animate-in data-state-open:fade-in-0 data-state-open:zoom-in-95",
 				"my-2 max-h-[calc(var(--radix-dropdown-menu-content-available-height)_-_16px)] overflow-auto",

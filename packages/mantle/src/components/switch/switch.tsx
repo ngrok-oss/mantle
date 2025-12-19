@@ -50,7 +50,7 @@ const Switch = forwardRef<
 			<SwitchPrimitiveRoot
 				aria-readonly={readOnly}
 				className={cx(
-					"peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full outline-hidden",
+					"not-prose peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full outline-hidden",
 					"disabled:cursor-default disabled:opacity-50",
 					"focus-visible:border-accent-600 focus-visible:ring-focus-accent focus-visible:outline-hidden focus-visible:ring-4",
 					"data-state-checked:bg-blue-500 data-state-unchecked:bg-gray-400",

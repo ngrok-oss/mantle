@@ -105,7 +105,7 @@ const Item = forwardRef<ComponentRef<"div">, RadioItemProps>(
 	({ children, className, ...props }, ref) => (
 		<HeadlessRadio
 			className={cx(
-				"group/radio cursor-pointer aria-disabled:cursor-default [&_label]:cursor-inherit flex gap-2 py-1 text-sm focus:outline-hidden",
+				"not-prose group/radio cursor-pointer aria-disabled:cursor-default [&_label]:cursor-inherit flex gap-2 py-1 text-sm focus:outline-hidden",
 				className,
 			)}
 			as="div"

@@ -57,7 +57,7 @@ const Badge = ({
 	const textColor = computeTextColor(color, appearance);
 
 	const badgeClasses = cx(
-		"inline-flex w-fit shrink-0 cursor-default items-center gap-1 rounded px-1.5 py-0.5 font-medium text-xs",
+		"not-prose inline-flex w-fit shrink-0 cursor-default items-center gap-1 rounded px-1.5 py-0.5 font-medium text-xs",
 		icon && "ps-1",
 		bgColor,
 		textColor,

@@ -18,7 +18,7 @@ function Kbd({ children, className, ...props }: ComponentProps<"kbd">) {
 	return (
 		<kbd
 			className={cx(
-				"[font-kerning:normal] [font-variant-ligatures:common-ligatures_contextual]",
+				"not-prose [font-kerning:normal] [font-variant-ligatures:common-ligatures_contextual]",
 				"appearance-none tabular-nums inline-grid place-items-center size-5 bg-neutral-500/15 px-1 rounded text-mono leading-none font-mono",
 				className,
 			)}

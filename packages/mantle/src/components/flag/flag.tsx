@@ -75,7 +75,7 @@ function Flag({
 	return (
 		<div
 			className={cx(
-				"flag relative overflow-hidden",
+				"not-prose flag relative overflow-hidden",
 				borderRadius,
 				sizing,
 				className,
