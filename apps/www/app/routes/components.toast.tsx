@@ -322,7 +322,9 @@ export default function Page() {
 									<p>
 										Time in milliseconds that should elapse before automatically
 										dismissing toasts. When set here, this will be the default
-										duration for all toasts.
+										duration for all toasts. You can keep toasts open until
+										manually dismissed by passing a value {"<="} 0 or{" "}
+										<Code>Number.POSITIVE_INFINITY</Code>.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -544,7 +546,9 @@ export default function Page() {
 									<ul className="mt-2 list-disc list-inside space-y-1">
 										<li>
 											<Code>duration_ms</Code> (number, optional): Time in
-											milliseconds before auto-dismissal
+											milliseconds before auto-dismissal. Pass a value {"<="} 0
+											or <Code>Number.POSITIVE_INFINITY</Code> to keep the toast
+											open until manually dismissed.
 										</li>
 										<li>
 											<Code>id</Code> (string, optional): Custom ID for the
