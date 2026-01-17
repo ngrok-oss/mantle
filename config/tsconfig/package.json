@@ -3,16 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "files": [
-    "*.json",
-    "*.d.ts"
+    "*.d.ts",
+    "*.json"
   ],
-  "devDependencies": {
-    "@total-typescript/ts-reset": "0.6.1",
-    "react": "catalog:"
-  },
-  "peerDependencies": {
-    "react": "^18 || ^19"
-  },
   "exports": {
     "./package.json": "./package.json",
     "./css.d.ts": "./css.d.ts",
@@ -21,5 +14,12 @@
     "./tsconfig.client-package.json": "./tsconfig.client-package.json",
     "./tsconfig.server-package.json": "./tsconfig.server-package.json",
     "./tsconfig.web-app.json": "./tsconfig.web-app.json"
+  },
+  "devDependencies": {
+    "@total-typescript/ts-reset": "0.6.1",
+    "react": "catalog:"
+  },
+  "peerDependencies": {
+    "react": "^18 || ^19"
   }
 }

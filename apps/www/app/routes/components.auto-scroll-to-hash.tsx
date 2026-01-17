@@ -25,49 +25,34 @@ export default function Page() {
 			<section className="space-y-4">
 				<PageHeader id="auto-scroll-to-hash">AutoScrollToHash</PageHeader>
 				<p className="font-body text-body my-4 text-xl">
-					A context provider and hook that automatically scrolls to elements
-					matching the URL hash.
+					A context provider and hook that automatically scrolls to elements matching the URL hash.
 				</p>
 				<div className="font-body text-body space-y-4">
 					<p>
-						The <Code>AutoScrollToHash</Code> provider component automatically
-						scrolls to the element identified by the current URL hash (e.g.,{" "}
-						<Code>#subscription</Code>). It wraps your app and provides a
-						context that enables the <Code>useAutoScrollToHash</Code> hook to
-						programmatically trigger scrolling.
+						The <Code>AutoScrollToHash</Code> provider component automatically scrolls to the
+						element identified by the current URL hash (e.g., <Code>#subscription</Code>). It wraps
+						your app and provides a context that enables the <Code>useAutoScrollToHash</Code> hook
+						to programmatically trigger scrolling.
 					</p>
 					<p>
-						The scroll behavior respects user motion preferences, using smooth
-						scrolling by default but switching to instant scrolling for users
-						who prefer reduced motion.
+						The scroll behavior respects user motion preferences, using smooth scrolling by default
+						but switching to instant scrolling for users who prefer reduced motion.
 					</p>
 
 					<div>
 						<Example>
 							<div className="space-y-4">
-								<p>
-									Wrap your app with the provider (typically in your root
-									layout):
-								</p>
+								<p>Wrap your app with the provider (typically in your root layout):</p>
 								<div className="space-y-2">
-									<div
-										id="section-1"
-										className="rounded border border-gray-300 p-4"
-									>
+									<div id="section-1" className="rounded border border-gray-300 p-4">
 										<h3 className="font-medium">Section 1</h3>
 										<p>This section can be linked with #section-1</p>
 									</div>
-									<div
-										id="section-2"
-										className="rounded border border-gray-300 p-4"
-									>
+									<div id="section-2" className="rounded border border-gray-300 p-4">
 										<h3 className="font-medium">Section 2</h3>
 										<p>This section can be linked with #section-2</p>
 									</div>
-									<div
-										id="section-3"
-										className="rounded border border-gray-300 p-4"
-									>
+									<div id="section-3" className="rounded border border-gray-300 p-4">
 										<h3 className="font-medium">Section 3</h3>
 										<p>This section can be linked with #section-3</p>
 									</div>
@@ -100,8 +85,7 @@ export default function Page() {
 
 					<div className="space-y-4">
 						<p>
-							Use the hook to programmatically trigger scrolling after
-							asynchronous content loads:
+							Use the hook to programmatically trigger scrolling after asynchronous content loads:
 						</p>
 						<CodeBlock.Root>
 							<CodeBlock.Body>
@@ -140,15 +124,13 @@ export default function Page() {
 				<section className="space-y-4">
 					<header className="space-y-1">
 						<HashLinkHeading id="api-auto-scroll-to-hash">
-							<h3 className="text-xl font-medium text-strong">
-								AutoScrollToHash
-							</h3>
+							<h3 className="text-xl font-medium text-strong">AutoScrollToHash</h3>
 						</HashLinkHeading>
 
 						<p className="font-body text-body">
-							A context provider component that automatically scrolls to the
-							element matching the current URL hash. Must wrap your application
-							to enable the <Code>useAutoScrollToHash</Code> hook.
+							A context provider component that automatically scrolls to the element matching the
+							current URL hash. Must wrap your application to enable the{" "}
+							<Code>useAutoScrollToHash</Code> hook.
 						</p>
 
 						<p>This component accepts a single prop:</p>
@@ -171,28 +153,25 @@ export default function Page() {
 				<section className="space-y-4">
 					<header className="space-y-1">
 						<HashLinkHeading id="api-use-auto-scroll-to-hash">
-							<h3 className="text-xl font-medium text-strong">
-								useAutoScrollToHash
-							</h3>
+							<h3 className="text-xl font-medium text-strong">useAutoScrollToHash</h3>
 						</HashLinkHeading>
 
 						<p className="font-body text-body">
-							A hook that returns a stable callback for programmatically
-							triggering the hash-based scroll. Use this when the target element
-							is rendered asynchronously (e.g., after lazy-loading, tab
-							switching, or fetching data). Must be used within an{" "}
+							A hook that returns a stable callback for programmatically triggering the hash-based
+							scroll. Use this when the target element is rendered asynchronously (e.g., after
+							lazy-loading, tab switching, or fetching data). Must be used within an{" "}
 							<Code>AutoScrollToHash</Code> provider.
 						</p>
 					</header>
 
 					<p className="font-body text-body">
-						<strong>Returns:</strong> A stable <Code>() =&gt; void</Code>{" "}
-						function that scrolls the hash target into view if present.
+						<strong>Returns:</strong> A stable <Code>() =&gt; void</Code> function that scrolls the
+						hash target into view if present.
 					</p>
 
 					<p className="font-body text-body">
-						<strong>Throws:</strong> An error if used outside an{" "}
-						<Code>AutoScrollToHash</Code> provider.
+						<strong>Throws:</strong> An error if used outside an <Code>AutoScrollToHash</Code>{" "}
+						provider.
 					</p>
 				</section>
 
@@ -206,13 +185,12 @@ export default function Page() {
 					<ul className="list-disc space-y-2 pl-6">
 						<li>Runs on mount and whenever the URL hash changes</li>
 						<li>
-							Schedules scrolling in <Code>requestAnimationFrame</Code> to
-							ensure the target element exists after DOM updates
+							Schedules scrolling in <Code>requestAnimationFrame</Code> to ensure the target element
+							exists after DOM updates
 						</li>
 						<li>
-							Respects user motion preferences (uses <Code>"auto"</Code> scroll
-							behavior when reduced motion is enabled, <Code>"smooth"</Code>{" "}
-							otherwise)
+							Respects user motion preferences (uses <Code>"auto"</Code> scroll behavior when
+							reduced motion is enabled, <Code>"smooth"</Code> otherwise)
 						</li>
 						<li>
 							Safe for SSR via <Code>useIsomorphicLayoutEffect</Code>
@@ -229,15 +207,13 @@ export default function Page() {
 					</header>
 
 					<p>
-						<strong>Dependencies:</strong> This component and hook require{" "}
-						<Code>react-router</Code> as a peer dependency. Make sure to install
-						it in your project.
+						<strong>Dependencies:</strong> This component and hook require <Code>react-router</Code>{" "}
+						as a peer dependency. Make sure to install it in your project.
 					</p>
 
 					<p>
-						If your content is loaded asynchronously and may not exist by the
-						next animation frame, consider enhancing the hook with a short retry
-						loop or a <Code>MutationObserver</Code>.
+						If your content is loaded asynchronously and may not exist by the next animation frame,
+						consider enhancing the hook with a short retry loop or a <Code>MutationObserver</Code>.
 					</p>
 
 					<p>

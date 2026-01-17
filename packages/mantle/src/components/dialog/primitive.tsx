@@ -26,9 +26,7 @@ function Root(props: ComponentPropsWithoutRef<typeof DialogPrimitive.Root>) {
 	const [hasDescription, setHasDescription] = useState(false);
 
 	return (
-		<InternalDialogContext.Provider
-			value={{ hasDescription, setHasDescription }}
-		>
+		<InternalDialogContext.Provider value={{ hasDescription, setHasDescription }}>
 			<DialogPrimitive.Root {...props} />
 		</InternalDialogContext.Provider>
 	);

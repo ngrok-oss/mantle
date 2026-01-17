@@ -1,10 +1,4 @@
-import {
-	Children,
-	type ComponentProps,
-	type ReactNode,
-	cloneElement,
-	isValidElement,
-} from "react";
+import { Children, type ComponentProps, type ReactNode, cloneElement, isValidElement } from "react";
 import invariant from "tiny-invariant";
 import type { WithAsChild } from "../../types/as-child.js";
 import type { Color } from "../../utils/color/index.js";

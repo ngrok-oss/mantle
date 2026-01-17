@@ -29,10 +29,7 @@ function useDebouncedCallback<T extends (...args: unknown[]) => unknown>(
 	return useCallback(
 		(...args: Parameters<T>) => {
 			window.clearTimeout(debounceTimerRef.current);
-			debounceTimerRef.current = window.setTimeout(
-				() => stableCallbackFn(...args),
-				options.waitMs,
-			);
+			debounceTimerRef.current = window.setTimeout(() => stableCallbackFn(...args), options.waitMs);
 		},
 		[stableCallbackFn, options.waitMs],
 	);

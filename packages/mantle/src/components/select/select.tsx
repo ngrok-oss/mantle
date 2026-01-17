@@ -21,10 +21,7 @@ import { Icon } from "../icon/icon.js";
 import type { WithValidation } from "../input/types.js";
 import { Separator } from "../separator/separator.js";
 
-type WithAriaInvalid = Pick<
-	SelectHTMLAttributes<HTMLSelectElement>,
-	"aria-invalid"
->;
+type WithAriaInvalid = Pick<SelectHTMLAttributes<HTMLSelectElement>, "aria-invalid">;
 type SelectContextType = WithValidation &
 	WithAriaInvalid & {
 		/**
@@ -177,9 +174,7 @@ Group.displayName = "SelectGroup";
 const Value = SelectPrimitive.Value;
 Value.displayName = "SelectValue";
 
-type SelectTriggerProps = ComponentPropsWithoutRef<
-	typeof SelectPrimitive.Trigger
-> &
+type SelectTriggerProps = ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> &
 	WithAriaInvalid &
 	WithValidation;
 
@@ -202,10 +197,7 @@ type SelectTriggerProps = ComponentPropsWithoutRef<
  * </Select.Root>
  * ```
  */
-const Trigger = forwardRef<
-	ComponentRef<typeof SelectPrimitive.Trigger>,
-	SelectTriggerProps
->(
+const Trigger = forwardRef<ComponentRef<typeof SelectPrimitive.Trigger>, SelectTriggerProps>(
 	(
 		{
 			"aria-invalid": ariaInValidProp,
@@ -268,10 +260,7 @@ const SelectScrollUpButton = forwardRef<
 >(({ className, ...props }, ref) => (
 	<SelectPrimitive.ScrollUpButton
 		ref={ref}
-		className={cx(
-			"flex cursor-default items-center justify-center py-1",
-			className,
-		)}
+		className={cx("flex cursor-default items-center justify-center py-1", className)}
 		{...props}
 	>
 		<Icon svg={<CaretUpIcon weight="bold" />} className="size-4" />
@@ -289,10 +278,7 @@ const SelectScrollDownButton = forwardRef<
 >(({ className, ...props }, ref) => (
 	<SelectPrimitive.ScrollDownButton
 		ref={ref}
-		className={cx(
-			"flex cursor-default items-center justify-center py-1",
-			className,
-		)}
+		className={cx("flex cursor-default items-center justify-center py-1", className)}
 		{...props}
 	>
 		<Icon svg={<CaretDownIcon weight="bold" />} className="size-4" />
@@ -300,9 +286,7 @@ const SelectScrollDownButton = forwardRef<
 ));
 SelectScrollDownButton.displayName = "SelectScrollDownButton";
 
-type SelectContentProps = ComponentPropsWithoutRef<
-	typeof SelectPrimitive.Content
-> & {
+type SelectContentProps = ComponentPropsWithoutRef<typeof SelectPrimitive.Content> & {
 	/**
 	 * The width of the content. Defaults to the width of the trigger.
 	 * If set to "content", the content will use the intrinsic content width; it will be the width of the longest/widest item.
@@ -329,23 +313,17 @@ type SelectContentProps = ComponentPropsWithoutRef<
  *
  * @see https://mantle.ngrok.com/components/select#api-select-content
  */
-const Content = forwardRef<
-	ComponentRef<typeof SelectPrimitive.Content>,
-	SelectContentProps
->(
-	(
-		{ className, children, position = "popper", width = "trigger", ...props },
-		ref,
-	) => (
+const Content = forwardRef<ComponentRef<typeof SelectPrimitive.Content>, SelectContentProps>(
+	({ className, children, position = "popper", width = "trigger", ...props }, ref) => (
 		<SelectPrimitive.Portal>
 			<SelectPrimitive.Content
 				ref={ref}
 				className={cx(
-					"border-popover data-side-bottom:slide-in-from-top-2 data-side-left:slide-in-from-right-2 data-side-right:slide-in-from-left-2 data-side-top:slide-in-from-bottom-2 data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 data-state-open:animate-in data-state-open:fade-in-0 data-state-open:zoom-in-95 relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border shadow-md",
+					"border-popover data-side-bottom:slide-in-from-top-2 data-side-left:slide-in-from-right-2 data-side-right:slide-in-from-left-2 data-side-top:slide-in-from-bottom-2 data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 data-state-open:animate-in data-state-open:fade-in-0 data-state-open:zoom-in-95 relative z-50 max-h-96 min-w-32 overflow-hidden rounded-md border shadow-md",
 					"bg-popover",
 					position === "popper" &&
-						"data-side-bottom:translate-y-2 data-side-left:-translate-x-2 data-side-right:translate-x-2 data-side-top:-translate-y-2 max-h-[var(--radix-select-content-available-height)]",
-					width === "trigger" && "w-[var(--radix-select-trigger-width)]",
+						"data-side-bottom:translate-y-2 data-side-left:-translate-x-2 data-side-right:translate-x-2 data-side-top:-translate-y-2 max-h-(--radix-select-content-available-height)",
+					width === "trigger" && "w-(--radix-select-trigger-width)",
 					className,
 				)}
 				position={position}
@@ -353,11 +331,7 @@ const Content = forwardRef<
 			>
 				<SelectScrollUpButton />
 				<SelectPrimitive.Viewport
-					className={cx(
-						"p-1",
-						position === "popper" &&
-							"h-[var(--radix-select-trigger-height)] w-full",
-					)}
+					className={cx("p-1", position === "popper" && "h-(--radix-select-trigger-height) w-full")}
 				>
 					{children}
 				</SelectPrimitive.Viewport>
@@ -428,29 +402,28 @@ type SelectItemProps = ComponentPropsWithoutRef<typeof SelectPrimitive.Item> & {
  *
  * @see https://mantle.ngrok.com/components/select#api-select-item
  */
-const Item = forwardRef<
-	ComponentRef<typeof SelectPrimitive.Item>,
-	SelectItemProps
->(({ className, children, icon, ...props }, ref) => (
-	<SelectPrimitive.Item
-		ref={ref}
-		className={cx(
-			"relative flex gap-2 w-full cursor-pointer select-none items-center rounded py-1.5 pl-2 pr-8 text-sm outline-hidden",
-			"focus:bg-popover-hover",
-			"data-disabled:pointer-events-none data-disabled:opacity-50",
-			"data-state-checked:bg-filled-accent data-state-checked:text-on-filled",
-			"focus:data-state-checked:bg-filled-accent",
-			className,
-		)}
-		{...props}
-	>
-		{icon && <Icon svg={icon} />}
-		<SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
-		<SelectPrimitive.ItemIndicator className="absolute right-2 flex h-3.5 w-3.5 items-center justify-center">
-			<Icon svg={<CheckIcon weight="bold" />} className="size-4" />
-		</SelectPrimitive.ItemIndicator>
-	</SelectPrimitive.Item>
-));
+const Item = forwardRef<ComponentRef<typeof SelectPrimitive.Item>, SelectItemProps>(
+	({ className, children, icon, ...props }, ref) => (
+		<SelectPrimitive.Item
+			ref={ref}
+			className={cx(
+				"relative flex gap-2 w-full cursor-pointer select-none items-center rounded py-1.5 pl-2 pr-8 text-sm outline-hidden",
+				"focus:bg-popover-hover",
+				"data-disabled:pointer-events-none data-disabled:opacity-50",
+				"data-state-checked:bg-filled-accent data-state-checked:text-on-filled",
+				"focus:data-state-checked:bg-filled-accent",
+				className,
+			)}
+			{...props}
+		>
+			{icon && <Icon svg={icon} />}
+			<SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
+			<SelectPrimitive.ItemIndicator className="absolute right-2 flex h-3.5 w-3.5 items-center justify-center">
+				<Icon svg={<CheckIcon weight="bold" />} className="size-4" />
+			</SelectPrimitive.ItemIndicator>
+		</SelectPrimitive.Item>
+	),
+);
 Item.displayName = "SelectItem";
 
 /**
@@ -483,11 +456,7 @@ const SelectSeparatorComponent = forwardRef<
 	ComponentRef<typeof Separator>,
 	ComponentPropsWithoutRef<typeof Separator>
 >(({ className, ...props }, ref) => (
-	<Separator
-		ref={ref}
-		className={cx("-mx-1 my-1 h-px w-auto", className)}
-		{...props}
-	/>
+	<Separator ref={ref} className={cx("-mx-1 my-1 h-px w-auto", className)} {...props} />
 ));
 SelectSeparatorComponent.displayName = "SelectSeparator";
 

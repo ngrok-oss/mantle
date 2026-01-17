@@ -10,17 +10,9 @@ describe("resolveRel", () => {
 	});
 
 	test("filters out empty values", () => {
-		expect(
-			resolveRel([
-				"noopener",
-				undefined,
-				null,
-				"",
-				"     ",
-				"\t\r\n ",
-				"noreferrer",
-			]),
-		).toBe("noopener noreferrer");
+		expect(resolveRel(["noopener", undefined, null, "", "     ", "\t\r\n ", "noreferrer"])).toBe(
+			"noopener noreferrer",
+		);
 	});
 
 	test("given a single rel, returns that rel", () => {
@@ -30,9 +22,7 @@ describe("resolveRel", () => {
 
 	test("given multiple rels, returns a space-separated string of unique rels", () => {
 		expect(resolveRel(["noopener", "noreferrer"])).toBe("noopener noreferrer");
-		expect(resolveRel(["noopener", "noreferrer", "noopener"])).toBe(
-			"noopener noreferrer",
-		);
+		expect(resolveRel(["noopener", "noreferrer", "noopener"])).toBe("noopener noreferrer");
 	});
 
 	test("sorts rels", () => {
@@ -42,8 +32,6 @@ describe("resolveRel", () => {
 	});
 
 	test("allows custom rels", () => {
-		expect(resolveRel(["noopener", "noreferrer", "custom"])).toBe(
-			"custom noopener noreferrer",
-		);
+		expect(resolveRel(["noopener", "noreferrer", "custom"])).toBe("custom noopener noreferrer");
 	});
 });

@@ -47,9 +47,7 @@ function parseMetastring(input: string | undefined): Meta {
 		return defaultMeta;
 	}
 
-	const metaJson = tokenizeMetastring(metastring).reduce<
-		Record<string, unknown>
-	>((acc, token) => {
+	const metaJson = tokenizeMetastring(metastring).reduce<Record<string, unknown>>((acc, token) => {
 		const [key, value] = token.split("=");
 		if (!key) {
 			return acc;
@@ -67,6 +65,7 @@ function parseMetastring(input: string | undefined): Meta {
 			...defaultMeta,
 			...parsed,
 		};
+		// oxlint-disable-next-line no-unused-vars
 	} catch (_) {
 		return defaultMeta;
 	}
@@ -174,9 +173,7 @@ function parseMetaJson(input: Record<string, unknown>): Meta {
 			typeof disableCopy === "string" || typeof disableCopy === "boolean"
 				? parseBooleanish(disableCopy)
 				: defaultMeta.disableCopy,
-		indentation: isIndentation(indentation)
-			? indentation
-			: defaultMeta.indentation,
+		indentation: isIndentation(indentation) ? indentation : defaultMeta.indentation,
 		mode: isMode(mode) ? mode : defaultMeta.mode,
 		title: typeof title === "string" ? title.trim() : defaultMeta.title,
 	};

@@ -46,6 +46,7 @@ jobs:
       - name: Fmt and Lint Check 🧹
         run: |
           pnpm run fmt:check
+          pnpm run lint
 
       - name: Build 🏗️
         run: |

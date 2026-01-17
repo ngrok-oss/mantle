@@ -205,11 +205,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 		ref,
 	) => {
 		const disabled = parseBooleanish(_ariaDisabled ?? _disabled ?? isLoading);
-		const icon = isLoading ? (
-			<CircleNotchIcon className="animate-spin" />
-		) : (
-			propIcon
-		);
+		const icon = isLoading ? <CircleNotchIcon className="animate-spin" /> : propIcon;
 
 		/**
 		 * If the button has an icon and is not a link, add padding-start or padding-end to the button depending on the icon placement.
@@ -250,10 +246,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 						{},
 						<>
 							{icon && (
-								<Icon
-									svg={icon}
-									className={clsx(iconPlacement === "end" && "order-last")}
-								/>
+								<Icon svg={icon} className={clsx(iconPlacement === "end" && "order-last")} />
 							)}
 							{children.props.children}
 						</>,
@@ -264,12 +257,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
 		return (
 			<button {...buttonProps} type={type}>
-				{icon && (
-					<Icon
-						svg={icon}
-						className={clsx(iconPlacement === "end" && "order-last")}
-					/>
-				)}
+				{icon && <Icon svg={icon} className={clsx(iconPlacement === "end" && "order-last")} />}
 				{children}
 			</button>
 		);

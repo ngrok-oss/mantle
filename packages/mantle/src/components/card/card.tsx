@@ -40,10 +40,7 @@ const Root = forwardRef<ComponentRef<"div">, CardProps>(
 		return (
 			<Component
 				ref={ref}
-				className={cx(
-					"border-card bg-card relative rounded-md border",
-					className,
-				)}
+				className={cx("border-card bg-card relative rounded-md border", className)}
 				{...rest}
 			>
 				{children}
@@ -86,10 +83,7 @@ const Body = forwardRef<ComponentRef<"div">, CardProps>(
 		return (
 			<Component
 				ref={ref}
-				className={cx(
-					"p-6 border-t border-card-muted first:border-t-0",
-					className,
-				)}
+				className={cx("p-6 border-t border-card-muted first:border-t-0", className)}
 				{...rest}
 			>
 				{children}
@@ -126,10 +120,7 @@ const Footer = forwardRef<ComponentRef<"div">, CardProps>(
 		return (
 			<Component
 				ref={ref}
-				className={cx(
-					"px-6 py-3 border-t border-card-muted first:border-t-0",
-					className,
-				)}
+				className={cx("px-6 py-3 border-t border-card-muted first:border-t-0", className)}
 				{...rest}
 			>
 				{children}
@@ -166,10 +157,7 @@ const Header = forwardRef<ComponentRef<"div">, CardProps>(
 		return (
 			<Component
 				ref={ref}
-				className={cx(
-					"px-6 py-3 border-t border-card-muted first:border-t-0",
-					className,
-				)}
+				className={cx("px-6 py-3 border-t border-card-muted first:border-t-0", className)}
 				{...rest}
 			>
 				{children}
@@ -209,11 +197,7 @@ const Title = forwardRef<HTMLHeadingElement, CardTitleProps>(
 	({ className, asChild, ...props }, ref) => {
 		const Comp = asChild ? Slot : "h3";
 		return (
-			<Comp
-				ref={ref}
-				className={cx("text-strong text-base font-medium", className)}
-				{...props}
-			/>
+			<Comp ref={ref} className={cx("text-strong text-base font-medium", className)} {...props} />
 		);
 	},
 );

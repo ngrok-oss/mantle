@@ -46,17 +46,10 @@ export default function Page() {
 								</div>
 								<div className="space-y-1">
 									<h4 className="text-sm font-medium">@ngrok/mantle</h4>
-									<p className="text-sm">
-										The Design System – created and maintained by @ngrok.
-									</p>
+									<p className="text-sm">The Design System – created and maintained by @ngrok.</p>
 									<div className="flex items-center pt-2">
-										<Icon
-											svg={<CalendarIcon />}
-											className="mr-2 h-4 w-4 opacity-70"
-										/>{" "}
-										<span className="text-muted-foreground text-xs">
-											Joined November 2023
-										</span>
+										<Icon svg={<CalendarIcon />} className="mr-2 h-4 w-4 opacity-70" />{" "}
+										<span className="text-muted-foreground text-xs">Joined November 2023</span>
 									</div>
 								</div>
 							</div>
@@ -108,9 +101,8 @@ export default function Page() {
 					<h2 className="text-3xl font-medium">API Reference</h2>
 				</HashLinkHeading>
 				<p className="font-body text-body text-xl">
-					The <Code>HoverCard</Code> component is built on top of Radix UI Hover
-					Card and provides a floating card that appears when a user hovers over
-					a trigger element.
+					The <Code>HoverCard</Code> component is built on top of Radix UI Hover Card and provides a
+					floating card that appears when a user hovers over a trigger element.
 				</p>
 
 				<div className="space-y-8">
@@ -119,8 +111,7 @@ export default function Page() {
 							<h3 className="text-xl font-medium mb-4">HoverCard.Root</h3>
 						</HashLinkHeading>
 						<p className="mb-4 text-muted-foreground">
-							The root stateful component that manages the open/closed state of
-							the hover card.
+							The root stateful component that manages the open/closed state of the hover card.
 						</p>
 						<PropsTable>
 							<PropRow>
@@ -131,8 +122,8 @@ export default function Page() {
 								<PropDefaultValueCell />
 								<PropDescriptionCell>
 									<p>
-										The controlled open state of the hover card. Must be used in
-										conjunction with <Code>onOpenChange</Code>.
+										The controlled open state of the hover card. Must be used in conjunction with{" "}
+										<Code>onOpenChange</Code>.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -143,10 +134,7 @@ export default function Page() {
 								</PropTypeCell>
 								<PropDefaultValueCell />
 								<PropDescriptionCell>
-									<p>
-										Event handler called when the open state of the hover card
-										changes.
-									</p>
+									<p>Event handler called when the open state of the hover card changes.</p>
 								</PropDescriptionCell>
 							</PropRow>
 							<PropRow>
@@ -159,9 +147,8 @@ export default function Page() {
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
-										The open state of the hover card when it is initially
-										rendered. Use when you do not need to control its open
-										state.
+										The open state of the hover card when it is initially rendered. Use when you do
+										not need to control its open state.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -175,8 +162,8 @@ export default function Page() {
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
-										The duration in milliseconds from when the mouse enters the
-										trigger until the hover card opens.
+										The duration in milliseconds from when the mouse enters the trigger until the
+										hover card opens.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -190,8 +177,8 @@ export default function Page() {
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
-										The duration in milliseconds from when the mouse leaves the
-										trigger or content until the hover card closes.
+										The duration in milliseconds from when the mouse leaves the trigger or content
+										until the hover card closes.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -216,8 +203,8 @@ export default function Page() {
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
-										Use the <Code>asChild</Code> prop to compose the trigger
-										functionality onto your own component.
+										Use the <Code>asChild</Code> prop to compose the trigger functionality onto your
+										own component.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -229,8 +216,8 @@ export default function Page() {
 							<h3 className="text-xl font-medium mb-4">HoverCard.Content</h3>
 						</HashLinkHeading>
 						<p className="mb-4 text-muted-foreground">
-							The content to render inside the hover card. Appears in a portal
-							with rich styling and animations.
+							The content to render inside the hover card. Appears in a portal with rich styling and
+							animations.
 						</p>
 						<PropsTable>
 							<PropRow>
@@ -256,9 +243,8 @@ export default function Page() {
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
-										The preferred side of the trigger to render against when
-										open. Will be reversed when collisions occur and{" "}
-										<Code>avoidCollisions</Code> is enabled.
+										The preferred side of the trigger to render against when open. Will be reversed
+										when collisions occur and <Code>avoidCollisions</Code> is enabled.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -282,8 +268,7 @@ export default function Page() {
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
-										The preferred alignment against the trigger. May change when
-										collisions occur.
+										The preferred alignment against the trigger. May change when collisions occur.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -297,8 +282,8 @@ export default function Page() {
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
-										The distance in pixels from the trigger. This is the
-										distance between the trigger and the hover card content.
+										The distance in pixels from the trigger. This is the distance between the
+										trigger and the hover card content.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -312,8 +297,8 @@ export default function Page() {
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
-										An offset in pixels from the <Code>start</Code> or{" "}
-										<Code>end</Code> alignment options.
+										An offset in pixels from the <Code>start</Code> or <Code>end</Code> alignment
+										options.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -327,9 +312,8 @@ export default function Page() {
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
-										When <Code>true</Code>, overrides the <Code>side</Code> and{" "}
-										<Code>align</Code> preferences to prevent collisions with
-										boundary edges.
+										When <Code>true</Code>, overrides the <Code>side</Code> and <Code>align</Code>{" "}
+										preferences to prevent collisions with boundary edges.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -343,27 +327,23 @@ export default function Page() {
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
-										The element used as the collision boundary. By default this
-										is the viewport, though you can provide additional
-										element(s) to be included in this check.
+										The element used as the collision boundary. By default this is the viewport,
+										though you can provide additional element(s) to be included in this check.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
 							<PropRow>
 								<PropNameCell name="collisionPadding" optional />
 								<PropTypeCell>
-									<Code>
-										number | Partial&lt;Record&lt;Side, number&gt;&gt;
-									</Code>
+									<Code>number | Partial&lt;Record&lt;Side, number&gt;&gt;</Code>
 								</PropTypeCell>
 								<PropDefaultValueCell>
 									<Code>0</Code>
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
-										The distance in pixels from the boundary edges where
-										collision detection should occur. Accepts a number (same for
-										all sides), or a partial padding object.
+										The distance in pixels from the boundary edges where collision detection should
+										occur. Accepts a number (same for all sides), or a partial padding object.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -384,11 +364,10 @@ export default function Page() {
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
-										The sticky behavior on the align axis.{" "}
-										<Code>"partial"</Code> will keep the content in the boundary
-										as long as the trigger is at least partially in the boundary
-										whilst <Code>"always"</Code> will keep the content in the
-										boundary regardless.
+										The sticky behavior on the align axis. <Code>"partial"</Code> will keep the
+										content in the boundary as long as the trigger is at least partially in the
+										boundary whilst <Code>"always"</Code> will keep the content in the boundary
+										regardless.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -401,10 +380,7 @@ export default function Page() {
 									<BooleanPropType value={false} />
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
-									<p>
-										Whether to hide the content when the trigger becomes fully
-										occluded.
-									</p>
+									<p>Whether to hide the content when the trigger becomes fully occluded.</p>
 								</PropDescriptionCell>
 							</PropRow>
 						</PropsTable>

@@ -39,9 +39,8 @@ export default function Page() {
 				<PageHeader id="icon-button">Icon Button</PageHeader>
 
 				<p className="font-body text-body text-xl">
-					Initiates an action, such as completing a task or submitting
-					information. Renders only a single icon as children with an
-					accessible, screen-reader-only label.
+					Initiates an action, such as completing a task or submitting information. Renders only a
+					single icon as children with an accessible, screen-reader-only label.
 				</p>
 				<div>
 					<Example className="flex flex-wrap gap-6">
@@ -153,10 +152,9 @@ export default function Page() {
 					<h2 className="text-3xl font-medium">isLoading</h2>
 				</HashLinkHeading>
 				<p className="font-body text-body text-xl">
-					<Code>isLoading</Code> determines whether or not the icon button is in
-					a loading state, default <Code>false</Code>. Setting{" "}
-					<Code>isLoading</Code> will replace the icon with a spinner. It will
-					also disable user interaction with the button and set{" "}
+					<Code>isLoading</Code> determines whether or not the icon button is in a loading state,
+					default <Code>false</Code>. Setting <Code>isLoading</Code> will replace the icon with a
+					spinner. It will also disable user interaction with the button and set{" "}
 					<Code>aria-disabled</Code>.
 				</p>
 				<div>
@@ -224,12 +222,11 @@ export default function Page() {
 					<h2 className="text-3xl font-medium">Composition</h2>
 				</HashLinkHeading>
 				<p className="font-body text-body text-xl">
-					When you want to render <span className="italic">something else</span>{" "}
-					as a <Code>IconButton</Code>, you can use the <Code>asChild</Code>{" "}
-					prop to compose. This is useful when you want to splat the{" "}
-					<Code>IconButton</Code> styling onto a <Code>react-router</Code>{" "}
-					<Code>Link</Code>. Keep in mind that when you use <Code>asChild</Code>{" "}
-					the <Code>type</Code> prop will <strong>NOT</strong> be passed to the
+					When you want to render <span className="italic">something else</span> as a{" "}
+					<Code>IconButton</Code>, you can use the <Code>asChild</Code> prop to compose. This is
+					useful when you want to splat the <Code>IconButton</Code> styling onto a{" "}
+					<Code>react-router</Code> <Code>Link</Code>. Keep in mind that when you use{" "}
+					<Code>asChild</Code> the <Code>type</Code> prop will <strong>NOT</strong> be passed to the
 					child component.
 				</p>
 				<div>
@@ -268,8 +265,7 @@ export default function Page() {
 					<h2 className="text-3xl font-medium">API Reference</h2>
 				</HashLinkHeading>
 				<p className="font-body text-body text-xl">
-					The <Code>IconButton</Code> accepts the following props in addition to
-					the{" "}
+					The <Code>IconButton</Code> accepts the following props in addition to the{" "}
 					<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button">
 						standard HTML button attributes
 					</Anchor>
@@ -307,9 +303,8 @@ export default function Page() {
 						</PropDefaultValueCell>
 						<PropDescriptionCell>
 							<p>
-								Use the <Code>asChild</Code> prop to compose the{" "}
-								<Code>Button</Code> styling and functionality onto alternative
-								element types or your own React components.
+								Use the <Code>asChild</Code> prop to compose the <Code>Button</Code> styling and
+								functionality onto alternative element types or your own React components.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>
@@ -321,9 +316,8 @@ export default function Page() {
 						<PropDefaultValueCell />
 						<PropDescriptionCell>
 							<p>
-								The accessible label for the icon. This label will be visually
-								hidden but announced to screen reader users, similar to alt text
-								for img tags.
+								The accessible label for the icon. This label will be visually hidden but announced
+								to screen reader users, similar to alt text for img tags.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>
@@ -337,10 +331,10 @@ export default function Page() {
 						</PropDefaultValueCell>
 						<PropDescriptionCell>
 							<p>
-								Determines whether or not the icon button is in a loading state,
-								default <Code>false</Code>. Setting <Code>isLoading</Code> will
-								replace the icon with a spinner. It will also disable user
-								interaction with the button and set <Code>aria-disabled</Code>.
+								Determines whether or not the icon button is in a loading state, default{" "}
+								<Code>false</Code>. Setting <Code>isLoading</Code> will replace the icon with a
+								spinner. It will also disable user interaction with the button and set{" "}
+								<Code>aria-disabled</Code>.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>
@@ -386,13 +380,10 @@ export default function Page() {
 						<PropDefaultValueCell />
 						<PropDescriptionCell>
 							<p>
-								The default behavior of the <Code>IconButton</Code>. Unlike the
-								native <Code>button</Code> element, unless you use the{" "}
-								<Code>asChild</Code> prop,{" "}
-								<span className="font-medium">
-									this prop is required and has no default value
-								</span>
-								. See{" "}
+								The default behavior of the <Code>IconButton</Code>. Unlike the native{" "}
+								<Code>button</Code> element, unless you use the <Code>asChild</Code> prop,{" "}
+								<span className="font-medium">this prop is required and has no default value</span>.
+								See{" "}
 								<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#type">
 									the MDN docs
 								</Anchor>{" "}
@@ -401,20 +392,19 @@ export default function Page() {
 							<ul className="list-disc pl-5">
 								<li>
 									<p>
-										<Code>"button"</Code>: The button has no default behavior,
-										and does nothing when pressed by default.
+										<Code>"button"</Code>: The button has no default behavior, and does nothing when
+										pressed by default.
 									</p>
 								</li>
 								<li>
 									<p>
-										<Code>"reset"</Code>: The button resets all the controls to
-										their initial values.
+										<Code>"reset"</Code>: The button resets all the controls to their initial
+										values.
 									</p>
 								</li>
 								<li>
 									<p>
-										<Code>"submit"</Code>: The button submits the form data to
-										the server.
+										<Code>"submit"</Code>: The button submits the form data to the server.
 									</p>
 								</li>
 							</ul>

@@ -44,8 +44,7 @@
 	font-family: IBMPlexMono;
 	font-style: normal;
 	font-weight: normal;
-	src: url("https://assets.ngrok.com/fonts/ibm-plex-mono/IBMPlexMono-Text.woff")
-		format("woff");
+	src: url("https://assets.ngrok.com/fonts/ibm-plex-mono/IBMPlexMono-Text.woff") format("woff");
 }
 
 @font-face {
@@ -61,8 +60,7 @@
 	font-family: IBMPlexMono;
 	font-style: normal;
 	font-weight: 500;
-	src: url("https://assets.ngrok.com/fonts/ibm-plex-mono/IBMPlexMono-SemiBold.woff")
-		format("woff");
+	src: url("https://assets.ngrok.com/fonts/ibm-plex-mono/IBMPlexMono-SemiBold.woff") format("woff");
 }
 
 @font-face {
@@ -177,18 +175,18 @@
 	--color-blue-950: oklch(26.6% 0.0958 273.2);
 
 	--color-red-50: oklch(97.1% 0.013 17.38);
-  --color-red-100: oklch(93.6% 0.032 17.717);
-  --color-red-200: oklch(88.5% 0.062 18.334);
-  --color-red-300: oklch(80.8% 0.114 19.571);
-  --color-red-400: oklch(70.4% 0.191 22.216);
-  --color-red-500: oklch(63.7% 0.237 25.331);
-  --color-red-600: oklch(57.7% 0.245 27.325);
-  --color-red-700: oklch(50.5% 0.213 27.518);
-  --color-red-800: oklch(44.4% 0.177 26.899);
-  --color-red-900: oklch(39.6% 0.141 25.723);
-  --color-red-950: oklch(25.8% 0.092 26.042);
+	--color-red-100: oklch(93.6% 0.032 17.717);
+	--color-red-200: oklch(88.5% 0.062 18.334);
+	--color-red-300: oklch(80.8% 0.114 19.571);
+	--color-red-400: oklch(70.4% 0.191 22.216);
+	--color-red-500: oklch(63.7% 0.237 25.331);
+	--color-red-600: oklch(57.7% 0.245 27.325);
+	--color-red-700: oklch(50.5% 0.213 27.518);
+	--color-red-800: oklch(44.4% 0.177 26.899);
+	--color-red-900: oklch(39.6% 0.141 25.723);
+	--color-red-950: oklch(25.8% 0.092 26.042);
 
-  --background-color-base: var(--color-neutral-50);
+	--background-color-base: var(--color-neutral-50);
 	--background-color-card: var(--color-white);
 	--background-color-popover: var(--color-white);
 	--background-color-dialog: var(--color-white);
@@ -1192,15 +1190,17 @@
 }
 
 @theme inline {
-	--font-sans: "EuclidSquare", ui-sans-serif, system-ui, sans-serif,
-		"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	--font-sans:
+		"EuclidSquare", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+		"Segoe UI Symbol", "Noto Color Emoji";
 	--font-body: var(--font-sans);
-	--font-mono: "IBMPlexMono", ui-monospace, SFMono-Regular, Menlo, Monaco,
-		Consolas, "Liberation Mono", "Courier New", monospace;
+	--font-mono:
+		"IBMPlexMono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+		"Courier New", monospace;
 
 	/* Fluid typography */
-	--text-lg:  clamp(1.075rem, 0.525rem + 0.75vw, 1.125rem);
-	--text-xl:  clamp(1.1rem, 0.80rem + 0.75vw, 1.25rem);
+	--text-lg: clamp(1.075rem, 0.525rem + 0.75vw, 1.125rem);
+	--text-xl: clamp(1.1rem, 0.8rem + 0.75vw, 1.25rem);
 	--text-2xl: clamp(1.2rem, 0.9rem + 0.75vw, 1.5rem);
 	--text-3xl: clamp(1.5rem, 1.275rem + 0.75vw, 1.875rem);
 	--text-4xl: clamp(1.8rem, 1.65rem + 0.75vw, 2.25rem);
@@ -1216,39 +1216,27 @@
 	--text-mono--line-height: 1.25rem;
 	--text-size-inherit: inherit;
 
-	--shadow-sm: 0px 1px 2px 0
-		--alpha(var(--shadow-color) / var(--shadow-first-opacity));
-	--shadow: 0px 1px 2px -1px
-		--alpha(var(--shadow-color) / var(--shadow-second-opacity)), 0px 1px 3px 0px
-		--alpha(var(--shadow-color) / var(--shadow-second-opacity));
+	--shadow-sm: 0px 1px 2px 0 --alpha(var(--shadow-color) / var(--shadow-first-opacity));
+	--shadow:
+		0px 1px 2px -1px --alpha(var(--shadow-color) / var(--shadow-second-opacity)),
+		0px 1px 3px 0px --alpha(var(--shadow-color) / var(--shadow-second-opacity));
 	--shadow-md:
-		0px 2px 13px 0px --alpha(var(--shadow-color) / var(--shadow-first-opacity)), 0px 2px 4px -2px --alpha(
-			var(--shadow-color) /
-			var(--shadow-second-opacity)
-		), 0px 4px 6px -1px --alpha(var(--shadow-color) / var(--shadow-second-opacity));
+		0px 2px 13px 0px --alpha(var(--shadow-color) / var(--shadow-first-opacity)),
+		0px 2px 4px -2px --alpha(var(--shadow-color) / var(--shadow-second-opacity)),
+		0px 4px 6px -1px --alpha(var(--shadow-color) / var(--shadow-second-opacity));
 	--shadow-lg:
-		0px 1px 13px 0px --alpha(var(--shadow-color) / var(--shadow-first-opacity)), 0px 4px 6px -4px --alpha(
-			var(--shadow-color) /
-			var(--shadow-second-opacity)
-		), 0px 10px 15px -3px --alpha(
-			var(--shadow-color) /
-			var(--shadow-second-opacity)
-		);
+		0px 1px 13px 0px --alpha(var(--shadow-color) / var(--shadow-first-opacity)),
+		0px 4px 6px -4px --alpha(var(--shadow-color) / var(--shadow-second-opacity)),
+		0px 10px 15px -3px --alpha(var(--shadow-color) / var(--shadow-second-opacity));
 	--shadow-xl:
-		0px 0px 15px 0px --alpha(var(--shadow-color) / var(--shadow-first-opacity)), 0px 8px 10px -6px --alpha(
-			var(--shadow-color) /
-			var(--shadow-second-opacity)
-		), 0px 20px 25px -5px --alpha(
-			var(--shadow-color) /
-			var(--shadow-second-opacity)
-		);
+		0px 0px 15px 0px --alpha(var(--shadow-color) / var(--shadow-first-opacity)),
+		0px 8px 10px -6px --alpha(var(--shadow-color) / var(--shadow-second-opacity)),
+		0px 20px 25px -5px --alpha(var(--shadow-color) / var(--shadow-second-opacity));
 	--shadow-2xl:
-		0px 0px 15px 0px --alpha(var(--shadow-color) / var(--shadow-first-opacity)), 0px 11px 10px 0px --alpha(
-			var(--shadow-color) /
-			var(--shadow-first-opacity)
-		), 0px 17px 25px 2px --alpha(var(--shadow-color) / var(--shadow-second-opacity));
-	--shadow-inner: inset 0px 2px 4px 0px
-		--alpha(var(--shadow-color) / var(--shadow-first-opacity));
+		0px 0px 15px 0px --alpha(var(--shadow-color) / var(--shadow-first-opacity)),
+		0px 11px 10px 0px --alpha(var(--shadow-color) / var(--shadow-first-opacity)),
+		0px 17px 25px 2px --alpha(var(--shadow-color) / var(--shadow-second-opacity));
+	--shadow-inner: inset 0px 2px 4px 0px --alpha(var(--shadow-color) / var(--shadow-first-opacity));
 
 	--color-accent-50: var(--color-blue-50);
 	--color-accent-100: var(--color-blue-100);
@@ -1362,15 +1350,15 @@
 }
 
 @layer base {
-  button:not(:disabled),
-  [role="button"]:not(:disabled) {
-    cursor: pointer;
-  }
+	button:not(:disabled),
+	[role="button"]:not(:disabled) {
+		cursor: pointer;
+	}
 
-  b,
-  strong {
-  	font-weight: 500;
-  }
+	b,
+	strong {
+		font-weight: 500;
+	}
 }
 
 @utility cursor-inherit {
@@ -1406,59 +1394,51 @@
 
 @utility scroll-shadow {
 	/* Shadow Cover TOP */
-	background: linear-gradient(
-			var(--background-color-base) 30%,
-			--alpha(var(--background-color-base) / 0%)
-		)
-		center top,
-		/* Shadow Cover BOTTOM */ linear-gradient(
-			--alpha(var(--background-color-base) / 0%),
-			var(--background-color-base) 70%
-		)
-		center bottom,
-		/* Shadow TOP */ radial-gradient(
-			farthest-side at 50% 0,
-			var(--navigation-shadow),
-			rgb(0 0 0 / 0%)
-		)
-		center top,
-		/* Shadow BOTTOM */ radial-gradient(
-			farthest-side at 50% 100%,
-			var(--navigation-shadow),
-			rgb(0 0 0 / 0%)
-		)
-		center bottom;
+	background:
+		linear-gradient(var(--background-color-base) 30%, --alpha(var(--background-color-base) / 0%))
+			center top,
+		/* Shadow Cover BOTTOM */
+			linear-gradient(--alpha(var(--background-color-base) / 0%), var(--background-color-base) 70%)
+			center bottom,
+		/* Shadow TOP */
+			radial-gradient(farthest-side at 50% 0, var(--navigation-shadow), rgb(0 0 0 / 0%)) center top,
+		/* Shadow BOTTOM */
+			radial-gradient(farthest-side at 50% 100%, var(--navigation-shadow), rgb(0 0 0 / 0%)) center
+			bottom;
 	background-repeat: no-repeat;
-	background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
+	background-size:
+		100% 40px,
+		100% 40px,
+		100% 14px,
+		100% 14px;
 	background-attachment: local, local, scroll, scroll;
 }
 
 @utility nav-scroll-shadow {
 	/* Shadow Cover TOP */
-	background: linear-gradient(
-			var(--background-color-popover) 30%,
-			--alpha(var(--background-color-popover) / 0%)
-		)
-		center top,
-		/* Shadow Cover BOTTOM */ linear-gradient(
-			--alpha(var(--background-color-popover) / 0%),
-			var(--background-color-popover) 70%
-		)
-		center bottom,
-		/* Shadow TOP */ radial-gradient(
-			farthest-side at 50% 0,
-			var(--navigation-shadow),
-			rgb(0 0 0 / 0%)
-		)
-		center top,
-		/* Shadow BOTTOM */ radial-gradient(
-			farthest-side at 50% 100%,
-			var(--navigation-shadow),
-			rgb(0 0 0 / 0%)
-		)
-		center bottom;
+	background:
+		linear-gradient(
+				var(--background-color-popover) 30%,
+				--alpha(var(--background-color-popover) / 0%)
+			)
+			center top,
+		/* Shadow Cover BOTTOM */
+			linear-gradient(
+				--alpha(var(--background-color-popover) / 0%),
+				var(--background-color-popover) 70%
+			)
+			center bottom,
+		/* Shadow TOP */
+			radial-gradient(farthest-side at 50% 0, var(--navigation-shadow), rgb(0 0 0 / 0%)) center top,
+		/* Shadow BOTTOM */
+			radial-gradient(farthest-side at 50% 100%, var(--navigation-shadow), rgb(0 0 0 / 0%)) center
+			bottom;
 	background-repeat: no-repeat;
-	background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
+	background-size:
+		100% 40px,
+		100% 40px,
+		100% 14px,
+		100% 14px;
 	background-attachment: local, local, scroll, scroll;
 }
 

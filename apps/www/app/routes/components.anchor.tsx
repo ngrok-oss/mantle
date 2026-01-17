@@ -33,15 +33,14 @@ export default function Page() {
 				</p>
 				<div className="font-body text-body space-y-4">
 					<p>
-						The <Code>&lt;Anchor&gt;</Code> element, with its <Code>href</Code>{" "}
-						attribute, creates a hyperlink to web pages, files, email addresses,
-						locations in the same page, or anything else a URL can address.
+						The <Code>&lt;Anchor&gt;</Code> element, with its <Code>href</Code> attribute, creates a
+						hyperlink to web pages, files, email addresses, locations in the same page, or anything
+						else a URL can address.
 					</p>
 					<p>
-						Content within each <Code>&lt;Anchor&gt;</Code> should indicate the
-						link&rsquo;s destination. If the <Code>href</Code> attribute is
-						present, pressing the enter key while focused on the{" "}
-						<Code>&lt;Anchor&gt;</Code> element will activate it.
+						Content within each <Code>&lt;Anchor&gt;</Code> should indicate the link&rsquo;s
+						destination. If the <Code>href</Code> attribute is present, pressing the enter key while
+						focused on the <Code>&lt;Anchor&gt;</Code> element will activate it.
 					</p>
 					<p>
 						See the{" "}
@@ -51,8 +50,7 @@ export default function Page() {
 						for more information.
 					</p>
 					<p>
-						If you need to link to an internal application route, prefer using
-						the{" "}
+						If you need to link to an internal application route, prefer using the{" "}
 						<Anchor href="https://reactrouter.com/en/main/components/link">
 							<Code>react-router</Code> <Code>&lt;Link&gt;</Code>
 						</Anchor>
@@ -62,8 +60,7 @@ export default function Page() {
 				<div>
 					<Example className="flex-col">
 						<p>
-							This link will go to{" "}
-							<Anchor href="https://ngrok.com/">ngrok.com</Anchor>!
+							This link will go to <Anchor href="https://ngrok.com/">ngrok.com</Anchor>!
 						</p>
 						<p>
 							You can add icons! This one renders at the start:{" "}
@@ -74,11 +71,7 @@ export default function Page() {
 						</p>
 						<p>
 							And this icon renders at the end:{" "}
-							<Anchor
-								href="https://dashboard.ngrok.com"
-								icon={<ShrimpIcon />}
-								iconPlacement="end"
-							>
+							<Anchor href="https://dashboard.ngrok.com" icon={<ShrimpIcon />} iconPlacement="end">
 								ngrok dashboard
 							</Anchor>
 							!
@@ -169,9 +162,8 @@ export default function Page() {
 						</PropDefaultValueCell>
 						<PropDescriptionCell>
 							<p>
-								Use the <Code>asChild</Code> prop to compose the{" "}
-								<Code>Anchor</Code> styling and functionality onto alternative
-								element types or your own React components.
+								Use the <Code>asChild</Code> prop to compose the <Code>Anchor</Code> styling and
+								functionality onto alternative element types or your own React components.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>

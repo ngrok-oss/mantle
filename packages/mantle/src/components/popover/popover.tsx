@@ -98,9 +98,7 @@ Anchor.displayName = "PopoverAnchor";
 const Close = PopoverPrimitive.Close;
 Close.displayName = "PopoverClose";
 
-type PopoverContentProps = ComponentPropsWithoutRef<
-	typeof PopoverPrimitive.Content
-> & {
+type PopoverContentProps = ComponentPropsWithoutRef<typeof PopoverPrimitive.Content> & {
 	/**
 	 * The preferred width of the `PopoverContent` as a tailwind `max-w-` class.
 	 *

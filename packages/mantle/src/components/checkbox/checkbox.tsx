@@ -8,14 +8,10 @@ import type { WithValidation } from "../input/index.js";
 
 type CheckedState = boolean | "indeterminate";
 
-const isIndeterminate = (
-	checked: CheckedState | undefined,
-): checked is "indeterminate" => checked === "indeterminate";
+const isIndeterminate = (checked: CheckedState | undefined): checked is "indeterminate" =>
+	checked === "indeterminate";
 
-type Props = Omit<
-	ComponentPropsWithoutRef<"input">,
-	"type" | "checked" | "defaultChecked"
-> &
+type Props = Omit<ComponentPropsWithoutRef<"input">, "type" | "checked" | "defaultChecked"> &
 	WithValidation & {
 		/**
 		 * The controlled checked state of the checkbox. Must be used in conjunction with onChange.
@@ -98,9 +94,7 @@ const Checkbox = forwardRef<ComponentRef<"input">, Props>(
 				)}
 				checked={isIndeterminate(_checked) ? undefined : _checked}
 				data-validation={validation || undefined}
-				defaultChecked={
-					isIndeterminate(defaultChecked) ? undefined : defaultChecked
-				}
+				defaultChecked={isIndeterminate(defaultChecked) ? undefined : defaultChecked}
 				defaultValue={defaultValue}
 				onClick={(event) => {
 					if (readOnly) {

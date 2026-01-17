@@ -29,12 +29,7 @@ export const meta: Route.MetaFunction = () => {
 	return [{ title: "@ngrok/mantle — Toast" }];
 };
 
-const priorities = [
-	"info",
-	"success",
-	"warning",
-	"danger",
-] as const satisfies Priority[];
+const priorities = ["info", "success", "warning", "danger"] as const satisfies Priority[];
 
 function getPriorityByIndex(index: number): Priority {
 	const priority = priorities[index % priorities.length];
@@ -50,8 +45,8 @@ export default function Page() {
 		<div className="space-y-4">
 			<PageHeader id="toast">Toast</PageHeader>
 			<p className="font-body text-body text-xl">
-				A succinct message that is displayed temporarily. Toasts are used to
-				provide feedback to the user without interrupting their workflow.
+				A succinct message that is displayed temporarily. Toasts are used to provide feedback to the
+				user without interrupting their workflow.
 			</p>
 			<div>
 				<Example className="flex-col gap-4">
@@ -63,8 +58,7 @@ export default function Page() {
 								<Toast.Root priority={priority}>
 									<Toast.Icon />
 									<Toast.Message>
-										Laborum ea anim adipisicing in Lorem incididunt mollit ipsum
-										reprehenderit.
+										Laborum ea anim adipisicing in Lorem incididunt mollit ipsum reprehenderit.
 									</Toast.Message>
 									<Toast.Action asChild>
 										<IconButton
@@ -101,8 +95,8 @@ export default function Page() {
 											<Toast.Root priority="warning">
 												<Toast.Icon />
 												<Toast.Message>
-													Laborum ea anim adipisicing in Lorem incididunt mollit
-													ipsum reprehenderit.
+													Laborum ea anim adipisicing in Lorem incididunt mollit ipsum
+													reprehenderit.
 												</Toast.Message>
 												<Toast.Action asChild>
 													<IconButton
@@ -148,8 +142,8 @@ export default function Page() {
 											<Toast.Root priority="danger">
 												<Toast.Icon />
 												<Toast.Message>
-													Laborum ea anim adipisicing in Lorem incididunt mollit
-													ipsum reprehenderit.
+													Laborum ea anim adipisicing in Lorem incididunt mollit ipsum
+													reprehenderit.
 												</Toast.Message>
 												<Toast.Action asChild>
 													<IconButton
@@ -169,11 +163,7 @@ export default function Page() {
 							</Dialog.Body>
 							<Dialog.Footer>
 								<Dialog.Close asChild>
-									<Button
-										type="button"
-										priority="neutral"
-										appearance="outlined"
-									>
+									<Button type="button" priority="neutral" appearance="outlined">
 										Cancel
 									</Button>
 								</Dialog.Close>
@@ -190,9 +180,7 @@ export default function Page() {
 							<AlertDialog.Icon />
 							<AlertDialog.Body>
 								<AlertDialog.Header>
-									<AlertDialog.Title>
-										Are you absolutely sure?
-									</AlertDialog.Title>
+									<AlertDialog.Title>Are you absolutely sure?</AlertDialog.Title>
 								</AlertDialog.Header>
 								<Button
 									type="button"
@@ -201,8 +189,8 @@ export default function Page() {
 											<Toast.Root priority="success">
 												<Toast.Icon />
 												<Toast.Message>
-													Laborum ea anim adipisicing in Lorem incididunt mollit
-													ipsum reprehenderit.
+													Laborum ea anim adipisicing in Lorem incididunt mollit ipsum
+													reprehenderit.
 												</Toast.Message>
 												<Toast.Action asChild>
 													<IconButton
@@ -275,8 +263,7 @@ export default function Page() {
 							Toaster
 						</h3>
 						<p className="font-body text-body text-xl">
-							The <Code>Toaster</Code> component renders all toasts. It accepts
-							the following props:
+							The <Code>Toaster</Code> component renders all toasts. It accepts the following props:
 						</p>
 						<PropsTable>
 							<PropRow>
@@ -320,10 +307,9 @@ export default function Page() {
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
-										Time in milliseconds that should elapse before automatically
-										dismissing toasts. When set here, this will be the default
-										duration for all toasts. You can keep toasts open until
-										manually dismissed by passing a value {"<="} 0 or{" "}
+										Time in milliseconds that should elapse before automatically dismissing toasts.
+										When set here, this will be the default duration for all toasts. You can keep
+										toasts open until manually dismissed by passing a value {"<="} 0 or{" "}
 										<Code>Number.POSITIVE_INFINITY</Code>.
 									</p>
 								</PropDescriptionCell>
@@ -363,8 +349,8 @@ export default function Page() {
 							Toast.Root
 						</h3>
 						<p className="font-body text-body text-xl">
-							The <Code>Toast.Root</Code> is the container for a toast message.
-							It accepts the following props in addition to the{" "}
+							The <Code>Toast.Root</Code> is the container for a toast message. It accepts the
+							following props in addition to the{" "}
 							<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div">
 								standard HTML div attributes
 							</Anchor>
@@ -392,8 +378,8 @@ export default function Page() {
 								<PropDefaultValueCell />
 								<PropDescriptionCell>
 									<p>
-										The priority level of the toast, which determines the visual
-										styling and default icon.
+										The priority level of the toast, which determines the visual styling and default
+										icon.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -407,9 +393,8 @@ export default function Page() {
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
-										Use the <Code>asChild</Code> prop to compose the{" "}
-										<Code>Toast.Root</Code> styling and functionality onto
-										alternative element types or your own React components.
+										Use the <Code>asChild</Code> prop to compose the <Code>Toast.Root</Code> styling
+										and functionality onto alternative element types or your own React components.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -421,9 +406,8 @@ export default function Page() {
 							Toast.Icon
 						</h3>
 						<p className="font-body text-body text-xl">
-							The <Code>Toast.Icon</Code> displays an icon representing the
-							toast priority. If no custom icon is provided, a default icon for
-							the priority is used.
+							The <Code>Toast.Icon</Code> displays an icon representing the toast priority. If no
+							custom icon is provided, a default icon for the priority is used.
 						</p>
 						<PropsTable>
 							<PropRow>
@@ -434,8 +418,8 @@ export default function Page() {
 								<PropDefaultValueCell />
 								<PropDescriptionCell>
 									<p>
-										A custom SVG icon to display. If not provided, the default
-										icon for the toast priority will be used.
+										A custom SVG icon to display. If not provided, the default icon for the toast
+										priority will be used.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -447,8 +431,8 @@ export default function Page() {
 							Toast.Message
 						</h3>
 						<p className="font-body text-body text-xl">
-							The <Code>Toast.Message</Code> contains the main text content of
-							the toast. It accepts the following props in addition to the{" "}
+							The <Code>Toast.Message</Code> contains the main text content of the toast. It accepts
+							the following props in addition to the{" "}
 							<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p">
 								standard HTML paragraph attributes
 							</Anchor>
@@ -465,9 +449,9 @@ export default function Page() {
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
-										Use the <Code>asChild</Code> prop to compose the{" "}
-										<Code>Toast.Message</Code> styling and functionality onto
-										alternative element types or your own React components.
+										Use the <Code>asChild</Code> prop to compose the <Code>Toast.Message</Code>{" "}
+										styling and functionality onto alternative element types or your own React
+										components.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -479,8 +463,8 @@ export default function Page() {
 							Toast.Action
 						</h3>
 						<p className="font-body text-body text-xl">
-							The <Code>Toast.Action</Code> is a button that dismisses the toast
-							when clicked. It accepts the following props in addition to the{" "}
+							The <Code>Toast.Action</Code> is a button that dismisses the toast when clicked. It
+							accepts the following props in addition to the{" "}
 							<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button">
 								standard HTML button attributes
 							</Anchor>
@@ -497,17 +481,16 @@ export default function Page() {
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
-										Use the <Code>asChild</Code> prop to compose the{" "}
-										<Code>Toast.Action</Code> styling and functionality onto
-										alternative element types or your own React components.
+										Use the <Code>asChild</Code> prop to compose the <Code>Toast.Action</Code>{" "}
+										styling and functionality onto alternative element types or your own React
+										components.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
 						</PropsTable>
 						<p className="font-body text-body">
-							<strong>Note:</strong> You can prevent the toast from being
-							dismissed on click by calling <Code>event.preventDefault()</Code>{" "}
-							in your <Code>onClick</Code> handler.
+							<strong>Note:</strong> You can prevent the toast from being dismissed on click by
+							calling <Code>event.preventDefault()</Code> in your <Code>onClick</Code> handler.
 						</p>
 					</div>
 
@@ -516,8 +499,8 @@ export default function Page() {
 							makeToast
 						</h3>
 						<p className="font-body text-body text-xl">
-							The <Code>makeToast</Code> function creates and displays a toast.
-							It accepts the following parameters:
+							The <Code>makeToast</Code> function creates and displays a toast. It accepts the
+							following parameters:
 						</p>
 						<PropsTable>
 							<PropRow>
@@ -528,8 +511,8 @@ export default function Page() {
 								<PropDefaultValueCell />
 								<PropDescriptionCell>
 									<p>
-										The React component to render inside the toast container.
-										Typically a <Code>Toast.Root</Code> component.
+										The React component to render inside the toast container. Typically a{" "}
+										<Code>Toast.Root</Code> component.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -540,19 +523,15 @@ export default function Page() {
 								</PropTypeCell>
 								<PropDefaultValueCell />
 								<PropDescriptionCell>
-									<p>
-										Optional configuration object with the following properties:
-									</p>
+									<p>Optional configuration object with the following properties:</p>
 									<ul className="mt-2 list-disc list-inside space-y-1">
 										<li>
-											<Code>duration_ms</Code> (number, optional): Time in
-											milliseconds before auto-dismissal. Pass a value {"<="} 0
-											or <Code>Number.POSITIVE_INFINITY</Code> to keep the toast
-											open until manually dismissed.
+											<Code>duration_ms</Code> (number, optional): Time in milliseconds before
+											auto-dismissal. Pass a value {"<="} 0 or <Code>Number.POSITIVE_INFINITY</Code>{" "}
+											to keep the toast open until manually dismissed.
 										</li>
 										<li>
-											<Code>id</Code> (string, optional): Custom ID for the
-											toast
+											<Code>id</Code> (string, optional): Custom ID for the toast
 										</li>
 									</ul>
 								</PropDescriptionCell>

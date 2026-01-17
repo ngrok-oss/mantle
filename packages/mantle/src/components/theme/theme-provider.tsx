@@ -1,14 +1,7 @@
 "use client";
 
 import type { PropsWithChildren } from "react";
-import {
-	createContext,
-	useContext,
-	useEffect,
-	useMemo,
-	useRef,
-	useState,
-} from "react";
+import { createContext, useContext, useEffect, useMemo, useRef, useState } from "react";
 import invariant from "tiny-invariant";
 import { useMatchesMediaQuery } from "../../hooks/use-matches-media-query.js";
 import { cx } from "../../utils/cx/cx.js";
@@ -57,9 +50,7 @@ const initialState: ThemeProviderState = ["system", () => null];
 /**
  * ThemeProviderContext is a React Context that provides the current theme and a function to set the theme.
  */
-const ThemeProviderContext = createContext<ThemeProviderState | null>(
-	initialState,
-);
+const ThemeProviderContext = createContext<ThemeProviderState | null>(initialState);
 
 type ThemeProviderProps = PropsWithChildren;
 
@@ -108,7 +99,10 @@ function ThemeProvider({ children }: ThemeProviderProps) {
 					}
 				};
 			}
-		} catch (_) {}
+			// oxlint-disable-next-line no-unused-vars
+		} catch (_) {
+			// silently swallow errors
+		}
 
 		function onStorage(event: StorageEvent) {
 			if (event.key === `${THEME_STORAGE_KEY}__ping`) {
@@ -119,9 +113,7 @@ function ThemeProvider({ children }: ThemeProviderProps) {
 
 		// add media query listeners for system theme changes
 		const prefersDarkMql = window.matchMedia(prefersDarkModeMediaQuery);
-		const prefersHighContrastMql = window.matchMedia(
-			prefersHighContrastMediaQuery,
-		);
+		const prefersHighContrastMql = window.matchMedia(prefersHighContrastMediaQuery);
 
 		function onChange() {
 			syncThemeFromCookie();
@@ -152,7 +144,10 @@ function ThemeProvider({ children }: ThemeProviderProps) {
 
 			try {
 				broadcastChannelRef.current?.close();
-			} catch (_) {}
+				// oxlint-disable-next-line no-unused-vars
+			} catch (_) {
+				// silently swallow errors
+			}
 			broadcastChannelRef.current = null;
 		};
 	}, []);
@@ -173,11 +168,7 @@ function ThemeProvider({ children }: ThemeProviderProps) {
 		[theme],
 	);
 
-	return (
-		<ThemeProviderContext.Provider value={value}>
-			{children}
-		</ThemeProviderContext.Provider>
-	);
+	return <ThemeProviderContext.Provider value={value}>{children}</ThemeProviderContext.Provider>;
 }
 ThemeProvider.displayName = "ThemeProvider";
 
@@ -205,9 +196,7 @@ function applyThemeToHtml(theme: Theme) {
 	const html = window.document.documentElement;
 
 	const prefersDarkMode = window.matchMedia(prefersDarkModeMediaQuery).matches;
-	const prefersHighContrast = window.matchMedia(
-		prefersHighContrastMediaQuery,
-	).matches;
+	const prefersHighContrast = window.matchMedia(prefersHighContrastMediaQuery).matches;
 
 	const resolvedTheme = resolveTheme(theme, {
 		prefersDarkMode,
@@ -218,9 +207,7 @@ function applyThemeToHtml(theme: Theme) {
 	const htmlAppliedTheme = html.dataset.appliedTheme;
 
 	const currentTheme = isTheme(htmlTheme) ? htmlTheme : undefined;
-	const currentResolvedTheme = isResolvedTheme(htmlAppliedTheme)
-		? htmlAppliedTheme
-		: undefined;
+	const currentResolvedTheme = isResolvedTheme(htmlAppliedTheme) ? htmlAppliedTheme : undefined;
 
 	if (currentTheme === theme && currentResolvedTheme === resolvedTheme) {
 		// nothing to do: input theme and resolved class already match
@@ -246,9 +233,7 @@ function readThemeFromHtmlElement() {
 	}
 
 	const htmlElement = window.document.documentElement;
-	const theme = isTheme(htmlElement.dataset.theme)
-		? htmlElement.dataset.theme
-		: undefined;
+	const theme = isTheme(htmlElement.dataset.theme) ? htmlElement.dataset.theme : undefined;
 	const appliedTheme = isResolvedTheme(htmlElement.dataset.appliedTheme)
 		? htmlElement.dataset.appliedTheme
 		: undefined;
@@ -289,9 +274,7 @@ function useAppliedTheme() {
 	const theme = themeContext != null ? themeContext[0] : "system";
 
 	const prefersDarkMode = useMatchesMediaQuery(prefersDarkModeMediaQuery);
-	const prefersHighContrast = useMatchesMediaQuery(
-		prefersHighContrastMediaQuery,
-	);
+	const prefersHighContrast = useMatchesMediaQuery(prefersHighContrastMediaQuery);
 
 	return resolveTheme(theme, { prefersDarkMode, prefersHighContrast });
 }
@@ -366,6 +349,7 @@ function preventThemeFlash(args: {
 			const cookieValue = themeCookie?.split("=")[1];
 			const storedTheme = cookieValue ? decodeURIComponent(cookieValue) : null;
 			return storedTheme;
+			// oxlint-disable-next-line no-unused-vars
 		} catch (_) {
 			return null;
 		}
@@ -377,9 +361,7 @@ function preventThemeFlash(args: {
 		const hostname = location.hostname;
 		const protocol = location.protocol;
 		const domainAttribute =
-			hostname === "ngrok.com" || hostname.endsWith(".ngrok.com")
-				? "; domain=.ngrok.com"
-				: "";
+			hostname === "ngrok.com" || hostname.endsWith(".ngrok.com") ? "; domain=.ngrok.com" : "";
 		const secureAttribute = protocol === "https:" ? "; Secure" : "";
 		return `${name}=${encodeURIComponent(val)}; expires=${expires.toUTCString()}; path=/${domainAttribute}; SameSite=Lax${secureAttribute}`;
 	}
@@ -387,7 +369,10 @@ function preventThemeFlash(args: {
 	function writeCookie(name: string, val: string): void {
 		try {
 			document.cookie = buildCookie(name, val);
-		} catch (_) {}
+			// oxlint-disable-next-line no-unused-vars
+		} catch (_) {
+			// silently swallow errors
+		}
 	}
 
 	function resolveThemeValue(
@@ -411,14 +396,20 @@ function preventThemeFlash(args: {
 
 	try {
 		cookieTheme = getThemeFromCookie(storageKey);
-	} catch (_) {}
+		// oxlint-disable-next-line no-unused-vars
+	} catch (_) {
+		// silently swallow errors
+	}
 
 	if (isTheme(cookieTheme)) {
 		storedTheme = cookieTheme;
 	} else {
 		try {
 			lsTheme = window.localStorage?.getItem(storageKey) ?? null;
-		} catch (_) {}
+			// oxlint-disable-next-line no-unused-vars
+		} catch (_) {
+			// silently swallow errors
+		}
 		if (isTheme(lsTheme)) {
 			storedTheme = lsTheme;
 		}
@@ -433,10 +424,7 @@ function preventThemeFlash(args: {
 
 	const html = document.documentElement;
 	// 3) Apply theme to DOM (same order as applyThemeToHtml)
-	if (
-		html.dataset.appliedTheme !== resolvedTheme ||
-		html.dataset.theme !== preference
-	) {
+	if (html.dataset.appliedTheme !== resolvedTheme || html.dataset.theme !== preference) {
 		// Remove all theme classes
 		for (const themeClass of resolvedThemes as readonly string[]) {
 			html.classList.remove(themeClass);
@@ -456,12 +444,18 @@ function preventThemeFlash(args: {
 			writeCookie(storageKey, lsTheme);
 			try {
 				window.localStorage.removeItem(storageKey);
-			} catch (_) {}
+				// oxlint-disable-next-line no-unused-vars
+			} catch (_) {
+				// silently swallow errors
+			}
 		} else if (!hadValidCookie) {
 			// Set default cookie if none existed
 			writeCookie(storageKey, preference);
 		}
-	} catch (_) {}
+		// oxlint-disable-next-line no-unused-vars
+	} catch (_) {
+		// silently swallow errors
+	}
 }
 
 /**
@@ -519,9 +513,7 @@ export type PreventWrongThemeFlashScriptProps = MantleThemeHeadContentProps;
  * @see MantleThemeHeadContent
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/nonce
  */
-const PreventWrongThemeFlashScript = ({
-	nonce,
-}: PreventWrongThemeFlashScriptProps) => (
+const PreventWrongThemeFlashScript = ({ nonce }: PreventWrongThemeFlashScriptProps) => (
 	<script
 		dangerouslySetInnerHTML={{
 			__html: preventWrongThemeFlashScriptContent(),
@@ -582,9 +574,7 @@ type UseInitialHtmlThemePropsOptions = {
 /**
  * useInitialHtmlThemeProps returns the initial props that should be applied to the <html> element to prevent react hydration errors.
  */
-function useInitialHtmlThemeProps(
-	props: UseInitialHtmlThemePropsOptions = {},
-): InitialThemeProps {
+function useInitialHtmlThemeProps(props: UseInitialHtmlThemePropsOptions = {}): InitialThemeProps {
 	const { className = "" } = props ?? {};
 
 	return useMemo(() => {
@@ -595,12 +585,8 @@ function useInitialHtmlThemeProps(
 			initialTheme = DEFAULT_THEME;
 			resolvedTheme = "light"; // assume "light" for SSR
 		} else {
-			const prefersDarkMode = window.matchMedia(
-				prefersDarkModeMediaQuery,
-			).matches;
-			const prefersHighContrast = window.matchMedia(
-				prefersHighContrastMediaQuery,
-			).matches;
+			const prefersDarkMode = window.matchMedia(prefersDarkModeMediaQuery).matches;
+			const prefersHighContrast = window.matchMedia(prefersHighContrastMediaQuery).matches;
 			initialTheme = getStoredTheme({ cookie: document.cookie });
 			resolvedTheme = resolveTheme(initialTheme, {
 				prefersDarkMode,
@@ -643,15 +629,12 @@ function getStoredTheme({ cookie }: GetStoredThemeOptions): Theme {
 
 	try {
 		const cookies = cookie.split(";");
-		const themeCookie = cookies.find((cookie) =>
-			cookie.trim().startsWith(`${THEME_STORAGE_KEY}=`),
-		);
+		const themeCookie = cookies.find((cookie) => cookie.trim().startsWith(`${THEME_STORAGE_KEY}=`));
 		const cookieValue = themeCookie?.split("=")[1];
-		const storedTheme = cookieValue
-			? globalThis.decodeURIComponent(cookieValue)
-			: null;
+		const storedTheme = cookieValue ? globalThis.decodeURIComponent(cookieValue) : null;
 
 		return isTheme(storedTheme) ? storedTheme : DEFAULT_THEME;
+		// oxlint-disable-next-line no-unused-vars
 	} catch (_) {
 		return DEFAULT_THEME;
 	}
@@ -719,15 +702,18 @@ function notifyOtherTabs(
 			});
 			return;
 		}
-	} catch (_) {}
+		// oxlint-disable-next-line no-unused-vars
+	} catch (_) {
+		// silently swallow errors
+	}
 
 	// fallback to storage event: write a "ping" key (not the real storageKey)
 	try {
-		localStorage.setItem(
-			pingKey,
-			JSON.stringify({ theme, timestamp: Date.now() }),
-		);
-	} catch (_) {}
+		localStorage.setItem(pingKey, JSON.stringify({ theme, timestamp: Date.now() }));
+		// oxlint-disable-next-line no-unused-vars
+	} catch (_) {
+		// silently swallow errors
+	}
 }
 
 function buildThemeCookie(value: string) {
@@ -737,9 +723,7 @@ function buildThemeCookie(value: string) {
 	// Only set .ngrok.com domain for ngrok domains, otherwise let it default to current domain
 	const { hostname, protocol } = window.location;
 	const domainAttribute =
-		hostname === "ngrok.com" || hostname.endsWith(".ngrok.com")
-			? "; domain=.ngrok.com"
-			: "";
+		hostname === "ngrok.com" || hostname.endsWith(".ngrok.com") ? "; domain=.ngrok.com" : "";
 	const secureAttribute = protocol === "https:" ? "; Secure" : "";
 
 	return `${THEME_STORAGE_KEY}=${encodeURIComponent(value)}; expires=${expires.toUTCString()}; path=/${domainAttribute}; SameSite=Lax${secureAttribute}` as const;
@@ -756,6 +740,7 @@ function setCookie(value: string) {
 
 	try {
 		document.cookie = buildThemeCookie(value);
+		// oxlint-disable-next-line no-unused-vars
 	} catch (_) {
 		// silently swallow errors
 	}

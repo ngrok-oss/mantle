@@ -47,8 +47,7 @@ import { cx } from "../../utils/cx/cx.js";
  */
 const Root = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
 	({ children, className, ...props }, ref) => {
-		const horizontalOverflow =
-			useHorizontalOverflowObserver<ComponentRef<"div">>();
+		const horizontalOverflow = useHorizontalOverflowObserver<ComponentRef<"div">>();
 
 		return (
 			<div
@@ -57,14 +56,12 @@ const Root = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
 					className,
 				)}
 				data-sticky-active={
-					(horizontalOverflow.state.hasOverflow &&
-						!horizontalOverflow.state.scrolledToEnd) ||
+					(horizontalOverflow.state.hasOverflow && !horizontalOverflow.state.scrolledToEnd) ||
 					undefined
 				}
 				data-x-overflow={horizontalOverflow.state.hasOverflow}
 				data-x-scroll-end={
-					horizontalOverflow.state.hasOverflow &&
-					horizontalOverflow.state.scrolledToEnd
+					horizontalOverflow.state.hasOverflow && horizontalOverflow.state.scrolledToEnd
 				}
 				ref={composeRefs(horizontalOverflow.ref, ref)}
 				{...props}
@@ -588,11 +585,7 @@ const Caption = forwardRef<ComponentRef<"caption">, ComponentProps<"caption">>(
 	({ children, className, ...props }, ref) => (
 		<caption
 			ref={ref}
-			className={cx(
-				"py-4 text-sm text-gray-500",
-				"border-t border-card-muted",
-				className,
-			)}
+			className={cx("py-4 text-sm text-gray-500", "border-t border-card-muted", className)}
 			{...props}
 		>
 			{children}
@@ -1021,15 +1014,10 @@ function useHorizontalOverflowObserver<T extends HTMLElement>() {
 		const checkState = () => {
 			const hasOverflow = element.scrollWidth > element.clientWidth;
 			const scrolledToEnd =
-				Math.abs(
-					element.scrollWidth - element.scrollLeft - element.clientWidth,
-				) < 1;
+				Math.abs(element.scrollWidth - element.scrollLeft - element.clientWidth) < 1;
 
 			setState((previous) => {
-				if (
-					previous.hasOverflow !== hasOverflow ||
-					previous.scrolledToEnd !== scrolledToEnd
-				) {
+				if (previous.hasOverflow !== hasOverflow || previous.scrolledToEnd !== scrolledToEnd) {
 					return { hasOverflow, scrolledToEnd };
 				}
 				return previous; // No state change

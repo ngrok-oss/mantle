@@ -136,8 +136,8 @@ export default function Page() {
 					Command
 				</PageHeader>
 				<p className="font-body text-body text-xl">
-					A command palette that allows users to search and execute commands.
-					Built on top of <Anchor href="https://cmdk.paco.me/">cmdk</Anchor>.
+					A command palette that allows users to search and execute commands. Built on top of{" "}
+					<Anchor href="https://cmdk.paco.me/">cmdk</Anchor>.
 				</p>
 
 				<header className="space-y-4">
@@ -323,8 +323,7 @@ export default function Page() {
 						<Anchor href="https://cmdk.paco.me/">
 							<Code>cmdk</Code>
 						</Anchor>
-						and provides a complete set of sub-components for building command
-						palettes.
+						and provides a complete set of sub-components for building command palettes.
 					</p>
 				</header>
 
@@ -338,8 +337,8 @@ export default function Page() {
 						</HashLinkHeading>
 
 						<p className="font-body text-body">
-							The root component for the Command. It provides the context for
-							all other command sub-components.
+							The root component for the Command. It provides the context for all other command
+							sub-components.
 						</p>
 
 						<p className="font-body text-body">
@@ -361,8 +360,8 @@ export default function Page() {
 						</HashLinkHeading>
 
 						<p className="font-body text-body">
-							A window overlaid on either the primary window or another dialog
-							window. The root stateful component for the CommandDialog.
+							A window overlaid on either the primary window or another dialog window. The root
+							stateful component for the CommandDialog.
 						</p>
 
 						<p className="font-body text-body">
@@ -373,11 +372,9 @@ export default function Page() {
 						</p>
 
 						<p className="font-body text-body">
-							Additional props include <Code>title</Code>,{" "}
-							<Code>description</Code>, <Code>className</Code>,{" "}
-							<Code>showCloseButton</Code>, <Code>filter</Code>, and{" "}
-							<Code>shouldFilter</Code> to customize the dialog appearance and
-							filtering behavior.
+							Additional props include <Code>title</Code>, <Code>description</Code>,{" "}
+							<Code>className</Code>, <Code>showCloseButton</Code>, <Code>filter</Code>, and{" "}
+							<Code>shouldFilter</Code> to customize the dialog appearance and filtering behavior.
 						</p>
 					</header>
 				</section>
@@ -393,8 +390,7 @@ export default function Page() {
 					</header>
 
 					<p className="font-body text-body">
-						The input component for the Command. It provides the input for the
-						command palette.
+						The input component for the Command. It provides the input for the command palette.
 					</p>
 
 					<p className="font-body text-body">
@@ -416,8 +412,7 @@ export default function Page() {
 					</header>
 
 					<p className="font-body text-body">
-						The list component for the Command. It provides the list for the
-						command palette.
+						The list component for the Command. It provides the list for the command palette.
 					</p>
 
 					<p className="font-body text-body">
@@ -439,8 +434,8 @@ export default function Page() {
 					</header>
 
 					<p className="font-body text-body">
-						The empty component for the Command. It provides the empty state for
-						the command palette.
+						The empty component for the Command. It provides the empty state for the command
+						palette.
 					</p>
 
 					<p className="font-body text-body">
@@ -462,8 +457,7 @@ export default function Page() {
 					</header>
 
 					<p className="font-body text-body">
-						The group component for the Command. It provides the group for the
-						command palette.
+						The group component for the Command. It provides the group for the command palette.
 					</p>
 
 					<p className="font-body text-body">
@@ -485,8 +479,8 @@ export default function Page() {
 					</header>
 
 					<p className="font-body text-body">
-						The separator component for the Command. It provides the separator
-						for the command palette.
+						The separator component for the Command. It provides the separator for the command
+						palette.
 					</p>
 
 					<p className="font-body text-body">
@@ -508,8 +502,7 @@ export default function Page() {
 					</header>
 
 					<p className="font-body text-body">
-						The item component for the Command. It provides the item for the
-						command palette.
+						The item component for the Command. It provides the item for the command palette.
 					</p>
 
 					<p className="font-body text-body">
@@ -531,8 +524,8 @@ export default function Page() {
 					</header>
 
 					<p className="font-body text-body">
-						The shortcut component for the Command. It provides the shortcut for
-						the command palette.
+						The shortcut component for the Command. It provides the shortcut for the command
+						palette.
 					</p>
 				</section>
 
@@ -547,17 +540,15 @@ export default function Page() {
 					</header>
 
 					<p className="font-body text-body">
-						The <Code>MetaKey</Code> component renders the platform-appropriate
-						meta key label (<Code>⌘</Code> for macOS/iOS or <Code>Ctrl</Code>{" "}
-						for other platforms). It detects the platform on mount and is
-						SSR-safe, defaulting to <Code>Ctrl</Code> to avoid hydration
+						The <Code>MetaKey</Code> component renders the platform-appropriate meta key label (
+						<Code>⌘</Code> for macOS/iOS or <Code>Ctrl</Code> for other platforms). It detects the
+						platform on mount and is SSR-safe, defaulting to <Code>Ctrl</Code> to avoid hydration
 						mismatches.
 					</p>
 
 					<p className="font-body text-body">
-						Use it in keyboard shortcut hints and <Code>Command.Shortcut</Code>{" "}
-						labels to ensure the correct modifier key is displayed for each
-						platform.
+						Use it in keyboard shortcut hints and <Code>Command.Shortcut</Code> labels to ensure the
+						correct modifier key is displayed for each platform.
 					</p>
 
 					<CodeBlock.Root>
@@ -592,8 +583,7 @@ export default function Page() {
 					</header>
 
 					<p className="font-body text-body">
-						The hook for the Command. It provides the state for the command
-						palette.
+						The hook for the Command. It provides the state for the command palette.
 					</p>
 
 					<p className="font-body text-body">

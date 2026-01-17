@@ -1,10 +1,6 @@
 import { XIcon } from "@phosphor-icons/react/X";
 import { type VariantProps, cva } from "class-variance-authority";
-import type {
-	ComponentPropsWithoutRef,
-	ComponentRef,
-	HTMLAttributes,
-} from "react";
+import type { ComponentPropsWithoutRef, ComponentRef, HTMLAttributes } from "react";
 import { forwardRef } from "react";
 import { cx } from "../../utils/cx/cx.js";
 import { IconButton, type IconButtonProps } from "../button/icon-button.js";
@@ -223,9 +219,7 @@ const SheetVariants = cva(
 	},
 );
 
-type SheetContentProps = ComponentPropsWithoutRef<
-	typeof SheetPrimitive.Content
-> &
+type SheetContentProps = ComponentPropsWithoutRef<typeof SheetPrimitive.Content> &
 	VariantProps<typeof SheetVariants> & {
 		/**
 		 * The preferred width of the `Sheet.Content` as a tailwind `max-w-` class.
@@ -445,10 +439,7 @@ CloseIconButton.displayName = "SheetCloseIconButton";
  * ```
  */
 const Body = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => (
-	<div
-		className={cx("scrollbar text-body flex-1 overflow-y-auto p-6", className)}
-		{...props}
-	/>
+	<div className={cx("scrollbar text-body flex-1 overflow-y-auto p-6", className)} {...props} />
 );
 Body.displayName = "SheetBody";
 
@@ -682,18 +673,13 @@ Title.displayName = SheetPrimitive.Title.displayName;
  * </Sheet.Root>
  * ```
  */
-const TitleGroup = forwardRef<
-	ComponentRef<"div">,
-	HTMLAttributes<HTMLDivElement>
->(({ children, className, ...props }, ref) => (
-	<div
-		className={cx("flex items-center justify-between gap-2", className)}
-		{...props}
-		ref={ref}
-	>
-		{children}
-	</div>
-));
+const TitleGroup = forwardRef<ComponentRef<"div">, HTMLAttributes<HTMLDivElement>>(
+	({ children, className, ...props }, ref) => (
+		<div className={cx("flex items-center justify-between gap-2", className)} {...props} ref={ref}>
+			{children}
+		</div>
+	),
+);
 TitleGroup.displayName = "SheetTitleGroup";
 
 /**
@@ -748,11 +734,7 @@ const Description = forwardRef<
 	ComponentRef<typeof SheetPrimitive.Description>,
 	ComponentPropsWithoutRef<typeof SheetPrimitive.Description>
 >(({ className, ...props }, ref) => (
-	<SheetPrimitive.Description
-		ref={ref}
-		className={cx("text-body text-sm", className)}
-		{...props}
-	/>
+	<SheetPrimitive.Description ref={ref} className={cx("text-body text-sm", className)} {...props} />
 ));
 Description.displayName = SheetPrimitive.Description.displayName;
 
@@ -806,11 +788,7 @@ Description.displayName = SheetPrimitive.Description.displayName;
  */
 const Actions = forwardRef<ComponentRef<"div">, HTMLAttributes<HTMLDivElement>>(
 	({ children, className, ...props }, ref) => (
-		<div
-			className={cx("flex h-full items-center gap-2", className)}
-			{...props}
-			ref={ref}
-		>
+		<div className={cx("flex h-full items-center gap-2", className)} {...props} ref={ref}>
 			{children}
 		</div>
 	),

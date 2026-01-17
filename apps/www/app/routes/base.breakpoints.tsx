@@ -46,9 +46,7 @@ export default function Page() {
 						</Card.Header>
 						<Card.Body className="flex items-center justify-between">
 							<span>Below md (768px):</span>
-							<Code className="text-lg font-medium">
-								{isBelowMd.toString()}
-							</Code>
+							<Code className="text-lg font-medium">{isBelowMd.toString()}</Code>
 						</Card.Body>
 					</Card.Root>
 
@@ -58,9 +56,7 @@ export default function Page() {
 						</Card.Header>
 						<Card.Body className="flex items-center justify-between">
 							<span>Below lg (1024px):</span>
-							<Code className="text-lg font-medium">
-								{isBelowLg.toString()}
-							</Code>
+							<Code className="text-lg font-medium">{isBelowLg.toString()}</Code>
 						</Card.Body>
 					</Card.Root>
 				</div>
@@ -70,15 +66,11 @@ export default function Page() {
 			</section>
 
 			<section className="space-y-4">
-				<HashLinkHeading
-					id="breakpoint-values"
-					className="text-2xl font-medium"
-				>
+				<HashLinkHeading id="breakpoint-values" className="text-2xl font-medium">
 					<h2>Breakpoint Values</h2>
 				</HashLinkHeading>
 				<p className="font-body text-body">
-					There are six breakpoints by default, inspired by common device
-					resolutions:
+					There are six breakpoints by default, inspired by common device resolutions:
 				</p>
 
 				<Table.Root>
@@ -174,16 +166,13 @@ export default function Page() {
 			</section>
 
 			<section className="space-y-4">
-				<HashLinkHeading
-					id="usebreakpoint-hook"
-					className="text-2xl font-medium"
-				>
+				<HashLinkHeading id="usebreakpoint-hook" className="text-2xl font-medium">
 					<h2>useBreakpoint Hook</h2>
 				</HashLinkHeading>
 				<p className="font-body text-body">
-					The <Code>useBreakpoint</Code> hook returns the current breakpoint
-					based on the viewport width. It efficiently tracks all breakpoints and
-					returns the largest one that currently matches.
+					The <Code>useBreakpoint</Code> hook returns the current breakpoint based on the viewport
+					width. It efficiently tracks all breakpoints and returns the largest one that currently
+					matches.
 				</p>
 
 				<CodeBlock.Root>
@@ -217,20 +206,20 @@ export default function Page() {
 					</HashLinkHeading>
 					<ul className="list-disc list-inside space-y-1 text-body">
 						<li>
-							<strong>Performance optimized:</strong> Uses a single subscription
-							for all breakpoint changes
+							<strong>Performance optimized:</strong> Uses a single subscription for all breakpoint
+							changes
 						</li>
 						<li>
-							<strong>SSR compatible:</strong> Returns <Code>default</Code>{" "}
-							during server-side rendering
+							<strong>SSR compatible:</strong> Returns <Code>default</Code> during server-side
+							rendering
 						</li>
 						<li>
-							<strong>Real-time updates:</strong> Automatically updates when the
-							viewport size changes
+							<strong>Real-time updates:</strong> Automatically updates when the viewport size
+							changes
 						</li>
 						<li>
-							<strong>TypeScript support:</strong> Fully typed with
-							autocompletion for all breakpoints
+							<strong>TypeScript support:</strong> Fully typed with autocompletion for all
+							breakpoints
 						</li>
 					</ul>
 				</div>
@@ -240,25 +229,21 @@ export default function Page() {
 						<h3>Return Value</h3>
 					</HashLinkHeading>
 					<p className="text-body">
-						Returns a <Code>Breakpoint</Code> type that can be one of:{" "}
-						<Code>"default"</Code>, <Code>"xs"</Code>, <Code>"sm"</Code>,{" "}
-						<Code>"md"</Code>, <Code>"lg"</Code>, <Code>"xl"</Code>, or{" "}
-						<Code>"2xl"</Code>.
+						Returns a <Code>Breakpoint</Code> type that can be one of: <Code>"default"</Code>,{" "}
+						<Code>"xs"</Code>, <Code>"sm"</Code>, <Code>"md"</Code>, <Code>"lg"</Code>,{" "}
+						<Code>"xl"</Code>, or <Code>"2xl"</Code>.
 					</p>
 				</div>
 			</section>
 
 			<section className="space-y-4">
-				<HashLinkHeading
-					id="useisbelowbreakpoint-hook"
-					className="text-2xl font-medium"
-				>
+				<HashLinkHeading id="useisbelowbreakpoint-hook" className="text-2xl font-medium">
 					<h2>useIsBelowBreakpoint Hook</h2>
 				</HashLinkHeading>
 				<p className="font-body text-body text-lg">
-					The <Code>useIsBelowBreakpoint</Code> hook returns <Code>true</Code>{" "}
-					if the current viewport width is below the specified breakpoint.
-					Perfect for mobile-first responsive design patterns.
+					The <Code>useIsBelowBreakpoint</Code> hook returns <Code>true</Code> if the current
+					viewport width is below the specified breakpoint. Perfect for mobile-first responsive
+					design patterns.
 				</p>
 
 				<CodeBlock.Root>
@@ -288,35 +273,30 @@ export default function Page() {
 						<h3>Parameters</h3>
 					</HashLinkHeading>
 					<p className="text-body">
-						Accepts a <Code>TailwindBreakpoint</Code> which can be one of:{" "}
-						<Code>"xs"</Code>, <Code>"sm"</Code>, <Code>"md"</Code>,{" "}
-						<Code>"lg"</Code>, <Code>"xl"</Code>, or <Code>"2xl"</Code>.
+						Accepts a <Code>TailwindBreakpoint</Code> which can be one of: <Code>"xs"</Code>,{" "}
+						<Code>"sm"</Code>, <Code>"md"</Code>, <Code>"lg"</Code>, <Code>"xl"</Code>, or{" "}
+						<Code>"2xl"</Code>.
 					</p>
 				</div>
 
 				<div className="space-y-2">
-					<HashLinkHeading
-						id="common-use-cases"
-						className="text-lg font-medium"
-					>
+					<HashLinkHeading id="common-use-cases" className="text-lg font-medium">
 						<h3>Common Use Cases</h3>
 					</HashLinkHeading>
 					<ul className="list-disc list-inside space-y-1 text-body">
 						<li>
-							<strong>Mobile detection:</strong>{" "}
-							<Code>useIsBelowBreakpoint("md")</Code> for mobile-first layouts
+							<strong>Mobile detection:</strong> <Code>useIsBelowBreakpoint("md")</Code> for
+							mobile-first layouts
 						</li>
 						<li>
-							<strong>Conditional rendering:</strong> Show/hide components based
-							on screen size
+							<strong>Conditional rendering:</strong> Show/hide components based on screen size
 						</li>
 						<li>
-							<strong>Dynamic styling:</strong> Apply different CSS classes for
-							mobile vs desktop
+							<strong>Dynamic styling:</strong> Apply different CSS classes for mobile vs desktop
 						</li>
 						<li>
-							<strong>Component adaptation:</strong> Switch between mobile and
-							desktop component variants
+							<strong>Component adaptation:</strong> Switch between mobile and desktop component
+							variants
 						</li>
 					</ul>
 				</div>

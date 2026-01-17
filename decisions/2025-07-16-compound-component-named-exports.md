@@ -3,7 +3,7 @@
 ## Status
 
 - [x] Proposed
-- [x] Accepted  
+- [x] Accepted
 - [x] Implemented 2025-08-06
 - [ ] Superseded
 
@@ -55,11 +55,11 @@ The goal is to improve developer experience by allowing usage like `<Dialog.Root
 import { Dialog, DialogContent, DialogTrigger, DialogTitle } from "@ngrok/mantle/dialog";
 
 <Dialog>
-  <DialogTrigger>Open</DialogTrigger>
-  <DialogContent>
-    <DialogTitle>Title</DialogTitle>
-  </DialogContent>
-</Dialog>
+	<DialogTrigger>Open</DialogTrigger>
+	<DialogContent>
+		<DialogTitle>Title</DialogTitle>
+	</DialogContent>
+</Dialog>;
 ```
 
 ### Target State
@@ -69,11 +69,11 @@ import { Dialog, DialogContent, DialogTrigger, DialogTitle } from "@ngrok/mantle
 import { Dialog } from "@ngrok/mantle/dialog";
 
 <Dialog>
-  <Dialog.Trigger>Open</Dialog.Trigger>
-  <Dialog.Content>
-    <Dialog.Title>Title</Dialog.Title>
-  </Dialog.Content>
-</Dialog>
+	<Dialog.Trigger>Open</Dialog.Trigger>
+	<Dialog.Content>
+		<Dialog.Title>Title</Dialog.Title>
+	</Dialog.Content>
+</Dialog>;
 ```
 
 ## Alternatives Considered
@@ -88,14 +88,17 @@ import { Dialog } from "@ngrok/mantle/dialog";
 ```tsx
 export { Dialog, DialogContent }; // Keep both old and new
 ```
+
 - **Pros**: Backward compatible, gradual migration possible
 - **Cons**: Confusing API, increases bundle size, maintenance burden
 
 ### Option 3: createNamespacedComponent Helper (uses Object.assign internally)
+
 ```tsx
 const Dialog = createNamespacedComponent(Root, { Content, Trigger });
 // Usage: <Dialog><Dialog.Content /></Dialog>
 ```
+
 - **Pros**: Best developer experience, callable root + namespace, type-safe, clean API
 - **Cons**: Requires migration, custom implementation to maintain, doesn't work in react production builds
 
@@ -105,6 +108,7 @@ const Dialog = createNamespacedComponent(Root, { Content, Trigger });
 const Dialog = { Root, Content, Trigger };
 // Usage: <Dialog.Root><Dialog.Content /></Dialog.Root>
 ```
+
 - **Pros**: Simple, predictable, widely adopted pattern, no helper function needed
 - **Cons**: Export is not a directly callable react component, requires `.Root` everywhere
 
@@ -292,6 +296,7 @@ We will migrate 17 Mantle components to use a simple POJO namespace pattern wher
     - `HoverCardTrigger` → `HoverCard.Trigger`
 
 16. **`tooltip`** - 3 exports (1 named export)
+
 - `Tooltip` → `Tooltip` (root component)
 - `TooltipContent` → `Tooltip.Content`
 - `TooltipTrigger` → `Tooltip.Trigger`
@@ -330,63 +335,63 @@ The migration uses a Plain Old JavaScript Object pattern with **inline JSDoc doc
 
 #### Enhanced Pattern Example:
 
-```tsx
+````tsx
 // Enhanced implementation with inline JSDoc
 const Dialog = {
-  /**
-   * The root component of the dialog.
-   * 
-   * @see https://mantle.ngrok.com/components/dialog#api-dialog-root
-   * 
-   * @example
-   * ```tsx
-   * <Dialog.Root>
-   *   <Dialog.Trigger>Open</Dialog.Trigger>
-   *   <Dialog.Content>
-   *     <Dialog.Title>Title</Dialog.Title>
-   *   </Dialog.Content>
-   * </Dialog.Root>
-   * ```
-   */
-  Root,
-  /**
-   * The content container of the dialog.
-   * 
-   * @see https://mantle.ngrok.com/components/dialog#api-dialog-content
-   * 
-   * @example
-   * ```tsx
-   * <Dialog.Content>
-   *   <Dialog.Header>
-   *     <Dialog.Title>Dialog Title</Dialog.Title>
-   *   </Dialog.Header>
-   *   <Dialog.Body>Content goes here</Dialog.Body>
-   * </Dialog.Content>
-   * ```
-   */
-  Content,
-  /**
-   * The header section of the dialog.
-   */
-  Header,
-  /**
-   * The body section of the dialog.
-   */
-  Body,
-  /**
-   * The footer section of the dialog.
-   */
-  Footer,
-  // ... other components
+	/**
+	 * The root component of the dialog.
+	 *
+	 * @see https://mantle.ngrok.com/components/dialog#api-dialog-root
+	 *
+	 * @example
+	 * ```tsx
+	 * <Dialog.Root>
+	 *   <Dialog.Trigger>Open</Dialog.Trigger>
+	 *   <Dialog.Content>
+	 *     <Dialog.Title>Title</Dialog.Title>
+	 *   </Dialog.Content>
+	 * </Dialog.Root>
+	 * ```
+	 */
+	Root,
+	/**
+	 * The content container of the dialog.
+	 *
+	 * @see https://mantle.ngrok.com/components/dialog#api-dialog-content
+	 *
+	 * @example
+	 * ```tsx
+	 * <Dialog.Content>
+	 *   <Dialog.Header>
+	 *     <Dialog.Title>Dialog Title</Dialog.Title>
+	 *   </Dialog.Header>
+	 *   <Dialog.Body>Content goes here</Dialog.Body>
+	 * </Dialog.Content>
+	 * ```
+	 */
+	Content,
+	/**
+	 * The header section of the dialog.
+	 */
+	Header,
+	/**
+	 * The body section of the dialog.
+	 */
+	Body,
+	/**
+	 * The footer section of the dialog.
+	 */
+	Footer,
+	// ... other components
 } as const;
-```
+````
 
 ### Why Enhanced Documentation is Required
 
 Without inline JSDoc comments, developers lose the helpful documentation, examples, and links when using the namespace pattern. This enhanced approach ensures:
 
 1. **Full JSDoc documentation** appears in IDE tooltips
-2. **Usage examples** are available for each sub-component  
+2. **Usage examples** are available for each sub-component
 3. **Links to documentation** are preserved
 4. **Type information** remains intact
 5. **Developer experience** is not degraded from the individual export pattern
@@ -396,7 +401,7 @@ Without inline JSDoc comments, developers lose the helpful documentation, exampl
 Certain components serve as providers or have different architectural roles and should remain as individual named exports:
 
 - **`TooltipProvider`** - Context provider component, not part of tooltip composition
-- **`Toaster`** - Global toast container, separate from individual toast instances  
+- **`Toaster`** - Global toast container, separate from individual toast instances
 - **Utility functions** - Like `makeToast`, these remain as named exports
 
 These components are excluded from the namespace pattern because they serve foundational/provider roles rather than being part of the compound component structure.
@@ -432,53 +437,55 @@ Content.displayName = "DialogContent"; // Keep original display name for debuggi
 ```
 
 #### Step 3: Create Enhanced POJO Namespace Object with Inline JSDoc
-```tsx
+
+````tsx
 const Dialog = {
-  /**
-   * The root component of the dialog.
-   * 
-   * @see https://mantle.ngrok.com/components/dialog#api-dialog-root
-   * 
-   * @example
-   * ```tsx
-   * <Dialog.Root>
-   *   <Dialog.Trigger>Open</Dialog.Trigger>
-   *   <Dialog.Content>
-   *     <Dialog.Title>Title</Dialog.Title>
-   *   </Dialog.Content>
-   * </Dialog.Root>
-   * ```
-   */
-  Root,
-  /**
-   * The content container of the dialog.
-   * 
-   * @see https://mantle.ngrok.com/components/dialog#api-dialog-content
-   */
-  Content,
-  /**
-   * The header section of the dialog.
-   */
-  Header,
-  // ... other components with inline JSDoc
+	/**
+	 * The root component of the dialog.
+	 *
+	 * @see https://mantle.ngrok.com/components/dialog#api-dialog-root
+	 *
+	 * @example
+	 * ```tsx
+	 * <Dialog.Root>
+	 *   <Dialog.Trigger>Open</Dialog.Trigger>
+	 *   <Dialog.Content>
+	 *     <Dialog.Title>Title</Dialog.Title>
+	 *   </Dialog.Content>
+	 * </Dialog.Root>
+	 * ```
+	 */
+	Root,
+	/**
+	 * The content container of the dialog.
+	 *
+	 * @see https://mantle.ngrok.com/components/dialog#api-dialog-content
+	 */
+	Content,
+	/**
+	 * The header section of the dialog.
+	 */
+	Header,
+	// ... other components with inline JSDoc
 } as const;
-```
+````
 
 **Important**: Each property in the namespace object must include comprehensive JSDoc documentation to preserve the developer experience from individual exports.
 
 #### Step 4: Update Exports
+
 ```tsx
 // Before
 export {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  // ... other individual exports
+	Dialog,
+	DialogContent,
+	DialogHeader,
+	// ... other individual exports
 };
 
 // After
 export {
-  Dialog, // Export the namespace object
+	Dialog, // Export the namespace object
 };
 ```
 
@@ -491,6 +498,7 @@ export {
 **Timeline**: 1-2 weeks
 
 **Steps**:
+
 1. Update each component file following the migration pattern
 2. Test component functionality
 3. Run validation commands (see Validation Commands section)
@@ -501,6 +509,7 @@ export {
 **Timeline**: 1 week
 
 **Steps**:
+
 1. Update React imports in `apps/www/app/routes/components.*.tsx`
 2. Update JSX usage from individual components to namespace
 3. Update code block examples (strings in markdown)
@@ -556,6 +565,7 @@ export {
 **Timeline**: 1-2 weeks
 
 **Special Considerations**:
+
 - Maintain both namespace AND named exports
 - Update import statements carefully
 - Test utility functions still work
@@ -590,7 +600,7 @@ export {
 
 #### After:
 
-```tsx
+````tsx
 // packages/mantle/src/components/alert/alert.tsx
 const Root = forwardRef<...>(...);
 const Content = forwardRef<...>(...);
@@ -610,9 +620,9 @@ DismissIconButton.displayName = "AlertDismissIconButton";
 const Alert = {
   /**
    * The root container of the alert component.
-   * 
+   *
    * @see https://mantle.ngrok.com/components/alert#api-alert-root
-   * 
+   *
    * @example
    * ```tsx
    * <Alert.Root>
@@ -627,31 +637,31 @@ const Alert = {
   Root,
   /**
    * The content container of the alert.
-   * 
+   *
    * @see https://mantle.ngrok.com/components/alert#api-alert-content
    */
   Content,
   /**
    * The description text of the alert.
-   * 
+   *
    * @see https://mantle.ngrok.com/components/alert#api-alert-description
    */
   Description,
   /**
    * A button to dismiss the alert.
-   * 
+   *
    * @see https://mantle.ngrok.com/components/alert#api-alert-dismiss-icon-button
    */
   DismissIconButton,
   /**
    * The icon for the alert.
-   * 
+   *
    * @see https://mantle.ngrok.com/components/alert#api-alert-icon
    */
   Icon,
   /**
    * The title of the alert.
-   * 
+   *
    * @see https://mantle.ngrok.com/components/alert#api-alert-title
    */
   Title,
@@ -660,7 +670,7 @@ const Alert = {
 export {
   Alert,
 };
-```
+````
 
 ### Example 2: Mixed Pattern (Toast)
 
@@ -690,7 +700,7 @@ export {
 
 #### After:
 
-```tsx
+````tsx
 // packages/mantle/src/components/toast/toast.tsx
 const Root = forwardRef<...>(...);
 const Action = forwardRef<...>(...);
@@ -712,9 +722,9 @@ Toaster.displayName = "Toaster";
 const Toast = {
   /**
    * The root container of the toast component.
-   * 
+   *
    * @see https://mantle.ngrok.com/components/toast#api-toast-root
-   * 
+   *
    * @example
    * ```tsx
    * <Toast.Root>
@@ -727,19 +737,19 @@ const Toast = {
   Root,
   /**
    * An action button for the toast.
-   * 
+   *
    * @see https://mantle.ngrok.com/components/toast#api-toast-action
    */
   Action,
   /**
    * The icon for the toast.
-   * 
+   *
    * @see https://mantle.ngrok.com/components/toast#api-toast-icon
    */
   Icon,
   /**
    * The message content of the toast.
-   * 
+   *
    * @see https://mantle.ngrok.com/components/toast#api-toast-message
    */
   Message,
@@ -750,13 +760,14 @@ export {
   Toaster,   // Provider component - keep as named export
   Toast,     // Namespace object
 };
-```
+````
 
 ## WWW Documentation Updates
 
 ### File Locations
 
 Update the following files in `apps/www/app/routes/`:
+
 - `components.alert.tsx`
 - `components.alert-dialog.tsx`
 - `components.sheet.tsx`
@@ -783,13 +794,7 @@ Update the following files in `apps/www/app/routes/`:
 
 ```tsx
 // Before
-import {
-  Alert,
-  AlertContent,
-  AlertDescription,
-  AlertIcon,
-  AlertTitle,
-} from "@ngrok/mantle/alert";
+import { Alert, AlertContent, AlertDescription, AlertIcon, AlertTitle } from "@ngrok/mantle/alert";
 
 // After
 import { Alert } from "@ngrok/mantle/alert";
@@ -870,6 +875,7 @@ pnpm -w build
 ```bash
 pnpm -w start
 ```
+
 Then open http://localhost:3333 in your browser to test the components visually.
 
 ### 5. Automated Testing (Optional)
@@ -1009,18 +1015,18 @@ If issues arise, components can be quickly rolled back:
 
 ## Timeline Summary
 
-| Phase | Components | Duration | Description |
-|-------|------------|----------|-------------|
-| 1A    | 5          | 1-2 weeks | High priority components |
-| 1B    | -          | 1 week    | WWW docs update |
+| Phase | Components | Duration  | Description                |
+| ----- | ---------- | --------- | -------------------------- |
+| 1A    | 5          | 1-2 weeks | High priority components   |
+| 1B    | -          | 1 week    | WWW docs update            |
 | 2A    | 4          | 1-2 weeks | Medium priority components |
-| 2B    | -          | 1 week    | WWW docs update |
-| 3A    | 4          | 1-2 weeks | Lower priority components |
-| 3B    | -          | 1 week    | WWW docs update |
-| 4A    | 4          | 1-2 weeks | Final standard components |
-| 4B    | -          | 1 week    | WWW docs update |
-| 5A    | 3          | 1-2 weeks | Mixed pattern components |
-| 5B    | -          | 1 week    | WWW docs update |
+| 2B    | -          | 1 week    | WWW docs update            |
+| 3A    | 4          | 1-2 weeks | Lower priority components  |
+| 3B    | -          | 1 week    | WWW docs update            |
+| 4A    | 4          | 1-2 weeks | Final standard components  |
+| 4B    | -          | 1 week    | WWW docs update            |
+| 5A    | 3          | 1-2 weeks | Mixed pattern components   |
+| 5B    | -          | 1 week    | WWW docs update            |
 
 **Total Estimated Timeline**: 10-15 weeks
 

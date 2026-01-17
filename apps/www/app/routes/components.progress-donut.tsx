@@ -28,29 +28,21 @@ export default function Page() {
 			<div className="space-y-4">
 				<PageHeader id="progress-donut">Progress Donut</PageHeader>
 				<p className="font-body text-body text-xl">
-					Displays an indicator showing the completion progress of a task as a
-					circular progress bar.
+					Displays an indicator showing the completion progress of a task as a circular progress
+					bar.
 				</p>
 				<p className="font-body text-body text-xl">
-					The indicator color is inherited via <Code>currentColor</Code>.
-					Override the default (<Code>accent-600</Code>) by setting the
+					The indicator color is inherited via <Code>currentColor</Code>. Override the default (
+					<Code>accent-600</Code>) by setting the
 					<Code>ProgressDonut.Indicator</Code>'s text color.
 				</p>
 				<div>
 					<Example className="flex-col gap-6">
-						<ProgressDonut.Root
-							value={60}
-							className="size-10"
-							strokeWidth="0.375rem"
-						>
+						<ProgressDonut.Root value={60} className="size-10" strokeWidth="0.375rem">
 							<ProgressDonut.Indicator />
 						</ProgressDonut.Root>
 
-						<ProgressDonut.Root
-							value={60}
-							className="size-10"
-							strokeWidth="0.375rem"
-						>
+						<ProgressDonut.Root value={60} className="size-10" strokeWidth="0.375rem">
 							<ProgressDonut.Indicator className="text-fuchsia-600" />
 						</ProgressDonut.Root>
 
@@ -64,11 +56,7 @@ export default function Page() {
 
 							<div className="flex items-center gap-1.5 text-xs">
 								<div className="grid w-6 place-items-center">
-									<ProgressDonut.Root
-										value={100}
-										className="size-4"
-										strokeWidth="0.1875rem"
-									>
+									<ProgressDonut.Root value={100} className="size-4" strokeWidth="0.1875rem">
 										<ProgressDonut.Indicator />
 									</ProgressDonut.Root>
 								</div>
@@ -77,11 +65,7 @@ export default function Page() {
 
 							<div className="flex items-center gap-1.5 text-xs">
 								<div className="grid w-6 place-items-center">
-									<ProgressDonut.Root
-										className="size-4"
-										value={25}
-										strokeWidth="0.1875rem"
-									>
+									<ProgressDonut.Root className="size-4" value={25} strokeWidth="0.1875rem">
 										<ProgressDonut.Indicator />
 									</ProgressDonut.Root>
 								</div>
@@ -142,21 +126,15 @@ export default function Page() {
 					<h2>Indeterminate Value</h2>
 				</HashLinkHeading>
 				<p className="font-body text-body">
-					You can set the <Code>value</Code> prop to{" "}
-					<Code>"indeterminate"</Code> to show the progress bar in an
-					indeterminate state.
+					You can set the <Code>value</Code> prop to <Code>"indeterminate"</Code> to show the
+					progress bar in an indeterminate state.
 				</p>
 				<p className="font-body text-body">
-					You can control the rotation speed with the{" "}
-					<Code>indeterminateRotationSpeed</Code> prop.
+					You can control the rotation speed with the <Code>indeterminateRotationSpeed</Code> prop.
 				</p>
 				<div>
 					<Example className="flex-col gap-6">
-						<ProgressDonut.Root
-							className="size-10"
-							value="indeterminate"
-							strokeWidth="0.375rem"
-						>
+						<ProgressDonut.Root className="size-10" value="indeterminate" strokeWidth="0.375rem">
 							<ProgressDonut.Indicator />
 						</ProgressDonut.Root>
 						<ProgressDonut.Root
@@ -199,10 +177,9 @@ export default function Page() {
 					<h2>Dynamic Colors</h2>
 				</HashLinkHeading>
 				<p className="font-body text-body">
-					The color of the <Code>ProgressDonut.Indicator</Code> is inherited
-					from the parent text color using <Code>currentColor</Code>. Using
-					this, you can easily change the color of it based on the current
-					progress value.
+					The color of the <Code>ProgressDonut.Indicator</Code> is inherited from the parent text
+					color using <Code>currentColor</Code>. Using this, you can easily change the color of it
+					based on the current progress value.
 				</p>
 				<div>
 					<Example>
@@ -263,10 +240,7 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<HashLinkHeading
-							id="api-progress-donut"
-							className="text-xl font-medium text-strong"
-						>
+						<HashLinkHeading id="api-progress-donut" className="text-xl font-medium text-strong">
 							<h3>
 								<span id="api-progress-donut-root" />
 								ProgressDonut
@@ -274,19 +248,15 @@ export default function Page() {
 						</HashLinkHeading>
 
 						<div className="font-body text-body space-y-1">
+							<p>A simple circular progress bar which shows the completion progress of a task.</p>
 							<p>
-								A simple circular progress bar which shows the completion
-								progress of a task.
-							</p>
-							<p>
-								The indicator color is inherited via <Code>currentColor</Code>.
-								Override the default (<Code>accent-600</Code>) by setting the
+								The indicator color is inherited via <Code>currentColor</Code>. Override the default
+								(<Code>accent-600</Code>) by setting the
 								<Code>ProgressDonut.Indicator</Code>'s text color.
 							</p>
 
 							<p>
-								The <Code>ProgressDonut</Code> accepts the following props in
-								addition to the{" "}
+								The <Code>ProgressDonut</Code> accepts the following props in addition to the{" "}
 								<Anchor href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/svg#attributes">
 									standard HTML svg attributes
 								</Anchor>
@@ -305,8 +275,8 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Controls the rotation speed of the indeterminate spinner
-									state, as a Tailwind <Code>animation-duration-*</Code> class.
+									Controls the rotation speed of the indeterminate spinner state, as a Tailwind{" "}
+									<Code>animation-duration-*</Code> class.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -320,10 +290,9 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									The maximum value of the progress bar. This attribute
-									describes how much work the task indicated by the progress
-									element requires. The max attribute, if present, must have a
-									value greater than 0. The default value is 100.
+									The maximum value of the progress bar. This attribute describes how much work the
+									task indicated by the progress element requires. The max attribute, if present,
+									must have a value greater than 0. The default value is 100.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -344,9 +313,8 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									The width of the progress bar stroke. Note, we clamp the
-									stroke width to a minimum of 1px and max of 12px since it is
-									proportional to the viewbox size (0 0 32 32).
+									The width of the progress bar stroke. Note, we clamp the stroke width to a minimum
+									of 1px and max of 12px since it is proportional to the viewbox size (0 0 32 32).
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -367,14 +335,13 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell className="space-y-2">
 								<p>
-									The current value of the progress bar. This attribute
-									specifies how much of the task that has been completed. It
-									must be a valid floating point number between 0 and max, or
-									between 0 and 100 if max is omitted.
+									The current value of the progress bar. This attribute specifies how much of the
+									task that has been completed. It must be a valid floating point number between 0
+									and max, or between 0 and 100 if max is omitted.
 								</p>
 								<p>
-									If set to <Code>"indeterminate"</Code>, the progress bar is
-									considered <strong>indeterminate</strong>.
+									If set to <Code>"indeterminate"</Code>, the progress bar is considered{" "}
+									<strong>indeterminate</strong>.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -390,9 +357,7 @@ export default function Page() {
 							<h3>ProgressDonut.Indicator</h3>
 						</HashLinkHeading>
 
-						<p className="font-body text-body">
-							The indicator for the circular progress bar.
-						</p>
+						<p className="font-body text-body">The indicator for the circular progress bar.</p>
 
 						<p className="font-body text-body">
 							All props from{" "}
@@ -432,11 +397,7 @@ const DynamicColorsExample = () => {
 
 	return (
 		<form className="space-y-4">
-			<ProgressDonut.Root
-				value={value}
-				className="size-10"
-				strokeWidth="0.375rem"
-			>
+			<ProgressDonut.Root value={value} className="size-10" strokeWidth="0.375rem">
 				<ProgressDonut.Indicator className={computeColor()} />
 			</ProgressDonut.Root>
 			<label className="block space-y-1">

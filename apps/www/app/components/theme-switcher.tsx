@@ -18,18 +18,13 @@ function ThemeSwitcher() {
 					appearance="outlined"
 					label="Change Theme"
 					icon={
-						<BrowserOnly
-							fallback={<Skeleton className="rounded-full size-5" />}
-						>
+						<BrowserOnly fallback={<Skeleton className="rounded-full size-5" />}>
 							{() => <AutoThemeIcon className="size-5" />}
 						</BrowserOnly>
 					}
 				/>
 			</DropdownMenu.Trigger>
-			<DropdownMenu.Content
-				className="shadow-2xl"
-				collisionPadding={{ right: 16 }}
-			>
+			<DropdownMenu.Content className="shadow-2xl" collisionPadding={{ right: 16 }}>
 				<DropdownMenu.RadioGroup
 					value={currentTheme}
 					onValueChange={(value) => {
@@ -41,37 +36,25 @@ function ThemeSwitcher() {
 					<DropdownMenu.RadioItem name="theme" value={$theme("system")}>
 						<Icon
 							svg={<ThemeIcon theme="system" />}
-							className={cx(
-								"text-muted",
-								currentTheme === "system" && "text-on-filled",
-							)}
+							className={cx("text-muted", currentTheme === "system" && "text-on-filled")}
 						/>
 						System Preference
 					</DropdownMenu.RadioItem>
 					<DropdownMenu.RadioItem name="theme" value={$theme("light")}>
 						<Icon
 							svg={<ThemeIcon theme="light" />}
-							className={cx(
-								"text-muted",
-								currentTheme === "light" && "text-on-filled",
-							)}
+							className={cx("text-muted", currentTheme === "light" && "text-on-filled")}
 						/>
 						Light Mode
 					</DropdownMenu.RadioItem>
 					<DropdownMenu.RadioItem name="theme" value={$theme("dark")}>
 						<Icon
 							svg={<ThemeIcon theme="dark" />}
-							className={cx(
-								"text-muted",
-								currentTheme === "dark" && "text-on-filled",
-							)}
+							className={cx("text-muted", currentTheme === "dark" && "text-on-filled")}
 						/>
 						Dark Mode
 					</DropdownMenu.RadioItem>
-					<DropdownMenu.RadioItem
-						name="theme"
-						value={$theme("light-high-contrast")}
-					>
+					<DropdownMenu.RadioItem name="theme" value={$theme("light-high-contrast")}>
 						<Icon
 							svg={<ThemeIcon theme="light-high-contrast" />}
 							className={cx(
@@ -81,10 +64,7 @@ function ThemeSwitcher() {
 						/>
 						Light High Contrast
 					</DropdownMenu.RadioItem>
-					<DropdownMenu.RadioItem
-						name="theme"
-						value={$theme("dark-high-contrast")}
-					>
+					<DropdownMenu.RadioItem name="theme" value={$theme("dark-high-contrast")}>
 						<Icon
 							svg={<ThemeIcon theme="dark-high-contrast" />}
 							className={cx(

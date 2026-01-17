@@ -30,8 +30,7 @@ export default function Page() {
 			<section className="space-y-4">
 				<PageHeader id="alert-dialog">Alert Dialog</PageHeader>
 				<p className="font-body text-body text-xl">
-					A modal dialog that interrupts the user with important content and
-					expects a response.
+					A modal dialog that interrupts the user with important content and expects a response.
 				</p>
 				<div>
 					<Example className="flex-col gap-6">
@@ -45,21 +44,14 @@ export default function Page() {
 								<AlertDialog.Icon />
 								<AlertDialog.Body>
 									<AlertDialog.Header>
-										<AlertDialog.Title>
-											Are you absolutely sure?
-										</AlertDialog.Title>
+										<AlertDialog.Title>Are you absolutely sure?</AlertDialog.Title>
 										<AlertDialog.Description>
-											Proident quis nisi tempor irure sunt ut minim occaecat
-											mollit sunt.
+											Proident quis nisi tempor irure sunt ut minim occaecat mollit sunt.
 										</AlertDialog.Description>
 									</AlertDialog.Header>
 									<AlertDialog.Footer>
-										<AlertDialog.Cancel type="button">
-											Cancel
-										</AlertDialog.Cancel>
-										<AlertDialog.Action type="button">
-											Continue
-										</AlertDialog.Action>
+										<AlertDialog.Cancel type="button">Cancel</AlertDialog.Cancel>
+										<AlertDialog.Action type="button">Continue</AlertDialog.Action>
 									</AlertDialog.Footer>
 								</AlertDialog.Body>
 							</AlertDialog.Content>
@@ -74,21 +66,14 @@ export default function Page() {
 								<AlertDialog.Icon />
 								<AlertDialog.Body>
 									<AlertDialog.Header>
-										<AlertDialog.Title>
-											Are you absolutely sure?
-										</AlertDialog.Title>
+										<AlertDialog.Title>Are you absolutely sure?</AlertDialog.Title>
 										<AlertDialog.Description>
-											Proident quis nisi tempor irure sunt ut minim occaecat
-											mollit sunt.
+											Proident quis nisi tempor irure sunt ut minim occaecat mollit sunt.
 										</AlertDialog.Description>
 									</AlertDialog.Header>
 									<AlertDialog.Footer>
-										<AlertDialog.Cancel type="button">
-											Cancel
-										</AlertDialog.Cancel>
-										<AlertDialog.Action type="button">
-											Continue
-										</AlertDialog.Action>
+										<AlertDialog.Cancel type="button">Cancel</AlertDialog.Cancel>
+										<AlertDialog.Action type="button">Continue</AlertDialog.Action>
 									</AlertDialog.Footer>
 								</AlertDialog.Body>
 							</AlertDialog.Content>
@@ -104,28 +89,20 @@ export default function Page() {
 								<AlertDialog.Icon />
 								<AlertDialog.Body>
 									<AlertDialog.Header>
-										<AlertDialog.Title>
-											Are you absolutely sure?
-										</AlertDialog.Title>
+										<AlertDialog.Title>Are you absolutely sure?</AlertDialog.Title>
 										<AlertDialog.Description>
-											Proident quis nisi tempor irure sunt ut minim occaecat
-											mollit sunt.
+											Proident quis nisi tempor irure sunt ut minim occaecat mollit sunt.
 										</AlertDialog.Description>
 									</AlertDialog.Header>
 									<AlertDialog.Footer>
-										<AlertDialog.Cancel type="button">
-											Cancel
-										</AlertDialog.Cancel>
+										<AlertDialog.Cancel type="button">Cancel</AlertDialog.Cancel>
 										<form
 											onSubmit={(event) => {
 												event.preventDefault();
 												window.alert("Form submitted!");
 											}}
 										>
-											<AlertDialog.Action
-												type="submit"
-												className="w-full sm:w-fit"
-											>
+											<AlertDialog.Action type="submit" className="w-full sm:w-fit">
 												Continue
 											</AlertDialog.Action>
 										</form>
@@ -224,14 +201,10 @@ export default function Page() {
 				<section className="space-y-4">
 					<header className="space-y-2">
 						<HashLinkHeading id="api-alert-dialog-root">
-							<h3 className="text-xl font-medium text-strong">
-								AlertDialog.Root
-							</h3>
+							<h3 className="text-xl font-medium text-strong">AlertDialog.Root</h3>
 						</HashLinkHeading>
 
-						<p className="font-body text-body">
-							The root component for the Alert Dialog.
-						</p>
+						<p className="font-body text-body">The root component for the Alert Dialog.</p>
 						<p className="font-body text-body">
 							All props from Radix{" "}
 							<Anchor
@@ -261,9 +234,8 @@ export default function Page() {
 							<PropDefaultValueCell />
 							<PropDescriptionCell>
 								<p>
-									Indicates the importance or impact level of the AlertDialog,
-									affecting its color and styling to communicate its purpose to
-									the user.
+									Indicates the importance or impact level of the AlertDialog, affecting its color
+									and styling to communicate its purpose to the user.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -272,14 +244,10 @@ export default function Page() {
 
 				<section className="space-y-2">
 					<HashLinkHeading id="api-alert-dialog-trigger">
-						<h3 className="text-xl font-medium text-strong">
-							AlertDialogTrigger
-						</h3>
+						<h3 className="text-xl font-medium text-strong">AlertDialogTrigger</h3>
 					</HashLinkHeading>
 
-					<p className="font-body text-body">
-						A button that opens the Alert Dialog.
-					</p>
+					<p className="font-body text-body">A button that opens the Alert Dialog.</p>
 					<p className="font-body text-body">
 						Radix{" "}
 						<Anchor
@@ -296,14 +264,12 @@ export default function Page() {
 				<section className="space-y-4">
 					<header className="space-y-2">
 						<HashLinkHeading id="api-alert-dialog-content">
-							<h3 className="text-xl font-medium text-strong">
-								AlertDialogContent
-							</h3>
+							<h3 className="text-xl font-medium text-strong">AlertDialogContent</h3>
 						</HashLinkHeading>
 
 						<p className="font-body text-body">
-							The popover Alert Dialog container. Renders on top of the overlay
-							and is centered in the viewport.
+							The popover Alert Dialog container. Renders on top of the overlay and is centered in
+							the viewport.
 						</p>
 						<p className="font-body text-body">
 							Radix{" "}
@@ -328,14 +294,13 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									The preferred width of the <Code>AlertDialogContent</Code> as
-									a tailwind <Code>max-w-</Code> class.
+									The preferred width of the <Code>AlertDialogContent</Code> as a tailwind{" "}
+									<Code>max-w-</Code> class.
 								</p>
 								<p>
-									By default, a <Code>AlertDialogContent</Code>'s content width
-									is responsive with a default{" "}
-									<span className="italic">preferred width</span>: the maxiumum
-									width of the <Code>AlertDialogContent</Code>.
+									By default, a <Code>AlertDialogContent</Code>'s content width is responsive with a
+									default <span className="italic">preferred width</span>: the maxiumum width of the{" "}
+									<Code>AlertDialogContent</Code>.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -346,12 +311,9 @@ export default function Page() {
 					<HashLinkHeading id="api-alert-dialog-body">
 						<h3 className="text-xl font-medium text-strong">AlertDialogBody</h3>
 					</HashLinkHeading>
+					<p className="font-body text-body">Contains the main content of the alert dialog.</p>
 					<p className="font-body text-body">
-						Contains the main content of the alert dialog.
-					</p>
-					<p className="font-body text-body">
-						The <Code>AlertDialogBody</Code> accepts the following props in
-						addition to the{" "}
+						The <Code>AlertDialogBody</Code> accepts the following props in addition to the{" "}
 						<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes">
 							standard HTML div attributes
 						</Anchor>
@@ -368,9 +330,9 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Use the <Code>asChild</Code> prop to compose the{" "}
-									<Code>AlertDialogBody</Code> styling and functionality onto
-									alternative element types or your own React components.
+									Use the <Code>asChild</Code> prop to compose the <Code>AlertDialogBody</Code>{" "}
+									styling and functionality onto alternative element types or your own React
+									components.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -379,17 +341,13 @@ export default function Page() {
 
 				<section className="space-y-2">
 					<HashLinkHeading id="api-alert-dialog-header">
-						<h3 className="text-xl font-medium text-strong">
-							AlertDialogHeader
-						</h3>
+						<h3 className="text-xl font-medium text-strong">AlertDialogHeader</h3>
 					</HashLinkHeading>
 					<p className="font-body text-body">
-						Contains the header content of the dialog, including the title and
-						description.
+						Contains the header content of the dialog, including the title and description.
 					</p>
 					<p className="font-body text-body">
-						The <Code>AlertDialogHeader</Code> accepts the following props in
-						addition to the{" "}
+						The <Code>AlertDialogHeader</Code> accepts the following props in addition to the{" "}
 						<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes">
 							standard HTML div attributes
 						</Anchor>
@@ -406,9 +364,9 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Use the <Code>asChild</Code> prop to compose the{" "}
-									<Code>AlertDialogHeader</Code> styling and functionality onto
-									alternative element types or your own React components.
+									Use the <Code>asChild</Code> prop to compose the <Code>AlertDialogHeader</Code>{" "}
+									styling and functionality onto alternative element types or your own React
+									components.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -417,17 +375,13 @@ export default function Page() {
 
 				<section className="space-y-2">
 					<HashLinkHeading id="api-alert-dialog-footer">
-						<h3 className="text-xl font-medium text-strong">
-							AlertDialogFooter
-						</h3>
+						<h3 className="text-xl font-medium text-strong">AlertDialogFooter</h3>
 					</HashLinkHeading>
 					<p className="font-body text-body">
-						Contains the footer content of the dialog, including the action and
-						cancel buttons.
+						Contains the footer content of the dialog, including the action and cancel buttons.
 					</p>
 					<p className="font-body text-body">
-						The <Code>AlertDialogFooter</Code> accepts the following props in
-						addition to the{" "}
+						The <Code>AlertDialogFooter</Code> accepts the following props in addition to the{" "}
 						<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes">
 							standard HTML div attributes
 						</Anchor>
@@ -444,9 +398,9 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Use the <Code>asChild</Code> prop to compose the{" "}
-									<Code>AlertDialogFooter</Code> styling and functionality onto
-									alternative element types or your own React components.
+									Use the <Code>asChild</Code> prop to compose the <Code>AlertDialogFooter</Code>{" "}
+									styling and functionality onto alternative element types or your own React
+									components.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -455,18 +409,15 @@ export default function Page() {
 
 				<section className="space-y-2">
 					<HashLinkHeading id="api-alert-dialog-title">
-						<h3 className="text-xl font-medium text-strong">
-							AlertDialogTitle
-						</h3>
+						<h3 className="text-xl font-medium text-strong">AlertDialogTitle</h3>
 					</HashLinkHeading>
 
 					<p className="font-body text-body">
 						An accessible name to be announced when the dialog is opened.
 					</p>
 					<p className="font-body text-body">
-						Alternatively, you can provide <Code>aria-label</Code> or{" "}
-						<Code>aria-labelledby</Code> to <Code>AlertDialogContent</Code> and
-						exclude this component.
+						Alternatively, you can provide <Code>aria-label</Code> or <Code>aria-labelledby</Code>{" "}
+						to <Code>AlertDialogContent</Code> and exclude this component.
 					</p>
 					<p className="font-body text-body">
 						Radix{" "}
@@ -483,15 +434,13 @@ export default function Page() {
 
 				<section className="space-y-2">
 					<HashLinkHeading id="api-alert-dialog-description">
-						<h3 className="text-xl font-medium text-strong">
-							AlertDialogDescription
-						</h3>
+						<h3 className="text-xl font-medium text-strong">AlertDialogDescription</h3>
 					</HashLinkHeading>
 
 					<p className="font-body text-body">
-						An accessible description to be announced when the dialog is opened.
-						Renders as a <Code>div</Code> by default, but can be changed to any
-						other element using the <Code>asChild</Code> prop.
+						An accessible description to be announced when the dialog is opened. Renders as a{" "}
+						<Code>div</Code> by default, but can be changed to any other element using the{" "}
+						<Code>asChild</Code> prop.
 					</p>
 					<p className="font-body text-body">
 						Alternatively, you can provide <Code>aria-describedby</Code> to{" "}
@@ -512,68 +461,57 @@ export default function Page() {
 
 				<section className="space-y-2">
 					<HashLinkHeading id="api-alert-dialog-action">
-						<h3 className="text-xl font-medium text-strong">
-							AlertDialogAction
-						</h3>
+						<h3 className="text-xl font-medium text-strong">AlertDialogAction</h3>
 					</HashLinkHeading>
 
 					<p className="font-body text-body">
 						A button that confirms the Alert Dialog action. Will default to{" "}
-						<Code>appearance="filled"</Code>, as well as the priority color from
-						the <Code>AlertDialog</Code>. Does not close the alert dialog by
-						default.
+						<Code>appearance="filled"</Code>, as well as the priority color from the{" "}
+						<Code>AlertDialog</Code>. Does not close the alert dialog by default.
 					</p>
 					<p className="font-body text-body">
-						These buttons should be distinguished visually from the{" "}
-						<Code>AlertDialogCancel</Code> button.
+						These buttons should be distinguished visually from the <Code>AlertDialogCancel</Code>{" "}
+						button.
 					</p>
 					<p className="font-body text-body">
-						Composes around the mantle{" "}
-						<Link to={href("/components/button")}>Button</Link> component.
+						Composes around the mantle <Link to={href("/components/button")}>Button</Link>{" "}
+						component.
 					</p>
 					<p className="font-body text-body">
-						Same props as the{" "}
-						<Link to={href("/components/button")}>Button</Link> component.
+						Same props as the <Link to={href("/components/button")}>Button</Link> component.
 					</p>
 				</section>
 
 				<section className="space-y-2">
 					<HashLinkHeading id="api-alert-dialog-cancel">
-						<h3 className="text-xl font-medium text-strong">
-							AlertDialogCancel
-						</h3>
+						<h3 className="text-xl font-medium text-strong">AlertDialogCancel</h3>
 					</HashLinkHeading>
 
 					<p className="font-body text-body">
-						A button that closes the dialog and cancels the action. Will default
-						to <Code>appearance="outlined"</Code> and{" "}
-						<Code>priority="neutral"</Code>.
+						A button that closes the dialog and cancels the action. Will default to{" "}
+						<Code>appearance="outlined"</Code> and <Code>priority="neutral"</Code>.
 					</p>
 					<p className="font-body text-body">
-						This button should be distinguished visually from{" "}
-						<Code>AlertDialogAction</Code> buttons.
+						This button should be distinguished visually from <Code>AlertDialogAction</Code>{" "}
+						buttons.
 					</p>
 					<p className="font-body text-body">
-						Composes around the mantle{" "}
-						<Link to={href("/components/button")}>Button</Link> component.
+						Composes around the mantle <Link to={href("/components/button")}>Button</Link>{" "}
+						component.
 					</p>
 					<p className="font-body text-body">
-						Same props as the{" "}
-						<Link to={href("/components/button")}>Button</Link> component.
+						Same props as the <Link to={href("/components/button")}>Button</Link> component.
 					</p>
 				</section>
 
 				<section className="space-y-4">
 					<header className="space-y-2">
 						<HashLinkHeading id="api-alert-dialog-icon">
-							<h3 className="text-xl font-medium text-strong">
-								AlertDialog.Icon
-							</h3>
+							<h3 className="text-xl font-medium text-strong">AlertDialog.Icon</h3>
 						</HashLinkHeading>
 
 						<p className="font-body text-body">
-							An icon displayed in the alert dialog, usually to indicate the
-							type of alert.
+							An icon displayed in the alert dialog, usually to indicate the type of alert.
 						</p>
 
 						<p className="font-body text-body">
@@ -600,9 +538,9 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Use the <Code>asChild</Code> prop to compose the{" "}
-									<Code>AlertDialog.Icon</Code> styling and functionality onto
-									alternative element types or your own React components.
+									Use the <Code>asChild</Code> prop to compose the <Code>AlertDialog.Icon</Code>{" "}
+									styling and functionality onto alternative element types or your own React
+									components.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -612,14 +550,10 @@ export default function Page() {
 				<section className="space-y-4">
 					<header className="space-y-2">
 						<HashLinkHeading id="api-alert-dialog-close">
-							<h3 className="text-xl font-medium text-strong">
-								AlertDialog.Close
-							</h3>
+							<h3 className="text-xl font-medium text-strong">AlertDialog.Close</h3>
 						</HashLinkHeading>
 
-						<p className="font-body text-body">
-							A button that closes the dialog.
-						</p>
+						<p className="font-body text-body">A button that closes the dialog.</p>
 
 						<p className="font-body text-body">
 							All props from{" "}
@@ -645,9 +579,9 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Use the <Code>asChild</Code> prop to compose the{" "}
-									<Code>AlertDialog.Close</Code> styling and functionality onto
-									alternative element types or your own React components.
+									Use the <Code>asChild</Code> prop to compose the <Code>AlertDialog.Close</Code>{" "}
+									styling and functionality onto alternative element types or your own React
+									components.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>

@@ -39,10 +39,7 @@ import type { LineRange } from "./line-numbers.js";
 import { normalizeIndentation } from "./normalize.js";
 import type { Mode } from "./parse-metastring.js";
 import type { SupportedLanguage } from "./supported-languages.js";
-import {
-	formatLanguageClassName,
-	supportedLanguages,
-} from "./supported-languages.js";
+import { formatLanguageClassName, supportedLanguages } from "./supported-languages.js";
 
 /**
  * TODO(cody):
@@ -96,63 +93,56 @@ const CodeBlockContext = createContext<CodeBlockContextType>({
  * </CodeBlock.Root>
  * ```
  */
-const Root = forwardRef<
-	ComponentRef<"div">,
-	ComponentProps<"div"> & WithAsChild
->(({ asChild = false, className, ...props }, ref) => {
-	const [copyText, setCopyText] = useState("");
-	const [hasCodeExpander, setHasCodeExpander] = useState(false);
-	const [isCodeExpanded, setIsCodeExpanded] = useState(false);
-	const [codeId, setCodeId] = useState<string | undefined>(undefined);
+const Root = forwardRef<ComponentRef<"div">, ComponentProps<"div"> & WithAsChild>(
+	({ asChild = false, className, ...props }, ref) => {
+		const [copyText, setCopyText] = useState("");
+		const [hasCodeExpander, setHasCodeExpander] = useState(false);
+		const [isCodeExpanded, setIsCodeExpanded] = useState(false);
+		const [codeId, setCodeId] = useState<string | undefined>(undefined);
 
-	const context: CodeBlockContextType = useMemo(
-		() =>
-			({
-				codeId,
-				copyText,
-				hasCodeExpander,
-				isCodeExpanded,
-				registerCodeId: (id) => {
-					setCodeId((old) => {
-						assert(
-							old == null,
-							"You can only render a single CodeBlockCode within a CodeBlock.",
-						);
-						return id;
-					});
-				},
-				setCopyText,
-				setHasCodeExpander,
-				setIsCodeExpanded,
-				unregisterCodeId: (id) => {
-					setCodeId((old) => {
-						assert(
-							old === id,
-							"You can only render a single CodeBlockCode within a CodeBlock.",
-						);
-						return undefined;
-					});
-				},
-			}) as const,
-		[codeId, copyText, hasCodeExpander, isCodeExpanded],
-	);
+		const context: CodeBlockContextType = useMemo(
+			() =>
+				({
+					codeId,
+					copyText,
+					hasCodeExpander,
+					isCodeExpanded,
+					registerCodeId: (id) => {
+						setCodeId((old) => {
+							assert(old == null, "You can only render a single CodeBlockCode within a CodeBlock.");
+							return id;
+						});
+					},
+					setCopyText,
+					setHasCodeExpander,
+					setIsCodeExpanded,
+					unregisterCodeId: (id) => {
+						setCodeId((old) => {
+							assert(old === id, "You can only render a single CodeBlockCode within a CodeBlock.");
+							return undefined;
+						});
+					},
+				}) as const,
+			[codeId, copyText, hasCodeExpander, isCodeExpanded],
+		);
 
-	const Component = asChild ? Slot : "div";
+		const Component = asChild ? Slot : "div";
 
-	return (
-		<CodeBlockContext.Provider value={context}>
-			<Component
-				className={cx(
-					"text-mono overflow-hidden rounded-md border border-gray-300 bg-gray-50 font-mono",
-					"[&_svg]:shrink-0",
-					className,
-				)}
-				ref={ref}
-				{...props}
-			/>
-		</CodeBlockContext.Provider>
-	);
-});
+		return (
+			<CodeBlockContext.Provider value={context}>
+				<Component
+					className={cx(
+						"text-mono overflow-hidden rounded-md border border-gray-300 bg-gray-50 font-mono",
+						"[&_svg]:shrink-0",
+						className,
+					)}
+					ref={ref}
+					{...props}
+				/>
+			</CodeBlockContext.Provider>
+		);
+	},
+);
 Root.displayName = "CodeBlock";
 
 /**
@@ -176,16 +166,13 @@ Root.displayName = "CodeBlock";
  * </CodeBlock.Root>
  * ```
  */
-const Body = forwardRef<
-	ComponentRef<"div">,
-	ComponentProps<"div"> & WithAsChild
->(({ asChild = false, className, ...props }, ref) => {
-	const Component = asChild ? Slot : "div";
+const Body = forwardRef<ComponentRef<"div">, ComponentProps<"div"> & WithAsChild>(
+	({ asChild = false, className, ...props }, ref) => {
+		const Component = asChild ? Slot : "div";
 
-	return (
-		<Component className={cx("relative", className)} ref={ref} {...props} />
-	);
-});
+		return <Component className={cx("relative", className)} ref={ref} {...props} />;
+	},
+);
 Body.displayName = "CodeBlockBody";
 
 type CodeBlockCodeProps = Omit<ComponentProps<"pre">, "children"> & {
@@ -252,13 +239,8 @@ const Code = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
 		ref,
 	) => {
 		const id = useId();
-		const {
-			hasCodeExpander,
-			isCodeExpanded,
-			registerCodeId,
-			setCopyText,
-			unregisterCodeId,
-		} = useContext(CodeBlockContext);
+		const { hasCodeExpander, isCodeExpanded, registerCodeId, setCopyText, unregisterCodeId } =
+			useContext(CodeBlockContext);
 		const indentation = inferIndentation(language, propIndentation);
 
 		// trim any leading and trailing whitespace/empty lines, convert leading tabs to spaces
@@ -360,23 +342,22 @@ Code.displayName = "CodeBlockCode";
  * </CodeBlock.Root>
  * ```
  */
-const Header = forwardRef<
-	ComponentRef<"div">,
-	ComponentProps<"div"> & WithAsChild
->(({ asChild = false, className, ...props }, ref) => {
-	const Component = asChild ? Slot : "div";
+const Header = forwardRef<ComponentRef<"div">, ComponentProps<"div"> & WithAsChild>(
+	({ asChild = false, className, ...props }, ref) => {
+		const Component = asChild ? Slot : "div";
 
-	return (
-		<Component
-			className={cx(
-				"flex items-center gap-1 border-b border-gray-300 bg-gray-100 px-4 py-2 text-gray-700",
-				className,
-			)}
-			ref={ref}
-			{...props}
-		/>
-	);
-});
+		return (
+			<Component
+				className={cx(
+					"flex items-center gap-1 border-b border-gray-300 bg-gray-100 px-4 py-2 text-gray-700",
+					className,
+				)}
+				ref={ref}
+				{...props}
+			/>
+		);
+	},
+);
 Header.displayName = "CodeBlockHeader";
 
 /**
@@ -416,10 +397,7 @@ const Title = forwardRef<
 });
 Title.displayName = "CodeBlockTitle";
 
-type CodeBlockCopyButtonProps = Omit<
-	ComponentProps<"button">,
-	"children" | "type"
-> &
+type CodeBlockCopyButtonProps = Omit<ComponentProps<"button">, "children" | "type"> &
 	WithAsChild & {
 		/**
 		 * Callback fired when the copy button is clicked, passes the copied text as an argument.
@@ -454,10 +432,7 @@ type CodeBlockCopyButtonProps = Omit<
  * ```
  */
 const CopyButton = forwardRef<ComponentRef<"button">, CodeBlockCopyButtonProps>(
-	(
-		{ asChild = false, className, onCopy, onCopyError, onClick, ...props },
-		ref,
-	) => {
+	({ asChild = false, className, onCopy, onCopyError, onClick, ...props }, ref) => {
 		const { copyText } = useContext(CodeBlockContext);
 		const [, copyToClipboard] = useCopyToClipboard();
 		const [wasCopied, setWasCopied] = useState(false);
@@ -547,51 +522,46 @@ type CodeBlockExpanderButtonProps = Omit<
  * </CodeBlock.Root>
  * ```
  */
-const ExpanderButton = forwardRef<
-	ComponentRef<"button">,
-	CodeBlockExpanderButtonProps
->(({ asChild = false, className, onClick, ...props }, ref) => {
-	const { codeId, isCodeExpanded, setIsCodeExpanded, setHasCodeExpander } =
-		useContext(CodeBlockContext);
+const ExpanderButton = forwardRef<ComponentRef<"button">, CodeBlockExpanderButtonProps>(
+	({ asChild = false, className, onClick, ...props }, ref) => {
+		const { codeId, isCodeExpanded, setIsCodeExpanded, setHasCodeExpander } =
+			useContext(CodeBlockContext);
 
-	useEffect(() => {
-		setHasCodeExpander(true);
+		useEffect(() => {
+			setHasCodeExpander(true);
 
-		return () => {
-			setHasCodeExpander(false);
-		};
-	}, [setHasCodeExpander]);
+			return () => {
+				setHasCodeExpander(false);
+			};
+		}, [setHasCodeExpander]);
 
-	const Component = asChild ? Slot : "button";
+		const Component = asChild ? Slot : "button";
 
-	return (
-		<Component
-			{...props}
-			aria-controls={codeId}
-			aria-expanded={isCodeExpanded}
-			className={cx(
-				"flex w-full items-center justify-center gap-0.5 border-t border-gray-300 bg-gray-50 px-4 py-2 font-sans text-gray-700 hover:bg-gray-100",
-				className,
-			)}
-			ref={ref}
-			type="button"
-			onClick={(event) => {
-				setIsCodeExpanded((prev) => !prev);
-				onClick?.(event);
-			}}
-		>
-			{isCodeExpanded ? "Show less" : "Show more"}{" "}
-			<MantleIcon
-				svg={<CaretDownIcon weight="bold" />}
+		return (
+			<Component
+				{...props}
+				aria-controls={codeId}
+				aria-expanded={isCodeExpanded}
 				className={cx(
-					"size-4",
-					isCodeExpanded && "rotate-180",
-					"transition-all duration-150",
+					"flex w-full items-center justify-center gap-0.5 border-t border-gray-300 bg-gray-50 px-4 py-2 font-sans text-gray-700 hover:bg-gray-100",
+					className,
 				)}
-			/>
-		</Component>
-	);
-});
+				ref={ref}
+				type="button"
+				onClick={(event) => {
+					setIsCodeExpanded((prev) => !prev);
+					onClick?.(event);
+				}}
+			>
+				{isCodeExpanded ? "Show less" : "Show more"}{" "}
+				<MantleIcon
+					svg={<CaretDownIcon weight="bold" />}
+					className={cx("size-4", isCodeExpanded && "rotate-180", "transition-all duration-150")}
+				/>
+			</Component>
+		);
+	},
+);
 ExpanderButton.displayName = "CodeBlockExpanderButton";
 
 type CodeBlockIconProps = Omit<SvgAttributes, "children"> &

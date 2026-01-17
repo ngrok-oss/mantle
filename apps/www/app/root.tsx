@@ -43,8 +43,7 @@ export function headers({ parentHeaders }: Route.HeadersArgs) {
 	// If some platform/middleware already set a Link header, append to it.
 	const existing = headers.get("Link");
 	const linkValue = PRIORITY_PRECONNECTS.map(
-		(item) =>
-			`<${item.href}>; rel=preconnect${item.crossOrigin ? "; crossorigin" : ""}`,
+		(item) => `<${item.href}>; rel=preconnect${item.crossOrigin ? "; crossorigin" : ""}`,
 	).join(", ");
 	headers.set("Link", existing ? `${existing}, ${linkValue}` : linkValue);
 	headers.set("Cache-Control", "max-age=300, stale-while-revalidate=604800");
@@ -94,21 +93,13 @@ export function Layout({ children }: PropsWithChildren) {
 				<meta property="og:type" content="website" />
 				<meta property="og:site_name" content="@ngrok/mantle" />
 				<meta name="og:title" property="og:title" content={title} />
-				<meta
-					name="og:description"
-					property="og:description"
-					content={description}
-				/>
+				<meta name="og:description" property="og:description" content={description} />
 				<meta name="twitter:card" content="summary_large_image" />
 				<meta name="twitter:domain" content={canonicalDomain} />
 				<meta name="twitter:title" property="twitter:title" content={title} />
 				<meta name="twitter:description" content={description} />
 				<meta name="og:image" property="og:image" content="/og-image.png" />
-				<meta
-					name="twitter:image"
-					property="twitter:image"
-					content="/og-image.png"
-				/>
+				<meta name="twitter:image" property="twitter:image" content="/og-image.png" />
 				<MantleThemeHeadContent nonce={nonce} />
 				<meta name="author" content="ngrok" />
 				<meta name="commit-sha" content={loaderData?.commitSha} />
@@ -126,9 +117,7 @@ export function Layout({ children }: PropsWithChildren) {
 					<TooltipProvider>
 						<Toaster />
 						<NavigationProvider>
-							<WwwLayout currentVersion={loaderData?.currentVersion}>
-								{children}
-							</WwwLayout>
+							<WwwLayout currentVersion={loaderData?.currentVersion}>{children}</WwwLayout>
 						</NavigationProvider>
 					</TooltipProvider>
 				</ThemeProvider>

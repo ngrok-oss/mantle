@@ -13,8 +13,7 @@ const doNotPublish = new Set<string>(["portal"]);
  */
 const unreleasedPackages = new Set<string>([]);
 
-const componentPath = (name: string) =>
-	`./src/components/${name}/index.ts` as const;
+const componentPath = (name: string) => `./src/components/${name}/index.ts` as const;
 const utilPath = (name: string) => `./src/utils/${name}/index.ts` as const;
 
 const allComponents = fs
@@ -29,10 +28,7 @@ const allUtils = fs
 
 const componentPackages = allComponents
 	// filter only the publishable component packages then map them to the tsup config entries object
-	.filter(
-		(packageName) =>
-			!doNotPublish.has(packageName) && !unreleasedPackages.has(packageName),
-	)
+	.filter((packageName) => !doNotPublish.has(packageName) && !unreleasedPackages.has(packageName))
 	.reduce<Record<string, string>>((acc, name) => {
 		acc[name] = componentPath(name);
 		return acc;

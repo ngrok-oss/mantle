@@ -32,8 +32,8 @@ export default function Page() {
 			<section className="space-y-4">
 				<PageHeader id="badge">Badge</PageHeader>
 				<p className="font-body text-body text-xl">
-					A Badge is a non-interactive component used to highlight important
-					information or to visually indicate the status of an item.
+					A Badge is a non-interactive component used to highlight important information or to
+					visually indicate the status of an item.
 				</p>
 				<div>
 					<Example>
@@ -43,11 +43,7 @@ export default function Page() {
 									<Badge appearance="muted" color={color}>
 										Muted {color}
 									</Badge>
-									<Badge
-										appearance="muted"
-										color={color}
-										icon={<GlobeHemisphereWestIcon />}
-									>
+									<Badge appearance="muted" color={color} icon={<GlobeHemisphereWestIcon />}>
 										Muted {color}
 									</Badge>
 								</li>
@@ -81,19 +77,14 @@ export default function Page() {
 					<h2>Composition</h2>
 				</HashLinkHeading>
 				<p className="font-body text-body text-xl">
-					When you want to render <span className="italic">something else</span>{" "}
-					as a <Code>Badge</Code>, you can use the <Code>asChild</Code> prop to
-					compose. This is useful when you want to splat the <Code>Badge</Code>{" "}
-					styling onto a <Code>react-router</Code> <Code>Link</Code>.
+					When you want to render <span className="italic">something else</span> as a{" "}
+					<Code>Badge</Code>, you can use the <Code>asChild</Code> prop to compose. This is useful
+					when you want to splat the <Code>Badge</Code> styling onto a <Code>react-router</Code>{" "}
+					<Code>Link</Code>.
 				</p>
 				<div>
 					<Example>
-						<Badge
-							appearance="muted"
-							asChild
-							color="pink"
-							icon={<GlobeHemisphereWestIcon />}
-						>
+						<Badge appearance="muted" asChild color="pink" icon={<GlobeHemisphereWestIcon />}>
 							<Link to={href("/base/colors")}>See our colors!</Link>
 						</Badge>
 					</Example>
@@ -141,8 +132,8 @@ export default function Page() {
 						<PropDefaultValueCell />
 						<PropDescriptionCell>
 							<p>
-								Defines the visual style of the <Code>Badge</Code>. Currently
-								only supports the <Code>muted</Code> variant.
+								Defines the visual style of the <Code>Badge</Code>. Currently only supports the{" "}
+								<Code>muted</Code> variant.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>
@@ -156,9 +147,8 @@ export default function Page() {
 						</PropDefaultValueCell>
 						<PropDescriptionCell>
 							<p>
-								Use the <Code>asChild</Code> prop to compose the{" "}
-								<Code>Badge</Code> styling and functionality onto alternative
-								element types or your own React components.
+								Use the <Code>asChild</Code> prop to compose the <Code>Badge</Code> styling and
+								functionality onto alternative element types or your own React components.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>
@@ -179,8 +169,8 @@ export default function Page() {
 						<PropDescriptionCell>
 							<p>
 								The color variant of the <Code>Badge</Code>. Supports all{" "}
-								<Link to={href("/base/colors")}>named colors</Link>, both
-								functional and from the color palette.
+								<Link to={href("/base/colors")}>named colors</Link>, both functional and from the
+								color palette.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>
@@ -191,8 +181,7 @@ export default function Page() {
 						</PropTypeCell>
 						<PropDefaultValueCell />
 						<PropDescriptionCell>
-							An icon to render inside the badge. Will be automatically sized
-							for you.
+							An icon to render inside the badge. Will be automatically sized for you.
 						</PropDescriptionCell>
 					</PropRow>
 				</PropsTable>

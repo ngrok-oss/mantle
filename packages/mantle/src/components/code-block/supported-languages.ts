@@ -62,10 +62,7 @@ function parseLanguage(
  * Type Predicate: checks if an arbitrary value is a supported syntax highlighting language.
  */
 const isSupportedLanguage = (value: unknown): value is SupportedLanguage => {
-	return (
-		typeof value === "string" &&
-		supportedLanguages.includes(value as SupportedLanguage)
-	);
+	return typeof value === "string" && supportedLanguages.includes(value as SupportedLanguage);
 };
 
 /**
@@ -77,9 +74,7 @@ type LanguageClass = `language-${SupportedLanguage}`;
  * Formats a language name into a class name that Prism.js can understand.
  * @default "language-sh"
  */
-function formatLanguageClassName(
-	language: SupportedLanguage | undefined = "sh",
-) {
+function formatLanguageClassName(language: SupportedLanguage | undefined = "sh") {
 	const lang = language ?? "sh";
 	const className: LanguageClass = `language-${lang}`;
 	return className;

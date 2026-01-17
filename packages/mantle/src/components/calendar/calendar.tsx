@@ -5,10 +5,7 @@ import { CaretRightIcon } from "@phosphor-icons/react/CaretRight";
 import type { ComponentProps } from "react";
 import { DayPicker } from "react-day-picker";
 import { cx } from "../../utils/cx/cx.js";
-import {
-	baseIconButtonClasses,
-	iconButtonVariants,
-} from "../button/icon-button.js";
+import { baseIconButtonClasses, iconButtonVariants } from "../button/icon-button.js";
 import { Icon } from "../icon/icon.js";
 
 type CalendarProps = ComponentProps<typeof DayPicker>;
@@ -38,23 +35,13 @@ type CalendarProps = ComponentProps<typeof DayPicker>;
  *
  * https://github.com/ngrok-oss/mantle/issues
  */
-function Calendar({
-	className,
-	classNames,
-	showOutsideDays = false,
-	...props
-}: CalendarProps) {
+function Calendar({ className, classNames, showOutsideDays = false, ...props }: CalendarProps) {
 	return (
 		<DayPicker
 			animate={false}
 			components={{
 				Chevron: (iconProps) => {
-					const icon =
-						iconProps.orientation === "left" ? (
-							<CaretLeftIcon />
-						) : (
-							<CaretRightIcon />
-						);
+					const icon = iconProps.orientation === "left" ? <CaretLeftIcon /> : <CaretRightIcon />;
 
 					return <Icon svg={icon} className="size-4" />;
 				},
@@ -85,11 +72,9 @@ function Calendar({
 				month: "space-y-4",
 				month_caption: "flex justify-center pt-1 relative items-center",
 				month_grid: "w-full border-collapse space-y-1",
-				months:
-					"flex flex-col sm:flex-row gap-y-4 sm:gap-x-4 sm:gap-y-0 relative max-w-min",
+				months: "flex flex-col sm:flex-row gap-y-4 sm:gap-x-4 sm:gap-y-0 relative max-w-min",
 				nav: "flex items-center absolute inset-x-0 top-1 h-5 justify-between z-10",
-				outside:
-					"day-outside aria-selected:text-on-filled opacity-50 text-muted",
+				outside: "day-outside aria-selected:text-on-filled opacity-50 text-muted",
 				range_end: "day-range-end [&:not(.day-range-start)]:rounded-l-none",
 				range_middle:
 					"day-range-middle not-disabled:aria-selected:bg-filled-accent/15 aria-selected:text-strong rounded-none not-disabled:aria-selected:hover:bg-filled-accent/25",

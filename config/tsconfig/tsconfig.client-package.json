@@ -31,6 +31,6 @@
     /* If your code runs in the DOM: */
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
 
-    "noEmit": true,
+    "noEmit": true
   }
 }

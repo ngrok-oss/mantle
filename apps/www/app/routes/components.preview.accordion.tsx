@@ -31,30 +31,18 @@ export default function Page() {
 					Accordion
 				</PageHeader>
 				<p className="font-body text-body text-xl">
-					A vertically stacked set of interactive headings that each reveal an
-					associated section of content.
+					A vertically stacked set of interactive headings that each reveal an associated section of
+					content.
 				</p>
 				<div>
 					<Example className="flex-col gap-6">
-						<Accordion.Root
-							type="multiple"
-							defaultValue={["on_tcp_connect", "on_http_response"]}
-						>
+						<Accordion.Root type="multiple" defaultValue={["on_tcp_connect", "on_http_response"]}>
 							<Accordion.Item value="on_tcp_connect">
-								<Accordion.Heading
-									className="mx-4 flex items-center gap-2"
-									asChild
-								>
+								<Accordion.Heading className="mx-4 flex items-center gap-2" asChild>
 									<h2>
 										<Accordion.Trigger>
-											<span className="font-mono text-sm font-medium">
-												on_tcp_connect
-											</span>
-											<Badge
-												appearance="muted"
-												color="neutral"
-												className="rounded-full"
-											>
+											<span className="font-mono text-sm font-medium">on_tcp_connect</span>
+											<Badge appearance="muted" color="neutral" className="rounded-full">
 												3
 											</Badge>
 											<Accordion.TriggerIcon />
@@ -67,27 +55,16 @@ export default function Page() {
 								</Accordion.Heading>
 								<Accordion.Content>
 									<Card.Root>
-										<Card.Body>
-											Proident irure consequat Lorem incididunt ullamco.
-										</Card.Body>
+										<Card.Body>Proident irure consequat Lorem incididunt ullamco.</Card.Body>
 									</Card.Root>
 								</Accordion.Content>
 							</Accordion.Item>
 							<Accordion.Item value="on_http_request">
-								<Accordion.Heading
-									className="mx-4 flex items-center gap-2"
-									asChild
-								>
+								<Accordion.Heading className="mx-4 flex items-center gap-2" asChild>
 									<h2>
 										<Accordion.Trigger>
-											<span className="font-mono text-sm font-medium">
-												on_http_request
-											</span>
-											<Badge
-												appearance="muted"
-												color="neutral"
-												className="rounded-full"
-											>
+											<span className="font-mono text-sm font-medium">on_http_request</span>
+											<Badge appearance="muted" color="neutral" className="rounded-full">
 												2
 											</Badge>
 											<Accordion.TriggerIcon />
@@ -100,27 +77,16 @@ export default function Page() {
 								</Accordion.Heading>
 								<Accordion.Content>
 									<Card.Root>
-										<Card.Body>
-											Excepteur amet laboris occaecat anim minim reprehenderit.
-										</Card.Body>
+										<Card.Body>Excepteur amet laboris occaecat anim minim reprehenderit.</Card.Body>
 									</Card.Root>
 								</Accordion.Content>
 							</Accordion.Item>
 							<Accordion.Item value="on_http_response">
-								<Accordion.Heading
-									className="mx-4 flex items-center gap-2"
-									asChild
-								>
+								<Accordion.Heading className="mx-4 flex items-center gap-2" asChild>
 									<h2>
 										<Accordion.Trigger>
-											<span className="font-mono text-sm font-medium">
-												on_http_response
-											</span>
-											<Badge
-												appearance="muted"
-												color="neutral"
-												className="rounded-full"
-											>
+											<span className="font-mono text-sm font-medium">on_http_response</span>
+											<Badge appearance="muted" color="neutral" className="rounded-full">
 												0
 											</Badge>
 											<Accordion.TriggerIcon />
@@ -132,9 +98,7 @@ export default function Page() {
 									</h2>
 								</Accordion.Heading>
 								<Accordion.Content>
-									<p className="text-center">
-										This phase does not have any rules defined
-									</p>
+									<p className="text-center">This phase does not have any rules defined</p>
 								</Accordion.Content>
 							</Accordion.Item>
 						</Accordion.Root>

@@ -117,11 +117,9 @@ const Separator = forwardRef<ComponentRef<"div">, SeparatorProps>(
 		const ctx = useContext(SeparatorGroupContext);
 		// Prefer the orientation from the context if it's set, else fallback to the prop and then to "horizontal".
 		const orientation =
-			ctx.orientation ??
-			(isOrientation(propOrientation) ? propOrientation : "horizontal");
+			ctx.orientation ?? (isOrientation(propOrientation) ? propOrientation : "horizontal");
 		// `aria-orientation` defaults to `horizontal` so we only need it if `orientation` is vertical
-		const ariaOrientation =
-			orientation === "vertical" ? orientation : undefined;
+		const ariaOrientation = orientation === "vertical" ? orientation : undefined;
 		const semanticProps = semantic
 			? { "aria-orientation": ariaOrientation, role: "separator" }
 			: { role: "none" };
@@ -132,7 +130,7 @@ const Separator = forwardRef<ComponentRef<"div">, SeparatorProps>(
 					"separator",
 					"dark-high-contrast:bg-black high-contrast:bg-black bg-gray-500/20 dark:bg-gray-600/20",
 					orientation === "horizontal"
-						? "h-px w-full group-data-[horizontal-separator-group]:flex-1"
+						? "h-px w-full group-data-horizontal-separator-group:flex-1"
 						: "h-full w-px",
 					className,
 				)}
@@ -155,7 +153,5 @@ export {
 };
 
 function isOrientation(value: unknown): value is Orientation {
-	return (
-		typeof value === "string" && orientations.includes(value as Orientation)
-	);
+	return typeof value === "string" && orientations.includes(value as Orientation);
 }

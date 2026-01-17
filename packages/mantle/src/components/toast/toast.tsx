@@ -63,10 +63,7 @@ const Toaster = ({
 
 	return (
 		<ToastPrimitive.Toaster
-			className={cx(
-				"toaster overlay-prompt pointer-events-auto *:duration-200",
-				className,
-			)}
+			className={cx("toaster overlay-prompt pointer-events-auto *:duration-200", className)}
 			containerAriaLabel={containerAriaLabel}
 			dir={dir}
 			duration={duration_ms}
@@ -133,11 +130,7 @@ function makeToast(children: ReactNode, options?: MakeToastOptions) {
 	}
 
 	return ToastPrimitive.toast.custom(
-		(toastId) => (
-			<ToastIdContext.Provider value={toastId}>
-				{children}
-			</ToastIdContext.Provider>
-		),
+		(toastId) => <ToastIdContext.Provider value={toastId}>{children}</ToastIdContext.Provider>,
 		{
 			//
 			duration,
@@ -494,11 +487,7 @@ type PriorityBarAccentProps = Omit<ComponentProps<"div">, "children"> & {
  *
  * A colored bar that visually represents the priority of the toast.
  */
-function PriorityBarAccent({
-	className,
-	priority,
-	...props
-}: PriorityBarAccentProps) {
+function PriorityBarAccent({ className, priority, ...props }: PriorityBarAccentProps) {
 	return (
 		<div
 			aria-hidden

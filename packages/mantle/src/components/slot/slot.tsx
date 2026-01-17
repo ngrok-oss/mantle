@@ -1,11 +1,5 @@
 import { Slot as RadixSlot } from "@radix-ui/react-slot";
-import {
-	Children,
-	type ComponentProps,
-	cloneElement,
-	forwardRef,
-	isValidElement,
-} from "react";
+import { Children, type ComponentProps, cloneElement, forwardRef, isValidElement } from "react";
 import { cx } from "../../utils/cx/cx.js";
 
 type Props = ComponentProps<typeof RadixSlot>;

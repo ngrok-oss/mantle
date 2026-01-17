@@ -1,28 +1,19 @@
 {
   "extends": "@cfg/tsconfig/tsconfig.web-app.json",
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    ".react-router/types/**/*",
-  ],
+  "include": ["**/*.ts", "**/*.tsx", ".react-router/types/**/*"],
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./app/*"],
+      "~/*": ["./app/*"]
     },
     "types": [
       "@react-router/node",
       "vite/client",
       "@cfg/tsconfig/css.d.ts",
       "@cfg/tsconfig/reset.d.ts",
-      "@cfg/tsconfig/svg.d.ts",
+      "@cfg/tsconfig/svg.d.ts"
     ],
-    "customConditions": [
-      "@ngrok/mantle/source"
-    ],
-    "rootDirs": [
-      ".",
-      "./.react-router/types",
-    ],
+    "customConditions": ["@ngrok/mantle/source"],
+    "rootDirs": [".", "./.react-router/types"]
   }
 }

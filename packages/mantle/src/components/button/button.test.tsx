@@ -59,9 +59,7 @@ describe("Button", () => {
 
 	test("when isLoading={false}, allows click and submit events to propagate", async () => {
 		const Subject = () => {
-			const [submitState, setSubmitState] = useState<"submitting" | "idle">(
-				"idle",
-			);
+			const [submitState, setSubmitState] = useState<"submitting" | "idle">("idle");
 			const [clickState, setClickState] = useState<"clicked" | "idle">("idle");
 
 			return (
@@ -96,9 +94,7 @@ describe("Button", () => {
 
 	test(`when isLoading={true}, doesn't allow click or submit events to propagate`, async () => {
 		const Subject = () => {
-			const [submitState, setSubmitState] = useState<"submitting" | "idle">(
-				"idle",
-			);
+			const [submitState, setSubmitState] = useState<"submitting" | "idle">("idle");
 			const [clickState, setClickState] = useState<"clicked" | "idle">("idle");
 
 			return (

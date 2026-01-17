@@ -27,9 +27,8 @@ export default function Page() {
 			<section className="space-y-4">
 				<PageHeader id="kbd">Kbd</PageHeader>
 				<p className="font-body text-body text-xl">
-					A square, centered keyboard "key" chip for rendering keyboard shortcut
-					hints. Designed so every key—letters and modifiers—shares the same
-					visual height/width and baseline.
+					A square, centered keyboard "key" chip for rendering keyboard shortcut hints. Designed so
+					every key—letters and modifiers—shares the same visual height/width and baseline.
 				</p>
 				<div>
 					<Example>
@@ -68,8 +67,7 @@ export default function Page() {
 					<h2>Keyboard Shortcuts</h2>
 				</HashLinkHeading>
 				<p className="font-body text-body text-xl">
-					Combine multiple <Code>Kbd</Code> components to display keyboard
-					shortcuts.
+					Combine multiple <Code>Kbd</Code> components to display keyboard shortcuts.
 				</p>
 				<div>
 					<Example>
@@ -113,8 +111,8 @@ export default function Page() {
 					<h2>Accessibility</h2>
 				</HashLinkHeading>
 				<p className="font-body text-body text-xl">
-					When displaying modifier symbols (⌘/⌃/⇧/⌥), provide an accessible name
-					via <Code>aria-label</Code> for screen reader users.
+					When displaying modifier symbols (⌘/⌃/⇧/⌥), provide an accessible name via{" "}
+					<Code>aria-label</Code> for screen reader users.
 				</p>
 				<div>
 					<Example>
@@ -163,9 +161,7 @@ export default function Page() {
 						</PropTypeCell>
 						<PropDefaultValueCell />
 						<PropDescriptionCell>
-							<p>
-								The keyboard key or symbol to display (e.g., "K", "⌘", "⌃").
-							</p>
+							<p>The keyboard key or symbol to display (e.g., "K", "⌘", "⌃").</p>
 						</PropDescriptionCell>
 					</PropRow>
 					<PropRow>

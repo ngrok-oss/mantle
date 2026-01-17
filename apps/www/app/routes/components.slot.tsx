@@ -28,9 +28,8 @@ export default function Page() {
 			<section className="space-y-4">
 				<PageHeader id="slot">Slot</PageHeader>
 				<p className="font-body text-body text-xl">
-					Merges its props onto its immediate child. This is a utility component
-					used internally by other components to enable the <Code>asChild</Code>{" "}
-					pattern.
+					Merges its props onto its immediate child. This is a utility component used internally by
+					other components to enable the <Code>asChild</Code> pattern.
 				</p>
 				<div>
 					<Example>
@@ -70,10 +69,10 @@ export default function Page() {
 					<h2>Usage with asChild</h2>
 				</HashLinkHeading>
 				<p className="font-body text-body text-xl">
-					The <Code>Slot</Code> component is the foundation of the{" "}
-					<Code>asChild</Code> pattern used throughout Mantle. When a component
-					supports <Code>asChild</Code>, it uses <Code>Slot</Code> internally to
-					merge its props onto the child element instead of rendering a wrapper.
+					The <Code>Slot</Code> component is the foundation of the <Code>asChild</Code> pattern used
+					throughout Mantle. When a component supports <Code>asChild</Code>, it uses{" "}
+					<Code>Slot</Code> internally to merge its props onto the child element instead of
+					rendering a wrapper.
 				</p>
 				<div>
 					<Example>
@@ -113,10 +112,9 @@ export default function Page() {
 					<h2>Class Name Merging</h2>
 				</HashLinkHeading>
 				<p className="font-body text-body text-xl">
-					<Code>Slot</Code> automatically merges <Code>className</Code> props
-					using Tailwind CSS's merge logic. Child classes take priority over
-					parent classes for conflicting styles, while non-conflicting classes
-					are preserved.
+					<Code>Slot</Code> automatically merges <Code>className</Code> props using Tailwind CSS's
+					merge logic. Child classes take priority over parent classes for conflicting styles, while
+					non-conflicting classes are preserved.
 				</p>
 				<div>
 					<Example>
@@ -157,16 +155,13 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<HashLinkHeading
-							id="api-slot"
-							className="text-xl font-medium text-strong"
-						>
+						<HashLinkHeading id="api-slot" className="text-xl font-medium text-strong">
 							<h3>Slot</h3>
 						</HashLinkHeading>
 
 						<p className="font-body text-body">
-							Merges its props onto its immediate child element. Automatically
-							handles className merging with Tailwind CSS merge logic.
+							Merges its props onto its immediate child element. Automatically handles className
+							merging with Tailwind CSS merge logic.
 						</p>
 
 						<p className="font-body text-body">
@@ -191,8 +186,8 @@ export default function Page() {
 							<PropDefaultValueCell />
 							<PropDescriptionCell>
 								<p>
-									A single child element. The <Code>Slot</Code> will merge its
-									props onto this child.
+									A single child element. The <Code>Slot</Code> will merge its props onto this
+									child.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -202,9 +197,8 @@ export default function Page() {
 							<PropDefaultValueCell />
 							<PropDescriptionCell>
 								<p>
-									CSS classes to merge with the child's className. Uses Tailwind
-									CSS merge logic where child classes win for conflicting
-									properties.
+									CSS classes to merge with the child's className. Uses Tailwind CSS merge logic
+									where child classes win for conflicting properties.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>

@@ -2,11 +2,7 @@
 
 import { CaretDownIcon } from "@phosphor-icons/react/CaretDown";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
-import {
-	type ComponentPropsWithoutRef,
-	type ComponentRef,
-	forwardRef,
-} from "react";
+import { type ComponentPropsWithoutRef, type ComponentRef, forwardRef } from "react";
 import { cx } from "../../utils/cx/cx.js";
 import { Icon, type IconProps } from "../icon/icon.js";
 
@@ -37,11 +33,7 @@ const Root = forwardRef<
 	ComponentRef<"div">,
 	ComponentPropsWithoutRef<typeof AccordionPrimitive.Root>
 >(({ className, ...props }, ref) => (
-	<AccordionPrimitive.Root
-		ref={ref}
-		className={cx("w-full space-y-2.5", className)}
-		{...props}
-	/>
+	<AccordionPrimitive.Root ref={ref} className={cx("w-full space-y-2.5", className)} {...props} />
 ));
 Root.displayName = "Accordion";
 

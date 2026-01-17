@@ -15,10 +15,7 @@ import {
 } from "react";
 import invariant from "tiny-invariant";
 import { cx } from "../../utils/cx/cx.js";
-import {
-	$timeSortingDirection,
-	type SortingMode,
-} from "../../utils/sorting/direction.js";
+import { $timeSortingDirection, type SortingMode } from "../../utils/sorting/direction.js";
 import { Button } from "../button/button.js";
 import type { SvgAttributes } from "../icon/types.js";
 import { SortIcon } from "../icons/sort.js";
@@ -38,10 +35,7 @@ const DataTableContext = createContext<DataTableContextShape<any> | null>(null);
 function useDataTableContext<TData>() {
 	const context = useContext(DataTableContext);
 
-	invariant(
-		context,
-		"useDataTableContext should only be used within a DataTable child component",
-	);
+	invariant(context, "useDataTableContext should only be used within a DataTable child component");
 
 	return context as DataTableContextShape<TData>;
 }
@@ -67,10 +61,7 @@ type DataTableProps<TData> = ComponentProps<typeof Table.Root> & {
  * ```
  */
 function Root<TData>({ children, table, ...props }: DataTableProps<TData>) {
-	const context: DataTableContextShape<TData> = useMemo(
-		() => ({ table }),
-		[table],
-	);
+	const context: DataTableContextShape<TData> = useMemo(() => ({ table }), [table]);
 
 	return (
 		<DataTableContext.Provider value={context}>
@@ -81,10 +72,7 @@ function Root<TData>({ children, table, ...props }: DataTableProps<TData>) {
 	);
 }
 
-type DataTableHeaderSortButtonProps<TData, TValue> = Omit<
-	ComponentProps<typeof Button>,
-	"icon"
-> &
+type DataTableHeaderSortButtonProps<TData, TValue> = Omit<ComponentProps<typeof Button>, "icon"> &
 	Pick<HeaderContext<TData, TValue>, "column"> &
 	(
 		| {
@@ -215,16 +203,9 @@ type DataTableHeaderProps = ComponentProps<typeof Table.Header>;
  * </DataTable.Header>
  * ```
  */
-function Header<TData, TValue>({
-	children,
-	className,
-	...props
-}: DataTableHeaderProps) {
+function Header({ children, className, ...props }: DataTableHeaderProps) {
 	return (
-		<Table.Header
-			className={cx("has-[[data-table-header-action]]:px-0", className)}
-			{...props}
-		>
+		<Table.Header className={cx("has-data-table-header-action:px-0", className)} {...props}>
 			{children}
 		</Table.Header>
 	);
@@ -257,10 +238,7 @@ function Head<TData>(props: DataTableHeadProps) {
 	);
 }
 
-type DataTableRowProps<TData> = Omit<
-	ComponentProps<typeof Table.Row>,
-	"children"
-> & {
+type DataTableRowProps<TData> = Omit<ComponentProps<typeof Table.Row>, "children"> & {
 	row: TableRow<TData>;
 };
 
@@ -291,15 +269,11 @@ function EmptyRow<TData>({ children, ...props }: DataTableEmptyRowProps) {
 
 type DataTableActionCellProps = ComponentProps<typeof Table.Cell>;
 
-function ActionCell({
-	children,
-	className,
-	...props
-}: DataTableActionCellProps) {
+function ActionCell({ children, className, ...props }: DataTableActionCellProps) {
 	return (
 		<Table.Cell
 			className={cx(
-				"sticky z-10 right-0 top-px -bottom-px group-data-[sticky-active]/table:[box-shadow:inset_10px_0_8px_-8px_oklch(0_0_0_/_15%)]",
+				"sticky z-10 right-0 top-px -bottom-px group-data-sticky-active/table:[box-shadow:inset_10px_0_8px_-8px_oklch(0_0_0/15%)]",
 				className,
 			)}
 			{...props}
@@ -508,10 +482,7 @@ function toggleNextSortingDirection<TData, TValue>(
 	const currentSortDirection: SortDirection =
 		typeof sortDirection === "string" ? sortDirection : "unsorted";
 
-	const nextSortDirection = getNextSortDirection(
-		currentSortDirection,
-		sortingMode,
-	);
+	const nextSortDirection = getNextSortDirection(currentSortDirection, sortingMode);
 
 	switch (nextSortDirection) {
 		case "unsorted":

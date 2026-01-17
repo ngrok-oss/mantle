@@ -53,8 +53,7 @@ export default function Page() {
 					<h2>API Reference</h2>
 				</HashLinkHeading>
 				<p className="font-body text-body text-xl">
-					The <Code>InlineCode</Code> accepts the following props in addition to
-					the{" "}
+					The <Code>InlineCode</Code> accepts the following props in addition to the{" "}
 					<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/code">
 						standard HTML code attributes
 					</Anchor>
@@ -71,9 +70,8 @@ export default function Page() {
 						</PropDefaultValueCell>
 						<PropDescriptionCell>
 							<p>
-								Use the <Code>asChild</Code> prop to compose the{" "}
-								<Code>InlineCode</Code> styling and functionality onto
-								alternative element types or your own React components.
+								Use the <Code>asChild</Code> prop to compose the <Code>InlineCode</Code> styling and
+								functionality onto alternative element types or your own React components.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>

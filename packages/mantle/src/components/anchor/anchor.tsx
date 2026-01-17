@@ -19,10 +19,7 @@ const anchorClassNames = (className?: string) =>
 /**
  * The props for the `Anchor` component.
  */
-type AnchorProps = Omit<
-	AnchorHTMLAttributes<HTMLAnchorElement>,
-	"rel" | "target"
-> &
+type AnchorProps = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "rel" | "target"> &
 	WithAsChild & {
 		/**
 		 * An icon to render inside the anchor
@@ -40,11 +37,7 @@ type AnchorProps = Omit<
 		 *
 		 * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel
 		 */
-		rel?:
-			| Rel
-			| (string & {})
-			| undefined
-			| (Rel | (string & {}) | undefined | null)[];
+		rel?: Rel | (string & {}) | undefined | (Rel | (string & {}) | undefined | null)[];
 		/**
 		 * Where to display the linked URL, as the name for a browsing context (a tab, window, or <iframe>).
 		 *
@@ -76,15 +69,7 @@ type AnchorProps = Omit<
  */
 const Anchor = forwardRef<ComponentRef<"a">, AnchorProps>(
 	(
-		{
-			asChild,
-			children,
-			className,
-			rel: propRel,
-			icon,
-			iconPlacement = "start",
-			...props
-		},
+		{ asChild, children, className, rel: propRel, icon, iconPlacement = "start", ...props },
 		ref,
 	) => {
 		const rel = resolveRel(propRel);
@@ -124,13 +109,9 @@ const Anchor = forwardRef<ComponentRef<"a">, AnchorProps>(
 
 		return (
 			<a {...componentProps}>
-				{icon && iconPlacement === "start" && (
-					<Icon className="inline-block mr-1.5" svg={icon} />
-				)}
+				{icon && iconPlacement === "start" && <Icon className="inline-block mr-1.5" svg={icon} />}
 				{children}
-				{icon && iconPlacement === "end" && (
-					<Icon className="inline-block ml-1.5" svg={icon} />
-				)}
+				{icon && iconPlacement === "end" && <Icon className="inline-block ml-1.5" svg={icon} />}
 			</a>
 		);
 	},
@@ -143,12 +124,7 @@ Anchor.displayName = "Anchor";
  * If the value is an array, it will be filtered for empty values, ensure uniqueness, sorted, and joined with a space.
  */
 function resolveRel(
-	rel:
-		| Rel
-		| (string & {})
-		| undefined
-		| null
-		| (Rel | (string & {}) | undefined | null)[],
+	rel: Rel | (string & {}) | undefined | null | (Rel | (string & {}) | undefined | null)[],
 ) {
 	if (Array.isArray(rel)) {
 		const uniqueRel = new Set(rel);

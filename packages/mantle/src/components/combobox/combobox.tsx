@@ -29,11 +29,7 @@ type ComboboxProps = Primitive.ComboboxProviderProps;
  * </Combobox.Root>
  */
 const Root = ({ children, ...props }: ComboboxProps) => {
-	return (
-		<Primitive.ComboboxProvider {...props}>
-			{children}
-		</Primitive.ComboboxProvider>
-	);
+	return <Primitive.ComboboxProvider {...props}>{children}</Primitive.ComboboxProvider>;
 };
 Root.displayName = "Combobox";
 
@@ -91,7 +87,7 @@ const Input = forwardRef<ComponentRef<"input">, ComboboxInputProps>(
 					"data-validation-success:border-success-600 data-validation-success:focus:border-success-600 data-validation-success:focus:ring-focus-success data-validation-success:aria-expanded:border-success-600 data-validation-success:aria-expanded:ring-focus-success",
 					"data-validation-warning:border-warning-600 data-validation-warning:focus:border-warning-600 data-validation-warning:focus:ring-focus-warning data-validation-warning:aria-expanded:border-warning-600 data-validation-warning:aria-expanded:ring-focus-warning",
 					"data-validation-error:border-danger-600 data-validation-error:focus:border-danger-600 data-validation-error:focus:ring-focus-danger data-validation-error:aria-expanded:border-danger-600 data-validation-error:aria-expanded:ring-focus-danger",
-					"autofill:shadow-[var(--color-blue-50)] autofill:bg-blue-50 autofill:[-webkit-text-fill-color:var(--text-color-strong)]", // Autofill styling on the input itself and any children with autofill styling
+					"autofill:shadow-(--color-blue-50) autofill:bg-blue-50 autofill:[-webkit-text-fill-color:var(--text-color-strong)]", // Autofill styling on the input itself and any children with autofill styling
 					className,
 				)}
 				data-validation={validation || undefined}
@@ -103,8 +99,7 @@ const Input = forwardRef<ComponentRef<"input">, ComboboxInputProps>(
 );
 Input.displayName = "ComboboxInput";
 
-type ComboboxContentProps = Omit<Primitive.ComboboxPopoverProps, "render"> &
-	WithAsChild;
+type ComboboxContentProps = Omit<Primitive.ComboboxPopoverProps, "render"> & WithAsChild;
 
 /**
  * Renders a popover that contains combobox content, e.g. Combobox.Items, Combobox.Groups, and Combobox.Separators.
@@ -118,32 +113,20 @@ type ComboboxContentProps = Omit<Primitive.ComboboxPopoverProps, "render"> &
  *   </Combobox.Content>
  * </Combobox.Root>
  */
-const Content = forwardRef<
-	ComponentRef<typeof Primitive.ComboboxPopover>,
-	ComboboxContentProps
->(
+const Content = forwardRef<ComponentRef<typeof Primitive.ComboboxPopover>, ComboboxContentProps>(
 	(
-		{
-			asChild = false,
-			children,
-			className,
-			sameWidth = true,
-			unmountOnHide = true,
-			...props
-		},
+		{ asChild = false, children, className, sameWidth = true, unmountOnHide = true, ...props },
 		ref,
 	) => {
 		return (
 			<Primitive.ComboboxPopover
 				className={cx(
-					"border-popover bg-popover relative z-50 max-h-96 min-w-[8rem] scrollbar overflow-y-scroll overflow-x-hidden rounded-md border shadow-md p-1 my-2 focus:outline-hidden",
+					"border-popover bg-popover relative z-50 max-h-96 min-w-32 scrollbar overflow-y-scroll overflow-x-hidden rounded-md border shadow-md p-1 my-2 focus:outline-hidden",
 					className,
 				)}
 				ref={ref}
 				render={
-					asChild
-						? ({ ref, ...childProps }) => <Slot ref={ref} {...childProps} />
-						: undefined
+					asChild ? ({ ref, ...childProps }) => <Slot ref={ref} {...childProps} /> : undefined
 				}
 				sameWidth={sameWidth}
 				unmountOnHide={unmountOnHide}
@@ -156,8 +139,7 @@ const Content = forwardRef<
 );
 Content.displayName = "ComboboxContent";
 
-type ComboboxItemProps = Omit<Primitive.ComboboxItemProps, "render"> &
-	WithAsChild;
+type ComboboxItemProps = Omit<Primitive.ComboboxItemProps, "render"> & WithAsChild;
 
 const ComboboxItemValueContext = createContext<string | undefined>(undefined);
 
@@ -174,21 +156,8 @@ const ComboboxItemValueContext = createContext<string | undefined>(undefined);
  *   </Combobox.Content>
  * </Combobox.Root>
  */
-const Item = forwardRef<
-	ComponentRef<typeof Primitive.ComboboxItem>,
-	ComboboxItemProps
->(
-	(
-		{
-			asChild = false,
-			children,
-			className,
-			focusOnHover = true,
-			value,
-			...props
-		},
-		ref,
-	) => {
+const Item = forwardRef<ComponentRef<typeof Primitive.ComboboxItem>, ComboboxItemProps>(
+	({ asChild = false, children, className, focusOnHover = true, value, ...props }, ref) => {
 		return (
 			<ComboboxItemValueContext.Provider value={value}>
 				<Primitive.ComboboxItem
@@ -201,9 +170,7 @@ const Item = forwardRef<
 					focusOnHover={focusOnHover}
 					ref={ref}
 					render={
-						asChild
-							? ({ ref, ...childProps }) => <Slot ref={ref} {...childProps} />
-							: undefined
+						asChild ? ({ ref, ...childProps }) => <Slot ref={ref} {...childProps} /> : undefined
 					}
 					value={value}
 					{...props}
@@ -216,8 +183,7 @@ const Item = forwardRef<
 );
 Item.displayName = "ComboboxItem";
 
-type ComboboxGroupProps = Omit<Primitive.ComboboxGroupProps, "render"> &
-	WithAsChild;
+type ComboboxGroupProps = Omit<Primitive.ComboboxGroupProps, "render"> & WithAsChild;
 
 /**
  * Renders a group for Combobox.Item elements.
@@ -238,32 +204,25 @@ type ComboboxGroupProps = Omit<Primitive.ComboboxGroupProps, "render"> &
  *   </Combobox.Content>
  * </Combobox.Root>
  */
-const Group = forwardRef<
-	ComponentRef<typeof Primitive.ComboboxGroup>,
-	ComboboxGroupProps
->(({ asChild = false, children, className, ...props }, ref) => {
-	return (
-		<Primitive.ComboboxGroup
-			className={cx("", className)}
-			ref={ref}
-			render={
-				asChild
-					? ({ ref, ...childProps }) => <Slot ref={ref} {...childProps} />
-					: undefined
-			}
-			{...props}
-		>
-			{children}
-		</Primitive.ComboboxGroup>
-	);
-});
+const Group = forwardRef<ComponentRef<typeof Primitive.ComboboxGroup>, ComboboxGroupProps>(
+	({ asChild = false, children, className, ...props }, ref) => {
+		return (
+			<Primitive.ComboboxGroup
+				className={cx("", className)}
+				ref={ref}
+				render={
+					asChild ? ({ ref, ...childProps }) => <Slot ref={ref} {...childProps} /> : undefined
+				}
+				{...props}
+			>
+				{children}
+			</Primitive.ComboboxGroup>
+		);
+	},
+);
 Group.displayName = "ComboboxGroup";
 
-type ComboboxGroupLabelProps = Omit<
-	Primitive.ComboboxGroupLabelProps,
-	"render"
-> &
-	WithAsChild;
+type ComboboxGroupLabelProps = Omit<Primitive.ComboboxGroupLabelProps, "render"> & WithAsChild;
 
 /**
  * Renders a label in a combobox group.
@@ -292,11 +251,7 @@ const GroupLabel = forwardRef<
 		<Primitive.ComboboxGroupLabel
 			className={cx("text-muted px-2 py-1 text-xs font-medium", className)}
 			ref={ref}
-			render={
-				asChild
-					? ({ ref, ...childProps }) => <Slot ref={ref} {...childProps} />
-					: undefined
-			}
+			render={asChild ? ({ ref, ...childProps }) => <Slot ref={ref} {...childProps} /> : undefined}
 			{...props}
 		>
 			{children}
@@ -305,10 +260,7 @@ const GroupLabel = forwardRef<
 });
 GroupLabel.displayName = "ComboboxGroupLabel";
 
-type ComboboxItemValueProps = Omit<
-	Primitive.ComboboxItemValueProps<"span">,
-	"render"
-> &
+type ComboboxItemValueProps = Omit<Primitive.ComboboxItemValueProps<"span">, "render"> &
 	WithAsChild;
 
 /**
@@ -345,15 +297,11 @@ const ItemValue = forwardRef<
 	return (
 		<Primitive.ComboboxItemValue
 			className={cx(
-				"*:data-[user-value]:font-medium flex-1 shrink-0 text-strong font-normal",
+				"*:data-user-value:font-medium flex-1 shrink-0 text-strong font-normal",
 				className,
 			)}
 			ref={ref}
-			render={
-				asChild
-					? ({ ref, ...childProps }) => <Slot ref={ref} {...childProps} />
-					: undefined
-			}
+			render={asChild ? ({ ref, ...childProps }) => <Slot ref={ref} {...childProps} /> : undefined}
 			{...props}
 		/>
 	);
@@ -382,11 +330,7 @@ const ComboboxSeparatorComponent = forwardRef<
 	ElementRef<typeof Separator>,
 	ComponentPropsWithoutRef<typeof Separator>
 >(({ className, ...props }, ref) => (
-	<Separator
-		ref={ref}
-		className={cx("-mx-1.25 my-1 w-auto", className)}
-		{...props}
-	/>
+	<Separator ref={ref} className={cx("-mx-1.25 my-1 w-auto", className)} {...props} />
 ));
 ComboboxSeparatorComponent.displayName = "ComboboxSeparator";
 

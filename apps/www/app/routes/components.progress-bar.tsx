@@ -28,12 +28,12 @@ export default function Page() {
 			<div className="space-y-4">
 				<PageHeader id="progress">Progress Bar</PageHeader>
 				<p className="font-body text-body text-xl">
-					Displays an indicator showing the completion progress of a task as a
-					linear progress bar with customizable colors.
+					Displays an indicator showing the completion progress of a task as a linear progress bar
+					with customizable colors.
 				</p>
 				<p className="font-body text-body text-xl">
-					The progress bar consists of an indicator (filled portion) that shows
-					the current progress value against a background container.
+					The progress bar consists of an indicator (filled portion) that shows the current progress
+					value against a background container.
 				</p>
 				<div>
 					<Example className="flex-col gap-6">
@@ -115,8 +115,8 @@ export default function Page() {
 					<h2>Custom Maximum Value</h2>
 				</HashLinkHeading>
 				<p className="font-body text-body">
-					You can set a custom maximum value using the <Code>max</Code> prop.
-					The progress value will be calculated as a percentage of this maximum.
+					You can set a custom maximum value using the <Code>max</Code> prop. The progress value
+					will be calculated as a percentage of this maximum.
 				</p>
 				<div>
 					<Example>
@@ -147,9 +147,8 @@ export default function Page() {
 					<h2>Indeterminate Value</h2>
 				</HashLinkHeading>
 				<p className="font-body text-body">
-					You can set the <Code>value</Code> prop to{" "}
-					<Code>"indeterminate"</Code> to show the progress bar in an
-					indeterminate state. Currently, this displays as a progress bar at 0%
+					You can set the <Code>value</Code> prop to <Code>"indeterminate"</Code> to show the
+					progress bar in an indeterminate state. Currently, this displays as a progress bar at 0%
 					but maintains accessibility attributes for screen readers.
 				</p>
 				<div>
@@ -181,9 +180,9 @@ export default function Page() {
 					<h2>Dynamic Colors</h2>
 				</HashLinkHeading>
 				<p className="font-body text-body">
-					The color of the <Code>ProgressBar.Indicator</Code> can be customized
-					using the <Code>className</Code> prop. This allows you to change
-					colors based on the current progress value or application state.
+					The color of the <Code>ProgressBar.Indicator</Code> can be customized using the{" "}
+					<Code>className</Code> prop. This allows you to change colors based on the current
+					progress value or application state.
 				</p>
 				<div>
 					<Example>
@@ -249,10 +248,7 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<HashLinkHeading
-							id="api-progress-bar-root"
-							className="text-xl font-medium text-strong"
-						>
+						<HashLinkHeading id="api-progress-bar-root" className="text-xl font-medium text-strong">
 							<h3>
 								<span id="api-progress-bar" />
 								ProgressBar.Root
@@ -261,17 +257,15 @@ export default function Page() {
 
 						<div className="font-body text-body space-y-1">
 							<p>
-								A linear progress bar that displays completion progress with
-								customizable colors.
+								A linear progress bar that displays completion progress with customizable colors.
 							</p>
 							<p>
-								The progress bar consists of an indicator (filled portion) that
-								shows the current progress value against a background container.
+								The progress bar consists of an indicator (filled portion) that shows the current
+								progress value against a background container.
 							</p>
 
 							<p>
-								The <Code>ProgressBar.Root</Code> accepts the following props in
-								addition to the{" "}
+								The <Code>ProgressBar.Root</Code> accepts the following props in addition to the{" "}
 								<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes">
 									standard HTML div attributes
 								</Anchor>
@@ -290,10 +284,9 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									The maximum value of the progress bar. This attribute
-									describes how much work the task indicated by the progress
-									element requires. The max attribute, if present, must have a
-									value greater than 0. The default value is 100.
+									The maximum value of the progress bar. This attribute describes how much work the
+									task indicated by the progress element requires. The max attribute, if present,
+									must have a value greater than 0. The default value is 100.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -314,14 +307,13 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell className="space-y-2">
 								<p>
-									The current value of the progress bar. This attribute
-									specifies how much of the task that has been completed. It
-									must be a valid floating point number between 0 and max, or
-									between 0 and 100 if max is omitted.
+									The current value of the progress bar. This attribute specifies how much of the
+									task that has been completed. It must be a valid floating point number between 0
+									and max, or between 0 and 100 if max is omitted.
 								</p>
 								<p>
-									If set to <Code>"indeterminate"</Code>, the progress bar is
-									considered <strong>indeterminate</strong>.
+									If set to <Code>"indeterminate"</Code>, the progress bar is considered{" "}
+									<strong>indeterminate</strong>.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -338,9 +330,9 @@ export default function Page() {
 						</HashLinkHeading>
 
 						<p className="font-body text-body">
-							The indicator portion of the progress bar that shows the completed
-							progress. This component is automatically positioned and sized
-							based on the current value relative to the maximum value.
+							The indicator portion of the progress bar that shows the completed progress. This
+							component is automatically positioned and sized based on the current value relative to
+							the maximum value.
 						</p>
 
 						<p className="font-body text-body">

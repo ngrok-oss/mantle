@@ -1,5 +1,3 @@
-import type { href } from "react-router";
-
 /**
  * Public domain used for links, meta tags, and canonical references.
  * Keep this single source of truth to avoid drift across the app.

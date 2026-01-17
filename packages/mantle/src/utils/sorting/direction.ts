@@ -58,8 +58,7 @@ type SortingDirection = (typeof sortingDirections)[number];
  * @example isSortingDirection("foo") // false
  */
 const isSortingDirection = (value: unknown): value is SortingDirection =>
-	typeof value === "string" &&
-	sortingDirections.includes(value as SortingDirection);
+	typeof value === "string" && sortingDirections.includes(value as SortingDirection);
 
 /**
  * Runtime type-to-value helper for sorting directions
@@ -69,9 +68,7 @@ const isSortingDirection = (value: unknown): value is SortingDirection =>
  * @example $sortingDirection("asc") // "asc"
  * @example $sortingDirection("desc") // "desc"
  */
-const $sortingDirection = <T extends SortingDirection = SortingDirection>(
-	value: T,
-) => value;
+const $sortingDirection = <T extends SortingDirection = SortingDirection>(value: T) => value;
 
 /**
  * Alphanumeric sorting directions
@@ -85,8 +82,7 @@ const alphanumericSortingDirections = [...sortingDirections] as const;
  * - asc: Ascending order (A-Z, 0-9)
  * - desc: Descending order (Z-A, 9-0)
  */
-type AlphanumericSortingDirection =
-	(typeof alphanumericSortingDirections)[number];
+type AlphanumericSortingDirection = (typeof alphanumericSortingDirections)[number];
 
 /**
  * Type guard for alphanumeric sorting directions
@@ -97,9 +93,7 @@ type AlphanumericSortingDirection =
  * @example isAlphanumericSortingDirection("desc") // true
  * @example isAlphanumericSortingDirection("foo") // false
  */
-const isAlphanumericSortingDirection = (
-	value: unknown,
-): value is AlphanumericSortingDirection =>
+const isAlphanumericSortingDirection = (value: unknown): value is AlphanumericSortingDirection =>
 	typeof value === "string" &&
 	alphanumericSortingDirections.includes(value as AlphanumericSortingDirection);
 
@@ -142,11 +136,8 @@ type TimeSortingDirection = (typeof timeSortingDirections)[number];
  * @example isTimeSortingDirection("asc") // false
  * @example isTimeSortingDirection("desc") // false
  */
-const isTimeSortingDirection = (
-	value: unknown,
-): value is TimeSortingDirection =>
-	typeof value === "string" &&
-	timeSortingDirections.includes(value as TimeSortingDirection);
+const isTimeSortingDirection = (value: unknown): value is TimeSortingDirection =>
+	typeof value === "string" && timeSortingDirections.includes(value as TimeSortingDirection);
 
 /**
  * Converts a sorting direction to a time sorting direction
@@ -169,9 +160,7 @@ const timeSortingByDirection = {
  * @example $timeSortingDirection("oldest-to-newest") // "oldest-to-newest"
  * @example $timeSortingDirection("newest-to-oldest") // "newest-to-oldest"
  */
-function $timeSortingDirection<
-	T extends TimeSortingDirection | SortingDirection,
->(value: T) {
+function $timeSortingDirection<T extends TimeSortingDirection | SortingDirection>(value: T) {
 	if (isSortingDirection(value)) {
 		return timeSortingByDirection[value];
 	}

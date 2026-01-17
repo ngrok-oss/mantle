@@ -13,18 +13,16 @@ export default function Page() {
 		<div>
 			<PageHeader id="typography">Typography</PageHeader>
 			<p className="font-body text-body mt-4 text-xl">
-				Mantle provides various typography tokens for consistency and
-				readability.
+				Mantle provides various typography tokens for consistency and readability.
 			</p>
 
 			<HashLinkHeading id="scale" className="mt-8">
 				<h2 className="text-3xl font-medium">Scale</h2>
 			</HashLinkHeading>
 			<p className="font-body text-body mt-3">
-				Mantle provides a general type scale for various headers throughout our
-				products. Do note that our text styling is independent of the actual
-				markup, so a Heading 1 can be styled as a Heading 2 or Heading 5 as
-				appropriate.
+				Mantle provides a general type scale for various headers throughout our products. Do note
+				that our text styling is independent of the actual markup, so a Heading 1 can be styled as a
+				Heading 2 or Heading 5 as appropriate.
 			</p>
 
 			<h1 className="mt-4 text-5xl font-medium">Heading 1</h1>
@@ -32,17 +30,15 @@ export default function Page() {
 			<h3 className="mt-4 text-2xl font-medium">Heading 3</h3>
 			<h4 className="mt-4 text-xl font-medium">Heading 4</h4>
 			<h5 className="mt-4 text-base font-medium">Heading 5</h5>
-			<h6 className="mt-4 text-xs font-medium uppercase tracking-widest">
-				Heading 6
-			</h6>
+			<h6 className="mt-4 text-xs font-medium uppercase tracking-widest">Heading 6</h6>
 
 			<HashLinkHeading id="colors" className="mt-12">
 				<h2 className="text-3xl font-medium">Colors</h2>
 			</HashLinkHeading>
 			<p className="font-body text-body mt-3">
-				When possible, it’s preferred to render text using the following tokens.
-				This helps provide heirarchy outside of font size, and makes sure our
-				type is the right color across various themes.
+				When possible, it’s preferred to render text using the following tokens. This helps provide
+				heirarchy outside of font size, and makes sure our type is the right color across various
+				themes.
 			</p>
 
 			<div className="mt-3 flex flex-col gap-4 overflow-hidden text-xs md:flex-row">
@@ -83,8 +79,8 @@ export default function Page() {
 				<h2 className="text-3xl font-medium">Fonts</h2>
 			</HashLinkHeading>
 			<p className="font-body text-body mt-3">
-				Mantle specifies Euclid as the default font for UI and headings. We also
-				use IBM Plex Mono as a monospace typeface.
+				Mantle specifies Euclid as the default font for UI and headings. We also use IBM Plex Mono
+				as a monospace typeface.
 			</p>
 
 			<Table.Root className="mt-4">
@@ -104,13 +100,9 @@ export default function Page() {
 							</Table.Cell>
 							<Table.Cell className="space-y-1">
 								<p className="font-sans">Euclid Square</p>
-								<p className="font-mono">
-									"Euclid Square", ui-sans-serif, system-ui, sans-serif
-								</p>
+								<p className="font-mono">"Euclid Square", ui-sans-serif, system-ui, sans-serif</p>
 							</Table.Cell>
-							<Table.Cell>
-								The default font for rendering UI and headings.
-							</Table.Cell>
+							<Table.Cell>The default font for rendering UI and headings.</Table.Cell>
 						</Table.Row>
 						<Table.Row>
 							<Table.Cell>
@@ -118,13 +110,9 @@ export default function Page() {
 							</Table.Cell>
 							<Table.Cell className="space-y-1">
 								<p className="font-body">Nunito Sans</p>
-								<p className="font-mono">
-									"Nunito Sans", ui-sans-serif, system-ui, sans-serif
-								</p>
+								<p className="font-mono">"Nunito Sans", ui-sans-serif, system-ui, sans-serif</p>
 							</Table.Cell>
-							<Table.Cell>
-								Best when used in longform writing like prose documentation.
-							</Table.Cell>
+							<Table.Cell>Best when used in longform writing like prose documentation.</Table.Cell>
 						</Table.Row>
 						<Table.Row>
 							<Table.Cell>
@@ -133,13 +121,13 @@ export default function Page() {
 							<Table.Cell className="space-y-1">
 								<p className="font-mono">IBM Plex Mono</p>
 								<p className="font-mono">
-									"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco,
-									Consolas, "Liberation Mono", "Courier New", monospace
+									"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+									"Liberation Mono", "Courier New", monospace
 								</p>
 							</Table.Cell>
 							<Table.Cell>
-								Used to render code and tokens. Take care to adjust the size a
-								step down in most applications.
+								Used to render code and tokens. Take care to adjust the size a step down in most
+								applications.
 							</Table.Cell>
 						</Table.Row>
 					</Table.Body>

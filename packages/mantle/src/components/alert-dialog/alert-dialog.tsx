@@ -15,11 +15,7 @@ import {
 import invariant from "tiny-invariant";
 import type { WithAsChild } from "../../types/as-child.js";
 import { cx } from "../../utils/cx/cx.js";
-import {
-	Button,
-	type ButtonPriority,
-	type ButtonProps,
-} from "../button/button.js";
+import { Button, type ButtonPriority, type ButtonProps } from "../button/button.js";
 import * as AlertDialogPrimitive from "../dialog/primitive.js";
 import { SvgOnly } from "../icon/svg-only.js";
 import type { SvgAttributes } from "../icon/types.js";
@@ -37,10 +33,7 @@ const AlertDialogContext = createContext<AlertDialogContextValue | null>(null);
 
 function useAlertDialogContext() {
 	const context = useContext(AlertDialogContext);
-	invariant(
-		context,
-		"AlertDialog child component used outside of AlertDialog parent!",
-	);
+	invariant(context, "AlertDialog child component used outside of AlertDialog parent!");
 	return context;
 }
 
@@ -90,10 +83,7 @@ type AlertDialogProps = ComponentProps<typeof AlertDialogPrimitive.Root> & {
  * ```
  */
 function Root({ priority, ...props }: AlertDialogProps) {
-	const context: AlertDialogContextValue = useMemo(
-		() => ({ priority }),
-		[priority],
-	);
+	const context: AlertDialogContextValue = useMemo(() => ({ priority }), [priority]);
 
 	return (
 		<AlertDialogContext.Provider value={context}>
@@ -169,9 +159,7 @@ const AlertDialogOverlay = forwardRef<
 ));
 AlertDialogOverlay.displayName = "AlertDialogOverlay";
 
-type AlertDialogContentProps = ComponentPropsWithoutRef<
-	typeof AlertDialogPrimitive.Content
-> & {
+type AlertDialogContentProps = ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Content> & {
 	/**
 	 * The preferred width of the `AlertDialogContent` as a tailwind `max-w-` class.
 	 *
@@ -225,13 +213,7 @@ const Content = forwardRef<
 	AlertDialogContentProps
 >(
 	(
-		{
-			className,
-			onInteractOutside,
-			onPointerDownOutside,
-			preferredWidth = "max-w-md",
-			...props
-		},
+		{ className, onInteractOutside, onPointerDownOutside, preferredWidth = "max-w-md", ...props },
 		ref,
 	) => (
 		<AlertDialogPortal>
@@ -299,20 +281,13 @@ Content.displayName = "AlertDialogContent";
  * </AlertDialog.Root>
  * ```
  */
-const Body = forwardRef<
-	ComponentRef<"div">,
-	ComponentProps<"div"> & WithAsChild
->(({ asChild = false, className, ...props }, ref) => {
-	const Component = asChild ? Slot : "div";
+const Body = forwardRef<ComponentRef<"div">, ComponentProps<"div"> & WithAsChild>(
+	({ asChild = false, className, ...props }, ref) => {
+		const Component = asChild ? Slot : "div";
 
-	return (
-		<Component
-			className={cx("flex-1 space-y-4", className)}
-			ref={ref}
-			{...props}
-		/>
-	);
-});
+		return <Component className={cx("flex-1 space-y-4", className)} ref={ref} {...props} />;
+	},
+);
 Body.displayName = "AlertDialogBody";
 
 /**
@@ -350,22 +325,19 @@ Body.displayName = "AlertDialogBody";
  * </AlertDialog.Root>
  * ```
  */
-const Header = forwardRef<
-	ComponentRef<"div">,
-	ComponentProps<"div"> & WithAsChild
->(({ asChild = false, className, ...props }, ref) => {
-	const Component = asChild ? Slot : "div";
+const Header = forwardRef<ComponentRef<"div">, ComponentProps<"div"> & WithAsChild>(
+	({ asChild = false, className, ...props }, ref) => {
+		const Component = asChild ? Slot : "div";
 
-	return (
-		<Component
-			className={cx(
-				"flex flex-col space-y-2 text-center sm:text-start",
-				className,
-			)}
-			{...props}
-		/>
-	);
-});
+		return (
+			<Component
+				className={cx("flex flex-col space-y-2 text-center sm:text-start", className)}
+				ref={ref}
+				{...props}
+			/>
+		);
+	},
+);
 Header.displayName = "AlertDialogHeader";
 
 /**
@@ -403,22 +375,19 @@ Header.displayName = "AlertDialogHeader";
  * </AlertDialog.Root>
  * ```
  */
-const Footer = forwardRef<
-	ComponentRef<"div">,
-	ComponentProps<"div"> & WithAsChild
->(({ asChild = false, className, ...props }, ref) => {
-	const Component = asChild ? Slot : "div";
+const Footer = forwardRef<ComponentRef<"div">, ComponentProps<"div"> & WithAsChild>(
+	({ asChild = false, className, ...props }, ref) => {
+		const Component = asChild ? Slot : "div";
 
-	return (
-		<Component
-			className={cx(
-				"flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2",
-				className,
-			)}
-			{...props}
-		/>
-	);
-});
+		return (
+			<Component
+				className={cx("flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2", className)}
+				ref={ref}
+				{...props}
+			/>
+		);
+	},
+);
 Footer.displayName = "AlertDialogFooter";
 
 /**
@@ -465,10 +434,7 @@ const Title = forwardRef<
 >(({ className, ...props }, ref) => (
 	<AlertDialogPrimitive.Title
 		ref={ref}
-		className={cx(
-			"text-strong text-center text-lg font-medium sm:text-start",
-			className,
-		)}
+		className={cx("text-strong text-center text-lg font-medium sm:text-start", className)}
 		{...props}
 	/>
 ));
@@ -520,10 +486,7 @@ const Description = forwardRef<
 >(({ className, ...props }, ref) => (
 	<AlertDialogPrimitive.Description
 		ref={ref}
-		className={cx(
-			"text-body text-center text-sm font-normal sm:text-start",
-			className,
-		)}
+		className={cx("text-body text-center text-sm font-normal sm:text-start", className)}
 		{...props}
 	/>
 ));
@@ -709,10 +672,8 @@ type AlertDialogIconProps = Omit<SvgAttributes, "children"> & {
 const Icon = forwardRef<ComponentRef<"svg">, AlertDialogIconProps>(
 	({ className, svg, ...props }, ref) => {
 		const ctx = useAlertDialogContext();
-		const defaultColor =
-			ctx.priority === "danger" ? "text-danger-600" : "text-accent-600";
-		const defaultIcon =
-			ctx.priority === "danger" ? <WarningIcon /> : <InfoIcon />;
+		const defaultColor = ctx.priority === "danger" ? "text-danger-600" : "text-accent-600";
+		const defaultIcon = ctx.priority === "danger" ? <WarningIcon /> : <InfoIcon />;
 
 		return (
 			<SvgOnly

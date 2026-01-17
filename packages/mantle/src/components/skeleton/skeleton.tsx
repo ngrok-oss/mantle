@@ -3,8 +3,7 @@ import type { SelfClosingWithAsChild } from "../../types/as-child.js";
 import { cx } from "../../utils/cx/cx.js";
 import { Slot } from "../slot/index.js";
 
-type Props = Exclude<ComponentProps<"div">, "children"> &
-	SelfClosingWithAsChild;
+type Props = Exclude<ComponentProps<"div">, "children"> & SelfClosingWithAsChild;
 
 /**
  * A skeleton is a placeholder for content that is loading.

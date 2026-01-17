@@ -26,9 +26,7 @@ export default function Page() {
 		<div className="space-y-16">
 			<section className="space-y-4">
 				<PageHeader id="separator">Separator</PageHeader>
-				<p className="font-body text-body text-xl">
-					Visually or semantically separates content.
-				</p>
+				<p className="font-body text-body text-xl">Visually or semantically separates content.</p>
 				<div>
 					<Example>
 						<div className="space-y-4">
@@ -110,9 +108,9 @@ export default function Page() {
 					<h2>Composition</h2>
 				</HashLinkHeading>
 				<p className="font-body text-body text-xl">
-					When you want to render <span className="italic">something else</span>{" "}
-					as a <Code>HorizontalSeparatorGroup</Code> or <Code>Separator</Code>,
-					you can use the <Code>asChild</Code> prop to compose.
+					When you want to render <span className="italic">something else</span> as a{" "}
+					<Code>HorizontalSeparatorGroup</Code> or <Code>Separator</Code>, you can use the{" "}
+					<Code>asChild</Code> prop to compose.
 				</p>
 				<div>
 					<Example>
@@ -130,32 +128,17 @@ export default function Page() {
 
 									<div className="space-y-2">
 										<div className="space-x-2">
-											<input
-												type="radio"
-												id="apple"
-												name="monster"
-												value="apple"
-											/>
+											<input type="radio" id="apple" name="monster" value="apple" />
 											<label htmlFor="apple">Apple</label>
 										</div>
 
 										<div className="space-x-2">
-											<input
-												type="radio"
-												id="mango"
-												name="monster"
-												value="mango"
-											/>
+											<input type="radio" id="mango" name="monster" value="mango" />
 											<label htmlFor="mango">Mango</label>
 										</div>
 
 										<div className="space-x-2">
-											<input
-												type="radio"
-												id="pear"
-												name="monster"
-												value="pear"
-											/>
+											<input type="radio" id="pear" name="monster" value="pear" />
 											<label htmlFor="pear">Pear</label>
 										</div>
 									</div>
@@ -240,16 +223,11 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<HashLinkHeading
-							id="api-separator"
-							className="text-xl font-medium text-strong"
-						>
+						<HashLinkHeading id="api-separator" className="text-xl font-medium text-strong">
 							<h3>Separator</h3>
 						</HashLinkHeading>
 
-						<p className="font-body text-body">
-							Visually or semantically separates content.
-						</p>
+						<p className="font-body text-body">Visually or semantically separates content.</p>
 
 						<p className="font-body text-body">
 							All props from{" "}
@@ -281,10 +259,7 @@ export default function Page() {
 								<StringPropType value="horizontal" />
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
-								<p>
-									The orientation of the separator, does it render horizontally
-									or verticallly.
-								</p>
+								<p>The orientation of the separator, does it render horizontally or verticallly.</p>
 							</PropDescriptionCell>
 						</PropRow>
 						<PropRow>
@@ -298,13 +273,12 @@ export default function Page() {
 							<PropDescriptionCell>
 								<p>
 									If <Code>true</Code>, the separator will be rendered with all
-									accessibility-related attributes and{" "}
-									<Code>role="separator"</Code>.
+									accessibility-related attributes and <Code>role="separator"</Code>.
 								</p>
 								<p>
-									If <Code>false</Code>, the separator is purely decorative and
-									all accessibility-related attributes are updated so that the
-									rendered element is removed from the accessibility tree.
+									If <Code>false</Code>, the separator is purely decorative and all
+									accessibility-related attributes are updated so that the rendered element is
+									removed from the accessibility tree.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -318,9 +292,8 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Use the <Code>asChild</Code> prop to compose the{" "}
-									<Code>Separator</Code> styling and functionality onto
-									alternative element types or your own React components.
+									Use the <Code>asChild</Code> prop to compose the <Code>Separator</Code> styling
+									and functionality onto alternative element types or your own React components.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -337,8 +310,7 @@ export default function Page() {
 						</HashLinkHeading>
 
 						<p className="font-body text-body">
-							A container to layout a group of horizontal separators and other
-							children.
+							A container to layout a group of horizontal separators and other children.
 						</p>
 
 						<p className="font-body text-body">
@@ -371,9 +343,8 @@ export default function Page() {
 							<PropDescriptionCell>
 								<p>
 									Use the <Code>asChild</Code> prop to compose the{" "}
-									<Code>HorizontalSeparatorGroup</Code> styling and
-									functionality onto alternative element types or your own React
-									components.
+									<Code>HorizontalSeparatorGroup</Code> styling and functionality onto alternative
+									element types or your own React components.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>

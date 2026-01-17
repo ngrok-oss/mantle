@@ -41,7 +41,7 @@ const sizingVariants = cva("", {
 	variants: {
 		size: {
 			s: "w-4 h-3",
-			m: "w-5 h-[0.9375rem]",
+			m: "w-5 h-3.75",
 			l: "w-8 h-6",
 		} as const satisfies Record<Size, string>,
 	},
@@ -74,18 +74,10 @@ function Flag({
 
 	return (
 		<div
-			className={cx(
-				"flag relative overflow-hidden",
-				borderRadius,
-				sizing,
-				className,
-			)}
+			className={cx("flag relative overflow-hidden", borderRadius, sizing, className)}
 			{...props}
 		>
-			<div
-				aria-hidden
-				className={cx("absolute inset-0 border border-[#000]/10", borderRadius)}
-			/>
+			<div aria-hidden className={cx("absolute inset-0 border border-[#000]/10", borderRadius)} />
 			<img
 				className="h-full w-full block object-cover"
 				src={`${cdnOrigin}/flags/${size}/${code}.svg`}

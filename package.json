@@ -1,22 +1,18 @@
 {
-  "private": true,
   "name": "mantle",
+  "private": true,
   "license": "MIT",
-  "packageManager": "pnpm@10.28.0",
   "type": "module",
-  "engines": {
-    "node": "^24.0.0"
-  },
   "scripts": {
     "build": "turbo run build",
     "start": "turbo run start",
     "serve": "turbo run serve",
     "clean": "turbo run clean",
     "clean:node_modules": "node ./scripts/clean-node-modules.js",
-    "fmt:check": "biome check . --diagnostic-level=error",
-    "fmt": "biome check . --write --diagnostic-level=error",
-    "lint:fix": "biome lint . --write --diagnostic-level=error",
-    "lint": "biome lint . --diagnostic-level=error",
+    "fmt:check": "oxfmt --check",
+    "fmt": "oxfmt --write",
+    "lint:fix": "oxlint --fix",
+    "lint": "oxlint",
     "test": "turbo run test",
     "test:watch": "turbo run test:watch",
     "typecheck": "turbo run typecheck",
@@ -25,14 +21,19 @@
     "changeset:publish": "turbo run build --filter=@ngrok/mantle && changeset publish"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.9.4",
     "@changesets/changelog-github": "0.5.2",
     "@changesets/cli": "2.29.8",
     "@types/node": "24.10.9",
     "happy-dom": "20.3.1",
+    "oxfmt": "0.24.0",
+    "oxlint": "1.39.0",
     "turbo": "2.7.4",
     "vitest": "4.0.17"
   },
+  "engines": {
+    "node": "^24.0.0"
+  },
+  "packageManager": "pnpm@10.28.0",
   "pnpm": {
     "overrides": {
       "@mjackson/node-fetch-server": "npm:@remix-run/node-fetch-server@0.10.0",
@@ -41,7 +42,6 @@
       "esbuild": ">=0.27.2"
     },
     "onlyBuiltDependencies": [
-      "@biomejs/biome",
       "esbuild",
       "@tailwindcss/oxide"
     ]

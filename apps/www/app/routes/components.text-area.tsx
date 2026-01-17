@@ -41,9 +41,8 @@ export default function Page() {
 			<section className="space-y-4">
 				<PageHeader id="textarea">TextArea</PageHeader>
 				<p className="font-body text-body text-xl">
-					A multi-line plain-text editing control, useful when you want to allow
-					users to enter a sizeable amount of free-form text, for example a
-					comment on a review or feedback form.
+					A multi-line plain-text editing control, useful when you want to allow users to enter a
+					sizeable amount of free-form text, for example a comment on a review or feedback form.
 				</p>
 
 				<div>
@@ -121,15 +120,13 @@ export default function Page() {
 							</h3>
 						</HashLinkHeading>
 						<p className="font-body text-body">
-							In this example, the <Code>TextArea</Code> is used in a form with
-							client-side validation. The form is built using{" "}
+							In this example, the <Code>TextArea</Code> is used in a form with client-side
+							validation. The form is built using{" "}
 							<Code>
-								<Anchor href="https://tanstack.com/form/latest/docs">
-									@tanstack/react-form
-								</Anchor>
+								<Anchor href="https://tanstack.com/form/latest/docs">@tanstack/react-form</Anchor>
 							</Code>
-							and <Code>zod</Code> for validation. The form accepts user
-							feedback and validates the input before submission.
+							and <Code>zod</Code> for validation. The form accepts user feedback and validates the
+							input before submission.
 						</p>
 					</header>
 					<div>
@@ -234,8 +231,7 @@ export default function Page() {
 					<h2 className="text-3xl font-medium">API Reference</h2>
 				</HashLinkHeading>
 				<p className="font-body text-body text-xl">
-					The <Code>TextArea</Code> accepts the following props in addition to
-					the{" "}
+					The <Code>TextArea</Code> accepts the following props in addition to the{" "}
 					<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea">
 						standard HTML textarea attributes
 					</Anchor>
@@ -275,23 +271,19 @@ export default function Page() {
 									<BooleanPropType value={false} />
 								</li>
 								<li>
-									<FuncPropType
-										value={`() => "error" | "success" | "warning" | false`}
-									/>
+									<FuncPropType value={`() => "error" | "success" | "warning" | false`} />
 								</li>
 							</ul>
 						</PropTypeCell>
 						<PropDefaultValueCell />
 						<PropDescriptionCell className="space-y-2">
 							<p>
-								Use the <Code>validation</Code> prop to show if the textarea has
-								a specific validation status. This will change the border and
-								outline of the textarea.
+								Use the <Code>validation</Code> prop to show if the textarea has a specific
+								validation status. This will change the border and outline of the textarea.
 							</p>
 							<p>
-								The <Code>false</Code> type is useful when using
-								short-circuiting logic so that you don't need to use a ternary
-								with <Code>undefined</Code>.
+								The <Code>false</Code> type is useful when using short-circuiting logic so that you
+								don't need to use a ternary with <Code>undefined</Code>.
 							</p>
 							<p>
 								Setting <Code>validation</Code> to <Code>error</Code> also sets{" "}
@@ -354,10 +346,7 @@ function FormExample() {
 				<form.Field name="feedback">
 					{(field) =>
 						field.state.meta.errors.map((error) => (
-							<p
-								key={error?.message}
-								className="text-sm leading-4 text-danger-600"
-							>
+							<p key={error?.message} className="text-sm leading-4 text-danger-600">
 								{error?.message}
 							</p>
 						))

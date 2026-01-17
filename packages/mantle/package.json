@@ -1,27 +1,274 @@
 {
   "name": "@ngrok/mantle",
-  "description": "mantle is ngrok's UI library and design system.",
-  "author": "ngrok",
-  "license": "MIT",
   "version": "0.60.2",
+  "description": "mantle is ngrok's UI library and design system.",
   "homepage": "https://mantle.ngrok.com",
+  "license": "MIT",
+  "author": "ngrok",
   "repository": {
     "type": "git",
     "url": "https://github.com/ngrok-oss/mantle"
   },
-  "sideEffects": [
-    "*.css"
-  ],
-  "type": "module",
-  "browserslist": [
-    "last 2 years, not dead, > 0.2%"
-  ],
   "files": [
     "dist",
     "package.json"
   ],
-  "engines": {
-    "node": "^24.0.0"
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "exports": {
+    "./mantle.css": {
+      "@ngrok/mantle/source": "./src/mantle.css",
+      "default": "./dist/mantle.css"
+    },
+    "./package.json": "./package.json",
+    "./accordion": {
+      "types": "./dist/accordion.d.ts",
+      "@ngrok/mantle/source": "./src/components/accordion/index.ts",
+      "import": "./dist/accordion.js"
+    },
+    "./alert": {
+      "types": "./dist/alert.d.ts",
+      "@ngrok/mantle/source": "./src/components/alert/index.ts",
+      "import": "./dist/alert.js"
+    },
+    "./alert-dialog": {
+      "types": "./dist/alert-dialog.d.ts",
+      "@ngrok/mantle/source": "./src/components/alert-dialog/index.ts",
+      "import": "./dist/alert-dialog.js"
+    },
+    "./anchor": {
+      "types": "./dist/anchor.d.ts",
+      "@ngrok/mantle/source": "./src/components/anchor/index.ts",
+      "import": "./dist/anchor.js"
+    },
+    "./auto-scroll-to-hash": {
+      "types": "./dist/auto-scroll-to-hash.d.ts",
+      "@ngrok/mantle/source": "./src/components/auto-scroll-to-hash/index.ts",
+      "import": "./dist/auto-scroll-to-hash.js"
+    },
+    "./badge": {
+      "types": "./dist/badge.d.ts",
+      "@ngrok/mantle/source": "./src/components/badge/index.ts",
+      "import": "./dist/badge.js"
+    },
+    "./browser-only": {
+      "types": "./dist/browser-only.d.ts",
+      "@ngrok/mantle/source": "./src/components/browser-only/index.ts",
+      "import": "./dist/browser-only.js"
+    },
+    "./button": {
+      "types": "./dist/button.d.ts",
+      "@ngrok/mantle/source": "./src/components/button/index.ts",
+      "import": "./dist/button.js"
+    },
+    "./calendar": {
+      "types": "./dist/calendar.d.ts",
+      "@ngrok/mantle/source": "./src/components/calendar/index.ts",
+      "import": "./dist/calendar.js"
+    },
+    "./card": {
+      "types": "./dist/card.d.ts",
+      "@ngrok/mantle/source": "./src/components/card/index.ts",
+      "import": "./dist/card.js"
+    },
+    "./checkbox": {
+      "types": "./dist/checkbox.d.ts",
+      "@ngrok/mantle/source": "./src/components/checkbox/index.ts",
+      "import": "./dist/checkbox.js"
+    },
+    "./code": {
+      "types": "./dist/code.d.ts",
+      "@ngrok/mantle/source": "./src/components/code/index.ts",
+      "import": "./dist/code.js"
+    },
+    "./code-block": {
+      "types": "./dist/code-block.d.ts",
+      "@ngrok/mantle/source": "./src/components/code-block/index.ts",
+      "import": "./dist/code-block.js"
+    },
+    "./color": {
+      "types": "./dist/color.d.ts",
+      "@ngrok/mantle/source": "./src/utils/color/index.ts",
+      "import": "./dist/color.js"
+    },
+    "./combobox": {
+      "types": "./dist/combobox.d.ts",
+      "@ngrok/mantle/source": "./src/components/combobox/index.ts",
+      "import": "./dist/combobox.js"
+    },
+    "./command": {
+      "types": "./dist/command.d.ts",
+      "@ngrok/mantle/source": "./src/components/command/index.ts",
+      "import": "./dist/command.js"
+    },
+    "./compose-refs": {
+      "types": "./dist/compose-refs.d.ts",
+      "@ngrok/mantle/source": "./src/utils/compose-refs/index.ts",
+      "import": "./dist/compose-refs.js"
+    },
+    "./cx": {
+      "types": "./dist/cx.d.ts",
+      "@ngrok/mantle/source": "./src/utils/cx/index.ts",
+      "import": "./dist/cx.js"
+    },
+    "./data-table": {
+      "types": "./dist/data-table.d.ts",
+      "@ngrok/mantle/source": "./src/components/data-table/index.ts",
+      "import": "./dist/data-table.js"
+    },
+    "./date-picker": {},
+    "./dialog": {
+      "types": "./dist/dialog.d.ts",
+      "@ngrok/mantle/source": "./src/components/dialog/index.ts",
+      "import": "./dist/dialog.js"
+    },
+    "./dropdown-menu": {
+      "types": "./dist/dropdown-menu.d.ts",
+      "@ngrok/mantle/source": "./src/components/dropdown-menu/index.ts",
+      "import": "./dist/dropdown-menu.js"
+    },
+    "./flag": {
+      "types": "./dist/flag.d.ts",
+      "@ngrok/mantle/source": "./src/components/flag/index.ts",
+      "import": "./dist/flag.js"
+    },
+    "./hooks": {
+      "types": "./dist/hooks.d.ts",
+      "@ngrok/mantle/source": "./src/hooks/index.ts",
+      "import": "./dist/hooks.js"
+    },
+    "./hover-card": {
+      "types": "./dist/hover-card.d.ts",
+      "@ngrok/mantle/source": "./src/components/hover-card/index.ts",
+      "import": "./dist/hover-card.js"
+    },
+    "./icon": {
+      "types": "./dist/icon.d.ts",
+      "@ngrok/mantle/source": "./src/components/icon/index.ts",
+      "import": "./dist/icon.js"
+    },
+    "./icons": {
+      "types": "./dist/icons.d.ts",
+      "@ngrok/mantle/source": "./src/components/icons/index.ts",
+      "import": "./dist/icons.js"
+    },
+    "./input": {
+      "types": "./dist/input.d.ts",
+      "@ngrok/mantle/source": "./src/components/input/index.ts",
+      "import": "./dist/input.js"
+    },
+    "./kbd": {
+      "types": "./dist/kbd.d.ts",
+      "@ngrok/mantle/source": "./src/components/kbd/index.ts",
+      "import": "./dist/kbd.js"
+    },
+    "./label": {
+      "types": "./dist/label.d.ts",
+      "@ngrok/mantle/source": "./src/components/label/index.ts",
+      "import": "./dist/label.js"
+    },
+    "./media-object": {
+      "types": "./dist/media-object.d.ts",
+      "@ngrok/mantle/source": "./src/components/media-object/index.ts",
+      "import": "./dist/media-object.js"
+    },
+    "./pagination": {
+      "types": "./dist/pagination.d.ts",
+      "@ngrok/mantle/source": "./src/components/pagination/index.ts",
+      "import": "./dist/pagination.js"
+    },
+    "./popover": {
+      "types": "./dist/popover.d.ts",
+      "@ngrok/mantle/source": "./src/components/popover/index.ts",
+      "import": "./dist/popover.js"
+    },
+    "./progress": {
+      "types": "./dist/progress.d.ts",
+      "@ngrok/mantle/source": "./src/components/progress/index.ts",
+      "import": "./dist/progress.js"
+    },
+    "./radio-group": {
+      "types": "./dist/radio-group.d.ts",
+      "@ngrok/mantle/source": "./src/components/radio-group/index.ts",
+      "import": "./dist/radio-group.js"
+    },
+    "./sandboxed-on-click": {
+      "types": "./dist/sandboxed-on-click.d.ts",
+      "@ngrok/mantle/source": "./src/components/sandboxed-on-click/index.ts",
+      "import": "./dist/sandboxed-on-click.js"
+    },
+    "./select": {
+      "types": "./dist/select.d.ts",
+      "@ngrok/mantle/source": "./src/components/select/index.ts",
+      "import": "./dist/select.js"
+    },
+    "./separator": {
+      "types": "./dist/separator.d.ts",
+      "@ngrok/mantle/source": "./src/components/separator/index.ts",
+      "import": "./dist/separator.js"
+    },
+    "./sheet": {
+      "types": "./dist/sheet.d.ts",
+      "@ngrok/mantle/source": "./src/components/sheet/index.ts",
+      "import": "./dist/sheet.js"
+    },
+    "./skeleton": {
+      "types": "./dist/skeleton.d.ts",
+      "@ngrok/mantle/source": "./src/components/skeleton/index.ts",
+      "import": "./dist/skeleton.js"
+    },
+    "./slot": {
+      "types": "./dist/slot.d.ts",
+      "@ngrok/mantle/source": "./src/components/slot/index.ts",
+      "import": "./dist/slot.js"
+    },
+    "./switch": {
+      "types": "./dist/switch.d.ts",
+      "@ngrok/mantle/source": "./src/components/switch/index.ts",
+      "import": "./dist/switch.js"
+    },
+    "./table": {
+      "types": "./dist/table.d.ts",
+      "@ngrok/mantle/source": "./src/components/table/index.ts",
+      "import": "./dist/table.js"
+    },
+    "./tabs": {
+      "types": "./dist/tabs.d.ts",
+      "@ngrok/mantle/source": "./src/components/tabs/index.ts",
+      "import": "./dist/tabs.js"
+    },
+    "./text-area": {
+      "types": "./dist/text-area.d.ts",
+      "@ngrok/mantle/source": "./src/components/text-area/index.ts",
+      "import": "./dist/text-area.js"
+    },
+    "./theme": {
+      "types": "./dist/theme.d.ts",
+      "@ngrok/mantle/source": "./src/components/theme/index.ts",
+      "import": "./dist/theme.js"
+    },
+    "./toast": {
+      "types": "./dist/toast.d.ts",
+      "@ngrok/mantle/source": "./src/components/toast/index.ts",
+      "import": "./dist/toast.js"
+    },
+    "./tooltip": {
+      "types": "./dist/tooltip.d.ts",
+      "@ngrok/mantle/source": "./src/components/tooltip/index.ts",
+      "import": "./dist/tooltip.js"
+    },
+    "./types": {
+      "types": "./dist/types.d.ts",
+      "@ngrok/mantle/source": "./src/types/index.ts",
+      "import": "./dist/types.js"
+    },
+    "./utils/sorting": {
+      "types": "./dist/sorting.d.ts",
+      "@ngrok/mantle/source": "./src/utils/sorting/index.ts",
+      "import": "./dist/sorting.js"
+    }
   },
   "scripts": {
     "build": "NODE_OPTIONS='--max-old-space-size=16384' tsup",
@@ -85,257 +332,10 @@
     "react-router": "^7",
     "tailwindcss": "^4.1.17"
   },
-  "exports": {
-    "./mantle.css": {
-      "@ngrok/mantle/source": "./src/mantle.css",
-      "default": "./dist/mantle.css"
-    },
-    "./package.json": "./package.json",
-    "./accordion": {
-      "@ngrok/mantle/source": "./src/components/accordion/index.ts",
-      "import": "./dist/accordion.js",
-      "types": "./dist/accordion.d.ts"
-    },
-    "./alert": {
-      "@ngrok/mantle/source": "./src/components/alert/index.ts",
-      "import": "./dist/alert.js",
-      "types": "./dist/alert.d.ts"
-    },
-    "./alert-dialog": {
-      "@ngrok/mantle/source": "./src/components/alert-dialog/index.ts",
-      "import": "./dist/alert-dialog.js",
-      "types": "./dist/alert-dialog.d.ts"
-    },
-    "./anchor": {
-      "@ngrok/mantle/source": "./src/components/anchor/index.ts",
-      "import": "./dist/anchor.js",
-      "types": "./dist/anchor.d.ts"
-    },
-    "./auto-scroll-to-hash": {
-      "@ngrok/mantle/source": "./src/components/auto-scroll-to-hash/index.ts",
-      "import": "./dist/auto-scroll-to-hash.js",
-      "types": "./dist/auto-scroll-to-hash.d.ts"
-    },
-    "./badge": {
-      "@ngrok/mantle/source": "./src/components/badge/index.ts",
-      "import": "./dist/badge.js",
-      "types": "./dist/badge.d.ts"
-    },
-    "./browser-only": {
-      "@ngrok/mantle/source": "./src/components/browser-only/index.ts",
-      "import": "./dist/browser-only.js",
-      "types": "./dist/browser-only.d.ts"
-    },
-    "./button": {
-      "@ngrok/mantle/source": "./src/components/button/index.ts",
-      "import": "./dist/button.js",
-      "types": "./dist/button.d.ts"
-    },
-    "./calendar": {
-      "@ngrok/mantle/source": "./src/components/calendar/index.ts",
-      "import": "./dist/calendar.js",
-      "types": "./dist/calendar.d.ts"
-    },
-    "./card": {
-      "@ngrok/mantle/source": "./src/components/card/index.ts",
-      "import": "./dist/card.js",
-      "types": "./dist/card.d.ts"
-    },
-    "./checkbox": {
-      "@ngrok/mantle/source": "./src/components/checkbox/index.ts",
-      "import": "./dist/checkbox.js",
-      "types": "./dist/checkbox.d.ts"
-    },
-    "./code": {
-      "@ngrok/mantle/source": "./src/components/code/index.ts",
-      "import": "./dist/code.js",
-      "types": "./dist/code.d.ts"
-    },
-    "./code-block": {
-      "@ngrok/mantle/source": "./src/components/code-block/index.ts",
-      "import": "./dist/code-block.js",
-      "types": "./dist/code-block.d.ts"
-    },
-    "./color": {
-      "@ngrok/mantle/source": "./src/utils/color/index.ts",
-      "import": "./dist/color.js",
-      "types": "./dist/color.d.ts"
-    },
-    "./combobox": {
-      "@ngrok/mantle/source": "./src/components/combobox/index.ts",
-      "import": "./dist/combobox.js",
-      "types": "./dist/combobox.d.ts"
-    },
-    "./command": {
-      "@ngrok/mantle/source": "./src/components/command/index.ts",
-      "import": "./dist/command.js",
-      "types": "./dist/command.d.ts"
-    },
-    "./compose-refs": {
-      "@ngrok/mantle/source": "./src/utils/compose-refs/index.ts",
-      "import": "./dist/compose-refs.js",
-      "types": "./dist/compose-refs.d.ts"
-    },
-    "./cx": {
-      "@ngrok/mantle/source": "./src/utils/cx/index.ts",
-      "import": "./dist/cx.js",
-      "types": "./dist/cx.d.ts"
-    },
-    "./data-table": {
-      "@ngrok/mantle/source": "./src/components/data-table/index.ts",
-      "import": "./dist/data-table.js",
-      "types": "./dist/data-table.d.ts"
-    },
-    "./date-picker": {},
-    "./dialog": {
-      "@ngrok/mantle/source": "./src/components/dialog/index.ts",
-      "import": "./dist/dialog.js",
-      "types": "./dist/dialog.d.ts"
-    },
-    "./dropdown-menu": {
-      "@ngrok/mantle/source": "./src/components/dropdown-menu/index.ts",
-      "import": "./dist/dropdown-menu.js",
-      "types": "./dist/dropdown-menu.d.ts"
-    },
-    "./flag": {
-      "@ngrok/mantle/source": "./src/components/flag/index.ts",
-      "import": "./dist/flag.js",
-      "types": "./dist/flag.d.ts"
-    },
-    "./hooks": {
-      "@ngrok/mantle/source": "./src/hooks/index.ts",
-      "import": "./dist/hooks.js",
-      "types": "./dist/hooks.d.ts"
-    },
-    "./hover-card": {
-      "@ngrok/mantle/source": "./src/components/hover-card/index.ts",
-      "import": "./dist/hover-card.js",
-      "types": "./dist/hover-card.d.ts"
-    },
-    "./icon": {
-      "@ngrok/mantle/source": "./src/components/icon/index.ts",
-      "import": "./dist/icon.js",
-      "types": "./dist/icon.d.ts"
-    },
-    "./icons": {
-      "@ngrok/mantle/source": "./src/components/icons/index.ts",
-      "import": "./dist/icons.js",
-      "types": "./dist/icons.d.ts"
-    },
-    "./input": {
-      "@ngrok/mantle/source": "./src/components/input/index.ts",
-      "import": "./dist/input.js",
-      "types": "./dist/input.d.ts"
-    },
-    "./kbd": {
-      "@ngrok/mantle/source": "./src/components/kbd/index.ts",
-      "import": "./dist/kbd.js",
-      "types": "./dist/kbd.d.ts"
-    },
-    "./label": {
-      "@ngrok/mantle/source": "./src/components/label/index.ts",
-      "import": "./dist/label.js",
-      "types": "./dist/label.d.ts"
-    },
-    "./media-object": {
-      "@ngrok/mantle/source": "./src/components/media-object/index.ts",
-      "import": "./dist/media-object.js",
-      "types": "./dist/media-object.d.ts"
-    },
-    "./pagination": {
-      "@ngrok/mantle/source": "./src/components/pagination/index.ts",
-      "import": "./dist/pagination.js",
-      "types": "./dist/pagination.d.ts"
-    },
-    "./popover": {
-      "@ngrok/mantle/source": "./src/components/popover/index.ts",
-      "import": "./dist/popover.js",
-      "types": "./dist/popover.d.ts"
-    },
-    "./progress": {
-      "@ngrok/mantle/source": "./src/components/progress/index.ts",
-      "import": "./dist/progress.js",
-      "types": "./dist/progress.d.ts"
-    },
-    "./radio-group": {
-      "@ngrok/mantle/source": "./src/components/radio-group/index.ts",
-      "import": "./dist/radio-group.js",
-      "types": "./dist/radio-group.d.ts"
-    },
-    "./sandboxed-on-click": {
-      "@ngrok/mantle/source": "./src/components/sandboxed-on-click/index.ts",
-      "import": "./dist/sandboxed-on-click.js",
-      "types": "./dist/sandboxed-on-click.d.ts"
-    },
-    "./select": {
-      "@ngrok/mantle/source": "./src/components/select/index.ts",
-      "import": "./dist/select.js",
-      "types": "./dist/select.d.ts"
-    },
-    "./separator": {
-      "@ngrok/mantle/source": "./src/components/separator/index.ts",
-      "import": "./dist/separator.js",
-      "types": "./dist/separator.d.ts"
-    },
-    "./sheet": {
-      "@ngrok/mantle/source": "./src/components/sheet/index.ts",
-      "import": "./dist/sheet.js",
-      "types": "./dist/sheet.d.ts"
-    },
-    "./skeleton": {
-      "@ngrok/mantle/source": "./src/components/skeleton/index.ts",
-      "import": "./dist/skeleton.js",
-      "types": "./dist/skeleton.d.ts"
-    },
-    "./slot": {
-      "@ngrok/mantle/source": "./src/components/slot/index.ts",
-      "import": "./dist/slot.js",
-      "types": "./dist/slot.d.ts"
-    },
-    "./switch": {
-      "@ngrok/mantle/source": "./src/components/switch/index.ts",
-      "import": "./dist/switch.js",
-      "types": "./dist/switch.d.ts"
-    },
-    "./table": {
-      "@ngrok/mantle/source": "./src/components/table/index.ts",
-      "import": "./dist/table.js",
-      "types": "./dist/table.d.ts"
-    },
-    "./tabs": {
-      "@ngrok/mantle/source": "./src/components/tabs/index.ts",
-      "import": "./dist/tabs.js",
-      "types": "./dist/tabs.d.ts"
-    },
-    "./text-area": {
-      "@ngrok/mantle/source": "./src/components/text-area/index.ts",
-      "import": "./dist/text-area.js",
-      "types": "./dist/text-area.d.ts"
-    },
-    "./theme": {
-      "@ngrok/mantle/source": "./src/components/theme/index.ts",
-      "import": "./dist/theme.js",
-      "types": "./dist/theme.d.ts"
-    },
-    "./toast": {
-      "@ngrok/mantle/source": "./src/components/toast/index.ts",
-      "import": "./dist/toast.js",
-      "types": "./dist/toast.d.ts"
-    },
-    "./tooltip": {
-      "@ngrok/mantle/source": "./src/components/tooltip/index.ts",
-      "import": "./dist/tooltip.js",
-      "types": "./dist/tooltip.d.ts"
-    },
-    "./types": {
-      "@ngrok/mantle/source": "./src/types/index.ts",
-      "import": "./dist/types.js",
-      "types": "./dist/types.d.ts"
-    },
-    "./utils/sorting": {
-      "@ngrok/mantle/source": "./src/utils/sorting/index.ts",
-      "import": "./dist/sorting.js",
-      "types": "./dist/sorting.d.ts"
-    }
+  "browserslist": [
+    "last 2 years, not dead, > 0.2%"
+  ],
+  "engines": {
+    "node": "^24.0.0"
   }
 }

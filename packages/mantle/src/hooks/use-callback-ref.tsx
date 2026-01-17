@@ -8,9 +8,7 @@ import { useEffect, useMemo, useRef } from "react";
  * memoized (have a stable identity) to a child component that will be updated
  * without causing the child component to re-render.
  */
-function useCallbackRef<T extends (...args: unknown[]) => unknown>(
-	callback: T | undefined,
-): T {
+function useCallbackRef<T extends (...args: unknown[]) => unknown>(callback: T | undefined): T {
 	const callbackRef = useRef(callback);
 
 	useEffect(() => {

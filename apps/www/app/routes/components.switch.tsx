@@ -30,30 +30,20 @@ export default function Page() {
 			<section className="space-y-4">
 				<PageHeader id="switch">Switch</PageHeader>
 				<p className="font-body text-body text-xl">
-					A control that allows the user to toggle between checked and not
-					checked.
+					A control that allows the user to toggle between checked and not checked.
 				</p>
 				<div>
 					<Example className="mt-4 grid place-items-center">
 						<div className="flex flex-col gap-6">
-							<Label
-								htmlFor="airplane-mode"
-								className="self-start inline-flex items-center gap-2"
-							>
+							<Label htmlFor="airplane-mode" className="self-start inline-flex items-center gap-2">
 								Airplane Mode
 								<Switch id="airplane-mode" />
 							</Label>
-							<Label
-								htmlFor="unchecked"
-								className="self-start inline-flex items-center gap-2"
-							>
+							<Label htmlFor="unchecked" className="self-start inline-flex items-center gap-2">
 								<Switch checked={false} id="unchecked" readOnly />
 								<p>Unchecked (readonly)</p>
 							</Label>
-							<Label
-								htmlFor="checked"
-								className="self-start inline-flex items-center gap-2"
-							>
+							<Label htmlFor="checked" className="self-start inline-flex items-center gap-2">
 								<Switch checked={true} id="checked" readOnly />
 								<p>Checked (readonly)</p>
 							</Label>
@@ -61,23 +51,14 @@ export default function Page() {
 								htmlFor="airplane-mode-disabled-unchecked"
 								className="self-start inline-flex items-center gap-2"
 							>
-								<Switch
-									disabled
-									id="airplane-mode-disabled-unchecked"
-									readOnly
-								/>
+								<Switch disabled id="airplane-mode-disabled-unchecked" readOnly />
 								<p>Airplane Mode Disabled Unchecked (readonly)</p>
 							</Label>
 							<Label
 								htmlFor="airplane-mode-disabled-checked"
 								className="self-start inline-flex items-center gap-2"
 							>
-								<Switch
-									checked
-									disabled
-									id="airplane-mode-disabled-checked"
-									readOnly
-								/>
+								<Switch checked disabled id="airplane-mode-disabled-checked" readOnly />
 								<p>Airplane Mode Disabled Checked (readonly)</p>
 							</Label>
 						</div>
@@ -117,15 +98,13 @@ export default function Page() {
 							</h3>
 						</HashLinkHeading>
 						<p className="font-body text-body">
-							In this example, the <Code>Switch</Code> is used in a form with
-							client-side validation. The form is built using{" "}
+							In this example, the <Code>Switch</Code> is used in a form with client-side
+							validation. The form is built using{" "}
 							<Code>
-								<Anchor href="https://tanstack.com/form/latest/docs">
-									@tanstack/react-form
-								</Anchor>
+								<Anchor href="https://tanstack.com/form/latest/docs">@tanstack/react-form</Anchor>
 							</Code>
-							and <Code>zod</Code> for validation. The form accepts and
-							validates the input before submission.
+							and <Code>zod</Code> for validation. The form accepts and validates the input before
+							submission.
 						</p>
 					</header>
 					<div>
@@ -251,10 +230,7 @@ export default function Page() {
 							<BooleanPropType value={false} />
 						</PropDefaultValueCell>
 						<PropDescriptionCell>
-							<p>
-								Makes the switch immutable, meaning the user can not edit the
-								control.
-							</p>
+							<p>Makes the switch immutable, meaning the user can not edit the control.</p>
 						</PropDescriptionCell>
 					</PropRow>
 				</PropsTable>
@@ -295,10 +271,7 @@ function FormExample() {
 			<div className="space-y-1">
 				<form.Field name="airplaneMode">
 					{(field) => (
-						<Label
-							htmlFor={field.name}
-							className="inline-flex items-center gap-2"
-						>
+						<Label htmlFor={field.name} className="inline-flex items-center gap-2">
 							Airplane Mode
 							<Switch
 								name={field.name}
@@ -313,10 +286,7 @@ function FormExample() {
 				<form.Field name="airplaneMode">
 					{(field) =>
 						field.state.meta.errors.map((error) => (
-							<p
-								key={error?.message}
-								className="text-sm leading-4 text-danger-600"
-							>
+							<p key={error?.message} className="text-sm leading-4 text-danger-600">
 								{error?.message}
 							</p>
 						))

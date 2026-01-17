@@ -79,9 +79,8 @@ export default function Page() {
 				<div>
 					<Example className="flex-col gap-4">
 						<p>
-							Each table row will trigger a <Code>window.alert()</Code> when
-							clicked. The icon button is wrapped in{" "}
-							<Code>SandboxedOnClick</Code> and navigates you to{" "}
+							Each table row will trigger a <Code>window.alert()</Code> when clicked. The icon
+							button is wrapped in <Code>SandboxedOnClick</Code> and navigates you to{" "}
 							<Anchor href="https://ngrok.com/docs">the ngrok docs.</Anchor>
 						</p>
 						<Table.Root>
@@ -105,21 +104,13 @@ export default function Page() {
 												window.alert(`Clicked on ${invoice.invoice}!`);
 											}}
 										>
-											<Table.Cell className="font-medium">
-												{invoice.invoice}
-											</Table.Cell>
+											<Table.Cell className="font-medium">{invoice.invoice}</Table.Cell>
 											<Table.Cell>{invoice.paymentStatus}</Table.Cell>
 											<Table.Cell>{invoice.paymentMethod}</Table.Cell>
-											<Table.Cell className="text-right">
-												{invoice.totalAmount}
-											</Table.Cell>
+											<Table.Cell className="text-right">{invoice.totalAmount}</Table.Cell>
 											<Table.Cell className="text-right">
 												<SandboxedOnClick allowClickEventDefault>
-													<IconButton
-														label="See ngrok docs"
-														icon={<BookIcon />}
-														asChild
-													>
+													<IconButton label="See ngrok docs" icon={<BookIcon />} asChild>
 														<a href="https://ngrok.com/docs" target="_blank" />
 													</IconButton>
 												</SandboxedOnClick>
@@ -234,14 +225,14 @@ export default function Page() {
 						</HashLinkHeading>
 
 						<p className="font-body text-body">
-							A container that prevents the click event from bubbling out of it.
-							Good to use when you want to provide some action buttons inside of
-							a table row or list item that navigates on click.
+							A container that prevents the click event from bubbling out of it. Good to use when
+							you want to provide some action buttons inside of a table row or list item that
+							navigates on click.
 						</p>
 
 						<p className="font-body text-body">
-							Good to use when you want to provide some action buttons inside of
-							a table row or list item that navigates on click.
+							Good to use when you want to provide some action buttons inside of a table row or list
+							item that navigates on click.
 						</p>
 
 						<p className="font-body text-body">
@@ -268,18 +259,17 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Only call <Code>event.preventDefault()</Code> in the{" "}
-									<Code>onClick</Code> handler if the user has not set{" "}
-									<Code>allowClickEventDefault</Code> to
+									Only call <Code>event.preventDefault()</Code> in the <Code>onClick</Code> handler
+									if the user has not set <Code>allowClickEventDefault</Code> to
 									<Code>true</Code>.
 								</p>
 								<p>
-									This allows the user to control whether or not the default
-									behavior of the click event should be allowed.
+									This allows the user to control whether or not the default behavior of the click
+									event should be allowed.
 								</p>
 								<p>
-									This is useful for links or buttons that should navigate or
-									perform some action on click.
+									This is useful for links or buttons that should navigate or perform some action on
+									click.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -293,9 +283,8 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Use the <Code>asChild</Code> prop to compose the{" "}
-									<Code>SandboxedOnClick</Code> functionality onto alternative
-									element types or your own React components.
+									Use the <Code>asChild</Code> prop to compose the <Code>SandboxedOnClick</Code>{" "}
+									functionality onto alternative element types or your own React components.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>

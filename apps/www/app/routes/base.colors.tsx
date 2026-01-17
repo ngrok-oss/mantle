@@ -34,17 +34,12 @@ export default function Page() {
 			<nav className="sticky top-6 hidden w-44 self-start lg:block">
 				{/* TODO(cody): make this have scroll aware navigation links instead */}
 				{/* TODO: this should be generated automatically */}
-				<h3 className="text-xs font-medium uppercase tracking-widest">
-					On this page
-				</h3>
+				<h3 className="text-xs font-medium uppercase tracking-widest">On this page</h3>
 				<ul className="text-muted mt-3 flex flex-col gap-2 text-sm">
 					<li>
 						<HashNavLink
 							className={(isActive) =>
-								cx(
-									"hover:text-strong hover:font-medium",
-									isActive && "text-accent-600 font-medium",
-								)
+								cx("hover:text-strong hover:font-medium", isActive && "text-accent-600 font-medium")
 							}
 							to=".#tailwind"
 						>
@@ -54,10 +49,7 @@ export default function Page() {
 					<li>
 						<HashNavLink
 							className={(isActive) =>
-								cx(
-									"hover:text-strong hover:font-medium",
-									isActive && "text-accent-600 font-medium",
-								)
+								cx("hover:text-strong hover:font-medium", isActive && "text-accent-600 font-medium")
 							}
 							to=".#variables"
 						>
@@ -67,10 +59,7 @@ export default function Page() {
 					<li>
 						<HashNavLink
 							className={(isActive) =>
-								cx(
-									"hover:text-strong hover:font-medium",
-									isActive && "text-accent-600 font-medium",
-								)
+								cx("hover:text-strong hover:font-medium", isActive && "text-accent-600 font-medium")
 							}
 							to=".#overrides"
 						>
@@ -80,10 +69,7 @@ export default function Page() {
 					<li>
 						<HashNavLink
 							className={(isActive) =>
-								cx(
-									"hover:text-strong hover:font-medium",
-									isActive && "text-accent-600 font-medium",
-								)
+								cx("hover:text-strong hover:font-medium", isActive && "text-accent-600 font-medium")
 							}
 							to=".#functional-colors"
 						>
@@ -160,10 +146,7 @@ export default function Page() {
 					<li>
 						<HashNavLink
 							className={(isActive) =>
-								cx(
-									"hover:text-strong hover:font-medium",
-									isActive && "text-accent-600 font-medium",
-								)
+								cx("hover:text-strong hover:font-medium", isActive && "text-accent-600 font-medium")
 							}
 							to=".#extended-palette"
 						>
@@ -412,53 +395,44 @@ export default function Page() {
 			<div className="flex-1">
 				<PageHeader id="colors">Colors</PageHeader>
 				<p className="font-body text-body mt-4 text-xl">
-					Colors are a key component of any design system. They are used to
-					convey meaning, attract attention, and provide feedback.
-					Mantle&rsquo;s color system is designed to be accessible and flexible
-					with dark and high contrast modes.
+					Colors are a key component of any design system. They are used to convey meaning, attract
+					attention, and provide feedback. Mantle&rsquo;s color system is designed to be accessible
+					and flexible with dark and high contrast modes.
 				</p>
 
 				<HashLinkHeading id="tailwind" className="mt-8 text-3xl font-medium">
 					<h2>Tailwind</h2>
 				</HashLinkHeading>
 				<p className="font-body text-body mt-3">
-					Mantle uses Tailwind under the hood for all its CSS styling. However,
-					we differ from Tailwind when it comes to colors. Mantle provides a
-					full color library that automatically provides a dark and high
-					contrast modes. This is different from standard Tailwind usage that{" "}
-					<em>requires</em> dark class variations. By simply specifying light
-					colors provided by Mantle, you&rsquo;ll get dark and high contrast
-					modes for free. If you require additional customization, you can
-					provide dark variant classes as an override.
+					Mantle uses Tailwind under the hood for all its CSS styling. However, we differ from
+					Tailwind when it comes to colors. Mantle provides a full color library that automatically
+					provides a dark and high contrast modes. This is different from standard Tailwind usage
+					that <em>requires</em> dark class variations. By simply specifying light colors provided
+					by Mantle, you&rsquo;ll get dark and high contrast modes for free. If you require
+					additional customization, you can provide dark variant classes as an override.
 				</p>
 
 				<HashLinkHeading id="variables" className="mt-8 text-3xl font-medium">
 					<h2>Variables</h2>
 				</HashLinkHeading>
 				<p className="font-body text-body mt-3">
-					Mantle&rsquo;s colors are delivered as CSS variables via
-					Tailwind&rsquo;s API eg. <Code>.text-blue-500</Code>. They can be
-					directly accessed via <Code>var(--color-blue-500)</Code> and use{" "}
-					<Code>oklch()</Code> color space.
+					Mantle&rsquo;s colors are delivered as CSS variables via Tailwind&rsquo;s API eg.{" "}
+					<Code>.text-blue-500</Code>. They can be directly accessed via{" "}
+					<Code>var(--color-blue-500)</Code> and use <Code>oklch()</Code> color space.
 				</p>
 
-				<HashLinkHeading
-					id="black-and-white"
-					className="mt-8 text-3xl font-medium"
-				>
+				<HashLinkHeading id="black-and-white" className="mt-8 text-3xl font-medium">
 					<h2>Black and White Color Variables</h2>
 				</HashLinkHeading>
 				<p className="font-body text-body mt-3 mb-2">
-					Mantle overrides what "black" and "white" mean depending on the theme.
-					We transformed these colors to be semantic colors instead of literal
-					colors. For dark modes, we swap them so that white is actually black
-					and vice versa. Pay attention to the example below when swapping
-					between our themes!
+					Mantle overrides what "black" and "white" mean depending on the theme. We transformed
+					these colors to be semantic colors instead of literal colors. For dark modes, we swap them
+					so that white is actually black and vice versa. Pay attention to the example below when
+					swapping between our themes!
 				</p>
 				<div className="bg-white flex flex-col items-center justify-center p-6 border border-card rounded text-black gap-2">
 					<p>
-						This renders <Code>bg-white</Code> and color <Code>text-black</Code>
-						.
+						This renders <Code>bg-white</Code> and color <Code>text-black</Code>.
 					</p>
 					<p>
 						The current applied theme is <Code>{appliedTheme}</Code>
@@ -469,28 +443,20 @@ export default function Page() {
 					<h2>Overrides</h2>
 				</HashLinkHeading>
 				<p className="font-body text-body mt-3">
-					Most colors should appropriately swap for sensible values in dark and
-					high contrast modes. However, there are often cases where you&rsquo;ll
-					need to specify an override. The <Code>dark:</Code> variant is
-					well-documented on{" "}
-					<Anchor href="https://tailwindcss.com/docs/dark-mode">
-						Tailwind&rsquo;s website
-					</Anchor>
-					. Mantle provides additional variants for high contrast and dark high
-					contrast mode with <Code>high-contrast:</Code> and{" "}
-					<Code>dark-high-contrast:</Code> respectively.
+					Most colors should appropriately swap for sensible values in dark and high contrast modes.
+					However, there are often cases where you&rsquo;ll need to specify an override. The{" "}
+					<Code>dark:</Code> variant is well-documented on{" "}
+					<Anchor href="https://tailwindcss.com/docs/dark-mode">Tailwind&rsquo;s website</Anchor>.
+					Mantle provides additional variants for high contrast and dark high contrast mode with{" "}
+					<Code>high-contrast:</Code> and <Code>dark-high-contrast:</Code> respectively.
 				</p>
 
-				<HashLinkHeading
-					id="functional-colors"
-					className="mt-8 text-3xl font-medium"
-				>
+				<HashLinkHeading id="functional-colors" className="mt-8 text-3xl font-medium">
 					<h2>Functional Colors</h2>
 				</HashLinkHeading>
 				<p className="font-body text-body mt-3">
-					Mantle generally limits its color choices to the following functional
-					colors for primary actions, and various states like danger and
-					warnings.
+					Mantle generally limits its color choices to the following functional colors for primary
+					actions, and various states like danger and warnings.
 				</p>
 
 				<HashLinkHeading id="neutral" className="mt-8 text-xl font-medium">
@@ -593,10 +559,7 @@ export default function Page() {
 					</div>
 				</div>
 
-				<HashLinkHeading
-					id="success"
-					className="mt-8 flex items-center gap-2 text-xl font-medium"
-				>
+				<HashLinkHeading id="success" className="mt-8 flex items-center gap-2 text-xl font-medium">
 					<h3>Success</h3>
 				</HashLinkHeading>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
@@ -746,19 +709,15 @@ export default function Page() {
 					</div>
 				</div>
 
-				<HashLinkHeading
-					id="extended-palette"
-					className="mt-16 text-3xl font-medium"
-				>
+				<HashLinkHeading id="extended-palette" className="mt-16 text-3xl font-medium">
 					<h2>Extended Palette</h2>
 				</HashLinkHeading>
 				<p className="font-body text-body mt-3">
-					Mantle also supports the entirety of Tailwind&rsquo;s color palette in
-					light, dark, and high contrast variants. These are to be used when
-					there is no functional meaning behind the color choice. However,
-					we&rsquo;ve left out the extended collection of Tailwind&rsquo;s grays
-					eg. slate, zinc, etc. since we only want to use our own custom branded
-					gray.
+					Mantle also supports the entirety of Tailwind&rsquo;s color palette in light, dark, and
+					high contrast variants. These are to be used when there is no functional meaning behind
+					the color choice. However, we&rsquo;ve left out the extended collection of
+					Tailwind&rsquo;s grays eg. slate, zinc, etc. since we only want to use our own custom
+					branded gray.
 				</p>
 				<HashLinkHeading id="gray" className="mt-8 text-xl font-medium">
 					<h3>Gray</h3>
@@ -1054,10 +1013,7 @@ export default function Page() {
 						50
 					</div>
 				</div>
-				<HashLinkHeading
-					id="green"
-					className="mt-8 flex items-center gap-2 text-xl font-medium"
-				>
+				<HashLinkHeading id="green" className="mt-8 flex items-center gap-2 text-xl font-medium">
 					<h3>Green</h3>
 				</HashLinkHeading>
 				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">

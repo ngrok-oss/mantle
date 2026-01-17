@@ -169,10 +169,7 @@ function useOffsetPagination({
  * // Returns: ['a', 'b'] for page 1, ['c', 'd'] for page 2, etc.
  * ```
  */
-function getOffsetPaginatedSlice<T>(
-	list: readonly T[],
-	pagination: OffsetPaginationState,
-): T[] {
+function getOffsetPaginatedSlice<T>(list: readonly T[], pagination: OffsetPaginationState): T[] {
 	return list.slice(pagination.offset, pagination.offset + pagination.pageSize);
 }
 

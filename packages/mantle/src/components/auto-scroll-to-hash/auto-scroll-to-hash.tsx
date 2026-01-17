@@ -1,10 +1,4 @@
-import {
-	type PropsWithChildren,
-	createContext,
-	useCallback,
-	useContext,
-	useRef,
-} from "react";
+import { type PropsWithChildren, createContext, useCallback, useContext, useRef } from "react";
 import { useLocation } from "react-router";
 import invariant from "tiny-invariant";
 import { useIsomorphicLayoutEffect } from "../../hooks/use-isomorphic-layout-effect.js";

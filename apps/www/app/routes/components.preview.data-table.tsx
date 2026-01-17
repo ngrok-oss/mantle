@@ -33,11 +33,9 @@ export default function Page() {
 					Data Table
 				</PageHeader>
 				<p className="font-body text-body text-xl">
-					Tables purposefully designed for dynamic, application data with
-					features like sorting, filtering, and pagination. Powered by{" "}
-					<Anchor href="https://tanstack.com/table/latest/docs/introduction">
-						TanStack Table
-					</Anchor>
+					Tables purposefully designed for dynamic, application data with features like sorting,
+					filtering, and pagination. Powered by{" "}
+					<Anchor href="https://tanstack.com/table/latest/docs/introduction">TanStack Table</Anchor>
 					.
 				</p>
 				<div>
@@ -286,17 +284,12 @@ const columns = [
 		id: "id",
 		header: (props) => (
 			<DataTable.Header>
-				<DataTable.HeaderSortButton
-					column={props.column}
-					sortingMode="alphanumeric"
-				>
+				<DataTable.HeaderSortButton column={props.column} sortingMode="alphanumeric">
 					ID
 				</DataTable.HeaderSortButton>
 			</DataTable.Header>
 		),
-		cell: (props) => (
-			<DataTable.Cell key={props.cell.id}>{props.getValue()}</DataTable.Cell>
-		),
+		cell: (props) => <DataTable.Cell key={props.cell.id}>{props.getValue()}</DataTable.Cell>,
 	}),
 	columnHelper.accessor("amount", {
 		id: "amount",
@@ -322,33 +315,23 @@ const columns = [
 		id: "status",
 		header: (props) => (
 			<DataTable.Header>
-				<DataTable.HeaderSortButton
-					column={props.column}
-					sortingMode="alphanumeric"
-				>
+				<DataTable.HeaderSortButton column={props.column} sortingMode="alphanumeric">
 					Status
 				</DataTable.HeaderSortButton>
 			</DataTable.Header>
 		),
-		cell: (props) => (
-			<DataTable.Cell key={props.cell.id}>{props.getValue()}</DataTable.Cell>
-		),
+		cell: (props) => <DataTable.Cell key={props.cell.id}>{props.getValue()}</DataTable.Cell>,
 	}),
 	columnHelper.accessor("email", {
 		id: "email",
 		header: (props) => (
 			<DataTable.Header>
-				<DataTable.HeaderSortButton
-					column={props.column}
-					sortingMode="alphanumeric"
-				>
+				<DataTable.HeaderSortButton column={props.column} sortingMode="alphanumeric">
 					Email
 				</DataTable.HeaderSortButton>
 			</DataTable.Header>
 		),
-		cell: (props) => (
-			<DataTable.Cell key={props.cell.id}>{props.getValue()}</DataTable.Cell>
-		),
+		cell: (props) => <DataTable.Cell key={props.cell.id}>{props.getValue()}</DataTable.Cell>,
 	}),
 	columnHelper.display({
 		id: "actions",
@@ -423,9 +406,7 @@ function EmptyPaymentsExample() {
 					))
 				) : (
 					<DataTable.EmptyRow>
-						<p className="flex items-center justify-center min-h-20">
-							No results.
-						</p>
+						<p className="flex items-center justify-center min-h-20">No results.</p>
 					</DataTable.EmptyRow>
 				)}
 			</DataTable.Body>
@@ -475,9 +456,7 @@ function PaymentsExample() {
 					))
 				) : (
 					<DataTable.EmptyRow>
-						<p className="flex items-center justify-center min-h-20">
-							No results.
-						</p>
+						<p className="flex items-center justify-center min-h-20">No results.</p>
 					</DataTable.EmptyRow>
 				)}
 			</DataTable.Body>
