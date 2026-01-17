@@ -1,0 +1,12 @@
+.cache
+.changeset
+.env
+.react-router/
+.turbo
+.vercel
+build
+bun.lockb
+dist
+node_modules
+public
+pnpm-lock.yaml

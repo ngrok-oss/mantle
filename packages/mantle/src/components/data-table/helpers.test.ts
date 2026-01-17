@@ -41,28 +41,16 @@ describe("getNextSortDirection", () => {
 		let currentSortDirection: SortDirection = "unsorted";
 		const sortingMode: SortingMode = "alphanumeric";
 
-		currentSortDirection = getNextSortDirection(
-			currentSortDirection,
-			sortingMode,
-		);
+		currentSortDirection = getNextSortDirection(currentSortDirection, sortingMode);
 		expect(currentSortDirection).toBe("asc");
 
-		currentSortDirection = getNextSortDirection(
-			currentSortDirection,
-			sortingMode,
-		);
+		currentSortDirection = getNextSortDirection(currentSortDirection, sortingMode);
 		expect(currentSortDirection).toBe("desc");
 
-		currentSortDirection = getNextSortDirection(
-			currentSortDirection,
-			sortingMode,
-		);
+		currentSortDirection = getNextSortDirection(currentSortDirection, sortingMode);
 		expect(currentSortDirection).toBe("unsorted");
 
-		currentSortDirection = getNextSortDirection(
-			currentSortDirection,
-			sortingMode,
-		);
+		currentSortDirection = getNextSortDirection(currentSortDirection, sortingMode);
 		expect(currentSortDirection).toBe("asc");
 	});
 
@@ -70,28 +58,16 @@ describe("getNextSortDirection", () => {
 		let currentSortDirection: SortDirection = "unsorted";
 		const sortingMode: SortingMode = "time";
 
-		currentSortDirection = getNextSortDirection(
-			currentSortDirection,
-			sortingMode,
-		);
+		currentSortDirection = getNextSortDirection(currentSortDirection, sortingMode);
 		expect(currentSortDirection).toBe("desc");
 
-		currentSortDirection = getNextSortDirection(
-			currentSortDirection,
-			sortingMode,
-		);
+		currentSortDirection = getNextSortDirection(currentSortDirection, sortingMode);
 		expect(currentSortDirection).toBe("asc");
 
-		currentSortDirection = getNextSortDirection(
-			currentSortDirection,
-			sortingMode,
-		);
+		currentSortDirection = getNextSortDirection(currentSortDirection, sortingMode);
 		expect(currentSortDirection).toBe("unsorted");
 
-		currentSortDirection = getNextSortDirection(
-			currentSortDirection,
-			sortingMode,
-		);
+		currentSortDirection = getNextSortDirection(currentSortDirection, sortingMode);
 		expect(currentSortDirection).toBe("desc");
 	});
 });

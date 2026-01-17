@@ -37,8 +37,5 @@ type ScrollBehavior = "auto" | "smooth";
 export function useScrollBehavior(): ScrollBehavior {
 	const prefersReducedMotion = usePrefersReducedMotion();
 
-	return useMemo(
-		() => (prefersReducedMotion ? "auto" : "smooth"),
-		[prefersReducedMotion],
-	);
+	return useMemo(() => (prefersReducedMotion ? "auto" : "smooth"), [prefersReducedMotion]);
 }

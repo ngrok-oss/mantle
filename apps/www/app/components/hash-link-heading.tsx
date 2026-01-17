@@ -3,19 +3,11 @@ import { useIsHydrated } from "@ngrok/mantle/hooks";
 import { Icon } from "@ngrok/mantle/icon";
 import { Slot } from "@ngrok/mantle/slot";
 import { LinkIcon } from "@phosphor-icons/react/Link";
-import {
-	Children,
-	type ComponentProps,
-	cloneElement,
-	isValidElement,
-} from "react";
+import { Children, type ComponentProps, cloneElement, isValidElement } from "react";
 import { Link, useLocation } from "react-router";
 import invariant from "tiny-invariant";
 
-type Props = Omit<
-	ComponentProps<"h1" | "h2" | "h3" | "h4" | "h5" | "h6">,
-	"id"
-> & {
+type Props = Omit<ComponentProps<"h1" | "h2" | "h3" | "h4" | "h5" | "h6">, "id"> & {
 	/**
 	 * Required. Used both as the heading’s DOM id and as the anchor target
 	 */

@@ -14,8 +14,7 @@ function relativeWwwPath(...parts: string[]) {
  * Resolve a path to <root> directory.
  * @example `<root>/...parts`
  */
-const repoRootPath = (...parts: string[]) =>
-	relativeWwwPath("..", "..", ...parts);
+const repoRootPath = (...parts: string[]) => relativeWwwPath("..", "..", ...parts);
 
 /**
  * Resolve a path to <root>/packages directory.
@@ -27,15 +26,13 @@ const packagesPath = (...parts: string[]) => repoRootPath("packages", ...parts);
  * Resolve a path to <root>/packages/mantle directory.
  * @example `<root>/packages/mantle/...parts`
  */
-const mantlePackagePath = (...parts: string[]) =>
-	packagesPath("mantle", ...parts);
+const mantlePackagePath = (...parts: string[]) => packagesPath("mantle", ...parts);
 
 /**
  * Resolve a path to mantle package src directory.
  * @example `<root>/packages/mantle/src/...parts`
  */
-const mantleSrcPath = (...parts: string[]) =>
-	mantlePackagePath("src", ...parts);
+const mantleSrcPath = (...parts: string[]) => mantlePackagePath("src", ...parts);
 
 export {
 	//,

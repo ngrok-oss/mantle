@@ -1,10 +1,7 @@
 /**
  * Clamp a value between a minimum and maximum value.
  */
-function clamp(
-	value: number,
-	{ min, max }: { min: number; max: number },
-): number {
+function clamp(value: number, { min, max }: { min: number; max: number }): number {
 	return Math.min(max, Math.max(min, value));
 }
 

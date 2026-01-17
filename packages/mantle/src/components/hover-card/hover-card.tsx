@@ -30,11 +30,7 @@ const Root = ({
 	openDelay = 100,
 	...props
 }: ComponentPropsWithoutRef<typeof HoverCardPrimitive.Root>) => (
-	<HoverCardPrimitive.Root
-		closeDelay={closeDelay}
-		openDelay={openDelay}
-		{...props}
-	/>
+	<HoverCardPrimitive.Root closeDelay={closeDelay} openDelay={openDelay} {...props} />
 );
 Root.displayName = "HoverCard";
 

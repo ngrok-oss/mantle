@@ -32,8 +32,8 @@ export default function Page() {
 			<section className="space-y-4">
 				<PageHeader id="checkbox">Checkbox</PageHeader>
 				<p className="font-body text-body text-xl">
-					A form control that allows the user to toggle between checked and not
-					checked. Supports indeterminate state.
+					A form control that allows the user to toggle between checked and not checked. Supports
+					indeterminate state.
 				</p>
 				<div>
 					<Example>
@@ -43,22 +43,14 @@ export default function Page() {
 								Accept terms and conditions
 							</Label>
 							<Label htmlFor="unchecked" className="flex items-center gap-2">
-								<Checkbox
-									id="unchecked"
-									name="unchecked"
-									checked={false}
-									readOnly
-								/>
+								<Checkbox id="unchecked" name="unchecked" checked={false} readOnly />
 								Unchecked (static)
 							</Label>
 							<Label htmlFor="checked" className="flex items-center gap-2">
 								<Checkbox id="checked" name="checked" checked readOnly />
 								Checked (static)
 							</Label>
-							<Label
-								htmlFor="indeterminate"
-								className="flex items-center gap-2"
-							>
+							<Label htmlFor="indeterminate" className="flex items-center gap-2">
 								<Checkbox
 									id="indeterminate"
 									name="indeterminate"
@@ -67,36 +59,15 @@ export default function Page() {
 								/>
 								Indeterminate (static)
 							</Label>
-							<Label
-								htmlFor="disabled-unchecked"
-								className="flex items-center gap-2"
-							>
-								<Checkbox
-									disabled
-									id="unchecked"
-									name="unchecked"
-									checked={false}
-									readOnly
-								/>
+							<Label htmlFor="disabled-unchecked" className="flex items-center gap-2">
+								<Checkbox disabled id="unchecked" name="unchecked" checked={false} readOnly />
 								<span className="opacity-50">Disabled Unchecked (static)</span>
 							</Label>
-							<Label
-								htmlFor="disabled-checked"
-								className="flex items-center gap-2"
-							>
-								<Checkbox
-									disabled
-									id="checked"
-									name="checked"
-									checked
-									readOnly
-								/>
+							<Label htmlFor="disabled-checked" className="flex items-center gap-2">
+								<Checkbox disabled id="checked" name="checked" checked readOnly />
 								<span className="opacity-50">Disabled Checked (static)</span>
 							</Label>
-							<Label
-								htmlFor="disabled-indeterminate"
-								className="flex items-center gap-2"
-							>
+							<Label htmlFor="disabled-indeterminate" className="flex items-center gap-2">
 								<Checkbox
 									disabled
 									id="indeterminate"
@@ -104,9 +75,7 @@ export default function Page() {
 									defaultChecked="indeterminate"
 									readOnly
 								/>
-								<span className="opacity-50">
-									Disabled Indeterminate (static)
-								</span>
+								<span className="opacity-50">Disabled Indeterminate (static)</span>
 							</Label>
 						</div>
 					</Example>
@@ -157,15 +126,13 @@ export default function Page() {
 							</h3>
 						</HashLinkHeading>
 						<p className="font-body text-body">
-							In this example, the <Code>Checkbox</Code> is used in a form with
-							client-side validation. The form is built using{" "}
+							In this example, the <Code>Checkbox</Code> is used in a form with client-side
+							validation. The form is built using{" "}
 							<Code>
-								<Anchor href="https://tanstack.com/form/latest/docs">
-									@tanstack/react-form
-								</Anchor>
+								<Anchor href="https://tanstack.com/form/latest/docs">@tanstack/react-form</Anchor>
 							</Code>
-							and <Code>zod</Code> for validation. The form accepts and
-							validates the input before submission.
+							and <Code>zod</Code> for validation. The form accepts and validates the input before
+							submission.
 						</p>
 					</header>
 					<div>
@@ -271,8 +238,7 @@ export default function Page() {
 					<h2 className="text-3xl font-medium">API Reference</h2>
 				</HashLinkHeading>
 				<p className="font-body text-body text-xl">
-					The <Code>Checkbox</Code> accepts the following props in addition to
-					the{" "}
+					The <Code>Checkbox</Code> accepts the following props in addition to the{" "}
 					<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox">
 						standard HTML checkbox input attributes
 					</Anchor>
@@ -294,10 +260,9 @@ export default function Page() {
 						<PropDefaultValueCell />
 						<PropDescriptionCell>
 							<p>
-								Whether the checkbox is checked or not. Setting this to{" "}
-								<Code>indeterminate</Code> will show the indeterminate state.
-								This is useful for when the checkbox is in a parent-child
-								relationship, but this requires manual, controlled state.
+								Whether the checkbox is checked or not. Setting this to <Code>indeterminate</Code>{" "}
+								will show the indeterminate state. This is useful for when the checkbox is in a
+								parent-child relationship, but this requires manual, controlled state.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>
@@ -316,8 +281,8 @@ export default function Page() {
 						<PropDefaultValueCell />
 						<PropDescriptionCell>
 							<p>
-								The checked state of the checkbox when it is initially rendered.
-								Use when you do not need to control its checked state.
+								The checked state of the checkbox when it is initially rendered. Use when you do not
+								need to control its checked state.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>
@@ -338,23 +303,19 @@ export default function Page() {
 									<BooleanPropType value={false} />
 								</li>
 								<li>
-									<FuncPropType
-										value={`() => "error" | "success" | "warning" | false`}
-									/>
+									<FuncPropType value={`() => "error" | "success" | "warning" | false`} />
 								</li>
 							</ul>
 						</PropTypeCell>
 						<PropDefaultValueCell />
 						<PropDescriptionCell className="space-y-2">
 							<p>
-								Use the <Code>validation</Code> prop to show if the checkbox has
-								a specific validation status. This will change the border and
-								outline of the checkbox.
+								Use the <Code>validation</Code> prop to show if the checkbox has a specific
+								validation status. This will change the border and outline of the checkbox.
 							</p>
 							<p>
-								The <Code>false</Code> type is useful when using
-								short-circuiting logic so that you don't need to use a ternary
-								with <Code>undefined</Code>.
+								The <Code>false</Code> type is useful when using short-circuiting logic so that you
+								don't need to use a ternary with <Code>undefined</Code>.
 							</p>
 							<p>
 								Setting <Code>validation</Code> to <Code>error</Code> also sets{" "}
@@ -418,10 +379,7 @@ function FormExample() {
 				<form.Field name="acceptedTermsAndConditions">
 					{(field) =>
 						field.state.meta.errors.map((error) => (
-							<p
-								key={error?.message}
-								className="text-sm leading-4 text-danger-600"
-							>
+							<p key={error?.message} className="text-sm leading-4 text-danger-600">
 								{error?.message}
 							</p>
 						))

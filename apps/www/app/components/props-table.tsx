@@ -37,12 +37,7 @@ type PropNameCellProps = WithStyleProps & {
 	optional?: boolean;
 };
 
-export const PropNameCell = ({
-	className,
-	name,
-	optional,
-	style,
-}: PropNameCellProps) => (
+export const PropNameCell = ({ className, name, optional, style }: PropNameCellProps) => (
 	<Table.Cell className={cx("align-top", className)} style={style}>
 		<div className="flex items-start">
 			<span className="token attr-name">{name}</span>
@@ -59,11 +54,7 @@ export const PropNameCell = ({
 );
 
 type PropTypeCellProps = WithStyleProps & PropsWithChildren;
-export const PropTypeCell = ({
-	children,
-	className,
-	style,
-}: PropTypeCellProps) => (
+export const PropTypeCell = ({ children, className, style }: PropTypeCellProps) => (
 	<Table.Cell className={cx("align-top", className)} style={style}>
 		{children}
 	</Table.Cell>
@@ -81,11 +72,7 @@ export const PropDefaultValueCell = ({
 );
 
 type PropDescriptionCellProps = WithStyleProps & PropsWithChildren;
-export const PropDescriptionCell = ({
-	children,
-	className,
-	style,
-}: PropDescriptionCellProps) => (
+export const PropDescriptionCell = ({ children, className, style }: PropDescriptionCellProps) => (
 	<Table.Cell className={cx("align-top", className)} style={style}>
 		{children}
 	</Table.Cell>
@@ -94,12 +81,8 @@ export const PropDescriptionCell = ({
 export const ObjectPropType = ({ name }: { name: string }) => (
 	<span className="text-red-600">{name}</span>
 );
-export const ReactNodePropType = () => (
-	<span className="text-red-600">ReactNode</span>
-);
-export const BooleanPropType = ({
-	value,
-}: { value?: true | false | undefined }) => (
+export const ReactNodePropType = () => <span className="text-red-600">ReactNode</span>;
+export const BooleanPropType = ({ value }: { value?: true | false | undefined }) => (
 	<span className="text-purple-600">
 		{typeof value === "undefined" ? "boolean" : String(value)}
 	</span>
@@ -121,11 +104,7 @@ export const FuncPropType = ({ value }: { value: string }) => {
 	useEffect(() => {
 		const grammar = Prism.languages.typescript;
 		assert(grammar, "Couldn't load Prism grammar for typescript!");
-		const newHighlightedCodeInnerHtml = Prism.highlight(
-			normalizedCode,
-			grammar,
-			"typescript",
-		);
+		const newHighlightedCodeInnerHtml = Prism.highlight(normalizedCode, grammar, "typescript");
 		setHighlightedCodeInnerHtml(newHighlightedCodeInnerHtml);
 	}, [normalizedCode]);
 
@@ -142,10 +121,6 @@ export const FuncPropType = ({ value }: { value: string }) => {
 		</pre>
 	);
 };
-export const UndefinedPropType = () => (
-	<span className="italic text-amber-600">undefined</span>
-);
+export const UndefinedPropType = () => <span className="italic text-amber-600">undefined</span>;
 
-export const NullPropType = () => (
-	<span className="italic text-amber-600">null</span>
-);
+export const NullPropType = () => <span className="italic text-amber-600">null</span>;

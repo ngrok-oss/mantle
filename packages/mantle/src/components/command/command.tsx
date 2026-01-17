@@ -3,11 +3,7 @@
 import { MagnifyingGlassIcon } from "@phosphor-icons/react/MagnifyingGlass";
 import { Command as CommandPrimitive, useCommandState } from "cmdk";
 
-import {
-	type ComponentPropsWithoutRef,
-	type ComponentRef,
-	forwardRef,
-} from "react";
+import { type ComponentPropsWithoutRef, type ComponentRef, forwardRef } from "react";
 import { cx } from "../../utils/cx/cx.js";
 import { Dialog } from "../dialog/dialog.js";
 
@@ -43,10 +39,7 @@ const CommandRoot = forwardRef<ComponentRef<"div">, CommandRootProps>(
 		<CommandPrimitive
 			ref={ref}
 			data-slot="command"
-			className={cx(
-				"bg-popover flex h-full w-full flex-col overflow-hidden rounded-md",
-				className,
-			)}
+			className={cx("bg-popover flex h-full w-full flex-col overflow-hidden rounded-md", className)}
 			{...props}
 		/>
 	),
@@ -227,10 +220,7 @@ const CommandList = forwardRef<
 	<CommandPrimitive.List
 		ref={ref}
 		data-slot="command-list"
-		className={cx(
-			"max-h-[300px] scroll-py-1 overflow-x-hidden overflow-y-auto scrollbar",
-			className,
-		)}
+		className={cx("max-h-75 scroll-py-1 overflow-x-hidden overflow-y-auto scrollbar", className)}
 		{...props}
 	/>
 ));
@@ -268,7 +258,7 @@ const CommandEmpty = forwardRef<
 	<CommandPrimitive.Empty
 		ref={ref}
 		data-slot="command-empty"
-		className="py-6 text-center text-sm"
+		className={cx("py-6 text-center text-sm", className)}
 		{...props}
 	/>
 ));
@@ -423,17 +413,16 @@ CommandItem.displayName = "CommandItem";
  *   </Command.List>
  * </Command.Dialog>
  */
-const CommandShortcut = forwardRef<
-	ComponentRef<"span">,
-	ComponentPropsWithoutRef<"span">
->(({ className, ...props }, ref) => (
-	<span
-		ref={ref}
-		data-slot="command-shortcut"
-		className={cx("text-muted ml-auto text-xs tracking-widest", className)}
-		{...props}
-	/>
-));
+const CommandShortcut = forwardRef<ComponentRef<"span">, ComponentPropsWithoutRef<"span">>(
+	({ className, ...props }, ref) => (
+		<span
+			ref={ref}
+			data-slot="command-shortcut"
+			className={cx("text-muted ml-auto text-xs tracking-widest", className)}
+			{...props}
+		/>
+	),
+);
 CommandShortcut.displayName = "CommandShortcut";
 
 /**

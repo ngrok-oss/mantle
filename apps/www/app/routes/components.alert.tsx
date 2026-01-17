@@ -29,9 +29,7 @@ export default function Page() {
 		<div className="space-y-16">
 			<section className="space-y-4">
 				<PageHeader id="alert">Alert</PageHeader>
-				<p className="font-body text-body text-xl">
-					Displays a callout for user attention.
-				</p>
+				<p className="font-body text-body text-xl">Displays a callout for user attention.</p>
 				<div>
 					<Example className="flex-col gap-2">
 						<Alert.Root priority="danger">
@@ -144,15 +142,14 @@ export default function Page() {
 						</HashLinkHeading>
 					</header>
 					<p className="font-body text-body">
-						You can mix and match what you put inside the <Code>Alert</Code>{" "}
-						component to create different types of Alert layouts.
+						You can mix and match what you put inside the <Code>Alert</Code> component to create
+						different types of Alert layouts.
 					</p>
 					<div>
 						<Example className="flex-col gap-4">
 							<div className="w-full max-w-screen-sm space-y-2">
 								<p>
-									Danger <Code>Alert</Code> with icon and{" "}
-									<Code>AlertDismissIconButton</Code>
+									Danger <Code>Alert</Code> with icon and <Code>AlertDismissIconButton</Code>
 								</p>
 								<Alert.Root priority="danger">
 									<Alert.Icon />
@@ -160,8 +157,8 @@ export default function Page() {
 										<Alert.Title>Danger Will Robinson</Alert.Title>
 										<Alert.DismissIconButton />
 										<Alert.Description>
-											Cupidatat ullamco commodo laborum consectetur ut mollit et
-											nostrud amet elit ut Lorem culpa.
+											Cupidatat ullamco commodo laborum consectetur ut mollit et nostrud amet elit
+											ut Lorem culpa.
 										</Alert.Description>
 									</Alert.Content>
 								</Alert.Root>
@@ -174,8 +171,8 @@ export default function Page() {
 									<Alert.Content>
 										<Alert.Title>Danger Will Robinson</Alert.Title>
 										<Alert.Description>
-											Cupidatat ullamco commodo laborum consectetur ut mollit et
-											nostrud amet elit ut Lorem culpa.
+											Cupidatat ullamco commodo laborum consectetur ut mollit et nostrud amet elit
+											ut Lorem culpa.
 										</Alert.Description>
 									</Alert.Content>
 								</Alert.Root>
@@ -193,8 +190,8 @@ export default function Page() {
 							</div>
 							<div className="w-full max-w-screen-sm space-y-2">
 								<p>
-									Danger <Code>Alert</Code> without icon or description, but
-									including <Code>AlertDismissIconButton</Code>.
+									Danger <Code>Alert</Code> without icon or description, but including{" "}
+									<Code>AlertDismissIconButton</Code>.
 								</p>
 								<Alert.Root priority="danger">
 									<Alert.Content>
@@ -260,9 +257,8 @@ export default function Page() {
 					</header>
 
 					<p className="font-body text-body">
-						For banner-like alerts, use the <Code>appearance="banner"</Code>{" "}
-						prop. This automatically removes the top, left, and right borders,
-						leaving only the bottom border.
+						For banner-like alerts, use the <Code>appearance="banner"</Code> prop. This
+						automatically removes the top, left, and right borders, leaving only the bottom border.
 					</p>
 					<div>
 						<Example>
@@ -270,9 +266,7 @@ export default function Page() {
 								<Alert.Root priority="info" appearance="banner">
 									<Alert.Icon />
 									<Alert.Content>
-										<Alert.Title>
-											This is an info Alert as a page banner
-										</Alert.Title>
+										<Alert.Title>This is an info Alert as a page banner</Alert.Title>
 									</Alert.Content>
 								</Alert.Root>
 								<div className="px-4">
@@ -314,8 +308,8 @@ export default function Page() {
 						<h2 className="text-3xl font-medium text-strong">API Reference</h2>
 					</HashLinkHeading>
 					<p className="font-body text-body text-xl">
-						The <Code>Alert</Code> displays a callout for user attention and is
-						composed of several sub-components.
+						The <Code>Alert</Code> displays a callout for user attention and is composed of several
+						sub-components.
 					</p>
 				</header>
 
@@ -326,8 +320,8 @@ export default function Page() {
 						</HashLinkHeading>
 
 						<p className="font-body text-body">
-							Displays a callout for user attention. Root container for all{" "}
-							<Code>Alert</Code> sub-components.
+							Displays a callout for user attention. Root container for all <Code>Alert</Code>{" "}
+							sub-components.
 						</p>
 
 						<p>
@@ -361,10 +355,9 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Controls the visual style of the <Code>Alert</Code>. "default"
-									provides standard rounded corners and borders. "banner"
-									creates a banner-style alert with no rounded corners, sticky
-									positioning, and no top, left, or right borders.
+									Controls the visual style of the <Code>Alert</Code>. "default" provides standard
+									rounded corners and borders. "banner" creates a banner-style alert with no rounded
+									corners, sticky positioning, and no top, left, or right borders.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -389,9 +382,8 @@ export default function Page() {
 							<PropDefaultValueCell />
 							<PropDescriptionCell>
 								<p>
-									Indicates the importance or impact level of the{" "}
-									<Code>Alert</Code>, affecting its color and styling to
-									communicate its purpose to the user.
+									Indicates the importance or impact level of the <Code>Alert</Code>, affecting its
+									color and styling to communicate its purpose to the user.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -404,8 +396,8 @@ export default function Page() {
 							<h3 className="text-xl font-medium text-strong">AlertContent</h3>
 						</HashLinkHeading>
 						<p className="font-body text-body">
-							The container for the content slot of an <Code>Alert</Code>. Place
-							the <Code>AlertTitle</Code> and <Code>AlertDescription</Code> and{" "}
+							The container for the content slot of an <Code>Alert</Code>. Place the{" "}
+							<Code>AlertTitle</Code> and <Code>AlertDescription</Code> and{" "}
 							<Code>AlertDismissIconButton</Code> as direct children.
 						</p>
 						<p className="font-body text-body">
@@ -424,14 +416,11 @@ export default function Page() {
 				<section className="space-y-4">
 					<header className="space-y-2">
 						<HashLinkHeading id="api-alert-description">
-							<h3 className="text-xl font-medium text-strong">
-								AlertDescription
-							</h3>
+							<h3 className="text-xl font-medium text-strong">AlertDescription</h3>
 						</HashLinkHeading>
 						<p className="font-body text-body">
-							The optional description of an <Code>Alert</Code>. Renders as a{" "}
-							<Code>div</Code> by default, but can be changed to any other
-							element using the <Code>asChild</Code> prop.
+							The optional description of an <Code>Alert</Code>. Renders as a <Code>div</Code> by
+							default, but can be changed to any other element using the <Code>asChild</Code> prop.
 						</p>
 						<p className="font-body text-body">
 							All props from{" "}
@@ -456,9 +445,9 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Use the <Code>asChild</Code> prop to compose the{" "}
-									<Code>AlertDescription</Code> styling and functionality onto
-									alternative element types or your own React components.
+									Use the <Code>asChild</Code> prop to compose the <Code>AlertDescription</Code>{" "}
+									styling and functionality onto alternative element types or your own React
+									components.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -471,9 +460,9 @@ export default function Page() {
 							<h3 className="text-xl font-medium text-strong">AlertIcon</h3>
 						</HashLinkHeading>
 						<p className="font-body text-body">
-							An optional icon that visually represents the priority of the{" "}
-							<Code>Alert</Code>. The default rendered icon be overridden with a
-							custom icon using the <Code>svg</Code> prop.
+							An optional icon that visually represents the priority of the <Code>Alert</Code>. The
+							default rendered icon be overridden with a custom icon using the <Code>svg</Code>{" "}
+							prop.
 						</p>
 						<p className="font-body text-body">
 							All props from{" "}
@@ -496,8 +485,8 @@ export default function Page() {
 							<PropDefaultValueCell />
 							<PropDescriptionCell>
 								<p>
-									An optional icon that renders in place of the default icon for
-									the <Code>Alert</Code> priority.
+									An optional icon that renders in place of the default icon for the{" "}
+									<Code>Alert</Code> priority.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -510,9 +499,8 @@ export default function Page() {
 							<h3 className="text-xl font-medium text-strong">AlertTitle</h3>
 						</HashLinkHeading>
 						<p className="font-body text-body">
-							The title of an <Code>Alert</Code>. Default renders as an{" "}
-							<Code>h5</Code> element; use <Code>asChild</Code> to render
-							something else.
+							The title of an <Code>Alert</Code>. Default renders as an <Code>h5</Code> element; use{" "}
+							<Code>asChild</Code> to render something else.
 						</p>
 						<p className="font-body text-body">
 							All props from{" "}
@@ -537,9 +525,8 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Use the <Code>asChild</Code> prop to compose the{" "}
-									<Code>AlertTitle</Code> styling and functionality onto
-									alternative element types or your own React components.
+									Use the <Code>asChild</Code> prop to compose the <Code>AlertTitle</Code> styling
+									and functionality onto alternative element types or your own React components.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -549,9 +536,7 @@ export default function Page() {
 				<section className="space-y-4">
 					<header className="space-y-2">
 						<HashLinkHeading id="api-alert-dismiss-icon-button">
-							<h3 className="text-xl font-medium text-strong">
-								Alert.DismissIconButton
-							</h3>
+							<h3 className="text-xl font-medium text-strong">Alert.DismissIconButton</h3>
 						</HashLinkHeading>
 
 						<p className="font-body text-body">
@@ -583,8 +568,8 @@ export default function Page() {
 							<PropDescriptionCell>
 								<p>
 									Use the <Code>asChild</Code> prop to compose the{" "}
-									<Code>Alert.DismissIconButton</Code> styling and functionality
-									onto alternative element types or your own React components.
+									<Code>Alert.DismissIconButton</Code> styling and functionality onto alternative
+									element types or your own React components.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>

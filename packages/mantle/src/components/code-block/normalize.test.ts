@@ -7,9 +7,7 @@ describe("normalizeIndentation", () => {
 		const expected = "";
 		expect(normalizeIndentation(value)).toBe(expected);
 		expect(normalizeIndentation(value, { indentation: "tabs" })).toBe(expected);
-		expect(normalizeIndentation(value, { indentation: "spaces" })).toBe(
-			expected,
-		);
+		expect(normalizeIndentation(value, { indentation: "spaces" })).toBe(expected);
 	});
 
 	test("given a single line string, returns the string", () => {
@@ -17,9 +15,7 @@ describe("normalizeIndentation", () => {
 		const expected = "SELECT * FROM users";
 		expect(normalizeIndentation(value)).toBe(expected);
 		expect(normalizeIndentation(value, { indentation: "tabs" })).toBe(expected);
-		expect(normalizeIndentation(value, { indentation: "spaces" })).toBe(
-			expected,
-		);
+		expect(normalizeIndentation(value, { indentation: "spaces" })).toBe(expected);
 	});
 
 	test("given a multiline string with no indentation, returns the string", () => {

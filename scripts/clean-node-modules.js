@@ -33,4 +33,4 @@ async function cleanNodeModules() {
 	);
 }
 
-await void cleanNodeModules();
+void cleanNodeModules();

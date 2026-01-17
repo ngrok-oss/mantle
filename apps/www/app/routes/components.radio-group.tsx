@@ -14,8 +14,8 @@ export default function Page() {
 			<section className="space-y-4">
 				<PageHeader id="radio-group">Radio Group</PageHeader>
 				<p className="font-body text-body text-xl">
-					A set of checkable buttons—known as radio buttons—where no more than
-					one of the buttons can be checked at a time.
+					A set of checkable buttons—known as radio buttons—where no more than one of the buttons
+					can be checked at a time.
 				</p>
 				<div>
 					<Example className="mt-4 grid gap-6">
@@ -61,9 +61,7 @@ export default function Page() {
 									<label className="text-strong font-medium" htmlFor="rli1">
 										Default
 									</label>
-									<p className="text-body">
-										Laborum esse cillum incididunt est dolore.
-									</p>
+									<p className="text-body">Laborum esse cillum incididunt est dolore.</p>
 								</RadioGroup.ItemContent>
 							</RadioGroup.ListItem>
 							<RadioGroup.ListItem value="comfortable" id="rli2">
@@ -73,8 +71,7 @@ export default function Page() {
 										Comfortable
 									</label>
 									<p className="text-body">
-										Ea laboris tempor laborum officia ea adipisicing
-										exercitation.
+										Ea laboris tempor laborum officia ea adipisicing exercitation.
 									</p>
 								</RadioGroup.ItemContent>
 							</RadioGroup.ListItem>
@@ -110,8 +107,8 @@ export default function Page() {
 										Mixed
 									</label>
 									<p className="text-body">
-										Only new workspace members are required to use SSO. Existing
-										members can still log in with other methods.
+										Only new workspace members are required to use SSO. Existing members can still
+										log in with other methods.
 									</p>
 								</RadioGroup.ItemContent>
 							</RadioGroup.ListItem>
@@ -132,16 +129,9 @@ export default function Page() {
 							className="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4"
 							defaultValue="existing"
 						>
-							<RadioGroup.Card
-								className="flex"
-								value="newsletter"
-								id="radiocard-1"
-							>
+							<RadioGroup.Card className="flex" value="newsletter" id="radiocard-1">
 								<div className="flex-1">
-									<label
-										htmlFor="radiocard-1"
-										className="text-strong block text-sm font-medium"
-									>
+									<label htmlFor="radiocard-1" className="text-strong block text-sm font-medium">
 										Newsletter
 									</label>
 									<p className="mt-1 flex items-center text-sm text-gray-500">
@@ -151,16 +141,9 @@ export default function Page() {
 								</div>
 								<RadioGroup.Indicator />
 							</RadioGroup.Card>
-							<RadioGroup.Card
-								className="flex"
-								value="existing"
-								id="radiocard-2"
-							>
+							<RadioGroup.Card className="flex" value="existing" id="radiocard-2">
 								<div className="flex-1">
-									<label
-										htmlFor="radiocard-2"
-										className="text-strong block text-sm font-medium"
-									>
+									<label htmlFor="radiocard-2" className="text-strong block text-sm font-medium">
 										Existing Customers
 									</label>
 									<p className="mt-1 flex items-center text-sm text-gray-500">
@@ -172,10 +155,7 @@ export default function Page() {
 							</RadioGroup.Card>
 							<RadioGroup.Card className="flex" value="trial" id="radiocard-3">
 								<div className="flex-1">
-									<label
-										htmlFor="radiocard-3"
-										className="text-strong block text-sm font-medium"
-									>
+									<label htmlFor="radiocard-3" className="text-strong block text-sm font-medium">
 										Trial Users
 									</label>
 									<p className="mt-1 flex items-center text-sm text-gray-500">

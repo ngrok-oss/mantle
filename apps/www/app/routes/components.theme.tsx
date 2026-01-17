@@ -1,10 +1,7 @@
 import { Anchor } from "@ngrok/mantle/anchor";
 import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
-import {
-	PreloadCoreFonts,
-	preventWrongThemeFlashScriptContent,
-} from "@ngrok/mantle/theme";
+import { PreloadCoreFonts, preventWrongThemeFlashScriptContent } from "@ngrok/mantle/theme";
 import { FileTextIcon } from "@phosphor-icons/react/FileText";
 import { renderToStaticMarkup } from "react-dom/server";
 import { HashLinkHeading } from "~/components/hash-link-heading";
@@ -31,8 +28,8 @@ export default function Page() {
 			<header className="space-y-4">
 				<PageHeader id="theme-provider">Theme</PageHeader>
 				<p className="font-body text-body text-xl">
-					ThemeProvider is a React Context Provider that provides the current
-					theme to the application and a function to change it.
+					ThemeProvider is a React Context Provider that provides the current theme to the
+					application and a function to change it.
 				</p>
 			</header>
 			<section className="space-y-6">
@@ -41,18 +38,14 @@ export default function Page() {
 				</HashLinkHeading>
 				<div className="font-body text-body space-y-4">
 					<p>
-						To use the <Code>ThemeProvider</Code>, wrap your application&apos;s
-						entry point. This should be done as high in the component tree as
-						possible.
+						To use the <Code>ThemeProvider</Code>, wrap your application&apos;s entry point. This
+						should be done as high in the component tree as possible.
 					</p>
 					<p>
-						You should also add the <Code>MantleThemeHeadContent</Code>{" "}
-						component to the head of your application to prevent a Flash of
-						Unstyled Content (FOUC) when the app first loads as well as preload
-						all of our custom fonts.{" "}
-						<strong>
-							This is the recommended approach for most applications.
-						</strong>
+						You should also add the <Code>MantleThemeHeadContent</Code> component to the head of
+						your application to prevent a Flash of Unstyled Content (FOUC) when the app first loads
+						as well as preload all of our custom fonts.{" "}
+						<strong>This is the recommended approach for most applications.</strong>
 					</p>
 				</div>
 				<CodeBlock.Root>
@@ -102,24 +95,19 @@ export default function Page() {
 			</section>
 
 			<section className="space-y-6">
-				<HashLinkHeading
-					id="custom-head-content"
-					className="text-2xl font-medium"
-				>
+				<HashLinkHeading id="custom-head-content" className="text-2xl font-medium">
 					<h2>Custom Head Content</h2>
 				</HashLinkHeading>
 				<div className="font-body text-body space-y-4">
 					<p>
 						<strong>
-							Only use this section if you cannot use{" "}
-							<Code>MantleThemeHeadContent</Code>.
+							Only use this section if you cannot use <Code>MantleThemeHeadContent</Code>.
 						</strong>
 					</p>
 					<p>
-						Sometimes you cannot use the <Code>MantleThemeHeadContent</Code>{" "}
-						component because your web server is not able to render React
-						components. In this case, you can copy the following script and add
-						it to your application&apos;s <Code>&lt;head&gt;</Code>:
+						Sometimes you cannot use the <Code>MantleThemeHeadContent</Code> component because your
+						web server is not able to render React components. In this case, you can copy the
+						following script and add it to your application&apos;s <Code>&lt;head&gt;</Code>:
 					</p>
 				</div>
 				<CodeBlock.Root>
@@ -141,16 +129,12 @@ ${preventWrongThemeFlashScriptContent()}
 				</CodeBlock.Root>
 
 				<div className="space-y-4">
-					<HashLinkHeading
-						id="custom-font-preloading"
-						className="text-xl font-medium"
-					>
+					<HashLinkHeading id="custom-font-preloading" className="text-xl font-medium">
 						<h3>Font Preloading</h3>
 					</HashLinkHeading>
 					<p className="font-body text-body">
-						You will also need to ensure that you add the{" "}
-						<Code>PreloadCoreFonts</Code> component to your app as well if
-						you&apos;re using the custom setup.
+						You will also need to ensure that you add the <Code>PreloadCoreFonts</Code> component to
+						your app as well if you&apos;re using the custom setup.
 					</p>
 					<CodeBlock.Root>
 						<CodeBlock.Header>
@@ -161,9 +145,7 @@ ${preventWrongThemeFlashScriptContent()}
 							<CodeBlock.CopyButton />
 							<CodeBlock.Code
 								language="html"
-								value={fmtCode`<head>\n\t${renderToStaticMarkup(
-									<PreloadCoreFonts />,
-								)
+								value={fmtCode`<head>\n\t${renderToStaticMarkup(<PreloadCoreFonts />)
 									.split("/><")
 									.join("/>\n\t<")}\n</head>`}
 							/>
@@ -177,8 +159,8 @@ ${preventWrongThemeFlashScriptContent()}
 					<h2>Usage</h2>
 				</HashLinkHeading>
 				<p className="font-body text-body">
-					In your application, you can use the <Code>useTheme</Code> hook to get
-					and change the current theme:
+					In your application, you can use the <Code>useTheme</Code> hook to get and change the
+					current theme:
 				</p>
 				<CodeBlock.Root>
 					<CodeBlock.Header>
@@ -249,15 +231,11 @@ ${preventWrongThemeFlashScriptContent()}
 
 				<div className="space-y-8">
 					<div className="space-y-4">
-						<HashLinkHeading
-							id="api-theme-provider"
-							className="text-2xl font-medium"
-						>
+						<HashLinkHeading id="api-theme-provider" className="text-2xl font-medium">
 							<h3>ThemeProvider</h3>
 						</HashLinkHeading>
 						<p className="font-body text-body text-xl">
-							The <Code>ThemeProvider</Code> accepts the following props in
-							addition to the{" "}
+							The <Code>ThemeProvider</Code> accepts the following props in addition to the{" "}
 							<Anchor href="https://react.dev/reference/react/PropsWithChildren">
 								PropsWithChildren
 							</Anchor>
@@ -271,32 +249,24 @@ ${preventWrongThemeFlashScriptContent()}
 								</PropTypeCell>
 								<PropDefaultValueCell />
 								<PropDescriptionCell>
-									<p>
-										The React components to be wrapped by the theme provider
-										context.
-									</p>
+									<p>The React components to be wrapped by the theme provider context.</p>
 								</PropDescriptionCell>
 							</PropRow>
 						</PropsTable>
 						<p className="font-body text-body mt-4">
-							<strong>Note:</strong> The <Code>ThemeProvider</Code> uses a
-							hardcoded storage key of <Code>mantle-ui-theme</Code> and defaults
-							to <Code>system</Code> theme. These values are managed internally
-							and do not require configuration.
+							<strong>Note:</strong> The <Code>ThemeProvider</Code> uses a hardcoded storage key of{" "}
+							<Code>mantle-ui-theme</Code> and defaults to <Code>system</Code> theme. These values
+							are managed internally and do not require configuration.
 						</p>
 					</div>
 
 					<div className="space-y-4">
-						<HashLinkHeading
-							id="api-mantle-theme-head-content"
-							className="text-2xl font-medium"
-						>
+						<HashLinkHeading id="api-mantle-theme-head-content" className="text-2xl font-medium">
 							<h3>MantleThemeHeadContent</h3>
 						</HashLinkHeading>
 						<p className="font-body text-body text-xl">
-							The <Code>MantleThemeHeadContent</Code> component prevents Flash
-							of Unstyled Content (FOUC) and preloads core fonts. It accepts the
-							following props:
+							The <Code>MantleThemeHeadContent</Code> component prevents Flash of Unstyled Content
+							(FOUC) and preloads core fonts. It accepts the following props:
 						</p>
 						<PropsTable>
 							<PropRow>
@@ -307,19 +277,17 @@ ${preventWrongThemeFlashScriptContent()}
 								<PropDefaultValueCell />
 								<PropDescriptionCell>
 									<p>
-										An optional CSP nonce to allowlist the inline FOUC
-										prevention script. Using this helps avoid the CSP{" "}
-										<Code>unsafe-inline</Code> directive, which disables XSS
+										An optional CSP nonce to allowlist the inline FOUC prevention script. Using this
+										helps avoid the CSP <Code>unsafe-inline</Code> directive, which disables XSS
 										protection and would allowlist all inline scripts or styles.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
 						</PropsTable>
 						<p className="font-body text-body mt-4">
-							<strong>Note:</strong> The FOUC prevention script uses hardcoded
-							values for storage key (<Code>mantle-ui-theme</Code>) and default
-							theme (<Code>system</Code>) to ensure consistency with{" "}
-							<Code>ThemeProvider</Code>.
+							<strong>Note:</strong> The FOUC prevention script uses hardcoded values for storage
+							key (<Code>mantle-ui-theme</Code>) and default theme (<Code>system</Code>) to ensure
+							consistency with <Code>ThemeProvider</Code>.
 						</p>
 					</div>
 
@@ -331,9 +299,9 @@ ${preventWrongThemeFlashScriptContent()}
 							<h3>PreventWrongThemeFlashScript</h3>
 						</HashLinkHeading>
 						<p className="font-body text-body text-xl">
-							The <Code>PreventWrongThemeFlashScript</Code> component renders
-							only the inline script to prevent FOUC. Use this when you want
-							full control over font preloading. It accepts the following props:
+							The <Code>PreventWrongThemeFlashScript</Code> component renders only the inline script
+							to prevent FOUC. Use this when you want full control over font preloading. It accepts
+							the following props:
 						</p>
 						<PropsTable>
 							<PropRow>
@@ -343,41 +311,31 @@ ${preventWrongThemeFlashScriptContent()}
 								</PropTypeCell>
 								<PropDefaultValueCell />
 								<PropDescriptionCell>
-									<p>
-										An optional CSP nonce to allowlist the inline FOUC
-										prevention script.
-									</p>
+									<p>An optional CSP nonce to allowlist the inline FOUC prevention script.</p>
 								</PropDescriptionCell>
 							</PropRow>
 						</PropsTable>
 					</div>
 
 					<div className="space-y-4">
-						<HashLinkHeading
-							id="api-preload-core-fonts"
-							className="text-2xl font-medium"
-						>
+						<HashLinkHeading id="api-preload-core-fonts" className="text-2xl font-medium">
 							<h3>PreloadCoreFonts</h3>
 						</HashLinkHeading>
 						<p className="font-body text-body text-xl">
-							The <Code>PreloadCoreFonts</Code> component renders preload links
-							for the core fonts used in Mantle (Euclid Square and IBM Plex
-							Mono). This component takes no props and is automatically included
-							in <Code>MantleThemeHeadContent</Code>.
+							The <Code>PreloadCoreFonts</Code> component renders preload links for the core fonts
+							used in Mantle (Euclid Square and IBM Plex Mono). This component takes no props and is
+							automatically included in <Code>MantleThemeHeadContent</Code>.
 						</p>
 					</div>
 
 					<div className="space-y-4">
-						<HashLinkHeading
-							id="api-use-initial-html-theme-props"
-							className="text-2xl font-medium"
-						>
+						<HashLinkHeading id="api-use-initial-html-theme-props" className="text-2xl font-medium">
 							<h3>useInitialHtmlThemeProps</h3>
 						</HashLinkHeading>
 						<p className="font-body text-body text-xl">
-							The <Code>useInitialHtmlThemeProps</Code> hook returns props that
-							should be applied to the <Code>&lt;html&gt;</Code> element to
-							prevent React hydration errors. It accepts the following options:
+							The <Code>useInitialHtmlThemeProps</Code> hook returns props that should be applied to
+							the <Code>&lt;html&gt;</Code> element to prevent React hydration errors. It accepts
+							the following options:
 						</p>
 						<PropsTable>
 							<PropRow>
@@ -390,23 +348,22 @@ ${preventWrongThemeFlashScriptContent()}
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
-										Additional CSS classes to apply to the{" "}
-										<Code>&lt;html&gt;</Code> element. These will be combined
-										with the theme class.
+										Additional CSS classes to apply to the <Code>&lt;html&gt;</Code> element. These
+										will be combined with the theme class.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
 						</PropsTable>
 						<p className="font-body text-body mt-4">
 							<strong>Returns:</strong> An object with <Code>className</Code>,{" "}
-							<Code>data-theme</Code>, and <Code>data-applied-theme</Code> props
-							to spread onto your <Code>&lt;html&gt;</Code> element.
+							<Code>data-theme</Code>, and <Code>data-applied-theme</Code> props to spread onto your{" "}
+							<Code>&lt;html&gt;</Code> element.
 						</p>
 						<p className="font-body text-body mt-2">
-							<strong>Note:</strong> On the server, this defaults to{" "}
-							<Code>system</Code> theme (resolved to <Code>light</Code>). On the
-							client, it reads the current theme from cookies to match what the
-							FOUC prevention script applied, ensuring React hydration succeeds.
+							<strong>Note:</strong> On the server, this defaults to <Code>system</Code> theme
+							(resolved to <Code>light</Code>). On the client, it reads the current theme from
+							cookies to match what the FOUC prevention script applied, ensuring React hydration
+							succeeds.
 						</p>
 					</div>
 				</div>

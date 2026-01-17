@@ -113,9 +113,7 @@ const iconData = [
 	{
 		id: "TrafficPolicyFile",
 		name: "TrafficPolicyFile",
-		description: (
-			<p className="text-muted">The ngrok traffic policy file icon</p>
-		),
+		description: <p className="text-muted">The ngrok traffic policy file icon</p>,
 		Icon: <TrafficPolicyFileIcon />,
 		tags: [
 			//,
@@ -126,9 +124,7 @@ const iconData = [
 	{
 		id: "Auto-Theme-Icon",
 		name: "AutoThemeIcon",
-		description: (
-			<p>An icon that automatically adapts to the current applied theme.</p>
-		),
+		description: <p>An icon that automatically adapts to the current applied theme.</p>,
 		Icon: <AutoThemeIcon />,
 		tags: [
 			//,
@@ -176,9 +172,7 @@ const iconData = [
 	{
 		id: "Theme-Icon-Light-High-Contrast",
 		name: "ThemeIcon",
-		description: (
-			<p>An icon that adapts to a specific theme (light-high-contrast)</p>
-		),
+		description: <p>An icon that adapts to a specific theme (light-high-contrast)</p>,
 		Icon: <ThemeIcon theme="light-high-contrast" />,
 		tags: [
 			//,
@@ -189,9 +183,7 @@ const iconData = [
 	{
 		id: "Theme-Icon-Dark-High-Contrast",
 		name: "ThemeIcon",
-		description: (
-			<p>An icon that adapts to a specific theme (dark-high-contrast)</p>
-		),
+		description: <p>An icon that adapts to a specific theme (dark-high-contrast)</p>,
 		Icon: <ThemeIcon theme="dark-high-contrast" />,
 		tags: [
 			//,

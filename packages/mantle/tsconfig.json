@@ -7,7 +7,7 @@
       "@cfg/tsconfig/svg.d.ts",
       "vitest/globals",
       "@testing-library/jest-dom"
-    ],
+    ]
   },
   "include": ["src/**/*"],
   "exclude": ["src/**/README.*"]

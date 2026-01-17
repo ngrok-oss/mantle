@@ -2,9 +2,6 @@
   "name": "www",
   "private": true,
   "type": "module",
-  "engines": {
-    "node": "^24.0.0"
-  },
   "scripts": {
     "build": "react-router build",
     "clean": "rm -rf .vercel build",
@@ -46,5 +43,8 @@
     "vite": "catalog:",
     "vite-plugin-devtools-json": "1.0.0",
     "vite-tsconfig-paths": "6.0.4"
+  },
+  "engines": {
+    "node": "^24.0.0"
   }
 }

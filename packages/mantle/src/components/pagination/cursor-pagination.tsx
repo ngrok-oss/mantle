@@ -33,9 +33,7 @@ type CursorPaginationContextValue = {
 	setPageSize: (value: number) => void;
 };
 
-const CursorPaginationContext = createContext<
-	CursorPaginationContextValue | undefined
->(undefined);
+const CursorPaginationContext = createContext<CursorPaginationContextValue | undefined>(undefined);
 
 type CursorPaginationProps = ComponentProps<"div"> & {
 	/**
@@ -73,14 +71,9 @@ const Root = forwardRef<HTMLDivElement, CursorPaginationProps>(
 		const [pageSize, setPageSize] = useState<number>(defaultPageSize);
 
 		return (
-			<CursorPaginationContext.Provider
-				value={{ defaultPageSize, pageSize, setPageSize }}
-			>
+			<CursorPaginationContext.Provider value={{ defaultPageSize, pageSize, setPageSize }}>
 				<div
-					className={cx(
-						"inline-flex items-center justify-between gap-2",
-						className,
-					)}
+					className={cx("inline-flex items-center justify-between gap-2", className)}
 					ref={ref}
 					{...props}
 				>
@@ -92,10 +85,7 @@ const Root = forwardRef<HTMLDivElement, CursorPaginationProps>(
 );
 Root.displayName = "CursorPagination";
 
-type CursorButtonsProps = Omit<
-	ComponentProps<typeof ButtonGroup>,
-	"appearance"
-> & {
+type CursorButtonsProps = Omit<ComponentProps<typeof ButtonGroup>, "appearance"> & {
 	/**
 	 * Whether there is a next page of data to load.
 	 */
@@ -129,14 +119,8 @@ type CursorButtonsProps = Omit<
  * />
  * ```
  */
-const Buttons = forwardRef<
-	ComponentRef<typeof ButtonGroup>,
-	CursorButtonsProps
->(
-	(
-		{ hasNextPage, hasPreviousPage, onNextPage, onPreviousPage, ...props },
-		ref,
-	) => {
+const Buttons = forwardRef<ComponentRef<typeof ButtonGroup>, CursorButtonsProps>(
+	({ hasNextPage, hasPreviousPage, onNextPage, onPreviousPage, ...props }, ref) => {
 		// TODO(cody): this _feels_ like a good spot for left and right arrow keys to navigate between pages when focused on the buttons
 
 		return (
@@ -168,10 +152,7 @@ Buttons.displayName = "CursorButtons";
 
 const defaultPageSizes = [5, 10, 20, 50, 100] as const;
 
-type CursorPageSizeSelectProps = Omit<
-	ComponentProps<typeof Select.Trigger>,
-	"children"
-> & {
+type CursorPageSizeSelectProps = Omit<ComponentProps<typeof Select.Trigger>, "children"> & {
 	/**
 	 * A list of page sizes to choose from. The default page size must be included in this list.
 	 */
@@ -195,20 +176,11 @@ type CursorPageSizeSelectProps = Omit<
  * />
  * ```
  */
-const PageSizeSelect = forwardRef<
-	ComponentRef<typeof Select.Trigger>,
-	CursorPageSizeSelectProps
->(
-	(
-		{ className, pageSizes = defaultPageSizes, onChangePageSize, ...rest },
-		ref,
-	) => {
+const PageSizeSelect = forwardRef<ComponentRef<typeof Select.Trigger>, CursorPageSizeSelectProps>(
+	({ className, pageSizes = defaultPageSizes, onChangePageSize, ...rest }, ref) => {
 		const ctx = useContext(CursorPaginationContext);
 
-		invariant(
-			ctx,
-			"CursorPageSizeSelect must be used as a child of a CursorPagination component",
-		);
+		invariant(ctx, "CursorPageSizeSelect must be used as a child of a CursorPagination component");
 
 		invariant(
 			pageSizes.includes(ctx.defaultPageSize),
@@ -253,8 +225,7 @@ const PageSizeSelect = forwardRef<
 );
 PageSizeSelect.displayName = "CursorPageSizeSelect";
 
-type CursorPageSizeValueProps = Omit<ComponentProps<"span">, "children"> &
-	WithAsChild;
+type CursorPageSizeValueProps = Omit<ComponentProps<"span">, "children"> & WithAsChild;
 
 /**
  * Displays the current page size when using cursor-based pagination as a read-only value.
@@ -269,25 +240,15 @@ type CursorPageSizeValueProps = Omit<ComponentProps<"span">, "children"> &
  * </div>
  * ```
  */
-function PageSizeValue({
-	asChild = false,
-	className,
-	...props
-}: CursorPageSizeValueProps) {
+function PageSizeValue({ asChild = false, className, ...props }: CursorPageSizeValueProps) {
 	const ctx = useContext(CursorPaginationContext);
 
-	invariant(
-		ctx,
-		"CursorPageSizeValue must be used as a child of a CursorPagination component",
-	);
+	invariant(ctx, "CursorPageSizeValue must be used as a child of a CursorPagination component");
 
 	const Component = asChild ? Slot : "span";
 
 	return (
-		<Component
-			className={cx("text-muted text-sm font-normal", className)}
-			{...props}
-		>
+		<Component className={cx("text-muted text-sm font-normal", className)} {...props}>
 			{ctx.pageSize} per page
 		</Component>
 	);

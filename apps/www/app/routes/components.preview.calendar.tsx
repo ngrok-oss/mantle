@@ -33,19 +33,10 @@ const PopoverCalendarExample = () => {
 	return (
 		<Popover.Root>
 			<Popover.Trigger asChild>
-				<IconButton
-					type="button"
-					icon={<CalendarIcon />}
-					label="Open calendar popover"
-				/>
+				<IconButton type="button" icon={<CalendarIcon />} label="Open calendar popover" />
 			</Popover.Trigger>
 			<Popover.Content>
-				<Calendar
-					autoFocus
-					mode="single"
-					onSelect={(value) => setDate(value)}
-					selected={date}
-				/>
+				<Calendar autoFocus mode="single" onSelect={(value) => setDate(value)} selected={date} />
 			</Popover.Content>
 		</Popover.Root>
 	);
@@ -104,11 +95,7 @@ const HiddenDaysCalendarExample = () => {
 		from: undefined,
 		to: undefined,
 	});
-	const hiddenDays = [
-		new Date(2024, 4, 6),
-		new Date(2024, 4, 20),
-		new Date(2024, 4, 11),
-	];
+	const hiddenDays = [new Date(2024, 4, 6), new Date(2024, 4, 20), new Date(2024, 4, 11)];
 
 	return (
 		<Calendar
@@ -127,11 +114,7 @@ const DisabledDaysCalendarExample = () => {
 		from: undefined,
 		to: undefined,
 	});
-	const disabledDays = [
-		new Date(2024, 4, 3),
-		new Date(2024, 4, 13),
-		new Date(2024, 4, 14),
-	];
+	const disabledDays = [new Date(2024, 4, 3), new Date(2024, 4, 13), new Date(2024, 4, 14)];
 
 	return (
 		<Calendar
@@ -211,10 +194,7 @@ export default function Page() {
 				</HashLinkHeading>
 				<p className="font-body text-body text-xl">
 					The <Code>Calendar</Code> is built on top of{" "}
-					<Anchor href="https://react-day-picker.js.org/">
-						React DayPicker
-					</Anchor>
-					.
+					<Anchor href="https://react-day-picker.js.org/">React DayPicker</Anchor>.
 				</p>
 				{/* <PropsTable>
 					<PropRow>

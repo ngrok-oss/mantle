@@ -6,11 +6,7 @@
       "cache": true,
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "dependsOn": ["^build"],
-      "outputs": [
-        "**/build/**",
-        "**/.vercel/**",
-        "**/dist/**"
-      ]
+      "outputs": ["**/build/**", "**/.vercel/**", "**/dist/**"]
     },
     "clean": {
       "cache": false

@@ -30,26 +30,24 @@ export default function Page() {
 				<h2>Overview</h2>
 			</HashLinkHeading>
 			<p className="font-body text-body mt-3">
-				Mantle is a carefully designed system of{" "}
-				<Anchor href="https://react.dev">React</Anchor> components and utilities
-				that establishes a unified design language and consistent user
-				experience across ngrok’s web applications. Built with flexibility,
-				extensibility, and developer ergonomics in mind, Mantle prioritizes
-				accessibility, performance, and long-term maintainability. Developed in{" "}
-				<Anchor href="https://www.typescriptlang.org/">TypeScript</Anchor>, it
-				offers strong typing, rich IDE support, and increased confidence through
-				compile-time safety. Mantle empowers ngrok’s developers to craft
-				interfaces that align seamlessly with the company’s brand, design
-				principles, and engineering standards. By progressively enhancing
-				standard DOM elements, it not only improves usability and accessibility,
-				but also fills functional gaps—providing a robust foundation for
-				building cohesive, modern UIs throughout the platform.
+				Mantle is a carefully designed system of <Anchor href="https://react.dev">React</Anchor>{" "}
+				components and utilities that establishes a unified design language and consistent user
+				experience across ngrok’s web applications. Built with flexibility, extensibility, and
+				developer ergonomics in mind, Mantle prioritizes accessibility, performance, and long-term
+				maintainability. Developed in{" "}
+				<Anchor href="https://www.typescriptlang.org/">TypeScript</Anchor>, it offers strong typing,
+				rich IDE support, and increased confidence through compile-time safety. Mantle empowers
+				ngrok’s developers to craft interfaces that align seamlessly with the company’s brand,
+				design principles, and engineering standards. By progressively enhancing standard DOM
+				elements, it not only improves usability and accessibility, but also fills functional
+				gaps—providing a robust foundation for building cohesive, modern UIs throughout the
+				platform.
 			</p>
 
 			<p className="font-body text-body mt-3">
 				All of Mantle&rsquo;s components are styled using{" "}
-				<Anchor href="https://tailwindcss.com">Tailwind</Anchor>. and we compose
-				around the following unstyled primitive component libraries:
+				<Anchor href="https://tailwindcss.com">Tailwind</Anchor>. and we compose around the
+				following unstyled primitive component libraries:
 			</p>
 			<ul className="list-disc pl-6 font-body text-body mt-3">
 				<li>
@@ -63,11 +61,9 @@ export default function Page() {
 				</li>
 			</ul>
 			<p className="font-body text-body mt-3">
-				Mantle uses{" "}
-				<Anchor href="https://phosphoricons.com/">Phosphor Icons</Anchor> as the
-				primary icon library, providing a versatile and consistent set of icons.
-				In addition, custom-designed icons tailored to ngrok’s needs are
-				available through the{" "}
+				Mantle uses <Anchor href="https://phosphoricons.com/">Phosphor Icons</Anchor> as the primary
+				icon library, providing a versatile and consistent set of icons. In addition,
+				custom-designed icons tailored to ngrok’s needs are available through the{" "}
 				<Link to={href("/components/icons")}>
 					<Code>@ngrok/mantle/icons</Code>
 				</Link>{" "}
@@ -78,15 +74,14 @@ export default function Page() {
 				<h3>Status</h3>
 			</HashLinkHeading>
 			<p className="font-body text-body mt-3">
-				Mantle is a work in progress that&rsquo;s currently adding components.
-				It intends to replace new and existing ngrok user interfaces.
+				Mantle is a work in progress that&rsquo;s currently adding components. It intends to replace
+				new and existing ngrok user interfaces.
 			</p>
 
 			<p className="font-body text-body mt-3">
 				Mantle is available in its alpha state on{" "}
-				<Anchor href="https://www.npmjs.com/package/@ngrok/mantle">NPM</Anchor>.
-				It is open source and available on{" "}
-				<Anchor href="https://github.com/ngrok-oss/mantle">GitHub</Anchor>.
+				<Anchor href="https://www.npmjs.com/package/@ngrok/mantle">NPM</Anchor>. It is open source
+				and available on <Anchor href="https://github.com/ngrok-oss/mantle">GitHub</Anchor>.
 			</p>
 
 			<SetupInstructions />
@@ -98,14 +93,10 @@ const packageManagers = ["npm", "pnpm", "bun"] as const;
 
 type PackageManager = (typeof packageManagers)[number];
 
-const $packageManager = <T extends PackageManager = PackageManager>(value: T) =>
-	value;
+const $packageManager = <T extends PackageManager = PackageManager>(value: T) => value;
 
 function isPackageManager(value: unknown): value is PackageManager {
-	return (
-		typeof value === "string" &&
-		packageManagers.includes(value as PackageManager)
-	);
+	return typeof value === "string" && packageManagers.includes(value as PackageManager);
 }
 
 const applicationTemplates = [
@@ -118,14 +109,10 @@ const applicationTemplates = [
 type ApplicationTemplate = (typeof applicationTemplates)[number];
 
 function isApplicationTemplate(value: unknown): value is ApplicationTemplate {
-	return (
-		typeof value === "string" &&
-		applicationTemplates.includes(value as ApplicationTemplate)
-	);
+	return typeof value === "string" && applicationTemplates.includes(value as ApplicationTemplate);
 }
 
-const prodDependencies =
-	"@ngrok/mantle @phosphor-icons/react date-fns react react-dom";
+const prodDependencies = "@ngrok/mantle @phosphor-icons/react date-fns react react-dom";
 const devDependencies = "tailwindcss";
 
 const primaryInstallationCommand = {
@@ -151,11 +138,10 @@ function SetupInstructions() {
 	const [applicationTemplate, setApplicationTemplate] =
 		useState<ApplicationTemplate>("react-router");
 
-	const [preferredPackageManager, setPrefferedPackageManager] =
-		useLocalStorage<PackageManager>(
-			"preferredPackageManager",
-			$packageManager("pnpm"),
-		);
+	const [preferredPackageManager, setPrefferedPackageManager] = useLocalStorage<PackageManager>(
+		"preferredPackageManager",
+		$packageManager("pnpm"),
+	);
 
 	const devDependencies = [
 		//,
@@ -207,8 +193,7 @@ function SetupInstructions() {
 					<Alert.Icon />
 					<Alert.Content>
 						<Alert.Description>
-							Mantle supports <Code>react</Code> and <Code>react-dom</Code>{" "}
-							versions 18 and 19.
+							Mantle supports <Code>react</Code> and <Code>react-dom</Code> versions 18 and 19.
 						</Alert.Description>
 					</Alert.Content>
 				</Alert.Root>
@@ -232,8 +217,7 @@ function SetupInstructions() {
 					</CodeBlock.Body>
 				</CodeBlock.Root>
 				<p className="font-body text-body">
-					You will also need to install the following{" "}
-					<Code>devDependencies</Code>:
+					You will also need to install the following <Code>devDependencies</Code>:
 				</p>
 				<CodeBlock.Root>
 					<CodeBlock.Header>
@@ -254,17 +238,13 @@ function SetupInstructions() {
 			</div>
 
 			<section className="mt-8 space-y-4">
-				<HashLinkHeading
-					id="application-scaffolding"
-					className="text-xl font-medium"
-				>
+				<HashLinkHeading id="application-scaffolding" className="text-xl font-medium">
 					<h3>Application Scaffolding</h3>
 				</HashLinkHeading>
 				<ApplicationTemplate template={applicationTemplate} />
 				<p className="font-body text-body mt-4">
-					You are now ready to use mantle components in your application! For
-					example, you can use the{" "}
-					<Link to={href("/components/button")}>Button</Link>!
+					You are now ready to use mantle components in your application! For example, you can use
+					the <Link to={href("/components/button")}>Button</Link>!
 				</p>
 			</section>
 		</section>
@@ -315,9 +295,7 @@ function ApplicationTemplate({ template }: { template: ApplicationTemplate }) {
 				<Alert.Root priority="danger">
 					<Alert.Icon />
 					<Alert.Content>
-						<Alert.Description>
-							Unknown application template: {template}
-						</Alert.Description>
+						<Alert.Description>Unknown application template: {template}</Alert.Description>
 					</Alert.Content>
 				</Alert.Root>
 			);
@@ -328,8 +306,7 @@ function ReactRouterScaffolding() {
 	return (
 		<div className="space-y-4">
 			<p className="font-body text-body">
-				We need to add the <Code>@tailwindcss/vite</Code> plugin to your Vite
-				configuration.
+				We need to add the <Code>@tailwindcss/vite</Code> plugin to your Vite configuration.
 			</p>
 			<CodeBlock.Root>
 				<CodeBlock.Header>
@@ -358,31 +335,28 @@ function ReactRouterScaffolding() {
 				</CodeBlock.Body>
 			</CodeBlock.Root>
 			<p className="font-body text-body">
-				Then, in your react-router app&rsquo;s <Code>src/root.tsx</Code> file,
-				import the <Code>mantle.css</Code> file to apply the mantle styles.
+				Then, in your react-router app&rsquo;s <Code>src/root.tsx</Code> file, import the{" "}
+				<Code>mantle.css</Code> file to apply the mantle styles.
 			</p>
 			<p className="font-body text-body">
-				We will also add the{" "}
-				<Link to={href("/components/theme")}>Theme Provider</Link>,{" "}
+				We will also add the <Link to={href("/components/theme")}>Theme Provider</Link>,{" "}
 				<Link to={href("/components/toast")}>Toaster</Link>, and{" "}
-				<Link to={href("/components/tooltip")}>Tooltip Provider</Link> to your
-				app to enable theme selection, toasts, and tooltips.
+				<Link to={href("/components/tooltip")}>Tooltip Provider</Link> to your app to enable theme
+				selection, toasts, and tooltips.
 			</p>
 			<Alert.Root priority="warning">
 				<Alert.Icon />
 				<Alert.Content>
 					<Alert.Description>
-						It is critical to include the <Code>MantleThemeHeadContent</Code> in
-						the <Code>head</Code> of your app to prevent a flash of unstyled
-						content (FOUC). This component will inject the necessary script to
-						prevent the FOUC.
+						It is critical to include the <Code>MantleThemeHeadContent</Code> in the{" "}
+						<Code>head</Code> of your app to prevent a flash of unstyled content (FOUC). This
+						component will inject the necessary script to prevent the FOUC.
 					</Alert.Description>
 				</Alert.Content>
 			</Alert.Root>
 			<CodeBlock.Root>
 				<CodeBlock.Header>
-					<CodeBlock.Icon svg={<FileTsxIcon />} />{" "}
-					<CodeBlock.Title>app/root.tsx</CodeBlock.Title>
+					<CodeBlock.Icon svg={<FileTsxIcon />} /> <CodeBlock.Title>app/root.tsx</CodeBlock.Title>
 				</CodeBlock.Header>
 				<CodeBlock.Body>
 					<CodeBlock.CopyButton />
@@ -486,8 +460,8 @@ function NextJsScaffolding() {
 				<Alert.Icon />
 				<Alert.Content>
 					<Alert.Description>
-						Mantle does not yet support Next.js 15, especially with react 19 and
-						RSC. We are working on adding support for it soon.
+						Mantle does not yet support Next.js 15, especially with react 19 and RSC. We are working
+						on adding support for it soon.
 					</Alert.Description>
 				</Alert.Content>
 			</Alert.Root>
@@ -499,8 +473,7 @@ function ViteScaffolding() {
 	return (
 		<div className="space-y-4 mt-3">
 			<p className="font-body text-body">
-				We need to add the <Code>@tailwindcss/vite</Code> plugin to your Vite
-				configuration.
+				We need to add the <Code>@tailwindcss/vite</Code> plugin to your Vite configuration.
 			</p>
 			<CodeBlock.Root>
 				<CodeBlock.Header>
@@ -525,20 +498,18 @@ function ViteScaffolding() {
 				</CodeBlock.Body>
 			</CodeBlock.Root>
 			<p className="font-body text-body">
-				Then, in your vite app&rsquo;s <Code>src/main.tsx</Code> file, import
-				the <Code>mantle.css</Code> file to apply the mantle styles.
+				Then, in your vite app&rsquo;s <Code>src/main.tsx</Code> file, import the{" "}
+				<Code>mantle.css</Code> file to apply the mantle styles.
 			</p>
 			<p className="font-body text-body">
-				We will also add the{" "}
-				<Link to={href("/components/theme")}>Theme Provider</Link>,{" "}
+				We will also add the <Link to={href("/components/theme")}>Theme Provider</Link>,{" "}
 				<Link to={href("/components/toast")}>Toaster</Link>, and{" "}
-				<Link to={href("/components/tooltip")}>Tooltip Provider</Link> to your
-				app to enable theme selection, toasts, and tooltips.
+				<Link to={href("/components/tooltip")}>Tooltip Provider</Link> to your app to enable theme
+				selection, toasts, and tooltips.
 			</p>
 			<CodeBlock.Root>
 				<CodeBlock.Header>
-					<CodeBlock.Icon svg={<FileTsxIcon />} />{" "}
-					<CodeBlock.Title>src/main.tsx</CodeBlock.Title>
+					<CodeBlock.Icon svg={<FileTsxIcon />} /> <CodeBlock.Title>src/main.tsx</CodeBlock.Title>
 				</CodeBlock.Header>
 				<CodeBlock.Body>
 					<CodeBlock.CopyButton />
@@ -569,24 +540,22 @@ function ViteScaffolding() {
 			</CodeBlock.Root>
 
 			<p className="font-body text-body">
-				To prevent a flash of unstyled content (FOUC), you will need to update
-				your <Code>index.html</Code> to include our script:
+				To prevent a flash of unstyled content (FOUC), you will need to update your{" "}
+				<Code>index.html</Code> to include our script:
 			</p>
 			<Alert.Root priority="warning">
 				<Alert.Icon />
 				<Alert.Content>
 					<Alert.Description>
-						While mantle supports any type of react application, vite is not the
-						primary target. For now, you will need to manually include the
-						following script in the <Code>head</Code> of your app. We plan to
-						add a vite plugin in the future to automate this.
+						While mantle supports any type of react application, vite is not the primary target. For
+						now, you will need to manually include the following script in the <Code>head</Code> of
+						your app. We plan to add a vite plugin in the future to automate this.
 					</Alert.Description>
 				</Alert.Content>
 			</Alert.Root>
 			<CodeBlock.Root>
 				<CodeBlock.Header>
-					<CodeBlock.Icon svg={<FileHtmlIcon />} />{" "}
-					<CodeBlock.Title>index.html</CodeBlock.Title>
+					<CodeBlock.Icon svg={<FileHtmlIcon />} /> <CodeBlock.Title>index.html</CodeBlock.Title>
 				</CodeBlock.Header>
 				<CodeBlock.Body>
 					<CodeBlock.CopyButton />
@@ -619,20 +588,18 @@ function ReactSpaScaffolding() {
 	return (
 		<div className="space-y-4">
 			<p className="font-body text-body">
-				In your react app&rsquo;s entry/root file, import the{" "}
-				<Code>mantle.css</Code> file to apply the mantle styles.
+				In your react app&rsquo;s entry/root file, import the <Code>mantle.css</Code> file to apply
+				the mantle styles.
 			</p>
 			<p className="font-body text-body">
-				We will also add the{" "}
-				<Link to={href("/components/theme")}>Theme Provider</Link>,{" "}
+				We will also add the <Link to={href("/components/theme")}>Theme Provider</Link>,{" "}
 				<Link to={href("/components/toast")}>Toaster</Link>, and{" "}
-				<Link to={href("/components/tooltip")}>Tooltip Provider</Link> to your
-				app to enable theme selection, toasts, and tooltips.
+				<Link to={href("/components/tooltip")}>Tooltip Provider</Link> to your app to enable theme
+				selection, toasts, and tooltips.
 			</p>
 			<CodeBlock.Root>
 				<CodeBlock.Header>
-					<CodeBlock.Icon svg={<FileTsxIcon />} />{" "}
-					<CodeBlock.Title>root.tsx</CodeBlock.Title>
+					<CodeBlock.Icon svg={<FileTsxIcon />} /> <CodeBlock.Title>root.tsx</CodeBlock.Title>
 				</CodeBlock.Header>
 				<CodeBlock.Body>
 					<CodeBlock.CopyButton />
@@ -671,24 +638,22 @@ function ReactSpaScaffolding() {
 			</CodeBlock.Root>
 
 			<p className="font-body text-body">
-				To prevent a flash of unstyled content (FOUC), you will need to update
-				your <Code>index.html</Code> to include our script:
+				To prevent a flash of unstyled content (FOUC), you will need to update your{" "}
+				<Code>index.html</Code> to include our script:
 			</p>
 			<Alert.Root priority="warning">
 				<Alert.Icon />
 				<Alert.Content>
 					<Alert.Description>
-						While mantle supports any type of react application, arbitrary react
-						SPA apps are not the primary target. For now, you will need to
-						manually include the following script in the <Code>head</Code> of
-						your app.
+						While mantle supports any type of react application, arbitrary react SPA apps are not
+						the primary target. For now, you will need to manually include the following script in
+						the <Code>head</Code> of your app.
 					</Alert.Description>
 				</Alert.Content>
 			</Alert.Root>
 			<CodeBlock.Root>
 				<CodeBlock.Header>
-					<CodeBlock.Icon svg={<FileHtmlIcon />} />{" "}
-					<CodeBlock.Title>index.html</CodeBlock.Title>
+					<CodeBlock.Icon svg={<FileHtmlIcon />} /> <CodeBlock.Title>index.html</CodeBlock.Title>
 				</CodeBlock.Header>
 				<CodeBlock.Body>
 					<CodeBlock.CopyButton />

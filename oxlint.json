@@ -1,0 +1,28 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oxc-project/oxc/main/npm/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "react", "jsx-a11y"],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn"
+  },
+  "rules": {
+    "jsx-a11y/no-blank-target": "off",
+    "jsx-a11y/no-interactive-element-to-noninteractive-role": "warn",
+    "jsx-a11y/no-svg-without-title": "warn",
+    "jsx-a11y/anchor-has-content": "warn",
+    "react/no-danger": "off",
+    "no-explicit-any": "warn"
+  },
+  "ignorePatterns": [
+    ".cache",
+    ".changeset",
+    ".env",
+    ".react-router/",
+    ".turbo",
+    ".vercel",
+    "build",
+    "dist",
+    "node_modules",
+    "public"
+  ]
+}

@@ -29,10 +29,9 @@ export default function Page() {
 			<section className="space-y-4">
 				<PageHeader id="skeleton">Skeleton</PageHeader>
 				<p className="font-body text-body mt-4 text-xl">
-					Use to show a placeholder while content is loading. By using a{" "}
-					<Code>Skeleton</Code>, you can give the user an idea of what the
-					content will look like, reducing the perceived loading time and CLS
-					(Cumulative Layout Shift).
+					Use to show a placeholder while content is loading. By using a <Code>Skeleton</Code>, you
+					can give the user an idea of what the content will look like, reducing the perceived
+					loading time and CLS (Cumulative Layout Shift).
 				</p>
 				<div>
 					<Example>
@@ -70,8 +69,8 @@ export default function Page() {
 							</h3>
 						</HashLinkHeading>
 						<p className="font-body text-body mt-1">
-							The Skeleton component can be included within components. You can
-							also pass Tailwind utility classes for further control.
+							The Skeleton component can be included within components. You can also pass Tailwind
+							utility classes for further control.
 						</p>
 					</header>
 					<div>
@@ -117,8 +116,7 @@ export default function Page() {
 					<h2 className="text-3xl font-medium">API Reference</h2>
 				</HashLinkHeading>
 				<p className="font-body text-body text-xl">
-					The <Code>Skeleton</Code> accepts the following props in addition to
-					the{" "}
+					The <Code>Skeleton</Code> accepts the following props in addition to the{" "}
 					<Anchor href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes">
 						standard HTML div attributes
 					</Anchor>
@@ -135,9 +133,8 @@ export default function Page() {
 						</PropDefaultValueCell>
 						<PropDescriptionCell>
 							<p>
-								Use the <Code>asChild</Code> prop to compose the{" "}
-								<Code>Skeleton</Code> styling and functionality onto alternative
-								element types or your own React components.
+								Use the <Code>asChild</Code> prop to compose the <Code>Skeleton</Code> styling and
+								functionality onto alternative element types or your own React components.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>

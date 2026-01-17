@@ -27,33 +27,26 @@ describe("cx", () => {
 	});
 
 	test("given 'p-4 pb-6 not-a-tailwind-class pb-3', returns 'p-4 not-a-tailwind-class pb-3'", () => {
-		expect(cx("p-4 pb-6 not-a-tailwind-class pb-3")).toBe(
-			"p-4 not-a-tailwind-class pb-3",
-		);
+		expect(cx("p-4 pb-6 not-a-tailwind-class pb-3")).toBe("p-4 not-a-tailwind-class pb-3");
 	});
 
 	test('given "text-red mb-2 text-base leading-4", returns "text-red mb-2 text-base leading-4"', () => {
-		expect(cx("text-red mb-2 text-base leading-4")).toBe(
-			"text-red mb-2 text-base leading-4",
-		);
+		expect(cx("text-red mb-2 text-base leading-4")).toBe("text-red mb-2 text-base leading-4");
 	});
 
 	test('given "text-red mb-2 text-base leading-4 text-blue text-xl leading-5", returns "mb-2 text-blue text-xl leading-5"', () => {
-		expect(
-			cx("text-red mb-2 text-base leading-4 text-blue text-xl leading-5"),
-		).toBe("mb-2 text-blue text-xl leading-5");
+		expect(cx("text-red mb-2 text-base leading-4 text-blue text-xl leading-5")).toBe(
+			"mb-2 text-blue text-xl leading-5",
+		);
 	});
 
 	test('given "text-red mb-2 text-base leading-4 text-xl", returns "text-red mb-2 text-xl"', () => {
-		expect(cx("text-red mb-2 text-base leading-4 text-xl")).toBe(
-			"text-red mb-2 text-xl",
-		);
+		expect(cx("text-red mb-2 text-base leading-4 text-xl")).toBe("text-red mb-2 text-xl");
 	});
 
 	test("conditional font color applies correctly", () => {
-		expect(cx("text-red", false && "text-blue", true && "text-gold")).toBe(
-			"text-gold",
-		);
+		// oxlint-disable-next-line no-constant-binary-expression
+		expect(cx("text-red", false && "text-blue", true && "text-gold")).toBe("text-gold");
 	});
 
 	test("text-mono can be overridden by text-base", () => {

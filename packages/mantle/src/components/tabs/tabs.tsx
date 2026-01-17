@@ -6,11 +6,7 @@ import {
 } from "@radix-ui/react-tabs";
 import { cva } from "class-variance-authority";
 import clsx from "clsx";
-import type {
-	ComponentPropsWithoutRef,
-	ComponentRef,
-	HTMLAttributes,
-} from "react";
+import type { ComponentPropsWithoutRef, ComponentRef, HTMLAttributes } from "react";
 import {
 	Children,
 	cloneElement,
@@ -68,33 +64,18 @@ const Root = forwardRef<
 		 */
 		appearance?: "classic" | "pill";
 	}
->(
-	(
-		{
-			className,
-			children,
-			orientation = "horizontal",
-			appearance = "classic",
-			...props
-		},
-		ref,
-	) => (
-		<TabsPrimitiveRoot
-			className={cx(
-				"flex gap-4",
-				orientation === "horizontal" ? "flex-col" : "flex-row",
-				className,
-			)}
-			orientation={orientation}
-			ref={ref}
-			{...props}
-		>
-			<TabsStateContext.Provider value={{ orientation, appearance }}>
-				{children}
-			</TabsStateContext.Provider>
-		</TabsPrimitiveRoot>
-	),
-);
+>(({ className, children, orientation = "horizontal", appearance = "classic", ...props }, ref) => (
+	<TabsPrimitiveRoot
+		className={cx("flex gap-4", orientation === "horizontal" ? "flex-col" : "flex-row", className)}
+		orientation={orientation}
+		ref={ref}
+		{...props}
+	>
+		<TabsStateContext.Provider value={{ orientation, appearance }}>
+			{children}
+		</TabsStateContext.Provider>
+	</TabsPrimitiveRoot>
+));
 Root.displayName = "Tabs";
 
 /**
@@ -174,8 +155,8 @@ type TabsTriggerProps = ComponentPropsWithoutRef<typeof TabsPrimitiveTrigger>;
 const triggerDecorationVariants = cva("absolute z-0", {
 	variants: {
 		orientation: {
-			horizontal: "-bottom-px left-0 right-0 h-[0.1875rem]",
-			vertical: "-right-px bottom-0 top-0 w-[0.1875rem]",
+			horizontal: "-bottom-px left-0 right-0 h-0.75",
+			vertical: "-right-px bottom-0 top-0 w-0.75",
 		} as const satisfies Record<Orientation, string>,
 		appearance: {
 			classic: "group-data-state-active/tab-trigger:bg-blue-600",
@@ -188,10 +169,7 @@ const TabsTriggerDecoration = () => {
 	const { orientation, appearance } = useContext(TabsStateContext);
 
 	return (
-		<span
-			aria-hidden
-			className={clsx(triggerDecorationVariants({ orientation, appearance }))}
-		/>
+		<span aria-hidden className={clsx(triggerDecorationVariants({ orientation, appearance }))} />
 	);
 };
 TabsTriggerDecoration.displayName = "TabsTriggerDecoration";
@@ -250,10 +228,7 @@ const triggerVariants = cva(
  * </Tabs.Root>
  * ```
  */
-const Trigger = forwardRef<
-	ComponentRef<typeof TabsPrimitiveTrigger>,
-	TabsTriggerProps
->(
+const Trigger = forwardRef<ComponentRef<typeof TabsPrimitiveTrigger>, TabsTriggerProps>(
 	(
 		{
 			"aria-disabled": _ariaDisabled,
@@ -283,23 +258,21 @@ const Trigger = forwardRef<
 			);
 			const grandchildren = singleChild.props?.children;
 
-			const cloneProps = {
-				...(disabled
-					? /**
-						 * When disabled, prevent anchor/link children from being clickable by
-						 * removing their href/to props!
-						 * This is necessary because `<a>` doesn't support the `disabled`
-						 * attribute and would be navigable. We could use `pointer-events-none`
-						 * instead, but don't by default because it would also prevent tooltip
-						 * interactions, which may be surprising.
-						 */
-						{ href: undefined, to: undefined }
-					: /**
-						 * when NOT disabled, allow keyboard navigation to the trigger,
-						 * even for asChild anchors/links
-						 */
-						{ tabIndex: 0 }),
-			};
+			const cloneProps = disabled
+				? /**
+					 * When disabled, prevent anchor/link children from being clickable by
+					 * removing their href/to props!
+					 * This is necessary because `<a>` doesn't support the `disabled`
+					 * attribute and would be navigable. We could use `pointer-events-none`
+					 * instead, but don't by default because it would also prevent tooltip
+					 * interactions, which may be surprising.
+					 */
+					{ href: undefined, to: undefined }
+				: /**
+					 * when NOT disabled, allow keyboard navigation to the trigger,
+					 * even for asChild anchors/links
+					 */
+					{ tabIndex: 0 };
 
 			return (
 				<TabsPrimitiveTrigger asChild {...tabsTriggerProps} ref={ref}>
@@ -343,11 +316,7 @@ Trigger.displayName = "TabsTrigger";
  * </Tabs.Root>
  * ```
  */
-const Badge = ({
-	className,
-	children,
-	...props
-}: HTMLAttributes<HTMLSpanElement>) => (
+const Badge = ({ className, children, ...props }: HTMLAttributes<HTMLSpanElement>) => (
 	<span
 		className={cx(
 			"rounded-full bg-gray-500/20 px-1.5 text-xs font-medium text-gray-600",
@@ -390,10 +359,7 @@ const Content = forwardRef<
 >(({ className, ...props }, ref) => (
 	<TabsPrimitiveContent
 		ref={ref}
-		className={cx(
-			"focus-visible:ring-focus-accent outline-hidden focus-visible:ring-4",
-			className,
-		)}
+		className={cx("focus-visible:ring-focus-accent outline-hidden focus-visible:ring-4", className)}
 		{...props}
 	/>
 ));

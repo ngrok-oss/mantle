@@ -31,21 +31,14 @@ type LabelProps = ComponentPropsWithoutRef<"label"> & {
  */
 const Label = forwardRef<ComponentRef<"label">, LabelProps>(
 	(
-		{
-			"aria-disabled": _ariaDisabled,
-			children,
-			className,
-			disabled,
-			onMouseDown,
-			...props
-		},
+		{ "aria-disabled": _ariaDisabled, children, className, disabled, onMouseDown, ...props },
 		ref,
 	) => (
 		// biome-ignore lint/a11y/noLabelWithoutControl: this is a composable label component
 		<label
 			aria-disabled={disabled ?? _ariaDisabled}
 			className={cx(
-				"text-strong cursor-pointer text-sm peer-disabled:cursor-default has-[:disabled]:cursor-default aria-disabled:cursor-default",
+				"text-strong cursor-pointer text-sm peer-disabled:cursor-default has-disabled:cursor-default aria-disabled:cursor-default",
 				className,
 			)}
 			onMouseDown={(event) => {

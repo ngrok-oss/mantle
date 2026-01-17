@@ -39,8 +39,8 @@ export default function Page() {
 			<section className="space-y-4">
 				<PageHeader id="dropdown-menu">Dropdown Menu</PageHeader>
 				<p className="font-body text-body text-xl">
-					Displays a menu to the user — such as a set of actions or functions —
-					triggered by a button.
+					Displays a menu to the user — such as a set of actions or functions — triggered by a
+					button.
 				</p>
 				<div>
 					<Example className="flex-col gap-6">
@@ -83,17 +83,12 @@ export default function Page() {
 								<DropdownMenu.Separator />
 								<Tooltip.Root>
 									<Tooltip.Trigger asChild>
-										<DropdownMenu.Item
-											className="flex items-center gap-2"
-											disabled
-										>
+										<DropdownMenu.Item className="flex items-center gap-2" disabled>
 											<Icon svg={<GearIcon />} />
 											User Settings
 										</DropdownMenu.Item>
 									</Tooltip.Trigger>
-									<Tooltip.Content side="left">
-										Only winners get user settings.
-									</Tooltip.Content>
+									<Tooltip.Content side="left">Only winners get user settings.</Tooltip.Content>
 								</Tooltip.Root>
 								<DropdownMenu.Separator />
 								<DropdownMenu.CheckboxItem
@@ -107,9 +102,7 @@ export default function Page() {
 								<DropdownMenu.Group>
 									<DropdownMenu.Item>Team</DropdownMenu.Item>
 									<DropdownMenu.Sub>
-										<DropdownMenu.SubTrigger>
-											Invite users
-										</DropdownMenu.SubTrigger>
+										<DropdownMenu.SubTrigger>Invite users</DropdownMenu.SubTrigger>
 										<DropdownMenu.SubContent>
 											<DropdownMenu.Item>Email</DropdownMenu.Item>
 											<DropdownMenu.Item>Message</DropdownMenu.Item>
@@ -142,11 +135,7 @@ export default function Page() {
 
 						<DropdownMenu.Root>
 							<DropdownMenu.Trigger asChild>
-								<Button
-									type="button"
-									appearance="filled"
-									className="whitespace-break-spaces"
-								>
+								<Button type="button" appearance="filled" className="whitespace-break-spaces">
 									Content Width Matches Trigger Width (Extra Wide)
 								</Button>
 							</DropdownMenu.Trigger>
@@ -197,9 +186,7 @@ export default function Page() {
 								<DropdownMenu.Group>
 									<DropdownMenu.Item>Team</DropdownMenu.Item>
 									<DropdownMenu.Sub>
-										<DropdownMenu.SubTrigger>
-											Invite users
-										</DropdownMenu.SubTrigger>
+										<DropdownMenu.SubTrigger>Invite users</DropdownMenu.SubTrigger>
 										<DropdownMenu.SubContent>
 											<DropdownMenu.Item>Email</DropdownMenu.Item>
 											<DropdownMenu.Item>Message</DropdownMenu.Item>
@@ -342,12 +329,12 @@ export default function Page() {
 							<PropDefaultValueCell />
 							<PropDescriptionCell>
 								<p>
-									<Code>trigger</Code> will ensure the dropdown content is the
-									same width as the trigger button.
+									<Code>trigger</Code> will ensure the dropdown content is the same width as the
+									trigger button.
 								</p>
 								<p>
-									<Code>content</Code> will make the dropdown content use the
-									intrinsic content width.
+									<Code>content</Code> will make the dropdown content use the intrinsic content
+									width.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>

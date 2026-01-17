@@ -45,8 +45,8 @@ export default function Page() {
 							</Table.Cell>
 
 							<Table.Cell>
-								Apply a class only when the user’s cursor is coarse. This
-								generally means touch devices.
+								Apply a class only when the user’s cursor is coarse. This generally means touch
+								devices.
 							</Table.Cell>
 						</Table.Row>
 
@@ -66,8 +66,8 @@ export default function Page() {
 							</Table.Cell>
 
 							<Table.Cell>
-								Apply a class only when the user’s cursor is fine. This applies
-								to most mice and trackpads.
+								Apply a class only when the user’s cursor is fine. This applies to most mice and
+								trackpads.
 							</Table.Cell>
 						</Table.Row>
 
@@ -86,9 +86,7 @@ export default function Page() {
 								<Code className="break-keep">.pointer-none:</Code>
 							</Table.Cell>
 
-							<Table.Cell>
-								Apply a class if the device has no primary pointer.
-							</Table.Cell>
+							<Table.Cell>Apply a class if the device has no primary pointer.</Table.Cell>
 						</Table.Row>
 
 						<Table.Row>
@@ -142,9 +140,7 @@ export default function Page() {
 								<Code className="break-keep">.high-contrast:</Code>
 							</Table.Cell>
 
-							<Table.Cell>
-								Apply a class if high contrast theming is enabled.
-							</Table.Cell>
+							<Table.Cell>Apply a class if high contrast theming is enabled.</Table.Cell>
 						</Table.Row>
 
 						<Table.Row>
@@ -162,9 +158,7 @@ export default function Page() {
 								<Code className="break-keep">.dark-high-contrast:</Code>
 							</Table.Cell>
 
-							<Table.Cell>
-								Apply a class if high contrast and dark themes are applied.
-							</Table.Cell>
+							<Table.Cell>Apply a class if high contrast and dark themes are applied.</Table.Cell>
 						</Table.Row>
 					</Table.Body>
 				</Table.Element>

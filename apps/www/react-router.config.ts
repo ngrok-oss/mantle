@@ -11,8 +11,6 @@ export default {
 		isVercelDeploy && vercelPreset(),
 	].filter(Boolean),
 	prerender: ({ getStaticPaths }) => {
-		return getStaticPaths().filter(
-			(path) => path !== href("/components/inline-code"),
-		);
+		return getStaticPaths().filter((path) => path !== href("/components/inline-code"));
 	},
 } satisfies Config;

@@ -35,8 +35,7 @@ export default function Page() {
 			<section className="space-y-4">
 				<PageHeader id="tabs">Tabs</PageHeader>
 				<p className="font-body text-body text-xl">
-					A set of layered sections of content—known as tab panels—that are
-					displayed one at a time.
+					A set of layered sections of content—known as tab panels—that are displayed one at a time.
 				</p>
 				<div>
 					<Example className="mt-4 grid gap-6">
@@ -53,9 +52,7 @@ export default function Page() {
 										<Link to={href("/base/shadows")}>Shadows</Link>
 									</Tabs.Trigger>
 									<Tabs.Trigger disabled value="tailwind-variants" asChild>
-										<Link to={href("/base/tailwind-variants")}>
-											Tailwind Variants
-										</Link>
+										<Link to={href("/base/tailwind-variants")}>Tailwind Variants</Link>
 									</Tabs.Trigger>
 									<Tabs.Trigger value="typography" asChild>
 										<Link to={href("/base/typography")}>Typography</Link>
@@ -166,8 +163,7 @@ export default function Page() {
 									<Card.Header>
 										<Card.Title>Account</Card.Title>
 										<p className="text-muted">
-											Make changes to your account here. Click save when you're
-											done.
+											Make changes to your account here. Click save when you're done.
 										</p>
 									</Card.Header>
 								</Card.Root>
@@ -177,8 +173,7 @@ export default function Page() {
 									<Card.Header>
 										<Card.Title>Password</Card.Title>
 										<p className="text-muted">
-											Change your password here. After saving, you'll be logged
-											out.
+											Change your password here. After saving, you'll be logged out.
 										</p>
 									</Card.Header>
 								</Card.Root>
@@ -201,8 +196,7 @@ export default function Page() {
 									<Card.Header>
 										<Card.Title>Account</Card.Title>
 										<p className="text-muted">
-											Make changes to your account here. Click save when you're
-											done.
+											Make changes to your account here. Click save when you're done.
 										</p>
 									</Card.Header>
 								</Card.Root>
@@ -212,8 +206,7 @@ export default function Page() {
 									<Card.Header>
 										<Card.Title>Password</Card.Title>
 										<p className="text-muted">
-											Change your password here. After saving, you'll be logged
-											out.
+											Change your password here. After saving, you'll be logged out.
 										</p>
 									</Card.Header>
 								</Card.Root>
@@ -228,11 +221,7 @@ export default function Page() {
 							<Code>asChild</Code> with <Code>Link</Code>s
 						</p>
 						<div className="scrollbar -m-1 p-1 overflow-x-scroll">
-							<Tabs.Root
-								appearance="pill"
-								orientation="horizontal"
-								defaultValue="colors"
-							>
+							<Tabs.Root appearance="pill" orientation="horizontal" defaultValue="colors">
 								<Tabs.List>
 									<Tabs.Trigger value="colors" asChild>
 										<Link to={href("/base/colors")}>Colors</Link>
@@ -241,9 +230,7 @@ export default function Page() {
 										<Link to={href("/base/shadows")}>Shadows</Link>
 									</Tabs.Trigger>
 									<Tabs.Trigger disabled value="tailwind-variants" asChild>
-										<Link to={href("/base/tailwind-variants")}>
-											Tailwind Variants
-										</Link>
+										<Link to={href("/base/tailwind-variants")}>Tailwind Variants</Link>
 									</Tabs.Trigger>
 									<Tabs.Trigger value="typography" asChild>
 										<Link to={href("/base/typography")}>Typography</Link>
@@ -252,11 +239,7 @@ export default function Page() {
 							</Tabs.Root>
 						</div>
 						<div className="scrollbar -m-1 p-1 overflow-x-scroll">
-							<Tabs.Root
-								appearance="pill"
-								orientation="horizontal"
-								defaultValue="tab-1"
-							>
+							<Tabs.Root appearance="pill" orientation="horizontal" defaultValue="tab-1">
 								<Tabs.List>
 									<Tabs.Trigger value="tab-1">Tab Title</Tabs.Trigger>
 									<Tabs.Trigger value="tab-2">Tab Title</Tabs.Trigger>
@@ -268,11 +251,7 @@ export default function Page() {
 							</Tabs.Root>
 						</div>
 						<div className="scrollbar -m-1 p-1 overflow-x-scroll">
-							<Tabs.Root
-								appearance="pill"
-								orientation="horizontal"
-								defaultValue="tab-1"
-							>
+							<Tabs.Root appearance="pill" orientation="horizontal" defaultValue="tab-1">
 								<Tabs.List>
 									<Tabs.Trigger value="tab-1">
 										<Icon svg={<GlobeIcon />} />
@@ -294,11 +273,7 @@ export default function Page() {
 							</Tabs.Root>
 						</div>
 						<div className="scrollbar -m-1 p-1 overflow-x-scroll">
-							<Tabs.Root
-								appearance="pill"
-								orientation="horizontal"
-								defaultValue="tab-1"
-							>
+							<Tabs.Root appearance="pill" orientation="horizontal" defaultValue="tab-1">
 								<Tabs.List>
 									<Tabs.Trigger value="tab-1">
 										Tab Title
@@ -320,11 +295,7 @@ export default function Page() {
 							</Tabs.Root>
 						</div>
 						<div className="scrollbar -m-1 p-1 overflow-x-scroll">
-							<Tabs.Root
-								appearance="pill"
-								orientation="horizontal"
-								defaultValue="tab-1"
-							>
+							<Tabs.Root appearance="pill" orientation="horizontal" defaultValue="tab-1">
 								<Tabs.List>
 									<Tabs.Trigger value="tab-1">
 										<Icon svg={<GlobeIcon />} />
@@ -371,8 +342,7 @@ export default function Page() {
 									<Card.Header>
 										<Card.Title>Account</Card.Title>
 										<p className="text-muted">
-											Make changes to your account here. Click save when you're
-											done.
+											Make changes to your account here. Click save when you're done.
 										</p>
 									</Card.Header>
 								</Card.Root>
@@ -382,8 +352,7 @@ export default function Page() {
 									<Card.Header>
 										<Card.Title>Password</Card.Title>
 										<p className="text-muted">
-											Change your password here. After saving, you'll be logged
-											out.
+											Change your password here. After saving, you'll be logged out.
 										</p>
 									</Card.Header>
 								</Card.Root>
@@ -407,8 +376,7 @@ export default function Page() {
 									<Card.Header>
 										<Card.Title>Account</Card.Title>
 										<p className="text-muted">
-											Make changes to your account here. Click save when you're
-											done.
+											Make changes to your account here. Click save when you're done.
 										</p>
 									</Card.Header>
 								</Card.Root>
@@ -418,8 +386,7 @@ export default function Page() {
 									<Card.Header>
 										<Card.Title>Password</Card.Title>
 										<p className="text-muted">
-											Change your password here. After saving, you'll be logged
-											out.
+											Change your password here. After saving, you'll be logged out.
 										</p>
 									</Card.Header>
 								</Card.Root>
@@ -514,8 +481,8 @@ export default function Page() {
 							Tabs.Root
 						</h3>
 						<p className="font-body text-body">
-							The root container of the tabs component that provides context for
-							all tab components. Based on{" "}
+							The root container of the tabs component that provides context for all tab components.
+							Based on{" "}
 							<Anchor href="https://www.radix-ui.com/primitives/docs/components/tabs#root">
 								Radix Tabs Root
 							</Anchor>
@@ -530,9 +497,8 @@ export default function Page() {
 								<PropDefaultValueCell />
 								<PropDescriptionCell>
 									<p>
-										The value of the tab that should be active when initially
-										rendered. Use when you do not need to control the state of
-										the tabs.
+										The value of the tab that should be active when initially rendered. Use when you
+										do not need to control the state of the tabs.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -544,8 +510,8 @@ export default function Page() {
 								<PropDefaultValueCell />
 								<PropDescriptionCell>
 									<p>
-										The controlled value of the tab to activate. Should be used
-										in conjunction with <Code>onValueChange</Code>.
+										The controlled value of the tab to activate. Should be used in conjunction with{" "}
+										<Code>onValueChange</Code>.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -595,9 +561,8 @@ export default function Page() {
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
-										The appearance of the tabs. Classic appearance shows the tab
-										list with an underline; pill appearance shows each tab as a
-										pill.
+										The appearance of the tabs. Classic appearance shows the tab list with an
+										underline; pill appearance shows each tab as a pill.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -608,9 +573,7 @@ export default function Page() {
 								</PropTypeCell>
 								<PropDefaultValueCell />
 								<PropDescriptionCell>
-									<p>
-										Additional CSS classes to apply to the tabs root element.
-									</p>
+									<p>Additional CSS classes to apply to the tabs root element.</p>
 								</PropDescriptionCell>
 							</PropRow>
 						</PropsTable>
@@ -621,8 +584,7 @@ export default function Page() {
 							Tabs.List
 						</h3>
 						<p className="font-body text-body">
-							Contains the triggers that are aligned along the edge of the
-							active content. Based on{" "}
+							Contains the triggers that are aligned along the edge of the active content. Based on{" "}
 							<Anchor href="https://www.radix-ui.com/primitives/docs/components/tabs#list">
 								Radix Tabs List
 							</Anchor>
@@ -636,9 +598,7 @@ export default function Page() {
 								</PropTypeCell>
 								<PropDefaultValueCell />
 								<PropDescriptionCell>
-									<p>
-										Additional CSS classes to apply to the tabs list element.
-									</p>
+									<p>Additional CSS classes to apply to the tabs list element.</p>
 								</PropDescriptionCell>
 							</PropRow>
 						</PropsTable>
@@ -663,9 +623,7 @@ export default function Page() {
 								</PropTypeCell>
 								<PropDefaultValueCell />
 								<PropDescriptionCell>
-									<p>
-										A unique value that associates the trigger with a content.
-									</p>
+									<p>A unique value that associates the trigger with a content.</p>
 								</PropDescriptionCell>
 							</PropRow>
 							<PropRow>
@@ -678,9 +636,8 @@ export default function Page() {
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
-										Use the <Code>asChild</Code> prop to compose the trigger
-										styling and functionality onto alternative element types or
-										your own React components.
+										Use the <Code>asChild</Code> prop to compose the trigger styling and
+										functionality onto alternative element types or your own React components.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -694,8 +651,7 @@ export default function Page() {
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
-										When <Code>true</Code>, prevents the user from interacting
-										with the tab.
+										When <Code>true</Code>, prevents the user from interacting with the tab.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -731,9 +687,7 @@ export default function Page() {
 								</PropTypeCell>
 								<PropDefaultValueCell />
 								<PropDescriptionCell>
-									<p>
-										A unique value that associates the content with a trigger.
-									</p>
+									<p>A unique value that associates the content with a trigger.</p>
 								</PropDescriptionCell>
 							</PropRow>
 							<PropRow>
@@ -754,8 +708,8 @@ export default function Page() {
 							Tabs.Badge
 						</h3>
 						<p className="font-body text-body">
-							A badge component that can be used inside tab triggers to display
-							additional information like counts or status indicators.
+							A badge component that can be used inside tab triggers to display additional
+							information like counts or status indicators.
 						</p>
 						<PropsTable>
 							<PropRow>

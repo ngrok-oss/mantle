@@ -16,11 +16,7 @@ const Root = forwardRef<HTMLDivElement, Props>(
 		const Component = asChild ? Slot : "div";
 
 		return (
-			<Component
-				ref={ref}
-				className={cx("flex gap-4", className)}
-				style={style}
-			>
+			<Component ref={ref} className={cx("flex gap-4", className)} style={style}>
 				{children}
 			</Component>
 		);
@@ -36,11 +32,7 @@ const Media = forwardRef<HTMLDivElement, Props>(
 		const Component = asChild ? Slot : "div";
 
 		return (
-			<Component
-				ref={ref}
-				className={cx("shrink-0 leading-none", className)}
-				style={style}
-			>
+			<Component ref={ref} className={cx("shrink-0 leading-none", className)} style={style}>
 				{children}
 			</Component>
 		);
@@ -56,11 +48,7 @@ const Content = forwardRef<HTMLDivElement, Props>(
 		const Component = asChild ? Slot : "div";
 
 		return (
-			<Component
-				ref={ref}
-				className={cx("min-w-0 flex-1", className)}
-				style={style}
-			>
+			<Component ref={ref} className={cx("min-w-0 flex-1", className)} style={style}>
 				{children}
 			</Component>
 		);

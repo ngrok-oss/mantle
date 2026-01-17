@@ -15,9 +15,7 @@ export type LineRange = `${number}-${number}`;
  * // Returns: Set {42}
  * ```
  */
-export function resolveLineNumbers(
-	...items: (LineRange | number)[]
-): Set<number> {
+export function resolveLineNumbers(...items: (LineRange | number)[]): Set<number> {
 	const lineNumberSet = new Set<number>();
 
 	if (!items) {

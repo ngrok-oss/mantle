@@ -27,14 +27,13 @@ export default function Page() {
 			<section className="space-y-4">
 				<PageHeader id="label">Label</PageHeader>
 				<p className="font-body text-body text-xl">
-					A <Code>Label</Code> represents a caption for an item in a user
-					interface. Renders an accessible label associated with controls.
+					A <Code>Label</Code> represents a caption for an item in a user interface. Renders an
+					accessible label associated with controls.
 				</p>
 				<div>
 					<Example className="grid gap-6">
 						<Label htmlFor="name">
-							<span className="font-medium">Name</span>{" "}
-							<Input type="text" id="name" />
+							<span className="font-medium">Name</span> <Input type="text" id="name" />
 						</Label>
 						<div className="flex items-center gap-2">
 							<Label htmlFor="name-2" className="font-medium">
@@ -44,14 +43,7 @@ export default function Page() {
 						</div>
 						<Label htmlFor="name-disabled">
 							<span className="font-medium">Name</span>{" "}
-							<Input
-								type="text"
-								id="name"
-								disabled
-								readOnly
-								validation="error"
-								value="foo"
-							/>
+							<Input type="text" id="name" disabled readOnly validation="error" value="foo" />
 						</Label>
 					</Example>
 					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
@@ -100,8 +92,8 @@ export default function Page() {
 						</PropDefaultValueCell>
 						<PropDescriptionCell>
 							<p>
-								Use the <Code>disabled</Code> prop to explicitly render the
-								label in a disabled state.
+								Use the <Code>disabled</Code> prop to explicitly render the label in a disabled
+								state.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>

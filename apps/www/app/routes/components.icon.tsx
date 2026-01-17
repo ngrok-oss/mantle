@@ -29,17 +29,13 @@ export default function Page() {
 			<section className="space-y-4">
 				<PageHeader id="icon">Icon</PageHeader>
 				<p className="font-body text-body text-xl">
-					Decorates an svg icon with automatic sizing. Useful when applying base
-					styles to{" "}
+					Decorates an svg icon with automatic sizing. Useful when applying base styles to{" "}
 					<Anchor href="https://phosphoricons.com">phosphor icons</Anchor>.
 				</p>
 				<div>
 					<Example>
 						<Icon svg={<FireIcon />} />
-						<Icon
-							className="text-danger-600"
-							svg={<FireIcon weight="fill" />}
-						/>
+						<Icon className="text-danger-600" svg={<FireIcon weight="fill" />} />
 					</Example>
 					<CodeBlock.Root className="rounded-b-lg rounded-t-none">
 						<CodeBlock.Body>
@@ -68,18 +64,15 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<HashLinkHeading
-							id="example-class-name"
-							className="text-xl font-medium text-strong"
-						>
+						<HashLinkHeading id="example-class-name" className="text-xl font-medium text-strong">
 							<h3>
 								Merging <Code>className</Code>s
 							</h3>
 						</HashLinkHeading>
 					</header>
 					<p className="font-body text-body text-xl">
-						The <Code>Icon</Code> merges <Code>className</Code> selectors with
-						the following order of precedence (last one wins):
+						The <Code>Icon</Code> merges <Code>className</Code> selectors with the following order
+						of precedence (last one wins):
 					</p>
 					<ol className="font-body text-body ml-8 list-decimal">
 						<li>
@@ -101,8 +94,7 @@ export default function Page() {
 							</div>
 							<div className="text-center">
 								<p>
-									When <Code>className</Code> is only specified on{" "}
-									<Code>svg</Code>:
+									When <Code>className</Code> is only specified on <Code>svg</Code>:
 								</p>
 								<div className="flex items-center justify-center">
 									<Icon svg={<FireIcon className="size-12 sm:size-16" />} />
@@ -110,8 +102,7 @@ export default function Page() {
 							</div>
 							<div className="text-center">
 								<p>
-									When <Code>className</Code> is only specified on{" "}
-									<Code>Icon</Code>:
+									When <Code>className</Code> is only specified on <Code>Icon</Code>:
 								</p>
 								<div className="flex items-center justify-center">
 									<Icon className="size-20 sm:size-28" svg={<FireIcon />} />
@@ -119,8 +110,8 @@ export default function Page() {
 							</div>
 							<div className="text-center">
 								<p>
-									When <Code>className</Code> is specified on both{" "}
-									<Code>svg</Code> and <Code>Icon</Code>:
+									When <Code>className</Code> is specified on both <Code>svg</Code> and{" "}
+									<Code>Icon</Code>:
 								</p>
 								<div className="flex items-center justify-center">
 									<Icon
@@ -181,13 +172,11 @@ export default function Page() {
 						<PropDefaultValueCell />
 						<PropDescriptionCell>
 							An object with CSS styles, for example{" "}
-							<Code>{`{ fontWeight: 'bold', margin: 20 }`}</Code>. Similarly to
-							the DOM style property, the CSS property names need to be written
-							as camelCase, for example <Code>fontWeight</Code> instead of{" "}
-							<Code>font-weight</Code>. You can pass strings or numbers as
-							values. If you pass a number, like <Code>width: 100</Code>, React
-							will automatically append px (“pixels”) to the value unless it’s a
-							unitless property. See
+							<Code>{`{ fontWeight: 'bold', margin: 20 }`}</Code>. Similarly to the DOM style
+							property, the CSS property names need to be written as camelCase, for example{" "}
+							<Code>fontWeight</Code> instead of <Code>font-weight</Code>. You can pass strings or
+							numbers as values. If you pass a number, like <Code>width: 100</Code>, React will
+							automatically append px (“pixels”) to the value unless it’s a unitless property. See
 							<Anchor href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/style">
 								the MDN docs
 							</Anchor>
@@ -200,9 +189,7 @@ export default function Page() {
 							<ReactNodePropType />
 						</PropTypeCell>
 						<PropDefaultValueCell />
-						<PropDescriptionCell>
-							A single SVG icon passed as a JSX tag.
-						</PropDescriptionCell>
+						<PropDescriptionCell>A single SVG icon passed as a JSX tag.</PropDescriptionCell>
 					</PropRow>
 				</PropsTable>
 			</section>

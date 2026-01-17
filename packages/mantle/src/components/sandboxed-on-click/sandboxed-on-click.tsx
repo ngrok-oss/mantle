@@ -1,11 +1,6 @@
 "use client";
 
-import type {
-	ComponentProps,
-	ComponentRef,
-	HTMLAttributes,
-	MouseEventHandler,
-} from "react";
+import type { ComponentProps, ComponentRef, HTMLAttributes, MouseEventHandler } from "react";
 import { forwardRef } from "react";
 import type { WithAsChild } from "../../types/as-child.js";
 import { Slot } from "../slot/index.js";
@@ -38,10 +33,7 @@ type EventProps = BaseProps & {
  *
  * @see https://mantle.ngrok.com/components/sandboxed-on-click#api-sandboxed-on-click
  */
-const sandboxedOnClickProps = ({
-	allowClickEventDefault = false,
-	onClick,
-}: EventProps = {}) =>
+const sandboxedOnClickProps = ({ allowClickEventDefault = false, onClick }: EventProps = {}) =>
 	({
 		/**
 		 * Marking an element with the role presentation indicates to assistive

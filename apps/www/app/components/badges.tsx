@@ -16,13 +16,7 @@ const PreviewBadge = ({ className, style }: WithStyleProps) => (
 );
 
 const UnreleasedBadge = ({ className, style }: WithStyleProps) => (
-	<Badge
-		className={className}
-		appearance="muted"
-		color="red"
-		icon={<HandPalmIcon />}
-		style={style}
-	>
+	<Badge className={className} appearance="muted" color="red" icon={<HandPalmIcon />} style={style}>
 		Unreleased
 	</Badge>
 );

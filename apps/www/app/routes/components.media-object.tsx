@@ -26,24 +26,21 @@ export default function Page() {
 			<section className="space-y-4">
 				<PageHeader id="media-object">Media Object</PageHeader>
 				<p className="font-body text-body my-4 text-xl">
-					The Media Object is an image/icon (media) to the left, with
-					descriptive content (title and subtitle/description) to the right.
+					The Media Object is an image/icon (media) to the left, with descriptive content (title and
+					subtitle/description) to the right.
 				</p>
 				<div className="font-body text-body space-y-4">
 					<p>
-						Change the spacing between the media and content by passing a{" "}
-						<Code>gap-*</Code> class. The default <Code>gap</Code> is{" "}
-						<Code>gap-4</Code>.
+						Change the spacing between the media and content by passing a <Code>gap-*</Code> class.
+						The default <Code>gap</Code> is <Code>gap-4</Code>.
 					</p>
 					<p>
-						Use <Code>flexbox</Code> utilities to change the alignment of the
-						media and content.
+						Use <Code>flexbox</Code> utilities to change the alignment of the media and content.
 					</p>
 					<p>
 						Compose the <Code>&lt;MediaObject&gt;</Code> with the{" "}
-						<Code>&lt;MediaObject.Media&gt;</Code> and{" "}
-						<Code>&lt;MediaObject.Content&gt;</Code> components as direct
-						children.
+						<Code>&lt;MediaObject.Media&gt;</Code> and <Code>&lt;MediaObject.Content&gt;</Code>{" "}
+						components as direct children.
 					</p>
 
 					<div>
@@ -55,13 +52,12 @@ export default function Page() {
 								<MediaObject.Content>
 									<h4 className="text-lg font-medium">Lorem ipsum</h4>
 									<p className="mb-4 mt-1">
-										Repudiandae sint consequuntur vel. Amet ut nobis explicabo
-										numquam expedita quia omnis voluptatem. Minus quidem ipsam
-										quia iusto.
+										Repudiandae sint consequuntur vel. Amet ut nobis explicabo numquam expedita quia
+										omnis voluptatem. Minus quidem ipsam quia iusto.
 									</p>
 									<p>
-										Ea eiusmod eiusmod aute reprehenderit exercitation eu ea id
-										adipisicing occaecat.
+										Ea eiusmod eiusmod aute reprehenderit exercitation eu ea id adipisicing
+										occaecat.
 									</p>
 								</MediaObject.Content>
 							</MediaObject.Root>
@@ -105,16 +101,13 @@ export default function Page() {
 				<section className="space-y-4">
 					<header className="space-y-1">
 						<HashLinkHeading id="api-media-object">
-							<h3 className="text-xl font-medium text-strong">
-								MediaObject.Root
-							</h3>
+							<h3 className="text-xl font-medium text-strong">MediaObject.Root</h3>
 						</HashLinkHeading>
 
 						<p className="font-body text-body">
-							The <Code>MediaObject</Code> is an image/icon (media) to the left,
-							with descriptive content (title and subtitle/description) to the
-							right. Root container for all <Code>MediaObject.Root</Code>{" "}
-							sub-components.
+							The <Code>MediaObject</Code> is an image/icon (media) to the left, with descriptive
+							content (title and subtitle/description) to the right. Root container for all{" "}
+							<Code>MediaObject.Root</Code> sub-components.
 						</p>
 
 						<p>
@@ -141,9 +134,8 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Use the <Code>asChild</Code> prop to compose the{" "}
-									<Code>MediaObject</Code> styling and functionality onto
-									alternative element types or your own React components.
+									Use the <Code>asChild</Code> prop to compose the <Code>MediaObject</Code> styling
+									and functionality onto alternative element types or your own React components.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -153,14 +145,12 @@ export default function Page() {
 				<section className="space-y-4">
 					<header className="space-y-1">
 						<HashLinkHeading id="api-media-object-media">
-							<h3 className="text-xl font-medium text-strong">
-								MediaObject.Media
-							</h3>
+							<h3 className="text-xl font-medium text-strong">MediaObject.Media</h3>
 						</HashLinkHeading>
 
 						<p className="font-body text-body">
-							The container for an image or icon to display in the media slot of
-							the <Code>MediaObject</Code>.
+							The container for an image or icon to display in the media slot of the{" "}
+							<Code>MediaObject</Code>.
 						</p>
 
 						<p>
@@ -187,9 +177,9 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Use the <Code>asChild</Code> prop to compose the{" "}
-									<Code>MediaObject.Media</Code> styling and functionality onto
-									alternative element types or your own React components.
+									Use the <Code>asChild</Code> prop to compose the <Code>MediaObject.Media</Code>{" "}
+									styling and functionality onto alternative element types or your own React
+									components.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -199,9 +189,7 @@ export default function Page() {
 				<section className="space-y-4">
 					<header className="space-y-1">
 						<HashLinkHeading id="api-media-object-content">
-							<h3 className="text-xl font-medium text-strong">
-								MediaObject.Content
-							</h3>
+							<h3 className="text-xl font-medium text-strong">MediaObject.Content</h3>
 						</HashLinkHeading>
 
 						<p className="font-body text-body">
@@ -232,9 +220,9 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Use the <Code>asChild</Code> prop to compose the{" "}
-									<Code>MediaObject.Content</Code> styling and functionality
-									onto alternative element types or your own React components.
+									Use the <Code>asChild</Code> prop to compose the <Code>MediaObject.Content</Code>{" "}
+									styling and functionality onto alternative element types or your own React
+									components.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -254,10 +242,6 @@ const ExampleMedia = () => (
 		viewBox="0 0 200 200"
 		aria-hidden="true"
 	>
-		<path
-			vectorEffect="non-scaling-stroke"
-			strokeWidth={1}
-			d="M0 0l200 200M0 200L200 0"
-		/>
+		<path vectorEffect="non-scaling-stroke" strokeWidth={1} d="M0 0l200 200M0 200L200 0" />
 	</svg>
 );

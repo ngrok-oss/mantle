@@ -36,48 +36,27 @@ export default function Page() {
 								}}
 							>
 								<div className="space-y-2">
-									<HashLinkHeading
-										id="dimensions"
-										className="font-medium leading-none"
-									>
+									<HashLinkHeading id="dimensions" className="font-medium leading-none">
 										<h4>Dimensions</h4>
 									</HashLinkHeading>
-									<p className="text-sm text-gray-700">
-										Set the dimensions for the layer.
-									</p>
+									<p className="text-sm text-gray-700">Set the dimensions for the layer.</p>
 								</div>
 								<div className="grid gap-2">
 									<div className="grid grid-cols-3 items-center gap-4">
 										<label htmlFor="width">Width</label>
-										<Input
-											id="width"
-											defaultValue="100%"
-											className="col-span-2 h-8"
-										/>
+										<Input id="width" defaultValue="100%" className="col-span-2 h-8" />
 									</div>
 									<div className="grid grid-cols-3 items-center gap-4">
 										<label htmlFor="maxWidth">Max width</label>
-										<Input
-											id="maxWidth"
-											defaultValue="300px"
-											className="col-span-2 h-8"
-										/>
+										<Input id="maxWidth" defaultValue="300px" className="col-span-2 h-8" />
 									</div>
 									<div className="grid grid-cols-3 items-center gap-4">
 										<label htmlFor="height">Height</label>
-										<Input
-											id="height"
-											defaultValue="25px"
-											className="col-span-2 h-8"
-										/>
+										<Input id="height" defaultValue="25px" className="col-span-2 h-8" />
 									</div>
 									<div className="grid grid-cols-3 items-center gap-4">
 										<label htmlFor="maxHeight">Max height</label>
-										<Input
-											id="maxHeight"
-											defaultValue="none"
-											className="col-span-2 h-8"
-										/>
+										<Input id="maxHeight" defaultValue="none" className="col-span-2 h-8" />
 									</div>
 								</div>
 							</form>

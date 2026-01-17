@@ -1,12 +1,7 @@
 /**
  * resolvedThemes is a tuple of valid themes that have been resolved from "system" to a specific theme.
  */
-const resolvedThemes = [
-	"light",
-	"dark",
-	"light-high-contrast",
-	"dark-high-contrast",
-] as const;
+const resolvedThemes = ["light", "dark", "light-high-contrast", "dark-high-contrast"] as const;
 
 /**
  * ResolvedTheme is a type that represents a theme that has been resolved from "system" to a specific theme.
@@ -42,8 +37,7 @@ function isTheme(value: unknown): value is Theme {
 /**
  * $resolvedTheme is a helper which translates the ResolvedTheme type into a string literal type.
  */
-const $resolvedTheme = <T extends ResolvedTheme = ResolvedTheme>(value: T) =>
-	value;
+const $resolvedTheme = <T extends ResolvedTheme = ResolvedTheme>(value: T) => value;
 
 /**
  * Type predicate that checks if a value is a valid resolved theme.

@@ -31,8 +31,7 @@ export const streamTimeout = 5_000;
 const reactRendererTimeout = streamTimeout + 1_000;
 
 const vercelDeploymentId = process.env.VERCEL_DEPLOYMENT_ID;
-const vercelSkewProtectionEnabled =
-	process.env.VERCEL_SKEW_PROTECTION_ENABLED === "1";
+const vercelSkewProtectionEnabled = process.env.VERCEL_SKEW_PROTECTION_ENABLED === "1";
 const isDev = import.meta.env.DEV || process.env.NODE_ENV !== "production";
 const isPreview = process.env.VERCEL_ENV === "preview";
 
@@ -63,17 +62,11 @@ export default function handleRequest(
 		// Ensure requests from bots and SPA Mode renders wait for all content to load before responding
 		// https://react.dev/reference/react-dom/server/renderToPipeableStream#waiting-for-all-content-to-load-for-crawlers-and-static-generation
 		const readyOption: keyof RenderToPipeableStreamOptions =
-			(userAgent && isbot(userAgent)) || routerContext.isSpaMode
-				? "onAllReady"
-				: "onShellReady";
+			(userAgent && isbot(userAgent)) || routerContext.isSpaMode ? "onAllReady" : "onShellReady";
 
 		const { pipe, abort } = renderToPipeableStream(
 			<NonceProvider value={uniquePerRequestNonce}>
-				<ServerRouter
-					context={routerContext}
-					url={request.url}
-					nonce={uniquePerRequestNonce}
-				/>
+				<ServerRouter context={routerContext} url={request.url} nonce={uniquePerRequestNonce} />
 			</NonceProvider>,
 			{
 				[readyOption]() {
@@ -108,10 +101,7 @@ export default function handleRequest(
 					}
 
 					// Add debug headers to verify indexing logic
-					responseHeaders.set(
-						"X-Debug-Indexing-Blocked",
-						String(shouldBlockIndexing),
-					);
+					responseHeaders.set("X-Debug-Indexing-Blocked", String(shouldBlockIndexing));
 					responseHeaders.set("X-Debug-Is-Prod", String(isProdEnv));
 					responseHeaders.set("X-Debug-Has-Ngrok-Header", String(isNgrokProxy));
 
@@ -119,9 +109,7 @@ export default function handleRequest(
 					const existingVary = responseHeaders.get("Vary");
 					responseHeaders.set(
 						"Vary",
-						existingVary
-							? `${existingVary}, Host, X-Forwarded-Host`
-							: "Host, X-Forwarded-Host",
+						existingVary ? `${existingVary}, Host, X-Forwarded-Host` : "Host, X-Forwarded-Host",
 					);
 
 					// Caching Strategy
@@ -131,10 +119,7 @@ export default function handleRequest(
 						responseHeaders.set("Cache-Control", "private, no-store");
 					} else {
 						// Prod: browsers revalidate; CDN caches briefly + SWR
-						responseHeaders.set(
-							"Cache-Control",
-							"public, max-age=0, must-revalidate",
-						);
+						responseHeaders.set("Cache-Control", "public, max-age=0, must-revalidate");
 						// Target the CDN specifically (Vercel honors this)
 						responseHeaders.set(
 							"CDN-Cache-Control",
@@ -203,15 +188,9 @@ export default function handleRequest(
 /**
  * TODO: add sentry/datadog handling here
  */
-export function handleError(
-	error: unknown,
-	{ request }: LoaderFunctionArgs | ActionFunctionArgs,
-) {
+export function handleError(error: unknown, { request }: LoaderFunctionArgs | ActionFunctionArgs) {
 	if (!request.signal.aborted) {
-		console.error(
-			"react-router entry.server handleError (unexpected error)",
-			error,
-		);
+		console.error("react-router entry.server handleError (unexpected error)", error);
 	}
 }
 
@@ -221,10 +200,7 @@ export function handleError(
  *
  * The script-src directive includes only trusted third-party scripts used in production.
  */
-function buildCSPHeader({
-	nonce,
-	baseUrl,
-}: { nonce: string; baseUrl: string }): string {
+function buildCSPHeader({ nonce, baseUrl }: { nonce: string; baseUrl: string }): string {
 	const scriptNonce = `'nonce-${nonce}'`;
 
 	/**

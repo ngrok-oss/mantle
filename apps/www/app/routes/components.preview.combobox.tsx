@@ -17,17 +17,13 @@ export default function Page() {
 				Combobox
 			</PageHeader>
 			<p className="font-body text-body text-xl">
-				Fill in a React input field with autocomplete & autosuggest
-				functionalities. Choose from a list of suggested values with full
-				keyboard support. This component is based on the{" "}
+				Fill in a React input field with autocomplete & autosuggest functionalities. Choose from a
+				list of suggested values with full keyboard support. This component is based on the{" "}
 				<Anchor href="https://www.w3.org/WAI/ARIA/apg/patterns/combobox/">
 					WAI-ARIA Combobox Pattern
 				</Anchor>
 				and is powered by the{" "}
-				<Anchor href="https://ariakit.org/components/combobox">
-					ariakit Combobox
-				</Anchor>
-				.
+				<Anchor href="https://ariakit.org/components/combobox">ariakit Combobox</Anchor>.
 			</p>
 			<div>
 				<Example className="gap-2">
@@ -35,17 +31,12 @@ export default function Page() {
 						<Combobox.Input />
 						<Combobox.Content>
 							<Combobox.Group>
-								<Combobox.GroupLabel>
-									Choose an ngrok subdomain
-								</Combobox.GroupLabel>
+								<Combobox.GroupLabel>Choose an ngrok subdomain</Combobox.GroupLabel>
 								<Combobox.Item value="https://" disabled>
 									<Combobox.ItemValue />
 								</Combobox.Item>
 								<Combobox.Item value="https://${random}.ngrok.app">
-									<CirclesThreePlusIcon
-										weight="duotone"
-										className="text-accent-600"
-									/>
+									<CirclesThreePlusIcon weight="duotone" className="text-accent-600" />
 									<Combobox.ItemValue />
 								</Combobox.Item>
 								<Combobox.Item value="https://${random}.ngrok.dev">
@@ -93,8 +84,7 @@ export default function Page() {
 							</Combobox.Group>
 							<Combobox.Separator />
 							<Combobox.Item>
-								Sit dolor enim eiusmod nulla nostrud officia in magna deserunt
-								ut ex veniam cillum.
+								Sit dolor enim eiusmod nulla nostrud officia in magna deserunt ut ex veniam cillum.
 							</Combobox.Item>
 						</Combobox.Content>
 					</Combobox.Root>

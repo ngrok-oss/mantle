@@ -84,17 +84,13 @@ type SpaceIndentedLanguage = (typeof spaceIndentedLanguages)[number];
 /**
  * Type Predicate: checks if the given value is a required/preferred tab-indented language.
  */
-function isTabIndentedLanguage(
-	value: SupportedLanguage,
-): value is TabIndentedLanguage {
+function isTabIndentedLanguage(value: SupportedLanguage): value is TabIndentedLanguage {
 	return tabIndentedLanguages.includes(value as TabIndentedLanguage);
 }
 
 /**
  * Type Predicate: checks if the given value is a required/preferred space-indented language.
  */
-function isSpaceIndentedLanguage(
-	value: SupportedLanguage,
-): value is SpaceIndentedLanguage {
+function isSpaceIndentedLanguage(value: SupportedLanguage): value is SpaceIndentedLanguage {
 	return spaceIndentedLanguages.includes(value as SpaceIndentedLanguage);
 }

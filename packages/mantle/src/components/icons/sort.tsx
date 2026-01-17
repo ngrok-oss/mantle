@@ -44,9 +44,7 @@ const SortIcon = ({ mode, direction, ...props }: Props) => {
 				case "desc":
 					return <SortDescendingIcon {...props} />;
 				default:
-					throw new Error(
-						`Invalid alphanumeric sorting direction given: "${direction}"`,
-					);
+					throw new Error(`Invalid alphanumeric sorting direction given: "${direction}"`);
 			}
 		}
 		case "time": {
@@ -58,9 +56,7 @@ const SortIcon = ({ mode, direction, ...props }: Props) => {
 				case "newest-to-oldest":
 					return <SortAscendingIcon {...props} />;
 				default:
-					throw new Error(
-						`Invalid time sorting direction given: "${direction}"`,
-					);
+					throw new Error(`Invalid time sorting direction given: "${direction}"`);
 			}
 		}
 	}

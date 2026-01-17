@@ -23,8 +23,6 @@ describe("escapeHtml", () => {
 			"&lt;script&gt;window.alert(&quot;lol xss&quot;)&lt;/script&gt;",
 		);
 
-		expect(escapeHtml("<textarea>foo</textarea>")).toBe(
-			"&lt;textarea&gt;foo&lt;/textarea&gt;",
-		);
+		expect(escapeHtml("<textarea>foo</textarea>")).toBe("&lt;textarea&gt;foo&lt;/textarea&gt;");
 	});
 });

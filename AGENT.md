@@ -86,7 +86,8 @@ pnpm -w run changeset
 - **Package names**: Apps use app names, packages use `@ngrok/` prefix
 - **Commands**: Always use workspace root commands (leverages turbo caching)
 - **Dependencies**: Add with `-E` flag for exact versions
-- **Formatting**: Biome with tabs (width: 2 spaces), double quotes
+- **Formatting**: oxfmt with tabs (width: 2 spaces), double quotes
+- **Linting**: oxlint with TypeScript, React, and jsx-a11y plugins
 - **Testing**: UTC timezone for consistent test runs
 
 ## Technology Stack
@@ -158,7 +159,7 @@ pnpm run changeset:publish      # Build and publish
 - **Design system**: Based on shadcn/ui patterns with Radix, Ariakit, and Headless UI primitives
 - **Documentation**: React Router 7 site with live component examples
 - **Testing**: @testing-library patterns with jest-dom matchers
-- **Accessibility**: Biome linting includes a11y rules
+- **Accessibility**: oxlint includes jsx-a11y rules
 - **Icons**: Uses @phosphor-icons/react primarily, with custom ngrok icons via `@ngrok/mantle/icons`
 - **Theme system**: Built-in light/dark mode with ThemeProvider and FOUC prevention
 

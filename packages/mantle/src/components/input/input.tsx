@@ -15,22 +15,14 @@ import { createContext, forwardRef, useContext, useRef } from "react";
 import { composeRefs } from "../../utils/compose-refs/compose-refs.js";
 import { cx } from "../../utils/cx/cx.js";
 import { Icon } from "../icon/icon.js";
-import type {
-	Validation,
-	WithAutoComplete,
-	WithInputType,
-	WithValidation,
-} from "./types.js";
+import type { Validation, WithAutoComplete, WithInputType, WithValidation } from "./types.js";
 
 type BaseProps = WithAutoComplete & WithInputType & WithValidation;
 
 /**
  * The props for the `Input` component.
  */
-type InputProps = Omit<
-	InputHTMLAttributes<HTMLInputElement>,
-	"autoComplete" | "type"
-> &
+type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, "autoComplete" | "type"> &
 	BaseProps &
 	PropsWithChildren;
 
@@ -81,10 +73,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 );
 Input.displayName = "Input";
 
-type InputCaptureProps = Omit<
-	InputHTMLAttributes<HTMLInputElement>,
-	"autoComplete" | "type"
-> &
+type InputCaptureProps = Omit<InputHTMLAttributes<HTMLInputElement>, "autoComplete" | "type"> &
 	BaseProps;
 
 /**
@@ -102,15 +91,7 @@ type InputCaptureProps = Omit<
  * ```
  */
 const InputCapture = forwardRef<HTMLInputElement, InputCaptureProps>(
-	(
-		{
-			"aria-invalid": _ariaInvalid,
-			className,
-			validation: _validation,
-			...restProps
-		},
-		ref,
-	) => {
+	({ "aria-invalid": _ariaInvalid, className, validation: _validation, ...restProps }, ref) => {
 		const {
 			"aria-invalid": ctxAriaInvalid,
 			forwardedRef: ctxForwardedRef,
@@ -121,10 +102,8 @@ const InputCapture = forwardRef<HTMLInputElement, InputCaptureProps>(
 
 		const validation = ctxValidation ?? _validation;
 		const validationValue =
-			(typeof validation === "function" ? validation() : validation) ||
-			undefined;
-		const ariaInvalid =
-			ctxAriaInvalid ?? _ariaInvalid ?? validation === "error";
+			(typeof validation === "function" ? validation() : validation) || undefined;
+		const ariaInvalid = ctxAriaInvalid ?? _ariaInvalid ?? validation === "error";
 		const props = {
 			...ctx,
 			...restProps,
@@ -147,10 +126,7 @@ const InputCapture = forwardRef<HTMLInputElement, InputCaptureProps>(
 );
 InputCapture.displayName = "InputCapture";
 
-type InputContextType = Omit<
-	InputHTMLAttributes<HTMLInputElement>,
-	"autoComplete" | "type"
-> &
+type InputContextType = Omit<InputHTMLAttributes<HTMLInputElement>, "autoComplete" | "type"> &
 	BaseProps & {
 		/**
 		 * inner ref for the input element, controlled by `Input`
@@ -225,11 +201,11 @@ const InputContainer = ({
 					"bg-form relative flex w-full items-center gap-1.5 rounded-md border px-3 py-2 file:border-0 file:bg-transparent file:text-sm file:font-medium focus-within:outline-hidden focus-within:ring-4 focus-visible:outline-hidden focus-visible:ring-4",
 					"aria-disabled:opacity-50",
 					"has-[input:not(:first-child)]:ps-2.5 has-[input:not(:last-child)]:pe-2.5 [&>:not(input)]:shrink-0 [&_svg]:size-5",
-					"border-form text-strong has-[:focus-visible]:border-accent-600 has-[:focus-visible]:ring-focus-accent",
-					"data-validation-success:border-success-600 has-[:focus-visible]:data-validation-success:border-success-600 has-[:focus-visible]:data-validation-success:ring-focus-success",
-					"data-validation-warning:border-warning-600 has-[:focus-visible]:data-validation-warning:border-warning-600 has-[:focus-visible]:data-validation-warning:ring-focus-warning",
-					"data-validation-error:border-danger-600 has-[:focus-visible]:data-validation-error:border-danger-600 has-[:focus-visible]:data-validation-error:ring-focus-danger",
-					"autofill:shadow-[inset_0_0_0px_1000px_var(--color-blue-50)] has-[:autofill]:bg-blue-50 has-[:autofill]:[-webkit-text-fill-color:var(--text-color-strong)]", // Autofill styling on the input itself and any children with autofill styling
+					"border-form text-strong has-focus-visible:border-accent-600 has-focus-visible:ring-focus-accent",
+					"data-validation-success:border-success-600 has-focus-visible:data-validation-success:border-success-600 has-focus-visible:data-validation-success:ring-focus-success",
+					"data-validation-warning:border-warning-600 has-focus-visible:data-validation-warning:border-warning-600 has-focus-visible:data-validation-warning:ring-focus-warning",
+					"data-validation-error:border-danger-600 has-focus-visible:data-validation-error:border-danger-600 has-focus-visible:data-validation-error:ring-focus-danger",
+					"autofill:shadow-[inset_0_0_0px_1000px_var(--color-blue-50)] has-autofill:bg-blue-50 has-autofill:[-webkit-text-fill-color:var(--text-color-strong)]", // Autofill styling on the input itself and any children with autofill styling
 					className,
 				)}
 				onClick={() => {
@@ -256,17 +232,16 @@ export type { InputProps, InputCaptureProps };
 const ValidationFeedback = ({
 	name,
 	validation,
-}: { name?: string; validation: Validation | undefined }) => {
+}: {
+	name?: string;
+	validation: Validation | undefined;
+}) => {
 	switch (validation) {
 		case "error":
 			return (
 				<div className="text-danger-600 pointer-events-none order-last select-none">
 					<span className="sr-only">
-						{clsx(
-							"The value entered for the",
-							name,
-							"input has failed validation.",
-						)}
+						{clsx("The value entered for the", name, "input has failed validation.")}
 					</span>
 					<Icon svg={<WarningIcon aria-hidden weight="fill" />} />
 				</div>

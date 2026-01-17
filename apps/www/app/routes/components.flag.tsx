@@ -112,8 +112,8 @@ export default function Page() {
 						</PropDefaultValueCell>
 						<PropDescriptionCell>
 							<p>
-								A string providing a hint to the user agent as to how to best
-								schedule the loading of the image to optimize page performance.{" "}
+								A string providing a hint to the user agent as to how to best schedule the loading
+								of the image to optimize page performance.{" "}
 								<Anchor href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/loading">
 									See MDN docs.
 								</Anchor>

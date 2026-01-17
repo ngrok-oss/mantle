@@ -17,6 +17,7 @@ function useCopyToClipboard() {
 				} else {
 					throw new Error("writeText not supported");
 				}
+				// oxlint-disable-next-line no-unused-vars
 			} catch (_) {
 				copyToClipboardPolyfill(value);
 				setState(value);

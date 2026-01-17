@@ -6,9 +6,7 @@ type NavigationContextType = {
 	setShowNavigation: (value: boolean) => void;
 };
 
-const NavigationContext = createContext<NavigationContextType | undefined>(
-	undefined,
-);
+const NavigationContext = createContext<NavigationContextType | undefined>(undefined);
 
 export const NavigationProvider = ({ children }: PropsWithChildren) => {
 	const [showNavigation, setShowNavigation] = useState(false);

@@ -1,9 +1,5 @@
 import { XIcon } from "@phosphor-icons/react/X";
-import type {
-	ComponentProps,
-	ComponentPropsWithoutRef,
-	ComponentRef,
-} from "react";
+import type { ComponentProps, ComponentPropsWithoutRef, ComponentRef } from "react";
 import { forwardRef } from "react";
 import { cx } from "../../utils/cx/cx.js";
 import { IconButton, type IconButtonProps } from "../button/icon-button.js";
@@ -295,10 +291,7 @@ CloseIconButton.displayName = "DialogCloseIconButton";
  * ```
  */
 const Body = ({ className, ...props }: ComponentProps<"div">) => (
-	<div
-		className={cx("scrollbar text-body flex-1 overflow-y-auto p-6", className)}
-		{...props}
-	/>
+	<div className={cx("scrollbar text-body flex-1 overflow-y-auto p-6", className)} {...props} />
 );
 Body.displayName = "DialogBody";
 
@@ -415,11 +408,7 @@ const Description = forwardRef<
 	ComponentRef<typeof DialogPrimitive.Description>,
 	ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
 >(({ className, ...props }, ref) => (
-	<DialogPrimitive.Description
-		ref={ref}
-		className={cx("text-muted", className)}
-		{...props}
-	/>
+	<DialogPrimitive.Description ref={ref} className={cx("text-muted", className)} {...props} />
 ));
 Description.displayName = "DialogDescription";
 

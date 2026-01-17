@@ -1,10 +1,6 @@
 import { Anchor } from "@ngrok/mantle/anchor";
 import { Code } from "@ngrok/mantle/code";
-import {
-	CodeBlock,
-	fmtCode,
-	supportedLanguages,
-} from "@ngrok/mantle/code-block";
+import { CodeBlock, fmtCode, supportedLanguages } from "@ngrok/mantle/code-block";
 import { href } from "react-router";
 import { Example } from "~/components/example";
 import { HashLinkHeading } from "~/components/hash-link-heading";
@@ -140,10 +136,9 @@ export default function Page() {
 							<h3>Single Line with a Header</h3>
 						</HashLinkHeading>
 						<p className="font-body text-body">
-							Many code blocks will be single line command line prompts and
-							should be able to render with a header and copy button. This makes
-							it absolutely clear that this example is a command line prompt and
-							not a code sample.
+							Many code blocks will be single line command line prompts and should be able to render
+							with a header and copy button. This makes it absolutely clear that this example is a
+							command line prompt and not a code sample.
 						</p>
 					</header>
 
@@ -195,9 +190,9 @@ export default function Page() {
 							<h3>Horizontal Scrolling</h3>
 						</HashLinkHeading>
 						<p className="font-body text-body">
-							This example is included to demonstrate that code blocks can
-							scroll horizontally if the content is too wide. Mantle attempts to
-							normalize scrollbar styling across browsers and platforms.
+							This example is included to demonstrate that code blocks can scroll horizontally if
+							the content is too wide. Mantle attempts to normalize scrollbar styling across
+							browsers and platforms.
 						</p>
 					</header>
 					<div>
@@ -286,12 +281,10 @@ export default function Page() {
 							<h3>No Header or Copy Button</h3>
 						</HashLinkHeading>
 						<p className="font-body text-body">
-							This is the most simple example of our code block component. While
-							very useful, the copy button is optional. It is also perfectly
-							acceptable to render a code block without a header, especially if
-							context is provided in the surrounding content or the code block
-							is self-explanatory eg. “In your index.js file, paste the
-							following:”.
+							This is the most simple example of our code block component. While very useful, the
+							copy button is optional. It is also perfectly acceptable to render a code block
+							without a header, especially if context is provided in the surrounding content or the
+							code block is self-explanatory eg. “In your index.js file, paste the following:”.
 						</p>
 					</header>
 					<div>
@@ -358,9 +351,8 @@ export default function Page() {
 							<h3>Single Line with Horizontal Scrolling</h3>
 						</HashLinkHeading>
 						<p className="font-body text-body">
-							This example is included to show the interaction between the copy
-							button and horizontal scrolling on a single verbose terminal
-							command.
+							This example is included to show the interaction between the copy button and
+							horizontal scrolling on a single verbose terminal command.
 						</p>
 					</header>
 					<div>
@@ -406,13 +398,11 @@ export default function Page() {
 							<h3>Overriding default language indentation</h3>
 						</HashLinkHeading>
 						<p className="font-body text-body">
-							By default, the code block code will detect the preferred (or
-							required) indentation of the given language. This is important for
-							languages that require a certain indentation style; for example,
-							Python and YAML are space-indented languages, so the code block
-							will use spaces for indentation. This is done to ensure that the
-							code is displayed and copied correctly and is easy to read.
-							However, you can override this by passing the{" "}
+							By default, the code block code will detect the preferred (or required) indentation of
+							the given language. This is important for languages that require a certain indentation
+							style; for example, Python and YAML are space-indented languages, so the code block
+							will use spaces for indentation. This is done to ensure that the code is displayed and
+							copied correctly and is easy to read. However, you can override this by passing the{" "}
 							<Code>indentation</Code> prop to the <Code>CodeBlock.Code</Code>.
 						</p>
 					</header>
@@ -442,9 +432,7 @@ export default function Page() {
 							<CodeBlock.Root>
 								<CodeBlock.Header>
 									<CodeBlock.Icon preset="file" />
-									<CodeBlock.Title>
-										ngrok-example.js (using space indentation)
-									</CodeBlock.Title>
+									<CodeBlock.Title>ngrok-example.js (using space indentation)</CodeBlock.Title>
 								</CodeBlock.Header>
 								<CodeBlock.Body>
 									<CodeBlock.CopyButton />
@@ -545,24 +533,18 @@ export default function Page() {
 
 			<section className="mt-16 space-y-8 font-body text-body">
 				<header className="space-y-4">
-					<HashLinkHeading
-						id="api"
-						className="text-3xl font-medium text-strong"
-					>
+					<HashLinkHeading id="api" className="text-3xl font-medium text-strong">
 						<h2>API Reference</h2>
 					</HashLinkHeading>
 					<p className="font-body text-body text-xl">
-						The <Code>CodeBlock</Code> render and apply syntax highlighting to
-						blocks of code and is composed of several sub-components.
+						The <Code>CodeBlock</Code> render and apply syntax highlighting to blocks of code and is
+						composed of several sub-components.
 					</p>
 				</header>
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<HashLinkHeading
-							id="api-code-block"
-							className="text-xl font-medium text-strong"
-						>
+						<HashLinkHeading id="api-code-block" className="text-xl font-medium text-strong">
 							<h3>
 								<span id="api-code-block-root" />
 								CodeBlock
@@ -570,9 +552,8 @@ export default function Page() {
 						</HashLinkHeading>
 
 						<p className="font-body text-body">
-							Code blocks render and apply syntax highlighting to blocks of
-							code. Root container for all <Code>CodeBlock</Code>{" "}
-							sub-components.
+							Code blocks render and apply syntax highlighting to blocks of code. Root container for
+							all <Code>CodeBlock</Code> sub-components.
 						</p>
 
 						<p>
@@ -599,9 +580,8 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Use the <Code>asChild</Code> prop to compose the{" "}
-									<Code>CodeBlock</Code> styling and functionality onto
-									alternative element types or your own React components.
+									Use the <Code>asChild</Code> prop to compose the <Code>CodeBlock</Code> styling
+									and functionality onto alternative element types or your own React components.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -610,16 +590,12 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<HashLinkHeading
-							id="api-code-block-body"
-							className="text-xl font-medium text-strong"
-						>
+						<HashLinkHeading id="api-code-block-body" className="text-xl font-medium text-strong">
 							<h3>CodeBlock.Body</h3>
 						</HashLinkHeading>
 						<p className="font-body text-body">
-							The body of the <Code>CodeBlock</Code>. This is where the{" "}
-							<Code>CodeBlock.Code</Code> and optional{" "}
-							<Code>CodeBlock.CopyButton</Code> are rendered as direct children.
+							The body of the <Code>CodeBlock</Code>. This is where the <Code>CodeBlock.Code</Code>{" "}
+							and optional <Code>CodeBlock.CopyButton</Code> are rendered as direct children.
 						</p>
 						<p className="font-body text-body">
 							All props from{" "}
@@ -645,9 +621,9 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Use the <Code>asChild</Code> prop to compose the{" "}
-									<Code>CodeBlock.Body</Code> styling and functionality onto
-									alternative element types or your own React components.
+									Use the <Code>asChild</Code> prop to compose the <Code>CodeBlock.Body</Code>{" "}
+									styling and functionality onto alternative element types or your own React
+									components.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -656,15 +632,12 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<HashLinkHeading
-							id="api-code-block-code"
-							className="text-xl font-medium text-strong"
-						>
+						<HashLinkHeading id="api-code-block-code" className="text-xl font-medium text-strong">
 							<h3>CodeBlock.Code</h3>
 						</HashLinkHeading>
 						<p className="font-body text-body">
-							The <Code>CodeBlock</Code> content. This is where the code is
-							rendered and syntax highlighted.
+							The <Code>CodeBlock</Code> content. This is where the code is rendered and syntax
+							highlighted.
 						</p>
 						<p className="font-body text-body">
 							All props from{" "}
@@ -687,10 +660,9 @@ export default function Page() {
 							<PropDefaultValueCell />
 							<PropDescriptionCell>
 								<p>
-									The code to display in the <Code>CodeBlock</Code>. Should be
-									code formatted as a string. This code will be passed to our
-									syntax highlighter. You should strongly consider wrapping this
-									input with the <Code>fmtCode</Code> tagged template literal
+									The code to display in the <Code>CodeBlock</Code>. Should be code formatted as a
+									string. This code will be passed to our syntax highlighter. You should strongly
+									consider wrapping this input with the <Code>fmtCode</Code> tagged template literal
 									function helper.
 								</p>
 							</PropDescriptionCell>
@@ -710,15 +682,13 @@ export default function Page() {
 							<PropDefaultValueCell />
 							<PropDescriptionCell>
 								<p>
-									The type of indentation to use. Can be either{" "}
-									<Code>spaces</Code> or <Code>tabs</Code>. By default, the code
-									block code will detect the preferred (or required) indentation
-									of the given language. This is important for languages that
-									require a certain indentation style; for example, Python and
-									YAML are space-indented languages, so the code block will use
-									spaces for indentation. This is done to ensure that the code
-									is displayed and copied correctly and is easy to read.
-									However, you can override this behavior with this prop.
+									The type of indentation to use. Can be either <Code>spaces</Code> or{" "}
+									<Code>tabs</Code>. By default, the code block code will detect the preferred (or
+									required) indentation of the given language. This is important for languages that
+									require a certain indentation style; for example, Python and YAML are
+									space-indented languages, so the code block will use spaces for indentation. This
+									is done to ensure that the code is displayed and copied correctly and is easy to
+									read. However, you can override this behavior with this prop.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -738,8 +708,8 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									The language of the <Code>CodeBlock</Code>. This will be used
-									to determine how to syntax highlight the code.
+									The language of the <Code>CodeBlock</Code>. This will be used to determine how to
+									syntax highlight the code.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -748,17 +718,12 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<HashLinkHeading
-							id="api-code-block-header"
-							className="text-xl font-medium text-strong"
-						>
+						<HashLinkHeading id="api-code-block-header" className="text-xl font-medium text-strong">
 							<h3>CodeBlock.Header</h3>
 						</HashLinkHeading>
 						<p className="font-body text-body">
-							An optional header slot of the <Code>CodeBlock</Code>. This is
-							where things like the
-							<Code>CodeBlock.Icon</Code> and <Code>CodeBlock.Title</Code> are
-							rendered.
+							An optional header slot of the <Code>CodeBlock</Code>. This is where things like the
+							<Code>CodeBlock.Icon</Code> and <Code>CodeBlock.Title</Code> are rendered.
 						</p>
 						<p className="font-body text-body">
 							All props from{" "}
@@ -783,9 +748,9 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Use the <Code>asChild</Code> prop to compose the{" "}
-									<Code>CodeBlock.Header</Code> styling and functionality onto
-									alternative element types or your own React components.
+									Use the <Code>asChild</Code> prop to compose the <Code>CodeBlock.Header</Code>{" "}
+									styling and functionality onto alternative element types or your own React
+									components.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -794,16 +759,12 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<HashLinkHeading
-							id="api-code-block-title"
-							className="text-xl font-medium text-strong"
-						>
+						<HashLinkHeading id="api-code-block-title" className="text-xl font-medium text-strong">
 							<h3>CodeBlock.Title</h3>
 						</HashLinkHeading>
 						<p className="font-body text-body">
-							The (optional) title of a <Code>CodeBlock</Code>. Default renders
-							as an <Code>h3</Code> element; use <Code>asChild</Code> to render
-							something else.
+							The (optional) title of a <Code>CodeBlock</Code>. Default renders as an{" "}
+							<Code>h3</Code> element; use <Code>asChild</Code> to render something else.
 						</p>
 						<p className="font-body text-body">
 							All props from{" "}
@@ -828,9 +789,9 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Use the <Code>asChild</Code> prop to compose the{" "}
-									<Code>CodeBlock.Title</Code> styling and functionality onto
-									alternative element types or your own React components.
+									Use the <Code>asChild</Code> prop to compose the <Code>CodeBlock.Title</Code>{" "}
+									styling and functionality onto alternative element types or your own React
+									components.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -846,10 +807,10 @@ export default function Page() {
 							<h3>CodeBlock.CopyButton</h3>
 						</HashLinkHeading>
 						<p className="font-body text-body">
-							The (optional) copy button of the <Code>CodeBlock</Code>. Render
-							this as a child of the
-							<Code>CodeBlock.Body</Code> to allow users to copy the code block
-							contents to their clipboard.
+							The (optional) copy button of the <Code>CodeBlock</Code>. Render this as a child of
+							the
+							<Code>CodeBlock.Body</Code> to allow users to copy the code block contents to their
+							clipboard.
 						</p>
 						<p className="font-body text-body">
 							All props from{" "}
@@ -872,8 +833,8 @@ export default function Page() {
 							<PropDefaultValueCell />
 							<PropDescriptionCell>
 								<p>
-									Callback fired when the copy button is clicked, passes the
-									copied text as an argument.
+									Callback fired when the copy button is clicked, passes the copied text as an
+									argument.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -897,9 +858,9 @@ export default function Page() {
 							</PropDefaultValueCell>
 							<PropDescriptionCell>
 								<p>
-									Use the <Code>asChild</Code> prop to compose the{" "}
-									<Code>CodeBlock.CopyButton</Code> styling and functionality
-									onto alternative element types or your own React components.
+									Use the <Code>asChild</Code> prop to compose the <Code>CodeBlock.CopyButton</Code>{" "}
+									styling and functionality onto alternative element types or your own React
+									components.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -915,10 +876,9 @@ export default function Page() {
 							<h3>CodeBlock.ExpanderButton</h3>
 						</HashLinkHeading>
 						<p className="font-body text-body">
-							The (optional) expander button of the <Code>CodeBlock</Code>.
-							Render this as a child of the
-							<Code>CodeBlock.Body</Code> to allow users to expand/collapse the
-							code block contents.
+							The (optional) expander button of the <Code>CodeBlock</Code>. Render this as a child
+							of the
+							<Code>CodeBlock.Body</Code> to allow users to expand/collapse the code block contents.
 						</p>
 						<p className="font-body text-body">
 							All props from{" "}
@@ -944,9 +904,8 @@ export default function Page() {
 							<PropDescriptionCell>
 								<p>
 									Use the <Code>asChild</Code> prop to compose the{" "}
-									<Code>CodeBlock.ExpanderButton</Code> styling and
-									functionality onto alternative element types or your own React
-									components.
+									<Code>CodeBlock.ExpanderButton</Code> styling and functionality onto alternative
+									element types or your own React components.
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -955,17 +914,13 @@ export default function Page() {
 
 				<section className="space-y-4">
 					<header className="space-y-1">
-						<HashLinkHeading
-							id="api-code-block-icon"
-							className="text-xl font-medium text-strong"
-						>
+						<HashLinkHeading id="api-code-block-icon" className="text-xl font-medium text-strong">
 							<h3>CodeBlock.Icon</h3>
 						</HashLinkHeading>
 						<p className="font-body text-body">
-							A small icon that represents the type of code block being
-							displayed, rendered as an SVG next to the code block title in the
-							code block header. You can pass in a custom SVG component or use
-							one of the presets (you can exclusively pass one of{" "}
+							A small icon that represents the type of code block being displayed, rendered as an
+							SVG next to the code block title in the code block header. You can pass in a custom
+							SVG component or use one of the presets (you can exclusively pass one of{" "}
 							<Code>svg</Code> or <Code>preset</Code>).
 						</p>
 						<p className="font-body text-body">
@@ -985,9 +940,8 @@ export default function Page() {
 							<PropDefaultValueCell />
 							<PropDescriptionCell>
 								<p>
-									A custom icon to display in the code block header. You can
-									exclusively pass one of <Code>svg</Code> or{" "}
-									<Code>preset</Code>
+									A custom icon to display in the code block header. You can exclusively pass one of{" "}
+									<Code>svg</Code> or <Code>preset</Code>
 								</p>
 							</PropDescriptionCell>
 						</PropRow>
@@ -1009,9 +963,8 @@ export default function Page() {
 							<PropDefaultValueCell />
 							<PropDescriptionCell>
 								<p>
-									A preset icon to display in the code block header. You can
-									exclusively pass one of <Code>svg</Code> or{" "}
-									<Code>preset</Code>
+									A preset icon to display in the code block header. You can exclusively pass one of{" "}
+									<Code>svg</Code> or <Code>preset</Code>
 								</p>
 							</PropDescriptionCell>
 						</PropRow>

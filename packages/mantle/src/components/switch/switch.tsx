@@ -1,7 +1,4 @@
-import {
-	Root as SwitchPrimitiveRoot,
-	Thumb as SwitchPrimitiveThumb,
-} from "@radix-ui/react-switch";
+import { Root as SwitchPrimitiveRoot, Thumb as SwitchPrimitiveThumb } from "@radix-ui/react-switch";
 import clsx from "clsx";
 import { forwardRef } from "react";
 import type { ComponentPropsWithoutRef, ComponentRef } from "react";
@@ -30,20 +27,8 @@ type SwitchProps = ComponentPropsWithoutRef<typeof SwitchPrimitiveRoot> & {
  * </form>
  * ```
  */
-const Switch = forwardRef<
-	ComponentRef<typeof SwitchPrimitiveRoot>,
-	SwitchProps
->(
-	(
-		{
-			"aria-readonly": _ariaReadOnly,
-			className,
-			readOnly: _readOnly,
-			onClick,
-			...props
-		},
-		ref,
-	) => {
+const Switch = forwardRef<ComponentRef<typeof SwitchPrimitiveRoot>, SwitchProps>(
+	({ "aria-readonly": _ariaReadOnly, className, readOnly: _readOnly, onClick, ...props }, ref) => {
 		const readOnly = parseBooleanish(_readOnly ?? _ariaReadOnly);
 
 		return (
@@ -70,7 +55,7 @@ const Switch = forwardRef<
 				<SwitchPrimitiveThumb
 					className={clsx(
 						"pointer-events-none block size-4 rounded-full bg-[#fff] shadow-md ring-0 transition-transform",
-						"data-state-checked:translate-x-[1.125rem] data-state-unchecked:translate-x-[0.125rem]",
+						"data-state-checked:translate-x-4.5 data-state-unchecked:translate-x-0.5",
 					)}
 				/>
 			</SwitchPrimitiveRoot>

@@ -32,8 +32,8 @@ export default function Page() {
 			<section className="space-y-4">
 				<PageHeader id="dialog">Dialog</PageHeader>
 				<p className="font-body text-body text-xl">
-					A window overlaid on either the primary window or another dialog
-					window, rendering the content underneath inert.
+					A window overlaid on either the primary window or another dialog window, rendering the
+					content underneath inert.
 				</p>
 				<div>
 					<Example className="flex-col gap-6">
@@ -67,19 +67,12 @@ export default function Page() {
 								</Dialog.Header>
 								<Dialog.Body>
 									<p>
-										This action cannot be undone. This will permanently delete
-										your account and remove your data from our servers.
+										This action cannot be undone. This will permanently delete your account and
+										remove your data from our servers.
 									</p>
 									<form onSubmit={(event) => event.preventDefault()}>
-										<Label htmlFor="email">
-											Email input to trigger 1password plugin
-										</Label>
-										<Input
-											type="email"
-											autoComplete="email"
-											id="email"
-											name="email"
-										/>
+										<Label htmlFor="email">Email input to trigger 1password plugin</Label>
+										<Input type="email" autoComplete="email" id="email" name="email" />
 									</form>
 								</Dialog.Body>
 								<Dialog.Footer>
@@ -89,11 +82,7 @@ export default function Page() {
 										</Button>
 									</Dialog.Close>
 									<Dialog.Close asChild>
-										<Button
-											type="button"
-											priority="neutral"
-											appearance="outlined"
-										>
+										<Button type="button" priority="neutral" appearance="outlined">
 											Cancel
 										</Button>
 									</Dialog.Close>
@@ -113,8 +102,8 @@ export default function Page() {
 									</Dialog.Title>
 								</Dialog.Header>
 								<Dialog.Body>
-									This action cannot be undone. This will permanently delete
-									your account and remove your data from our servers.
+									This action cannot be undone. This will permanently delete your account and remove
+									your data from our servers.
 								</Dialog.Body>
 								<Dialog.Footer>
 									<Dialog.Close asChild>
@@ -123,11 +112,7 @@ export default function Page() {
 										</Button>
 									</Dialog.Close>
 									<Dialog.Close asChild>
-										<Button
-											type="button"
-											priority="neutral"
-											appearance="outlined"
-										>
+										<Button type="button" priority="neutral" appearance="outlined">
 											Cancel
 										</Button>
 									</Dialog.Close>
@@ -147,51 +132,39 @@ export default function Page() {
 								</Dialog.Header>
 								<Dialog.Body className="flex flex-col gap-4">
 									<p>
-										Consequat velit minim labore esse aliqua laboris non laborum
-										qui labore duis reprehenderit.
+										Consequat velit minim labore esse aliqua laboris non laborum qui labore duis
+										reprehenderit.
 									</p>
 									<p>Eiusmod eu consequat ex ipsum ex adipisicing.</p>
 									<p>
-										Veniam eu nostrud officia pariatur aliquip dolor laboris
-										cupidatat magna cillum nostrud aliquip ex esse.
+										Veniam eu nostrud officia pariatur aliquip dolor laboris cupidatat magna cillum
+										nostrud aliquip ex esse.
 									</p>
 									<p>Tempor laborum proident officia do.</p>
 									<p>Aliqua laborum id cillum anim.</p>
 									<p>Exercitation ex culpa laborum anim.</p>
 									<p>Voluptate minim culpa qui anim officia non do labore.</p>
 									<p>Ad exercitation do nulla laborum deserunt.</p>
-									<p>
-										Quis mollit nostrud sint officia elit eu deserunt nostrud
-										excepteur ea.
-									</p>
-									<p>
-										Qui pariatur anim ad et Lorem eu aliquip minim amet elit ex
-										adipisicing.
-									</p>
+									<p>Quis mollit nostrud sint officia elit eu deserunt nostrud excepteur ea.</p>
+									<p>Qui pariatur anim ad et Lorem eu aliquip minim amet elit ex adipisicing.</p>
 									<p>Exercitation officia sunt sit sint.</p>
 									<p>Velit eu deserunt proident Lorem sit proident ut minim.</p>
 									<p>
-										Consequat velit minim labore esse aliqua laboris non laborum
-										qui labore duis reprehenderit.
+										Consequat velit minim labore esse aliqua laboris non laborum qui labore duis
+										reprehenderit.
 									</p>
 									<p>Eiusmod eu consequat ex ipsum ex adipisicing.</p>
 									<p>
-										Veniam eu nostrud officia pariatur aliquip dolor laboris
-										cupidatat magna cillum nostrud aliquip ex esse.
+										Veniam eu nostrud officia pariatur aliquip dolor laboris cupidatat magna cillum
+										nostrud aliquip ex esse.
 									</p>
 									<p>Tempor laborum proident officia do.</p>
 									<p>Aliqua laborum id cillum anim.</p>
 									<p>Exercitation ex culpa laborum anim.</p>
 									<p>Voluptate minim culpa qui anim officia non do labore.</p>
 									<p>Ad exercitation do nulla laborum deserunt.</p>
-									<p>
-										Quis mollit nostrud sint officia elit eu deserunt nostrud
-										excepteur ea.
-									</p>
-									<p>
-										Qui pariatur anim ad et Lorem eu aliquip minim amet elit ex
-										adipisicing.
-									</p>
+									<p>Quis mollit nostrud sint officia elit eu deserunt nostrud excepteur ea.</p>
+									<p>Qui pariatur anim ad et Lorem eu aliquip minim amet elit ex adipisicing.</p>
 									<p>Exercitation officia sunt sit sint.</p>
 									<p>Velit eu deserunt proident Lorem sit proident ut minim.</p>
 								</Dialog.Body>
@@ -202,11 +175,7 @@ export default function Page() {
 										</Button>
 									</Dialog.Close>
 									<Dialog.Close asChild>
-										<Button
-											type="button"
-											priority="neutral"
-											appearance="outlined"
-										>
+										<Button type="button" priority="neutral" appearance="outlined">
 											Cancel
 										</Button>
 									</Dialog.Close>
@@ -256,11 +225,10 @@ export default function Page() {
 					<h2>Composition</h2>
 				</HashLinkHeading>
 				<p className="font-body text-body text-xl">
-					In some cases, you might wish to have a tooltip over the dialog
-					trigger. This is helpful if the dialog trigger is an{" "}
-					<Code>IconButton</Code> and you wish to provide more context to what
-					the button does. You can compose them both together to where the
-					dialog trigger is also the tooltip trigger.
+					In some cases, you might wish to have a tooltip over the dialog trigger. This is helpful
+					if the dialog trigger is an <Code>IconButton</Code> and you wish to provide more context
+					to what the button does. You can compose them both together to where the dialog trigger is
+					also the tooltip trigger.
 				</p>
 				<div>
 					<Example>
@@ -268,12 +236,7 @@ export default function Page() {
 							<Tooltip.Root>
 								<Tooltip.Trigger asChild>
 									<Dialog.Trigger asChild>
-										<IconButton
-											type="button"
-											label="Delete"
-											size="sm"
-											icon={<TrashSimpleIcon />}
-										/>
+										<IconButton type="button" label="Delete" size="sm" icon={<TrashSimpleIcon />} />
 									</Dialog.Trigger>
 								</Tooltip.Trigger>
 								<Tooltip.Content>
@@ -287,8 +250,8 @@ export default function Page() {
 									<Dialog.CloseIconButton />
 								</Dialog.Header>
 								<Dialog.Body>
-									This action cannot be undone. This will permanently delete
-									your account and remove your data from our servers.
+									This action cannot be undone. This will permanently delete your account and remove
+									your data from our servers.
 								</Dialog.Body>
 								<Dialog.Footer>
 									<Dialog.Close asChild>
@@ -297,11 +260,7 @@ export default function Page() {
 										</Button>
 									</Dialog.Close>
 									<Dialog.Close asChild>
-										<Button
-											type="button"
-											priority="neutral"
-											appearance="outlined"
-										>
+										<Button type="button" priority="neutral" appearance="outlined">
 											Cancel
 										</Button>
 									</Dialog.Close>
@@ -362,22 +321,17 @@ export default function Page() {
 					<h2>API Reference</h2>
 				</HashLinkHeading>
 				<p className="font-body text-body text-xl">
-					The <Code>Dialog</Code> component is built on top of Radix UI Dialog
-					and provides a complete set of sub-components for building modal
-					dialogs.
+					The <Code>Dialog</Code> component is built on top of Radix UI Dialog and provides a
+					complete set of sub-components for building modal dialogs.
 				</p>
 
 				<div className="space-y-8">
 					<div>
-						<HashLinkHeading
-							id="dialog-root"
-							className="text-xl font-medium mb-4"
-						>
+						<HashLinkHeading id="dialog-root" className="text-xl font-medium mb-4">
 							<h3>Dialog.Root</h3>
 						</HashLinkHeading>
 						<p className="mb-4 text-muted-foreground">
-							The root stateful component that manages the open/closed state of
-							the dialog.
+							The root stateful component that manages the open/closed state of the dialog.
 						</p>
 						<PropsTable>
 							<PropRow>
@@ -388,8 +342,8 @@ export default function Page() {
 								<PropDefaultValueCell />
 								<PropDescriptionCell>
 									<p>
-										The controlled open state of the dialog. Must be used in
-										conjunction with <Code>onOpenChange</Code>.
+										The controlled open state of the dialog. Must be used in conjunction with{" "}
+										<Code>onOpenChange</Code>.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -400,10 +354,7 @@ export default function Page() {
 								</PropTypeCell>
 								<PropDefaultValueCell />
 								<PropDescriptionCell>
-									<p>
-										Event handler called when the open state of the dialog
-										changes.
-									</p>
+									<p>Event handler called when the open state of the dialog changes.</p>
 								</PropDescriptionCell>
 							</PropRow>
 							<PropRow>
@@ -416,8 +367,8 @@ export default function Page() {
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
-										The open state of the dialog when it is initially rendered.
-										Use when you do not need to control its open state.
+										The open state of the dialog when it is initially rendered. Use when you do not
+										need to control its open state.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -431,9 +382,9 @@ export default function Page() {
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
-										The modality of the dialog. When set to <Code>true</Code>,
-										interaction with outside elements will be disabled and only
-										dialog content will be visible to screen readers.
+										The modality of the dialog. When set to <Code>true</Code>, interaction with
+										outside elements will be disabled and only dialog content will be visible to
+										screen readers.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -441,15 +392,10 @@ export default function Page() {
 					</div>
 
 					<div>
-						<HashLinkHeading
-							id="dialog-trigger"
-							className="text-xl font-medium mb-4"
-						>
+						<HashLinkHeading id="dialog-trigger" className="text-xl font-medium mb-4">
 							<h3>Dialog.Trigger</h3>
 						</HashLinkHeading>
-						<p className="mb-4 text-muted-foreground">
-							A button that opens the dialog.
-						</p>
+						<p className="mb-4 text-muted-foreground">A button that opens the dialog.</p>
 						<PropsTable>
 							<PropRow>
 								<PropNameCell name="asChild" optional />
@@ -461,8 +407,8 @@ export default function Page() {
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
-										Use the <Code>asChild</Code> prop to compose the trigger
-										functionality onto your own component.
+										Use the <Code>asChild</Code> prop to compose the trigger functionality onto your
+										own component.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -470,15 +416,12 @@ export default function Page() {
 					</div>
 
 					<div>
-						<HashLinkHeading
-							id="dialog-content"
-							className="text-xl font-medium mb-4"
-						>
+						<HashLinkHeading id="dialog-content" className="text-xl font-medium mb-4">
 							<h3>Dialog.Content</h3>
 						</HashLinkHeading>
 						<p className="mb-4 text-muted-foreground">
-							The container for the dialog content. Renders on top of the
-							overlay and is centered in the viewport.
+							The container for the dialog content. Renders on top of the overlay and is centered in
+							the viewport.
 						</p>
 						<PropsTable>
 							<PropRow>
@@ -491,9 +434,8 @@ export default function Page() {
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
-										The preferred width of the dialog content as a Tailwind{" "}
-										<Code>max-w-</Code> class. Controls the maximum width of the
-										dialog.
+										The preferred width of the dialog content as a Tailwind <Code>max-w-</Code>{" "}
+										class. Controls the maximum width of the dialog.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -505,8 +447,8 @@ export default function Page() {
 								<PropDefaultValueCell />
 								<PropDescriptionCell>
 									<p>
-										Event handler called when the escape key is down. It can be
-										prevented by calling <Code>event.preventDefault</Code>.
+										Event handler called when the escape key is down. It can be prevented by calling{" "}
+										<Code>event.preventDefault</Code>.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -518,9 +460,8 @@ export default function Page() {
 								<PropDefaultValueCell />
 								<PropDescriptionCell>
 									<p>
-										Event handler called when the user interacts outside the
-										component. It can be prevented by calling{" "}
-										<Code>event.preventDefault</Code>.
+										Event handler called when the user interacts outside the component. It can be
+										prevented by calling <Code>event.preventDefault</Code>.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -528,15 +469,11 @@ export default function Page() {
 					</div>
 
 					<div>
-						<HashLinkHeading
-							id="dialog-header"
-							className="text-xl font-medium mb-4"
-						>
+						<HashLinkHeading id="dialog-header" className="text-xl font-medium mb-4">
 							<h3>Dialog.Header</h3>
 						</HashLinkHeading>
 						<p className="mb-4 text-muted-foreground">
-							Contains the header content of the dialog, including the title and
-							close button.
+							Contains the header content of the dialog, including the title and close button.
 						</p>
 						<PropsTable>
 							<PropRow>
@@ -553,15 +490,10 @@ export default function Page() {
 					</div>
 
 					<div>
-						<HashLinkHeading
-							id="dialog-body"
-							className="text-xl font-medium mb-4"
-						>
+						<HashLinkHeading id="dialog-body" className="text-xl font-medium mb-4">
 							<h3>Dialog.Body</h3>
 						</HashLinkHeading>
-						<p className="mb-4 text-muted-foreground">
-							Contains the main content of the dialog.
-						</p>
+						<p className="mb-4 text-muted-foreground">Contains the main content of the dialog.</p>
 						<PropsTable>
 							<PropRow>
 								<PropNameCell name="children" />
@@ -577,15 +509,11 @@ export default function Page() {
 					</div>
 
 					<div>
-						<HashLinkHeading
-							id="dialog-footer"
-							className="text-xl font-medium mb-4"
-						>
+						<HashLinkHeading id="dialog-footer" className="text-xl font-medium mb-4">
 							<h3>Dialog.Footer</h3>
 						</HashLinkHeading>
 						<p className="mb-4 text-muted-foreground">
-							Contains the footer content of the dialog, including action
-							buttons.
+							Contains the footer content of the dialog, including action buttons.
 						</p>
 						<PropsTable>
 							<PropRow>
@@ -596,8 +524,8 @@ export default function Page() {
 								<PropDefaultValueCell />
 								<PropDescriptionCell>
 									<p>
-										The content to render inside the dialog footer. Typically
-										contains action buttons.
+										The content to render inside the dialog footer. Typically contains action
+										buttons.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -605,10 +533,7 @@ export default function Page() {
 					</div>
 
 					<div>
-						<HashLinkHeading
-							id="dialog-title"
-							className="text-xl font-medium mb-4"
-						>
+						<HashLinkHeading id="dialog-title" className="text-xl font-medium mb-4">
 							<h3>Dialog.Title</h3>
 						</HashLinkHeading>
 						<p className="mb-4 text-muted-foreground">
@@ -629,15 +554,11 @@ export default function Page() {
 					</div>
 
 					<div>
-						<HashLinkHeading
-							id="dialog-description"
-							className="text-xl font-medium mb-4"
-						>
+						<HashLinkHeading id="dialog-description" className="text-xl font-medium mb-4">
 							<h3>Dialog.Description</h3>
 						</HashLinkHeading>
 						<p className="mb-4 text-muted-foreground">
-							An accessible description to be announced when the dialog is
-							opened.
+							An accessible description to be announced when the dialog is opened.
 						</p>
 						<PropsTable>
 							<PropRow>
@@ -648,8 +569,8 @@ export default function Page() {
 								<PropDefaultValueCell />
 								<PropDescriptionCell>
 									<p>
-										The description text for the dialog. Enhances accessibility
-										by providing additional context.
+										The description text for the dialog. Enhances accessibility by providing
+										additional context.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -657,10 +578,7 @@ export default function Page() {
 					</div>
 
 					<div>
-						<HashLinkHeading
-							id="dialog-close"
-							className="text-xl font-medium mb-4"
-						>
+						<HashLinkHeading id="dialog-close" className="text-xl font-medium mb-4">
 							<h3>Dialog.Close</h3>
 						</HashLinkHeading>
 						<p className="mb-4 text-muted-foreground">
@@ -677,8 +595,8 @@ export default function Page() {
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
 									<p>
-										Use the <Code>asChild</Code> prop to compose the close
-										functionality onto your own component.
+										Use the <Code>asChild</Code> prop to compose the close functionality onto your
+										own component.
 									</p>
 								</PropDescriptionCell>
 							</PropRow>
@@ -686,10 +604,7 @@ export default function Page() {
 					</div>
 
 					<div>
-						<HashLinkHeading
-							id="dialog-close-icon-button"
-							className="text-xl font-medium mb-4"
-						>
+						<HashLinkHeading id="dialog-close-icon-button" className="text-xl font-medium mb-4">
 							<h3>Dialog.CloseIconButton</h3>
 						</HashLinkHeading>
 						<p className="mb-4 text-muted-foreground">
@@ -727,10 +642,7 @@ export default function Page() {
 									<StringPropType value="Close Dialog" />
 								</PropDefaultValueCell>
 								<PropDescriptionCell>
-									<p>
-										The accessible label for the close button. Important for
-										screen readers.
-									</p>
+									<p>The accessible label for the close button. Important for screen readers.</p>
 								</PropDescriptionCell>
 							</PropRow>
 							<PropRow>

@@ -30,16 +30,15 @@ export default function Page() {
 			<section className="space-y-4">
 				<PageHeader id="tooltip">Tooltip</PageHeader>
 				<p className="font-body text-body text-xl">
-					A popup that displays information related to an element when the
-					element receives keyboard focus or the mouse hovers over it.
+					A popup that displays information related to an element when the element receives keyboard
+					focus or the mouse hovers over it.
 				</p>
 				<Alert.Root priority="warning">
 					<Alert.Icon svg={<LightbulbIcon />} />
 					<Alert.Content>
 						<Alert.Title>
-							<strong>Note:</strong> Wrap your app with{" "}
-							<Code>TooltipProvider</Code> once at the root to enable tooltips
-							throughout your application.
+							<strong>Note:</strong> Wrap your app with <Code>TooltipProvider</Code> once at the
+							root to enable tooltips throughout your application.
 						</Alert.Title>
 					</Alert.Content>
 				</Alert.Root>
@@ -91,9 +90,8 @@ export default function Page() {
 					<h3 className="text-2xl font-medium">TooltipProvider</h3>
 				</HashLinkHeading>
 				<p className="font-body text-body text-xl">
-					Wraps your app to provide global functionality to your tooltips. Only
-					one instance of this component should be rendered in your app,
-					preferably at the root.
+					Wraps your app to provide global functionality to your tooltips. Only one instance of this
+					component should be rendered in your app, preferably at the root.
 				</p>
 				<PropsTable>
 					<PropRow>
@@ -106,8 +104,8 @@ export default function Page() {
 						</PropDefaultValueCell>
 						<PropDescriptionCell>
 							<p>
-								The duration from when the mouse enters a tooltip trigger until
-								the tooltip opens, in milliseconds.
+								The duration from when the mouse enters a tooltip trigger until the tooltip opens,
+								in milliseconds.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>
@@ -121,8 +119,8 @@ export default function Page() {
 						</PropDefaultValueCell>
 						<PropDescriptionCell>
 							<p>
-								How much time a user has to enter another trigger without
-								incurring a delay again, in milliseconds.
+								How much time a user has to enter another trigger without incurring a delay again,
+								in milliseconds.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>
@@ -136,8 +134,8 @@ export default function Page() {
 						</PropDefaultValueCell>
 						<PropDescriptionCell>
 							<p>
-								Prevents <Code>Tooltip.Content</Code> from remaining open when
-								hovering. Disabling this has accessibility consequences.
+								Prevents <Code>Tooltip.Content</Code> from remaining open when hovering. Disabling
+								this has accessibility consequences.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>
@@ -147,9 +145,8 @@ export default function Page() {
 					<h3 className="text-2xl font-medium">Tooltip.Root</h3>
 				</HashLinkHeading>
 				<p className="font-body text-body text-xl">
-					The root component that manages the open/closed state of the tooltip.
-					Will throw if you have not wrapped your app in a{" "}
-					<Code>TooltipProvider</Code>.
+					The root component that manages the open/closed state of the tooltip. Will throw if you
+					have not wrapped your app in a <Code>TooltipProvider</Code>.
 				</p>
 				<PropsTable>
 					<PropRow>
@@ -162,8 +159,8 @@ export default function Page() {
 						</PropDefaultValueCell>
 						<PropDescriptionCell>
 							<p>
-								The open state of the tooltip when it is initially rendered. Use
-								when you do not need to control its open state.
+								The open state of the tooltip when it is initially rendered. Use when you do not
+								need to control its open state.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>
@@ -175,8 +172,8 @@ export default function Page() {
 						<PropDefaultValueCell />
 						<PropDescriptionCell>
 							<p>
-								The controlled open state of the tooltip. Must be used in
-								conjunction with <Code>onOpenChange</Code>.
+								The controlled open state of the tooltip. Must be used in conjunction with{" "}
+								<Code>onOpenChange</Code>.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>
@@ -187,9 +184,7 @@ export default function Page() {
 						</PropTypeCell>
 						<PropDefaultValueCell />
 						<PropDescriptionCell>
-							<p>
-								Event handler called when the open state of the tooltip changes.
-							</p>
+							<p>Event handler called when the open state of the tooltip changes.</p>
 						</PropDescriptionCell>
 					</PropRow>
 					<PropRow>
@@ -200,8 +195,8 @@ export default function Page() {
 						<PropDefaultValueCell />
 						<PropDescriptionCell>
 							<p>
-								Override the duration given to the <Code>TooltipProvider</Code>{" "}
-								to customize the open delay for a specific tooltip.
+								Override the duration given to the <Code>TooltipProvider</Code> to customize the
+								open delay for a specific tooltip.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>
@@ -214,8 +209,7 @@ export default function Page() {
 						<PropDescriptionCell>
 							<p>
 								Override the <Code>disableHoverableContent</Code> given to the{" "}
-								<Code>TooltipProvider</Code> to customize the behavior for a
-								specific tooltip.
+								<Code>TooltipProvider</Code> to customize the behavior for a specific tooltip.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>
@@ -225,8 +219,8 @@ export default function Page() {
 					<h3 className="text-2xl font-medium">Tooltip.Trigger</h3>
 				</HashLinkHeading>
 				<p className="font-body text-body text-xl">
-					The button that toggles the tooltip. By default, the{" "}
-					<Code>Tooltip.Content</Code> will position itself against the trigger.
+					The button that toggles the tooltip. By default, the <Code>Tooltip.Content</Code> will
+					position itself against the trigger.
 				</p>
 				<PropsTable>
 					<PropRow>
@@ -239,8 +233,8 @@ export default function Page() {
 						</PropDefaultValueCell>
 						<PropDescriptionCell>
 							<p>
-								Use the <Code>asChild</Code> prop to compose the tooltip trigger
-								onto an alternative element.
+								Use the <Code>asChild</Code> prop to compose the tooltip trigger onto an alternative
+								element.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>
@@ -276,9 +270,8 @@ export default function Page() {
 						</PropDefaultValueCell>
 						<PropDescriptionCell>
 							<p>
-								The preferred side of the trigger to render against when open.
-								Will be reversed when collisions occur and{" "}
-								<Code>avoidCollisions</Code> is enabled.
+								The preferred side of the trigger to render against when open. Will be reversed when
+								collisions occur and <Code>avoidCollisions</Code> is enabled.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>
@@ -313,10 +306,7 @@ export default function Page() {
 							<StringPropType value="center" />
 						</PropDefaultValueCell>
 						<PropDescriptionCell>
-							<p>
-								The preferred alignment against the trigger. May change when
-								collisions occur.
-							</p>
+							<p>The preferred alignment against the trigger. May change when collisions occur.</p>
 						</PropDescriptionCell>
 					</PropRow>
 					<PropRow>
@@ -329,8 +319,8 @@ export default function Page() {
 						</PropDefaultValueCell>
 						<PropDescriptionCell>
 							<p>
-								An offset in pixels from the <Code>start</Code> or{" "}
-								<Code>end</Code> alignment options.
+								An offset in pixels from the <Code>start</Code> or <Code>end</Code> alignment
+								options.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>
@@ -344,9 +334,8 @@ export default function Page() {
 						</PropDefaultValueCell>
 						<PropDescriptionCell>
 							<p>
-								When <Code>true</Code>, overrides the <Code>side</Code> and{" "}
-								<Code>align</Code> preferences to prevent collisions with
-								boundary edges.
+								When <Code>true</Code>, overrides the <Code>side</Code> and <Code>align</Code>{" "}
+								preferences to prevent collisions with boundary edges.
 							</p>
 						</PropDescriptionCell>
 					</PropRow>

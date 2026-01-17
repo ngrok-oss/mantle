@@ -1,9 +1,6 @@
 "use client";
 
-import {
-	Radio as HeadlessRadio,
-	RadioGroup as HeadlessRadioGroup,
-} from "@headlessui/react";
+import { Radio as HeadlessRadio, RadioGroup as HeadlessRadioGroup } from "@headlessui/react";
 import type {
 	RadioGroupProps as HeadlessRadioGroupProps,
 	RadioProps as HeadlessRadioProps,
@@ -18,20 +15,13 @@ import {
 	useContext,
 	useRef,
 } from "react";
-import type {
-	ComponentRef,
-	HTMLAttributes,
-	PropsWithChildren,
-	ReactNode,
-} from "react";
+import type { ComponentRef, HTMLAttributes, PropsWithChildren, ReactNode } from "react";
 import type { WithAsChild } from "../../types/as-child.js";
 import { cx } from "../../utils/cx/cx.js";
 import { isInput } from "../input/is-input.js";
 import { Slot } from "../slot/index.js";
 
-type RadioGroupProps = PropsWithChildren<
-	Omit<HeadlessRadioGroupProps, "as" | "children">
->;
+type RadioGroupProps = PropsWithChildren<Omit<HeadlessRadioGroupProps, "as" | "children">>;
 
 /**
  * A group of radio items. It manages the state of the children radios. Unstyled and simple.
@@ -53,10 +43,9 @@ type RadioGroupProps = PropsWithChildren<
  * </RadioGroup>
  * ```
  */
-const Root = forwardRef<
-	ComponentRef<typeof HeadlessRadioGroup>,
-	RadioGroupProps
->((props, ref) => <HeadlessRadioGroup {...props} ref={ref} />);
+const Root = forwardRef<ComponentRef<typeof HeadlessRadioGroup>, RadioGroupProps>((props, ref) => (
+	<HeadlessRadioGroup {...props} ref={ref} />
+));
 Root.displayName = "RadioGroup";
 
 /**
@@ -112,11 +101,7 @@ const Item = forwardRef<ComponentRef<"div">, RadioItemProps>(
 			{...props}
 			ref={ref}
 		>
-			{(ctx) => (
-				<RadioStateContext.Provider value={ctx}>
-					{children}
-				</RadioStateContext.Provider>
-			)}
+			{(ctx) => <RadioStateContext.Provider value={ctx}>{children}</RadioStateContext.Provider>}
 		</HeadlessRadio>
 	),
 );
@@ -130,12 +115,7 @@ type RadioIndicatorProps = Omit<HTMLAttributes<HTMLDivElement>, "children"> & {
  * The default radio indicator.
  * @private
  */
-const DefaultRadioIndicator = ({
-	checked,
-	disabled,
-	focus,
-	hover,
-}: RadioStateContextValue) => (
+const DefaultRadioIndicator = ({ checked, disabled, focus, hover }: RadioStateContextValue) => (
 	<span
 		className={cx(
 			"border-form flex size-4 items-center justify-center rounded-full border shrink-0",
@@ -195,9 +175,7 @@ Indicator.displayName = "RadioIndicator";
  */
 const List = forwardRef<ComponentRef<typeof Root>, RadioGroupProps>(
 	({ className, ...props }, ref) => {
-		return (
-			<Root className={clsx("-space-y-px", className)} {...props} ref={ref} />
-		);
+		return <Root className={clsx("-space-y-px", className)} {...props} ref={ref} />;
 	},
 );
 List.displayName = "RadioGroupList";
@@ -227,9 +205,7 @@ const ListItem = forwardRef<ComponentRef<"div">, RadioListItemProps>(
 			>
 				{(ctx) => (
 					<>
-						<RadioStateContext.Provider value={ctx}>
-							{children}
-						</RadioStateContext.Provider>
+						<RadioStateContext.Provider value={ctx}>{children}</RadioStateContext.Provider>
 					</>
 				)}
 			</HeadlessRadio>
@@ -264,9 +240,7 @@ const Card = forwardRef<ComponentRef<"div">, RadioCardProps>(
 			>
 				{(ctx) => (
 					<>
-						<RadioStateContext.Provider value={ctx}>
-							{children}
-						</RadioStateContext.Provider>
+						<RadioStateContext.Provider value={ctx}>{children}</RadioStateContext.Provider>
 					</>
 				)}
 			</HeadlessRadio>
@@ -279,22 +253,13 @@ Card.displayName = "RadioCard";
  * The content of any radio item. Use it to wrap any labels, descriptions, or content of a radio item.
  * Use it as a child of `RadioGroup.Item`, `RadioGroup.ListItem`, or `RadioGroup.Card`.
  */
-const ItemContent = ({
-	asChild = false,
-	children,
-	className,
-	...props
-}: RadioItemContentProps) => {
+const ItemContent = ({ asChild = false, children, className, ...props }: RadioItemContentProps) => {
 	const ctx = useContext(RadioStateContext);
 	const Component = asChild ? Slot : "div";
 
 	return (
 		<Component
-			className={clsx(
-				"min-w-0 flex-1",
-				ctx.disabled && "opacity-50",
-				className,
-			)}
+			className={clsx("min-w-0 flex-1", ctx.disabled && "opacity-50", className)}
 			{...props}
 		>
 			{children}
@@ -345,9 +310,7 @@ const Button = forwardRef<ComponentRef<"div">, RadioButtonProps>(
 			>
 				{(ctx) => (
 					<>
-						<RadioStateContext.Provider value={ctx}>
-							{children}
-						</RadioStateContext.Provider>
+						<RadioStateContext.Provider value={ctx}>{children}</RadioStateContext.Provider>
 					</>
 				)}
 			</HeadlessRadio>
@@ -362,12 +325,7 @@ type RadioInputSandboxProps = HTMLAttributes<HTMLDivElement>;
  * A sandbox container for input elements composed within radio group items.
  * It prevents the default behavior of the radio group when clicking on the input element or accepting keyboard input.
  */
-const InputSandbox = ({
-	children,
-	onClick,
-	onKeyDown,
-	...props
-}: RadioInputSandboxProps) => {
+const InputSandbox = ({ children, onClick, onKeyDown, ...props }: RadioInputSandboxProps) => {
 	const ref = useRef<HTMLDivElement>(null);
 	const ctx = useContext(RadioStateContext);
 

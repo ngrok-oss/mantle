@@ -3,10 +3,7 @@ type Primitive = string | number | boolean | undefined | null;
 /**
  * Tagged template literal to format code blocks and normalize leading indentation
  */
-function fmtCode(
-	strings: TemplateStringsArray,
-	...values: Primitive[]
-): string {
+function fmtCode(strings: TemplateStringsArray, ...values: Primitive[]): string {
 	if (!isTemplateStringsArray(strings) || !Array.isArray(values)) {
 		throw new Error(
 			"It looks like you tried to call `fmtCode` as a function. Make sure to use it as a tagged template.\n\tExample: fmtCode`SELECT * FROM users`, not fmtCode('SELECT * FROM users')",
@@ -45,19 +42,12 @@ function findMinIndent(value: string): number {
 		return 0;
 	}
 
-	return match.reduce(
-		(acc, curr) => Math.min(acc, curr.length),
-		Number.POSITIVE_INFINITY,
-	);
+	return match.reduce((acc, curr) => Math.min(acc, curr.length), Number.POSITIVE_INFINITY);
 }
 
 /**
  * Type guard to check if a value is a `TemplateStringsArray`
  */
-function isTemplateStringsArray(
-	strings: unknown,
-): strings is TemplateStringsArray {
-	return (
-		Array.isArray(strings) && "raw" in strings && Array.isArray(strings.raw)
-	);
+function isTemplateStringsArray(strings: unknown): strings is TemplateStringsArray {
+	return Array.isArray(strings) && "raw" in strings && Array.isArray(strings.raw);
 }

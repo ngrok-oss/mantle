@@ -117,10 +117,7 @@ type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
 				 *
 				 * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#type
 				 */
-				type: Exclude<
-					ButtonHTMLAttributes<HTMLButtonElement>["type"],
-					undefined
-				>;
+				type: Exclude<ButtonHTMLAttributes<HTMLButtonElement>["type"], undefined>;
 		  }
 	);
 
@@ -163,18 +160,11 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 		ref,
 	) => {
 		const disabled = parseBooleanish(_ariaDisabled ?? _disabled ?? isLoading);
-		const icon = isLoading ? (
-			<CircleNotchIcon className="animate-spin" />
-		) : (
-			propIcon
-		);
+		const icon = isLoading ? <CircleNotchIcon className="animate-spin" /> : propIcon;
 
 		const buttonProps = {
 			"aria-disabled": disabled,
-			className: cx(
-				iconButtonVariants({ appearance, isLoading, size }),
-				className,
-			),
+			className: cx(iconButtonVariants({ appearance, isLoading, size }), className),
 			"data-appearance": appearance,
 			"data-disabled": disabled,
 			"data-icon-button": true,
@@ -198,11 +188,7 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 				"When using `asChild`, IconButton must be passed a single child as a JSX tag.",
 			);
 
-			return (
-				<Slot {...buttonProps}>
-					{cloneElement(children, {}, innerChildren)}
-				</Slot>
-			);
+			return <Slot {...buttonProps}>{cloneElement(children, {}, innerChildren)}</Slot>;
 		}
 
 		return (

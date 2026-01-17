@@ -22,8 +22,7 @@ const defaultContextValue = {
 	value: 0,
 } as const satisfies ProgressContextValue;
 
-const ProgressContext =
-	createContext<ProgressContextValue>(defaultContextValue);
+const ProgressContext = createContext<ProgressContextValue>(defaultContextValue);
 
 type RootProps = ComponentProps<"div"> & {
 	/**
@@ -69,20 +68,10 @@ type RootProps = ComponentProps<"div"> & {
  * </ProgressBar.Root>
  * ```
  */
-function Root({
-	className,
-	children,
-	max: _max = defaultMax,
-	value: _value,
-	...props
-}: RootProps) {
+function Root({ className, children, max: _max = defaultMax, value: _value, ...props }: RootProps) {
 	const max = isValidMaxNumber(_max) ? _max : defaultMax;
 	const value = (
-		isValidValueNumber(_value, max)
-			? _value
-			: _value == null
-				? 0
-				: "indeterminate"
+		isValidValueNumber(_value, max) ? _value : _value == null ? 0 : "indeterminate"
 	) satisfies ValueType;
 
 	const valueNow = isNumber(value) ? value : undefined;
@@ -145,10 +134,7 @@ function Indicator({ className, style, ...props }: IndicatorProps) {
 	return (
 		<ProgressPrimitive.Indicator
 			data-slot="progress-indicator"
-			className={cx(
-				"bg-accent-600 h-full w-full flex-1 transition-all",
-				className,
-			)}
+			className={cx("bg-accent-600 h-full w-full flex-1 transition-all", className)}
 			style={{ ...style, transform: `translateX(-${translatePercent}%)` }}
 			{...props}
 		/>
