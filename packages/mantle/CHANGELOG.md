@@ -1,5 +1,19 @@
 # @ngrok/mantle
 
+## 0.60.2
+
+### Patch Changes
+
+- [#912](https://github.com/ngrok-oss/mantle/pull/912) [`d6c1f46`](https://github.com/ngrok-oss/mantle/commit/d6c1f46e8d10c9783134ef49e1e159ad67a67cb3) Thanks [@aaronshekey](https://github.com/aaronshekey)! - Create fluid typography. Kill references to Inter.
+
+- [#902](https://github.com/ngrok-oss/mantle/pull/902) [`da31911`](https://github.com/ngrok-oss/mantle/commit/da31911f4c78f86181f43a34b682e49ad84dc5e8) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update runtime dependencies: @ariakit/react, react-day-picker
+
+- [#914](https://github.com/ngrok-oss/mantle/pull/914) [`e704a7d`](https://github.com/ngrok-oss/mantle/commit/e704a7d314f2341ccea49e6d50bd5f7aa0ae6e82) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Update dependencies: react-day-picker and @ariakit/react
+
+- [#914](https://github.com/ngrok-oss/mantle/pull/914) [`e704a7d`](https://github.com/ngrok-oss/mantle/commit/e704a7d314f2341ccea49e6d50bd5f7aa0ae6e82) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Toast: support keeping toasts open until manually dismissed by passing `duration_ms <= 0` or `Number.POSITIVE_INFINITY`
+
+- [#902](https://github.com/ngrok-oss/mantle/pull/902) [`da31911`](https://github.com/ngrok-oss/mantle/commit/da31911f4c78f86181f43a34b682e49ad84dc5e8) Thanks [@dependabot](https://github.com/apps/dependabot)! - Switch to node-24 as LTS
+
 ## 0.60.1
 
 ### Patch Changes
