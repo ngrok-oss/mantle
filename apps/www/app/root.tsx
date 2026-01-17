@@ -14,6 +14,7 @@ import {
 	Outlet,
 	Scripts,
 	ScrollRestoration,
+	type ShouldRevalidateFunctionArgs,
 	useRouteLoaderData,
 } from "react-router";
 import invariant from "tiny-invariant";
@@ -62,6 +63,14 @@ export const loader = async (_: Route.LoaderArgs) => {
 		deploymentId,
 	};
 };
+
+export function shouldRevalidate(_: ShouldRevalidateFunctionArgs) {
+	/**
+	 * never revalidate root loader
+	 * env variables and meta are static per deployment
+	 */
+	return false;
+}
 
 const title = "@ngrok/mantle";
 const description = "mantle is ngrok's UI library and design system";

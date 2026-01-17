@@ -88,6 +88,8 @@ type MakeToastOptions = {
 	/**
 	 * Time in milliseconds that should elapse before automatically closing the toast.
 	 * Will default to the `<Toaster />`'s `duration_ms` if not provided.
+	 *
+	 * You can keep the toast open until manually dismissed by passing a value <= 0 or Number.POSITIVE_INFINITY
 	 */
 	duration_ms?: number;
 	/**
@@ -104,6 +106,7 @@ type MakeToastOptions = {
  *
  * @example
  * ```tsx
+ * // Basic toast with auto-dismiss (default 4000ms, inherits from `<Toaster>`)
  * makeToast(
  *   <Toast.Root priority="success">
  *     <Toast.Icon />
@@ -111,9 +114,24 @@ type MakeToastOptions = {
  *     <Toast.Action>Dismiss</Toast.Action>
  *   </Toast.Root>
  * );
+ *
+ * // Toast that stays open until manually dismissed
+ * makeToast(
+ *   <Toast.Root priority="warning">
+ *     <Toast.Icon />
+ *     <Toast.Message>Action required</Toast.Message>
+ *     <Toast.Action>Dismiss</Toast.Action>
+ *   </Toast.Root>,
+ *   { duration_ms: Number.POSITIVE_INFINITY }
+ * );
  * ```
  */
 function makeToast(children: ReactNode, options?: MakeToastOptions) {
+	let duration = options?.duration_ms;
+	if (typeof duration === "number" && duration <= 0) {
+		duration = Number.POSITIVE_INFINITY;
+	}
+
 	return ToastPrimitive.toast.custom(
 		(toastId) => (
 			<ToastIdContext.Provider value={toastId}>
@@ -122,7 +140,7 @@ function makeToast(children: ReactNode, options?: MakeToastOptions) {
 		),
 		{
 			//
-			duration: options?.duration_ms,
+			duration,
 			// If a custom ID is provided, use it, else use the toastId provided by the sonner library
 			// don't set an ID to `undefined` as it breaks the sonner library
 			...(options?.id ? { id: options.id } : {}),
@@ -177,7 +195,7 @@ const Root = forwardRef<ComponentRef<"div">, ToastProps>(
 				<Component
 					className={cx(
 						"relative flex items-start gap-2 text-sm",
-						"p-3 pl-[0.9375rem]",
+						"p-3 pl-3.75",
 						"bg-popover high-contrast:border-popover rounded rounded-r-[0.3125rem] border border-gray-500/35 shadow-lg",
 						/**
 						 * Do not apply overflow-hidden because we want the priority bar accent
@@ -292,7 +310,7 @@ const Action = forwardRef<ComponentRef<"button">, ToastActionProps>(
 					//,
 					"shrink-0",
 					// 👇 wiggle the bits so that icon buttons toast actions are aligned with the toast icon
-					"data-[icon-button]:-mr-0.5 data-[icon-button]:-mt-0.5 data-[icon-button]:rounded-xs",
+					"data-icon-button:-mr-0.5 data-icon-button:-mt-0.5 data-icon-button:rounded-xs",
 					className,
 				)}
 				onClick={(event) => {

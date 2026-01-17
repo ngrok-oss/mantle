@@ -38,6 +38,7 @@
     }
   },
   "remoteCache": {
-    "enabled": true
+    "enabled": true,
+    "apiUrl": "https://turborepo.corp.ngrok.com"
   }
 }
