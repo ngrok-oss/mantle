@@ -27,7 +27,7 @@
     "happy-dom": "20.3.4",
     "oxfmt": "0.24.0",
     "oxlint": "1.39.0",
-    "turbo": "2.7.4",
+    "turbo": "2.7.5",
     "vitest": "4.0.17"
   },
   "engines": {
