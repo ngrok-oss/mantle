@@ -25,7 +25,7 @@
     "@changesets/cli": "2.29.8",
     "@types/node": "24.10.9",
     "happy-dom": "20.3.4",
-    "oxfmt": "0.24.0",
+    "oxfmt": "0.26.0",
     "oxlint": "1.39.0",
     "turbo": "2.7.4",
     "vitest": "4.0.17"
