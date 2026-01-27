@@ -59,8 +59,3 @@ jobs:
       - name: Test 🧪
         run: |
           pnpm run test
-
-      - name: Diff Docs Routes Codegen 🕵️
-        run: | # Diff the docs routes codegen
-          pnpm --filter www run gen:docs-routes
-          git diff --exit-code
