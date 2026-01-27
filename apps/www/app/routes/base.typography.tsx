@@ -42,7 +42,7 @@ export default function Page() {
 			</p>
 
 			<div className="mt-3 flex flex-col gap-4 overflow-hidden text-xs md:flex-row">
-				<div className="text-strong flex flex-grow flex-col gap-1">
+				<div className="text-strong flex grow flex-col gap-1">
 					<div className="h-10 w-full rounded bg-neutral-950" />
 					<div className="flex items-center justify-between">
 						<span className="text-strong">Strong</span>
@@ -50,7 +50,7 @@ export default function Page() {
 					</div>
 				</div>
 
-				<div className="flex flex-grow flex-col gap-1">
+				<div className="flex grow flex-col gap-1">
 					<div className="h-10 w-full rounded bg-neutral-950/75" />
 					<div className="flex items-center justify-between">
 						<span className="text-body">Body</span>
@@ -58,7 +58,7 @@ export default function Page() {
 					</div>
 				</div>
 
-				<div className="flex flex-grow flex-col gap-1">
+				<div className="flex grow flex-col gap-1">
 					<div className="h-10 w-full rounded bg-neutral-950/60" />
 					<div className="flex items-center justify-between">
 						<span className="text-muted">Muted</span>
@@ -66,7 +66,7 @@ export default function Page() {
 					</div>
 				</div>
 
-				<div className="flex flex-grow flex-col gap-1">
+				<div className="flex grow flex-col gap-1">
 					<div className="h-10 w-full rounded bg-neutral-950/50" />
 					<div className="flex items-center justify-between">
 						<span className="text-placeholder">Placeholder</span>
@@ -80,7 +80,7 @@ export default function Page() {
 			</HashLinkHeading>
 			<p className="font-body text-body mt-3">
 				Mantle specifies Roobert as the default font for UI and headings. We also use JetBrains Mono
-				as a monospace typeface, and Family for longform prose.
+				as a monospace typeface, and Family for longform prose and h1s.
 			</p>
 
 			<Table.Root className="mt-4">
@@ -112,7 +112,9 @@ export default function Page() {
 								<p className="font-family">Family</p>
 								<p className="font-mono">"Family", "Georgia", serif</p>
 							</Table.Cell>
-							<Table.Cell>Best when used in longform writing like prose documentation.</Table.Cell>
+							<Table.Cell>
+								Best when used in longform writing like prose documentation or h1 headings.
+							</Table.Cell>
 						</Table.Row>
 						<Table.Row>
 							<Table.Cell>
