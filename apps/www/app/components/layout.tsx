@@ -317,7 +317,9 @@ function Navigation({ className, style }: WithStyleProps) {
 	return (
 		<nav className={cx("text-sm", className)} style={style}>
 			<ul className="flex flex-col">
-				<li className="mb-2 text-xs font-medium uppercase tracking-wider">Welcome</li>
+				<li className="mb-2 text-xs font-medium uppercase tracking-wider font-mono">
+					Welcome
+				</li>
 
 				{welcomePages.map((page) => (
 					<li key={page}>
@@ -327,7 +329,9 @@ function Navigation({ className, style }: WithStyleProps) {
 					</li>
 				))}
 
-				<li className="mt-6 text-xs font-medium uppercase tracking-wider">Base</li>
+				<li className="mt-6 text-xs font-medium uppercase tracking-wider font-mono">
+					Base
+				</li>
 
 				<ul className="mt-2">
 					{basePages.map((page) => (
@@ -339,7 +343,9 @@ function Navigation({ className, style }: WithStyleProps) {
 					))}
 				</ul>
 
-				<li className="mt-6 text-xs font-medium uppercase tracking-wider">Components</li>
+				<li className="mt-6 text-xs font-medium uppercase tracking-wider font-mono">
+					Components
+				</li>
 				<ul className="mt-2">
 					{prodReadyComponents.map((component) => (
 						<li key={component}>
@@ -350,7 +356,9 @@ function Navigation({ className, style }: WithStyleProps) {
 					))}
 				</ul>
 
-				<li className="mt-6 text-xs font-medium uppercase tracking-wider">Preview Components</li>
+				<li className="mt-6 text-xs font-medium uppercase tracking-wider font-mono">
+					Preview Components
+				</li>
 				<ul className="mt-2">
 					{previewComponents.map((component) => (
 						<li key={component}>
