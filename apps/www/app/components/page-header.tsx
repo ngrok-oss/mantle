@@ -19,7 +19,7 @@ export const PageHeader = ({
 }: PageHeaderProps) => (
 	<div className="flex flex-wrap items-center gap-3">
 		<HashLinkHeading id={id}>
-			<h1 className={cx("text-4xl font-medium sm:text-5xl", className)} {...props}>
+			<h1 className={cx("text-4xl font-medium sm:text-5xl font-family", className)} {...props}>
 				{children}
 			</h1>
 		</HashLinkHeading>
