@@ -25,7 +25,7 @@ export default function Page() {
 				Heading 2 or Heading 5 as appropriate.
 			</p>
 
-			<h1 className="mt-4 text-5xl font-medium">Heading 1</h1>
+			<h1 className="mt-4 text-5xl font-medium font-family">Heading 1</h1>
 			<h2 className="mt-4 text-3xl font-medium">Heading 2</h2>
 			<h3 className="mt-4 text-2xl font-medium">Heading 3</h3>
 			<h4 className="mt-4 text-xl font-medium">Heading 4</h4>
@@ -79,8 +79,8 @@ export default function Page() {
 				<h2 className="text-3xl font-medium">Fonts</h2>
 			</HashLinkHeading>
 			<p className="font-body text-body mt-3">
-				Mantle specifies Euclid as the default font for UI and headings. We also use IBM Plex Mono
-				as a monospace typeface.
+				Mantle specifies Roobert as the default font for UI and headings. We also use JetBrains Mono
+				as a monospace typeface, and Family for longform prose.
 			</p>
 
 			<Table.Root className="mt-4">
@@ -99,18 +99,18 @@ export default function Page() {
 								<Code className="break-keep">default</Code>
 							</Table.Cell>
 							<Table.Cell className="space-y-1">
-								<p className="font-sans">Euclid Square</p>
-								<p className="font-mono">"Euclid Square", ui-sans-serif, system-ui, sans-serif</p>
+								<p className="font-sans">Roobert</p>
+								<p className="font-mono">"Roobert", ui-sans-serif, system-ui, sans-serif</p>
 							</Table.Cell>
 							<Table.Cell>The default font for rendering UI and headings.</Table.Cell>
 						</Table.Row>
 						<Table.Row>
 							<Table.Cell>
-								<Code className="break-keep">font-body</Code>
+								<Code className="break-keep">font-family</Code>
 							</Table.Cell>
 							<Table.Cell className="space-y-1">
-								<p className="font-body">Nunito Sans</p>
-								<p className="font-mono">"Nunito Sans", ui-sans-serif, system-ui, sans-serif</p>
+								<p className="font-family">Family</p>
+								<p className="font-mono">"Family", "Georgia", serif</p>
 							</Table.Cell>
 							<Table.Cell>Best when used in longform writing like prose documentation.</Table.Cell>
 						</Table.Row>
@@ -119,10 +119,10 @@ export default function Page() {
 								<Code className="break-keep">font-mono</Code>
 							</Table.Cell>
 							<Table.Cell className="space-y-1">
-								<p className="font-mono">IBM Plex Mono</p>
+								<p className="font-mono">JetBrains Mono</p>
 								<p className="font-mono">
-									"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-									"Liberation Mono", "Courier New", monospace
+									"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+									Liberation Mono, Courier New, monospace
 								</p>
 							</Table.Cell>
 							<Table.Cell>
