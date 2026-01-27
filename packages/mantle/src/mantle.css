@@ -5,6 +5,58 @@
 @source "../src";
 @source "../dist";
 
+@font-face {
+	font-family: "Roobert";
+	src:
+		url("https://assets.ngrok.com/fonts/roobert/roobert-proportional-vf.woff2")
+			format("woff2 supports variations"),
+		url("https://assets.ngrok.com/fonts/roobert/roobert-proportional-vf.woff2")
+			format("woff2-variations");
+	font-weight: 300 900;
+	font-display: swap;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "JetBrains Mono";
+	src:
+		url("https://assets.ngrok.com/fonts/jetbrains/jetbrainsmono-wght.woff2")
+			format("woff2 supports variations"),
+		url("https://assets.ngrok.com/fonts/jetbrains/jetbrainsmono-wght.woff2")
+			format("woff2-variations");
+	font-weight: 100 800;
+	font-display: swap;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "JetBrains Mono";
+	src:
+		url("https://assets.ngrok.com/fonts/jetbrains/jetbrainsmono-italic-wght.woff2")
+			format("woff2 supports variations"),
+		url("https://assets.ngrok.com/fonts/jetbrains/jetbrainsmono-italic-wght.woff2")
+			format("woff2-variations");
+	font-weight: 100 800;
+	font-display: swap;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: "Family";
+	font-display: swap;
+	src: url("https://assets.ngrok.com/fonts/family/family-regular.woff2") format("woff2");
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Family";
+	font-display: swap;
+	src: url("https://assets.ngrok.com/fonts/family/family-italic.woff2") format("woff2");
+	font-weight: normal;
+	font-style: italic;
+}
+
 /* Euclid Square */
 @font-face {
 	font-family: EuclidSquare;
@@ -1190,13 +1242,12 @@
 }
 
 @theme inline {
-	--font-sans:
-		"EuclidSquare", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-		"Segoe UI Symbol", "Noto Color Emoji";
-	--font-body: var(--font-sans);
+	--font-sans: "Roobert", ui-sans-serif, system-ui, sans-serif;
 	--font-mono:
-		"IBMPlexMono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-		"Courier New", monospace;
+		"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono,
+		Courier New, monospace;
+	--font-family: "Family", "Georgia", serif;
+	--font-body: var(--font-sans);
 
 	/* Fluid typography */
 	--text-lg: clamp(1.075rem, 0.525rem + 0.75vw, 1.125rem);
