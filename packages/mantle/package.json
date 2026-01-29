@@ -316,7 +316,7 @@
     "@types/react-dom": "catalog:",
     "browserslist": "4.28.1",
     "date-fns": "4.1.0",
-    "happy-dom": "20.3.9",
+    "happy-dom": "20.4.0",
     "react": "catalog:",
     "react-dom": "catalog:",
     "react-router": "catalog:",
