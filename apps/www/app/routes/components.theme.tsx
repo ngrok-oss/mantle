@@ -323,7 +323,7 @@ ${preventWrongThemeFlashScriptContent()}
 						</HashLinkHeading>
 						<p className="font-body text-body text-xl">
 							The <Code>PreloadCoreFonts</Code> component renders preload links for the core fonts
-							used in Mantle (Euclid Square and IBM Plex Mono). This component takes no props and is
+							used in Mantle (Roobert, JetBrains Mono, and Family). This component takes no props and is
 							automatically included in <Code>MantleThemeHeadContent</Code>.
 						</p>
 					</div>
