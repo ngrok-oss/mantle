@@ -21,14 +21,11 @@ const cdnBase = `${assetsCdnOrigin}/fonts`;
  * Canonical list of core font paths (relative to the CDN fonts base).
  */
 const coreFonts = [
-	"/euclid-square/EuclidSquare-Regular-WebS.woff",
-	"/euclid-square/EuclidSquare-RegularItalic-WebS.woff",
-	"/euclid-square/EuclidSquare-Medium-WebS.woff",
-	"/euclid-square/EuclidSquare-MediumItalic-WebS.woff",
-	"/ibm-plex-mono/IBMPlexMono-Text.woff",
-	"/ibm-plex-mono/IBMPlexMono-TextItalic.woff",
-	"/ibm-plex-mono/IBMPlexMono-SemiBold.woff",
-	"/ibm-plex-mono/IBMPlexMono-SemiBoldItalic.woff",
+	"/roobert/roobert-proportional-vf.woff2",
+	"/jetbrains/jetbrainsmono-wght.woff2",
+	"/jetbrains/jetbrainsmono-italic-wght.woff2",
+	"/family/family-regular.woff2",
+	"/family/family-italic.woff2",
 ] as const;
 
 type FontPath = `/${string}` | (string & {});
@@ -39,8 +36,8 @@ type FontPath = `/${string}` | (string & {});
  * @returns {`https://assets.ngrok.com/fonts${T}`} An absolute, literal-typed CDN URL.
  *
  * @example
- * const href = fontHref("/euclid-square/EuclidSquare-Regular-WebS.woff");
- * // -> "https://assets.ngrok.com/fonts/euclid-square/EuclidSquare-Regular-WebS.woff"
+ * const href = fontHref("/roobert/roobert-proportional-vf.woff2");
+ * // -> "https://assets.ngrok.com/fonts/roobert/roobert-proportional-vf.woff2"
  */
 function fontHref<T extends FontPath = FontPath>(font: T) {
 	const path = font.startsWith("/") ? font : `/${font}`;
@@ -84,7 +81,7 @@ const PreloadCoreFonts = () => (
 				rel="preload"
 				href={fontHref(font)}
 				as="font"
-				type="font/woff"
+				type="font/woff2"
 				crossOrigin="anonymous"
 			/>
 		))}
