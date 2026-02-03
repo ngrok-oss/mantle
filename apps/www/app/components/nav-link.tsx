@@ -3,7 +3,7 @@ import type { NavLinkProps } from "react-router";
 import { NavLink as RRNavLink } from "react-router";
 import { useNavigation } from "./navigation-context";
 
-export function NavLink({ className, to, ...props }: NavLinkProps) {
+export function NavLink({ className, to, onClick, ...props }: NavLinkProps) {
 	const { setShowNavigation } = useNavigation();
 
 	return (
@@ -19,7 +19,7 @@ export function NavLink({ className, to, ...props }: NavLinkProps) {
 			}
 			onClick={(event) => {
 				setShowNavigation(false);
-				if (props.onClick) props.onClick(event);
+				onClick?.(event);
 			}}
 			{...props}
 		/>

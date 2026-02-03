@@ -316,7 +316,7 @@
     "@types/react-dom": "catalog:",
     "browserslist": "4.28.1",
     "date-fns": "4.1.0",
-    "happy-dom": "20.3.9",
+    "happy-dom": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
     "react-router": "catalog:",
@@ -330,7 +330,7 @@
     "react": "^18 || ^19",
     "react-dom": "^18 || ^19",
     "react-router": "^7",
-    "tailwindcss": "^4.1.17"
+    "tailwindcss": "^4.1.18"
   },
   "browserslist": [
     "last 2 years, not dead, > 0.2%"

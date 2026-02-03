@@ -358,8 +358,8 @@ function preventThemeFlash(args: {
 	function buildCookie(name: string, val: string): string {
 		const expires = new Date();
 		expires.setFullYear(expires.getFullYear() + 1);
-		const hostname = location.hostname;
-		const protocol = location.protocol;
+		const hostname = window.location.hostname;
+		const protocol = window.location.protocol;
 		const domainAttribute =
 			hostname === "ngrok.com" || hostname.endsWith(".ngrok.com") ? "; domain=.ngrok.com" : "";
 		const secureAttribute = protocol === "https:" ? "; Secure" : "";
