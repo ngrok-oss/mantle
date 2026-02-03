@@ -1,0 +1,70 @@
+name: Preview Health Check
+
+on:
+  deployment_status:
+
+permissions:
+  statuses: write
+
+jobs:
+  health-check:
+    name: Health Check
+    runs-on: ubuntu-latest
+    if: github.event.deployment_status.state == 'success' && github.event.deployment.environment == 'Preview'
+    timeout-minutes: 5
+    steps:
+      - name: Get Preview URL
+        id: preview
+        run: |
+          echo "url=${{ github.event.deployment_status.target_url }}" >> $GITHUB_OUTPUT
+
+      - name: Wait for deployment to stabilize
+        run: sleep 10
+
+      - name: Check homepage
+        run: |
+          echo "Checking: ${{ steps.preview.outputs.url }}"
+          response=$(curl -sS -o /dev/null -w "%{http_code}" --retry 3 --retry-delay 5 "${{ steps.preview.outputs.url }}")
+          echo "Response code: $response"
+          if [ "$response" -ge 500 ]; then
+            echo "❌ Homepage returned $response"
+            exit 1
+          fi
+          echo "✅ Homepage OK"
+
+      - name: Check key routes
+        run: |
+          base_url="${{ steps.preview.outputs.url }}"
+          routes=(
+            "/components/button"
+            "/components/input"
+            "/base/colors"
+          )
+          
+          failed=0
+          for route in "${routes[@]}"; do
+            url="${base_url}${route}"
+            echo "Checking: $url"
+            response=$(curl -sS -o /dev/null -w "%{http_code}" --retry 2 --retry-delay 3 "$url")
+            echo "Response code: $response"
+            if [ "$response" -ge 500 ]; then
+              echo "❌ $route returned $response"
+              failed=1
+            else
+              echo "✅ $route OK"
+            fi
+          done
+          
+          if [ "$failed" -eq 1 ]; then
+            echo "❌ One or more routes failed health check"
+            exit 1
+          fi
+          echo "✅ All routes passed health check"
+
+      - name: Report success
+        if: success()
+        run: echo "🎉 Preview deployment is healthy"
+
+      - name: Report failure
+        if: failure()
+        run: echo "💥 Preview deployment has runtime errors - check Vercel logs"
