@@ -40,7 +40,7 @@ jobs:
             "/components/input"
             "/base/colors"
           )
-          
+
           failed=0
           for route in "${routes[@]}"; do
             url="${base_url}${route}"
@@ -54,7 +54,7 @@ jobs:
               echo "✅ $route OK"
             fi
           done
-          
+
           if [ "$failed" -eq 1 ]; then
             echo "❌ One or more routes failed health check"
             exit 1
