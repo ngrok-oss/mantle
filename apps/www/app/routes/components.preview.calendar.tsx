@@ -36,7 +36,7 @@ const PopoverCalendarExample = () => {
 				<IconButton type="button" icon={<CalendarIcon />} label="Open calendar popover" />
 			</Popover.Trigger>
 			<Popover.Content>
-				<Calendar autoFocus mode="single" onSelect={(value) => setDate(value)} selected={date} />
+				<Calendar mode="single" onSelect={(value) => setDate(value)} selected={date} />
 			</Popover.Content>
 		</Popover.Root>
 	);
