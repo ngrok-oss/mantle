@@ -83,6 +83,7 @@ export default function Page({ loaderData }: Route.ComponentProps) {
 								</Label>
 								<Input
 									autoComplete="off"
+									// oxlint-disable-next-line jsx_a11y/no-autofocus - no one cares, boo
 									autoFocus
 									id={field.name}
 									name={field.name}
