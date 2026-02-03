@@ -15,8 +15,17 @@ import { useSyncExternalStore } from "react";
  * "md"  // ≥48rem (768px)
  * "sm"  // ≥40rem (640px)
  * "xs"  // ≥30rem (480px)
+ * "2xs" // ≥22.5rem (360px)
  */
-const tailwindBreakpoints = ["2xl", "xl", "lg", "md", "sm", "xs"] as const;
+const tailwindBreakpoints = [
+	"2xl",
+	"xl",
+	"lg",
+	"md",
+	"sm",
+	"xs",
+	"2xs",
+] as const;
 
 /**
  * A valid Tailwind CSS breakpoint identifier.
@@ -31,6 +40,7 @@ const tailwindBreakpoints = ["2xl", "xl", "lg", "md", "sm", "xs"] as const;
  * "md"  // ≥48rem (768px)
  * "sm"  // ≥40rem (640px)
  * "xs"  // ≥30rem (480px)
+ * "2xs" // ≥22.5rem (360px)
  */
 type TailwindBreakpoint = (typeof tailwindBreakpoints)[number];
 
@@ -42,6 +52,7 @@ type TailwindBreakpoint = (typeof tailwindBreakpoints)[number];
  *
  * @example
  * "default" // ≥0rem (0px)
+ * "2xs"     // ≥22.5rem (360px)
  * "xs"      // ≥30rem (480px)
  * "sm"      // ≥40rem (640px)
  * "md"      // ≥48rem (768px)
@@ -61,6 +72,7 @@ const breakpoints = ["default", ...tailwindBreakpoints] as const;
  *
  * @example
  * "default" // ≥0rem (0px)
+ * "2xs"     // ≥22.5rem (360px)
  * "xs"      // ≥30rem (480px)
  * "sm"      // ≥40rem (640px)
  * "md"      // ≥48rem (768px)
@@ -167,6 +179,7 @@ const breakpointQueries = {
 	md: "(min-width: 48rem)" as const,
 	sm: "(min-width: 40rem)" as const,
 	xs: "(min-width: 30rem)" as const,
+	"2xs": "(min-width: 22.5rem)" as const,
 } as const satisfies Record<TailwindBreakpoint, MinWidthQuery>;
 
 /**
@@ -182,7 +195,8 @@ const belowBreakpointQueries = {
 	lg: "(max-width: 63.99rem)" as const, // 64 - 0.01
 	md: "(max-width: 47.99rem)" as const, // 48 - 0.01
 	sm: "(max-width: 39.99rem)" as const, // 40 - 0.01
-	xs: "(max-width: 29.99rem)" as const, // 40 - 0.01
+	xs: "(max-width: 29.99rem)" as const, // 30 - 0.01
+	"2xs": "(max-width: 22.49rem)" as const, // 22.5 - 0.01
 } as const satisfies Record<TailwindBreakpoint, MaxWidthQuery>;
 
 /**
@@ -218,6 +232,7 @@ function getMinWidthMQLs(): Record<TailwindBreakpoint, MediaQueryList> {
 			md: window.matchMedia(breakpointQueries.md),
 			sm: window.matchMedia(breakpointQueries.sm),
 			xs: window.matchMedia(breakpointQueries.xs),
+			"2xs": window.matchMedia(breakpointQueries["2xs"]),
 		};
 	}
 	return minWidthMQLs;
@@ -239,6 +254,7 @@ function getMaxWidthMQL(breakpoint: TailwindBreakpoint): MediaQueryList {
 			md: window.matchMedia(belowBreakpointQueries.md),
 			sm: window.matchMedia(belowBreakpointQueries.sm),
 			xs: window.matchMedia(belowBreakpointQueries.xs),
+			"2xs": window.matchMedia(belowBreakpointQueries["2xs"]),
 		};
 	}
 	return maxWidthMQLs[breakpoint];
