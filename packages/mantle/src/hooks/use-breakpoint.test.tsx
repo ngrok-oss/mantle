@@ -4,16 +4,7 @@ import type { Breakpoint, TailwindBreakpoint } from "./use-breakpoint.js";
 
 describe("breakpoints configuration", () => {
 	test("includes all expected breakpoints including 2xs", () => {
-		expect(breakpoints).toEqual([
-			"default",
-			"2xl",
-			"xl",
-			"lg",
-			"md",
-			"sm",
-			"xs",
-			"2xs",
-		]);
+		expect(breakpoints).toEqual(["default", "2xl", "xl", "lg", "md", "sm", "xs", "2xs"]);
 	});
 
 	test("has correct length", () => {
@@ -36,31 +27,14 @@ describe("TailwindBreakpoint type", () => {
 	});
 
 	test("all tailwind breakpoints are valid", () => {
-		const validBreakpoints: TailwindBreakpoint[] = [
-			"2xl",
-			"xl",
-			"lg",
-			"md",
-			"sm",
-			"xs",
-			"2xs",
-		];
+		const validBreakpoints: TailwindBreakpoint[] = ["2xl", "xl", "lg", "md", "sm", "xs", "2xs"];
 		expect(validBreakpoints).toHaveLength(7);
 	});
 });
 
 describe("Breakpoint type", () => {
 	test("includes default and all tailwind breakpoints", () => {
-		const allBreakpoints: Breakpoint[] = [
-			"default",
-			"2xl",
-			"xl",
-			"lg",
-			"md",
-			"sm",
-			"xs",
-			"2xs",
-		];
+		const allBreakpoints: Breakpoint[] = ["default", "2xl", "xl", "lg", "md", "sm", "xs", "2xs"];
 		expect(allBreakpoints).toHaveLength(8);
 	});
 });

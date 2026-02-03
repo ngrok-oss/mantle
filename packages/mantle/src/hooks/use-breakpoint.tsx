@@ -17,15 +17,7 @@ import { useSyncExternalStore } from "react";
  * "xs"  // ≥30rem (480px)
  * "2xs" // ≥22.5rem (360px)
  */
-const tailwindBreakpoints = [
-	"2xl",
-	"xl",
-	"lg",
-	"md",
-	"sm",
-	"xs",
-	"2xs",
-] as const;
+const tailwindBreakpoints = ["2xl", "xl", "lg", "md", "sm", "xs", "2xs"] as const;
 
 /**
  * A valid Tailwind CSS breakpoint identifier.
