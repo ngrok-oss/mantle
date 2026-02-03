@@ -13,6 +13,9 @@ export const meta: Route.MetaFunction = () => {
 
 export default function Page() {
 	const currentBreakpoint = useBreakpoint();
+	const isBelow2xs = useIsBelowBreakpoint("2xs");
+	const isBelowXs = useIsBelowBreakpoint("xs");
+	const isBelowSm = useIsBelowBreakpoint("sm");
 	const isBelowMd = useIsBelowBreakpoint("md");
 	const isBelowLg = useIsBelowBreakpoint("lg");
 
@@ -37,6 +40,36 @@ export default function Page() {
 						<Card.Body className="flex items-center justify-between">
 							<span>Current breakpoint:</span>
 							<Code className="text-lg font-medium">{currentBreakpoint}</Code>
+						</Card.Body>
+					</Card.Root>
+
+					<Card.Root>
+						<Card.Header>
+							<Card.Title>Below Extra Extra Small?</Card.Title>
+						</Card.Header>
+						<Card.Body className="flex items-center justify-between">
+							<span>Below 2xs (360px):</span>
+							<Code className="text-lg font-medium">{isBelow2xs.toString()}</Code>
+						</Card.Body>
+					</Card.Root>
+
+					<Card.Root>
+						<Card.Header>
+							<Card.Title>Below Extra Small?</Card.Title>
+						</Card.Header>
+						<Card.Body className="flex items-center justify-between">
+							<span>Below xs (480px):</span>
+							<Code className="text-lg font-medium">{isBelowXs.toString()}</Code>
+						</Card.Body>
+					</Card.Root>
+
+					<Card.Root>
+						<Card.Header>
+							<Card.Title>Below Small?</Card.Title>
+						</Card.Header>
+						<Card.Body className="flex items-center justify-between">
+							<span>Below sm (640px):</span>
+							<Code className="text-lg font-medium">{isBelowSm.toString()}</Code>
 						</Card.Body>
 					</Card.Root>
 
@@ -70,7 +103,7 @@ export default function Page() {
 					<h2>Breakpoint Values</h2>
 				</HashLinkHeading>
 				<p className="font-body text-body">
-					There are six breakpoints by default, inspired by common device resolutions:
+					There are seven breakpoints by default, inspired by common device resolutions:
 				</p>
 
 				<Table.Root>
@@ -92,6 +125,17 @@ export default function Page() {
 								</Table.Cell>
 								<Table.Cell>
 									<span className="text-muted">No media query</span>
+								</Table.Cell>
+							</Table.Row>
+							<Table.Row>
+								<Table.Cell>
+									<Code>2xs</Code>
+								</Table.Cell>
+								<Table.Cell>
+									22.5rem <span className="text-muted">(360px)</span>
+								</Table.Cell>
+								<Table.Cell>
+									<Code>@media (width &gt;= 22.5rem) &#123; ... &#125;</Code>
 								</Table.Cell>
 							</Table.Row>
 							<Table.Row>
@@ -230,8 +274,8 @@ export default function Page() {
 					</HashLinkHeading>
 					<p className="text-body">
 						Returns a <Code>Breakpoint</Code> type that can be one of: <Code>"default"</Code>,{" "}
-						<Code>"xs"</Code>, <Code>"sm"</Code>, <Code>"md"</Code>, <Code>"lg"</Code>,{" "}
-						<Code>"xl"</Code>, or <Code>"2xl"</Code>.
+						<Code>"2xs"</Code>, <Code>"xs"</Code>, <Code>"sm"</Code>, <Code>"md"</Code>,{" "}
+						<Code>"lg"</Code>, <Code>"xl"</Code>, or <Code>"2xl"</Code>.
 					</p>
 				</div>
 			</section>
@@ -273,9 +317,9 @@ export default function Page() {
 						<h3>Parameters</h3>
 					</HashLinkHeading>
 					<p className="text-body">
-						Accepts a <Code>TailwindBreakpoint</Code> which can be one of: <Code>"xs"</Code>,{" "}
-						<Code>"sm"</Code>, <Code>"md"</Code>, <Code>"lg"</Code>, <Code>"xl"</Code>, or{" "}
-						<Code>"2xl"</Code>.
+						Accepts a <Code>TailwindBreakpoint</Code> which can be one of: <Code>"2xs"</Code>,{" "}
+						<Code>"xs"</Code>, <Code>"sm"</Code>, <Code>"md"</Code>, <Code>"lg"</Code>,{" "}
+						<Code>"xl"</Code>, or <Code>"2xl"</Code>.
 					</p>
 				</div>
 
