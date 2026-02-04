@@ -151,7 +151,10 @@ function HeaderSortButton<TData, TValue>({
 	return (
 		<Button
 			appearance="ghost"
-			className={cx("flex justify-start w-full h-full rounded-none", className)}
+			className={cx(
+				"flex justify-start w-full h-full rounded-none not-disabled:active:scale-none",
+				className,
+			)}
 			data-sort-direction={sortDirection}
 			data-table-header-action
 			icon={sortIcon}
