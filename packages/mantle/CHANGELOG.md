@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.61.3
+
+### Patch Changes
+
+- [#939](https://github.com/ngrok-oss/mantle/pull/939) [`d2922d2`](https://github.com/ngrok-oss/mantle/commit/d2922d2b0199aa1361e11e483fed129c3fcd2d15) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - DataTable.HeaderSortButton: remove scaling when active
+
 ## 0.61.2
 
 ### Patch Changes
