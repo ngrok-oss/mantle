@@ -5,7 +5,7 @@ import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { Select } from "@ngrok/mantle/select";
 import { preventWrongThemeFlashScriptContent } from "@ngrok/mantle/theme";
 import { FileHtmlIcon, FileTsxIcon } from "@phosphor-icons/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { href } from "react-router";
 import { useLocalStorage } from "usehooks-ts";
 import { HashLinkHeading } from "~/components/hash-link-heading";
