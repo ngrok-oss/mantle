@@ -1,6 +1,4 @@
 import { cx } from "@ngrok/mantle/cx";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
 import { useScrollBehavior } from "@ngrok/mantle/hooks";
 import {
 	MantleThemeHeadContent,
@@ -26,8 +24,6 @@ import { NavigationProvider } from "./components/navigation-context";
 import { useNonce } from "./components/nonce";
 import "./global.css";
 import { canonicalDomain } from "./utilities/canonical-origin";
-
-gsap.registerPlugin(useGSAP);
 
 type PreconnectTarget = Readonly<{
 	href: string;
