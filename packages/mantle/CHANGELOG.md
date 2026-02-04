@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.61.2
+
+### Patch Changes
+
+- [#935](https://github.com/ngrok-oss/mantle/pull/935) [`b03ef99`](https://github.com/ngrok-oss/mantle/commit/b03ef99e5a61b81b2b544cce970cfd1b38fed087) Thanks [@aaronshekey](https://github.com/aaronshekey)! - Add 2xs breakpoint (360px)
+
 ## 0.60.2
 
 ### Patch Changes

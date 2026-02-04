@@ -1195,6 +1195,7 @@
 	--text-8xl: clamp(4.8rem, 5.4rem + 0.75vw, 6rem);
 	--text-9xl: clamp(6.4rem, 7.4rem + 0.75vw, 8rem);
 
+	--breakpoint-2xs: 22.5rem;
 	--breakpoint-xs: 30rem;
 
 	--text-mono: 0.8125rem;
