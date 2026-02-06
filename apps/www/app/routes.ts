@@ -8,6 +8,7 @@ export default [
 	route("base/shadows", "./routes/base.shadows.tsx"),
 	route("base/tailwind-variants", "./routes/base.tailwind-variants.tsx"),
 	route("base/typography", "./routes/base.typography.tsx"),
+	route("hooks", "./routes/hooks.tsx"),
 	route("components/inline-code", "./routes/components._redirect.inline-code.tsx"),
 	route("components/alert-dialog", "./routes/components.alert-dialog.tsx"),
 	route("components/alert", "./routes/components.alert.tsx"),
