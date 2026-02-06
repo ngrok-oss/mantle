@@ -313,6 +313,8 @@ const baseRoutes = {
 	Typography: "/base/typography",
 } as const satisfies Record<(typeof basePages)[number], Route>;
 
+const hooksRoute = "/hooks" as const satisfies Route;
+
 function Navigation({ className, style }: WithStyleProps) {
 	return (
 		<nav className={cx("text-sm", className)} style={style}>
@@ -337,6 +339,15 @@ function Navigation({ className, style }: WithStyleProps) {
 							</NavLink>
 						</li>
 					))}
+				</ul>
+
+				<li className="mt-6 text-xs font-medium uppercase tracking-wider font-mono">Hooks</li>
+				<ul className="mt-2">
+					<li>
+						<NavLink to={hooksRoute} prefetch="intent">
+							Hooks
+						</NavLink>
+					</li>
 				</ul>
 
 				<li className="mt-6 text-xs font-medium uppercase tracking-wider font-mono">Components</li>
@@ -494,6 +505,28 @@ function CommandPalette({ currentVersion }: { currentVersion: string | undefined
 								</Link>
 							</Command.Item>
 						))}
+					</Command.Group>
+					<Command.Separator />
+					<Command.Group heading="Hooks">
+						<Command.Item
+							onSelect={() => {
+								navigate(hooksRoute);
+								setOpen(false);
+							}}
+							asChild
+						>
+							<Link
+								to={hooksRoute}
+								prefetch="intent"
+								className="flex items-center gap-2 justify-between"
+							>
+								<ItemName>
+									Hooks
+									<span className="text-muted text-xs">{hooksRoute}</span>
+								</ItemName>
+								<ArrowRightIcon />
+							</Link>
+						</Command.Item>
 					</Command.Group>
 					<Command.Separator />
 					<Command.Group heading="Components">
