@@ -6,6 +6,8 @@
   "singleQuote": false,
   "experimentalSortImports": {},
   "experimentalTailwindcss": {},
+  "objectWrap": "preserve",
+  "singleAttributePerLine": true,
   "ignorePatterns": [
     ".blog",
     ".cache",
