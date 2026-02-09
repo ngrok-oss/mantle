@@ -42,7 +42,7 @@
     "typescript": "catalog:",
     "vite": "catalog:",
     "vite-plugin-devtools-json": "1.0.0",
-    "vite-tsconfig-paths": "6.0.5"
+    "vite-tsconfig-paths": "6.1.0"
   },
   "engines": {
     "node": "^24.0.0"
