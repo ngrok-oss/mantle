@@ -1,5 +1,6 @@
 import * as fs from "node:fs/promises";
 import path from "node:path";
+
 import { relativePath } from "./relative-path.js";
 
 /**
@@ -53,10 +54,13 @@ async function getWorkspaces() {
  * @returns {Promise<string[]>}
  */
 async function getAllWorkspacePackages(workspaces) {
+	const rootDir = relativePath("..");
+
 	// Get all the node_modules directories in each workspace
 	const packagesByWorkspaceDir = await Promise.all(
 		workspaces.map(async (workspace) => {
-			const files = await fs.readdir(workspace, { withFileTypes: true });
+			const absoluteWorkspace = path.resolve(rootDir, workspace);
+			const files = await fs.readdir(absoluteWorkspace, { withFileTypes: true });
 			return files
 				.filter((dirent) => dirent.isDirectory())
 				.map((dirent) => path.join(workspace, dirent.name));
