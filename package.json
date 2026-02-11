@@ -25,7 +25,7 @@
     "@changesets/cli": "2.29.8",
     "@types/node": "24.10.12",
     "oxfmt": "0.28.0",
-    "oxlint": "1.43.0",
+    "oxlint": "1.46.0",
     "turbo": "2.8.3",
     "vitest": "4.0.18"
   },
