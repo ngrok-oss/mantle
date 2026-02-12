@@ -119,6 +119,11 @@
       "import": "./dist/data-table.js"
     },
     "./date-picker": {},
+    "./description-list": {
+      "types": "./dist/description-list.d.ts",
+      "@ngrok/mantle/source": "./src/components/description-list/index.ts",
+      "import": "./dist/description-list.js"
+    },
     "./dialog": {
       "types": "./dist/dialog.d.ts",
       "@ngrok/mantle/source": "./src/components/dialog/index.ts",

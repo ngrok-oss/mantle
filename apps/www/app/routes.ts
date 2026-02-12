@@ -21,6 +21,7 @@ export default [
 	route("components/checkbox", "./routes/components.checkbox.tsx"),
 	route("components/code-block", "./routes/components.code-block.tsx"),
 	route("components/code", "./routes/components.code.tsx"),
+	route("components/description-list", "./routes/components.description-list.tsx"),
 	route("components/dialog", "./routes/components.dialog.tsx"),
 	route("components/dropdown-menu", "./routes/components.dropdown-menu.tsx"),
 	route("components/flag", "./routes/components.flag.tsx"),
