@@ -1,5 +1,17 @@
 # @ngrok/mantle
 
+## 0.62.0
+
+### Minor Changes
+
+- [#954](https://github.com/ngrok-oss/mantle/pull/954) [`7235e48`](https://github.com/ngrok-oss/mantle/commit/7235e4823cb9232ef0ed2853bf1b8ad9af48d368) Thanks [@randseay](https://github.com/randseay)! - Add DescriptionList component.
+
+  This component is a semantic wrapper for `<dl>`, `<dt>`, and `<dd>` elements. It allows for a more accessible and semantic way to display label/value pairs.
+
+### Patch Changes
+
+- [#946](https://github.com/ngrok-oss/mantle/pull/946) [`e095088`](https://github.com/ngrok-oss/mantle/commit/e095088e084fa07b138715d74ea04ff7f554f969) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add CssProperties, $cssProperties type and helper for supporting typechecking of react CSSProperties AND custom css properties (--foo-bar)
+
 ## 0.61.3
 
 ### Patch Changes
