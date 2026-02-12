@@ -40,4 +40,4 @@ Next, check out the [Overview & Setup](https://mantle.ngrok.com/) docs and start
 
 ## Contributing
 
-Please read our [contribution guide](https://github.com/ngrok-oss/mantle/blob/main/CONTRIBUTING.md).
+Please read our [contribution guide](https://github.com/ngrok-oss/mantle/blob/main/CONTRIBUTING.md) and [conventions](https://github.com/ngrok-oss/mantle/blob/main/CONVENTIONS.md).

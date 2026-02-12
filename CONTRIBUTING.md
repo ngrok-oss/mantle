@@ -2,6 +2,8 @@
 
 Thank you for your interest in contributing to the Mantle! We welcome contributions from the community and are grateful for your help in making our design system better.
 
+Please review our [conventions](CONVENTIONS.md) before submitting changes — it is the single source of truth for code style and patterns.
+
 ## Getting started
 
 First, [fork the repository](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo) and clone to your local machine:
@@ -15,9 +17,9 @@ cd mantle
 
 The following prerequisites are required to contribute to `@ngrok/mantle`. Install the prerequisites through either the [automated](#automated-installation) or [manual](#manual-installation) installation guides below.
 
-- [Node 20](https://nodejs.org/en/download)
-- [pnpm 9](https://pnpm.io/installation#using-npm)
-- [nvm](https://github.com/nvm-sh/nvm)
+- [Node 24](https://nodejs.org/en/download)
+- [pnpm 10](https://pnpm.io/installation#using-npm)
+- [fnm](https://github.com/Schniz/fnm)
 
 ### Automated Installation
 
@@ -46,14 +48,14 @@ direnv allow
 > [!WARNING]
 > If `direnv allow` does nothing for you (you should see things happening!), consider following the [guides to integrate direnv with your shell](https://direnv.net/docs/hook.html) and then try `direnv allow` again! As a last resort, you can follow the [manual installation instructions up above](#manual-installation).
 
-This will install `nvm` (if not already installed) as well as set the correct `node` and `pnpm` versions for you. It will also run `pnpm install` at the end to install all `node_modules`.
+This will install `fnm` (if not already installed) as well as set the correct `node` and `pnpm` versions for you. It will also run `pnpm install` at the end to install all `node_modules`.
 
 ### Manual Installation
 
 If you prefer to manually manage and install the tooling yourself, follow these steps:
 
-1. Install [nvm](https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating) or your node version manager of choice.
-2. Ensure that `node 20` is installed. With `nvm`, run `nvm install`.
+1. Install [fnm](https://github.com/Schniz/fnm#installation) or your node version manager of choice.
+2. Ensure that `node 24` is installed. With `fnm`, run `fnm install`.
 3. Enable `pnpm` with `corepack`: `corepack enable pnpm`
 4. Install `pnpm` with `corepack`: `corepack install`
 5. Install project dependencies with `pnpm`: `pnpm install`
