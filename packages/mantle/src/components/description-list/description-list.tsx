@@ -4,21 +4,12 @@ import type { WithAsChild } from "../../types/index.js";
 import { cx } from "../../utils/cx/cx.js";
 import { Slot } from "../slot/index.js";
 
-type DescriptionListProps = ComponentProps<"dl"> &
-	WithAsChild & {
-		/**
-		 * Whether to apply alternating row backgrounds to `DescriptionList.Item`
-		 * children for improved readability.
-		 *
-		 * @default false
-		 */
-		striped?: boolean;
-	};
+type DescriptionListProps = ComponentProps<"dl"> & WithAsChild;
 
 /**
  * A semantically correct description list built on the HTML `<dl>` element.
- * Renders a list of label/value pairs, commonly used in detail views to display
- * metadata about a resource.
+ * Renders a list of label/value pairs with alternating row backgrounds,
+ * commonly used in detail views to display metadata about a resource.
  *
  * @see https://mantle.ngrok.com/components/description-list#api-description-list-root
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dl
@@ -34,15 +25,14 @@ type DescriptionListProps = ComponentProps<"dl"> &
  * ```
  */
 const Root = forwardRef<ComponentRef<"dl">, DescriptionListProps>(
-	({ asChild = false, className, children, striped = false, ...rest }, ref) => {
+	({ asChild = false, className, children, ...rest }, ref) => {
 		const Component = asChild ? Slot : "dl";
 
 		return (
 			<Component
 				ref={ref}
 				className={cx(
-					"relative scrollbar overflow-x-auto overscroll-x-none rounded-lg border border-card divide-y divide-card-muted grid grid-cols-[auto_1fr]",
-					striped && "[&>*:nth-child(odd)]:bg-base",
+					"relative scrollbar overflow-x-auto overscroll-x-none rounded-lg border border-card divide-y divide-card-muted grid grid-cols-[auto_1fr] [&>*:nth-child(odd)]:bg-base",
 					className,
 				)}
 				{...rest}
@@ -151,8 +141,9 @@ Value.displayName = "DescriptionListValue";
 
 /**
  * A semantically correct description list built on the HTML `<dl>` element.
- * Renders a list of label/value pairs, commonly used in detail views to display
- * metadata about a resource (e.g., API keys, secrets, domains).
+ * Renders a list of label/value pairs with alternating row backgrounds,
+ * commonly used in detail views to display metadata about a resource
+ * (e.g., API keys, secrets, domains).
  *
  * Compose with `DescriptionList.Item`, `DescriptionList.Label`, and
  * `DescriptionList.Value` as direct children.
@@ -162,7 +153,7 @@ Value.displayName = "DescriptionListValue";
  *
  * @example
  * ```tsx
- * <DescriptionList.Root striped>
+ * <DescriptionList.Root>
  *   <DescriptionList.Item>
  *     <DescriptionList.Label>Name</DescriptionList.Label>
  *     <DescriptionList.Value>my-api-key</DescriptionList.Value>
@@ -184,7 +175,7 @@ const DescriptionList = {
 	 *
 	 * @example
 	 * ```tsx
-	 * <DescriptionList.Root striped>
+	 * <DescriptionList.Root>
 	 *   <DescriptionList.Item>
 	 *     <DescriptionList.Label>Name</DescriptionList.Label>
 	 *     <DescriptionList.Value>my-api-key</DescriptionList.Value>

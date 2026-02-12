@@ -51,61 +51,6 @@ export default function Page() {
 							<div className="w-full max-w-lg">
 								<DescriptionList.Root>
 									<DescriptionList.Item>
-										<DescriptionList.Label>Name</DescriptionList.Label>
-										<DescriptionList.Value>Ada Lovelace</DescriptionList.Value>
-									</DescriptionList.Item>
-									<DescriptionList.Item>
-										<DescriptionList.Label>Email</DescriptionList.Label>
-										<DescriptionList.Value>ada@example.com</DescriptionList.Value>
-									</DescriptionList.Item>
-									<DescriptionList.Item>
-										<DescriptionList.Label>Role</DescriptionList.Label>
-										<DescriptionList.Value>Administrator</DescriptionList.Value>
-									</DescriptionList.Item>
-								</DescriptionList.Root>
-							</div>
-						</Example>
-						<CodeBlock.Root className="rounded-b-lg rounded-t-none">
-							<CodeBlock.Body>
-								<CodeBlock.CopyButton />
-								<CodeBlock.Code
-									language="tsx"
-									value={fmtCode`
-										import { DescriptionList } from "@ngrok/mantle/description-list";
-
-										<DescriptionList.Root>
-											<DescriptionList.Item>
-												<DescriptionList.Label>Name</DescriptionList.Label>
-												<DescriptionList.Value>Ada Lovelace</DescriptionList.Value>
-											</DescriptionList.Item>
-											<DescriptionList.Item>
-												<DescriptionList.Label>Email</DescriptionList.Label>
-												<DescriptionList.Value>ada@example.com</DescriptionList.Value>
-											</DescriptionList.Item>
-											<DescriptionList.Item>
-												<DescriptionList.Label>Role</DescriptionList.Label>
-												<DescriptionList.Value>Administrator</DescriptionList.Value>
-											</DescriptionList.Item>
-										</DescriptionList.Root>
-									`}
-								/>
-							</CodeBlock.Body>
-						</CodeBlock.Root>
-					</div>
-
-					<HashLinkHeading id="striped">
-						<h3 className="text-xl font-medium text-strong">Striped</h3>
-					</HashLinkHeading>
-					<p>
-						Use the <Code>striped</Code> prop to apply alternating row backgrounds for improved
-						readability in longer lists.
-					</p>
-
-					<div>
-						<Example>
-							<div className="w-full max-w-lg">
-								<DescriptionList.Root striped>
-									<DescriptionList.Item>
 										<DescriptionList.Label>Key</DescriptionList.Label>
 										<DescriptionList.Value className="font-bold">my-api-key</DescriptionList.Value>
 									</DescriptionList.Item>
@@ -144,7 +89,7 @@ export default function Page() {
 									value={fmtCode`
 										import { DescriptionList } from "@ngrok/mantle/description-list";
 
-										<DescriptionList.Root striped>
+										<DescriptionList.Root>
 											<DescriptionList.Item>
 												<DescriptionList.Label>Key</DescriptionList.Label>
 												<DescriptionList.Value className="font-bold">
@@ -235,21 +180,6 @@ export default function Page() {
 							<PropDefaultValueCell />
 							<PropDescriptionCell>
 								<p>Additional CSS class names to apply to the root element.</p>
-							</PropDescriptionCell>
-						</PropRow>
-						<PropRow>
-							<PropNameCell name="striped" optional />
-							<PropTypeCell>
-								<BooleanPropType />
-							</PropTypeCell>
-							<PropDefaultValueCell>
-								<BooleanPropType value={false} />
-							</PropDefaultValueCell>
-							<PropDescriptionCell>
-								<p>
-									Whether to apply alternating row backgrounds to <Code>DescriptionList.Item</Code>{" "}
-									children for improved readability.
-								</p>
 							</PropDescriptionCell>
 						</PropRow>
 						<PropRow>
