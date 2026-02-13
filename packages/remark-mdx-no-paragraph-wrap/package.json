@@ -60,8 +60,5 @@
     "@mdx-js/rollup": {
       "optional": true
     }
-  },
-  "engines": {
-    "node": ">=22"
   }
 }
