@@ -33,6 +33,7 @@ Code style, patterns, and conventions for the Mantle design system. This is the 
 - **Errors are control flow**: `console.error` is not handling. Every error path must either return a defined recovery value or throw
 - **Avoid nested ternaries**: Prefer early returns or component-based branching over nested ternaries. A single ternary is fine; nesting them harms readability
 - **No non-null assertions**: The postfix `!` operator (`value!`) is forbidden. Use proper null checks, early returns, or restructure the code to narrow the type instead
+- **No type assertions**: The `as` operator is forbidden in application code. Do not use `value as Type`. The only allowed exception is inside a dedicated type guard implementation. Type assertions must never be used to silence TypeScript errors or bypass proper type modeling.
 
 ## className Composition
 
