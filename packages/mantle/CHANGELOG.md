@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.62.2
+
+### Patch Changes
+
+- [#957](https://github.com/ngrok-oss/mantle/pull/957) [`141490d`](https://github.com/ngrok-oss/mantle/commit/141490dec9ef4b6b5776986a14cac190b65adc77) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - fix return type of $cssProperties
+
 ## 0.62.1
 
 ### Patch Changes
