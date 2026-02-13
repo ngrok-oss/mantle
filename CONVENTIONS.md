@@ -32,6 +32,7 @@ Code style, patterns, and conventions for the Mantle design system. This is the 
 - **Inline one-off handlers**: If an event handler is used only once, define it inline instead of hoisting it into the component
 - **Errors are control flow**: `console.error` is not handling. Every error path must either return a defined recovery value or throw
 - **Avoid nested ternaries**: Prefer early returns or component-based branching over nested ternaries. A single ternary is fine; nesting them harms readability
+- **No non-null assertions**: The postfix `!` operator (`value!`) is forbidden. Use proper null checks, early returns, or restructure the code to narrow the type instead
 
 ## className Composition
 
