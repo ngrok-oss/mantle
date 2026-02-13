@@ -17,9 +17,17 @@ Code style, patterns, and conventions for the Mantle design system. This is the 
 
 ## TypeScript
 
-- Strict mode enabled
-- Shared configs in `@cfg/tsconfig` (see [`config/tsconfig/`](./config/tsconfig/))
-- Avoid `: any` type annotations. Use proper types or `unknown` when type is truly unknown
+- **Strict mode**: Enabled.  
+  _Why:_ Forces explicit handling of nullability and unsafe assumptions.
+
+- **Shared configs**: Use `@cfg/tsconfig` (see `config/tsconfig/`).  
+  _Why:_ One canonical baseline prevents drift across packages/apps.
+
+- **No `any`**: `any` is forbidden. Use real types; use `unknown` when truly unknown and narrow it.  
+  _Why:_ `any` disables type safety; `unknown` preserves it until proven.
+
+- **Use `type`**: Use `type` for all declarations. `interface` is not allowed in application code.  
+  _Why:_ `type` covers all shapes (unions, intersections, primitives, tuples), expands inline in IntelliSense for easier inspection, and avoids declaration merging—keeping types closed and predictable.
 
 ## Code Quality
 
