@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.62.1
+
+### Patch Changes
+
+- [#955](https://github.com/ngrok-oss/mantle/pull/955) [`bf79ae2`](https://github.com/ngrok-oss/mantle/commit/bf79ae237df0f9350daf8e998e3b4252f398a2b7) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - DescriptionList styling fixes
+
 ## 0.62.0
 
 ### Minor Changes
