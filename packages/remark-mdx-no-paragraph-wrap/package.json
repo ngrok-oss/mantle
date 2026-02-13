@@ -36,15 +36,16 @@
     "build": "tsup",
     "clean": "rm -rf dist",
     "prebuild": "pnpm run clean",
-    "test": "vitest run",
+    "test": "TZ=UTC vitest run",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@types/mdast": "4.0.4",
     "unist-util-visit": "5.1.0"
   },
   "devDependencies": {
+    "@cfg/tsconfig": "workspace:*",
     "@mdx-js/mdx": "3.1.1",
-    "@types/mdast": "4.0.4",
     "mdast-util-mdx-jsx": "3.2.0",
     "tsup": "8.5.1",
     "typescript": "catalog:"

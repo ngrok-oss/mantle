@@ -310,16 +310,19 @@ importers:
       '@mdx-js/rollup':
         specifier: '>=3.0.0 || >=4.0.0'
         version: 3.1.1(rollup@4.57.1)
+      '@types/mdast':
+        specifier: 4.0.4
+        version: 4.0.4
       unist-util-visit:
         specifier: 5.1.0
         version: 5.1.0
     devDependencies:
+      '@cfg/tsconfig':
+        specifier: workspace:*
+        version: link:../../config/tsconfig
       '@mdx-js/mdx':
         specifier: 3.1.1
         version: 3.1.1
-      '@types/mdast':
-        specifier: 4.0.4
-        version: 4.0.4
       mdast-util-mdx-jsx:
         specifier: 3.2.0
         version: 3.2.0
