@@ -1,6 +1,6 @@
 {
   "name": "@ngrok/remark-mdx-no-paragraph-wrap",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Remark plugin that prevents MDX from wrapping JSX component children in <p> tags.",
   "keywords": [
     "mdast",
