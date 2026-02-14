@@ -1,5 +1,7 @@
+import type { ComponentType } from "react";
+
 export const docModules = import.meta.glob<{
-	default: React.ComponentType;
+	default: ComponentType;
 	frontmatter?: Record<string, unknown>;
 }>("../docs/**/*.mdx", { eager: true });
 

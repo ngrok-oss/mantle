@@ -370,6 +370,7 @@ function ReactRouterScaffolding() {
 							} from "@ngrok/mantle/theme";
 							import { Toaster } from "@ngrok/mantle/toast";
 							import { TooltipProvider } from "@ngrok/mantle/tooltip";
+							import type { PropsWithChildren } from "react";
 							import {
 								isRouteErrorResponse,
 								Links,
@@ -382,7 +383,7 @@ function ReactRouterScaffolding() {
 							import type { Route } from "./+types/root";
 							import "@ngrok/mantle/mantle.css"; // 👈 add this import to include mantle styles!
 
-							export function Layout({ children }: { children: React.ReactNode }) {
+							export function Layout({ children }: PropsWithChildren) {
 								const initialHtmlThemeProps = useInitialHtmlThemeProps({
 									className: "h-full",
 								});
