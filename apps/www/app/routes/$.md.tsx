@@ -19,7 +19,7 @@ export async function loader({ request }: Route.LoaderArgs) {
 	}
 
 	// Read the raw markdown file
-	const absolutePath = join(process.cwd(), "app", filePath.replace("../", ""));
+	const absolutePath = join(process.cwd(), "app", filePath.replace(/\.\.\//g, ""));
 	const rawContent = await readFile(absolutePath, "utf-8");
 	const filename = cleanSlug.split("/").pop() || "document";
 
