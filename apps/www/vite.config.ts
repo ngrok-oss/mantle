@@ -5,6 +5,7 @@ import rehypeSlug from "rehype-slug";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkGfm from "remark-gfm";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
+import path from "node:path";
 import { defineConfig } from "vite";
 import devtoolsJson from "vite-plugin-devtools-json";
 
@@ -30,7 +31,15 @@ export default defineConfig({
 	resolve: {
 		// Ensure Mantle components resolve to source in dev mode (not dist)
 		// so client HMR picks up changes immediately
-		conditions: ["@ngrok/mantle/source"],
+		conditions: ["@ngrok/src-custom-condish"],
+		alias: {
+			// CSS @import doesn't go through Vite's resolve.conditions,
+			// so we alias the CSS entry point to the source file directly
+			"@ngrok/mantle/mantle.css": path.resolve(
+				import.meta.dirname,
+				"../../packages/mantle/src/mantle.css",
+			),
+		},
 	},
 	server: {
 		port: 3333,
@@ -38,6 +47,10 @@ export default defineConfig({
 			clientFiles: [
 				"./app/**/!(*.server|*.test)*.tsx", // Include all .tsx files except server and test files (add more patterns if required)
 			],
+		},
+		watch: {
+			// Explicitly watch mantle source files for HMR
+			ignored: ["!**/node_modules/@ngrok/mantle/src/**"],
 		},
 	},
 	ssr: {
@@ -49,7 +62,7 @@ export default defineConfig({
 			// Same as above, but for the SSR renderer.
 			// Without this, the server falls back to dist and causes hydration mismatches
 			// (className warnings, missing styles, etc.) on hard refresh.
-			conditions: ["@ngrok/mantle/source"],
+			conditions: ["@ngrok/src-custom-condish"],
 		},
 	},
 });
