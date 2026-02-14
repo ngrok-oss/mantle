@@ -1,8 +1,22 @@
 import { type RouteConfig, index, route } from "@react-router/dev/routes";
 
+// Helper to create doc routes (handles both /path and /path.md URLs)
+function docRoute(path: string) {
+	const id = `docs-${path.replace(/\//g, "-")}`;
+	return [
+		route(path, "./routes/docs.$.tsx", { id }),
+		route(`${path}.md`, "./routes/$.md.tsx", { id: `${id}-md` }),
+	];
+}
+
 export default [
 	index("./routes/_index.tsx"),
-	route("philosophy", "./routes/philosophy.tsx"),
+
+	// MDX docs: auto-discovers docs from app/docs/**/*.mdx
+	// Handles both /path and /path.md URLs (returns HTML or raw markdown respectively)
+	...docRoute("philosophy"),
+	...docRoute("components/separator"),
+
 	route("base/breakpoints", "./routes/base.breakpoints.tsx"),
 	route("base/colors", "./routes/base.colors.tsx"),
 	route("base/shadows", "./routes/base.shadows.tsx"),
@@ -46,7 +60,7 @@ export default [
 	route("components/radio-group", "./routes/components.radio-group.tsx"),
 	route("components/sandboxed-on-click", "./routes/components.sandboxed-on-click.tsx"),
 	route("components/select", "./routes/components.select.tsx"),
-	route("components/separator", "./routes/components.separator.tsx"),
+	// separator is now served from MDX docs (see docs.$.tsx routes above)
 	route("components/sheet", "./routes/components.sheet.tsx"),
 	route("components/skeleton", "./routes/components.skeleton.tsx"),
 	route("components/slot", "./routes/components.slot.tsx"),

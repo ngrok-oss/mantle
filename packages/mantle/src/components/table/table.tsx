@@ -17,7 +17,7 @@ import { cx } from "../../utils/cx/cx.js";
  *     <Table.Caption>A list of your recent invoices.</Table.Caption>
  *     <Table.Head>
  *       <Table.Row>
- *         <Table.Header className="w-[100px]">Invoice</Table.Header>
+ *         <Table.Header className="w-25">Invoice</Table.Header>
  *         <Table.Header>Status</Table.Header>
  *         <Table.Header>Method</Table.Header>
  *         <Table.Header className="text-right">Amount</Table.Header>
@@ -110,7 +110,7 @@ Root.displayName = "TableRoot";
  *     <Table.Caption>A list of your recent invoices.</Table.Caption>
  *     <Table.Head>
  *       <Table.Row>
- *         <Table.Header className="w-[100px]">Invoice</Table.Header>
+ *         <Table.Header className="w-25">Invoice</Table.Header>
  *         <Table.Header>Status</Table.Header>
  *         <Table.Header>Method</Table.Header>
  *         <Table.Header className="text-right">Amount</Table.Header>
@@ -175,7 +175,7 @@ Element.displayName = "TableElement";
  *     <Table.Caption>A list of your recent invoices.</Table.Caption>
  *     <Table.Head>
  *       <Table.Row>
- *         <Table.Header className="w-[100px]">Invoice</Table.Header>
+ *         <Table.Header className="w-25">Invoice</Table.Header>
  *         <Table.Header>Status</Table.Header>
  *         <Table.Header>Method</Table.Header>
  *         <Table.Header className="text-right">Amount</Table.Header>
@@ -240,7 +240,7 @@ Head.displayName = "TableHead";
  *     <Table.Caption>A list of your recent invoices.</Table.Caption>
  *     <Table.Head>
  *       <Table.Row>
- *         <Table.Header className="w-[100px]">Invoice</Table.Header>
+ *         <Table.Header className="w-25">Invoice</Table.Header>
  *         <Table.Header>Status</Table.Header>
  *         <Table.Header>Method</Table.Header>
  *         <Table.Header className="text-right">Amount</Table.Header>
@@ -307,7 +307,7 @@ Body.displayName = "TableBody";
  *     <Table.Caption>A list of your recent invoices.</Table.Caption>
  *     <Table.Head>
  *       <Table.Row>
- *         <Table.Header className="w-[100px]">Invoice</Table.Header>
+ *         <Table.Header className="w-25">Invoice</Table.Header>
  *         <Table.Header>Status</Table.Header>
  *         <Table.Header>Method</Table.Header>
  *         <Table.Header className="text-right">Amount</Table.Header>
@@ -371,7 +371,7 @@ Foot.displayName = "TableFoot";
  *     <Table.Caption>A list of your recent invoices.</Table.Caption>
  *     <Table.Head>
  *       <Table.Row>
- *         <Table.Header className="w-[100px]">Invoice</Table.Header>
+ *         <Table.Header className="w-25">Invoice</Table.Header>
  *         <Table.Header>Status</Table.Header>
  *         <Table.Header>Method</Table.Header>
  *         <Table.Header className="text-right">Amount</Table.Header>
@@ -433,7 +433,7 @@ Row.displayName = "TableRow";
  *     <Table.Caption>A list of your recent invoices.</Table.Caption>
  *     <Table.Head>
  *       <Table.Row>
- *         <Table.Header className="w-[100px]">Invoice</Table.Header>
+ *         <Table.Header className="w-25">Invoice</Table.Header>
  *         <Table.Header>Status</Table.Header>
  *         <Table.Header>Method</Table.Header>
  *         <Table.Header className="text-right">Amount</Table.Header>
@@ -493,7 +493,7 @@ Header.displayName = "TableHeader";
  *     <Table.Caption>A list of your recent invoices.</Table.Caption>
  *     <Table.Head>
  *       <Table.Row>
- *         <Table.Header className="w-[100px]">Invoice</Table.Header>
+ *         <Table.Header className="w-25">Invoice</Table.Header>
  *         <Table.Header>Status</Table.Header>
  *         <Table.Header>Method</Table.Header>
  *         <Table.Header className="text-right">Amount</Table.Header>
@@ -553,7 +553,7 @@ Cell.displayName = "TableCell";
  *     <Table.Caption>A list of your recent invoices.</Table.Caption>
  *     <Table.Head>
  *       <Table.Row>
- *         <Table.Header className="w-[100px]">Invoice</Table.Header>
+ *         <Table.Header className="w-25">Invoice</Table.Header>
  *         <Table.Header>Status</Table.Header>
  *         <Table.Header>Method</Table.Header>
  *         <Table.Header className="text-right">Amount</Table.Header>
@@ -607,7 +607,7 @@ Caption.displayName = "TableCaption";
  *     <Table.Caption>A list of your recent invoices.</Table.Caption>
  *     <Table.Head>
  *       <Table.Row>
- *         <Table.Header className="w-[100px]">Invoice</Table.Header>
+ *         <Table.Header className="w-25">Invoice</Table.Header>
  *         <Table.Header>Status</Table.Header>
  *         <Table.Header>Method</Table.Header>
  *         <Table.Header className="text-right">Amount</Table.Header>
@@ -646,7 +646,7 @@ const Table = {
 	 *     <Table.Caption>A list of your recent invoices.</Table.Caption>
 	 *     <Table.Head>
 	 *       <Table.Row>
-	 *         <Table.Header className="w-[100px]">Invoice</Table.Header>
+	 *         <Table.Header className="w-25">Invoice</Table.Header>
 	 *         <Table.Header>Status</Table.Header>
 	 *         <Table.Header>Method</Table.Header>
 	 *         <Table.Header className="text-right">Amount</Table.Header>
@@ -685,7 +685,7 @@ const Table = {
 	 *     <Table.Caption>A list of your recent invoices.</Table.Caption>
 	 *     <Table.Head>
 	 *       <Table.Row>
-	 *         <Table.Header className="w-[100px]">Invoice</Table.Header>
+	 *         <Table.Header className="w-25">Invoice</Table.Header>
 	 *         <Table.Header>Status</Table.Header>
 	 *         <Table.Header>Method</Table.Header>
 	 *         <Table.Header className="text-right">Amount</Table.Header>
@@ -724,7 +724,7 @@ const Table = {
 	 *     <Table.Caption>A list of your recent invoices.</Table.Caption>
 	 *     <Table.Head>
 	 *       <Table.Row>
-	 *         <Table.Header className="w-[100px]">Invoice</Table.Header>
+	 *         <Table.Header className="w-25">Invoice</Table.Header>
 	 *         <Table.Header>Status</Table.Header>
 	 *         <Table.Header>Method</Table.Header>
 	 *         <Table.Header className="text-right">Amount</Table.Header>
@@ -763,7 +763,7 @@ const Table = {
 	 *     <Table.Caption>A list of your recent invoices.</Table.Caption>
 	 *     <Table.Head>
 	 *       <Table.Row>
-	 *         <Table.Header className="w-[100px]">Invoice</Table.Header>
+	 *         <Table.Header className="w-25">Invoice</Table.Header>
 	 *         <Table.Header>Status</Table.Header>
 	 *         <Table.Header>Method</Table.Header>
 	 *         <Table.Header className="text-right">Amount</Table.Header>
@@ -802,7 +802,7 @@ const Table = {
 	 *     <Table.Caption>A list of your recent invoices.</Table.Caption>
 	 *     <Table.Head>
 	 *       <Table.Row>
-	 *         <Table.Header className="w-[100px]">Invoice</Table.Header>
+	 *         <Table.Header className="w-25">Invoice</Table.Header>
 	 *         <Table.Header>Status</Table.Header>
 	 *         <Table.Header>Method</Table.Header>
 	 *         <Table.Header className="text-right">Amount</Table.Header>
@@ -841,7 +841,7 @@ const Table = {
 	 *     <Table.Caption>A list of your recent invoices.</Table.Caption>
 	 *     <Table.Head>
 	 *       <Table.Row>
-	 *         <Table.Header className="w-[100px]">Invoice</Table.Header>
+	 *         <Table.Header className="w-25">Invoice</Table.Header>
 	 *         <Table.Header>Status</Table.Header>
 	 *         <Table.Header>Method</Table.Header>
 	 *         <Table.Header className="text-right">Amount</Table.Header>
@@ -880,7 +880,7 @@ const Table = {
 	 *     <Table.Caption>A list of your recent invoices.</Table.Caption>
 	 *     <Table.Head>
 	 *       <Table.Row>
-	 *         <Table.Header className="w-[100px]">Invoice</Table.Header>
+	 *         <Table.Header className="w-25">Invoice</Table.Header>
 	 *         <Table.Header>Status</Table.Header>
 	 *         <Table.Header>Method</Table.Header>
 	 *         <Table.Header className="text-right">Amount</Table.Header>
@@ -919,7 +919,7 @@ const Table = {
 	 *     <Table.Caption>A list of your recent invoices.</Table.Caption>
 	 *     <Table.Head>
 	 *       <Table.Row>
-	 *         <Table.Header className="w-[100px]">Invoice</Table.Header>
+	 *         <Table.Header className="w-25">Invoice</Table.Header>
 	 *         <Table.Header>Status</Table.Header>
 	 *         <Table.Header>Method</Table.Header>
 	 *         <Table.Header className="text-right">Amount</Table.Header>
@@ -958,7 +958,7 @@ const Table = {
 	 *     <Table.Caption>A list of your recent invoices.</Table.Caption>
 	 *     <Table.Head>
 	 *       <Table.Row>
-	 *         <Table.Header className="w-[100px]">Invoice</Table.Header>
+	 *         <Table.Header className="w-25">Invoice</Table.Header>
 	 *         <Table.Header>Status</Table.Header>
 	 *         <Table.Header>Method</Table.Header>
 	 *         <Table.Header className="text-right">Amount</Table.Header>

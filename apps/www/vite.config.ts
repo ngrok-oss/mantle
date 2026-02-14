@@ -1,9 +1,15 @@
+import mdx from "@mdx-js/rollup";
 import { reactRouter } from "@react-router/dev/vite";
 import tailwindcss from "@tailwindcss/vite";
+import rehypeSlug from "rehype-slug";
+import remarkFrontmatter from "remark-frontmatter";
+import remarkGfm from "remark-gfm";
+import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 import { defineConfig } from "vite";
 import devtoolsJson from "vite-plugin-devtools-json";
 
 import tsconfigPaths from "vite-tsconfig-paths";
+import { remarkMdxNoParagraphWrap } from "@ngrok/remark-mdx-no-paragraph-wrap";
 
 export default defineConfig({
 	optimizeDeps: {
@@ -13,6 +19,11 @@ export default defineConfig({
 		//
 		devtoolsJson(),
 		tailwindcss(),
+		mdx({
+			remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter, remarkGfm, remarkMdxNoParagraphWrap],
+			rehypePlugins: [rehypeSlug],
+			providerImportSource: "@mdx-js/react",
+		}),
 		reactRouter(),
 		tsconfigPaths(),
 	],

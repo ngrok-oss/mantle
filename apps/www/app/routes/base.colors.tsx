@@ -111,6 +111,19 @@ export default function Page() {
 										isActive && "text-accent-600 font-medium",
 									)
 								}
+								to=".#info"
+							>
+								Info
+							</HashNavLink>
+						</li>
+						<li>
+							<HashNavLink
+								className={(isActive) =>
+									cx(
+										"hover:text-strong hover:font-medium",
+										isActive && "text-accent-600 font-medium",
+									)
+								}
 								to=".#success"
 							>
 								Success
@@ -555,6 +568,56 @@ export default function Page() {
 					</div>
 					<div className="flex grow flex-col gap-1 font-mono">
 						<div className="bg-accent-50 h-10 w-full rounded" />
+						50
+					</div>
+				</div>
+
+				<HashLinkHeading id="info" className="mt-8 text-xl font-medium">
+					<h3>Info</h3>
+				</HashLinkHeading>
+				<div className="mt-2 flex flex-col gap-2 overflow-hidden text-xs md:flex-row">
+					<div className="flex grow flex-col gap-1 font-mono">
+						<div className="bg-info-950 h-10 w-full rounded" />
+						950
+					</div>
+					<div className="flex grow flex-col gap-1 font-mono">
+						<div className="bg-info-900 h-10 w-full rounded" />
+						900
+					</div>
+					<div className="flex grow flex-col gap-1 font-mono">
+						<div className="bg-info-800 h-10 w-full rounded" />
+						800
+					</div>
+					<div className="flex grow flex-col gap-1 font-mono">
+						<div className="bg-info-700 h-10 w-full rounded" />
+						700
+					</div>
+					<div className="flex grow flex-col gap-1 font-mono">
+						<div className="bg-info-600 h-10 w-full rounded" />
+						600
+					</div>
+					<div className="flex grow flex-col gap-1 font-mono">
+						<div className="bg-info-500 h-10 w-full rounded" />
+						500
+					</div>
+					<div className="flex grow flex-col gap-1 font-mono">
+						<div className="bg-info-400 h-10 w-full rounded" />
+						400
+					</div>
+					<div className="flex grow flex-col gap-1 font-mono">
+						<div className="bg-info-300 h-10 w-full rounded" />
+						300
+					</div>
+					<div className="flex grow flex-col gap-1 font-mono">
+						<div className="bg-info-200 h-10 w-full rounded" />
+						200
+					</div>
+					<div className="flex grow flex-col gap-1 font-mono">
+						<div className="bg-info-100 h-10 w-full rounded" />
+						100
+					</div>
+					<div className="flex grow flex-col gap-1 font-mono">
+						<div className="bg-info-50 h-10 w-full rounded" />
 						50
 					</div>
 				</div>

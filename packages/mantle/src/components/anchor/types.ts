@@ -1,5 +1,3 @@
-import type { HTMLAttributeAnchorTarget } from "react";
-
 /**
  * The rel attribute defines the relationship between a linked resource and the current document. Valid on <link>, <a>, <area>, and <form>, the supported values depend on the element on which the attribute is found.
  *
@@ -36,19 +34,3 @@ export type Rel =
 	| "stylesheet"
 	| "tag"
 	| "terms-of-service";
-
-/**
- * Where to display the linked URL, as the name for a browsing context (a tab, window, or <iframe>).
- *
- * Note: Setting target="_blank" on <a> elements implicitly provides the same rel behavior as setting rel="noopener" which does not set window.opener.
- *
- * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#target
- *
- * @default "_self"
- */
-export type Target =
-	| (HTMLAttributeAnchorTarget & "_self")
-	| "_blank"
-	| "_parent"
-	| "_top"
-	| "_unfencedTop";

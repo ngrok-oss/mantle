@@ -158,14 +158,12 @@ export default function Page() {
 												.refine((value) => value, "You must accept the terms and conditions."),
 										});
 
-										type FormValues = z.infer<typeof formSchema>;
-
 										function FormExample() {
 											const submit = useSubmit();
 											const form = useForm({
 												defaultValues: {
 													acceptedTermsAndConditions: false,
-												} satisfies FormValues as FormValues,
+												},
 												validators: {
 													onSubmit: formSchema,
 												},
@@ -335,13 +333,11 @@ const formSchema = z.object({
 		.refine((value) => value, "You must accept the terms and conditions."),
 });
 
-type FormValues = z.infer<typeof formSchema>;
-
 function FormExample() {
 	const form = useForm({
 		defaultValues: {
 			acceptedTermsAndConditions: false,
-		} satisfies FormValues as FormValues,
+		},
 		validators: {
 			onSubmit: formSchema,
 		},
