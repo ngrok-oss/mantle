@@ -18,7 +18,7 @@
     "@phosphor-icons/react": "catalog:",
     "@react-router/node": "catalog:",
     "@react-router/serve": "catalog:",
-    "@tanstack/react-form": "1.28.0",
+    "@tanstack/react-form": "1.28.2",
     "@tanstack/react-query": "5.90.21",
     "@tanstack/react-query-devtools": "5.91.3",
     "@vercel/react-router": "1.2.5",
@@ -36,7 +36,7 @@
   "devDependencies": {
     "@cfg/tsconfig": "workspace:*",
     "@mdx-js/rollup": "3.1.1",
-    "@ngrok/remark-mdx-no-paragraph-wrap": "workspace:*",
+    "@ngrok/remark-mdx-no-paragraph-wrap": "0.1.0",
     "@react-router/dev": "catalog:",
     "@tailwindcss/vite": "4.1.18",
     "@types/prismjs": "1.26.6",

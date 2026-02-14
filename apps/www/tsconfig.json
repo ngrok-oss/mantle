@@ -13,7 +13,7 @@
       "@cfg/tsconfig/reset.d.ts",
       "@cfg/tsconfig/svg.d.ts"
     ],
-    "customConditions": ["@ngrok/mantle/source"],
+    "customConditions": ["@ngrok/src-custom-condish"],
     "rootDirs": [".", "./.react-router/types"]
   }
 }

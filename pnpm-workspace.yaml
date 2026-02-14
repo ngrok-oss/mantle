@@ -11,6 +11,7 @@ packages:
 minimumReleaseAge: 720
 
 minimumReleaseAgeExclude:
+  - "@ngrok/remark-mdx-no-paragraph-wrap"
   - "@types/react"
   - "@types/react-dom"
   - "react"
