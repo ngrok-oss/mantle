@@ -1,5 +1,5 @@
 import { readFile } from "node:fs/promises";
-import { join } from "node:path";
+import { resolve } from "node:path";
 import type { Route } from "./+types/$.md";
 import { urlToFileMap } from "~/utilities/docs";
 
@@ -18,8 +18,13 @@ export async function loader({ request }: Route.LoaderArgs) {
 		throw new Response("Not Found", { status: 404 });
 	}
 
-	// Read the raw markdown file
-	const absolutePath = join(process.cwd(), "app", filePath.replace(/\.\.\//g, ""));
+	// Resolve the absolute path and verify it stays within the docs directory
+	const docsDir = resolve(process.cwd(), "app", "docs");
+	const absolutePath = resolve(docsDir, filePath.replace("../docs/", ""));
+	if (!absolutePath.startsWith(docsDir)) {
+		throw new Response("Forbidden", { status: 403 });
+	}
+
 	const rawContent = await readFile(absolutePath, "utf-8");
 	const filename = cleanSlug.split("/").pop() || "document";
 
