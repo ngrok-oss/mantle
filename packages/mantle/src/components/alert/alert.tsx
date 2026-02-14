@@ -288,10 +288,12 @@ Description.displayName = "AlertDescription";
 
 const dismissTextColor = <T extends Priority = Priority>(priority: T) =>
 	`var(--color-${priority}-700)`;
+
 const dismissHoverColor = <T extends Priority = Priority>(priority: T) =>
-	`var(--color-${priority}-400)`;
+	`var(--color-${priority}-800)`;
+
 const dismissActiveColor = <T extends Priority = Priority>(priority: T) =>
-	`var(--color-${priority}-200)`;
+	`var(--color-${priority}-900)`;
 
 type AlertDismissIconButtonProps = Partial<Omit<IconButtonProps, "icon">>;
 const DismissIconButton = ({
