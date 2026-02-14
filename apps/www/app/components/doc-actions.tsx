@@ -59,7 +59,12 @@ export function DocActions() {
 					Copy page
 				</Button>
 				<DropdownMenu.Trigger asChild>
-					<IconButton type="button" icon={<CaretDownIcon />} appearance="outlined" label="asdf" />
+					<IconButton
+						type="button"
+						icon={<CaretDownIcon />}
+						appearance="outlined"
+						label="Open doc actions dropdown menu"
+					/>
 				</DropdownMenu.Trigger>
 			</ButtonGroup>
 			<DropdownMenu.Content align="end">
