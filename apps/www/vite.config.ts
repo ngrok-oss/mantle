@@ -35,7 +35,10 @@ export default defineConfig({
 		alias: {
 			// CSS @import doesn't go through Vite's resolve.conditions,
 			// so we alias the CSS entry point to the source file directly
-			"@ngrok/mantle/mantle.css": path.resolve(import.meta.dirname, "../../packages/mantle/src/mantle.css"),
+			"@ngrok/mantle/mantle.css": path.resolve(
+				import.meta.dirname,
+				"../../packages/mantle/src/mantle.css",
+			),
 		},
 	},
 	server: {
