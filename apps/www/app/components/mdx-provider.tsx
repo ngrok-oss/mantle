@@ -75,7 +75,6 @@ const components = {
 		);
 	},
 	pre: (props) => {
-		console.log("MDXProvider.components.pre", { props });
 		const { children, className } = props;
 		if (!isValidElement(children)) {
 			return null;

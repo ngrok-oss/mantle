@@ -28,11 +28,17 @@ export async function loader({ request }: Route.LoaderArgs) {
 		throw new Response("Not Found", { status: 404 });
 	}
 
-	const frontmatter = frontmatterSchema.parse(mod.frontmatter ?? {});
+	const frontmatterResult = frontmatterSchema.safeParse(mod.frontmatter ?? {});
+	if (!frontmatterResult.success) {
+		throw new Response(
+			`Invalid frontmatter in ${filePath}: ${frontmatterResult.error.issues.map((i) => i.message).join(", ")}`,
+			{ status: 500 },
+		);
+	}
 
 	return {
 		filePath,
-		frontmatter,
+		frontmatter: frontmatterResult.data,
 	};
 }
 
