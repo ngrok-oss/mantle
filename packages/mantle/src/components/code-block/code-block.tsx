@@ -93,7 +93,7 @@ const CodeBlockContext = createContext<CodeBlockContextType>({
  * </CodeBlock.Root>
  * ```
  */
-const Root = forwardRef<ComponentRef<"div">, ComponentProps<"div"> & WithAsChild>(
+const Root = forwardRef<ComponentRef<"div">, Omit<ComponentProps<"div">, "align"> & WithAsChild>(
 	({ asChild = false, className, ...props }, ref) => {
 		const [copyText, setCopyText] = useState("");
 		const [hasCodeExpander, setHasCodeExpander] = useState(false);
@@ -131,6 +131,7 @@ const Root = forwardRef<ComponentRef<"div">, ComponentProps<"div"> & WithAsChild
 		return (
 			<CodeBlockContext.Provider value={context}>
 				<Component
+					data-slot="code-block"
 					className={cx(
 						"text-mono overflow-hidden rounded-md border border-gray-300 bg-gray-50 font-mono",
 						"[&_svg]:shrink-0",

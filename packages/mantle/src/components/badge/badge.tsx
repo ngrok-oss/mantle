@@ -51,7 +51,7 @@ const Badge = ({
 	const textColor = computeTextColor(color, appearance);
 
 	const badgeClasses = cx(
-		"inline-flex w-fit shrink-0 cursor-default items-center gap-1 rounded px-1.5 py-0.5 font-medium text-xs",
+		"inline-flex w-fit shrink-0 cursor-default items-center gap-1 rounded px-1.5 py-0.5 font-medium text-xs font-sans",
 		icon && "ps-1",
 		bgColor,
 		textColor,
@@ -124,6 +124,7 @@ const mutedBgColorLookup = {
 	yellow: "bg-yellow-500/20",
 	accent: "bg-accent-500/20",
 	danger: "bg-danger-500/20",
+	info: "bg-info-500/20",
 	neutral: "bg-neutral-500/20",
 	success: "bg-success-500/20",
 	warning: "bg-warning-500/20",
@@ -159,6 +160,7 @@ const textColorMutedLookup = {
 	yellow: "text-yellow-700",
 	accent: "text-accent-700",
 	danger: "text-danger-700",
+	info: "text-info-700",
 	neutral: "text-neutral-700",
 	success: "text-success-700",
 	warning: "text-warning-700",

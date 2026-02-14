@@ -220,6 +220,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 				"disabled:cursor-default disabled:opacity-50",
 				"not-disabled:active:scale-97 ease-out transition-transform duration-150",
 				buttonVariants({ appearance, priority, isLoading }),
+				appearance !== "link" && "font-sans", // only enforce font-sans on non-link button appearances
 				hasSpecialIconPadding && iconPlacement === "start" && "ps-2.5",
 				hasSpecialIconPadding && iconPlacement === "end" && "pe-2.5",
 				className,

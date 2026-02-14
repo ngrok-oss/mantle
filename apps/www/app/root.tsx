@@ -7,7 +7,9 @@ import {
 } from "@ngrok/mantle/theme";
 import { Toaster } from "@ngrok/mantle/toast";
 import { TooltipProvider } from "@ngrok/mantle/tooltip";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { PropsWithChildren } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import {
 	Links,
 	Meta,
@@ -55,11 +57,13 @@ export const loader = async (_: Route.LoaderArgs) => {
 	const packageJson = await import("@ngrok/mantle/package.json");
 	const commitSha = process.env.VERCEL_GIT_COMMIT_SHA;
 	const deploymentId = process.env.VERCEL_DEPLOYMENT_ID;
+	const nodeEnv = process.env.NODE_ENV ?? "development";
 
 	return {
 		currentVersion: packageJson.default.version,
 		commitSha,
 		deploymentId,
+		renderReactQueryDevtools: nodeEnv !== "production",
 	};
 };
 
@@ -74,6 +78,18 @@ export function shouldRevalidate(_: ShouldRevalidateFunctionArgs) {
 const title = "@ngrok/mantle";
 const description = "mantle is ngrok's UI library and design system";
 
+const ReactQueryDevtoolsLazy = lazy(() =>
+	import("@tanstack/react-query-devtools/production").then((module) => ({
+		default: module.ReactQueryDevtools,
+	})),
+);
+
+declare global {
+	interface Window {
+		toggleReactQueryDevtools: () => void;
+	}
+}
+
 export function Layout({ children }: PropsWithChildren) {
 	const loaderData = useRouteLoaderData<typeof loader>("root");
 	const initialHtmlThemeProps = useInitialHtmlThemeProps({
@@ -81,6 +97,14 @@ export function Layout({ children }: PropsWithChildren) {
 	});
 	const scrollBehavior = useScrollBehavior();
 	const nonce = useNonce();
+	const [showReactQueryDevtools, setShowReactQueryDevtools] = useState(
+		Boolean(loaderData?.renderReactQueryDevtools),
+	);
+	const [queryClient] = useState(() => new QueryClient());
+
+	useEffect(() => {
+		window.toggleReactQueryDevtools = () => setShowReactQueryDevtools((previous) => !previous);
+	}, []);
 
 	return (
 		<html {...initialHtmlThemeProps} lang="en-US" dir="ltr">
@@ -116,9 +140,16 @@ export function Layout({ children }: PropsWithChildren) {
 				<ThemeProvider>
 					<TooltipProvider>
 						<Toaster />
-						<NavigationProvider>
-							<WwwLayout currentVersion={loaderData?.currentVersion}>{children}</WwwLayout>
-						</NavigationProvider>
+						<QueryClientProvider client={queryClient}>
+							{showReactQueryDevtools && (
+								<Suspense fallback={null}>
+									<ReactQueryDevtoolsLazy />
+								</Suspense>
+							)}
+							<NavigationProvider>
+								<WwwLayout currentVersion={loaderData?.currentVersion}>{children}</WwwLayout>
+							</NavigationProvider>
+						</QueryClientProvider>
 					</TooltipProvider>
 				</ThemeProvider>
 				<ScrollRestoration nonce={nonce} />

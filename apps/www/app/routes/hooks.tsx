@@ -280,8 +280,9 @@ export default function Page() {
 							language="tsx"
 							value={fmtCode`
 								import { useIsHydrated } from "@ngrok/mantle/hooks";
+								import type { PropsWithChildren } from "react";
 
-								function ClientOnly({ children }: { children: React.ReactNode }) {
+								function ClientOnly({ children }: PropsWithChildren) {
 									const isHydrated = useIsHydrated();
 									if (!isHydrated) {
 										return <span style={{ visibility: "hidden" }}>Loading…</span>;
@@ -391,8 +392,9 @@ export default function Page() {
 							language="tsx"
 							value={fmtCode`
 								import { useRandomStableId } from "@ngrok/mantle/hooks";
+								import type { PropsWithChildren } from "react";
 
-								function Tooltip({ children }: { children: React.ReactNode }) {
+								function Tooltip({ children }: PropsWithChildren) {
 									const id = useRandomStableId("tooltip");
 									return <div id={id}>{children}</div>;
 								}

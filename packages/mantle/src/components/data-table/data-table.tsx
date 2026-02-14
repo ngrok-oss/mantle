@@ -27,6 +27,7 @@ type DataTableContextShape<TData = unknown> = {
 	table: TableInstance<TData>;
 };
 
+// oxlint-disable-next-line typescript/no-explicit-any - known limitation of react context when using generics 😭
 const DataTableContext = createContext<DataTableContextShape<any> | null>(null);
 
 /**

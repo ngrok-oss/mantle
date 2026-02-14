@@ -7,7 +7,7 @@ import { cva } from "class-variance-authority";
 import type { ComponentProps, ComponentRef, HTMLAttributes, ReactNode } from "react";
 import { createContext, forwardRef, useContext, useMemo } from "react";
 import invariant from "tiny-invariant";
-import type { WithAsChild } from "../../types/index.js";
+import { $cssProperties, type WithAsChild } from "../../types/index.js";
 import { cx } from "../../utils/cx/cx.js";
 import { IconButton, type IconButtonProps } from "../button/icon-button.js";
 import { SvgOnly } from "../icon/svg-only.js";
@@ -39,54 +39,57 @@ function useAlertContext() {
 	return context;
 }
 
-const alertVariants = cva("relative flex w-full gap-1.5 rounded-md border p-2.5 text-sm", {
-	variants: {
-		/**
-		 * The priority of the Alert. Indicates the importance or impact level of the Alert,
-		 * affecting its color and styling to communicate its purpose to the user.
-		 */
-		priority: {
-			danger: "border-danger-500/50 bg-danger-500/10 text-danger-700",
-			info: "border-accent-500/50 bg-accent-500/10 text-accent-700",
-			// neutral: "border-neutral-500/50 bg-neutral-500/10 text-neutral-700",
-			success: "border-success-500/50 bg-success-500/10 text-success-700",
-			warning: "border-warning-500/50 bg-warning-500/10 text-warning-700",
-		} as const satisfies Record<Priority, string>,
-		/**
-		 * Controls the visual style of the Alert.
-		 * - "default" provides standard rounded corners and borders.
-		 * - "banner" creates a banner-style alert with no rounded corners, sticky positioning, and no left/right borders.
-		 *
-		 * @default "default"
-		 */
-		appearance: {
-			banner: "border-x-0 border-t-0 rounded-none z-50 sticky",
-			default: "",
-		} as const satisfies Record<Appearance, string>,
+const alertVariants = cva(
+	"relative flex w-full gap-1.5 rounded-md border p-2.5 text-sm font-sans",
+	{
+		variants: {
+			/**
+			 * The priority of the Alert. Indicates the importance or impact level of the Alert,
+			 * affecting its color and styling to communicate its purpose to the user.
+			 */
+			priority: {
+				danger: "border-danger-500/50 bg-danger-500/10 text-danger-700",
+				info: "border-info-500/50 bg-info-500/10 text-info-700",
+				// neutral: "border-neutral-500/50 bg-neutral-500/10 text-neutral-700",
+				success: "border-success-500/50 bg-success-500/10 text-success-700",
+				warning: "border-warning-500/50 bg-warning-500/10 text-warning-700",
+			} as const satisfies Record<Priority, string>,
+			/**
+			 * Controls the visual style of the Alert.
+			 * - "default" provides standard rounded corners and borders.
+			 * - "banner" creates a banner-style alert with no rounded corners, sticky positioning, and no left/right borders.
+			 *
+			 * @default "default"
+			 */
+			appearance: {
+				banner: "border-x-0 border-t-0 rounded-none z-50 sticky",
+				default: "",
+			} as const satisfies Record<Appearance, string>,
+		},
+		compoundVariants: [
+			{
+				priority: "danger",
+				appearance: "banner",
+				className: "", // placeholder for different bg-color (color-mix w/ bg-popover)
+			},
+			{
+				priority: "info",
+				appearance: "banner",
+				className: "", // placeholder for different bg-color (color-mix w/ bg-popover)
+			},
+			{
+				priority: "success",
+				appearance: "banner",
+				className: "", // placeholder for different bg-color (color-mix w/ bg-popover)
+			},
+			{
+				priority: "warning",
+				appearance: "banner",
+				className: "", // placeholder for different bg-color (color-mix w/ bg-popover)
+			},
+		],
 	},
-	compoundVariants: [
-		{
-			priority: "danger",
-			appearance: "banner",
-			className: "", // placeholder for different bg-color (color-mix w/ bg-popover)
-		},
-		{
-			priority: "info",
-			appearance: "banner",
-			className: "", // placeholder for different bg-color (color-mix w/ bg-popover)
-		},
-		{
-			priority: "success",
-			appearance: "banner",
-			className: "", // placeholder for different bg-color (color-mix w/ bg-popover)
-		},
-		{
-			priority: "warning",
-			appearance: "banner",
-			className: "", // placeholder for different bg-color (color-mix w/ bg-popover)
-		},
-	],
-});
+);
 
 type AlertProps = ComponentProps<"div"> & {
 	/**
@@ -283,6 +286,15 @@ const Description = forwardRef<ComponentRef<"div">, AlertDescriptionProps>(
 );
 Description.displayName = "AlertDescription";
 
+const dismissTextColor = <T extends Priority = Priority>(priority: T) =>
+	`var(--color-${priority}-700)`;
+
+const dismissHoverColor = <T extends Priority = Priority>(priority: T) =>
+	`var(--color-${priority}-800)`;
+
+const dismissActiveColor = <T extends Priority = Priority>(priority: T) =>
+	`var(--color-${priority}-900)`;
+
 type AlertDismissIconButtonProps = Partial<Omit<IconButtonProps, "icon">>;
 const DismissIconButton = ({
 	size = "sm",
@@ -290,6 +302,7 @@ const DismissIconButton = ({
 	label = "Dismiss Alert",
 	appearance = "ghost",
 	className,
+	style,
 	...props
 }: AlertDismissIconButtonProps) => {
 	const ctx = useAlertContext();
@@ -302,19 +315,18 @@ const DismissIconButton = ({
 			data-alert-dismiss
 			className={cx(
 				"right-1.5 top-1.5 absolute",
-				{
-					"text-danger-700 not-disabled:hover:text-danger-800 not-disabled:active:text-danger-900":
-						ctx.priority === "danger",
-					"text-accent-700 not-disabled:hover:text-accent-800 not-disabled:active:text-accent-900":
-						ctx.priority === "info",
-					"text-success-700 not-disabled:hover:text-success-800 not-disabled:active:text-success-900":
-						ctx.priority === "success",
-					"text-warning-700 not-disabled:hover:text-warning-800 not-disabled:active:text-warning-900":
-						ctx.priority === "warning",
-				},
+				"text-(--alert-dismiss-icon-color)",
+				"not-disabled:hover:text-(--alert-dismiss-icon-hover-color)",
+				"not-disabled:active:text-(--alert-dismiss-icon-active-color)",
 				className,
 			)}
 			type={type}
+			style={$cssProperties({
+				...style,
+				"--alert-dismiss-icon-color": dismissTextColor(ctx.priority),
+				"--alert-dismiss-icon-hover-color": dismissHoverColor(ctx.priority),
+				"--alert-dismiss-icon-active-color": dismissActiveColor(ctx.priority),
+			})}
 			{...props}
 		/>
 	);

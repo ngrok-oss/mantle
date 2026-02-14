@@ -38,7 +38,7 @@ const Label = forwardRef<ComponentRef<"label">, LabelProps>(
 		<label
 			aria-disabled={disabled ?? _ariaDisabled}
 			className={cx(
-				"text-strong cursor-pointer text-sm peer-disabled:cursor-default has-disabled:cursor-default aria-disabled:cursor-default",
+				"text-strong cursor-pointer text-sm peer-disabled:cursor-default has-disabled:cursor-default aria-disabled:cursor-default font-sans",
 				className,
 			)}
 			onMouseDown={(event) => {

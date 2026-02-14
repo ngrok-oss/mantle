@@ -32,7 +32,7 @@ type CssProperties = ReactCSSProperties & Record<CssVariableName, string | numbe
  * CSS variables like `--foo`) and returns it unchanged, keeping inference intact.
  *
  * @example
- * const styles = $cssProperties({ display: "block", "--gap": 8 });
+ * style={$cssProperties({ display: "block", "--gap": 8 })}
  */
 const $cssProperties = <T extends CssProperties = CssProperties>(input: T): ReactCSSProperties =>
 	input;
