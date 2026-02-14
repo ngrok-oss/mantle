@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { MdxProvider } from "~/components/mdx-provider";
+import { DocActions } from "~/components/doc-actions";
 import type { Route } from "./+types/docs.$";
 import { docModules, urlToFileMap } from "~/utilities/docs";
 
@@ -68,8 +69,13 @@ export default function DocPage({ loaderData }: Route.ComponentProps) {
 	const Component = mod.default;
 
 	return (
-		<MdxProvider>
-			<Component />
-		</MdxProvider>
+		<div className="relative">
+			<div className="absolute right-0 top-0">
+				<DocActions />
+			</div>
+			<MdxProvider>
+				<Component />
+			</MdxProvider>
+		</div>
 	);
 }
