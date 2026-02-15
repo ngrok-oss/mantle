@@ -1,5 +1,23 @@
 # @ngrok/mantle
 
+## 0.63.0
+
+### Minor Changes
+
+- [#963](https://github.com/ngrok-oss/mantle/pull/963) [`1a68417`](https://github.com/ngrok-oss/mantle/commit/1a684177f8c07e321620910a9edbb771091d7d52) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add "info" as a first-class semantic color (mirrors "accent")
+
+- [#965](https://github.com/ngrok-oss/mantle/pull/965) [`fd7e2eb`](https://github.com/ngrok-oss/mantle/commit/fd7e2eb5119a69f1b505c07f7889ea57686c7258) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add new SplitButton component
+
+### Patch Changes
+
+- [#963](https://github.com/ngrok-oss/mantle/pull/963) [`1a68417`](https://github.com/ngrok-oss/mantle/commit/1a684177f8c07e321620910a9edbb771091d7d52) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Fix Anchor component target types to delegate to React's built-in types
+
+- [#963](https://github.com/ngrok-oss/mantle/pull/963) [`1a68417`](https://github.com/ngrok-oss/mantle/commit/1a684177f8c07e321620910a9edbb771091d7d52) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Fix mantle.css theme syntax
+
+- [#963](https://github.com/ngrok-oss/mantle/pull/963) [`1a68417`](https://github.com/ngrok-oss/mantle/commit/1a684177f8c07e321620910a9edbb771091d7d52) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Apply font-sans to components for consistent typography
+
+- [#962](https://github.com/ngrok-oss/mantle/pull/962) [`030099b`](https://github.com/ngrok-oss/mantle/commit/030099b6645039f0aadde90324ee19feeeef94c5) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update react-day-picker
+
 ## 0.62.2
 
 ### Patch Changes
