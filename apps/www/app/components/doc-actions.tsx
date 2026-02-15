@@ -55,7 +55,7 @@ export function DocActions() {
 					Copy page
 					<Icon svg={<CopyIcon />} />
 				</SplitButton.MenuItem>
-				<SplitButton.MenuItem asChild onClick={copyMarkdownPage}>
+				<SplitButton.MenuItem asChild>
 					<a href={markdownUrl} target="_blank">
 						View as Markdown
 						<Icon svg={<FileTextIcon />} />
