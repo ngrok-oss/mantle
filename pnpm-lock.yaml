@@ -71,6 +71,9 @@ importers:
       oxlint:
         specifier: 1.47.0
         version: 1.47.0
+      remark-github-blockquote-alert:
+        specifier: 2.0.1
+        version: 2.0.1
       turbo:
         specifier: 2.8.9
         version: 2.8.9
@@ -147,6 +150,9 @@ importers:
       '@mdx-js/rollup':
         specifier: 3.1.1
         version: 3.1.1(rollup@4.57.1)
+      '@ngrok/remark-mdx-github-alerts':
+        specifier: 0.1.0
+        version: 0.1.0
       '@ngrok/remark-mdx-no-paragraph-wrap':
         specifier: 0.1.0
         version: 0.1.0(@mdx-js/mdx@3.1.1)(@mdx-js/rollup@3.1.1(rollup@4.57.1))
@@ -159,6 +165,9 @@ importers:
       '@types/hast':
         specifier: 3.0.4
         version: 3.0.4
+      '@types/mdast':
+        specifier: 4.0.4
+        version: 4.0.4
       '@types/prismjs':
         specifier: 1.26.6
         version: 1.26.6
@@ -804,6 +813,9 @@ packages:
     resolution: {integrity: sha512-v8satFmBB+DqDzYohnm1u2JOvxx6Hl3pUvqzJvfs2Zk/ngZ1aRUhsWpXvwPkNeGN9c2NCm/38H29ZqXQUjf8dw==}
     peerDependencies:
       rollup: '>=2'
+
+  '@ngrok/remark-mdx-github-alerts@0.1.0':
+    resolution: {integrity: sha512-j19lfoe86iczjD7B8JO/Pf/960sFFeeH25TLhNzETgV3UCNfsZ/5BZnNikuAXizpJ9RwfPdWnxZvaSrgLatt3A==}
 
   '@ngrok/remark-mdx-no-paragraph-wrap@0.1.0':
     resolution: {integrity: sha512-BQjOZB9J+9xbAQlPkQf9WmqRsnEo8NLToYNhX0CV0KWJAwpq3XhU3Ucj1wbg8nu8KGCak2CUoYJ5ohi/3orP6w==}
@@ -3478,6 +3490,10 @@ packages:
   remark-gfm@4.0.1:
     resolution: {integrity: sha512-1quofZ2RQ9EWdeN34S79+KExV1764+wCUGop5CPL1WGdD0ocPpu91lzPGbwWMECpEpd42kJGQwzRfyov9j4yNg==}
 
+  remark-github-blockquote-alert@2.0.1:
+    resolution: {integrity: sha512-0w0u3/wjBEK555yzm5UUnDCWO38Qk60laA5FvJrnES+YA/+r3hvvLgE/5SpMjaVpPOpVzunXk9caob1NTheM0g==}
+    engines: {node: '>=16'}
+
   remark-mdx-frontmatter@5.2.0:
     resolution: {integrity: sha512-U/hjUYTkQqNjjMRYyilJgLXSPF65qbLPdoESOkXyrwz2tVyhAnm4GUKhfXqOOS9W34M3545xEMq+aMpHgVjEeQ==}
 
@@ -4627,6 +4643,10 @@ snapshots:
       vfile: 6.0.3
     transitivePeerDependencies:
       - supports-color
+
+  '@ngrok/remark-mdx-github-alerts@0.1.0':
+    dependencies:
+      unist-util-visit: 5.1.0
 
   '@ngrok/remark-mdx-no-paragraph-wrap@0.1.0(@mdx-js/mdx@3.1.1)(@mdx-js/rollup@3.1.1(rollup@4.57.1))':
     dependencies:
@@ -7433,6 +7453,10 @@ snapshots:
       unified: 11.0.5
     transitivePeerDependencies:
       - supports-color
+
+  remark-github-blockquote-alert@2.0.1:
+    dependencies:
+      unist-util-visit: 5.1.0
 
   remark-mdx-frontmatter@5.2.0:
     dependencies:

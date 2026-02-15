@@ -4,6 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 import path from "node:path";
 import rehypeSlug from "rehype-slug";
 import remarkFrontmatter from "remark-frontmatter";
+import { remarkMdxGithubAlerts } from "@ngrok/remark-mdx-github-alerts";
 import remarkGfm from "remark-gfm";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 import { defineConfig } from "vite";
@@ -23,7 +24,13 @@ export default defineConfig({
 		devtoolsJson(),
 		tailwindcss(),
 		mdx({
-			remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter, remarkGfm, remarkMdxNoParagraphWrap],
+			remarkPlugins: [
+				remarkFrontmatter,
+				remarkMdxFrontmatter,
+				remarkGfm,
+				remarkMdxGithubAlerts,
+				remarkMdxNoParagraphWrap,
+			],
 			rehypePlugins: [rehypeSlug],
 			providerImportSource: "@mdx-js/react",
 		}),

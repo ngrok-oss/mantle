@@ -1,27 +1,30 @@
 import { cx } from "@ngrok/mantle/cx";
-import { useIsHydrated } from "@ngrok/mantle/hooks";
+import { useCopyToClipboard } from "@ngrok/mantle/hooks";
 import { Icon } from "@ngrok/mantle/icon";
 import { Slot } from "@ngrok/mantle/slot";
+import { CheckIcon } from "@phosphor-icons/react/Check";
 import { LinkIcon } from "@phosphor-icons/react/Link";
-import { Children, type ComponentProps, cloneElement, isValidElement } from "react";
-import { Link, useLocation } from "react-router";
+import {
+	Children,
+	type ComponentProps,
+	cloneElement,
+	isValidElement,
+	useRef,
+	useState,
+} from "react";
 import invariant from "tiny-invariant";
+import { StyledLink } from "./styled-link";
 
-type Props = Omit<ComponentProps<"h1" | "h2" | "h3" | "h4" | "h5" | "h6">, "id"> & {
-	/**
-	 * Required. Used both as the heading’s DOM id and as the anchor target
-	 */
-	id: string;
-};
+type Props = ComponentProps<"h1" | "h2" | "h3" | "h4" | "h5" | "h6">;
 
 /**
- * A heading component that automatically renders an anchored hash link.
+ * A heading component that automatically renders an anchored hash link with
+ * copy-to-clipboard behavior.
  *
- * This is useful for documentation-style pages where each heading can be
- * deep-linked. It wraps a single heading element (`h1`–`h6`) and injects:
- *
- * - A `Link` that points to `#id`, making the heading clickable and copyable.
- * - A hover-visible link icon positioned to the left of the heading text.
+ * Wraps a single heading element (`h1`–`h6`) and injects:
+ * - A link icon that slides in on hover, positioned to the left of the heading text.
+ * - Click copies the full URL (with `#id` hash) to the clipboard and shows a
+ *   check icon for 2 seconds as confirmation.
  *
  * @example
  * ```tsx
@@ -29,30 +32,12 @@ type Props = Omit<ComponentProps<"h1" | "h2" | "h3" | "h4" | "h5" | "h6">, "id">
  *   <h2>Installation</h2>
  * </HashLinkHeading>
  * ```
- *
- * Props:
- * - `children`: Must be a single heading element (`h1`–`h6`) with text/inline nodes.
- * - All other props are forwarded to the underlying `Slot` wrapper.
- *
- * Notes:
- * - Enforces a single valid child via `React.Children.only`.
- * - The link icon is non-interactive (pointer-events disabled) and only appears on hover.
  */
 function HashLinkHeading({ id, className, children, ...props }: Props) {
-	const location = useLocation();
-	const isHydrated = useIsHydrated();
-	const hashUrl = `#${id}`;
+	const [, copyToClipboard] = useCopyToClipboard();
+	const [wasCopied, setWasCopied] = useState(false);
+	const timeoutHandle = useRef<number>(0);
 
-	/**
-	 * True when the page is hydrated *and* the current URL hash targets this heading.
-	 * We gate on hydration because `location.hash` is meaningless during SSR.
-	 */
-	const isTarget = isHydrated && location.hash === hashUrl;
-
-	/**
-	 * This component expects exactly one React element child so we can clone it
-	 * and inject classes. (Common pattern when using an `asChild`-style Slot.)
-	 */
 	const singleChild = Children.only(children);
 	invariant(
 		isValidElement<Props>(singleChild),
@@ -66,30 +51,31 @@ function HashLinkHeading({ id, className, children, ...props }: Props) {
 				singleChild,
 				{
 					className: cx(
+						"group relative w-fit font-family scroll-mt-24 [@media(hover:hover)]:w-auto [@media(hover:hover)]:pl-5 [@media(hover:hover)]:-ml-5",
 						className,
 						singleChild.props.className,
-						"group",
-						// `:target` is unreliable for client-side route changes,
-						// so we reflect the match via `useLocation` instead.
-						isHydrated && isTarget && "text-accent-600",
 					),
 				},
 				<>
-					{/* Clickable heading text: routes to the same page with this hash.
-             Using a relative `to=.\#id` keeps SPA navigation semantics. */}
-					<Link
-						to={`.${hashUrl}`}
-						className="group-hover:text-accent-600 cursor-pointer flex focus:outline-hidden focus-visible:ring-3 focus-visible:ring-focus-accent rounded relative gap-2 items-center font-family"
+					<StyledLink
+						to={{ hash: id }}
+						aria-label="Jump to section"
+						className={cx(
+							"float-right ml-0.5 inline-flex h-lh px-1 items-center justify-center [@media(hover:hover)]:float-none [@media(hover:hover)]:ml-0 [@media(hover:hover)]:h-auto [@media(hover:hover)]:p-2 [@media(hover:hover)]:absolute [@media(hover:hover)]:-left-4 [@media(hover:hover)]:top-1/2 [@media(hover:hover)]:-translate-y-1/2 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:translate-x-5 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-hover:translate-x-0 hover:scale-103 active:scale-94 focus:opacity-100 focus:translate-x-0 focus-visible:opacity-100 focus-visible:translate-x-0 transition-all duration-200 ease-out rounded shrink-0",
+							wasCopied ? "text-success-600" : "text-muted hover:text-strong",
+						)}
+						onClick={() => {
+							copyToClipboard(`${window.location.origin}${window.location.pathname}#${id}`);
+							setWasCopied(true);
+							window.clearTimeout(timeoutHandle.current);
+							timeoutHandle.current = window.setTimeout(() => {
+								setWasCopied(false);
+							}, 2000);
+						}}
 					>
-						{grandchildren}
-						{/* Link icon: appears on hover to hint deep-linking without stealing focus.
-             Absolutely positioned into the left gutter; non-interactive for a11y. */}
-						<Icon
-							aria-hidden
-							className="opacity-0 transition-opacity group-hover:opacity-70 pointer-events-none"
-							svg={<LinkIcon />}
-						/>
-					</Link>
+						<Icon svg={wasCopied ? <CheckIcon weight="bold" /> : <LinkIcon weight="bold" />} />
+					</StyledLink>
+					{grandchildren}
 				</>,
 			)}
 		</Slot>
