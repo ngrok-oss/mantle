@@ -1,4 +1,4 @@
-import { CaretDownIcon } from "@phosphor-icons/react/dist/icons/CaretDown";
+import { CaretDownIcon } from "@phosphor-icons/react/CaretDown";
 import { forwardRef, type ComponentProps, type ComponentRef, type ReactNode } from "react";
 import { cx } from "../../utils/cx/cx.js";
 import { Button } from "../button/button.js";
