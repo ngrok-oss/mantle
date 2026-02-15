@@ -162,7 +162,7 @@ const TriggerIcon = ({ className, ...props }: Omit<IconProps, "svg">) => (
 	<Icon
 		{...props}
 		svg={<CaretDownIcon weight="fill" />}
-		className={cx("group-data-state-open:rotate-0 -rotate-90", className)}
+		className={cx("group-data-[state=open]:rotate-0 -rotate-90", className)}
 	/>
 );
 TriggerIcon.displayName = "AccordionTriggerIcon";

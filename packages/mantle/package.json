@@ -19,409 +19,264 @@
   ],
   "exports": {
     "./mantle.css": {
-      "@ngrok/src-custom-condish": "./src/mantle.css",
-      "default": "./dist/mantle.css"
+      "@ngrok/src-live-types": "./src/mantle.css",
+      "import": "./dist/mantle.css"
     },
     "./package.json": "./package.json",
     "./accordion": {
+      "@ngrok/src-live-types": "./src/components/accordion/index.ts",
       "types": "./dist/accordion.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/accordion/index.ts",
-        "default": "./src/components/accordion/index.ts"
-      },
       "import": "./dist/accordion.js"
     },
     "./alert": {
+      "@ngrok/src-live-types": "./src/components/alert/index.ts",
       "types": "./dist/alert.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/alert/index.ts",
-        "default": "./src/components/alert/index.ts"
-      },
       "import": "./dist/alert.js"
     },
     "./alert-dialog": {
+      "@ngrok/src-live-types": "./src/components/alert-dialog/index.ts",
       "types": "./dist/alert-dialog.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/alert-dialog/index.ts",
-        "default": "./src/components/alert-dialog/index.ts"
-      },
       "import": "./dist/alert-dialog.js"
     },
     "./anchor": {
+      "@ngrok/src-live-types": "./src/components/anchor/index.ts",
       "types": "./dist/anchor.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/anchor/index.ts",
-        "default": "./src/components/anchor/index.ts"
-      },
       "import": "./dist/anchor.js"
     },
     "./auto-scroll-to-hash": {
+      "@ngrok/src-live-types": "./src/components/auto-scroll-to-hash/index.ts",
       "types": "./dist/auto-scroll-to-hash.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/auto-scroll-to-hash/index.ts",
-        "default": "./src/components/auto-scroll-to-hash/index.ts"
-      },
       "import": "./dist/auto-scroll-to-hash.js"
     },
     "./badge": {
+      "@ngrok/src-live-types": "./src/components/badge/index.ts",
       "types": "./dist/badge.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/badge/index.ts",
-        "default": "./src/components/badge/index.ts"
-      },
       "import": "./dist/badge.js"
     },
     "./browser-only": {
+      "@ngrok/src-live-types": "./src/components/browser-only/index.ts",
       "types": "./dist/browser-only.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/browser-only/index.ts",
-        "default": "./src/components/browser-only/index.ts"
-      },
       "import": "./dist/browser-only.js"
     },
     "./button": {
+      "@ngrok/src-live-types": "./src/components/button/index.ts",
       "types": "./dist/button.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/button/index.ts",
-        "default": "./src/components/button/index.ts"
-      },
       "import": "./dist/button.js"
     },
     "./calendar": {
+      "@ngrok/src-live-types": "./src/components/calendar/index.ts",
       "types": "./dist/calendar.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/calendar/index.ts",
-        "default": "./src/components/calendar/index.ts"
-      },
       "import": "./dist/calendar.js"
     },
     "./card": {
+      "@ngrok/src-live-types": "./src/components/card/index.ts",
       "types": "./dist/card.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/card/index.ts",
-        "default": "./src/components/card/index.ts"
-      },
       "import": "./dist/card.js"
     },
     "./checkbox": {
+      "@ngrok/src-live-types": "./src/components/checkbox/index.ts",
       "types": "./dist/checkbox.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/checkbox/index.ts",
-        "default": "./src/components/checkbox/index.ts"
-      },
       "import": "./dist/checkbox.js"
     },
     "./code": {
+      "@ngrok/src-live-types": "./src/components/code/index.ts",
       "types": "./dist/code.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/code/index.ts",
-        "default": "./src/components/code/index.ts"
-      },
       "import": "./dist/code.js"
     },
     "./code-block": {
+      "@ngrok/src-live-types": "./src/components/code-block/index.ts",
       "types": "./dist/code-block.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/code-block/index.ts",
-        "default": "./src/components/code-block/index.ts"
-      },
       "import": "./dist/code-block.js"
     },
     "./color": {
+      "@ngrok/src-live-types": "./src/utils/color/index.ts",
       "types": "./dist/color.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/utils/color/index.ts",
-        "default": "./src/utils/color/index.ts"
-      },
       "import": "./dist/color.js"
     },
     "./combobox": {
+      "@ngrok/src-live-types": "./src/components/combobox/index.ts",
       "types": "./dist/combobox.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/combobox/index.ts",
-        "default": "./src/components/combobox/index.ts"
-      },
       "import": "./dist/combobox.js"
     },
     "./command": {
+      "@ngrok/src-live-types": "./src/components/command/index.ts",
       "types": "./dist/command.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/command/index.ts",
-        "default": "./src/components/command/index.ts"
-      },
       "import": "./dist/command.js"
     },
     "./compose-refs": {
+      "@ngrok/src-live-types": "./src/utils/compose-refs/index.ts",
       "types": "./dist/compose-refs.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/utils/compose-refs/index.ts",
-        "default": "./src/utils/compose-refs/index.ts"
-      },
       "import": "./dist/compose-refs.js"
     },
     "./cx": {
+      "@ngrok/src-live-types": "./src/utils/cx/index.ts",
       "types": "./dist/cx.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/utils/cx/index.ts",
-        "default": "./src/utils/cx/index.ts"
-      },
       "import": "./dist/cx.js"
     },
     "./data-table": {
+      "@ngrok/src-live-types": "./src/components/data-table/index.ts",
       "types": "./dist/data-table.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/data-table/index.ts",
-        "default": "./src/components/data-table/index.ts"
-      },
       "import": "./dist/data-table.js"
     },
     "./date-picker": {},
     "./description-list": {
+      "@ngrok/src-live-types": "./src/components/description-list/index.ts",
       "types": "./dist/description-list.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/description-list/index.ts",
-        "default": "./src/components/description-list/index.ts"
-      },
       "import": "./dist/description-list.js"
     },
     "./dialog": {
+      "@ngrok/src-live-types": "./src/components/dialog/index.ts",
       "types": "./dist/dialog.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/dialog/index.ts",
-        "default": "./src/components/dialog/index.ts"
-      },
       "import": "./dist/dialog.js"
     },
     "./dropdown-menu": {
+      "@ngrok/src-live-types": "./src/components/dropdown-menu/index.ts",
       "types": "./dist/dropdown-menu.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/dropdown-menu/index.ts",
-        "default": "./src/components/dropdown-menu/index.ts"
-      },
       "import": "./dist/dropdown-menu.js"
     },
     "./flag": {
+      "@ngrok/src-live-types": "./src/components/flag/index.ts",
       "types": "./dist/flag.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/flag/index.ts",
-        "default": "./src/components/flag/index.ts"
-      },
       "import": "./dist/flag.js"
     },
     "./hooks": {
+      "@ngrok/src-live-types": "./src/hooks/index.ts",
       "types": "./dist/hooks.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/hooks/index.ts",
-        "default": "./src/hooks/index.ts"
-      },
       "import": "./dist/hooks.js"
     },
     "./hover-card": {
+      "@ngrok/src-live-types": "./src/components/hover-card/index.ts",
       "types": "./dist/hover-card.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/hover-card/index.ts",
-        "default": "./src/components/hover-card/index.ts"
-      },
       "import": "./dist/hover-card.js"
     },
     "./icon": {
+      "@ngrok/src-live-types": "./src/components/icon/index.ts",
       "types": "./dist/icon.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/icon/index.ts",
-        "default": "./src/components/icon/index.ts"
-      },
       "import": "./dist/icon.js"
     },
     "./icons": {
+      "@ngrok/src-live-types": "./src/components/icons/index.ts",
       "types": "./dist/icons.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/icons/index.ts",
-        "default": "./src/components/icons/index.ts"
-      },
       "import": "./dist/icons.js"
     },
     "./input": {
+      "@ngrok/src-live-types": "./src/components/input/index.ts",
       "types": "./dist/input.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/input/index.ts",
-        "default": "./src/components/input/index.ts"
-      },
       "import": "./dist/input.js"
     },
     "./kbd": {
+      "@ngrok/src-live-types": "./src/components/kbd/index.ts",
       "types": "./dist/kbd.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/kbd/index.ts",
-        "default": "./src/components/kbd/index.ts"
-      },
       "import": "./dist/kbd.js"
     },
     "./label": {
+      "@ngrok/src-live-types": "./src/components/label/index.ts",
       "types": "./dist/label.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/label/index.ts",
-        "default": "./src/components/label/index.ts"
-      },
       "import": "./dist/label.js"
     },
     "./media-object": {
+      "@ngrok/src-live-types": "./src/components/media-object/index.ts",
       "types": "./dist/media-object.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/media-object/index.ts",
-        "default": "./src/components/media-object/index.ts"
-      },
       "import": "./dist/media-object.js"
     },
     "./pagination": {
+      "@ngrok/src-live-types": "./src/components/pagination/index.ts",
       "types": "./dist/pagination.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/pagination/index.ts",
-        "default": "./src/components/pagination/index.ts"
-      },
       "import": "./dist/pagination.js"
     },
     "./popover": {
+      "@ngrok/src-live-types": "./src/components/popover/index.ts",
       "types": "./dist/popover.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/popover/index.ts",
-        "default": "./src/components/popover/index.ts"
-      },
       "import": "./dist/popover.js"
     },
     "./progress": {
+      "@ngrok/src-live-types": "./src/components/progress/index.ts",
       "types": "./dist/progress.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/progress/index.ts",
-        "default": "./src/components/progress/index.ts"
-      },
       "import": "./dist/progress.js"
     },
     "./radio-group": {
+      "@ngrok/src-live-types": "./src/components/radio-group/index.ts",
       "types": "./dist/radio-group.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/radio-group/index.ts",
-        "default": "./src/components/radio-group/index.ts"
-      },
       "import": "./dist/radio-group.js"
     },
     "./sandboxed-on-click": {
+      "@ngrok/src-live-types": "./src/components/sandboxed-on-click/index.ts",
       "types": "./dist/sandboxed-on-click.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/sandboxed-on-click/index.ts",
-        "default": "./src/components/sandboxed-on-click/index.ts"
-      },
       "import": "./dist/sandboxed-on-click.js"
     },
     "./select": {
+      "@ngrok/src-live-types": "./src/components/select/index.ts",
       "types": "./dist/select.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/select/index.ts",
-        "default": "./src/components/select/index.ts"
-      },
       "import": "./dist/select.js"
     },
     "./separator": {
+      "@ngrok/src-live-types": "./src/components/separator/index.ts",
       "types": "./dist/separator.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/separator/index.ts",
-        "default": "./src/components/separator/index.ts"
-      },
       "import": "./dist/separator.js"
     },
     "./sheet": {
+      "@ngrok/src-live-types": "./src/components/sheet/index.ts",
       "types": "./dist/sheet.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/sheet/index.ts",
-        "default": "./src/components/sheet/index.ts"
-      },
       "import": "./dist/sheet.js"
     },
     "./skeleton": {
+      "@ngrok/src-live-types": "./src/components/skeleton/index.ts",
       "types": "./dist/skeleton.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/skeleton/index.ts",
-        "default": "./src/components/skeleton/index.ts"
-      },
       "import": "./dist/skeleton.js"
     },
     "./slot": {
+      "@ngrok/src-live-types": "./src/components/slot/index.ts",
       "types": "./dist/slot.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/slot/index.ts",
-        "default": "./src/components/slot/index.ts"
-      },
       "import": "./dist/slot.js"
     },
+    "./split-button": {
+      "@ngrok/src-live-types": "./src/components/split-button/index.ts",
+      "types": "./dist/split-button.d.ts",
+      "import": "./dist/split-button.js"
+    },
     "./switch": {
+      "@ngrok/src-live-types": "./src/components/switch/index.ts",
       "types": "./dist/switch.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/switch/index.ts",
-        "default": "./src/components/switch/index.ts"
-      },
       "import": "./dist/switch.js"
     },
     "./table": {
+      "@ngrok/src-live-types": "./src/components/table/index.ts",
       "types": "./dist/table.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/table/index.ts",
-        "default": "./src/components/table/index.ts"
-      },
       "import": "./dist/table.js"
     },
     "./tabs": {
+      "@ngrok/src-live-types": "./src/components/tabs/index.ts",
       "types": "./dist/tabs.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/tabs/index.ts",
-        "default": "./src/components/tabs/index.ts"
-      },
       "import": "./dist/tabs.js"
     },
     "./text-area": {
+      "@ngrok/src-live-types": "./src/components/text-area/index.ts",
       "types": "./dist/text-area.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/text-area/index.ts",
-        "default": "./src/components/text-area/index.ts"
-      },
       "import": "./dist/text-area.js"
     },
     "./theme": {
+      "@ngrok/src-live-types": "./src/components/theme/index.ts",
       "types": "./dist/theme.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/theme/index.ts",
-        "default": "./src/components/theme/index.ts"
-      },
       "import": "./dist/theme.js"
     },
     "./toast": {
+      "@ngrok/src-live-types": "./src/components/toast/index.ts",
       "types": "./dist/toast.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/toast/index.ts",
-        "default": "./src/components/toast/index.ts"
-      },
       "import": "./dist/toast.js"
     },
     "./tooltip": {
+      "@ngrok/src-live-types": "./src/components/tooltip/index.ts",
       "types": "./dist/tooltip.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/components/tooltip/index.ts",
-        "default": "./src/components/tooltip/index.ts"
-      },
       "import": "./dist/tooltip.js"
     },
     "./types": {
+      "@ngrok/src-live-types": "./src/types/index.ts",
       "types": "./dist/types.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/types/index.ts",
-        "default": "./src/types/index.ts"
-      },
       "import": "./dist/types.js"
     },
     "./utils/sorting": {
+      "@ngrok/src-live-types": "./src/utils/sorting/index.ts",
       "types": "./dist/sorting.d.ts",
-      "@ngrok/src-custom-condish": {
-        "types": "./src/utils/sorting/index.ts",
-        "default": "./src/utils/sorting/index.ts"
-      },
       "import": "./dist/sorting.js"
     }
   },
