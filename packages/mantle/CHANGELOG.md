@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.63.1
+
+### Patch Changes
+
+- [#966](https://github.com/ngrok-oss/mantle/pull/966) [`d26aee3`](https://github.com/ngrok-oss/mantle/commit/d26aee3e3ba025847aef6473a96942a86a8c4875) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Fix mantle.css exports
+
 ## 0.63.0
 
 ### Minor Changes
