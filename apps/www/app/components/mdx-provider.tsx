@@ -213,12 +213,11 @@ function HeadingWithLink({
 			)}
 			{...props}
 		>
-			{children}
 			<a
 				href={id ? `#${id}` : undefined}
 				aria-label="Jump to section"
 				className={cx(
-					"p-2 inline-flex [@media(hover:hover)]:absolute [@media(hover:hover)]:left-0 [@media(hover:hover)]:top-1/2 [@media(hover:hover)]:-translate-y-1/2 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:translate-x-5 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-hover:translate-x-0 hover:scale-103 active:scale-94 focus:opacity-100 focus:translate-x-0 focus-visible:opacity-100 focus-visible:translate-x-0 transition-all duration-200 ease-out focus-visible:ring-3 ring-focus-accent focus:outline-0 rounded text-muted hover:text-strong shrink-0",
+					"float-right ml-1 p-2 inline-flex [@media(hover:hover)]:float-none [@media(hover:hover)]:ml-0 [@media(hover:hover)]:absolute [@media(hover:hover)]:left-0 [@media(hover:hover)]:top-1/2 [@media(hover:hover)]:-translate-y-1/2 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:translate-x-5 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-hover:translate-x-0 hover:scale-103 active:scale-94 focus:opacity-100 focus:translate-x-0 focus-visible:opacity-100 focus-visible:translate-x-0 transition-all duration-200 ease-out focus-visible:ring-3 ring-focus-accent focus:outline-0 rounded text-muted hover:text-strong shrink-0",
 				)}
 				onClick={() => {
 					if (id) {
@@ -228,6 +227,7 @@ function HeadingWithLink({
 			>
 				<Icon svg={<LinkIcon weight="bold" />} />
 			</a>
+			{children}
 		</Component>
 	);
 }
