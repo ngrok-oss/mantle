@@ -199,7 +199,7 @@ function HeadingWithLink({
 		<Component
 			id={id}
 			className={cx(
-				"group relative font-medium text-strong mt-16 mb-6 font-family scroll-mt-24 pl-5 -ml-5 [:is(h1,h2,h3,h4,h5,h6)+&]:mt-6",
+				"group relative font-medium text-strong mt-16 mb-6 font-family scroll-mt-24 [@media(hover:hover)]:pl-5 [@media(hover:hover)]:-ml-5 [:is(h1,h2,h3,h4,h5,h6)+&]:mt-6",
 				Component === "h1" && "text-4xl",
 				Component === "h2" && "text-3xl",
 				Component === "h3" && "text-2xl",
@@ -214,7 +214,7 @@ function HeadingWithLink({
 				href={id ? `#${id}` : undefined}
 				aria-label="Jump to section"
 				className={cx(
-					"p-2 inline-flex opacity-100 hover:scale-103 active:scale-94 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:translate-x-5 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-hover:translate-x-0 focus:opacity-100 focus:translate-x-0 focus-visible:opacity-100 focus-visible:translate-x-0 transition-all duration-200 ease-out focus-visible:ring-3 ring-focus-accent focus:outline-0 rounded text-muted hover:text-strong shrink-0 -ml-9",
+					"p-2 hidden [@media(hover:hover)]:inline-flex [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:translate-x-5 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-hover:translate-x-0 hover:scale-103 active:scale-94 focus:inline-flex focus:opacity-100 focus:translate-x-0 focus-visible:inline-flex focus-visible:opacity-100 focus-visible:translate-x-0 transition-all duration-200 ease-out focus-visible:ring-3 ring-focus-accent focus:outline-0 rounded text-muted hover:text-strong shrink-0 -ml-9",
 				)}
 			>
 				<Icon svg={<LinkIcon weight="bold" />} />
