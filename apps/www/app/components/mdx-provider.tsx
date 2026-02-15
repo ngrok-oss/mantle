@@ -1,13 +1,22 @@
-import { isValidElement, type ComponentProps, type PropsWithChildren } from "react";
+import {
+	isValidElement,
+	useRef,
+	useState,
+	type ComponentProps,
+	type PropsWithChildren,
+} from "react";
 
 import { MDXProvider as MdxProviderPrimitive } from "@mdx-js/react";
 import { Anchor } from "@ngrok/mantle/anchor";
 import { Code } from "@ngrok/mantle/code";
 import { CodeBlock } from "@ngrok/mantle/code-block";
 import { cx } from "@ngrok/mantle/cx";
+import { useCopyToClipboard } from "@ngrok/mantle/hooks";
 import { Icon } from "@ngrok/mantle/icon";
 import { Table } from "@ngrok/mantle/table";
-import { LinkIcon } from "@phosphor-icons/react";
+import { CheckIcon } from "@phosphor-icons/react/Check";
+import { LinkIcon } from "@phosphor-icons/react/Link";
+import { StyledLink } from "./styled-link";
 
 // import { FigCaption, Figure } from "./figure";
 // import { Img } from "./img";
@@ -195,11 +204,15 @@ function HeadingWithLink({
 	id,
 	/* node: _node, */ ...props
 }: HeadlineWithLinkProps) {
+	const [, copyToClipboard] = useCopyToClipboard();
+	const [wasCopied, setWasCopied] = useState(false);
+	const timeoutHandle = useRef<number>(0);
+
 	return (
 		<Component
 			id={id}
 			className={cx(
-				"group relative font-medium text-strong mt-16 mb-6 font-family scroll-mt-24 pl-5 -ml-5 [:is(h1,h2,h3,h4,h5,h6)+&]:mt-6",
+				"group relative w-fit font-medium text-strong mt-16 mb-6 font-family scroll-mt-24 [@media(hover:hover)]:w-auto [@media(hover:hover)]:pl-5 [@media(hover:hover)]:-ml-5 [:is(h1,h2,h3,h4,h5,h6)+&]:mt-6",
 				Component === "h1" && "text-4xl",
 				Component === "h2" && "text-3xl",
 				Component === "h3" && "text-2xl",
@@ -210,15 +223,26 @@ function HeadingWithLink({
 			)}
 			{...props}
 		>
-			<a
-				href={id ? `#${id}` : undefined}
+			<StyledLink
+				to={{ hash: id }}
 				aria-label="Jump to section"
 				className={cx(
-					"p-2 inline-flex opacity-100 hover:scale-103 active:scale-94 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:translate-x-5 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-hover:translate-x-0 focus:opacity-100 focus:translate-x-0 focus-visible:opacity-100 focus-visible:translate-x-0 transition-all duration-200 ease-out focus-visible:ring-3 ring-focus-accent focus:outline-0 rounded text-muted hover:text-strong shrink-0 -ml-9",
+					"float-right ml-0.5 inline-flex h-lh px-1 items-center justify-center [@media(hover:hover)]:float-none [@media(hover:hover)]:ml-0 [@media(hover:hover)]:h-auto [@media(hover:hover)]:p-2 [@media(hover:hover)]:absolute [@media(hover:hover)]:-left-4 [@media(hover:hover)]:top-1/2 [@media(hover:hover)]:-translate-y-1/2 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:translate-x-5 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-hover:translate-x-0 hover:scale-103 active:scale-94 focus:opacity-100 focus:translate-x-0 focus-visible:opacity-100 focus-visible:translate-x-0 transition-all duration-200 ease-out rounded shrink-0",
+					wasCopied ? "text-success-600" : "text-muted hover:text-strong",
 				)}
+				onClick={() => {
+					if (id) {
+						copyToClipboard(`${window.location.origin}${window.location.pathname}#${id}`);
+						setWasCopied(true);
+						window.clearTimeout(timeoutHandle.current);
+						timeoutHandle.current = window.setTimeout(() => {
+							setWasCopied(false);
+						}, 2000);
+					}
+				}}
 			>
-				<Icon svg={<LinkIcon weight="bold" />} />
-			</a>
+				<Icon svg={wasCopied ? <CheckIcon weight="bold" /> : <LinkIcon weight="bold" />} />
+			</StyledLink>
 			{children}
 		</Component>
 	);

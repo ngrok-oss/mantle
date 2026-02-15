@@ -4,10 +4,9 @@ import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { colors } from "@ngrok/mantle/color";
 import { GlobeHemisphereWestIcon } from "@phosphor-icons/react/GlobeHemisphereWest";
-import { href } from "react-router";
+import { href, Link } from "react-router";
 import { Example } from "~/components/example";
 import { HashLinkHeading } from "~/components/hash-link-heading";
-import { Link } from "~/components/link";
 import { PageHeader } from "~/components/page-header";
 import {
 	BooleanPropType,
@@ -15,8 +14,8 @@ import {
 	PropDescriptionCell,
 	PropNameCell,
 	PropRow,
-	PropTypeCell,
 	PropsTable,
+	PropTypeCell,
 	ReactNodePropType,
 	StringPropType,
 } from "~/components/props-table";

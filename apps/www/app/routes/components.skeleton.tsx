@@ -6,7 +6,6 @@ import { Skeleton } from "@ngrok/mantle/skeleton";
 import { href } from "react-router";
 import { Example } from "~/components/example";
 import { HashLinkHeading } from "~/components/hash-link-heading";
-import { Link } from "~/components/link";
 import { PageHeader } from "~/components/page-header";
 import {
 	BooleanPropType,
@@ -18,6 +17,7 @@ import {
 	PropsTable,
 } from "~/components/props-table";
 import type { Route } from "./+types/components.skeleton";
+import { StyledLink } from "~/components/styled-link";
 
 export const meta: Route.MetaFunction = () => {
 	return [{ title: "@ngrok/mantle — Skeleton" }];
@@ -65,7 +65,7 @@ export default function Page() {
 						<HashLinkHeading id="example-composition">
 							<h3 className="text-xl font-medium text-strong">
 								Composition: Skeleton within a{" "}
-								<Link to={href("/components/media-object")}>Media Object</Link>
+								<StyledLink to={href("/components/media-object")}>Media Object</StyledLink>
 							</h3>
 						</HashLinkHeading>
 						<p className="font-body text-body mt-1">

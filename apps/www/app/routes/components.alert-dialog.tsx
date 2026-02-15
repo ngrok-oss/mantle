@@ -6,7 +6,6 @@ import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { href } from "react-router";
 import { Example } from "~/components/example";
 import { HashLinkHeading } from "~/components/hash-link-heading";
-import { Link } from "~/components/link";
 import { PageHeader } from "~/components/page-header";
 import {
 	BooleanPropType,
@@ -19,6 +18,7 @@ import {
 	StringPropType,
 } from "~/components/props-table";
 import type { Route } from "./+types/components.alert-dialog";
+import { StyledLink } from "~/components/styled-link";
 
 export const meta: Route.MetaFunction = () => {
 	return [{ title: "@ngrok/mantle — AlertDialog" }];
@@ -474,11 +474,12 @@ export default function Page() {
 						button.
 					</p>
 					<p className="font-body text-body">
-						Composes around the mantle <Link to={href("/components/button")}>Button</Link>{" "}
-						component.
+						Composes around the mantle{" "}
+						<StyledLink to={href("/components/button")}>Button</StyledLink> component.
 					</p>
 					<p className="font-body text-body">
-						Same props as the <Link to={href("/components/button")}>Button</Link> component.
+						Same props as the <StyledLink to={href("/components/button")}>Button</StyledLink>{" "}
+						component.
 					</p>
 				</section>
 
@@ -496,11 +497,12 @@ export default function Page() {
 						buttons.
 					</p>
 					<p className="font-body text-body">
-						Composes around the mantle <Link to={href("/components/button")}>Button</Link>{" "}
-						component.
+						Composes around the mantle{" "}
+						<StyledLink to={href("/components/button")}>Button</StyledLink> component.
 					</p>
 					<p className="font-body text-body">
-						Same props as the <Link to={href("/components/button")}>Button</Link> component.
+						Same props as the <StyledLink to={href("/components/button")}>Button</StyledLink>{" "}
+						component.
 					</p>
 				</section>
 
