@@ -6,9 +6,17 @@ import { CopyIcon, FileTextIcon } from "@phosphor-icons/react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useLocation } from "react-router";
 
-export function DocActions() {
+type Props = {
+	/**
+	 * Override the markdown URL derived from the current pathname.
+	 * Useful for routes like the index where `pathname + ".md"` doesn't produce a valid URL.
+	 */
+	markdownPath?: string;
+};
+
+export function DocActions({ markdownPath }: Props) {
 	const location = useLocation();
-	const markdownUrl = `${location.pathname}.md`;
+	const markdownUrl = markdownPath ?? `${location.pathname}.md`;
 	const [, copyToClipboard] = useCopyToClipboard();
 	const queryClient = useQueryClient();
 

@@ -11,6 +11,7 @@ function docRoute(path: string) {
 
 export default [
 	index("./routes/_index.tsx"),
+	route("index.md", "./routes/$.md.tsx", { id: "docs-index-md" }),
 
 	// MDX docs: auto-discovers docs from app/docs/**/*.mdx
 	// Handles both /path and /path.md URLs (returns HTML or raw markdown respectively)
