@@ -1,9 +1,10 @@
 # Mantle Design System - Agent Guide
 
-> [!NOTE]
-> **Note to reviewers and Copilot**: This file defines project structure, commands, and workflows. For code style and conventions, see [CONVENTIONS.md](./CONVENTIONS.md).
-
 ngrok's UI library and design system built with React, TypeScript, Radix, and Tailwind CSS. This is a monorepo managed with pnpm workspaces and Turborepo.
+
+## Code Style & Conventions
+
+@./CONVENTIONS.md
 
 ## Project Structure
 
@@ -26,11 +27,23 @@ All commands run from workspace root (leverages turbo caching):
 - `pnpm -w run build` — Build everything
 - `pnpm -w run test` — Run tests (vitest)
 - `pnpm -w run typecheck` — Type check
-- `pnpm -w run fmt-lint` — Format and lint
+- `pnpm -w run lint` — Lint (oxlint)
+- `pnpm -w run lint:fix` — Lint and auto-fix
+- `pnpm -w run fmt:check` — Check formatting (oxfmt)
+- `pnpm -w run fmt` — Format and auto-fix
 - `pnpm -w run clean` — Clean build artifacts
 - `pnpm -w run changeset` — Create changeset for publishing
 
 Use `-F` to scope: `pnpm -w run build -F @ngrok/mantle`, `pnpm -w run test -F @ngrok/mantle`
+
+## Verification
+
+Before finishing work, run all of these from the workspace root and ensure they pass:
+
+1. `pnpm -w run lint` — 0 errors
+2. `pnpm -w run fmt:check` — 0 errors (run `pnpm -w run fmt` to auto-fix)
+3. `pnpm -w run typecheck` — 0 errors
+4. `pnpm -w run test` — if you modified `packages/mantle`
 
 ## Package Management
 
@@ -39,10 +52,6 @@ Use `-F` to scope: `pnpm -w run build -F @ngrok/mantle`, `pnpm -w run test -F @n
 - Workspace deps: `pnpm -w add -E @ngrok/mantle -F www`
 - Package names: Apps use app names, packages use `@ngrok/` prefix
 - **IMPORTANT**: Agents MUST explicitly call out violations of these conventions (e.g., unpinned versions)
-
-## Code Style & Conventions
-
-See [CONVENTIONS.md](./CONVENTIONS.md) for the full list of code style rules and patterns.
 
 ## Technology Stack
 
@@ -56,7 +65,7 @@ See [CONVENTIONS.md](./CONVENTIONS.md) for the full list of code style rules and
 - **Build failures**: Run `pnpm run clean` then `pnpm run build`
 - **Type errors**: Ensure all packages are built before typechecking
 - **Hot reload issues**: Restart dev server or clear `.react-router/` cache
-- **Node version**: Use Node 22+ (check with `node --version`)
+- **Node version**: Use Node 24+ (check with `node --version`)
 - **pnpm issues**: Use pnpm 10.13.1+ (`corepack enable pnpm && corepack install`)
 
 ## Publishing Changes

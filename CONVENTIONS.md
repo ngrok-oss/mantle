@@ -92,8 +92,3 @@ Every property on the namespace object must have a JSDoc comment. The namespace 
 ## Theming
 
 Built-in light/dark mode via `ThemeProvider` with FOUC prevention. Styling uses Tailwind CSS 4.
-
-## Package Management
-
-- All external dependencies MUST use exact, pinned versions (no `^` or `~`): `pnpm -w add -E <package> -F @ngrok/mantle`
-- Package names: Apps use app names, packages use `@ngrok/` prefix
