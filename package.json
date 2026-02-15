@@ -20,28 +20,13 @@
     "changeset:version": "changeset version",
     "changeset:publish": "turbo run build --filter=@ngrok/mantle && changeset publish"
   },
-  "dependencies": {
-    "@mdx-js/react": "3.1.1",
-    "@tanstack/react-query": "5.90.21"
-  },
   "devDependencies": {
     "@changesets/changelog-github": "0.5.2",
     "@changesets/cli": "2.29.8",
-    "@mdx-js/mdx": "3.1.1",
-    "@mdx-js/rollup": "3.1.1",
-    "@tanstack/react-query-devtools": "5.91.3",
-    "@types/hast": "3.0.4",
     "@types/node": "24.10.13",
-    "mdast-util-mdx-jsx": "3.2.0",
     "oxfmt": "0.32.0",
     "oxlint": "1.47.0",
-    "rehype-slug": "6.0.0",
-    "remark-frontmatter": "5.0.0",
-    "remark-gfm": "4.0.1",
-    "remark-mdx-frontmatter": "5.2.0",
-    "tinyglobby": "0.2.15",
-    "turbo": "2.8.8",
-    "unist-util-visit": "5.1.0",
+    "turbo": "2.8.9",
     "vitest": "4.0.18"
   },
   "engines": {
