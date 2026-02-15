@@ -21,7 +21,8 @@
     "./mantle.css": {
       "@ngrok/src-live-types": "./src/mantle.css",
       "style": "./dist/mantle.css",
-      "import": "./dist/mantle.css"
+      "import": "./dist/mantle.css",
+      "default": "./dist/mantle.css"
     },
     "./package.json": "./package.json",
     "./accordion": {
