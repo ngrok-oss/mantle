@@ -4,7 +4,6 @@ import { CodeBlock, fmtCode, supportedLanguages } from "@ngrok/mantle/code-block
 import { href } from "react-router";
 import { Example } from "~/components/example";
 import { HashLinkHeading } from "~/components/hash-link-heading";
-import { Link } from "~/components/link";
 import { PageHeader } from "~/components/page-header";
 import {
 	BooleanPropType,
@@ -19,6 +18,7 @@ import {
 	StringPropType,
 } from "~/components/props-table";
 import type { Route } from "./+types/components.code-block";
+import { StyledLink } from "~/components/styled-link";
 
 export const meta: Route.MetaFunction = () => {
 	return [{ title: "@ngrok/mantle — Code Block" }];
@@ -924,11 +924,7 @@ export default function Page() {
 							<Code>svg</Code> or <Code>preset</Code>).
 						</p>
 						<p className="font-body text-body">
-							All props from{" "}
-							<Anchor asChild>
-								<Link to={href("/components/icon")}>Icon</Link>
-							</Anchor>
-							, plus:
+							All props from <StyledLink to={href("/components/icon")}>Icon</StyledLink>, plus:
 						</p>
 					</header>
 					<PropsTable>

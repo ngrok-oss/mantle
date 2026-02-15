@@ -16,7 +16,7 @@ import { Icon } from "@ngrok/mantle/icon";
 import { Table } from "@ngrok/mantle/table";
 import { CheckIcon } from "@phosphor-icons/react/Check";
 import { LinkIcon } from "@phosphor-icons/react/Link";
-import { Link } from "react-router";
+import { StyledLink } from "./styled-link";
 
 // import { FigCaption, Figure } from "./figure";
 // import { Img } from "./img";
@@ -223,11 +223,11 @@ function HeadingWithLink({
 			)}
 			{...props}
 		>
-			<Link
+			<StyledLink
 				to={{ hash: id }}
 				aria-label="Jump to section"
 				className={cx(
-					"float-right ml-0.5 inline-flex h-[1lh] px-1 items-center justify-center [@media(hover:hover)]:float-none [@media(hover:hover)]:ml-0 [@media(hover:hover)]:h-auto [@media(hover:hover)]:p-2 [@media(hover:hover)]:absolute [@media(hover:hover)]:left-0 [@media(hover:hover)]:top-1/2 [@media(hover:hover)]:-translate-y-1/2 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:translate-x-5 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-hover:translate-x-0 hover:scale-103 active:scale-94 focus:opacity-100 focus:translate-x-0 focus-visible:opacity-100 focus-visible:translate-x-0 transition-all duration-200 ease-out focus-visible:ring-3 ring-focus-accent focus:outline-0 rounded shrink-0",
+					"float-right ml-0.5 inline-flex h-lh px-1 items-center justify-center [@media(hover:hover)]:float-none [@media(hover:hover)]:ml-0 [@media(hover:hover)]:h-auto [@media(hover:hover)]:p-2 [@media(hover:hover)]:absolute [@media(hover:hover)]:-left-4 [@media(hover:hover)]:top-1/2 [@media(hover:hover)]:-translate-y-1/2 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:translate-x-5 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-hover:translate-x-0 hover:scale-103 active:scale-94 focus:opacity-100 focus:translate-x-0 focus-visible:opacity-100 focus-visible:translate-x-0 transition-all duration-200 ease-out rounded shrink-0",
 					wasCopied ? "text-success-600" : "text-muted hover:text-strong",
 				)}
 				onClick={() => {
@@ -242,7 +242,7 @@ function HeadingWithLink({
 				}}
 			>
 				<Icon svg={wasCopied ? <CheckIcon weight="bold" /> : <LinkIcon weight="bold" />} />
-			</Link>
+			</StyledLink>
 			{children}
 		</Component>
 	);

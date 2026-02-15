@@ -7,7 +7,6 @@ import { useState } from "react";
 import { href } from "react-router";
 import { Example } from "~/components/example";
 import { HashLinkHeading } from "~/components/hash-link-heading";
-import { Link } from "~/components/link";
 import { PageHeader } from "~/components/page-header";
 import {
 	BooleanPropType,
@@ -21,6 +20,7 @@ import {
 	StringPropType,
 } from "~/components/props-table";
 import type { Route } from "./+types/components.select";
+import { StyledLink } from "~/components/styled-link";
 
 export const meta: Route.MetaFunction = () => {
 	return [{ title: "@ngrok/mantle — Select" }];
@@ -219,7 +219,7 @@ export default function Page() {
 					<div>
 						<Example>
 							<Select.Root value={example1Value} onValueChange={setExample1Value}>
-								<Select.Trigger className="w-[180px]">
+								<Select.Trigger className="w-45">
 									<Select.Value placeholder="Select a fruit">
 										{example1Value === "apple" ? <>🍎 Apple</> : <>🍑 Peach</>}
 									</Select.Value>
@@ -239,7 +239,7 @@ export default function Page() {
 										import { Select } from "@ngrok/mantle/select";
 
 										<Select.Root value={value} onValueChange={setValue}>
-											<Select.Trigger className="w-[180px]">
+											<Select.Trigger className="w-45">
 												<Select.Value placeholder="Select a fruit">
 													{value === "apple" ? <>🍎 Apple!</> : <>🍑 Peach!</>}
 												</Select.Value>
@@ -526,7 +526,7 @@ export default function Page() {
 
 					<p className="font-body text-body">
 						Used to visually separate items in the select. Composed from{" "}
-						<Link to={href("/components/separator")}>Mantle Separator</Link>.
+						<StyledLink to={href("/components/separator")}>Mantle Separator</StyledLink>.
 					</p>
 				</section>
 

@@ -9,9 +9,9 @@ import { useState } from "react";
 import { href } from "react-router";
 import { useLocalStorage } from "usehooks-ts";
 import { HashLinkHeading } from "~/components/hash-link-heading";
-import { Link } from "~/components/link";
 import { PageHeader } from "~/components/page-header";
 import type { Route } from "./+types/_index";
+import { StyledLink } from "~/components/styled-link";
 
 export const meta: Route.MetaFunction = () => {
 	return [{ title: "@ngrok/mantle" }];
@@ -64,9 +64,9 @@ export default function Page() {
 				Mantle uses <Anchor href="https://phosphoricons.com/">Phosphor Icons</Anchor> as the primary
 				icon library, providing a versatile and consistent set of icons. In addition,
 				custom-designed icons tailored to ngrok’s needs are available through the{" "}
-				<Link to={href("/components/icons")}>
+				<StyledLink to={href("/components/icons")}>
 					<Code>@ngrok/mantle/icons</Code>
-				</Link>{" "}
+				</StyledLink>{" "}
 				module.
 			</p>
 
@@ -244,7 +244,7 @@ function SetupInstructions() {
 				<ApplicationTemplate template={applicationTemplate} />
 				<p className="font-body text-body mt-4">
 					You are now ready to use mantle components in your application! For example, you can use
-					the <Link to={href("/components/button")}>Button</Link>!
+					the <StyledLink to={href("/components/button")}>Button</StyledLink>!
 				</p>
 			</section>
 		</section>
@@ -339,10 +339,10 @@ function ReactRouterScaffolding() {
 				<Code>mantle.css</Code> file to apply the mantle styles.
 			</p>
 			<p className="font-body text-body">
-				We will also add the <Link to={href("/components/theme")}>Theme Provider</Link>,{" "}
-				<Link to={href("/components/toast")}>Toaster</Link>, and{" "}
-				<Link to={href("/components/tooltip")}>Tooltip Provider</Link> to your app to enable theme
-				selection, toasts, and tooltips.
+				We will also add the <StyledLink to={href("/components/theme")}>Theme Provider</StyledLink>,{" "}
+				<StyledLink to={href("/components/toast")}>Toaster</StyledLink>, and{" "}
+				<StyledLink to={href("/components/tooltip")}>Tooltip Provider</StyledLink> to your app to
+				enable theme selection, toasts, and tooltips.
 			</p>
 			<Alert.Root priority="warning">
 				<Alert.Icon />
@@ -503,10 +503,10 @@ function ViteScaffolding() {
 				<Code>mantle.css</Code> file to apply the mantle styles.
 			</p>
 			<p className="font-body text-body">
-				We will also add the <Link to={href("/components/theme")}>Theme Provider</Link>,{" "}
-				<Link to={href("/components/toast")}>Toaster</Link>, and{" "}
-				<Link to={href("/components/tooltip")}>Tooltip Provider</Link> to your app to enable theme
-				selection, toasts, and tooltips.
+				We will also add the <StyledLink to={href("/components/theme")}>Theme Provider</StyledLink>,{" "}
+				<StyledLink to={href("/components/toast")}>Toaster</StyledLink>, and{" "}
+				<StyledLink to={href("/components/tooltip")}>Tooltip Provider</StyledLink> to your app to
+				enable theme selection, toasts, and tooltips.
 			</p>
 			<CodeBlock.Root>
 				<CodeBlock.Header>
@@ -593,10 +593,10 @@ function ReactSpaScaffolding() {
 				the mantle styles.
 			</p>
 			<p className="font-body text-body">
-				We will also add the <Link to={href("/components/theme")}>Theme Provider</Link>,{" "}
-				<Link to={href("/components/toast")}>Toaster</Link>, and{" "}
-				<Link to={href("/components/tooltip")}>Tooltip Provider</Link> to your app to enable theme
-				selection, toasts, and tooltips.
+				We will also add the <StyledLink to={href("/components/theme")}>Theme Provider</StyledLink>,{" "}
+				<StyledLink to={href("/components/toast")}>Toaster</StyledLink>, and{" "}
+				<StyledLink to={href("/components/tooltip")}>Tooltip Provider</StyledLink> to your app to
+				enable theme selection, toasts, and tooltips.
 			</p>
 			<CodeBlock.Root>
 				<CodeBlock.Header>

@@ -5,7 +5,6 @@ import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 import { Slot } from "@ngrok/mantle/slot";
 import { Example } from "~/components/example";
 import { HashLinkHeading } from "~/components/hash-link-heading";
-import { Link } from "~/components/link";
 import { PageHeader } from "~/components/page-header";
 import {
 	PropDefaultValueCell,
@@ -78,7 +77,7 @@ export default function Page() {
 					<Example>
 						<div className="flex gap-4">
 							<Button appearance="filled" asChild>
-								<Link to="https://ngrok.com">Visit ngrok</Link>
+								<a href="https://ngrok.com">Visit ngrok</a>
 							</Button>
 							<Button appearance="outlined" asChild>
 								<a href="https://github.com/ngrok/ngrok">View on GitHub</a>
@@ -94,7 +93,7 @@ export default function Page() {
 									import { Button } from "@ngrok/mantle/button";
 
 									<Button appearance="filled" asChild>
-										<Link to="https://ngrok.com">Visit ngrok</Link>
+										<a href="https://ngrok.com">Visit ngrok</a>
 									</Button>
 
 									<Button appearance="outlined" asChild>
