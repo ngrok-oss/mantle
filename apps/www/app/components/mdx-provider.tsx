@@ -202,7 +202,7 @@ function HeadingWithLink({
 		<Component
 			id={id}
 			className={cx(
-				"group relative font-medium text-strong mt-16 mb-6 font-family scroll-mt-24 [@media(hover:hover)]:pl-5 [@media(hover:hover)]:-ml-5 [:is(h1,h2,h3,h4,h5,h6)+&]:mt-6",
+				"group relative w-fit font-medium text-strong mt-16 mb-6 font-family scroll-mt-24 [@media(hover:hover)]:w-auto [@media(hover:hover)]:pl-5 [@media(hover:hover)]:-ml-5 [:is(h1,h2,h3,h4,h5,h6)+&]:mt-6",
 				Component === "h1" && "text-4xl",
 				Component === "h2" && "text-3xl",
 				Component === "h3" && "text-2xl",
