@@ -1,4 +1,10 @@
-import { isValidElement, type ComponentProps, type PropsWithChildren } from "react";
+import {
+	isValidElement,
+	useRef,
+	useState,
+	type ComponentProps,
+	type PropsWithChildren,
+} from "react";
 
 import { MDXProvider as MdxProviderPrimitive } from "@mdx-js/react";
 import { Anchor } from "@ngrok/mantle/anchor";
@@ -8,7 +14,8 @@ import { cx } from "@ngrok/mantle/cx";
 import { useCopyToClipboard } from "@ngrok/mantle/hooks";
 import { Icon } from "@ngrok/mantle/icon";
 import { Table } from "@ngrok/mantle/table";
-import { LinkIcon } from "@phosphor-icons/react";
+import { CheckIcon } from "@phosphor-icons/react/Check";
+import { LinkIcon } from "@phosphor-icons/react/Link";
 
 // import { FigCaption, Figure } from "./figure";
 // import { Img } from "./img";
@@ -197,6 +204,8 @@ function HeadingWithLink({
 	/* node: _node, */ ...props
 }: HeadlineWithLinkProps) {
 	const [, copyToClipboard] = useCopyToClipboard();
+	const [wasCopied, setWasCopied] = useState(false);
+	const timeoutHandle = useRef<number>(0);
 
 	return (
 		<Component
@@ -217,15 +226,22 @@ function HeadingWithLink({
 				href={id ? `#${id}` : undefined}
 				aria-label="Jump to section"
 				className={cx(
-					"float-right ml-1 p-2 inline-flex [@media(hover:hover)]:float-none [@media(hover:hover)]:ml-0 [@media(hover:hover)]:absolute [@media(hover:hover)]:left-0 [@media(hover:hover)]:top-1/2 [@media(hover:hover)]:-translate-y-1/2 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:translate-x-5 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-hover:translate-x-0 hover:scale-103 active:scale-94 focus:opacity-100 focus:translate-x-0 focus-visible:opacity-100 focus-visible:translate-x-0 transition-all duration-200 ease-out focus-visible:ring-3 ring-focus-accent focus:outline-0 rounded text-muted hover:text-strong shrink-0",
+					"float-right ml-1 p-2 inline-flex [@media(hover:hover)]:float-none [@media(hover:hover)]:ml-0 [@media(hover:hover)]:absolute [@media(hover:hover)]:left-0 [@media(hover:hover)]:top-1/2 [@media(hover:hover)]:-translate-y-1/2 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:translate-x-5 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-hover:translate-x-0 hover:scale-103 active:scale-94 focus:opacity-100 focus:translate-x-0 focus-visible:opacity-100 focus-visible:translate-x-0 transition-all duration-200 ease-out focus-visible:ring-3 ring-focus-accent focus:outline-0 rounded shrink-0",
+					wasCopied ? "text-success-600" : "text-muted hover:text-strong",
 				)}
-				onClick={() => {
+				onClick={(event) => {
+					event.preventDefault();
 					if (id) {
 						copyToClipboard(`${window.location.origin}${window.location.pathname}#${id}`);
+						setWasCopied(true);
+						window.clearTimeout(timeoutHandle.current);
+						timeoutHandle.current = window.setTimeout(() => {
+							setWasCopied(false);
+						}, 2000);
 					}
 				}}
 			>
-				<Icon svg={<LinkIcon weight="bold" />} />
+				<Icon svg={wasCopied ? <CheckIcon weight="bold" /> : <LinkIcon weight="bold" />} />
 			</a>
 			{children}
 		</Component>
