@@ -16,6 +16,7 @@ export default [
 	// Handles both /path and /path.md URLs (returns HTML or raw markdown respectively)
 	...docRoute("philosophy"),
 	...docRoute("components/separator"),
+	...docRoute("components/split-button"),
 
 	route("base/breakpoints", "./routes/base.breakpoints.tsx"),
 	route("base/colors", "./routes/base.colors.tsx"),

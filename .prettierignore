@@ -1,0 +1,16 @@
+.blog
+.cache
+.changeset
+.env
+.react-router/
+.turbo
+.vercel
+build
+dist
+node_modules
+public
+*/code-gen
+packages/mantle/package.json
+*.svg
+*.yaml
+bun.lockb

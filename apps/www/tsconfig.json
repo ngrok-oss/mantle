@@ -13,7 +13,7 @@
       "@cfg/tsconfig/reset.d.ts",
       "@cfg/tsconfig/svg.d.ts"
     ],
-    "customConditions": ["@ngrok/src-custom-condish"],
+    "customConditions": ["@ngrok/src-live-types"],
     "rootDirs": [".", "./.react-router/types"]
   }
 }

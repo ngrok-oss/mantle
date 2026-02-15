@@ -6,6 +6,7 @@
   "singleQuote": false,
   "experimentalSortImports": {},
   "experimentalTailwindcss": {},
+  "experimentalSortPackageJson": {},
   "objectWrap": "preserve",
   "singleAttributePerLine": true,
   "ignorePatterns": [
@@ -21,7 +22,6 @@
     "node_modules",
     "public",
     "*/code-gen",
-    "*.json",
     "*.svg",
     "*.yaml",
     "bun.lockb"

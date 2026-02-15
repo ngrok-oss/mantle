@@ -19,7 +19,7 @@ const buttonGroupVariants = cva("border-form inline-flex items-center rounded-md
 
 type ButtonGroupVariants = VariantProps<typeof buttonGroupVariants>;
 
-type ButtonGroupProps = ComponentProps<"fieldset"> & ButtonGroupVariants;
+type ButtonGroupProps = ComponentProps<"div"> & ButtonGroupVariants;
 
 /**
  * A contained group of related buttons.
@@ -35,12 +35,12 @@ type ButtonGroupProps = ComponentProps<"fieldset"> & ButtonGroupVariants;
  * </ButtonGroup>
  * ```
  */
-const ButtonGroup = forwardRef<ComponentRef<"fieldset">, ButtonGroupProps>(
+const ButtonGroup = forwardRef<ComponentRef<"div">, ButtonGroupProps>(
 	({ appearance, className, children, ...props }, ref) => {
 		return (
-			<fieldset className={cx(buttonGroupVariants({ appearance }), className)} ref={ref} {...props}>
+			<div className={cx(buttonGroupVariants({ appearance }), className)} ref={ref} {...props}>
 				{children}
-			</fieldset>
+			</div>
 		);
 	},
 );

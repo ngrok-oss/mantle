@@ -31,7 +31,7 @@ export default defineConfig({
 	resolve: {
 		// Ensure Mantle components resolve to source in dev mode (not dist)
 		// so client HMR picks up changes immediately
-		conditions: ["@ngrok/src-custom-condish"],
+		conditions: ["@ngrok/src-live-types"],
 		alias: {
 			// CSS @import doesn't go through Vite's resolve.conditions,
 			// so we alias the CSS entry point to the source file directly
@@ -62,7 +62,7 @@ export default defineConfig({
 			// Same as above, but for the SSR renderer.
 			// Without this, the server falls back to dist and causes hydration mismatches
 			// (className warnings, missing styles, etc.) on hard refresh.
-			conditions: ["@ngrok/src-custom-condish"],
+			conditions: ["@ngrok/src-live-types"],
 		},
 	},
 });
