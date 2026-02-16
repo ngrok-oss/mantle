@@ -1,10 +1,15 @@
 import type { ComponentType } from "react";
 import rawMdxDocs from "virtual:raw-mdx-docs";
 
-export const docModules = import.meta.glob<{
+type MdxModule = {
 	default: ComponentType;
 	frontmatter?: Record<string, unknown>;
-}>("../docs/**/*.mdx", { eager: true });
+};
+
+/**
+ * Eagerly-loaded glob of all MDX doc modules keyed by relative file path.
+ */
+export const docModules = import.meta.glob<MdxModule>("../docs/**/*.mdx", { eager: true });
 
 function docPathToUrlPath(filePath: string): string {
 	return filePath.replace("../docs/", "").replace(/\.mdx$/, "");

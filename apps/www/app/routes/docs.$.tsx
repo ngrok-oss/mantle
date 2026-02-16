@@ -1,39 +1,65 @@
-import { useRef } from "react";
 import { z } from "zod";
-import { MdxProvider } from "~/components/mdx-provider";
-import { DocActions } from "~/components/doc-actions";
-import { TableOfContents } from "~/components/table-of-contents";
+import { ContentLayout } from "~/components/content-layout";
 import type { Route } from "./+types/docs.$";
 import { docModules, urlToFileMap } from "~/utilities/docs";
+import { makeCanonicalUrl } from "~/utilities/canonical-origin";
 
 const frontmatterSchema = z.object({
 	title: z.string().trim().min(1, "Frontmatter title is required"),
 	description: z.string().trim().min(1, "Frontmatter description is required"),
 });
 
+export function meta({ loaderData, location }: Route.MetaArgs) {
+	const canonicalUrl = makeCanonicalUrl(location.pathname);
+
+	const { frontmatter } = loaderData;
+	const title = frontmatter.title ? `${frontmatter.title} - @ngrok/mantle` : "@ngrok/mantle";
+	const description = frontmatter.description ?? "mantle is ngrok's UI library and design system";
+
+	return [
+		{ title },
+		{ name: "description", content: description },
+		{ property: "og:title", content: title },
+		{ name: "twitter:title", content: title },
+		{ property: "og:description", content: description },
+		{ name: "twitter:description", content: description },
+		{ tagName: "link" as const, rel: "canonical", href: canonicalUrl },
+		{ property: "og:type", content: "article" },
+		{ name: "og:url", property: "og:url", content: canonicalUrl },
+		{ name: "twitter:url", content: canonicalUrl },
+	];
+}
+
+export function headers() {
+	return {
+		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
+	};
+}
+
 export async function loader({ request }: Route.LoaderArgs) {
 	const url = new URL(request.url);
 	let pathname = url.pathname;
 
-	// Remove leading slash
 	if (pathname.startsWith("/")) {
 		pathname = pathname.slice(1);
 	}
 
 	const filePath = urlToFileMap.get(pathname);
 	if (!filePath) {
-		throw new Response("Not Found", { status: 404 });
+		throw Response.json({ message: "Not Found" }, { status: 404 });
 	}
 
 	const mod = docModules[filePath];
 	if (!mod) {
-		throw new Response("Not Found", { status: 404 });
+		throw Response.json({ message: "Not Found" }, { status: 404 });
 	}
 
 	const frontmatterResult = frontmatterSchema.safeParse(mod.frontmatter ?? {});
 	if (!frontmatterResult.success) {
-		throw new Response(
-			`Invalid frontmatter in ${filePath}: ${frontmatterResult.error.issues.map((i) => i.message).join(", ")}`,
+		throw Response.json(
+			{
+				message: `Invalid frontmatter in ${filePath}: ${frontmatterResult.error.issues.map((i) => i.message).join(", ")}`,
+			},
 			{ status: 500 },
 		);
 	}
@@ -44,33 +70,8 @@ export async function loader({ request }: Route.LoaderArgs) {
 	};
 }
 
-export function meta({ loaderData }: Route.MetaArgs) {
-	if (!loaderData?.frontmatter) {
-		return [{ title: "@ngrok/mantle" }];
-	}
-
-	const { frontmatter } = loaderData;
-	const title = frontmatter.title ? `${frontmatter.title} - @ngrok/mantle` : "@ngrok/mantle";
-
-	return [
-		{ title },
-		...(frontmatter.description ? [{ name: "description", content: frontmatter.description }] : []),
-	];
-}
-
-export function headers() {
-	return {
-		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
-	};
-}
-
 export default function DocPage({ loaderData }: Route.ComponentProps) {
-	const { filePath } = loaderData;
-	const contentRef = useRef<HTMLDivElement>(null);
-
-	// Render the MDX component
-	const mod = docModules[filePath];
-
+	const mod = docModules[loaderData.filePath];
 	if (!mod) {
 		return null;
 	}
@@ -78,20 +79,8 @@ export default function DocPage({ loaderData }: Route.ComponentProps) {
 	const Component = mod.default;
 
 	return (
-		<>
-			<div className="relative">
-				<div className="absolute right-0 top-0 z-10">
-					<DocActions />
-				</div>
-				<div ref={contentRef}>
-					<MdxProvider>
-						<div className="[&>h1:first-child]:pr-40">
-							<Component />
-						</div>
-					</MdxProvider>
-				</div>
-			</div>
-			<TableOfContents contentRef={contentRef} />
-		</>
+		<ContentLayout>
+			<Component />
+		</ContentLayout>
 	);
 }

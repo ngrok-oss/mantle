@@ -11,6 +11,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { PropsWithChildren } from "react";
 import { lazy, Suspense, useEffect, useState } from "react";
 import {
+	href,
 	Links,
 	Meta,
 	Outlet,
@@ -25,7 +26,61 @@ import { Layout as WwwLayout } from "./components/layout";
 import { NavigationProvider } from "./components/navigation-context";
 import { useNonce } from "./components/nonce";
 import "./global.css";
-import { canonicalDomain } from "./utilities/canonical-origin";
+import { canonicalDomain, makeCanonicalUrl } from "./utilities/canonical-origin";
+
+const title = "@ngrok/mantle";
+const description = "mantle is ngrok's UI library and design system";
+
+export const meta: Route.MetaFunction = () => {
+	const canonicalUrl = makeCanonicalUrl(href("/"));
+
+	return [
+		{
+			//,
+			tagName: "link",
+			rel: "canonical",
+			href: canonicalUrl,
+		},
+		{
+			//,
+			name: "og:url",
+			property: "og:url",
+			content: canonicalUrl,
+		},
+		{
+			name: "twitter:url",
+			content: canonicalUrl,
+		},
+		{
+			//,
+			title,
+		},
+		{
+			name: "og:title",
+			property: "og:title",
+			content: title,
+		},
+		{
+			name: "twitter:title",
+			property: "twitter:title",
+			content: title,
+		},
+		{
+			//,
+			name: "description",
+			content: description,
+		},
+		{
+			name: "og:description",
+			property: "og:description",
+			content: description,
+		},
+		{
+			name: "twitter:description",
+			content: description,
+		},
+	];
+};
 
 type PreconnectTarget = Readonly<{
 	href: string;
@@ -75,9 +130,6 @@ export function shouldRevalidate(_: ShouldRevalidateFunctionArgs) {
 	return false;
 }
 
-const title = "@ngrok/mantle";
-const description = "mantle is ngrok's UI library and design system";
-
 const ReactQueryDevtoolsLazy = lazy(() =>
 	import("@tanstack/react-query-devtools/production").then((module) => ({
 		default: module.ReactQueryDevtools,
@@ -111,17 +163,11 @@ export function Layout({ children }: PropsWithChildren) {
 			<head>
 				<meta charSet="utf-8" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
-				<title>{title}</title>
-				<meta name="description" content={description} />
 				<meta property="og:locale" content="en_US" />
 				<meta property="og:type" content="website" />
 				<meta property="og:site_name" content="@ngrok/mantle" />
-				<meta name="og:title" property="og:title" content={title} />
-				<meta name="og:description" property="og:description" content={description} />
-				<meta name="twitter:card" content="summary_large_image" />
 				<meta name="twitter:domain" content={canonicalDomain} />
-				<meta name="twitter:title" property="twitter:title" content={title} />
-				<meta name="twitter:description" content={description} />
+				<meta name="twitter:card" content="summary_large_image" />
 				<meta name="og:image" property="og:image" content="/og-image.png" />
 				<meta name="twitter:image" property="twitter:image" content="/og-image.png" />
 				<MantleThemeHeadContent nonce={nonce} />
