@@ -48,7 +48,7 @@ export default function handleRequest(
 	if (accept.includes("text/markdown")) {
 		const url = new URL(request.url);
 		const pathname = url.pathname.replace(/^\//, "");
-		const filePath = urlToFileMap.get(pathname);
+		const filePath = urlToFileMap.get(pathname || "index");
 
 		if (filePath) {
 			const rawContent = rawDocContent[filePath];
