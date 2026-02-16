@@ -60,6 +60,10 @@ Before finishing work, run all of these from the workspace root and ensure they 
 - **Icons**: `@phosphor-icons/react` primarily, custom ngrok icons via `@ngrok/mantle/icons`
 - **Theme**: Built-in light/dark mode with ThemeProvider and FOUC prevention
 
+## Read-Only Directories
+
+- **`tmp/`**: Contains reference code from other repositories. **Never modify files in `tmp/`** — treat it as read-only.
+
 ## Common Issues & Solutions
 
 - **Build failures**: Run `pnpm run clean` then `pnpm run build`

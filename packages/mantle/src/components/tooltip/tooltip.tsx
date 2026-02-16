@@ -7,7 +7,7 @@ import { cx } from "../../utils/cx/cx.js";
  * Wraps your app to provide global functionality to your tooltips.
  * Only one instance of this component should be rendered in your app, preferably at the root.
  *
- * @see https://mantle.ngrok.com/components/tooltip#tooltip-provider
+ * @see https://mantle.ngrok.com/components/tooltip#tooltipprovider
  *
  * @example
  * ```tsx
@@ -33,7 +33,7 @@ TooltipProvider.displayName = "Tooltip.Provider";
  * This is the root, stateful component that manages the open/closed state of the tooltip.
  * Will throw if you have not wrapped your app in a `TooltipProvider`.
  *
- * @see https://mantle.ngrok.com/components/tooltip#tooltip-root
+ * @see https://mantle.ngrok.com/components/tooltip#tooltiproot
  *
  * @example
  * ```tsx
@@ -57,7 +57,7 @@ Root.displayName = "Tooltip.Root";
 /**
  * The trigger button that opens the tooltip.
  *
- * @see https://mantle.ngrok.com/components/tooltip#tooltip-trigger
+ * @see https://mantle.ngrok.com/components/tooltip#tooltiptrigger
  *
  * @example
  * ```tsx
@@ -81,7 +81,7 @@ Trigger.displayName = "Tooltip.Trigger";
 /**
  * The content to render inside the tooltip.
  *
- * @see https://mantle.ngrok.com/components/tooltip#tooltip-content
+ * @see https://mantle.ngrok.com/components/tooltip#tooltipcontent
  *
  * @example
  * ```tsx
@@ -148,7 +148,7 @@ const Tooltip = {
 	 * This is the root, stateful component that manages the open/closed state of the tooltip.
 	 * Will throw if you have not wrapped your app in a `TooltipProvider`.
 	 *
-	 * @see https://mantle.ngrok.com/components/tooltip#tooltip-root
+	 * @see https://mantle.ngrok.com/components/tooltip#tooltiproot
 	 *
 	 * @example
 	 * ```tsx
@@ -168,7 +168,7 @@ const Tooltip = {
 	/**
 	 * The content to render inside the tooltip.
 	 *
-	 * @see https://mantle.ngrok.com/components/tooltip#tooltip-content
+	 * @see https://mantle.ngrok.com/components/tooltip#tooltipcontent
 	 *
 	 * @example
 	 * ```tsx
@@ -188,7 +188,7 @@ const Tooltip = {
 	/**
 	 * The trigger button that opens the tooltip.
 	 *
-	 * @see https://mantle.ngrok.com/components/tooltip#tooltip-trigger
+	 * @see https://mantle.ngrok.com/components/tooltip#tooltiptrigger
 	 *
 	 * @example
 	 * ```tsx

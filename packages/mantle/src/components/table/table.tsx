@@ -43,7 +43,7 @@ import { cx } from "../../utils/cx/cx.js";
  * </Table.Root>
  * ```
  *
- * @see https://mantle.ngrok.com/components/table#api-table-root
+ * @see https://mantle.ngrok.com/components/table#tableroot
  */
 const Root = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
 	({ children, className, ...props }, ref) => {
@@ -136,7 +136,7 @@ Root.displayName = "TableRoot";
  * </Table.Root>
  * ```
  *
- * @see https://mantle.ngrok.com/components/table#api-table
+ * @see https://mantle.ngrok.com/components/table#tableelement
  */
 const Element = forwardRef<ComponentRef<"table">, ComponentProps<"table">>(
 	({ children, className, ...props }, ref) => {
@@ -201,7 +201,7 @@ Element.displayName = "TableElement";
  * </Table.Root>
  * ```
  *
- * @see https://mantle.ngrok.com/components/table#api-table-header
+ * @see https://mantle.ngrok.com/components/table#tableheader
  */
 const Head = forwardRef<ComponentRef<"thead">, ComponentProps<"thead">>(
 	({ children, className, ...props }, ref) => (
@@ -266,7 +266,7 @@ Head.displayName = "TableHead";
  * </Table.Root>
  * ```
  *
- * @see https://mantle.ngrok.com/components/table#api-table-body
+ * @see https://mantle.ngrok.com/components/table#tablebody
  */
 const Body = forwardRef<ComponentRef<"tbody">, ComponentProps<"tbody">>(
 	({ children, className, ...props }, ref) => (
@@ -333,7 +333,7 @@ Body.displayName = "TableBody";
  * </Table.Root>
  * ```
  *
- * @see https://mantle.ngrok.com/components/table#api-table-foot
+ * @see https://mantle.ngrok.com/components/table#tablefoot
  */
 const Foot = forwardRef<ComponentRef<"tfoot">, ComponentProps<"tfoot">>(
 	({ children, className, ...props }, ref) => (
@@ -397,7 +397,7 @@ Foot.displayName = "TableFoot";
  * </Table.Root>
  * ```
  *
- * @see https://mantle.ngrok.com/components/table#api-table-row
+ * @see https://mantle.ngrok.com/components/table#tablerow
  */
 const Row = forwardRef<ComponentRef<"tr">, ComponentProps<"tr">>(
 	({ children, className, ...props }, ref) => (
@@ -459,7 +459,7 @@ Row.displayName = "TableRow";
  * </Table.Root>
  * ```
  *
- * @see https://mantle.ngrok.com/components/table#api-table-header
+ * @see https://mantle.ngrok.com/components/table#tableheader
  */
 const Header = forwardRef<ComponentRef<"th">, ComponentProps<"th">>(
 	({ children, className, ...props }, ref) => (
@@ -519,7 +519,7 @@ Header.displayName = "TableHeader";
  * </Table.Root>
  * ```
  *
- * @see https://mantle.ngrok.com/components/table#api-table-cell
+ * @see https://mantle.ngrok.com/components/table#tablecell
  */
 const Cell = forwardRef<ComponentRef<"td">, ComponentProps<"td">>(
 	({ children, className, ...props }, ref) => (
@@ -579,7 +579,7 @@ Cell.displayName = "TableCell";
  * </Table.Root>
  * ```
  *
- * @see https://mantle.ngrok.com/components/table#api-table-caption
+ * @see https://mantle.ngrok.com/components/table#tablecaption
  */
 const Caption = forwardRef<ComponentRef<"caption">, ComponentProps<"caption">>(
 	({ children, className, ...props }, ref) => (
@@ -637,7 +637,7 @@ const Table = {
 	/**
 	 * The body section of the table. Encapsulates a set of table rows comprising the body of a table's main data.
 	 *
-	 * @see https://mantle.ngrok.com/components/table#api-table-body
+	 * @see https://mantle.ngrok.com/components/table#tablebody
 	 *
 	 * @example
 	 * ```tsx
@@ -676,7 +676,7 @@ const Table = {
 	/**
 	 * An optional caption that specifies the caption (or title) of a table, providing an accessible description.
 	 *
-	 * @see https://mantle.ngrok.com/components/table#api-table-caption
+	 * @see https://mantle.ngrok.com/components/table#tablecaption
 	 *
 	 * @example
 	 * ```tsx
@@ -715,7 +715,7 @@ const Table = {
 	/**
 	 * A cell that contains data and may be used as a child of a table row.
 	 *
-	 * @see https://mantle.ngrok.com/components/table#api-table-cell
+	 * @see https://mantle.ngrok.com/components/table#tablecell
 	 *
 	 * @example
 	 * ```tsx
@@ -754,7 +754,7 @@ const Table = {
 	/**
 	 * A structured way to display data in rows and columns. The API matches the HTML table element 1:1.
 	 *
-	 * @see https://mantle.ngrok.com/components/table#api-table-element
+	 * @see https://mantle.ngrok.com/components/table#tableelement
 	 *
 	 * @example
 	 * ```tsx
@@ -793,7 +793,7 @@ const Table = {
 	/**
 	 * The foot section of a table. Encapsulates a set of table rows comprising the foot with summary information.
 	 *
-	 * @see https://mantle.ngrok.com/components/table#api-table-foot
+	 * @see https://mantle.ngrok.com/components/table#tablefoot
 	 *
 	 * @example
 	 * ```tsx
@@ -832,7 +832,7 @@ const Table = {
 	/**
 	 * The head section of a table. Contains the table's column headers information.
 	 *
-	 * @see https://mantle.ngrok.com/components/table#api-table-header
+	 * @see https://mantle.ngrok.com/components/table#tableheader
 	 *
 	 * @example
 	 * ```tsx
@@ -871,7 +871,7 @@ const Table = {
 	/**
 	 * A cell that defines the header of a group of table cells as a child of a table row.
 	 *
-	 * @see https://mantle.ngrok.com/components/table#api-table-header
+	 * @see https://mantle.ngrok.com/components/table#tableheader
 	 *
 	 * @example
 	 * ```tsx
@@ -910,7 +910,7 @@ const Table = {
 	/**
 	 * The root container element for all tables. Provides styling and additional functionality like horizontal overflow detection.
 	 *
-	 * @see https://mantle.ngrok.com/components/table#api-table-root
+	 * @see https://mantle.ngrok.com/components/table#tableroot
 	 *
 	 * @example
 	 * ```tsx
@@ -949,7 +949,7 @@ const Table = {
 	/**
 	 * Defines a row of cells in a table. Contains a mix of table cells and table headers.
 	 *
-	 * @see https://mantle.ngrok.com/components/table#api-table-row
+	 * @see https://mantle.ngrok.com/components/table#tablerow
 	 *
 	 * @example
 	 * ```tsx

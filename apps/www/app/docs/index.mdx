@@ -33,7 +33,7 @@ Mantle uses [Phosphor Icons](https://phosphoricons.com/) as the primary icon lib
 a versatile and consistent set of icons. In addition, custom-designed icons tailored to ngrok's
 needs are available through the [`@ngrok/mantle/icons`](/components/icons) module.
 
-### Status
+## Status
 
 Mantle is a living design system and the standard UI library for all ngrok user interfaces. It is
 continuously evolving as new components, patterns, and improvements are added.
@@ -140,7 +140,9 @@ export function Layout({ children }: PropsWithChildren) {
 	});
 
 	return (
-		<html {...initialHtmlThemeProps} lang="en-US" dir="ltr">
+		// suppressHydrationWarning prevents React from fighting the inline
+		// theme script that corrects the class before paint on prerendered/SSR pages.
+		<html {...initialHtmlThemeProps} lang="en-US" dir="ltr" suppressHydrationWarning>
 			<head>
 				<meta charSet="utf-8" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -198,6 +200,40 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 
 You are now ready to use mantle components in your application! For example, you can use the
 [Button](/components/button).
+
+#### SSR Theme Cookie (Optional)
+
+For apps **behind authentication** where responses are **not publicly cached by a CDN**, you can
+pass the theme cookie to `useInitialHtmlThemeProps` to eliminate the hydration mismatch entirely.
+This ensures the server renders the correct theme class, so React hydration matches the inline
+script without needing `suppressHydrationWarning`.
+
+> [!CAUTION]
+> Do **not** use `ssrCookie` on publicly cached pages. React Router serializes loader data into
+> the HTML, so the first visitor's theme would be baked into the CDN cache and served to everyone.
+> For public/CDN-cached apps, rely on `suppressHydrationWarning` instead (shown above).
+
+> [!WARNING]
+> Never return the full `Cookie` header from a loader — it would leak HttpOnly/session cookies
+> into the HTML. Always use `extractThemeCookie` to return only the theme cookie.
+
+```tsx
+import { extractThemeCookie, useInitialHtmlThemeProps } from "@ngrok/mantle/theme";
+
+export const loader = async ({ request }: Route.LoaderArgs) => {
+	const themeCookie = extractThemeCookie(request.headers.get("Cookie"));
+	return { themeCookie };
+};
+
+export function Layout({ children }: PropsWithChildren) {
+	const loaderData = useRouteLoaderData<typeof loader>("root");
+	const initialHtmlThemeProps = useInitialHtmlThemeProps({
+		className: "h-full",
+		ssrCookie: loaderData?.themeCookie,
+	});
+	// ...
+}
+```
 
 ### Vite
 

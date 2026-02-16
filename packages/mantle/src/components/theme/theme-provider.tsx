@@ -57,7 +57,7 @@ type ThemeProviderProps = PropsWithChildren;
 /**
  * ThemeProvider is a React Context Provider that provides the current theme and a function to set the theme.
  *
- * @see https://mantle.ngrok.com/components/theme-provider#api-theme-provider
+ * @see https://mantle.ngrok.com/components/theme-provider#themeprovider
  *
  * @example
  * ```tsx
@@ -569,21 +569,32 @@ type InitialThemeProps = {
 
 type UseInitialHtmlThemePropsOptions = {
 	className?: string;
+	/**
+	 * Theme cookie string for SSR theme resolution. Pass only the theme cookie
+	 * pair (via {@link extractThemeCookie}) rather than the full raw `Cookie`
+	 * header to avoid leaking sensitive cookies in serialized loader data.
+	 */
+	ssrCookie?: string;
 };
 
 /**
  * useInitialHtmlThemeProps returns the initial props that should be applied to the <html> element to prevent react hydration errors.
  */
 function useInitialHtmlThemeProps(props: UseInitialHtmlThemePropsOptions = {}): InitialThemeProps {
-	const { className = "" } = props ?? {};
+	const { className = "", ssrCookie } = props ?? {};
 
 	return useMemo(() => {
 		let initialTheme: Theme;
 		let resolvedTheme: ResolvedTheme;
 
 		if (!canUseDOM()) {
-			initialTheme = DEFAULT_THEME;
-			resolvedTheme = "light"; // assume "light" for SSR
+			initialTheme = getStoredTheme({ cookie: ssrCookie });
+			resolvedTheme = resolveTheme(initialTheme, {
+				// During SSR we can't detect media queries, so assume light/no high contrast.
+				// The inline script will correct this before paint for "system" theme users.
+				prefersDarkMode: false,
+				prefersHighContrast: false,
+			});
 		} else {
 			const prefersDarkMode = window.matchMedia(prefersDarkModeMediaQuery).matches;
 			const prefersHighContrast = window.matchMedia(prefersHighContrastMediaQuery).matches;
@@ -599,7 +610,7 @@ function useInitialHtmlThemeProps(props: UseInitialHtmlThemePropsOptions = {}): 
 			"data-applied-theme": resolvedTheme,
 			"data-theme": initialTheme,
 		};
-	}, [className]);
+	}, [className, ssrCookie]);
 }
 
 type GetStoredThemeOptions = {
@@ -640,11 +651,42 @@ function getStoredTheme({ cookie }: GetStoredThemeOptions): Theme {
 	}
 }
 
+/**
+ * Extract just the mantle theme cookie from a raw `Cookie` header string.
+ *
+ * Use this in SSR loaders to safely pass the theme cookie to
+ * {@link useInitialHtmlThemeProps} without exposing the full `Cookie` header
+ * (which may contain HttpOnly/session cookies) in serialized loader data.
+ *
+ * @example
+ * ```ts
+ * // app/root.tsx loader
+ * export const loader = async ({ request }: Route.LoaderArgs) => {
+ *   const themeCookie = extractThemeCookie(request.headers.get("Cookie"));
+ *   return { themeCookie };
+ * };
+ * ```
+ *
+ * @param cookieHeader - The raw `Cookie` header string from the request, or null/undefined.
+ * @returns The `mantle-ui-theme=<value>` cookie string, or undefined if not found.
+ */
+function extractThemeCookie(cookieHeader: string | null | undefined): string | undefined {
+	if (!cookieHeader) {
+		return undefined;
+	}
+
+	return cookieHeader
+		.split(";")
+		.map((part) => part.trim())
+		.find((part) => part.startsWith(`${THEME_STORAGE_KEY}=`));
+}
+
 export {
 	MantleThemeHeadContent,
 	PreventWrongThemeFlashScript,
 	ThemeProvider,
 	//,
+	extractThemeCookie,
 	getStoredTheme,
 	preventWrongThemeFlashScriptContent,
 	readThemeFromHtmlElement,

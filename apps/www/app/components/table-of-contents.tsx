@@ -1,6 +1,6 @@
 import { cx } from "@ngrok/mantle/cx";
 import { ListNumbersIcon } from "@phosphor-icons/react/ListNumbers";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type RefObject } from "react";
 import { createPortal } from "react-dom";
 import { Link, useLocation } from "react-router";
 
@@ -9,16 +9,16 @@ type TocEntry = {
 	id: string;
 	/** The visible text content of the heading. */
 	text: string;
-	/** The heading level (2 or 3). */
+	/** The heading level (1, 2, or 3). */
 	level: number;
 };
 
 /**
- * Extracts h2 and h3 headings from a container element.
+ * Extracts h1, h2, and h3 headings from a container element.
  * Only includes headings that have an `id` attribute (added by rehype-slug).
  */
 function getHeadings(container: HTMLElement): Array<TocEntry> {
-	const headings = container.querySelectorAll<HTMLHeadingElement>("h2[id], h3[id]");
+	const headings = container.querySelectorAll<HTMLHeadingElement>("h1[id], h2[id], h3[id]");
 	const entries: Array<TocEntry> = [];
 	for (const heading of headings) {
 		const id = heading.id;
@@ -121,7 +121,7 @@ const TOC_PORTAL_ID = "toc-portal";
  * The `contentRef` should point to the container element that holds the MDX content
  * so headings can be extracted from it.
  */
-function TableOfContents({ contentRef }: { contentRef: React.RefObject<HTMLDivElement | null> }) {
+function TableOfContents({ contentRef }: { contentRef: RefObject<HTMLDivElement | null> }) {
 	const [entries, setEntries] = useState<Array<TocEntry>>([]);
 	const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
 	const location = useLocation();
@@ -137,14 +137,44 @@ function TableOfContents({ contentRef }: { contentRef: React.RefObject<HTMLDivEl
 		}
 	}, [contentRef]);
 
-	// Extract headings after the MDX content mounts/changes
+	// Extract headings when MDX content mounts or changes.
+	// Uses a MutationObserver to reliably detect when headings appear in the DOM,
+	// whether content renders synchronously (prod) or via Suspense (dev).
 	useEffect(() => {
-		// Small delay to ensure MDX content has fully rendered
-		const timeoutId = window.setTimeout(updateEntries, 100);
+		updateEntries();
+
+		const container = contentRef.current;
+		if (!container) {
+			return;
+		}
+
+		const observer = new MutationObserver((mutations) => {
+			for (const mutation of mutations) {
+				const nodes = [...mutation.addedNodes, ...mutation.removedNodes];
+				for (const node of nodes) {
+					if (!(node instanceof HTMLElement)) {
+						continue;
+					}
+
+					const tagName = node.tagName;
+					if ((tagName === "H1" || tagName === "H2" || tagName === "H3") && node.id) {
+						updateEntries();
+						return;
+					}
+
+					if (node.querySelector("h1[id], h2[id], h3[id]")) {
+						updateEntries();
+						return;
+					}
+				}
+			}
+		});
+		observer.observe(container, { childList: true, subtree: true });
 		return () => {
-			window.clearTimeout(timeoutId);
+			observer.disconnect();
 		};
-	}, [location.pathname, updateEntries]);
+		// contentRef is a stable ref object — we only need to re-run when the route changes
+	}, [location.pathname, updateEntries, contentRef]);
 
 	const activeId = useActiveHeading(entries);
 
@@ -168,7 +198,7 @@ function TableOfContents({ contentRef }: { contentRef: React.RefObject<HTMLDivEl
 								aria-current={activeId === entry.id ? "location" : undefined}
 								className={cx(
 									"-ml-px block border-l py-1 text-xs leading-snug transition-colors",
-									entry.level === 3 ? "pl-6" : "pl-3",
+									entry.level === 1 ? "pl-3" : entry.level === 2 ? "pl-3" : "pl-6",
 									activeId === entry.id
 										? "text-strong border-accent-500 font-medium"
 										: "text-muted border-transparent hover:text-strong hover:border-gray-400",
