@@ -236,7 +236,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
 		if (asChild) {
 			invariant(
-				isValidElement(children) && Children.only(children),
+				isValidElement<{ children?: ReactNode }>(children) && Children.only(children),
 				"When using `asChild`, Button must be passed a single child as a JSX tag.",
 			);
 

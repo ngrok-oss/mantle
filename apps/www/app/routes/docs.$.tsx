@@ -1,8 +1,9 @@
+import { Suspense, use } from "react";
 import { z } from "zod";
 import { ContentLayout } from "~/components/content-layout";
-import type { Route } from "./+types/docs.$";
-import { docModules, urlToFileMap } from "~/utilities/docs";
+import { loadFrontmatter, resolveDocComponent, urlToFileMap } from "~/utilities/docs";
 import { makeCanonicalUrl } from "~/utilities/canonical-origin";
+import type { Route } from "./+types/docs.$";
 
 const frontmatterSchema = z.object({
 	title: z.string().trim().min(1, "Frontmatter title is required"),
@@ -49,12 +50,9 @@ export async function loader({ request }: Route.LoaderArgs) {
 		throw Response.json({ message: "Not Found" }, { status: 404 });
 	}
 
-	const mod = docModules[filePath];
-	if (!mod) {
-		throw Response.json({ message: "Not Found" }, { status: 404 });
-	}
+	const frontmatter = await loadFrontmatter(filePath);
 
-	const frontmatterResult = frontmatterSchema.safeParse(mod.frontmatter ?? {});
+	const frontmatterResult = frontmatterSchema.safeParse(frontmatter ?? {});
 	if (!frontmatterResult.success) {
 		throw Response.json(
 			{
@@ -71,16 +69,29 @@ export async function loader({ request }: Route.LoaderArgs) {
 }
 
 export default function DocPage({ loaderData }: Route.ComponentProps) {
-	const mod = docModules[loaderData.filePath];
-	if (!mod) {
-		return null;
-	}
-
-	const Component = mod.default;
-
 	return (
 		<ContentLayout>
-			<Component />
+			<Suspense>
+				<DocContent filePath={loaderData.filePath} />
+			</Suspense>
 		</ContentLayout>
 	);
+}
+
+type DocContentProps = {
+	/** The file path of the MDX module to render. */
+	filePath: string;
+};
+
+/**
+ * Render a doc MDX module by file path.
+ *
+ * Uses {@link resolveDocComponent} with React's `use()` to suspend while
+ * the lazy import resolves. The promise is cached so Suspense doesn't
+ * re-flash on HMR updates to other modules.
+ */
+function DocContent({ filePath }: DocContentProps) {
+	const componentPromise = resolveDocComponent(filePath);
+	const Component = use(componentPromise);
+	return <Component />;
 }

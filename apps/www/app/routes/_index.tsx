@@ -1,23 +1,24 @@
+import { Suspense, use } from "react";
 import { ContentLayout } from "~/components/content-layout";
-import { docModules } from "~/utilities/docs";
+import { resolveDocComponent } from "~/utilities/docs";
 import type { Route } from "./+types/_index";
 
 export const meta: Route.MetaFunction = () => {
 	return [{ title: "@ngrok/mantle" }];
 };
 
-const indexModule = docModules["../docs/index.mdx"];
-
 export default function Page() {
-	if (!indexModule) {
-		return null;
-	}
-
-	const Component = indexModule.default;
-
 	return (
 		<ContentLayout markdownPath="/index.md">
-			<Component />
+			<Suspense>
+				<IndexContent />
+			</Suspense>
 		</ContentLayout>
 	);
+}
+
+function IndexContent() {
+	const componentPromise = resolveDocComponent("../docs/index.mdx");
+	const Component = use(componentPromise);
+	return <Component />;
 }

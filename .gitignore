@@ -33,3 +33,4 @@ build
 .turbo
 .react-router
 .direnv-initialized
+tmp
