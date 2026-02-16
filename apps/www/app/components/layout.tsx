@@ -195,6 +195,9 @@ const prodReadyComponents = [
 	"Checkbox",
 	"Code Block",
 	"Code",
+	"Combobox",
+	"Command",
+	"Data Table",
 	"Description List",
 	"Dialog",
 	"Dropdown Menu",
@@ -206,7 +209,9 @@ const prodReadyComponents = [
 	"Input",
 	"Label",
 	"Media Object",
+	"Pagination",
 	"Password Input",
+	"Popover",
 	"Progress Bar",
 	"Progress Donut",
 	"Radio Group",
@@ -235,11 +240,6 @@ const previewComponents = [
 	//,
 	"Accordion",
 	"Calendar",
-	"Combobox",
-	"Command",
-	"Data Table",
-	"Pagination",
-	"Popover",
 ] as const;
 
 type Route = Parameters<typeof href>[0];
@@ -255,6 +255,9 @@ const prodReadyComponentRouteLookup = {
 	Checkbox: "/components/checkbox",
 	Code: "/components/code",
 	"Code Block": "/components/code-block",
+	Combobox: "/components/combobox",
+	Command: "/components/command",
+	"Data Table": "/components/data-table",
 	"Description List": "/components/description-list",
 	Dialog: "/components/dialog",
 	"Dropdown Menu": "/components/dropdown-menu",
@@ -266,7 +269,9 @@ const prodReadyComponentRouteLookup = {
 	Input: "/components/input",
 	Label: "/components/label",
 	"Media Object": "/components/media-object",
+	Pagination: "/components/pagination",
 	"Password Input": "/components/password-input",
+	Popover: "/components/popover",
 	"Progress Donut": "/components/progress-donut",
 	"Progress Bar": "/components/progress-bar",
 	"Radio Group": "/components/radio-group",
@@ -289,11 +294,6 @@ const prodReadyComponentRouteLookup = {
 const previewComponentsRouteLookup = {
 	Accordion: "/components/preview/accordion",
 	Calendar: "/components/preview/calendar",
-	Combobox: "/components/preview/combobox",
-	Command: "/components/preview/command",
-	"Data Table": "/components/preview/data-table",
-	Pagination: "/components/preview/pagination",
-	Popover: "/components/preview/popover",
 } as const satisfies Record<(typeof previewComponents)[number], Route>;
 
 const welcomePages = ["Overview & Setup", "Philosophy"] as const;
