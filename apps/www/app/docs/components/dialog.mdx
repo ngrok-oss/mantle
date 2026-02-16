@@ -78,6 +78,27 @@ import { Button } from "@ngrok/mantle/button";
 </Dialog.Root>;
 ```
 
+## Handling Autofill Overlays
+
+When a dialog contains form inputs, browser autofill or password-manager plugins (e.g. 1Password) may render overlays as siblings to the dialog content. By default, clicking these overlays triggers `onPointerDownOutside`, which closes the dialog. Use `isDialogOverlayTarget` to prevent this:
+
+```tsx
+import { Dialog, isDialogOverlayTarget } from "@ngrok/mantle/dialog";
+
+<Dialog.Content
+	onPointerDownOutside={(event) => {
+		// Allow closing only when clicking the actual overlay backdrop,
+		// not browser autofill/password-manager popups
+		if (isDialogOverlayTarget(event.target)) {
+			return;
+		}
+		event.preventDefault();
+	}}
+>
+	{/* dialog content with form inputs */}
+</Dialog.Content>;
+```
+
 ## Composition
 
 In some cases, you might wish to have a tooltip over the dialog trigger. This is helpful if the dialog trigger is an `IconButton` and you wish to provide more context to what the button does. You can compose them both together to where the dialog trigger is also the tooltip trigger.
