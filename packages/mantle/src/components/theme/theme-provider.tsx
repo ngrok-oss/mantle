@@ -569,21 +569,32 @@ type InitialThemeProps = {
 
 type UseInitialHtmlThemePropsOptions = {
 	className?: string;
+	/**
+	 * Raw `Cookie` header string from the incoming request. Pass this during SSR
+	 * so the server can read the persisted theme and render the correct class,
+	 * avoiding a flash when React hydrates.
+	 */
+	ssrCookie?: string;
 };
 
 /**
  * useInitialHtmlThemeProps returns the initial props that should be applied to the <html> element to prevent react hydration errors.
  */
 function useInitialHtmlThemeProps(props: UseInitialHtmlThemePropsOptions = {}): InitialThemeProps {
-	const { className = "" } = props ?? {};
+	const { className = "", ssrCookie } = props ?? {};
 
 	return useMemo(() => {
 		let initialTheme: Theme;
 		let resolvedTheme: ResolvedTheme;
 
 		if (!canUseDOM()) {
-			initialTheme = DEFAULT_THEME;
-			resolvedTheme = "light"; // assume "light" for SSR
+			initialTheme = getStoredTheme({ cookie: ssrCookie });
+			resolvedTheme = resolveTheme(initialTheme, {
+				// During SSR we can't detect media queries, so assume light/no high contrast.
+				// The inline script will correct this before paint for "system" theme users.
+				prefersDarkMode: false,
+				prefersHighContrast: false,
+			});
 		} else {
 			const prefersDarkMode = window.matchMedia(prefersDarkModeMediaQuery).matches;
 			const prefersHighContrast = window.matchMedia(prefersHighContrastMediaQuery).matches;
@@ -599,7 +610,7 @@ function useInitialHtmlThemeProps(props: UseInitialHtmlThemePropsOptions = {}): 
 			"data-applied-theme": resolvedTheme,
 			"data-theme": initialTheme,
 		};
-	}, [className]);
+	}, [className, ssrCookie]);
 }
 
 type GetStoredThemeOptions = {

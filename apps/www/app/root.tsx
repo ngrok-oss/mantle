@@ -108,13 +108,15 @@ export function headers({ parentHeaders }: Route.HeadersArgs) {
 	return headers;
 }
 
-export const loader = async (_: Route.LoaderArgs) => {
+export const loader = async ({ request }: Route.LoaderArgs) => {
 	const packageJson = await import("@ngrok/mantle/package.json");
 	const commitSha = process.env.VERCEL_GIT_COMMIT_SHA;
 	const deploymentId = process.env.VERCEL_DEPLOYMENT_ID;
 	const nodeEnv = process.env.NODE_ENV ?? "development";
+	const cookie = request.headers.get("Cookie") ?? undefined;
 
 	return {
+		cookie,
 		currentVersion: packageJson.default.version,
 		commitSha,
 		deploymentId,
@@ -146,6 +148,7 @@ export function Layout({ children }: PropsWithChildren) {
 	const loaderData = useRouteLoaderData<typeof loader>("root");
 	const initialHtmlThemeProps = useInitialHtmlThemeProps({
 		className: "h-full",
+		ssrCookie: loaderData?.cookie,
 	});
 	const scrollBehavior = useScrollBehavior();
 	const nonce = useNonce();
