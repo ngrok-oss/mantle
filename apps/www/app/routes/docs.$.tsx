@@ -1,6 +1,8 @@
+import { useRef } from "react";
 import { z } from "zod";
 import { MdxProvider } from "~/components/mdx-provider";
 import { DocActions } from "~/components/doc-actions";
+import { TableOfContents } from "~/components/table-of-contents";
 import type { Route } from "./+types/docs.$";
 import { docModules, urlToFileMap } from "~/utilities/docs";
 
@@ -64,6 +66,7 @@ export function headers() {
 
 export default function DocPage({ loaderData }: Route.ComponentProps) {
 	const { filePath } = loaderData;
+	const contentRef = useRef<HTMLDivElement>(null);
 
 	// Render the MDX component
 	const mod = docModules[filePath];
@@ -75,15 +78,20 @@ export default function DocPage({ loaderData }: Route.ComponentProps) {
 	const Component = mod.default;
 
 	return (
-		<div className="relative">
-			<div className="absolute right-0 top-0 z-10">
-				<DocActions />
-			</div>
-			<MdxProvider>
-				<div className="[&>h1:first-child]:pr-40">
-					<Component />
+		<>
+			<div className="relative">
+				<div className="absolute right-0 top-0 z-10">
+					<DocActions />
 				</div>
-			</MdxProvider>
-		</div>
+				<div ref={contentRef}>
+					<MdxProvider>
+						<div className="[&>h1:first-child]:pr-40">
+							<Component />
+						</div>
+					</MdxProvider>
+				</div>
+			</div>
+			<TableOfContents contentRef={contentRef} />
+		</>
 	);
 }

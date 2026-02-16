@@ -5,3 +5,5 @@ export {
 	AutoThemeIcon,
 	ThemeIcon,
 } from "./theme.js";
+export { NgrokIcon } from "./ngrok.js";
+export type { InlineIconProps } from "./types.js";

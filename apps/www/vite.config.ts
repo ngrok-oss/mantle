@@ -20,7 +20,6 @@ export default defineConfig({
 	},
 	plugins: [
 		//
-
 		rawMdxDocs(path.resolve(import.meta.dirname, "app/docs")),
 		devtoolsJson(),
 		tailwindcss(),
