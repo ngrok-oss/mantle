@@ -1,5 +1,13 @@
 # @ngrok/mantle
 
+## 0.63.2
+
+### Patch Changes
+
+- [#969](https://github.com/ngrok-oss/mantle/pull/969) [`76e1afd`](https://github.com/ngrok-oss/mantle/commit/76e1afd09e6011650e6b4f3ed14ea348143e1591) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Fix `useIsBelowBreakpoint` performance regression during window resize. The `subscribe` and `getSnapshot` functions passed to `useSyncExternalStore` were recreated on every render, causing listener teardown/re-attach churn on each frame. They are now cached per breakpoint for referential stability.
+
+- [#969](https://github.com/ngrok-oss/mantle/pull/969) [`76e1afd`](https://github.com/ngrok-oss/mantle/commit/76e1afd09e6011650e6b4f3ed14ea348143e1591) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Restore all `@custom-variant` definitions in `mantle.css` that were accidentally removed. This includes theme variants (`light`, `dark`, `high-contrast`, `dark-high-contrast`), aria/data attribute variants, hover media query variants (`hover-hover`, `hover-none`), and the `where` variant.
+
 ## 0.63.1
 
 ### Patch Changes
