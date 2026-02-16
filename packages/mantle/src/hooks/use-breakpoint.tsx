@@ -380,17 +380,36 @@ function getCurrentBreakpointSnapshot(): Breakpoint {
 }
 
 /**
- * Factory to create a `subscribe` function for a specific "below" breakpoint.
+ * Cached `subscribe` functions keyed by breakpoint.
+ *
+ * Without caching, `useSyncExternalStore` receives a new function reference on
+ * every render, causing it to tear down and re-attach the MQL listener each
+ * time — the primary source of resize sluggishness.
+ *
+ * @private
+ */
+const belowBreakpointSubscribeCache = new Map<
+	TailwindBreakpoint,
+	(callback: () => void) => () => void
+>();
+
+/**
+ * Get (or create and cache) a `subscribe` function for a specific "below" breakpoint.
  *
  * Uses a cached `MediaQueryList` and rAF-throttled change handler to avoid
  * bursty updates during resize.
  *
  * @param breakpoint - Tailwind breakpoint identifier (e.g., "lg").
- * @returns A `subscribe` function suitable for `useSyncExternalStore`.
+ * @returns A stable `subscribe` function suitable for `useSyncExternalStore`.
  * @private
  */
 function createBelowBreakpointSubscribe(breakpoint: TailwindBreakpoint) {
-	return (callback: () => void) => {
+	let cached = belowBreakpointSubscribeCache.get(breakpoint);
+	if (cached) {
+		return cached;
+	}
+
+	cached = (callback: () => void) => {
 		const mediaQuery = getMaxWidthMQL(breakpoint);
 
 		// rAF throttle the change callback during active resize
@@ -410,20 +429,41 @@ function createBelowBreakpointSubscribe(breakpoint: TailwindBreakpoint) {
 			mediaQuery.removeEventListener("change", onChange);
 		};
 	};
+
+	belowBreakpointSubscribeCache.set(breakpoint, cached);
+	return cached;
 }
 
 /**
- * Factory to create a `getSnapshot` function for a specific "below" breakpoint.
+ * Cached `getSnapshot` functions keyed by breakpoint.
+ *
+ * Ensures `useSyncExternalStore` receives a referentially stable function,
+ * preventing unnecessary subscription churn.
+ *
+ * @private
+ */
+const belowBreakpointSnapshotCache = new Map<TailwindBreakpoint, () => boolean>();
+
+/**
+ * Get (or create and cache) a `getSnapshot` function for a specific "below" breakpoint.
  *
  * Uses the cached `MediaQueryList` for the target breakpoint.
  *
  * @param breakpoint - Tailwind breakpoint identifier (e.g., "lg").
- * @returns A function that returns `true` when the viewport is below the breakpoint.
+ * @returns A stable function that returns `true` when the viewport is below the breakpoint.
  * @private
  */
 function createBelowBreakpointGetSnapshot(breakpoint: TailwindBreakpoint) {
-	return () => {
+	let cached = belowBreakpointSnapshotCache.get(breakpoint);
+	if (cached) {
+		return cached;
+	}
+
+	cached = () => {
 		const mediaQuery = getMaxWidthMQL(breakpoint);
 		return mediaQuery.matches;
 	};
+
+	belowBreakpointSnapshotCache.set(breakpoint, cached);
+	return cached;
 }
