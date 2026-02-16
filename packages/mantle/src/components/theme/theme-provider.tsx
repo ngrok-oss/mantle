@@ -651,11 +651,42 @@ function getStoredTheme({ cookie }: GetStoredThemeOptions): Theme {
 	}
 }
 
+/**
+ * Extract just the mantle theme cookie from a raw `Cookie` header string.
+ *
+ * Use this in SSR loaders to safely pass the theme cookie to
+ * {@link useInitialHtmlThemeProps} without exposing the full `Cookie` header
+ * (which may contain HttpOnly/session cookies) in serialized loader data.
+ *
+ * @example
+ * ```ts
+ * // app/root.tsx loader
+ * export const loader = async ({ request }: Route.LoaderArgs) => {
+ *   const themeCookie = extractThemeCookie(request.headers.get("Cookie"));
+ *   return { themeCookie };
+ * };
+ * ```
+ *
+ * @param cookieHeader - The raw `Cookie` header string from the request, or null/undefined.
+ * @returns The `mantle-ui-theme=<value>` cookie string, or undefined if not found.
+ */
+function extractThemeCookie(cookieHeader: string | null | undefined): string | undefined {
+	if (!cookieHeader) {
+		return undefined;
+	}
+
+	return cookieHeader
+		.split(";")
+		.map((part) => part.trim())
+		.find((part) => part.startsWith(`${THEME_STORAGE_KEY}=`));
+}
+
 export {
 	MantleThemeHeadContent,
 	PreventWrongThemeFlashScript,
 	ThemeProvider,
 	//,
+	extractThemeCookie,
 	getStoredTheme,
 	preventWrongThemeFlashScriptContent,
 	readThemeFromHtmlElement,
