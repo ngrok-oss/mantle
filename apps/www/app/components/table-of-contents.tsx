@@ -137,14 +137,24 @@ function TableOfContents({ contentRef }: { contentRef: React.RefObject<HTMLDivEl
 		}
 	}, [contentRef]);
 
-	// Extract headings after the MDX content mounts/changes
+	// Extract headings when MDX content mounts or changes.
+	// Uses a MutationObserver to reliably detect when headings appear in the DOM,
+	// whether content renders synchronously (prod) or via Suspense (dev).
 	useEffect(() => {
-		// Small delay to ensure MDX content has fully rendered
-		const timeoutId = window.setTimeout(updateEntries, 100);
+		updateEntries();
+
+		const container = contentRef.current;
+		if (!container) {
+			return;
+		}
+
+		const observer = new MutationObserver(updateEntries);
+		observer.observe(container, { childList: true, subtree: true });
 		return () => {
-			window.clearTimeout(timeoutId);
+			observer.disconnect();
 		};
-	}, [location.pathname, updateEntries]);
+		// contentRef is a stable ref object — we only need to re-run when the route changes
+	}, [location.pathname, updateEntries, contentRef]);
 
 	const activeId = useActiveHeading(entries);
 
