@@ -67,7 +67,7 @@ type SelectProps = PropsWithChildren & {
 /**
  * Displays a list of options for the user to pick from—triggered by a button.
  *
- * @see https://mantle.ngrok.com/components/select#api-select
+ * @see https://mantle.ngrok.com/components/select#selectroot
  *
  * @example
  * ```tsx
@@ -149,7 +149,7 @@ Root.displayName = "Select";
  *   </Select.Content>
  * </Select.Root>
  *
- * @see https://mantle.ngrok.com/components/select#api-select-group
+ * @see https://mantle.ngrok.com/components/select#selectgroup
  */
 const Group = SelectPrimitive.Group;
 Group.displayName = "SelectGroup";
@@ -169,7 +169,7 @@ Group.displayName = "SelectGroup";
  *   </Select.Content>
  * </Select.Root>
  *
- * @see https://mantle.ngrok.com/components/select#api-select-value
+ * @see https://mantle.ngrok.com/components/select#selectvalue
  */
 const Value = SelectPrimitive.Value;
 Value.displayName = "SelectValue";
@@ -181,7 +181,7 @@ type SelectTriggerProps = ComponentPropsWithoutRef<typeof SelectPrimitive.Trigge
 /**
  * The button that toggles the select. The Select.Content will position itself adjacent to the trigger.
  *
- * @see https://mantle.ngrok.com/components/select#api-select-trigger
+ * @see https://mantle.ngrok.com/components/select#selecttrigger
  *
  * @example
  * ```tsx
@@ -311,7 +311,7 @@ type SelectContentProps = ComponentPropsWithoutRef<typeof SelectPrimitive.Conten
  *   </Select.Content>
  * </Select.Root>
  *
- * @see https://mantle.ngrok.com/components/select#api-select-content
+ * @see https://mantle.ngrok.com/components/select#selectcontent
  */
 const Content = forwardRef<ComponentRef<typeof SelectPrimitive.Content>, SelectContentProps>(
 	({ className, children, position = "popper", width = "trigger", ...props }, ref) => (
@@ -365,7 +365,7 @@ Content.displayName = "SelectContent";
  *   </Select.Content>
  * </Select.Root>
  *
- * @see https://mantle.ngrok.com/components/select#api-select-label
+ * @see https://mantle.ngrok.com/components/select#selectlabel
  */
 const Label = forwardRef<
 	ComponentRef<typeof SelectPrimitive.Label>,
@@ -400,7 +400,7 @@ type SelectItemProps = ComponentPropsWithoutRef<typeof SelectPrimitive.Item> & {
  *   </Select.Content>
  * </Select.Root>
  *
- * @see https://mantle.ngrok.com/components/select#api-select-item
+ * @see https://mantle.ngrok.com/components/select#selectitem
  */
 const Item = forwardRef<ComponentRef<typeof SelectPrimitive.Item>, SelectItemProps>(
 	({ className, children, icon, ...props }, ref) => (
@@ -450,7 +450,7 @@ Item.displayName = "SelectItem";
  *   </Select.Content>
  * </Select.Root>
  *
- * @see https://mantle.ngrok.com/components/select#api-select-separator
+ * @see https://mantle.ngrok.com/components/select#selectseparator
  */
 const SelectSeparatorComponent = forwardRef<
 	ComponentRef<typeof Separator>,
@@ -492,7 +492,7 @@ const Select = {
 	/**
 	 * Displays a list of options for the user to pick from—triggered by a button.
 	 *
-	 * @see https://mantle.ngrok.com/components/select#api-select
+	 * @see https://mantle.ngrok.com/components/select#selectroot
 	 *
 	 * @example
 	 * ```tsx
@@ -522,7 +522,7 @@ const Select = {
 	 * The component that pops out when the select is open as a portal adjacent to the trigger button.
 	 * It contains a scrolling viewport of the select items.
 	 *
-	 * @see https://mantle.ngrok.com/components/select#api-select-content
+	 * @see https://mantle.ngrok.com/components/select#selectcontent
 	 *
 	 * @example
 	 * <Select.Root>
@@ -541,7 +541,7 @@ const Select = {
 	 * A group of related options within a select menu. Similar to an html `<optgroup>` element.
 	 * Use in conjunction with Select.Label to ensure good accessibility via automatic labelling.
 	 *
-	 * @see https://mantle.ngrok.com/components/select#api-select-group
+	 * @see https://mantle.ngrok.com/components/select#selectgroup
 	 *
 	 * @example
 	 * <Select.Root>
@@ -569,7 +569,7 @@ const Select = {
 	 * Has a required `value` prop that will be passed to the `onChange` handler of the `Select` component when this item is selected.
 	 * Displays the children as the option's text.
 	 *
-	 * @see https://mantle.ngrok.com/components/select#api-select-item
+	 * @see https://mantle.ngrok.com/components/select#selectitem
 	 *
 	 * @example
 	 * <Select.Root>
@@ -587,7 +587,7 @@ const Select = {
 	/**
 	 * Used to render the label of a group. It won't be focusable using arrow keys.
 	 *
-	 * @see https://mantle.ngrok.com/components/select#api-select-label
+	 * @see https://mantle.ngrok.com/components/select#selectlabel
 	 *
 	 * @example
 	 * <Select.Root>
@@ -613,7 +613,7 @@ const Select = {
 	/**
 	 * Used to visually separate items or groups of items in the select content.
 	 *
-	 * @see https://mantle.ngrok.com/components/select#api-select-separator
+	 * @see https://mantle.ngrok.com/components/select#selectseparator
 	 *
 	 * @example
 	 * <Select.Root>
@@ -640,7 +640,7 @@ const Select = {
 	/**
 	 * The button that toggles the select. The Select.Content will position itself adjacent to the trigger.
 	 *
-	 * @see https://mantle.ngrok.com/components/select#api-select-trigger
+	 * @see https://mantle.ngrok.com/components/select#selecttrigger
 	 *
 	 * @example
 	 * ```tsx
@@ -660,7 +660,7 @@ const Select = {
 	/**
 	 * The part that reflects the selected value. By default the selected item's text will be rendered. if you require more control, you can instead control the select and pass your own children. It should not be styled to ensure correct positioning. An optional placeholder prop is also available for when the select has no value.
 	 *
-	 * @see https://mantle.ngrok.com/components/select#api-select-value
+	 * @see https://mantle.ngrok.com/components/select#selectvalue
 	 *
 	 * @example
 	 * <Select.Root>
