@@ -174,7 +174,7 @@ const HoverCard = {
 	/**
 	 * The portal container for rendering hover card content outside the normal DOM tree.
 	 *
-	 * @see https://mantle.ngrok.com/components/hover-card#hovercardroot
+	 * @see https://mantle.ngrok.com/components/hover-card#api-reference
 	 *
 	 * @example
 	 * ```tsx

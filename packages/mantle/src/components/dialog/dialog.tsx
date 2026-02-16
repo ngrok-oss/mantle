@@ -686,7 +686,7 @@ const Dialog = {
 	/**
 	 * The overlay backdrop for the dialog.
 	 *
-	 * @see https://mantle.ngrok.com/components/dialog#dialogroot
+	 * @see https://mantle.ngrok.com/components/dialog#api-reference
 	 *
 	 * @example
 	 * ```tsx
@@ -709,7 +709,7 @@ const Dialog = {
 	/**
 	 * The portal container for the dialog.
 	 *
-	 * @see https://mantle.ngrok.com/components/dialog#dialogroot
+	 * @see https://mantle.ngrok.com/components/dialog#api-reference
 	 *
 	 * @example
 	 * ```tsx
