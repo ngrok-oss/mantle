@@ -29,7 +29,7 @@ type BadgeProps = ComponentProps<"span"> &
  * A Badge is a non-interactive component used to highlight important
  * information or to visually indicate the status of an item.
  *
- * @see https://mantle.ngrok.com/components/badge#api
+ * @see https://mantle.ngrok.com/components/badge
  *
  * @example
  * ```tsx

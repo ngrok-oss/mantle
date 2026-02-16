@@ -12,7 +12,7 @@ type Props = Exclude<ComponentProps<"div">, "children"> & SelfClosingWithAsChild
  *
  * @note Default height is 1rem.
  *
- * @see https://mantle.ngrok.com/components/skeleton#api
+ * @see https://mantle.ngrok.com/components/skeleton
  *
  * @example
  * ```tsx

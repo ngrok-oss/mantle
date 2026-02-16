@@ -27,7 +27,7 @@ type RadioGroupProps = PropsWithChildren<Omit<HeadlessRadioGroupProps, "as" | "c
  * A group of radio items. It manages the state of the children radios. Unstyled and simple.
  * Used as the root component for grouping related radio items where only one can be selected.
  *
- * @see https://mantle.ngrok.com/components/radio-group#api-radio-group
+ * @see https://mantle.ngrok.com/components/radio-group
  *
  * @example
  * ```tsx
@@ -78,7 +78,7 @@ type RadioItemProps = Omit<HeadlessRadioProps, "children"> & PropsWithChildren;
  * A simple radio item that can be used inside a radio group. The "conventional" use-case.
  * Must be a child of `RadioGroup`.
  *
- * @see https://mantle.ngrok.com/components/radio-group#api-radio-item
+ * @see https://mantle.ngrok.com/components/radio-group
  *
  * @example
  * ```tsx
@@ -137,7 +137,7 @@ const DefaultRadioIndicator = ({ checked, disabled, focus, hover }: RadioStateCo
  * - a different component
  * - a render-props function that receives the radio state context and should return a component.
  *
- * @see https://mantle.ngrok.com/components/radio-group#api-radio-indicator
+ * @see https://mantle.ngrok.com/components/radio-group
  *
  * @example
  * ```tsx
@@ -403,7 +403,7 @@ const RadioGroup = {
 	/**
 	 * A radio button that is used inside a RadioGroup.ButtonGroup for inline grouped radio options.
 	 *
-	 * @see https://mantle.ngrok.com/components/radio-group#api-radio-button
+	 * @see https://mantle.ngrok.com/components/radio-group
 	 *
 	 * @example
 	 * ```tsx
@@ -420,7 +420,7 @@ const RadioGroup = {
 	/**
 	 * An inline group of radio buttons. Use RadioGroup.Button as direct children for horizontal radio layouts.
 	 *
-	 * @see https://mantle.ngrok.com/components/radio-group#api-radio-button-group
+	 * @see https://mantle.ngrok.com/components/radio-group
 	 *
 	 * @example
 	 * ```tsx
@@ -438,7 +438,7 @@ const RadioGroup = {
 	/**
 	 * A radio card item with enhanced styling. Use it as a child of RadioGroup for card-based radio options.
 	 *
-	 * @see https://mantle.ngrok.com/components/radio-group#api-radio-card
+	 * @see https://mantle.ngrok.com/components/radio-group
 	 *
 	 * @example
 	 * ```tsx
@@ -464,7 +464,7 @@ const RadioGroup = {
 	/**
 	 * The selection indicator for any radio item. Shows the checked state with customizable appearance.
 	 *
-	 * @see https://mantle.ngrok.com/components/radio-group#api-radio-indicator
+	 * @see https://mantle.ngrok.com/components/radio-group
 	 *
 	 * @example
 	 * ```tsx
@@ -478,7 +478,7 @@ const RadioGroup = {
 	/**
 	 * A sandbox container for input elements composed within radio group items. Prevents default radio behavior.
 	 *
-	 * @see https://mantle.ngrok.com/components/radio-group#api-radio-input-sandbox
+	 * @see https://mantle.ngrok.com/components/radio-group
 	 *
 	 * @example
 	 * ```tsx
@@ -499,7 +499,7 @@ const RadioGroup = {
 	/**
 	 * A simple radio item that can be used inside a radio group. The conventional use-case for basic radio options.
 	 *
-	 * @see https://mantle.ngrok.com/components/radio-group#api-radio-item
+	 * @see https://mantle.ngrok.com/components/radio-group
 	 *
 	 * @example
 	 * ```tsx
@@ -513,7 +513,7 @@ const RadioGroup = {
 	/**
 	 * The content wrapper for any radio item. Use it to wrap labels, descriptions, or content of a radio item.
 	 *
-	 * @see https://mantle.ngrok.com/components/radio-group#api-radio-item-content
+	 * @see https://mantle.ngrok.com/components/radio-group
 	 *
 	 * @example
 	 * ```tsx
@@ -532,7 +532,7 @@ const RadioGroup = {
 	/**
 	 * A group of radio list items with connected borders. Use RadioGroup.ListItem as direct children.
 	 *
-	 * @see https://mantle.ngrok.com/components/radio-group#api-radio-list
+	 * @see https://mantle.ngrok.com/components/radio-group
 	 *
 	 * @example
 	 * ```tsx
@@ -556,7 +556,7 @@ const RadioGroup = {
 	/**
 	 * A radio list item that is used inside a RadioGroup.List for connected list-style radio options.
 	 *
-	 * @see https://mantle.ngrok.com/components/radio-group#api-radio-list-item
+	 * @see https://mantle.ngrok.com/components/radio-group
 	 *
 	 * @example
 	 * ```tsx
@@ -582,7 +582,7 @@ const RadioGroup = {
 	/**
 	 * The root radio group component. Manages the state of the children radios where only one can be selected.
 	 *
-	 * @see https://mantle.ngrok.com/components/radio-group#api-radio-group
+	 * @see https://mantle.ngrok.com/components/radio-group
 	 *
 	 * @example
 	 * ```tsx

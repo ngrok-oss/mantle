@@ -51,7 +51,7 @@ const sizingVariants = cva("", {
  * A flag component that displays a flag based on the provided country code.
  * Inspired by [react-flagpack](https://flagpack.xyz/docs/development/react).
  *
- * @see https://mantle.ngrok.com/components/flag#api-flag
+ * @see https://mantle.ngrok.com/components/flag#flag
  *
  * @example
  * ```tsx

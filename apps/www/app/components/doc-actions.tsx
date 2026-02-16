@@ -53,7 +53,7 @@ export function DocActions({ markdownPath }: Props) {
 	}
 
 	return (
-		<SplitButton.Root>
+		<SplitButton.Root className="relative z-50">
 			<SplitButton.PrimaryAction icon={<CopyIcon />} iconPlacement="end" onClick={copyMarkdownPage}>
 				Copy page
 			</SplitButton.PrimaryAction>

@@ -10,7 +10,7 @@ import * as DialogPrimitive from "./primitive.js";
  * A window overlaid on either the primary window or another dialog window.
  * The root stateful component for the Dialog.
  *
- * @see https://mantle.ngrok.com/components/dialog#api-dialog
+ * @see https://mantle.ngrok.com/components/dialog#dialogroot
  *
  * @example
  * ```tsx
@@ -46,7 +46,7 @@ Root.displayName = "Dialog";
 /**
  * A button that opens the dialog.
  *
- * @see https://mantle.ngrok.com/components/dialog#api-dialog-trigger
+ * @see https://mantle.ngrok.com/components/dialog#dialogtrigger
  *
  * @example
  * ```tsx
@@ -107,7 +107,7 @@ type ContentProps = ComponentPropsWithoutRef<typeof DialogPrimitive.Content> & {
  * The container for the dialog content.
  * Renders on top of the overlay and is centered in the viewport.
  *
- * @see https://mantle.ngrok.com/components/dialog#api-dialog-content
+ * @see https://mantle.ngrok.com/components/dialog#dialogcontent
  *
  * @example
  * ```tsx
@@ -183,7 +183,7 @@ Content.displayName = "DialogContent";
 /**
  * Contains the header content of the dialog, including the title and close button.
  *
- * @see https://mantle.ngrok.com/components/dialog#api-dialog-header
+ * @see https://mantle.ngrok.com/components/dialog#dialogheader
  *
  * @example
  * ```tsx
@@ -224,7 +224,7 @@ type CloseIconButtonProps = Partial<Omit<IconButtonProps, "icon">>;
 /**
  * An icon button that closes the dialog when clicked.
  *
- * @see https://mantle.ngrok.com/components/dialog#api-dialog-close-icon-button
+ * @see https://mantle.ngrok.com/components/dialog#dialogcloseiconbutton
  *
  * @example
  * ```tsx
@@ -269,7 +269,7 @@ CloseIconButton.displayName = "DialogCloseIconButton";
 /**
  * Contains the main content of the dialog.
  *
- * @see https://mantle.ngrok.com/components/dialog#api-dialog-body
+ * @see https://mantle.ngrok.com/components/dialog#dialogbody
  *
  * @example
  * ```tsx
@@ -298,7 +298,7 @@ Body.displayName = "DialogBody";
 /**
  * Contains the footer content of the dialog, including action buttons.
  *
- * @see https://mantle.ngrok.com/components/dialog#api-dialog-footer
+ * @see https://mantle.ngrok.com/components/dialog#dialogfooter
  *
  * @example
  * ```tsx
@@ -341,7 +341,7 @@ Footer.displayName = "DialogFooter";
 /**
  * An accessible name to be announced when the dialog is opened.
  *
- * @see https://mantle.ngrok.com/components/dialog#api-dialog-title
+ * @see https://mantle.ngrok.com/components/dialog#dialogtitle
  *
  * @example
  * ```tsx
@@ -380,7 +380,7 @@ Title.displayName = "DialogTitle";
  * Renders as a `div` by default, but can be changed to any other element using
  * the `asChild` prop.
  *
- * @see https://mantle.ngrok.com/components/dialog#api-dialog-description
+ * @see https://mantle.ngrok.com/components/dialog#dialogdescription
  *
  * @example
  * ```tsx
@@ -450,7 +450,7 @@ const Dialog = {
 	 * A window overlaid on either the primary window or another dialog window.
 	 * The root stateful component for the Dialog.
 	 *
-	 * @see https://mantle.ngrok.com/components/dialog#api-dialog
+	 * @see https://mantle.ngrok.com/components/dialog#dialogroot
 	 *
 	 * @example
 	 * ```tsx
@@ -484,7 +484,7 @@ const Dialog = {
 	/**
 	 * Contains the main content of the dialog.
 	 *
-	 * @see https://mantle.ngrok.com/components/dialog#api-dialog-body
+	 * @see https://mantle.ngrok.com/components/dialog#dialogbody
 	 *
 	 * @example
 	 * ```tsx
@@ -509,7 +509,7 @@ const Dialog = {
 	/**
 	 * A button that closes the dialog when clicked.
 	 *
-	 * @see https://mantle.ngrok.com/components/dialog#api-dialog-close
+	 * @see https://mantle.ngrok.com/components/dialog#dialogclose
 	 *
 	 * @example
 	 * ```tsx
@@ -538,7 +538,7 @@ const Dialog = {
 	/**
 	 * An icon button that closes the dialog when clicked.
 	 *
-	 * @see https://mantle.ngrok.com/components/dialog#api-dialog-close-icon-button
+	 * @see https://mantle.ngrok.com/components/dialog#dialogcloseiconbutton
 	 *
 	 * @example
 	 * ```tsx
@@ -565,7 +565,7 @@ const Dialog = {
 	 * The container for the dialog content.
 	 * Renders on top of the overlay and is centered in the viewport.
 	 *
-	 * @see https://mantle.ngrok.com/components/dialog#api-dialog-content
+	 * @see https://mantle.ngrok.com/components/dialog#dialogcontent
 	 *
 	 * @example
 	 * ```tsx
@@ -599,7 +599,7 @@ const Dialog = {
 	/**
 	 * An accessible description to be announced when the dialog is opened.
 	 *
-	 * @see https://mantle.ngrok.com/components/dialog#api-dialog-description
+	 * @see https://mantle.ngrok.com/components/dialog#dialogdescription
 	 *
 	 * @example
 	 * ```tsx
@@ -627,7 +627,7 @@ const Dialog = {
 	/**
 	 * Contains the footer content of the dialog, including action buttons.
 	 *
-	 * @see https://mantle.ngrok.com/components/dialog#api-dialog-footer
+	 * @see https://mantle.ngrok.com/components/dialog#dialogfooter
 	 *
 	 * @example
 	 * ```tsx
@@ -660,7 +660,7 @@ const Dialog = {
 	/**
 	 * Contains the header content of the dialog, including the title and close button.
 	 *
-	 * @see https://mantle.ngrok.com/components/dialog#api-dialog-header
+	 * @see https://mantle.ngrok.com/components/dialog#dialogheader
 	 *
 	 * @example
 	 * ```tsx
@@ -686,7 +686,7 @@ const Dialog = {
 	/**
 	 * The overlay backdrop for the dialog.
 	 *
-	 * @see https://mantle.ngrok.com/components/dialog#api-dialog-overlay
+	 * @see https://mantle.ngrok.com/components/dialog#dialogroot
 	 *
 	 * @example
 	 * ```tsx
@@ -709,7 +709,7 @@ const Dialog = {
 	/**
 	 * The portal container for the dialog.
 	 *
-	 * @see https://mantle.ngrok.com/components/dialog#api-dialog-portal
+	 * @see https://mantle.ngrok.com/components/dialog#dialogroot
 	 *
 	 * @example
 	 * ```tsx
@@ -735,7 +735,7 @@ const Dialog = {
 	/**
 	 * An accessible name to be announced when the dialog is opened.
 	 *
-	 * @see https://mantle.ngrok.com/components/dialog#api-dialog-title
+	 * @see https://mantle.ngrok.com/components/dialog#dialogtitle
 	 *
 	 * @example
 	 * ```tsx
@@ -761,7 +761,7 @@ const Dialog = {
 	/**
 	 * A button that opens the dialog.
 	 *
-	 * @see https://mantle.ngrok.com/components/dialog#api-dialog-trigger
+	 * @see https://mantle.ngrok.com/components/dialog#dialogtrigger
 	 *
 	 * @example
 	 * ```tsx

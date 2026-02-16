@@ -128,7 +128,7 @@ type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
  * as submitting a form or opening a dialog.
  * Renders only a single icon as children with an accessible, screen-reader-only label.
  *
- * @see https://mantle.ngrok.com/components/button#api-icon-button
+ * @see https://mantle.ngrok.com/components/button
  *
  * @example
  * ```tsx

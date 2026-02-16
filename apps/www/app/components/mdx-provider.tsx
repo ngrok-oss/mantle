@@ -200,7 +200,7 @@ function MdxHeading({ as: Component, children, className, id, ...props }: MdxHea
 		<HashLinkHeading id={id}>
 			<Component
 				className={cx(
-					"font-medium inline-block text-strong mt-16 mb-6 [:is(h1,h2,h3,h4,h5,h6)+&]:mt-6",
+					"font-medium text-strong mt-16 mb-6 [:is(h1,h2,h3,h4,h5,h6)+&]:mt-6",
 					Component === "h1" && "text-5xl mt-0",
 					Component === "h2" && "text-3xl",
 					Component === "h3" && "text-2xl",

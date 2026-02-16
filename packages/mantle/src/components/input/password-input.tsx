@@ -28,7 +28,7 @@ type PasswordInputType = Extract<InputType, "text" | "password">;
  * A specialized input component for password entry with a toggle button to show/hide the password value.
  * Provides enhanced security UX by allowing users to verify their input while maintaining privacy.
  *
- * @see https://mantle.ngrok.com/components/input#api-password-input
+ * @see https://mantle.ngrok.com/components/input
  *
  * @example
  * ```tsx

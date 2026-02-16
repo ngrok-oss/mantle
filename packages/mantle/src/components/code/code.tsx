@@ -5,7 +5,7 @@ import { cx } from "../../utils/cx/cx.js";
 /**
  * Marks text to signify a short fragment of inline computer code.
  *
- * @see https://mantle.ngrok.com/components/code#api-code
+ * @see https://mantle.ngrok.com/components/code
  *
  * @example
  * ```tsx
