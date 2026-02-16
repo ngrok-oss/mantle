@@ -9,21 +9,9 @@ catalogs:
     '@phosphor-icons/react':
       specifier: 2.1.10
       version: 2.1.10
-    '@react-router/dev':
-      specifier: 7.13.0
-      version: 7.13.0
-    '@react-router/node':
-      specifier: 7.13.0
-      version: 7.13.0
-    '@react-router/serve':
-      specifier: 7.13.0
-      version: 7.13.0
     happy-dom:
       specifier: 20.6.1
       version: 20.6.1
-    react-router:
-      specifier: 7.13.0
-      version: 7.13.0
     tailwindcss:
       specifier: 4.1.18
       version: 4.1.18
@@ -80,10 +68,10 @@ importers:
         specifier: 'catalog:'
         version: 2.1.10(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@react-router/node':
-        specifier: 'catalog:'
+        specifier: 7.13.0
         version: 7.13.0(react-router@7.13.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(typescript@5.9.3)
       '@react-router/serve':
-        specifier: 'catalog:'
+        specifier: 7.13.0
         version: 7.13.0(react-router@7.13.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(typescript@5.9.3)
       '@tanstack/react-form':
         specifier: 1.28.2
@@ -116,7 +104,7 @@ importers:
         specifier: 5.2.4
         version: 5.2.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       react-router:
-        specifier: 'catalog:'
+        specifier: 7.13.0
         version: 7.13.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       tiny-invariant:
         specifier: 1.3.3
@@ -144,7 +132,7 @@ importers:
         specifier: 0.1.0
         version: 0.1.0(@mdx-js/mdx@3.1.1)(@mdx-js/rollup@3.1.1(rollup@4.57.1))
       '@react-router/dev':
-        specifier: 'catalog:'
+        specifier: 7.13.0
         version: 7.13.0(@react-router/serve@7.13.0(react-router@7.13.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(typescript@5.9.3))(@types/node@24.10.13)(jiti@2.6.1)(lightningcss@1.30.2)(react-router@7.13.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(typescript@5.9.3)(vite@7.3.1(@types/node@24.10.13)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.2))(yaml@2.8.2)
       '@tailwindcss/vite':
         specifier: 4.1.18
