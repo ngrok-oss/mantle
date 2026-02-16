@@ -17,9 +17,9 @@ import {
 import { useEffect, useState } from "react";
 import { Example } from "~/components/example";
 
-export function useHotkey(key, callback) {
+export function useHotkey(key: string, callback: () => void) {
 	useEffect(() => {
-		const keydown = (event) => {
+		const keydown = (event: KeyboardEvent) => {
 			if (event.key === key && (event.metaKey || event.ctrlKey)) {
 				event.preventDefault();
 				callback();
@@ -27,7 +27,7 @@ export function useHotkey(key, callback) {
 		};
 		document.addEventListener("keydown", keydown);
 		return () => document.removeEventListener("keydown", keydown);
-	});
+	}, [key, callback]);
 }
 
 export function CommandDialogDemo() {

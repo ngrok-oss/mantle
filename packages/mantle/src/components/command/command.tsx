@@ -6,6 +6,7 @@ import { Command as CommandPrimitive, useCommandState } from "cmdk";
 import { type ComponentPropsWithoutRef, type ComponentRef, forwardRef } from "react";
 import { cx } from "../../utils/cx/cx.js";
 import { Dialog } from "../dialog/dialog.js";
+import { Separator } from "../separator/separator.js";
 
 type CommandRootProps = ComponentPropsWithoutRef<typeof CommandPrimitive>;
 
@@ -331,18 +332,10 @@ CommandGroup.displayName = "CommandGroup";
  * </Command.Dialog>
  */
 const CommandSeparator = forwardRef<
-	ComponentRef<"div">,
-	ComponentPropsWithoutRef<typeof CommandPrimitive.Separator>
+	ComponentRef<typeof Separator>,
+	ComponentPropsWithoutRef<typeof Separator>
 >(({ className, ...props }, ref) => (
-	<CommandPrimitive.Separator
-		ref={ref}
-		data-slot="command-separator"
-		className={cx(
-			"dark-high-contrast:bg-black high-contrast:bg-black bg-gray-500/20 dark:bg-gray-600/20 -mx-1 h-px",
-			className,
-		)}
-		{...props}
-	/>
+	<Separator ref={ref} data-slot="command-separator" className={cx("-mx-1 my-1 w-auto", className)} {...props} />
 ));
 CommandSeparator.displayName = "CommandSeparator";
 
@@ -557,7 +550,7 @@ const Command = {
 	 */
 	Shortcut: CommandShortcut,
 	/**
-	 * The seprator component for the Command component.
+	 * The separator component for the Command component.
 	 *
 	 * @see https://mantle.ngrok.com/components/command#commandseparator
 	 *
