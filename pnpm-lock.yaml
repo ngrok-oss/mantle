@@ -71,9 +71,6 @@ importers:
       oxlint:
         specifier: 1.47.0
         version: 1.47.0
-      remark-github-blockquote-alert:
-        specifier: 2.0.1
-        version: 2.0.1
       turbo:
         specifier: 2.8.9
         version: 2.8.9
@@ -3489,10 +3486,6 @@ packages:
 
   remark-gfm@4.0.1:
     resolution: {integrity: sha512-1quofZ2RQ9EWdeN34S79+KExV1764+wCUGop5CPL1WGdD0ocPpu91lzPGbwWMECpEpd42kJGQwzRfyov9j4yNg==}
-
-  remark-github-blockquote-alert@2.0.1:
-    resolution: {integrity: sha512-0w0u3/wjBEK555yzm5UUnDCWO38Qk60laA5FvJrnES+YA/+r3hvvLgE/5SpMjaVpPOpVzunXk9caob1NTheM0g==}
-    engines: {node: '>=16'}
 
   remark-mdx-frontmatter@5.2.0:
     resolution: {integrity: sha512-U/hjUYTkQqNjjMRYyilJgLXSPF65qbLPdoESOkXyrwz2tVyhAnm4GUKhfXqOOS9W34M3545xEMq+aMpHgVjEeQ==}
@@ -7453,10 +7446,6 @@ snapshots:
       unified: 11.0.5
     transitivePeerDependencies:
       - supports-color
-
-  remark-github-blockquote-alert@2.0.1:
-    dependencies:
-      unist-util-visit: 5.1.0
 
   remark-mdx-frontmatter@5.2.0:
     dependencies:

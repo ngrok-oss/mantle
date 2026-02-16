@@ -26,7 +26,6 @@
     "@types/node": "24.10.13",
     "oxfmt": "0.32.0",
     "oxlint": "1.47.0",
-    "remark-github-blockquote-alert": "2.0.1",
     "turbo": "2.8.9",
     "vitest": "4.0.18"
   },
