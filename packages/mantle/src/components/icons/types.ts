@@ -5,7 +5,7 @@ import type { ComponentProps } from "react";
  */
 export type InlineIconProps = Omit<
 	ComponentProps<"svg">,
-	"xmlns" | "fill" | "viewBox" | "color"
+	"xmlns" | "fill" | "viewBox" | "color" | "children"
 > & {
 	/**
 	 * The fill color mode of the svg icon.

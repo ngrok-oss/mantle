@@ -3,7 +3,7 @@ import type { InlineIconProps } from "@ngrok/mantle/icons";
 /**
  * An inline svg icon that renders the LinkedIn logo. Fill color is determined by the `color` CSS property.
  */
-export function LinkedInIcon(props: InlineIconProps) {
+export function LinkedInIcon(props: Omit<InlineIconProps, "color">) {
 	return (
 		<svg viewBox="0 0 24 24" {...props}>
 			<circle cx="4.983" cy="5.009" r="2.188" fill="currentColor" />

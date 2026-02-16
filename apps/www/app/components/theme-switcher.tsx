@@ -6,8 +6,12 @@ import { Icon } from "@ngrok/mantle/icon";
 import { AutoThemeIcon, ThemeIcon } from "@ngrok/mantle/icons";
 import { Skeleton } from "@ngrok/mantle/skeleton";
 import { $theme, isTheme, useTheme } from "@ngrok/mantle/theme";
+import type { WithStyleProps } from "@ngrok/mantle/types";
+import type { ComponentProps } from "react";
 
-function ThemeSwitcher() {
+type Props = Pick<ComponentProps<typeof IconButton>, "appearance"> & WithStyleProps;
+
+function ThemeSwitcher({ className, ...props }: Props) {
 	const [currentTheme, setTheme] = useTheme();
 
 	return (
@@ -15,13 +19,15 @@ function ThemeSwitcher() {
 			<DropdownMenu.Trigger asChild>
 				<IconButton
 					type="button"
-					appearance="outlined"
+					appearance="ghost"
+					className={cx("rounded-full", className)}
 					label="Change Theme"
 					icon={
 						<BrowserOnly fallback={<Skeleton className="rounded-full size-5" />}>
 							{() => <AutoThemeIcon className="size-5" />}
 						</BrowserOnly>
 					}
+					{...props}
 				/>
 			</DropdownMenu.Trigger>
 			<DropdownMenu.Content className="shadow-2xl" collisionPadding={{ right: 16 }}>
