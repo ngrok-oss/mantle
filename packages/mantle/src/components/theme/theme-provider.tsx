@@ -570,9 +570,9 @@ type InitialThemeProps = {
 type UseInitialHtmlThemePropsOptions = {
 	className?: string;
 	/**
-	 * Raw `Cookie` header string from the incoming request. Pass this during SSR
-	 * so the server can read the persisted theme and render the correct class,
-	 * avoiding a flash when React hydrates.
+	 * Theme cookie string for SSR theme resolution. Pass only the theme cookie
+	 * pair (via {@link extractThemeCookie}) rather than the full raw `Cookie`
+	 * header to avoid leaking sensitive cookies in serialized loader data.
 	 */
 	ssrCookie?: string;
 };

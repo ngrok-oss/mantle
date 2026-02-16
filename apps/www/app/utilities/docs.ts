@@ -10,12 +10,14 @@ type MdxModule = {
 };
 
 /**
- * Eager glob imports for production builds. All MDX modules are resolved at
+ * Eager glob imports for production SSR builds. All MDX modules are resolved at
  * build time so they can be rendered synchronously during prerendering.
+ * Gated by `import.meta.env.SSR` to avoid bundling all MDX into the client JS.
  */
-const eagerDocModules: Record<string, MdxModule> = import.meta.env.PROD
-	? import.meta.glob<MdxModule>("../docs/**/*.mdx", { eager: true })
-	: {};
+const eagerDocModules: Record<string, MdxModule> =
+	import.meta.env.PROD && import.meta.env.SSR
+		? import.meta.glob<MdxModule>("../docs/**/*.mdx", { eager: true })
+		: {};
 
 /**
  * Lazy glob importers for dev builds. Using lazy imports (no `eager`) allows

@@ -148,7 +148,27 @@ function TableOfContents({ contentRef }: { contentRef: RefObject<HTMLDivElement 
 			return;
 		}
 
-		const observer = new MutationObserver(updateEntries);
+		const observer = new MutationObserver((mutations) => {
+			for (const mutation of mutations) {
+				const nodes = [...mutation.addedNodes, ...mutation.removedNodes];
+				for (const node of nodes) {
+					if (!(node instanceof HTMLElement)) {
+						continue;
+					}
+
+					const tagName = node.tagName;
+					if ((tagName === "H1" || tagName === "H2" || tagName === "H3") && node.id) {
+						updateEntries();
+						return;
+					}
+
+					if (node.querySelector("h1[id], h2[id], h3[id]")) {
+						updateEntries();
+						return;
+					}
+				}
+			}
+		});
 		observer.observe(container, { childList: true, subtree: true });
 		return () => {
 			observer.disconnect();
