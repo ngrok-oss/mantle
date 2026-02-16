@@ -358,7 +358,7 @@ const Combobox = {
 	/**
 	 * Root component for a combobox. Provides a combobox store that controls the state of Combobox components.
 	 *
-	 * @see https://mantle.ngrok.com/components/combobox#api-combobox-root
+	 * @see https://mantle.ngrok.com/components/combobox#comboboxroot
 	 *
 	 * @example
 	 * ```tsx
@@ -375,7 +375,7 @@ const Combobox = {
 	/**
 	 * Renders a popover that contains combobox content, e.g. Combobox.Items, Combobox.Groups, and Combobox.Separators.
 	 *
-	 * @see https://mantle.ngrok.com/components/combobox#api-combobox-content
+	 * @see https://mantle.ngrok.com/components/combobox#comboboxcontent
 	 *
 	 * @example
 	 * ```tsx
@@ -392,7 +392,7 @@ const Combobox = {
 	/**
 	 * Renders a group for Combobox.Item elements.
 	 *
-	 * @see https://mantle.ngrok.com/components/combobox#api-combobox-group
+	 * @see https://mantle.ngrok.com/components/combobox#comboboxgroup
 	 *
 	 * @example
 	 * ```tsx
@@ -412,7 +412,7 @@ const Combobox = {
 	/**
 	 * Renders a label in a combobox group.
 	 *
-	 * @see https://mantle.ngrok.com/components/combobox#api-combobox-group-label
+	 * @see https://mantle.ngrok.com/components/combobox#comboboxgrouplabel
 	 *
 	 * @example
 	 * ```tsx
@@ -432,7 +432,7 @@ const Combobox = {
 	/**
 	 * Renders a combobox input element that can be used to filter a list of items.
 	 *
-	 * @see https://mantle.ngrok.com/components/combobox#api-combobox-input
+	 * @see https://mantle.ngrok.com/components/combobox#comboboxinput
 	 *
 	 * @example
 	 * ```tsx
@@ -449,7 +449,7 @@ const Combobox = {
 	/**
 	 * Renders a combobox item inside a Combobox.Content component.
 	 *
-	 * @see https://mantle.ngrok.com/components/combobox#api-combobox-item
+	 * @see https://mantle.ngrok.com/components/combobox#comboboxitem
 	 *
 	 * @example
 	 * ```tsx
@@ -467,7 +467,7 @@ const Combobox = {
 	/**
 	 * Highlights the match between the current Combobox.Input value and parent Combobox.Item value.
 	 *
-	 * @see https://mantle.ngrok.com/components/combobox#api-combobox-item-value
+	 * @see https://mantle.ngrok.com/components/combobox#comboboxitemvalue
 	 *
 	 * @example
 	 * ```tsx
@@ -490,7 +490,7 @@ const Combobox = {
 	/**
 	 * Renders a separator between Combobox.Items or Combobox.Groups.
 	 *
-	 * @see https://mantle.ngrok.com/components/combobox#api-combobox-separator
+	 * @see https://mantle.ngrok.com/components/combobox#comboboxseparator
 	 *
 	 * @example
 	 * ```tsx

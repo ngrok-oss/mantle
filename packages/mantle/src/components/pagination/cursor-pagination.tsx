@@ -51,7 +51,7 @@ type CursorPaginationProps = ComponentProps<"div"> & {
  * of data. It doesn't let you jump to a specific page or know how many total pages
  * there are, but it's more efficient for large or real-time data sets.
  *
- * @see https://mantle.ngrok.com/components/cursor-pagination#api-cursor-pagination
+ * @see https://mantle.ngrok.com/components/pagination#cursorpaginationroot
  *
  * @example
  * ```tsx
@@ -107,7 +107,7 @@ type CursorButtonsProps = Omit<ComponentProps<typeof ButtonGroup>, "appearance">
 /**
  * A pair of buttons for navigating between pages of data when using cursor-based pagination.
  *
- * @see https://mantle.ngrok.com/components/cursor-pagination#api-cursor-buttons
+ * @see https://mantle.ngrok.com/components/pagination#cursorpaginationbuttons
  *
  * @example
  * ```tsx
@@ -166,7 +166,7 @@ type CursorPageSizeSelectProps = Omit<ComponentProps<typeof Select.Trigger>, "ch
 /**
  * A select input for changing the number of items per page when using cursor-based pagination.
  *
- * @see https://mantle.ngrok.com/components/cursor-pagination#api-cursor-page-size-select
+ * @see https://mantle.ngrok.com/components/pagination#cursorpaginationpagesizeselect
  *
  * @example
  * ```tsx
@@ -230,7 +230,7 @@ type CursorPageSizeValueProps = Omit<ComponentProps<"span">, "children"> & WithA
 /**
  * Displays the current page size when using cursor-based pagination as a read-only value.
  *
- * @see https://mantle.ngrok.com/components/cursor-pagination#api-cursor-page-size-value
+ * @see https://mantle.ngrok.com/components/pagination#cursorpaginationpagesizevalue
  *
  * @example
  * ```tsx
@@ -264,7 +264,7 @@ PageSizeValue.displayName = "CursorPageSizeValue";
  * of data. It doesn't let you jump to a specific page or know how many total pages
  * there are, but it's more efficient for large or real-time data sets.
  *
- * @see https://mantle.ngrok.com/components/cursor-pagination
+ * @see https://mantle.ngrok.com/components/pagination
  *
  * @example
  * ```tsx
@@ -283,7 +283,7 @@ const CursorPagination = {
 	/**
 	 * The root container of the cursor pagination component.
 	 *
-	 * @see https://mantle.ngrok.com/components/cursor-pagination#api-cursor-pagination
+	 * @see https://mantle.ngrok.com/components/pagination#cursorpaginationroot
 	 *
 	 * @example
 	 * ```tsx
@@ -302,7 +302,7 @@ const CursorPagination = {
 	/**
 	 * A pair of buttons for navigating between pages of data when using cursor-based pagination.
 	 *
-	 * @see https://mantle.ngrok.com/components/cursor-pagination#api-cursor-buttons
+	 * @see https://mantle.ngrok.com/components/pagination#cursorpaginationbuttons
 	 *
 	 * @example
 	 * ```tsx
@@ -318,7 +318,7 @@ const CursorPagination = {
 	/**
 	 * A select input for changing the number of items per page when using cursor-based pagination.
 	 *
-	 * @see https://mantle.ngrok.com/components/cursor-pagination#api-cursor-page-size-select
+	 * @see https://mantle.ngrok.com/components/pagination#cursorpaginationpagesizeselect
 	 *
 	 * @example
 	 * ```tsx
@@ -332,7 +332,7 @@ const CursorPagination = {
 	/**
 	 * Displays the current page size when using cursor-based pagination as a read-only value.
 	 *
-	 * @see https://mantle.ngrok.com/components/cursor-pagination#api-cursor-page-size-value
+	 * @see https://mantle.ngrok.com/components/pagination#cursorpaginationpagesizevalue
 	 *
 	 * @example
 	 * ```tsx

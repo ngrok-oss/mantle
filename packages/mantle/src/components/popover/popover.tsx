@@ -7,7 +7,7 @@ import { cx } from "../../utils/cx/cx.js";
  * A floating overlay that displays rich content in a portal, triggered by a button.
  * This is the root, stateful component that manages the open/closed state of the popover.
  *
- * @see https://mantle.ngrok.com/components/popover#api-popover
+ * @see https://mantle.ngrok.com/components/popover#popoverroot
  *
  * @example
  * ```tsx
@@ -29,7 +29,7 @@ Root.displayName = "Popover";
 /**
  * The trigger button that opens the popover.
  *
- * @see https://mantle.ngrok.com/components/popover#api-popover-trigger
+ * @see https://mantle.ngrok.com/components/popover#popovertrigger
  *
  * @example
  * ```tsx
@@ -51,7 +51,7 @@ Trigger.displayName = "PopoverTrigger";
 /**
  * An optional element to position the PopoverContent against. If this part is not used, the content will position alongside the PopoverTrigger.
  *
- * @see https://mantle.ngrok.com/components/popover#api-popover-anchor
+ * @see https://mantle.ngrok.com/components/popover#popoveranchor
  *
  * @example
  * ```tsx
@@ -76,7 +76,7 @@ Anchor.displayName = "PopoverAnchor";
 /**
  * A button that closes an open popover.
  *
- * @see https://mantle.ngrok.com/components/popover#api-popover-close
+ * @see https://mantle.ngrok.com/components/popover#popoverclose
  *
  * @example
  * ```tsx
@@ -113,7 +113,7 @@ type PopoverContentProps = ComponentPropsWithoutRef<typeof PopoverPrimitive.Cont
 /**
  * The content to render inside the popover.
  *
- * @see https://mantle.ngrok.com/components/popover#api-popover-content
+ * @see https://mantle.ngrok.com/components/popover#popovercontent
  *
  * @example
  * ```tsx
@@ -190,7 +190,7 @@ const Popover = {
 	/**
 	 * The root, stateful component that manages the open/closed state of the popover.
 	 *
-	 * @see https://mantle.ngrok.com/components/popover#api-popover
+	 * @see https://mantle.ngrok.com/components/popover#popoverroot
 	 *
 	 * @example
 	 * ```tsx
@@ -208,7 +208,7 @@ const Popover = {
 	/**
 	 * An optional element to position the PopoverContent against. If not used, content positions alongside the trigger.
 	 *
-	 * @see https://mantle.ngrok.com/components/popover#api-popover-anchor
+	 * @see https://mantle.ngrok.com/components/popover#popoveranchor
 	 *
 	 * @example
 	 * ```tsx
@@ -229,7 +229,7 @@ const Popover = {
 	/**
 	 * A button that closes an open popover. Can be placed anywhere within the popover content.
 	 *
-	 * @see https://mantle.ngrok.com/components/popover#api-popover-close
+	 * @see https://mantle.ngrok.com/components/popover#popoverclose
 	 *
 	 * @example
 	 * ```tsx
@@ -253,7 +253,7 @@ const Popover = {
 	/**
 	 * The content to render inside the popover. Appears in a portal with rich styling and animations.
 	 *
-	 * @see https://mantle.ngrok.com/components/popover#api-popover-content
+	 * @see https://mantle.ngrok.com/components/popover#popovercontent
 	 *
 	 * @example
 	 * ```tsx
@@ -275,7 +275,7 @@ const Popover = {
 	/**
 	 * The trigger button that opens the popover when clicked or focused.
 	 *
-	 * @see https://mantle.ngrok.com/components/popover#api-popover-trigger
+	 * @see https://mantle.ngrok.com/components/popover#popovertrigger
 	 *
 	 * @example
 	 * ```tsx
