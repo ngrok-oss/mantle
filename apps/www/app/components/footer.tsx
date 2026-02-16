@@ -164,7 +164,7 @@ export function PrimaryFooter({ className, ...props }: Props) {
 								</Popover.Trigger>
 								<Popover.Content className="grid grid-cols-1 gap-2 p-3">
 									<a
-										href="/use-cases/developer-preview"
+										href="https://ngrok.com/use-cases/developer-preview"
 										className="text-muted hover:text-strong font-mono text-[0.8125rem] leading-[1.5em] font-medium"
 									>
 										Share localhost
@@ -176,7 +176,7 @@ export function PrimaryFooter({ className, ...props }: Props) {
 										Connect MCPs to AI providers
 									</DocsLink>
 									<a
-										href="/use-cases/webhook-testing"
+										href="https://ngrok.com/use-cases/webhook-testing"
 										className="text-muted hover:text-strong font-mono text-[0.8125rem] leading-[1.5em] font-medium"
 									>
 										Test webhooks
@@ -217,19 +217,19 @@ export function PrimaryFooter({ className, ...props }: Props) {
 								Guides
 							</DocsLink>
 							<a
-								href="/pricing"
+								href="https://ngrok.com/pricing"
 								className="text-muted hover:text-strong font-mono text-[0.8125rem] leading-[1.5em] font-medium"
 							>
 								Pricing
 							</a>
 							<a
-								href="/download"
+								href="https://ngrok.com/download"
 								className="text-muted hover:text-strong font-mono text-[0.8125rem] leading-[1.5em] font-medium"
 							>
 								Download
 							</a>
 							<a
-								href="/security"
+								href="https://ngrok.com/security"
 								className="text-muted hover:text-strong font-mono text-[0.8125rem] leading-[1.5em] font-medium"
 							>
 								Security
@@ -241,7 +241,7 @@ export function PrimaryFooter({ className, ...props }: Props) {
 								Trust
 							</a>
 							<a
-								href="/customers"
+								href="https://ngrok.com/customers"
 								className="text-muted hover:text-strong font-mono text-[0.8125rem] leading-[1.5em] font-medium"
 							>
 								Case studies
@@ -253,13 +253,13 @@ export function PrimaryFooter({ className, ...props }: Props) {
 								Integrations
 							</DocsLink>
 							<a
-								href="/support"
+								href="https://ngrok.com/support"
 								className="text-muted hover:text-strong font-mono text-[0.8125rem] leading-[1.5em] font-medium"
 							>
 								Support
 							</a>
 							<a
-								href="/abuse"
+								href="https://ngrok.com/abuse"
 								className="text-muted hover:text-strong font-mono text-[0.8125rem] leading-[1.5em] font-medium"
 							>
 								Abuse
@@ -280,43 +280,43 @@ export function PrimaryFooter({ className, ...props }: Props) {
 						</h3>
 						<div className="flex flex-col gap-2">
 							<a
-								href="/about"
+								href="https://ngrok.com/about"
 								className="text-muted hover:text-strong font-mono text-[0.8125rem] leading-[1.5em] font-medium"
 							>
 								About
 							</a>
 							<a
-								href="/contact"
+								href="https://ngrok.com/contact"
 								className="text-muted hover:text-strong font-mono text-[0.8125rem] leading-[1.5em] font-medium"
 							>
 								Contact
 							</a>
 							<a
-								href="/blog"
+								href="https://ngrok.com/blog"
 								className="text-muted hover:text-strong font-mono text-[0.8125rem] leading-[1.5em] font-medium"
 							>
 								Blog
 							</a>
 							<a
-								href="/newsletter"
+								href="https://ngrok.com/newsletter"
 								className="text-muted hover:text-strong font-mono text-[0.8125rem] leading-[1.5em] font-medium"
 							>
 								Newsletter
 							</a>
 							<a
-								href="/press"
+								href="https://ngrok.com/press"
 								className="text-muted hover:text-strong font-mono text-[0.8125rem] leading-[1.5em] font-medium"
 							>
 								Press
 							</a>
 							<a
-								href="/brand"
+								href="https://ngrok.com/brand"
 								className="text-muted hover:text-strong font-mono text-[0.8125rem] leading-[1.5em] font-medium"
 							>
 								Brand
 							</a>
 							<a
-								href="/careers"
+								href="https://ngrok.com/careers"
 								className="text-muted hover:text-strong font-mono text-[0.8125rem] leading-[1.5em] font-medium"
 							>
 								Careers
@@ -333,25 +333,25 @@ export function PrimaryFooter({ className, ...props }: Props) {
 								</Popover.Trigger>
 								<Popover.Content className="grid grid-cols-1 gap-2 p-3">
 									<a
-										href="/tos"
+										href="https://ngrok.com/tos"
 										className="text-muted hover:text-strong font-mono text-[0.8125rem] leading-[1.5em] font-medium"
 									>
 										Terms of service
 									</a>
 									<a
-										href="/privacy"
+										href="https://ngrok.com/privacy"
 										className="text-muted hover:text-strong font-mono text-[0.8125rem] leading-[1.5em] font-medium"
 									>
 										Privacy policy
 									</a>
 									<a
-										href="/privacy-preferences"
+										href="https://ngrok.com/privacy-preferences"
 										className="text-muted hover:text-strong font-mono text-[0.8125rem] leading-[1.5em] font-medium"
 									>
 										Privacy preferences
 									</a>
 									<a
-										href="/dpa"
+										href="https://ngrok.com/dpa"
 										className="text-muted hover:text-strong font-mono text-[0.8125rem] leading-[1.5em] font-medium"
 									>
 										DPA
