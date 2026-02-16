@@ -335,7 +335,12 @@ const CommandSeparator = forwardRef<
 	ComponentRef<typeof Separator>,
 	ComponentPropsWithoutRef<typeof Separator>
 >(({ className, ...props }, ref) => (
-	<Separator ref={ref} data-slot="command-separator" className={cx("-mx-1 my-1 w-auto", className)} {...props} />
+	<Separator
+		ref={ref}
+		data-slot="command-separator"
+		className={cx("-mx-1 my-1 w-auto", className)}
+		{...props}
+	/>
 ));
 CommandSeparator.displayName = "CommandSeparator";
 
