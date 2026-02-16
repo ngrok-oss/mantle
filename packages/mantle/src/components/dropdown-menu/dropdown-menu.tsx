@@ -11,7 +11,7 @@ import { Separator } from "../separator/separator.js";
  * A menu of options or actions, triggered by a button.
  * This is the root, stateful component that manages the open/closed state of the dropdown menu.
  *
- * @see https://mantle.ngrok.com/components/dropdown-menu#api-reference
+ * @see https://mantle.ngrok.com/components/dropdown-menu#dropdownmenuroot
  *
  * @example
  * ```tsx
@@ -34,7 +34,7 @@ Root.displayName = "DropdownMenu";
 /**
  * The trigger button that opens the dropdown menu.
  *
- * @see https://mantle.ngrok.com/components/dropdown-menu#api-reference
+ * @see https://mantle.ngrok.com/components/dropdown-menu#dropdownmenutrigger
  *
  * @example
  * ```tsx
@@ -71,7 +71,7 @@ RadioGroup.displayName = "DropdownMenuRadioGroup";
 /**
  * A trigger for a dropdown menu sub-menu.
  *
- * @see https://mantle.ngrok.com/components/dropdown-menu#api-reference
+ * @see https://mantle.ngrok.com/components/dropdown-menu#dropdownmenusubtrigger
  */
 const SubTrigger = forwardRef<
 	ComponentRef<typeof DropdownMenuPrimitive.SubTrigger>,
@@ -101,7 +101,7 @@ SubTrigger.displayName = "DropdownMenuSubTrigger";
 /**
  * The content container for a dropdown menu sub-menu.
  *
- * @see https://mantle.ngrok.com/components/dropdown-menu#api-reference
+ * @see https://mantle.ngrok.com/components/dropdown-menu#dropdownmenusubcontent
  */
 const SubContent = forwardRef<
 	ComponentRef<typeof DropdownMenuPrimitive.SubContent>,
@@ -183,7 +183,7 @@ Content.displayName = "DropdownMenuContent";
 /**
  * An item in the dropdown menu.
  *
- * @see https://mantle.ngrok.com/components/dropdown-menu#api-reference
+ * @see https://mantle.ngrok.com/components/dropdown-menu#dropdownmenuitem
  *
  * @example
  * ```tsx
@@ -225,7 +225,7 @@ Item.displayName = "DropdownMenuItem";
 /**
  * A menu item with a checkbox that can be controlled or uncontrolled.
  *
- * @see https://mantle.ngrok.com/components/dropdown-menu#api-reference
+ * @see https://mantle.ngrok.com/components/dropdown-menu#dropdownmenucheckboxitem
  */
 const CheckboxItem = forwardRef<
 	ComponentRef<typeof DropdownMenuPrimitive.CheckboxItem>,
@@ -264,7 +264,7 @@ type DropdownMenuRadioItemProps = ComponentPropsWithoutRef<
  * A menu item with a radio button that can be controlled or uncontrolled.
  * Used within a RadioGroup to create a set of mutually exclusive options.
  *
- * @see https://mantle.ngrok.com/components/dropdown-menu#api-reference
+ * @see https://mantle.ngrok.com/components/dropdown-menu#dropdownmenuradioitem
  */
 const RadioItem = forwardRef<ComponentRef<"input">, DropdownMenuRadioItemProps>(
 	({ className, children, ...props }, ref) => (
@@ -294,7 +294,7 @@ RadioItem.displayName = "DropdownMenuRadioItem";
 /**
  * A label for a group of dropdown menu items.
  *
- * @see https://mantle.ngrok.com/components/dropdown-menu#api-reference
+ * @see https://mantle.ngrok.com/components/dropdown-menu#dropdownmenulabel
  */
 const Label = forwardRef<
 	ComponentRef<typeof DropdownMenuPrimitive.Label>,
@@ -313,7 +313,7 @@ Label.displayName = "DropdownMenuLabel";
 /**
  * A visual separator between dropdown menu items or groups.
  *
- * @see https://mantle.ngrok.com/components/dropdown-menu#api-reference
+ * @see https://mantle.ngrok.com/components/dropdown-menu#dropdownmenuseparator
  */
 const DropdownSeparator = forwardRef<
 	ComponentRef<typeof Separator>,
@@ -354,7 +354,7 @@ const DropdownMenu = {
 	/**
 	 * The root, stateful component that manages the open/closed state of the dropdown menu.
 	 *
-	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-reference
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#dropdownmenuroot
 	 *
 	 * @example
 	 * ```tsx
@@ -372,7 +372,7 @@ const DropdownMenu = {
 	/**
 	 * A checkbox item in the dropdown menu that can be toggled on and off.
 	 *
-	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-reference
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#dropdownmenucheckboxitem
 	 *
 	 * @example
 	 * ```tsx
@@ -407,7 +407,7 @@ const DropdownMenu = {
 	/**
 	 * A group container for organizing related dropdown menu items.
 	 *
-	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-reference
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#dropdownmenugroup
 	 *
 	 * @example
 	 * ```tsx
@@ -427,7 +427,7 @@ const DropdownMenu = {
 	/**
 	 * A standard item in the dropdown menu that can be selected or activated.
 	 *
-	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-reference
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#dropdownmenuitem
 	 *
 	 * @example
 	 * ```tsx
@@ -448,7 +448,7 @@ const DropdownMenu = {
 	/**
 	 * A label for grouping and describing sections within the dropdown menu.
 	 *
-	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-reference
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#dropdownmenulabel
 	 *
 	 * @example
 	 * ```tsx
@@ -466,7 +466,7 @@ const DropdownMenu = {
 	/**
 	 * A radio group container for exclusive selection within the dropdown menu.
 	 *
-	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-reference
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#dropdownmenuradiogroup
 	 *
 	 * @example
 	 * ```tsx
@@ -485,7 +485,7 @@ const DropdownMenu = {
 	/**
 	 * A radio item in the dropdown menu where only one item in the group can be selected.
 	 *
-	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-reference
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#dropdownmenuradioitem
 	 *
 	 * @example
 	 * ```tsx
@@ -505,7 +505,7 @@ const DropdownMenu = {
 	/**
 	 * A visual separator for dividing sections within the dropdown menu.
 	 *
-	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-reference
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#dropdownmenuseparator
 	 *
 	 * @example
 	 * ```tsx
@@ -524,7 +524,7 @@ const DropdownMenu = {
 	/**
 	 * A keyboard shortcut indicator for dropdown menu items.
 	 *
-	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-reference
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#dropdownmenushortcut
 	 *
 	 * @example
 	 * ```tsx
@@ -543,7 +543,7 @@ const DropdownMenu = {
 	/**
 	 * A submenu container for creating nested dropdown menus.
 	 *
-	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-reference
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#dropdownmenusub
 	 *
 	 * @example
 	 * ```tsx
@@ -565,7 +565,7 @@ const DropdownMenu = {
 	/**
 	 * The content container for submenu items.
 	 *
-	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-reference
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#dropdownmenusubcontent
 	 *
 	 * @example
 	 * ```tsx
@@ -587,7 +587,7 @@ const DropdownMenu = {
 	/**
 	 * The trigger item that opens a submenu when hovered or focused.
 	 *
-	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-reference
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#dropdownmenusubtrigger
 	 *
 	 * @example
 	 * ```tsx
@@ -609,7 +609,7 @@ const DropdownMenu = {
 	/**
 	 * The trigger button that opens the dropdown menu.
 	 *
-	 * @see https://mantle.ngrok.com/components/dropdown-menu#api-reference
+	 * @see https://mantle.ngrok.com/components/dropdown-menu#dropdownmenutrigger
 	 *
 	 * @example
 	 * ```tsx

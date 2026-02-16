@@ -204,3 +204,91 @@ import { RadioGroup } from "@ngrok/mantle/radio-group";
 	</RadioGroup.Card>
 </RadioGroup.Root>
 ```
+
+## API Reference
+
+### RadioGroup.Root
+
+A group of radio items. Manages state so only one item can be selected at a time. Unstyled and simple.
+
+All props from [Headless UI RadioGroup](https://headlessui.com/react/radio-group), including:
+
+| Prop            | Type                      | Default | Description                                                    |
+| :-------------- | :------------------------ | :------ | :------------------------------------------------------------- |
+| `value?`        | `string`                  |         | The controlled value of the selected radio item.               |
+| `defaultValue?` | `string`                  |         | The default value when uncontrolled.                           |
+| `onChange?`     | `(value: string) => void` |         | Event handler called when the selected value changes.          |
+| `disabled?`     | `boolean`                 | `false` | When `true`, prevents interaction with all items in the group. |
+| `name?`         | `string`                  |         | The name used when using the radio group inside a form.        |
+
+### RadioGroup.Item
+
+A simple radio item. The conventional use-case for basic radio options. Must be a child of `RadioGroup.Root`.
+
+| Prop        | Type      | Default | Description                                                    |
+| :---------- | :-------- | :------ | :------------------------------------------------------------- |
+| `value`     | `string`  |         | The unique value of the radio item.                            |
+| `disabled?` | `boolean` |         | When `true`, prevents the user from interacting with the item. |
+
+### RadioGroup.Indicator
+
+The selection indicator for any radio item. By default, renders a circle that changes color when checked. Use as a child of `RadioGroup.Item`, `RadioGroup.ListItem`, or `RadioGroup.Card`.
+
+Accepts a render-props function `(context) => ReactNode` as children for custom indicators. The context includes `checked`, `disabled`, `focus`, `hover`, and `autofocus`.
+
+### RadioGroup.ItemContent
+
+The content wrapper for any radio item. Wrap labels, descriptions, or other content inside.
+
+All props from [div](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes), plus:
+
+| Prop       | Type      | Default | Description                                                                     |
+| :--------- | :-------- | :------ | :------------------------------------------------------------------------------ |
+| `asChild?` | `boolean` | `false` | Use the `asChild` prop to render a custom element instead of the default `div`. |
+
+### RadioGroup.ButtonGroup
+
+An inline group of radio buttons rendered as a horizontal segmented control. Use `RadioGroup.Button` as direct children.
+
+Same props as `RadioGroup.Root`.
+
+### RadioGroup.Button
+
+A radio button used inside `RadioGroup.ButtonGroup` for inline grouped radio options.
+
+| Prop        | Type      | Default | Description                                                      |
+| :---------- | :-------- | :------ | :--------------------------------------------------------------- |
+| `value`     | `string`  |         | The unique value of the radio button.                            |
+| `disabled?` | `boolean` |         | When `true`, prevents the user from interacting with the button. |
+
+### RadioGroup.List
+
+A group of radio list items with connected borders. Use `RadioGroup.ListItem` as direct children.
+
+Same props as `RadioGroup.Root`.
+
+### RadioGroup.ListItem
+
+A radio list item used inside `RadioGroup.List` for connected list-style radio options with borders and padding.
+
+| Prop        | Type      | Default | Description                                                    |
+| :---------- | :-------- | :------ | :------------------------------------------------------------- |
+| `value`     | `string`  |         | The unique value of the radio item.                            |
+| `disabled?` | `boolean` |         | When `true`, prevents the user from interacting with the item. |
+
+### RadioGroup.Card
+
+A radio card item with enhanced styling for card-based radio options.
+
+| Prop        | Type      | Default | Description                                                    |
+| :---------- | :-------- | :------ | :------------------------------------------------------------- |
+| `value`     | `string`  |         | The unique value of the radio card.                            |
+| `disabled?` | `boolean` |         | When `true`, prevents the user from interacting with the card. |
+
+### RadioGroup.InputSandbox
+
+A sandbox container for input elements composed within radio group items. Prevents default radio selection behavior when interacting with the input.
+
+| Prop       | Type        | Default | Description                                          |
+| :--------- | :---------- | :------ | :--------------------------------------------------- |
+| `children` | `ReactNode` |         | A single input element to render inside the sandbox. |
