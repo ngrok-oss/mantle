@@ -11,19 +11,20 @@ function docRoute(path: string) {
 
 export default [
 	index("./routes/_index.tsx"),
+	route("index.md", "./routes/$.md.tsx", { id: "docs-index-md" }),
 
 	// MDX docs: auto-discovers docs from app/docs/**/*.mdx
 	// Handles both /path and /path.md URLs (returns HTML or raw markdown respectively)
 	...docRoute("philosophy"),
 	...docRoute("components/separator"),
 	...docRoute("components/split-button"),
+	...docRoute("base/breakpoints"),
+	...docRoute("base/shadows"),
+	...docRoute("base/tailwind-variants"),
+	...docRoute("base/typography"),
+	...docRoute("base/colors"),
+	...docRoute("hooks"),
 
-	route("base/breakpoints", "./routes/base.breakpoints.tsx"),
-	route("base/colors", "./routes/base.colors.tsx"),
-	route("base/shadows", "./routes/base.shadows.tsx"),
-	route("base/tailwind-variants", "./routes/base.tailwind-variants.tsx"),
-	route("base/typography", "./routes/base.typography.tsx"),
-	route("hooks", "./routes/hooks.tsx"),
 	route("components/inline-code", "./routes/components._redirect.inline-code.tsx"),
 	route("components/alert-dialog", "./routes/components.alert-dialog.tsx"),
 	route("components/alert", "./routes/components.alert.tsx"),

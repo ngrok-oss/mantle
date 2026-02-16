@@ -1,0 +1,440 @@
+---
+title: Colors
+description: Color system for the mantle design system with automatic dark and high contrast mode support
+---
+
+import { Palette, Swatch } from "~/components/palette";
+import { BlackWhiteDemo } from "~/features/colors-demo";
+
+# Colors
+
+Colors are a key component of any design system. They are used to convey meaning, attract
+attention, and provide feedback. Mantle's color system is designed to be accessible
+and flexible with dark and high contrast modes.
+
+## Tailwind
+
+Mantle uses Tailwind under the hood for all its CSS styling. However, we differ from
+Tailwind when it comes to colors. Mantle provides a full color library that automatically
+provides dark and high contrast modes. This is different from standard Tailwind usage
+that _requires_ dark class variations. By simply specifying light colors provided
+by Mantle, you'll get dark and high contrast modes for free. If you require
+additional customization, you can provide dark variant classes as an override.
+
+## Variables
+
+Mantle's colors are delivered as CSS variables via Tailwind's API e.g.
+`.text-blue-500`. They can be directly accessed via `var(--color-blue-500)` and use `oklch()` color space.
+
+## Black and White Color Variables
+
+Mantle overrides what "black" and "white" mean depending on the theme. We transformed
+these colors to be semantic colors instead of literal colors. For dark modes, we swap them
+so that white is actually black and vice versa. Pay attention to the example below when
+swapping between our themes!
+
+<BlackWhiteDemo />
+
+## Overrides
+
+Most colors should appropriately swap for sensible values in dark and high contrast modes.
+However, there are often cases where you'll need to specify an override. The
+`dark:` variant is well-documented on [Tailwind's website](https://tailwindcss.com/docs/dark-mode).
+Mantle provides additional variants for high contrast and dark high contrast mode with
+`high-contrast:` and `dark-high-contrast:` respectively.
+
+## Functional Colors
+
+Mantle generally limits its color choices to the following functional colors for primary
+actions, and various states like danger and warnings.
+
+### Neutral
+
+<Palette>
+	<Swatch className="bg-neutral-950">950</Swatch>
+	<Swatch className="bg-neutral-900">900</Swatch>
+	<Swatch className="bg-neutral-800">800</Swatch>
+	<Swatch className="bg-neutral-700">700</Swatch>
+	<Swatch className="bg-neutral-600">600</Swatch>
+	<Swatch className="bg-neutral-500">500</Swatch>
+	<Swatch className="bg-neutral-400">400</Swatch>
+	<Swatch className="bg-neutral-300">300</Swatch>
+	<Swatch className="bg-neutral-200">200</Swatch>
+	<Swatch className="bg-neutral-100">100</Swatch>
+	<Swatch className="bg-neutral-50">50</Swatch>
+</Palette>
+
+### Accent
+
+<Palette>
+	<Swatch className="bg-accent-950">950</Swatch>
+	<Swatch className="bg-accent-900">900</Swatch>
+	<Swatch className="bg-accent-800">800</Swatch>
+	<Swatch className="bg-accent-700">700</Swatch>
+	<Swatch className="bg-accent-600">600</Swatch>
+	<Swatch className="bg-accent-500">500</Swatch>
+	<Swatch className="bg-accent-400">400</Swatch>
+	<Swatch className="bg-accent-300">300</Swatch>
+	<Swatch className="bg-accent-200">200</Swatch>
+	<Swatch className="bg-accent-100">100</Swatch>
+	<Swatch className="bg-accent-50">50</Swatch>
+</Palette>
+
+### Info
+
+<Palette>
+	<Swatch className="bg-info-950">950</Swatch>
+	<Swatch className="bg-info-900">900</Swatch>
+	<Swatch className="bg-info-800">800</Swatch>
+	<Swatch className="bg-info-700">700</Swatch>
+	<Swatch className="bg-info-600">600</Swatch>
+	<Swatch className="bg-info-500">500</Swatch>
+	<Swatch className="bg-info-400">400</Swatch>
+	<Swatch className="bg-info-300">300</Swatch>
+	<Swatch className="bg-info-200">200</Swatch>
+	<Swatch className="bg-info-100">100</Swatch>
+	<Swatch className="bg-info-50">50</Swatch>
+</Palette>
+
+### Success
+
+<Palette>
+	<Swatch className="bg-success-950">950</Swatch>
+	<Swatch className="bg-success-900">900</Swatch>
+	<Swatch className="bg-success-800">800</Swatch>
+	<Swatch className="bg-success-700">700</Swatch>
+	<Swatch className="bg-success-600">600</Swatch>
+	<Swatch className="bg-success-500">500</Swatch>
+	<Swatch className="bg-success-400">400</Swatch>
+	<Swatch className="bg-success-300">300</Swatch>
+	<Swatch className="bg-success-200">200</Swatch>
+	<Swatch className="bg-success-100">100</Swatch>
+	<Swatch className="bg-success-50">50</Swatch>
+</Palette>
+
+### Danger
+
+<Palette>
+	<Swatch className="bg-danger-950">950</Swatch>
+	<Swatch className="bg-danger-900">900</Swatch>
+	<Swatch className="bg-danger-800">800</Swatch>
+	<Swatch className="bg-danger-700">700</Swatch>
+	<Swatch className="bg-danger-600">600</Swatch>
+	<Swatch className="bg-danger-500">500</Swatch>
+	<Swatch className="bg-danger-400">400</Swatch>
+	<Swatch className="bg-danger-300">300</Swatch>
+	<Swatch className="bg-danger-200">200</Swatch>
+	<Swatch className="bg-danger-100">100</Swatch>
+	<Swatch className="bg-danger-50">50</Swatch>
+</Palette>
+
+### Warning
+
+<Palette>
+	<Swatch className="bg-warning-950">950</Swatch>
+	<Swatch className="bg-warning-900">900</Swatch>
+	<Swatch className="bg-warning-800">800</Swatch>
+	<Swatch className="bg-warning-700">700</Swatch>
+	<Swatch className="bg-warning-600">600</Swatch>
+	<Swatch className="bg-warning-500">500</Swatch>
+	<Swatch className="bg-warning-400">400</Swatch>
+	<Swatch className="bg-warning-300">300</Swatch>
+	<Swatch className="bg-warning-200">200</Swatch>
+	<Swatch className="bg-warning-100">100</Swatch>
+	<Swatch className="bg-warning-50">50</Swatch>
+</Palette>
+
+## Extended Palette
+
+Mantle also supports the entirety of Tailwind's color palette in light, dark, and high
+contrast variants. These are to be used when there is no functional meaning behind the color
+choice. However, we've left out the extended collection of Tailwind's grays eg.
+slate, zinc, etc. since we only want to use our own custom branded gray.
+
+### Gray
+
+<Palette>
+	<Swatch className="bg-gray-950">950</Swatch>
+	<Swatch className="bg-gray-900">900</Swatch>
+	<Swatch className="bg-gray-800">800</Swatch>
+	<Swatch className="bg-gray-700">700</Swatch>
+	<Swatch className="bg-gray-600">600</Swatch>
+	<Swatch className="bg-gray-500">500</Swatch>
+	<Swatch className="bg-gray-400">400</Swatch>
+	<Swatch className="bg-gray-300">300</Swatch>
+	<Swatch className="bg-gray-200">200</Swatch>
+	<Swatch className="bg-gray-100">100</Swatch>
+	<Swatch className="bg-gray-50">50</Swatch>
+</Palette>
+
+### Red
+
+<Palette>
+	<Swatch className="bg-red-950">950</Swatch>
+	<Swatch className="bg-red-900">900</Swatch>
+	<Swatch className="bg-red-800">800</Swatch>
+	<Swatch className="bg-red-700">700</Swatch>
+	<Swatch className="bg-red-600">600</Swatch>
+	<Swatch className="bg-red-500">500</Swatch>
+	<Swatch className="bg-red-400">400</Swatch>
+	<Swatch className="bg-red-300">300</Swatch>
+	<Swatch className="bg-red-200">200</Swatch>
+	<Swatch className="bg-red-100">100</Swatch>
+	<Swatch className="bg-red-50">50</Swatch>
+</Palette>
+
+### Orange
+
+<Palette>
+	<Swatch className="bg-orange-950">950</Swatch>
+	<Swatch className="bg-orange-900">900</Swatch>
+	<Swatch className="bg-orange-800">800</Swatch>
+	<Swatch className="bg-orange-700">700</Swatch>
+	<Swatch className="bg-orange-600">600</Swatch>
+	<Swatch className="bg-orange-500">500</Swatch>
+	<Swatch className="bg-orange-400">400</Swatch>
+	<Swatch className="bg-orange-300">300</Swatch>
+	<Swatch className="bg-orange-200">200</Swatch>
+	<Swatch className="bg-orange-100">100</Swatch>
+	<Swatch className="bg-orange-50">50</Swatch>
+</Palette>
+
+### Amber
+
+<Palette>
+	<Swatch className="bg-amber-950">950</Swatch>
+	<Swatch className="bg-amber-900">900</Swatch>
+	<Swatch className="bg-amber-800">800</Swatch>
+	<Swatch className="bg-amber-700">700</Swatch>
+	<Swatch className="bg-amber-600">600</Swatch>
+	<Swatch className="bg-amber-500">500</Swatch>
+	<Swatch className="bg-amber-400">400</Swatch>
+	<Swatch className="bg-amber-300">300</Swatch>
+	<Swatch className="bg-amber-200">200</Swatch>
+	<Swatch className="bg-amber-100">100</Swatch>
+	<Swatch className="bg-amber-50">50</Swatch>
+</Palette>
+
+### Yellow
+
+<Palette>
+	<Swatch className="bg-yellow-950">950</Swatch>
+	<Swatch className="bg-yellow-900">900</Swatch>
+	<Swatch className="bg-yellow-800">800</Swatch>
+	<Swatch className="bg-yellow-700">700</Swatch>
+	<Swatch className="bg-yellow-600">600</Swatch>
+	<Swatch className="bg-yellow-500">500</Swatch>
+	<Swatch className="bg-yellow-400">400</Swatch>
+	<Swatch className="bg-yellow-300">300</Swatch>
+	<Swatch className="bg-yellow-200">200</Swatch>
+	<Swatch className="bg-yellow-100">100</Swatch>
+	<Swatch className="bg-yellow-50">50</Swatch>
+</Palette>
+
+### Lime
+
+<Palette>
+	<Swatch className="bg-lime-950">950</Swatch>
+	<Swatch className="bg-lime-900">900</Swatch>
+	<Swatch className="bg-lime-800">800</Swatch>
+	<Swatch className="bg-lime-700">700</Swatch>
+	<Swatch className="bg-lime-600">600</Swatch>
+	<Swatch className="bg-lime-500">500</Swatch>
+	<Swatch className="bg-lime-400">400</Swatch>
+	<Swatch className="bg-lime-300">300</Swatch>
+	<Swatch className="bg-lime-200">200</Swatch>
+	<Swatch className="bg-lime-100">100</Swatch>
+	<Swatch className="bg-lime-50">50</Swatch>
+</Palette>
+
+### Green
+
+<Palette>
+	<Swatch className="bg-green-950">950</Swatch>
+	<Swatch className="bg-green-900">900</Swatch>
+	<Swatch className="bg-green-800">800</Swatch>
+	<Swatch className="bg-green-700">700</Swatch>
+	<Swatch className="bg-green-600">600</Swatch>
+	<Swatch className="bg-green-500">500</Swatch>
+	<Swatch className="bg-green-400">400</Swatch>
+	<Swatch className="bg-green-300">300</Swatch>
+	<Swatch className="bg-green-200">200</Swatch>
+	<Swatch className="bg-green-100">100</Swatch>
+	<Swatch className="bg-green-50">50</Swatch>
+</Palette>
+
+### Emerald
+
+<Palette>
+	<Swatch className="bg-emerald-950">950</Swatch>
+	<Swatch className="bg-emerald-900">900</Swatch>
+	<Swatch className="bg-emerald-800">800</Swatch>
+	<Swatch className="bg-emerald-700">700</Swatch>
+	<Swatch className="bg-emerald-600">600</Swatch>
+	<Swatch className="bg-emerald-500">500</Swatch>
+	<Swatch className="bg-emerald-400">400</Swatch>
+	<Swatch className="bg-emerald-300">300</Swatch>
+	<Swatch className="bg-emerald-200">200</Swatch>
+	<Swatch className="bg-emerald-100">100</Swatch>
+	<Swatch className="bg-emerald-50">50</Swatch>
+</Palette>
+
+### Teal
+
+<Palette>
+	<Swatch className="bg-teal-950">950</Swatch>
+	<Swatch className="bg-teal-900">900</Swatch>
+	<Swatch className="bg-teal-800">800</Swatch>
+	<Swatch className="bg-teal-700">700</Swatch>
+	<Swatch className="bg-teal-600">600</Swatch>
+	<Swatch className="bg-teal-500">500</Swatch>
+	<Swatch className="bg-teal-400">400</Swatch>
+	<Swatch className="bg-teal-300">300</Swatch>
+	<Swatch className="bg-teal-200">200</Swatch>
+	<Swatch className="bg-teal-100">100</Swatch>
+	<Swatch className="bg-teal-50">50</Swatch>
+</Palette>
+
+### Cyan
+
+<Palette>
+	<Swatch className="bg-cyan-950">950</Swatch>
+	<Swatch className="bg-cyan-900">900</Swatch>
+	<Swatch className="bg-cyan-800">800</Swatch>
+	<Swatch className="bg-cyan-700">700</Swatch>
+	<Swatch className="bg-cyan-600">600</Swatch>
+	<Swatch className="bg-cyan-500">500</Swatch>
+	<Swatch className="bg-cyan-400">400</Swatch>
+	<Swatch className="bg-cyan-300">300</Swatch>
+	<Swatch className="bg-cyan-200">200</Swatch>
+	<Swatch className="bg-cyan-100">100</Swatch>
+	<Swatch className="bg-cyan-50">50</Swatch>
+</Palette>
+
+### Sky
+
+<Palette>
+	<Swatch className="bg-sky-950">950</Swatch>
+	<Swatch className="bg-sky-900">900</Swatch>
+	<Swatch className="bg-sky-800">800</Swatch>
+	<Swatch className="bg-sky-700">700</Swatch>
+	<Swatch className="bg-sky-600">600</Swatch>
+	<Swatch className="bg-sky-500">500</Swatch>
+	<Swatch className="bg-sky-400">400</Swatch>
+	<Swatch className="bg-sky-300">300</Swatch>
+	<Swatch className="bg-sky-200">200</Swatch>
+	<Swatch className="bg-sky-100">100</Swatch>
+	<Swatch className="bg-sky-50">50</Swatch>
+</Palette>
+
+### Blue
+
+<Palette>
+	<Swatch className="bg-blue-950">950</Swatch>
+	<Swatch className="bg-blue-900">900</Swatch>
+	<Swatch className="bg-blue-800">800</Swatch>
+	<Swatch className="bg-blue-700">700</Swatch>
+	<Swatch className="bg-blue-600">600</Swatch>
+	<Swatch className="bg-blue-500">500</Swatch>
+	<Swatch className="bg-blue-400">400</Swatch>
+	<Swatch className="bg-blue-300">300</Swatch>
+	<Swatch className="bg-blue-200">200</Swatch>
+	<Swatch className="bg-blue-100">100</Swatch>
+	<Swatch className="bg-blue-50">50</Swatch>
+</Palette>
+
+### Indigo
+
+<Palette>
+	<Swatch className="bg-indigo-950">950</Swatch>
+	<Swatch className="bg-indigo-900">900</Swatch>
+	<Swatch className="bg-indigo-800">800</Swatch>
+	<Swatch className="bg-indigo-700">700</Swatch>
+	<Swatch className="bg-indigo-600">600</Swatch>
+	<Swatch className="bg-indigo-500">500</Swatch>
+	<Swatch className="bg-indigo-400">400</Swatch>
+	<Swatch className="bg-indigo-300">300</Swatch>
+	<Swatch className="bg-indigo-200">200</Swatch>
+	<Swatch className="bg-indigo-100">100</Swatch>
+	<Swatch className="bg-indigo-50">50</Swatch>
+</Palette>
+
+### Violet
+
+<Palette>
+	<Swatch className="bg-violet-950">950</Swatch>
+	<Swatch className="bg-violet-900">900</Swatch>
+	<Swatch className="bg-violet-800">800</Swatch>
+	<Swatch className="bg-violet-700">700</Swatch>
+	<Swatch className="bg-violet-600">600</Swatch>
+	<Swatch className="bg-violet-500">500</Swatch>
+	<Swatch className="bg-violet-400">400</Swatch>
+	<Swatch className="bg-violet-300">300</Swatch>
+	<Swatch className="bg-violet-200">200</Swatch>
+	<Swatch className="bg-violet-100">100</Swatch>
+	<Swatch className="bg-violet-50">50</Swatch>
+</Palette>
+
+### Purple
+
+<Palette>
+	<Swatch className="bg-purple-950">950</Swatch>
+	<Swatch className="bg-purple-900">900</Swatch>
+	<Swatch className="bg-purple-800">800</Swatch>
+	<Swatch className="bg-purple-700">700</Swatch>
+	<Swatch className="bg-purple-600">600</Swatch>
+	<Swatch className="bg-purple-500">500</Swatch>
+	<Swatch className="bg-purple-400">400</Swatch>
+	<Swatch className="bg-purple-300">300</Swatch>
+	<Swatch className="bg-purple-200">200</Swatch>
+	<Swatch className="bg-purple-100">100</Swatch>
+	<Swatch className="bg-purple-50">50</Swatch>
+</Palette>
+
+### Fuchsia
+
+<Palette>
+	<Swatch className="bg-fuchsia-950">950</Swatch>
+	<Swatch className="bg-fuchsia-900">900</Swatch>
+	<Swatch className="bg-fuchsia-800">800</Swatch>
+	<Swatch className="bg-fuchsia-700">700</Swatch>
+	<Swatch className="bg-fuchsia-600">600</Swatch>
+	<Swatch className="bg-fuchsia-500">500</Swatch>
+	<Swatch className="bg-fuchsia-400">400</Swatch>
+	<Swatch className="bg-fuchsia-300">300</Swatch>
+	<Swatch className="bg-fuchsia-200">200</Swatch>
+	<Swatch className="bg-fuchsia-100">100</Swatch>
+	<Swatch className="bg-fuchsia-50">50</Swatch>
+</Palette>
+
+### Pink
+
+<Palette>
+	<Swatch className="bg-pink-950">950</Swatch>
+	<Swatch className="bg-pink-900">900</Swatch>
+	<Swatch className="bg-pink-800">800</Swatch>
+	<Swatch className="bg-pink-700">700</Swatch>
+	<Swatch className="bg-pink-600">600</Swatch>
+	<Swatch className="bg-pink-500">500</Swatch>
+	<Swatch className="bg-pink-400">400</Swatch>
+	<Swatch className="bg-pink-300">300</Swatch>
+	<Swatch className="bg-pink-200">200</Swatch>
+	<Swatch className="bg-pink-100">100</Swatch>
+	<Swatch className="bg-pink-50">50</Swatch>
+</Palette>
+
+### Rose
+
+<Palette>
+	<Swatch className="bg-rose-950">950</Swatch>
+	<Swatch className="bg-rose-900">900</Swatch>
+	<Swatch className="bg-rose-800">800</Swatch>
+	<Swatch className="bg-rose-700">700</Swatch>
+	<Swatch className="bg-rose-600">600</Swatch>
+	<Swatch className="bg-rose-500">500</Swatch>
+	<Swatch className="bg-rose-400">400</Swatch>
+	<Swatch className="bg-rose-300">300</Swatch>
+	<Swatch className="bg-rose-200">200</Swatch>
+	<Swatch className="bg-rose-100">100</Swatch>
+	<Swatch className="bg-rose-50">50</Swatch>
+</Palette>

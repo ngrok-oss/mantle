@@ -5,6 +5,9 @@
 @source "../src";
 @source "../dist";
 
+/**
+MARK: FONT FACES
+*/
 @font-face {
 	font-family: "Roobert";
 	src:
@@ -57,6 +60,9 @@
 	font-style: italic;
 }
 
+/**
+MARK: THEME
+*/
 @theme {
 	--color-white: oklch(100% 0 0);
 	--color-black: oklch(0% 0 0);
@@ -1309,6 +1315,61 @@ MARK: DARK HICON DEFS
 	--navigation-shadow: #000;
 }
 
+/**
+MARK: CUSTOM VARIANTS
+*/
+@custom-variant light (&:where(.light, .light *, [data-theme="light"], [data-applied-theme="light"]));
+@custom-variant dark (&:where(.dark, .dark *, [data-theme="dark"], [data-applied-theme="dark"]));
+@custom-variant high-contrast (&:where(.light-high-contrast, .light-high-contrast *, [data-theme="light-high-contrast"], [data-applied-theme="light-high-contrast"]));
+@custom-variant dark-high-contrast (&:where(.dark-high-contrast, .dark-high-contrast *, [data-theme="dark-high-contrast"], [data-applied-theme="dark-high-contrast"]));
+
+@custom-variant aria-collapsed (&[aria-expanded="false"]);
+@custom-variant aria-invalid (&[aria-invalid="true"]);
+@custom-variant aria-unchecked (&[aria-checked="false"]);
+
+@custom-variant data-active-item (&[data-active-item~="true"]);
+@custom-variant data-disabled (&[data-disabled]);
+@custom-variant data-drag-over (&[data-drag-over="true"]);
+@custom-variant data-highlighted (&[data-highlighted]);
+@custom-variant data-orientation-horizontal (&[data-orientation="horizontal"]);
+@custom-variant data-orientation-vertical (&[data-orientation="vertical"]);
+@custom-variant data-side-bottom (&[data-side="bottom"]);
+@custom-variant data-side-left (&[data-side="left"]);
+@custom-variant data-side-right (&[data-side="right"]);
+@custom-variant data-side-top (&[data-side="top"]);
+@custom-variant data-state-active (&[data-state~=active]);
+@custom-variant data-state-checked (&[data-state~=checked]);
+@custom-variant data-state-closed (&[data-state~=closed]);
+@custom-variant data-state-idle (&[data-state~=idle]);
+@custom-variant data-state-inactive (&[data-state~=inactive]);
+@custom-variant data-state-indeterminate (&[data-state~=indeterminate]);
+@custom-variant data-state-open (&[data-state~=open]);
+@custom-variant data-state-pending (&[data-state~=pending]);
+@custom-variant data-state-selected (&[data-state~=selected]);
+@custom-variant data-state-submitting (&[data-state~=submitting]);
+@custom-variant data-state-unchecked (&[data-state~=unchecked]);
+@custom-variant data-validation-error (&[data-validation="error"]);
+@custom-variant data-validation-success (&[data-validation="success"]);
+@custom-variant data-validation-warning (&[data-validation="warning"]);
+
+@custom-variant where (:where(&));
+
+@custom-variant hover-hover {
+	@media (hover: hover) {
+		& {
+			@slot;
+		}
+	}
+}
+
+@custom-variant hover-none {
+	@media (hover: none) {
+		& {
+			@slot;
+		}
+	}
+}
+
 @layer base {
 	button:not(:disabled),
 	[role="button"]:not(:disabled) {
@@ -1321,6 +1382,9 @@ MARK: DARK HICON DEFS
 	}
 }
 
+/**
+MARK: UTILITIES
+*/
 @utility cursor-inherit {
 	cursor: inherit;
 }
@@ -1424,7 +1488,9 @@ MARK: DARK HICON DEFS
 	animation-duration: --value([length]);
 }
 
-/* Prism styles */
+/*
+MARK: PRISM SYNTAX HIGHLIGHT
+*/
 .token.comment,
 .token.prolog,
 .token.doctype,

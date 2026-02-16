@@ -19,6 +19,7 @@ import type {
 import { ServerRouter } from "react-router";
 import { NonceProvider } from "./components/nonce";
 import { getBaseUrl } from "./utilities/base-url";
+import { rawDocContent, urlToFileMap } from "./utilities/docs";
 
 // Increase the stack trace limit so we can see more of the error
 Error.stackTraceLimit = Number.POSITIVE_INFINITY;
@@ -42,6 +43,29 @@ export default function handleRequest(
 	routerContext: EntryContext,
 	_loadContext: AppLoadContext,
 ) {
+	// Content negotiation: return raw markdown when Accept: text/markdown is requested
+	const accept = request.headers.get("Accept") ?? "";
+	if (accept.includes("text/markdown")) {
+		const url = new URL(request.url);
+		const pathname = url.pathname.replace(/^\//, "");
+		const filePath = urlToFileMap.get(pathname || "index");
+
+		if (filePath) {
+			const rawContent = rawDocContent[filePath];
+			if (rawContent) {
+				const filename = pathname.split("/").pop() ?? "document";
+				return new Response(rawContent, {
+					headers: {
+						"Content-Type": "text/markdown; charset=utf-8",
+						"Content-Disposition": `inline; filename="${filename}.md"`,
+						"Cache-Control": "max-age=300, stale-while-revalidate=604800",
+						"X-Content-Type-Options": "nosniff",
+					},
+				});
+			}
+		}
+	}
+
 	const uniquePerRequestNonce = randomBytes(16).toString("hex");
 
 	/**

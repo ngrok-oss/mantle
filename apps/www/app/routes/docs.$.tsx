@@ -76,11 +76,13 @@ export default function DocPage({ loaderData }: Route.ComponentProps) {
 
 	return (
 		<div className="relative">
-			<div className="absolute right-0 top-0">
+			<div className="absolute right-0 top-0 z-10">
 				<DocActions />
 			</div>
 			<MdxProvider>
-				<Component />
+				<div className="[&>h1:first-child]:pr-40">
+					<Component />
+				</div>
 			</MdxProvider>
 		</div>
 	);

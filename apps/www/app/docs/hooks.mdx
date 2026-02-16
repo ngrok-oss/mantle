@@ -1,0 +1,176 @@
+---
+title: Hooks
+description: Custom React hooks exported from @ngrok/mantle/hooks
+---
+
+# Hooks
+
+Custom React hooks exported from `@ngrok/mantle/hooks`.
+
+## Overview
+
+| Hook                        | Description                                                                         |
+| --------------------------- | ----------------------------------------------------------------------------------- |
+| `useBreakpoint`             | Returns the current responsive breakpoint based on the viewport width.              |
+| `useIsBelowBreakpoint`      | Returns `true` if the viewport width is below a given breakpoint.                   |
+| `useCallbackRef`            | Returns a memoized callback that always refers to the latest function passed to it. |
+| `useCopyToClipboard`        | Copies a string to the clipboard.                                                   |
+| `useDebouncedCallback`      | Creates a debounced version of a callback function.                                 |
+| `useIsHydrated`             | Returns whether the component tree has been hydrated on the client.                 |
+| `useIsomorphicLayoutEffect` | Uses `useLayoutEffect` on the client and `useEffect` on the server.                 |
+| `useMatchesMediaQuery`      | Subscribes to and returns the result of a CSS media query.                          |
+| `usePrefersReducedMotion`   | Returns `true` when the user prefers reduced motion.                                |
+| `useRandomStableId`         | Generates a random, stable ID safe for CSS selectors and element IDs.               |
+| `useScrollBehavior`         | Returns a `ScrollBehavior` that respects the user's reduced motion preference.      |
+
+## useBreakpoint
+
+Returns the current responsive breakpoint based on the viewport width. Uses a singleton subscription to a set of min-width media queries and returns the largest matching breakpoint.
+
+```tsx
+import { useBreakpoint } from "@ngrok/mantle/hooks";
+
+function ResponsiveComponent() {
+	const breakpoint = useBreakpoint();
+	return <p>Current breakpoint: {breakpoint}</p>;
+}
+```
+
+## useIsBelowBreakpoint
+
+Returns `true` if the current viewport width is below the specified breakpoint. Accepts a `TailwindBreakpoint` (`"2xs"`, `"xs"`, `"sm"`, `"md"`, `"lg"`, `"xl"`, `"2xl"`).
+
+```tsx
+import { useIsBelowBreakpoint } from "@ngrok/mantle/hooks";
+
+function ResponsiveSidebar() {
+	const isMobile = useIsBelowBreakpoint("md");
+	return isMobile ? <MobileNav /> : <DesktopNav />;
+}
+```
+
+## useCallbackRef
+
+Returns a memoized callback that always refers to the latest callback passed to the hook. Useful when passing a callback that may or may not be memoized to a child component without causing re-renders.
+
+```tsx
+import { useCallbackRef } from "@ngrok/mantle/hooks";
+
+function Example({ onChange }: { onChange?: (value: string) => void }) {
+	const stableOnChange = useCallbackRef(onChange);
+	// stableOnChange always calls the latest onChange
+}
+```
+
+## useCopyToClipboard
+
+Copies a string to the clipboard. Returns a tuple of the last copied value and a copy function. Includes a fallback for older browsers.
+
+```tsx
+import { useCopyToClipboard } from "@ngrok/mantle/hooks";
+
+function CopyButton({ text }: { text: string }) {
+	const [copiedValue, copy] = useCopyToClipboard();
+	return <button onClick={() => copy(text)}>{copiedValue === text ? "Copied!" : "Copy"}</button>;
+}
+```
+
+## useDebouncedCallback
+
+Creates a debounced version of a callback function. Delays execution until a period of inactivity has passed (`options.waitMs`). The debounced callback is stable and safe to use in dependency arrays.
+
+```tsx
+import { useDebouncedCallback } from "@ngrok/mantle/hooks";
+
+function SearchInput() {
+	const debouncedSearch = useDebouncedCallback((query: string) => fetchResults(query), {
+		waitMs: 300,
+	});
+	return <input onChange={(event) => debouncedSearch(event.target.value)} />;
+}
+```
+
+## useIsHydrated
+
+Returns whether the component tree has been hydrated on the client. Returns `false` on the server and `true` after hydration on the client. Uses `useSyncExternalStore` to prevent hydration mismatches.
+
+```tsx
+import { useIsHydrated } from "@ngrok/mantle/hooks";
+import type { PropsWithChildren } from "react";
+
+function ClientOnly({ children }: PropsWithChildren) {
+	const isHydrated = useIsHydrated();
+	if (!isHydrated) {
+		return <span style={{ visibility: "hidden" }}>Loading…</span>;
+	}
+	return <>{children}</>;
+}
+```
+
+## useIsomorphicLayoutEffect
+
+Uses `useLayoutEffect` on the client and `useEffect` on the server. Avoids SSR warnings about `useLayoutEffect` doing nothing on the server.
+
+```tsx
+import { useIsomorphicLayoutEffect } from "@ngrok/mantle/hooks";
+
+function MeasureElement() {
+	useIsomorphicLayoutEffect(() => {
+		// safely measure DOM on client, no-op on server
+	}, []);
+}
+```
+
+## useMatchesMediaQuery
+
+Subscribes to and returns the result of a CSS media query string. Uses `window.matchMedia` and `useSyncExternalStore` for concurrent rendering compatibility.
+
+```tsx
+import { useMatchesMediaQuery } from "@ngrok/mantle/hooks";
+
+function DarkModeDetector() {
+	const isDark = useMatchesMediaQuery("(prefers-color-scheme: dark)");
+	return <p>Dark mode: {isDark ? "Yes" : "No"}</p>;
+}
+```
+
+## usePrefersReducedMotion
+
+Returns `true` when the user has opted out of animations (i.e., prefers reduced motion). Defaults to `true` on the server to avoid animating before hydration.
+
+```tsx
+import { usePrefersReducedMotion } from "@ngrok/mantle/hooks";
+
+function AnimatedComponent() {
+	const reduce = usePrefersReducedMotion();
+	const duration = reduce ? 0 : 200;
+	return <div style={{ transitionDuration: duration + "ms" }} />;
+}
+```
+
+## useRandomStableId
+
+Generates a random, stable ID. Similar to `useId`, but produces an ID that is safe for use in CSS selectors and as element IDs. Accepts an optional prefix (defaults to `"mantle"`).
+
+```tsx
+import { useRandomStableId } from "@ngrok/mantle/hooks";
+import type { PropsWithChildren } from "react";
+
+function Tooltip({ children }: PropsWithChildren) {
+	const id = useRandomStableId("tooltip");
+	return <div id={id}>{children}</div>;
+}
+```
+
+## useScrollBehavior
+
+Returns a `ScrollBehavior` (`"auto"` or `"smooth"`) that respects the user's reduced motion preference. Returns `"auto"` when the user prefers reduced motion, otherwise `"smooth"`.
+
+```tsx
+import { useScrollBehavior } from "@ngrok/mantle/hooks";
+
+function ScrollToTop() {
+	const behavior = useScrollBehavior();
+	return <button onClick={() => window.scrollTo({ top: 0, behavior })}>Back to top</button>;
+}
+```

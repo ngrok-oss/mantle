@@ -1,22 +1,18 @@
-import {
-	isValidElement,
-	useRef,
-	useState,
-	type ComponentProps,
-	type PropsWithChildren,
-} from "react";
+import { isValidElement, type ComponentProps, type PropsWithChildren, type ReactNode } from "react";
 
 import { MDXProvider as MdxProviderPrimitive } from "@mdx-js/react";
 import { Anchor } from "@ngrok/mantle/anchor";
 import { Code } from "@ngrok/mantle/code";
 import { CodeBlock } from "@ngrok/mantle/code-block";
 import { cx } from "@ngrok/mantle/cx";
-import { useCopyToClipboard } from "@ngrok/mantle/hooks";
 import { Icon } from "@ngrok/mantle/icon";
 import { Table } from "@ngrok/mantle/table";
-import { CheckIcon } from "@phosphor-icons/react/Check";
-import { LinkIcon } from "@phosphor-icons/react/Link";
-import { StyledLink } from "./styled-link";
+import { InfoIcon } from "@phosphor-icons/react/Info";
+import { LightbulbIcon } from "@phosphor-icons/react/Lightbulb";
+import { MegaphoneIcon } from "@phosphor-icons/react/Megaphone";
+import { WarningIcon } from "@phosphor-icons/react/Warning";
+import { WarningCircleIcon } from "@phosphor-icons/react/WarningCircle";
+import { HashLinkHeading } from "./hash-link-heading";
 
 // import { FigCaption, Figure } from "./figure";
 // import { Img } from "./img";
@@ -50,18 +46,18 @@ const components = {
 	},
 	code: (props) => {
 		const { /* node: _node, */ className, ...rest } = props;
-		return <Code className={cx("text-[0.7em]", className)} {...rest} />;
+		return <Code className={cx("whitespace-nowrap text-[0.7em]", className)} {...rest} />;
 	},
 	hr: (props) => {
 		const { /* node: _node, */ className, ...rest } = props;
 		return <hr className={cx("my-12 border-t border-gray-300", className)} {...rest} />;
 	},
-	h1: (props) => <HeadingWithLink as="h1" {...props} />,
-	h2: (props) => <HeadingWithLink as="h2" {...props} />,
-	h3: (props) => <HeadingWithLink as="h3" {...props} />,
-	h4: (props) => <HeadingWithLink as="h4" {...props} />,
-	h5: (props) => <HeadingWithLink as="h5" {...props} />,
-	h6: (props) => <HeadingWithLink as="h6" {...props} />,
+	h1: (props) => <MdxHeading as="h1" {...props} />,
+	h2: (props) => <MdxHeading as="h2" {...props} />,
+	h3: (props) => <MdxHeading as="h3" {...props} />,
+	h4: (props) => <MdxHeading as="h4" {...props} />,
+	h5: (props) => <MdxHeading as="h5" {...props} />,
+	h6: (props) => <MdxHeading as="h6" {...props} />,
 	// img: (props) => {
 	// 	const { /* node: _node, */ ...rest } = props;
 	// 	return <Img {...rest} />;
@@ -153,8 +149,7 @@ const components = {
 	},
 
 	// Custom components, these are globally available in MDX files
-	// Figure: (props) => <Figure {...props} />,
-	// FigCaption: (props) => <FigCaption {...props} />,
+	GithubAlert,
 } as const satisfies MDXComponents;
 
 /**
@@ -174,76 +169,95 @@ export {
 	MdxProvider,
 };
 
-const headingTags = ["h1", "h2", "h3", "h4", "h5", "h6"] as const;
-type HeadingTag = (typeof headingTags)[number];
+type HeadingTag = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 
-type HeadlineWithLinkProps = ComponentProps<"h1"> & {
+type MdxHeadingProps = ComponentProps<"h1"> & {
 	/**
-	 * MDX passes the AST node as a prop, but we don't use it
+	 * MDX passes the AST node as a prop, but we don't use it.
 	 */
 	node?: unknown;
 	/**
-	 * The HTML heading tag to render {@link HeadingTag}
+	 * The HTML heading tag to render.
 	 */
 	as: HeadingTag;
 };
 
 /**
- * HeadingWithLink component that renders a heading with an anchor link icon.
- * The link icon appears on hover and copies the heading's anchor URL to the clipboard when clicked.
- *
- * @param props - The heading element props including className, children, etc.
- * @param Tag - The HTML heading tag (h1, h2, h3, h4, h5, or h6)
- * @param className - The Tailwind classes for text size and any additional classes
- * @returns A heading element with an interactive link icon
+ * MDX heading component that delegates to {@link HashLinkHeading} for the
+ * copy-to-clipboard anchor link behavior, applying MDX-specific sizing and
+ * spacing classes.
  */
-function HeadingWithLink({
-	as: Component,
-	children,
-	className,
-	id,
-	/* node: _node, */ ...props
-}: HeadlineWithLinkProps) {
-	const [, copyToClipboard] = useCopyToClipboard();
-	const [wasCopied, setWasCopied] = useState(false);
-	const timeoutHandle = useRef<number>(0);
+function MdxHeading({ as: Component, children, className, id, ...props }: MdxHeadingProps) {
+	if (!id) {
+		return (
+			<Component className={className} {...props}>
+				{children}
+			</Component>
+		);
+	}
 
 	return (
-		<Component
-			id={id}
-			className={cx(
-				"group relative w-fit font-medium text-strong mt-16 mb-6 font-family scroll-mt-24 [@media(hover:hover)]:w-auto [@media(hover:hover)]:pl-5 [@media(hover:hover)]:-ml-5 [:is(h1,h2,h3,h4,h5,h6)+&]:mt-6",
-				Component === "h1" && "text-4xl",
-				Component === "h2" && "text-3xl",
-				Component === "h3" && "text-2xl",
-				Component === "h4" && "text-xl",
-				Component === "h5" && "text-lg",
-				Component === "h6" && "text-base",
-				className,
-			)}
+		<HashLinkHeading id={id}>
+			<Component
+				className={cx(
+					"font-medium inline-block text-strong mt-16 mb-6 [:is(h1,h2,h3,h4,h5,h6)+&]:mt-6",
+					Component === "h1" && "text-5xl mt-0",
+					Component === "h2" && "text-3xl",
+					Component === "h3" && "text-2xl",
+					Component === "h4" && "text-xl",
+					Component === "h5" && "text-base",
+					Component === "h6" && "text-xs",
+					className,
+				)}
+				{...props}
+			>
+				{children}
+			</Component>
+		</HashLinkHeading>
+	);
+}
+
+type GitHubAlertTypes = "note" | "tip" | "important" | "warning" | "caution";
+
+const alertTypeColors: Record<GitHubAlertTypes | (string & {}), `var(--color-${string}-600)`> = {
+	note: "var(--color-info-600)",
+	tip: "var(--color-success-600)",
+	important: "var(--color-purple-600)",
+	warning: "var(--color-warning-600)",
+	caution: "var(--color-danger-600)",
+};
+
+const alertTypeIcons: Record<GitHubAlertTypes | (string & {}), ReactNode> = {
+	note: <InfoIcon weight="bold" />,
+	tip: <LightbulbIcon weight="bold" />,
+	important: <MegaphoneIcon weight="bold" />,
+	warning: <WarningIcon weight="bold" />,
+	caution: <WarningCircleIcon weight="bold" />,
+};
+
+type GithubAlertProps = ComponentProps<"div"> & {
+	icon?: ReactNode;
+	type: GitHubAlertTypes | (string & {});
+};
+
+/**
+ * Renders a GitHub-style alert blockquote (e.g. `> [!NOTE]`).
+ * Used as a custom MDX component mapped from the `remarkGithubAlerts` remark plugin.
+ */
+function GithubAlert({ className, icon, type, children, style, ...props }: GithubAlertProps) {
+	const color = alertTypeColors[type] ?? alertTypeColors.note;
+
+	return (
+		<div
+			className={cx("mb-6 border-l-4 pl-4 py-2 text-sm", className)}
+			style={{ borderColor: color, ...style }}
 			{...props}
 		>
-			<StyledLink
-				to={{ hash: id }}
-				aria-label="Jump to section"
-				className={cx(
-					"float-right ml-0.5 inline-flex h-lh px-1 items-center justify-center [@media(hover:hover)]:float-none [@media(hover:hover)]:ml-0 [@media(hover:hover)]:h-auto [@media(hover:hover)]:p-2 [@media(hover:hover)]:absolute [@media(hover:hover)]:-left-4 [@media(hover:hover)]:top-1/2 [@media(hover:hover)]:-translate-y-1/2 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:translate-x-5 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:hover)]:group-hover:translate-x-0 hover:scale-103 active:scale-94 focus:opacity-100 focus:translate-x-0 focus-visible:opacity-100 focus-visible:translate-x-0 transition-all duration-200 ease-out rounded shrink-0",
-					wasCopied ? "text-success-600" : "text-muted hover:text-strong",
-				)}
-				onClick={() => {
-					if (id) {
-						copyToClipboard(`${window.location.origin}${window.location.pathname}#${id}`);
-						setWasCopied(true);
-						window.clearTimeout(timeoutHandle.current);
-						timeoutHandle.current = window.setTimeout(() => {
-							setWasCopied(false);
-						}, 2000);
-					}
-				}}
-			>
-				<Icon svg={wasCopied ? <CheckIcon weight="bold" /> : <LinkIcon weight="bold" />} />
-			</StyledLink>
+			<p className="flex items-center gap-1.5 font-semibold mb-1" style={{ color }}>
+				<Icon className="size-4" svg={icon ?? alertTypeIcons[type as GitHubAlertTypes]} />
+				<span className="first-letter:uppercase">{type}</span>
+			</p>
 			{children}
-		</Component>
+		</div>
 	);
 }

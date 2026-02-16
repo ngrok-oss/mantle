@@ -55,13 +55,6 @@ overrides:
 importers:
 
   .:
-    dependencies:
-      '@mdx-js/react':
-        specifier: 3.1.1
-        version: 3.1.1(@types/react@18.3.28)(react@18.3.1)
-      '@tanstack/react-query':
-        specifier: 5.90.21
-        version: 5.90.21(react@18.3.1)
     devDependencies:
       '@changesets/changelog-github':
         specifier: 0.5.2
@@ -69,51 +62,18 @@ importers:
       '@changesets/cli':
         specifier: 2.29.8
         version: 2.29.8(@types/node@24.10.13)
-      '@mdx-js/mdx':
-        specifier: 3.1.1
-        version: 3.1.1
-      '@mdx-js/rollup':
-        specifier: 3.1.1
-        version: 3.1.1(rollup@4.57.1)
-      '@tanstack/react-query-devtools':
-        specifier: 5.91.3
-        version: 5.91.3(@tanstack/react-query@5.90.21(react@18.3.1))(react@18.3.1)
-      '@types/hast':
-        specifier: 3.0.4
-        version: 3.0.4
       '@types/node':
         specifier: 24.10.13
         version: 24.10.13
-      mdast-util-mdx-jsx:
-        specifier: 3.2.0
-        version: 3.2.0
       oxfmt:
         specifier: 0.32.0
         version: 0.32.0
       oxlint:
         specifier: 1.47.0
         version: 1.47.0
-      rehype-slug:
-        specifier: 6.0.0
-        version: 6.0.0
-      remark-frontmatter:
-        specifier: 5.0.0
-        version: 5.0.0
-      remark-gfm:
-        specifier: 4.0.1
-        version: 4.0.1
-      remark-mdx-frontmatter:
-        specifier: 5.2.0
-        version: 5.2.0
-      tinyglobby:
-        specifier: 0.2.15
-        version: 0.2.15
       turbo:
-        specifier: 2.8.8
-        version: 2.8.8
-      unist-util-visit:
-        specifier: 5.1.0
-        version: 5.1.0
+        specifier: 2.8.9
+        version: 2.8.9
       vitest:
         specifier: 4.0.18
         version: 4.0.18(@types/node@24.10.13)(happy-dom@20.6.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.2)
@@ -181,9 +141,15 @@ importers:
       '@cfg/tsconfig':
         specifier: workspace:*
         version: link:../../config/tsconfig
+      '@mdx-js/mdx':
+        specifier: 3.1.1
+        version: 3.1.1
       '@mdx-js/rollup':
         specifier: 3.1.1
         version: 3.1.1(rollup@4.57.1)
+      '@ngrok/remark-mdx-github-alerts':
+        specifier: 0.1.0
+        version: 0.1.0
       '@ngrok/remark-mdx-no-paragraph-wrap':
         specifier: 0.1.0
         version: 0.1.0(@mdx-js/mdx@3.1.1)(@mdx-js/rollup@3.1.1(rollup@4.57.1))
@@ -193,6 +159,12 @@ importers:
       '@tailwindcss/vite':
         specifier: 4.1.18
         version: 4.1.18(vite@7.3.1(@types/node@24.10.13)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.2))
+      '@types/hast':
+        specifier: 3.0.4
+        version: 3.0.4
+      '@types/mdast':
+        specifier: 4.0.4
+        version: 4.0.4
       '@types/prismjs':
         specifier: 1.26.6
         version: 1.26.6
@@ -205,6 +177,9 @@ importers:
       '@vitejs/plugin-react':
         specifier: '>=5.1.4'
         version: 5.1.4(vite@7.3.1(@types/node@24.10.13)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.2))
+      mdast-util-mdx-jsx:
+        specifier: 3.2.0
+        version: 3.2.0
       rehype-slug:
         specifier: 6.0.0
         version: 6.0.0
@@ -226,6 +201,9 @@ importers:
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
+      unist-util-visit:
+        specifier: 5.1.0
+        version: 5.1.0
       vite:
         specifier: 'catalog:'
         version: 7.3.1(@types/node@24.10.13)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.2)
@@ -832,6 +810,9 @@ packages:
     resolution: {integrity: sha512-v8satFmBB+DqDzYohnm1u2JOvxx6Hl3pUvqzJvfs2Zk/ngZ1aRUhsWpXvwPkNeGN9c2NCm/38H29ZqXQUjf8dw==}
     peerDependencies:
       rollup: '>=2'
+
+  '@ngrok/remark-mdx-github-alerts@0.1.0':
+    resolution: {integrity: sha512-j19lfoe86iczjD7B8JO/Pf/960sFFeeH25TLhNzETgV3UCNfsZ/5BZnNikuAXizpJ9RwfPdWnxZvaSrgLatt3A==}
 
   '@ngrok/remark-mdx-no-paragraph-wrap@0.1.0':
     resolution: {integrity: sha512-BQjOZB9J+9xbAQlPkQf9WmqRsnEo8NLToYNhX0CV0KWJAwpq3XhU3Ucj1wbg8nu8KGCak2CUoYJ5ohi/3orP6w==}
@@ -1941,8 +1922,8 @@ packages:
     peerDependencies:
       react: ^18 || ^19
 
-  '@tanstack/react-store@0.8.0':
-    resolution: {integrity: sha512-1vG9beLIuB7q69skxK9r5xiLN3ztzIPfSQSs0GfeqWGO2tGIyInZx0x1COhpx97RKaONSoAb8C3dxacWksm1ow==}
+  '@tanstack/react-store@0.8.1':
+    resolution: {integrity: sha512-XItJt+rG8c5Wn/2L/bnxys85rBpm0BfMbhb4zmPVLXAKY9POrp1xd6IbU4PKoOI+jSEGc3vntPRfLGSgXfE2Ig==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
@@ -1960,8 +1941,8 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
-  '@tanstack/store@0.8.0':
-    resolution: {integrity: sha512-Om+BO0YfMZe//X2z0uLF2j+75nQga6TpTJgLJQBiq85aOyZNIhkCgleNcud2KQg4k4v9Y9l+Uhru3qWMPGTOzQ==}
+  '@tanstack/store@0.8.1':
+    resolution: {integrity: sha512-PtOisLjUZPz5VyPRSCGjNOlwTvabdTBQ2K80DpVL1chGVr35WRxfeavAPdNq6pm/t7F8GhoR2qtmkkqtCEtHYw==}
 
   '@tanstack/table-core@8.21.3':
     resolution: {integrity: sha512-ldZXEhOBb8Is7xLs01fR3YEc3DERiz5silj8tnGkFZytt1abEvl/GhUmCE0PMLaMPTa3Jk4HbKmRlHmu+gCftg==}
@@ -2268,8 +2249,8 @@ packages:
     resolution: {integrity: sha512-+ys997U96po4Kx/ABpBCqhA9EuxJaQWDQg7295H4hBphv3IZg0boBKuwYpt4YXp6MZ5AmZQnU/tyMTlRpaSejg==}
     engines: {node: '>= 0.4'}
 
-  caniuse-lite@1.0.30001769:
-    resolution: {integrity: sha512-BCfFL1sHijQlBGWBMuJyhZUhzo7wer5sVj9hqekB/7xn0Ypy+pER/edCYQm4exbXj4WiySGp40P8UuTh6w1srg==}
+  caniuse-lite@1.0.30001770:
+    resolution: {integrity: sha512-x/2CLQ1jHENRbHg5PSId2sXq1CIO1CISvwWAj027ltMVG2UNgW+w9oH2+HzgEIRFembL8bUlXtfbBHR1fCg2xw==}
 
   ccount@2.0.1:
     resolution: {integrity: sha512-eyrF0jiFpY+3drT6383f1qhkbGsLSifNAjA61IUjZjmLCWjItY6LB9ft9YhoDgwfmclB2zhu51Lc7+95b8NRAg==}
@@ -3791,38 +3772,38 @@ packages:
       typescript:
         optional: true
 
-  turbo-darwin-64@2.8.8:
-    resolution: {integrity: sha512-7R/XRAleyNB8nIJuenRpS7EnmCM/kYFgcG1rW3F5DF57Nl4WyBO3DzxqwooRheuoXDD1UsJvDse0yRufgxjClA==}
+  turbo-darwin-64@2.8.9:
+    resolution: {integrity: sha512-KnCw1ZI9KTnEAhdI9avZrnZ/z4wsM++flMA1w8s8PKOqi5daGpFV36qoPafg4S8TmYMe52JPWEoFr0L+lQ5JIw==}
     cpu: [x64]
     os: [darwin]
 
-  turbo-darwin-arm64@2.8.8:
-    resolution: {integrity: sha512-whpveO0w/dMcgQ0zFrzqK76mG2W+RBQ/pKIpW+sEvNr+T4UcYd2gZpfV2euehJLvdeFErWgW74dIt/MFfkG1bA==}
+  turbo-darwin-arm64@2.8.9:
+    resolution: {integrity: sha512-CbD5Y2NKJKBXTOZ7z7Cc7vGlFPZkYjApA7ri9lH4iFwKV1X7MoZswh9gyRLetXYWImVX1BqIvP8KftulJg/wIA==}
     cpu: [arm64]
     os: [darwin]
 
-  turbo-linux-64@2.8.8:
-    resolution: {integrity: sha512-BISkcKk+5/Dh11q+YhdQIGONXmdlQ6LY0iQ+GBIK7QOBAJyJFKmKvUeAeMdWGXOa3sImz2oZ6u2StyR+0Y/VVA==}
+  turbo-linux-64@2.8.9:
+    resolution: {integrity: sha512-OXC9HdCtsHvyH+5KUoH8ds+p5WU13vdif0OPbsFzZca4cUXMwKA3HWwUuCgQetk0iAE4cscXpi/t8A263n3VTg==}
     cpu: [x64]
     os: [linux]
 
-  turbo-linux-arm64@2.8.8:
-    resolution: {integrity: sha512-B+DQWWtM3O+AexFF4aYucT0MvvnQOW4n5y9LA5h3Zc3Lpj10yl9K4dEBzJvMVQ2jTkCRNAvA8q9G3EjqmGmGGA==}
+  turbo-linux-arm64@2.8.9:
+    resolution: {integrity: sha512-yI5n8jNXiFA6+CxnXG0gO7h5ZF1+19K8uO3/kXPQmyl37AdiA7ehKJQOvf9OPAnmkGDHcF2HSCPltabERNRmug==}
     cpu: [arm64]
     os: [linux]
 
-  turbo-windows-64@2.8.8:
-    resolution: {integrity: sha512-KP5TRVrmVnrxDyvERvQq7VXu+h5AiEiBwyr90YsRuYy/Z5zLz8hrNZXejTyUR17xmnuI+RbUSxrQlfmPnxiW1A==}
+  turbo-windows-64@2.8.9:
+    resolution: {integrity: sha512-/OztzeGftJAg258M/9vK2ZCkUKUzqrWXJIikiD2pm8TlqHcIYUmepDbyZSDfOiUjMy6NzrLFahpNLnY7b5vNgg==}
     cpu: [x64]
     os: [win32]
 
-  turbo-windows-arm64@2.8.8:
-    resolution: {integrity: sha512-X45sTOksR8iidk+PZUXpNcfEkOhGCTS2p2J8nSUExr1v7u3T4FixwplzliuWmG7QTPGJapAwItzHbi+d/9ckNQ==}
+  turbo-windows-arm64@2.8.9:
+    resolution: {integrity: sha512-xZ2VTwVTjIqpFZKN4UBxDHCPM3oJ2J5cpRzCBSmRpJ/Pn33wpiYjs+9FB2E03svKaD04/lSSLlEUej0UYsugfg==}
     cpu: [arm64]
     os: [win32]
 
-  turbo@2.8.8:
-    resolution: {integrity: sha512-wP+axjWAKzYfZ7bghuggVST9bX4j5cn3NPMU9NPQqtwaUKL9n9JOnWWBIc9gdrEma1aViYR73EoPjDEpVq+liQ==}
+  turbo@2.8.9:
+    resolution: {integrity: sha512-G+Mq8VVQAlpz/0HTsxiNNk/xywaHGl+dk1oiBREgOEVCCDjXInDlONWUn5srRnC9s5tdHTFD1bx1N19eR4hI+g==}
     hasBin: true
 
   tw-animate-css@1.4.0:
@@ -4655,6 +4636,10 @@ snapshots:
       vfile: 6.0.3
     transitivePeerDependencies:
       - supports-color
+
+  '@ngrok/remark-mdx-github-alerts@0.1.0':
+    dependencies:
+      unist-util-visit: 5.1.0
 
   '@ngrok/remark-mdx-no-paragraph-wrap@0.1.0(@mdx-js/mdx@3.1.1)(@mdx-js/rollup@3.1.1(rollup@4.57.1))':
     dependencies:
@@ -5557,7 +5542,7 @@ snapshots:
     dependencies:
       '@tanstack/devtools-event-client': 0.4.0
       '@tanstack/pacer-lite': 0.1.1
-      '@tanstack/store': 0.8.0
+      '@tanstack/store': 0.8.1
 
   '@tanstack/pacer-lite@0.1.1': {}
 
@@ -5568,7 +5553,7 @@ snapshots:
   '@tanstack/react-form@1.28.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@tanstack/form-core': 1.28.2
-      '@tanstack/react-store': 0.8.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@tanstack/react-store': 0.8.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react: 18.3.1
     transitivePeerDependencies:
       - react-dom
@@ -5584,9 +5569,9 @@ snapshots:
       '@tanstack/query-core': 5.90.20
       react: 18.3.1
 
-  '@tanstack/react-store@0.8.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@tanstack/react-store@0.8.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@tanstack/store': 0.8.0
+      '@tanstack/store': 0.8.1
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       use-sync-external-store: 1.6.0(react@18.3.1)
@@ -5603,7 +5588,7 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@tanstack/store@0.8.0': {}
+  '@tanstack/store@0.8.1': {}
 
   '@tanstack/table-core@8.21.3': {}
 
@@ -5913,7 +5898,7 @@ snapshots:
   browserslist@4.28.1:
     dependencies:
       baseline-browser-mapping: 2.9.19
-      caniuse-lite: 1.0.30001769
+      caniuse-lite: 1.0.30001770
       electron-to-chromium: 1.5.286
       node-releases: 2.0.27
       update-browserslist-db: 1.2.3(browserslist@4.28.1)
@@ -5939,7 +5924,7 @@ snapshots:
       call-bind-apply-helpers: 1.0.2
       get-intrinsic: 1.3.0
 
-  caniuse-lite@1.0.30001769: {}
+  caniuse-lite@1.0.30001770: {}
 
   ccount@2.0.1: {}
 
@@ -7785,32 +7770,32 @@ snapshots:
       - tsx
       - yaml
 
-  turbo-darwin-64@2.8.8:
+  turbo-darwin-64@2.8.9:
     optional: true
 
-  turbo-darwin-arm64@2.8.8:
+  turbo-darwin-arm64@2.8.9:
     optional: true
 
-  turbo-linux-64@2.8.8:
+  turbo-linux-64@2.8.9:
     optional: true
 
-  turbo-linux-arm64@2.8.8:
+  turbo-linux-arm64@2.8.9:
     optional: true
 
-  turbo-windows-64@2.8.8:
+  turbo-windows-64@2.8.9:
     optional: true
 
-  turbo-windows-arm64@2.8.8:
+  turbo-windows-arm64@2.8.9:
     optional: true
 
-  turbo@2.8.8:
+  turbo@2.8.9:
     optionalDependencies:
-      turbo-darwin-64: 2.8.8
-      turbo-darwin-arm64: 2.8.8
-      turbo-linux-64: 2.8.8
-      turbo-linux-arm64: 2.8.8
-      turbo-windows-64: 2.8.8
-      turbo-windows-arm64: 2.8.8
+      turbo-darwin-64: 2.8.9
+      turbo-darwin-arm64: 2.8.9
+      turbo-linux-64: 2.8.9
+      turbo-linux-arm64: 2.8.9
+      turbo-windows-64: 2.8.9
+      turbo-windows-arm64: 2.8.9
 
   tw-animate-css@1.4.0: {}
 
