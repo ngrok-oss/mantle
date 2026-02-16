@@ -2,46 +2,7 @@ import { z } from "zod";
 import { MdxProvider } from "~/components/mdx-provider";
 import { DocActions } from "~/components/doc-actions";
 import type { Route } from "./+types/docs.$";
-import { docModules, rawDocContent, urlToFileMap } from "~/utilities/docs";
-
-/**
- * Content negotiation middleware: returns raw markdown when Accept: text/markdown is requested.
- */
-export const middleware: Route.MiddlewareFunction[] = [
-	async ({ request }, next) => {
-		const accept = request.headers.get("Accept") ?? "";
-		if (!accept.includes("text/markdown")) {
-			return next();
-		}
-
-		const url = new URL(request.url);
-		let pathname = url.pathname;
-		if (pathname.startsWith("/")) {
-			pathname = pathname.slice(1);
-		}
-
-		const filePath = urlToFileMap.get(pathname);
-		if (!filePath) {
-			return new Response("Not Found", { status: 404 });
-		}
-
-		const rawContent = rawDocContent[filePath];
-		if (!rawContent) {
-			return new Response("Not Found", { status: 404 });
-		}
-
-		const filename = pathname.split("/").pop() ?? "document";
-
-		return new Response(rawContent, {
-			headers: {
-				"Content-Type": "text/markdown; charset=utf-8",
-				"Content-Disposition": `inline; filename="${filename}.md"`,
-				"Cache-Control": "max-age=300, stale-while-revalidate=604800",
-				"X-Content-Type-Options": "nosniff",
-			},
-		});
-	},
-];
+import { docModules, urlToFileMap } from "~/utilities/docs";
 
 const frontmatterSchema = z.object({
 	title: z.string().trim().min(1, "Frontmatter title is required"),

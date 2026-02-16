@@ -5,9 +5,6 @@ import { href } from "react-router";
 const isVercelDeploy = process.env.VERCEL === "1";
 
 export default {
-	future: {
-		v8_middleware: true,
-	},
 	ssr: true,
 	presets: [
 		//,
