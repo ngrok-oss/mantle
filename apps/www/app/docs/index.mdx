@@ -129,18 +129,30 @@ import {
 	Outlet,
 	Scripts,
 	ScrollRestoration,
+	useRouteLoaderData,
 } from "react-router";
 
 import type { Route } from "./+types/root";
 import "@ngrok/mantle/mantle.css";
 
+export const loader = async ({ request }: Route.LoaderArgs) => {
+	// Pass the Cookie header to useInitialHtmlThemeProps so the server
+	// renders the correct theme class, preventing a flash on hydration.
+	const cookie = request.headers.get("Cookie") ?? undefined;
+	return { cookie };
+};
+
 export function Layout({ children }: PropsWithChildren) {
+	const loaderData = useRouteLoaderData<typeof loader>("root");
 	const initialHtmlThemeProps = useInitialHtmlThemeProps({
 		className: "h-full",
+		ssrCookie: loaderData?.cookie,
 	});
 
 	return (
-		<html {...initialHtmlThemeProps} lang="en-US" dir="ltr">
+		// suppressHydrationWarning prevents React from fighting the inline
+		// theme script that corrects the class before paint on prerendered pages.
+		<html {...initialHtmlThemeProps} lang="en-US" dir="ltr" suppressHydrationWarning>
 			<head>
 				<meta charSet="utf-8" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />

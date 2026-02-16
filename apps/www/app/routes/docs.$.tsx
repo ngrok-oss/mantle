@@ -1,7 +1,12 @@
 import { Suspense, use } from "react";
 import { z } from "zod";
 import { ContentLayout } from "~/components/content-layout";
-import { loadFrontmatter, resolveDocComponent, urlToFileMap } from "~/utilities/docs";
+import {
+	getDocComponent,
+	loadFrontmatter,
+	resolveDocComponent,
+	urlToFileMap,
+} from "~/utilities/docs";
 import { makeCanonicalUrl } from "~/utilities/canonical-origin";
 import type { Route } from "./+types/docs.$";
 
@@ -69,10 +74,18 @@ export async function loader({ request }: Route.LoaderArgs) {
 }
 
 export default function DocPage({ loaderData }: Route.ComponentProps) {
+	if (import.meta.env.PROD) {
+		return (
+			<ContentLayout>
+				<ProdDocContent filePath={loaderData.filePath} />
+			</ContentLayout>
+		);
+	}
+
 	return (
 		<ContentLayout>
 			<Suspense>
-				<DocContent filePath={loaderData.filePath} />
+				<DevDocContent filePath={loaderData.filePath} />
 			</Suspense>
 		</ContentLayout>
 	);
@@ -84,13 +97,24 @@ type DocContentProps = {
 };
 
 /**
- * Render a doc MDX module by file path.
- *
- * Uses {@link resolveDocComponent} with React's `use()` to suspend while
- * the lazy import resolves. The promise is cached so Suspense doesn't
- * re-flash on HMR updates to other modules.
+ * Render a doc MDX module synchronously from eager imports.
+ * Used in production builds where all modules are available at build time,
+ * ensuring content is fully prerendered in the HTML.
  */
-function DocContent({ filePath }: DocContentProps) {
+function ProdDocContent({ filePath }: DocContentProps) {
+	const Component = getDocComponent(filePath);
+	if (!Component) {
+		throw Response.json({ message: "Not Found" }, { status: 404 });
+	}
+	return <Component />;
+}
+
+/**
+ * Render a doc MDX module by file path using Suspense + use().
+ * Used in dev for granular HMR — lazy imports allow Vite to hot-update
+ * individual MDX modules without a full page reload.
+ */
+function DevDocContent({ filePath }: DocContentProps) {
 	const componentPromise = resolveDocComponent(filePath);
 	const Component = use(componentPromise);
 	return <Component />;

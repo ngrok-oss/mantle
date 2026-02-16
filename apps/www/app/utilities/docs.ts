@@ -10,26 +10,37 @@ type MdxModule = {
 };
 
 /**
- * Lazy glob importers for all MDX doc modules keyed by relative file path.
- * Using lazy imports (no `eager`) allows Vite HMR to hot-update individual
- * MDX modules without a full page reload.
+ * Eager glob imports for production builds. All MDX modules are resolved at
+ * build time so they can be rendered synchronously during prerendering.
  */
-const docImporters = import.meta.glob<MdxModule>("../docs/**/*.mdx");
+const eagerDocModules: Record<string, MdxModule> = import.meta.env.PROD
+	? import.meta.glob<MdxModule>("../docs/**/*.mdx", { eager: true })
+	: {};
+
+/**
+ * Lazy glob importers for dev builds. Using lazy imports (no `eager`) allows
+ * Vite HMR to hot-update individual MDX modules without a full page reload.
+ */
+const lazyDocImporters: Record<string, () => Promise<MdxModule>> = import.meta.env.DEV
+	? import.meta.glob<MdxModule>("../docs/**/*.mdx")
+	: {};
+
+const allDocPaths = Object.keys(import.meta.env.PROD ? eagerDocModules : lazyDocImporters);
 
 function docPathToUrlPath(filePath: string): string {
 	return filePath.replace("../docs/", "").replace(/\.mdx$/, "");
 }
 
 export const urlToFileMap = new Map<string, string>();
-for (const filePath of Object.keys(docImporters)) {
+for (const filePath of allDocPaths) {
 	urlToFileMap.set(docPathToUrlPath(filePath), filePath);
 }
 
 /**
- * Load and validate an MDX module by file path.
+ * Load and validate an MDX module by file path (lazy, for dev).
  */
 async function getDocMdxModule(filePath: string): Promise<MdxModule | null> {
-	const importer = docImporters[filePath];
+	const importer = lazyDocImporters[filePath];
 	if (!importer) {
 		return null;
 	}
@@ -38,13 +49,14 @@ async function getDocMdxModule(filePath: string): Promise<MdxModule | null> {
 }
 
 // Cache promises by filePath so use() sees the same promise across renders.
-// In production, a simple Map suffices. In dev, we clear the cache each time
-// this module re-executes (which Vite triggers when an MDX file changes) so
-// the next render re-imports the updated module.
+// In dev, we clear the cache each time this module re-executes (which Vite
+// triggers when an MDX file changes) so the next render re-imports the
+// updated module.
 const componentPromiseCache = new Map<string, Promise<ComponentType>>();
 
 /**
- * Resolve the React component for a doc MDX module.
+ * Resolve the React component for a doc MDX module asynchronously.
+ * Used in dev with `use()` + Suspense for granular HMR.
  *
  * Caches promises so `use()` sees the same promise reference across renders,
  * preventing Suspense from re-suspending.
@@ -72,6 +84,19 @@ export function resolveDocComponent(filePath: string): Promise<ComponentType> {
 }
 
 /**
+ * Get the React component for a doc MDX module synchronously.
+ * Used in production builds where all modules are eagerly imported
+ * at build time for prerendering.
+ *
+ * @param filePath - A key from the MDX glob (e.g. "../docs/button.mdx").
+ * @returns The MDX component, or null if not found.
+ */
+export function getDocComponent(filePath: string): ComponentType | null {
+	const mod = eagerDocModules[filePath];
+	return mod?.default ?? null;
+}
+
+/**
  * Load the frontmatter for a given doc file path.
  *
  * Frontmatter is attached to the default export component as a property
@@ -80,6 +105,10 @@ export function resolveDocComponent(filePath: string): Promise<ComponentType> {
 export async function loadFrontmatter(
 	filePath: string,
 ): Promise<Record<string, unknown> | undefined> {
+	if (import.meta.env.PROD) {
+		const mod = eagerDocModules[filePath];
+		return mod?.default.frontmatter;
+	}
 	const mod = await getDocMdxModule(filePath);
 	return mod?.default.frontmatter;
 }
