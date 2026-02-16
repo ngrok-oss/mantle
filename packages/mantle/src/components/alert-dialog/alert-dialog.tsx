@@ -50,7 +50,7 @@ type AlertDialogProps = ComponentProps<typeof AlertDialogPrimitive.Root> & {
  * response.
  * The root stateful component for the Alert Dialog.
  *
- * @see https://mantle.ngrok.com/components/alert-dialog#api-alert-dialog
+ * @see https://mantle.ngrok.com/components/alert-dialog#alertdialogroot
  *
  * @example
  * ```tsx
@@ -96,7 +96,7 @@ Root.displayName = "AlertDialog";
 /**
  * A button that opens the Alert Dialog.
  *
- * @see https://mantle.ngrok.com/components/alert-dialog#api-alert-dialog-trigger
+ * @see https://mantle.ngrok.com/components/alert-dialog#alertdialogtrigger
  *
  * @example
  * ```tsx
@@ -176,7 +176,7 @@ type AlertDialogContentProps = ComponentPropsWithoutRef<typeof AlertDialogPrimit
  *
  * Renders on top of the overlay and is centered in the viewport.
  *
- * @see https://mantle.ngrok.com/components/alert-dialog#api-alert-dialog-content
+ * @see https://mantle.ngrok.com/components/alert-dialog#alertdialogcontent
  *
  * @example
  * ```tsx
@@ -249,7 +249,7 @@ Content.displayName = "AlertDialogContent";
 /**
  * Contains the main content of the alert dialog.
  *
- * @see https://mantle.ngrok.com/components/alert-dialog#api-alert-dialog-body
+ * @see https://mantle.ngrok.com/components/alert-dialog#alertdialogbody
  *
  * @example
  * ```tsx
@@ -293,7 +293,7 @@ Body.displayName = "AlertDialogBody";
 /**
  * Contains the header content of the dialog, including the title and description.
  *
- * @see https://mantle.ngrok.com/components/alert-dialog#api-alert-dialog-header
+ * @see https://mantle.ngrok.com/components/alert-dialog#alertdialogheader
  *
  * @example
  * ```tsx
@@ -343,7 +343,7 @@ Header.displayName = "AlertDialogHeader";
 /**
  * Contains the footer content of the dialog, including the action and cancel buttons.
  *
- * @see https://mantle.ngrok.com/components/alert-dialog#api-alert-dialog-footer
+ * @see https://mantle.ngrok.com/components/alert-dialog#alertdialogfooter
  *
  * @example
  * ```tsx
@@ -396,7 +396,7 @@ Footer.displayName = "AlertDialogFooter";
  * Alternatively, you can provide `aria-label` or `aria-labelledby` to
  * `AlertDialogContent` and exclude this component.
  *
- * @see https://mantle.ngrok.com/components/alert-dialog#api-alert-dialog-title
+ * @see https://mantle.ngrok.com/components/alert-dialog#alertdialogtitle
  *
  * @example
  * ```tsx
@@ -448,7 +448,7 @@ Title.displayName = "AlertDialogTitle";
  * Alternatively, you can provide `aria-describedby` to `AlertDialogContent` and
  * exclude this component.
  *
- * @see https://mantle.ngrok.com/components/alert-dialog#api-alert-dialog-description
+ * @see https://mantle.ngrok.com/components/alert-dialog#alertdialogdescription
  *
  * @example
  * ```tsx
@@ -501,7 +501,7 @@ Description.displayName = "AlertDialogDescription";
  *
  * Composes around the mantle Button component.
  *
- * @see https://mantle.ngrok.com/components/alert-dialog#api-alert-dialog-action
+ * @see https://mantle.ngrok.com/components/alert-dialog#alertdialogaction
  *
  * @example
  * ```tsx
@@ -569,7 +569,7 @@ Action.displayName = "AlertDialogAction";
  *
  * Composes around the mantle Button component.
  *
- * @see https://mantle.ngrok.com/components/alert-dialog#api-alert-dialog-cancel
+ * @see https://mantle.ngrok.com/components/alert-dialog#alertdialogcancel
  *
  * @example
  * ```tsx
@@ -637,7 +637,7 @@ type AlertDialogIconProps = Omit<SvgAttributes, "children"> & {
  *
  * Can be overridden with a custom icon using the `svg` prop.
  *
- * @see https://mantle.ngrok.com/components/alert-dialog#api-alert-dialog-icon
+ * @see https://mantle.ngrok.com/components/alert-dialog#alertdialogicon
  *
  * @example
  * ```tsx
@@ -690,7 +690,7 @@ Icon.displayName = "AlertDialogIcon";
 /**
  * A button that closes the Alert Dialog. (Unstyled)
  *
- * @see https://mantle.ngrok.com/components/alert-dialog#api-alert-dialog-close
+ * @see https://mantle.ngrok.com/components/alert-dialog#alertdialogclose
  *
  * @example
  * ```tsx
@@ -746,7 +746,7 @@ const AlertDialog = {
 	/**
 	 * A modal dialog that interrupts the user with important content and expects a response.
 	 *
-	 * @see https://mantle.ngrok.com/components/alert-dialog#api-alert-dialog-root
+	 * @see https://mantle.ngrok.com/components/alert-dialog#alertdialogroot
 	 *
 	 * @example
 	 * ```tsx
@@ -776,7 +776,7 @@ const AlertDialog = {
 	/**
 	 * A button that confirms the Alert Dialog action.
 	 *
-	 * @see https://mantle.ngrok.com/components/alert-dialog#api-alert-dialog-action
+	 * @see https://mantle.ngrok.com/components/alert-dialog#alertdialogaction
 	 *
 	 * @example
 	 * ```tsx
@@ -790,7 +790,7 @@ const AlertDialog = {
 	/**
 	 * Contains the main content of the alert dialog.
 	 *
-	 * @see https://mantle.ngrok.com/components/alert-dialog#api-alert-dialog-body
+	 * @see https://mantle.ngrok.com/components/alert-dialog#alertdialogbody
 	 *
 	 * @example
 	 * ```tsx
@@ -813,7 +813,7 @@ const AlertDialog = {
 	/**
 	 * A button that closes the dialog and cancels the action.
 	 *
-	 * @see https://mantle.ngrok.com/components/alert-dialog#api-alert-dialog-cancel
+	 * @see https://mantle.ngrok.com/components/alert-dialog#alertdialogcancel
 	 *
 	 * @example
 	 * ```tsx
@@ -827,7 +827,7 @@ const AlertDialog = {
 	/**
 	 * A button that closes the Alert Dialog. (Unstyled)
 	 *
-	 * @see https://mantle.ngrok.com/components/alert-dialog#api-alert-dialog-close
+	 * @see https://mantle.ngrok.com/components/alert-dialog#alertdialogclose
 	 *
 	 * @example
 	 * ```tsx
@@ -845,7 +845,7 @@ const AlertDialog = {
 	/**
 	 * The popover alert dialog container.
 	 *
-	 * @see https://mantle.ngrok.com/components/alert-dialog#api-alert-dialog-content
+	 * @see https://mantle.ngrok.com/components/alert-dialog#alertdialogcontent
 	 *
 	 * @example
 	 * ```tsx
@@ -868,7 +868,7 @@ const AlertDialog = {
 	/**
 	 * An accessible description to be announced when the dialog is opened.
 	 *
-	 * @see https://mantle.ngrok.com/components/alert-dialog#api-alert-dialog-description
+	 * @see https://mantle.ngrok.com/components/alert-dialog#alertdialogdescription
 	 *
 	 * @example
 	 * ```tsx
@@ -882,7 +882,7 @@ const AlertDialog = {
 	/**
 	 * Contains the footer content of the dialog, including the action and cancel buttons.
 	 *
-	 * @see https://mantle.ngrok.com/components/alert-dialog#api-alert-dialog-footer
+	 * @see https://mantle.ngrok.com/components/alert-dialog#alertdialogfooter
 	 *
 	 * @example
 	 * ```tsx
@@ -896,7 +896,7 @@ const AlertDialog = {
 	/**
 	 * Contains the header content of the dialog, including the title and description.
 	 *
-	 * @see https://mantle.ngrok.com/components/alert-dialog#api-alert-dialog-header
+	 * @see https://mantle.ngrok.com/components/alert-dialog#alertdialogheader
 	 *
 	 * @example
 	 * ```tsx
@@ -910,7 +910,7 @@ const AlertDialog = {
 	/**
 	 * An icon that visually represents the priority of the AlertDialog.
 	 *
-	 * @see https://mantle.ngrok.com/components/alert-dialog#api-alert-dialog-icon
+	 * @see https://mantle.ngrok.com/components/alert-dialog#alertdialogicon
 	 *
 	 * @example
 	 * ```tsx
@@ -929,7 +929,7 @@ const AlertDialog = {
 	/**
 	 * An accessible name to be announced when the dialog is opened.
 	 *
-	 * @see https://mantle.ngrok.com/components/alert-dialog#api-alert-dialog-title
+	 * @see https://mantle.ngrok.com/components/alert-dialog#alertdialogtitle
 	 *
 	 * @example
 	 * ```tsx
@@ -943,7 +943,7 @@ const AlertDialog = {
 	/**
 	 * A button that opens the Alert Dialog.
 	 *
-	 * @see https://mantle.ngrok.com/components/alert-dialog#api-alert-dialog-trigger
+	 * @see https://mantle.ngrok.com/components/alert-dialog#alertdialogtrigger
 	 *
 	 * @example
 	 * ```tsx

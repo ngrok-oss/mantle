@@ -104,7 +104,7 @@ MenuItem.displayName = "SplitButtonMenuItem";
  * related alternatives through a dropdown menu. Best for when users typically
  * want one action but occasionally need variants.
  *
- * @see https://mantle.ngrok.com/components/split-button#api-split-button
+ * @see https://mantle.ngrok.com/components/split-button#splitbuttonroot
  *
  * @example
  * ```tsx
@@ -134,7 +134,7 @@ const SplitButton = {
 	 * related alternatives through a dropdown menu. Best for when users typically
 	 * want one action but occasionally need variants.
 	 *
-	 * @see https://mantle.ngrok.com/components/split-button#api-split-button
+	 * @see https://mantle.ngrok.com/components/split-button#splitbuttonroot
 	 *
 	 * @example
 	 * ```tsx
@@ -162,7 +162,7 @@ const SplitButton = {
 	/**
 	 * The most common action users can trigger with a single click.
 	 *
-	 * @see https://mantle.ngrok.com/components/split-button#api-split-button-primary-action
+	 * @see https://mantle.ngrok.com/components/split-button#splitbuttonprimaryaction
 	 *
 	 * @example
 	 * ```tsx
@@ -190,7 +190,7 @@ const SplitButton = {
 	/**
 	 * The button that opens the split button dropdown menu.
 	 *
-	 * @see https://mantle.ngrok.com/components/split-button#api-split-button-menu-trigger
+	 * @see https://mantle.ngrok.com/components/split-button#splitbuttonmenutrigger
 	 *
 	 * @example
 	 * ```tsx
@@ -219,7 +219,7 @@ const SplitButton = {
 	 * The container for the split button dropdown menu content. Appears in a
 	 * portal with scrolling and animations.
 	 *
-	 * @see https://mantle.ngrok.com/components/split-button#api-split-button-menu-content
+	 * @see https://mantle.ngrok.com/components/split-button#splitbuttonmenucontent
 	 *
 	 * @example
 	 * ```tsx
@@ -248,7 +248,7 @@ const SplitButton = {
 	 * A standard item in the split button dropdown menu that can be selected or
 	 * activated.
 	 *
-	 * @see https://mantle.ngrok.com/components/split-button#api-split-button-menu-item
+	 * @see https://mantle.ngrok.com/components/split-button#splitbuttonmenuitem
 	 *
 	 * @example
 	 * ```tsx

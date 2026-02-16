@@ -10,7 +10,7 @@ type CardProps = ComponentProps<"div"> & WithAsChild;
  * A container that can be used to display content in a box resembling a
  * physical card. The root component of the all Card components.
  *
- * @see https://mantle.ngrok.com/components/card#api-card
+ * @see https://mantle.ngrok.com/components/card#cardroot
  *
  * @example
  * ```tsx
@@ -53,7 +53,7 @@ Root.displayName = "Card";
 /**
  * The main content of a card. Usually composed as a direct child of a `Card` component.
  *
- * @see https://mantle.ngrok.com/components/card#api-card-body
+ * @see https://mantle.ngrok.com/components/card#cardbody
  *
  * @example
  * ```tsx
@@ -96,7 +96,7 @@ Body.displayName = "CardBody";
 /**
  * The footer container of a card. Usually composed as a direct child of a `Card` component.
  *
- * @see https://mantle.ngrok.com/components/card#api-card-footer
+ * @see https://mantle.ngrok.com/components/card#cardfooter
  *
  * @example
  * ```tsx
@@ -133,7 +133,7 @@ Footer.displayName = "CardFooter";
 /**
  * The header container of a card. Usually composed as a direct child of a `Card` component.
  *
- * @see https://mantle.ngrok.com/components/card#api-card-header
+ * @see https://mantle.ngrok.com/components/card#cardheader
  *
  * @example
  * ```tsx
@@ -176,7 +176,7 @@ type CardTitleProps = HTMLAttributes<HTMLHeadingElement> & WithAsChild;
  * element by using the `asChild` prop. It is preferred to use a heading element
  * (h1-h6) for accessibility reasons.
  *
- * @see https://mantle.ngrok.com/components/card#api-card-title
+ * @see https://mantle.ngrok.com/components/card#cardtitle
  *
  * @example
  * ```tsx
@@ -234,7 +234,7 @@ const Card = {
 	/**
 	 * A container that can be used to display content in a box resembling a physical card.
 	 *
-	 * @see https://mantle.ngrok.com/components/card#api-card-root
+	 * @see https://mantle.ngrok.com/components/card#cardroot
 	 *
 	 * @example
 	 * ```tsx
@@ -249,7 +249,7 @@ const Card = {
 	/**
 	 * The main content of a card.
 	 *
-	 * @see https://mantle.ngrok.com/components/card#api-card-body
+	 * @see https://mantle.ngrok.com/components/card#cardbody
 	 *
 	 * @example
 	 * ```tsx
@@ -264,7 +264,7 @@ const Card = {
 	/**
 	 * The footer container of a card.
 	 *
-	 * @see https://mantle.ngrok.com/components/card#api-card-footer
+	 * @see https://mantle.ngrok.com/components/card#cardfooter
 	 *
 	 * @example
 	 * ```tsx
@@ -285,7 +285,7 @@ const Card = {
 	/**
 	 * The header container of a card.
 	 *
-	 * @see https://mantle.ngrok.com/components/card#api-card-header
+	 * @see https://mantle.ngrok.com/components/card#cardheader
 	 *
 	 * @example
 	 * ```tsx
@@ -306,7 +306,7 @@ const Card = {
 	/**
 	 * The title of a card.
 	 *
-	 * @see https://mantle.ngrok.com/components/card#api-card-title
+	 * @see https://mantle.ngrok.com/components/card#cardtitle
 	 *
 	 * @example
 	 * ```tsx
