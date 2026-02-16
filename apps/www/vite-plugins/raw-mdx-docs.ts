@@ -35,12 +35,15 @@ function rawMdxDocs(docsDir: string): Plugin {
 
 			return `export default ${JSON.stringify(entries)};`;
 		},
-		handleHotUpdate({ file, server }) {
+		handleHotUpdate({ file, server, modules }) {
 			if (file.startsWith(docsDir) && file.endsWith(".mdx")) {
 				const mod = server.moduleGraph.getModuleById(resolvedId);
 				if (mod) {
 					server.moduleGraph.invalidateModule(mod);
-					return [mod];
+					// Append the virtual module to the default update list rather than
+					// replacing it — this ensures the MDX module itself still goes
+					// through React Refresh so components hot-update in place.
+					return [...modules, mod];
 				}
 			}
 		},

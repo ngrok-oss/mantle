@@ -50,7 +50,6 @@ export default [
 	...docRoute("hooks"),
 
 	route("components/inline-code", "./routes/components._redirect.inline-code.tsx"),
-	route("components/auto-scroll-to-hash", "./routes/components.auto-scroll-to-hash.tsx"),
 	route("components/code-block", "./routes/components.code-block.tsx"),
 	route("components/icons", "./routes/components.icons.tsx"),
 	route("components/kbd", "./routes/components.kbd.tsx"),

@@ -45,11 +45,6 @@
       "types": "./dist/anchor.d.ts",
       "import": "./dist/anchor.js"
     },
-    "./auto-scroll-to-hash": {
-      "@ngrok/src-live-types": "./src/components/auto-scroll-to-hash/index.ts",
-      "types": "./dist/auto-scroll-to-hash.d.ts",
-      "import": "./dist/auto-scroll-to-hash.js"
-    },
     "./badge": {
       "@ngrok/src-live-types": "./src/components/badge/index.ts",
       "types": "./dist/badge.d.ts",
@@ -324,14 +319,13 @@
     "@testing-library/react": "16.3.2",
     "@testing-library/user-event": "14.6.1",
     "@types/prismjs": "1.26.6",
-    "@types/react": "catalog:",
-    "@types/react-dom": "catalog:",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
     "browserslist": "4.28.1",
     "date-fns": "4.1.0",
     "happy-dom": "catalog:",
-    "react": "catalog:",
-    "react-dom": "catalog:",
-    "react-router": "catalog:",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
     "tailwindcss": "catalog:",
     "tsup": "8.5.1",
     "typescript": "catalog:"
@@ -341,7 +335,6 @@
     "date-fns": "^4.1.0",
     "react": "^18 || ^19",
     "react-dom": "^18 || ^19",
-    "react-router": "^7",
     "tailwindcss": "^4.1.18"
   },
   "browserslist": [

@@ -22,7 +22,7 @@ const Slot = forwardRef<HTMLElement, Props>(function Slot(
 	{ children, className, ...props },
 	forwardedRef,
 ) {
-	if (!isValidElement(children)) {
+	if (!isValidElement<{ className?: string }>(children)) {
 		return Children.only(children);
 	}
 

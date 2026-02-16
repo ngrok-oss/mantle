@@ -26,7 +26,12 @@ export default defineConfig({
 		mdx({
 			remarkPlugins: [
 				remarkFrontmatter,
-				remarkMdxFrontmatter,
+				// Use `export: "namespace"` to attach frontmatter as a property on
+				// the default export component (MDXContent.frontmatter) instead of a
+				// separate named export. This is required for React Refresh (Fast
+				// Refresh) compatibility — modules that export non-component values
+				// cause React Refresh to bail out and trigger a full page reload.
+				[remarkMdxFrontmatter, { export: "namespace" }],
 				remarkGfm,
 				remarkMdxGithubAlerts,
 				remarkMdxNoParagraphWrap,
@@ -35,7 +40,7 @@ export default defineConfig({
 			providerImportSource: "@mdx-js/react",
 		}),
 		reactRouter(),
-		tsconfigPaths(),
+		tsconfigPaths({ ignoreConfigErrors: true }),
 	],
 	resolve: {
 		// Ensure Mantle components resolve to source in dev mode (not dist)
