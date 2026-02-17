@@ -2,7 +2,6 @@
   "extends": "@cfg/tsconfig/tsconfig.web-app.json",
   "include": ["**/*.ts", "**/*.tsx", "**/*.mdx", ".react-router/types/**/*"],
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
       "~/*": ["./app/*"]
     },

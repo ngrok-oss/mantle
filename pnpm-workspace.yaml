@@ -3,12 +3,12 @@ packages:
   - "config/*"
   - "packages/*"
 
-# Don't install packages that are less than 10h old
+# Don't install packages that are less than 7h old
 # This reduces the risk of installing compromised packages.
 # In most cases, malicious releases are discovered and removed from the registry
 # within an hour.
 # see: https://pnpm.io/settings#minimumreleaseage
-minimumReleaseAge: 600
+minimumReleaseAge: 420
 
 minimumReleaseAgeExclude:
   - "@ngrok/remark-mdx-github-alerts"
