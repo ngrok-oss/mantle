@@ -1,30 +1,34 @@
 import { Code } from "@ngrok/mantle/code";
+import { Button } from "@ngrok/mantle/button";
 import { useCopyToClipboard } from "@ngrok/mantle/hooks";
 import { Icon } from "@ngrok/mantle/icon";
 import { Input } from "@ngrok/mantle/input";
 import { Label } from "@ngrok/mantle/label";
 import { CheckIcon } from "@phosphor-icons/react/Check";
-import { useEffect, useRef, useState } from "react";
+import Fuse, { type IFuseOptions } from "fuse.js";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { type IconData, iconData } from "~/features/icons/icon-data";
+
+const fuseOptions = {
+	keys: [
+		{ name: "name", weight: 0.6 },
+		{ name: "id", weight: 0.25 },
+		{ name: "tags", weight: 0.15 },
+	],
+	threshold: 0.25,
+} as const satisfies IFuseOptions<IconData>;
 
 /**
  * Interactive icon explorer with search and click-to-copy.
  */
 export function IconsExplorer() {
 	const [query, setQuery] = useState("");
-	const q = query.toLowerCase();
+	const fuzzy = useMemo(() => new Fuse(iconData, fuseOptions), []);
 
-	const filtered = query
-		? iconData.filter((item) => {
-				return (
-					item.name.toLowerCase().includes(q) ||
-					item.tags.some((tag) => tag.toLowerCase().includes(q))
-				);
-			})
-		: iconData;
+	const filtered = query ? fuzzy.search(query).map((result) => result.item) : iconData;
 
 	return (
-		<div className="space-y-4">
+		<div className="space-y-4 mb-4">
 			<div className="space-y-1">
 				<Label className="block" htmlFor="icon-search">
 					Search Icons
@@ -41,13 +45,9 @@ export function IconsExplorer() {
 					<p className="text-strong">
 						No results found for <Code>{query}</Code>
 					</p>
-					<button
-						type="button"
-						className="text-accent-600 hover:underline cursor-pointer"
-						onClick={() => setQuery("")}
-					>
+					<Button type="button" appearance="outlined" onClick={() => setQuery("")}>
 						Clear Search
-					</button>
+					</Button>
 				</div>
 			) : (
 				<ul className="grid grid-cols-4 gap-2">

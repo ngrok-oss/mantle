@@ -1,6 +1,11 @@
 import { Code } from "@ngrok/mantle/code";
-import { SortIcon, TrafficPolicyFileIcon } from "@ngrok/mantle/icons";
-import { AutoThemeIcon, ThemeIcon } from "@ngrok/mantle/icons";
+import {
+	AutoThemeIcon,
+	NgrokIcon,
+	SortIcon,
+	ThemeIcon,
+	TrafficPolicyFileIcon,
+} from "@ngrok/mantle/icons";
 import type { ReactNode } from "react";
 
 type IconData = {
@@ -119,6 +124,18 @@ const iconData = [
 			//,
 			"file",
 			"traffic policy",
+		],
+	},
+	{
+		id: "NgrokIcon",
+		name: "NgrokIcon",
+		description: <p className="text-muted">The ngrok logo icon</p>,
+		Icon: <NgrokIcon />,
+		tags: [
+			//,
+			"brand",
+			"logo",
+			"ngrok",
 		],
 	},
 	{
