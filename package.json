@@ -24,15 +24,16 @@
     "@changesets/changelog-github": "0.5.2",
     "@changesets/cli": "2.29.8",
     "@types/node": "24.10.13",
-    "oxfmt": "0.32.0",
+    "oxfmt": "0.33.0",
     "oxlint": "1.47.0",
+    "tsx": "4.21.0",
     "turbo": "2.8.9",
     "vitest": "4.0.18"
   },
   "engines": {
     "node": "^24.0.0"
   },
-  "packageManager": "pnpm@10.29.3",
+  "packageManager": "pnpm@10.30.0",
   "pnpm": {
     "overrides": {
       "@mjackson/node-fetch-server": "npm:@remix-run/node-fetch-server@0.10.0",

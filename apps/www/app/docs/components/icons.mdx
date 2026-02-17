@@ -1,0 +1,55 @@
+---
+title: Icons
+description: Custom icons used throughout ngrok UI.
+---
+
+import { IconsExplorer } from "~/features/icons-explorer";
+
+# Icons
+
+A list of custom icons that are used throughout ngrok UI.
+
+<IconsExplorer />
+
+```tsx
+import {
+	SortIcon,
+	TrafficPolicyFileIcon,
+	AutoThemeIcon,
+	ThemeIcon,
+	NgrokIcon,
+} from "@ngrok/mantle/icons";
+```
+
+## API Reference
+
+All custom icons are exported from `@ngrok/mantle/icons`.
+
+### SortIcon
+
+A sort direction indicator icon with different modes and directions.
+
+| Prop        | Type                                                          | Default | Description         |
+| :---------- | :------------------------------------------------------------ | :------ | :------------------ |
+| `mode`      | `"alphanumeric" \| "time"`                                    |         | The sorting mode.   |
+| `direction` | `"asc" \| "desc" \| "newest-to-oldest" \| "oldest-to-newest"` |         | The sort direction. |
+
+### TrafficPolicyFileIcon
+
+The ngrok traffic policy file icon.
+
+### AutoThemeIcon
+
+An icon that automatically adapts to the current applied theme.
+
+### ThemeIcon
+
+An icon for a specific theme.
+
+| Prop    | Type                                                                             | Default | Description           |
+| :------ | :------------------------------------------------------------------------------- | :------ | :-------------------- |
+| `theme` | `"system" \| "light" \| "dark" \| "light-high-contrast" \| "dark-high-contrast"` |         | The theme to display. |
+
+### NgrokIcon
+
+The ngrok logo icon.

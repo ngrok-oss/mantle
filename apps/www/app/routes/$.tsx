@@ -8,7 +8,7 @@ import {
 	urlToFileMap,
 } from "~/utilities/docs";
 import { makeCanonicalUrl } from "~/utilities/canonical-origin";
-import type { Route } from "./+types/docs.$";
+import type { Route } from "./+types/$";
 
 const frontmatterSchema = z.object({
 	title: z.string().trim().min(1, "Frontmatter title is required"),

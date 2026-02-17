@@ -1,13 +1,7 @@
 "use client";
 
 import * as Primitive from "@ariakit/react";
-import {
-	type ComponentPropsWithoutRef,
-	type ComponentRef,
-	type ElementRef,
-	createContext,
-	forwardRef,
-} from "react";
+import { type ComponentPropsWithoutRef, type ComponentRef, createContext, forwardRef } from "react";
 import type { WithAsChild } from "../../types/as-child.js";
 import { cx } from "../../utils/cx/cx.js";
 import type { WithValidation } from "../input/types.js";
@@ -327,7 +321,7 @@ ItemValue.displayName = "ComboboxItemValue";
  * </Combobox.Root>
  */
 const ComboboxSeparatorComponent = forwardRef<
-	ElementRef<typeof Separator>,
+	ComponentRef<typeof Separator>,
 	ComponentPropsWithoutRef<typeof Separator>
 >(({ className, ...props }, ref) => (
 	<Separator ref={ref} className={cx("-mx-1.25 my-1 w-auto", className)} {...props} />

@@ -1,0 +1,296 @@
+---
+title: Code Block
+description: Code blocks render and apply syntax highlighting to blocks of code.
+---
+
+import {
+	PrimaryCodeBlockDemo,
+	SingleLineWithHeaderDemo,
+	HorizontalScrollingDemo,
+	NoHeaderOrCopyButtonDemo,
+	SingleLineHorizontalScrollingDemo,
+	OverridingIndentationDemo,
+} from "~/features/code-block-demos";
+
+# Code Block
+
+Code blocks render and apply syntax highlighting to blocks of code.
+
+<PrimaryCodeBlockDemo />
+
+```tsx
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
+
+<CodeBlock.Root>
+	<CodeBlock.Header>
+		<CodeBlock.Icon preset="file" />
+		<CodeBlock.Title>…</CodeBlock.Title>
+	</CodeBlock.Header>
+	<CodeBlock.Body>
+		<CodeBlock.CopyButton />
+		<CodeBlock.Code language="…" value={fmtCode`…`} />
+	</CodeBlock.Body>
+	<CodeBlock.ExpanderButton />
+</CodeBlock.Root>;
+```
+
+## Examples
+
+### Single Line with a Header
+
+Many code blocks will be single line command line prompts and should be able to render with a header and copy button. This makes it absolutely clear that this example is a command line prompt and not a code sample.
+
+<SingleLineWithHeaderDemo />
+
+```tsx
+<CodeBlock.Root>
+	<CodeBlock.Header>
+		<CodeBlock.Icon preset="cli" />
+		<CodeBlock.Title>Command Line</CodeBlock.Title>
+	</CodeBlock.Header>
+	<CodeBlock.Body>
+		<CodeBlock.CopyButton />
+		<CodeBlock.Code
+			language="sh"
+			value={fmtCode`sudo unzip ~/Downloads/ngrok-v3-stable-darwin.zip -d /usr/local/bin`}
+		/>
+	</CodeBlock.Body>
+</CodeBlock.Root>
+```
+
+### Horizontal Scrolling
+
+This example is included to demonstrate that code blocks can scroll horizontally if the content is too wide. Mantle attempts to normalize scrollbar styling across browsers and platforms.
+
+<HorizontalScrollingDemo />
+
+```tsx
+<CodeBlock.Root>
+	<CodeBlock.Header>
+		<CodeBlock.Icon preset="file" />
+		<CodeBlock.Title>ngrok-example.js</CodeBlock.Title>
+	</CodeBlock.Header>
+	<CodeBlock.Body>
+		<CodeBlock.CopyButton />
+		<CodeBlock.Code
+			language="js"
+			value={fmtCode`
+				const http = require('http');
+				const ngrok = require("@ngrok/ngrok");
+				const server = http.createServer((req, res) => {
+					res.writeHead(200);
+					res.end("Hello!");
+					setTimeout(() => {
+						Promise.resolve(() => {
+							console.log("url:", server.tunnel.url());
+						})
+					}, timeout);
+				});
+				// Consumes authtoken from env automatically
+				ngrok.listen(server).then(() => {
+					console.log("url:", server.tunnel.url());
+				});
+				// really long line here that should wrap around and stuff Officia ipsum sint eu labore esse deserunt aliqua quis irure.
+			`}
+		/>
+	</CodeBlock.Body>
+</CodeBlock.Root>
+```
+
+### No Header or Copy Button
+
+This is the most simple example of our code block component. While very useful, the copy button is optional. It is also perfectly acceptable to render a code block without a header, especially if context is provided in the surrounding content or the code block is self-explanatory eg. "In your index.js file, paste the following:".
+
+<NoHeaderOrCopyButtonDemo />
+
+```tsx
+<CodeBlock.Root>
+	<CodeBlock.Body>
+		<CodeBlock.Code
+			language="js"
+			value={fmtCode`
+				const http = require('http');
+				const ngrok = require("@ngrok/ngrok");
+				const server = http.createServer((req, res) => {
+					res.writeHead(200);
+					res.end("Hello!");
+				});
+				// Consumes authtoken from env automatically
+				ngrok.listen(server).then(() => {
+					console.log("url:", server.tunnel.url());
+				});
+			`}
+		/>
+	</CodeBlock.Body>
+</CodeBlock.Root>
+```
+
+### Single Line with Horizontal Scrolling
+
+This example is included to show the interaction between the copy button and horizontal scrolling on a single verbose terminal command.
+
+<SingleLineHorizontalScrollingDemo />
+
+```tsx
+<CodeBlock.Root>
+	<CodeBlock.Body>
+		<CodeBlock.CopyButton />
+		<CodeBlock.Code
+			language="sh"
+			value={fmtCode`ffmpeg -i multichannel.mxf -map 0:v:0 -map 0:a:0 -map 0:a:0 -c:a:0 ac3 -b:a:0 640k -ac:a:1 2 -c:a:1 aac -b:2 128k out.mp4`}
+		/>
+	</CodeBlock.Body>
+</CodeBlock.Root>
+```
+
+### Overriding default language indentation
+
+By default, the code block code will detect the preferred (or required) indentation of the given language. This is important for languages that require a certain indentation style; for example, Python and YAML are space-indented languages, so the code block will use spaces for indentation. This is done to ensure that the code is displayed and copied correctly and is easy to read. However, you can override this by passing the `indentation` prop to the `CodeBlock.Code`.
+
+<OverridingIndentationDemo />
+
+```tsx
+<CodeBlock.Root>
+	<CodeBlock.Header>
+		<CodeBlock.Icon preset="file" />
+		<CodeBlock.Title>traffic-policy.yaml</CodeBlock.Title>
+	</CodeBlock.Header>
+	<CodeBlock.Body>
+		<CodeBlock.CopyButton />
+		<CodeBlock.Code
+			language="yaml"
+			value={fmtCode`
+				# yaml indentation MUST use spaces (we infer this for you)
+				on_http_request:
+					actions:
+						type: custom-response
+						config:
+							status_code: 200
+							content: Hello, World!
+			`}
+		/>
+	</CodeBlock.Body>
+</CodeBlock.Root>
+
+<CodeBlock.Root>
+	<CodeBlock.Header>
+		<CodeBlock.Icon preset="file" />
+		<CodeBlock.Title>ngrok-example.js (using space indentation)</CodeBlock.Title>
+	</CodeBlock.Header>
+	<CodeBlock.Body>
+		<CodeBlock.CopyButton />
+		<CodeBlock.Code
+			language="js"
+			indentation="spaces"
+			value={fmtCode`
+				// by default, mantle decides that javascript uses tabs,
+				// but this example uses spaces for indentation
+				const http = require('http');
+				const ngrok = require("@ngrok/ngrok");
+				const server = http.createServer((req, res) => {
+					res.writeHead(200);
+					res.end("Hello!");
+					setTimeout(() => {
+						Promise.resolve(() => {
+							console.log("url:", server.tunnel.url());
+						})
+					}, timeout);
+				});
+				// Consumes authtoken from env automatically
+				ngrok.listen(server).then(() => {
+					console.log("url:", server.tunnel.url());
+				});
+			`}
+		/>
+	</CodeBlock.Body>
+</CodeBlock.Root>
+```
+
+## API Reference
+
+The `CodeBlock` renders and applies syntax highlighting to blocks of code and is composed of several sub-components.
+
+### CodeBlock.Root
+
+Code blocks render and apply syntax highlighting to blocks of code. Root container for all `CodeBlock` sub-components.
+
+All props from [standard HTML div attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes), plus:
+
+| Prop       | Type      | Default | Description                                                                                                                              |
+| :--------- | :-------- | :------ | :--------------------------------------------------------------------------------------------------------------------------------------- |
+| `asChild?` | `boolean` | `false` | Use the `asChild` prop to compose the `CodeBlock` styling and functionality onto alternative element types or your own React components. |
+
+### CodeBlock.Body
+
+The body of the `CodeBlock`. This is where the `CodeBlock.Code` and optional `CodeBlock.CopyButton` are rendered as direct children.
+
+All props from [standard HTML div attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes), plus:
+
+| Prop       | Type      | Default | Description                                                                                                                                   |
+| :--------- | :-------- | :------ | :-------------------------------------------------------------------------------------------------------------------------------------------- |
+| `asChild?` | `boolean` | `false` | Use the `asChild` prop to compose the `CodeBlock.Body` styling and functionality onto alternative element types or your own React components. |
+
+### CodeBlock.Code
+
+The `CodeBlock` content. This is where the code is rendered and syntax highlighted.
+
+All props from [standard HTML pre attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/pre#attributes), plus:
+
+| Prop           | Type                                                                                                                                                                                                                                                                                                                                                                        | Default  | Description                                                                                                                                                                                                                                    |
+| :------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `value`        | `string`                                                                                                                                                                                                                                                                                                                                                                    |          | The code to display in the `CodeBlock`. Should be code formatted as a string. This code will be passed to our syntax highlighter. You should strongly consider wrapping this input with the `fmtCode` tagged template literal function helper. |
+| `indentation?` | `"spaces"` \| `"tabs"`                                                                                                                                                                                                                                                                                                                                                      |          | The type of indentation to use. By default, the code block code will detect the preferred (or required) indentation of the given language. You can override this behavior with this prop.                                                      |
+| `language`     | `"bash"` \| `"cs"` \| `"csharp"` \| `"css"` \| `"dotnet"` \| `"go"` \| `"html"` \| `"java"` \| `"javascript"` \| `"js"` \| `"json"` \| `"jsx"` \| `"markup"` \| `"plain"` \| `"plaintext"` \| `"py"` \| `"python"` \| `"rb"` \| `"ruby"` \| `"rust"` \| `"sh"` \| `"shell"` \| `"text"` \| `"ts"` \| `"tsx"` \| `"txt"` \| `"typescript"` \| `"xml"` \| `"yaml"` \| `"yml"` | `"text"` | The language of the `CodeBlock`. This will be used to determine how to syntax highlight the code.                                                                                                                                              |
+
+### CodeBlock.Header
+
+An optional header slot of the `CodeBlock`. This is where things like the `CodeBlock.Icon` and `CodeBlock.Title` are rendered.
+
+All props from [standard HTML div attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes), plus:
+
+| Prop       | Type      | Default | Description                                                                                                                                     |
+| :--------- | :-------- | :------ | :---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `asChild?` | `boolean` | `false` | Use the `asChild` prop to compose the `CodeBlock.Header` styling and functionality onto alternative element types or your own React components. |
+
+### CodeBlock.Title
+
+The (optional) title of a `CodeBlock`. Default renders as an `h3` element; use `asChild` to render something else.
+
+All props from [standard HTML h3 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements#attributes), plus:
+
+| Prop       | Type      | Default | Description                                                                                                                                    |
+| :--------- | :-------- | :------ | :--------------------------------------------------------------------------------------------------------------------------------------------- |
+| `asChild?` | `boolean` | `false` | Use the `asChild` prop to compose the `CodeBlock.Title` styling and functionality onto alternative element types or your own React components. |
+
+### CodeBlock.CopyButton
+
+The (optional) copy button of the `CodeBlock`. Render this as a child of the `CodeBlock.Body` to allow users to copy the code block contents to their clipboard.
+
+All props from [standard HTML button attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes), plus:
+
+| Prop           | Type                       | Default | Description                                                                                                                                         |
+| :------------- | :------------------------- | :------ | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `onCopy?`      | `(value: string) => void`  |         | Callback fired when the copy button is clicked, passes the copied text as an argument.                                                              |
+| `onCopyError?` | `(error: unknown) => void` |         | Callback fired when an error occurs during copying.                                                                                                 |
+| `asChild?`     | `boolean`                  | `false` | Use the `asChild` prop to compose the `CodeBlock.CopyButton` styling and functionality onto alternative element types or your own React components. |
+
+### CodeBlock.ExpanderButton
+
+The (optional) expander button of the `CodeBlock`. Render this as a child of the `CodeBlock.Body` to allow users to expand/collapse the code block contents.
+
+All props from [standard HTML button attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes), plus:
+
+| Prop       | Type      | Default | Description                                                                                                                                             |
+| :--------- | :-------- | :------ | :------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `asChild?` | `boolean` | `false` | Use the `asChild` prop to compose the `CodeBlock.ExpanderButton` styling and functionality onto alternative element types or your own React components. |
+
+### CodeBlock.Icon
+
+A small icon that represents the type of code block being displayed, rendered as an SVG next to the code block title in the code block header. You can pass in a custom SVG component or use one of the presets (you can exclusively pass one of `svg` or `preset`).
+
+All props from [Icon](/components/icon), plus:
+
+| Prop      | Type                                      | Default | Description                                                                                          |
+| :-------- | :---------------------------------------- | :------ | :--------------------------------------------------------------------------------------------------- |
+| `svg?`    | `ReactNode`                               |         | A custom icon to display in the code block header. You can exclusively pass one of `svg` or `preset` |
+| `preset?` | `"cli"` \| `"file"` \| `"traffic-policy"` |         | A preset icon to display in the code block header. You can exclusively pass one of `svg` or `preset` |

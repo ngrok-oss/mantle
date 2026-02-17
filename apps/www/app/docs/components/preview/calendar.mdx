@@ -1,0 +1,58 @@
+---
+title: Calendar
+description: A date field component that allows users to enter and edit date.
+---
+
+import { Example } from "~/components/example";
+import { PageHeader } from "~/components/page-header";
+import {
+	DisabledDaysCalendarExample,
+	HiddenDaysCalendarExample,
+	PopoverCalendarExample,
+	RangeCalendarExample,
+	RangeMultipleCalendarExample,
+	SingleCalendarExample,
+} from "~/features/calendar-demos";
+
+<PageHeader id="calendar" isPreview>
+	Calendar
+</PageHeader>
+
+A date field component that allows users to enter and edit date.
+
+<Example className="flex flex-col gap-6">
+	<div className="space-y-2">
+		<p>Single</p>
+		<SingleCalendarExample />
+	</div>
+	<div className="flex flex-col gap-2 items-center">
+		<p>Popover</p>
+		<PopoverCalendarExample />
+	</div>
+	<div className="space-y-2">
+		<p>Range</p>
+		<RangeCalendarExample />
+	</div>
+	<div className="space-y-2">
+		<p>Range Multiple Months</p>
+		<RangeMultipleCalendarExample />
+	</div>
+	<div className="space-y-2">
+		<p>Hidden Days</p>
+		<HiddenDaysCalendarExample />
+	</div>
+	<div className="space-y-2">
+		<p>Disabled Days</p>
+		<DisabledDaysCalendarExample />
+	</div>
+</Example>
+
+```tsx
+import { Calendar } from "@ngrok/mantle/calendar";
+
+<Calendar mode="single" selected={date} onSelect={setDate} />;
+```
+
+## API Reference
+
+The `Calendar` is built on top of [React DayPicker](https://react-day-picker.js.org/).
