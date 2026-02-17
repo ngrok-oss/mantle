@@ -85,7 +85,7 @@ function Slider({ className, defaultValue, value, min = 0, max = 100, ...props }
 				? defaultValue
 				: [defaultValue]
 			: undefined;
-	const values = normalizedValue ?? normalizedDefaultValue ?? [min, max];
+	const values = normalizedValue ?? normalizedDefaultValue ?? [min];
 
 	return (
 		<SliderPrimitive.Root
@@ -123,7 +123,7 @@ function Slider({ className, defaultValue, value, min = 0, max = 100, ...props }
 						"after:absolute after:-inset-2",
 						"focus-visible:ring-3 focus-visible:ring-accent-500/20 focus-visible:outline-hidden",
 						"block shrink-0 cursor-pointer select-none",
-						"disabled:pointer-events-none disabled:opacity-50",
+						"data-disabled:pointer-events-none data-disabled:cursor-default",
 					)}
 				/>
 			))}

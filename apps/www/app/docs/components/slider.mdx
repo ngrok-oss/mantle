@@ -11,13 +11,17 @@ import { Example } from "~/components/example";
 An input where the user selects a value from within a given range.
 
 <Example className="flex-col gap-6">
-	<Slider defaultValue={75} max={100} step={1} />
+	<Slider defaultValue={67} max={100} step={1} />
+	<Slider defaultValue={67} max={100} step={1} disabled />
+	<Slider defaultValue={67} max={100} step={1} orientation="vertical" />
 </Example>
 
 ```tsx
 import { Slider } from "@ngrok/mantle/slider";
 
-<Slider defaultValue={75} max={100} step={1} />;
+<Slider defaultValue={67} max={100} step={1} />;
+<Slider defaultValue={67} max={100} step={1} disabled />
+<Slider defaultValue={67} max={100} step={1} orientation="vertical" />
 ```
 
 ## Examples
@@ -27,7 +31,7 @@ import { Slider } from "@ngrok/mantle/slider";
 A basic slider with a single thumb for selecting a single value. You can pass a single number instead of an array.
 
 <Example>
-	<Slider defaultValue={75} max={100} step={1} />
+	<Slider defaultValue={67} max={100} step={1} />
 </Example>
 
 ```tsx
