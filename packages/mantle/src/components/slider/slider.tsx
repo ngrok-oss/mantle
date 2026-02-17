@@ -119,7 +119,7 @@ function Slider({ className, defaultValue, value, min = 0, max = 100, ...props }
 					key={index}
 					className={cx(
 						"bg-card border-card relative size-4.5 rounded-full border",
-						"shadow-sm transition-[color,box-shadow]",
+						"shadow-md transition-[color,box-shadow]",
 						"after:absolute after:-inset-2",
 						"focus-visible:ring-3 focus-visible:ring-accent-500/20 focus-visible:outline-hidden",
 						"block shrink-0 cursor-pointer select-none",
