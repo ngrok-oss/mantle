@@ -1,6 +1,6 @@
 {
   "name": "@ngrok/mantle",
-  "version": "0.63.2",
+  "version": "0.64.0",
   "description": "mantle is ngrok's UI library and design system.",
   "homepage": "https://mantle.ngrok.com",
   "license": "MIT",
