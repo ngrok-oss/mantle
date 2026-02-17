@@ -49,6 +49,7 @@ export default [
 	...docRoute("components/select"),
 	...docRoute("components/separator"),
 	...docRoute("components/sheet"),
+	...docRoute("components/slider"),
 	...docRoute("components/skeleton"),
 	...docRoute("components/slot"),
 	...docRoute("components/split-button"),
