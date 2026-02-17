@@ -36,12 +36,6 @@ export function meta({ loaderData, location }: Route.MetaArgs) {
 	];
 }
 
-export function headers() {
-	return {
-		"Cache-Control": "max-age=300, stale-while-revalidate=604800",
-	};
-}
-
 export async function loader({ request }: Route.LoaderArgs) {
 	const url = new URL(request.url);
 	let pathname = url.pathname;
