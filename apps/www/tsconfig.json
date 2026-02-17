@@ -15,5 +15,8 @@
     ],
     "customConditions": ["@ngrok/src-live-types"],
     "rootDirs": [".", "./.react-router/types"]
+  },
+  "mdx": {
+    "checkMdx": true
   }
 }

@@ -317,7 +317,7 @@ const hooksRoute = "/hooks" as const satisfies Route;
 
 function Navigation({ className, style }: WithStyleProps) {
 	return (
-		<nav className={cx("text-sm", className)} style={style}>
+		<nav className={cx("text-sm pb-16", className)} style={style}>
 			<ul className="flex flex-col">
 				<li className="mb-2 text-xs font-medium uppercase tracking-wider font-mono">Welcome</li>
 

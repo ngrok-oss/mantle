@@ -4,7 +4,7 @@ import { type RouteConfig, index, route } from "@react-router/dev/routes";
 function docRoute(path: string) {
 	const id = `docs-${path.replace(/\//g, "-")}`;
 	return [
-		route(path, "./routes/docs.$.tsx", { id }),
+		route(path, "./routes/$.tsx", { id }),
 		route(`${path}.md`, "./routes/$.md.tsx", { id: `${id}-md` }),
 	];
 }
@@ -66,9 +66,10 @@ export default [
 	...docRoute("base/colors"),
 	...docRoute("hooks"),
 
-	route("components/inline-code", "./routes/components._redirect.inline-code.tsx"),
-	route("components/code-block", "./routes/components.code-block.tsx"),
-	route("components/icons", "./routes/components.icons.tsx"),
-	route("components/preview/accordion", "./routes/components.preview.accordion.tsx"),
-	route("components/preview/calendar", "./routes/components.preview.calendar.tsx"),
+	...docRoute("components/preview/accordion"),
+	...docRoute("components/preview/calendar"),
+
+	...docRoute("components/icons"),
+
+	...docRoute("components/code-block"),
 ] satisfies RouteConfig;

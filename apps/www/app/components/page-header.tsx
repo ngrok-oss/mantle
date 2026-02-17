@@ -21,6 +21,13 @@ type PageHeaderProps = Omit<ComponentProps<"h1">, "id"> & {
 /**
  * Page header component that renders an h1 with copy-to-clipboard anchor link,
  * optional preview/unreleased badges.
+ *
+ * @param props - {@link PageHeaderProps}
+ * @param props.id - The unique identifier for the heading, used as the anchor target.
+ * @param props.isPreview - Whether the component is in preview. Shows a preview badge.
+ * @param props.isUnreleased - Whether the component is unreleased. Shows an unreleased badge.
+ * @param props.children - The heading text content.
+ * @param props.className - Additional CSS classes for the `h1` element.
  */
 export function PageHeader({
 	children,

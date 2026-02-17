@@ -76,7 +76,7 @@ const CodeBlockContext = createContext<CodeBlockContextType>({
  * Code blocks render and apply syntax highlighting to blocks of code.
  * This is the root component for all code block components.
  *
- * @see https://mantle.ngrok.com/components/code-block#api-code-block
+ * @see https://mantle.ngrok.com/components/code-block#codeblockroot
  *
  * @example
  * ```tsx
@@ -150,7 +150,7 @@ Root.displayName = "CodeBlock";
  * The body of the `CodeBlock`. This is where the `CodeBlock.Code` and optional
  * `CodeBlock.CopyButton` is rendered.
  *
- * @see https://mantle.ngrok.com/components/code-block#api-code-block-body
+ * @see https://mantle.ngrok.com/components/code-block#codeblockbody
  *
  * @example
  * ```tsx
@@ -204,7 +204,7 @@ type CodeBlockCodeProps = Omit<ComponentProps<"pre">, "children"> & {
 /**
  * The `CodeBlock` content. This is where the code is rendered and syntax highlighted.
  *
- * @see https://mantle.ngrok.com/components/code-block#api-code-block-code
+ * @see https://mantle.ngrok.com/components/code-block#codeblockcode
  *
  * @example
  * ```tsx
@@ -326,7 +326,7 @@ Code.displayName = "CodeBlockCode";
  * The (optional) header slot of the `CodeBlock`. This is where things like the
  * `CodeBlock.Icon` and `CodeBlock.Title` are rendered.
  *
- * @see https://mantle.ngrok.com/components/code-block#api-code-block-header
+ * @see https://mantle.ngrok.com/components/code-block#codeblockheader
  *
  * @example
  * ```tsx
@@ -365,7 +365,7 @@ Header.displayName = "CodeBlockHeader";
  * The (optional) title of the `CodeBlock`. Default renders as an h3 element,
  * use asChild to render something else.
  *
- * @see https://mantle.ngrok.com/components/code-block#api-code-block-title
+ * @see https://mantle.ngrok.com/components/code-block#codeblocktitle
  *
  * @example
  * ```tsx
@@ -415,7 +415,7 @@ type CodeBlockCopyButtonProps = Omit<ComponentProps<"button">, "children" | "typ
  * `CodeBlock.Body` to allow users to copy the code block contents to their
  * clipboard.
  *
- * @see https://mantle.ngrok.com/components/code-block#api-code-block-copy-button
+ * @see https://mantle.ngrok.com/components/code-block#codeblockcopybutton
  *
  * @example
  * ```tsx
@@ -437,7 +437,15 @@ const CopyButton = forwardRef<ComponentRef<"button">, CodeBlockCopyButtonProps>(
 		const { copyText } = useContext(CodeBlockContext);
 		const [, copyToClipboard] = useCopyToClipboard();
 		const [wasCopied, setWasCopied] = useState(false);
-		const timeoutHandle = useRef<number>(0);
+		const timeoutHandle = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+		useEffect(() => {
+			return () => {
+				if (timeoutHandle.current != null) {
+					clearTimeout(timeoutHandle.current);
+				}
+			};
+		}, []);
 
 		const Component = asChild ? Slot : "button";
 
@@ -456,7 +464,9 @@ const CopyButton = forwardRef<ComponentRef<"button">, CodeBlockCopyButtonProps>(
 						onClick?.(event);
 						if (event.defaultPrevented) {
 							// Clear any existing timeout
-							window.clearTimeout(timeoutHandle.current);
+							if (timeoutHandle.current != null) {
+								clearTimeout(timeoutHandle.current);
+							}
 							return;
 						}
 
@@ -465,10 +475,12 @@ const CopyButton = forwardRef<ComponentRef<"button">, CodeBlockCopyButtonProps>(
 						setWasCopied(true);
 
 						// Clear any existing timeout
-						window.clearTimeout(timeoutHandle.current);
+						if (timeoutHandle.current != null) {
+							clearTimeout(timeoutHandle.current);
+						}
 
 						// Reset the copied state after a short delay
-						timeoutHandle.current = window.setTimeout(() => {
+						timeoutHandle.current = setTimeout(() => {
 							setWasCopied(false);
 						}, 2000);
 					} catch (error) {
@@ -506,7 +518,7 @@ type CodeBlockExpanderButtonProps = Omit<
  * that it should be collapsible. Don't use this component if you don't want
  * the code block to be collapsible.
  *
- * @see https://mantle.ngrok.com/components/code-block#api-code-block-expander-button
+ * @see https://mantle.ngrok.com/components/code-block#codeblockexpanderbutton
  *
  * @example
  * ```tsx
@@ -600,7 +612,7 @@ type CodeBlockIconProps = Omit<SvgAttributes, "children"> &
  * You can pass in a custom SVG component or use one of the presets
  * (pass only one of `svg` or `preset`).
  *
- * @see https://mantle.ngrok.com/components/code-block#api-code-block-icon
+ * @see https://mantle.ngrok.com/components/code-block#codeblockicon
  *
  * @example
  * ```tsx
@@ -667,7 +679,7 @@ const CodeBlock = {
 	 * Code blocks render and apply syntax highlighting to blocks of code.
 	 * This is the root component for all code block components.
 	 *
-	 * @see https://mantle.ngrok.com/components/code-block#api-code-block-root
+	 * @see https://mantle.ngrok.com/components/code-block#codeblockroot
 	 *
 	 * @example
 	 * ```tsx
@@ -689,7 +701,7 @@ const CodeBlock = {
 	 * The body of the `CodeBlock`. This is where the `CodeBlock.Code` and optional
 	 * `CodeBlock.CopyButton` is rendered.
 	 *
-	 * @see https://mantle.ngrok.com/components/code-block#api-code-block-body
+	 * @see https://mantle.ngrok.com/components/code-block#codeblockbody
 	 *
 	 * @example
 	 * ```tsx
@@ -705,7 +717,7 @@ const CodeBlock = {
 	/**
 	 * The `CodeBlock` content. This is where the code is rendered and syntax highlighted.
 	 *
-	 * @see https://mantle.ngrok.com/components/code-block#api-code-block-code
+	 * @see https://mantle.ngrok.com/components/code-block#codeblockcode
 	 *
 	 * @example
 	 * ```tsx
@@ -725,7 +737,7 @@ const CodeBlock = {
 	 * `CodeBlock.Body` to allow users to copy the code block contents to their
 	 * clipboard.
 	 *
-	 * @see https://mantle.ngrok.com/components/code-block#api-code-block-copy-button
+	 * @see https://mantle.ngrok.com/components/code-block#codeblockcopybutton
 	 *
 	 * @example
 	 * ```tsx
@@ -742,7 +754,7 @@ const CodeBlock = {
 	 * The (optional) expander button of the `CodeBlock`. Render this as a child of the
 	 * `CodeBlock.Body` to allow users to expand/collapse the code block contents.
 	 *
-	 * @see https://mantle.ngrok.com/components/code-block#api-code-block-expander-button
+	 * @see https://mantle.ngrok.com/components/code-block#codeblockexpanderbutton
 	 *
 	 * @example
 	 * ```tsx
@@ -759,7 +771,7 @@ const CodeBlock = {
 	 * The (optional) header slot of the `CodeBlock`. This is where things like the
 	 * `CodeBlock.Icon` and `CodeBlock.Title` are rendered.
 	 *
-	 * @see https://mantle.ngrok.com/components/code-block#api-code-block-header
+	 * @see https://mantle.ngrok.com/components/code-block#codeblockheader
 	 *
 	 * @example
 	 * ```tsx
@@ -782,7 +794,7 @@ const CodeBlock = {
 	 * You can pass in a custom SVG component or use one of the presets
 	 * (pass only one of `svg` or `preset`).
 	 *
-	 * @see https://mantle.ngrok.com/components/code-block#api-code-block-icon
+	 * @see https://mantle.ngrok.com/components/code-block#codeblockicon
 	 *
 	 * @example
 	 * ```tsx
@@ -799,7 +811,7 @@ const CodeBlock = {
 	 * The (optional) title of the `CodeBlock`. Default renders as an h3 element,
 	 * use asChild to render something else.
 	 *
-	 * @see https://mantle.ngrok.com/components/code-block#api-code-block-title
+	 * @see https://mantle.ngrok.com/components/code-block#codeblocktitle
 	 *
 	 * @example
 	 * ```tsx
