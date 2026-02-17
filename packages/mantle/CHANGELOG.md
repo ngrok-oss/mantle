@@ -1,5 +1,27 @@
 # @ngrok/mantle
 
+## 0.64.0
+
+### Minor Changes
+
+- [#974](https://github.com/ngrok-oss/mantle/pull/974) [`623935c`](https://github.com/ngrok-oss/mantle/commit/623935c925afad2675aab412ae8ee92e840b7b2f) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Remove `AutoScrollToHash` component and `useAutoScrollToHash` hook. This also removes `react-router` as a peer dependency of `@ngrok/mantle`. If you were using `AutoScrollToHash`, move the implementation into your app directly.
+
+- [#973](https://github.com/ngrok-oss/mantle/pull/973) [`a8ff1c9`](https://github.com/ngrok-oss/mantle/commit/a8ff1c9857c44abf4bc87c69cc85bb2e54a0a439) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add NgrokIcon to Icons
+
+- [#979](https://github.com/ngrok-oss/mantle/pull/979) [`68cc794`](https://github.com/ngrok-oss/mantle/commit/68cc7946d887bbca790c36ca9580c454be99cadc) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add new Slider component, supports single, range, and multiple use cases
+
+### Patch Changes
+
+- [#971](https://github.com/ngrok-oss/mantle/pull/971) [`5781aae`](https://github.com/ngrok-oss/mantle/commit/5781aae83604925bfb03cdbea1d3d85b8e9e47a0) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Fix doc block links
+
+- [#978](https://github.com/ngrok-oss/mantle/pull/978) [`286fab3`](https://github.com/ngrok-oss/mantle/commit/286fab3721c6aabe27fddaf91e4a8dfb7ba8c5ea) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Fix jerky accordion close animation. Moved spacing from `padding-top` on the animated container to `margin-top` on the first child so it collapses smoothly with the height animation.
+
+- [#974](https://github.com/ngrok-oss/mantle/pull/974) [`623935c`](https://github.com/ngrok-oss/mantle/commit/623935c925afad2675aab412ae8ee92e840b7b2f) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add explicit generic type parameters to `isValidElement` calls in `Button` and `Slot` for React 19 type compatibility. React 19 changed `ReactElement.props` from `any` to `unknown`, requiring explicit type annotations to access props safely. This change is fully backwards compatible with React 18.
+
+- [#978](https://github.com/ngrok-oss/mantle/pull/978) [`286fab3`](https://github.com/ngrok-oss/mantle/commit/286fab3721c6aabe27fddaf91e4a8dfb7ba8c5ea) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Fix `CodeBlock.CopyButton` timeout lifecycle handling by clearing pending timers on unmount and before scheduling a new copy-state reset.
+
+- [#975](https://github.com/ngrok-oss/mantle/pull/975) [`d9a7206`](https://github.com/ngrok-oss/mantle/commit/d9a72068b93aac1524334395fbe0fdc761c6e8cd) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Fix theme flash on hydration by reading the theme cookie during SSR. `useInitialHtmlThemeProps` now accepts an optional `ssrCookie` string so the server can render the correct theme class, eliminating the mismatch between server HTML and the inline script.
+
 ## 0.63.2
 
 ### Patch Changes
