@@ -113,9 +113,9 @@ export function HorizontalScrollingDemo() {
 								res.writeHead(200);
 								res.end("Hello!");
 								setTimeout(() => {
-									Promise.resolve(() => {
+									Promise.resolve().then(() => {
 										console.log("url:", server.tunnel.url());
-									})
+									});
 								}, timeout);
 							});
 							// Consumes authtoken from env automatically
@@ -225,9 +225,9 @@ export function OverridingIndentationDemo() {
 								res.writeHead(200);
 								res.end("Hello!");
 								setTimeout(() => {
-									Promise.resolve(() => {
+									Promise.resolve().then(() => {
 										console.log("url:", server.tunnel.url());
-									})
+									});
 								}, timeout);
 							});
 							// Consumes authtoken from env automatically

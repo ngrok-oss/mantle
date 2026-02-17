@@ -437,7 +437,15 @@ const CopyButton = forwardRef<ComponentRef<"button">, CodeBlockCopyButtonProps>(
 		const { copyText } = useContext(CodeBlockContext);
 		const [, copyToClipboard] = useCopyToClipboard();
 		const [wasCopied, setWasCopied] = useState(false);
-		const timeoutHandle = useRef<number>(0);
+		const timeoutHandle = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+		useEffect(() => {
+			return () => {
+				if (timeoutHandle.current != null) {
+					clearTimeout(timeoutHandle.current);
+				}
+			};
+		}, []);
 
 		const Component = asChild ? Slot : "button";
 
@@ -456,7 +464,9 @@ const CopyButton = forwardRef<ComponentRef<"button">, CodeBlockCopyButtonProps>(
 						onClick?.(event);
 						if (event.defaultPrevented) {
 							// Clear any existing timeout
-							window.clearTimeout(timeoutHandle.current);
+							if (timeoutHandle.current != null) {
+								clearTimeout(timeoutHandle.current);
+							}
 							return;
 						}
 
@@ -465,10 +475,12 @@ const CopyButton = forwardRef<ComponentRef<"button">, CodeBlockCopyButtonProps>(
 						setWasCopied(true);
 
 						// Clear any existing timeout
-						window.clearTimeout(timeoutHandle.current);
+						if (timeoutHandle.current != null) {
+							clearTimeout(timeoutHandle.current);
+						}
 
 						// Reset the copied state after a short delay
-						timeoutHandle.current = window.setTimeout(() => {
+						timeoutHandle.current = setTimeout(() => {
 							setWasCopied(false);
 						}, 2000);
 					} catch (error) {

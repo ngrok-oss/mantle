@@ -81,9 +81,9 @@ This example is included to demonstrate that code blocks can scroll horizontally
 					res.writeHead(200);
 					res.end("Hello!");
 					setTimeout(() => {
-						Promise.resolve(() => {
+						Promise.resolve().then(() => {
 							console.log("url:", server.tunnel.url());
-						})
+						});
 					}, timeout);
 				});
 				// Consumes authtoken from env automatically
@@ -191,9 +191,9 @@ By default, the code block code will detect the preferred (or required) indentat
 					res.writeHead(200);
 					res.end("Hello!");
 					setTimeout(() => {
-						Promise.resolve(() => {
+						Promise.resolve().then(() => {
 							console.log("url:", server.tunnel.url());
-						})
+						});
 					}, timeout);
 				});
 				// Consumes authtoken from env automatically

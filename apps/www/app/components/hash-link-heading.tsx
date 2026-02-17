@@ -9,6 +9,7 @@ import {
 	type ComponentProps,
 	cloneElement,
 	isValidElement,
+	useEffect,
 	useRef,
 	useState,
 } from "react";
@@ -36,7 +37,15 @@ type Props = ComponentProps<"h1" | "h2" | "h3" | "h4" | "h5" | "h6">;
 function HashLinkHeading({ id, className, children, ...props }: Props) {
 	const [, copyToClipboard] = useCopyToClipboard();
 	const [wasCopied, setWasCopied] = useState(false);
-	const timeoutHandle = useRef<number>(0);
+	const timeoutHandle = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+	useEffect(() => {
+		return () => {
+			if (timeoutHandle.current != null) {
+				clearTimeout(timeoutHandle.current);
+			}
+		};
+	}, []);
 
 	const singleChild = Children.only(children);
 	invariant(
@@ -67,8 +76,10 @@ function HashLinkHeading({ id, className, children, ...props }: Props) {
 						onClick={() => {
 							copyToClipboard(`${window.location.origin}${window.location.pathname}#${id}`);
 							setWasCopied(true);
-							window.clearTimeout(timeoutHandle.current);
-							timeoutHandle.current = window.setTimeout(() => {
+							if (timeoutHandle.current != null) {
+								clearTimeout(timeoutHandle.current);
+							}
+							timeoutHandle.current = setTimeout(() => {
 								setWasCopied(false);
 							}, 2000);
 						}}

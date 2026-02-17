@@ -4,7 +4,7 @@ import { Icon } from "@ngrok/mantle/icon";
 import { Input } from "@ngrok/mantle/input";
 import { Label } from "@ngrok/mantle/label";
 import { CheckIcon } from "@phosphor-icons/react/Check";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { type IconData, iconData } from "~/features/icons/icon-data";
 
 /**
@@ -12,10 +12,10 @@ import { type IconData, iconData } from "~/features/icons/icon-data";
  */
 export function IconsExplorer() {
 	const [query, setQuery] = useState("");
+	const q = query.toLowerCase();
 
 	const filtered = query
 		? iconData.filter((item) => {
-				const q = query.toLowerCase();
 				return (
 					item.name.toLowerCase().includes(q) ||
 					item.tags.some((tag) => tag.toLowerCase().includes(q))
@@ -63,8 +63,16 @@ export function IconsExplorer() {
 function ListItem({ item }: { item: IconData }) {
 	const [, copyToClipboard] = useCopyToClipboard();
 	const [wasCopied, setWasCopied] = useState(false);
-	const timeoutHandle = useRef<number>(0);
+	const timeoutHandle = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 	const copyText = `import { ${item.name} } from "@ngrok/mantle/icons";`;
+
+	useEffect(() => {
+		return () => {
+			if (timeoutHandle.current != null) {
+				clearTimeout(timeoutHandle.current);
+			}
+		};
+	}, []);
 
 	return (
 		<li>
@@ -74,9 +82,11 @@ function ListItem({ item }: { item: IconData }) {
 					copyToClipboard(copyText);
 					setWasCopied(true);
 
-					window.clearTimeout(timeoutHandle.current);
+					if (timeoutHandle.current != null) {
+						clearTimeout(timeoutHandle.current);
+					}
 
-					timeoutHandle.current = window.setTimeout(() => {
+					timeoutHandle.current = setTimeout(() => {
 						setWasCopied(false);
 					}, 2000);
 				}}
