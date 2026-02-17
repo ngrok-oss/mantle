@@ -228,9 +228,9 @@ export function handleError(error: unknown, { request }: LoaderFunctionArgs | Ac
  *
  * Behavior:
  * - Resolves the app's base origin from `requestUrl` via `getBaseUrl()`.
- * - Assembles a prioritized, de-duplicated list of preconnect origins.
- * - Asserts there are ≤4 preconnects (typical UA limit; more can waste sockets).
- * - Serializes both sets into a comma-separated `Link` header per RFC 8288.
+ * - Assembles a prioritized list of preconnect origins (regular and crossorigin).
+ * - Asserts there are ≤4 total preconnects (typical UA limit; more can waste sockets).
+ * - Serializes into a comma-separated `Link` header per RFC 8288.
  *
  * @param requestUrl Absolute URL for the incoming request (used to compute the base origin).
  * @returns A comma-separated `Link` header value.
