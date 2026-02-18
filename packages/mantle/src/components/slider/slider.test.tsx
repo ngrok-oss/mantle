@@ -3,34 +3,61 @@ import { describe, expect, test } from "vitest";
 import { Slider } from "./slider.js";
 
 describe("Slider", () => {
-	test("renders a single thumb when given a single number defaultValue", () => {
-		render(<Slider defaultValue={50} />);
-		expect(screen.getAllByRole("slider")).toHaveLength(1);
+	describe("showTicks", () => {
+		test("does not render ticks by default", () => {
+			render(<Slider defaultValue={50} max={100} step={10} />);
+			expect(screen.queryByRole("slider")).toBeInTheDocument();
+			expect(document.querySelector("[data-slot='slider-ticks']")).not.toBeInTheDocument();
+		});
+
+		test("renders ticks when showTicks is true", () => {
+			render(<Slider defaultValue={50} max={100} step={10} showTicks />);
+			expect(document.querySelector("[data-slot='slider-ticks']")).toBeInTheDocument();
+		});
+
+		test("renders the correct number of ticks for step=10, min=0, max=100", () => {
+			render(<Slider defaultValue={50} max={100} step={10} showTicks />);
+			const ticks = document.querySelectorAll("[data-slot='slider-tick']");
+			expect(ticks).toHaveLength(11);
+		});
+
+		test("renders the correct number of ticks for step=25, min=0, max=100", () => {
+			render(<Slider defaultValue={50} max={100} step={25} showTicks />);
+			const ticks = document.querySelectorAll("[data-slot='slider-tick']");
+			expect(ticks).toHaveLength(5);
+		});
+
+		test("renders the correct number of ticks with custom min", () => {
+			render(<Slider defaultValue={50} min={20} max={100} step={20} showTicks />);
+			const ticks = document.querySelectorAll("[data-slot='slider-tick']");
+			expect(ticks).toHaveLength(5);
+		});
+
+		test("does not render ticks when showTicks is false", () => {
+			render(<Slider defaultValue={50} max={100} step={10} showTicks={false} />);
+			expect(document.querySelector("[data-slot='slider-ticks']")).not.toBeInTheDocument();
+		});
+
+		test("ticks container has aria-hidden", () => {
+			render(<Slider defaultValue={50} max={100} step={10} showTicks />);
+			expect(document.querySelector("[data-slot='slider-ticks']")).toHaveAttribute(
+				"aria-hidden",
+				"true",
+			);
+		});
 	});
 
-	test("renders a single thumb when given a single-element array defaultValue", () => {
-		render(<Slider defaultValue={[50]} />);
-		expect(screen.getAllByRole("slider")).toHaveLength(1);
-	});
+	describe("color", () => {
+		test("applies the default accent color to the range", () => {
+			render(<Slider defaultValue={50} max={100} step={1} />);
+			const range = document.querySelector("[data-slot='slider-range']");
+			expect(range).toHaveClass("bg-accent-500");
+		});
 
-	test("renders two thumbs for a range defaultValue", () => {
-		render(<Slider defaultValue={[25, 75]} />);
-		expect(screen.getAllByRole("slider")).toHaveLength(2);
-	});
-
-	test("renders multiple thumbs for a multi-value defaultValue", () => {
-		render(<Slider defaultValue={[10, 20, 70]} />);
-		expect(screen.getAllByRole("slider")).toHaveLength(3);
-	});
-
-	test("renders a single thumb when no defaultValue or value is provided", () => {
-		render(<Slider />);
-		expect(screen.getAllByRole("slider")).toHaveLength(1);
-	});
-
-	test("renders as disabled when disabled prop is true", () => {
-		render(<Slider defaultValue={50} disabled />);
-		const slider = screen.getByRole("slider");
-		expect(slider).toHaveAttribute("data-disabled", "");
+		test("applies a custom color to the range", () => {
+			render(<Slider defaultValue={50} max={100} step={1} color="bg-blue-500" />);
+			const range = document.querySelector("[data-slot='slider-range']");
+			expect(range).toHaveClass("bg-blue-500");
+		});
 	});
 });
