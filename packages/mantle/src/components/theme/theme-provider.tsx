@@ -99,8 +99,7 @@ function ThemeProvider({ children }: ThemeProviderProps) {
 					}
 				};
 			}
-			// oxlint-disable-next-line no-unused-vars
-		} catch (_) {
+		} catch {
 			// silently swallow errors
 		}
 
@@ -144,8 +143,7 @@ function ThemeProvider({ children }: ThemeProviderProps) {
 
 			try {
 				broadcastChannelRef.current?.close();
-				// oxlint-disable-next-line no-unused-vars
-			} catch (_) {
+			} catch {
 				// silently swallow errors
 			}
 			broadcastChannelRef.current = null;
@@ -349,8 +347,7 @@ function preventThemeFlash(args: {
 			const cookieValue = themeCookie?.split("=")[1];
 			const storedTheme = cookieValue ? decodeURIComponent(cookieValue) : null;
 			return storedTheme;
-			// oxlint-disable-next-line no-unused-vars
-		} catch (_) {
+		} catch {
 			return null;
 		}
 	}
@@ -369,8 +366,7 @@ function preventThemeFlash(args: {
 	function writeCookie(name: string, val: string): void {
 		try {
 			document.cookie = buildCookie(name, val);
-			// oxlint-disable-next-line no-unused-vars
-		} catch (_) {
+		} catch {
 			// silently swallow errors
 		}
 	}
@@ -396,8 +392,7 @@ function preventThemeFlash(args: {
 
 	try {
 		cookieTheme = getThemeFromCookie(storageKey);
-		// oxlint-disable-next-line no-unused-vars
-	} catch (_) {
+	} catch {
 		// silently swallow errors
 	}
 
@@ -406,8 +401,7 @@ function preventThemeFlash(args: {
 	} else {
 		try {
 			lsTheme = window.localStorage?.getItem(storageKey) ?? null;
-			// oxlint-disable-next-line no-unused-vars
-		} catch (_) {
+		} catch {
 			// silently swallow errors
 		}
 		if (isTheme(lsTheme)) {
@@ -444,16 +438,14 @@ function preventThemeFlash(args: {
 			writeCookie(storageKey, lsTheme);
 			try {
 				window.localStorage.removeItem(storageKey);
-				// oxlint-disable-next-line no-unused-vars
-			} catch (_) {
+			} catch {
 				// silently swallow errors
 			}
 		} else if (!hadValidCookie) {
 			// Set default cookie if none existed
 			writeCookie(storageKey, preference);
 		}
-		// oxlint-disable-next-line no-unused-vars
-	} catch (_) {
+	} catch {
 		// silently swallow errors
 	}
 }
@@ -640,13 +632,14 @@ function getStoredTheme({ cookie }: GetStoredThemeOptions): Theme {
 
 	try {
 		const cookies = cookie.split(";");
-		const themeCookie = cookies.find((cookie) => cookie.trim().startsWith(`${THEME_STORAGE_KEY}=`));
+		const themeCookie = cookies.find((cookieStr) =>
+			cookieStr.trim().startsWith(`${THEME_STORAGE_KEY}=`),
+		);
 		const cookieValue = themeCookie?.split("=")[1];
 		const storedTheme = cookieValue ? globalThis.decodeURIComponent(cookieValue) : null;
 
 		return isTheme(storedTheme) ? storedTheme : DEFAULT_THEME;
-		// oxlint-disable-next-line no-unused-vars
-	} catch (_) {
+	} catch {
 		return DEFAULT_THEME;
 	}
 }
@@ -744,16 +737,14 @@ function notifyOtherTabs(
 			});
 			return;
 		}
-		// oxlint-disable-next-line no-unused-vars
-	} catch (_) {
+	} catch {
 		// silently swallow errors
 	}
 
 	// fallback to storage event: write a "ping" key (not the real storageKey)
 	try {
 		localStorage.setItem(pingKey, JSON.stringify({ theme, timestamp: Date.now() }));
-		// oxlint-disable-next-line no-unused-vars
-	} catch (_) {
+	} catch {
 		// silently swallow errors
 	}
 }
@@ -782,8 +773,7 @@ function setCookie(value: string) {
 
 	try {
 		document.cookie = buildThemeCookie(value);
-		// oxlint-disable-next-line no-unused-vars
-	} catch (_) {
+	} catch {
 		// silently swallow errors
 	}
 }

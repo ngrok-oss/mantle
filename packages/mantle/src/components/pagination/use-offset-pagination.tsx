@@ -113,8 +113,8 @@ function useOffsetPagination({
 	const hasNextPage = currentPage < totalPages;
 
 	function goToPage(page: number) {
-		const nextPage = Math.max(1, Math.min(page, totalPages));
-		setCurrentPage(nextPage);
+		const clampedPage = Math.max(1, Math.min(page, totalPages));
+		setCurrentPage(clampedPage);
 	}
 
 	function nextPage() {

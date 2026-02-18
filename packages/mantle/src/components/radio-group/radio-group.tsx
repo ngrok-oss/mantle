@@ -336,8 +336,8 @@ const InputSandbox = ({ children, onClick, onKeyDown, ...props }: RadioInputSand
 
 	return (
 		<div
+			role="none"
 			ref={ref}
-			aria-disabled={ctx.disabled}
 			onKeyDown={(event) => {
 				if (ctx.disabled) {
 					event.stopPropagation();

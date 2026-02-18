@@ -8,6 +8,7 @@
   "rules": {
     "curly": "error",
     "no-useless-switch-case": "off",
+    "no-shadow": "off",
     "react/react-in-jsx-scope": "off",
     "jsx-a11y/anchor-has-content": "off",
     "jsx-a11y/no-svg-without-title": "warn",
