@@ -68,6 +68,40 @@ import { Slider } from "@ngrok/mantle/slider";
 <Slider defaultValue={[10, 20, 70]} max={100} step={10} />;
 ```
 
+### Color
+
+Use the `color` prop to change the color of the slider range. Accepts any Tailwind `bg-*` class.
+
+<Example className="flex-col gap-6">
+	<Slider defaultValue={67} max={100} step={1} color="bg-blue-500" />
+	<Slider defaultValue={67} max={100} step={1} color="bg-danger-500" />
+	<Slider defaultValue={67} max={100} step={1} color="bg-emerald-500" />
+</Example>
+
+```tsx
+import { Slider } from "@ngrok/mantle/slider";
+
+<Slider defaultValue={67} max={100} step={1} color="bg-blue-500" />;
+<Slider defaultValue={67} max={100} step={1} color="bg-danger-500" />;
+<Slider defaultValue={67} max={100} step={1} color="bg-emerald-500" />;
+```
+
+### Ticks
+
+Use the `showTicks` prop to show tick marks at each `step` interval along the track.
+
+<Example className="flex-col gap-6">
+	<Slider defaultValue={50} max={100} step={10} showTicks />
+	<Slider defaultValue={[20, 80]} max={100} step={25} showTicks />
+</Example>
+
+```tsx
+import { Slider } from "@ngrok/mantle/slider";
+
+<Slider defaultValue={50} max={100} step={10} showTicks />;
+<Slider defaultValue={[20, 80]} max={100} step={25} showTicks />;
+```
+
 ## API Reference
 
 ### Slider
@@ -78,7 +112,9 @@ The `Slider` is built on top of [Radix Slider](https://www.radix-ui.com/primitiv
 
 | Prop                    | Type                           | Default        | Description                                                                                                   |
 | :---------------------- | :----------------------------- | :------------- | :------------------------------------------------------------------------------------------------------------ |
+| `color`                 | `` `bg-${string}` ``           | `"bg-accent-500"` | The color of the slider range. Accepts any Tailwind `bg-*` class.                                          |
 | `defaultValue`          | `number` \| `number[]`         | —              | The value of the slider when initially rendered. Use when you do not need to control the state of the slider. |
+| `showTicks`             | `boolean`                      | `false`        | Whether to show tick marks along the track at each `step` interval.                                           |
 | `value`                 | `number` \| `number[]`         | —              | The controlled value of the slider. Must be used with `onValueChange`.                                        |
 | `onValueChange`         | `(value: number[]) => void`    | —              | Event handler called when the value changes.                                                                  |
 | `onValueCommit`         | `(value: number[]) => void`    | —              | Event handler called when the value changes at the end of an interaction (e.g. on mouse up or on blur).       |
