@@ -65,8 +65,7 @@ function parseMetastring(input: string | undefined): Meta {
 			...defaultMeta,
 			...parsed,
 		};
-		// oxlint-disable-next-line no-unused-vars
-	} catch (_) {
+	} catch {
 		return defaultMeta;
 	}
 }
