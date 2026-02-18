@@ -160,6 +160,9 @@ MARK: THEME
 	--divide-color-card: var(--border-color-card);
 	--divide-color-card-muted: var(--border-color-card-muted);
 
+	--color-card-border: var(--color-card-border);
+	--color-card-border-muted: var(--color-card-border-muted);
+
 	--text-color-strong: var(--text-color-strong);
 	--text-color-body: var(--text-color-body);
 	--text-color-muted: var(--text-color-muted);
@@ -328,6 +331,9 @@ MARK: LIGHT DEFS
 
 	--divide-color-card: var(--color-neutral-300);
 	--divide-color-card-muted: var(--color-neutral-200);
+
+	--color-card-border: var(--color-neutral-300);
+	--color-card-border-muted: var(--color-neutral-200);
 
 	--text-color-strong: var(--color-neutral-950);
 	--text-color-body: --alpha(var(--color-neutral-950) / 0.75);
@@ -669,6 +675,9 @@ MARK: DARK DEFS
 	--divide-color-card: var(--color-neutral-300);
 	--divide-color-card-muted: var(--color-neutral-200);
 
+	--color-card-border: var(--color-neutral-300);
+	--color-card-border-muted: var(--color-neutral-200);
+
 	--text-color-strong: #fff;
 	--text-color-body: --alpha(#fff / 0.7);
 	--text-color-muted: --alpha(#fff / 0.5);
@@ -973,6 +982,9 @@ MARK: LIGHT HICON DEFS
 	--divide-color-card: var(--color-neutral-300);
 	--divide-color-card-muted: var(--color-neutral-200);
 
+	--color-card-border: var(--color-neutral-300);
+	--color-card-border-muted: var(--color-neutral-300);
+
 	--text-color-strong: var(--color-black);
 	--text-color-body: var(--color-neutral-950);
 	--text-color-muted: --alpha(var(--color-black) / 0.75);
@@ -1276,6 +1288,9 @@ MARK: DARK HICON DEFS
 
 	--divide-color-card: var(--color-neutral-300);
 	--divide-color-card-muted: var(--color-neutral-300);
+
+	--color-card-border: var(--color-neutral-300);
+	--color-card-border-muted: var(--color-neutral-300);
 
 	--text-color-strong: var(--color-black);
 	--text-color-body: var(--color-neutral-950);

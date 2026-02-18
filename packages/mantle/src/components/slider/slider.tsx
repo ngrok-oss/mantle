@@ -40,7 +40,19 @@ type SliderValueProps =
 /**
  * Props for the {@link Slider} component.
  */
-type SliderProps = SliderBaseProps & SliderValueProps;
+type SliderProps = SliderBaseProps &
+	SliderValueProps & {
+		/**
+		 * The color of the slider range. Accepts any Tailwind `bg-*` class.
+		 * @default "bg-accent-500"
+		 */
+		color?: `bg-${string}`;
+		/**
+		 * Whether to show tick marks along the track at each `step` interval.
+		 * @default false
+		 */
+		showTicks?: boolean;
+	};
 
 /**
  * An input where the user selects a value from within a given range.
@@ -77,7 +89,18 @@ type SliderProps = SliderBaseProps & SliderValueProps;
  *  />
  * ```
  */
-function Slider({ className, defaultValue, value, min = 0, max = 100, ...props }: SliderProps) {
+function Slider({
+	className,
+	color = "bg-accent-500",
+	defaultValue,
+	max = 100,
+	min = 0,
+	minStepsBetweenThumbs = 1,
+	step = 1,
+	showTicks = false,
+	value,
+	...props
+}: SliderProps) {
 	const normalizedValue = value != null ? (Array.isArray(value) ? value : [value]) : undefined;
 	const normalizedDefaultValue =
 		defaultValue != null
@@ -86,6 +109,7 @@ function Slider({ className, defaultValue, value, min = 0, max = 100, ...props }
 				: [defaultValue]
 			: undefined;
 	const values = normalizedValue ?? normalizedDefaultValue ?? [min];
+	const tickCount = computeTickCount(showTicks, min, max, step);
 
 	return (
 		<SliderPrimitive.Root
@@ -93,9 +117,13 @@ function Slider({ className, defaultValue, value, min = 0, max = 100, ...props }
 			defaultValue={normalizedDefaultValue}
 			value={normalizedValue}
 			min={min}
+			minStepsBetweenThumbs={minStepsBetweenThumbs}
 			max={max}
+			step={step}
 			className={cx(
+				"[--slider-thumb-size:--spacing(4.5)]",
 				"data-orientation-vertical:min-h-40 relative flex w-full touch-none items-center select-none data-disabled:opacity-50 data-orientation-vertical:h-full data-orientation-vertical:w-auto data-orientation-vertical:flex-col",
+				tickCount > 0 && "mb-3",
 				className,
 			)}
 			{...props}
@@ -110,7 +138,10 @@ function Slider({ className, defaultValue, value, min = 0, max = 100, ...props }
 			>
 				<SliderPrimitive.Range
 					data-slot="slider-range"
-					className="bg-accent-500 absolute select-none data-orientation-horizontal:h-full data-orientation-vertical:w-full"
+					className={cx(
+						"absolute select-none data-orientation-horizontal:h-full data-orientation-vertical:w-full",
+						color,
+					)}
 				/>
 			</SliderPrimitive.Track>
 			{Array.from({ length: values.length }, (_, index) => (
@@ -118,7 +149,7 @@ function Slider({ className, defaultValue, value, min = 0, max = 100, ...props }
 					data-slot="slider-thumb"
 					key={index}
 					className={cx(
-						"bg-card border-card relative size-4.5 rounded-full border",
+						"bg-card border-card relative size-(--slider-thumb-size) rounded-full border",
 						"shadow-md transition-[color,box-shadow]",
 						"after:absolute after:-inset-2",
 						"focus-visible:ring-3 focus-visible:ring-accent-500/20 focus-visible:outline-hidden",
@@ -127,9 +158,34 @@ function Slider({ className, defaultValue, value, min = 0, max = 100, ...props }
 					)}
 				/>
 			))}
+			{tickCount > 0 && (
+				<div
+					data-slot="slider-ticks"
+					className="absolute top-full mt-1.5 flex w-full justify-between px-[calc(var(--slider-thumb-size)/2)]"
+					aria-hidden="true"
+				>
+					{Array.from({ length: tickCount }, (_, index) => (
+						<span key={index} data-slot="slider-tick" className="bg-card-border h-1.5 w-px" />
+					))}
+				</div>
+			)}
 		</SliderPrimitive.Root>
 	);
 }
 
 export { Slider };
 export type { SliderProps };
+
+// MARK: - Private
+
+/**
+ * Compute the number of tick marks to render based on the slider's range and step.
+ * Returns 0 if ticks are disabled or if the step/range is invalid.
+ */
+function computeTickCount(showTicks: boolean, min: number, max: number, step: number): number {
+	const range = max - min;
+	if (!showTicks || !Number.isFinite(range) || !Number.isFinite(step) || step <= 0 || range <= 0) {
+		return 0;
+	}
+	return Math.floor(range / step) + 1;
+}
