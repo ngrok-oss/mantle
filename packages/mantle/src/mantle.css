@@ -1289,7 +1289,8 @@ MARK: DARK HICON DEFS
 	--divide-color-card: var(--color-neutral-300);
 	--divide-color-card-muted: var(--color-neutral-300);
 
-	--color-card-muted: var(--color-neutral-300);
+	--color-card-border: var(--color-neutral-300);
+	--color-card-border-muted: var(--color-neutral-300);
 
 	--text-color-strong: var(--color-black);
 	--text-color-body: var(--color-neutral-950);
