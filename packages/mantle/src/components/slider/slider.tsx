@@ -112,59 +112,56 @@ function Slider({
 	const tickCount = showTicks && step > 0 ? Math.floor((max - min) / step) + 1 : 0;
 
 	return (
-		<div
-			data-slot="slider-wrapper"
-			className={cx("flex w-full flex-col", tickCount > 0 && "gap-1.5")}
+		<SliderPrimitive.Root
+			data-slot="slider"
+			defaultValue={normalizedDefaultValue}
+			value={normalizedValue}
+			min={min}
+			minStepsBetweenThumbs={minStepsBetweenThumbs}
+			max={max}
+			step={step}
+			className={cx(
+				"[--slider-thumb-size:--spacing(4.5)]",
+				"data-orientation-vertical:min-h-40 relative flex w-full touch-none items-center select-none data-disabled:opacity-50 data-orientation-vertical:h-full data-orientation-vertical:w-auto data-orientation-vertical:flex-col",
+				tickCount > 0 && "mb-3",
+				className,
+			)}
+			{...props}
 		>
-			<SliderPrimitive.Root
-				data-slot="slider"
-				defaultValue={normalizedDefaultValue}
-				value={normalizedValue}
-				min={min}
-				minStepsBetweenThumbs={minStepsBetweenThumbs}
-				max={max}
-				step={step}
+			<SliderPrimitive.Track
+				data-slot="slider-track"
 				className={cx(
-					"data-orientation-vertical:min-h-40 relative flex w-full touch-none items-center select-none data-disabled:opacity-50 data-orientation-vertical:h-full data-orientation-vertical:w-auto data-orientation-vertical:flex-col",
-					className,
+					"bg-neutral-300 rounded-full relative grow overflow-hidden",
+					"data-orientation-horizontal:h-1.5 data-orientation-horizontal:w-full",
+					"data-orientation-vertical:w-1.5 data-orientation-vertical:h-full",
 				)}
-				{...props}
 			>
-				<SliderPrimitive.Track
-					data-slot="slider-track"
+				<SliderPrimitive.Range
+					data-slot="slider-range"
 					className={cx(
-						"bg-neutral-300 rounded-full relative grow overflow-hidden",
-						"data-orientation-horizontal:h-1.5 data-orientation-horizontal:w-full",
-						"data-orientation-vertical:w-1.5 data-orientation-vertical:h-full",
+						"absolute select-none data-orientation-horizontal:h-full data-orientation-vertical:w-full",
+						color,
 					)}
-				>
-					<SliderPrimitive.Range
-						data-slot="slider-range"
-						className={cx(
-							"absolute select-none data-orientation-horizontal:h-full data-orientation-vertical:w-full",
-							color,
-						)}
-					/>
-				</SliderPrimitive.Track>
-				{Array.from({ length: values.length }, (_, index) => (
-					<SliderPrimitive.Thumb
-						data-slot="slider-thumb"
-						key={index}
-						className={cx(
-							"bg-card border-card relative size-4.5 rounded-full border",
-							"shadow-md transition-[color,box-shadow]",
-							"after:absolute after:-inset-2",
-							"focus-visible:ring-3 focus-visible:ring-accent-500/20 focus-visible:outline-hidden",
-							"block shrink-0 cursor-pointer select-none",
-							"data-disabled:pointer-events-none data-disabled:cursor-default",
-						)}
-					/>
-				))}
-			</SliderPrimitive.Root>
+				/>
+			</SliderPrimitive.Track>
+			{Array.from({ length: values.length }, (_, index) => (
+				<SliderPrimitive.Thumb
+					data-slot="slider-thumb"
+					key={index}
+					className={cx(
+						"bg-card border-card relative size-(--slider-thumb-size) rounded-full border",
+						"shadow-md transition-[color,box-shadow]",
+						"after:absolute after:-inset-2",
+						"focus-visible:ring-3 focus-visible:ring-accent-500/20 focus-visible:outline-hidden",
+						"block shrink-0 cursor-pointer select-none",
+						"data-disabled:pointer-events-none data-disabled:cursor-default",
+					)}
+				/>
+			))}
 			{tickCount > 0 && (
 				<div
 					data-slot="slider-ticks"
-					className="flex w-full justify-between px-[calc(--spacing(4.5)/2)]"
+					className="absolute top-full mt-1.5 flex w-full justify-between px-[calc(var(--slider-thumb-size)/2)]"
 					aria-hidden="true"
 				>
 					{Array.from({ length: tickCount }, (_, index) => (
@@ -172,7 +169,7 @@ function Slider({
 					))}
 				</div>
 			)}
-		</div>
+		</SliderPrimitive.Root>
 	);
 }
 
