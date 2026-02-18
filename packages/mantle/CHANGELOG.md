@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.64.2
+
+### Patch Changes
+
+- [#985](https://github.com/ngrok-oss/mantle/pull/985) [`ce626cc`](https://github.com/ngrok-oss/mantle/commit/ce626cc088b7fcf3dc0a36e9c2fa6a2098f5d569) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Slider: Add `color` prop to customize the range fill color (defaults to `"bg-accent-500"`), and `showTicks` prop to render tick marks at each `step` interval. Also adds `--color-card-border` and `--color-card-border-muted` semantic color tokens.
+
 ## 0.64.1
 
 ### Patch Changes
