@@ -1,5 +1,17 @@
 # @ngrok/mantle
 
+## 0.64.1
+
+### Patch Changes
+
+- [#980](https://github.com/ngrok-oss/mantle/pull/980) [`c2735ed`](https://github.com/ngrok-oss/mantle/commit/c2735ed94e9d7ab8b0e5faec42d19deeb4846cd7) Thanks [@dependabot](https://github.com/apps/dependabot)! - Fix accessibility and linting issues in `Input` and `RadioGroup.InputSandbox`: replace `aria-disabled`/`aria-invalid` CSS hooks on wrapper divs with `data-disabled`, add `role="none"` to presentational wrapper divs
+
+- [#984](https://github.com/ngrok-oss/mantle/pull/984) [`b3a32ec`](https://github.com/ngrok-oss/mantle/commit/b3a32ec036d9913cb2d8260902615d47f44e7968) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Change `font-display` from `swap` to `fallback` in all `@font-face` declarations to eliminate layout shift (font bounce) while still downloading and caching fonts for subsequent loads
+
+- [#981](https://github.com/ngrok-oss/mantle/pull/981) [`e43df1c`](https://github.com/ngrok-oss/mantle/commit/e43df1c81fb5881376756e6918210ec7927cdc82) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Bump up Slider thumb shadow to shadow-md (from shadow-sm)
+
+- [#980](https://github.com/ngrok-oss/mantle/pull/980) [`c2735ed`](https://github.com/ngrok-oss/mantle/commit/c2735ed94e9d7ab8b0e5faec42d19deeb4846cd7) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update tailwind-merge
+
 ## 0.64.0
 
 ### Minor Changes
