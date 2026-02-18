@@ -16,7 +16,7 @@ MARK: FONT FACES
 		url("https://assets.ngrok.com/fonts/roobert/roobert-proportional-vf.woff2")
 			format("woff2-variations");
 	font-weight: 300 900;
-	font-display: swap;
+	font-display: optional;
 	font-style: normal;
 }
 
@@ -28,7 +28,7 @@ MARK: FONT FACES
 		url("https://assets.ngrok.com/fonts/jetbrains/jetbrainsmono-wght.woff2")
 			format("woff2-variations");
 	font-weight: 100 800;
-	font-display: swap;
+	font-display: optional;
 	font-style: normal;
 }
 
@@ -40,13 +40,13 @@ MARK: FONT FACES
 		url("https://assets.ngrok.com/fonts/jetbrains/jetbrainsmono-italic-wght.woff2")
 			format("woff2-variations");
 	font-weight: 100 800;
-	font-display: swap;
+	font-display: optional;
 	font-style: italic;
 }
 
 @font-face {
 	font-family: "Family";
-	font-display: swap;
+	font-display: optional;
 	src: url("https://assets.ngrok.com/fonts/family/family-regular.woff2") format("woff2");
 	font-weight: normal;
 	font-style: normal;
@@ -54,7 +54,7 @@ MARK: FONT FACES
 
 @font-face {
 	font-family: "Family";
-	font-display: swap;
+	font-display: optional;
 	src: url("https://assets.ngrok.com/fonts/family/family-italic.woff2") format("woff2");
 	font-weight: normal;
 	font-style: italic;
