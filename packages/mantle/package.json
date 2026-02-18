@@ -171,6 +171,11 @@
       "types": "./dist/media-object.d.ts",
       "import": "./dist/media-object.js"
     },
+    "./multi-select": {
+      "@ngrok/src-live-types": "./src/components/multi-select/index.ts",
+      "types": "./dist/multi-select.d.ts",
+      "import": "./dist/multi-select.js"
+    },
     "./pagination": {
       "@ngrok/src-live-types": "./src/components/pagination/index.ts",
       "types": "./dist/pagination.d.ts",

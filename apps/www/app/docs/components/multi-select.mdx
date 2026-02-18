@@ -1,0 +1,445 @@
+---
+title: Multi Select
+description: A typeahead multi-select combobox that allows users to select multiple values with filtering. Selected values are displayed as removable tags.
+---
+
+import { MultiSelect } from "@ngrok/mantle/multi-select";
+import { matchSorter } from "match-sorter";
+import { useMemo, useState, useTransition } from "react";
+import { Example } from "~/components/example";
+
+export const fruits = [
+	"Apple",
+	"Banana",
+	"Blueberry",
+	"Cherry",
+	"Grapes",
+	"Kiwi",
+	"Lemon",
+	"Mango",
+	"Orange",
+	"Peach",
+	"Pear",
+	"Pineapple",
+	"Strawberry",
+	"Watermelon",
+];
+
+export function BasicDemo() {
+	const [isPending, startTransition] = useTransition();
+	const [searchValue, setSearchValue] = useState("");
+	const matches = useMemo(() => matchSorter(fruits, searchValue), [searchValue]);
+
+    return (
+    	<MultiSelect.Root
+    		setValue={(value) => {
+    			startTransition(() => {
+    				setSearchValue(value);
+    			});
+    		}}
+    	>
+    		<MultiSelect.Trigger className="max-w-96">
+    			<MultiSelect.TagValues placeholder="Select fruits..." />
+    		</MultiSelect.Trigger>
+    		<MultiSelect.Content aria-busy={isPending}>
+    			{matches.map((value) => (
+    				<MultiSelect.Item key={value} value={value}>
+    					{value}
+    				</MultiSelect.Item>
+    			))}
+    			{matches.length === 0 && (
+    				<MultiSelect.Empty>No results found</MultiSelect.Empty>
+    			)}
+    		</MultiSelect.Content>
+    	</MultiSelect.Root>
+    );
+
+}
+
+export function GroupedDemo() {
+	const [isPending, startTransition] = useTransition();
+	const [searchValue, setSearchValue] = useState("");
+
+    const fruitList = ["Apple", "Banana", "Cherry", "Grapes", "Orange", "Strawberry"];
+    const veggieList = ["Carrot", "Cucumber", "Lettuce", "Tomato", "Zucchini"];
+
+    const filteredFruits = useMemo(() => matchSorter(fruitList, searchValue), [searchValue]);
+    const filteredVeggies = useMemo(() => matchSorter(veggieList, searchValue), [searchValue]);
+
+    return (
+    	<MultiSelect.Root
+    		setValue={(value) => {
+    			startTransition(() => {
+    				setSearchValue(value);
+    			});
+    		}}
+    	>
+    		<MultiSelect.Trigger className="max-w-96">
+    			<MultiSelect.TagValues placeholder="Select items..." />
+    		</MultiSelect.Trigger>
+    		<MultiSelect.Content aria-busy={isPending}>
+    			{filteredFruits.length > 0 && (
+    				<MultiSelect.Group>
+    					<MultiSelect.GroupLabel>Fruits</MultiSelect.GroupLabel>
+    					{filteredFruits.map((value) => (
+    						<MultiSelect.Item key={value} value={value}>
+    							{value}
+    						</MultiSelect.Item>
+    					))}
+    				</MultiSelect.Group>
+    			)}
+    			{filteredFruits.length > 0 && filteredVeggies.length > 0 && (
+    				<MultiSelect.Separator />
+    			)}
+    			{filteredVeggies.length > 0 && (
+    				<MultiSelect.Group>
+    					<MultiSelect.GroupLabel>Vegetables</MultiSelect.GroupLabel>
+    					{filteredVeggies.map((value) => (
+    						<MultiSelect.Item key={value} value={value}>
+    							{value}
+    						</MultiSelect.Item>
+    					))}
+    				</MultiSelect.Group>
+    			)}
+    			{filteredFruits.length === 0 && filteredVeggies.length === 0 && (
+    				<MultiSelect.Empty>No results found</MultiSelect.Empty>
+    			)}
+    		</MultiSelect.Content>
+    	</MultiSelect.Root>
+    );
+
+}
+
+export function ControlledDemo() {
+	const [isPending, startTransition] = useTransition();
+	const [searchValue, setSearchValue] = useState("");
+	const [selected, setSelected] = useState(["Apple", "Cherry"]);
+	const matches = useMemo(() => matchSorter(fruits, searchValue), [searchValue]);
+
+    return (
+    	<MultiSelect.Root
+    		selectedValue={selected}
+    		setSelectedValue={setSelected}
+    		setValue={(value) => {
+    			startTransition(() => {
+    				setSearchValue(value);
+    			});
+    		}}
+    	>
+    		<MultiSelect.Trigger className="max-w-96">
+    			<MultiSelect.TagValues placeholder="Select fruits..." />
+    		</MultiSelect.Trigger>
+    		<MultiSelect.Content aria-busy={isPending}>
+    			{matches.map((value) => (
+    				<MultiSelect.Item key={value} value={value}>
+    					{value}
+    				</MultiSelect.Item>
+    			))}
+    			{matches.length === 0 && (
+    				<MultiSelect.Empty>No results found</MultiSelect.Empty>
+    			)}
+    		</MultiSelect.Content>
+    	</MultiSelect.Root>
+    );
+
+}
+
+export function ValidationDemo() {
+	const [isPending, startTransition] = useTransition();
+	const [searchValue, setSearchValue] = useState("");
+	const matches = useMemo(() => matchSorter(fruits, searchValue), [searchValue]);
+
+    return (
+    	<div className="flex w-full max-w-96 flex-col gap-4">
+    		<MultiSelect.Root
+    			setValue={(value) => {
+    				startTransition(() => {
+    					setSearchValue(value);
+    				});
+    			}}
+    		>
+    			<MultiSelect.Trigger validation="error">
+    				<MultiSelect.TagValues placeholder="Error state..." />
+    			</MultiSelect.Trigger>
+    			<MultiSelect.Content aria-busy={isPending}>
+    				{matches.map((value) => (
+    					<MultiSelect.Item key={value} value={value}>
+    						{value}
+    					</MultiSelect.Item>
+    				))}
+    			</MultiSelect.Content>
+    		</MultiSelect.Root>
+    		<MultiSelect.Root
+    			setValue={(value) => {
+    				startTransition(() => {
+    					setSearchValue(value);
+    				});
+    			}}
+    		>
+    			<MultiSelect.Trigger validation="success">
+    				<MultiSelect.TagValues placeholder="Success state..." />
+    			</MultiSelect.Trigger>
+    			<MultiSelect.Content aria-busy={isPending}>
+    				{matches.map((value) => (
+    					<MultiSelect.Item key={value} value={value}>
+    						{value}
+    					</MultiSelect.Item>
+    				))}
+    			</MultiSelect.Content>
+    		</MultiSelect.Root>
+    		<MultiSelect.Root
+    			setValue={(value) => {
+    				startTransition(() => {
+    					setSearchValue(value);
+    				});
+    			}}
+    		>
+    			<MultiSelect.Trigger validation="warning">
+    				<MultiSelect.TagValues placeholder="Warning state..." />
+    			</MultiSelect.Trigger>
+    			<MultiSelect.Content aria-busy={isPending}>
+    				{matches.map((value) => (
+    					<MultiSelect.Item key={value} value={value}>
+    						{value}
+    					</MultiSelect.Item>
+    				))}
+    			</MultiSelect.Content>
+    		</MultiSelect.Root>
+    	</div>
+    );
+
+}
+
+# Multi Select
+
+A typeahead multi-select combobox that allows users to select multiple values with filtering. Selected values are displayed as removable tags. Built on top of [ariakit Combobox](https://ariakit.org/components/combobox) with full keyboard support and [WAI-ARIA Combobox Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/) compliance.
+
+<Example>
+	<BasicDemo />
+</Example>
+
+```tsx
+import { MultiSelect } from "@ngrok/mantle/multi-select";
+import { matchSorter } from "match-sorter";
+import { useMemo, useState, useTransition } from "react";
+
+const fruits = [
+	"Apple",
+	"Banana",
+	"Blueberry",
+	"Cherry",
+	"Grapes",
+	"Kiwi",
+	"Lemon",
+	"Mango",
+	"Orange",
+	"Peach",
+	"Pear",
+	"Pineapple",
+	"Strawberry",
+	"Watermelon",
+];
+
+function Example() {
+	const [isPending, startTransition] = useTransition();
+	const [searchValue, setSearchValue] = useState("");
+	const matches = useMemo(() => matchSorter(fruits, searchValue), [searchValue]);
+
+	return (
+		<MultiSelect.Root
+			setValue={(value) => {
+				startTransition(() => {
+					setSearchValue(value);
+				});
+			}}
+		>
+			<MultiSelect.Trigger>
+				<MultiSelect.TagValues placeholder="Select fruits..." />
+			</MultiSelect.Trigger>
+			<MultiSelect.Content aria-busy={isPending}>
+				{matches.map((value) => (
+					<MultiSelect.Item key={value} value={value}>
+						{value}
+					</MultiSelect.Item>
+				))}
+				{matches.length === 0 && <MultiSelect.Empty>No results found</MultiSelect.Empty>}
+			</MultiSelect.Content>
+		</MultiSelect.Root>
+	);
+}
+```
+
+## Examples
+
+### Controlled
+
+Use `selectedValue` and `setSelectedValue` to control the selected values.
+
+<Example>
+	<ControlledDemo />
+</Example>
+
+```tsx
+const [selected, setSelected] = useState(["Apple", "Cherry"]);
+
+<MultiSelect.Root
+	selectedValue={selected}
+	setSelectedValue={setSelected}
+	setValue={(value) => {
+		startTransition(() => setSearchValue(value));
+	}}
+>
+	<MultiSelect.Trigger>
+		<MultiSelect.TagValues placeholder="Select fruits..." />
+	</MultiSelect.Trigger>
+	<MultiSelect.Content>
+		{matches.map((value) => (
+			<MultiSelect.Item key={value} value={value}>
+				{value}
+			</MultiSelect.Item>
+		))}
+	</MultiSelect.Content>
+</MultiSelect.Root>;
+```
+
+### With Groups
+
+Use `MultiSelect.Group`, `MultiSelect.GroupLabel`, and `MultiSelect.Separator` to organize items.
+
+<Example>
+	<GroupedDemo />
+</Example>
+
+```tsx
+<MultiSelect.Root
+	setValue={(value) => {
+		startTransition(() => setSearchValue(value));
+	}}
+>
+	<MultiSelect.Trigger>
+		<MultiSelect.TagValues placeholder="Select items..." />
+	</MultiSelect.Trigger>
+	<MultiSelect.Content>
+		<MultiSelect.Group>
+			<MultiSelect.GroupLabel>Fruits</MultiSelect.GroupLabel>
+			<MultiSelect.Item value="Apple">Apple</MultiSelect.Item>
+			<MultiSelect.Item value="Banana">Banana</MultiSelect.Item>
+		</MultiSelect.Group>
+		<MultiSelect.Separator />
+		<MultiSelect.Group>
+			<MultiSelect.GroupLabel>Vegetables</MultiSelect.GroupLabel>
+			<MultiSelect.Item value="Carrot">Carrot</MultiSelect.Item>
+			<MultiSelect.Item value="Lettuce">Lettuce</MultiSelect.Item>
+		</MultiSelect.Group>
+	</MultiSelect.Content>
+</MultiSelect.Root>
+```
+
+### Validation States
+
+Use the `validation` prop on `MultiSelect.Trigger` to show validation states.
+
+<Example>
+	<ValidationDemo />
+</Example>
+
+```tsx
+<MultiSelect.Root>
+	<MultiSelect.Trigger validation="error">
+		<MultiSelect.TagValues placeholder="Error state..." />
+	</MultiSelect.Trigger>
+	<MultiSelect.Content>
+		<MultiSelect.Item value="Apple">Apple</MultiSelect.Item>
+	</MultiSelect.Content>
+</MultiSelect.Root>
+```
+
+## API Reference
+
+The `MultiSelect` components are built on top of [ariakit Combobox](https://ariakit.org/components/combobox).
+
+### MultiSelect.Root
+
+Root component for the multi-select. Provides state management for selecting multiple values with typeahead filtering.
+
+All props from ariakit [ComboboxProvider](https://ariakit.org/reference/combobox-provider) (typed to `string[]` for multi-select), plus:
+
+| Prop                    | Type                        | Default | Description                                           |
+| :---------------------- | :-------------------------- | :------ | :---------------------------------------------------- |
+| `selectedValue?`        | `string[]`                  | `[]`    | The controlled selected values.                       |
+| `setSelectedValue?`     | `(value: string[]) => void` |         | Event handler called when the selected values change. |
+| `defaultSelectedValue?` | `string[]`                  | `[]`    | The default selected values for uncontrolled usage.   |
+
+### MultiSelect.Trigger
+
+The trigger container for the multi-select. Wraps the input and selected value tags in a styled container that looks like a form input.
+
+| Prop          | Type                                                                                               | Default | Description                                           |
+| :------------ | :------------------------------------------------------------------------------------------------- | :------ | :---------------------------------------------------- |
+| `validation?` | `"error" \| "success" \| "warning" \| false \| (() => "error" \| "success" \| "warning" \| false)` |         | Validation state that changes the border and outline. |
+
+### MultiSelect.TagValues
+
+Renders the selected values as removable tags along with the combobox input for filtering. Place this inside `MultiSelect.Trigger`.
+
+All props from ariakit [Combobox](https://ariakit.org/reference/combobox), plus:
+
+| Prop           | Type                                                     | Default | Description                                                          |
+| :------------- | :------------------------------------------------------- | :------ | :------------------------------------------------------------------- |
+| `placeholder?` | `string`                                                 |         | Placeholder text shown when no values are selected.                  |
+| `renderTag?`   | `(value: string, remove: () => void) => React.ReactNode` |         | Custom render function for tags. Receives value and remove callback. |
+
+### MultiSelect.Content
+
+Renders a popover that contains multi-select content.
+
+All props from ariakit [ComboboxPopover](https://ariakit.org/reference/combobox-popover), plus:
+
+| Prop             | Type      | Default | Description                                                           |
+| :--------------- | :-------- | :------ | :-------------------------------------------------------------------- |
+| `asChild?`       | `boolean` | `false` | Compose onto an alternative element type or your own React component. |
+| `sameWidth?`     | `boolean` | `true`  | Whether the popover should be the same width as the trigger.          |
+| `unmountOnHide?` | `boolean` | `true`  | Whether the popover should unmount when hidden.                       |
+
+### MultiSelect.Item
+
+Renders a selectable item with a checkbox indicator inside a `MultiSelect.Content`.
+
+All props from ariakit [ComboboxItem](https://ariakit.org/reference/combobox-item), plus:
+
+| Prop            | Type      | Default | Description                                                           |
+| :-------------- | :-------- | :------ | :-------------------------------------------------------------------- |
+| `asChild?`      | `boolean` | `false` | Compose onto an alternative element type or your own React component. |
+| `focusOnHover?` | `boolean` | `true`  | Whether the item should receive focus on hover.                       |
+
+### MultiSelect.Group
+
+Renders a group for `MultiSelect.Item` elements. Optionally, a `MultiSelect.GroupLabel` can be rendered as a child to provide a label for the group.
+
+All props from ariakit [ComboboxGroup](https://ariakit.org/reference/combobox-group), plus:
+
+| Prop       | Type      | Default | Description                                                           |
+| :--------- | :-------- | :------ | :-------------------------------------------------------------------- |
+| `asChild?` | `boolean` | `false` | Compose onto an alternative element type or your own React component. |
+
+### MultiSelect.GroupLabel
+
+Renders a label in a multi-select group. Should be wrapped with `MultiSelect.Group` so the `aria-labelledby` is correctly set on the group element.
+
+All props from ariakit [ComboboxGroupLabel](https://ariakit.org/reference/combobox-group-label), plus:
+
+| Prop       | Type      | Default | Description                                                           |
+| :--------- | :-------- | :------ | :-------------------------------------------------------------------- |
+| `asChild?` | `boolean` | `false` | Compose onto an alternative element type or your own React component. |
+
+### MultiSelect.Separator
+
+Renders a separator between `MultiSelect.Item`s or `MultiSelect.Group`s.
+
+All props from [Separator](/components/separator).
+
+### MultiSelect.Empty
+
+Renders a message when no items match the current filter.
+
+Standard `div` element props.
