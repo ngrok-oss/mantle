@@ -3,12 +3,12 @@ packages:
   - "config/*"
   - "packages/*"
 
-# Don't install packages that are less than 10h old
+# Don't install packages that are less than 6h old
 # This reduces the risk of installing compromised packages.
 # In most cases, malicious releases are discovered and removed from the registry
 # within an hour.
 # see: https://pnpm.io/settings#minimumreleaseage
-minimumReleaseAge: 600
+minimumReleaseAge: 360
 
 minimumReleaseAgeExclude:
   - "@ngrok/remark-mdx-github-alerts"
@@ -22,6 +22,6 @@ minimumReleaseAgeExclude:
 catalog:
   "@phosphor-icons/react": "2.1.10"
   "happy-dom": "20.6.2"
-  "tailwindcss": "4.1.18"
+  "tailwindcss": "4.2.0"
   "typescript": "5.9.3"
   "vite": "7.3.1"
