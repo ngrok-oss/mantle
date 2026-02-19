@@ -163,6 +163,10 @@ MARK: THEME
 	--color-card-border: var(--color-card-border);
 	--color-card-border-muted: var(--color-card-border-muted);
 
+	--color-active-menu-item: var(--color-active-menu-item);
+	--color-selected-menu-item: var(--color-selected-menu-item);
+	--color-active-selected-menu-item: var(--color-active-selected-menu-item);
+
 	--text-color-strong: var(--text-color-strong);
 	--text-color-body: var(--text-color-body);
 	--text-color-muted: var(--text-color-muted);
@@ -334,6 +338,10 @@ MARK: LIGHT DEFS
 
 	--color-card-border: var(--color-neutral-300);
 	--color-card-border-muted: var(--color-neutral-200);
+
+	--color-active-menu-item: var(--color-neutral-100);
+	--color-selected-menu-item: var(--color-accent-50);
+	--color-active-selected-menu-item: var(--color-accent-100);
 
 	--text-color-strong: var(--color-neutral-950);
 	--text-color-body: --alpha(var(--color-neutral-950) / 0.75);
@@ -678,6 +686,10 @@ MARK: DARK DEFS
 	--color-card-border: var(--color-neutral-300);
 	--color-card-border-muted: var(--color-neutral-200);
 
+	--color-active-menu-item: var(--color-neutral-200);
+	--color-selected-menu-item: var(--color-accent-50);
+	--color-active-selected-menu-item: var(--color-accent-100);
+
 	--text-color-strong: #fff;
 	--text-color-body: --alpha(#fff / 0.7);
 	--text-color-muted: --alpha(#fff / 0.5);
@@ -985,6 +997,10 @@ MARK: LIGHT HICON DEFS
 	--color-card-border: var(--color-neutral-300);
 	--color-card-border-muted: var(--color-neutral-300);
 
+	--color-active-menu-item: var(--color-neutral-100);
+	--color-selected-menu-item: var(--color-accent-50);
+	--color-active-selected-menu-item: var(--color-accent-100);
+
 	--text-color-strong: var(--color-black);
 	--text-color-body: var(--color-neutral-950);
 	--text-color-muted: --alpha(var(--color-black) / 0.75);
@@ -1291,6 +1307,10 @@ MARK: DARK HICON DEFS
 
 	--color-card-border: var(--color-neutral-300);
 	--color-card-border-muted: var(--color-neutral-300);
+
+	--color-active-menu-item: var(--color-neutral-100);
+	--color-selected-menu-item: var(--color-accent-50);
+	--color-active-selected-menu-item: var(--color-accent-100);
 
 	--text-color-strong: var(--color-black);
 	--text-color-body: var(--color-neutral-950);
