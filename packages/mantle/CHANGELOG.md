@@ -1,5 +1,13 @@
 # @ngrok/mantle
 
+## 0.64.3
+
+### Patch Changes
+
+- [#990](https://github.com/ngrok-oss/mantle/pull/990) [`16c731a`](https://github.com/ngrok-oss/mantle/commit/16c731a10cc1bbfd6299ff0350171ffa48c261e5) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - update to tailwind 4.2.0
+
+- [#988](https://github.com/ngrok-oss/mantle/pull/988) [`7e59d87`](https://github.com/ngrok-oss/mantle/commit/7e59d8722fcf2585105b580e752bf9356e7dea9a) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Update dropdown, select, and combobox menu item styling
+
 ## 0.64.2
 
 ### Patch Changes
