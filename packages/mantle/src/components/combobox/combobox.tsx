@@ -115,7 +115,7 @@ const Content = forwardRef<ComponentRef<typeof Primitive.ComboboxPopover>, Combo
 		return (
 			<Primitive.ComboboxPopover
 				className={cx(
-					"border-popover bg-popover relative z-50 max-h-96 min-w-32 scrollbar overflow-y-scroll overflow-x-hidden rounded-md border shadow-md p-1 my-2 focus:outline-hidden",
+					"border-popover bg-popover relative z-50 max-h-96 min-w-32 scrollbar overflow-y-scroll overflow-x-hidden rounded-md border shadow-md p-1 my-2 space-y-px focus:outline-hidden",
 					className,
 				)}
 				ref={ref}
@@ -156,8 +156,8 @@ const Item = forwardRef<ComponentRef<typeof Primitive.ComboboxItem>, ComboboxIte
 			<ComboboxItemValueContext.Provider value={value}>
 				<Primitive.ComboboxItem
 					className={cx(
-						"cursor-pointer rounded px-2 py-1.5 text-sm flex min-w-0 gap-2 items-center",
-						"data-active-item:bg-popover-hover",
+						"cursor-pointer rounded-md px-2 py-1.5 text-sm flex min-w-0 gap-2 items-center",
+						"data-active-item:bg-active-menu-item",
 						"aria-disabled:opacity-50",
 						className,
 					)}
@@ -202,7 +202,7 @@ const Group = forwardRef<ComponentRef<typeof Primitive.ComboboxGroup>, ComboboxG
 	({ asChild = false, children, className, ...props }, ref) => {
 		return (
 			<Primitive.ComboboxGroup
-				className={cx("", className)}
+				className={cx("space-y-px", className)}
 				ref={ref}
 				render={
 					asChild ? ({ ref, ...childProps }) => <Slot ref={ref} {...childProps} /> : undefined

@@ -151,7 +151,12 @@ Root.displayName = "Select";
  *
  * @see https://mantle.ngrok.com/components/select#selectgroup
  */
-const Group = SelectPrimitive.Group;
+const Group = forwardRef<
+	ComponentRef<typeof SelectPrimitive.Group>,
+	ComponentPropsWithoutRef<typeof SelectPrimitive.Group>
+>(({ className, ...props }, ref) => (
+	<SelectPrimitive.Group ref={ref} className={cx("space-y-px", className)} {...props} />
+));
 Group.displayName = "SelectGroup";
 
 /**
@@ -331,7 +336,10 @@ const Content = forwardRef<ComponentRef<typeof SelectPrimitive.Content>, SelectC
 			>
 				<SelectScrollUpButton />
 				<SelectPrimitive.Viewport
-					className={cx("p-1", position === "popper" && "h-(--radix-select-trigger-height) w-full")}
+					className={cx(
+						"p-1 space-y-px",
+						position === "popper" && "h-(--radix-select-trigger-height) w-full",
+					)}
 				>
 					{children}
 				</SelectPrimitive.Viewport>
@@ -407,11 +415,11 @@ const Item = forwardRef<ComponentRef<typeof SelectPrimitive.Item>, SelectItemPro
 		<SelectPrimitive.Item
 			ref={ref}
 			className={cx(
-				"relative flex gap-2 w-full cursor-pointer select-none items-center rounded py-1.5 pl-2 pr-8 text-sm outline-hidden",
-				"focus:bg-popover-hover",
+				"relative flex gap-2 w-full cursor-pointer select-none items-center rounded-md py-1.5 pl-2 pr-8 text-sm outline-hidden",
+				"focus:bg-active-menu-item",
 				"data-disabled:pointer-events-none data-disabled:opacity-50",
-				"data-state-checked:bg-filled-accent data-state-checked:text-on-filled",
-				"focus:data-state-checked:bg-filled-accent",
+				"data-state-checked:bg-selected-menu-item",
+				"focus:data-state-checked:bg-active-selected-menu-item",
 				className,
 			)}
 			{...props}
@@ -419,7 +427,7 @@ const Item = forwardRef<ComponentRef<typeof SelectPrimitive.Item>, SelectItemPro
 			{icon && <Icon svg={icon} />}
 			<SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
 			<SelectPrimitive.ItemIndicator className="absolute right-2 flex h-3.5 w-3.5 items-center justify-center">
-				<Icon svg={<CheckIcon weight="bold" />} className="size-4" />
+				<Icon svg={<CheckIcon weight="bold" />} className="size-4 text-accent-600" />
 			</SelectPrimitive.ItemIndicator>
 		</SelectPrimitive.Item>
 	),
