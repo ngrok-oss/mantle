@@ -231,7 +231,7 @@ const Trigger = forwardRef<ComponentRef<typeof SelectPrimitive.Trigger>, SelectT
 				aria-invalid={ariaInvalid}
 				className={cx(
 					"h-9 text-sm",
-					"border-form bg-form text-strong placeholder:text-placeholder hover:bg-form-hover hover:text-strong flex w-full items-center justify-between gap-1.5 rounded-md border px-3 py-2 disabled:pointer-events-none disabled:opacity-50 [&>span]:line-clamp-1 [&>span]:text-left",
+					"border-form bg-form text-strong font-sans placeholder:text-placeholder hover:bg-form-hover hover:text-strong flex w-full items-center justify-between gap-1.5 rounded-md border px-3 py-2 disabled:pointer-events-none disabled:opacity-50 [&>span]:line-clamp-1 [&>span]:text-left",
 					"hover:border-neutral-400",
 					"focus:outline-hidden focus:ring-4 aria-expanded:ring-4",
 					"focus:border-accent-600 focus:ring-focus-accent aria-expanded:border-accent-600 aria-expanded:ring-focus-accent",
@@ -325,7 +325,7 @@ const Content = forwardRef<ComponentRef<typeof SelectPrimitive.Content>, SelectC
 				ref={ref}
 				className={cx(
 					"border-popover data-side-bottom:slide-in-from-top-2 data-side-left:slide-in-from-right-2 data-side-right:slide-in-from-left-2 data-side-top:slide-in-from-bottom-2 data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 data-state-open:animate-in data-state-open:fade-in-0 data-state-open:zoom-in-95 relative z-50 max-h-96 min-w-32 overflow-hidden rounded-md border shadow-md",
-					"bg-popover",
+					"bg-popover font-sans",
 					position === "popper" &&
 						"data-side-bottom:translate-y-2 data-side-left:-translate-x-2 data-side-right:translate-x-2 data-side-top:-translate-y-2 max-h-(--radix-select-content-available-height)",
 					width === "trigger" && "w-(--radix-select-trigger-width)",
@@ -415,7 +415,7 @@ const Item = forwardRef<ComponentRef<typeof SelectPrimitive.Item>, SelectItemPro
 		<SelectPrimitive.Item
 			ref={ref}
 			className={cx(
-				"relative flex gap-2 w-full cursor-pointer select-none items-center rounded-md py-1.5 pl-2 pr-8 text-sm outline-hidden",
+				"relative flex gap-2 w-full cursor-pointer select-none items-center rounded-md py-1.5 pl-2 pr-8 text-strong text-sm outline-hidden",
 				"focus:bg-active-menu-item",
 				"data-disabled:pointer-events-none data-disabled:opacity-50",
 				"data-state-checked:bg-selected-menu-item",

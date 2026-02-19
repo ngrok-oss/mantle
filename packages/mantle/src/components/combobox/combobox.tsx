@@ -72,7 +72,7 @@ const Input = forwardRef<ComponentRef<"input">, ComboboxInputProps>(
 				autoSelect={autoSelect}
 				className={cx(
 					"pointer-coarse:text-base h-9 text-sm",
-					"bg-form relative block w-full rounded-md border px-3 py-2 border-form text-strong",
+					"bg-form relative block w-full rounded-md border px-3 py-2 border-form text-strong font-sans",
 					"placeholder:text-placeholder",
 					"aria-disabled:opacity-50",
 					"hover:border-neutral-400",
@@ -115,7 +115,7 @@ const Content = forwardRef<ComponentRef<typeof Primitive.ComboboxPopover>, Combo
 		return (
 			<Primitive.ComboboxPopover
 				className={cx(
-					"border-popover bg-popover relative z-50 max-h-96 min-w-32 scrollbar overflow-y-scroll overflow-x-hidden rounded-md border shadow-md p-1 my-2 space-y-px focus:outline-hidden",
+					"border-popover bg-popover relative z-50 max-h-96 min-w-32 scrollbar overflow-y-scroll overflow-x-hidden rounded-md border shadow-md p-1 my-2 space-y-px font-sans focus:outline-hidden",
 					className,
 				)}
 				ref={ref}
@@ -156,7 +156,7 @@ const Item = forwardRef<ComponentRef<typeof Primitive.ComboboxItem>, ComboboxIte
 			<ComboboxItemValueContext.Provider value={value}>
 				<Primitive.ComboboxItem
 					className={cx(
-						"cursor-pointer rounded-md px-2 py-1.5 text-sm flex min-w-0 gap-2 items-center",
+						"cursor-pointer rounded-md px-2 py-1.5 text-strong text-sm flex min-w-0 gap-2 items-center",
 						"data-active-item:bg-active-menu-item",
 						"aria-disabled:opacity-50",
 						className,

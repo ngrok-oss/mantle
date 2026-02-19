@@ -121,7 +121,7 @@ const SubContent = forwardRef<
 		<DropdownMenuPrimitive.SubContent
 			className={cx(
 				"scrollbar",
-				"text-popover-foreground border-popover bg-popover p-1.25 data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 data-state-open:animate-in data-state-open:fade-in-0 data-state-open:zoom-in-95 data-side-bottom:slide-in-from-top-2 data-side-left:slide-in-from-right-2 data-side-right:slide-in-from-left-2 data-side-top:slide-in-from-bottom-2 z-50 min-w-32 overflow-hidden rounded-md border shadow-xl space-y-px",
+				"text-popover-foreground border-popover bg-popover p-1.25 data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 data-state-open:animate-in data-state-open:fade-in-0 data-state-open:zoom-in-95 data-side-bottom:slide-in-from-top-2 data-side-left:slide-in-from-right-2 data-side-right:slide-in-from-left-2 data-side-top:slide-in-from-bottom-2 z-50 min-w-32 overflow-hidden rounded-md border shadow-xl space-y-px font-sans",
 				"my-2 max-h-[calc(var(--radix-dropdown-menu-content-available-height)-16px)] overflow-auto",
 				className,
 			)}
@@ -169,7 +169,7 @@ const Content = forwardRef<
 			ref={ref}
 			className={cx(
 				"scrollbar",
-				"text-popover-foreground border-popover bg-popover p-1.25 z-50 min-w-32 overflow-hidden rounded-md border shadow-xl outline-hidden space-y-px",
+				"text-popover-foreground border-popover bg-popover p-1.25 z-50 min-w-32 overflow-hidden rounded-md border shadow-xl outline-hidden space-y-px font-sans",
 				"data-side-bottom:slide-in-from-top-2 data-side-left:slide-in-from-right-2 data-side-right:slide-in-from-left-2 data-side-top:slide-in-from-bottom-2 data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 data-state-open:animate-in data-state-open:fade-in-0 data-state-open:zoom-in-95",
 				"my-2 max-h-[calc(var(--radix-dropdown-menu-content-available-height)-16px)] overflow-auto",
 				width === "trigger" && "w-(--radix-dropdown-menu-trigger-width)",
@@ -219,7 +219,7 @@ const Item = forwardRef<
 	<DropdownMenuPrimitive.Item
 		ref={ref}
 		className={cx(
-			"relative flex cursor-pointer select-none items-center rounded-md px-2 py-1.5 text-sm font-normal outline-hidden transition-colors",
+			"relative flex cursor-pointer select-none items-center rounded-md px-2 py-1.5 text-strong text-sm font-normal outline-hidden transition-colors",
 			"data-highlighted:bg-active-menu-item",
 			"focus:bg-accent focus:text-accent-foreground",
 			"data-disabled:cursor-default data-disabled:opacity-50",
