@@ -3,7 +3,8 @@ import { isValidElement, type ComponentProps, type PropsWithChildren, type React
 import { MDXProvider as MdxProviderPrimitive } from "@mdx-js/react";
 import { Anchor } from "@ngrok/mantle/anchor";
 import { Code } from "@ngrok/mantle/code";
-import { CodeBlock, parseLanguage } from "@ngrok/mantle/code-block";
+import { CodeBlock, parseLanguage, type MetaInput } from "@ngrok/mantle/code-block";
+import { parseBooleanish } from "@ngrok/mantle/types";
 import { cx } from "@ngrok/mantle/cx";
 import { Icon } from "@ngrok/mantle/icon";
 import { Table } from "@ngrok/mantle/table";
@@ -79,19 +80,16 @@ const components = {
 			/>
 		);
 	},
-	pre: (props) => {
-		const { children, className } = props;
+	pre: (props: ComponentProps<"pre"> & MetaInput) => {
+		const { children, className, collapsible: collapsibleProp } = props;
 		if (!isValidElement<{ className?: string; children?: unknown }>(children)) {
 			return null;
 		}
 		const language = parseLanguage(children.props.className);
-		const rawCode = children.props.children ?? "";
-		const code =
-			typeof rawCode === "string"
-				? rawCode
-				: Array.isArray(rawCode)
-					? rawCode.join("")
-					: String(rawCode);
+		const code = String(children.props.children ?? "");
+		// Short-circuit: skip the split("\n") allocation for small blocks (400 chars ≈ 10 chars/line × 40 lines)
+		const isLong = collapsibleProp == null && code.length > 400 && code.split("\n").length > 40;
+		const collapsible = collapsibleProp != null ? parseBooleanish(collapsibleProp) : isLong;
 
 		return (
 			<CodeBlock.Root className={cx("mb-6", className)}>
@@ -99,6 +97,7 @@ const components = {
 					<CodeBlock.CopyButton />
 					<CodeBlock.Code language={language} value={code} />
 				</CodeBlock.Body>
+				{collapsible && <CodeBlock.ExpanderButton />}
 			</CodeBlock.Root>
 		);
 	},
