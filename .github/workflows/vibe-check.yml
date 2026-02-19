@@ -43,10 +43,11 @@ jobs:
         run: |
           pnpm install
 
-      - name: Fmt and Lint Check 🧹
-        run: |
-          pnpm run fmt:check
-          pnpm run lint
+      - name: Format Check 🧹
+        run: pnpm run fmt:check
+
+      - name: Lint Check 🔍
+        run: pnpm run lint
 
       - name: Build 🏗️
         run: |
