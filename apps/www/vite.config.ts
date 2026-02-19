@@ -2,6 +2,7 @@ import mdx from "@mdx-js/rollup";
 import { reactRouter } from "@react-router/dev/vite";
 import tailwindcss from "@tailwindcss/vite";
 import path from "node:path";
+import rehypeMdxCodeProps from "rehype-mdx-code-props";
 import rehypeSlug from "rehype-slug";
 import remarkFrontmatter from "remark-frontmatter";
 import { remarkMdxGithubAlerts } from "@ngrok/remark-mdx-github-alerts";
@@ -36,7 +37,7 @@ export default defineConfig({
 				remarkMdxGithubAlerts,
 				remarkMdxNoParagraphWrap,
 			],
-			rehypePlugins: [rehypeSlug],
+			rehypePlugins: [rehypeSlug, rehypeMdxCodeProps],
 			providerImportSource: "@mdx-js/react",
 		}),
 		reactRouter(),
