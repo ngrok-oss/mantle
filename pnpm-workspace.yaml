@@ -21,7 +21,7 @@ minimumReleaseAgeExclude:
 
 catalog:
   "@phosphor-icons/react": "2.1.10"
-  "happy-dom": "20.6.2"
+  "happy-dom": "20.6.3"
   "tailwindcss": "4.2.0"
   "typescript": "5.9.3"
   "vite": "7.3.1"
