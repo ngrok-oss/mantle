@@ -159,7 +159,7 @@ const triggerDecorationVariants = cva("absolute z-0", {
 			vertical: "-right-px bottom-0 top-0 w-0.75",
 		} as const satisfies Record<Orientation, string>,
 		appearance: {
-			classic: "group-data-state-active/tab-trigger:bg-blue-600",
+			classic: "group-data-state-active/tab-trigger:bg-neutral-950",
 			pill: "hidden",
 		} as const satisfies Record<Appearance, string>,
 	},
@@ -194,14 +194,14 @@ const triggerVariants = cva(
 			} as const satisfies Record<Orientation, string>,
 			appearance: {
 				classic: cx(
-					"not-aria-disabled:hover:data-state-active:text-blue-600",
-					"data-state-active:text-blue-600",
+					"not-aria-disabled:hover:data-state-active:text-strong",
+					"data-state-active:text-strong",
 				),
 				pill: cx(
-					"not-aria-disabled:hover:data-state-active:text-blue-700",
-					"not-aria-disabled:hover:data-state-active:bg-accent-500/20",
-					"data-state-active:text-blue-700",
-					"data-state-active:bg-accent-500/20",
+					"not-aria-disabled:hover:data-state-active:text-strong",
+					"not-aria-disabled:hover:data-state-active:bg-neutral-950/10",
+					"data-state-active:text-strong",
+					"data-state-active:bg-neutral-950/10",
 					"rounded-full py-2 px-3",
 				),
 			} as const satisfies Record<Appearance, string>,
@@ -319,8 +319,8 @@ Trigger.displayName = "TabsTrigger";
 const Badge = ({ className, children, ...props }: HTMLAttributes<HTMLSpanElement>) => (
 	<span
 		className={cx(
-			"rounded-full bg-gray-500/20 px-1.5 text-xs font-medium text-gray-600",
-			"group-data-state-active/tab-trigger:bg-blue-500/20 group-data-state-active/tab-trigger:text-blue-700 group-hover/tab-trigger:group-enabled/tab-trigger:group-data-state-active/tab-trigger:text-blue-700",
+			"rounded-full bg-neutral-500/20 px-1.5 text-xs font-medium text-gray-600",
+			"group-data-state-active/tab-trigger:bg-neutral-950/10 group-data-state-active/tab-trigger:text-strong group-hover/tab-trigger:group-enabled/tab-trigger:group-data-state-active/tab-trigger:text-strong",
 			"group-hover/tab-trigger:group-enabled/tab-trigger:text-gray-700",
 			className,
 		)}
