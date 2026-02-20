@@ -15,8 +15,9 @@ import { useSyncExternalStore } from "react";
  * "md"  // ≥48rem (768px)
  * "sm"  // ≥40rem (640px)
  * "xs"  // ≥30rem (480px)
+ * "2xs" // ≥22.5rem (360px)
  */
-const tailwindBreakpoints = ["2xl", "xl", "lg", "md", "sm", "xs"] as const;
+const tailwindBreakpoints = ["2xl", "xl", "lg", "md", "sm", "xs", "2xs"] as const;
 
 /**
  * A valid Tailwind CSS breakpoint identifier.
@@ -31,6 +32,7 @@ const tailwindBreakpoints = ["2xl", "xl", "lg", "md", "sm", "xs"] as const;
  * "md"  // ≥48rem (768px)
  * "sm"  // ≥40rem (640px)
  * "xs"  // ≥30rem (480px)
+ * "2xs" // ≥22.5rem (360px)
  */
 type TailwindBreakpoint = (typeof tailwindBreakpoints)[number];
 
@@ -42,6 +44,7 @@ type TailwindBreakpoint = (typeof tailwindBreakpoints)[number];
  *
  * @example
  * "default" // ≥0rem (0px)
+ * "2xs"     // ≥22.5rem (360px)
  * "xs"      // ≥30rem (480px)
  * "sm"      // ≥40rem (640px)
  * "md"      // ≥48rem (768px)
@@ -61,6 +64,7 @@ const breakpoints = ["default", ...tailwindBreakpoints] as const;
  *
  * @example
  * "default" // ≥0rem (0px)
+ * "2xs"     // ≥22.5rem (360px)
  * "xs"      // ≥30rem (480px)
  * "sm"      // ≥40rem (640px)
  * "md"      // ≥48rem (768px)
@@ -167,6 +171,7 @@ const breakpointQueries = {
 	md: "(min-width: 48rem)" as const,
 	sm: "(min-width: 40rem)" as const,
 	xs: "(min-width: 30rem)" as const,
+	"2xs": "(min-width: 22.5rem)" as const,
 } as const satisfies Record<TailwindBreakpoint, MinWidthQuery>;
 
 /**
@@ -182,7 +187,8 @@ const belowBreakpointQueries = {
 	lg: "(max-width: 63.99rem)" as const, // 64 - 0.01
 	md: "(max-width: 47.99rem)" as const, // 48 - 0.01
 	sm: "(max-width: 39.99rem)" as const, // 40 - 0.01
-	xs: "(max-width: 29.99rem)" as const, // 40 - 0.01
+	xs: "(max-width: 29.99rem)" as const, // 30 - 0.01
+	"2xs": "(max-width: 22.49rem)" as const, // 22.5 - 0.01
 } as const satisfies Record<TailwindBreakpoint, MaxWidthQuery>;
 
 /**
@@ -218,6 +224,7 @@ function getMinWidthMQLs(): Record<TailwindBreakpoint, MediaQueryList> {
 			md: window.matchMedia(breakpointQueries.md),
 			sm: window.matchMedia(breakpointQueries.sm),
 			xs: window.matchMedia(breakpointQueries.xs),
+			"2xs": window.matchMedia(breakpointQueries["2xs"]),
 		};
 	}
 	return minWidthMQLs;
@@ -239,6 +246,7 @@ function getMaxWidthMQL(breakpoint: TailwindBreakpoint): MediaQueryList {
 			md: window.matchMedia(belowBreakpointQueries.md),
 			sm: window.matchMedia(belowBreakpointQueries.sm),
 			xs: window.matchMedia(belowBreakpointQueries.xs),
+			"2xs": window.matchMedia(belowBreakpointQueries["2xs"]),
 		};
 	}
 	return maxWidthMQLs[breakpoint];
@@ -372,17 +380,36 @@ function getCurrentBreakpointSnapshot(): Breakpoint {
 }
 
 /**
- * Factory to create a `subscribe` function for a specific "below" breakpoint.
+ * Cached `subscribe` functions keyed by breakpoint.
+ *
+ * Without caching, `useSyncExternalStore` receives a new function reference on
+ * every render, causing it to tear down and re-attach the MQL listener each
+ * time — the primary source of resize sluggishness.
+ *
+ * @private
+ */
+const belowBreakpointSubscribeCache = new Map<
+	TailwindBreakpoint,
+	(callback: () => void) => () => void
+>();
+
+/**
+ * Get (or create and cache) a `subscribe` function for a specific "below" breakpoint.
  *
  * Uses a cached `MediaQueryList` and rAF-throttled change handler to avoid
  * bursty updates during resize.
  *
  * @param breakpoint - Tailwind breakpoint identifier (e.g., "lg").
- * @returns A `subscribe` function suitable for `useSyncExternalStore`.
+ * @returns A stable `subscribe` function suitable for `useSyncExternalStore`.
  * @private
  */
 function createBelowBreakpointSubscribe(breakpoint: TailwindBreakpoint) {
-	return (callback: () => void) => {
+	let cached = belowBreakpointSubscribeCache.get(breakpoint);
+	if (cached) {
+		return cached;
+	}
+
+	cached = (callback: () => void) => {
 		const mediaQuery = getMaxWidthMQL(breakpoint);
 
 		// rAF throttle the change callback during active resize
@@ -402,20 +429,41 @@ function createBelowBreakpointSubscribe(breakpoint: TailwindBreakpoint) {
 			mediaQuery.removeEventListener("change", onChange);
 		};
 	};
+
+	belowBreakpointSubscribeCache.set(breakpoint, cached);
+	return cached;
 }
 
 /**
- * Factory to create a `getSnapshot` function for a specific "below" breakpoint.
+ * Cached `getSnapshot` functions keyed by breakpoint.
+ *
+ * Ensures `useSyncExternalStore` receives a referentially stable function,
+ * preventing unnecessary subscription churn.
+ *
+ * @private
+ */
+const belowBreakpointSnapshotCache = new Map<TailwindBreakpoint, () => boolean>();
+
+/**
+ * Get (or create and cache) a `getSnapshot` function for a specific "below" breakpoint.
  *
  * Uses the cached `MediaQueryList` for the target breakpoint.
  *
  * @param breakpoint - Tailwind breakpoint identifier (e.g., "lg").
- * @returns A function that returns `true` when the viewport is below the breakpoint.
+ * @returns A stable function that returns `true` when the viewport is below the breakpoint.
  * @private
  */
 function createBelowBreakpointGetSnapshot(breakpoint: TailwindBreakpoint) {
-	return () => {
+	let cached = belowBreakpointSnapshotCache.get(breakpoint);
+	if (cached) {
+		return cached;
+	}
+
+	cached = () => {
 		const mediaQuery = getMaxWidthMQL(breakpoint);
 		return mediaQuery.matches;
 	};
+
+	belowBreakpointSnapshotCache.set(breakpoint, cached);
+	return cached;
 }

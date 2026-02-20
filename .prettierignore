@@ -1,3 +1,4 @@
+.blog
 .cache
 .changeset
 .env
@@ -5,8 +6,11 @@
 .turbo
 .vercel
 build
-bun.lockb
 dist
 node_modules
 public
-pnpm-lock.yaml
+*/code-gen
+packages/mantle/package.json
+*.svg
+*.yaml
+bun.lockb

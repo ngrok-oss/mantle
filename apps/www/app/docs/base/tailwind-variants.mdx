@@ -1,0 +1,91 @@
+---
+title: Tailwind Variants
+description: Custom Tailwind variants registered by mantle
+---
+
+import { VariantIndicator } from "~/components/variant-indicator";
+import { TailwindVariantsPills } from "~/features/tailwind-variants-demo";
+
+# Tailwind Variants
+
+Custom Tailwind variants registered by mantle via `@custom-variant` in `mantle.css`.
+
+## Theme
+
+| Variant                | Description                                                                                                                                        |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `.light:`              | Apply a class when the light theme is active.                                                                                                      |
+| `.dark:`               | Apply a class when the dark theme is active. Overrides Tailwind's built-in `dark:` to use class-based detection instead of `prefers-color-scheme`. |
+| `.high-contrast:`      | Apply a class if high contrast theming is enabled (light-high-contrast).                                                                           |
+| `.dark-high-contrast:` | Apply a class if high contrast and dark themes are applied.                                                                                        |
+
+## Hover Media Queries
+
+|                                                                         | Variant         | Description                                                                                                                                  |
+| ----------------------------------------------------------------------- | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| <VariantIndicator show="hover-hover:block" hide="hover-hover:hidden" /> | `.hover-hover:` | Apply a class if hover is supported. Unlike Tailwind's `hover:`, this applies unconditionally without requiring an actual hover interaction. |
+| <VariantIndicator show="hover-none:block" hide="hover-none:hidden" />   | `.hover-none:`  | Apply a class if hover is unsupported.                                                                                                       |
+
+## Aria
+
+| Variant            | Description                                  |
+| ------------------ | -------------------------------------------- |
+| `.aria-collapsed:` | Match elements with `aria-expanded="false"`. |
+| `.aria-invalid:`   | Match elements with `aria-invalid="true"`.   |
+| `.aria-unchecked:` | Match elements with `aria-checked="false"`.  |
+
+## Data Attribute — State
+
+| Variant                      | Description                                      |
+| ---------------------------- | ------------------------------------------------ |
+| `.data-state-active:`        | Match elements with `data-state~=active`.        |
+| `.data-state-checked:`       | Match elements with `data-state~=checked`.       |
+| `.data-state-closed:`        | Match elements with `data-state~=closed`.        |
+| `.data-state-idle:`          | Match elements with `data-state~=idle`.          |
+| `.data-state-inactive:`      | Match elements with `data-state~=inactive`.      |
+| `.data-state-indeterminate:` | Match elements with `data-state~=indeterminate`. |
+| `.data-state-open:`          | Match elements with `data-state~=open`.          |
+| `.data-state-pending:`       | Match elements with `data-state~=pending`.       |
+| `.data-state-selected:`      | Match elements with `data-state~=selected`.      |
+| `.data-state-submitting:`    | Match elements with `data-state~=submitting`.    |
+| `.data-state-unchecked:`     | Match elements with `data-state~=unchecked`.     |
+
+## Data Attribute — Orientation & Side
+
+| Variant                         | Description                                          |
+| ------------------------------- | ---------------------------------------------------- |
+| `.data-orientation-horizontal:` | Match elements with `data-orientation="horizontal"`. |
+| `.data-orientation-vertical:`   | Match elements with `data-orientation="vertical"`.   |
+| `.data-side-bottom:`            | Match elements with `data-side="bottom"`.            |
+| `.data-side-left:`              | Match elements with `data-side="left"`.              |
+| `.data-side-right:`             | Match elements with `data-side="right"`.             |
+| `.data-side-top:`               | Match elements with `data-side="top"`.               |
+
+## Data Attribute — Validation
+
+| Variant                     | Description                                      |
+| --------------------------- | ------------------------------------------------ |
+| `.data-validation-error:`   | Match elements with `data-validation="error"`.   |
+| `.data-validation-success:` | Match elements with `data-validation="success"`. |
+| `.data-validation-warning:` | Match elements with `data-validation="warning"`. |
+
+## Data Attribute — Other
+
+| Variant              | Description                                           |
+| -------------------- | ----------------------------------------------------- |
+| `.data-active-item:` | Match elements with `data-active-item~="true"`.       |
+| `.data-disabled:`    | Match elements with the `data-disabled` attribute.    |
+| `.data-drag-over:`   | Match elements with `data-drag-over="true"`.          |
+| `.data-highlighted:` | Match elements with the `data-highlighted` attribute. |
+
+## Utility
+
+| Variant   | Description                                               |
+| --------- | --------------------------------------------------------- |
+| `.where:` | Wraps the selector in `:where()` to zero out specificity. |
+
+## Live Detection
+
+The pills below show which variants are currently active in your browser:
+
+<TailwindVariantsPills />

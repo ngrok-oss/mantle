@@ -1,11 +1,11 @@
-import type { AnchorHTMLAttributes, ComponentRef, ReactNode } from "react";
+import type { ComponentProps, ComponentRef, ReactNode } from "react";
 import { Children, cloneElement, forwardRef, isValidElement } from "react";
 import invariant from "tiny-invariant";
 import type { WithAsChild } from "../../types/as-child.js";
 import { cx } from "../../utils/cx/cx.js";
 import { Icon } from "../icon/icon.js";
 import { Slot } from "../slot/index.js";
-import type { Rel, Target } from "./types.js";
+import type { Rel } from "./types.js";
 
 /**
  * The class names for the `Anchor` component which define the styles for the component.
@@ -19,7 +19,7 @@ const anchorClassNames = (className?: string) =>
 /**
  * The props for the `Anchor` component.
  */
-type AnchorProps = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "rel" | "target"> &
+type AnchorProps = Omit<ComponentProps<"a">, "rel"> &
 	WithAsChild & {
 		/**
 		 * An icon to render inside the anchor
@@ -38,16 +38,6 @@ type AnchorProps = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "rel" | "target
 		 * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel
 		 */
 		rel?: Rel | (string & {}) | undefined | (Rel | (string & {}) | undefined | null)[];
-		/**
-		 * Where to display the linked URL, as the name for a browsing context (a tab, window, or <iframe>).
-		 *
-		 * Note: Setting `target="_blank"` on <a> elements implicitly provides the same rel behavior as setting `rel="noopener"` which does not set `window.opener`.
-		 *
-		 * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#target
-		 *
-		 * @default "_self"
-		 */
-		target?: Target | undefined;
 	};
 
 /**
@@ -56,7 +46,7 @@ type AnchorProps = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "rel" | "target
  * @note If you need to link to an internal application route, prefer using the
  * [`react-router` `<Link>`](https://reactrouter.com/en/main/components/link)
  *
- * @see https://mantle.ngrok.com/components/anchor#api-anchor
+ * @see https://mantle.ngrok.com/components/anchor
  *
  * @example
  * ```tsx

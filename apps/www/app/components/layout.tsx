@@ -4,6 +4,7 @@ import { Command, MetaKey } from "@ngrok/mantle/command";
 import { cx } from "@ngrok/mantle/cx";
 import { DropdownMenu } from "@ngrok/mantle/dropdown-menu";
 import type { SvgAttributes } from "@ngrok/mantle/icon";
+import { NgrokIcon } from "@ngrok/mantle/icons";
 import { Kbd } from "@ngrok/mantle/kbd";
 import { useTheme } from "@ngrok/mantle/theme";
 import type { WithStyleProps } from "@ngrok/mantle/types";
@@ -22,18 +23,11 @@ import { type ComponentRef, type PropsWithChildren, useRef, useState } from "rea
 import { useHotkeys } from "react-hotkeys-hook";
 import { Link, href, useNavigate } from "react-router";
 import { PreviewBadge } from "~/components/badges";
+import { PrimaryFooter } from "~/components/footer";
 import { ThemeSwitcher } from "~/components/theme-switcher";
 import { NavLink } from "./nav-link";
 import { useNavigation } from "./navigation-context";
-
-const NgrokLogo = () => (
-	<svg width="82" height="34" className="xs:block hidden">
-		<path
-			fill="var(--color-blue-600)"
-			d="M27.888 13.4c-1.136-1.257-2.54-1.89-4.21-1.89-1.028 0-1.976.198-2.847.599a6.99 6.99 0 0 0-2.258 1.636 7.864 7.864 0 0 0-1.498 2.446c-.367.935-.55 1.947-.55 3.041 0 1.072.17 2.05.507 2.933a6.614 6.614 0 0 0 1.43 2.26 6.562 6.562 0 0 0 2.19 1.474c.845.353 1.772.53 2.78.53.456 0 .879-.035 1.263-.1a4.987 4.987 0 0 0 1.101-.318c.35-.15.692-.34 1.033-.569a8.894 8.894 0 0 0 1.059-.874v3.734h-.005v.362h-4.661l-3.505 3.98v.684H32.87V11.902h-4.981V13.4Zm-.013 6.844a3.646 3.646 0 0 1-.687 1.042 3.15 3.15 0 0 1-2.267.943 3.22 3.22 0 0 1-1.28-.25 3.072 3.072 0 0 1-1.021-.693 3.363 3.363 0 0 1-.674-1.042 3.316 3.316 0 0 1-.248-1.292c0-.444.085-.861.26-1.249a3.23 3.23 0 0 1 .705-1.012 3.552 3.552 0 0 1 1.016-.693 2.931 2.931 0 0 1 1.238-.263c.422 0 .828.082 1.225.25.393.163.738.396 1.033.693.294.297.525.637.704 1.025.175.388.26.814.26 1.28-.004.443-.089.865-.264 1.261ZM13.989 13.633a5.356 5.356 0 0 0-1.802-1.373 4.263 4.263 0 0 0-.5-.19 5.671 5.671 0 0 0-.806-.185H7.33l-2.347 2.7v-2.644H0v14.246h4.982v-9.612H9.66l.389-.009v9.617h4.981v-8.91c0-.758-.072-1.435-.217-2.029a3.964 3.964 0 0 0-.824-1.61ZM47.52 11.902h-5.434l-2.16 2.455v-2.455H34.94v14.247h4.994l.004-9.536h3.624L47.52 12.1v-.198ZM74 18.483l6.813-6.34v-.241h-6.566l-5.225 5.138V3.099H64.04v23.045h4.982v-5.8l5.477 5.8h6.703v-.271l-7.203-7.39ZM60.586 13.525c-.76-.676-1.66-1.201-2.698-1.58-1.037-.38-2.16-.569-3.372-.569-1.23 0-2.365.194-3.398.582a8.44 8.44 0 0 0-2.685 1.593 7.29 7.29 0 0 0-1.763 2.39 6.984 6.984 0 0 0-.632 2.96c0 1.166.21 2.226.632 3.177a7.305 7.305 0 0 0 1.75 2.455 7.727 7.727 0 0 0 2.655 1.585c1.03.37 2.148.556 3.36.556 1.23 0 2.37-.185 3.428-.556 1.054-.37 1.96-.891 2.71-1.572a7.37 7.37 0 0 0 1.776-2.416c.431-.934.65-1.964.65-3.096 0-1.129-.214-2.162-.633-3.097a7.23 7.23 0 0 0-1.78-2.412Zm-3.112 6.745a3.644 3.644 0 0 1-.687 1.042 3.053 3.053 0 0 1-1.016.693c-.397.168-.811.25-1.25.25-.44 0-.859-.082-1.256-.25a3.01 3.01 0 0 1-1.016-.693 3.558 3.558 0 0 1-.687-1.042 3.225 3.225 0 0 1-.26-1.318c0-.444.085-.862.26-1.25.175-.387.401-.727.687-1.024a2.99 2.99 0 0 1 1.016-.694c.397-.168.811-.25 1.255-.25.44 0 .858.082 1.251.25a2.95 2.95 0 0 1 1.016.694c.286.297.512.646.687 1.042.175.396.26.818.26 1.262 0 .46-.085.892-.26 1.288Z"
-		/>
-	</svg>
-);
+import { TOC_PORTAL_ID } from "./table-of-contents";
 
 const MantleLogo = () => (
 	<svg xmlns="http://www.w3.org/2000/svg" width="94" height="34">
@@ -66,119 +60,123 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 	const mainRef = useRef<ComponentRef<"main">>(null);
 
 	return (
-		<div className={cx("mx-auto h-full max-w-7xl sm:px-4", className)} style={style}>
-			<Link
-				className="sr-only"
-				onClick={() => {
-					mainRef.current?.focus({ preventScroll: true });
-				}}
-				to={{
-					hash: "#main",
-				}}
-			>
-				Skip to main content
-			</Link>
-			<header className="xs:gap-4 flex h-20 items-center gap-3 px-4 sm:px-0">
-				<IconButton
-					className="md:hidden"
-					onClick={() => {
-						setShowNavigation(!showNavigation);
-					}}
-					type="button"
-					appearance="outlined"
-					label="Menu"
-					size="md"
-					icon={showNavigation ? <XIcon /> : <ListIcon />}
-				/>
-
+		<div className={cx("flex min-h-full flex-col", className)} style={style}>
+			<div className="mx-auto w-full max-w-7xl flex-1 sm:px-4 pb-16">
 				<Link
-					to={href("/")}
-					className="px-1 static top-auto flex sm:top-[1.4rem] md:fixed focus:outline-hidden focus-visible:ring-3 focus-visible:ring-focus-accent rounded"
+					className="sr-only"
+					onClick={() => {
+						mainRef.current?.focus({ preventScroll: true });
+					}}
+					to={{
+						hash: "#main",
+					}}
 				>
-					<NgrokLogo />
-					<MantleLogo />
+					Skip to main content
 				</Link>
-
-				<div className="flex flex-col sm:flex-row items-center gap-2 -ml-1 md:ml-48">
-					<Anchor
-						className="text-strong font-mono text-xs hidden sm:inline-block"
-						href="https://github.com/ngrok-oss/mantle/releases"
-					>
-						{currentVersion}
-					</Anchor>
-
+				<header className="xs:gap-4 relative z-10 flex h-20 items-center gap-3 bg-base px-4 sm:px-0 xl:pr-44">
 					<IconButton
-						appearance="ghost"
-						asChild
-						icon={<GitHub />}
-						label="link to ngrok mantle GitHub"
-						className="hidden sm:inline-flex"
+						className="md:hidden"
+						onClick={() => {
+							setShowNavigation(!showNavigation);
+						}}
+						type="button"
+						appearance="outlined"
+						label="Menu"
+						size="md"
+						icon={showNavigation ? <XIcon /> : <ListIcon />}
+					/>
+
+					<Link
+						to={href("/")}
+						className="px-1 flex focus:outline-hidden focus-visible:ring-3 focus-visible:ring-focus-accent rounded"
 					>
-						<a href="https://github.com/ngrok-oss/mantle" target="_blank" />
-					</IconButton>
+						<NgrokIcon className="xs:block hidden h-8.5 w-auto text-blue-600" />
+						<MantleLogo />
+					</Link>
 
-					<DropdownMenu.Root>
-						<DropdownMenu.Trigger asChild>
-							<IconButton
-								icon={<GitHub />}
-								label="link to ngrok Mantle GitHub"
-								type="button"
-								className="inline-flex sm:hidden"
-							/>
-						</DropdownMenu.Trigger>
-						<DropdownMenu.Content>
-							<DropdownMenu.Item asChild>
-								<a
-									href="https://github.com/ngrok-oss/mantle/releases"
-									target="_blank"
-									className="justify-between gap-4"
-								>
-									<span>
-										Version <span className="font-mono">{currentVersion}</span>
-									</span>
-									<ArrowSquareOutIcon className="text-muted" />
-								</a>
-							</DropdownMenu.Item>
-							<DropdownMenu.Item asChild>
-								<a
-									href="https://github.com/ngrok-oss/mantle"
-									target="_blank"
-									className="justify-between gap-4"
-								>
-									GitHub Repo
-									<ArrowSquareOutIcon className="text-muted" />
-								</a>
-							</DropdownMenu.Item>
-						</DropdownMenu.Content>
-					</DropdownMenu.Root>
-				</div>
+					<div className="flex flex-col sm:flex-row items-center gap-2 -ml-1">
+						<Anchor
+							className="text-strong font-mono text-xs hidden sm:inline-block"
+							href="https://github.com/ngrok-oss/mantle/releases"
+						>
+							{currentVersion}
+						</Anchor>
 
-				<div className="flex items-center gap-3 ml-auto">
-					<CommandPalette currentVersion={currentVersion} />
+						<IconButton
+							appearance="ghost"
+							asChild
+							icon={<GitHub />}
+							label="link to ngrok mantle GitHub"
+							className="hidden sm:inline-flex"
+						>
+							<a href="https://github.com/ngrok-oss/mantle" target="_blank" />
+						</IconButton>
 
-					<ThemeSwitcher />
-				</div>
-			</header>
-			{showNavigation && (
-				<div className="bg-card fixed bottom-0 left-0 right-0 top-20 z-50 p-4 md:hidden">
-					<Navigation className="scrollbar h-full overflow-auto px-1 overscroll-contain" />
-				</div>
-			)}
-			<div className="flex gap-4">
-				<div className="bottom-0 hidden w-44 md:block">
-					<div className="fixed bottom-0 top-20 w-44">
-						<Navigation className="scrollbar scroll-shadow h-full overflow-y-auto px-1 py-4" />
+						<DropdownMenu.Root>
+							<DropdownMenu.Trigger asChild>
+								<IconButton
+									icon={<GitHub />}
+									label="link to ngrok Mantle GitHub"
+									type="button"
+									className="inline-flex sm:hidden"
+								/>
+							</DropdownMenu.Trigger>
+							<DropdownMenu.Content>
+								<DropdownMenu.Item asChild>
+									<a
+										href="https://github.com/ngrok-oss/mantle/releases"
+										target="_blank"
+										className="justify-between gap-4"
+									>
+										<span>
+											Version <span className="font-mono">{currentVersion}</span>
+										</span>
+										<ArrowSquareOutIcon className="text-muted" />
+									</a>
+								</DropdownMenu.Item>
+								<DropdownMenu.Item asChild>
+									<a
+										href="https://github.com/ngrok-oss/mantle"
+										target="_blank"
+										className="justify-between gap-4"
+									>
+										GitHub Repo
+										<ArrowSquareOutIcon className="text-muted" />
+									</a>
+								</DropdownMenu.Item>
+							</DropdownMenu.Content>
+						</DropdownMenu.Root>
 					</div>
+
+					<div className="flex items-center gap-3 ml-auto">
+						<CommandPalette currentVersion={currentVersion} />
+
+						<ThemeSwitcher />
+					</div>
+				</header>
+				{showNavigation && (
+					<div className="bg-card fixed bottom-0 left-0 right-0 top-20 z-50 p-4 md:hidden">
+						<Navigation className="scrollbar h-full overflow-auto px-1 overscroll-contain" />
+					</div>
+				)}
+				<div className="flex gap-4">
+					<div className="hidden w-44 md:block">
+						<div className="scrollbar scroll-shadow sticky top-0 max-h-screen w-44 overflow-y-auto px-1 py-4">
+							<Navigation />
+						</div>
+					</div>
+					<main
+						className="bg-card w-0 flex-1 p-4 shadow-2xl sm:rounded-lg md:p-9 focus:outline-hidden"
+						tabIndex={-1}
+						ref={mainRef}
+						id="main"
+					>
+						{children}
+					</main>
+					<aside id={TOC_PORTAL_ID} className="hidden w-40 xl:block" />
 				</div>
-				<main
-					className="bg-card w-0 flex-1 p-4 shadow-2xl sm:mb-4 sm:rounded-lg md:p-9 lg:mb-9 focus:outline-hidden"
-					tabIndex={-1}
-					ref={mainRef}
-					id="main"
-				>
-					{children}
-				</main>
 			</div>
+			<PrimaryFooter />
 		</div>
 	);
 }
@@ -190,7 +188,6 @@ const prodReadyComponents = [
 	"Alert Dialog",
 	"Alert",
 	"Anchor",
-	"AutoScrollToHash",
 	"Badge",
 	"Browser Only",
 	"Button",
@@ -198,6 +195,10 @@ const prodReadyComponents = [
 	"Checkbox",
 	"Code Block",
 	"Code",
+	"Combobox",
+	"Command",
+	"Data Table",
+	"Description List",
 	"Dialog",
 	"Dropdown Menu",
 	"Flag",
@@ -208,7 +209,9 @@ const prodReadyComponents = [
 	"Input",
 	"Label",
 	"Media Object",
+	"Pagination",
 	"Password Input",
+	"Popover",
 	"Progress Bar",
 	"Progress Donut",
 	"Radio Group",
@@ -217,7 +220,9 @@ const prodReadyComponents = [
 	"Separator",
 	"Sheet",
 	"Skeleton",
+	"Slider",
 	"Slot",
+	"Split Button",
 	"Switch",
 	"Table",
 	"Tabs",
@@ -236,11 +241,6 @@ const previewComponents = [
 	//,
 	"Accordion",
 	"Calendar",
-	"Combobox",
-	"Command",
-	"Data Table",
-	"Pagination",
-	"Popover",
 ] as const;
 
 type Route = Parameters<typeof href>[0];
@@ -249,7 +249,6 @@ const prodReadyComponentRouteLookup = {
 	Alert: "/components/alert",
 	"Alert Dialog": "/components/alert-dialog",
 	Anchor: "/components/anchor",
-	AutoScrollToHash: "/components/auto-scroll-to-hash",
 	Badge: "/components/badge",
 	"Browser Only": "/components/browser-only",
 	Button: "/components/button",
@@ -257,6 +256,10 @@ const prodReadyComponentRouteLookup = {
 	Checkbox: "/components/checkbox",
 	Code: "/components/code",
 	"Code Block": "/components/code-block",
+	Combobox: "/components/combobox",
+	Command: "/components/command",
+	"Data Table": "/components/data-table",
+	"Description List": "/components/description-list",
 	Dialog: "/components/dialog",
 	"Dropdown Menu": "/components/dropdown-menu",
 	Flag: "/components/flag",
@@ -267,7 +270,9 @@ const prodReadyComponentRouteLookup = {
 	Input: "/components/input",
 	Label: "/components/label",
 	"Media Object": "/components/media-object",
+	Pagination: "/components/pagination",
 	"Password Input": "/components/password-input",
+	Popover: "/components/popover",
 	"Progress Donut": "/components/progress-donut",
 	"Progress Bar": "/components/progress-bar",
 	"Radio Group": "/components/radio-group",
@@ -276,7 +281,9 @@ const prodReadyComponentRouteLookup = {
 	Separator: "/components/separator",
 	Sheet: "/components/sheet",
 	Skeleton: "/components/skeleton",
+	Slider: "/components/slider",
 	Slot: "/components/slot",
+	"Split Button": "/components/split-button",
 	Switch: "/components/switch",
 	Table: "/components/table",
 	Tabs: "/components/tabs",
@@ -289,11 +296,6 @@ const prodReadyComponentRouteLookup = {
 const previewComponentsRouteLookup = {
 	Accordion: "/components/preview/accordion",
 	Calendar: "/components/preview/calendar",
-	Combobox: "/components/preview/combobox",
-	Command: "/components/preview/command",
-	"Data Table": "/components/preview/data-table",
-	Pagination: "/components/preview/pagination",
-	Popover: "/components/preview/popover",
 } as const satisfies Record<(typeof previewComponents)[number], Route>;
 
 const welcomePages = ["Overview & Setup", "Philosophy"] as const;
@@ -313,9 +315,11 @@ const baseRoutes = {
 	Typography: "/base/typography",
 } as const satisfies Record<(typeof basePages)[number], Route>;
 
+const hooksRoute = "/hooks" as const satisfies Route;
+
 function Navigation({ className, style }: WithStyleProps) {
 	return (
-		<nav className={cx("text-sm", className)} style={style}>
+		<nav className={cx("text-sm pb-16", className)} style={style}>
 			<ul className="flex flex-col">
 				<li className="mb-2 text-xs font-medium uppercase tracking-wider font-mono">Welcome</li>
 
@@ -337,6 +341,15 @@ function Navigation({ className, style }: WithStyleProps) {
 							</NavLink>
 						</li>
 					))}
+				</ul>
+
+				<li className="mt-6 text-xs font-medium uppercase tracking-wider font-mono">Hooks</li>
+				<ul className="mt-2">
+					<li>
+						<NavLink to={hooksRoute} prefetch="intent">
+							Hooks
+						</NavLink>
+					</li>
 				</ul>
 
 				<li className="mt-6 text-xs font-medium uppercase tracking-wider font-mono">Components</li>
@@ -494,6 +507,28 @@ function CommandPalette({ currentVersion }: { currentVersion: string | undefined
 								</Link>
 							</Command.Item>
 						))}
+					</Command.Group>
+					<Command.Separator />
+					<Command.Group heading="Hooks">
+						<Command.Item
+							onSelect={() => {
+								navigate(hooksRoute);
+								setOpen(false);
+							}}
+							asChild
+						>
+							<Link
+								to={hooksRoute}
+								prefetch="intent"
+								className="flex items-center gap-2 justify-between"
+							>
+								<ItemName>
+									Hooks
+									<span className="text-muted text-xs">{hooksRoute}</span>
+								</ItemName>
+								<ArrowRightIcon />
+							</Link>
+						</Command.Item>
 					</Command.Group>
 					<Command.Separator />
 					<Command.Group heading="Components">

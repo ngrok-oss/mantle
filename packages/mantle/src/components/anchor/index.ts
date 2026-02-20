@@ -6,4 +6,4 @@ export {
 } from "./anchor.js";
 
 export type { AnchorProps } from "./anchor.js";
-export type { Rel, Target } from "./types.js";
+export type { Rel } from "./types.js";

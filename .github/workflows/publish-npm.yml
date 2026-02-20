@@ -62,14 +62,12 @@ jobs:
       - name: Extract MANTLE_VERSION
         if: steps.changesets.outputs.published == 'true'
         run: |
-          echo "Extracting MANTLE_VERSION..."
-          VERSION=$(echo '${{ steps.changesets.outputs.publishedPackages }}' | jq -r '.[0].version')
+          VERSION=$(echo '${{ steps.changesets.outputs.publishedPackages }}' | jq -r '.[] | select(.name == "@ngrok/mantle") | .version')
           echo "MANTLE_VERSION=$VERSION" >> $GITHUB_ENV
 
       - name: Post to slack
-        if: steps.changesets.outputs.published == 'true'
+        if: steps.changesets.outputs.published == 'true' && env.MANTLE_VERSION != ''
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_PUBLISH_WEBHOOK_URL }}
-          MANTLE_VERSION: ${{ env.MANTLE_VERSION }}
         run: |
           curl -X POST -H 'Content-type: application/json' --data '{"text":"`@ngrok/mantle@${{ env.MANTLE_VERSION }}` published to npm!\nInstall with: `pnpm add -E @ngrok/mantle@${{ env.MANTLE_VERSION }}`\n<https://github.com/ngrok-oss/mantle/releases/tag/%40ngrok%2Fmantle%40${{ env.MANTLE_VERSION }}|Release Notes>"}' $SLACK_WEBHOOK_URL

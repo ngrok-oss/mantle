@@ -9,7 +9,7 @@ import { cx } from "../../utils/cx/cx.js";
  * A floating card that appears when a user hovers over a trigger element.
  * This is the root, stateful component that manages the open/closed state of the hover card.
  *
- * @see https://mantle.ngrok.com/components/hover-card#api-hover-card
+ * @see https://mantle.ngrok.com/components/hover-card#hovercardroot
  *
  * @example
  * ```tsx
@@ -37,7 +37,7 @@ Root.displayName = "HoverCard";
 /**
  * The trigger element that opens the hover card when hovered.
  *
- * @see https://mantle.ngrok.com/components/hover-card#api-hover-card-trigger
+ * @see https://mantle.ngrok.com/components/hover-card#hovercardtrigger
  *
  * @example
  * ```tsx
@@ -68,7 +68,7 @@ Portal.displayName = "HoverCardPortal";
 /**
  * The content to render inside the hover card.
  *
- * @see https://mantle.ngrok.com/components/hover-card#api-hover-card-content
+ * @see https://mantle.ngrok.com/components/hover-card#hovercardcontent
  *
  * @example
  * ```tsx
@@ -134,7 +134,7 @@ const HoverCard = {
 	/**
 	 * The root, stateful component that manages the open/closed state of the hover card.
 	 *
-	 * @see https://mantle.ngrok.com/components/hover-card#api-hover-card
+	 * @see https://mantle.ngrok.com/components/hover-card#hovercardroot
 	 *
 	 * @example
 	 * ```tsx
@@ -152,7 +152,7 @@ const HoverCard = {
 	/**
 	 * The content to render inside the hover card. Appears in a portal with rich styling and animations.
 	 *
-	 * @see https://mantle.ngrok.com/components/hover-card#api-hover-card-content
+	 * @see https://mantle.ngrok.com/components/hover-card#hovercardcontent
 	 *
 	 * @example
 	 * ```tsx
@@ -174,7 +174,7 @@ const HoverCard = {
 	/**
 	 * The portal container for rendering hover card content outside the normal DOM tree.
 	 *
-	 * @see https://mantle.ngrok.com/components/hover-card#api-hover-card-portal
+	 * @see https://mantle.ngrok.com/components/hover-card#api-reference
 	 *
 	 * @example
 	 * ```tsx
@@ -194,7 +194,7 @@ const HoverCard = {
 	/**
 	 * The trigger element that opens the hover card when hovered.
 	 *
-	 * @see https://mantle.ngrok.com/components/hover-card#api-hover-card-trigger
+	 * @see https://mantle.ngrok.com/components/hover-card#hovercardtrigger
 	 *
 	 * @example
 	 * ```tsx

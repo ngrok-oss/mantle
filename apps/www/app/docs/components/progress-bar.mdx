@@ -1,0 +1,217 @@
+---
+title: Progress Bar
+description: Displays an indicator showing the completion progress of a task as a linear progress bar with customizable colors.
+---
+
+import { ProgressBar } from "@ngrok/mantle/progress";
+import { useState } from "react";
+import { Example } from "~/components/example";
+
+export const DynamicColorsExample = () => {
+	const [value, setValue] = useState(0);
+
+    function computeIndicatorColor() {
+    	switch (true) {
+    		case value <= 20:
+    			return "bg-danger-600";
+    		case value <= 40:
+    			return "bg-warning-600";
+    		case value <= 60:
+    			return "bg-accent-600";
+    		case value <= 80:
+    			return "bg-success-600";
+    		default:
+    			return "bg-fuchsia-600";
+    	}
+    }
+
+    return (
+    	<form className="space-y-4">
+    		<ProgressBar.Root value={value}>
+    			<ProgressBar.Indicator className={computeIndicatorColor()} />
+    		</ProgressBar.Root>
+    		<label className="block space-y-1">
+    			<p>Value: {value}%</p>
+    			<input
+    				type="range"
+    				min={0}
+    				max={100}
+    				value={value}
+    				onChange={(event) => setValue(Number(event.target.value))}
+    			/>
+    		</label>
+    	</form>
+    );
+
+};
+
+# Progress Bar
+
+Displays an indicator showing the completion progress of a task as a linear progress bar with customizable colors.
+
+The progress bar consists of an indicator (filled portion) that shows the current progress value against a background container.
+
+<Example className="flex-col gap-6">
+	<ProgressBar.Root value={60}>
+		<ProgressBar.Indicator className="bg-orange-500" />
+	</ProgressBar.Root>
+	<ProgressBar.Root value={30}>
+		<ProgressBar.Indicator className="bg-blue-600" />
+	</ProgressBar.Root>
+	<ProgressBar.Root value={85}>
+		<ProgressBar.Indicator className="bg-green-600" />
+	</ProgressBar.Root>
+	<div className="flex flex-col gap-3">
+		<div className="flex items-center gap-3 text-sm">
+			<ProgressBar.Root value={100} className="w-24">
+				<ProgressBar.Indicator className="bg-success-600" />
+			</ProgressBar.Root>
+			Complete
+		</div>
+		<div className="flex items-center gap-3 text-sm">
+			<ProgressBar.Root value={45} className="w-24">
+				<ProgressBar.Indicator className="bg-warning-600" />
+			</ProgressBar.Root>
+			In Progress
+		</div>
+		<div className="flex items-center gap-3 text-sm">
+			<ProgressBar.Root value={10} className="w-24">
+				<ProgressBar.Indicator className="bg-danger-600" />
+			</ProgressBar.Root>
+			Starting
+		</div>
+	</div>
+</Example>
+
+```tsx
+import { ProgressBar } from "@ngrok/mantle/progress";
+
+<ProgressBar.Root value={60}>
+	<ProgressBar.Indicator className="bg-orange-500" />
+</ProgressBar.Root>
+
+<ProgressBar.Root value={30}>
+	<ProgressBar.Indicator className="bg-blue-600" />
+</ProgressBar.Root>
+
+<div className="flex flex-col gap-3">
+	<div className="flex items-center gap-3 text-sm">
+		<ProgressBar.Root value={100} className="w-24">
+			<ProgressBar.Indicator className="bg-success-600" />
+		</ProgressBar.Root>
+		Complete
+	</div>
+
+	<div className="flex items-center gap-3 text-sm">
+		<ProgressBar.Root value={45} className="w-24">
+			<ProgressBar.Indicator className="bg-warning-600" />
+		</ProgressBar.Root>
+		In Progress
+	</div>
+</div>
+```
+
+## Custom Maximum Value
+
+You can set a custom maximum value using the `max` prop. The progress value will be calculated as a percentage of this maximum.
+
+<Example>
+	<ProgressBar.Root value={150} max={200}>
+		<ProgressBar.Indicator className="bg-purple-600" />
+	</ProgressBar.Root>
+</Example>
+
+```tsx
+import { ProgressBar } from "@ngrok/mantle/progress";
+
+<ProgressBar.Root value={150} max={200}>
+	<ProgressBar.Indicator className="bg-purple-600" />
+</ProgressBar.Root>;
+```
+
+## Indeterminate Value
+
+You can set the `value` prop to `"indeterminate"` to show the progress bar in an indeterminate state. Currently, this displays as a progress bar at 0% but maintains accessibility attributes for screen readers.
+
+<Example>
+	<ProgressBar.Root value="indeterminate">
+		<ProgressBar.Indicator className="bg-accent-600" />
+	</ProgressBar.Root>
+</Example>
+
+```tsx
+import { ProgressBar } from "@ngrok/mantle/progress";
+
+<ProgressBar.Root value="indeterminate">
+	<ProgressBar.Indicator className="bg-accent-600" />
+</ProgressBar.Root>;
+```
+
+## Dynamic Colors
+
+The color of the `ProgressBar.Indicator` can be customized using the `className` prop. This allows you to change colors based on the current progress value or application state.
+
+<Example>
+	<DynamicColorsExample />
+</Example>
+
+```tsx
+import { ProgressBar } from "@ngrok/mantle/progress";
+
+const Example = () => {
+	const [value, setValue] = useState(0);
+
+	function computeIndicatorColor() {
+		switch (true) {
+			case value <= 20:
+				return "bg-danger-600";
+			case value <= 40:
+				return "bg-warning-600";
+			case value <= 60:
+				return "bg-accent-600";
+			case value <= 80:
+				return "bg-success-600";
+			default:
+				return "bg-fuchsia-600";
+		}
+	}
+
+	return (
+		<form className="space-y-4">
+			<ProgressBar.Root value={value}>
+				<ProgressBar.Indicator className={computeIndicatorColor()} />
+			</ProgressBar.Root>
+			<label className="block space-y-1">
+				<p>Value:</p>
+				<input
+					type="range"
+					min={0}
+					max={100}
+					value={value}
+					onChange={(e) => setValue(Number(e.target.value))}
+				/>{" "}
+				({value}%)
+			</label>
+		</form>
+	);
+};
+```
+
+## API Reference
+
+### ProgressBar.Root
+
+A linear progress bar that displays completion progress with customizable colors.
+
+The `ProgressBar.Root` accepts the following props in addition to the [standard HTML div attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes).
+
+| Prop    | Type                          | Default | Description                                                                                                                                    |
+| ------- | ----------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `max`   | `number`                      | `100`   | The maximum value of the progress bar. Must have a value greater than 0.                                                                       |
+| `value` | `number` \| `"indeterminate"` | `0`     | The current value of the progress bar. Must be between 0 and `max`. If set to `"indeterminate"`, the progress bar is considered indeterminate. |
+
+### ProgressBar.Indicator
+
+The indicator portion of the progress bar that shows the completed progress. This component is automatically positioned and sized based on the current value relative to the maximum value.
+
+All props from [HTML div element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div).

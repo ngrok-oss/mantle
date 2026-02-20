@@ -27,6 +27,7 @@ type DataTableContextShape<TData = unknown> = {
 	table: TableInstance<TData>;
 };
 
+// oxlint-disable-next-line typescript/no-explicit-any - known limitation of react context when using generics 😭
 const DataTableContext = createContext<DataTableContextShape<any> | null>(null);
 
 /**
@@ -48,7 +49,7 @@ type DataTableProps<TData> = ComponentProps<typeof Table.Root> & {
  * A data table component that provides sorting and other data table functionality.
  * Built on top of TanStack Table for advanced table features.
  *
- * @see https://mantle.ngrok.com/components/data-table#api-data-table
+ * @see https://mantle.ngrok.com/components/data-table#datatableroot
  *
  * @example
  * ```tsx
@@ -111,7 +112,7 @@ type DataTableHeaderSortButtonProps<TData, TValue> = Omit<ComponentProps<typeof 
  * If the column is sortable, clicking the button will toggle the sorting
  * direction.
  *
- * @see https://mantle.ngrok.com/components/data-table#api-data-table-header-sort-button
+ * @see https://mantle.ngrok.com/components/data-table#datatableheadersortbutton
  *
  * @example
  * ```tsx
@@ -151,7 +152,10 @@ function HeaderSortButton<TData, TValue>({
 	return (
 		<Button
 			appearance="ghost"
-			className={cx("flex justify-start w-full h-full rounded-none", className)}
+			className={cx(
+				"flex justify-start w-full h-full rounded-none not-disabled:active:scale-none",
+				className,
+			)}
 			data-sort-direction={sortDirection}
 			data-table-header-action
 			icon={sortIcon}
@@ -192,7 +196,7 @@ type DataTableHeaderProps = ComponentProps<typeof Table.Header>;
  * A header for a data table.
  * This is typically used to wrap the `DataTable.HeaderSortButton` component.
  *
- * @see https://mantle.ngrok.com/components/data-table#api-data-table-header
+ * @see https://mantle.ngrok.com/components/data-table#datatableheader
  *
  * @example
  * ```tsx
@@ -313,7 +317,7 @@ const DataTable = {
 	/**
 	 * The root container of the data table component.
 	 *
-	 * @see https://mantle.ngrok.com/components/data-table#api-data-table
+	 * @see https://mantle.ngrok.com/components/data-table#datatableroot
 	 *
 	 * @example
 	 * ```tsx
@@ -329,7 +333,7 @@ const DataTable = {
 	/**
 	 * A sticky action cell positioned at the end of each row for action buttons.
 	 *
-	 * @see https://mantle.ngrok.com/components/data-table#api-data-table-action-cell
+	 * @see https://mantle.ngrok.com/components/data-table#datatableactioncell
 	 *
 	 * @example
 	 * ```tsx
@@ -343,7 +347,7 @@ const DataTable = {
 	/**
 	 * A table cell component for rendering individual data cells.
 	 *
-	 * @see https://mantle.ngrok.com/components/data-table#api-data-table-cell
+	 * @see https://mantle.ngrok.com/components/data-table#datatablecell
 	 *
 	 * @example
 	 * ```tsx
@@ -356,7 +360,7 @@ const DataTable = {
 	/**
 	 * The table body container for rows of data.
 	 *
-	 * @see https://mantle.ngrok.com/components/data-table#api-data-table-body
+	 * @see https://mantle.ngrok.com/components/data-table#datatablebody
 	 *
 	 * @example
 	 * ```tsx
@@ -369,7 +373,7 @@ const DataTable = {
 	/**
 	 * An empty state row that spans all columns when there's no data to display.
 	 *
-	 * @see https://mantle.ngrok.com/components/data-table#api-data-table-empty-row
+	 * @see https://mantle.ngrok.com/components/data-table#datatableemptyrow
 	 *
 	 * @example
 	 * ```tsx
@@ -382,7 +386,7 @@ const DataTable = {
 	/**
 	 * The table header container that renders column headers automatically.
 	 *
-	 * @see https://mantle.ngrok.com/components/data-table#api-data-table-head
+	 * @see https://mantle.ngrok.com/components/data-table#datatablehead
 	 *
 	 * @example
 	 * ```tsx
@@ -393,7 +397,7 @@ const DataTable = {
 	/**
 	 * A header cell component optimized for data table header actions.
 	 *
-	 * @see https://mantle.ngrok.com/components/data-table#api-data-table-header
+	 * @see https://mantle.ngrok.com/components/data-table#datatableheader
 	 *
 	 * @example
 	 * ```tsx
@@ -408,7 +412,7 @@ const DataTable = {
 	/**
 	 * A sortable button toggle for column headers with sorting functionality.
 	 *
-	 * @see https://mantle.ngrok.com/components/data-table#api-data-table-header-sort-button
+	 * @see https://mantle.ngrok.com/components/data-table#datatableheadersortbutton
 	 *
 	 * @example
 	 * ```tsx
@@ -424,7 +428,7 @@ const DataTable = {
 	/**
 	 * A single data table row component for rendering custom row layouts.
 	 *
-	 * @see https://mantle.ngrok.com/components/data-table#api-data-table-row
+	 * @see https://mantle.ngrok.com/components/data-table#datatablerow
 	 *
 	 * @example
 	 * ```tsx

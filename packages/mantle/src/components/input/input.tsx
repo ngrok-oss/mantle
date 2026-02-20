@@ -30,7 +30,7 @@ type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, "autoComplete" | "
  * Used to create interactive controls for web-based forms in order to accept data from the user.
  * A versatile input element that supports various types, validation states, and can be composed with other elements.
  *
- * @see https://mantle.ngrok.com/components/input#api-input
+ * @see https://mantle.ngrok.com/components/input
  *
  * @example
  * ```tsx
@@ -80,7 +80,7 @@ type InputCaptureProps = Omit<InputHTMLAttributes<HTMLInputElement>, "autoComple
  * The actual <input /> element that captures user input.
  * Used internally by Input component or when you need direct control over the input element.
  *
- * @see https://mantle.ngrok.com/components/input#api-input-capture
+ * @see https://mantle.ngrok.com/components/input
  *
  * @example
  * ```tsx
@@ -177,8 +177,6 @@ const InputContainer = ({
 		: typeof _validation === "function"
 			? _validation()
 			: _validation;
-	const ariaInvalid = _ariaInvalid ?? validation === "error";
-
 	return (
 		<InputContext.Provider
 			value={{
@@ -193,13 +191,13 @@ const InputContainer = ({
 			}}
 		>
 			<div
-				aria-invalid={ariaInvalid}
-				aria-disabled={disabled ?? _ariaDisabled}
+				role="none"
+				data-disabled={(disabled ?? _ariaDisabled) || undefined}
 				data-validation={validation || undefined}
 				className={cx(
 					"pointer-coarse:text-base h-9 text-sm",
 					"bg-form relative flex w-full items-center gap-1.5 rounded-md border px-3 py-2 file:border-0 file:bg-transparent file:text-sm file:font-medium focus-within:outline-hidden focus-within:ring-4 focus-visible:outline-hidden focus-visible:ring-4",
-					"aria-disabled:opacity-50",
+					"data-disabled:opacity-50",
 					"has-[input:not(:first-child)]:ps-2.5 has-[input:not(:last-child)]:pe-2.5 [&>:not(input)]:shrink-0 [&_svg]:size-5",
 					"border-form text-strong has-focus-visible:border-accent-600 has-focus-visible:ring-focus-accent",
 					"data-validation-success:border-success-600 has-focus-visible:data-validation-success:border-success-600 has-focus-visible:data-validation-success:ring-focus-success",

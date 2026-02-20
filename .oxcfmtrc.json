@@ -1,0 +1,29 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "useTabs": true,
+  "tabWidth": 2,
+  "printWidth": 120,
+  "singleQuote": false,
+  "experimentalSortImports": {},
+  "experimentalTailwindcss": {},
+  "experimentalSortPackageJson": {},
+  "objectWrap": "preserve",
+  "singleAttributePerLine": true,
+  "ignorePatterns": [
+    ".blog",
+    ".cache",
+    ".changeset",
+    ".env",
+    ".react-router/",
+    ".turbo",
+    ".vercel",
+    "build",
+    "dist",
+    "node_modules",
+    "public",
+    "*/code-gen",
+    "*.svg",
+    "*.yaml",
+    "bun.lockb"
+  ]
+}

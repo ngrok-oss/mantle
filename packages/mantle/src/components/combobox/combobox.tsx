@@ -1,13 +1,7 @@
 "use client";
 
 import * as Primitive from "@ariakit/react";
-import {
-	type ComponentPropsWithoutRef,
-	type ComponentRef,
-	type ElementRef,
-	createContext,
-	forwardRef,
-} from "react";
+import { type ComponentPropsWithoutRef, type ComponentRef, createContext, forwardRef } from "react";
 import type { WithAsChild } from "../../types/as-child.js";
 import { cx } from "../../utils/cx/cx.js";
 import type { WithValidation } from "../input/types.js";
@@ -78,7 +72,7 @@ const Input = forwardRef<ComponentRef<"input">, ComboboxInputProps>(
 				autoSelect={autoSelect}
 				className={cx(
 					"pointer-coarse:text-base h-9 text-sm",
-					"bg-form relative block w-full rounded-md border px-3 py-2 border-form text-strong",
+					"bg-form relative block w-full rounded-md border px-3 py-2 border-form text-strong font-sans",
 					"placeholder:text-placeholder",
 					"aria-disabled:opacity-50",
 					"hover:border-neutral-400",
@@ -121,7 +115,7 @@ const Content = forwardRef<ComponentRef<typeof Primitive.ComboboxPopover>, Combo
 		return (
 			<Primitive.ComboboxPopover
 				className={cx(
-					"border-popover bg-popover relative z-50 max-h-96 min-w-32 scrollbar overflow-y-scroll overflow-x-hidden rounded-md border shadow-md p-1 my-2 focus:outline-hidden",
+					"border-popover bg-popover relative z-50 max-h-96 min-w-32 scrollbar overflow-y-scroll overflow-x-hidden rounded-md border shadow-md p-1 my-2 space-y-px font-sans focus:outline-hidden",
 					className,
 				)}
 				ref={ref}
@@ -162,8 +156,8 @@ const Item = forwardRef<ComponentRef<typeof Primitive.ComboboxItem>, ComboboxIte
 			<ComboboxItemValueContext.Provider value={value}>
 				<Primitive.ComboboxItem
 					className={cx(
-						"cursor-pointer rounded px-2 py-1.5 text-sm flex min-w-0 gap-2 items-center",
-						"data-active-item:bg-popover-hover",
+						"cursor-pointer rounded-md px-2 py-1.5 text-strong text-sm flex min-w-0 gap-2 items-center",
+						"data-active-item:bg-active-menu-item",
 						"aria-disabled:opacity-50",
 						className,
 					)}
@@ -208,7 +202,7 @@ const Group = forwardRef<ComponentRef<typeof Primitive.ComboboxGroup>, ComboboxG
 	({ asChild = false, children, className, ...props }, ref) => {
 		return (
 			<Primitive.ComboboxGroup
-				className={cx("", className)}
+				className={cx("space-y-px", className)}
 				ref={ref}
 				render={
 					asChild ? ({ ref, ...childProps }) => <Slot ref={ref} {...childProps} /> : undefined
@@ -327,7 +321,7 @@ ItemValue.displayName = "ComboboxItemValue";
  * </Combobox.Root>
  */
 const ComboboxSeparatorComponent = forwardRef<
-	ElementRef<typeof Separator>,
+	ComponentRef<typeof Separator>,
 	ComponentPropsWithoutRef<typeof Separator>
 >(({ className, ...props }, ref) => (
 	<Separator ref={ref} className={cx("-mx-1.25 my-1 w-auto", className)} {...props} />
@@ -358,7 +352,7 @@ const Combobox = {
 	/**
 	 * Root component for a combobox. Provides a combobox store that controls the state of Combobox components.
 	 *
-	 * @see https://mantle.ngrok.com/components/combobox#api-combobox-root
+	 * @see https://mantle.ngrok.com/components/combobox#comboboxroot
 	 *
 	 * @example
 	 * ```tsx
@@ -375,7 +369,7 @@ const Combobox = {
 	/**
 	 * Renders a popover that contains combobox content, e.g. Combobox.Items, Combobox.Groups, and Combobox.Separators.
 	 *
-	 * @see https://mantle.ngrok.com/components/combobox#api-combobox-content
+	 * @see https://mantle.ngrok.com/components/combobox#comboboxcontent
 	 *
 	 * @example
 	 * ```tsx
@@ -392,7 +386,7 @@ const Combobox = {
 	/**
 	 * Renders a group for Combobox.Item elements.
 	 *
-	 * @see https://mantle.ngrok.com/components/combobox#api-combobox-group
+	 * @see https://mantle.ngrok.com/components/combobox#comboboxgroup
 	 *
 	 * @example
 	 * ```tsx
@@ -412,7 +406,7 @@ const Combobox = {
 	/**
 	 * Renders a label in a combobox group.
 	 *
-	 * @see https://mantle.ngrok.com/components/combobox#api-combobox-group-label
+	 * @see https://mantle.ngrok.com/components/combobox#comboboxgrouplabel
 	 *
 	 * @example
 	 * ```tsx
@@ -432,7 +426,7 @@ const Combobox = {
 	/**
 	 * Renders a combobox input element that can be used to filter a list of items.
 	 *
-	 * @see https://mantle.ngrok.com/components/combobox#api-combobox-input
+	 * @see https://mantle.ngrok.com/components/combobox#comboboxinput
 	 *
 	 * @example
 	 * ```tsx
@@ -449,7 +443,7 @@ const Combobox = {
 	/**
 	 * Renders a combobox item inside a Combobox.Content component.
 	 *
-	 * @see https://mantle.ngrok.com/components/combobox#api-combobox-item
+	 * @see https://mantle.ngrok.com/components/combobox#comboboxitem
 	 *
 	 * @example
 	 * ```tsx
@@ -467,7 +461,7 @@ const Combobox = {
 	/**
 	 * Highlights the match between the current Combobox.Input value and parent Combobox.Item value.
 	 *
-	 * @see https://mantle.ngrok.com/components/combobox#api-combobox-item-value
+	 * @see https://mantle.ngrok.com/components/combobox#comboboxitemvalue
 	 *
 	 * @example
 	 * ```tsx
@@ -490,7 +484,7 @@ const Combobox = {
 	/**
 	 * Renders a separator between Combobox.Items or Combobox.Groups.
 	 *
-	 * @see https://mantle.ngrok.com/components/combobox#api-combobox-separator
+	 * @see https://mantle.ngrok.com/components/combobox#comboboxseparator
 	 *
 	 * @example
 	 * ```tsx

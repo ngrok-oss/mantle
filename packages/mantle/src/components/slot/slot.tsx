@@ -9,7 +9,7 @@ type Props = ComponentProps<typeof RadixSlot>;
  * components that can be rendered as different elements. Automatically merges
  * className props using `cx` for proper Tailwind class handling.
  *
- * @see https://mantle.ngrok.com/components/slot#api
+ * @see https://mantle.ngrok.com/components/slot
  *
  * @example
  * ```tsx
@@ -22,7 +22,7 @@ const Slot = forwardRef<HTMLElement, Props>(function Slot(
 	{ children, className, ...props },
 	forwardedRef,
 ) {
-	if (!isValidElement(children)) {
+	if (!isValidElement<{ className?: string }>(children)) {
 		return Children.only(children);
 	}
 

@@ -57,7 +57,7 @@ type ThemeProviderProps = PropsWithChildren;
 /**
  * ThemeProvider is a React Context Provider that provides the current theme and a function to set the theme.
  *
- * @see https://mantle.ngrok.com/components/theme-provider#api-theme-provider
+ * @see https://mantle.ngrok.com/components/theme-provider#themeprovider
  *
  * @example
  * ```tsx
@@ -99,8 +99,7 @@ function ThemeProvider({ children }: ThemeProviderProps) {
 					}
 				};
 			}
-			// oxlint-disable-next-line no-unused-vars
-		} catch (_) {
+		} catch {
 			// silently swallow errors
 		}
 
@@ -144,8 +143,7 @@ function ThemeProvider({ children }: ThemeProviderProps) {
 
 			try {
 				broadcastChannelRef.current?.close();
-				// oxlint-disable-next-line no-unused-vars
-			} catch (_) {
+			} catch {
 				// silently swallow errors
 			}
 			broadcastChannelRef.current = null;
@@ -349,8 +347,7 @@ function preventThemeFlash(args: {
 			const cookieValue = themeCookie?.split("=")[1];
 			const storedTheme = cookieValue ? decodeURIComponent(cookieValue) : null;
 			return storedTheme;
-			// oxlint-disable-next-line no-unused-vars
-		} catch (_) {
+		} catch {
 			return null;
 		}
 	}
@@ -358,8 +355,8 @@ function preventThemeFlash(args: {
 	function buildCookie(name: string, val: string): string {
 		const expires = new Date();
 		expires.setFullYear(expires.getFullYear() + 1);
-		const hostname = location.hostname;
-		const protocol = location.protocol;
+		const hostname = window.location.hostname;
+		const protocol = window.location.protocol;
 		const domainAttribute =
 			hostname === "ngrok.com" || hostname.endsWith(".ngrok.com") ? "; domain=.ngrok.com" : "";
 		const secureAttribute = protocol === "https:" ? "; Secure" : "";
@@ -369,8 +366,7 @@ function preventThemeFlash(args: {
 	function writeCookie(name: string, val: string): void {
 		try {
 			document.cookie = buildCookie(name, val);
-			// oxlint-disable-next-line no-unused-vars
-		} catch (_) {
+		} catch {
 			// silently swallow errors
 		}
 	}
@@ -396,8 +392,7 @@ function preventThemeFlash(args: {
 
 	try {
 		cookieTheme = getThemeFromCookie(storageKey);
-		// oxlint-disable-next-line no-unused-vars
-	} catch (_) {
+	} catch {
 		// silently swallow errors
 	}
 
@@ -406,8 +401,7 @@ function preventThemeFlash(args: {
 	} else {
 		try {
 			lsTheme = window.localStorage?.getItem(storageKey) ?? null;
-			// oxlint-disable-next-line no-unused-vars
-		} catch (_) {
+		} catch {
 			// silently swallow errors
 		}
 		if (isTheme(lsTheme)) {
@@ -444,16 +438,14 @@ function preventThemeFlash(args: {
 			writeCookie(storageKey, lsTheme);
 			try {
 				window.localStorage.removeItem(storageKey);
-				// oxlint-disable-next-line no-unused-vars
-			} catch (_) {
+			} catch {
 				// silently swallow errors
 			}
 		} else if (!hadValidCookie) {
 			// Set default cookie if none existed
 			writeCookie(storageKey, preference);
 		}
-		// oxlint-disable-next-line no-unused-vars
-	} catch (_) {
+	} catch {
 		// silently swallow errors
 	}
 }
@@ -569,21 +561,32 @@ type InitialThemeProps = {
 
 type UseInitialHtmlThemePropsOptions = {
 	className?: string;
+	/**
+	 * Theme cookie string for SSR theme resolution. Pass only the theme cookie
+	 * pair (via {@link extractThemeCookie}) rather than the full raw `Cookie`
+	 * header to avoid leaking sensitive cookies in serialized loader data.
+	 */
+	ssrCookie?: string;
 };
 
 /**
  * useInitialHtmlThemeProps returns the initial props that should be applied to the <html> element to prevent react hydration errors.
  */
 function useInitialHtmlThemeProps(props: UseInitialHtmlThemePropsOptions = {}): InitialThemeProps {
-	const { className = "" } = props ?? {};
+	const { className = "", ssrCookie } = props ?? {};
 
 	return useMemo(() => {
 		let initialTheme: Theme;
 		let resolvedTheme: ResolvedTheme;
 
 		if (!canUseDOM()) {
-			initialTheme = DEFAULT_THEME;
-			resolvedTheme = "light"; // assume "light" for SSR
+			initialTheme = getStoredTheme({ cookie: ssrCookie });
+			resolvedTheme = resolveTheme(initialTheme, {
+				// During SSR we can't detect media queries, so assume light/no high contrast.
+				// The inline script will correct this before paint for "system" theme users.
+				prefersDarkMode: false,
+				prefersHighContrast: false,
+			});
 		} else {
 			const prefersDarkMode = window.matchMedia(prefersDarkModeMediaQuery).matches;
 			const prefersHighContrast = window.matchMedia(prefersHighContrastMediaQuery).matches;
@@ -599,7 +602,7 @@ function useInitialHtmlThemeProps(props: UseInitialHtmlThemePropsOptions = {}): 
 			"data-applied-theme": resolvedTheme,
 			"data-theme": initialTheme,
 		};
-	}, [className]);
+	}, [className, ssrCookie]);
 }
 
 type GetStoredThemeOptions = {
@@ -629,15 +632,46 @@ function getStoredTheme({ cookie }: GetStoredThemeOptions): Theme {
 
 	try {
 		const cookies = cookie.split(";");
-		const themeCookie = cookies.find((cookie) => cookie.trim().startsWith(`${THEME_STORAGE_KEY}=`));
+		const themeCookie = cookies.find((cookieStr) =>
+			cookieStr.trim().startsWith(`${THEME_STORAGE_KEY}=`),
+		);
 		const cookieValue = themeCookie?.split("=")[1];
 		const storedTheme = cookieValue ? globalThis.decodeURIComponent(cookieValue) : null;
 
 		return isTheme(storedTheme) ? storedTheme : DEFAULT_THEME;
-		// oxlint-disable-next-line no-unused-vars
-	} catch (_) {
+	} catch {
 		return DEFAULT_THEME;
 	}
+}
+
+/**
+ * Extract just the mantle theme cookie from a raw `Cookie` header string.
+ *
+ * Use this in SSR loaders to safely pass the theme cookie to
+ * {@link useInitialHtmlThemeProps} without exposing the full `Cookie` header
+ * (which may contain HttpOnly/session cookies) in serialized loader data.
+ *
+ * @example
+ * ```ts
+ * // app/root.tsx loader
+ * export const loader = async ({ request }: Route.LoaderArgs) => {
+ *   const themeCookie = extractThemeCookie(request.headers.get("Cookie"));
+ *   return { themeCookie };
+ * };
+ * ```
+ *
+ * @param cookieHeader - The raw `Cookie` header string from the request, or null/undefined.
+ * @returns The `mantle-ui-theme=<value>` cookie string, or undefined if not found.
+ */
+function extractThemeCookie(cookieHeader: string | null | undefined): string | undefined {
+	if (!cookieHeader) {
+		return undefined;
+	}
+
+	return cookieHeader
+		.split(";")
+		.map((part) => part.trim())
+		.find((part) => part.startsWith(`${THEME_STORAGE_KEY}=`));
 }
 
 export {
@@ -645,6 +679,7 @@ export {
 	PreventWrongThemeFlashScript,
 	ThemeProvider,
 	//,
+	extractThemeCookie,
 	getStoredTheme,
 	preventWrongThemeFlashScriptContent,
 	readThemeFromHtmlElement,
@@ -702,16 +737,14 @@ function notifyOtherTabs(
 			});
 			return;
 		}
-		// oxlint-disable-next-line no-unused-vars
-	} catch (_) {
+	} catch {
 		// silently swallow errors
 	}
 
 	// fallback to storage event: write a "ping" key (not the real storageKey)
 	try {
 		localStorage.setItem(pingKey, JSON.stringify({ theme, timestamp: Date.now() }));
-		// oxlint-disable-next-line no-unused-vars
-	} catch (_) {
+	} catch {
 		// silently swallow errors
 	}
 }
@@ -740,8 +773,7 @@ function setCookie(value: string) {
 
 	try {
 		document.cookie = buildThemeCookie(value);
-		// oxlint-disable-next-line no-unused-vars
-	} catch (_) {
+	} catch {
 		// silently swallow errors
 	}
 }

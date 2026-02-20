@@ -1,4 +1,4 @@
-import type { Ref } from "react";
+import type { MutableRefObject, Ref } from "react";
 import { useCallback } from "react";
 
 type PossibleRef<T> = Ref<T> | undefined;
@@ -13,7 +13,7 @@ function composeRefs<T>(...refs: PossibleRef<T>[]) {
 			if (typeof ref === "function") {
 				ref(node);
 			} else if (ref != null) {
-				(ref as React.MutableRefObject<T>).current = node;
+				(ref as MutableRefObject<T>).current = node;
 			}
 		}
 	};

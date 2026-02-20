@@ -1,0 +1,385 @@
+---
+title: Mantle
+description: ngrok's UI library and design system built with React, TypeScript, and Tailwind CSS
+---
+
+# Mantle
+
+Mantle is [ngrok](https://ngrok.com)'s UI library and design system that
+powers its front-end.
+
+## Overview
+
+Mantle is a carefully designed system of [React](https://react.dev) components and utilities
+that establishes a unified design language and consistent user experience across ngrok's web
+applications. Built with flexibility, extensibility, and developer ergonomics in mind, Mantle
+prioritizes accessibility, performance, and long-term maintainability. Developed in
+[TypeScript](https://www.typescriptlang.org/), it offers strong typing, rich IDE support, and
+increased confidence through compile-time safety. By progressively enhancing standard DOM
+elements, it not only improves usability and accessibility, but also fills functional
+gaps—providing a robust foundation for building cohesive, modern UIs throughout the platform.
+
+To learn more about the design principles and architectural decisions that guide Mantle, see the
+[Philosophy](/philosophy) page.
+
+All of Mantle's components are styled using [Tailwind](https://tailwindcss.com). and we compose
+around the following unstyled primitive component libraries:
+
+- [Radix](https://www.radix-ui.com)
+- [Ariakit](https://ariakit.org/components)
+- [Headless UI](https://headlessui.com/)
+
+Mantle uses [Phosphor Icons](https://phosphoricons.com/) as the primary icon library, providing
+a versatile and consistent set of icons. In addition, custom-designed icons tailored to ngrok's
+needs are available through the [`@ngrok/mantle/icons`](/components/icons) module.
+
+## Status
+
+Mantle is a living design system and the standard UI library for all ngrok user interfaces. It is
+continuously evolving as new components, patterns, and improvements are added.
+
+Mantle is available on [NPM](https://www.npmjs.com/package/@ngrok/mantle) and is open source on
+[GitHub](https://github.com/ngrok-oss/mantle).
+
+## Setup
+
+### Installation
+
+> [!NOTE]
+> Mantle supports `react` and `react-dom` versions 18 and 19.
+
+Install `@ngrok/mantle` and all required `peerDependencies`:
+
+```sh
+# npm
+npm install -E @ngrok/mantle @phosphor-icons/react date-fns react react-dom
+
+# pnpm
+pnpm add -E @ngrok/mantle @phosphor-icons/react date-fns react react-dom
+
+# bun
+bun add -E @ngrok/mantle @phosphor-icons/react date-fns react react-dom
+```
+
+Install `tailwindcss` as a dev dependency (all frameworks):
+
+```sh
+# npm
+npm install -DE tailwindcss
+
+# pnpm
+pnpm add -DE tailwindcss
+
+# bun
+bun add -DE tailwindcss
+```
+
+### React Router
+
+Install the additional dev dependencies for the Tailwind Vite plugin:
+
+```sh
+# npm
+npm install -DE @tailwindcss/vite
+
+# pnpm
+pnpm add -DE @tailwindcss/vite
+
+# bun
+bun add -DE @tailwindcss/vite
+```
+
+Add the `@tailwindcss/vite` plugin to your Vite configuration:
+
+```ts
+// vite.config.ts
+import { reactRouter } from "@react-router/dev/vite";
+import { defineConfig } from "vite";
+import tsconfigPaths from "vite-tsconfig-paths";
+import tailwindcss from "@tailwindcss/vite";
+
+export default defineConfig({
+	plugins: [tailwindcss(), reactRouter(), tsconfigPaths()],
+});
+```
+
+In your app's `app/root.tsx`, import `mantle.css` and set up the
+[Theme Provider](/components/theme), [Toaster](/components/toast), and
+[Tooltip Provider](/components/tooltip).
+
+> [!WARNING]
+> It is critical to include `MantleThemeHeadContent` in the `<head>` of your app to prevent a
+> flash of unstyled content (FOUC). This component will inject the necessary script to prevent
+> the FOUC.
+
+```tsx
+// app/root.tsx
+import {
+	MantleThemeHeadContent,
+	ThemeProvider,
+	useInitialHtmlThemeProps,
+} from "@ngrok/mantle/theme";
+import { Toaster } from "@ngrok/mantle/toast";
+import { TooltipProvider } from "@ngrok/mantle/tooltip";
+import type { PropsWithChildren } from "react";
+import {
+	isRouteErrorResponse,
+	Links,
+	Meta,
+	Outlet,
+	Scripts,
+	ScrollRestoration,
+} from "react-router";
+
+import type { Route } from "./+types/root";
+import "@ngrok/mantle/mantle.css";
+
+export function Layout({ children }: PropsWithChildren) {
+	const initialHtmlThemeProps = useInitialHtmlThemeProps({
+		className: "h-full",
+	});
+
+	return (
+		// suppressHydrationWarning prevents React from fighting the inline
+		// theme script that corrects the class before paint on prerendered/SSR pages.
+		<html {...initialHtmlThemeProps} lang="en-US" dir="ltr" suppressHydrationWarning>
+			<head>
+				<meta charSet="utf-8" />
+				<meta name="viewport" content="width=device-width, initial-scale=1" />
+				{/* MantleThemeHeadContent should be rendered at the top of <head>
+            to prevent a flash of unstyled content (FOUC) */}
+				<MantleThemeHeadContent />
+				<Meta />
+				<Links />
+			</head>
+			<body>
+				<ThemeProvider>
+					<TooltipProvider>
+						<Toaster />
+						{children}
+					</TooltipProvider>
+				</ThemeProvider>
+				<ScrollRestoration />
+				<Scripts />
+			</body>
+		</html>
+	);
+}
+
+export default function App() {
+	return <Outlet />;
+}
+
+export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
+	let message = "Oops!";
+	let details = "An unexpected error occurred.";
+	let stack: string | undefined;
+
+	if (isRouteErrorResponse(error)) {
+		message = error.status === 404 ? "404" : "Error";
+		details =
+			error.status === 404 ? "The requested page could not be found." : error.statusText || details;
+	} else if (import.meta.env.DEV && error && error instanceof Error) {
+		details = error.message;
+		stack = error.stack;
+	}
+
+	return (
+		<main className="pt-16 p-4 container mx-auto">
+			<h1>{message}</h1>
+			<p>{details}</p>
+			{stack && (
+				<pre className="w-full p-4 overflow-x-auto">
+					<code>{stack}</code>
+				</pre>
+			)}
+		</main>
+	);
+}
+```
+
+You are now ready to use mantle components in your application! For example, you can use the
+[Button](/components/button).
+
+#### SSR Theme Cookie (Optional)
+
+For apps **behind authentication** where responses are **not publicly cached by a CDN**, you can
+pass the theme cookie to `useInitialHtmlThemeProps` to eliminate the hydration mismatch entirely.
+This ensures the server renders the correct theme class, so React hydration matches the inline
+script without needing `suppressHydrationWarning`.
+
+> [!CAUTION]
+> Do **not** use `ssrCookie` on publicly cached pages. React Router serializes loader data into
+> the HTML, so the first visitor's theme would be baked into the CDN cache and served to everyone.
+> For public/CDN-cached apps, rely on `suppressHydrationWarning` instead (shown above).
+
+> [!WARNING]
+> Never return the full `Cookie` header from a loader — it would leak HttpOnly/session cookies
+> into the HTML. Always use `extractThemeCookie` to return only the theme cookie.
+
+```tsx
+import { extractThemeCookie, useInitialHtmlThemeProps } from "@ngrok/mantle/theme";
+
+export const loader = async ({ request }: Route.LoaderArgs) => {
+	const themeCookie = extractThemeCookie(request.headers.get("Cookie"));
+	return { themeCookie };
+};
+
+export function Layout({ children }: PropsWithChildren) {
+	const loaderData = useRouteLoaderData<typeof loader>("root");
+	const initialHtmlThemeProps = useInitialHtmlThemeProps({
+		className: "h-full",
+		ssrCookie: loaderData?.themeCookie,
+	});
+	// ...
+}
+```
+
+### Vite
+
+Install the additional dev dependencies for the Tailwind Vite plugin:
+
+```sh
+# npm
+npm install -DE @tailwindcss/vite
+
+# pnpm
+pnpm add -DE @tailwindcss/vite
+
+# bun
+bun add -DE @tailwindcss/vite
+```
+
+Add the `@tailwindcss/vite` plugin to your Vite configuration:
+
+```ts
+// vite.config.ts
+import { defineConfig } from "vite";
+import tailwindcss from "@tailwindcss/vite";
+
+export default defineConfig({
+	plugins: [tailwindcss()],
+});
+```
+
+In your app's `src/main.tsx`, import `mantle.css` and set up the
+[Theme Provider](/components/theme), [Toaster](/components/toast), and
+[Tooltip Provider](/components/tooltip):
+
+```tsx
+// src/main.tsx
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { ThemeProvider } from "@ngrok/mantle/theme";
+import { Toaster } from "@ngrok/mantle/toast";
+import { TooltipProvider } from "@ngrok/mantle/tooltip";
+import "@ngrok/mantle/mantle.css";
+import App from "./App.tsx";
+
+createRoot(document.getElementById("root")!).render(
+	<StrictMode>
+		<ThemeProvider>
+			<TooltipProvider>
+				<Toaster />
+				<App />
+			</TooltipProvider>
+		</ThemeProvider>
+	</StrictMode>,
+);
+```
+
+To prevent a flash of unstyled content (FOUC), update your `index.html` to include the theme
+script. Import `preventWrongThemeFlashScriptContent` from `@ngrok/mantle/theme` and inline its
+output in a `<script>` tag in the `<head>`:
+
+> [!WARNING]
+> While mantle supports any type of react application, vite is not the primary target. For now,
+> you will need to manually include the following script in the `<head>` of your app. We plan to
+> add a vite plugin in the future to automate this.
+
+```html
+<!-- index.html -->
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="icon" type="image/svg+xml" href="/vite.svg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Vite + React + TS</title>
+		<script>
+			// Inline the output of preventWrongThemeFlashScriptContent()
+			// from "@ngrok/mantle/theme" here to prevent FOUC
+		</script>
+	</head>
+	<body>
+		<div id="root"></div>
+		<script type="module" src="/src/main.tsx"></script>
+	</body>
+</html>
+```
+
+You are now ready to use mantle components in your application! For example, you can use the
+[Button](/components/button).
+
+### Next.js
+
+> [!CAUTION]
+> Mantle does not yet support Next.js 15, especially with react 19 and RSC. We are working on
+> adding support for it soon.
+
+### React SPA
+
+In your app's entry/root file, import `mantle.css` and set up the
+[Theme Provider](/components/theme), [Toaster](/components/toast), and
+[Tooltip Provider](/components/tooltip):
+
+```tsx
+// root.tsx
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { ThemeProvider } from "@ngrok/mantle/theme";
+import { Toaster } from "@ngrok/mantle/toast";
+import { TooltipProvider } from "@ngrok/mantle/tooltip";
+import "@ngrok/mantle/mantle.css";
+import App from "./App.tsx";
+
+const container = window.document.getElementById("app");
+
+if (!container) {
+	throw new Error(
+		"Something went wrong: cannot render application! Please refresh the page to try again.",
+	);
+}
+
+const root = createRoot(container);
+
+root.render(
+	<StrictMode>
+		<ThemeProvider>
+			<TooltipProvider>
+				<Toaster />
+				<App />
+			</TooltipProvider>
+		</ThemeProvider>
+	</StrictMode>,
+);
+```
+
+To prevent a flash of unstyled content (FOUC), include the theme script in the `<head>` of your
+`index.html`. Import `preventWrongThemeFlashScriptContent` from `@ngrok/mantle/theme` and inline
+its output:
+
+> [!WARNING]
+> While mantle supports any type of react application, arbitrary react SPA apps are not the
+> primary target. For now, you will need to manually include the following script in the `<head>`
+> of your app.
+
+```html
+<script>
+	// Inline the output of preventWrongThemeFlashScriptContent()
+	// from "@ngrok/mantle/theme" here to prevent FOUC
+</script>
+```
+
+You are now ready to use mantle components in your application! For example, you can use the
+[Button](/components/button).

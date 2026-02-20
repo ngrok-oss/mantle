@@ -82,7 +82,7 @@ const buttonVariants = cva("", {
 			appearance: "outlined",
 			priority: "neutral",
 			class:
-				"border-form bg-form text-strong focus-visible:border-accent-600 focus-visible:ring-focus-accent not-disabled:hover:border-neutral-400 not-disabled:hover:bg-form-hover not-disabled:hover:text-strong not-disabled:active:border-neutral-400 not-disabled:active:bg-neutral-500/10 not-disabled:active:text-strong focus-visible:not-disabled:active:border-accent-600",
+				"border-form bg-form text-strong focus-visible:border-accent-600 focus-visible:ring-focus-accent not-disabled:hover:border-neutral-400 not-disabled:hover:bg-form-hover not-disabled:hover:text-strong not-disabled:active:border-neutral-400 not-disabled:active:bg-neutral-500/10 not-disabled:active:text-strong focus-visible:not-disabled:hover:border-accent-600 focus-visible:not-disabled:active:border-accent-600",
 		},
 		{
 			appearance: "filled",
@@ -177,7 +177,7 @@ type ButtonProps = ComponentProps<"button"> &
  * other assistive technology. Once activated, it then performs an action, such
  * as submitting a form or opening a dialog.
  *
- * @see https://mantle.ngrok.com/components/button#api-button
+ * @see https://mantle.ngrok.com/components/button
  *
  * @example
  * ```tsx
@@ -220,6 +220,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 				"disabled:cursor-default disabled:opacity-50",
 				"not-disabled:active:scale-97 ease-out transition-transform duration-150",
 				buttonVariants({ appearance, priority, isLoading }),
+				appearance !== "link" && "font-sans", // only enforce font-sans on non-link button appearances
 				hasSpecialIconPadding && iconPlacement === "start" && "ps-2.5",
 				hasSpecialIconPadding && iconPlacement === "end" && "pe-2.5",
 				className,
@@ -235,7 +236,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
 		if (asChild) {
 			invariant(
-				isValidElement(children) && Children.only(children),
+				isValidElement<{ children?: ReactNode }>(children) && Children.only(children),
 				"When using `asChild`, Button must be passed a single child as a JSX tag.",
 			);
 

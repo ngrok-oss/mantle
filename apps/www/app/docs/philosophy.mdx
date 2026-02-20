@@ -1,0 +1,81 @@
+---
+title: Philosophy
+description: The design principles and architectural philosophy behind mantle, ngrok's UI library and design system
+---
+
+# Philosophy
+
+Every architectural decision in Mantle traces back to a simple premise: start with the
+web platform, then layer on just enough abstraction to make it great. These principles
+guide what we build, how we build it, and—just as importantly—what we choose not to build.
+
+## Composition Over Configuration
+
+Mantle composes around established, unstyled primitive libraries—[Radix UI](https://www.radix-ui.com),
+[Ariakit](https://ariakit.org), and [Headless UI](https://headlessui.com)—rather than
+reinventing interaction patterns from scratch. This gives us battle-tested accessibility
+and behavior paired with ngrok's visual design language.
+
+Components compose naturally with each other and with your own code. The `asChild`
+pattern lets you swap the rendered element entirely, so Mantle never forces you into a
+particular DOM structure. Configuration props handle the common case; composition
+handles everything else.
+
+## Semantic HTML, Then Everything Else
+
+The right HTML element is always the starting point. A [Button](/components/button) renders
+a `<button>`, not a styled `<div>` with click handlers. Form controls use `<input>`. Headings
+follow a proper hierarchy. This isn't pedantic—it's practical.
+
+Semantic markup gives you keyboard navigation, focus management, and screen reader
+support for free. It works when CSS fails to load and when JavaScript is disabled. It
+means every Mantle component is inherently accessible, compliant with WAI-ARIA patterns,
+and meaningful to assistive technologies, search engines, and any tool that parses HTML.
+
+From that foundation, Mantle progressively enhances. A button is still a button—but with
+loading states, icon slots, and variant styling layered on top. The underlying element
+always does the heavy lifting.
+
+## Tailwind as Design Language
+
+Mantle uses [Tailwind CSS](https://tailwindcss.com) as both its styling engine and its
+design language. A custom theme defines ngrok's design tokens—colors, spacing,
+typography—as semantic values that adapt automatically across themes and contexts.
+
+Because the tokens are expressed as Tailwind utilities, developers extend components
+with the same vocabulary they already know. Custom styling stays on-system by default.
+There's no separate theming API to learn and no abstraction boundary between Mantle's
+styles and yours.
+
+## Developer Ergonomics
+
+Every component is built with TypeScript, but Mantle avoids exposing complex generics or
+internal type machinery. Type inference does the work: variant props autocomplete
+through `class-variance-authority`, contracts are enforced at compile time, and the
+API surface stays small enough to hold in your head.
+
+Consistency reinforces this. Prop names, variant patterns, event handling, and
+composition patterns are uniform across the library. If you understand how one Mantle
+component works, you can predict how the rest behave. Learn the system once; apply it
+everywhere.
+
+## Ship Less, Ship Better
+
+Mantle is tree-shakable and modularly exported—you pay for only what you import. Teams
+can adopt the design system incrementally, one component at a time, without pulling in
+the entire library.
+
+Runtime performance is a design constraint, not an afterthought. Components minimize
+re-renders, avoid unnecessary DOM nodes, and lean on the browser's native capabilities
+wherever possible. The fastest code is the code that never runs, and the most
+reliable code is the code that doesn't exist.
+
+## Evolution, Not Revolution
+
+Mantle evolves with ngrok's needs and the broader web platform. We favor incremental
+improvements over sweeping rewrites, so existing code continues to work as the system
+grows.
+
+This applies equally to API design, framework compatibility, and adoption of new web
+standards. Stable foundations and thoughtful migration paths beat short-term convenience
+every time.

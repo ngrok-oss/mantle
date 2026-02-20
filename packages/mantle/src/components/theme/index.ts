@@ -1,5 +1,6 @@
 export {
 	//,
+	extractThemeCookie,
 	getStoredTheme,
 	MantleThemeHeadContent,
 	preventWrongThemeFlashScriptContent,

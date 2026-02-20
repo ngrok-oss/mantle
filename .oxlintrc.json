@@ -1,0 +1,39 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "react", "jsx-a11y"],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn"
+  },
+  "rules": {
+    "curly": "error",
+    "no-useless-switch-case": "off",
+    "no-shadow": "off",
+    "react/react-in-jsx-scope": "off",
+    "jsx-a11y/anchor-has-content": "off",
+    "jsx-a11y/no-svg-without-title": "warn",
+    "jsx-a11y/no-blank-target": "off",
+    "react/no-danger": "off",
+    "no-restricted-globals": [
+      "error",
+      {
+        "name": "location",
+        "message": "Use react-router's useLocation hook instead"
+      }
+    ],
+    "no-explicit-any": "warn"
+  },
+  "ignorePatterns": [
+    ".cache",
+    ".changeset",
+    ".env",
+    ".react-router/",
+    ".turbo",
+    ".vercel",
+    "build",
+    "dist",
+    "node_modules",
+    "public",
+    "*/code-gen"
+  ]
+}

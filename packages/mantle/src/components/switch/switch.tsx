@@ -15,7 +15,7 @@ type SwitchProps = ComponentPropsWithoutRef<typeof SwitchPrimitiveRoot> & {
 /**
  * A form control that allows the user to toggle between checked and not checked.
  *
- * @see https://mantle.ngrok.com/components/switch#api-switch
+ * @see https://mantle.ngrok.com/components/switch
  *
  * @example
  * ```tsx

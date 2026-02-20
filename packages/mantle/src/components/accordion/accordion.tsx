@@ -162,7 +162,7 @@ const TriggerIcon = ({ className, ...props }: Omit<IconProps, "svg">) => (
 	<Icon
 		{...props}
 		svg={<CaretDownIcon weight="fill" />}
-		className={cx("group-data-state-open:rotate-0 -rotate-90", className)}
+		className={cx("group-data-[state=open]:rotate-0 -rotate-90", className)}
 	/>
 );
 TriggerIcon.displayName = "AccordionTriggerIcon";
@@ -197,7 +197,7 @@ const Content = forwardRef<
 	<AccordionPrimitive.Content
 		ref={ref}
 		className={cx(
-			"data-state-closed:animate-accordion-up data-state-open:animate-accordion-down overflow-hidden pt-4",
+			"data-state-closed:animate-accordion-up data-state-open:animate-accordion-down overflow-hidden *:first:mt-4",
 			className,
 		)}
 		{...props}

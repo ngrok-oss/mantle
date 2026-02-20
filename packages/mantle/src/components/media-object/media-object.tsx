@@ -97,7 +97,7 @@ const MediaObject = {
 	 * Compose the media object with the `MediaObject.Media` and `MediaObject.Content`
 	 * components as direct children.
 	 *
-	 * @see https://mantle.ngrok.com/components/media-object#api-media-object-root
+	 * @see https://mantle.ngrok.com/components/media-object#mediaobjectroot
 	 *
 	 * @example
 	 * ```tsx
@@ -115,7 +115,7 @@ const MediaObject = {
 	/**
 	 * The container for an image or icon to display in the media slot of the media object.
 	 *
-	 * @see https://mantle.ngrok.com/components/media-object#api-media-object-media
+	 * @see https://mantle.ngrok.com/components/media-object#mediaobjectmedia
 	 *
 	 * @example
 	 * ```tsx
@@ -133,7 +133,7 @@ const MediaObject = {
 	/**
 	 * The container for the content slot of a media object.
 	 *
-	 * @see https://mantle.ngrok.com/components/media-object#api-media-object-content
+	 * @see https://mantle.ngrok.com/components/media-object#mediaobjectcontent
 	 *
 	 * @example
 	 * ```tsx

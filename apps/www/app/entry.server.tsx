@@ -17,8 +17,11 @@ import type {
 	LoaderFunctionArgs,
 } from "react-router";
 import { ServerRouter } from "react-router";
+import { assetsCdnOrigin } from "@ngrok/mantle/theme";
+import invariant from "tiny-invariant";
 import { NonceProvider } from "./components/nonce";
 import { getBaseUrl } from "./utilities/base-url";
+import { rawDocContent, urlToFileMap } from "./utilities/docs";
 
 // Increase the stack trace limit so we can see more of the error
 Error.stackTraceLimit = Number.POSITIVE_INFINITY;
@@ -42,6 +45,29 @@ export default function handleRequest(
 	routerContext: EntryContext,
 	_loadContext: AppLoadContext,
 ) {
+	// Content negotiation: return raw markdown when Accept: text/markdown is requested
+	const accept = request.headers.get("Accept") ?? "";
+	if (accept.includes("text/markdown")) {
+		const url = new URL(request.url);
+		const pathname = url.pathname.replace(/^\//, "");
+		const filePath = urlToFileMap.get(pathname || "index");
+
+		if (filePath) {
+			const rawContent = rawDocContent[filePath];
+			if (rawContent) {
+				const filename = pathname.split("/").pop() ?? "document";
+				return new Response(rawContent, {
+					headers: {
+						"Content-Type": "text/markdown; charset=utf-8",
+						"Content-Disposition": `inline; filename="${filename}.md"`,
+						"Cache-Control": "max-age=300, stale-while-revalidate=604800",
+						"X-Content-Type-Options": "nosniff",
+					},
+				});
+			}
+		}
+	}
+
 	const uniquePerRequestNonce = randomBytes(16).toString("hex");
 
 	/**
@@ -76,6 +102,8 @@ export default function handleRequest(
 
 					responseHeaders.set("Content-Type", "text/html");
 
+					responseHeaders.set("Link", buildLinkHeader(request.url));
+
 					/**
 					 * Important: don't set cookies on cacheable HTML.
 					 * Keep the skew-protection cookie to PREVIEW only.
@@ -105,11 +133,11 @@ export default function handleRequest(
 					responseHeaders.set("X-Debug-Is-Prod", String(isProdEnv));
 					responseHeaders.set("X-Debug-Has-Ngrok-Header", String(isNgrokProxy));
 
-					// Prevent cache bleed across hosts
+					// Vary by x-ngrok-edge so CDN doesn't serve noindex responses to proxied traffic
 					const existingVary = responseHeaders.get("Vary");
 					responseHeaders.set(
 						"Vary",
-						existingVary ? `${existingVary}, Host, X-Forwarded-Host` : "Host, X-Forwarded-Host",
+						existingVary ? `${existingVary}, x-ngrok-edge` : "x-ngrok-edge",
 					);
 
 					// Caching Strategy
@@ -192,6 +220,43 @@ export function handleError(error: unknown, { request }: LoaderFunctionArgs | Ac
 	if (!request.signal.aborted) {
 		console.error("react-router entry.server handleError (unexpected error)", error);
 	}
+}
+
+/**
+ * Builds a single HTTP `Link` header value that advertises connection hints for
+ * cross-origin resources using `rel=preconnect`.
+ *
+ * Behavior:
+ * - Resolves the app's base origin from `requestUrl` via `getBaseUrl()`.
+ * - Assembles a prioritized list of preconnect origins (regular and crossorigin).
+ * - Asserts there are ≤4 total preconnects (typical UA limit; more can waste sockets).
+ * - Serializes into a comma-separated `Link` header per RFC 8288.
+ *
+ * @param requestUrl Absolute URL for the incoming request (used to compute the base origin).
+ * @returns A comma-separated `Link` header value.
+ */
+function buildLinkHeader(requestUrl: string) {
+	const baseUrl = getBaseUrl(requestUrl);
+
+	const preconnects = [baseUrl !== "/" && baseUrl].filter(Boolean);
+
+	/**
+	 * Origins that serve font files require `crossorigin` on the preconnect
+	 * because font requests are always CORS. Without it the browser opens a
+	 * non-CORS connection that can't be reused for the actual font fetch.
+	 */
+	const crossoriginPreconnects = [assetsCdnOrigin] as const;
+
+	// keep ≤4 for optimal performance (browser limit)
+	invariant(
+		preconnects.length + crossoriginPreconnects.length <= 4,
+		"Keep ≤4 priority preconnects",
+	);
+
+	return [
+		...preconnects.map((origin) => `<${origin}>; rel=preconnect`),
+		...crossoriginPreconnects.map((origin) => `<${origin}>; rel=preconnect; crossorigin`),
+	].join(", ");
 }
 
 /**

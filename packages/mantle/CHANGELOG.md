@@ -1,5 +1,121 @@
 # @ngrok/mantle
 
+## 0.64.3
+
+### Patch Changes
+
+- [#990](https://github.com/ngrok-oss/mantle/pull/990) [`16c731a`](https://github.com/ngrok-oss/mantle/commit/16c731a10cc1bbfd6299ff0350171ffa48c261e5) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - update to tailwind 4.2.0
+
+- [#988](https://github.com/ngrok-oss/mantle/pull/988) [`7e59d87`](https://github.com/ngrok-oss/mantle/commit/7e59d8722fcf2585105b580e752bf9356e7dea9a) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Update dropdown, select, and combobox menu item styling
+
+## 0.64.2
+
+### Patch Changes
+
+- [#985](https://github.com/ngrok-oss/mantle/pull/985) [`ce626cc`](https://github.com/ngrok-oss/mantle/commit/ce626cc088b7fcf3dc0a36e9c2fa6a2098f5d569) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Slider: Add `color` prop to customize the range fill color (defaults to `"bg-accent-500"`), and `showTicks` prop to render tick marks at each `step` interval. Also adds `--color-card-border` and `--color-card-border-muted` semantic color tokens.
+
+## 0.64.1
+
+### Patch Changes
+
+- [#980](https://github.com/ngrok-oss/mantle/pull/980) [`c2735ed`](https://github.com/ngrok-oss/mantle/commit/c2735ed94e9d7ab8b0e5faec42d19deeb4846cd7) Thanks [@dependabot](https://github.com/apps/dependabot)! - Fix accessibility and linting issues in `Input` and `RadioGroup.InputSandbox`: replace `aria-disabled`/`aria-invalid` CSS hooks on wrapper divs with `data-disabled`, add `role="none"` to presentational wrapper divs
+
+- [#984](https://github.com/ngrok-oss/mantle/pull/984) [`b3a32ec`](https://github.com/ngrok-oss/mantle/commit/b3a32ec036d9913cb2d8260902615d47f44e7968) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Change `font-display` from `swap` to `fallback` in all `@font-face` declarations to eliminate layout shift (font bounce) while still downloading and caching fonts for subsequent loads
+
+- [#981](https://github.com/ngrok-oss/mantle/pull/981) [`e43df1c`](https://github.com/ngrok-oss/mantle/commit/e43df1c81fb5881376756e6918210ec7927cdc82) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Bump up Slider thumb shadow to shadow-md (from shadow-sm)
+
+- [#980](https://github.com/ngrok-oss/mantle/pull/980) [`c2735ed`](https://github.com/ngrok-oss/mantle/commit/c2735ed94e9d7ab8b0e5faec42d19deeb4846cd7) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update tailwind-merge
+
+## 0.64.0
+
+### Minor Changes
+
+- [#974](https://github.com/ngrok-oss/mantle/pull/974) [`623935c`](https://github.com/ngrok-oss/mantle/commit/623935c925afad2675aab412ae8ee92e840b7b2f) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Remove `AutoScrollToHash` component and `useAutoScrollToHash` hook. This also removes `react-router` as a peer dependency of `@ngrok/mantle`. If you were using `AutoScrollToHash`, move the implementation into your app directly.
+
+- [#973](https://github.com/ngrok-oss/mantle/pull/973) [`a8ff1c9`](https://github.com/ngrok-oss/mantle/commit/a8ff1c9857c44abf4bc87c69cc85bb2e54a0a439) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add NgrokIcon to Icons
+
+- [#979](https://github.com/ngrok-oss/mantle/pull/979) [`68cc794`](https://github.com/ngrok-oss/mantle/commit/68cc7946d887bbca790c36ca9580c454be99cadc) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add new Slider component, supports single, range, and multiple use cases
+
+### Patch Changes
+
+- [#971](https://github.com/ngrok-oss/mantle/pull/971) [`5781aae`](https://github.com/ngrok-oss/mantle/commit/5781aae83604925bfb03cdbea1d3d85b8e9e47a0) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Fix doc block links
+
+- [#978](https://github.com/ngrok-oss/mantle/pull/978) [`286fab3`](https://github.com/ngrok-oss/mantle/commit/286fab3721c6aabe27fddaf91e4a8dfb7ba8c5ea) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Fix jerky accordion close animation. Moved spacing from `padding-top` on the animated container to `margin-top` on the first child so it collapses smoothly with the height animation.
+
+- [#974](https://github.com/ngrok-oss/mantle/pull/974) [`623935c`](https://github.com/ngrok-oss/mantle/commit/623935c925afad2675aab412ae8ee92e840b7b2f) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add explicit generic type parameters to `isValidElement` calls in `Button` and `Slot` for React 19 type compatibility. React 19 changed `ReactElement.props` from `any` to `unknown`, requiring explicit type annotations to access props safely. This change is fully backwards compatible with React 18.
+
+- [#978](https://github.com/ngrok-oss/mantle/pull/978) [`286fab3`](https://github.com/ngrok-oss/mantle/commit/286fab3721c6aabe27fddaf91e4a8dfb7ba8c5ea) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Fix `CodeBlock.CopyButton` timeout lifecycle handling by clearing pending timers on unmount and before scheduling a new copy-state reset.
+
+- [#975](https://github.com/ngrok-oss/mantle/pull/975) [`d9a7206`](https://github.com/ngrok-oss/mantle/commit/d9a72068b93aac1524334395fbe0fdc761c6e8cd) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Fix theme flash on hydration by reading the theme cookie during SSR. `useInitialHtmlThemeProps` now accepts an optional `ssrCookie` string so the server can render the correct theme class, eliminating the mismatch between server HTML and the inline script.
+
+## 0.63.2
+
+### Patch Changes
+
+- [#969](https://github.com/ngrok-oss/mantle/pull/969) [`76e1afd`](https://github.com/ngrok-oss/mantle/commit/76e1afd09e6011650e6b4f3ed14ea348143e1591) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Fix `useIsBelowBreakpoint` performance regression during window resize. The `subscribe` and `getSnapshot` functions passed to `useSyncExternalStore` were recreated on every render, causing listener teardown/re-attach churn on each frame. They are now cached per breakpoint for referential stability.
+
+- [#969](https://github.com/ngrok-oss/mantle/pull/969) [`76e1afd`](https://github.com/ngrok-oss/mantle/commit/76e1afd09e6011650e6b4f3ed14ea348143e1591) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Restore all `@custom-variant` definitions in `mantle.css` that were accidentally removed. This includes theme variants (`light`, `dark`, `high-contrast`, `dark-high-contrast`), aria/data attribute variants, hover media query variants (`hover-hover`, `hover-none`), and the `where` variant.
+
+## 0.63.1
+
+### Patch Changes
+
+- [#966](https://github.com/ngrok-oss/mantle/pull/966) [`d26aee3`](https://github.com/ngrok-oss/mantle/commit/d26aee3e3ba025847aef6473a96942a86a8c4875) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Fix mantle.css exports
+
+## 0.63.0
+
+### Minor Changes
+
+- [#963](https://github.com/ngrok-oss/mantle/pull/963) [`1a68417`](https://github.com/ngrok-oss/mantle/commit/1a684177f8c07e321620910a9edbb771091d7d52) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add "info" as a first-class semantic color (mirrors "accent")
+
+- [#965](https://github.com/ngrok-oss/mantle/pull/965) [`fd7e2eb`](https://github.com/ngrok-oss/mantle/commit/fd7e2eb5119a69f1b505c07f7889ea57686c7258) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add new SplitButton component
+
+### Patch Changes
+
+- [#963](https://github.com/ngrok-oss/mantle/pull/963) [`1a68417`](https://github.com/ngrok-oss/mantle/commit/1a684177f8c07e321620910a9edbb771091d7d52) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Fix Anchor component target types to delegate to React's built-in types
+
+- [#963](https://github.com/ngrok-oss/mantle/pull/963) [`1a68417`](https://github.com/ngrok-oss/mantle/commit/1a684177f8c07e321620910a9edbb771091d7d52) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Fix mantle.css theme syntax
+
+- [#963](https://github.com/ngrok-oss/mantle/pull/963) [`1a68417`](https://github.com/ngrok-oss/mantle/commit/1a684177f8c07e321620910a9edbb771091d7d52) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Apply font-sans to components for consistent typography
+
+- [#962](https://github.com/ngrok-oss/mantle/pull/962) [`030099b`](https://github.com/ngrok-oss/mantle/commit/030099b6645039f0aadde90324ee19feeeef94c5) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update react-day-picker
+
+## 0.62.2
+
+### Patch Changes
+
+- [#957](https://github.com/ngrok-oss/mantle/pull/957) [`141490d`](https://github.com/ngrok-oss/mantle/commit/141490dec9ef4b6b5776986a14cac190b65adc77) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - fix return type of $cssProperties
+
+## 0.62.1
+
+### Patch Changes
+
+- [#955](https://github.com/ngrok-oss/mantle/pull/955) [`bf79ae2`](https://github.com/ngrok-oss/mantle/commit/bf79ae237df0f9350daf8e998e3b4252f398a2b7) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - DescriptionList styling fixes
+
+## 0.62.0
+
+### Minor Changes
+
+- [#954](https://github.com/ngrok-oss/mantle/pull/954) [`7235e48`](https://github.com/ngrok-oss/mantle/commit/7235e4823cb9232ef0ed2853bf1b8ad9af48d368) Thanks [@randseay](https://github.com/randseay)! - Add DescriptionList component.
+
+  This component is a semantic wrapper for `<dl>`, `<dt>`, and `<dd>` elements. It allows for a more accessible and semantic way to display label/value pairs.
+
+### Patch Changes
+
+- [#946](https://github.com/ngrok-oss/mantle/pull/946) [`e095088`](https://github.com/ngrok-oss/mantle/commit/e095088e084fa07b138715d74ea04ff7f554f969) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add CssProperties, $cssProperties type and helper for supporting typechecking of react CSSProperties AND custom css properties (--foo-bar)
+
+## 0.61.3
+
+### Patch Changes
+
+- [#939](https://github.com/ngrok-oss/mantle/pull/939) [`d2922d2`](https://github.com/ngrok-oss/mantle/commit/d2922d2b0199aa1361e11e483fed129c3fcd2d15) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - DataTable.HeaderSortButton: remove scaling when active
+
+## 0.61.2
+
+### Patch Changes
+
+- [#935](https://github.com/ngrok-oss/mantle/pull/935) [`b03ef99`](https://github.com/ngrok-oss/mantle/commit/b03ef99e5a61b81b2b544cce970cfd1b38fed087) Thanks [@aaronshekey](https://github.com/aaronshekey)! - Add 2xs breakpoint (360px)
+
 ## 0.60.2
 
 ### Patch Changes
