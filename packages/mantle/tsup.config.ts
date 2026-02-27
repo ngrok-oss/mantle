@@ -57,6 +57,7 @@ export default defineConfig((options) => [
 			...utilPackages,
 			hooks: "./src/hooks/index.ts",
 			types: "./src/types/index.ts",
+			utils: "./src/utils/index.ts",
 		},
 		onSuccess: async () => {
 			try {

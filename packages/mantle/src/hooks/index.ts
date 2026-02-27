@@ -15,3 +15,6 @@ export { useMatchesMediaQuery } from "./use-matches-media-query.js";
 export { usePrefersReducedMotion } from "./use-prefers-reduced-motion.js";
 export { useRandomStableId } from "./use-random-stable-id.js";
 export { useScrollBehavior } from "./use-scroll-behavior.js";
+export { useComposedRefs } from "../utils/compose-refs/compose-refs.js";
+export { useInView } from "./use-in-view.js";
+export type { UseInViewOptions } from "./use-in-view.js";

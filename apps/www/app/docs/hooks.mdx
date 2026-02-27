@@ -14,6 +14,7 @@ Custom React hooks exported from `@ngrok/mantle/hooks`.
 | `useBreakpoint`             | Returns the current responsive breakpoint based on the viewport width.              |
 | `useIsBelowBreakpoint`      | Returns `true` if the viewport width is below a given breakpoint.                   |
 | `useCallbackRef`            | Returns a memoized callback that always refers to the latest function passed to it. |
+| `useComposedRefs`           | Composes multiple React refs into a single callback ref.                            |
 | `useCopyToClipboard`        | Copies a string to the clipboard.                                                   |
 | `useDebouncedCallback`      | Creates a debounced version of a callback function.                                 |
 | `useIsHydrated`             | Returns whether the component tree has been hydrated on the client.                 |
@@ -22,6 +23,7 @@ Custom React hooks exported from `@ngrok/mantle/hooks`.
 | `usePrefersReducedMotion`   | Returns `true` when the user prefers reduced motion.                                |
 | `useRandomStableId`         | Generates a random, stable ID safe for CSS selectors and element IDs.               |
 | `useScrollBehavior`         | Returns a `ScrollBehavior` that respects the user's reduced motion preference.      |
+| `useInView`                 | Returns `true` when a DOM element is visible within the viewport.                   |
 
 ## useBreakpoint
 
@@ -60,6 +62,21 @@ function Example({ onChange }: { onChange?: (value: string) => void }) {
 	const stableOnChange = useCallbackRef(onChange);
 	// stableOnChange always calls the latest onChange
 }
+```
+
+## useComposedRefs
+
+Composes multiple React refs (callback refs and `RefObject`s) into a single stable callback ref using `useCallback`. Useful when a component needs to forward a ref while also keeping an internal one.
+
+```tsx
+import { useRef } from "react";
+import { useComposedRefs } from "@ngrok/mantle/hooks";
+
+const MyInput = forwardRef<HTMLInputElement>((props, forwardedRef) => {
+	const internalRef = useRef<HTMLInputElement>(null);
+	const ref = useComposedRefs(internalRef, forwardedRef);
+	return <input ref={ref} {...props} />;
+});
 ```
 
 ## useCopyToClipboard
@@ -174,3 +191,67 @@ function ScrollToTop() {
 	return <button onClick={() => window.scrollTo({ top: 0, behavior })}>Back to top</button>;
 }
 ```
+
+## useInView
+
+React hook that tracks whether a DOM element is visible within the viewport (or a scrollable container). Returns `true` when the element is in view, otherwise `false`. Backed by the framework-agnostic `inView` helper (exported from `@ngrok/mantle/utils`), which uses the `IntersectionObserver` API directly and can be used outside of React.
+
+```tsx
+import { useRef } from "react";
+import { useInView } from "@ngrok/mantle/hooks";
+
+function FadeIn() {
+	const ref = useRef<HTMLDivElement>(null);
+	const isInView = useInView(ref);
+
+	return <div ref={ref} style={{ opacity: isInView ? 1 : 0, transition: "opacity 0.5s" }} />;
+}
+```
+
+Trigger once on first entry:
+
+```tsx
+import { useRef } from "react";
+import { useInView } from "@ngrok/mantle/hooks";
+
+function AnimateOnce() {
+	const ref = useRef<HTMLDivElement>(null);
+	const isInView = useInView(ref, { once: true });
+
+	return <div ref={ref} className={isInView ? "animate" : ""} />;
+}
+```
+
+Options:
+
+| Option    | Type                         | Default  | Description                                                                                                        |
+| --------- | ---------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------ |
+| `root`    | `RefObject<Element \| null>` | viewport | Ref to a scrollable container to use as the intersection root.                                                     |
+| `margin`  | `string`                     | `"0px"`  | Expand or contract the root bounds. Same syntax as CSS `margin` (e.g. `"10px"`, `"10% 0px"`).                      |
+| `amount`  | `"some" \| "all" \| number`  | `"some"` | How much of the element must be visible. `"some"` = any part, `"all"` = fully visible, or a ratio between `0`–`1`. |
+| `once`    | `boolean`                    | `false`  | Stop observing after the element enters the viewport for the first time.                                           |
+| `initial` | `boolean`                    | `false`  | Initial visibility state before the observer attaches.                                                             |
+
+### inView
+
+A framework-agnostic helper that observes when a DOM element enters or leaves the viewport using the `IntersectionObserver` API. When the element enters view, `onStart` is called. If `onStart` returns a function, that function is called when the element leaves. Returns a cleanup function that disconnects the observer.
+
+```tsx
+import { inView } from "@ngrok/mantle/utils";
+
+const element = document.querySelector(".my-element");
+
+const stop = inView(element, (el) => {
+	el.classList.add("visible");
+	return () => el.classList.remove("visible");
+});
+
+// Later, stop observing:
+stop();
+```
+
+| Option   | Type                        | Default  | Description                                                                                                        |
+| -------- | --------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------ |
+| `root`   | `Element \| Document`       | viewport | The scrollable container to observe within.                                                                        |
+| `margin` | `string`                    | `"0px"`  | Expand or contract the root bounds. Same syntax as CSS `margin` (e.g. `"10px"`, `"10% 0px"`).                      |
+| `amount` | `"some" \| "all" \| number` | `"some"` | How much of the element must be visible. `"some"` = any part, `"all"` = fully visible, or a ratio between `0`–`1`. |
