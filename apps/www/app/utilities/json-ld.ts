@@ -1,4 +1,4 @@
-import { canonicalOrigin, makeCanonicalUrl } from "./canonical-origin";
+import { canonicalOrigin, canonicalHref } from "./canonical-origin";
 
 type JsonLdPrimitive = string | number | boolean | null;
 type JsonLdValue = JsonLdPrimitive | JsonLdObject | JsonLdValue[];
@@ -80,7 +80,7 @@ function mantleWebPageJsonLd({
 	name,
 	pathname,
 }: MantleWebPageJsonLdOptions): JsonLdObject {
-	const pageUrl = makeCanonicalUrl(pathname);
+	const pageUrl = canonicalHref(pathname);
 
 	return {
 		"@context": "https://schema.org",
@@ -107,7 +107,7 @@ function mantleTechArticleJsonLd({
 	pathname,
 	title,
 }: MantleTechArticleJsonLdOptions): JsonLdObject {
-	const pageUrl = makeCanonicalUrl(pathname);
+	const pageUrl = canonicalHref(pathname);
 
 	return {
 		"@context": "https://schema.org",

@@ -7,7 +7,7 @@ import {
 	resolveDocComponent,
 	urlToFileMap,
 } from "~/utilities/docs";
-import { makeCanonicalUrl } from "~/utilities/canonical-origin";
+import { canonicalHref } from "~/utilities/canonical-origin";
 import {
 	jsonLdGraphMetaDescriptor,
 	mantleTechArticleJsonLd,
@@ -22,7 +22,7 @@ const frontmatterSchema = z.object({
 });
 
 export function meta({ loaderData, location }: Route.MetaArgs) {
-	const canonicalUrl = makeCanonicalUrl(location.pathname);
+	const canonicalUrl = canonicalHref(location.pathname);
 
 	const { frontmatter } = loaderData;
 	const docTitle = frontmatter.title;

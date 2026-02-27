@@ -25,13 +25,13 @@ import { Layout as WwwLayout } from "./components/layout";
 import { NavigationProvider } from "./components/navigation-context";
 import { useNonce } from "./components/nonce";
 import "./global.css";
-import { canonicalDomain, makeCanonicalUrl } from "./utilities/canonical-origin";
+import { canonicalDomain, canonicalHref } from "./utilities/canonical-origin";
 
 const title = "@ngrok/mantle";
 const description = "mantle is ngrok's UI library and design system";
 
 export const meta: Route.MetaFunction = () => {
-	const canonicalUrl = makeCanonicalUrl(href("/"));
+	const canonicalUrl = canonicalHref(href("/"));
 
 	return [
 		{

@@ -11,7 +11,7 @@ const canonicalDomain = "mantle.ngrok.com";
 
 /**
  * Canonical site origin (scheme + host) for constructing absolute URLs.
- * Locked to HTTPS. Prefer {@link makeCanonicalUrl} for path-joining.
+ * Locked to HTTPS. Prefer {@link canonicalHref} for path-joining.
  *
  * @example
  * // "https://mantle.ngrok.com"
@@ -28,19 +28,42 @@ const canonicalOrigin = `https://${canonicalDomain}`;
  * @returns Absolute URL on the canonical origin.
  *
  * @example
- * makeCanonicalUrl(href("/base/typography")); // "https://mantle.ngrok.com/base/typography"
+ * canonicalHref(href("/base/typography")); // "https://mantle.ngrok.com/base/typography"
  *
  * @example
  * // With typed routes:
  * const path = "/docs" as const;
- * const url = makeCanonicalUrl(path); // typed as the exact string literal
+ * const url = canonicalHref(path); // typed as the exact string literal
  */
-const makeCanonicalUrl = (path: `/${string}` | (string & {})) =>
-	`${canonicalOrigin}${path}` as const;
+function canonicalHref(input: `/${string}` | (string & {})): string {
+	const path = input.startsWith("/") ? input : `/${input}`;
+	if (path === "/") {
+		return `${canonicalOrigin}/`;
+	}
+	return trimTrailingSlashes(`${canonicalOrigin}${path}`);
+}
 
 export {
 	//,
 	canonicalDomain,
 	canonicalOrigin,
-	makeCanonicalUrl,
+	canonicalHref,
 };
+
+/**
+ * Removes all trailing slashes from a string.
+ *
+ * O(n) time complexity (where n is the length of the input string).
+ *
+ * @example given "/foo/bar/" returns "/foo/bar"
+ * @example given "/foo/bar/////" returns "/foo/bar"
+ */
+function trimTrailingSlashes(input: string | undefined | null): string {
+	const value = input || "";
+
+	let end = value.length;
+	while (end > 0 && value.at(end - 1) === "/") {
+		end--;
+	}
+	return value.slice(0, end);
+}

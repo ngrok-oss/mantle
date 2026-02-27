@@ -1,5 +1,6 @@
 import { Suspense, use } from "react";
 import { ContentLayout } from "~/components/content-layout";
+import { canonicalHref } from "~/utilities/canonical-origin";
 import { getDocComponent, resolveDocComponent } from "~/utilities/docs";
 import {
 	jsonLdGraphMetaDescriptor,
@@ -13,8 +14,19 @@ const title = "@ngrok/mantle";
 const description = "mantle is ngrok's UI library and design system";
 
 export const meta: Route.MetaFunction = () => {
+	const canonicalUrl = canonicalHref("/");
+
 	return [
 		{ title },
+		{ name: "description", content: description },
+		{ property: "og:title", content: title },
+		{ name: "twitter:title", content: title },
+		{ property: "og:description", content: description },
+		{ name: "twitter:description", content: description },
+		{ tagName: "link" as const, rel: "canonical", href: canonicalUrl },
+		{ property: "og:type", content: "website" },
+		{ name: "og:url", property: "og:url", content: canonicalUrl },
+		{ name: "twitter:url", content: canonicalUrl },
 		jsonLdGraphMetaDescriptor([
 			mantleWebsiteJsonLd(),
 			mantleWebPageJsonLd({

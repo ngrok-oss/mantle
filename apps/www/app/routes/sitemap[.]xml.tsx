@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { makeCanonicalUrl } from "~/utilities/canonical-origin";
+import { canonicalHref } from "~/utilities/canonical-origin";
 import { urlToFileMap } from "~/utilities/docs";
 import type { Route } from "./+types/sitemap[.]xml";
 
@@ -29,7 +29,7 @@ function getDocPaths(): string[] {
 export const loader = async (_: Route.LoaderArgs) => {
 	const entries = getDocPaths()
 		.map((path) => {
-			const loc = escapeXml(makeCanonicalUrl(path));
+			const loc = escapeXml(canonicalHref(path));
 			return `  <url>\n    <loc>${loc}</loc>\n  </url>`;
 		})
 		.join("\n");

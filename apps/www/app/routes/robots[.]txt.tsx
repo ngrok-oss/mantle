@@ -1,10 +1,10 @@
-import { makeCanonicalUrl } from "~/utilities/canonical-origin";
+import { canonicalHref } from "~/utilities/canonical-origin";
 import type { Route } from "./+types/robots[.]txt";
 
 const robotsEnabled = `
 User-agent: *
 Allow: /
-Sitemap: ${makeCanonicalUrl("/sitemap.xml")}
+Sitemap: ${canonicalHref("/sitemap.xml")}
 `.trim();
 
 const robotsDisabled = `
