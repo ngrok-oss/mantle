@@ -48,7 +48,7 @@ export default defineConfig((options) => [
 		external: ["@phosphor-icons/react", "react", "react-dom", "tailwindcss"],
 		minify: true,
 		sourcemap: true,
-		target: "es2022",
+		target: "ES2023",
 		tsconfig: "tsconfig.build.json",
 		injectStyle: false,
 		format: "esm",

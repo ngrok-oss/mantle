@@ -26,7 +26,7 @@ describe("compareDatesNewestToOldest", () => {
 
 	test("sorts dates in newest-to-oldest (descending) order", () => {
 		const dates = [new Date("2020-10-01"), new Date("2020-09-01"), new Date("2020-11-01")];
-		const sortedDates = dates.sort(compareDatesNewestToOldest);
+		const sortedDates = dates.toSorted(compareDatesNewestToOldest);
 
 		expect(sortedDates).toEqual([
 			new Date("2020-11-01"),
@@ -60,7 +60,7 @@ describe("compareDatesOldestToNewest", () => {
 
 	test("sorts dates in oldest-to-newest (ascending) order", () => {
 		const dates = [new Date("2020-10-01"), new Date("2020-09-01"), new Date("2020-11-01")];
-		const sortedDates = dates.sort(compareDatesOldestToNewest);
+		const sortedDates = dates.toSorted(compareDatesOldestToNewest);
 
 		expect(sortedDates).toEqual([
 			new Date("2020-09-01"),

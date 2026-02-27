@@ -1,12 +1,29 @@
 import { Suspense, use } from "react";
 import { ContentLayout } from "~/components/content-layout";
 import { getDocComponent, resolveDocComponent } from "~/utilities/docs";
+import {
+	jsonLdGraphMetaDescriptor,
+	mantleWebPageJsonLd,
+	mantleWebsiteJsonLd,
+} from "~/utilities/json-ld";
 import type { Route } from "./+types/_index";
 
 const indexFilePath = "../docs/index.mdx";
+const title = "@ngrok/mantle";
+const description = "mantle is ngrok's UI library and design system";
 
 export const meta: Route.MetaFunction = () => {
-	return [{ title: "@ngrok/mantle" }];
+	return [
+		{ title },
+		jsonLdGraphMetaDescriptor([
+			mantleWebsiteJsonLd(),
+			mantleWebPageJsonLd({
+				name: title,
+				description,
+				pathname: "/",
+			}),
+		]),
+	];
 };
 
 export default function Page() {

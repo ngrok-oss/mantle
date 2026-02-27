@@ -121,7 +121,7 @@ function resolveRel(
 		const result = [...uniqueRel]
 			.map((item) => item?.trim())
 			.filter(Boolean)
-			.sort()
+			.toSorted()
 			.join(" ");
 		return result || undefined;
 	}
