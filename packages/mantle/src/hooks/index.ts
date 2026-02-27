@@ -18,3 +18,5 @@ export { useScrollBehavior } from "./use-scroll-behavior.js";
 export { useComposedRefs } from "../utils/compose-refs/compose-refs.js";
 export { useInView } from "./use-in-view.js";
 export type { UseInViewOptions } from "./use-in-view.js";
+export { useUndoRedo } from "./use-undo-redo.js";
+export type { UseUndoRedoReturn } from "./use-undo-redo.js";
