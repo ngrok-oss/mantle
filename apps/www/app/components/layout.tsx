@@ -305,7 +305,14 @@ const welcomeRoutes = {
 	Philosophy: "/philosophy",
 } as const satisfies Record<(typeof welcomePages)[number], Route>;
 
-const basePages = ["Breakpoints", "Colors", "Shadows", "Tailwind Variants", "Typography"] as const;
+const basePages = [
+	//,
+	"Breakpoints",
+	"Colors",
+	"Shadows",
+	"Tailwind Variants",
+	"Typography",
+] as const;
 
 const baseRoutes = {
 	Breakpoints: "/base/breakpoints",
@@ -316,6 +323,23 @@ const baseRoutes = {
 } as const satisfies Record<(typeof basePages)[number], Route>;
 
 const hooksRoute = "/hooks" as const satisfies Route;
+
+const utilsPages = [
+	//,
+	"cx",
+	"color",
+	"composeRefs",
+	"inView",
+	"sorting",
+] as const;
+
+const utilsRoutes = {
+	cx: "/utils/cx",
+	color: "/utils/color",
+	composeRefs: "/utils/compose-refs",
+	inView: "/utils/in-view",
+	sorting: "/utils/sorting",
+} as const satisfies Record<(typeof utilsPages)[number], Route>;
 
 function Navigation({ className, style }: WithStyleProps) {
 	return (
@@ -343,15 +367,6 @@ function Navigation({ className, style }: WithStyleProps) {
 					))}
 				</ul>
 
-				<li className="mt-6 text-xs font-medium uppercase tracking-wider font-mono">Hooks</li>
-				<ul className="mt-2">
-					<li>
-						<NavLink to={hooksRoute} prefetch="intent">
-							Hooks
-						</NavLink>
-					</li>
-				</ul>
-
 				<li className="mt-6 text-xs font-medium uppercase tracking-wider font-mono">Components</li>
 				<ul className="mt-2">
 					{prodReadyComponents.map((component) => (
@@ -371,6 +386,26 @@ function Navigation({ className, style }: WithStyleProps) {
 						<li key={component}>
 							<NavLink to={previewComponentsRouteLookup[component]} prefetch="intent">
 								{component}
+							</NavLink>
+						</li>
+					))}
+				</ul>
+
+				<li className="mt-6 text-xs font-medium uppercase tracking-wider font-mono">Hooks</li>
+				<ul className="mt-2">
+					<li>
+						<NavLink to={hooksRoute} prefetch="intent">
+							Hooks
+						</NavLink>
+					</li>
+				</ul>
+
+				<li className="mt-6 text-xs font-medium uppercase tracking-wider font-mono">Utils</li>
+				<ul className="mt-2">
+					{utilsPages.map((page) => (
+						<li key={page}>
+							<NavLink to={utilsRoutes[page]} prefetch="intent">
+								{page}
 							</NavLink>
 						</li>
 					))}
@@ -529,6 +564,31 @@ function CommandPalette({ currentVersion }: { currentVersion: string | undefined
 								<ArrowRightIcon />
 							</Link>
 						</Command.Item>
+					</Command.Group>
+					<Command.Separator />
+					<Command.Group heading="Utils">
+						{utilsPages.map((page) => (
+							<Command.Item
+								key={page}
+								onSelect={() => {
+									navigate(utilsRoutes[page]);
+									setOpen(false);
+								}}
+								asChild
+							>
+								<Link
+									to={utilsRoutes[page]}
+									prefetch="intent"
+									className="flex items-center gap-2 justify-between"
+								>
+									<ItemName>
+										{page}
+										<span className="text-muted text-xs">{utilsRoutes[page]}</span>
+									</ItemName>
+									<ArrowRightIcon />
+								</Link>
+							</Command.Item>
+						))}
 					</Command.Group>
 					<Command.Separator />
 					<Command.Group heading="Components">

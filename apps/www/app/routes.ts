@@ -17,7 +17,16 @@ export default [
 
 	// MDX docs: auto-discovers docs from app/docs/**/*.mdx
 	// Handles both /path and /path.md URLs (returns HTML or raw markdown respectively)
+
+	// core/base top-level pages
 	...docRoute("philosophy"),
+	...docRoute("base/breakpoints"),
+	...docRoute("base/colors"),
+	...docRoute("base/shadows"),
+	...docRoute("base/tailwind-variants"),
+	...docRoute("base/typography"),
+
+	// component docs
 	...docRoute("components/alert-dialog"),
 	...docRoute("components/alert"),
 	...docRoute("components/anchor"),
@@ -26,6 +35,7 @@ export default [
 	...docRoute("components/button"),
 	...docRoute("components/card"),
 	...docRoute("components/checkbox"),
+	...docRoute("components/code-block"),
 	...docRoute("components/code"),
 	...docRoute("components/combobox"),
 	...docRoute("components/command"),
@@ -37,22 +47,25 @@ export default [
 	...docRoute("components/hover-card"),
 	...docRoute("components/icon-button"),
 	...docRoute("components/icon"),
+	...docRoute("components/icons"),
 	...docRoute("components/input"),
+	...docRoute("components/kbd"),
 	...docRoute("components/label"),
 	...docRoute("components/media-object"),
 	...docRoute("components/pagination"),
 	...docRoute("components/password-input"),
 	...docRoute("components/popover"),
+	...docRoute("components/preview/accordion"),
+	...docRoute("components/preview/calendar"),
 	...docRoute("components/progress-bar"),
 	...docRoute("components/progress-donut"),
 	...docRoute("components/radio-group"),
-	...docRoute("components/kbd"),
 	...docRoute("components/sandboxed-on-click"),
 	...docRoute("components/select"),
 	...docRoute("components/separator"),
 	...docRoute("components/sheet"),
-	...docRoute("components/slider"),
 	...docRoute("components/skeleton"),
+	...docRoute("components/slider"),
 	...docRoute("components/slot"),
 	...docRoute("components/split-button"),
 	...docRoute("components/switch"),
@@ -62,17 +75,14 @@ export default [
 	...docRoute("components/theme"),
 	...docRoute("components/toast"),
 	...docRoute("components/tooltip"),
-	...docRoute("base/breakpoints"),
-	...docRoute("base/shadows"),
-	...docRoute("base/tailwind-variants"),
-	...docRoute("base/typography"),
-	...docRoute("base/colors"),
+
+	// hooks 🪝
 	...docRoute("hooks"),
 
-	...docRoute("components/preview/accordion"),
-	...docRoute("components/preview/calendar"),
-
-	...docRoute("components/icons"),
-
-	...docRoute("components/code-block"),
+	// utilities
+	...docRoute("utils/color"),
+	...docRoute("utils/compose-refs"),
+	...docRoute("utils/cx"),
+	...docRoute("utils/in-view"),
+	...docRoute("utils/sorting"),
 ] satisfies RouteConfig;

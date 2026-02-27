@@ -1,0 +1,110 @@
+---
+title: inView
+description: Framework-agnostic IntersectionObserver utility from @ngrok/mantle/utils
+---
+
+# inView
+
+A framework-agnostic utility that observes when a DOM element enters or leaves the viewport (or a scrollable container) using the [`IntersectionObserver`](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver) API.
+
+When the element enters view, `onStart` is called. If `onStart` returns a function, that function is called when the element leaves. Returns a cleanup function that disconnects the observer.
+
+Use [`useInView`](/hooks#useInView) instead when working inside React components.
+
+```ts
+import { inView } from "@ngrok/mantle/utils";
+```
+
+## Usage
+
+```ts
+import { inView } from "@ngrok/mantle/utils";
+
+const element = document.querySelector(".my-element");
+
+const stop = inView(element, (el) => {
+	el.classList.add("visible");
+	return () => el.classList.remove("visible");
+});
+
+// Later, stop observing:
+stop();
+```
+
+### One-shot (enter only)
+
+If `onStart` returns nothing (`undefined` or `void`), the observer automatically unobserves the element after the first entry — useful for one-shot entrance animations:
+
+```ts
+import { inView } from "@ngrok/mantle/utils";
+
+const element = document.querySelector(".fade-in");
+
+inView(element, (el) => {
+	el.classList.add("animate");
+	// No return value → stops observing after first entry
+});
+```
+
+### Custom threshold
+
+```ts
+import { inView } from "@ngrok/mantle/utils";
+
+// Trigger only when 50% of the element is visible
+inView(
+	element,
+	(el) => {
+		el.classList.add("half-visible");
+		return () => el.classList.remove("half-visible");
+	},
+	{ amount: 0.5 },
+);
+```
+
+### Scoped to a scrollable container
+
+```ts
+import { inView } from "@ngrok/mantle/utils";
+
+const container = document.querySelector(".scroll-container");
+
+inView(
+	element,
+	(el) => {
+		el.classList.add("in-view");
+		return () => el.classList.remove("in-view");
+	},
+	{ root: container },
+);
+```
+
+## API
+
+```ts
+function inView(
+	element: Element,
+	onStart: (element: Element, entry: IntersectionObserverEntry) => void | ViewChangeHandler,
+	options?: InViewOptions,
+): VoidFunction;
+```
+
+### Parameters
+
+| Parameter | Type                                            | Description                                                                                                                                                 |
+| --------- | ----------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `element` | `Element`                                       | The DOM element to observe.                                                                                                                                 |
+| `onStart` | `(element, entry) => void \| ViewChangeHandler` | Called when the element enters the viewport. Return a function to be called when the element leaves, or return nothing to stop observing after first entry. |
+| `options` | `InViewOptions`                                 | Optional configuration.                                                                                                                                     |
+
+### Options
+
+| Option   | Type                        | Default  | Description                                                                                                        |
+| -------- | --------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------ |
+| `root`   | `Element \| Document`       | viewport | The scrollable container to observe within.                                                                        |
+| `margin` | `string`                    | `"0px"`  | Expand or contract the root bounds. Same syntax as CSS `margin` (e.g. `"10px"`, `"10% 0px"`).                      |
+| `amount` | `"some" \| "all" \| number` | `"some"` | How much of the element must be visible. `"some"` = any part, `"all"` = fully visible, or a ratio between `0`–`1`. |
+
+### Return value
+
+Returns a `VoidFunction` that unobserves the element and disconnects the observer when called.

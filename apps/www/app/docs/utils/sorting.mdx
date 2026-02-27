@@ -1,0 +1,179 @@
+---
+title: sorting
+description: Sorting constants, type guards, and comparators from @ngrok/mantle/utils
+---
+
+# sorting
+
+Sorting constants, type guards, and date comparator functions for building consistent, type-safe sort controls.
+
+```ts
+import {
+	sortingModes,
+	sortingDirections,
+	timeSortingDirections,
+	alphanumericSortingDirections,
+	isSortingMode,
+	isSortingDirection,
+	isTimeSortingDirection,
+	isAlphanumericSortingDirection,
+	$sortingMode,
+	$sortingDirection,
+	$timeSortingDirection,
+	$alphanumericSortingDirection,
+	timeSortingByDirection,
+	compareDatesNewestToOldest,
+	compareDatesOldestToNewest,
+} from "@ngrok/mantle/utils";
+
+import type {
+	SortingMode,
+	SortingDirection,
+	TimeSortingDirection,
+	AlphanumericSortingDirection,
+} from "@ngrok/mantle/utils";
+```
+
+## Types
+
+| Type                           | Values                                     |
+| ------------------------------ | ------------------------------------------ |
+| `SortingMode`                  | `"alphanumeric" \| "time"`                 |
+| `SortingDirection`             | `"asc" \| "desc"`                          |
+| `AlphanumericSortingDirection` | `"asc" \| "desc"`                          |
+| `TimeSortingDirection`         | `"newest-to-oldest" \| "oldest-to-newest"` |
+
+## Constants
+
+### `sortingModes`
+
+```ts
+sortingModes; // readonly ["alphanumeric", "time"]
+```
+
+### `sortingDirections`
+
+```ts
+sortingDirections; // readonly ["asc", "desc"]
+```
+
+### `alphanumericSortingDirections`
+
+```ts
+alphanumericSortingDirections; // readonly ["asc", "desc"]
+```
+
+### `timeSortingDirections`
+
+```ts
+timeSortingDirections; // readonly ["newest-to-oldest", "oldest-to-newest"]
+```
+
+### `timeSortingByDirection`
+
+Maps a `SortingDirection` to its equivalent `TimeSortingDirection`.
+
+```ts
+timeSortingByDirection;
+// { asc: "oldest-to-newest", desc: "newest-to-oldest" }
+
+timeSortingByDirection["asc"]; // "oldest-to-newest"
+timeSortingByDirection["desc"]; // "newest-to-oldest"
+```
+
+## Type Guards
+
+### `isSortingMode(value)`
+
+```ts
+isSortingMode("alphanumeric"); // true
+isSortingMode("time"); // true
+isSortingMode("foo"); // false
+```
+
+### `isSortingDirection(value)`
+
+```ts
+isSortingDirection("asc"); // true
+isSortingDirection("desc"); // true
+isSortingDirection("foo"); // false
+```
+
+### `isAlphanumericSortingDirection(value)`
+
+```ts
+isAlphanumericSortingDirection("asc"); // true
+isAlphanumericSortingDirection("desc"); // true
+isAlphanumericSortingDirection("foo"); // false
+```
+
+### `isTimeSortingDirection(value)`
+
+```ts
+isTimeSortingDirection("newest-to-oldest"); // true
+isTimeSortingDirection("oldest-to-newest"); // true
+isTimeSortingDirection("asc"); // false
+isTimeSortingDirection("foo"); // false
+```
+
+## Runtime Value Helpers (`$` prefix)
+
+The `$`-prefixed helpers are identity functions that provide a runtime value with the correct inferred type. Useful for deriving typed values from string literals without a `as const` cast.
+
+### `$sortingMode(value)`
+
+```ts
+$sortingMode("alphanumeric"); // "alphanumeric" (typed as SortingMode)
+$sortingMode("time"); // "time"
+```
+
+### `$sortingDirection(value)`
+
+```ts
+$sortingDirection("asc"); // "asc" (typed as SortingDirection)
+$sortingDirection("desc"); // "desc"
+```
+
+### `$alphanumericSortingDirection(value)`
+
+```ts
+$alphanumericSortingDirection("asc"); // "asc" (typed as AlphanumericSortingDirection)
+$alphanumericSortingDirection("desc"); // "desc"
+```
+
+### `$timeSortingDirection(value)`
+
+Accepts either a `TimeSortingDirection` or a `SortingDirection`. When given a `SortingDirection`, it converts it via `timeSortingByDirection`.
+
+```ts
+$timeSortingDirection("asc"); // "oldest-to-newest"
+$timeSortingDirection("desc"); // "newest-to-oldest"
+$timeSortingDirection("oldest-to-newest"); // "oldest-to-newest"
+$timeSortingDirection("newest-to-oldest"); // "newest-to-oldest"
+```
+
+## Date Comparators
+
+### `compareDatesNewestToOldest(a, b)`
+
+Compares two `Date` values for descending (newest-first) sort order. Pass directly to `Array.prototype.sort`.
+
+```ts
+import { compareDatesNewestToOldest } from "@ngrok/mantle/utils";
+
+const dates = [new Date("2023-01-01"), new Date("2024-06-15"), new Date("2022-12-31")];
+dates.sort(compareDatesNewestToOldest);
+// → [2024-06-15, 2023-01-01, 2022-12-31]
+```
+
+### `compareDatesOldestToNewest(a, b)`
+
+Compares two `Date` values for ascending (oldest-first) sort order.
+
+```ts
+import { compareDatesOldestToNewest } from "@ngrok/mantle/utils";
+
+const dates = [new Date("2023-01-01"), new Date("2024-06-15"), new Date("2022-12-31")];
+dates.sort(compareDatesOldestToNewest);
+// → [2022-12-31, 2023-01-01, 2024-06-15]
+```

@@ -115,7 +115,10 @@ function inView(
 
 	observer.observe(element);
 
-	return () => observer.disconnect();
+	return () => {
+		observer.unobserve(element);
+		observer.disconnect();
+	};
 }
 
 export { inView };
