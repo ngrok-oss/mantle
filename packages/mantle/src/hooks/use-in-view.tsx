@@ -86,10 +86,10 @@ function useInView(
 			return;
 		}
 
-		const onEnter = () => {
+		function onEnter() {
 			setInView(true);
 			return once ? undefined : () => setInView(false);
-		};
+		}
 
 		const options: InViewOptions = {
 			root: (root && root.current) || undefined,
@@ -98,7 +98,14 @@ function useInView(
 		};
 
 		return inView(ref.current, onEnter, options);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
+		/**
+		 * Intentionally omit `isInView` from deps. The effect must only re-run
+		 * when the observation parameters change, not when visibility changes.
+		 * Including `isInView` would restart the observer (disconnect + reconnect)
+		 * on every enter/leave event, causing wasteful churn for the common
+		 * `once=false` case.
+		 */
+		// oxlint-disable-next-line react-hooks/exhaustive-deps
 	}, [root, ref, margin, once, amount]);
 
 	return isInView;

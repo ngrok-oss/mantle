@@ -34,10 +34,18 @@ const componentPackages = allComponents
 		return acc;
 	}, {});
 
-const utilPackages = allUtils.reduce<Record<string, string>>((acc, name) => {
-	acc[name] = utilPath(name);
-	return acc;
-}, {});
+/**
+ * Util directories that are consolidated into the `./utils` export and
+ * should not be built as individual entry points.
+ */
+const consolidatedIntoUtils = new Set<string>(["compose-refs", "sorting"]);
+
+const utilPackages = allUtils
+	.filter((name) => !consolidatedIntoUtils.has(name))
+	.reduce<Record<string, string>>((acc, name) => {
+		acc[name] = utilPath(name);
+		return acc;
+	}, {});
 
 export default defineConfig((options) => [
 	{

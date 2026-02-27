@@ -3,6 +3,9 @@ title: Hooks
 description: Custom React hooks exported from @ngrok/mantle/hooks
 ---
 
+import { Example } from "~/components/example";
+import { UseInViewDemo } from "~/features/use-in-view-demo";
+
 # Hooks
 
 Custom React hooks exported from `@ngrok/mantle/hooks`.
@@ -27,6 +30,10 @@ Custom React hooks exported from `@ngrok/mantle/hooks`.
 
 ## useBreakpoint
 
+```tsx
+const breakpoint = useBreakpoint();
+```
+
 Returns the current responsive breakpoint based on the viewport width. Uses a singleton subscription to a set of min-width media queries and returns the largest matching breakpoint.
 
 ```tsx
@@ -39,6 +46,10 @@ function ResponsiveComponent() {
 ```
 
 ## useIsBelowBreakpoint
+
+```tsx
+const isMobile = useIsBelowBreakpoint("md");
+```
 
 Returns `true` if the current viewport width is below the specified breakpoint. Accepts a `TailwindBreakpoint` (`"2xs"`, `"xs"`, `"sm"`, `"md"`, `"lg"`, `"xl"`, `"2xl"`).
 
@@ -53,6 +64,10 @@ function ResponsiveSidebar() {
 
 ## useCallbackRef
 
+```tsx
+const stableCallback = useCallbackRef(onChange);
+```
+
 Returns a memoized callback that always refers to the latest callback passed to the hook. Useful when passing a callback that may or may not be memoized to a child component without causing re-renders.
 
 ```tsx
@@ -66,10 +81,14 @@ function Example({ onChange }: { onChange?: (value: string) => void }) {
 
 ## useComposedRefs
 
+```tsx
+const ref = useComposedRefs(internalRef, forwardedRef);
+```
+
 Composes multiple React refs (callback refs and `RefObject`s) into a single stable callback ref using `useCallback`. Useful when a component needs to forward a ref while also keeping an internal one.
 
 ```tsx
-import { useRef } from "react";
+import { forwardRef, useRef } from "react";
 import { useComposedRefs } from "@ngrok/mantle/hooks";
 
 const MyInput = forwardRef<HTMLInputElement>((props, forwardedRef) => {
@@ -80,6 +99,10 @@ const MyInput = forwardRef<HTMLInputElement>((props, forwardedRef) => {
 ```
 
 ## useCopyToClipboard
+
+```tsx
+const [copiedValue, copy] = useCopyToClipboard();
+```
 
 Copies a string to the clipboard. Returns a tuple of the last copied value and a copy function. Includes a fallback for older browsers.
 
@@ -93,6 +116,10 @@ function CopyButton({ text }: { text: string }) {
 ```
 
 ## useDebouncedCallback
+
+```tsx
+const debouncedFn = useDebouncedCallback(fn, { waitMs: 300 });
+```
 
 Creates a debounced version of a callback function. Delays execution until a period of inactivity has passed (`options.waitMs`). The debounced callback is stable and safe to use in dependency arrays.
 
@@ -108,6 +135,10 @@ function SearchInput() {
 ```
 
 ## useIsHydrated
+
+```tsx
+const isHydrated = useIsHydrated();
+```
 
 Returns whether the component tree has been hydrated on the client. Returns `false` on the server and `true` after hydration on the client. Uses `useSyncExternalStore` to prevent hydration mismatches.
 
@@ -126,6 +157,12 @@ function ClientOnly({ children }: PropsWithChildren) {
 
 ## useIsomorphicLayoutEffect
 
+```tsx
+useIsomorphicLayoutEffect(() => {
+	/* ... */
+}, [deps]);
+```
+
 Uses `useLayoutEffect` on the client and `useEffect` on the server. Avoids SSR warnings about `useLayoutEffect` doing nothing on the server.
 
 ```tsx
@@ -140,6 +177,10 @@ function MeasureElement() {
 
 ## useMatchesMediaQuery
 
+```tsx
+const matches = useMatchesMediaQuery("(prefers-color-scheme: dark)");
+```
+
 Subscribes to and returns the result of a CSS media query string. Uses `window.matchMedia` and `useSyncExternalStore` for concurrent rendering compatibility.
 
 ```tsx
@@ -152,6 +193,10 @@ function DarkModeDetector() {
 ```
 
 ## usePrefersReducedMotion
+
+```tsx
+const reduce = usePrefersReducedMotion();
+```
 
 Returns `true` when the user has opted out of animations (i.e., prefers reduced motion). Defaults to `true` on the server to avoid animating before hydration.
 
@@ -167,6 +212,10 @@ function AnimatedComponent() {
 
 ## useRandomStableId
 
+```tsx
+const id = useRandomStableId("prefix");
+```
+
 Generates a random, stable ID. Similar to `useId`, but produces an ID that is safe for use in CSS selectors and as element IDs. Accepts an optional prefix (defaults to `"mantle"`).
 
 ```tsx
@@ -181,6 +230,10 @@ function Tooltip({ children }: PropsWithChildren) {
 
 ## useScrollBehavior
 
+```tsx
+const behavior = useScrollBehavior(); // "smooth" | "auto"
+```
+
 Returns a `ScrollBehavior` (`"auto"` or `"smooth"`) that respects the user's reduced motion preference. Returns `"auto"` when the user prefers reduced motion, otherwise `"smooth"`.
 
 ```tsx
@@ -194,7 +247,13 @@ function ScrollToTop() {
 
 ## useInView
 
-React hook that tracks whether a DOM element is visible within the viewport (or a scrollable container). Returns `true` when the element is in view, otherwise `false`. Backed by the framework-agnostic `inView` helper (exported from `@ngrok/mantle/utils`), which uses the `IntersectionObserver` API directly and can be used outside of React.
+React hook that tracks whether a DOM element is visible within the viewport (or a scrollable container).
+Returns `true` when the element is in view, otherwise `false`.
+
+```tsx
+const isInView = useInView(ref);
+const isInView = useInView(ref, { once: true, amount: 0.5 });
+```
 
 ```tsx
 import { useRef } from "react";
@@ -222,7 +281,7 @@ function AnimateOnce() {
 }
 ```
 
-Options:
+### useInView Options:
 
 | Option    | Type                         | Default  | Description                                                                                                        |
 | --------- | ---------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------ |
@@ -232,26 +291,46 @@ Options:
 | `once`    | `boolean`                    | `false`  | Stop observing after the element enters the viewport for the first time.                                           |
 | `initial` | `boolean`                    | `false`  | Initial visibility state before the observer attaches.                                                             |
 
-### inView
+### useInView Example
 
-A framework-agnostic helper that observes when a DOM element enters or leaves the viewport using the `IntersectionObserver` API. When the element enters view, `onStart` is called. If `onStart` returns a function, that function is called when the element leaves. Returns a cleanup function that disconnects the observer.
+Live demo for the useInView hook.
+A scrollable container where the observed element transitions between in-view and out-of-view states as you scroll.
+
+<Example className="p-0 overflow-hidden">
+	<UseInViewDemo />
+</Example>
 
 ```tsx
-import { inView } from "@ngrok/mantle/utils";
+"use client";
 
-const element = document.querySelector(".my-element");
+import { cx } from "@ngrok/mantle/cx";
+import { useInView } from "@ngrok/mantle/hooks";
+import { useRef, type ComponentRef } from "react";
 
-const stop = inView(element, (el) => {
-	el.classList.add("visible");
-	return () => el.classList.remove("visible");
-});
+export function UseInViewDemo() {
+	const ref = useRef<ComponentRef<"div">>(null);
+	const isInView = useInView(ref, { amount: 0.5 });
 
-// Later, stop observing:
-stop();
+	return (
+		<div className="h-72 w-full overflow-y-scroll overscroll-contain">
+			<div className="flex flex-col items-center gap-4 px-8 py-6">
+				<p className="select-none font-mono text-sm text-muted">↓ scroll down</p>
+				<div className="h-60" />
+				<div
+					ref={ref}
+					className={cx(
+						"flex h-28 w-64 items-center justify-center rounded-xl border-2 font-mono text-sm transition-all duration-500",
+						isInView
+							? "scale-100 border-accent-600 bg-accent-600/10 text-accent-600 opacity-100"
+							: "scale-95 border-card-muted bg-gray-50 text-muted opacity-30",
+					)}
+				>
+					isInView: {String(isInView)}
+				</div>
+				<div className="h-60" />
+				<p className="select-none font-mono text-sm text-muted">↑ scroll up</p>
+			</div>
+		</div>
+	);
+}
 ```
-
-| Option   | Type                        | Default  | Description                                                                                                        |
-| -------- | --------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------ |
-| `root`   | `Element \| Document`       | viewport | The scrollable container to observe within.                                                                        |
-| `margin` | `string`                    | `"0px"`  | Expand or contract the root bounds. Same syntax as CSS `margin` (e.g. `"10px"`, `"10% 0px"`).                      |
-| `amount` | `"some" \| "all" \| number` | `"some"` | How much of the element must be visible. `"some"` = any part, `"all"` = fully visible, or a ratio between `0`–`1`. |
