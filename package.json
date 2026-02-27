@@ -16,6 +16,7 @@
     "test": "turbo run test",
     "test:watch": "turbo run test:watch",
     "typecheck": "turbo run typecheck",
+    "prepare": "husky",
     "changeset": "changeset",
     "changeset:version": "changeset version",
     "changeset:publish": "turbo run build --filter=@ngrok/mantle && changeset publish"
@@ -25,6 +26,8 @@
     "@changesets/cli": "2.29.8",
     "@types/node": "24.10.15",
     "@typescript/native-preview": "7.0.0-dev.20260226.1",
+    "husky": "9.1.7",
+    "lint-staged": "16.2.7",
     "oxfmt": "0.35.0",
     "oxlint": "1.50.0",
     "tsx": "4.21.0",
