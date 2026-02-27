@@ -1,138 +1,119 @@
 import { useCallback, useMemo, useReducer } from "react";
 
 type UndoRedoState<T> = {
-	undoStack: T[];
-	redoStack: T[];
+	past: T[];
+	present: T;
+	future: T[];
 };
 
-type UndoRedoAction<T> =
-	| { type: "push"; snapshot: T }
-	| { type: "undo"; current: T }
-	| { type: "redo"; current: T };
+type UndoRedoAction<T> = { type: "set"; value: T } | { type: "undo" } | { type: "redo" };
 
 function undoRedoReducer<T>(state: UndoRedoState<T>, action: UndoRedoAction<T>): UndoRedoState<T> {
 	switch (action.type) {
-		case "push": {
+		case "set": {
 			return {
-				undoStack: [...state.undoStack, action.snapshot],
-				redoStack: [],
+				past: [...state.past, state.present],
+				present: action.value,
+				future: [],
 			};
 		}
 		case "undo": {
-			if (state.undoStack.length === 0) {
+			if (state.past.length === 0) {
 				return state;
 			}
-			const undoStack = state.undoStack.slice(0, -1);
-			const previous = state.undoStack[state.undoStack.length - 1];
+			const previous = state.past[state.past.length - 1];
 			if (previous === undefined) {
 				return state;
 			}
 			return {
-				undoStack,
-				redoStack: [...state.redoStack, action.current],
+				past: state.past.slice(0, -1),
+				present: previous,
+				future: [...state.future, state.present],
 			};
 		}
 		case "redo": {
-			if (state.redoStack.length === 0) {
+			if (state.future.length === 0) {
 				return state;
 			}
-			const redoStack = state.redoStack.slice(0, -1);
-			const next = state.redoStack[state.redoStack.length - 1];
+			const next = state.future[state.future.length - 1];
 			if (next === undefined) {
 				return state;
 			}
 			return {
-				undoStack: [...state.undoStack, action.current],
-				redoStack,
+				past: [...state.past, state.present],
+				present: next,
+				future: state.future.slice(0, -1),
 			};
 		}
 	}
 }
 
 type UseUndoRedoReturn<T> = {
+	/** The current value. */
+	present: T;
 	/** Whether there are actions to undo. */
 	canUndo: boolean;
 	/** Whether there are actions to redo. */
 	canRedo: boolean;
-	/** Push a snapshot onto the undo stack. Clears the redo stack. */
-	push: (snapshot: T) => void;
-	/** Pop the last snapshot from the undo stack. Returns `undefined` if empty. */
-	undo: (current: T) => T | undefined;
-	/** Pop the last snapshot from the redo stack. Returns `undefined` if empty. */
-	redo: (current: T) => T | undefined;
+	/** Set a new value, pushing the current value onto the undo stack and clearing the redo stack. */
+	set: (value: T) => void;
+	/** Undo the last change, moving the current value onto the redo stack. */
+	undo: () => void;
+	/** Redo the last undone change, moving the current value onto the undo stack. */
+	redo: () => void;
 };
 
 /**
  * A generic undo/redo hook backed by a reducer.
  *
- * Maintains two stacks (undo and redo). Call `push` before mutating state
- * to snapshot the current value. Call `undo`/`redo` with the current value
- * to swap it with the previous/next snapshot.
+ * Owns the full history including the current value. Call `set` to update the
+ * value and push the previous one onto the undo stack. Call `undo`/`redo` to
+ * move through history.
  *
  * @example
  * ```tsx
- * const { push, undo, redo, canUndo, canRedo } = useUndoRedo<string[]>();
+ * const { present: items, set: setItems, undo, redo, canUndo, canRedo } = useUndoRedo<string[]>([]);
  *
  * function removeItem(item: string) {
- *   push([...items]); // snapshot before mutation
  *   setItems(items.filter((i) => i !== item));
  * }
  *
  * function handleKeyDown(event: KeyboardEvent) {
- *   if ((event.metaKey || event.ctrlKey) && event.key === "z" && !event.shiftKey) {
- *     const previous = undo(items);
- *     if (previous) setItems(previous);
- *   }
- *   if ((event.metaKey || event.ctrlKey) && (event.shiftKey && event.key === "z" || event.key === "y")) {
- *     const next = redo(items);
- *     if (next) setItems(next);
- *   }
+ *   const mod = event.metaKey || event.ctrlKey;
+ *   if (mod && event.key === "z" && !event.shiftKey) undo();
+ *   if (mod && (event.key === "y" || (event.shiftKey && event.key === "z"))) redo();
  * }
  * ```
  */
-function useUndoRedo<T>(): UseUndoRedoReturn<T> {
+function useUndoRedo<T>(initialValue: T): UseUndoRedoReturn<T> {
 	const [state, dispatch] = useReducer(undoRedoReducer<T>, {
-		undoStack: [],
-		redoStack: [],
+		past: [],
+		present: initialValue,
+		future: [],
 	});
 
-	const push = useCallback((snapshot: T) => {
-		dispatch({ type: "push", snapshot });
+	const set = useCallback((value: T) => {
+		dispatch({ type: "set", value });
 	}, []);
 
-	const undo = useCallback(
-		(current: T): T | undefined => {
-			const previous = state.undoStack[state.undoStack.length - 1];
-			if (previous === undefined) {
-				return undefined;
-			}
-			dispatch({ type: "undo", current });
-			return previous;
-		},
-		[state.undoStack],
-	);
+	const undo = useCallback(() => {
+		dispatch({ type: "undo" });
+	}, []);
 
-	const redo = useCallback(
-		(current: T): T | undefined => {
-			const next = state.redoStack[state.redoStack.length - 1];
-			if (next === undefined) {
-				return undefined;
-			}
-			dispatch({ type: "redo", current });
-			return next;
-		},
-		[state.redoStack],
-	);
+	const redo = useCallback(() => {
+		dispatch({ type: "redo" });
+	}, []);
 
 	return useMemo(
 		() => ({
-			canUndo: state.undoStack.length > 0,
-			canRedo: state.redoStack.length > 0,
-			push,
+			present: state.present,
+			canUndo: state.past.length > 0,
+			canRedo: state.future.length > 0,
+			set,
 			undo,
 			redo,
 		}),
-		[state.undoStack.length, state.redoStack.length, push, undo, redo],
+		[state.present, state.past.length, state.future.length, set, undo, redo],
 	);
 }
 

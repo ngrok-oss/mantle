@@ -5,6 +5,7 @@ description: Custom React hooks exported from @ngrok/mantle/hooks
 
 import { Example } from "~/components/example";
 import { UseInViewDemo } from "~/features/use-in-view-demo";
+import { UseUndoRedoDemo } from "~/features/use-undo-redo-demo";
 
 # Hooks
 
@@ -27,6 +28,7 @@ Custom React hooks exported from `@ngrok/mantle/hooks`.
 | `useRandomStableId`         | Generates a random, stable ID safe for CSS selectors and element IDs.               |
 | `useScrollBehavior`         | Returns a `ScrollBehavior` that respects the user's reduced motion preference.      |
 | `useInView`                 | Returns `true` when a DOM element is visible within the viewport.                   |
+| `useUndoRedo`               | Manages undo/redo history with push, undo, and redo operations.                     |
 
 ## useBreakpoint
 
@@ -330,6 +332,135 @@ export function UseInViewDemo() {
 				<div className="h-60" />
 				<p className="select-none font-mono text-sm text-muted">↑ scroll up</p>
 			</div>
+		</div>
+	);
+}
+```
+
+## useUndoRedo
+
+A generic undo/redo hook that owns the full history including the current value. Call `set` to update the value — the previous value is automatically pushed onto the undo stack. Call `undo`/`redo` to move through history.
+
+```tsx
+const { present, set, undo, redo, canUndo, canRedo } = useUndoRedo(initialValue);
+```
+
+```tsx
+import { useUndoRedo } from "@ngrok/mantle/hooks";
+
+function EditableList() {
+	const {
+		present: items,
+		set: setItems,
+		undo,
+		redo,
+		canUndo,
+		canRedo,
+	} = useUndoRedo(["apple", "banana"]);
+
+	return (
+		<div>
+			<button disabled={!canUndo} onClick={undo}>
+				Undo
+			</button>
+			<button disabled={!canRedo} onClick={redo}>
+				Redo
+			</button>
+			{items.map((item) => (
+				<div key={item}>
+					{item}
+					<button onClick={() => setItems(items.filter((i) => i !== item))}>✕</button>
+				</div>
+			))}
+		</div>
+	);
+}
+```
+
+Handling keyboard shortcuts:
+
+```tsx
+import { useUndoRedo } from "@ngrok/mantle/hooks";
+
+function handleKeyDown(event: KeyboardEvent) {
+	const mod = event.metaKey || event.ctrlKey;
+	if (mod && event.key === "z" && !event.shiftKey) undo();
+	if (mod && (event.key === "y" || (event.shiftKey && event.key === "z"))) redo();
+}
+```
+
+### useUndoRedo Return Value:
+
+| Property  | Type                 | Description                                                                       |
+| --------- | -------------------- | --------------------------------------------------------------------------------- |
+| `present` | `T`                  | The current value.                                                                |
+| `canUndo` | `boolean`            | `true` when there are past states to undo.                                        |
+| `canRedo` | `boolean`            | `true` when there are future states to redo.                                      |
+| `set`     | `(value: T) => void` | Set a new value, pushing the current value onto the undo stack and clearing redo. |
+| `undo`    | `() => void`         | Revert to the previous value, moving the current value onto the redo stack.       |
+| `redo`    | `() => void`         | Advance to the next value, moving the current value onto the undo stack.          |
+
+### useUndoRedo Example
+
+A color picker where each selection can be undone and redone.
+
+<Example>
+	<UseUndoRedoDemo />
+</Example>
+
+```tsx
+"use client";
+
+import { Button } from "@ngrok/mantle/button";
+import { cx } from "@ngrok/mantle/cx";
+import { useUndoRedo } from "@ngrok/mantle/hooks";
+
+const COLORS = [
+	"bg-red-400",
+	"bg-orange-400",
+	"bg-yellow-400",
+	"bg-green-400",
+	"bg-blue-400",
+	"bg-purple-400",
+];
+
+export function UseUndoRedoDemo() {
+	const {
+		present: color,
+		set: setColor,
+		undo,
+		redo,
+		canUndo,
+		canRedo,
+	} = useUndoRedo(COLORS[0] ?? "bg-red-400");
+
+	return (
+		<div className="flex flex-col items-center gap-6 p-6">
+			<div className={cx("h-24 w-24 rounded-xl transition-all duration-300", color)} />
+			<div className="flex flex-wrap justify-center gap-2">
+				{COLORS.map((c) => (
+					<button
+						key={c}
+						className={cx(
+							"h-8 w-8 rounded-full transition-transform hover:scale-110",
+							c,
+							color === c && "ring-2 ring-offset-2 ring-gray-400",
+						)}
+						onClick={() => setColor(c)}
+					/>
+				))}
+			</div>
+			<div className="flex gap-2">
+				<Button type="button" appearance="outlined" disabled={!canUndo} onClick={undo}>
+					Undo
+				</Button>
+				<Button type="button" appearance="outlined" disabled={!canRedo} onClick={redo}>
+					Redo
+				</Button>
+			</div>
+			<p className="font-mono text-xs text-muted">
+				canUndo: {String(canUndo)} · canRedo: {String(canRedo)}
+			</p>
 		</div>
 	);
 }
