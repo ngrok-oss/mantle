@@ -1,5 +1,44 @@
 # @ngrok/mantle
 
+## 0.65.0
+
+### Minor Changes
+
+- [#1000](https://github.com/ngrok-oss/mantle/pull/1000) [`56a5245`](https://github.com/ngrok-oss/mantle/commit/56a5245e386fc0dde2688c25d95b52a1d7c1e871) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add `@ngrok/mantle/utils` export and new `useInView` hook.
+
+  **Breaking changes:**
+  - `@ngrok/mantle/compose-refs` is removed. Import `composeRefs` from `@ngrok/mantle/utils` and `useComposedRefs` from `@ngrok/mantle/hooks` instead.
+  - `@ngrok/mantle/utils/sorting` is removed. Import sorting utilities from `@ngrok/mantle/utils` instead.
+
+  **New exports at `@ngrok/mantle/utils`:**
+  - `inView(element, onStart, options)` — framework-agnostic `IntersectionObserver` helper that calls `onStart` when an element enters the viewport. If `onStart` returns a function, it is called when the element leaves. Returns a cleanup function that disconnects the observer.
+  - `composeRefs` and `useComposedRefs` — moved from `@ngrok/mantle/compose-refs`.
+  - All sorting utilities — moved from `@ngrok/mantle/utils/sorting`.
+
+  **New hook at `@ngrok/mantle/hooks`:**
+  - `useInView(ref, options)` — React hook that returns `true` when the referenced element is visible in the viewport. Supports `root`, `margin`, `amount`, `once`, and `initial` options.
+
+### Patch Changes
+
+- [#1001](https://github.com/ngrok-oss/mantle/pull/1001) [`922a053`](https://github.com/ngrok-oss/mantle/commit/922a053d84fb8ad8f51c42fe1058fb49da7be55d) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Address review feedback from PR #1000.
+  - `inView`: call `observer.unobserve(element)` before `observer.disconnect()` in the cleanup function for cleaner teardown.
+  - `useInView`: restore intentional omission of `isInView` from `useEffect` deps (matching the upstream motion implementation); replace the bare eslint-disable comment with an explanation of why including `isInView` would cause the observer to restart on every visibility change.
+  - `tsup.config.ts`: exclude `compose-refs` and `sorting` from individual build entries since they are now consolidated into the `./utils` export.
+  - `hooks.mdx`: fix missing `forwardRef` import in the `useComposedRefs` code example.
+  - `hooks.mdx`: remove `inView` from the hooks page; it now has a dedicated page under the new Utils section.
+  - `hooks.mdx`: add a live interactive demo for `useInView`.
+  - Changeset: correct version bump type to `major` (breaking changes) and clarify `useComposedRefs` migration path to `@ngrok/mantle/hooks`.
+  - Add `use-in-view.test.tsx` test coverage for the `useInView` hook.
+  - Add a Utils section to the docs site with dedicated pages for `cx`, `color`, `inView`, `composeRefs`, and `sorting`.
+
+- [#1002](https://github.com/ngrok-oss/mantle/pull/1002) [`f6e8271`](https://github.com/ngrok-oss/mantle/commit/f6e8271c70f6932d657b552f8cb24bebe6094a2a) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add optional `icon` prop to `Alert.DismissIconButton`.
+
+  The dismiss button now accepts an `icon` prop (`ReactNode`) to render a custom icon in place of the default `X` icon.
+
+- [#999](https://github.com/ngrok-oss/mantle/pull/999) [`4ebf12b`](https://github.com/ngrok-oss/mantle/commit/4ebf12bdc73f6c88f7968b2378b94b8ff1a3e0eb) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump tsconfig target/lib to ES2023
+
+- [#994](https://github.com/ngrok-oss/mantle/pull/994) [`c4d9812`](https://github.com/ngrok-oss/mantle/commit/c4d9812c9c14924418339d52aa06be61191cd224) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump up min version of tailwind
+
 ## 0.64.3
 
 ### Patch Changes
