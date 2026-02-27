@@ -192,32 +192,6 @@ function ScrollToTop() {
 }
 ```
 
-## inView
-
-A framework-agnostic helper that observes when a DOM element enters or leaves the viewport using the `IntersectionObserver` API. When the element enters view, `onStart` is called. If `onStart` returns a function, that function is called when the element leaves. Returns a cleanup function that disconnects the observer.
-
-```tsx
-import { inView } from "@ngrok/mantle/utils";
-
-const element = document.querySelector(".my-element");
-
-const stop = inView(element, (el) => {
-	el.classList.add("visible");
-	return () => el.classList.remove("visible");
-});
-
-// Later, stop observing:
-stop();
-```
-
-Options:
-
-| Option   | Type                        | Default  | Description                                                                                                        |
-| -------- | --------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------ |
-| `root`   | `Element \| Document`       | viewport | The scrollable container to observe within.                                                                        |
-| `margin` | `string`                    | `"0px"`  | Expand or contract the root bounds. Same syntax as CSS `margin` (e.g. `"10px"`, `"10% 0px"`).                      |
-| `amount` | `"some" \| "all" \| number` | `"some"` | How much of the element must be visible. `"some"` = any part, `"all"` = fully visible, or a ratio between `0`–`1`. |
-
 ## useInView
 
 React hook that tracks whether a DOM element is visible within the viewport (or a scrollable container). Returns `true` when the element is in view, otherwise `false`. Backed by the framework-agnostic `inView` helper (exported from `@ngrok/mantle/utils`), which uses the `IntersectionObserver` API directly and can be used outside of React.
@@ -257,3 +231,27 @@ Options:
 | `amount`  | `"some" \| "all" \| number`  | `"some"` | How much of the element must be visible. `"some"` = any part, `"all"` = fully visible, or a ratio between `0`–`1`. |
 | `once`    | `boolean`                    | `false`  | Stop observing after the element enters the viewport for the first time.                                           |
 | `initial` | `boolean`                    | `false`  | Initial visibility state before the observer attaches.                                                             |
+
+### inView
+
+A framework-agnostic helper that observes when a DOM element enters or leaves the viewport using the `IntersectionObserver` API. When the element enters view, `onStart` is called. If `onStart` returns a function, that function is called when the element leaves. Returns a cleanup function that disconnects the observer.
+
+```tsx
+import { inView } from "@ngrok/mantle/utils";
+
+const element = document.querySelector(".my-element");
+
+const stop = inView(element, (el) => {
+	el.classList.add("visible");
+	return () => el.classList.remove("visible");
+});
+
+// Later, stop observing:
+stop();
+```
+
+| Option   | Type                        | Default  | Description                                                                                                        |
+| -------- | --------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------ |
+| `root`   | `Element \| Document`       | viewport | The scrollable container to observe within.                                                                        |
+| `margin` | `string`                    | `"0px"`  | Expand or contract the root bounds. Same syntax as CSS `margin` (e.g. `"10px"`, `"10% 0px"`).                      |
+| `amount` | `"some" \| "all" \| number` | `"some"` | How much of the element must be visible. `"some"` = any part, `"all"` = fully visible, or a ratio between `0`–`1`. |
