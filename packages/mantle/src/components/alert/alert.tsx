@@ -295,13 +295,20 @@ const dismissHoverColor = <T extends Priority = Priority>(priority: T) =>
 const dismissActiveColor = <T extends Priority = Priority>(priority: T) =>
 	`var(--color-${priority}-900)`;
 
-type AlertDismissIconButtonProps = Partial<Omit<IconButtonProps, "icon">>;
+type AlertDismissIconButtonProps = Partial<Omit<IconButtonProps, "icon">> & {
+	/**
+	 * An optional icon to render inside the dismiss button. Defaults to an X icon.
+	 */
+	icon?: ReactNode;
+};
+
 const DismissIconButton = ({
 	size = "sm",
 	type = "button",
 	label = "Dismiss Alert",
 	appearance = "ghost",
 	className,
+	icon = <XIcon />,
 	style,
 	...props
 }: AlertDismissIconButtonProps) => {
@@ -309,7 +316,7 @@ const DismissIconButton = ({
 	return (
 		<IconButton
 			appearance={appearance}
-			icon={<XIcon />}
+			icon={icon}
 			label={label}
 			size={size}
 			data-alert-dismiss
