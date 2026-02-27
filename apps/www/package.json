@@ -10,7 +10,7 @@
     "start": "react-router dev --host",
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest watch",
-    "typecheck": "react-router typegen && tsc --noEmit"
+    "typecheck": "react-router typegen && tsgo"
   },
   "dependencies": {
     "@mdx-js/react": "3.1.1",

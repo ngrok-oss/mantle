@@ -8,6 +8,12 @@ import {
 	urlToFileMap,
 } from "~/utilities/docs";
 import { makeCanonicalUrl } from "~/utilities/canonical-origin";
+import {
+	jsonLdGraphMetaDescriptor,
+	mantleTechArticleJsonLd,
+	mantleWebPageJsonLd,
+	mantleWebsiteJsonLd,
+} from "~/utilities/json-ld";
 import type { Route } from "./+types/$";
 
 const frontmatterSchema = z.object({
@@ -19,8 +25,23 @@ export function meta({ loaderData, location }: Route.MetaArgs) {
 	const canonicalUrl = makeCanonicalUrl(location.pathname);
 
 	const { frontmatter } = loaderData;
-	const title = frontmatter.title ? `${frontmatter.title} - @ngrok/mantle` : "@ngrok/mantle";
+	const docTitle = frontmatter.title;
+	const title = docTitle ? `${docTitle} - @ngrok/mantle` : "@ngrok/mantle";
 	const description = frontmatter.description ?? "mantle is ngrok's UI library and design system";
+
+	const jsonLdValues = [
+		mantleWebsiteJsonLd(),
+		mantleWebPageJsonLd({
+			name: title,
+			description,
+			pathname: location.pathname,
+		}),
+		mantleTechArticleJsonLd({
+			title: docTitle,
+			description,
+			pathname: location.pathname,
+		}),
+	];
 
 	return [
 		{ title },
@@ -33,6 +54,7 @@ export function meta({ loaderData, location }: Route.MetaArgs) {
 		{ property: "og:type", content: "article" },
 		{ name: "og:url", property: "og:url", content: canonicalUrl },
 		{ name: "twitter:url", content: canonicalUrl },
+		jsonLdGraphMetaDescriptor(jsonLdValues),
 	];
 }
 
