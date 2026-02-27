@@ -100,11 +100,6 @@
       "types": "./dist/command.d.ts",
       "import": "./dist/command.js"
     },
-    "./compose-refs": {
-      "@ngrok/src-live-types": "./src/utils/compose-refs/index.ts",
-      "types": "./dist/compose-refs.d.ts",
-      "import": "./dist/compose-refs.js"
-    },
     "./cx": {
       "@ngrok/src-live-types": "./src/utils/cx/index.ts",
       "types": "./dist/cx.d.ts",
@@ -276,10 +271,10 @@
       "types": "./dist/types.d.ts",
       "import": "./dist/types.js"
     },
-    "./utils/sorting": {
-      "@ngrok/src-live-types": "./src/utils/sorting/index.ts",
-      "types": "./dist/sorting.d.ts",
-      "import": "./dist/sorting.js"
+    "./utils": {
+      "@ngrok/src-live-types": "./src/utils/index.ts",
+      "types": "./dist/utils.d.ts",
+      "import": "./dist/utils.js"
     }
   },
   "scripts": {
