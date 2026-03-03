@@ -389,6 +389,20 @@ All props from ariakit [Combobox](https://ariakit.org/reference/combobox), plus:
 | `placeholder?` | `string`                                                 |         | Placeholder text shown when no values are selected.                  |
 | `renderTag?`   | `(value: string, remove: () => void) => React.ReactNode` |         | Custom render function for tags. Receives value and remove callback. |
 
+### MultiSelect.TagOption
+
+The default tag component rendered inside `MultiSelect.TagValues` for each selected value. Displays the value label with a remove button and full keyboard navigation support.
+
+Use this when building a custom `TagValues`-like component and you want the default tag chrome with consistent styling.
+
+Also accepts all standard `span` element props (except `children` and `onKeyDown`).
+
+| Prop        | Type         | Default | Description                                                                                                               |
+| :---------- | :----------- | :------ | :------------------------------------------------------------------------------------------------------------------------ |
+| `value`     | `string`     |         | The value to display in the tag label.                                                                                    |
+| `onRemove?` | `() => void` |         | Called when the remove button is clicked. Defaults to removing the value via context when inside `MultiSelect.TagValues`. |
+| `locked?`   | `boolean`    | `false` | When true, disables the remove button and ignores Delete/Backspace key presses.                                           |
+
 ### MultiSelect.Content
 
 Renders a popover that contains multi-select content.

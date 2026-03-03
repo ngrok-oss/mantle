@@ -3,7 +3,13 @@
 import * as Primitive from "@ariakit/react";
 import { CheckIcon } from "@phosphor-icons/react/Check";
 import { XIcon } from "@phosphor-icons/react/X";
-import type { ComponentPropsWithoutRef, ComponentRef, KeyboardEvent, RefObject } from "react";
+import type {
+	ComponentProps,
+	ComponentPropsWithoutRef,
+	ComponentRef,
+	KeyboardEvent,
+	RefObject,
+} from "react";
 import { createContext, forwardRef, useCallback, useContext, useMemo, useRef } from "react";
 import type { WithAsChild } from "../../types/as-child.js";
 import { cx } from "../../utils/cx/cx.js";
@@ -108,6 +114,95 @@ const Trigger = forwardRef<HTMLDivElement, MultiSelectTriggerProps>(
 	},
 );
 Trigger.displayName = "MultiSelectTrigger";
+
+type TagValuesContextValue = {
+	handleTagKeyDown: (event: KeyboardEvent<HTMLSpanElement>, index: number) => void;
+	removeValue: (value: string) => void;
+	selectedArray: string[];
+};
+
+const TagValuesContext = createContext<TagValuesContextValue | null>(null);
+
+type TagOptionProps = Omit<ComponentProps<"span">, "children"> & {
+	/**
+	 * The value to display in the tag label.
+	 */
+	value: string;
+	/**
+	 * Called when the remove button is clicked. If omitted and the component is rendered
+	 * inside `MultiSelect.TagValues`, the value is removed from the selection via context.
+	 */
+	onRemove?: () => void;
+	/**
+	 * When true, the tag cannot be removed. The remove button is disabled and
+	 * Delete/Backspace key presses are ignored while the tag is focused.
+	 */
+	locked?: boolean;
+};
+
+/**
+ * The default tag rendered inside `MultiSelect.TagValues` for each selected value.
+ * Displays the value label with a remove button and full keyboard navigation support.
+ *
+ * Use this when building a custom `TagValues`-like component and you want the
+ * default tag chrome with consistent styling.
+ *
+ * @example
+ * ```tsx
+ * <MultiSelect.TagOption value="apple" />
+ * ```
+ */
+const TagOption = forwardRef<HTMLSpanElement, TagOptionProps>(
+	({ className, value, onRemove, locked = false, ...props }, ref) => {
+		const ctx = useContext(TagValuesContext);
+		const index = ctx?.selectedArray.indexOf(value) ?? -1;
+		const handleRemove = onRemove ?? (() => ctx?.removeValue(value));
+
+		return (
+			<span
+				ref={ref}
+				role="option"
+				aria-selected
+				tabIndex={-1}
+				className={cx(
+					"bg-neutral-100 border border-neutral-300 rounded-xs text-strong inline-flex items-center gap-1 pl-1.5 pr-1 py-0.5 text-xs font-semibold font-mono",
+					"focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-focus-accent",
+					className,
+				)}
+				onKeyDown={(event) => {
+					if (locked && (event.key === "Backspace" || event.key === "Delete")) {
+						event.preventDefault();
+						return;
+					}
+					ctx?.handleTagKeyDown(event, index);
+				}}
+				{...props}
+			>
+				{value}
+				<button
+					type="button"
+					aria-label={`Remove ${value}`}
+					tabIndex={-1}
+					disabled={locked}
+					className={cx(
+						"hover:bg-neutral-200 hover:text-strong text-strong/25 rounded-sm p-px size-4",
+						"disabled:pointer-events-none disabled:opacity-0",
+					)}
+					onClick={(event) => {
+						event.stopPropagation();
+						handleRemove();
+					}}
+					onMouseDown={(event) => {
+						event.preventDefault();
+					}}
+				>
+					<Icon svg={<XIcon weight="bold" />} className="size-3" />
+				</button>
+			</span>
+		);
+	},
+);
+TagOption.displayName = "MultiSelectTagOption";
 
 type MultiSelectTagValuesProps = Omit<Primitive.ComboboxProps, "render"> & {
 	/**
@@ -278,47 +373,28 @@ const TagValues = forwardRef<ComponentRef<"input">, MultiSelectTagValuesProps>(
 			[ref],
 		);
 
+		const contextValue = useMemo(
+			() => ({ handleTagKeyDown, removeValue, selectedArray }),
+			[handleTagKeyDown, removeValue, selectedArray],
+		);
+
 		return (
-			<>
-				{selectedArray.map((value, index) =>
+			<TagValuesContext.Provider value={contextValue}>
+				{selectedArray.map((value) =>
 					renderTag ? (
 						renderTag(value, () => removeValue(value))
 					) : (
-						<span
+						<TagOption
 							key={value}
-							ref={(el) => {
-								if (el) {
-									tagRefs.current.set(value, el);
+							ref={(node) => {
+								if (node) {
+									tagRefs.current.set(value, node);
 								} else {
 									tagRefs.current.delete(value);
 								}
 							}}
-							role="option"
-							aria-selected
-							tabIndex={-1}
-							className={cx(
-								"bg-neutral-500/20 text-strong inline-flex items-center gap-0.5 rounded px-1.5 py-0.5 text-xs font-medium",
-								"focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-focus-accent focus-visible:ring-offset-1",
-							)}
-							onKeyDown={(event) => handleTagKeyDown(event, index)}
-						>
-							{value}
-							<button
-								type="button"
-								aria-label={`Remove ${value}`}
-								tabIndex={-1}
-								className={cx("hover:bg-neutral-500/20 rounded-sm p-px")}
-								onClick={(event) => {
-									event.stopPropagation();
-									removeValue(value);
-								}}
-								onMouseDown={(event) => {
-									event.preventDefault();
-								}}
-							>
-								<Icon svg={<XIcon weight="bold" />} className="size-3" />
-							</button>
-						</span>
+							value={value}
+						/>
 					),
 				)}
 				<Primitive.Combobox
@@ -333,7 +409,7 @@ const TagValues = forwardRef<ComponentRef<"input">, MultiSelectTagValuesProps>(
 					ref={setInputRef}
 					{...props}
 				/>
-			</>
+			</TagValuesContext.Provider>
 		);
 	},
 );
@@ -424,7 +500,7 @@ const Item = forwardRef<ComponentRef<"div">, MultiSelectItemProps>(
 				value={value}
 				{...props}
 			>
-				<span className="flex-1">{children}</span>
+				{children}
 				<Primitive.ComboboxItemCheck>
 					<Icon svg={<CheckIcon weight="bold" />} className="size-4 text-accent-600" />
 				</Primitive.ComboboxItemCheck>
@@ -619,6 +695,21 @@ const MultiSelect = {
 	 * ```
 	 */
 	TagValues,
+	/**
+	 * The default tag rendered inside `MultiSelect.TagValues` for each selected value.
+	 * Displays the value label with a remove button and keyboard navigation support.
+	 *
+	 * @example
+	 * ```tsx
+	 * <MultiSelect.TagOption
+	 *   value="apple"
+	 *   index={0}
+	 *   onKeyDown={handleTagKeyDown}
+	 *   onRemove={() => removeValue("apple")}
+	 * />
+	 * ```
+	 */
+	TagOption,
 	/**
 	 * Renders a popover that contains multi-select content.
 	 *
