@@ -25,6 +25,9 @@ import { Slot } from "../slot/index.js";
 const isStringArray = (value: unknown): value is string[] =>
 	Array.isArray(value) && value.every((item) => typeof item === "string");
 
+/** Stable empty array used as a fallback for `selectedValues` to avoid creating new arrays on every render. */
+const EMPTY_ARRAY: string[] = [];
+
 const TriggerRefContext = createContext<RefObject<HTMLDivElement | null>>({ current: null });
 
 /**
@@ -330,7 +333,7 @@ const TagValues = ({ children, lockedValues = [] }: MultiSelectTagValuesProps) =
 	const store = Primitive.useComboboxContext();
 	const rawSelectedValue = Primitive.useStoreState(store, "selectedValue");
 	const selectedValues = isStringArray(rawSelectedValue) ? rawSelectedValue : undefined;
-	const selectedArray = useMemo(() => selectedValues ?? [], [selectedValues]);
+	const selectedArray = selectedValues ?? EMPTY_ARRAY;
 	// Keep refs in sync so requestAnimationFrame callbacks always read fresh state
 	// instead of closing over stale values from the render they were scheduled in.
 	const selectedArrayRef = useRef<string[]>(selectedArray);
@@ -340,161 +343,146 @@ const TagValues = ({ children, lockedValues = [] }: MultiSelectTagValuesProps) =
 	// refs are mutable and don't trigger re-renders.
 	const lockedValuesRef = useContext(LockedValuesContext);
 	lockedValuesRef.current = lockedValues;
+	const lockedValuesSet = new Set(lockedValues);
 	const tagRefs = useRef<Map<string, HTMLSpanElement>>(new Map());
 	const { onInputKeyDownRef, inputRef } = useContext(TagBridgeContext);
 
-	const removeValue = useCallback(
-		(value: string) => {
-			if (store) {
-				const selected = store.getState().selectedValue;
-				if (!isStringArray(selected)) {
-					return;
-				}
-				store.setSelectedValue(selected.filter((v) => v !== value));
-			}
-		},
-		[store],
-	);
-
-	const focusTag = useCallback(
-		(index: number) => {
-			const value = selectedArrayRef.current[index];
-			if (value == null) {
+	const removeValue = (value: string) => {
+		if (store) {
+			const selected = store.getState().selectedValue;
+			if (!isStringArray(selected)) {
 				return;
 			}
-			const tagElement = tagRefs.current.get(value);
-			if (tagElement) {
-				tagElement.focus();
-				// Keep the popover open while a tag is focused. Ariakit closes the
-				// popover when the combobox input loses focus, so we reopen it here.
-				store?.show();
-			}
-		},
-		[store],
-	);
+			store.setSelectedValue(selected.filter((v) => v !== value));
+		}
+	};
 
-	const focusInput = useCallback(() => {
+	const focusTag = (index: number) => {
+		const value = selectedArrayRef.current[index];
+		if (value == null) {
+			return;
+		}
+		const tagElement = tagRefs.current.get(value);
+		if (tagElement) {
+			tagElement.focus();
+			// Keep the popover open while a tag is focused. Ariakit closes the
+			// popover when the combobox input loses focus, so we reopen it here.
+			store?.show();
+		}
+	};
+
+	const focusInput = () => {
 		inputRef.current?.focus();
-	}, [inputRef]);
+	};
 
-	const handleTagKeyDown = useCallback(
-		(event: KeyboardEvent<HTMLSpanElement>, index: number) => {
-			const value = selectedArray[index];
-			switch (event.key) {
-				case "ArrowLeft": {
-					event.preventDefault();
-					if (index > 0) {
-						focusTag(index - 1);
-					}
-					break;
+	const handleTagKeyDown = (event: KeyboardEvent<HTMLSpanElement>, index: number) => {
+		const value = selectedArray[index];
+		switch (event.key) {
+			case "ArrowLeft": {
+				event.preventDefault();
+				if (index > 0) {
+					focusTag(index - 1);
 				}
-				case "ArrowRight": {
-					event.preventDefault();
-					if (index < selectedArray.length - 1) {
-						focusTag(index + 1);
-					} else {
-						focusInput();
-					}
-					break;
+				break;
+			}
+			case "ArrowRight": {
+				event.preventDefault();
+				if (index < selectedArray.length - 1) {
+					focusTag(index + 1);
+				} else {
+					focusInput();
 				}
-				case "Backspace":
-				case "Delete": {
-					event.preventDefault();
-					if (value != null) {
-						removeValue(value);
-						// After removal, the array shifts. Focus the next logical tag or the input.
-						if (event.key === "Backspace") {
-							if (index > 0) {
-								// Focus the previous tag (will have same index - 1 after removal)
-								// We need to wait for the next render, so use requestAnimationFrame
-								const prevIndex = index - 1;
-								requestAnimationFrame(() => focusTag(prevIndex));
-							} else {
-								requestAnimationFrame(() => {
-									if (selectedArrayRef.current.length > 0) {
-										focusTag(0);
-									} else {
-										focusInput();
-									}
-								});
-							}
+				break;
+			}
+			case "Backspace":
+			case "Delete": {
+				event.preventDefault();
+				if (value != null) {
+					removeValue(value);
+					// After removal, the array shifts. Focus the next logical tag or the input.
+					if (event.key === "Backspace") {
+						if (index > 0) {
+							// Focus the previous tag (will have same index - 1 after removal)
+							// We need to wait for the next render, so use requestAnimationFrame
+							const prevIndex = index - 1;
+							requestAnimationFrame(() => focusTag(prevIndex));
 						} else {
-							// Delete: move focus right
 							requestAnimationFrame(() => {
-								// index stays the same since the item at `index` was removed and the next one slides in
-								if (index < selectedArrayRef.current.length) {
-									focusTag(index);
+								if (selectedArrayRef.current.length > 0) {
+									focusTag(0);
 								} else {
 									focusInput();
 								}
 							});
 						}
-					}
-					break;
-				}
-				case "ArrowUp":
-				case "ArrowDown": {
-					// Don't scroll the page. Instead, focus the input and forward the key
-					// to Ariakit so it navigates the popover list.
-					event.preventDefault();
-					focusInput();
-					inputRef.current?.dispatchEvent(
-						new KeyboardEvent("keydown", {
-							key: event.key,
-							bubbles: true,
-							cancelable: true,
-							shiftKey: event.shiftKey,
-							ctrlKey: event.ctrlKey,
-							metaKey: event.metaKey,
-							altKey: event.altKey,
-						}),
-					);
-					break;
-				}
-				default: {
-					// If a printable character is typed while a tag is focused, jump to input
-					if (event.key.length === 1 && !event.ctrlKey && !event.metaKey) {
-						focusInput();
-					}
-					break;
-				}
-			}
-		},
-		[selectedArray, focusTag, focusInput, removeValue, inputRef],
-	);
-
-	const handleInputKeyDown = useCallback(
-		(event: KeyboardEvent<HTMLInputElement>) => {
-			if (
-				event.key === "ArrowLeft" &&
-				event.currentTarget.selectionStart === 0 &&
-				selectedArray.length > 0
-			) {
-				event.preventDefault();
-				focusTag(selectedArray.length - 1);
-				return;
-			}
-			if (
-				event.key === "Backspace" &&
-				event.currentTarget.value === "" &&
-				selectedArray.length > 0
-			) {
-				const lastValue = selectedArray[selectedArray.length - 1];
-				if (lastValue != null) {
-					if (lockedValuesRef.current.includes(lastValue)) {
-						// The last tag is locked — shake it to signal that removal is blocked.
-						const tagElement = tagRefs.current.get(lastValue);
-						if (tagElement) {
-							shakeElement(tagElement);
-						}
 					} else {
-						removeValue(lastValue);
+						// Delete: move focus right
+						requestAnimationFrame(() => {
+							// index stays the same since the item at `index` was removed and the next one slides in
+							if (index < selectedArrayRef.current.length) {
+								focusTag(index);
+							} else {
+								focusInput();
+							}
+						});
 					}
 				}
+				break;
 			}
-		},
-		[selectedArray, focusTag, removeValue, lockedValuesRef],
-	);
+			case "ArrowUp":
+			case "ArrowDown": {
+				// Don't scroll the page. Instead, focus the input and forward the key
+				// to Ariakit so it navigates the popover list.
+				event.preventDefault();
+				focusInput();
+				inputRef.current?.dispatchEvent(
+					new KeyboardEvent("keydown", {
+						key: event.key,
+						bubbles: true,
+						cancelable: true,
+						shiftKey: event.shiftKey,
+						ctrlKey: event.ctrlKey,
+						metaKey: event.metaKey,
+						altKey: event.altKey,
+					}),
+				);
+				break;
+			}
+			default: {
+				// If a printable character is typed while a tag is focused, jump to input
+				if (event.key.length === 1 && !event.ctrlKey && !event.metaKey) {
+					focusInput();
+				}
+				break;
+			}
+		}
+	};
+
+	const handleInputKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+		if (
+			event.key === "ArrowLeft" &&
+			event.currentTarget.selectionStart === 0 &&
+			selectedArray.length > 0
+		) {
+			event.preventDefault();
+			focusTag(selectedArray.length - 1);
+			return;
+		}
+		if (event.key === "Backspace" && event.currentTarget.value === "" && selectedArray.length > 0) {
+			const lastValue = selectedArray[selectedArray.length - 1];
+			if (lastValue != null) {
+				if (lockedValuesRef.current.includes(lastValue)) {
+					// The last tag is locked — shake it to signal that removal is blocked.
+					const tagElement = tagRefs.current.get(lastValue);
+					if (tagElement) {
+						shakeElement(tagElement);
+					}
+				} else {
+					removeValue(lastValue);
+				}
+			}
+		}
+	};
 
 	// Write the latest handler into the bridge ref so Input can call it via onKeyDown.
 	// Assigned directly during render (safe — refs are mutable and don't trigger re-renders).
@@ -505,7 +493,7 @@ const TagValues = ({ children, lockedValues = [] }: MultiSelectTagValuesProps) =
 			{selectedArray.map((value, index) => {
 				const tagOptionProps: TagRenderProps = {
 					value,
-					locked: lockedValues.includes(value),
+					locked: lockedValuesSet.has(value),
 					onRemove: () => removeValue(value),
 					ref: (node: HTMLSpanElement | null) => {
 						if (node) {
@@ -558,19 +546,6 @@ const Input = forwardRef<ComponentRef<"input">, MultiSelectInputProps>(
 		const selectedValues = isStringArray(rawSelectedValue) ? rawSelectedValue : undefined;
 		const hasSelectedValues = (selectedValues?.length ?? 0) > 0;
 
-		const setRef = useCallback(
-			(node: HTMLInputElement | null) => {
-				// Register this input's DOM node in the bridge so TagValues can focus it for keyboard nav.
-				inputRef.current = node;
-				if (typeof ref === "function") {
-					ref(node);
-				} else if (ref) {
-					ref.current = node;
-				}
-			},
-			[ref, inputRef],
-		);
-
 		return (
 			<Primitive.Combobox
 				autoSelect
@@ -601,7 +576,8 @@ const Input = forwardRef<ComponentRef<"input">, MultiSelectInputProps>(
 					onFocus?.(event);
 				}}
 				placeholder={hasSelectedValues ? undefined : placeholder}
-				ref={setRef}
+				// Register the input's DOM node in the bridge so TagValues can focus it for keyboard nav.
+				ref={composeRefs(inputRef, ref)}
 				{...props}
 			/>
 		);
