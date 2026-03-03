@@ -898,9 +898,8 @@ Empty.displayName = "MultiSelectEmpty";
 type MultiSelectContentFooterProps = ComponentPropsWithoutRef<"div">;
 
 /**
- * Renders a sticky footer inside `MultiSelect.Content`. Automatically pins to
- * the bottom when the popover opens below the trigger, or to the top when it
- * flips above — and switches the separator border accordingly.
+ * Renders a sticky footer pinned to the bottom inside `MultiSelect.Content`,
+ * with a separator border at the top.
  *
  * @example
  * ```tsx
