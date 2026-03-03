@@ -9,6 +9,7 @@ import type {
 	ComponentPropsWithoutRef,
 	ComponentRef,
 	KeyboardEvent,
+	ReactNode,
 	RefObject,
 } from "react";
 import { createContext, forwardRef, useCallback, useContext, useMemo, useRef } from "react";
@@ -153,11 +154,13 @@ const Trigger = forwardRef<HTMLDivElement, MultiSelectTriggerProps>(
 				)}
 				data-validation={validation || undefined}
 				onMouseDown={(event) => {
-					const target = event.target as HTMLElement;
 					// When clicking on non-interactive areas (padding, flex gaps between tags), prevent the
 					// default mousedown behavior (which would cause text selection) and explicitly focus the
 					// input. Clicks on buttons, the input itself, or tag spans are handled by those elements.
-					if (!target.closest("button, input, [role='option']")) {
+					if (
+						event.target instanceof HTMLElement &&
+						!event.target.closest("button, input, [role='option']")
+					) {
 						event.preventDefault();
 						inputRef.current?.focus();
 					}
@@ -303,7 +306,7 @@ type MultiSelectTagValuesProps = {
 	 * </MultiSelect.TagValues>
 	 * ```
 	 */
-	children?: (props: TagRenderProps) => React.ReactNode;
+	children?: (props: TagRenderProps) => ReactNode;
 };
 
 /**
@@ -343,8 +346,11 @@ const TagValues = ({ children, lockedValues = [] }: MultiSelectTagValuesProps) =
 	const removeValue = useCallback(
 		(value: string) => {
 			if (store) {
-				const current = (store.getState().selectedValue ?? []) as string[];
-				store.setSelectedValue(current.filter((v) => v !== value));
+				const selected = store.getState().selectedValue;
+				if (!isStringArray(selected)) {
+					return;
+				}
+				store.setSelectedValue(selected.filter((v) => v !== value));
 			}
 		},
 		[store],
@@ -356,9 +362,9 @@ const TagValues = ({ children, lockedValues = [] }: MultiSelectTagValuesProps) =
 			if (value == null) {
 				return;
 			}
-			const tagEl = tagRefs.current.get(value);
-			if (tagEl) {
-				tagEl.focus();
+			const tagElement = tagRefs.current.get(value);
+			if (tagElement) {
+				tagElement.focus();
 				// Keep the popover open while a tag is focused. Ariakit closes the
 				// popover when the combobox input loses focus, so we reopen it here.
 				store?.show();
@@ -1042,8 +1048,8 @@ const MultiSelect = {
 	 */
 	Content,
 	/**
-	 * Renders a sticky footer inside `MultiSelect.Content`. Pins to the bottom
-	 * when the popover opens below the trigger, or to the top when it flips above.
+	 * Renders a sticky footer pinned to the bottom inside `MultiSelect.Content`,
+	 * with a separator border at the top.
 	 *
 	 * @example
 	 * ```tsx

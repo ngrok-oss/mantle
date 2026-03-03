@@ -640,7 +640,7 @@ The default tag component rendered inside `MultiSelect.TagValues` for each selec
 
 Use this when building a custom `TagValues`-like component and you want the default tag chrome with consistent styling.
 
-Also accepts all standard `span` element props (except `children` and `onKeyDown`).
+Also accepts all standard `span` element props (except `children`). The `onKeyDown` prop is supported and is called after the internal locked-key handling.
 
 | Prop        | Type         | Default | Description                                                                                                               |
 | :---------- | :----------- | :------ | :------------------------------------------------------------------------------------------------------------------------ |
@@ -711,6 +711,6 @@ Standard `div` element props.
 
 ### MultiSelect.ContentFooter
 
-Renders a sticky footer inside `MultiSelect.Content`. Automatically sticks to the bottom when the popover opens downward and to the top when it flips upward (e.g., near the bottom of the viewport). Place it as the last child of `MultiSelect.Content`.
+Renders a sticky footer inside `MultiSelect.Content` that stays pinned to the bottom edge of the content area. Place it as the last child of `MultiSelect.Content`.
 
 Standard `div` element props.
