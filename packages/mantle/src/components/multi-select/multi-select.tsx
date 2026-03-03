@@ -2,6 +2,7 @@
 
 import * as Primitive from "@ariakit/react";
 import { CheckIcon } from "@phosphor-icons/react/Check";
+import { LockIcon } from "@phosphor-icons/react/Lock";
 import { XIcon } from "@phosphor-icons/react/X";
 import type {
 	ComponentProps,
@@ -11,8 +12,8 @@ import type {
 	RefObject,
 } from "react";
 import { createContext, forwardRef, useCallback, useContext, useMemo, useRef } from "react";
-import { composeRefs } from "../../utils/compose-refs/compose-refs.js";
 import type { WithAsChild } from "../../types/as-child.js";
+import { composeRefs } from "../../utils/compose-refs/compose-refs.js";
 import { cx } from "../../utils/cx/cx.js";
 import { Icon } from "../icon/icon.js";
 import type { WithValidation } from "../input/types.js";
@@ -24,6 +25,13 @@ const isStringArray = (value: unknown): value is string[] =>
 	Array.isArray(value) && value.every((item) => typeof item === "string");
 
 const TriggerRefContext = createContext<RefObject<HTMLDivElement | null>>({ current: null });
+
+/**
+ * Shared ref for locked values. Written by `TagValues` during render so that `Item` can read
+ * it synchronously and prevent deselection of locked values from the popover.
+ * Using a ref (instead of state) avoids re-renders and keeps the write safe in render.
+ */
+const LockedValuesContext = createContext<{ current: string[] }>({ current: [] });
 
 /**
  * Bridges keyboard-nav state between `TagValues` and `Input`, which are siblings in the tree
@@ -68,16 +76,20 @@ const Root = ({ children, defaultSelectedValue = [], ...props }: MultiSelectProp
 		undefined,
 	);
 	const inputRef = useRef<HTMLInputElement | null>(null);
+	const lockedValuesRef = useRef<string[]>([]);
 	const tagBridge = useMemo(() => ({ onInputKeyDownRef, inputRef }), []);
+
 	return (
 		<TriggerRefContext.Provider value={triggerRef}>
 			<TagBridgeContext.Provider value={tagBridge}>
-				<Primitive.ComboboxProvider<string[]>
-					defaultSelectedValue={defaultSelectedValue}
-					{...props}
-				>
-					{children}
-				</Primitive.ComboboxProvider>
+				<LockedValuesContext.Provider value={lockedValuesRef}>
+					<Primitive.ComboboxProvider<string[]>
+						defaultSelectedValue={defaultSelectedValue}
+						{...props}
+					>
+						{children}
+					</Primitive.ComboboxProvider>
+				</LockedValuesContext.Provider>
 			</TagBridgeContext.Provider>
 		</TriggerRefContext.Provider>
 	);
@@ -127,6 +139,7 @@ const Trigger = forwardRef<HTMLDivElement, MultiSelectTriggerProps>(
 		return (
 			<div
 				role="group"
+				data-slot="multi-select-trigger"
 				className={cx(
 					"cursor-text select-none font-sans text-sm",
 					"border-form bg-form text-strong flex w-full flex-wrap items-center gap-1 rounded-md border px-2 py-1.5",
@@ -160,7 +173,7 @@ const Trigger = forwardRef<HTMLDivElement, MultiSelectTriggerProps>(
 );
 Trigger.displayName = "MultiSelectTrigger";
 
-type TagOptionProps = Omit<ComponentProps<"span">, "children"> & {
+type TagProps = Omit<ComponentProps<"span">, "children"> & {
 	/**
 	 * The value to display in the tag label.
 	 */
@@ -185,17 +198,20 @@ type TagOptionProps = Omit<ComponentProps<"span">, "children"> & {
  *
  * @example
  * ```tsx
- * <MultiSelect.TagOption value="apple" />
+ * <MultiSelect.Tag value="apple" />
  * ```
  */
-const TagOption = forwardRef<HTMLSpanElement, TagOptionProps>(
+const Tag = forwardRef<HTMLSpanElement, TagProps>(
 	({ className, value, onRemove, locked = false, onKeyDown, ...props }, ref) => {
+		const internalRef = useRef<HTMLSpanElement | null>(null);
+
 		return (
 			<span
-				ref={ref}
+				ref={composeRefs(internalRef, ref)}
 				role="option"
 				aria-selected
 				tabIndex={-1}
+				data-slot="multi-select-tag"
 				data-locked={locked || undefined}
 				className={cx(
 					"cursor-default bg-neutral-100 border border-neutral-300 rounded-xs text-strong inline-flex items-center gap-1 pl-1.5 pr-1 py-0.5 text-xs font-semibold font-mono",
@@ -205,6 +221,7 @@ const TagOption = forwardRef<HTMLSpanElement, TagOptionProps>(
 				onKeyDown={(event) => {
 					if (locked && (event.key === "Backspace" || event.key === "Delete")) {
 						event.preventDefault();
+						shakeElement(event.currentTarget);
 						return;
 					}
 					onKeyDown?.(event);
@@ -216,14 +233,22 @@ const TagOption = forwardRef<HTMLSpanElement, TagOptionProps>(
 					type="button"
 					aria-label={`Remove ${value}`}
 					tabIndex={-1}
-					disabled={locked}
+					aria-disabled={locked || undefined}
 					className={cx(
 						"cursor-pointer hover:bg-neutral-200 hover:text-strong text-strong/25 rounded-sm p-px size-4",
-						"disabled:pointer-events-none disabled:cursor-default",
+						"aria-disabled:cursor-default aria-disabled:hover:bg-transparent aria-disabled:hover:text-strong/25",
 					)}
 					onClick={(event) => {
 						// Prevent the click from bubbling to the trigger, which would reopen or refocus the combobox
 						event.stopPropagation();
+						if (locked) {
+							// Shake the tag to signal that removal is blocked
+							const tagElement = internalRef.current;
+							if (tagElement) {
+								shakeElement(tagElement);
+							}
+							return;
+						}
 						onRemove?.();
 					}}
 					onMouseDown={(event) => {
@@ -231,36 +256,49 @@ const TagOption = forwardRef<HTMLSpanElement, TagOptionProps>(
 						event.preventDefault();
 					}}
 				>
-					<Icon svg={<XIcon weight="bold" />} className="size-3" />
+					<Icon svg={locked ? <LockIcon /> : <XIcon weight="bold" />} className="size-3" />
 				</button>
 			</span>
 		);
 	},
 );
-TagOption.displayName = "MultiSelectTagOption";
+Tag.displayName = "MultiSelectTag";
 
 /**
  * Props passed to the children render function of `MultiSelect.TagValues`.
- * Spread these onto `MultiSelect.TagOption` (or your own tag component) to
- * get the value, remove handler, and ref-based keyboard-nav registration
- * all wired up automatically.
+ * Spread these onto `MultiSelect.Tag` (or your own tag component) to
+ * get the value, remove handler, locked state, and ref-based keyboard-nav
+ * registration all wired up automatically.
+ *
+ * Pre-wired handlers included:
+ * - `onKeyDown` — arrow-key nav between tags, Backspace/Delete to remove
+ * - `onClick` — focuses the tag and ensures the popover opens/stays open
  */
-type TagRenderProps = TagOptionProps & {
+type TagRenderProps = TagProps & {
 	/** Ref callback — forward this to the tag element to enable keyboard navigation between tags. */
 	ref: (node: HTMLSpanElement | null) => void;
 };
 
 type MultiSelectTagValuesProps = {
 	/**
-	 * Optional render function for each tag. Receives `{ value, onRemove, ref }` — spread
-	 * these onto `MultiSelect.TagOption` (or your own element) for full keyboard-nav support.
-	 * When omitted, the default `MultiSelect.TagOption` is rendered for each selected value.
+	 * Values that cannot be removed. Locked tags have their remove button disabled,
+	 * respond to Backspace/Delete key presses with a shake animation, and shake when
+	 * Backspace is pressed on an empty input.
+	 *
+	 * The `locked` state is also forwarded to the render function via `props.locked`
+	 * so custom tag components receive it automatically.
+	 */
+	lockedValues?: string[];
+	/**
+	 * Optional render function for each tag. Receives `{ value, onRemove, locked, ref }` —
+	 * spread these onto `MultiSelect.Tag` (or your own element) for full keyboard-nav support.
+	 * When omitted, the default `MultiSelect.Tag` is rendered for each selected value.
 	 *
 	 * @example
 	 * ```tsx
-	 * <MultiSelect.TagValues>
+	 * <MultiSelect.TagValues lockedValues={["global"]}>
 	 *   {(props) => (
-	 *     <MultiSelect.TagOption key={props.value} {...props} locked={props.value === "global"} />
+	 *     <MultiSelect.Tag key={props.value} {...props} />
 	 *   )}
 	 * </MultiSelect.TagValues>
 	 * ```
@@ -285,15 +323,20 @@ type MultiSelectTagValuesProps = {
  * </MultiSelect.Root>
  * ```
  */
-const TagValues = ({ children }: MultiSelectTagValuesProps) => {
+const TagValues = ({ children, lockedValues = [] }: MultiSelectTagValuesProps) => {
 	const store = Primitive.useComboboxContext();
 	const rawSelectedValue = Primitive.useStoreState(store, "selectedValue");
 	const selectedValues = isStringArray(rawSelectedValue) ? rawSelectedValue : undefined;
 	const selectedArray = useMemo(() => selectedValues ?? [], [selectedValues]);
-	// Keep a ref in sync so requestAnimationFrame callbacks always read fresh state
-	// instead of closing over a stale selectedArray from the render they were scheduled in.
+	// Keep refs in sync so requestAnimationFrame callbacks always read fresh state
+	// instead of closing over stale values from the render they were scheduled in.
 	const selectedArrayRef = useRef<string[]>(selectedArray);
 	selectedArrayRef.current = selectedArray;
+	// Use the shared LockedValuesContext ref so Item can also read locked values
+	// without a separate prop. Writing a ref during render is safe here because
+	// refs are mutable and don't trigger re-renders.
+	const lockedValuesRef = useContext(LockedValuesContext);
+	lockedValuesRef.current = lockedValues;
 	const tagRefs = useRef<Map<string, HTMLSpanElement>>(new Map());
 	const { onInputKeyDownRef, inputRef } = useContext(TagBridgeContext);
 
@@ -307,16 +350,22 @@ const TagValues = ({ children }: MultiSelectTagValuesProps) => {
 		[store],
 	);
 
-	const focusTag = useCallback((index: number) => {
-		const value = selectedArrayRef.current[index];
-		if (value == null) {
-			return;
-		}
-		const tagEl = tagRefs.current.get(value);
-		if (tagEl) {
-			tagEl.focus();
-		}
-	}, []);
+	const focusTag = useCallback(
+		(index: number) => {
+			const value = selectedArrayRef.current[index];
+			if (value == null) {
+				return;
+			}
+			const tagEl = tagRefs.current.get(value);
+			if (tagEl) {
+				tagEl.focus();
+				// Keep the popover open while a tag is focused. Ariakit closes the
+				// popover when the combobox input loses focus, so we reopen it here.
+				store?.show();
+			}
+		},
+		[store],
+	);
 
 	const focusInput = useCallback(() => {
 		inputRef.current?.focus();
@@ -345,7 +394,7 @@ const TagValues = ({ children }: MultiSelectTagValuesProps) => {
 				case "Backspace":
 				case "Delete": {
 					event.preventDefault();
-					if (value !== undefined) {
+					if (value != null) {
 						removeValue(value);
 						// After removal, the array shifts. Focus the next logical tag or the input.
 						if (event.key === "Backspace") {
@@ -377,6 +426,25 @@ const TagValues = ({ children }: MultiSelectTagValuesProps) => {
 					}
 					break;
 				}
+				case "ArrowUp":
+				case "ArrowDown": {
+					// Don't scroll the page. Instead, focus the input and forward the key
+					// to Ariakit so it navigates the popover list.
+					event.preventDefault();
+					focusInput();
+					inputRef.current?.dispatchEvent(
+						new KeyboardEvent("keydown", {
+							key: event.key,
+							bubbles: true,
+							cancelable: true,
+							shiftKey: event.shiftKey,
+							ctrlKey: event.ctrlKey,
+							metaKey: event.metaKey,
+							altKey: event.altKey,
+						}),
+					);
+					break;
+				}
 				default: {
 					// If a printable character is typed while a tag is focused, jump to input
 					if (event.key.length === 1 && !event.ctrlKey && !event.metaKey) {
@@ -386,7 +454,7 @@ const TagValues = ({ children }: MultiSelectTagValuesProps) => {
 				}
 			}
 		},
-		[selectedArray, focusTag, focusInput, removeValue],
+		[selectedArray, focusTag, focusInput, removeValue, inputRef],
 	);
 
 	const handleInputKeyDown = useCallback(
@@ -406,12 +474,20 @@ const TagValues = ({ children }: MultiSelectTagValuesProps) => {
 				selectedArray.length > 0
 			) {
 				const lastValue = selectedArray[selectedArray.length - 1];
-				if (lastValue !== undefined && !tagRefs.current.get(lastValue)?.dataset.locked) {
-					removeValue(lastValue);
+				if (lastValue != null) {
+					if (lockedValuesRef.current.includes(lastValue)) {
+						// The last tag is locked — shake it to signal that removal is blocked.
+						const tagElement = tagRefs.current.get(lastValue);
+						if (tagElement) {
+							shakeElement(tagElement);
+						}
+					} else {
+						removeValue(lastValue);
+					}
 				}
 			}
 		},
-		[selectedArray, focusTag, removeValue],
+		[selectedArray, focusTag, removeValue, lockedValuesRef],
 	);
 
 	// Write the latest handler into the bridge ref so Input can call it via onKeyDown.
@@ -423,6 +499,7 @@ const TagValues = ({ children }: MultiSelectTagValuesProps) => {
 			{selectedArray.map((value, index) => {
 				const tagOptionProps: TagRenderProps = {
 					value,
+					locked: lockedValues.includes(value),
 					onRemove: () => removeValue(value),
 					ref: (node: HTMLSpanElement | null) => {
 						if (node) {
@@ -432,13 +509,16 @@ const TagValues = ({ children }: MultiSelectTagValuesProps) => {
 						}
 					},
 					onKeyDown: (event: KeyboardEvent<HTMLSpanElement>) => handleTagKeyDown(event, index),
+					// Ensure the popover opens/stays open when a tag is clicked,
+					// including when the component was fully blurred before the click.
+					onClick: () => focusTag(index),
 				};
 
 				if (children) {
 					return children(tagOptionProps);
 				}
 
-				return <TagOption key={value} {...tagOptionProps} />;
+				return <Tag key={value} {...tagOptionProps} />;
 			})}
 		</>
 	);
@@ -465,7 +545,7 @@ type MultiSelectInputProps = Omit<Primitive.ComboboxProps, "render">;
  * ```
  */
 const Input = forwardRef<ComponentRef<"input">, MultiSelectInputProps>(
-	({ className, onFocus, onKeyDown, placeholder, ...props }, ref) => {
+	({ className, onBlur, onFocus, onKeyDown, placeholder, ...props }, ref) => {
 		const store = Primitive.useComboboxContext();
 		const { onInputKeyDownRef, inputRef } = useContext(TagBridgeContext);
 		const rawSelectedValue = Primitive.useStoreState(store, "selectedValue");
@@ -488,6 +568,7 @@ const Input = forwardRef<ComponentRef<"input">, MultiSelectInputProps>(
 		return (
 			<Primitive.Combobox
 				autoSelect
+				data-slot="multi-select-input"
 				className={cx(
 					"pointer-coarse:text-base min-w-20 flex-1 select-text border-0 bg-transparent text-sm outline-hidden",
 					"placeholder:select-none placeholder:text-placeholder",
@@ -496,6 +577,18 @@ const Input = forwardRef<ComponentRef<"input">, MultiSelectInputProps>(
 				onKeyDown={(event) => {
 					onInputKeyDownRef.current?.(event);
 					onKeyDown?.(event);
+				}}
+				onBlur={(event) => {
+					// When focus moves from the input to a tag, Ariakit would normally
+					// close the popover because the combobox input lost focus. Keep it
+					// open so the user can see the list while navigating tags.
+					if (
+						event.relatedTarget instanceof HTMLElement &&
+						event.relatedTarget.closest('[data-slot="multi-select-tag"]')
+					) {
+						store?.show();
+					}
+					onBlur?.(event);
 				}}
 				onFocus={(event) => {
 					store?.show();
@@ -541,14 +634,29 @@ const Content = forwardRef<ComponentRef<"div">, MultiSelectContentProps>(
 			return triggerRef.current?.getBoundingClientRect() ?? null;
 		}, [triggerRef]);
 
+		const hideOnInteractOutside = useCallback(
+			(event: Event) => {
+				// Keep the popover open when interacting with any part of the trigger
+				// (tags, buttons, input, padding). Ariakit would otherwise close on any
+				// mousedown outside the popover — including tag clicks.
+				if (event.target instanceof Node && triggerRef.current?.contains(event.target)) {
+					return false;
+				}
+				return true;
+			},
+			[triggerRef],
+		);
+
 		return (
 			<Primitive.ComboboxPopover
+				data-slot="multi-select-content"
 				className={cx(
 					"border-popover bg-popover relative z-50 max-h-96 min-w-32 scrollbar overflow-y-scroll overflow-x-hidden overscroll-y-none rounded-md border shadow-md pt-1 pb-1 has-data-content-footer:pb-0 font-sans flex flex-col gap-px focus:outline-hidden",
 					className,
 				)}
 				getAnchorRect={getAnchorRect}
 				gutter={4}
+				hideOnInteractOutside={hideOnInteractOutside}
 				ref={ref}
 				render={
 					asChild ? ({ ref, ...childProps }) => <Slot ref={ref} {...childProps} /> : undefined
@@ -579,9 +687,16 @@ type MultiSelectItemProps = Omit<Primitive.ComboboxItemProps, "render"> & WithAs
  * ```
  */
 const Item = forwardRef<ComponentRef<"div">, MultiSelectItemProps>(
-	({ asChild = false, children, className, focusOnHover = true, value, ...props }, ref) => {
+	(
+		{ asChild = false, children, className, focusOnHover = true, value, onClick, ...props },
+		ref,
+	) => {
+		const lockedValuesRef = useContext(LockedValuesContext);
+		const isLocked = value != null && lockedValuesRef.current.includes(value);
+
 		return (
 			<Primitive.ComboboxItem
+				data-slot="multi-select-item"
 				className={cx(
 					"mx-1 cursor-pointer rounded-md px-2 py-1.5 text-strong text-sm font-normal flex min-w-0 items-center justify-between gap-2",
 					"[[role=option]+&]:mt-px",
@@ -591,6 +706,15 @@ const Item = forwardRef<ComponentRef<"div">, MultiSelectItemProps>(
 					className,
 				)}
 				focusOnHover={focusOnHover}
+				onClick={(event) => {
+					// Prevent Ariakit from toggling off a locked value.
+					// Ariakit checks event.defaultPrevented before executing its selection logic.
+					if (isLocked) {
+						event.preventDefault();
+						return;
+					}
+					onClick?.(event);
+				}}
 				ref={ref}
 				render={
 					asChild ? ({ ref, ...childProps }) => <Slot ref={ref} {...childProps} /> : undefined
@@ -629,6 +753,7 @@ const Group = forwardRef<ComponentRef<"div">, MultiSelectGroupProps>(
 	({ asChild = false, children, ...props }, ref) => {
 		return (
 			<Primitive.ComboboxGroup
+				data-slot="multi-select-group"
 				className="mx-1"
 				ref={ref}
 				render={
@@ -662,6 +787,7 @@ const GroupLabel = forwardRef<ComponentRef<"div">, MultiSelectGroupLabelProps>(
 	({ asChild = false, children, className, ...props }, ref) => {
 		return (
 			<Primitive.ComboboxGroupLabel
+				data-slot="multi-select-group-label"
 				className={cx("text-muted px-2 py-1 text-xs font-medium", className)}
 				ref={ref}
 				render={
@@ -696,7 +822,12 @@ type MultiSelectGroupDescriptionProps = ComponentPropsWithoutRef<"p">;
 const GroupDescription = forwardRef<HTMLParagraphElement, MultiSelectGroupDescriptionProps>(
 	({ className, children, ...props }, ref) => {
 		return (
-			<p className={cx("text-muted px-2 pb-1 text-xs", className)} ref={ref} {...props}>
+			<p
+				data-slot="multi-select-group-description"
+				className={cx("text-muted px-2 pb-1 text-xs", className)}
+				ref={ref}
+				{...props}
+			>
 				{children}
 			</p>
 		);
@@ -724,7 +855,12 @@ const MultiSelectSeparatorComponent = forwardRef<
 	ComponentRef<"div">,
 	ComponentPropsWithoutRef<typeof Separator>
 >(({ className, ...props }, ref) => (
-	<Separator ref={ref} className={cx("my-1 w-auto", className)} {...props} />
+	<Separator
+		data-slot="multi-select-separator"
+		ref={ref}
+		className={cx("my-1 w-auto", className)}
+		{...props}
+	/>
 ));
 MultiSelectSeparatorComponent.displayName = "MultiSelectSeparator";
 
@@ -746,6 +882,7 @@ const Empty = forwardRef<HTMLDivElement, MultiSelectEmptyProps>(
 	({ className, children, ...props }, ref) => {
 		return (
 			<div
+				data-slot="multi-select-empty"
 				className={cx("mx-1 text-muted px-2 py-6 text-center text-sm", className)}
 				ref={ref}
 				role="presentation"
@@ -781,6 +918,7 @@ const ContentFooter = forwardRef<HTMLDivElement, MultiSelectContentFooterProps>(
 		return (
 			<div
 				ref={ref}
+				data-slot="multi-select-content-footer"
 				data-content-footer
 				className={cx("bg-popover sticky bottom-0 border-t border-popover", className)}
 				{...props}
@@ -851,18 +989,20 @@ const MultiSelect = {
 	Trigger,
 	/**
 	 * Renders the selected values as removable tags. Place this inside
-	 * `MultiSelect.Trigger`, followed by `MultiSelect.Input`. Optionally
-	 * accepts a children render function to customize each tag.
+	 * `MultiSelect.Trigger`, followed by `MultiSelect.Input`.
+	 *
+	 * Use `lockedValues` to prevent specific tags from being removed. Locked tags
+	 * have their remove button disabled and shake when Backspace is pressed.
 	 *
 	 * @example
 	 * ```tsx
-	 * // Default tags
-	 * <MultiSelect.TagValues />
+	 * // Default tags with locking
+	 * <MultiSelect.TagValues lockedValues={["global"]} />
 	 *
-	 * // Custom tags via children render function
-	 * <MultiSelect.TagValues>
+	 * // Custom tags via children render function — locked is forwarded via props
+	 * <MultiSelect.TagValues lockedValues={["global"]}>
 	 *   {(props) => (
-	 *     <MultiSelect.TagOption key={props.value} {...props} locked={props.value === "global"} />
+	 *     <MultiSelect.Tag key={props.value} {...props} />
 	 *   )}
 	 * </MultiSelect.TagValues>
 	 * ```
@@ -884,13 +1024,13 @@ const MultiSelect = {
 	 *
 	 * @example
 	 * ```tsx
-	 * <MultiSelect.TagOption
+	 * <MultiSelect.Tag
 	 *   value="apple"
 	 *   onRemove={() => removeValue("apple")}
 	 * />
 	 * ```
 	 */
-	TagOption,
+	Tag,
 	/**
 	 * Renders a popover that contains multi-select content.
 	 *
@@ -979,3 +1119,29 @@ export {
 	//,
 	MultiSelect,
 };
+
+/**
+ * Shakes an element left-right to signal that an action was blocked
+ * (e.g. pressing Backspace/Delete on a locked tag). No-ops when the user
+ * has enabled reduced motion in their OS/browser accessibility settings.
+ */
+function shakeElement(element: HTMLElement): void {
+	// Skip the animation when the user has opted into reduced motion.
+	// Called from event handlers only, so reading the media query imperatively
+	// is safe and gives the freshest value without any hook plumbing.
+	if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+		return;
+	}
+
+	element.animate(
+		[
+			{ transform: "translateX(0)" },
+			{ transform: "translateX(-4px)" },
+			{ transform: "translateX(4px)" },
+			{ transform: "translateX(-4px)" },
+			{ transform: "translateX(4px)" },
+			{ transform: "translateX(0)" },
+		],
+		{ duration: 300, easing: "ease-in-out" },
+	);
+}

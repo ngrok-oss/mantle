@@ -148,6 +148,43 @@ export function ControlledDemo() {
 
 }
 
+export function LockedValuesDemo() {
+	const [isPending, startTransition] = useTransition();
+	const [searchValue, setSearchValue] = useState("");
+	const [selected, setSelected] = useState(["apple", "banana", "cherry"]);
+	const matches = useMemo(
+		() =>
+			["apple", "banana", "cherry", "grape", "kiwi", "mango"].filter((f) =>
+				f.includes(searchValue.toLowerCase()),
+			),
+		[searchValue],
+	);
+
+    return (
+    	<MultiSelect.Root
+    		selectedValue={selected}
+    		setSelectedValue={setSelected}
+    		setValue={(value) => {
+    			startTransition(() => setSearchValue(value));
+    		}}
+    	>
+    		<MultiSelect.Trigger className="max-w-96">
+    			<MultiSelect.TagValues lockedValues={["apple", "cherry"]} />
+    			<MultiSelect.Input placeholder="Select fruits..." />
+    		</MultiSelect.Trigger>
+    		<MultiSelect.Content aria-busy={isPending}>
+    			{matches.map((value) => (
+    				<MultiSelect.Item key={value} value={value}>
+    					{value}
+    				</MultiSelect.Item>
+    			))}
+    			{matches.length === 0 && <MultiSelect.Empty>No results found</MultiSelect.Empty>}
+    		</MultiSelect.Content>
+    	</MultiSelect.Root>
+    );
+
+}
+
 export function ValidationDemo() {
 	const [isPending, startTransition] = useTransition();
 	const [searchValue, setSearchValue] = useState("");
@@ -307,6 +344,36 @@ const [selected, setSelected] = useState(["Apple", "Cherry"]);
 				{value}
 			</MultiSelect.Item>
 		))}
+	</MultiSelect.Content>
+</MultiSelect.Root>;
+```
+
+### Locked Values
+
+Use `lockedValues` on `MultiSelect.TagValues` to pin specific tags that cannot be removed. Locked tags display a lock icon instead of an ✕ and shake when the user tries to remove them. Locked values also cannot be deselected by clicking them in the popover.
+
+<Example>
+	<LockedValuesDemo />
+</Example>
+
+```tsx
+const [selected, setSelected] = useState(["apple", "banana", "cherry"]);
+
+<MultiSelect.Root
+	selectedValue={selected}
+	setSelectedValue={setSelected}
+	setValue={(value) => {
+		startTransition(() => setSearchValue(value));
+	}}
+>
+	<MultiSelect.Trigger>
+		<MultiSelect.TagValues lockedValues={["apple", "cherry"]} />
+		<MultiSelect.Input placeholder="Select fruits..." />
+	</MultiSelect.Trigger>
+	<MultiSelect.Content>
+		<MultiSelect.Item value="apple">apple</MultiSelect.Item>
+		<MultiSelect.Item value="banana">banana</MultiSelect.Item>
+		<MultiSelect.Item value="cherry">cherry</MultiSelect.Item>
 	</MultiSelect.Content>
 </MultiSelect.Root>;
 ```
@@ -541,9 +608,10 @@ The trigger container for the multi-select. Wraps the input and selected value t
 
 Renders the selected values as removable tags. Place this inside `MultiSelect.Trigger`, followed by `MultiSelect.Input`.
 
-| Prop        | Type                                         | Default | Description                                                                                                                |
-| :---------- | :------------------------------------------- | :------ | :------------------------------------------------------------------------------------------------------------------------- |
-| `children?` | `(props: TagRenderProps) => React.ReactNode` |         | Render function for each tag. Receives `{ value, onRemove, ref }` — spread onto `TagOption` for full keyboard-nav support. |
+| Prop            | Type                                         | Default | Description                                                                                                                                    |
+| :-------------- | :------------------------------------------- | :------ | :--------------------------------------------------------------------------------------------------------------------------------------------- |
+| `lockedValues?` | `string[]`                                   | `[]`    | Values that cannot be removed. Locked tags show a lock icon, shake on Backspace/Delete, and shake when Backspace is pressed on an empty input. |
+| `children?`     | `(props: TagRenderProps) => React.ReactNode` |         | Render function for each tag. Receives `{ value, onRemove, locked, ref }` — spread onto `Tag` for full keyboard-nav support.                   |
 
 `TagRenderProps`:
 
@@ -551,8 +619,10 @@ Renders the selected values as removable tags. Place this inside `MultiSelect.Tr
 | :---------- | :------------------------------------------------ | :--------------------------------------------------------------------------------------------- |
 | `value`     | `string`                                          | The selected value this tag represents.                                                        |
 | `onRemove`  | `() => void`                                      | Removes this value from the selection when called.                                             |
+| `locked`    | `boolean`                                         | Whether this tag is locked (cannot be removed). Forwarded from `lockedValues`.                 |
 | `ref`       | `(node: HTMLSpanElement \| null) => void`         | Forward to the tag element to register it for keyboard navigation between tags.                |
 | `onKeyDown` | `(event: KeyboardEvent<HTMLSpanElement>) => void` | Forward to the tag element to enable ArrowLeft/Right/Backspace/Delete navigation between tags. |
+| `onClick`   | `() => void`                                      | Forward to the tag element to focus it and ensure the popover opens/stays open on click.       |
 
 ### MultiSelect.Input
 
@@ -564,7 +634,7 @@ All props from ariakit [Combobox](https://ariakit.org/reference/combobox). Key p
 | :------------- | :------- | :------ | :-------------------------------------------------- |
 | `placeholder?` | `string` |         | Placeholder text shown when no values are selected. |
 
-### MultiSelect.TagOption
+### MultiSelect.Tag
 
 The default tag component rendered inside `MultiSelect.TagValues` for each selected value. Displays the value label with a remove button and full keyboard navigation support.
 
@@ -576,7 +646,7 @@ Also accepts all standard `span` element props (except `children` and `onKeyDown
 | :---------- | :----------- | :------ | :------------------------------------------------------------------------------------------------------------------------ |
 | `value`     | `string`     |         | The value to display in the tag label.                                                                                    |
 | `onRemove?` | `() => void` |         | Called when the remove button is clicked. Defaults to removing the value via context when inside `MultiSelect.TagValues`. |
-| `locked?`   | `boolean`    | `false` | When true, disables the remove button and ignores Delete/Backspace key presses.                                           |
+| `locked?`   | `boolean`    | `false` | When true, shows a lock icon, disables the remove button, and shakes on Delete/Backspace key presses.                     |
 
 ### MultiSelect.Content
 
