@@ -42,10 +42,6 @@ overrides:
 importers:
 
   .:
-    dependencies:
-      match-sorter:
-        specifier: 8.2.0
-        version: 8.2.0
     devDependencies:
       '@changesets/changelog-github':
         specifier: 0.6.0
