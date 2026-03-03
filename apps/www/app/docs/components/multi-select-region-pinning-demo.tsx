@@ -61,18 +61,17 @@ export function RegionPinningDemo() {
 				}}
 			>
 				<MultiSelect.Trigger>
-					<MultiSelect.TagValues
-						placeholder="Select regions..."
-						renderTag={(value, remove) => (
+					<MultiSelect.TagValues>
+						{(props) => (
 							<MultiSelect.TagOption
-								key={value}
-								value={value}
-								onRemove={remove}
-								locked={value === "global"}
+								key={props.value}
+								{...props}
+								locked={props.value === "global"}
 							/>
 						)}
-					/>
-					{/* Sibling after TagValues works because the input is flex-1 and pushes this to the right */}
+					</MultiSelect.TagValues>
+					<MultiSelect.Input placeholder="Select regions..." />
+					{/* Input is flex-1 so this sibling is pushed to the right */}
 					<span className="text-accent-600 shrink-0 whitespace-nowrap text-xs">
 						Requires Upgrade
 					</span>

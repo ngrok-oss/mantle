@@ -40,7 +40,8 @@ export function BasicDemo() {
     		}}
     	>
     		<MultiSelect.Trigger className="max-w-96">
-    			<MultiSelect.TagValues placeholder="Select fruits..." />
+    			<MultiSelect.TagValues />
+    			<MultiSelect.Input placeholder="Select fruits..." />
     		</MultiSelect.Trigger>
     		<MultiSelect.Content aria-busy={isPending}>
     			{matches.map((value) => (
@@ -76,7 +77,8 @@ export function GroupedDemo() {
     		}}
     	>
     		<MultiSelect.Trigger className="max-w-96">
-    			<MultiSelect.TagValues placeholder="Select items..." />
+    			<MultiSelect.TagValues />
+    			<MultiSelect.Input placeholder="Select items..." />
     		</MultiSelect.Trigger>
     		<MultiSelect.Content aria-busy={isPending}>
     			{filteredFruits.length > 0 && (
@@ -128,7 +130,8 @@ export function ControlledDemo() {
     		}}
     	>
     		<MultiSelect.Trigger className="max-w-96">
-    			<MultiSelect.TagValues placeholder="Select fruits..." />
+    			<MultiSelect.TagValues />
+    			<MultiSelect.Input placeholder="Select fruits..." />
     		</MultiSelect.Trigger>
     		<MultiSelect.Content aria-busy={isPending}>
     			{matches.map((value) => (
@@ -160,7 +163,8 @@ export function ValidationDemo() {
     			}}
     		>
     			<MultiSelect.Trigger validation="error">
-    				<MultiSelect.TagValues placeholder="Error state..." />
+    				<MultiSelect.TagValues />
+    				<MultiSelect.Input placeholder="Error state..." />
     			</MultiSelect.Trigger>
     			<MultiSelect.Content aria-busy={isPending}>
     				{matches.map((value) => (
@@ -178,7 +182,8 @@ export function ValidationDemo() {
     			}}
     		>
     			<MultiSelect.Trigger validation="success">
-    				<MultiSelect.TagValues placeholder="Success state..." />
+    				<MultiSelect.TagValues />
+    				<MultiSelect.Input placeholder="Success state..." />
     			</MultiSelect.Trigger>
     			<MultiSelect.Content aria-busy={isPending}>
     				{matches.map((value) => (
@@ -196,7 +201,8 @@ export function ValidationDemo() {
     			}}
     		>
     			<MultiSelect.Trigger validation="warning">
-    				<MultiSelect.TagValues placeholder="Warning state..." />
+    				<MultiSelect.TagValues />
+    				<MultiSelect.Input placeholder="Warning state..." />
     			</MultiSelect.Trigger>
     			<MultiSelect.Content aria-busy={isPending}>
     				{matches.map((value) => (
@@ -255,7 +261,8 @@ function Example() {
 			}}
 		>
 			<MultiSelect.Trigger>
-				<MultiSelect.TagValues placeholder="Select fruits..." />
+				<MultiSelect.TagValues />
+				<MultiSelect.Input placeholder="Select fruits..." />
 			</MultiSelect.Trigger>
 			<MultiSelect.Content aria-busy={isPending}>
 				{matches.map((value) => (
@@ -291,7 +298,8 @@ const [selected, setSelected] = useState(["Apple", "Cherry"]);
 	}}
 >
 	<MultiSelect.Trigger>
-		<MultiSelect.TagValues placeholder="Select fruits..." />
+		<MultiSelect.TagValues />
+		<MultiSelect.Input placeholder="Select fruits..." />
 	</MultiSelect.Trigger>
 	<MultiSelect.Content>
 		{matches.map((value) => (
@@ -318,7 +326,8 @@ Use `MultiSelect.Group`, `MultiSelect.GroupLabel`, and `MultiSelect.Separator` t
 	}}
 >
 	<MultiSelect.Trigger>
-		<MultiSelect.TagValues placeholder="Select items..." />
+		<MultiSelect.TagValues />
+		<MultiSelect.Input placeholder="Select items..." />
 	</MultiSelect.Trigger>
 	<MultiSelect.Content>
 		<MultiSelect.Group>
@@ -347,7 +356,8 @@ Use the `validation` prop on `MultiSelect.Trigger` to show validation states.
 ```tsx
 <MultiSelect.Root>
 	<MultiSelect.Trigger validation="error">
-		<MultiSelect.TagValues placeholder="Error state..." />
+		<MultiSelect.TagValues />
+		<MultiSelect.Input placeholder="Error state..." />
 	</MultiSelect.Trigger>
 	<MultiSelect.Content>
 		<MultiSelect.Item value="Apple">Apple</MultiSelect.Item>
@@ -421,8 +431,9 @@ function Example() {
 				}}
 			>
 				<MultiSelect.Trigger>
-					<MultiSelect.TagValues placeholder="Select regions..." />
-					{/* Sibling after TagValues works because the input is flex-1 and pushes this to the right */}
+					<MultiSelect.TagValues />
+					<MultiSelect.Input placeholder="Select regions..." />
+					{/* Input is flex-1 so this sibling is pushed to the right */}
 					<Anchor className="shrink-0 whitespace-nowrap text-xs" href="#">
 						Requires Upgrade
 					</Anchor>
@@ -528,14 +539,30 @@ The trigger container for the multi-select. Wraps the input and selected value t
 
 ### MultiSelect.TagValues
 
-Renders the selected values as removable tags along with the combobox input for filtering. Place this inside `MultiSelect.Trigger`.
+Renders the selected values as removable tags. Place this inside `MultiSelect.Trigger`, followed by `MultiSelect.Input`.
 
-All props from ariakit [Combobox](https://ariakit.org/reference/combobox), plus:
+| Prop        | Type                                         | Default | Description                                                                                                                |
+| :---------- | :------------------------------------------- | :------ | :------------------------------------------------------------------------------------------------------------------------- |
+| `children?` | `(props: TagRenderProps) => React.ReactNode` |         | Render function for each tag. Receives `{ value, onRemove, ref }` — spread onto `TagOption` for full keyboard-nav support. |
 
-| Prop           | Type                                                     | Default | Description                                                          |
-| :------------- | :------------------------------------------------------- | :------ | :------------------------------------------------------------------- |
-| `placeholder?` | `string`                                                 |         | Placeholder text shown when no values are selected.                  |
-| `renderTag?`   | `(value: string, remove: () => void) => React.ReactNode` |         | Custom render function for tags. Receives value and remove callback. |
+`TagRenderProps`:
+
+| Prop        | Type                                              | Description                                                                                    |
+| :---------- | :------------------------------------------------ | :--------------------------------------------------------------------------------------------- |
+| `value`     | `string`                                          | The selected value this tag represents.                                                        |
+| `onRemove`  | `() => void`                                      | Removes this value from the selection when called.                                             |
+| `ref`       | `(node: HTMLSpanElement \| null) => void`         | Forward to the tag element to register it for keyboard navigation between tags.                |
+| `onKeyDown` | `(event: KeyboardEvent<HTMLSpanElement>) => void` | Forward to the tag element to enable ArrowLeft/Right/Backspace/Delete navigation between tags. |
+
+### MultiSelect.Input
+
+The combobox input for filtering items. Place this inside `MultiSelect.Trigger`, after `MultiSelect.TagValues`.
+
+All props from ariakit [Combobox](https://ariakit.org/reference/combobox). Key props:
+
+| Prop           | Type     | Default | Description                                         |
+| :------------- | :------- | :------ | :-------------------------------------------------- |
+| `placeholder?` | `string` |         | Placeholder text shown when no values are selected. |
 
 ### MultiSelect.TagOption
 

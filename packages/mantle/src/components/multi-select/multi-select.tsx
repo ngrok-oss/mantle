@@ -20,6 +20,23 @@ import { Slot } from "../slot/index.js";
 
 const TriggerRefContext = createContext<RefObject<HTMLDivElement | null>>({ current: null });
 
+/**
+ * Bridges keyboard-nav state between `TagValues` and `Input`, which are siblings in the tree
+ * and cannot communicate via a context that either one provides — it must come from a shared
+ * ancestor (`Root`). Both refs are written by one side and read by the other:
+ *   - `onInputKeyDownRef`: written by `TagValues`, called by `Input` on keydown
+ *   - `inputRef`: written by `Input` (registers its DOM node), read by `TagValues` (to focus it)
+ */
+type TagBridgeContextValue = {
+	onInputKeyDownRef: { current: ((event: KeyboardEvent<HTMLInputElement>) => void) | undefined };
+	inputRef: { current: HTMLInputElement | null };
+};
+
+const TagBridgeContext = createContext<TagBridgeContextValue>({
+	onInputKeyDownRef: { current: undefined },
+	inputRef: { current: null },
+});
+
 type MultiSelectProps = Primitive.ComboboxProviderProps<string[]>;
 
 /**
@@ -30,7 +47,8 @@ type MultiSelectProps = Primitive.ComboboxProviderProps<string[]>;
  * ```tsx
  * <MultiSelect.Root>
  *   <MultiSelect.Trigger>
- *     <MultiSelect.TagValues placeholder="Select items..." />
+ *     <MultiSelect.TagValues />
+ *     <MultiSelect.Input placeholder="Select items..." />
  *   </MultiSelect.Trigger>
  *   <MultiSelect.Content>
  *     <MultiSelect.Item value="apple">Apple</MultiSelect.Item>
@@ -41,11 +59,21 @@ type MultiSelectProps = Primitive.ComboboxProviderProps<string[]>;
  */
 const Root = ({ children, defaultSelectedValue = [], ...props }: MultiSelectProps) => {
 	const triggerRef = useRef<HTMLDivElement | null>(null);
+	const onInputKeyDownRef = useRef<((event: KeyboardEvent<HTMLInputElement>) => void) | undefined>(
+		undefined,
+	);
+	const inputRef = useRef<HTMLInputElement | null>(null);
+	const tagBridge = useMemo(() => ({ onInputKeyDownRef, inputRef }), []);
 	return (
 		<TriggerRefContext.Provider value={triggerRef}>
-			<Primitive.ComboboxProvider<string[]> defaultSelectedValue={defaultSelectedValue} {...props}>
-				{children}
-			</Primitive.ComboboxProvider>
+			<TagBridgeContext.Provider value={tagBridge}>
+				<Primitive.ComboboxProvider<string[]>
+					defaultSelectedValue={defaultSelectedValue}
+					{...props}
+				>
+					{children}
+				</Primitive.ComboboxProvider>
+			</TagBridgeContext.Provider>
 		</TriggerRefContext.Provider>
 	);
 };
@@ -61,7 +89,8 @@ type MultiSelectTriggerProps = ComponentPropsWithoutRef<"div"> & WithValidation;
  * ```tsx
  * <MultiSelect.Root>
  *   <MultiSelect.Trigger>
- *     <MultiSelect.TagValues placeholder="Select items..." />
+ *     <MultiSelect.TagValues />
+ *     <MultiSelect.Input placeholder="Select items..." />
  *   </MultiSelect.Trigger>
  *   <MultiSelect.Content>
  *     <MultiSelect.Item value="apple">Apple</MultiSelect.Item>
@@ -71,23 +100,30 @@ type MultiSelectTriggerProps = ComponentPropsWithoutRef<"div"> & WithValidation;
  */
 const Trigger = forwardRef<HTMLDivElement, MultiSelectTriggerProps>(
 	(
-		{ "aria-invalid": _ariaInvalid, className, children, validation: _validation, ...props },
+		{
+			"aria-invalid": _ariaInvalid,
+			className,
+			children,
+			onMouseDown,
+			validation: _validation,
+			...props
+		},
 		ref,
 	) => {
 		const triggerRef = useContext(TriggerRefContext);
+		const { inputRef } = useContext(TagBridgeContext);
 		const isInvalid = _ariaInvalid != null && _ariaInvalid !== "false";
 		const validation = isInvalid
 			? "error"
 			: typeof _validation === "function"
 				? _validation()
 				: _validation;
-		const ariaInvalid = _ariaInvalid ?? validation === "error";
 
 		return (
 			<div
-				aria-invalid={ariaInvalid}
+				role="group"
 				className={cx(
-					"font-sans text-sm",
+					"cursor-text select-none font-sans text-sm",
 					"border-form bg-form text-strong flex w-full flex-wrap items-center gap-1 rounded-md border px-2 py-1.5",
 					"has-focus:outline-hidden has-focus-within:ring-4 has-aria-expanded:ring-4",
 					"has-focus-within:border-accent-600 has-focus-within:ring-focus-accent has-aria-expanded:border-accent-600 has-aria-expanded:ring-focus-accent",
@@ -98,6 +134,17 @@ const Trigger = forwardRef<HTMLDivElement, MultiSelectTriggerProps>(
 					className,
 				)}
 				data-validation={validation || undefined}
+				onMouseDown={(event) => {
+					const target = event.target as HTMLElement;
+					// When clicking on non-interactive areas (padding, flex gaps between tags), prevent the
+					// default mousedown behavior (which would cause text selection) and explicitly focus the
+					// input. Clicks on buttons, the input itself, or tag spans are handled by those elements.
+					if (!target.closest("button, input, [role='option']")) {
+						event.preventDefault();
+						inputRef.current?.focus();
+					}
+					onMouseDown?.(event);
+				}}
 				ref={(node) => {
 					triggerRef.current = node;
 					if (typeof ref === "function") {
@@ -115,22 +162,13 @@ const Trigger = forwardRef<HTMLDivElement, MultiSelectTriggerProps>(
 );
 Trigger.displayName = "MultiSelectTrigger";
 
-type TagValuesContextValue = {
-	handleTagKeyDown: (event: KeyboardEvent<HTMLSpanElement>, index: number) => void;
-	removeValue: (value: string) => void;
-	selectedArray: string[];
-};
-
-const TagValuesContext = createContext<TagValuesContextValue | null>(null);
-
 type TagOptionProps = Omit<ComponentProps<"span">, "children"> & {
 	/**
 	 * The value to display in the tag label.
 	 */
 	value: string;
 	/**
-	 * Called when the remove button is clicked. If omitted and the component is rendered
-	 * inside `MultiSelect.TagValues`, the value is removed from the selection via context.
+	 * Called when the remove button is clicked.
 	 */
 	onRemove?: () => void;
 	/**
@@ -153,11 +191,7 @@ type TagOptionProps = Omit<ComponentProps<"span">, "children"> & {
  * ```
  */
 const TagOption = forwardRef<HTMLSpanElement, TagOptionProps>(
-	({ className, value, onRemove, locked = false, ...props }, ref) => {
-		const ctx = useContext(TagValuesContext);
-		const index = ctx?.selectedArray.indexOf(value) ?? -1;
-		const handleRemove = onRemove ?? (() => ctx?.removeValue(value));
-
+	({ className, value, onRemove, locked = false, onKeyDown, ...props }, ref) => {
 		return (
 			<span
 				ref={ref}
@@ -166,7 +200,7 @@ const TagOption = forwardRef<HTMLSpanElement, TagOptionProps>(
 				tabIndex={-1}
 				data-locked={locked || undefined}
 				className={cx(
-					"bg-neutral-100 border border-neutral-300 rounded-xs text-strong inline-flex items-center gap-1 pl-1.5 pr-1 py-0.5 text-xs font-semibold font-mono",
+					"cursor-default bg-neutral-100 border border-neutral-300 rounded-xs text-strong inline-flex items-center gap-1 pl-1.5 pr-1 py-0.5 text-xs font-semibold font-mono",
 					"focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-focus-accent",
 					className,
 				)}
@@ -175,7 +209,7 @@ const TagOption = forwardRef<HTMLSpanElement, TagOptionProps>(
 						event.preventDefault();
 						return;
 					}
-					ctx?.handleTagKeyDown(event, index);
+					onKeyDown?.(event);
 				}}
 				{...props}
 			>
@@ -186,14 +220,16 @@ const TagOption = forwardRef<HTMLSpanElement, TagOptionProps>(
 					tabIndex={-1}
 					disabled={locked}
 					className={cx(
-						"hover:bg-neutral-200 hover:text-strong text-strong/25 rounded-sm p-px size-4",
-						"disabled:pointer-events-none",
+						"cursor-pointer hover:bg-neutral-200 hover:text-strong text-strong/25 rounded-sm p-px size-4",
+						"disabled:pointer-events-none disabled:cursor-default",
 					)}
 					onClick={(event) => {
+						// Prevent the click from bubbling to the trigger, which would reopen or refocus the combobox
 						event.stopPropagation();
-						handleRemove();
+						onRemove?.();
 					}}
 					onMouseDown={(event) => {
+						// Prevent the input from losing focus on click, which would close the popover before the remove fires
 						event.preventDefault();
 					}}
 				>
@@ -205,27 +241,45 @@ const TagOption = forwardRef<HTMLSpanElement, TagOptionProps>(
 );
 TagOption.displayName = "MultiSelectTagOption";
 
-type MultiSelectTagValuesProps = Omit<Primitive.ComboboxProps, "render"> & {
+/**
+ * Props passed to the children render function of `MultiSelect.TagValues`.
+ * Spread these onto `MultiSelect.TagOption` (or your own tag component) to
+ * get the value, remove handler, and ref-based keyboard-nav registration
+ * all wired up automatically.
+ */
+type TagRenderProps = TagOptionProps & {
+	/** Ref callback — forward this to the tag element to enable keyboard navigation between tags. */
+	ref: (node: HTMLSpanElement | null) => void;
+};
+
+type MultiSelectTagValuesProps = {
 	/**
-	 * Placeholder text shown when no values are selected.
+	 * Optional render function for each tag. Receives `{ value, onRemove, ref }` — spread
+	 * these onto `MultiSelect.TagOption` (or your own element) for full keyboard-nav support.
+	 * When omitted, the default `MultiSelect.TagOption` is rendered for each selected value.
+	 *
+	 * @example
+	 * ```tsx
+	 * <MultiSelect.TagValues>
+	 *   {(props) => (
+	 *     <MultiSelect.TagOption key={props.value} {...props} locked={props.value === "global"} />
+	 *   )}
+	 * </MultiSelect.TagValues>
+	 * ```
 	 */
-	placeholder?: string;
-	/**
-	 * Render function for custom tag content. Receives the value string and
-	 * a remove callback. If not provided, a default tag with an X button is rendered.
-	 */
-	renderTag?: (value: string, remove: () => void) => React.ReactNode;
+	children?: (props: TagRenderProps) => React.ReactNode;
 };
 
 /**
- * Renders the selected values as removable tags along with the combobox
- * input for filtering. Place this inside `MultiSelect.Trigger`.
+ * Renders the selected values as removable tags. Place this inside
+ * `MultiSelect.Trigger`, followed by `MultiSelect.Input`.
  *
  * @example
  * ```tsx
  * <MultiSelect.Root>
  *   <MultiSelect.Trigger>
- *     <MultiSelect.TagValues placeholder="Select items..." />
+ *     <MultiSelect.TagValues />
+ *     <MultiSelect.Input placeholder="Select items..." />
  *   </MultiSelect.Trigger>
  *   <MultiSelect.Content>
  *     <MultiSelect.Item value="apple">Apple</MultiSelect.Item>
@@ -233,114 +287,114 @@ type MultiSelectTagValuesProps = Omit<Primitive.ComboboxProps, "render"> & {
  * </MultiSelect.Root>
  * ```
  */
-const TagValues = forwardRef<ComponentRef<"input">, MultiSelectTagValuesProps>(
-	({ className, placeholder, renderTag, ...props }, ref) => {
-		const store = Primitive.useComboboxContext();
-		const selectedValues = Primitive.useStoreState(store, "selectedValue") as string[] | undefined;
-		const selectedArray = useMemo(() => selectedValues ?? [], [selectedValues]);
-		const tagRefs = useRef<Map<string, HTMLSpanElement>>(new Map());
-		const inputRef = useRef<HTMLInputElement | null>(null);
-		const focusedTagIndexRef = useRef<number>(-1);
+const TagValues = ({ children }: MultiSelectTagValuesProps) => {
+	const store = Primitive.useComboboxContext();
+	const selectedValues = Primitive.useStoreState(store, "selectedValue") as string[] | undefined;
+	const selectedArray = useMemo(() => selectedValues ?? [], [selectedValues]);
+	const tagRefs = useRef<Map<string, HTMLSpanElement>>(new Map());
+	const { onInputKeyDownRef, inputRef } = useContext(TagBridgeContext);
+	const focusedTagIndexRef = useRef<number>(-1);
 
-		const removeValue = useCallback(
-			(value: string) => {
-				if (store) {
-					const current = (store.getState().selectedValue ?? []) as string[];
-					store.setSelectedValue(current.filter((v) => v !== value));
-				}
-			},
-			[store],
-		);
+	const removeValue = useCallback(
+		(value: string) => {
+			if (store) {
+				const current = (store.getState().selectedValue ?? []) as string[];
+				store.setSelectedValue(current.filter((v) => v !== value));
+			}
+		},
+		[store],
+	);
 
-		const focusTag = useCallback(
-			(index: number) => {
-				const value = selectedArray[index];
-				if (value === undefined) {
-					return;
-				}
-				const tagEl = tagRefs.current.get(value);
-				if (tagEl) {
-					tagEl.focus();
-					focusedTagIndexRef.current = index;
-				}
-			},
-			[selectedArray],
-		);
+	const focusTag = useCallback(
+		(index: number) => {
+			const value = selectedArray[index];
+			if (value == null) {
+				return;
+			}
+			const tagEl = tagRefs.current.get(value);
+			if (tagEl) {
+				tagEl.focus();
+				focusedTagIndexRef.current = index;
+			}
+		},
+		[selectedArray],
+	);
 
-		const focusInput = useCallback(() => {
-			focusedTagIndexRef.current = -1;
-			inputRef.current?.focus();
-		}, []);
+	const focusInput = useCallback(() => {
+		focusedTagIndexRef.current = -1;
+		inputRef.current?.focus();
+	}, [inputRef]);
 
-		const handleTagKeyDown = useCallback(
-			(event: KeyboardEvent<HTMLSpanElement>, index: number) => {
-				const value = selectedArray[index];
-				switch (event.key) {
-					case "ArrowLeft": {
-						event.preventDefault();
-						if (index > 0) {
-							focusTag(index - 1);
-						}
-						break;
+	const handleTagKeyDown = useCallback(
+		(event: KeyboardEvent<HTMLSpanElement>, index: number) => {
+			const value = selectedArray[index];
+			switch (event.key) {
+				case "ArrowLeft": {
+					event.preventDefault();
+					if (index > 0) {
+						focusTag(index - 1);
 					}
-					case "ArrowRight": {
-						event.preventDefault();
-						if (index < selectedArray.length - 1) {
-							focusTag(index + 1);
-						} else {
-							focusInput();
-						}
-						break;
+					break;
+				}
+				case "ArrowRight": {
+					event.preventDefault();
+					if (index < selectedArray.length - 1) {
+						focusTag(index + 1);
+					} else {
+						focusInput();
 					}
-					case "Backspace":
-					case "Delete": {
-						event.preventDefault();
-						if (value !== undefined) {
-							removeValue(value);
-							// After removal, the array shifts. Focus the next logical tag or the input.
-							if (event.key === "Backspace") {
-								if (index > 0) {
-									// Focus the previous tag (will have same index - 1 after removal)
-									// We need to wait for the next render, so use requestAnimationFrame
-									const prevIndex = index - 1;
-									requestAnimationFrame(() => focusTag(prevIndex));
-								} else {
-									requestAnimationFrame(() => {
-										// If there are remaining tags, focus the first one (now at index 0)
-										if (selectedArray.length > 1) {
-											focusTag(0);
-										} else {
-											focusInput();
-										}
-									});
-								}
+					break;
+				}
+				case "Backspace":
+				case "Delete": {
+					event.preventDefault();
+					if (value !== undefined) {
+						removeValue(value);
+						// After removal, the array shifts. Focus the next logical tag or the input.
+						if (event.key === "Backspace") {
+							if (index > 0) {
+								// Focus the previous tag (will have same index - 1 after removal)
+								// We need to wait for the next render, so use requestAnimationFrame
+								const prevIndex = index - 1;
+								requestAnimationFrame(() => focusTag(prevIndex));
 							} else {
-								// Delete: move focus right
 								requestAnimationFrame(() => {
-									// index stays the same since the item at `index` was removed and the next one slides in
-									if (index < selectedArray.length - 1) {
-										focusTag(index);
+									// If there are remaining tags, focus the first one (now at index 0)
+									if (selectedArray.length > 1) {
+										focusTag(0);
 									} else {
 										focusInput();
 									}
 								});
 							}
+						} else {
+							// Delete: move focus right
+							requestAnimationFrame(() => {
+								// index stays the same since the item at `index` was removed and the next one slides in
+								if (index < selectedArray.length - 1) {
+									focusTag(index);
+								} else {
+									focusInput();
+								}
+							});
 						}
-						break;
 					}
-					default: {
-						// If a printable character is typed while a tag is focused, jump to input
-						if (event.key.length === 1 && !event.ctrlKey && !event.metaKey) {
-							focusInput();
-						}
-						break;
-					}
+					break;
 				}
-			},
-			[selectedArray, focusTag, focusInput, removeValue],
-		);
+				default: {
+					// If a printable character is typed while a tag is focused, jump to input
+					if (event.key.length === 1 && !event.ctrlKey && !event.metaKey) {
+						focusInput();
+					}
+					break;
+				}
+			}
+		},
+		[selectedArray, focusTag, focusInput, removeValue],
+	);
 
-		const handleInputKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+	const handleInputKeyDown = useCallback(
+		(event: KeyboardEvent<HTMLInputElement>) => {
 			if (
 				event.key === "ArrowLeft" &&
 				event.currentTarget.selectionStart === 0 &&
@@ -360,10 +414,70 @@ const TagValues = forwardRef<ComponentRef<"input">, MultiSelectTagValuesProps>(
 					removeValue(lastValue);
 				}
 			}
-		};
+		},
+		[selectedArray, focusTag, removeValue],
+	);
 
-		const setInputRef = useCallback(
+	// Write the latest handler into the bridge ref so Input can call it via onKeyDown.
+	// Assigned directly during render (safe — refs are mutable and don't trigger re-renders).
+	onInputKeyDownRef.current = handleInputKeyDown;
+
+	return (
+		<>
+			{selectedArray.map((value, index) => {
+				const tagOptionProps: TagRenderProps = {
+					value,
+					onRemove: () => removeValue(value),
+					ref: (node: HTMLSpanElement | null) => {
+						if (node) {
+							tagRefs.current.set(value, node);
+						} else {
+							tagRefs.current.delete(value);
+						}
+					},
+					onKeyDown: (event: KeyboardEvent<HTMLSpanElement>) => handleTagKeyDown(event, index),
+				};
+
+				if (children) {
+					return children(tagOptionProps);
+				}
+
+				return <TagOption key={value} {...tagOptionProps} />;
+			})}
+		</>
+	);
+};
+TagValues.displayName = "MultiSelectTagValues";
+
+type MultiSelectInputProps = Omit<Primitive.ComboboxProps, "render">;
+
+/**
+ * The combobox input for filtering items. Place this inside `MultiSelect.Trigger`,
+ * after `MultiSelect.TagValues`.
+ *
+ * @example
+ * ```tsx
+ * <MultiSelect.Root>
+ *   <MultiSelect.Trigger>
+ *     <MultiSelect.TagValues />
+ *     <MultiSelect.Input placeholder="Select items..." />
+ *   </MultiSelect.Trigger>
+ *   <MultiSelect.Content>
+ *     <MultiSelect.Item value="apple">Apple</MultiSelect.Item>
+ *   </MultiSelect.Content>
+ * </MultiSelect.Root>
+ * ```
+ */
+const Input = forwardRef<ComponentRef<"input">, MultiSelectInputProps>(
+	({ className, onFocus, onKeyDown, placeholder, ...props }, ref) => {
+		const store = Primitive.useComboboxContext();
+		const { onInputKeyDownRef, inputRef } = useContext(TagBridgeContext);
+		const selectedValues = Primitive.useStoreState(store, "selectedValue") as string[] | undefined;
+		const hasSelectedValues = (selectedValues?.length ?? 0) > 0;
+
+		const setRef = useCallback(
 			(node: HTMLInputElement | null) => {
+				// Register this input's DOM node in the bridge so TagValues can focus it for keyboard nav.
 				inputRef.current = node;
 				if (typeof ref === "function") {
 					ref(node);
@@ -371,53 +485,33 @@ const TagValues = forwardRef<ComponentRef<"input">, MultiSelectTagValuesProps>(
 					ref.current = node;
 				}
 			},
-			[ref],
-		);
-
-		const contextValue = useMemo(
-			() => ({ handleTagKeyDown, removeValue, selectedArray }),
-			[handleTagKeyDown, removeValue, selectedArray],
+			[ref, inputRef],
 		);
 
 		return (
-			<TagValuesContext.Provider value={contextValue}>
-				{selectedArray.map((value) =>
-					renderTag ? (
-						renderTag(value, () => removeValue(value))
-					) : (
-						<TagOption
-							key={value}
-							ref={(node) => {
-								if (node) {
-									tagRefs.current.set(value, node);
-								} else {
-									tagRefs.current.delete(value);
-								}
-							}}
-							value={value}
-						/>
-					),
+			<Primitive.Combobox
+				autoSelect
+				className={cx(
+					"pointer-coarse:text-base min-w-20 flex-1 select-text border-0 bg-transparent text-sm outline-hidden",
+					"placeholder:select-none placeholder:text-placeholder",
+					className,
 				)}
-				<Primitive.Combobox
-					autoSelect
-					className={cx(
-						"pointer-coarse:text-base min-w-20 flex-1 border-0 bg-transparent text-sm outline-hidden",
-						"placeholder:text-placeholder",
-						className,
-					)}
-					onKeyDown={handleInputKeyDown}
-					placeholder={selectedArray.length === 0 ? placeholder : undefined}
-					ref={setInputRef}
-					onFocusVisible={() => {
-						store?.show();
-					}}
-					{...props}
-				/>
-			</TagValuesContext.Provider>
+				onKeyDown={(event) => {
+					onInputKeyDownRef.current?.(event);
+					onKeyDown?.(event);
+				}}
+				onFocus={(event) => {
+					store?.show();
+					onFocus?.(event);
+				}}
+				placeholder={hasSelectedValues ? undefined : placeholder}
+				ref={setRef}
+				{...props}
+			/>
 		);
 	},
 );
-TagValues.displayName = "MultiSelectTagValues";
+Input.displayName = "MultiSelectInput";
 
 type MultiSelectContentProps = Omit<Primitive.ComboboxPopoverProps, "render"> & WithAsChild;
 
@@ -429,7 +523,8 @@ type MultiSelectContentProps = Omit<Primitive.ComboboxPopoverProps, "render"> & 
  * ```tsx
  * <MultiSelect.Root>
  *   <MultiSelect.Trigger>
- *     <MultiSelect.TagValues placeholder="Select items..." />
+ *     <MultiSelect.TagValues />
+ *     <MultiSelect.Input placeholder="Select items..." />
  *   </MultiSelect.Trigger>
  *   <MultiSelect.Content>
  *     <MultiSelect.Item value="apple">Apple</MultiSelect.Item>
@@ -721,7 +816,8 @@ ContentFooter.displayName = "MultiSelectContentFooter";
  * ```tsx
  * <MultiSelect.Root>
  *   <MultiSelect.Trigger>
- *     <MultiSelect.TagValues placeholder="Select items..." />
+ *     <MultiSelect.TagValues />
+ *     <MultiSelect.Input placeholder="Select items..." />
  *   </MultiSelect.Trigger>
  *   <MultiSelect.Content>
  *     <MultiSelect.Item value="apple">Apple</MultiSelect.Item>
@@ -740,7 +836,8 @@ const MultiSelect = {
 	 * ```tsx
 	 * <MultiSelect.Root>
 	 *   <MultiSelect.Trigger>
-	 *     <MultiSelect.TagValues placeholder="Select items..." />
+	 *     <MultiSelect.TagValues />
+	 *     <MultiSelect.Input placeholder="Select items..." />
 	 *   </MultiSelect.Trigger>
 	 *   <MultiSelect.Content>
 	 *     <MultiSelect.Item value="apple">Apple</MultiSelect.Item>
@@ -750,27 +847,47 @@ const MultiSelect = {
 	 */
 	Root,
 	/**
-	 * The trigger container for the multi-select. Wraps the input and selected
-	 * value tags in a styled container.
+	 * The trigger container for the multi-select. Wraps the tags and input
+	 * in a styled container.
 	 *
 	 * @example
 	 * ```tsx
 	 * <MultiSelect.Trigger>
-	 *   <MultiSelect.TagValues placeholder="Select items..." />
+	 *   <MultiSelect.TagValues />
+	 *   <MultiSelect.Input placeholder="Select items..." />
 	 * </MultiSelect.Trigger>
 	 * ```
 	 */
 	Trigger,
 	/**
-	 * Renders the selected values as removable tags along with the combobox
-	 * input for filtering.
+	 * Renders the selected values as removable tags. Place this inside
+	 * `MultiSelect.Trigger`, followed by `MultiSelect.Input`. Optionally
+	 * accepts a children render function to customize each tag.
 	 *
 	 * @example
 	 * ```tsx
-	 * <MultiSelect.TagValues placeholder="Select items..." />
+	 * // Default tags
+	 * <MultiSelect.TagValues />
+	 *
+	 * // Custom tags via children render function
+	 * <MultiSelect.TagValues>
+	 *   {(props) => (
+	 *     <MultiSelect.TagOption key={props.value} {...props} locked={props.value === "global"} />
+	 *   )}
+	 * </MultiSelect.TagValues>
 	 * ```
 	 */
 	TagValues,
+	/**
+	 * The combobox input for filtering items. Place this inside
+	 * `MultiSelect.Trigger`, after `MultiSelect.TagValues`.
+	 *
+	 * @example
+	 * ```tsx
+	 * <MultiSelect.Input placeholder="Select items..." />
+	 * ```
+	 */
+	Input,
 	/**
 	 * The default tag rendered inside `MultiSelect.TagValues` for each selected value.
 	 * Displays the value label with a remove button and keyboard navigation support.
@@ -779,8 +896,6 @@ const MultiSelect = {
 	 * ```tsx
 	 * <MultiSelect.TagOption
 	 *   value="apple"
-	 *   index={0}
-	 *   onKeyDown={handleTagKeyDown}
 	 *   onRemove={() => removeValue("apple")}
 	 * />
 	 * ```

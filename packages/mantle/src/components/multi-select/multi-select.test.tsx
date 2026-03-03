@@ -7,7 +7,8 @@ describe("MultiSelect", () => {
 		render(
 			<MultiSelect.Root>
 				<MultiSelect.Trigger>
-					<MultiSelect.TagValues placeholder="Select items..." />
+					<MultiSelect.TagValues />
+					<MultiSelect.Input placeholder="Select items..." />
 				</MultiSelect.Trigger>
 				<MultiSelect.Content>
 					<MultiSelect.Item value="apple">Apple</MultiSelect.Item>
@@ -22,7 +23,8 @@ describe("MultiSelect", () => {
 		render(
 			<MultiSelect.Root selectedValue={["apple", "banana"]} setSelectedValue={() => {}}>
 				<MultiSelect.Trigger>
-					<MultiSelect.TagValues placeholder="Select items..." />
+					<MultiSelect.TagValues />
+					<MultiSelect.Input placeholder="Select items..." />
 				</MultiSelect.Trigger>
 				<MultiSelect.Content>
 					<MultiSelect.Item value="apple">Apple</MultiSelect.Item>
@@ -38,7 +40,8 @@ describe("MultiSelect", () => {
 		render(
 			<MultiSelect.Root selectedValue={["apple"]} setSelectedValue={() => {}}>
 				<MultiSelect.Trigger>
-					<MultiSelect.TagValues placeholder="Select items..." />
+					<MultiSelect.TagValues />
+					<MultiSelect.Input placeholder="Select items..." />
 				</MultiSelect.Trigger>
 				<MultiSelect.Content>
 					<MultiSelect.Item value="apple">Apple</MultiSelect.Item>
@@ -52,7 +55,8 @@ describe("MultiSelect", () => {
 		render(
 			<MultiSelect.Root selectedValue={["apple", "banana"]} setSelectedValue={() => {}}>
 				<MultiSelect.Trigger>
-					<MultiSelect.TagValues placeholder="Select items..." />
+					<MultiSelect.TagValues />
+					<MultiSelect.Input placeholder="Select items..." />
 				</MultiSelect.Trigger>
 				<MultiSelect.Content>
 					<MultiSelect.Item value="apple">Apple</MultiSelect.Item>
@@ -68,7 +72,8 @@ describe("MultiSelect", () => {
 		render(
 			<MultiSelect.Root open>
 				<MultiSelect.Trigger>
-					<MultiSelect.TagValues placeholder="Select items..." />
+					<MultiSelect.TagValues />
+					<MultiSelect.Input placeholder="Select items..." />
 				</MultiSelect.Trigger>
 				<MultiSelect.Content>
 					<MultiSelect.Empty>No results found</MultiSelect.Empty>
@@ -82,7 +87,8 @@ describe("MultiSelect", () => {
 		render(
 			<MultiSelect.Root>
 				<MultiSelect.Trigger data-testid="trigger" validation="error">
-					<MultiSelect.TagValues placeholder="Select items..." />
+					<MultiSelect.TagValues />
+					<MultiSelect.Input placeholder="Select items..." />
 				</MultiSelect.Trigger>
 				<MultiSelect.Content>
 					<MultiSelect.Item value="apple">Apple</MultiSelect.Item>
