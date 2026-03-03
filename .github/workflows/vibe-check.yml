@@ -40,8 +40,24 @@ jobs:
           cache: "pnpm"
 
       - name: Install Dependencies 📥
+        run: pnpm install
+
+      - name: Start Playwright server 🎭
         run: |
-          pnpm install
+          PLAYWRIGHT_VERSION=$(grep '"playwright"' pnpm-workspace.yaml | awk -F'"' '{print $4}')
+          docker run -d --name playwright-server --network=host \
+            mcr.microsoft.com/playwright:v${PLAYWRIGHT_VERSION}-noble \
+            /bin/sh -c "npx playwright run-server --host 0.0.0.0 --port 3000"
+
+      - name: Wait for Playwright server
+        run: |
+          for i in {1..60}; do
+            if curl -s http://127.0.0.1:3000/ > /dev/null 2>&1; then
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "Playwright server did not start in time" && exit 1
 
       - name: Format Check 🧹
         run: pnpm run fmt:check
@@ -50,13 +66,16 @@ jobs:
         run: pnpm run lint
 
       - name: Build 🏗️
-        run: |
-          pnpm run build
+        run: pnpm run build
 
       - name: Typecheck 🔎
-        run: |
-          pnpm run typecheck
+        run: pnpm run typecheck
 
       - name: Test 🧪
-        run: |
-          pnpm run test
+        env:
+          PLAYWRIGHT_WS_ENDPOINT: ws://127.0.0.1:3000/
+        run: pnpm run test
+
+      - name: Stop Playwright server
+        if: always()
+        run: docker rm -f playwright-server || true

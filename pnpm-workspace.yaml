@@ -22,7 +22,9 @@ minimumReleaseAgeExclude:
 catalog:
   "@phosphor-icons/react": "2.1.10"
   "@tailwindcss/vite": "4.2.1"
-  "happy-dom": "20.7.0"
+  "@vitest/browser-playwright": "4.0.18"
+  "happy-dom": "20.8.3"
+  "playwright": "1.58.2"
   "tailwindcss": "4.2.1"
   "typescript": "5.9.3"
   "vite": "7.3.1"
