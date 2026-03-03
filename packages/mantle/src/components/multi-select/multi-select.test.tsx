@@ -1,4 +1,6 @@
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
+import { userEvent } from "@testing-library/user-event";
+import { useState } from "react";
 import { describe, expect, test } from "vitest";
 import { MultiSelect } from "./multi-select.js";
 
@@ -81,6 +83,154 @@ describe("MultiSelect", () => {
 			</MultiSelect.Root>,
 		);
 		expect(screen.getByText("No results found")).toBeInTheDocument();
+	});
+
+	describe("keyboard navigation", () => {
+		/**
+		 * Stateful wrapper for keyboard nav tests — uses useState so that
+		 * removeValue calls actually update the rendered tag list.
+		 */
+		const Subject = ({
+			initialValues = ["apple", "banana", "cherry"],
+		}: {
+			initialValues?: string[];
+		}) => {
+			const [values, setValues] = useState(initialValues);
+			return (
+				<MultiSelect.Root selectedValue={values} setSelectedValue={setValues}>
+					<MultiSelect.Trigger>
+						<MultiSelect.TagValues />
+						<MultiSelect.Input placeholder="Select items..." />
+					</MultiSelect.Trigger>
+					<MultiSelect.Content>
+						<MultiSelect.Item value="apple">Apple</MultiSelect.Item>
+						<MultiSelect.Item value="banana">Banana</MultiSelect.Item>
+						<MultiSelect.Item value="cherry">Cherry</MultiSelect.Item>
+					</MultiSelect.Content>
+				</MultiSelect.Root>
+			);
+		};
+
+		/**
+		 * Finds a tag's option span via its remove button's aria-label, which is
+		 * the most reliable anchor since the span's own accessible name varies by
+		 * ARIA implementation.
+		 */
+		const getTagOption = (value: string): HTMLElement => {
+			const removeBtn = screen.getByLabelText(`Remove ${value}`);
+			const tagEl = removeBtn.closest<HTMLElement>('[role="option"]');
+			if (tagEl == null) {
+				throw new Error(`Tag option for "${value}" not found`);
+			}
+			return tagEl;
+		};
+
+		/**
+		 * Waits for one rAF tick after the component's rAF has already been
+		 * scheduled. Because the browser/happy-dom processes rAF callbacks
+		 * FIFO, this resolves only after the focusTag callback has fired.
+		 * Wrapped in act() so any resulting React state updates are flushed.
+		 */
+		const waitForRaf = () =>
+			act(() => new Promise<void>((resolve) => requestAnimationFrame(() => resolve())));
+
+		test("ArrowLeft from input focuses the last tag", async () => {
+			const user = userEvent.setup();
+			render(<Subject />);
+			await user.click(screen.getByRole("combobox"));
+			await user.keyboard("{ArrowLeft}");
+			expect(getTagOption("cherry")).toHaveFocus();
+		});
+
+		test("ArrowLeft on a non-first tag focuses the previous tag", async () => {
+			const user = userEvent.setup();
+			render(<Subject />);
+			getTagOption("banana").focus();
+			await user.keyboard("{ArrowLeft}");
+			expect(getTagOption("apple")).toHaveFocus();
+		});
+
+		test("ArrowLeft on the first tag does not move focus", async () => {
+			const user = userEvent.setup();
+			render(<Subject />);
+			getTagOption("apple").focus();
+			await user.keyboard("{ArrowLeft}");
+			expect(getTagOption("apple")).toHaveFocus();
+		});
+
+		test("ArrowRight on a non-last tag focuses the next tag", async () => {
+			const user = userEvent.setup();
+			render(<Subject />);
+			getTagOption("apple").focus();
+			await user.keyboard("{ArrowRight}");
+			expect(getTagOption("banana")).toHaveFocus();
+		});
+
+		test("ArrowRight on the last tag focuses the input", async () => {
+			const user = userEvent.setup();
+			render(<Subject />);
+			getTagOption("cherry").focus();
+			await user.keyboard("{ArrowRight}");
+			expect(screen.getByRole("combobox")).toHaveFocus();
+		});
+
+		test("Backspace on an empty input removes the last tag", async () => {
+			const user = userEvent.setup();
+			render(<Subject />);
+			await user.click(screen.getByRole("combobox"));
+			await user.keyboard("{Backspace}");
+			expect(screen.queryByLabelText("Remove cherry")).not.toBeInTheDocument();
+		});
+
+		test("Backspace on the first tag with remaining tags focuses the new first tag", async () => {
+			const user = userEvent.setup();
+			render(<Subject />);
+			getTagOption("apple").focus();
+			await user.keyboard("{Backspace}");
+			await waitForRaf();
+			expect(screen.queryByLabelText("Remove apple")).not.toBeInTheDocument();
+			expect(getTagOption("banana")).toHaveFocus();
+		});
+
+		test("Backspace on the only tag focuses the input", async () => {
+			const user = userEvent.setup();
+			render(<Subject initialValues={["apple"]} />);
+			getTagOption("apple").focus();
+			await user.keyboard("{Backspace}");
+			await waitForRaf();
+			expect(screen.queryByLabelText("Remove apple")).not.toBeInTheDocument();
+			expect(screen.getByRole("combobox")).toHaveFocus();
+		});
+
+		test("Backspace on a non-first tag focuses the previous tag", async () => {
+			const user = userEvent.setup();
+			render(<Subject />);
+			getTagOption("banana").focus();
+			await user.keyboard("{Backspace}");
+			await waitForRaf();
+			expect(screen.queryByLabelText("Remove banana")).not.toBeInTheDocument();
+			expect(getTagOption("apple")).toHaveFocus();
+		});
+
+		test("Delete on a non-last tag focuses the tag that slides into its index", async () => {
+			const user = userEvent.setup();
+			render(<Subject />);
+			getTagOption("apple").focus();
+			await user.keyboard("{Delete}");
+			await waitForRaf();
+			expect(screen.queryByLabelText("Remove apple")).not.toBeInTheDocument();
+			expect(getTagOption("banana")).toHaveFocus();
+		});
+
+		test("Delete on the last tag focuses the input", async () => {
+			const user = userEvent.setup();
+			render(<Subject />);
+			getTagOption("cherry").focus();
+			await user.keyboard("{Delete}");
+			await waitForRaf();
+			expect(screen.queryByLabelText("Remove cherry")).not.toBeInTheDocument();
+			expect(screen.getByRole("combobox")).toHaveFocus();
+		});
 	});
 
 	test("given validation='error', renders trigger with data-validation='error'", () => {

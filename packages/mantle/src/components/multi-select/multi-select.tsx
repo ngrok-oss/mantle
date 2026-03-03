@@ -11,12 +11,17 @@ import type {
 	RefObject,
 } from "react";
 import { createContext, forwardRef, useCallback, useContext, useMemo, useRef } from "react";
+import { composeRefs } from "../../utils/compose-refs/compose-refs.js";
 import type { WithAsChild } from "../../types/as-child.js";
 import { cx } from "../../utils/cx/cx.js";
 import { Icon } from "../icon/icon.js";
 import type { WithValidation } from "../input/types.js";
 import { Separator } from "../separator/separator.js";
 import { Slot } from "../slot/index.js";
+
+/** Type guard to safely narrow Ariakit store state to `string[]` without `as` assertions. */
+const isStringArray = (value: unknown): value is string[] =>
+	Array.isArray(value) && value.every((item) => typeof item === "string");
 
 const TriggerRefContext = createContext<RefObject<HTMLDivElement | null>>({ current: null });
 
@@ -145,14 +150,7 @@ const Trigger = forwardRef<HTMLDivElement, MultiSelectTriggerProps>(
 					}
 					onMouseDown?.(event);
 				}}
-				ref={(node) => {
-					triggerRef.current = node;
-					if (typeof ref === "function") {
-						ref(node);
-					} else if (ref) {
-						ref.current = node;
-					}
-				}}
+				ref={composeRefs(triggerRef, ref)}
 				{...props}
 			>
 				{children}
@@ -201,7 +199,7 @@ const TagOption = forwardRef<HTMLSpanElement, TagOptionProps>(
 				data-locked={locked || undefined}
 				className={cx(
 					"cursor-default bg-neutral-100 border border-neutral-300 rounded-xs text-strong inline-flex items-center gap-1 pl-1.5 pr-1 py-0.5 text-xs font-semibold font-mono",
-					"focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-focus-accent",
+					"focus-visible:outline-hidden focus-visible:border-accent-600/50 focus-visible:ring-3 focus-visible:ring-focus-accent",
 					className,
 				)}
 				onKeyDown={(event) => {
@@ -289,11 +287,15 @@ type MultiSelectTagValuesProps = {
  */
 const TagValues = ({ children }: MultiSelectTagValuesProps) => {
 	const store = Primitive.useComboboxContext();
-	const selectedValues = Primitive.useStoreState(store, "selectedValue") as string[] | undefined;
+	const rawSelectedValue = Primitive.useStoreState(store, "selectedValue");
+	const selectedValues = isStringArray(rawSelectedValue) ? rawSelectedValue : undefined;
 	const selectedArray = useMemo(() => selectedValues ?? [], [selectedValues]);
+	// Keep a ref in sync so requestAnimationFrame callbacks always read fresh state
+	// instead of closing over a stale selectedArray from the render they were scheduled in.
+	const selectedArrayRef = useRef<string[]>(selectedArray);
+	selectedArrayRef.current = selectedArray;
 	const tagRefs = useRef<Map<string, HTMLSpanElement>>(new Map());
 	const { onInputKeyDownRef, inputRef } = useContext(TagBridgeContext);
-	const focusedTagIndexRef = useRef<number>(-1);
 
 	const removeValue = useCallback(
 		(value: string) => {
@@ -305,23 +307,18 @@ const TagValues = ({ children }: MultiSelectTagValuesProps) => {
 		[store],
 	);
 
-	const focusTag = useCallback(
-		(index: number) => {
-			const value = selectedArray[index];
-			if (value == null) {
-				return;
-			}
-			const tagEl = tagRefs.current.get(value);
-			if (tagEl) {
-				tagEl.focus();
-				focusedTagIndexRef.current = index;
-			}
-		},
-		[selectedArray],
-	);
+	const focusTag = useCallback((index: number) => {
+		const value = selectedArrayRef.current[index];
+		if (value == null) {
+			return;
+		}
+		const tagEl = tagRefs.current.get(value);
+		if (tagEl) {
+			tagEl.focus();
+		}
+	}, []);
 
 	const focusInput = useCallback(() => {
-		focusedTagIndexRef.current = -1;
 		inputRef.current?.focus();
 	}, [inputRef]);
 
@@ -359,8 +356,7 @@ const TagValues = ({ children }: MultiSelectTagValuesProps) => {
 								requestAnimationFrame(() => focusTag(prevIndex));
 							} else {
 								requestAnimationFrame(() => {
-									// If there are remaining tags, focus the first one (now at index 0)
-									if (selectedArray.length > 1) {
+									if (selectedArrayRef.current.length > 0) {
 										focusTag(0);
 									} else {
 										focusInput();
@@ -371,7 +367,7 @@ const TagValues = ({ children }: MultiSelectTagValuesProps) => {
 							// Delete: move focus right
 							requestAnimationFrame(() => {
 								// index stays the same since the item at `index` was removed and the next one slides in
-								if (index < selectedArray.length - 1) {
+								if (index < selectedArrayRef.current.length) {
 									focusTag(index);
 								} else {
 									focusInput();
@@ -472,7 +468,8 @@ const Input = forwardRef<ComponentRef<"input">, MultiSelectInputProps>(
 	({ className, onFocus, onKeyDown, placeholder, ...props }, ref) => {
 		const store = Primitive.useComboboxContext();
 		const { onInputKeyDownRef, inputRef } = useContext(TagBridgeContext);
-		const selectedValues = Primitive.useStoreState(store, "selectedValue") as string[] | undefined;
+		const rawSelectedValue = Primitive.useStoreState(store, "selectedValue");
+		const selectedValues = isStringArray(rawSelectedValue) ? rawSelectedValue : undefined;
 		const hasSelectedValues = (selectedValues?.length ?? 0) > 0;
 
 		const setRef = useCallback(
@@ -539,7 +536,6 @@ const Content = forwardRef<ComponentRef<"div">, MultiSelectContentProps>(
 		ref,
 	) => {
 		const triggerRef = useContext(TriggerRefContext);
-		const internalRef = useRef<HTMLDivElement | null>(null);
 
 		const getAnchorRect = useCallback(() => {
 			return triggerRef.current?.getBoundingClientRect() ?? null;
@@ -548,19 +544,12 @@ const Content = forwardRef<ComponentRef<"div">, MultiSelectContentProps>(
 		return (
 			<Primitive.ComboboxPopover
 				className={cx(
-					"border-popover bg-popover relative z-50 max-h-96 min-w-32 scrollbar overflow-y-scroll overflow-x-hidden overscroll-y-none rounded-md border shadow-md pt-1 font-sans flex flex-col gap-px focus:outline-hidden",
+					"border-popover bg-popover relative z-50 max-h-96 min-w-32 scrollbar overflow-y-scroll overflow-x-hidden overscroll-y-none rounded-md border shadow-md pt-1 pb-1 has-data-content-footer:pb-0 font-sans flex flex-col gap-px focus:outline-hidden",
 					className,
 				)}
 				getAnchorRect={getAnchorRect}
 				gutter={4}
-				ref={(node) => {
-					internalRef.current = node;
-					if (typeof ref === "function") {
-						ref(node);
-					} else if (ref) {
-						ref.current = node;
-					}
-				}}
+				ref={ref}
 				render={
 					asChild ? ({ ref, ...childProps }) => <Slot ref={ref} {...childProps} /> : undefined
 				}
@@ -792,6 +781,7 @@ const ContentFooter = forwardRef<HTMLDivElement, MultiSelectContentFooterProps>(
 		return (
 			<div
 				ref={ref}
+				data-content-footer
 				className={cx("bg-popover sticky bottom-0 border-t border-popover", className)}
 				{...props}
 			>
