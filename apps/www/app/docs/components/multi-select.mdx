@@ -7,6 +7,7 @@ import { MultiSelect } from "@ngrok/mantle/multi-select";
 import { matchSorter } from "match-sorter";
 import { useMemo, useState, useTransition } from "react";
 import { Example } from "~/components/example";
+import { RegionPinningDemo } from "~/docs/components/multi-select-region-pinning-demo";
 
 export const fruits = [
 	"Apple",
@@ -354,6 +355,153 @@ Use the `validation` prop on `MultiSelect.Trigger` to show validation states.
 </MultiSelect.Root>
 ```
 
+### Region Pinning
+
+A real-world example with three groups (regional aliases, PoPs, dedicated IPs), disabled items, secondary metadata per item, a stacked item description layout, a trailing link in the trigger, and a sticky footer CTA inside the content.
+
+<Example>
+	<RegionPinningDemo />
+</Example>
+
+```tsx
+import { Anchor } from "@ngrok/mantle/anchor";
+import { Button } from "@ngrok/mantle/button";
+import { MultiSelect } from "@ngrok/mantle/multi-select";
+import { matchSorter } from "match-sorter";
+import { useMemo, useState, useTransition } from "react";
+
+const regionalAliases = [
+	{ value: "global", popCount: "All PoPs" },
+	{ value: "united-states", popCount: "2 PoPs" },
+	{ value: "european-union", popCount: "1 PoP" },
+];
+
+const pointsOfPresence = [
+	{ value: "sg-sin-1", location: "Asia / Pacific (Singapore)" },
+	{ value: "au-syd-1", location: "Australia (Sydney)" },
+	{ value: "de-fra-1", location: "European Union (Frankfurt)" },
+	{ value: "in-mum-1", location: "India (Mumbai)" },
+	{ value: "jp-tokyo-1", location: "Japan (Tokyo)" },
+	{ value: "br-sao-1", location: "South America (São Paulo)" },
+	{ value: "us-ohio-1", location: "United States (Ohio)" },
+	{ value: "us-cal-1", location: "United States (California)" },
+];
+
+const dedicatedIPs = [
+	{ ip: "52.191.171.57", description: "this is a helpful description that is exceedingly lengthy" },
+	{ ip: "40.95.110.217", description: "this is a helpful description" },
+	{ ip: "63.243.178.35", description: "" },
+];
+
+function Example() {
+	const [isPending, startTransition] = useTransition();
+	const [searchValue, setSearchValue] = useState("");
+	const [selected, setSelected] = useState(["global"]);
+	const filteredAliases = useMemo(
+		() => matchSorter(regionalAliases, searchValue, { keys: ["value"] }),
+		[searchValue],
+	);
+	const filteredPops = useMemo(
+		() => matchSorter(pointsOfPresence, searchValue, { keys: ["value"] }),
+		[searchValue],
+	);
+	const filteredDedicatedIPs = useMemo(
+		() => matchSorter(dedicatedIPs, searchValue, { keys: ["ip"] }),
+		[searchValue],
+	);
+
+	return (
+		<div className="flex w-full max-w-lg flex-col gap-1.5">
+			<p className="text-strong text-sm font-medium">Resolves to</p>
+			<MultiSelect.Root
+				selectedValue={selected}
+				setSelectedValue={setSelected}
+				setValue={(value) => {
+					startTransition(() => setSearchValue(value));
+				}}
+			>
+				<MultiSelect.Trigger>
+					<MultiSelect.TagValues placeholder="Select regions..." />
+					{/* Sibling after TagValues works because the input is flex-1 and pushes this to the right */}
+					<Anchor className="shrink-0 whitespace-nowrap text-xs" href="#">
+						Requires Upgrade
+					</Anchor>
+				</MultiSelect.Trigger>
+				<MultiSelect.Content aria-busy={isPending}>
+					{filteredAliases.length > 0 && (
+						<MultiSelect.Group>
+							<MultiSelect.GroupLabel>Regional Aliases</MultiSelect.GroupLabel>
+							<MultiSelect.GroupDescription>
+								Include all points of presence that are geographically within the region.
+							</MultiSelect.GroupDescription>
+							{filteredAliases.map(({ value, popCount }) => (
+								<MultiSelect.Item key={value} value={value}>
+									<span className="flex min-w-0 flex-1 items-center justify-between gap-2">
+										<span className="font-mono">{value}</span>
+										<span className="text-muted font-sans text-xs font-normal">{popCount}</span>
+									</span>
+								</MultiSelect.Item>
+							))}
+						</MultiSelect.Group>
+					)}
+					{filteredAliases.length > 0 && filteredPops.length > 0 && <MultiSelect.Separator />}
+					{filteredPops.length > 0 && (
+						<MultiSelect.Group>
+							<MultiSelect.GroupLabel>Points of presence</MultiSelect.GroupLabel>
+							<MultiSelect.GroupDescription>
+								If you've included a region, you cannot include PoPs that are within it.
+							</MultiSelect.GroupDescription>
+							{filteredPops.map(({ value, location }) => (
+								<MultiSelect.Item key={value} value={value} disabled>
+									<span className="flex min-w-0 flex-1 items-center justify-between gap-2">
+										<span className="font-mono">{value}</span>
+										<span className="text-muted font-sans text-xs font-normal">{location}</span>
+									</span>
+								</MultiSelect.Item>
+							))}
+						</MultiSelect.Group>
+					)}
+					{(filteredAliases.length > 0 || filteredPops.length > 0) &&
+						filteredDedicatedIPs.length > 0 && <MultiSelect.Separator />}
+					{filteredDedicatedIPs.length > 0 && (
+						<MultiSelect.Group>
+							<MultiSelect.GroupLabel>Dedicated IPs</MultiSelect.GroupLabel>
+							{filteredDedicatedIPs.map(({ ip, description }) => (
+								<MultiSelect.Item key={ip} value={ip} disabled>
+									<span className="flex min-w-0 flex-1 flex-col">
+										<span className="font-mono">{ip}</span>
+										{description && (
+											<span className="text-muted font-sans text-xs font-normal">
+												{description}
+											</span>
+										)}
+									</span>
+								</MultiSelect.Item>
+							))}
+						</MultiSelect.Group>
+					)}
+					{filteredAliases.length === 0 &&
+						filteredPops.length === 0 &&
+						filteredDedicatedIPs.length === 0 && (
+							<MultiSelect.Empty>No results found</MultiSelect.Empty>
+						)}
+					<MultiSelect.ContentFooter>
+						<div className="flex items-center justify-between gap-3 bg-accent-600/10 px-3 py-3">
+							<p className="text-accent-600 text-sm font-medium">
+								Upgrade your plan to specify regions, PoPs, and dedicated IPs.
+							</p>
+							<Button appearance="filled" className="shrink-0" type="button">
+								Upgrade to Pay-as-you-go
+							</Button>
+						</div>
+					</MultiSelect.ContentFooter>
+				</MultiSelect.Content>
+			</MultiSelect.Root>
+		</div>
+	);
+}
+```
+
 ## API Reference
 
 The `MultiSelect` components are built on top of [ariakit Combobox](https://ariakit.org/components/combobox).
@@ -446,6 +594,12 @@ All props from ariakit [ComboboxGroupLabel](https://ariakit.org/reference/combob
 | :--------- | :-------- | :------ | :-------------------------------------------------------------------- |
 | `asChild?` | `boolean` | `false` | Compose onto an alternative element type or your own React component. |
 
+### MultiSelect.GroupDescription
+
+Renders a descriptive paragraph inside a `MultiSelect.Group`, placed after `MultiSelect.GroupLabel`. Provides additional context about the group's items.
+
+Standard `p` element props.
+
 ### MultiSelect.Separator
 
 Renders a separator between `MultiSelect.Item`s or `MultiSelect.Group`s.
@@ -455,5 +609,11 @@ All props from [Separator](/components/separator).
 ### MultiSelect.Empty
 
 Renders a message when no items match the current filter.
+
+Standard `div` element props.
+
+### MultiSelect.ContentFooter
+
+Renders a sticky footer inside `MultiSelect.Content`. Automatically sticks to the bottom when the popover opens downward and to the top when it flips upward (e.g., near the bottom of the viewport). Place it as the last child of `MultiSelect.Content`.
 
 Standard `div` element props.

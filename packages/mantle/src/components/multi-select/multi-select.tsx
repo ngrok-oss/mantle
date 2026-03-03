@@ -92,9 +92,9 @@ const Trigger = forwardRef<HTMLDivElement, MultiSelectTriggerProps>(
 					"has-focus:outline-hidden has-focus-within:ring-4 has-aria-expanded:ring-4",
 					"has-focus-within:border-accent-600 has-focus-within:ring-focus-accent has-aria-expanded:border-accent-600 has-aria-expanded:ring-focus-accent",
 					"hover:border-neutral-400",
-					"data-validation-success:has-focus-within:border-success-600 data-validation-success:has-focus-within:ring-focus-success data-validation-success:has-aria-expanded:border-success-600 data-validation-success:has-aria-expanded:ring-focus-success",
-					"data-validation-warning:has-focus-within:border-warning-600 data-validation-warning:has-focus-within:ring-focus-warning data-validation-warning:has-aria-expanded:border-warning-600 data-validation-warning:has-aria-expanded:ring-focus-warning",
-					"data-validation-error:has-focus-within:border-danger-600 data-validation-error:has-focus-within:ring-focus-danger data-validation-error:has-aria-expanded:border-danger-600 data-validation-error:has-aria-expanded:ring-focus-danger",
+					"data-validation-success:border-success-600 data-validation-success:has-focus-within:border-success-600 data-validation-success:has-focus-within:ring-focus-success data-validation-success:has-aria-expanded:border-success-600 data-validation-success:has-aria-expanded:ring-focus-success",
+					"data-validation-warning:border-warning-600 data-validation-warning:has-focus-within:border-warning-600 data-validation-warning:has-focus-within:ring-focus-warning data-validation-warning:has-aria-expanded:border-warning-600 data-validation-warning:has-aria-expanded:ring-focus-warning",
+					"data-validation-error:border-danger-600 data-validation-error:has-focus-within:border-danger-600 data-validation-error:has-focus-within:ring-focus-danger data-validation-error:has-aria-expanded:border-danger-600 data-validation-error:has-aria-expanded:ring-focus-danger",
 					className,
 				)}
 				data-validation={validation || undefined}
@@ -164,6 +164,7 @@ const TagOption = forwardRef<HTMLSpanElement, TagOptionProps>(
 				role="option"
 				aria-selected
 				tabIndex={-1}
+				data-locked={locked || undefined}
 				className={cx(
 					"bg-neutral-100 border border-neutral-300 rounded-xs text-strong inline-flex items-center gap-1 pl-1.5 pr-1 py-0.5 text-xs font-semibold font-mono",
 					"focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-focus-accent",
@@ -186,7 +187,7 @@ const TagOption = forwardRef<HTMLSpanElement, TagOptionProps>(
 					disabled={locked}
 					className={cx(
 						"hover:bg-neutral-200 hover:text-strong text-strong/25 rounded-sm p-px size-4",
-						"disabled:pointer-events-none disabled:opacity-0",
+						"disabled:pointer-events-none",
 					)}
 					onClick={(event) => {
 						event.stopPropagation();
@@ -355,7 +356,7 @@ const TagValues = forwardRef<ComponentRef<"input">, MultiSelectTagValuesProps>(
 				selectedArray.length > 0
 			) {
 				const lastValue = selectedArray[selectedArray.length - 1];
-				if (lastValue !== undefined) {
+				if (lastValue !== undefined && !tagRefs.current.get(lastValue)?.dataset.locked) {
 					removeValue(lastValue);
 				}
 			}
@@ -400,13 +401,16 @@ const TagValues = forwardRef<ComponentRef<"input">, MultiSelectTagValuesProps>(
 				<Primitive.Combobox
 					autoSelect
 					className={cx(
-						"pointer-coarse:text-base min-w-20 flex-1 border-0 bg-transparent px-1 py-0.5 text-sm outline-hidden",
+						"pointer-coarse:text-base min-w-20 flex-1 border-0 bg-transparent text-sm outline-hidden",
 						"placeholder:text-placeholder",
 						className,
 					)}
 					onKeyDown={handleInputKeyDown}
 					placeholder={selectedArray.length === 0 ? placeholder : undefined}
 					ref={setInputRef}
+					onFocusVisible={() => {
+						store?.show();
+					}}
 					{...props}
 				/>
 			</TagValuesContext.Provider>
@@ -440,6 +444,8 @@ const Content = forwardRef<ComponentRef<"div">, MultiSelectContentProps>(
 		ref,
 	) => {
 		const triggerRef = useContext(TriggerRefContext);
+		const internalRef = useRef<HTMLDivElement | null>(null);
+
 		const getAnchorRect = useCallback(() => {
 			return triggerRef.current?.getBoundingClientRect() ?? null;
 		}, [triggerRef]);
@@ -447,11 +453,19 @@ const Content = forwardRef<ComponentRef<"div">, MultiSelectContentProps>(
 		return (
 			<Primitive.ComboboxPopover
 				className={cx(
-					"border-popover bg-popover relative z-50 max-h-96 min-w-32 scrollbar overflow-y-scroll overflow-x-hidden rounded-md border shadow-md p-1 mt-1 font-sans space-y-px focus:outline-hidden",
+					"border-popover bg-popover relative z-50 max-h-96 min-w-32 scrollbar overflow-y-scroll overflow-x-hidden overscroll-y-none rounded-md border shadow-md pt-1 font-sans flex flex-col gap-px focus:outline-hidden",
 					className,
 				)}
 				getAnchorRect={getAnchorRect}
-				ref={ref}
+				gutter={4}
+				ref={(node) => {
+					internalRef.current = node;
+					if (typeof ref === "function") {
+						ref(node);
+					} else if (ref) {
+						ref.current = node;
+					}
+				}}
 				render={
 					asChild ? ({ ref, ...childProps }) => <Slot ref={ref} {...childProps} /> : undefined
 				}
@@ -485,7 +499,8 @@ const Item = forwardRef<ComponentRef<"div">, MultiSelectItemProps>(
 		return (
 			<Primitive.ComboboxItem
 				className={cx(
-					"cursor-pointer rounded-md px-2 py-1.5 text-strong text-sm font-normal flex min-w-0 items-center justify-between gap-2",
+					"mx-1 cursor-pointer rounded-md px-2 py-1.5 text-strong text-sm font-normal flex min-w-0 items-center justify-between gap-2",
+					"[[role=option]+&]:mt-px",
 					"data-active-item:bg-active-menu-item",
 					"aria-disabled:opacity-50",
 					"aria-selected:bg-selected-menu-item aria-selected:data-active-item:bg-active-selected-menu-item",
@@ -530,7 +545,7 @@ const Group = forwardRef<ComponentRef<"div">, MultiSelectGroupProps>(
 	({ asChild = false, children, ...props }, ref) => {
 		return (
 			<Primitive.ComboboxGroup
-				className="space-y-px"
+				className="mx-1"
 				ref={ref}
 				render={
 					asChild ? ({ ref, ...childProps }) => <Slot ref={ref} {...childProps} /> : undefined
@@ -577,6 +592,34 @@ const GroupLabel = forwardRef<ComponentRef<"div">, MultiSelectGroupLabelProps>(
 );
 GroupLabel.displayName = "MultiSelectGroupLabel";
 
+type MultiSelectGroupDescriptionProps = ComponentPropsWithoutRef<"p">;
+
+/**
+ * Renders a description below a `MultiSelect.GroupLabel` inside a `MultiSelect.Group`.
+ * Provides context about the group's purpose or constraints.
+ *
+ * @example
+ * ```tsx
+ * <MultiSelect.Group>
+ *   <MultiSelect.GroupLabel>Regional Aliases</MultiSelect.GroupLabel>
+ *   <MultiSelect.GroupDescription>
+ *     Include all points of presence that are geographically within the region.
+ *   </MultiSelect.GroupDescription>
+ *   <MultiSelect.Item value="global">global</MultiSelect.Item>
+ * </MultiSelect.Group>
+ * ```
+ */
+const GroupDescription = forwardRef<HTMLParagraphElement, MultiSelectGroupDescriptionProps>(
+	({ className, children, ...props }, ref) => {
+		return (
+			<p className={cx("text-muted px-2 pb-1 text-xs", className)} ref={ref} {...props}>
+				{children}
+			</p>
+		);
+	},
+);
+GroupDescription.displayName = "MultiSelectGroupDescription";
+
 /**
  * Renders a separator between MultiSelect.Items or MultiSelect.Groups.
  *
@@ -597,7 +640,7 @@ const MultiSelectSeparatorComponent = forwardRef<
 	ComponentRef<"div">,
 	ComponentPropsWithoutRef<typeof Separator>
 >(({ className, ...props }, ref) => (
-	<Separator ref={ref} className={cx("-mx-1.25 my-1 w-auto", className)} {...props} />
+	<Separator ref={ref} className={cx("my-1 w-auto", className)} {...props} />
 ));
 MultiSelectSeparatorComponent.displayName = "MultiSelectSeparator";
 
@@ -619,7 +662,7 @@ const Empty = forwardRef<HTMLDivElement, MultiSelectEmptyProps>(
 	({ className, children, ...props }, ref) => {
 		return (
 			<div
-				className={cx("text-muted px-2 py-6 text-center text-sm", className)}
+				className={cx("mx-1 text-muted px-2 py-6 text-center text-sm", className)}
 				ref={ref}
 				role="presentation"
 				{...props}
@@ -630,6 +673,39 @@ const Empty = forwardRef<HTMLDivElement, MultiSelectEmptyProps>(
 	},
 );
 Empty.displayName = "MultiSelectEmpty";
+
+type MultiSelectContentFooterProps = ComponentPropsWithoutRef<"div">;
+
+/**
+ * Renders a sticky footer inside `MultiSelect.Content`. Automatically pins to
+ * the bottom when the popover opens below the trigger, or to the top when it
+ * flips above — and switches the separator border accordingly.
+ *
+ * @example
+ * ```tsx
+ * <MultiSelect.Content>
+ *   <MultiSelect.Item value="apple">Apple</MultiSelect.Item>
+ *   <MultiSelect.ContentFooter>
+ *     <p>Upgrade to unlock more options.</p>
+ *     <Button>Upgrade</Button>
+ *   </MultiSelect.ContentFooter>
+ * </MultiSelect.Content>
+ * ```
+ */
+const ContentFooter = forwardRef<HTMLDivElement, MultiSelectContentFooterProps>(
+	({ className, children, ...props }, ref) => {
+		return (
+			<div
+				ref={ref}
+				className={cx("bg-popover sticky bottom-0 border-t border-popover", className)}
+				{...props}
+			>
+				{children}
+			</div>
+		);
+	},
+);
+ContentFooter.displayName = "MultiSelectContentFooter";
 
 /**
  * A multi-select combobox that allows users to select multiple values with
@@ -722,6 +798,18 @@ const MultiSelect = {
 	 */
 	Content,
 	/**
+	 * Renders a sticky footer inside `MultiSelect.Content`. Pins to the bottom
+	 * when the popover opens below the trigger, or to the top when it flips above.
+	 *
+	 * @example
+	 * ```tsx
+	 * <MultiSelect.ContentFooter>
+	 *   <p>Upgrade to unlock more options.</p>
+	 * </MultiSelect.ContentFooter>
+	 * ```
+	 */
+	ContentFooter,
+	/**
 	 * Renders a selectable item with a checkbox indicator inside a `MultiSelect.Content`.
 	 *
 	 * @example
@@ -751,6 +839,17 @@ const MultiSelect = {
 	 * ```
 	 */
 	GroupLabel,
+	/**
+	 * Renders a description below a `MultiSelect.GroupLabel` inside a `MultiSelect.Group`.
+	 *
+	 * @example
+	 * ```tsx
+	 * <MultiSelect.GroupDescription>
+	 *   Include all points of presence within the region.
+	 * </MultiSelect.GroupDescription>
+	 * ```
+	 */
+	GroupDescription,
 	/**
 	 * Renders a separator between items or groups.
 	 *
