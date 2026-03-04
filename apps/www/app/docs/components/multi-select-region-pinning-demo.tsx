@@ -1,6 +1,7 @@
 import { Button } from "@ngrok/mantle/button";
 import { MultiSelect } from "@ngrok/mantle/multi-select";
 import { useMemo, useState, useTransition } from "react";
+import { Link } from "react-router";
 
 const regionalAliases = [
 	{ value: "global", popCount: "All PoPs" },
@@ -131,8 +132,8 @@ export function RegionPinningDemo() {
 							<p className="text-accent-600 text-sm font-medium flex-1">
 								Upgrade your plan to specify regions, PoPs, and dedicated IPs.
 							</p>
-							<Button appearance="filled" className="shrink-0" type="button">
-								Upgrade to Pay-as-you-go
+							<Button appearance="filled" className="shrink-0" asChild>
+								<Link to="#">Upgrade to Pay-as-you-go</Link>
 							</Button>
 						</div>
 					</MultiSelect.ContentFooter>

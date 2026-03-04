@@ -568,8 +568,15 @@ function Example() {
 							<p className="text-accent-600 text-sm font-medium">
 								Upgrade your plan to specify regions, PoPs, and dedicated IPs.
 							</p>
-							<Button appearance="filled" className="shrink-0" type="button">
-								Upgrade to Pay-as-you-go
+							<Button appearance="filled" className="shrink-0" asChild>
+								<Link
+									to={{
+										pathname: href("/billing/choose-a-plan"),
+										search: "?plan=paygo",
+									}}
+								>
+									Upgrade to Pay-as-you-go
+								</Link>
 							</Button>
 						</div>
 					</MultiSelect.ContentFooter>
@@ -654,11 +661,14 @@ Renders a popover that contains multi-select content.
 
 All props from ariakit [ComboboxPopover](https://ariakit.org/reference/combobox-popover), plus:
 
-| Prop             | Type      | Default | Description                                                           |
-| :--------------- | :-------- | :------ | :-------------------------------------------------------------------- |
-| `asChild?`       | `boolean` | `false` | Compose onto an alternative element type or your own React component. |
-| `sameWidth?`     | `boolean` | `true`  | Whether the popover should be the same width as the trigger.          |
-| `unmountOnHide?` | `boolean` | `true`  | Whether the popover should unmount when hidden.                       |
+| Prop                 | Type      | Default | Description                                                                                                              |
+| :------------------- | :-------- | :------ | :----------------------------------------------------------------------------------------------------------------------- |
+| `asChild?`           | `boolean` | `false` | Compose onto an alternative element type or your own React component.                                                    |
+| `backdrop?`          | `boolean` | `false` | Whether to render a backdrop behind the popover.                                                                         |
+| `modal?`             | `boolean` | `true`  | Enables a focus trap when the content is open. Tab stays inside the content, Escape and click outside close the popover. |
+| `preventBodyScroll?` | `boolean` | `false` | Whether to prevent body scrolling when the popover is open.                                                              |
+| `sameWidth?`         | `boolean` | `true`  | Whether the popover should be the same width as the trigger.                                                             |
+| `unmountOnHide?`     | `boolean` | `true`  | Whether the popover should unmount when hidden.                                                                          |
 
 ### MultiSelect.Item
 
