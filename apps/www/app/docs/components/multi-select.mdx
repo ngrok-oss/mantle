@@ -451,7 +451,7 @@ function Example() {
 								<MultiSelect.TagValues />
 								<MultiSelect.Input
 									id={field.name}
-									onChange={(event) => startTransition(() => setSearchValue(event.target.value))}
+									onValueChange={(value) => startTransition(() => setSearchValue(value))}
 									placeholder="Select fruits and vegetables..."
 								/>
 							</MultiSelect.Trigger>

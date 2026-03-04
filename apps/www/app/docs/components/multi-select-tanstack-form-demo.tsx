@@ -58,6 +58,7 @@ export function TanStackFormDemo() {
 							}}
 						>
 							<MultiSelect.Trigger
+								onBlur={field.handleBlur}
 								validation={field.state.meta.errors.length > 0 ? "error" : false}
 							>
 								<MultiSelect.TagValues />
