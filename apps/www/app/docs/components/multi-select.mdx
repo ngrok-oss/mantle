@@ -136,6 +136,54 @@ export function ControlledDemo() {
 
 }
 
+export function CreatableDemo() {
+	const [isPending, startTransition] = useTransition();
+	const [searchValue, setSearchValue] = useState("");
+	const [selected, setSelected] = useState(["Apple", "Cherry"]);
+	const [options, setOptions] = useState(fruits);
+	const matches = useMemo(() => matchSorter(options, searchValue), [options, searchValue]);
+	const showCreate =
+		searchValue.trim() !== "" &&
+		!options.some((o) => o.toLowerCase() === searchValue.trim().toLowerCase());
+
+    return (
+    	<MultiSelect.Root
+    		selectedValue={selected}
+    		setSelectedValue={(values) => {
+    			setSelected(values);
+    			startTransition(() => setSearchValue(""));
+    		}}
+    	>
+    		<MultiSelect.Trigger className="max-w-96">
+    			<MultiSelect.TagValues />
+    			<MultiSelect.Input
+    				onValueChange={(value) => startTransition(() => setSearchValue(value))}
+    				placeholder="Select or create fruits..."
+    			/>
+    		</MultiSelect.Trigger>
+    		<MultiSelect.Content aria-busy={isPending}>
+    			{matches.map((value) => (
+    				<MultiSelect.Item key={value} value={value}>
+    					{value}
+    				</MultiSelect.Item>
+    			))}
+    			{showCreate && (
+    				<MultiSelect.Item
+    					value={searchValue.trim()}
+    					onClick={() => setOptions((prev) => [...prev, searchValue.trim()])}
+    				>
+    					Create "{searchValue.trim()}"
+    				</MultiSelect.Item>
+    			)}
+    			{matches.length === 0 && !showCreate && (
+    				<MultiSelect.Empty>No results found</MultiSelect.Empty>
+    			)}
+    		</MultiSelect.Content>
+    	</MultiSelect.Root>
+    );
+
+}
+
 export function LockedValuesDemo() {
 	const [isPending, startTransition] = useTransition();
 	const [searchValue, setSearchValue] = useState("");
@@ -341,6 +389,55 @@ const [selected, setSelected] = useState(["apple", "banana", "cherry"]);
 		<MultiSelect.Item value="apple">apple</MultiSelect.Item>
 		<MultiSelect.Item value="banana">banana</MultiSelect.Item>
 		<MultiSelect.Item value="cherry">cherry</MultiSelect.Item>
+	</MultiSelect.Content>
+</MultiSelect.Root>;
+```
+
+### Creatable
+
+Render a dynamic "Create …" item when the search text doesn't match any existing option. When selected, add the new value to both your options list and the selection. No component changes needed — consumers own the items rendered in `Content`.
+
+<Example>
+	<CreatableDemo />
+</Example>
+
+```tsx
+const [selected, setSelected] = useState(["Apple", "Cherry"]);
+const [options, setOptions] = useState(fruits);
+const matches = useMemo(() => matchSorter(options, searchValue), [options, searchValue]);
+const showCreate =
+	searchValue.trim() !== "" &&
+	!options.some((o) => o.toLowerCase() === searchValue.trim().toLowerCase());
+
+<MultiSelect.Root
+	selectedValue={selected}
+	setSelectedValue={(values) => {
+		setSelected(values);
+		startTransition(() => setSearchValue(""));
+	}}
+>
+	<MultiSelect.Trigger>
+		<MultiSelect.TagValues />
+		<MultiSelect.Input
+			onValueChange={(value) => startTransition(() => setSearchValue(value))}
+			placeholder="Select or create fruits..."
+		/>
+	</MultiSelect.Trigger>
+	<MultiSelect.Content>
+		{matches.map((value) => (
+			<MultiSelect.Item key={value} value={value}>
+				{value}
+			</MultiSelect.Item>
+		))}
+		{showCreate && (
+			<MultiSelect.Item
+				value={searchValue.trim()}
+				onClick={() => setOptions((prev) => [...prev, searchValue.trim()])}
+			>
+				Create "{searchValue.trim()}"
+			</MultiSelect.Item>
+		)}
+		{matches.length === 0 && !showCreate && <MultiSelect.Empty>No results found</MultiSelect.Empty>}
 	</MultiSelect.Content>
 </MultiSelect.Root>;
 ```
