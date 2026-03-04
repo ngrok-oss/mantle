@@ -12,7 +12,7 @@ export { useDebouncedCallback } from "./use-debounced-callback.js";
 export { useIsHydrated } from "./use-is-hydrated.js";
 export { useIsomorphicLayoutEffect } from "./use-isomorphic-layout-effect.js";
 export { useMatchesMediaQuery } from "./use-matches-media-query.js";
-export { usePrefersReducedMotion } from "./use-prefers-reduced-motion.js";
+export { getPrefersReducedMotion, usePrefersReducedMotion } from "./use-prefers-reduced-motion.js";
 export { useRandomStableId } from "./use-random-stable-id.js";
 export { useScrollBehavior } from "./use-scroll-behavior.js";
 export { useComposedRefs } from "../utils/compose-refs/compose-refs.js";

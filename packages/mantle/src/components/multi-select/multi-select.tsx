@@ -22,6 +22,7 @@ import {
 	useRef,
 } from "react";
 import type { WithAsChild } from "../../types/as-child.js";
+import { getPrefersReducedMotion } from "../../hooks/use-prefers-reduced-motion.js";
 import { composeRefs } from "../../utils/compose-refs/compose-refs.js";
 import { cx } from "../../utils/cx/cx.js";
 import { Icon } from "../icon/icon.js";
@@ -1133,7 +1134,7 @@ function shakeElement(element: HTMLElement): void {
 	// Skip the animation when the user has opted into reduced motion.
 	// Called from event handlers only, so reading the media query imperatively
 	// is safe and gives the freshest value without any hook plumbing.
-	if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+	if (getPrefersReducedMotion()) {
 		return;
 	}
 
