@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.66.0
+
+### Minor Changes
+
+- [#997](https://github.com/ngrok-oss/mantle/pull/997) [`612171b`](https://github.com/ngrok-oss/mantle/commit/612171b3afb4fb44e5695445d69418bd621a203e) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add MultiSelect component
+
 ## 0.65.0
 
 ### Minor Changes
