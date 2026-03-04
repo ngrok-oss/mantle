@@ -52,6 +52,7 @@ export default [
 	...docRoute("components/kbd"),
 	...docRoute("components/label"),
 	...docRoute("components/media-object"),
+	...docRoute("components/multi-select"),
 	...docRoute("components/pagination"),
 	...docRoute("components/password-input"),
 	...docRoute("components/popover"),

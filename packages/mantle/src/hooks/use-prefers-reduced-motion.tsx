@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { canUseDOM } from "../components/browser-only/browser-only.js";
 
 /**
  * no-preference is the default value for the prefers-reduced-motion media query.
@@ -8,14 +9,31 @@ import { useEffect, useState } from "react";
 const query = "(prefers-reduced-motion: no-preference)";
 
 /**
+ * Imperatively reads the current `prefers-reduced-motion` preference.
+ * Useful in event handlers and plain functions where a hook cannot be called.
+ *
+ * Returns `true` when the user has opted out of animations.
+ *
+ * @remarks
+ * Returns `true` (reduce motion) when called outside a browser environment (SSR),
+ * matching the conservative default of {@link usePrefersReducedMotion}.
+ */
+export function getPrefersReducedMotion(): boolean {
+	if (!canUseDOM()) {
+		return true;
+	}
+	return !window.matchMedia(query).matches;
+}
+
+/**
  * Returns `true` when the user has opted out of animations (i.e., prefers reduced motion).
  *
  * Implementation notes:
  * - Uses the `(prefers-reduced-motion: no-preference)` media query and inverts it.
  *   This keeps the “default” mental model explicit: if the system hasn’t opted out,
  *   animations are allowed.
- * - Defaults to `true` on the server to avoid animating before hydration. The initial
- *   client effect reads the *real* preference and updates state.
+ * - Defaults to `true` (reduce motion) on the server/during SSR to avoid animating
+ *   before hydration. The initial client effect reads the *real* preference and updates state.
  *
  * @example
  * // Conditionally shorten or skip transitions
@@ -34,7 +52,7 @@ export function usePrefersReducedMotion(): boolean {
 		const mediaQueryList = window.matchMedia(query);
 
 		// set the _real_ initial value now that we're on the client
-		setPrefersReducedMotion(!mediaQueryList.matches);
+		setPrefersReducedMotion(getPrefersReducedMotion());
 
 		// register for updates
 		function listener(event: MediaQueryListEvent) {

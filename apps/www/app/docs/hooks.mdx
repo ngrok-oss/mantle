@@ -198,7 +198,7 @@ function DarkModeDetector() {
 const reduce = usePrefersReducedMotion();
 ```
 
-Returns `true` when the user has opted out of animations (i.e., prefers reduced motion). Defaults to `true` on the server to avoid animating before hydration.
+Returns `true` when the user has opted out of animations (i.e., prefers reduced motion). Defaults to `true` during SSR and before hydration — animations are suppressed until the real preference is known on the client.
 
 ```tsx
 import { usePrefersReducedMotion } from "@ngrok/mantle/hooks";
@@ -207,6 +207,27 @@ function AnimatedComponent() {
 	const reduce = usePrefersReducedMotion();
 	const duration = reduce ? 0 : 200;
 	return <div style={{ transitionDuration: duration + "ms" }} />;
+}
+```
+
+### getPrefersReducedMotion
+
+```tsx
+const reduce = getPrefersReducedMotion();
+```
+
+Imperatively reads the current `prefers-reduced-motion` preference. Useful in event handlers and plain functions where a hook cannot be called.
+
+Returns `true` when the user has opted out of animations. Defaults to `true` in SSR environments (no DOM available), matching the conservative default of `usePrefersReducedMotion`.
+
+```tsx
+import { getPrefersReducedMotion } from "@ngrok/mantle/hooks";
+
+function shakeElement(element: HTMLElement) {
+	if (getPrefersReducedMotion()) {
+		return;
+	}
+	element.animate(/* ... */);
 }
 ```
 
