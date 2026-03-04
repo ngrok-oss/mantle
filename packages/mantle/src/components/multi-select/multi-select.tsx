@@ -637,7 +637,6 @@ const Content = forwardRef<ComponentRef<"div">, MultiSelectContentProps>(
 			children,
 			className,
 			modal = true,
-			preventBodyScroll = false,
 			sameWidth = true,
 			unmountOnHide = true,
 			...props
@@ -663,18 +662,6 @@ const Content = forwardRef<ComponentRef<"div">, MultiSelectContentProps>(
 			[triggerRef],
 		);
 
-		// Include the trigger in the modal's persistent elements so focus can
-		// move between the trigger's input and the popover content. Without this,
-		// modal=true would make the trigger inert while the popover is open,
-		// preventing the user from typing to filter items.
-		const getPersistentElements = useCallback(() => {
-			const elements: Element[] = [];
-			if (triggerRef.current) {
-				elements.push(triggerRef.current);
-			}
-			return elements;
-		}, [triggerRef]);
-
 		return (
 			<Primitive.ComboboxPopover
 				data-slot="multi-select-content"
@@ -684,11 +671,9 @@ const Content = forwardRef<ComponentRef<"div">, MultiSelectContentProps>(
 				)}
 				backdrop={backdrop}
 				getAnchorRect={getAnchorRect}
-				getPersistentElements={getPersistentElements}
 				gutter={4}
 				hideOnInteractOutside={hideOnInteractOutside}
 				modal={modal}
-				preventBodyScroll={preventBodyScroll}
 				ref={ref}
 				render={
 					asChild ? ({ ref, ...childProps }) => <Slot ref={ref} {...childProps} /> : undefined
