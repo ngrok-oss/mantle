@@ -1,4 +1,4 @@
-import { act, render, screen } from "@testing-library/react";
+import { act, fireEvent, render, screen } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import { useState } from "react";
 import { describe, expect, test } from "vitest";
@@ -118,11 +118,11 @@ describe("MultiSelect", () => {
 		 */
 		const getTagOption = (value: string): HTMLElement => {
 			const removeBtn = screen.getByLabelText(`Remove ${value}`);
-			const tagEl = removeBtn.closest<HTMLElement>('[role="option"]');
-			if (tagEl == null) {
+			const tagElement = removeBtn.closest<HTMLElement>('[role="option"]');
+			if (tagElement == null) {
 				throw new Error(`Tag option for "${value}" not found`);
 			}
-			return tagEl;
+			return tagElement;
 		};
 
 		/**
@@ -134,11 +134,9 @@ describe("MultiSelect", () => {
 		const waitForRaf = () =>
 			act(() => new Promise<void>((resolve) => requestAnimationFrame(() => resolve())));
 
-		test("ArrowLeft from input focuses the last tag", async () => {
-			const user = userEvent.setup();
+		test("ArrowLeft from input focuses the first tag to the left of the input", () => {
 			render(<Subject />);
-			await user.click(screen.getByRole("combobox"));
-			await user.keyboard("{ArrowLeft}");
+			fireEvent.keyDown(screen.getByRole("combobox"), { key: "ArrowLeft" });
 			expect(getTagOption("cherry")).toHaveFocus();
 		});
 
