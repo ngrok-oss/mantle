@@ -322,6 +322,116 @@ const Code = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
 );
 Code.displayName = "CodeBlockCode";
 
+type CodeBlockPreCodeProps = Omit<ComponentProps<"pre">, "children"> & {
+	/**
+	 * The plain-text code string. Used by `CodeBlock.CopyButton` for clipboard
+	 * access and normalized with the same indentation rules as `CodeBlock.Code`.
+	 */
+	value: string;
+	/**
+	 * Pre-highlighted inner HTML produced by a server-side highlighter (e.g.
+	 * Shiki via the `rehype-shiki` build plugin). Rendered verbatim inside the
+	 * `<code>` element — **no** client-side highlighting runs.
+	 *
+	 * The value must be the *inner* HTML of `<code>` — i.e. only the token
+	 * spans, **not** the surrounding `<pre>` or `<code>` tags.
+	 */
+	highlightedHtml: string;
+	/**
+	 * The language of the code block. Used for the `data-lang` attribute and
+	 * indentation inference; does **not** trigger syntax highlighting (that
+	 * already happened server-side).
+	 * @default `"text"`
+	 */
+	language?: SupportedLanguage;
+};
+
+/**
+ * A zero-runtime-highlighter variant of `CodeBlock.Code`.
+ *
+ * Use this when your build pipeline (e.g. the `rehype-shiki` Vite plugin) has
+ * already produced highlighted HTML on the server. The browser only renders the
+ * pre-computed markup — no syntax-highlighter JavaScript is executed client-side
+ * for these blocks.
+ *
+ * `CodeBlock.CopyButton` works exactly as with `CodeBlock.Code`; the plain-text
+ * `value` is used for clipboard access after the same indentation normalization.
+ *
+ * @see https://mantle.ngrok.com/components/code-block#codeblockprecode
+ *
+ * @example
+ * ```tsx
+ * // Typically rendered by the MDX provider after rehype-shiki injects
+ * // `data-highlighted-html` onto the <code> element at compile time.
+ * <CodeBlock.Root>
+ *   <CodeBlock.Body>
+ *     <CodeBlock.CopyButton />
+ *     <CodeBlock.PreCode
+ *       language="typescript"
+ *       value={rawCode}
+ *       highlightedHtml={preHighlightedHtml}
+ *     />
+ *   </CodeBlock.Body>
+ * </CodeBlock.Root>
+ * ```
+ */
+const PreCode = forwardRef<ComponentRef<"pre">, CodeBlockPreCodeProps>(
+	({ className, highlightedHtml, language = "text", style, tabIndex, value, ...props }, ref) => {
+		const id = useId();
+		const { hasCodeExpander, isCodeExpanded, registerCodeId, setCopyText, unregisterCodeId } =
+			useContext(CodeBlockContext);
+		const indentation = inferIndentation(language, undefined);
+
+		const normalizedValue = useMemo(
+			() => normalizeIndentation(value, { indentation }),
+			[value, indentation],
+		);
+
+		useEffect(() => {
+			setCopyText(normalizedValue);
+		}, [normalizedValue, setCopyText]);
+
+		useEffect(() => {
+			registerCodeId(id);
+
+			return () => {
+				unregisterCodeId(id);
+			};
+		}, [id, registerCodeId, unregisterCodeId]);
+
+		const languageClassName = formatLanguageClassName(language);
+
+		return (
+			<pre
+				aria-expanded={hasCodeExpander ? isCodeExpanded : undefined}
+				className={cx(
+					"scrollbar overflow-x-auto overflow-y-hidden p-4 pr-14",
+					"text-mono m-0 font-mono",
+					"aria-collapsed:max-h-[13.6rem]",
+					languageClassName,
+					className,
+				)}
+				data-lang={language}
+				id={id}
+				ref={ref}
+				style={{
+					...style,
+					tabSize: 2,
+					MozTabSize: 2,
+				}}
+				tabIndex={tabIndex ?? -1}
+				{...props}
+			>
+				<code
+					className={cx("text-size-inherit", languageClassName)}
+					dangerouslySetInnerHTML={{ __html: highlightedHtml }}
+				/>
+			</pre>
+		);
+	},
+);
+PreCode.displayName = "CodeBlockPreCode";
+
 /**
  * The (optional) header slot of the `CodeBlock`. This is where things like the
  * `CodeBlock.Icon` and `CodeBlock.Title` are rendered.
@@ -732,6 +842,31 @@ const CodeBlock = {
 	 * ```
 	 */
 	Code,
+	/**
+	 * A zero-runtime-highlighter variant of `CodeBlock.Code`.
+	 *
+	 * Use this when your build pipeline (e.g. the `rehype-shiki` Vite plugin)
+	 * has already produced highlighted HTML on the server. The browser only
+	 * renders the pre-computed markup — no syntax-highlighter JavaScript is
+	 * executed client-side for these blocks.
+	 *
+	 * @see https://mantle.ngrok.com/components/code-block#codeblockprecode
+	 *
+	 * @example
+	 * ```tsx
+	 * <CodeBlock.Root>
+	 *   <CodeBlock.Body>
+	 *     <CodeBlock.CopyButton />
+	 *     <CodeBlock.PreCode
+	 *       language="typescript"
+	 *       value={rawCode}
+	 *       highlightedHtml={preHighlightedHtml}
+	 *     />
+	 *   </CodeBlock.Body>
+	 * </CodeBlock.Root>
+	 * ```
+	 */
+	PreCode,
 	/**
 	 * The (optional) copy button of the `CodeBlock`. Render this as a child of the
 	 * `CodeBlock.Body` to allow users to copy the code block contents to their

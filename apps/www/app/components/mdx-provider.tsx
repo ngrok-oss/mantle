@@ -82,11 +82,21 @@ const components = {
 	},
 	pre: (props: ComponentProps<"pre"> & MetaInput) => {
 		const { children, className, collapsible: collapsibleProp } = props;
-		if (!isValidElement<{ className?: string; children?: unknown }>(children)) {
+		if (
+			!isValidElement<{
+				className?: string;
+				children?: unknown;
+				// The rehype-shiki plugin injects the pre-highlighted HTML as a
+				// `data-highlighted-html` attribute on the <code> element.
+				// React surfaces data-* attributes as-is on DOM elements.
+				"data-highlighted-html"?: string;
+			}>(children)
+		) {
 			return null;
 		}
 		const language = parseLanguage(children.props.className);
 		const code = String(children.props.children ?? "");
+		const highlightedHtml = children.props["data-highlighted-html"];
 		// Short-circuit: skip the split("\n") allocation for small blocks (400 chars ≈ 10 chars/line × 40 lines)
 		const isLong = collapsibleProp == null && code.length > 400 && code.split("\n").length > 40;
 		const collapsible = collapsibleProp != null ? parseBooleanish(collapsibleProp) : isLong;
@@ -95,7 +105,13 @@ const components = {
 			<CodeBlock.Root className={cx("mb-6", className)}>
 				<CodeBlock.Body>
 					<CodeBlock.CopyButton />
-					<CodeBlock.Code language={language} value={code} />
+					{highlightedHtml != null ? (
+						// Shiki pre-highlighted at build time — no client-side highlighter runs.
+						<CodeBlock.PreCode language={language} value={code} highlightedHtml={highlightedHtml} />
+					) : (
+						// Prism fallback for languages Shiki didn't handle (e.g. plain text).
+						<CodeBlock.Code language={language} value={code} />
+					)}
 				</CodeBlock.Body>
 				{collapsible && <CodeBlock.ExpanderButton />}
 			</CodeBlock.Root>

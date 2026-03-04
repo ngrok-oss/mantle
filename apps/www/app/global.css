@@ -4,3 +4,27 @@
 @theme {
 	--max-width-prose: 68ch;
 }
+
+/**
+ * Shiki dual-theme token colors for CodeBlock.PreCode.
+ *
+ * The rehype-shiki build plugin generates token spans with both
+ * `--shiki-light` and `--shiki-dark` CSS custom properties and
+ * `defaultColor: false`, so no inline `color:` is written. These rules
+ * activate the correct variable based on the active Mantle theme.
+ */
+[data-slot="code-block"] code .line span {
+	color: var(--shiki-light);
+	font-style: var(--shiki-light-font-style, inherit);
+	font-weight: var(--shiki-light-font-weight, inherit);
+	text-decoration: var(--shiki-light-text-decoration, none);
+}
+
+:root.dark [data-slot="code-block"] code .line span,
+:root[data-theme="dark"] [data-slot="code-block"] code .line span,
+:root[data-applied-theme="dark"] [data-slot="code-block"] code .line span {
+	color: var(--shiki-dark);
+	font-style: var(--shiki-dark-font-style, inherit);
+	font-weight: var(--shiki-dark-font-weight, inherit);
+	text-decoration: var(--shiki-dark-text-decoration, none);
+}

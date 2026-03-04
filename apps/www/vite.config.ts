@@ -14,6 +14,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 import { remarkMdxNoParagraphWrap } from "@ngrok/remark-mdx-no-paragraph-wrap";
 import { rawMdxDocs } from "./vite-plugins/raw-mdx-docs";
+import { rehypeShiki } from "./vite-plugins/rehype-shiki";
 
 export default defineConfig({
 	optimizeDeps: {
@@ -37,7 +38,7 @@ export default defineConfig({
 				remarkMdxGithubAlerts,
 				remarkMdxNoParagraphWrap,
 			],
-			rehypePlugins: [rehypeSlug, rehypeMdxCodeProps],
+			rehypePlugins: [rehypeSlug, rehypeMdxCodeProps, rehypeShiki],
 			providerImportSource: "@mdx-js/react",
 		}),
 		reactRouter(),
