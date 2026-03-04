@@ -365,7 +365,13 @@ const TagValues = ({ children, lockedValues = [] }: MultiSelectTagValuesProps) =
 		[],
 	);
 	const raf = (callback: () => void): void => {
-		pendingRafsRef.current.add(requestAnimationFrame(callback));
+		let id: number;
+		id = requestAnimationFrame(() => {
+			// Remove the id once the rAF has fired so the set doesn't grow unbounded.
+			pendingRafsRef.current.delete(id);
+			callback();
+		});
+		pendingRafsRef.current.add(id);
 	};
 
 	const removeValue = (value: string) => {
@@ -419,6 +425,14 @@ const TagValues = ({ children, lockedValues = [] }: MultiSelectTagValuesProps) =
 			case "Delete": {
 				event.preventDefault();
 				if (value != null) {
+					// Respect locked values: shake instead of removing when locked.
+					if (lockedValuesSet.has(value)) {
+						const tagElement = tagRefs.current.get(value);
+						if (tagElement) {
+							shakeElement(tagElement);
+						}
+						break;
+					}
 					removeValue(value);
 					// After removal, the array shifts. Focus the next logical tag or the input.
 					if (event.key === "Backspace") {
@@ -516,7 +530,18 @@ const TagValues = ({ children, lockedValues = [] }: MultiSelectTagValuesProps) =
 				const tagOptionProps: TagRenderProps = {
 					value,
 					locked: lockedValuesSet.has(value),
-					onRemove: () => removeValue(value),
+					onRemove: () => {
+						// Respect locked values: shake instead of removing when locked.
+						// This guards custom tag renderers that call onRemove directly.
+						if (lockedValuesSet.has(value)) {
+							const tagElement = tagRefs.current.get(value);
+							if (tagElement) {
+								shakeElement(tagElement);
+							}
+							return;
+						}
+						removeValue(value);
+					},
 					ref: (node: HTMLSpanElement | null) => {
 						if (node) {
 							tagRefs.current.set(value, node);

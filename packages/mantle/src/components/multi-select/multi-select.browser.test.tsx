@@ -234,6 +234,88 @@ describe("MultiSelect (browser)", () => {
 			expect(screen.getByLabelText("Remove apple")).toBeInTheDocument();
 			expect(screen.getByLabelText("Remove banana")).toBeInTheDocument();
 		});
+
+		describe("with custom tag renderer", () => {
+			/**
+			 * Uses a children render function on TagValues so that onRemove and
+			 * onKeyDown are forwarded to a consumer-controlled element, bypassing
+			 * MultiSelect.Tag's own lock-guard UI. Verifies that locks are enforced
+			 * at the TagValues level regardless of the tag implementation.
+			 */
+			const CustomSubject = ({
+				initialValues = [],
+				lockedValues = [],
+			}: {
+				initialValues?: string[];
+				lockedValues?: string[];
+			}) => {
+				const [values, setValues] = useState(initialValues);
+				return (
+					<MultiSelect.Root selectedValue={values} setSelectedValue={setValues}>
+						<MultiSelect.Trigger>
+							<MultiSelect.TagValues lockedValues={lockedValues}>
+								{({ value, onRemove, ref, onKeyDown }) => (
+									<span
+										key={value}
+										role="option"
+										aria-selected
+										tabIndex={-1}
+										ref={ref}
+										onKeyDown={onKeyDown}
+									>
+										{value}
+										<button
+											type="button"
+											aria-label={`Remove ${value}`}
+											onClick={() => onRemove?.()}
+										>
+											x
+										</button>
+									</span>
+								)}
+							</MultiSelect.TagValues>
+							<MultiSelect.Input placeholder="Select items..." />
+						</MultiSelect.Trigger>
+						<MultiSelect.Content>
+							<MultiSelect.Item value="apple">Apple</MultiSelect.Item>
+							<MultiSelect.Item value="banana">Banana</MultiSelect.Item>
+							<MultiSelect.Item value="cherry">Cherry</MultiSelect.Item>
+						</MultiSelect.Content>
+					</MultiSelect.Root>
+				);
+			};
+
+			test("calling onRemove directly on a locked tag does not remove it", async () => {
+				const user = userEvent.setup();
+				render(<CustomSubject initialValues={["apple"]} lockedValues={["apple"]} />);
+				await user.click(screen.getByLabelText("Remove apple"));
+				expect(screen.getByLabelText("Remove apple")).toBeInTheDocument();
+			});
+
+			test("calling onRemove directly on an unlocked tag removes it", async () => {
+				const user = userEvent.setup();
+				render(<CustomSubject initialValues={["apple", "banana"]} lockedValues={["apple"]} />);
+				await user.click(screen.getByLabelText("Remove banana"));
+				expect(screen.queryByLabelText("Remove banana")).not.toBeInTheDocument();
+				expect(screen.getByLabelText("Remove apple")).toBeInTheDocument();
+			});
+
+			test("Backspace via onKeyDown on a locked custom tag does not remove it", async () => {
+				const user = userEvent.setup();
+				render(<CustomSubject initialValues={["apple"]} lockedValues={["apple"]} />);
+				getTagOption("apple").focus();
+				await user.keyboard("{Backspace}");
+				expect(screen.getByLabelText("Remove apple")).toBeInTheDocument();
+			});
+
+			test("Delete via onKeyDown on a locked custom tag does not remove it", async () => {
+				const user = userEvent.setup();
+				render(<CustomSubject initialValues={["apple"]} lockedValues={["apple"]} />);
+				getTagOption("apple").focus();
+				await user.keyboard("{Delete}");
+				expect(screen.getByLabelText("Remove apple")).toBeInTheDocument();
+			});
+		});
 	});
 
 	describe("printable character jumps focus to input", () => {
