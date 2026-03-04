@@ -1,0 +1,5 @@
+# tsgo (TypeScript's Go-based compiler) emits compiled .js files alongside
+# .ts/.tsx source files when run for typechecking. These are build artifacts
+# and should not be committed.
+*.js
+*.js.map
