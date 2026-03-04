@@ -57,13 +57,13 @@ export function RegionPinningDemo() {
 				setSelectedValue={(values) => {
 					setSelected(values.includes("global") ? values : ["global", ...values]);
 				}}
-				setValue={(value) => {
-					startTransition(() => setSearchValue(value));
-				}}
 			>
 				<MultiSelect.Trigger>
 					<MultiSelect.TagValues lockedValues={["global"]} />
-					<MultiSelect.Input placeholder="Select regions..." />
+					<MultiSelect.Input
+						onValueChange={(value) => startTransition(() => setSearchValue(value))}
+						placeholder="Select regions..."
+					/>
 					{/* Input is flex-1 so this sibling is pushed to the right */}
 					<span className="text-accent-600 shrink-0 whitespace-nowrap text-xs">
 						Requires Upgrade

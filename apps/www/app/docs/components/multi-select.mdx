@@ -33,16 +33,13 @@ export function BasicDemo() {
 	const matches = useMemo(() => matchSorter(fruits, searchValue), [searchValue]);
 
     return (
-    	<MultiSelect.Root
-    		setValue={(value) => {
-    			startTransition(() => {
-    				setSearchValue(value);
-    			});
-    		}}
-    	>
+    	<MultiSelect.Root>
     		<MultiSelect.Trigger className="max-w-96">
     			<MultiSelect.TagValues />
-    			<MultiSelect.Input placeholder="Select fruits..." />
+    			<MultiSelect.Input
+    				onValueChange={(value) => startTransition(() => setSearchValue(value))}
+    				placeholder="Select fruits..."
+    			/>
     		</MultiSelect.Trigger>
     		<MultiSelect.Content aria-busy={isPending}>
     			{matches.map((value) => (
@@ -62,24 +59,19 @@ export function BasicDemo() {
 export function GroupedDemo() {
 	const [isPending, startTransition] = useTransition();
 	const [searchValue, setSearchValue] = useState("");
-
-    const fruitList = ["Apple", "Banana", "Cherry", "Grapes", "Orange", "Strawberry"];
-    const veggieList = ["Carrot", "Cucumber", "Lettuce", "Tomato", "Zucchini"];
-
-    const filteredFruits = useMemo(() => matchSorter(fruitList, searchValue), [searchValue]);
-    const filteredVeggies = useMemo(() => matchSorter(veggieList, searchValue), [searchValue]);
+	const fruitList = ["Apple", "Banana", "Cherry", "Grapes", "Orange", "Strawberry"];
+	const veggieList = ["Carrot", "Cucumber", "Lettuce", "Tomato", "Zucchini"];
+	const filteredFruits = useMemo(() => matchSorter(fruitList, searchValue), [searchValue]);
+	const filteredVeggies = useMemo(() => matchSorter(veggieList, searchValue), [searchValue]);
 
     return (
-    	<MultiSelect.Root
-    		setValue={(value) => {
-    			startTransition(() => {
-    				setSearchValue(value);
-    			});
-    		}}
-    	>
+    	<MultiSelect.Root>
     		<MultiSelect.Trigger className="max-w-96">
     			<MultiSelect.TagValues />
-    			<MultiSelect.Input placeholder="Select items..." />
+    			<MultiSelect.Input
+    				onValueChange={(value) => startTransition(() => setSearchValue(value))}
+    				placeholder="Select items..."
+    			/>
     		</MultiSelect.Trigger>
     		<MultiSelect.Content aria-busy={isPending}>
     			{filteredFruits.length > 0 && (
@@ -121,18 +113,13 @@ export function ControlledDemo() {
 	const matches = useMemo(() => matchSorter(fruits, searchValue), [searchValue]);
 
     return (
-    	<MultiSelect.Root
-    		selectedValue={selected}
-    		setSelectedValue={setSelected}
-    		setValue={(value) => {
-    			startTransition(() => {
-    				setSearchValue(value);
-    			});
-    		}}
-    	>
+    	<MultiSelect.Root selectedValue={selected} setSelectedValue={setSelected}>
     		<MultiSelect.Trigger className="max-w-96">
     			<MultiSelect.TagValues />
-    			<MultiSelect.Input placeholder="Select fruits..." />
+    			<MultiSelect.Input
+    				onValueChange={(value) => startTransition(() => setSearchValue(value))}
+    				placeholder="Select fruits..."
+    			/>
     		</MultiSelect.Trigger>
     		<MultiSelect.Content aria-busy={isPending}>
     			{matches.map((value) => (
@@ -162,16 +149,13 @@ export function LockedValuesDemo() {
 	);
 
     return (
-    	<MultiSelect.Root
-    		selectedValue={selected}
-    		setSelectedValue={setSelected}
-    		setValue={(value) => {
-    			startTransition(() => setSearchValue(value));
-    		}}
-    	>
+    	<MultiSelect.Root selectedValue={selected} setSelectedValue={setSelected}>
     		<MultiSelect.Trigger className="max-w-96">
     			<MultiSelect.TagValues lockedValues={["apple", "cherry"]} />
-    			<MultiSelect.Input placeholder="Select fruits..." />
+    			<MultiSelect.Input
+    				onValueChange={(value) => startTransition(() => setSearchValue(value))}
+    				placeholder="Select fruits..."
+    			/>
     		</MultiSelect.Trigger>
     		<MultiSelect.Content aria-busy={isPending}>
     			{matches.map((value) => (
@@ -193,16 +177,13 @@ export function ValidationDemo() {
 
     return (
     	<div className="flex w-full max-w-96 flex-col gap-4">
-    		<MultiSelect.Root
-    			setValue={(value) => {
-    				startTransition(() => {
-    					setSearchValue(value);
-    				});
-    			}}
-    		>
+    		<MultiSelect.Root>
     			<MultiSelect.Trigger validation="error">
     				<MultiSelect.TagValues />
-    				<MultiSelect.Input placeholder="Error state..." />
+    				<MultiSelect.Input
+    					onValueChange={(value) => startTransition(() => setSearchValue(value))}
+    					placeholder="Error state..."
+    				/>
     			</MultiSelect.Trigger>
     			<MultiSelect.Content aria-busy={isPending}>
     				{matches.map((value) => (
@@ -212,16 +193,13 @@ export function ValidationDemo() {
     				))}
     			</MultiSelect.Content>
     		</MultiSelect.Root>
-    		<MultiSelect.Root
-    			setValue={(value) => {
-    				startTransition(() => {
-    					setSearchValue(value);
-    				});
-    			}}
-    		>
+    		<MultiSelect.Root>
     			<MultiSelect.Trigger validation="success">
     				<MultiSelect.TagValues />
-    				<MultiSelect.Input placeholder="Success state..." />
+    				<MultiSelect.Input
+    					onValueChange={(value) => startTransition(() => setSearchValue(value))}
+    					placeholder="Success state..."
+    				/>
     			</MultiSelect.Trigger>
     			<MultiSelect.Content aria-busy={isPending}>
     				{matches.map((value) => (
@@ -231,16 +209,13 @@ export function ValidationDemo() {
     				))}
     			</MultiSelect.Content>
     		</MultiSelect.Root>
-    		<MultiSelect.Root
-    			setValue={(value) => {
-    				startTransition(() => {
-    					setSearchValue(value);
-    				});
-    			}}
-    		>
+    		<MultiSelect.Root>
     			<MultiSelect.Trigger validation="warning">
     				<MultiSelect.TagValues />
-    				<MultiSelect.Input placeholder="Warning state..." />
+    				<MultiSelect.Input
+    					onValueChange={(value) => startTransition(() => setSearchValue(value))}
+    					placeholder="Warning state..."
+    				/>
     			</MultiSelect.Trigger>
     			<MultiSelect.Content aria-busy={isPending}>
     				{matches.map((value) => (
@@ -291,16 +266,13 @@ function Example() {
 	const matches = useMemo(() => matchSorter(fruits, searchValue), [searchValue]);
 
 	return (
-		<MultiSelect.Root
-			setValue={(value) => {
-				startTransition(() => {
-					setSearchValue(value);
-				});
-			}}
-		>
+		<MultiSelect.Root>
 			<MultiSelect.Trigger>
 				<MultiSelect.TagValues />
-				<MultiSelect.Input placeholder="Select fruits..." />
+				<MultiSelect.Input
+					onValueChange={(value) => startTransition(() => setSearchValue(value))}
+					placeholder="Select fruits..."
+				/>
 			</MultiSelect.Trigger>
 			<MultiSelect.Content aria-busy={isPending}>
 				{matches.map((value) => (
@@ -328,16 +300,13 @@ Use `selectedValue` and `setSelectedValue` to control the selected values.
 ```tsx
 const [selected, setSelected] = useState(["Apple", "Cherry"]);
 
-<MultiSelect.Root
-	selectedValue={selected}
-	setSelectedValue={setSelected}
-	setValue={(value) => {
-		startTransition(() => setSearchValue(value));
-	}}
->
+<MultiSelect.Root selectedValue={selected} setSelectedValue={setSelected}>
 	<MultiSelect.Trigger>
 		<MultiSelect.TagValues />
-		<MultiSelect.Input placeholder="Select fruits..." />
+		<MultiSelect.Input
+			onValueChange={(value) => startTransition(() => setSearchValue(value))}
+			placeholder="Select fruits..."
+		/>
 	</MultiSelect.Trigger>
 	<MultiSelect.Content>
 		{matches.map((value) => (
@@ -360,16 +329,13 @@ Use `lockedValues` on `MultiSelect.TagValues` to pin specific tags that cannot b
 ```tsx
 const [selected, setSelected] = useState(["apple", "banana", "cherry"]);
 
-<MultiSelect.Root
-	selectedValue={selected}
-	setSelectedValue={setSelected}
-	setValue={(value) => {
-		startTransition(() => setSearchValue(value));
-	}}
->
+<MultiSelect.Root selectedValue={selected} setSelectedValue={setSelected}>
 	<MultiSelect.Trigger>
 		<MultiSelect.TagValues lockedValues={["apple", "cherry"]} />
-		<MultiSelect.Input placeholder="Select fruits..." />
+		<MultiSelect.Input
+			onValueChange={(value) => startTransition(() => setSearchValue(value))}
+			placeholder="Select fruits..."
+		/>
 	</MultiSelect.Trigger>
 	<MultiSelect.Content>
 		<MultiSelect.Item value="apple">apple</MultiSelect.Item>
@@ -388,14 +354,13 @@ Use `MultiSelect.Group`, `MultiSelect.GroupLabel`, and `MultiSelect.Separator` t
 </Example>
 
 ```tsx
-<MultiSelect.Root
-	setValue={(value) => {
-		startTransition(() => setSearchValue(value));
-	}}
->
+<MultiSelect.Root>
 	<MultiSelect.Trigger>
 		<MultiSelect.TagValues />
-		<MultiSelect.Input placeholder="Select items..." />
+		<MultiSelect.Input
+			onValueChange={(value) => startTransition(() => setSearchValue(value))}
+			placeholder="Select items..."
+		/>
 	</MultiSelect.Trigger>
 	<MultiSelect.Content>
 		<MultiSelect.Group>
@@ -452,6 +417,7 @@ function Example() {
 			favorites: [],
 		} satisfies FormValues as FormValues,
 		validators: {
+			onChange: formSchema,
 			onSubmit: formSchema,
 		},
 		onSubmit: ({ value }) => {
@@ -474,9 +440,8 @@ function Example() {
 						<Label htmlFor={field.name}>Favorites</Label>
 						<MultiSelect.Root
 							selectedValue={field.state.value}
-							setSelectedValue={(values) => field.handleChange(values)}
-							setValue={(value) => {
-								startTransition(() => setSearchValue(value));
+							setSelectedValue={(values) => {
+								field.handleChange(values);
 							}}
 						>
 							<MultiSelect.Trigger
@@ -484,7 +449,11 @@ function Example() {
 								validation={field.state.meta.errors.length > 0 ? "error" : false}
 							>
 								<MultiSelect.TagValues />
-								<MultiSelect.Input id={field.name} placeholder="Select fruits and vegetables..." />
+								<MultiSelect.Input
+									id={field.name}
+									onChange={(event) => startTransition(() => setSearchValue(event.target.value))}
+									placeholder="Select fruits and vegetables..."
+								/>
 							</MultiSelect.Trigger>
 							<MultiSelect.Content aria-busy={isPending}>
 								{filteredFruits.length > 0 && (
@@ -613,16 +582,13 @@ function Example() {
 	return (
 		<div className="flex w-full max-w-lg flex-col gap-1.5">
 			<p className="text-strong text-sm font-medium">Resolves to</p>
-			<MultiSelect.Root
-				selectedValue={selected}
-				setSelectedValue={setSelected}
-				setValue={(value) => {
-					startTransition(() => setSearchValue(value));
-				}}
-			>
+			<MultiSelect.Root selectedValue={selected} setSelectedValue={setSelected}>
 				<MultiSelect.Trigger>
 					<MultiSelect.TagValues />
-					<MultiSelect.Input placeholder="Select regions..." />
+					<MultiSelect.Input
+						onValueChange={(value) => startTransition(() => setSearchValue(value))}
+						placeholder="Select regions..."
+					/>
 					{/* Input is flex-1 so this sibling is pushed to the right */}
 					<Anchor className="shrink-0 whitespace-nowrap text-xs" href="#">
 						Requires Upgrade
@@ -760,9 +726,10 @@ The combobox input for filtering items. Place this inside `MultiSelect.Trigger`,
 
 All props from ariakit [Combobox](https://ariakit.org/reference/combobox). Key props:
 
-| Prop           | Type     | Default | Description                                         |
-| :------------- | :------- | :------ | :-------------------------------------------------- |
-| `placeholder?` | `string` |         | Placeholder text shown when no values are selected. |
+| Prop             | Type                      | Default | Description                                                                                                                                                                |
+| :--------------- | :------------------------ | :------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `onValueChange?` | `(value: string) => void` |         | Called with the raw string value whenever the input text changes. Use this to drive external filtering (e.g. with `matchSorter`). A convenience alternative to `onChange`. |
+| `placeholder?`   | `string`                  |         | Placeholder text shown when no values are selected.                                                                                                                        |
 
 ### MultiSelect.Tag
 

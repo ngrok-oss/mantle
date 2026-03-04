@@ -30,6 +30,7 @@ export function TanStackFormDemo() {
 			favorites: [],
 		} satisfies FormValues as FormValues,
 		validators: {
+			onChange: formSchema,
 			onSubmit: formSchema,
 		},
 		onSubmit: ({ value }) => {
@@ -52,17 +53,19 @@ export function TanStackFormDemo() {
 						<Label htmlFor={field.name}>Favorites</Label>
 						<MultiSelect.Root
 							selectedValue={field.state.value}
-							setSelectedValue={(values) => field.handleChange(values)}
-							setValue={(value) => {
-								startTransition(() => setSearchValue(value));
+							setSelectedValue={(values) => {
+								field.handleChange(values);
 							}}
 						>
 							<MultiSelect.Trigger
-								onBlur={field.handleBlur}
 								validation={field.state.meta.errors.length > 0 ? "error" : false}
 							>
 								<MultiSelect.TagValues />
-								<MultiSelect.Input id={field.name} placeholder="Select fruits and vegetables..." />
+								<MultiSelect.Input
+									id={field.name}
+									onValueChange={(value) => startTransition(() => setSearchValue(value))}
+									placeholder="Select fruits and vegetables..."
+								/>
 							</MultiSelect.Trigger>
 							<MultiSelect.Content aria-busy={isPending}>
 								{filteredFruits.length > 0 && (

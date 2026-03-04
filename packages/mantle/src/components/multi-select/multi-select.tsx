@@ -541,7 +541,14 @@ const TagValues = ({ children, lockedValues = [] }: MultiSelectTagValuesProps) =
 };
 TagValues.displayName = "MultiSelectTagValues";
 
-type MultiSelectInputProps = Omit<Primitive.ComboboxProps, "render">;
+type MultiSelectInputProps = Omit<Primitive.ComboboxProps, "render"> & {
+	/**
+	 * Called with the raw string value whenever the input text changes.
+	 * Use this to drive external filtering (e.g. with matchSorter) without
+	 * having to unwrap the DOM event. A convenience alternative to `onChange`.
+	 */
+	onValueChange?: (value: string) => void;
+};
 
 /**
  * The combobox input for filtering items. Place this inside `MultiSelect.Trigger`,
@@ -561,7 +568,10 @@ type MultiSelectInputProps = Omit<Primitive.ComboboxProps, "render">;
  * ```
  */
 const Input = forwardRef<ComponentRef<"input">, MultiSelectInputProps>(
-	({ className, onBlur, onFocus, onKeyDown, placeholder, ...props }, ref) => {
+	(
+		{ className, onBlur, onChange, onFocus, onKeyDown, onValueChange, placeholder, ...props },
+		ref,
+	) => {
 		const store = Primitive.useComboboxContext();
 		const { onInputKeyDownRef, inputRef } = useContext(TagBridgeContext);
 		const rawSelectedValue = Primitive.useStoreState(store, "selectedValue");
@@ -577,6 +587,10 @@ const Input = forwardRef<ComponentRef<"input">, MultiSelectInputProps>(
 					"placeholder:select-none placeholder:text-placeholder",
 					className,
 				)}
+				onChange={(event) => {
+					onValueChange?.(event.target.value);
+					onChange?.(event);
+				}}
 				onKeyDown={(event) => {
 					onInputKeyDownRef.current?.(event);
 					onKeyDown?.(event);
