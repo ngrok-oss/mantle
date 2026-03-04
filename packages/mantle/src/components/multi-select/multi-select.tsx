@@ -12,7 +12,15 @@ import type {
 	ReactNode,
 	RefObject,
 } from "react";
-import { createContext, forwardRef, useCallback, useContext, useMemo, useRef } from "react";
+import {
+	createContext,
+	forwardRef,
+	useCallback,
+	useContext,
+	useEffect,
+	useMemo,
+	useRef,
+} from "react";
 import type { WithAsChild } from "../../types/as-child.js";
 import { composeRefs } from "../../utils/compose-refs/compose-refs.js";
 import { cx } from "../../utils/cx/cx.js";
@@ -343,9 +351,21 @@ const TagValues = ({ children, lockedValues = [] }: MultiSelectTagValuesProps) =
 	// refs are mutable and don't trigger re-renders.
 	const lockedValuesRef = useContext(LockedValuesContext);
 	lockedValuesRef.current = lockedValues;
-	const lockedValuesSet = new Set(lockedValues);
+	const lockedValuesSet = useMemo(() => new Set(lockedValues), [lockedValues]);
 	const tagRefs = useRef<Map<string, HTMLSpanElement>>(new Map());
 	const { onInputKeyDownRef, inputRef } = useContext(TagBridgeContext);
+	// Track pending rAF IDs so we can cancel them on unmount and avoid calling
+	// focus() on detached DOM nodes if the component unmounts mid-frame.
+	const pendingRafsRef = useRef<Set<number>>(new Set());
+	useEffect(
+		() => () => {
+			pendingRafsRef.current.forEach(cancelAnimationFrame);
+		},
+		[],
+	);
+	const raf = (callback: () => void): void => {
+		pendingRafsRef.current.add(requestAnimationFrame(callback));
+	};
 
 	const removeValue = (value: string) => {
 		if (store) {
@@ -405,9 +425,9 @@ const TagValues = ({ children, lockedValues = [] }: MultiSelectTagValuesProps) =
 							// Focus the previous tag (will have same index - 1 after removal)
 							// We need to wait for the next render, so use requestAnimationFrame
 							const prevIndex = index - 1;
-							requestAnimationFrame(() => focusTag(prevIndex));
+							raf(() => focusTag(prevIndex));
 						} else {
-							requestAnimationFrame(() => {
+							raf(() => {
 								if (selectedArrayRef.current.length > 0) {
 									focusTag(0);
 								} else {
@@ -417,7 +437,7 @@ const TagValues = ({ children, lockedValues = [] }: MultiSelectTagValuesProps) =
 						}
 					} else {
 						// Delete: move focus right
-						requestAnimationFrame(() => {
+						raf(() => {
 							// index stays the same since the item at `index` was removed and the next one slides in
 							if (index < selectedArrayRef.current.length) {
 								focusTag(index);
@@ -462,6 +482,7 @@ const TagValues = ({ children, lockedValues = [] }: MultiSelectTagValuesProps) =
 		if (
 			event.key === "ArrowLeft" &&
 			event.currentTarget.selectionStart === 0 &&
+			event.currentTarget.selectionEnd === 0 &&
 			selectedArray.length > 0
 		) {
 			event.preventDefault();
@@ -572,6 +593,8 @@ const Input = forwardRef<ComponentRef<"input">, MultiSelectInputProps>(
 					onBlur?.(event);
 				}}
 				onFocus={(event) => {
+					// Ariakit doesn't always open the popover on focus when the input is
+					// already mounted (e.g. returning focus from a tag). Force it open.
 					store?.show();
 					onFocus?.(event);
 				}}
