@@ -22,12 +22,12 @@
     "changeset:publish": "turbo run build --filter=@ngrok/mantle && changeset publish"
   },
   "devDependencies": {
-    "@changesets/changelog-github": "0.5.2",
-    "@changesets/cli": "2.29.8",
+    "@changesets/changelog-github": "0.6.0",
+    "@changesets/cli": "2.30.0",
     "@types/node": "24.11.0",
     "@typescript/native-preview": "7.0.0-dev.20260226.1",
     "husky": "9.1.7",
-    "lint-staged": "16.3.1",
+    "lint-staged": "16.3.2",
     "oxfmt": "0.36.0",
     "oxlint": "1.51.0",
     "tsx": "4.21.0",
