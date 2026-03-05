@@ -292,7 +292,7 @@
     "typecheck": "tsgo"
   },
   "dependencies": {
-    "@ariakit/react": "0.4.21",
+    "@ariakit/react": "0.4.22",
     "@headlessui/react": "2.2.9",
     "@radix-ui/react-accordion": "1.2.12",
     "@radix-ui/react-dialog": "1.1.15",
@@ -344,7 +344,7 @@
     "date-fns": "^4.1.0",
     "react": "^18 || ^19",
     "react-dom": "^18 || ^19",
-    "tailwindcss": "^4.2.0"
+    "tailwindcss": "^4.2.1"
   },
   "browserslist": [
     "last 2 years, not dead, > 0.2%"
