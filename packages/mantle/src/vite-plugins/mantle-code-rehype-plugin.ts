@@ -1,16 +1,14 @@
-import { isSupportedLanguage } from "../components/code-block/supported-languages.js";
-import { highlightWithMantleShiki } from "../server-highlighter/engine.js";
-import type { LineRange } from "../components/code-block/line-numbers.js";
-import type { SupportedLanguage } from "../components/code-block/supported-languages.js";
-import {
-	normalizeValue,
-	tokenizeMetastring,
-} from "../components/code-block/resolve-pre-rendered-props.js";
 import {
 	parseCodeBlockHighlightLines,
 	parseCodeBlockLineNumberStart,
 	parseCodeBlockShowLineNumbers,
 } from "../components/code-block/parse-line-options.js";
+import {
+	normalizeValue,
+	tokenizeMetastring,
+} from "../components/code-block/resolve-pre-rendered-props.js";
+import { isSupportedLanguage } from "../components/code-block/supported-languages.js";
+import { highlightWithMantleShiki } from "../server-highlighter/engine.js";
 import { parseBooleanish } from "../types/booleanish.js";
 
 type HastNode = {
@@ -21,9 +19,6 @@ type HastNode = {
 	properties?: Record<string, unknown>;
 	children?: HastNode[];
 };
-
-type CachedHighlightResult = Awaited<ReturnType<typeof highlightWithMantleShiki>>;
-const rehypeHighlightCache = new Map<string, Promise<CachedHighlightResult>>();
 const excludedRehypeCodeFenceLanguages = new Set(["mermaid"]);
 
 function parseCodeBlockMode(value: unknown): "cli" | "file" | "traffic-policy" | undefined {
@@ -31,28 +26,6 @@ function parseCodeBlockMode(value: unknown): "cli" | "file" | "traffic-policy" |
 		return value;
 	}
 	return undefined;
-}
-
-function getCachedRehypeHighlight(input: {
-	code: string;
-	highlightLines: (LineRange | number)[] | undefined;
-	language: SupportedLanguage;
-	lineNumberStart: number | undefined;
-	showLineNumbers: boolean;
-}): Promise<CachedHighlightResult> {
-	const cacheKey = JSON.stringify(input);
-	const cached = rehypeHighlightCache.get(cacheKey);
-	if (cached != null) {
-		return cached;
-	}
-
-	const promise = highlightWithMantleShiki(input).catch((error) => {
-		rehypeHighlightCache.delete(cacheKey);
-		throw error;
-	});
-
-	rehypeHighlightCache.set(cacheKey, promise);
-	return promise;
 }
 
 function walk(node: HastNode, visit: (current: HastNode) => void) {
@@ -199,7 +172,7 @@ function mantleCodeRehypePlugin() {
 				typeof preNode.properties?.title === "string"
 					? preNode.properties.title
 					: getMetaValue(meta, "title");
-			const highlighted = await getCachedRehypeHighlight({
+			const highlighted = await highlightWithMantleShiki({
 				code: rawCode,
 				highlightLines,
 				language,

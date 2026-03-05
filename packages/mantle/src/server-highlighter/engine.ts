@@ -3,6 +3,7 @@ import { decorateHighlightedHtml } from "../components/code-block/decorate-highl
 import { inferIndentation } from "../components/code-block/normalize-indentation.js";
 import type { LineRange } from "../components/code-block/line-numbers.js";
 import { normalizeIndentation } from "../components/code-block/normalize.js";
+import { createLruCache } from "./lru-cache.js";
 import {
 	isSupportedLanguage,
 	parseLanguage,
@@ -37,6 +38,7 @@ const mantleShikiLanguageGrammarIds = [
  * Shared Shiki theme name used across Mantle highlighting.
  */
 const mantleShikiThemeName = "mantle-css-variables" as const;
+const mantleHighlightCacheMaxEntries = 1000;
 
 type ShikiHighlighter = Awaited<ReturnType<(typeof import("shiki"))["createHighlighter"]>>;
 
@@ -105,6 +107,9 @@ type MantleServerHighlighter = {
 };
 
 let highlighterPromise: Promise<ShikiHighlighter> | undefined;
+const mantleHighlightCache = createLruCache<string, Promise<MantleHighlightResult>>(
+	mantleHighlightCacheMaxEntries,
+);
 
 /**
  * Creates (and caches) Mantle's shared Shiki highlighter instance.
@@ -142,35 +147,58 @@ async function highlightWithMantleShiki(
 	const resolvedLanguage = isSupportedLanguage(input.language)
 		? input.language
 		: parseLanguage(input.language);
+	const indentation = input.indentation ?? inferIndentation(resolvedLanguage, undefined);
 	const normalizedCode = normalizeIndentation(input.code, {
-		indentation: input.indentation ?? inferIndentation(resolvedLanguage, undefined),
+		indentation,
 	});
+	const showLineNumbers = input.showLineNumbers ?? false;
+	const highlightLines = input.highlightLines ?? [];
 	const lineNumberStart = input.lineNumberStart ?? 1;
-	const highlighter = await getMantleShikiHighlighter();
-	const fullHtml = highlighter.codeToHtml(normalizedCode, {
-		lang: resolvedLanguage,
-		theme: mantleShikiThemeName,
-	});
-	const baseHtml = extractHighlightedCodeInnerHtml(fullHtml);
-
-	if (baseHtml == null) {
-		throw new Error("Failed to extract highlighted HTML from Shiki output");
-	}
-	const html = decorateHighlightedHtml({
-		highlightLines: input.highlightLines,
-		html: baseHtml,
-		lineNumberStart,
-		showLineNumbers: input.showLineNumbers,
-	});
-
-	return {
+	const cacheKey = JSON.stringify({
 		code: normalizedCode,
-		html,
+		highlightLines,
 		language: resolvedLanguage,
-		showLineNumbers: input.showLineNumbers ?? false,
-		highlightLines: input.highlightLines ?? [],
 		lineNumberStart,
-	};
+		showLineNumbers,
+	});
+	const cached = mantleHighlightCache.get(cacheKey);
+	if (cached != null) {
+		return cached;
+	}
+
+	const promise = (async () => {
+		const highlighter = await getMantleShikiHighlighter();
+		const fullHtml = highlighter.codeToHtml(normalizedCode, {
+			lang: resolvedLanguage,
+			theme: mantleShikiThemeName,
+		});
+		const baseHtml = extractHighlightedCodeInnerHtml(fullHtml);
+
+		if (baseHtml == null) {
+			throw new Error("Failed to extract highlighted HTML from Shiki output");
+		}
+		const html = decorateHighlightedHtml({
+			highlightLines,
+			html: baseHtml,
+			lineNumberStart,
+			showLineNumbers,
+		});
+
+		return {
+			code: normalizedCode,
+			html,
+			language: resolvedLanguage,
+			showLineNumbers,
+			highlightLines,
+			lineNumberStart,
+		};
+	})().catch((error) => {
+		mantleHighlightCache.delete(cacheKey);
+		throw error;
+	});
+
+	mantleHighlightCache.set(cacheKey, promise);
+	return promise;
 }
 
 /**
@@ -187,6 +215,7 @@ export {
 	extractHighlightedCodeInnerHtml,
 	getMantleShikiHighlighter,
 	highlightWithMantleShiki,
+	mantleHighlightCacheMaxEntries,
 	mantleShikiLanguageGrammarIds,
 	mantleShikiThemeName,
 };

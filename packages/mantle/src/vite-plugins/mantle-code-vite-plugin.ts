@@ -1,10 +1,7 @@
 import MagicString from "magic-string";
 import type { Plugin } from "vite";
 import { inferIndentation } from "../components/code-block/normalize-indentation.js";
-import {
-	isSupportedLanguage,
-	type SupportedLanguage,
-} from "../components/code-block/supported-languages.js";
+import { isSupportedLanguage } from "../components/code-block/supported-languages.js";
 import { highlightWithMantleShiki } from "../server-highlighter/engine.js";
 
 /**
@@ -149,52 +146,6 @@ type ParsedJsxCodePropsResult = ParsedMantleCodeOptions & {
 	openingTagStart: number | undefined;
 	strippedOpeningTag: string | undefined;
 };
-
-type CachedHighlightResult = {
-	code: string;
-	html: string;
-};
-
-const highlightResultCache = new Map<string, Promise<CachedHighlightResult>>();
-
-function createHighlightCacheKey(input: {
-	code: string;
-	highlightLines: ParsedMantleCodeOptions["highlightLines"];
-	indentation: ReturnType<typeof inferIndentation>;
-	language: SupportedLanguage;
-	lineNumberStart: number | undefined;
-	showLineNumbers: boolean | undefined;
-}): string {
-	return JSON.stringify(input);
-}
-
-function getCachedMantleHighlight(input: {
-	code: string;
-	highlightLines: ParsedMantleCodeOptions["highlightLines"];
-	indentation: ReturnType<typeof inferIndentation>;
-	language: SupportedLanguage;
-	lineNumberStart: number | undefined;
-	showLineNumbers: boolean | undefined;
-}): Promise<CachedHighlightResult> {
-	const cacheKey = createHighlightCacheKey(input);
-	const cached = highlightResultCache.get(cacheKey);
-	if (cached != null) {
-		return cached;
-	}
-
-	const promise = highlightWithMantleShiki(input)
-		.then((highlighted) => ({
-			code: highlighted.code,
-			html: highlighted.html,
-		}))
-		.catch((error) => {
-			highlightResultCache.delete(cacheKey);
-			throw error;
-		});
-
-	highlightResultCache.set(cacheKey, promise);
-	return promise;
-}
 
 function parseHighlightLinesArray(input: unknown): (number | `${number}-${number}`)[] | undefined {
 	if (!Array.isArray(input)) {
@@ -496,7 +447,7 @@ function mantleCodeVitePlugin(): Plugin {
 				let normalizedPlaceholder: string;
 				let shikiHtml: string;
 				try {
-					const highlighted = await getCachedMantleHighlight({
+					const highlighted = await highlightWithMantleShiki({
 						code: placeholderCode,
 						highlightLines: effectiveOptions.highlightLines,
 						indentation,
