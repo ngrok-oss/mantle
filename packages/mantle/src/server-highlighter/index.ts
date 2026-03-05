@@ -2,6 +2,7 @@ export {
 	createMantleServerHighlighter,
 	getMantleShikiHighlighter,
 	highlightWithMantleShiki,
+	mantleHighlightCacheMaxEntries,
 	mantleShikiLanguageGrammarIds,
 	mantleShikiThemeName,
 } from "./engine.js";
