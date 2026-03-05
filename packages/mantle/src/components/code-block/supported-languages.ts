@@ -38,11 +38,11 @@ export const supportedLanguages = [
  */
 type SupportedLanguage = (typeof supportedLanguages)[number];
 const supportedLanguageSet = new Set<SupportedLanguage>(supportedLanguages);
-const defaultLanguage = "sh" satisfies SupportedLanguage;
+const defaultLanguage = "text" satisfies SupportedLanguage;
 
 /**
  * Parses a markdown code block (```) language class into a SupportedLanguage.
- * Defaults to "sh" if no supported language is found.
+ * Defaults to "text" if no supported language is found.
  */
 function parseLanguage(
 	value: `language-${string}` | `lang-${string}` | (string & {}) | undefined,
@@ -75,9 +75,9 @@ type LanguageClass = `language-${SupportedLanguage}`;
 
 /**
  * Formats a language name into a class name that Prism.js can understand.
- * @default "language-sh"
+ * @default "language-text"
  */
-function formatLanguageClassName(language: SupportedLanguage | undefined = "sh") {
+function formatLanguageClassName(language: SupportedLanguage | undefined = "text") {
 	const lang = language ?? defaultLanguage;
 	const className: LanguageClass = `language-${lang}`;
 	return className;
