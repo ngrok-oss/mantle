@@ -114,16 +114,18 @@ const components = {
 			);
 		}
 		const shikiPreHtml = preHtmlProp;
+
 		// Short-circuit: skip the split("\n") allocation for small blocks (400 chars ≈ 10 chars/line × 40 lines)
 		const isLong = collapsibleProp == null && code.length > 400 && code.split("\n").length > 40;
 		const collapsible = collapsibleProp != null ? parseBooleanish(collapsibleProp) : isLong;
+
 		const value = createMantleCodeBlockValue({
 			language,
 			code: normalizedCode,
-			"~highlightLines": props.shikiHighlightLines,
-			"~lineNumberStart": props.shikiLineNumberStart,
-			"~preHtml": shikiPreHtml,
-			"~showLineNumbers": props.shikiShowLineNumbers ?? true,
+			highlightLines: props.shikiHighlightLines,
+			lineNumberStart: props.shikiLineNumberStart,
+			preHtml: shikiPreHtml,
+			showLineNumbers: props.shikiShowLineNumbers ?? true,
 		});
 
 		return (

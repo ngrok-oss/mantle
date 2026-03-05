@@ -669,7 +669,7 @@ ShikiCodeBlockIconComponent.displayName = "ShikiCodeBlockIcon";
  * const serverValue = createMantleCodeBlockValue({
  *   language: "typescript",
  *   code: source,
- *   "~preHtml": highlightMutation.data?.html,
+ *   preHtml: highlightMutation.data?.html,
  * });
  * ```
  */
