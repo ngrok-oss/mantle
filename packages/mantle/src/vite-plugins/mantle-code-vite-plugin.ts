@@ -1,8 +1,10 @@
 import MagicString from "magic-string";
 import type { Plugin } from "vite";
-import { inferIndentation } from "../components/code-block/indentation.js";
-import { normalizeIndentation } from "../components/code-block/normalize.js";
-import { isSupportedLanguage } from "../components/code-block/supported-languages.js";
+import { inferIndentation } from "../components/code-block/normalize-indentation.js";
+import {
+	isSupportedLanguage,
+	type SupportedLanguage,
+} from "../components/code-block/supported-languages.js";
 import { highlightWithMantleShiki } from "../server-highlighter/engine.js";
 
 /**
@@ -147,6 +149,52 @@ type ParsedJsxCodePropsResult = ParsedMantleCodeOptions & {
 	openingTagStart: number | undefined;
 	strippedOpeningTag: string | undefined;
 };
+
+type CachedHighlightResult = {
+	code: string;
+	html: string;
+};
+
+const highlightResultCache = new Map<string, Promise<CachedHighlightResult>>();
+
+function createHighlightCacheKey(input: {
+	code: string;
+	highlightLines: ParsedMantleCodeOptions["highlightLines"];
+	indentation: ReturnType<typeof inferIndentation>;
+	language: SupportedLanguage;
+	lineNumberStart: number | undefined;
+	showLineNumbers: boolean | undefined;
+}): string {
+	return JSON.stringify(input);
+}
+
+function getCachedMantleHighlight(input: {
+	code: string;
+	highlightLines: ParsedMantleCodeOptions["highlightLines"];
+	indentation: ReturnType<typeof inferIndentation>;
+	language: SupportedLanguage;
+	lineNumberStart: number | undefined;
+	showLineNumbers: boolean | undefined;
+}): Promise<CachedHighlightResult> {
+	const cacheKey = createHighlightCacheKey(input);
+	const cached = highlightResultCache.get(cacheKey);
+	if (cached != null) {
+		return cached;
+	}
+
+	const promise = highlightWithMantleShiki(input)
+		.then((highlighted) => ({
+			code: highlighted.code,
+			html: highlighted.html,
+		}))
+		.catch((error) => {
+			highlightResultCache.delete(cacheKey);
+			throw error;
+		});
+
+	highlightResultCache.set(cacheKey, promise);
+	return promise;
+}
 
 function parseHighlightLinesArray(input: unknown): (number | `${number}-${number}`)[] | undefined {
 	if (!Array.isArray(input)) {
@@ -378,6 +426,7 @@ function mantleCodeVitePlugin(): Plugin {
 			}
 			const ms = new MagicString(code);
 			let didTransform = false;
+			const parsedOptionsCache = new Map<string | undefined, ParsedMantleCodeOptions>();
 
 			// Reset regex state for each transform call
 			SHIKI_CODE_RE.lastIndex = 0;
@@ -390,7 +439,13 @@ function mantleCodeVitePlugin(): Plugin {
 				if (language == null) {
 					continue;
 				}
-				const parsedOptions = parseMantleCodeOptions(optionsRaw);
+				const parsedOptions =
+					parsedOptionsCache.get(optionsRaw) ??
+					(() => {
+						const parsed = parseMantleCodeOptions(optionsRaw);
+						parsedOptionsCache.set(optionsRaw, parsed);
+						return parsed;
+					})();
 				const parsedComponentProps = parseJsxCodeProps(code, matchStart);
 				const effectiveOptions = mergeMantleCodeOptions({
 					componentProps: parsedComponentProps,
@@ -433,22 +488,23 @@ function mantleCodeVitePlugin(): Plugin {
 					placeholderCode += `SHIKI_VAL_${i}` + (strings[i + 1] ?? "");
 				}
 
-				// Normalize indentation before passing to Shiki
-				const normalizedPlaceholder = normalizeIndentation(placeholderCode, {
-					indentation: inferIndentation(language, undefined),
-				});
+				const indentation = inferIndentation(language, undefined);
 
-				// Run Shiki and extract the <code> inner HTML
+				// Run Shiki and extract the <code> inner HTML.
+				// `highlightWithMantleShiki` performs normalization and returns that normalized
+				// code; reuse it instead of normalizing separately in this plugin.
+				let normalizedPlaceholder: string;
 				let shikiHtml: string;
 				try {
-					const highlighted = await highlightWithMantleShiki({
-						code: normalizedPlaceholder,
+					const highlighted = await getCachedMantleHighlight({
+						code: placeholderCode,
 						highlightLines: effectiveOptions.highlightLines,
+						indentation,
 						language,
 						lineNumberStart: effectiveOptions.lineNumberStart,
-						indentation: inferIndentation(language, undefined),
 						showLineNumbers: effectiveOptions.showLineNumbers,
 					});
+					normalizedPlaceholder = highlighted.code;
 					shikiHtml = highlighted.html;
 				} catch (error) {
 					this.warn(

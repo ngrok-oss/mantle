@@ -37,6 +37,8 @@ export const supportedLanguages = [
  * Supported languages for syntax highlighting.
  */
 type SupportedLanguage = (typeof supportedLanguages)[number];
+const supportedLanguageSet = new Set<SupportedLanguage>(supportedLanguages);
+const defaultLanguage = "sh" satisfies SupportedLanguage;
 
 /**
  * Parses a markdown code block (```) language class into a SupportedLanguage.
@@ -45,22 +47,25 @@ type SupportedLanguage = (typeof supportedLanguages)[number];
 function parseLanguage(
 	value: `language-${string}` | `lang-${string}` | (string & {}) | undefined,
 ): SupportedLanguage {
-	if (!value) {
-		return "sh";
+	const trimmed = value?.trim() ?? "";
+	if (!trimmed) {
+		return defaultLanguage;
 	}
 
 	// remove leading "language-" and "lang-" prefixes
 	// find first '-' and slice from there
-	const maybeLanguage = value.trim().slice(value.indexOf("-") + 1);
+	const prefixSeparatorIndex = trimmed.indexOf("-");
+	const maybeLanguage =
+		prefixSeparatorIndex === -1 ? trimmed : trimmed.slice(prefixSeparatorIndex + 1);
 
-	return isSupportedLanguage(maybeLanguage) ? maybeLanguage : "sh";
+	return isSupportedLanguage(maybeLanguage) ? maybeLanguage : defaultLanguage;
 }
 
 /**
  * Type Predicate: checks if an arbitrary value is a supported syntax highlighting language.
  */
 const isSupportedLanguage = (value: unknown): value is SupportedLanguage => {
-	return typeof value === "string" && supportedLanguages.includes(value as SupportedLanguage);
+	return typeof value === "string" && supportedLanguageSet.has(value as SupportedLanguage);
 };
 
 /**
@@ -73,10 +78,16 @@ type LanguageClass = `language-${SupportedLanguage}`;
  * @default "language-sh"
  */
 function formatLanguageClassName(language: SupportedLanguage | undefined = "sh") {
-	const lang = language ?? "sh";
+	const lang = language ?? defaultLanguage;
 	const className: LanguageClass = `language-${lang}`;
 	return className;
 }
 
-export { isSupportedLanguage, parseLanguage, formatLanguageClassName };
+export {
+	//,
+	isSupportedLanguage,
+	parseLanguage,
+	formatLanguageClassName,
+};
+
 export type { SupportedLanguage };

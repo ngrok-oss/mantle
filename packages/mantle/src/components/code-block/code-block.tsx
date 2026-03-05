@@ -34,10 +34,10 @@ import { TrafficPolicyFileIcon } from "../icons/traffic-policy-file.js";
 import { Slot } from "../slot/index.js";
 import { escapeHtml } from "./escape-html.js";
 import { Highlighter } from "./highlighter.js";
-import { type Indentation, inferIndentation } from "./indentation.js";
+import { type Indentation, inferIndentation } from "./normalize-indentation.js";
 import type { LineRange } from "./line-numbers.js";
 import { normalizeIndentation } from "./normalize.js";
-import type { Mode } from "./parse-metastring.js";
+import type { Mode } from "./resolve-pre-rendered-props.js";
 import type { SupportedLanguage } from "./supported-languages.js";
 import { formatLanguageClassName, supportedLanguages } from "./supported-languages.js";
 

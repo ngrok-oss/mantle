@@ -37,13 +37,40 @@ export {
  * Find the shortest indentation of a multiline string
  */
 function findMinIndent(value: string): number {
-	const match = value.match(/^[ \t]*(?=\S)/gm);
+	let minIndent = Number.POSITIVE_INFINITY;
+	let indent = 0;
+	let atLineStart = true;
 
-	if (!match) {
-		return 0;
+	for (let i = 0; i < value.length; i++) {
+		const char = value[i];
+
+		if (atLineStart) {
+			if (char === " " || char === "\t") {
+				indent += 1;
+				continue;
+			}
+			if (char === "\n" || char === "\r") {
+				indent = 0;
+				continue;
+			}
+
+			if (indent < minIndent) {
+				minIndent = indent;
+				if (minIndent === 0) {
+					return 0;
+				}
+			}
+			atLineStart = false;
+			continue;
+		}
+
+		if (char === "\n" || char === "\r") {
+			atLineStart = true;
+			indent = 0;
+		}
 	}
 
-	return match.reduce((acc, curr) => Math.min(acc, curr.length), Number.POSITIVE_INFINITY);
+	return minIndent === Number.POSITIVE_INFINITY ? 0 : minIndent;
 }
 
 /**

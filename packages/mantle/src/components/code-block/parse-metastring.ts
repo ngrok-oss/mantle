@@ -1,5 +1,5 @@
 import { parseBooleanish } from "../../types/booleanish.js";
-import { type Indentation, isIndentation } from "./indentation.js";
+import { type Indentation, isIndentation } from "./normalize-indentation.js";
 
 const modes = [
 	//,
@@ -47,15 +47,20 @@ function parseMetastring(input: string | undefined): Meta {
 		return defaultMeta;
 	}
 
-	const metaJson = tokenizeMetastring(metastring).reduce<Record<string, unknown>>((acc, token) => {
-		const [key, value] = token.split("=");
+	const metaJson: Record<string, unknown> = {};
+	const tokens = tokenizeMetastring(metastring);
+	for (const token of tokens) {
+		const separatorIndex = token.indexOf("=");
+		const key = separatorIndex === -1 ? token : token.slice(0, separatorIndex);
+		const value = separatorIndex === -1 ? undefined : token.slice(separatorIndex + 1);
+
 		if (!key) {
-			return acc;
+			continue;
 		}
+
 		const normalizedValue = normalizeValue(value);
-		acc[key] = normalizedValue ?? true;
-		return acc;
-	}, {});
+		metaJson[key] = normalizedValue ?? true;
+	}
 
 	try {
 		const parsed = parseMetaJson(metaJson);
@@ -147,7 +152,7 @@ export function tokenizeMetastring(value: string | undefined): string[] {
  * @private
  */
 function isMode(input: unknown): input is Mode {
-	return modes.includes(input as Mode);
+	return input === "cli" || input === "file" || input === "traffic-policy";
 }
 
 /**
