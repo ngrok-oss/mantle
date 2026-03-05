@@ -7,6 +7,7 @@ import { MultiSelect } from "@ngrok/mantle/multi-select";
 import { matchSorter } from "match-sorter";
 import { useMemo, useState, useTransition } from "react";
 import { Example } from "~/components/example";
+import { InSheetDemo } from "~/docs/components/multi-select-in-sheet-demo";
 import { RegionPinningDemo } from "~/docs/components/multi-select-region-pinning-demo";
 import { TanStackFormDemo } from "~/docs/components/multi-select-tanstack-form-demo";
 
@@ -364,6 +365,150 @@ const [selected, setSelected] = useState(["Apple", "Cherry"]);
 		))}
 	</MultiSelect.Content>
 </MultiSelect.Root>;
+```
+
+### In a Sheet
+
+Use `@tanstack/react-form` to manage the selected values when a side panel needs validation and submit handling. Set `modal={false}` on `MultiSelect.Content` so the popover coexists with the sheet's own focus management.
+
+<Example>
+	<InSheetDemo />
+</Example>
+
+```tsx
+import { Button } from "@ngrok/mantle/button";
+import { Label } from "@ngrok/mantle/label";
+import { MultiSelect } from "@ngrok/mantle/multi-select";
+import { Sheet } from "@ngrok/mantle/sheet";
+import { useForm } from "@tanstack/react-form";
+import { matchSorter } from "match-sorter";
+import { useId, useMemo, useState, useTransition } from "react";
+import { z } from "zod";
+
+const formSchema = z.object({
+	favorites: z.string().array().min(1, "Select at least one fruit."),
+});
+
+const [isPending, startTransition] = useTransition();
+const formId = useId();
+const [searchValue, setSearchValue] = useState("");
+const form = useForm({
+	defaultValues: {
+		favorites: ["Cherry"],
+	},
+	validators: {
+		onChange: formSchema,
+		onSubmit: formSchema,
+	},
+	onSubmit: ({ value }) => {
+		window.alert(`Submitted: ${JSON.stringify(value, null, 2)}`);
+	},
+});
+
+const filteredFruits = useMemo(
+	() => matchSorter(["Apple", "Banana", "Cherry", "Grapes", "Orange", "Strawberry"], searchValue),
+	[searchValue],
+);
+const filteredVeggies = useMemo(
+	() => matchSorter(["Carrot", "Cucumber", "Lettuce", "Tomato", "Zucchini"], searchValue),
+	[searchValue],
+);
+
+<Sheet.Root>
+	<Sheet.Trigger asChild>
+		<Button type="button" appearance="filled">
+			Assign fruits
+		</Button>
+	</Sheet.Trigger>
+	<Sheet.Content preferredWidth="sm:max-w-[560px]">
+		<Sheet.Header>
+			<Sheet.TitleGroup>
+				<Sheet.Title>Assign fruits</Sheet.Title>
+				<Sheet.Actions>
+					<Sheet.CloseIconButton />
+				</Sheet.Actions>
+			</Sheet.TitleGroup>
+			<Sheet.Description>
+				Use TanStack Form to validate and submit a multi-select inside a sheet workflow.
+			</Sheet.Description>
+		</Sheet.Header>
+		<form
+			className="contents"
+			id={formId}
+			onSubmit={(event) => {
+				event.preventDefault();
+				event.stopPropagation();
+				void form.handleSubmit();
+			}}
+		>
+			<Sheet.Body>
+				<form.Field name="favorites">
+					{(field) => (
+						<div className="space-y-1.5">
+							<Label htmlFor={field.name}>Fruits</Label>
+							<MultiSelect.Root
+								selectedValue={field.state.value}
+								setSelectedValue={field.handleChange}
+							>
+								<MultiSelect.Trigger
+									onBlur={field.handleBlur}
+									validation={field.state.meta.errors.length > 0 ? "error" : false}
+								>
+									<MultiSelect.TagValues />
+									<MultiSelect.Input
+										id={field.name}
+										onValueChange={(value) => startTransition(() => setSearchValue(value))}
+										placeholder="Select fruits and vegetables..."
+									/>
+								</MultiSelect.Trigger>
+								<MultiSelect.Content aria-busy={isPending} modal={false}>
+									{filteredFruits.length > 0 && (
+										<MultiSelect.Group>
+											<MultiSelect.GroupLabel>Fruits</MultiSelect.GroupLabel>
+											{filteredFruits.map((value) => (
+												<MultiSelect.Item key={value} value={value}>
+													{value}
+												</MultiSelect.Item>
+											))}
+										</MultiSelect.Group>
+									)}
+									{filteredFruits.length > 0 && filteredVeggies.length > 0 && (
+										<MultiSelect.Separator />
+									)}
+									{filteredVeggies.length > 0 && (
+										<MultiSelect.Group>
+											<MultiSelect.GroupLabel>Vegetables</MultiSelect.GroupLabel>
+											{filteredVeggies.map((value) => (
+												<MultiSelect.Item key={value} value={value}>
+													{value}
+												</MultiSelect.Item>
+											))}
+										</MultiSelect.Group>
+									)}
+									{filteredFruits.length === 0 && filteredVeggies.length === 0 && (
+										<MultiSelect.Empty>No results found</MultiSelect.Empty>
+									)}
+								</MultiSelect.Content>
+							</MultiSelect.Root>
+						</div>
+					)}
+				</form.Field>
+			</Sheet.Body>
+			<Sheet.Footer>
+				<Sheet.Close asChild>
+					<Button type="button">Cancel</Button>
+				</Sheet.Close>
+				<form.Subscribe selector={(state) => state.isDirty}>
+					{(isDirty) => (
+						<Button type="submit" form={formId} appearance="filled" disabled={!isDirty}>
+							Save
+						</Button>
+					)}
+				</form.Subscribe>
+			</Sheet.Footer>
+		</form>
+	</Sheet.Content>
+</Sheet.Root>;
 ```
 
 ### Locked Values
