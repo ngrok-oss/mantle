@@ -48,7 +48,15 @@ type MantleCodeBlockValue = {
 	"~lineNumberStart"?: number | undefined;
 };
 
-type MantleCodeBlockValueInput = Omit<MantleCodeBlockValue, typeof mantleCodeBlockValueBrand>;
+type ReplacePrefix<T, OldPrefix extends string, NewPrefix extends string> = {
+	[K in keyof T as K extends `${OldPrefix}${infer Rest}` ? `${NewPrefix}${Rest}` : K]: T[K];
+};
+
+type MantleCodeBlockValueInput = ReplacePrefix<
+	Omit<MantleCodeBlockValue, typeof mantleCodeBlockValueBrand>,
+	"~",
+	""
+>;
 
 type MantleCodeOptions = {
 	highlightLines?: (LineRange | number)[] | undefined;
@@ -57,11 +65,11 @@ type MantleCodeOptions = {
 };
 
 function createMantleCodeBlockValue({
-	"~preHtml": __preHtml,
-	"~preVals": __preVals,
-	"~highlightLines": __highlightLines,
-	"~lineNumberStart": __lineNumberStart,
-	"~showLineNumbers": __showLineNumbers,
+	preHtml,
+	preVals,
+	highlightLines,
+	lineNumberStart,
+	showLineNumbers,
 	code,
 	language,
 }: MantleCodeBlockValueInput): MantleCodeBlockValue {
@@ -69,11 +77,11 @@ function createMantleCodeBlockValue({
 		[mantleCodeBlockValueBrand]: true,
 		language,
 		code,
-		"~preHtml": __preHtml,
-		"~preVals": __preVals,
-		"~highlightLines": __highlightLines,
-		"~lineNumberStart": __lineNumberStart,
-		"~showLineNumbers": __showLineNumbers,
+		"~preHtml": preHtml,
+		"~preVals": preVals,
+		"~highlightLines": highlightLines,
+		"~lineNumberStart": lineNumberStart,
+		"~showLineNumbers": showLineNumbers,
 	};
 }
 
@@ -116,11 +124,11 @@ function mantleCode(
 		return createMantleCodeBlockValue({
 			language,
 			code,
-			"~preHtml": undefined,
-			"~preVals": values.length > 0 ? values : undefined,
-			"~highlightLines": options.highlightLines,
-			"~lineNumberStart": options.lineNumberStart,
-			"~showLineNumbers": options.showLineNumbers,
+			preHtml: undefined,
+			preVals: values.length > 0 ? values : undefined,
+			highlightLines: options.highlightLines,
+			lineNumberStart: options.lineNumberStart,
+			showLineNumbers: options.showLineNumbers,
 		});
 	};
 }

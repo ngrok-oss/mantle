@@ -101,11 +101,11 @@ export default function ShikiCodeBlockDemo() {
 			});
 			return createMantleCodeBlockValue({
 				code: result.code,
-				"~highlightLines": normalizeHighlightLines(result.highlightLines),
-				"~lineNumberStart": result.lineNumberStart,
+				highlightLines: normalizeHighlightLines(result.highlightLines),
+				lineNumberStart: result.lineNumberStart,
 				language: submittedHighlightRequest.language,
-				"~preHtml": result.html,
-				"~showLineNumbers": result.showLineNumbers,
+				preHtml: result.html,
+				showLineNumbers: result.showLineNumbers,
 			});
 		},
 	});
