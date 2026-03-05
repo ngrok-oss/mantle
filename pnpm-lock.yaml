@@ -287,12 +287,18 @@ importers:
       cmdk:
         specifier: 1.1.1
         version: 1.1.1(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      magic-string:
+        specifier: 0.30.21
+        version: 0.30.21
       prismjs:
         specifier: 1.30.0
         version: 1.30.0
       react-day-picker:
         specifier: 9.14.0
         version: 9.14.0(react@19.2.4)
+      shiki:
+        specifier: 4.0.1
+        version: 4.0.1
       sonner:
         specifier: 2.0.7
         version: 2.0.7(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -305,9 +311,6 @@ importers:
       tw-animate-css:
         specifier: 1.4.0
         version: 1.4.0
-      unified:
-        specifier: 11.0.5
-        version: 11.0.5
     devDependencies:
       '@cfg/tsconfig':
         specifier: workspace:*
@@ -348,9 +351,6 @@ importers:
       happy-dom:
         specifier: 'catalog:'
         version: 20.8.3
-      magic-string:
-        specifier: 0.30.21
-        version: 0.30.21
       playwright:
         specifier: 'catalog:'
         version: 1.58.2
@@ -360,9 +360,6 @@ importers:
       react-dom:
         specifier: 19.2.4
         version: 19.2.4(react@19.2.4)
-      shiki:
-        specifier: 4.0.1
-        version: 4.0.1
       tailwindcss:
         specifier: 'catalog:'
         version: 4.2.1
