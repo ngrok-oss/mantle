@@ -1,6 +1,7 @@
 import mdx from "@mdx-js/rollup";
 import { reactRouter } from "@react-router/dev/vite";
 import tailwindcss from "@tailwindcss/vite";
+import { mantleCodeBlockPlugins } from "@ngrok/mantle/vite-plugin";
 import path from "node:path";
 import rehypeMdxCodeProps from "rehype-mdx-code-props";
 import rehypeSlug from "rehype-slug";
@@ -14,26 +15,15 @@ import devtoolsJson from "vite-plugin-devtools-json";
 import { remarkMdxNoParagraphWrap } from "@ngrok/remark-mdx-no-paragraph-wrap";
 import { rawMdxDocs } from "./vite-plugins/raw-mdx-docs";
 
+const codeBlockPlugins = mantleCodeBlockPlugins();
+
 export default defineConfig({
 	optimizeDeps: {
 		exclude: ["@ngrok/mantle"],
 	},
 	plugins: [
-		// prismjs component files are plain IIFEs with no module.exports/require —
-		// @rollup/plugin-commonjs doesn't transform them, so Rollup sees no
-		// dependency edge between the components and the prismjs main module.
-		// Without that edge, Rollup can evaluate a component before prismjs
-		// runs and sets window.Prism. Prepending `import "prismjs"` creates the
-		// explicit edge, guaranteeing prismjs initializes first.
-		{
-			name: "prismjs-explicit-dep",
-			enforce: "pre",
-			transform(code, id) {
-				if (/\/prismjs\/components\/prism-/.test(id)) {
-					return { code: `import "prismjs";\n${code}`, map: null };
-				}
-			},
-		},
+		//
+		...codeBlockPlugins.vitePlugins,
 		rawMdxDocs(path.resolve(import.meta.dirname, "app/docs")),
 		devtoolsJson(),
 		tailwindcss(),
@@ -50,7 +40,7 @@ export default defineConfig({
 				remarkMdxGithubAlerts,
 				remarkMdxNoParagraphWrap,
 			],
-			rehypePlugins: [rehypeSlug, rehypeMdxCodeProps],
+			rehypePlugins: [rehypeSlug, rehypeMdxCodeProps, ...codeBlockPlugins.rehypePlugins],
 			providerImportSource: "@mdx-js/react",
 		}),
 		reactRouter(),

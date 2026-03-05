@@ -14,6 +14,7 @@ export default [
 	route("index.md", "./routes/$.md.tsx", { id: "docs-index-md" }),
 	route("robots.txt", "./routes/robots[.]txt.tsx", { id: "robots-txt" }),
 	route("sitemap.xml", "./routes/sitemap[.]xml.tsx", { id: "sitemap-xml" }),
+	route("api/shiki-highlight", "./routes/api.shiki-highlight.tsx"),
 
 	// MDX docs: auto-discovers docs from app/docs/**/*.mdx
 	// Handles both /path and /path.md URLs (returns HTML or raw markdown respectively)
@@ -36,6 +37,7 @@ export default [
 	...docRoute("components/card"),
 	...docRoute("components/checkbox"),
 	...docRoute("components/code-block"),
+	route("components/shiki-code-block", "./routes/components.shiki-code-block.tsx"),
 	...docRoute("components/code"),
 	...docRoute("components/combobox"),
 	...docRoute("components/command"),
