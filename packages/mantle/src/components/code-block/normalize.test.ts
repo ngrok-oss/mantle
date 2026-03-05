@@ -49,6 +49,31 @@ bar.foo =					foo;
 		`);
 	});
 
+	test("given a multiline string where all non-empty lines are indented equally, strips shared indentation", () => {
+		const value = "\n\t\tconst foo = {};\n\t\tconst bar = {};\n\t\tfoo.bar = bar;\n\t\t";
+
+		let result = normalizeIndentation(value);
+		expect(result).toMatchInlineSnapshot(`
+			"const foo = {};
+			const bar = {};
+			foo.bar = bar;"
+		`);
+
+		result = normalizeIndentation(value, { indentation: "spaces" });
+		expect(result).toMatchInlineSnapshot(`
+			"const foo = {};
+			const bar = {};
+			foo.bar = bar;"
+		`);
+
+		result = normalizeIndentation(value, { indentation: "tabs" });
+		expect(result).toMatchInlineSnapshot(`
+			"const foo = {};
+			const bar = {};
+			foo.bar = bar;"
+		`);
+	});
+
 	test("given a multiline string with indentation, returns the string with indentation removed", () => {
 		const value = `
 const foo = {};

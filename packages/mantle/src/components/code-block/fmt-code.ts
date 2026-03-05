@@ -30,6 +30,7 @@ function fmtCode(strings: TemplateStringsArray, ...values: Primitive[]): string 
 export {
 	//,
 	fmtCode,
+	findMinIndent,
 };
 
 /**

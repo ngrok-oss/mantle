@@ -38,6 +38,36 @@ Also install the required `devDependencies`:
 
 Next, check out the [Overview & Setup](https://mantle.ngrok.com/) docs and start using mantle components in your application!
 
+## Code Block Tooling
+
+Mantle ships runtime components and code-block tooling from a single package via subpath exports:
+
+- `@ngrok/mantle/shiki-code-block`: runtime React components and `mantleCode` template tag
+- `@ngrok/mantle/vite-plugin`: Vite + rehype integration via `mantleCodeBlockPlugins()`
+- `@ngrok/mantle/server-highlighter`: server-side highlighting engine for API routes/actions
+
+This avoids a separate package and version-sync overhead between UI/runtime and tooling.
+
+### Vite + MDX
+
+```ts
+import { mantleCodeBlockPlugins } from "@ngrok/mantle/vite-plugin";
+
+const codeBlockPlugins = mantleCodeBlockPlugins();
+```
+
+### Server Highlighter
+
+```ts
+import { createMantleServerHighlighter } from "@ngrok/mantle/server-highlighter";
+
+const highlighter = createMantleServerHighlighter();
+const result = await highlighter.highlight({
+	code: "const x = 1",
+	language: "typescript",
+});
+```
+
 ## Git Hooks
 
 Pre-commit hooks run automatically via [husky](https://typicode.github.io/husky/) and [lint-staged](https://github.com/lint-staged/lint-staged). On every commit, staged files are formatted with oxfmt and linted with oxlint.
