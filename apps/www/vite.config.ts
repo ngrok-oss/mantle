@@ -3,7 +3,6 @@ import { reactRouter } from "@react-router/dev/vite";
 import tailwindcss from "@tailwindcss/vite";
 import { mantleCodeBlockPlugins } from "@ngrok/mantle/vite-plugin";
 import path from "node:path";
-import rehypeMdxCodeProps from "rehype-mdx-code-props";
 import rehypeSlug from "rehype-slug";
 import remarkFrontmatter from "remark-frontmatter";
 import { remarkMdxGithubAlerts } from "@ngrok/remark-mdx-github-alerts";
@@ -40,7 +39,7 @@ export default defineConfig({
 				remarkMdxGithubAlerts,
 				remarkMdxNoParagraphWrap,
 			],
-			rehypePlugins: [rehypeSlug, rehypeMdxCodeProps, ...codeBlockPlugins.rehypePlugins],
+			rehypePlugins: [rehypeSlug, ...codeBlockPlugins.rehypePlugins],
 			providerImportSource: "@mdx-js/react",
 		}),
 		reactRouter(),

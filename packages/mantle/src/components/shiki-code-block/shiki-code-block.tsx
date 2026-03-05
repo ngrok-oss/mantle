@@ -32,9 +32,9 @@ import type { SvgAttributes } from "../icon/types.js";
 import { TrafficPolicyFileIcon } from "../icons/traffic-policy-file.js";
 import { Slot } from "../slot/index.js";
 import { escapeHtml } from "../code-block/escape-html.js";
-import type { Indentation } from "../code-block/indentation.js";
+import type { Indentation } from "../code-block/normalize-indentation.js";
 import type { LineRange } from "../code-block/line-numbers.js";
-import type { Mode } from "../code-block/parse-metastring.js";
+import type { Mode } from "../code-block/resolve-pre-rendered-props.js";
 import type { MantleCodeBlockValue } from "./shiki-code.js";
 
 type ShikiCodeBlockContextType = {
@@ -166,6 +166,10 @@ function substituteTemplateVals(
 	vals: unknown[],
 	mapValue: (value: unknown) => string,
 ): string {
+	if (!input.includes("SHIKI_VAL_")) {
+		return input;
+	}
+
 	return input.replaceAll(/SHIKI_VAL_(\d+)/g, (match, indexText: string) => {
 		const index = Number.parseInt(indexText, 10);
 		if (Number.isNaN(index) || index < 0 || index >= vals.length) {
@@ -312,10 +316,13 @@ const Code = forwardRef<ComponentRef<"pre">, ShikiCodeBlockCodeProps>(
 			);
 		}, [highlightLines, lineNumberStart, showLineNumbers]);
 
-		const renderedHtml =
-			__preVals != null && __preVals.length > 0
-				? substitutePreVals(__preHtml, __preVals)
-				: __preHtml;
+		const renderedHtml = useMemo(
+			() =>
+				__preVals != null && __preVals.length > 0
+					? substitutePreVals(__preHtml, __preVals)
+					: __preHtml,
+			[__preHtml, __preVals],
+		);
 
 		return (
 			<pre

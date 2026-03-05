@@ -1,6 +1,6 @@
-import type { Indentation } from "../components/code-block/indentation.js";
+import type { Indentation } from "../components/code-block/normalize-indentation.js";
 import { decorateHighlightedHtml } from "../components/code-block/decorate-highlighted-html.js";
-import { inferIndentation } from "../components/code-block/indentation.js";
+import { inferIndentation } from "../components/code-block/normalize-indentation.js";
 import type { LineRange } from "../components/code-block/line-numbers.js";
 import { normalizeIndentation } from "../components/code-block/normalize.js";
 import {

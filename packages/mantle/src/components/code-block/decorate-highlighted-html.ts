@@ -8,18 +8,14 @@ function splitHighlightedHtmlIntoLines(html: string): string[] {
 	const linePrefix = '<span class="line">';
 	const lineSuffix = "</span>";
 
-	const maybeUnwrapped = shikiLines.map((line) => {
+	for (let i = 0; i < shikiLines.length; i++) {
+		const line = shikiLines[i] ?? "";
 		if (line.startsWith(linePrefix) && line.endsWith(lineSuffix)) {
-			return line.slice(linePrefix.length, line.length - lineSuffix.length);
+			shikiLines[i] = line.slice(linePrefix.length, line.length - lineSuffix.length);
 		}
-		return undefined;
-	});
-
-	if (maybeUnwrapped.some((line) => line != null)) {
-		return maybeUnwrapped.map((line, index) => line ?? shikiLines[index] ?? "");
 	}
 
-	return normalizedHtml.split("\n");
+	return shikiLines;
 }
 
 type DecorateHighlightedHtmlInput = {
@@ -37,21 +33,22 @@ function decorateHighlightedHtml({
 }: DecorateHighlightedHtmlInput): string {
 	const highlightedLineNumbers = resolveLineNumbers(...(highlightLines ?? []));
 	const lines = splitHighlightedHtmlIntoLines(html);
-	return lines
-		.map((line, index) => {
-			const lineNumber = lineNumberStart + index;
-			const lineClassName = cx(
-				"mantle-code-line",
-				highlightedLineNumbers.has(lineNumber) && "mantle-code-line-highlighted",
-			);
+	let output = "";
+	for (let i = 0; i < lines.length; i++) {
+		const line = lines[i] ?? "";
+		const lineNumber = lineNumberStart + i;
+		const lineClassName = cx(
+			"mantle-code-line",
+			highlightedLineNumbers.has(lineNumber) && "mantle-code-line-highlighted",
+		);
 
-			const lineNumberHtml = showLineNumbers
-				? `<span class="mantle-code-line-number" data-slot="line-number">${lineNumber}</span>`
-				: "";
+		const lineNumberHtml = showLineNumbers
+			? `<span class="mantle-code-line-number" data-slot="line-number">${lineNumber}</span>`
+			: "";
 
-			return `<span class="${lineClassName}" data-line-number="${lineNumber}">${lineNumberHtml}<span class="mantle-code-line-content" data-slot="line-content">${line === "" ? " " : line}</span></span>`;
-		})
-		.join("");
+		output += `<span class="${lineClassName}" data-line-number="${lineNumber}">${lineNumberHtml}<span class="mantle-code-line-content" data-slot="line-content">${line === "" ? " " : line}</span></span>`;
+	}
+	return output;
 }
 
 export { decorateHighlightedHtml };

@@ -1,16 +1,14 @@
-import { isValidElement, type ComponentProps, type PropsWithChildren, type ReactNode } from "react";
+import { type ComponentProps, type PropsWithChildren, type ReactNode } from "react";
 
 import { MDXProvider as MdxProviderPrimitive } from "@mdx-js/react";
 import { Anchor } from "@ngrok/mantle/anchor";
 import { Code } from "@ngrok/mantle/code";
 import {
-	isSupportedLanguage,
-	normalizeIndentation,
-	parseLanguage,
-	type MetaInput,
+	hasMoreThanNLines,
+	resolvePreRenderedCodeBlockProps,
+	type CodeBlockPreElementInput,
 } from "@ngrok/mantle/code-block";
 import { ShikiCodeBlock, createMantleCodeBlockValue } from "@ngrok/mantle/shiki-code-block";
-import { parseBooleanish } from "@ngrok/mantle/types";
 import { cx } from "@ngrok/mantle/cx";
 import { Icon } from "@ngrok/mantle/icon";
 import { Table } from "@ngrok/mantle/table";
@@ -25,16 +23,21 @@ import { HashLinkHeading } from "./hash-link-heading";
 // import { Img } from "./img";
 
 type Props = PropsWithChildren;
-type ShikiMetaInput = {
-	shikiCode?: string | undefined;
-	shikiHighlightLines?: (number | `${number}-${number}`)[] | undefined;
-	shikiLanguage?: string | undefined;
-	shikiLineNumberStart?: number | undefined;
-	shikiPreHtml?: string | undefined;
-	shikiShowLineNumbers?: boolean | undefined;
-};
 
 type MDXComponents = Parameters<typeof MdxProviderPrimitive>[0]["components"];
+
+let hasWarnedMalformedPreRenderedCodeBlock = false;
+
+function warnMalformedPreRenderedCodeBlock(rawLanguage: unknown) {
+	if (!import.meta.env.DEV || hasWarnedMalformedPreRenderedCodeBlock) {
+		return;
+	}
+	hasWarnedMalformedPreRenderedCodeBlock = true;
+	console.warn(
+		`[MdxProvider] Ignoring malformed pre-rendered code block payload (language=${String(rawLanguage)}). ` +
+			"Falling back to plain <pre> rendering.",
+	);
+}
 
 const components = {
 	a: (props) => {
@@ -94,44 +97,56 @@ const components = {
 			/>
 		);
 	},
-	pre: (props: ComponentProps<"pre"> & MetaInput & ShikiMetaInput) => {
-		const { children, className, collapsible: collapsibleProp } = props;
-		if (!isValidElement<{ className?: string; children?: unknown }>(children)) {
-			return null;
-		}
-		const languageProp = props.shikiLanguage;
-		const language =
-			typeof languageProp === "string" && isSupportedLanguage(languageProp)
-				? languageProp
-				: parseLanguage(children.props.className);
-		const codeProp = props.shikiCode;
-		const code = typeof codeProp === "string" ? codeProp : String(children.props.children ?? "");
-		const normalizedCode = typeof codeProp === "string" ? codeProp : normalizeIndentation(code);
-		const preHtmlProp = props.shikiPreHtml;
-		if (typeof preHtmlProp !== "string") {
-			throw new Error(
-				"[MdxProvider] Missing pre-rendered code HTML. Ensure mantleCodeBlockPlugins().rehypePlugins is configured in vite.config.ts.",
+	pre: (props: ComponentProps<"pre"> & CodeBlockPreElementInput) => {
+		const { children, className, indentation: _indentation, ...rawProps } = props;
+		const { mantleCode: preRendered, props: rest } = resolvePreRenderedCodeBlockProps(rawProps);
+
+		if (!preRendered) {
+			return (
+				<pre className={className} {...rest}>
+					{children}
+				</pre>
 			);
 		}
-		const shikiPreHtml = preHtmlProp;
 
-		// Short-circuit: skip the split("\n") allocation for small blocks (400 chars ≈ 10 chars/line × 40 lines)
-		const isLong = collapsibleProp == null && code.length > 400 && code.split("\n").length > 40;
-		const collapsible = collapsibleProp != null ? parseBooleanish(collapsibleProp) : isLong;
+		const { code, language, preHtml } = preRendered;
+		if (!code || !language || !preHtml) {
+			warnMalformedPreRenderedCodeBlock(preRendered.rawLanguage);
+			return (
+				<pre className={className} {...rest}>
+					{children}
+				</pre>
+			);
+		}
+
+		const isLong = code.length > 400 && hasMoreThanNLines(code, 40);
+		const collapsible = preRendered.collapsible ?? isLong;
+		const disableCopy = preRendered.disableCopy ?? false;
+		const mode = preRendered.mode;
+		const title = preRendered.title;
+		const shouldRenderHeader = mode != null || Boolean(title);
 
 		const value = createMantleCodeBlockValue({
 			language,
-			code: normalizedCode,
-			highlightLines: props.shikiHighlightLines,
-			lineNumberStart: props.shikiLineNumberStart,
-			preHtml: shikiPreHtml,
-			showLineNumbers: props.shikiShowLineNumbers ?? true,
+			code,
+			highlightLines: preRendered.highlightLines,
+			lineNumberStart: preRendered.lineNumberStart,
+			preHtml,
+			showLineNumbers: preRendered.showLineNumbers ?? true,
 		});
 
 		return (
 			<ShikiCodeBlock.Root className={cx("mb-6", className)}>
+				{shouldRenderHeader && (
+					<ShikiCodeBlock.Header>
+						{mode != null && <ShikiCodeBlock.Icon preset={mode} />}
+						{title != null && title.length > 0 && (
+							<ShikiCodeBlock.Title>{title}</ShikiCodeBlock.Title>
+						)}
+					</ShikiCodeBlock.Header>
+				)}
 				<ShikiCodeBlock.Body>
-					<ShikiCodeBlock.CopyButton />
+					{!disableCopy && <ShikiCodeBlock.CopyButton />}
 					<ShikiCodeBlock.Code value={value} />
 				</ShikiCodeBlock.Body>
 				{collapsible && <ShikiCodeBlock.ExpanderButton />}

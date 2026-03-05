@@ -37,7 +37,7 @@ import { Highlighter } from "./highlighter.js";
 import { type Indentation, inferIndentation } from "./indentation.js";
 import type { LineRange } from "./line-numbers.js";
 import { normalizeIndentation } from "./normalize-indentation.js";
-import type { Mode } from "./parse-metastring.js";
+import type { Mode } from "./resolve-pre-rendered-props.js";
 import type { SupportedLanguage } from "./supported-languages.js";
 import { formatLanguageClassName, supportedLanguages } from "./supported-languages.js";
 
