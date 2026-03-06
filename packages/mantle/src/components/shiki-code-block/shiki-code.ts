@@ -1,5 +1,6 @@
 import type { SupportedLanguage } from "../code-block/supported-languages.js";
 import type { LineRange } from "../code-block/line-numbers.js";
+import type { Indentation } from "../code-block/normalize-indentation.js";
 
 const mantleCodeBlockValueBrand: unique symbol = Symbol("MantleCodeBlockValue");
 
@@ -60,6 +61,7 @@ type MantleCodeBlockValueInput = ReplacePrefix<
 
 type MantleCodeOptions = {
 	highlightLines?: (LineRange | number)[] | undefined;
+	indentation?: Indentation | undefined;
 	lineNumberStart?: number | undefined;
 	showLineNumbers?: boolean | undefined;
 };

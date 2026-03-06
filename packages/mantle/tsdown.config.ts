@@ -59,6 +59,7 @@ export default defineConfig((options) => [
 		clean: false,
 		external: [
 			"magic-string",
+			"oxc-parser",
 			"shiki",
 			"vite",
 		],

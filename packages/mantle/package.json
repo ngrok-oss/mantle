@@ -349,6 +349,7 @@
 		"clsx": "2.1.1",
 		"cmdk": "1.1.1",
 		"magic-string": "0.30.21",
+		"oxc-parser": "0.86.0",
 		"prismjs": "1.30.0",
 		"react-day-picker": "9.14.0",
 		"shiki": "4.0.1",
