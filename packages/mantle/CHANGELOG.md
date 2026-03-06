@@ -1,5 +1,28 @@
 # @ngrok/mantle
 
+## 0.66.2
+
+### Patch Changes
+
+- [#1023](https://github.com/ngrok-oss/mantle/pull/1023) [`bc1bc6c`](https://github.com/ngrok-oss/mantle/commit/bc1bc6cbb8ebbb34a6a771c4f60b60c2e0271757) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - multi-select.tsx
+  - close the combobox popover on `Escape` at the multi-select trigger level
+
+  dialog/primitive.tsx
+  - centralize `onInteractOutside` / `onPointerDownOutside` prompt-protection
+  - add `preventCloseOnNestedPopupEscape(...)`
+  - detect focused nested popup owners via `aria-expanded="true"` + `aria-controls`
+  - only prevent parent modal close while the controlled popup is still mounted/open
+  - add JSDoc documenting the first-ESC / second-ESC flow
+
+  dialog.tsx
+  - remove duplicated `onInteractOutside` / `onPointerDownOutside` wrappers
+
+  sheet.tsx
+  - remove duplicated `onInteractOutside` / `onPointerDownOutside` wrappers
+
+  alert-dialog.tsx
+  - remove duplicated `onInteractOutside` / `onPointerDownOutside` wrappers
+
 ## 0.66.1
 
 ### Patch Changes
