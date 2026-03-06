@@ -83,7 +83,7 @@ export function InSheetDemo() {
 												placeholder="Select fruits and vegetables..."
 											/>
 										</MultiSelect.Trigger>
-										<MultiSelect.Content aria-busy={isPending} modal={false}>
+										<MultiSelect.Content aria-busy={isPending}>
 											{filteredFruits.length > 0 && (
 												<MultiSelect.Group>
 													<MultiSelect.GroupLabel>Fruits</MultiSelect.GroupLabel>

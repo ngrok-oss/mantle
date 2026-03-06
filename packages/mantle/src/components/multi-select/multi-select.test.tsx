@@ -1,7 +1,8 @@
-import { act, fireEvent, render, screen } from "@testing-library/react";
+import { act, cleanup, fireEvent, render, screen, within } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import { useState } from "react";
 import { describe, expect, test } from "vitest";
+import { Sheet } from "../sheet/sheet.js";
 import { MultiSelect } from "./multi-select.js";
 
 describe("MultiSelect", () => {
@@ -83,6 +84,45 @@ describe("MultiSelect", () => {
 			</MultiSelect.Root>,
 		);
 		expect(screen.getByText("No results found")).toBeInTheDocument();
+	});
+
+	test("inside a modal sheet, portals the popover into the sheet content", async () => {
+		const user = userEvent.setup();
+		render(
+			<Sheet.Root open>
+				<Sheet.Content>
+					<Sheet.Header>
+						<Sheet.Title>Test Sheet</Sheet.Title>
+					</Sheet.Header>
+					<MultiSelect.Root>
+						<MultiSelect.Trigger>
+							<MultiSelect.TagValues />
+							<MultiSelect.Input placeholder="Select items..." />
+						</MultiSelect.Trigger>
+						<MultiSelect.Content>
+							<MultiSelect.Item value="apple">Apple</MultiSelect.Item>
+							<MultiSelect.Item value="banana">Banana</MultiSelect.Item>
+						</MultiSelect.Content>
+					</MultiSelect.Root>
+				</Sheet.Content>
+			</Sheet.Root>,
+		);
+
+		await user.click(screen.getByRole("combobox"));
+		const listbox = await screen.findByRole("listbox");
+		const sheetContent = screen.getByRole("combobox").closest("[data-state='open']");
+
+		expect(sheetContent?.contains(listbox)).toBe(true);
+
+		await user.click(within(listbox).getByRole("option", { name: /Apple/ }));
+		expect(screen.getByLabelText("Remove apple")).toBeInTheDocument();
+		cleanup();
+		document.body.removeAttribute("data-dialog-prevent-body-scroll");
+		document.body.removeAttribute("data-scroll-locked");
+		document.body.removeAttribute("id");
+		document.body.style.pointerEvents = "";
+		document.body.style.overflow = "";
+		document.body.style.paddingRight = "";
 	});
 
 	describe("keyboard navigation", () => {

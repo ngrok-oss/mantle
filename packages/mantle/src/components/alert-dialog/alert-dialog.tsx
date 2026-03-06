@@ -220,6 +220,7 @@ const Content = forwardRef<
 			<AlertDialogOverlay />
 			<div className="fixed inset-4 z-50 flex items-center justify-center">
 				<AlertDialogPrimitive.Content
+					data-mantle-modal-content
 					ref={ref}
 					className={cx(
 						"flex w-full flex-1 flex-col items-center gap-4 sm:flex-row sm:items-start",
