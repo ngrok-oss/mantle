@@ -130,7 +130,7 @@ describe("MultiSelect", () => {
 
 			await user.click(screen.getByRole("combobox"));
 			const listbox = await screen.findByRole("listbox");
-			const sheetContent = screen.getByRole("combobox").closest("[data-state='open']");
+			const sheetContent = screen.getByRole("combobox").closest("[data-mantle-modal-content]");
 
 			expect(sheetContent?.contains(listbox)).toBe(true);
 
