@@ -134,6 +134,7 @@ const Trigger = forwardRef<HTMLDivElement, MultiSelectTriggerProps>(
 			"aria-invalid": _ariaInvalid,
 			className,
 			children,
+			onKeyDown,
 			onMouseDown,
 			validation: _validation,
 			...props
@@ -142,6 +143,7 @@ const Trigger = forwardRef<HTMLDivElement, MultiSelectTriggerProps>(
 	) => {
 		const triggerRef = useContext(TriggerRefContext);
 		const { inputRef } = useContext(TagBridgeContext);
+		const store = Primitive.useComboboxContext();
 		const isInvalid = _ariaInvalid != null && _ariaInvalid !== "false";
 		const validation = isInvalid
 			? "error"
@@ -165,6 +167,13 @@ const Trigger = forwardRef<HTMLDivElement, MultiSelectTriggerProps>(
 					className,
 				)}
 				data-validation={validation || undefined}
+				onKeyDown={(event) => {
+					if (event.key === "Escape" && store?.getState().open) {
+						event.preventDefault();
+						store.hide();
+					}
+					onKeyDown?.(event);
+				}}
 				onMouseDown={(event) => {
 					// When clicking on non-interactive areas (padding, flex gaps between tags), prevent the
 					// default mousedown behavior (which would cause text selection) and explicitly focus the

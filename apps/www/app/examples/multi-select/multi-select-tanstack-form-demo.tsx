@@ -53,6 +53,9 @@ export function TanStackFormDemo() {
 						<Label htmlFor={field.name}>Favorites</Label>
 						<MultiSelect.Root
 							selectedValue={field.state.value}
+							setOpen={() => {
+								setSearchValue("");
+							}}
 							setSelectedValue={(values) => {
 								field.handleChange(values);
 							}}

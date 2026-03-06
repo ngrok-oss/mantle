@@ -5,7 +5,6 @@ import { forwardRef } from "react";
 import { cx } from "../../utils/cx/cx.js";
 import { IconButton, type IconButtonProps } from "../button/icon-button.js";
 import * as SheetPrimitive from "../dialog/primitive.js";
-import { preventCloseOnPromptInteraction } from "../toast/toast.js";
 
 /**
  * The root component for a `Sheet`. Should compose the `Sheet.Trigger` and `Sheet.Content`.
@@ -284,31 +283,12 @@ type SheetContentProps = ComponentPropsWithoutRef<typeof SheetPrimitive.Content>
  * ```
  */
 const Content = forwardRef<ComponentRef<"div">, SheetContentProps>(
-	(
-		{
-			children,
-			className,
-			onInteractOutside,
-			onPointerDownOutside,
-			preferredWidth = "sm:max-w-[30rem]",
-			side = "right",
-			...props
-		},
-		ref,
-	) => (
+	({ children, className, preferredWidth = "sm:max-w-[30rem]", side = "right", ...props }, ref) => (
 		<SheetPortal>
 			<SheetOverlay />
 			<SheetPrimitive.Content
 				data-mantle-modal-content
 				className={cx(SheetVariants({ side }), preferredWidth, className)}
-				onInteractOutside={(event) => {
-					preventCloseOnPromptInteraction(event);
-					onInteractOutside?.(event);
-				}}
-				onPointerDownOutside={(event) => {
-					preventCloseOnPromptInteraction(event);
-					onPointerDownOutside?.(event);
-				}}
 				ref={ref}
 				{...props}
 			>
