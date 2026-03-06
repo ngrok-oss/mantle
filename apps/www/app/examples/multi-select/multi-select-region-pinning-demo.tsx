@@ -54,6 +54,9 @@ export function RegionPinningDemo() {
 			<p className="text-strong text-sm font-medium">Resolves to</p>
 			<MultiSelect.Root
 				selectedValue={selected}
+				setOpen={() => {
+					setSearchValue("");
+				}}
 				setSelectedValue={(values) => {
 					setSelected(values.includes("global") ? values : ["global", ...values]);
 				}}

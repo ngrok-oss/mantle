@@ -1,7 +1,10 @@
 import { render, screen, waitFor, within } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
-import { useState } from "react";
+import { type ReactNode, useState } from "react";
 import { describe, expect, test } from "vitest";
+import { AlertDialog } from "../alert-dialog/alert-dialog.js";
+import { Dialog } from "../dialog/dialog.js";
+import { Sheet } from "../sheet/sheet.js";
 import { MultiSelect } from "./multi-select.js";
 
 describe("MultiSelect (browser)", () => {
@@ -47,6 +50,77 @@ describe("MultiSelect (browser)", () => {
 	};
 
 	describe("popover lifecycle", () => {
+		const modalSubjects = [
+			{
+				name: "dialog",
+				title: "Test Dialog",
+				render: (children: ReactNode) => {
+					const Subject = () => {
+						const [open, setOpen] = useState(true);
+						return (
+							<Dialog.Root open={open} onOpenChange={setOpen}>
+								<Dialog.Content>
+									<Dialog.Header>
+										<Dialog.Title>Test Dialog</Dialog.Title>
+									</Dialog.Header>
+									{children}
+									<button type="button">Focus outside</button>
+								</Dialog.Content>
+							</Dialog.Root>
+						);
+					};
+
+					return <Subject />;
+				},
+			},
+			{
+				name: "sheet",
+				title: "Test Sheet",
+				render: (children: ReactNode) => {
+					const Subject = () => {
+						const [open, setOpen] = useState(true);
+						return (
+							<Sheet.Root open={open} onOpenChange={setOpen}>
+								<Sheet.Content>
+									<Sheet.Header>
+										<Sheet.Title>Test Sheet</Sheet.Title>
+									</Sheet.Header>
+									{children}
+									<button type="button">Focus outside</button>
+								</Sheet.Content>
+							</Sheet.Root>
+						);
+					};
+
+					return <Subject />;
+				},
+			},
+			{
+				name: "alert dialog",
+				title: "Test Alert Dialog",
+				render: (children: ReactNode) => {
+					const Subject = () => {
+						const [open, setOpen] = useState(true);
+						return (
+							<AlertDialog.Root priority="danger" open={open} onOpenChange={setOpen}>
+								<AlertDialog.Content>
+									<AlertDialog.Body>
+										<AlertDialog.Header>
+											<AlertDialog.Title>Test Alert Dialog</AlertDialog.Title>
+										</AlertDialog.Header>
+										{children}
+										<button type="button">Focus outside</button>
+									</AlertDialog.Body>
+								</AlertDialog.Content>
+							</AlertDialog.Root>
+						);
+					};
+
+					return <Subject />;
+				},
+			},
+		] as const;
+
 		test("clicking the input opens the popover", async () => {
 			const user = userEvent.setup();
 			render(<Subject />);
@@ -66,6 +140,98 @@ describe("MultiSelect (browser)", () => {
 				expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
 			});
 		});
+
+		for (const modal of modalSubjects) {
+			test(`Escape closes only the popover when nested inside a ${modal.name}`, async () => {
+				const user = userEvent.setup();
+
+				render(
+					modal.render(
+						<MultiSelect.Root>
+							<MultiSelect.Trigger>
+								<MultiSelect.TagValues />
+								<MultiSelect.Input placeholder="Select items..." />
+							</MultiSelect.Trigger>
+							<MultiSelect.Content>
+								<MultiSelect.Item value="apple">Apple</MultiSelect.Item>
+								<MultiSelect.Item value="banana">Banana</MultiSelect.Item>
+							</MultiSelect.Content>
+						</MultiSelect.Root>,
+					),
+				);
+
+				const input = screen.getByRole("combobox");
+				await user.click(input);
+				await waitFor(() => expect(screen.getByRole("listbox")).toBeVisible());
+				expect(input).toHaveFocus();
+
+				await user.keyboard("{Escape}");
+
+				await waitFor(() => {
+					expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+				});
+				expect(screen.getByText(modal.title)).toBeInTheDocument();
+				expect(screen.getByRole("combobox")).toBeInTheDocument();
+			});
+
+			test(`a second Escape closes the parent ${modal.name} after the popover closes`, async () => {
+				const user = userEvent.setup();
+
+				render(
+					modal.render(
+						<MultiSelect.Root>
+							<MultiSelect.Trigger>
+								<MultiSelect.TagValues />
+								<MultiSelect.Input placeholder="Select items..." />
+							</MultiSelect.Trigger>
+							<MultiSelect.Content>
+								<MultiSelect.Item value="apple">Apple</MultiSelect.Item>
+								<MultiSelect.Item value="banana">Banana</MultiSelect.Item>
+							</MultiSelect.Content>
+						</MultiSelect.Root>,
+					),
+				);
+
+				await user.click(screen.getByRole("combobox"));
+				await waitFor(() => expect(screen.getByRole("listbox")).toBeVisible());
+
+				await user.keyboard("{Escape}");
+				await waitFor(() => {
+					expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+				});
+
+				await user.keyboard("{Escape}");
+				await waitFor(() => {
+					expect(screen.queryByText(modal.title)).not.toBeInTheDocument();
+				});
+			});
+
+			test(`Escape closes the parent ${modal.name} when the multi-select is not focused`, async () => {
+				const user = userEvent.setup();
+
+				render(
+					modal.render(
+						<MultiSelect.Root>
+							<MultiSelect.Trigger>
+								<MultiSelect.TagValues />
+								<MultiSelect.Input placeholder="Select items..." />
+							</MultiSelect.Trigger>
+							<MultiSelect.Content>
+								<MultiSelect.Item value="apple">Apple</MultiSelect.Item>
+								<MultiSelect.Item value="banana">Banana</MultiSelect.Item>
+							</MultiSelect.Content>
+						</MultiSelect.Root>,
+					),
+				);
+
+				await user.click(screen.getByRole("button", { name: "Focus outside" }));
+				await user.keyboard("{Escape}");
+
+				await waitFor(() => {
+					expect(screen.queryByText(modal.title)).not.toBeInTheDocument();
+				});
+			});
+		}
 	});
 
 	describe("item selection", () => {

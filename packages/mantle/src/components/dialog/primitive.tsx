@@ -11,6 +11,10 @@ import {
 	useState,
 } from "react";
 import { Slot } from "../slot/index.js";
+import { preventCloseOnPromptInteraction } from "../toast/toast.js";
+import { parseBooleanish } from "../../types/booleanish.js";
+
+type DialogPrimitiveContentProps = ComponentPropsWithoutRef<typeof DialogPrimitive.Content>;
 
 type InternalDialogContextValue = {
 	hasDescription: boolean;
@@ -58,25 +62,32 @@ const Overlay = forwardRef<
 ));
 Overlay.displayName = "DialogPrimitiveOverlay";
 
-/**
- * The main content container of the dialog primitive.
- * This is a low-level primitive used by higher-level dialog components.
- */
-const Content = forwardRef<
-	ComponentRef<"div">,
-	ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
->((props, ref) => {
-	const ctx = useContext(InternalDialogContext);
+const Content = forwardRef<ComponentRef<"div">, DialogPrimitiveContentProps>(
+	({ onEscapeKeyDown, onInteractOutside, onPointerDownOutside, ...props }, ref) => {
+		const ctx = useContext(InternalDialogContext);
 
-	return (
-		<DialogPrimitive.Content
-			ref={ref}
-			// If there's no description, we remove the default applied aria-describedby attribute from radix dialog
-			{...(!ctx.hasDescription ? { "aria-describedby": undefined } : {})}
-			{...props}
-		/>
-	);
-});
+		return (
+			<DialogPrimitive.Content
+				ref={ref}
+				onEscapeKeyDown={(event) => {
+					preventCloseOnNestedPopupEscape(event);
+					onEscapeKeyDown?.(event);
+				}}
+				onInteractOutside={(event) => {
+					preventCloseOnPromptInteraction(event);
+					onInteractOutside?.(event);
+				}}
+				onPointerDownOutside={(event) => {
+					preventCloseOnPromptInteraction(event);
+					onPointerDownOutside?.(event);
+				}}
+				// If there's no description, we remove the default applied aria-describedby attribute from radix dialog
+				{...(!ctx.hasDescription ? { "aria-describedby": undefined } : {})}
+				{...props}
+			/>
+		);
+	},
+);
 Content.displayName = "DialogPrimitiveContent";
 
 const Title = DialogPrimitive.Title;
@@ -129,3 +140,84 @@ export {
 	Title,
 	isDialogOverlayTarget,
 };
+
+/**
+ * Prevents the parent dialog/sheet/alert-dialog from closing on Escape when a
+ * nested popup owner inside the same modal content is currently expanded.
+ *
+ * Flow:
+ * - If focus is outside the nested popup owner, Escape closes the parent modal.
+ * - If focus is inside the nested popup owner and its controlled popup is open,
+ *   the first Escape closes only the nested popup and keeps the parent modal open.
+ * - Once the nested popup has closed, a subsequent Escape closes the parent modal.
+ */
+function preventCloseOnNestedPopupEscape(
+	event: Parameters<NonNullable<DialogPrimitiveContentProps["onEscapeKeyDown"]>>[0],
+): void {
+	if (!isParentNode(event.currentTarget)) {
+		return;
+	}
+
+	const currentTarget = event.currentTarget;
+	const activeElement =
+		currentTarget instanceof Document
+			? currentTarget.activeElement
+			: (currentTarget.ownerDocument?.activeElement ?? null);
+
+	const owner = getExpandedPopupOwner(event.target) ?? getExpandedPopupOwner(activeElement);
+
+	const popup = owner ? getControlledPopup(owner) : null;
+
+	if (
+		owner != null &&
+		parseBooleanish(owner.getAttribute("aria-expanded")) &&
+		popup != null &&
+		currentTarget.contains(owner) &&
+		currentTarget.contains(popup)
+	) {
+		event.preventDefault();
+	}
+}
+
+/**
+ * Finds the nearest expanded popup owner for a node using ARIA relationships.
+ *
+ * A matching owner must expose `aria-expanded="true"` and `aria-controls`, which
+ * lets nested controls like comboboxes and input-attached popovers signal that an
+ * inner surface is currently open.
+ */
+function getExpandedPopupOwner(node: EventTarget | null): HTMLElement | null {
+	if (!isHTMLElement(node)) {
+		return null;
+	}
+
+	const owner = node.closest<HTMLElement>("[aria-expanded='true'][aria-controls]");
+	return owner;
+}
+
+/**
+ * Resolves the popup element controlled by an expanded owner via `aria-controls`.
+ */
+function getControlledPopup(owner: HTMLElement): HTMLElement | null {
+	const popupId = owner.getAttribute("aria-controls");
+	if (!popupId) {
+		return null;
+	}
+
+	const popup = owner.ownerDocument.getElementById(popupId);
+	return popup instanceof HTMLElement ? popup : null;
+}
+
+/**
+ * Narrows an event target to an HTMLElement so DOM traversal helpers can be used safely.
+ */
+function isHTMLElement(value: EventTarget | null): value is HTMLElement {
+	return value instanceof HTMLElement;
+}
+
+/**
+ * Narrows an event target to a queryable DOM parent node, such as an Element or Document.
+ */
+function isParentNode(value: EventTarget | null): value is ParentNode & Node {
+	return value instanceof Node && "querySelector" in value;
+}

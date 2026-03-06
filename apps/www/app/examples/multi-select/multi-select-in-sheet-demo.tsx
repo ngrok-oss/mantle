@@ -71,6 +71,9 @@ export function InSheetDemo() {
 									<MultiSelect.Root
 										selectedValue={field.state.value}
 										setSelectedValue={field.handleChange}
+										setOpen={() => {
+											setSearchValue("");
+										}}
 									>
 										<MultiSelect.Trigger
 											onBlur={field.handleBlur}

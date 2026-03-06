@@ -7,9 +7,9 @@ import { MultiSelect } from "@ngrok/mantle/multi-select";
 import { matchSorter } from "match-sorter";
 import { useMemo, useState, useTransition } from "react";
 import { Example } from "~/components/example";
-import { InSheetDemo } from "~/docs/components/multi-select-in-sheet-demo";
-import { RegionPinningDemo } from "~/docs/components/multi-select-region-pinning-demo";
-import { TanStackFormDemo } from "~/docs/components/multi-select-tanstack-form-demo";
+import { InSheetDemo } from "~/examples/multi-select/multi-select-in-sheet-demo";
+import { RegionPinningDemo } from "~/examples/multi-select/multi-select-region-pinning-demo";
+import { TanStackFormDemo } from "~/examples/multi-select/multi-select-tanstack-form-demo";
 
 export const fruits = [
 	"Apple",
@@ -34,7 +34,11 @@ export function BasicDemo() {
 	const matches = useMemo(() => matchSorter(fruits, searchValue), [searchValue]);
 
     return (
-    	<MultiSelect.Root>
+    	<MultiSelect.Root
+    		setOpen={() => {
+    			setSearchValue("");
+    		}}
+    	>
     		<MultiSelect.Trigger className="max-w-96">
     			<MultiSelect.TagValues />
     			<MultiSelect.Input
@@ -66,7 +70,11 @@ export function GroupedDemo() {
 	const filteredVeggies = useMemo(() => matchSorter(veggieList, searchValue), [searchValue]);
 
     return (
-    	<MultiSelect.Root>
+    	<MultiSelect.Root
+    		setOpen={() => {
+    			setSearchValue("");
+    		}}
+    	>
     		<MultiSelect.Trigger className="max-w-96">
     			<MultiSelect.TagValues />
     			<MultiSelect.Input
@@ -114,7 +122,13 @@ export function ControlledDemo() {
 	const matches = useMemo(() => matchSorter(fruits, searchValue), [searchValue]);
 
     return (
-    	<MultiSelect.Root selectedValue={selected} setSelectedValue={setSelected}>
+    	<MultiSelect.Root
+    		selectedValue={selected}
+    		setOpen={() => {
+    			setSearchValue("");
+    		}}
+    		setSelectedValue={setSelected}
+    	>
     		<MultiSelect.Trigger className="max-w-96">
     			<MultiSelect.TagValues />
     			<MultiSelect.Input
@@ -150,6 +164,9 @@ export function CreatableDemo() {
     return (
     	<MultiSelect.Root
     		selectedValue={selected}
+    		setOpen={() => {
+    			setSearchValue("");
+    		}}
     		setSelectedValue={(values) => {
     			setSelected(values);
     			startTransition(() => setSearchValue(""));
@@ -198,7 +215,13 @@ export function LockedValuesDemo() {
 	);
 
     return (
-    	<MultiSelect.Root selectedValue={selected} setSelectedValue={setSelected}>
+    	<MultiSelect.Root
+    		selectedValue={selected}
+    		setOpen={() => {
+    			setSearchValue("");
+    		}}
+    		setSelectedValue={setSelected}
+    	>
     		<MultiSelect.Trigger className="max-w-96">
     			<MultiSelect.TagValues lockedValues={["apple", "cherry"]} />
     			<MultiSelect.Input
@@ -226,7 +249,11 @@ export function ValidationDemo() {
 
     return (
     	<div className="flex w-full max-w-96 flex-col gap-4">
-    		<MultiSelect.Root>
+    		<MultiSelect.Root
+    			setOpen={() => {
+    				setSearchValue("");
+    			}}
+    		>
     			<MultiSelect.Trigger validation="error">
     				<MultiSelect.TagValues />
     				<MultiSelect.Input
@@ -242,7 +269,11 @@ export function ValidationDemo() {
     				))}
     			</MultiSelect.Content>
     		</MultiSelect.Root>
-    		<MultiSelect.Root>
+    		<MultiSelect.Root
+    			setOpen={() => {
+    				setSearchValue("");
+    			}}
+    		>
     			<MultiSelect.Trigger validation="success">
     				<MultiSelect.TagValues />
     				<MultiSelect.Input
@@ -258,7 +289,11 @@ export function ValidationDemo() {
     				))}
     			</MultiSelect.Content>
     		</MultiSelect.Root>
-    		<MultiSelect.Root>
+    		<MultiSelect.Root
+    			setOpen={() => {
+    				setSearchValue("");
+    			}}
+    		>
     			<MultiSelect.Trigger validation="warning">
     				<MultiSelect.TagValues />
     				<MultiSelect.Input
@@ -315,7 +350,11 @@ function Example() {
 	const matches = useMemo(() => matchSorter(fruits, searchValue), [searchValue]);
 
 	return (
-		<MultiSelect.Root>
+		<MultiSelect.Root
+			setOpen={() => {
+				setSearchValue("");
+			}}
+		>
 			<MultiSelect.Trigger>
 				<MultiSelect.TagValues />
 				<MultiSelect.Input
@@ -349,7 +388,13 @@ Use `selectedValue` and `setSelectedValue` to control the selected values.
 ```tsx
 const [selected, setSelected] = useState(["Apple", "Cherry"]);
 
-<MultiSelect.Root selectedValue={selected} setSelectedValue={setSelected}>
+<MultiSelect.Root
+	selectedValue={selected}
+	setOpen={() => {
+		setSearchValue("");
+	}}
+	setSelectedValue={setSelected}
+>
 	<MultiSelect.Trigger>
 		<MultiSelect.TagValues />
 		<MultiSelect.Input
@@ -449,6 +494,9 @@ const filteredVeggies = useMemo(
 							<MultiSelect.Root
 								selectedValue={field.state.value}
 								setSelectedValue={field.handleChange}
+								setOpen={() => {
+									setSearchValue("");
+								}}
 							>
 								<MultiSelect.Trigger
 									onBlur={field.handleBlur}
@@ -522,7 +570,13 @@ Use `lockedValues` on `MultiSelect.TagValues` to pin specific tags that cannot b
 ```tsx
 const [selected, setSelected] = useState(["apple", "banana", "cherry"]);
 
-<MultiSelect.Root selectedValue={selected} setSelectedValue={setSelected}>
+<MultiSelect.Root
+	selectedValue={selected}
+	setOpen={() => {
+		setSearchValue("");
+	}}
+	setSelectedValue={setSelected}
+>
 	<MultiSelect.Trigger>
 		<MultiSelect.TagValues lockedValues={["apple", "cherry"]} />
 		<MultiSelect.Input
@@ -556,6 +610,9 @@ const showCreate =
 
 <MultiSelect.Root
 	selectedValue={selected}
+	setOpen={() => {
+		setSearchValue("");
+	}}
 	setSelectedValue={(values) => {
 		setSelected(values);
 		startTransition(() => setSearchValue(""));
@@ -596,7 +653,11 @@ Use `MultiSelect.Group`, `MultiSelect.GroupLabel`, and `MultiSelect.Separator` t
 </Example>
 
 ```tsx
-<MultiSelect.Root>
+<MultiSelect.Root
+	setOpen={() => {
+		setSearchValue("");
+	}}
+>
 	<MultiSelect.Trigger>
 		<MultiSelect.TagValues />
 		<MultiSelect.Input
@@ -682,6 +743,9 @@ function Example() {
 						<Label htmlFor={field.name}>Favorites</Label>
 						<MultiSelect.Root
 							selectedValue={field.state.value}
+							setOpen={() => {
+								setSearchValue("");
+							}}
 							setSelectedValue={(values) => {
 								field.handleChange(values);
 							}}
@@ -824,7 +888,13 @@ function Example() {
 	return (
 		<div className="flex w-full max-w-lg flex-col gap-1.5">
 			<p className="text-strong text-sm font-medium">Resolves to</p>
-			<MultiSelect.Root selectedValue={selected} setSelectedValue={setSelected}>
+			<MultiSelect.Root
+				selectedValue={selected}
+				setOpen={() => {
+					setSearchValue("");
+				}}
+				setSelectedValue={setSelected}
+			>
 				<MultiSelect.Trigger>
 					<MultiSelect.TagValues />
 					<MultiSelect.Input
