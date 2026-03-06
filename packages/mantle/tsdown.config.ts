@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import { defineConfig } from "tsup";
+import { defineConfig } from "tsdown";
 
 const MANTLE_CSS_SRC = new URL("./src/mantle.css", import.meta.url);
 
@@ -27,7 +27,7 @@ const allUtils = fs
 	.map((dirent) => dirent.name);
 
 const componentPackages = allComponents
-	// filter only the publishable component packages then map them to the tsup config entries object
+	// filter only the publishable component packages then map them to the build entry object
 	.filter((packageName) => !doNotPublish.has(packageName) && !unreleasedPackages.has(packageName))
 	.reduce<Record<string, string>>((acc, name) => {
 		acc[name] = componentPath(name);
@@ -53,12 +53,11 @@ export default defineConfig((options) => [
 		// if we set this to true, it will "race" between the two builds and wipe away type declarations
 		// for one of the builds. rm -rf dist is run as a "prebuild" script to avoid this issue
 		clean: false,
-		external: ["@phosphor-icons/react", "react", "react-dom", "tailwindcss"],
 		minify: true,
 		sourcemap: true,
 		target: "ES2023",
 		tsconfig: "tsconfig.build.json",
-		injectStyle: false,
+		fixedExtension: false,
 		format: "esm",
 		entry: {
 			...componentPackages,

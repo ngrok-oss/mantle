@@ -9,7 +9,7 @@ ngrok's UI library and design system built with React, TypeScript, Radix, and Ta
 ## Project Structure
 
 - **Apps** (`apps/`): `www` (documentation site, React Router 7)
-- **Packages** (`packages/`): `mantle` (UI component library, built with tsup)
+- **Packages** (`packages/`): `mantle` (UI component library, built with tsdown)
 - **Config** (`config/`): `tsconfig` (shared TypeScript configs via `@cfg/tsconfig`)
 
 ```
