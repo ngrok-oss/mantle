@@ -10,6 +10,11 @@ export {
 
 export {
 	//,
+	hasMoreThanNLines,
+} from "./has-more-than-n-lines.js";
+
+export {
+	//,
 	fmtCode,
 } from "./fmt-code.js";
 
@@ -22,7 +27,27 @@ export {
 	//,
 	defaultMeta,
 	parseMetastring,
-} from "./parse-metastring.js";
+} from "./resolve-pre-rendered-props.js";
+
+export {
+	//,
+	parseCodeBlockHighlightLines,
+	parseCodeBlockLineNumberStart,
+	parseCodeBlockShowLineNumbers,
+} from "./parse-line-options.js";
+
+export {
+	//,
+	resolvePreRenderedCodeBlockProps,
+} from "./resolve-pre-rendered-props.js";
+
+export type {
+	//,
+	CodeBlockPreElementInput,
+	ResolvePreRenderedCodeBlockPropsInput,
+	ResolvePreRenderedCodeBlockPropsResult,
+	ResolvedPreRenderedCodeBlockProps,
+} from "./resolve-pre-rendered-props.js";
 
 export type {
 	//,
@@ -30,7 +55,7 @@ export type {
 	MetaInput,
 	Mode,
 	DefaultMeta,
-} from "./parse-metastring.js";
+} from "./resolve-pre-rendered-props.js";
 
 export {
 	//,

@@ -53,7 +53,15 @@ export default defineConfig((options) => [
 		// if we set this to true, it will "race" between the two builds and wipe away type declarations
 		// for one of the builds. rm -rf dist is run as a "prebuild" script to avoid this issue
 		clean: false,
-		external: ["@phosphor-icons/react", "react", "react-dom", "tailwindcss"],
+		external: [
+			"@phosphor-icons/react",
+			"magic-string",
+			"react",
+			"react-dom",
+			"shiki",
+			"tailwindcss",
+			"vite",
+		],
 		minify: true,
 		sourcemap: true,
 		target: "ES2023",
@@ -64,8 +72,10 @@ export default defineConfig((options) => [
 			...componentPackages,
 			...utilPackages,
 			hooks: "./src/hooks/index.ts",
+			"server-highlighter": "./src/server-highlighter/index.ts",
 			types: "./src/types/index.ts",
 			utils: "./src/utils/index.ts",
+			"vite-plugin": "./src/vite-plugins/index.ts",
 		},
 		onSuccess: async () => {
 			try {
