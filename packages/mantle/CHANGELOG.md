@@ -1,5 +1,15 @@
 # @ngrok/mantle
 
+## 0.66.1
+
+### Patch Changes
+
+- [#1004](https://github.com/ngrok-oss/mantle/pull/1004) [`b04e08f`](https://github.com/ngrok-oss/mantle/commit/b04e08f14262c1dfad91384e9a6ebdeb7be4b5fe) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update dependencies: tailwind, ariakit, react-day-picker
+
+- [#1021](https://github.com/ngrok-oss/mantle/pull/1021) [`aab7d30`](https://github.com/ngrok-oss/mantle/commit/aab7d305ed2d5222b82dfe701377738c0e5f2c10) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Swap from tsup to tsdown (6.2x speedup)
+
+- [#1022](https://github.com/ngrok-oss/mantle/pull/1022) [`df6d158`](https://github.com/ngrok-oss/mantle/commit/df6d158e4ff64406c5d84a71a3e9d0278ffc3c38) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Fix `MultiSelect.Content` inside modal `Sheet`, `Dialog`, and `AlertDialog` containers so it works with the default modal behavior without requiring `modal={false}`.
+
 ## 0.66.0
 
 ### Minor Changes
