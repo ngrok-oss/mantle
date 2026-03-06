@@ -676,6 +676,7 @@ const Content = forwardRef<ComponentRef<"div">, MultiSelectContentProps>(
 			children,
 			className,
 			modal = true,
+			portalElement,
 			sameWidth = true,
 			unmountOnHide = true,
 			...props
@@ -687,6 +688,21 @@ const Content = forwardRef<ComponentRef<"div">, MultiSelectContentProps>(
 		const getAnchorRect = useCallback(() => {
 			return triggerRef.current?.getBoundingClientRect() ?? null;
 		}, [triggerRef]);
+
+		const getPortalElement = useCallback(
+			(element: HTMLElement) => {
+				if (typeof portalElement === "function") {
+					return portalElement(element);
+				}
+
+				return (
+					portalElement ??
+					triggerRef.current?.closest<HTMLElement>("[data-mantle-modal-content]") ??
+					element.ownerDocument.body
+				);
+			},
+			[portalElement, triggerRef],
+		);
 
 		const hideOnInteractOutside = useCallback(
 			(event: Event) => {
@@ -713,6 +729,7 @@ const Content = forwardRef<ComponentRef<"div">, MultiSelectContentProps>(
 				gutter={4}
 				hideOnInteractOutside={hideOnInteractOutside}
 				modal={modal}
+				portalElement={getPortalElement}
 				ref={ref}
 				render={
 					asChild ? ({ ref, ...childProps }) => <Slot ref={ref} {...childProps} /> : undefined

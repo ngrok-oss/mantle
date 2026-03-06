@@ -369,7 +369,7 @@ const [selected, setSelected] = useState(["Apple", "Cherry"]);
 
 ### In a Sheet
 
-Use `@tanstack/react-form` to manage the selected values when a side panel needs validation and submit handling. Set `modal={false}` on `MultiSelect.Content` so the popover coexists with the sheet's own focus management.
+Use `@tanstack/react-form` to manage the selected values when a side panel needs validation and submit handling. `MultiSelect.Content` will automatically scope its portal to the surrounding sheet so the default modal behavior works without extra configuration.
 
 <Example>
 	<InSheetDemo />
@@ -461,7 +461,7 @@ const filteredVeggies = useMemo(
 										placeholder="Select fruits and vegetables..."
 									/>
 								</MultiSelect.Trigger>
-								<MultiSelect.Content aria-busy={isPending} modal={false}>
+								<MultiSelect.Content aria-busy={isPending}>
 									{filteredFruits.length > 0 && (
 										<MultiSelect.Group>
 											<MultiSelect.GroupLabel>Fruits</MultiSelect.GroupLabel>

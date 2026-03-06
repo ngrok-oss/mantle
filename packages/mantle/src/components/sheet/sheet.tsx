@@ -299,6 +299,7 @@ const Content = forwardRef<ComponentRef<"div">, SheetContentProps>(
 		<SheetPortal>
 			<SheetOverlay />
 			<SheetPrimitive.Content
+				data-mantle-modal-content
 				className={cx(SheetVariants({ side }), preferredWidth, className)}
 				onInteractOutside={(event) => {
 					preventCloseOnPromptInteraction(event);

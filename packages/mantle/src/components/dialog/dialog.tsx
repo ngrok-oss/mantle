@@ -153,6 +153,7 @@ const Content = forwardRef<ComponentRef<"div">, ContentProps>(
 			<Overlay />
 			<div className="fixed inset-4 z-50 flex items-center justify-center">
 				<DialogPrimitive.Content
+					data-mantle-modal-content
 					className={cx(
 						"flex max-h-full w-full flex-1 flex-col",
 						"outline-hidden focus-within:outline-hidden",

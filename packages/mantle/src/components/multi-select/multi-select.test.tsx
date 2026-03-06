@@ -1,8 +1,24 @@
-import { act, fireEvent, render, screen } from "@testing-library/react";
+import { act, fireEvent, render, screen, within } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import { useState } from "react";
 import { describe, expect, test } from "vitest";
+import { Sheet } from "../sheet/sheet.js";
 import { MultiSelect } from "./multi-select.js";
+
+const snapshotAttributes = (element: HTMLElement) =>
+	new Map(Array.from(element.attributes, ({ name, value }) => [name, value]));
+
+const restoreAttributes = (element: HTMLElement, attributes: Map<string, string>) => {
+	for (const { name } of Array.from(element.attributes)) {
+		if (!attributes.has(name)) {
+			element.removeAttribute(name);
+		}
+	}
+
+	for (const [name, value] of attributes) {
+		element.setAttribute(name, value);
+	}
+};
 
 describe("MultiSelect", () => {
 	test("renders the combobox input with placeholder", () => {
@@ -83,6 +99,48 @@ describe("MultiSelect", () => {
 			</MultiSelect.Root>,
 		);
 		expect(screen.getByText("No results found")).toBeInTheDocument();
+	});
+
+	test("inside a modal sheet, portals the popover into the sheet content", async () => {
+		const user = userEvent.setup();
+		const bodyAttributes = snapshotAttributes(document.body);
+		const documentElementAttributes = snapshotAttributes(document.documentElement);
+		let unmount = () => {};
+
+		try {
+			({ unmount } = render(
+				<Sheet.Root open>
+					<Sheet.Content>
+						<Sheet.Header>
+							<Sheet.Title>Test Sheet</Sheet.Title>
+						</Sheet.Header>
+						<MultiSelect.Root>
+							<MultiSelect.Trigger>
+								<MultiSelect.TagValues />
+								<MultiSelect.Input placeholder="Select items..." />
+							</MultiSelect.Trigger>
+							<MultiSelect.Content>
+								<MultiSelect.Item value="apple">Apple</MultiSelect.Item>
+								<MultiSelect.Item value="banana">Banana</MultiSelect.Item>
+							</MultiSelect.Content>
+						</MultiSelect.Root>
+					</Sheet.Content>
+				</Sheet.Root>,
+			));
+
+			await user.click(screen.getByRole("combobox"));
+			const listbox = await screen.findByRole("listbox");
+			const sheetContent = screen.getByRole("combobox").closest("[data-mantle-modal-content]");
+
+			expect(sheetContent?.contains(listbox)).toBe(true);
+
+			await user.click(within(listbox).getByRole("option", { name: /Apple/ }));
+			expect(screen.getByLabelText("Remove apple")).toBeInTheDocument();
+		} finally {
+			unmount();
+			restoreAttributes(document.body, bodyAttributes);
+			restoreAttributes(document.documentElement, documentElementAttributes);
+		}
 	});
 
 	describe("keyboard navigation", () => {
