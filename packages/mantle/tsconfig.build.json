@@ -3,7 +3,7 @@
   "compilerOptions": {
     "noEmit": false,
     "outDir": "dist",
-    /* does not play nice with tsup */
+    /* disabled for the package bundler build */
     "composite": false,
     "incremental": false
   },
