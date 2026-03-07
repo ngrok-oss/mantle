@@ -6,7 +6,6 @@ import invariant from "tiny-invariant";
 import { useMatchesMediaQuery } from "../../hooks/use-matches-media-query.js";
 import { cx } from "../../utils/cx/cx.js";
 import { canUseDOM } from "../browser-only/browser-only.js";
-import { PreloadCoreFonts } from "./fonts.js";
 import {
 	type ResolvedTheme,
 	type Theme,
@@ -468,7 +467,7 @@ function preventWrongThemeFlashScriptContent() {
 	return `(${preventThemeFlash.toString()})(${JSON.stringify(args)})`;
 }
 
-type MantleThemeHeadContentProps = {
+export type PreventWrongThemeFlashScriptProps = {
 	/**
 	 * An optional CSP nonce to allowlist this inline script. Using this can help
 	 * you to avoid using the CSP `unsafe-inline` directive, which disables
@@ -479,30 +478,36 @@ type MantleThemeHeadContentProps = {
 	nonce?: string;
 };
 
-export type PreventWrongThemeFlashScriptProps = MantleThemeHeadContentProps;
-
 /**
  * Renders an inline script that prevents Flash of Unstyled Content (FOUC) or the
  * wrong theme flashing on first paint.
  *
- * Use this when you want full control of the `<head>` contents. For a packaged,
- * one-stop solution that also handles font preloads, use {@link MantleThemeHeadContent}.
- * To add font preloads alongside this script, pair it with {@link PreloadCoreFonts}.
+ * This is the preferred building block for SSR apps. Pair it with
+ * {@link preloadFontLink} HTTP `Link` headers in your server entry so font fetches
+ * begin before HTML is parsed. For client-only apps without header control, pair
+ * it with {@link PreloadFont} elements in `<head>` instead.
  *
  * Place this as early as possible in the `<head>`.
  *
  * @example
  * ```tsx
+ * // entry.server.tsx — send font preloads as HTTP headers (preferred for SSR)
+ * headers.set("Link", [
+ *   `<${assetsCdnOrigin}>; rel=preconnect; crossorigin`,
+ *   preloadFontLink("roobert"),
+ *   preloadFontLink("jetbrains-mono"),
+ * ].join(", "));
+ *
+ * // root.tsx — only the FOUC script in <head>
  * <head>
  *   <PreventWrongThemeFlashScript nonce={nonce} />
- *   <PreloadCoreFonts />
  * </head>
  * ```
  *
  * @param nonce - Optional CSP nonce to allowlist the inline script under a strict CSP.
  * @returns {JSX.Element} A script tag injected before first paint.
- * @see PreloadCoreFonts
- * @see MantleThemeHeadContent
+ * @see preloadFontLink
+ * @see PreloadFont
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/nonce
  */
 const PreventWrongThemeFlashScript = ({ nonce }: PreventWrongThemeFlashScriptProps) => (
@@ -515,43 +520,6 @@ const PreventWrongThemeFlashScript = ({ nonce }: PreventWrongThemeFlashScriptPro
 	/>
 );
 PreventWrongThemeFlashScript.displayName = "PreventWrongThemeFlashScript";
-
-/**
- * Renders the Mantle theme `<head>` content:
- * - an inline script to prevent FOUC / wrong-theme flash, and
- * - preload links for the core fonts.
- *
- * Use this when you want the one-liner that “just works.”
- * If you prefer fine-grained control, use {@link PreventWrongThemeFlashScript}
- * and {@link PreloadCoreFonts} directly.
- *
- * Place this as early as possible in the `<head>` so it runs before first paint
- * and fonts start fetching ASAP.
- *
- * @example
- * ```tsx
- * <head>
- *   // Performance hints for the CDN (recommended)
- *   <link rel="preconnect" href={assetsCdnOrigin} crossOrigin="anonymous" />
- *   <link rel="dns-prefetch" href={assetsCdnOrigin} />
- *
- *   <MantleThemeHeadContent nonce={nonce} />
- * </head>
- * ```
- *
- * @param nonce - Optional CSP nonce to allowlist the inline script under a strict CSP.
- * @returns JSX.Element fragment containing the script and font preloads.
- * @see PreventWrongThemeFlashScript
- * @see PreloadCoreFonts
- * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/nonce
- */
-const MantleThemeHeadContent = ({ nonce }: MantleThemeHeadContentProps) => (
-	<>
-		<PreventWrongThemeFlashScript nonce={nonce} />
-		<PreloadCoreFonts />
-	</>
-);
-MantleThemeHeadContent.displayName = "MantleThemeHeadContent";
 
 type InitialThemeProps = {
 	className: string;
@@ -675,7 +643,6 @@ function extractThemeCookie(cookieHeader: string | null | undefined): string | u
 }
 
 export {
-	MantleThemeHeadContent,
 	PreventWrongThemeFlashScript,
 	ThemeProvider,
 	//,

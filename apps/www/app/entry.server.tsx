@@ -17,7 +17,7 @@ import type {
 	LoaderFunctionArgs,
 } from "react-router";
 import { ServerRouter } from "react-router";
-import { assetsCdnOrigin } from "@ngrok/mantle/theme";
+import { assetsCdnOrigin, preloadFontLink } from "@ngrok/mantle/theme";
 import invariant from "tiny-invariant";
 import { NonceProvider } from "./components/nonce";
 import { getBaseUrl } from "./utilities/base-url";
@@ -254,9 +254,16 @@ function buildLinkHeader(requestUrl: string) {
 		"Keep ≤4 priority preconnects",
 	);
 
+	const fontPreloads = [
+		preloadFontLink("roobert"),
+		preloadFontLink("jetbrains-mono"),
+		preloadFontLink("family-regular"),
+	];
+
 	return [
 		...preconnects.map((origin) => `<${origin}>; rel=preconnect`),
 		...crossoriginPreconnects.map((origin) => `<${origin}>; rel=preconnect; crossorigin`),
+		...fontPreloads,
 	].join(", ");
 }
 

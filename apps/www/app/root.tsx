@@ -1,7 +1,6 @@
 import { cx } from "@ngrok/mantle/cx";
 import { useScrollBehavior } from "@ngrok/mantle/hooks";
 import {
-	PreloadFont,
 	PreventWrongThemeFlashScript,
 	ThemeProvider,
 	useInitialHtmlThemeProps,
@@ -145,9 +144,6 @@ export function Layout({ children }: PropsWithChildren) {
 				<meta name="og:image" property="og:image" content="/og-image.png" />
 				<meta name="twitter:image" property="twitter:image" content="/og-image.png" />
 				<PreventWrongThemeFlashScript nonce={nonce} />
-				<PreloadFont name="roobert" />
-				<PreloadFont name="jetbrains-mono" />
-				<PreloadFont name="family-regular" />
 				<meta name="author" content="ngrok" />
 				<meta name="commit-sha" content={loaderData?.commitSha} />
 				<meta name="deployment-id" content={loaderData?.deploymentId} />

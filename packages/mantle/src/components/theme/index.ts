@@ -2,7 +2,6 @@ export {
 	//,
 	extractThemeCookie,
 	getStoredTheme,
-	MantleThemeHeadContent,
 	PreventWrongThemeFlashScript,
 	preventWrongThemeFlashScriptContent,
 	readThemeFromHtmlElement,
@@ -26,7 +25,7 @@ export {
 	//,
 	assetsCdnOrigin,
 	fontHref,
-	PreloadCoreFonts,
+	preloadFontLink,
 	PreloadFont,
 } from "./fonts.js";
 
