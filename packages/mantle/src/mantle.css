@@ -9,7 +9,7 @@
 MARK: FONT FACES
 */
 @font-face {
-	font-display: fallback;
+	font-display: swap;
 	font-family: "Roobert";
 	font-style: normal;
 	font-weight: 300 900;
@@ -21,7 +21,7 @@ MARK: FONT FACES
 }
 
 @font-face {
-	font-display: fallback;
+	font-display: swap;
 	font-family: "JetBrains Mono";
 	font-style: normal;
 	font-weight: 100 800;
@@ -33,7 +33,7 @@ MARK: FONT FACES
 }
 
 @font-face {
-	font-display: fallback;
+	font-display: optional;
 	font-family: "JetBrains Mono";
 	font-style: italic;
 	font-weight: 100 800;
@@ -53,7 +53,7 @@ MARK: FONT FACES
 }
 
 @font-face {
-	font-display: fallback;
+	font-display: optional;
 	font-family: "Family";
 	font-style: italic;
 	font-weight: normal;
