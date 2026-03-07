@@ -59,44 +59,6 @@ function fontHref<T extends FontPath = FontPath>(font: T) {
 }
 
 /**
- * Preload core fonts used in the mantle theme.
- *
- * Include this as early as possible in the document `<head>` so text renders
- * with the intended face without layout shifts. Uses `crossOrigin="anonymous"`
- * so the browser can cache and reuse the font across origins.
- *
- * @remarks
- * For best performance, pair this with preconnect/dns-prefetch hints to the CDN.
- *
- * This is automatically included in `<MantleThemeHeadContent />`.
- *
- * @example
- * ```tsx
- * <head>
- *   <meta charSet="utf-8" />
- *   <meta name="viewport" content="width=device-width, initial-scale=1" />
- *
- *   // Preconnect and DNS-prefetch to the assets CDN
- *   // either here or in app root headers
- *   <link rel="preconnect" href={assetsCdnOrigin} crossOrigin="anonymous" />
- *   <link rel="dns-prefetch" href={assetsCdnOrigin} />
- *
- *   <PreventWrongThemeFlashScript />
- *   <PreloadCoreFonts />
- *   // ... other head elements ...
- * </head>
- * ```
- */
-const PreloadCoreFonts = () => (
-	<>
-		{coreFontNames.map((fontName) => (
-			<PreloadFont key={fontName} name={fontName} />
-		))}
-	</>
-);
-PreloadCoreFonts.displayName = "PreloadCoreFonts";
-
-/**
  * Props for {@link PreloadFont}.
  * @public
  */
@@ -112,6 +74,36 @@ type PreloadFontProps = {
 	 */
 	name: CoreFontName;
 };
+
+/**
+ * Returns an HTTP `Link` header value that preloads a single core font by name.
+ *
+ * Identical in intent to {@link PreloadFont}, but for server-side use where
+ * you want to send the preload hint as an HTTP header instead of (or in
+ * addition to) an HTML `<link>` element. Sending this as a `Link` header lets
+ * the browser start the font fetch before it has parsed any HTML.
+ *
+ * @remarks
+ * For best performance, also send a `preconnect` hint to {@link assetsCdnOrigin}
+ * in the same `Link` header.
+ *
+ * @example
+ * ```ts
+ * // In an HTTP handler / server entry:
+ * headers.append("Link", preloadFontLink("roobert"));
+ * headers.append("Link", preloadFontLink("jetbrains-mono"));
+ *
+ * // Or as a single combined header:
+ * headers.set("Link", [
+ *   `<${assetsCdnOrigin}>; rel=preconnect; crossorigin`,
+ *   preloadFontLink("roobert"),
+ * ].join(", "));
+ * ```
+ */
+function preloadFontLink(name: CoreFontName): string {
+	const href = fontHref(coreFontPathByName[name]);
+	return `<${href}>; rel=preload; as=font; type="font/woff2"; crossorigin`;
+}
 
 /**
  * Preloads a single core font by name.
@@ -149,6 +141,6 @@ export {
 	//,
 	assetsCdnOrigin,
 	fontHref,
+	preloadFontLink,
 	PreloadFont,
-	PreloadCoreFonts,
 };

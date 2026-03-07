@@ -11,49 +11,72 @@ ThemeProvider is a React Context Provider that provides the current theme to the
 
 To use the `ThemeProvider`, wrap your application's entry point. This should be done as high in the component tree as possible.
 
-You should also add the `MantleThemeHeadContent` component to the head of your application to prevent a Flash of Unstyled Content (FOUC) when the app first loads as well as preload all of our custom fonts. **This is the recommended approach for most applications.**
+For SSR apps, add `PreventWrongThemeFlashScript` to the `<head>` to prevent a Flash of Unstyled Content (FOUC), and send font preloads as HTTP `Link` response headers using `preloadFontLink`. Delivering font hints as headers starts fetches before the browser parses any HTML, improving LCP on mobile.
+
+```ts
+// entry.server.tsx — send font preloads as HTTP Link headers
+import { assetsCdnOrigin, preloadFontLink } from "@ngrok/mantle/theme";
+
+responseHeaders.set(
+	"Link",
+	[
+		`<${assetsCdnOrigin}>; rel=preconnect; crossorigin`,
+		preloadFontLink("roobert"),
+		preloadFontLink("jetbrains-mono"),
+		preloadFontLink("family-regular"),
+	].join(", "),
+);
+```
 
 ```tsx
+// root.tsx — only the FOUC script goes in <head>
 import {
-	MantleThemeHeadContent,
+	PreventWrongThemeFlashScript,
 	ThemeProvider,
 	useInitialHtmlThemeProps,
 } from "@ngrok/mantle/theme";
 
-export default function App() {
-	// 👇 get the initial theme props to prevent hydration errors
+export function Layout({ children }: PropsWithChildren) {
 	const initialHtmlThemeProps = useInitialHtmlThemeProps({
 		className: "h-full",
 	});
 
 	return (
-		// 👇 spread the theme props onto the <html> element
-		<html {...initialHtmlThemeProps} lang="en-US" dir="ltr">
+		<html {...initialHtmlThemeProps} lang="en-US" dir="ltr" suppressHydrationWarning>
 			<head>
-				{/* 👇 add this as high in the <head> as possible! */}
-				<MantleThemeHeadContent />
+				{/* 👇 add as early as possible in <head> to prevent FOUC */}
+				<PreventWrongThemeFlashScript nonce={nonce} />
 				<meta charSet="utf-8" />
-				<meta name="author" content="ngrok" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<Meta />
 				<Links />
 			</head>
-			<body className="h-full min-h-full overflow-y-scroll bg-body">
-				{/* 👇 wrap your app entry in the ThemeProvider */}
-				<ThemeProvider>
-					<Outlet />
-				</ThemeProvider>
+			<body>
+				<ThemeProvider>{children}</ThemeProvider>
 			</body>
 		</html>
 	);
 }
 ```
 
-## Custom Head Content
+## Non-SSR / No Header Control
 
-**Only use this section if you cannot use `MantleThemeHeadContent`.**
+If you cannot set HTTP response headers (e.g. a plain Vite SPA), use `PreventWrongThemeFlashScript` with individual `PreloadFont` elements in the `<head>` instead:
 
-Sometimes you cannot use the `MantleThemeHeadContent` component because your web server is not able to render React components. In this case, you can copy the following script and add it to your application's `<head>`:
+```tsx
+import { PreloadFont, PreventWrongThemeFlashScript } from "@ngrok/mantle/theme";
+
+<head>
+	<PreventWrongThemeFlashScript nonce={nonce} />
+	<PreloadFont name="roobert" />
+	<PreloadFont name="jetbrains-mono" />
+	<PreloadFont name="family-regular" />
+</head>;
+```
+
+## Non-React Head
+
+If your server cannot render React components, inline the FOUC prevention script manually:
 
 ```html
 <script>
@@ -68,33 +91,6 @@ Sometimes you cannot use the `MantleThemeHeadContent` component because your web
 		document.documentElement.dataset.appliedTheme = resolvedTheme;
 	})();
 </script>
-```
-
-### Font Preloading
-
-You will also need to ensure that you add the `PreloadCoreFonts` component to your app as well if you're using the custom setup.
-
-```html
-<head>
-	<link rel="preload" href="/fonts/Roobert-Regular.woff2" as="font" type="font/woff2" crossorigin />
-	<link rel="preload" href="/fonts/Roobert-Medium.woff2" as="font" type="font/woff2" crossorigin />
-	<link
-		rel="preload"
-		href="/fonts/Roobert-SemiBold.woff2"
-		as="font"
-		type="font/woff2"
-		crossorigin
-	/>
-	<link rel="preload" href="/fonts/Roobert-Bold.woff2" as="font" type="font/woff2" crossorigin />
-	<link
-		rel="preload"
-		href="/fonts/JetBrainsMono-Regular.woff2"
-		as="font"
-		type="font/woff2"
-		crossorigin
-	/>
-	<link rel="preload" href="/fonts/Family-Regular.woff2" as="font" type="font/woff2" crossorigin />
-</head>
 ```
 
 ## Usage
@@ -161,31 +157,41 @@ The `ThemeProvider` accepts the following props in addition to the [PropsWithChi
 
 **Note:** The `ThemeProvider` uses a hardcoded storage key of `mantle-ui-theme` and defaults to `system` theme. These values are managed internally and do not require configuration.
 
-### MantleThemeHeadContent
-
-The `MantleThemeHeadContent` component prevents Flash of Unstyled Content (FOUC) and preloads core fonts. It accepts the following props:
-
-| Prop     | Type     | Default | Description                                                                                                                                                                                                     |
-| -------- | -------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `nonce?` | `string` |         | An optional CSP nonce to allowlist the inline FOUC prevention script. Using this helps avoid the CSP `unsafe-inline` directive, which disables XSS protection and would allowlist all inline scripts or styles. |
-
-**Note:** The FOUC prevention script uses hardcoded values for storage key (`mantle-ui-theme`) and default theme (`system`) to ensure consistency with `ThemeProvider`.
-
 ### PreventWrongThemeFlashScript
 
-The `PreventWrongThemeFlashScript` component renders only the inline script to prevent FOUC. Use this when you want full control over font preloading. It accepts the following props:
+The `PreventWrongThemeFlashScript` component renders the inline script to prevent FOUC. Place it as early as possible in `<head>`. It accepts the following props:
 
 | Prop     | Type     | Default | Description                                                           |
 | -------- | -------- | ------- | --------------------------------------------------------------------- |
 | `nonce?` | `string` |         | An optional CSP nonce to allowlist the inline FOUC prevention script. |
 
-### PreloadCoreFonts
+### preloadFontLink
 
-The `PreloadCoreFonts` component renders preload links for all core fonts used in Mantle (Roobert, JetBrains Mono, and Family). This component takes no props and is automatically included in `MantleThemeHeadContent`.
+**Preferred for SSR.** Returns an HTTP `Link` header value that preloads a single core font by name. This is the server-side equivalent of `PreloadFont` — identical in effect, but delivered as an HTTP header so the browser can start the font fetch before it has parsed any HTML, giving better CWV scores on mobile and slow connections.
+
+```ts
+import { assetsCdnOrigin, preloadFontLink } from "@ngrok/mantle/theme";
+
+// In your server entry (e.g. entry.server.tsx):
+headers.set(
+	"Link",
+	[
+		`<${assetsCdnOrigin}>; rel=preconnect; crossorigin`,
+		preloadFontLink("roobert"),
+		preloadFontLink("jetbrains-mono"),
+	].join(", "),
+);
+```
+
+| Parameter | Type           | Description                                 |
+| --------- | -------------- | ------------------------------------------- |
+| `name`    | `CoreFontName` | The name of the individual font to preload. |
+
+**Returns:** A `Link` header value string, e.g. `<https://assets.ngrok.com/fonts/roobert/roobert-proportional-vf.woff2>; rel=preload; as=font; type="font/woff2"; crossorigin`.
 
 ### PreloadFont
 
-The `PreloadFont` component renders a single preload link for one named core font. Use this when you only need one or two specific fonts rather than all core fonts.
+The `PreloadFont` component renders a single preload `<link>` element for one named core font. Prefer [`preloadFontLink`](#preloadfontlink) in SSR apps where you can set HTTP response headers — sending the hint as a header starts the fetch earlier than HTML parsing allows. Use `PreloadFont` when you have no access to response headers.
 
 ```tsx
 import { PreloadFont } from "@ngrok/mantle/theme";
