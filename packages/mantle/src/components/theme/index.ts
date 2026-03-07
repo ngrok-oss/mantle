@@ -31,6 +31,11 @@ export {
 
 export type {
 	//,
+	CoreFontName,
+} from "./fonts.js";
+
+export type {
+	//,
 	Theme,
 	ResolvedTheme,
 } from "./themes.js";

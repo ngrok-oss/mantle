@@ -17,19 +17,6 @@ const assetsCdnOrigin = "https://assets.ngrok.com";
  */
 const cdnBase = `${assetsCdnOrigin}/fonts`;
 
-/**
- * Canonical list of core font paths (relative to the CDN fonts base).
- */
-const coreFontPaths = [
-	"/roobert/roobert-proportional-vf.woff2",
-	"/jetbrains/jetbrainsmono-wght.woff2",
-	"/jetbrains/jetbrainsmono-italic-wght.woff2",
-	"/family/family-regular.woff2",
-	"/family/family-italic.woff2",
-] as const;
-
-type CoreFontPath = (typeof coreFontPaths)[number];
-
 const coreFontNames = [
 	"roobert",
 	"jetbrains-mono",
@@ -53,7 +40,7 @@ const coreFontPathByName = {
 	"jetbrains-mono-italic": "/jetbrains/jetbrainsmono-italic-wght.woff2",
 	"family-regular": "/family/family-regular.woff2",
 	"family-italic": "/family/family-italic.woff2",
-} as const satisfies Record<CoreFontName, CoreFontPath>;
+} as const satisfies Record<CoreFontName, string>;
 
 type FontPath = `/${string}` | (string & {});
 
