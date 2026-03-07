@@ -20,8 +20,9 @@ env:
   VERCEL_TELEMETRY_DISABLED: 1
 
 jobs:
-  vibe-check:
+  static-checks:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v6
@@ -30,7 +31,6 @@ jobs:
 
       - name: Install pnpm 📦
         uses: pnpm/action-setup@v4
-        # use version from package.json#packageManager field
         with:
           run_install: false
 
@@ -38,9 +38,91 @@ jobs:
         with:
           node-version-file: ".nvmrc"
           cache: "pnpm"
+          cache-dependency-path: "pnpm-lock.yaml"
 
       - name: Install Dependencies 📥
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
+
+      - name: Format Check 🧹
+        run: pnpm run fmt:check
+
+      - name: Lint Check 🔍
+        run: pnpm run lint
+
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Install pnpm 📦
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: ".nvmrc"
+          cache: "pnpm"
+          cache-dependency-path: "pnpm-lock.yaml"
+
+      - name: Install Dependencies 📥
+        run: pnpm install --frozen-lockfile
+
+      - name: Build 🏗️
+        run: pnpm run build
+
+  typecheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Install pnpm 📦
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: ".nvmrc"
+          cache: "pnpm"
+          cache-dependency-path: "pnpm-lock.yaml"
+
+      - name: Install Dependencies 📥
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck 🔎
+        run: pnpm run typecheck
+
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Install pnpm 📦
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: ".nvmrc"
+          cache: "pnpm"
+          cache-dependency-path: "pnpm-lock.yaml"
+
+      - name: Install Dependencies 📥
+        run: pnpm install --frozen-lockfile
 
       - name: Start Playwright server 🎭
         run: |
@@ -59,18 +141,6 @@ jobs:
           done
           echo "Playwright server did not start in time" && exit 1
 
-      - name: Format Check 🧹
-        run: pnpm run fmt:check
-
-      - name: Lint Check 🔍
-        run: pnpm run lint
-
-      - name: Build 🏗️
-        run: pnpm run build
-
-      - name: Typecheck 🔎
-        run: pnpm run typecheck
-
       - name: Test 🧪
         env:
           PLAYWRIGHT_WS_ENDPOINT: ws://127.0.0.1:3000/
@@ -79,3 +149,34 @@ jobs:
       - name: Stop Playwright server
         if: always()
         run: docker rm -f playwright-server || true
+
+  vibe-check:
+    name: vibe-check
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    needs:
+      - static-checks
+      - build
+      - typecheck
+      - test
+    if: ${{ always() }}
+    steps:
+      - name: Verify all vibe check jobs passed
+        env:
+          STATIC_CHECKS_RESULT: ${{ needs.static-checks.result }}
+          BUILD_RESULT: ${{ needs.build.result }}
+          TYPECHECK_RESULT: ${{ needs.typecheck.result }}
+          TEST_RESULT: ${{ needs.test.result }}
+        run: |
+          echo "static-checks: $STATIC_CHECKS_RESULT"
+          echo "build: $BUILD_RESULT"
+          echo "typecheck: $TYPECHECK_RESULT"
+          echo "test: $TEST_RESULT"
+
+          if [[ "$STATIC_CHECKS_RESULT" != "success" || \
+                "$BUILD_RESULT" != "success" || \
+                "$TYPECHECK_RESULT" != "success" || \
+                "$TEST_RESULT" != "success" ]]; then
+            echo "One or more vibe check jobs did not succeed."
+            exit 1
+          fi
