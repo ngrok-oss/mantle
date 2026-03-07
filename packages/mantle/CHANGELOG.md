@@ -1,5 +1,13 @@
 # @ngrok/mantle
 
+## 0.66.3
+
+### Patch Changes
+
+- [`0dac608`](https://github.com/ngrok-oss/mantle/commit/0dac6083db43e746213fa4047ac03aaca3e9bce5) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Improve code block utility performance by speeding up indentation normalization and `fmtCode`, adding LRU caching for repeated syntax highlighting, and replacing linear language/indentation lookups with set membership checks. Also normalize CRLF input correctly, rename the indentation normalizer to `normalize-indentation`, and guard line-number expansion against excessively large ranges.
+
+- [#1028](https://github.com/ngrok-oss/mantle/pull/1028) [`11f4575`](https://github.com/ngrok-oss/mantle/commit/11f45750cf33affe31108f0e717e26e3ffbf1705) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - add individual PreloadFont component, preload a core font by name
+
 ## 0.66.2
 
 ### Patch Changes
