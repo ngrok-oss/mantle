@@ -20,13 +20,40 @@ const cdnBase = `${assetsCdnOrigin}/fonts`;
 /**
  * Canonical list of core font paths (relative to the CDN fonts base).
  */
-const coreFonts = [
+const coreFontPaths = [
 	"/roobert/roobert-proportional-vf.woff2",
 	"/jetbrains/jetbrainsmono-wght.woff2",
 	"/jetbrains/jetbrainsmono-italic-wght.woff2",
 	"/family/family-regular.woff2",
 	"/family/family-italic.woff2",
 ] as const;
+
+type CoreFontPath = (typeof coreFontPaths)[number];
+
+const coreFontNames = [
+	"roobert",
+	"jetbrains-mono",
+	"jetbrains-mono-italic",
+	"family-regular",
+	"family-italic",
+] as const;
+/**
+ * Named keys identifying each individual core font.
+ * @public
+ */
+type CoreFontName = (typeof coreFontNames)[number];
+
+/**
+ * Maps each {@link CoreFontName} to its CDN font path (relative to the fonts base).
+ * @internal
+ */
+const coreFontPathByName = {
+	roobert: "/roobert/roobert-proportional-vf.woff2",
+	"jetbrains-mono": "/jetbrains/jetbrainsmono-wght.woff2",
+	"jetbrains-mono-italic": "/jetbrains/jetbrainsmono-italic-wght.woff2",
+	"family-regular": "/family/family-regular.woff2",
+	"family-italic": "/family/family-italic.woff2",
+} as const satisfies Record<CoreFontName, CoreFontPath>;
 
 type FontPath = `/${string}` | (string & {});
 
@@ -75,23 +102,66 @@ function fontHref<T extends FontPath = FontPath>(font: T) {
  */
 const PreloadCoreFonts = () => (
 	<>
-		{coreFonts.map((font) => (
-			<link
-				key={font}
-				rel="preload"
-				href={fontHref(font)}
-				as="font"
-				type="font/woff2"
-				crossOrigin="anonymous"
-			/>
+		{coreFontNames.map((fontName) => (
+			<PreloadFont key={fontName} name={fontName} />
 		))}
 	</>
 );
 PreloadCoreFonts.displayName = "PreloadCoreFonts";
 
+/**
+ * Props for {@link PreloadFont}.
+ * @public
+ */
+type PreloadFontProps = {
+	/**
+	 * The name of the individual core font to preload.
+	 *
+	 * - `"roobert"` — Roobert proportional variable font
+	 * - `"jetbrains-mono"` — JetBrains Mono variable weight
+	 * - `"jetbrains-mono-italic"` — JetBrains Mono italic variable weight
+	 * - `"family-regular"` — Family regular
+	 * - `"family-italic"` — Family italic
+	 */
+	name: CoreFontName;
+};
+
+/**
+ * Preloads a single core font by name.
+ *
+ * Use this when you only need one or two specific fonts rather than all core
+ * fonts. Include it as early as possible in the document `<head>`.
+ *
+ * @remarks
+ * For best performance, pair this with preconnect/dns-prefetch hints to the CDN.
+ *
+ * @example
+ * ```tsx
+ * <head>
+ *   <link rel="preconnect" href={assetsCdnOrigin} crossOrigin="anonymous" />
+ *   <link rel="dns-prefetch" href={assetsCdnOrigin} />
+ *   <PreloadFont name="roobert" />
+ *   <PreloadFont name="jetbrains-mono" />
+ * </head>
+ * ```
+ */
+const PreloadFont = ({ name }: PreloadFontProps) => (
+	<link
+		rel="preload"
+		href={fontHref(coreFontPathByName[name])}
+		as="font"
+		type="font/woff2"
+		crossOrigin="anonymous"
+	/>
+);
+PreloadFont.displayName = "PreloadFont";
+
+export type { CoreFontName };
+
 export {
 	//,
 	assetsCdnOrigin,
 	fontHref,
+	PreloadFont,
 	PreloadCoreFonts,
 };

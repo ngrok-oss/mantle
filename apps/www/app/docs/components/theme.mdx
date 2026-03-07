@@ -181,7 +181,34 @@ The `PreventWrongThemeFlashScript` component renders only the inline script to p
 
 ### PreloadCoreFonts
 
-The `PreloadCoreFonts` component renders preload links for the core fonts used in Mantle (Roobert, JetBrains Mono, and Family). This component takes no props and is automatically included in `MantleThemeHeadContent`.
+The `PreloadCoreFonts` component renders preload links for all core fonts used in Mantle (Roobert, JetBrains Mono, and Family). This component takes no props and is automatically included in `MantleThemeHeadContent`.
+
+### PreloadFont
+
+The `PreloadFont` component renders a single preload link for one named core font. Use this when you only need one or two specific fonts rather than all core fonts.
+
+```tsx
+import { PreloadFont } from "@ngrok/mantle/theme";
+
+<head>
+	<PreloadFont name="roobert" />
+	<PreloadFont name="jetbrains-mono" />
+</head>;
+```
+
+| Prop   | Type           | Default | Description                                 |
+| ------ | -------------- | ------- | ------------------------------------------- |
+| `name` | `CoreFontName` |         | The name of the individual font to preload. |
+
+**`CoreFontName` values:**
+
+| Value                     | Font                                  |
+| ------------------------- | ------------------------------------- |
+| `"roobert"`               | Roobert proportional variable font    |
+| `"jetbrains-mono"`        | JetBrains Mono variable weight        |
+| `"jetbrains-mono-italic"` | JetBrains Mono italic variable weight |
+| `"family-regular"`        | Family regular                        |
+| `"family-italic"`         | Family italic                         |
 
 ### useInitialHtmlThemeProps
 
