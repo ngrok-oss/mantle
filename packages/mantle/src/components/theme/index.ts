@@ -3,6 +3,7 @@ export {
 	extractThemeCookie,
 	getStoredTheme,
 	MantleThemeHeadContent,
+	PreventWrongThemeFlashScript,
 	preventWrongThemeFlashScriptContent,
 	readThemeFromHtmlElement,
 	ThemeProvider,
