@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.66.4
+
+### Patch Changes
+
+- [#1030](https://github.com/ngrok-oss/mantle/pull/1030) [`2b740bb`](https://github.com/ngrok-oss/mantle/commit/2b740bbf4e6dc42d6a674e2bd25ee04367ef47bf) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - export PreventWrongThemeFlashScript
+
 ## 0.66.3
 
 ### Patch Changes
