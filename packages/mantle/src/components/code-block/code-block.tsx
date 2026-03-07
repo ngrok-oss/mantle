@@ -36,10 +36,52 @@ import { escapeHtml } from "./escape-html.js";
 import { Highlighter } from "./highlighter.js";
 import { type Indentation, inferIndentation } from "./indentation.js";
 import type { LineRange } from "./line-numbers.js";
-import { normalizeIndentation } from "./normalize.js";
+import { normalizeIndentation } from "./normalize-indentation.js";
 import type { Mode } from "./parse-metastring.js";
 import type { SupportedLanguage } from "./supported-languages.js";
 import { formatLanguageClassName, supportedLanguages } from "./supported-languages.js";
+
+const MAX_HIGHLIGHT_CACHE_ENTRIES = 100;
+const highlightedCodeCache = new Map<string, string>();
+
+/**
+ * Builds a stable cache key for highlighted code using both the language and
+ * normalized code contents.
+ */
+function getHighlightedCodeCacheKey(language: SupportedLanguage, value: string): string {
+	return `${language}\u0000${value}`;
+}
+
+/**
+ * Returns highlighted HTML from the shared LRU cache when available, otherwise
+ * highlights the code and stores the result for future reuse.
+ */
+function getHighlightedCode(
+	language: SupportedLanguage,
+	value: string,
+	grammar: Prism.Grammar,
+): string {
+	const cacheKey = getHighlightedCodeCacheKey(language, value);
+	const cached = highlightedCodeCache.get(cacheKey);
+
+	if (cached != null) {
+		highlightedCodeCache.delete(cacheKey);
+		highlightedCodeCache.set(cacheKey, cached);
+		return cached;
+	}
+
+	const highlighted = Highlighter.highlight(value, grammar, language);
+	highlightedCodeCache.set(cacheKey, highlighted);
+
+	if (highlightedCodeCache.size > MAX_HIGHLIGHT_CACHE_ENTRIES) {
+		const oldestKey = highlightedCodeCache.keys().next().value;
+		if (oldestKey != null) {
+			highlightedCodeCache.delete(oldestKey);
+		}
+	}
+
+	return highlighted;
+}
 
 /**
  * TODO(cody):
@@ -249,11 +291,16 @@ const Code = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
 			() => normalizeIndentation(value, { indentation }),
 			[value, indentation],
 		);
+		const escapedNormalizedAndTrimmedValue = useMemo(
+			() => escapeHtml(normalizedAndTrimmedValue),
+			[normalizedAndTrimmedValue],
+		);
 		const [highlightedCodeInnerHtml, setHighlightedCodeInnerHtml] = useState(
-			// initialize the <code> inner html with escaped HTML since we are using
-			// dangerouslySetInnerHTML to set the inner html of the <code> element
-			// and use Prism.js to "highlight" the code in a useEffect (client-side only)
-			escapeHtml(normalizeIndentation(value, { indentation })),
+			() =>
+				// initialize the <code> inner html with escaped HTML since we are using
+				// dangerouslySetInnerHTML to set the inner html of the <code> element
+				// and use Prism.js to "highlight" the code in a useEffect (client-side only)
+				escapedNormalizedAndTrimmedValue,
 		);
 
 		useEffect(() => {
@@ -262,10 +309,10 @@ const Code = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
 				grammar,
 				`CodeBlock does not support the language "${language}". The syntax highlighter does not have a grammar for this language. The supported languages are: ${supportedLanguages.join(", ")}.`,
 			);
-			const newHighlightedCodeInnerHtml = Highlighter.highlight(
+			const newHighlightedCodeInnerHtml = getHighlightedCode(
+				language,
 				normalizedAndTrimmedValue,
 				grammar,
-				language,
 			);
 			setHighlightedCodeInnerHtml(newHighlightedCodeInnerHtml);
 		}, [normalizedAndTrimmedValue, language]);

@@ -3,6 +3,8 @@
  */
 export type LineRange = `${number}-${number}`;
 
+const MAX_EXPANDED_LINE_RANGE_LENGTH = 1_000;
+
 /**
  * Given a list of line ranges and numbers, resolves them into a unique list of line numbers as a set.
  *
@@ -41,6 +43,10 @@ export function resolveLineNumbers(...items: (LineRange | number)[]): Set<number
 			// swap start and end if they are backwards
 			if (start > end) {
 				[start, end] = [end, start];
+			}
+
+			if (end - start + 1 > MAX_EXPANDED_LINE_RANGE_LENGTH) {
+				continue;
 			}
 
 			// add all line numbers in the range, inclusive

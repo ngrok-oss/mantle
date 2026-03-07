@@ -35,6 +35,8 @@ export const supportedLanguages = [
 	"yml",
 ] as const;
 
+const supportedLanguageSet = new Set<string>(supportedLanguages);
+
 /**
  * Supported languages for syntax highlighting.
  */
@@ -62,7 +64,7 @@ function parseLanguage(
  * Type Predicate: checks if an arbitrary value is a supported syntax highlighting language.
  */
 const isSupportedLanguage = (value: unknown): value is SupportedLanguage => {
-	return typeof value === "string" && supportedLanguages.includes(value as SupportedLanguage);
+	return typeof value === "string" && supportedLanguageSet.has(value);
 };
 
 /**

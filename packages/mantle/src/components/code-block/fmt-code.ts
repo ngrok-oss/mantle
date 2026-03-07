@@ -15,16 +15,17 @@ function fmtCode(strings: TemplateStringsArray, ...values: Primitive[]): string 
 	// fine the minimum indentation of the code block
 	const minIndent = findMinIndent(text);
 	const lines = text.trim().split("\n");
+	const normalizedLines = new Array<string>(lines.length);
 
-	return lines
-		.map((line) => {
-			// remove nothing if the line doesn't start with indentation
-			if (/^\S+/.test(line)) {
-				return line;
-			}
-			return line.slice(minIndent);
-		})
-		.join("\n");
+	for (let i = 0; i < lines.length; i++) {
+		const line = lines[i];
+		if (line == null) {
+			continue;
+		}
+		normalizedLines[i] = startsWithNonWhitespace(line) ? line : line.slice(minIndent);
+	}
+
+	return normalizedLines.join("\n");
 }
 
 export {
@@ -78,4 +79,9 @@ function findMinIndent(value: string): number {
  */
 function isTemplateStringsArray(strings: unknown): strings is TemplateStringsArray {
 	return Array.isArray(strings) && "raw" in strings && Array.isArray(strings.raw);
+}
+
+function startsWithNonWhitespace(line: string): boolean {
+	const firstCharacter = line[0];
+	return firstCharacter != null && firstCharacter !== " " && firstCharacter !== "\t";
 }

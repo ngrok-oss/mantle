@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { normalizeIndentation } from "./normalize.js";
+import { normalizeIndentation } from "./normalize-indentation.js";
 
 describe("normalizeIndentation", () => {
 	test("given empty string, returns empty string", () => {
@@ -145,5 +145,15 @@ const foo = {};
 				</AlertContent>
 			</Alert>"
 		`);
+	});
+
+	test("normalizes CRLF line endings without leaving carriage returns in the output", () => {
+		const value = "\r\n\tconst foo = {};\r\n\t\tconst bar = {};\r\n";
+
+		expect(normalizeIndentation(value)).toBe("const foo = {};\n  const bar = {};");
+		expect(normalizeIndentation(value, { indentation: "tabs" })).toBe(
+			"const foo = {};\n\tconst bar = {};",
+		);
+		expect(normalizeIndentation(value)).not.toContain("\r");
 	});
 });
