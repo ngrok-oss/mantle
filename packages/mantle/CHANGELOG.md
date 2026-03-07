@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.66.6
+
+### Patch Changes
+
+- [#1034](https://github.com/ngrok-oss/mantle/pull/1034) [`949ec0f`](https://github.com/ngrok-oss/mantle/commit/949ec0fb0ca512143eb6f355efb88efbf9f1b518) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Update `font-display` policy for core fonts: `roobert` and `jetbrains-mono` (normal) use `swap`, italic faces (`jetbrains-mono-italic`, `family-italic`) use `optional`, `family-regular` stays `fallback`.
+
 ## 0.66.5
 
 ### Patch Changes
