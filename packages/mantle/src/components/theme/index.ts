@@ -26,6 +26,7 @@ export {
 	assetsCdnOrigin,
 	fontHref,
 	PreloadCoreFonts,
+	PreloadFont,
 } from "./fonts.js";
 
 export type {
