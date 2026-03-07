@@ -40,7 +40,7 @@ const coreFontPathByName = {
 	"jetbrains-mono-italic": "/jetbrains/jetbrainsmono-italic-wght.woff2",
 	"family-regular": "/family/family-regular.woff2",
 	"family-italic": "/family/family-italic.woff2",
-} as const satisfies Record<CoreFontName, string>;
+} as const satisfies Record<CoreFontName, `/${string}`>;
 
 type FontPath = `/${string}` | (string & {});
 
