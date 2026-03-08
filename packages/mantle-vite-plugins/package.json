@@ -1,0 +1,45 @@
+{
+  "name": "@ngrok/mantle-vite-plugins",
+  "version": "0.1.0",
+  "description": "Vite plugins for @ngrok/mantle.",
+  "homepage": "https://mantle.ngrok.com",
+  "license": "MIT",
+  "author": "ngrok",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ngrok-oss/mantle"
+  },
+  "files": [
+    "dist",
+    "package.json"
+  ],
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "test": "TZ=UTC vitest run",
+    "test:watch": "TZ=UTC vitest watch",
+    "typecheck": "tsgo"
+  },
+  "devDependencies": {
+    "@cfg/tsconfig": "workspace:*",
+    "@types/node": "24.12.0",
+    "tsdown": "0.21.0",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vitest": "4.0.18"
+  },
+  "peerDependencies": {
+    "@ngrok/mantle": "*",
+    "vite": ">=5"
+  },
+  "engines": {
+    "node": "^24.0.0"
+  }
+}

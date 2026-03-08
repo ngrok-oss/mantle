@@ -24,6 +24,11 @@
       "import": "./dist/mantle.css",
       "default": "./dist/mantle.css"
     },
+    "./source-all.css": {
+      "style": "./dist/source-all.css",
+      "import": "./dist/source-all.css",
+      "default": "./dist/source-all.css"
+    },
     "./package.json": "./package.json",
     "./accordion": {
       "@ngrok/src-live-types": "./src/components/accordion/index.ts",
