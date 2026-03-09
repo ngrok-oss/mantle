@@ -32,7 +32,7 @@ Code style, patterns, and conventions for the Mantle design system. This is the 
 ## Code Quality
 
 - **Control flow**: NEVER use single-line if/loop blocks. Always use braces `{}` even for single statements
-- **Variable naming**: Always use descriptive, full names — never abbreviations or single-letter shortcuts. Apply this principle to all variables; the examples below are illustrative, not exhaustive:
+- **Variable naming**: Always use descriptive, clear names — avoid unclear abbreviations or single-letter shortcuts. Widely-understood initialisms (for example, URL, CSS, SSR) are allowed when they improve clarity. Apply this principle to all variables; the examples below are illustrative, not exhaustive:
   - Use `error` instead of `e` or `err` for error variables
   - Use `event` instead of `e` or `evt` for event parameters
   - Use `element` instead of `el` or `elem` for DOM element variables
