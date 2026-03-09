@@ -1,6 +1,37 @@
 import fs from "node:fs";
 import path from "node:path";
 
+/**
+ * Resolves the `dist/` directory of the installed `@ngrok/mantle` package
+ * by walking up the directory tree from `root` and looking for
+ * `node_modules/@ngrok/mantle` — without following symlinks.
+ *
+ * Avoiding symlink resolution is important in pnpm workspaces: using
+ * `require.resolve` would return the content-addressed path deep inside
+ * `.pnpm/`, producing unreadable relative paths in the generated CSS. By
+ * using the symlinked `node_modules/@ngrok/mantle` path directly we get
+ * clean, stable paths.
+ *
+ * @param root - Absolute path to the Vite project root (used as the starting
+ *   point for the upward search).
+ * @returns The absolute path to `@ngrok/mantle`'s `dist/` directory, or
+ *   `null` if the package cannot be found (e.g. it is not installed).
+ */
+export function resolveMantleDistDir(root: string): string | null {
+	let dir = root;
+	while (true) {
+		const candidate = path.join(dir, "node_modules/@ngrok/mantle");
+		if (fs.existsSync(path.join(candidate, "package.json"))) {
+			return path.join(candidate, "dist");
+		}
+		const parent = path.dirname(dir);
+		if (parent === dir) {
+			return null;
+		}
+		dir = parent;
+	}
+}
+
 /** Marker inserted before the auto-generated `@source` block. */
 export const MARKER_START = "/* @ngrok/mantle-vite-plugins:source:start */";
 

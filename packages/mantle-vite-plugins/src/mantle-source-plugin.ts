@@ -1,9 +1,9 @@
 import path from "node:path";
-import { createRequire } from "node:module";
 import type { Plugin, ResolvedConfig, ViteDevServer } from "vite";
 import {
 	collectFiles,
 	findFirstExisting,
+	resolveMantleDistDir,
 	scanMantleImports,
 	writeSourcesToCssFile,
 } from "./internals.js";
@@ -15,7 +15,7 @@ export type MantleSourcePluginOptions = {
 	/**
 	 * Directories to scan recursively for `@ngrok/mantle/*` imports.
 	 * Paths are relative to the Vite project root.
-	 * Defaults to `["src"]`.
+	 * Defaults to `["app"]`.
 	 */
 	include?: string[];
 
@@ -35,34 +35,10 @@ export type MantleSourcePluginOptions = {
 	cssFile?: string;
 };
 
-const _require = createRequire(import.meta.url);
-
 const SOURCE_EXTENSIONS = [".ts", ".tsx", ".js", ".jsx", ".mdx", ".md"];
 
 /** CSS file candidates tried in order when `cssFile` is not specified. */
 const DEFAULT_CSS_CANDIDATES = ["app/global.css", "src/global.css", "app/app.css", "src/app.css"];
-
-/**
- * Resolves the `dist/` directory of the installed `@ngrok/mantle` package
- * by locating its `package.json` relative to `root`.
- *
- * Uses `require.resolve` so that Node's standard package resolution applies —
- * the package is found in the nearest `node_modules` up the directory tree
- * from `root`.
- *
- * @param root - Absolute path to the Vite project root (used as the starting
- *   point for package resolution).
- * @returns The absolute path to `@ngrok/mantle`'s `dist/` directory, or
- *   `null` if the package cannot be found (e.g. it is not installed).
- */
-function resolveMantleDistDir(root: string): string | null {
-	try {
-		const pkgJsonPath = _require.resolve("@ngrok/mantle/package.json", { paths: [root] });
-		return path.join(path.dirname(pkgJsonPath), "dist");
-	} catch {
-		return null;
-	}
-}
 
 /**
  * Vite plugin that injects Tailwind CSS `@source` directives directly into
@@ -109,7 +85,7 @@ function resolveMantleDistDir(root: string): string | null {
  * @returns A Vite plugin object.
  */
 export function mantleSourcePlugin(options: MantleSourcePluginOptions = {}): Plugin {
-	const { include = ["src"], cssFile: cssFileOption } = options;
+	const { include = ["app"], cssFile: cssFileOption } = options;
 
 	let resolvedCssFile: string | null = null;
 	let mantleDistDir: string | null = null;
