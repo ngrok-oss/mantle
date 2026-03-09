@@ -8,6 +8,7 @@ import {
 	scanMantleImports,
 	writeSourcesToCssFile,
 } from "./internals.js";
+import { VALID_COMPONENT_RE } from "./internals.js";
 import { MANTLE_COMPONENT_NAMES, type MantleComponentName } from "./mantle-component-name.js";
 import { slugifyComponentName } from "./slugify.js";
 
@@ -119,12 +120,16 @@ export function mantleTwSourcePlugin(options: MantleTwSourcePluginOptions = {}):
 	const allowlistComponents = new Set<string>();
 	for (const entry of allowlist) {
 		const name = slugifyComponentName(entry);
-		if (MANTLE_COMPONENT_NAME_SET.has(name)) {
-			allowlistComponents.add(name);
-		} else {
+		if (!VALID_COMPONENT_RE.test(name)) {
 			console.warn(
-				`[mantle] allowlist entry "${entry}" normalized to "${name}" which is not a valid kebab-case component name — skipping`,
+				`[mantle] allowlist entry "${entry}" normalized to "${name}" which is not a valid kebab-case name — skipping`,
 			);
+		} else if (!MANTLE_COMPONENT_NAME_SET.has(name)) {
+			console.warn(
+				`[mantle] allowlist entry "${entry}" normalized to "${name}" which is not a known mantle component — skipping`,
+			);
+		} else {
+			allowlistComponents.add(name);
 		}
 	}
 
