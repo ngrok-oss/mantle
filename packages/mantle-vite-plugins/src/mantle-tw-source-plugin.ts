@@ -29,8 +29,9 @@ export type MantleTwSourcePluginOptions = {
 	 *
 	 * @example
 	 * ```ts
-	 * // Command internally imports Dialog, so allowlist Dialog to ensure its styles are included.
-	 * mantleTwSourcePlugin({ allowlist: ["Command", "Dialog"] })
+	 * // Command internally imports Dialog, so Dialog must be allowlisted
+	 * // to ensure its styles are included when only Command is imported directly.
+	 * mantleTwSourcePlugin({ allowlist: ["Dialog"] })
 	 * ```
 	 */
 	allowlist?: (MantleComponentName | (string & {}))[];
@@ -118,7 +119,20 @@ export function mantleTwSourcePlugin(options: MantleTwSourcePluginOptions = {}):
 
 	let resolvedCssFile: string | null = null;
 	let mantleDistDir: string | null = null;
-	/** Components known from the previous run (seeded from the CSS file at startup). */
+	/**
+	 * Result of the synchronous directory scan at startup. Stored separately so
+	 * the production `closeBundle` can write a precise set (scan + seen +
+	 * allowlist) without carrying forward stale entries from prior builds.
+	 */
+	let scannedComponents = new Set<string>();
+	/**
+	 * Components persisted from the previous dev run (seeded from the existing
+	 * CSS block). Only used in dev mode to handle the lazy route-visiting case:
+	 * when a user starts the dev server, the directory scan bootstraps the
+	 * initial set, but `resolveId` only fires as routes are visited. Preserving
+	 * the prior-run set means styles are never missing for previously-visited
+	 * routes after a restart.
+	 */
 	let knownComponents = new Set<string>();
 	/** Components seen via `resolveId` during the current session. */
 	let seenComponents = new Set<string>();
@@ -127,9 +141,24 @@ export function mantleTwSourcePlugin(options: MantleTwSourcePluginOptions = {}):
 	let debounceTimer: ReturnType<typeof setTimeout> | null = null;
 
 	/**
-	 * Scans the configured source directories, merges with `knownComponents`
-	 * and `seenComponents`, then writes the `@source` block to the CSS file.
-	 * Called at startup and whenever a new mantle import is detected in dev mode.
+	 * Collects all source files from the configured `include` directories.
+	 *
+	 * @param root - Absolute path to the Vite project root.
+	 * @returns An array of absolute file paths.
+	 */
+	function collectSourceFiles(root: string): string[] {
+		const allFiles: string[] = [];
+		for (const dir of include) {
+			const absDir = path.isAbsolute(dir) ? dir : path.join(root, dir);
+			collectFiles(absDir, allFiles, SOURCE_EXTENSIONS);
+		}
+		return allFiles;
+	}
+
+	/**
+	 * Scans the configured source directories, merges all component sets, then
+	 * writes the `@source` block to the CSS file. Called at startup and
+	 * whenever a new mantle import is detected by the file watcher in dev mode.
 	 *
 	 * @param config - The resolved Vite config, used for logging.
 	 */
@@ -138,16 +167,10 @@ export function mantleTwSourcePlugin(options: MantleTwSourcePluginOptions = {}):
 			return;
 		}
 
-		const allFiles: string[] = [];
-		for (const dir of include) {
-			const absDir = path.isAbsolute(dir) ? dir : path.join(config.root, dir);
-			collectFiles(absDir, allFiles, SOURCE_EXTENSIONS);
-		}
-
-		const scanned = scanMantleImports(allFiles);
+		scannedComponents = scanMantleImports(collectSourceFiles(config.root));
 		const components = new Set([
 			...allowlistComponents,
-			...scanned,
+			...scannedComponents,
 			...knownComponents,
 			...seenComponents,
 		]);
@@ -164,8 +187,8 @@ export function mantleTwSourcePlugin(options: MantleTwSourcePluginOptions = {}):
 	/**
 	 * Writes the current union of `allowlistComponents`, `knownComponents`, and
 	 * `seenComponents` to the CSS file without performing a directory scan.
-	 * Used by the `resolveId` debounce path and `closeBundle` to avoid the
-	 * cost of a full re-scan when only adding newly-seen components.
+	 * Used by the `resolveId` debounce path to avoid the cost of a full re-scan
+	 * when only adding newly-seen components.
 	 *
 	 * @param config - The resolved Vite config, used for logging.
 	 */
@@ -191,8 +214,8 @@ export function mantleTwSourcePlugin(options: MantleTwSourcePluginOptions = {}):
 		/**
 		 * Runs after Vite has resolved its final configuration. Locates the
 		 * mantle `dist/` directory and target CSS file, seeds `knownComponents`
-		 * from any existing `@source` block, then performs the initial scan
-		 * and disk write.
+		 * from any existing `@source` block (dev only), then performs the
+		 * initial directory scan and disk write.
 		 *
 		 * Emits a warning if `@ngrok/mantle` cannot be resolved or if no CSS
 		 * target file can be found, and skips injection in both cases.
@@ -225,15 +248,15 @@ export function mantleTwSourcePlugin(options: MantleTwSourcePluginOptions = {}):
 				return;
 			}
 
-			// Seed from any existing @source block so prior-run knowledge is
-			// preserved. This is critical for the SSR double-build pattern (e.g.
-			// React Router): the server build seeds from the client build's output
-			// and can only add to the set, never shrink it.
-			knownComponents = parseComponentsFromCssFile(resolvedCssFile);
+			// In dev mode, seed knownComponents from any existing @source block so
+			// styles are never missing for routes that haven't been visited yet
+			// after a server restart (resolveId fires lazily in dev).
+			// In prod, we skip this so closeBundle can write a precise set based
+			// only on what was actually built — avoiding monotonically growing CSS.
+			if (isDevMode) {
+				knownComponents = parseComponentsFromCssFile(resolvedCssFile);
+			}
 
-			// Always do a directory scan at startup. In dev this gives instant
-			// correct output before any routes are visited. In prod CI with no
-			// prior CSS block (clean build), this bootstraps the initial set.
 			syncSources(config);
 		},
 
@@ -284,15 +307,17 @@ export function mantleTwSourcePlugin(options: MantleTwSourcePluginOptions = {}):
 		},
 
 		/**
-		 * At the end of a production build, writes the final union of
-		 * `knownComponents` (seeded at startup) and `seenComponents` (every
-		 * `@ngrok/mantle/*` import resolved during the build).
+		 * At the end of a production build, writes the precise set of components
+		 * used in this build: directory scan ∪ `resolveId` intercepts ∪ allowlist.
 		 *
-		 * Writing the union rather than just `seenComponents` is intentional:
-		 * in the SSR double-build pattern (e.g. React Router), the server build
-		 * resolves fewer components than the client build. Merging ensures the
-		 * server build's `closeBundle` does not overwrite the client build's
-		 * more complete set.
+		 * Unlike dev mode, prior-run knowledge (`knownComponents`) is intentionally
+		 * excluded so that removing a component from the app shrinks the CSS on
+		 * the next build rather than accumulating stale entries forever.
+		 *
+		 * SSR builds are skipped entirely — in SSR double-build setups (e.g.
+		 * React Router), the server build resolves fewer components than the
+		 * client build (no client-only components like modals). Skipping the
+		 * server build ensures only the client build's complete set is written.
 		 *
 		 * Not called in dev mode (Vite dev server does not invoke `closeBundle`).
 		 */
@@ -300,7 +325,18 @@ export function mantleTwSourcePlugin(options: MantleTwSourcePluginOptions = {}):
 			if (isDevMode || !resolvedCssFile || !mantleDistDir || !resolvedConfig) {
 				return;
 			}
-			writeCurrentSources(resolvedConfig);
+			// Skip the server/SSR build — it sees a smaller component set than
+			// the client build and would overwrite the correct CSS with a reduced set.
+			if (resolvedConfig.build.ssr) {
+				return;
+			}
+			const components = new Set([...allowlistComponents, ...scannedComponents, ...seenComponents]);
+			writeSourcesToCssFile(resolvedCssFile, components, mantleDistDir);
+			if (components.size > 0) {
+				resolvedConfig.logger.info(
+					`[mantle] Finalized @source for ${components.size} component(s) to ${path.relative(resolvedConfig.root, resolvedCssFile)}: ${[...components].join(", ")}`,
+				);
+			}
 		},
 
 		/**

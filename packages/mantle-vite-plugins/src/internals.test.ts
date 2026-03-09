@@ -202,9 +202,11 @@ describe("writeSourcesToCssFile", () => {
 		expect(content).toContain(MARKER_START);
 		expect(content).toContain(MARKER_END);
 		// Paths should be relative from app/ to dist/ — i.e. ../dist/
-		// Glob pattern matches both the entry stub and the hashed code-split chunk.
-		expect(content).toContain(`@source "../dist/badge*.js";`);
-		expect(content).toContain(`@source "../dist/button*.js";`);
+		// Each component emits two lines: exact stub + hashed-chunk glob.
+		expect(content).toContain(`@source "../dist/badge.js";`);
+		expect(content).toContain(`@source "../dist/badge-*.js";`);
+		expect(content).toContain(`@source "../dist/button.js";`);
+		expect(content).toContain(`@source "../dist/button-*.js";`);
 		// No absolute paths
 		expect(content).not.toContain(tmpDir);
 		// Block should appear before @theme (after last @import)
@@ -229,7 +231,8 @@ describe("writeSourcesToCssFile", () => {
 		writeSourcesToCssFile(path.join(tmpDir, "global.css"), new Set(["button"]), distDir);
 
 		const content = readFile("global.css");
-		expect(content).toContain(`@source "./dist/button*.js";`);
+		expect(content).toContain(`@source "./dist/button.js";`);
+		expect(content).toContain(`@source "./dist/button-*.js";`);
 	});
 
 	it("sorts @source lines alphabetically", () => {
@@ -255,13 +258,13 @@ describe("writeSourcesToCssFile", () => {
 		const distDir = path.join(tmpDir, "dist");
 
 		writeSourcesToCssFile(cssFile, new Set(["button"]), distDir);
-		expect(readFile("global.css")).toContain("button*.js");
-		expect(readFile("global.css")).not.toContain("badge*.js");
+		expect(readFile("global.css")).toContain("button.js");
+		expect(readFile("global.css")).not.toContain("badge.js");
 
 		writeSourcesToCssFile(cssFile, new Set(["button", "badge"]), distDir);
 		const content = readFile("global.css");
-		expect(content).toContain("button*.js");
-		expect(content).toContain("badge*.js");
+		expect(content).toContain("button.js");
+		expect(content).toContain("badge.js");
 		// Only one marker block should exist
 		expect(content.split(MARKER_START).length).toBe(2);
 	});
@@ -298,6 +301,25 @@ describe("writeSourcesToCssFile", () => {
 		expect(() =>
 			writeSourcesToCssFile("/nonexistent/global.css", new Set(["button"]), tmpDir),
 		).not.toThrow();
+	});
+
+	it("does not produce prefix collisions between similar component names", () => {
+		// "alert" must not match "alert-dialog"; "code" must not match "code-block".
+		// Each component gets its own exact `.js` and chunk `-*.js` pair.
+		writeFile("global.css", `@import "tailwindcss";\n`);
+		const cssFile = path.join(tmpDir, "global.css");
+		const distDir = path.join(tmpDir, "dist");
+		writeSourcesToCssFile(cssFile, new Set(["alert", "alert-dialog"]), distDir);
+
+		const content = readFile("global.css");
+		// Exact-stub line for "alert" must not bleed into "alert-dialog".
+		expect(content).toContain(`@source "./dist/alert.js";`);
+		expect(content).toContain(`@source "./dist/alert-*.js";`);
+		expect(content).toContain(`@source "./dist/alert-dialog.js";`);
+		expect(content).toContain(`@source "./dist/alert-dialog-*.js";`);
+		// The chunk glob for "alert" must not be `alert*.js` (which would also
+		// match alert-dialog-<hash>.js). It must be specifically `alert-*.js`.
+		expect(content).not.toContain(`@source "./dist/alert*.js";`);
 	});
 });
 
@@ -342,6 +364,17 @@ describe("parseComponentsFromCssFile", () => {
 		writeSourcesToCssFile(cssFile, new Set(["button"]), distDir);
 		writeSourcesToCssFile(cssFile, new Set(), distDir); // remove block
 		expect(parseComponentsFromCssFile(cssFile)).toEqual(new Set());
+	});
+
+	it("does not conflate prefix-sharing component names (alert vs alert-dialog)", () => {
+		writeFile("global.css", `@import "tailwindcss";\n`);
+		const cssFile = path.join(tmpDir, "global.css");
+		const distDir = path.join(tmpDir, "dist");
+		const components = new Set(["alert", "alert-dialog", "code", "code-block"]);
+
+		writeSourcesToCssFile(cssFile, components, distDir);
+		// Round-trip must return the exact same set — no extra or missing names.
+		expect(parseComponentsFromCssFile(cssFile)).toEqual(components);
 	});
 });
 
@@ -394,9 +427,11 @@ describe("scan → writeSourcesToCssFile integration", () => {
 
 		const content = readFile("app/global.css");
 		// CSS is at app/global.css, dist is at dist/ — relative path is ../dist/
-		// Glob pattern matches both the entry stub and the hashed code-split chunk.
-		expect(content).toContain(`@source "../dist/button*.js";`);
-		expect(content).toContain(`@source "../dist/badge*.js";`);
+		// Each component emits two lines: exact stub + hashed-chunk glob.
+		expect(content).toContain(`@source "../dist/button.js";`);
+		expect(content).toContain(`@source "../dist/button-*.js";`);
+		expect(content).toContain(`@source "../dist/badge.js";`);
+		expect(content).toContain(`@source "../dist/badge-*.js";`);
 		expect(content).not.toContain(tmpDir);
 	});
 
@@ -416,5 +451,52 @@ describe("scan → writeSourcesToCssFile integration", () => {
 		);
 
 		expect(readFile("app/global.css")).toBe(original);
+	});
+
+	it("allowlist components appear in output even when not found by the scanner", () => {
+		// App only imports button, but dialog is allowlisted (e.g. transitively
+		// required by command which the scanner wouldn't catch).
+		writeFile("src/app.tsx", `import { Button } from "@ngrok/mantle/button";`);
+		writeFile("app/global.css", `@import "tailwindcss";\n`);
+
+		const files: string[] = [];
+		collectFiles(path.join(tmpDir, "src"), files, [".ts", ".tsx", ".js", ".jsx"]);
+
+		const scanned = scanMantleImports(files);
+		const allowlist = new Set(["dialog"]);
+		const components = new Set([...scanned, ...allowlist]);
+		writeSourcesToCssFile(
+			path.join(tmpDir, "app/global.css"),
+			components,
+			path.join(tmpDir, "dist"),
+		);
+
+		const content = readFile("app/global.css");
+		expect(content).toContain(`@source "../dist/button.js";`);
+		expect(content).toContain(`@source "../dist/button-*.js";`);
+		expect(content).toContain(`@source "../dist/dialog.js";`);
+		expect(content).toContain(`@source "../dist/dialog-*.js";`);
+	});
+
+	it("allowlist deduplicates components already found by the scanner", () => {
+		writeFile("src/app.tsx", `import { Button } from "@ngrok/mantle/button";`);
+		writeFile("app/global.css", `@import "tailwindcss";\n`);
+
+		const files: string[] = [];
+		collectFiles(path.join(tmpDir, "src"), files, [".ts", ".tsx", ".js", ".jsx"]);
+
+		const scanned = scanMantleImports(files);
+		// button is both scanned and allowlisted — should only appear once in output.
+		const allowlist = new Set(["button"]);
+		const components = new Set([...scanned, ...allowlist]);
+		writeSourcesToCssFile(
+			path.join(tmpDir, "app/global.css"),
+			components,
+			path.join(tmpDir, "dist"),
+		);
+
+		const content = readFile("app/global.css");
+		const buttonCount = (content.match(/"\.\.\/dist\/button\.js"/g) ?? []).length;
+		expect(buttonCount).toBe(1);
 	});
 });

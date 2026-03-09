@@ -152,14 +152,18 @@ export function writeSourcesToCssFile(
 		next = withoutBlock + "\n";
 	} else {
 		const cssDir = path.dirname(cssFile);
-		const sources = [...components].sort().map((name) => {
-			// Use a glob pattern so Tailwind scans both the named entry stub
-			// (e.g. dialog.js) AND the hashed code-split chunk that actually
-			// contains the class strings (e.g. dialog-BswTx6oS.js).
-			const rel = path.relative(cssDir, path.join(mantleDistDir, `${name}*.js`));
-			// Always use forward slashes in CSS paths, even on Windows.
-			const posix = rel.split(path.sep).join("/");
-			return `@source "${posix.startsWith(".") ? posix : `./${posix}`}";`;
+		const sources = [...components].sort().flatMap((name) => {
+			// Emit two patterns per component:
+			// 1. The exact entry stub (e.g. dialog.js) — always present.
+			// 2. A chunk-glob (e.g. dialog-*.js) — matches the hashed code-split
+			//    chunk that actually contains the class strings (e.g. dialog-BswTx6oS.js).
+			//
+			// Using a single `dialog*.js` glob would be overly broad: `alert*.js`
+			// also matches `alert-dialog.js`, causing Tailwind to scan extra components
+			// and undermining the "only what you use" optimization.
+			const base = path.relative(cssDir, path.join(mantleDistDir, name)).split(path.sep).join("/");
+			const prefix = base.startsWith(".") ? base : `./${base}`;
+			return [`@source "${prefix}.js";`, `@source "${prefix}-*.js";`];
 		});
 		const block = `${MARKER_START}\n${sources.join("\n")}\n${MARKER_END}`;
 
@@ -216,13 +220,22 @@ export function parseComponentsFromCssFile(cssFile: string): Set<string> {
 	}
 
 	const block = content.slice(startIdx + MARKER_START.length, endIdx);
-	// Match lines like: @source "../node_modules/@ngrok/mantle/dist/button*.js";
-	// Also matches the legacy non-glob form "button.js" for backwards compatibility.
-	const sourceRe = /@source\s+"[^"]*\/([^"/]+?)(?:\*)?\.js"\s*;/g;
-	for (const match of block.matchAll(sourceRe)) {
-		const name = match[1];
-		if (name) {
-			components.add(name);
+	// Two patterns cover both the exact entry stub and the chunk-glob form.
+	// Using separate regexes avoids ambiguity with prefix names (e.g. "alert"
+	// must not capture "alert-dialog" from an "alert-dialog-*.js" line).
+	//
+	// Matches: @source "…/button.js";   → captures "button"
+	const exactRe = /@source\s+"[^"]*\/([a-z][a-z0-9-]*)\.js"\s*;/g;
+	// Matches: @source "…/button-*.js"; → captures "button"
+	const chunkRe = /@source\s+"[^"]*\/([a-z][a-z0-9-]*)-\*\.js"\s*;/g;
+	for (const match of block.matchAll(exactRe)) {
+		if (match[1]) {
+			components.add(match[1]);
+		}
+	}
+	for (const match of block.matchAll(chunkRe)) {
+		if (match[1]) {
+			components.add(match[1]);
 		}
 	}
 	return components;
