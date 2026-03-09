@@ -202,8 +202,9 @@ describe("writeSourcesToCssFile", () => {
 		expect(content).toContain(MARKER_START);
 		expect(content).toContain(MARKER_END);
 		// Paths should be relative from app/ to dist/ — i.e. ../dist/
-		expect(content).toContain(`@source "../dist/badge.js";`);
-		expect(content).toContain(`@source "../dist/button.js";`);
+		// Glob pattern matches both the entry stub and the hashed code-split chunk.
+		expect(content).toContain(`@source "../dist/badge*.js";`);
+		expect(content).toContain(`@source "../dist/button*.js";`);
 		// No absolute paths
 		expect(content).not.toContain(tmpDir);
 		// Block should appear before @theme (after last @import)
@@ -228,7 +229,7 @@ describe("writeSourcesToCssFile", () => {
 		writeSourcesToCssFile(path.join(tmpDir, "global.css"), new Set(["button"]), distDir);
 
 		const content = readFile("global.css");
-		expect(content).toContain(`@source "./dist/button.js";`);
+		expect(content).toContain(`@source "./dist/button*.js";`);
 	});
 
 	it("sorts @source lines alphabetically", () => {
@@ -254,13 +255,13 @@ describe("writeSourcesToCssFile", () => {
 		const distDir = path.join(tmpDir, "dist");
 
 		writeSourcesToCssFile(cssFile, new Set(["button"]), distDir);
-		expect(readFile("global.css")).toContain("button.js");
-		expect(readFile("global.css")).not.toContain("badge.js");
+		expect(readFile("global.css")).toContain("button*.js");
+		expect(readFile("global.css")).not.toContain("badge*.js");
 
 		writeSourcesToCssFile(cssFile, new Set(["button", "badge"]), distDir);
 		const content = readFile("global.css");
-		expect(content).toContain("button.js");
-		expect(content).toContain("badge.js");
+		expect(content).toContain("button*.js");
+		expect(content).toContain("badge*.js");
 		// Only one marker block should exist
 		expect(content.split(MARKER_START).length).toBe(2);
 	});
@@ -393,8 +394,9 @@ describe("scan → writeSourcesToCssFile integration", () => {
 
 		const content = readFile("app/global.css");
 		// CSS is at app/global.css, dist is at dist/ — relative path is ../dist/
-		expect(content).toContain(`@source "../dist/button.js";`);
-		expect(content).toContain(`@source "../dist/badge.js";`);
+		// Glob pattern matches both the entry stub and the hashed code-split chunk.
+		expect(content).toContain(`@source "../dist/button*.js";`);
+		expect(content).toContain(`@source "../dist/badge*.js";`);
 		expect(content).not.toContain(tmpDir);
 	});
 

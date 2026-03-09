@@ -3,6 +3,7 @@ import type { Plugin, ResolvedConfig, ViteDevServer } from "vite";
 import {
 	collectFiles,
 	findFirstExisting,
+	parseComponentsFromCssFile,
 	resolveMantleDistDir,
 	scanMantleImports,
 	writeSourcesToCssFile,
@@ -80,9 +81,11 @@ const DEFAULT_CSS_CANDIDATES = ["app/global.css", "src/global.css", "app/app.css
  * visible to Vite's in-memory pipeline and is ignored by Tailwind's dev-mode
  * scanner.
  *
- * In development, the plugin watches your source files for new mantle imports.
- * When a new component import is detected, the CSS file is updated in place
- * and Tailwind's watcher picks up the change automatically — no server restart
+ * In development, the plugin watches your source files for new mantle imports
+ * AND intercepts Vite's module resolution to catch imports from workspace
+ * packages that are outside the scanned `include` directories. When a new
+ * component import is detected, the CSS file is updated in place and
+ * Tailwind's watcher picks up the change automatically — no server restart
  * required.
  *
  * **Setup**
@@ -115,12 +118,18 @@ export function mantleTwSourcePlugin(options: MantleTwSourcePluginOptions = {}):
 
 	let resolvedCssFile: string | null = null;
 	let mantleDistDir: string | null = null;
+	/** Components known from the previous run (seeded from the CSS file at startup). */
 	let knownComponents = new Set<string>();
+	/** Components seen via `resolveId` during the current session. */
+	let seenComponents = new Set<string>();
+	let isDevMode = false;
+	let resolvedConfig: ResolvedConfig | null = null;
+	let debounceTimer: ReturnType<typeof setTimeout> | null = null;
 
 	/**
-	 * Scans the configured source directories, then writes the current
-	 * `@source` block to the CSS file on disk. Called at startup and whenever
-	 * a new mantle import is detected in dev mode.
+	 * Scans the configured source directories, merges with `knownComponents`
+	 * and `seenComponents`, then writes the `@source` block to the CSS file.
+	 * Called at startup and whenever a new mantle import is detected in dev mode.
 	 *
 	 * @param config - The resolved Vite config, used for logging.
 	 */
@@ -136,7 +145,12 @@ export function mantleTwSourcePlugin(options: MantleTwSourcePluginOptions = {}):
 		}
 
 		const scanned = scanMantleImports(allFiles);
-		const components = new Set([...allowlistComponents, ...scanned]);
+		const components = new Set([
+			...allowlistComponents,
+			...scanned,
+			...knownComponents,
+			...seenComponents,
+		]);
 		knownComponents = components;
 		writeSourcesToCssFile(resolvedCssFile, components, mantleDistDir);
 
@@ -147,13 +161,38 @@ export function mantleTwSourcePlugin(options: MantleTwSourcePluginOptions = {}):
 		}
 	}
 
+	/**
+	 * Writes the current union of `allowlistComponents`, `knownComponents`, and
+	 * `seenComponents` to the CSS file without performing a directory scan.
+	 * Used by the `resolveId` debounce path and `closeBundle` to avoid the
+	 * cost of a full re-scan when only adding newly-seen components.
+	 *
+	 * @param config - The resolved Vite config, used for logging.
+	 */
+	function writeCurrentSources(config: ResolvedConfig): void {
+		if (!resolvedCssFile || !mantleDistDir) {
+			return;
+		}
+
+		const components = new Set([...allowlistComponents, ...knownComponents, ...seenComponents]);
+		knownComponents = components;
+		writeSourcesToCssFile(resolvedCssFile, components, mantleDistDir);
+
+		if (components.size > 0) {
+			config.logger.info(
+				`[mantle] Updated @source for ${components.size} component(s) to ${path.relative(config.root, resolvedCssFile)}: ${[...components].join(", ")}`,
+			);
+		}
+	}
+
 	return {
 		name: "@ngrok/mantle-vite-plugins:tw-source",
 
 		/**
 		 * Runs after Vite has resolved its final configuration. Locates the
-		 * mantle `dist/` directory and target CSS file, then performs the
-		 * initial scan and disk write.
+		 * mantle `dist/` directory and target CSS file, seeds `knownComponents`
+		 * from any existing `@source` block, then performs the initial scan
+		 * and disk write.
 		 *
 		 * Emits a warning if `@ngrok/mantle` cannot be resolved or if no CSS
 		 * target file can be found, and skips injection in both cases.
@@ -161,6 +200,9 @@ export function mantleTwSourcePlugin(options: MantleTwSourcePluginOptions = {}):
 		 * @param config - The fully resolved Vite configuration.
 		 */
 		configResolved(config: ResolvedConfig) {
+			resolvedConfig = config;
+			isDevMode = config.command === "serve";
+
 			mantleDistDir = resolveMantleDistDir(config.root);
 			if (!mantleDistDir) {
 				config.logger.warn(
@@ -183,7 +225,82 @@ export function mantleTwSourcePlugin(options: MantleTwSourcePluginOptions = {}):
 				return;
 			}
 
+			// Seed from any existing @source block so prior-run knowledge is
+			// preserved. This is critical for the SSR double-build pattern (e.g.
+			// React Router): the server build seeds from the client build's output
+			// and can only add to the set, never shrink it.
+			knownComponents = parseComponentsFromCssFile(resolvedCssFile);
+
+			// Always do a directory scan at startup. In dev this gives instant
+			// correct output before any routes are visited. In prod CI with no
+			// prior CSS block (clean build), this bootstraps the initial set.
 			syncSources(config);
+		},
+
+		/**
+		 * Intercepts every `@ngrok/mantle/<name>` import that Vite actually
+		 * resolves during the session. This is module-graph-aware: it catches
+		 * imports from workspace packages outside the scanned `include`
+		 * directories (Problem 1) and transitive mantle-internal imports
+		 * (Problem 2) that the directory scan misses.
+		 *
+		 * In dev mode, newly-seen components trigger a debounced CSS write so
+		 * Tailwind's watcher picks up the change without a server restart.
+		 *
+		 * Returns `null` so that Vite's normal resolution continues unchanged.
+		 *
+		 * @param source - The raw import specifier from the source file.
+		 */
+		resolveId(source: string) {
+			if (!source.startsWith("@ngrok/mantle/")) {
+				return null;
+			}
+
+			const rawName = source.slice("@ngrok/mantle/".length);
+			// Strip Vite query suffixes (e.g. "button?url") before checking.
+			const name = rawName.split("?")[0];
+			if (!name || name.endsWith(".css")) {
+				return null;
+			}
+
+			seenComponents.add(name);
+
+			// In dev mode, trigger a write when we first see a component that
+			// wasn't in the set written at startup so Tailwind picks it up live.
+			if (isDevMode && !knownComponents.has(name) && resolvedConfig) {
+				if (debounceTimer !== null) {
+					clearTimeout(debounceTimer);
+				}
+				debounceTimer = setTimeout(() => {
+					debounceTimer = null;
+					if (resolvedConfig) {
+						writeCurrentSources(resolvedConfig);
+					}
+				}, 50);
+			}
+
+			// Always let Vite resolve the import normally.
+			return null;
+		},
+
+		/**
+		 * At the end of a production build, writes the final union of
+		 * `knownComponents` (seeded at startup) and `seenComponents` (every
+		 * `@ngrok/mantle/*` import resolved during the build).
+		 *
+		 * Writing the union rather than just `seenComponents` is intentional:
+		 * in the SSR double-build pattern (e.g. React Router), the server build
+		 * resolves fewer components than the client build. Merging ensures the
+		 * server build's `closeBundle` does not overwrite the client build's
+		 * more complete set.
+		 *
+		 * Not called in dev mode (Vite dev server does not invoke `closeBundle`).
+		 */
+		closeBundle() {
+			if (isDevMode || !resolvedCssFile || !mantleDistDir || !resolvedConfig) {
+				return;
+			}
+			writeCurrentSources(resolvedConfig);
 		},
 
 		/**
@@ -206,7 +323,7 @@ export function mantleTwSourcePlugin(options: MantleTwSourcePluginOptions = {}):
 				}
 
 				const newComponents = scanMantleImports([changedFile]);
-				const hasNew = [...newComponents].some((c) => !knownComponents.has(c));
+				const hasNew = [...newComponents].some((component) => !knownComponents.has(component));
 				if (!hasNew) {
 					return;
 				}

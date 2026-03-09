@@ -153,7 +153,10 @@ export function writeSourcesToCssFile(
 	} else {
 		const cssDir = path.dirname(cssFile);
 		const sources = [...components].sort().map((name) => {
-			const rel = path.relative(cssDir, path.join(mantleDistDir, `${name}.js`));
+			// Use a glob pattern so Tailwind scans both the named entry stub
+			// (e.g. dialog.js) AND the hashed code-split chunk that actually
+			// contains the class strings (e.g. dialog-BswTx6oS.js).
+			const rel = path.relative(cssDir, path.join(mantleDistDir, `${name}*.js`));
 			// Always use forward slashes in CSS paths, even on Windows.
 			const posix = rel.split(path.sep).join("/");
 			return `@source "${posix.startsWith(".") ? posix : `./${posix}`}";`;
@@ -213,8 +216,9 @@ export function parseComponentsFromCssFile(cssFile: string): Set<string> {
 	}
 
 	const block = content.slice(startIdx + MARKER_START.length, endIdx);
-	// Match lines like: @source "../node_modules/@ngrok/mantle/dist/button.js";
-	const sourceRe = /@source\s+"[^"]*\/([^"/]+)\.js"\s*;/g;
+	// Match lines like: @source "../node_modules/@ngrok/mantle/dist/button*.js";
+	// Also matches the legacy non-glob form "button.js" for backwards compatibility.
+	const sourceRe = /@source\s+"[^"]*\/([^"/]+?)(?:\*)?\.js"\s*;/g;
 	for (const match of block.matchAll(sourceRe)) {
 		const name = match[1];
 		if (name) {
