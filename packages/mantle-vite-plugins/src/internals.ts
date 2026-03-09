@@ -147,24 +147,34 @@ export function writeSourcesToCssFile(
 	);
 	const withoutBlock = current.replace(blockRe, "").trimEnd();
 
+	// Final guard: only write valid kebab-case component names to disk.
+	const safeComponents = new Set([...components].filter((name) => /^[a-z][a-z0-9-]*$/.test(name)));
+
 	let next: string;
-	if (components.size === 0) {
+	if (safeComponents.size === 0) {
 		next = withoutBlock + "\n";
 	} else {
 		const cssDir = path.dirname(cssFile);
-		const sources = [...components].sort().flatMap((name) => {
-			// Emit two patterns per component:
-			// 1. The exact entry stub (e.g. dialog.js) — always present.
-			// 2. A chunk-glob (e.g. dialog-*.js) — matches the hashed code-split
-			//    chunk that actually contains the class strings (e.g. dialog-BswTx6oS.js).
-			//
-			// Using a single `dialog*.js` glob would be overly broad: `alert*.js`
-			// also matches `alert-dialog.js`, causing Tailwind to scan extra components
-			// and undermining the "only what you use" optimization.
-			const base = path.relative(cssDir, path.join(mantleDistDir, name)).split(path.sep).join("/");
-			const prefix = base.startsWith(".") ? base : `./${base}`;
-			return [`@source "${prefix}.js";`, `@source "${prefix}-*.js";`];
-		});
+		const sources = safeComponents
+			.values()
+			.toArray()
+			.toSorted()
+			.flatMap((name) => {
+				// Emit two patterns per component:
+				// 1. The exact entry stub (e.g. dialog.js) — always present.
+				// 2. A chunk-glob (e.g. dialog-*.js) — matches the hashed code-split
+				//    chunk that actually contains the class strings (e.g. dialog-BswTx6oS.js).
+				//
+				// Using a single `dialog*.js` glob would be overly broad: `alert*.js`
+				// also matches `alert-dialog.js`, causing Tailwind to scan extra components
+				// and undermining the "only what you use" optimization.
+				const base = path
+					.relative(cssDir, path.join(mantleDistDir, name))
+					.split(path.sep)
+					.join("/");
+				const prefix = base.startsWith(".") ? base : `./${base}`;
+				return [`@source "${prefix}.js";`, `@source "${prefix}-*.js";`];
+			});
 		const block = `${MARKER_START}\n${sources.join("\n")}\n${MARKER_END}`;
 
 		// Insert the block immediately after the last @import line so Tailwind
@@ -225,9 +235,9 @@ export function parseComponentsFromCssFile(cssFile: string): Set<string> {
 	// must not capture "alert-dialog" from an "alert-dialog-*.js" line).
 	//
 	// Matches: @source "…/button.js";   → captures "button"
-	const exactRe = /@source\s+"[^"]*\/([a-z][a-z0-9-]*)\.js"\s*;/g;
+	const exactRe = /@source\s+"(?:[^"]*\/)?([a-z][a-z0-9-]*)\.js"\s*;/g;
 	// Matches: @source "…/button-*.js"; → captures "button"
-	const chunkRe = /@source\s+"[^"]*\/([a-z][a-z0-9-]*)-\*\.js"\s*;/g;
+	const chunkRe = /@source\s+"(?:[^"]*\/)?([a-z][a-z0-9-]*)-\*\.js"\s*;/g;
 	for (const match of block.matchAll(exactRe)) {
 		if (match[1]) {
 			components.add(match[1]);

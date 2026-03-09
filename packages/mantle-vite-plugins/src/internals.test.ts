@@ -149,7 +149,7 @@ describe("collectFiles", () => {
 
 		const results: string[] = [];
 		collectFiles(path.join(tmpDir, "src"), results, [".ts", ".tsx", ".js"]);
-		const names = results.map((f) => path.basename(f)).sort();
+		const names = results.map((f) => path.basename(f)).toSorted();
 		expect(names).toEqual(["a.ts", "b.tsx", "c.js"]);
 	});
 
@@ -159,7 +159,7 @@ describe("collectFiles", () => {
 
 		const results: string[] = [];
 		collectFiles(path.join(tmpDir, "src"), results, [".tsx"]);
-		const names = results.map((f) => path.basename(f)).sort();
+		const names = results.map((f) => path.basename(f)).toSorted();
 		expect(names).toEqual(["button.tsx", "home.tsx"]);
 	});
 

@@ -113,9 +113,18 @@ const DEFAULT_CSS_CANDIDATES = ["app/global.css", "src/global.css", "app/app.css
  */
 export function mantleTwSourcePlugin(options: MantleTwSourcePluginOptions = {}): Plugin {
 	const { allowlist = [], include = ["app"], cssFile: cssFileOption } = options;
-	const allowlistComponents = new Set<string>(
-		allowlist.map(slugifyComponentName).filter((name) => name.length > 0),
-	);
+	const VALID_COMPONENT_RE = /^[a-z][a-z0-9-]*$/;
+	const allowlistComponents = new Set<string>();
+	for (const entry of allowlist) {
+		const name = slugifyComponentName(entry);
+		if (VALID_COMPONENT_RE.test(name)) {
+			allowlistComponents.add(name);
+		} else {
+			console.warn(
+				`[mantle] allowlist entry "${entry}" normalized to "${name}" which is not a valid kebab-case component name — skipping`,
+			);
+		}
+	}
 
 	let resolvedCssFile: string | null = null;
 	let mantleDistDir: string | null = null;
@@ -167,7 +176,8 @@ export function mantleTwSourcePlugin(options: MantleTwSourcePluginOptions = {}):
 			return;
 		}
 
-		scannedComponents = scanMantleImports(collectSourceFiles(config.root));
+		const rawScanned = scanMantleImports(collectSourceFiles(config.root));
+		scannedComponents = new Set([...rawScanned].filter((name) => VALID_COMPONENT_RE.test(name)));
 		const components = new Set([
 			...allowlistComponents,
 			...scannedComponents,
@@ -225,6 +235,12 @@ export function mantleTwSourcePlugin(options: MantleTwSourcePluginOptions = {}):
 		configResolved(config: ResolvedConfig) {
 			resolvedConfig = config;
 			isDevMode = config.command === "serve";
+
+			// Skip SSR builds — the server build resolves fewer components than
+			// the client build and would overwrite the correct CSS with a reduced set.
+			if (config.command === "build" && config.build.ssr) {
+				return;
+			}
 
 			mantleDistDir = resolveMantleDistDir(config.root);
 			if (!mantleDistDir) {
@@ -364,7 +380,8 @@ export function mantleTwSourcePlugin(options: MantleTwSourcePluginOptions = {}):
 					return;
 				}
 
-				const newComponents = scanMantleImports([changedFile]);
+				const rawNew = scanMantleImports([changedFile]);
+				const newComponents = new Set([...rawNew].filter((name) => VALID_COMPONENT_RE.test(name)));
 				const hasNew = [...newComponents].some((component) => !knownComponents.has(component));
 				if (!hasNew) {
 					return;

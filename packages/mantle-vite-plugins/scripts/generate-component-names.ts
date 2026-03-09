@@ -44,7 +44,9 @@ const componentDirs = new Set(
 		.map((entry) => entry.name),
 );
 
-const names = [...exportedSubpaths].filter((name) => componentDirs.has(name)).sort();
+const names = Array.from(exportedSubpaths)
+	.filter((name) => componentDirs.has(name))
+	.toSorted();
 
 if (names.length === 0) {
 	console.error(
