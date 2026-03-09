@@ -30,7 +30,7 @@
   "devDependencies": {
     "@cfg/tsconfig": "workspace:*",
     "@types/node": "24.12.0",
-    "tsdown": "0.21.0",
+    "tsdown": "0.21.1",
     "typescript": "catalog:",
     "vite": "catalog:",
     "vitest": "4.0.18"
