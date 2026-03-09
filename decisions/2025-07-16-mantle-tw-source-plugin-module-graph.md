@@ -1,54 +1,114 @@
-# mantleTwSourcePlugin: Module Graph Approach (Deferred)
+# mantleTwSourcePlugin: Research Log
 
 ## Background
 
 `mantleTwSourcePlugin` injects Tailwind CSS `@source` directives into the app's global CSS file for only the `@ngrok/mantle` components that are actually used, so Tailwind doesn't scan the entire mantle `dist/` directory.
 
-The current (shipped) implementation uses a **directory scan**: it walks the directories in `include` looking for `@ngrok/mantle/<name>` import strings in source files. This works for apps where all mantle imports live directly in the scanned directories.
+The current (shipped) implementation uses a **directory scan**: it walks the directories in `include` looking for `@ngrok/mantle/<name>` import strings in source files.
 
-## The Problem
+---
+
+## Problem 1 — Monorepo workspace packages (original motivation)
 
 Directory scanning breaks down in monorepos where the app depends on workspace packages that themselves import mantle. Example: `apps/www` depends on `packages/ui`, and `packages/ui/src/severity.ts` imports `@ngrok/mantle/badge`. If you only scan `apps/www/app`, you miss `badge`. If you add `packages/ui/src` to `include`, you pull in _every_ mantle component imported anywhere in that package — not just the ones reachable from `apps/www`.
 
-## Proposed Solution: `resolveId` Two-Pass
+**Proposed fix (deferred):** Use Vite's `resolveId` hook to intercept every `@ngrok/mantle/<name>` import actually resolved during the session. Module-graph-aware: only sees imports reachable from the app's entry points, including through workspace packages, without overcounting.
 
-Use Vite's `resolveId` hook to intercept every `@ngrok/mantle/<name>` import that Vite actually resolves during the session. This is module-graph-aware: it only sees imports reachable from the app's entry points, including transitive imports through workspace packages, without overcounting.
+### `resolveId` two-pass design
 
-### Design
+1. **Startup (`configResolved`)** — Read the existing `@source` block from the CSS file (`parseComponentsFromCssFile`) to seed `knownComponents`. On first cold start, fall back to a directory scan of `include` to bootstrap.
+2. **Session (`resolveId`)** — Intercept every `@ngrok/mantle/<name>` specifier. Accumulate into `seenComponents`.
+   - Dev: debounce-write the CSS with `knownComponents ∪ seenComponents` when a new component is first seen.
+   - Prod: `closeBundle` writes `seenComponents` (precise set for this build), removing stale entries.
 
-**Two-pass model:**
+### `resolveId` known gaps / risks (never shipped)
 
-1. **Startup (`configResolved`)** — Read the existing `@source` block from the CSS file (`parseComponentsFromCssFile`) to seed `knownComponents`. Tailwind gets a complete snapshot from the previous run immediately. On first cold start (no existing block), fall back to a directory scan of `include` to bootstrap.
+1. **SSR double-build**: React Router runs a client build then a server build. `closeBundle` fires twice. The second call (server) may have a smaller `seenComponents` than the client, overwriting the CSS with fewer components. Client-only components like modals and tooltips would be dropped.
+2. **First cold start in prod CI**: No existing `@source` block → bootstrap via directory scan. If `resolveId` then fires zero times, the guard silently no-ops, leaving stale bootstrapped state.
+3. **`resolveId` timing in dev**: Fires lazily as routes are visited. Fresh clone + dev start → missing components until those routes are visited.
+4. **No integration test**: All tests are unit tests. Plugin hooks are unverified against a real Vite instance.
 
-2. **Session (`resolveId`)** — Intercept every `@ngrok/mantle/<name>` import specifier. Accumulate into `seenComponents`.
-   - Dev: when a new component is first seen, debounce-write the CSS with `knownComponents ∪ seenComponents`
-   - Prod: `closeBundle` writes `seenComponents` (precise set for this build), removing stale entries
+**Status:** `parseComponentsFromCssFile` was implemented in `internals.ts` and is tested. The plugin itself was reverted to the directory-scan implementation pending these gaps.
 
-**New helper:** `parseComponentsFromCssFile(cssFile)` in `internals.ts` — reads the existing `@source` block and extracts component names. This is the inverse of `writeSourcesToCssFile` and is already implemented and tested.
+---
 
-### What Was Implemented
+## Problem 2 — Transitive imports within mantle itself (discovered 2026-03-09)
 
-- `parseComponentsFromCssFile` added to `internals.ts` with 5 tests (round-trip, missing file, no block, block removed)
-- Plugin rewritten with `config`/`configResolved`/`resolveId`/`closeBundle` hooks
-- `configureServer` file watcher removed (replaced by `resolveId`)
-- README and JSDoc updated
+Mantle components import each other directly. For example, `command.tsx` imports from the `dialog` component. An app that imports `@ngrok/mantle/command` but never directly imports `@ngrok/mantle/dialog` will only get an `@source` directive for `command` — dialog styles will be missing.
 
-### Known Gaps / Risks
+The directory scan only finds imports the _app_ makes directly. It does not follow the mantle-internal dependency graph. This is a correctness bug, not a performance gap.
 
-1. **SSR double-build** (highest risk): React Router runs a client build then a server build. `closeBundle` fires twice. `seenComponents` is a shared closure variable — both builds accumulate into it. The second `closeBundle` call overwrites the first. If the _server_ build sees fewer components than the client (likely for client-only components like modals, tooltips, etc.), the CSS ends up with the server build's smaller set. This could cause missing Tailwind classes in production. Needs validation in the frontend repo.
+**Attempted escape hatch:** Added an `allowlist` option to `MantleTwSourcePluginOptions` so consumers can explicitly name components the scanner misses. Accepts PascalCase (`"Dialog"`) or kebab-case (`"dialog"`). Merged with scanned results before writing `@source` block.
 
-2. **First cold start in prod CI**: On a clean checkout with no existing `@source` block, `configResolved` falls back to the directory scan (bootstrap). `closeBundle` then writes `seenComponents`. If `seenComponents` is unexpectedly empty (e.g., `resolveId` didn't fire for some reason), the guard `if (seenComponents.size === 0) return` silently no-ops, leaving the bootstrapped block on disk. The next build corrects this, but CI could ship stale state on first run.
+**This turned out not to work** — see Problem 3.
 
-3. **No integration test**: All tests are unit tests on `internals`. The plugin hooks (`resolveId`, `closeBundle`, `config`) are not tested against a real Vite instance. The two-pass behavior is unverified in an actual build.
+---
 
-4. **`resolveId` call timing in dev**: In dev, `resolveId` fires lazily as routes are visited. A user who never visits a route that imports `@ngrok/mantle/tooltip` won't get `tooltip` in the `@source` block during that session. The warm-start snapshot from the previous run covers this, but on a fresh clone + dev start, some components may be missing until that route is visited.
+## Problem 3 — Entry-point stubs contain no classes (discovered 2026-03-09)
 
-### Recommended Next Steps Before Shipping
+**This is the root cause that makes the entire plugin ineffective.**
 
-1. Test in the frontend repo's `apps/www` (which has an SSR build) to validate the double-`closeBundle` behavior
-2. Either: track which build (`ssr` vs `client`) fired `closeBundle` and only write on the client build, or accumulate across both and write after both complete (needs a counter or `generateBundle` approach)
-3. Consider adding a Vite integration test using `vite.build()` in a temp fixture directory
+When tsdown builds mantle with multiple entry points, rolldown uses code splitting: shared code is extracted into hashed chunk files (e.g. `dialog-BswTx6oS.js`) and the named entry files become thin re-export stubs:
+
+```js
+// dist/dialog.js — the file @source points at
+export { t as Dialog } from "./dialog-BswTx6oS.js";
+```
+
+All Tailwind class strings live in the chunk files. Tailwind's `@source` scanner reads file contents with regex — it does not execute JavaScript or follow re-exports. So it scans `dist/dialog.js`, finds no class strings, and moves on. No styles are discovered.
+
+This means:
+
+- `@source "dist/dialog.js"` → finds nothing.
+- Adding `"Dialog"` to the `allowlist` → emits `@source "dist/dialog.js"` → finds nothing.
+- The per-component `@source` optimization is a no-op for any app using the current build output.
+
+### Attempted fix: disable code splitting
+
+Setting `outputOptions: { codeSplitting: false }` in tsdown fails:
+
+```
+[INVALID_OPTION] multiple inputs are not supported when "output.codeSplitting" is false
+```
+
+Rolldown hard-requires a single entry point when splitting is disabled. Not viable for mantle's multi-entry build. There is no tsdown/rolldown option to inline chunks into named entries while keeping multiple entries.
+
+### Fix shipped (2026-03-09)
+
+Instead of pointing `@source` at the exact entry stub, emit two patterns per component:
+
+```css
+@source "../node_modules/@ngrok/mantle/dist/dialog.js";
+@source "../node_modules/@ngrok/mantle/dist/dialog-*.js";
+```
+
+The second pattern matches the hashed code-split chunk (e.g. `dialog-BswTx6oS.js`) regardless of its hash. Tailwind scans both files: the stub (which re-exports) and the chunk (which contains the actual class strings). This sidesteps the code-splitting problem without requiring build changes.
+
+A single `dialog*.js` glob was intentionally avoided because it is overly broad: `alert*.js` also matches `alert-dialog-<hash>.js`, causing Tailwind to scan unrelated components and undermining the per-component optimization.
+
+---
 
 ## Current State
 
-The plugin was **reverted to the simpler directory-scan + file-watcher implementation** pending resolution of the above gaps. `parseComponentsFromCssFile` remains in `internals.ts` as it will be needed when the module graph approach is revisited.
+The plugin is **fixed and operational** as of 2026-03-09. The two-pattern `@source` approach correctly discovers class strings from hashed code-split chunks without requiring build output changes.
+
+Additionally:
+
+- `resolveId` module-graph tracking was added, fixing Problems 1 & 2 (monorepo workspace packages and transitive mantle-internal imports).
+- Production builds write a precise, shrinkable set (no stale prior-run accumulation).
+- SSR double-build safety: server builds are skipped in `closeBundle` so the client build's complete component set is never overwritten by the server build's smaller one.
+
+---
+
+## Revised Direction
+
+The per-entry-point `@source` model cannot be fixed without changing either the build output or the scanning strategy:
+
+| Approach                            | Status                                                                                    |
+| ----------------------------------- | ----------------------------------------------------------------------------------------- |
+| `resolveId` module graph            | ✅ Shipped — fixes problems 1 & 2                                                         |
+| Two-pattern `@source` globs         | ✅ Shipped — fixes problem 3 (`name.js` + `name-*.js` covers stub and chunk)              |
+| `codeSplitting: false`              | Blocked — rolldown rejects multiple entries with splitting disabled                       |
+| Chunk manifest (entry → chunks)     | Not emitted by rolldown/tsdown; hashes change every build                                 |
+| `@source "dist/"` (whole directory) | Works but is identical to `source-all.css` — zero optimization; still valid as a fallback |
+| Tailwind `@plugin` approach         | More precise (explicit class registration, no scanning) — viable future direction         |

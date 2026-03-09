@@ -10,6 +10,7 @@ const contextOptions = {
 
 export default defineConfig({
 	test: {
+		reporters: ["verbose"],
 		projects: [
 			{
 				test: {

@@ -23,12 +23,11 @@
       "cache": false,
       "persistent": true
     },
-    "install:playwright": {
-      "cache": true,
-      "inputs": []
+    "//#install:playwright": {
+      "cache": false
     },
     "test": {
-      "dependsOn": ["install:playwright"]
+      "dependsOn": ["//#install:playwright"]
     },
     "test:watch": {
       "cache": false,

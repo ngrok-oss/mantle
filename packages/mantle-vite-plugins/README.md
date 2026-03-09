@@ -63,16 +63,21 @@ That is all. The plugin writes the correct `@source` lines into your CSS file be
 
 #### Options
 
-| Option    | Type       | Default                                                                               | Description                                                                                                 |
-| --------- | ---------- | ------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| `include` | `string[]` | `["app"]`                                                                             | Directories to scan recursively for `@ngrok/mantle/*` imports. Paths are relative to the Vite project root. |
-| `cssFile` | `string`   | First of `app/global.css`, `src/global.css`, `app/app.css`, `src/app.css` that exists | Path to the CSS file to inject `@source` directives into. Relative to the Vite project root, or absolute.   |
+| Option      | Type       | Default                                                                               | Description                                                                                                                                                                   |
+| ----------- | ---------- | ------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `include`   | `string[]` | `["app"]`                                                                             | Directories to scan recursively for `@ngrok/mantle/*` imports. Paths are relative to the Vite project root.                                                                   |
+| `cssFile`   | `string`   | First of `app/global.css`, `src/global.css`, `app/app.css`, `src/app.css` that exists | Path to the CSS file to inject `@source` directives into. Relative to the Vite project root, or absolute.                                                                     |
+| `allowlist` | `string[]` | `[]`                                                                                  | Component names to always include regardless of scanner detection. Accepts PascalCase (`"AlertDialog"`) or kebab-case (`"alert-dialog"`). Useful for runtime-only components. |
 
 #### How it works
 
-1. **`configResolved`** — After Vite resolves its configuration, the plugin locates `@ngrok/mantle`'s `dist/` directory by walking up the directory tree from the project root to find `node_modules/@ngrok/mantle` (using the symlink path rather than the pnpm content-addressed realpath, so generated paths stay clean). It then walks the directories in `include` scanning every `.ts`, `.tsx`, `.js`, `.jsx`, `.mdx`, and `.md` file for `@ngrok/mantle/<name>` import statements. It writes a clearly-marked block of `@source` directives directly into the target CSS file on disk, immediately after the last `@import` line. The write is idempotent — the file is only touched when the content would actually change.
+1. **`configResolved`** — After Vite resolves its configuration, the plugin locates `@ngrok/mantle`'s `dist/` directory by walking up the directory tree from the project root to find `node_modules/@ngrok/mantle` (using the symlink path rather than the pnpm content-addressed realpath, so generated paths stay clean). In dev mode, it also seeds its known-component set from any existing `@source` block so styles are present for all previously-visited routes immediately after a restart. It then walks the directories in `include` scanning every `.ts`, `.tsx`, `.js`, `.jsx`, `.mdx`, and `.md` file for `@ngrok/mantle/<name>` import statements and writes a clearly-marked block of `@source` directives directly into the target CSS file on disk, immediately after the last `@import` line. The write is idempotent — the file is only touched when the content would actually change.
 
-2. **`configureServer`** — In development, the plugin watches your source files via Vite's built-in file watcher. When a file change introduces a mantle import for a component not previously detected, the CSS file is updated in place and Tailwind's own watcher picks up the change automatically — no server restart required.
+2. **`resolveId`** — The plugin intercepts every `@ngrok/mantle/<name>` import that Vite actually resolves during the session. This is module-graph-aware and catches imports the directory scan misses: components imported from workspace packages outside `include`, and transitive mantle-internal imports (e.g. a component that internally imports another mantle component). In dev mode, newly-seen components trigger a debounced CSS write. In production, the full set is written in `closeBundle`.
+
+3. **`closeBundle`** — At the end of a production build, the plugin writes the precise set of components from the directory scan, `resolveId` intercepts, and `allowlist` — no prior-run knowledge is included, so removing a component from the app will shrink the CSS on the next build. SSR builds are skipped entirely: in SSR double-build setups (e.g. React Router), the server build resolves fewer components than the client build, and writing during it would overwrite the correct client-built set with a reduced one.
+
+4. **`configureServer`** — In development, the plugin also watches your source files via Vite's built-in file watcher. When a file change introduces a mantle import for a component not previously detected, the CSS file is updated in place and Tailwind's own watcher picks up the change automatically — no server restart required.
 
 **Why write to disk:** `@tailwindcss/vite` reads CSS files from disk at dev-server startup to initialize its file-system scanner and set up watchers, before Vite's `transform` pipeline runs. Injecting `@source` via a `transform` hook works in production builds but is invisible to Tailwind's dev-mode scanner. Writing to disk ensures the directives are present when Tailwind first reads the file.
 
@@ -86,7 +91,9 @@ The plugin writes a deterministic, human-readable block that is safe to commit:
 
 /* @ngrok/mantle-vite-plugins:source:start */
 @source "../node_modules/@ngrok/mantle/dist/button.js";
+@source "../node_modules/@ngrok/mantle/dist/button-*.js";
 @source "../node_modules/@ngrok/mantle/dist/input.js";
+@source "../node_modules/@ngrok/mantle/dist/input-*.js";
 /* @ngrok/mantle-vite-plugins:source:end */
 ```
 

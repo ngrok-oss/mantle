@@ -63,11 +63,6 @@ export default defineConfig((options) => [
 		tsconfig: "tsconfig.build.json",
 		fixedExtension: false,
 		format: "esm",
-		// CSS ?url imports (e.g. `import url from "./file.css?url"`) are Vite-specific.
-		// Mark them as external so tsdown leaves them in the output as-is; the consuming
-		// app's Vite bundler then resolves them to the correct fingerprinted asset URL at
-		// build time (both client and SSR builds).
-		external: [/\.css\?url$/],
 		entry: {
 			...componentPackages,
 			...utilPackages,

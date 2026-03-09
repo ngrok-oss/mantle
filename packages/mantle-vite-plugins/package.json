@@ -22,15 +22,18 @@
     "./package.json": "./package.json"
   },
   "scripts": {
-    "build": "tsdown",
+    "build": "tsx scripts/generate-component-names.ts && tsdown",
+    "generate": "tsx scripts/generate-component-names.ts",
     "test": "TZ=UTC vitest run",
     "test:watch": "TZ=UTC vitest watch",
-    "typecheck": "tsgo"
+    "typecheck": "tsx scripts/generate-component-names.ts && tsgo"
   },
   "devDependencies": {
     "@cfg/tsconfig": "workspace:*",
-    "@types/node": "24.12.0",
-    "tsdown": "0.21.0",
+    "@testing-library/jest-dom": "catalog:",
+    "@types/node": "catalog:",
+    "tsdown": "catalog:",
+    "tsx": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:",
     "vitest": "4.0.18"
