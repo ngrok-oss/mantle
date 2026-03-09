@@ -7,6 +7,7 @@ import {
 	MARKER_START,
 	collectFiles,
 	findFirstExisting,
+	parseComponentsFromCssFile,
 	resolveMantleDistDir,
 	scanMantleImports,
 	writeSourcesToCssFile,
@@ -288,6 +289,50 @@ describe("writeSourcesToCssFile", () => {
 		expect(() =>
 			writeSourcesToCssFile("/nonexistent/global.css", new Set(["button"]), tmpDir),
 		).not.toThrow();
+	});
+});
+
+// ---------------------------------------------------------------------------
+// parseComponentsFromCssFile
+// ---------------------------------------------------------------------------
+
+describe("parseComponentsFromCssFile", () => {
+	it("returns an empty set when the file does not exist", () => {
+		expect(parseComponentsFromCssFile("/nonexistent/global.css")).toEqual(new Set());
+	});
+
+	it("returns an empty set when no marker block is present", () => {
+		const cssFile = writeFile("global.css", `@import "tailwindcss";\n`);
+		expect(parseComponentsFromCssFile(cssFile)).toEqual(new Set());
+	});
+
+	it("extracts component names from a written @source block", () => {
+		writeFile("global.css", `@import "tailwindcss";\n`);
+		const cssFile = path.join(tmpDir, "global.css");
+		const distDir = path.join(tmpDir, "dist");
+		writeSourcesToCssFile(cssFile, new Set(["button", "badge", "input"]), distDir);
+
+		expect(parseComponentsFromCssFile(cssFile)).toEqual(new Set(["button", "badge", "input"]));
+	});
+
+	it("is the inverse of writeSourcesToCssFile (round-trips correctly)", () => {
+		writeFile("global.css", `@import "tailwindcss";\n`);
+		const cssFile = path.join(tmpDir, "global.css");
+		const distDir = path.join(tmpDir, "dist");
+		const components = new Set(["anchor", "badge", "button", "card", "tooltip"]);
+
+		writeSourcesToCssFile(cssFile, components, distDir);
+		expect(parseComponentsFromCssFile(cssFile)).toEqual(components);
+	});
+
+	it("returns an empty set after the block is removed", () => {
+		writeFile("global.css", `@import "tailwindcss";\n`);
+		const cssFile = path.join(tmpDir, "global.css");
+		const distDir = path.join(tmpDir, "dist");
+
+		writeSourcesToCssFile(cssFile, new Set(["button"]), distDir);
+		writeSourcesToCssFile(cssFile, new Set(), distDir); // remove block
+		expect(parseComponentsFromCssFile(cssFile)).toEqual(new Set());
 	});
 });
 

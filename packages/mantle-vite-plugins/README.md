@@ -16,9 +16,9 @@ pnpm add -D -E @ngrok/mantle-vite-plugins
 
 ## Plugins
 
-### `mantleSourcePlugin`
+### `mantleTwSourcePlugin`
 
-Injects Tailwind CSS `@source` directives into your global CSS file for only the mantle components your app actually imports, reducing generated CSS bundle size with no manual maintenance.
+Scans your app's source files for `@ngrok/mantle/*` component imports and injects Tailwind CSS `@source` directives into your global CSS file for only those components — so Tailwind only scans the mantle components your app actually uses, reducing generated CSS bundle size with no manual maintenance.
 
 #### When to use
 
@@ -29,12 +29,12 @@ Mantle ships `source-all.css` as the zero-configuration option — a single `@so
 @import "@ngrok/mantle/source-all.css";
 ```
 
-Use `mantleSourcePlugin` instead when your app uses a subset of mantle components and you want the smallest possible CSS output. The plugin scans your source files, detects which components you import, and writes targeted `@source` directives for only those components.
+Use `mantleTwSourcePlugin` instead when your app uses a subset of mantle components and you want the smallest possible CSS output. The plugin scans your source files, detects which components you import, and writes targeted `@source` directives for only those components.
 
-| Approach             | When to use                                                                                |
-| -------------------- | ------------------------------------------------------------------------------------------ |
-| `source-all.css`     | Your app uses most or all mantle components, or you want zero build tooling configuration. |
-| `mantleSourcePlugin` | Your app uses a subset of mantle components and you want the smallest possible CSS output. |
+| Approach               | When to use                                                                                |
+| ---------------------- | ------------------------------------------------------------------------------------------ |
+| `source-all.css`       | Your app uses most or all mantle components, or you want zero build tooling configuration. |
+| `mantleTwSourcePlugin` | Your app uses a subset of mantle components and you want the smallest possible CSS output. |
 
 If you are unsure, start with `source-all.css`.
 
@@ -43,11 +43,11 @@ If you are unsure, start with `source-all.css`.
 **1. Add the plugin to `vite.config.ts`:**
 
 ```ts
-import { mantleSourcePlugin } from "@ngrok/mantle-vite-plugins";
+import { mantleTwSourcePlugin } from "@ngrok/mantle-vite-plugins";
 import { defineConfig } from "vite";
 
 export default defineConfig({
-	plugins: [mantleSourcePlugin()],
+	plugins: [mantleTwSourcePlugin()],
 });
 ```
 
@@ -65,12 +65,12 @@ That is all. The plugin writes the correct `@source` lines into your CSS file be
 
 | Option    | Type       | Default                                                                               | Description                                                                                                 |
 | --------- | ---------- | ------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| `include` | `string[]` | `["src"]`                                                                             | Directories to scan recursively for `@ngrok/mantle/*` imports. Paths are relative to the Vite project root. |
+| `include` | `string[]` | `["app"]`                                                                             | Directories to scan recursively for `@ngrok/mantle/*` imports. Paths are relative to the Vite project root. |
 | `cssFile` | `string`   | First of `app/global.css`, `src/global.css`, `app/app.css`, `src/app.css` that exists | Path to the CSS file to inject `@source` directives into. Relative to the Vite project root, or absolute.   |
 
 #### How it works
 
-1. **`configResolved`** — After Vite resolves its configuration, the plugin locates `@ngrok/mantle`'s `dist/` directory via `require.resolve`, then walks the directories in `include` scanning every `.ts`, `.tsx`, `.js`, `.jsx`, `.mdx`, and `.md` file for `@ngrok/mantle/<name>` import statements. It writes a clearly-marked block of `@source` directives directly into the target CSS file on disk, immediately after the last `@import` line. The write is idempotent — the file is only touched when the content would actually change.
+1. **`configResolved`** — After Vite resolves its configuration, the plugin locates `@ngrok/mantle`'s `dist/` directory by walking up the directory tree from the project root to find `node_modules/@ngrok/mantle` (using the symlink path rather than the pnpm content-addressed realpath, so generated paths stay clean). It then walks the directories in `include` scanning every `.ts`, `.tsx`, `.js`, `.jsx`, `.mdx`, and `.md` file for `@ngrok/mantle/<name>` import statements. It writes a clearly-marked block of `@source` directives directly into the target CSS file on disk, immediately after the last `@import` line. The write is idempotent — the file is only touched when the content would actually change.
 
 2. **`configureServer`** — In development, the plugin watches your source files via Vite's built-in file watcher. When a file change introduces a mantle import for a component not previously detected, the CSS file is updated in place and Tailwind's own watcher picks up the change automatically — no server restart required.
 

@@ -187,6 +187,42 @@ function escapeRegex(s: string): string {
 }
 
 /**
+ * Parses the auto-generated `@source` block already present in `cssFile` and
+ * returns the set of mantle component names it references.
+ *
+ * Returns an empty set if the file cannot be read or contains no marker block.
+ *
+ * @param cssFile - Absolute path to the CSS file to parse.
+ * @returns A `Set` of mantle component names (e.g. `Set { "button", "badge" }`).
+ */
+export function parseComponentsFromCssFile(cssFile: string): Set<string> {
+	const components = new Set<string>();
+	let content: string;
+	try {
+		content = fs.readFileSync(cssFile, "utf8");
+	} catch {
+		return components;
+	}
+
+	const startIdx = content.indexOf(MARKER_START);
+	const endIdx = content.indexOf(MARKER_END);
+	if (startIdx === -1 || endIdx === -1 || endIdx <= startIdx) {
+		return components;
+	}
+
+	const block = content.slice(startIdx + MARKER_START.length, endIdx);
+	// Match lines like: @source "../node_modules/@ngrok/mantle/dist/button.js";
+	const sourceRe = /@source\s+"[^"]*\/([^"/]+)\.js"\s*;/g;
+	for (const match of block.matchAll(sourceRe)) {
+		const name = match[1];
+		if (name) {
+			components.add(name);
+		}
+	}
+	return components;
+}
+
+/**
  * Resolves the first existing file path from a list of candidates relative to
  * `root`. Returns `null` if none of the candidates exist.
  *

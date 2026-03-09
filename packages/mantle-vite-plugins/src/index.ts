@@ -1,2 +1,2 @@
-export { mantleSourcePlugin } from "./mantle-source-plugin.js";
-export type { MantleSourcePluginOptions } from "./mantle-source-plugin.js";
+export { mantleTwSourcePlugin } from "./mantle-tw-source-plugin.js";
+export type { MantleTwSourcePluginOptions } from "./mantle-tw-source-plugin.js";

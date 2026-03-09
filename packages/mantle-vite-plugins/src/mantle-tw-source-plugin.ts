@@ -9,9 +9,9 @@ import {
 } from "./internals.js";
 
 /**
- * Options for `mantleSourcePlugin`.
+ * Options for `mantleTwSourcePlugin`.
  */
-export type MantleSourcePluginOptions = {
+export type MantleTwSourcePluginOptions = {
 	/**
 	 * Directories to scan recursively for `@ngrok/mantle/*` imports.
 	 * Paths are relative to the Vite project root.
@@ -41,9 +41,10 @@ const SOURCE_EXTENSIONS = [".ts", ".tsx", ".js", ".jsx", ".mdx", ".md"];
 const DEFAULT_CSS_CANDIDATES = ["app/global.css", "src/global.css", "app/app.css", "src/app.css"];
 
 /**
- * Vite plugin that injects Tailwind CSS `@source` directives directly into
- * your global CSS file — only for the `@ngrok/mantle` components your app
- * actually imports.
+ * Vite plugin that scans your app's source files for `@ngrok/mantle/*` component
+ * imports and injects Tailwind CSS `@source` directives into your global CSS file
+ * for only those components — so Tailwind only scans the mantle components your
+ * app actually uses.
  *
  * By default, Tailwind must scan every compiled mantle component to discover
  * which utility classes are used. This plugin scans your app's source files,
@@ -66,10 +67,10 @@ const DEFAULT_CSS_CANDIDATES = ["app/global.css", "src/global.css", "app/app.css
  *
  * 1. Add the plugin to `vite.config.ts`:
  *    ```ts
- *    import { mantleSourcePlugin } from "@ngrok/mantle-vite-plugins";
+ *    import { mantleTwSourcePlugin } from "@ngrok/mantle-vite-plugins";
  *
  *    export default defineConfig({
- *      plugins: [mantleSourcePlugin()],
+ *      plugins: [mantleTwSourcePlugin()],
  *    });
  *    ```
  *
@@ -81,10 +82,10 @@ const DEFAULT_CSS_CANDIDATES = ["app/global.css", "src/global.css", "app/app.css
  * The plugin writes the correct `@source` lines into your CSS file so Tailwind
  * picks them up on startup in both dev and prod.
  *
- * @param options - Optional configuration. See {@link MantleSourcePluginOptions}.
+ * @param options - Optional configuration. See {@link MantleTwSourcePluginOptions}.
  * @returns A Vite plugin object.
  */
-export function mantleSourcePlugin(options: MantleSourcePluginOptions = {}): Plugin {
+export function mantleTwSourcePlugin(options: MantleTwSourcePluginOptions = {}): Plugin {
 	const { include = ["app"], cssFile: cssFileOption } = options;
 
 	let resolvedCssFile: string | null = null;
@@ -121,7 +122,7 @@ export function mantleSourcePlugin(options: MantleSourcePluginOptions = {}): Plu
 	}
 
 	return {
-		name: "@ngrok/mantle-vite-plugins:source",
+		name: "@ngrok/mantle-vite-plugins:tw-source",
 
 		/**
 		 * Runs after Vite has resolved its final configuration. Locates the
