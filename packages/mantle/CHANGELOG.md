@@ -1,5 +1,18 @@
 # @ngrok/mantle
 
+## 0.66.9
+
+### Patch Changes
+
+- [#1048](https://github.com/ngrok-oss/mantle/pull/1048) [`ca1ce98`](https://github.com/ngrok-oss/mantle/commit/ca1ce982cd68cae8e96181031a59673763c259d1) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - fix(code-block): restore syntax highlight token styles to mantle.css
+
+  The `.token.*` styles were moved out of `mantle.css` into a colocated
+  `syntax-highlight.css` imported as a side-effect in `code-block.tsx`.
+  However, tsdown extracts CSS imports into a sidecar file without emitting
+  a corresponding `import` in the bundled JS, so consuming apps never loaded
+  the styles. Moved the token styles back into `mantle.css` where they are
+  reliably included.
+
 ## 0.66.8
 
 ### Patch Changes
