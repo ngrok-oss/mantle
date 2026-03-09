@@ -77,14 +77,13 @@ export default defineConfig((options) => [
 		},
 		onSuccess: async () => {
 			try {
-				await fs.promises.copyFile(MANTLE_CSS_SRC, "./dist/mantle.css");
-				await fs.promises.copyFile(MANTLE_DARK_CSS_SRC, "./dist/mantle-dark.css");
-				await fs.promises.copyFile(
-					MANTLE_LIGHT_HC_CSS_SRC,
-					"./dist/mantle-light-high-contrast.css",
-				);
-				await fs.promises.copyFile(MANTLE_DARK_HC_CSS_SRC, "./dist/mantle-dark-high-contrast.css");
-				await fs.promises.copyFile(SOURCE_ALL_CSS_SRC, "./dist/source-all.css");
+				await Promise.all([
+					fs.promises.copyFile(MANTLE_CSS_SRC, "./dist/mantle.css"),
+					fs.promises.copyFile(MANTLE_DARK_CSS_SRC, "./dist/mantle-dark.css"),
+					fs.promises.copyFile(MANTLE_LIGHT_HC_CSS_SRC, "./dist/mantle-light-high-contrast.css"),
+					fs.promises.copyFile(MANTLE_DARK_HC_CSS_SRC, "./dist/mantle-dark-high-contrast.css"),
+					fs.promises.copyFile(SOURCE_ALL_CSS_SRC, "./dist/source-all.css"),
+				]);
 			} catch (error) {
 				console.error("Failed to copy CSS files to dist:", error);
 				throw error;
