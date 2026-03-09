@@ -33,6 +33,13 @@ export function resolveMantleDistDir(root: string): string | null {
 	}
 }
 
+/**
+ * Regex that matches valid mantle component subpath names (kebab-case ASCII).
+ * Used to validate names before writing them to the CSS file and when parsing
+ * them back out.
+ */
+export const VALID_COMPONENT_RE = /^[a-z][a-z0-9-]*$/;
+
 /** Marker inserted before the auto-generated `@source` block. */
 export const MARKER_START = "/* @ngrok/mantle-vite-plugins:source:start */";
 
@@ -148,7 +155,7 @@ export function writeSourcesToCssFile(
 	const withoutBlock = current.replace(blockRe, "").trimEnd();
 
 	// Final guard: only write valid kebab-case component names to disk.
-	const safeComponents = new Set([...components].filter((name) => /^[a-z][a-z0-9-]*$/.test(name)));
+	const safeComponents = new Set([...components].filter((name) => VALID_COMPONENT_RE.test(name)));
 
 	let next: string;
 	if (safeComponents.size === 0) {
@@ -228,20 +235,13 @@ export function parseComponentsFromCssFile(cssFile: string): Set<string> {
 	}
 
 	const block = content.slice(startIdx + MARKER_START.length, endIdx);
-	// Two patterns cover both the exact entry stub and the chunk-glob form.
-	// Using separate regexes avoids ambiguity with prefix names (e.g. "alert"
-	// must not capture "alert-dialog" from an "alert-dialog-*.js" line).
-	//
-	// Matches: @source "…/button.js";   → captures "button"
+	// Match the exact entry stub line — captures the component name.
+	// e.g. @source "…/button.js"; → "button"
+	// The chunk-glob line (@source "…/button-*.js";) always pairs with the
+	// exact line and captures the same name, so parsing exactRe alone is
+	// sufficient to reconstruct the full component set.
 	const exactRe = /@source\s+"(?:[^"]*\/)?([a-z][a-z0-9-]*)\.js"\s*;/g;
-	// Matches: @source "…/button-*.js"; → captures "button"
-	const chunkRe = /@source\s+"(?:[^"]*\/)?([a-z][a-z0-9-]*)-\*\.js"\s*;/g;
 	for (const match of block.matchAll(exactRe)) {
-		if (match[1]) {
-			components.add(match[1]);
-		}
-	}
-	for (const match of block.matchAll(chunkRe)) {
 		if (match[1]) {
 			components.add(match[1]);
 		}

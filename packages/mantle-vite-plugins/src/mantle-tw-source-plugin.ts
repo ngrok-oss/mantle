@@ -6,6 +6,7 @@ import {
 	parseComponentsFromCssFile,
 	resolveMantleDistDir,
 	scanMantleImports,
+	VALID_COMPONENT_RE,
 	writeSourcesToCssFile,
 } from "./internals.js";
 import type { MantleComponentName } from "./mantle-component-name.js";
@@ -113,7 +114,6 @@ const DEFAULT_CSS_CANDIDATES = ["app/global.css", "src/global.css", "app/app.css
  */
 export function mantleTwSourcePlugin(options: MantleTwSourcePluginOptions = {}): Plugin {
 	const { allowlist = [], include = ["app"], cssFile: cssFileOption } = options;
-	const VALID_COMPONENT_RE = /^[a-z][a-z0-9-]*$/;
 	const allowlistComponents = new Set<string>();
 	for (const entry of allowlist) {
 		const name = slugifyComponentName(entry);
@@ -390,7 +390,13 @@ export function mantleTwSourcePlugin(options: MantleTwSourcePluginOptions = {}):
 				server.config.logger.info(
 					`[mantle] New mantle component import detected in ${path.relative(server.config.root, changedFile)} — updating CSS`,
 				);
-				syncSources(server.config);
+				// Add the newly discovered components directly instead of
+				// re-scanning the entire source tree, which handleFileChange
+				// already narrowed to a single file.
+				for (const name of newComponents) {
+					knownComponents.add(name);
+				}
+				writeCurrentSources(server.config);
 			};
 
 			server.watcher.on("change", handleFileChange);
