@@ -155,9 +155,7 @@ export function writeSourcesToCssFile(
 		next = withoutBlock + "\n";
 	} else {
 		const cssDir = path.dirname(cssFile);
-		const sources = safeComponents
-			.values()
-			.toArray()
+		const sources = Array.from(safeComponents)
 			.toSorted()
 			.flatMap((name) => {
 				// Emit two patterns per component:
