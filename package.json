@@ -25,7 +25,6 @@
   "devDependencies": {
     "@changesets/changelog-github": "0.6.0",
     "@changesets/cli": "2.30.0",
-    "@tsdown/css": "0.21.1",
     "@types/node": "catalog:",
     "@typescript/native-preview": "7.0.0-dev.20260307.1",
     "husky": "9.1.7",
