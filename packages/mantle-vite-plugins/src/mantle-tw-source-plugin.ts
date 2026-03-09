@@ -1,6 +1,7 @@
 import path from "node:path";
 import type { Plugin, ResolvedConfig, ViteDevServer } from "vite";
 import {
+	VALID_COMPONENT_RE,
 	collectFiles,
 	findFirstExisting,
 	parseComponentsFromCssFile,
@@ -8,7 +9,6 @@ import {
 	scanMantleImports,
 	writeSourcesToCssFile,
 } from "./internals.js";
-import { VALID_COMPONENT_RE } from "./internals.js";
 import { MANTLE_COMPONENT_NAMES, type MantleComponentName } from "./mantle-component-name.js";
 import { slugifyComponentName } from "./slugify.js";
 

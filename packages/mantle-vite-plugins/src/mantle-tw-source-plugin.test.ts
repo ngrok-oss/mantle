@@ -109,7 +109,7 @@ describe("mantleTwSourcePlugin — input filtering", () => {
 		const css = await buildWith("export {};", {
 			allowlist: [
 				"button", // valid
-				"not-a-real-component", // unknown — should be silently dropped
+				"not-a-real-component", // unknown — should warn and be dropped
 				"../../../evil", // path traversal — should be dropped
 				"cx", // utility, not a component — should be dropped
 			],
