@@ -285,6 +285,12 @@ export function mantleTwSourcePlugin(options: MantleTwSourcePluginOptions = {}):
 			if (!name || name.endsWith(".css")) {
 				return null;
 			}
+			// Only accept valid kebab-case subpath names. This guards against
+			// path traversal (e.g. "..") or other unexpected specifiers that
+			// would produce invalid @source paths in the CSS file.
+			if (!/^[a-z][a-z0-9-]*$/.test(name)) {
+				return null;
+			}
 
 			seenComponents.add(name);
 

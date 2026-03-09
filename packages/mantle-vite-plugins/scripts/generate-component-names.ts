@@ -17,14 +17,34 @@ import { fileURLToPath } from "node:url";
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const packageRoot = path.resolve(scriptDir, "..");
-const mantleComponentsDir = path.resolve(packageRoot, "../../packages/mantle/src/components");
+const mantlePackageJson = path.resolve(packageRoot, "../../packages/mantle/package.json");
 const outputFile = path.resolve(packageRoot, "src/mantle-component-name.ts");
 
-const names = fs
-	.readdirSync(mantleComponentsDir, { withFileTypes: true })
-	.filter((entry) => entry.isDirectory())
-	.map((entry) => entry.name)
-	.sort();
+// Derive component names by intersecting the mantle package's `exports` with
+// its component directories. Using both sources ensures:
+// - Utility exports (cx, hooks, types, utils, color) are excluded because they
+//   don't have a corresponding component directory.
+// - Component directories that aren't exported (e.g. portal) are excluded
+//   because they don't appear in `exports`.
+const mantleComponentsDir = path.resolve(packageRoot, "../../packages/mantle/src/components");
+
+type PackageJson = { exports?: Record<string, unknown> };
+const mantlePkg = JSON.parse(fs.readFileSync(mantlePackageJson, "utf8")) as PackageJson;
+const exportedSubpaths = new Set(
+	Object.keys(mantlePkg.exports ?? {})
+		.filter((key) => key.startsWith("./") && key !== "./")
+		.map((key) => key.slice(2))
+		.filter((subpath) => /^[a-z][a-z0-9-]*$/.test(subpath)),
+);
+
+const componentDirs = new Set(
+	fs
+		.readdirSync(mantleComponentsDir, { withFileTypes: true })
+		.filter((entry) => entry.isDirectory())
+		.map((entry) => entry.name),
+);
+
+const names = [...exportedSubpaths].filter((name) => componentDirs.has(name)).sort();
 
 if (names.length === 0) {
 	console.error(

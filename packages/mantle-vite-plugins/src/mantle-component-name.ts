@@ -43,7 +43,6 @@ export type MantleComponentName =
 	| "multi-select"
 	| "pagination"
 	| "popover"
-	| "portal"
 	| "progress"
 	| "radio-group"
 	| "sandboxed-on-click"

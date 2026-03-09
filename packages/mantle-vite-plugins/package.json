@@ -32,6 +32,7 @@
     "@cfg/tsconfig": "workspace:*",
     "@types/node": "24.12.0",
     "tsdown": "catalog:",
+    "tsx": "4.21.0",
     "typescript": "catalog:",
     "vite": "catalog:",
     "vitest": "4.0.18"

@@ -391,6 +391,9 @@ importers:
       tsdown:
         specifier: 'catalog:'
         version: 0.21.1(@tsdown/css@0.21.1)(@typescript/native-preview@7.0.0-dev.20260307.1)(typescript@5.9.3)
+      tsx:
+        specifier: 4.21.0
+        version: 4.21.0
       typescript:
         specifier: 'catalog:'
         version: 5.9.3

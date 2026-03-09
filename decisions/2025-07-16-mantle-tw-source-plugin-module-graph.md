@@ -73,19 +73,30 @@ Setting `outputOptions: { codeSplitting: false }` in tsdown fails:
 
 Rolldown hard-requires a single entry point when splitting is disabled. Not viable for mantle's multi-entry build. There is no tsdown/rolldown option to inline chunks into named entries while keeping multiple entries.
 
-### Workaround
+### Fix shipped (2026-03-09)
 
-Use `@import "@ngrok/mantle/source-all.css"` (or `@source "../node_modules/@ngrok/mantle/dist"` directly), which scans all files in `dist/` including hashed chunks. This is correct but scans everything — identical semantically to never having the plugin.
+Instead of pointing `@source` at the exact entry stub, emit two patterns per component:
+
+```css
+@source "../node_modules/@ngrok/mantle/dist/dialog.js";
+@source "../node_modules/@ngrok/mantle/dist/dialog-*.js";
+```
+
+The second pattern matches the hashed code-split chunk (e.g. `dialog-BswTx6oS.js`) regardless of its hash. Tailwind scans both files: the stub (which re-exports) and the chunk (which contains the actual class strings). This sidesteps the code-splitting problem without requiring build changes.
+
+A single `dialog*.js` glob was intentionally avoided because it is overly broad: `alert*.js` also matches `alert-dialog-<hash>.js`, causing Tailwind to scan unrelated components and undermining the per-component optimization.
 
 ---
 
 ## Current State
 
-The plugin is **shipped but effectively broken** for its core purpose. The directory scan correctly detects which components are imported, and correctly writes `@source` entries — but those entries point at stub files Tailwind cannot extract classes from.
+The plugin is **fixed and operational** as of 2026-03-09. The two-pattern `@source` approach correctly discovers class strings from hashed code-split chunks without requiring build output changes.
 
-The `allowlist` option remains useful for future-proofing (it has the right shape) but does not fix missing styles today.
+Additionally:
 
-The correct workaround for consumers is `@import "@ngrok/mantle/source-all.css"`, which is what `apps/www` already uses.
+- `resolveId` module-graph tracking was added, fixing Problems 1 & 2 (monorepo workspace packages and transitive mantle-internal imports).
+- Production builds write a precise, shrinkable set (no stale prior-run accumulation).
+- SSR double-build safety: server builds are skipped in `closeBundle` so the client build's complete component set is never overwritten by the server build's smaller one.
 
 ---
 
@@ -93,11 +104,11 @@ The correct workaround for consumers is `@import "@ngrok/mantle/source-all.css"`
 
 The per-entry-point `@source` model cannot be fixed without changing either the build output or the scanning strategy:
 
-| Approach                            | Status                                                              |
-| ----------------------------------- | ------------------------------------------------------------------- |
-| `resolveId` module graph            | Fixes problems 1 & 2 but not 3 — still points at stub files         |
-| `codeSplitting: false`              | Blocked — rolldown rejects multiple entries with splitting disabled |
-| Chunk manifest (entry → chunks)     | Not emitted by rolldown/tsdown; hashes change every build           |
-| `@source "dist/"` (whole directory) | Works but is identical to `source-all.css` — zero optimization      |
-
-**Most promising path: Tailwind `@plugin` approach.** Instead of pointing `@source` at dist files, ship a Tailwind 4 `@plugin` that directly registers the utility classes used by each component. Classes would be declared explicitly rather than discovered by file scanning. This sidesteps the chunk problem entirely and enables true per-component optimization. Requires a build step that extracts used classes per component and generates the plugin, and needs to be maintained alongside component changes.
+| Approach                            | Status                                                                                    |
+| ----------------------------------- | ----------------------------------------------------------------------------------------- |
+| `resolveId` module graph            | ✅ Shipped — fixes problems 1 & 2                                                         |
+| Two-pattern `@source` globs         | ✅ Shipped — fixes problem 3 (`name.js` + `name-*.js` covers stub and chunk)              |
+| `codeSplitting: false`              | Blocked — rolldown rejects multiple entries with splitting disabled                       |
+| Chunk manifest (entry → chunks)     | Not emitted by rolldown/tsdown; hashes change every build                                 |
+| `@source "dist/"` (whole directory) | Works but is identical to `source-all.css` — zero optimization; still valid as a fallback |
+| Tailwind `@plugin` approach         | More precise (explicit class registration, no scanning) — viable future direction         |

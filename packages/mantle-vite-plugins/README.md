@@ -71,11 +71,11 @@ That is all. The plugin writes the correct `@source` lines into your CSS file be
 
 #### How it works
 
-1. **`configResolved`** — After Vite resolves its configuration, the plugin locates `@ngrok/mantle`'s `dist/` directory by walking up the directory tree from the project root to find `node_modules/@ngrok/mantle` (using the symlink path rather than the pnpm content-addressed realpath, so generated paths stay clean). It seeds its known-component set from any existing `@source` block in the CSS file (preserving knowledge across builds), then walks the directories in `include` scanning every `.ts`, `.tsx`, `.js`, `.jsx`, `.mdx`, and `.md` file for `@ngrok/mantle/<name>` import statements. It writes a clearly-marked block of `@source` directives directly into the target CSS file on disk, immediately after the last `@import` line. The write is idempotent — the file is only touched when the content would actually change.
+1. **`configResolved`** — After Vite resolves its configuration, the plugin locates `@ngrok/mantle`'s `dist/` directory by walking up the directory tree from the project root to find `node_modules/@ngrok/mantle` (using the symlink path rather than the pnpm content-addressed realpath, so generated paths stay clean). In dev mode, it also seeds its known-component set from any existing `@source` block so styles are present for all previously-visited routes immediately after a restart. It then walks the directories in `include` scanning every `.ts`, `.tsx`, `.js`, `.jsx`, `.mdx`, and `.md` file for `@ngrok/mantle/<name>` import statements and writes a clearly-marked block of `@source` directives directly into the target CSS file on disk, immediately after the last `@import` line. The write is idempotent — the file is only touched when the content would actually change.
 
 2. **`resolveId`** — The plugin intercepts every `@ngrok/mantle/<name>` import that Vite actually resolves during the session. This is module-graph-aware and catches imports the directory scan misses: components imported from workspace packages outside `include`, and transitive mantle-internal imports (e.g. a component that internally imports another mantle component). In dev mode, newly-seen components trigger a debounced CSS write. In production, the full set is written in `closeBundle`.
 
-3. **`closeBundle`** — At the end of a production build, the plugin writes the final union of components seen at startup and during module resolution. Writing the union rather than only the current build's imports ensures correctness in SSR double-build setups (e.g. React Router): the server build resolves fewer components than the client build, so merging prevents client-only components from being dropped.
+3. **`closeBundle`** — At the end of a production build, the plugin writes the precise set of components from the directory scan, `resolveId` intercepts, and `allowlist` — no prior-run knowledge is included, so removing a component from the app will shrink the CSS on the next build. SSR builds are skipped entirely: in SSR double-build setups (e.g. React Router), the server build resolves fewer components than the client build, and writing during it would overwrite the correct client-built set with a reduced one.
 
 4. **`configureServer`** — In development, the plugin also watches your source files via Vite's built-in file watcher. When a file change introduces a mantle import for a component not previously detected, the CSS file is updated in place and Tailwind's own watcher picks up the change automatically — no server restart required.
 
@@ -90,8 +90,10 @@ The plugin writes a deterministic, human-readable block that is safe to commit:
 @import "@ngrok/mantle/mantle.css";
 
 /* @ngrok/mantle-vite-plugins:source:start */
-@source "../node_modules/@ngrok/mantle/dist/button*.js";
-@source "../node_modules/@ngrok/mantle/dist/input*.js";
+@source "../node_modules/@ngrok/mantle/dist/button.js";
+@source "../node_modules/@ngrok/mantle/dist/button-*.js";
+@source "../node_modules/@ngrok/mantle/dist/input.js";
+@source "../node_modules/@ngrok/mantle/dist/input-*.js";
 /* @ngrok/mantle-vite-plugins:source:end */
 ```
 
