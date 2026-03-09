@@ -66,8 +66,10 @@ export function scanMantleImports(files: string[]): Set<string> {
 		}
 		for (const match of content.matchAll(importRe)) {
 			const name = match[1];
-			if (name && !name.endsWith(".css")) {
-				components.add(name);
+			// Strip any Vite query suffix (e.g. "?url") before checking the extension.
+			const baseName = name?.split("?")[0];
+			if (baseName && !baseName.endsWith(".css")) {
+				components.add(baseName);
 			}
 		}
 	}

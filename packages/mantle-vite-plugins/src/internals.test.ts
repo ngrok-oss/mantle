@@ -118,6 +118,14 @@ import { Input } from "@ngrok/mantle/input";
 		expect(scanMantleImports([file])).toEqual(new Set());
 	});
 
+	it("ignores .css?url imports (Vite query suffix)", () => {
+		const file = writeFile(
+			"app.tsx",
+			`import mantleDark from "@ngrok/mantle/mantle-dark.css?url";`,
+		);
+		expect(scanMantleImports([file])).toEqual(new Set());
+	});
+
 	it("handles single-quoted imports", () => {
 		const file = writeFile("app.tsx", `import { Button } from '@ngrok/mantle/button';`);
 		expect(scanMantleImports([file])).toEqual(new Set(["button"]));
