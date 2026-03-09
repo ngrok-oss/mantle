@@ -1,6 +1,6 @@
 {
   "name": "@ngrok/mantle-vite-plugins",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Vite plugins for @ngrok/mantle.",
   "homepage": "https://mantle.ngrok.com",
   "license": "MIT",

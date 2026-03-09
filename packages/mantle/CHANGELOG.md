@@ -1,5 +1,69 @@
 # @ngrok/mantle
 
+## 0.66.7
+
+### Patch Changes
+
+- [#1036](https://github.com/ngrok-oss/mantle/pull/1036) [`1521814`](https://github.com/ngrok-oss/mantle/commit/1521814c50e01d0111bd03696c9698dd718ff5f1) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Move syntax highlight token styles into the code-block component
+
+  The `.token.*` CSS rules for syntax highlighting were previously included unconditionally in `mantle.css`, adding to the critical CSS payload for all pages even those with no code blocks.
+
+  These styles are now colocated in `packages/mantle/src/components/code-block/syntax-highlight.css` and imported as a side-effect from `code-block.tsx`. Vite bundles them as a CSS chunk associated with the code-block module — apps that never import `@ngrok/mantle/code-block` no longer pay the cost, and apps that do get the styles automatically.
+
+- [#1036](https://github.com/ngrok-oss/mantle/pull/1036) [`1521814`](https://github.com/ngrok-oss/mantle/commit/1521814c50e01d0111bd03696c9698dd718ff5f1) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add `MantleStylesheets` component and split dark/high-contrast themes into separate CSS files
+
+  **New: `MantleStylesheets`**
+
+  A new component exported from `@ngrok/mantle/theme` that renders `<link rel="stylesheet">` tags for the dark, light-high-contrast, and dark-high-contrast theme CSS files. Each stylesheet is gated behind a `media` attribute matching its OS preference, making it non-render-blocking for users whose OS does not match.
+
+  Place it in `<head>`, immediately after `<PreventWrongThemeFlashScript>`:
+
+  ```tsx
+  <head>
+  	<PreventWrongThemeFlashScript nonce={nonce} />
+  	<MantleStylesheets nonce={nonce} ssrCookie={loaderData?.ssrCookie} />
+  </head>
+  ```
+
+  Props:
+  - `forceTheme?: ResolvedTheme` — force a specific theme's stylesheet to `media="all"` unconditionally (e.g. for a dark-only app)
+  - `ssrCookie?: string` — pass the extracted theme cookie (via `extractThemeCookie`) so the server renders the correct `media` attribute directly in SSR HTML, eliminating FOUC for users with a manually-selected non-system theme
+  - `nonce?: string` — CSP nonce for the inline fix script
+
+  An inline `<script>` is rendered after the `<link>` tags. It runs synchronously before first paint and corrects any `media` attributes based on `html[data-applied-theme]` set by `PreventWrongThemeFlashScript`, covering cases where `ssrCookie` is not provided. On the client, a `MutationObserver` watches `html[data-applied-theme]` to keep media attributes in sync as the user changes their theme.
+
+  **New CSS exports**
+
+  Three new CSS files are now exported from `@ngrok/mantle`:
+  - `@ngrok/mantle/mantle-dark.css` — dark theme custom properties
+  - `@ngrok/mantle/mantle-light-high-contrast.css` — light high-contrast theme custom properties
+  - `@ngrok/mantle/mantle-dark-high-contrast.css` — dark high-contrast theme custom properties
+
+  These files contain only CSS custom property blocks and do not need to be added to your app's `@import` chain — `MantleStylesheets` handles loading them via `<link>` tags. `mantle.css` continues to hold the light theme and all Tailwind directives and must remain in your CSS `@import` chain as before.
+
+- [#1036](https://github.com/ngrok-oss/mantle/pull/1036) [`1521814`](https://github.com/ngrok-oss/mantle/commit/1521814c50e01d0111bd03696c9698dd718ff5f1) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add `@ngrok/mantle-vite-plugins` package and `source-all.css`, optimize `mantle.css`
+
+  **New: `@ngrok/mantle-vite-plugins`**
+
+  A new package that exports `mantleSourcePlugin` — a Vite plugin that writes targeted Tailwind `@source` directives into your global CSS file for only the `@ngrok/mantle` components your app actually imports. Scans `.ts`, `.tsx`, `.js`, `.jsx`, `.mdx`, and `.md` files. Uses a disk-write approach (required because `@tailwindcss/vite` reads CSS from disk at startup before Vite's transform pipeline runs).
+
+  **New: `@ngrok/mantle/source-all.css`**
+
+  A zero-configuration alternative to `mantleSourcePlugin`. Import it alongside `mantle.css` to tell Tailwind to scan all mantle component dist files:
+
+  ```css
+  @import "@ngrok/mantle/mantle.css";
+  @import "@ngrok/mantle/source-all.css";
+  ```
+
+  Use this for apps that import most or all mantle components. Use `mantleSourcePlugin` for apps that import a subset and want the smallest possible CSS output.
+
+  **`mantle.css` optimizations**
+  - Removed `@source "../dist"` — source scanning is now opt-in via `source-all.css` or `mantleSourcePlugin`
+  - Deduplicated `--color-gray-*` in light/dark themes using `var(--color-neutral-*)` aliases
+  - Removed 21 light-theme color overrides (`neutral-50`–`neutral-900`, all `red-*` shades) that were identical to Tailwind v4 defaults
+  - Moved ~60 semantic tokens (`--background-color-base`, etc.) from `@theme {}` to `@theme inline {}` to stop generating unused utility classes like `bg-background-color-base`
+
 ## 0.66.6
 
 ### Patch Changes
