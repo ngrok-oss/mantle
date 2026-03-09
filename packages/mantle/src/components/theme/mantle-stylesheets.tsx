@@ -1,0 +1,264 @@
+"use client";
+
+import { useEffect } from "react";
+// ?url imports are resolved by Vite to a browser-accessible URL in both client and SSR
+// builds. The consuming app's Vite bundler handles the transformation; tsdown externalizes
+// these imports so they pass through to the consumer unchanged.
+import darkCssUrl from "../../mantle-dark.css?url";
+import darkHcCssUrl from "../../mantle-dark-high-contrast.css?url";
+import lightHcCssUrl from "../../mantle-light-high-contrast.css?url";
+import { getStoredTheme } from "./theme-provider.js";
+import type { ResolvedTheme } from "./themes.js";
+import { isResolvedTheme } from "./themes.js";
+
+/**
+ * Stable IDs for the three lazy-loaded theme `<link>` elements.
+ * Used to locate them in the DOM for media attribute updates.
+ */
+const DARK_LINK_ID = "mantle-dark-styles";
+const LIGHT_HIGH_CONTRAST_LINK_ID = "mantle-light-high-contrast-styles";
+const DARK_HIGH_CONTRAST_LINK_ID = "mantle-dark-high-contrast-styles";
+
+/**
+ * Default `media` attribute values for each lazy-loaded stylesheet.
+ * Each one matches only the OS preference for that theme, making them
+ * non-render-blocking for users whose OS does not match.
+ */
+const MEDIA_DARK = "(prefers-color-scheme: dark)";
+const MEDIA_LIGHT_HC = "(prefers-contrast: more) and (prefers-color-scheme: light)";
+const MEDIA_DARK_HC = "(prefers-contrast: more) and (prefers-color-scheme: dark)";
+
+type MediaValues = {
+	dark: string;
+	lightHc: string;
+	darkHc: string;
+};
+
+/**
+ * Compute the `media` attribute value for each stylesheet given the active theme.
+ * When a theme is active (either from the resolved applied theme or a forced override),
+ * its stylesheet's `media` is set to `"all"` so the CSS is applied regardless of OS preference.
+ */
+function computeMediaValues(
+	appliedTheme: ResolvedTheme | undefined,
+	forceTheme: ResolvedTheme | undefined,
+): MediaValues {
+	const theme = forceTheme ?? appliedTheme;
+	return {
+		dark: theme === "dark" ? "all" : MEDIA_DARK,
+		lightHc: theme === "light-high-contrast" ? "all" : MEDIA_LIGHT_HC,
+		darkHc: theme === "dark-high-contrast" ? "all" : MEDIA_DARK_HC,
+	};
+}
+
+export type MantleStylesheetsProps = {
+	/**
+	 * Force a specific resolved theme's stylesheet to load unconditionally (`media="all"`),
+	 * regardless of the user's OS preference. Use this when your app is locked to a single
+	 * theme (e.g. a dark-only page) so the required CSS is render-blocking as intended.
+	 *
+	 * When omitted, each stylesheet uses its OS media query and becomes non-render-blocking
+	 * for users whose OS preference does not match.
+	 *
+	 * @example
+	 * // Dark-only app — always load dark CSS eagerly
+	 * <MantleStylesheets forceTheme="dark" />
+	 */
+	forceTheme?: ResolvedTheme;
+	/**
+	 * The theme cookie string from the incoming HTTP request (e.g. `request.headers.get("Cookie")`
+	 * or the pre-extracted value from {@link extractThemeCookie}). When provided, the server can
+	 * resolve the stored theme and render the correct `media` attribute directly in the SSR HTML,
+	 * eliminating the need for the inline fix script in cases where the user has a non-system
+	 * theme stored in their cookie.
+	 *
+	 * @example
+	 * ```tsx
+	 * // root.tsx loader
+	 * export async function loader({ request }: Route.LoaderArgs) {
+	 *   return { ssrCookie: extractThemeCookie(request.headers.get("Cookie")) };
+	 * }
+	 *
+	 * // root.tsx component
+	 * <MantleStylesheets ssrCookie={loaderData.ssrCookie} nonce={nonce} />
+	 * ```
+	 */
+	ssrCookie?: string;
+	/**
+	 * An optional CSP nonce to allowlist the inline script that fixes `media` attributes
+	 * synchronously after the `<link>` tags are parsed. Mirror the same nonce you pass
+	 * to {@link PreventWrongThemeFlashScript}.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/nonce
+	 */
+	nonce?: string;
+};
+
+/**
+ * Inline script that runs synchronously after the `<link>` tags are parsed to fix their
+ * `media` attributes based on the applied theme already written to `html[data-applied-theme]`
+ * by `PreventWrongThemeFlashScript`. This eliminates FOUC for users who have manually
+ * selected a theme that differs from their OS preference.
+ */
+function fixMediaAttributes(args: {
+	darkLinkId: string;
+	lightHcLinkId: string;
+	darkHcLinkId: string;
+	mediaDark: string;
+	mediaLightHc: string;
+	mediaDarkHc: string;
+	forceTheme: ResolvedTheme | undefined;
+}) {
+	const {
+		darkLinkId,
+		lightHcLinkId,
+		darkHcLinkId,
+		mediaDark,
+		mediaLightHc,
+		mediaDarkHc,
+		forceTheme,
+	} = args;
+	const appliedTheme = document.documentElement.dataset.appliedTheme;
+	const theme = forceTheme ?? appliedTheme;
+
+	const darkLink = document.getElementById(darkLinkId) as HTMLLinkElement | null;
+	const lightHcLink = document.getElementById(lightHcLinkId) as HTMLLinkElement | null;
+	const darkHcLink = document.getElementById(darkHcLinkId) as HTMLLinkElement | null;
+
+	if (darkLink) {
+		darkLink.media = theme === "dark" ? "all" : mediaDark;
+	}
+	if (lightHcLink) {
+		lightHcLink.media = theme === "light-high-contrast" ? "all" : mediaLightHc;
+	}
+	if (darkHcLink) {
+		darkHcLink.media = theme === "dark-high-contrast" ? "all" : mediaDarkHc;
+	}
+}
+
+function fixMediaScriptContent(forceTheme: ResolvedTheme | undefined): string {
+	const args = {
+		darkLinkId: DARK_LINK_ID,
+		lightHcLinkId: LIGHT_HIGH_CONTRAST_LINK_ID,
+		darkHcLinkId: DARK_HIGH_CONTRAST_LINK_ID,
+		mediaDark: MEDIA_DARK,
+		mediaLightHc: MEDIA_LIGHT_HC,
+		mediaDarkHc: MEDIA_DARK_HC,
+		forceTheme,
+	} satisfies Parameters<typeof fixMediaAttributes>[0];
+	return `(${fixMediaAttributes.toString()})(${JSON.stringify(args)})`;
+}
+
+/**
+ * Renders three `<link rel="stylesheet">` tags for the dark, light-high-contrast, and
+ * dark-high-contrast theme CSS files. Each stylesheet is gated behind a `media` attribute
+ * matching its OS preference so it is non-render-blocking for users who do not need it.
+ *
+ * Place this component in `<head>`, after `<PreventWrongThemeFlashScript>`.
+ *
+ * On the client, a `MutationObserver` watches `html[data-applied-theme]` (kept in sync by
+ * `ThemeProvider`) and updates the `media` attributes to `"all"` when the user manually
+ * selects a theme that differs from their OS preference, ensuring the correct CSS is applied.
+ *
+ * @example
+ * ```tsx
+ * // root.tsx
+ * <head>
+ *   <PreventWrongThemeFlashScript nonce={nonce} />
+ *   <MantleStylesheets />
+ * </head>
+ * ```
+ *
+ * @example
+ * ```tsx
+ * // Dark-only app
+ * <MantleStylesheets forceTheme="dark" />
+ * ```
+ */
+function MantleStylesheets({ forceTheme, nonce, ssrCookie }: MantleStylesheetsProps) {
+	useEffect(() => {
+		function getAppliedTheme(): ResolvedTheme | undefined {
+			const value = document.documentElement.dataset.appliedTheme;
+			return isResolvedTheme(value) ? value : undefined;
+		}
+
+		function updateMediaAttributes() {
+			const { dark, lightHc, darkHc } = computeMediaValues(getAppliedTheme(), forceTheme);
+
+			const darkLink = document.getElementById(DARK_LINK_ID) as HTMLLinkElement | null;
+			const lightHcLink = document.getElementById(
+				LIGHT_HIGH_CONTRAST_LINK_ID,
+			) as HTMLLinkElement | null;
+			const darkHcLink = document.getElementById(
+				DARK_HIGH_CONTRAST_LINK_ID,
+			) as HTMLLinkElement | null;
+
+			if (darkLink) {
+				darkLink.media = dark;
+			}
+			if (lightHcLink) {
+				lightHcLink.media = lightHc;
+			}
+			if (darkHcLink) {
+				darkHcLink.media = darkHc;
+			}
+		}
+
+		// Sync immediately on mount in case the applied theme diverges from the SSR-rendered media values
+		updateMediaAttributes();
+
+		// Watch for theme changes driven by ThemeProvider
+		const observer = new MutationObserver(updateMediaAttributes);
+		observer.observe(document.documentElement, {
+			attributes: true,
+			attributeFilter: ["data-applied-theme"],
+		});
+
+		return () => {
+			observer.disconnect();
+		};
+	}, [forceTheme]);
+
+	// On SSR (and as the initial React render), emit the link tags with media values
+	// derived from the cookie-stored theme (if available) and forceTheme.
+	// When ssrCookie provides a non-system theme, we can render the correct media
+	// attribute directly and skip the inline fix script for that case.
+	// The useEffect above will correct them on the client before the user can interact.
+	const ssrStoredTheme = ssrCookie != null ? getStoredTheme({ cookie: ssrCookie }) : undefined;
+	const ssrAppliedTheme = ssrStoredTheme !== "system" ? ssrStoredTheme : undefined;
+	const { dark, lightHc, darkHc } = computeMediaValues(ssrAppliedTheme, forceTheme);
+
+	return (
+		<>
+			<link
+				rel="stylesheet"
+				id={DARK_LINK_ID}
+				href={darkCssUrl}
+				media={dark}
+				suppressHydrationWarning
+			/>
+			<link
+				rel="stylesheet"
+				id={LIGHT_HIGH_CONTRAST_LINK_ID}
+				href={lightHcCssUrl}
+				media={lightHc}
+				suppressHydrationWarning
+			/>
+			<link
+				rel="stylesheet"
+				id={DARK_HIGH_CONTRAST_LINK_ID}
+				href={darkHcCssUrl}
+				media={darkHc}
+				suppressHydrationWarning
+			/>
+			<script
+				dangerouslySetInnerHTML={{ __html: fixMediaScriptContent(forceTheme) }}
+				nonce={nonce}
+				suppressHydrationWarning
+			/>
+		</>
+	);
+}
+MantleStylesheets.displayName = "MantleStylesheets";
+
+export { MantleStylesheets };

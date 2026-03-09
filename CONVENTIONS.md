@@ -32,9 +32,10 @@ Code style, patterns, and conventions for the Mantle design system. This is the 
 ## Code Quality
 
 - **Control flow**: NEVER use single-line if/loop blocks. Always use braces `{}` even for single statements
-- **Variable naming**: Always use descriptive names for common parameters:
+- **Variable naming**: Always use descriptive, full names — never abbreviations or single-letter shortcuts. Apply this principle to all variables; the examples below are illustrative, not exhaustive:
   - Use `error` instead of `e` or `err` for error variables
   - Use `event` instead of `e` or `evt` for event parameters
+  - Use `element` instead of `el` or `elem` for DOM element variables
 - **JSDoc**: All exported functions, components, and prop types must have JSDoc comments
 - **Comments should explain why, not what**: Avoid overuse of inline comments that restate the code
 - **Inline one-off handlers**: If an event handler is used only once, define it inline instead of hoisting it into the component

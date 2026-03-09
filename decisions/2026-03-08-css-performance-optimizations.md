@@ -141,23 +141,30 @@ A new standalone npm package, `@ngrok/mantle-vite-plugins`, was created alongsid
 | `mantle-light-high-contrast.css` | Light high-contrast vars   | `(prefers-contrast: more) and (prefers-color-scheme: light)` |
 | `mantle-dark-high-contrast.css`  | Dark high-contrast vars    | `(prefers-contrast: more) and (prefers-color-scheme: dark)`  |
 
-**`MantleStylesheets` component** (exported from `@ngrok/mantle/theme`) renders the three `<link>` tags. It accepts an optional `forceTheme?: ResolvedTheme` prop — when set, the corresponding stylesheet's `media` is forced to `"all"` so it loads unconditionally (useful for dark-only apps like ngrok.com).
+**`MantleStylesheets` component** (exported from `@ngrok/mantle/theme`) renders the three `<link>` tags. It accepts:
+
+- `forceTheme?: ResolvedTheme` — when set, the corresponding stylesheet's `media` is forced to `"all"` so it loads unconditionally (useful for dark-only apps like ngrok.com).
+- `ssrCookie?: string` — the extracted theme cookie from the incoming HTTP request (via `extractThemeCookie`). When provided, the server resolves the stored theme and renders the correct `media` attribute directly in the SSR HTML, eliminating FOUC for users with a non-system manual theme override without relying on the inline fix script.
+- `nonce?: string` — CSP nonce for the inline fix script (see below).
 
 On the client, the component uses a `MutationObserver` on `html[data-applied-theme]` to detect manual theme changes (e.g. light-OS user picks dark) and updates the relevant `<link media>` attribute to `"all"` so the stylesheet becomes active.
 
+**Inline fix script:** An inline `<script>` is rendered after the `<link>` tags. It runs synchronously before first paint, reads `html.dataset.appliedTheme` (already set by `PreventWrongThemeFlashScript`), and corrects any `media` attributes that were rendered with the wrong value. This is a safety net for cases where `ssrCookie` is not provided or the stored theme is `"system"` (which cannot be resolved server-side without OS preference). When `ssrCookie` provides a non-system theme, the SSR HTML is already correct and the inline script is a no-op.
+
 **FOUC analysis:**
 
-| User scenario                                         | Risk    | Why                                                                                                                                                                                                                                |
-| ----------------------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| System theme = light (majority)                       | None    | Dark/HC stylesheets have restrictive media — not applied, not render-blocking                                                                                                                                                      |
-| System theme = dark                                   | None    | Dark stylesheet media matches — browser applies it before paint                                                                                                                                                                    |
-| System theme = high-contrast                          | None    | HC stylesheet media matches — applied before paint                                                                                                                                                                                 |
-| Manual theme override (e.g. light OS → dark selected) | Minimal | `MantleStylesheets` updates `media` to `"all"` on mount via `useEffect`, which runs before the user can interact. The dark CSS was already downloaded (non-blocking) so application is near-instant. No visible flash in practice. |
-| `forceTheme` set (e.g. dark-only app)                 | None    | `media="all"` is rendered on SSR — stylesheet is render-blocking as intended                                                                                                                                                       |
+| User scenario                                         | Risk | Why                                                                                                                                                                                                            |
+| ----------------------------------------------------- | ---- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| System theme = light (majority)                       | None | Dark/HC stylesheets have restrictive media — not applied, not render-blocking                                                                                                                                  |
+| System theme = dark                                   | None | Dark stylesheet media matches — browser applies it before paint                                                                                                                                                |
+| System theme = high-contrast                          | None | HC stylesheet media matches — applied before paint                                                                                                                                                             |
+| Manual theme override + `ssrCookie` provided          | None | Server renders `media="all"` for the active theme directly — no fix script needed                                                                                                                              |
+| Manual theme override, no `ssrCookie` (or `"system"`) | None | Inline fix script runs synchronously before paint, reads `html[data-applied-theme]` set by `PreventWrongThemeFlashScript`, and corrects `media` attributes. Dark CSS was already downloaded so no visible FOUC |
+| `forceTheme` set (e.g. dark-only app)                 | None | `media="all"` is rendered on SSR — stylesheet is render-blocking as intended                                                                                                                                   |
 
 **Why `mantle.css` stays in the `@import` chain:** Tailwind v4 must see the `@import` to process `@theme {}` blocks and `@custom-variant` rules. The extracted files contain only CSS custom property definitions (no Tailwind directives) and do not need to be in the CSS import chain.
 
-**URL resolution:** The component uses `new URL("../../mantle-dark.css", import.meta.url).href` (standard ESM asset reference). Vite resolves and fingerprints this at the consuming app's build time. Works in both dev (HMR) and production builds, and in the workspace via `@ngrok/src-live-types`.
+**URL resolution:** The component uses Vite `?url` imports (`import darkCssUrl from "../../mantle-dark.css?url"`). Vite resolves these to browser-accessible fingerprinted URLs in both client and SSR builds. `tsdown` externalizes `?url` imports so they pass through to the consuming app's Vite bundler unchanged.
 
 ### 7. Move syntax highlight token styles into the code-block component
 
