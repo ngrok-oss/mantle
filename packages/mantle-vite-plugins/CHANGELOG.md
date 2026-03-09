@@ -1,5 +1,11 @@
 # @ngrok/mantle-vite-plugins
 
+## 0.1.2
+
+### Patch Changes
+
+- [#1040](https://github.com/ngrok-oss/mantle/pull/1040) [`82f1cd9`](https://github.com/ngrok-oss/mantle/commit/82f1cd9c67b14e33d06c97028b2e38555e10ced8) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Rename `mantleSourcePlugin` → `mantleTwSourcePlugin` (and `MantleSourcePluginOptions` → `MantleTwSourcePluginOptions`) to clarify that this plugin is strictly for generating Tailwind `@source` directives for mantle component imports; default `include` to `["app"]` instead of `["src"]`; fix pnpm workspaces generating content-addressed `.pnpm/` paths in `@source` directives by resolving `@ngrok/mantle` via the `node_modules` symlink rather than `require.resolve`
+
 ## 0.1.1
 
 ### Patch Changes
