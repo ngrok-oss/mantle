@@ -1,12 +1,14 @@
 export {
 	//,
-	MantleStylesheets,
-} from "./mantle-stylesheets.js";
+	mantleStyleSheetUrls,
+	MantleStyleSheets,
+} from "./mantle-style-sheets.js";
 
 export type {
 	//,
-	MantleStylesheetsProps,
-} from "./mantle-stylesheets.js";
+	MantleStyleSheetsProps,
+	MantleThemeCssUrls,
+} from "./mantle-style-sheets.js";
 
 export {
 	//,

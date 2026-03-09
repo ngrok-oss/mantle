@@ -1,12 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-// ?url imports are resolved by Vite to a browser-accessible URL in both client and SSR
-// builds. The consuming app's Vite bundler handles the transformation; tsdown externalizes
-// these imports so they pass through to the consumer unchanged.
-import darkCssUrl from "../../mantle-dark.css?url";
-import darkHcCssUrl from "../../mantle-dark-high-contrast.css?url";
-import lightHcCssUrl from "../../mantle-light-high-contrast.css?url";
 import { getStoredTheme } from "./theme-provider.js";
 import type { ResolvedTheme } from "./themes.js";
 import { isResolvedTheme } from "./themes.js";
@@ -51,7 +45,63 @@ function computeMediaValues(
 	};
 }
 
-export type MantleStylesheetsProps = {
+/**
+ * Browser-accessible URLs for mantle's three lazy-loaded theme stylesheets.
+ *
+ * Use {@link mantleStyleSheetUrls} to create this object from Vite `?url` imports.
+ */
+export type MantleThemeCssUrls = {
+	/**
+	 * Browser-accessible URL for `mantle-dark.css`.
+	 * @example
+	 * ```tsx
+	 * // in vite app
+	 * import darkCssUrl from "@ngrok/mantle/mantle-dark.css?url"
+	 * ```
+	 */
+	darkCssUrl: string;
+	/**
+	 * Browser-accessible URL for `mantle-light-high-contrast.css`.
+	 * @example
+	 * ```tsx
+	 * // in vite app
+	 * import lightHighContrastCssUrl from "@ngrok/mantle/mantle-light-high-contrast.css?url"
+	 * ```
+	 */
+	lightHighContrastCssUrl: string;
+	/**
+	 * Browser-accessible URL for `mantle-dark-high-contrast.css`.
+	 * @example
+	 * ```tsx
+	 * // in vite app
+	 * import darkHighContrastCssUrl from "@ngrok/mantle/mantle-dark-high-contrast.css?url"
+	 * ```
+	 */
+	darkHighContrastCssUrl: string;
+};
+
+/**
+ * Collects the three Vite `?url` imports for mantle's theme stylesheets into a typed object
+ * that can be spread directly into `<MantleStyleSheets>`.
+ *
+ * Call this once at the top of your app entry (e.g. `root.tsx`) and spread the result:
+ *
+ * ```ts
+ * import darkCssUrl from "@ngrok/mantle/mantle-dark.css?url";
+ * import darkHighContrastCssUrl from "@ngrok/mantle/mantle-dark-high-contrast.css?url";
+ * import lightHighContrastCssUrl from "@ngrok/mantle/mantle-light-high-contrast.css?url";
+ *
+ * const themeUrls = mantleStyleSheetUrls({ darkCssUrl, lightHighContrastCssUrl, darkHighContrastCssUrl });
+ *
+ * // In JSX:
+ * <MantleStyleSheets {...themeUrls} nonce={nonce} ssrCookie={ssrCookie} />
+ * ```
+ */
+function mantleStyleSheetUrls(urls: MantleThemeCssUrls): MantleThemeCssUrls {
+	return urls;
+}
+
+export type MantleStyleSheetsProps = MantleThemeCssUrls & {
 	/**
 	 * Force a specific resolved theme's stylesheet to load unconditionally (`media="all"`),
 	 * regardless of the user's OS preference. Use this when your app is locked to a single
@@ -62,7 +112,7 @@ export type MantleStylesheetsProps = {
 	 *
 	 * @example
 	 * // Dark-only app — always load dark CSS eagerly
-	 * <MantleStylesheets forceTheme="dark" />
+	 * <MantleStyleSheets forceTheme="dark" {...themeUrls} />
 	 */
 	forceTheme?: ResolvedTheme;
 	/**
@@ -80,7 +130,7 @@ export type MantleStylesheetsProps = {
 	 * }
 	 *
 	 * // root.tsx component
-	 * <MantleStylesheets ssrCookie={loaderData.ssrCookie} nonce={nonce} />
+	 * <MantleStyleSheets {...themeUrls} ssrCookie={loaderData.ssrCookie} nonce={nonce} />
 	 * ```
 	 */
 	ssrCookie?: string;
@@ -150,9 +200,20 @@ function fixMediaScriptContent(forceTheme: ResolvedTheme | undefined): string {
 }
 
 /**
- * Renders three `<link rel="stylesheet">` tags for the dark, light-high-contrast, and
+ * Renders `<link rel="stylesheet">` tags for the dark, light-high-contrast, and
  * dark-high-contrast theme CSS files. Each stylesheet is gated behind a `media` attribute
  * matching its OS preference so it is non-render-blocking for users who do not need it.
+ *
+ * Use {@link mantleStyleSheetUrls} to collect the required CSS URL props from Vite `?url`
+ * imports and spread them in:
+ *
+ * ```ts
+ * import darkCssUrl from "@ngrok/mantle/mantle-dark.css?url";
+ * import darkHighContrastCssUrl from "@ngrok/mantle/mantle-dark-high-contrast.css?url";
+ * import lightHighContrastCssUrl from "@ngrok/mantle/mantle-light-high-contrast.css?url";
+ *
+ * const themeUrls = mantleStyleSheetUrls({ darkCssUrl, lightHighContrastCssUrl, darkHighContrastCssUrl });
+ * ```
  *
  * Place this component in `<head>`, after `<PreventWrongThemeFlashScript>`.
  *
@@ -160,22 +221,33 @@ function fixMediaScriptContent(forceTheme: ResolvedTheme | undefined): string {
  * `ThemeProvider`) and updates the `media` attributes to `"all"` when the user manually
  * selects a theme that differs from their OS preference, ensuring the correct CSS is applied.
  *
- * @example
- * ```tsx
- * // root.tsx
- * <head>
- *   <PreventWrongThemeFlashScript nonce={nonce} />
- *   <MantleStylesheets />
- * </head>
- * ```
+ * When `forceTheme` is set, only the link tag for that theme is rendered — the others are
+ * omitted entirely to avoid unnecessary network requests.
  *
  * @example
  * ```tsx
- * // Dark-only app
- * <MantleStylesheets forceTheme="dark" />
+ * // root.tsx
+ * import darkCssUrl from "@ngrok/mantle/mantle-dark.css?url";
+ * import darkHighContrastCssUrl from "@ngrok/mantle/mantle-dark-high-contrast.css?url";
+ * import lightHighContrastCssUrl from "@ngrok/mantle/mantle-light-high-contrast.css?url";
+ * import { mantleStyleSheetUrls, MantleStyleSheets, PreventWrongThemeFlashScript } from "@ngrok/mantle/theme";
+ *
+ * const themeUrls = mantleStyleSheetUrls({ darkCssUrl, lightHighContrastCssUrl, darkHighContrastCssUrl });
+ *
+ * <head>
+ *   <PreventWrongThemeFlashScript nonce={nonce} />
+ *   <MantleStyleSheets {...themeUrls} nonce={nonce} ssrCookie={loaderData?.ssrCookie} />
+ * </head>
  * ```
  */
-function MantleStylesheets({ forceTheme, nonce, ssrCookie }: MantleStylesheetsProps) {
+function MantleStyleSheets({
+	darkCssUrl,
+	lightHighContrastCssUrl,
+	darkHighContrastCssUrl,
+	forceTheme,
+	nonce,
+	ssrCookie,
+}: MantleStyleSheetsProps) {
 	useEffect(() => {
 		function getAppliedTheme(): ResolvedTheme | undefined {
 			const value = document.documentElement.dataset.appliedTheme;
@@ -238,11 +310,13 @@ function MantleStylesheets({ forceTheme, nonce, ssrCookie }: MantleStylesheetsPr
 	// forceTheme provide a deterministic answer at render time.
 	const needsFixScript = !forceTheme && ssrAppliedTheme == null;
 
-	// When forceTheme is set, only render the link tag for that theme — the others will
-	// never apply and can be omitted to avoid unnecessary network requests.
-	const renderDark = !forceTheme || forceTheme === "dark";
-	const renderLightHc = !forceTheme || forceTheme === "light-high-contrast";
-	const renderDarkHc = !forceTheme || forceTheme === "dark-high-contrast";
+	// When forceTheme is a non-light theme, only render the link tag for that theme — the
+	// others will never apply and can be omitted to avoid unnecessary network requests.
+	// forceTheme="light" is the base theme (no dedicated lazy stylesheet), so all three
+	// links are still rendered in case the user's OS preference differs.
+	const renderDark = forceTheme !== "light-high-contrast" && forceTheme !== "dark-high-contrast";
+	const renderLightHc = forceTheme !== "dark" && forceTheme !== "dark-high-contrast";
+	const renderDarkHc = forceTheme !== "dark" && forceTheme !== "light-high-contrast";
 
 	return (
 		<>
@@ -259,7 +333,7 @@ function MantleStylesheets({ forceTheme, nonce, ssrCookie }: MantleStylesheetsPr
 				<link
 					rel="stylesheet"
 					id={LIGHT_HIGH_CONTRAST_LINK_ID}
-					href={lightHcCssUrl}
+					href={lightHighContrastCssUrl}
 					media={lightHighContrast}
 					suppressHydrationWarning
 				/>
@@ -268,7 +342,7 @@ function MantleStylesheets({ forceTheme, nonce, ssrCookie }: MantleStylesheetsPr
 				<link
 					rel="stylesheet"
 					id={DARK_HIGH_CONTRAST_LINK_ID}
-					href={darkHcCssUrl}
+					href={darkHighContrastCssUrl}
 					media={darkHighContrast}
 					suppressHydrationWarning
 				/>
@@ -283,6 +357,6 @@ function MantleStylesheets({ forceTheme, nonce, ssrCookie }: MantleStylesheetsPr
 		</>
 	);
 }
-MantleStylesheets.displayName = "MantleStylesheets";
+MantleStyleSheets.displayName = "MantleStyleSheets";
 
-export { MantleStylesheets };
+export { mantleStyleSheetUrls, MantleStyleSheets };

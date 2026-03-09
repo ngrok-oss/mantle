@@ -2,11 +2,15 @@ import { cx } from "@ngrok/mantle/cx";
 import { useScrollBehavior } from "@ngrok/mantle/hooks";
 import {
 	extractThemeCookie,
-	MantleStylesheets,
+	mantleStyleSheetUrls,
+	MantleStyleSheets,
 	PreventWrongThemeFlashScript,
 	ThemeProvider,
 	useInitialHtmlThemeProps,
 } from "@ngrok/mantle/theme";
+import darkCssUrl from "@ngrok/mantle/mantle-dark.css?url";
+import darkHighContrastCssUrl from "@ngrok/mantle/mantle-dark-high-contrast.css?url";
+import lightHighContrastCssUrl from "@ngrok/mantle/mantle-light-high-contrast.css?url";
 import { Toaster } from "@ngrok/mantle/toast";
 import { TooltipProvider } from "@ngrok/mantle/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -28,6 +32,12 @@ import { NavigationProvider } from "./components/navigation-context";
 import { useNonce } from "./components/nonce";
 import "./global.css";
 import { canonicalDomain, canonicalHref } from "./utilities/canonical-origin";
+
+const themeUrls = mantleStyleSheetUrls({
+	darkCssUrl,
+	lightHighContrastCssUrl,
+	darkHighContrastCssUrl,
+});
 
 const title = "@ngrok/mantle";
 const description = "mantle is ngrok's UI library and design system";
@@ -147,7 +157,7 @@ export function Layout({ children }: PropsWithChildren) {
 				<meta name="og:image" property="og:image" content="/og-image.png" />
 				<meta name="twitter:image" property="twitter:image" content="/og-image.png" />
 				<PreventWrongThemeFlashScript nonce={nonce} />
-				<MantleStylesheets nonce={nonce} ssrCookie={loaderData?.ssrCookie} />
+				<MantleStyleSheets {...themeUrls} nonce={nonce} ssrCookie={loaderData?.ssrCookie} />
 				<meta name="author" content="ngrok" />
 				<meta name="commit-sha" content={loaderData?.commitSha} />
 				<meta name="deployment-id" content={loaderData?.deploymentId} />
