@@ -8,55 +8,63 @@
  * `@ngrok/mantle/button`).
  *
  * Derived from the kebab-case component directories in
- * `packages/mantle/src/components/`. This union only includes those
- * kebab-case subpaths. Higher-level option handling (e.g. `allowlist`) also
- * accepts PascalCase names (e.g. `"AlertDialog"` → `"alert-dialog"`), but
- * they are normalized to these kebab-case subpaths before use.
+ * `packages/mantle/src/components/`. This list only includes component
+ * subpaths, not utility exports (e.g. `cx`, `hooks`, `color`). Higher-level
+ * option handling (e.g. `allowlist`) also accepts PascalCase names (e.g.
+ * `"AlertDialog"` → `"alert-dialog"`), but they are normalized to these
+ * kebab-case subpaths before use.
  */
-export type MantleComponentName =
-	| "accordion"
-	| "alert"
-	| "alert-dialog"
-	| "anchor"
-	| "badge"
-	| "browser-only"
-	| "button"
-	| "calendar"
-	| "card"
-	| "checkbox"
-	| "code"
-	| "code-block"
-	| "combobox"
-	| "command"
-	| "data-table"
-	| "description-list"
-	| "dialog"
-	| "dropdown-menu"
-	| "flag"
-	| "hover-card"
-	| "icon"
-	| "icons"
-	| "input"
-	| "kbd"
-	| "label"
-	| "media-object"
-	| "multi-select"
-	| "pagination"
-	| "popover"
-	| "progress"
-	| "radio-group"
-	| "sandboxed-on-click"
-	| "select"
-	| "separator"
-	| "sheet"
-	| "skeleton"
-	| "slider"
-	| "slot"
-	| "split-button"
-	| "switch"
-	| "table"
-	| "tabs"
-	| "text-area"
-	| "theme"
-	| "toast"
-	| "tooltip";
+export const MANTLE_COMPONENT_NAMES = [
+	"accordion",
+	"alert",
+	"alert-dialog",
+	"anchor",
+	"badge",
+	"browser-only",
+	"button",
+	"calendar",
+	"card",
+	"checkbox",
+	"code",
+	"code-block",
+	"combobox",
+	"command",
+	"data-table",
+	"description-list",
+	"dialog",
+	"dropdown-menu",
+	"flag",
+	"hover-card",
+	"icon",
+	"icons",
+	"input",
+	"kbd",
+	"label",
+	"media-object",
+	"multi-select",
+	"pagination",
+	"popover",
+	"progress",
+	"radio-group",
+	"sandboxed-on-click",
+	"select",
+	"separator",
+	"sheet",
+	"skeleton",
+	"slider",
+	"slot",
+	"split-button",
+	"switch",
+	"table",
+	"tabs",
+	"text-area",
+	"theme",
+	"toast",
+	"tooltip",
+] as const;
+
+/**
+ * Union type of all known `@ngrok/mantle` component subpath names.
+ * Derived from {@link MANTLE_COMPONENT_NAMES}.
+ */
+export type MantleComponentName = (typeof MANTLE_COMPONENT_NAMES)[number];

@@ -30,12 +30,13 @@
   },
   "devDependencies": {
     "@cfg/tsconfig": "workspace:*",
+    "@testing-library/jest-dom": "catalog:",
     "@types/node": "catalog:",
     "tsdown": "catalog:",
     "tsx": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:",
-    "vitest": "catalog:"
+    "vitest": "4.0.18"
   },
   "peerDependencies": {
     "@ngrok/mantle": "*",

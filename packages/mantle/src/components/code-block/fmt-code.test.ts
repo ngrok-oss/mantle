@@ -28,7 +28,7 @@ foo.bar = bar;
 		expect(example).toBe("const foo = {};\nconst bar = {};\nfoo.bar = bar;");
 	});
 
-	test("givenv a fmtCode block without indentation, returns the string", () => {
+	test("given a fmtCode block without indentation, returns the string", () => {
 		const example = fmtCode`
 const http = require('http');
 const ngrok = require("@ngrok/ngrok");

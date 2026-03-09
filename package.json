@@ -13,6 +13,7 @@
     "fmt": "oxfmt --write",
     "lint:fix": "oxlint --fix",
     "lint": "oxlint",
+    "install:playwright": "node ./scripts/install-playwright.js",
     "test": "turbo run test",
     "test:watch": "turbo run test:watch",
     "typecheck": "turbo run typecheck",
@@ -33,7 +34,7 @@
     "oxlint": "1.51.0",
     "tsx": "catalog:",
     "turbo": "2.8.14",
-    "vitest": "catalog:"
+    "vitest": "4.0.18"
   },
   "engines": {
     "node": "^24.0.0"
@@ -41,6 +42,7 @@
   "packageManager": "pnpm@10.31.0",
   "pnpm": {
     "overrides": {
+      "@types/node": "24.12.0",
       "@mjackson/node-fetch-server": "npm:@remix-run/node-fetch-server@0.10.0",
       "@vitejs/plugin-react": ">=5.1.4",
       "cookie": ">=1.1.1",

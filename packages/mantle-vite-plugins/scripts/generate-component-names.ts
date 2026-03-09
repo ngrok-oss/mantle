@@ -55,7 +55,7 @@ if (names.length === 0) {
 	process.exit(1);
 }
 
-const union = names.map((name) => `\t| "${name}"`).join("\n");
+const entries = names.map((name) => `\t"${name}",`).join("\n");
 
 const content = `// ⚠️ AUTO-GENERATED — do not edit by hand.
 // Re-run \`pnpm exec tsx scripts/generate-component-names.ts\`
@@ -67,13 +67,21 @@ const content = `// ⚠️ AUTO-GENERATED — do not edit by hand.
  * \`@ngrok/mantle/button\`).
  *
  * Derived from the kebab-case component directories in
- * \`packages/mantle/src/components/\`. This union only includes those
- * kebab-case subpaths. Higher-level option handling (e.g. \`allowlist\`) also
- * accepts PascalCase names (e.g. \`"AlertDialog"\` → \`"alert-dialog"\`), but
- * they are normalized to these kebab-case subpaths before use.
+ * \`packages/mantle/src/components/\`. This list only includes component
+ * subpaths, not utility exports (e.g. \`cx\`, \`hooks\`, \`color\`). Higher-level
+ * option handling (e.g. \`allowlist\`) also accepts PascalCase names (e.g.
+ * \`"AlertDialog"\` → \`"alert-dialog"\`), but they are normalized to these
+ * kebab-case subpaths before use.
  */
-export type MantleComponentName =
-${union};
+export const MANTLE_COMPONENT_NAMES = [
+${entries}
+] as const;
+
+/**
+ * Union type of all known \`@ngrok/mantle\` component subpath names.
+ * Derived from {@link MANTLE_COMPONENT_NAMES}.
+ */
+export type MantleComponentName = (typeof MANTLE_COMPONENT_NAMES)[number];
 `;
 
 const existing = fs.existsSync(outputFile) ? fs.readFileSync(outputFile, "utf8") : null;

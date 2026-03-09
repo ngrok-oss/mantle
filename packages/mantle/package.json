@@ -308,7 +308,6 @@
 	"scripts": {
 		"build": "NODE_OPTIONS='--max-old-space-size=16384' tsdown",
 		"clean": "rm -rf dist",
-		"install:playwright": "node ../../scripts/install-playwright.js",
 		"prebuild": "pnpm run clean",
 		"test:watch": "TZ=UTC vitest watch",
 		"test": "TZ=UTC vitest run",

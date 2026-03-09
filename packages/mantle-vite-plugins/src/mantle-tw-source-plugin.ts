@@ -6,11 +6,13 @@ import {
 	parseComponentsFromCssFile,
 	resolveMantleDistDir,
 	scanMantleImports,
-	VALID_COMPONENT_RE,
 	writeSourcesToCssFile,
 } from "./internals.js";
-import type { MantleComponentName } from "./mantle-component-name.js";
+import { MANTLE_COMPONENT_NAMES, type MantleComponentName } from "./mantle-component-name.js";
 import { slugifyComponentName } from "./slugify.js";
+
+/** Set of all known mantle component subpath names for O(1) membership checks. */
+const MANTLE_COMPONENT_NAME_SET: ReadonlySet<string> = new Set(MANTLE_COMPONENT_NAMES);
 
 /**
  * Options for `mantleTwSourcePlugin`.
@@ -117,7 +119,7 @@ export function mantleTwSourcePlugin(options: MantleTwSourcePluginOptions = {}):
 	const allowlistComponents = new Set<string>();
 	for (const entry of allowlist) {
 		const name = slugifyComponentName(entry);
-		if (VALID_COMPONENT_RE.test(name)) {
+		if (MANTLE_COMPONENT_NAME_SET.has(name)) {
 			allowlistComponents.add(name);
 		} else {
 			console.warn(
@@ -177,7 +179,9 @@ export function mantleTwSourcePlugin(options: MantleTwSourcePluginOptions = {}):
 		}
 
 		const rawScanned = scanMantleImports(collectSourceFiles(config.root));
-		scannedComponents = new Set([...rawScanned].filter((name) => VALID_COMPONENT_RE.test(name)));
+		scannedComponents = new Set(
+			[...rawScanned].filter((name) => MANTLE_COMPONENT_NAME_SET.has(name)),
+		);
 		const components = new Set([
 			...allowlistComponents,
 			...scannedComponents,
@@ -301,10 +305,10 @@ export function mantleTwSourcePlugin(options: MantleTwSourcePluginOptions = {}):
 			if (!name || name.endsWith(".css")) {
 				return null;
 			}
-			// Only accept valid kebab-case subpath names. This guards against
-			// path traversal (e.g. "..") or other unexpected specifiers that
-			// would produce invalid @source paths in the CSS file.
-			if (!VALID_COMPONENT_RE.test(name)) {
+			// Only track known mantle component subpaths — excludes utility exports
+			// (e.g. cx, hooks, color) and guards against path traversal or other
+			// unexpected specifiers that would produce invalid @source paths.
+			if (!MANTLE_COMPONENT_NAME_SET.has(name)) {
 				return null;
 			}
 
@@ -381,7 +385,9 @@ export function mantleTwSourcePlugin(options: MantleTwSourcePluginOptions = {}):
 				}
 
 				const rawNew = scanMantleImports([changedFile]);
-				const newComponents = new Set([...rawNew].filter((name) => VALID_COMPONENT_RE.test(name)));
+				const newComponents = new Set(
+					[...rawNew].filter((name) => MANTLE_COMPONENT_NAME_SET.has(name)),
+				);
 				const hasNew = [...newComponents].some((component) => !knownComponents.has(component));
 				if (!hasNew) {
 					return;
