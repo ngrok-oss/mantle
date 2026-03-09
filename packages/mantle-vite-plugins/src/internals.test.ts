@@ -65,7 +65,7 @@ describe("resolveMantleDistDir", () => {
 
 		const symlinkDir = path.join(tmpDir, "node_modules/@ngrok/mantle");
 		fs.mkdirSync(path.dirname(symlinkDir), { recursive: true });
-		fs.symlinkSync(realPkgDir, symlinkDir);
+		fs.symlinkSync(realPkgDir, symlinkDir, process.platform === "win32" ? "junction" : "dir");
 
 		const result = resolveMantleDistDir(tmpDir);
 		// Must use the symlink path, not the pnpm content-addressed realpath

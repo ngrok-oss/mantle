@@ -3,13 +3,14 @@ import path from "node:path";
 
 /**
  * Resolves the `dist/` directory of the installed `@ngrok/mantle` package
- * by walking up the directory tree from `root` and looking for
- * `node_modules/@ngrok/mantle` — without following symlinks.
+ * by walking up the directory tree from `root` and looking for the
+ * symlinked `node_modules/@ngrok/mantle` path instead of its realpath in
+ * the pnpm store.
  *
- * Avoiding symlink resolution is important in pnpm workspaces: using
- * `require.resolve` would return the content-addressed path deep inside
+ * Avoiding resolution to the content-addressed realpath is important in pnpm
+ * workspaces: using `require.resolve` would return the path deep inside
  * `.pnpm/`, producing unreadable relative paths in the generated CSS. By
- * using the symlinked `node_modules/@ngrok/mantle` path directly we get
+ * using the `node_modules/@ngrok/mantle` symlink path directly we get
  * clean, stable paths.
  *
  * @param root - Absolute path to the Vite project root (used as the starting
