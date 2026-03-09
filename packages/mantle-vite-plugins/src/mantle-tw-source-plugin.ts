@@ -1,21 +1,21 @@
 import path from "node:path";
-import { createRequire } from "node:module";
 import type { Plugin, ResolvedConfig, ViteDevServer } from "vite";
 import {
 	collectFiles,
 	findFirstExisting,
+	resolveMantleDistDir,
 	scanMantleImports,
 	writeSourcesToCssFile,
 } from "./internals.js";
 
 /**
- * Options for `mantleSourcePlugin`.
+ * Options for `mantleTwSourcePlugin`.
  */
-export type MantleSourcePluginOptions = {
+export type MantleTwSourcePluginOptions = {
 	/**
 	 * Directories to scan recursively for `@ngrok/mantle/*` imports.
 	 * Paths are relative to the Vite project root.
-	 * Defaults to `["src"]`.
+	 * Defaults to `["app"]`.
 	 */
 	include?: string[];
 
@@ -35,39 +35,16 @@ export type MantleSourcePluginOptions = {
 	cssFile?: string;
 };
 
-const _require = createRequire(import.meta.url);
-
 const SOURCE_EXTENSIONS = [".ts", ".tsx", ".js", ".jsx", ".mdx", ".md"];
 
 /** CSS file candidates tried in order when `cssFile` is not specified. */
 const DEFAULT_CSS_CANDIDATES = ["app/global.css", "src/global.css", "app/app.css", "src/app.css"];
 
 /**
- * Resolves the `dist/` directory of the installed `@ngrok/mantle` package
- * by locating its `package.json` relative to `root`.
- *
- * Uses `require.resolve` so that Node's standard package resolution applies —
- * the package is found in the nearest `node_modules` up the directory tree
- * from `root`.
- *
- * @param root - Absolute path to the Vite project root (used as the starting
- *   point for package resolution).
- * @returns The absolute path to `@ngrok/mantle`'s `dist/` directory, or
- *   `null` if the package cannot be found (e.g. it is not installed).
- */
-function resolveMantleDistDir(root: string): string | null {
-	try {
-		const pkgJsonPath = _require.resolve("@ngrok/mantle/package.json", { paths: [root] });
-		return path.join(path.dirname(pkgJsonPath), "dist");
-	} catch {
-		return null;
-	}
-}
-
-/**
- * Vite plugin that injects Tailwind CSS `@source` directives directly into
- * your global CSS file — only for the `@ngrok/mantle` components your app
- * actually imports.
+ * Vite plugin that scans your app's source files for `@ngrok/mantle/*` component
+ * imports and injects Tailwind CSS `@source` directives into your global CSS file
+ * for only those components — so Tailwind only scans the mantle components your
+ * app actually uses.
  *
  * By default, Tailwind must scan every compiled mantle component to discover
  * which utility classes are used. This plugin scans your app's source files,
@@ -90,10 +67,10 @@ function resolveMantleDistDir(root: string): string | null {
  *
  * 1. Add the plugin to `vite.config.ts`:
  *    ```ts
- *    import { mantleSourcePlugin } from "@ngrok/mantle-vite-plugins";
+ *    import { mantleTwSourcePlugin } from "@ngrok/mantle-vite-plugins";
  *
  *    export default defineConfig({
- *      plugins: [mantleSourcePlugin()],
+ *      plugins: [mantleTwSourcePlugin()],
  *    });
  *    ```
  *
@@ -105,11 +82,11 @@ function resolveMantleDistDir(root: string): string | null {
  * The plugin writes the correct `@source` lines into your CSS file so Tailwind
  * picks them up on startup in both dev and prod.
  *
- * @param options - Optional configuration. See {@link MantleSourcePluginOptions}.
+ * @param options - Optional configuration. See {@link MantleTwSourcePluginOptions}.
  * @returns A Vite plugin object.
  */
-export function mantleSourcePlugin(options: MantleSourcePluginOptions = {}): Plugin {
-	const { include = ["src"], cssFile: cssFileOption } = options;
+export function mantleTwSourcePlugin(options: MantleTwSourcePluginOptions = {}): Plugin {
+	const { include = ["app"], cssFile: cssFileOption } = options;
 
 	let resolvedCssFile: string | null = null;
 	let mantleDistDir: string | null = null;
@@ -145,7 +122,7 @@ export function mantleSourcePlugin(options: MantleSourcePluginOptions = {}): Plu
 	}
 
 	return {
-		name: "@ngrok/mantle-vite-plugins:source",
+		name: "@ngrok/mantle-vite-plugins:tw-source",
 
 		/**
 		 * Runs after Vite has resolved its final configuration. Locates the

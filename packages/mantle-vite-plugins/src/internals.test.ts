@@ -7,6 +7,8 @@ import {
 	MARKER_START,
 	collectFiles,
 	findFirstExisting,
+	parseComponentsFromCssFile,
+	resolveMantleDistDir,
 	scanMantleImports,
 	writeSourcesToCssFile,
 } from "./internals.js";
@@ -35,6 +37,47 @@ function writeFile(relPath: string, content: string): string {
 function readFile(relPath: string): string {
 	return fs.readFileSync(path.join(tmpDir, relPath), "utf8");
 }
+
+// ---------------------------------------------------------------------------
+// resolveMantleDistDir
+// ---------------------------------------------------------------------------
+
+describe("resolveMantleDistDir", () => {
+	it("finds dist/ when node_modules/@ngrok/mantle exists directly under root", () => {
+		writeFile("node_modules/@ngrok/mantle/package.json", "{}");
+		expect(resolveMantleDistDir(tmpDir)).toBe(path.join(tmpDir, "node_modules/@ngrok/mantle/dist"));
+	});
+
+	it("finds dist/ by walking up to a parent directory", () => {
+		writeFile("node_modules/@ngrok/mantle/package.json", "{}");
+		const child = path.join(tmpDir, "apps/www");
+		fs.mkdirSync(child, { recursive: true });
+		expect(resolveMantleDistDir(child)).toBe(path.join(tmpDir, "node_modules/@ngrok/mantle/dist"));
+	});
+
+	it("returns the symlink path, not the realpath, when node_modules is a symlink (pnpm)", () => {
+		// Simulate pnpm: real package lives at a hashed path, symlinked into node_modules
+		const realPkgDir = path.join(
+			tmpDir,
+			".pnpm/@ngrok+mantle@1.0.0_hash/node_modules/@ngrok/mantle",
+		);
+		fs.mkdirSync(realPkgDir, { recursive: true });
+		fs.writeFileSync(path.join(realPkgDir, "package.json"), "{}", "utf8");
+
+		const symlinkDir = path.join(tmpDir, "node_modules/@ngrok/mantle");
+		fs.mkdirSync(path.dirname(symlinkDir), { recursive: true });
+		fs.symlinkSync(realPkgDir, symlinkDir, process.platform === "win32" ? "junction" : "dir");
+
+		const result = resolveMantleDistDir(tmpDir);
+		// Must use the symlink path, not the pnpm content-addressed realpath
+		expect(result).toBe(path.join(tmpDir, "node_modules/@ngrok/mantle/dist"));
+		expect(result).not.toContain(".pnpm");
+	});
+
+	it("returns null when the package is not installed", () => {
+		expect(resolveMantleDistDir(tmpDir)).toBeNull();
+	});
+});
 
 // ---------------------------------------------------------------------------
 // scanMantleImports
@@ -246,6 +289,50 @@ describe("writeSourcesToCssFile", () => {
 		expect(() =>
 			writeSourcesToCssFile("/nonexistent/global.css", new Set(["button"]), tmpDir),
 		).not.toThrow();
+	});
+});
+
+// ---------------------------------------------------------------------------
+// parseComponentsFromCssFile
+// ---------------------------------------------------------------------------
+
+describe("parseComponentsFromCssFile", () => {
+	it("returns an empty set when the file does not exist", () => {
+		expect(parseComponentsFromCssFile("/nonexistent/global.css")).toEqual(new Set());
+	});
+
+	it("returns an empty set when no marker block is present", () => {
+		const cssFile = writeFile("global.css", `@import "tailwindcss";\n`);
+		expect(parseComponentsFromCssFile(cssFile)).toEqual(new Set());
+	});
+
+	it("extracts component names from a written @source block", () => {
+		writeFile("global.css", `@import "tailwindcss";\n`);
+		const cssFile = path.join(tmpDir, "global.css");
+		const distDir = path.join(tmpDir, "dist");
+		writeSourcesToCssFile(cssFile, new Set(["button", "badge", "input"]), distDir);
+
+		expect(parseComponentsFromCssFile(cssFile)).toEqual(new Set(["button", "badge", "input"]));
+	});
+
+	it("is the inverse of writeSourcesToCssFile (round-trips correctly)", () => {
+		writeFile("global.css", `@import "tailwindcss";\n`);
+		const cssFile = path.join(tmpDir, "global.css");
+		const distDir = path.join(tmpDir, "dist");
+		const components = new Set(["anchor", "badge", "button", "card", "tooltip"]);
+
+		writeSourcesToCssFile(cssFile, components, distDir);
+		expect(parseComponentsFromCssFile(cssFile)).toEqual(components);
+	});
+
+	it("returns an empty set after the block is removed", () => {
+		writeFile("global.css", `@import "tailwindcss";\n`);
+		const cssFile = path.join(tmpDir, "global.css");
+		const distDir = path.join(tmpDir, "dist");
+
+		writeSourcesToCssFile(cssFile, new Set(["button"]), distDir);
+		writeSourcesToCssFile(cssFile, new Set(), distDir); // remove block
+		expect(parseComponentsFromCssFile(cssFile)).toEqual(new Set());
 	});
 });
 

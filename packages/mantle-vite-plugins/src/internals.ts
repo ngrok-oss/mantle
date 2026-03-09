@@ -1,6 +1,38 @@
 import fs from "node:fs";
 import path from "node:path";
 
+/**
+ * Resolves the `dist/` directory of the installed `@ngrok/mantle` package
+ * by walking up the directory tree from `root` and looking for the
+ * symlinked `node_modules/@ngrok/mantle` path instead of its realpath in
+ * the pnpm store.
+ *
+ * Avoiding resolution to the content-addressed realpath is important in pnpm
+ * workspaces: using `require.resolve` would return the path deep inside
+ * `.pnpm/`, producing unreadable relative paths in the generated CSS. By
+ * using the `node_modules/@ngrok/mantle` symlink path directly we get
+ * clean, stable paths.
+ *
+ * @param root - Absolute path to the Vite project root (used as the starting
+ *   point for the upward search).
+ * @returns The absolute path to `@ngrok/mantle`'s `dist/` directory, or
+ *   `null` if the package cannot be found (e.g. it is not installed).
+ */
+export function resolveMantleDistDir(root: string): string | null {
+	let dir = root;
+	while (true) {
+		const candidate = path.join(dir, "node_modules/@ngrok/mantle");
+		if (fs.existsSync(path.join(candidate, "package.json"))) {
+			return path.join(candidate, "dist");
+		}
+		const parent = path.dirname(dir);
+		if (parent === dir) {
+			return null;
+		}
+		dir = parent;
+	}
+}
+
 /** Marker inserted before the auto-generated `@source` block. */
 export const MARKER_START = "/* @ngrok/mantle-vite-plugins:source:start */";
 
@@ -152,6 +184,42 @@ export function writeSourcesToCssFile(
  */
 function escapeRegex(s: string): string {
 	return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+/**
+ * Parses the auto-generated `@source` block already present in `cssFile` and
+ * returns the set of mantle component names it references.
+ *
+ * Returns an empty set if the file cannot be read or contains no marker block.
+ *
+ * @param cssFile - Absolute path to the CSS file to parse.
+ * @returns A `Set` of mantle component names (e.g. `Set { "button", "badge" }`).
+ */
+export function parseComponentsFromCssFile(cssFile: string): Set<string> {
+	const components = new Set<string>();
+	let content: string;
+	try {
+		content = fs.readFileSync(cssFile, "utf8");
+	} catch {
+		return components;
+	}
+
+	const startIdx = content.indexOf(MARKER_START);
+	const endIdx = content.indexOf(MARKER_END);
+	if (startIdx === -1 || endIdx === -1 || endIdx <= startIdx) {
+		return components;
+	}
+
+	const block = content.slice(startIdx + MARKER_START.length, endIdx);
+	// Match lines like: @source "../node_modules/@ngrok/mantle/dist/button.js";
+	const sourceRe = /@source\s+"[^"]*\/([^"/]+)\.js"\s*;/g;
+	for (const match of block.matchAll(sourceRe)) {
+		const name = match[1];
+		if (name) {
+			components.add(name);
+		}
+	}
+	return components;
 }
 
 /**
