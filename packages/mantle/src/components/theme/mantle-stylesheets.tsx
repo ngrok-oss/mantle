@@ -30,8 +30,8 @@ const MEDIA_DARK_HC = "(prefers-contrast: more) and (prefers-color-scheme: dark)
 
 type MediaValues = {
 	dark: string;
-	lightHc: string;
-	darkHc: string;
+	lightHighContrast: string;
+	darkHighContrast: string;
 };
 
 /**
@@ -46,8 +46,8 @@ function computeMediaValues(
 	const theme = forceTheme ?? appliedTheme;
 	return {
 		dark: theme === "dark" ? "all" : MEDIA_DARK,
-		lightHc: theme === "light-high-contrast" ? "all" : MEDIA_LIGHT_HC,
-		darkHc: theme === "dark-high-contrast" ? "all" : MEDIA_DARK_HC,
+		lightHighContrast: theme === "light-high-contrast" ? "all" : MEDIA_LIGHT_HC,
+		darkHighContrast: theme === "dark-high-contrast" ? "all" : MEDIA_DARK_HC,
 	};
 }
 
@@ -183,24 +183,27 @@ function MantleStylesheets({ forceTheme, nonce, ssrCookie }: MantleStylesheetsPr
 		}
 
 		function updateMediaAttributes() {
-			const { dark, lightHc, darkHc } = computeMediaValues(getAppliedTheme(), forceTheme);
+			const { dark, lightHighContrast, darkHighContrast } = computeMediaValues(
+				getAppliedTheme(),
+				forceTheme,
+			);
 
 			const darkLink = document.getElementById(DARK_LINK_ID) as HTMLLinkElement | null;
-			const lightHcLink = document.getElementById(
+			const lightHighContrastLink = document.getElementById(
 				LIGHT_HIGH_CONTRAST_LINK_ID,
 			) as HTMLLinkElement | null;
-			const darkHcLink = document.getElementById(
+			const darkHighContrastLink = document.getElementById(
 				DARK_HIGH_CONTRAST_LINK_ID,
 			) as HTMLLinkElement | null;
 
 			if (darkLink) {
 				darkLink.media = dark;
 			}
-			if (lightHcLink) {
-				lightHcLink.media = lightHc;
+			if (lightHighContrastLink) {
+				lightHighContrastLink.media = lightHighContrast;
 			}
-			if (darkHcLink) {
-				darkHcLink.media = darkHc;
+			if (darkHighContrastLink) {
+				darkHighContrastLink.media = darkHighContrast;
 			}
 		}
 
@@ -221,12 +224,19 @@ function MantleStylesheets({ forceTheme, nonce, ssrCookie }: MantleStylesheetsPr
 
 	// On SSR (and as the initial React render), emit the link tags with media values
 	// derived from the cookie-stored theme (if available) and forceTheme.
-	// When ssrCookie provides a non-system theme, we can render the correct media
-	// attribute directly and skip the inline fix script for that case.
 	// The useEffect above will correct them on the client before the user can interact.
 	const ssrStoredTheme = ssrCookie != null ? getStoredTheme({ cookie: ssrCookie }) : undefined;
 	const ssrAppliedTheme = ssrStoredTheme !== "system" ? ssrStoredTheme : undefined;
-	const { dark, lightHc, darkHc } = computeMediaValues(ssrAppliedTheme, forceTheme);
+	const { dark, lightHighContrast, darkHighContrast } = computeMediaValues(
+		ssrAppliedTheme,
+		forceTheme,
+	);
+
+	// The inline fix script corrects media attributes for users whose stored theme differs from
+	// their OS preference. It is only needed when the SSR HTML may have been rendered with
+	// incorrect media values — i.e. when neither ssrCookie (with a non-system theme) nor
+	// forceTheme provide a deterministic answer at render time.
+	const needsFixScript = forceTheme == null && ssrAppliedTheme == null;
 
 	return (
 		<>
@@ -241,21 +251,23 @@ function MantleStylesheets({ forceTheme, nonce, ssrCookie }: MantleStylesheetsPr
 				rel="stylesheet"
 				id={LIGHT_HIGH_CONTRAST_LINK_ID}
 				href={lightHcCssUrl}
-				media={lightHc}
+				media={lightHighContrast}
 				suppressHydrationWarning
 			/>
 			<link
 				rel="stylesheet"
 				id={DARK_HIGH_CONTRAST_LINK_ID}
 				href={darkHcCssUrl}
-				media={darkHc}
+				media={darkHighContrast}
 				suppressHydrationWarning
 			/>
-			<script
-				dangerouslySetInnerHTML={{ __html: fixMediaScriptContent(forceTheme) }}
-				nonce={nonce}
-				suppressHydrationWarning
-			/>
+			{needsFixScript && (
+				<script
+					dangerouslySetInnerHTML={{ __html: fixMediaScriptContent(forceTheme) }}
+					nonce={nonce}
+					suppressHydrationWarning
+				/>
+			)}
 		</>
 	);
 }

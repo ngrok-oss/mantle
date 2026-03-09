@@ -13,7 +13,7 @@ To use the `ThemeProvider`, wrap your application's entry point. This should be 
 
 For SSR apps, add `PreventWrongThemeFlashScript` and `MantleStylesheets` to the `<head>` to prevent a Flash of Unstyled Content (FOUC), and send font preloads as HTTP `Link` response headers using `preloadFontLink`. Delivering font hints as headers starts fetches before the browser parses any HTML, improving LCP on mobile.
 
-`MantleStylesheets` renders the three `<link rel="stylesheet">` tags for the dark, light-high-contrast, and dark-high-contrast theme CSS files. Each stylesheet is gated behind a `media` attribute matching its OS preference so it is non-render-blocking for users who do not need it. Pass `ssrCookie` (from `extractThemeCookie`) so the server can render the correct `media` attribute for users with a manually-selected theme, avoiding FOUC without relying on JavaScript.
+`MantleStylesheets` renders the three `<link rel="stylesheet">` tags for the dark, light-high-contrast, and dark-high-contrast theme CSS files. Each stylesheet is gated behind a `media` attribute matching its OS preference so it is non-render-blocking for users who do not need it. Pass `ssrCookie` (from `extractThemeCookie`) so the server can render the correct `media` attribute for users with a manually-selected theme — when a non-system theme is resolved from the cookie, the SSR HTML is already correct and no inline fix script is needed, avoiding FOUC without relying on JavaScript hydration.
 
 ```ts
 // entry.server.tsx — send font preloads as HTTP Link headers
@@ -203,11 +203,11 @@ Renders three `<link rel="stylesheet">` tags for the dark, light-high-contrast, 
 
 An inline `<script>` is also rendered after the `<link>` tags. It runs synchronously before first paint and corrects any `media` attributes for users with a manually-selected theme, preventing FOUC without needing JavaScript hydration.
 
-| Prop          | Type            | Default | Description                                                                                                                                                                                                                                                      |
-| ------------- | --------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `forceTheme?` | `ResolvedTheme` |         | Force a specific theme's stylesheet to load unconditionally (`media="all"`). Use for pages locked to a single theme (e.g. a dark-only landing page).                                                                                                             |
-| `ssrCookie?`  | `string`        |         | The extracted theme cookie from the incoming HTTP request (via `extractThemeCookie`). When provided, the server renders the correct `media` attribute directly in HTML, eliminating the need for the inline fix script for users with a stored non-system theme. |
-| `nonce?`      | `string`        |         | CSP nonce to allowlist the inline fix script. Mirror the same nonce passed to `PreventWrongThemeFlashScript`.                                                                                                                                                    |
+| Prop          | Type            | Default | Description                                                                                                                                                                                                                                   |
+| ------------- | --------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `forceTheme?` | `ResolvedTheme` |         | Force a specific theme's stylesheet to load unconditionally (`media="all"`). Use for pages locked to a single theme (e.g. a dark-only landing page).                                                                                          |
+| `ssrCookie?`  | `string`        |         | The extracted theme cookie from the incoming HTTP request (via `extractThemeCookie`). When a non-system theme is resolved from the cookie, the server renders the correct `media` attribute directly in HTML and omits the inline fix script. |
+| `nonce?`      | `string`        |         | CSP nonce to allowlist the inline fix script. Mirror the same nonce passed to `PreventWrongThemeFlashScript`.                                                                                                                                 |
 
 ### PreventWrongThemeFlashScript
 

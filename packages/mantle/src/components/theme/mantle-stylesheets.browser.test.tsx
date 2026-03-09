@@ -65,8 +65,24 @@ describe("MantleStylesheets — link element rendering", () => {
 		expect(getDarkHcLink().rel).toBe("stylesheet");
 	});
 
-	test("renders a <script> element for the inline media fix", () => {
+	test("renders an inline fix <script> when no ssrCookie and no forceTheme", () => {
 		const { container } = render(<MantleStylesheets />);
+		const scripts = container.querySelectorAll("script");
+		expect(scripts.length).toBeGreaterThanOrEqual(1);
+	});
+
+	test("omits the inline fix <script> when ssrCookie provides a non-system theme", () => {
+		const { container } = render(<MantleStylesheets ssrCookie="mantle-ui-theme=dark" />);
+		expect(container.querySelectorAll("script").length).toBe(0);
+	});
+
+	test("omits the inline fix <script> when forceTheme is set", () => {
+		const { container } = render(<MantleStylesheets forceTheme="dark" />);
+		expect(container.querySelectorAll("script").length).toBe(0);
+	});
+
+	test("renders the inline fix <script> when ssrCookie has system theme", () => {
+		const { container } = render(<MantleStylesheets ssrCookie="mantle-ui-theme=system" />);
 		const scripts = container.querySelectorAll("script");
 		expect(scripts.length).toBeGreaterThanOrEqual(1);
 	});

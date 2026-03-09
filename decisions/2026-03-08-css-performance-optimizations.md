@@ -24,16 +24,16 @@ Root causes identified in `mantle.css`:
 
 Implement three targeted changes to `mantle.css`:
 
-### 1. Move `@source` from `mantle.css` to the consuming app
+### 1. Make `@source` opt-in via `source-all.css` / `mantleSourcePlugin`
 
 `mantle.css` previously declared both `@source "../src"` and `@source "../dist"`. The published npm package ships only `dist/` — `src/` is not included — so `@source "../src"` was a dead path for npm consumers, and the only effective source scan was `@source "../dist"`.
 
-`mantle.css` now declares only `@source "../dist"`, which works correctly for both:
+In the new setup, `mantle.css` no longer declares any `@source` rules. Instead, consumers opt in to scanning mantle's sources by using either:
 
-- **npm consumers** — `../dist` resolves to `node_modules/@ngrok/mantle/dist/` where all compiled JS lives
-- **workspace builds** — `../dist` resolves to `packages/mantle/dist/` after the mantle build runs
+- `source-all.css` — a CSS entrypoint that contains `@source "../dist"` pointing at the entire mantle `dist/` directory, or
+- `mantleSourcePlugin` — a Vite plugin that programmatically injects targeted `@source` directives for only the components the app actually imports.
 
-The workspace `apps/www/app/global.css` adds `@source "../../../packages/mantle/src"` to restore HMR for the docs site. This path is workspace-relative and is not present in the published package, so it only takes effect during local development.
+The workspace `apps/www/app/global.css` imports `source-all.css` so that local development (including HMR for the docs site) still scans `packages/mantle/src` and `packages/mantle/dist`. The published `mantle.css` is free of `@source` and does not force additional scanning in consumer apps by default.
 
 ### 2. Deduplicate `--color-gray-*` in light and dark themes
 
@@ -61,9 +61,9 @@ Shadow tokens (`--shadow-sm`, `--shadow-md`, etc.) are actively used as utilitie
 
 ## Alternatives Considered
 
-### Remove `@source "../dist"` entirely (rejected)
+### Keep `@source "../dist"` in `mantle.css` unconditionally (rejected)
 
-Would break npm consumers: without it, Tailwind has no path to scan mantle's compiled components and would silently drop utility classes used in mantle but absent from the consumer's own source.
+Forces all consumers to scan the entire mantle `dist/` directory, inflating generated CSS. The opt-in approach (`source-all.css` / `mantleSourcePlugin`) gives consumers the choice.
 
 ### Keep both `@source "../src"` and `@source "../dist"` in `mantle.css` (previous state)
 
@@ -90,8 +90,8 @@ High-impact but high-effort changes that require the consuming app (www / ngrok.
 ### Positive
 
 - Generated CSS output size is smaller (fewer unused utility classes)
-- `mantle.css` declares only the `@source` path that actually works for npm consumers
-- Workspace HMR still works via the explicit `@source` in `apps/www/app/global.css`
+- `mantle.css` no longer forces `@source` scanning on consumers; opt-in via `source-all.css` or `mantleSourcePlugin`
+- Workspace HMR still works via `source-all.css` imported in `apps/www/app/global.css`
 - Gray color definitions in light/dark themes are DRY and self-documenting
 - 21 fewer CSS custom property definitions in the light theme (10 neutral + 11 red shades dropped as Tailwind default duplicates)
 
@@ -144,7 +144,7 @@ A new standalone npm package, `@ngrok/mantle-vite-plugins`, was created alongsid
 **`MantleStylesheets` component** (exported from `@ngrok/mantle/theme`) renders the three `<link>` tags. It accepts:
 
 - `forceTheme?: ResolvedTheme` — when set, the corresponding stylesheet's `media` is forced to `"all"` so it loads unconditionally (useful for dark-only apps like ngrok.com).
-- `ssrCookie?: string` — the extracted theme cookie from the incoming HTTP request (via `extractThemeCookie`). When provided, the server resolves the stored theme and renders the correct `media` attribute directly in the SSR HTML, eliminating FOUC for users with a non-system manual theme override without relying on the inline fix script.
+- `ssrCookie?: string` — the extracted theme cookie from the incoming HTTP request (via `extractThemeCookie`). When a non-system theme is resolved from the cookie, the server renders the correct `media` attribute directly in the SSR HTML and omits the inline fix script entirely, eliminating FOUC for users with a manual theme override without relying on JavaScript.
 - `nonce?: string` — CSP nonce for the inline fix script (see below).
 
 On the client, the component uses a `MutationObserver` on `html[data-applied-theme]` to detect manual theme changes (e.g. light-OS user picks dark) and updates the relevant `<link media>` attribute to `"all"` so the stylesheet becomes active.
@@ -158,7 +158,7 @@ On the client, the component uses a `MutationObserver` on `html[data-applied-the
 | System theme = light (majority)                       | None | Dark/HC stylesheets have restrictive media — not applied, not render-blocking                                                                                                                                  |
 | System theme = dark                                   | None | Dark stylesheet media matches — browser applies it before paint                                                                                                                                                |
 | System theme = high-contrast                          | None | HC stylesheet media matches — applied before paint                                                                                                                                                             |
-| Manual theme override + `ssrCookie` provided          | None | Server renders `media="all"` for the active theme directly — no fix script needed                                                                                                                              |
+| Manual theme override + `ssrCookie` provided          | None | Server renders `media="all"` for the active theme directly — fix script is omitted                                                                                                                             |
 | Manual theme override, no `ssrCookie` (or `"system"`) | None | Inline fix script runs synchronously before paint, reads `html[data-applied-theme]` set by `PreventWrongThemeFlashScript`, and corrects `media` attributes. Dark CSS was already downloaded so no visible FOUC |
 | `forceTheme` set (e.g. dark-only app)                 | None | `media="all"` is rendered on SSR — stylesheet is render-blocking as intended                                                                                                                                   |
 
