@@ -120,11 +120,11 @@ describe("MantleStyleSheets — forceTheme omits unused link tags", () => {
 		expect(document.getElementById(DARK_HC_LINK_ID)).toBeInstanceOf(HTMLLinkElement);
 	});
 
-	test('forceTheme="light" renders all three links (light has no dedicated stylesheet)', () => {
+	test('forceTheme="light" renders no link tags (light is the base theme, no dedicated stylesheet)', () => {
 		render(<MantleStyleSheets {...TEST_URLS} forceTheme="light" />);
-		expect(document.getElementById(DARK_LINK_ID)).toBeInstanceOf(HTMLLinkElement);
-		expect(document.getElementById(LIGHT_HC_LINK_ID)).toBeInstanceOf(HTMLLinkElement);
-		expect(document.getElementById(DARK_HC_LINK_ID)).toBeInstanceOf(HTMLLinkElement);
+		expect(document.getElementById(DARK_LINK_ID)).toBeNull();
+		expect(document.getElementById(LIGHT_HC_LINK_ID)).toBeNull();
+		expect(document.getElementById(DARK_HC_LINK_ID)).toBeNull();
 	});
 });
 
@@ -161,11 +161,11 @@ describe("MantleStyleSheets — forceTheme media attributes", () => {
 		expect(getDarkHcLink().media).toBe("all");
 	});
 
-	test('forceTheme="light" leaves all three links with their OS media queries', () => {
+	test('forceTheme="light" renders no link tags (light is the base theme, no dedicated stylesheet)', () => {
 		render(<MantleStyleSheets {...TEST_URLS} forceTheme="light" />);
-		expect(getDarkLink().media).toBe(MEDIA_DARK);
-		expect(getLightHcLink().media).toBe(MEDIA_LIGHT_HC);
-		expect(getDarkHcLink().media).toBe(MEDIA_DARK_HC);
+		expect(document.getElementById(DARK_LINK_ID)).toBeNull();
+		expect(document.getElementById(LIGHT_HC_LINK_ID)).toBeNull();
+		expect(document.getElementById(DARK_HC_LINK_ID)).toBeNull();
 	});
 });
 

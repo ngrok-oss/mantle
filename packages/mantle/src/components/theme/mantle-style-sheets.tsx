@@ -310,13 +310,12 @@ function MantleStyleSheets({
 	// forceTheme provide a deterministic answer at render time.
 	const needsFixScript = !forceTheme && ssrAppliedTheme == null;
 
-	// When forceTheme is a non-light theme, only render the link tag for that theme — the
-	// others will never apply and can be omitted to avoid unnecessary network requests.
-	// forceTheme="light" is the base theme (no dedicated lazy stylesheet), so all three
-	// links are still rendered in case the user's OS preference differs.
-	const renderDark = forceTheme !== "light-high-contrast" && forceTheme !== "dark-high-contrast";
-	const renderLightHc = forceTheme !== "dark" && forceTheme !== "dark-high-contrast";
-	const renderDarkHc = forceTheme !== "dark" && forceTheme !== "light-high-contrast";
+	// When forceTheme is set, only render the link tag for that specific theme's stylesheet.
+	// Light is the base theme with no dedicated lazy stylesheet, so forceTheme="light" renders
+	// no link tags at all. When forceTheme is unset, all three are rendered.
+	const renderDark = !forceTheme || forceTheme === "dark";
+	const renderLightHighContrast = !forceTheme || forceTheme === "light-high-contrast";
+	const renderDarkHighContrast = !forceTheme || forceTheme === "dark-high-contrast";
 
 	return (
 		<>
@@ -329,7 +328,7 @@ function MantleStyleSheets({
 					suppressHydrationWarning
 				/>
 			)}
-			{renderLightHc && (
+			{renderLightHighContrast && (
 				<link
 					rel="stylesheet"
 					id={LIGHT_HIGH_CONTRAST_LINK_ID}
@@ -338,7 +337,7 @@ function MantleStyleSheets({
 					suppressHydrationWarning
 				/>
 			)}
-			{renderDarkHc && (
+			{renderDarkHighContrast && (
 				<link
 					rel="stylesheet"
 					id={DARK_HIGH_CONTRAST_LINK_ID}
@@ -359,4 +358,8 @@ function MantleStyleSheets({
 }
 MantleStyleSheets.displayName = "MantleStyleSheets";
 
-export { mantleStyleSheetUrls, MantleStyleSheets };
+export {
+	//,
+	mantleStyleSheetUrls,
+	MantleStyleSheets,
+};

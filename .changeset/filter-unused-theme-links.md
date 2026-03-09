@@ -24,4 +24,4 @@ const themeUrls = mantleStyleSheetUrls({ darkCssUrl, lightHighContrastCssUrl, da
 
 This fixes a build error (`Unknown file extension ".css"`) in apps using React Router's SSR build, where `?url` imports inside node_modules are not transformed by Vite.
 
-When `forceTheme` is set, only the link tag for that theme is rendered — the others are omitted to avoid unnecessary network requests.
+When `forceTheme` is set to a non-light theme, only the link tag for that theme is rendered — the others are omitted to avoid unnecessary network requests. `forceTheme="light"` renders no link tags since light is the base theme with no dedicated lazy stylesheet.
