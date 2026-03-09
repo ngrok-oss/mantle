@@ -29,19 +29,19 @@ export function slugify(text: string): string {
 
 /**
  * Converts a mantle component name to a URL-friendly slug used as the mantle
- * subpath name in `@source` directives (e.g. `"command-dialog"`).
+ * subpath name in `@source` directives (e.g. `"alert-dialog"`).
  *
- * Accepts both PascalCase (`"CommandDialog"`) and kebab-case
- * (`"command-dialog"`) inputs. PascalCase is first split at word boundaries
+ * Accepts both PascalCase (`"AlertDialog"`) and kebab-case
+ * (`"alert-dialog"`) inputs. PascalCase is first split at word boundaries
  * before slugification.
  *
  * @param name - Component name in PascalCase or kebab-case.
  * @returns The slugified kebab-case subpath name.
  *
  * @example
- * slugifyComponentName("CommandDialog") // "command-dialog"
+ * slugifyComponentName("AlertDialog") // "alert-dialog"
  * @example
- * slugifyComponentName("command-dialog") // "command-dialog"
+ * slugifyComponentName("alert-dialog") // "alert-dialog"
  * @example
  * slugifyComponentName("Button") // "button"
  */

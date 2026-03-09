@@ -60,4 +60,42 @@ describe("slugifyComponentName", () => {
 	test("given a multi-word PascalCase name, it splits all boundaries", () => {
 		expect(slugifyComponentName("SelectScrollUpButton")).toBe("select-scroll-up-button");
 	});
+
+	test("given whitespace only, it returns an empty string", () => {
+		expect(slugifyComponentName("   ")).toBe("");
+	});
+
+	test("given only punctuation, it returns an empty string", () => {
+		expect(slugifyComponentName("!@#$")).toBe("");
+	});
+});
+
+describe("allowlist normalization (slugifyComponentName + empty filter)", () => {
+	function normalizeAllowlist(entries: string[]): Set<string> {
+		return new Set(entries.map(slugifyComponentName).filter((name) => name.length > 0));
+	}
+
+	test("normalizes PascalCase entries to kebab-case", () => {
+		expect(normalizeAllowlist(["Command", "Dialog"])).toEqual(new Set(["command", "dialog"]));
+	});
+
+	test("accepts kebab-case entries unchanged", () => {
+		expect(normalizeAllowlist(["alert-dialog", "code-block"])).toEqual(
+			new Set(["alert-dialog", "code-block"]),
+		);
+	});
+
+	test("deduplicates equivalent PascalCase and kebab-case entries", () => {
+		expect(normalizeAllowlist(["AlertDialog", "alert-dialog"])).toEqual(new Set(["alert-dialog"]));
+	});
+
+	test("filters out entries that slug to an empty string", () => {
+		expect(normalizeAllowlist(["Button", "   ", "!@#$", "Badge"])).toEqual(
+			new Set(["button", "badge"]),
+		);
+	});
+
+	test("returns an empty set for an empty allowlist", () => {
+		expect(normalizeAllowlist([])).toEqual(new Set());
+	});
 });

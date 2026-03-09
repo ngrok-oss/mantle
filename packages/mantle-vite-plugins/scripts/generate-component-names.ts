@@ -5,7 +5,7 @@
  * and writes a `MantleComponentName` string-literal union type.
  *
  * Run via:
- *   node --experimental-strip-types scripts/generate-component-names.ts
+ *   pnpm exec tsx scripts/generate-component-names.ts
  *
  * This script is called automatically as part of the `build` script.
  * Do not edit `src/mantle-component-name.ts` by hand — it will be overwritten.
@@ -36,7 +36,7 @@ if (names.length === 0) {
 const union = names.map((name) => `\t| "${name}"`).join("\n");
 
 const content = `// ⚠️ AUTO-GENERATED — do not edit by hand.
-// Re-run \`node --experimental-strip-types scripts/generate-component-names.ts\`
+// Re-run \`pnpm exec tsx scripts/generate-component-names.ts\`
 // or \`pnpm run build\` to regenerate after adding or removing mantle components.
 
 /**
@@ -44,9 +44,11 @@ const content = `// ⚠️ AUTO-GENERATED — do not edit by hand.
  * \`@ngrok/mantle/\` in an import specifier (e.g. \`"button"\` for
  * \`@ngrok/mantle/button\`).
  *
- * Derived from the component directories in \`packages/mantle/src/components/\`.
- * Both kebab-case and PascalCase variants are accepted wherever this type
- * is used (e.g. \`"command-dialog"\` and \`"CommandDialog"\` are both valid).
+ * Derived from the kebab-case component directories in
+ * \`packages/mantle/src/components/\`. This union only includes those
+ * kebab-case subpaths. Higher-level option handling (e.g. \`allowlist\`) also
+ * accepts PascalCase names (e.g. \`"AlertDialog"\` → \`"alert-dialog"\`), but
+ * they are normalized to these kebab-case subpaths before use.
  */
 export type MantleComponentName =
 ${union};

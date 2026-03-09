@@ -18,9 +18,9 @@ export type MantleTwSourcePluginOptions = {
 	 * Mantle component names to always include in the `@source` block,
 	 * regardless of whether they are detected in the scanned source files.
 	 *
-	 * Accepts both PascalCase (`"CommandDialog"`) and kebab-case
-	 * (`"command-dialog"`) forms — both are normalized to the mantle subpath
-	 * name (e.g. `"command-dialog"`).
+	 * Accepts both PascalCase (`"AlertDialog"`) and kebab-case
+	 * (`"alert-dialog"`) forms — both are normalized to the mantle subpath
+	 * name (e.g. `"alert-dialog"`).
 	 *
 	 * Useful for components that are imported transitively through workspace
 	 * packages not covered by `include`, or for components rendered only at
@@ -28,7 +28,8 @@ export type MantleTwSourcePluginOptions = {
 	 *
 	 * @example
 	 * ```ts
-	 * mantleTwSourcePlugin({ allowlist: ["Command", "Dialog", "command-dialog"] })
+	 * // Command internally imports Dialog, so allowlist Dialog to ensure its styles are included.
+	 * mantleTwSourcePlugin({ allowlist: ["Command", "Dialog"] })
 	 * ```
 	 */
 	allowlist?: (MantleComponentName | (string & {}))[];
@@ -108,7 +109,9 @@ const DEFAULT_CSS_CANDIDATES = ["app/global.css", "src/global.css", "app/app.css
  */
 export function mantleTwSourcePlugin(options: MantleTwSourcePluginOptions = {}): Plugin {
 	const { allowlist = [], include = ["app"], cssFile: cssFileOption } = options;
-	const allowlistComponents = new Set<string>(allowlist.map(slugifyComponentName));
+	const allowlistComponents = new Set<string>(
+		allowlist.map(slugifyComponentName).filter((name) => name.length > 0),
+	);
 
 	let resolvedCssFile: string | null = null;
 	let mantleDistDir: string | null = null;
