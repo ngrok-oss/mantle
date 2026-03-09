@@ -534,7 +534,7 @@ MARK: UTILITIES
 	animation-duration: --value([length]);
 }
 
-/*
+/**
 MARK: SYNTAX HIGHLIGHT TOKEN STYLES
 */
 .token.comment,
