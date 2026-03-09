@@ -1,5 +1,15 @@
 export {
 	//,
+	MantleStylesheets,
+} from "./mantle-stylesheets.js";
+
+export type {
+	//,
+	MantleStylesheetsProps,
+} from "./mantle-stylesheets.js";
+
+export {
+	//,
 	extractThemeCookie,
 	getStoredTheme,
 	PreventWrongThemeFlashScript,

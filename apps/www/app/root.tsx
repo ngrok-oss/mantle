@@ -1,6 +1,8 @@
 import { cx } from "@ngrok/mantle/cx";
 import { useScrollBehavior } from "@ngrok/mantle/hooks";
 import {
+	extractThemeCookie,
+	MantleStylesheets,
 	PreventWrongThemeFlashScript,
 	ThemeProvider,
 	useInitialHtmlThemeProps,
@@ -81,7 +83,7 @@ export const meta: Route.MetaFunction = () => {
 	];
 };
 
-export const loader = async (_: Route.LoaderArgs) => {
+export const loader = async ({ request }: Route.LoaderArgs) => {
 	const packageJson = await import("@ngrok/mantle/package.json");
 	const commitSha = process.env.VERCEL_GIT_COMMIT_SHA;
 	const deploymentId = process.env.VERCEL_DEPLOYMENT_ID;
@@ -92,6 +94,7 @@ export const loader = async (_: Route.LoaderArgs) => {
 		commitSha,
 		deploymentId,
 		renderReactQueryDevtools: nodeEnv !== "production",
+		ssrCookie: extractThemeCookie(request.headers.get("Cookie")),
 	};
 };
 
@@ -144,6 +147,7 @@ export function Layout({ children }: PropsWithChildren) {
 				<meta name="og:image" property="og:image" content="/og-image.png" />
 				<meta name="twitter:image" property="twitter:image" content="/og-image.png" />
 				<PreventWrongThemeFlashScript nonce={nonce} />
+				<MantleStylesheets nonce={nonce} ssrCookie={loaderData?.ssrCookie} />
 				<meta name="author" content="ngrok" />
 				<meta name="commit-sha" content={loaderData?.commitSha} />
 				<meta name="deployment-id" content={loaderData?.deploymentId} />

@@ -1,0 +1,323 @@
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import {
+	MARKER_END,
+	MARKER_START,
+	collectFiles,
+	findFirstExisting,
+	scanMantleImports,
+	writeSourcesToCssFile,
+} from "./internals.js";
+
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
+
+let tmpDir: string;
+
+beforeEach(() => {
+	tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "mantle-vite-plugin-test-"));
+});
+
+afterEach(() => {
+	fs.rmSync(tmpDir, { recursive: true, force: true });
+});
+
+function writeFile(relPath: string, content: string): string {
+	const absPath = path.join(tmpDir, relPath);
+	fs.mkdirSync(path.dirname(absPath), { recursive: true });
+	fs.writeFileSync(absPath, content, "utf8");
+	return absPath;
+}
+
+function readFile(relPath: string): string {
+	return fs.readFileSync(path.join(tmpDir, relPath), "utf8");
+}
+
+// ---------------------------------------------------------------------------
+// scanMantleImports
+// ---------------------------------------------------------------------------
+
+describe("scanMantleImports", () => {
+	it("returns an empty set when no mantle imports are present", () => {
+		const file = writeFile("app.tsx", `import { useState } from "react";`);
+		expect(scanMantleImports([file])).toEqual(new Set());
+	});
+
+	it("extracts a single component import", () => {
+		const file = writeFile("app.tsx", `import { Button } from "@ngrok/mantle/button";`);
+		expect(scanMantleImports([file])).toEqual(new Set(["button"]));
+	});
+
+	it("extracts multiple distinct component imports from one file", () => {
+		const file = writeFile(
+			"app.tsx",
+			`
+import { Button } from "@ngrok/mantle/button";
+import { Badge } from "@ngrok/mantle/badge";
+import { Input } from "@ngrok/mantle/input";
+`,
+		);
+		expect(scanMantleImports([file])).toEqual(new Set(["button", "badge", "input"]));
+	});
+
+	it("deduplicates components across multiple files", () => {
+		const a = writeFile("a.tsx", `import { Button } from "@ngrok/mantle/button";`);
+		const b = writeFile("b.tsx", `import { Button } from "@ngrok/mantle/button";`);
+		const c = writeFile("c.tsx", `import { Badge } from "@ngrok/mantle/badge";`);
+		expect(scanMantleImports([a, b, c])).toEqual(new Set(["button", "badge"]));
+	});
+
+	it("ignores .css imports", () => {
+		const file = writeFile("global.css", `@import "@ngrok/mantle/mantle.css";`);
+		expect(scanMantleImports([file])).toEqual(new Set());
+	});
+
+	it("handles single-quoted imports", () => {
+		const file = writeFile("app.tsx", `import { Button } from '@ngrok/mantle/button';`);
+		expect(scanMantleImports([file])).toEqual(new Set(["button"]));
+	});
+
+	it("silently skips files that do not exist", () => {
+		expect(scanMantleImports(["/nonexistent/file.tsx"])).toEqual(new Set());
+	});
+});
+
+// ---------------------------------------------------------------------------
+// collectFiles
+// ---------------------------------------------------------------------------
+
+describe("collectFiles", () => {
+	it("collects files with matching extensions", () => {
+		writeFile("src/a.ts", "");
+		writeFile("src/b.tsx", "");
+		writeFile("src/c.js", "");
+		writeFile("src/ignore.css", "");
+
+		const results: string[] = [];
+		collectFiles(path.join(tmpDir, "src"), results, [".ts", ".tsx", ".js"]);
+		const names = results.map((f) => path.basename(f)).sort();
+		expect(names).toEqual(["a.ts", "b.tsx", "c.js"]);
+	});
+
+	it("recurses into subdirectories", () => {
+		writeFile("src/components/button.tsx", "");
+		writeFile("src/pages/home.tsx", "");
+
+		const results: string[] = [];
+		collectFiles(path.join(tmpDir, "src"), results, [".tsx"]);
+		const names = results.map((f) => path.basename(f)).sort();
+		expect(names).toEqual(["button.tsx", "home.tsx"]);
+	});
+
+	it("skips node_modules directories", () => {
+		writeFile("src/app.tsx", "");
+		writeFile("src/node_modules/lib/index.ts", "");
+
+		const results: string[] = [];
+		collectFiles(path.join(tmpDir, "src"), results, [".ts", ".tsx"]);
+		const names = results.map((f) => path.basename(f));
+		expect(names).toEqual(["app.tsx"]);
+	});
+
+	it("returns an empty array for a non-existent directory", () => {
+		const results: string[] = [];
+		collectFiles("/nonexistent/dir", results, [".ts"]);
+		expect(results).toEqual([]);
+	});
+});
+
+// ---------------------------------------------------------------------------
+// writeSourcesToCssFile
+// ---------------------------------------------------------------------------
+
+describe("writeSourcesToCssFile", () => {
+	it("inserts @source block after the last @import with relative paths", () => {
+		// CSS file at tmpDir/app/global.css, dist at tmpDir/dist/
+		writeFile(
+			"app/global.css",
+			`@import "tailwindcss";\n@import "@ngrok/mantle/mantle.css";\n\n@theme {\n\t--color-brand: red;\n}\n`,
+		);
+		const distDir = path.join(tmpDir, "dist");
+		writeSourcesToCssFile(
+			path.join(tmpDir, "app/global.css"),
+			new Set(["button", "badge"]),
+			distDir,
+		);
+
+		const content = readFile("app/global.css");
+		expect(content).toContain(MARKER_START);
+		expect(content).toContain(MARKER_END);
+		// Paths should be relative from app/ to dist/ — i.e. ../dist/
+		expect(content).toContain(`@source "../dist/badge.js";`);
+		expect(content).toContain(`@source "../dist/button.js";`);
+		// No absolute paths
+		expect(content).not.toContain(tmpDir);
+		// Block should appear before @theme (after last @import)
+		const markerIdx = content.indexOf(MARKER_START);
+		const themeIdx = content.indexOf("@theme");
+		expect(markerIdx).toBeLessThan(themeIdx);
+	});
+
+	it("prepends @source block to the start of the file when no @import is present", () => {
+		writeFile("global.css", `@theme {\n\t--color-brand: red;\n}\n`);
+		const distDir = path.join(tmpDir, "dist");
+		writeSourcesToCssFile(path.join(tmpDir, "global.css"), new Set(["button"]), distDir);
+
+		const content = readFile("global.css");
+		expect(content.trimStart().startsWith(MARKER_START)).toBe(true);
+		expect(content).toContain("@theme");
+	});
+
+	it("uses ./ prefix when dist is a sibling of the CSS file", () => {
+		writeFile("global.css", `@import "tailwindcss";\n`);
+		const distDir = path.join(tmpDir, "dist");
+		writeSourcesToCssFile(path.join(tmpDir, "global.css"), new Set(["button"]), distDir);
+
+		const content = readFile("global.css");
+		expect(content).toContain(`@source "./dist/button.js";`);
+	});
+
+	it("sorts @source lines alphabetically", () => {
+		writeFile("global.css", `@import "tailwindcss";\n`);
+		const distDir = path.join(tmpDir, "dist");
+		writeSourcesToCssFile(
+			path.join(tmpDir, "global.css"),
+			new Set(["toast", "badge", "button"]),
+			distDir,
+		);
+
+		const content = readFile("global.css");
+		const badgeIdx = content.indexOf("badge");
+		const buttonIdx = content.indexOf("button");
+		const toastIdx = content.indexOf("toast");
+		expect(badgeIdx).toBeLessThan(buttonIdx);
+		expect(buttonIdx).toBeLessThan(toastIdx);
+	});
+
+	it("replaces an existing block on re-run", () => {
+		writeFile("global.css", `@import "tailwindcss";\n`);
+		const cssFile = path.join(tmpDir, "global.css");
+		const distDir = path.join(tmpDir, "dist");
+
+		writeSourcesToCssFile(cssFile, new Set(["button"]), distDir);
+		expect(readFile("global.css")).toContain("button.js");
+		expect(readFile("global.css")).not.toContain("badge.js");
+
+		writeSourcesToCssFile(cssFile, new Set(["button", "badge"]), distDir);
+		const content = readFile("global.css");
+		expect(content).toContain("button.js");
+		expect(content).toContain("badge.js");
+		// Only one marker block should exist
+		expect(content.split(MARKER_START).length).toBe(2);
+	});
+
+	it("removes the block when components set is empty", () => {
+		writeFile("global.css", `@import "tailwindcss";\n`);
+		const cssFile = path.join(tmpDir, "global.css");
+		const distDir = path.join(tmpDir, "dist");
+
+		writeSourcesToCssFile(cssFile, new Set(["button"]), distDir);
+		expect(readFile("global.css")).toContain(MARKER_START);
+
+		writeSourcesToCssFile(cssFile, new Set(), distDir);
+		const content = readFile("global.css");
+		expect(content).not.toContain(MARKER_START);
+		expect(content).not.toContain("@source");
+	});
+
+	it("does not write to disk when content is unchanged", () => {
+		writeFile("global.css", `@import "tailwindcss";\n`);
+		const cssFile = path.join(tmpDir, "global.css");
+		const distDir = path.join(tmpDir, "dist");
+
+		writeSourcesToCssFile(cssFile, new Set(["button"]), distDir);
+		const mtime1 = fs.statSync(cssFile).mtimeMs;
+
+		writeSourcesToCssFile(cssFile, new Set(["button"]), distDir);
+		const mtime2 = fs.statSync(cssFile).mtimeMs;
+
+		expect(mtime1).toBe(mtime2);
+	});
+
+	it("silently skips a non-existent CSS file", () => {
+		expect(() =>
+			writeSourcesToCssFile("/nonexistent/global.css", new Set(["button"]), tmpDir),
+		).not.toThrow();
+	});
+});
+
+// ---------------------------------------------------------------------------
+// findFirstExisting
+// ---------------------------------------------------------------------------
+
+describe("findFirstExisting", () => {
+	it("returns the first candidate that exists", () => {
+		writeFile("src/global.css", "");
+		writeFile("app/global.css", "");
+
+		const result = findFirstExisting(tmpDir, ["app/global.css", "src/global.css"]);
+		expect(result).toBe(path.join(tmpDir, "app/global.css"));
+	});
+
+	it("skips missing candidates", () => {
+		writeFile("src/global.css", "");
+
+		const result = findFirstExisting(tmpDir, ["app/global.css", "src/global.css"]);
+		expect(result).toBe(path.join(tmpDir, "src/global.css"));
+	});
+
+	it("returns null when no candidate exists", () => {
+		expect(findFirstExisting(tmpDir, ["app/global.css", "src/global.css"])).toBeNull();
+	});
+
+	it("handles absolute candidate paths", () => {
+		const abs = writeFile("global.css", "");
+		expect(findFirstExisting(tmpDir, [abs])).toBe(abs);
+	});
+});
+
+// ---------------------------------------------------------------------------
+// Integration: scan → write
+// ---------------------------------------------------------------------------
+
+describe("scan → writeSourcesToCssFile integration", () => {
+	it("produces correct @source lines for components found in app source", () => {
+		writeFile("src/app.tsx", `import { Button } from "@ngrok/mantle/button";`);
+		writeFile("src/nav.tsx", `import { Badge } from "@ngrok/mantle/badge";`);
+		writeFile("app/global.css", `@import "tailwindcss";\n`);
+
+		const files: string[] = [];
+		collectFiles(path.join(tmpDir, "src"), files, [".ts", ".tsx", ".js", ".jsx"]);
+
+		const components = scanMantleImports(files);
+		const distDir = path.join(tmpDir, "dist");
+		writeSourcesToCssFile(path.join(tmpDir, "app/global.css"), components, distDir);
+
+		const content = readFile("app/global.css");
+		// CSS is at app/global.css, dist is at dist/ — relative path is ../dist/
+		expect(content).toContain(`@source "../dist/button.js";`);
+		expect(content).toContain(`@source "../dist/badge.js";`);
+		expect(content).not.toContain(tmpDir);
+	});
+
+	it("leaves file unchanged when app imports no mantle components", () => {
+		const original = `@import "tailwindcss";\n`;
+		writeFile("app/global.css", original);
+		writeFile("src/app.tsx", `import { useState } from "react";`);
+
+		const files: string[] = [];
+		collectFiles(path.join(tmpDir, "src"), files, [".ts", ".tsx", ".js", ".jsx"]);
+
+		const components = scanMantleImports(files);
+		writeSourcesToCssFile(
+			path.join(tmpDir, "app/global.css"),
+			components,
+			path.join(tmpDir, "dist"),
+		);
+
+		expect(readFile("app/global.css")).toBe(original);
+	});
+});

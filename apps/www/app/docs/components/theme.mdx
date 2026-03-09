@@ -1,17 +1,19 @@
 ---
 title: Theme
-description: ThemeProvider is a React Context Provider that provides the current theme.
+description: Theme primitives — ThemeProvider, MantleStylesheets, and FOUC prevention — for light, dark, and high-contrast modes.
 ---
 
-# Theme Provider
+# Theme
 
-ThemeProvider is a React Context Provider that provides the current theme to the application and a function to change it.
+Mantle's theme system provides `ThemeProvider` (context + cookie persistence), `MantleStylesheets` (lazy-loaded dark/HC CSS via `<link media>`), and `PreventWrongThemeFlashScript` (FOUC prevention inline script) for light, dark, and high-contrast modes.
 
 ## Setup
 
 To use the `ThemeProvider`, wrap your application's entry point. This should be done as high in the component tree as possible.
 
-For SSR apps, add `PreventWrongThemeFlashScript` to the `<head>` to prevent a Flash of Unstyled Content (FOUC), and send font preloads as HTTP `Link` response headers using `preloadFontLink`. Delivering font hints as headers starts fetches before the browser parses any HTML, improving LCP on mobile.
+For SSR apps, add `PreventWrongThemeFlashScript` and `MantleStylesheets` to the `<head>` to prevent a Flash of Unstyled Content (FOUC), and send font preloads as HTTP `Link` response headers using `preloadFontLink`. Delivering font hints as headers starts fetches before the browser parses any HTML, improving LCP on mobile.
+
+`MantleStylesheets` renders the three `<link rel="stylesheet">` tags for the dark, light-high-contrast, and dark-high-contrast theme CSS files. Each stylesheet is gated behind a `media` attribute matching its OS preference so it is non-render-blocking for users who do not need it. Pass `ssrCookie` (from `extractThemeCookie`) so the server can render the correct `media` attribute for users with a manually-selected theme — when a non-system theme is resolved from the cookie, the SSR HTML is already correct and no inline fix script is needed, avoiding FOUC without relying on JavaScript hydration.
 
 ```ts
 // entry.server.tsx — send font preloads as HTTP Link headers
@@ -29,14 +31,29 @@ responseHeaders.set(
 ```
 
 ```tsx
-// root.tsx — only the FOUC script goes in <head>
+// root.tsx loader — extract the theme cookie so the server can render the correct media attribute
+import { extractThemeCookie } from "@ngrok/mantle/theme";
+
+export async function loader({ request }: Route.LoaderArgs) {
+	return {
+		ssrCookie: extractThemeCookie(request.headers.get("Cookie")),
+		// ...other loader data
+	};
+}
+```
+
+```tsx
+// root.tsx — place PreventWrongThemeFlashScript and MantleStylesheets in <head>
 import {
+	extractThemeCookie,
+	MantleStylesheets,
 	PreventWrongThemeFlashScript,
 	ThemeProvider,
 	useInitialHtmlThemeProps,
 } from "@ngrok/mantle/theme";
 
 export function Layout({ children }: PropsWithChildren) {
+	const loaderData = useRouteLoaderData<typeof loader>("root");
 	const initialHtmlThemeProps = useInitialHtmlThemeProps({
 		className: "h-full",
 	});
@@ -46,6 +63,8 @@ export function Layout({ children }: PropsWithChildren) {
 			<head>
 				{/* 👇 add as early as possible in <head> to prevent FOUC */}
 				<PreventWrongThemeFlashScript nonce={nonce} />
+				{/* 👇 lazy-loads dark/HC theme stylesheets; media attrs prevent render-blocking */}
+				<MantleStylesheets nonce={nonce} ssrCookie={loaderData?.ssrCookie} />
 				<meta charSet="utf-8" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<Meta />
@@ -61,13 +80,14 @@ export function Layout({ children }: PropsWithChildren) {
 
 ## Non-SSR / No Header Control
 
-If you cannot set HTTP response headers (e.g. a plain Vite SPA), use `PreventWrongThemeFlashScript` with individual `PreloadFont` elements in the `<head>` instead:
+If you cannot set HTTP response headers (e.g. a plain Vite SPA), omit `ssrCookie` from `MantleStylesheets` and use `PreloadFont` elements instead of `preloadFontLink`. The inline fix script inside `MantleStylesheets` still handles FOUC correctly at runtime.
 
 ```tsx
-import { PreloadFont, PreventWrongThemeFlashScript } from "@ngrok/mantle/theme";
+import { MantleStylesheets, PreloadFont, PreventWrongThemeFlashScript } from "@ngrok/mantle/theme";
 
 <head>
 	<PreventWrongThemeFlashScript nonce={nonce} />
+	<MantleStylesheets nonce={nonce} />
 	<PreloadFont name="roobert" />
 	<PreloadFont name="jetbrains-mono" />
 	<PreloadFont name="family-regular" />
@@ -76,7 +96,7 @@ import { PreloadFont, PreventWrongThemeFlashScript } from "@ngrok/mantle/theme";
 
 ## Non-React Head
 
-If your server cannot render React components, inline the FOUC prevention script manually:
+If your server cannot render React components, inline the FOUC prevention script manually and add the three theme `<link>` tags by hand:
 
 ```html
 <script>
@@ -91,7 +111,27 @@ If your server cannot render React components, inline the FOUC prevention script
 		document.documentElement.dataset.appliedTheme = resolvedTheme;
 	})();
 </script>
+<link
+	id="mantle-dark-styles"
+	rel="stylesheet"
+	href="/path/to/mantle-dark.css"
+	media="(prefers-color-scheme: dark)"
+/>
+<link
+	id="mantle-light-high-contrast-styles"
+	rel="stylesheet"
+	href="/path/to/mantle-light-high-contrast.css"
+	media="(prefers-contrast: more) and (prefers-color-scheme: light)"
+/>
+<link
+	id="mantle-dark-high-contrast-styles"
+	rel="stylesheet"
+	href="/path/to/mantle-dark-high-contrast.css"
+	media="(prefers-contrast: more) and (prefers-color-scheme: dark)"
+/>
 ```
+
+Note: In this case you are responsible for keeping the `media` attributes correct for manually-selected themes. Use `MantleStylesheets` wherever possible — it handles this automatically.
 
 ## Usage
 
@@ -157,6 +197,18 @@ The `ThemeProvider` accepts the following props in addition to the [PropsWithChi
 
 **Note:** The `ThemeProvider` uses a hardcoded storage key of `mantle-ui-theme` and defaults to `system` theme. These values are managed internally and do not require configuration.
 
+### MantleStylesheets
+
+Renders three `<link rel="stylesheet">` tags for the dark, light-high-contrast, and dark-high-contrast theme CSS files. Each stylesheet uses a `media` attribute matching its OS preference — it is non-render-blocking for users whose OS does not match. Place this component in `<head>`, immediately after `<PreventWrongThemeFlashScript>`.
+
+An inline `<script>` is also rendered after the `<link>` tags. It runs synchronously before first paint and corrects any `media` attributes for users with a manually-selected theme, preventing FOUC without needing JavaScript hydration.
+
+| Prop          | Type            | Default | Description                                                                                                                                                                                                                                   |
+| ------------- | --------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `forceTheme?` | `ResolvedTheme` |         | Force a specific theme's stylesheet to load unconditionally (`media="all"`). Use for pages locked to a single theme (e.g. a dark-only landing page).                                                                                          |
+| `ssrCookie?`  | `string`        |         | The extracted theme cookie from the incoming HTTP request (via `extractThemeCookie`). When a non-system theme is resolved from the cookie, the server renders the correct `media` attribute directly in HTML and omits the inline fix script. |
+| `nonce?`      | `string`        |         | CSP nonce to allowlist the inline fix script. Mirror the same nonce passed to `PreventWrongThemeFlashScript`.                                                                                                                                 |
+
 ### PreventWrongThemeFlashScript
 
 The `PreventWrongThemeFlashScript` component renders the inline script to prevent FOUC. Place it as early as possible in `<head>`. It accepts the following props:
@@ -215,6 +267,24 @@ import { PreloadFont } from "@ngrok/mantle/theme";
 | `"jetbrains-mono-italic"` | JetBrains Mono italic variable weight |
 | `"family-regular"`        | Family regular                        |
 | `"family-italic"`         | Family italic                         |
+
+### extractThemeCookie
+
+Extracts just the theme cookie key-value pair from a full `Cookie` header string. Pass the result to `MantleStylesheets` and `useInitialHtmlThemeProps` as `ssrCookie` — this avoids exposing other cookies from the request in loader data.
+
+```ts
+import { extractThemeCookie } from "@ngrok/mantle/theme";
+
+// In your root loader:
+const ssrCookie = extractThemeCookie(request.headers.get("Cookie"));
+// e.g. "mantle-ui-theme=dark" or undefined
+```
+
+| Parameter      | Type                          | Description                            |
+| -------------- | ----------------------------- | -------------------------------------- |
+| `cookieHeader` | `string \| null \| undefined` | The raw `Cookie` request header value. |
+
+**Returns:** The `mantle-ui-theme=<value>` pair as a string, or `undefined` if the cookie is not present.
 
 ### useInitialHtmlThemeProps
 

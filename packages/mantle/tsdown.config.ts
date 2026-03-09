@@ -2,6 +2,10 @@ import fs from "node:fs";
 import { defineConfig } from "tsdown";
 
 const MANTLE_CSS_SRC = new URL("./src/mantle.css", import.meta.url);
+const MANTLE_DARK_CSS_SRC = new URL("./src/mantle-dark.css", import.meta.url);
+const MANTLE_LIGHT_HC_CSS_SRC = new URL("./src/mantle-light-high-contrast.css", import.meta.url);
+const MANTLE_DARK_HC_CSS_SRC = new URL("./src/mantle-dark-high-contrast.css", import.meta.url);
+const SOURCE_ALL_CSS_SRC = new URL("./src/source-all.css", import.meta.url);
 
 /**
  * A set of package names that should not be published to npm
@@ -59,6 +63,11 @@ export default defineConfig((options) => [
 		tsconfig: "tsconfig.build.json",
 		fixedExtension: false,
 		format: "esm",
+		// CSS ?url imports (e.g. `import url from "./file.css?url"`) are Vite-specific.
+		// Mark them as external so tsdown leaves them in the output as-is; the consuming
+		// app's Vite bundler then resolves them to the correct fingerprinted asset URL at
+		// build time (both client and SSR builds).
+		external: [/\.css\?url$/],
 		entry: {
 			...componentPackages,
 			...utilPackages,
@@ -68,9 +77,15 @@ export default defineConfig((options) => [
 		},
 		onSuccess: async () => {
 			try {
-				await fs.promises.copyFile(MANTLE_CSS_SRC, "./dist/mantle.css");
+				await Promise.all([
+					fs.promises.copyFile(MANTLE_CSS_SRC, "./dist/mantle.css"),
+					fs.promises.copyFile(MANTLE_DARK_CSS_SRC, "./dist/mantle-dark.css"),
+					fs.promises.copyFile(MANTLE_LIGHT_HC_CSS_SRC, "./dist/mantle-light-high-contrast.css"),
+					fs.promises.copyFile(MANTLE_DARK_HC_CSS_SRC, "./dist/mantle-dark-high-contrast.css"),
+					fs.promises.copyFile(SOURCE_ALL_CSS_SRC, "./dist/source-all.css"),
+				]);
 			} catch (error) {
-				console.error("Failed to copy mantle.css to dist:", error);
+				console.error("Failed to copy CSS files to dist:", error);
 				throw error;
 			}
 		},
