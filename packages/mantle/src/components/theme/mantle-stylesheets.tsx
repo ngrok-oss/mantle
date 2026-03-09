@@ -236,31 +236,43 @@ function MantleStylesheets({ forceTheme, nonce, ssrCookie }: MantleStylesheetsPr
 	// their OS preference. It is only needed when the SSR HTML may have been rendered with
 	// incorrect media values — i.e. when neither ssrCookie (with a non-system theme) nor
 	// forceTheme provide a deterministic answer at render time.
-	const needsFixScript = forceTheme == null && ssrAppliedTheme == null;
+	const needsFixScript = !forceTheme && ssrAppliedTheme == null;
+
+	// When forceTheme is set, only render the link tag for that theme — the others will
+	// never apply and can be omitted to avoid unnecessary network requests.
+	const renderDark = !forceTheme || forceTheme === "dark";
+	const renderLightHc = !forceTheme || forceTheme === "light-high-contrast";
+	const renderDarkHc = !forceTheme || forceTheme === "dark-high-contrast";
 
 	return (
 		<>
-			<link
-				rel="stylesheet"
-				id={DARK_LINK_ID}
-				href={darkCssUrl}
-				media={dark}
-				suppressHydrationWarning
-			/>
-			<link
-				rel="stylesheet"
-				id={LIGHT_HIGH_CONTRAST_LINK_ID}
-				href={lightHcCssUrl}
-				media={lightHighContrast}
-				suppressHydrationWarning
-			/>
-			<link
-				rel="stylesheet"
-				id={DARK_HIGH_CONTRAST_LINK_ID}
-				href={darkHcCssUrl}
-				media={darkHighContrast}
-				suppressHydrationWarning
-			/>
+			{renderDark && (
+				<link
+					rel="stylesheet"
+					id={DARK_LINK_ID}
+					href={darkCssUrl}
+					media={dark}
+					suppressHydrationWarning
+				/>
+			)}
+			{renderLightHc && (
+				<link
+					rel="stylesheet"
+					id={LIGHT_HIGH_CONTRAST_LINK_ID}
+					href={lightHcCssUrl}
+					media={lightHighContrast}
+					suppressHydrationWarning
+				/>
+			)}
+			{renderDarkHc && (
+				<link
+					rel="stylesheet"
+					id={DARK_HIGH_CONTRAST_LINK_ID}
+					href={darkHcCssUrl}
+					media={darkHighContrast}
+					suppressHydrationWarning
+				/>
+			)}
 			{needsFixScript && (
 				<script
 					dangerouslySetInnerHTML={{ __html: fixMediaScriptContent(forceTheme) }}
