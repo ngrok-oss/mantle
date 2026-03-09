@@ -59,15 +59,15 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
 
-      - name: Extract MANTLE_VERSION
-        if: steps.changesets.outputs.published == 'true'
-        run: |
-          VERSION=$(echo '${{ steps.changesets.outputs.publishedPackages }}' | jq -r '.[] | select(.name == "@ngrok/mantle") | .version')
-          echo "MANTLE_VERSION=$VERSION" >> $GITHUB_ENV
-
       - name: Post to slack
-        if: steps.changesets.outputs.published == 'true' && env.MANTLE_VERSION != ''
+        if: steps.changesets.outputs.published == 'true'
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_PUBLISH_WEBHOOK_URL }}
+          PUBLISHED_PACKAGES: ${{ steps.changesets.outputs.publishedPackages }}
         run: |
-          curl -X POST -H 'Content-type: application/json' --data '{"text":"`@ngrok/mantle@${{ env.MANTLE_VERSION }}` published to npm!\nInstall with: `pnpm add -E @ngrok/mantle@${{ env.MANTLE_VERSION }}`\n<https://github.com/ngrok-oss/mantle/releases/tag/%40ngrok%2Fmantle%40${{ env.MANTLE_VERSION }}|Release Notes>"}' $SLACK_WEBHOOK_URL
+          echo "$PUBLISHED_PACKAGES" | jq -c '.[]' | while IFS= read -r pkg; do
+            name=$(echo "$pkg" | jq -r '.name')
+            version=$(echo "$pkg" | jq -r '.version')
+            tag=$(echo "${name}@${version}" | sed 's/@/%40/g; s/\//%2F/g')
+            curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"\`${name}@${version}\` published to npm!\nInstall with: \`pnpm add -E ${name}@${version}\`\n<https://github.com/ngrok-oss/mantle/releases/tag/${tag}|Release Notes>\"}" "$SLACK_WEBHOOK_URL"
+          done
