@@ -8,7 +8,11 @@ The current (shipped) implementation uses a **directory scan**: it walks the dir
 
 ## The Problem
 
-Directory scanning breaks down in monorepos where the app depends on workspace packages that themselves import mantle. Example: `apps/www` depends on `packages/ui`, and `packages/ui/src/severity.ts` imports `@ngrok/mantle/badge`. If you only scan `apps/www/app`, you miss `badge`. If you add `packages/ui/src` to `include`, you pull in _every_ mantle component imported anywhere in that package — not just the ones reachable from `apps/www`.
+Directory scanning breaks down in two ways:
+
+**1. Monorepo workspace packages.** The app depends on workspace packages that themselves import mantle. Example: `apps/www` depends on `packages/ui`, and `packages/ui/src/severity.ts` imports `@ngrok/mantle/badge`. If you only scan `apps/www/app`, you miss `badge`. If you add `packages/ui/src` to `include`, you pull in _every_ mantle component imported anywhere in that package — not just the ones reachable from `apps/www`.
+
+**2. Transitive imports within mantle itself.** (Discovered 2026-03-09.) Mantle components import each other. For example, `@ngrok/mantle/command` (specifically `command.tsx`) imports from `@ngrok/mantle/dialog`. An app that imports `@ngrok/mantle/command` but never directly imports `@ngrok/mantle/dialog` will only get `@source` directives for `command` — the dialog styles will be missing. The directory scan only finds imports the _app_ makes directly; it does not follow the mantle component dependency graph. This is a correctness bug, not just a performance gap. It means the current approach can silently drop styles for any mantle component that is used only transitively.
 
 ## Proposed Solution: `resolveId` Two-Pass
 
@@ -52,3 +56,5 @@ Use Vite's `resolveId` hook to intercept every `@ngrok/mantle/<name>` import tha
 ## Current State
 
 The plugin was **reverted to the simpler directory-scan + file-watcher implementation** pending resolution of the above gaps. `parseComponentsFromCssFile` remains in `internals.ts` as it will be needed when the module graph approach is revisited.
+
+An `allowlist` option was added to `MantleTwSourcePluginOptions` as a short-term escape hatch. Apps can explicitly list components that the scanner misses — either because they are imported only transitively through workspace packages, or because they are pulled in as mantle-internal dependencies (e.g. an app using `Command` must also allowlist `Dialog`). This does not fix the root cause; it transfers the burden of tracking the mantle dependency graph to the consumer. The module graph approach remains the correct long-term fix.

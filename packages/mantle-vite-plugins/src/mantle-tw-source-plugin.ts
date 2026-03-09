@@ -7,11 +7,32 @@ import {
 	scanMantleImports,
 	writeSourcesToCssFile,
 } from "./internals.js";
+import type { MantleComponentName } from "./mantle-component-name.js";
+import { slugifyComponentName } from "./slugify.js";
 
 /**
  * Options for `mantleTwSourcePlugin`.
  */
 export type MantleTwSourcePluginOptions = {
+	/**
+	 * Mantle component names to always include in the `@source` block,
+	 * regardless of whether they are detected in the scanned source files.
+	 *
+	 * Accepts both PascalCase (`"CommandDialog"`) and kebab-case
+	 * (`"command-dialog"`) forms — both are normalized to the mantle subpath
+	 * name (e.g. `"command-dialog"`).
+	 *
+	 * Useful for components that are imported transitively through workspace
+	 * packages not covered by `include`, or for components rendered only at
+	 * runtime (e.g. via a portal or lazy import).
+	 *
+	 * @example
+	 * ```ts
+	 * mantleTwSourcePlugin({ allowlist: ["Command", "Dialog", "command-dialog"] })
+	 * ```
+	 */
+	allowlist?: (MantleComponentName | (string & {}))[];
+
 	/**
 	 * Directories to scan recursively for `@ngrok/mantle/*` imports.
 	 * Paths are relative to the Vite project root.
@@ -86,7 +107,8 @@ const DEFAULT_CSS_CANDIDATES = ["app/global.css", "src/global.css", "app/app.css
  * @returns A Vite plugin object.
  */
 export function mantleTwSourcePlugin(options: MantleTwSourcePluginOptions = {}): Plugin {
-	const { include = ["app"], cssFile: cssFileOption } = options;
+	const { allowlist = [], include = ["app"], cssFile: cssFileOption } = options;
+	const allowlistComponents = new Set<string>(allowlist.map(slugifyComponentName));
 
 	let resolvedCssFile: string | null = null;
 	let mantleDistDir: string | null = null;
@@ -110,7 +132,8 @@ export function mantleTwSourcePlugin(options: MantleTwSourcePluginOptions = {}):
 			collectFiles(absDir, allFiles, SOURCE_EXTENSIONS);
 		}
 
-		const components = scanMantleImports(allFiles);
+		const scanned = scanMantleImports(allFiles);
+		const components = new Set([...allowlistComponents, ...scanned]);
 		knownComponents = components;
 		writeSourcesToCssFile(resolvedCssFile, components, mantleDistDir);
 
