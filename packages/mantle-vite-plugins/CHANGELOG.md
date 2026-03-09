@@ -1,5 +1,13 @@
 # @ngrok/mantle-vite-plugins
 
+## 0.1.3
+
+### Patch Changes
+
+- [#1042](https://github.com/ngrok-oss/mantle/pull/1042) [`8a46bc2`](https://github.com/ngrok-oss/mantle/commit/8a46bc2908188e5e381fb639372278b2a9cafff4) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - fix(mantle-vite-plugins): exclude `.css?url` imports from `@source` injection
+
+  Vite query suffixes like `?url` on CSS imports (e.g. `@ngrok/mantle/mantle-dark.css?url`) were not being filtered out, causing spurious `@source` directives like `@source "../node_modules/@ngrok/mantle/dist/mantle-dark.css?url.js"` to appear in the generated CSS block. The fix strips the query suffix before checking the file extension.
+
 ## 0.1.2
 
 ### Patch Changes
