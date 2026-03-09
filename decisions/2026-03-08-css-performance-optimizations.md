@@ -123,11 +123,50 @@ A new standalone npm package, `@ngrok/mantle-vite-plugins`, was created alongsid
 
 ## Remaining Opportunities (not implemented here)
 
-| Improvement                                                                  | Effort | Impact                                              |
-| ---------------------------------------------------------------------------- | ------ | --------------------------------------------------- |
-| Critical CSS inlining for ngrok.com homepage                                 | High   | Highest — eliminates render-blocking penalty        |
-| Lazy-load high-contrast themes via `<link media="(prefers-contrast: more)">` | Medium | High — removes ~400 vars from critical parse        |
-| Split dark mode CSS via `<link media="(prefers-color-scheme: dark)">`        | Medium | High — removes ~220 vars for light-mode users       |
-| Split Prism syntax highlight styles into a separate async stylesheet         | Low    | Medium — smaller critical CSS on non-code pages     |
-| Resolve `oklch()` values to hex/hsl at build time                            | High   | Low — marginal parse improvement on low-end devices |
-| Per-app targeted `@source` via `mantleSourcePlugin`                          | Done   | Medium — smaller CSS for apps using few components  |
+| Improvement                                                          | Effort | Impact                                              |
+| -------------------------------------------------------------------- | ------ | --------------------------------------------------- |
+| Critical CSS inlining for ngrok.com homepage                         | High   | Highest — eliminates render-blocking penalty        |
+| Split syntax highlight token styles into a separate async stylesheet | Done   | Medium — smaller critical CSS on non-code pages     |
+| Resolve `oklch()` values to hex/hsl at build time                    | High   | Low — marginal parse improvement on low-end devices |
+| Per-app targeted `@source` via `mantleSourcePlugin`                  | Done   | Medium — smaller CSS for apps using few components  |
+
+### 6. Split dark and high-contrast themes into lazy-loaded `<link>` stylesheets
+
+`mantle.css` is split into four files. The light theme (default) remains in `mantle.css` and is loaded as before. The other three themes are extracted into separate files loaded via `<link media="...">` tags, making them non-render-blocking for users whose OS preference does not match the media query.
+
+| File                             | Content                    | Default `media` attribute                                    |
+| -------------------------------- | -------------------------- | ------------------------------------------------------------ |
+| `mantle.css`                     | Light theme + all Tailwind | (loaded via `@import` in consuming app CSS — unchanged)      |
+| `mantle-dark.css`                | Dark theme vars            | `(prefers-color-scheme: dark)`                               |
+| `mantle-light-high-contrast.css` | Light high-contrast vars   | `(prefers-contrast: more) and (prefers-color-scheme: light)` |
+| `mantle-dark-high-contrast.css`  | Dark high-contrast vars    | `(prefers-contrast: more) and (prefers-color-scheme: dark)`  |
+
+**`MantleStylesheets` component** (exported from `@ngrok/mantle/theme`) renders the three `<link>` tags. It accepts an optional `forceTheme?: ResolvedTheme` prop — when set, the corresponding stylesheet's `media` is forced to `"all"` so it loads unconditionally (useful for dark-only apps like ngrok.com).
+
+On the client, the component uses a `MutationObserver` on `html[data-applied-theme]` to detect manual theme changes (e.g. light-OS user picks dark) and updates the relevant `<link media>` attribute to `"all"` so the stylesheet becomes active.
+
+**FOUC analysis:**
+
+| User scenario                                         | Risk    | Why                                                                                                                                                                                                                                |
+| ----------------------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| System theme = light (majority)                       | None    | Dark/HC stylesheets have restrictive media — not applied, not render-blocking                                                                                                                                                      |
+| System theme = dark                                   | None    | Dark stylesheet media matches — browser applies it before paint                                                                                                                                                                    |
+| System theme = high-contrast                          | None    | HC stylesheet media matches — applied before paint                                                                                                                                                                                 |
+| Manual theme override (e.g. light OS → dark selected) | Minimal | `MantleStylesheets` updates `media` to `"all"` on mount via `useEffect`, which runs before the user can interact. The dark CSS was already downloaded (non-blocking) so application is near-instant. No visible flash in practice. |
+| `forceTheme` set (e.g. dark-only app)                 | None    | `media="all"` is rendered on SSR — stylesheet is render-blocking as intended                                                                                                                                                       |
+
+**Why `mantle.css` stays in the `@import` chain:** Tailwind v4 must see the `@import` to process `@theme {}` blocks and `@custom-variant` rules. The extracted files contain only CSS custom property definitions (no Tailwind directives) and do not need to be in the CSS import chain.
+
+**URL resolution:** The component uses `new URL("../../mantle-dark.css", import.meta.url).href` (standard ESM asset reference). Vite resolves and fingerprints this at the consuming app's build time. Works in both dev (HMR) and production builds, and in the workspace via `@ngrok/src-live-types`.
+
+### 7. Move syntax highlight token styles into the code-block component
+
+The `.token.*` CSS rules were removed from `mantle.css` and placed in `packages/mantle/src/components/code-block/syntax-highlight.css`, which is imported as a side-effect directly in `code-block.tsx`:
+
+```ts
+import "./syntax-highlight.css";
+```
+
+Vite bundles this as a CSS chunk associated with the code-block JS module. Apps that never import `@ngrok/mantle/code-block` no longer pay the cost of these styles in their critical CSS. Apps that do import code-block get the styles automatically — no manual import required.
+
+The file is named `syntax-highlight.css` (not `prism.css`) because the `.token.*` selector convention is shared across highlighters and the styles are not Prism-specific.
