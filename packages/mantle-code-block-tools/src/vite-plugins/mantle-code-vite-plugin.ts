@@ -1,9 +1,12 @@
 import MagicString from "magic-string";
+import {
+	inferIndentation,
+	isIndentation,
+	isSupportedLanguage,
+	type Indentation,
+} from "@ngrok/mantle/code-block";
 import { parseSync } from "oxc-parser";
 import type { Plugin } from "vite";
-import { inferIndentation, isIndentation } from "../components/code-block/normalize-indentation.js";
-import type { Indentation } from "../components/code-block/normalize-indentation.js";
-import { isSupportedLanguage } from "../components/code-block/supported-languages.js";
 import { highlightWithMantleShiki } from "../server-highlighter/engine.js";
 
 type ParsedMantleCodeOptions = {

@@ -1,0 +1,61 @@
+{
+  "name": "@ngrok/mantle-code-block-tools",
+  "version": "0.66.0",
+  "description": "Build-time and server-side code block tooling for Mantle.",
+  "homepage": "https://mantle.ngrok.com",
+  "license": "MIT",
+  "author": "ngrok",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ngrok-oss/mantle"
+  },
+  "files": [
+    "dist",
+    "package.json"
+  ],
+  "type": "module",
+  "exports": {
+    "./package.json": "./package.json",
+    "./server-highlighter": {
+      "types": "./dist/server-highlighter.d.ts",
+      "@ngrok/src-live-types": "./src/server-highlighter/index.ts",
+      "import": "./dist/server-highlighter.js"
+    },
+    "./vite-plugin": {
+      "types": "./dist/vite-plugin.d.ts",
+      "@ngrok/src-live-types": "./src/vite-plugins/index.ts",
+      "import": "./dist/vite-plugin.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "clean": "rm -rf dist",
+    "prebuild": "pnpm run clean",
+    "test:watch": "TZ=UTC vitest watch --config vitest.config.ts",
+    "test": "TZ=UTC vitest run --config vitest.config.ts",
+    "typecheck": "tsgo"
+  },
+  "dependencies": {
+    "@ngrok/mantle": "workspace:*",
+    "magic-string": "0.30.21",
+    "oxc-parser": "0.86.0",
+    "shiki": "4.0.1"
+  },
+  "devDependencies": {
+    "@cfg/tsconfig": "workspace:*",
+    "tsup": "8.5.1",
+    "typescript": "catalog:",
+    "vite": "catalog:"
+  },
+  "peerDependencies": {
+    "vite": "^6 || ^7"
+  },
+  "peerDependenciesMeta": {
+    "vite": {
+      "optional": true
+    }
+  },
+  "engines": {
+    "node": "^24.0.0"
+  }
+}

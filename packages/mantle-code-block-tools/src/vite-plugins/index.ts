@@ -35,7 +35,7 @@ type MantleCodeBlockPluginsResult = {
  *
  * @example
  * ```ts
- * import { mantleCodeBlockPlugins } from "@ngrok/mantle/vite-plugin";
+ * import { mantleCodeBlockPlugins } from "@ngrok/mantle-code-block-tools/vite-plugin";
  *
  * const codeBlockPlugins = mantleCodeBlockPlugins();
  *

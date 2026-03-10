@@ -1,14 +1,16 @@
-import type { Indentation } from "../components/code-block/normalize-indentation.js";
-import { decorateHighlightedHtml } from "../components/code-block/decorate-highlighted-html.js";
-import { inferIndentation } from "../components/code-block/normalize-indentation.js";
-import type { LineRange } from "../components/code-block/line-numbers.js";
-import { normalizeIndentation } from "../components/code-block/normalize.js";
+import {
+	decorateHighlightedHtml,
+	inferIndentation,
+	normalizeIndentation,
+	type Indentation,
+	type LineRange,
+} from "@ngrok/mantle/code-block";
 import { createLruCache } from "./lru-cache.js";
 import {
 	isSupportedLanguage,
 	parseLanguage,
-} from "../components/code-block/supported-languages.js";
-import type { SupportedLanguage } from "../components/code-block/supported-languages.js";
+	type SupportedLanguage,
+} from "@ngrok/mantle/code-block";
 
 /**
  * Shiki grammar IDs preloaded by Mantle's highlighting engine.

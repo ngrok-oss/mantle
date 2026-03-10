@@ -5,6 +5,11 @@ export {
 
 export {
 	//,
+	decorateHighlightedHtml,
+} from "./decorate-highlighted-html.js";
+
+export {
+	//,
 	escapeHtml,
 } from "./escape-html.js";
 
@@ -12,6 +17,17 @@ export {
 	//,
 	hasMoreThanNLines,
 } from "./has-more-than-n-lines.js";
+
+export {
+	//,
+	inferIndentation,
+	isIndentation,
+} from "./normalize-indentation.js";
+
+export type {
+	//,
+	Indentation,
+} from "./normalize-indentation.js";
 
 export {
 	//,
@@ -64,6 +80,11 @@ export {
 	parseLanguage,
 	supportedLanguages,
 } from "./supported-languages.js";
+
+export type {
+	//,
+	LineRange,
+} from "./line-numbers.js";
 
 export type {
 	//,
