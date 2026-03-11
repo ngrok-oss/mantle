@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.66.11
+
+### Patch Changes
+
+- [#1057](https://github.com/ngrok-oss/mantle/pull/1057) [`930e5fb`](https://github.com/ngrok-oss/mantle/commit/930e5fbb5883369ca31a6904d6adc369b7912a23) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Export `fixMediaScriptContent` from `@ngrok/mantle/theme`. This function returns the raw JavaScript string for the inline `<script>` that fixes theme stylesheet `media` attributes — useful for legacy Go services and other non-React servers that need to inline it directly into SSR HTML.
+
 ## 0.66.10
 
 ### Patch Changes
