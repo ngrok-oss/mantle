@@ -186,6 +186,22 @@ function fixMediaAttributes(args: {
 	}
 }
 
+/**
+ * Returns the raw JavaScript string for the inline `<script>` that runs synchronously
+ * after the `<link>` tags are parsed to fix their `media` attributes based on the applied
+ * theme already written to `html[data-applied-theme]` by `PreventWrongThemeFlashScript`.
+ * This eliminates FOUC for users who have manually selected a theme that differs from
+ * their OS preference.
+ *
+ * Use this when you need to inline the script directly into SSR HTML outside of a React
+ * context — for example, in a legacy Go service that renders the initial HTML response.
+ *
+ * @example
+ * ```go
+ * // In a Go template, inline the script content produced by mantle
+ * fmt.Fprintf(w, `<script nonce="%s">%s</script>`, nonce, fixMediaScriptContent)
+ * ```
+ */
 function fixMediaScriptContent(forceTheme: ResolvedTheme | undefined): string {
 	const args = {
 		darkLinkId: DARK_LINK_ID,
@@ -360,6 +376,7 @@ MantleStyleSheets.displayName = "MantleStyleSheets";
 
 export {
 	//,
+	fixMediaScriptContent,
 	mantleStyleSheetUrls,
 	MantleStyleSheets,
 };
