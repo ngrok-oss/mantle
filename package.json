@@ -30,7 +30,7 @@
     "husky": "9.1.7",
     "lint-staged": "16.3.2",
     "oxfmt": "0.36.0",
-    "oxlint": "1.51.0",
+    "oxlint": "1.52.0",
     "tsx": "catalog:",
     "turbo": "2.8.14",
     "vitest": "4.0.18"
