@@ -203,7 +203,7 @@ function fixMediaAttributes(args: {
  * fmt.Fprintf(w, `<script nonce="%s">%s</script>`, nonce, scriptContent)
  * ```
  */
-function fixMediaScriptContent(forceTheme: ResolvedTheme | undefined): string {
+function fixMediaScriptContent(forceTheme?: ResolvedTheme): string {
 	const args = {
 		darkLinkId: DARK_LINK_ID,
 		lightHcLinkId: LIGHT_HIGH_CONTRAST_LINK_ID,
