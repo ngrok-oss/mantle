@@ -17,7 +17,11 @@ function useCopyToClipboard() {
 					throw new Error("writeText not supported");
 				}
 			} catch {
-				copyToClipboardPolyfill(value);
+				try {
+					copyToClipboardPolyfill(value);
+				} catch {
+					return; // both approaches failed; don't update state
+				}
 			}
 			setState(value);
 		})();
