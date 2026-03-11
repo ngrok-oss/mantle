@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.66.10
+
+### Patch Changes
+
+- [#1055](https://github.com/ngrok-oss/mantle/pull/1055) [`714c79e`](https://github.com/ngrok-oss/mantle/commit/714c79e0362b3c2a1f4762755b97471041fb2a73) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - fix(use-copy-to-clipboard): remove unnecessary async wrapper, guarantee polyfill DOM cleanup
+
 ## 0.66.9
 
 ### Patch Changes
