@@ -57,6 +57,28 @@ describe("useCopyToClipboard (browser)", () => {
 		});
 	});
 
+	test("polyfill removes the textarea from the DOM even when select() throws", async () => {
+		vi.spyOn(navigator.clipboard, "writeText").mockRejectedValueOnce(
+			new Error("clipboard unavailable"),
+		);
+		vi.spyOn(HTMLTextAreaElement.prototype, "select").mockImplementationOnce(() => {
+			throw new Error("select failed");
+		});
+
+		const { result } = renderHook(() => useCopyToClipboard());
+		const [, copyToClipboard] = result.current;
+
+		act(() => {
+			copyToClipboard("cleanup test");
+		});
+
+		await waitFor(() => {
+			expect(document.body.querySelector("textarea")).toBeNull();
+		});
+
+		vi.restoreAllMocks();
+	});
+
 	test("falls back to the polyfill when clipboard.writeText is unavailable", async () => {
 		// Simulate an environment where the Clipboard API is missing.
 		// The hook catches the error and calls the execCommand polyfill, then still sets state.
