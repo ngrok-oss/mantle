@@ -1,0 +1,45 @@
+{
+  "name": "@ngrok/mantle-code-block-tools",
+  "version": "0.1.0",
+  "description": "Server-side code block highlighting tools for Mantle.",
+  "homepage": "https://mantle.ngrok.com",
+  "license": "MIT",
+  "author": "ngrok",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ngrok-oss/mantle"
+  },
+  "files": [
+    "dist",
+    "package.json"
+  ],
+  "type": "module",
+  "exports": {
+    "./package.json": "./package.json",
+    "./server-highlighter": {
+      "types": "./dist/server-highlighter.d.ts",
+      "@ngrok/src-live-types": "./src/server-highlighter/index.ts",
+      "import": "./dist/server-highlighter.js"
+    }
+  },
+  "scripts": {
+    "build": "tsdown",
+    "clean": "rm -rf dist",
+    "prebuild": "pnpm run clean",
+    "test:watch": "TZ=UTC vitest watch",
+    "test": "TZ=UTC vitest run",
+    "typecheck": "tsgo"
+  },
+  "dependencies": {
+    "@ngrok/mantle": "workspace:*",
+    "shiki": "4.0.1"
+  },
+  "devDependencies": {
+    "@cfg/tsconfig": "workspace:*",
+    "tsdown": "catalog:",
+    "typescript": "catalog:"
+  },
+  "engines": {
+    "node": "^24.0.0"
+  }
+}

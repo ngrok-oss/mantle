@@ -28,8 +28,14 @@
     "test:watch": "TZ=UTC vitest watch",
     "typecheck": "tsx scripts/generate-component-names.ts && tsgo"
   },
+  "dependencies": {
+    "@ngrok/mantle-code-block-tools": "workspace:*",
+    "magic-string": "0.30.21",
+    "oxc-parser": "0.86.0"
+  },
   "devDependencies": {
     "@cfg/tsconfig": "workspace:*",
+    "@ngrok/mantle": "workspace:*",
     "@testing-library/jest-dom": "catalog:",
     "@types/node": "catalog:",
     "tsdown": "catalog:",

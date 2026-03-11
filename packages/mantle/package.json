@@ -249,6 +249,11 @@
 			"types": "./dist/slider.d.ts",
 			"import": "./dist/slider.js"
 		},
+		"./shiki-code-block": {
+			"@ngrok/src-live-types": "./src/components/shiki-code-block/index.ts",
+			"types": "./dist/shiki-code-block.d.ts",
+			"import": "./dist/shiki-code-block.js"
+		},
 		"./slot": {
 			"@ngrok/src-live-types": "./src/components/slot/index.ts",
 			"types": "./dist/slot.d.ts",

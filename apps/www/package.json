@@ -15,6 +15,7 @@
   "dependencies": {
     "@mdx-js/react": "3.1.1",
     "@ngrok/mantle": "workspace:*",
+    "@ngrok/mantle-code-block-tools": "workspace:*",
     "@phosphor-icons/react": "catalog:",
     "@react-router/node": "7.13.1",
     "@react-router/serve": "7.13.1",
@@ -38,6 +39,7 @@
     "@cfg/tsconfig": "workspace:*",
     "@mdx-js/mdx": "3.1.1",
     "@mdx-js/rollup": "3.1.1",
+    "@ngrok/mantle-vite-plugins": "workspace:*",
     "@ngrok/remark-mdx-github-alerts": "0.1.0",
     "@ngrok/remark-mdx-no-paragraph-wrap": "0.1.0",
     "@react-router/dev": "7.13.1",

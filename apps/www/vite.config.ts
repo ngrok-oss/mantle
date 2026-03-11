@@ -1,8 +1,8 @@
 import mdx from "@mdx-js/rollup";
 import { reactRouter } from "@react-router/dev/vite";
 import tailwindcss from "@tailwindcss/vite";
+import { mantleCodeBlockPlugins } from "@ngrok/mantle-vite-plugins";
 import path from "node:path";
-import rehypeMdxCodeProps from "rehype-mdx-code-props";
 import rehypeSlug from "rehype-slug";
 import remarkFrontmatter from "remark-frontmatter";
 import { remarkMdxGithubAlerts } from "@ngrok/remark-mdx-github-alerts";
@@ -15,12 +15,15 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import { remarkMdxNoParagraphWrap } from "@ngrok/remark-mdx-no-paragraph-wrap";
 import { rawMdxDocs } from "./vite-plugins/raw-mdx-docs";
 
+const codeBlockPlugins = mantleCodeBlockPlugins();
+
 export default defineConfig({
 	optimizeDeps: {
 		exclude: ["@ngrok/mantle"],
 	},
 	plugins: [
 		//
+		...codeBlockPlugins.vitePlugins,
 		rawMdxDocs(path.resolve(import.meta.dirname, "app/docs")),
 		devtoolsJson(),
 		tailwindcss(),
@@ -37,7 +40,7 @@ export default defineConfig({
 				remarkMdxGithubAlerts,
 				remarkMdxNoParagraphWrap,
 			],
-			rehypePlugins: [rehypeSlug, rehypeMdxCodeProps],
+			rehypePlugins: [rehypeSlug, ...codeBlockPlugins.rehypePlugins],
 			providerImportSource: "@mdx-js/react",
 		}),
 		reactRouter(),
