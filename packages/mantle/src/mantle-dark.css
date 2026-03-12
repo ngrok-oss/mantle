@@ -23,18 +23,17 @@ MARK: DARK DEFS
 	--color-neutral-900: oklch(97% 0 0);
 	--color-neutral-950: oklch(98.5% 0 0);
 
-	/* gray is identical to neutral in dark mode */
-	--color-gray-50: var(--color-neutral-50);
-	--color-gray-100: var(--color-neutral-100);
-	--color-gray-200: var(--color-neutral-200);
-	--color-gray-300: var(--color-neutral-300);
-	--color-gray-400: var(--color-neutral-400);
-	--color-gray-500: var(--color-neutral-500);
-	--color-gray-600: var(--color-neutral-600);
-	--color-gray-700: var(--color-neutral-700);
-	--color-gray-800: var(--color-neutral-800);
-	--color-gray-900: var(--color-neutral-900);
-	--color-gray-950: var(--color-neutral-950);
+	--color-gray-50: oklch(18.2% 0 0);
+	--color-gray-100: oklch(20.5% 0 0);
+	--color-gray-200: oklch(26.9% 0 0);
+	--color-gray-300: oklch(37.1% 0 0);
+	--color-gray-400: oklch(43.9% 0 0);
+	--color-gray-500: oklch(55.6% 0 0);
+	--color-gray-600: oklch(70.8% 0 0);
+	--color-gray-700: oklch(87% 0 0);
+	--color-gray-800: oklch(92.2% 0 0);
+	--color-gray-900: oklch(97% 0 0);
+	--color-gray-950: oklch(98.5% 0 0);
 
 	--color-blue-50: oklch(26.6% 0.0958 273.2);
 	--color-blue-100: oklch(35.3% 0.1525 269.7);
@@ -283,7 +282,7 @@ MARK: DARK DEFS
 	--background-color-card-hover: var(--color-neutral-200);
 	--background-color-popover-hover: var(--color-neutral-200);
 	--background-color-dialog-hover: var(--color-neutral-100);
-	--background-color-form: var(--color-neutral-50);
+	--background-color-form: var(--background-color-card);
 	--background-color-form-hover: --alpha(var(--color-neutral-500) / 0.05);
 	--background-color-form-active: --alpha(var(--color-neutral-500) / 0.1);
 	--background-color-overlay: --alpha(#000 / 0.6);
@@ -315,23 +314,17 @@ MARK: DARK DEFS
 	--text-color-on-filled: #fff;
 
 	/* Theme tokens */
-	--background-color-filled-neutral: var(--color-neutral-500);
-	--background-color-filled-accent: var(--color-accent-500);
-	--background-color-filled-danger: var(--color-danger-500);
-	--background-color-filled-warning: var(--color-warning-500);
-	--background-color-filled-success: var(--color-success-500);
+	--background-color-filled-neutral: var(--color-neutral-900);
+	--background-color-filled-accent: var(--color-accent-600);
+	--background-color-filled-danger: var(--color-danger-600);
+	--background-color-filled-warning: var(--color-warning-600);
+	--background-color-filled-success: var(--color-success-600);
 
-	--background-color-filled-neutral-hover: --alpha(var(--color-neutral-500) / 0.9);
-	--background-color-filled-accent-hover: --alpha(var(--color-accent-500) / 0.9);
-	--background-color-filled-danger-hover: --alpha(var(--color-danger-500) / 0.9);
-	--background-color-filled-warning-hover: --alpha(var(--color-warning-500) / 0.9);
-	--background-color-filled-success-hover: --alpha(var(--color-success-500) / 0.9);
-
-	--background-color-filled-neutral-active: --alpha(var(--color-neutral-500) / 0.8);
-	--background-color-filled-accent-active: --alpha(var(--color-accent-500) / 0.8);
-	--background-color-filled-danger-active: --alpha(var(--color-danger-500) / 0.8);
-	--background-color-filled-warning-active: --alpha(var(--color-warning-500) / 0.8);
-	--background-color-filled-success-active: --alpha(var(--color-success-500) / 0.8);
+	--background-color-filled-neutral-hover: var(--color-black);
+	--background-color-filled-accent-hover: var(--color-accent-700);
+	--background-color-filled-danger-hover: var(--color-danger-700);
+	--background-color-filled-warning-hover: var(--color-warning-700);
+	--background-color-filled-success-hover: var(--color-success-700);
 
 	/* focus tokens */
 	--ring-color-focus-neutral: --alpha(var(--color-neutral-500) / 0.5);

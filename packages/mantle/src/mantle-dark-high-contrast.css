@@ -246,7 +246,7 @@ MARK: DARK HICON DEFS
 	--background-color-card-hover: var(--color-neutral-100);
 	--background-color-popover-hover: var(--color-neutral-100);
 	--background-color-dialog-hover: var(--color-neutral-100);
-	--background-color-form: var(--color-white);
+	--background-color-form: var(--color-card);
 	--background-color-form-hover: --alpha(var(--color-neutral-500) / 0.05);
 	--background-color-form-active: --alpha(var(--color-neutral-500) / 0.1);
 	--background-color-overlay: --alpha(var(--color-white) / 0.6);
@@ -289,12 +289,6 @@ MARK: DARK HICON DEFS
 	--background-color-filled-danger-hover: var(--color-danger-600);
 	--background-color-filled-warning-hover: var(--color-warning-600);
 	--background-color-filled-success-hover: var(--color-success-600);
-
-	--background-color-filled-neutral-active: var(--color-neutral-700);
-	--background-color-filled-accent-active: var(--color-accent-700);
-	--background-color-filled-danger-active: var(--color-danger-700);
-	--background-color-filled-warning-active: var(--color-warning-700);
-	--background-color-filled-success-active: var(--color-success-700);
 
 	/* Focus tokens */
 	--ring-color-focus-neutral: --alpha(var(--color-neutral-500) / 0.3);
