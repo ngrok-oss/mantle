@@ -1382,6 +1382,10 @@ MARK: CUSTOM VARIANTS
 }
 
 @layer base {
+	body {
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
 	button:not(:disabled),
 	[role="button"]:not(:disabled) {
 		cursor: pointer;
@@ -1396,6 +1400,13 @@ MARK: CUSTOM VARIANTS
 /**
 MARK: UTILITIES
 */
+@layer utilities {
+	.font-family {
+		-webkit-font-smoothing: auto;
+		-moz-osx-font-smoothing: auto;
+	}
+}
+
 @utility cursor-inherit {
 	cursor: inherit;
 }
