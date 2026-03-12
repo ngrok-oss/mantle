@@ -17,11 +17,11 @@ const buttonVariants = cva("", {
 		 */
 		appearance: {
 			filled:
-				"bg-filled-accent text-on-filled focus-visible:border-accent-600 focus-visible:ring-focus-accent not-disabled:hover:bg-filled-accent-hover not-disabled:active:bg-filled-accent-active h-9 border border-transparent px-3 text-sm font-medium",
+				"bg-filled-accent text-white focus-visible:border-accent-600 focus-visible:ring-focus-accent not-disabled:hover:bg-filled-accent-hover h-9 border border-transparent px-3 text-sm font-medium",
 			ghost:
-				"text-accent-600 focus-visible:ring-focus-accent not-disabled:hover:bg-accent-500/10 not-disabled:hover:text-accent-700 not-disabled:active:bg-accent-500/15 not-disabled:active:text-accent-700 h-9 border border-transparent px-3 text-sm font-medium",
+				"text-accent-600 focus-visible:ring-focus-accent not-disabled:hover:bg-accent-500/10 not-disabled:hover:text-accent-700 h-9 border border-transparent px-3 text-sm font-medium",
 			outlined:
-				"border-accent-600 bg-form text-accent-600 focus-visible:ring-focus-accent not-disabled:hover:border-accent-700 not-disabled:hover:bg-accent-500/10 not-disabled:hover:text-accent-700 not-disabled:active:border-accent-700 not-disabled:active:bg-accent-500/15 not-disabled:active:text-accent-700 h-9 border px-3 text-sm font-medium",
+				"border-accent-600 bg-form text-accent-600 focus-visible:ring-focus-accent not-disabled:hover:border-accent-700 not-disabled:hover:bg-accent-500/10 not-disabled:hover:text-accent-700 h-9 border px-3 text-sm font-medium",
 			link: "text-accent-600 focus-visible:ring-focus-accent not-disabled:hover:underline group/button-link border-transparent",
 		},
 		/**
@@ -53,19 +53,19 @@ const buttonVariants = cva("", {
 			appearance: "ghost",
 			priority: "danger",
 			class:
-				"text-danger-600 focus-visible:ring-focus-danger not-disabled:hover:bg-danger-500/10 not-disabled:hover:text-danger-700 not-disabled:active:bg-danger-500/15 not-disabled:active:text-danger-700 border-transparent",
+				"text-danger-600 focus-visible:ring-focus-danger not-disabled:hover:bg-danger-500/10 not-disabled:hover:text-danger-700 border-transparent",
 		},
 		{
 			appearance: "outlined",
 			priority: "danger",
 			class:
-				"border-danger-600 bg-form text-danger-600 focus-visible:ring-focus-danger not-disabled:hover:border-danger-700 not-disabled:hover:bg-danger-500/10 not-disabled:hover:text-danger-700 not-disabled:active:border-danger-700 not-disabled:active:bg-danger-500/15 not-disabled:active:text-danger-700",
+				"border-danger-600 bg-form text-danger-600 focus-visible:ring-focus-danger not-disabled:hover:border-danger-700 not-disabled:hover:bg-danger-500/10 not-disabled:hover:text-danger-700",
 		},
 		{
 			appearance: "filled",
 			priority: "danger",
 			class:
-				"bg-filled-danger focus-visible:border-danger-600 focus-visible:ring-focus-danger not-disabled:hover:bg-filled-danger-hover not-disabled:active:bg-filled-danger-active border-transparent",
+				"bg-filled-danger focus-visible:border-danger-600 focus-visible:ring-focus-danger not-disabled:hover:bg-filled-danger-hover border-transparent",
 		},
 		{
 			appearance: "link",
@@ -76,19 +76,19 @@ const buttonVariants = cva("", {
 			appearance: "ghost",
 			priority: "neutral",
 			class:
-				"text-strong focus-visible:ring-focus-accent not-disabled:hover:bg-neutral-500/10 not-disabled:hover:text-strong not-disabled:active:bg-neutral-500/15 not-disabled:active:text-strong border-transparent",
+				"text-strong focus-visible:ring-focus-accent not-disabled:hover:bg-neutral-500/10 not-disabled:hover:text-strong border-transparent",
 		},
 		{
 			appearance: "outlined",
 			priority: "neutral",
 			class:
-				"border-form bg-form text-strong focus-visible:border-accent-600 focus-visible:ring-focus-accent not-disabled:hover:border-neutral-400 not-disabled:hover:bg-form-hover not-disabled:hover:text-strong not-disabled:active:border-neutral-400 not-disabled:active:bg-neutral-500/10 not-disabled:active:text-strong focus-visible:not-disabled:hover:border-accent-600 focus-visible:not-disabled:active:border-accent-600",
+				"border-form bg-form text-strong focus-visible:border-accent-600 focus-visible:ring-focus-accent not-disabled:hover:border-neutral-400 not-disabled:hover:bg-form-hover not-disabled:hover:text-strong focus-visible:not-disabled:hover:border-accent-600 focus-visible:not-disabled:active:border-accent-600",
 		},
 		{
 			appearance: "filled",
 			priority: "neutral",
 			class:
-				"bg-filled-neutral focus-visible:ring-focus-neutral not-disabled:hover:bg-filled-neutral-hover not-disabled:active:bg-filled-neutral-active border-transparent focus-visible:border-neutral-600",
+				"bg-filled-neutral focus-visible:ring-focus-neutral not-disabled:hover:bg-filled-neutral-hover border-transparent focus-visible:border-neutral-600 text-neutral-50",
 		},
 		{
 			appearance: "link",
