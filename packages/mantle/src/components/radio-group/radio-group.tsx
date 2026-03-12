@@ -120,12 +120,12 @@ const DefaultRadioIndicator = ({ checked, disabled, focus, hover }: RadioStateCo
 		className={cx(
 			"border-form flex size-4 items-center justify-center rounded-full border shrink-0",
 			disabled && "cursor-default opacity-50",
-			checked && "border-accent-500 bg-accent-500",
+			checked && "border-accent-600 bg-accent-600",
 			focus && !disabled && "border-accent-600 ring-focus-accent ring-4",
 			hover && "border-accent-600",
 		)}
 	>
-		{checked && <span className="size-2 rounded-full bg-[#fff] shrink-0" />}
+		{checked && <span className="size-2 rounded-full bg-white shrink-0" />}
 	</span>
 );
 
@@ -232,7 +232,7 @@ const Card = forwardRef<ComponentRef<"div">, RadioCardProps>(
 					"focus-visible:ring-focus-accent not-aria-disabled:focus-visible:border-accent-600 focus-visible:ring-4",
 					"first-of-type:rounded-tl-md first-of-type:rounded-tr-md last-of-type:rounded-bl-md last-of-type:rounded-br-md",
 					"aria-disabled:border-form/50 not-aria-disabled:hover:z-1 not-aria-disabled:hover:border-accent-600",
-					"aria-checked:z-1 aria-checked:border-accent-500/40 aria-checked:bg-accent-500/10 not-aria-disabled:hover:aria-checked:border-accent-600 dark-high-contrast:aria-checked:border-accent-400 high-contrast:aria-checked:border-accent-400",
+					"aria-checked:z-1 aria-checked:border-accent-600/50 aria-checked:bg-accent-500/10 not-aria-disabled:hover:aria-checked:border-accent-600 dark-high-contrast:aria-checked:border-accent-600 high-contrast:aria-checked:border-accent-600",
 					className,
 				)}
 				{...props}
@@ -301,7 +301,7 @@ const Button = forwardRef<ComponentRef<"div">, RadioButtonProps>(
 					"cursor-pointer aria-disabled:cursor-default focus:outline-hidden",
 					"first-of-type:rounded-bl-md first-of-type:rounded-tl-md last-of-type:rounded-br-md last-of-type:rounded-tr-md",
 					"not-aria-disabled:hover:z-1 not-aria-disabled:hover:border-accent-600 aria-disabled:opacity-50",
-					"aria-checked:z-1 aria-checked:border-accent-500/40 aria-checked:bg-accent-500/10 not-aria-disabled:hover:aria-checked:border-accent-600",
+					"aria-checked:z-1 aria-checked:border-accent-600/40 aria-checked:bg-accent-500/10 not-aria-disabled:hover:aria-checked:border-accent-600",
 					"has-[.radio-indicator:first-child]:pl-2 has-[.radio-indicator:last-child]:pr-2",
 					className,
 				)}
