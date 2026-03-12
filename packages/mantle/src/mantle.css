@@ -318,7 +318,7 @@ MARK: LIGHT DEFS
 	--background-color-card-hover: var(--color-neutral-100);
 	--background-color-popover-hover: var(--color-neutral-100);
 	--background-color-dialog-hover: var(--color-neutral-100);
-	--background-color-form: var(--color-white);
+	--background-color-form: var(--background-color-card);
 	--background-color-form-hover: --alpha(var(--color-neutral-500) / 0.05);
 	--background-color-form-active: --alpha(var(--color-neutral-500) / 0.1);
 	--background-color-overlay: --alpha(#000 / 0.12);
@@ -659,7 +659,7 @@ MARK: DARK DEFS
 	--background-color-card-hover: var(--color-neutral-200);
 	--background-color-popover-hover: var(--color-neutral-200);
 	--background-color-dialog-hover: var(--color-neutral-100);
-	--background-color-form: var(--color-neutral-50);
+	--background-color-form: var(--background-color-card);
 	--background-color-form-hover: --alpha(var(--color-neutral-500) / 0.05);
 	--background-color-form-active: --alpha(var(--color-neutral-500) / 0.1);
 	--background-color-overlay: --alpha(#000 / 0.6);
@@ -964,7 +964,7 @@ MARK: LIGHT HICON DEFS
 	--background-color-card-hover: var(--color-neutral-100);
 	--background-color-popover-hover: var(--color-neutral-100);
 	--background-color-dialog-hover: var(--color-neutral-100);
-	--background-color-form: var(--color-white);
+	--background-color-form: var(--color-card);
 	--background-color-form-hover: --alpha(var(--color-neutral-500) / 0.05);
 	--background-color-form-active: --alpha(var(--color-neutral-500) / 0.1);
 	--background-color-overlay: --alpha(#000 / 0.12);
@@ -1269,7 +1269,7 @@ MARK: DARK HICON DEFS
 	--background-color-card-hover: var(--color-neutral-100);
 	--background-color-popover-hover: var(--color-neutral-100);
 	--background-color-dialog-hover: var(--color-neutral-100);
-	--background-color-form: var(--color-white);
+	--background-color-form: var(--color-card);
 	--background-color-form-hover: --alpha(var(--color-neutral-500) / 0.05);
 	--background-color-form-active: --alpha(var(--color-neutral-500) / 0.1);
 	--background-color-overlay: --alpha(var(--color-white) / 0.6);
