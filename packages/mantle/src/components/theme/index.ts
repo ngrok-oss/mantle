@@ -1,8 +1,21 @@
 export {
 	//,
+	fixMediaScriptContent,
+	mantleStyleSheetUrls,
+	MantleStyleSheets,
+} from "./mantle-style-sheets.js";
+
+export type {
+	//,
+	MantleStyleSheetsProps,
+	MantleThemeCssUrls,
+} from "./mantle-style-sheets.js";
+
+export {
+	//,
 	extractThemeCookie,
 	getStoredTheme,
-	MantleThemeHeadContent,
+	PreventWrongThemeFlashScript,
 	preventWrongThemeFlashScriptContent,
 	readThemeFromHtmlElement,
 	ThemeProvider,
@@ -25,7 +38,13 @@ export {
 	//,
 	assetsCdnOrigin,
 	fontHref,
-	PreloadCoreFonts,
+	preloadFontLink,
+	PreloadFont,
+} from "./fonts.js";
+
+export type {
+	//,
+	CoreFontName,
 } from "./fonts.js";
 
 export type {

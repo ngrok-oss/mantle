@@ -66,6 +66,8 @@ const tabIndentedLanguages = [
 	"xml",
 ] as const satisfies SupportedLanguage[];
 
+const tabIndentedLanguageSet = new Set<string>(tabIndentedLanguages);
+
 /**
  * Languages that require or strongly prefer spaces
  */
@@ -78,6 +80,8 @@ const spaceIndentedLanguages = [
 	"rb",
 ] as const satisfies SupportedLanguage[];
 
+const spaceIndentedLanguageSet = new Set<string>(spaceIndentedLanguages);
+
 type TabIndentedLanguage = (typeof tabIndentedLanguages)[number];
 type SpaceIndentedLanguage = (typeof spaceIndentedLanguages)[number];
 
@@ -85,12 +89,12 @@ type SpaceIndentedLanguage = (typeof spaceIndentedLanguages)[number];
  * Type Predicate: checks if the given value is a required/preferred tab-indented language.
  */
 function isTabIndentedLanguage(value: SupportedLanguage): value is TabIndentedLanguage {
-	return tabIndentedLanguages.includes(value as TabIndentedLanguage);
+	return tabIndentedLanguageSet.has(value);
 }
 
 /**
  * Type Predicate: checks if the given value is a required/preferred space-indented language.
  */
 function isSpaceIndentedLanguage(value: SupportedLanguage): value is SpaceIndentedLanguage {
-	return spaceIndentedLanguages.includes(value as SpaceIndentedLanguage);
+	return spaceIndentedLanguageSet.has(value);
 }

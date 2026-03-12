@@ -3,7 +3,6 @@ import type { ComponentProps, ComponentPropsWithoutRef, ComponentRef } from "rea
 import { forwardRef } from "react";
 import { cx } from "../../utils/cx/cx.js";
 import { IconButton, type IconButtonProps } from "../button/icon-button.js";
-import { preventCloseOnPromptInteraction } from "../toast/toast.js";
 import * as DialogPrimitive from "./primitive.js";
 
 /**
@@ -138,21 +137,12 @@ type ContentProps = ComponentPropsWithoutRef<typeof DialogPrimitive.Content> & {
  * ```
  */
 const Content = forwardRef<ComponentRef<"div">, ContentProps>(
-	(
-		{
-			children,
-			className,
-			onInteractOutside,
-			onPointerDownOutside,
-			preferredWidth = "max-w-lg",
-			...props
-		},
-		ref,
-	) => (
+	({ children, className, preferredWidth = "max-w-lg", ...props }, ref) => (
 		<Portal>
 			<Overlay />
 			<div className="fixed inset-4 z-50 flex items-center justify-center">
 				<DialogPrimitive.Content
+					data-mantle-modal-content
 					className={cx(
 						"flex max-h-full w-full flex-1 flex-col",
 						"outline-hidden focus-within:outline-hidden",
@@ -161,14 +151,6 @@ const Content = forwardRef<ComponentRef<"div">, ContentProps>(
 						preferredWidth,
 						className,
 					)}
-					onInteractOutside={(event) => {
-						preventCloseOnPromptInteraction(event);
-						onInteractOutside?.(event);
-					}}
-					onPointerDownOutside={(event) => {
-						preventCloseOnPromptInteraction(event);
-						onPointerDownOutside?.(event);
-					}}
 					ref={ref}
 					{...props}
 				>

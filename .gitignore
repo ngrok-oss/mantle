@@ -25,6 +25,7 @@ dist-ssr
 
 tsconfig.tsbuildinfo
 
+*.local
 .cache
 build
 .env

@@ -31,6 +31,7 @@ export async function loader({ request }: Route.LoaderArgs) {
 			"Content-Disposition": `inline; filename="${filename}.md"`,
 			"Cache-Control": "max-age=300, stale-while-revalidate=604800",
 			"X-Content-Type-Options": "nosniff",
+			"X-Robots-Tag": "noindex, nofollow",
 		},
 	});
 }

@@ -35,4 +35,9 @@ describe("resolveLineNumbers", () => {
 			new Set([1, 2, 3, 4, 5, 6]),
 		);
 	});
+
+	test("given an excessively large range, ignores it", () => {
+		expect(resolveLineNumbers("1-1001")).toEqual(new Set());
+		expect(resolveLineNumbers(7, "1-1001")).toEqual(new Set([7]));
+	});
 });

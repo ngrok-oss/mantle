@@ -69,7 +69,7 @@ async function getAllWorkspacePackages(workspaces) {
 
 	// Flatten the array of arrays and remove duplicates, then sort
 	const allPackages = packagesByWorkspaceDir.flat();
-	return Array.from(new Set(allPackages)).sort();
+	return Array.from(new Set(allPackages)).toSorted();
 }
 
 export {

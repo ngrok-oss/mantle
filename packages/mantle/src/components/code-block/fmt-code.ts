@@ -15,34 +15,63 @@ function fmtCode(strings: TemplateStringsArray, ...values: Primitive[]): string 
 	// fine the minimum indentation of the code block
 	const minIndent = findMinIndent(text);
 	const lines = text.trim().split("\n");
+	const normalizedLines = new Array<string>(lines.length);
 
-	return lines
-		.map((line) => {
-			// remove nothing if the line doesn't start with indentation
-			if (/^\S+/.test(line)) {
-				return line;
-			}
-			return line.slice(minIndent);
-		})
-		.join("\n");
+	for (let i = 0; i < lines.length; i++) {
+		const line = lines[i];
+		if (line == null) {
+			continue;
+		}
+		normalizedLines[i] = startsWithNonWhitespace(line) ? line : line.slice(minIndent);
+	}
+
+	return normalizedLines.join("\n");
 }
 
 export {
 	//,
 	fmtCode,
+	findMinIndent,
 };
 
 /**
  * Find the shortest indentation of a multiline string
  */
 function findMinIndent(value: string): number {
-	const match = value.match(/^[ \t]*(?=\S)/gm);
+	let minIndent = Number.POSITIVE_INFINITY;
+	let indent = 0;
+	let atLineStart = true;
 
-	if (!match) {
-		return 0;
+	for (let i = 0; i < value.length; i++) {
+		const char = value[i];
+
+		if (atLineStart) {
+			if (char === " " || char === "\t") {
+				indent += 1;
+				continue;
+			}
+			if (char === "\n" || char === "\r") {
+				indent = 0;
+				continue;
+			}
+
+			if (indent < minIndent) {
+				minIndent = indent;
+				if (minIndent === 0) {
+					return 0;
+				}
+			}
+			atLineStart = false;
+			continue;
+		}
+
+		if (char === "\n" || char === "\r") {
+			atLineStart = true;
+			indent = 0;
+		}
 	}
 
-	return match.reduce((acc, curr) => Math.min(acc, curr.length), Number.POSITIVE_INFINITY);
+	return minIndent === Number.POSITIVE_INFINITY ? 0 : minIndent;
 }
 
 /**
@@ -50,4 +79,9 @@ function findMinIndent(value: string): number {
  */
 function isTemplateStringsArray(strings: unknown): strings is TemplateStringsArray {
 	return Array.isArray(strings) && "raw" in strings && Array.isArray(strings.raw);
+}
+
+function startsWithNonWhitespace(line: string): boolean {
+	const firstCharacter = line[0];
+	return firstCharacter != null && firstCharacter !== " " && firstCharacter !== "\t";
 }

@@ -1,5 +1,270 @@
 # @ngrok/mantle
 
+## 0.66.11
+
+### Patch Changes
+
+- [#1057](https://github.com/ngrok-oss/mantle/pull/1057) [`930e5fb`](https://github.com/ngrok-oss/mantle/commit/930e5fbb5883369ca31a6904d6adc369b7912a23) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Export `fixMediaScriptContent` from `@ngrok/mantle/theme`. This function returns the raw JavaScript string for the inline `<script>` that fixes theme stylesheet `media` attributes — useful for legacy Go services and other non-React servers that need to inline it directly into SSR HTML.
+
+## 0.66.10
+
+### Patch Changes
+
+- [#1055](https://github.com/ngrok-oss/mantle/pull/1055) [`714c79e`](https://github.com/ngrok-oss/mantle/commit/714c79e0362b3c2a1f4762755b97471041fb2a73) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - fix(use-copy-to-clipboard): remove unnecessary async wrapper, guarantee polyfill DOM cleanup
+
+## 0.66.9
+
+### Patch Changes
+
+- [#1048](https://github.com/ngrok-oss/mantle/pull/1048) [`ca1ce98`](https://github.com/ngrok-oss/mantle/commit/ca1ce982cd68cae8e96181031a59673763c259d1) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - fix(code-block): restore syntax highlight token styles to mantle.css
+
+  The `.token.*` styles were moved out of `mantle.css` into a colocated
+  `syntax-highlight.css` imported as a side-effect in `code-block.tsx`.
+  However, tsdown extracts CSS imports into a sidecar file without emitting
+  a corresponding `import` in the bundled JS, so consuming apps never loaded
+  the styles. Moved the token styles back into `mantle.css` where they are
+  reliably included.
+
+## 0.66.8
+
+### Patch Changes
+
+- [#1038](https://github.com/ngrok-oss/mantle/pull/1038) [`00fda43`](https://github.com/ngrok-oss/mantle/commit/00fda438dd9818cc3f3a63ab2d4798b96e28ec8f) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - **Breaking:** `MantleStylesheets` is renamed to `MantleStyleSheets` (and `MantleStylesheetsProps` → `MantleStyleSheetsProps`).
+
+  The component no longer imports CSS `?url` paths internally. Instead, pass the browser-accessible CSS URLs as required props using the new `mantleStyleSheetUrls` helper, which collects the three Vite `?url` imports into a spreadable object:
+
+  ```tsx
+  // Before
+  import { MantleStylesheets } from "@ngrok/mantle/theme";
+  <MantleStylesheets nonce={nonce} ssrCookie={ssrCookie} />;
+
+  // After
+  import darkCssUrl from "@ngrok/mantle/mantle-dark.css?url";
+  import darkHighContrastCssUrl from "@ngrok/mantle/mantle-dark-high-contrast.css?url";
+  import lightHighContrastCssUrl from "@ngrok/mantle/mantle-light-high-contrast.css?url";
+  import { mantleStyleSheetUrls, MantleStyleSheets } from "@ngrok/mantle/theme";
+
+  const themeUrls = mantleStyleSheetUrls({
+  	darkCssUrl,
+  	lightHighContrastCssUrl,
+  	darkHighContrastCssUrl,
+  });
+
+  <MantleStyleSheets {...themeUrls} nonce={nonce} ssrCookie={ssrCookie} />;
+  ```
+
+  This fixes a build error (`Unknown file extension ".css"`) in apps using React Router's SSR build, where `?url` imports inside node_modules are not transformed by Vite.
+
+  When `forceTheme` is set to a non-light theme, only the link tag for that theme is rendered — the others are omitted to avoid unnecessary network requests. `forceTheme="light"` renders no link tags since light is the base theme with no dedicated lazy stylesheet.
+
+## 0.66.7
+
+### Patch Changes
+
+- [#1036](https://github.com/ngrok-oss/mantle/pull/1036) [`1521814`](https://github.com/ngrok-oss/mantle/commit/1521814c50e01d0111bd03696c9698dd718ff5f1) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Move syntax highlight token styles into the code-block component
+
+  The `.token.*` CSS rules for syntax highlighting were previously included unconditionally in `mantle.css`, adding to the critical CSS payload for all pages even those with no code blocks.
+
+  These styles are now colocated in `packages/mantle/src/components/code-block/syntax-highlight.css` and imported as a side-effect from `code-block.tsx`. Vite bundles them as a CSS chunk associated with the code-block module — apps that never import `@ngrok/mantle/code-block` no longer pay the cost, and apps that do get the styles automatically.
+
+- [#1036](https://github.com/ngrok-oss/mantle/pull/1036) [`1521814`](https://github.com/ngrok-oss/mantle/commit/1521814c50e01d0111bd03696c9698dd718ff5f1) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add `MantleStylesheets` component and split dark/high-contrast themes into separate CSS files
+
+  **New: `MantleStylesheets`**
+
+  A new component exported from `@ngrok/mantle/theme` that renders `<link rel="stylesheet">` tags for the dark, light-high-contrast, and dark-high-contrast theme CSS files. Each stylesheet is gated behind a `media` attribute matching its OS preference, making it non-render-blocking for users whose OS does not match.
+
+  Place it in `<head>`, immediately after `<PreventWrongThemeFlashScript>`:
+
+  ```tsx
+  <head>
+  	<PreventWrongThemeFlashScript nonce={nonce} />
+  	<MantleStylesheets nonce={nonce} ssrCookie={loaderData?.ssrCookie} />
+  </head>
+  ```
+
+  Props:
+  - `forceTheme?: ResolvedTheme` — force a specific theme's stylesheet to `media="all"` unconditionally (e.g. for a dark-only app)
+  - `ssrCookie?: string` — pass the extracted theme cookie (via `extractThemeCookie`) so the server renders the correct `media` attribute directly in SSR HTML, eliminating FOUC for users with a manually-selected non-system theme
+  - `nonce?: string` — CSP nonce for the inline fix script
+
+  An inline `<script>` is rendered after the `<link>` tags. It runs synchronously before first paint and corrects any `media` attributes based on `html[data-applied-theme]` set by `PreventWrongThemeFlashScript`, covering cases where `ssrCookie` is not provided. On the client, a `MutationObserver` watches `html[data-applied-theme]` to keep media attributes in sync as the user changes their theme.
+
+  **New CSS exports**
+
+  Three new CSS files are now exported from `@ngrok/mantle`:
+  - `@ngrok/mantle/mantle-dark.css` — dark theme custom properties
+  - `@ngrok/mantle/mantle-light-high-contrast.css` — light high-contrast theme custom properties
+  - `@ngrok/mantle/mantle-dark-high-contrast.css` — dark high-contrast theme custom properties
+
+  These files contain only CSS custom property blocks and do not need to be added to your app's `@import` chain — `MantleStylesheets` handles loading them via `<link>` tags. `mantle.css` continues to hold the light theme and all Tailwind directives and must remain in your CSS `@import` chain as before.
+
+- [#1036](https://github.com/ngrok-oss/mantle/pull/1036) [`1521814`](https://github.com/ngrok-oss/mantle/commit/1521814c50e01d0111bd03696c9698dd718ff5f1) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add `@ngrok/mantle-vite-plugins` package and `source-all.css`, optimize `mantle.css`
+
+  **New: `@ngrok/mantle-vite-plugins`**
+
+  A new package that exports `mantleSourcePlugin` — a Vite plugin that writes targeted Tailwind `@source` directives into your global CSS file for only the `@ngrok/mantle` components your app actually imports. Scans `.ts`, `.tsx`, `.js`, `.jsx`, `.mdx`, and `.md` files. Uses a disk-write approach (required because `@tailwindcss/vite` reads CSS from disk at startup before Vite's transform pipeline runs).
+
+  **New: `@ngrok/mantle/source-all.css`**
+
+  A zero-configuration alternative to `mantleSourcePlugin`. Import it alongside `mantle.css` to tell Tailwind to scan all mantle component dist files:
+
+  ```css
+  @import "@ngrok/mantle/mantle.css";
+  @import "@ngrok/mantle/source-all.css";
+  ```
+
+  Use this for apps that import most or all mantle components. Use `mantleSourcePlugin` for apps that import a subset and want the smallest possible CSS output.
+
+  **`mantle.css` optimizations**
+  - Removed `@source "../dist"` — source scanning is now opt-in via `source-all.css` or `mantleSourcePlugin`
+  - Deduplicated `--color-gray-*` in light/dark themes using `var(--color-neutral-*)` aliases
+  - Removed 21 light-theme color overrides (`neutral-50`–`neutral-900`, all `red-*` shades) that were identical to Tailwind v4 defaults
+  - Moved ~60 semantic tokens (`--background-color-base`, etc.) from `@theme {}` to `@theme inline {}` to stop generating unused utility classes like `bg-background-color-base`
+
+## 0.66.6
+
+### Patch Changes
+
+- [#1034](https://github.com/ngrok-oss/mantle/pull/1034) [`949ec0f`](https://github.com/ngrok-oss/mantle/commit/949ec0fb0ca512143eb6f355efb88efbf9f1b518) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Update `font-display` policy for core fonts: `roobert` and `jetbrains-mono` (normal) use `swap`, italic faces (`jetbrains-mono-italic`, `family-italic`) use `optional`, `family-regular` stays `fallback`.
+
+## 0.66.5
+
+### Patch Changes
+
+- [#1032](https://github.com/ngrok-oss/mantle/pull/1032) [`b9a04cc`](https://github.com/ngrok-oss/mantle/commit/b9a04ccbea762504b2dddd450757729dcefe3aa5) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - **Add** `preloadFontLink(name: CoreFontName): string` — returns an HTTP `Link` header value that preloads a single core font. Sending preload hints as response headers lets the browser start fetching fonts before it parses any HTML, improving LCP on mobile.
+
+  **Remove** `MantleThemeHeadContent` and `PreloadCoreFonts`.
+
+  **Migration:** use `PreventWrongThemeFlashScript` in `<head>` and `preloadFontLink` in your HTTP response headers. For apps without header control, use individual `PreloadFont` elements instead.
+
+  ```ts
+  // entry.server.tsx — send font preloads as HTTP Link headers
+  import { assetsCdnOrigin, preloadFontLink } from "@ngrok/mantle/theme";
+
+  responseHeaders.set(
+  	"Link",
+  	[
+  		`<${assetsCdnOrigin}>; rel=preconnect; crossorigin`,
+  		preloadFontLink("roobert"),
+  		preloadFontLink("jetbrains-mono"),
+  		preloadFontLink("family-regular"),
+  	].join(", "),
+  );
+  ```
+
+  ```tsx
+  // root.tsx — only the FOUC script in <head>
+  import { PreventWrongThemeFlashScript } from "@ngrok/mantle/theme";
+
+  <head>
+  	<PreventWrongThemeFlashScript nonce={nonce} />
+  </head>;
+  ```
+
+  ```tsx
+  // Non-SSR fallback — no header control
+  import { PreloadFont, PreventWrongThemeFlashScript } from "@ngrok/mantle/theme";
+
+  <head>
+  	<PreventWrongThemeFlashScript nonce={nonce} />
+  	<PreloadFont name="roobert" />
+  	<PreloadFont name="jetbrains-mono" />
+  	<PreloadFont name="family-regular" />
+  </head>;
+  ```
+
+## 0.66.4
+
+### Patch Changes
+
+- [#1030](https://github.com/ngrok-oss/mantle/pull/1030) [`2b740bb`](https://github.com/ngrok-oss/mantle/commit/2b740bbf4e6dc42d6a674e2bd25ee04367ef47bf) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - export PreventWrongThemeFlashScript
+
+## 0.66.3
+
+### Patch Changes
+
+- [`0dac608`](https://github.com/ngrok-oss/mantle/commit/0dac6083db43e746213fa4047ac03aaca3e9bce5) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Improve code block utility performance by speeding up indentation normalization and `fmtCode`, adding LRU caching for repeated syntax highlighting, and replacing linear language/indentation lookups with set membership checks. Also normalize CRLF input correctly, rename the indentation normalizer to `normalize-indentation`, and guard line-number expansion against excessively large ranges.
+
+- [#1028](https://github.com/ngrok-oss/mantle/pull/1028) [`11f4575`](https://github.com/ngrok-oss/mantle/commit/11f45750cf33affe31108f0e717e26e3ffbf1705) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - add individual PreloadFont component, preload a core font by name
+
+## 0.66.2
+
+### Patch Changes
+
+- [#1023](https://github.com/ngrok-oss/mantle/pull/1023) [`bc1bc6c`](https://github.com/ngrok-oss/mantle/commit/bc1bc6cbb8ebbb34a6a771c4f60b60c2e0271757) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - multi-select.tsx
+  - close the combobox popover on `Escape` at the multi-select trigger level
+
+  dialog/primitive.tsx
+  - centralize `onInteractOutside` / `onPointerDownOutside` prompt-protection
+  - add `preventCloseOnNestedPopupEscape(...)`
+  - detect focused nested popup owners via `aria-expanded="true"` + `aria-controls`
+  - only prevent parent modal close while the controlled popup is still mounted/open
+  - add JSDoc documenting the first-ESC / second-ESC flow
+
+  dialog.tsx
+  - remove duplicated `onInteractOutside` / `onPointerDownOutside` wrappers
+
+  sheet.tsx
+  - remove duplicated `onInteractOutside` / `onPointerDownOutside` wrappers
+
+  alert-dialog.tsx
+  - remove duplicated `onInteractOutside` / `onPointerDownOutside` wrappers
+
+## 0.66.1
+
+### Patch Changes
+
+- [#1004](https://github.com/ngrok-oss/mantle/pull/1004) [`b04e08f`](https://github.com/ngrok-oss/mantle/commit/b04e08f14262c1dfad91384e9a6ebdeb7be4b5fe) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update dependencies: tailwind, ariakit, react-day-picker
+
+- [#1021](https://github.com/ngrok-oss/mantle/pull/1021) [`aab7d30`](https://github.com/ngrok-oss/mantle/commit/aab7d305ed2d5222b82dfe701377738c0e5f2c10) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Swap from tsup to tsdown (6.2x speedup)
+
+- [#1022](https://github.com/ngrok-oss/mantle/pull/1022) [`df6d158`](https://github.com/ngrok-oss/mantle/commit/df6d158e4ff64406c5d84a71a3e9d0278ffc3c38) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Fix `MultiSelect.Content` inside modal `Sheet`, `Dialog`, and `AlertDialog` containers so it works with the default modal behavior without requiring `modal={false}`.
+
+## 0.66.0
+
+### Minor Changes
+
+- [#997](https://github.com/ngrok-oss/mantle/pull/997) [`612171b`](https://github.com/ngrok-oss/mantle/commit/612171b3afb4fb44e5695445d69418bd621a203e) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add MultiSelect component
+
+## 0.65.0
+
+### Minor Changes
+
+- [#1000](https://github.com/ngrok-oss/mantle/pull/1000) [`56a5245`](https://github.com/ngrok-oss/mantle/commit/56a5245e386fc0dde2688c25d95b52a1d7c1e871) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add `@ngrok/mantle/utils` export and new `useInView` hook.
+
+  **Breaking changes:**
+  - `@ngrok/mantle/compose-refs` is removed. Import `composeRefs` from `@ngrok/mantle/utils` and `useComposedRefs` from `@ngrok/mantle/hooks` instead.
+  - `@ngrok/mantle/utils/sorting` is removed. Import sorting utilities from `@ngrok/mantle/utils` instead.
+
+  **New exports at `@ngrok/mantle/utils`:**
+  - `inView(element, onStart, options)` — framework-agnostic `IntersectionObserver` helper that calls `onStart` when an element enters the viewport. If `onStart` returns a function, it is called when the element leaves. Returns a cleanup function that disconnects the observer.
+  - `composeRefs` and `useComposedRefs` — moved from `@ngrok/mantle/compose-refs`.
+  - All sorting utilities — moved from `@ngrok/mantle/utils/sorting`.
+
+  **New hook at `@ngrok/mantle/hooks`:**
+  - `useInView(ref, options)` — React hook that returns `true` when the referenced element is visible in the viewport. Supports `root`, `margin`, `amount`, `once`, and `initial` options.
+
+### Patch Changes
+
+- [#1001](https://github.com/ngrok-oss/mantle/pull/1001) [`922a053`](https://github.com/ngrok-oss/mantle/commit/922a053d84fb8ad8f51c42fe1058fb49da7be55d) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Address review feedback from PR #1000.
+  - `inView`: call `observer.unobserve(element)` before `observer.disconnect()` in the cleanup function for cleaner teardown.
+  - `useInView`: restore intentional omission of `isInView` from `useEffect` deps (matching the upstream motion implementation); replace the bare eslint-disable comment with an explanation of why including `isInView` would cause the observer to restart on every visibility change.
+  - `tsup.config.ts`: exclude `compose-refs` and `sorting` from individual build entries since they are now consolidated into the `./utils` export.
+  - `hooks.mdx`: fix missing `forwardRef` import in the `useComposedRefs` code example.
+  - `hooks.mdx`: remove `inView` from the hooks page; it now has a dedicated page under the new Utils section.
+  - `hooks.mdx`: add a live interactive demo for `useInView`.
+  - Changeset: correct version bump type to `major` (breaking changes) and clarify `useComposedRefs` migration path to `@ngrok/mantle/hooks`.
+  - Add `use-in-view.test.tsx` test coverage for the `useInView` hook.
+  - Add a Utils section to the docs site with dedicated pages for `cx`, `color`, `inView`, `composeRefs`, and `sorting`.
+
+- [#1002](https://github.com/ngrok-oss/mantle/pull/1002) [`f6e8271`](https://github.com/ngrok-oss/mantle/commit/f6e8271c70f6932d657b552f8cb24bebe6094a2a) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add optional `icon` prop to `Alert.DismissIconButton`.
+
+  The dismiss button now accepts an `icon` prop (`ReactNode`) to render a custom icon in place of the default `X` icon.
+
+- [#999](https://github.com/ngrok-oss/mantle/pull/999) [`4ebf12b`](https://github.com/ngrok-oss/mantle/commit/4ebf12bdc73f6c88f7968b2378b94b8ff1a3e0eb) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump tsconfig target/lib to ES2023
+
+- [#994](https://github.com/ngrok-oss/mantle/pull/994) [`c4d9812`](https://github.com/ngrok-oss/mantle/commit/c4d9812c9c14924418339d52aa06be61191cd224) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump up min version of tailwind
+
 ## 0.64.3
 
 ### Patch Changes

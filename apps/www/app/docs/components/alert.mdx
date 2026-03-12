@@ -211,6 +211,35 @@ import { Alert } from "@ngrok/mantle/alert";
 </Alert.Root>;
 ```
 
+## Custom Dismiss Icon
+
+Use the `icon` prop on `Alert.DismissIconButton` to render a custom icon in place of the default `X`.
+
+<Example>
+	<Alert.Root priority="warning">
+		<Alert.Icon />
+		<Alert.Content>
+			<Alert.Title>Custom Dismiss Icon</Alert.Title>
+			<Alert.DismissIconButton icon={<ShrimpIcon />} />
+			<Alert.Description>This dismiss button uses a custom icon.</Alert.Description>
+		</Alert.Content>
+	</Alert.Root>
+</Example>
+
+```tsx
+import { Alert } from "@ngrok/mantle/alert";
+import { ShrimpIcon } from "@phosphor-icons/react/Shrimp";
+
+<Alert.Root priority="warning">
+	<Alert.Icon />
+	<Alert.Content>
+		<Alert.Title>Custom Dismiss Icon</Alert.Title>
+		<Alert.DismissIconButton icon={<ShrimpIcon />} />
+		<Alert.Description>This dismiss button uses a custom icon.</Alert.Description>
+	</Alert.Content>
+</Alert.Root>;
+```
+
 ## API Reference
 
 ### Alert.Root
@@ -264,8 +293,12 @@ All props from [h5](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/He
 
 A dismiss icon button that closes the alert when clicked.
 
-All props from [button](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes), plus:
+All props from [IconButton](/components/icon-button#api-reference), with the following overridden defaults:
 
-| Prop       | Type      | Default | Description                                                                                                                          |
-| ---------- | --------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| `asChild?` | `boolean` | `false` | Use the `asChild` prop to compose the `Alert.DismissIconButton` styling onto alternative element types or your own React components. |
+| Prop          | Type                                  | Default           | Description                                                                    |
+| ------------- | ------------------------------------- | ----------------- | ------------------------------------------------------------------------------ |
+| `appearance?` | `"ghost"` \| `"outlined"`             | `"ghost"`         | The visual style of the button.                                                |
+| `icon?`       | `ReactNode`                           | `<XIcon />`       | An optional icon to render inside the dismiss button. Defaults to an `X` icon. |
+| `label?`      | `string`                              | `"Dismiss Alert"` | The accessible label for the button, announced to screen readers.              |
+| `size?`       | `"xs"` \| `"sm"` \| `"md"`            | `"sm"`            | The size of the button.                                                        |
+| `type?`       | `"button"` \| `"submit"` \| `"reset"` | `"button"`        | The default behavior of the button.                                            |

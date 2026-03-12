@@ -1,0 +1,102 @@
+---
+title: cx
+description: Class name composition utility from @ngrok/mantle/cx
+---
+
+# cx
+
+A class name composition utility that combines conditional class names and resolves Tailwind CSS conflicts using left-to-right merge order.
+
+Wraps [`clsx`](https://github.com/lukeed/clsx) for conditional class handling and [`tailwind-merge`](https://github.com/dcastil/tailwind-merge) for conflict resolution, so later classes override earlier ones (same behavior as inline styles).
+
+```ts
+import { cx } from "@ngrok/mantle/cx";
+```
+
+## Usage
+
+```tsx
+import { cx } from "@ngrok/mantle/cx";
+
+// Strings
+cx("px-4 py-2", "text-sm");
+// → "px-4 py-2 text-sm"
+
+// Conditional classes (object syntax)
+cx("base", { active: isActive, disabled: isDisabled });
+
+// Conditional classes (falsy values are ignored)
+cx("base", isActive && "active", isDisabled && "disabled");
+
+// Tailwind conflict resolution — later class wins
+cx("text-red-500", "text-blue-500");
+// → "text-blue-500"
+
+// Arrays
+cx(["px-4", "py-2"], "text-sm");
+```
+
+## Tailwind Conflict Resolution
+
+`cx` uses `tailwind-merge` to resolve conflicts between Tailwind utility classes. When two classes target the same CSS property, the last one wins:
+
+```tsx
+// Without cx — both classes are applied, browser resolves by specificity (unpredictable, stinky)
+<div className={`text-red-500 ${override}`} />
+
+// With cx — later class always wins (predictable, like inline styles)
+<div className={cx("text-red-500", override)} />
+```
+
+This makes `cx` safe to use for component prop overrides:
+
+```tsx
+import { cx } from "@ngrok/mantle/cx";
+
+type ButtonProps = {
+	className?: string;
+};
+
+function Button({ className }: ButtonProps) {
+	return <button className={cx("bg-blue-500 text-white px-4 py-2 rounded", className)} />;
+}
+
+// The consumer's class overrides the default
+<Button className="bg-red-500" />;
+// → "text-white px-4 py-2 rounded bg-red-500"
+```
+
+## API
+
+```ts
+function cx(...inputs: ClassValue[]): string;
+
+// ClassValue comes from clsx, looks like this 👇
+type ClassValue =
+	| ClassArray
+	| ClassDictionary
+	| string
+	| number
+	| bigint
+	| null
+	| boolean
+	| undefined;
+type ClassDictionary = Record<string, any>;
+type ClassArray = ClassValue[];
+```
+
+Accepts any combination of:
+
+| Input type   | Example                                 | Notes                                |
+| ------------ | --------------------------------------- | ------------------------------------ |
+| `string`     | `"px-4 py-2"`                           | Added as-is                          |
+| `object`     | `{ active: true, disabled: false }`     | Keys with truthy values are included |
+| `array`      | `["px-4", isActive && "bg-blue-500"]`   | Recursively processed                |
+| Falsy values | `false`, `null`, `undefined`, `0`, `""` | Ignored                              |
+
+The return value is a single deduplicated, conflict-resolved class string.
+
+## Convention
+
+All `className` values in Mantle must be built with `cx`.
+String interpolation, `+`, ternaries, or conditional expressions directly on `className` are not allowed — see [CONVENTIONS.md](https://github.com/ngrok-oss/mantle/blob/main/CONVENTIONS.md).

@@ -16,7 +16,7 @@ export {
 export {
 	//,
 	normalizeIndentation,
-} from "./normalize.js";
+} from "./normalize-indentation.js";
 
 export {
 	//,

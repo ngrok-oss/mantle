@@ -3,6 +3,8 @@
  */
 export type LineRange = `${number}-${number}`;
 
+const MAX_EXPANDED_LINE_RANGE_LENGTH = 1_000;
+
 /**
  * Given a list of line ranges and numbers, resolves them into a unique list of line numbers as a set.
  *
@@ -18,10 +20,6 @@ export type LineRange = `${number}-${number}`;
 export function resolveLineNumbers(...items: (LineRange | number)[]): Set<number> {
 	const lineNumberSet = new Set<number>();
 
-	if (!items) {
-		return lineNumberSet;
-	}
-
 	for (const item of items) {
 		if (typeof item === "number") {
 			if (!isPositiveLineNumber(item)) {
@@ -31,7 +29,11 @@ export function resolveLineNumbers(...items: (LineRange | number)[]): Set<number
 			const int = Math.floor(item);
 			lineNumberSet.add(int);
 		} else {
-			let [start, end] = item.split("-").map((n) => Number.parseInt(n, 10));
+			const separatorIndex = item.indexOf("-");
+			const startPart = item.slice(0, separatorIndex);
+			const endPart = item.slice(separatorIndex + 1);
+			let start = Number.parseInt(startPart, 10);
+			let end = Number.parseInt(endPart, 10);
 
 			// ignore invalid ranges that don't contain valid line numbers
 			if (!isPositiveLineNumber(start) || !isPositiveLineNumber(end)) {
@@ -43,10 +45,13 @@ export function resolveLineNumbers(...items: (LineRange | number)[]): Set<number
 				[start, end] = [end, start];
 			}
 
+			if (end - start + 1 > MAX_EXPANDED_LINE_RANGE_LENGTH) {
+				continue;
+			}
+
 			// add all line numbers in the range, inclusive
 			for (let i = start; i <= end; i++) {
-				const int = Math.floor(i);
-				lineNumberSet.add(int);
+				lineNumberSet.add(i);
 			}
 		}
 	}

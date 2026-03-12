@@ -1,0 +1,147 @@
+---
+title: color
+description: Color constants and type guards from @ngrok/mantle/color
+---
+
+# color
+
+Color constants, type guards, and TypeScript types for Mantle's color system. Useful for building components that accept a `color` prop constrained to Mantle's palette.
+
+```ts
+import {
+	colors,
+	namedColors,
+	functionalColors,
+	isColor,
+	isNamedColor,
+	isFunctionalColor,
+} from "@ngrok/mantle/color";
+import type { Color, NamedColor, FunctionalColor } from "@ngrok/mantle/color";
+```
+
+## Color Categories
+
+Mantle has two categories of colors:
+
+**Named colors** — the 18 palette colors:
+
+```ts
+"amber" |
+	"blue" |
+	"cyan" |
+	"emerald" |
+	"fuchsia" |
+	"gray" |
+	"green" |
+	"indigo" |
+	"lime" |
+	"orange" |
+	"pink" |
+	"purple" |
+	"red" |
+	"rose" |
+	"sky" |
+	"teal" |
+	"violet" |
+	"yellow";
+```
+
+**Functional colors** — semantic role-based colors:
+
+```ts
+"info" | "accent" | "danger" | "neutral" | "success" | "warning";
+```
+
+## Constants
+
+### `namedColors`
+
+Read-only array of all named colors.
+
+```ts
+import { namedColors } from "@ngrok/mantle/color";
+
+namedColors; // readonly ["amber", "blue", "cyan", ...]
+```
+
+### `functionalColors`
+
+Read-only array of all functional colors.
+
+```ts
+import { functionalColors } from "@ngrok/mantle/color";
+
+functionalColors; // readonly ["info", "accent", "danger", "neutral", "success", "warning"]
+```
+
+### `colors`
+
+Read-only array of all colors (named + functional).
+
+```ts
+import { colors } from "@ngrok/mantle/color";
+
+colors; // readonly [...namedColors, ...functionalColors]
+```
+
+## Type Guards
+
+### `isNamedColor(value)`
+
+Returns `true` if `value` is a named color string.
+
+```ts
+import { isNamedColor } from "@ngrok/mantle/color";
+
+isNamedColor("blue"); // true
+isNamedColor("danger"); // false
+isNamedColor("foo"); // false
+```
+
+### `isFunctionalColor(value)`
+
+Returns `true` if `value` is a functional color string.
+
+```ts
+import { isFunctionalColor } from "@ngrok/mantle/color";
+
+isFunctionalColor("danger"); // true
+isFunctionalColor("blue"); // false
+isFunctionalColor("foo"); // false
+```
+
+### `isColor(value)`
+
+Returns `true` if `value` is any Mantle color (named or functional).
+
+```ts
+import { isColor } from "@ngrok/mantle/color";
+
+isColor("blue"); // true
+isColor("danger"); // true
+isColor("foo"); // false
+```
+
+## Types
+
+| Type              | Description                        |
+| ----------------- | ---------------------------------- |
+| `NamedColor`      | One of the 18 named palette colors |
+| `FunctionalColor` | One of the 6 semantic role colors  |
+| `Color`           | `NamedColor \| FunctionalColor`    |
+
+## Example: Color Prop
+
+```tsx
+import { isColor } from "@ngrok/mantle/color";
+import type { Color } from "@ngrok/mantle/color";
+
+type BadgeProps = {
+	color: Color;
+	children: React.ReactNode;
+};
+
+function Badge({ color, children }: BadgeProps) {
+	return <span data-color={color}>{children}</span>;
+}
+```

@@ -1,7 +1,11 @@
 import fs from "node:fs";
-import { defineConfig } from "tsup";
+import { defineConfig } from "tsdown";
 
 const MANTLE_CSS_SRC = new URL("./src/mantle.css", import.meta.url);
+const MANTLE_DARK_CSS_SRC = new URL("./src/mantle-dark.css", import.meta.url);
+const MANTLE_LIGHT_HC_CSS_SRC = new URL("./src/mantle-light-high-contrast.css", import.meta.url);
+const MANTLE_DARK_HC_CSS_SRC = new URL("./src/mantle-dark-high-contrast.css", import.meta.url);
+const SOURCE_ALL_CSS_SRC = new URL("./src/source-all.css", import.meta.url);
 
 /**
  * A set of package names that should not be published to npm
@@ -27,17 +31,25 @@ const allUtils = fs
 	.map((dirent) => dirent.name);
 
 const componentPackages = allComponents
-	// filter only the publishable component packages then map them to the tsup config entries object
+	// filter only the publishable component packages then map them to the build entry object
 	.filter((packageName) => !doNotPublish.has(packageName) && !unreleasedPackages.has(packageName))
 	.reduce<Record<string, string>>((acc, name) => {
 		acc[name] = componentPath(name);
 		return acc;
 	}, {});
 
-const utilPackages = allUtils.reduce<Record<string, string>>((acc, name) => {
-	acc[name] = utilPath(name);
-	return acc;
-}, {});
+/**
+ * Util directories that are consolidated into the `./utils` export and
+ * should not be built as individual entry points.
+ */
+const consolidatedIntoUtils = new Set<string>(["compose-refs", "sorting"]);
+
+const utilPackages = allUtils
+	.filter((name) => !consolidatedIntoUtils.has(name))
+	.reduce<Record<string, string>>((acc, name) => {
+		acc[name] = utilPath(name);
+		return acc;
+	}, {});
 
 export default defineConfig((options) => [
 	{
@@ -45,24 +57,30 @@ export default defineConfig((options) => [
 		// if we set this to true, it will "race" between the two builds and wipe away type declarations
 		// for one of the builds. rm -rf dist is run as a "prebuild" script to avoid this issue
 		clean: false,
-		external: ["@phosphor-icons/react", "react", "react-dom", "tailwindcss"],
 		minify: true,
 		sourcemap: true,
-		target: "es2022",
+		target: "ES2023",
 		tsconfig: "tsconfig.build.json",
-		injectStyle: false,
+		fixedExtension: false,
 		format: "esm",
 		entry: {
 			...componentPackages,
 			...utilPackages,
 			hooks: "./src/hooks/index.ts",
 			types: "./src/types/index.ts",
+			utils: "./src/utils/index.ts",
 		},
 		onSuccess: async () => {
 			try {
-				await fs.promises.copyFile(MANTLE_CSS_SRC, "./dist/mantle.css");
+				await Promise.all([
+					fs.promises.copyFile(MANTLE_CSS_SRC, "./dist/mantle.css"),
+					fs.promises.copyFile(MANTLE_DARK_CSS_SRC, "./dist/mantle-dark.css"),
+					fs.promises.copyFile(MANTLE_LIGHT_HC_CSS_SRC, "./dist/mantle-light-high-contrast.css"),
+					fs.promises.copyFile(MANTLE_DARK_HC_CSS_SRC, "./dist/mantle-dark-high-contrast.css"),
+					fs.promises.copyFile(SOURCE_ALL_CSS_SRC, "./dist/source-all.css"),
+				]);
 			} catch (error) {
-				console.error("Failed to copy mantle.css to dist:", error);
+				console.error("Failed to copy CSS files to dist:", error);
 				throw error;
 			}
 		},

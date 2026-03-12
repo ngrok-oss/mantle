@@ -38,6 +38,21 @@ Also install the required `devDependencies`:
 
 Next, check out the [Overview & Setup](https://mantle.ngrok.com/) docs and start using mantle components in your application!
 
+## Git Hooks
+
+Pre-commit hooks run automatically via [husky](https://typicode.github.io/husky/) and [lint-staged](https://github.com/lint-staged/lint-staged). On every commit, staged files are formatted with oxfmt and linted with oxlint.
+
+### Opting Out
+
+If you need to skip the pre-commit hook locally (e.g., WIP commits, rebasing), set the `SKIP_HOOKS` env var:
+
+```bash
+SKIP_HOOKS=1 git commit -m "wip"
+```
+
+> [!NOTE]
+> This is a **local opt-out only**. CI will always run formatting and linting checks against your branch, so any issues will still be caught before merge.
+
 ## Contributing
 
 Please read our [contribution guide](https://github.com/ngrok-oss/mantle/blob/main/CONTRIBUTING.md) and [conventions](https://github.com/ngrok-oss/mantle/blob/main/CONVENTIONS.md).

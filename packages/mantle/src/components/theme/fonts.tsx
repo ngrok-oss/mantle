@@ -17,16 +17,30 @@ const assetsCdnOrigin = "https://assets.ngrok.com";
  */
 const cdnBase = `${assetsCdnOrigin}/fonts`;
 
-/**
- * Canonical list of core font paths (relative to the CDN fonts base).
- */
-const coreFonts = [
-	"/roobert/roobert-proportional-vf.woff2",
-	"/jetbrains/jetbrainsmono-wght.woff2",
-	"/jetbrains/jetbrainsmono-italic-wght.woff2",
-	"/family/family-regular.woff2",
-	"/family/family-italic.woff2",
+const coreFontNames = [
+	"roobert",
+	"jetbrains-mono",
+	"jetbrains-mono-italic",
+	"family-regular",
+	"family-italic",
 ] as const;
+/**
+ * Named keys identifying each individual core font.
+ * @public
+ */
+type CoreFontName = (typeof coreFontNames)[number];
+
+/**
+ * Maps each {@link CoreFontName} to its CDN font path (relative to the fonts base).
+ * @internal
+ */
+const coreFontPathByName = {
+	roobert: "/roobert/roobert-proportional-vf.woff2",
+	"jetbrains-mono": "/jetbrains/jetbrainsmono-wght.woff2",
+	"jetbrains-mono-italic": "/jetbrains/jetbrainsmono-italic-wght.woff2",
+	"family-regular": "/family/family-regular.woff2",
+	"family-italic": "/family/family-italic.woff2",
+} as const satisfies Record<CoreFontName, `/${string}`>;
 
 type FontPath = `/${string}` | (string & {});
 
@@ -45,53 +59,88 @@ function fontHref<T extends FontPath = FontPath>(font: T) {
 }
 
 /**
- * Preload core fonts used in the mantle theme.
+ * Props for {@link PreloadFont}.
+ * @public
+ */
+type PreloadFontProps = {
+	/**
+	 * The name of the individual core font to preload.
+	 *
+	 * - `"roobert"` — Roobert proportional variable font
+	 * - `"jetbrains-mono"` — JetBrains Mono variable weight
+	 * - `"jetbrains-mono-italic"` — JetBrains Mono italic variable weight
+	 * - `"family-regular"` — Family regular
+	 * - `"family-italic"` — Family italic
+	 */
+	name: CoreFontName;
+};
+
+/**
+ * Returns an HTTP `Link` header value that preloads a single core font by name.
  *
- * Include this as early as possible in the document `<head>` so text renders
- * with the intended face without layout shifts. Uses `crossOrigin="anonymous"`
- * so the browser can cache and reuse the font across origins.
+ * Identical in intent to {@link PreloadFont}, but for server-side use where
+ * you want to send the preload hint as an HTTP header instead of (or in
+ * addition to) an HTML `<link>` element. Sending this as a `Link` header lets
+ * the browser start the font fetch before it has parsed any HTML.
+ *
+ * @remarks
+ * For best performance, also send a `preconnect` hint to {@link assetsCdnOrigin}
+ * in the same `Link` header.
+ *
+ * @example
+ * ```ts
+ * // In an HTTP handler / server entry:
+ * headers.append("Link", preloadFontLink("roobert"));
+ * headers.append("Link", preloadFontLink("jetbrains-mono"));
+ *
+ * // Or as a single combined header:
+ * headers.set("Link", [
+ *   `<${assetsCdnOrigin}>; rel=preconnect; crossorigin`,
+ *   preloadFontLink("roobert"),
+ * ].join(", "));
+ * ```
+ */
+function preloadFontLink(name: CoreFontName): string {
+	const href = fontHref(coreFontPathByName[name]);
+	return `<${href}>; rel=preload; as=font; type="font/woff2"; crossorigin`;
+}
+
+/**
+ * Preloads a single core font by name.
+ *
+ * Use this when you only need one or two specific fonts rather than all core
+ * fonts. Include it as early as possible in the document `<head>`.
  *
  * @remarks
  * For best performance, pair this with preconnect/dns-prefetch hints to the CDN.
  *
- * This is automatically included in `<MantleThemeHeadContent />`.
- *
  * @example
  * ```tsx
  * <head>
- *   <meta charSet="utf-8" />
- *   <meta name="viewport" content="width=device-width, initial-scale=1" />
- *
- *   // Preconnect and DNS-prefetch to the assets CDN
- *   // either here or in app root headers
  *   <link rel="preconnect" href={assetsCdnOrigin} crossOrigin="anonymous" />
  *   <link rel="dns-prefetch" href={assetsCdnOrigin} />
- *
- *   <PreventWrongThemeFlashScript />
- *   <PreloadCoreFonts />
- *   // ... other head elements ...
+ *   <PreloadFont name="roobert" />
+ *   <PreloadFont name="jetbrains-mono" />
  * </head>
  * ```
  */
-const PreloadCoreFonts = () => (
-	<>
-		{coreFonts.map((font) => (
-			<link
-				key={font}
-				rel="preload"
-				href={fontHref(font)}
-				as="font"
-				type="font/woff2"
-				crossOrigin="anonymous"
-			/>
-		))}
-	</>
+const PreloadFont = ({ name }: PreloadFontProps) => (
+	<link
+		rel="preload"
+		href={fontHref(coreFontPathByName[name])}
+		as="font"
+		type="font/woff2"
+		crossOrigin="anonymous"
+	/>
 );
-PreloadCoreFonts.displayName = "PreloadCoreFonts";
+PreloadFont.displayName = "PreloadFont";
+
+export type { CoreFontName };
 
 export {
 	//,
 	assetsCdnOrigin,
 	fontHref,
-	PreloadCoreFonts,
+	preloadFontLink,
+	PreloadFont,
 };

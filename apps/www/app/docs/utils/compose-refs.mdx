@@ -1,0 +1,75 @@
+---
+title: composeRefs
+description: Compose multiple React refs into a single callback ref from @ngrok/mantle/utils
+---
+
+# composeRefs
+
+A utility that composes multiple React refs (callback refs and `RefObject`s) into a single callback ref. Useful when you need to assign a DOM node to more than one ref at the same time.
+
+For the React hook version that wraps this in `useCallback` for stability, see [`useComposedRefs`](/hooks#useComposedRefs) in `@ngrok/mantle/hooks`.
+
+```ts
+import { composeRefs } from "@ngrok/mantle/utils";
+```
+
+## Usage
+
+### With `forwardRef`
+
+The most common use case: forward a ref to a parent while keeping an internal ref for the component itself.
+
+```tsx
+import { forwardRef, useRef } from "react";
+import { composeRefs } from "@ngrok/mantle/utils";
+
+const MyInput = forwardRef<HTMLInputElement>((props, forwardedRef) => {
+	const internalRef = useRef<HTMLInputElement>(null);
+
+	return <input ref={composeRefs(internalRef, forwardedRef)} {...props} />;
+});
+```
+
+### With multiple refs
+
+```tsx
+import { useRef } from "react";
+import { composeRefs } from "@ngrok/mantle/utils";
+
+function Example() {
+	const focusRef = useRef<HTMLButtonElement>(null);
+	const measureRef = useRef<HTMLButtonElement>(null);
+
+	return <button ref={composeRefs(focusRef, measureRef)}>Click me</button>;
+}
+```
+
+### With callback refs
+
+`composeRefs` accepts any mix of `RefObject`s and callback refs:
+
+```tsx
+import { useRef } from "react";
+import { composeRefs } from "@ngrok/mantle/utils";
+
+function Example() {
+	const objectRef = useRef<HTMLDivElement>(null);
+	const callbackRef = (node: HTMLDivElement | null) => {
+		if (node) {
+			console.log("mounted", node);
+		}
+	};
+
+	return <div ref={composeRefs(objectRef, callbackRef)} />;
+}
+```
+
+## API
+
+```ts
+function composeRefs<T>(...refs: PossibleRef<T>[]): (node: T) => void;
+
+type PossibleRef<T> = React.Ref<T> | undefined;
+```
+
+Accepts any number of refs (callback refs, `RefObject`s, or `undefined`). Returns a single callback ref that, when called with a node, assigns the node to all provided refs. `undefined` refs are safely skipped.

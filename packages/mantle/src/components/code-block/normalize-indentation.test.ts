@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { normalizeIndentation } from "./normalize.js";
+import { normalizeIndentation } from "./normalize-indentation.js";
 
 describe("normalizeIndentation", () => {
 	test("given empty string, returns empty string", () => {
@@ -46,6 +46,31 @@ bar.foo =					foo;
 			const bar = {};
 			foo.bar = bar;
 			bar.foo =					foo;"
+		`);
+	});
+
+	test("given a multiline string where all non-empty lines are indented equally, strips shared indentation", () => {
+		const value = "\n\t\tconst foo = {};\n\t\tconst bar = {};\n\t\tfoo.bar = bar;\n\t\t";
+
+		let result = normalizeIndentation(value);
+		expect(result).toMatchInlineSnapshot(`
+			"const foo = {};
+			const bar = {};
+			foo.bar = bar;"
+		`);
+
+		result = normalizeIndentation(value, { indentation: "spaces" });
+		expect(result).toMatchInlineSnapshot(`
+			"const foo = {};
+			const bar = {};
+			foo.bar = bar;"
+		`);
+
+		result = normalizeIndentation(value, { indentation: "tabs" });
+		expect(result).toMatchInlineSnapshot(`
+			"const foo = {};
+			const bar = {};
+			foo.bar = bar;"
 		`);
 	});
 
@@ -120,5 +145,15 @@ const foo = {};
 				</AlertContent>
 			</Alert>"
 		`);
+	});
+
+	test("normalizes CRLF line endings without leaving carriage returns in the output", () => {
+		const value = "\r\n\tconst foo = {};\r\n\t\tconst bar = {};\r\n";
+
+		expect(normalizeIndentation(value)).toBe("const foo = {};\n  const bar = {};");
+		expect(normalizeIndentation(value, { indentation: "tabs" })).toBe(
+			"const foo = {};\n\tconst bar = {};",
+		);
+		expect(normalizeIndentation(value)).not.toContain("\r");
 	});
 });

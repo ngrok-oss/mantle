@@ -5,11 +5,11 @@
  * using `dangerouslySetInnerHTML`.
  *
  * Characters escaped:
- * - \& => `&amp`;
- * - \< => `&lt`;
- * - \> => `&gt`;
- * - \" => `&quot`;
- * - \' => `&#39`;
+ * - \& => `&amp;`;
+ * - \< => `&lt;`;
+ * - \> => `&gt;`;
+ * - \" => `&quot;`;
+ * - \' => `&#39;`;
  *
  * @param {string} value The raw string to be escaped.
  *
@@ -18,8 +18,28 @@
  * // Returns: '&lt;div&gt;Hello &amp; &quot;world&quot;&lt;/div&gt;'
  */
 function escapeHtml(value: string): string {
-	let escaped = "";
-	for (const character of value) {
+	let firstSpecialCharIndex = -1;
+	for (let i = 0; i < value.length; i++) {
+		const character = value[i];
+		if (
+			character === "&" ||
+			character === "<" ||
+			character === ">" ||
+			character === '"' ||
+			character === "'"
+		) {
+			firstSpecialCharIndex = i;
+			break;
+		}
+	}
+
+	if (firstSpecialCharIndex === -1) {
+		return value;
+	}
+
+	let escaped = value.slice(0, firstSpecialCharIndex);
+	for (let i = firstSpecialCharIndex; i < value.length; i++) {
+		const character = value[i];
 		switch (character) {
 			case "&":
 				escaped += "&amp;";

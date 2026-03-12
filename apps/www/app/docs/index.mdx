@@ -108,14 +108,30 @@ In your app's `app/root.tsx`, import `mantle.css` and set up the
 [Tooltip Provider](/components/tooltip).
 
 > [!WARNING]
-> It is critical to include `MantleThemeHeadContent` in the `<head>` of your app to prevent a
-> flash of unstyled content (FOUC). This component will inject the necessary script to prevent
-> the FOUC.
+> It is critical to include `PreventWrongThemeFlashScript` early in the `<head>` of your app to
+> prevent a flash of unstyled content (FOUC). For SSR apps, also send font preloads as HTTP `Link`
+> headers using `preloadFontLink` so fonts start fetching before the browser parses any HTML.
+
+```ts
+// app/entry.server.tsx — send font preload Link headers
+import { assetsCdnOrigin, preloadFontLink } from "@ngrok/mantle/theme";
+
+// inside your handleRequest / onShellReady:
+responseHeaders.set(
+	"Link",
+	[
+		`<${assetsCdnOrigin}>; rel=preconnect; crossorigin`,
+		preloadFontLink("roobert"),
+		preloadFontLink("jetbrains-mono"),
+		preloadFontLink("family-regular"),
+	].join(", "),
+);
+```
 
 ```tsx
 // app/root.tsx
 import {
-	MantleThemeHeadContent,
+	PreventWrongThemeFlashScript,
 	ThemeProvider,
 	useInitialHtmlThemeProps,
 } from "@ngrok/mantle/theme";
@@ -146,9 +162,8 @@ export function Layout({ children }: PropsWithChildren) {
 			<head>
 				<meta charSet="utf-8" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
-				{/* MantleThemeHeadContent should be rendered at the top of <head>
-            to prevent a flash of unstyled content (FOUC) */}
-				<MantleThemeHeadContent />
+				{/* PreventWrongThemeFlashScript must be as early as possible in <head> */}
+				<PreventWrongThemeFlashScript />
 				<Meta />
 				<Links />
 			</head>
