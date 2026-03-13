@@ -199,9 +199,9 @@ const triggerVariants = cva(
 				),
 				pill: cx(
 					"not-aria-disabled:hover:data-state-active:text-strong",
-					"not-aria-disabled:hover:data-state-active:bg-neutral-950/10",
+					"not-aria-disabled:hover:data-state-active:bg-neutral-500/20",
 					"data-state-active:text-strong",
-					"data-state-active:bg-neutral-950/10",
+					"data-state-active:bg-neutral-500/20",
 					"rounded-full py-2 px-3",
 				),
 			} as const satisfies Record<Appearance, string>,
