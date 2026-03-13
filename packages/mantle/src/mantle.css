@@ -319,9 +319,9 @@ MARK: LIGHT DEFS
 	--color-card-border: var(--color-neutral-300);
 	--color-card-border-muted: var(--color-neutral-200);
 
-	--color-active-menu-item: var(--color-neutral-100);
-	--color-selected-menu-item: var(--color-accent-50);
-	--color-active-selected-menu-item: var(--color-accent-100);
+	--color-active-menu-item: --alpha(var(--color-neutral-500) / 0.05);
+	--color-selected-menu-item: --alpha(var(--color-accent-500) / 0.1);
+	--color-active-selected-menu-item: --alpha(var(--color-accent-500) / 0.15);
 
 	--text-color-strong: var(--color-neutral-950);
 	--text-color-body: --alpha(var(--color-neutral-950) / 0.75);

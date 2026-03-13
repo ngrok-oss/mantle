@@ -303,10 +303,6 @@ MARK: DARK DEFS
 	--color-card-border: var(--color-neutral-300);
 	--color-card-border-muted: var(--color-neutral-200);
 
-	--color-active-menu-item: var(--color-neutral-200);
-	--color-selected-menu-item: var(--color-accent-50);
-	--color-active-selected-menu-item: var(--color-accent-100);
-
 	--text-color-strong: #fff;
 	--text-color-body: --alpha(#fff / 0.7);
 	--text-color-muted: --alpha(#fff / 0.5);
