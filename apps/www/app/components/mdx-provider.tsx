@@ -47,7 +47,7 @@ const components = {
 	},
 	code: (props) => {
 		const { node: _node, className, ...rest } = props;
-		return <Code className={cx("whitespace-nowrap text-[0.7em]", className)} {...rest} />;
+		return <Code className={cx("whitespace-nowrap text-strong", className)} {...rest} />;
 	},
 	hr: (props) => {
 		const { node: _node, className, ...rest } = props;
@@ -65,17 +65,20 @@ const components = {
 	// },
 	li: (props) => {
 		const { node: _node, className, ...rest } = props;
-		return <li className={cx("mb-4", className)} {...rest} />;
+		return <li className={cx("text-body", className)} {...rest} />;
 	},
 	ol: (props) => {
 		const { node: _node, className, ...rest } = props;
-		return <ol className={cx("mb-6 list-decimal pl-6", className)} {...rest} />;
+		return <ol className={cx("mb-4 list-decimal pl-6 text-body", className)} {...rest} />;
 	},
 	p: (props) => {
 		const { node: _node, className, ...rest } = props;
 		return (
 			<p
-				className={cx("mb-4 leading-8 wrap-break-word text-pretty md:text-wrap", className)}
+				className={cx(
+					"mb-4 leading-relaxed wrap-break-word text-pretty md:text-wrap text-body",
+					className,
+				)}
 				{...rest}
 			/>
 		);
@@ -144,7 +147,7 @@ const components = {
 	},
 	ul: (props) => {
 		const { node: _node, className, ...rest } = props;
-		return <ul className={cx("mb-8 not-first:mt-8 list-disc pl-8", className)} {...rest} />;
+		return <ul className={cx("mb-4 not-first:mt-4 list-disc pl-6", className)} {...rest} />;
 	},
 
 	// Custom components, these are globally available in MDX files
@@ -199,7 +202,7 @@ function MdxHeading({ as: Component, children, className, id, ...props }: MdxHea
 		<HashLinkHeading id={id}>
 			<Component
 				className={cx(
-					"font-medium text-strong mt-16 mb-6 [:is(h1,h2,h3,h4,h5,h6)+&]:mt-6",
+					"font-medium text-strong mt-12 mb-4 [:is(h1,h2,h3,h4,h5,h6)+&]:mt-6",
 					Component === "h1" && "text-5xl mt-0",
 					Component === "h2" && "text-3xl",
 					Component === "h3" && "text-2xl",
