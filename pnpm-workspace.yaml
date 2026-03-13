@@ -34,5 +34,5 @@ catalog:
   "tsdown": "0.21.2"
   "tsx": "4.21.0"
   "typescript": "5.9.3"
-  "@vitejs/plugin-react": "5.2.0"
+  "@vitejs/plugin-react": "6.0.1"
   "vite": "7.3.1"
