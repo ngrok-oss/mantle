@@ -1,5 +1,14 @@
 # @ngrok/mantle-vite-plugins
 
+## 0.1.5
+
+### Patch Changes
+
+- [#1061](https://github.com/ngrok-oss/mantle/pull/1061) [`1b0e722`](https://github.com/ngrok-oss/mantle/commit/1b0e7227c79396b48d4845b0ed5b534085aa91f7) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump `vite` peer dependency to `>=7.3.1`.
+
+- Updated dependencies [[`1b0e722`](https://github.com/ngrok-oss/mantle/commit/1b0e7227c79396b48d4845b0ed5b534085aa91f7)]:
+  - @ngrok/mantle@0.66.13
+
 ## 0.1.4
 
 ### Patch Changes
