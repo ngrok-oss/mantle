@@ -35,12 +35,11 @@
     "tsdown": "catalog:",
     "tsx": "catalog:",
     "typescript": "catalog:",
-    "vite": "catalog:",
-    "vitest": "4.0.18"
+    "vite": "catalog:"
   },
   "peerDependencies": {
     "@ngrok/mantle": "*",
-    "vite": ">=5"
+    "vite": ">=7.3.1"
   },
   "engines": {
     "node": "^24.0.0"
