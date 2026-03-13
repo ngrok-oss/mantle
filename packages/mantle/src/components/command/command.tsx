@@ -3,7 +3,12 @@
 import { MagnifyingGlassIcon } from "@phosphor-icons/react/MagnifyingGlass";
 import { Command as CommandPrimitive, useCommandState } from "cmdk";
 
-import { type ComponentPropsWithoutRef, type ComponentRef, forwardRef } from "react";
+import {
+	type ComponentPropsWithoutRef,
+	type ComponentRef,
+	type ReactNode,
+	forwardRef,
+} from "react";
 import { cx } from "../../utils/cx/cx.js";
 import { Dialog } from "../dialog/dialog.js";
 import { Separator } from "../separator/separator.js";
@@ -48,25 +53,35 @@ const CommandRoot = forwardRef<ComponentRef<"div">, CommandRootProps>(
 CommandRoot.displayName = "Command";
 
 /**
- * The props for the CommandDialog component.
+ * The props for the CommandDialog.Content component.
  *
- * @see https://mantle.ngrok.com/components/command#commanddialog
+ * @see https://mantle.ngrok.com/components/command#commanddialogcontent
  */
-type CommandDialogProps = ComponentPropsWithoutRef<typeof Dialog.Root> & {
+type CommandDialogContentProps = {
 	/**
-	 * The title of the command dialog.
+	 * The content of the command dialog (inputs, lists, etc.).
 	 */
-	title?: string;
-	/**
-	 * The description of the command dialog.
-	 */
-	description?: string;
+	children?: ReactNode;
 	/**
 	 * Class name(s) to apply to the command dialog content.
 	 */
 	className?: string;
 	/**
+	 * The accessible title of the command dialog. Visually hidden.
+	 *
+	 * @default "Command Palette"
+	 */
+	title?: string;
+	/**
+	 * The accessible description of the command dialog. Visually hidden.
+	 *
+	 * @default "Search for a command to run..."
+	 */
+	description?: string;
+	/**
 	 * Whether to show the close button.
+	 *
+	 * @default true
 	 */
 	showCloseButton?: boolean;
 	/**
@@ -84,32 +99,24 @@ type CommandDialogProps = ComponentPropsWithoutRef<typeof Dialog.Root> & {
 };
 
 /**
- * A window overlaid on either the primary window or another dialog window.
- * The root stateful component for the CommandDialog.
+ * The content of the CommandDialog. Renders the accessible title/description,
+ * the command palette UI, and an optional close button.
  *
- * @see https://mantle.ngrok.com/components/command#commanddialog
+ * @see https://mantle.ngrok.com/components/command#commanddialogcontent
  *
  * @example
  * ```tsx
- * <Command.Dialog>
- *   <Command.Input placeholder="Type a command or search..." />
- *   <Command.List>
- *     <Command.Empty>No results found.</Command.Empty>
- *     <Command.Group heading="Suggestions">
- *       <Command.Item>
- *         <span>Calendar</span>
- *       </Command.Item>
- *     </Command.Group>
- *     <Command.Separator />
- *     <Command.Group heading="Settings">
- *       <Command.Item>
- *         <span>Profile</span>
- *       </Command.Item>
- *     </Command.Group>
- *   </Command.List>
- * </Command.Dialog>
+ * <Command.Dialog.Root open={open} onOpenChange={setOpen}>
+ *   <Command.Dialog.Content>
+ *     <Command.Input placeholder="Type a command or search..." />
+ *     <Command.List>
+ *       <Command.Empty>No results found.</Command.Empty>
+ *     </Command.List>
+ *   </Command.Dialog.Content>
+ * </Command.Dialog.Root>
+ * ```
  */
-const CommandDialog = ({
+const CommandDialogContent = ({
 	children,
 	className,
 	description = "Search for a command to run...",
@@ -117,30 +124,73 @@ const CommandDialog = ({
 	shouldFilter,
 	showCloseButton = true,
 	title = "Command Palette",
-	...props
-}: CommandDialogProps) => (
-	<Dialog.Root {...props}>
+}: CommandDialogContentProps) => (
+	<Dialog.Content className={cx("overflow-hidden p-0 relative", className)}>
 		<Dialog.Header className="sr-only absolute">
 			<Dialog.Title>{title}</Dialog.Title>
 			<Dialog.Description>{description}</Dialog.Description>
 		</Dialog.Header>
-		<Dialog.Content className={cx("overflow-hidden p-0 relative", className)}>
-			<CommandRoot
-				className="**:[[cmdk-group-heading]]:text-muted **:data-[slot=command-input-wrapper]:h-12 **:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:font-medium **:[[cmdk-group]]:px-2 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 **:[[cmdk-input]]:h-12 **:[[cmdk-item]]:px-2 **:[[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5"
-				filter={filter}
-				shouldFilter={shouldFilter}
-			>
-				{children}
-			</CommandRoot>
-			{showCloseButton && (
-				<div className="absolute top-1.5 right-1.5">
-					<Dialog.CloseIconButton />
-				</div>
-			)}
-		</Dialog.Content>
-	</Dialog.Root>
+		<CommandRoot
+			className="**:[[cmdk-group-heading]]:text-muted **:data-[slot=command-input-wrapper]:h-12 **:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:font-medium **:[[cmdk-group]]:px-2 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 **:[[cmdk-input]]:h-12 **:[[cmdk-item]]:px-2 **:[[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5"
+			filter={filter}
+			shouldFilter={shouldFilter}
+		>
+			{children}
+		</CommandRoot>
+		{showCloseButton && (
+			<div className="absolute top-1.5 right-1.5">
+				<Dialog.CloseIconButton />
+			</div>
+		)}
+	</Dialog.Content>
 );
-CommandDialog.displayName = "CommandDialog";
+CommandDialogContent.displayName = "CommandDialogContent";
+
+/**
+ * A compound namespace for building a command palette dialog with trigger support.
+ *
+ * @see https://mantle.ngrok.com/components/command#commanddialog
+ *
+ * @example
+ * ```tsx
+ * <Command.Dialog.Root open={open} onOpenChange={setOpen}>
+ *   <Command.Dialog.Trigger asChild>
+ *     <Button type="button">Open Command Palette</Button>
+ *   </Command.Dialog.Trigger>
+ *   <Command.Dialog.Content>
+ *     <Command.Input placeholder="Type a command or search..." />
+ *     <Command.List>
+ *       <Command.Empty>No results found.</Command.Empty>
+ *       <Command.Group heading="Suggestions">
+ *         <Command.Item>
+ *           <span>Calendar</span>
+ *         </Command.Item>
+ *       </Command.Group>
+ *     </Command.List>
+ *   </Command.Dialog.Content>
+ * </Command.Dialog.Root>
+ * ```
+ */
+const CommandDialog = {
+	/**
+	 * The root stateful component for the CommandDialog. Manages open/closed state.
+	 *
+	 * @see https://mantle.ngrok.com/components/command#commanddialogroot
+	 */
+	Root: Dialog.Root,
+	/**
+	 * A button that opens the CommandDialog when clicked.
+	 *
+	 * @see https://mantle.ngrok.com/components/command#commanddialogtrigger
+	 */
+	Trigger: Dialog.Trigger,
+	/**
+	 * The visible content of the CommandDialog. Renders inside the dialog portal.
+	 *
+	 * @see https://mantle.ngrok.com/components/command#commanddialogcontent
+	 */
+	Content: CommandDialogContent,
+} as const;
 
 /**
  * The input component for the Command. It provides the input for the command palette.
@@ -149,23 +199,25 @@ CommandDialog.displayName = "CommandDialog";
  *
  * @example
  * ```tsx
- * <Command.Dialog>
- *   <Command.Input placeholder="Type a command or search..." />
- *   <Command.List>
- *     <Command.Empty>No results found.</Command.Empty>
- *     <Command.Group heading="Suggestions">
- *       <Command.Item>
- *         <span>Calendar</span>
- *       </Command.Item>
- *     </Command.Group>
- *     <Command.Separator />
- *     <Command.Group heading="Settings">
- *       <Command.Item>
- *         <span>Profile</span>
- *       </Command.Item>
- *     </Command.Group>
- *   </Command.List>
- * </Command.Dialog>
+ * <Command.Dialog.Root open={open} onOpenChange={setOpen}>
+ *   <Command.Dialog.Content>
+ *     <Command.Input placeholder="Type a command or search..." />
+ *     <Command.List>
+ *       <Command.Empty>No results found.</Command.Empty>
+ *       <Command.Group heading="Suggestions">
+ *         <Command.Item>
+ *           <span>Calendar</span>
+ *         </Command.Item>
+ *       </Command.Group>
+ *       <Command.Separator />
+ *       <Command.Group heading="Settings">
+ *         <Command.Item>
+ *           <span>Profile</span>
+ *         </Command.Item>
+ *       </Command.Group>
+ *     </Command.List>
+ *   </Command.Dialog.Content>
+ * </Command.Dialog.Root>
  */
 const CommandInput = forwardRef<
 	ComponentRef<"div">,
@@ -196,23 +248,25 @@ CommandInput.displayName = "CommandInput";
  *
  * @example
  * ```tsx
- * <Command.Dialog>
- *   <Command.Input placeholder="Type a command or search..." />
- *   <Command.List>
- *     <Command.Empty>No results found.</Command.Empty>
- *     <Command.Group heading="Suggestions">
- *       <Command.Item>
- *         <span>Calendar</span>
- *       </Command.Item>
- *     </Command.Group>
- *     <Command.Separator />
- *     <Command.Group heading="Settings">
- *       <Command.Item>
- *         <span>Profile</span>
- *       </Command.Item>
- *     </Command.Group>
- *   </Command.List>
- * </Command.Dialog>
+ * <Command.Dialog.Root open={open} onOpenChange={setOpen}>
+ *   <Command.Dialog.Content>
+ *     <Command.Input placeholder="Type a command or search..." />
+ *     <Command.List>
+ *       <Command.Empty>No results found.</Command.Empty>
+ *       <Command.Group heading="Suggestions">
+ *         <Command.Item>
+ *           <span>Calendar</span>
+ *         </Command.Item>
+ *       </Command.Group>
+ *       <Command.Separator />
+ *       <Command.Group heading="Settings">
+ *         <Command.Item>
+ *           <span>Profile</span>
+ *         </Command.Item>
+ *       </Command.Group>
+ *     </Command.List>
+ *   </Command.Dialog.Content>
+ * </Command.Dialog.Root>
  */
 const CommandList = forwardRef<
 	ComponentRef<"div">,
@@ -234,23 +288,25 @@ CommandList.displayName = "CommandList";
  *
  * @example
  * ```tsx
- * <Command.Dialog>
- *   <Command.Input placeholder="Type a command or search..." />
- *   <Command.List>
- *     <Command.Empty>No results found.</Command.Empty>
- *     <Command.Group heading="Suggestions">
- *       <Command.Item>
- *         <span>Calendar</span>
- *       </Command.Item>
- *     </Command.Group>
- *     <Command.Separator />
- *     <Command.Group heading="Settings">
- *       <Command.Item>
- *         <span>Profile</span>
- *       </Command.Item>
- *     </Command.Group>
- *   </Command.List>
- * </Command.Dialog>
+ * <Command.Dialog.Root open={open} onOpenChange={setOpen}>
+ *   <Command.Dialog.Content>
+ *     <Command.Input placeholder="Type a command or search..." />
+ *     <Command.List>
+ *       <Command.Empty>No results found.</Command.Empty>
+ *       <Command.Group heading="Suggestions">
+ *         <Command.Item>
+ *           <span>Calendar</span>
+ *         </Command.Item>
+ *       </Command.Group>
+ *       <Command.Separator />
+ *       <Command.Group heading="Settings">
+ *         <Command.Item>
+ *           <span>Profile</span>
+ *         </Command.Item>
+ *       </Command.Group>
+ *     </Command.List>
+ *   </Command.Dialog.Content>
+ * </Command.Dialog.Root>
  */
 const CommandEmpty = forwardRef<
 	ComponentRef<"div">,
@@ -272,23 +328,25 @@ CommandEmpty.displayName = "CommandEmpty";
  *
  * @example
  * ```tsx
- * <Command.Dialog>
- *   <Command.Input placeholder="Type a command or search..." />
- *   <Command.List>
- *     <Command.Empty>No results found.</Command.Empty>
- *     <Command.Group heading="Suggestions">
- *       <Command.Item>
- *         <span>Calendar</span>
- *       </Command.Item>
- *     </Command.Group>
- *     <Command.Separator />
- *     <Command.Group heading="Settings">
- *       <Command.Item>
- *         <span>Profile</span>
- *       </Command.Item>
- *     </Command.Group>
- *   </Command.List>
- * </Command.Dialog>
+ * <Command.Dialog.Root open={open} onOpenChange={setOpen}>
+ *   <Command.Dialog.Content>
+ *     <Command.Input placeholder="Type a command or search..." />
+ *     <Command.List>
+ *       <Command.Empty>No results found.</Command.Empty>
+ *       <Command.Group heading="Suggestions">
+ *         <Command.Item>
+ *           <span>Calendar</span>
+ *         </Command.Item>
+ *       </Command.Group>
+ *       <Command.Separator />
+ *       <Command.Group heading="Settings">
+ *         <Command.Item>
+ *           <span>Profile</span>
+ *         </Command.Item>
+ *       </Command.Group>
+ *     </Command.List>
+ *   </Command.Dialog.Content>
+ * </Command.Dialog.Root>
  */
 const CommandGroup = forwardRef<
 	ComponentRef<"div">,
@@ -313,34 +371,33 @@ CommandGroup.displayName = "CommandGroup";
  *
  * @example
  * ```tsx
- * <Command.Dialog>
- *   <Command.Input placeholder="Type a command or search..." />
- *   <Command.List>
- *     <Command.Empty>No results found.</Command.Empty>
- *     <Command.Group heading="Suggestions">
- *       <Command.Item>
- *         <span>Calendar</span>
- *       </Command.Item>
- *     </Command.Group>
- *     <Command.Separator />
- *     <Command.Group heading="Settings">
- *       <Command.Item>
- *         <span>Profile</span>
- *       </Command.Item>
- *     </Command.Group>
- *   </Command.List>
- * </Command.Dialog>
+ * <Command.Dialog.Root open={open} onOpenChange={setOpen}>
+ *   <Command.Dialog.Content>
+ *     <Command.Input placeholder="Type a command or search..." />
+ *     <Command.List>
+ *       <Command.Empty>No results found.</Command.Empty>
+ *       <Command.Group heading="Suggestions">
+ *         <Command.Item>
+ *           <span>Calendar</span>
+ *         </Command.Item>
+ *       </Command.Group>
+ *       <Command.Separator />
+ *       <Command.Group heading="Settings">
+ *         <Command.Item>
+ *           <span>Profile</span>
+ *         </Command.Item>
+ *       </Command.Group>
+ *     </Command.List>
+ *   </Command.Dialog.Content>
+ * </Command.Dialog.Root>
  */
 const CommandSeparator = forwardRef<
-	ComponentRef<typeof Separator>,
-	ComponentPropsWithoutRef<typeof Separator>
+	ComponentRef<typeof CommandPrimitive.Separator>,
+	ComponentPropsWithoutRef<typeof CommandPrimitive.Separator>
 >(({ className, ...props }, ref) => (
-	<Separator
-		ref={ref}
-		data-slot="command-separator"
-		className={cx("-mx-1 my-1 w-auto", className)}
-		{...props}
-	/>
+	<CommandPrimitive.Separator ref={ref} data-slot="command-separator" asChild {...props}>
+		<Separator className={cx("-mx-1 my-1 w-auto", className)} />
+	</CommandPrimitive.Separator>
 ));
 CommandSeparator.displayName = "CommandSeparator";
 
@@ -351,23 +408,25 @@ CommandSeparator.displayName = "CommandSeparator";
  *
  * @example
  * ```tsx
- * <Command.Dialog>
- *   <Command.Input placeholder="Type a command or search..." />
- *   <Command.List>
- *     <Command.Empty>No results found.</Command.Empty>
- *     <Command.Group heading="Suggestions">
- *       <Command.Item>
- *         <span>Calendar</span>
- *       </Command.Item>
- *     </Command.Group>
- *     <Command.Separator />
- *     <Command.Group heading="Settings">
- *       <Command.Item>
- *         <span>Profile</span>
- *       </Command.Item>
- *     </Command.Group>
- *   </Command.List>
- * </Command.Dialog>
+ * <Command.Dialog.Root open={open} onOpenChange={setOpen}>
+ *   <Command.Dialog.Content>
+ *     <Command.Input placeholder="Type a command or search..." />
+ *     <Command.List>
+ *       <Command.Empty>No results found.</Command.Empty>
+ *       <Command.Group heading="Suggestions">
+ *         <Command.Item>
+ *           <span>Calendar</span>
+ *         </Command.Item>
+ *       </Command.Group>
+ *       <Command.Separator />
+ *       <Command.Group heading="Settings">
+ *         <Command.Item>
+ *           <span>Profile</span>
+ *         </Command.Item>
+ *       </Command.Group>
+ *     </Command.List>
+ *   </Command.Dialog.Content>
+ * </Command.Dialog.Root>
  */
 const CommandItem = forwardRef<
 	ComponentRef<"div">,
@@ -392,24 +451,26 @@ CommandItem.displayName = "CommandItem";
  *
  * @example
  * ```tsx
- * <Command.Dialog>
- *   <Command.Input placeholder="Type a command or search..." />
- *   <Command.List>
- *     <Command.Empty>No results found.</Command.Empty>
- *     <Command.Group heading="Suggestions">
- *       <Command.Item>
- *         <span>Calendar</span>
- *       </Command.Item>
- *     </Command.Group>
- *     <Command.Separator />
- *     <Command.Group heading="Settings">
- *       <Command.Item>
- *         <span>Profile</span>
- *         <Command.Shortcut>⌘,</Command.Shortcut>
- *       </Command.Item>
- *     </Command.Group>
- *   </Command.List>
- * </Command.Dialog>
+ * <Command.Dialog.Root open={open} onOpenChange={setOpen}>
+ *   <Command.Dialog.Content>
+ *     <Command.Input placeholder="Type a command or search..." />
+ *     <Command.List>
+ *       <Command.Empty>No results found.</Command.Empty>
+ *       <Command.Group heading="Suggestions">
+ *         <Command.Item>
+ *           <span>Calendar</span>
+ *         </Command.Item>
+ *       </Command.Group>
+ *       <Command.Separator />
+ *       <Command.Group heading="Settings">
+ *         <Command.Item>
+ *           <span>Profile</span>
+ *           <Command.Shortcut>⌘,</Command.Shortcut>
+ *         </Command.Item>
+ *       </Command.Group>
+ *     </Command.List>
+ *   </Command.Dialog.Content>
+ * </Command.Dialog.Root>
  */
 const CommandShortcut = forwardRef<ComponentRef<"span">, ComponentPropsWithoutRef<"span">>(
 	({ className, ...props }, ref) => (
@@ -430,23 +491,25 @@ CommandShortcut.displayName = "CommandShortcut";
  *
  * @example
  * ```tsx
- * <Command.Dialog>
- *   <Command.Input placeholder="Type a command or search..." />
- *   <Command.List>
- *     <Command.Empty>No results found.</Command.Empty>
- *     <Command.Group heading="Suggestions">
- *       <Command.Item>
- *         <span>Calendar</span>
- *       </Command.Item>
- *     </Command.Group>
- *     <Command.Separator />
- *     <Command.Group heading="Settings">
- *       <Command.Item>
- *         <span>Profile</span>
- *       </Command.Item>
- *     </Command.Group>
- *   </Command.List>
- * </Command.Dialog>
+ * <Command.Dialog.Root open={open} onOpenChange={setOpen}>
+ *   <Command.Dialog.Content>
+ *     <Command.Input placeholder="Type a command or search..." />
+ *     <Command.List>
+ *       <Command.Empty>No results found.</Command.Empty>
+ *       <Command.Group heading="Suggestions">
+ *         <Command.Item>
+ *           <span>Calendar</span>
+ *         </Command.Item>
+ *       </Command.Group>
+ *       <Command.Separator />
+ *       <Command.Group heading="Settings">
+ *         <Command.Item>
+ *           <span>Profile</span>
+ *         </Command.Item>
+ *       </Command.Group>
+ *     </Command.List>
+ *   </Command.Dialog.Content>
+ * </Command.Dialog.Root>
  */
 const Command = {
 	/**
@@ -466,18 +529,24 @@ const Command = {
 	 */
 	Root: CommandRoot,
 	/**
-	 * The dialog component for the Command component.
+	 * A compound namespace for building a command palette dialog.
+	 * Use `Command.Dialog.Root`, `Command.Dialog.Trigger`, and `Command.Dialog.Content`.
 	 *
 	 * @see https://mantle.ngrok.com/components/command#commanddialog
 	 *
 	 * @example
 	 * ```tsx
-	 * <Command.Dialog>
-	 *   <Command.Input placeholder="Type a command or search..." />
-	 *   <Command.List>
-	 *     <Command.Empty>No results found.</Command.Empty>
-	 *   </Command.List>
-	 * </Command.Dialog>
+	 * <Command.Dialog.Root open={open} onOpenChange={setOpen}>
+	 *   <Command.Dialog.Trigger asChild>
+	 *     <Button type="button">Open</Button>
+	 *   </Command.Dialog.Trigger>
+	 *   <Command.Dialog.Content>
+	 *     <Command.Input placeholder="Type a command or search..." />
+	 *     <Command.List>
+	 *       <Command.Empty>No results found.</Command.Empty>
+	 *     </Command.List>
+	 *   </Command.Dialog.Content>
+	 * </Command.Dialog.Root>
 	 * ```
 	 */
 	Dialog: CommandDialog,
