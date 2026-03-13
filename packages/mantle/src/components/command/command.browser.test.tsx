@@ -53,9 +53,19 @@ describe("Command.Dialog (browser)", () => {
 			});
 		});
 
-		test("clicking the trigger button opens the dialog", async () => {
+		test("Command.Dialog.Trigger opens the dialog without managed state", async () => {
 			const user = userEvent.setup();
-			render(<CommandDialogSubject />);
+			render(
+				<Command.Dialog.Root>
+					<Command.Dialog.Trigger>Open</Command.Dialog.Trigger>
+					<Command.Dialog.Content title="Test Command Palette">
+						<Command.Input placeholder="Type a command or search..." />
+						<Command.List>
+							<Command.Empty>No results found.</Command.Empty>
+						</Command.List>
+					</Command.Dialog.Content>
+				</Command.Dialog.Root>,
+			);
 
 			expect(screen.queryByText("Test Command Palette")).not.toBeInTheDocument();
 
