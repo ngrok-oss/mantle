@@ -1,18 +1,13 @@
-import { isValidElement, type ComponentProps, type PropsWithChildren, type ReactNode } from "react";
+import { isValidElement, type ComponentProps, type PropsWithChildren } from "react";
 
 import { MDXProvider as MdxProviderPrimitive } from "@mdx-js/react";
+import { Alert } from "@ngrok/mantle/alert";
 import { Anchor } from "@ngrok/mantle/anchor";
 import { Code } from "@ngrok/mantle/code";
 import { CodeBlock, parseLanguage, type MetaInput } from "@ngrok/mantle/code-block";
 import { parseBooleanish } from "@ngrok/mantle/types";
 import { cx } from "@ngrok/mantle/cx";
-import { Icon } from "@ngrok/mantle/icon";
 import { Table } from "@ngrok/mantle/table";
-import { InfoIcon } from "@phosphor-icons/react/Info";
-import { LightbulbIcon } from "@phosphor-icons/react/Lightbulb";
-import { MegaphoneIcon } from "@phosphor-icons/react/Megaphone";
-import { WarningIcon } from "@phosphor-icons/react/Warning";
-import { WarningCircleIcon } from "@phosphor-icons/react/WarningCircle";
 import { HashLinkHeading } from "./hash-link-heading";
 
 // import { FigCaption, Figure } from "./figure";
@@ -221,24 +216,17 @@ function MdxHeading({ as: Component, children, className, id, ...props }: MdxHea
 
 type GitHubAlertTypes = "note" | "tip" | "important" | "warning" | "caution";
 
-const alertTypeColors: Record<GitHubAlertTypes | (string & {}), `var(--color-${string}-600)`> = {
-	note: "var(--color-info-600)",
-	tip: "var(--color-success-600)",
-	important: "var(--color-purple-600)",
-	warning: "var(--color-warning-600)",
-	caution: "var(--color-danger-600)",
-};
+type AlertPriority = "danger" | "important" | "info" | "success" | "warning";
 
-const alertTypeIcons: Record<GitHubAlertTypes | (string & {}), ReactNode> = {
-	note: <InfoIcon weight="bold" />,
-	tip: <LightbulbIcon weight="bold" />,
-	important: <MegaphoneIcon weight="bold" />,
-	warning: <WarningIcon weight="bold" />,
-	caution: <WarningCircleIcon weight="bold" />,
+const alertTypePriorities: Record<GitHubAlertTypes | (string & {}), AlertPriority> = {
+	note: "info",
+	tip: "success",
+	important: "important",
+	warning: "warning",
+	caution: "danger",
 };
 
 type GithubAlertProps = ComponentProps<"div"> & {
-	icon?: ReactNode;
 	type: GitHubAlertTypes | (string & {});
 };
 
@@ -246,20 +234,18 @@ type GithubAlertProps = ComponentProps<"div"> & {
  * Renders a GitHub-style alert blockquote (e.g. `> [!NOTE]`).
  * Used as a custom MDX component mapped from the `remarkGithubAlerts` remark plugin.
  */
-function GithubAlert({ className, icon, type, children, style, ...props }: GithubAlertProps) {
-	const color = alertTypeColors[type] ?? alertTypeColors.note;
+function GithubAlert({ className, type, children, ...props }: GithubAlertProps) {
+	const priority = alertTypePriorities[type] ?? "info";
 
 	return (
-		<div
-			className={cx("mb-6 border-l-4 pl-4 py-2 text-sm", className)}
-			style={{ borderColor: color, ...style }}
-			{...props}
-		>
-			<p className="flex items-center gap-1.5 font-semibold mb-1" style={{ color }}>
-				<Icon className="size-4" svg={icon ?? alertTypeIcons[type as GitHubAlertTypes]} />
-				<span className="first-letter:uppercase">{type}</span>
-			</p>
-			{children}
-		</div>
+		<Alert.Root priority={priority} className={cx("mb-6", className)} {...props}>
+			<Alert.Icon />
+			<Alert.Content>
+				<Alert.Title asChild>
+					<p className="first-letter:uppercase">{type}</p>
+				</Alert.Title>
+				<Alert.Description className="[&>p:last-child]:mb-0">{children}</Alert.Description>
+			</Alert.Content>
+		</Alert.Root>
 	);
 }
