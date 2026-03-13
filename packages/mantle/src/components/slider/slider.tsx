@@ -91,7 +91,7 @@ type SliderProps = SliderBaseProps &
  */
 function Slider({
 	className,
-	color = "bg-accent-500",
+	color = "bg-accent-600",
 	defaultValue,
 	max = 100,
 	min = 0,

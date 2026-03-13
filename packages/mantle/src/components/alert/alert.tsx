@@ -1,5 +1,6 @@
 import { CheckCircleIcon } from "@phosphor-icons/react/CheckCircle";
 import { InfoIcon } from "@phosphor-icons/react/Info";
+import { MegaphoneIcon } from "@phosphor-icons/react/Megaphone";
 import { WarningIcon } from "@phosphor-icons/react/Warning";
 import { WarningDiamondIcon } from "@phosphor-icons/react/WarningDiamond";
 import { XIcon } from "@phosphor-icons/react/X";
@@ -17,6 +18,7 @@ import { Slot } from "../slot/index.js";
 const priorities = [
 	//,
 	"danger",
+	"important",
 	"info",
 	// "neutral",
 	"success",
@@ -48,11 +50,16 @@ const alertVariants = cva(
 			 * affecting its color and styling to communicate its purpose to the user.
 			 */
 			priority: {
-				danger: "border-danger-500/50 bg-danger-500/10 text-danger-700",
-				info: "border-info-500/50 bg-info-500/10 text-info-700",
+				danger:
+					"border-danger-500/50 bg-danger-500/10 text-danger-700 [&_code]:bg-danger-500/10 [&_code]:border-danger-500/20 [&_code]:text-danger-900",
+				important:
+					"border-important-500/50 bg-important-500/10 text-important-700 [&_code]:bg-important-500/10 [&_code]:border-important-500/20 [&_code]:text-important-900",
+				info: "border-info-500/50 bg-info-500/10 text-info-700 [&_code]:bg-info-500/10 [&_code]:border-info-500/20 [&_code]:text-info-900",
 				// neutral: "border-neutral-500/50 bg-neutral-500/10 text-neutral-700",
-				success: "border-success-500/50 bg-success-500/10 text-success-700",
-				warning: "border-warning-500/50 bg-warning-500/10 text-warning-700",
+				success:
+					"border-success-500/50 bg-success-500/10 text-success-700 [&_code]:bg-success-500/10 [&_code]:border-success-500/20 [&_code]:text-success-900",
+				warning:
+					"border-warning-500/50 bg-warning-500/10 text-warning-700 [&_code]:bg-warning-500/10 [&_code]:border-warning-500/20 [&_code]:text-warning-900",
 			} as const satisfies Record<Priority, string>,
 			/**
 			 * Controls the visual style of the Alert.
@@ -69,6 +76,11 @@ const alertVariants = cva(
 		compoundVariants: [
 			{
 				priority: "danger",
+				appearance: "banner",
+				className: "", // placeholder for different bg-color (color-mix w/ bg-popover)
+			},
+			{
+				priority: "important",
 				appearance: "banner",
 				className: "", // placeholder for different bg-color (color-mix w/ bg-popover)
 			},
@@ -155,6 +167,7 @@ type AlertIconProps = Omit<SvgAttributes, "children"> & {
  */
 const defaultIcons = {
 	danger: <WarningIcon />,
+	important: <MegaphoneIcon mirrored />,
 	info: <InfoIcon />,
 	// neutral: <BellRinging />,
 	success: <CheckCircleIcon />,
@@ -292,8 +305,8 @@ const dismissTextColor = <T extends Priority = Priority>(priority: T) =>
 const dismissHoverColor = <T extends Priority = Priority>(priority: T) =>
 	`var(--color-${priority}-800)`;
 
-const dismissActiveColor = <T extends Priority = Priority>(priority: T) =>
-	`var(--color-${priority}-900)`;
+const dismissHoverBgColor = <T extends Priority = Priority>(priority: T) =>
+	`color-mix(in oklab, var(--color-${priority}-500) 10%, transparent)`;
 
 type AlertDismissIconButtonProps = Partial<Omit<IconButtonProps, "icon">> & {
 	/**
@@ -323,8 +336,7 @@ const DismissIconButton = ({
 			className={cx(
 				"right-1.5 top-1.5 absolute",
 				"text-(--alert-dismiss-icon-color)",
-				"not-disabled:hover:text-(--alert-dismiss-icon-hover-color)",
-				"not-disabled:active:text-(--alert-dismiss-icon-active-color)",
+				"not-disabled:hover:bg-(--alert-dismiss-hover-bg) not-disabled:hover:text-(--alert-dismiss-icon-hover-color)",
 				className,
 			)}
 			type={type}
@@ -332,7 +344,7 @@ const DismissIconButton = ({
 				...style,
 				"--alert-dismiss-icon-color": dismissTextColor(ctx.priority),
 				"--alert-dismiss-icon-hover-color": dismissHoverColor(ctx.priority),
-				"--alert-dismiss-icon-active-color": dismissActiveColor(ctx.priority),
+				"--alert-dismiss-hover-bg": dismissHoverBgColor(ctx.priority),
 			})}
 			{...props}
 		/>
