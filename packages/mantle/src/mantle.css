@@ -129,6 +129,18 @@ MARK: THEME
 	--color-success-900: var(--color-emerald-900);
 	--color-success-950: var(--color-emerald-950);
 
+	--color-important-50: var(--color-purple-50);
+	--color-important-100: var(--color-purple-100);
+	--color-important-200: var(--color-purple-200);
+	--color-important-300: var(--color-purple-300);
+	--color-important-400: var(--color-purple-400);
+	--color-important-500: var(--color-purple-500);
+	--color-important-600: var(--color-purple-600);
+	--color-important-700: var(--color-purple-700);
+	--color-important-800: var(--color-purple-800);
+	--color-important-900: var(--color-purple-900);
+	--color-important-950: var(--color-purple-950);
+
 	/* Shadow tokens - reference theme-specific shadow color and opacity values */
 	--shadow-sm: 0px 1px 2px 0 --alpha(var(--shadow-color) / var(--shadow-first-opacity));
 	--shadow:
