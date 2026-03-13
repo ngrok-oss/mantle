@@ -292,8 +292,8 @@ const dismissTextColor = <T extends Priority = Priority>(priority: T) =>
 const dismissHoverColor = <T extends Priority = Priority>(priority: T) =>
 	`var(--color-${priority}-800)`;
 
-const dismissActiveColor = <T extends Priority = Priority>(priority: T) =>
-	`var(--color-${priority}-900)`;
+const dismissHoverBgColor = <T extends Priority = Priority>(priority: T) =>
+	`color-mix(in oklab, var(--color-${priority}-500) 10%, transparent)`;
 
 type AlertDismissIconButtonProps = Partial<Omit<IconButtonProps, "icon">> & {
 	/**
@@ -323,8 +323,7 @@ const DismissIconButton = ({
 			className={cx(
 				"right-1.5 top-1.5 absolute",
 				"text-(--alert-dismiss-icon-color)",
-				"not-disabled:hover:text-(--alert-dismiss-icon-hover-color)",
-				"not-disabled:active:text-(--alert-dismiss-icon-active-color)",
+				"not-disabled:hover:bg-(--alert-dismiss-hover-bg) not-disabled:hover:text-(--alert-dismiss-icon-hover-color)",
 				className,
 			)}
 			type={type}
@@ -332,7 +331,7 @@ const DismissIconButton = ({
 				...style,
 				"--alert-dismiss-icon-color": dismissTextColor(ctx.priority),
 				"--alert-dismiss-icon-hover-color": dismissHoverColor(ctx.priority),
-				"--alert-dismiss-icon-active-color": dismissActiveColor(ctx.priority),
+				"--alert-dismiss-hover-bg": dismissHoverBgColor(ctx.priority),
 			})}
 			{...props}
 		/>
