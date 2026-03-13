@@ -173,7 +173,13 @@ function preventCloseOnNestedPopupEscape(
 		parseBooleanish(owner.getAttribute("aria-expanded")) &&
 		popup != null &&
 		currentTarget.contains(owner) &&
-		currentTarget.contains(popup)
+		currentTarget.contains(popup) &&
+		// Only block closing if the popup is actively open (`data-state="open"`),
+		// which signals it is a controlled component that can be independently
+		// dismissed (e.g. an inline combobox dropdown). Always-visible lists
+		// without open/close state (e.g. cmdk) don't carry this attribute and
+		// should never block the dialog.
+		popup.getAttribute("data-state") === "open"
 	) {
 		event.preventDefault();
 	}

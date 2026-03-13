@@ -129,50 +129,52 @@ function CommandDialogDemo() {
 					Open Command Dialog
 				</Button>
 			</p>
-			<Command.Dialog open={open} onOpenChange={setOpen}>
-				<Command.Input placeholder="Type a command or search..." />
-				<Command.List>
-					<Command.Empty>No results found.</Command.Empty>
-					<Command.Group heading="Suggestions">
-						<Command.Item>
-							<CalendarIcon />
-							<span>Calendar</span>
-						</Command.Item>
-						<Command.Item>
-							<SmileyIcon />
-							<span>Search Emoji</span>
-						</Command.Item>
-						<Command.Item>
-							<CalculatorIcon />
-							<span>Calculator</span>
-						</Command.Item>
-					</Command.Group>
-					<Command.Separator />
-					<Command.Group heading="Settings">
-						<Command.Item>
-							<UserIcon />
-							<span>Profile</span>
-							<Command.Shortcut>
-								<MetaKey /> P
-							</Command.Shortcut>
-						</Command.Item>
-						<Command.Item>
-							<CreditCardIcon />
-							<span>Billing</span>
-							<Command.Shortcut>
-								<MetaKey /> B
-							</Command.Shortcut>
-						</Command.Item>
-						<Command.Item>
-							<GearIcon />
-							<span>Settings</span>
-							<Command.Shortcut>
-								<MetaKey /> S
-							</Command.Shortcut>
-						</Command.Item>
-					</Command.Group>
-				</Command.List>
-			</Command.Dialog>
+			<Command.Dialog.Root open={open} onOpenChange={setOpen}>
+				<Command.Dialog.Content>
+					<Command.Input placeholder="Type a command or search..." />
+					<Command.List>
+						<Command.Empty>No results found.</Command.Empty>
+						<Command.Group heading="Suggestions">
+							<Command.Item>
+								<CalendarIcon />
+								<span>Calendar</span>
+							</Command.Item>
+							<Command.Item>
+								<SmileyIcon />
+								<span>Search Emoji</span>
+							</Command.Item>
+							<Command.Item>
+								<CalculatorIcon />
+								<span>Calculator</span>
+							</Command.Item>
+						</Command.Group>
+						<Command.Separator />
+						<Command.Group heading="Settings">
+							<Command.Item>
+								<UserIcon />
+								<span>Profile</span>
+								<Command.Shortcut>
+									<MetaKey /> P
+								</Command.Shortcut>
+							</Command.Item>
+							<Command.Item>
+								<CreditCardIcon />
+								<span>Billing</span>
+								<Command.Shortcut>
+									<MetaKey /> B
+								</Command.Shortcut>
+							</Command.Item>
+							<Command.Item>
+								<GearIcon />
+								<span>Settings</span>
+								<Command.Shortcut>
+									<MetaKey /> S
+								</Command.Shortcut>
+							</Command.Item>
+						</Command.Group>
+					</Command.List>
+				</Command.Dialog.Content>
+			</Command.Dialog.Root>
 		</>
 	);
 }
@@ -190,18 +192,32 @@ All props from cmdk's [Command Root](https://github.com/pacocoursey/cmdk?tab=rea
 
 ### Command.Dialog
 
-A window overlaid on either the primary window or another dialog window. The root stateful component for the CommandDialog.
+A compound namespace for building a command palette dialog. Composed of `Command.Dialog.Root`, `Command.Dialog.Trigger`, and `Command.Dialog.Content`.
 
-All props from cmdk's [Command Dialog](https://github.com/pacocoursey/cmdk?tab=readme-ov-file#dialog-cmdk-dialog-cmdk-overlay), plus:
+#### Command.Dialog.Root
 
-| Prop               | Type                                        | Default                            | Description                                            |
-| :----------------- | :------------------------------------------ | :--------------------------------- | :----------------------------------------------------- |
-| `title?`           | `string`                                    | `"Command Palette"`                | The title of the command dialog.                       |
-| `description?`     | `string`                                    | `"Search for a command to run..."` | The description of the command dialog.                 |
-| `className?`       | `string`                                    |                                    | Class name(s) to apply to the command dialog content.  |
-| `showCloseButton?` | `boolean`                                   | `true`                             | Whether to show the close button.                      |
-| `filter?`          | `(value: string, search: string) => number` |                                    | Custom filter function for the command list.           |
-| `shouldFilter?`    | `boolean`                                   |                                    | Whether to enable built-in filtering of command items. |
+The root stateful component for the CommandDialog. Manages open/closed state.
+
+All props from Radix UI's [Dialog.Root](https://www.radix-ui.com/primitives/docs/components/dialog#root).
+
+#### Command.Dialog.Trigger
+
+A button that opens the CommandDialog when clicked. Supports `asChild` for custom trigger elements.
+
+All props from Radix UI's [Dialog.Trigger](https://www.radix-ui.com/primitives/docs/components/dialog#trigger).
+
+#### Command.Dialog.Content
+
+The visible content of the CommandDialog. Renders inside the dialog portal and wraps the command palette UI.
+
+| Prop               | Type                                        | Default                            | Description                                              |
+| :----------------- | :------------------------------------------ | :--------------------------------- | :------------------------------------------------------- |
+| `title?`           | `string`                                    | `"Command Palette"`                | Accessible title for the dialog (visually hidden).       |
+| `description?`     | `string`                                    | `"Search for a command to run..."` | Accessible description for the dialog (visually hidden). |
+| `className?`       | `string`                                    |                                    | Class name(s) to apply to the dialog content.            |
+| `showCloseButton?` | `boolean`                                   | `true`                             | Whether to show the close button.                        |
+| `filter?`          | `(value: string, search: string) => number` |                                    | Custom filter function for the command list.             |
+| `shouldFilter?`    | `boolean`                                   |                                    | Whether to enable built-in filtering of command items.   |
 
 ### Command.Input
 
@@ -235,7 +251,7 @@ All props from cmdk's [Command Item](https://github.com/pacocoursey/cmdk?tab=rea
 
 ### Command.Separator
 
-A visual separator between command groups or items.
+A visual separator between command groups or items. Automatically hidden when there is an active search query.
 
 All props from cmdk's [Command Separator](https://github.com/pacocoursey/cmdk?tab=readme-ov-file#separator-cmdk-separator).
 
