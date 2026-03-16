@@ -18,25 +18,22 @@ export default defineConfig({
 	optimizeDeps: {
 		exclude: ["@ngrok/mantle"],
 	},
-	build: {
-		rollupOptions: {
-			output: {
-				manualChunks(id) {
-					// prismjs is CJS and sets a global `Prism`; its component files
-					// reference that global. Rollup's code splitting can put the
-					// components into a different chunk from the main prismjs module,
-					// causing ReferenceError: Prism is not defined. Forcing all prismjs
-					// modules into one chunk ensures the main module (which sets
-					// window.Prism) always runs before any component file.
-					if (id.includes("prismjs")) {
-						return "prism";
-					}
-				},
+	plugins: [
+		// prismjs component files are plain IIFEs with no module.exports/require —
+		// @rollup/plugin-commonjs doesn't transform them, so Rollup sees no
+		// dependency edge between the components and the prismjs main module.
+		// Without that edge, Rollup can evaluate a component before prismjs
+		// runs and sets window.Prism. Prepending `import "prismjs"` creates the
+		// explicit edge, guaranteeing prismjs initializes first.
+		{
+			name: "prismjs-explicit-dep",
+			enforce: "pre",
+			transform(code, id) {
+				if (/\/prismjs\/components\/prism-/.test(id)) {
+					return { code: `import "prismjs";\n${code}`, map: null };
+				}
 			},
 		},
-	},
-	plugins: [
-		//
 		rawMdxDocs(path.resolve(import.meta.dirname, "app/docs")),
 		devtoolsJson(),
 		tailwindcss(),
