@@ -2,7 +2,7 @@ import type { ComponentProps } from "react";
 
 import { cx } from "@ngrok/mantle/cx";
 import { Icon } from "@ngrok/mantle/icon";
-import { NgrokIcon } from "@ngrok/mantle/icons";
+import { NgrokWordmarkIcon } from "@ngrok/mantle/icons";
 import { Popover } from "@ngrok/mantle/popover";
 import { CaretDownIcon, RssSimpleIcon, XLogoIcon, YoutubeLogoIcon } from "@phosphor-icons/react";
 import { BlueskyIcon } from "./icons/bluesky";
@@ -413,7 +413,7 @@ export function PrimaryFooter({ className, ...props }: Props) {
 						<ThemeSwitcher />
 					</div>
 					<div className="relative ml-auto max-w-full">
-						<NgrokIcon
+						<NgrokWordmarkIcon
 							width="504"
 							height="187"
 							className="h-auto w-full max-w-126 text-neutral-200"

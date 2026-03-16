@@ -4,7 +4,7 @@ import { Command, MetaKey } from "@ngrok/mantle/command";
 import { cx } from "@ngrok/mantle/cx";
 import { DropdownMenu } from "@ngrok/mantle/dropdown-menu";
 import type { SvgAttributes } from "@ngrok/mantle/icon";
-import { NgrokIcon } from "@ngrok/mantle/icons";
+import { NgrokWordmarkIcon } from "@ngrok/mantle/icons";
 import { Kbd } from "@ngrok/mantle/kbd";
 import { useTheme } from "@ngrok/mantle/theme";
 import type { WithStyleProps } from "@ngrok/mantle/types";
@@ -90,7 +90,7 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 						to={href("/")}
 						className="px-1 flex focus:outline-hidden focus-visible:ring-3 focus-visible:ring-focus-accent rounded"
 					>
-						<NgrokIcon className="xs:block hidden h-8.5 w-auto text-blue-600" />
+						<NgrokWordmarkIcon className="xs:block hidden h-8.5 w-auto text-blue-600" />
 						<MantleLogo />
 					</Link>
 
