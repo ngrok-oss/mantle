@@ -1,5 +1,13 @@
 # @ngrok/mantle
 
+## 0.66.16
+
+### Patch Changes
+
+- [#1076](https://github.com/ngrok-oss/mantle/pull/1076) [`582bec9`](https://github.com/ngrok-oss/mantle/commit/582bec9c0cd558fe14ebc5d461b2ddd6debc9c33) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add `--spacing-em` (`1em`) theme token for font-relative sizing utilities like `size-em`, `w-em`, `h-em`
+
+- [#1076](https://github.com/ngrok-oss/mantle/pull/1076) [`582bec9`](https://github.com/ngrok-oss/mantle/commit/582bec9c0cd558fe14ebc5d461b2ddd6debc9c33) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add default `width="2.61em" height="1em"` to `NgrokWordmarkIcon` and `width="1em" height="1em"` to `NgrokLettermarkIcon` so they render at font size without requiring explicit sizing classes
+
 ## 0.66.15
 
 ### Patch Changes
