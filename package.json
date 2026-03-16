@@ -26,13 +26,13 @@
     "@changesets/changelog-github": "0.6.0",
     "@changesets/cli": "2.30.0",
     "@types/node": "catalog:",
-    "@typescript/native-preview": "7.0.0-dev.20260307.1",
+    "@typescript/native-preview": "7.0.0-dev.20260316.1",
     "husky": "9.1.7",
-    "lint-staged": "16.3.3",
+    "lint-staged": "16.4.0",
     "oxfmt": "0.40.0",
     "oxlint": "1.55.0",
     "tsx": "catalog:",
-    "turbo": "2.8.16",
+    "turbo": "2.8.17",
     "vitest": "4.1.0"
   },
   "engines": {
@@ -41,7 +41,7 @@
   "packageManager": "pnpm@10.32.1",
   "pnpm": {
     "overrides": {
-      "@types/node": "24.12.0",
+      "@types/node": "catalog:",
       "@mjackson/node-fetch-server": "npm:@remix-run/node-fetch-server@0.10.0",
       "@vitejs/plugin-react": "catalog:",
       "ajv": ">=8.18.0",
