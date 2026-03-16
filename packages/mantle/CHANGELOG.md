@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.66.14
+
+### Patch Changes
+
+- [#1072](https://github.com/ngrok-oss/mantle/pull/1072) [`5dcc9be`](https://github.com/ngrok-oss/mantle/commit/5dcc9be89bf4b61216e7229e68b611bb64496082) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Rename `NgrokIcon` to `NgrokWordmarkIcon` and add new `NgrokLettermarkIcon`
+
 ## 0.66.13
 
 ### Patch Changes
