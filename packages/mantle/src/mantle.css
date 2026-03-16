@@ -151,6 +151,8 @@ MARK: THEME
 		0px 11px 10px 0px --alpha(var(--shadow-color) / var(--shadow-first-opacity)),
 		0px 17px 25px 2px --alpha(var(--shadow-color) / var(--shadow-second-opacity));
 	--shadow-inner: inset 0px 2px 4px 0px --alpha(var(--shadow-color) / var(--shadow-first-opacity));
+
+	--spacing-em: 1em;
 }
 
 @theme inline {

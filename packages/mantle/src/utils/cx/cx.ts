@@ -6,6 +6,9 @@ const twMerge = extendTailwindMerge({
 		classGroups: {
 			"font-size": ["text-mono", "text-size-inherit"],
 		},
+		theme: {
+			spacing: ["em"],
+		},
 	},
 });
 
