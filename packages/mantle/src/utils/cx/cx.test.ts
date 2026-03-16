@@ -68,4 +68,20 @@ describe("cx", () => {
 	test("text-base can be overridden by text-size-inherit", () => {
 		expect(cx("text-base text-size-inherit")).toBe("text-size-inherit");
 	});
+
+	test("w-4 can be overridden by w-em", () => {
+		expect(cx("w-4 w-em")).toBe("w-em");
+	});
+
+	test("h-em can be overridden by h-6", () => {
+		expect(cx("h-em h-6")).toBe("h-6");
+	});
+
+	test("p-em can be overridden by p-2", () => {
+		expect(cx("p-em p-2")).toBe("p-2");
+	});
+
+	test("gap-4 can be overridden by gap-em", () => {
+		expect(cx("gap-4 gap-em")).toBe("gap-em");
+	});
 });
