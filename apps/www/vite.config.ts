@@ -17,11 +17,23 @@ import { rawMdxDocs } from "./vite-plugins/raw-mdx-docs";
 export default defineConfig({
 	optimizeDeps: {
 		exclude: ["@ngrok/mantle"],
-		// prismjs is CJS and sets a global `Prism`; its component side-effects
-		// reference that global. Vite 8 changed chunking/module execution order,
-		// so we force prismjs to be pre-bundled so the global is established
-		// before any component files run.
-		include: ["prismjs"],
+	},
+	build: {
+		rollupOptions: {
+			output: {
+				manualChunks(id) {
+					// prismjs is CJS and sets a global `Prism`; its component files
+					// reference that global. Rollup's code splitting can put the
+					// components into a different chunk from the main prismjs module,
+					// causing ReferenceError: Prism is not defined. Forcing all prismjs
+					// modules into one chunk ensures the main module (which sets
+					// window.Prism) always runs before any component file.
+					if (id.includes("prismjs")) {
+						return "prism";
+					}
+				},
+			},
+		},
 	},
 	plugins: [
 		//
