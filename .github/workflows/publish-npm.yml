@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.repository == 'ngrok-oss/mantle'
     steps:
-      - uses: actions/create-github-app-token@v2
+      - uses: actions/create-github-app-token@v3
         id: generate-token
         with:
           app-id: ${{ secrets.RELEASE_BOT_APP_ID }}
