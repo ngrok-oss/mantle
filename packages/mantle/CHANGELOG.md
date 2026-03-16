@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.66.15
+
+### Patch Changes
+
+- [#1074](https://github.com/ngrok-oss/mantle/pull/1074) [`284aaa9`](https://github.com/ngrok-oss/mantle/commit/284aaa9e1e3ad894612ea27739a1ae40aa6b06e6) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Update NgrokLettermarkIcon dimensions
+
 ## 0.66.14
 
 ### Patch Changes
