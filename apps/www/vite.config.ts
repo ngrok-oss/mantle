@@ -10,7 +10,6 @@ import remarkGfm from "remark-gfm";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 import { defineConfig } from "vite";
 import devtoolsJson from "vite-plugin-devtools-json";
-import tsconfigPaths from "vite-tsconfig-paths";
 
 import { remarkMdxNoParagraphWrap } from "@ngrok/remark-mdx-no-paragraph-wrap";
 import { rawMdxDocs } from "./vite-plugins/raw-mdx-docs";
@@ -20,7 +19,21 @@ export default defineConfig({
 		exclude: ["@ngrok/mantle"],
 	},
 	plugins: [
-		//
+		// prismjs component files are plain IIFEs with no module.exports/require —
+		// @rollup/plugin-commonjs doesn't transform them, so Rollup sees no
+		// dependency edge between the components and the prismjs main module.
+		// Without that edge, Rollup can evaluate a component before prismjs
+		// runs and sets window.Prism. Prepending `import "prismjs"` creates the
+		// explicit edge, guaranteeing prismjs initializes first.
+		{
+			name: "prismjs-explicit-dep",
+			enforce: "pre",
+			transform(code, id) {
+				if (/\/prismjs\/components\/prism-/.test(id)) {
+					return { code: `import "prismjs";\n${code}`, map: null };
+				}
+			},
+		},
 		rawMdxDocs(path.resolve(import.meta.dirname, "app/docs")),
 		devtoolsJson(),
 		tailwindcss(),
@@ -41,12 +54,12 @@ export default defineConfig({
 			providerImportSource: "@mdx-js/react",
 		}),
 		reactRouter(),
-		tsconfigPaths({ ignoreConfigErrors: true }),
 	],
 	resolve: {
 		// Ensure Mantle components resolve to source in dev mode (not dist)
 		// so client HMR picks up changes immediately
 		conditions: ["@ngrok/src-live-types"],
+		tsconfigPaths: true,
 		alias: {
 			// CSS @import doesn't go through Vite's resolve.conditions,
 			// so we alias the CSS entry point to the source file directly
