@@ -10,7 +10,6 @@ import remarkGfm from "remark-gfm";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 import { defineConfig } from "vite";
 import devtoolsJson from "vite-plugin-devtools-json";
-import tsconfigPaths from "vite-tsconfig-paths";
 
 import { remarkMdxNoParagraphWrap } from "@ngrok/remark-mdx-no-paragraph-wrap";
 import { rawMdxDocs } from "./vite-plugins/raw-mdx-docs";
@@ -18,6 +17,11 @@ import { rawMdxDocs } from "./vite-plugins/raw-mdx-docs";
 export default defineConfig({
 	optimizeDeps: {
 		exclude: ["@ngrok/mantle"],
+		// prismjs is CJS and sets a global `Prism`; its component side-effects
+		// reference that global. Vite 8 changed chunking/module execution order,
+		// so we force prismjs to be pre-bundled so the global is established
+		// before any component files run.
+		include: ["prismjs"],
 	},
 	plugins: [
 		//
@@ -41,12 +45,12 @@ export default defineConfig({
 			providerImportSource: "@mdx-js/react",
 		}),
 		reactRouter(),
-		tsconfigPaths({ ignoreConfigErrors: true }),
 	],
 	resolve: {
 		// Ensure Mantle components resolve to source in dev mode (not dist)
 		// so client HMR picks up changes immediately
 		conditions: ["@ngrok/src-live-types"],
+		tsconfigPaths: true,
 		alias: {
 			// CSS @import doesn't go through Vite's resolve.conditions,
 			// so we alias the CSS entry point to the source file directly
