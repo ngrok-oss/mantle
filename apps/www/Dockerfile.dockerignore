@@ -1,0 +1,43 @@
+# Git and version control
+.git
+.gitignore
+.gitattributes
+
+# Build artifacts and cache
+.turbo
+**/.react-router
+**/build
+**/dist
+**/node_modules
+
+# Development files
+.env
+.env.local
+.env.*.local
+.env.development
+.env.test
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Testing
+coverage/
+test-results/
+playwright-report/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Docker itself
+**/Dockerfile*
+**/.dockerignore
+
+# Reference code (read-only, never needed in image)
+tmp/
