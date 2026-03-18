@@ -15,7 +15,7 @@ WORKDIR /app
 
 ENV COREPACK_HOME=/tmp/corepack-cache
 ENV XDG_CACHE_HOME=$COREPACK_HOME
-ENV PNPM_STORE_DIR=/root/.pnpm-store
+ENV PNPM_HOME=/root/.pnpm-store
 
 RUN mkdir -p $COREPACK_HOME \
     && chmod -R 777 $COREPACK_HOME
