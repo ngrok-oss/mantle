@@ -14,10 +14,15 @@ import {
 	forwardRef,
 	isValidElement,
 	useContext,
+	useEffect,
+	useRef,
 } from "react";
 import invariant from "tiny-invariant";
 import { parseBooleanish } from "../../types/booleanish.js";
+import { composeRefs } from "../../utils/compose-refs/compose-refs.js";
 import { cx } from "../../utils/cx/cx.js";
+import { getPrefersReducedMotion } from "../../hooks/use-prefers-reduced-motion.js";
+import type { ScrollBehavior } from "../../hooks/use-scroll-behavior.js";
 
 type Orientation = "horizontal" | "vertical";
 type Appearance = "classic" | "pill";
@@ -84,7 +89,8 @@ Root.displayName = "Tabs";
 const listVariants = cva("flex border-gray-200", {
 	variants: {
 		orientation: {
-			horizontal: "flex-row items-center",
+			horizontal:
+				"scroll-shadow-x flex-row items-center overflow-x-auto overscroll-x-none w-full min-w-0 py-1 -my-1 px-1 -mx-1",
 			vertical: "flex-col items-end gap-3.5 self-stretch",
 		} as const satisfies Record<Orientation, string>,
 		appearance: {
@@ -135,12 +141,72 @@ const List = forwardRef<
 	ComponentPropsWithoutRef<typeof TabsPrimitiveList>
 >(({ className, ...props }, ref) => {
 	const { orientation, appearance } = useContext(TabsStateContext);
+	const scrollRef = useRef<ComponentRef<typeof TabsPrimitiveList>>(null);
+
+	useEffect(() => {
+		const element = scrollRef.current;
+		if (!element || orientation !== "horizontal") {
+			return;
+		}
+
+		const abortController = new AbortController();
+		let maxScrollLeft = 0;
+
+		const updateShadows = () => {
+			element.toggleAttribute("data-scroll-left", element.scrollLeft > 0);
+			element.toggleAttribute(
+				"data-scroll-right",
+				Math.ceil(element.scrollLeft) < maxScrollLeft - 1,
+			);
+		};
+
+		const handleResize = () => {
+			maxScrollLeft = element.scrollWidth - element.clientWidth;
+			updateShadows();
+		};
+
+		// passive: true — lets the browser optimize scroll performance by guaranteeing
+		// we won't call preventDefault() inside this handler.
+		element.addEventListener("scroll", updateShadows, {
+			passive: true,
+			signal: abortController.signal,
+		});
+
+		// When Radix moves focus via arrow keys it calls element.focus(), which doesn't
+		// always scroll the target into view inside an overflow container. We handle it
+		// explicitly here via event delegation so every trigger gets this behavior with
+		// a single listener rather than one per trigger.
+		element.addEventListener(
+			"focusin",
+			(event) => {
+				if (event.target instanceof Element && event.target !== element) {
+					const scrollBehavior: ScrollBehavior = getPrefersReducedMotion() ? "auto" : "smooth";
+					event.target.scrollIntoView({
+						behavior: scrollBehavior,
+						// "center" rather than "nearest" so the focused tab lands in the middle
+						// of the visible area, giving the user context on both sides.
+						inline: "center",
+						block: "nearest",
+					});
+				}
+			},
+			{ signal: abortController.signal },
+		);
+		const resizeObserver = new ResizeObserver(handleResize);
+		resizeObserver.observe(element);
+		handleResize();
+
+		return () => {
+			abortController.abort();
+			resizeObserver.disconnect();
+		};
+	}, [orientation]);
 
 	return (
 		<TabsPrimitiveList
 			aria-orientation={orientation}
 			className={cx(listVariants({ orientation, appearance }), className)}
-			ref={ref}
+			ref={composeRefs(scrollRef, ref)}
 			{...props}
 		/>
 	);
