@@ -1,5 +1,13 @@
 # @ngrok/mantle
 
+## 0.66.17
+
+### Patch Changes
+
+- [#1071](https://github.com/ngrok-oss/mantle/pull/1071) [`c32a7d2`](https://github.com/ngrok-oss/mantle/commit/c32a7d23c2d55787042f702377bbdd1ddc923285) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bundle prismjs into the code-block dist output to fix `ReferenceError: Prism is not defined` with Vite 8 / Rollup 4. Previously, prismjs component files (plain IIFEs with no `module.exports`) were left as external imports, and Rollup had no visibility into their implicit dependency on the prismjs main module — causing it to evaluate a component before `window.Prism` was set. Bundling prismjs directly resolves the ordering issue transparently for all consuming apps.
+
+- [#1086](https://github.com/ngrok-oss/mantle/pull/1086) [`537de55`](https://github.com/ngrok-oss/mantle/commit/537de55161043570699316e07162c6bf6d93282a) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add horizontal overflow scrolling to `Tabs.List` with scroll-position-aware edge shadows. When the tab list overflows its container it scrolls horizontally; fade shadows appear on whichever sides have hidden content and disappear when you reach an edge or when there is no overflow. Keyboard arrow-key navigation smoothly scrolls the focused trigger into view. Scroll bounce is disabled on the list.
+
 ## 0.66.16
 
 ### Patch Changes
