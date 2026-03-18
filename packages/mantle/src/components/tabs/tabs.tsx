@@ -172,6 +172,15 @@ const List = forwardRef<
 			signal: abortController.signal,
 		});
 
+		// ResizeObserver alone won't catch scrollWidth changes caused by content
+		// mutations (e.g. font loading, badge count changes) when the list container
+		// itself doesn't resize. MutationObserver covers those cases.
+		const mutationObserver = new MutationObserver(handleResize);
+		mutationObserver.observe(element, {
+			childList: true,
+			subtree: true, // subtree catches badge/label content changes inside triggers
+		});
+
 		// When Radix moves focus via arrow keys it calls element.focus(), which doesn't
 		// always scroll the target into view inside an overflow container. We handle it
 		// explicitly here via event delegation so every trigger gets this behavior with
@@ -199,6 +208,7 @@ const List = forwardRef<
 		return () => {
 			abortController.abort();
 			resizeObserver.disconnect();
+			mutationObserver.disconnect();
 		};
 	}, [orientation]);
 
