@@ -7,7 +7,15 @@ import { Card } from "@ngrok/mantle/card";
 import { Icon } from "@ngrok/mantle/icon";
 import { Separator } from "@ngrok/mantle/separator";
 import { Tabs } from "@ngrok/mantle/tabs";
+import { ArrowsSplitIcon } from "@phosphor-icons/react/ArrowsSplit";
+import { ChartBarIcon } from "@phosphor-icons/react/ChartBar";
+import { ChartLineIcon } from "@phosphor-icons/react/ChartLine";
+import { GearSixIcon } from "@phosphor-icons/react/GearSix";
 import { GlobeIcon } from "@phosphor-icons/react/Globe";
+import { KeyIcon } from "@phosphor-icons/react/Key";
+import { ListIcon } from "@phosphor-icons/react/List";
+import { PlugIcon } from "@phosphor-icons/react/Plug";
+import { RocketLaunchIcon } from "@phosphor-icons/react/RocketLaunch";
 import { ShieldCheckIcon } from "@phosphor-icons/react/ShieldCheck";
 import { UserIcon } from "@phosphor-icons/react/User";
 import { Link, href } from "react-router";
@@ -191,6 +199,49 @@ A set of layered sections of content—known as tab panels—that are displayed 
 			</Card.Root>
 		</Tabs.Content>
 	</Tabs.Root>
+
+    <Separator />
+    <h2 className="text-lg">Horizontal overflow</h2>
+    <p>
+    	When the tab list overflows its container, it scrolls horizontally. Constrain the root width to
+    	trigger this behavior.
+    </p>
+    <Tabs.Root orientation="horizontal" defaultValue="getting-started" className="max-w-lg">
+    	<Tabs.List>
+    		<Tabs.Trigger value="getting-started">
+    			<Icon svg={<RocketLaunchIcon />} />
+    			Getting Started
+    		</Tabs.Trigger>
+    		<Tabs.Trigger value="traffic-policy">
+    			<Icon svg={<ArrowsSplitIcon />} />
+    			Traffic Policy
+    		</Tabs.Trigger>
+    		<Tabs.Trigger value="api-keys">
+    			<Icon svg={<KeyIcon />} />
+    			API Keys
+    		</Tabs.Trigger>
+    		<Tabs.Trigger value="usage">
+    			<Icon svg={<ChartBarIcon />} />
+    			Usage
+    		</Tabs.Trigger>
+    		<Tabs.Trigger value="settings">
+    			<Icon svg={<GearSixIcon />} />
+    			Settings
+    		</Tabs.Trigger>
+    		<Tabs.Trigger value="logs">
+    			<Icon svg={<ListIcon />} />
+    			Logs
+    		</Tabs.Trigger>
+    		<Tabs.Trigger value="analytics">
+    			<Icon svg={<ChartLineIcon />} />
+    			Analytics
+    		</Tabs.Trigger>
+    		<Tabs.Trigger value="integrations">
+    			<Icon svg={<PlugIcon />} />
+    			Integrations
+    		</Tabs.Trigger>
+    	</Tabs.List>
+    </Tabs.Root>
 
     <Separator />
     <h2 className="text-lg">

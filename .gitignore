@@ -35,3 +35,4 @@ build
 .react-router
 .direnv-initialized
 tmp
+.playwright-mcp
