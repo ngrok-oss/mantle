@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { build } from "vite";
 import { MARKER_END, MARKER_START } from "./internals.js";
 import { mantleTwSourcePlugin } from "./mantle-tw-source-plugin.js";
@@ -106,6 +106,8 @@ describe("mantleTwSourcePlugin — input filtering", () => {
 	}, 30_000);
 
 	it("filters invalid allowlist entries and only emits known components", async () => {
+		const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
+
 		const css = await buildWith("export {};", {
 			allowlist: [
 				"button", // valid
@@ -119,6 +121,8 @@ describe("mantleTwSourcePlugin — input filtering", () => {
 		expect(css).not.toContain("not-a-real-component");
 		expect(css).not.toContain("evil");
 		expect(css).not.toContain("cx.js");
+
+		warnSpy.mockRestore();
 	}, 30_000);
 
 	it("emits only real components when source mixes valid and invalid imports", async () => {

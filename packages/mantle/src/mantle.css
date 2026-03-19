@@ -163,6 +163,8 @@ MARK: THEME
 		0px 11px 10px 0px --alpha(var(--shadow-color) / var(--shadow-first-opacity)),
 		0px 17px 25px 2px --alpha(var(--shadow-color) / var(--shadow-second-opacity));
 	--shadow-inner: inset 0px 2px 4px 0px --alpha(var(--shadow-color) / var(--shadow-first-opacity));
+
+	--spacing-em: 1em;
 }
 
 @theme inline {
@@ -500,6 +502,41 @@ MARK: UTILITIES
 		100% 14px,
 		100% 14px;
 	background-attachment: local, local, scroll, scroll;
+}
+
+@utility scroll-shadow-x {
+	/* CSS variables default to transparent — data attributes flip them on */
+	--_cover-left: transparent;
+	--_cover-right: transparent;
+	--_shadow-left: transparent;
+	--_shadow-right: transparent;
+
+	background:
+		/* Shadow Cover LEFT */
+		linear-gradient(to right, var(--_cover-left) 30%, transparent) left center,
+		/* Shadow Cover RIGHT */ linear-gradient(to left, var(--_cover-right) 30%, transparent) right
+			center,
+		/* Shadow LEFT */ radial-gradient(farthest-side at 0% 50%, var(--_shadow-left), rgb(0 0 0 / 0%))
+			left center,
+		/* Shadow RIGHT */
+			radial-gradient(farthest-side at 100% 50%, var(--_shadow-right), rgb(0 0 0 / 0%)) right center;
+	background-repeat: no-repeat;
+	background-size:
+		40px 100%,
+		40px 100%,
+		14px 100%,
+		14px 100%;
+	background-attachment: scroll;
+
+	&[data-scroll-left] {
+		--_cover-left: var(--background-color-base);
+		--_shadow-left: var(--navigation-shadow);
+	}
+
+	&[data-scroll-right] {
+		--_cover-right: var(--background-color-base);
+		--_shadow-right: var(--navigation-shadow);
+	}
 }
 
 @utility nav-scroll-shadow {

@@ -1,7 +1,8 @@
 import { Code } from "@ngrok/mantle/code";
 import {
 	AutoThemeIcon,
-	NgrokIcon,
+	NgrokWordmarkIcon,
+	NgrokLettermarkIcon,
 	SortIcon,
 	ThemeIcon,
 	TrafficPolicyFileIcon,
@@ -127,15 +128,29 @@ const iconData = [
 		],
 	},
 	{
-		id: "NgrokIcon",
-		name: "NgrokIcon",
-		description: <p className="text-muted">The ngrok logo icon</p>,
-		Icon: <NgrokIcon />,
+		id: "NgrokLettermarkIcon",
+		name: "NgrokLettermarkIcon",
+		description: <p className="text-muted">The ngrok logo lettermark "n" icon</p>,
+		Icon: <NgrokLettermarkIcon />,
 		tags: [
 			//,
 			"brand",
 			"logo",
 			"ngrok",
+			"lettermark",
+		],
+	},
+	{
+		id: "NgrokWordmarkIcon",
+		name: "NgrokWordmarkIcon",
+		description: <p className="text-muted">The ngrok logo wordmark icon</p>,
+		Icon: <NgrokWordmarkIcon />,
+		tags: [
+			//,
+			"brand",
+			"logo",
+			"ngrok",
+			"wordmark",
 		],
 	},
 	{

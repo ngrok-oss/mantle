@@ -173,7 +173,13 @@ function preventCloseOnNestedPopupEscape(
 		parseBooleanish(owner.getAttribute("aria-expanded")) &&
 		popup != null &&
 		currentTarget.contains(owner) &&
-		currentTarget.contains(popup)
+		currentTarget.contains(popup) &&
+		// Only block closing if the popup is actively open. Always-visible lists
+		// without open/close state (e.g. cmdk) carry neither attribute and should
+		// never block the dialog from closing.
+		// - Ariakit sets `data-open="true"` when its popover is open.
+		// - Radix sets `data-state="open"` when its popup is open.
+		(popup.getAttribute("data-open") === "true" || popup.getAttribute("data-state") === "open")
 	) {
 		event.preventDefault();
 	}

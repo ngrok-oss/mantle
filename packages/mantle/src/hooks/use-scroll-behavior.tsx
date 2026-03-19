@@ -9,7 +9,7 @@ import { usePrefersReducedMotion } from "./use-prefers-reduced-motion.js";
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior#values
  */
-type ScrollBehavior = "auto" | "smooth";
+export type ScrollBehavior = "auto" | "smooth";
 
 /**
  * Returns a `ScrollBehavior` that respects the user's motion preference via `usePrefersReducedMotion`.

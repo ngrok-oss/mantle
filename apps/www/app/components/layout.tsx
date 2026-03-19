@@ -4,7 +4,7 @@ import { Command, MetaKey } from "@ngrok/mantle/command";
 import { cx } from "@ngrok/mantle/cx";
 import { DropdownMenu } from "@ngrok/mantle/dropdown-menu";
 import type { SvgAttributes } from "@ngrok/mantle/icon";
-import { NgrokIcon } from "@ngrok/mantle/icons";
+import { NgrokWordmarkIcon } from "@ngrok/mantle/icons";
 import { Kbd } from "@ngrok/mantle/kbd";
 import { useTheme } from "@ngrok/mantle/theme";
 import type { WithStyleProps } from "@ngrok/mantle/types";
@@ -90,7 +90,7 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 						to={href("/")}
 						className="px-1 flex focus:outline-hidden focus-visible:ring-3 focus-visible:ring-focus-accent rounded"
 					>
-						<NgrokIcon className="xs:block hidden h-8.5 w-auto text-neutral-800" />
+						<NgrokWordmarkIcon className="xs:block hidden h-8.5 w-auto text-neutral-800" />
 						<MantleLogo />
 					</Link>
 
@@ -467,244 +467,246 @@ function CommandPalette({ currentVersion }: { currentVersion: string | undefined
 					<Kbd>K</Kbd>
 				</span>
 			</Button>
-			<Command.Dialog open={open} onOpenChange={setOpen}>
-				<Command.Input placeholder="Search Mantle..." />
-				<Command.List>
-					<Command.Empty>No results found.</Command.Empty>
-					<Command.Group heading="Welcome">
-						{welcomePages.map((page) => (
-							<Command.Item
-								key={page}
-								onSelect={() => {
-									navigate(welcomeRoutes[page]);
-									setOpen(false);
-								}}
-								asChild
-							>
-								<Link
-									to={welcomeRoutes[page]}
-									prefetch="intent"
-									className="flex items-center gap-2 justify-between"
+			<Command.Dialog.Root open={open} onOpenChange={setOpen}>
+				<Command.Dialog.Content>
+					<Command.Input placeholder="Search Mantle..." />
+					<Command.List>
+						<Command.Empty>No results found.</Command.Empty>
+						<Command.Group heading="Welcome">
+							{welcomePages.map((page) => (
+								<Command.Item
+									key={page}
+									onSelect={() => {
+										navigate(welcomeRoutes[page]);
+										setOpen(false);
+									}}
+									asChild
 								>
-									{page}
-									<ArrowRightIcon />
-								</Link>
-							</Command.Item>
-						))}
-						<Command.Item asChild onSelect={() => setOpen(false)}>
-							<a
-								href="https://github.com/ngrok-oss/mantle"
-								target="_blank"
-								rel="noopener noreferrer"
-								className="flex items-center gap-2 justify-between"
-							>
-								<ItemName>
-									GitHub Repo
-									<span className="text-muted text-xs font-mono">ngrok-oss/mantle</span>
-								</ItemName>
-								<ArrowSquareOutIcon />
-							</a>
-						</Command.Item>
-						<Command.Item asChild onSelect={() => setOpen(false)}>
-							<a
-								href="https://github.com/ngrok-oss/mantle/releases"
-								target="_blank"
-								rel="noopener noreferrer"
-								className="flex items-center gap-2 justify-between"
-							>
-								<ItemName>
-									GitHub Releases
-									<span className="text-muted text-xs font-mono">version {currentVersion}</span>
-								</ItemName>
-								<ArrowSquareOutIcon />
-							</a>
-						</Command.Item>
-					</Command.Group>
-					<Command.Separator />
-					<Command.Group heading="Base">
-						{basePages.map((page) => (
-							<Command.Item
-								key={page}
-								onSelect={() => {
-									navigate(baseRoutes[page]);
-									setOpen(false);
-								}}
-								asChild
-							>
-								<Link
-									to={baseRoutes[page]}
-									prefetch="intent"
-									className="flex items-center gap-2 justify-between"
-								>
-									<ItemName>
+									<Link
+										to={welcomeRoutes[page]}
+										prefetch="intent"
+										className="flex items-center gap-2 justify-between"
+									>
 										{page}
-										<span className="text-muted text-xs">{baseRoutes[page]}</span>
+										<ArrowRightIcon />
+									</Link>
+								</Command.Item>
+							))}
+							<Command.Item asChild onSelect={() => setOpen(false)}>
+								<a
+									href="https://github.com/ngrok-oss/mantle"
+									target="_blank"
+									rel="noopener noreferrer"
+									className="flex items-center gap-2 justify-between"
+								>
+									<ItemName>
+										GitHub Repo
+										<span className="text-muted text-xs font-mono">ngrok-oss/mantle</span>
 									</ItemName>
-									<ArrowRightIcon />
-								</Link>
+									<ArrowSquareOutIcon />
+								</a>
 							</Command.Item>
-						))}
-					</Command.Group>
-					<Command.Separator />
-					<Command.Group heading="Hooks">
-						<Command.Item
-							onSelect={() => {
-								navigate(hooksRoute);
-								setOpen(false);
-							}}
-							asChild
-						>
-							<Link
-								to={hooksRoute}
-								prefetch="intent"
-								className="flex items-center gap-2 justify-between"
-							>
-								<ItemName>
-									Hooks
-									<span className="text-muted text-xs">{hooksRoute}</span>
-								</ItemName>
-								<ArrowRightIcon />
-							</Link>
-						</Command.Item>
-					</Command.Group>
-					<Command.Separator />
-					<Command.Group heading="Utils">
-						{utilsPages.map((page) => (
+							<Command.Item asChild onSelect={() => setOpen(false)}>
+								<a
+									href="https://github.com/ngrok-oss/mantle/releases"
+									target="_blank"
+									rel="noopener noreferrer"
+									className="flex items-center gap-2 justify-between"
+								>
+									<ItemName>
+										GitHub Releases
+										<span className="text-muted text-xs font-mono">version {currentVersion}</span>
+									</ItemName>
+									<ArrowSquareOutIcon />
+								</a>
+							</Command.Item>
+						</Command.Group>
+						<Command.Separator />
+						<Command.Group heading="Base">
+							{basePages.map((page) => (
+								<Command.Item
+									key={page}
+									onSelect={() => {
+										navigate(baseRoutes[page]);
+										setOpen(false);
+									}}
+									asChild
+								>
+									<Link
+										to={baseRoutes[page]}
+										prefetch="intent"
+										className="flex items-center gap-2 justify-between"
+									>
+										<ItemName>
+											{page}
+											<span className="text-muted text-xs">{baseRoutes[page]}</span>
+										</ItemName>
+										<ArrowRightIcon />
+									</Link>
+								</Command.Item>
+							))}
+						</Command.Group>
+						<Command.Separator />
+						<Command.Group heading="Hooks">
 							<Command.Item
-								key={page}
 								onSelect={() => {
-									navigate(utilsRoutes[page]);
+									navigate(hooksRoute);
 									setOpen(false);
 								}}
 								asChild
 							>
 								<Link
-									to={utilsRoutes[page]}
+									to={hooksRoute}
 									prefetch="intent"
 									className="flex items-center gap-2 justify-between"
 								>
 									<ItemName>
-										{page}
-										<span className="text-muted text-xs">{utilsRoutes[page]}</span>
+										Hooks
+										<span className="text-muted text-xs">{hooksRoute}</span>
 									</ItemName>
 									<ArrowRightIcon />
 								</Link>
 							</Command.Item>
-						))}
-					</Command.Group>
-					<Command.Separator />
-					<Command.Group heading="Components">
-						{prodReadyComponents.map((component) => (
+						</Command.Group>
+						<Command.Separator />
+						<Command.Group heading="Utils">
+							{utilsPages.map((page) => (
+								<Command.Item
+									key={page}
+									onSelect={() => {
+										navigate(utilsRoutes[page]);
+										setOpen(false);
+									}}
+									asChild
+								>
+									<Link
+										to={utilsRoutes[page]}
+										prefetch="intent"
+										className="flex items-center gap-2 justify-between"
+									>
+										<ItemName>
+											{page}
+											<span className="text-muted text-xs">{utilsRoutes[page]}</span>
+										</ItemName>
+										<ArrowRightIcon />
+									</Link>
+								</Command.Item>
+							))}
+						</Command.Group>
+						<Command.Separator />
+						<Command.Group heading="Components">
+							{prodReadyComponents.map((component) => (
+								<Command.Item
+									key={component}
+									onSelect={() => {
+										navigate(prodReadyComponentRouteLookup[component]);
+										setOpen(false);
+									}}
+									asChild
+								>
+									<Link
+										to={prodReadyComponentRouteLookup[component]}
+										className="flex items-center gap-2 justify-between"
+									>
+										<ItemName>
+											{component}
+											<span className="text-muted text-xs">
+												{prodReadyComponentRouteLookup[component]}
+											</span>
+										</ItemName>
+										<ArrowRightIcon />
+									</Link>
+								</Command.Item>
+							))}
+						</Command.Group>
+						<Command.Separator />
+						<Command.Group
+							heading={
+								<span className="flex items-center gap-2">
+									Preview Components <PreviewBadge />
+								</span>
+							}
+						>
+							{previewComponents.map((component) => (
+								<Command.Item
+									key={component}
+									onSelect={() => {
+										navigate(previewComponentsRouteLookup[component]);
+										setOpen(false);
+									}}
+									asChild
+								>
+									<Link
+										to={previewComponentsRouteLookup[component]}
+										className="flex items-center gap-2 justify-between"
+									>
+										<ItemName>
+											{component}
+											<span className="text-muted text-xs">
+												{previewComponentsRouteLookup[component]}
+											</span>
+										</ItemName>
+										<ArrowRightIcon />
+									</Link>
+								</Command.Item>
+							))}
+						</Command.Group>
+						<Command.Separator />
+						<Command.Group heading="Theme">
 							<Command.Item
-								key={component}
 								onSelect={() => {
-									navigate(prodReadyComponentRouteLookup[component]);
+									setTheme("system");
 									setOpen(false);
 								}}
-								asChild
 							>
-								<Link
-									to={prodReadyComponentRouteLookup[component]}
-									className="flex items-center gap-2 justify-between"
-								>
-									<ItemName>
-										{component}
-										<span className="text-muted text-xs">
-											{prodReadyComponentRouteLookup[component]}
-										</span>
-									</ItemName>
-									<ArrowRightIcon />
-								</Link>
+								<MonitorIcon />
+								Use System theme
+								{currentTheme === "system" ? <CheckIcon /> : null}
 							</Command.Item>
-						))}
-					</Command.Group>
-					<Command.Separator />
-					<Command.Group
-						heading={
-							<span className="flex items-center gap-2">
-								Preview Components <PreviewBadge />
-							</span>
-						}
-					>
-						{previewComponents.map((component) => (
 							<Command.Item
-								key={component}
 								onSelect={() => {
-									navigate(previewComponentsRouteLookup[component]);
+									setTheme("light");
 									setOpen(false);
 								}}
-								asChild
 							>
-								<Link
-									to={previewComponentsRouteLookup[component]}
-									className="flex items-center gap-2 justify-between"
-								>
-									<ItemName>
-										{component}
-										<span className="text-muted text-xs">
-											{previewComponentsRouteLookup[component]}
-										</span>
-									</ItemName>
-									<ArrowRightIcon />
-								</Link>
+								<SunIcon />
+								Use Light theme
+								{currentTheme === "light" ? <CheckIcon /> : null}
 							</Command.Item>
-						))}
-					</Command.Group>
-					<Command.Separator />
-					<Command.Group heading="Theme">
-						<Command.Item
-							onSelect={() => {
-								setTheme("system");
-								setOpen(false);
-							}}
-						>
-							<MonitorIcon />
-							Use System theme
-							{currentTheme === "system" ? <CheckIcon /> : null}
-						</Command.Item>
-						<Command.Item
-							onSelect={() => {
-								setTheme("light");
-								setOpen(false);
-							}}
-						>
-							<SunIcon />
-							Use Light theme
-							{currentTheme === "light" ? <CheckIcon /> : null}
-						</Command.Item>
-						<Command.Item
-							onSelect={() => {
-								setTheme("dark");
-								setOpen(false);
-							}}
-						>
-							<MoonIcon />
-							Use Dark theme
-							{currentTheme === "dark" ? <CheckIcon /> : null}
-						</Command.Item>
-						<Command.Item
-							onSelect={() => {
-								setTheme("light-high-contrast");
-								setOpen(false);
-							}}
-						>
-							<SunIcon weight="fill" />
-							Use Light High Contrast theme
-							{currentTheme === "light-high-contrast" ? <CheckIcon /> : null}
-						</Command.Item>
-						<Command.Item
-							onSelect={() => {
-								setTheme("dark-high-contrast");
-								setOpen(false);
-							}}
-						>
-							<MoonIcon weight="fill" />
-							Use Dark High Contrast theme
-							{currentTheme === "dark-high-contrast" ? <CheckIcon /> : null}
-						</Command.Item>
-					</Command.Group>
-				</Command.List>
-			</Command.Dialog>
+							<Command.Item
+								onSelect={() => {
+									setTheme("dark");
+									setOpen(false);
+								}}
+							>
+								<MoonIcon />
+								Use Dark theme
+								{currentTheme === "dark" ? <CheckIcon /> : null}
+							</Command.Item>
+							<Command.Item
+								onSelect={() => {
+									setTheme("light-high-contrast");
+									setOpen(false);
+								}}
+							>
+								<SunIcon weight="fill" />
+								Use Light High Contrast theme
+								{currentTheme === "light-high-contrast" ? <CheckIcon /> : null}
+							</Command.Item>
+							<Command.Item
+								onSelect={() => {
+									setTheme("dark-high-contrast");
+									setOpen(false);
+								}}
+							>
+								<MoonIcon weight="fill" />
+								Use Dark High Contrast theme
+								{currentTheme === "dark-high-contrast" ? <CheckIcon /> : null}
+							</Command.Item>
+						</Command.Group>
+					</Command.List>
+				</Command.Dialog.Content>
+			</Command.Dialog.Root>
 		</>
 	);
 }

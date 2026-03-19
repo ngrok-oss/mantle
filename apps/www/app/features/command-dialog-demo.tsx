@@ -50,50 +50,52 @@ export function CommandDialogDemo() {
 					Open Command Dialog
 				</Button>
 			</p>
-			<Command.Dialog open={open} onOpenChange={setOpen}>
-				<Command.Input placeholder="Type a command or search..." />
-				<Command.List>
-					<Command.Empty>No results found.</Command.Empty>
-					<Command.Group heading="Suggestions">
-						<Command.Item>
-							<CalendarIcon />
-							<span>Calendar</span>
-						</Command.Item>
-						<Command.Item>
-							<SmileyIcon />
-							<span>Search Emoji</span>
-						</Command.Item>
-						<Command.Item>
-							<CalculatorIcon />
-							<span>Calculator</span>
-						</Command.Item>
-					</Command.Group>
-					<Command.Separator />
-					<Command.Group heading="Settings">
-						<Command.Item>
-							<UserIcon />
-							<span>Profile</span>
-							<Command.Shortcut>
-								<MetaKey /> P
-							</Command.Shortcut>
-						</Command.Item>
-						<Command.Item>
-							<CreditCardIcon />
-							<span>Billing</span>
-							<Command.Shortcut>
-								<MetaKey /> B
-							</Command.Shortcut>
-						</Command.Item>
-						<Command.Item>
-							<GearIcon />
-							<span>Settings</span>
-							<Command.Shortcut>
-								<MetaKey /> S
-							</Command.Shortcut>
-						</Command.Item>
-					</Command.Group>
-				</Command.List>
-			</Command.Dialog>
+			<Command.Dialog.Root open={open} onOpenChange={setOpen}>
+				<Command.Dialog.Content>
+					<Command.Input placeholder="Type a command or search..." />
+					<Command.List>
+						<Command.Empty>No results found.</Command.Empty>
+						<Command.Group heading="Suggestions">
+							<Command.Item>
+								<CalendarIcon />
+								<span>Calendar</span>
+							</Command.Item>
+							<Command.Item>
+								<SmileyIcon />
+								<span>Search Emoji</span>
+							</Command.Item>
+							<Command.Item>
+								<CalculatorIcon />
+								<span>Calculator</span>
+							</Command.Item>
+						</Command.Group>
+						<Command.Separator />
+						<Command.Group heading="Settings">
+							<Command.Item>
+								<UserIcon />
+								<span>Profile</span>
+								<Command.Shortcut>
+									<MetaKey /> P
+								</Command.Shortcut>
+							</Command.Item>
+							<Command.Item>
+								<CreditCardIcon />
+								<span>Billing</span>
+								<Command.Shortcut>
+									<MetaKey /> B
+								</Command.Shortcut>
+							</Command.Item>
+							<Command.Item>
+								<GearIcon />
+								<span>Settings</span>
+								<Command.Shortcut>
+									<MetaKey /> S
+								</Command.Shortcut>
+							</Command.Item>
+						</Command.Group>
+					</Command.List>
+				</Command.Dialog.Content>
+			</Command.Dialog.Root>
 		</>
 	);
 }
