@@ -108,7 +108,7 @@ const listVariants = cva("flex", {
 		{
 			orientation: "horizontal",
 			appearance: "classic",
-			className: "gap-6 border-b border-gray-200",
+			className: "gap-6",
 		},
 		{
 			orientation: "vertical",
