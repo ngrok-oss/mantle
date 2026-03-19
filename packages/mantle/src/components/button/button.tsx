@@ -17,7 +17,7 @@ const buttonVariants = cva("", {
 		 */
 		appearance: {
 			filled:
-				"bg-filled-accent text-white focus-visible:border-accent-600 focus-visible:ring-focus-accent not-disabled:hover:bg-filled-accent-hover h-9 border border-transparent px-3 text-sm font-medium",
+				"bg-filled-accent text-white focus-visible:ring-focus-accent not-disabled:hover:bg-filled-accent-hover h-9 border border-transparent px-3 text-sm font-medium",
 			ghost:
 				"text-accent-600 focus-visible:ring-focus-accent not-disabled:hover:bg-accent-500/10 not-disabled:hover:text-accent-700 h-9 border border-transparent px-3 text-sm font-medium",
 			outlined:
@@ -65,7 +65,7 @@ const buttonVariants = cva("", {
 			appearance: "filled",
 			priority: "danger",
 			class:
-				"bg-filled-danger focus-visible:border-danger-600 focus-visible:ring-focus-danger not-disabled:hover:bg-filled-danger-hover border-transparent",
+				"bg-filled-danger focus-visible:ring-focus-danger not-disabled:hover:bg-filled-danger-hover border-transparent",
 		},
 		{
 			appearance: "link",
