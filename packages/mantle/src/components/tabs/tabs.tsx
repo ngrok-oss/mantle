@@ -86,11 +86,11 @@ Root.displayName = "Tabs";
 /**
  * Variants for the List component
  */
-const listVariants = cva("flex border-gray-200", {
+const listVariants = cva("flex", {
 	variants: {
 		orientation: {
 			horizontal:
-				"scroll-shadow-x flex-row items-center overflow-x-auto overscroll-x-none w-full min-w-0 py-1 -my-1 px-1 -mx-1",
+				"scroll-shadow-x flex-row items-center overflow-x-auto overscroll-x-none w-full min-w-0 pt-1 -mt-1 px-1 -mx-1",
 			vertical: "flex-col items-end gap-3.5 self-stretch",
 		} as const satisfies Record<Orientation, string>,
 		appearance: {
@@ -107,12 +107,21 @@ const listVariants = cva("flex border-gray-200", {
 		{
 			orientation: "horizontal",
 			appearance: "classic",
-			className: "gap-6 border-b",
+			// Use ::before for the bottom border instead of border-b so the line matches
+			// the natural container width. The list uses px-1 -mx-1 to give overflow-x
+			// scroll containers room for focus rings; border-b would span that expanded
+			// width. ::before with inset-x-1 counteracts the -mx-1 expansion so the line
+			// is exactly as wide as the parent, not 2px wider on each side.
+			// ::before (not ::after) is critical: ::before renders before the list's
+			// children so trigger decorations paint on top of it. ::after renders last
+			// and would paint over (and visually thin) the active trigger decoration.
+			className:
+				"relative gap-6 before:absolute before:bottom-0 before:inset-x-1 before:h-px before:bg-gray-200 before:content-['']",
 		},
 		{
 			orientation: "vertical",
 			appearance: "classic",
-			className: "border-r",
+			className: "border-r border-gray-200",
 		},
 	],
 });
@@ -231,7 +240,7 @@ type TabsTriggerProps = ComponentPropsWithoutRef<typeof TabsPrimitiveTrigger>;
 const triggerDecorationVariants = cva("absolute z-0", {
 	variants: {
 		orientation: {
-			horizontal: "-bottom-px left-0 right-0 h-0.75",
+			horizontal: "bottom-0 left-0 right-0 h-0.75",
 			vertical: "-right-px bottom-0 top-0 w-0.75",
 		} as const satisfies Record<Orientation, string>,
 		appearance: {
