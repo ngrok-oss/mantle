@@ -97,7 +97,7 @@ const Label = forwardRef<ComponentRef<"dt">, DescriptionListLabelProps>(
 		return (
 			<Component
 				ref={ref}
-				className={cx("text-muted text-sm font-sans font-medium min-w-36 p-3", className)}
+				className={cx("text-muted text-sm font-sans font-medium min-w-36 p-2", className)}
 				{...rest}
 			>
 				{children}
@@ -128,7 +128,11 @@ const Value = forwardRef<ComponentRef<"dd">, DescriptionListValueProps>(
 		const Component = asChild ? Slot : "dd";
 
 		return (
-			<Component ref={ref} className={cx("text-body font-mono text-mono p-3", className)} {...rest}>
+			<Component
+				ref={ref}
+				className={cx("text-body font-mono text-mono py-2 px-3", className)}
+				{...rest}
+			>
 				{children}
 			</Component>
 		);
