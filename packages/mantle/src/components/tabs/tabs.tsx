@@ -102,21 +102,13 @@ const listVariants = cva("flex", {
 		{
 			orientation: "horizontal",
 			appearance: "pill",
-			className: "gap-1",
+			// pb-1 -mb-1 gives the focus ring space below (ring-4 is box-shadow, clipped by overflow).
+			className: "gap-1 pb-1 -mb-1",
 		},
 		{
 			orientation: "horizontal",
 			appearance: "classic",
-			// Use ::before for the bottom border instead of border-b so the line matches
-			// the natural container width. The list uses px-1 -mx-1 to give overflow-x
-			// scroll containers room for focus rings; border-b would span that expanded
-			// width. ::before with inset-x-1 counteracts the -mx-1 expansion so the line
-			// is exactly as wide as the parent, not 2px wider on each side.
-			// ::before (not ::after) is critical: ::before renders before the list's
-			// children so trigger decorations paint on top of it. ::after renders last
-			// and would paint over (and visually thin) the active trigger decoration.
-			className:
-				"relative gap-6 before:absolute before:bottom-0 before:inset-x-1 before:h-px before:bg-gray-200 before:content-['']",
+			className: "gap-6 border-b border-gray-200",
 		},
 		{
 			orientation: "vertical",
