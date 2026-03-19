@@ -88,7 +88,7 @@ const buttonVariants = cva("", {
 			appearance: "filled",
 			priority: "neutral",
 			class:
-				"bg-filled-neutral focus-visible:ring-focus-neutral not-disabled:hover:bg-filled-neutral-hover border-transparent focus-visible:border-neutral-600 text-neutral-50",
+				"bg-filled-neutral not-disabled:hover:bg-filled-neutral-hover border-transparent focus-visible:border-transparent text-neutral-50",
 		},
 		{
 			appearance: "link",
