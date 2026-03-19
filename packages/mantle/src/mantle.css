@@ -274,6 +274,7 @@ MARK: LIGHT DEFS
 
 	/* neutral-50 through neutral-900 match Tailwind v4 defaults exactly — only -950 is custom */
 	--color-neutral-950: oklch(18.2% 0 0); /* TW4 default is 14.5% — intentionally lighter */
+	--color-sky-600: oklch(55% 0.158 241.966);
 
 	/* gray is identical to neutral in light mode */
 	--color-gray-50: var(--color-neutral-50);
