@@ -90,7 +90,7 @@ const listVariants = cva("flex", {
 	variants: {
 		orientation: {
 			horizontal:
-				"scroll-shadow-x flex-row items-center overflow-x-auto overscroll-x-none w-full min-w-0 pt-1 -mt-1 px-1 -mx-1",
+				"scroll-fade-x flex-row items-center overflow-x-auto overscroll-x-none w-full min-w-0 pt-1 -mt-1 px-1 -mx-1",
 			vertical: "flex-col items-end gap-3.5 self-stretch",
 		} as const satisfies Record<Orientation, string>,
 		appearance: {
