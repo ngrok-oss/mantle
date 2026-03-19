@@ -32,7 +32,7 @@ const Root = forwardRef<ComponentRef<"dl">, DescriptionListProps>(
 			<Component
 				ref={ref}
 				className={cx(
-					"relative scrollbar overflow-x-auto overscroll-x-none rounded-lg border border-card grid grid-cols-[auto_1fr] gap-x-4 [&>*:nth-child(odd)]:bg-base p-1",
+					"relative scrollbar overflow-x-auto overscroll-x-none rounded-lg border border-card grid grid-cols-[auto_1fr] gap-x-4 [&>*:nth-child(odd)]:bg-neutral-500/5 p-1",
 					className,
 				)}
 				{...rest}
@@ -68,7 +68,7 @@ const Item = forwardRef<ComponentRef<"div">, DescriptionListItemProps>(
 		return (
 			<Component
 				ref={ref}
-				className={cx("rounded-xs col-span-full grid grid-cols-subgrid items-center", className)}
+				className={cx("rounded-sm col-span-full grid grid-cols-subgrid items-center", className)}
 				{...rest}
 			>
 				{children}
