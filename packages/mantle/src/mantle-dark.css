@@ -322,13 +322,6 @@ MARK: DARK DEFS
 	--background-color-filled-warning-hover: var(--color-warning-700);
 	--background-color-filled-success-hover: var(--color-success-700);
 
-	/* focus tokens */
-	--ring-color-focus-neutral: --alpha(var(--color-neutral-500) / 0.5);
-	--ring-color-focus-accent: --alpha(var(--color-accent-500) / 0.5);
-	--ring-color-focus-danger: --alpha(var(--color-danger-500) / 0.5);
-	--ring-color-focus-warning: --alpha(var(--color-warning-500) / 0.5);
-	--ring-color-focus-success: --alpha(var(--color-success-500) / 0.5);
-
 	--shadow-color: #000;
 	--shadow-first-opacity: 15%;
 	--shadow-second-opacity: 30%;
