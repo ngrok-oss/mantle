@@ -86,11 +86,11 @@ Root.displayName = "Tabs";
 /**
  * Variants for the List component
  */
-const listVariants = cva("flex border-gray-200", {
+const listVariants = cva("flex", {
 	variants: {
 		orientation: {
 			horizontal:
-				"scroll-shadow-x flex-row items-center overflow-x-auto overscroll-x-none w-full min-w-0 py-1 -my-1 px-1 -mx-1",
+				"scroll-fade-x flex-row items-center overflow-x-auto overscroll-x-none w-full min-w-0 pt-1 -mt-1 px-1 -mx-1",
 			vertical: "flex-col items-end gap-3.5 self-stretch",
 		} as const satisfies Record<Orientation, string>,
 		appearance: {
@@ -102,17 +102,18 @@ const listVariants = cva("flex border-gray-200", {
 		{
 			orientation: "horizontal",
 			appearance: "pill",
-			className: "gap-1",
+			// pb-1 -mb-1 gives the focus ring space below (ring-4 is box-shadow, clipped by overflow).
+			className: "gap-1 pb-1 -mb-1",
 		},
 		{
 			orientation: "horizontal",
 			appearance: "classic",
-			className: "gap-6 border-b",
+			className: "gap-6",
 		},
 		{
 			orientation: "vertical",
 			appearance: "classic",
-			className: "border-r",
+			className: "border-r border-gray-200",
 		},
 	],
 });
@@ -231,7 +232,7 @@ type TabsTriggerProps = ComponentPropsWithoutRef<typeof TabsPrimitiveTrigger>;
 const triggerDecorationVariants = cva("absolute z-0", {
 	variants: {
 		orientation: {
-			horizontal: "-bottom-px left-0 right-0 h-0.75",
+			horizontal: "bottom-0 left-0 right-0 h-0.75",
 			vertical: "-right-px bottom-0 top-0 w-0.75",
 		} as const satisfies Record<Orientation, string>,
 		appearance: {

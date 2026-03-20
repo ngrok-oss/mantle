@@ -157,10 +157,9 @@ const Trigger = forwardRef<HTMLDivElement, MultiSelectTriggerProps>(
 				data-slot="multi-select-trigger"
 				className={cx(
 					"cursor-text select-none font-sans text-sm",
-					"border-form bg-form text-strong flex w-full flex-wrap items-center gap-1 rounded-md border px-2 py-1.5",
+					"border-form bg-form text-strong flex min-h-9 w-full flex-wrap items-center gap-1 rounded-md border px-3 py-1 has-[[data-slot=multi-select-tag]]:px-1",
 					"has-focus:outline-hidden has-focus-within:ring-4 has-aria-expanded:ring-4",
 					"has-focus-within:border-accent-600 has-focus-within:ring-focus-accent has-aria-expanded:border-accent-600 has-aria-expanded:ring-focus-accent",
-					"hover:border-neutral-400",
 					"data-validation-success:border-success-600 data-validation-success:has-focus-within:border-success-600 data-validation-success:has-focus-within:ring-focus-success data-validation-success:has-aria-expanded:border-success-600 data-validation-success:has-aria-expanded:ring-focus-success",
 					"data-validation-warning:border-warning-600 data-validation-warning:has-focus-within:border-warning-600 data-validation-warning:has-focus-within:ring-focus-warning data-validation-warning:has-aria-expanded:border-warning-600 data-validation-warning:has-aria-expanded:ring-focus-warning",
 					"data-validation-error:border-danger-600 data-validation-error:has-focus-within:border-danger-600 data-validation-error:has-focus-within:ring-focus-danger data-validation-error:has-aria-expanded:border-danger-600 data-validation-error:has-aria-expanded:ring-focus-danger",
@@ -238,7 +237,7 @@ const Tag = forwardRef<HTMLSpanElement, TagProps>(
 				data-slot="multi-select-tag"
 				data-locked={locked || undefined}
 				className={cx(
-					"cursor-default bg-neutral-100 border border-neutral-300 rounded-xs text-strong inline-flex items-center gap-1 pl-1.5 pr-1 py-0.5 text-xs font-semibold font-mono",
+					"cursor-default bg-neutral-500/10 border border-neutral-500/20 rounded-xs text-strong inline-flex items-center gap-1 pl-2 pr-0.5 py-0.5 text-sm font-normal",
 					"focus-visible:outline-hidden focus-visible:border-accent-600/50 focus-visible:ring-3 focus-visible:ring-focus-accent",
 					className,
 				)}
@@ -259,8 +258,8 @@ const Tag = forwardRef<HTMLSpanElement, TagProps>(
 					tabIndex={-1}
 					aria-disabled={locked || undefined}
 					className={cx(
-						"cursor-pointer hover:bg-neutral-200 hover:text-strong text-strong/25 rounded-sm p-px size-4",
-						"aria-disabled:cursor-default aria-disabled:hover:bg-transparent aria-disabled:hover:text-strong/25",
+						"cursor-pointer text-strong/40 hover:bg-neutral-500/15 hover:text-strong rounded-xs p-0.5",
+						"aria-disabled:cursor-default aria-disabled:hover:bg-transparent aria-disabled:hover:text-strong/40",
 					)}
 					onClick={(event) => {
 						// Prevent the click from bubbling to the trigger, which would reopen or refocus the combobox
@@ -280,7 +279,7 @@ const Tag = forwardRef<HTMLSpanElement, TagProps>(
 						event.preventDefault();
 					}}
 				>
-					<Icon svg={locked ? <LockIcon /> : <XIcon weight="bold" />} className="size-3" />
+					<Icon svg={locked ? <LockIcon /> : <XIcon weight="bold" />} className="size-4" />
 				</button>
 			</span>
 		);
@@ -780,7 +779,7 @@ const Item = forwardRef<ComponentRef<"div">, MultiSelectItemProps>(
 			<Primitive.ComboboxItem
 				data-slot="multi-select-item"
 				className={cx(
-					"mx-1 cursor-pointer rounded-md px-2 py-1.5 text-strong text-sm font-normal flex min-w-0 items-center justify-between gap-2",
+					"relative mx-1 cursor-pointer rounded-md pl-2 pr-8 py-1.5 text-strong text-sm font-normal flex min-w-0 items-center gap-2",
 					"[[role=option]+&]:mt-px",
 					"data-active-item:bg-active-menu-item",
 					"aria-disabled:opacity-50",
@@ -806,7 +805,7 @@ const Item = forwardRef<ComponentRef<"div">, MultiSelectItemProps>(
 				{...props}
 			>
 				{children}
-				<Primitive.ComboboxItemCheck>
+				<Primitive.ComboboxItemCheck className="absolute right-2 flex h-3.5 w-3.5 items-center justify-center">
 					<Icon svg={<CheckIcon weight="bold" />} className="size-4 text-accent-600" />
 				</Primitive.ComboboxItemCheck>
 			</Primitive.ComboboxItem>

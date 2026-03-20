@@ -504,38 +504,26 @@ MARK: UTILITIES
 	background-attachment: local, local, scroll, scroll;
 }
 
-@utility scroll-shadow-x {
-	/* CSS variables default to transparent — data attributes flip them on */
-	--_cover-left: transparent;
-	--_cover-right: transparent;
-	--_shadow-left: transparent;
-	--_shadow-right: transparent;
+@utility scroll-fade-x {
+	/* CSS variables default to black (fully opaque in mask) — data attributes flip them to transparent */
+	--_fade-left: black;
+	--_fade-right: black;
 
-	background:
-		/* Shadow Cover LEFT */
-		linear-gradient(to right, var(--_cover-left) 30%, transparent) left center,
-		/* Shadow Cover RIGHT */ linear-gradient(to left, var(--_cover-right) 30%, transparent) right
-			center,
-		/* Shadow LEFT */ radial-gradient(farthest-side at 0% 50%, var(--_shadow-left), rgb(0 0 0 / 0%))
-			left center,
-		/* Shadow RIGHT */
-			radial-gradient(farthest-side at 100% 50%, var(--_shadow-right), rgb(0 0 0 / 0%)) right center;
-	background-repeat: no-repeat;
-	background-size:
-		40px 100%,
-		40px 100%,
-		14px 100%,
-		14px 100%;
-	background-attachment: scroll;
+	/* Mask fades the element's edges to transparent instead of painting over them with a background color */
+	mask-image: linear-gradient(
+		to right,
+		var(--_fade-left),
+		black 40px,
+		black calc(100% - 40px),
+		var(--_fade-right)
+	);
 
 	&[data-scroll-left] {
-		--_cover-left: var(--background-color-base);
-		--_shadow-left: var(--navigation-shadow);
+		--_fade-left: transparent;
 	}
 
 	&[data-scroll-right] {
-		--_cover-right: var(--background-color-base);
-		--_shadow-right: var(--navigation-shadow);
+		--_fade-right: transparent;
 	}
 }
 
