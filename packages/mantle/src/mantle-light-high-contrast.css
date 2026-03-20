@@ -245,7 +245,7 @@ MARK: LIGHT HICON DEFS
 	--background-color-card-hover: var(--color-neutral-100);
 	--background-color-popover-hover: var(--color-neutral-100);
 	--background-color-dialog-hover: var(--color-neutral-100);
-	--background-color-form: var(--color-card);
+	--background-color-form: var(--color-white);
 	--background-color-form-hover: --alpha(var(--color-neutral-500) / 0.05);
 	--background-color-form-active: --alpha(var(--color-neutral-500) / 0.1);
 	--background-color-overlay: --alpha(#000 / 0.12);
