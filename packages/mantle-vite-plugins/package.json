@@ -17,7 +17,13 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
+      "@ngrok/src-live-types": "./src/index.ts",
       "import": "./dist/index.js"
+    },
+    "./server-highlighter": {
+      "types": "./dist/server-highlighter.d.ts",
+      "@ngrok/src-live-types": "./src/server-highlighter/index.ts",
+      "import": "./dist/server-highlighter.js"
     },
     "./package.json": "./package.json"
   },
@@ -28,8 +34,14 @@
     "test:watch": "TZ=UTC vitest watch",
     "typecheck": "tsx scripts/generate-component-names.ts && tsgo"
   },
+  "dependencies": {
+    "magic-string": "0.30.21",
+    "oxc-parser": "0.86.0",
+    "shiki": "4.0.1"
+  },
   "devDependencies": {
     "@cfg/tsconfig": "workspace:*",
+    "@ngrok/mantle": "workspace:*",
     "@testing-library/jest-dom": "catalog:",
     "@types/node": "catalog:",
     "tsdown": "catalog:",
@@ -39,7 +51,12 @@
   },
   "peerDependencies": {
     "@ngrok/mantle": "*",
-    "vite": ">=7.3.1"
+    "vite": "^6 || ^7"
+  },
+  "peerDependenciesMeta": {
+    "vite": {
+      "optional": true
+    }
   },
   "engines": {
     "node": "^24.0.0"

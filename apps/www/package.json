@@ -15,7 +15,7 @@
   "dependencies": {
     "@mdx-js/react": "3.1.1",
     "@ngrok/mantle": "workspace:*",
-    "@ngrok/mantle-code-block-tools": "workspace:*",
+    "@ngrok/mantle-vite-plugins": "workspace:*",
     "@phosphor-icons/react": "catalog:",
     "@react-router/node": "7.13.1",
     "@react-router/serve": "7.13.1",

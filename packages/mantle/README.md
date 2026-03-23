@@ -40,18 +40,18 @@ Next, check out the [Overview & Setup](https://mantle.ngrok.com/) docs and start
 
 ## Code Block Tooling
 
-Mantle ships runtime components from `@ngrok/mantle`, while build-time and server-side tooling lives in `@ngrok/mantle-code-block-tools`:
+Mantle ships runtime components from `@ngrok/mantle`, while build-time and server-side tooling lives in `@ngrok/mantle-vite-plugins`:
 
-- `@ngrok/mantle/shiki-code-block`: runtime React components and `mantleCode` template tag
-- `@ngrok/mantle-code-block-tools/vite-plugin`: Vite + rehype integration via `mantleCodeBlockPlugins()`
-- `@ngrok/mantle-code-block-tools/server-highlighter`: server-side highlighting engine for API routes/actions
+- `@ngrok/mantle/code-block`: runtime React components and `mantleCode` template tag
+- `@ngrok/mantle-vite-plugins`: Vite + rehype integration via `mantleCodeBlockPlugins()`
+- `@ngrok/mantle-vite-plugins/server-highlighter`: server-side highlighting engine for API routes/actions
 
 This keeps Vite/Shiki/parser dependencies out of frontend installs that only need Mantle's runtime UI package.
 
 ### Vite + MDX
 
 ```ts
-import { mantleCodeBlockPlugins } from "@ngrok/mantle-code-block-tools/vite-plugin";
+import { mantleCodeBlockPlugins } from "@ngrok/mantle-vite-plugins";
 
 const codeBlockPlugins = mantleCodeBlockPlugins();
 ```
@@ -59,7 +59,7 @@ const codeBlockPlugins = mantleCodeBlockPlugins();
 ### Server Highlighter
 
 ```ts
-import { createMantleServerHighlighter } from "@ngrok/mantle-code-block-tools/server-highlighter";
+import { createMantleServerHighlighter } from "@ngrok/mantle-vite-plugins/server-highlighter";
 
 const highlighter = createMantleServerHighlighter();
 const result = await highlighter.highlight({

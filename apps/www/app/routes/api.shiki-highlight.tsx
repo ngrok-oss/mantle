@@ -1,4 +1,4 @@
-import { createMantleServerHighlighter } from "@ngrok/mantle-code-block-tools/server-highlighter";
+import { createMantleServerHighlighter } from "@ngrok/mantle-vite-plugins/server-highlighter";
 import { z } from "zod";
 
 const requestSchema = z.object({

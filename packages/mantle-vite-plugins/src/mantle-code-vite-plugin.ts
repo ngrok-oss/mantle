@@ -7,7 +7,7 @@ import {
 } from "@ngrok/mantle/code-block";
 import { parseSync } from "oxc-parser";
 import type { Plugin } from "vite";
-import { highlightWithMantleShiki } from "../server-highlighter/engine.js";
+import { highlightWithMantleShiki } from "./server-highlighter/engine.js";
 
 type ParsedMantleCodeOptions = {
 	highlightLines: (number | `${number}-${number}`)[] | undefined;
@@ -374,7 +374,7 @@ function parseJsxCodeProps(
 	openingElement: OxcJSXOpeningElement,
 	source: string,
 ): { taggedTemplateStart: number; props: ParsedJsxCodePropsResult } | undefined {
-	if (getJsxElementName(openingElement.name) !== "ShikiCodeBlock.Code") {
+	if (getJsxElementName(openingElement.name) !== "CodeBlock.Code") {
 		return undefined;
 	}
 

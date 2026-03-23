@@ -1,7 +1,7 @@
 import mdx from "@mdx-js/rollup";
 import { reactRouter } from "@react-router/dev/vite";
 import tailwindcss from "@tailwindcss/vite";
-import { mantleCodeBlockPlugins } from "@ngrok/mantle-code-block-tools/vite-plugin";
+import { mantleCodeBlockPlugins } from "@ngrok/mantle-vite-plugins";
 import path from "node:path";
 import rehypeSlug from "rehype-slug";
 import remarkFrontmatter from "remark-frontmatter";

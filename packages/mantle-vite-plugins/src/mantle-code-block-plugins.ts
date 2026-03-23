@@ -35,7 +35,7 @@ type MantleCodeBlockPluginsResult = {
  *
  * @example
  * ```ts
- * import { mantleCodeBlockPlugins } from "@ngrok/mantle-code-block-tools/vite-plugin";
+ * import { mantleCodeBlockPlugins } from "@ngrok/mantle-vite-plugins";
  *
  * const codeBlockPlugins = mantleCodeBlockPlugins();
  *
@@ -46,7 +46,6 @@ type MantleCodeBlockPluginsResult = {
  *       rehypePlugins: [
  *         rehypeSlug,
  *         ...codeBlockPlugins.rehypePlugins,
- *         rehypeMdxCodeProps,
  *       ],
  *     }),
  *   ],
@@ -69,4 +68,10 @@ export {
 	mantleCodeBlockPlugins,
 	mantleCodeRehypePlugin,
 	mantleCodeVitePlugin,
+};
+
+export type {
+	//,
+	MantleCodeBlockPluginsOptions,
+	MantleCodeBlockPluginsResult,
 };

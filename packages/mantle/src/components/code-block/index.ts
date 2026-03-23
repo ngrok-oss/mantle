@@ -49,7 +49,10 @@ export {
 export {
 	//,
 	defaultMeta,
+	normalizeValue,
 	parseMetastring,
+	resolvePreRenderedCodeBlockProps,
+	tokenizeMetastring,
 } from "./resolve-pre-rendered-props.js";
 
 export {
@@ -59,25 +62,16 @@ export {
 	parseCodeBlockShowLineNumbers,
 } from "./parse-line-options.js";
 
-export {
-	//,
-	resolvePreRenderedCodeBlockProps,
-} from "./resolve-pre-rendered-props.js";
-
 export type {
 	//,
 	CodeBlockPreElementInput,
-	ResolvePreRenderedCodeBlockPropsInput,
-	ResolvePreRenderedCodeBlockPropsResult,
-	ResolvedPreRenderedCodeBlockProps,
-} from "./resolve-pre-rendered-props.js";
-
-export type {
-	//,
+	DefaultMeta,
 	Meta,
 	MetaInput,
 	Mode,
-	DefaultMeta,
+	ResolvePreRenderedCodeBlockPropsInput,
+	ResolvePreRenderedCodeBlockPropsResult,
+	ResolvedPreRenderedCodeBlockProps,
 } from "./resolve-pre-rendered-props.js";
 
 export {

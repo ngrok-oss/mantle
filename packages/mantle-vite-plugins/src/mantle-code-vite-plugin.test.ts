@@ -34,9 +34,9 @@ describe("mantleCodeVitePlugin", () => {
 		expect(result.code).not.toContain('mantleCode("typescript")');
 	});
 
-	test("folds static ShikiCodeBlock.Code props into the transformed value and removes them from JSX", async () => {
+	test("folds static CodeBlock.Code props into the transformed value and removes them from JSX", async () => {
 		const source = [
-			"<ShikiCodeBlock.Code",
+			"<CodeBlock.Code",
 			"\tshowLineNumbers",
 			"\tlineNumberStart={7}",
 			'\thighlightLines={[1, "3-4"]}',
@@ -50,7 +50,7 @@ describe("mantleCodeVitePlugin", () => {
 		expect(result.code).toContain('"~showLineNumbers":true');
 		expect(result.code).toContain('"~lineNumberStart":7');
 		expect(result.code).toContain('"~highlightLines":[1,"3-4"]');
-		expect(result.code).toContain("<ShikiCodeBlock.Code");
+		expect(result.code).toContain("<CodeBlock.Code");
 		expect(result.code).not.toContain(" showLineNumbers");
 		expect(result.code).not.toContain("lineNumberStart={7}");
 		expect(result.code).not.toContain('highlightLines={[1, "3-4"]}');

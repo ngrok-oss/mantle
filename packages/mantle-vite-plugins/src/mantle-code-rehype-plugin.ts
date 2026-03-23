@@ -1,11 +1,13 @@
 import {
 	isSupportedLanguage,
+	normalizeValue,
 	parseCodeBlockHighlightLines,
 	parseCodeBlockLineNumberStart,
 	parseCodeBlockShowLineNumbers,
+	tokenizeMetastring,
 } from "@ngrok/mantle/code-block";
 import { parseBooleanish } from "@ngrok/mantle/types";
-import { highlightWithMantleShiki } from "../server-highlighter/engine.js";
+import { highlightWithMantleShiki } from "./server-highlighter/engine.js";
 
 type HastNode = {
 	data?: Record<string, unknown>;
@@ -16,47 +18,6 @@ type HastNode = {
 	children?: HastNode[];
 };
 const excludedRehypeCodeFenceLanguages = new Set(["mermaid"]);
-
-function normalizeValue(value: string | undefined) {
-	if (value == null) {
-		return undefined;
-	}
-	const trimmed = value.trim();
-	const lastIndex = trimmed.length - 1;
-	if (lastIndex >= 1 && trimmed.charCodeAt(0) === 34 && trimmed.charCodeAt(lastIndex) === 34) {
-		return trimmed.slice(1, lastIndex);
-	}
-	return trimmed;
-}
-
-function tokenizeMetastring(value: string | undefined): string[] {
-	const input = value?.trim() ?? "";
-	const result: string[] = [];
-
-	let current = "";
-	let inQuotes = false;
-
-	for (let i = 0; i < input.length; i += 1) {
-		const char = input[i] ?? "";
-		if (char === " " && !inQuotes) {
-			if (current) {
-				result.push(current);
-				current = "";
-			}
-		} else if (char === '"') {
-			inQuotes = !inQuotes;
-			current += char;
-		} else {
-			current += char;
-		}
-	}
-
-	if (current) {
-		result.push(current);
-	}
-
-	return result;
-}
 
 function parseCodeBlockMode(value: unknown): "cli" | "file" | "traffic-policy" | undefined {
 	if (value === "cli" || value === "file" || value === "traffic-policy") {
