@@ -27,6 +27,10 @@ type MantleCodeBlockValue = {
 	/**
 	 * Fully pre-rendered Shiki HTML injected by the Vite plugin or server highlighter.
 	 * This must be present for rendering.
+	 *
+	 * **Security:** This HTML is injected via `dangerouslySetInnerHTML`. It must
+	 * come from a trusted source (Shiki output from the Vite plugin or
+	 * `createMantleServerHighlighter`). Never pass unsanitized user input.
 	 */
 	"~preHtml"?: string | undefined;
 	/**
@@ -66,6 +70,13 @@ type MantleCodeOptions = {
 	showLineNumbers?: boolean | undefined;
 };
 
+/**
+ * Creates a `MantleCodeBlockValue` for use with `CodeBlock.Code`.
+ *
+ * **Security:** The `preHtml` field is rendered via `dangerouslySetInnerHTML`.
+ * Only pass HTML produced by Shiki (via the Vite plugin or
+ * `createMantleServerHighlighter`). Never pass unsanitized user input as `preHtml`.
+ */
 function createMantleCodeBlockValue({
 	preHtml,
 	preVals,

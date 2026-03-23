@@ -32,30 +32,28 @@ import type { SvgAttributes } from "../icon/types.js";
 import { TrafficPolicyFileIcon } from "../icons/traffic-policy-file.js";
 import { Slot } from "../slot/index.js";
 import { escapeHtml } from "./escape-html.js";
-import type { Indentation } from "./indentation.js";
-import type { LineRange } from "./line-numbers.js";
 import type { Mode } from "./resolve-pre-rendered-props.js";
 import type { MantleCodeBlockValue } from "./mantle-code.js";
 
 type CodeBlockContextType = {
 	codeId: string | undefined;
-	copyText: string;
+	copyTextRef: { current: string };
 	hasCodeExpander: boolean;
 	isCodeExpanded: boolean;
 	registerCodeId: (id: string) => void;
-	setCopyText: (newCopyText: string) => void;
 	setHasCodeExpander: (value: boolean) => void;
 	setIsCodeExpanded: Dispatch<SetStateAction<boolean>>;
 	unregisterCodeId: (id: string) => void;
 };
 
+const defaultCopyTextRef = { current: "" };
+
 const CodeBlockContext = createContext<CodeBlockContextType>({
 	codeId: undefined,
-	copyText: "",
+	copyTextRef: defaultCopyTextRef,
 	hasCodeExpander: false,
 	isCodeExpanded: false,
 	registerCodeId: () => {},
-	setCopyText: () => {},
 	setHasCodeExpander: () => {},
 	setIsCodeExpanded: () => {},
 	unregisterCodeId: () => {},
@@ -82,7 +80,7 @@ const CodeBlockContext = createContext<CodeBlockContextType>({
  */
 const Root = forwardRef<ComponentRef<"div">, Omit<ComponentProps<"div">, "align"> & WithAsChild>(
 	({ asChild = false, className, ...props }, ref) => {
-		const [copyText, setCopyText] = useState("");
+		const copyTextRef = useRef("");
 		const [hasCodeExpander, setHasCodeExpander] = useState(false);
 		const [isCodeExpanded, setIsCodeExpanded] = useState(false);
 		const [codeId, setCodeId] = useState<string | undefined>(undefined);
@@ -105,16 +103,15 @@ const Root = forwardRef<ComponentRef<"div">, Omit<ComponentProps<"div">, "align"
 			() =>
 				({
 					codeId,
-					copyText,
+					copyTextRef,
 					hasCodeExpander,
 					isCodeExpanded,
 					registerCodeId,
-					setCopyText,
 					setHasCodeExpander,
 					setIsCodeExpanded,
 					unregisterCodeId,
 				}) as const,
-			[codeId, copyText, hasCodeExpander, isCodeExpanded, registerCodeId, unregisterCodeId],
+			[codeId, hasCodeExpander, isCodeExpanded, registerCodeId, unregisterCodeId],
 		);
 
 		const Component = asChild ? Slot : "div";
@@ -159,6 +156,13 @@ const Body = forwardRef<ComponentRef<"div">, ComponentProps<"div"> & WithAsChild
 );
 Body.displayName = "CodeBlockBody";
 
+/**
+ * Matches `SHIKI_VAL_<index>` placeholders injected by the Vite plugin for
+ * interpolated template expressions. Hoisted to module scope to avoid
+ * re-creating the regex on every substitution call.
+ */
+const SHIKI_VAL_PATTERN = /SHIKI_VAL_(\d+)/g;
+
 function substituteTemplateVals(
 	input: string,
 	vals: unknown[],
@@ -168,7 +172,7 @@ function substituteTemplateVals(
 		return input;
 	}
 
-	return input.replaceAll(/SHIKI_VAL_(\d+)/g, (match, indexText: string) => {
+	return input.replaceAll(SHIKI_VAL_PATTERN, (match, indexText: string) => {
 		const index = Number.parseInt(indexText, 10);
 		if (Number.isNaN(index) || index < 0 || index >= vals.length) {
 			return match;
@@ -192,24 +196,6 @@ type CodeBlockCodeProps = Omit<ComponentProps<"pre">, "children"> & {
 	 * the original code string for the copy button.
 	 */
 	value: MantleCodeBlockValue;
-	/**
-	 * The type of indentation to use. Can be either "tabs" or "spaces".
-	 * @default inferred from the language, fallback to `spaces`
-	 */
-	indentation?: Indentation;
-	/**
-	 * Runtime line decoration is intentionally unsupported in strict pre-rendered mode.
-	 */
-	highlightLines?: (LineRange | number)[];
-	/**
-	 * Runtime line decoration is intentionally unsupported in strict pre-rendered mode.
-	 */
-	showLineNumbers?: boolean;
-	/**
-	 * The first line number to render when line numbers are shown.
-	 * @default 1
-	 */
-	lineNumberStart?: number;
 };
 
 /**
@@ -227,25 +213,10 @@ type CodeBlockCodeProps = Omit<ComponentProps<"pre">, "children"> & {
  * ```
  */
 const Code = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
-	(
-		{
-			className,
-			highlightLines,
-			indentation: propIndentation,
-			lineNumberStart,
-			showLineNumbers,
-			style,
-			tabIndex,
-			value,
-			...props
-		},
-		ref,
-	) => {
+	({ className, style, tabIndex, value, ...props }, ref) => {
 		const id = useId();
-		const { hasCodeExpander, isCodeExpanded, registerCodeId, setCopyText, unregisterCodeId } =
+		const { copyTextRef, hasCodeExpander, isCodeExpanded, registerCodeId, unregisterCodeId } =
 			useContext(CodeBlockContext);
-		const hasWarnedRuntimeIndentationRef = useRef(false);
-		const hasWarnedRuntimeLinePropsRef = useRef(false);
 		const {
 			language,
 			code,
@@ -268,8 +239,8 @@ const Code = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
 		);
 
 		useEffect(() => {
-			setCopyText(copyText);
-		}, [copyText, setCopyText]);
+			copyTextRef.current = copyText;
+		}, [copyText, copyTextRef]);
 
 		useEffect(() => {
 			registerCodeId(id);
@@ -279,48 +250,21 @@ const Code = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
 			};
 		}, [id, registerCodeId, unregisterCodeId]);
 
-		if (__preHtml == null) {
+		const renderedHtml = useMemo(() => {
+			if (__preHtml == null) {
+				return undefined;
+			}
+			return __preVals != null && __preVals.length > 0
+				? substitutePreVals(__preHtml, __preVals)
+				: __preHtml;
+		}, [__preHtml, __preVals]);
+
+		if (renderedHtml == null) {
 			throw new Error(
 				`[CodeBlock.Code] Missing pre-rendered HTML for language "${language}". ` +
 					`Add mantleCodeBlockPlugins() to your vite.config.ts or provide server-rendered HTML via createMantleServerHighlighter().`,
 			);
 		}
-
-		useEffect(() => {
-			if (propIndentation == null) {
-				return;
-			}
-			if (hasWarnedRuntimeIndentationRef.current) {
-				return;
-			}
-			hasWarnedRuntimeIndentationRef.current = true;
-			console.warn(
-				"[CodeBlock.Code] Runtime indentation prop is ignored in strict pre-rendered mode. " +
-					"Set indentation during build/server highlighting.",
-			);
-		}, [propIndentation]);
-
-		useEffect(() => {
-			if (highlightLines == null && lineNumberStart == null && showLineNumbers == null) {
-				return;
-			}
-			if (hasWarnedRuntimeLinePropsRef.current) {
-				return;
-			}
-			hasWarnedRuntimeLinePropsRef.current = true;
-			console.warn(
-				"[CodeBlock.Code] Runtime line props are ignored in strict pre-rendered mode. " +
-					"Set line options via mantleCode(..., options) or server highlighter options.",
-			);
-		}, [highlightLines, lineNumberStart, showLineNumbers]);
-
-		const renderedHtml = useMemo(
-			() =>
-				__preVals != null && __preVals.length > 0
-					? substitutePreVals(__preHtml, __preVals)
-					: __preHtml,
-			[__preHtml, __preVals],
-		);
 
 		return (
 			<pre
@@ -449,7 +393,7 @@ type CodeBlockCopyButtonProps = Omit<ComponentProps<"button">, "children" | "typ
  */
 const CopyButton = forwardRef<ComponentRef<"button">, CodeBlockCopyButtonProps>(
 	({ asChild = false, className, onCopy, onCopyError, onClick, ...props }, ref) => {
-		const { copyText } = useContext(CodeBlockContext);
+		const { copyTextRef } = useContext(CodeBlockContext);
 		const [, copyToClipboard] = useCopyToClipboard();
 		const [wasCopied, setWasCopied] = useState(false);
 		const timeoutHandle = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
@@ -485,8 +429,9 @@ const CopyButton = forwardRef<ComponentRef<"button">, CodeBlockCopyButtonProps>(
 							}
 							return;
 						}
-						await copyToClipboard(copyText);
-						onCopy?.(copyText);
+						const text = copyTextRef.current;
+						await copyToClipboard(text);
+						onCopy?.(text);
 						setWasCopied(true);
 						if (timeoutHandle.current != null) {
 							clearTimeout(timeoutHandle.current);
