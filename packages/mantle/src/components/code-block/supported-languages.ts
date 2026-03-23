@@ -68,26 +68,10 @@ const isSupportedLanguage = (value: unknown): value is SupportedLanguage => {
 	return typeof value === "string" && supportedLanguageSet.has(value as SupportedLanguage);
 };
 
-/**
- * A class name for a language that the mantle code block can understand.
- */
-type LanguageClass = `language-${SupportedLanguage}`;
-
-/**
- * Formats a language name into a class name that the mantle code block can understand.
- * @default "language-text"
- */
-function formatLanguageClassName(language: SupportedLanguage | undefined = "text") {
-	const lang = language ?? defaultLanguage;
-	const className: LanguageClass = `language-${lang}`;
-	return className;
-}
-
 export {
 	//,
 	isSupportedLanguage,
 	parseLanguage,
-	formatLanguageClassName,
 };
 
 export type { SupportedLanguage };
