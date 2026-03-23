@@ -69,12 +69,12 @@ const isSupportedLanguage = (value: unknown): value is SupportedLanguage => {
 };
 
 /**
- * A class name for a language that Prism.js can understand.
+ * A class name for a language that the mantle code block can understand.
  */
 type LanguageClass = `language-${SupportedLanguage}`;
 
 /**
- * Formats a language name into a class name that Prism.js can understand.
+ * Formats a language name into a class name that the mantle code block can understand.
  * @default "language-text"
  */
 function formatLanguageClassName(language: SupportedLanguage | undefined = "text") {
