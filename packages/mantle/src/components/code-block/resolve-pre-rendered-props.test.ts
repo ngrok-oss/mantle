@@ -125,6 +125,56 @@ describe("resolvePreRenderedCodeBlockProps", () => {
 		});
 	});
 
+	test("detects payload when only mantleHighlightLines is provided", () => {
+		const result = resolvePreRenderedCodeBlockProps({
+			mantleHighlightLines: "1,3-5",
+			dataX: "hello",
+		});
+		expect(result.mantleCode).toBeDefined();
+		expect(result.mantleCode?.highlightLines).toEqual([1, "3-5"]);
+		expect(result.props).toEqual({ dataX: "hello" });
+	});
+
+	test("detects payload when only mantleLineNumberStart is provided", () => {
+		const result = resolvePreRenderedCodeBlockProps({
+			mantleLineNumberStart: "10",
+			dataX: "hello",
+		});
+		expect(result.mantleCode).toBeDefined();
+		expect(result.mantleCode?.lineNumberStart).toBe(10);
+		expect(result.props).toEqual({ dataX: "hello" });
+	});
+
+	test("lineNumberStart string '0' resolves to undefined", () => {
+		const result = resolvePreRenderedCodeBlockProps({
+			mantleCode: "echo hi",
+			mantleLanguage: "sh",
+			mantlePreHtml: "<span>...</span>",
+			mantleLineNumberStart: "0",
+		});
+		expect(result.mantleCode?.lineNumberStart).toBeUndefined();
+	});
+
+	test("highlightLines string with zeros filters them out", () => {
+		const result = resolvePreRenderedCodeBlockProps({
+			mantleCode: "echo hi",
+			mantleLanguage: "sh",
+			mantlePreHtml: "<span>...</span>",
+			mantleHighlightLines: "0,0-2,3",
+		});
+		expect(result.mantleCode?.highlightLines).toEqual([3]);
+	});
+
+	test("highlightLines string with only zeros resolves to undefined", () => {
+		const result = resolvePreRenderedCodeBlockProps({
+			mantleCode: "echo hi",
+			mantleLanguage: "sh",
+			mantlePreHtml: "<span>...</span>",
+			mantleHighlightLines: "0,0-2",
+		});
+		expect(result.mantleCode?.highlightLines).toBeUndefined();
+	});
+
 	test("normalizes non-mantle metadata keys when mantle payload exists", () => {
 		expect(
 			resolvePreRenderedCodeBlockProps({

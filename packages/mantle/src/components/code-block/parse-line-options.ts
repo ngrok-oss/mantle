@@ -20,7 +20,8 @@ function parseCodeBlockLineNumberStart(value: unknown): number | undefined {
 		return Math.floor(value);
 	}
 	if (typeof value === "string" && /^\d+$/.test(value)) {
-		return Number.parseInt(value, 10);
+		const parsed = Number.parseInt(value, 10);
+		return parsed > 0 ? parsed : undefined;
 	}
 	return undefined;
 }
@@ -33,10 +34,17 @@ function parseCodeBlockHighlightLines(value: unknown): (LineRange | number)[] | 
 		if (typeof item === "string") {
 			const trimmed = item.trim();
 			if (/^\d+$/.test(trimmed)) {
-				return Number.parseInt(trimmed, 10);
+				const parsed = Number.parseInt(trimmed, 10);
+				return parsed > 0 ? parsed : undefined;
 			}
 			if (/^\d+-\d+$/.test(trimmed)) {
-				return trimmed as LineRange;
+				const [startStr, endStr] = trimmed.split("-");
+				const start = Number.parseInt(startStr ?? "", 10);
+				const end = Number.parseInt(endStr ?? "", 10);
+				if (start > 0 && end > 0) {
+					return trimmed as LineRange;
+				}
+				return undefined;
 			}
 		}
 		return undefined;

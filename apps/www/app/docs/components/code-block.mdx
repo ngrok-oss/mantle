@@ -9,6 +9,7 @@ import {
 	HorizontalScrollingDemo,
 	NoHeaderOrCopyButtonDemo,
 	SingleLineHorizontalScrollingDemo,
+	ServerRenderedHighlightingDemo,
 	OverridingIndentationDemo,
 } from "~/features/code-block-demos";
 
@@ -67,6 +68,38 @@ This example is included to demonstrate that code blocks can scroll horizontally
 
 <HorizontalScrollingDemo />
 
+```tsx
+<CodeBlock.Root>
+	<CodeBlock.Header>
+		<CodeBlock.Icon preset="file" />
+		<CodeBlock.Title>ngrok-example.js</CodeBlock.Title>
+	</CodeBlock.Header>
+	<CodeBlock.Body>
+		<CodeBlock.CopyButton />
+		<CodeBlock.Code
+			value={mantleCode("javascript")`
+				const http = require('http');
+				const ngrok = require("@ngrok/ngrok");
+				const server = http.createServer((req, res) => {
+					res.writeHead(200);
+					res.end("Hello!");
+					setTimeout(() => {
+						Promise.resolve().then(() => {
+							console.log("url:", server.tunnel.url());
+						});
+					}, timeout);
+				});
+				// Consumes authtoken from env automatically
+				ngrok.listen(server).then(() => {
+					console.log("url:", server.tunnel.url());
+				});
+				// really long line here that should wrap around and stuff Officia ipsum sint eu labore esse deserunt aliqua quis irure.
+			`}
+		/>
+	</CodeBlock.Body>
+</CodeBlock.Root>
+```
+
 ### No Header or Copy Button
 
 This is the most simple example of our code block component. While very useful, the copy button is optional. It is also perfectly acceptable to render a code block without a header, especially if context is provided in the surrounding content or the code block is self-explanatory eg. "In your index.js file, paste the following:".
@@ -98,6 +131,45 @@ This is the most simple example of our code block component. While very useful, 
 This example is included to show the interaction between the copy button and horizontal scrolling on a single verbose terminal command.
 
 <SingleLineHorizontalScrollingDemo />
+
+### Server-Rendered Syntax Highlighting
+
+The `CodeBlock` supports server-rendered syntax highlighting for dynamic or user-provided code. Use `createMantleCodeBlockValue()` to construct a value from server-highlighted HTML and pass it to `CodeBlock.Code`. This is useful when the code to highlight isn't known at build time — for example, user input or API responses.
+
+<ServerRenderedHighlightingDemo />
+
+```tsx
+import {
+	CodeBlock,
+	createMantleCodeBlockValue,
+	type MantleCodeBlockValue,
+} from "@ngrok/mantle/code-block";
+
+// Fetch highlighted HTML from your server
+const response = await fetch("/api/shiki-highlight", {
+	method: "POST",
+	headers: { "Content-Type": "application/json" },
+	body: JSON.stringify({ code, language: "typescript", showLineNumbers: true }),
+});
+const data = await response.json();
+
+// Create a MantleCodeBlockValue from the server response
+const value: MantleCodeBlockValue = createMantleCodeBlockValue({
+	code: data.code,
+	language: "typescript",
+	preHtml: data.html,
+	showLineNumbers: data.showLineNumbers,
+	highlightLines: data.highlightLines,
+	lineNumberStart: data.lineNumberStart,
+});
+
+<CodeBlock.Root>
+	<CodeBlock.Body>
+		<CodeBlock.CopyButton />
+		<CodeBlock.Code value={value} />
+	</CodeBlock.Body>
+</CodeBlock.Root>;
+```
 
 ### Overriding default language indentation
 

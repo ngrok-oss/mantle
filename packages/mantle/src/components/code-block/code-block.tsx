@@ -270,8 +270,8 @@ const Code = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
 			<pre
 				aria-expanded={hasCodeExpander ? isCodeExpanded : undefined}
 				className={cx(
-					"scrollbar overflow-x-auto overflow-y-hidden py-4",
-					"data-[mantle-line-numbers~='false']:px-4",
+					"scrollbar overflow-x-auto overflow-y-hidden py-4 pr-14",
+					"data-[mantle-line-numbers~='false']:pl-4",
 					"text-mono m-0 font-mono",
 					"aria-collapsed:max-h-[13.6rem]",
 					className,

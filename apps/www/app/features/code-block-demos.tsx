@@ -1,4 +1,14 @@
-import { CodeBlock, mantleCode } from "@ngrok/mantle/code-block";
+import { Button } from "@ngrok/mantle/button";
+import {
+	CodeBlock,
+	createMantleCodeBlockValue,
+	mantleCode,
+	parseLanguage,
+	type MantleCodeBlockValue,
+	type SupportedLanguage,
+} from "@ngrok/mantle/code-block";
+import { useState } from "react";
+import { z } from "zod";
 import { Example } from "~/components/example";
 
 /**
@@ -174,6 +184,141 @@ export function SingleLineHorizontalScrollingDemo() {
 					/>
 				</CodeBlock.Body>
 			</CodeBlock.Root>
+		</Example>
+	);
+}
+
+const shikiHighlightResponseSchema = z.object({
+	code: z.string(),
+	highlightLines: z.array(z.union([z.number(), z.string()])),
+	html: z.string(),
+	language: z.string(),
+	lineNumberStart: z.number(),
+	showLineNumbers: z.boolean(),
+});
+
+function normalizeHighlightLines(lines: (string | number)[]): (number | `${number}-${number}`)[] {
+	return lines.filter((line): line is number | `${number}-${number}` => {
+		if (typeof line === "number") {
+			return Number.isFinite(line) && line > 0;
+		}
+		return /^\d+-\d+$/.test(line);
+	});
+}
+
+const defaultServerCode = [
+	"const service = await fetchServiceConfig();",
+	"if (!service.enabled) {",
+	'\tthrow new Error("service is disabled");',
+	"}",
+].join("\n");
+
+/**
+ * Fetches syntax-highlighted HTML from the server API and renders
+ * it via `createMantleCodeBlockValue`. Demonstrates server-rendered
+ * syntax highlighting for dynamic or user-provided code.
+ */
+export function ServerRenderedHighlightingDemo() {
+	const [language, setLanguage] = useState<SupportedLanguage>("typescript");
+	const [code, setCode] = useState(defaultServerCode);
+	const [highlightedValue, setHighlightedValue] = useState<MantleCodeBlockValue | null>(null);
+	const [status, setStatus] = useState<"idle" | "loading" | "error">("idle");
+	const [errorMessage, setErrorMessage] = useState("");
+
+	const handleHighlight = async () => {
+		setStatus("loading");
+		setErrorMessage("");
+
+		try {
+			const response = await fetch("/api/shiki-highlight", {
+				method: "POST",
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					code,
+					highlightLines: ["2-3"],
+					language,
+					lineNumberStart: 1,
+					showLineNumbers: true,
+				}),
+			});
+
+			if (!response.ok) {
+				throw new Error(`Highlight request failed with status ${response.status}`);
+			}
+
+			const data = shikiHighlightResponseSchema.parse(await response.json());
+			setHighlightedValue(
+				createMantleCodeBlockValue({
+					code: data.code,
+					highlightLines: normalizeHighlightLines(data.highlightLines),
+					lineNumberStart: data.lineNumberStart,
+					language,
+					preHtml: data.html,
+					showLineNumbers: data.showLineNumbers,
+				}),
+			);
+			setStatus("idle");
+		} catch (error) {
+			setStatus("error");
+			setErrorMessage(error instanceof Error ? error.message : "Unknown error");
+		}
+	};
+
+	return (
+		<Example className="flex-col items-stretch gap-4">
+			<div className="space-y-3">
+				<div className="space-y-2">
+					<label className="block text-sm font-medium" htmlFor="server-highlight-language">
+						Language
+					</label>
+					<select
+						id="server-highlight-language"
+						className="bg-form border-form rounded-md border px-2 py-1"
+						value={language}
+						onChange={(event) => {
+							setLanguage(parseLanguage(event.currentTarget.value));
+						}}
+					>
+						<option value="typescript">typescript</option>
+						<option value="javascript">javascript</option>
+						<option value="json">json</option>
+						<option value="bash">bash</option>
+					</select>
+				</div>
+				<div className="space-y-2">
+					<label className="block text-sm font-medium" htmlFor="server-highlight-code">
+						Code
+					</label>
+					<textarea
+						id="server-highlight-code"
+						className="bg-form border-form text-mono min-h-28 w-full rounded-md border p-2 font-mono"
+						value={code}
+						onChange={(event) => {
+							setCode(event.currentTarget.value);
+						}}
+					/>
+				</div>
+				<Button
+					type="button"
+					appearance="filled"
+					disabled={status === "loading"}
+					onClick={() => void handleHighlight()}
+				>
+					{status === "loading" ? "Highlighting..." : "Highlight on Server"}
+				</Button>
+			</div>
+			{status === "error" && <p className="text-danger-600 text-sm">{errorMessage}</p>}
+			{highlightedValue != null && (
+				<CodeBlock.Root>
+					<CodeBlock.Body>
+						<CodeBlock.CopyButton />
+						<CodeBlock.Code value={highlightedValue} />
+					</CodeBlock.Body>
+				</CodeBlock.Root>
+			)}
 		</Example>
 	);
 }

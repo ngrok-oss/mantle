@@ -201,6 +201,8 @@ function resolvePreRenderedCodeBlockProps<
 		mantleCode != null ||
 		mantlePreHtml != null ||
 		mantleShowLineNumbers != null ||
+		mantleHighlightLines != null ||
+		mantleLineNumberStart != null ||
 		mantleCollapsible != null ||
 		mantleDisableCopy != null ||
 		mantleMode != null ||
