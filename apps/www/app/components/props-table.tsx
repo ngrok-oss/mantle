@@ -2,11 +2,8 @@ import { cx } from "@ngrok/mantle/cx";
 import { Table } from "@ngrok/mantle/table";
 import { Tooltip } from "@ngrok/mantle/tooltip";
 import type { WithStyleProps } from "@ngrok/mantle/types";
-import Prism from "prismjs";
-import { type PropsWithChildren, useEffect, useState } from "react";
-import assert from "tiny-invariant";
-import "prismjs/components/prism-typescript.js";
-import { escapeHtml, normalizeIndentation } from "@ngrok/mantle/code-block";
+import { type PropsWithChildren } from "react";
+import { normalizeIndentation } from "@ngrok/mantle/code-block";
 
 type PropsTableProps = WithStyleProps & PropsWithChildren;
 export const PropsTable = ({ children, className, style }: PropsTableProps) => (
@@ -97,27 +94,10 @@ export const NumberPropType = ({ value }: { value?: number }) => (
 
 export const FuncPropType = ({ value }: { value: string }) => {
 	const normalizedCode = normalizeIndentation(value);
-	const [highlightedCodeInnerHtml, setHighlightedCodeInnerHtml] = useState(
-		escapeHtml(normalizedCode),
-	);
-
-	useEffect(() => {
-		const grammar = Prism.languages.typescript;
-		assert(grammar, "Couldn't load Prism grammar for typescript!");
-		const newHighlightedCodeInnerHtml = Prism.highlight(normalizedCode, grammar, "typescript");
-		setHighlightedCodeInnerHtml(newHighlightedCodeInnerHtml);
-	}, [normalizedCode]);
 
 	return (
-		<pre className="language-typescript" tabIndex={-1}>
-			<code
-				className="language-typescript"
-				dangerouslySetInnerHTML={{ __html: highlightedCodeInnerHtml }}
-				// we need to suppress the hydration warning because we are setting the innerHTML of the code element
-				// and using Prism.js to "highlight" the code in a useEffect (client-side only),
-				// which does different things on the client and server
-				suppressHydrationWarning
-			/>
+		<pre className="text-mono font-mono" tabIndex={-1}>
+			<code>{normalizedCode}</code>
 		</pre>
 	);
 };

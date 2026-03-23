@@ -50,7 +50,6 @@ export const MANTLE_COMPONENT_NAMES = [
 	"select",
 	"separator",
 	"sheet",
-	"shiki-code-block",
 	"skeleton",
 	"slider",
 	"slot",

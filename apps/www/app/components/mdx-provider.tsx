@@ -4,11 +4,12 @@ import { MDXProvider as MdxProviderPrimitive } from "@mdx-js/react";
 import { Anchor } from "@ngrok/mantle/anchor";
 import { Code } from "@ngrok/mantle/code";
 import {
+	CodeBlock,
+	createMantleCodeBlockValue,
 	hasMoreThanNLines,
 	resolvePreRenderedCodeBlockProps,
 	type CodeBlockPreElementInput,
 } from "@ngrok/mantle/code-block";
-import { ShikiCodeBlock, createMantleCodeBlockValue } from "@ngrok/mantle/shiki-code-block";
 import { cx } from "@ngrok/mantle/cx";
 import { Icon } from "@ngrok/mantle/icon";
 import { Table } from "@ngrok/mantle/table";
@@ -136,21 +137,19 @@ const components = {
 		});
 
 		return (
-			<ShikiCodeBlock.Root className={cx("mb-6", className)}>
+			<CodeBlock.Root className={cx("mb-6", className)}>
 				{shouldRenderHeader && (
-					<ShikiCodeBlock.Header>
-						{mode != null && <ShikiCodeBlock.Icon preset={mode} />}
-						{title != null && title.length > 0 && (
-							<ShikiCodeBlock.Title>{title}</ShikiCodeBlock.Title>
-						)}
-					</ShikiCodeBlock.Header>
+					<CodeBlock.Header>
+						{mode != null && <CodeBlock.Icon preset={mode} />}
+						{title != null && title.length > 0 && <CodeBlock.Title>{title}</CodeBlock.Title>}
+					</CodeBlock.Header>
 				)}
-				<ShikiCodeBlock.Body>
-					{!disableCopy && <ShikiCodeBlock.CopyButton />}
-					<ShikiCodeBlock.Code value={value} />
-				</ShikiCodeBlock.Body>
-				{collapsible && <ShikiCodeBlock.ExpanderButton />}
-			</ShikiCodeBlock.Root>
+				<CodeBlock.Body>
+					{!disableCopy && <CodeBlock.CopyButton />}
+					<CodeBlock.Code value={value} />
+				</CodeBlock.Body>
+				{collapsible && <CodeBlock.ExpanderButton />}
+			</CodeBlock.Root>
 		);
 	},
 	table: (props) => {

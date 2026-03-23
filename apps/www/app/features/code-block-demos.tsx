@@ -1,4 +1,4 @@
-import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
+import { CodeBlock, mantleCode } from "@ngrok/mantle/code-block";
 import { Example } from "~/components/example";
 
 /**
@@ -15,15 +15,14 @@ export function PrimaryCodeBlockDemo() {
 				<CodeBlock.Body>
 					<CodeBlock.CopyButton />
 					<CodeBlock.Code
-						language="js"
-						value={fmtCode`
+						value={mantleCode("javascript")`
 							const listener = await ngrok.connect({
 								// session configuration
-								addr: \`localhost:8080\`, // or \`8080\` or \`unix:$\{UNIX_SOCKET\}\`
+								addr: \`localhost:8080\`, // or \`8080\` or \`unix:\${UNIX_SOCKET}\`
 								authtoken: "<authtoken>",
 								authtoken_from_env: true,
 								on_status_change: (addr, error) => {
-									console.log(\`disconnected, addr $\{addr\} error: $\{error\}\`);
+									console.log(\`disconnected, addr \${addr} error: \${error}\`);
 								},
 								session_metadata: "Online in One Line",
 								// listener configuration
@@ -82,8 +81,9 @@ export function SingleLineWithHeaderDemo() {
 				<CodeBlock.Body>
 					<CodeBlock.CopyButton />
 					<CodeBlock.Code
-						language="sh"
-						value={fmtCode`sudo unzip ~/Downloads/ngrok-v3-stable-darwin.zip -d /usr/local/bin`}
+						value={mantleCode(
+							"bash",
+						)`sudo unzip ~/Downloads/ngrok-v3-stable-darwin.zip -d /usr/local/bin`}
 					/>
 				</CodeBlock.Body>
 			</CodeBlock.Root>
@@ -105,8 +105,7 @@ export function HorizontalScrollingDemo() {
 				<CodeBlock.Body>
 					<CodeBlock.CopyButton />
 					<CodeBlock.Code
-						language="js"
-						value={fmtCode`
+						value={mantleCode("javascript")`
 							const http = require('http');
 							const ngrok = require("@ngrok/ngrok");
 							const server = http.createServer((req, res) => {
@@ -140,8 +139,7 @@ export function NoHeaderOrCopyButtonDemo() {
 			<CodeBlock.Root>
 				<CodeBlock.Body>
 					<CodeBlock.Code
-						language="js"
-						value={fmtCode`
+						value={mantleCode("javascript")`
 							const http = require('http');
 							const ngrok = require("@ngrok/ngrok");
 							const server = http.createServer((req, res) => {
@@ -170,8 +168,9 @@ export function SingleLineHorizontalScrollingDemo() {
 				<CodeBlock.Body>
 					<CodeBlock.CopyButton />
 					<CodeBlock.Code
-						language="sh"
-						value={fmtCode`ffmpeg -i multichannel.mxf -map 0:v:0 -map 0:a:0 -map 0:a:0 -c:a:0 ac3 -b:a:0 640k -ac:a:1 2 -c:a:1 aac -b:2 128k out.mp4`}
+						value={mantleCode(
+							"bash",
+						)`ffmpeg -i multichannel.mxf -map 0:v:0 -map 0:a:0 -map 0:a:0 -c:a:0 ac3 -b:a:0 640k -ac:a:1 2 -c:a:1 aac -b:2 128k out.mp4`}
 					/>
 				</CodeBlock.Body>
 			</CodeBlock.Root>
@@ -193,8 +192,7 @@ export function OverridingIndentationDemo() {
 				<CodeBlock.Body>
 					<CodeBlock.CopyButton />
 					<CodeBlock.Code
-						language="yaml"
-						value={fmtCode`
+						value={mantleCode("yaml")`
 							# yaml indentation MUST use spaces (we infer this for you)
 							on_http_request:
 								actions:
@@ -214,9 +212,7 @@ export function OverridingIndentationDemo() {
 				<CodeBlock.Body>
 					<CodeBlock.CopyButton />
 					<CodeBlock.Code
-						language="js"
-						indentation="spaces"
-						value={fmtCode`
+						value={mantleCode("javascript", { indentation: "spaces" })`
 							// by default, mantle decides that javascript uses tabs,
 							// but this example uses spaces for indentation
 							const http = require('http');

@@ -132,9 +132,6 @@ importers:
       match-sorter:
         specifier: 8.2.0
         version: 8.2.0
-      prismjs:
-        specifier: 1.30.0
-        version: 1.30.0
       react:
         specifier: 19.2.4
         version: 19.2.4
@@ -184,9 +181,6 @@ importers:
       '@types/mdast':
         specifier: 4.0.4
         version: 4.0.4
-      '@types/prismjs':
-        specifier: 1.26.6
-        version: 1.26.6
       '@types/react':
         specifier: 19.2.14
         version: 19.2.14
@@ -301,9 +295,6 @@ importers:
       cmdk:
         specifier: 1.1.1
         version: 1.1.1(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      prismjs:
-        specifier: 1.30.0
-        version: 1.30.0
       react-day-picker:
         specifier: 9.14.0
         version: 9.14.0(react@19.2.4)
@@ -341,9 +332,6 @@ importers:
       '@tsdown/css':
         specifier: 'catalog:'
         version: 0.21.3(jiti@2.6.1)(postcss@8.5.8)(tsdown@0.21.3)(tsx@4.21.0)(yaml@2.8.3)
-      '@types/prismjs':
-        specifier: 1.26.6
-        version: 1.26.6
       '@types/react':
         specifier: 19.2.14
         version: 19.2.14
@@ -2422,9 +2410,6 @@ packages:
 
   '@types/node@24.12.0':
     resolution: {integrity: sha512-GYDxsZi3ChgmckRT9HPU0WEhKLP08ev/Yfcq2AstjrDASOYCSXeyjDsHg4v5t4jOj7cyDX3vmprafKlWIG9MXQ==}
-
-  '@types/prismjs@1.26.6':
-    resolution: {integrity: sha512-vqlvI7qlMvcCBbVe0AKAb4f97//Hy0EBTaiW8AalRnG/xAN5zOiWWyrNqNXeq8+KAuvRewjCVY1+IPxk4RdNYw==}
 
   '@types/react-dom@19.2.3':
     resolution: {integrity: sha512-jp2L/eY6fn+KgVVQAOqYItbF0VY/YApe5Mz2F0aykSO8gx31bYCZyvSeYxCHKvzHG5eZjc+zyaS5BrBWya2+kQ==}
@@ -6762,8 +6747,6 @@ snapshots:
   '@types/node@24.12.0':
     dependencies:
       undici-types: 7.16.0
-
-  '@types/prismjs@1.26.6': {}
 
   '@types/react-dom@19.2.3(@types/react@19.2.14)':
     dependencies:

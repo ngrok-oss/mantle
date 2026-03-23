@@ -2,8 +2,16 @@ import type { LineRange } from "./line-numbers.js";
 import { resolveLineNumbers } from "./line-numbers.js";
 import { cx } from "../../utils/cx/cx.js";
 
+function trimTrailingNewlines(input: string): string {
+	let end = input.length;
+	while (end > 0 && input.charCodeAt(end - 1) === 10) {
+		end -= 1;
+	}
+	return end === input.length ? input : input.slice(0, end);
+}
+
 function splitHighlightedHtmlIntoLines(html: string): string[] {
-	const normalizedHtml = html.replace(/\n+$/g, "");
+	const normalizedHtml = trimTrailingNewlines(html);
 	const shikiLines = normalizedHtml.split("\n");
 	const linePrefix = '<span class="line">';
 	const lineSuffix = "</span>";

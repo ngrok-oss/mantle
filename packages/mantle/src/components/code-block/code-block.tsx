@@ -5,7 +5,6 @@ import { CheckIcon } from "@phosphor-icons/react/Check";
 import { CopyIcon } from "@phosphor-icons/react/Copy";
 import { FileTextIcon } from "@phosphor-icons/react/FileText";
 import { TerminalIcon } from "@phosphor-icons/react/Terminal";
-import clsx from "clsx";
 import type {
 	ComponentProps,
 	ComponentRef,
@@ -33,62 +32,10 @@ import type { SvgAttributes } from "../icon/types.js";
 import { TrafficPolicyFileIcon } from "../icons/traffic-policy-file.js";
 import { Slot } from "../slot/index.js";
 import { escapeHtml } from "./escape-html.js";
-import { Highlighter } from "./highlighter.js";
-import { type Indentation, inferIndentation } from "./indentation.js";
+import type { Indentation } from "./indentation.js";
 import type { LineRange } from "./line-numbers.js";
-import { normalizeIndentation } from "./normalize-indentation.js";
 import type { Mode } from "./resolve-pre-rendered-props.js";
-import type { SupportedLanguage } from "./supported-languages.js";
-import { formatLanguageClassName, supportedLanguages } from "./supported-languages.js";
-
-const MAX_HIGHLIGHT_CACHE_ENTRIES = 100;
-const highlightedCodeCache = new Map<string, string>();
-
-/**
- * Builds a stable cache key for highlighted code using both the language and
- * normalized code contents.
- */
-function getHighlightedCodeCacheKey(language: SupportedLanguage, value: string): string {
-	return `${language}\u0000${value}`;
-}
-
-/**
- * Returns highlighted HTML from the shared LRU cache when available, otherwise
- * highlights the code and stores the result for future reuse.
- */
-function getHighlightedCode(
-	language: SupportedLanguage,
-	value: string,
-	grammar: Prism.Grammar,
-): string {
-	const cacheKey = getHighlightedCodeCacheKey(language, value);
-	const cached = highlightedCodeCache.get(cacheKey);
-
-	if (cached != null) {
-		highlightedCodeCache.delete(cacheKey);
-		highlightedCodeCache.set(cacheKey, cached);
-		return cached;
-	}
-
-	const highlighted = Highlighter.highlight(value, grammar, language);
-	highlightedCodeCache.set(cacheKey, highlighted);
-
-	if (highlightedCodeCache.size > MAX_HIGHLIGHT_CACHE_ENTRIES) {
-		const oldestKey = highlightedCodeCache.keys().next().value;
-		if (oldestKey != null) {
-			highlightedCodeCache.delete(oldestKey);
-		}
-	}
-
-	return highlighted;
-}
-
-/**
- * TODO(cody):
- * - fix line numbers, maybe try grid instead of :before and flex?
- * - fix line hightlighting
- * - fix line wrapping? horizontal scrolling has problems w/ line highlighting :(
- */
+import type { MantleCodeBlockValue } from "./mantle-code.js";
 
 type CodeBlockContextType = {
 	codeId: string | undefined;
@@ -115,21 +62,19 @@ const CodeBlockContext = createContext<CodeBlockContextType>({
 });
 
 /**
- * Code blocks render and apply syntax highlighting to blocks of code.
- * This is the root component for all code block components.
- *
- * @see https://mantle.ngrok.com/components/code-block#codeblockroot
+ * Shiki-powered code blocks with build-time syntax highlighting and zero browser bundle.
+ * This is the root component for all CodeBlock components.
  *
  * @example
  * ```tsx
  * <CodeBlock.Root>
  *   <CodeBlock.Header>
  *     <CodeBlock.Icon preset="file" />
- *     <CodeBlock.Title>…</CodeBlock.Title>
+ *     <CodeBlock.Title>example.ts</CodeBlock.Title>
  *   </CodeBlock.Header>
  *   <CodeBlock.Body>
  *     <CodeBlock.CopyButton />
- *     <CodeBlock.Code language="…" value={fmtCode\`…\`} />
+ *     <CodeBlock.Code value={mantleCode("typescript")`const x = "hello";`} />
  *   </CodeBlock.Body>
  *   <CodeBlock.ExpanderButton />
  * </CodeBlock.Root>
@@ -142,6 +87,20 @@ const Root = forwardRef<ComponentRef<"div">, Omit<ComponentProps<"div">, "align"
 		const [isCodeExpanded, setIsCodeExpanded] = useState(false);
 		const [codeId, setCodeId] = useState<string | undefined>(undefined);
 
+		const registerCodeId = useRef((id: string) => {
+			setCodeId((old) => {
+				assert(old == null, "You can only render a single CodeBlock.Code within a CodeBlock.");
+				return id;
+			});
+		}).current;
+
+		const unregisterCodeId = useRef((id: string) => {
+			setCodeId((old) => {
+				assert(old === id, "You can only render a single CodeBlock.Code within a CodeBlock.");
+				return undefined;
+			});
+		}).current;
+
 		const context: CodeBlockContextType = useMemo(
 			() =>
 				({
@@ -149,23 +108,13 @@ const Root = forwardRef<ComponentRef<"div">, Omit<ComponentProps<"div">, "align"
 					copyText,
 					hasCodeExpander,
 					isCodeExpanded,
-					registerCodeId: (id) => {
-						setCodeId((old) => {
-							assert(old == null, "You can only render a single CodeBlockCode within a CodeBlock.");
-							return id;
-						});
-					},
+					registerCodeId,
 					setCopyText,
 					setHasCodeExpander,
 					setIsCodeExpanded,
-					unregisterCodeId: (id) => {
-						setCodeId((old) => {
-							assert(old === id, "You can only render a single CodeBlockCode within a CodeBlock.");
-							return undefined;
-						});
-					},
+					unregisterCodeId,
 				}) as const,
-			[codeId, copyText, hasCodeExpander, isCodeExpanded],
+			[codeId, copyText, hasCodeExpander, isCodeExpanded, registerCodeId, unregisterCodeId],
 		);
 
 		const Component = asChild ? Slot : "div";
@@ -189,91 +138,102 @@ const Root = forwardRef<ComponentRef<"div">, Omit<ComponentProps<"div">, "align"
 Root.displayName = "CodeBlock";
 
 /**
- * The body of the `CodeBlock`. This is where the `CodeBlock.Code` and optional
- * `CodeBlock.CopyButton` is rendered.
- *
- * @see https://mantle.ngrok.com/components/code-block#codeblockbody
+ * The body of the `CodeBlock`. This is where `CodeBlock.Code` and
+ * the optional `CodeBlock.CopyButton` are rendered.
  *
  * @example
  * ```tsx
  * <CodeBlock.Root>
- *   <CodeBlock.Header>
- *     <CodeBlock.Icon preset="file" />
- *     <CodeBlock.Title>…</CodeBlock.Title>
- *   </CodeBlock.Header>
  *   <CodeBlock.Body>
  *     <CodeBlock.CopyButton />
- *     <CodeBlock.Code language="…" value={fmtCode\`…\`} />
+ *     <CodeBlock.Code value={mantleCode("typescript")`const x = "hello";`} />
  *   </CodeBlock.Body>
- *   <CodeBlock.ExpanderButton />
  * </CodeBlock.Root>
  * ```
  */
 const Body = forwardRef<ComponentRef<"div">, ComponentProps<"div"> & WithAsChild>(
 	({ asChild = false, className, ...props }, ref) => {
 		const Component = asChild ? Slot : "div";
-
 		return <Component className={cx("relative", className)} ref={ref} {...props} />;
 	},
 );
 Body.displayName = "CodeBlockBody";
 
+function substituteTemplateVals(
+	input: string,
+	vals: unknown[],
+	mapValue: (value: unknown) => string,
+): string {
+	if (!input.includes("SHIKI_VAL_")) {
+		return input;
+	}
+
+	return input.replaceAll(/SHIKI_VAL_(\d+)/g, (match, indexText: string) => {
+		const index = Number.parseInt(indexText, 10);
+		if (Number.isNaN(index) || index < 0 || index >= vals.length) {
+			return match;
+		}
+		return mapValue(vals[index]);
+	});
+}
+
+function substitutePreVals(html: string, vals: unknown[]): string {
+	return substituteTemplateVals(html, vals, (value) => escapeHtml(String(value)));
+}
+
+function substitutePreValsPlainText(text: string, vals: unknown[]): string {
+	return substituteTemplateVals(text, vals, (value) => String(value));
+}
+
 type CodeBlockCodeProps = Omit<ComponentProps<"pre">, "children"> & {
 	/**
-	 * The code to display in the code block. Should be code formatted as a string. This code will be passed to our syntax highlighter.
+	 * The code value produced by `mantleCode("lang")` tagged template.
+	 * Contains pre-rendered Shiki HTML (when the Vite plugin is active) and
+	 * the original code string for the copy button.
 	 */
-	value: string;
-	/**
-	 * @todo not implemented yet
-	 */
-	highlightLines?: (LineRange | number)[];
+	value: MantleCodeBlockValue;
 	/**
 	 * The type of indentation to use. Can be either "tabs" or "spaces".
-	 * @default inferred from the given language, fallback to `spaces`
+	 * @default inferred from the language, fallback to `spaces`
 	 */
 	indentation?: Indentation;
 	/**
-	 * The language of the code block. This will be used to determine how to syntax highlight the code.
-	 * @default `"text"`.
+	 * Runtime line decoration is intentionally unsupported in strict pre-rendered mode.
 	 */
-	language?: SupportedLanguage;
+	highlightLines?: (LineRange | number)[];
 	/**
-	 * @todo not implemented yet
+	 * Runtime line decoration is intentionally unsupported in strict pre-rendered mode.
 	 */
 	showLineNumbers?: boolean;
+	/**
+	 * The first line number to render when line numbers are shown.
+	 * @default 1
+	 */
+	lineNumberStart?: number;
 };
 
 /**
- * The `CodeBlock` content. This is where the code is rendered and syntax highlighted.
+ * The `CodeBlock` content. Renders pre-highlighted code from `mantleCode()`.
  *
- * @see https://mantle.ngrok.com/components/code-block#codeblockcode
+ * `value["~preHtml"]` must be provided by Mantle's Vite plugin or server highlighter.
+ * Runtime highlighting and runtime line decoration are intentionally unsupported.
  *
  * @example
  * ```tsx
- * <CodeBlock.Root>
- *   <CodeBlock.Header>
- *     <CodeBlock.Icon preset="file" />
- *     <CodeBlock.Title>…</CodeBlock.Title>
- *   </CodeBlock.Header>
- *   <CodeBlock.Body>
- *     <CodeBlock.CopyButton />
- *     <CodeBlock.Code
- *       language="sh"
- *       value={fmtCode`ffmpeg -i multichannel.mxf -map 0:v:0 -map 0:a:0 -map 0:a:0 -c:a:0 ac3 -b:a:0 640k -ac:a:1 2 -c:a:1 aac -b:2 128k out.mp4`}
- *     />
- *   </CodeBlock.Body>
- *   <CodeBlock.ExpanderButton />
- * </CodeBlock.Root>
+ * <CodeBlock.Body>
+ *   <CodeBlock.CopyButton />
+ *   <CodeBlock.Code value={mantleCode("typescript")`const x = "hello";`} />
+ * </CodeBlock.Body>
  * ```
  */
 const Code = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
 	(
 		{
 			className,
-			highlightLines: _unusedHighlightLines, // not implemented yet
+			highlightLines,
 			indentation: propIndentation,
-			language = "text",
-			showLineNumbers: _unusedShowLineNumbers, // not implemented yet
+			lineNumberStart,
+			showLineNumbers,
 			style,
 			tabIndex,
 			value,
@@ -284,42 +244,32 @@ const Code = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
 		const id = useId();
 		const { hasCodeExpander, isCodeExpanded, registerCodeId, setCopyText, unregisterCodeId } =
 			useContext(CodeBlockContext);
-		const indentation = inferIndentation(language, propIndentation);
+		const hasWarnedRuntimeIndentationRef = useRef(false);
+		const hasWarnedRuntimeLinePropsRef = useRef(false);
+		const {
+			language,
+			code,
+			"~preVals": __preVals,
+			"~highlightLines": __highlightLines,
+			"~lineNumberStart": __lineNumberStart,
+			"~preHtml": __preHtml,
+			"~showLineNumbers": __showLineNumbers,
+		} = value;
 
-		// trim any leading and trailing whitespace/empty lines, convert leading tabs to spaces
-		const normalizedAndTrimmedValue = useMemo(
-			() => normalizeIndentation(value, { indentation }),
-			[value, indentation],
-		);
-		const escapedNormalizedAndTrimmedValue = useMemo(
-			() => escapeHtml(normalizedAndTrimmedValue),
-			[normalizedAndTrimmedValue],
-		);
-		const [highlightedCodeInnerHtml, setHighlightedCodeInnerHtml] = useState(
+		const effectiveHighlightLines = __highlightLines;
+		const effectiveLineNumberStart = __lineNumberStart ?? 1;
+		const effectiveShowLineNumbers = __showLineNumbers ?? false;
+		const copyText = useMemo(
 			() =>
-				// initialize the <code> inner html with escaped HTML since we are using
-				// dangerouslySetInnerHTML to set the inner html of the <code> element
-				// and use Prism.js to "highlight" the code in a useEffect (client-side only)
-				escapedNormalizedAndTrimmedValue,
+				__preVals != null && __preVals.length > 0
+					? substitutePreValsPlainText(code, __preVals)
+					: code,
+			[__preVals, code],
 		);
 
 		useEffect(() => {
-			const grammar = Highlighter.languages[language];
-			assert(
-				grammar,
-				`CodeBlock does not support the language "${language}". The syntax highlighter does not have a grammar for this language. The supported languages are: ${supportedLanguages.join(", ")}.`,
-			);
-			const newHighlightedCodeInnerHtml = getHighlightedCode(
-				language,
-				normalizedAndTrimmedValue,
-				grammar,
-			);
-			setHighlightedCodeInnerHtml(newHighlightedCodeInnerHtml);
-		}, [normalizedAndTrimmedValue, language]);
-
-		useEffect(() => {
-			setCopyText(normalizedAndTrimmedValue);
-		}, [normalizedAndTrimmedValue, setCopyText]);
+			setCopyText(copyText);
+		}, [copyText, setCopyText]);
 
 		useEffect(() => {
 			registerCodeId(id);
@@ -329,39 +279,86 @@ const Code = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
 			};
 		}, [id, registerCodeId, unregisterCodeId]);
 
-		const languageClassName = formatLanguageClassName(language);
+		if (__preHtml == null) {
+			throw new Error(
+				`[CodeBlock.Code] Missing pre-rendered HTML for language "${language}". ` +
+					`Add mantleCodeBlockPlugins() to your vite.config.ts or provide server-rendered HTML via createMantleServerHighlighter().`,
+			);
+		}
+
+		useEffect(() => {
+			if (propIndentation == null) {
+				return;
+			}
+			if (hasWarnedRuntimeIndentationRef.current) {
+				return;
+			}
+			hasWarnedRuntimeIndentationRef.current = true;
+			console.warn(
+				"[CodeBlock.Code] Runtime indentation prop is ignored in strict pre-rendered mode. " +
+					"Set indentation during build/server highlighting.",
+			);
+		}, [propIndentation]);
+
+		useEffect(() => {
+			if (highlightLines == null && lineNumberStart == null && showLineNumbers == null) {
+				return;
+			}
+			if (hasWarnedRuntimeLinePropsRef.current) {
+				return;
+			}
+			hasWarnedRuntimeLinePropsRef.current = true;
+			console.warn(
+				"[CodeBlock.Code] Runtime line props are ignored in strict pre-rendered mode. " +
+					"Set line options via mantleCode(..., options) or server highlighter options.",
+			);
+		}, [highlightLines, lineNumberStart, showLineNumbers]);
+
+		const renderedHtml = useMemo(
+			() =>
+				__preVals != null && __preVals.length > 0
+					? substitutePreVals(__preHtml, __preVals)
+					: __preHtml,
+			[__preHtml, __preVals],
+		);
 
 		return (
 			<pre
 				aria-expanded={hasCodeExpander ? isCodeExpanded : undefined}
 				className={cx(
-					"scrollbar overflow-x-auto overflow-y-hidden p-4 pr-14",
+					"scrollbar overflow-x-auto overflow-y-hidden py-4",
+					"data-[mantle-line-numbers~='false']:px-4",
 					"text-mono m-0 font-mono",
 					"aria-collapsed:max-h-[13.6rem]",
-					languageClassName, // place it last because prism does weird stuff client side, causes hydration mismatches
 					className,
 				)}
 				data-lang={language}
+				data-mantle-highlight-lines={
+					effectiveHighlightLines != null && effectiveHighlightLines.length > 0
+						? effectiveHighlightLines.join(",")
+						: undefined
+				}
+				data-mantle-line-number-start={
+					effectiveShowLineNumbers ? String(effectiveLineNumberStart) : 1
+				}
+				data-mantle-line-numbers={effectiveShowLineNumbers ? "true" : "false"}
 				id={id}
 				ref={ref}
-				style={{
-					...style,
-					tabSize: 2,
-					MozTabSize: 2,
-				}}
-				// prism.js adds a tabindex of 0 to the pre element by default (unless it's set)
-				// this is unnecessary, we do not want this automatic behavior!
+				style={
+					{
+						...style,
+						"--mantle-line-number-start": String(effectiveLineNumberStart),
+						tabSize: 2,
+						MozTabSize: 2,
+					} as ComponentProps<"pre">["style"]
+				}
 				tabIndex={tabIndex ?? -1}
 				{...props}
 			>
 				<code
-					className={clsx("text-size-inherit", languageClassName)}
-					dangerouslySetInnerHTML={{
-						__html: highlightedCodeInnerHtml,
-					}}
-					// we need to suppress the hydration warning because we are setting the innerHTML of the code block
-					// and using Prism.js to "highlight" the code in a useEffect (client-side only), which does different things on the client and server
-					suppressHydrationWarning
+					className="text-size-inherit block w-full"
+					style={{ display: "block", minWidth: "100%", width: "100%" }}
+					dangerouslySetInnerHTML={{ __html: renderedHtml }}
 				/>
 			</pre>
 		);
@@ -370,30 +367,22 @@ const Code = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
 Code.displayName = "CodeBlockCode";
 
 /**
- * The (optional) header slot of the `CodeBlock`. This is where things like the
+ * The (optional) header slot of the `CodeBlock`. This is where
  * `CodeBlock.Icon` and `CodeBlock.Title` are rendered.
- *
- * @see https://mantle.ngrok.com/components/code-block#codeblockheader
  *
  * @example
  * ```tsx
  * <CodeBlock.Root>
  *   <CodeBlock.Header>
  *     <CodeBlock.Icon preset="file" />
- *     <CodeBlock.Title>…</CodeBlock.Title>
+ *     <CodeBlock.Title>example.ts</CodeBlock.Title>
  *   </CodeBlock.Header>
- *   <CodeBlock.Body>
- *     <CodeBlock.CopyButton />
- *     <CodeBlock.Code language="…" value={fmtCode\`…\`} />
- *   </CodeBlock.Body>
- *   <CodeBlock.ExpanderButton />
  * </CodeBlock.Root>
  * ```
  */
 const Header = forwardRef<ComponentRef<"div">, ComponentProps<"div"> & WithAsChild>(
 	({ asChild = false, className, ...props }, ref) => {
 		const Component = asChild ? Slot : "div";
-
 		return (
 			<Component
 				className={cx(
@@ -409,24 +398,14 @@ const Header = forwardRef<ComponentRef<"div">, ComponentProps<"div"> & WithAsChi
 Header.displayName = "CodeBlockHeader";
 
 /**
- * The (optional) title of the `CodeBlock`. Default renders as an h3 element,
- * use asChild to render something else.
- *
- * @see https://mantle.ngrok.com/components/code-block#codeblocktitle
+ * The (optional) title of the `CodeBlock`. Renders as `h3` by default;
+ * use `asChild` to render a different element.
  *
  * @example
  * ```tsx
- * <CodeBlock.Root>
- *   <CodeBlock.Header>
- *     <CodeBlock.Icon preset="file" />
- *     <CodeBlock.Title>…</CodeBlock.Title>
- *   </CodeBlock.Header>
- *   <CodeBlock.Body>
- *     <CodeBlock.CopyButton />
- *     <CodeBlock.Code language="…" value={fmtCode\`…\`} />
- *   </CodeBlock.Body>
- *   <CodeBlock.ExpanderButton />
- * </CodeBlock.Root>
+ * <CodeBlock.Header>
+ *   <CodeBlock.Title>example.ts</CodeBlock.Title>
+ * </CodeBlock.Header>
  * ```
  */
 const Title = forwardRef<
@@ -434,7 +413,6 @@ const Title = forwardRef<
 	HTMLAttributes<HTMLHeadingElement> & { asChild?: boolean }
 >(({ asChild = false, className, ...props }, ref) => {
 	const Component = asChild ? Slot : "h3";
-
 	return (
 		<Component
 			ref={ref}
@@ -458,25 +436,15 @@ type CodeBlockCopyButtonProps = Omit<ComponentProps<"button">, "children" | "typ
 	};
 
 /**
- * The (optional) copy button of the `CodeBlock`. Render this as a child of the
- * `CodeBlock.Body` to allow users to copy the code block contents to their
- * clipboard.
- *
- * @see https://mantle.ngrok.com/components/code-block#codeblockcopybutton
+ * The (optional) copy button of the `CodeBlock`. Copies the code content
+ * to the clipboard when clicked.
  *
  * @example
  * ```tsx
- * <CodeBlock.Root>
- *   <CodeBlock.Header>
- *     <CodeBlock.Icon preset="file" />
- *     <CodeBlock.Title>…</CodeBlock.Title>
- *   </CodeBlock.Header>
- *   <CodeBlock.Body>
- *     <CodeBlock.CopyButton />
- *     <CodeBlock.Code language="…" value={fmtCode\`…\`} />
- *   </CodeBlock.Body>
- *   <CodeBlock.ExpanderButton />
- * </CodeBlock.Root>
+ * <CodeBlock.Body>
+ *   <CodeBlock.CopyButton />
+ *   <CodeBlock.Code value={mantleCode("typescript")`…`} />
+ * </CodeBlock.Body>
  * ```
  */
 const CopyButton = forwardRef<ComponentRef<"button">, CodeBlockCopyButtonProps>(
@@ -500,7 +468,9 @@ const CopyButton = forwardRef<ComponentRef<"button">, CodeBlockCopyButtonProps>(
 			<Component
 				type="button"
 				className={cx(
-					"focus-visible:border-accent-600 focus-visible:ring-focus-accent absolute right-2.5 top-2.5 z-10 flex size-7 items-center justify-center rounded border border-gray-300 bg-gray-50 shadow-[-1rem_0_0.75rem_-0.375rem_var(--color-gray-50),1rem_0_0_-0.25rem_var(--color-gray-50)] hover:border-gray-400 hover:bg-gray-200 focus-visible:outline-hidden focus-visible:ring-4",
+					"focus-visible:border-accent-600 focus-visible:ring-focus-accent absolute right-2.5 top-2.5 z-10 flex size-7 items-center justify-center rounded border border-gray-300 bg-gray-50 hover:border-gray-400 hover:bg-gray-200 focus-visible:outline-hidden focus-visible:ring-4",
+					// "shadow-[-1rem_0_0.75rem_-0.375rem_var(--color-gray-50),1rem_0_0_-0.25rem_var(--color-gray-50)]",
+					"shadow",
 					wasCopied &&
 						"bg-filled-success text-on-filled hover:bg-filled-success focus:bg-filled-success focus-visible:border-success-600 focus-visible:ring-focus-success w-auto gap-1 border-transparent pl-2 pr-1.5 hover:border-transparent",
 					className,
@@ -510,23 +480,17 @@ const CopyButton = forwardRef<ComponentRef<"button">, CodeBlockCopyButtonProps>(
 					try {
 						onClick?.(event);
 						if (event.defaultPrevented) {
-							// Clear any existing timeout
 							if (timeoutHandle.current != null) {
 								clearTimeout(timeoutHandle.current);
 							}
 							return;
 						}
-
 						await copyToClipboard(copyText);
 						onCopy?.(copyText);
 						setWasCopied(true);
-
-						// Clear any existing timeout
 						if (timeoutHandle.current != null) {
 							clearTimeout(timeoutHandle.current);
 						}
-
-						// Reset the copied state after a short delay
 						timeoutHandle.current = setTimeout(() => {
 							setWasCopied(false);
 						}, 2000);
@@ -558,25 +522,14 @@ type CodeBlockExpanderButtonProps = Omit<
 	WithAsChild;
 
 /**
- * The (optional) expander button of the `CodeBlock`. Render this as a child of the
- * `CodeBlock.Body` to allow users to expand/collapse the code block contents.
- *
- * @note If this component is preset, the `CodeBlock` will automatically know
- * that it should be collapsible. Don't use this component if you don't want
- * the code block to be collapsible.
- *
- * @see https://mantle.ngrok.com/components/code-block#codeblockexpanderbutton
+ * The (optional) expander button of the `CodeBlock`. Toggles the expanded
+ * state of the code block. When present, the code block is collapsible.
  *
  * @example
  * ```tsx
  * <CodeBlock.Root>
- *   <CodeBlock.Header>
- *     <CodeBlock.Icon preset="file" />
- *     <CodeBlock.Title>…</CodeBlock.Title>
- *   </CodeBlock.Header>
  *   <CodeBlock.Body>
- *     <CodeBlock.CopyButton />
- *     <CodeBlock.Code language="…" value={fmtCode\`…\`} />
+ *     <CodeBlock.Code value={mantleCode("typescript")`…`} />
  *   </CodeBlock.Body>
  *   <CodeBlock.ExpanderButton />
  * </CodeBlock.Root>
@@ -589,7 +542,6 @@ const ExpanderButton = forwardRef<ComponentRef<"button">, CodeBlockExpanderButto
 
 		useEffect(() => {
 			setHasCodeExpander(true);
-
 			return () => {
 				setHasCodeExpander(false);
 			};
@@ -628,7 +580,7 @@ type CodeBlockIconProps = Omit<SvgAttributes, "children"> &
 	(
 		| {
 				/**
-				 * A custom icon to display in the code block header.
+				 * A custom icon SVG to display in the code block header.
 				 * (Pass only one of `svg` or `preset`.)
 				 */
 				svg: ReactNode;
@@ -640,7 +592,7 @@ type CodeBlockIconProps = Omit<SvgAttributes, "children"> &
 		  }
 		| {
 				/**
-				 * A custom icon to display in the code block header.
+				 * A custom icon SVG to display in the code block header.
 				 * (Pass only one of `svg` or `preset`.)
 				 */
 				svg?: undefined | never;
@@ -653,27 +605,15 @@ type CodeBlockIconProps = Omit<SvgAttributes, "children"> &
 	);
 
 /**
- * A small icon that represents the type of code block being displayed,
- * rendered as an SVG next to the code block title in the code block header.
- *
- * You can pass in a custom SVG component or use one of the presets
- * (pass only one of `svg` or `preset`).
- *
- * @see https://mantle.ngrok.com/components/code-block#codeblockicon
+ * A small icon for the `CodeBlock` header. Pass either a custom `svg`
+ * or a `preset` value (not both).
  *
  * @example
  * ```tsx
- * <CodeBlock.Root>
- *   <CodeBlock.Header>
- *     <CodeBlock.Icon preset="file" />
- *     <CodeBlock.Title>…</CodeBlock.Title>
- *   </CodeBlock.Header>
- *   <CodeBlock.Body>
- *     <CodeBlock.CopyButton />
- *     <CodeBlock.Code language="…" value={fmtCode\`…\`} />
- *   </CodeBlock.Body>
- *   <CodeBlock.ExpanderButton />
- * </CodeBlock.Root>
+ * <CodeBlock.Header>
+ *   <CodeBlock.Icon preset="file" />
+ *   <CodeBlock.Title>example.ts</CodeBlock.Title>
+ * </CodeBlock.Header>
  * ```
  */
 function CodeBlockIconComponent({
@@ -696,179 +636,79 @@ function CodeBlockIconComponent({
 				break;
 		}
 	}
-
 	return <MantleIcon className={className} svg={svg} {...props} />;
 }
 CodeBlockIconComponent.displayName = "CodeBlockIcon";
 
 /**
- * Code blocks render and apply syntax highlighting to blocks of code.
+ * Shiki-powered code blocks with build-time syntax highlighting and zero browser bundle.
  *
- * @see https://mantle.ngrok.com/components/code-block
+ * Use `mantleCodeBlockPlugins()` to enable pre-rendering at build time.
  *
  * @example
  * ```tsx
  * <CodeBlock.Root>
  *   <CodeBlock.Header>
  *     <CodeBlock.Icon preset="file" />
- *     <CodeBlock.Title>…</CodeBlock.Title>
+ *     <CodeBlock.Title>example.ts</CodeBlock.Title>
  *   </CodeBlock.Header>
  *   <CodeBlock.Body>
  *     <CodeBlock.CopyButton />
- *     <CodeBlock.Code language="…" value={fmtCode\`…\`} />
+ *     <CodeBlock.Code value={mantleCode("typescript")`const x = "hello";`} />
  *   </CodeBlock.Body>
  *   <CodeBlock.ExpanderButton />
  * </CodeBlock.Root>
+ *
+ * // Server-highlighted HTML fetched via an action route + React Query mutation
+ * const highlightMutation = useMutation({
+ *   mutationFn: async () => {
+ *     const response = await fetch("/api/shiki-highlight", {
+ *       method: "POST",
+ *       headers: { "Content-Type": "application/json" },
+ *       body: JSON.stringify({ code: source, language: "typescript" }),
+ *     });
+ *     return response.json();
+ *   },
+ * });
+ *
+ * const serverValue = createMantleCodeBlockValue({
+ *   language: "typescript",
+ *   code: source,
+ *   preHtml: highlightMutation.data?.html,
+ * });
  * ```
  */
 const CodeBlock = {
 	/**
-	 * Code blocks render and apply syntax highlighting to blocks of code.
-	 * This is the root component for all code block components.
-	 *
-	 * @see https://mantle.ngrok.com/components/code-block#codeblockroot
-	 *
-	 * @example
-	 * ```tsx
-	 * <CodeBlock.Root>
-	 *   <CodeBlock.Header>
-	 *     <CodeBlock.Icon preset="file" />
-	 *     <CodeBlock.Title>…</CodeBlock.Title>
-	 *   </CodeBlock.Header>
-	 *   <CodeBlock.Body>
-	 *     <CodeBlock.CopyButton />
-	 *     <CodeBlock.Code language="…" value={fmtCode\`…\`} />
-	 *   </CodeBlock.Body>
-	 *   <CodeBlock.ExpanderButton />
-	 * </CodeBlock.Root>
-	 * ```
+	 * The root component of the `CodeBlock`.
 	 */
 	Root,
 	/**
-	 * The body of the `CodeBlock`. This is where the `CodeBlock.Code` and optional
-	 * `CodeBlock.CopyButton` is rendered.
-	 *
-	 * @see https://mantle.ngrok.com/components/code-block#codeblockbody
-	 *
-	 * @example
-	 * ```tsx
-	 * <CodeBlock.Root>
-	 *   <CodeBlock.Body>
-	 *     <CodeBlock.CopyButton />
-	 *     <CodeBlock.Code language="…" value={fmtCode\`…\`} />
-	 *   </CodeBlock.Body>
-	 * </CodeBlock.Root>
-	 * ```
+	 * The body of the `CodeBlock`. Contains `Code` and optional `CopyButton`.
 	 */
 	Body,
 	/**
-	 * The `CodeBlock` content. This is where the code is rendered and syntax highlighted.
-	 *
-	 * @see https://mantle.ngrok.com/components/code-block#codeblockcode
-	 *
-	 * @example
-	 * ```tsx
-	 * <CodeBlock.Root>
-	 *   <CodeBlock.Body>
-	 *     <CodeBlock.Code
-	 *       language="sh"
-	 *       value={fmtCode`ffmpeg -i multichannel.mxf -map 0:v:0 -map 0:a:0`}
-	 *     />
-	 *   </CodeBlock.Body>
-	 * </CodeBlock.Root>
-	 * ```
+	 * The code content. Renders pre-highlighted Shiki HTML when the Vite plugin is active.
 	 */
 	Code,
 	/**
-	 * The (optional) copy button of the `CodeBlock`. Render this as a child of the
-	 * `CodeBlock.Body` to allow users to copy the code block contents to their
-	 * clipboard.
-	 *
-	 * @see https://mantle.ngrok.com/components/code-block#codeblockcopybutton
-	 *
-	 * @example
-	 * ```tsx
-	 * <CodeBlock.Root>
-	 *   <CodeBlock.Body>
-	 *     <CodeBlock.CopyButton />
-	 *     <CodeBlock.Code language="…" value={fmtCode\`…\`} />
-	 *   </CodeBlock.Body>
-	 * </CodeBlock.Root>
-	 * ```
+	 * The optional copy button.
 	 */
 	CopyButton,
 	/**
-	 * The (optional) expander button of the `CodeBlock`. Render this as a child of the
-	 * `CodeBlock.Body` to allow users to expand/collapse the code block contents.
-	 *
-	 * @see https://mantle.ngrok.com/components/code-block#codeblockexpanderbutton
-	 *
-	 * @example
-	 * ```tsx
-	 * <CodeBlock.Root>
-	 *   <CodeBlock.Body>
-	 *     <CodeBlock.Code language="…" value={fmtCode\`…\`} />
-	 *   </CodeBlock.Body>
-	 *   <CodeBlock.ExpanderButton />
-	 * </CodeBlock.Root>
-	 * ```
+	 * The optional expander button for collapsible code blocks.
 	 */
 	ExpanderButton,
 	/**
-	 * The (optional) header slot of the `CodeBlock`. This is where things like the
-	 * `CodeBlock.Icon` and `CodeBlock.Title` are rendered.
-	 *
-	 * @see https://mantle.ngrok.com/components/code-block#codeblockheader
-	 *
-	 * @example
-	 * ```tsx
-	 * <CodeBlock.Root>
-	 *   <CodeBlock.Header>
-	 *     <CodeBlock.Icon preset="file" />
-	 *     <CodeBlock.Title>…</CodeBlock.Title>
-	 *   </CodeBlock.Header>
-	 *   <CodeBlock.Body>
-	 *     <CodeBlock.Code language="…" value={fmtCode\`…\`} />
-	 *   </CodeBlock.Body>
-	 * </CodeBlock.Root>
-	 * ```
+	 * The optional header slot for icon and title.
 	 */
 	Header,
 	/**
-	 * A small icon that represents the type of code block being displayed,
-	 * rendered as an SVG next to the code block title in the code block header.
-	 *
-	 * You can pass in a custom SVG component or use one of the presets
-	 * (pass only one of `svg` or `preset`).
-	 *
-	 * @see https://mantle.ngrok.com/components/code-block#codeblockicon
-	 *
-	 * @example
-	 * ```tsx
-	 * <CodeBlock.Root>
-	 *   <CodeBlock.Header>
-	 *     <CodeBlock.Icon preset="file" />
-	 *     <CodeBlock.Title>…</CodeBlock.Title>
-	 *   </CodeBlock.Header>
-	 * </CodeBlock.Root>
-	 * ```
+	 * A small icon for the code block header. Use `preset` or `svg`.
 	 */
 	Icon: CodeBlockIconComponent,
 	/**
-	 * The (optional) title of the `CodeBlock`. Default renders as an h3 element,
-	 * use asChild to render something else.
-	 *
-	 * @see https://mantle.ngrok.com/components/code-block#codeblocktitle
-	 *
-	 * @example
-	 * ```tsx
-	 * <CodeBlock.Root>
-	 *   <CodeBlock.Header>
-	 *     <CodeBlock.Icon preset="file" />
-	 *     <CodeBlock.Title>example.js</CodeBlock.Title>
-	 *   </CodeBlock.Header>
-	 * </CodeBlock.Root>
-	 * ```
+	 * The optional title rendered in the header.
 	 */
 	Title,
 } as const;

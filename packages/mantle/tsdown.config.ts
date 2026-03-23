@@ -63,29 +63,6 @@ export default defineConfig((options) => [
 		tsconfig: "tsconfig.build.json",
 		fixedExtension: false,
 		format: "esm",
-		// Bundle prismjs into the dist output rather than leaving it as an external import.
-		// prismjs component files are plain IIFEs with no module.exports/require — bundlers
-		// (Rollup/Vite 8) don't see the implicit dependency on the prismjs main module and
-		// can evaluate component files before window.Prism is set, causing
-		// "ReferenceError: Prism is not defined". Bundling prismjs here gives rolldown
-		// full visibility into the dependency graph and lets it order evaluation correctly,
-		// so consuming apps never need to configure anything special for prismjs.
-		alwaysBundle: ["prismjs"],
-		onlyBundle: ["prismjs"],
-		plugins: [
-			{
-				name: "prismjs-explicit-dep",
-				transform(code, id) {
-					// prismjs component files are plain IIFEs that reference Prism as a
-					// global — rolldown doesn't see the implicit dependency on prismjs main.
-					// Prepending `import "prismjs"` creates the explicit edge so rolldown
-					// evaluates prismjs (which sets window.Prism) before any component.
-					if (/\/prismjs\/components\/prism-/.test(id)) {
-						return { code: `import "prismjs";\n${code}` };
-					}
-				},
-			},
-		],
 		entry: {
 			...componentPackages,
 			...utilPackages,

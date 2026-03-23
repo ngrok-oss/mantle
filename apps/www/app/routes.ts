@@ -37,7 +37,6 @@ export default [
 	...docRoute("components/card"),
 	...docRoute("components/checkbox"),
 	...docRoute("components/code-block"),
-	route("components/shiki-code-block", "./routes/components.shiki-code-block.tsx"),
 	...docRoute("components/code"),
 	...docRoute("components/combobox"),
 	...docRoute("components/command"),

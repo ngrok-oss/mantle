@@ -5,6 +5,18 @@ export {
 
 export {
 	//,
+	createMantleCodeBlockValue,
+	mantleCode,
+} from "./mantle-code.js";
+
+export type {
+	//,
+	MantleCodeBlockValue,
+	MantleCodeOptions,
+} from "./mantle-code.js";
+
+export {
+	//,
 	decorateHighlightedHtml,
 } from "./decorate-highlighted-html.js";
 
@@ -28,11 +40,6 @@ export type {
 	//,
 	Indentation,
 } from "./indentation.js";
-
-export {
-	//,
-	fmtCode,
-} from "./fmt-code.js";
 
 export {
 	//,
@@ -75,7 +82,6 @@ export type {
 
 export {
 	//,
-	formatLanguageClassName,
 	isSupportedLanguage,
 	parseLanguage,
 	supportedLanguages,

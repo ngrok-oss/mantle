@@ -165,76 +165,78 @@ function mantleCodeRehypePlugin() {
 			}
 		});
 
-		for (const preNode of preNodes) {
-			const codeNode = findCodeChild(preNode);
-			if (!codeNode) {
-				continue;
-			}
+		await Promise.all(
+			preNodes.map(async (preNode) => {
+				const codeNode = findCodeChild(preNode);
+				if (!codeNode) {
+					return;
+				}
 
-			const language = getLanguageFromCodeNode(codeNode) ?? "text";
-			if (excludedRehypeCodeFenceLanguages.has(language)) {
-				continue;
-			}
-			if (!isSupportedLanguage(language)) {
-				continue;
-			}
+				const language = getLanguageFromCodeNode(codeNode) ?? "text";
+				if (excludedRehypeCodeFenceLanguages.has(language)) {
+					return;
+				}
+				if (!isSupportedLanguage(language)) {
+					return;
+				}
 
-			const rawCode = extractText(codeNode);
-			const meta = getCodeFenceMeta(codeNode);
-			const showLineNumbers =
-				parseCodeBlockShowLineNumbers(preNode.properties?.showLineNumbers) ??
-				parseCodeBlockShowLineNumbers(getMetaValue(meta, "showLineNumbers")) ??
-				true;
-			const lineNumberStart =
-				parseCodeBlockLineNumberStart(preNode.properties?.lineNumberStart) ??
-				parseCodeBlockLineNumberStart(getMetaValue(meta, "lineNumberStart"));
-			const highlightLines =
-				parseCodeBlockHighlightLines(preNode.properties?.highlightLines) ??
-				parseCodeBlockHighlightLines(preNode.properties?.highlight) ??
-				parseCodeBlockHighlightLines(getMetaValue(meta, "highlightLines")) ??
-				parseCodeBlockHighlightLines(getMetaValue(meta, "highlight"));
-			const collapsible =
-				preNode.properties?.collapsible ?? (hasMetaFlag(meta, "collapsible") ? true : undefined);
-			const disableCopy =
-				typeof preNode.properties?.disableCopy === "string" ||
-				typeof preNode.properties?.disableCopy === "boolean"
-					? parseBooleanish(preNode.properties.disableCopy)
-					: hasMetaFlag(meta, "disableCopy")
-						? true
-						: parseBooleanish(getMetaValue(meta, "disableCopy")) || undefined;
-			const mode =
-				parseCodeBlockMode(preNode.properties?.mode) ??
-				parseCodeBlockMode(getMetaValue(meta, "mode"));
-			const title =
-				typeof preNode.properties?.title === "string"
-					? preNode.properties.title
-					: getMetaValue(meta, "title");
-			const highlighted = await highlightWithMantleShiki({
-				code: rawCode,
-				highlightLines,
-				language,
-				lineNumberStart,
-				showLineNumbers,
-			});
+				const rawCode = extractText(codeNode);
+				const meta = getCodeFenceMeta(codeNode);
+				const showLineNumbers =
+					parseCodeBlockShowLineNumbers(preNode.properties?.showLineNumbers) ??
+					parseCodeBlockShowLineNumbers(getMetaValue(meta, "showLineNumbers")) ??
+					true;
+				const lineNumberStart =
+					parseCodeBlockLineNumberStart(preNode.properties?.lineNumberStart) ??
+					parseCodeBlockLineNumberStart(getMetaValue(meta, "lineNumberStart"));
+				const highlightLines =
+					parseCodeBlockHighlightLines(preNode.properties?.highlightLines) ??
+					parseCodeBlockHighlightLines(preNode.properties?.highlight) ??
+					parseCodeBlockHighlightLines(getMetaValue(meta, "highlightLines")) ??
+					parseCodeBlockHighlightLines(getMetaValue(meta, "highlight"));
+				const collapsible =
+					preNode.properties?.collapsible ?? (hasMetaFlag(meta, "collapsible") ? true : undefined);
+				const disableCopy =
+					typeof preNode.properties?.disableCopy === "string" ||
+					typeof preNode.properties?.disableCopy === "boolean"
+						? parseBooleanish(preNode.properties.disableCopy)
+						: hasMetaFlag(meta, "disableCopy")
+							? true
+							: parseBooleanish(getMetaValue(meta, "disableCopy")) || undefined;
+				const mode =
+					parseCodeBlockMode(preNode.properties?.mode) ??
+					parseCodeBlockMode(getMetaValue(meta, "mode"));
+				const title =
+					typeof preNode.properties?.title === "string"
+						? preNode.properties.title
+						: getMetaValue(meta, "title");
+				const highlighted = await highlightWithMantleShiki({
+					code: rawCode,
+					highlightLines,
+					language,
+					lineNumberStart,
+					showLineNumbers,
+				});
 
-			preNode.properties = {
-				...(preNode.properties ?? {}),
-				collapsible,
-				disableCopy,
-				mode,
-				title,
-				mantleCode: highlighted.code,
-				mantleCollapsible: collapsible,
-				mantleDisableCopy: disableCopy,
-				mantleHighlightLines: highlighted.highlightLines,
-				mantleLanguage: highlighted.language,
-				mantleLineNumberStart: highlighted.lineNumberStart,
-				mantleMode: mode,
-				mantlePreHtml: highlighted.html,
-				mantleShowLineNumbers: highlighted.showLineNumbers,
-				mantleTitle: title,
-			};
-		}
+				preNode.properties = {
+					...(preNode.properties ?? {}),
+					collapsible,
+					disableCopy,
+					mode,
+					title,
+					mantleCode: highlighted.code,
+					mantleCollapsible: collapsible,
+					mantleDisableCopy: disableCopy,
+					mantleHighlightLines: highlighted.highlightLines,
+					mantleLanguage: highlighted.language,
+					mantleLineNumberStart: highlighted.lineNumberStart,
+					mantleMode: mode,
+					mantlePreHtml: highlighted.html,
+					mantleShowLineNumbers: highlighted.showLineNumbers,
+					mantleTitle: title,
+				};
+			}),
+		);
 	};
 }
 
