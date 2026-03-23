@@ -22,12 +22,12 @@ export {
 	//,
 	inferIndentation,
 	isIndentation,
-} from "./normalize-indentation.js";
+} from "./indentation.js";
 
 export type {
 	//,
 	Indentation,
-} from "./normalize-indentation.js";
+} from "./indentation.js";
 
 export {
 	//,

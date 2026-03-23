@@ -1,6 +1,6 @@
 import type { SupportedLanguage } from "../code-block/supported-languages.js";
 import type { LineRange } from "../code-block/line-numbers.js";
-import type { Indentation } from "../code-block/normalize-indentation.js";
+import type { Indentation } from "../code-block/indentation.js";
 
 const mantleCodeBlockValueBrand: unique symbol = Symbol("MantleCodeBlockValue");
 

@@ -1,5 +1,5 @@
 import { parseBooleanish } from "../../types/booleanish.js";
-import { type Indentation, isIndentation } from "./normalize-indentation.js";
+import { type Indentation, isIndentation } from "./indentation.js";
 
 const modes = [
 	//,

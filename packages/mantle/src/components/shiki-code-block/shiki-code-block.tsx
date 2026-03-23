@@ -32,7 +32,7 @@ import type { SvgAttributes } from "../icon/types.js";
 import { TrafficPolicyFileIcon } from "../icons/traffic-policy-file.js";
 import { Slot } from "../slot/index.js";
 import { escapeHtml } from "../code-block/escape-html.js";
-import type { Indentation } from "../code-block/normalize-indentation.js";
+import type { Indentation } from "../code-block/indentation.js";
 import type { LineRange } from "../code-block/line-numbers.js";
 import type { Mode } from "../code-block/resolve-pre-rendered-props.js";
 import type { MantleCodeBlockValue } from "./shiki-code.js";
