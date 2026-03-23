@@ -27,7 +27,7 @@
       "cache": false
     },
     "test": {
-      "dependsOn": ["//#install:playwright"]
+      "dependsOn": ["^build", "//#install:playwright"]
     },
     "test:watch": {
       "cache": false,
