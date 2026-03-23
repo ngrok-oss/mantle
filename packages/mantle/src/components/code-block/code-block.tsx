@@ -46,18 +46,13 @@ type CodeBlockContextType = {
 	unregisterCodeId: (id: string) => void;
 };
 
-const defaultCopyTextRef = { current: "" };
+const CodeBlockContext = createContext<CodeBlockContextType | null>(null);
 
-const CodeBlockContext = createContext<CodeBlockContextType>({
-	codeId: undefined,
-	copyTextRef: defaultCopyTextRef,
-	hasCodeExpander: false,
-	isCodeExpanded: false,
-	registerCodeId: () => {},
-	setHasCodeExpander: () => {},
-	setIsCodeExpanded: () => {},
-	unregisterCodeId: () => {},
-});
+function useCodeBlockContext(): CodeBlockContextType {
+	const context = useContext(CodeBlockContext);
+	assert(context != null, "CodeBlock subcomponents must be rendered within a <CodeBlock.Root>.");
+	return context;
+}
 
 /**
  * Shiki-powered code blocks with build-time syntax highlighting and zero browser bundle.
@@ -216,7 +211,7 @@ const Code = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
 	({ className, style, tabIndex, value, ...props }, ref) => {
 		const id = useId();
 		const { copyTextRef, hasCodeExpander, isCodeExpanded, registerCodeId, unregisterCodeId } =
-			useContext(CodeBlockContext);
+			useCodeBlockContext();
 		const {
 			language,
 			code,
@@ -393,7 +388,7 @@ type CodeBlockCopyButtonProps = Omit<ComponentProps<"button">, "children" | "typ
  */
 const CopyButton = forwardRef<ComponentRef<"button">, CodeBlockCopyButtonProps>(
 	({ asChild = false, className, onCopy, onCopyError, onClick, ...props }, ref) => {
-		const { copyTextRef } = useContext(CodeBlockContext);
+		const { copyTextRef } = useCodeBlockContext();
 		const [, copyToClipboard] = useCopyToClipboard();
 		const [wasCopied, setWasCopied] = useState(false);
 		const timeoutHandle = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
@@ -482,8 +477,7 @@ type CodeBlockExpanderButtonProps = Omit<
  */
 const ExpanderButton = forwardRef<ComponentRef<"button">, CodeBlockExpanderButtonProps>(
 	({ asChild = false, className, onClick, ...props }, ref) => {
-		const { codeId, isCodeExpanded, setIsCodeExpanded, setHasCodeExpander } =
-			useContext(CodeBlockContext);
+		const { codeId, isCodeExpanded, setIsCodeExpanded, setHasCodeExpander } = useCodeBlockContext();
 
 		useEffect(() => {
 			setHasCodeExpander(true);

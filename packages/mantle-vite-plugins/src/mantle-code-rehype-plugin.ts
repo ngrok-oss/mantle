@@ -163,7 +163,7 @@ function mantleCodeRehypePlugin() {
 						? parseBooleanish(preNode.properties.disableCopy)
 						: hasMetaFlag(meta, "disableCopy")
 							? true
-							: parseBooleanish(getMetaValue(meta, "disableCopy")) || undefined;
+							: (parseBooleanish(getMetaValue(meta, "disableCopy")) ?? undefined);
 				const mode =
 					parseCodeBlockMode(preNode.properties?.mode) ??
 					parseCodeBlockMode(getMetaValue(meta, "mode"));
