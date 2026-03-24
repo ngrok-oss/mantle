@@ -10,7 +10,8 @@ It is intended for server-side syntax highlighting use cases such as rendering c
 - exposes a readiness-aware `GET /health` endpoint
 - accepts `POST /` requests with code and language input
 - returns normalized code, resolved language metadata, and highlighted HTML
-- enforces a request body size limit before highlighting work runs
+- enforces a request body size limit (streaming + Content-Length pre-check)
+- aborts highlight requests that exceed a 5-second timeout
 
 ## Local Development
 
@@ -98,6 +99,7 @@ Common error responses:
 - `400 {"message":"Missing required fields: code, language"}`
 - `413 {"message":"Request body too large"}`
 - `500 {"message":"Failed to highlight code"}`
+- `504 {"message":"Highlight timed out"}` — request exceeded the 5-second highlight timeout
 
 ## Configuration
 
@@ -106,7 +108,7 @@ Environment variables:
 - `PORT`
   Default: `4444`
 - `CORS_ORIGINS`
-  Comma-separated allowlist. If unset, CORS is open.
+  Comma-separated allowlist. If unset, CORS is disabled (no browser access).
   Example: `https://mantle.ngrok.com,https://dashboard.ngrok.com`
 - `MAX_REQUEST_BYTES`
   Maximum accepted request body size in bytes.

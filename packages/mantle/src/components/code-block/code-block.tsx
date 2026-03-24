@@ -255,9 +255,7 @@ const Code = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
 			[__preValToken, __preVals, code],
 		);
 
-		useEffect(() => {
-			copyTextRef.current = copyText;
-		}, [copyText, copyTextRef]);
+		copyTextRef.current = copyText;
 
 		useEffect(() => {
 			registerCodeId(id);
@@ -298,7 +296,7 @@ const Code = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
 						: undefined
 				}
 				data-mantle-line-number-start={
-					isPreRendered && effectiveShowLineNumbers ? String(effectiveLineNumberStart) : 1
+					isPreRendered && effectiveShowLineNumbers ? String(effectiveLineNumberStart) : "1"
 				}
 				data-mantle-line-numbers={isPreRendered && effectiveShowLineNumbers ? "true" : "false"}
 				id={id}

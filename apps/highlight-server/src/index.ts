@@ -82,19 +82,21 @@ async function readUtf8BodyWithLimit(
 
 /**
  * Comma-separated list of allowed CORS origins.
- * If not set, all origins are allowed (open CORS).
+ * If not set, CORS is disabled (no browser access by default).
  * Example: CORS_ORIGINS=https://mantle.ngrok.com,https://dashboard.ngrok.com
  */
 const corsOrigins = process.env.CORS_ORIGINS?.split(",")
 	.map((origin) => origin.trim())
 	.filter(Boolean);
 
-app.use(
-	"*",
-	cors({
-		origin: corsOrigins && corsOrigins.length > 0 ? corsOrigins : "*",
-	}),
-);
+if (corsOrigins && corsOrigins.length > 0) {
+	app.use(
+		"*",
+		cors({
+			origin: corsOrigins,
+		}),
+	);
+}
 
 app.get("/health", (ctx) => {
 	if (highlighterState === "ready") {
@@ -135,22 +137,22 @@ app.post("/", async (ctx) => {
 		return ctx.json({ message: "Missing required fields: code, language" }, 400);
 	}
 
+	const abortController = new AbortController();
+	const timeoutId = setTimeout(() => abortController.abort(), 5_000);
+
 	try {
 		await highlighterReady;
-		const result = await Promise.race([
-			highlighter.highlight({
-				code: parsedBody.output.code,
-				highlightLines: parseCodeBlockHighlightLines(parsedBody.output.highlightLines) ?? [],
-				language: parsedBody.output.language,
-				lineNumberStart: parsedBody.output.lineNumberStart,
-				showLineNumbers: parsedBody.output.showLineNumbers,
-			}),
-			new Promise<never>((_, reject) => {
-				setTimeout(() => {
-					reject(new Error("Highlight operation timed out"));
-				}, 10_000);
-			}),
-		]);
+		abortController.signal.throwIfAborted();
+
+		const result = await highlighter.highlight({
+			code: parsedBody.output.code,
+			highlightLines: parseCodeBlockHighlightLines(parsedBody.output.highlightLines) ?? [],
+			language: parsedBody.output.language,
+			lineNumberStart: parsedBody.output.lineNumberStart,
+			showLineNumbers: parsedBody.output.showLineNumbers,
+		});
+
+		abortController.signal.throwIfAborted();
 
 		return ctx.json({
 			code: result.code,
@@ -160,12 +162,13 @@ app.post("/", async (ctx) => {
 			lineNumberStart: result.lineNumberStart,
 			showLineNumbers: result.showLineNumbers,
 		});
-	} catch (error) {
-		const isTimeout = error instanceof Error && error.message === "Highlight operation timed out";
-		return ctx.json(
-			{ message: isTimeout ? "Highlight timed out" : "Failed to highlight code" },
-			isTimeout ? 504 : 500,
-		);
+	} catch {
+		if (abortController.signal.aborted) {
+			return ctx.json({ message: "Highlight timed out" }, 504);
+		}
+		return ctx.json({ message: "Failed to highlight code" }, 500);
+	} finally {
+		clearTimeout(timeoutId);
 	}
 });
 
