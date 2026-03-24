@@ -22,10 +22,12 @@ async function runTransform(source: string, id = "/virtual/test.tsx") {
 	};
 }
 
+const mantleImport = 'import { mantleCode } from "@ngrok/mantle/code-block";\n';
+
 describe("mantleCodeVitePlugin", () => {
 	test("transforms mantleCode tagged templates outside JSX", async () => {
 		const result = await runTransform(
-			'const snippet = mantleCode("typescript")`const value = ${count};`;',
+			mantleImport + 'const snippet = mantleCode("typescript")`const value = ${count};`;',
 		);
 
 		expect(result.warn).not.toHaveBeenCalled();
@@ -35,9 +37,43 @@ describe("mantleCodeVitePlugin", () => {
 		expect(result.code).not.toContain('mantleCode("typescript")');
 	});
 
+	test("wraps replacement in parentheses for expression context safety", async () => {
+		const result = await runTransform(
+			mantleImport + 'const f = () => mantleCode("typescript")`const x = 1`;',
+		);
+
+		expect(result.warn).not.toHaveBeenCalled();
+		expect(result.code).toContain("const f = () => ({language:");
+	});
+
+	test("skips mantleCode not imported from @ngrok/mantle/code-block", async () => {
+		const result = await runTransform(
+			'import { mantleCode } from "./my-local-helper";\nconst snippet = mantleCode("typescript")`const value = 1;`;',
+		);
+
+		expect(result.code).toBeUndefined();
+	});
+
+	test("skips mantleCode with no import at all", async () => {
+		const result = await runTransform(
+			'const snippet = mantleCode("typescript")`const value = 1;`;',
+		);
+
+		expect(result.code).toBeUndefined();
+	});
+
+	test("handles aliased imports", async () => {
+		const result = await runTransform(
+			'import { mantleCode as mc } from "@ngrok/mantle/code-block";\nconst snippet = mc("typescript")`const value = 1;`;',
+		);
+
+		expect(result.warn).not.toHaveBeenCalled();
+		expect(result.code).toContain('"~preHtml"');
+	});
+
 	test("folds static CodeBlock.Code props into the transformed value and removes them from JSX", async () => {
 		const source = [
-			"<CodeBlock.Code",
+			mantleImport + "<CodeBlock.Code",
 			"\tshowLineNumbers",
 			"\tlineNumberStart={7}",
 			'\thighlightLines={[1, "3-4"]}',
@@ -60,7 +96,8 @@ describe("mantleCodeVitePlugin", () => {
 
 	test("normalizes numeric highlightLines entries to integers", async () => {
 		const result = await runTransform(
-			'<CodeBlock.Code highlightLines={[2.9]} value={mantleCode("typescript")`const value = 1;`} />;',
+			mantleImport +
+				'<CodeBlock.Code highlightLines={[2.9]} value={mantleCode("typescript")`const value = 1;`} />;',
 		);
 
 		expect(result.warn).not.toHaveBeenCalled();

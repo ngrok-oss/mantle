@@ -137,13 +137,20 @@ app.post("/", async (ctx) => {
 
 	try {
 		await highlighterReady;
-		const result = await highlighter.highlight({
-			code: parsedBody.output.code,
-			highlightLines: parseCodeBlockHighlightLines(parsedBody.output.highlightLines) ?? [],
-			language: parsedBody.output.language,
-			lineNumberStart: parsedBody.output.lineNumberStart,
-			showLineNumbers: parsedBody.output.showLineNumbers,
-		});
+		const result = await Promise.race([
+			highlighter.highlight({
+				code: parsedBody.output.code,
+				highlightLines: parseCodeBlockHighlightLines(parsedBody.output.highlightLines) ?? [],
+				language: parsedBody.output.language,
+				lineNumberStart: parsedBody.output.lineNumberStart,
+				showLineNumbers: parsedBody.output.showLineNumbers,
+			}),
+			new Promise<never>((_, reject) => {
+				setTimeout(() => {
+					reject(new Error("Highlight operation timed out"));
+				}, 10_000);
+			}),
+		]);
 
 		return ctx.json({
 			code: result.code,
@@ -153,8 +160,12 @@ app.post("/", async (ctx) => {
 			lineNumberStart: result.lineNumberStart,
 			showLineNumbers: result.showLineNumbers,
 		});
-	} catch {
-		return ctx.json({ message: "Failed to highlight code" }, 500);
+	} catch (error) {
+		const isTimeout = error instanceof Error && error.message === "Highlight operation timed out";
+		return ctx.json(
+			{ message: isTimeout ? "Highlight timed out" : "Failed to highlight code" },
+			isTimeout ? 504 : 500,
+		);
 	}
 });
 

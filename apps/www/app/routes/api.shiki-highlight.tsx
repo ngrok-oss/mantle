@@ -2,6 +2,12 @@ import { parseCodeBlockHighlightLines } from "@ngrok/mantle/code-block";
 import { createMantleServerSyntaxHighlighter } from "@ngrok/mantle-server-syntax-highlighter";
 import { z } from "zod";
 
+/**
+ * Maximum request body size in bytes (1 MiB). Requests exceeding this limit are
+ * rejected before any highlighting work occurs.
+ */
+const maxRequestBytes = 1024 * 1024;
+
 const requestSchema = z.object({
 	code: z.string(),
 	highlightLines: z.array(z.union([z.number(), z.string()])).optional(),
@@ -17,6 +23,11 @@ const methodNotAllowedBody = { message: "Method Not Allowed" };
 export async function action({ request }: { request: Request }) {
 	if (request.method !== "POST") {
 		return Response.json(methodNotAllowedBody, { status: 405 });
+	}
+
+	const contentLength = Number(request.headers.get("content-length"));
+	if (Number.isFinite(contentLength) && contentLength > maxRequestBytes) {
+		return Response.json({ message: "Request body too large" }, { status: 413 });
 	}
 
 	let payload: unknown;

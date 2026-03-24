@@ -222,20 +222,6 @@ function walk(node: unknown, visit: (node: OxcNode) => void) {
 	}
 }
 
-function getCalleeName(node: OxcExpression): string | undefined {
-	return isIdentifier(node) ? node.name : undefined;
-}
-
-function isMantleCodeTag(node: OxcExpression): node is OxcCallExpression {
-	return isCallExpression(node) && getCalleeName(node.callee) === "mantleCode";
-}
-
-function isMantleCodeTaggedTemplateExpression(
-	node: OxcNode | null | undefined,
-): node is MantleCodeTaggedTemplateExpression {
-	return isTaggedTemplateExpression(node) && isMantleCodeTag(node.tag);
-}
-
 function isStringLiteral(node: OxcNode | null | undefined): node is OxcLiteral {
 	return isLiteral(node) && typeof node.value === "string";
 }
@@ -385,6 +371,7 @@ function getAttributeRemovalRange(
 function parseJsxCodeProps(
 	openingElement: OxcJSXOpeningElement,
 	source: string,
+	mantleCodeNames: Set<string>,
 ): { taggedTemplateStart: number; props: ParsedJsxCodePropsResult } | undefined {
 	if (getJsxElementName(openingElement.name) !== "CodeBlock.Code") {
 		return undefined;
@@ -404,7 +391,13 @@ function parseJsxCodeProps(
 		const attributeName = getJsxAttributeName(attributeNode);
 		const expression = readJsxAttributeExpression(attributeNode);
 
-		if (attributeName === "value" && isMantleCodeTaggedTemplateExpression(expression)) {
+		if (
+			attributeName === "value" &&
+			isTaggedTemplateExpression(expression) &&
+			isCallExpression(expression.tag) &&
+			isIdentifier(expression.tag.callee) &&
+			mantleCodeNames.has(expression.tag.callee.name)
+		) {
 			taggedTemplateStart = expression.start;
 			continue;
 		}
@@ -488,6 +481,31 @@ function mergeMantleCodeOptions({
 	};
 }
 
+/**
+ * Checks whether an import source looks like it comes from the `@ngrok/mantle` package
+ * (e.g. `@ngrok/mantle/code-block`). This prevents the plugin from rewriting a local
+ * helper or third-party function that happens to share the `mantleCode` name.
+ */
+function isMantleImportSource(source: string): boolean {
+	return source === "@ngrok/mantle/code-block" || source.startsWith("@ngrok/mantle/code-block/");
+}
+
+type OxcImportDeclaration = OxcNode & {
+	type: "ImportDeclaration";
+	source: OxcLiteral;
+	specifiers: OxcImportSpecifier[];
+};
+
+type OxcImportSpecifier = OxcNode & {
+	type: "ImportSpecifier" | "ImportDefaultSpecifier" | "ImportNamespaceSpecifier";
+	imported?: OxcIdentifier;
+	local: OxcIdentifier;
+};
+
+function isImportDeclaration(node: OxcNode | null | undefined): node is OxcImportDeclaration {
+	return node?.type === "ImportDeclaration";
+}
+
 function mantleCodeVitePlugin(): Plugin {
 	return {
 		name: "vite-plugin-mantle-code-block",
@@ -508,24 +526,60 @@ function mantleCodeVitePlugin(): Plugin {
 				return;
 			}
 
-			const ms = new MagicString(code);
-			let didTransform = false;
-			const taggedTemplates: MantleCodeTaggedTemplateExpression[] = [];
-			const jsxPropsByTaggedTemplateStart = new Map<number, ParsedJsxCodePropsResult>();
+			// Single-pass AST walk: collect import names, JSX props, and tagged templates together.
+			// Tagged templates are filtered by import source after the walk completes,
+			// since imports are hoisted and may appear after usage in the source text.
+			const mantleCodeNames = new Set<string>();
+			const candidateTaggedTemplates: MantleCodeTaggedTemplateExpression[] = [];
+			const candidateJsxOpeningElements: OxcJSXOpeningElement[] = [];
 
 			walk(parseResult.program, (node) => {
-				if (isJSXOpeningElement(node)) {
-					const parsed = parseJsxCodeProps(node, code);
-					if (parsed != null) {
-						jsxPropsByTaggedTemplateStart.set(parsed.taggedTemplateStart, parsed.props);
+				if (isImportDeclaration(node)) {
+					if (typeof node.source.value === "string" && isMantleImportSource(node.source.value)) {
+						for (const specifier of node.specifiers) {
+							if (
+								specifier.type === "ImportSpecifier" &&
+								specifier.imported?.name === "mantleCode"
+							) {
+								mantleCodeNames.add(specifier.local.name);
+							}
+						}
 					}
 					return;
 				}
 
-				if (isMantleCodeTaggedTemplateExpression(node)) {
-					taggedTemplates.push(node);
+				if (isJSXOpeningElement(node)) {
+					candidateJsxOpeningElements.push(node);
+					return;
+				}
+
+				if (
+					isTaggedTemplateExpression(node) &&
+					isCallExpression(node.tag) &&
+					isIdentifier(node.tag.callee)
+				) {
+					candidateTaggedTemplates.push(node as MantleCodeTaggedTemplateExpression);
 				}
 			});
+
+			if (mantleCodeNames.size === 0) {
+				return;
+			}
+
+			// Filter collected nodes against verified import names.
+			const taggedTemplates = candidateTaggedTemplates.filter((node) =>
+				mantleCodeNames.has((node.tag.callee as OxcIdentifier).name),
+			);
+			const jsxPropsByTaggedTemplateStart = new Map<number, ParsedJsxCodePropsResult>();
+			for (const element of candidateJsxOpeningElements) {
+				const parsed = parseJsxCodeProps(element, code, mantleCodeNames);
+				if (parsed != null) {
+					jsxPropsByTaggedTemplateStart.set(parsed.taggedTemplateStart, parsed.props);
+				}
+			}
+
+			const ms = new MagicString(code);
+			let didTransform = false;
 
 			for (const node of taggedTemplates) {
 				const languageArg = node.tag.arguments[0];
@@ -596,7 +650,7 @@ function mantleCodeVitePlugin(): Plugin {
 					node.quasi.expressions.length === 0
 						? "undefined"
 						: `[${node.quasi.expressions.map((expression) => code.slice(expression.start, expression.end)).join(",")}]`;
-				const replacement = `{language:${JSON.stringify(language)},code:\`${escapedCode}\`,"~preHtml":\`${escapedHtml}\`,"~preValToken":${JSON.stringify(node.quasi.expressions.length === 0 ? undefined : preValToken)},"~preVals":${preValsArray},"~showLineNumbers":${JSON.stringify(effectiveOptions.showLineNumbers)},"~highlightLines":${JSON.stringify(effectiveOptions.highlightLines)},"~lineNumberStart":${JSON.stringify(effectiveOptions.lineNumberStart)}}`;
+				const replacement = `({language:${JSON.stringify(language)},code:\`${escapedCode}\`,"~preHtml":\`${escapedHtml}\`,"~preValToken":${JSON.stringify(node.quasi.expressions.length === 0 ? undefined : preValToken)},"~preVals":${preValsArray},"~showLineNumbers":${JSON.stringify(effectiveOptions.showLineNumbers)},"~highlightLines":${JSON.stringify(effectiveOptions.highlightLines)},"~lineNumberStart":${JSON.stringify(effectiveOptions.lineNumberStart)}})`;
 
 				ms.overwrite(node.start, node.end, replacement);
 				didTransform = true;
