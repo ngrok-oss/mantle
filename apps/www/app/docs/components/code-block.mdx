@@ -11,6 +11,7 @@ import {
 	SingleLineHorizontalScrollingDemo,
 	ServerRenderedHighlightingDemo,
 	OverridingIndentationDemo,
+	TabbedCodeBlockDemo,
 } from "~/features/code-block-demos";
 
 # Code Block
@@ -132,6 +133,19 @@ This example is included to show the interaction between the copy button and hor
 
 <SingleLineHorizontalScrollingDemo />
 
+```tsx
+<CodeBlock.Root>
+	<CodeBlock.Body>
+		<CodeBlock.CopyButton />
+		<CodeBlock.Code
+			value={mantleCode(
+				"bash",
+			)`ffmpeg -i multichannel.mxf -map 0:v:0 -map 0:a:0 -map 0:a:0 -c:a:0 ac3 -b:a:0 640k -ac:a:1 2 -c:a:1 aac -b:2 128k out.mp4`}
+		/>
+	</CodeBlock.Body>
+</CodeBlock.Root>
+```
+
 ### Server-Rendered Syntax Highlighting
 
 The `CodeBlock` supports server-rendered syntax highlighting for dynamic or user-provided code. Use `createMantleCodeBlockValue()` to construct a value from server-highlighted HTML and pass it to `CodeBlock.Code`. This is useful when the code to highlight isn't known at build time — for example, user input or API responses.
@@ -229,6 +243,37 @@ const value = createMantleCodeBlockValue({
 });
 ```
 
+### Tabbed Code Block
+
+Use `CodeBlock.TabList`, `CodeBlock.TabTrigger`, and `CodeBlock.TabContent` to create a tabbed code block. Pass `defaultTab` (or `activeTab` / `onActiveTabChange` for controlled mode) to `CodeBlock.Root`, place the tab triggers in the `CodeBlock.Header`, and wrap each `CodeBlock.Code` in a `CodeBlock.TabContent`. The copy button automatically copies whichever code is currently displayed.
+
+<TabbedCodeBlockDemo />
+
+```tsx
+import { CodeBlock, mantleCode } from "@ngrok/mantle/code-block";
+
+const policyYml = mantleCode("yaml")`…`;
+const policyJson = mantleCode("json")`…`;
+
+<CodeBlock.Root defaultTab="yml">
+	<CodeBlock.Header>
+		<CodeBlock.TabList>
+			<CodeBlock.TabTrigger value="yml">policy.yml</CodeBlock.TabTrigger>
+			<CodeBlock.TabTrigger value="json">policy.json</CodeBlock.TabTrigger>
+		</CodeBlock.TabList>
+	</CodeBlock.Header>
+	<CodeBlock.Body>
+		<CodeBlock.CopyButton />
+		<CodeBlock.TabContent value="yml">
+			<CodeBlock.Code value={policyYml} />
+		</CodeBlock.TabContent>
+		<CodeBlock.TabContent value="json">
+			<CodeBlock.Code value={policyJson} />
+		</CodeBlock.TabContent>
+	</CodeBlock.Body>
+</CodeBlock.Root>;
+```
+
 ### Overriding default language indentation
 
 By default, the code block code will detect the preferred (or required) indentation of the given language. This is important for languages that require a certain indentation style; for example, Python and YAML are space-indented languages, so the code block will use spaces for indentation. This is done to ensure that the code is displayed and copied correctly and is easy to read. However, you can override this by passing `indentation` in the `mantleCode()` options.
@@ -241,13 +286,16 @@ The `CodeBlock` renders and applies syntax highlighting to blocks of code and is
 
 ### CodeBlock.Root
 
-Root container for all `CodeBlock` sub-components.
+Root container for all `CodeBlock` sub-components. For tabbed code blocks, pass `defaultTab` (uncontrolled) or `activeTab` / `onActiveTabChange` (controlled) to enable tab switching.
 
 All props from [standard HTML div attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes), plus:
 
-| Prop       | Type      | Default | Description                                                                                                                              |
-| :--------- | :-------- | :------ | :--------------------------------------------------------------------------------------------------------------------------------------- |
-| `asChild?` | `boolean` | `false` | Use the `asChild` prop to compose the `CodeBlock` styling and functionality onto alternative element types or your own React components. |
+| Prop                 | Type                      | Default | Description                                                                                                                              |
+| :------------------- | :------------------------ | :------ | :--------------------------------------------------------------------------------------------------------------------------------------- |
+| `asChild?`           | `boolean`                 | `false` | Use the `asChild` prop to compose the `CodeBlock` styling and functionality onto alternative element types or your own React components. |
+| `defaultTab?`        | `string`                  |         | The default active tab value (uncontrolled). Only relevant when using `TabList` / `TabContent`.                                          |
+| `activeTab?`         | `string`                  |         | The controlled active tab value. Only relevant when using `TabList` / `TabContent`.                                                      |
+| `onActiveTabChange?` | `(value: string) => void` |         | Callback fired when the active tab changes. Only relevant when using `TabList` / `TabContent`.                                           |
 
 ### CodeBlock.Body
 
@@ -321,3 +369,29 @@ All props from [Icon](/components/icon), plus:
 | :-------- | :---------------------------------------- | :------ | :--------------------------------------------------------------------------------------------------- |
 | `svg?`    | `ReactNode`                               |         | A custom icon to display in the code block header. You can exclusively pass one of `svg` or `preset` |
 | `preset?` | `"cli"` \| `"file"` \| `"traffic-policy"` |         | A preset icon to display in the code block header. You can exclusively pass one of `svg` or `preset` |
+
+### CodeBlock.TabList
+
+A tab list for the `CodeBlock` header. Renders pill-styled tab triggers that switch which code is displayed. Place this inside `CodeBlock.Header` and pair with `CodeBlock.TabContent` in `CodeBlock.Body`. Tab state is managed by `CodeBlock.Root` via `defaultTab` / `activeTab` / `onActiveTabChange`.
+
+All props from [standard HTML div attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes).
+
+### CodeBlock.TabTrigger
+
+A pill-styled tab trigger for the `CodeBlock` header. Must be rendered within a `CodeBlock.TabList`.
+
+All props from [standard HTML button attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes), plus:
+
+| Prop    | Type     | Default | Description                                                                                   |
+| :------ | :------- | :------ | :-------------------------------------------------------------------------------------------- |
+| `value` | `string` |         | The tab value this trigger activates. Must match the `value` of a corresponding `TabContent`. |
+
+### CodeBlock.TabContent
+
+Conditionally renders its children when the associated tab is active. Pair with `CodeBlock.TabList` and `CodeBlock.TabTrigger` in the header, and set `defaultTab` / `activeTab` on `CodeBlock.Root`.
+
+All props from [standard HTML div attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes), plus:
+
+| Prop    | Type     | Default | Description                                                                                    |
+| :------ | :------- | :------ | :--------------------------------------------------------------------------------------------- |
+| `value` | `string` |         | The tab value this content is associated with. Only rendered when this matches the active tab. |

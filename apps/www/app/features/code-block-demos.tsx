@@ -411,6 +411,69 @@ export function ServerRenderedHighlightingDemo() {
 	);
 }
 
+const tabbedPolicyYml = mantleCode("yaml")`
+	on_http_request:
+		- expressions:
+				# conditions are CEL expressions, see https://cel.dev
+				- req.url.path.startsWith('/api')
+			actions:
+				- type: forward-internal
+					config:
+						url: https://api.internal
+
+		# route dynamically based on a header using CEL interpolation
+		- actions:
+				- type: forward-internal
+					config:
+						url: "https://\${req.headers('X-Custom-Header')}.internal"
+`;
+
+const tabbedPolicyJson = mantleCode("json")`
+	{
+		"on_http_request": [
+			{
+				"name": "BasicInternalRequest",
+				"actions": [
+					{
+						"type": "http-request",
+						"config": {
+							"url": "https://upstream-service.internal/ping"
+						}
+					}
+				]
+			}
+		]
+	}
+`;
+
+/**
+ * Code block with tabs in the header that switch between different code values.
+ * Demonstrates using CodeBlock.TabList, CodeBlock.TabTrigger, and CodeBlock.TabContent.
+ */
+export function TabbedCodeBlockDemo() {
+	return (
+		<Example>
+			<CodeBlock.Root defaultTab="yml">
+				<CodeBlock.Header>
+					<CodeBlock.TabList>
+						<CodeBlock.TabTrigger value="yml">policy.yml</CodeBlock.TabTrigger>
+						<CodeBlock.TabTrigger value="json">policy.json</CodeBlock.TabTrigger>
+					</CodeBlock.TabList>
+				</CodeBlock.Header>
+				<CodeBlock.Body>
+					<CodeBlock.CopyButton />
+					<CodeBlock.TabContent value="yml">
+						<CodeBlock.Code value={tabbedPolicyYml} />
+					</CodeBlock.TabContent>
+					<CodeBlock.TabContent value="json">
+						<CodeBlock.Code value={tabbedPolicyJson} />
+					</CodeBlock.TabContent>
+				</CodeBlock.Body>
+			</CodeBlock.Root>
+		</Example>
+	);
+}
+
 /**
  * Code block demonstrating overriding default language indentation.
  */

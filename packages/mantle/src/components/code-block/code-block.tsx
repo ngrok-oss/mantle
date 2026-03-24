@@ -23,6 +23,12 @@ import {
 	useRef,
 	useState,
 } from "react";
+import {
+	Content as RadixTabsContent,
+	List as RadixTabsList,
+	Root as RadixTabsRoot,
+	Trigger as RadixTabsTrigger,
+} from "@radix-ui/react-tabs";
 import assert from "tiny-invariant";
 import { useCopyToClipboard } from "../../hooks/use-copy-to-clipboard.js";
 import type { WithAsChild } from "../../types/as-child.js";
@@ -54,9 +60,31 @@ function useCodeBlockContext(): CodeBlockContextType {
 	return context;
 }
 
+type CodeBlockRootProps = Omit<ComponentProps<"div">, "align"> &
+	WithAsChild & {
+		/**
+		 * The default active tab value (uncontrolled).
+		 * Only relevant when using `CodeBlock.TabList` / `CodeBlock.TabContent`.
+		 */
+		defaultTab?: string;
+		/**
+		 * The controlled active tab value.
+		 * Only relevant when using `CodeBlock.TabList` / `CodeBlock.TabContent`.
+		 */
+		activeTab?: string;
+		/**
+		 * Callback fired when the active tab changes.
+		 * Only relevant when using `CodeBlock.TabList` / `CodeBlock.TabContent`.
+		 */
+		onActiveTabChange?: (value: string) => void;
+	};
+
 /**
  * Shiki-powered code blocks with build-time syntax highlighting and zero browser bundle.
  * This is the root component for all CodeBlock components.
+ *
+ * For tabbed code blocks, pass `defaultTab` (uncontrolled) or `activeTab` / `onActiveTabChange`
+ * (controlled) to enable tab switching with `CodeBlock.TabList` and `CodeBlock.TabContent`.
  *
  * @example
  * ```tsx
@@ -73,8 +101,8 @@ function useCodeBlockContext(): CodeBlockContextType {
  * </CodeBlock.Root>
  * ```
  */
-const Root = forwardRef<ComponentRef<"div">, Omit<ComponentProps<"div">, "align"> & WithAsChild>(
-	({ asChild = false, className, ...props }, ref) => {
+const Root = forwardRef<ComponentRef<"div">, CodeBlockRootProps>(
+	({ asChild = false, className, defaultTab, activeTab, onActiveTabChange, ...props }, ref) => {
 		const copyTextRef = useRef("");
 		const [hasCodeExpander, setHasCodeExpander] = useState(false);
 		const [isCodeExpanded, setIsCodeExpanded] = useState(false);
@@ -109,20 +137,36 @@ const Root = forwardRef<ComponentRef<"div">, Omit<ComponentProps<"div">, "align"
 			[codeId, hasCodeExpander, isCodeExpanded, registerCodeId, unregisterCodeId],
 		);
 
+		const hasTabs = defaultTab !== undefined || activeTab !== undefined;
 		const Component = asChild ? Slot : "div";
+
+		const tree = (
+			<Component
+				data-slot="code-block"
+				className={cx(
+					"text-mono w-full overflow-hidden rounded-md border border-gray-300 bg-gray-50 font-mono",
+					"[&_svg]:shrink-0",
+					className,
+				)}
+				ref={ref}
+				{...props}
+			/>
+		);
 
 		return (
 			<CodeBlockContext.Provider value={context}>
-				<Component
-					data-slot="code-block"
-					className={cx(
-						"text-mono overflow-hidden rounded-md border border-gray-300 bg-gray-50 font-mono",
-						"[&_svg]:shrink-0",
-						className,
-					)}
-					ref={ref}
-					{...props}
-				/>
+				{hasTabs ? (
+					<RadixTabsRoot
+						asChild
+						defaultValue={defaultTab}
+						value={activeTab}
+						onValueChange={onActiveTabChange}
+					>
+						{tree}
+					</RadixTabsRoot>
+				) : (
+					tree
+				)}
 			</CodeBlockContext.Provider>
 		);
 	},
@@ -320,8 +364,7 @@ const Code = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
 				{...props}
 			>
 				<code
-					className="text-size-inherit block w-full"
-					style={{ display: "block", minWidth: "100%", width: "100%" }}
+					className="text-size-inherit block min-w-full w-max"
 					dangerouslySetInnerHTML={{ __html: displayHtml }}
 				/>
 			</pre>
@@ -433,8 +476,7 @@ const CopyButton = forwardRef<ComponentRef<"button">, CodeBlockCopyButtonProps>(
 				type="button"
 				className={cx(
 					"focus-visible:border-accent-600 focus-visible:ring-focus-accent absolute right-2.5 top-2.5 z-10 flex size-7 items-center justify-center rounded border border-gray-300 bg-gray-50 hover:border-gray-400 hover:bg-gray-200 focus-visible:outline-hidden focus-visible:ring-4",
-					// "shadow-[-1rem_0_0.75rem_-0.375rem_var(--color-gray-50),1rem_0_0_-0.25rem_var(--color-gray-50)]",
-					"shadow",
+					"shadow-[-1rem_0_0.75rem_-0.375rem_var(--color-gray-50),1rem_0_0_-0.25rem_var(--color-gray-50)]",
 					wasCopied &&
 						"bg-filled-success text-on-filled hover:bg-filled-success focus:bg-filled-success focus-visible:border-success-600 focus-visible:ring-focus-success w-auto gap-1 border-transparent pl-2 pr-1.5 hover:border-transparent",
 					className,
@@ -604,6 +646,104 @@ function CodeBlockIconComponent({
 }
 CodeBlockIconComponent.displayName = "CodeBlockIcon";
 
+type CodeBlockTabListProps = Omit<ComponentProps<typeof RadixTabsList>, "asChild" | "loop">;
+
+/**
+ * A tab list for the `CodeBlock` header. Renders pill-styled tab triggers
+ * that switch which code is displayed. Built on Radix Tabs primitives.
+ *
+ * Place this inside `CodeBlock.Header` and pair with `CodeBlock.TabContent`
+ * in `CodeBlock.Body` to conditionally render code based on the active tab.
+ * Tab state is managed by `CodeBlock.Root` via `defaultTab` / `activeTab` / `onActiveTabChange`.
+ *
+ * @example
+ * ```tsx
+ * <CodeBlock.Root defaultTab="yml">
+ *   <CodeBlock.Header>
+ *     <CodeBlock.TabList>
+ *       <CodeBlock.TabTrigger value="yml">policy.yml</CodeBlock.TabTrigger>
+ *       <CodeBlock.TabTrigger value="json">policy.json</CodeBlock.TabTrigger>
+ *     </CodeBlock.TabList>
+ *   </CodeBlock.Header>
+ *   <CodeBlock.Body>
+ *     <CodeBlock.CopyButton />
+ *     <CodeBlock.TabContent value="yml">
+ *       <CodeBlock.Code value={ymlValue} />
+ *     </CodeBlock.TabContent>
+ *     <CodeBlock.TabContent value="json">
+ *       <CodeBlock.Code value={jsonValue} />
+ *     </CodeBlock.TabContent>
+ *   </CodeBlock.Body>
+ * </CodeBlock.Root>
+ * ```
+ */
+const TabList = forwardRef<ComponentRef<typeof RadixTabsList>, CodeBlockTabListProps>(
+	({ className, ...props }, ref) => (
+		<RadixTabsList className={cx("flex items-center gap-1", className)} ref={ref} {...props} />
+	),
+);
+TabList.displayName = "CodeBlockTabList";
+
+type CodeBlockTabTriggerProps = Omit<ComponentProps<typeof RadixTabsTrigger>, "asChild">;
+
+/**
+ * A pill-styled tab trigger for the `CodeBlock` header.
+ * Must be rendered within a `CodeBlock.TabList`.
+ *
+ * @example
+ * ```tsx
+ * <CodeBlock.TabList>
+ *   <CodeBlock.TabTrigger value="yml">policy.yml</CodeBlock.TabTrigger>
+ *   <CodeBlock.TabTrigger value="json">policy.json</CodeBlock.TabTrigger>
+ * </CodeBlock.TabList>
+ * ```
+ */
+const TabTrigger = forwardRef<ComponentRef<typeof RadixTabsTrigger>, CodeBlockTabTriggerProps>(
+	({ className, ...props }, ref) => (
+		<RadixTabsTrigger
+			className={cx(
+				"cursor-pointer rounded-full px-3 py-1 text-sm font-medium",
+				"text-gray-600 outline-hidden",
+				"hover:text-gray-900",
+				"data-[state=active]:bg-accent-500/20 data-[state=active]:text-blue-700",
+				"focus-visible:ring-focus-accent focus-visible:ring-4",
+				className,
+			)}
+			ref={ref}
+			{...props}
+		/>
+	),
+);
+TabTrigger.displayName = "CodeBlockTabTrigger";
+
+type CodeBlockTabContentProps = Omit<
+	ComponentProps<typeof RadixTabsContent>,
+	"asChild" | "forceMount"
+>;
+
+/**
+ * Conditionally renders its children when the associated tab is active.
+ * Pair with `CodeBlock.TabList` and `CodeBlock.TabTrigger` in the header,
+ * and set `defaultTab` / `activeTab` on `CodeBlock.Root`.
+ *
+ * @example
+ * ```tsx
+ * <CodeBlock.Body>
+ *   <CodeBlock.CopyButton />
+ *   <CodeBlock.TabContent value="yml">
+ *     <CodeBlock.Code value={ymlValue} />
+ *   </CodeBlock.TabContent>
+ *   <CodeBlock.TabContent value="json">
+ *     <CodeBlock.Code value={jsonValue} />
+ *   </CodeBlock.TabContent>
+ * </CodeBlock.Body>
+ * ```
+ */
+const TabContent = forwardRef<ComponentRef<typeof RadixTabsContent>, CodeBlockTabContentProps>(
+	(props, ref) => <RadixTabsContent ref={ref} {...props} />,
+);
+TabContent.displayName = "CodeBlockTabContent";
+
 /**
  * Shiki-powered code blocks with build-time syntax highlighting and zero browser bundle.
  *
@@ -671,6 +811,18 @@ const CodeBlock = {
 	 * A small icon for the code block header. Use `preset` or `svg`.
 	 */
 	Icon: CodeBlockIconComponent,
+	/**
+	 * Conditionally renders children when the associated tab is active.
+	 */
+	TabContent,
+	/**
+	 * A tab list for the code block header. Renders pill-styled tabs for switching code.
+	 */
+	TabList,
+	/**
+	 * A pill-styled tab trigger for the code block header. Must be inside `TabList`.
+	 */
+	TabTrigger,
 	/**
 	 * The optional title rendered in the header.
 	 */
