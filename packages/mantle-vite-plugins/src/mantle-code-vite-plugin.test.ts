@@ -30,6 +30,7 @@ describe("mantleCodeVitePlugin", () => {
 
 		expect(result.warn).not.toHaveBeenCalled();
 		expect(result.code).toContain('"~preHtml"');
+		expect(result.code).toContain('"~preValToken":"__MANTLE_PRE_VAL_');
 		expect(result.code).toContain('"~preVals":[count]');
 		expect(result.code).not.toContain('mantleCode("typescript")');
 	});
@@ -55,5 +56,14 @@ describe("mantleCodeVitePlugin", () => {
 		expect(result.code).not.toContain("lineNumberStart={7}");
 		expect(result.code).not.toContain('highlightLines={[1, "3-4"]}');
 		expect(result.code).not.toContain('indentation="spaces"');
+	});
+
+	test("normalizes numeric highlightLines entries to integers", async () => {
+		const result = await runTransform(
+			'<CodeBlock.Code highlightLines={[2.9]} value={mantleCode("typescript")`const value = 1;`} />;',
+		);
+
+		expect(result.warn).not.toHaveBeenCalled();
+		expect(result.code).toContain('"~highlightLines":[2]');
 	});
 });

@@ -44,11 +44,11 @@ Mantle ships runtime components from `@ngrok/mantle`, while build-time and serve
 
 - `@ngrok/mantle/code-block`: runtime React components and `mantleCode` template tag
 - `@ngrok/mantle-vite-plugins`: Vite + rehype integration via `mantleCodeBlockPlugins()`
-- `@ngrok/mantle-vite-plugins/server-highlighter`: server-side highlighting engine for API routes/actions
+- `@ngrok/mantle-server-syntax-highlighter`: server-side highlighting engine for API routes/actions
 
 This keeps Vite/Shiki/parser dependencies out of frontend installs that only need Mantle's runtime UI package.
 
-For a concrete service implementation, see [`apps/highlight-server`](./apps/highlight-server/README.md), a Bun + Hono syntax-highlighting API that preloads Shiki and serves highlighted HTML for server-side use cases.
+For a concrete service implementation, see [`apps/highlight-server`](../../apps/highlight-server/README.md), a Bun + Hono syntax-highlighting API that preloads Shiki and serves highlighted HTML for server-side use cases.
 
 ### Vite + MDX
 
@@ -61,9 +61,9 @@ const codeBlockPlugins = mantleCodeBlockPlugins();
 ### Server Highlighter
 
 ```ts
-import { createMantleServerHighlighter } from "@ngrok/mantle-vite-plugins/server-highlighter";
+import { createMantleServerSyntaxHighlighter } from "@ngrok/mantle-server-syntax-highlighter";
 
-const highlighter = createMantleServerHighlighter();
+const highlighter = createMantleServerSyntaxHighlighter();
 const result = await highlighter.highlight({
 	code: "const x = 1",
 	language: "typescript",

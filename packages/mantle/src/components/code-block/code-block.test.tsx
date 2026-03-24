@@ -98,6 +98,29 @@ describe("CodeBlock", () => {
 			expect(code?.innerHTML).toContain("&lt;script&gt;");
 			expect(code?.innerHTML).not.toContain("<script>");
 		});
+
+		test("does not rewrite literal SHIKI_VAL text when a custom preValToken is used", () => {
+			const value = createMantleCodeBlockValue({
+				language: "typescript",
+				code: "const literal = 'SHIKI_VAL_0';\nconst actual = __MANTLE_PRE_VAL_demo_0__;",
+				preHtml:
+					"<span>const literal = &#39;SHIKI_VAL_0&#39;;</span>\n<span>const actual = __MANTLE_PRE_VAL_demo_0__;</span>",
+				preValToken: "__MANTLE_PRE_VAL_demo_",
+				preVals: ['"<safe>"'],
+			});
+
+			render(
+				<CodeBlock.Root>
+					<CodeBlock.Body>
+						<CodeBlock.Code value={value} />
+					</CodeBlock.Body>
+				</CodeBlock.Root>,
+			);
+
+			const code = document.querySelector("code");
+			expect(code?.innerHTML).toContain("SHIKI_VAL_0");
+			expect(code?.innerHTML).toContain('"&lt;safe&gt;"');
+		});
 	});
 
 	describe("CopyButton", () => {

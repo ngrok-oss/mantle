@@ -156,18 +156,35 @@ Body.displayName = "CodeBlockBody";
  * interpolated template expressions. Hoisted to module scope to avoid
  * re-creating the regex on every substitution call.
  */
-const SHIKI_VAL_PATTERN = /SHIKI_VAL_(\d+)/g;
+const LEGACY_SHIKI_VAL_PATTERN = /SHIKI_VAL_(\d+)/g;
+
+function escapeForRegExp(value: string): string {
+	return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function getTemplateValPattern(preValToken: string | undefined): RegExp {
+	if (preValToken == null || preValToken.length === 0) {
+		return LEGACY_SHIKI_VAL_PATTERN;
+	}
+
+	return new RegExp(`${escapeForRegExp(preValToken)}(\\d+)__`, "g");
+}
 
 function substituteTemplateVals(
 	input: string,
 	vals: unknown[],
+	preValToken: string | undefined,
 	mapValue: (value: unknown) => string,
 ): string {
-	if (!input.includes("SHIKI_VAL_")) {
+	if (preValToken == null) {
+		if (!input.includes("SHIKI_VAL_")) {
+			return input;
+		}
+	} else if (!input.includes(preValToken)) {
 		return input;
 	}
 
-	return input.replaceAll(SHIKI_VAL_PATTERN, (match, indexText: string) => {
+	return input.replaceAll(getTemplateValPattern(preValToken), (match, indexText: string) => {
 		const index = Number.parseInt(indexText, 10);
 		if (Number.isNaN(index) || index < 0 || index >= vals.length) {
 			return match;
@@ -176,12 +193,16 @@ function substituteTemplateVals(
 	});
 }
 
-function substitutePreVals(html: string, vals: unknown[]): string {
-	return substituteTemplateVals(html, vals, (value) => escapeHtml(String(value)));
+function substitutePreVals(html: string, vals: unknown[], preValToken: string | undefined): string {
+	return substituteTemplateVals(html, vals, preValToken, (value) => escapeHtml(String(value)));
 }
 
-function substitutePreValsPlainText(text: string, vals: unknown[]): string {
-	return substituteTemplateVals(text, vals, (value) => String(value));
+function substitutePreValsPlainText(
+	text: string,
+	vals: unknown[],
+	preValToken: string | undefined,
+): string {
+	return substituteTemplateVals(text, vals, preValToken, (value) => String(value));
 }
 
 type CodeBlockCodeProps = Omit<ComponentProps<"pre">, "children"> & {
@@ -215,6 +236,7 @@ const Code = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
 		const {
 			language,
 			code,
+			"~preValToken": __preValToken,
 			"~preVals": __preVals,
 			"~highlightLines": __highlightLines,
 			"~lineNumberStart": __lineNumberStart,
@@ -228,9 +250,9 @@ const Code = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
 		const copyText = useMemo(
 			() =>
 				__preVals != null && __preVals.length > 0
-					? substitutePreValsPlainText(code, __preVals)
+					? substitutePreValsPlainText(code, __preVals, __preValToken)
 					: code,
-			[__preVals, code],
+			[__preValToken, __preVals, code],
 		);
 
 		useEffect(() => {
@@ -250,9 +272,9 @@ const Code = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
 				return undefined;
 			}
 			return __preVals != null && __preVals.length > 0
-				? substitutePreVals(__preHtml, __preVals)
+				? substitutePreVals(__preHtml, __preVals, __preValToken)
 				: __preHtml;
-		}, [__preHtml, __preVals]);
+		}, [__preHtml, __preValToken, __preVals]);
 
 		const isPreRendered = renderedHtml != null;
 		const displayHtml = renderedHtml ?? escapeHtml(copyText);

@@ -7,7 +7,7 @@ on:
     paths:
       - "apps/highlight-server/**"
       - "packages/mantle/src/components/code-block/**"
-      - "packages/mantle-vite-plugins/src/server-highlighter/**"
+      - "packages/mantle-server-syntax-highlighter/**"
       - ".github/workflows/publish-highlight-server.yml"
   workflow_dispatch:
 

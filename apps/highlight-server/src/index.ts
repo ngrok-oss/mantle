@@ -11,6 +11,7 @@ const app = new Hono();
 const highlighter = createMantleServerSyntaxHighlighter();
 let highlighterState: "loading" | "ready" | "error" = "loading";
 const maxRequestBytes = Number(process.env.MAX_REQUEST_BYTES ?? 1024 * 1024);
+const requestTooLarge = Symbol("requestTooLarge");
 
 const highlightRequestSchema = v.object({
 	code: v.string(),
@@ -41,6 +42,42 @@ function isRequestTooLarge(contentLengthHeader: string | undefined): boolean {
 
 	const contentLength = Number(contentLengthHeader);
 	return Number.isFinite(contentLength) && contentLength > maxRequestBytes;
+}
+
+async function readUtf8BodyWithLimit(
+	request: Request,
+	maxBytes: number,
+): Promise<string | typeof requestTooLarge> {
+	if (request.body == null) {
+		return "";
+	}
+
+	const reader = request.body.getReader();
+	const decoder = new TextDecoder();
+	let totalBytes = 0;
+	let body = "";
+
+	try {
+		while (true) {
+			const { done, value } = await reader.read();
+			if (done) {
+				break;
+			}
+
+			totalBytes += value.byteLength;
+			if (totalBytes > maxBytes) {
+				await reader.cancel();
+				return requestTooLarge;
+			}
+
+			body += decoder.decode(value, { stream: true });
+		}
+
+		body += decoder.decode();
+		return body;
+	} finally {
+		reader.releaseLock();
+	}
 }
 
 /**
@@ -80,9 +117,8 @@ app.post("/", async (ctx) => {
 		return ctx.json({ message: "Request body too large" }, 413);
 	}
 
-	const rawBody = await ctx.req.text();
-
-	if (Buffer.byteLength(rawBody, "utf8") > maxRequestBytes) {
+	const rawBody = await readUtf8BodyWithLimit(ctx.req.raw, maxRequestBytes);
+	if (rawBody === requestTooLarge) {
 		return ctx.json({ message: "Request body too large" }, 413);
 	}
 

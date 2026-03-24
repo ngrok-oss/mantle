@@ -39,6 +39,11 @@ type MantleCodeBlockValue = {
 	 */
 	"~preVals"?: unknown[] | undefined;
 	/**
+	 * Placeholder token prefix used by the Vite transform for interpolated values.
+	 * When omitted, CodeBlock falls back to the legacy `SHIKI_VAL_<n>` format.
+	 */
+	"~preValToken"?: string | undefined;
+	/**
 	 * Optional default for line-number rendering when this value is displayed.
 	 */
 	"~showLineNumbers"?: boolean | undefined;
@@ -79,6 +84,7 @@ type MantleCodeOptions = {
  */
 function createMantleCodeBlockValue({
 	preHtml,
+	preValToken,
 	preVals,
 	highlightLines,
 	lineNumberStart,
@@ -91,6 +97,7 @@ function createMantleCodeBlockValue({
 		language,
 		code,
 		"~preHtml": preHtml,
+		"~preValToken": preValToken,
 		"~preVals": preVals,
 		"~highlightLines": highlightLines,
 		"~lineNumberStart": lineNumberStart,

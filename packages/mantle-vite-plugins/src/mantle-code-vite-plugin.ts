@@ -126,6 +126,18 @@ function escapeForTemplateLiteral(str: string): string {
 	return str.replace(/\\/g, "\\\\").replace(/`/g, "\\`").replace(/\$\{/g, "\\${");
 }
 
+function hashString(input: string): string {
+	let hash = 0;
+	for (let i = 0; i < input.length; i += 1) {
+		hash = (hash * 31 + input.charCodeAt(i)) >>> 0;
+	}
+	return hash.toString(36);
+}
+
+function createPreValToken(id: string, start: number): string {
+	return `__MANTLE_PRE_VAL_${hashString(`${id}:${start}`)}_`;
+}
+
 function isNode(value: unknown): value is OxcNode {
 	return (
 		typeof value === "object" &&
@@ -262,7 +274,7 @@ function parseHighlightLinesArray(
 				return undefined;
 			}
 			if (typeof item.value === "number") {
-				return Number.isFinite(item.value) && item.value > 0 ? item.value : undefined;
+				return Number.isFinite(item.value) && item.value > 0 ? Math.floor(item.value) : undefined;
 			}
 			if (typeof item.value === "string" && /^\d+-\d+$/.test(item.value)) {
 				return item.value as `${number}-${number}`;
@@ -542,12 +554,13 @@ function mantleCodeVitePlugin(): Plugin {
 					componentProps,
 					mantleCodeOptions: parsedOptions,
 				});
+				const preValToken = createPreValToken(id, node.start);
 
 				let placeholderCode =
 					node.quasi.quasis[0]?.value.cooked ?? node.quasi.quasis[0]?.value.raw ?? "";
 				for (let index = 0; index < node.quasi.expressions.length; index += 1) {
 					const nextQuasi = node.quasi.quasis[index + 1];
-					placeholderCode += `SHIKI_VAL_${index}`;
+					placeholderCode += `${preValToken}${index}__`;
 					placeholderCode += nextQuasi?.value.cooked ?? nextQuasi?.value.raw ?? "";
 				}
 
@@ -583,7 +596,7 @@ function mantleCodeVitePlugin(): Plugin {
 					node.quasi.expressions.length === 0
 						? "undefined"
 						: `[${node.quasi.expressions.map((expression) => code.slice(expression.start, expression.end)).join(",")}]`;
-				const replacement = `{language:${JSON.stringify(language)},code:\`${escapedCode}\`,"~preHtml":\`${escapedHtml}\`,"~preVals":${preValsArray},"~showLineNumbers":${JSON.stringify(effectiveOptions.showLineNumbers)},"~highlightLines":${JSON.stringify(effectiveOptions.highlightLines)},"~lineNumberStart":${JSON.stringify(effectiveOptions.lineNumberStart)}}`;
+				const replacement = `{language:${JSON.stringify(language)},code:\`${escapedCode}\`,"~preHtml":\`${escapedHtml}\`,"~preValToken":${JSON.stringify(node.quasi.expressions.length === 0 ? undefined : preValToken)},"~preVals":${preValsArray},"~showLineNumbers":${JSON.stringify(effectiveOptions.showLineNumbers)},"~highlightLines":${JSON.stringify(effectiveOptions.highlightLines)},"~lineNumberStart":${JSON.stringify(effectiveOptions.lineNumberStart)}}`;
 
 				ms.overwrite(node.start, node.end, replacement);
 				didTransform = true;

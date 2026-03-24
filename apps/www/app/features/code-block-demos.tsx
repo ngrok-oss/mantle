@@ -13,6 +13,7 @@ import { Switch } from "@ngrok/mantle/switch";
 import { TextArea } from "@ngrok/mantle/text-area";
 import { useForm } from "@tanstack/react-form";
 import { useState } from "react";
+import { href } from "react-router";
 import { z } from "zod";
 import { Example } from "~/components/example";
 
@@ -209,8 +210,8 @@ const defaultServerCode = [
 	"}",
 ].join("\n");
 
-const serverHighlighterUrl = "http://localhost:4444"; // local docker sidecar
-// const serverHighlighterUrl = href("/api/shiki-highlight");
+// const serverHighlighterUrl = "http://localhost:4444"; // local docker sidecar
+const serverHighlighterUrl = href("/api/shiki-highlight");
 
 const highlightFormSchema = z.object({
 	language: z.string(),
@@ -339,23 +340,21 @@ export function ServerRenderedHighlightingDemo() {
 						</div>
 					)}
 				</form.Field>
-				<div className="flex flex-wrap items-start gap-4">
+				<div className="flex flex-wrap items-end gap-4">
 					<form.Field name="showLineNumbers">
 						{(field) => (
-							<div className="flex flex-col gap-1">
-								<Label htmlFor={field.name}>Show line numbers</Label>
-								<div className="flex h-9 items-center">
-									<Switch
-										id={field.name}
-										name={field.name}
-										checked={field.state.value}
-										onBlur={field.handleBlur}
-										onCheckedChange={(value) => {
-											field.handleChange(value);
-										}}
-									/>
-								</div>
-							</div>
+							<Label htmlFor={field.name} className="mb-2 flex items-center gap-2">
+								<Switch
+									id={field.name}
+									name={field.name}
+									checked={field.state.value}
+									onBlur={field.handleBlur}
+									onCheckedChange={(value) => {
+										field.handleChange(value);
+									}}
+								/>
+								Show line numbers
+							</Label>
 						)}
 					</form.Field>
 					<form.Field name="highlightLines">
