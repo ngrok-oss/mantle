@@ -143,37 +143,39 @@ app.post("/", async (ctx) => {
 		return ctx.json({ message: "Missing required fields: code, language" }, 400);
 	}
 
-	const abortController = new AbortController();
-	// Timeout only covers the highlight work, not cold-start loading
-	const timeoutId = setTimeout(() => abortController.abort(), 5_000);
+	const timeoutMs = 5_000;
+	const highlightPromise = highlighter.highlight({
+		code: parsedBody.output.code,
+		highlightLines: parseCodeBlockHighlightLines(parsedBody.output.highlightLines) ?? [],
+		language: parsedBody.output.language,
+		lineNumberStart: parsedBody.output.lineNumberStart,
+		showLineNumbers: parsedBody.output.showLineNumbers,
+	});
 
+	const timeoutSentinel = Symbol("timeout");
+	const timeoutPromise = new Promise<typeof timeoutSentinel>((resolve) => {
+		setTimeout(() => resolve(timeoutSentinel), timeoutMs);
+	});
+
+	let result;
 	try {
-		const result = await highlighter.highlight({
-			code: parsedBody.output.code,
-			highlightLines: parseCodeBlockHighlightLines(parsedBody.output.highlightLines) ?? [],
-			language: parsedBody.output.language,
-			lineNumberStart: parsedBody.output.lineNumberStart,
-			showLineNumbers: parsedBody.output.showLineNumbers,
-		});
-
-		abortController.signal.throwIfAborted();
-
-		return ctx.json({
-			code: result.code,
-			highlightLines: result.highlightLines,
-			html: result.html,
-			language: result.language,
-			lineNumberStart: result.lineNumberStart,
-			showLineNumbers: result.showLineNumbers,
-		});
+		result = await Promise.race([highlightPromise, timeoutPromise]);
 	} catch {
-		if (abortController.signal.aborted) {
-			return ctx.json({ message: "Highlight timed out" }, 504);
-		}
 		return ctx.json({ message: "Failed to highlight code" }, 500);
-	} finally {
-		clearTimeout(timeoutId);
 	}
+
+	if (result === timeoutSentinel) {
+		return ctx.json({ message: "Highlight timed out" }, 504);
+	}
+
+	return ctx.json({
+		code: result.code,
+		highlightLines: result.highlightLines,
+		html: result.html,
+		language: result.language,
+		lineNumberStart: result.lineNumberStart,
+		showLineNumbers: result.showLineNumbers,
+	});
 });
 
 const port = Number(process.env.PORT ?? 4444);

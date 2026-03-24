@@ -324,8 +324,7 @@ function parseMantleCodeOptions(node: OxcNode | null | undefined): ParsedMantleC
 	}
 
 	return {
-		highlightLines:
-			highlightLines != null && highlightLines.length > 0 ? highlightLines : undefined,
+		highlightLines,
 		indentation,
 		lineNumberStart,
 		showLineNumbers,
@@ -409,7 +408,9 @@ function parseJsxCodeProps(
 				if (parsed == null) {
 					break;
 				}
-				highlightLines = parsed.length > 0 ? parsed : undefined;
+				// Preserve [] as an explicit "no highlights" override,
+				// distinct from undefined (not provided).
+				highlightLines = parsed;
 				attributeRemovalRanges.push(
 					getAttributeRemovalRange(attributeNode, source, openingElement),
 				);

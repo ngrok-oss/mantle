@@ -11,7 +11,7 @@ It is intended for server-side syntax highlighting use cases such as rendering c
 - accepts `POST /` requests with code and language input
 - returns normalized code, resolved language metadata, and highlighted HTML
 - enforces a request body size limit (streaming + Content-Length pre-check)
-- aborts highlight requests that exceed a 5-second timeout
+- returns a 504 timeout response if highlighting exceeds 5 seconds (highlight work may still complete in the background)
 
 ## Local Development
 
