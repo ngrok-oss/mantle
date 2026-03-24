@@ -99,7 +99,8 @@ Common error responses:
 - `400 {"message":"Missing required fields: code, language"}`
 - `413 {"message":"Request body too large"}`
 - `500 {"message":"Failed to highlight code"}`
-- `504 {"message":"Highlight timed out"}` — request exceeded the 5-second highlight timeout
+- `503 {"message":"Highlighter not ready"}` — Shiki is still loading or failed to initialize
+- `504 {"message":"Highlight timed out"}` — highlighting exceeded the 5-second timeout
 
 ## Configuration
 
@@ -132,8 +133,7 @@ The Docker image:
 
 - builds workspace packages in a Node-based builder stage
 - bundles the server entrypoint with Bun
-- ships a distroless Bun runtime image
-- only copies the final bundled app into the runtime stage
+- ships a distroless Bun runtime image with the bundled app and `node_modules` (Shiki loads grammar/WASM files at runtime)
 
 ## Notes
 
