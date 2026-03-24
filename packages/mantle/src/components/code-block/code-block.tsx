@@ -162,12 +162,19 @@ function escapeForRegExp(value: string): string {
 	return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
+const preValPatternCache = new Map<string, RegExp>();
+
 function getTemplateValPattern(preValToken: string | undefined): RegExp {
 	if (preValToken == null || preValToken.length === 0) {
 		return LEGACY_SHIKI_VAL_PATTERN;
 	}
 
-	return new RegExp(`${escapeForRegExp(preValToken)}(\\d+)__`, "g");
+	let cached = preValPatternCache.get(preValToken);
+	if (cached == null) {
+		cached = new RegExp(`${escapeForRegExp(preValToken)}(\\d+)__`, "g");
+		preValPatternCache.set(preValToken, cached);
+	}
+	return cached;
 }
 
 function substituteTemplateVals(

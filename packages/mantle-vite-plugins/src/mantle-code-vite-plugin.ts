@@ -4,6 +4,7 @@ import {
 	isIndentation,
 	isSupportedLanguage,
 	type Indentation,
+	type SupportedLanguage,
 } from "@ngrok/mantle/highlight-utils";
 import { parseSync } from "oxc-parser";
 import type { Plugin } from "vite";
@@ -578,8 +579,17 @@ function mantleCodeVitePlugin(): Plugin {
 				}
 			}
 
-			const ms = new MagicString(code);
-			let didTransform = false;
+			// Prepare highlight inputs for all valid tagged templates, then run in parallel.
+			type HighlightJob = {
+				componentProps: ParsedJsxCodePropsResult;
+				effectiveOptions: ParsedMantleCodeOptions;
+				language: SupportedLanguage;
+				node: MantleCodeTaggedTemplateExpression;
+				placeholderCode: string;
+				preValToken: string;
+			};
+
+			const jobs: HighlightJob[] = [];
 
 			for (const node of taggedTemplates) {
 				const languageArg = node.tag.arguments[0];
@@ -618,25 +628,52 @@ function mantleCodeVitePlugin(): Plugin {
 					placeholderCode += nextQuasi?.value.cooked ?? nextQuasi?.value.raw ?? "";
 				}
 
-				let normalizedPlaceholder: string;
-				let shikiHtml: string;
-				try {
-					const highlighted = await highlightWithMantleShiki({
-						code: placeholderCode,
-						highlightLines: effectiveOptions.highlightLines,
-						indentation: inferIndentation(language, effectiveOptions.indentation),
-						language,
-						lineNumberStart: effectiveOptions.lineNumberStart,
-						showLineNumbers: effectiveOptions.showLineNumbers,
-					});
-					normalizedPlaceholder = highlighted.code;
-					shikiHtml = highlighted.html;
-				} catch (error) {
+				jobs.push({
+					componentProps,
+					effectiveOptions,
+					language,
+					node,
+					placeholderCode,
+					preValToken,
+				});
+			}
+
+			if (jobs.length === 0) {
+				return;
+			}
+
+			// Highlight all code blocks in parallel
+			const results = await Promise.all(
+				jobs.map(async (job) => {
+					try {
+						const highlighted = await highlightWithMantleShiki({
+							code: job.placeholderCode,
+							highlightLines: job.effectiveOptions.highlightLines,
+							indentation: inferIndentation(job.language, job.effectiveOptions.indentation),
+							language: job.language,
+							lineNumberStart: job.effectiveOptions.lineNumberStart,
+							showLineNumbers: job.effectiveOptions.showLineNumbers,
+						});
+						return { ...job, highlighted } as const;
+					} catch (error) {
+						return { ...job, error } as const;
+					}
+				}),
+			);
+
+			const ms = new MagicString(code);
+			let didTransform = false;
+
+			for (const result of results) {
+				if ("error" in result) {
 					this.warn(
-						`mantleCodeVitePlugin: Shiki failed for language "${language}" in ${id}: ${error}`,
+						`mantleCodeVitePlugin: Shiki failed for language "${result.language}" in ${id}: ${result.error}`,
 					);
 					continue;
 				}
+
+				const { componentProps, effectiveOptions, highlighted, language, node, preValToken } =
+					result;
 
 				for (const range of [...componentProps.attributeRemovalRanges].sort(
 					(a, b) => b.start - a.start,
@@ -644,8 +681,8 @@ function mantleCodeVitePlugin(): Plugin {
 					ms.remove(range.start, range.end);
 				}
 
-				const escapedHtml = escapeForTemplateLiteral(shikiHtml);
-				const escapedCode = escapeForTemplateLiteral(normalizedPlaceholder);
+				const escapedHtml = escapeForTemplateLiteral(highlighted.html);
+				const escapedCode = escapeForTemplateLiteral(highlighted.code);
 				const preValsArray =
 					node.quasi.expressions.length === 0
 						? "undefined"

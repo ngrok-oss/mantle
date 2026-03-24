@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import {
 	decorateHighlightedHtml,
 	inferIndentation,
@@ -154,13 +155,12 @@ async function highlightWithMantleShiki(
 	const showLineNumbers = input.showLineNumbers ?? false;
 	const highlightLines = input.highlightLines ?? [];
 	const lineNumberStart = input.lineNumberStart ?? 1;
-	const cacheKey = JSON.stringify({
-		code: normalizedCode,
-		highlightLines,
-		language: resolvedLanguage,
-		lineNumberStart,
-		showLineNumbers,
-	});
+	const cacheKey = createHash("sha1")
+		.update(normalizedCode)
+		.update(
+			`\0${resolvedLanguage}\0${showLineNumbers}\0${lineNumberStart}\0${JSON.stringify(highlightLines)}`,
+		)
+		.digest("hex");
 	const cached = mantleHighlightCache.get(cacheKey);
 	if (cached != null) {
 		return cached;

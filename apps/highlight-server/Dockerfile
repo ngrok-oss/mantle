@@ -46,6 +46,8 @@ FROM oven/bun:1-distroless
 WORKDIR /app
 
 COPY --from=bundler /app/dist ./dist
+# Shiki loads grammar/theme WASM files at runtime from node_modules
+COPY --from=bundler /app/node_modules ./node_modules
 
 EXPOSE 4444
 

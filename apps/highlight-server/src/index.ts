@@ -21,14 +21,14 @@ const highlightRequestSchema = v.object({
 	showLineNumbers: v.optional(v.boolean()),
 });
 
-const highlighterReady = getMantleShikiHighlighter()
+// Eagerly start loading Shiki grammars; the state flag gates request handling.
+getMantleShikiHighlighter()
 	.then(() => {
 		highlighterState = "ready";
 	})
 	.catch((error) => {
 		highlighterState = "error";
 		console.error("Failed to preload syntax highlighter", error);
-		throw error;
 	});
 
 function isValidMaxRequestBytes(value: number): boolean {
@@ -115,6 +115,12 @@ app.post("/", async (ctx) => {
 		return ctx.json({ message: "Invalid MAX_REQUEST_BYTES configuration" }, 500);
 	}
 
+	// Reject requests while the highlighter is still loading or failed to load
+	if (highlighterState !== "ready") {
+		const status = highlighterState === "error" ? 500 : 503;
+		return ctx.json({ message: "Highlighter not ready" }, status);
+	}
+
 	if (isRequestTooLarge(ctx.req.header("content-length"))) {
 		return ctx.json({ message: "Request body too large" }, 413);
 	}
@@ -138,12 +144,10 @@ app.post("/", async (ctx) => {
 	}
 
 	const abortController = new AbortController();
+	// Timeout only covers the highlight work, not cold-start loading
 	const timeoutId = setTimeout(() => abortController.abort(), 5_000);
 
 	try {
-		await highlighterReady;
-		abortController.signal.throwIfAborted();
-
 		const result = await highlighter.highlight({
 			code: parsedBody.output.code,
 			highlightLines: parseCodeBlockHighlightLines(parsedBody.output.highlightLines) ?? [],
