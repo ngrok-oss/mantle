@@ -30,7 +30,7 @@ type MantleCodeBlockValue = {
 	 *
 	 * **Security:** This HTML is injected via `dangerouslySetInnerHTML`. It must
 	 * come from a trusted source (Shiki output from the Vite plugin or
-	 * `createMantleServerHighlighter`). Never pass unsanitized user input.
+	 * `createMantleServerSyntaxHighlighter`). Never pass unsanitized user input.
 	 */
 	"~preHtml"?: string | undefined;
 	/**
@@ -75,7 +75,7 @@ type MantleCodeOptions = {
  *
  * **Security:** The `preHtml` field is rendered via `dangerouslySetInnerHTML`.
  * Only pass HTML produced by Shiki (via the Vite plugin or
- * `createMantleServerHighlighter`). Never pass unsanitized user input as `preHtml`.
+ * `createMantleServerSyntaxHighlighter`). Never pass unsanitized user input as `preHtml`.
  */
 function createMantleCodeBlockValue({
 	preHtml,

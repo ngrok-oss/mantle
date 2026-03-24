@@ -4,10 +4,10 @@ import {
 	isIndentation,
 	isSupportedLanguage,
 	type Indentation,
-} from "@ngrok/mantle/code-block";
+} from "@ngrok/mantle/highlight-utils";
 import { parseSync } from "oxc-parser";
 import type { Plugin } from "vite";
-import { highlightWithMantleShiki } from "./server-highlighter/engine.js";
+import { highlightWithMantleShiki } from "@ngrok/mantle-server-syntax-highlighter";
 
 type ParsedMantleCodeOptions = {
 	highlightLines: (number | `${number}-${number}`)[] | undefined;

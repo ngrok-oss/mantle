@@ -108,6 +108,11 @@
 			"types": "./dist/code-block.d.ts",
 			"import": "./dist/code-block.js"
 		},
+		"./highlight-utils": {
+			"@ngrok/src-live-types": "./src/components/code-block/highlight-utils.ts",
+			"types": "./dist/code-block_highlight-utils.d.ts",
+			"import": "./dist/code-block_highlight-utils.js"
+		},
 		"./color": {
 			"@ngrok/src-live-types": "./src/utils/color/index.ts",
 			"types": "./dist/color.d.ts",

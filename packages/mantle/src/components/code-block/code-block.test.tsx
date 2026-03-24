@@ -16,22 +16,46 @@ function makeValue(code: string, preHtml?: string) {
 
 describe("CodeBlock", () => {
 	describe("Code", () => {
-		test("throws when preHtml is missing", () => {
+		test("renders plain text fallback when preHtml is missing", () => {
 			const value = createMantleCodeBlockValue({
 				language: "typescript",
 				code: "const x = 1;",
 				preHtml: undefined,
 			});
 
-			expect(() => {
-				render(
-					<CodeBlock.Root>
-						<CodeBlock.Body>
-							<CodeBlock.Code value={value} />
-						</CodeBlock.Body>
-					</CodeBlock.Root>,
-				);
-			}).toThrow(/Missing pre-rendered HTML for language "typescript"/);
+			render(
+				<CodeBlock.Root>
+					<CodeBlock.Body>
+						<CodeBlock.Code value={value} />
+					</CodeBlock.Body>
+				</CodeBlock.Root>,
+			);
+
+			const pre = document.querySelector("pre");
+			expect(pre).not.toBeNull();
+			expect(pre?.dataset.highlighted).toBe("false");
+			const code = document.querySelector("code");
+			expect(code?.innerHTML).toBe("const x = 1;");
+		});
+
+		test("escapes HTML in plain text fallback", () => {
+			const value = createMantleCodeBlockValue({
+				language: "html",
+				code: '<div class="test">Hello</div>',
+				preHtml: undefined,
+			});
+
+			render(
+				<CodeBlock.Root>
+					<CodeBlock.Body>
+						<CodeBlock.Code value={value} />
+					</CodeBlock.Body>
+				</CodeBlock.Root>,
+			);
+
+			const code = document.querySelector("code");
+			expect(code?.innerHTML).toContain("&lt;div");
+			expect(code?.innerHTML).not.toContain("<div class");
 		});
 
 		test("renders pre-rendered HTML content", () => {

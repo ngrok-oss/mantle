@@ -5,9 +5,9 @@ import {
 	parseCodeBlockLineNumberStart,
 	parseCodeBlockShowLineNumbers,
 	tokenizeMetastring,
-} from "@ngrok/mantle/code-block";
+} from "@ngrok/mantle/highlight-utils";
 import { parseBooleanish } from "@ngrok/mantle/types";
-import { highlightWithMantleShiki } from "./server-highlighter/engine.js";
+import { highlightWithMantleShiki } from "@ngrok/mantle-server-syntax-highlighter";
 
 type HastNode = {
 	data?: Record<string, unknown>;

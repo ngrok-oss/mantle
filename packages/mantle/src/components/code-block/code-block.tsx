@@ -254,33 +254,31 @@ const Code = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
 				: __preHtml;
 		}, [__preHtml, __preVals]);
 
-		if (renderedHtml == null) {
-			throw new Error(
-				`[CodeBlock.Code] Missing pre-rendered HTML for language "${language}". ` +
-					`Add mantleCodeBlockPlugins() to your vite.config.ts or provide server-rendered HTML via createMantleServerHighlighter().`,
-			);
-		}
+		const isPreRendered = renderedHtml != null;
+		const displayHtml = renderedHtml ?? escapeHtml(copyText);
 
 		return (
 			<pre
 				aria-expanded={hasCodeExpander ? isCodeExpanded : undefined}
 				className={cx(
-					"scrollbar overflow-x-auto overflow-y-hidden py-4 pr-14",
+					"scrollbar overflow-x-auto overflow-y-hidden py-4",
+					!isPreRendered && "pr-14",
 					"data-[mantle-line-numbers~='false']:pl-4",
 					"text-mono m-0 font-mono",
 					"aria-collapsed:max-h-[13.6rem]",
 					className,
 				)}
+				data-highlighted={isPreRendered ? "true" : "false"}
 				data-lang={language}
 				data-mantle-highlight-lines={
-					effectiveHighlightLines != null && effectiveHighlightLines.length > 0
+					isPreRendered && effectiveHighlightLines != null && effectiveHighlightLines.length > 0
 						? effectiveHighlightLines.join(",")
 						: undefined
 				}
 				data-mantle-line-number-start={
-					effectiveShowLineNumbers ? String(effectiveLineNumberStart) : 1
+					isPreRendered && effectiveShowLineNumbers ? String(effectiveLineNumberStart) : 1
 				}
-				data-mantle-line-numbers={effectiveShowLineNumbers ? "true" : "false"}
+				data-mantle-line-numbers={isPreRendered && effectiveShowLineNumbers ? "true" : "false"}
 				id={id}
 				ref={ref}
 				style={
@@ -297,7 +295,7 @@ const Code = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
 				<code
 					className="text-size-inherit block w-full"
 					style={{ display: "block", minWidth: "100%", width: "100%" }}
-					dangerouslySetInnerHTML={{ __html: renderedHtml }}
+					dangerouslySetInnerHTML={{ __html: displayHtml }}
 				/>
 			</pre>
 		);

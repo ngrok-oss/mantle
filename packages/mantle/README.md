@@ -48,6 +48,8 @@ Mantle ships runtime components from `@ngrok/mantle`, while build-time and serve
 
 This keeps Vite/Shiki/parser dependencies out of frontend installs that only need Mantle's runtime UI package.
 
+For a concrete service implementation, see [`apps/highlight-server`](./apps/highlight-server/README.md), a Bun + Hono syntax-highlighting API that preloads Shiki and serves highlighted HTML for server-side use cases.
+
 ### Vite + MDX
 
 ```ts

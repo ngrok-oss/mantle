@@ -66,6 +66,7 @@ export default defineConfig((options) => [
 		entry: {
 			...componentPackages,
 			...utilPackages,
+			"code-block_highlight-utils": "./src/components/code-block/highlight-utils.ts",
 			hooks: "./src/hooks/index.ts",
 			types: "./src/types/index.ts",
 			utils: "./src/utils/index.ts",

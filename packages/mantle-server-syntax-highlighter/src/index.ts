@@ -1,5 +1,5 @@
 export {
-	createMantleServerHighlighter,
+	createMantleServerSyntaxHighlighter,
 	getMantleShikiHighlighter,
 	highlightWithMantleShiki,
 	mantleHighlightCacheMaxEntries,

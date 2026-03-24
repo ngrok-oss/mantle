@@ -1,16 +1,14 @@
 import {
 	decorateHighlightedHtml,
 	inferIndentation,
+	isSupportedLanguage,
 	normalizeIndentation,
+	parseLanguage,
 	type Indentation,
 	type LineRange,
-} from "@ngrok/mantle/code-block";
-import { createLruCache } from "./lru-cache.js";
-import {
-	isSupportedLanguage,
-	parseLanguage,
 	type SupportedLanguage,
-} from "@ngrok/mantle/code-block";
+} from "@ngrok/mantle/highlight-utils";
+import { createLruCache } from "./lru-cache.js";
 
 /**
  * Shiki grammar IDs preloaded by Mantle's highlighting engine.
@@ -137,7 +135,7 @@ function getMantleShikiHighlighter(): Promise<ShikiHighlighter> {
  * Extracts the inner HTML from a Shiki `<code>...</code>` wrapper.
  */
 function extractHighlightedCodeInnerHtml(fullHtml: string): string | undefined {
-	return fullHtml.match(/<code>([\s\S]*?)<\/code>/)?.[1];
+	return fullHtml.match(/<code[^>]*>([\s\S]*?)<\/code>/)?.[1];
 }
 
 /**
@@ -206,14 +204,14 @@ async function highlightWithMantleShiki(
 /**
  * Creates a reusable Mantle server highlighter facade for API routes.
  */
-function createMantleServerHighlighter(): MantleServerHighlighter {
+function createMantleServerSyntaxHighlighter(): MantleServerHighlighter {
 	return {
 		highlight: highlightWithMantleShiki,
 	};
 }
 
 export {
-	createMantleServerHighlighter,
+	createMantleServerSyntaxHighlighter,
 	extractHighlightedCodeInnerHtml,
 	getMantleShikiHighlighter,
 	highlightWithMantleShiki,

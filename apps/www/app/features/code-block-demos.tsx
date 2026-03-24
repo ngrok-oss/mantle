@@ -3,10 +3,15 @@ import {
 	CodeBlock,
 	createMantleCodeBlockValue,
 	mantleCode,
+	parseCodeBlockHighlightLines,
 	parseLanguage,
 	type MantleCodeBlockValue,
-	type SupportedLanguage,
 } from "@ngrok/mantle/code-block";
+import { Input } from "@ngrok/mantle/input";
+import { Label } from "@ngrok/mantle/label";
+import { Switch } from "@ngrok/mantle/switch";
+import { TextArea } from "@ngrok/mantle/text-area";
+import { useForm } from "@tanstack/react-form";
 import { useState } from "react";
 import { z } from "zod";
 import { Example } from "~/components/example";
@@ -197,15 +202,6 @@ const shikiHighlightResponseSchema = z.object({
 	showLineNumbers: z.boolean(),
 });
 
-function normalizeHighlightLines(lines: (string | number)[]): (number | `${number}-${number}`)[] {
-	return lines.filter((line): line is number | `${number}-${number}` => {
-		if (typeof line === "number") {
-			return Number.isFinite(line) && line > 0;
-		}
-		return /^\d+-\d+$/.test(line);
-	});
-}
-
 const defaultServerCode = [
 	"const service = await fetchServiceConfig();",
 	"if (!service.enabled) {",
@@ -213,103 +209,196 @@ const defaultServerCode = [
 	"}",
 ].join("\n");
 
+const serverHighlighterUrl = "http://localhost:4444"; // local docker sidecar
+// const serverHighlighterUrl = href("/api/shiki-highlight");
+
+const highlightFormSchema = z.object({
+	language: z.string(),
+	code: z.string().min(1),
+	showLineNumbers: z.boolean(),
+	highlightLines: z.string(),
+	lineNumberStart: z.number().int().min(1),
+});
+
 /**
  * Fetches syntax-highlighted HTML from the server API and renders
  * it via `createMantleCodeBlockValue`. Demonstrates server-rendered
  * syntax highlighting for dynamic or user-provided code.
  */
 export function ServerRenderedHighlightingDemo() {
-	const [language, setLanguage] = useState<SupportedLanguage>("typescript");
-	const [code, setCode] = useState(defaultServerCode);
 	const [highlightedValue, setHighlightedValue] = useState<MantleCodeBlockValue | null>(null);
 	const [status, setStatus] = useState<"idle" | "loading" | "error">("idle");
 	const [errorMessage, setErrorMessage] = useState("");
 
-	const handleHighlight = async () => {
-		setStatus("loading");
-		setErrorMessage("");
+	const form = useForm({
+		defaultValues: {
+			language: "typescript" as string,
+			code: defaultServerCode,
+			showLineNumbers: true,
+			highlightLines: "2-3",
+			lineNumberStart: 1,
+		},
+		validators: {
+			onSubmit: highlightFormSchema,
+		},
+		onSubmit: async ({ value }) => {
+			setStatus("loading");
+			setErrorMessage("");
 
-		try {
-			const response = await fetch("/api/shiki-highlight", {
-				method: "POST",
-				headers: {
-					Accept: "application/json",
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					code,
-					highlightLines: ["2-3"],
-					language,
-					lineNumberStart: 1,
-					showLineNumbers: true,
-				}),
-			});
+			const parsedHighlightLines = value.highlightLines
+				.split(",")
+				.map((segment) => segment.trim())
+				.filter(Boolean);
 
-			if (!response.ok) {
-				throw new Error(`Highlight request failed with status ${response.status}`);
+			try {
+				const response = await fetch(serverHighlighterUrl, {
+					method: "POST",
+					headers: {
+						Accept: "application/json",
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						code: value.code,
+						highlightLines: parsedHighlightLines,
+						language: value.language,
+						lineNumberStart: value.lineNumberStart,
+						showLineNumbers: value.showLineNumbers,
+					}),
+				});
+
+				if (!response.ok) {
+					throw new Error(`Highlight request failed with status ${response.status}`);
+				}
+
+				const data = shikiHighlightResponseSchema.parse(await response.json());
+				setHighlightedValue(
+					createMantleCodeBlockValue({
+						code: data.code,
+						highlightLines: parseCodeBlockHighlightLines(data.highlightLines) ?? [],
+						lineNumberStart: data.lineNumberStart,
+						language: parseLanguage(value.language),
+						preHtml: data.html,
+						showLineNumbers: data.showLineNumbers,
+					}),
+				);
+				setStatus("idle");
+			} catch (error) {
+				setStatus("error");
+				setErrorMessage(error instanceof Error ? error.message : "Unknown error");
 			}
-
-			const data = shikiHighlightResponseSchema.parse(await response.json());
-			setHighlightedValue(
-				createMantleCodeBlockValue({
-					code: data.code,
-					highlightLines: normalizeHighlightLines(data.highlightLines),
-					lineNumberStart: data.lineNumberStart,
-					language,
-					preHtml: data.html,
-					showLineNumbers: data.showLineNumbers,
-				}),
-			);
-			setStatus("idle");
-		} catch (error) {
-			setStatus("error");
-			setErrorMessage(error instanceof Error ? error.message : "Unknown error");
-		}
-	};
+		},
+	});
 
 	return (
 		<Example className="flex-col items-stretch gap-4">
-			<div className="space-y-3">
-				<div className="space-y-2">
-					<label className="block text-sm font-medium" htmlFor="server-highlight-language">
-						Language
-					</label>
-					<select
-						id="server-highlight-language"
-						className="bg-form border-form rounded-md border px-2 py-1"
-						value={language}
-						onChange={(event) => {
-							setLanguage(parseLanguage(event.currentTarget.value));
-						}}
-					>
-						<option value="typescript">typescript</option>
-						<option value="javascript">javascript</option>
-						<option value="json">json</option>
-						<option value="bash">bash</option>
-					</select>
+			<form
+				className="space-y-3"
+				onSubmit={(event) => {
+					event.preventDefault();
+					event.stopPropagation();
+					void form.handleSubmit();
+				}}
+			>
+				<form.Field name="language">
+					{(field) => (
+						<div className="space-y-2">
+							<Label htmlFor={field.name}>Language</Label>
+							<select
+								id={field.name}
+								name={field.name}
+								className="bg-form border-form rounded-md border px-2 py-1"
+								value={field.state.value}
+								onBlur={field.handleBlur}
+								onChange={(event) => {
+									field.handleChange(event.currentTarget.value);
+								}}
+							>
+								<option value="typescript">typescript</option>
+								<option value="javascript">javascript</option>
+								<option value="json">json</option>
+								<option value="bash">bash</option>
+							</select>
+						</div>
+					)}
+				</form.Field>
+				<form.Field name="code">
+					{(field) => (
+						<div className="space-y-2">
+							<Label htmlFor={field.name}>Code</Label>
+							<TextArea
+								appearance="monospaced"
+								id={field.name}
+								name={field.name}
+								className="min-h-28 w-full"
+								value={field.state.value}
+								onBlur={field.handleBlur}
+								onChange={(event) => {
+									field.handleChange(event.currentTarget.value);
+								}}
+							/>
+						</div>
+					)}
+				</form.Field>
+				<div className="flex flex-wrap items-start gap-4">
+					<form.Field name="showLineNumbers">
+						{(field) => (
+							<div className="flex flex-col gap-1">
+								<Label htmlFor={field.name}>Show line numbers</Label>
+								<div className="flex h-9 items-center">
+									<Switch
+										id={field.name}
+										name={field.name}
+										checked={field.state.value}
+										onBlur={field.handleBlur}
+										onCheckedChange={(value) => {
+											field.handleChange(value);
+										}}
+									/>
+								</div>
+							</div>
+						)}
+					</form.Field>
+					<form.Field name="highlightLines">
+						{(field) => (
+							<div className="space-y-1">
+								<Label htmlFor={field.name}>Highlight lines</Label>
+								<Input
+									id={field.name}
+									name={field.name}
+									type="text"
+									placeholder="e.g. 1, 2-3"
+									value={field.state.value}
+									onBlur={field.handleBlur}
+									onChange={(event) => {
+										field.handleChange(event.currentTarget.value);
+									}}
+								/>
+							</div>
+						)}
+					</form.Field>
+					<form.Field name="lineNumberStart">
+						{(field) => (
+							<div className="space-y-1">
+								<Label htmlFor={field.name}>Line number start</Label>
+								<Input
+									id={field.name}
+									name={field.name}
+									type="number"
+									min={1}
+									value={String(field.state.value)}
+									onBlur={field.handleBlur}
+									onChange={(event) => {
+										field.handleChange(Number(event.currentTarget.value) || 1);
+									}}
+								/>
+							</div>
+						)}
+					</form.Field>
 				</div>
-				<div className="space-y-2">
-					<label className="block text-sm font-medium" htmlFor="server-highlight-code">
-						Code
-					</label>
-					<textarea
-						id="server-highlight-code"
-						className="bg-form border-form text-mono min-h-28 w-full rounded-md border p-2 font-mono"
-						value={code}
-						onChange={(event) => {
-							setCode(event.currentTarget.value);
-						}}
-					/>
-				</div>
-				<Button
-					type="button"
-					appearance="filled"
-					disabled={status === "loading"}
-					onClick={() => void handleHighlight()}
-				>
+				<Button type="submit" appearance="filled" disabled={status === "loading"}>
 					{status === "loading" ? "Highlighting..." : "Highlight on Server"}
 				</Button>
-			</div>
+			</form>
 			{status === "error" && <p className="text-danger-600 text-sm">{errorMessage}</p>}
 			{highlightedValue != null && (
 				<CodeBlock.Root>

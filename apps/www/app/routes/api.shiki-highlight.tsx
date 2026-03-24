@@ -1,4 +1,5 @@
-import { createMantleServerHighlighter } from "@ngrok/mantle-vite-plugins/server-highlighter";
+import { parseCodeBlockHighlightLines } from "@ngrok/mantle/code-block";
+import { createMantleServerSyntaxHighlighter } from "@ngrok/mantle-server-syntax-highlighter";
 import { z } from "zod";
 
 const requestSchema = z.object({
@@ -9,23 +10,9 @@ const requestSchema = z.object({
 	showLineNumbers: z.boolean().optional(),
 });
 
-const mantleServerHighlighter = createMantleServerHighlighter();
+const mantleServerHighlighter = createMantleServerSyntaxHighlighter();
 
 const methodNotAllowedBody = { message: "Method Not Allowed" };
-
-function normalizeHighlightLines(
-	lines: (string | number)[] | undefined,
-): (number | `${number}-${number}`)[] {
-	if (lines == null) {
-		return [];
-	}
-	return lines.filter((line): line is number | `${number}-${number}` => {
-		if (typeof line === "number") {
-			return Number.isFinite(line) && line > 0;
-		}
-		return /^\d+-\d+$/.test(line);
-	});
-}
 
 export async function action({ request }: { request: Request }) {
 	if (request.method !== "POST") {
@@ -54,7 +41,7 @@ export async function action({ request }: { request: Request }) {
 	try {
 		highlighted = await mantleServerHighlighter.highlight({
 			code: parsed.data.code,
-			highlightLines: normalizeHighlightLines(parsed.data.highlightLines),
+			highlightLines: parseCodeBlockHighlightLines(parsed.data.highlightLines) ?? [],
 			language: parsed.data.language,
 			lineNumberStart: parsed.data.lineNumberStart,
 			showLineNumbers: parsed.data.showLineNumbers,

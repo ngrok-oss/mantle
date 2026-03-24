@@ -1,7 +1,7 @@
 {
-  "name": "@ngrok/mantle-vite-plugins",
-  "version": "0.1.5",
-  "description": "Vite plugins for @ngrok/mantle.",
+  "name": "@ngrok/mantle-server-syntax-highlighter",
+  "version": "0.1.0",
+  "description": "Server-side syntax highlighting for @ngrok/mantle, powered by Shiki.",
   "homepage": "https://mantle.ngrok.com",
   "license": "MIT",
   "author": "ngrok",
@@ -23,16 +23,13 @@
     "./package.json": "./package.json"
   },
   "scripts": {
-    "build": "tsx scripts/generate-component-names.ts && tsdown",
-    "generate": "tsx scripts/generate-component-names.ts",
+    "build": "tsdown",
     "test": "TZ=UTC vitest run",
     "test:watch": "TZ=UTC vitest watch",
-    "typecheck": "tsx scripts/generate-component-names.ts && tsgo"
+    "typecheck": "tsgo"
   },
   "dependencies": {
-    "@ngrok/mantle-server-syntax-highlighter": "workspace:*",
-    "magic-string": "0.30.21",
-    "oxc-parser": "0.86.0"
+    "shiki": "4.0.1"
   },
   "devDependencies": {
     "@cfg/tsconfig": "workspace:*",
@@ -40,18 +37,10 @@
     "@testing-library/jest-dom": "catalog:",
     "@types/node": "catalog:",
     "tsdown": "catalog:",
-    "tsx": "catalog:",
-    "typescript": "catalog:",
-    "vite": "catalog:"
+    "typescript": "catalog:"
   },
   "peerDependencies": {
-    "@ngrok/mantle": "*",
-    "vite": "^6 || ^7"
-  },
-  "peerDependenciesMeta": {
-    "vite": {
-      "optional": true
-    }
+    "@ngrok/mantle": "*"
   },
   "engines": {
     "node": "^24.0.0"

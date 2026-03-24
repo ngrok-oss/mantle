@@ -171,6 +171,64 @@ const value: MantleCodeBlockValue = createMantleCodeBlockValue({
 </CodeBlock.Root>;
 ```
 
+### Highlight Microservice (for Go / non-Node.js backends)
+
+For frontends backed by non-Node.js services (Go, Python, etc.), deploy a small Node.js highlight service as a sidecar or shared microservice. This gives you the same server-rendered highlighting without shipping Shiki to the browser — the frontend just calls the API with `fetch`.
+
+Create a highlight server using `createMantleServerSyntaxHighlighter`:
+
+```ts
+// highlight-service.ts — deploy as a sidecar alongside your Go service
+import { createServer } from "node:http";
+import { createMantleServerSyntaxHighlighter } from "@ngrok/mantle-server-syntax-highlighter";
+
+const highlighter = createMantleServerSyntaxHighlighter();
+
+createServer(async (req, res) => {
+	// Handle CORS
+	res.setHeader("Access-Control-Allow-Origin", "*");
+	res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+	res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+	if (req.method === "OPTIONS") {
+		res.writeHead(204).end();
+		return;
+	}
+
+	const chunks: Buffer[] = [];
+	for await (const chunk of req) chunks.push(chunk);
+	const { code, language, showLineNumbers, highlightLines, lineNumberStart } = JSON.parse(
+		Buffer.concat(chunks).toString(),
+	);
+
+	const result = await highlighter.highlight({
+		code,
+		language,
+		showLineNumbers,
+		highlightLines,
+		lineNumberStart,
+	});
+	res.writeHead(200, { "Content-Type": "application/json" }).end(JSON.stringify(result));
+}).listen(4444, () => console.log("Highlight server on :4444"));
+```
+
+Then use it from any frontend the same way as the [server-rendered example](#server-rendered-syntax-highlighting) above, pointing at the highlight service URL:
+
+```tsx
+const response = await fetch("http://localhost:4444", {
+	method: "POST",
+	headers: { "Content-Type": "application/json" },
+	body: JSON.stringify({ code, language: "json", showLineNumbers: true }),
+});
+const data = await response.json();
+
+const value = createMantleCodeBlockValue({
+	code: data.code,
+	language: data.language,
+	preHtml: data.html,
+	showLineNumbers: data.showLineNumbers,
+});
+```
+
 ### Overriding default language indentation
 
 By default, the code block code will detect the preferred (or required) indentation of the given language. This is important for languages that require a certain indentation style; for example, Python and YAML are space-indented languages, so the code block will use spaces for indentation. This is done to ensure that the code is displayed and copied correctly and is easy to read. However, you can override this by passing `indentation` in the `mantleCode()` options.
