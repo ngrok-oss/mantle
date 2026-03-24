@@ -19,6 +19,7 @@ import {
 	useContext,
 	useEffect,
 	useId,
+	useLayoutEffect,
 	useMemo,
 	useRef,
 	useState,
@@ -306,7 +307,9 @@ const Code = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
 			[__preValToken, __preVals, code],
 		);
 
-		copyTextRef.current = copyText;
+		useLayoutEffect(() => {
+			copyTextRef.current = copyText;
+		}, [copyTextRef, copyText]);
 
 		useEffect(() => {
 			registerCodeId(id);
