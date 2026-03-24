@@ -127,7 +127,10 @@ function getMantleShikiHighlighter(): Promise<ShikiHighlighter> {
 			themes: [cssVarsTheme],
 			langs: [...mantleShikiLanguageGrammarIds],
 		});
-	})();
+	})().catch((error) => {
+		highlighterPromise = undefined;
+		throw error;
+	});
 
 	return highlighterPromise;
 }
