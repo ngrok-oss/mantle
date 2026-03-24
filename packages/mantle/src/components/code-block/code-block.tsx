@@ -16,6 +16,7 @@ import type {
 import {
 	createContext,
 	forwardRef,
+	useCallback,
 	useContext,
 	useEffect,
 	useId,
@@ -109,19 +110,19 @@ const Root = forwardRef<ComponentRef<"div">, CodeBlockRootProps>(
 		const [isCodeExpanded, setIsCodeExpanded] = useState(false);
 		const [codeId, setCodeId] = useState<string | undefined>(undefined);
 
-		const registerCodeId = useRef((id: string) => {
+		const registerCodeId = useCallback((id: string) => {
 			setCodeId((old) => {
 				assert(old == null, "You can only render a single CodeBlock.Code within a CodeBlock.");
 				return id;
 			});
-		}).current;
+		}, []);
 
-		const unregisterCodeId = useRef((id: string) => {
+		const unregisterCodeId = useCallback((id: string) => {
 			setCodeId((old) => {
 				assert(old === id, "You can only render a single CodeBlock.Code within a CodeBlock.");
 				return undefined;
 			});
-		}).current;
+		}, []);
 
 		const context: CodeBlockContextType = useMemo(
 			() =>
