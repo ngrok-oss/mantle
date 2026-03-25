@@ -31,10 +31,12 @@ getMantleShikiHighlighter()
 		console.error("Failed to preload syntax highlighter", error);
 	});
 
+/** Returns `true` if the configured max request bytes value is a valid positive finite number. */
 function isValidMaxRequestBytes(value: number): boolean {
 	return Number.isFinite(value) && value > 0;
 }
 
+/** Checks whether the `Content-Length` header exceeds the configured byte limit. */
 function isRequestTooLarge(contentLengthHeader: string | undefined): boolean {
 	if (contentLengthHeader == null) {
 		return false;
@@ -44,6 +46,7 @@ function isRequestTooLarge(contentLengthHeader: string | undefined): boolean {
 	return Number.isFinite(contentLength) && contentLength > maxRequestBytes;
 }
 
+/** Streams a request body as UTF-8 text while enforcing a byte limit, returning a sentinel on overflow. */
 async function readUtf8BodyWithLimit(
 	request: Request,
 	maxBytes: number,

@@ -123,10 +123,26 @@ type OxcJSXOpeningElement = OxcNode & {
 	name: OxcJSXIdentifier | OxcJSXMemberExpression;
 };
 
-function escapeForTemplateLiteral(str: string): string {
-	return str.replace(/\\/g, "\\\\").replace(/`/g, "\\`").replace(/\$\{/g, "\\${");
+/** Escapes backslashes, backticks, and `${` sequences for safe embedding in a template literal. */
+function escapeForTemplateLiteral(input: string): string {
+	let result = "";
+	for (let i = 0; i < input.length; i++) {
+		const char = input[i];
+		if (char === "\\") {
+			result += "\\\\";
+		} else if (char === "`") {
+			result += "\\`";
+		} else if (char === "$" && input[i + 1] === "{") {
+			result += "\\${";
+			i += 1;
+		} else {
+			result += char;
+		}
+	}
+	return result;
 }
 
+/** Produces a short base-36 hash of a string using a multiplicative hash function. */
 function hashString(input: string): string {
 	let hash = 0;
 	for (let i = 0; i < input.length; i += 1) {
@@ -135,10 +151,12 @@ function hashString(input: string): string {
 	return hash.toString(36);
 }
 
+/** Creates a unique placeholder token prefix for interpolated template values in a given file and offset. */
 function createPreValToken(id: string, start: number): string {
 	return `__MANTLE_PRE_VAL_${hashString(`${id}:${start}`)}_`;
 }
 
+/** Type predicate: checks if a value is an OXC AST node with `type`, `start`, and `end` fields. */
 function isNode(value: unknown): value is OxcNode {
 	return (
 		typeof value === "object" &&
@@ -152,50 +170,61 @@ function isNode(value: unknown): value is OxcNode {
 	);
 }
 
+/** Type predicate: checks if a node is a `Literal`. */
 function isLiteral(node: OxcNode | null | undefined): node is OxcLiteral {
 	return node?.type === "Literal";
 }
 
+/** Type predicate: checks if a node is an `Identifier`. */
 function isIdentifier(node: OxcNode | null | undefined): node is OxcIdentifier {
 	return node?.type === "Identifier";
 }
 
+/** Type predicate: checks if a node is an `ArrayExpression`. */
 function isArrayExpression(node: OxcNode | null | undefined): node is OxcArrayExpression {
 	return node?.type === "ArrayExpression";
 }
 
+/** Type predicate: checks if a node is an `ObjectExpression`. */
 function isObjectExpression(node: OxcNode | null | undefined): node is OxcObjectExpression {
 	return node?.type === "ObjectExpression";
 }
 
+/** Type predicate: checks if a node is an object `Property`. */
 function isProperty(node: OxcNode | null | undefined): node is OxcObjectProperty {
 	return node?.type === "Property";
 }
 
+/** Type predicate: checks if a node is a `CallExpression`. */
 function isCallExpression(node: OxcNode | null | undefined): node is OxcCallExpression {
 	return node?.type === "CallExpression";
 }
 
+/** Type predicate: checks if a node is a `TaggedTemplateExpression`. */
 function isTaggedTemplateExpression(
 	node: OxcNode | null | undefined,
 ): node is OxcTaggedTemplateExpression {
 	return node?.type === "TaggedTemplateExpression";
 }
 
+/** Type predicate: checks if a node is a `JSXOpeningElement`. */
 function isJSXOpeningElement(node: OxcNode | null | undefined): node is OxcJSXOpeningElement {
 	return node?.type === "JSXOpeningElement";
 }
 
+/** Type predicate: checks if a node is a `JSXAttribute`. */
 function isJSXAttribute(node: OxcNode | null | undefined): node is OxcJSXAttribute {
 	return node?.type === "JSXAttribute";
 }
 
+/** Type predicate: checks if a node is a `JSXExpressionContainer`. */
 function isJSXExpressionContainer(
 	node: OxcNode | null | undefined,
 ): node is OxcJSXExpressionContainer {
 	return node?.type === "JSXExpressionContainer";
 }
 
+/** Recursively walks an OXC AST, calling `visit` on every node. */
 function walk(node: unknown, visit: (node: OxcNode) => void) {
 	if (Array.isArray(node)) {
 		for (const item of node) {
@@ -223,14 +252,17 @@ function walk(node: unknown, visit: (node: OxcNode) => void) {
 	}
 }
 
+/** Type predicate: checks if a node is a `Literal` with a string value. */
 function isStringLiteral(node: OxcNode | null | undefined): node is OxcLiteral {
 	return isLiteral(node) && typeof node.value === "string";
 }
 
+/** Extracts a static boolean value from a literal AST node. */
 function readStaticBoolean(node: OxcNode | null | undefined): boolean | undefined {
 	return isLiteral(node) && typeof node.value === "boolean" ? node.value : undefined;
 }
 
+/** Extracts a static positive integer from a literal AST node, flooring non-integer values. */
 function readStaticPositiveInt(node: OxcNode | null | undefined): number | undefined {
 	if (!isLiteral(node) || typeof node.value !== "number") {
 		return undefined;
@@ -241,6 +273,7 @@ function readStaticPositiveInt(node: OxcNode | null | undefined): number | undef
 	return Math.floor(node.value);
 }
 
+/** Extracts a static `Indentation` value (`"tabs"` or `"spaces"`) from a string literal AST node. */
 function readStaticIndentation(node: OxcNode | null | undefined): Indentation | undefined {
 	if (!isStringLiteral(node) || !isIndentation(node.value)) {
 		return undefined;
@@ -248,6 +281,7 @@ function readStaticIndentation(node: OxcNode | null | undefined): Indentation | 
 	return node.value;
 }
 
+/** Parses a static AST array expression into a list of highlight line numbers and ranges. */
 function parseHighlightLinesArray(
 	input: OxcNode | null | undefined,
 ): (number | `${number}-${number}`)[] | undefined {
@@ -273,6 +307,7 @@ function parseHighlightLinesArray(
 	return parsed.length > 0 ? parsed : [];
 }
 
+/** Returns the static key name of an object property, or `undefined` for computed keys. */
 function getObjectPropertyName(property: OxcObjectProperty): string | undefined {
 	if (property.computed) {
 		return undefined;
@@ -283,6 +318,7 @@ function getObjectPropertyName(property: OxcObjectProperty): string | undefined 
 	return isStringLiteral(property.key) ? (property.key.value as string) : undefined;
 }
 
+/** Extracts static `MantleCodeOptions` from the second argument of a `mantleCode()` call. */
 function parseMantleCodeOptions(node: OxcNode | null | undefined): ParsedMantleCodeOptions {
 	if (!isObjectExpression(node)) {
 		return {
@@ -331,6 +367,7 @@ function parseMantleCodeOptions(node: OxcNode | null | undefined): ParsedMantleC
 	};
 }
 
+/** Resolves the dotted name of a JSX element (e.g. `"CodeBlock.Code"`) from its AST name node. */
 function getJsxElementName(name: OxcJSXIdentifier | OxcJSXMemberExpression): string | undefined {
 	if (name.type === "JSXIdentifier") {
 		return name.name;
@@ -339,10 +376,12 @@ function getJsxElementName(name: OxcJSXIdentifier | OxcJSXMemberExpression): str
 	return objectName != null ? `${objectName}.${name.property.name}` : undefined;
 }
 
+/** Returns the name of a JSX attribute. */
 function getJsxAttributeName(attribute: OxcJSXAttribute): string {
 	return attribute.name.name;
 }
 
+/** Unwraps a JSX attribute's value to its inner expression node. */
 function readJsxAttributeExpression(attribute: OxcJSXAttribute): OxcNode | undefined {
 	if (attribute.value == null) {
 		return undefined;
@@ -356,6 +395,7 @@ function readJsxAttributeExpression(attribute: OxcJSXAttribute): OxcNode | undef
 	return undefined;
 }
 
+/** Computes the source range to remove for a JSX attribute, including leading whitespace. */
 function getAttributeRemovalRange(
 	attribute: OxcJSXAttribute,
 	source: string,
@@ -368,6 +408,10 @@ function getAttributeRemovalRange(
 	return { end: attribute.end, start };
 }
 
+/**
+ * Parses static props from a `<CodeBlock.Code>` JSX element that should be
+ * folded into the build-time transform (e.g. `showLineNumbers`, `highlightLines`).
+ */
 function parseJsxCodeProps(
 	openingElement: OxcJSXOpeningElement,
 	source: string,
@@ -468,6 +512,7 @@ function parseJsxCodeProps(
 	};
 }
 
+/** Merges JSX component props with `mantleCode()` options, preferring component-level overrides. */
 function mergeMantleCodeOptions({
 	componentProps,
 	mantleCodeOptions,
@@ -504,10 +549,15 @@ type OxcImportSpecifier = OxcNode & {
 	local: OxcIdentifier;
 };
 
+/** Type predicate: checks if a node is an `ImportDeclaration`. */
 function isImportDeclaration(node: OxcNode | null | undefined): node is OxcImportDeclaration {
 	return node?.type === "ImportDeclaration";
 }
 
+/**
+ * Vite plugin that transforms `mantleCode("lang")\`...\`` tagged template
+ * literals at build time, replacing them with pre-rendered Shiki HTML objects.
+ */
 function mantleCodeVitePlugin(): Plugin {
 	return {
 		name: "vite-plugin-mantle-code-block",

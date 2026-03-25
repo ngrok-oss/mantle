@@ -1,3 +1,4 @@
+/** A simple least-recently-used cache backed by insertion-order `Map` semantics. */
 type LruCache<K, V> = {
 	delete: (key: K) => boolean;
 	get: (key: K) => V | undefined;
@@ -5,6 +6,7 @@ type LruCache<K, V> = {
 	size: () => number;
 };
 
+/** Creates an LRU cache that evicts the least-recently-used entry when `maxEntries` is exceeded. */
 function createLruCache<K, V>(maxEntries: number): LruCache<K, V> {
 	if (!Number.isInteger(maxEntries) || maxEntries <= 0) {
 		throw new Error("LRU cache maxEntries must be a positive integer.");
@@ -17,11 +19,11 @@ function createLruCache<K, V>(maxEntries: number): LruCache<K, V> {
 			return map.delete(key);
 		},
 		get(key) {
-			const value = map.get(key);
-			if (value == null) {
+			if (!map.has(key)) {
 				return undefined;
 			}
 
+			const value = map.get(key) as V;
 			map.delete(key);
 			map.set(key, value);
 			return value;

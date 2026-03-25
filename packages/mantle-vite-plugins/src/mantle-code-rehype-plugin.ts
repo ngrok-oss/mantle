@@ -9,6 +9,7 @@ import {
 import { parseBooleanish } from "@ngrok/mantle/types";
 import { highlightWithMantleShiki } from "@ngrok/mantle-server-syntax-highlighter";
 
+/** Minimal HAST node shape used by the rehype plugin for tree traversal. */
 type HastNode = {
 	data?: Record<string, unknown>;
 	type?: string;
@@ -19,6 +20,7 @@ type HastNode = {
 };
 const excludedRehypeCodeFenceLanguages = new Set(["mermaid"]);
 
+/** Parses a value into a valid code block mode, or `undefined` if unrecognized. */
 function parseCodeBlockMode(value: unknown): "cli" | "file" | "traffic-policy" | undefined {
 	if (value === "cli" || value === "file" || value === "traffic-policy") {
 		return value;
@@ -26,6 +28,7 @@ function parseCodeBlockMode(value: unknown): "cli" | "file" | "traffic-policy" |
 	return undefined;
 }
 
+/** Recursively walks a HAST tree, calling `visit` on every node. */
 function walk(node: HastNode, visit: (current: HastNode) => void) {
 	visit(node);
 	if (Array.isArray(node.children)) {
@@ -35,10 +38,12 @@ function walk(node: HastNode, visit: (current: HastNode) => void) {
 	}
 }
 
+/** Finds the first `<code>` child element of a HAST node. */
 function findCodeChild(node: HastNode): HastNode | undefined {
 	return node.children?.find((child) => child.type === "element" && child.tagName === "code");
 }
 
+/** Returns the `className` property of a HAST node as an array of strings. */
 function getClassNameList(node: HastNode): string[] {
 	const className = node.properties?.className;
 	if (typeof className === "string") {
@@ -50,6 +55,7 @@ function getClassNameList(node: HastNode): string[] {
 	return [];
 }
 
+/** Extracts the language identifier from a `<code>` node's `language-*` class name. */
 function getLanguageFromCodeNode(codeNode: HastNode): string | undefined {
 	const classNames = getClassNameList(codeNode);
 	for (const className of classNames) {
@@ -61,6 +67,7 @@ function getLanguageFromCodeNode(codeNode: HastNode): string | undefined {
 	return undefined;
 }
 
+/** Reads the metastring from a `<code>` node's `data.meta` or `properties.meta`. */
 function getCodeFenceMeta(codeNode: HastNode): string | undefined {
 	const fromData = codeNode.data?.meta;
 	if (typeof fromData === "string") {
@@ -73,6 +80,7 @@ function getCodeFenceMeta(codeNode: HastNode): string | undefined {
 	return undefined;
 }
 
+/** Extracts a named value from a tokenized metastring (e.g. `key=value`). */
 function getMetaValue(meta: string | undefined, key: string): string | undefined {
 	if (!meta) {
 		return undefined;
@@ -92,6 +100,7 @@ function getMetaValue(meta: string | undefined, key: string): string | undefined
 	return undefined;
 }
 
+/** Returns `true` if the metastring contains a bare flag token (e.g. `collapsible`). */
 function hasMetaFlag(meta: string | undefined, key: string): boolean {
 	if (!meta) {
 		return false;
@@ -100,6 +109,7 @@ function hasMetaFlag(meta: string | undefined, key: string): boolean {
 	return tokens.includes(key);
 }
 
+/** Recursively extracts the concatenated text content of a HAST subtree. */
 function extractText(node: HastNode): string {
 	if (node.type === "text") {
 		return node.value ?? "";

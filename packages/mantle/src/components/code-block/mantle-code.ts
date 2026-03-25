@@ -58,16 +58,19 @@ type MantleCodeBlockValue = {
 	"~lineNumberStart"?: number | undefined;
 };
 
+/** Maps each key starting with `OldPrefix` to `NewPrefix`, leaving other keys unchanged. */
 type ReplacePrefix<T, OldPrefix extends string, NewPrefix extends string> = {
 	[K in keyof T as K extends `${OldPrefix}${infer Rest}` ? `${NewPrefix}${Rest}` : K]: T[K];
 };
 
+/** Public input shape for `createMantleCodeBlockValue`, with `~`-prefixed keys renamed to unprefixed. */
 type MantleCodeBlockValueInput = ReplacePrefix<
 	Omit<MantleCodeBlockValue, typeof mantleCodeBlockValueBrand>,
 	"~",
 	""
 >;
 
+/** Options for configuring line numbers, highlights, and indentation in `mantleCode()`. */
 type MantleCodeOptions = {
 	highlightLines?: (LineRange | number)[] | undefined;
 	indentation?: Indentation | undefined;
@@ -105,10 +108,22 @@ function createMantleCodeBlockValue({
 	};
 }
 
+/** Joins a `TemplateStringsArray` and its interpolated values into a single code string. */
+function buildCodeFromTemplate(strings: TemplateStringsArray, values: unknown[]): string {
+	let code = "";
+	for (let index = 0; index < strings.length; index += 1) {
+		code += strings[index] ?? "";
+		if (index < values.length) {
+			code += String(values[index]);
+		}
+	}
+	return code;
+}
+
 /**
  * Tagged template literal for Shiki syntax highlighting.
  *
- * Returns a `MantleCodeBlockValue` that `ShikiCodeBlock.Code` renders.
+ * Returns a `MantleCodeBlockValue` that `CodeBlock.Code` renders.
  * The Vite transform plugin rewrites calls to this function at build time,
  * inlining pre-rendered Shiki HTML so that no highlighting work happens in the browser.
  * Configure it via `mantleCodeBlockPlugins()` in `vite.config.ts`.
@@ -123,17 +138,6 @@ function createMantleCodeBlockValue({
  * mantleCode("typescript")`const greeting = "Hello, ${name}!";`
  * ```
  */
-function buildCodeFromTemplate(strings: TemplateStringsArray, values: unknown[]): string {
-	let code = "";
-	for (let index = 0; index < strings.length; index += 1) {
-		code += strings[index] ?? "";
-		if (index < values.length) {
-			code += String(values[index]);
-		}
-	}
-	return code;
-}
-
 function mantleCode(
 	language: SupportedLanguage,
 	options: MantleCodeOptions = {},

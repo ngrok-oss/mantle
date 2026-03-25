@@ -1,5 +1,6 @@
 import type { LineRange } from "./line-numbers.js";
 
+/** Parses a boolean or `"true"`/`"false"` string into a boolean. Returns `undefined` for unrecognized values. */
 function parseCodeBlockShowLineNumbers(value: unknown): boolean | undefined {
 	if (typeof value === "boolean") {
 		return value;
@@ -15,6 +16,7 @@ function parseCodeBlockShowLineNumbers(value: unknown): boolean | undefined {
 	return undefined;
 }
 
+/** Parses a positive integer (or its string representation) for the starting line number. Returns `undefined` for invalid values. */
 function parseCodeBlockLineNumberStart(value: unknown): number | undefined {
 	if (typeof value === "number" && Number.isFinite(value) && value > 0) {
 		return Math.floor(value);
@@ -26,6 +28,7 @@ function parseCodeBlockLineNumberStart(value: unknown): number | undefined {
 	return undefined;
 }
 
+/** Parses highlight line specifications from an array or comma-separated string (e.g. `[1, "3-5"]` or `"1,3-5"`). Returns `undefined` when no valid entries are found. */
 function parseCodeBlockHighlightLines(value: unknown): (LineRange | number)[] | undefined {
 	const parseSingle = (item: unknown): LineRange | number | undefined => {
 		if (typeof item === "number") {

@@ -29,6 +29,7 @@ type MDXComponents = Parameters<typeof MdxProviderPrimitive>[0]["components"];
 
 let hasWarnedMalformedPreRenderedCodeBlock = false;
 
+/** Logs a one-time dev warning when a pre-rendered code block payload is incomplete. */
 function warnMalformedPreRenderedCodeBlock(rawLanguage: unknown) {
 	if (!import.meta.env.DEV || hasWarnedMalformedPreRenderedCodeBlock) {
 		return;

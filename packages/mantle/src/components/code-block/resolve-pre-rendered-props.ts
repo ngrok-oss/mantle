@@ -14,8 +14,10 @@ const modes = [
 	"file",
 	"traffic-policy",
 ] as const;
+/** The visual mode preset for a code block (determines header icon). */
 type Mode = (typeof modes)[number];
 
+/** User-facing input shape for code block metadata (metastring key-value pairs). */
 type MetaInput = {
 	collapsible?: boolean | undefined;
 	disableCopy?: boolean | undefined;
@@ -24,6 +26,7 @@ type MetaInput = {
 	title?: string | undefined;
 };
 
+/** Resolved code block metadata with defaults applied. */
 type Meta = {
 	collapsible: boolean;
 	disableCopy: boolean;
@@ -40,8 +43,10 @@ const defaultMeta = {
 	title: undefined,
 } as const satisfies Meta;
 
+/** The type of the default metadata constant. */
 type DefaultMeta = typeof defaultMeta;
 
+/** Parses a code fence metastring (e.g. `title="example" collapsible`) into a structured `Meta` object. */
 function parseMetastring(input: string | undefined): Meta {
 	const metastring = input?.trim() ?? "";
 	if (!metastring) {
@@ -66,6 +71,7 @@ function parseMetastring(input: string | undefined): Meta {
 	return parseMetaJson(metaJson);
 }
 
+/** Strips surrounding double-quotes and trims whitespace from a metastring value. */
 function normalizeValue(value: string | undefined) {
 	if (value == null) {
 		return undefined;
@@ -78,6 +84,7 @@ function normalizeValue(value: string | undefined) {
 	return trimmed;
 }
 
+/** Splits a metastring into space-delimited tokens, respecting double-quoted segments. */
 function tokenizeMetastring(value: string | undefined): string[] {
 	const input = value?.trim() ?? "";
 	const result: string[] = [];
@@ -107,10 +114,12 @@ function tokenizeMetastring(value: string | undefined): string[] {
 	return result;
 }
 
+/** Type predicate: checks if a value is a valid code block `Mode`. */
 function isMode(input: unknown): input is Mode {
 	return input === "cli" || input === "file" || input === "traffic-policy";
 }
 
+/** Converts a raw key-value record (from tokenized metastring) into a validated `Meta` object. */
 function parseMetaJson(input: Record<string, unknown>): Meta {
 	const {
 		collapsible = defaultMeta.collapsible,
@@ -135,6 +144,7 @@ function parseMetaJson(input: Record<string, unknown>): Meta {
 	};
 }
 
+/** Props that the rehype plugin attaches to `<pre>` elements for pre-rendered code blocks. */
 type ResolvePreRenderedCodeBlockPropsInput = {
 	collapsible?: unknown;
 	disableCopy?: unknown;
@@ -152,10 +162,12 @@ type ResolvePreRenderedCodeBlockPropsInput = {
 	title?: unknown;
 };
 
+/** Combined input type for a `<pre>` element that may carry both metastring and pre-rendered props. */
 type CodeBlockPreElementInput = MetaInput & ResolvePreRenderedCodeBlockPropsInput;
 
 type PreRenderedCodeBlockPropKey = keyof ResolvePreRenderedCodeBlockPropsInput;
 
+/** Normalized code block props extracted from pre-rendered `<pre>` element attributes. */
 type ResolvedPreRenderedCodeBlockProps = {
 	code: string | undefined;
 	collapsible: boolean | undefined;
@@ -170,11 +182,17 @@ type ResolvedPreRenderedCodeBlockProps = {
 	title: string | undefined;
 };
 
+/** Result of {@link resolvePreRenderedCodeBlockProps}: extracted Mantle props and remaining pass-through props. */
 type ResolvePreRenderedCodeBlockPropsResult<T extends Record<string, unknown>> = {
 	mantleCode: ResolvedPreRenderedCodeBlockProps | undefined;
 	props: Omit<T, PreRenderedCodeBlockPropKey>;
 };
 
+/**
+ * Extracts and normalizes `mantle*` props from a `<pre>` element's attributes,
+ * separating them from pass-through props. Returns `undefined` for the Mantle
+ * payload when no pre-rendered attributes are present.
+ */
 function resolvePreRenderedCodeBlockProps<
 	T extends ResolvePreRenderedCodeBlockPropsInput & Record<string, unknown>,
 >(input: T): ResolvePreRenderedCodeBlockPropsResult<T> {

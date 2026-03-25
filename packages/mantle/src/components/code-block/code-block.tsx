@@ -56,6 +56,7 @@ type CodeBlockContextType = {
 
 const CodeBlockContext = createContext<CodeBlockContextType | null>(null);
 
+/** Returns the nearest `CodeBlock` context, throwing if called outside a `CodeBlock.Root`. */
 function useCodeBlockContext(): CodeBlockContextType {
 	const context = useContext(CodeBlockContext);
 	assert(context != null, "CodeBlock subcomponents must be rendered within a <CodeBlock.Root>.");
@@ -204,12 +205,18 @@ Body.displayName = "CodeBlockBody";
  */
 const LEGACY_SHIKI_VAL_PATTERN = /SHIKI_VAL_(\d+)/g;
 
+/** Escapes special characters in a string for use in a `RegExp` constructor. */
 function escapeForRegExp(value: string): string {
 	return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
+const maxPreValPatternCacheSize = 500;
 const preValPatternCache = new Map<string, RegExp>();
 
+/**
+ * Returns the cached `RegExp` for the given `preValToken`, falling back to the
+ * legacy `SHIKI_VAL_<n>` pattern when no token is provided.
+ */
 function getTemplateValPattern(preValToken: string | undefined): RegExp {
 	if (preValToken == null || preValToken.length === 0) {
 		return LEGACY_SHIKI_VAL_PATTERN;
@@ -217,12 +224,20 @@ function getTemplateValPattern(preValToken: string | undefined): RegExp {
 
 	let cached = preValPatternCache.get(preValToken);
 	if (cached == null) {
+		if (preValPatternCache.size >= maxPreValPatternCacheSize) {
+			preValPatternCache.clear();
+		}
 		cached = new RegExp(`${escapeForRegExp(preValToken)}(\\d+)__`, "g");
 		preValPatternCache.set(preValToken, cached);
 	}
 	return cached;
 }
 
+/**
+ * Replaces placeholder tokens in `input` with values from `vals`, applying
+ * `mapValue` to each substituted value. Returns the input unchanged when
+ * no placeholders are present.
+ */
 function substituteTemplateVals(
 	input: string,
 	vals: unknown[],
@@ -246,10 +261,12 @@ function substituteTemplateVals(
 	});
 }
 
+/** Substitutes placeholder tokens in pre-rendered HTML, HTML-escaping each interpolated value. */
 function substitutePreVals(html: string, vals: unknown[], preValToken: string | undefined): string {
 	return substituteTemplateVals(html, vals, preValToken, (value) => escapeHtml(String(value)));
 }
 
+/** Substitutes placeholder tokens in plain text (for the copy button), without HTML escaping. */
 function substitutePreValsPlainText(
 	text: string,
 	vals: unknown[],

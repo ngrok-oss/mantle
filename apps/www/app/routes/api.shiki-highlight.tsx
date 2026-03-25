@@ -62,6 +62,7 @@ const mantleServerHighlighter = createMantleServerSyntaxHighlighter();
 
 const methodNotAllowedBody = { message: "Method Not Allowed" };
 
+/** React Router action that accepts a POST with `{ code, language }` and returns Shiki-highlighted HTML. */
 export async function action({ request }: { request: Request }) {
 	if (request.method !== "POST") {
 		return Response.json(methodNotAllowedBody, { status: 405 });

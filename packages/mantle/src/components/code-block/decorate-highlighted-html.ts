@@ -2,6 +2,7 @@ import type { LineRange } from "./line-numbers.js";
 import { resolveLineNumbers } from "./line-numbers.js";
 import { cx } from "../../utils/cx/cx.js";
 
+/** Removes trailing `\n` and `\r` characters from the end of a string. */
 function trimTrailingNewlines(input: string): string {
 	let end = input.length;
 	while (end > 0 && (input.charCodeAt(end - 1) === 10 || input.charCodeAt(end - 1) === 13)) {
@@ -10,6 +11,7 @@ function trimTrailingNewlines(input: string): string {
 	return end === input.length ? input : input.slice(0, end);
 }
 
+/** Splits Shiki-highlighted HTML into per-line content, unwrapping `<span class="line">` wrappers. */
 function splitHighlightedHtmlIntoLines(html: string): string[] {
 	const normalizedHtml = trimTrailingNewlines(html).replaceAll("\r\n", "\n").replaceAll("\r", "\n");
 	const shikiLines = normalizedHtml.split("\n");
@@ -26,6 +28,7 @@ function splitHighlightedHtmlIntoLines(html: string): string[] {
 	return shikiLines;
 }
 
+/** Input for {@link decorateHighlightedHtml}. */
 type DecorateHighlightedHtmlInput = {
 	highlightLines?: (LineRange | number)[] | undefined;
 	html: string;
@@ -33,6 +36,10 @@ type DecorateHighlightedHtmlInput = {
 	showLineNumbers?: boolean | undefined;
 };
 
+/**
+ * Wraps each line of Shiki-highlighted HTML in Mantle's line-number and
+ * line-highlight markup, producing the final HTML rendered by `CodeBlock.Code`.
+ */
 function decorateHighlightedHtml({
 	highlightLines,
 	html,
