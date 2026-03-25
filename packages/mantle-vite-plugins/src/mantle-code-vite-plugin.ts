@@ -304,7 +304,13 @@ function parseHighlightLinesArray(
 		})
 		.filter((item): item is number | `${number}-${number}` => item != null);
 
-	return parsed.length > 0 ? parsed : [];
+	// Return [] only for a genuinely empty array literal (`highlightLines={[]}`).
+	// When the array had elements but none were valid, return undefined so we
+	// don't silently override other highlight options or trigger attribute removal.
+	if (parsed.length === 0) {
+		return input.elements.length === 0 ? [] : undefined;
+	}
+	return parsed;
 }
 
 /** Returns the static key name of an object property, or `undefined` for computed keys. */
