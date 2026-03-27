@@ -1,5 +1,21 @@
 # @ngrok/mantle
 
+## 0.67.0
+
+### Minor Changes
+
+- [#1018](https://github.com/ngrok-oss/mantle/pull/1018) [`f27c01f`](https://github.com/ngrok-oss/mantle/commit/f27c01fc3291344380f32018d65cd6d21381fcaa) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - CodeBlock: replace PrismJS with Shiki for build-time syntax highlighting, removing Shiki/Prism from the browser bundle
+
+### Patch Changes
+
+- [#1089](https://github.com/ngrok-oss/mantle/pull/1089) [`36e5921`](https://github.com/ngrok-oss/mantle/commit/36e59211a9b76f0542d2551bd28d858449d3a131) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Tabs: use fade mask instead of shadow for horizontal overflow
+
+- [#1089](https://github.com/ngrok-oss/mantle/pull/1089) [`36e5921`](https://github.com/ngrok-oss/mantle/commit/36e59211a9b76f0542d2551bd28d858449d3a131) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - fix(tabs): correct border width and focus ring clipping in horizontal classic tabs
+
+- [#1089](https://github.com/ngrok-oss/mantle/pull/1089) [`36e5921`](https://github.com/ngrok-oss/mantle/commit/36e59211a9b76f0542d2551bd28d858449d3a131) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - fix(tabs): remove bottom border from horizontal classic tab list
+
+- [#1088](https://github.com/ngrok-oss/mantle/pull/1088) [`54743f1`](https://github.com/ngrok-oss/mantle/commit/54743f1deee01709952fcf5222e0ea205c282e5d) Thanks [@forzalupo](https://github.com/forzalupo)! - MultiSelect: polish styling
+
 ## 0.66.17
 
 ### Patch Changes
