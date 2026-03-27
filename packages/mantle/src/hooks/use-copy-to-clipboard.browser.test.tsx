@@ -68,13 +68,11 @@ describe("useCopyToClipboard (browser)", () => {
 		const { result } = renderHook(() => useCopyToClipboard());
 		const [, copyToClipboard] = result.current;
 
-		act(() => {
-			copyToClipboard("cleanup test");
+		await act(async () => {
+			await expect(copyToClipboard("cleanup test")).rejects.toThrow("clipboard unavailable");
 		});
 
-		await waitFor(() => {
-			expect(document.body.querySelector("textarea")).toBeNull();
-		});
+		expect(document.body.querySelector("textarea")).toBeNull();
 
 		vi.restoreAllMocks();
 	});
@@ -97,6 +95,42 @@ describe("useCopyToClipboard (browser)", () => {
 		await waitFor(() => {
 			expect(result.current[0]).toBe("polyfill value");
 		});
+
+		vi.restoreAllMocks();
+	});
+
+	test("awaiting copyToClipboard resolves after the clipboard write completes", async () => {
+		const { result } = renderHook(() => useCopyToClipboard());
+		const [, copyToClipboard] = result.current;
+
+		await act(async () => {
+			await copyToClipboard("awaited value");
+		});
+
+		// State is already updated by the time the promise resolves — no waitFor needed
+		expect(result.current[0]).toBe("awaited value");
+
+		const text = await navigator.clipboard.readText();
+		expect(text).toBe("awaited value");
+	});
+
+	test("state is not updated when both clipboard API and polyfill fail", async () => {
+		vi.spyOn(navigator.clipboard, "writeText").mockRejectedValueOnce(
+			new Error("clipboard unavailable"),
+		);
+		vi.spyOn(HTMLTextAreaElement.prototype, "select").mockImplementationOnce(() => {
+			throw new Error("select failed");
+		});
+
+		const { result } = renderHook(() => useCopyToClipboard());
+		const [, copyToClipboard] = result.current;
+
+		await act(async () => {
+			await expect(copyToClipboard("should not persist")).rejects.toThrow();
+		});
+
+		// State stays at the initial empty string since both paths failed
+		expect(result.current[0]).toBe("");
 
 		vi.restoreAllMocks();
 	});

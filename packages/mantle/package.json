@@ -108,6 +108,11 @@
 			"types": "./dist/code-block.d.ts",
 			"import": "./dist/code-block.js"
 		},
+		"./highlight-utils": {
+			"@ngrok/src-live-types": "./src/components/code-block/highlight-utils.ts",
+			"types": "./dist/code-block_highlight-utils.d.ts",
+			"import": "./dist/code-block_highlight-utils.js"
+		},
 		"./color": {
 			"@ngrok/src-live-types": "./src/utils/color/index.ts",
 			"types": "./dist/color.d.ts",
@@ -333,7 +338,6 @@
 		"class-variance-authority": "0.7.1",
 		"clsx": "2.1.1",
 		"cmdk": "1.1.1",
-		"prismjs": "1.30.0",
 		"react-day-picker": "9.14.0",
 		"sonner": "2.0.7",
 		"tailwind-merge": "3.5.0",
@@ -348,7 +352,6 @@
 		"@testing-library/react": "16.3.2",
 		"@testing-library/user-event": "14.6.1",
 		"@tsdown/css": "catalog:",
-		"@types/prismjs": "1.26.6",
 		"@types/react": "19.2.14",
 		"@types/react-dom": "19.2.3",
 		"@vitest/browser-playwright": "catalog:",

@@ -4,7 +4,7 @@ import {
 	normalizeValue,
 	parseMetastring,
 	tokenizeMetastring,
-} from "./parse-metastring.js";
+} from "./resolve-pre-rendered-props.js";
 
 describe("parseMetastring", () => {
 	test("given undefined, returns default meta", () => {

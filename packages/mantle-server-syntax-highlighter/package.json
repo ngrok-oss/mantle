@@ -1,0 +1,48 @@
+{
+  "name": "@ngrok/mantle-server-syntax-highlighter",
+  "version": "0.1.0",
+  "description": "Server-side syntax highlighting for @ngrok/mantle, powered by Shiki.",
+  "homepage": "https://mantle.ngrok.com",
+  "license": "MIT",
+  "author": "ngrok",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ngrok-oss/mantle"
+  },
+  "files": [
+    "dist",
+    "package.json"
+  ],
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "@ngrok/src-live-types": "./src/index.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "test": "TZ=UTC vitest run",
+    "test:watch": "TZ=UTC vitest watch",
+    "typecheck": "tsgo"
+  },
+  "dependencies": {
+    "shiki": "4.0.1"
+  },
+  "devDependencies": {
+    "@cfg/tsconfig": "workspace:*",
+    "@ngrok/mantle": "workspace:*",
+    "@testing-library/jest-dom": "catalog:",
+    "@types/node": "catalog:",
+    "tsdown": "catalog:",
+    "typescript": "catalog:"
+  },
+  "peerDependencies": {
+    "@ngrok/mantle": "*"
+  },
+  "engines": {
+    "node": "^24.0.0"
+  }
+}

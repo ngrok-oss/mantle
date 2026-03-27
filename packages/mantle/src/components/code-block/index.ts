@@ -5,13 +5,41 @@ export {
 
 export {
 	//,
+	createMantleCodeBlockValue,
+	mantleCode,
+} from "./mantle-code.js";
+
+export type {
+	//,
+	MantleCodeBlockValue,
+	MantleCodeOptions,
+} from "./mantle-code.js";
+
+export {
+	//,
+	decorateHighlightedHtml,
+} from "./decorate-highlighted-html.js";
+
+export {
+	//,
 	escapeHtml,
 } from "./escape-html.js";
 
 export {
 	//,
-	fmtCode,
-} from "./fmt-code.js";
+	hasMoreThanNLines,
+} from "./has-more-than-n-lines.js";
+
+export {
+	//,
+	inferIndentation,
+	isIndentation,
+} from "./indentation.js";
+
+export type {
+	//,
+	Indentation,
+} from "./indentation.js";
 
 export {
 	//,
@@ -21,24 +49,42 @@ export {
 export {
 	//,
 	defaultMeta,
+	normalizeValue,
 	parseMetastring,
-} from "./parse-metastring.js";
-
-export type {
-	//,
-	Meta,
-	MetaInput,
-	Mode,
-	DefaultMeta,
-} from "./parse-metastring.js";
+	resolvePreRenderedCodeBlockProps,
+	tokenizeMetastring,
+} from "./resolve-pre-rendered-props.js";
 
 export {
 	//,
-	formatLanguageClassName,
+	parseCodeBlockHighlightLines,
+	parseCodeBlockLineNumberStart,
+	parseCodeBlockShowLineNumbers,
+} from "./parse-line-options.js";
+
+export type {
+	//,
+	CodeBlockPreElementInput,
+	DefaultMeta,
+	Meta,
+	MetaInput,
+	Mode,
+	ResolvePreRenderedCodeBlockPropsInput,
+	ResolvePreRenderedCodeBlockPropsResult,
+	ResolvedPreRenderedCodeBlockProps,
+} from "./resolve-pre-rendered-props.js";
+
+export {
+	//,
 	isSupportedLanguage,
 	parseLanguage,
 	supportedLanguages,
 } from "./supported-languages.js";
+
+export type {
+	//,
+	LineRange,
+} from "./line-numbers.js";
 
 export type {
 	//,

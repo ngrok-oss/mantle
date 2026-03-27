@@ -559,65 +559,54 @@ MARK: UTILITIES
 	animation-duration: --value([length]);
 }
 
-/**
-MARK: SYNTAX HIGHLIGHT TOKEN STYLES
+/*
+MARK: SHIKI SYNTAX HIGHLIGHT
 */
-.token.comment,
-.token.prolog,
-.token.doctype,
-.token.cdata {
-	color: var(--color-gray-500);
+:root {
+	--shiki-foreground: var(--color-gray-900);
+	--shiki-background: transparent;
+	--shiki-color-text: var(--shiki-foreground);
+
+	--shiki-token-comment: var(--color-gray-500);
+	--shiki-token-constant: var(--color-indigo-600);
+	--shiki-token-string: var(--color-green-600);
+	--shiki-token-string-expression: var(--color-green-600);
+	--shiki-token-keyword: var(--color-blue-600);
+	--shiki-token-function: var(--color-blue-600);
+	--shiki-token-parameter: var(--color-yellow-600);
+	--shiki-token-punctuation: var(--shiki-foreground);
+
+	/* Mantle code-line rendering hooks (used by CodeBlock + server highlighter). */
+	--mantle-code-line-highlight-bg: --alpha(var(--color-accent-500) / 12%);
+	--mantle-code-line-number-color: var(--text-color-muted);
+	--mantle-code-line-number-width: 2rem;
+	--mantle-code-line-number-gap: 1rem;
 }
 
-.token.property,
-.token.tag,
-.token.boolean,
-.token.number,
-.token.constant,
-.token.symbol,
-.token.deleted {
-	color: var(--color-indigo-600);
+.mantle-code-line {
+	display: flex;
+	align-items: flex-start;
+	min-width: 100%;
+	box-sizing: border-box;
+	padding-right: 3.5rem; /* space for the copy button overlay */
 }
 
-.token.attr-name,
-.token.string,
-.token.char,
-.token.builtin,
-.token.inserted {
-	color: var(--color-green-600);
+.mantle-code-line-highlighted {
+	background-color: var(--mantle-code-line-highlight-bg);
 }
 
-.token.operator,
-.token.entity,
-.token.url,
-.language-css .token.string,
-.style .token.string {
-	color: var(--color-green-600);
+.mantle-code-line-number {
+	display: block;
+	flex-shrink: 0;
+	width: var(--mantle-code-line-number-width);
+	margin-right: var(--mantle-code-line-number-gap);
+	user-select: none;
+	text-align: right;
+	color: var(--mantle-code-line-number-color);
 }
 
-.token.selector,
-.token.atrule,
-.token.attr-value,
-.token.keyword {
-	color: var(--color-blue-600);
-}
-
-.token.function,
-.token.class-name {
-	color: var(--color-blue-600);
-}
-
-.token.regex,
-.token.important,
-.token.variable {
-	color: var(--color-yellow-600);
-}
-
-.token.important,
-.token.bold {
-	font-weight: bold;
-}
-
-.token.italic {
-	font-style: italic;
+.mantle-code-line-content {
+	display: block;
+	min-width: 0;
+	flex: 1 1 auto;
 }
