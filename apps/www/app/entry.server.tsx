@@ -293,7 +293,7 @@ function buildCSPHeader({ nonce, baseUrl }: { nonce: string; baseUrl: string }):
 	const scriptSrc = `script-src ${scriptNonce} ${scriptSrcSources.join(" ")}`;
 	const baseUri = "base-uri 'self';";
 	const objectSrc = "object-src 'none';";
-	const workerSrc = "worker-src blob:;";
+	const workerSrc = "worker-src 'self' blob:;";
 
 	return [
 		//,

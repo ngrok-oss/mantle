@@ -3,6 +3,13 @@ import { defineConfig } from "tsdown";
 export default defineConfig({
 	dts: true,
 	clean: true,
+	external: [
+		"@ngrok/mantle",
+		"@ngrok/mantle-server-syntax-highlighter",
+		"magic-string",
+		"oxc-parser",
+		"vite",
+	],
 	minify: false,
 	sourcemap: true,
 	target: "ES2023",

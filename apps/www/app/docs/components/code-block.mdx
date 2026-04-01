@@ -1,6 +1,6 @@
 ---
 title: Code Block
-description: Code blocks render and apply syntax highlighting to blocks of code.
+description: Code blocks render and apply syntax highlighting to blocks of code using Shiki at build time.
 ---
 
 import {
@@ -9,17 +9,21 @@ import {
 	HorizontalScrollingDemo,
 	NoHeaderOrCopyButtonDemo,
 	SingleLineHorizontalScrollingDemo,
+	ServerRenderedHighlightingDemo,
 	OverridingIndentationDemo,
+	TabbedCodeBlockDemo,
 } from "~/features/code-block-demos";
 
 # Code Block
 
-Code blocks render and apply syntax highlighting to blocks of code.
+Code blocks render and apply syntax highlighting to blocks of code. Syntax highlighting is performed at build time using [Shiki](https://shiki.style/) via the `mantleCodeBlockPlugins()` Vite plugin, so there is zero highlighting cost in the browser.
+
+Use `mantleCode("language")` tagged template literals to define code values. The Vite plugin transforms these at build time, inlining pre-rendered HTML.
 
 <PrimaryCodeBlockDemo />
 
 ```tsx
-import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
+import { CodeBlock, mantleCode } from "@ngrok/mantle/code-block";
 
 <CodeBlock.Root>
 	<CodeBlock.Header>
@@ -28,7 +32,7 @@ import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
 	</CodeBlock.Header>
 	<CodeBlock.Body>
 		<CodeBlock.CopyButton />
-		<CodeBlock.Code language="…" value={fmtCode`…`} />
+		<CodeBlock.Code value={mantleCode("javascript")`…`} />
 	</CodeBlock.Body>
 	<CodeBlock.ExpanderButton />
 </CodeBlock.Root>;
@@ -51,8 +55,9 @@ Many code blocks will be single line command line prompts and should be able to 
 	<CodeBlock.Body>
 		<CodeBlock.CopyButton />
 		<CodeBlock.Code
-			language="sh"
-			value={fmtCode`sudo unzip ~/Downloads/ngrok-v3-stable-darwin.zip -d /usr/local/bin`}
+			value={mantleCode(
+				"bash",
+			)`sudo unzip ~/Downloads/ngrok-v3-stable-darwin.zip -d /usr/local/bin`}
 		/>
 	</CodeBlock.Body>
 </CodeBlock.Root>
@@ -73,8 +78,7 @@ This example is included to demonstrate that code blocks can scroll horizontally
 	<CodeBlock.Body>
 		<CodeBlock.CopyButton />
 		<CodeBlock.Code
-			language="js"
-			value={fmtCode`
+			value={mantleCode("javascript")`
 				const http = require('http');
 				const ngrok = require("@ngrok/ngrok");
 				const server = http.createServer((req, res) => {
@@ -107,15 +111,13 @@ This is the most simple example of our code block component. While very useful, 
 <CodeBlock.Root>
 	<CodeBlock.Body>
 		<CodeBlock.Code
-			language="js"
-			value={fmtCode`
+			value={mantleCode("javascript")`
 				const http = require('http');
 				const ngrok = require("@ngrok/ngrok");
 				const server = http.createServer((req, res) => {
 					res.writeHead(200);
 					res.end("Hello!");
 				});
-				// Consumes authtoken from env automatically
 				ngrok.listen(server).then(() => {
 					console.log("url:", server.tunnel.url());
 				});
@@ -136,75 +138,147 @@ This example is included to show the interaction between the copy button and hor
 	<CodeBlock.Body>
 		<CodeBlock.CopyButton />
 		<CodeBlock.Code
-			language="sh"
-			value={fmtCode`ffmpeg -i multichannel.mxf -map 0:v:0 -map 0:a:0 -map 0:a:0 -c:a:0 ac3 -b:a:0 640k -ac:a:1 2 -c:a:1 aac -b:2 128k out.mp4`}
+			value={mantleCode(
+				"bash",
+			)`ffmpeg -i multichannel.mxf -map 0:v:0 -map 0:a:0 -map 0:a:0 -c:a:0 ac3 -b:a:0 640k -ac:a:1 2 -c:a:1 aac -b:2 128k out.mp4`}
 		/>
 	</CodeBlock.Body>
 </CodeBlock.Root>
+```
+
+### Server-Rendered Syntax Highlighting
+
+The `CodeBlock` supports server-rendered syntax highlighting for dynamic or user-provided code. Use `createMantleCodeBlockValue()` to construct a value from server-highlighted HTML and pass it to `CodeBlock.Code`. This is useful when the code to highlight isn't known at build time — for example, user input or API responses.
+
+<ServerRenderedHighlightingDemo />
+
+```tsx
+import {
+	CodeBlock,
+	createMantleCodeBlockValue,
+	type MantleCodeBlockValue,
+} from "@ngrok/mantle/code-block";
+
+// Fetch highlighted HTML from your server
+const response = await fetch("/api/shiki-highlight", {
+	method: "POST",
+	headers: { "Content-Type": "application/json" },
+	body: JSON.stringify({ code, language: "typescript", showLineNumbers: true }),
+});
+const data = await response.json();
+
+// Create a MantleCodeBlockValue from the server response
+const value: MantleCodeBlockValue = createMantleCodeBlockValue({
+	code: data.code,
+	language: "typescript",
+	preHtml: data.html,
+	showLineNumbers: data.showLineNumbers,
+	highlightLines: data.highlightLines,
+	lineNumberStart: data.lineNumberStart,
+});
+
+<CodeBlock.Root>
+	<CodeBlock.Body>
+		<CodeBlock.CopyButton />
+		<CodeBlock.Code value={value} />
+	</CodeBlock.Body>
+</CodeBlock.Root>;
+```
+
+### Highlight Microservice (for Go / non-Node.js backends)
+
+For frontends backed by non-Node.js services (Go, Python, etc.), deploy a small Node.js highlight service as a sidecar or shared microservice. This gives you the same server-rendered highlighting without shipping Shiki to the browser — the frontend just calls the API with `fetch`.
+
+Create a highlight server using `createMantleServerSyntaxHighlighter`:
+
+```ts
+// highlight-service.ts — deploy as a sidecar alongside your Go service
+import { createServer } from "node:http";
+import { createMantleServerSyntaxHighlighter } from "@ngrok/mantle-server-syntax-highlighter";
+
+const highlighter = createMantleServerSyntaxHighlighter();
+
+createServer(async (req, res) => {
+	// Handle CORS
+	res.setHeader("Access-Control-Allow-Origin", "*");
+	res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+	res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+	if (req.method === "OPTIONS") {
+		res.writeHead(204).end();
+		return;
+	}
+
+	const chunks: Buffer[] = [];
+	for await (const chunk of req) chunks.push(chunk);
+	const { code, language, showLineNumbers, highlightLines, lineNumberStart } = JSON.parse(
+		Buffer.concat(chunks).toString(),
+	);
+
+	const result = await highlighter.highlight({
+		code,
+		language,
+		showLineNumbers,
+		highlightLines,
+		lineNumberStart,
+	});
+	res.writeHead(200, { "Content-Type": "application/json" }).end(JSON.stringify(result));
+}).listen(4444, () => console.log("Highlight server on :4444"));
+```
+
+Then use it from any frontend the same way as the [server-rendered example](#server-rendered-syntax-highlighting) above, pointing at the highlight service URL:
+
+```tsx
+const response = await fetch("http://localhost:4444", {
+	method: "POST",
+	headers: { "Content-Type": "application/json" },
+	body: JSON.stringify({ code, language: "json", showLineNumbers: true }),
+});
+const data = await response.json();
+
+const value = createMantleCodeBlockValue({
+	code: data.code,
+	language: data.language,
+	preHtml: data.html,
+	showLineNumbers: data.showLineNumbers,
+});
+```
+
+### Tabbed Code Block
+
+Use `CodeBlock.TabList`, `CodeBlock.TabTrigger`, and `CodeBlock.TabContent` to create a tabbed code block. Pass `defaultTab` (or `activeTab` / `onActiveTabChange` for controlled mode) to `CodeBlock.Root`, place the tab triggers in the `CodeBlock.Header`, and wrap each `CodeBlock.Code` in a `CodeBlock.TabContent`. The copy button automatically copies whichever code is currently displayed.
+
+<TabbedCodeBlockDemo />
+
+```tsx
+import { CodeBlock, mantleCode } from "@ngrok/mantle/code-block";
+
+const policyYml = mantleCode("yaml")`…`;
+const policyJson = mantleCode("json")`…`;
+
+<CodeBlock.Root defaultTab="yml">
+	<CodeBlock.Header>
+		<CodeBlock.TabList>
+			<CodeBlock.TabTrigger value="yml">policy.yml</CodeBlock.TabTrigger>
+			<CodeBlock.TabTrigger value="json">policy.json</CodeBlock.TabTrigger>
+		</CodeBlock.TabList>
+	</CodeBlock.Header>
+	<CodeBlock.Body>
+		<CodeBlock.CopyButton />
+		<CodeBlock.TabContent value="yml">
+			<CodeBlock.Code value={policyYml} />
+		</CodeBlock.TabContent>
+		<CodeBlock.TabContent value="json">
+			<CodeBlock.Code value={policyJson} />
+		</CodeBlock.TabContent>
+	</CodeBlock.Body>
+</CodeBlock.Root>;
 ```
 
 ### Overriding default language indentation
 
-By default, the code block code will detect the preferred (or required) indentation of the given language. This is important for languages that require a certain indentation style; for example, Python and YAML are space-indented languages, so the code block will use spaces for indentation. This is done to ensure that the code is displayed and copied correctly and is easy to read. However, you can override this by passing the `indentation` prop to the `CodeBlock.Code`.
+By default, the code block code will detect the preferred (or required) indentation of the given language. This is important for languages that require a certain indentation style; for example, Python and YAML are space-indented languages, so the code block will use spaces for indentation. This is done to ensure that the code is displayed and copied correctly and is easy to read. However, you can override this by passing `indentation` in the `mantleCode()` options.
 
 <OverridingIndentationDemo />
-
-```tsx
-<CodeBlock.Root>
-	<CodeBlock.Header>
-		<CodeBlock.Icon preset="file" />
-		<CodeBlock.Title>traffic-policy.yaml</CodeBlock.Title>
-	</CodeBlock.Header>
-	<CodeBlock.Body>
-		<CodeBlock.CopyButton />
-		<CodeBlock.Code
-			language="yaml"
-			value={fmtCode`
-				# yaml indentation MUST use spaces (we infer this for you)
-				on_http_request:
-					actions:
-						type: custom-response
-						config:
-							status_code: 200
-							content: Hello, World!
-			`}
-		/>
-	</CodeBlock.Body>
-</CodeBlock.Root>
-
-<CodeBlock.Root>
-	<CodeBlock.Header>
-		<CodeBlock.Icon preset="file" />
-		<CodeBlock.Title>ngrok-example.js (using space indentation)</CodeBlock.Title>
-	</CodeBlock.Header>
-	<CodeBlock.Body>
-		<CodeBlock.CopyButton />
-		<CodeBlock.Code
-			language="js"
-			indentation="spaces"
-			value={fmtCode`
-				// by default, mantle decides that javascript uses tabs,
-				// but this example uses spaces for indentation
-				const http = require('http');
-				const ngrok = require("@ngrok/ngrok");
-				const server = http.createServer((req, res) => {
-					res.writeHead(200);
-					res.end("Hello!");
-					setTimeout(() => {
-						Promise.resolve().then(() => {
-							console.log("url:", server.tunnel.url());
-						});
-					}, timeout);
-				});
-				// Consumes authtoken from env automatically
-				ngrok.listen(server).then(() => {
-					console.log("url:", server.tunnel.url());
-				});
-			`}
-		/>
-	</CodeBlock.Body>
-</CodeBlock.Root>
-```
 
 ## API Reference
 
@@ -212,13 +286,16 @@ The `CodeBlock` renders and applies syntax highlighting to blocks of code and is
 
 ### CodeBlock.Root
 
-Code blocks render and apply syntax highlighting to blocks of code. Root container for all `CodeBlock` sub-components.
+Root container for all `CodeBlock` sub-components. For tabbed code blocks, pass `defaultTab` (uncontrolled) or `activeTab` / `onActiveTabChange` (controlled) to enable tab switching.
 
 All props from [standard HTML div attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes), plus:
 
-| Prop       | Type      | Default | Description                                                                                                                              |
-| :--------- | :-------- | :------ | :--------------------------------------------------------------------------------------------------------------------------------------- |
-| `asChild?` | `boolean` | `false` | Use the `asChild` prop to compose the `CodeBlock` styling and functionality onto alternative element types or your own React components. |
+| Prop                 | Type                      | Default | Description                                                                                                                              |
+| :------------------- | :------------------------ | :------ | :--------------------------------------------------------------------------------------------------------------------------------------- |
+| `asChild?`           | `boolean`                 | `false` | Use the `asChild` prop to compose the `CodeBlock` styling and functionality onto alternative element types or your own React components. |
+| `defaultTab?`        | `string`                  |         | The default active tab value (uncontrolled). Only relevant when using `TabList` / `TabContent`.                                          |
+| `activeTab?`         | `string`                  |         | The controlled active tab value. Only relevant when using `TabList` / `TabContent`.                                                      |
+| `onActiveTabChange?` | `(value: string) => void` |         | Callback fired when the active tab changes. Only relevant when using `TabList` / `TabContent`.                                           |
 
 ### CodeBlock.Body
 
@@ -232,15 +309,13 @@ All props from [standard HTML div attributes](https://developer.mozilla.org/en-U
 
 ### CodeBlock.Code
 
-The `CodeBlock` content. This is where the code is rendered and syntax highlighted.
+The `CodeBlock` content. This is where the code is rendered with pre-highlighted Shiki HTML.
 
 All props from [standard HTML pre attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/pre#attributes), plus:
 
-| Prop           | Type                                                                                                                                                                                                                                                                                                                                                                        | Default  | Description                                                                                                                                                                                                                                    |
-| :------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `value`        | `string`                                                                                                                                                                                                                                                                                                                                                                    |          | The code to display in the `CodeBlock`. Should be code formatted as a string. This code will be passed to our syntax highlighter. You should strongly consider wrapping this input with the `fmtCode` tagged template literal function helper. |
-| `indentation?` | `"spaces"` \| `"tabs"`                                                                                                                                                                                                                                                                                                                                                      |          | The type of indentation to use. By default, the code block code will detect the preferred (or required) indentation of the given language. You can override this behavior with this prop.                                                      |
-| `language`     | `"bash"` \| `"cs"` \| `"csharp"` \| `"css"` \| `"dotnet"` \| `"go"` \| `"html"` \| `"java"` \| `"javascript"` \| `"js"` \| `"json"` \| `"jsx"` \| `"markup"` \| `"plain"` \| `"plaintext"` \| `"py"` \| `"python"` \| `"rb"` \| `"ruby"` \| `"rust"` \| `"sh"` \| `"shell"` \| `"text"` \| `"ts"` \| `"tsx"` \| `"txt"` \| `"typescript"` \| `"xml"` \| `"yaml"` \| `"yml"` | `"text"` | The language of the `CodeBlock`. This will be used to determine how to syntax highlight the code.                                                                                                                                              |
+| Prop    | Type                   | Default | Description                                                                                        |
+| :------ | :--------------------- | :------ | :------------------------------------------------------------------------------------------------- |
+| `value` | `MantleCodeBlockValue` |         | The code value produced by `mantleCode("lang")` tagged template or `createMantleCodeBlockValue()`. |
 
 ### CodeBlock.Header
 
@@ -276,7 +351,7 @@ All props from [standard HTML button attributes](https://developer.mozilla.org/e
 
 ### CodeBlock.ExpanderButton
 
-The (optional) expander button of the `CodeBlock`. Render this as a child of the `CodeBlock.Body` to allow users to expand/collapse the code block contents.
+The (optional) expander button of the `CodeBlock`. Render this as a child of the `CodeBlock.Root` to allow users to expand/collapse the code block contents.
 
 All props from [standard HTML button attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes), plus:
 
@@ -294,3 +369,29 @@ All props from [Icon](/components/icon), plus:
 | :-------- | :---------------------------------------- | :------ | :--------------------------------------------------------------------------------------------------- |
 | `svg?`    | `ReactNode`                               |         | A custom icon to display in the code block header. You can exclusively pass one of `svg` or `preset` |
 | `preset?` | `"cli"` \| `"file"` \| `"traffic-policy"` |         | A preset icon to display in the code block header. You can exclusively pass one of `svg` or `preset` |
+
+### CodeBlock.TabList
+
+A tab list for the `CodeBlock` header. Renders pill-styled tab triggers that switch which code is displayed. Place this inside `CodeBlock.Header` and pair with `CodeBlock.TabContent` in `CodeBlock.Body`. Tab state is managed by `CodeBlock.Root` via `defaultTab` / `activeTab` / `onActiveTabChange`.
+
+All props from [standard HTML div attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes).
+
+### CodeBlock.TabTrigger
+
+A pill-styled tab trigger for the `CodeBlock` header. Must be rendered within a `CodeBlock.TabList`.
+
+All props from [standard HTML button attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes), plus:
+
+| Prop    | Type     | Default | Description                                                                                   |
+| :------ | :------- | :------ | :-------------------------------------------------------------------------------------------- |
+| `value` | `string` |         | The tab value this trigger activates. Must match the `value` of a corresponding `TabContent`. |
+
+### CodeBlock.TabContent
+
+Conditionally renders its children when the associated tab is active. Pair with `CodeBlock.TabList` and `CodeBlock.TabTrigger` in the header, and set `defaultTab` / `activeTab` on `CodeBlock.Root`.
+
+All props from [standard HTML div attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes), plus:
+
+| Prop    | Type     | Default | Description                                                                                    |
+| :------ | :------- | :------ | :--------------------------------------------------------------------------------------------- |
+| `value` | `string` |         | The tab value this content is associated with. Only rendered when this matches the active tab. |

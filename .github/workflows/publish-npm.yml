@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.repository == 'ngrok-oss/mantle'
     steps:
-      - uses: actions/create-github-app-token@v2
+      - uses: actions/create-github-app-token@v3
         id: generate-token
         with:
           app-id: ${{ secrets.RELEASE_BOT_APP_ID }}
@@ -34,7 +34,7 @@ jobs:
           token: ${{ steps.generate-token.outputs.token }}
 
       - name: Install pnpm 📦
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v5
         # use version from package.json#packageManager field
         with:
           run_install: false
