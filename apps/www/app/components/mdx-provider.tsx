@@ -1,4 +1,4 @@
-import { type ComponentProps, type PropsWithChildren, type ReactNode } from "react";
+import { type ComponentProps, type PropsWithChildren } from "react";
 
 import { MDXProvider as MdxProviderPrimitive } from "@mdx-js/react";
 import { Alert } from "@ngrok/mantle/alert";
