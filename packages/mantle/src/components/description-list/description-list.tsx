@@ -32,7 +32,7 @@ const Root = forwardRef<ComponentRef<"dl">, DescriptionListProps>(
 			<Component
 				ref={ref}
 				className={cx(
-					"relative scrollbar overflow-x-auto overscroll-x-none rounded-lg border border-card grid grid-cols-[auto_1fr] gap-x-4 [&>*:nth-child(odd)]:bg-base p-1",
+					"relative scrollbar overflow-x-auto overscroll-x-none rounded-lg border border-card grid grid-cols-[auto_1fr] gap-x-4 [&>*:nth-child(odd)]:bg-neutral-500/5 p-1",
 					className,
 				)}
 				{...rest}
@@ -68,7 +68,7 @@ const Item = forwardRef<ComponentRef<"div">, DescriptionListItemProps>(
 		return (
 			<Component
 				ref={ref}
-				className={cx("rounded-xs col-span-full grid grid-cols-subgrid items-center", className)}
+				className={cx("rounded-sm col-span-full grid grid-cols-subgrid items-center", className)}
 				{...rest}
 			>
 				{children}
@@ -97,7 +97,7 @@ const Label = forwardRef<ComponentRef<"dt">, DescriptionListLabelProps>(
 		return (
 			<Component
 				ref={ref}
-				className={cx("text-muted text-sm font-sans font-semibold min-w-36 p-3", className)}
+				className={cx("text-muted text-sm font-sans font-medium min-w-36 p-2", className)}
 				{...rest}
 			>
 				{children}
@@ -128,7 +128,11 @@ const Value = forwardRef<ComponentRef<"dd">, DescriptionListValueProps>(
 		const Component = asChild ? Slot : "dd";
 
 		return (
-			<Component ref={ref} className={cx("text-body font-mono text-mono p-3", className)} {...rest}>
+			<Component
+				ref={ref}
+				className={cx("text-body font-mono text-mono py-2 px-3", className)}
+				{...rest}
+			>
 				{children}
 			</Component>
 		);

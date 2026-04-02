@@ -289,12 +289,6 @@ MARK: LIGHT HICON DEFS
 	--background-color-filled-warning-hover: var(--color-warning-600);
 	--background-color-filled-success-hover: var(--color-success-600);
 
-	--background-color-filled-neutral-active: var(--color-neutral-700);
-	--background-color-filled-accent-active: var(--color-accent-700);
-	--background-color-filled-danger-active: var(--color-danger-700);
-	--background-color-filled-warning-active: var(--color-warning-700);
-	--background-color-filled-success-active: var(--color-success-700);
-
 	/* Focus tokens */
 	--ring-color-focus-neutral: --alpha(var(--color-neutral-500) / 0.3);
 	--ring-color-focus-accent: --alpha(var(--color-accent-500) / 0.3);

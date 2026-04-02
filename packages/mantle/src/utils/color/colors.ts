@@ -36,7 +36,15 @@ const isNamedColor = (value: unknown): value is NamedColor =>
 /**
  * Functional named colors
  */
-const functionalColors = ["info", "accent", "danger", "neutral", "success", "warning"] as const;
+const functionalColors = [
+	"important",
+	"info",
+	"accent",
+	"danger",
+	"neutral",
+	"success",
+	"warning",
+] as const;
 
 /**
  * A functional color

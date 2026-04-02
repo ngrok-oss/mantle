@@ -51,7 +51,7 @@ describe("Slider", () => {
 		test("applies the default accent color to the range", () => {
 			render(<Slider defaultValue={50} max={100} step={1} />);
 			const range = document.querySelector("[data-slot='slider-range']");
-			expect(range).toHaveClass("bg-accent-500");
+			expect(range).toHaveClass("bg-accent-600");
 		});
 
 		test("applies a custom color to the range", () => {

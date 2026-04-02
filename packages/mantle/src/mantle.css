@@ -68,17 +68,17 @@ MARK: THEME
 	--color-ff00ff: color(display-p3 0.94164 0 0.99869);
 
 	/* Semantic color aliases - reference base colors defined in theme-specific :root blocks */
-	--color-accent-50: var(--color-blue-50);
-	--color-accent-100: var(--color-blue-100);
-	--color-accent-200: var(--color-blue-200);
-	--color-accent-300: var(--color-blue-300);
-	--color-accent-400: var(--color-blue-400);
-	--color-accent-500: var(--color-blue-500);
-	--color-accent-600: var(--color-blue-600);
-	--color-accent-700: var(--color-blue-700);
-	--color-accent-800: var(--color-blue-800);
-	--color-accent-900: var(--color-blue-900);
-	--color-accent-950: var(--color-blue-950);
+	--color-accent-50: var(--color-sky-50);
+	--color-accent-100: var(--color-sky-100);
+	--color-accent-200: var(--color-sky-200);
+	--color-accent-300: var(--color-sky-300);
+	--color-accent-400: var(--color-sky-400);
+	--color-accent-500: var(--color-sky-500);
+	--color-accent-600: var(--color-sky-600);
+	--color-accent-700: var(--color-sky-700);
+	--color-accent-800: var(--color-sky-800);
+	--color-accent-900: var(--color-sky-900);
+	--color-accent-950: var(--color-sky-950);
 
 	/* info === accent */
 	--color-info-50: var(--color-accent-50);
@@ -93,17 +93,17 @@ MARK: THEME
 	--color-info-900: var(--color-accent-900);
 	--color-info-950: var(--color-accent-950);
 
-	--color-danger-50: var(--color-red-50);
-	--color-danger-100: var(--color-red-100);
-	--color-danger-200: var(--color-red-200);
-	--color-danger-300: var(--color-red-300);
-	--color-danger-400: var(--color-red-400);
-	--color-danger-500: var(--color-red-500);
-	--color-danger-600: var(--color-red-600);
-	--color-danger-700: var(--color-red-700);
-	--color-danger-800: var(--color-red-800);
-	--color-danger-900: var(--color-red-900);
-	--color-danger-950: var(--color-red-950);
+	--color-danger-50: var(--color-rose-50);
+	--color-danger-100: var(--color-rose-100);
+	--color-danger-200: var(--color-rose-200);
+	--color-danger-300: var(--color-rose-300);
+	--color-danger-400: var(--color-rose-400);
+	--color-danger-500: var(--color-rose-500);
+	--color-danger-600: var(--color-rose-600);
+	--color-danger-700: var(--color-rose-700);
+	--color-danger-800: var(--color-rose-800);
+	--color-danger-900: var(--color-rose-900);
+	--color-danger-950: var(--color-rose-950);
 
 	--color-warning-50: var(--color-amber-50);
 	--color-warning-100: var(--color-amber-100);
@@ -117,17 +117,29 @@ MARK: THEME
 	--color-warning-900: var(--color-amber-900);
 	--color-warning-950: var(--color-amber-950);
 
-	--color-success-50: var(--color-green-50);
-	--color-success-100: var(--color-green-100);
-	--color-success-200: var(--color-green-200);
-	--color-success-300: var(--color-green-300);
-	--color-success-400: var(--color-green-400);
-	--color-success-500: var(--color-green-500);
-	--color-success-600: var(--color-green-600);
-	--color-success-700: var(--color-green-700);
-	--color-success-800: var(--color-green-800);
-	--color-success-900: var(--color-green-900);
-	--color-success-950: var(--color-green-950);
+	--color-success-50: var(--color-emerald-50);
+	--color-success-100: var(--color-emerald-100);
+	--color-success-200: var(--color-emerald-200);
+	--color-success-300: var(--color-emerald-300);
+	--color-success-400: var(--color-emerald-400);
+	--color-success-500: var(--color-emerald-500);
+	--color-success-600: var(--color-emerald-600);
+	--color-success-700: var(--color-emerald-700);
+	--color-success-800: var(--color-emerald-800);
+	--color-success-900: var(--color-emerald-900);
+	--color-success-950: var(--color-emerald-950);
+
+	--color-important-50: var(--color-purple-50);
+	--color-important-100: var(--color-purple-100);
+	--color-important-200: var(--color-purple-200);
+	--color-important-300: var(--color-purple-300);
+	--color-important-400: var(--color-purple-400);
+	--color-important-500: var(--color-purple-500);
+	--color-important-600: var(--color-purple-600);
+	--color-important-700: var(--color-purple-700);
+	--color-important-800: var(--color-purple-800);
+	--color-important-900: var(--color-purple-900);
+	--color-important-950: var(--color-purple-950);
 
 	/* Shadow tokens - reference theme-specific shadow color and opacity values */
 	--shadow-sm: 0px 1px 2px 0 --alpha(var(--shadow-color) / var(--shadow-first-opacity));
@@ -240,12 +252,6 @@ MARK: THEME
 	--background-color-filled-warning-hover: var(--background-color-filled-warning-hover);
 	--background-color-filled-success-hover: var(--background-color-filled-success-hover);
 
-	--background-color-filled-neutral-active: var(--background-color-filled-neutral-active);
-	--background-color-filled-accent-active: var(--background-color-filled-accent-active);
-	--background-color-filled-danger-active: var(--background-color-filled-danger-active);
-	--background-color-filled-warning-active: var(--background-color-filled-warning-active);
-	--background-color-filled-success-active: var(--background-color-filled-success-active);
-
 	--ring-color-focus-neutral: var(--ring-color-focus-neutral);
 	--ring-color-focus-accent: var(--ring-color-focus-accent);
 	--ring-color-focus-danger: var(--ring-color-focus-danger);
@@ -264,6 +270,7 @@ MARK: LIGHT DEFS
 
 	/* neutral-50 through neutral-900 match Tailwind v4 defaults exactly — only -950 is custom */
 	--color-neutral-950: oklch(18.2% 0 0); /* TW4 default is 14.5% — intentionally lighter */
+	--color-sky-600: oklch(55% 0.158 241.966);
 
 	/* gray is identical to neutral in light mode */
 	--color-gray-50: var(--color-neutral-50);
@@ -300,7 +307,7 @@ MARK: LIGHT DEFS
 	--background-color-card-hover: var(--color-neutral-100);
 	--background-color-popover-hover: var(--color-neutral-100);
 	--background-color-dialog-hover: var(--color-neutral-100);
-	--background-color-form: var(--color-white);
+	--background-color-form: var(--background-color-card);
 	--background-color-form-hover: --alpha(var(--color-neutral-500) / 0.05);
 	--background-color-form-active: --alpha(var(--color-neutral-500) / 0.1);
 	--background-color-overlay: --alpha(#000 / 0.12);
@@ -321,9 +328,9 @@ MARK: LIGHT DEFS
 	--color-card-border: var(--color-neutral-300);
 	--color-card-border-muted: var(--color-neutral-200);
 
-	--color-active-menu-item: var(--color-neutral-100);
-	--color-selected-menu-item: var(--color-accent-50);
-	--color-active-selected-menu-item: var(--color-accent-100);
+	--color-active-menu-item: --alpha(var(--color-neutral-500) / 0.05);
+	--color-selected-menu-item: --alpha(var(--color-accent-500) / 0.1);
+	--color-active-selected-menu-item: --alpha(var(--color-accent-500) / 0.15);
 
 	--text-color-strong: var(--color-neutral-950);
 	--text-color-body: --alpha(var(--color-neutral-950) / 0.75);
@@ -332,23 +339,17 @@ MARK: LIGHT DEFS
 	--text-color-on-filled: #fff;
 
 	/* Theme tokens */
-	--background-color-filled-neutral: var(--color-neutral-500);
-	--background-color-filled-accent: var(--color-accent-500);
-	--background-color-filled-danger: var(--color-danger-500);
-	--background-color-filled-warning: var(--color-warning-500);
-	--background-color-filled-success: var(--color-success-500);
+	--background-color-filled-neutral: var(--color-neutral-950);
+	--background-color-filled-accent: var(--color-accent-600);
+	--background-color-filled-danger: var(--color-danger-600);
+	--background-color-filled-warning: var(--color-warning-600);
+	--background-color-filled-success: var(--color-success-600);
 
-	--background-color-filled-neutral-hover: var(--color-neutral-600);
-	--background-color-filled-accent-hover: var(--color-accent-600);
-	--background-color-filled-danger-hover: var(--color-danger-600);
-	--background-color-filled-warning-hover: var(--color-warning-600);
-	--background-color-filled-success-hover: var(--color-success-600);
-
-	--background-color-filled-neutral-active: var(--color-neutral-700);
-	--background-color-filled-accent-active: var(--color-accent-700);
-	--background-color-filled-danger-active: var(--color-danger-700);
-	--background-color-filled-warning-active: var(--color-warning-700);
-	--background-color-filled-success-active: var(--color-success-700);
+	--background-color-filled-neutral-hover: var(--color-neutral-800);
+	--background-color-filled-accent-hover: var(--color-accent-700);
+	--background-color-filled-danger-hover: var(--color-danger-700);
+	--background-color-filled-warning-hover: var(--color-warning-700);
+	--background-color-filled-success-hover: var(--color-success-700);
 
 	/* Focus tokens */
 	--ring-color-focus-neutral: --alpha(var(--color-neutral-500) / 0.3);
@@ -361,6 +362,9 @@ MARK: LIGHT DEFS
 	--shadow-first-opacity: 5%;
 	--shadow-second-opacity: 10%;
 	--navigation-shadow: --alpha(var(--shadow-color) / 10%);
+
+	--bg-checked-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 16 16'%3e%3cpath fill='white' d='M12.7071 4.29289c.3905.39053.3905 1.02369 0 1.41422L6.70711 11.7071c-.39053.3905-1.02369.3905-1.41422 0l-2-1.99999c-.39052-.39053-.39052-1.02369 0-1.41422.39053-.39052 1.02369-.39052 1.41422 0L6 9.58579l5.2929-5.2929c.3905-.39052 1.0237-.39052 1.4142 0Z'/%3e%3c/svg%3e");
+	--bg-indeterminate-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 16 16'%3e%3cpath fill='white' d='M4 8c0-.55228.44772-1 1-1h6c.5523 0 1 .44772 1 1s-.4477 1-1 1H5c-.55228 0-1-.44772-1-1Z'/%3e%3c/svg%3e");
 }
 
 /**
@@ -419,6 +423,10 @@ MARK: CUSTOM VARIANTS
 }
 
 @layer base {
+	body {
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
 	button:not(:disabled),
 	[role="button"]:not(:disabled) {
 		cursor: pointer;
@@ -433,6 +441,13 @@ MARK: CUSTOM VARIANTS
 /**
 MARK: UTILITIES
 */
+@layer utilities {
+	.font-family {
+		-webkit-font-smoothing: auto;
+		-moz-osx-font-smoothing: auto;
+	}
+}
+
 @utility cursor-inherit {
 	cursor: inherit;
 }
@@ -538,11 +553,11 @@ MARK: UTILITIES
 }
 
 @utility bg-checked-icon {
-	background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 16 16'%3e%3cpath fill='white' d='M12.7071 4.29289c.3905.39053.3905 1.02369 0 1.41422L6.70711 11.7071c-.39053.3905-1.02369.3905-1.41422 0l-2-1.99999c-.39052-.39053-.39052-1.02369 0-1.41422.39053-.39052 1.02369-.39052 1.41422 0L6 9.58579l5.2929-5.2929c.3905-.39052 1.0237-.39052 1.4142 0Z'/%3e%3c/svg%3e");
+	background-image: var(--bg-checked-icon);
 }
 
 @utility bg-indeterminate-icon {
-	background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 16 16'%3e%3cpath fill='white' d='M4 8c0-.55228.44772-1 1-1h6c.5523 0 1 .44772 1 1s-.4477 1-1 1H5c-.55228 0-1-.44772-1-1Z'/%3e%3c/svg%3e");
+	background-image: var(--bg-indeterminate-icon);
 }
 
 @utility stop-color-current {

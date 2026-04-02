@@ -211,7 +211,7 @@ const Head = forwardRef<ComponentRef<"thead">, ComponentProps<"thead">>(
 				//,
 				"border-b border-card-muted",
 				"divide-y divide-card-muted",
-				"text-strong bg-base",
+				"text-muted bg-base",
 				"[&>tr]:bg-base", // Row styling
 				className,
 			)}
@@ -526,7 +526,7 @@ const Cell = forwardRef<ComponentRef<"td">, ComponentProps<"td">>(
 		<td
 			ref={ref}
 			className={cx(
-				"p-4 align-middle [&:has([role=checkbox])]:pr-0 font-mono text-mono",
+				"p-3 align-middle [&:has([role=checkbox])]:pr-0 font-mono text-mono",
 				className,
 			)}
 			{...props}
