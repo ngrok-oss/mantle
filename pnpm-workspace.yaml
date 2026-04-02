@@ -30,7 +30,7 @@ catalog:
   "happy-dom": "20.8.9"
   "playwright": "1.59.1"
   "playwright-core": "1.59.1"
-  "@tsdown/css": "0.21.3"
+  "@tsdown/css": "0.21.7"
   "tailwindcss": "4.2.2"
   "tsdown": "0.21.3"
   "tsx": "4.21.0"
