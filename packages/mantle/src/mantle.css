@@ -252,12 +252,6 @@ MARK: THEME
 	--background-color-filled-warning-hover: var(--background-color-filled-warning-hover);
 	--background-color-filled-success-hover: var(--background-color-filled-success-hover);
 
-	--background-color-filled-neutral-active: var(--background-color-filled-neutral-active);
-	--background-color-filled-accent-active: var(--background-color-filled-accent-active);
-	--background-color-filled-danger-active: var(--background-color-filled-danger-active);
-	--background-color-filled-warning-active: var(--background-color-filled-warning-active);
-	--background-color-filled-success-active: var(--background-color-filled-success-active);
-
 	--ring-color-focus-neutral: var(--ring-color-focus-neutral);
 	--ring-color-focus-accent: var(--ring-color-focus-accent);
 	--ring-color-focus-danger: var(--ring-color-focus-danger);
