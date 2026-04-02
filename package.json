@@ -29,7 +29,7 @@
     "@typescript/native-preview": "7.0.0-dev.20260316.1",
     "husky": "9.1.7",
     "lint-staged": "16.4.0",
-    "oxfmt": "0.40.0",
+    "oxfmt": "0.43.0",
     "oxlint": "1.55.0",
     "tsx": "catalog:",
     "turbo": "2.8.17",
