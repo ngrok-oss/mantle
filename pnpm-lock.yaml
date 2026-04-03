@@ -101,8 +101,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/mantle-server-syntax-highlighter
       hono:
-        specifier: 4.12.9
-        version: 4.12.9
+        specifier: 4.12.10
+        version: 4.12.10
       valibot:
         specifier: 1.3.1
         version: 1.3.1(typescript@5.9.3)
@@ -3356,8 +3356,8 @@ packages:
   hast-util-whitespace@3.0.0:
     resolution: {integrity: sha512-88JUN06ipLwsnv+dVn+OIYOvAuvBMy/Qoi6O7mQHxdPXpjy+Cd6xRkWwux7DKO+4sYILtLBRIKgsdpS2gQc7qw==}
 
-  hono@4.12.9:
-    resolution: {integrity: sha512-wy3T8Zm2bsEvxKZM5w21VdHDDcwVS1yUFFY6i8UobSsKfFceT7TOwhbhfKsDyx7tYQlmRM5FLpIuYvNFyjctiA==}
+  hono@4.12.10:
+    resolution: {integrity: sha512-mx/p18PLy5og9ufies2GOSUqep98Td9q4i/EF6X7yJgAiIopxqdfIO3jbqsi3jRgTgw88jMDEzVKi+V2EF+27w==}
     engines: {node: '>=16.9.0'}
 
   hookable@6.1.0:
@@ -7632,7 +7632,7 @@ snapshots:
     dependencies:
       '@types/hast': 3.0.4
 
-  hono@4.12.9: {}
+  hono@4.12.10: {}
 
   hookable@6.1.0: {}
 
