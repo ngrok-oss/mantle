@@ -501,7 +501,7 @@ function CommandPalette({ currentVersion }: { currentVersion: string | undefined
 								>
 									<ItemName>
 										GitHub Repo
-										<span className="text-muted text-xs font-mono">ngrok-oss/mantle</span>
+										<span className="text-muted text-xs">ngrok-oss/mantle</span>
 									</ItemName>
 									<ArrowSquareOutIcon />
 								</a>
@@ -515,7 +515,7 @@ function CommandPalette({ currentVersion }: { currentVersion: string | undefined
 								>
 									<ItemName>
 										GitHub Releases
-										<span className="text-muted text-xs font-mono">version {currentVersion}</span>
+										<span className="text-muted text-xs">version {currentVersion}</span>
 									</ItemName>
 									<ArrowSquareOutIcon />
 								</a>
