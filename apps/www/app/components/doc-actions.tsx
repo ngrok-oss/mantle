@@ -54,19 +54,19 @@ export function DocActions({ markdownPath }: Props) {
 
 	return (
 		<SplitButton.Root className="relative z-50">
-			<SplitButton.PrimaryAction icon={<CopyIcon />} iconPlacement="end" onClick={copyMarkdownPage}>
+			<SplitButton.PrimaryAction icon={<CopyIcon />} onClick={copyMarkdownPage}>
 				Copy page
 			</SplitButton.PrimaryAction>
 			<SplitButton.MenuTrigger label="Open doc actions menu" />
 			<SplitButton.MenuContent>
 				<SplitButton.MenuItem onClick={copyMarkdownPage}>
-					Copy page
 					<Icon svg={<CopyIcon />} />
+					Copy page
 				</SplitButton.MenuItem>
 				<SplitButton.MenuItem asChild>
 					<a href={markdownUrl} target="_blank">
-						View as Markdown
 						<Icon svg={<FileTextIcon />} />
+						View as Markdown
 					</a>
 				</SplitButton.MenuItem>
 			</SplitButton.MenuContent>
