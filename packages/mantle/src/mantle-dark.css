@@ -280,8 +280,16 @@ MARK: DARK DEFS
 	--background-color-popover: var(--color-neutral-100);
 	--background-color-dialog: var(--color-neutral-50);
 	--background-color-base-hover: var(--color-neutral-100);
-	--background-color-card-hover: var(--color-neutral-200);
-	--background-color-popover-hover: var(--color-neutral-200);
+	--background-color-card-hover: color-mix(
+		in oklab,
+		var(--color-neutral-100) 50%,
+		var(--color-neutral-200)
+	);
+	--background-color-popover-hover: color-mix(
+		in oklab,
+		var(--color-neutral-100) 50%,
+		var(--color-neutral-200)
+	);
 	--background-color-dialog-hover: var(--color-neutral-100);
 	--background-color-form: var(--background-color-card);
 	--background-color-form-hover: --alpha(var(--color-neutral-500) / 0.05);
