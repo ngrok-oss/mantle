@@ -168,7 +168,7 @@ const components = {
 	td: (props) => {
 		const { node: _node, className, ...rest } = props;
 		return (
-			<Table.Cell className={cx("px-4 py-3 align-top font-sans text-base", className)} {...rest} />
+			<Table.Cell className={cx("px-4 py-3 align-top font-sans text-sm", className)} {...rest} />
 		);
 	},
 	tfoot: (props) => {
@@ -177,12 +177,7 @@ const components = {
 	},
 	th: (props) => {
 		const { node: _node, className, ...rest } = props;
-		return (
-			<Table.Header
-				className={cx("px-4 py-3 text-xs uppercase tracking-wide text-muted", className)}
-				{...rest}
-			/>
-		);
+		return <Table.Header className={cx(className)} {...rest} />;
 	},
 	thead: (props) => {
 		const { node: _node, ...rest } = props;
