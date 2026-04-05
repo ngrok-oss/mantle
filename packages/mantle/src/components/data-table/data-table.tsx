@@ -170,7 +170,7 @@ function HeaderSortButton<TData, TValue>({
 				}
 				toggleNextSortingDirection(column, sortingMode);
 			}}
-			priority="neutral"
+			intent="neutral"
 			type="button"
 			{...props}
 		>

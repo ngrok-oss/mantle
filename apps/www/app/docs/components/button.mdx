@@ -4,7 +4,7 @@ description: Initiates an action, such as completing a task or submitting inform
 ---
 
 import { Button } from "@ngrok/mantle/button";
-import { FireIcon } from "@phosphor-icons/react/Fire";
+import { GlobeHemisphereWestIcon } from "@phosphor-icons/react/GlobeHemisphereWest";
 import { Link, href } from "react-router";
 import { Example } from "~/components/example";
 
@@ -14,35 +14,41 @@ Initiates an action, such as completing a task or submitting information.
 
 <Example className="flex flex-wrap gap-6">
 	<div>
-		<p className="mb-2 text-center font-mono text-xs">Default</p>
+		<p className="mb-2 text-center font-mono text-xs">Neutral</p>
 		<div className="flex items-center gap-2">
-			<Button type="button" appearance="ghost" priority="default">
+			<Button type="button" appearance="ghost" intent="neutral">
 				Ghost
 			</Button>
-			<Button type="button" appearance="filled" priority="default">
+			<Button type="button" appearance="filled" intent="neutral">
 				Filled
 			</Button>
-			<Button type="button" appearance="outlined" priority="default">
+			<Button type="button" appearance="outlined" intent="neutral">
 				Outlined
 			</Button>
-			<Button type="button" appearance="link" priority="default">
+			<Button type="button" appearance="subtle" intent="neutral">
+				Subtle
+			</Button>
+			<Button type="button" appearance="link" intent="neutral">
 				Link
 			</Button>
 		</div>
 	</div>
 	<div>
-		<p className="mb-2 text-center font-mono text-xs">Neutral</p>
+		<p className="mb-2 text-center font-mono text-xs">Accent</p>
 		<div className="flex items-center gap-2">
-			<Button type="button" appearance="ghost" priority="neutral">
+			<Button type="button" appearance="ghost" intent="accent">
 				Ghost
 			</Button>
-			<Button type="button" appearance="filled" priority="neutral">
+			<Button type="button" appearance="filled" intent="accent">
 				Filled
 			</Button>
-			<Button type="button" appearance="outlined" priority="neutral">
+			<Button type="button" appearance="outlined" intent="accent">
 				Outlined
 			</Button>
-			<Button type="button" appearance="link" priority="neutral">
+			<Button type="button" appearance="subtle" intent="accent">
+				Subtle
+			</Button>
+			<Button type="button" appearance="link" intent="accent">
 				Link
 			</Button>
 		</div>
@@ -50,16 +56,19 @@ Initiates an action, such as completing a task or submitting information.
 	<div>
 		<p className="mb-2 text-center font-mono text-xs">Danger</p>
 		<div className="flex items-center gap-2">
-			<Button type="button" appearance="ghost" priority="danger">
+			<Button type="button" appearance="ghost" intent="danger">
 				Ghost
 			</Button>
-			<Button type="button" appearance="filled" priority="danger">
+			<Button type="button" appearance="filled" intent="danger">
 				Filled
 			</Button>
-			<Button type="button" appearance="outlined" priority="danger">
+			<Button type="button" appearance="outlined" intent="danger">
 				Outlined
 			</Button>
-			<Button type="button" appearance="link" priority="danger">
+			<Button type="button" appearance="subtle" intent="danger">
+				Subtle
+			</Button>
+			<Button type="button" appearance="link" intent="danger">
 				Link
 			</Button>
 		</div>
@@ -69,20 +78,73 @@ Initiates an action, such as completing a task or submitting information.
 ```tsx
 import { Button } from "@ngrok/mantle/button";
 
-<Button type="button">Outlined</Button>
-<Button type="button" appearance="filled">Filled</Button>
-<Button type="button" appearance="ghost">Ghost</Button>
-<Button type="button" appearance="link">Link</Button>
+<Button type="button" intent="neutral">Outlined</Button>
+<Button type="button" intent="neutral" appearance="filled">Filled</Button>
+<Button type="button" intent="neutral" appearance="ghost">Ghost</Button>
+<Button type="button" intent="neutral" appearance="subtle">Subtle</Button>
+<Button type="button" intent="neutral" appearance="link">Link</Button>
 
-<Button type="button" priority="neutral">Outlined</Button>
-<Button type="button" priority="neutral" appearance="filled">Filled</Button>
-<Button type="button" priority="neutral" appearance="ghost">Ghost</Button>
-<Button type="button" priority="neutral" appearance="link">Link</Button>
+<Button type="button" intent="accent">Outlined</Button>
+<Button type="button" intent="accent" appearance="filled">Filled</Button>
+<Button type="button" intent="accent" appearance="ghost">Ghost</Button>
+<Button type="button" intent="accent" appearance="subtle">Subtle</Button>
+<Button type="button" intent="accent" appearance="link">Link</Button>
 
-<Button type="button" priority="danger">Outlined</Button>
-<Button type="button" priority="danger" appearance="filled">Filled</Button>
-<Button type="button" priority="danger" appearance="ghost">Ghost</Button>
-<Button type="button" priority="danger" appearance="link">Link</Button>
+<Button type="button" intent="danger">Outlined</Button>
+<Button type="button" intent="danger" appearance="filled">Filled</Button>
+<Button type="button" intent="danger" appearance="ghost">Ghost</Button>
+<Button type="button" intent="danger" appearance="subtle">Subtle</Button>
+<Button type="button" intent="danger" appearance="link">Link</Button>
+```
+
+## Size
+
+Use the `size` prop to control the height and padding of the button. The default size is `md`.
+
+<Example className="flex-col gap-4">
+	<div className="flex items-center gap-2">
+		<Button type="button" size="sm">
+			Small
+		</Button>
+		<Button type="button" size="md">
+			Medium
+		</Button>
+		<Button type="button" size="lg">
+			Large
+		</Button>
+		<Button type="button" size="xl">
+			Extra Large
+		</Button>
+	</div>
+	<div className="flex items-center gap-2">
+		<Button type="button" size="sm" icon={<GlobeHemisphereWestIcon />}>
+			Small
+		</Button>
+		<Button type="button" size="md" icon={<GlobeHemisphereWestIcon />}>
+			Medium
+		</Button>
+		<Button type="button" size="lg" icon={<GlobeHemisphereWestIcon />}>
+			Large
+		</Button>
+		<Button type="button" size="xl" icon={<GlobeHemisphereWestIcon />}>
+			Extra Large
+		</Button>
+	</div>
+</Example>
+
+```tsx
+import { Button } from "@ngrok/mantle/button";
+import { GlobeHemisphereWestIcon } from "@phosphor-icons/react/GlobeHemisphereWest";
+
+<Button type="button" size="sm">Small</Button>
+<Button type="button" size="md">Medium</Button>
+<Button type="button" size="lg">Large</Button>
+<Button type="button" size="xl">Extra Large</Button>
+
+<Button type="button" size="sm" icon={<GlobeHemisphereWestIcon />}>Small</Button>
+<Button type="button" size="md" icon={<GlobeHemisphereWestIcon />}>Medium</Button>
+<Button type="button" size="lg" icon={<GlobeHemisphereWestIcon />}>Large</Button>
+<Button type="button" size="xl" icon={<GlobeHemisphereWestIcon />}>Extra Large</Button>
 ```
 
 ## Icon and Positioning
@@ -91,10 +153,10 @@ Use the `icon` prop to add an icon to the button. By default, it will render on 
 
 <Example>
 	<div className="flex items-center gap-2">
-		<Button type="button" icon={<FireIcon weight="fill" />}>
+		<Button type="button" icon={<GlobeHemisphereWestIcon />}>
 			Icon Start
 		</Button>
-		<Button type="button" icon={<FireIcon weight="fill" />} iconPlacement="end">
+		<Button type="button" icon={<GlobeHemisphereWestIcon />} iconPlacement="end">
 			Icon End
 		</Button>
 	</div>
@@ -102,10 +164,10 @@ Use the `icon` prop to add an icon to the button. By default, it will render on 
 
 ```tsx
 import { Button } from "@ngrok/mantle/button";
-import { FireIcon } from "@phosphor-icons/react/Fire";
+import { GlobeHemisphereWestIcon } from "@phosphor-icons/react/GlobeHemisphereWest";
 
-<Button type="button" icon={<FireIcon weight="fill" />}>Icon Start</Button>
-<Button type="button" icon={<FireIcon weight="fill" />} iconPlacement="end">
+<Button type="button" icon={<GlobeHemisphereWestIcon />}>Icon Start</Button>
+<Button type="button" icon={<GlobeHemisphereWestIcon />} iconPlacement="end">
 	Icon End
 </Button>
 ```
@@ -119,10 +181,10 @@ import { FireIcon } from "@phosphor-icons/react/Fire";
 		<p className="mb-2 text-center font-mono text-xs">Idle</p>
 		<div className="flex flex-wrap items-center justify-center gap-2">
 			<Button type="button">No Icon + Idle</Button>
-			<Button type="button" icon={<FireIcon weight="fill" />}>
+			<Button type="button" icon={<GlobeHemisphereWestIcon />}>
 				Icon Start + Idle
 			</Button>
-			<Button type="button" icon={<FireIcon weight="fill" />} iconPlacement="end">
+			<Button type="button" icon={<GlobeHemisphereWestIcon />} iconPlacement="end">
 				Icon End + Idle
 			</Button>
 		</div>
@@ -133,10 +195,10 @@ import { FireIcon } from "@phosphor-icons/react/Fire";
 			<Button type="button" isLoading>
 				No Icon + isLoading
 			</Button>
-			<Button type="button" icon={<FireIcon weight="fill" />} isLoading>
+			<Button type="button" icon={<GlobeHemisphereWestIcon />} isLoading>
 				Icon Start + isLoading
 			</Button>
-			<Button type="button" icon={<FireIcon weight="fill" />} iconPlacement="end" isLoading>
+			<Button type="button" icon={<GlobeHemisphereWestIcon />} iconPlacement="end" isLoading>
 				Icon End + isLoading
 			</Button>
 		</div>
@@ -145,18 +207,18 @@ import { FireIcon } from "@phosphor-icons/react/Fire";
 
 ```tsx
 import { Button } from "@ngrok/mantle/button";
-import { FireIcon } from "@phosphor-icons/react/Fire";
+import { GlobeHemisphereWestIcon } from "@phosphor-icons/react/GlobeHemisphereWest";
 
 <Button type="button">No Icon + Idle</Button>
-<Button type="button" icon={<FireIcon weight="fill" />}>Icon Start + Idle</Button>
-<Button type="button" icon={<FireIcon weight="fill" />} iconPlacement="end">
+<Button type="button" icon={<GlobeHemisphereWestIcon />}>Icon Start + Idle</Button>
+<Button type="button" icon={<GlobeHemisphereWestIcon />} iconPlacement="end">
 	Icon End + Idle
 </Button>
 <Button type="button" isLoading>No Icon + isLoading</Button>
-<Button type="button" icon={<FireIcon weight="fill" />} isLoading>
+<Button type="button" icon={<GlobeHemisphereWestIcon />} isLoading>
 	Icon Start + isLoading
 </Button>
-<Button type="button" icon={<FireIcon weight="fill" />} iconPlacement="end" isLoading>
+<Button type="button" icon={<GlobeHemisphereWestIcon />} iconPlacement="end" isLoading>
 	Icon End + isLoading
 </Button>
 ```
@@ -166,17 +228,17 @@ import { FireIcon } from "@phosphor-icons/react/Fire";
 When you want to render _something else_ as a `Button`, you can use the `asChild` prop to compose. This is useful when you want to splat the `Button` styling onto a `react-router` `Link`. Keep in mind that when you use `asChild` the `type` prop will **NOT** be passed to the child component.
 
 <Example>
-	<Button appearance="filled" icon={<FireIcon weight="fill" />} asChild>
+	<Button appearance="filled" icon={<GlobeHemisphereWestIcon />} asChild>
 		<Link to={href("/base/colors")}>See our colors!</Link>
 	</Button>
 </Example>
 
 ```tsx
 import { Button } from "@ngrok/mantle/button";
-import { FireIcon } from "@phosphor-icons/react/Fire";
+import { GlobeHemisphereWestIcon } from "@phosphor-icons/react/GlobeHemisphereWest";
 import { Link, href } from "react-router";
 
-<Button appearance="filled" icon={<FireIcon weight="fill" />} asChild>
+<Button appearance="filled" icon={<GlobeHemisphereWestIcon />} asChild>
 	<Link to={href("/base/colors")}>See our colors!</Link>
 </Button>;
 ```
@@ -187,12 +249,13 @@ import { Link, href } from "react-router";
 
 All props from [button](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes), plus:
 
-| Prop             | Type                                                | Default      | Description                                                                                                                                                                                                                                                                      |
-| ---------------- | --------------------------------------------------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `appearance?`    | `"ghost"` \| `"filled"` \| `"outlined"` \| `"link"` | `"outlined"` | Defines the visual style of the `Button`.                                                                                                                                                                                                                                        |
-| `asChild?`       | `boolean`                                           | `false`      | Use the `asChild` prop to compose the `Button` styling onto alternative element types or your own React components.                                                                                                                                                              |
-| `icon?`          | `ReactNode`                                         |              | An icon to render inside the button. When `isLoading` is `true`, the icon will automatically be replaced with a spinner.                                                                                                                                                         |
-| `iconPlacement?` | `"start"` \| `"end"`                                | `"start"`    | The side that the icon will render on, if one is present. When `isLoading` is `true`, the loading spinner will also render on this side.                                                                                                                                         |
-| `isLoading?`     | `boolean`                                           | `false`      | Determines whether or not the button is in a loading state. Setting `isLoading` will replace any `icon` with a spinner, or add one if an icon wasn't given. It will also disable user interaction with the button and set `aria-disabled`.                                       |
-| `priority?`      | `"default"` \| `"danger"` \| `"neutral"`            | `"default"`  | Indicates the importance or impact level of the button, affecting its color and styling to communicate its purpose to the user.                                                                                                                                                  |
-| `type`           | `"button"` \| `"reset"` \| `"submit"`               |              | The default behavior of the `Button`. Unlike the native `button` element, unless you use the `asChild` prop, **this prop is required and has no default value**. See [the MDN docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#type) for more information. |
+| Prop             | Type                                                              | Default      | Description                                                                                                                                                                                                                                                                      |
+| ---------------- | ----------------------------------------------------------------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `appearance?`    | `"ghost"` \| `"filled"` \| `"outlined"` \| `"subtle"` \| `"link"` | `"outlined"` | Defines the visual style of the `Button`.                                                                                                                                                                                                                                        |
+| `asChild?`       | `boolean`                                                         | `false`      | Use the `asChild` prop to compose the `Button` styling onto alternative element types or your own React components.                                                                                                                                                              |
+| `icon?`          | `ReactNode`                                                       |              | An icon to render inside the button. When `isLoading` is `true`, the icon will automatically be replaced with a spinner.                                                                                                                                                         |
+| `iconPlacement?` | `"start"` \| `"end"`                                              | `"start"`    | The side that the icon will render on, if one is present. When `isLoading` is `true`, the loading spinner will also render on this side.                                                                                                                                         |
+| `isLoading?`     | `boolean`                                                         | `false`      | Determines whether or not the button is in a loading state. Setting `isLoading` will replace any `icon` with a spinner, or add one if an icon wasn't given. It will also disable user interaction with the button and set `aria-disabled`.                                       |
+| `intent?`        | `"accent"` \| `"danger"` \| `"neutral"`                           | `"neutral"`  | Indicates the importance or impact level of the button, affecting its color and styling to communicate its purpose to the user.                                                                                                                                                  |
+| `size?`          | `"sm"` \| `"md"` \| `"lg"` \| `"xl"`                              | `"md"`       | The size of the `Button`.                                                                                                                                                                                                                                                        |
+| `type`           | `"button"` \| `"reset"` \| `"submit"`                             |              | The default behavior of the `Button`. Unlike the native `button` element, unless you use the `asChild` prop, **this prop is required and has no default value**. See [the MDN docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#type) for more information. |

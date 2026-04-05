@@ -290,7 +290,7 @@ function GithubAlert({ className, type, children, ...props }: GithubAlertProps) 
 	const priority = alertTypePriorities[type] ?? "info";
 
 	return (
-		<Alert.Root priority={priority} className={cx("mb-6", className)} {...props}>
+		<Alert.Root intent={priority} className={cx("mb-6", className)} {...props}>
 			<Alert.Icon />
 			<Alert.Content>
 				<Alert.Title asChild>

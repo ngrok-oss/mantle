@@ -29,7 +29,7 @@ export function ToastDemo() {
 				appearance="filled"
 				onClick={() => {
 					makeToast(
-						<Toast.Root priority={priority}>
+						<Toast.Root intent={priority}>
 							<Toast.Icon />
 							<Toast.Message>
 								Laborum ea anim adipisicing in Lorem incididunt mollit ipsum reprehenderit.
@@ -65,7 +65,7 @@ export function ToastDemo() {
 							type="button"
 							onClick={() =>
 								makeToast(
-									<Toast.Root priority="warning">
+									<Toast.Root intent="warning">
 										<Toast.Icon />
 										<Toast.Message>
 											Laborum ea anim adipisicing in Lorem incididunt mollit ipsum reprehenderit.
@@ -109,7 +109,7 @@ export function ToastDemo() {
 							type="button"
 							onClick={() =>
 								makeToast(
-									<Toast.Root priority="danger">
+									<Toast.Root intent="danger">
 										<Toast.Icon />
 										<Toast.Message>
 											Laborum ea anim adipisicing in Lorem incididunt mollit ipsum reprehenderit.
@@ -132,14 +132,14 @@ export function ToastDemo() {
 					</Dialog.Body>
 					<Dialog.Footer>
 						<Dialog.Close asChild>
-							<Button type="button" priority="neutral" appearance="outlined">
+							<Button type="button" intent="neutral" appearance="outlined">
 								Cancel
 							</Button>
 						</Dialog.Close>
 					</Dialog.Footer>
 				</Dialog.Content>
 			</Dialog.Root>
-			<AlertDialog.Root priority="info">
+			<AlertDialog.Root intent="info">
 				<AlertDialog.Trigger asChild>
 					<Button type="button" appearance="filled">
 						Show Info Alert Dialog
@@ -155,7 +155,7 @@ export function ToastDemo() {
 							type="button"
 							onClick={() =>
 								makeToast(
-									<Toast.Root priority="success">
+									<Toast.Root intent="success">
 										<Toast.Icon />
 										<Toast.Message>
 											Laborum ea anim adipisicing in Lorem incididunt mollit ipsum reprehenderit.
@@ -200,7 +200,7 @@ import { makeToast, Toast } from "@ngrok/mantle/toast";
 	onClick={() =>
 		// make some toast! 🍞😋
 		makeToast(
-			<Toast.Root priority="success">
+			<Toast.Root intent="success">
 				<Toast.Icon />
 				<Toast.Message>
 					Laborum ea anim adipisicing in Lorem incididunt mollit ipsum reprehenderit.
@@ -237,16 +237,16 @@ All props from [div](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/d
 
 | Prop       | Type                                           | Default | Description                                                                                                                               |
 | ---------- | ---------------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `priority` | `"info" \| "success" \| "warning" \| "danger"` |         | The priority level of the toast, which determines the visual styling and default icon.                                                    |
+| `intent`   | `"info" \| "success" \| "warning" \| "danger"` |         | The intent level of the toast, which determines the visual styling and default icon.                                                      |
 | `asChild?` | `boolean`                                      | `false` | Use the `asChild` prop to compose the `Toast.Root` styling and functionality onto alternative element types or your own React components. |
 
 ### Toast.Icon
 
-The `Toast.Icon` displays an icon representing the toast priority. If no custom icon is provided, a default icon for the priority is used.
+The `Toast.Icon` displays an icon representing the toast intent. If no custom icon is provided, a default icon for the intent is used.
 
-| Prop   | Type        | Default | Description                                                                                          |
-| ------ | ----------- | ------- | ---------------------------------------------------------------------------------------------------- |
-| `svg?` | `ReactNode` |         | A custom SVG icon to display. If not provided, the default icon for the toast priority will be used. |
+| Prop   | Type        | Default | Description                                                                                        |
+| ------ | ----------- | ------- | -------------------------------------------------------------------------------------------------- |
+| `svg?` | `ReactNode` |         | A custom SVG icon to display. If not provided, the default icon for the toast intent will be used. |
 
 ### Toast.Message
 
