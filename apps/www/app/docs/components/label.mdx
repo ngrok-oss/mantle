@@ -12,7 +12,7 @@ import { Example } from "~/components/example";
 A `Label` represents a caption for an item in a user interface. Renders an accessible label associated with controls.
 
 <Example className="grid gap-6">
-	<Label htmlFor="name">
+	<Label htmlFor="name" className="grid gap-2">
 		<span className="font-medium">Name</span> <Input type="text" id="name" />
 	</Label>
 	<div className="flex items-center gap-2">
@@ -21,7 +21,7 @@ A `Label` represents a caption for an item in a user interface. Renders an acces
 		</Label>
 		<Input type="text" id="name-2" />
 	</div>
-	<Label htmlFor="name-disabled">
+	<Label htmlFor="name-disabled" className="grid gap-2">
 		<span className="font-medium">Name</span>{" "}
 		<Input type="text" id="name-disabled" disabled readOnly validation="error" value="foo" />
 	</Label>
@@ -31,7 +31,7 @@ A `Label` represents a caption for an item in a user interface. Renders an acces
 import { Input } from "@ngrok/mantle/input";
 import { Label } from "@ngrok/mantle/label";
 
-<Label htmlFor="name">
+<Label htmlFor="name" className="grid gap-2">
 	<span className="font-medium">Name</span> <Input type="text" id="name" />
 </Label>
 
