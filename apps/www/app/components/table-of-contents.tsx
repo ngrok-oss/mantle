@@ -183,7 +183,7 @@ function TableOfContents({ contentRef }: { contentRef: RefObject<HTMLDivElement 
 	}
 
 	return createPortal(
-		<nav aria-label="Table of contents" className="sticky top-0 max-h-screen w-40">
+		<nav aria-label="Table of contents" className="sticky top-20 max-h-[calc(100vh-5rem)] w-40">
 			<div className="scrollbar h-full overflow-y-auto py-4">
 				<p className="text-strong mb-3 flex items-center gap-1.5 text-xs font-medium uppercase tracking-wide">
 					<ListNumbersIcon className="size-4" />

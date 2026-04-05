@@ -1,10 +1,10 @@
-import { Anchor } from "@ngrok/mantle/anchor";
-import { Button, IconButton } from "@ngrok/mantle/button";
+import { IconButton } from "@ngrok/mantle/button";
 import { Command, MetaKey } from "@ngrok/mantle/command";
 import { cx } from "@ngrok/mantle/cx";
 import { DropdownMenu } from "@ngrok/mantle/dropdown-menu";
+import { Separator } from "@ngrok/mantle/separator";
 import type { SvgAttributes } from "@ngrok/mantle/icon";
-import { NgrokWordmarkIcon } from "@ngrok/mantle/icons";
+import { NgrokLettermarkIcon } from "@ngrok/mantle/icons";
 import { Kbd } from "@ngrok/mantle/kbd";
 import { useTheme } from "@ngrok/mantle/theme";
 import type { WithStyleProps } from "@ngrok/mantle/types";
@@ -23,30 +23,29 @@ import { type ComponentRef, type PropsWithChildren, useRef, useState } from "rea
 import { useHotkeys } from "react-hotkeys-hook";
 import { Link, href, useNavigate } from "react-router";
 import { PreviewBadge } from "~/components/badges";
-import { PrimaryFooter } from "~/components/footer";
+// import { PrimaryFooter } from "~/components/footer";
 import { ThemeSwitcher } from "~/components/theme-switcher";
 import { NavLink } from "./nav-link";
 import { useNavigation } from "./navigation-context";
 import { TOC_PORTAL_ID } from "./table-of-contents";
-
-const MantleLogo = () => (
-	<svg xmlns="http://www.w3.org/2000/svg" width="94" height="34">
-		<path
-			fill="var(--color-neutral-600)"
-			d="M18.567 15.12c.758-1.253 2.45-2.887 4.491-2.887 2.45 0 3.821 1.604 3.821 4.55v8.196h1.838V26h-6.125v-1.02h1.779v-8.05c0-1.605-.846-2.86-2.596-2.86-1.342 0-2.333.643-3.062 1.605v9.304h1.779V26h-6.038v-1.02h1.75v-8.05c0-1.605-.846-2.86-2.567-2.86-1.341 0-2.362.643-3.062 1.605v9.304h1.75V26H6.229v-1.02h1.838v-9.334c0-.788-.263-1.283-1.634-1.634v-.554l3.413-1.225h.146c.379.7.583 1.925.583 2.8.73-1.225 2.275-2.8 4.317-2.8 1.925 0 3.237 1.021 3.675 2.888m12.293-.787c0-1.137 1.429-2.1 3.85-2.1 3.412 0 5.425 1.313 5.425 4.259v7.058c0 .787.437 1.225 1.02 1.225.438 0 .788-.146 1.167-.583l.409.466c-.613.875-1.488 1.634-2.655 1.634-1.37 0-2.275-.934-2.45-2.305-.904 1.342-2.683 2.276-4.229 2.276-1.983 0-3.296-1.371-3.296-3.092 0-2.596 2.684-4.608 7.525-5.95v-.467c0-2.275-.991-3.529-3.266-3.762-.263 1.283-1.08 2.479-2.246 2.479-.73 0-1.254-.438-1.254-1.138m3.85 10.413c.904 0 2.129-.38 2.916-1.342v-5.308c-3.558 1.05-5.045 2.537-5.045 4.462 0 1.4.875 2.188 2.129 2.188m21.206.233h1.809V26h-6.096v-1.02h1.779v-7.905c0-1.75-.904-3.004-2.684-3.004-1.37 0-2.45.642-3.15 1.604v9.304h1.75V26H43.23v-1.02h1.837v-9.334c0-.788-.262-1.283-1.633-1.634v-.554l3.412-1.225h.146c.38.7.584 1.925.584 2.8.729-1.225 2.304-2.8 4.404-2.8 2.479 0 3.937 1.604 3.937 4.55zm4.697-16.012 2.304-.817h.204v4.375h3.559v1.02h-3.56v9.51c0 1.137.817 1.72 1.809 1.72.875 0 1.575-.467 2.246-1.196l.554.613c-.934 1.283-2.217 2.1-3.938 2.1-1.691 0-3.179-1.05-3.179-2.975v-9.771h-2.07v-1.021h2.07zM72.635 24.98h1.838V26h-6.154v-1.02h1.808V9.2c0-1.02-.262-1.546-1.691-1.867V6.75l4.024-1.458h.175zm14.787-2.187c-.904 1.925-2.8 3.5-5.396 3.5-3.53 0-5.892-2.975-5.892-6.709 0-4.316 2.917-7.35 5.95-7.35 3.267 0 5.104 2.334 5.104 5.6l-8.75 1.371c.292 3.296 2.246 5.367 4.696 5.367 1.488 0 2.683-.642 3.734-2.158zm-5.367-9.625c-2.246 0-3.646 2.77-3.646 5.104l4.638-.759c1.02-.175 1.487-.466 1.487-1.341 0-1.43-.729-3.004-2.479-3.004"
-		/>
-		<path
-			fill="var(--color-accent-400)"
-			d="M0 0v5h2v24H0v5h5v-2h84v2h5v-5h-2V5h2V0h-5v2H5V0zm4 1v3H1V1zm85 2v2h2v24h-2v2H5v-2H3V5h2V3zM1 30h3v3H1zm92 0v3h-3v-3zM90 1h3v3h-3z"
-		/>
-	</svg>
-);
 
 function GitHub(props: SvgAttributes) {
 	return (
 		<svg fill="currentColor" width="1em" height="1em" viewBox="0 0 32 32" {...props}>
 			<path d="M16 3C8.82 3 3 8.97 3 16.34c0 5.83 3.64 10.79 8.7 12.6.7.19.59-.31.59-.65v-2.32c-3.95.48-4.1-2.2-4.37-2.65-.53-.93-1.8-1.17-1.42-1.62.9-.48 1.81.12 2.87 1.73.77 1.16 2.27.97 3.02.77a3.8 3.8 0 0 1 1.01-1.81c-4.08-.75-5.78-3.31-5.78-6.36 0-1.47.47-2.83 1.4-3.93-.6-1.8.05-3.35.14-3.58 1.69-.15 3.44 1.24 3.58 1.35.96-.26 2.05-.4 3.28-.4s2.33.14 3.3.41c.32-.25 1.95-1.45 3.52-1.3.08.22.72 1.73.16 3.51a5.97 5.97 0 0 1 1.42 3.95c0 3.05-1.71 5.61-5.81 6.35a3.81 3.81 0 0 1 1.1 2.72v3.36c.03.26 0 .53.44.53A13.33 13.33 0 0 0 29 16.35C29 8.97 23.18 3 16 3Z" />
 		</svg>
+	);
+}
+
+/** A ghost-button-styled navigation link for the top header. */
+function HeaderNavLink({ to, children }: PropsWithChildren<{ to: string }>) {
+	return (
+		<Link
+			to={to}
+			className="inline-flex items-center justify-center rounded-md px-3 py-1.5 text-sm font-medium text-strong hover:bg-neutral-500/10 focus:outline-hidden focus-visible:ring-4 focus-visible:ring-focus-accent"
+		>
+			{children}
+		</Link>
 	);
 }
 
@@ -61,112 +60,118 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 
 	return (
 		<div className={cx("flex min-h-full flex-col", className)} style={style}>
-			<div className="mx-auto w-full max-w-7xl flex-1 sm:px-4 pb-16">
-				<Link
-					className="sr-only"
-					onClick={() => {
-						mainRef.current?.focus({ preventScroll: true });
-					}}
-					to={{
-						hash: "#main",
-					}}
-				>
-					Skip to main content
-				</Link>
-				<header className="xs:gap-4 relative z-10 flex h-20 items-center gap-3 bg-base px-4 sm:px-0 xl:pr-44">
-					<IconButton
-						className="md:hidden"
-						onClick={() => {
-							setShowNavigation(!showNavigation);
-						}}
-						type="button"
-						appearance="outlined"
-						label="Menu"
-						size="md"
-						icon={showNavigation ? <XIcon /> : <ListIcon />}
-					/>
-
+			<Link
+				className="sr-only"
+				onClick={() => {
+					mainRef.current?.focus({ preventScroll: true });
+				}}
+				to={{
+					hash: "#main",
+				}}
+			>
+				Skip to main content
+			</Link>
+			<header className="sticky top-0 z-50 bg-card">
+				<div className="xs:gap-4 mx-auto flex h-15 w-full max-w-screen-2xl items-center gap-3 px-4">
 					<Link
 						to={href("/")}
-						className="px-1 flex focus:outline-hidden focus-visible:ring-3 focus-visible:ring-focus-accent rounded"
+						className="flex items-center gap-2 rounded px-1 font-mono text-xl leading-8 text-strong/90 hover:text-strong focus:outline-hidden focus-visible:ring-3 focus-visible:ring-focus-accent"
 					>
-						<NgrokWordmarkIcon className="xs:block hidden h-8.5 w-auto text-neutral-800" />
-						<MantleLogo />
+						<NgrokLettermarkIcon className="size-6" />
+						<span className="text-muted">/</span>
+						<span className="font-light">mantle</span>
 					</Link>
 
-					<div className="flex flex-col sm:flex-row items-center gap-2 -ml-1">
-						<Anchor
-							className="text-strong font-mono text-xs hidden sm:inline-block"
-							href="https://github.com/ngrok-oss/mantle/releases"
-						>
-							{currentVersion}
-						</Anchor>
+					<nav className="absolute left-1/2 hidden -translate-x-1/2 md:flex items-center gap-1">
+						<HeaderNavLink to={href("/")}>Docs</HeaderNavLink>
+						<HeaderNavLink to={href("/components/alert")}>Components</HeaderNavLink>
+						<HeaderNavLink to={href("/blocks")}>Blocks</HeaderNavLink>
+					</nav>
 
-						<IconButton
-							appearance="ghost"
-							asChild
-							icon={<GitHub />}
-							label="link to ngrok mantle GitHub"
-							className="hidden sm:inline-flex"
-						>
-							<a href="https://github.com/ngrok-oss/mantle" target="_blank" />
-						</IconButton>
+					<div className="flex items-center ml-auto">
+						<div className="flex items-center">
+							<a
+								href="https://github.com/ngrok-oss/mantle"
+								target="_blank"
+								className="hidden md:inline-flex items-center gap-1.5 rounded-md px-2 h-9 text-xs font-mono text-strong hover:bg-neutral-500/10 focus:outline-hidden focus-visible:ring-4 focus-visible:ring-focus-accent"
+							>
+								{currentVersion}
+								<GitHub className="size-5" />
+							</a>
 
-						<DropdownMenu.Root>
-							<DropdownMenu.Trigger asChild>
-								<IconButton
-									icon={<GitHub />}
-									label="link to ngrok Mantle GitHub"
-									type="button"
-									className="inline-flex sm:hidden"
-								/>
-							</DropdownMenu.Trigger>
-							<DropdownMenu.Content>
-								<DropdownMenu.Item asChild>
-									<a
-										href="https://github.com/ngrok-oss/mantle/releases"
-										target="_blank"
-										className="justify-between gap-4"
-									>
-										<span>
-											Version <span className="font-mono">{currentVersion}</span>
-										</span>
-										<ArrowSquareOutIcon className="text-muted" />
-									</a>
-								</DropdownMenu.Item>
-								<DropdownMenu.Item asChild>
-									<a
-										href="https://github.com/ngrok-oss/mantle"
-										target="_blank"
-										className="justify-between gap-4"
-									>
-										GitHub Repo
-										<ArrowSquareOutIcon className="text-muted" />
-									</a>
-								</DropdownMenu.Item>
-							</DropdownMenu.Content>
-						</DropdownMenu.Root>
-					</div>
+							<DropdownMenu.Root>
+								<DropdownMenu.Trigger asChild>
+									<IconButton
+										appearance="ghost"
+										icon={<GitHub />}
+										label="link to ngrok Mantle GitHub"
+										type="button"
+										className="inline-flex md:hidden"
+									/>
+								</DropdownMenu.Trigger>
+								<DropdownMenu.Content>
+									<DropdownMenu.Item asChild>
+										<a
+											href="https://github.com/ngrok-oss/mantle/releases"
+											target="_blank"
+											className="justify-between gap-4"
+										>
+											<span>
+												Version <span className="font-mono">{currentVersion}</span>
+											</span>
+											<ArrowSquareOutIcon className="text-muted" />
+										</a>
+									</DropdownMenu.Item>
+									<DropdownMenu.Item asChild>
+										<a
+											href="https://github.com/ngrok-oss/mantle"
+											target="_blank"
+											className="justify-between gap-4"
+										>
+											GitHub Repo
+											<ArrowSquareOutIcon className="text-muted" />
+										</a>
+									</DropdownMenu.Item>
+								</DropdownMenu.Content>
+							</DropdownMenu.Root>
 
-					<div className="flex items-center gap-3 ml-auto">
+							<ThemeSwitcher />
+						</div>
+
+						<Separator orientation="vertical" className="mx-3 h-5 hidden md:block" />
+
 						<CommandPalette currentVersion={currentVersion} />
 
-						<ThemeSwitcher />
+						<Separator orientation="vertical" className="mx-1 h-5 md:hidden" />
+
+						<IconButton
+							className="md:hidden"
+							onClick={() => {
+								setShowNavigation(!showNavigation);
+							}}
+							type="button"
+							appearance="ghost"
+							label="Menu"
+							size="md"
+							icon={showNavigation ? <XIcon /> : <ListIcon />}
+						/>
 					</div>
-				</header>
-				{showNavigation && (
-					<div className="bg-card fixed bottom-0 left-0 right-0 top-20 z-50 p-4 md:hidden">
-						<Navigation className="scrollbar h-full overflow-auto px-1 overscroll-contain" />
-					</div>
-				)}
+				</div>
+			</header>
+			{showNavigation && (
+				<div className="bg-card fixed bottom-0 left-0 right-0 top-15 z-50 p-4 md:hidden">
+					<Navigation className="scrollbar h-full overflow-auto px-1 overscroll-contain" />
+				</div>
+			)}
+			<div className="mx-auto w-full max-w-7xl flex-1 px-4 pb-16 pt-20">
 				<div className="flex gap-4">
 					<div className="hidden w-44 md:block">
-						<div className="scrollbar scroll-shadow sticky top-0 max-h-screen w-44 overflow-y-auto px-1 py-4">
+						<div className="scrollbar sticky top-15 max-h-[calc(100vh-3.75rem)] w-44 overflow-y-auto px-1 py-4">
 							<Navigation />
 						</div>
 					</div>
 					<main
-						className="bg-card w-0 flex-1 p-4 shadow-2xl sm:rounded-lg md:p-9 focus:outline-hidden"
+						className="w-0 flex-1 px-4 pb-4 md:px-9 md:pb-9 focus:outline-hidden"
 						tabIndex={-1}
 						ref={mainRef}
 						id="main"
@@ -176,7 +181,6 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 					<aside id={TOC_PORTAL_ID} className="hidden w-40 xl:block" />
 				</div>
 			</div>
-			<PrimaryFooter />
 		</div>
 	);
 }
@@ -444,29 +448,28 @@ function CommandPalette({ currentVersion }: { currentVersion: string | undefined
 	return (
 		<>
 			<IconButton
-				appearance="outlined"
-				className="flex sm:hidden"
+				appearance="ghost"
+				className="flex md:hidden"
 				icon={<MagnifyingGlassIcon />}
 				label="Search Mantle"
 				onClick={() => setOpen(true)}
 				size="md"
 				type="button"
 			/>
-			<Button
-				appearance="outlined"
-				className="hidden sm:flex"
-				icon={<MagnifyingGlassIcon />}
+			<button
+				className="hidden md:flex items-center justify-between w-60 h-9 gap-1.5 rounded-md border border-form bg-form px-3 text-sm text-muted hover:bg-neutral-500/10 focus:outline-hidden focus-visible:ring-4 focus-visible:ring-focus-accent"
 				onClick={() => setOpen(true)}
-				priority="neutral"
 				type="button"
 			>
-				<span className="sr-only">Search Mantle</span>
-				Search
+				<span className="flex items-center gap-1.5">
+					<MagnifyingGlassIcon className="size-5 shrink-0" />
+					Search
+				</span>
 				<span className="inline-flex gap-1 items-center pointer-events-none select-none">
 					<MetaKey />
 					<Kbd>K</Kbd>
 				</span>
-			</Button>
+			</button>
 			<Command.Dialog.Root open={open} onOpenChange={setOpen}>
 				<Command.Dialog.Content>
 					<Command.Input placeholder="Search Mantle..." />

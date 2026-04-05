@@ -78,6 +78,9 @@ export default [
 	...docRoute("components/toast"),
 	...docRoute("components/tooltip"),
 
+	// blocks
+	route("blocks", "./routes/blocks.tsx"),
+
 	// hooks 🪝
 	...docRoute("hooks"),
 

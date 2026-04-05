@@ -166,7 +166,7 @@ export function Layout({ children }: PropsWithChildren) {
 			</head>
 			<body
 				className={cx(
-					"bg-base h-full min-h-full overflow-y-scroll scrollbar isolate relative",
+					"bg-card h-full min-h-full overflow-y-scroll scrollbar isolate relative",
 					scrollBehavior === "smooth" && "scroll-smooth",
 				)}
 			>

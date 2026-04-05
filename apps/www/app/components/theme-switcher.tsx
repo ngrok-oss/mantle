@@ -20,7 +20,7 @@ function ThemeSwitcher({ className, ...props }: Props) {
 				<IconButton
 					type="button"
 					appearance="ghost"
-					className={cx("rounded-full", className)}
+					className={cx(className)}
 					label="Change Theme"
 					icon={
 						<BrowserOnly fallback={<Skeleton className="rounded-full size-5" />}>
