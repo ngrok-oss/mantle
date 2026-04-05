@@ -1,13 +1,11 @@
 import { IconButton } from "@ngrok/mantle/button";
 import { Command, MetaKey } from "@ngrok/mantle/command";
-import { cx } from "@ngrok/mantle/cx";
 import { DropdownMenu } from "@ngrok/mantle/dropdown-menu";
 import { Separator } from "@ngrok/mantle/separator";
 import type { SvgAttributes } from "@ngrok/mantle/icon";
 import { NgrokLettermarkIcon } from "@ngrok/mantle/icons";
 import { Kbd } from "@ngrok/mantle/kbd";
 import { useTheme } from "@ngrok/mantle/theme";
-import type { WithStyleProps } from "@ngrok/mantle/types";
 import {
 	ArrowRightIcon,
 	ArrowSquareOutIcon,
@@ -19,15 +17,26 @@ import {
 } from "@phosphor-icons/react";
 import { ListIcon } from "@phosphor-icons/react/List";
 import { XIcon } from "@phosphor-icons/react/X";
-import { type ComponentRef, type PropsWithChildren, useRef, useState } from "react";
+import type { PropsWithChildren, ReactNode } from "react";
+import { useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 import { Link, href, useNavigate } from "react-router";
 import { PreviewBadge } from "~/components/badges";
-// import { PrimaryFooter } from "~/components/footer";
 import { ThemeSwitcher } from "~/components/theme-switcher";
-import { NavLink } from "./nav-link";
 import { useNavigation } from "./navigation-context";
-import { TOC_PORTAL_ID } from "./table-of-contents";
+import {
+	basePages,
+	baseRoutes,
+	hooksRoute,
+	previewComponents,
+	previewComponentsRouteLookup,
+	prodReadyComponents,
+	prodReadyComponentRouteLookup,
+	utilsPages,
+	utilsRoutes,
+	welcomePages,
+	welcomeRoutes,
+} from "./navigation-data";
 
 function GitHub(props: SvgAttributes) {
 	return (
@@ -49,28 +58,19 @@ function HeaderNavLink({ to, children }: PropsWithChildren<{ to: string }>) {
 	);
 }
 
-type Props = PropsWithChildren &
-	WithStyleProps & {
-		currentVersion: string | undefined;
-	};
+type HeaderProps = {
+	/** The current package version string. */
+	currentVersion: string | undefined;
+	/** Optional mobile navigation content rendered when the hamburger menu is open. */
+	mobileNavigation?: ReactNode;
+};
 
-export function Layout({ children, className, currentVersion, style }: Props) {
+/** Shared sticky header with logo, navigation, search, and theme controls. */
+export function Header({ currentVersion, mobileNavigation }: HeaderProps) {
 	const { showNavigation, setShowNavigation } = useNavigation();
-	const mainRef = useRef<ComponentRef<"main">>(null);
 
 	return (
-		<div className={cx("flex min-h-full flex-col", className)} style={style}>
-			<Link
-				className="sr-only"
-				onClick={() => {
-					mainRef.current?.focus({ preventScroll: true });
-				}}
-				to={{
-					hash: "#main",
-				}}
-			>
-				Skip to main content
-			</Link>
+		<>
 			<header className="sticky top-0 z-50 bg-card">
 				<div className="xs:gap-4 mx-auto flex h-15 w-full max-w-screen-2xl items-center gap-3 px-4">
 					<Link
@@ -158,276 +158,12 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 					</div>
 				</div>
 			</header>
-			{showNavigation && (
+			{showNavigation && mobileNavigation && (
 				<div className="bg-card fixed bottom-0 left-0 right-0 top-15 z-50 p-4 md:hidden">
-					<Navigation className="scrollbar h-full overflow-auto px-1 overscroll-contain" />
+					{mobileNavigation}
 				</div>
 			)}
-			<div className="mx-auto w-full max-w-7xl flex-1 px-4 pb-16 pt-20">
-				<div className="flex gap-4">
-					<div className="hidden w-44 md:block">
-						<div className="scrollbar sticky top-15 max-h-[calc(100vh-3.75rem)] w-44 overflow-y-auto px-1 py-4">
-							<Navigation />
-						</div>
-					</div>
-					<main
-						className="w-0 flex-1 px-4 pb-4 md:px-9 md:pb-9 focus:outline-hidden"
-						tabIndex={-1}
-						ref={mainRef}
-						id="main"
-					>
-						{children}
-					</main>
-					<aside id={TOC_PORTAL_ID} className="hidden w-40 xl:block" />
-				</div>
-			</div>
-		</div>
-	);
-}
-
-/**
- * Components that are ready for production use cases
- */
-const prodReadyComponents = [
-	"Alert Dialog",
-	"Alert",
-	"Anchor",
-	"Badge",
-	"Browser Only",
-	"Button",
-	"Card",
-	"Checkbox",
-	"Code Block",
-	"Code",
-	"Combobox",
-	"Command",
-	"Data Table",
-	"Description List",
-	"Dialog",
-	"Dropdown Menu",
-	"Flag",
-	"Hover Card",
-	"Icon Button",
-	"Icon",
-	"Icons",
-	"Input",
-	"Label",
-	"Media Object",
-	"Multi Select",
-	"Pagination",
-	"Password Input",
-	"Popover",
-	"Progress Bar",
-	"Progress Donut",
-	"Radio Group",
-	"SandboxedOnClick",
-	"Select",
-	"Separator",
-	"Sheet",
-	"Skeleton",
-	"Slider",
-	"Slot",
-	"Split Button",
-	"Switch",
-	"Table",
-	"Tabs",
-	"Text Area",
-	"Theme",
-	"Toast",
-	"Tooltip",
-] as const;
-
-/**
- * Components that are still in "preview" and not recommended for production use cases yet.
- * These components are still in active development and may not be fully functional or have a complete and stable API.
- * They are exported for early feedback and testing purposes!
- */
-const previewComponents = [
-	//,
-	"Accordion",
-	"Calendar",
-] as const;
-
-type Route = Parameters<typeof href>[0];
-
-const prodReadyComponentRouteLookup = {
-	Alert: "/components/alert",
-	"Alert Dialog": "/components/alert-dialog",
-	Anchor: "/components/anchor",
-	Badge: "/components/badge",
-	"Browser Only": "/components/browser-only",
-	Button: "/components/button",
-	Card: "/components/card",
-	Checkbox: "/components/checkbox",
-	Code: "/components/code",
-	"Code Block": "/components/code-block",
-	Combobox: "/components/combobox",
-	Command: "/components/command",
-	"Data Table": "/components/data-table",
-	"Description List": "/components/description-list",
-	Dialog: "/components/dialog",
-	"Dropdown Menu": "/components/dropdown-menu",
-	Flag: "/components/flag",
-	"Hover Card": "/components/hover-card",
-	Icon: "/components/icon",
-	Icons: "/components/icons",
-	"Icon Button": "/components/icon-button",
-	Input: "/components/input",
-	Label: "/components/label",
-	"Media Object": "/components/media-object",
-	"Multi Select": "/components/multi-select",
-	Pagination: "/components/pagination",
-	"Password Input": "/components/password-input",
-	Popover: "/components/popover",
-	"Progress Donut": "/components/progress-donut",
-	"Progress Bar": "/components/progress-bar",
-	"Radio Group": "/components/radio-group",
-	SandboxedOnClick: "/components/sandboxed-on-click",
-	Select: "/components/select",
-	Separator: "/components/separator",
-	Sheet: "/components/sheet",
-	Skeleton: "/components/skeleton",
-	Slider: "/components/slider",
-	Slot: "/components/slot",
-	"Split Button": "/components/split-button",
-	Switch: "/components/switch",
-	Table: "/components/table",
-	Tabs: "/components/tabs",
-	"Text Area": "/components/text-area",
-	Theme: "/components/theme",
-	Toast: "/components/toast",
-	Tooltip: "/components/tooltip",
-} as const satisfies Record<(typeof prodReadyComponents)[number], Route>;
-
-const previewComponentsRouteLookup = {
-	Accordion: "/components/preview/accordion",
-	Calendar: "/components/preview/calendar",
-} as const satisfies Record<(typeof previewComponents)[number], Route>;
-
-const welcomePages = ["Overview & Setup", "Philosophy"] as const;
-
-const welcomeRoutes = {
-	"Overview & Setup": "/",
-	Philosophy: "/philosophy",
-} as const satisfies Record<(typeof welcomePages)[number], Route>;
-
-const basePages = [
-	//,
-	"Breakpoints",
-	"Colors",
-	"Shadows",
-	"Tailwind Variants",
-	"Typography",
-] as const;
-
-const baseRoutes = {
-	Breakpoints: "/base/breakpoints",
-	Colors: "/base/colors",
-	Shadows: "/base/shadows",
-	"Tailwind Variants": "/base/tailwind-variants",
-	Typography: "/base/typography",
-} as const satisfies Record<(typeof basePages)[number], Route>;
-
-const hooksRoute = "/hooks" as const satisfies Route;
-
-const utilsPages = [
-	//,
-	"cx",
-	"color",
-	"composeRefs",
-	"inView",
-	"sorting",
-] as const;
-
-const utilsRoutes = {
-	cx: "/utils/cx",
-	color: "/utils/color",
-	composeRefs: "/utils/compose-refs",
-	inView: "/utils/in-view",
-	sorting: "/utils/sorting",
-} as const satisfies Record<(typeof utilsPages)[number], Route>;
-
-function Navigation({ className, style }: WithStyleProps) {
-	return (
-		<nav className={cx("text-sm pb-16", className)} style={style}>
-			<ul className="flex flex-col">
-				<li className="mb-2 text-xs font-medium uppercase tracking-wider font-mono">Welcome</li>
-
-				{welcomePages.map((page) => (
-					<li key={page}>
-						<NavLink to={welcomeRoutes[page]} prefetch="intent">
-							{page}
-						</NavLink>
-					</li>
-				))}
-
-				<li className="mt-6 text-xs font-medium uppercase tracking-wider font-mono">Base</li>
-
-				<ul className="mt-2">
-					{basePages.map((page) => (
-						<li key={page}>
-							<NavLink to={baseRoutes[page]} prefetch="intent">
-								{page}
-							</NavLink>
-						</li>
-					))}
-				</ul>
-
-				<li className="mt-6 text-xs font-medium uppercase tracking-wider font-mono">Components</li>
-				<ul className="mt-2">
-					{prodReadyComponents.map((component) => (
-						<li key={component}>
-							<NavLink to={prodReadyComponentRouteLookup[component]} prefetch="intent">
-								{component}
-							</NavLink>
-						</li>
-					))}
-				</ul>
-
-				<li className="mt-6 text-xs font-medium uppercase tracking-wider font-mono">
-					Preview Components
-				</li>
-				<ul className="mt-2">
-					{previewComponents.map((component) => (
-						<li key={component}>
-							<NavLink to={previewComponentsRouteLookup[component]} prefetch="intent">
-								{component}
-							</NavLink>
-						</li>
-					))}
-				</ul>
-
-				<li className="mt-6 text-xs font-medium uppercase tracking-wider font-mono">Hooks</li>
-				<ul className="mt-2">
-					<li>
-						<NavLink to={hooksRoute} prefetch="intent">
-							Hooks
-						</NavLink>
-					</li>
-				</ul>
-
-				<li className="mt-6 text-xs font-medium uppercase tracking-wider font-mono">Utils</li>
-				<ul className="mt-2">
-					{utilsPages.map((page) => (
-						<li key={page}>
-							<NavLink to={utilsRoutes[page]} prefetch="intent">
-								{page}
-							</NavLink>
-						</li>
-					))}
-				</ul>
-
-				{/* TODO: add back later when we have unreleased components again */}
-				{/* <li className="mt-6 text-xs font-medium uppercase tracking-wider">Unreleased Components</li>
-				<ul className="mt-2">
-					<li>
-						<NavLink to="/components/unreleased/data-table" prefetch="intent">
-							Data Table
-						</NavLink>
-					</li>
-				</ul> */}
-			</ul>
-		</nav>
+		</>
 	);
 }
 

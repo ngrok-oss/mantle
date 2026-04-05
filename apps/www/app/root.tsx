@@ -27,7 +27,6 @@ import {
 	useRouteLoaderData,
 } from "react-router";
 import type { Route } from "./+types/root";
-import { Layout as WwwLayout } from "./components/layout";
 import { NavigationProvider } from "./components/navigation-context";
 import { useNonce } from "./components/nonce";
 import "./global.css";
@@ -179,9 +178,7 @@ export function Layout({ children }: PropsWithChildren) {
 									<ReactQueryDevtoolsLazy />
 								</Suspense>
 							)}
-							<NavigationProvider>
-								<WwwLayout currentVersion={loaderData?.currentVersion}>{children}</WwwLayout>
-							</NavigationProvider>
+							<NavigationProvider>{children}</NavigationProvider>
 						</QueryClientProvider>
 					</TooltipProvider>
 				</ThemeProvider>
