@@ -64,7 +64,7 @@ describe("CodeBlock (browser)", () => {
 			expect(clipboardText).toBe(expectedPlainText);
 		});
 
-		test("CopyButton shows 'Copied' feedback after clicking", async () => {
+		test("CopyButton swaps to check icon after clicking", async () => {
 			const user = userEvent.setup();
 
 			render(
@@ -77,9 +77,11 @@ describe("CodeBlock (browser)", () => {
 			);
 
 			const button = screen.getByRole("button", { name: /copy code/i });
+			const iconBefore = button.querySelector("svg")?.innerHTML;
 			await user.click(button);
+			const iconAfter = button.querySelector("svg")?.innerHTML;
 
-			expect(screen.getByText("Copied")).toBeInTheDocument();
+			expect(iconAfter).not.toBe(iconBefore);
 		});
 	});
 });
