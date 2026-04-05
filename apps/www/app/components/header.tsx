@@ -72,17 +72,17 @@ export function Header({ currentVersion, mobileNavigation }: HeaderProps) {
 	return (
 		<>
 			<header className="sticky top-0 z-50 bg-card">
-				<div className="xs:gap-4 mx-auto flex h-15 w-full max-w-screen-2xl items-center gap-3 px-4">
+				<div className="mx-auto flex h-15 w-full max-w-7xl items-center gap-3 px-4 md:gap-4">
 					<Link
 						to={href("/")}
 						className="flex items-center gap-2 rounded px-1 font-mono text-xl leading-8 text-strong/90 hover:text-strong focus:outline-hidden focus-visible:ring-3 focus-visible:ring-focus-accent"
 					>
 						<NgrokLettermarkIcon className="size-6" />
 						<span className="text-muted">/</span>
-						<span className="font-light">mantle</span>
+						<span>mantle</span>
 					</Link>
 
-					<nav className="absolute left-1/2 hidden -translate-x-1/2 md:flex items-center gap-1">
+					<nav className="hidden md:flex items-center gap-1">
 						<HeaderNavLink to={href("/")}>Docs</HeaderNavLink>
 						<HeaderNavLink to={href("/components/alert")}>Components</HeaderNavLink>
 						<HeaderNavLink to={href("/blocks")}>Blocks</HeaderNavLink>
@@ -160,7 +160,46 @@ export function Header({ currentVersion, mobileNavigation }: HeaderProps) {
 			</header>
 			{showNavigation && mobileNavigation && (
 				<div className="bg-card fixed bottom-0 left-0 right-0 top-15 z-50 p-4 md:hidden">
-					{mobileNavigation}
+					<div className="scrollbar h-full overflow-auto overscroll-contain">
+						<nav className="text-sm px-1 mb-6">
+							<ul className="flex flex-col">
+								<li className="mb-2 text-xs font-medium uppercase tracking-wider font-mono">
+									Menu
+								</li>
+								<li>
+									<Link
+										to={href("/")}
+										prefetch="intent"
+										className="text-muted hover:text-strong block py-1 rounded focus:outline-hidden focus-visible:ring-3 focus-visible:ring-focus-accent"
+										onClick={() => setShowNavigation(false)}
+									>
+										Docs
+									</Link>
+								</li>
+								<li>
+									<Link
+										to={href("/components/alert")}
+										prefetch="intent"
+										className="text-muted hover:text-strong block py-1 rounded focus:outline-hidden focus-visible:ring-3 focus-visible:ring-focus-accent"
+										onClick={() => setShowNavigation(false)}
+									>
+										Components
+									</Link>
+								</li>
+								<li>
+									<Link
+										to={href("/blocks")}
+										prefetch="intent"
+										className="text-muted hover:text-strong block py-1 rounded focus:outline-hidden focus-visible:ring-3 focus-visible:ring-focus-accent"
+										onClick={() => setShowNavigation(false)}
+									>
+										Blocks
+									</Link>
+								</li>
+							</ul>
+						</nav>
+						{mobileNavigation}
+					</div>
 				</div>
 			)}
 		</>
@@ -193,7 +232,7 @@ function CommandPalette({ currentVersion }: { currentVersion: string | undefined
 				type="button"
 			/>
 			<button
-				className="hidden md:flex items-center justify-between w-60 h-9 gap-1.5 rounded-md border border-form bg-form px-3 text-sm text-muted hover:bg-neutral-500/10 focus:outline-hidden focus-visible:ring-4 focus-visible:ring-focus-accent"
+				className="hidden md:flex items-center justify-between w-48 h-9 gap-1.5 rounded-md border border-form bg-form py-1.5 pl-3 pr-1.5 text-sm text-muted hover:bg-neutral-500/10 focus:outline-hidden focus-visible:ring-4 focus-visible:ring-focus-accent"
 				onClick={() => setOpen(true)}
 				type="button"
 			>
