@@ -497,7 +497,7 @@ const CopyButton = forwardRef<ComponentRef<"button">, CodeBlockCopyButtonProps>(
 				type="button"
 				className={cx(
 					"focus-visible:border-accent-600 focus-visible:ring-focus-accent absolute right-2.5 top-2.5 z-10 flex size-7 items-center justify-center rounded border border-gray-300 bg-gray-50 hover:border-gray-400 hover:bg-gray-200 focus-visible:outline-hidden focus-visible:ring-4",
-					"shadow-[-1rem_0_0.75rem_-0.375rem_var(--color-gray-50),1rem_0_0_-0.25rem_var(--color-gray-50)]",
+					"shadow-[-1rem_0_0.75rem_-0.375rem_var(--color-card),1rem_0_0_-0.25rem_var(--color-card)]",
 					wasCopied &&
 						"bg-filled-success text-on-filled hover:bg-filled-success focus:bg-filled-success focus-visible:border-success-600 focus-visible:ring-focus-success w-auto gap-1 border-transparent pl-2 pr-1.5 hover:border-transparent",
 					className,
@@ -723,10 +723,10 @@ const TabTrigger = forwardRef<ComponentRef<typeof RadixTabsTrigger>, CodeBlockTa
 	({ className, ...props }, ref) => (
 		<RadixTabsTrigger
 			className={cx(
-				"cursor-pointer rounded-full px-3 py-1 text-sm font-medium",
+				"cursor-pointer rounded px-1.5 py-0.5 text-xs font-medium",
 				"text-gray-600 outline-hidden",
 				"hover:text-gray-900",
-				"data-[state=active]:bg-accent-500/20 data-[state=active]:text-blue-700",
+				"data-[state=active]:bg-neutral-500/15 data-[state=active]:text-strong",
 				"focus-visible:ring-focus-accent focus-visible:ring-4",
 				className,
 			)}
