@@ -147,7 +147,7 @@ const Root = forwardRef<ComponentRef<"div">, CodeBlockRootProps>(
 			<Component
 				data-slot="code-block"
 				className={cx(
-					"text-mono w-full overflow-hidden rounded-md border border-gray-300 bg-gray-50 font-mono",
+					"text-mono w-full overflow-hidden rounded-md border border-gray-300 bg-card font-mono",
 					"[&_svg]:shrink-0",
 					className,
 				)}
@@ -414,7 +414,7 @@ const Header = forwardRef<ComponentRef<"div">, ComponentProps<"div"> & WithAsChi
 		return (
 			<Component
 				className={cx(
-					"flex items-center gap-1 border-b border-gray-300 bg-gray-100 px-4 py-2 text-gray-700",
+					"flex items-center gap-1 border-b border-gray-300 bg-base px-4 py-2 text-gray-700",
 					className,
 				)}
 				ref={ref}
@@ -582,7 +582,7 @@ const ExpanderButton = forwardRef<ComponentRef<"button">, CodeBlockExpanderButto
 				aria-controls={codeId}
 				aria-expanded={isCodeExpanded}
 				className={cx(
-					"flex w-full items-center justify-center gap-0.5 border-t border-gray-300 bg-gray-50 px-4 py-2 font-sans text-gray-700 hover:bg-gray-100",
+					"flex w-full items-center justify-center gap-0.5 border-t border-gray-300 bg-card px-4 py-2 font-sans text-gray-700 hover:bg-gray-100",
 					className,
 				)}
 				ref={ref}
