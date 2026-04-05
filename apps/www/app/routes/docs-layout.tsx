@@ -32,7 +32,7 @@ export default function DocsLayout() {
 			<div className="mx-auto w-full max-w-7xl flex-1 px-4 pb-16 pt-20">
 				<div className="flex gap-4">
 					<div className="hidden w-44 md:block">
-						<div className="scrollbar sticky top-15 max-h-[calc(100vh-3.75rem)] w-44 overflow-y-auto px-1 py-4">
+						<div className="scrollbar sticky top-15 max-h-[calc(100vh-3.75rem)] w-44 overflow-y-auto px-1 pb-4">
 							<DocsNavigation />
 						</div>
 					</div>

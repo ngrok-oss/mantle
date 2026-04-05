@@ -84,7 +84,7 @@ export function Header({ currentVersion, mobileNavigation }: HeaderProps) {
 
 					<nav className="hidden md:flex items-center gap-1">
 						<HeaderNavLink to={href("/")}>Docs</HeaderNavLink>
-						<HeaderNavLink to={href("/components/alert")}>Components</HeaderNavLink>
+						<HeaderNavLink to={href("/components/alert-dialog")}>Components</HeaderNavLink>
 						<HeaderNavLink to={href("/blocks")}>Blocks</HeaderNavLink>
 					</nav>
 
@@ -93,7 +93,7 @@ export function Header({ currentVersion, mobileNavigation }: HeaderProps) {
 							<a
 								href="https://github.com/ngrok-oss/mantle"
 								target="_blank"
-								className="hidden md:inline-flex items-center gap-1.5 rounded-md px-2 h-9 text-xs font-mono text-strong hover:bg-neutral-500/10 focus:outline-hidden focus-visible:ring-4 focus-visible:ring-focus-accent"
+								className="hidden md:inline-flex items-center gap-1.5 rounded-md px-2 h-9 text-xs font-mono font-medium text-strong hover:bg-neutral-500/10 focus:outline-hidden focus-visible:ring-4 focus-visible:ring-focus-accent"
 							>
 								{currentVersion}
 								<GitHub className="size-5" />
@@ -178,7 +178,7 @@ export function Header({ currentVersion, mobileNavigation }: HeaderProps) {
 								</li>
 								<li>
 									<Link
-										to={href("/components/alert")}
+										to={href("/components/alert-dialog")}
 										prefetch="intent"
 										className="text-muted hover:text-strong block py-1 rounded focus:outline-hidden focus-visible:ring-3 focus-visible:ring-focus-accent"
 										onClick={() => setShowNavigation(false)}
