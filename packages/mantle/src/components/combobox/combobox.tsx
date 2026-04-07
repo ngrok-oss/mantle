@@ -156,7 +156,7 @@ const Item = forwardRef<ComponentRef<typeof Primitive.ComboboxItem>, ComboboxIte
 			<ComboboxItemValueContext.Provider value={value}>
 				<Primitive.ComboboxItem
 					className={cx(
-						"cursor-pointer rounded-md px-2 py-1.5 text-strong text-sm flex min-w-0 gap-2 items-center",
+						"cursor-pointer rounded-md px-2 py-1.5 text-strong text-sm flex min-w-0 gap-2 items-center [&>svg]:size-5 [&_svg]:shrink-0",
 						"data-active-item:bg-active-menu-item",
 						"aria-disabled:opacity-50",
 						className,

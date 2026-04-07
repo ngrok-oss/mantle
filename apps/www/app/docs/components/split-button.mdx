@@ -14,18 +14,16 @@ A button group which provides a default action with one click while revealing re
 
 <Example>
 	<SplitButton.Root>
-		<SplitButton.PrimaryAction icon={<CopyIcon />} iconPlacement="end">
-			Copy page
-		</SplitButton.PrimaryAction>
+		<SplitButton.PrimaryAction icon={<CopyIcon />}>Copy page</SplitButton.PrimaryAction>
 		<SplitButton.MenuTrigger label="Open actions menu" />
 		<SplitButton.MenuContent>
 			<SplitButton.MenuItem>
-				Copy page
 				<Icon svg={<CopyIcon />} />
+				Copy page
 			</SplitButton.MenuItem>
 			<SplitButton.MenuItem>
-				View as Markdown
 				<Icon svg={<FileTextIcon />} />
+				View as Markdown
 			</SplitButton.MenuItem>
 		</SplitButton.MenuContent>
 	</SplitButton.Root>
@@ -37,18 +35,16 @@ import { Icon } from "@ngrok/mantle/icon";
 import { SplitButton } from "@ngrok/mantle/split-button";
 
 <SplitButton.Root>
-	<SplitButton.PrimaryAction icon={<CopyIcon />} iconPlacement="end">
-		Copy page
-	</SplitButton.PrimaryAction>
+	<SplitButton.PrimaryAction icon={<CopyIcon />}>Copy page</SplitButton.PrimaryAction>
 	<SplitButton.MenuTrigger label="Open actions menu" />
 	<SplitButton.MenuContent>
 		<SplitButton.MenuItem>
-			Copy page
 			<Icon svg={<CopyIcon />} />
+			Copy page
 		</SplitButton.MenuItem>
 		<SplitButton.MenuItem>
-			View as Markdown
 			<Icon svg={<FileTextIcon />} />
+			View as Markdown
 		</SplitButton.MenuItem>
 	</SplitButton.MenuContent>
 </SplitButton.Root>;
@@ -60,19 +56,17 @@ When you want to render _something else_ as a `SplitButton.MenuItem`, you can us
 
 <Example>
 	<SplitButton.Root>
-		<SplitButton.PrimaryAction icon={<DownloadIcon />} iconPlacement="end">
-			Download
-		</SplitButton.PrimaryAction>
+		<SplitButton.PrimaryAction icon={<DownloadIcon />}>Download</SplitButton.PrimaryAction>
 		<SplitButton.MenuTrigger label="Open download options" />
 		<SplitButton.MenuContent>
 			<SplitButton.MenuItem>
-				Download as PDF
 				<Icon svg={<DownloadIcon />} />
+				Download as PDF
 			</SplitButton.MenuItem>
 			<SplitButton.MenuItem asChild>
 				<a href="https://example.com" target="_blank">
-					Open in new tab
 					<Icon svg={<FileTextIcon />} />
+					Open in new tab
 				</a>
 			</SplitButton.MenuItem>
 		</SplitButton.MenuContent>
@@ -85,19 +79,17 @@ import { Icon } from "@ngrok/mantle/icon";
 import { SplitButton } from "@ngrok/mantle/split-button";
 
 <SplitButton.Root>
-	<SplitButton.PrimaryAction icon={<DownloadIcon />} iconPlacement="end">
-		Download
-	</SplitButton.PrimaryAction>
+	<SplitButton.PrimaryAction icon={<DownloadIcon />}>Download</SplitButton.PrimaryAction>
 	<SplitButton.MenuTrigger label="Open download options" />
 	<SplitButton.MenuContent>
 		<SplitButton.MenuItem>
-			Download as PDF
 			<Icon svg={<DownloadIcon />} />
+			Download as PDF
 		</SplitButton.MenuItem>
 		<SplitButton.MenuItem asChild>
 			<a href="https://example.com" target="_blank">
-				Open in new tab
 				<Icon svg={<FileTextIcon />} />
+				Open in new tab
 			</a>
 		</SplitButton.MenuItem>
 	</SplitButton.MenuContent>
@@ -153,7 +145,7 @@ All props from [`DropdownMenu.Content`](/components/dropdown-menu).
 
 ### SplitButton.MenuItem
 
-A standard item in the split button dropdown menu that can be selected or activated. Wraps `DropdownMenu.Item` with `justify-between gap-4` styling.
+A standard item in the split button dropdown menu that can be selected or activated. Wraps `DropdownMenu.Item` with `gap-2` styling.
 
 All props from [`DropdownMenu.Item`](/components/dropdown-menu).
 

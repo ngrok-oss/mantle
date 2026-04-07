@@ -131,7 +131,7 @@ const CommandDialogContent = ({
 			<Dialog.Description>{description}</Dialog.Description>
 		</Dialog.Header>
 		<CommandRoot
-			className="**:[[cmdk-group-heading]]:text-muted **:data-[slot=command-input-wrapper]:h-12 **:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:font-medium **:[[cmdk-group]]:px-2 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 **:[[cmdk-input]]:h-12 **:[[cmdk-item]]:px-2 **:[[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5"
+			className="**:data-[slot=command-input-wrapper]:h-12 **:[[cmdk-input]]:h-12 **:data-[slot=command-group]:px-2 **:data-[slot=command-list]:pb-1"
 			filter={filter}
 			shouldFilter={shouldFilter}
 		>
@@ -228,7 +228,7 @@ const CommandInput = forwardRef<
 		data-slot="command-input-wrapper"
 		className="flex h-9 items-center gap-2 border-b border-popover px-3"
 	>
-		<MagnifyingGlassIcon className="size-4 shrink-0 opacity-50" />
+		<MagnifyingGlassIcon className="size-5 shrink-0 opacity-50" />
 		<CommandPrimitive.Input
 			data-slot="command-input"
 			className={cx(
@@ -436,7 +436,7 @@ const CommandItem = forwardRef<
 		ref={ref}
 		data-slot="command-item"
 		className={cx(
-			"data-[selected=true]:bg-popover-hover [&_svg:not([class*='text-'])]:text-muted relative flex cursor-pointer items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+			"data-[selected=true]:bg-active-menu-item [&_svg:not([class*='text-'])]:text-muted relative flex cursor-pointer items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-5",
 			className,
 		)}
 		{...props}
