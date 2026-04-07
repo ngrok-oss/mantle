@@ -466,7 +466,7 @@ const Header = forwardRef<ComponentRef<"th">, ComponentProps<"th">>(
 		<th
 			ref={ref}
 			className={cx(
-				"h-12 px-4 text-left align-middle text-sm font-medium [&:has([role=checkbox])]:pr-0",
+				"h-11 px-4 text-left align-middle text-sm font-medium [&:has([role=checkbox])]:pr-0",
 				className,
 			)}
 			{...props}

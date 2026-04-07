@@ -12,7 +12,7 @@ import { DropdownMenu } from "@ngrok/mantle/dropdown-menu";
 import { Icon } from "@ngrok/mantle/icon";
 import { DotsThreeIcon } from "@phosphor-icons/react/DotsThree";
 import { PencilSimpleIcon } from "@phosphor-icons/react/PencilSimple";
-import { TrashSimpleIcon } from "@phosphor-icons/react/TrashSimple";
+import { TrashIcon } from "@phosphor-icons/react/Trash";
 import { useMemo } from "react";
 
 type Payment = {
@@ -94,7 +94,7 @@ const columns = [
 				<DropdownMenu.Root>
 					<DropdownMenu.Trigger asChild>
 						<IconButton
-							appearance="outlined"
+							appearance="ghost"
 							className="max-w rounded"
 							type="button"
 							size="sm"
@@ -107,7 +107,7 @@ const columns = [
 							<Icon svg={<PencilSimpleIcon />} /> Edit
 						</DropdownMenu.Item>
 						<DropdownMenu.Item className="text-danger-600 flex items-center gap-2">
-							<Icon svg={<TrashSimpleIcon />} />
+							<Icon svg={<TrashIcon />} />
 							Delete
 						</DropdownMenu.Item>
 					</DropdownMenu.Content>

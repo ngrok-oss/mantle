@@ -93,9 +93,7 @@ const MenuItem = forwardRef<
 	ComponentRef<typeof DropdownMenu.Item>,
 	ComponentProps<typeof DropdownMenu.Item>
 >(({ className, ...props }, ref) => {
-	return (
-		<DropdownMenu.Item className={cx("justify-between gap-4", className)} ref={ref} {...props} />
-	);
+	return <DropdownMenu.Item className={cx("gap-2", className)} ref={ref} {...props} />;
 });
 MenuItem.displayName = "SplitButtonMenuItem";
 
@@ -109,19 +107,19 @@ MenuItem.displayName = "SplitButtonMenuItem";
  * @example
  * ```tsx
  * <SplitButton.Root>
- *   <SplitButton.PrimaryAction icon={<CopyIcon />} iconPlacement="end" onClick={copyMarkdownPage}>
+ *   <SplitButton.PrimaryAction icon={<CopyIcon />} onClick={copyMarkdownPage}>
  *     Copy page
  *   </SplitButton.PrimaryAction>
  *   <SplitButton.MenuTrigger label="Open doc actions menu" />
  *   <SplitButton.MenuContent>
  *     <SplitButton.MenuItem onClick={copyMarkdownPage}>
- *       Copy page
  *       <Icon svg={<CopyIcon />} />
+ *       Copy page
  *     </SplitButton.MenuItem>
  *     <SplitButton.MenuItem asChild onClick={copyMarkdownPage}>
  *       <a href={markdownUrl} target="_blank">
- *         View as Markdown
  *         <Icon svg={<FileTextIcon />} />
+ *         View as Markdown
  *       </a>
  *     </SplitButton.MenuItem>
  *   </SplitButton.MenuContent>
@@ -139,7 +137,7 @@ const SplitButton = {
 	 * @example
 	 * ```tsx
 	 * <SplitButton.Root>
-	 *   <SplitButton.PrimaryAction icon={<CopyIcon />} iconPlacement="end" onClick={copyMarkdownPage}>
+	 *   <SplitButton.PrimaryAction icon={<CopyIcon />} onClick={copyMarkdownPage}>
 	 *     Copy page
 	 *   </SplitButton.PrimaryAction>
 	 *   <SplitButton.MenuTrigger label="Open doc actions menu" />
@@ -167,7 +165,7 @@ const SplitButton = {
 	 * @example
 	 * ```tsx
 	 * <SplitButton.Root>
-	 *   <SplitButton.PrimaryAction icon={<CopyIcon />} iconPlacement="end" onClick={copyMarkdownPage}>
+	 *   <SplitButton.PrimaryAction icon={<CopyIcon />} onClick={copyMarkdownPage}>
 	 *     Copy page
 	 *   </SplitButton.PrimaryAction>
 	 *   <SplitButton.MenuTrigger label="Open doc actions menu" />
@@ -195,7 +193,7 @@ const SplitButton = {
 	 * @example
 	 * ```tsx
 	 * <SplitButton.Root>
-	 *   <SplitButton.PrimaryAction icon={<CopyIcon />} iconPlacement="end" onClick={copyMarkdownPage}>
+	 *   <SplitButton.PrimaryAction icon={<CopyIcon />} onClick={copyMarkdownPage}>
 	 *     Copy page
 	 *   </SplitButton.PrimaryAction>
 	 *   <SplitButton.MenuTrigger label="Open doc actions menu" />
@@ -224,7 +222,7 @@ const SplitButton = {
 	 * @example
 	 * ```tsx
 	 * <SplitButton.Root>
-	 *   <SplitButton.PrimaryAction icon={<CopyIcon />} iconPlacement="end" onClick={copyMarkdownPage}>
+	 *   <SplitButton.PrimaryAction icon={<CopyIcon />} onClick={copyMarkdownPage}>
 	 *     Copy page
 	 *   </SplitButton.PrimaryAction>
 	 *   <SplitButton.MenuTrigger label="Open doc actions menu" />
@@ -253,7 +251,7 @@ const SplitButton = {
 	 * @example
 	 * ```tsx
 	 * <SplitButton.Root>
-	 *   <SplitButton.PrimaryAction icon={<CopyIcon />} iconPlacement="end" onClick={copyMarkdownPage}>
+	 *   <SplitButton.PrimaryAction icon={<CopyIcon />} onClick={copyMarkdownPage}>
 	 *     Copy page
 	 *   </SplitButton.PrimaryAction>
 	 *   <SplitButton.MenuTrigger label="Open doc actions menu" />
