@@ -491,39 +491,41 @@ const CopyButton = forwardRef<ComponentRef<"button">, CodeBlockCopyButtonProps>(
 		}, []);
 
 		return (
-			<IconButton
-				type="button"
-				appearance="ghost"
-				size="sm"
-				label="Copy code"
-				icon={wasCopied ? <CheckIcon /> : <CopyIcon />}
-				className={cx("absolute right-2.5 top-2.5 z-10", "bg-card hover:bg-card-hover", className)}
-				ref={ref}
-				onClick={async (event) => {
-					try {
-						onClick?.(event);
-						if (event.defaultPrevented) {
+			<span className="absolute right-2.5 top-2.5 z-10 bg-card">
+				<IconButton
+					type="button"
+					appearance="ghost"
+					size="sm"
+					label="Copy code"
+					icon={wasCopied ? <CheckIcon /> : <CopyIcon />}
+					className={className}
+					ref={ref}
+					onClick={async (event) => {
+						try {
+							onClick?.(event);
+							if (event.defaultPrevented) {
+								if (timeoutHandle.current != null) {
+									clearTimeout(timeoutHandle.current);
+								}
+								return;
+							}
+							const text = copyTextRef.current;
+							await copyToClipboard(text);
+							onCopy?.(text);
+							setWasCopied(true);
 							if (timeoutHandle.current != null) {
 								clearTimeout(timeoutHandle.current);
 							}
-							return;
+							timeoutHandle.current = setTimeout(() => {
+								setWasCopied(false);
+							}, 2000);
+						} catch (error) {
+							onCopyError?.(error);
 						}
-						const text = copyTextRef.current;
-						await copyToClipboard(text);
-						onCopy?.(text);
-						setWasCopied(true);
-						if (timeoutHandle.current != null) {
-							clearTimeout(timeoutHandle.current);
-						}
-						timeoutHandle.current = setTimeout(() => {
-							setWasCopied(false);
-						}, 2000);
-					} catch (error) {
-						onCopyError?.(error);
-					}
-				}}
-				{...props}
-			/>
+					}}
+					{...props}
+				/>
+			</span>
 		);
 	},
 );
