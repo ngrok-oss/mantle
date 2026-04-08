@@ -13,7 +13,7 @@ import { Example } from "~/components/example";
 
 A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.
 
-<Alert.Root priority="warning">
+<Alert.Root intent="warning">
 	<Alert.Icon svg={<LightbulbIcon />} />
 	<Alert.Content>
 		<Alert.Title>
@@ -26,7 +26,7 @@ A popup that displays information related to an element when the element receive
 <Example>
 	<Tooltip.Root>
 		<Tooltip.Trigger asChild>
-			<Button type="button" appearance="filled" priority="default">
+			<Button type="button" appearance="filled" intent="accent">
 				Hover me
 			</Button>
 		</Tooltip.Trigger>
@@ -42,7 +42,7 @@ import { Tooltip } from "@ngrok/mantle/tooltip";
 
 <Tooltip.Root>
 	<Tooltip.Trigger asChild>
-		<Button type="button" appearance="filled" priority="default">
+		<Button type="button" appearance="filled" intent="accent">
 			Hover me
 		</Button>
 	</Tooltip.Trigger>

@@ -17,11 +17,13 @@ const buttonVariants = cva("", {
 		 */
 		appearance: {
 			filled:
-				"bg-filled-accent text-white focus-visible:ring-focus-accent not-disabled:hover:bg-filled-accent-hover h-9 border border-transparent px-3 text-sm font-medium",
+				"bg-filled-accent text-white focus-visible:ring-focus-accent not-disabled:hover:bg-filled-accent-hover border border-transparent",
 			ghost:
-				"text-accent-600 focus-visible:ring-focus-accent not-disabled:hover:bg-accent-500/10 not-disabled:hover:text-accent-700 h-9 border border-transparent px-3 text-sm font-medium",
+				"text-accent-600 focus-visible:ring-focus-accent not-disabled:hover:bg-accent-500/10 not-disabled:hover:text-accent-700 border border-transparent",
 			outlined:
-				"border-accent-600 bg-form text-accent-600 focus-visible:ring-focus-accent not-disabled:hover:border-accent-700 not-disabled:hover:bg-accent-500/10 not-disabled:hover:text-accent-700 h-9 border px-3 text-sm font-medium",
+				"border-accent-600 bg-form text-accent-600 focus-visible:ring-focus-accent not-disabled:hover:border-accent-700 not-disabled:hover:bg-accent-500/10 not-disabled:hover:text-accent-700 border",
+			subtle:
+				"bg-accent-500/10 text-accent-600 focus-visible:ring-focus-accent not-disabled:hover:bg-accent-500/15 not-disabled:hover:text-accent-700 border border-transparent",
 			link: "text-accent-600 focus-visible:ring-focus-accent not-disabled:hover:underline group/button-link border-transparent",
 		},
 		/**
@@ -34,65 +36,94 @@ const buttonVariants = cva("", {
 			true: "opacity-50",
 		},
 		/**
-		 * Indicates the importance or impact level of the button, affecting its
-		 * color and styling to communicate its purpose to the user
+		 * The intent of the button, affecting its color and styling to communicate
+		 * its purpose to the user.
 		 */
-		priority: {
+		intent: {
+			accent: "",
 			danger: "",
-			default: "",
 			neutral: "",
+		},
+		/**
+		 * The size of the Button.
+		 */
+		size: {
+			sm: "text-sm font-medium",
+			md: "text-sm font-medium",
+			lg: "text-sm font-medium",
+			xl: "text-sm font-medium",
 		},
 	},
 	defaultVariants: {
 		appearance: "outlined",
 		isLoading: false,
-		priority: "default",
+		intent: "neutral",
+		size: "md",
 	},
 	compoundVariants: [
+		// size + non-link height/padding
+		{ appearance: ["filled", "ghost", "outlined", "subtle"], size: "sm", class: "h-7 px-2.5" },
+		{ appearance: ["filled", "ghost", "outlined", "subtle"], size: "md", class: "h-9 px-3" },
+		{ appearance: ["filled", "ghost", "outlined", "subtle"], size: "lg", class: "h-10 px-3.5" },
+		{ appearance: ["filled", "ghost", "outlined", "subtle"], size: "xl", class: "h-12 px-4" },
+		// danger intent
 		{
 			appearance: "ghost",
-			priority: "danger",
+			intent: "danger",
 			class:
 				"text-danger-600 focus-visible:ring-focus-danger not-disabled:hover:bg-danger-500/10 not-disabled:hover:text-danger-700 border-transparent",
 		},
 		{
 			appearance: "outlined",
-			priority: "danger",
+			intent: "danger",
 			class:
 				"border-danger-600 bg-form text-danger-600 focus-visible:ring-focus-danger not-disabled:hover:border-danger-700 not-disabled:hover:bg-danger-500/10 not-disabled:hover:text-danger-700",
 		},
 		{
 			appearance: "filled",
-			priority: "danger",
+			intent: "danger",
 			class:
 				"bg-filled-danger focus-visible:ring-focus-danger not-disabled:hover:bg-filled-danger-hover border-transparent",
 		},
 		{
-			appearance: "link",
-			priority: "danger",
-			class: "text-danger-600 focus-visible:ring-focus-danger",
+			appearance: "subtle",
+			intent: "danger",
+			class:
+				"bg-danger-500/10 text-danger-600 focus-visible:ring-focus-danger not-disabled:hover:bg-danger-500/15 not-disabled:hover:text-danger-700",
 		},
 		{
+			appearance: "link",
+			intent: "danger",
+			class: "text-danger-600 focus-visible:ring-focus-danger",
+		},
+		// neutral intent
+		{
 			appearance: "ghost",
-			priority: "neutral",
+			intent: "neutral",
 			class:
 				"text-strong focus-visible:ring-focus-accent not-disabled:hover:bg-neutral-500/10 not-disabled:hover:text-strong border-transparent",
 		},
 		{
 			appearance: "outlined",
-			priority: "neutral",
+			intent: "neutral",
 			class:
 				"border-form bg-form text-strong focus-visible:border-accent-600 focus-visible:ring-focus-accent not-disabled:hover:border-neutral-400 not-disabled:hover:bg-form-hover not-disabled:hover:text-strong focus-visible:not-disabled:hover:border-accent-600",
 		},
 		{
 			appearance: "filled",
-			priority: "neutral",
+			intent: "neutral",
 			class:
 				"bg-filled-neutral not-disabled:hover:bg-filled-neutral-hover border-transparent focus-visible:border-transparent text-neutral-50",
 		},
 		{
+			appearance: "subtle",
+			intent: "neutral",
+			class:
+				"bg-neutral-500/10 text-strong focus-visible:ring-focus-accent not-disabled:hover:bg-neutral-500/15 not-disabled:hover:text-strong",
+		},
+		{
 			appearance: "link",
-			priority: "neutral",
+			intent: "neutral",
 			class: "text-strong focus-visible:ring-focus-accent",
 		},
 	],
@@ -101,7 +132,8 @@ const buttonVariants = cva("", {
 type ButtonVariants = VariantProps<typeof buttonVariants>;
 
 type ButtonAppearance = Pick<ButtonVariants, "appearance">["appearance"];
-type ButtonPriority = Pick<ButtonVariants, "priority">["priority"];
+type ButtonIntent = Pick<ButtonVariants, "intent">["intent"];
+type ButtonSize = Pick<ButtonVariants, "size">["size"];
 
 /**
  * The props for the `Button` component.
@@ -181,7 +213,7 @@ type ButtonProps = ComponentProps<"button"> &
  *
  * @example
  * ```tsx
- * <Button type="button" appearance="filled" priority="default">
+ * <Button type="button" appearance="filled" intent="accent">
  *   Click me
  * </Button>
  * ```
@@ -198,7 +230,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 			icon: propIcon,
 			iconPlacement = "start",
 			isLoading = false,
-			priority = "default",
+			intent = "neutral",
+			size = "md",
 			type,
 			...props
 		},
@@ -212,6 +245,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 		 */
 		const hasSpecialIconPadding = icon && appearance !== "link";
 
+		const iconPaddingStart = { sm: "ps-1.5", md: "ps-2.5", lg: "ps-3", xl: "ps-3.5" }[size];
+		const iconPaddingEnd = { sm: "pe-1.5", md: "pe-2.5", lg: "pe-3", xl: "pe-3.5" }[size];
+
 		const buttonProps = {
 			"aria-disabled": disabled,
 			className: cx(
@@ -219,16 +255,17 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 				"focus:outline-hidden focus-visible:ring-4",
 				"disabled:cursor-default disabled:opacity-50",
 				"not-disabled:active:scale-97 ease-out transition-transform duration-150",
-				buttonVariants({ appearance, priority, isLoading }),
+				buttonVariants({ appearance, intent, isLoading, size }),
 				appearance !== "link" && "font-sans", // only enforce font-sans on non-link button appearances
-				hasSpecialIconPadding && iconPlacement === "start" && "ps-2.5",
-				hasSpecialIconPadding && iconPlacement === "end" && "pe-2.5",
+				hasSpecialIconPadding && iconPlacement === "start" && iconPaddingStart,
+				hasSpecialIconPadding && iconPlacement === "end" && iconPaddingEnd,
 				className,
 			),
 			"data-appearance": appearance,
 			"data-disabled": disabled,
+			"data-intent": intent,
 			"data-loading": isLoading,
-			"data-priority": priority,
+			"data-size": size,
 			disabled,
 			ref,
 			...props,
@@ -274,6 +311,7 @@ export {
 export type {
 	//,
 	ButtonAppearance,
-	ButtonPriority,
+	ButtonIntent,
 	ButtonProps,
+	ButtonSize,
 };

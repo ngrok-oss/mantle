@@ -35,12 +35,12 @@ const Root = forwardRef<ComponentRef<"div">, RootProps>(
 );
 Root.displayName = "SplitButton";
 
-type PrimaryActionProps = Omit<ComponentProps<typeof Button>, "appearance" | "type" | "priority"> &
+type PrimaryActionProps = Omit<ComponentProps<typeof Button>, "appearance" | "type" | "intent"> &
 	Pick<ComponentProps<"button">, "type">;
 
 const PrimaryAction = forwardRef<ComponentRef<"button">, PrimaryActionProps>(
 	({ type = "button", ...props }, ref) => {
-		return <Button appearance="outlined" priority="neutral" ref={ref} type={type} {...props} />;
+		return <Button appearance="outlined" intent="neutral" ref={ref} type={type} {...props} />;
 	},
 );
 PrimaryAction.displayName = "SplitButtonPrimaryAction";

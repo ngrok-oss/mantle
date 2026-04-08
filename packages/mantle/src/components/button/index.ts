@@ -14,6 +14,7 @@ export {
 export type {
 	//,
 	ButtonProps,
+	ButtonSize,
 } from "./button.js";
 export type {
 	//,

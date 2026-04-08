@@ -457,7 +457,7 @@ function CommandPalette({ currentVersion }: { currentVersion: string | undefined
 				className="hidden sm:flex"
 				icon={<MagnifyingGlassIcon />}
 				onClick={() => setOpen(true)}
-				priority="neutral"
+				intent="neutral"
 				type="button"
 			>
 				<span className="sr-only">Search Mantle</span>
