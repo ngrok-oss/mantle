@@ -68,7 +68,7 @@ export function RegionPinningDemo() {
 						placeholder="Select regions..."
 					/>
 					{/* Input is flex-1 so this sibling is pushed to the right */}
-					<span className="text-accent-600 shrink-0 whitespace-nowrap text-xs">
+					<span className="text-accent-600 mr-2 shrink-0 whitespace-nowrap text-xs">
 						Requires Upgrade
 					</span>
 				</MultiSelect.Trigger>
