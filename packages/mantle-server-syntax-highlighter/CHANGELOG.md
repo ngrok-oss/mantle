@@ -1,5 +1,16 @@
 # @ngrok/mantle-server-syntax-highlighter
 
+## 1.0.3
+
+### Patch Changes
+
+- [#1115](https://github.com/ngrok-oss/mantle/pull/1115) [`ea340f6`](https://github.com/ngrok-oss/mantle/commit/ea340f6307f3f0f229395783c0c21f7a35363688) Thanks [@dependabot](https://github.com/apps/dependabot)! - bump shiki from 4.0.1 to 4.0.2
+
+- [#1116](https://github.com/ngrok-oss/mantle/pull/1116) [`5b0be5a`](https://github.com/ngrok-oss/mantle/commit/5b0be5a7ffb8372984477da21cbb85b139d04e3f) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - no-op patch to verify publish CI
+
+- Updated dependencies [[`5b0be5a`](https://github.com/ngrok-oss/mantle/commit/5b0be5a7ffb8372984477da21cbb85b139d04e3f)]:
+  - @ngrok/mantle@0.68.2
+
 ## 1.0.2
 
 ### Patch Changes
