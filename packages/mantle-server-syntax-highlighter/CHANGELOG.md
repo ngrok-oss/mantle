@@ -1,5 +1,14 @@
 # @ngrok/mantle-server-syntax-highlighter
 
+## 1.0.1
+
+### Patch Changes
+
+- [#1106](https://github.com/ngrok-oss/mantle/pull/1106) [`41ce842`](https://github.com/ngrok-oss/mantle/commit/41ce842787bcfb6386d94cba4e5e495a298c5a22) Thanks [@forzalupo](https://github.com/forzalupo)! - Themed code block with granular syntax highlighting: richer Shiki token color palette, semantic background tokens (`bg-card`/`bg-base`), redesigned copy button using `IconButton`, and subtler tab trigger styling. Server highlighter adds fine-grained token scope mappings for types, variables, operators, attributes, properties, and escape characters.
+
+- Updated dependencies [[`4a81875`](https://github.com/ngrok-oss/mantle/commit/4a81875621f00eb46887b2b83ab5e6021465d7d4), [`383d538`](https://github.com/ngrok-oss/mantle/commit/383d53821a264e59c4532f45e07818f541bfb686), [`ab6da43`](https://github.com/ngrok-oss/mantle/commit/ab6da43e32e3e2e2dadf29aa8d99fcb2738569f4), [`2be1db1`](https://github.com/ngrok-oss/mantle/commit/2be1db1ffb23bb5719181f73090ef28d7e19a50f), [`41ce842`](https://github.com/ngrok-oss/mantle/commit/41ce842787bcfb6386d94cba4e5e495a298c5a22)]:
+  - @ngrok/mantle@0.68.0
+
 ## 1.0.0
 
 ### Minor Changes
