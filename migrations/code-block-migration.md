@@ -1,6 +1,6 @@
 # Mantle CodeBlock Migration Guide
 
-This document describes how to integrate `@ngrok/mantle`'s Shiki-powered CodeBlock component into your application. There are three packages involved:
+This document describes how to migrate from PrismJS-powered code blocks to `@ngrok/mantle`'s Shiki-powered CodeBlock component. There are three packages involved:
 
 | Package                                   | Purpose                                                                              | When to install                          |
 | ----------------------------------------- | ------------------------------------------------------------------------------------ | ---------------------------------------- |
@@ -9,6 +9,101 @@ This document describes how to integrate `@ngrok/mantle`'s Shiki-powered CodeBlo
 | `@ngrok/mantle-server-syntax-highlighter` | Server-side Shiki highlighting engine                                                | When highlighting on a server at runtime |
 
 Key design principle: **syntax highlighting never runs in the browser**. It happens at build time (Vite plugin), at request time (server highlighter), or not at all (graceful fallback to plain text).
+
+> **Security note:** `preHtml` is rendered via `dangerouslySetInnerHTML`. Only pass HTML produced by Shiki (via the Vite plugin, server highlighter, or highlight server). Never pass unsanitized user input as `preHtml`.
+
+---
+
+## Migrating from PrismJS (Before → After)
+
+If your app currently uses PrismJS (directly or via `react-syntax-highlighter`), here are the patterns you need to find and replace.
+
+### What to search for (old patterns)
+
+Look for these imports and usages in your codebase:
+
+```tsx
+// OLD: PrismJS imports (remove these)
+import Prism from "prismjs";
+import "prismjs/components/prism-typescript";
+import "prismjs/themes/prism.css";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import SyntaxHighlighter from "react-syntax-highlighter";
+import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
+
+// OLD: PrismJS usage patterns
+<SyntaxHighlighter language="typescript">{code}</SyntaxHighlighter>
+<SyntaxHighlighter language="typescript" showLineNumbers>{code}</SyntaxHighlighter>
+
+// OLD: manual Prism.highlight calls
+const html = Prism.highlight(code, Prism.languages.typescript, "typescript");
+
+// OLD: Legacy mantle CodeBlock with separate language prop
+import { CodeBlock, fmtCode } from "@ngrok/mantle/code-block";
+<CodeBlock.Code language="typescript" value={fmtCode`const x = 1;`} />
+
+// OLD: useEffect-based highlighting
+useEffect(() => {
+  Prism.highlightAll();
+}, []);
+```
+
+### Replacement patterns (new)
+
+```tsx
+// NEW: Static code known at build time (Vite plugin transforms this)
+import { CodeBlock, mantleCode } from "@ngrok/mantle/code-block";
+
+<CodeBlock.Root>
+	<CodeBlock.Body>
+		<CodeBlock.CopyButton />
+		<CodeBlock.Code value={mantleCode("typescript")`const x = 1;`} />
+	</CodeBlock.Body>
+</CodeBlock.Root>;
+
+// NEW: Dynamic code (not known at build time, no highlighting)
+import { CodeBlock, createMantleCodeBlockValue } from "@ngrok/mantle/code-block";
+
+<CodeBlock.Code value={createMantleCodeBlockValue({ code, language: "typescript" })} />;
+
+// NEW: Dynamic code WITH highlighting (requires server highlighter or sidecar)
+// See Use Cases 1 and 3 below for details
+```
+
+### Key differences from PrismJS
+
+| PrismJS / react-syntax-highlighter                 | Mantle CodeBlock                                                         |
+| -------------------------------------------------- | ------------------------------------------------------------------------ |
+| Highlighting runs in the browser                   | Highlighting runs at build time or on the server, never in browser       |
+| Language is a prop on the component                | Language is part of `mantleCode("lang")` or `createMantleCodeBlockValue` |
+| Imports grammar files per language                 | No grammar imports needed — Shiki bundles are build/server only          |
+| `useEffect` + `Prism.highlightAll()`               | No effect needed — HTML is pre-rendered                                  |
+| Ships ~30-100KB+ JS to browser                     | Ships 0KB highlighting JS to browser                                     |
+| `suppressHydrationWarning` needed for SSR          | No hydration mismatch — HTML is stable                                   |
+| CSS classes like `.token.keyword`, `.token.string` | CSS variables like `--shiki-token-keyword`                               |
+
+### CSS migration
+
+Remove PrismJS theme CSS imports and any custom Prism token styles:
+
+```tsx
+// REMOVE these
+import "prismjs/themes/prism.css";
+import "prismjs/themes/prism-tomorrow.css";
+// or any custom .token.keyword { color: ... } styles
+```
+
+Mantle's `mantle.css` already includes the Shiki CSS variable theme. Just ensure you import it:
+
+```tsx
+import "@ngrok/mantle/mantle.css";
+```
+
+### Uninstall old packages
+
+```bash
+pnpm remove prismjs react-syntax-highlighter @types/prismjs @types/react-syntax-highlighter
+```
 
 ---
 
@@ -108,6 +203,10 @@ mantleCode("typescript", {
 })`const x = 1;`;
 ```
 
+#### Indentation defaults
+
+Languages have default indentation styles. Tab-indented by default: `typescript`, `tsx`, `javascript`, `jsx`, `go`, `html`, `css`, `xml`, `java`, `csharp`, `json`, `rust` (and their aliases). Space-indented by default: `python`, `yaml`, `ruby` (and their aliases). Use the `indentation` option to override.
+
 #### Interpolation
 
 ```tsx
@@ -115,6 +214,8 @@ mantleCode("typescript")`const name = "${userName}";`;
 ```
 
 Interpolated values are replaced at runtime via placeholder substitution. The Vite plugin highlights the template with placeholders, and the component swaps in real values at render time. The copy button copies the plain-text version with real values.
+
+**Limitation:** If an interpolated value changes the token type at that position (e.g., injecting a bare identifier where the placeholder sits inside string quotes), the syntax highlighting color of the surrounding span may be incorrect. This is acceptable for typical usage where interpolated values appear inside strings, template expressions, or command substitutions.
 
 ### 4. Server-side highlighting for dynamic code
 
@@ -256,7 +357,17 @@ const z = x + y;
 ```
 ````
 
-Supported meta keys: `title`, `mode` (`cli` | `file` | `traffic-policy`), `showLineNumbers`, `highlight` / `highlightLines`, `lineNumberStart`, `collapsible`, `disableCopy`.
+Supported meta keys: `title`, `mode` (`cli` | `file` | `traffic-policy`), `showLineNumbers`, `highlight` / `highlightLines`, `lineNumberStart`, `indentation` (`spaces` | `tabs`), `collapsible`, `disableCopy`.
+
+Full example with all meta keys:
+
+````markdown
+```tsx title="example.tsx" mode=file showLineNumbers highlight="2-4" lineNumberStart=10 indentation=tabs collapsible disableCopy
+const x = 1;
+const y = 2;
+const z = x + y;
+```
+````
 
 ---
 
@@ -544,46 +655,120 @@ function DynamicCodeBlock({ code, language }: { code: string; language: string }
 
 ```tsx
 <CodeBlock.Root>
-	{" "}
 	{/* Container — manages context, applies base styles */}
 	<CodeBlock.Header>
-		{" "}
 		{/* Optional — header bar with icon and title */}
 		<CodeBlock.Icon /> {/* preset="file" | "cli" | "traffic-policy", or svg={<CustomIcon />} */}
 		<CodeBlock.Title /> {/* Renders <h3> by default, supports asChild */}
+		<CodeBlock.TabList>
+			{" "}
+			{/* Optional — pill-styled tabs in header (Radix-based) */}
+			<CodeBlock.TabTrigger /> {/* Individual tab trigger */}
+		</CodeBlock.TabList>
 	</CodeBlock.Header>
 	<CodeBlock.Body>
-		{" "}
 		{/* Content wrapper — positions CopyButton */}
-		<CodeBlock.CopyButton />
-		{/* Copy-to-clipboard with "Copied" feedback */}
+		<CodeBlock.CopyButton /> {/* Copy-to-clipboard with "Copied" feedback */}
 		<CodeBlock.Code /> {/* Renders <pre><code> with highlighted HTML */}
+		<CodeBlock.TabContent /> {/* Conditional content for each tab */}
 	</CodeBlock.Body>
 	<CodeBlock.ExpanderButton /> {/* Optional — "Show more" / "Show less" toggle */}
 </CodeBlock.Root>
 ```
 
-### Supported Languages (34)
+### Tabbed Code Blocks
+
+Use tabs when showing the same concept in multiple languages:
+
+```tsx
+import { CodeBlock, mantleCode } from "@ngrok/mantle/code-block";
+
+function MultiLanguageExample() {
+	return (
+		<CodeBlock.Root defaultTab="typescript">
+			<CodeBlock.Header>
+				<CodeBlock.Icon preset="file" />
+				<CodeBlock.TabList>
+					<CodeBlock.TabTrigger value="typescript">TypeScript</CodeBlock.TabTrigger>
+					<CodeBlock.TabTrigger value="python">Python</CodeBlock.TabTrigger>
+				</CodeBlock.TabList>
+			</CodeBlock.Header>
+			<CodeBlock.Body>
+				<CodeBlock.CopyButton />
+				<CodeBlock.TabContent value="typescript">
+					<CodeBlock.Code value={mantleCode("typescript")`const greeting = "Hello, world!";`} />
+				</CodeBlock.TabContent>
+				<CodeBlock.TabContent value="python">
+					<CodeBlock.Code value={mantleCode("python")`greeting = "Hello, world!"`} />
+				</CodeBlock.TabContent>
+			</CodeBlock.Body>
+		</CodeBlock.Root>
+	);
+}
+```
+
+For controlled tabs, use `activeTab` and `onActiveTabChange` instead of `defaultTab`.
+
+### Collapsible Code Blocks
+
+Use `ExpanderButton` for long code blocks. The collapsed height is approximately 4 lines (~13.6rem):
+
+```tsx
+<CodeBlock.Root>
+	<CodeBlock.Body>
+		<CodeBlock.CopyButton />
+		<CodeBlock.Code
+			value={mantleCode("typescript")`
+			// ... many lines of code ...
+		`}
+		/>
+	</CodeBlock.Body>
+	<CodeBlock.ExpanderButton />
+</CodeBlock.Root>
+```
+
+In MDX, use the `collapsible` meta key:
+
+````markdown
+```typescript collapsible
+// Long code block that will be collapsed by default
+```
+````
+
+### Supported Languages (28)
 
 `bash`, `cs`, `csharp`, `css`, `go`, `html`, `java`, `javascript`, `js`, `json`, `jsx`, `plain`, `plaintext`, `py`, `python`, `rb`, `ruby`, `rust`, `sh`, `shell`, `text`, `ts`, `tsx`, `txt`, `typescript`, `xml`, `yaml`, `yml`
+
+Many are aliases: `js`↔`javascript`, `ts`↔`typescript`, `py`↔`python`, `rb`↔`ruby`, `sh`↔`bash`↔`shell`, `cs`↔`csharp`, `yml`↔`yaml`, `plain`↔`plaintext`↔`text`↔`txt`. Unsupported languages fall back to `"text"` (plain text, no highlighting).
 
 ### Key Imports
 
 ```tsx
 // Components and factories
-import { CodeBlock, mantleCode, createMantleCodeBlockValue } from "@ngrok/mantle/code-block";
+import {
+	CodeBlock,
+	mantleCode,
+	createMantleCodeBlockValue,
+	type MantleCodeBlockValue,
+} from "@ngrok/mantle/code-block";
 
 // Utilities (for MDX provider integration)
-import { resolvePreRenderedCodeBlockProps } from "@ngrok/mantle/code-block";
+import {
+	resolvePreRenderedCodeBlockProps,
+	type CodeBlockPreElementInput,
+} from "@ngrok/mantle/code-block";
 
 // Parsing helpers
 import {
 	parseLanguage,
 	isSupportedLanguage,
 	parseCodeBlockHighlightLines,
+	parseCodeBlockLineNumberStart,
+	parseCodeBlockShowLineNumbers,
+	supportedLanguages,
 } from "@ngrok/mantle/code-block";
 
-// React-free utilities (safe for server-only code)
+// React-free utilities (safe for server-only code, no React dependency)
 import { decorateHighlightedHtml, escapeHtml } from "@ngrok/mantle/highlight-utils";
 
 // Vite plugins
@@ -618,3 +803,43 @@ import "@ngrok/mantle/mantle.css";
 ```
 
 Light/dark mode is handled automatically via the Mantle `ThemeProvider`. The highlighted HTML uses CSS variable class names that respond to the active theme.
+
+---
+
+## Troubleshooting & Gotchas
+
+### `mantleCode` returns plain text (no syntax highlighting)
+
+The Vite plugin is not configured. `mantleCode` is a no-op at runtime — it requires the Vite plugin to transform tagged templates at build time. Ensure `mantleCodeBlockPlugins().vitePlugins` is in your Vite config. In development, you may see a warning in the console.
+
+### Unsupported language silently falls back to plain text
+
+If you pass a language string that isn't in the supported list, `parseLanguage` returns `"text"` (no highlighting, no error). Check `isSupportedLanguage(lang)` if you need to detect this.
+
+### Highlight line `0` is silently ignored
+
+Line numbers are 1-based. Passing `0` in `highlightLines` (e.g., `[0, 3]`) silently filters it out. Ranges like `"0-3"` are also filtered.
+
+### `preHtml` must come from a trusted source
+
+`preHtml` is rendered via `dangerouslySetInnerHTML`. Only pass HTML produced by Shiki through the Vite plugin, `createMantleServerSyntaxHighlighter`, or the highlight server. Never pass user-provided HTML strings.
+
+### Tab width is hardcoded to 2 spaces
+
+The `<pre>` element renders with `tab-size: 2`. This is not configurable via props or options.
+
+### Title whitespace is trimmed
+
+The `title` meta key value is trimmed — leading/trailing whitespace is removed.
+
+### CodeBlock works without CopyButton, Header, or ExpanderButton
+
+All sub-components besides `Root`, `Body`, and `Code` are optional. A minimal code block is:
+
+```tsx
+<CodeBlock.Root>
+	<CodeBlock.Body>
+		<CodeBlock.Code value={mantleCode("typescript")`const x = 1;`} />
+	</CodeBlock.Body>
+</CodeBlock.Root>
+```
