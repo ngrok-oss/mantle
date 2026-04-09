@@ -205,7 +205,7 @@ mantleCode("typescript", {
 
 #### Indentation defaults
 
-Languages have default indentation styles. Tab-indented by default: `typescript`, `tsx`, `javascript`, `jsx`, `go`, `html`, `css`, `xml`, `java`, `csharp`, `json`, `rust` (and their aliases). Space-indented by default: `python`, `yaml`, `ruby` (and their aliases). Use the `indentation` option to override.
+Languages have default indentation styles. Tab-indented by default: `csharp`, `css`, `go`, `html`, `java`, `javascript`, `js`, `jsx`, `typescript`, `ts`, `tsx`, `xml`. All other languages default to spaces unless overridden. Use the `indentation` option to override.
 
 #### Interpolation
 
