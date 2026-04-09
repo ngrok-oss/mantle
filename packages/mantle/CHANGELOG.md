@@ -1,5 +1,21 @@
 # @ngrok/mantle
 
+## 0.68.0
+
+### Minor Changes
+
+- [#1067](https://github.com/ngrok-oss/mantle/pull/1067) [`ab6da43`](https://github.com/ngrok-oss/mantle/commit/ab6da43e32e3e2e2dadf29aa8d99fcb2738569f4) Thanks [@forzalupo](https://github.com/forzalupo)! - Mantle theme updates: updates the functional colors, and modifies the color treatments across various components. It also adds font smoothing globally, while retaining the "auto" setting for Family, for a perceived higher weight.
+
+### Patch Changes
+
+- [#1099](https://github.com/ngrok-oss/mantle/pull/1099) [`4a81875`](https://github.com/ngrok-oss/mantle/commit/4a81875621f00eb46887b2b83ab5e6021465d7d4) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Bump dependencies: @ariakit/react to 0.4.24, browserslist to 4.28.2, tailwindcss peer to ^4.2.2
+
+- [#1082](https://github.com/ngrok-oss/mantle/pull/1082) [`383d538`](https://github.com/ngrok-oss/mantle/commit/383d53821a264e59c4532f45e07818f541bfb686) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update ariakit and headlessui
+
+- [#1104](https://github.com/ngrok-oss/mantle/pull/1104) [`2be1db1`](https://github.com/ngrok-oss/mantle/commit/2be1db1ffb23bb5719181f73090ef28d7e19a50f) Thanks [@forzalupo](https://github.com/forzalupo)! - Polish component styles: soften card/popover/dialog hover backgrounds with `color-mix()`, update SplitButton menu item icon placement and gap, use `bg-active-menu-item` in Command palette, reduce table header height, improve Combobox item icon sizing, and flatten DataTable ActionCell layout.
+
+- [#1106](https://github.com/ngrok-oss/mantle/pull/1106) [`41ce842`](https://github.com/ngrok-oss/mantle/commit/41ce842787bcfb6386d94cba4e5e495a298c5a22) Thanks [@forzalupo](https://github.com/forzalupo)! - Themed code block with granular syntax highlighting: richer Shiki token color palette, semantic background tokens (`bg-card`/`bg-base`), redesigned copy button using `IconButton`, and subtler tab trigger styling. Server highlighter adds fine-grained token scope mappings for types, variables, operators, attributes, properties, and escape characters.
+
 ## 0.67.0
 
 ### Minor Changes
