@@ -85,6 +85,13 @@ SKIP_HOOKS=1 git commit -m "wip"
 > [!NOTE]
 > This is a **local opt-out only**. CI will always run formatting and linting checks against your branch, so any issues will still be caught before merge.
 
+## Related Packages
+
+| Package                                   | Description                                                                            | Links                                                                                                                                                                            |
+| ----------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `@ngrok/mantle-vite-plugins`              | Vite + rehype plugins for code block highlighting and Tailwind CSS source optimization | [GitHub](https://github.com/ngrok-oss/mantle/tree/main/packages/mantle-vite-plugins) · [npm](https://www.npmjs.com/package/@ngrok/mantle-vite-plugins)                           |
+| `@ngrok/mantle-server-syntax-highlighter` | Server-side syntax highlighting engine powered by Shiki                                | [GitHub](https://github.com/ngrok-oss/mantle/tree/main/packages/mantle-server-syntax-highlighter) · [npm](https://www.npmjs.com/package/@ngrok/mantle-server-syntax-highlighter) |
+
 ## Contributing
 
 Please read our [contribution guide](https://github.com/ngrok-oss/mantle/blob/main/CONTRIBUTING.md) and [conventions](https://github.com/ngrok-oss/mantle/blob/main/CONVENTIONS.md).
