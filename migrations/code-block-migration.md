@@ -669,7 +669,7 @@ function DynamicCodeBlock({ code, language }: { code: string; language: string }
 		{/* Content wrapper — positions CopyButton */}
 		<CodeBlock.CopyButton /> {/* Copy-to-clipboard with "Copied" feedback */}
 		<CodeBlock.Code /> {/* Renders <pre><code> with highlighted HTML */}
-		<CodeBlock.TabContent /> {/* Conditional content for each tab */}
+		<CodeBlock.TabContent value="..." /> {/* Conditional content for each tab */}
 	</CodeBlock.Body>
 	<CodeBlock.ExpanderButton /> {/* Optional — "Show more" / "Show less" toggle */}
 </CodeBlock.Root>
