@@ -357,12 +357,12 @@ const z = x + y;
 ```
 ````
 
-Supported meta keys: `title`, `mode` (`cli` | `file` | `traffic-policy`), `showLineNumbers`, `highlight` / `highlightLines`, `lineNumberStart`, `indentation` (`spaces` | `tabs`), `collapsible`, `disableCopy`.
+Supported meta keys: `title`, `mode` (`cli` | `file` | `traffic-policy`), `showLineNumbers`, `highlight` / `highlightLines`, `lineNumberStart`, `collapsible`, `disableCopy`.
 
 Full example with all meta keys:
 
 ````markdown
-```tsx title="example.tsx" mode=file showLineNumbers highlight="2-4" lineNumberStart=10 indentation=tabs collapsible disableCopy
+```tsx title="example.tsx" mode=file showLineNumbers highlight="2-4" lineNumberStart=10 collapsible disableCopy
 const x = 1;
 const y = 2;
 const z = x + y;
