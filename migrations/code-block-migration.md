@@ -661,9 +661,8 @@ function DynamicCodeBlock({ code, language }: { code: string; language: string }
 		<CodeBlock.Icon /> {/* preset="file" | "cli" | "traffic-policy", or svg={<CustomIcon />} */}
 		<CodeBlock.Title /> {/* Renders <h3> by default, supports asChild */}
 		<CodeBlock.TabList>
-			{" "}
 			{/* Optional — pill-styled tabs in header (Radix-based) */}
-			<CodeBlock.TabTrigger /> {/* Individual tab trigger */}
+			<CodeBlock.TabTrigger value="example-tab" /> {/* Individual tab trigger */}
 		</CodeBlock.TabList>
 	</CodeBlock.Header>
 	<CodeBlock.Body>
