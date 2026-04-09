@@ -59,7 +59,7 @@ export default defineConfig((options) => [
 		clean: false,
 		minify: true,
 		sourcemap: true,
-		target: "ES2023",
+		target: "ES2025",
 		tsconfig: "tsconfig.build.json",
 		fixedExtension: false,
 		format: "esm",

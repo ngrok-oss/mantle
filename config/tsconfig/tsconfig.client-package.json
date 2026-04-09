@@ -4,7 +4,7 @@
   "compilerOptions": {
     /* Base Options: */
     "skipLibCheck": true,
-    "target": "ES2023",
+    "target": "ES2025",
     "allowJs": true,
     "resolveJsonModule": true,
     "moduleDetection": "force",
@@ -26,7 +26,7 @@
     "incremental": true,
 
     /* If your code runs in the DOM: */
-    "lib": ["ES2023", "DOM"],
+    "lib": ["ES2025", "DOM"],
 
     "noEmit": true
   }

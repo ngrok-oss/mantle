@@ -6,7 +6,7 @@ export default defineConfig({
 	external: ["@ngrok/mantle", "shiki"],
 	minify: false,
 	sourcemap: true,
-	target: "ES2023",
+	target: "ES2025",
 	tsconfig: "tsconfig.json",
 	fixedExtension: false,
 	format: "esm",
