@@ -3,13 +3,11 @@
   "display": "Web App",
   "compilerOptions": {
     /* Base Options: */
-    "esModuleInterop": true,
     "skipLibCheck": true,
-    "target": "ES2023",
+    "target": "ES2025",
     "allowJs": true,
     "resolveJsonModule": true,
     "moduleDetection": "auto",
-    "isolatedModules": true,
     "verbatimModuleSyntax": true,
     "jsx": "react-jsx",
     "resolvePackageJsonExports": true,
@@ -18,7 +16,6 @@
     "strict": true,
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
-    "noUncheckedSideEffectImports": true,
     "noUnusedLocals": true,
 
     /* If NOT transpiling with TypeScript: */
@@ -27,6 +24,6 @@
     "incremental": true,
 
     /* If your code runs in the DOM: */
-    "lib": ["ES2023", "DOM", "DOM.Iterable"]
+    "lib": ["ES2025", "DOM"]
   }
 }

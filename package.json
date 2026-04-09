@@ -29,11 +29,11 @@
     "@typescript/native-preview": "7.0.0-dev.20260316.1",
     "husky": "9.1.7",
     "lint-staged": "16.4.0",
-    "oxfmt": "0.43.0",
-    "oxlint": "1.58.0",
+    "oxfmt": "0.44.0",
+    "oxlint": "1.59.0",
     "tsx": "catalog:",
-    "turbo": "2.9.3",
-    "vitest": "4.1.2"
+    "turbo": "2.9.5",
+    "vitest": "4.1.4"
   },
   "engines": {
     "node": "^24.0.0"
@@ -46,10 +46,10 @@
       "@vitejs/plugin-react": "catalog:",
       "ajv": ">=8.18.0",
       "cookie": ">=1.1.1",
-      "esbuild": ">=0.27.5",
+      "esbuild": ">=0.28.0",
       "playwright-core": "catalog:",
-      "react": "19.2.4",
-      "react-dom": "19.2.4"
+      "react": "19.2.5",
+      "react-dom": "19.2.5"
     },
     "onlyBuiltDependencies": [
       "esbuild",
