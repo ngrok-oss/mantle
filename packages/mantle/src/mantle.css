@@ -594,21 +594,21 @@ MARK: SHIKI SYNTAX HIGHLIGHT
 	--shiki-background: transparent;
 	--shiki-color-text: var(--shiki-foreground);
 
-	--shiki-token-comment: var(--color-gray-600);
-	--shiki-token-constant: var(--color-amber-600);
-	--shiki-token-string: var(--color-emerald-600);
-	--shiki-token-string-expression: var(--color-emerald-600);
-	--shiki-token-keyword: var(--color-purple-600);
-	--shiki-token-function: var(--color-sky-600);
-	--shiki-token-parameter: var(--color-rose-600);
-	--shiki-token-punctuation: var(--color-sky-600);
+	--shiki-token-comment: var(--color-gray-700);
+	--shiki-token-constant: var(--color-amber-700);
+	--shiki-token-string: var(--color-emerald-700);
+	--shiki-token-string-expression: var(--color-emerald-700);
+	--shiki-token-keyword: var(--color-purple-700);
+	--shiki-token-function: var(--color-sky-700);
+	--shiki-token-parameter: var(--color-rose-700);
+	--shiki-token-punctuation: var(--color-sky-700);
 
-	--shiki-token-type: var(--color-amber-600);
+	--shiki-token-type: var(--color-amber-700);
 	--shiki-token-variable: var(--shiki-foreground);
-	--shiki-token-operator: var(--color-sky-600);
-	--shiki-token-attribute: var(--color-purple-600);
-	--shiki-token-property: var(--color-rose-600);
-	--shiki-token-escape: var(--color-sky-600);
+	--shiki-token-operator: var(--color-sky-700);
+	--shiki-token-attribute: var(--color-purple-700);
+	--shiki-token-property: var(--color-rose-700);
+	--shiki-token-escape: var(--color-sky-700);
 
 	/* Mantle code-line rendering hooks (used by CodeBlock + server highlighter). */
 	--mantle-code-line-highlight-bg: --alpha(var(--color-accent-500) / 12%);
