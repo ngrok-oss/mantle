@@ -106,6 +106,7 @@ Unified helper that returns plugin lists for both Vite and MDX integration surfa
 ```ts
 import { mantleCodeBlockPlugins } from "@ngrok/mantle-vite-plugins";
 import mdx from "@mdx-js/rollup";
+import { defineConfig } from "vite";
 
 const codeBlockPlugins = mantleCodeBlockPlugins();
 
