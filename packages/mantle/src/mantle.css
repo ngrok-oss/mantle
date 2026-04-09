@@ -590,18 +590,25 @@ MARK: UTILITIES
 MARK: SHIKI SYNTAX HIGHLIGHT
 */
 :root {
-	--shiki-foreground: var(--color-gray-900);
+	--shiki-foreground: var(--text-color-body);
 	--shiki-background: transparent;
 	--shiki-color-text: var(--shiki-foreground);
 
-	--shiki-token-comment: var(--color-gray-500);
-	--shiki-token-constant: var(--color-indigo-600);
-	--shiki-token-string: var(--color-green-600);
-	--shiki-token-string-expression: var(--color-green-600);
-	--shiki-token-keyword: var(--color-blue-600);
-	--shiki-token-function: var(--color-blue-600);
-	--shiki-token-parameter: var(--color-yellow-600);
-	--shiki-token-punctuation: var(--shiki-foreground);
+	--shiki-token-comment: var(--color-gray-600);
+	--shiki-token-constant: var(--color-amber-600);
+	--shiki-token-string: var(--color-emerald-600);
+	--shiki-token-string-expression: var(--color-emerald-600);
+	--shiki-token-keyword: var(--color-purple-600);
+	--shiki-token-function: var(--color-sky-600);
+	--shiki-token-parameter: var(--color-rose-600);
+	--shiki-token-punctuation: var(--color-sky-600);
+
+	--shiki-token-type: var(--color-amber-600);
+	--shiki-token-variable: var(--shiki-foreground);
+	--shiki-token-operator: var(--color-sky-600);
+	--shiki-token-attribute: var(--color-purple-600);
+	--shiki-token-property: var(--color-rose-600);
+	--shiki-token-escape: var(--color-sky-600);
 
 	/* Mantle code-line rendering hooks (used by CodeBlock + server highlighter). */
 	--mantle-code-line-highlight-bg: --alpha(var(--color-accent-500) / 12%);

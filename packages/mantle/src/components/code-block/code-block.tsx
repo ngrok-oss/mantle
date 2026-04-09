@@ -38,6 +38,7 @@ import { cx } from "../../utils/cx/cx.js";
 import { Icon as MantleIcon } from "../icon/icon.js";
 import type { SvgAttributes } from "../icon/types.js";
 import { TrafficPolicyFileIcon } from "../icons/traffic-policy-file.js";
+import { IconButton } from "../button/icon-button.js";
 import { Slot } from "../slot/index.js";
 import { escapeHtml } from "./escape-html.js";
 import type { Mode } from "./resolve-pre-rendered-props.js";
@@ -147,7 +148,7 @@ const Root = forwardRef<ComponentRef<"div">, CodeBlockRootProps>(
 			<Component
 				data-slot="code-block"
 				className={cx(
-					"text-mono w-full overflow-hidden rounded-md border border-gray-300 bg-gray-50 font-mono",
+					"text-mono w-full overflow-hidden rounded-md border border-gray-300 bg-card font-mono",
 					"[&_svg]:shrink-0",
 					className,
 				)}
@@ -414,7 +415,7 @@ const Header = forwardRef<ComponentRef<"div">, ComponentProps<"div"> & WithAsChi
 		return (
 			<Component
 				className={cx(
-					"flex items-center gap-1 border-b border-gray-300 bg-gray-100 px-4 py-2 text-gray-700",
+					"flex items-center gap-1 border-b border-gray-300 bg-base px-4 py-2 text-gray-700",
 					className,
 				)}
 				ref={ref}
@@ -451,17 +452,16 @@ const Title = forwardRef<
 });
 Title.displayName = "CodeBlockTitle";
 
-type CodeBlockCopyButtonProps = Omit<ComponentProps<"button">, "children" | "type"> &
-	WithAsChild & {
-		/**
-		 * Callback fired when the copy button is clicked, passes the copied text as an argument.
-		 */
-		onCopy?: (value: string) => void;
-		/**
-		 * Callback fired when an error occurs during copying.
-		 */
-		onCopyError?: (error: unknown) => void;
-	};
+type CodeBlockCopyButtonProps = Omit<ComponentProps<"button">, "children" | "type"> & {
+	/**
+	 * Callback fired when the copy button is clicked, passes the copied text as an argument.
+	 */
+	onCopy?: (value: string) => void;
+	/**
+	 * Callback fired when an error occurs during copying.
+	 */
+	onCopyError?: (error: unknown) => void;
+};
 
 /**
  * The (optional) copy button of the `CodeBlock`. Copies the code content
@@ -476,7 +476,7 @@ type CodeBlockCopyButtonProps = Omit<ComponentProps<"button">, "children" | "typ
  * ```
  */
 const CopyButton = forwardRef<ComponentRef<"button">, CodeBlockCopyButtonProps>(
-	({ asChild = false, className, onCopy, onCopyError, onClick, ...props }, ref) => {
+	({ className, onCopy, onCopyError, onClick, ...props }, ref) => {
 		const { copyTextRef } = useCodeBlockContext();
 		const [, copyToClipboard] = useCopyToClipboard();
 		const [wasCopied, setWasCopied] = useState(false);
@@ -490,54 +490,42 @@ const CopyButton = forwardRef<ComponentRef<"button">, CodeBlockCopyButtonProps>(
 			};
 		}, []);
 
-		const Component = asChild ? Slot : "button";
-
 		return (
-			<Component
-				type="button"
-				className={cx(
-					"focus-visible:border-accent-600 focus-visible:ring-focus-accent absolute right-2.5 top-2.5 z-10 flex size-7 items-center justify-center rounded border border-gray-300 bg-gray-50 hover:border-gray-400 hover:bg-gray-200 focus-visible:outline-hidden focus-visible:ring-4",
-					"shadow-[-1rem_0_0.75rem_-0.375rem_var(--color-gray-50),1rem_0_0_-0.25rem_var(--color-gray-50)]",
-					wasCopied &&
-						"bg-filled-success text-on-filled hover:bg-filled-success focus:bg-filled-success focus-visible:border-success-600 focus-visible:ring-focus-success w-auto gap-1 border-transparent pl-2 pr-1.5 hover:border-transparent",
-					className,
-				)}
-				ref={ref}
-				onClick={async (event) => {
-					try {
-						onClick?.(event);
-						if (event.defaultPrevented) {
+			<span className="absolute right-2.5 top-2.5 z-10 bg-card">
+				<IconButton
+					type="button"
+					appearance="ghost"
+					size="sm"
+					label="Copy code"
+					icon={wasCopied ? <CheckIcon /> : <CopyIcon />}
+					className={className}
+					ref={ref}
+					onClick={async (event) => {
+						try {
+							onClick?.(event);
+							if (event.defaultPrevented) {
+								if (timeoutHandle.current != null) {
+									clearTimeout(timeoutHandle.current);
+								}
+								return;
+							}
+							const text = copyTextRef.current;
+							await copyToClipboard(text);
+							onCopy?.(text);
+							setWasCopied(true);
 							if (timeoutHandle.current != null) {
 								clearTimeout(timeoutHandle.current);
 							}
-							return;
+							timeoutHandle.current = setTimeout(() => {
+								setWasCopied(false);
+							}, 2000);
+						} catch (error) {
+							onCopyError?.(error);
 						}
-						const text = copyTextRef.current;
-						await copyToClipboard(text);
-						onCopy?.(text);
-						setWasCopied(true);
-						if (timeoutHandle.current != null) {
-							clearTimeout(timeoutHandle.current);
-						}
-						timeoutHandle.current = setTimeout(() => {
-							setWasCopied(false);
-						}, 2000);
-					} catch (error) {
-						onCopyError?.(error);
-					}
-				}}
-				{...props}
-			>
-				<span className="sr-only">Copy code</span>
-				{wasCopied ? (
-					<>
-						Copied
-						<MantleIcon svg={<CheckIcon weight="bold" />} className="size-4" />
-					</>
-				) : (
-					<MantleIcon svg={<CopyIcon />} className="-ml-px" />
-				)}
-			</Component>
+					}}
+					{...props}
+				/>
+			</span>
 		);
 	},
 );
@@ -582,7 +570,7 @@ const ExpanderButton = forwardRef<ComponentRef<"button">, CodeBlockExpanderButto
 				aria-controls={codeId}
 				aria-expanded={isCodeExpanded}
 				className={cx(
-					"flex w-full items-center justify-center gap-0.5 border-t border-gray-300 bg-gray-50 px-4 py-2 font-sans text-gray-700 hover:bg-gray-100",
+					"flex w-full items-center justify-center gap-0.5 border-t border-gray-300 bg-card px-4 py-2 font-sans text-gray-700 hover:bg-gray-100",
 					className,
 				)}
 				ref={ref}
@@ -723,10 +711,10 @@ const TabTrigger = forwardRef<ComponentRef<typeof RadixTabsTrigger>, CodeBlockTa
 	({ className, ...props }, ref) => (
 		<RadixTabsTrigger
 			className={cx(
-				"cursor-pointer rounded-full px-3 py-1 text-sm font-medium",
+				"cursor-pointer rounded px-1.5 py-0.5 text-xs font-medium",
 				"text-gray-600 outline-hidden",
 				"hover:text-gray-900",
-				"data-[state=active]:bg-accent-500/20 data-[state=active]:text-blue-700",
+				"data-[state=active]:bg-neutral-500/15 data-[state=active]:text-strong",
 				"focus-visible:ring-focus-accent focus-visible:ring-4",
 				className,
 			)}
