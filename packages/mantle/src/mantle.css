@@ -590,11 +590,11 @@ MARK: UTILITIES
 MARK: SHIKI SYNTAX HIGHLIGHT
 */
 :root {
-	--shiki-foreground: var(--text-color-body);
+	--shiki-foreground: var(--text-color-strong);
 	--shiki-background: transparent;
 	--shiki-color-text: var(--shiki-foreground);
 
-	--shiki-token-comment: var(--color-gray-700);
+	--shiki-token-comment: var(--text-color-muted);
 	--shiki-token-constant: var(--color-amber-700);
 	--shiki-token-string: var(--color-emerald-700);
 	--shiki-token-string-expression: var(--color-emerald-700);
