@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.68.2
+
+### Patch Changes
+
+- [#1116](https://github.com/ngrok-oss/mantle/pull/1116) [`5b0be5a`](https://github.com/ngrok-oss/mantle/commit/5b0be5a7ffb8372984477da21cbb85b139d04e3f) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - no-op patch to verify publish CI
+
 ## 0.68.1
 
 ### Patch Changes
