@@ -1,5 +1,13 @@
 # @ngrok/mantle
 
+## 0.68.1
+
+### Patch Changes
+
+- [#1114](https://github.com/ngrok-oss/mantle/pull/1114) [`d46e3b3`](https://github.com/ngrok-oss/mantle/commit/d46e3b3fbdcdf561db1d90e89afc8cca8e374be3) Thanks [@forzalupo](https://github.com/forzalupo)! - Improve contrast in code block syntax highlighting
+
+- [#1112](https://github.com/ngrok-oss/mantle/pull/1112) [`ad24f11`](https://github.com/ngrok-oss/mantle/commit/ad24f11155af28d4b3141c1fb77416577bc75ed2) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add README documentation for npm packages, switch to ES2025 preset
+
 ## 0.68.0
 
 ### Minor Changes
