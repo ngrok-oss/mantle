@@ -1,6 +1,6 @@
 # @ngrok/mantle-vite-plugins
 
-## 2.0.0
+## 1.0.1
 
 ### Patch Changes
 
