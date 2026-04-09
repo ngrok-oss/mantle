@@ -366,7 +366,7 @@
 
   The dismiss button now accepts an `icon` prop (`ReactNode`) to render a custom icon in place of the default `X` icon.
 
-- [#999](https://github.com/ngrok-oss/mantle/pull/999) [`4ebf12b`](https://github.com/ngrok-oss/mantle/commit/4ebf12bdc73f6c88f7968b2378b94b8ff1a3e0eb) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump tsconfig target/lib to ES2025
+- [#999](https://github.com/ngrok-oss/mantle/pull/999) [`4ebf12b`](https://github.com/ngrok-oss/mantle/commit/4ebf12bdc73f6c88f7968b2378b94b8ff1a3e0eb) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump tsconfig target/lib to ES2023
 
 - [#994](https://github.com/ngrok-oss/mantle/pull/994) [`c4d9812`](https://github.com/ngrok-oss/mantle/commit/c4d9812c9c14924418339d52aa06be61191cd224) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump up min version of tailwind
 
