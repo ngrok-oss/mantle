@@ -29,7 +29,7 @@
     "typecheck": "tsgo"
   },
   "dependencies": {
-    "shiki": "4.0.1"
+    "shiki": "4.0.2"
   },
   "devDependencies": {
     "@cfg/tsconfig": "workspace:*",
