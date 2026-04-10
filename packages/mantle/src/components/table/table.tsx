@@ -52,9 +52,17 @@ const Root = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
 		return (
 			<div
 				className={cx(
-					"group/table scrollbar overflow-x-auto overscroll-x-none rounded-lg border border-card bg-white dark:bg-gray-100 relative w-full",
+					"group/table scrollbar scroll-fade-x overflow-x-auto overscroll-x-none rounded-lg border border-card bg-white dark:bg-gray-100 relative w-full",
 					className,
 				)}
+				data-scroll-left={
+					(horizontalOverflow.state.hasOverflow && !horizontalOverflow.state.scrolledToStart) ||
+					undefined
+				}
+				data-scroll-right={
+					(horizontalOverflow.state.hasOverflow && !horizontalOverflow.state.scrolledToEnd) ||
+					undefined
+				}
 				data-sticky-active={
 					(horizontalOverflow.state.hasOverflow && !horizontalOverflow.state.scrolledToEnd) ||
 					undefined
@@ -1002,6 +1010,7 @@ function useHorizontalOverflowObserver<T extends HTMLElement>() {
 	const ref = useRef<T | null>(null);
 	const [state, setState] = useState({
 		hasOverflow: false,
+		scrolledToStart: true,
 		scrolledToEnd: false,
 	});
 
@@ -1013,12 +1022,17 @@ function useHorizontalOverflowObserver<T extends HTMLElement>() {
 
 		const checkState = () => {
 			const hasOverflow = element.scrollWidth > element.clientWidth;
+			const scrolledToStart = element.scrollLeft < 1;
 			const scrolledToEnd =
 				Math.abs(element.scrollWidth - element.scrollLeft - element.clientWidth) < 1;
 
 			setState((previous) => {
-				if (previous.hasOverflow !== hasOverflow || previous.scrolledToEnd !== scrolledToEnd) {
-					return { hasOverflow, scrolledToEnd };
+				if (
+					previous.hasOverflow !== hasOverflow ||
+					previous.scrolledToStart !== scrolledToStart ||
+					previous.scrolledToEnd !== scrolledToEnd
+				) {
+					return { hasOverflow, scrolledToStart, scrolledToEnd };
 				}
 				return previous; // No state change
 			});

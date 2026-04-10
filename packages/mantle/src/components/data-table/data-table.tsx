@@ -276,10 +276,7 @@ type DataTableActionCellProps = ComponentProps<typeof Table.Cell>;
 function ActionCell({ children, className, ...props }: DataTableActionCellProps) {
 	return (
 		<Table.Cell
-			className={cx(
-				"sticky z-10 right-0 top-px -bottom-px flex items-center justify-end p-2 group-data-sticky-active/table:[box-shadow:inset_10px_0_8px_-8px_oklch(0_0_0/15%)]",
-				className,
-			)}
+			className={cx("sticky z-10 right-0 flex items-center justify-end p-2", className)}
 			{...props}
 		>
 			{children}
