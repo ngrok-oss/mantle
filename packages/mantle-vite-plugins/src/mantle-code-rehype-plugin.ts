@@ -1,4 +1,5 @@
 import {
+	defaultShowLineNumbers,
 	isSupportedLanguage,
 	normalizeValue,
 	parseCodeBlockHighlightLines,
@@ -156,7 +157,7 @@ function mantleCodeRehypePlugin() {
 				const showLineNumbers =
 					parseCodeBlockShowLineNumbers(preNode.properties?.showLineNumbers) ??
 					parseCodeBlockShowLineNumbers(getMetaValue(meta, "showLineNumbers")) ??
-					true;
+					defaultShowLineNumbers(language, rawCode);
 				const lineNumberStart =
 					parseCodeBlockLineNumberStart(preNode.properties?.lineNumberStart) ??
 					parseCodeBlockLineNumberStart(getMetaValue(meta, "lineNumberStart"));

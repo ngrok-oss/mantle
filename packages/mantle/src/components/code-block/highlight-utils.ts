@@ -37,6 +37,11 @@ export {
 
 export {
 	//,
+	defaultShowLineNumbers,
+} from "./mantle-code.js";
+
+export {
+	//,
 	isSupportedLanguage,
 	parseLanguage,
 	supportedLanguages,

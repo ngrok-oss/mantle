@@ -58,7 +58,7 @@ type MantleHighlightInput = {
 	indentation?: Indentation;
 	/**
 	 * Whether to render line numbers into the returned HTML.
-	 * @default false
+	 * @default true
 	 */
 	showLineNumbers?: boolean;
 	/**
@@ -195,7 +195,7 @@ async function highlightWithMantleShiki(
 	const normalizedCode = normalizeIndentation(input.code, {
 		indentation,
 	});
-	const showLineNumbers = input.showLineNumbers ?? false;
+	const showLineNumbers = input.showLineNumbers ?? true;
 	const highlightLines = input.highlightLines ?? [];
 	const lineNumberStart = input.lineNumberStart ?? 1;
 	const cacheKey = createHash("sha1")

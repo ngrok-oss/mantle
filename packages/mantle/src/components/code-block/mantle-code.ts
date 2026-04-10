@@ -2,6 +2,17 @@ import type { SupportedLanguage } from "../code-block/supported-languages.js";
 import type { LineRange } from "../code-block/line-numbers.js";
 import type { Indentation } from "../code-block/indentation.js";
 
+/** Languages that represent shell/terminal commands. */
+const shellLanguages = new Set<SupportedLanguage>(["bash", "sh", "shell"]);
+
+/** Returns the default `showLineNumbers` value for a given language and code string. Single-line shell snippets default to `false`; everything else defaults to `true`. */
+function defaultShowLineNumbers(language: SupportedLanguage, code: string): boolean {
+	if (shellLanguages.has(language) && !code.trim().includes("\n")) {
+		return false;
+	}
+	return true;
+}
+
 const mantleCodeBlockValueBrand: unique symbol = Symbol("MantleCodeBlockValue");
 
 /**
@@ -72,9 +83,19 @@ type MantleCodeBlockValueInput = ReplacePrefix<
 
 /** Options for configuring line numbers, highlights, and indentation in `mantleCode()`. */
 type MantleCodeOptions = {
+	/** Line numbers or ranges to visually highlight in the code block. */
 	highlightLines?: (LineRange | number)[] | undefined;
+	/** The indentation style to use when normalizing the code string. */
 	indentation?: Indentation | undefined;
+	/**
+	 * The starting line number when line numbers are displayed.
+	 * @default 1
+	 */
 	lineNumberStart?: number | undefined;
+	/**
+	 * Whether to show line numbers in the code block. Defaults to `true` for most
+	 * languages, but `false` for single-line shell snippets (`bash`, `sh`, `shell`).
+	 */
 	showLineNumbers?: boolean | undefined;
 };
 
@@ -130,18 +151,27 @@ function buildCodeFromTemplate(strings: TemplateStringsArray, values: unknown[])
  *
  * Interpolated template expressions are supported via placeholder substitution.
  *
+ * Line numbers are shown by default (`showLineNumbers` defaults to `true`),
+ * except for single-line shell snippets (`bash`, `sh`, `shell`) where they default to `false`.
+ *
  * @example
  * ```tsx
- * // Static string
+ * // Static string (line numbers shown by default)
  * mantleCode("typescript")`const x: string = "hello";`
  * // Interpolated string
  * mantleCode("typescript")`const greeting = "Hello, ${name}!";`
+ * // Disable line numbers
+ * mantleCode("typescript", { showLineNumbers: false })`const x = 1;`
+ * // Single-line shell — line numbers hidden by default
+ * mantleCode("bash")`npm install @ngrok/mantle`
  * ```
  */
 function mantleCode(
 	language: SupportedLanguage,
 	options: MantleCodeOptions = {},
 ): (strings: TemplateStringsArray, ...values: unknown[]) => MantleCodeBlockValue {
+	const { showLineNumbers, highlightLines, lineNumberStart } = options;
+
 	return (strings, ...values) => {
 		const code = buildCodeFromTemplate(strings, values);
 
@@ -150,13 +180,13 @@ function mantleCode(
 			code,
 			preHtml: undefined,
 			preVals: values.length > 0 ? values : undefined,
-			highlightLines: options.highlightLines,
-			lineNumberStart: options.lineNumberStart,
-			showLineNumbers: options.showLineNumbers,
+			highlightLines,
+			lineNumberStart,
+			showLineNumbers: showLineNumbers ?? defaultShowLineNumbers(language, code),
 		});
 	};
 }
 
-export { mantleCode };
+export { defaultShowLineNumbers, mantleCode };
 export { createMantleCodeBlockValue };
 export type { MantleCodeBlockValue, MantleCodeOptions };
