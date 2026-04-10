@@ -1,5 +1,14 @@
 # @ngrok/mantle-server-syntax-highlighter
 
+## 1.0.4
+
+### Patch Changes
+
+- [#1119](https://github.com/ngrok-oss/mantle/pull/1119) [`0c20cf7`](https://github.com/ngrok-oss/mantle/commit/0c20cf736429dd6e0085d4f38affce86f7de8ee9) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Default `showLineNumbers` to `true` in `mantleCode()` and `highlightWithMantleShiki()` so code blocks show line numbers by default. Single-line shell snippets (`bash`, `sh`, `shell`) default to `false` since line numbers add noise to one-liners like install commands.
+
+- Updated dependencies [[`0c20cf7`](https://github.com/ngrok-oss/mantle/commit/0c20cf736429dd6e0085d4f38affce86f7de8ee9)]:
+  - @ngrok/mantle@0.68.3
+
 ## 1.0.3
 
 ### Patch Changes
