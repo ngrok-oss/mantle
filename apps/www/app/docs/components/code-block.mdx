@@ -279,7 +279,7 @@ const policyJson = mantleCode("json")`…`;
 
 The `mantleCode()` tagged template accepts an optional second argument with the following options:
 
-- **`showLineNumbers`** — Whether to show line numbers. Defaults to `true`. Pass `false` to hide them.
+- **`showLineNumbers`** — Whether to show line numbers. Defaults to `true` for most languages, but `false` for single-line shell snippets (`bash`, `sh`, `shell`). Pass `false` to hide them or `true` to force them on.
 - **`highlightLines`** — An array of line numbers or ranges (e.g. `[2, "4-5"]`) to visually highlight.
 - **`lineNumberStart`** — The starting line number when line numbers are displayed. Defaults to `1`.
 - **`indentation`** — Override the default indentation style (`"tabs"` or `"spaces"`).

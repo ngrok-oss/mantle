@@ -1,5 +1,6 @@
 import MagicString from "magic-string";
 import {
+	defaultShowLineNumbers,
 	inferIndentation,
 	isIndentation,
 	isSupportedLanguage,
@@ -702,6 +703,9 @@ function mantleCodeVitePlugin(): Plugin {
 			// Highlight all code blocks in parallel
 			const results = await Promise.all(
 				jobs.map(async (job) => {
+					const resolvedShowLineNumbers =
+						job.effectiveOptions.showLineNumbers ??
+						defaultShowLineNumbers(job.language, job.placeholderCode);
 					try {
 						const highlighted = await highlightWithMantleShiki({
 							code: job.placeholderCode,
@@ -709,9 +713,9 @@ function mantleCodeVitePlugin(): Plugin {
 							indentation: inferIndentation(job.language, job.effectiveOptions.indentation),
 							language: job.language,
 							lineNumberStart: job.effectiveOptions.lineNumberStart,
-							showLineNumbers: job.effectiveOptions.showLineNumbers,
+							showLineNumbers: resolvedShowLineNumbers,
 						});
-						return { ...job, highlighted } as const;
+						return { ...job, highlighted, resolvedShowLineNumbers } as const;
 					} catch (error) {
 						return { ...job, error } as const;
 					}
@@ -729,8 +733,15 @@ function mantleCodeVitePlugin(): Plugin {
 					continue;
 				}
 
-				const { componentProps, effectiveOptions, highlighted, language, node, preValToken } =
-					result;
+				const {
+					componentProps,
+					effectiveOptions,
+					highlighted,
+					language,
+					node,
+					preValToken,
+					resolvedShowLineNumbers,
+				} = result;
 
 				for (const range of [...componentProps.attributeRemovalRanges].sort(
 					(a, b) => b.start - a.start,
@@ -750,7 +761,7 @@ function mantleCodeVitePlugin(): Plugin {
 					`"~preHtml":\`${escapedHtml}\``,
 					`"~preValToken":${JSON.stringify(node.quasi.expressions.length === 0 ? undefined : preValToken)}`,
 					`"~preVals":${preValsArray}`,
-					`"~showLineNumbers":${JSON.stringify(effectiveOptions.showLineNumbers ?? true)}`,
+					`"~showLineNumbers":${JSON.stringify(resolvedShowLineNumbers)}`,
 					`"~highlightLines":${JSON.stringify(effectiveOptions.highlightLines)}`,
 					`"~lineNumberStart":${JSON.stringify(effectiveOptions.lineNumberStart)}`,
 				];

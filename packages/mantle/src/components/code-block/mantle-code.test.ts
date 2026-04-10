@@ -49,4 +49,35 @@ describe("mantleCode", () => {
 		const value = mantleCode("typescript", { lineNumberStart: 5 })`const x = 1;`;
 		expect(value["~lineNumberStart"]).toBe(5);
 	});
+
+	test("single-line shell code defaults showLineNumbers to false", () => {
+		const bashValue = mantleCode("bash")`npm install @ngrok/mantle`;
+		expect(bashValue["~showLineNumbers"]).toBe(false);
+
+		const shValue = mantleCode("sh")`curl -s https://example.com`;
+		expect(shValue["~showLineNumbers"]).toBe(false);
+
+		const shellValue = mantleCode("shell")`echo hello`;
+		expect(shellValue["~showLineNumbers"]).toBe(false);
+	});
+
+	test("multi-line shell code defaults showLineNumbers to true", () => {
+		const value = mantleCode("bash")`
+			npm install @ngrok/mantle
+			npm run build
+		`;
+		expect(value["~showLineNumbers"]).toBe(true);
+	});
+
+	test("indented single-line shell template defaults showLineNumbers to false", () => {
+		const value = mantleCode("bash")`
+			npm install @ngrok/mantle
+		`;
+		expect(value["~showLineNumbers"]).toBe(false);
+	});
+
+	test("single-line shell code respects explicit showLineNumbers true", () => {
+		const value = mantleCode("bash", { showLineNumbers: true })`npm install @ngrok/mantle`;
+		expect(value["~showLineNumbers"]).toBe(true);
+	});
 });

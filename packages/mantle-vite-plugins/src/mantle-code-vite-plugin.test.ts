@@ -94,16 +94,17 @@ describe("mantleCodeVitePlugin", () => {
 		expect(result.code).not.toContain('indentation="spaces"');
 	});
 
-	test("defaults showLineNumbers to true when not specified", async () => {
+	test("defaults showLineNumbers to true for non-shell languages and emits line-number HTML", async () => {
 		const result = await runTransform(
 			mantleImport + 'const snippet = mantleCode("typescript")`const value = 1;`;',
 		);
 
 		expect(result.warn).not.toHaveBeenCalled();
 		expect(result.code).toContain('"~showLineNumbers":true');
+		expect(result.code).toContain("mantle-code-line-number");
 	});
 
-	test("preserves showLineNumbers false when explicitly set", async () => {
+	test("preserves showLineNumbers false when explicitly set and omits line-number HTML", async () => {
 		const result = await runTransform(
 			mantleImport +
 				'const snippet = mantleCode("typescript", { showLineNumbers: false })`const value = 1;`;',
@@ -111,6 +112,111 @@ describe("mantleCodeVitePlugin", () => {
 
 		expect(result.warn).not.toHaveBeenCalled();
 		expect(result.code).toContain('"~showLineNumbers":false');
+		expect(result.code).not.toContain("mantle-code-line-number");
+	});
+
+	test("defaults showLineNumbers to false for single-line bash and omits line-number HTML", async () => {
+		const result = await runTransform(
+			mantleImport + 'const snippet = mantleCode("bash")`npm install @ngrok/mantle`;',
+		);
+
+		expect(result.warn).not.toHaveBeenCalled();
+		expect(result.code).toContain('"~showLineNumbers":false');
+		expect(result.code).not.toContain("mantle-code-line-number");
+	});
+
+	test("defaults showLineNumbers to false for single-line sh", async () => {
+		const result = await runTransform(
+			mantleImport + 'const snippet = mantleCode("sh")`curl -s https://example.com`;',
+		);
+
+		expect(result.warn).not.toHaveBeenCalled();
+		expect(result.code).toContain('"~showLineNumbers":false');
+		expect(result.code).not.toContain("mantle-code-line-number");
+	});
+
+	test("defaults showLineNumbers to false for single-line shell", async () => {
+		const result = await runTransform(
+			mantleImport + 'const snippet = mantleCode("shell")`echo hello`;',
+		);
+
+		expect(result.warn).not.toHaveBeenCalled();
+		expect(result.code).toContain('"~showLineNumbers":false');
+		expect(result.code).not.toContain("mantle-code-line-number");
+	});
+
+	test("defaults showLineNumbers to true for multi-line shell code and emits line-number HTML", async () => {
+		const result = await runTransform(
+			mantleImport + 'const snippet = mantleCode("bash")`echo hello\necho world`;',
+		);
+
+		expect(result.warn).not.toHaveBeenCalled();
+		expect(result.code).toContain('"~showLineNumbers":true');
+		expect(result.code).toContain("mantle-code-line-number");
+	});
+
+	test("single-line shell code respects explicit showLineNumbers true and emits line-number HTML", async () => {
+		const result = await runTransform(
+			mantleImport +
+				'const snippet = mantleCode("bash", { showLineNumbers: true })`npm install @ngrok/mantle`;',
+		);
+
+		expect(result.warn).not.toHaveBeenCalled();
+		expect(result.code).toContain('"~showLineNumbers":true');
+		expect(result.code).toContain("mantle-code-line-number");
+	});
+
+	test("highlightLines with lineNumberStart produces highlighted lines at correct offsets", async () => {
+		const result = await runTransform(
+			mantleImport +
+				'const snippet = mantleCode("typescript", { lineNumberStart: 10, highlightLines: [11] })`const a = 1;\nconst b = 2;`;',
+		);
+
+		expect(result.warn).not.toHaveBeenCalled();
+		expect(result.code).toContain('"~lineNumberStart":10');
+		expect(result.code).toContain('"~highlightLines":[11]');
+		expect(result.code).toContain("mantle-code-line-highlighted");
+	});
+
+	test("indented single-line shell template defaults showLineNumbers to false", async () => {
+		const source = [
+			mantleImport + 'const snippet = mantleCode("bash")`',
+			"\t\tnpm install @ngrok/mantle",
+			"\t`;",
+		].join("\n");
+		const result = await runTransform(source);
+
+		expect(result.warn).not.toHaveBeenCalled();
+		expect(result.code).toContain('"~showLineNumbers":false');
+		expect(result.code).not.toContain("mantle-code-line-number");
+	});
+
+	test("JSX showLineNumbers prop overrides mantleCode option", async () => {
+		const source = [
+			mantleImport + "<CodeBlock.Code",
+			"\tshowLineNumbers={false}",
+			'\tvalue={mantleCode("typescript", { showLineNumbers: true })`const x = 1;`}',
+			"/>;",
+		].join("\n");
+		const result = await runTransform(source);
+
+		expect(result.warn).not.toHaveBeenCalled();
+		expect(result.code).toContain('"~showLineNumbers":false');
+		expect(result.code).not.toContain("mantle-code-line-number");
+	});
+
+	test("JSX showLineNumbers prop overrides shell single-line default", async () => {
+		const source = [
+			mantleImport + "<CodeBlock.Code",
+			"\tshowLineNumbers",
+			'\tvalue={mantleCode("bash")`npm install @ngrok/mantle`}',
+			"/>;",
+		].join("\n");
+		const result = await runTransform(source);
+
+		expect(result.warn).not.toHaveBeenCalled();
+		expect(result.code).toContain('"~showLineNumbers":true');
+		expect(result.code).toContain("mantle-code-line-number");
 	});
 
 	test("normalizes numeric highlightLines entries to integers", async () => {
