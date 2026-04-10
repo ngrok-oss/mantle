@@ -299,7 +299,7 @@ import { CodeBlock, mantleCode } from "@ngrok/mantle/code-block";
 		<CodeBlock.Code
 			value={mantleCode("typescript", {
 				showLineNumbers: false,
-				highlightLines: [2, "4-5"],
+				highlightLines: [11, "13-14"],
 				lineNumberStart: 10,
 				indentation: "spaces",
 			})`
@@ -321,7 +321,7 @@ import { CodeBlock, mantleCode } from "@ngrok/mantle/code-block";
 
 ### Overriding Defaults
 
-The `mantleCode()` options let you customize how code is displayed. By default, line numbers are shown, indentation is inferred from the language, and highlighting starts at line 1. You can override any of these per code block. The first example below uses the defaults (YAML auto-detects space indentation), while the second overrides all options: custom indentation, line number start, highlighted lines, and visible line numbers.
+The `mantleCode()` options let you customize how code is displayed. By default, line numbers are shown starting at 1 and indentation is inferred from the language. You can also specify highlighted lines per code block. The first example below uses the defaults (YAML auto-detects space indentation), while the second overrides all options: custom indentation, line number start, highlighted lines, and visible line numbers.
 
 <OverridingIndentationDemo />
 
@@ -347,7 +347,7 @@ The `mantleCode()` options let you customize how code is displayed. By default, 
 	value={mantleCode("javascript", {
 		indentation: "spaces",
 		showLineNumbers: true,
-		highlightLines: [1, "5-7"],
+		highlightLines: [42, "46-48"],
 		lineNumberStart: 42,
 	})`
 		const http = require('http');

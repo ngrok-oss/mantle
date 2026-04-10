@@ -491,7 +491,7 @@ export function MantleCodeOptionsDemo() {
 					<CodeBlock.Code
 						value={mantleCode("typescript", {
 							showLineNumbers: false,
-							highlightLines: [2, "4-5"],
+							highlightLines: [11, "13-14"],
 							lineNumberStart: 10,
 							indentation: "spaces",
 						})`
@@ -552,7 +552,7 @@ export function OverridingIndentationDemo() {
 						value={mantleCode("javascript", {
 							indentation: "spaces",
 							showLineNumbers: true,
-							highlightLines: [1, "5-7"],
+							highlightLines: [42, "46-48"],
 							lineNumberStart: 42,
 						})`
 							// by default, mantle decides that javascript uses tabs,
