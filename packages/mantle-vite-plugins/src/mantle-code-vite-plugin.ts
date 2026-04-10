@@ -744,7 +744,17 @@ function mantleCodeVitePlugin(): Plugin {
 					node.quasi.expressions.length === 0
 						? "undefined"
 						: `[${node.quasi.expressions.map((expression) => code.slice(expression.start, expression.end)).join(",")}]`;
-				const replacement = `({language:${JSON.stringify(language)},code:\`${escapedCode}\`,"~preHtml":\`${escapedHtml}\`,"~preValToken":${JSON.stringify(node.quasi.expressions.length === 0 ? undefined : preValToken)},"~preVals":${preValsArray},"~showLineNumbers":${JSON.stringify(effectiveOptions.showLineNumbers)},"~highlightLines":${JSON.stringify(effectiveOptions.highlightLines)},"~lineNumberStart":${JSON.stringify(effectiveOptions.lineNumberStart)}})`;
+				const replacementEntries = [
+					`language:${JSON.stringify(language)}`,
+					`code:\`${escapedCode}\``,
+					`"~preHtml":\`${escapedHtml}\``,
+					`"~preValToken":${JSON.stringify(node.quasi.expressions.length === 0 ? undefined : preValToken)}`,
+					`"~preVals":${preValsArray}`,
+					`"~showLineNumbers":${JSON.stringify(effectiveOptions.showLineNumbers ?? true)}`,
+					`"~highlightLines":${JSON.stringify(effectiveOptions.highlightLines)}`,
+					`"~lineNumberStart":${JSON.stringify(effectiveOptions.lineNumberStart)}`,
+				];
+				const replacement = `({${replacementEntries.join(",")}})`;
 
 				ms.overwrite(node.start, node.end, replacement);
 				didTransform = true;

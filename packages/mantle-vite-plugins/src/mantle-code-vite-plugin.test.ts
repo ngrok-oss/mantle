@@ -94,6 +94,25 @@ describe("mantleCodeVitePlugin", () => {
 		expect(result.code).not.toContain('indentation="spaces"');
 	});
 
+	test("defaults showLineNumbers to true when not specified", async () => {
+		const result = await runTransform(
+			mantleImport + 'const snippet = mantleCode("typescript")`const value = 1;`;',
+		);
+
+		expect(result.warn).not.toHaveBeenCalled();
+		expect(result.code).toContain('"~showLineNumbers":true');
+	});
+
+	test("preserves showLineNumbers false when explicitly set", async () => {
+		const result = await runTransform(
+			mantleImport +
+				'const snippet = mantleCode("typescript", { showLineNumbers: false })`const value = 1;`;',
+		);
+
+		expect(result.warn).not.toHaveBeenCalled();
+		expect(result.code).toContain('"~showLineNumbers":false');
+	});
+
 	test("normalizes numeric highlightLines entries to integers", async () => {
 		const result = await runTransform(
 			mantleImport +
