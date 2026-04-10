@@ -72,9 +72,19 @@ type MantleCodeBlockValueInput = ReplacePrefix<
 
 /** Options for configuring line numbers, highlights, and indentation in `mantleCode()`. */
 type MantleCodeOptions = {
+	/** Line numbers or ranges to visually highlight in the code block. */
 	highlightLines?: (LineRange | number)[] | undefined;
+	/** The indentation style to use when normalizing the code string. */
 	indentation?: Indentation | undefined;
+	/**
+	 * The starting line number when line numbers are displayed.
+	 * @default 1
+	 */
 	lineNumberStart?: number | undefined;
+	/**
+	 * Whether to show line numbers in the code block.
+	 * @default true
+	 */
 	showLineNumbers?: boolean | undefined;
 };
 
@@ -130,18 +140,25 @@ function buildCodeFromTemplate(strings: TemplateStringsArray, values: unknown[])
  *
  * Interpolated template expressions are supported via placeholder substitution.
  *
+ * Line numbers are shown by default (`showLineNumbers` defaults to `true`).
+ * Pass `{ showLineNumbers: false }` to disable them.
+ *
  * @example
  * ```tsx
- * // Static string
+ * // Static string (line numbers shown by default)
  * mantleCode("typescript")`const x: string = "hello";`
  * // Interpolated string
  * mantleCode("typescript")`const greeting = "Hello, ${name}!";`
+ * // Disable line numbers
+ * mantleCode("typescript", { showLineNumbers: false })`const x = 1;`
  * ```
  */
 function mantleCode(
 	language: SupportedLanguage,
 	options: MantleCodeOptions = {},
 ): (strings: TemplateStringsArray, ...values: unknown[]) => MantleCodeBlockValue {
+	const { showLineNumbers = true, highlightLines, lineNumberStart } = options;
+
 	return (strings, ...values) => {
 		const code = buildCodeFromTemplate(strings, values);
 
@@ -150,9 +167,9 @@ function mantleCode(
 			code,
 			preHtml: undefined,
 			preVals: values.length > 0 ? values : undefined,
-			highlightLines: options.highlightLines,
-			lineNumberStart: options.lineNumberStart,
-			showLineNumbers: options.showLineNumbers,
+			highlightLines,
+			lineNumberStart,
+			showLineNumbers,
 		});
 	};
 }

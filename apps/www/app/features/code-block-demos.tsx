@@ -475,7 +475,48 @@ export function TabbedCodeBlockDemo() {
 }
 
 /**
- * Code block demonstrating overriding default language indentation.
+ * Code block demonstrating all `mantleCode()` options: `showLineNumbers`, `highlightLines`,
+ * `lineNumberStart`, and `indentation`.
+ */
+export function MantleCodeOptionsDemo() {
+	return (
+		<Example>
+			<CodeBlock.Root>
+				<CodeBlock.Header>
+					<CodeBlock.Icon preset="file" />
+					<CodeBlock.Title>all-options.ts</CodeBlock.Title>
+				</CodeBlock.Header>
+				<CodeBlock.Body>
+					<CodeBlock.CopyButton />
+					<CodeBlock.Code
+						value={mantleCode("typescript", {
+							showLineNumbers: false,
+							highlightLines: [2, "4-5"],
+							lineNumberStart: 10,
+							indentation: "spaces",
+						})`
+							import { serve } from "bun";
+
+							const server = serve({
+								port: 3000,
+								fetch(req) {
+									return new Response("Hello from Bun!");
+								},
+							});
+
+							console.log(\`Listening on \${server.url}\`);
+						`}
+					/>
+				</CodeBlock.Body>
+			</CodeBlock.Root>
+		</Example>
+	);
+}
+
+/**
+ * Code block demonstrating overriding `mantleCode()` defaults: indentation, line numbers,
+ * highlighted lines, and line number start. The first block uses language-inferred defaults,
+ * the second overrides all options.
  */
 export function OverridingIndentationDemo() {
 	return (
@@ -503,12 +544,17 @@ export function OverridingIndentationDemo() {
 			<CodeBlock.Root>
 				<CodeBlock.Header>
 					<CodeBlock.Icon preset="file" />
-					<CodeBlock.Title>ngrok-example.js (using space indentation)</CodeBlock.Title>
+					<CodeBlock.Title>ngrok-example.js (all options overridden)</CodeBlock.Title>
 				</CodeBlock.Header>
 				<CodeBlock.Body>
 					<CodeBlock.CopyButton />
 					<CodeBlock.Code
-						value={mantleCode("javascript", { indentation: "spaces" })`
+						value={mantleCode("javascript", {
+							indentation: "spaces",
+							showLineNumbers: true,
+							highlightLines: [1, "5-7"],
+							lineNumberStart: 42,
+						})`
 							// by default, mantle decides that javascript uses tabs,
 							// but this example uses spaces for indentation
 							const http = require('http');

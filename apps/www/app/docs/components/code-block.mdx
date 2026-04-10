@@ -10,6 +10,7 @@ import {
 	NoHeaderOrCopyButtonDemo,
 	SingleLineHorizontalScrollingDemo,
 	ServerRenderedHighlightingDemo,
+	MantleCodeOptionsDemo,
 	OverridingIndentationDemo,
 	TabbedCodeBlockDemo,
 } from "~/features/code-block-demos";
@@ -274,11 +275,90 @@ const policyJson = mantleCode("json")`…`;
 </CodeBlock.Root>;
 ```
 
-### Overriding default language indentation
+### `mantleCode()` Options
 
-By default, the code block code will detect the preferred (or required) indentation of the given language. This is important for languages that require a certain indentation style; for example, Python and YAML are space-indented languages, so the code block will use spaces for indentation. This is done to ensure that the code is displayed and copied correctly and is easy to read. However, you can override this by passing `indentation` in the `mantleCode()` options.
+The `mantleCode()` tagged template accepts an optional second argument with the following options:
+
+- **`showLineNumbers`** — Whether to show line numbers. Defaults to `true`. Pass `false` to hide them.
+- **`highlightLines`** — An array of line numbers or ranges (e.g. `[2, "4-5"]`) to visually highlight.
+- **`lineNumberStart`** — The starting line number when line numbers are displayed. Defaults to `1`.
+- **`indentation`** — Override the default indentation style (`"tabs"` or `"spaces"`).
+
+<MantleCodeOptionsDemo />
+
+```tsx
+import { CodeBlock, mantleCode } from "@ngrok/mantle/code-block";
+
+<CodeBlock.Root>
+	<CodeBlock.Header>
+		<CodeBlock.Icon preset="file" />
+		<CodeBlock.Title>all-options.ts</CodeBlock.Title>
+	</CodeBlock.Header>
+	<CodeBlock.Body>
+		<CodeBlock.CopyButton />
+		<CodeBlock.Code
+			value={mantleCode("typescript", {
+				showLineNumbers: false,
+				highlightLines: [2, "4-5"],
+				lineNumberStart: 10,
+				indentation: "spaces",
+			})`
+				import { serve } from "bun";
+
+				const server = serve({
+					port: 3000,
+					fetch(req) {
+						return new Response("Hello from Bun!");
+					},
+				});
+
+				console.log(\`Listening on \${server.url}\`);
+			`}
+		/>
+	</CodeBlock.Body>
+</CodeBlock.Root>;
+```
+
+### Overriding Defaults
+
+The `mantleCode()` options let you customize how code is displayed. By default, line numbers are shown, indentation is inferred from the language, and highlighting starts at line 1. You can override any of these per code block. The first example below uses the defaults (YAML auto-detects space indentation), while the second overrides all options: custom indentation, line number start, highlighted lines, and visible line numbers.
 
 <OverridingIndentationDemo />
+
+```tsx
+{
+	/* yaml auto-detects space indentation, all other defaults apply */
+}
+<CodeBlock.Code
+	value={mantleCode("yaml")`
+		on_http_request:
+			actions:
+				type: custom-response
+				config:
+					status_code: 200
+					content: Hello, World!
+	`}
+/>;
+
+{
+	/* override all mantleCode() options */
+}
+<CodeBlock.Code
+	value={mantleCode("javascript", {
+		indentation: "spaces",
+		showLineNumbers: true,
+		highlightLines: [1, "5-7"],
+		lineNumberStart: 42,
+	})`
+		const http = require('http');
+		const ngrok = require("@ngrok/ngrok");
+		const server = http.createServer((req, res) => {
+			res.writeHead(200);
+			res.end("Hello!");
+		});
+	`}
+/>;
+```
 
 ## API Reference
 
