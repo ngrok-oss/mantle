@@ -24,6 +24,7 @@ export const MANTLE_COMPONENT_NAMES = [
 	"button",
 	"calendar",
 	"card",
+	"chart",
 	"checkbox",
 	"code",
 	"code-block",

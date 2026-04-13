@@ -22,9 +22,21 @@
     "changeset:version": "changeset version",
     "changeset:publish": "turbo run build --filter=@ngrok/mantle --filter=@ngrok/mantle-vite-plugins --filter=@ngrok/mantle-server-syntax-highlighter && changeset publish"
   },
+  "dependencies": {
+    "d3-array": "3.2.4",
+    "d3-interpolate": "3.0.1",
+    "d3-scale": "4.0.2",
+    "d3-shape": "3.2.0",
+    "d3-time-format": "4.1.0"
+  },
   "devDependencies": {
     "@changesets/changelog-github": "0.6.0",
     "@changesets/cli": "2.30.0",
+    "@types/d3-array": "3.2.2",
+    "@types/d3-interpolate": "3.0.4",
+    "@types/d3-scale": "4.0.9",
+    "@types/d3-shape": "3.1.8",
+    "@types/d3-time-format": "4.0.3",
     "@types/node": "catalog:",
     "@typescript/native-preview": "7.0.0-dev.20260409.1",
     "husky": "9.1.7",

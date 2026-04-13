@@ -35,6 +35,7 @@ export default [
 	...docRoute("components/browser-only"),
 	...docRoute("components/button"),
 	...docRoute("components/card"),
+	...docRoute("components/chart"),
 	...docRoute("components/checkbox"),
 	...docRoute("components/code-block"),
 	...docRoute("components/code"),

@@ -1,0 +1,296 @@
+---
+title: Chart
+description: Composable, canvas-rendered chart components for visualizing data at scale. Supports line, bar, area, and scatter charts with theme-aware colors and animations.
+---
+
+import { Example } from "~/components/example";
+import {
+	AreaChartDemo,
+	LargeDatasetDemo,
+	LineChartDemo,
+	ScatterChartDemo,
+	StackedBarChartDemo,
+} from "~/features/chart-demos";
+
+# Chart
+
+Composable, canvas-rendered chart components for visualizing data at scale. Built with a three-layer architecture: canvas for data rendering (10k+ points), SVG for axes and labels, and HTML for tooltips and legends. Automatically adapts to mantle's light/dark/high-contrast themes.
+
+## Line Chart
+
+Multi-series line chart with monotone curve interpolation, tooltips, and legend.
+
+<Example className="w-full">
+	<div className="w-full">
+		<LineChartDemo />
+	</div>
+</Example>
+
+```tsx
+import { Chart } from "@ngrok/mantle/chart";
+
+const config = {
+	requests: { label: "Requests", color: "accent-500" },
+	errors: { label: "Errors", color: "danger-500" },
+};
+
+<Chart.Root data={data} config={config} className="h-64">
+	<Chart.XAxis dataKey="timestamp" tickFormatter={formatTime} />
+	<Chart.YAxis />
+	<Chart.Grid horizontal />
+	<Chart.Line dataKey="requests" curve="monotone" />
+	<Chart.Line dataKey="errors" curve="monotone" />
+	<Chart.Tooltip content={<Chart.TooltipContent />} />
+	<Chart.Legend />
+</Chart.Root>;
+```
+
+## Stacked Bar Chart
+
+Bars with the same `stackId` are stacked on top of each other. Bars without a `stackId` are grouped side-by-side.
+
+<Example className="w-full">
+	<div className="w-full">
+		<StackedBarChartDemo />
+	</div>
+</Example>
+
+```tsx
+<Chart.Root data={data} config={config} className="h-64">
+	<Chart.XAxis dataKey="month" />
+	<Chart.YAxis />
+	<Chart.Grid horizontal strokeDasharray="4 4" />
+	<Chart.Bar dataKey="desktop" stackId="a" />
+	<Chart.Bar dataKey="mobile" stackId="a" />
+	<Chart.Tooltip />
+	<Chart.Legend />
+</Chart.Root>
+```
+
+## Area Chart
+
+Filled area under the curve with configurable opacity.
+
+<Example className="w-full">
+	<div className="w-full">
+		<AreaChartDemo />
+	</div>
+</Example>
+
+```tsx
+<Chart.Root data={data} config={config} className="h-64">
+	<Chart.XAxis dataKey="timestamp" />
+	<Chart.YAxis />
+	<Chart.Grid horizontal strokeDasharray="4 4" />
+	<Chart.Area dataKey="requests" curve="monotone" fillOpacity={0.2} />
+	<Chart.Tooltip />
+</Chart.Root>
+```
+
+## Scatter Chart
+
+Each data point rendered as a dot. Useful for correlation and distribution analysis.
+
+<Example className="w-full">
+	<div className="w-full">
+		<ScatterChartDemo />
+	</div>
+</Example>
+
+```tsx
+<Chart.Root data={data} config={config} className="h-64">
+	<Chart.XAxis dataKey="x" />
+	<Chart.YAxis />
+	<Chart.Grid horizontal vertical strokeDasharray="4 4" />
+	<Chart.Scatter dataKey="latency" />
+	<Chart.Tooltip />
+	<Chart.Legend />
+</Chart.Root>
+```
+
+## Large Datasets (10k+ Points)
+
+Canvas rendering handles tens of thousands of data points smoothly. This example renders 10,000 points.
+
+<Example className="w-full">
+	<div className="w-full">
+		<LargeDatasetDemo />
+	</div>
+</Example>
+
+```tsx
+const largeData = generateData(10_000);
+
+<Chart.Root data={largeData} config={config} className="h-64">
+	<Chart.XAxis dataKey="timestamp" />
+	<Chart.YAxis />
+	<Chart.Grid horizontal />
+	<Chart.Line dataKey="requests" curve="linear" strokeWidth={1} />
+	<Chart.Tooltip />
+</Chart.Root>;
+```
+
+## ChartConfig
+
+The `ChartConfig` object maps data keys to their visual configuration. Each key corresponds to a property in your data objects.
+
+Colors can be:
+
+- **Mantle tokens**: `"accent-500"`, `"danger-500"`, `"emerald-400"` — automatically adapts to theme
+- **Raw CSS**: `"#ff0000"`, `"oklch(0.7 0.15 150)"`
+
+```tsx
+const config = {
+	requests: {
+		label: "Requests",
+		color: "accent-500",
+		icon: ChartLineIcon, // optional, shown in legend
+	},
+	errors: {
+		label: "Errors",
+		color: "danger-500",
+	},
+} satisfies ChartConfig;
+```
+
+## Accessibility
+
+Charts include built-in accessibility support:
+
+- Canvas elements are `aria-hidden="true"` (not exposed to screen readers)
+- Use `accessibleTitle` and `accessibleDescription` props on `Chart.Root` to provide screen reader context
+- When `accessibleTitle` is set, the chart container gets `role="figure"` with `aria-labelledby`
+
+```tsx
+<Chart.Root
+	data={data}
+	config={config}
+	accessibleTitle="Monthly Revenue"
+	accessibleDescription="Shows revenue trends over the past 12 months with a steady upward trajectory"
+>
+	...
+</Chart.Root>
+```
+
+## Animation
+
+Charts animate on mount by default. Animation respects the user's `prefers-reduced-motion` setting.
+
+```tsx
+// Disable animation
+<Chart.Root data={data} config={config} animated={false}>...</Chart.Root>
+
+// Custom duration
+<Chart.Root data={data} config={config} animationDuration={600}>...</Chart.Root>
+```
+
+## API Reference
+
+### Chart.Root
+
+The root container. Manages canvas rendering, scaling, series registration, and context.
+
+| Prop                     | Type                                     | Default | Description                                                                              |
+| ------------------------ | ---------------------------------------- | ------- | ---------------------------------------------------------------------------------------- |
+| `data`                   | `ReadonlyArray<Record<string, unknown>>` |         | The data array.                                                                          |
+| `config`                 | `ChartConfig`                            |         | Series configuration (labels, colors, icons).                                            |
+| `margin?`                | `ChartMargin`                            |         | Margin around the plot area. Defaults to `{ top: 10, right: 16, bottom: 30, left: 48 }`. |
+| `className?`             | `string`                                 |         | CSS class for the container. Use to set height (e.g., `"h-64"`).                         |
+| `animated?`              | `boolean`                                | `true`  | Whether to animate chart entry.                                                          |
+| `animationDuration?`     | `number`                                 | `400`   | Entry animation duration in milliseconds.                                                |
+| `accessibleTitle?`       | `string`                                 |         | Screen reader title. Adds `role="figure"`.                                               |
+| `accessibleDescription?` | `string`                                 |         | Screen reader description.                                                               |
+
+### Chart.Line
+
+Declares a line series. Renders on canvas.
+
+| Prop           | Type                               | Default    | Description                       |
+| -------------- | ---------------------------------- | ---------- | --------------------------------- |
+| `dataKey`      | `string`                           |            | Key in data objects for Y values. |
+| `curve?`       | `"linear" \| "monotone" \| "step"` | `"linear"` | Curve interpolation method.       |
+| `strokeWidth?` | `number`                           | `2`        | Line width in CSS pixels.         |
+
+### Chart.Bar
+
+Declares a bar series. Renders on canvas. Supports stacking via `stackId`.
+
+| Prop           | Type     | Default | Description                               |
+| -------------- | -------- | ------- | ----------------------------------------- |
+| `dataKey`      | `string` |         | Key in data objects for Y values.         |
+| `stackId?`     | `string` |         | Stack group ID. Same `stackId` = stacked. |
+| `fillOpacity?` | `number` | `0.85`  | Fill opacity (0 to 1).                    |
+
+### Chart.Area
+
+Declares a filled area series. Renders on canvas.
+
+| Prop           | Type                               | Default    | Description                       |
+| -------------- | ---------------------------------- | ---------- | --------------------------------- |
+| `dataKey`      | `string`                           |            | Key in data objects for Y values. |
+| `curve?`       | `"linear" \| "monotone" \| "step"` | `"linear"` | Curve interpolation method.       |
+| `fillOpacity?` | `number`                           | `0.15`     | Fill opacity (0 to 1).            |
+| `strokeWidth?` | `number`                           | `2`        | Stroke width for the top edge.    |
+
+### Chart.Scatter
+
+Declares a scatter series. Renders on canvas.
+
+| Prop      | Type     | Default | Description                       |
+| --------- | -------- | ------- | --------------------------------- |
+| `dataKey` | `string` |         | Key in data objects for Y values. |
+| `radius?` | `number` | `3`     | Point radius in CSS pixels.       |
+
+### Chart.XAxis
+
+Horizontal axis rendered in SVG.
+
+| Prop             | Type                        | Default | Description                       |
+| ---------------- | --------------------------- | ------- | --------------------------------- |
+| `dataKey?`       | `string`                    | `"x"`   | Key in data objects for X values. |
+| `tickFormatter?` | `(value: number) => string` |         | Custom tick label formatter.      |
+| `label?`         | `string`                    |         | Axis label text.                  |
+
+### Chart.YAxis
+
+Vertical axis rendered in SVG.
+
+| Prop             | Type                        | Default | Description                  |
+| ---------------- | --------------------------- | ------- | ---------------------------- |
+| `tickFormatter?` | `(value: number) => string` |         | Custom tick label formatter. |
+| `label?`         | `string`                    |         | Axis label text.             |
+
+### Chart.Grid
+
+Grid lines rendered in SVG.
+
+| Prop               | Type      | Default | Description                   |
+| ------------------ | --------- | ------- | ----------------------------- |
+| `horizontal?`      | `boolean` | `true`  | Show horizontal grid lines.   |
+| `vertical?`        | `boolean` | `false` | Show vertical grid lines.     |
+| `strokeDasharray?` | `string`  |         | Dash pattern (e.g., `"4 4"`). |
+
+### Chart.Tooltip
+
+Tooltip overlay that shows on hover. Snaps to nearest X data point.
+
+| Prop       | Type        | Default | Description                     |
+| ---------- | ----------- | ------- | ------------------------------- |
+| `content?` | `ReactNode` |         | Custom tooltip content element. |
+
+### Chart.TooltipContent
+
+Default tooltip content renderer.
+
+| Prop              | Type                        | Default | Description             |
+| ----------------- | --------------------------- | ------- | ----------------------- |
+| `payload?`        | `ChartTooltipPayload`       |         | Tooltip data payload.   |
+| `labelFormatter?` | `(label: string) => string` |         | Custom label formatter. |
+
+### Chart.Legend
+
+Legend showing series labels and color indicators.
+
+| Prop         | Type     | Default | Description             |
+| ------------ | -------- | ------- | ----------------------- |
+| `className?` | `string` |         | Additional CSS classes. |
