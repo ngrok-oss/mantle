@@ -25,7 +25,7 @@
     "@tanstack/react-query-devtools": "5.97.0",
     "@vercel/react-router": "1.2.6",
     "fuse.js": "7.3.0",
-    "isbot": "5.1.37",
+    "isbot": "5.1.38",
     "match-sorter": "8.2.0",
     "react": "19.2.5",
     "react-dom": "19.2.5",
