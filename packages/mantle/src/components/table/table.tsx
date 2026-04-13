@@ -71,10 +71,6 @@ const Root = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
 						(horizontalOverflow.state.hasOverflow && !horizontalOverflow.state.scrolledToStart) ||
 						undefined
 					}
-					data-scroll-right={
-						(horizontalOverflow.state.hasOverflow && !horizontalOverflow.state.scrolledToEnd) ||
-						undefined
-					}
 					ref={horizontalOverflow.ref}
 				>
 					{children}
