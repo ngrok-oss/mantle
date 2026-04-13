@@ -277,7 +277,9 @@ function ActionCell({ children, className, ...props }: DataTableActionCellProps)
 	return (
 		<Table.Cell
 			className={cx(
-				"sticky z-10 right-0 flex items-center justify-end p-2",
+				// `bg-inherit` keeps the sticky cell opaque with the row's current bg
+				// (including hover state) so scrolling cells don't show through.
+				"sticky z-10 right-0 flex items-center justify-end bg-inherit p-2",
 				// Scroll fade indicator — rendered to the left of the sticky cell so
 				// scrolling content appears to fade underneath the pinned action column.
 				// Extends 1px beyond the cell top/bottom so per-row gradients visually
@@ -317,7 +319,8 @@ function ActionHeader({ children, className, ...props }: DataTableActionHeaderPr
 	return (
 		<Table.Header
 			className={cx(
-				"sticky z-10 right-0 bg-base",
+				// `bg-inherit` keeps the sticky header opaque with the thead's current bg.
+				"sticky z-10 right-0 bg-inherit",
 				// Match the fade indicator on ActionCell so the header aligns with body rows.
 				"before:pointer-events-none before:absolute before:-inset-y-px before:right-full before:w-6",
 				"before:bg-gradient-to-r before:from-transparent before:to-base",

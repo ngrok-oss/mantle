@@ -66,7 +66,7 @@ const Root = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
 				{...props}
 			>
 				<div
-					className="scrollbar scroll-fade-x overflow-x-auto overscroll-x-none"
+					className="scrollbar scroll-fade-x overflow-x-auto overflow-y-clip overscroll-none"
 					data-scroll-left={
 						(horizontalOverflow.state.hasOverflow && !horizontalOverflow.state.scrolledToStart) ||
 						undefined
