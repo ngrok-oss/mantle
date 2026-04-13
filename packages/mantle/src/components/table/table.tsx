@@ -66,9 +66,20 @@ const Root = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
 				{...props}
 			>
 				<div
-					className="scrollbar scroll-fade-x overflow-x-auto overflow-y-clip overscroll-none"
+					className={cx(
+						"scrollbar scroll-fade-x overflow-x-auto overflow-y-clip overscroll-none",
+						// When the table contains a sticky right column (e.g., DataTable.ActionCell
+						// / DataTable.ActionHeader), suppress the container's right-side fade so the
+						// pinned column stays fully opaque. The pinned column provides its own
+						// left-side gradient for the scroll-under effect.
+						"has-[[data-mantle-table-sticky-right]]:[--_fade-right:black]!",
+					)}
 					data-scroll-left={
 						(horizontalOverflow.state.hasOverflow && !horizontalOverflow.state.scrolledToStart) ||
+						undefined
+					}
+					data-scroll-right={
+						(horizontalOverflow.state.hasOverflow && !horizontalOverflow.state.scrolledToEnd) ||
 						undefined
 					}
 					ref={horizontalOverflow.ref}

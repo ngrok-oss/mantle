@@ -276,6 +276,9 @@ type DataTableActionCellProps = ComponentProps<typeof Table.Cell>;
 function ActionCell({ children, className, ...props }: DataTableActionCellProps) {
 	return (
 		<Table.Cell
+			// Marks this cell as a sticky right-edge column so Table.Root can suppress
+			// its container-level right-side scroll fade (keeping this cell opaque).
+			data-mantle-table-sticky-right
 			className={cx(
 				// `bg-inherit` keeps the sticky cell opaque with the row's current bg
 				// (including hover state) so scrolling cells don't show through.
@@ -318,6 +321,9 @@ type DataTableActionHeaderProps = ComponentProps<typeof Table.Header>;
 function ActionHeader({ children, className, ...props }: DataTableActionHeaderProps) {
 	return (
 		<Table.Header
+			// Marks this header as a sticky right-edge column so Table.Root can suppress
+			// its container-level right-side scroll fade (keeping this header opaque).
+			data-mantle-table-sticky-right
 			className={cx(
 				// `bg-inherit` keeps the sticky header opaque with the thead's current bg.
 				"sticky z-10 right-0 bg-inherit",
