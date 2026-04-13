@@ -1,6 +1,5 @@
 import type { ComponentProps, ComponentRef } from "react";
 import { forwardRef, useEffect, useMemo, useRef, useState } from "react";
-import { composeRefs } from "../../utils/compose-refs/compose-refs.js";
 import { cx } from "../../utils/cx/cx.js";
 
 /**
@@ -52,17 +51,9 @@ const Root = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
 		return (
 			<div
 				className={cx(
-					"group/table scrollbar scroll-fade-x overflow-x-auto overscroll-x-none rounded-lg border border-card bg-white dark:bg-gray-100 relative w-full",
+					"group/table relative w-full overflow-hidden rounded-lg border border-card bg-white dark:bg-gray-100",
 					className,
 				)}
-				data-scroll-left={
-					(horizontalOverflow.state.hasOverflow && !horizontalOverflow.state.scrolledToStart) ||
-					undefined
-				}
-				data-scroll-right={
-					(horizontalOverflow.state.hasOverflow && !horizontalOverflow.state.scrolledToEnd) ||
-					undefined
-				}
 				data-sticky-active={
 					(horizontalOverflow.state.hasOverflow && !horizontalOverflow.state.scrolledToEnd) ||
 					undefined
@@ -71,10 +62,23 @@ const Root = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
 				data-x-scroll-end={
 					horizontalOverflow.state.hasOverflow && horizontalOverflow.state.scrolledToEnd
 				}
-				ref={composeRefs(horizontalOverflow.ref, ref)}
+				ref={ref}
 				{...props}
 			>
-				{children}
+				<div
+					className="scrollbar scroll-fade-x overflow-x-auto overscroll-x-none"
+					data-scroll-left={
+						(horizontalOverflow.state.hasOverflow && !horizontalOverflow.state.scrolledToStart) ||
+						undefined
+					}
+					data-scroll-right={
+						(horizontalOverflow.state.hasOverflow && !horizontalOverflow.state.scrolledToEnd) ||
+						undefined
+					}
+					ref={horizontalOverflow.ref}
+				>
+					{children}
+				</div>
 			</div>
 		);
 	},
