@@ -1,5 +1,6 @@
 import type { ComponentProps, ComponentRef } from "react";
 import { forwardRef, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { composeRefs } from "../../utils/compose-refs/compose-refs.js";
 import { cx } from "../../utils/cx/cx.js";
 
 /**
@@ -62,7 +63,6 @@ const Root = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
 				data-x-scroll-end={
 					horizontalOverflow.state.hasOverflow && horizontalOverflow.state.scrolledToEnd
 				}
-				ref={ref}
 				{...props}
 			>
 				<div
@@ -82,7 +82,7 @@ const Root = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
 						(horizontalOverflow.state.hasOverflow && !horizontalOverflow.state.scrolledToEnd) ||
 						undefined
 					}
-					ref={horizontalOverflow.ref}
+					ref={composeRefs(horizontalOverflow.ref, ref)}
 				>
 					{children}
 				</div>
