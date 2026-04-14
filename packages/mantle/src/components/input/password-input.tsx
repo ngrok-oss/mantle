@@ -2,8 +2,9 @@
 
 import { EyeIcon } from "@phosphor-icons/react/Eye";
 import { EyeClosedIcon } from "@phosphor-icons/react/EyeClosed";
-import { forwardRef, useEffect, useState } from "react";
+import { forwardRef, useEffect, useRef, useState } from "react";
 import type { InputHTMLAttributes } from "react";
+import { getPrefersReducedMotion } from "../../hooks/use-prefers-reduced-motion.js";
 import { Icon } from "../icon/icon.js";
 import { Input, InputCapture } from "./input.js";
 import type { InputType, WithAutoComplete, WithValidation } from "./types.js";
@@ -44,6 +45,8 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
 		const [showPassword, setShowPassword] = useState<boolean>(showValue);
 		const type: PasswordInputType = showPassword ? "text" : "password";
 		const EyeCon = showPassword ? EyeIcon : EyeClosedIcon;
+		const buttonRef = useRef<HTMLButtonElement>(null);
+		const animationRef = useRef<Animation | null>(null);
 
 		useEffect(() => {
 			setShowPassword(showValue);
@@ -53,12 +56,34 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
 			<Input type={type} ref={ref} {...props}>
 				<InputCapture />
 				<button
+					ref={buttonRef}
 					type="button"
 					tabIndex={-1}
 					className="text-body hover:text-strong ml-1 cursor-pointer bg-inherit p-0"
 					onClick={() => {
-						setShowPassword(!showPassword);
-						onValueVisibilityChange?.(!showPassword);
+						// Cancel any in-flight animation so rapid clicks are never blocked
+						if (animationRef.current) {
+							animationRef.current.cancel();
+							animationRef.current = null;
+						}
+
+						// Toggle immediately so the state is always correct
+						setShowPassword((prev) => {
+							onValueVisibilityChange?.(!prev);
+							return !prev;
+						});
+
+						const button = buttonRef.current;
+						if (button && !getPrefersReducedMotion()) {
+							const duration = 200;
+							animationRef.current = button.animate(
+								[{ transform: "scaleY(0)" }, { transform: "scaleY(1)" }],
+								{ duration, easing: "ease-out" },
+							);
+							animationRef.current.onfinish = () => {
+								animationRef.current = null;
+							};
+						}
 					}}
 				>
 					<span className="sr-only">Turn password visibility {showPassword ? "off" : "on"}</span>
