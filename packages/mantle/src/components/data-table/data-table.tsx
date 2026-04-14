@@ -271,25 +271,102 @@ function EmptyRow<TData>({ children, ...props }: DataTableEmptyRowProps) {
 	);
 }
 
+/**
+ * Internal: renders the visual indicator on the left edge of the sticky action
+ * column — a 1px divider plus a soft shadow gradient that reads as content
+ * sliding under the pinned column. Positioned as a 6px strip sitting
+ * immediately to the left of its sticky parent cell; `-inset-y-px` lets
+ * adjacent rows' strips overlap at row dividers so the effect reads as one
+ * continuous column instead of per-row blobs.
+ *
+ * Rendered as a child `<span>` because `border-collapse` on the table
+ * suppresses box-shadow on `<td>`/`<th>`.
+ */
+function StickyColIndicator() {
+	return (
+		<span
+			aria-hidden
+			className={cx(
+				"pointer-events-none absolute -inset-y-px -left-1.5 w-1.5",
+				"opacity-0 transition-opacity group-data-sticky-active/table:opacity-100",
+				// 1px divider painted at the strip's right edge (= the pinned
+				// cell's left edge).
+				"shadow-[1px_0_0_0_var(--border-color-card-muted)]",
+				// Soft shadow gradient fading leftward. Uses mantle's shadow
+				// tokens so the alpha adapts to light/dark themes.
+				"bg-linear-to-l to-transparent",
+				"from-[color-mix(in_oklab,var(--shadow-color)_var(--shadow-second-opacity),transparent)]",
+			)}
+		/>
+	);
+}
+
 type DataTableActionCellProps = ComponentProps<typeof Table.Cell>;
 
 function ActionCell({ children, className, ...props }: DataTableActionCellProps) {
 	return (
 		<Table.Cell
+			// Marks this cell as a sticky right-edge column so Table.Root can suppress
+			// its container-level right-side scroll fade (keeping this cell opaque).
+			data-mantle-table-sticky-right
 			className={cx(
-				"sticky z-10 right-0 top-px -bottom-px flex items-center justify-end p-2 group-data-sticky-active/table:[box-shadow:inset_10px_0_8px_-8px_oklch(0_0_0/15%)]",
+				// `bg-inherit` keeps the sticky cell opaque with the row's current bg
+				// (including hover state) so scrolling cells don't show through.
+				"sticky z-10 right-0 flex items-center justify-end bg-inherit p-2",
 				className,
 			)}
 			{...props}
 		>
+			<StickyColIndicator />
 			{children}
 		</Table.Cell>
+	);
+}
+
+type DataTableActionHeaderProps = ComponentProps<typeof Table.Header>;
+
+/**
+ * A sticky header cell that pairs with `DataTable.ActionCell`. Use this as the
+ * header for the action column so the pinned column visually aligns across the
+ * header and every body row when the table scrolls horizontally.
+ *
+ * @see https://mantle.ngrok.com/components/data-table#datatableactionheader
+ *
+ * @example
+ * ```tsx
+ * columnHelper.display({
+ *   id: "actions",
+ *   header: () => <DataTable.ActionHeader />,
+ *   cell: () => <DataTable.ActionCell>{...}</DataTable.ActionCell>,
+ * })
+ * ```
+ */
+function ActionHeader({ children, className, ...props }: DataTableActionHeaderProps) {
+	const { table } = useDataTableContext();
+	const hasRows = table.getRowModel().rows.length > 0;
+
+	return (
+		<Table.Header
+			// Only mark as sticky-right when body rows exist so the empty state
+			// doesn't suppress the container's right-side scroll fade.
+			{...(hasRows ? { "data-mantle-table-sticky-right": true } : {})}
+			className={cx(
+				// `bg-inherit` keeps the sticky header opaque with the thead's current bg.
+				hasRows && "sticky z-10 right-0 bg-inherit",
+				className,
+			)}
+			{...props}
+		>
+			{hasRows && <StickyColIndicator />}
+			{children}
+		</Table.Header>
 	);
 }
 
 // Set display names to preserve original component names for debugging
 Root.displayName = "DataTable";
 ActionCell.displayName = "DataTableActionCell";
+ActionHeader.displayName = "DataTableActionHeader";
 Body.displayName = "DataTableBody";
 EmptyRow.displayName = "DataTableEmptyRow";
 Head.displayName = "DataTableHead";
@@ -344,6 +421,22 @@ const DataTable = {
 	 * ```
 	 */
 	ActionCell,
+	/**
+	 * A sticky header cell that pairs with `DataTable.ActionCell`, keeping the
+	 * action column aligned across the header and body when scrolling horizontally.
+	 *
+	 * @see https://mantle.ngrok.com/components/data-table#datatableactionheader
+	 *
+	 * @example
+	 * ```tsx
+	 * columnHelper.display({
+	 *   id: "actions",
+	 *   header: () => <DataTable.ActionHeader />,
+	 *   cell: () => <DataTable.ActionCell>{...}</DataTable.ActionCell>,
+	 * })
+	 * ```
+	 */
+	ActionHeader,
 	/**
 	 * A table cell component for rendering individual data cells.
 	 *

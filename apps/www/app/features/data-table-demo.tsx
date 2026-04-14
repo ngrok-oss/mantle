@@ -88,7 +88,7 @@ const columns = [
 	}),
 	columnHelper.display({
 		id: "actions",
-		header: () => <DataTable.Header />,
+		header: () => <DataTable.ActionHeader />,
 		cell: () => (
 			<DataTable.ActionCell>
 				<DropdownMenu.Root>

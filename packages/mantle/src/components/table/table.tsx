@@ -1,5 +1,5 @@
 import type { ComponentProps, ComponentRef } from "react";
-import { forwardRef, useEffect, useMemo, useRef, useState } from "react";
+import { forwardRef, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { composeRefs } from "../../utils/compose-refs/compose-refs.js";
 import { cx } from "../../utils/cx/cx.js";
 
@@ -52,7 +52,7 @@ const Root = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
 		return (
 			<div
 				className={cx(
-					"group/table scrollbar overflow-x-auto overscroll-x-none rounded-lg border border-card bg-white dark:bg-gray-100 relative w-full",
+					"group/table relative w-full overflow-hidden rounded-lg border border-card bg-white dark:bg-gray-100",
 					className,
 				)}
 				data-sticky-active={
@@ -63,10 +63,29 @@ const Root = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
 				data-x-scroll-end={
 					horizontalOverflow.state.hasOverflow && horizontalOverflow.state.scrolledToEnd
 				}
-				ref={composeRefs(horizontalOverflow.ref, ref)}
 				{...props}
 			>
-				{children}
+				<div
+					className={cx(
+						"scrollbar scroll-fade-x overflow-x-auto overflow-y-clip overscroll-none",
+						// When the table contains a sticky right column (e.g., DataTable.ActionCell
+						// / DataTable.ActionHeader), suppress the container's right-side fade so the
+						// pinned column stays fully opaque. The pinned column provides its own
+						// left-side gradient for the scroll-under effect.
+						"has-data-mantle-table-sticky-right:[--_fade-right:black]",
+					)}
+					data-scroll-left={
+						(horizontalOverflow.state.hasOverflow && !horizontalOverflow.state.scrolledToStart) ||
+						undefined
+					}
+					data-scroll-right={
+						(horizontalOverflow.state.hasOverflow && !horizontalOverflow.state.scrolledToEnd) ||
+						undefined
+					}
+					ref={composeRefs(horizontalOverflow.ref, ref)}
+				>
+					{children}
+				</div>
 			</div>
 		);
 	},
@@ -1002,42 +1021,62 @@ function useHorizontalOverflowObserver<T extends HTMLElement>() {
 	const ref = useRef<T | null>(null);
 	const [state, setState] = useState({
 		hasOverflow: false,
+		scrolledToStart: true,
 		scrolledToEnd: false,
 	});
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		const element = ref.current;
 		if (!element) {
 			return;
 		}
 
+		let frameId = 0;
+
 		const checkState = () => {
 			const hasOverflow = element.scrollWidth > element.clientWidth;
+			const scrolledToStart = element.scrollLeft < 1;
 			const scrolledToEnd =
 				Math.abs(element.scrollWidth - element.scrollLeft - element.clientWidth) < 1;
 
 			setState((previous) => {
-				if (previous.hasOverflow !== hasOverflow || previous.scrolledToEnd !== scrolledToEnd) {
-					return { hasOverflow, scrolledToEnd };
+				if (
+					previous.hasOverflow !== hasOverflow ||
+					previous.scrolledToStart !== scrolledToStart ||
+					previous.scrolledToEnd !== scrolledToEnd
+				) {
+					return { hasOverflow, scrolledToStart, scrolledToEnd };
 				}
 				return previous; // No state change
 			});
 		};
 
-		const resizeObserver = new ResizeObserver(checkState);
+		// Coalesce rapid-fire events (scroll, mutation, resize) into a single
+		// layout read per animation frame to avoid redundant work.
+		const scheduleCheck = () => {
+			if (frameId === 0) {
+				frameId = requestAnimationFrame(() => {
+					frameId = 0;
+					checkState();
+				});
+			}
+		};
+
+		const resizeObserver = new ResizeObserver(scheduleCheck);
 		resizeObserver.observe(element);
 
-		const mutationObserver = new MutationObserver(checkState);
+		const mutationObserver = new MutationObserver(scheduleCheck);
 		mutationObserver.observe(element, { childList: true, subtree: true });
 
-		element.addEventListener("scroll", checkState, { passive: true });
+		element.addEventListener("scroll", scheduleCheck, { passive: true });
 
 		checkState();
 
 		return () => {
+			cancelAnimationFrame(frameId);
 			resizeObserver.disconnect();
 			mutationObserver.disconnect();
-			element.removeEventListener("scroll", checkState);
+			element.removeEventListener("scroll", scheduleCheck);
 		};
 	}, []);
 
