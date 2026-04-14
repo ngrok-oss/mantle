@@ -1,5 +1,15 @@
 # @ngrok/mantle
 
+## 0.68.5
+
+### Patch Changes
+
+- [#1130](https://github.com/ngrok-oss/mantle/pull/1130) [`8c7866b`](https://github.com/ngrok-oss/mantle/commit/8c7866b085a3f508d29fd0eed8361f96f6977f62) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - fix(table): switch to border-separate for continuous sticky column indicator
+
+  Replaced `border-collapse` with `border-separate border-spacing-0` on `Table.Element` and moved row dividers from group-level borders (`divide-y` on `<thead>`/`<tbody>`/`<tfoot>`) to cell-level borders. This prevents table cells from clipping overflow content, allowing the `StickyColIndicator` shadow strip to extend across row boundaries and render as one continuous vertical line instead of per-row segments with visible gaps.
+
+  Also changed `overscroll-none` to `overscroll-x-none` on the table scroll container so vertical page scrolling is no longer blocked when hovering over a table.
+
 ## 0.68.4
 
 ### Patch Changes
