@@ -68,10 +68,9 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
 						}
 
 						// Toggle immediately so the state is always correct
-						setShowPassword((prev) => {
-							onValueVisibilityChange?.(!prev);
-							return !prev;
-						});
+						const nextShowPassword = !showPassword;
+						setShowPassword(nextShowPassword);
+						onValueVisibilityChange?.(nextShowPassword);
 
 						const button = buttonRef.current;
 						if (button && !getPrefersReducedMotion()) {
