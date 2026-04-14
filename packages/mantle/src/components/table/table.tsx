@@ -67,7 +67,7 @@ const Root = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
 			>
 				<div
 					className={cx(
-						"scrollbar scroll-fade-x overflow-x-auto overflow-y-clip overscroll-none",
+						"scrollbar scroll-fade-x overflow-x-auto overflow-y-clip overscroll-x-none",
 						// When the table contains a sticky right column (e.g., DataTable.ActionCell
 						// / DataTable.ActionHeader), suppress the container's right-side fade so the
 						// pinned column stays fully opaque. The pinned column provides its own
@@ -163,7 +163,7 @@ const Element = forwardRef<ComponentRef<"table">, ComponentProps<"table">>(
 			<table
 				ref={ref}
 				className={cx(
-					"table-auto border-collapse caption-bottom w-full min-w-full text-left",
+					"table-auto border-separate border-spacing-0 caption-bottom w-full min-w-full text-left",
 					className,
 				)}
 				{...props}
@@ -228,8 +228,10 @@ const Head = forwardRef<ComponentRef<"thead">, ComponentProps<"thead">>(
 			ref={ref}
 			className={cx(
 				//,
-				"border-b border-card-muted",
-				"divide-y divide-card-muted",
+				// In border-separate, <tr>/<thead> borders don't render, so apply
+				// dividers directly to cells.
+				"[&>tr:last-child>*]:border-b [&>tr:last-child>*]:border-card-muted",
+				"[&>tr+tr>*]:border-t [&>tr+tr>*]:border-card-muted",
 				"text-muted bg-base",
 				"[&>tr]:bg-base", // Row styling
 				className,
@@ -292,9 +294,10 @@ const Body = forwardRef<ComponentRef<"tbody">, ComponentProps<"tbody">>(
 		<tbody
 			className={cx(
 				//,
-				"divide-y divide-card-muted",
+				// In border-separate, <tr>/<tbody> borders don't render, so apply
+				// dividers directly to cells.
+				"[&>tr+tr>*]:border-t [&>tr+tr>*]:border-card-muted",
 				"text-body",
-				"[thead+&]:border-t [thead+&]:border-card-muted",
 				"[&>tr]:bg-card [&>tr]:not-only:hover:bg-card-hover", // Body row styling
 				className,
 			)}
@@ -361,8 +364,10 @@ const Foot = forwardRef<ComponentRef<"tfoot">, ComponentProps<"tfoot">>(
 			className={cx(
 				//,
 				"font-medium text-body",
-				"border-t border-card-muted",
-				"divide-y divide-card-muted",
+				// In border-separate, <tr>/<tfoot> borders don't render, so apply
+				// dividers directly to cells.
+				"[&>tr:first-child>*]:border-t [&>tr:first-child>*]:border-card-muted",
+				"[&>tr+tr>*]:border-t [&>tr+tr>*]:border-card-muted",
 				"[&>tr]:bg-gray-50/50 [&>tr]:hover:bg-card-hover", // Row styling
 				className,
 			)}

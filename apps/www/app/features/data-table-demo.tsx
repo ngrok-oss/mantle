@@ -160,6 +160,230 @@ export function PaymentsDemo() {
 	);
 }
 
+type Endpoint = {
+	id: string;
+	region: string;
+	url: string;
+	type: string;
+	binding: string;
+	created: string;
+	updated: string;
+};
+
+const exampleEndpoints: Endpoint[] = [
+	{
+		id: "ep_abc123",
+		region: "us-east-1",
+		url: "https://2c3aq93ca44p6y1pper381em.ngrok.stage-ngrok.com",
+		type: "Edge",
+		binding: "1st app",
+		created: "2025-03-01",
+		updated: "2025-04-10",
+	},
+	{
+		id: "ep_def456",
+		region: "eu-west-1",
+		url: "https://api-gateway.eu-west.example.internal",
+		type: "Edge",
+		binding: "1st app",
+		created: "2025-02-15",
+		updated: "2025-04-09",
+	},
+	{
+		id: "ep_ghi789",
+		region: "ap-southeast-1",
+		url: "https://j2c3aqq93ca1p6y1lopper381em.ngrok.stage-ngrok.com",
+		type: "Edge",
+		binding: "",
+		created: "2025-01-20",
+		updated: "2025-04-08",
+	},
+	{
+		id: "ep_jkl012",
+		region: "us-west-2",
+		url: "https://dashboard-frontend-us-west.example.internal",
+		type: "Edge",
+		binding: "1st app",
+		created: "2025-03-10",
+		updated: "2025-04-07",
+	},
+	{
+		id: "ep_mno345",
+		region: "us-east-1",
+		url: "https://7jsteel.stage-ngrok.io",
+		type: "Edge",
+		binding: "",
+		created: "2025-02-28",
+		updated: "2025-04-06",
+	},
+	{
+		id: "ep_pqr678",
+		region: "eu-west-1",
+		url: "https://j9be2-dash-controller-80.internal",
+		type: "Edge",
+		binding: "1st app",
+		created: "2025-01-15",
+		updated: "2025-04-05",
+	},
+	{
+		id: "ep_stu901",
+		region: "ap-southeast-1",
+		url: "https://41b5af-a1-dashboard-frontend-controlplane-k1s1.internal",
+		type: "Edge",
+		binding: "",
+		created: "2025-03-05",
+		updated: "2025-04-04",
+	},
+	{
+		id: "ep_vwx234",
+		region: "us-west-2",
+		url: "https://41b5af-a1-dashboard-frontend.internal",
+		type: "Edge",
+		binding: "1st app",
+		created: "2025-02-01",
+		updated: "2025-04-03",
+	},
+];
+
+const endpointColumnHelper = createColumnHelper<Endpoint>();
+
+const endpointColumns = [
+	endpointColumnHelper.accessor("region", {
+		id: "region",
+		header: (props) => (
+			<DataTable.Header className="min-w-28">
+				<DataTable.HeaderSortButton column={props.column} sortingMode="alphanumeric">
+					Region
+				</DataTable.HeaderSortButton>
+			</DataTable.Header>
+		),
+		cell: (props) => <DataTable.Cell key={props.cell.id}>{props.getValue()}</DataTable.Cell>,
+	}),
+	endpointColumnHelper.accessor("url", {
+		id: "url",
+		header: (props) => (
+			<DataTable.Header className="min-w-100">
+				<DataTable.HeaderSortButton column={props.column} sortingMode="alphanumeric">
+					URL
+				</DataTable.HeaderSortButton>
+			</DataTable.Header>
+		),
+		cell: (props) => (
+			<DataTable.Cell key={props.cell.id} className="truncate max-w-100">
+				{props.getValue()}
+			</DataTable.Cell>
+		),
+	}),
+	endpointColumnHelper.accessor("type", {
+		id: "type",
+		header: (props) => (
+			<DataTable.Header className="min-w-20">
+				<DataTable.HeaderSortButton column={props.column} sortingMode="alphanumeric">
+					Type
+				</DataTable.HeaderSortButton>
+			</DataTable.Header>
+		),
+		cell: (props) => <DataTable.Cell key={props.cell.id}>{props.getValue()}</DataTable.Cell>,
+	}),
+	endpointColumnHelper.accessor("binding", {
+		id: "binding",
+		header: (props) => (
+			<DataTable.Header className="min-w-24">
+				<DataTable.HeaderSortButton column={props.column} sortingMode="alphanumeric">
+					Binding
+				</DataTable.HeaderSortButton>
+			</DataTable.Header>
+		),
+		cell: (props) => <DataTable.Cell key={props.cell.id}>{props.getValue()}</DataTable.Cell>,
+	}),
+	endpointColumnHelper.accessor("created", {
+		id: "created",
+		header: (props) => (
+			<DataTable.Header className="min-w-28">
+				<DataTable.HeaderSortButton column={props.column} sortingMode="alphanumeric">
+					Created
+				</DataTable.HeaderSortButton>
+			</DataTable.Header>
+		),
+		cell: (props) => <DataTable.Cell key={props.cell.id}>{props.getValue()}</DataTable.Cell>,
+	}),
+	endpointColumnHelper.accessor("updated", {
+		id: "updated",
+		header: (props) => (
+			<DataTable.Header className="min-w-28">
+				<DataTable.HeaderSortButton column={props.column} sortingMode="alphanumeric">
+					Updated
+				</DataTable.HeaderSortButton>
+			</DataTable.Header>
+		),
+		cell: (props) => <DataTable.Cell key={props.cell.id}>{props.getValue()}</DataTable.Cell>,
+	}),
+	endpointColumnHelper.display({
+		id: "actions",
+		header: () => <DataTable.ActionHeader />,
+		cell: () => (
+			<DataTable.ActionCell>
+				<DropdownMenu.Root>
+					<DropdownMenu.Trigger asChild>
+						<IconButton
+							appearance="ghost"
+							className="max-w rounded"
+							type="button"
+							size="sm"
+							label="Open actions"
+							icon={<DotsThreeIcon weight="bold" />}
+						/>
+					</DropdownMenu.Trigger>
+					<DropdownMenu.Content align="end">
+						<DropdownMenu.Item className="flex items-center gap-2">
+							<Icon svg={<PencilSimpleIcon />} /> Edit
+						</DropdownMenu.Item>
+						<DropdownMenu.Item className="text-danger-600 flex items-center gap-2">
+							<Icon svg={<TrashIcon />} />
+							Delete
+						</DropdownMenu.Item>
+					</DropdownMenu.Content>
+				</DropdownMenu.Root>
+			</DataTable.ActionCell>
+		),
+	}),
+];
+
+/**
+ * Demo of a wide data table with many columns to demonstrate horizontal overflow
+ * and the sticky action column indicator.
+ */
+export function EndpointsDemo() {
+	const data = useMemo(() => exampleEndpoints, []);
+	const table = useReactTable({
+		data,
+		columns: endpointColumns,
+		getCoreRowModel: getCoreRowModel(),
+		getPaginationRowModel: getPaginationRowModel(),
+		getSortedRowModel: getSortedRowModel(),
+		getFilteredRowModel: getFilteredRowModel(),
+		initialState: {
+			sorting: [{ id: "region", desc: false }],
+			pagination: { pageSize: 100 },
+		},
+	});
+	const rows = table.getRowModel().rows;
+	return (
+		<DataTable.Root table={table}>
+			<DataTable.Head />
+			<DataTable.Body>
+				{rows.length > 0 ? (
+					rows.map((row) => <DataTable.Row key={row.id} row={row} />)
+				) : (
+					<DataTable.EmptyRow>
+						<p className="flex items-center justify-center min-h-20">No results.</p>
+					</DataTable.EmptyRow>
+				)}
+			</DataTable.Body>
+		</DataTable.Root>
+	);
+}
+
 /**
  * Demo of a data table in an empty state.
  */
