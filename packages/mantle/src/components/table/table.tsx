@@ -1,5 +1,5 @@
 import type { ComponentProps, ComponentRef } from "react";
-import { forwardRef, useEffect, useMemo, useRef, useState } from "react";
+import { forwardRef, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { cx } from "../../utils/cx/cx.js";
 
 /**
@@ -72,7 +72,7 @@ const Root = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
 						// / DataTable.ActionHeader), suppress the container's right-side fade so the
 						// pinned column stays fully opaque. The pinned column provides its own
 						// left-side gradient for the scroll-under effect.
-						"has-[[data-mantle-table-sticky-right]]:[--_fade-right:black]!",
+						"has-data-mantle-table-sticky-right:[--_fade-right:black]",
 					)}
 					data-scroll-left={
 						(horizontalOverflow.state.hasOverflow && !horizontalOverflow.state.scrolledToStart) ||
@@ -1025,11 +1025,13 @@ function useHorizontalOverflowObserver<T extends HTMLElement>() {
 		scrolledToEnd: false,
 	});
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		const element = ref.current;
 		if (!element) {
 			return;
 		}
+
+		let frameId = 0;
 
 		const checkState = () => {
 			const hasOverflow = element.scrollWidth > element.clientWidth;
@@ -1049,20 +1051,32 @@ function useHorizontalOverflowObserver<T extends HTMLElement>() {
 			});
 		};
 
-		const resizeObserver = new ResizeObserver(checkState);
+		// Coalesce rapid-fire events (scroll, mutation, resize) into a single
+		// layout read per animation frame to avoid redundant work.
+		const scheduleCheck = () => {
+			if (frameId === 0) {
+				frameId = requestAnimationFrame(() => {
+					frameId = 0;
+					checkState();
+				});
+			}
+		};
+
+		const resizeObserver = new ResizeObserver(scheduleCheck);
 		resizeObserver.observe(element);
 
-		const mutationObserver = new MutationObserver(checkState);
+		const mutationObserver = new MutationObserver(scheduleCheck);
 		mutationObserver.observe(element, { childList: true, subtree: true });
 
-		element.addEventListener("scroll", checkState, { passive: true });
+		element.addEventListener("scroll", scheduleCheck, { passive: true });
 
 		checkState();
 
 		return () => {
+			cancelAnimationFrame(frameId);
 			resizeObserver.disconnect();
 			mutationObserver.disconnect();
-			element.removeEventListener("scroll", checkState);
+			element.removeEventListener("scroll", scheduleCheck);
 		};
 	}, []);
 

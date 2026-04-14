@@ -271,6 +271,36 @@ function EmptyRow<TData>({ children, ...props }: DataTableEmptyRowProps) {
 	);
 }
 
+/**
+ * Internal: renders the visual indicator on the left edge of the sticky action
+ * column — a 1px divider plus a soft shadow gradient that reads as content
+ * sliding under the pinned column. Positioned as a 6px strip sitting
+ * immediately to the left of its sticky parent cell; `-inset-y-px` lets
+ * adjacent rows' strips overlap at row dividers so the effect reads as one
+ * continuous column instead of per-row blobs.
+ *
+ * Rendered as a child `<span>` because `border-collapse` on the table
+ * suppresses box-shadow on `<td>`/`<th>`.
+ */
+function StickyColIndicator() {
+	return (
+		<span
+			aria-hidden
+			className={cx(
+				"pointer-events-none absolute -inset-y-px -left-1.5 w-1.5",
+				"opacity-0 transition-opacity group-data-sticky-active/table:opacity-100",
+				// 1px divider painted at the strip's right edge (= the pinned
+				// cell's left edge).
+				"shadow-[1px_0_0_0_var(--border-color-card-muted)]",
+				// Soft shadow gradient fading leftward. Uses mantle's shadow
+				// tokens so the alpha adapts to light/dark themes.
+				"bg-linear-to-l to-transparent",
+				"from-[color-mix(in_oklab,var(--shadow-color)_var(--shadow-second-opacity),transparent)]",
+			)}
+		/>
+	);
+}
+
 type DataTableActionCellProps = ComponentProps<typeof Table.Cell>;
 
 function ActionCell({ children, className, ...props }: DataTableActionCellProps) {
@@ -283,18 +313,11 @@ function ActionCell({ children, className, ...props }: DataTableActionCellProps)
 				// `bg-inherit` keeps the sticky cell opaque with the row's current bg
 				// (including hover state) so scrolling cells don't show through.
 				"sticky z-10 right-0 flex items-center justify-end bg-inherit p-2",
-				// Scroll fade indicator — rendered to the left of the sticky cell so
-				// scrolling content appears to fade underneath the pinned action column.
-				// Extends 1px beyond the cell top/bottom so per-row gradients visually
-				// connect across row dividers with no gaps.
-				"before:pointer-events-none before:absolute before:-inset-y-px before:right-full before:w-6",
-				"before:bg-gradient-to-r before:from-transparent before:to-card",
-				"before:opacity-0 before:transition-opacity",
-				"group-data-sticky-active/table:before:opacity-100",
 				className,
 			)}
 			{...props}
 		>
+			<StickyColIndicator />
 			{children}
 		</Table.Cell>
 	);
@@ -327,15 +350,11 @@ function ActionHeader({ children, className, ...props }: DataTableActionHeaderPr
 			className={cx(
 				// `bg-inherit` keeps the sticky header opaque with the thead's current bg.
 				"sticky z-10 right-0 bg-inherit",
-				// Match the fade indicator on ActionCell so the header aligns with body rows.
-				"before:pointer-events-none before:absolute before:-inset-y-px before:right-full before:w-6",
-				"before:bg-gradient-to-r before:from-transparent before:to-base",
-				"before:opacity-0 before:transition-opacity",
-				"group-data-sticky-active/table:before:opacity-100",
 				className,
 			)}
 			{...props}
 		>
+			<StickyColIndicator />
 			{children}
 		</Table.Header>
 	);
