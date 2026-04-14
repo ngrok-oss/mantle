@@ -2,11 +2,12 @@
 "@ngrok/mantle": patch
 ---
 
-Fix horizontal scroll masking on `Table` and `DataTable` and add `DataTable.ActionHeader`.
+Fix table horizontal scroll masking, improve scroll perf, and add `DataTable.ActionHeader`.
 
-- `Table.Root` now keeps its border and rounded corners crisp at every scroll position by splitting into an outer wrapper (border, rounded, background) and an inner scroll container (mask + scrolling). The scroll container uses `overflow-x: auto; overflow-y: clip; overscroll-behavior: none` so tables only scroll horizontally and no longer bounce.
-- The scroll fade now applies to the scrolling table content (not the container chrome), with both left and right edges fading based on scroll position. When the table contains a sticky right column (`DataTable.ActionCell` / `DataTable.ActionHeader`), the container's right-side fade is suppressed so the pinned column stays fully opaque.
-- `DataTable.ActionCell` renders a left-side gradient `::before` so scrolling content appears to fade underneath the pinned action column, with per-row gradients that connect across row dividers. The cell now uses `bg-inherit` to track its row's background (including hover state) and cover scrolling content that would otherwise bleed through.
-- New `DataTable.ActionHeader` component — a sticky `<th>` that pairs with `DataTable.ActionCell` so the pinned action column stays visually aligned across the header row and every body row during horizontal scroll.
+- **`Table.Root`**: Split into outer wrapper (border, rounded corners, background) and inner scroll container (`scroll-fade-x` mask, `overflow-x: auto`, `overflow-y: clip`, `overscroll-behavior: none`). Tables only scroll horizontally and no longer bounce.
+- **Scroll fade**: Left and right edge fades driven by scroll position. Right-side fade correctly suppressed when a sticky right column is present (`DataTable.ActionCell` / `DataTable.ActionHeader`).
+- **`DataTable.ActionCell`**: Replaced per-cell `box-shadow` with `bg-inherit` and a `StickyColIndicator` child span (1px divider + soft leftward gradient). Tracks the row's background including hover state.
+- **`DataTable.ActionHeader`** (new): Sticky `<th>` that pairs with `DataTable.ActionCell` so the pinned action column aligns across header and body rows during horizontal scroll.
+- **`useHorizontalOverflowObserver`**: Now tracks `scrolledToStart`, coalesces rapid-fire scroll/resize/mutation events via `requestAnimationFrame`, and uses `useLayoutEffect` so corrections apply before the browser paints.
 
-See `migrations/data-table-action-header-migration.md` for guidance on updating existing data tables to use `DataTable.ActionHeader`.
+See `migrations/data-table-action-header-migration.md` for migration guidance.

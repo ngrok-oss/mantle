@@ -342,19 +342,22 @@ type DataTableActionHeaderProps = ComponentProps<typeof Table.Header>;
  * ```
  */
 function ActionHeader({ children, className, ...props }: DataTableActionHeaderProps) {
+	const { table } = useDataTableContext();
+	const hasRows = table.getRowModel().rows.length > 0;
+
 	return (
 		<Table.Header
-			// Marks this header as a sticky right-edge column so Table.Root can suppress
-			// its container-level right-side scroll fade (keeping this header opaque).
-			data-mantle-table-sticky-right
+			// Only mark as sticky-right when body rows exist so the empty state
+			// doesn't suppress the container's right-side scroll fade.
+			{...(hasRows ? { "data-mantle-table-sticky-right": true } : {})}
 			className={cx(
 				// `bg-inherit` keeps the sticky header opaque with the thead's current bg.
-				"sticky z-10 right-0 bg-inherit",
+				hasRows && "sticky z-10 right-0 bg-inherit",
 				className,
 			)}
 			{...props}
 		>
-			<StickyColIndicator />
+			{hasRows && <StickyColIndicator />}
 			{children}
 		</Table.Header>
 	);
