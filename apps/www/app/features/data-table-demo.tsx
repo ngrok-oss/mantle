@@ -95,7 +95,7 @@ const columns = [
 					<DropdownMenu.Trigger asChild>
 						<IconButton
 							appearance="ghost"
-							className="max-w rounded"
+							className="rounded"
 							type="button"
 							size="sm"
 							label="Open actions"
@@ -327,7 +327,7 @@ const endpointColumns = [
 					<DropdownMenu.Trigger asChild>
 						<IconButton
 							appearance="ghost"
-							className="max-w rounded"
+							className="rounded"
 							type="button"
 							size="sm"
 							label="Open actions"
