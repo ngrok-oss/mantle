@@ -216,7 +216,6 @@ function Header({ children, className, ...props }: DataTableHeaderProps) {
 }
 
 const Body = Table.Body;
-Body.displayName = "DataTableBody";
 
 type DataTableHeadProps = Omit<ComponentProps<typeof Table.Head>, "children">;
 
@@ -279,8 +278,8 @@ function EmptyRow<TData>({ children, ...props }: DataTableEmptyRowProps) {
  * adjacent rows' strips overlap at row dividers so the effect reads as one
  * continuous column instead of per-row blobs.
  *
- * Rendered as a child `<span>` because `border-collapse` on the table
- * suppresses box-shadow on `<td>`/`<th>`.
+ * Rendered as a child `<span>` because box-shadow on `<td>`/`<th>` is
+ * unreliable across table layout modes.
  */
 function StickyColIndicator() {
 	return (
@@ -312,7 +311,10 @@ function ActionCell({ children, className, ...props }: DataTableActionCellProps)
 			className={cx(
 				// `bg-inherit` keeps the sticky cell opaque with the row's current bg
 				// (including hover state) so scrolling cells don't show through.
-				"sticky z-10 right-0 flex items-center justify-end bg-inherit p-2",
+				// Avoid `display: flex` here — it overrides `display: table-cell`,
+				// preventing the cell from stretching to the full row height in
+				// `border-separate` mode.
+				"sticky z-10 right-0 text-end align-middle bg-inherit p-2",
 				className,
 			)}
 			{...props}
