@@ -52,7 +52,10 @@ describe("PasswordInput (browser)", () => {
 
 		render(<PasswordInput placeholder="test" />);
 		const toggle = screen.getByRole("button", { name: /turn password visibility/i });
-		const animateSpy = vi.spyOn(toggle, "animate");
+		const icon = toggle.querySelector("svg");
+		expect(icon).toBeInTheDocument();
+
+		const animateSpy = vi.spyOn(SVGSVGElement.prototype, "animate");
 
 		await user.click(toggle);
 

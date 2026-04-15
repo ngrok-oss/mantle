@@ -206,6 +206,13 @@ const InputContainer = ({
 					"autofill:shadow-[inset_0_0_0px_1000px_var(--color-blue-50)] has-autofill:bg-blue-50 has-autofill:[-webkit-text-fill-color:var(--text-color-strong)]", // Autofill styling on the input itself and any children with autofill styling
 					className,
 				)}
+				onMouseDown={(event) => {
+					// Prevent mousedown on non-input children (icons, buttons, etc.) from
+					// blurring the input, which would cause the focus ring to flicker.
+					if (event.target !== innerRef?.current) {
+						event.preventDefault();
+					}
+				}}
 				onClick={() => {
 					innerRef?.current?.focus();
 				}}
@@ -237,7 +244,7 @@ const ValidationFeedback = ({
 	switch (validation) {
 		case "error":
 			return (
-				<div className="text-danger-600 pointer-events-none order-last select-none">
+				<div className="text-danger-600 order-last select-none">
 					<span className="sr-only">
 						{clsx("The value entered for the", name, "input has failed validation.")}
 					</span>
@@ -246,13 +253,13 @@ const ValidationFeedback = ({
 			);
 		case "success":
 			return (
-				<div className="text-success-600 pointer-events-none order-last select-none">
+				<div className="text-success-600 order-last select-none">
 					<Icon svg={<CheckCircleIcon weight="fill" />} />
 				</div>
 			);
 		case "warning":
 			return (
-				<div className="text-warning-600 pointer-events-none order-last select-none">
+				<div className="text-warning-600 order-last select-none">
 					<Icon svg={<WarningDiamondIcon weight="fill" />} />
 				</div>
 			);

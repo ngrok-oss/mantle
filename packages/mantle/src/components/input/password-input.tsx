@@ -4,6 +4,7 @@ import { EyeIcon } from "@phosphor-icons/react/Eye";
 import { EyeClosedIcon } from "@phosphor-icons/react/EyeClosed";
 import { forwardRef, useEffect, useRef, useState } from "react";
 import type { InputHTMLAttributes } from "react";
+import { flushSync } from "react-dom";
 import { getPrefersReducedMotion } from "../../hooks/use-prefers-reduced-motion.js";
 import { Icon } from "../icon/icon.js";
 import { Input, InputCapture } from "./input.js";
@@ -45,7 +46,7 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
 		const [showPassword, setShowPassword] = useState<boolean>(showValue);
 		const type: PasswordInputType = showPassword ? "text" : "password";
 		const EyeCon = showPassword ? EyeIcon : EyeClosedIcon;
-		const buttonRef = useRef<HTMLButtonElement>(null);
+		const iconRef = useRef<SVGSVGElement>(null);
 		const animationRef = useRef<Animation | null>(null);
 
 		useEffect(() => {
@@ -56,7 +57,6 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
 			<Input type={type} ref={ref} {...props}>
 				<InputCapture />
 				<button
-					ref={buttonRef}
 					type="button"
 					tabIndex={-1}
 					className="text-body hover:text-strong ml-1 cursor-pointer bg-inherit p-0"
@@ -67,17 +67,18 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
 							animationRef.current = null;
 						}
 
-						// Toggle immediately so the state is always correct
+						// Flush synchronously so React commits the new icon to the DOM before we animate
 						const nextShowPassword = !showPassword;
-						setShowPassword(nextShowPassword);
+						flushSync(() => {
+							setShowPassword(nextShowPassword);
+						});
 						onValueVisibilityChange?.(nextShowPassword);
 
-						const button = buttonRef.current;
-						if (button && !getPrefersReducedMotion()) {
-							const duration = 200;
-							animationRef.current = button.animate(
+						const icon = iconRef.current;
+						if (icon && !getPrefersReducedMotion()) {
+							animationRef.current = icon.animate(
 								[{ transform: "scaleY(0)" }, { transform: "scaleY(1)" }],
-								{ duration, easing: "ease-out" },
+								{ duration: 200, easing: "ease-out" },
 							);
 							animationRef.current.onfinish = () => {
 								animationRef.current = null;
@@ -86,7 +87,7 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
 					}}
 				>
 					<span className="sr-only">Turn password visibility {showPassword ? "off" : "on"}</span>
-					<Icon svg={<EyeCon aria-hidden />} />
+					<Icon ref={iconRef} svg={<EyeCon aria-hidden />} />
 				</button>
 			</Input>
 		);
