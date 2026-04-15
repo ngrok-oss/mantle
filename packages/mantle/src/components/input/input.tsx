@@ -196,13 +196,13 @@ const InputContainer = ({
 				data-validation={validation || undefined}
 				className={cx(
 					"pointer-coarse:text-base h-9 text-sm",
-					"bg-form relative flex w-full items-center gap-1.5 rounded-md border px-3 py-2 file:border-0 file:bg-transparent file:text-sm file:font-medium focus-within:outline-hidden focus-within:ring-4 focus-visible:outline-hidden focus-visible:ring-4",
+					"bg-form relative flex w-full items-center gap-1.5 rounded-md border px-3 py-2 file:border-0 file:bg-transparent file:text-sm file:font-medium focus-within:outline-hidden focus-within:ring-4",
 					"data-disabled:opacity-50",
 					"has-[input:not(:first-child)]:ps-2.5 has-[input:not(:last-child)]:pe-2.5 [&>:not(input)]:shrink-0 [&_svg]:size-5",
-					"border-form text-strong has-focus-visible:border-accent-600 has-focus-visible:ring-focus-accent",
-					"data-validation-success:border-success-600 has-focus-visible:data-validation-success:border-success-600 has-focus-visible:data-validation-success:ring-focus-success",
-					"data-validation-warning:border-warning-600 has-focus-visible:data-validation-warning:border-warning-600 has-focus-visible:data-validation-warning:ring-focus-warning",
-					"data-validation-error:border-danger-600 has-focus-visible:data-validation-error:border-danger-600 has-focus-visible:data-validation-error:ring-focus-danger",
+					"border-form text-strong focus-within:border-accent-600 focus-within:ring-focus-accent",
+					"data-validation-success:border-success-600 focus-within:data-validation-success:border-success-600 focus-within:data-validation-success:ring-focus-success",
+					"data-validation-warning:border-warning-600 focus-within:data-validation-warning:border-warning-600 focus-within:data-validation-warning:ring-focus-warning",
+					"data-validation-error:border-danger-600 focus-within:data-validation-error:border-danger-600 focus-within:data-validation-error:ring-focus-danger",
 					"autofill:shadow-[inset_0_0_0px_1000px_var(--color-blue-50)] has-autofill:bg-blue-50 has-autofill:[-webkit-text-fill-color:var(--text-color-strong)]", // Autofill styling on the input itself and any children with autofill styling
 					className,
 				)}
