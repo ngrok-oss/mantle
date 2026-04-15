@@ -4,6 +4,7 @@ import { EyeIcon } from "@phosphor-icons/react/Eye";
 import { EyeClosedIcon } from "@phosphor-icons/react/EyeClosed";
 import { forwardRef, useEffect, useRef, useState } from "react";
 import type { InputHTMLAttributes } from "react";
+import { flushSync } from "react-dom";
 import { getPrefersReducedMotion } from "../../hooks/use-prefers-reduced-motion.js";
 import { Icon } from "../icon/icon.js";
 import { Input, InputCapture } from "./input.js";
@@ -47,30 +48,10 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
 		const EyeCon = showPassword ? EyeIcon : EyeClosedIcon;
 		const iconRef = useRef<SVGSVGElement>(null);
 		const animationRef = useRef<Animation | null>(null);
-		const shouldAnimateRef = useRef(false);
 
 		useEffect(() => {
 			setShowPassword(showValue);
 		}, [showValue]);
-
-		// Run the blink animation after React commits the new icon to the DOM
-		useEffect(() => {
-			if (!shouldAnimateRef.current) {
-				return;
-			}
-			shouldAnimateRef.current = false;
-
-			const icon = iconRef.current;
-			if (icon) {
-				animationRef.current = icon.animate(
-					[{ transform: "scaleY(0)" }, { transform: "scaleY(1)" }],
-					{ duration: 200, easing: "ease-out" },
-				);
-				animationRef.current.onfinish = () => {
-					animationRef.current = null;
-				};
-			}
-		}, [showPassword]);
 
 		return (
 			<Input type={type} ref={ref} {...props}>
@@ -86,13 +67,23 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
 							animationRef.current = null;
 						}
 
-						// Flag the animation to run after React commits the new icon
-						shouldAnimateRef.current = !getPrefersReducedMotion();
-
-						// Toggle immediately so the state is always correct
+						// Flush synchronously so React commits the new icon to the DOM before we animate
 						const nextShowPassword = !showPassword;
-						setShowPassword(nextShowPassword);
+						flushSync(() => {
+							setShowPassword(nextShowPassword);
+						});
 						onValueVisibilityChange?.(nextShowPassword);
+
+						const icon = iconRef.current;
+						if (icon && !getPrefersReducedMotion()) {
+							animationRef.current = icon.animate(
+								[{ transform: "scaleY(0)" }, { transform: "scaleY(1)" }],
+								{ duration: 200, easing: "ease-out" },
+							);
+							animationRef.current.onfinish = () => {
+								animationRef.current = null;
+							};
+						}
 					}}
 				>
 					<span className="sr-only">Turn password visibility {showPassword ? "off" : "on"}</span>
