@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.68.6
+
+### Patch Changes
+
+- [#1132](https://github.com/ngrok-oss/mantle/pull/1132) [`c0ea674`](https://github.com/ngrok-oss/mantle/commit/c0ea67486b837fba066000226630f74896ce8dcf) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Fix Input focus ring showing as black when clicking the PasswordInput visibility toggle by using `focus-within` for both ring size and color. Add a blink animation to the PasswordInput eye icon toggle that respects `prefers-reduced-motion`.
+
 ## 0.68.5
 
 ### Patch Changes
