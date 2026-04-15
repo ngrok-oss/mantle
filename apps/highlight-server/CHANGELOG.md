@@ -1,5 +1,13 @@
 # highlight-server
 
+## 0.0.8
+
+### Patch Changes
+
+- Updated dependencies [[`c0ea674`](https://github.com/ngrok-oss/mantle/commit/c0ea67486b837fba066000226630f74896ce8dcf)]:
+  - @ngrok/mantle@0.68.6
+  - @ngrok/mantle-server-syntax-highlighter@1.0.4
+
 ## 0.0.7
 
 ### Patch Changes
