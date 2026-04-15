@@ -45,18 +45,37 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
 		const [showPassword, setShowPassword] = useState<boolean>(showValue);
 		const type: PasswordInputType = showPassword ? "text" : "password";
 		const EyeCon = showPassword ? EyeIcon : EyeClosedIcon;
-		const buttonRef = useRef<HTMLButtonElement>(null);
+		const iconRef = useRef<SVGSVGElement>(null);
 		const animationRef = useRef<Animation | null>(null);
+		const shouldAnimateRef = useRef(false);
 
 		useEffect(() => {
 			setShowPassword(showValue);
 		}, [showValue]);
 
+		// Run the blink animation after React commits the new icon to the DOM
+		useEffect(() => {
+			if (!shouldAnimateRef.current) {
+				return;
+			}
+			shouldAnimateRef.current = false;
+
+			const icon = iconRef.current;
+			if (icon) {
+				animationRef.current = icon.animate(
+					[{ transform: "scaleY(0)" }, { transform: "scaleY(1)" }],
+					{ duration: 200, easing: "ease-out" },
+				);
+				animationRef.current.onfinish = () => {
+					animationRef.current = null;
+				};
+			}
+		}, [showPassword]);
+
 		return (
 			<Input type={type} ref={ref} {...props}>
 				<InputCapture />
 				<button
-					ref={buttonRef}
 					type="button"
 					tabIndex={-1}
 					className="text-body hover:text-strong ml-1 cursor-pointer bg-inherit p-0"
@@ -67,26 +86,17 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
 							animationRef.current = null;
 						}
 
+						// Flag the animation to run after React commits the new icon
+						shouldAnimateRef.current = !getPrefersReducedMotion();
+
 						// Toggle immediately so the state is always correct
 						const nextShowPassword = !showPassword;
 						setShowPassword(nextShowPassword);
 						onValueVisibilityChange?.(nextShowPassword);
-
-						const button = buttonRef.current;
-						if (button && !getPrefersReducedMotion()) {
-							const duration = 200;
-							animationRef.current = button.animate(
-								[{ transform: "scaleY(0)" }, { transform: "scaleY(1)" }],
-								{ duration, easing: "ease-out" },
-							);
-							animationRef.current.onfinish = () => {
-								animationRef.current = null;
-							};
-						}
 					}}
 				>
 					<span className="sr-only">Turn password visibility {showPassword ? "off" : "on"}</span>
-					<Icon svg={<EyeCon aria-hidden />} />
+					<Icon ref={iconRef} svg={<EyeCon aria-hidden />} />
 				</button>
 			</Input>
 		);
