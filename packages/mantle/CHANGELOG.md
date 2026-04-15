@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.68.7
+
+### Patch Changes
+
+- [#1134](https://github.com/ngrok-oss/mantle/pull/1134) [`5bde2bb`](https://github.com/ngrok-oss/mantle/commit/5bde2bb43fd24dff97db51d63a559650151d4ed3) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Fix InputContainer focus ring flicker by preventing mousedown default on non-input children. Use `flushSync` in PasswordInput to animate the eye icon inline in the click handler after React commits the new icon to the DOM. Remove `pointer-events-none` from validation feedback icons.
+
 ## 0.68.6
 
 ### Patch Changes
