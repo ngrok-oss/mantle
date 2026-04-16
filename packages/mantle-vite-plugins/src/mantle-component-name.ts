@@ -33,6 +33,7 @@ export const MANTLE_COMPONENT_NAMES = [
 	"description-list",
 	"dialog",
 	"dropdown-menu",
+	"empty",
 	"flag",
 	"hover-card",
 	"icon",

@@ -44,6 +44,7 @@ export default [
 	...docRoute("components/description-list"),
 	...docRoute("components/dialog"),
 	...docRoute("components/dropdown-menu"),
+	...docRoute("components/empty"),
 	...docRoute("components/flag"),
 	...docRoute("components/hover-card"),
 	...docRoute("components/icon-button"),

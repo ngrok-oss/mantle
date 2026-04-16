@@ -154,6 +154,11 @@
 			"types": "./dist/dropdown-menu.d.ts",
 			"import": "./dist/dropdown-menu.js"
 		},
+		"./empty": {
+			"@ngrok/src-live-types": "./src/components/empty/index.ts",
+			"types": "./dist/empty.d.ts",
+			"import": "./dist/empty.js"
+		},
 		"./flag": {
 			"@ngrok/src-live-types": "./src/components/flag/index.ts",
 			"types": "./dist/flag.d.ts",
