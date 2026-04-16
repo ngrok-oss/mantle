@@ -6,8 +6,8 @@ import type { SvgAttributes } from "../icon/types.js";
 import { Slot } from "../slot/index.js";
 
 /**
- * The root container for an empty state. Centers content vertically and
- * horizontally with consistent padding and max-width.
+ * The root container for an empty state. Centers content horizontally
+ * with consistent vertical padding and max-width.
  *
  * @see https://mantle.ngrok.com/components/empty
  *
