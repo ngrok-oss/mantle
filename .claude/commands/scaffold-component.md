@@ -56,7 +56,8 @@ If the component has sub-parts, follow the POJO namespace pattern from `decision
   Content.displayName = "MyComponentContent";
   Title.displayName = "MyComponentTitle";
   ```
-- Create the namespace object with `as const` and **inline JSDoc on every property**:
+- Create the namespace object with `as const` and **inline JSDoc on every property**. Every property MUST have an `@example` block showing the **full component tree** (all commonly-used sub-parts), not an abbreviated snippet. The same full-tree example should be repeated across each property so any entry point in the docs/IntelliSense shows the whole usage shape. Variant sub-components (e.g. a tabs-enabled form of the same component) may use a distinct full-tree example that demonstrates that variant:
+
   ````tsx
   const MyComponent = {
   	/**
@@ -67,15 +68,35 @@ If the component has sub-parts, follow the POJO namespace pattern from `decision
   	 * @example
   	 * ```tsx
   	 * <MyComponent.Root>
-  	 *   <MyComponent.Title>Title</MyComponent.Title>
+  	 *   <MyComponent.Header>
+  	 *     <MyComponent.Title>Title</MyComponent.Title>
+  	 *   </MyComponent.Header>
+  	 *   <MyComponent.Body>Body content</MyComponent.Body>
   	 * </MyComponent.Root>
   	 * ```
   	 */
   	Root,
-  	/** The title of the component. */
+  	/**
+  	 * The title of the component.
+  	 *
+  	 * @see https://mantle.ngrok.com/components/my-component
+  	 *
+  	 * @example
+  	 * ```tsx
+  	 * <MyComponent.Root>
+  	 *   <MyComponent.Header>
+  	 *     <MyComponent.Title>Title</MyComponent.Title>
+  	 *   </MyComponent.Header>
+  	 *   <MyComponent.Body>Body content</MyComponent.Body>
+  	 * </MyComponent.Root>
+  	 * ```
+  	 */
   	Title,
   } as const;
   ````
+
+  The same rule applies to the JSDoc on the underlying `const Root = forwardRef(...)` / `const Title = (...) => ...` declarations — use full-tree `@example` blocks there too. See `alert.tsx`, `code-block.tsx`, and `empty.tsx` for the canonical pattern.
+
 - Provider components and standalone utility functions stay as **separate named exports** alongside the namespace object (see the Toast/Toaster pattern in the decisions doc).
 
 #### `asChild` support

@@ -50,7 +50,14 @@ type EmptyIconProps = Omit<SvgAttributes, "children"> & {
  *
  * @example
  * ```tsx
- * <Empty.Icon svg={<GhostIcon />} />
+ * <Empty.Root>
+ *   <Empty.Icon svg={<GhostIcon />} />
+ *   <Empty.Title>No endpoints yet</Empty.Title>
+ *   <Empty.Description>Create your first endpoint to get started.</Empty.Description>
+ *   <Empty.Actions>
+ *     <Button>Create endpoint</Button>
+ *   </Empty.Actions>
+ * </Empty.Root>
  * ```
  */
 const Icon = ({ className, svg, ...props }: EmptyIconProps) => {
@@ -66,7 +73,14 @@ Icon.displayName = "EmptyIcon";
  *
  * @example
  * ```tsx
- * <Empty.Title>No results found</Empty.Title>
+ * <Empty.Root>
+ *   <Empty.Icon svg={<GhostIcon />} />
+ *   <Empty.Title>No endpoints yet</Empty.Title>
+ *   <Empty.Description>Create your first endpoint to get started.</Empty.Description>
+ *   <Empty.Actions>
+ *     <Button>Create endpoint</Button>
+ *   </Empty.Actions>
+ * </Empty.Root>
  *
  * <Empty.Title asChild>
  *   <h2>No results found</h2>
@@ -98,9 +112,14 @@ Title.displayName = "EmptyTitle";
  *
  * @example
  * ```tsx
- * <Empty.Description>
- *   <p>Try adjusting your search or filters.</p>
- * </Empty.Description>
+ * <Empty.Root>
+ *   <Empty.Icon svg={<GhostIcon />} />
+ *   <Empty.Title>No endpoints yet</Empty.Title>
+ *   <Empty.Description>Create your first endpoint to get started.</Empty.Description>
+ *   <Empty.Actions>
+ *     <Button>Create endpoint</Button>
+ *   </Empty.Actions>
+ * </Empty.Root>
  *
  * <Empty.Description>
  *   <p>Something went wrong.</p>
@@ -131,10 +150,15 @@ Description.displayName = "EmptyDescription";
  *
  * @example
  * ```tsx
- * <Empty.Actions>
- *   <Button>Clear filters</Button>
- *   <Button appearance="outlined">Go back</Button>
- * </Empty.Actions>
+ * <Empty.Root>
+ *   <Empty.Icon svg={<GhostIcon />} />
+ *   <Empty.Title>No endpoints yet</Empty.Title>
+ *   <Empty.Description>Create your first endpoint to get started.</Empty.Description>
+ *   <Empty.Actions>
+ *     <Button>Create endpoint</Button>
+ *     <Button appearance="outlined">Go back</Button>
+ *   </Empty.Actions>
+ * </Empty.Root>
  * ```
  */
 const Actions = ({ children, className, ...props }: ComponentProps<"div">) => {
@@ -194,7 +218,14 @@ const Empty = {
 	 *
 	 * @example
 	 * ```tsx
-	 * <Empty.Icon svg={<GhostIcon />} />
+	 * <Empty.Root>
+	 *   <Empty.Icon svg={<GhostIcon />} />
+	 *   <Empty.Title>No endpoints yet</Empty.Title>
+	 *   <Empty.Description>Create your first endpoint to get started.</Empty.Description>
+	 *   <Empty.Actions>
+	 *     <Button>Create endpoint</Button>
+	 *   </Empty.Actions>
+	 * </Empty.Root>
 	 * ```
 	 */
 	Icon,
@@ -206,7 +237,14 @@ const Empty = {
 	 *
 	 * @example
 	 * ```tsx
-	 * <Empty.Title>No results found</Empty.Title>
+	 * <Empty.Root>
+	 *   <Empty.Icon svg={<GhostIcon />} />
+	 *   <Empty.Title>No endpoints yet</Empty.Title>
+	 *   <Empty.Description>Create your first endpoint to get started.</Empty.Description>
+	 *   <Empty.Actions>
+	 *     <Button>Create endpoint</Button>
+	 *   </Empty.Actions>
+	 * </Empty.Root>
 	 *
 	 * <Empty.Title asChild>
 	 *   <h2>No results found</h2>
@@ -223,9 +261,14 @@ const Empty = {
 	 *
 	 * @example
 	 * ```tsx
-	 * <Empty.Description>
-	 *   <p>Please try again in a few minutes.</p>
-	 * </Empty.Description>
+	 * <Empty.Root>
+	 *   <Empty.Icon svg={<GhostIcon />} />
+	 *   <Empty.Title>No endpoints yet</Empty.Title>
+	 *   <Empty.Description>Create your first endpoint to get started.</Empty.Description>
+	 *   <Empty.Actions>
+	 *     <Button>Create endpoint</Button>
+	 *   </Empty.Actions>
+	 * </Empty.Root>
 	 * ```
 	 */
 	Description,
@@ -236,9 +279,14 @@ const Empty = {
 	 *
 	 * @example
 	 * ```tsx
-	 * <Empty.Actions>
-	 *   <Button>Clear filters</Button>
-	 * </Empty.Actions>
+	 * <Empty.Root>
+	 *   <Empty.Icon svg={<GhostIcon />} />
+	 *   <Empty.Title>No endpoints yet</Empty.Title>
+	 *   <Empty.Description>Create your first endpoint to get started.</Empty.Description>
+	 *   <Empty.Actions>
+	 *     <Button>Create endpoint</Button>
+	 *   </Empty.Actions>
+	 * </Empty.Root>
 	 * ```
 	 */
 	Actions,
