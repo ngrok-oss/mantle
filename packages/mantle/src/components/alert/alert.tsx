@@ -358,6 +358,17 @@ DismissIconButton.displayName = "AlertDismissIconButton";
  * @see https://mantle.ngrok.com/components/alert
  *
  * @example
+ * Composition:
+ * ```
+ * Alert.Root
+ * ├── Alert.Icon
+ * └── Alert.Content
+ *     ├── Alert.Title
+ *     ├── Alert.Description
+ *     └── Alert.DismissIconButton
+ * ```
+ *
+ * @example
  * ```tsx
  * <Alert priority="info">
  *   <AlertIcon />

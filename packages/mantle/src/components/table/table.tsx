@@ -625,6 +625,21 @@ Caption.displayName = "TableCaption";
  * @see https://mantle.ngrok.com/components/table
  *
  * @example
+ * Composition:
+ * ```
+ * Table.Root
+ * └── Table.Element
+ *     ├── Table.Caption
+ *     ├── Table.Head
+ *     │   └── Table.Row
+ *     │       └── Table.Header
+ *     ├── Table.Body
+ *     │   └── Table.Row
+ *     │       └── Table.Cell
+ *     └── Table.Foot
+ * ```
+ *
+ * @example
  * ```tsx
  * <Table.Root>
  *   <Table.Element>

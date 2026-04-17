@@ -267,6 +267,15 @@ PageSizeValue.displayName = "CursorPageSizeValue";
  * @see https://mantle.ngrok.com/components/pagination
  *
  * @example
+ * Composition:
+ * ```
+ * CursorPagination.Root
+ * ├── CursorPagination.PageSizeSelect
+ * ├── CursorPagination.PageSizeValue
+ * └── CursorPagination.Buttons
+ * ```
+ *
+ * @example
  * ```tsx
  * <CursorPagination defaultPageSize={10}>
  *   <CursorPagination.Buttons

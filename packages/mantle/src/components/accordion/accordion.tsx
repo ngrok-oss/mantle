@@ -213,6 +213,17 @@ Content.displayName = "AccordionContent";
  * @see https://mantle.ngrok.com/components/accordion
  *
  * @example
+ * Composition:
+ * ```
+ * Accordion.Root
+ * ├── Accordion.Item
+ * │   ├── Accordion.Heading
+ * │   │   └── Accordion.Trigger
+ * │   │       └── Accordion.TriggerIcon
+ * │   └── Accordion.Content
+ * ```
+ *
+ * @example
  * ```tsx
  * <Accordion.Root type="single" collapsible>
  *   <Accordion.Item value="item-1">

@@ -359,6 +359,15 @@ Message.displayName = "ToastMessage";
  * @see https://mantle.ngrok.com/components/toast
  *
  * @example
+ * Composition:
+ * ```
+ * Toast.Root
+ * ├── Toast.Icon
+ * ├── Toast.Message
+ * └── Toast.Action
+ * ```
+ *
+ * @example
  * ```tsx
  * makeToast(
  *   <Toast.Root priority="success">

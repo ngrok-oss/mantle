@@ -151,6 +151,13 @@ Indicator.displayName = "Indicator";
  * @see https://mantle.ngrok.com/components/progress
  *
  * @example
+ * Composition:
+ * ```
+ * ProgressBar.Root
+ * └── ProgressBar.Indicator
+ * ```
+ *
+ * @example
  * ```tsx
  * <ProgressBar.Root value={60}>
  *   <ProgressBar.Indicator />

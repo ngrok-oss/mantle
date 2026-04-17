@@ -69,6 +69,18 @@ import { Popover } from "@ngrok/mantle/popover";
 </Popover.Root>;
 ```
 
+## Composition
+
+Compose the parts of a `Popover` together to build your own:
+
+```text showLineNumbers=false
+Popover.Root
+├── Popover.Trigger
+├── Popover.Anchor
+└── Popover.Content
+    └── Popover.Close
+```
+
 ## API Reference
 
 The `Popover` components are built on top of [Radix Popover](https://www.radix-ui.com/primitives/docs/components/popover).

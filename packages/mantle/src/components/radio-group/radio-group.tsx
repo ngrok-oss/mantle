@@ -386,6 +386,31 @@ InputSandbox.displayName = "RadioInputSandbox";
  * @see https://mantle.ngrok.com/components/radio-group#radiogrouproot
  *
  * @example
+ * Composition:
+ * ```
+ * # Default radios
+ * RadioGroup.Root
+ * └── RadioGroup.Item
+ *     ├── RadioGroup.Indicator
+ *     └── RadioGroup.ItemContent
+ *
+ * # List layout with descriptions
+ * RadioGroup.List
+ * └── RadioGroup.ListItem
+ *     ├── RadioGroup.Indicator
+ *     └── RadioGroup.ItemContent
+ *
+ * # Segmented button group
+ * RadioGroup.ButtonGroup
+ * └── RadioGroup.Button
+ *
+ * # Card-style radios
+ * RadioGroup.Root
+ * └── RadioGroup.Card
+ *     └── RadioGroup.Indicator
+ * ```
+ *
+ * @example
  * ```tsx
  * <RadioGroup value={value} onValueChange={setValue}>
  *   <RadioGroup.Item value="option1">

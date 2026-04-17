@@ -173,6 +173,16 @@ Content.displayName = "PopoverContent";
  * @see https://mantle.ngrok.com/components/popover
  *
  * @example
+ * Composition:
+ * ```
+ * Popover.Root
+ * ├── Popover.Trigger
+ * ├── Popover.Anchor
+ * └── Popover.Content
+ *     └── Popover.Close
+ * ```
+ *
+ * @example
  * ```tsx
  * <Popover.Root>
  *   <Popover.Trigger asChild>
@@ -217,10 +227,13 @@ const Popover = {
 	 *     <div>Position relative to this element</div>
 	 *   </Popover.Anchor>
 	 *   <Popover.Trigger asChild>
-	 *     <Button type="button">Open Popover</Button>
+	 *     <Button type="button" appearance="outlined">Open Popover</Button>
 	 *   </Popover.Trigger>
 	 *   <Popover.Content>
-	 *     <Text>This popover is positioned relative to the anchor.</Text>
+	 *     <p>This popover is positioned relative to the anchor.</p>
+	 *     <Popover.Close asChild>
+	 *       <Button type="button">Close</Button>
+	 *     </Popover.Close>
 	 *   </Popover.Content>
 	 * </Popover.Root>
 	 * ```

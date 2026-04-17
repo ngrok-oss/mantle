@@ -700,6 +700,22 @@ Close.displayName = "AlertDialogClose";
  * @see https://mantle.ngrok.com/components/alert-dialog
  *
  * @example
+ * Composition:
+ * ```
+ * AlertDialog.Root
+ * ├── AlertDialog.Trigger
+ * └── AlertDialog.Content
+ *     ├── AlertDialog.Icon
+ *     └── AlertDialog.Body
+ *         ├── AlertDialog.Header
+ *         │   ├── AlertDialog.Title
+ *         │   └── AlertDialog.Description
+ *         └── AlertDialog.Footer
+ *             ├── AlertDialog.Cancel
+ *             └── AlertDialog.Action
+ * ```
+ *
+ * @example
  * ```tsx
  * <AlertDialog.Root priority="danger">
  *   <AlertDialog.Trigger asChild>

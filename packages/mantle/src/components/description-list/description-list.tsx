@@ -153,6 +153,15 @@ Value.displayName = "DescriptionListValue";
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dl
  *
  * @example
+ * Composition:
+ * ```
+ * DescriptionList.Root
+ * └── DescriptionList.Item
+ *     ├── DescriptionList.Label
+ *     └── DescriptionList.Value
+ * ```
+ *
+ * @example
  * ```tsx
  * <DescriptionList.Root>
  *   <DescriptionList.Item>

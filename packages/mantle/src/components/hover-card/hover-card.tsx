@@ -117,6 +117,14 @@ Content.displayName = HoverCardPrimitive.Content.displayName;
  * @see https://mantle.ngrok.com/components/hover-card
  *
  * @example
+ * Composition:
+ * ```
+ * HoverCard.Root
+ * ├── HoverCard.Trigger
+ * └── HoverCard.Content
+ * ```
+ *
+ * @example
  * ```tsx
  * <HoverCard.Root>
  *   <HoverCard.Trigger asChild>

@@ -78,6 +78,14 @@ If you're contributing a new mantle component and use [Claude Code](https://clau
 
 See [`.claude/commands/scaffold-component.md`](https://github.com/ngrok-oss/mantle/blob/main/.claude/commands/scaffold-component.md) for the full step-by-step reference — it's also useful if you'd rather scaffold by hand.
 
+To validate that an existing component's docs, JSDoc, and scaffold wiring match the conventions (and auto-fix common drift), run `/audit-component`:
+
+```
+/audit-component <component-name>
+```
+
+Omit the name (or pass `all`) to sweep every component. See [`.claude/commands/audit-component.md`](https://github.com/ngrok-oss/mantle/blob/main/.claude/commands/audit-component.md) for the full checklist.
+
 ## Git Hooks
 
 Pre-commit hooks run automatically via [husky](https://typicode.github.io/husky/) and [lint-staged](https://github.com/lint-staged/lint-staged). On every commit, staged files are formatted with oxfmt and linted with oxlint.

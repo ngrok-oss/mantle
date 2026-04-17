@@ -129,6 +129,14 @@ Content.displayName = "Tooltip.Content";
  * @see https://mantle.ngrok.com/components/tooltip
  *
  * @example
+ * Composition:
+ * ```
+ * Tooltip.Root
+ * ├── Tooltip.Trigger
+ * └── Tooltip.Content
+ * ```
+ *
+ * @example
  * ```tsx
  * <Tooltip.Root>
  *   <Tooltip.Trigger asChild>
