@@ -45,7 +45,7 @@ describe("mantleCodeRehypePlugin", () => {
 		await mantleCodeRehypePlugin()(tree);
 
 		const pre = getPreNode(tree);
-		expect(pre.properties.mantleShowLineNumbers).toBe(true);
+		expect(pre.properties.mantleShowLineNumbers).toBe("true");
 		expect(pre.properties.mantlePreHtml).toContain("mantle-code-line-number");
 	});
 
@@ -54,7 +54,7 @@ describe("mantleCodeRehypePlugin", () => {
 		await mantleCodeRehypePlugin()(tree);
 
 		const pre = getPreNode(tree);
-		expect(pre.properties.mantleShowLineNumbers).toBe(false);
+		expect(pre.properties.mantleShowLineNumbers).toBe("false");
 		expect(pre.properties.mantlePreHtml).not.toContain("mantle-code-line-number");
 	});
 
@@ -63,7 +63,7 @@ describe("mantleCodeRehypePlugin", () => {
 		await mantleCodeRehypePlugin()(tree);
 
 		const pre = getPreNode(tree);
-		expect(pre.properties.mantleShowLineNumbers).toBe(false);
+		expect(pre.properties.mantleShowLineNumbers).toBe("false");
 	});
 
 	test("defaults showLineNumbers to false for single-line shell", async () => {
@@ -71,7 +71,7 @@ describe("mantleCodeRehypePlugin", () => {
 		await mantleCodeRehypePlugin()(tree);
 
 		const pre = getPreNode(tree);
-		expect(pre.properties.mantleShowLineNumbers).toBe(false);
+		expect(pre.properties.mantleShowLineNumbers).toBe("false");
 	});
 
 	test("defaults showLineNumbers to true for multi-line bash", async () => {
@@ -79,7 +79,7 @@ describe("mantleCodeRehypePlugin", () => {
 		await mantleCodeRehypePlugin()(tree);
 
 		const pre = getPreNode(tree);
-		expect(pre.properties.mantleShowLineNumbers).toBe(true);
+		expect(pre.properties.mantleShowLineNumbers).toBe("true");
 		expect(pre.properties.mantlePreHtml).toContain("mantle-code-line-number");
 	});
 
@@ -88,7 +88,7 @@ describe("mantleCodeRehypePlugin", () => {
 		await mantleCodeRehypePlugin()(tree);
 
 		const pre = getPreNode(tree);
-		expect(pre.properties.mantleShowLineNumbers).toBe(true);
+		expect(pre.properties.mantleShowLineNumbers).toBe("true");
 		expect(pre.properties.mantlePreHtml).toContain("mantle-code-line-number");
 	});
 
@@ -101,7 +101,7 @@ describe("mantleCodeRehypePlugin", () => {
 		await mantleCodeRehypePlugin()(tree);
 
 		const pre = getPreNode(tree);
-		expect(pre.properties.mantleShowLineNumbers).toBe(false);
+		expect(pre.properties.mantleShowLineNumbers).toBe("false");
 		expect(pre.properties.mantlePreHtml).not.toContain("mantle-code-line-number");
 	});
 
@@ -111,6 +111,6 @@ describe("mantleCodeRehypePlugin", () => {
 		await mantleCodeRehypePlugin()(tree);
 
 		const pre = getPreNode(tree);
-		expect(pre.properties.mantleShowLineNumbers).toBe(true);
+		expect(pre.properties.mantleShowLineNumbers).toBe("true");
 	});
 });
