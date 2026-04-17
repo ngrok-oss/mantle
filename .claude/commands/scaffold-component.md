@@ -1,6 +1,36 @@
+---
+description: "Scaffold a new mantle component (files, docs, route, nav, changeset). Accepts PascalCase, Title Case, lowercase, or kebab-case names."
+argument-hint: "<component-name>"
+---
+
 # Scaffold a new mantle component
 
 Scaffold a new component named `$ARGUMENTS` in the mantle design system. If no name is provided, ask the user for a component name.
+
+## 0. Normalize the component name
+
+The user may provide the name in any of the following formats. Accept all of them and normalize before scaffolding:
+
+- `ComponentName` (PascalCase)
+- `Component Name` (Title Case with spaces)
+- `component name` (lowercase with spaces)
+- `component-name` (kebab-case)
+
+Derive two canonical forms from the input and use them consistently throughout the rest of these steps:
+
+- **`<component-name>`** — lower-kebab-case. Used for file names, directory names, package.json export keys, route paths, URL slugs, and import specifiers. Example: `my-component`.
+- **`<ComponentName>`** — PascalCase. Used for the exported React component / namespace identifier, TypeScript types, and the displayed documentation title. Example: `MyComponent`.
+
+A `<Display Name>` (Title Case with spaces, e.g. `My Component`) is also needed for the navigation label in step 5 — derive it from the PascalCase form by inserting spaces before internal capital letters.
+
+Examples of normalization:
+
+| Input          | `<component-name>` | `<ComponentName>` | `<Display Name>` |
+| -------------- | ------------------ | ----------------- | ---------------- |
+| `ButtonGroup`  | `button-group`     | `ButtonGroup`     | `Button Group`   |
+| `Button Group` | `button-group`     | `ButtonGroup`     | `Button Group`   |
+| `button group` | `button-group`     | `ButtonGroup`     | `Button Group`   |
+| `button-group` | `button-group`     | `ButtonGroup`     | `Button Group`   |
 
 Follow these steps exactly:
 
