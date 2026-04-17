@@ -210,6 +210,16 @@ Title.displayName = "CardTitle";
  * @see https://mantle.ngrok.com/components/card
  *
  * @example
+ * Composition:
+ * ```
+ * Card.Root
+ * ├── Card.Header
+ * │   └── Card.Title
+ * ├── Card.Body
+ * └── Card.Footer
+ * ```
+ *
+ * @example
  * ```tsx
  * <Card.Root>
  *   <Card.Body>

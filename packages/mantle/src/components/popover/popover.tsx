@@ -173,6 +173,16 @@ Content.displayName = "PopoverContent";
  * @see https://mantle.ngrok.com/components/popover
  *
  * @example
+ * Composition:
+ * ```
+ * Popover.Root
+ * ├── Popover.Trigger
+ * ├── Popover.Anchor
+ * └── Popover.Content
+ *     └── Popover.Close
+ * ```
+ *
+ * @example
  * ```tsx
  * <Popover.Root>
  *   <Popover.Trigger asChild>

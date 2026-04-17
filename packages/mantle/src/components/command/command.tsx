@@ -634,6 +634,21 @@ CommandShortcut.displayName = "CommandShortcut";
  * @see https://mantle.ngrok.com/components/command
  *
  * @example
+ * Composition:
+ * ```
+ * Command.Dialog.Root
+ * ├── Command.Dialog.Trigger
+ * └── Command.Dialog.Content
+ *     ├── Command.Input
+ *     └── Command.List
+ *         ├── Command.Empty
+ *         ├── Command.Group
+ *         │   └── Command.Item
+ *         │       └── Command.Shortcut
+ *         └── Command.Separator
+ * ```
+ *
+ * @example
  * ```tsx
  * <Command.Dialog.Root open={open} onOpenChange={setOpen}>
  *   <Command.Dialog.Trigger asChild>

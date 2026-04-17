@@ -383,6 +383,22 @@ Row.displayName = "DataTableRow";
  * @see https://mantle.ngrok.com/components/data-table
  *
  * @example
+ * Composition:
+ * ```
+ * DataTable.Root
+ * ├── DataTable.Head
+ * │   └── DataTable.Row
+ * │       ├── DataTable.Header
+ * │       │   └── DataTable.HeaderSortButton
+ * │       └── DataTable.ActionHeader
+ * └── DataTable.Body
+ *     ├── DataTable.Row
+ *     │   ├── DataTable.Cell
+ *     │   └── DataTable.ActionCell
+ *     └── DataTable.EmptyRow
+ * ```
+ *
+ * @example
  * ```tsx
  * <DataTable table={table}>
  *   <DataTable.Head />

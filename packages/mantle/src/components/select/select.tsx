@@ -524,6 +524,19 @@ SelectSeparatorComponent.displayName = "SelectSeparator";
  * @see https://mantle.ngrok.com/components/select
  *
  * @example
+ * Composition:
+ * ```
+ * Select.Root
+ * ├── Select.Trigger
+ * │   └── Select.Value
+ * └── Select.Content
+ *     ├── Select.Group
+ *     │   ├── Select.Label
+ *     │   └── Select.Item
+ *     └── Select.Separator
+ * ```
+ *
+ * @example
  * ```tsx
  * <Select.Root>
  *   <Select.Trigger>

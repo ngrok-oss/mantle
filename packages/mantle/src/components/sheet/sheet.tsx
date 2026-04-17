@@ -803,6 +803,22 @@ Actions.displayName = "SheetActions";
  * @see https://mantle.ngrok.com/components/sheet
  *
  * @example
+ * Composition:
+ * ```
+ * Sheet.Root
+ * ├── Sheet.Trigger
+ * └── Sheet.Content
+ *     ├── Sheet.Header
+ *     │   ├── Sheet.TitleGroup
+ *     │   │   ├── Sheet.Title
+ *     │   │   └── Sheet.Actions
+ *     │   └── Sheet.Description
+ *     ├── Sheet.Body
+ *     └── Sheet.Footer
+ *         └── Sheet.Close
+ * ```
+ *
+ * @example
  * ```tsx
  * // Triggering a stateful sheet
  * <Sheet.Root>

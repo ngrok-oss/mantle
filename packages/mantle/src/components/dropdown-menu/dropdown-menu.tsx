@@ -348,6 +348,25 @@ Shortcut.displayName = "DropdownMenuShortcut";
  * @see https://mantle.ngrok.com/components/dropdown-menu
  *
  * @example
+ * Composition:
+ * ```
+ * DropdownMenu.Root
+ * ├── DropdownMenu.Trigger
+ * └── DropdownMenu.Content
+ *     ├── DropdownMenu.Group
+ *     │   ├── DropdownMenu.Label
+ *     │   ├── DropdownMenu.Item
+ *     │   │   └── DropdownMenu.Shortcut
+ *     │   ├── DropdownMenu.CheckboxItem
+ *     │   └── DropdownMenu.RadioGroup
+ *     │       └── DropdownMenu.RadioItem
+ *     ├── DropdownMenu.Separator
+ *     └── DropdownMenu.Sub
+ *         ├── DropdownMenu.SubTrigger
+ *         └── DropdownMenu.SubContent
+ * ```
+ *
+ * @example
  * ```tsx
  * <DropdownMenu.Root>
  *   <DropdownMenu.Trigger asChild>

@@ -231,6 +231,13 @@ Indicator.displayName = "ProgressDonutIndicator";
  * @see https://mantle.ngrok.com/components/progress
  *
  * @example
+ * Composition:
+ * ```
+ * ProgressDonut.Root
+ * └── ProgressDonut.Indicator
+ * ```
+ *
+ * @example
  * ```tsx
  * <ProgressDonut.Root value={60}>
  *   <ProgressDonut.Indicator />

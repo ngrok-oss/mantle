@@ -340,6 +340,19 @@ ComboboxSeparatorComponent.displayName = "ComboboxSeparator";
  * @see https://mantle.ngrok.com/components/combobox
  *
  * @example
+ * Composition:
+ * ```
+ * Combobox.Root
+ * ├── Combobox.Input
+ * └── Combobox.Content
+ *     ├── Combobox.Group
+ *     │   ├── Combobox.GroupLabel
+ *     │   └── Combobox.Item
+ *     │       └── Combobox.ItemValue
+ *     └── Combobox.Separator
+ * ```
+ *
+ * @example
  * <Combobox.Root>
  *   <Combobox.Input />
  *   <Combobox.Content>

@@ -803,6 +803,31 @@ TabContent.displayName = "CodeBlockTabContent";
  * Use `mantleCodeBlockPlugins()` to enable pre-rendering at build time.
  *
  * @example
+ * Composition:
+ * ```
+ * # Standard
+ * CodeBlock.Root
+ * ├── CodeBlock.Header
+ * │   ├── CodeBlock.Icon
+ * │   └── CodeBlock.Title
+ * ├── CodeBlock.Body
+ * │   ├── CodeBlock.CopyButton
+ * │   └── CodeBlock.Code
+ * └── CodeBlock.ExpanderButton
+ *
+ * # Tabbed
+ * CodeBlock.Root
+ * ├── CodeBlock.Header
+ * │   └── CodeBlock.TabList
+ * │       └── CodeBlock.TabTrigger
+ * ├── CodeBlock.Body
+ * │   ├── CodeBlock.CopyButton
+ * │   └── CodeBlock.TabContent
+ * │       └── CodeBlock.Code
+ * └── CodeBlock.ExpanderButton
+ * ```
+ *
+ * @example
  * ```tsx
  * <CodeBlock.Root>
  *   <CodeBlock.Header>

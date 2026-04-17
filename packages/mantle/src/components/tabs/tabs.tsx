@@ -449,6 +449,16 @@ Content.displayName = "TabsContent";
  * @see https://mantle.ngrok.com/components/tabs
  *
  * @example
+ * Composition:
+ * ```
+ * Tabs.Root
+ * ├── Tabs.List
+ * │   └── Tabs.Trigger
+ * │       └── Tabs.Badge
+ * └── Tabs.Content
+ * ```
+ *
+ * @example
  * ```tsx
  * <Tabs.Root defaultValue="account">
  *   <Tabs.List>

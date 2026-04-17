@@ -7,6 +7,28 @@ argument-hint: "<component-name>"
 
 Scaffold a new component named `$ARGUMENTS` in the mantle design system. If no name is provided, ask the user for a component name.
 
+## 0.a. Ask: compound or simple?
+
+After normalizing the name (step 0), ask the user:
+
+> Is `<ComponentName>` a compound component (a POJO namespace with multiple sub-parts, e.g. `<ComponentName>.Root`, `<ComponentName>.Content`, etc.) or a simple single-element component?
+
+If compound, ask a follow-up:
+
+> What are the sub-parts that compose the export, and how do they nest? (e.g. `Root > Header > Title + Body + Footer`)
+
+Use this structural answer in step 1 below (and in step 3) to build the ASCII composition tree used in the namespace JSDoc and in the docs page's `## Composition` section. Tree format:
+
+```
+<ComponentName>.Root
+├── <ComponentName>.Header
+│   └── <ComponentName>.Title
+├── <ComponentName>.Body
+└── <ComponentName>.Footer
+```
+
+Use real Unicode box-drawing chars (`├` U+251C, `─` U+2500, `└` U+2514, `│` U+2502) and 4-char per-level indentation.
+
 ## 0. Normalize the component name
 
 The user may provide the name in any of the following formats. Accept all of them and normalize before scaffolding:
@@ -56,6 +78,39 @@ If the component has sub-parts, follow the POJO namespace pattern from `decision
   Content.displayName = "MyComponentContent";
   Title.displayName = "MyComponentTitle";
   ```
+- The JSDoc on the **top-level namespace declaration** (the `const MyComponent = {` line) MUST include a `Composition` ASCII-tree `@example` as the **first** `@example` block, followed by the full-tree JSX usage `@example`. The tree uses Unicode box-drawing chars and 4-char per-level indentation. This tree is what consumers and LLMs see first when hovering the namespace in IntelliSense, and it is the single source of truth for the component's structural shape. Example:
+
+  ````tsx
+  /**
+   * A brief description of the component.
+   *
+   * @see https://mantle.ngrok.com/components/my-component
+   *
+   * @example
+   * Composition:
+   * ```
+   * MyComponent.Root
+   * ├── MyComponent.Header
+   * │   └── MyComponent.Title
+   * ├── MyComponent.Body
+   * └── MyComponent.Footer
+   * ```
+   *
+   * @example
+   * ```tsx
+   * <MyComponent.Root>
+   *   <MyComponent.Header>
+   *     <MyComponent.Title>Title</MyComponent.Title>
+   *   </MyComponent.Header>
+   *   <MyComponent.Body>Body content</MyComponent.Body>
+   * </MyComponent.Root>
+   * ```
+   */
+  const MyComponent = { ... } as const;
+  ````
+
+  Update this tree whenever you add, remove, or rename a sub-part.
+
 - Create the namespace object with `as const` and **inline JSDoc on every property**. Every property MUST have an `@example` block showing the **full component tree** (all commonly-used sub-parts), not an abbreviated snippet. The same full-tree example should be repeated across each property so any entry point in the docs/IntelliSense shows the whole usage shape. Variant sub-components (e.g. a tabs-enabled form of the same component) may use a distinct full-tree example that demonstrates that variant:
 
   ````tsx
@@ -158,12 +213,31 @@ import { <ComponentName> } from "@ngrok/mantle/<component-name>";
 // Code snippet matching the example
 \`\`\`
 
+## Composition
+
+Compose the parts of a `<ComponentName>` together to build your own:
+
+\`\`\`text showLineNumbers=false
+
+<ComponentName>.Root
+├── <ComponentName>.Header
+│   └── <ComponentName>.Title
+├── <ComponentName>.Body
+└── <ComponentName>.Footer
+\`\`\`
+
 ## API Reference
 
 ### <ComponentName>
 
 <Description of the component and its props>
 ```
+
+For compound components, include a `## Composition` section (as shown above) before `## API Reference` with an ASCII tree showing how the parts nest. Use a `text showLineNumbers=false` fence so the tree renders as plain copy-friendly art. Use real Unicode chars (`├` `─` `└` `│`) and 4-char per-level indentation. The tree here should match the one in the top-level namespace JSDoc.
+
+For simple components with no sub-parts, omit the `## Composition` section — there is no tree to draw.
+
+If the component uses `asChild` to render as a different element, add a `## Polymorphism` section (after Composition, before API Reference) documenting that behavior — do **not** call this section "Composition" since that name is reserved for the structural tree above.
 
 Icons in examples should use `@phosphor-icons/react` (the primary icon library for mantle).
 

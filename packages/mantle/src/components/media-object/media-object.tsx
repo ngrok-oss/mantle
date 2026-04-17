@@ -72,6 +72,14 @@ Content.displayName = "MediaObject.Content";
  * @see https://mantle.ngrok.com/components/media-object
  *
  * @example
+ * Composition:
+ * ```
+ * MediaObject.Root
+ * ├── MediaObject.Media
+ * └── MediaObject.Content
+ * ```
+ *
+ * @example
  * ```tsx
  * <MediaObject.Root>
  *   <MediaObject.Media>

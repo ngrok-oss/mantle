@@ -177,6 +177,16 @@ Actions.displayName = "EmptyActions";
  * @see https://mantle.ngrok.com/components/empty
  *
  * @example
+ * Composition:
+ * ```
+ * Empty.Root
+ * ├── Empty.Icon
+ * ├── Empty.Title
+ * ├── Empty.Description
+ * └── Empty.Actions
+ * ```
+ *
+ * @example
  * ```tsx
  * <Empty.Root>
  *   <Empty.Icon svg={<GhostIcon />} />

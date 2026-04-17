@@ -422,6 +422,21 @@ Description.displayName = "DialogDescription";
  * @see https://mantle.ngrok.com/components/dialog
  *
  * @example
+ * Composition:
+ * ```
+ * Dialog.Root
+ * ├── Dialog.Trigger
+ * └── Dialog.Content
+ *     ├── Dialog.Header
+ *     │   ├── Dialog.Title
+ *     │   ├── Dialog.Description
+ *     │   └── Dialog.CloseIconButton
+ *     ├── Dialog.Body
+ *     └── Dialog.Footer
+ *         └── Dialog.Close
+ * ```
+ *
+ * @example
  * ```tsx
  * <Dialog.Root>
  *   <Dialog.Trigger asChild>
