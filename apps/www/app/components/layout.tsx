@@ -244,6 +244,7 @@ const previewComponents = [
 	//,
 	"Accordion",
 	"Calendar",
+	"Sidebar",
 ] as const;
 
 type Route = Parameters<typeof href>[0];
@@ -301,6 +302,7 @@ const prodReadyComponentRouteLookup = {
 const previewComponentsRouteLookup = {
 	Accordion: "/components/preview/accordion",
 	Calendar: "/components/preview/calendar",
+	Sidebar: "/components/preview/sidebar",
 } as const satisfies Record<(typeof previewComponents)[number], Route>;
 
 const welcomePages = ["Overview & Setup", "Philosophy"] as const;

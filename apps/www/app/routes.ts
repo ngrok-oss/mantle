@@ -15,6 +15,7 @@ export default [
 	route("robots.txt", "./routes/robots[.]txt.tsx", { id: "robots-txt" }),
 	route("sitemap.xml", "./routes/sitemap[.]xml.tsx", { id: "sitemap-xml" }),
 	route("api/shiki-highlight", "./routes/api.shiki-highlight.tsx"),
+	route("prototype/sidebar", "./routes/prototype.sidebar.tsx"),
 
 	// MDX docs: auto-discovers docs from app/docs/**/*.mdx
 	// Handles both /path and /path.md URLs (returns HTML or raw markdown respectively)
@@ -60,6 +61,7 @@ export default [
 	...docRoute("components/popover"),
 	...docRoute("components/preview/accordion"),
 	...docRoute("components/preview/calendar"),
+	...docRoute("components/preview/sidebar"),
 	...docRoute("components/progress-bar"),
 	...docRoute("components/progress-donut"),
 	...docRoute("components/radio-group"),
