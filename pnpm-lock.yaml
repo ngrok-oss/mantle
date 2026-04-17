@@ -57,19 +57,6 @@ overrides:
 importers:
 
   .:
-    dependencies:
-      remark-mdx:
-        specifier: 3.1.1
-        version: 3.1.1
-      remark-parse:
-        specifier: 11.0.0
-        version: 11.0.0
-      remark-stringify:
-        specifier: 11.0.0
-        version: 11.0.0
-      unified:
-        specifier: 11.0.5
-        version: 11.0.5
     devDependencies:
       '@changesets/changelog-github':
         specifier: 0.6.0

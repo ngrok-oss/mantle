@@ -24,10 +24,11 @@ export async function loader({ request }: Route.LoaderArgs) {
 
 	const filename = cleanSlug.split("/").pop() || "document";
 
-	// Render MDX source to plain markdown: top-level JSX elements become
-	// inlined raw HTML, code fences are preserved as-is, and ESM imports
-	// are stripped.
-	const rendered = renderMdxToMarkdown(rawContent, filePath);
+	// Render MDX source to plain markdown: JSX elements are routed through
+	// per-component handlers (e.g. `<Example>` is dropped; unregistered tags
+	// are replaced with an HTML comment placeholder), code fences are
+	// preserved as-is, and ESM imports are stripped.
+	const rendered = renderMdxToMarkdown(rawContent);
 
 	return new Response(rendered, {
 		headers: {

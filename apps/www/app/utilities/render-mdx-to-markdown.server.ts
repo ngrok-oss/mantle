@@ -1,15 +1,10 @@
 import type { Root, RootContent } from "mdast";
-import { createElement, Fragment, type ReactNode } from "react";
-import { renderToStaticMarkup } from "react-dom/server";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkGfm from "remark-gfm";
 import remarkMdx from "remark-mdx";
 import remarkParse from "remark-parse";
 import remarkStringify from "remark-stringify";
 import { unified } from "unified";
-import componentsByFile from "virtual:mdx-doc-component-imports";
-
-type ComponentMap = Record<string, unknown>;
 
 /**
  * Transform a raw MDX source string into markdown-only output for `.md`
@@ -17,10 +12,13 @@ type ComponentMap = Record<string, unknown>;
  * that each component produces sensible markdown (or is dropped) rather
  * than being blindly rendered to a wall of HTML. Content inside fenced
  * code blocks is always preserved because it parses as `code` nodes.
+ *
+ * Handlers that need to render a component to HTML can lazily import the
+ * `virtual:mdx-doc-component-imports` module on demand — we intentionally
+ * do not import it here so the server bundle does not pull in the entire
+ * set of doc-only React components for every `.md` request.
  */
-export function renderMdxToMarkdown(rawMdx: string, mdxFilePath: string): string {
-	const components = (componentsByFile[mdxFilePath] ?? {}) as ComponentMap;
-
+export function renderMdxToMarkdown(rawMdx: string): string {
 	const tree = unified()
 		.use(remarkParse)
 		.use(remarkFrontmatter, ["yaml", "toml"])
@@ -28,7 +26,7 @@ export function renderMdxToMarkdown(rawMdx: string, mdxFilePath: string): string
 		.use(remarkMdx)
 		.parse(rawMdx) as Root;
 
-	transform(tree, components);
+	transform(tree);
 
 	const output = unified()
 		.use(remarkStringify, {
@@ -65,7 +63,7 @@ type HandlerResult =
 	| { kind: "replace"; nodes: RootContent[] }
 	| { kind: "html"; html: string };
 
-type Handler = (node: MdxJsxElement, components: ComponentMap) => HandlerResult;
+type Handler = (node: MdxJsxElement) => HandlerResult;
 
 /**
  * Per-component handlers. Each handler decides how a JSX element should be
@@ -100,11 +98,11 @@ function isMdxJsxElement(node: unknown): node is MdxJsxElement {
 	return type === "mdxJsxFlowElement" || type === "mdxJsxTextElement";
 }
 
-function transform(root: Root, components: ComponentMap): void {
-	walk(root, components);
+function transform(root: Root): void {
+	walk(root);
 }
 
-function walk(parent: { children?: unknown }, components: ComponentMap): void {
+function walk(parent: { children?: unknown }): void {
 	const children = parent.children;
 	if (!Array.isArray(children)) {
 		return;
@@ -126,7 +124,7 @@ function walk(parent: { children?: unknown }, components: ComponentMap): void {
 
 		if (isMdxJsxElement(node)) {
 			const handler = (node.name && handlers[node.name.split(".")[0] ?? ""]) || defaultHandler;
-			const result = handler(node, components);
+			const result = handler(node);
 
 			switch (result.kind) {
 				case "drop": {
@@ -151,104 +149,6 @@ function walk(parent: { children?: unknown }, components: ComponentMap): void {
 			}
 		}
 
-		walk(node as { children?: unknown }, components);
+		walk(node as { children?: unknown });
 	}
-}
-
-/**
- * Render a JSX element to static HTML using its resolved React component.
- * Exposed for use by future handlers that opt specific components into
- * HTML embedding (e.g. live demos with no textual equivalent).
- */
-export function renderJsxElementToHtml(node: MdxJsxElement, components: ComponentMap): string {
-	const element = jsxToReact(node, components);
-	return renderToStaticMarkup(createElement(Fragment, null, element));
-}
-
-function jsxToReact(element: MdxJsxElement, components: ComponentMap): ReactNode {
-	const name = element.name;
-	const props = attributesToProps(element.attributes);
-	const children = element.children.map((child, idx) => childToReact(child, components, idx));
-
-	if (!name) {
-		return createElement(Fragment, null, ...children);
-	}
-
-	const isIntrinsic = /^[a-z]/.test(name);
-	const Component = isIntrinsic ? name : resolveComponent(name, components);
-
-	if (!Component) {
-		return `<!-- missing component: ${name} -->`;
-	}
-
-	return createElement(Component, props, ...children);
-}
-
-function childToReact(child: RootContent, components: ComponentMap, key: number): ReactNode {
-	const typed = child as { type: string; value?: string; children?: RootContent[]; url?: string };
-	const mapChildren = () =>
-		(typed.children ?? []).map((grandchild, idx) => childToReact(grandchild, components, idx));
-
-	switch (typed.type) {
-		case "text":
-			return typed.value ?? "";
-		case "inlineCode":
-			return createElement("code", { key }, typed.value);
-		case "strong":
-			return createElement("strong", { key }, ...mapChildren());
-		case "emphasis":
-			return createElement("em", { key }, ...mapChildren());
-		case "delete":
-			return createElement("del", { key }, ...mapChildren());
-		case "link":
-			return createElement("a", { key, href: typed.url }, ...mapChildren());
-		case "break":
-			return createElement("br", { key });
-		case "paragraph":
-			return createElement(Fragment, { key }, ...mapChildren());
-		case "mdxJsxFlowElement":
-		case "mdxJsxTextElement":
-			return isMdxJsxElement(child)
-				? createElement(Fragment, { key }, jsxToReact(child, components))
-				: null;
-		default:
-			return null;
-	}
-}
-
-function resolveComponent(name: string, components: ComponentMap): React.ElementType | undefined {
-	const segments = name.split(".");
-	const root = segments[0];
-	if (!root) {
-		return undefined;
-	}
-	let current: unknown = components[root];
-	for (const segment of segments.slice(1)) {
-		if (current && typeof current === "object") {
-			current = (current as Record<string, unknown>)[segment];
-		} else {
-			return undefined;
-		}
-	}
-	if (typeof current === "function" || (typeof current === "object" && current !== null)) {
-		return current as React.ElementType;
-	}
-	return undefined;
-}
-
-function attributesToProps(attrs: MdxJsxAttributeLike[]): Record<string, unknown> {
-	const props: Record<string, unknown> = {};
-	for (const attr of attrs) {
-		if (attr.type !== "mdxJsxAttribute") {
-			continue;
-		}
-		if (attr.value === null || attr.value === undefined) {
-			props[attr.name] = true;
-			continue;
-		}
-		if (typeof attr.value === "string") {
-			props[attr.name] = attr.value;
-		}
-	}
-	return props;
 }
