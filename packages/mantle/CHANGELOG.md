@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.69.2
+
+### Patch Changes
+
+- [#1126](https://github.com/ngrok-oss/mantle/pull/1126) [`545a09d`](https://github.com/ngrok-oss/mantle/commit/545a09d77c0503f7dfdffe5eb1cde69d59aa65f4) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump @ariakit/react from 0.4.25 to 0.4.26
+
 ## 0.69.1
 
 ### Patch Changes
