@@ -1,5 +1,14 @@
 # @ngrok/mantle-vite-plugins
 
+## 1.0.6
+
+### Patch Changes
+
+- [#1126](https://github.com/ngrok-oss/mantle/pull/1126) [`545a09d`](https://github.com/ngrok-oss/mantle/commit/545a09d77c0503f7dfdffe5eb1cde69d59aa65f4) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump oxc-parser from 0.124.0 to 0.125.0
+
+- Updated dependencies []:
+  - @ngrok/mantle-server-syntax-highlighter@1.0.4
+
 ## 1.0.5
 
 ### Patch Changes
