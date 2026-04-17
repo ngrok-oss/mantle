@@ -25,6 +25,7 @@ import { Link, href, useNavigate } from "react-router";
 import { PreviewBadge } from "~/components/badges";
 import { PrimaryFooter } from "~/components/footer";
 import { ThemeSwitcher } from "~/components/theme-switcher";
+import { releaseHref } from "~/utilities/release-href";
 import { NavLink } from "./nav-link";
 import { useNavigation } from "./navigation-context";
 import { TOC_PORTAL_ID } from "./table-of-contents";
@@ -52,7 +53,7 @@ function GitHub(props: SvgAttributes) {
 
 type Props = PropsWithChildren &
 	WithStyleProps & {
-		currentVersion: string | undefined;
+		currentVersion: string;
 	};
 
 export function Layout({ children, className, currentVersion, style }: Props) {
@@ -97,7 +98,7 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 					<div className="flex flex-col sm:flex-row items-center gap-2 -ml-1">
 						<Anchor
 							className="text-strong font-mono text-xs hidden sm:inline-block"
-							href="https://github.com/ngrok-oss/mantle/releases"
+							href={releaseHref(currentVersion)}
 						>
 							{currentVersion}
 						</Anchor>
@@ -124,7 +125,7 @@ export function Layout({ children, className, currentVersion, style }: Props) {
 							<DropdownMenu.Content>
 								<DropdownMenu.Item asChild>
 									<a
-										href="https://github.com/ngrok-oss/mantle/releases"
+										href={releaseHref(currentVersion)}
 										target="_blank"
 										className="justify-between gap-4"
 									>
@@ -437,7 +438,7 @@ function ItemName({ children }: PropsWithChildren) {
 	);
 }
 
-function CommandPalette({ currentVersion }: { currentVersion: string | undefined }) {
+function CommandPalette({ currentVersion }: { currentVersion: string }) {
 	const navigate = useNavigate();
 	const [open, setOpen] = useState(false);
 	const [currentTheme, setTheme] = useTheme();
@@ -510,7 +511,7 @@ function CommandPalette({ currentVersion }: { currentVersion: string | undefined
 							</Command.Item>
 							<Command.Item asChild onSelect={() => setOpen(false)}>
 								<a
-									href="https://github.com/ngrok-oss/mantle/releases"
+									href={releaseHref(currentVersion)}
 									target="_blank"
 									rel="noopener noreferrer"
 									className="flex items-center gap-2 justify-between"

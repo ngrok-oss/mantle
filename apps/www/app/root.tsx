@@ -32,6 +32,7 @@ import { NavigationProvider } from "./components/navigation-context";
 import { useNonce } from "./components/nonce";
 import "./global.css";
 import { canonicalDomain, canonicalHref } from "./utilities/canonical-origin";
+import invariant from "tiny-invariant";
 
 const themeUrls = mantleStyleSheetUrls({
 	darkCssUrl,
@@ -144,6 +145,9 @@ export function Layout({ children }: PropsWithChildren) {
 		window.toggleReactQueryDevtools = () => setShowReactQueryDevtools((previous) => !previous);
 	}, []);
 
+	const { currentVersion } = loaderData ?? {};
+	invariant(currentVersion, "current version should be defined");
+
 	return (
 		<html {...initialHtmlThemeProps} lang="en-US" dir="ltr" suppressHydrationWarning>
 			<head>
@@ -180,7 +184,7 @@ export function Layout({ children }: PropsWithChildren) {
 								</Suspense>
 							)}
 							<NavigationProvider>
-								<WwwLayout currentVersion={loaderData?.currentVersion}>{children}</WwwLayout>
+								<WwwLayout currentVersion={currentVersion}>{children}</WwwLayout>
 							</NavigationProvider>
 						</QueryClientProvider>
 					</TooltipProvider>
