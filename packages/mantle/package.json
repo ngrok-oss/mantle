@@ -324,7 +324,7 @@
 		"typecheck": "tsgo"
 	},
 	"dependencies": {
-		"@ariakit/react": "0.4.25",
+		"@ariakit/react": "0.4.26",
 		"@headlessui/react": "2.2.10",
 		"@radix-ui/react-accordion": "1.2.12",
 		"@radix-ui/react-dialog": "1.1.15",
