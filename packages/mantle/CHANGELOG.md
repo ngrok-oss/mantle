@@ -1,5 +1,21 @@
 # @ngrok/mantle
 
+## 0.69.1
+
+### Patch Changes
+
+- [#1141](https://github.com/ngrok-oss/mantle/pull/1141) [`f82feb8`](https://github.com/ngrok-oss/mantle/commit/f82feb81f2da67d332962cd16e138bd0de9ae45b) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add a `Composition` section to every compound component doc page showing the structural tree of its parts (ASCII art). Rename existing `asChild`-style `Composition` sections on `Badge`, `Button`, `IconButton`, `Separator`, and `SplitButton` to `Polymorphism`. Rename the `Input` children-composition section to `Child Elements` and the `Dialog` tooltip section to `Combining with a Tooltip` to avoid colliding with the new `Composition` name.
+
+  Add the same ASCII composition tree as a `@example Composition` block to the top-level namespace JSDoc of every compound component (`Accordion`, `Alert`, `AlertDialog`, `Card`, `CodeBlock`, `Combobox`, `Command`, `CursorPagination`, `DataTable`, `DescriptionList`, `Dialog`, `DropdownMenu`, `Empty`, `HoverCard`, `MediaObject`, `MultiSelect`, `Popover`, `ProgressBar`, `ProgressDonut`, `RadioGroup`, `Select`, `Sheet`, `SplitButton`, `Table`, `Tabs`, `Toast`, `Tooltip`) so consumers and LLMs see the full structural shape at a glance in IDE IntelliSense.
+
+- [#1141](https://github.com/ngrok-oss/mantle/pull/1141) [`f82feb8`](https://github.com/ngrok-oss/mantle/commit/f82feb81f2da67d332962cd16e138bd0de9ae45b) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Expand JSDoc coverage across `CodeBlock`, `Command`, `Dialog`, `Empty`, `Popover`, `Select`, and `Sheet` compound components and their sub-parts for improved IntelliSense and documentation.
+
+- [#1141](https://github.com/ngrok-oss/mantle/pull/1141) [`f82feb8`](https://github.com/ngrok-oss/mantle/commit/f82feb81f2da67d332962cd16e138bd0de9ae45b) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Fix several code fence metastring parsing bugs in `mantleCodeRehypePlugin`:
+  - `mantleShowLineNumbers`, `mantleCollapsible`, and `mantleDisableCopy` are now stringified on HAST `<pre>` properties. Previously, boolean `false` values were dropped during HAST→JSX compilation, causing `showLineNumbers=false` fence meta to be silently ignored (the rendered `<pre>` ended up with `data-mantle-line-numbers="true"` and no left padding).
+  - `collapsible=true`, `collapsible=false`, and `collapsible="true"` in fence meta are no longer silently dropped. The `collapsible` key now accepts the same bare-flag, key-value, and quoted-value forms as `disableCopy`.
+  - When a key appears multiple times in fence meta (e.g. `title="first" title="second"`), `getMetaValue` now returns the last value, matching `parseMetastring` semantics. Previously it returned the first.
+  - `tokenizeMetastring` now splits on tabs, newlines, and carriage returns in addition to spaces. Previously only literal spaces were treated as token separators, so meta like `title="Foo"\tcollapsible` was lexed as a single token.
+
 ## 0.69.0
 
 ### Minor Changes
