@@ -16,8 +16,8 @@ catalogs:
       specifier: 6.9.1
       version: 6.9.1
     '@tsdown/css':
-      specifier: 0.21.7
-      version: 0.21.7
+      specifier: 0.21.9
+      version: 0.21.9
     '@vitest/browser-playwright':
       specifier: 4.1.4
       version: 4.1.4
@@ -347,7 +347,7 @@ importers:
         version: 14.6.1(@testing-library/dom@10.4.1)
       '@tsdown/css':
         specifier: 'catalog:'
-        version: 0.21.7(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(jiti@2.6.1)(postcss@8.5.10)(tsdown@0.21.7)(tsx@4.21.0)(yaml@2.8.3)
+        version: 0.21.9(jiti@2.6.1)(postcss@8.5.10)(tsdown@0.21.7)(tsx@4.21.0)(yaml@2.8.3)
       '@types/react':
         specifier: 19.2.14
         version: 19.2.14
@@ -380,7 +380,7 @@ importers:
         version: 4.2.2
       tsdown:
         specifier: 'catalog:'
-        version: 0.21.7(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@tsdown/css@0.21.7)(@typescript/native-preview@7.0.0-dev.20260416.1)(typescript@6.0.2)
+        version: 0.21.7(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@tsdown/css@0.21.9)(@typescript/native-preview@7.0.0-dev.20260416.1)(typescript@6.0.2)
       typescript:
         specifier: 'catalog:'
         version: 6.0.2
@@ -2591,6 +2591,28 @@ packages:
       sass: '*'
       sass-embedded: '*'
       tsdown: 0.21.7
+    peerDependenciesMeta:
+      postcss:
+        optional: true
+      postcss-import:
+        optional: true
+      postcss-modules:
+        optional: true
+      sass:
+        optional: true
+      sass-embedded:
+        optional: true
+
+  '@tsdown/css@0.21.9':
+    resolution: {integrity: sha512-ZuSHdio/H9V3+LvHQ9HssC7vKNwqetG6NEyuUME5uCi1VsoGnYJKLQ+CZl4AMT87kSP+N6mF0egzdWtV34e3Pw==}
+    engines: {node: '>=20.19.0'}
+    peerDependencies:
+      postcss: ^8.4.0
+      postcss-import: ^16.0.0
+      postcss-modules: ^6.0.0
+      sass: '*'
+      sass-embedded: '*'
+      tsdown: 0.21.9
     peerDependenciesMeta:
       postcss:
         optional: true
@@ -6866,6 +6888,20 @@ snapshots:
       - jiti
       - tsx
       - yaml
+    optional: true
+
+  '@tsdown/css@0.21.9(jiti@2.6.1)(postcss@8.5.10)(tsdown@0.21.7)(tsx@4.21.0)(yaml@2.8.3)':
+    dependencies:
+      lightningcss: 1.32.0
+      postcss-load-config: 6.0.1(jiti@2.6.1)(postcss@8.5.10)(tsx@4.21.0)(yaml@2.8.3)
+      rolldown: 1.0.0-rc.16
+      tsdown: 0.21.7(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@tsdown/css@0.21.9)(@typescript/native-preview@7.0.0-dev.20260416.1)(typescript@6.0.2)
+    optionalDependencies:
+      postcss: 8.5.10
+    transitivePeerDependencies:
+      - jiti
+      - tsx
+      - yaml
 
   '@turbo/darwin-64@2.9.6':
     optional: true
@@ -9324,6 +9360,36 @@ snapshots:
       unrun: 0.2.36
     optionalDependencies:
       '@tsdown/css': 0.21.7(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(jiti@2.6.1)(postcss@8.5.10)(tsdown@0.21.7)(tsx@4.21.0)(yaml@2.8.3)
+      typescript: 6.0.2
+    transitivePeerDependencies:
+      - '@emnapi/core'
+      - '@emnapi/runtime'
+      - '@ts-macro/tsc'
+      - '@typescript/native-preview'
+      - oxc-resolver
+      - synckit
+      - vue-tsc
+
+  tsdown@0.21.7(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@tsdown/css@0.21.9)(@typescript/native-preview@7.0.0-dev.20260416.1)(typescript@6.0.2):
+    dependencies:
+      ansis: 4.2.0
+      cac: 7.0.0
+      defu: 6.1.7
+      empathic: 2.0.0
+      hookable: 6.1.1
+      import-without-cache: 0.2.5
+      obug: 2.1.1
+      picomatch: 4.0.4
+      rolldown: 1.0.0-rc.12(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)
+      rolldown-plugin-dts: 0.23.2(@typescript/native-preview@7.0.0-dev.20260416.1)(rolldown@1.0.0-rc.12(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2))(typescript@6.0.2)
+      semver: 7.7.4
+      tinyexec: 1.1.1
+      tinyglobby: 0.2.16
+      tree-kill: 1.2.2
+      unconfig-core: 7.5.0
+      unrun: 0.2.36
+    optionalDependencies:
+      '@tsdown/css': 0.21.9(jiti@2.6.1)(postcss@8.5.10)(tsdown@0.21.7)(tsx@4.21.0)(yaml@2.8.3)
       typescript: 6.0.2
     transitivePeerDependencies:
       - '@emnapi/core'
