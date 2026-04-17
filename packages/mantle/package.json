@@ -244,6 +244,11 @@
 			"types": "./dist/sheet.d.ts",
 			"import": "./dist/sheet.js"
 		},
+		"./sidebar": {
+			"@ngrok/src-live-types": "./src/components/sidebar/index.ts",
+			"types": "./dist/sidebar.d.ts",
+			"import": "./dist/sidebar.js"
+		},
 		"./skeleton": {
 			"@ngrok/src-live-types": "./src/components/skeleton/index.ts",
 			"types": "./dist/skeleton.d.ts",
