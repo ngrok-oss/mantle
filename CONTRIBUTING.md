@@ -72,6 +72,16 @@ pnpm -w run start
 
 This will spin up the react-router documentation site, and is configured to watch for changes to components (so your changes will be instantly reflected).
 
+## Scaffolding a New Component
+
+If you use [Claude Code](https://claude.com/claude-code), the repo ships a `/scaffold-component` slash command that scaffolds a new mantle component end-to-end — component files, package.json export, docs page, route registration, navigation entry, and a changeset:
+
+```
+/scaffold-component <component-name>
+```
+
+The command definition lives at [`.claude/commands/scaffold-component.md`](./.claude/commands/scaffold-component.md) and is also a useful reference if you'd rather scaffold a component by hand — it captures the full set of steps and conventions a new component needs.
+
 ## Submitting a Pull Request
 
 Before working on a large change, it is best to open an issue first to discuss.
