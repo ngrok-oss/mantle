@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.69.0
+
+### Minor Changes
+
+- [#1138](https://github.com/ngrok-oss/mantle/pull/1138) [`3f06774`](https://github.com/ngrok-oss/mantle/commit/3f06774967405751d4eec8be9d479a6b5516a6d7) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add new `Empty` compound component for rendering empty states. Includes `Empty.Root`, `Empty.Icon`, `Empty.Title`, `Empty.Description`, and `Empty.Actions` sub-components.
+
 ## 0.68.7
 
 ### Patch Changes
