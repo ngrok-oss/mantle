@@ -199,6 +199,11 @@
 			"types": "./dist/label.d.ts",
 			"import": "./dist/label.js"
 		},
+		"./main": {
+			"@ngrok/src-live-types": "./src/components/main/index.ts",
+			"types": "./dist/main.d.ts",
+			"import": "./dist/main.js"
+		},
 		"./media-object": {
 			"@ngrok/src-live-types": "./src/components/media-object/index.ts",
 			"types": "./dist/media-object.d.ts",
@@ -248,6 +253,11 @@
 			"@ngrok/src-live-types": "./src/components/sheet/index.ts",
 			"types": "./dist/sheet.d.ts",
 			"import": "./dist/sheet.js"
+		},
+		"./skip-to-main-link": {
+			"@ngrok/src-live-types": "./src/components/skip-to-main-link/index.ts",
+			"types": "./dist/skip-to-main-link.d.ts",
+			"import": "./dist/skip-to-main-link.js"
 		},
 		"./skeleton": {
 			"@ngrok/src-live-types": "./src/components/skeleton/index.ts",

@@ -4,6 +4,7 @@ import { useNavigation } from "./navigation-context";
 import { ScrollMask } from "./scroll-mask";
 import { TOC_PORTAL_ID } from "./table-of-contents";
 import { cx } from "@ngrok/mantle/cx";
+import { Main } from "@ngrok/mantle/main";
 
 type PageLayoutProps = ComponentProps<"div"> & {
 	/** The section's sidebar navigation — rendered in the desktop sidebar column and inside the mobile drawer. */
@@ -35,9 +36,7 @@ export function PageLayout({ className, children, sidebar, ...props }: PageLayou
 				<ScrollMask className="scrollbar sticky top-15 hidden max-h-[calc(100vh-3.75rem)] w-44 overflow-y-auto px-1 pb-4 md:block">
 					{sidebar}
 				</ScrollMask>
-				<main className="w-0 flex-1 pb-[80vh] sm:px-8 focus:outline-hidden" tabIndex={-1} id="main">
-					{children}
-				</main>
+				<Main className="w-0 flex-1 pb-[80vh] sm:px-8">{children}</Main>
 				<aside id={TOC_PORTAL_ID} className="hidden w-40 xl:block" />
 			</div>
 			{showNavigation && (
