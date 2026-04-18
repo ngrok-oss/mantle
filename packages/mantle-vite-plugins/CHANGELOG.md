@@ -1,5 +1,14 @@
 # @ngrok/mantle-vite-plugins
 
+## 1.0.7
+
+### Patch Changes
+
+- [#1107](https://github.com/ngrok-oss/mantle/pull/1107) [`4d35209`](https://github.com/ngrok-oss/mantle/commit/4d35209cd3ec2b15215e51107aec3de007768aa6) Thanks [@forzalupo](https://github.com/forzalupo)! - Internal: switch `=== undefined` / `!== undefined` checks to `== null` / `!= null` for consistency with the project's nullish-equality style. No behavior change.
+
+- Updated dependencies []:
+  - @ngrok/mantle-server-syntax-highlighter@1.0.4
+
 ## 1.0.6
 
 ### Patch Changes

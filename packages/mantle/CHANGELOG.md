@@ -1,5 +1,17 @@
 # @ngrok/mantle
 
+## 0.70.0
+
+### Minor Changes
+
+- [#1147](https://github.com/ngrok-oss/mantle/pull/1147) [`5e3aca7`](https://github.com/ngrok-oss/mantle/commit/5e3aca7c859b54403c9845ce93538c8e0b46f929) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add `SkipToMainLink` and `Main` components for accessible "skip to main content" navigation. `SkipToMainLink` is a visually-hidden-until-focused link that uses the browser History API directly, so it works in any framework (React Router, Next.js, plain HTML). `Main` renders a focusable `<main id="main" tabIndex={-1}>` landmark designed to pair with it.
+
+  Also registers a new `z-max` utility (backed by `--z-index-max: 2147483647`, i.e. int32 max) so consumers can stack elements above any other z-index layer.
+
+### Patch Changes
+
+- [#1107](https://github.com/ngrok-oss/mantle/pull/1107) [`4d35209`](https://github.com/ngrok-oss/mantle/commit/4d35209cd3ec2b15215e51107aec3de007768aa6) Thanks [@forzalupo](https://github.com/forzalupo)! - Internal: switch `=== undefined` / `!== undefined` checks to `== null` / `!= null` for consistency with the project's nullish-equality style. No behavior change.
+
 ## 0.69.2
 
 ### Patch Changes
