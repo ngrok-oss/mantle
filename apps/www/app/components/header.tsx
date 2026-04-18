@@ -120,6 +120,7 @@ export function Header({ className, ...props }: Omit<ComponentProps<"header">, "
 									<a
 										href={releaseHref(mantleVersion)}
 										target="_blank"
+										rel="noopener"
 										className="justify-between gap-4"
 									>
 										<span>
@@ -132,6 +133,7 @@ export function Header({ className, ...props }: Omit<ComponentProps<"header">, "
 									<a
 										href="https://github.com/ngrok-oss/mantle"
 										target="_blank"
+										rel="noopener"
 										className="justify-between gap-4"
 									>
 										GitHub Repo
@@ -237,7 +239,7 @@ function CommandPalette() {
 								<a
 									href="https://github.com/ngrok-oss/mantle"
 									target="_blank"
-									rel="noopener noreferrer"
+									rel="noopener"
 									className="flex items-center gap-2 justify-between"
 								>
 									<ItemName>

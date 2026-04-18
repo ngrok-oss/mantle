@@ -9,14 +9,6 @@ function docRoute(path: string) {
 	];
 }
 
-// function blockRoute(path: string) {
-// 	const id = `blocks-${path.replace(/\//g, "-")}`;
-// 	return [
-// 		route(path, "./routes/$.tsx", { id }),
-// 		route(`${path}.md`, "./routes/$.md.tsx", { id: `${id}-md` }),
-// 	];
-// }
-
 export default [
 	route("robots.txt", "./routes/robots[.]txt.tsx", { id: "robots-txt" }),
 	route("sitemap.xml", "./routes/sitemap[.]xml.tsx", { id: "sitemap-xml" }),
@@ -55,6 +47,7 @@ export default [
 		...docRoute("components/description-list"),
 		...docRoute("components/dialog"),
 		...docRoute("components/dropdown-menu"),
+		...docRoute("components/empty"),
 		...docRoute("components/flag"),
 		...docRoute("components/hover-card"),
 		...docRoute("components/icon-button"),
