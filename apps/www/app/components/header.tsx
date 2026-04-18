@@ -17,7 +17,7 @@ import {
 } from "@phosphor-icons/react";
 import { ListIcon } from "@phosphor-icons/react/List";
 import { XIcon } from "@phosphor-icons/react/X";
-import type { PropsWithChildren, ReactNode } from "react";
+import type { ComponentProps, PropsWithChildren } from "react";
 import { useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 import { Link, href, useNavigate } from "react-router";
@@ -39,6 +39,7 @@ import {
 } from "./navigation-data";
 import { useMantleVersion } from "./mantle-version-provider";
 import { releaseHref } from "~/utilities/release-href";
+import { cx } from "@ngrok/mantle/cx";
 
 function GitHub(props: SvgAttributes) {
 	return (
@@ -60,161 +61,109 @@ function HeaderNavLink({ to, children }: PropsWithChildren<{ to: string }>) {
 	);
 }
 
-type HeaderProps = {
-	/** Optional mobile navigation content rendered when the hamburger menu is open. */
-	mobileNavigation?: ReactNode;
-};
-
-/** Shared sticky header with logo, navigation, search, and theme controls. */
-export function Header({ mobileNavigation }: HeaderProps) {
+/**
+ * Shared sticky header with logo, navigation, search, and theme controls.
+ * Owns the hamburger toggle for the mobile drawer; the drawer itself is
+ * rendered by the active layout and keyed off `NavigationContext`.
+ */
+export function Header({ className, ...props }: Omit<ComponentProps<"header">, "children">) {
 	const { showNavigation, setShowNavigation } = useNavigation();
 	const mantleVersion = useMantleVersion();
 
 	return (
-		<>
-			<header className="sticky top-0 z-50 bg-card">
-				<div className="mx-auto flex h-15 w-full max-w-7xl items-center gap-3 px-4 md:gap-4">
-					<Link
-						to={href("/")}
-						className="flex items-center gap-2 rounded font-mono text-xl leading-8 text-strong/90 hover:text-strong focus:outline-hidden focus-visible:ring-3 focus-visible:ring-focus-accent"
-					>
-						<NgrokLettermarkIcon className="size-6" />
-						<span className="text-muted">/</span>
-						<span>mantle</span>
-					</Link>
+		<header className={cx("sticky top-0 z-50 bg-card", className)} {...props}>
+			<div className="mx-auto flex h-15 w-full max-w-7xl items-center gap-3 px-4 md:gap-4">
+				<Link
+					to={href("/")}
+					className="flex items-center gap-2 rounded font-mono text-xl leading-8 text-strong/90 hover:text-strong focus:outline-hidden focus-visible:ring-3 focus-visible:ring-focus-accent"
+				>
+					<NgrokLettermarkIcon className="size-6" />
+					<span className="text-muted">/</span>
+					<span>mantle</span>
+				</Link>
 
-					<nav className="hidden md:flex items-center gap-1">
-						<HeaderNavLink to={href("/")}>Docs</HeaderNavLink>
-						<HeaderNavLink to={href("/components/alert-dialog")}>Components</HeaderNavLink>
-						<HeaderNavLink to={href("/blocks")}>Blocks</HeaderNavLink>
-					</nav>
+				<nav className="hidden md:flex items-center gap-1">
+					<HeaderNavLink to={href("/")}>Docs</HeaderNavLink>
+					<HeaderNavLink to={href("/components/alert-dialog")}>Components</HeaderNavLink>
+					<HeaderNavLink to={href("/blocks")}>Blocks</HeaderNavLink>
+				</nav>
 
-					<div className="flex items-center ml-auto">
-						<div className="flex items-center">
-							<Button
-								asChild
-								appearance="ghost"
-								priority="neutral"
-								className="hidden md:inline-flex"
-							>
-								<a href={releaseHref(mantleVersion)} target="_blank" rel="noopener">
-									{mantleVersion}
-								</a>
-							</Button>
-							<IconButton
-								asChild
-								className="hidden md:inline-flex"
-								appearance="ghost"
-								label="ngrok Mantle GitHub repository"
-								icon={<GitHub />}
-							>
-								<a href="https://github.com/ngrok-oss/mantle" target="_blank" rel="noopener" />
-							</IconButton>
-
-							<DropdownMenu.Root>
-								<DropdownMenu.Trigger asChild>
-									<IconButton
-										appearance="ghost"
-										icon={<GitHub />}
-										label="link to ngrok Mantle GitHub"
-										type="button"
-										className="inline-flex md:hidden"
-									/>
-								</DropdownMenu.Trigger>
-								<DropdownMenu.Content>
-									<DropdownMenu.Item asChild>
-										<a
-											href={releaseHref(mantleVersion)}
-											target="_blank"
-											className="justify-between gap-4"
-										>
-											<span>
-												Version <span className="font-mono">{mantleVersion}</span>
-											</span>
-											<ArrowSquareOutIcon className="text-muted" />
-										</a>
-									</DropdownMenu.Item>
-									<DropdownMenu.Item asChild>
-										<a
-											href="https://github.com/ngrok-oss/mantle"
-											target="_blank"
-											className="justify-between gap-4"
-										>
-											GitHub Repo
-											<ArrowSquareOutIcon className="text-muted" />
-										</a>
-									</DropdownMenu.Item>
-								</DropdownMenu.Content>
-							</DropdownMenu.Root>
-
-							<ThemeSwitcher />
-						</div>
-
-						<Separator orientation="vertical" className="mx-3 h-5 hidden md:block" />
-
-						<CommandPalette />
-
-						<Separator orientation="vertical" className="mx-1 h-5 md:hidden" />
-
+				<div className="flex items-center ml-auto">
+					<div className="flex items-center">
+						<Button asChild appearance="ghost" priority="neutral" className="hidden md:inline-flex">
+							<a href={releaseHref(mantleVersion)} target="_blank" rel="noopener">
+								{mantleVersion}
+							</a>
+						</Button>
 						<IconButton
-							className="md:hidden"
-							onClick={() => {
-								setShowNavigation(!showNavigation);
-							}}
-							type="button"
+							asChild
+							className="hidden md:inline-flex"
 							appearance="ghost"
-							label="Menu"
-							size="md"
-							icon={showNavigation ? <XIcon /> : <ListIcon />}
-						/>
+							label="ngrok Mantle GitHub repository"
+							icon={<GitHub />}
+						>
+							<a href="https://github.com/ngrok-oss/mantle" target="_blank" rel="noopener" />
+						</IconButton>
+
+						<DropdownMenu.Root>
+							<DropdownMenu.Trigger asChild>
+								<IconButton
+									appearance="ghost"
+									icon={<GitHub />}
+									label="link to ngrok Mantle GitHub"
+									type="button"
+									className="inline-flex md:hidden"
+								/>
+							</DropdownMenu.Trigger>
+							<DropdownMenu.Content>
+								<DropdownMenu.Item asChild>
+									<a
+										href={releaseHref(mantleVersion)}
+										target="_blank"
+										className="justify-between gap-4"
+									>
+										<span>
+											Version <span className="font-mono">{mantleVersion}</span>
+										</span>
+										<ArrowSquareOutIcon className="text-muted" />
+									</a>
+								</DropdownMenu.Item>
+								<DropdownMenu.Item asChild>
+									<a
+										href="https://github.com/ngrok-oss/mantle"
+										target="_blank"
+										className="justify-between gap-4"
+									>
+										GitHub Repo
+										<ArrowSquareOutIcon className="text-muted" />
+									</a>
+								</DropdownMenu.Item>
+							</DropdownMenu.Content>
+						</DropdownMenu.Root>
+
+						<ThemeSwitcher />
 					</div>
+
+					<Separator orientation="vertical" className="mx-3 h-5 hidden md:block" />
+
+					<CommandPalette />
+
+					<Separator orientation="vertical" className="mx-1 h-5 md:hidden" />
+
+					<IconButton
+						className="md:hidden"
+						onClick={() => {
+							setShowNavigation(!showNavigation);
+						}}
+						type="button"
+						appearance="ghost"
+						label="Menu"
+						size="md"
+						icon={showNavigation ? <XIcon /> : <ListIcon />}
+					/>
 				</div>
-			</header>
-			{showNavigation && mobileNavigation && (
-				<div className="bg-card fixed bottom-0 left-0 right-0 top-15 z-50 p-4 md:hidden">
-					<div className="scrollbar h-full overflow-auto overscroll-contain">
-						<nav className="text-sm px-1 mb-6">
-							<ul className="flex flex-col">
-								<li className="mb-2 text-xs font-medium uppercase tracking-wider font-mono">
-									Menu
-								</li>
-								<li>
-									<Link
-										to={href("/")}
-										prefetch="intent"
-										className="text-muted hover:text-strong block py-1 rounded focus:outline-hidden focus-visible:ring-3 focus-visible:ring-focus-accent"
-										onClick={() => setShowNavigation(false)}
-									>
-										Docs
-									</Link>
-								</li>
-								<li>
-									<Link
-										to={href("/components/alert-dialog")}
-										prefetch="intent"
-										className="text-muted hover:text-strong block py-1 rounded focus:outline-hidden focus-visible:ring-3 focus-visible:ring-focus-accent"
-										onClick={() => setShowNavigation(false)}
-									>
-										Components
-									</Link>
-								</li>
-								<li>
-									<Link
-										to={href("/blocks")}
-										prefetch="intent"
-										className="text-muted hover:text-strong block py-1 rounded focus:outline-hidden focus-visible:ring-3 focus-visible:ring-focus-accent"
-										onClick={() => setShowNavigation(false)}
-									>
-										Blocks
-									</Link>
-								</li>
-							</ul>
-						</nav>
-						{mobileNavigation}
-					</div>
-				</div>
-			)}
-		</>
+			</div>
+		</header>
 	);
 }
 

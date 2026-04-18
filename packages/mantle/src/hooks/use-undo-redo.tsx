@@ -24,7 +24,7 @@ function undoRedoReducer<T>(state: UndoRedoState<T>, action: UndoRedoAction<T>):
 			}
 			const undoStack = state.undoStack.slice(0, -1);
 			const previous = state.undoStack[state.undoStack.length - 1];
-			if (previous === undefined) {
+			if (previous == null) {
 				return state;
 			}
 			return {
@@ -38,7 +38,7 @@ function undoRedoReducer<T>(state: UndoRedoState<T>, action: UndoRedoAction<T>):
 			}
 			const redoStack = state.redoStack.slice(0, -1);
 			const next = state.redoStack[state.redoStack.length - 1];
-			if (next === undefined) {
+			if (next == null) {
 				return state;
 			}
 			return {
@@ -103,7 +103,7 @@ function useUndoRedo<T>(): UseUndoRedoReturn<T> {
 	const undo = useCallback(
 		(current: T): T | undefined => {
 			const previous = state.undoStack[state.undoStack.length - 1];
-			if (previous === undefined) {
+			if (previous == null) {
 				return undefined;
 			}
 			dispatch({ type: "undo", current });
@@ -115,7 +115,7 @@ function useUndoRedo<T>(): UseUndoRedoReturn<T> {
 	const redo = useCallback(
 		(current: T): T | undefined => {
 			const next = state.redoStack[state.redoStack.length - 1];
-			if (next === undefined) {
+			if (next == null) {
 				return undefined;
 			}
 			dispatch({ type: "redo", current });

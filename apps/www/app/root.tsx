@@ -18,6 +18,7 @@ import type { PropsWithChildren } from "react";
 import { lazy, Suspense, useEffect, useState } from "react";
 import {
 	href,
+	Link,
 	Links,
 	Meta,
 	Outlet,
@@ -27,6 +28,7 @@ import {
 	useRouteLoaderData,
 } from "react-router";
 import type { Route } from "./+types/root";
+import { Header } from "./components/header";
 import { NavigationProvider } from "./components/navigation-context";
 import { useNonce } from "./components/nonce";
 import "./global.css";
@@ -136,7 +138,7 @@ declare global {
 export function Layout({ children }: PropsWithChildren) {
 	const loaderData = useRouteLoaderData<typeof loader>("root");
 	const initialHtmlThemeProps = useInitialHtmlThemeProps({
-		className: "h-full",
+		className: "h-full scroll-pt-16",
 	});
 	const scrollBehavior = useScrollBehavior();
 	const nonce = useNonce();
@@ -200,6 +202,29 @@ export function Layout({ children }: PropsWithChildren) {
 	);
 }
 
+/**
+ * The outermost route component. Renders only the truly page-agnostic chrome —
+ * skip link, header, and the outer page wrapper. Each layout route owns its
+ * own sidebar / main / TOC grid inside the `<Outlet />`.
+ */
 export default function App() {
-	return <Outlet />;
+	return (
+		<div className="flex min-h-full flex-col">
+			<Link
+				className="sr-only"
+				onClick={() => {
+					document.getElementById("main")?.focus({ preventScroll: true });
+				}}
+				to={{
+					hash: "#main",
+				}}
+			>
+				Skip to main content
+			</Link>
+			<Header />
+			<div className="mx-auto w-full max-w-7xl flex-1 px-4 pt-4 md:pt-20">
+				<Outlet />
+			</div>
+		</div>
+	);
 }

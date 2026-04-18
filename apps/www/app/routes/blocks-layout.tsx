@@ -1,47 +1,12 @@
-import { useRef, type ComponentRef } from "react";
-import { Link, Outlet } from "react-router";
+import { Outlet } from "react-router";
 import { BlocksNavigation } from "~/components/blocks-navigation";
-import { Header } from "~/components/header";
+import { PageLayout } from "~/components/page-layout";
 
-/** Layout route for the blocks section. Renders the shared header and a blocks-specific sidebar. */
+/** Layout route for the blocks section. Renders the blocks sidebar alongside the page outlet. */
 export default function BlocksLayout() {
-	const mainRef = useRef<ComponentRef<"main">>(null);
-
 	return (
-		<div className="flex min-h-full flex-col">
-			<Link
-				className="sr-only"
-				onClick={() => {
-					mainRef.current?.focus({ preventScroll: true });
-				}}
-				to={{
-					hash: "#main",
-				}}
-			>
-				Skip to main content
-			</Link>
-			<Header
-				mobileNavigation={
-					<BlocksNavigation className="scrollbar h-full overflow-auto px-1 overscroll-contain" />
-				}
-			/>
-			<div className="mx-auto w-full max-w-7xl flex-1 px-4 pb-16 pt-4 md:pt-20">
-				<div className="flex gap-4">
-					<div className="hidden w-44 md:block">
-						<div className="scrollbar sticky top-15 max-h-[calc(100vh-3.75rem)] w-44 overflow-y-auto px-1 pb-4">
-							<BlocksNavigation />
-						</div>
-					</div>
-					<main
-						className="w-0 flex-1 pb-4 md:px-9 md:pb-9 focus:outline-hidden"
-						tabIndex={-1}
-						ref={mainRef}
-						id="main"
-					>
-						<Outlet />
-					</main>
-				</div>
-			</div>
-		</div>
+		<PageLayout sidebar={<BlocksNavigation />}>
+			<Outlet />
+		</PageLayout>
 	);
 }

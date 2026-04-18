@@ -141,7 +141,7 @@ const Root = forwardRef<ComponentRef<"div">, CodeBlockRootProps>(
 			[codeId, hasCodeExpander, isCodeExpanded, registerCodeId, unregisterCodeId],
 		);
 
-		const hasTabs = defaultTab !== undefined || activeTab !== undefined;
+		const hasTabs = defaultTab != null || activeTab != null;
 		const Component = asChild ? Slot : "div";
 
 		const tree = (
