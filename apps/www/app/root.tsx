@@ -18,7 +18,6 @@ import type { PropsWithChildren } from "react";
 import { lazy, Suspense, useEffect, useState } from "react";
 import {
 	href,
-	Link,
 	Links,
 	Meta,
 	Outlet,
@@ -28,7 +27,7 @@ import {
 	useRouteLoaderData,
 } from "react-router";
 import type { Route } from "./+types/root";
-import { Anchor } from "@ngrok/mantle/anchor";
+import { SkipToMainLink } from "@ngrok/mantle/skip-to-main-link";
 import { Header } from "./components/header";
 import { NavigationProvider } from "./components/navigation-context";
 import { useNonce } from "./components/nonce";
@@ -211,19 +210,7 @@ export function Layout({ children }: PropsWithChildren) {
 export default function App() {
 	return (
 		<div className="flex min-h-full flex-col">
-			<Anchor
-				asChild
-				className="not-focus:sr-only fixed top-2 left-2 z-max bg-card px-4 py-2 shadow-lg"
-			>
-				<Link
-					onClick={() => {
-						document.getElementById("main")?.focus({ preventScroll: true });
-					}}
-					to={{ hash: "#main" }}
-				>
-					Skip to main content
-				</Link>
-			</Anchor>
+			<SkipToMainLink />
 			<Header />
 			<div className="mx-auto w-full max-w-7xl flex-1 px-4 pt-4 md:pt-20">
 				<Outlet />
