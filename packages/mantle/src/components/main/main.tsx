@@ -22,7 +22,7 @@ import { cx } from "../../utils/cx/cx.js";
  */
 const Main = ({ className, ...props }: ComponentProps<"main">) => {
 	return (
-		<main id="main" tabIndex={-1} className={cx("focus:outline-hidden", className)} {...props} />
+		<main {...props} id="main" tabIndex={-1} className={cx("focus:outline-hidden", className)} />
 	);
 };
 Main.displayName = "Main";
