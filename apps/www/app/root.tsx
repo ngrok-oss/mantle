@@ -18,6 +18,7 @@ import type { PropsWithChildren } from "react";
 import { lazy, Suspense, useEffect, useState } from "react";
 import {
 	href,
+	Link,
 	Links,
 	Meta,
 	Outlet,
@@ -27,12 +28,15 @@ import {
 	useRouteLoaderData,
 } from "react-router";
 import type { Route } from "./+types/root";
-import { Layout as WwwLayout } from "./components/layout";
+import { Anchor } from "@ngrok/mantle/anchor";
+import { Header } from "./components/header";
 import { NavigationProvider } from "./components/navigation-context";
 import { useNonce } from "./components/nonce";
 import "./global.css";
 import { canonicalDomain, canonicalHref } from "./utilities/canonical-origin";
+import { parseMantleVersion } from "./utilities/mantle-version.server";
 import invariant from "tiny-invariant";
+import { MantleVersionProvider } from "./components/mantle-version-provider";
 
 const themeUrls = mantleStyleSheetUrls({
 	darkCssUrl,
@@ -101,12 +105,15 @@ export const loader = async ({ request }: Route.LoaderArgs) => {
 	const nodeEnv = process.env.NODE_ENV ?? "development";
 
 	return {
-		currentVersion: packageJson.default.version,
+		/**
+		 * The current version of mantle from the package.json
+		 */
+		currentMantleVersion: parseMantleVersion(packageJson.default.version),
 		commitSha,
 		deploymentId,
 		renderReactQueryDevtools: nodeEnv !== "production",
 		ssrCookie: extractThemeCookie(request.headers.get("Cookie")),
-	};
+	} as const;
 };
 
 export function shouldRevalidate(_: ShouldRevalidateFunctionArgs) {
@@ -132,7 +139,7 @@ declare global {
 export function Layout({ children }: PropsWithChildren) {
 	const loaderData = useRouteLoaderData<typeof loader>("root");
 	const initialHtmlThemeProps = useInitialHtmlThemeProps({
-		className: "h-full",
+		className: "h-full scroll-pt-16",
 	});
 	const scrollBehavior = useScrollBehavior();
 	const nonce = useNonce();
@@ -145,8 +152,8 @@ export function Layout({ children }: PropsWithChildren) {
 		window.toggleReactQueryDevtools = () => setShowReactQueryDevtools((previous) => !previous);
 	}, []);
 
-	const { currentVersion } = loaderData ?? {};
-	invariant(currentVersion, "current version should be defined");
+	const { currentMantleVersion } = loaderData ?? {};
+	invariant(currentMantleVersion, "current version should be defined");
 
 	return (
 		<html {...initialHtmlThemeProps} lang="en-US" dir="ltr" suppressHydrationWarning>
@@ -170,7 +177,7 @@ export function Layout({ children }: PropsWithChildren) {
 			</head>
 			<body
 				className={cx(
-					"bg-base h-full min-h-full overflow-y-scroll scrollbar isolate relative",
+					"bg-card h-full min-h-full overflow-y-scroll scrollbar isolate relative",
 					scrollBehavior === "smooth" && "scroll-smooth",
 				)}
 			>
@@ -183,9 +190,9 @@ export function Layout({ children }: PropsWithChildren) {
 									<ReactQueryDevtoolsLazy />
 								</Suspense>
 							)}
-							<NavigationProvider>
-								<WwwLayout currentVersion={currentVersion}>{children}</WwwLayout>
-							</NavigationProvider>
+							<MantleVersionProvider mantleVersion={currentMantleVersion}>
+								<NavigationProvider>{children}</NavigationProvider>
+							</MantleVersionProvider>
 						</QueryClientProvider>
 					</TooltipProvider>
 				</ThemeProvider>
@@ -196,6 +203,31 @@ export function Layout({ children }: PropsWithChildren) {
 	);
 }
 
+/**
+ * The outermost route component. Renders only the truly page-agnostic chrome —
+ * skip link, header, and the outer page wrapper. Each layout route owns its
+ * own sidebar / main / TOC grid inside the `<Outlet />`.
+ */
 export default function App() {
-	return <Outlet />;
+	return (
+		<div className="flex min-h-full flex-col">
+			<Anchor
+				asChild
+				className="not-focus:sr-only fixed top-2 left-2 z-max bg-card px-4 py-2 shadow-lg"
+			>
+				<Link
+					onClick={() => {
+						document.getElementById("main")?.focus({ preventScroll: true });
+					}}
+					to={{ hash: "#main" }}
+				>
+					Skip to main content
+				</Link>
+			</Anchor>
+			<Header />
+			<div className="mx-auto w-full max-w-7xl flex-1 px-4 pt-4 md:pt-20">
+				<Outlet />
+			</div>
+		</div>
+	);
 }
