@@ -12,6 +12,15 @@ import { Example } from "~/components/example";
 
 Displays rich content in a portal, triggered by a button.
 
+## When to use
+
+A `Popover` is a non-modal dialog anchored to a trigger. Use it when the floating content must be interactive — forms, menus of actions, filters, settings.
+
+- Prefer [`Tooltip`](/components/tooltip) for a short, non-interactive label on a control (for example, the purpose of an icon-only button).
+- Prefer [`HoverCard`](/components/hover-card) for a sighted-only preview of content that already lives behind a link.
+
+Popover follows the [WAI-ARIA dialog pattern](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/): focus is managed, `Tab` cycles through interactive content, and `Escape` closes and returns focus to the trigger.
+
 <Example className="gap-2">
 	<Popover.Root>
 		<Popover.Trigger asChild>
