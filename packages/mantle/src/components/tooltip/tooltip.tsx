@@ -123,7 +123,7 @@ Content.displayName = "Tooltip.Content";
 
 /**
  * A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.
- * Will throw if you have not wrapped your app in a `TooltipProvider`.
+ * Wrapping your app in a `TooltipProvider` is recommended to share global tooltip behavior (delay, hover settings) across your application.
  *
  * Use a `Tooltip` for short, non-interactive labels — for example, to clarify
  * the purpose of an icon-only button. Per the WAI-ARIA tooltip pattern,

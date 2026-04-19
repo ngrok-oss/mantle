@@ -22,7 +22,7 @@ A `HoverCard` shows a preview of richer content (a user card, link preview, etc.
 - Prefer [`Popover`](/components/popover) when the content must be reachable by all users and may contain interactive elements.
 
 > [!WARNING]
-> Hover cards are for sighted users only — the content is not reached by keyboard and is ignored by screen readers. Any information inside a `HoverCard` must also be available through another fully accessible path (usually the underlying link).
+> Do not rely on a `HoverCard` as the only accessible path to important content. Because it opens on pointer hover, it is not a reliable path for keyboard or screen reader users. Any information inside a `HoverCard` must also be available through another fully accessible path (usually the underlying link).
 
 <Example className="gap-2">
 	<HoverCard.Root>

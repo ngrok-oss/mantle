@@ -171,12 +171,16 @@ Content.displayName = "PopoverContent";
 /**
  * A floating overlay that displays rich content in a portal, triggered by a button.
  *
- * `Popover` follows the WAI-ARIA dialog pattern: focus is managed, `Tab`
- * cycles through interactive descendants, and `Escape` closes and returns
- * focus to the trigger. Use a `Popover` when the floating content must be
- * interactive — forms, action menus, filters, settings. Prefer `Tooltip` for
- * short, non-interactive labels on controls, or `HoverCard` for a
- * sighted-only preview of content that already lives behind a link.
+ * `Popover` is a non-modal dialog by default: focus moves into the content
+ * when it opens, `Escape` closes and returns focus to the trigger, clicking
+ * outside dismisses, and the page (body and any scroll containers) continues
+ * to scroll normally. Pass `modal` on `Popover.Root` to trap focus inside
+ * the content, block interaction with the rest of the page, and lock body
+ * scroll while the popover is open. Use a `Popover` when the floating
+ * content must be interactive — forms, action menus, filters, settings.
+ * Prefer `Tooltip` for short, non-interactive labels on controls, or
+ * `HoverCard` for a sighted-only preview of content that already lives
+ * behind a link.
  *
  * @see https://mantle.ngrok.com/components/popover
  * @see https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/
