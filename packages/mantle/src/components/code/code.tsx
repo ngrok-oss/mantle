@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import type { HTMLAttributes } from "react";
+import type { ComponentProps, ComponentRef } from "react";
 import type { WithAsChild } from "../../types/as-child.js";
 import { cx } from "../../utils/cx/cx.js";
 import { Slot } from "../slot/index.js";
@@ -16,7 +16,7 @@ import { Slot } from "../slot/index.js";
  * </p>
  * ```
  */
-const Code = forwardRef<HTMLSpanElement, HTMLAttributes<HTMLSpanElement> & WithAsChild>(
+const Code = forwardRef<ComponentRef<"code">, ComponentProps<"code"> & WithAsChild>(
 	({ asChild, className, ...props }, ref) => {
 		const Comp = asChild ? Slot : "code";
 		return (

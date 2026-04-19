@@ -7,9 +7,12 @@ import {
 } from "@tanstack/react-table";
 import {
 	type ComponentProps,
+	type ComponentPropsWithoutRef,
+	type ComponentRef,
 	Fragment,
 	type ReactNode,
 	createContext,
+	forwardRef,
 	useContext,
 	useMemo,
 } from "react";
@@ -220,9 +223,11 @@ function Header({ children, className, ...props }: DataTableHeaderProps) {
 	);
 }
 
-const Body = ({ ...props }: ComponentProps<typeof Table.Body>) => (
-	<Table.Body data-slot="data-table-body" {...props} />
-);
+const Body = forwardRef<
+	ComponentRef<typeof Table.Body>,
+	ComponentPropsWithoutRef<typeof Table.Body>
+>((props, ref) => <Table.Body ref={ref} data-slot="data-table-body" {...props} />);
+Body.displayName = "DataTableBody";
 
 type DataTableHeadProps = Omit<ComponentProps<typeof Table.Head>, "children">;
 

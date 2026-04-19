@@ -1,9 +1,7 @@
 import type { ComponentProps, ComponentRef } from "react";
 import { forwardRef, useLayoutEffect, useMemo, useRef, useState } from "react";
-import type { WithAsChild } from "../../types/as-child.js";
 import { composeRefs } from "../../utils/compose-refs/compose-refs.js";
 import { cx } from "../../utils/cx/cx.js";
-import { Slot } from "../slot/index.js";
 
 /**
  * The `<Table.Root>` is the root container element for all `Table`s.
@@ -47,13 +45,12 @@ import { Slot } from "../slot/index.js";
  *
  * @see https://mantle.ngrok.com/components/table#tableroot
  */
-const Root = forwardRef<ComponentRef<"div">, ComponentProps<"div"> & WithAsChild>(
-	({ asChild, children, className, ...props }, ref) => {
+const Root = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
+	({ children, className, ...props }, ref) => {
 		const horizontalOverflow = useHorizontalOverflowObserver<ComponentRef<"div">>();
-		const Comp = asChild ? Slot : "div";
 
 		return (
-			<Comp
+			<div
 				data-slot="table"
 				className={cx(
 					"group/table relative w-full overflow-hidden rounded-lg border border-card bg-white dark:bg-gray-100",
@@ -90,7 +87,7 @@ const Root = forwardRef<ComponentRef<"div">, ComponentProps<"div"> & WithAsChild
 				>
 					{children}
 				</div>
-			</Comp>
+			</div>
 		);
 	},
 );
