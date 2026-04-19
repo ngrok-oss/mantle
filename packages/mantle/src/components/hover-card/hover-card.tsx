@@ -120,6 +120,14 @@ Content.displayName = HoverCardPrimitive.Content.displayName;
 /**
  * A floating card that appears when a user hovers over a trigger element.
  *
+ * `HoverCard` is intended primarily for sighted users — it is not a
+ * reliably discoverable path for keyboard or screen reader users, since it
+ * opens on pointer hover. Use it for supplemental previews of content that
+ * is already available through another accessible path (typically the
+ * underlying link). Prefer `Popover` when the floating content must be
+ * reachable by all users, or `Tooltip` for short, non-interactive labels on
+ * controls.
+ *
  * @see https://mantle.ngrok.com/components/hover-card
  *
  * @example
