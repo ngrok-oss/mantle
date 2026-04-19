@@ -158,7 +158,12 @@ const Group = forwardRef<
 	ComponentRef<typeof SelectPrimitive.Group>,
 	ComponentPropsWithoutRef<typeof SelectPrimitive.Group>
 >(({ className, ...props }, ref) => (
-	<SelectPrimitive.Group ref={ref} className={cx("space-y-px", className)} {...props} />
+	<SelectPrimitive.Group
+		ref={ref}
+		data-slot="select-group"
+		className={cx("space-y-px", className)}
+		{...props}
+	/>
 ));
 Group.displayName = "SelectGroup";
 
@@ -252,6 +257,7 @@ const Trigger = forwardRef<ComponentRef<typeof SelectPrimitive.Trigger>, SelectT
 		return (
 			<SelectPrimitive.Trigger
 				aria-invalid={ariaInvalid}
+				data-slot="select-trigger"
 				className={cx(
 					"h-9 text-sm",
 					"border-form bg-form text-strong font-sans placeholder:text-placeholder hover:bg-form-hover hover:text-strong flex w-full items-center justify-between gap-1.5 rounded-md border px-3 py-2 disabled:pointer-events-none disabled:opacity-50 [&>span]:line-clamp-1 [&>span]:text-left",
@@ -357,6 +363,7 @@ const Content = forwardRef<ComponentRef<typeof SelectPrimitive.Content>, SelectC
 		<SelectPrimitive.Portal>
 			<SelectPrimitive.Content
 				ref={ref}
+				data-slot="select-content"
 				className={cx(
 					"border-popover data-side-bottom:slide-in-from-top-2 data-side-left:slide-in-from-right-2 data-side-right:slide-in-from-left-2 data-side-top:slide-in-from-bottom-2 data-state-closed:animate-out data-state-closed:fade-out-0 data-state-closed:zoom-out-95 data-state-open:animate-in data-state-open:fade-in-0 data-state-open:zoom-in-95 relative z-50 max-h-96 min-w-32 overflow-hidden rounded-md border shadow-md",
 					"bg-popover font-sans",
@@ -418,6 +425,7 @@ const Label = forwardRef<
 >(({ className, ...props }, ref) => (
 	<SelectPrimitive.Label
 		ref={ref}
+		data-slot="select-label"
 		className={cx("px-2 py-1.5 text-sm font-medium", className)}
 		{...props}
 	/>
@@ -462,6 +470,7 @@ const Item = forwardRef<ComponentRef<typeof SelectPrimitive.Item>, SelectItemPro
 	({ className, children, icon, ...props }, ref) => (
 		<SelectPrimitive.Item
 			ref={ref}
+			data-slot="select-item"
 			className={cx(
 				"relative flex gap-2 w-full cursor-pointer select-none items-center rounded-md py-1.5 pl-2 pr-8 text-strong text-sm outline-hidden",
 				"focus:bg-active-menu-item",
@@ -514,7 +523,12 @@ const SelectSeparatorComponent = forwardRef<
 	ComponentRef<typeof Separator>,
 	ComponentPropsWithoutRef<typeof Separator>
 >(({ className, ...props }, ref) => (
-	<Separator ref={ref} className={cx("-mx-1 my-1 h-px w-auto", className)} {...props} />
+	<Separator
+		ref={ref}
+		data-slot="select-separator"
+		className={cx("-mx-1 my-1 h-px w-auto", className)}
+		{...props}
+	/>
 ));
 SelectSeparatorComponent.displayName = "SelectSeparator";
 

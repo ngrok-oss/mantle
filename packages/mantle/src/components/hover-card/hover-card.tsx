@@ -53,7 +53,12 @@ Root.displayName = "HoverCard";
  * </HoverCard.Root>
  * ```
  */
-const Trigger = HoverCardPrimitive.Trigger;
+const Trigger = forwardRef<
+	ComponentRef<typeof HoverCardPrimitive.Trigger>,
+	ComponentPropsWithoutRef<typeof HoverCardPrimitive.Trigger>
+>((props, ref) => (
+	<HoverCardPrimitive.Trigger ref={ref} data-slot="hover-card-trigger" {...props} />
+));
 Trigger.displayName = "HoverCardTrigger";
 
 /**
@@ -91,6 +96,7 @@ const Content = forwardRef<
 	<Portal>
 		<HoverCardPrimitive.Content
 			ref={ref}
+			data-slot="hover-card-content"
 			align={align}
 			sideOffset={sideOffset}
 			className={cx(

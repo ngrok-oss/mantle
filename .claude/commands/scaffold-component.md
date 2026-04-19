@@ -66,6 +66,12 @@ Create `packages/mantle/src/components/<component-name>/` with:
 - Use `ComponentProps` from React for prop types (no `interface`, use `type`)
 - Add JSDoc comments on all exported components with `@see` linking to `https://mantle.ngrok.com/components/<component-name>` and `@example` blocks
 - Use named exports (no default exports)
+- **Add a `data-slot` attribute to the rendered root element of every component** (applies to both simple and compound components, and to every sub-part of a compound component). Use kebab-case:
+  - Simple component: `data-slot="<component-name>"` (e.g., `data-slot="main"`)
+  - Compound root: `data-slot="<component-name>"` (e.g., `data-slot="code-block"`)
+  - Compound sub-part: `data-slot="<component-name>-<sub-part>"` (e.g., `data-slot="code-block-header"`, `data-slot="empty-title"`)
+
+  `data-slot` attributes give consumers a stable, styling-friendly hook that survives className overrides and `asChild` swaps. See `multi-select.tsx`, `empty.tsx`, and `code-block.tsx` for examples.
 
 #### Compound component pattern (POJO namespace)
 
@@ -156,13 +162,28 @@ If the component has sub-parts, follow the POJO namespace pattern from `decision
 
 #### `asChild` support
 
-Sub-components that render a semantic HTML element (headings, paragraphs, etc.) where consumers may need element-level flexibility should support the `asChild` prop:
+**All components and compound sub-parts should support the `asChild` prop by default.** Every component has an ideal default DOM element it renders as, but consumers must also be able to swap that element for their own component or a different tag when composition requires it — that's what `asChild` is for. Only skip `asChild` when there is a concrete reason the polymorphism doesn't apply (examples below).
+
+To add `asChild` support:
 
 - Import `WithAsChild` from `../../types/as-child.js` and `Slot` from `../slot/index.js`
-- Add `asChild` to the props type: `HTMLAttributes<HTMLElement> & WithAsChild`
-- Swap the rendered element: `const Comp = asChild ? Slot : "h3";`
+- Add `asChild` to the props type: `ComponentProps<"div"> & WithAsChild` (or the appropriate element)
+- Swap the rendered element:
+  ```tsx
+  const Comp = asChild ? Slot : "div";
+  return <Comp data-slot="my-component" className={cx(...)} {...props} />;
+  ```
+- Document the polymorphism in the docs page under a `## Polymorphism` section (see step 3).
 
-See the `Empty.Title` and `Empty.Description` components for a real example.
+**Exceptions — when NOT to add `asChild`:**
+
+- The component accepts an element via a prop rather than children and clones it internally (e.g., `Empty.Icon` takes an `svg` prop and uses `SvgOnly` to clone it — polymorphism is already handled via the prop).
+- The component is a pure utility that does not render a DOM element (e.g., `BrowserOnly`, `Slot` itself, `SandboxedOnClick`).
+- The component wraps a third-party primitive (Radix, Ariakit) that already exposes its own `asChild` / `render` mechanism, in which case forward to that primitive's escape hatch instead of re-implementing with `Slot`.
+
+If you skip `asChild`, document why in a short comment at the component declaration so future maintainers know it was a deliberate exception, not an oversight.
+
+See `alert.tsx`, `empty.tsx`, and `code-block.tsx` for canonical examples.
 
 #### Simple (non-compound) components
 

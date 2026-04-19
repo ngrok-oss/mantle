@@ -23,14 +23,17 @@ import { Slot } from "../slot/index.js";
  * </Empty.Root>
  * ```
  */
-const Root = ({ children, className, ...props }: ComponentProps<"div">) => {
+const Root = ({ asChild, children, className, ...props }: ComponentProps<"div"> & WithAsChild) => {
+	const Comp = asChild ? Slot : "div";
+
 	return (
-		<div
+		<Comp
+			data-slot="empty"
 			className={cx("mx-auto flex max-w-lg flex-col items-center py-14 text-center", className)}
 			{...props}
 		>
 			{children}
-		</div>
+		</Comp>
 	);
 };
 Root.displayName = "Empty";
@@ -61,7 +64,14 @@ type EmptyIconProps = Omit<SvgAttributes, "children"> & {
  * ```
  */
 const Icon = ({ className, svg, ...props }: EmptyIconProps) => {
-	return <SvgOnly className={cx("mb-2 size-16 text-muted", className)} svg={svg} {...props} />;
+	return (
+		<SvgOnly
+			data-slot="empty-icon"
+			className={cx("mb-2 size-16 text-muted", className)}
+			svg={svg}
+			{...props}
+		/>
+	);
 };
 Icon.displayName = "EmptyIcon";
 
@@ -96,7 +106,11 @@ const Title = ({
 	const Comp = asChild ? Slot : "h3";
 
 	return (
-		<Comp className={cx("text-strong text-xl font-medium", className)} {...props}>
+		<Comp
+			data-slot="empty-title"
+			className={cx("text-strong text-xl font-medium", className)}
+			{...props}
+		>
 			{children}
 		</Comp>
 	);
@@ -136,7 +150,11 @@ const Description = ({
 	const Comp = asChild ? Slot : "div";
 
 	return (
-		<Comp className={cx("text-body mt-1 space-y-4 text-sm", className)} {...props}>
+		<Comp
+			data-slot="empty-description"
+			className={cx("text-body mt-1 space-y-4 text-sm", className)}
+			{...props}
+		>
 			{children}
 		</Comp>
 	);
@@ -161,11 +179,22 @@ Description.displayName = "EmptyDescription";
  * </Empty.Root>
  * ```
  */
-const Actions = ({ children, className, ...props }: ComponentProps<"div">) => {
+const Actions = ({
+	asChild,
+	children,
+	className,
+	...props
+}: ComponentProps<"div"> & WithAsChild) => {
+	const Comp = asChild ? Slot : "div";
+
 	return (
-		<div className={cx("mt-4 flex items-center gap-2", className)} {...props}>
+		<Comp
+			data-slot="empty-actions"
+			className={cx("mt-4 flex items-center gap-2", className)}
+			{...props}
+		>
 			{children}
-		</div>
+		</Comp>
 	);
 };
 Actions.displayName = "EmptyActions";

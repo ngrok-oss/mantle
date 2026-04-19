@@ -199,7 +199,14 @@ Root.displayName = "CodeBlock";
 const Body = forwardRef<ComponentRef<"div">, ComponentProps<"div"> & WithAsChild>(
 	({ asChild = false, className, ...props }, ref) => {
 		const Component = asChild ? Slot : "div";
-		return <Component className={cx("relative", className)} ref={ref} {...props} />;
+		return (
+			<Component
+				data-slot="code-block-body"
+				className={cx("relative", className)}
+				ref={ref}
+				{...props}
+			/>
+		);
 	},
 );
 Body.displayName = "CodeBlockBody";
@@ -364,6 +371,7 @@ const Code = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
 
 		return (
 			<pre
+				data-slot="code-block-code"
 				aria-expanded={hasCodeExpander ? isCodeExpanded : undefined}
 				className={cx(
 					"scrollbar overflow-x-auto overflow-y-hidden py-4",
@@ -431,6 +439,7 @@ const Header = forwardRef<ComponentRef<"div">, ComponentProps<"div"> & WithAsChi
 		const Component = asChild ? Slot : "div";
 		return (
 			<Component
+				data-slot="code-block-header"
 				className={cx(
 					"flex items-center gap-1 border-b border-gray-300 bg-base px-4 py-2 text-gray-700",
 					className,
@@ -469,6 +478,7 @@ const Title = forwardRef<
 	const Component = asChild ? Slot : "h3";
 	return (
 		<Component
+			data-slot="code-block-title"
 			ref={ref}
 			className={cx("text-mono m-0 font-mono font-normal", className)}
 			{...props}
@@ -523,7 +533,7 @@ const CopyButton = forwardRef<ComponentRef<"button">, CodeBlockCopyButtonProps>(
 		}, []);
 
 		return (
-			<span className="absolute right-2.5 top-2.5 z-10 bg-card">
+			<span data-slot="code-block-copy-button" className="absolute right-2.5 top-2.5 z-10 bg-card">
 				<IconButton
 					type="button"
 					appearance="ghost"
@@ -604,6 +614,7 @@ const ExpanderButton = forwardRef<ComponentRef<"button">, CodeBlockExpanderButto
 		return (
 			<Component
 				{...props}
+				data-slot="code-block-expander-button"
 				aria-controls={codeId}
 				aria-expanded={isCodeExpanded}
 				className={cx(
@@ -695,7 +706,7 @@ function CodeBlockIconComponent({
 				break;
 		}
 	}
-	return <MantleIcon className={className} svg={svg} {...props} />;
+	return <MantleIcon data-slot="code-block-icon" className={className} svg={svg} {...props} />;
 }
 CodeBlockIconComponent.displayName = "CodeBlockIcon";
 
@@ -732,7 +743,12 @@ type CodeBlockTabListProps = Omit<ComponentProps<typeof RadixTabsList>, "asChild
  */
 const TabList = forwardRef<ComponentRef<typeof RadixTabsList>, CodeBlockTabListProps>(
 	({ className, ...props }, ref) => (
-		<RadixTabsList className={cx("flex items-center gap-1", className)} ref={ref} {...props} />
+		<RadixTabsList
+			data-slot="code-block-tab-list"
+			className={cx("flex items-center gap-1", className)}
+			ref={ref}
+			{...props}
+		/>
 	),
 );
 TabList.displayName = "CodeBlockTabList";
@@ -754,6 +770,7 @@ type CodeBlockTabTriggerProps = Omit<ComponentProps<typeof RadixTabsTrigger>, "a
 const TabTrigger = forwardRef<ComponentRef<typeof RadixTabsTrigger>, CodeBlockTabTriggerProps>(
 	({ className, ...props }, ref) => (
 		<RadixTabsTrigger
+			data-slot="code-block-tab-trigger"
 			className={cx(
 				"cursor-pointer rounded px-1.5 py-0.5 text-xs font-medium",
 				"text-gray-600 outline-hidden",
@@ -793,7 +810,7 @@ type CodeBlockTabContentProps = Omit<
  * ```
  */
 const TabContent = forwardRef<ComponentRef<typeof RadixTabsContent>, CodeBlockTabContentProps>(
-	(props, ref) => <RadixTabsContent ref={ref} {...props} />,
+	(props, ref) => <RadixTabsContent data-slot="code-block-tab-content" ref={ref} {...props} />,
 );
 TabContent.displayName = "CodeBlockTabContent";
 

@@ -111,6 +111,49 @@ describe("Empty", () => {
 		expect(actions.tagName).toBe("DIV");
 	});
 
+	test("Root renders as child element when asChild is true", () => {
+		render(
+			<Empty.Root asChild>
+				<section data-testid="root">content</section>
+			</Empty.Root>,
+		);
+		const root = screen.getByTestId("root");
+		expect(root.tagName).toBe("SECTION");
+		expect(root).toHaveAttribute("data-slot", "empty");
+		expect(root).toHaveTextContent("content");
+	});
+
+	test("Root forwards data-slot on the default element", () => {
+		render(<Empty.Root data-testid="root">content</Empty.Root>);
+		expect(screen.getByTestId("root")).toHaveAttribute("data-slot", "empty");
+	});
+
+	test("Actions renders as child element when asChild is true", () => {
+		render(
+			<Empty.Root>
+				<Empty.Actions asChild>
+					<nav data-testid="actions">
+						<button type="button">Click</button>
+					</nav>
+				</Empty.Actions>
+			</Empty.Root>,
+		);
+		const actions = screen.getByTestId("actions");
+		expect(actions.tagName).toBe("NAV");
+		expect(actions).toHaveAttribute("data-slot", "empty-actions");
+	});
+
+	test("Actions forwards data-slot on the default element", () => {
+		render(
+			<Empty.Root>
+				<Empty.Actions data-testid="actions">
+					<button type="button">Click</button>
+				</Empty.Actions>
+			</Empty.Root>,
+		);
+		expect(screen.getByTestId("actions")).toHaveAttribute("data-slot", "empty-actions");
+	});
+
 	test("Actions merges custom className", () => {
 		render(
 			<Empty.Root>
