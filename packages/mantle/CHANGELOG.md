@@ -1,5 +1,21 @@
 # @ngrok/mantle
 
+## 0.70.1
+
+### Patch Changes
+
+- [#1148](https://github.com/ngrok-oss/mantle/pull/1148) [`6085190`](https://github.com/ngrok-oss/mantle/commit/60851902cd6ed01ea7c45429817cf16145d84167) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add missing `data-slot` attributes across the component library so every exported component and compound sub-part exposes a stable `data-slot="<name>"` (or `data-slot="<name>-<part>"`) styling hook. Also adds `asChild` support (via `Slot`) to `Empty.Root`, `Empty.Actions`, `Code`, and `ButtonGroup`.
+
+  Components updated include (non-exhaustive): `Main`, `SkipToMainLink`, `Empty`, `CodeBlock`, `Tabs`, `TextArea`, `Toast`/`Toaster`, `Separator`, `HorizontalSeparatorGroup`, `Sheet`, `Skeleton`, `Switch`, `Table`, `Label`, `MediaObject`, `Popover`, `RadioGroup`, `Select`, `Flag`, `HoverCard`, `Icon`, `SvgOnly`, `Input`/`PasswordInput`, `Kbd`, `DescriptionList`, `Dialog`, `DropdownMenu`, `DataTable`, `MetaKey`, `CursorPagination`, `ProgressBar`, and `ProgressDonut`. `HoverCard.Trigger`, `Dialog.Trigger`/`Dialog.Close`, and `DropdownMenu.Trigger` are now thin wrappers around their underlying Radix primitives so they can carry a `data-slot` attribute.
+
+  Note: `ProgressBar`'s existing `data-slot` values were renamed to follow the compound-component naming convention — `data-slot="progress"` → `data-slot="progress-bar"` and `data-slot="progress-indicator"` → `data-slot="progress-bar-indicator"`. Consumers styling against those specific values will need to update their selectors.
+
+- [#1150](https://github.com/ngrok-oss/mantle/pull/1150) [`e623364`](https://github.com/ngrok-oss/mantle/commit/e623364b21f9e5b8159e8995fdcaf82700195fa6) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Anchors (`<a>` elements, including those rendered by the `Anchor` component) that are descendants of `Alert.Root` now inherit the alert's variant text color (e.g. `text-warning-700` inside a warning alert) and are underlined at all times — not just on hover. This keeps inline links visually coherent with the surrounding alert copy while still marking them as links.
+
+  **Visual change**: consumers that currently render links inside `Alert.Root` will see those links shift from the default `text-accent-600` to the alert's priority color, and the underline will be persistent rather than hover-only.
+
+- [#1150](https://github.com/ngrok-oss/mantle/pull/1150) [`e623364`](https://github.com/ngrok-oss/mantle/commit/e623364b21f9e5b8159e8995fdcaf82700195fa6) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add "when to use" guidance and WAI-ARIA cross-references to the `Tooltip`, `Popover`, and `HoverCard` compound-namespace JSDoc so editor hover tips surface the correct component for each use case.
+
 ## 0.70.0
 
 ### Minor Changes
