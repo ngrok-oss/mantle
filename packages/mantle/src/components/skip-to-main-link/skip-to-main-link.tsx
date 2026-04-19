@@ -46,6 +46,7 @@ const SkipToMainLink = ({
 	return (
 		<Anchor
 			{...props}
+			data-slot="skip-to-main-link"
 			href={`#${targetId}`}
 			onClick={(event) => {
 				event.preventDefault();

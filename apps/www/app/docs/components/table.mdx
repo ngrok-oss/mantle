@@ -152,7 +152,11 @@ The `Table` is a structured way to display data in rows and columns. The API mat
 
 Root container for all `Table` sub-components. Should be the parent of all other table sub-components. It provides styling and additional functionality, such as horizontal overflow detection.
 
-All props from [div](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes).
+All props from [div](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes), plus:
+
+| Prop       | Type      | Default | Description                                       |
+| ---------- | --------- | ------- | ------------------------------------------------- |
+| `asChild?` | `boolean` | `false` | Render as a different element by passing a child. |
 
 ### Table.Element
 

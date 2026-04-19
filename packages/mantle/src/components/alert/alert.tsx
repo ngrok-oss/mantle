@@ -146,6 +146,7 @@ const Root = forwardRef<ComponentRef<"div">, AlertProps>(
 			<AlertContext.Provider value={context}>
 				<div
 					ref={ref}
+					data-slot="alert"
 					className={cx(alertVariants({ appearance, priority }), className)}
 					{...props}
 				/>
@@ -201,7 +202,13 @@ const Icon = forwardRef<ComponentRef<"svg">, AlertIconProps>(
 		const defaultIcon = defaultIcons[ctx.priority];
 
 		return (
-			<SvgOnly ref={ref} className={cx("size-5", className)} svg={svg ?? defaultIcon} {...props} />
+			<SvgOnly
+				ref={ref}
+				data-slot="alert-icon"
+				className={cx("size-5", className)}
+				svg={svg ?? defaultIcon}
+				{...props}
+			/>
 		);
 	},
 );
@@ -230,6 +237,7 @@ const Content = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
 	({ className, ...props }, ref) => (
 		<div
 			ref={ref}
+			data-slot="alert-content"
 			className={cx("min-w-0 flex-1 has-data-alert-dismiss:pr-6", className)}
 			{...props}
 		/>
@@ -262,7 +270,14 @@ const Title = forwardRef<HTMLHeadingElement, AlertTitleProps>(
 	({ asChild = false, className, ...props }, ref) => {
 		const Component = asChild ? Slot : "h5";
 
-		return <Component ref={ref} className={cx("font-medium", className)} {...props} />;
+		return (
+			<Component
+				ref={ref}
+				data-slot="alert-title"
+				className={cx("font-medium", className)}
+				{...props}
+			/>
+		);
 	},
 );
 Title.displayName = "AlertTitle";
@@ -294,7 +309,14 @@ const Description = forwardRef<ComponentRef<"div">, AlertDescriptionProps>(
 	({ asChild = false, className, ...props }, ref) => {
 		const Component = asChild ? Slot : "div";
 
-		return <Component ref={ref} className={cx("text-sm", className)} {...props} />;
+		return (
+			<Component
+				ref={ref}
+				data-slot="alert-description"
+				className={cx("text-sm", className)}
+				{...props}
+			/>
+		);
 	},
 );
 Description.displayName = "AlertDescription";
@@ -332,6 +354,7 @@ const DismissIconButton = ({
 			icon={icon}
 			label={label}
 			size={size}
+			data-slot="alert-dismiss-icon-button"
 			data-alert-dismiss
 			className={cx(
 				"right-1.5 top-1.5 absolute",

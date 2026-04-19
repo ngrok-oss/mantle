@@ -2,7 +2,7 @@
 
 import * as HoverCardPrimitive from "@radix-ui/react-hover-card";
 import { forwardRef } from "react";
-import type { ComponentPropsWithoutRef, ComponentRef } from "react";
+import type { ComponentProps, ComponentPropsWithoutRef, ComponentRef } from "react";
 import { cx } from "../../utils/cx/cx.js";
 
 /**
@@ -30,7 +30,12 @@ const Root = ({
 	openDelay = 100,
 	...props
 }: ComponentPropsWithoutRef<typeof HoverCardPrimitive.Root>) => (
-	<HoverCardPrimitive.Root closeDelay={closeDelay} openDelay={openDelay} {...props} />
+	<HoverCardPrimitive.Root
+		data-slot="hover-card"
+		closeDelay={closeDelay}
+		openDelay={openDelay}
+		{...props}
+	/>
 );
 Root.displayName = "HoverCard";
 
@@ -53,7 +58,9 @@ Root.displayName = "HoverCard";
  * </HoverCard.Root>
  * ```
  */
-const Trigger = HoverCardPrimitive.Trigger;
+const Trigger = (props: ComponentProps<typeof HoverCardPrimitive.Trigger>) => (
+	<HoverCardPrimitive.Trigger data-slot="hover-card-trigger" {...props} />
+);
 Trigger.displayName = "HoverCardTrigger";
 
 /**
@@ -91,6 +98,7 @@ const Content = forwardRef<
 	<Portal>
 		<HoverCardPrimitive.Content
 			ref={ref}
+			data-slot="hover-card-content"
 			align={align}
 			sideOffset={sideOffset}
 			className={cx(

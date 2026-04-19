@@ -1,7 +1,9 @@
 import type { ComponentProps, ComponentRef } from "react";
 import { forwardRef, useLayoutEffect, useMemo, useRef, useState } from "react";
+import type { WithAsChild } from "../../types/as-child.js";
 import { composeRefs } from "../../utils/compose-refs/compose-refs.js";
 import { cx } from "../../utils/cx/cx.js";
+import { Slot } from "../slot/index.js";
 
 /**
  * The `<Table.Root>` is the root container element for all `Table`s.
@@ -45,12 +47,14 @@ import { cx } from "../../utils/cx/cx.js";
  *
  * @see https://mantle.ngrok.com/components/table#tableroot
  */
-const Root = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
-	({ children, className, ...props }, ref) => {
+const Root = forwardRef<ComponentRef<"div">, ComponentProps<"div"> & WithAsChild>(
+	({ asChild, children, className, ...props }, ref) => {
 		const horizontalOverflow = useHorizontalOverflowObserver<ComponentRef<"div">>();
+		const Comp = asChild ? Slot : "div";
 
 		return (
-			<div
+			<Comp
+				data-slot="table"
 				className={cx(
 					"group/table relative w-full overflow-hidden rounded-lg border border-card bg-white dark:bg-gray-100",
 					className,
@@ -86,7 +90,7 @@ const Root = forwardRef<ComponentRef<"div">, ComponentProps<"div">>(
 				>
 					{children}
 				</div>
-			</div>
+			</Comp>
 		);
 	},
 );
@@ -161,6 +165,7 @@ const Element = forwardRef<ComponentRef<"table">, ComponentProps<"table">>(
 	({ children, className, ...props }, ref) => {
 		return (
 			<table
+				data-slot="table-element"
 				ref={ref}
 				className={cx(
 					"table-auto border-separate border-spacing-0 caption-bottom w-full min-w-full text-left",
@@ -225,6 +230,7 @@ Element.displayName = "TableElement";
 const Head = forwardRef<ComponentRef<"thead">, ComponentProps<"thead">>(
 	({ children, className, ...props }, ref) => (
 		<thead
+			data-slot="table-head"
 			ref={ref}
 			className={cx(
 				//,
@@ -292,6 +298,7 @@ Head.displayName = "TableHead";
 const Body = forwardRef<ComponentRef<"tbody">, ComponentProps<"tbody">>(
 	({ children, className, ...props }, ref) => (
 		<tbody
+			data-slot="table-body"
 			className={cx(
 				//,
 				// In border-separate, <tr>/<tbody> borders don't render, so apply
@@ -360,6 +367,7 @@ Body.displayName = "TableBody";
 const Foot = forwardRef<ComponentRef<"tfoot">, ComponentProps<"tfoot">>(
 	({ children, className, ...props }, ref) => (
 		<tfoot
+			data-slot="table-foot"
 			ref={ref}
 			className={cx(
 				//,
@@ -426,6 +434,7 @@ Foot.displayName = "TableFoot";
 const Row = forwardRef<ComponentRef<"tr">, ComponentProps<"tr">>(
 	({ children, className, ...props }, ref) => (
 		<tr
+			data-slot="table-row"
 			ref={ref}
 			className={cx(
 				// This could be removed, or simplified
@@ -488,6 +497,7 @@ Row.displayName = "TableRow";
 const Header = forwardRef<ComponentRef<"th">, ComponentProps<"th">>(
 	({ children, className, ...props }, ref) => (
 		<th
+			data-slot="table-header"
 			ref={ref}
 			className={cx(
 				"h-11 px-4 text-left align-middle text-sm font-medium [&:has([role=checkbox])]:pr-0",
@@ -548,6 +558,7 @@ Header.displayName = "TableHeader";
 const Cell = forwardRef<ComponentRef<"td">, ComponentProps<"td">>(
 	({ children, className, ...props }, ref) => (
 		<td
+			data-slot="table-cell"
 			ref={ref}
 			className={cx(
 				"p-3 align-middle [&:has([role=checkbox])]:pr-0 font-mono text-mono",
@@ -608,6 +619,7 @@ Cell.displayName = "TableCell";
 const Caption = forwardRef<ComponentRef<"caption">, ComponentProps<"caption">>(
 	({ children, className, ...props }, ref) => (
 		<caption
+			data-slot="table-caption"
 			ref={ref}
 			className={cx("py-4 text-sm text-gray-500", "border-t border-card-muted", className)}
 			{...props}
