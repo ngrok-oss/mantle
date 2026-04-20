@@ -71,7 +71,7 @@ export function Header({ className, ...props }: Omit<ComponentProps<"header">, "
 	const mantleVersion = useMantleVersion();
 
 	return (
-		<header className={cx("sticky top-0 z-50 bg-card", className)} {...props}>
+		<header className={cx("sticky top-0 z-30 bg-card", className)} {...props}>
 			<div className="mx-auto flex h-15 w-full max-w-7xl items-center gap-3 px-4 md:gap-4">
 				<Link
 					to={href("/")}
