@@ -1,0 +1,426 @@
+---
+title: Sheet + Async Data (React Query)
+description: A recipe for rendering async-loaded content inside a Sheet without blocking the overlay on the request.
+---
+
+import { Alert } from "@ngrok/mantle/alert";
+import { Button } from "@ngrok/mantle/button";
+import { MediaObject } from "@ngrok/mantle/media-object";
+import { Separator } from "@ngrok/mantle/separator";
+import { Sheet } from "@ngrok/mantle/sheet";
+import { Skeleton } from "@ngrok/mantle/skeleton";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
+import { Example } from "~/components/example";
+
+export function UserDetails({ user }) {
+	return (
+		<div className="space-y-4">
+			<MediaObject.Root className="items-center">
+				<MediaObject.Media>
+					<div className="flex size-12 items-center justify-center rounded-full bg-accent-500 text-on-filled font-mono">
+						{user.name[0]}
+					</div>
+				</MediaObject.Media>
+				<MediaObject.Content>
+					<p className="font-medium text-strong">{user.name}</p>
+					<p className="text-sm text-muted">{user.email}</p>
+				</MediaObject.Content>
+			</MediaObject.Root>
+			<Separator />
+			<dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 text-sm">
+				<dt className="text-muted">ID</dt>
+				<dd className="font-mono text-strong">{user.id}</dd>
+				<dt className="text-muted">Role</dt>
+				<dd className="text-strong">{user.role}</dd>
+				<dt className="text-muted">Joined</dt>
+				<dd className="text-strong">{user.joinedAt}</dd>
+			</dl>
+		</div>
+	);
+}
+
+export function UserDetailsLoading() {
+	return (
+		<div className="space-y-4" aria-busy="true" aria-label="Loading user details">
+			<MediaObject.Root className="items-center">
+				<MediaObject.Media>
+					<Skeleton className="size-12 rounded-full" />
+				</MediaObject.Media>
+				<MediaObject.Content className="space-y-2">
+					<Skeleton className="h-4 w-40" />
+					<Skeleton className="h-3 w-56" />
+				</MediaObject.Content>
+			</MediaObject.Root>
+			<Separator />
+			<div className="space-y-2">
+				<Skeleton className="h-3 w-full" />
+				<Skeleton className="h-3 w-5/6" />
+				<Skeleton className="h-3 w-3/4" />
+			</div>
+		</div>
+	);
+}
+
+export function UserDetailsError({ error, onRetry }) {
+	return (
+		<div className="space-y-3">
+			<Alert.Root priority="danger">
+				<Alert.Icon />
+				<Alert.Content>
+					<Alert.Title>Couldn't load user</Alert.Title>
+					<Alert.Description>
+						{error instanceof Error ? error.message : "An unknown error occurred."}
+					</Alert.Description>
+				</Alert.Content>
+			</Alert.Root>
+			<Button type="button" appearance="outlined" priority="danger" onClick={onRetry}>
+				Try again
+			</Button>
+		</div>
+	);
+}
+
+export function fetchUser(userId, { mode }) {
+	return new Promise((resolve, reject) => {
+		setTimeout(() => {
+			if (mode === "error") {
+				reject(new Error("Network request failed (503 Service Unavailable)"));
+				return;
+			}
+			resolve({
+				id: userId,
+				name: "Ada Lovelace",
+				email: "ada@example.com",
+				role: "Founding Engineer",
+				joinedAt: "1843-07-08",
+			});
+		}, 1500);
+	});
+}
+
+export function UserSheet({ userId, mode, onClose }) {
+	const query = useQuery({
+		queryKey: ["user", userId, mode],
+		queryFn: () => fetchUser(userId, { mode }),
+		retry: false,
+		staleTime: 0,
+		gcTime: 0,
+	});
+
+    return (
+    	<Sheet.Root open onOpenChange={(next) => !next && onClose()}>
+    		<Sheet.Content>
+    			<Sheet.Header>
+    				<Sheet.TitleGroup>
+    					<Sheet.Title>User details</Sheet.Title>
+    					<Sheet.Actions>
+    						<Sheet.CloseIconButton />
+    					</Sheet.Actions>
+    				</Sheet.TitleGroup>
+    				<Sheet.Description>
+    					Viewing profile information for user <span className="font-mono">{userId}</span>.
+    				</Sheet.Description>
+    			</Sheet.Header>
+    			<Sheet.Body>
+    				{query.isPending && <UserDetailsLoading />}
+    				{query.isError && (
+    					<UserDetailsError error={query.error} onRetry={() => query.refetch()} />
+    				)}
+    				{query.isSuccess && <UserDetails user={query.data} />}
+    			</Sheet.Body>
+    			<Sheet.Footer>
+    				<Sheet.Close asChild>
+    					<Button type="button" appearance="outlined" priority="neutral">
+    						Close
+    					</Button>
+    				</Sheet.Close>
+    				<Button type="button" appearance="filled" disabled={!query.isSuccess}>
+    					Save
+    				</Button>
+    			</Sheet.Footer>
+    		</Sheet.Content>
+    	</Sheet.Root>
+    );
+
+}
+
+export function UserSheetDemo() {
+	const [mode, setMode] = useState("success");
+	const [openKey, setOpenKey] = useState(0);
+	const [isOpen, setIsOpen] = useState(false);
+	const queryClient = useQueryClient();
+
+    const open = (nextMode) => {
+    	setMode(nextMode);
+    	setOpenKey((k) => k + 1);
+    	setIsOpen(true);
+    };
+
+    return (
+    	<div className="flex flex-wrap items-center gap-2">
+    		<Button type="button" appearance="filled" onClick={() => open("success")}>
+    			Open (success)
+    		</Button>
+    		<Button type="button" appearance="outlined" priority="neutral" onClick={() => open("error")}>
+    			Open (error)
+    		</Button>
+    		{isOpen && (
+    			<UserSheet
+    				key={openKey}
+    				userId="user_01J8Q7Z5K2"
+    				mode={mode}
+    				onClose={() => {
+    					setIsOpen(false);
+    					queryClient.removeQueries({ queryKey: ["user"] });
+    				}}
+    			/>
+    		)}
+    	</div>
+    );
+
+}
+
+# Sheet + Async Data (React Query)
+
+A recipe for loading a slow remote resource inside a [`Sheet`](/components/sheet) without blocking the overlay on the request. The sheet opens immediately, a skeleton fills the body while the query is pending, and errors render inline — the sheet stays open so the user can retry without losing context.
+
+<Example>
+	<UserSheetDemo />
+</Example>
+
+## When to use
+
+Reach for this pattern when:
+
+- Opening the sheet is a **navigation**, not a **submission**. The user expects the overlay to appear right away.
+- The resource is slow enough that a blocking spinner on the trigger would feel broken (> ~200ms).
+- A transient load failure should be **recoverable in place** — closing the sheet and reopening it would lose the user's context (scroll position, selected row, URL state).
+
+For fast, optimistic, or locally-derived data, skip this pattern and render the data synchronously in the `Sheet.Body`.
+
+## Principles
+
+1. **Render the sheet immediately.** Mount `Sheet.Root` as soon as the trigger fires. Do not gate it on the query.
+2. **Branch on query status inside `Sheet.Body`.** Keep the header, footer, and close affordances stable across all three states — the chrome should never flicker.
+3. **Skeletons over spinners.** A skeleton that mirrors the final layout prevents layout shift when the data arrives. Reach for [`ProgressDonut`](/components/progress-donut) (indeterminate) only when you genuinely can't predict the shape of the content.
+4. **Errors render inline with `Alert`.** Never close the sheet on error — the user can't retry what they can't see. Pair the `Alert` with a retry button immediately below it.
+5. **Disable destructive footer actions until `isSuccess`.** "Save" cannot be meaningful while the data is still pending or failed.
+
+## Anatomy
+
+```text showLineNumbers=false
+Sheet.Root (open immediately)
+└── Sheet.Content
+    ├── Sheet.Header           ← stable across all states
+    ├── Sheet.Body
+    │   ├── <LoadingSkeleton /> when query.isPending
+    │   ├── <Alert priority="danger" />   when query.isError
+    │   └── <ResourceContent /> when query.isSuccess
+    └── Sheet.Footer           ← stable; gate destructive actions on isSuccess
+```
+
+## Recipe
+
+Copy the snippet below and adapt `fetchUser` / `UserDetails` to your resource. It assumes a `QueryClientProvider` is mounted above this component (typically at the route or app root).
+
+```tsx
+import { Alert } from "@ngrok/mantle/alert";
+import { Button } from "@ngrok/mantle/button";
+import { MediaObject } from "@ngrok/mantle/media-object";
+import { Separator } from "@ngrok/mantle/separator";
+import { Sheet } from "@ngrok/mantle/sheet";
+import { Skeleton } from "@ngrok/mantle/skeleton";
+import { useQuery } from "@tanstack/react-query";
+
+type User = {
+	id: string;
+	name: string;
+	email: string;
+	role: string;
+	joinedAt: string;
+};
+
+async function fetchUser(userId: string): Promise<User> {
+	const response = await fetch(`/api/users/${userId}`);
+	if (!response.ok) {
+		throw new Error(`Failed to load user (${response.status})`);
+	}
+	return response.json();
+}
+
+type UserSheetProps = {
+	userId: string;
+	onClose: () => void;
+};
+
+/**
+ * Renders a Sheet that loads a user record asynchronously. The sheet opens
+ * immediately; the body transitions through loading → error → loaded without
+ * closing the overlay.
+ */
+export function UserSheet({ userId, onClose }: UserSheetProps) {
+	const query = useQuery({
+		queryKey: ["user", userId],
+		queryFn: () => fetchUser(userId),
+	});
+
+	return (
+		<Sheet.Root open onOpenChange={(next) => !next && onClose()}>
+			<Sheet.Content>
+				<Sheet.Header>
+					<Sheet.TitleGroup>
+						<Sheet.Title>User details</Sheet.Title>
+						<Sheet.Actions>
+							<Sheet.CloseIconButton />
+						</Sheet.Actions>
+					</Sheet.TitleGroup>
+					<Sheet.Description>
+						Viewing profile information for user <span className="font-mono">{userId}</span>.
+					</Sheet.Description>
+				</Sheet.Header>
+				<Sheet.Body>
+					{query.isPending && <UserDetailsLoading />}
+					{query.isError && (
+						<UserDetailsError error={query.error} onRetry={() => query.refetch()} />
+					)}
+					{query.isSuccess && <UserDetails user={query.data} />}
+				</Sheet.Body>
+				<Sheet.Footer>
+					<Sheet.Close asChild>
+						<Button type="button" appearance="outlined" priority="neutral">
+							Close
+						</Button>
+					</Sheet.Close>
+					<Button type="button" appearance="filled" disabled={!query.isSuccess}>
+						Save
+					</Button>
+				</Sheet.Footer>
+			</Sheet.Content>
+		</Sheet.Root>
+	);
+}
+
+function UserDetailsLoading() {
+	return (
+		<div className="space-y-4" aria-busy="true" aria-label="Loading user details">
+			<MediaObject.Root className="items-center">
+				<MediaObject.Media>
+					<Skeleton className="size-12 rounded-full" />
+				</MediaObject.Media>
+				<MediaObject.Content className="space-y-2">
+					<Skeleton className="h-4 w-40" />
+					<Skeleton className="h-3 w-56" />
+				</MediaObject.Content>
+			</MediaObject.Root>
+			<Separator />
+			<div className="space-y-2">
+				<Skeleton className="h-3 w-full" />
+				<Skeleton className="h-3 w-5/6" />
+				<Skeleton className="h-3 w-3/4" />
+			</div>
+		</div>
+	);
+}
+
+type UserDetailsErrorProps = {
+	error: unknown;
+	onRetry: () => void;
+};
+
+function UserDetailsError({ error, onRetry }: UserDetailsErrorProps) {
+	return (
+		<div className="space-y-3">
+			<Alert.Root priority="danger">
+				<Alert.Icon />
+				<Alert.Content>
+					<Alert.Title>Couldn't load user</Alert.Title>
+					<Alert.Description>
+						{error instanceof Error ? error.message : "An unknown error occurred."}
+					</Alert.Description>
+				</Alert.Content>
+			</Alert.Root>
+			<Button type="button" appearance="outlined" priority="danger" onClick={onRetry}>
+				Try again
+			</Button>
+		</div>
+	);
+}
+
+function UserDetails({ user }: { user: User }) {
+	return (
+		<div className="space-y-4">
+			<MediaObject.Root className="items-center">
+				<MediaObject.Media>
+					<div className="flex size-12 items-center justify-center rounded-full bg-accent-500 text-on-filled font-mono">
+						{user.name[0]}
+					</div>
+				</MediaObject.Media>
+				<MediaObject.Content>
+					<p className="font-medium text-strong">{user.name}</p>
+					<p className="text-sm text-muted">{user.email}</p>
+				</MediaObject.Content>
+			</MediaObject.Root>
+			<Separator />
+			<dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 text-sm">
+				<dt className="text-muted">ID</dt>
+				<dd className="font-mono text-strong">{user.id}</dd>
+				<dt className="text-muted">Role</dt>
+				<dd className="text-strong">{user.role}</dd>
+				<dt className="text-muted">Joined</dt>
+				<dd className="text-strong">{user.joinedAt}</dd>
+			</dl>
+		</div>
+	);
+}
+```
+
+## Usage
+
+Mount the sheet from whatever owns the "which user is selected" state — usually a parent list or a router param.
+
+```tsx
+import { Button } from "@ngrok/mantle/button";
+import { useState } from "react";
+import { UserSheet } from "./user-sheet";
+
+export function UserList({ users }) {
+	const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
+
+	return (
+		<>
+			{users.map((user) => (
+				<Button key={user.id} onClick={() => setSelectedUserId(user.id)}>
+					{user.name}
+				</Button>
+			))}
+			{selectedUserId != null && (
+				<UserSheet userId={selectedUserId} onClose={() => setSelectedUserId(null)} />
+			)}
+		</>
+	);
+}
+```
+
+## Notes & variations
+
+### Route-driven sheets
+
+If the selection lives in the URL (e.g. `/users?selected=user_01J8…`), drive `open` from the search param and call `navigate` in `onClose` instead of local state. See the [_Router or state management controlled Sheet_](/components/sheet#router-or-state-management-controlled-sheet) example.
+
+### Prefetching
+
+If the trigger is a row in a table, call `queryClient.prefetchQuery({ queryKey: ["user", id], queryFn: () => fetchUser(id) })` on `onMouseEnter`/`onFocus` so the data is often already in cache by the time the sheet opens — the user sees the success state immediately with no skeleton flash.
+
+### Background refetching
+
+When reopening a sheet for a user whose data is already cached, React Query will serve the cached value and refetch in the background. `query.isPending` is `false` in that state, so the skeleton doesn't flash; use `query.isFetching` if you want to show a subtle loading indicator (e.g. a small [`ProgressDonut`](/components/progress-donut) in `Sheet.Actions`) during the background refetch.
+
+### Don't use Suspense boundaries here
+
+You _can_ use React Query's `useSuspenseQuery` with a `<Suspense fallback={<UserDetailsLoading />}>` boundary inside `Sheet.Body`. It works, but:
+
+- The imperative `isPending` / `isError` / `isSuccess` branches keep the loading, error, and success UIs side-by-side in one component — easier to read and keep in sync.
+- Error handling with Suspense requires an additional `ErrorBoundary`, which has to be reset manually on retry.
+
+Prefer the imperative branches shown above unless you have a specific reason to suspend.

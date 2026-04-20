@@ -120,5 +120,8 @@ export default [
 	]),
 
 	// blocks layout
-	layout("./routes/blocks-layout.tsx", [route("blocks", "./routes/blocks.tsx")]),
+	layout("./routes/blocks-layout.tsx", [
+		route("blocks", "./routes/blocks.tsx"),
+		...docRoute("blocks/sheet-async"),
+	]),
 ] satisfies RouteConfig;
