@@ -1,95 +1,87 @@
 # Conventions
 
-Code style, patterns, and conventions for the Mantle design system. This is the single source of truth — all READMEs and tooling reference this file.
+Single source of truth for code style, patterns, and conventions in the Mantle design system monorepo. All rules below are mandatory — call out and fix violations.
 
-## File & Module Conventions
+## Files & Modules
 
-- **File naming**: kebab-case for all files and directories
-- **Modules**: Use ESM (`import`/`export`, `const`, `async/await`, arrow functions)
-- **Exports**: Prefer named exports over default exports
-- **Imports**: Use relative paths in `packages/`, use `~/path/to/thing` alias paths in `apps/`
-- **Type imports**: Use `import type { ... }` for type-only imports
+- File naming: kebab-case (except framework-required filenames like `entry.server.tsx`, `react-router.config.ts`)
+- ESM only: `import`/`export`, `const`, `async/await`, arrow functions
+- Prefer named exports; use `import type` for type-only imports
+- Imports: relative paths in `/packages`, `~/path/to/thing` aliases in `/apps`
 
 ## Formatting & Linting
 
-- **Formatter**: oxfmt with tabs (tabWidth: 2), double quotes — see [`.oxcfmtrc.json`](./.oxcfmtrc.json)
-- **Linter**: oxlint — see [`.oxlintrc.json`](./.oxlintrc.json)
-
-## TypeScript
-
-- **Strict mode**: Enabled.  
-  _Why:_ Forces explicit handling of nullability and unsafe assumptions.
-
-- **Shared configs**: Use `@cfg/tsconfig` (see `config/tsconfig/`).  
-  _Why:_ One canonical baseline prevents drift across packages/apps.
-
-- **No `any`**: `any` is forbidden. Use real types; use `unknown` when truly unknown and narrow it.  
-  _Why:_ `any` disables type safety; `unknown` preserves it until proven.
-
-- **Use `type`**: Use `type` for all declarations. `interface` is not allowed in application code.  
-  _Why:_ `type` covers all shapes (unions, intersections, primitives, tuples), expands inline in IntelliSense for easier inspection, and avoids declaration merging—keeping types closed and predictable.
+- Formatter: oxfmt (tabs, tabWidth 2, double quotes) — see `.oxfmtrc.json`
+- Linter: oxlint — see `.oxlintrc.json`
+- Never biome, prettier, or eslint
 
 ## Code Quality
 
-- **Control flow**: NEVER use single-line if/loop blocks. Always use braces `{}` even for single statements
-- **Variable naming**: Always use descriptive, clear names — avoid unclear abbreviations or single-letter shortcuts. Widely-understood initialisms (for example, URL, CSS, SSR) are allowed when they improve clarity. Apply this principle to all variables; the examples below are illustrative, not exhaustive:
-  - Use `error` instead of `e` or `err` for error variables
-  - Use `event` instead of `e` or `evt` for event parameters
-  - Use `element` instead of `el` or `elem` for DOM element variables
-- **JSDoc**: All exported functions, components, and prop types must have JSDoc comments
-- **Comments should explain why, not what**: Avoid overuse of inline comments that restate the code
-- **Inline one-off handlers**: If an event handler is used only once, define it inline instead of hoisting it into the component
-- **Errors are control flow**: `console.error` is not handling. Every error path must either return a defined recovery value or throw
-- **Avoid nested ternaries**: Prefer early returns or component-based branching over nested ternaries. A single ternary is fine; nesting them harms readability
-- **No non-null assertions**: The postfix `!` operator (`value!`) is forbidden. Use proper null checks, early returns, or restructure the code to narrow the type instead
-- **No type assertions**: The `as` operator is forbidden in application code. Do not use `value as Type`. The only allowed exception is inside a dedicated type guard implementation. Type assertions must never be used to silence TypeScript errors or bypass proper type modeling.
+- Always brace control flow — no single-line `if`/`for` bodies
+- Descriptive names — `error` not `e`, `event` not `evt`, `element` not `el`. Widely-known initialisms (URL, CSS, SSR) are fine.
+- JSDoc on every function, method, component, and prop type.
+- Comments explain _why_, not _what_. Don't restate the code.
+- Inline single-use event handlers; don't hoist them
+- Errors are control flow — `console.error` is not handling. Every error path returns a recovery value or throws.
+- Avoid nested ternaries: Prefer early returns or component-based branching over nested ternaries. A single ternary is fine; nesting them harms readability
+- Never use `React.FC` / `FC` — use inline function types
+- Prefer named options objects over positional params: any boolean param, 3+ params, or 2 params when call sites wouldn't be self-evident (`fn({ enabled: true })`, not `fn(true)`)
+
+### TypeScript
+
+- Strict mode enabled. Shared configs from `@cfg/tsconfig`.
+- No `any` — use `unknown` and narrow it
+- No `interface` — use `type` (covers all shapes, no declaration merging, expands inline in IntelliSense)
+- No non-null assertions: The postfix `!` operator (`value!`) is forbidden. Use proper null checks, early returns, or restructure the code to narrow the type instead
+- No type assertions: The `as` operator is forbidden in application code. Do not use `value as Type`. The only allowed exceptions are `as const` (to narrow literal types) and inside a dedicated type guard implementation. Type assertions must never be used to silence TypeScript errors or bypass proper type modeling.
 
 ## className Composition
 
-All `className` values must be created with `cx` from `../../utils/cx/cx.js` (internal) or `@ngrok/mantle/cx` (external consumers). Any use of string interpolation, `+`, ternaries, or conditional expressions to build class names is disallowed.
-
 ```tsx
-// ✅ Internal usage
-import { cx } from "../../utils/cx/cx.js";
+import { cx } from "@ngrok/mantle/cx";
 
+// ✅
 <div className={cx("foo", condition && "bar", { baz: isActive })} />
 
-// ❌ No string interpolation, +, or ternaries
+// ❌ no string interpolation, +, or ternaries inside className
 <div className={`foo ${condition ? "bar" : ""}`} />
 ```
 
-## Component Structure
-
-Components live in `packages/mantle/src/components/<component-name>/`:
-
-```
-├── index.ts              # Re-exports (public API)
-├── my-component.tsx      # Implementation
-└── my-component.test.tsx # Colocated tests
-```
-
-### Compound Components
-
-Compound components use the **POJO namespace pattern** — see [`decisions/2025-07-16-compound-component-named-exports.md`](./decisions/2025-07-16-compound-component-named-exports.md) for the full rationale.
-
-```tsx
-const Select = { Root, Content, Trigger, Value };
-// Usage: <Select.Root><Select.Trigger /><Select.Content /></Select.Root>
-```
-
-Every property on the namespace object must have a JSDoc comment. The namespace object should have a `displayName` for React DevTools.
-
 ## Testing
 
-- **Runner**: Vitest (UTC timezone for consistent test runs)
-- **Libraries**: `@testing-library/react`, `@testing-library/user-event`, `@testing-library/jest-dom`
-- **File naming**: Colocate tests as `*.test.ts` or `*.test.tsx` next to source files
+- Runner: Vitest. Two modes — happy-dom (default, no per-file Playwright startup) and real-browser Chromium via Playwright.
+- Libraries: `@testing-library/react`, `@testing-library/dom`, `@testing-library/jest-dom`
+- File naming, colocated with source:
+  - happy-dom: `*.test.{ts,tsx}`
+  - browser: `*.browser.test.{ts,tsx}`
+- No `*.test.*` under `app/routes/` — React Router treats that as route modules. Put route-behavior tests under the owning `app/features/*` area.
+- No snapshot tests of rendered HTML. Use declarative assertions (`getByRole`, `getByText`, `toBeInTheDocument`). `toMatchInlineSnapshot` is OK for serialized data shapes only.
+- Business logic MUST be thoroughly tested, including edge cases (transformations, validation, conditional rendering, state machines, parsing/formatting).
+- Every bug fix adds a regression test that fails before the fix and passes after — unless genuinely infeasible (document why in the PR).
 
-## Icons
+### When to reach for browser mode
 
-- **Primary**: `@phosphor-icons/react`
-- **Custom ngrok icons**: `@ngrok/mantle/icons`
+Default to happy-dom. Reach for browser mode only when the test depends on a real-browser API happy-dom doesn't (correctly) implement:
 
-## Theming
+- Web Animations API (`getAnimations`, `Animation.finished`)
+- IntersectionObserver / ResizeObserver
+- Inline `<script>` execution (3rd-party SDK bootstrappers like GTM/Ketch)
+- `<noscript>` parsing — happy-dom drops noscript children
+- Real layout, scroll, `:focus-visible`, real `getBoundingClientRect` / `getComputedStyle`
+- Clipboard API, Drag-and-drop / `DataTransfer`, `FileReader`
+- Pointer/touch events, real hover, focus-within
+- Selection / Range / `contenteditable` caret behavior
+- HTML5 form constraint validation end-to-end
+- `matchMedia` + `prefers-*` reactivity
+- Native `<dialog>.showModal()` / Popover API
+- IndexedDB, BroadcastChannel, cross-tab `storage` events, MessageChannel
+- Canvas 2D / WebGL / OffscreenCanvas
+- Real `requestAnimationFrame` timing
 
-Built-in light/dark mode via `ThemeProvider` with FOUC prevention. Styling uses Tailwind CSS 4.
+If the test only touches DOM structure, ARIA, event handlers, or pure state — stay in happy-dom.
+
+## Package Management
+
+- All external deps use exact pinned versions (no `^` / `~`). Single-use: `pnpm add -E <package>`.
+- Shared deps go through the `catalog:` in `pnpm-workspace.yaml`, then referenced as `catalog:`. Add to catalog first if the dep will be used across packages.
+- For `@pkg/*` workspace packages, use `catalog:` in `devDependencies` and `peerDependencies` (not `dependencies`) so apps install the dep themselves and avoid duplicates.
