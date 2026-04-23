@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
+import type { ComponentProps } from "react";
 import invariant from "tiny-invariant";
 import { describe, expect, test, vi } from "vitest";
 import { DataTable, createColumnHelper, getCoreRowModel, useReactTable } from "./index.js";
@@ -16,7 +17,7 @@ const columns = [
 ];
 const data: Row[] = [{ id: "row-1", name: "Alice" }];
 
-function Harness(props: Omit<React.ComponentProps<typeof DataTable.Row>, "row">) {
+function Harness(props: Omit<ComponentProps<typeof DataTable.Row>, "row">) {
 	const table = useReactTable({
 		data,
 		columns,

@@ -8,12 +8,12 @@ type PossibleRef<T> = Ref<T> | undefined;
  * Accepts callback refs and RefObject(s)
  */
 function composeRefs<T>(...refs: PossibleRef<T>[]) {
-	return (node: T) => {
+	return (node: T | null) => {
 		for (const ref of refs) {
 			if (typeof ref === "function") {
 				ref(node);
 			} else if (ref != null) {
-				(ref as MutableRefObject<T>).current = node;
+				(ref as MutableRefObject<T | null>).current = node;
 			}
 		}
 	};
@@ -26,12 +26,12 @@ function composeRefs<T>(...refs: PossibleRef<T>[]) {
 function useComposedRefs<T>(...refs: PossibleRef<T>[]) {
 	const latestRefs = useRef(refs);
 	latestRefs.current = refs;
-	return useCallback((node: T) => {
+	return useCallback((node: T | null) => {
 		for (const ref of latestRefs.current) {
 			if (typeof ref === "function") {
 				ref(node);
 			} else if (ref != null) {
-				(ref as MutableRefObject<T>).current = node;
+				(ref as MutableRefObject<T | null>).current = node;
 			}
 		}
 	}, []);

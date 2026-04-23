@@ -16,7 +16,7 @@ describe("useCopyToClipboard (browser)", () => {
 	});
 
 	test("writes the value to navigator.clipboard", async () => {
-		const writeTextSpy = vi.spyOn(navigator.clipboard, "writeText");
+		const writeTextSpy = vi.spyOn(navigator.clipboard, "writeText").mockResolvedValue(undefined);
 
 		const { result } = renderHook(() => useCopyToClipboard());
 		const copyToClipboard = result.current;
@@ -31,7 +31,7 @@ describe("useCopyToClipboard (browser)", () => {
 	});
 
 	test("calls writeText with the most recently copied value", async () => {
-		const writeTextSpy = vi.spyOn(navigator.clipboard, "writeText");
+		const writeTextSpy = vi.spyOn(navigator.clipboard, "writeText").mockResolvedValue(undefined);
 
 		const { result } = renderHook(() => useCopyToClipboard());
 		const copyToClipboard = result.current;
@@ -88,7 +88,7 @@ describe("useCopyToClipboard (browser)", () => {
 	});
 
 	test("awaiting copyToClipboard resolves after the clipboard write completes", async () => {
-		const writeTextSpy = vi.spyOn(navigator.clipboard, "writeText");
+		const writeTextSpy = vi.spyOn(navigator.clipboard, "writeText").mockResolvedValue(undefined);
 
 		const { result } = renderHook(() => useCopyToClipboard());
 		const copyToClipboard = result.current;
