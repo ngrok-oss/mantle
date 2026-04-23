@@ -533,7 +533,10 @@ const CopyButton = forwardRef<ComponentRef<"button">, CodeBlockCopyButtonProps>(
 		}, []);
 
 		return (
-			<span data-slot="code-block-copy-button" className="absolute right-2.5 top-2.5 z-10 bg-card">
+			<span
+				data-slot="code-block-copy-button"
+				className="absolute right-3 top-3 z-10 inline-flex size-7 items-center justify-center rounded-[var(--icon-button-border-radius,0.375rem)] bg-card"
+			>
 				<IconButton
 					type="button"
 					appearance="ghost"
