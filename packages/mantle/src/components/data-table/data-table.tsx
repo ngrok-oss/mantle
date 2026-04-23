@@ -49,19 +49,25 @@ type DataTableProps<TData> = ComponentProps<typeof Table.Root> & {
 };
 
 /**
- * A data table component that provides sorting and other data table functionality.
- * Built on top of TanStack Table for advanced table features.
+ * The root container for a data table. Wraps all other `DataTable`
+ * sub-components and provides the table context via the `table` instance
+ * returned from `useReactTable`. Built on top of TanStack Table.
  *
  * @see https://mantle.ngrok.com/components/data-table#datatableroot
  *
  * @example
  * ```tsx
- * <DataTable table={table}>
+ * const table = useReactTable({ data, columns, getCoreRowModel: getCoreRowModel() });
+ * const rows = table.getRowModel().rows;
+ *
+ * <DataTable.Root table={table}>
  *   <DataTable.Head />
  *   <DataTable.Body>
- *     <DataTable.Rows />
+ *     {rows.length > 0
+ *       ? rows.map((row) => <DataTable.Row key={row.id} row={row} />)
+ *       : <DataTable.EmptyRow>No results.</DataTable.EmptyRow>}
  *   </DataTable.Body>
- * </DataTable>
+ * </DataTable.Root>
  * ```
  */
 function Root<TData>({ children, table, ...props }: DataTableProps<TData>) {
@@ -111,25 +117,33 @@ type DataTableHeaderSortButtonProps<TData, TValue> = Omit<ComponentProps<typeof 
 	);
 
 /**
- * A sortable button toggle for a column header in a data table.
- * If the column is sortable, clicking the button will toggle the sorting
- * direction.
+ * A sortable button toggle for a column header in a data table. Renders a sort
+ * icon that reflects the current direction, handles ARIA announcements, and
+ * cycles through sort states on click.
+ *
+ * Each click cycles through:
+ * - For `"alphanumeric"` sorting: `unsorted → ascending → descending → unsorted`
+ * - For `"time"` sorting: `unsorted → newest-first → oldest-first → unsorted`
+ *
+ * For right-aligned numeric columns, pass `className="justify-end"` and
+ * `iconPlacement="start"` so the sort icon stays paired with the label.
  *
  * @see https://mantle.ngrok.com/components/data-table#datatableheadersortbutton
  *
  * @example
  * ```tsx
- * <DataTable.HeaderSortButton
- *   column={column}
- *   sortingMode="alphanumeric"
- * >
- *   Column Title
- * </DataTable.HeaderSortButton>
+ * columnHelper.accessor("email", {
+ *   id: "email",
+ *   header: (props) => (
+ *     <DataTable.Header>
+ *       <DataTable.HeaderSortButton column={props.column} sortingMode="alphanumeric">
+ *         Email
+ *       </DataTable.HeaderSortButton>
+ *     </DataTable.Header>
+ *   ),
+ *   cell: (props) => <DataTable.Cell>{props.getValue()}</DataTable.Cell>,
+ * });
  * ```
- *
- * Each click cycles through:
- * - For alphanumeric sorting: unsorted ➡️ ascending ➡️ descending ➡️ unsorted
- * - For time sorting: unsorted ➡️ newest-to-oldest ➡️ oldest-to-newest ➡️ unsorted
  */
 function HeaderSortButton<TData, TValue>({
 	children,
@@ -197,18 +211,25 @@ function HeaderSortButton<TData, TValue>({
 type DataTableHeaderProps = ComponentProps<typeof Table.Header>;
 
 /**
- * A header for a data table.
- * This is typically used to wrap the `DataTable.HeaderSortButton` component.
+ * A `<th>` optimized for header actions. Wrap each column's header content in
+ * this; for sortable columns, nest a `DataTable.HeaderSortButton` inside.
+ * Non-sortable columns can render plain text.
  *
  * @see https://mantle.ngrok.com/components/data-table#datatableheader
  *
  * @example
  * ```tsx
- * <DataTable.Header>
- *   <DataTable.HeaderSortButton column={column} sortingMode="alphanumeric">
- *     Column Title
- *   </DataTable.HeaderSortButton>
- * </DataTable.Header>
+ * columnHelper.accessor("name", {
+ *   id: "name",
+ *   header: (props) => (
+ *     <DataTable.Header>
+ *       <DataTable.HeaderSortButton column={props.column} sortingMode="alphanumeric">
+ *         Name
+ *       </DataTable.HeaderSortButton>
+ *     </DataTable.Header>
+ *   ),
+ *   cell: (props) => <DataTable.Cell>{props.getValue()}</DataTable.Cell>,
+ * });
  * ```
  */
 function Header({ children, className, ...props }: DataTableHeaderProps) {
@@ -257,9 +278,37 @@ type DataTableRowProps<TData> = Omit<ComponentProps<typeof Table.Row>, "children
 	row: TableRow<TData>;
 };
 
-function Row<TData>({ row, ...props }: DataTableRowProps<TData>) {
+/**
+ * A single data table body row rendered from a TanStack Table row instance.
+ * Does not accept children — cells come from each column's `cell` definition.
+ *
+ * When `onClick` is provided, the row automatically receives `cursor-pointer`.
+ * Pass a different `cursor-*` class via `className` (e.g. `cursor-default`,
+ * `cursor-wait`) to override. For keyboard and screen-reader access, also
+ * render a `<Link>` inside the primary cell — a `<tr>` is not focusable.
+ *
+ * @see https://mantle.ngrok.com/components/data-table#datatablerow
+ *
+ * @example
+ * ```tsx
+ * const navigate = useNavigate();
+ *
+ * {rows.map((row) => (
+ *   <DataTable.Row
+ *     key={row.id}
+ *     row={row}
+ *     onClick={() => navigate(href("/payments/:id", { id: row.original.id }))}
+ *   />
+ * ))}
+ * ```
+ */
+function Row<TData>({ className, row, ...props }: DataTableRowProps<TData>) {
 	return (
-		<Table.Row data-slot="data-table-row" {...props}>
+		<Table.Row
+			data-slot="data-table-row"
+			className={cx(props.onClick && "cursor-pointer", className)}
+			{...props}
+		>
 			{row.getVisibleCells().map((cell) => (
 				<Fragment key={cell.id}>
 					{flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -314,6 +363,29 @@ function StickyColIndicator() {
 
 type DataTableActionCellProps = ComponentProps<typeof Table.Cell>;
 
+/**
+ * A sticky-right `<td>` for per-row action buttons (typically an `IconButton`
+ * that opens a `DropdownMenu`). Pair with `DataTable.ActionHeader`.
+ *
+ * If the row has `onClick`, pass `onClick={(event) => event.stopPropagation()}`
+ * on this cell so clicks on action controls don't bubble and fire the row
+ * handler.
+ *
+ * @see https://mantle.ngrok.com/components/data-table#datatableactioncell
+ *
+ * @example
+ * ```tsx
+ * columnHelper.display({
+ *   id: "actions",
+ *   header: () => <DataTable.ActionHeader />,
+ *   cell: () => (
+ *     <DataTable.ActionCell onClick={(event) => event.stopPropagation()}>
+ *       <DropdownMenu.Root>...</DropdownMenu.Root>
+ *     </DataTable.ActionCell>
+ *   ),
+ * });
+ * ```
+ */
 function ActionCell({ children, className, ...props }: DataTableActionCellProps) {
 	return (
 		<Table.Cell
@@ -391,8 +463,14 @@ HeaderSortButton.displayName = "DataTableHeaderSortButton";
 Row.displayName = "DataTableRow";
 
 /**
- * A data table component that provides sorting and other data table functionality.
- * Built on top of TanStack Table for advanced table features.
+ * A data table for dynamic, application data — sortable, filterable, paginatable,
+ * and selectable. Built on top of TanStack Table; every TanStack utility
+ * (`createColumnHelper`, `getCoreRowModel`, `getSortedRowModel`,
+ * `getPaginationRowModel`, `getFilteredRowModel`, `useReactTable`, …) is
+ * re-exported from `@ngrok/mantle/data-table`.
+ *
+ * Prefer the plain `Table` when content is static and none of those behaviors
+ * apply.
  *
  * @see https://mantle.ngrok.com/components/data-table
  *
@@ -414,12 +492,45 @@ Row.displayName = "DataTableRow";
  *
  * @example
  * ```tsx
- * <DataTable table={table}>
- *   <DataTable.Head />
- *   <DataTable.Body>
- *     <DataTable.Rows />
- *   </DataTable.Body>
- * </DataTable>
+ * import {
+ *   DataTable,
+ *   createColumnHelper,
+ *   getCoreRowModel,
+ *   useReactTable,
+ * } from "@ngrok/mantle/data-table";
+ *
+ * type Row = { id: string; name: string };
+ *
+ * const columnHelper = createColumnHelper<Row>();
+ * const columns = [
+ *   columnHelper.accessor("name", {
+ *     id: "name",
+ *     header: (props) => (
+ *       <DataTable.Header>
+ *         <DataTable.HeaderSortButton column={props.column} sortingMode="alphanumeric">
+ *           Name
+ *         </DataTable.HeaderSortButton>
+ *       </DataTable.Header>
+ *     ),
+ *     cell: (props) => <DataTable.Cell>{props.getValue()}</DataTable.Cell>,
+ *   }),
+ * ];
+ *
+ * function MyTable({ data }: { data: Row[] }) {
+ *   const table = useReactTable({ data, columns, getCoreRowModel: getCoreRowModel() });
+ *   const rows = table.getRowModel().rows;
+ *
+ *   return (
+ *     <DataTable.Root table={table}>
+ *       <DataTable.Head />
+ *       <DataTable.Body>
+ *         {rows.length > 0
+ *           ? rows.map((row) => <DataTable.Row key={row.id} row={row} />)
+ *           : <DataTable.EmptyRow>No results.</DataTable.EmptyRow>}
+ *       </DataTable.Body>
+ *     </DataTable.Root>
+ *   );
+ * }
  * ```
  */
 const DataTable = {
@@ -430,32 +541,47 @@ const DataTable = {
 	 *
 	 * @example
 	 * ```tsx
+	 * const table = useReactTable({ data, columns, getCoreRowModel: getCoreRowModel() });
+	 * const rows = table.getRowModel().rows;
+	 *
 	 * <DataTable.Root table={table}>
 	 *   <DataTable.Head />
 	 *   <DataTable.Body>
-	 *     <DataTable.Rows />
+	 *     {rows.length > 0
+	 *       ? rows.map((row) => <DataTable.Row key={row.id} row={row} />)
+	 *       : <DataTable.EmptyRow>No results.</DataTable.EmptyRow>}
 	 *   </DataTable.Body>
 	 * </DataTable.Root>
 	 * ```
 	 */
 	Root,
 	/**
-	 * A sticky action cell positioned at the end of each row for action buttons.
+	 * A sticky action cell positioned at the end of each row, typically holding
+	 * an `IconButton` that opens a `DropdownMenu`. Pair with `DataTable.ActionHeader`.
+	 *
+	 * If the row has `onClick`, stop propagation on this cell so clicks on action
+	 * controls don't bubble up and fire the row handler.
 	 *
 	 * @see https://mantle.ngrok.com/components/data-table#datatableactioncell
 	 *
 	 * @example
 	 * ```tsx
-	 * <DataTable.ActionCell>
-	 *   <Button size="sm">Edit</Button>
-	 *   <Button size="sm">Delete</Button>
-	 * </DataTable.ActionCell>
+	 * columnHelper.display({
+	 *   id: "actions",
+	 *   header: () => <DataTable.ActionHeader />,
+	 *   cell: () => (
+	 *     <DataTable.ActionCell onClick={(event) => event.stopPropagation()}>
+	 *       <DropdownMenu.Root>...</DropdownMenu.Root>
+	 *     </DataTable.ActionCell>
+	 *   ),
+	 * });
 	 * ```
 	 */
 	ActionCell,
 	/**
 	 * A sticky header cell that pairs with `DataTable.ActionCell`, keeping the
 	 * action column aligned across the header and body when scrolling horizontally.
+	 * Use as the `header` for a `columnHelper.display` action column.
 	 *
 	 * @see https://mantle.ngrok.com/components/data-table#datatableactionheader
 	 *
@@ -464,100 +590,151 @@ const DataTable = {
 	 * columnHelper.display({
 	 *   id: "actions",
 	 *   header: () => <DataTable.ActionHeader />,
-	 *   cell: () => <DataTable.ActionCell>{...}</DataTable.ActionCell>,
-	 * })
+	 *   cell: () => (
+	 *     <DataTable.ActionCell onClick={(event) => event.stopPropagation()}>
+	 *       <DropdownMenu.Root>...</DropdownMenu.Root>
+	 *     </DataTable.ActionCell>
+	 *   ),
+	 * });
 	 * ```
 	 */
 	ActionHeader,
 	/**
-	 * A table cell component for rendering individual data cells.
+	 * A `<td>` for rendering an individual data cell. Re-exported from
+	 * `Table.Cell`. Every cell rendered by a column's `cell` function should
+	 * be wrapped in this — a raw `<td>` skips mantle typography and padding.
 	 *
 	 * @see https://mantle.ngrok.com/components/data-table#datatablecell
 	 *
 	 * @example
 	 * ```tsx
-	 * <DataTable.Cell>
-	 *   Cell content
-	 * </DataTable.Cell>
+	 * columnHelper.accessor("name", {
+	 *   id: "name",
+	 *   header: (props) => <DataTable.Header>Name</DataTable.Header>,
+	 *   cell: (props) => <DataTable.Cell>{props.getValue()}</DataTable.Cell>,
+	 * });
 	 * ```
 	 */
 	Cell: Table.Cell,
 	/**
-	 * The table body container for rows of data.
+	 * The `<tbody>` container for rows of data. Typically wraps a map of
+	 * `DataTable.Row`, with a `DataTable.EmptyRow` fallback when there is
+	 * no data.
 	 *
 	 * @see https://mantle.ngrok.com/components/data-table#datatablebody
 	 *
 	 * @example
 	 * ```tsx
 	 * <DataTable.Body>
-	 *   <DataTable.Rows />
+	 *   {rows.length > 0
+	 *     ? rows.map((row) => <DataTable.Row key={row.id} row={row} />)
+	 *     : <DataTable.EmptyRow>No results.</DataTable.EmptyRow>}
 	 * </DataTable.Body>
 	 * ```
 	 */
 	Body,
 	/**
-	 * An empty state row that spans all columns when there's no data to display.
+	 * An empty-state row that spans every column. Render this as the `else`
+	 * branch when `rows.length === 0` to keep the table's frame intact instead
+	 * of collapsing to an empty `<tbody>`.
 	 *
 	 * @see https://mantle.ngrok.com/components/data-table#datatableemptyrow
 	 *
 	 * @example
 	 * ```tsx
-	 * <DataTable.EmptyRow>
-	 *   No data available
-	 * </DataTable.EmptyRow>
+	 * <DataTable.Body>
+	 *   {rows.length > 0
+	 *     ? rows.map((row) => <DataTable.Row key={row.id} row={row} />)
+	 *     : <DataTable.EmptyRow>No results.</DataTable.EmptyRow>}
+	 * </DataTable.Body>
 	 * ```
 	 */
 	EmptyRow,
 	/**
-	 * The table header container that renders column headers automatically.
+	 * The `<thead>` container that renders column headers automatically from
+	 * `table.getHeaderGroups()`. Does not accept children — headers come from
+	 * each column's `header` definition.
 	 *
 	 * @see https://mantle.ngrok.com/components/data-table#datatablehead
 	 *
 	 * @example
 	 * ```tsx
-	 * <DataTable.Head />
+	 * <DataTable.Root table={table}>
+	 *   <DataTable.Head />
+	 *   <DataTable.Body>...</DataTable.Body>
+	 * </DataTable.Root>
 	 * ```
 	 */
 	Head,
 	/**
-	 * A header cell component optimized for data table header actions.
+	 * A `<th>` optimized for header actions. Wrap each column's header content
+	 * in this; for sortable columns, nest a `DataTable.HeaderSortButton` inside.
 	 *
 	 * @see https://mantle.ngrok.com/components/data-table#datatableheader
 	 *
 	 * @example
 	 * ```tsx
-	 * <DataTable.Header>
-	 *   <DataTable.HeaderSortButton column={column} sortingMode="alphanumeric">
-	 *     Column Title
-	 *   </DataTable.HeaderSortButton>
-	 * </DataTable.Header>
+	 * columnHelper.accessor("name", {
+	 *   id: "name",
+	 *   header: (props) => (
+	 *     <DataTable.Header>
+	 *       <DataTable.HeaderSortButton column={props.column} sortingMode="alphanumeric">
+	 *         Name
+	 *       </DataTable.HeaderSortButton>
+	 *     </DataTable.Header>
+	 *   ),
+	 *   cell: (props) => <DataTable.Cell>{props.getValue()}</DataTable.Cell>,
+	 * });
 	 * ```
 	 */
 	Header,
 	/**
-	 * A sortable button toggle for column headers with sorting functionality.
+	 * A sortable button toggle for a column header. Clicks cycle through
+	 * sort directions: for `"alphanumeric"`, `unsorted → asc → desc → unsorted`;
+	 * for `"time"`, `unsorted → desc (newest-first) → asc → unsorted`.
+	 *
+	 * Pass `className="justify-end"` and `iconPlacement="start"` for
+	 * right-aligned numeric columns so the sort icon stays paired with the label.
 	 *
 	 * @see https://mantle.ngrok.com/components/data-table#datatableheadersortbutton
 	 *
 	 * @example
 	 * ```tsx
-	 * <DataTable.HeaderSortButton
-	 *   column={column}
-	 *   sortingMode="alphanumeric"
-	 * >
-	 *   Column Title
-	 * </DataTable.HeaderSortButton>
+	 * columnHelper.accessor("email", {
+	 *   id: "email",
+	 *   header: (props) => (
+	 *     <DataTable.Header>
+	 *       <DataTable.HeaderSortButton column={props.column} sortingMode="alphanumeric">
+	 *         Email
+	 *       </DataTable.HeaderSortButton>
+	 *     </DataTable.Header>
+	 *   ),
+	 *   cell: (props) => <DataTable.Cell>{props.getValue()}</DataTable.Cell>,
+	 * });
 	 * ```
 	 */
 	HeaderSortButton,
 	/**
-	 * A single data table row component for rendering custom row layouts.
+	 * A single data table body row rendered from a TanStack Table row instance.
+	 * Does not accept children — cells come from each column's `cell` definition.
+	 *
+	 * When `onClick` is provided, the row automatically receives `cursor-pointer`.
+	 * Pass a different `cursor-*` class via `className` to override. For keyboard
+	 * and screen-reader access, also render a `<Link>` inside the primary cell.
 	 *
 	 * @see https://mantle.ngrok.com/components/data-table#datatablerow
 	 *
 	 * @example
 	 * ```tsx
-	 * <DataTable.Row row={row} />
+	 * const navigate = useNavigate();
+	 *
+	 * {rows.map((row) => (
+	 *   <DataTable.Row
+	 *     key={row.id}
+	 *     row={row}
+	 *     onClick={() => navigate(href("/payments/:id", { id: row.original.id }))}
+	 *   />
+	 * ))}
 	 * ```
 	 */
 	Row,
