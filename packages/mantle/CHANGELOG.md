@@ -1,5 +1,25 @@
 # @ngrok/mantle
 
+## 0.70.2
+
+### Patch Changes
+
+- [#1152](https://github.com/ngrok-oss/mantle/pull/1152) [`01b04f4`](https://github.com/ngrok-oss/mantle/commit/01b04f4850a38d4f27b87b36eb393150a8098a30) Thanks [@forzalupo](https://github.com/forzalupo)! - Clean up `CodeBlock` copy button placement and wrapper sizing so it aligns consistently within the code block.
+
+- [#1160](https://github.com/ngrok-oss/mantle/pull/1160) [`60d8c53`](https://github.com/ngrok-oss/mantle/commit/60d8c53b135181af15654a73588706bb27a57cb5) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - `DataTable.Row` now auto-applies `cursor-pointer` when an `onClick` handler is provided, so consumers no longer need to add it manually. Pass a different `cursor-*` class via `className` (for example, `cursor-wait`) to override.
+
+- [#1160](https://github.com/ngrok-oss/mantle/pull/1160) [`60d8c53`](https://github.com/ngrok-oss/mantle/commit/60d8c53b135181af15654a73588706bb27a57cb5) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Fix `useComposedRefs` returning a thunk (`() => (node) => void`) instead of a ref callback, which meant the composed ref never actually received the DOM node. The hook now returns a stable ref callback that reads the latest refs via an internal ref box, so passed refs stay up-to-date without causing ref thrashing on every render.
+
+- [#1160](https://github.com/ngrok-oss/mantle/pull/1160) [`60d8c53`](https://github.com/ngrok-oss/mantle/commit/60d8c53b135181af15654a73588706bb27a57cb5) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - **Breaking:** `useCopyToClipboard` now returns the async copy function directly instead of a `[state, copyFn]` tuple. The internal `useState` that tracked the last copied value has been removed, eliminating an extra render per successful copy.
+
+  ```tsx
+  // Before
+  const [, copyToClipboard] = useCopyToClipboard();
+
+  // After
+  const copyToClipboard = useCopyToClipboard();
+  ```
+
 ## 0.70.1
 
 ### Patch Changes
