@@ -90,7 +90,7 @@ const columns = [
 		id: "actions",
 		header: () => <DataTable.ActionHeader />,
 		cell: () => (
-			<DataTable.ActionCell>
+			<DataTable.ActionCell onClick={(event) => event.stopPropagation()}>
 				<DropdownMenu.Root>
 					<DropdownMenu.Trigger asChild>
 						<IconButton
@@ -142,7 +142,6 @@ export function PaymentsDemo() {
 				{rows.length > 0 ? (
 					rows.map((row) => (
 						<DataTable.Row
-							className="cursor-pointer"
 							key={row.id}
 							onClick={() => {
 								window.alert(`Clicked payment row: ${row.original.id}`);
@@ -407,7 +406,7 @@ export function EmptyPaymentsDemo() {
 			<DataTable.Head />
 			<DataTable.Body>
 				{rows.length > 0 ? (
-					rows.map((row) => <DataTable.Row className="cursor-pointer" key={row.id} row={row} />)
+					rows.map((row) => <DataTable.Row key={row.id} row={row} />)
 				) : (
 					<DataTable.EmptyRow>
 						<p className="flex items-center justify-center min-h-20">No results.</p>

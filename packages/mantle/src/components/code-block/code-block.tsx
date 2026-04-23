@@ -520,7 +520,7 @@ type CodeBlockCopyButtonProps = Omit<ComponentProps<"button">, "children" | "typ
 const CopyButton = forwardRef<ComponentRef<"button">, CodeBlockCopyButtonProps>(
 	({ className, onCopy, onCopyError, onClick, ...props }, ref) => {
 		const { copyTextRef } = useCodeBlockContext();
-		const [, copyToClipboard] = useCopyToClipboard();
+		const copyToClipboard = useCopyToClipboard();
 		const [wasCopied, setWasCopied] = useState(false);
 		const timeoutHandle = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
