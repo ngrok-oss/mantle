@@ -23,6 +23,9 @@ function getDocPaths(): string[] {
 		paths.add(`/${slug}`);
 	}
 
+	// Routes that aren't backed by an MDX file in app/docs/.
+	paths.add("/changelog");
+
 	return Array.from(paths).toSorted((a: string, b: string) => a.localeCompare(b));
 }
 
