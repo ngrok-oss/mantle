@@ -44,6 +44,7 @@ export const MANTLE_COMPONENT_NAMES = [
 	"main",
 	"media-object",
 	"multi-select",
+	"otp-input",
 	"pagination",
 	"popover",
 	"progress",

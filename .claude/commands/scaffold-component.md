@@ -7,6 +7,30 @@ argument-hint: "<component-name>"
 
 Scaffold a new component named `$ARGUMENTS` in the mantle design system. If no name is provided, ask the user for a component name.
 
+## 0. Normalize the component name
+
+The user may provide the name in any of the following formats. Accept all of them and normalize before scaffolding:
+
+- `ComponentName` (PascalCase)
+- `Component Name` (Title Case with spaces)
+- `component name` (lowercase with spaces)
+- `component-name` (kebab-case)
+
+Derive two canonical forms from the input and use them consistently throughout the rest of these steps:
+
+- **`<component-name>`** — lower-kebab-case. Used for file names, directory names, package.json export keys, route paths, URL slugs, and import specifiers. Example: `my-component`.
+- **`<ComponentName>`** — PascalCase. Used for the exported React component / namespace identifier and TypeScript types. Example: `MyComponent`.
+- **`<Display Name>`** — Title Case with spaces. Used for the docs page `title:` frontmatter and the navigation label in step 5. Derive it from the PascalCase form by inserting spaces before internal capital letters. Example: `My Component`.
+
+Examples of normalization:
+
+| Input          | `<component-name>` | `<ComponentName>` | `<Display Name>` |
+| -------------- | ------------------ | ----------------- | ---------------- |
+| `ButtonGroup`  | `button-group`     | `ButtonGroup`     | `Button Group`   |
+| `Button Group` | `button-group`     | `ButtonGroup`     | `Button Group`   |
+| `button group` | `button-group`     | `ButtonGroup`     | `Button Group`   |
+| `button-group` | `button-group`     | `ButtonGroup`     | `Button Group`   |
+
 ## 0.a. Ask: compound or simple?
 
 After normalizing the name (step 0), ask the user:
@@ -29,32 +53,30 @@ Use this structural answer in step 1 below (and in step 3) to build the ASCII co
 
 Use real Unicode box-drawing chars (`├` U+251C, `─` U+2500, `└` U+2514, `│` U+2502) and 4-char per-level indentation.
 
-## 0. Normalize the component name
+Follow these steps exactly.
 
-The user may provide the name in any of the following formats. Accept all of them and normalize before scaffolding:
+## 0.b. Add external dependencies (only if wrapping a 3rd-party library)
 
-- `ComponentName` (PascalCase)
-- `Component Name` (Title Case with spaces)
-- `component name` (lowercase with spaces)
-- `component-name` (kebab-case)
+If the component wraps a 3rd-party primitive (e.g. Radix, Ariakit, `input-otp`, `cmdk`), add the dependency to `@ngrok/mantle` with an **exact pinned version** before writing code:
 
-Derive two canonical forms from the input and use them consistently throughout the rest of these steps:
+```bash
+pnpm -w add -E <package-name> -F @ngrok/mantle
+```
 
-- **`<component-name>`** — lower-kebab-case. Used for file names, directory names, package.json export keys, route paths, URL slugs, and import specifiers. Example: `my-component`.
-- **`<ComponentName>`** — PascalCase. Used for the exported React component / namespace identifier, TypeScript types, and the displayed documentation title. Example: `MyComponent`.
+- No `^` or `~` prefixes — versions must be exact (`-E` enforces this).
+- If the dep will be shared across multiple workspace packages, add it to `pnpm-workspace.yaml`'s `catalog:` first and reference it as `catalog:`.
+- Skip this step entirely for components built only from React + existing mantle utilities.
 
-A `<Display Name>` (Title Case with spaces, e.g. `My Component`) is also needed for the navigation label in step 5 — derive it from the PascalCase form by inserting spaces before internal capital letters.
+## 0.c. Decide on `"use client"`
 
-Examples of normalization:
+If the component uses any of the following, the file MUST start with `"use client";` on its first line for React Server Component compatibility:
 
-| Input          | `<component-name>` | `<ComponentName>` | `<Display Name>` |
-| -------------- | ------------------ | ----------------- | ---------------- |
-| `ButtonGroup`  | `button-group`     | `ButtonGroup`     | `Button Group`   |
-| `Button Group` | `button-group`     | `ButtonGroup`     | `Button Group`   |
-| `button group` | `button-group`     | `ButtonGroup`     | `Button Group`   |
-| `button-group` | `button-group`     | `ButtonGroup`     | `Button Group`   |
+- React hooks (`useState`, `useEffect`, `useContext`, `useRef`, etc.)
+- Event handlers attached to DOM (`onClick`, `onChange`, etc., when defined inline in the component file)
+- Browser-only APIs (`window`, `document`, `localStorage`, etc.)
+- Context providers / consumers
 
-Follow these steps exactly:
+Pure presentational components that just spread props onto an element don't need it. When in doubt, add it — the cost is negligible.
 
 ## 1. Create the component directory and files
 
@@ -192,6 +214,24 @@ For components without sub-parts, export a single named component directly — n
 ### `index.ts`
 
 - Re-export everything from `./<component-name>.js` (note the `.js` extension)
+- If the component wraps a 3rd-party library and surfaces helpers from it (e.g. pattern constants, type predicates, sub-utilities), re-export those from the same `index.ts` so consumers have a single import path. Example:
+  ```ts
+  export { OtpInput, REGEXP_ONLY_CHARS, REGEXP_ONLY_DIGITS } from "./otp-input.js";
+  ```
+  The component's `<component-name>.tsx` should re-export them from the underlying library; `index.ts` then forwards them again. Don't expose every helper by default — only the ones consumers need to compose the component.
+
+### `<component-name>.test.tsx` (or `.browser.test.tsx`)
+
+Create a colocated test file. Default to happy-dom (`<component-name>.test.tsx`); use the browser mode suffix (`<component-name>.browser.test.tsx`) only when the component depends on real-browser APIs that happy-dom doesn't implement (Web Animations, IntersectionObserver, real layout/scroll, clipboard, native `<dialog>`, etc.). See `CONVENTIONS.md` → "When to reach for browser mode" for the full list.
+
+At minimum, cover:
+
+- Renders without crashing with the documented minimal usage.
+- Forwards `className`, `ref`, and arbitrary `data-*` props to the rendered root element.
+- For `asChild`-supporting parts, that the swap merges classes / data attributes onto the child.
+- Component-specific business logic (state machines, parsing/formatting, conditional rendering).
+
+Use `@testing-library/react` queries (`getByRole`, `getByText`) — no rendered-HTML snapshots.
 
 ## 2. Add the package.json export
 
@@ -213,7 +253,7 @@ Create `apps/www/app/docs/components/<component-name>.mdx` with:
 
 ```mdx
 ---
-title: <ComponentName>
+title: <Display Name>
 description: <One-line description>
 ---
 
@@ -258,7 +298,25 @@ For compound components, include a `## Composition` section (as shown above) bef
 
 For simple components with no sub-parts, omit the `## Composition` section — there is no tree to draw.
 
-If the component uses `asChild` to render as a different element, add a `## Polymorphism` section (after Composition, before API Reference) documenting that behavior — do **not** call this section "Composition" since that name is reserved for the structural tree above.
+If the component uses `asChild` to render as a different element, add a `## Polymorphism` section (after Composition, before API Reference) documenting that behavior — do **not** call this section "Composition" since that name is reserved for the structural tree above. Use this template:
+
+````mdx
+## Polymorphism
+
+`<ComponentName>.<SubPart>` accepts an `asChild` prop. When `true`, the part renders its single child instead of its default `<element>`, forwarding all class names, `data-*` attributes, and the ref onto that child.
+
+<Example>
+	<!-- Live example showing asChild usage -->
+</Example>
+
+```tsx
+<<ComponentName>.<SubPart> asChild>
+	<a href="/somewhere">Custom child</a>
+</<ComponentName>.<SubPart>>
+```
+````
+
+List every sub-part that supports `asChild` and explain when consumers would reach for it (different semantic element, integrating with another framework's primitive, etc.).
 
 Icons in examples should use `@phosphor-icons/react` (the primary icon library for mantle).
 
@@ -288,6 +346,7 @@ Run these commands and ensure they pass:
 2. `pnpm -w run typecheck`
 3. `pnpm -w run lint`
 4. `pnpm -w run fmt:check` (run `pnpm -w run fmt` to auto-fix if needed)
+5. `pnpm -w run test -F @ngrok/mantle` — the new test file must pass
 
 ## 7. Create a changeset
 
