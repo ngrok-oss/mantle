@@ -385,7 +385,7 @@
 		"date-fns": "^4.1.0",
 		"react": "^18 || ^19",
 		"react-dom": "^18 || ^19",
-		"tailwindcss": "^4.2.2"
+		"tailwindcss": "^4.2.4"
 	},
 	"browserslist": [
 		"last 2 years, not dead, > 0.2%"
