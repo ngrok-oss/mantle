@@ -1,5 +1,19 @@
 # @ngrok/mantle
 
+## 0.71.0
+
+### Minor Changes
+
+- [#1167](https://github.com/ngrok-oss/mantle/pull/1167) [`acd0c55`](https://github.com/ngrok-oss/mantle/commit/acd0c55527fefdf410e28858db2eaf90a9f5d2f5) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add `OtpInput`, a compound component for capturing one-time passcodes (OTP). Built on top of [`input-otp`](https://github.com/guilhermerodz/input-otp), it renders a single hidden input that handles paste, autofill, and IME correctly while displaying each character in its own styled slot. Composes as `OtpInput.Root` > `OtpInput.Group` > `OtpInput.Slot` with optional `OtpInput.Separator` between groups. Re-exports the `REGEXP_ONLY_DIGITS`, `REGEXP_ONLY_CHARS`, and `REGEXP_ONLY_DIGITS_AND_CHARS` pattern helpers for restricting accepted characters.
+
+### Patch Changes
+
+- [#1166](https://github.com/ngrok-oss/mantle/pull/1166) [`4f35862`](https://github.com/ngrok-oss/mantle/commit/4f35862874e471f871865aabd36a40aff494d523) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Significantly expand JSDoc coverage across the package to improve agentic and IntelliSense-driven discovery. Every `index.ts` barrel now ships a `@see` link to its docs page. All hooks (`useCallbackRef`, `useCopyToClipboard`, `useDebouncedCallback`, `useIsomorphicLayoutEffect`, `useMatchesMediaQuery`, `usePrefersReducedMotion`, `useRandomStableId`, `useScrollBehavior`, `useUndoRedo`) now document `@param`, `@returns`, and at least one `@example`. Compound components (`Dialog`, `Sheet`, `AlertDialog`, `Tooltip`, `Popover`, `HoverCard`, `Select`, `Combobox`, `MultiSelect`, `DataTable`) gained "when to use vs alternatives" guidance on their top-level namespace JSDoc, full-tree `@example` blocks across sub-components, and explicit notes on required setup (`TooltipProvider` mount, `useReactTable` instance for `DataTable.Root`, etc.). Also removes the empty `"./date-picker"` export from `package.json` (it had no implementation and was never importable). No runtime behavior changes.
+
+- [#1161](https://github.com/ngrok-oss/mantle/pull/1161) [`913acb6`](https://github.com/ngrok-oss/mantle/commit/913acb63b7fd17d490aa64cb110e9d57542ed8a6) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Expand JSDoc coverage on `Skeleton`, `Badge`, `Code`, `Kbd`, `MediaObject`, `Anchor`, `Flag`, `Label`, `PasswordInput`, and the top-level `DataTable` (full layout examples — sortable+filterable+paginated, sticky action column, and clickable-row-with-Link). All follow the same template as the flagship components: a one-line summary, a "When to use / When not to use" block, accessibility notes where relevant, and `@example`s with imports. No runtime behavior changes — IntelliSense surfaces more guidance for both human contributors and AI agents using the library.
+
+- [#1155](https://github.com/ngrok-oss/mantle/pull/1155) [`0f0b607`](https://github.com/ngrok-oss/mantle/commit/0f0b607813fbe15c969aa1e3e3c0ac9a4d27c8fe) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update `tailwindcss` and `@tailwindcss/vite` to `4.2.4`.
+
 ## 0.70.2
 
 ### Patch Changes

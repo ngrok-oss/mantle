@@ -1,5 +1,14 @@
 # @ngrok/mantle-vite-plugins
 
+## 1.0.8
+
+### Patch Changes
+
+- [#1155](https://github.com/ngrok-oss/mantle/pull/1155) [`0f0b607`](https://github.com/ngrok-oss/mantle/commit/0f0b607813fbe15c969aa1e3e3c0ac9a4d27c8fe) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update `tailwindcss` and `@tailwindcss/vite` to `4.2.4`.
+
+- Updated dependencies []:
+  - @ngrok/mantle-server-syntax-highlighter@1.0.4
+
 ## 1.0.7
 
 ### Patch Changes
