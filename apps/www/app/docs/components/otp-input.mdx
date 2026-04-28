@@ -1,0 +1,242 @@
+---
+title: OTP Input
+description: Accessible one-time passcode (OTP) input with paste, autofill, and IME support.
+---
+
+import { OtpInput, REGEXP_ONLY_DIGITS } from "@ngrok/mantle/otp-input";
+import { Example } from "~/components/example";
+
+# OTP Input
+
+Capture a short, fixed-length one-time passcode (OTP) — for two-factor codes,
+email verification codes, magic-link codes, and similar flows. Built on top of
+[`input-otp`](https://github.com/guilhermerodz/input-otp), it renders a single
+hidden input that handles paste, autofill, and IME correctly while displaying
+each character in its own styled slot.
+
+<Example>
+	<OtpInput.Root maxLength={6}>
+		<OtpInput.Group>
+			<OtpInput.Slot index={0} />
+			<OtpInput.Slot index={1} />
+			<OtpInput.Slot index={2} />
+		</OtpInput.Group>
+		<OtpInput.Separator />
+		<OtpInput.Group>
+			<OtpInput.Slot index={3} />
+			<OtpInput.Slot index={4} />
+			<OtpInput.Slot index={5} />
+		</OtpInput.Group>
+	</OtpInput.Root>
+</Example>
+
+```tsx
+import { OtpInput } from "@ngrok/mantle/otp-input";
+
+<OtpInput.Root maxLength={6}>
+	<OtpInput.Group>
+		<OtpInput.Slot index={0} />
+		<OtpInput.Slot index={1} />
+		<OtpInput.Slot index={2} />
+	</OtpInput.Group>
+	<OtpInput.Separator />
+	<OtpInput.Group>
+		<OtpInput.Slot index={3} />
+		<OtpInput.Slot index={4} />
+		<OtpInput.Slot index={5} />
+	</OtpInput.Group>
+</OtpInput.Root>;
+```
+
+## Single group
+
+Render all slots in a single group with no separator.
+
+<Example>
+	<OtpInput.Root maxLength={4}>
+		<OtpInput.Group>
+			<OtpInput.Slot index={0} />
+			<OtpInput.Slot index={1} />
+			<OtpInput.Slot index={2} />
+			<OtpInput.Slot index={3} />
+		</OtpInput.Group>
+	</OtpInput.Root>
+</Example>
+
+```tsx
+<OtpInput.Root maxLength={4}>
+	<OtpInput.Group>
+		<OtpInput.Slot index={0} />
+		<OtpInput.Slot index={1} />
+		<OtpInput.Slot index={2} />
+		<OtpInput.Slot index={3} />
+	</OtpInput.Group>
+</OtpInput.Root>
+```
+
+## Digits only
+
+Restrict input to numeric characters using the `pattern` prop and the
+`REGEXP_ONLY_DIGITS` helper.
+
+<Example>
+	<OtpInput.Root maxLength={6} pattern={REGEXP_ONLY_DIGITS}>
+		<OtpInput.Group>
+			<OtpInput.Slot index={0} />
+			<OtpInput.Slot index={1} />
+			<OtpInput.Slot index={2} />
+			<OtpInput.Slot index={3} />
+			<OtpInput.Slot index={4} />
+			<OtpInput.Slot index={5} />
+		</OtpInput.Group>
+	</OtpInput.Root>
+</Example>
+
+```tsx
+import { OtpInput, REGEXP_ONLY_DIGITS } from "@ngrok/mantle/otp-input";
+
+<OtpInput.Root maxLength={6} pattern={REGEXP_ONLY_DIGITS}>
+	<OtpInput.Group>
+		<OtpInput.Slot index={0} />
+		<OtpInput.Slot index={1} />
+		<OtpInput.Slot index={2} />
+		<OtpInput.Slot index={3} />
+		<OtpInput.Slot index={4} />
+		<OtpInput.Slot index={5} />
+	</OtpInput.Group>
+</OtpInput.Root>;
+```
+
+## Disabled
+
+Pass `disabled` to the root to disable the entire input.
+
+<Example>
+	<OtpInput.Root maxLength={6} disabled>
+		<OtpInput.Group>
+			<OtpInput.Slot index={0} />
+			<OtpInput.Slot index={1} />
+			<OtpInput.Slot index={2} />
+		</OtpInput.Group>
+		<OtpInput.Separator />
+		<OtpInput.Group>
+			<OtpInput.Slot index={3} />
+			<OtpInput.Slot index={4} />
+			<OtpInput.Slot index={5} />
+		</OtpInput.Group>
+	</OtpInput.Root>
+</Example>
+
+```tsx
+<OtpInput.Root maxLength={6} disabled>
+	{/* ... */}
+</OtpInput.Root>
+```
+
+## Polymorphism
+
+`OtpInput.Group` and `OtpInput.Separator` accept an `asChild` prop. When `true`,
+the part renders its single child instead of its default `div`, forwarding all
+class names, `data-*` attributes, and the ref onto that child. Use this when you
+need a different underlying element — for example, rendering the separator as a
+semantic span, or wrapping a group in a styled label.
+
+<Example>
+	<OtpInput.Root maxLength={6}>
+		<OtpInput.Group>
+			<OtpInput.Slot index={0} />
+			<OtpInput.Slot index={1} />
+			<OtpInput.Slot index={2} />
+		</OtpInput.Group>
+		<OtpInput.Separator asChild>
+			<span aria-hidden>·</span>
+		</OtpInput.Separator>
+		<OtpInput.Group>
+			<OtpInput.Slot index={3} />
+			<OtpInput.Slot index={4} />
+			<OtpInput.Slot index={5} />
+		</OtpInput.Group>
+	</OtpInput.Root>
+</Example>
+
+```tsx
+<OtpInput.Separator asChild>
+	<span aria-hidden>·</span>
+</OtpInput.Separator>
+```
+
+## Composition
+
+Compose the parts of an `OtpInput` together to build your own:
+
+```text showLineNumbers=false
+OtpInput.Root
+├── OtpInput.Group
+│   └── OtpInput.Slot
+├── OtpInput.Separator
+└── OtpInput.Group
+    └── OtpInput.Slot
+```
+
+## API Reference
+
+### OtpInput.Root
+
+The root of the OTP input. Wraps the hidden input that captures keystrokes,
+paste, and autofill, and provides per-slot state to descendant `OtpInput.Slot`
+parts via context.
+
+All props from the underlying [`OTPInput`](https://github.com/guilhermerodz/input-otp#api-reference) component, including standard `input` props, plus:
+
+| Prop                           | Type                            | Default  | Description                                                               |
+| ------------------------------ | ------------------------------- | -------- | ------------------------------------------------------------------------- |
+| `maxLength`                    | `number`                        | —        | The total number of character slots. Required.                            |
+| `value?`                       | `string`                        | —        | Controlled value.                                                         |
+| `onChange?`                    | `(value: string) => void`       | —        | Fired when the value changes.                                             |
+| `onComplete?`                  | `(value: string) => void`       | —        | Fired when the user fills the final slot.                                 |
+| `pattern?`                     | `string`                        | —        | Regex source restricting accepted characters (e.g. `REGEXP_ONLY_DIGITS`). |
+| `textAlign?`                   | `"left" \| "center" \| "right"` | `"left"` | Caret alignment within the hidden input.                                  |
+| `containerClassName?`          | `string`                        | —        | Class applied to the slot container element.                              |
+| `pasteTransformer?`            | `(pasted: string) => string`    | —        | Transform pasted text before it is consumed.                              |
+| `pushPasswordManagerStrategy?` | `"increase-width" \| "none"`    | —        | Strategy to push password-manager badges out of the way.                  |
+
+### OtpInput.Group
+
+Groups one or more `OtpInput.Slot` parts into a visually-connected segment with shared rounded corners and joined borders.
+
+All props from [div](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes), plus:
+
+| Prop       | Type      | Default | Description                                       |
+| ---------- | --------- | ------- | ------------------------------------------------- |
+| `asChild?` | `boolean` | `false` | Render as a different element by passing a child. |
+
+### OtpInput.Slot
+
+A single character slot. Must be rendered inside an `OtpInput.Root`. Reads its character, active state, and fake caret position from the root via context.
+
+All props from [div](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes), plus:
+
+| Prop    | Type     | Default | Description                                                    |
+| ------- | -------- | ------- | -------------------------------------------------------------- |
+| `index` | `number` | —       | Zero-based index of the slot. Required. Must be `< maxLength`. |
+
+### OtpInput.Separator
+
+A visual separator between two `OtpInput.Group` segments. Renders a minus icon by default; pass `children` to override.
+
+All props from [div](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes), plus:
+
+| Prop        | Type      | Default | Description                                                                                          |
+| ----------- | --------- | ------- | ---------------------------------------------------------------------------------------------------- |
+| `asChild?`  | `boolean` | `false` | Render as a different element by passing a child.                                                    |
+| `semantic?` | `boolean` | `false` | If `true`, renders with `role="separator"`. Otherwise the separator is decorative and `aria-hidden`. |
+
+### Pattern helpers
+
+Re-exported from `input-otp` for convenience:
+
+| Export                         | Pattern          |
+| ------------------------------ | ---------------- |
+| `REGEXP_ONLY_DIGITS`           | `^\d+$`          |
+| `REGEXP_ONLY_CHARS`            | `^[a-zA-Z]+$`    |
+| `REGEXP_ONLY_DIGITS_AND_CHARS` | `^[a-zA-Z0-9]+$` |

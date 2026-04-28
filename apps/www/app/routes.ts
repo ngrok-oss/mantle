@@ -72,6 +72,7 @@ export default [
 		...docRoute("components/main"),
 		...docRoute("components/media-object"),
 		...docRoute("components/multi-select"),
+		...docRoute("components/otp-input"),
 		...docRoute("components/pagination"),
 		...docRoute("components/password-input"),
 		...docRoute("components/popover"),
