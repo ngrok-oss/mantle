@@ -69,6 +69,12 @@ type MultiSelectProps = Primitive.ComboboxProviderProps<string[]>;
  * Root component for a multi-select combobox. Provides state management for
  * selecting multiple values with typeahead filtering.
  *
+ * Use MultiSelect when the user can choose multiple values from a list, with selected
+ * items rendered as removable tags/chips. For single selection, use Combobox (with search)
+ * or Select (without).
+ *
+ * @see https://mantle.ngrok.com/components/multi-select#multiselectroot
+ *
  * @example
  * ```tsx
  * <MultiSelect.Root>
@@ -114,6 +120,8 @@ type MultiSelectTriggerProps = ComponentPropsWithoutRef<"div"> & WithValidation;
 /**
  * The trigger container for the multi-select. Wraps the input and selected
  * value tags in a styled container that looks like a form input.
+ *
+ * @see https://mantle.ngrok.com/components/multi-select#multiselecttrigger
  *
  * @example
  * ```tsx
@@ -219,9 +227,21 @@ type TagProps = Omit<ComponentProps<"span">, "children"> & {
  * Use this when building a custom `TagValues`-like component and you want the
  * default tag chrome with consistent styling.
  *
+ * @see https://mantle.ngrok.com/components/multi-select#multiselecttag
+ *
  * @example
  * ```tsx
- * <MultiSelect.Tag value="apple" />
+ * <MultiSelect.Root>
+ *   <MultiSelect.Trigger>
+ *     <MultiSelect.TagValues>
+ *       {(props) => <MultiSelect.Tag key={props.value} {...props} />}
+ *     </MultiSelect.TagValues>
+ *     <MultiSelect.Input placeholder="Select items..." />
+ *   </MultiSelect.Trigger>
+ *   <MultiSelect.Content>
+ *     <MultiSelect.Item value="apple">Apple</MultiSelect.Item>
+ *   </MultiSelect.Content>
+ * </MultiSelect.Root>
  * ```
  */
 const Tag = forwardRef<HTMLSpanElement, TagProps>(
@@ -332,6 +352,8 @@ type MultiSelectTagValuesProps = {
 /**
  * Renders the selected values as removable tags. Place this inside
  * `MultiSelect.Trigger`, followed by `MultiSelect.Input`.
+ *
+ * @see https://mantle.ngrok.com/components/multi-select#multiselecttagvalues
  *
  * @example
  * ```tsx
@@ -587,6 +609,8 @@ type MultiSelectInputProps = Omit<Primitive.ComboboxProps, "render"> & {
  * The combobox input for filtering items. Place this inside `MultiSelect.Trigger`,
  * after `MultiSelect.TagValues`.
  *
+ * @see https://mantle.ngrok.com/components/multi-select#multiselectinput
+ *
  * @example
  * ```tsx
  * <MultiSelect.Root>
@@ -661,6 +685,8 @@ type MultiSelectContentProps = Omit<Primitive.ComboboxPopoverProps, "render"> & 
 /**
  * Renders a popover that contains multi-select content, such as items, groups,
  * and separators. Opens below the trigger.
+ *
+ * @see https://mantle.ngrok.com/components/multi-select#multiselectcontent
  *
  * @example
  * ```tsx
@@ -759,12 +785,20 @@ type MultiSelectItemProps = Omit<Primitive.ComboboxItemProps, "render"> & WithAs
  * Renders a selectable item inside a `MultiSelect.Content` component.
  * Items display a checkbox indicator when selected.
  *
+ * @see https://mantle.ngrok.com/components/multi-select#multiselectitem
+ *
  * @example
  * ```tsx
- * <MultiSelect.Content>
- *   <MultiSelect.Item value="apple">Apple</MultiSelect.Item>
- *   <MultiSelect.Item value="banana">Banana</MultiSelect.Item>
- * </MultiSelect.Content>
+ * <MultiSelect.Root>
+ *   <MultiSelect.Trigger>
+ *     <MultiSelect.TagValues />
+ *     <MultiSelect.Input placeholder="Select items..." />
+ *   </MultiSelect.Trigger>
+ *   <MultiSelect.Content>
+ *     <MultiSelect.Item value="apple">Apple</MultiSelect.Item>
+ *     <MultiSelect.Item value="banana">Banana</MultiSelect.Item>
+ *   </MultiSelect.Content>
+ * </MultiSelect.Root>
  * ```
  */
 const Item = forwardRef<ComponentRef<"div">, MultiSelectItemProps>(
@@ -819,15 +853,23 @@ type MultiSelectGroupProps = Omit<Primitive.ComboboxGroupProps, "render"> & With
 /**
  * Renders a group for MultiSelect.Item elements.
  *
+ * @see https://mantle.ngrok.com/components/multi-select#multiselectgroup
+ *
  * @example
  * ```tsx
- * <MultiSelect.Content>
- *   <MultiSelect.Group>
- *     <MultiSelect.GroupLabel>Fruits</MultiSelect.GroupLabel>
- *     <MultiSelect.Item value="apple">Apple</MultiSelect.Item>
- *     <MultiSelect.Item value="banana">Banana</MultiSelect.Item>
- *   </MultiSelect.Group>
- * </MultiSelect.Content>
+ * <MultiSelect.Root>
+ *   <MultiSelect.Trigger>
+ *     <MultiSelect.TagValues />
+ *     <MultiSelect.Input placeholder="Select items..." />
+ *   </MultiSelect.Trigger>
+ *   <MultiSelect.Content>
+ *     <MultiSelect.Group>
+ *       <MultiSelect.GroupLabel>Fruits</MultiSelect.GroupLabel>
+ *       <MultiSelect.Item value="apple">Apple</MultiSelect.Item>
+ *       <MultiSelect.Item value="banana">Banana</MultiSelect.Item>
+ *     </MultiSelect.Group>
+ *   </MultiSelect.Content>
+ * </MultiSelect.Root>
  * ```
  */
 const Group = forwardRef<ComponentRef<"div">, MultiSelectGroupProps>(
@@ -854,14 +896,22 @@ type MultiSelectGroupLabelProps = Omit<Primitive.ComboboxGroupLabelProps, "rende
 /**
  * Renders a label in a multi-select group.
  *
+ * @see https://mantle.ngrok.com/components/multi-select#multiselectgrouplabel
+ *
  * @example
  * ```tsx
- * <MultiSelect.Content>
- *   <MultiSelect.Group>
- *     <MultiSelect.GroupLabel>Fruits</MultiSelect.GroupLabel>
- *     <MultiSelect.Item value="apple">Apple</MultiSelect.Item>
- *   </MultiSelect.Group>
- * </MultiSelect.Content>
+ * <MultiSelect.Root>
+ *   <MultiSelect.Trigger>
+ *     <MultiSelect.TagValues />
+ *     <MultiSelect.Input placeholder="Select items..." />
+ *   </MultiSelect.Trigger>
+ *   <MultiSelect.Content>
+ *     <MultiSelect.Group>
+ *       <MultiSelect.GroupLabel>Fruits</MultiSelect.GroupLabel>
+ *       <MultiSelect.Item value="apple">Apple</MultiSelect.Item>
+ *     </MultiSelect.Group>
+ *   </MultiSelect.Content>
+ * </MultiSelect.Root>
  * ```
  */
 const GroupLabel = forwardRef<ComponentRef<"div">, MultiSelectGroupLabelProps>(
@@ -889,15 +939,25 @@ type MultiSelectGroupDescriptionProps = ComponentPropsWithoutRef<"p">;
  * Renders a description below a `MultiSelect.GroupLabel` inside a `MultiSelect.Group`.
  * Provides context about the group's purpose or constraints.
  *
+ * @see https://mantle.ngrok.com/components/multi-select#multiselectgroupdescription
+ *
  * @example
  * ```tsx
- * <MultiSelect.Group>
- *   <MultiSelect.GroupLabel>Regional Aliases</MultiSelect.GroupLabel>
- *   <MultiSelect.GroupDescription>
- *     Include all points of presence that are geographically within the region.
- *   </MultiSelect.GroupDescription>
- *   <MultiSelect.Item value="global">global</MultiSelect.Item>
- * </MultiSelect.Group>
+ * <MultiSelect.Root>
+ *   <MultiSelect.Trigger>
+ *     <MultiSelect.TagValues />
+ *     <MultiSelect.Input placeholder="Select regions..." />
+ *   </MultiSelect.Trigger>
+ *   <MultiSelect.Content>
+ *     <MultiSelect.Group>
+ *       <MultiSelect.GroupLabel>Regional Aliases</MultiSelect.GroupLabel>
+ *       <MultiSelect.GroupDescription>
+ *         Include all points of presence that are geographically within the region.
+ *       </MultiSelect.GroupDescription>
+ *       <MultiSelect.Item value="global">global</MultiSelect.Item>
+ *     </MultiSelect.Group>
+ *   </MultiSelect.Content>
+ * </MultiSelect.Root>
  * ```
  */
 const GroupDescription = forwardRef<HTMLParagraphElement, MultiSelectGroupDescriptionProps>(
@@ -919,17 +979,25 @@ GroupDescription.displayName = "MultiSelectGroupDescription";
 /**
  * Renders a separator between MultiSelect.Items or MultiSelect.Groups.
  *
+ * @see https://mantle.ngrok.com/components/multi-select#multiselectseparator
+ *
  * @example
  * ```tsx
- * <MultiSelect.Content>
- *   <MultiSelect.Group>
- *     <MultiSelect.Item value="apple">Apple</MultiSelect.Item>
- *   </MultiSelect.Group>
- *   <MultiSelect.Separator />
- *   <MultiSelect.Group>
- *     <MultiSelect.Item value="carrot">Carrot</MultiSelect.Item>
- *   </MultiSelect.Group>
- * </MultiSelect.Content>
+ * <MultiSelect.Root>
+ *   <MultiSelect.Trigger>
+ *     <MultiSelect.TagValues />
+ *     <MultiSelect.Input placeholder="Select items..." />
+ *   </MultiSelect.Trigger>
+ *   <MultiSelect.Content>
+ *     <MultiSelect.Group>
+ *       <MultiSelect.Item value="apple">Apple</MultiSelect.Item>
+ *     </MultiSelect.Group>
+ *     <MultiSelect.Separator />
+ *     <MultiSelect.Group>
+ *       <MultiSelect.Item value="carrot">Carrot</MultiSelect.Item>
+ *     </MultiSelect.Group>
+ *   </MultiSelect.Content>
+ * </MultiSelect.Root>
  * ```
  */
 const MultiSelectSeparatorComponent = forwardRef<
@@ -950,13 +1018,21 @@ type MultiSelectEmptyProps = ComponentPropsWithoutRef<"div">;
 /**
  * Renders a message when no items match the current filter.
  *
+ * @see https://mantle.ngrok.com/components/multi-select#multiselectempty
+ *
  * @example
  * ```tsx
- * <MultiSelect.Content>
- *   {matches.length === 0 && (
- *     <MultiSelect.Empty>No results found</MultiSelect.Empty>
- *   )}
- * </MultiSelect.Content>
+ * <MultiSelect.Root>
+ *   <MultiSelect.Trigger>
+ *     <MultiSelect.TagValues />
+ *     <MultiSelect.Input placeholder="Select items..." />
+ *   </MultiSelect.Trigger>
+ *   <MultiSelect.Content>
+ *     {matches.length === 0 && (
+ *       <MultiSelect.Empty>No results found</MultiSelect.Empty>
+ *     )}
+ *   </MultiSelect.Content>
+ * </MultiSelect.Root>
  * ```
  */
 const Empty = forwardRef<HTMLDivElement, MultiSelectEmptyProps>(
@@ -982,15 +1058,23 @@ type MultiSelectContentFooterProps = ComponentPropsWithoutRef<"div">;
  * Renders a sticky footer pinned to the bottom inside `MultiSelect.Content`,
  * with a separator border at the top.
  *
+ * @see https://mantle.ngrok.com/components/multi-select#multiselectcontentfooter
+ *
  * @example
  * ```tsx
- * <MultiSelect.Content>
- *   <MultiSelect.Item value="apple">Apple</MultiSelect.Item>
- *   <MultiSelect.ContentFooter>
- *     <p>Upgrade to unlock more options.</p>
- *     <Button>Upgrade</Button>
- *   </MultiSelect.ContentFooter>
- * </MultiSelect.Content>
+ * <MultiSelect.Root>
+ *   <MultiSelect.Trigger>
+ *     <MultiSelect.TagValues />
+ *     <MultiSelect.Input placeholder="Select items..." />
+ *   </MultiSelect.Trigger>
+ *   <MultiSelect.Content>
+ *     <MultiSelect.Item value="apple">Apple</MultiSelect.Item>
+ *     <MultiSelect.ContentFooter>
+ *       <p>Upgrade to unlock more options.</p>
+ *       <Button>Upgrade</Button>
+ *     </MultiSelect.ContentFooter>
+ *   </MultiSelect.Content>
+ * </MultiSelect.Root>
  * ```
  */
 const ContentFooter = forwardRef<HTMLDivElement, MultiSelectContentFooterProps>(
@@ -1017,6 +1101,11 @@ ContentFooter.displayName = "MultiSelectContentFooter";
  * Built on top of Ariakit's Combobox primitives with full keyboard support
  * and WAI-ARIA compliance.
  *
+ * Use MultiSelect when the user can choose multiple values from a list, with selected
+ * items rendered as removable tags/chips. For single selection, use Combobox (with search)
+ * or Select (without).
+ *
+ * @see https://mantle.ngrok.com/components/multi-select
  * @see https://www.w3.org/WAI/ARIA/apg/patterns/combobox/
  * @see https://ariakit.org/components/combobox
  *
@@ -1057,6 +1146,12 @@ const MultiSelect = {
 	 * Root component for a multi-select combobox. Provides state management for
 	 * selecting multiple values with typeahead filtering.
 	 *
+	 * Use MultiSelect when the user can choose multiple values from a list, with selected
+	 * items rendered as removable tags/chips. For single selection, use Combobox (with search)
+	 * or Select (without).
+	 *
+	 * @see https://mantle.ngrok.com/components/multi-select#multiselectroot
+	 *
 	 * @example
 	 * ```tsx
 	 * <MultiSelect.Root>
@@ -1075,12 +1170,19 @@ const MultiSelect = {
 	 * The trigger container for the multi-select. Wraps the tags and input
 	 * in a styled container.
 	 *
+	 * @see https://mantle.ngrok.com/components/multi-select#multiselecttrigger
+	 *
 	 * @example
 	 * ```tsx
-	 * <MultiSelect.Trigger>
-	 *   <MultiSelect.TagValues />
-	 *   <MultiSelect.Input placeholder="Select items..." />
-	 * </MultiSelect.Trigger>
+	 * <MultiSelect.Root>
+	 *   <MultiSelect.Trigger>
+	 *     <MultiSelect.TagValues />
+	 *     <MultiSelect.Input placeholder="Select items..." />
+	 *   </MultiSelect.Trigger>
+	 *   <MultiSelect.Content>
+	 *     <MultiSelect.Item value="apple">Apple</MultiSelect.Item>
+	 *   </MultiSelect.Content>
+	 * </MultiSelect.Root>
 	 * ```
 	 */
 	Trigger,
@@ -1091,17 +1193,35 @@ const MultiSelect = {
 	 * Use `lockedValues` to prevent specific tags from being removed. Locked tags
 	 * have their remove button disabled and shake when Backspace is pressed.
 	 *
+	 * @see https://mantle.ngrok.com/components/multi-select#multiselecttagvalues
+	 *
 	 * @example
 	 * ```tsx
-	 * // Default tags with locking
-	 * <MultiSelect.TagValues lockedValues={["global"]} />
+	 * <MultiSelect.Root>
+	 *   <MultiSelect.Trigger>
+	 *     <MultiSelect.TagValues lockedValues={["global"]} />
+	 *     <MultiSelect.Input placeholder="Select items..." />
+	 *   </MultiSelect.Trigger>
+	 *   <MultiSelect.Content>
+	 *     <MultiSelect.Item value="apple">Apple</MultiSelect.Item>
+	 *   </MultiSelect.Content>
+	 * </MultiSelect.Root>
+	 * ```
 	 *
-	 * // Custom tags via children render function — locked is forwarded via props
-	 * <MultiSelect.TagValues lockedValues={["global"]}>
-	 *   {(props) => (
-	 *     <MultiSelect.Tag key={props.value} {...props} />
-	 *   )}
-	 * </MultiSelect.TagValues>
+	 * @example
+	 * Custom tags via children render function — `locked` is forwarded via props.
+	 * ```tsx
+	 * <MultiSelect.Root>
+	 *   <MultiSelect.Trigger>
+	 *     <MultiSelect.TagValues lockedValues={["global"]}>
+	 *       {(props) => <MultiSelect.Tag key={props.value} {...props} />}
+	 *     </MultiSelect.TagValues>
+	 *     <MultiSelect.Input placeholder="Select items..." />
+	 *   </MultiSelect.Trigger>
+	 *   <MultiSelect.Content>
+	 *     <MultiSelect.Item value="apple">Apple</MultiSelect.Item>
+	 *   </MultiSelect.Content>
+	 * </MultiSelect.Root>
 	 * ```
 	 */
 	TagValues,
@@ -1109,9 +1229,19 @@ const MultiSelect = {
 	 * The combobox input for filtering items. Place this inside
 	 * `MultiSelect.Trigger`, after `MultiSelect.TagValues`.
 	 *
+	 * @see https://mantle.ngrok.com/components/multi-select#multiselectinput
+	 *
 	 * @example
 	 * ```tsx
-	 * <MultiSelect.Input placeholder="Select items..." />
+	 * <MultiSelect.Root>
+	 *   <MultiSelect.Trigger>
+	 *     <MultiSelect.TagValues />
+	 *     <MultiSelect.Input placeholder="Select items..." />
+	 *   </MultiSelect.Trigger>
+	 *   <MultiSelect.Content>
+	 *     <MultiSelect.Item value="apple">Apple</MultiSelect.Item>
+	 *   </MultiSelect.Content>
+	 * </MultiSelect.Root>
 	 * ```
 	 */
 	Input,
@@ -1119,23 +1249,41 @@ const MultiSelect = {
 	 * The default tag rendered inside `MultiSelect.TagValues` for each selected value.
 	 * Displays the value label with a remove button and keyboard navigation support.
 	 *
+	 * @see https://mantle.ngrok.com/components/multi-select#multiselecttag
+	 *
 	 * @example
 	 * ```tsx
-	 * <MultiSelect.Tag
-	 *   value="apple"
-	 *   onRemove={() => removeValue("apple")}
-	 * />
+	 * <MultiSelect.Root>
+	 *   <MultiSelect.Trigger>
+	 *     <MultiSelect.TagValues>
+	 *       {(props) => <MultiSelect.Tag key={props.value} {...props} />}
+	 *     </MultiSelect.TagValues>
+	 *     <MultiSelect.Input placeholder="Select items..." />
+	 *   </MultiSelect.Trigger>
+	 *   <MultiSelect.Content>
+	 *     <MultiSelect.Item value="apple">Apple</MultiSelect.Item>
+	 *   </MultiSelect.Content>
+	 * </MultiSelect.Root>
 	 * ```
 	 */
 	Tag,
 	/**
 	 * Renders a popover that contains multi-select content.
 	 *
+	 * @see https://mantle.ngrok.com/components/multi-select#multiselectcontent
+	 *
 	 * @example
 	 * ```tsx
-	 * <MultiSelect.Content>
-	 *   <MultiSelect.Item value="apple">Apple</MultiSelect.Item>
-	 * </MultiSelect.Content>
+	 * <MultiSelect.Root>
+	 *   <MultiSelect.Trigger>
+	 *     <MultiSelect.TagValues />
+	 *     <MultiSelect.Input placeholder="Select items..." />
+	 *   </MultiSelect.Trigger>
+	 *   <MultiSelect.Content>
+	 *     <MultiSelect.Item value="apple">Apple</MultiSelect.Item>
+	 *     <MultiSelect.Item value="banana">Banana</MultiSelect.Item>
+	 *   </MultiSelect.Content>
+	 * </MultiSelect.Root>
 	 * ```
 	 */
 	Content,
@@ -1143,70 +1291,157 @@ const MultiSelect = {
 	 * Renders a sticky footer pinned to the bottom inside `MultiSelect.Content`,
 	 * with a separator border at the top.
 	 *
+	 * @see https://mantle.ngrok.com/components/multi-select#multiselectcontentfooter
+	 *
 	 * @example
 	 * ```tsx
-	 * <MultiSelect.ContentFooter>
-	 *   <p>Upgrade to unlock more options.</p>
-	 * </MultiSelect.ContentFooter>
+	 * <MultiSelect.Root>
+	 *   <MultiSelect.Trigger>
+	 *     <MultiSelect.TagValues />
+	 *     <MultiSelect.Input placeholder="Select items..." />
+	 *   </MultiSelect.Trigger>
+	 *   <MultiSelect.Content>
+	 *     <MultiSelect.Item value="apple">Apple</MultiSelect.Item>
+	 *     <MultiSelect.ContentFooter>
+	 *       <p>Upgrade to unlock more options.</p>
+	 *     </MultiSelect.ContentFooter>
+	 *   </MultiSelect.Content>
+	 * </MultiSelect.Root>
 	 * ```
 	 */
 	ContentFooter,
 	/**
 	 * Renders a selectable item with a checkbox indicator inside a `MultiSelect.Content`.
 	 *
+	 * @see https://mantle.ngrok.com/components/multi-select#multiselectitem
+	 *
 	 * @example
 	 * ```tsx
-	 * <MultiSelect.Item value="apple">Apple</MultiSelect.Item>
+	 * <MultiSelect.Root>
+	 *   <MultiSelect.Trigger>
+	 *     <MultiSelect.TagValues />
+	 *     <MultiSelect.Input placeholder="Select items..." />
+	 *   </MultiSelect.Trigger>
+	 *   <MultiSelect.Content>
+	 *     <MultiSelect.Item value="apple">Apple</MultiSelect.Item>
+	 *     <MultiSelect.Item value="banana">Banana</MultiSelect.Item>
+	 *   </MultiSelect.Content>
+	 * </MultiSelect.Root>
 	 * ```
 	 */
 	Item,
 	/**
 	 * Renders a group for MultiSelect.Item elements.
 	 *
+	 * @see https://mantle.ngrok.com/components/multi-select#multiselectgroup
+	 *
 	 * @example
 	 * ```tsx
-	 * <MultiSelect.Group>
-	 *   <MultiSelect.GroupLabel>Fruits</MultiSelect.GroupLabel>
-	 *   <MultiSelect.Item value="apple">Apple</MultiSelect.Item>
-	 * </MultiSelect.Group>
+	 * <MultiSelect.Root>
+	 *   <MultiSelect.Trigger>
+	 *     <MultiSelect.TagValues />
+	 *     <MultiSelect.Input placeholder="Select items..." />
+	 *   </MultiSelect.Trigger>
+	 *   <MultiSelect.Content>
+	 *     <MultiSelect.Group>
+	 *       <MultiSelect.GroupLabel>Fruits</MultiSelect.GroupLabel>
+	 *       <MultiSelect.Item value="apple">Apple</MultiSelect.Item>
+	 *     </MultiSelect.Group>
+	 *   </MultiSelect.Content>
+	 * </MultiSelect.Root>
 	 * ```
 	 */
 	Group,
 	/**
 	 * Renders a label in a multi-select group.
 	 *
+	 * @see https://mantle.ngrok.com/components/multi-select#multiselectgrouplabel
+	 *
 	 * @example
 	 * ```tsx
-	 * <MultiSelect.GroupLabel>Fruits</MultiSelect.GroupLabel>
+	 * <MultiSelect.Root>
+	 *   <MultiSelect.Trigger>
+	 *     <MultiSelect.TagValues />
+	 *     <MultiSelect.Input placeholder="Select items..." />
+	 *   </MultiSelect.Trigger>
+	 *   <MultiSelect.Content>
+	 *     <MultiSelect.Group>
+	 *       <MultiSelect.GroupLabel>Fruits</MultiSelect.GroupLabel>
+	 *       <MultiSelect.Item value="apple">Apple</MultiSelect.Item>
+	 *     </MultiSelect.Group>
+	 *   </MultiSelect.Content>
+	 * </MultiSelect.Root>
 	 * ```
 	 */
 	GroupLabel,
 	/**
 	 * Renders a description below a `MultiSelect.GroupLabel` inside a `MultiSelect.Group`.
 	 *
+	 * @see https://mantle.ngrok.com/components/multi-select#multiselectgroupdescription
+	 *
 	 * @example
 	 * ```tsx
-	 * <MultiSelect.GroupDescription>
-	 *   Include all points of presence within the region.
-	 * </MultiSelect.GroupDescription>
+	 * <MultiSelect.Root>
+	 *   <MultiSelect.Trigger>
+	 *     <MultiSelect.TagValues />
+	 *     <MultiSelect.Input placeholder="Select regions..." />
+	 *   </MultiSelect.Trigger>
+	 *   <MultiSelect.Content>
+	 *     <MultiSelect.Group>
+	 *       <MultiSelect.GroupLabel>Regional Aliases</MultiSelect.GroupLabel>
+	 *       <MultiSelect.GroupDescription>
+	 *         Include all points of presence within the region.
+	 *       </MultiSelect.GroupDescription>
+	 *       <MultiSelect.Item value="global">global</MultiSelect.Item>
+	 *     </MultiSelect.Group>
+	 *   </MultiSelect.Content>
+	 * </MultiSelect.Root>
 	 * ```
 	 */
 	GroupDescription,
 	/**
 	 * Renders a separator between items or groups.
 	 *
+	 * @see https://mantle.ngrok.com/components/multi-select#multiselectseparator
+	 *
 	 * @example
 	 * ```tsx
-	 * <MultiSelect.Separator />
+	 * <MultiSelect.Root>
+	 *   <MultiSelect.Trigger>
+	 *     <MultiSelect.TagValues />
+	 *     <MultiSelect.Input placeholder="Select items..." />
+	 *   </MultiSelect.Trigger>
+	 *   <MultiSelect.Content>
+	 *     <MultiSelect.Group>
+	 *       <MultiSelect.Item value="apple">Apple</MultiSelect.Item>
+	 *     </MultiSelect.Group>
+	 *     <MultiSelect.Separator />
+	 *     <MultiSelect.Group>
+	 *       <MultiSelect.Item value="carrot">Carrot</MultiSelect.Item>
+	 *     </MultiSelect.Group>
+	 *   </MultiSelect.Content>
+	 * </MultiSelect.Root>
 	 * ```
 	 */
 	Separator: MultiSelectSeparatorComponent,
 	/**
 	 * Renders a message when no items match the current filter.
 	 *
+	 * @see https://mantle.ngrok.com/components/multi-select#multiselectempty
+	 *
 	 * @example
 	 * ```tsx
-	 * <MultiSelect.Empty>No results found</MultiSelect.Empty>
+	 * <MultiSelect.Root>
+	 *   <MultiSelect.Trigger>
+	 *     <MultiSelect.TagValues />
+	 *     <MultiSelect.Input placeholder="Select items..." />
+	 *   </MultiSelect.Trigger>
+	 *   <MultiSelect.Content>
+	 *     {matches.length === 0 && (
+	 *       <MultiSelect.Empty>No results found</MultiSelect.Empty>
+	 *     )}
+	 *   </MultiSelect.Content>
+	 * </MultiSelect.Root>
 	 * ```
 	 */
 	Empty,

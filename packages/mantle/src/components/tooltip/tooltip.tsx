@@ -4,15 +4,27 @@ import type { ComponentProps, ComponentPropsWithoutRef, ComponentRef } from "rea
 import { cx } from "../../utils/cx/cx.js";
 
 /**
- * Wraps your app to provide global functionality to your tooltips.
- * Only one instance of this component should be rendered in your app, preferably at the root.
+ * Wraps your app to provide global functionality to your tooltips. Required
+ * ancestor for `Tooltip.Root` — mount one instance at the root of your app
+ * (alongside `ThemeProvider` and `Toaster`). Only one instance should be
+ * rendered. Children render `Tooltip.Root` / `Tooltip.Trigger` /
+ * `Tooltip.Content` trees as usual.
  *
  * @see https://mantle.ngrok.com/components/tooltip#tooltipprovider
  *
  * @example
  * ```tsx
  * <TooltipProvider>
- *   <App />
+ *   <Tooltip.Root>
+ *     <Tooltip.Trigger asChild>
+ *       <Button type="button" appearance="outlined">
+ *         Hover me
+ *       </Button>
+ *     </Tooltip.Trigger>
+ *     <Tooltip.Content>
+ *       This is a tooltip
+ *     </Tooltip.Content>
+ *   </Tooltip.Root>
  * </TooltipProvider>
  * ```
  */
@@ -123,14 +135,20 @@ Content.displayName = "Tooltip.Content";
 
 /**
  * A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.
- * Wrapping your app in a `TooltipProvider` is recommended to share global tooltip behavior (delay, hover settings) across your application.
  *
- * Use a `Tooltip` for short, non-interactive labels — for example, to clarify
- * the purpose of an icon-only button. Per the WAI-ARIA tooltip pattern,
- * tooltips never receive focus, so interactive content inside them is
- * unreachable for keyboard users. Prefer `Popover` when the floating content
- * must be interactive, or `HoverCard` for a sighted-only preview of content
- * that already lives behind a link.
+ * Use `Tooltip` to show a short, non-essential label or hint when the user
+ * hovers or focuses an element — e.g., the meaning of an icon button, a
+ * keyboard shortcut, or a brief explanation. Tooltips are NON-INTERACTIVE:
+ * do not put buttons, links, or form controls inside one. Per the WAI-ARIA
+ * tooltip pattern, tooltips never receive focus, so interactive content
+ * inside them is unreachable for keyboard users. For interactive overlay
+ * content (forms, settings, color pickers), use `Popover`. For non-essential
+ * preview cards (user/repo previews, link previews), use `HoverCard`.
+ *
+ * Requires a `<TooltipProvider>` ancestor — mount one at the root of your
+ * app (alongside `ThemeProvider` and `Toaster`) to share global tooltip
+ * behavior (delay, hover settings). `Tooltip.Root` will throw if no
+ * provider is present.
  *
  * @see https://mantle.ngrok.com/components/tooltip
  * @see https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/

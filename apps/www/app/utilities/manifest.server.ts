@@ -1,5 +1,6 @@
 import mantlePackageJson from "@ngrok/mantle/package.json" with { type: "json" };
 import {
+	componentImportPathOverrides,
 	previewComponentsRouteLookup,
 	prodReadyComponentRouteLookup,
 } from "~/components/navigation-data";
@@ -42,8 +43,17 @@ export type Manifest = {
  * Map a docs slug like `components/button` or `components/preview/calendar`
  * to the package import path consumers should use, or `null` if the page
  * doesn't correspond to an importable module (e.g. `base/colors`).
+ *
+ * Consults `componentImportPathOverrides` first so components whose docs
+ * URL slug differs from their `@ngrok/mantle/*` import subpath (e.g. Icon
+ * Button → `@ngrok/mantle/button`) emit the correct `importPath`.
  */
 function importPathForSlug(slug: string): string | null {
+	const overrides: Record<string, string> = componentImportPathOverrides;
+	const override = overrides[`/${slug}`];
+	if (override) {
+		return override;
+	}
 	if (slug.startsWith("components/preview/")) {
 		const name = slug.slice("components/preview/".length);
 		return `@ngrok/mantle/${name}`;

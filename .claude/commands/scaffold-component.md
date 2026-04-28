@@ -272,7 +272,7 @@ Add to `apps/www/app/routes.ts` in alphabetical order among the component docs:
 
 ## 5. Add to navigation
 
-In `apps/www/app/components/layout.tsx`:
+In `apps/www/app/components/navigation-data.ts`:
 
 1. Add the display name to the `prodReadyComponents` array (alphabetical order)
 2. Add the route mapping to `prodReadyComponentRouteLookup` (alphabetical order):

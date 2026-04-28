@@ -1,3 +1,10 @@
+/**
+ * Re-exports for the Button component family.
+ *
+ * @see https://mantle.ngrok.com/components/button
+ * @see https://mantle.ngrok.com/components/icon-button
+ */
+
 export {
 	//,
 	Button,

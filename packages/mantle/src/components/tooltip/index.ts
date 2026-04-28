@@ -1,3 +1,9 @@
+/**
+ * Re-exports for the Tooltip component.
+ *
+ * @see https://mantle.ngrok.com/components/tooltip
+ */
+
 export {
 	//,
 	Tooltip,

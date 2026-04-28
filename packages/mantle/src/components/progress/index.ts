@@ -1,3 +1,10 @@
+/**
+ * Re-exports for the Progress component family.
+ *
+ * @see https://mantle.ngrok.com/components/progress-bar
+ * @see https://mantle.ngrok.com/components/progress-donut
+ */
+
 export {
 	//,
 	ProgressDonut,

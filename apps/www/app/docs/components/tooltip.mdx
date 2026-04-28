@@ -13,10 +13,12 @@ A popup that displays information related to an element when the element receive
 
 ## When to use
 
-A `Tooltip` shows a short, non-interactive label when a control receives keyboard focus or a pointer hover. Reach for it to clarify the purpose of an icon-only button or provide a brief hint about a control.
+A `Tooltip` shows a short, non-interactive label when a control receives keyboard focus or a pointer hover. Reach for it to clarify the purpose of an icon-only button, surface a keyboard shortcut, or provide a brief hint about a control. Do NOT put buttons, links, or form controls inside a `Tooltip`.
 
 - Prefer [`Popover`](/components/popover) when the floating content needs buttons, links, inputs, or anything else focusable.
 - Prefer [`HoverCard`](/components/hover-card) for a sighted-only preview of content that already lives behind a link.
+
+`Tooltip` requires a `TooltipProvider` ancestor; the standard place to mount it is at the app root.
 
 > [!WARNING]
 > Per the [WAI-ARIA tooltip pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/), tooltips must not contain interactive or focusable content — the tooltip itself never receives focus, so anything inside it is unreachable for keyboard users. If the floating content needs to be interactive, use [`Popover`](/components/popover) instead.

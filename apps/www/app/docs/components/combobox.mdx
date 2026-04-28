@@ -12,6 +12,10 @@ import { Example } from "~/components/example";
 
 Fill in a React input field with autocomplete & autosuggest functionalities. Choose from a list of suggested values with full keyboard support. This component is based on the [WAI-ARIA Combobox Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/) and is powered by the [ariakit Combobox](https://ariakit.org/components/combobox).
 
+## When to use
+
+Use `Combobox` for a list where the user types to filter — large static lists, async/server-side data, or any single-select where search is helpful. For small finite lists without filtering, use [`Select`](/components/select). For multi-selection, use [`Multi Select`](/components/multi-select).
+
 <Example className="gap-2">
 	<Combobox.Root>
 		<Combobox.Input />

@@ -185,3 +185,20 @@ export const utilsRoutes = {
 	inView: "/utils/in-view",
 	sorting: "/utils/sorting",
 } as const satisfies Record<(typeof utilsPages)[number], Route>;
+
+/**
+ * Override map for components whose docs URL slug does not match their
+ * package import subpath. For example, "Icon Button" is documented at
+ * /components/icon-button but is exported from `@ngrok/mantle/button`
+ * (alongside `Button`). Used by the manifest builder to emit correct
+ * `importPath` values in /api/components.json.
+ *
+ * Keys are docs routes (with leading slash). Values are the canonical
+ * `@ngrok/mantle/*` import subpath where the component is actually exported.
+ */
+export const componentImportPathOverrides = {
+	"/components/icon-button": "@ngrok/mantle/button",
+	"/components/password-input": "@ngrok/mantle/input",
+	"/components/progress-bar": "@ngrok/mantle/progress",
+	"/components/progress-donut": "@ngrok/mantle/progress",
+} as const satisfies Record<string, string>;

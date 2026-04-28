@@ -67,6 +67,10 @@ type SelectProps = PropsWithChildren & {
 /**
  * Displays a list of options for the user to pick from—triggered by a button.
  *
+ * Use Select for a small, finite list of options (~2-15) where the user picks exactly one
+ * and search/filtering is unnecessary. For larger lists or async/searchable data, use
+ * Combobox. For picking multiple options, use MultiSelect.
+ *
  * @see https://mantle.ngrok.com/components/select#selectroot
  *
  * @example
@@ -243,15 +247,15 @@ const Trigger = forwardRef<ComponentRef<typeof SelectPrimitive.Trigger>, SelectT
 		ref,
 	) => {
 		const ctx = useContext(SelectContext);
-		const _ariaInvalid = ctx["aria-invalid"] ?? ariaInValidProp;
-		const isInvalid = _ariaInvalid != null && _ariaInvalid !== "false";
-		const _validation = ctx.validation ?? propValidation;
+		const rawAriaInvalid = ctx["aria-invalid"] ?? ariaInValidProp;
+		const isInvalid = rawAriaInvalid != null && rawAriaInvalid !== "false";
+		const rawValidation = ctx.validation ?? propValidation;
 		const validation = isInvalid
 			? "error"
-			: typeof _validation === "function"
-				? _validation()
-				: _validation;
-		const ariaInvalid = _ariaInvalid ?? validation === "error";
+			: typeof rawValidation === "function"
+				? rawValidation()
+				: rawValidation;
+		const ariaInvalid = rawAriaInvalid ?? validation === "error";
 		const id = ctx.id ?? propId;
 
 		return (
@@ -535,6 +539,10 @@ SelectSeparatorComponent.displayName = "SelectSeparator";
 /**
  * Displays a list of options for the user to pick from—triggered by a button.
  *
+ * Use Select for a small, finite list of options (~2-15) where the user picks exactly one
+ * and search/filtering is unnecessary. For larger lists or async/searchable data, use
+ * Combobox. For picking multiple options, use MultiSelect.
+ *
  * @see https://mantle.ngrok.com/components/select
  *
  * @example
@@ -576,6 +584,10 @@ SelectSeparatorComponent.displayName = "SelectSeparator";
 const Select = {
 	/**
 	 * Displays a list of options for the user to pick from—triggered by a button.
+	 *
+	 * Use Select for a small, finite list of options (~2-15) where the user picks exactly one
+	 * and search/filtering is unnecessary. For larger lists or async/searchable data, use
+	 * Combobox. For picking multiple options, use MultiSelect.
 	 *
 	 * @see https://mantle.ngrok.com/components/select#selectroot
 	 *
