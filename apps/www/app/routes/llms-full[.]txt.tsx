@@ -16,6 +16,8 @@ function buildBody(): string {
 		"",
 		`Docs index: ${canonicalHref("/llms.txt")}`,
 		`Component manifest: ${canonicalHref("/api/components.json")}`,
+		`Hooks manifest: ${canonicalHref("/api/hooks.json")}`,
+		`Utilities manifest: ${canonicalHref("/api/utils.json")}`,
 		"",
 		"---",
 		"",

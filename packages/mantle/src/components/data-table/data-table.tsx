@@ -50,24 +50,50 @@ type DataTableProps<TData> = ComponentProps<typeof Table.Root> & {
 
 /**
  * The root container for a data table. Wraps all other `DataTable`
- * sub-components and provides the table context via the `table` instance
- * returned from `useReactTable`. Built on top of TanStack Table.
+ * sub-components and provides the table context to its descendants.
+ *
+ * REQUIRED: Construct a TanStack Table instance via `useReactTable` (from
+ * `@tanstack/react-table`, also re-exported from `@ngrok/mantle/data-table`)
+ * and pass it through the `table` prop. The instance owns columns, data, and
+ * any sorting / filtering / pagination state — the wrapper components read
+ * from it.
  *
  * @see https://mantle.ngrok.com/components/data-table#datatableroot
  *
  * @example
  * ```tsx
- * const table = useReactTable({ data, columns, getCoreRowModel: getCoreRowModel() });
- * const rows = table.getRowModel().rows;
+ * import {
+ *   DataTable,
+ *   createColumnHelper,
+ *   getCoreRowModel,
+ *   useReactTable,
+ * } from "@ngrok/mantle/data-table";
  *
- * <DataTable.Root table={table}>
- *   <DataTable.Head />
- *   <DataTable.Body>
- *     {rows.length > 0
- *       ? rows.map((row) => <DataTable.Row key={row.id} row={row} />)
- *       : <DataTable.EmptyRow>No results.</DataTable.EmptyRow>}
- *   </DataTable.Body>
- * </DataTable.Root>
+ * type Row = { id: string; name: string };
+ * const columnHelper = createColumnHelper<Row>();
+ * const columns = [
+ *   columnHelper.accessor("name", {
+ *     id: "name",
+ *     header: () => <DataTable.Header>Name</DataTable.Header>,
+ *     cell: (props) => <DataTable.Cell>{props.getValue()}</DataTable.Cell>,
+ *   }),
+ * ];
+ *
+ * function MyTable({ data }: { data: Row[] }) {
+ *   const table = useReactTable({ data, columns, getCoreRowModel: getCoreRowModel() });
+ *   const rows = table.getRowModel().rows;
+ *
+ *   return (
+ *     <DataTable.Root table={table}>
+ *       <DataTable.Head />
+ *       <DataTable.Body>
+ *         {rows.length > 0
+ *           ? rows.map((row) => <DataTable.Row key={row.id} row={row} />)
+ *           : <DataTable.EmptyRow>No results.</DataTable.EmptyRow>}
+ *       </DataTable.Body>
+ *     </DataTable.Root>
+ *   );
+ * }
  * ```
  */
 function Root<TData>({ children, table, ...props }: DataTableProps<TData>) {
@@ -156,11 +182,11 @@ function HeaderSortButton<TData, TValue>({
 	onClick,
 	...props
 }: DataTableHeaderSortButtonProps<TData, TValue>) {
-	const _sortDirection = column.getIsSorted();
+	const rawSortDirection = column.getIsSorted();
 	const canSort = !disableSorting && column.getCanSort();
 
 	const sortDirection: SortDirection =
-		canSort && typeof _sortDirection === "string" ? _sortDirection : "unsorted";
+		canSort && typeof rawSortDirection === "string" ? rawSortDirection : "unsorted";
 
 	const sortIcon = propSortIcon?.(sortDirection) ?? (
 		<DefaultSortIcon mode={sortingMode} direction={sortDirection} />
@@ -244,6 +270,27 @@ function Header({ children, className, ...props }: DataTableHeaderProps) {
 	);
 }
 
+/**
+ * The `<tbody>` container for rows of data. Typically wraps a map of
+ * `DataTable.Row`, with a `DataTable.EmptyRow` fallback when there is no data.
+ *
+ * @see https://mantle.ngrok.com/components/data-table#datatablebody
+ *
+ * @example
+ * ```tsx
+ * const table = useReactTable({ data, columns, getCoreRowModel: getCoreRowModel() });
+ * const rows = table.getRowModel().rows;
+ *
+ * <DataTable.Root table={table}>
+ *   <DataTable.Head />
+ *   <DataTable.Body>
+ *     {rows.length > 0
+ *       ? rows.map((row) => <DataTable.Row key={row.id} row={row} />)
+ *       : <DataTable.EmptyRow>No results.</DataTable.EmptyRow>}
+ *   </DataTable.Body>
+ * </DataTable.Root>
+ * ```
+ */
 const Body = forwardRef<
 	ComponentRef<typeof Table.Body>,
 	ComponentPropsWithoutRef<typeof Table.Body>
@@ -252,6 +299,28 @@ Body.displayName = "DataTableBody";
 
 type DataTableHeadProps = Omit<ComponentProps<typeof Table.Head>, "children">;
 
+/**
+ * The `<thead>` container that renders column headers automatically from
+ * `table.getHeaderGroups()`. Does not accept children — headers come from each
+ * column's `header` definition on the TanStack Table column config.
+ *
+ * @see https://mantle.ngrok.com/components/data-table#datatablehead
+ *
+ * @example
+ * ```tsx
+ * const table = useReactTable({ data, columns, getCoreRowModel: getCoreRowModel() });
+ * const rows = table.getRowModel().rows;
+ *
+ * <DataTable.Root table={table}>
+ *   <DataTable.Head />
+ *   <DataTable.Body>
+ *     {rows.length > 0
+ *       ? rows.map((row) => <DataTable.Row key={row.id} row={row} />)
+ *       : <DataTable.EmptyRow>No results.</DataTable.EmptyRow>}
+ *   </DataTable.Body>
+ * </DataTable.Root>
+ * ```
+ */
 function Head<TData>(props: DataTableHeadProps) {
 	const { table } = useDataTableContext<TData>();
 
@@ -320,6 +389,29 @@ function Row<TData>({ className, row, ...props }: DataTableRowProps<TData>) {
 
 type DataTableEmptyRowProps = ComponentProps<typeof Table.Row>;
 
+/**
+ * An empty-state row that spans every column. Render this as the `else` branch
+ * when `rows.length === 0` to keep the table's frame intact instead of
+ * collapsing to an empty `<tbody>`. The cell `colSpan` is computed from the
+ * TanStack Table instance via context, so no manual column count is needed.
+ *
+ * @see https://mantle.ngrok.com/components/data-table#datatableemptyrow
+ *
+ * @example
+ * ```tsx
+ * const table = useReactTable({ data, columns, getCoreRowModel: getCoreRowModel() });
+ * const rows = table.getRowModel().rows;
+ *
+ * <DataTable.Root table={table}>
+ *   <DataTable.Head />
+ *   <DataTable.Body>
+ *     {rows.length > 0
+ *       ? rows.map((row) => <DataTable.Row key={row.id} row={row} />)
+ *       : <DataTable.EmptyRow>No results.</DataTable.EmptyRow>}
+ *   </DataTable.Body>
+ * </DataTable.Root>
+ * ```
+ */
 function EmptyRow<TData>({ children, ...props }: DataTableEmptyRowProps) {
 	const { table } = useDataTableContext<TData>();
 	const numberOfColumns = table.getAllColumns().length;
@@ -463,14 +555,17 @@ HeaderSortButton.displayName = "DataTableHeaderSortButton";
 Row.displayName = "DataTableRow";
 
 /**
- * A data table for dynamic, application data — sortable, filterable, paginatable,
- * and selectable. Built on top of TanStack Table; every TanStack utility
- * (`createColumnHelper`, `getCoreRowModel`, `getSortedRowModel`,
- * `getPaginationRowModel`, `getFilteredRowModel`, `useReactTable`, …) is
- * re-exported from `@ngrok/mantle/data-table`.
+ * Use `DataTable` for INTERACTIVE tabular data — sorting, filtering, pagination,
+ * row selection, and server-side or client-side data. Built on TanStack Table;
+ * the consumer MUST construct a `useReactTable` instance from
+ * `@tanstack/react-table` and pass it to `DataTable.Root` via the `table` prop.
+ * Every TanStack utility (`createColumnHelper`, `getCoreRowModel`,
+ * `getSortedRowModel`, `getPaginationRowModel`, `getFilteredRowModel`,
+ * `useReactTable`, …) is re-exported from `@ngrok/mantle/data-table` so a single
+ * import covers both the wrapper components and the TanStack helpers.
  *
- * Prefer the plain `Table` when content is static and none of those behaviors
- * apply.
+ * For STATIC, layout-driven tables (read-only data dumps, simple key/value
+ * displays, plain markup tables with no interactivity), use `Table` instead.
  *
  * @see https://mantle.ngrok.com/components/data-table
  *
@@ -739,7 +834,10 @@ Row.displayName = "DataTableRow";
  */
 const DataTable = {
 	/**
-	 * The root container of the data table component.
+	 * The root container of the data table component. REQUIRED: pass a
+	 * `useReactTable` instance (from `@tanstack/react-table`, also re-exported
+	 * from `@ngrok/mantle/data-table`) via the `table` prop — every other
+	 * `DataTable.*` part reads from it through context.
 	 *
 	 * @see https://mantle.ngrok.com/components/data-table#datatableroot
 	 *

@@ -63,32 +63,66 @@ type UseUndoRedoReturn<T> = {
 };
 
 /**
- * A generic undo/redo hook backed by a reducer.
+ * Generic undo/redo hook backed by a reducer that maintains two history
+ * stacks (undo and redo).
  *
- * Maintains two stacks (undo and redo). Call `push` before mutating state
- * to snapshot the current value. Call `undo`/`redo` with the current value
- * to swap it with the previous/next snapshot.
+ * The hook does not own your application state — instead it helps you
+ * snapshot it. Call `push(snapshot)` *before* mutating state to capture
+ * the current value, then call `undo(current)` or `redo(current)` to swap
+ * `current` with the previous/next snapshot. Both `undo` and `redo` return
+ * the snapshot to apply, or `undefined` if their stack is empty. Pushing a
+ * new snapshot clears the redo stack, matching standard editor semantics.
+ *
+ * @typeParam T - The type of the value being snapshotted (e.g. a list of
+ *   items, a serialized form value, etc.).
+ *
+ * @returns An object with the current undo/redo capability flags and
+ *   actions:
+ *   - `canUndo`: `true` when there is at least one snapshot on the undo
+ *     stack.
+ *   - `canRedo`: `true` when there is at least one snapshot on the redo
+ *     stack.
+ *   - `push(snapshot)`: Push a snapshot onto the undo stack and clear the
+ *     redo stack. Call this *before* mutating state.
+ *   - `undo(current)`: Pop the latest undo snapshot and return it; returns
+ *     `undefined` when the undo stack is empty. The supplied `current` is
+ *     pushed onto the redo stack so you can redo back to it.
+ *   - `redo(current)`: Pop the latest redo snapshot and return it; returns
+ *     `undefined` when the redo stack is empty. The supplied `current` is
+ *     pushed onto the undo stack.
  *
  * @example
- * ```tsx
+ * // Snapshot before mutating, then wire up keyboard shortcuts
+ * const [items, setItems] = useState<string[]>([]);
  * const { push, undo, redo, canUndo, canRedo } = useUndoRedo<string[]>();
  *
  * function removeItem(item: string) {
- *   push([...items]); // snapshot before mutation
- *   setItems(items.filter((i) => i !== item));
+ *   push(items); // snapshot before mutation
+ *   setItems((prev) => prev.filter((entry) => entry !== item));
  * }
  *
- * function handleKeyDown(event: KeyboardEvent) {
- *   if ((event.metaKey || event.ctrlKey) && event.key === "z" && !event.shiftKey) {
+ * function handleKeyDown(event: React.KeyboardEvent) {
+ *   const cmd = event.metaKey || event.ctrlKey;
+ *   if (cmd && event.key === "z" && !event.shiftKey) {
  *     const previous = undo(items);
- *     if (previous) setItems(previous);
+ *     if (previous) {
+ *       setItems(previous);
+ *     }
  *   }
- *   if ((event.metaKey || event.ctrlKey) && (event.shiftKey && event.key === "z" || event.key === "y")) {
+ *   if (cmd && ((event.shiftKey && event.key === "z") || event.key === "y")) {
  *     const next = redo(items);
- *     if (next) setItems(next);
+ *     if (next) {
+ *       setItems(next);
+ *     }
  *   }
  * }
- * ```
+ *
+ * return (
+ *   <div tabIndex={0} onKeyDown={handleKeyDown}>
+ *     <button disabled={!canUndo} onClick={() => { const previous = undo(items); if (previous) setItems(previous); }}>Undo</button>
+ *     <button disabled={!canRedo} onClick={() => { const next = redo(items); if (next) setItems(next); }}>Redo</button>
+ *   </div>
+ * );
  */
 function useUndoRedo<T>(): UseUndoRedoReturn<T> {
 	const [state, dispatch] = useReducer(undoRedoReducer<T>, {

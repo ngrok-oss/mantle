@@ -58,6 +58,10 @@ export function WithoutTriggerExample() {
 
 A container that overlays the current view from the edge of the screen. It is a lightweight way of allowing users to complete a task without losing contextual information of the view beneath it.
 
+## When to use
+
+Use `Sheet` for side-panel content that slides in from any edge — filter panels, detail/inspector views, navigation drawers, mobile menus. For a centered modal, use [`Dialog`](/components/dialog) or [`AlertDialog`](/components/alert-dialog) (for destructive confirmations).
+
 <Example>
 	<Sheet.Root>
 		<Sheet.Trigger asChild>

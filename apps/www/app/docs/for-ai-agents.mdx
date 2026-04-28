@@ -13,7 +13,8 @@ This page is the canonical entry point for AI assistants — Claude Code, Cursor
 Use the @ngrok/mantle design system. Components live at @ngrok/mantle/<name>
 (e.g. @ngrok/mantle/button). All pages have a plain-markdown twin at
 <page>.md. The full library index is at /llms.txt and a structured
-manifest is at /api/components.json.
+component manifest is at /api/components.json. Hooks and utilities have
+their own manifests at /api/hooks.json and /api/utils.json.
 ```
 
 ## Machine-readable entry points
@@ -23,6 +24,8 @@ manifest is at /api/components.json.
 | [`/llms.txt`](/llms.txt)                       | Curated index of every docs page (title, description, html + markdown URLs). Follows the [llms.txt convention](https://llmstxt.org).      |
 | [`/llms-full.txt`](/llms-full.txt)             | Concatenated plain-markdown of every docs page. Drop into a context window when full coverage is needed.                                  |
 | [`/api/components.json`](/api/components.json) | Structured component manifest. Each entry has `name`, `slug`, `status`, `importPath`, `docsUrl`, `markdownUrl`, and a one-line `summary`. |
+| [`/api/hooks.json`](/api/hooks.json)           | Structured hooks manifest. Each entry has `name`, `importPath`, `docsUrl`, `markdownUrl`, and an optional `summary`.                      |
+| [`/api/utils.json`](/api/utils.json)           | Structured utilities manifest. Same shape as hooks.                                                                                       |
 | [`/changelog.md`](/changelog.md)               | The published `@ngrok/mantle` `CHANGELOG.md` as plain markdown.                                                                           |
 | `/<page>.md`                                   | Every docs page (e.g. [`/components/button.md`](/components/button.md)) is also served as plain markdown by appending `.md`.              |
 
@@ -36,12 +39,19 @@ design system. Conventions:
 
 - Components are imported from @ngrok/mantle/<name>, e.g.
   `import { Button } from "@ngrok/mantle/button"`.
+- Hooks are imported from @ngrok/mantle/hooks, e.g.
+  `import { useBreakpoint } from "@ngrok/mantle/hooks"`.
+- Utilities live at their own subpaths, e.g. @ngrok/mantle/cx,
+  @ngrok/mantle/color.
+- Use `== null` / `!= null` for nullish checks (covers both `null` and
+  `undefined`) — never `=== undefined` / `!== undefined`.
 - Compose class names with `cx` from @ngrok/mantle/cx — never use string
   interpolation inside className.
 - Many components support `asChild` to swap the rendered element while
   keeping the styling and behavior. Prefer this over wrapping.
-- The app must wrap children in <ThemeProvider>, <TooltipProvider>, and
-  <Toaster> at the root (see /).
+- The app must wrap children in <ThemeProvider> and <Toaster> at the root
+  (see /). Add <TooltipProvider> once at the root when using shared tooltip
+  delay or hover settings.
 - All external dependencies must be exact-pinned (no `^` or `~`).
 - Reference the canonical docs at https://mantle.ngrok.com or fetch
   https://mantle.ngrok.com/llms.txt for the full index.
@@ -50,8 +60,11 @@ design system. Conventions:
 ## Conventions agents should know
 
 - **Polymorphism via `asChild`.** Most components accept `asChild` (powered by [`Slot`](/components/slot)). Use it to render the component as a different element — for example, render a `Button` as a `react-router` `Link` — without losing the component's styling or behavior.
+- **Import paths by category.** Components import from `@ngrok/mantle/<name>` (e.g. `@ngrok/mantle/button`). Hooks live at [`@ngrok/mantle/hooks`](/hooks) (e.g. `import { useBreakpoint } from "@ngrok/mantle/hooks"`). Utilities live at their own subpaths — `@ngrok/mantle/cx`, `@ngrok/mantle/color`, etc.
+- **Docs slug ≠ import subpath (sometimes).** Most components import from a subpath that matches their docs slug (e.g., `Button` from `@ngrok/mantle/button`). A few are exported from a parent's subpath: `IconButton` from `@ngrok/mantle/button`, `PasswordInput` from `@ngrok/mantle/input`, `ProgressBar` and `ProgressDonut` from `@ngrok/mantle/progress`. The structured manifest at [`/api/components.json`](/api/components.json) is the source of truth — its `importPath` field is always correct.
 - **`cx` over string interpolation.** Compose class names with [`cx`](/utils/cx). It merges Tailwind classes and de-duplicates conflicts.
-- **Theme + provider setup.** Apps must mount [`ThemeProvider`](/components/theme), [`TooltipProvider`](/components/tooltip), and [`Toaster`](/components/toast) at the root. Without `ThemeProvider`, theme tokens are unstyled and there's a flash of unstyled content.
+- **Nullish checks use `== null` / `!= null`.** The codebase prefers these over `=== undefined` / `!== undefined`, since `== null` covers both `null` and `undefined`.
+- **Theme + provider setup.** Apps must mount [`ThemeProvider`](/components/theme) and [`Toaster`](/components/toast) at the root. Add [`TooltipProvider`](/components/tooltip) once when using shared tooltip delay or hover settings. Without `ThemeProvider`, theme tokens are unstyled and there's a flash of unstyled content.
 - **Phosphor icons by default.** Import icons from `@phosphor-icons/react/<IconName>` (e.g. `@phosphor-icons/react/Fire`). Custom ngrok icons live at [`@ngrok/mantle/icons`](/components/icons).
 - **No `as` casts in app code.** Use proper null checks and type narrowing. Type assertions are restricted to `as const` and dedicated type guards (see [Conventions](https://github.com/ngrok-oss/mantle/blob/main/CONVENTIONS.md)).
 - **Exact-pinned versions.** When adding a dependency, pin it. No `^` or `~` ranges.
@@ -91,14 +104,19 @@ import { Button } from "@ngrok/mantle/button";
 
 ```tsx
 // Toast on async action
-import { toast } from "@ngrok/mantle/toast";
+import { makeToast, Toast } from "@ngrok/mantle/toast";
 
 async function save() {
 	try {
 		await api.save();
-		toast.success("Saved");
+		makeToast(<Toast.Root priority="success">Saved</Toast.Root>);
 	} catch (error) {
-		toast.error("Could not save", { description: String(error) });
+		makeToast(
+			<Toast.Root priority="danger">
+				<Toast.Message>Could not save</Toast.Message>
+				<Toast.Description>{String(error)}</Toast.Description>
+			</Toast.Root>,
+		);
 	}
 }
 ```

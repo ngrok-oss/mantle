@@ -1,3 +1,9 @@
+/**
+ * Re-exports for the Code Block component.
+ *
+ * @see https://mantle.ngrok.com/components/code-block
+ */
+
 export {
 	//,
 	CodeBlock,

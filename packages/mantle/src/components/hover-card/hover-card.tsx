@@ -62,10 +62,29 @@ const Trigger = forwardRef<
 Trigger.displayName = "HoverCardTrigger";
 
 /**
- * The portal for a HoverCard. Should be rendered as a child of the `HoverCard` component.
- * Renders a portal that the `HoverCard.Content` is rendered into.
+ * The portal container for rendering hover card content outside the normal DOM tree.
+ * `HoverCard.Content` already renders inside this portal internally, so you typically
+ * do not need to use `HoverCard.Portal` directly. Use it only when you need to
+ * customize portal placement (e.g., pass a `container` prop) or wrap multiple
+ * `HoverCard.Content` instances in a shared portal.
  *
- * You likely don't need to use this component directly, as it is used internally by the `HoverCard.Content` component.
+ * @see https://mantle.ngrok.com/components/hover-card#hovercardportal
+ *
+ * @example
+ * ```tsx
+ * <HoverCard.Root>
+ *   <HoverCard.Trigger asChild>
+ *     <Button type="button" appearance="outlined">
+ *       Hover me
+ *     </Button>
+ *   </HoverCard.Trigger>
+ *   <HoverCard.Portal>
+ *     <HoverCard.Content>
+ *       <p>This is the hover card content.</p>
+ *     </HoverCard.Content>
+ *   </HoverCard.Portal>
+ * </HoverCard.Root>
+ * ```
  */
 const Portal = HoverCardPrimitive.Portal;
 Portal.displayName = "HoverCardPortal";
@@ -120,13 +139,13 @@ Content.displayName = HoverCardPrimitive.Content.displayName;
 /**
  * A floating card that appears when a user hovers over a trigger element.
  *
- * `HoverCard` is intended primarily for sighted users — it is not a
- * reliably discoverable path for keyboard or screen reader users, since it
- * opens on pointer hover. Use it for supplemental previews of content that
- * is already available through another accessible path (typically the
- * underlying link). Prefer `Popover` when the floating content must be
- * reachable by all users, or `Tooltip` for short, non-interactive labels on
- * controls.
+ * Use `HoverCard` for non-essential preview content shown on HOVER — user
+ * cards, repo previews, rich link previews. Because hover is not reachable
+ * via keyboard, all content inside a `HoverCard` must be supplemental,
+ * never the only path to information; the trigger is typically a link that
+ * already leads to the same content for keyboard and screen reader users.
+ * For short, non-interactive labels or hints, use `Tooltip`. For
+ * interactive overlays the user opens deliberately, use `Popover`.
  *
  * @see https://mantle.ngrok.com/components/hover-card
  *
@@ -195,18 +214,23 @@ const HoverCard = {
 	Content,
 	/**
 	 * The portal container for rendering hover card content outside the normal DOM tree.
+	 * `HoverCard.Content` already renders inside this portal internally, so you typically
+	 * do not need to use `HoverCard.Portal` directly. Use it only when you need to
+	 * customize portal placement or wrap multiple `HoverCard.Content` instances.
 	 *
-	 * @see https://mantle.ngrok.com/components/hover-card#api-reference
+	 * @see https://mantle.ngrok.com/components/hover-card#hovercardportal
 	 *
 	 * @example
 	 * ```tsx
 	 * <HoverCard.Root>
 	 *   <HoverCard.Trigger asChild>
-	 *     <Text>Hover over me</Text>
+	 *     <Button type="button" appearance="outlined">
+	 *       Hover me
+	 *     </Button>
 	 *   </HoverCard.Trigger>
 	 *   <HoverCard.Portal>
 	 *     <HoverCard.Content>
-	 *       <Text>This content is rendered in a portal.</Text>
+	 *       <p>This is the hover card content.</p>
 	 *     </HoverCard.Content>
 	 *   </HoverCard.Portal>
 	 * </HoverCard.Root>

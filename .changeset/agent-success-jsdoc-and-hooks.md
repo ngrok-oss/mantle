@@ -1,0 +1,5 @@
+---
+"@ngrok/mantle": patch
+---
+
+Significantly expand JSDoc coverage across the package to improve agentic and IntelliSense-driven discovery. Every `index.ts` barrel now ships a `@see` link to its docs page. All hooks (`useCallbackRef`, `useCopyToClipboard`, `useDebouncedCallback`, `useIsomorphicLayoutEffect`, `useMatchesMediaQuery`, `usePrefersReducedMotion`, `useRandomStableId`, `useScrollBehavior`, `useUndoRedo`) now document `@param`, `@returns`, and at least one `@example`. Compound components (`Dialog`, `Sheet`, `AlertDialog`, `Tooltip`, `Popover`, `HoverCard`, `Select`, `Combobox`, `MultiSelect`, `DataTable`) gained "when to use vs alternatives" guidance on their top-level namespace JSDoc, full-tree `@example` blocks across sub-components, and explicit notes on required setup (`TooltipProvider` mount, `useReactTable` instance for `DataTable.Root`, etc.). Also removes the empty `"./date-picker"` export from `package.json` (it had no implementation and was never importable). No runtime behavior changes.

@@ -15,6 +15,8 @@ export default [
 	route("llms.txt", "./routes/llms[.]txt.tsx", { id: "llms-txt" }),
 	route("llms-full.txt", "./routes/llms-full[.]txt.tsx", { id: "llms-full-txt" }),
 	route("api/components.json", "./routes/api.components[.]json.tsx", { id: "api-components-json" }),
+	route("api/hooks.json", "./routes/api.hooks[.]json.tsx", { id: "api-hooks-json" }),
+	route("api/utils.json", "./routes/api.utils[.]json.tsx", { id: "api-utils-json" }),
 	route("api/shiki-highlight", "./routes/api.shiki-highlight.tsx"),
 
 	// docs layout
@@ -102,6 +104,7 @@ export default [
 		...docRoute("utils/color"),
 		...docRoute("utils/compose-refs"),
 		...docRoute("utils/cx"),
+		...docRoute("utils/highlight-utils"),
 		...docRoute("utils/in-view"),
 		...docRoute("utils/sorting"),
 	]),

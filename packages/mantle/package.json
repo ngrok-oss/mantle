@@ -138,7 +138,6 @@
 			"types": "./dist/data-table.d.ts",
 			"import": "./dist/data-table.js"
 		},
-		"./date-picker": {},
 		"./description-list": {
 			"@ngrok/src-live-types": "./src/components/description-list/index.ts",
 			"types": "./dist/description-list.d.ts",

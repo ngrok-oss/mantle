@@ -108,7 +108,7 @@ Optional sections (Examples, Variants, etc.) may appear before `## API Reference
 ### 4.3. Route and navigation
 
 - `apps/www/app/routes.ts` contains `...docRoute("components/<component-name>"),` in alphabetical order among component docs.
-- `apps/www/app/components/layout.tsx`:
+- `apps/www/app/components/navigation-data.ts`:
   - The `<Display Name>` appears in the `prodReadyComponents` array (alphabetical order).
   - `prodReadyComponentRouteLookup` has `"<Display Name>": "/components/<component-name>",` (alphabetical order).
 
@@ -125,7 +125,7 @@ Produce a report listing each violation, grouped by area (implementation, JSDoc,
 - Section titled `Composition` but describing unrelated variations → rename to a content-accurate title (ask the user for the new name if unclear).
 - Missing `displayName` on a sub-component → add it using the flat-name pattern.
 - Missing route in `apps/www/app/routes.ts` → insert in alphabetical order.
-- Missing nav entry in `layout.tsx` → insert in both `prodReadyComponents` and `prodReadyComponentRouteLookup` in alphabetical order.
+- Missing nav entry in `navigation-data.ts` → insert in both `prodReadyComponents` and `prodReadyComponentRouteLookup` in alphabetical order.
 - Missing `package.json` `exports` entry → insert in alphabetical order.
 - JSDoc `@example` on a namespace property or underlying const that uses an abbreviated snippet → replace with the full-tree example already present elsewhere for the same component.
 
@@ -153,7 +153,7 @@ If the audit modified files under `packages/mantle/`, add a changeset:
 
 - `patch` bump for `@ngrok/mantle` when the changes are doc/JSDoc/`displayName`/comment-only.
 - `minor` bump if you added a new export or behavior (rare for audits — usually indicates the audit uncovered a missing sub-part that needs author judgment).
-- No changeset needed if the audit only modified `apps/www/app/docs/**`, `apps/www/app/components/layout.tsx`, or `apps/www/app/routes.ts` and no published package's source changed. When in doubt, prefer a patch changeset.
+- No changeset needed if the audit only modified `apps/www/app/docs/**`, `apps/www/app/components/navigation-data.ts`, or `apps/www/app/routes.ts` and no published package's source changed. When in doubt, prefer a patch changeset.
 
 ## Reference
 

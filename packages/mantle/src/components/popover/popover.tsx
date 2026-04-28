@@ -171,16 +171,18 @@ Content.displayName = "PopoverContent";
 /**
  * A floating overlay that displays rich content in a portal, triggered by a button.
  *
+ * Use `Popover` for INTERACTIVE overlay content — small forms, settings
+ * menus, color pickers, action lists. The user opens it deliberately
+ * (click/tap or focus + space). For short, non-interactive label hints
+ * triggered by hover, use `Tooltip` instead. For non-essential preview
+ * content shown on hover, use `HoverCard`.
+ *
  * `Popover` is a non-modal dialog by default: focus moves into the content
  * when it opens, `Escape` closes and returns focus to the trigger, clicking
  * outside dismisses, and the page (body and any scroll containers) continues
  * to scroll normally. Pass `modal` on `Popover.Root` to trap focus inside
  * the content, block interaction with the rest of the page, and lock body
- * scroll while the popover is open. Use a `Popover` when the floating
- * content must be interactive — forms, action menus, filters, settings.
- * Prefer `Tooltip` for short, non-interactive labels on controls, or
- * `HoverCard` for a sighted-only preview of content that already lives
- * behind a link.
+ * scroll while the popover is open.
  *
  * @see https://mantle.ngrok.com/components/popover
  * @see https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/

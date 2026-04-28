@@ -628,8 +628,12 @@ const Caption = forwardRef<ComponentRef<"caption">, ComponentProps<"caption">>(
 Caption.displayName = "TableCaption";
 
 /**
- * A structured way to display data in rows and columns. The API matches the
- * HTML table element 1:1.
+ * Use `Table` for STATIC, layout-driven tabular data — read-only data dumps,
+ * simple key/value displays, plain markup tables. The API matches the HTML
+ * `<table>` element 1:1, with no built-in sorting, filtering, or pagination.
+ *
+ * For INTERACTIVE tabular data with sorting / filtering / pagination / row
+ * selection, use `DataTable` (built on TanStack Table) instead.
  *
  * @see https://mantle.ngrok.com/components/table
  *

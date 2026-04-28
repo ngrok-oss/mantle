@@ -31,6 +31,10 @@ export function CustomSelectedValueDemo() {
 
 Displays a list of options for the user to pick from—triggered by a button.
 
+## When to use
+
+Use `Select` for a small, finite list of options (~2-15) where the user picks exactly one and search/filtering is unnecessary. For larger lists, async data, or any single-select where typing to filter is helpful, use [`Combobox`](/components/combobox). For picking multiple options, use [`Multi Select`](/components/multi-select).
+
 <Example className="flex-col gap-4">
 	<Label className="w-full max-w-64" htmlFor="fruits">
 		<p>Fruits</p>

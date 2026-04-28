@@ -11,6 +11,10 @@ import { Example } from "~/components/example";
 
 A modal dialog that interrupts the user with important content and expects a response. Built on top of [Radix Dialog](https://www.radix-ui.com/primitives/docs/components/dialog).
 
+## When to use
+
+Use `AlertDialog` for destructive or irreversible confirmations (delete, sign out, leave without saving) where the user must explicitly acknowledge. `AlertDialog` blocks all background interaction. For non-destructive input modals, use [`Dialog`](/components/dialog).
+
 <Example className="flex-col gap-6">
 	<AlertDialog.Root priority="info">
 		<AlertDialog.Trigger asChild>
