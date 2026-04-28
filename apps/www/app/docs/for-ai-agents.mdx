@@ -1,0 +1,125 @@
+---
+title: For AI Agents
+description: How LLMs, code-generation agents, and IDE assistants should consume @ngrok/mantle.
+---
+
+# For AI Agents
+
+This page is the canonical entry point for AI assistants — Claude Code, Cursor, Copilot, custom agents — that need to write code against `@ngrok/mantle`.
+
+## TL;DR for the agent
+
+```
+Use the @ngrok/mantle design system. Components live at @ngrok/mantle/<name>
+(e.g. @ngrok/mantle/button). All pages have a plain-markdown twin at
+<page>.md. The full library index is at /llms.txt and a structured
+manifest is at /api/components.json.
+```
+
+## Machine-readable entry points
+
+| URL                                            | Purpose                                                                                                                                   |
+| ---------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| [`/llms.txt`](/llms.txt)                       | Curated index of every docs page (title, description, html + markdown URLs). Follows the [llms.txt convention](https://llmstxt.org).      |
+| [`/llms-full.txt`](/llms-full.txt)             | Concatenated plain-markdown of every docs page. Drop into a context window when full coverage is needed.                                  |
+| [`/api/components.json`](/api/components.json) | Structured component manifest. Each entry has `name`, `slug`, `status`, `importPath`, `docsUrl`, `markdownUrl`, and a one-line `summary`. |
+| [`/changelog.md`](/changelog.md)               | The published `@ngrok/mantle` `CHANGELOG.md` as plain markdown.                                                                           |
+| `/<page>.md`                                   | Every docs page (e.g. [`/components/button.md`](/components/button.md)) is also served as plain markdown by appending `.md`.              |
+
+## Suggested system-prompt snippet
+
+Drop this near the top of an agent's system prompt when working in a mantle codebase:
+
+```
+This project uses @ngrok/mantle, ngrok's React + TypeScript + Tailwind
+design system. Conventions:
+
+- Components are imported from @ngrok/mantle/<name>, e.g.
+  `import { Button } from "@ngrok/mantle/button"`.
+- Compose class names with `cx` from @ngrok/mantle/cx — never use string
+  interpolation inside className.
+- Many components support `asChild` to swap the rendered element while
+  keeping the styling and behavior. Prefer this over wrapping.
+- The app must wrap children in <ThemeProvider>, <TooltipProvider>, and
+  <Toaster> at the root (see /).
+- All external dependencies must be exact-pinned (no `^` or `~`).
+- Reference the canonical docs at https://mantle.ngrok.com or fetch
+  https://mantle.ngrok.com/llms.txt for the full index.
+```
+
+## Conventions agents should know
+
+- **Polymorphism via `asChild`.** Most components accept `asChild` (powered by [`Slot`](/components/slot)). Use it to render the component as a different element — for example, render a `Button` as a `react-router` `Link` — without losing the component's styling or behavior.
+- **`cx` over string interpolation.** Compose class names with [`cx`](/utils/cx). It merges Tailwind classes and de-duplicates conflicts.
+- **Theme + provider setup.** Apps must mount [`ThemeProvider`](/components/theme), [`TooltipProvider`](/components/tooltip), and [`Toaster`](/components/toast) at the root. Without `ThemeProvider`, theme tokens are unstyled and there's a flash of unstyled content.
+- **Phosphor icons by default.** Import icons from `@phosphor-icons/react/<IconName>` (e.g. `@phosphor-icons/react/Fire`). Custom ngrok icons live at [`@ngrok/mantle/icons`](/components/icons).
+- **No `as` casts in app code.** Use proper null checks and type narrowing. Type assertions are restricted to `as const` and dedicated type guards (see [Conventions](https://github.com/ngrok-oss/mantle/blob/main/CONVENTIONS.md)).
+- **Exact-pinned versions.** When adding a dependency, pin it. No `^` or `~` ranges.
+- **Tailwind 4.** Custom classes use the design tokens defined in `mantle.css`. Prefer semantic tokens (`text-strong`, `bg-form`, `border-accent-600`) over raw color names where they exist.
+
+## Composition patterns
+
+A few high-leverage compositions agents commonly need:
+
+```tsx
+// Button + react-router Link (polymorphic)
+import { Button } from "@ngrok/mantle/button";
+import { Link } from "react-router";
+
+<Button asChild>
+	<Link to="/dashboard">Dashboard</Link>
+</Button>;
+```
+
+```tsx
+// Dialog + form
+import { Dialog } from "@ngrok/mantle/dialog";
+import { Button } from "@ngrok/mantle/button";
+
+<Dialog.Root>
+	<Dialog.Trigger asChild>
+		<Button>Edit</Button>
+	</Dialog.Trigger>
+	<Dialog.Content>
+		<Dialog.Header>
+			<Dialog.Title>Edit profile</Dialog.Title>
+		</Dialog.Header>
+		{/* form here */}
+	</Dialog.Content>
+</Dialog.Root>;
+```
+
+```tsx
+// Toast on async action
+import { toast } from "@ngrok/mantle/toast";
+
+async function save() {
+	try {
+		await api.save();
+		toast.success("Saved");
+	} catch (error) {
+		toast.error("Could not save", { description: String(error) });
+	}
+}
+```
+
+## Accessibility-first defaults
+
+Every mantle component is built on semantic HTML and tested ARIA patterns. Agents should:
+
+- Render real form controls (`Input`, `Checkbox`, `RadioGroup`) — never style a `<div>` with click handlers as a button.
+- Pair every form control with a [`Label`](/components/label).
+- Use [`SkipToMainLink`](/components/skip-to-main-link) + [`Main`](/components/main) at the top of the document tree.
+- Provide accessible names for icon-only buttons via `aria-label` on [`IconButton`](/components/icon-button).
+- See the [Accessibility](/accessibility) page for a full keyboard / ARIA reference per component.
+
+## When to ask vs. when to act
+
+- If the user asks for "a primary button," generate a `Button` with `appearance="filled" priority="default"`. The library's defaults should be safe.
+- If choosing between `Tooltip`, `Popover`, and `HoverCard`, follow [the JSDoc guidance](https://mantle.ngrok.com/components/tooltip) — `Tooltip` for short label hints, `Popover` for interactive content, `HoverCard` for non-essential preview cards.
+- If choosing between `DataTable` and `Table`: `DataTable` for dynamic, sortable, filterable, paginated tabular data; `Table` for static layout.
+- When uncertain, prefer to fetch the relevant `/<page>.md` and read the full doc rather than guessing.
+
+## Versioning
+
+`@ngrok/mantle` follows semver. Breaking changes are documented in the [Changelog](/changelog). When working in a project, check `package.json` for the pinned version and prefer the docs at the matching tag on GitHub if you need to pin behavior to that version.

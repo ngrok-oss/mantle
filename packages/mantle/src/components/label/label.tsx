@@ -10,23 +10,54 @@ type LabelProps = ComponentPropsWithoutRef<"label"> & {
 };
 
 /**
- * A Label represents a caption for an item in a user interface. It is used to
- * provide a description or title for a form control, such as an input field,
- * checkbox, radio button, etc. The label is typically displayed next to the
- * form control and helps users understand its purpose.
+ * A caption for a form control — input, checkbox, radio, switch, select.
+ * Renders a native `<label>`. Pair every form control with a `Label` so the
+ * control has an accessible name, clicks on the label focus the control, and
+ * screen readers announce the field correctly.
+ *
+ * **When to use**
+ * - Every visible form control. Always.
+ * - Above or beside an input to describe it ("Email", "API key").
+ * - Wrapping a checkbox or radio next to its descriptive text.
+ *
+ * **When not to use**
+ * - For static UI text that isn't labeling a control — use a heading or
+ *   plain `<p>`/`<span>`.
+ * - As a substitute for `aria-label` on non-`<input>` widgets that don't
+ *   support `<label for>` association.
+ *
+ * **Two ways to associate.** Either wrap the control inside the `<Label>`
+ * (implicit association — simplest) or set `htmlFor` to the control's `id`
+ * (explicit — required when the control isn't a child).
+ *
+ * **Disabled state.** Pass `disabled` to render the label in a disabled
+ * style. Typically you'll want this to mirror the underlying control's
+ * disabled state so the visual treatment stays consistent.
  *
  * @see https://mantle.ngrok.com/components/label
  *
  * @example
  * ```tsx
- * <Label htmlFor="name">
- *   Name: <Input type="text" id="name" />
+ * import { Label } from "@ngrok/mantle/label";
+ * import { Input } from "@ngrok/mantle/input";
+ *
+ * // Implicit — control nested inside the label.
+ * <Label className="grid gap-1">
+ *   <span>Email</span>
+ *   <Input type="email" name="email" />
  * </Label>
  *
- * <div className="flex items-center gap-2">
- *   <Label htmlFor="name-2">Name:</Label>
- *   <Input type="text" id="name-2" />
+ * // Explicit — htmlFor matches the control's id.
+ * <div className="grid gap-1">
+ *   <Label htmlFor="api-key">API key</Label>
+ *   <Input id="api-key" name="apiKey" />
  * </div>
+ *
+ * // Inline label for a checkbox.
+ * <Label className="flex items-center gap-2">
+ *   <Checkbox name="terms" />
+ *   <span>I agree to the terms</span>
+ * </Label>
  * ```
  */
 const Label = forwardRef<ComponentRef<"label">, LabelProps>(

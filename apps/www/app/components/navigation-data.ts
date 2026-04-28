@@ -128,12 +128,21 @@ export const previewComponentsRouteLookup = {
 } as const satisfies Record<(typeof previewComponents)[number], Route>;
 
 /** Welcome section pages. */
-export const welcomePages = ["Overview & Setup", "Philosophy"] as const;
+export const welcomePages = [
+	"Overview & Setup",
+	"Philosophy",
+	"Accessibility",
+	"For AI Agents",
+	"Changelog",
+] as const;
 
 /** Route lookup for welcome pages. */
 export const welcomeRoutes = {
 	"Overview & Setup": "/",
 	Philosophy: "/philosophy",
+	Accessibility: "/accessibility",
+	"For AI Agents": "/for-ai-agents",
+	Changelog: "/changelog",
 } as const satisfies Record<(typeof welcomePages)[number], Route>;
 
 /** Base/design token pages. */

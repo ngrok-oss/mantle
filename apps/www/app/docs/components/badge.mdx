@@ -1,6 +1,6 @@
 ---
 title: Badge
-description: A non-interactive component used to highlight important information or to visually indicate the status of an item.
+description: A non-interactive label used to highlight short, scannable information — a status, a category tag, or a count — in the smallest possible footprint.
 ---
 
 import { Badge } from "@ngrok/mantle/badge";
@@ -11,7 +11,23 @@ import { Example } from "~/components/example";
 
 # Badge
 
-A non-interactive component used to highlight important information or to visually indicate the status of an item.
+A non-interactive label used to highlight short, scannable information — a status, a category tag, or a count — in the smallest possible footprint.
+
+## When to use
+
+- Status indicators: `Succeeded`, `Failed`, `Pending`, `Beta`.
+- Category or tag chips alongside list items, table rows, or cards.
+- Counts (e.g. `12 new`) when paired with brief context.
+
+## When not to use
+
+- For interactive UI. Badges are not buttons or links — use [`Button`](/components/button) or [`Anchor`](/components/anchor) (optionally with `asChild` styling) instead.
+- For long-form text. Keep labels to one or two short words.
+- As the sole signal of meaning. Pair color with a label or icon so the distinction works without color (color blindness, monochrome themes).
+
+## Choosing a color
+
+Prefer functional colors (`success`, `warning`, `danger`, `info`, `accent`, `neutral`) for status meaning so theming stays coherent. Reach for named hues only when the badge's semantic role isn't already covered.
 
 <Example className="p-4 md:p-8">
 	<ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">

@@ -12,6 +12,9 @@ function docRoute(path: string) {
 export default [
 	route("robots.txt", "./routes/robots[.]txt.tsx", { id: "robots-txt" }),
 	route("sitemap.xml", "./routes/sitemap[.]xml.tsx", { id: "sitemap-xml" }),
+	route("llms.txt", "./routes/llms[.]txt.tsx", { id: "llms-txt" }),
+	route("llms-full.txt", "./routes/llms-full[.]txt.tsx", { id: "llms-full-txt" }),
+	route("api/components.json", "./routes/api.components[.]json.tsx", { id: "api-components-json" }),
 	route("api/shiki-highlight", "./routes/api.shiki-highlight.tsx"),
 
 	// docs layout
@@ -24,6 +27,13 @@ export default [
 
 		// core/base top-level pages
 		...docRoute("philosophy"),
+		...docRoute("accessibility"),
+		...docRoute("for-ai-agents"),
+		// /changelog renders the @ngrok/mantle CHANGELOG.md directly from
+		// the package source, so it's served by a dedicated route instead
+		// of an MDX page. /changelog.md returns the raw markdown.
+		route("changelog", "./routes/changelog.tsx", { id: "changelog" }),
+		route("changelog.md", "./routes/changelog[.]md.tsx", { id: "changelog-md" }),
 		...docRoute("base/breakpoints"),
 		...docRoute("base/colors"),
 		...docRoute("base/shadows"),

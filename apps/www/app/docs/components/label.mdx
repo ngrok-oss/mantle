@@ -9,7 +9,26 @@ import { Example } from "~/components/example";
 
 # Label
 
-A `Label` represents a caption for an item in a user interface. Renders an accessible label associated with controls.
+A caption for a form control — input, checkbox, radio, switch, select. Renders a native `<label>`. Pair every form control with a `Label` so the control has an accessible name, clicks on the label focus the control, and screen readers announce the field correctly.
+
+## When to use
+
+- Every visible form control. Always.
+- Above or beside an input to describe it ("Email", "API key").
+- Wrapping a checkbox or radio next to its descriptive text.
+
+## When not to use
+
+- For static UI text that isn't labeling a control — use a heading or plain `<p>`/`<span>`.
+- As a substitute for `aria-label` on non-`<input>` widgets that don't support `<label for>` association.
+
+## Two ways to associate
+
+Either wrap the control inside the `<Label>` (implicit association — simplest) or set `htmlFor` to the control's `id` (explicit — required when the control isn't a child).
+
+## Disabled state
+
+Pass `disabled` to render the label in a disabled style. Typically you'll want this to mirror the underlying control's disabled state so the visual treatment stays consistent.
 
 <Example className="grid gap-6">
 	<Label htmlFor="name" className="grid gap-2">

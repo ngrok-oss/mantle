@@ -21,13 +21,25 @@ export const ExampleMedia = () => (
 
 # Media Object
 
-The Media Object is an image/icon (media) to the left, with descriptive content (title and subtitle/description) to the right.
+A small, reusable layout primitive for "image/icon on one side, descriptive content on the other" — the foundational [media object pattern](https://www.stubbornella.org/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/). Use it to compose avatars-with-text, icons-with-copy, thumbnails-with-titles, and similar two-up rows without re-implementing flexbox each time.
 
-Change the spacing between the media and content by passing a `gap-*` class. The default `gap` is `gap-4`.
+## When to use
 
-Use `flexbox` utilities to change the alignment of the media and content.
+- Comment threads (avatar + name + body).
+- Compact list items (icon + label + secondary text).
+- Notification rows.
+- Feature lists, profile cards, attachment previews.
 
-Compose the `<MediaObject>` with the `<MediaObject.Media>` and `<MediaObject.Content>` components as direct children.
+## When not to use
+
+- For complex multi-region layouts — reach for [`Card`](/components/card) or build a bespoke flex/grid.
+- When the media is purely decorative and adds no information — drop it and use a plain block.
+
+## Spacing & alignment
+
+Default gap is `gap-4`; override by passing a different `gap-*` class to `MediaObject.Root`. Use standard flex utilities (`items-start`, `items-center`, etc.) to align media and content vertically.
+
+Compose the `<MediaObject>` with the `<MediaObject.Media>` and `<MediaObject.Content>` components as direct children. Each part accepts `asChild` for swapping the rendered element (e.g. render `Root` as an `<a>` to make the whole row clickable).
 
 <Example>
 	<MediaObject.Root>

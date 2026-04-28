@@ -29,6 +29,10 @@ export default defineConfig({
 		devtoolsJson(),
 		tailwindcss(),
 		mdx({
+			// Only treat .mdx files as MDX. Plain .md files (e.g. the package
+			// CHANGELOG imported as `?raw`) bypass the MDX pipeline so raw
+			// imports stay raw.
+			include: /\.mdx$/,
 			remarkPlugins: [
 				remarkFrontmatter,
 				// Use `export: "namespace"` to attach frontmatter as a property on
