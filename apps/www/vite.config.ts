@@ -12,6 +12,7 @@ import { defineConfig } from "vite";
 import devtoolsJson from "vite-plugin-devtools-json";
 
 import { remarkMdxNoParagraphWrap } from "@ngrok/remark-mdx-no-paragraph-wrap";
+import { mantleChangelogMdx } from "./vite-plugins/mantle-changelog-mdx";
 import { mdxDocComponentImports } from "./vite-plugins/mdx-doc-component-imports";
 import { rawMdxDocs } from "./vite-plugins/raw-mdx-docs";
 
@@ -26,13 +27,18 @@ export default defineConfig({
 		...codeBlockPlugins.vitePlugins,
 		rawMdxDocs(path.resolve(import.meta.dirname, "app/docs")),
 		mdxDocComponentImports(path.resolve(import.meta.dirname, "app/docs")),
+		mantleChangelogMdx(path.resolve(import.meta.dirname, "../../packages/mantle/CHANGELOG.md")),
 		devtoolsJson(),
 		tailwindcss(),
 		mdx({
-			// Only treat .mdx files as MDX. Plain .md files (e.g. the package
-			// CHANGELOG imported as `?raw`) bypass the MDX pipeline so raw
-			// imports stay raw.
-			include: /\.mdx$/,
+			// Only treat `.mdx` files as MDX. `.md` is left alone so `?raw`
+			// imports of plain markdown stay raw — `@mdx-js/rollup`'s filter
+			// strips the `?raw` query before checking the include pattern,
+			// so widening this would clobber raw imports. The one exception
+			// is the synthetic CHANGELOG module exposed by
+			// `mantleChangelogMdx`, which intentionally ends in `.md` so MDX
+			// runs in CommonMark-only mode.
+			include: [/\.mdx$/, /__virtual__\/@ngrok\/mantle\/changelog\.md$/],
 			remarkPlugins: [
 				remarkFrontmatter,
 				// Use `export: "namespace"` to attach frontmatter as a property on

@@ -29,10 +29,11 @@ export default [
 		...docRoute("philosophy"),
 		...docRoute("accessibility"),
 		...docRoute("for-ai-agents"),
-		// /changelog renders the @ngrok/mantle CHANGELOG.md directly from
-		// the package source, so it's served by a dedicated route instead
-		// of an MDX page. /changelog.md returns the raw markdown.
-		route("changelog", "./routes/changelog.tsx", { id: "changelog" }),
+		// /changelog renders app/docs/changelog.mdx, which embeds the
+		// published @ngrok/mantle CHANGELOG.md. /changelog.md serves the
+		// raw package CHANGELOG bytes (not the MDX-roundtripped version),
+		// so it bypasses $.md.tsx.
+		route("changelog", "./routes/$.tsx", { id: "docs-changelog" }),
 		route("changelog.md", "./routes/changelog[.]md.tsx", { id: "changelog-md" }),
 		...docRoute("base/breakpoints"),
 		...docRoute("base/colors"),
