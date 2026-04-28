@@ -8,6 +8,33 @@ import type { WithAsChild } from "../../types/as-child.js";
 import { cx } from "../../utils/cx/cx.js";
 import { Slot as AsChildSlot } from "../slot/index.js";
 
+type OtpState = "idle" | "caret" | "range" | "all";
+
+/**
+ * Map the count of active slots to a discrete `data-otp-state` value used by
+ * descendant CSS selectors. Split out from the rendering component so the
+ * decision tree reads as a flat `if`/`else` chain rather than a nested
+ * ternary.
+ */
+const computeOtpState = ({
+	totalActive,
+	total,
+}: {
+	totalActive: number;
+	total: number;
+}): OtpState => {
+	if (totalActive === 0) {
+		return "idle";
+	}
+	if (totalActive === 1) {
+		return "caret";
+	}
+	if (totalActive === total) {
+		return "all";
+	}
+	return "range";
+};
+
 /**
  * Bridge component that lives inside `<OTPInput>` (so it can read
  * `OTPInputContext`) and exposes the current selection state as a DOM data
@@ -28,14 +55,7 @@ const MantleOtpBridge = ({ children }: { children: ReactNode }) => {
 		(count, slot) => count + (slot.isActive ? 1 : 0),
 		0,
 	);
-	const otpState =
-		totalActive === 0
-			? "idle"
-			: totalActive === 1
-				? "caret"
-				: totalActive === total
-					? "all"
-					: "range";
+	const otpState = computeOtpState({ totalActive, total });
 
 	// `display: contents` keeps this element in the DOM tree (so `group/`
 	// ancestor selectors resolve) without producing a layout box.
@@ -257,7 +277,19 @@ const OtpInputSlotImpl = forwardRef<HTMLDivElement, OtpInputSlotProps>(
 );
 OtpInputSlotImpl.displayName = "OtpInputSlot";
 
-type OtpInputSeparatorProps = ComponentProps<"div"> & WithAsChild;
+type OtpInputSeparatorProps = ComponentProps<"div"> &
+	WithAsChild & {
+		/**
+		 * If `true`, the separator will be rendered with `role="separator"` so
+		 * assistive tech announces it as a divider between OTP groups.
+		 * If `false`, the separator is purely decorative and is removed from
+		 * the accessibility tree — preferred inside an OTP control where the
+		 * minus icon is just visual chrome between slot groups.
+		 *
+		 * @default false
+		 */
+		semantic?: boolean;
+	};
 
 /**
  * A visual separator between two `OtpInput.Group` segments. Renders a minus
@@ -283,15 +315,16 @@ type OtpInputSeparatorProps = ComponentProps<"div"> & WithAsChild;
  * ```
  */
 const Separator = forwardRef<HTMLDivElement, OtpInputSeparatorProps>(
-	({ asChild, children, className, ...props }, ref) => {
+	({ asChild, children, className, semantic = false, ...props }, ref) => {
 		const Comp = asChild ? AsChildSlot : "div";
+		const semanticProps = semantic ? { role: "separator" } : { "aria-hidden": true, role: "none" };
 
 		return (
 			<Comp
 				ref={ref}
-				role="separator"
 				data-slot="otp-input-separator"
 				className={cx("text-muted flex items-center", className)}
+				{...semanticProps}
 				{...props}
 			>
 				{children ?? <MinusIcon weight="bold" />}

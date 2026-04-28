@@ -57,10 +57,6 @@ overrides:
 importers:
 
   .:
-    dependencies:
-      input-otp:
-        specifier: 1.4.2
-        version: 1.4.2(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
     devDependencies:
       '@changesets/changelog-github':
         specifier: 0.6.0

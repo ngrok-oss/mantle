@@ -233,8 +233,27 @@ describe("OtpInput (browser)", () => {
 			}
 		});
 
-		test("Separator renders with role='separator'", () => {
+		test("Separator is decorative by default (role='none', aria-hidden)", () => {
 			renderOtp();
+			const separator = screen.getByText("", {
+				selector: '[data-slot="otp-input-separator"]',
+			});
+			expect(separator).toHaveAttribute("role", "none");
+			expect(separator).toHaveAttribute("aria-hidden", "true");
+		});
+
+		test("Separator with `semantic` prop renders with role='separator'", () => {
+			render(
+				<OtpInput.Root maxLength={2} aria-label="otp">
+					<OtpInput.Group>
+						<OtpInput.Slot index={0} />
+					</OtpInput.Group>
+					<OtpInput.Separator semantic />
+					<OtpInput.Group>
+						<OtpInput.Slot index={1} />
+					</OtpInput.Group>
+				</OtpInput.Root>,
+			);
 			expect(screen.getByRole("separator")).toHaveAttribute("data-slot", "otp-input-separator");
 		});
 
@@ -244,7 +263,7 @@ describe("OtpInput (browser)", () => {
 					<OtpInput.Group>
 						<OtpInput.Slot index={0} />
 					</OtpInput.Group>
-					<OtpInput.Separator>
+					<OtpInput.Separator semantic>
 						<span data-testid="custom-sep">·</span>
 					</OtpInput.Separator>
 					<OtpInput.Group>
