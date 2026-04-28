@@ -1,23 +1,58 @@
 ---
 title: Code
-description: Marks text to signify a short fragment of inline computer code.
+description: Marks a short fragment of inline computer code — a function name, a variable, a CLI flag, a key.
 ---
 
+import { Anchor } from "@ngrok/mantle/anchor";
 import { Code } from "@ngrok/mantle/code";
 import { Example } from "~/components/example";
 
 # Code
 
-Marks text to signify a short fragment of inline computer code.
+Marks a short fragment of inline computer code — a function name, a variable, a CLI flag, a key. Renders a native `<code>` element with mantle's monospace styling.
+
+## When to use
+
+- Inline within prose to identify code, file paths, env vars, or keys.
+- Wrap technical terms that should visually stand apart from running text.
+
+## When not to use
+
+- For multi-line or syntax-highlighted blocks. Use [`CodeBlock`](/components/code-block) instead.
+- For keyboard shortcuts. Use [`Kbd`](/components/kbd).
+- For arbitrary monospace text that isn't code (use a plain monospace utility class).
 
 <Example>
-	<Code>npm install @ngrok/mantle</Code>
+	<p>
+		Use the <Code>console.log()</Code> function to debug your code.
+	</p>
 </Example>
 
 ```tsx
 import { Code } from "@ngrok/mantle/code";
 
-<Code>npm install @ngrok/mantle</Code>;
+<p>
+	Use the <Code>console.log()</Code> function to debug your code.
+</p>;
+```
+
+## Polymorphism
+
+Pass `asChild` to render `Code` styling on a different element — for example, a link wrapping a code-styled label.
+
+<Example>
+	<Code asChild>
+		<Anchor href="https://ngrok.com/docs">/api/components.json</Anchor>
+	</Code>
+</Example>
+
+```tsx
+import { Anchor } from "@ngrok/mantle/anchor";
+import { Code } from "@ngrok/mantle/code";
+
+<Code asChild>
+	<Anchor href="https://ngrok.com/docs">/api/components.json</Anchor>
+</Code>;
 ```
 
 ## API Reference

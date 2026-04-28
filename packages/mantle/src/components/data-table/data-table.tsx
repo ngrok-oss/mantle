@@ -491,6 +491,7 @@ Row.displayName = "DataTableRow";
  * ```
  *
  * @example
+ * Minimal — read-only table with a single sortable column:
  * ```tsx
  * import {
  *   DataTable,
@@ -531,6 +532,209 @@ Row.displayName = "DataTableRow";
  *     </DataTable.Root>
  *   );
  * }
+ * ```
+ *
+ * @example
+ * Sortable + filterable + paginated — with a global text filter and page controls:
+ * ```tsx
+ * import {
+ *   DataTable,
+ *   createColumnHelper,
+ *   getCoreRowModel,
+ *   getFilteredRowModel,
+ *   getPaginationRowModel,
+ *   getSortedRowModel,
+ *   useReactTable,
+ * } from "@ngrok/mantle/data-table";
+ * import { Button } from "@ngrok/mantle/button";
+ * import { Input } from "@ngrok/mantle/input";
+ * import { useState } from "react";
+ *
+ * type Payment = { id: string; amount: number; status: "pending" | "succeeded" | "failed"; email: string };
+ *
+ * const columnHelper = createColumnHelper<Payment>();
+ * const columns = [
+ *   columnHelper.accessor("status", {
+ *     id: "status",
+ *     header: (props) => (
+ *       <DataTable.Header>
+ *         <DataTable.HeaderSortButton column={props.column} sortingMode="alphanumeric">
+ *           Status
+ *         </DataTable.HeaderSortButton>
+ *       </DataTable.Header>
+ *     ),
+ *     cell: (props) => <DataTable.Cell>{props.getValue()}</DataTable.Cell>,
+ *   }),
+ *   columnHelper.accessor("email", {
+ *     id: "email",
+ *     header: (props) => (
+ *       <DataTable.Header>
+ *         <DataTable.HeaderSortButton column={props.column} sortingMode="alphanumeric">
+ *           Email
+ *         </DataTable.HeaderSortButton>
+ *       </DataTable.Header>
+ *     ),
+ *     cell: (props) => <DataTable.Cell>{props.getValue()}</DataTable.Cell>,
+ *   }),
+ *   columnHelper.accessor("amount", {
+ *     id: "amount",
+ *     header: (props) => (
+ *       <DataTable.Header className="text-right">
+ *         <DataTable.HeaderSortButton
+ *           column={props.column}
+ *           sortingMode="alphanumeric"
+ *           className="justify-end"
+ *           iconPlacement="start"
+ *         >
+ *           Amount
+ *         </DataTable.HeaderSortButton>
+ *       </DataTable.Header>
+ *     ),
+ *     cell: (props) => (
+ *       <DataTable.Cell className="text-right tabular-nums">
+ *         {new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(props.getValue())}
+ *       </DataTable.Cell>
+ *     ),
+ *   }),
+ * ];
+ *
+ * function PaymentsTable({ data }: { data: Payment[] }) {
+ *   const [globalFilter, setGlobalFilter] = useState("");
+ *
+ *   const table = useReactTable({
+ *     data,
+ *     columns,
+ *     state: { globalFilter },
+ *     onGlobalFilterChange: setGlobalFilter,
+ *     getCoreRowModel: getCoreRowModel(),
+ *     getSortedRowModel: getSortedRowModel(),
+ *     getFilteredRowModel: getFilteredRowModel(),
+ *     getPaginationRowModel: getPaginationRowModel(),
+ *   });
+ *   const rows = table.getRowModel().rows;
+ *
+ *   return (
+ *     <div className="space-y-4">
+ *       <Input
+ *         placeholder="Filter payments…"
+ *         value={globalFilter}
+ *         onChange={(event) => setGlobalFilter(event.target.value)}
+ *       />
+ *       <DataTable.Root table={table}>
+ *         <DataTable.Head />
+ *         <DataTable.Body>
+ *           {rows.length > 0
+ *             ? rows.map((row) => <DataTable.Row key={row.id} row={row} />)
+ *             : <DataTable.EmptyRow>No payments match.</DataTable.EmptyRow>}
+ *         </DataTable.Body>
+ *       </DataTable.Root>
+ *       <div className="flex items-center justify-between gap-2">
+ *         <span className="text-sm text-muted">
+ *           Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+ *         </span>
+ *         <div className="flex gap-2">
+ *           <Button
+ *             type="button"
+ *             priority="neutral"
+ *             onClick={() => table.previousPage()}
+ *             disabled={!table.getCanPreviousPage()}
+ *           >
+ *             Previous
+ *           </Button>
+ *           <Button
+ *             type="button"
+ *             priority="neutral"
+ *             onClick={() => table.nextPage()}
+ *             disabled={!table.getCanNextPage()}
+ *           >
+ *             Next
+ *           </Button>
+ *         </div>
+ *       </div>
+ *     </div>
+ *   );
+ * }
+ * ```
+ *
+ * @example
+ * Row action column — a sticky right-edge cell with a dropdown menu of actions.
+ * If the row also has `onClick`, stop propagation on the action cell so clicks
+ * don't bubble up and fire the row handler:
+ * ```tsx
+ * import { DataTable, createColumnHelper } from "@ngrok/mantle/data-table";
+ * import { DropdownMenu } from "@ngrok/mantle/dropdown-menu";
+ * import { IconButton } from "@ngrok/mantle/icon-button";
+ * import { DotsThreeVerticalIcon } from "@phosphor-icons/react/DotsThreeVertical";
+ *
+ * const columnHelper = createColumnHelper<Payment>();
+ *
+ * const columns = [
+ *   // …other columns…
+ *   columnHelper.display({
+ *     id: "actions",
+ *     header: () => <DataTable.ActionHeader />,
+ *     cell: (props) => (
+ *       <DataTable.ActionCell onClick={(event) => event.stopPropagation()}>
+ *         <DropdownMenu.Root>
+ *           <DropdownMenu.Trigger asChild>
+ *             <IconButton type="button" label="Actions" icon={<DotsThreeVerticalIcon />} />
+ *           </DropdownMenu.Trigger>
+ *           <DropdownMenu.Content align="end">
+ *             <DropdownMenu.Item onSelect={() => copy(props.row.original.id)}>
+ *               Copy ID
+ *             </DropdownMenu.Item>
+ *             <DropdownMenu.Item onSelect={() => refund(props.row.original.id)}>
+ *               Refund
+ *             </DropdownMenu.Item>
+ *           </DropdownMenu.Content>
+ *         </DropdownMenu.Root>
+ *       </DataTable.ActionCell>
+ *     ),
+ *   }),
+ * ];
+ * ```
+ *
+ * @example
+ * Clickable row navigating to a detail page — also render a `<Link>` inside the
+ * primary cell so the row is reachable by keyboard and screen readers (a `<tr>`
+ * is not focusable):
+ * ```tsx
+ * import { DataTable } from "@ngrok/mantle/data-table";
+ * import { Link, href, useNavigate } from "react-router";
+ *
+ * function PaymentsTable({ data }: { data: Payment[] }) {
+ *   const navigate = useNavigate();
+ *   const table = useReactTable({ data, columns, getCoreRowModel: getCoreRowModel() });
+ *   const rows = table.getRowModel().rows;
+ *
+ *   return (
+ *     <DataTable.Root table={table}>
+ *       <DataTable.Head />
+ *       <DataTable.Body>
+ *         {rows.map((row) => (
+ *           <DataTable.Row
+ *             key={row.id}
+ *             row={row}
+ *             onClick={() => navigate(href("/payments/:id", { id: row.original.id }))}
+ *           />
+ *         ))}
+ *       </DataTable.Body>
+ *     </DataTable.Root>
+ *   );
+ * }
+ *
+ * // The primary column's cell renders a <Link> for keyboard / a11y reachability.
+ * columnHelper.accessor("email", {
+ *   id: "email",
+ *   header: (props) => <DataTable.Header>Email</DataTable.Header>,
+ *   cell: (props) => (
+ *     <DataTable.Cell>
+ *       <Link to={href("/payments/:id", { id: props.row.original.id })}>
+ *         {props.getValue()}
+ *       </Link>
+ *     </DataTable.Cell>
+ *   ),
+ * });
  * ```
  */
 const DataTable = {
