@@ -4,11 +4,10 @@ import type { ComponentProps, ComponentPropsWithoutRef, ComponentRef } from "rea
 import { cx } from "../../utils/cx/cx.js";
 
 /**
- * Wraps your app to provide global functionality to your tooltips. Required
- * ancestor for `Tooltip.Root` — mount one instance at the root of your app
- * (alongside `ThemeProvider` and `Toaster`). Only one instance should be
- * rendered. Children render `Tooltip.Root` / `Tooltip.Trigger` /
- * `Tooltip.Content` trees as usual.
+ * Wraps your app to provide shared global behavior for your tooltips, such
+ * as consistent delay and hover settings. Mount one instance at the root of
+ * your app when you want app-wide tooltip defaults. Children render
+ * `Tooltip.Root` / `Tooltip.Trigger` / `Tooltip.Content` trees as usual.
  *
  * @see https://mantle.ngrok.com/components/tooltip#tooltipprovider
  *
@@ -42,8 +41,9 @@ TooltipProvider.displayName = "Tooltip.Provider";
 
 /**
  * A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.
- * This is the root, stateful component that manages the open/closed state of the tooltip.
- * Will throw if you have not wrapped your app in a `TooltipProvider`.
+ * This is the root, stateful component that manages the open/closed state of
+ * the tooltip. Wrap your app in `TooltipProvider` when you want shared
+ * app-wide delay and hover settings.
  *
  * @see https://mantle.ngrok.com/components/tooltip#tooltiproot
  *
@@ -145,10 +145,8 @@ Content.displayName = "Tooltip.Content";
  * content (forms, settings, color pickers), use `Popover`. For non-essential
  * preview cards (user/repo previews, link previews), use `HoverCard`.
  *
- * Requires a `<TooltipProvider>` ancestor — mount one at the root of your
- * app (alongside `ThemeProvider` and `Toaster`) to share global tooltip
- * behavior (delay, hover settings). `Tooltip.Root` will throw if no
- * provider is present.
+ * Mount a `<TooltipProvider>` once at the app root when you want shared
+ * tooltip behavior such as consistent delay and hover settings.
  *
  * @see https://mantle.ngrok.com/components/tooltip
  * @see https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/
@@ -178,8 +176,9 @@ Content.displayName = "Tooltip.Content";
 const Tooltip = {
 	/**
 	 * A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.
-	 * This is the root, stateful component that manages the open/closed state of the tooltip.
-	 * Will throw if you have not wrapped your app in a `TooltipProvider`.
+	 * This is the root, stateful component that manages the open/closed state of
+	 * the tooltip. Wrap your app in `TooltipProvider` when you want shared
+	 * app-wide delay and hover settings.
 	 *
 	 * @see https://mantle.ngrok.com/components/tooltip#tooltiproot
 	 *

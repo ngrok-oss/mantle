@@ -18,7 +18,7 @@ A `Tooltip` shows a short, non-interactive label when a control receives keyboar
 - Prefer [`Popover`](/components/popover) when the floating content needs buttons, links, inputs, or anything else focusable.
 - Prefer [`HoverCard`](/components/hover-card) for a sighted-only preview of content that already lives behind a link.
 
-`Tooltip` requires a `TooltipProvider` ancestor; the standard place to mount it is at the app root.
+Mount `TooltipProvider` once at the app root when you want shared tooltip behavior, such as consistent delay and hover settings.
 
 > [!WARNING]
 > Per the [WAI-ARIA tooltip pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/), tooltips must not contain interactive or focusable content — the tooltip itself never receives focus, so anything inside it is unreachable for keyboard users. If the floating content needs to be interactive, use [`Popover`](/components/popover) instead.
@@ -79,7 +79,7 @@ Wraps your app to provide global functionality to your tooltips. Only one instan
 
 ### Tooltip.Root
 
-The root component that manages the open/closed state of the tooltip. Will throw if you have not wrapped your app in a `TooltipProvider`.
+The root component that manages the open/closed state of the tooltip. Wrap your app in `TooltipProvider` when you want shared app-wide delay and hover settings.
 
 | Prop                       | Type                      | Default | Description                                                                                                             |
 | -------------------------- | ------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------- |

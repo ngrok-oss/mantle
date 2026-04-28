@@ -6,7 +6,8 @@ import { useCallback, useSyncExternalStore } from "react";
  *
  * Uses `window.matchMedia` under the hood and `useSyncExternalStore` for
  * compatibility with React's concurrent rendering model. Returns `false`
- * during SSR and the first render.
+ * on the server; during hydration React uses that server snapshot before
+ * updating to the client media-query value.
  *
  * For common viewport breakpoint checks, prefer the more specific
  * {@link useBreakpoint} or {@link useIsBelowBreakpoint} hooks.

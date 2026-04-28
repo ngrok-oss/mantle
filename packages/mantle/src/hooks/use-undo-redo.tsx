@@ -118,7 +118,7 @@ type UseUndoRedoReturn<T> = {
  * }
  *
  * return (
- *   <div onKeyDown={handleKeyDown}>
+ *   <div tabIndex={0} onKeyDown={handleKeyDown}>
  *     <button disabled={!canUndo} onClick={() => { const previous = undo(items); if (previous) setItems(previous); }}>Undo</button>
  *     <button disabled={!canRedo} onClick={() => { const next = redo(items); if (next) setItems(next); }}>Redo</button>
  *   </div>

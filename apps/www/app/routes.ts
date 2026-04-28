@@ -104,6 +104,7 @@ export default [
 		...docRoute("utils/color"),
 		...docRoute("utils/compose-refs"),
 		...docRoute("utils/cx"),
+		...docRoute("utils/highlight-utils"),
 		...docRoute("utils/in-view"),
 		...docRoute("utils/sorting"),
 	]),

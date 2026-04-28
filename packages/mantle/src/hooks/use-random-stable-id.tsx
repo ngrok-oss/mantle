@@ -2,17 +2,20 @@ import { useMemo } from "react";
 
 /**
  * React hook that returns a random, stable id (e.g. `"mantle-a3f9k7q"`)
- * suitable for DOM `id` attributes, CSS selectors, and `aria-*` references.
+ * suitable for DOM `id` attributes and `aria-*` references.
  *
- * Unlike React's built-in `useId`, the returned value does not contain
- * special characters (`:`) and is therefore safe to use directly in CSS
- * selectors and `querySelector` calls. The id is generated once for the
- * lifetime of the component and is stable across re-renders, but a new
- * value is produced when `prefix` changes.
+ * Unlike React's built-in `useId`, the generated suffix does not contain
+ * special characters (`:`). The default id is safe to use directly in CSS
+ * selectors and `querySelector` calls; if you provide a custom `prefix`,
+ * keep it selector-safe or escape the final id with `CSS.escape()` before
+ * querying. The id is generated once for the lifetime of the component and
+ * is stable across re-renders, but a new value is produced when `prefix`
+ * changes.
  *
  * @param prefix - Optional string prepended to the generated suffix.
- *   Whitespace-only or empty values fall back to `"mantle"`. Defaults to
- *   `"mantle"`.
+ *   Whitespace-only or empty values fall back to `"mantle"`. Use a
+ *   selector-safe prefix if you plan to reference the id in CSS selectors
+ *   without escaping. Defaults to `"mantle"`.
  * @returns A string of the form `"<prefix>-<7-char-random>"`.
  *
  * @example

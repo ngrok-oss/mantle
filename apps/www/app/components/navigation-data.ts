@@ -173,6 +173,7 @@ export const utilsPages = [
 	"cx",
 	"color",
 	"composeRefs",
+	"highlight-utils",
 	"inView",
 	"sorting",
 ] as const;
@@ -182,6 +183,7 @@ export const utilsRoutes = {
 	cx: "/utils/cx",
 	color: "/utils/color",
 	composeRefs: "/utils/compose-refs",
+	"highlight-utils": "/utils/highlight-utils",
 	inView: "/utils/in-view",
 	sorting: "/utils/sorting",
 } as const satisfies Record<(typeof utilsPages)[number], Route>;

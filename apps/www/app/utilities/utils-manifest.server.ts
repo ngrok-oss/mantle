@@ -105,11 +105,11 @@ const utilities: UtilityDescriptor[] = [
 	},
 	{
 		name: "highlight-utils",
-		docsSlug: "components/code-block",
+		docsSlug: "utils/highlight-utils",
 		importPath: "@ngrok/mantle/highlight-utils",
-		// `highlight-utils.ts` is itself a barrel — its file-level JSDoc is
-		// hand-extracted in {@link buildUtilitiesManifest} since there's no
-		// matching `function`/`const` declaration to anchor on.
+		// `highlight-utils.ts` is itself a barrel, so summary extraction relies on
+		// `extractFirstSentenceForName` falling back to the module-level JSDoc when
+		// there is no matching `function`/`const` declaration to anchor on.
 		sourcePath: path.join(utilsSrcDir, "..", "components", "code-block", "highlight-utils"),
 		primaryExport: "decorateHighlightedHtml",
 	},

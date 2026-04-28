@@ -144,8 +144,8 @@ Content.displayName = HoverCardPrimitive.Content.displayName;
  * via keyboard, all content inside a `HoverCard` must be supplemental,
  * never the only path to information; the trigger is typically a link that
  * already leads to the same content for keyboard and screen reader users.
- * For short interactive labels, use `Tooltip`. For interactive overlays the
- * user opens deliberately, use `Popover`.
+ * For short, non-interactive labels or hints, use `Tooltip`. For
+ * interactive overlays the user opens deliberately, use `Popover`.
  *
  * @see https://mantle.ngrok.com/components/hover-card
  *
