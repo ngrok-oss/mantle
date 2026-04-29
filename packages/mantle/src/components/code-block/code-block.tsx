@@ -34,6 +34,7 @@ import {
 import assert from "tiny-invariant";
 import { useCopyToClipboard } from "../../hooks/use-copy-to-clipboard.js";
 import type { WithAsChild } from "../../types/as-child.js";
+import { composeRefs } from "../../utils/compose-refs/compose-refs.js";
 import { cx } from "../../utils/cx/cx.js";
 import { Icon as MantleIcon } from "../icon/icon.js";
 import type { SvgAttributes } from "../icon/types.js";
@@ -41,6 +42,7 @@ import { TrafficPolicyFileIcon } from "../icons/traffic-policy-file.js";
 import { IconButton } from "../button/icon-button.js";
 import { Slot } from "../slot/index.js";
 import { escapeHtml } from "./escape-html.js";
+import { attachFoldHandler, clearRegionLinesCache } from "./fold-runtime.js";
 import type { Mode } from "./resolve-pre-rendered-props.js";
 import type { MantleCodeBlockValue } from "./mantle-code.js";
 
@@ -321,6 +323,7 @@ type CodeBlockCodeProps = Omit<ComponentProps<"pre">, "children"> & {
 const Code = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
 	({ className, style, tabIndex, value, ...props }, ref) => {
 		const id = useId();
+		const preRef = useRef<HTMLPreElement>(null);
 		const { copyTextRef, hasCodeExpander, isCodeExpanded, registerCodeId, unregisterCodeId } =
 			useCodeBlockContext();
 		const {
@@ -366,6 +369,22 @@ const Code = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
 				: __preHtml;
 		}, [__preHtml, __preValToken, __preVals]);
 
+		// Attach a single delegated click handler per <pre> so fold toggles do
+		// not pay the cost of N React re-renders or N event handlers — see the
+		// performance rationale in `fold-runtime.ts`. Re-attaches when the
+		// rendered HTML changes since `<code>` gets a new dangerouslySetInnerHTML.
+		useEffect(() => {
+			const pre = preRef.current;
+			if (pre == null) {
+				return undefined;
+			}
+			const codeElement = pre.querySelector("code");
+			if (codeElement != null) {
+				clearRegionLinesCache(codeElement);
+			}
+			return attachFoldHandler(pre);
+		}, [renderedHtml]);
+
 		const isPreRendered = renderedHtml != null;
 		const displayHtml = renderedHtml ?? escapeHtml(copyText);
 
@@ -393,7 +412,7 @@ const Code = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
 				}
 				data-mantle-line-numbers={isPreRendered && effectiveShowLineNumbers ? "true" : "false"}
 				id={id}
-				ref={ref}
+				ref={composeRefs(preRef, ref)}
 				style={
 					{
 						...style,

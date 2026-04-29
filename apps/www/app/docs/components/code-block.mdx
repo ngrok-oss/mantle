@@ -13,6 +13,7 @@ import {
 	MantleCodeOptionsDemo,
 	OverridingIndentationDemo,
 	TabbedCodeBlockDemo,
+	FoldableJsonDemo,
 } from "~/features/code-block-demos";
 
 # Code Block
@@ -242,6 +243,45 @@ const value = createMantleCodeBlockValue({
 	preHtml: data.html,
 	showLineNumbers: data.showLineNumbers,
 });
+```
+
+### Foldable JSON
+
+JSON code blocks automatically render VS Code-style fold carets next to every multi-line `{ … }` or `[ … ]`. Click the caret (or focus and press `Enter` / `Space`) to collapse the inner lines; the opener and closer lines stay visible, and a `⋯` placeholder marks the collapsed region.
+
+Folding is computed at build time and the entire interaction runs through a single delegated click handler per code block — no per-line listeners and no React re-renders on toggle. This keeps fold/unfold cheap even for JSON blobs with thousands of lines. JSON is the only language with fold gutters today; other languages render as before.
+
+<FoldableJsonDemo />
+
+```tsx
+import { CodeBlock, mantleCode } from "@ngrok/mantle/code-block";
+
+<CodeBlock.Root>
+	<CodeBlock.Header>
+		<CodeBlock.Icon preset="file" />
+		<CodeBlock.Title>package.json</CodeBlock.Title>
+	</CodeBlock.Header>
+	<CodeBlock.Body>
+		<CodeBlock.CopyButton />
+		<CodeBlock.Code
+			value={mantleCode("json")`
+				{
+					"name": "@ngrok/mantle",
+					"scripts": {
+						"build": "tsdown",
+						"test": "vitest run"
+					},
+					"pnpm": {
+						"onlyBuiltDependencies": [
+							"esbuild",
+							"@tailwindcss/oxide"
+						]
+					}
+				}
+			`}
+		/>
+	</CodeBlock.Body>
+</CodeBlock.Root>;
 ```
 
 ### Tabbed Code Block

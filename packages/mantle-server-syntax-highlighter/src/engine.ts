@@ -1,5 +1,6 @@
 import { createHash } from "node:crypto";
 import {
+	computeJsonFoldRanges,
 	decorateHighlightedHtml,
 	inferIndentation,
 	isSupportedLanguage,
@@ -220,7 +221,14 @@ async function highlightWithMantleShiki(
 		if (baseHtml == null) {
 			throw new Error("Failed to extract highlighted HTML from Shiki output");
 		}
+		// JSON is the only language that ships fold gutters at this time;
+		// other languages would need their own bracket-vs-comment-vs-string
+		// tokenizer to compute correct ranges. Computed once on the same
+		// normalized code that Shiki saw so line numbers stay aligned.
+		const foldableRanges =
+			resolvedLanguage === "json" ? computeJsonFoldRanges(normalizedCode) : undefined;
 		const html = decorateHighlightedHtml({
+			foldableRanges,
 			highlightLines,
 			html: baseHtml,
 			lineNumberStart,

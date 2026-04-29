@@ -579,3 +579,48 @@ export function OverridingIndentationDemo() {
 		</Example>
 	);
 }
+
+/**
+ * Demonstrates foldable JSON: multi-line `{}` / `[]` ranges get a fold toggle
+ * in the gutter. Click a caret (or focus and press Enter/Space) to collapse
+ * the inner content while keeping the opener and closer lines visible.
+ */
+export function FoldableJsonDemo() {
+	return (
+		<Example>
+			<CodeBlock.Root>
+				<CodeBlock.Header>
+					<CodeBlock.Icon preset="file" />
+					<CodeBlock.Title>package.json</CodeBlock.Title>
+				</CodeBlock.Header>
+				<CodeBlock.Body>
+					<CodeBlock.CopyButton />
+					<CodeBlock.Code
+						value={mantleCode("json")`
+							{
+								"name": "@ngrok/mantle",
+								"version": "0.71.0",
+								"scripts": {
+									"build": "tsdown",
+									"test": "vitest run",
+									"typecheck": "tsgo"
+								},
+								"dependencies": {
+									"@radix-ui/react-tabs": "1.1.13",
+									"clsx": "2.1.1",
+									"tailwind-merge": "3.5.0"
+								},
+								"pnpm": {
+									"onlyBuiltDependencies": [
+										"esbuild",
+										"@tailwindcss/oxide"
+									]
+								}
+							}
+						`}
+					/>
+				</CodeBlock.Body>
+			</CodeBlock.Root>
+		</Example>
+	);
+}
