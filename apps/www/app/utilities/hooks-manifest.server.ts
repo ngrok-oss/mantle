@@ -2,7 +2,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import mantlePackageJson from "@ngrok/mantle/package.json" with { type: "json" };
-import { canonicalHref } from "~/utilities/canonical-origin";
+import { canonicalHref, canonicalOrigin } from "~/utilities/canonical-origin";
 
 /**
  * One entry in the public hooks manifest. Designed for ingestion by
@@ -105,17 +105,31 @@ function extractValueExports(
  * Read a TypeScript source file from disk. Tries `.tsx`, then `.ts`, then
  * the bare path. Returns `undefined` when the file is missing — callers
  * fall back to omitting the summary rather than throwing.
+ *
+ * Results are memoized by `basePath` for the lifetime of the process.
+ * Callers like `extractFirstSentenceForName` probe a file with multiple
+ * candidate identifiers; without memoization each candidate would re-read
+ * the same file from disk.
  */
+const sourceFileCache = new Map<string, Promise<string | undefined>>();
 async function readSourceFile(basePath: string): Promise<string | undefined> {
-	const candidates = [`${basePath}.tsx`, `${basePath}.ts`, basePath];
-	for (const candidate of candidates) {
-		try {
-			return await readFile(candidate, "utf8");
-		} catch {
-			// Try the next candidate.
-		}
+	const cached = sourceFileCache.get(basePath);
+	if (cached) {
+		return cached;
 	}
-	return undefined;
+	const promise = (async () => {
+		const candidates = [`${basePath}.tsx`, `${basePath}.ts`, basePath];
+		for (const candidate of candidates) {
+			try {
+				return await readFile(candidate, "utf8");
+			} catch {
+				// Try the next candidate.
+			}
+		}
+		return undefined;
+	})();
+	sourceFileCache.set(basePath, promise);
+	return promise;
 }
 
 /**
@@ -289,7 +303,7 @@ export async function buildHooksManifest(): Promise<HooksManifest> {
 
 	cachedManifest = {
 		version: mantlePackageJson.version,
-		origin: canonicalHref("/").replace(/\/$/, ""),
+		origin: canonicalOrigin,
 		hooks,
 	};
 	return cachedManifest;

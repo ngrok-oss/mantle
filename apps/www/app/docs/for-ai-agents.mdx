@@ -19,15 +19,19 @@ their own manifests at /api/hooks.json and /api/utils.json.
 
 ## Machine-readable entry points
 
-| URL                                            | Purpose                                                                                                                                   |
-| ---------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| [`/llms.txt`](/llms.txt)                       | Curated index of every docs page (title, description, html + markdown URLs). Follows the [llms.txt convention](https://llmstxt.org).      |
-| [`/llms-full.txt`](/llms-full.txt)             | Concatenated plain-markdown of every docs page. Drop into a context window when full coverage is needed.                                  |
-| [`/api/components.json`](/api/components.json) | Structured component manifest. Each entry has `name`, `slug`, `status`, `importPath`, `docsUrl`, `markdownUrl`, and a one-line `summary`. |
-| [`/api/hooks.json`](/api/hooks.json)           | Structured hooks manifest. Each entry has `name`, `importPath`, `docsUrl`, `markdownUrl`, and an optional `summary`.                      |
-| [`/api/utils.json`](/api/utils.json)           | Structured utilities manifest. Same shape as hooks.                                                                                       |
-| [`/changelog.md`](/changelog.md)               | The published `@ngrok/mantle` `CHANGELOG.md` as plain markdown.                                                                           |
-| `/<page>.md`                                   | Every docs page (e.g. [`/components/button.md`](/components/button.md)) is also served as plain markdown by appending `.md`.              |
+| URL                                                | Purpose                                                                                                                                   |
+| -------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| [`/llms.txt`](/llms.txt)                           | Curated index of every docs page (title, description, html + markdown URLs). Follows the [llms.txt convention](https://llmstxt.org).      |
+| [`/llms-full.txt`](/llms-full.txt)                 | Concatenated plain-markdown of every docs page. Drop into a context window when full coverage is needed.                                  |
+| [`/api/components.json`](/api/components.json)     | Structured component manifest. Each entry has `name`, `slug`, `status`, `importPath`, `docsUrl`, `markdownUrl`, and a one-line `summary`. |
+| [`/api/hooks.json`](/api/hooks.json)               | Structured hooks manifest. Each entry has `name`, `importPath`, `docsUrl`, `markdownUrl`, and an optional `summary`.                      |
+| [`/api/utils.json`](/api/utils.json)               | Structured utilities manifest. Same shape as hooks.                                                                                       |
+| [`/api/package.json`](/api/package.json)           | Curated `@ngrok/mantle` package info: version, peer/dev deps, full list of importable subpaths.                                           |
+| [`/api/changelog.json`](/api/changelog.json)       | Published changelog parsed into a structured per-version, per-bump shape with PR/commit/author metadata.                                  |
+| [`/api/search-index.json`](/api/search-index.json) | Flat searchable index across components, hooks, and utilities with keyword tokens.                                                        |
+| [`/api/schema.json`](/api/schema.json)             | JSON Schema (draft-07) definitions for every endpoint above. Use it to validate payloads.                                                 |
+| [`/changelog.md`](/changelog.md)                   | The published `@ngrok/mantle` `CHANGELOG.md` as plain markdown.                                                                           |
+| `/<page>.md`                                       | Every docs page (e.g. [`/components/button.md`](/components/button.md)) is also served as plain markdown by appending `.md`.              |
 
 ## Suggested system-prompt snippet
 

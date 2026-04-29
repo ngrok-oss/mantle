@@ -1,6 +1,6 @@
 import path from "node:path";
 import mantlePackageJson from "@ngrok/mantle/package.json" with { type: "json" };
-import { canonicalHref } from "~/utilities/canonical-origin";
+import { canonicalHref, canonicalOrigin } from "~/utilities/canonical-origin";
 import { extractFirstSentenceForName, utilsSrcDir } from "~/utilities/hooks-manifest.server";
 
 /**
@@ -149,7 +149,7 @@ export async function buildUtilitiesManifest(): Promise<UtilitiesManifest> {
 
 	cachedManifest = {
 		version: mantlePackageJson.version,
-		origin: canonicalHref("/").replace(/\/$/, ""),
+		origin: canonicalOrigin,
 		utilities: items,
 	};
 	return cachedManifest;
