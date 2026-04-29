@@ -38,6 +38,10 @@ Also install the required `devDependencies`:
 
 Next, check out the [Overview & Setup](https://mantle.ngrok.com/) docs and start using mantle components in your application!
 
+## Using with AI Agents
+
+Mantle ships machine-readable entry points for coding agents — see [For AI Agents](https://mantle.ngrok.com/for-ai-agents) for the system-prompt snippet, conventions, and the full list of `/api/*.json` and `llms.txt` endpoints. An offline pointer file (`@ngrok/mantle/agent.json`) is included in the published package as a fallback when network access isn't available.
+
 ## Code Block Tooling
 
 Mantle ships runtime components from `@ngrok/mantle`, while build-time and server-side tooling lives in `@ngrok/mantle-vite-plugins`:

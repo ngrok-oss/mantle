@@ -1,8 +1,10 @@
-import { readFile } from "node:fs/promises";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
 import mantlePackageJson from "@ngrok/mantle/package.json" with { type: "json" };
-import { canonicalHref } from "~/utilities/canonical-origin";
+import { canonicalHref, canonicalOrigin } from "~/utilities/canonical-origin";
+import {
+	hooksSrcDir,
+	readSourceFile,
+	sourcePathFromExport,
+} from "~/utilities/mantle-source.server";
 
 /**
  * One entry in the public hooks manifest. Designed for ingestion by
@@ -33,27 +35,6 @@ export type HooksManifest = {
 };
 
 /**
- * Absolute path to `packages/mantle/src/hooks` resolved relative to this
- * file. Climbs out of `apps/www/app/utilities` up to the repo root, then
- * back down into the package source. Resilient to working-directory drift.
- */
-const hooksSrcDir = path.resolve(
-	path.dirname(fileURLToPath(import.meta.url)),
-	"../../../../packages/mantle/src/hooks",
-);
-
-/**
- * Absolute path to `packages/mantle/src/utils` resolved the same way as
- * {@link hooksSrcDir}. Used for `useComposedRefs`, which lives outside the
- * `hooks/` directory but is re-exported from the hooks barrel, and for the
- * utilities manifest.
- */
-const utilsSrcDir = path.resolve(
-	path.dirname(fileURLToPath(import.meta.url)),
-	"../../../../packages/mantle/src/utils",
-);
-
-/**
  * Match `export { ... } from "..."` blocks in a barrel file, skipping
  * `export type { ... }`. Capture group 1 is the comma-separated names,
  * capture group 2 is the relative source path.
@@ -75,7 +56,7 @@ function removeExportTypeBlocks(source: string): string {
 /**
  * Parse a barrel file's text and return one entry per exported value
  * (excluding `export type` declarations). The returned `sourcePath` is
- * resolved against `dir`, with no extension — callers add `.ts`/`.tsx`.
+ * relative to `packages/mantle/src`, with no extension.
  */
 function extractValueExports(
 	barrelSource: string,
@@ -93,29 +74,12 @@ function extractValueExports(
 			.map((piece) => piece.replace(/\/\/.*$/g, "").trim())
 			.filter((piece) => piece.length > 0 && !piece.startsWith("//"));
 
-		const resolved = path.resolve(dir, fromPath.replace(/\.js$/, ""));
+		const resolved = sourcePathFromExport(dir, fromPath);
 		for (const name of names) {
 			entries.push({ name, sourcePath: resolved });
 		}
 	}
 	return entries;
-}
-
-/**
- * Read a TypeScript source file from disk. Tries `.tsx`, then `.ts`, then
- * the bare path. Returns `undefined` when the file is missing — callers
- * fall back to omitting the summary rather than throwing.
- */
-async function readSourceFile(basePath: string): Promise<string | undefined> {
-	const candidates = [`${basePath}.tsx`, `${basePath}.ts`, basePath];
-	for (const candidate of candidates) {
-		try {
-			return await readFile(candidate, "utf8");
-		} catch {
-			// Try the next candidate.
-		}
-	}
-	return undefined;
 }
 
 /**
@@ -196,7 +160,7 @@ async function extractFirstSentenceForName(
 	sourcePath: string,
 	name: string,
 ): Promise<string | undefined> {
-	const source = await readSourceFile(sourcePath);
+	const source = readSourceFile(sourcePath);
 	if (source == null) {
 		return undefined;
 	}
@@ -250,8 +214,7 @@ export async function buildHooksManifest(): Promise<HooksManifest> {
 		return cachedManifest;
 	}
 
-	const barrelPath = path.join(hooksSrcDir, "index.ts");
-	const barrelSource = (await readSourceFile(barrelPath)) ?? "";
+	const barrelSource = readSourceFile(`${hooksSrcDir}/index`) ?? "";
 	const entries = extractValueExports(barrelSource, hooksSrcDir);
 
 	const docsUrl = canonicalHref("/hooks");
@@ -289,12 +252,10 @@ export async function buildHooksManifest(): Promise<HooksManifest> {
 
 	cachedManifest = {
 		version: mantlePackageJson.version,
-		origin: canonicalHref("/").replace(/\/$/, ""),
+		origin: canonicalOrigin,
 		hooks,
 	};
 	return cachedManifest;
 }
 
-// Re-exported for use by the utilities manifest, which shares the same
-// JSDoc-extraction helpers and source layout.
-export { utilsSrcDir, extractFirstSentenceForName, readSourceFile };
+export { extractFirstSentenceForName };

@@ -17,6 +17,12 @@ export default [
 	route("api/components.json", "./routes/api.components[.]json.tsx", { id: "api-components-json" }),
 	route("api/hooks.json", "./routes/api.hooks[.]json.tsx", { id: "api-hooks-json" }),
 	route("api/utils.json", "./routes/api.utils[.]json.tsx", { id: "api-utils-json" }),
+	route("api/package.json", "./routes/api.package[.]json.tsx", { id: "api-package-json" }),
+	route("api/changelog.json", "./routes/api.changelog[.]json.tsx", { id: "api-changelog-json" }),
+	route("api/schema.json", "./routes/api.schema[.]json.tsx", { id: "api-schema-json" }),
+	route("api/search-index.json", "./routes/api.search-index[.]json.tsx", {
+		id: "api-search-index-json",
+	}),
 	route("api/shiki-highlight", "./routes/api.shiki-highlight.tsx"),
 
 	// docs layout
