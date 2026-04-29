@@ -21,7 +21,7 @@
     "@react-router/node": "7.14.2",
     "@react-router/serve": "7.14.2",
     "@tanstack/react-form": "1.29.1",
-    "@tanstack/react-query": "5.100.5",
+    "@tanstack/react-query": "5.100.6",
     "@tanstack/react-query-devtools": "5.100.5",
     "@vercel/react-router": "1.2.6",
     "fuse.js": "7.3.0",
