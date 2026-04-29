@@ -1,6 +1,7 @@
-import { readFile } from "node:fs/promises";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
+// `?raw` lets Vite bundle the package CHANGELOG verbatim so this loader
+// works in both dev and the bundled SSR output (where `import.meta.url`
+// points into `build/server/...` and would resolve the wrong path).
+import changelogMarkdown from "../../../../packages/mantle/CHANGELOG.md?raw";
 import { canonicalOrigin } from "~/utilities/canonical-origin";
 
 /**
@@ -31,11 +32,6 @@ export type Changelog = {
 	origin: string;
 	versions: ChangelogVersion[];
 };
-
-const changelogPath = path.resolve(
-	path.dirname(fileURLToPath(import.meta.url)),
-	"../../../../packages/mantle/CHANGELOG.md",
-);
 
 /**
  * Map a `### {Heading} Changes` line to a semver bump. Returns `null`
@@ -194,11 +190,10 @@ export async function buildChangelog(): Promise<Changelog> {
 	if (cached) {
 		return cached;
 	}
-	const source = await readFile(changelogPath, "utf8");
 	cached = {
 		package: "@ngrok/mantle",
 		origin: canonicalOrigin,
-		versions: parseVersions(source),
+		versions: parseVersions(changelogMarkdown),
 	};
 	return cached;
 }
