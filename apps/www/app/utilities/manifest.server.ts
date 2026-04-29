@@ -1,5 +1,3 @@
-import path from "node:path";
-import { fileURLToPath } from "node:url";
 import mantlePackageJson from "@ngrok/mantle/package.json" with { type: "json" };
 import {
 	componentImportPathOverrides,
@@ -9,6 +7,7 @@ import {
 import { canonicalHref, canonicalOrigin } from "~/utilities/canonical-origin";
 import { loadFrontmatter, urlToFileMap } from "~/utilities/docs";
 import { extractFirstSentenceForName } from "~/utilities/hooks-manifest.server";
+import { componentsSrcDir, sourceBasePath } from "~/utilities/mantle-source.server";
 
 /**
  * One entry in the public component manifest. Designed for ingestion by
@@ -76,16 +75,6 @@ function importPathForSlug(slug: string): string | null {
 }
 
 /**
- * Absolute path to `packages/mantle/src/components` resolved relative to
- * this file. Used to locate the source file backing each component's
- * primary identifier so the manifest can surface its in-source JSDoc.
- */
-const componentsSrcDir = path.resolve(
-	path.dirname(fileURLToPath(import.meta.url)),
-	"../../../../packages/mantle/src/components",
-);
-
-/**
  * Convert a kebab-case docs slug leaf (e.g. `data-table`) into the
  * PascalCase identifier the component is most commonly exported as
  * (e.g. `DataTable`). Used as a candidate name when looking up the
@@ -106,31 +95,39 @@ function leafToPascal(leaf: string): string {
 }
 
 /**
- * Locate the `<dir>/<leaf>.tsx` source file backing a component's
- * primary export. For most slugs the dir matches the leaf
- * (`components/button` → `button/button.tsx`). The override map handles
- * components that live alongside a sibling (`icon-button` lives in the
- * `button/` dir, `password-input` in `input/`, etc.).
+ * Locate source files that may describe a component's primary export. For
+ * most slugs the dir matches the leaf (`components/button` →
+ * `button/button.tsx`). The override map handles components that live
+ * alongside a sibling (`icon-button` lives in the `button/` dir,
+ * `password-input` in `input/`, etc.). The index fallback covers
+ * barrel-style pages like `Theme`, `Icons`, and `Pagination`.
  *
- * Returns the path *without* extension so callers can hand it to
- * {@link extractFirstSentenceForName}, which probes `.tsx`/`.ts`/bare.
+ * Returns package-source-relative paths *without* extensions so callers
+ * can hand it to {@link extractFirstSentenceForName}.
  */
-function sourceBaseForSlug(slug: string): { basePath: string; leaf: string } | null {
+function sourceBasesForSlug(slug: string): { basePaths: string[]; leaf: string } | null {
+	let leaf: string;
+	let dir: string;
+
 	if (slug.startsWith("components/preview/")) {
-		const leaf = slug.slice("components/preview/".length);
-		return { basePath: path.join(componentsSrcDir, leaf, leaf), leaf };
-	}
-	if (!slug.startsWith("components/")) {
+		leaf = slug.slice("components/preview/".length);
+		dir = leaf;
+	} else if (slug.startsWith("components/")) {
+		leaf = slug.slice("components/".length);
+		const overrides: Record<string, string> = componentImportPathOverrides;
+		const override = overrides[`/${slug}`];
+		dir = override ? override.replace(/^@ngrok\/mantle\//, "") : leaf;
+	} else {
 		return null;
 	}
-	const leaf = slug.slice("components/".length);
-	const overrides: Record<string, string> = componentImportPathOverrides;
-	const override = overrides[`/${slug}`];
-	if (override) {
-		const dir = override.replace(/^@ngrok\/mantle\//, "");
-		return { basePath: path.join(componentsSrcDir, dir, leaf), leaf };
-	}
-	return { basePath: path.join(componentsSrcDir, leaf, leaf), leaf };
+
+	return {
+		leaf,
+		basePaths: [
+			sourceBasePath(componentsSrcDir, dir, leaf),
+			sourceBasePath(componentsSrcDir, dir, "index"),
+		],
+	};
 }
 
 /**
@@ -141,15 +138,17 @@ function sourceBaseForSlug(slug: string): { basePath: string; leaf: string } | n
  * matches — callers fall back to the docs frontmatter summary.
  */
 async function jsdocForComponent(slug: string, displayName: string): Promise<string | undefined> {
-	const source = sourceBaseForSlug(slug);
+	const source = sourceBasesForSlug(slug);
 	if (!source) {
 		return undefined;
 	}
 	const candidates = new Set<string>([leafToPascal(source.leaf), displayName.replace(/\s+/g, "")]);
-	for (const name of candidates) {
-		const sentence = await extractFirstSentenceForName(source.basePath, name);
-		if (sentence) {
-			return sentence;
+	for (const basePath of source.basePaths) {
+		for (const name of candidates) {
+			const sentence = await extractFirstSentenceForName(basePath, name);
+			if (sentence) {
+				return sentence;
+			}
 		}
 	}
 	return undefined;

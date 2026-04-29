@@ -1,7 +1,7 @@
-import path from "node:path";
 import mantlePackageJson from "@ngrok/mantle/package.json" with { type: "json" };
 import { canonicalHref, canonicalOrigin } from "~/utilities/canonical-origin";
-import { extractFirstSentenceForName, utilsSrcDir } from "~/utilities/hooks-manifest.server";
+import { extractFirstSentenceForName } from "~/utilities/hooks-manifest.server";
+import { componentsSrcDir, sourceBasePath, utilsSrcDir } from "~/utilities/mantle-source.server";
 
 /**
  * One entry in the public utilities manifest. Designed for ingestion by
@@ -44,7 +44,7 @@ type UtilityDescriptor = {
 	docsSlug: string;
 	/** ESM import path (e.g. "@ngrok/mantle/cx"). */
 	importPath: string;
-	/** Absolute path to the source file containing the JSDoc. */
+	/** Source file containing the JSDoc, relative to `packages/mantle/src`. */
 	sourcePath: string;
 	/**
 	 * Identifier whose JSDoc seeds the manifest summary. Usually the
@@ -72,35 +72,35 @@ const utilities: UtilityDescriptor[] = [
 		name: "cx",
 		docsSlug: "utils/cx",
 		importPath: "@ngrok/mantle/cx",
-		sourcePath: path.join(utilsSrcDir, "cx", "cx"),
+		sourcePath: sourceBasePath(utilsSrcDir, "cx", "cx"),
 		primaryExport: "cx",
 	},
 	{
 		name: "color",
 		docsSlug: "utils/color",
 		importPath: "@ngrok/mantle/color",
-		sourcePath: path.join(utilsSrcDir, "color", "colors"),
+		sourcePath: sourceBasePath(utilsSrcDir, "color", "colors"),
 		primaryExport: "namedColors",
 	},
 	{
 		name: "composeRefs",
 		docsSlug: "utils/compose-refs",
 		importPath: "@ngrok/mantle/utils",
-		sourcePath: path.join(utilsSrcDir, "compose-refs", "compose-refs"),
+		sourcePath: sourceBasePath(utilsSrcDir, "compose-refs", "compose-refs"),
 		primaryExport: "composeRefs",
 	},
 	{
 		name: "inView",
 		docsSlug: "utils/in-view",
 		importPath: "@ngrok/mantle/utils",
-		sourcePath: path.join(utilsSrcDir, "in-view"),
+		sourcePath: sourceBasePath(utilsSrcDir, "in-view"),
 		primaryExport: "inView",
 	},
 	{
 		name: "sorting",
 		docsSlug: "utils/sorting",
 		importPath: "@ngrok/mantle/utils",
-		sourcePath: path.join(utilsSrcDir, "sorting", "compare"),
+		sourcePath: sourceBasePath(utilsSrcDir, "sorting", "compare"),
 		primaryExport: "compareDatesNewestToOldest",
 	},
 	{
@@ -110,7 +110,7 @@ const utilities: UtilityDescriptor[] = [
 		// `highlight-utils.ts` is itself a barrel, so summary extraction relies on
 		// `extractFirstSentenceForName` falling back to the module-level JSDoc when
 		// there is no matching `function`/`const` declaration to anchor on.
-		sourcePath: path.join(utilsSrcDir, "..", "components", "code-block", "highlight-utils"),
+		sourcePath: sourceBasePath(componentsSrcDir, "code-block", "highlight-utils"),
 		primaryExport: "decorateHighlightedHtml",
 	},
 ];
