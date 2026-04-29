@@ -1,5 +1,23 @@
 # @ngrok/mantle
 
+## 0.71.1
+
+### Patch Changes
+
+- [#1170](https://github.com/ngrok-oss/mantle/pull/1170) [`5c7ea22`](https://github.com/ngrok-oss/mantle/commit/5c7ea22ad5871b05d8b3d1962435cdbe7cda9773) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Expand the machine-readable surface for AI agents.
+
+  New endpoints on the docs site:
+  - `/api/package.json` — version, peer/dev dependency ranges, and the sorted list of importable `@ngrok/mantle/*` subpaths.
+  - `/api/changelog.json` — `CHANGELOG.md` parsed into one entry per version with PR/commit/author metadata broken out by semver bump.
+  - `/api/search-index.json` — flat sorted array spanning components, hooks, and utilities, with keyword tokens derived from each name + summary.
+  - `/api/schema.json` — JSON Schema (draft-07) definitions for every `/api/*.json` payload.
+
+  Each entry in `/api/components.json` now also carries a `jsdoc` field with the first sentence of the source JSDoc on the component's primary export.
+
+  The published package now ships `@ngrok/mantle/agent.json` and `@ngrok/mantle/llms.txt` — pointers to the live endpoints above plus the package's own subpath inventory — for agents working without network access.
+
+- [#1168](https://github.com/ngrok-oss/mantle/pull/1168) [`9da2cac`](https://github.com/ngrok-oss/mantle/commit/9da2cac4f9b4078fd07cf24feee7ce4fada25303) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Reduce `OtpInput.Slot` transition duration from 300ms to 150ms for snappier focus feedback.
+
 ## 0.71.0
 
 ### Minor Changes
