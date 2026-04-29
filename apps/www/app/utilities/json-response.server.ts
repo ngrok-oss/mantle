@@ -8,6 +8,27 @@ import { etagFor } from "~/utilities/etag";
 export const AGENT_API_CACHE_CONTROL =
 	"public, max-age=300, s-maxage=300, stale-while-revalidate=3600";
 
+const DEFAULT_CONTENT_TYPE = "application/json; charset=utf-8";
+
+function agentJsonHeaders(etag: string, contentType: string): HeadersInit {
+	return {
+		"Content-Type": contentType,
+		"Cache-Control": AGENT_API_CACHE_CONTROL,
+		ETag: etag,
+		"Access-Control-Allow-Origin": "*",
+	};
+}
+
+function ifNoneMatchMatches(ifNoneMatch: string | null, etag: string): boolean {
+	if (ifNoneMatch == null) {
+		return false;
+	}
+	return ifNoneMatch.split(",").some((candidate) => {
+		const trimmed = candidate.trim();
+		return trimmed === "*" || trimmed === etag || trimmed === `W/${etag}`;
+	});
+}
+
 /**
  * Serialize `data` as pretty-printed JSON and return either a 304 (when
  * the request's `If-None-Match` matches the body's ETag) or a 200 with
@@ -26,21 +47,17 @@ export function jsonAgentResponse(
 ): Response {
 	const body = JSON.stringify(data, null, "\t");
 	const etag = etagFor(body);
+	const contentType = options?.contentType ?? DEFAULT_CONTENT_TYPE;
 
-	if (request.headers.get("If-None-Match") === etag) {
+	if (ifNoneMatchMatches(request.headers.get("If-None-Match"), etag)) {
 		return new Response(null, {
 			status: 304,
-			headers: { ETag: etag, "Cache-Control": AGENT_API_CACHE_CONTROL },
+			headers: agentJsonHeaders(etag, contentType),
 		});
 	}
 
 	return new Response(body, {
 		status: 200,
-		headers: {
-			"Content-Type": options?.contentType ?? "application/json; charset=utf-8",
-			"Cache-Control": AGENT_API_CACHE_CONTROL,
-			ETag: etag,
-			"Access-Control-Allow-Origin": "*",
-		},
+		headers: agentJsonHeaders(etag, contentType),
 	});
 }

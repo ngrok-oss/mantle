@@ -57,7 +57,7 @@ const UtilityEntry = {
 
 const SearchEntry = {
 	type: "object",
-	required: ["name", "kind", "docsUrl", "markdownUrl"],
+	required: ["name", "kind", "importPath", "docsUrl", "markdownUrl", "keywords"],
 	additionalProperties: true,
 	properties: {
 		name: { type: "string" },
@@ -129,7 +129,7 @@ const UtilitiesManifest = {
 
 const PackageInfo = {
 	type: "object",
-	required: ["name", "version"],
+	required: ["name", "version", "subpaths"],
 	additionalProperties: true,
 	properties: {
 		name: { type: "string" },
@@ -146,7 +146,7 @@ const PackageInfo = {
 
 const Changelog = {
 	type: "object",
-	required: ["package", "versions"],
+	required: ["package", "origin", "versions"],
 	additionalProperties: true,
 	properties: {
 		package: { type: "string", const: "@ngrok/mantle" },
