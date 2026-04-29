@@ -228,7 +228,7 @@ const OtpInputSlotImpl = forwardRef<HTMLDivElement, OtpInputSlotProps>(
 				data-slot="otp-input-slot"
 				data-active={isActive ? "" : undefined}
 				className={cx(
-					"border-form bg-form text-strong relative flex h-10 w-10 items-center justify-center border-y border-r text-sm shadow-sm outline-hidden transition-all duration-300 ease-out",
+					"border-form bg-form text-strong relative flex h-10 w-10 items-center justify-center border-y border-r text-sm shadow-sm outline-hidden transition-all duration-150 ease-out",
 					"first:rounded-l-md first:border-l last:rounded-r-md",
 					// When this slot is immediately followed by the caret
 					// slot, hide our `border-r` so the active slot's
