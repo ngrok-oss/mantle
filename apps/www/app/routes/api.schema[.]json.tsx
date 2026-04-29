@@ -166,12 +166,27 @@ const SearchIndex = {
 	},
 } as const;
 
+const SchemaDocument = {
+	type: "object",
+	required: ["$schema", "$id", "title", "description", "version", "endpoints", "definitions"],
+	additionalProperties: true,
+	properties: {
+		$schema: { type: "string" },
+		$id: { type: "string", format: "uri" },
+		title: { type: "string" },
+		description: { type: "string" },
+		version: { type: "number" },
+		endpoints: { type: "object", additionalProperties: { type: "string" } },
+		definitions: { type: "object", additionalProperties: true },
+	},
+} as const;
+
 const SCHEMA = {
 	$schema: "http://json-schema.org/draft-07/schema#",
 	$id: canonicalHref("/api/schema.json"),
 	title: "@ngrok/mantle agent API schemas",
 	description:
-		"Schema definitions for every machine-readable endpoint under /api/*.json. Use the keys under `definitions` to validate the corresponding payloads.",
+		"Schema definitions for every machine-readable endpoint under /api/*.json, including this schema document. Use the keys under `definitions` to validate the corresponding payloads.",
 	version: SCHEMA_VERSION,
 	endpoints: {
 		"/api/components.json": "#/definitions/ComponentsManifest",
@@ -180,6 +195,7 @@ const SCHEMA = {
 		"/api/package.json": "#/definitions/PackageInfo",
 		"/api/changelog.json": "#/definitions/Changelog",
 		"/api/search-index.json": "#/definitions/SearchIndex",
+		"/api/schema.json": "#/definitions/SchemaDocument",
 	},
 	definitions: {
 		ComponentEntry,
@@ -194,6 +210,7 @@ const SCHEMA = {
 		PackageInfo,
 		Changelog,
 		SearchIndex,
+		SchemaDocument,
 	},
 } as const;
 

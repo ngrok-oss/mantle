@@ -1,8 +1,11 @@
 import mantlePackageJson from "@ngrok/mantle/package.json" with { type: "json" };
 import { canonicalOrigin } from "~/utilities/canonical-origin";
 import { buildHooksManifest } from "~/utilities/hooks-manifest.server";
+import type { HooksManifest } from "~/utilities/hooks-manifest.server";
 import { buildManifest } from "~/utilities/manifest.server";
+import type { Manifest } from "~/utilities/manifest.server";
 import { buildUtilitiesManifest } from "~/utilities/utils-manifest.server";
+import type { UtilitiesManifest } from "~/utilities/utils-manifest.server";
 
 /**
  * One entry in the public search index. Sized so the whole index fits
@@ -34,7 +37,7 @@ export type SearchIndex = {
  * source strings, deduplicated and sorted. Stable output keeps the
  * cached index byte-identical across rebuilds when nothing changed.
  */
-function keywordsFrom(...sources: (string | undefined)[]): string[] {
+export function keywordsFrom(...sources: (string | undefined)[]): string[] {
 	const seen = new Set<string>();
 	for (const source of sources) {
 		if (source == null) {
@@ -49,22 +52,17 @@ function keywordsFrom(...sources: (string | undefined)[]): string[] {
 	return Array.from(seen).sort();
 }
 
-let cached: SearchIndex | null = null;
-/**
- * Flatten the components, hooks, and utilities manifests into a single
- * sorted array, with keyword tokens derived for each entry. Cached for
- * the process lifetime — every input manifest is process-cached itself.
- */
-export async function buildSearchIndex(): Promise<SearchIndex> {
-	if (cached) {
-		return cached;
-	}
-	const [components, hooks, utilities] = await Promise.all([
-		buildManifest(),
-		buildHooksManifest(),
-		buildUtilitiesManifest(),
-	]);
+type SearchIndexManifests = {
+	components: Pick<Manifest, "components">;
+	hooks: Pick<HooksManifest, "hooks">;
+	utilities: Pick<UtilitiesManifest, "utilities">;
+};
 
+export function buildSearchEntries({
+	components,
+	hooks,
+	utilities,
+}: SearchIndexManifests): SearchEntry[] {
 	const entries: SearchEntry[] = [];
 
 	for (const component of components.components) {
@@ -104,12 +102,29 @@ export async function buildSearchIndex(): Promise<SearchIndex> {
 		});
 	}
 
-	entries.sort((a, b) => a.name.localeCompare(b.name));
+	return entries.sort((a, b) => a.name.localeCompare(b.name));
+}
+
+let cached: SearchIndex | null = null;
+/**
+ * Flatten the components, hooks, and utilities manifests into a single
+ * sorted array, with keyword tokens derived for each entry. Cached for
+ * the process lifetime — every input manifest is process-cached itself.
+ */
+export async function buildSearchIndex(): Promise<SearchIndex> {
+	if (cached) {
+		return cached;
+	}
+	const [components, hooks, utilities] = await Promise.all([
+		buildManifest(),
+		buildHooksManifest(),
+		buildUtilitiesManifest(),
+	]);
 
 	cached = {
 		version: mantlePackageJson.version,
 		origin: canonicalOrigin,
-		entries,
+		entries: buildSearchEntries({ components, hooks, utilities }),
 	};
 	return cached;
 }
