@@ -388,6 +388,11 @@ const Code = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
 		const isPreRendered = renderedHtml != null;
 		const displayHtml = renderedHtml ?? escapeHtml(copyText);
 
+		// React diffs `dangerouslySetInnerHTML` by prop reference; a fresh
+		// `{ __html }` literal each render re-applies `innerHTML`, wiping any
+		// runtime-managed DOM state on the children (e.g. fold attributes).
+		const innerHtmlProp = useMemo(() => ({ __html: displayHtml }), [displayHtml]);
+
 		return (
 			<pre
 				data-slot="code-block-code"
@@ -426,7 +431,7 @@ const Code = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
 			>
 				<code
 					className="text-size-inherit block min-w-full w-max"
-					dangerouslySetInnerHTML={{ __html: displayHtml }}
+					dangerouslySetInnerHTML={innerHtmlProp}
 				/>
 			</pre>
 		);

@@ -245,11 +245,13 @@ const value = createMantleCodeBlockValue({
 });
 ```
 
-### Foldable JSON
+### Foldable code blocks
 
-JSON code blocks automatically render VS Code-style fold carets next to every multi-line `{ … }` or `[ … ]`. Click the caret (or focus and press `Enter` / `Space`) to collapse the inner lines; the opener and closer lines stay visible, and a `⋯` placeholder marks the collapsed region.
+Code blocks automatically render VS Code-style fold carets in the gutter for any block whose language has a folding strategy — bracket-paired (JS/TS/JSX/TSX, JSON, CSS, Go, Java, C#, Rust, Ruby), indentation-based (Python, YAML), or tag-based (HTML, XML). Click the caret (or focus and press `Enter` / `Space`) to collapse the inner lines; the opener and closer lines stay visible, and a `⋯` placeholder marks the collapsed region.
 
-Folding is computed at build time and the entire interaction runs through a single delegated click handler per code block — no per-line listeners and no React re-renders on toggle. This keeps fold/unfold cheap even for JSON blobs with thousands of lines. JSON is the only language with fold gutters today; other languages render as before.
+Folding is computed at build time and the entire interaction runs through a single delegated click handler per code block — no per-line listeners and no React re-renders on toggle. This keeps fold/unfold cheap even for code blobs with thousands of lines.
+
+For one example per supported language plus a list of caveats, see [folding by language](/components/code-block/folding-by-language).
 
 <FoldableJsonDemo />
 

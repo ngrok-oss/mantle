@@ -38,6 +38,22 @@ export type {
 
 export {
 	//,
+	computeFoldRanges,
+	foldStrategyFor,
+} from "./compute-fold-ranges.js";
+
+export type {
+	//,
+	ComputeFoldRangesInput,
+	FoldExplanation,
+	FoldLine,
+	FoldScope,
+	FoldStrategy,
+	FoldToken,
+} from "./compute-fold-ranges.js";
+
+export {
+	//,
 	escapeHtml,
 } from "./escape-html.js";
 

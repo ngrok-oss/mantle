@@ -59,6 +59,9 @@ export default [
 		...docRoute("components/card"),
 		...docRoute("components/checkbox"),
 		...docRoute("components/code-block"),
+		// Sub-page linked from the Code Block doc; intentionally excluded from
+		// the sidebar nav.
+		...docRoute("components/code-block/folding-by-language"),
 		...docRoute("components/code"),
 		...docRoute("components/combobox"),
 		...docRoute("components/command"),

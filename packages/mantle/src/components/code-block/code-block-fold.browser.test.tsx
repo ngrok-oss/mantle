@@ -245,6 +245,52 @@ describe("CodeBlock JSON folding (browser)", () => {
 		expect(interior).toHaveAttribute("data-fold-hidden", "true");
 	});
 
+	test("fold state survives toggling the expander button", async () => {
+		// Regression: an unstable `dangerouslySetInnerHTML` prop reference
+		// caused React to re-apply `innerHTML` on unrelated re-renders,
+		// wiping fold state.
+		const user = userEvent.setup();
+		render(
+			<CodeBlock.Root>
+				<CodeBlock.Body>
+					<CodeBlock.Code value={makeJsonValue(SIMPLE_JSON)} />
+				</CodeBlock.Body>
+				<CodeBlock.ExpanderButton />
+			</CodeBlock.Root>,
+		);
+
+		const arrayButton = screen
+			.getAllByRole("button", { name: /toggle code folding/i })
+			.find((button) => button.getAttribute("data-fold-line") === "2");
+		if (arrayButton == null) {
+			throw new Error("expected fold toggle for array");
+		}
+		const expanderButton = document.querySelector("[data-slot='code-block-expander-button']");
+		if (!(expanderButton instanceof HTMLButtonElement)) {
+			throw new Error("expected expander button");
+		}
+		const innerLineBefore = document.querySelector('[data-line-number="3"]');
+		expect(innerLineBefore).not.toBeNull();
+
+		// Toggle expander twice — should be a complete no-op as far as the
+		// code's child DOM is concerned.
+		await user.click(expanderButton);
+		await user.click(expanderButton);
+
+		const innerLineAfter = document.querySelector('[data-line-number="3"]');
+		expect(innerLineAfter).toBe(innerLineBefore);
+
+		// Now folding still works against the same elements.
+		await user.click(arrayButton);
+		expect(arrayButton).toHaveAttribute("aria-expanded", "false");
+		expect(innerLineAfter).toHaveAttribute("data-fold-hidden", "true");
+
+		// And folding state survives another expander toggle.
+		await user.click(expanderButton);
+		expect(innerLineAfter).toHaveAttribute("data-fold-hidden", "true");
+		expect(arrayButton).toHaveAttribute("aria-expanded", "false");
+	});
+
 	test("a single click handler is shared across all fold toggles", async () => {
 		const user = userEvent.setup();
 		render(

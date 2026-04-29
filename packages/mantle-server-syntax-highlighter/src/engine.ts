@@ -1,11 +1,13 @@
 import { createHash } from "node:crypto";
 import {
-	computeJsonFoldRanges,
+	computeFoldRanges,
 	decorateHighlightedHtml,
+	foldStrategyFor,
 	inferIndentation,
 	isSupportedLanguage,
 	normalizeIndentation,
 	parseLanguage,
+	type FoldLine,
 	type Indentation,
 	type LineRange,
 	type SupportedLanguage,
@@ -212,21 +214,35 @@ async function highlightWithMantleShiki(
 
 	const promise = (async () => {
 		const highlighter = await getMantleShikiHighlighter();
+		// `includeExplanation` adds per-token scope info that the fold
+		// strategies need to skip strings/comments; skip the cost when the
+		// language has no folding strategy.
+		const wantsFoldRanges = foldStrategyFor(resolvedLanguage) !== "none";
+		let capturedTokens: FoldLine[] | undefined;
 		const fullHtml = highlighter.codeToHtml(normalizedCode, {
 			lang: resolvedLanguage,
 			theme: mantleShikiThemeName,
+			includeExplanation: wantsFoldRanges ? "scopeName" : false,
+			transformers: wantsFoldRanges
+				? [
+						{
+							name: "mantle:capture-tokens",
+							tokens(tokens) {
+								capturedTokens = tokens;
+							},
+						},
+					]
+				: undefined,
 		});
 		const baseHtml = extractHighlightedCodeInnerHtml(fullHtml);
 
 		if (baseHtml == null) {
 			throw new Error("Failed to extract highlighted HTML from Shiki output");
 		}
-		// JSON is the only language that ships fold gutters at this time;
-		// other languages would need their own bracket-vs-comment-vs-string
-		// tokenizer to compute correct ranges. Computed once on the same
-		// normalized code that Shiki saw so line numbers stay aligned.
 		const foldableRanges =
-			resolvedLanguage === "json" ? computeJsonFoldRanges(normalizedCode) : undefined;
+			wantsFoldRanges && capturedTokens != null
+				? computeFoldRanges({ language: resolvedLanguage, tokens: capturedTokens })
+				: undefined;
 		const html = decorateHighlightedHtml({
 			foldableRanges,
 			highlightLines,

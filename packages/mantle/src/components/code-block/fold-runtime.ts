@@ -50,10 +50,15 @@ function parseSpaceSeparated(value: string | null | undefined): Set<string> {
 /**
  * Builds (and memoizes per `<code>` element) the {@link FoldGeometry} index.
  * Lazy on first interaction so initial render cost stays at zero.
+ *
+ * If a cached geometry exists but its first cached line element is no longer
+ * connected to the DOM, the cache is treated as stale (typically because
+ * something replaced the `<code>`'s `innerHTML` without going through the
+ * `clearRegionLinesCache` path) and rebuilt from the current children.
  */
 function getFoldGeometry(codeElement: Element): FoldGeometry {
 	const cached = FOLD_GEOMETRY_CACHE.get(codeElement);
-	if (cached != null) {
+	if (cached != null && isGeometryConnected(cached)) {
 		return cached;
 	}
 	const regionToLines = new Map<string, HTMLElement[]>();
@@ -86,6 +91,28 @@ function getFoldGeometry(codeElement: Element): FoldGeometry {
 /** Resets the per-element cache. Called when the code block re-renders new content. */
 function clearRegionLinesCache(codeElement: Element): void {
 	FOLD_GEOMETRY_CACHE.delete(codeElement);
+}
+
+/**
+ * Cheap liveness probe: checks whether the first cached line is still
+ * attached to the document. If `innerHTML` was replaced under us, the cached
+ * line elements get detached and {@link Element.isConnected} flips to false.
+ * Inspecting one entry is enough — they all detach together when the parent's
+ * `innerHTML` is reset.
+ */
+function isGeometryConnected(geometry: FoldGeometry): boolean {
+	for (const lines of geometry.regionToLines.values()) {
+		if (lines.length === 0) {
+			continue;
+		}
+		const sample = lines[0];
+		if (sample == null) {
+			continue;
+		}
+		return sample.isConnected;
+	}
+	// Empty geometry — treat as still valid; rebuilding wouldn't add anything.
+	return true;
 }
 
 /**
@@ -132,6 +159,14 @@ function toggleFoldFromButton(button: HTMLButtonElement): boolean {
 	const wasExpanded = button.getAttribute("aria-expanded") !== "false";
 	const willCollapse = wasExpanded;
 	const foldedRegions = parseSpaceSeparated(codeElement.getAttribute("data-folded-regions"));
+
+	const alreadyCollapsed = foldedRegions.has(regionId);
+	if (willCollapse === alreadyCollapsed) {
+		// State already matches the target; skip attribute writes and the
+		// per-line sync. Defends against programmatic callers; user clicks
+		// always alternate state via the button's own aria-expanded.
+		return true;
+	}
 
 	if (willCollapse) {
 		foldedRegions.add(regionId);
