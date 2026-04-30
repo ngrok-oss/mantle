@@ -7,6 +7,7 @@ import { forwardRef, useContext } from "react";
 import type { WithAsChild } from "../../types/as-child.js";
 import { cx } from "../../utils/cx/cx.js";
 import { Slot as AsChildSlot } from "../slot/index.js";
+import type { Validation, WithValidation } from "../input/types.js";
 
 type OtpState = "idle" | "caret" | "range" | "all";
 
@@ -48,7 +49,13 @@ const computeOtpState = ({
  * - `"range"` — multiple but not all slots active (partial selection)
  * - `"all"` — every slot active (cmd+a / select-all)
  */
-const MantleOtpBridge = ({ children }: { children: ReactNode }) => {
+const MantleOtpBridge = ({
+	children,
+	validation,
+}: {
+	children: ReactNode;
+	validation?: Validation;
+}) => {
 	const inputOtpContext = useContext(OTPInputContext);
 	const total = inputOtpContext.slots.length;
 	const totalActive = inputOtpContext.slots.reduce(
@@ -60,7 +67,11 @@ const MantleOtpBridge = ({ children }: { children: ReactNode }) => {
 	// `display: contents` keeps this element in the DOM tree (so `group/`
 	// ancestor selectors resolve) without producing a layout box.
 	return (
-		<div className="group/otp contents" data-otp-state={otpState}>
+		<div
+			className="group/otp contents"
+			data-otp-state={otpState}
+			data-validation={validation || undefined}
+		>
 			{children}
 		</div>
 	);
@@ -70,9 +81,10 @@ const MantleOtpBridge = ({ children }: { children: ReactNode }) => {
 // union — `OtpInput.Root` always wraps its children in `MantleOtpBridge`,
 // so consumers compose with `OtpInput.Group` / `OtpInput.Slot` children
 // rather than a render prop.
-type OtpInputRootProps = Omit<ComponentProps<typeof OTPInput>, "render" | "children"> & {
-	children?: ReactNode;
-};
+type OtpInputRootProps = Omit<ComponentProps<typeof OTPInput>, "render" | "children"> &
+	WithValidation & {
+		children?: ReactNode;
+	};
 
 /**
  * The root of the OTP input. Renders an accessible single hidden input that
@@ -80,6 +92,11 @@ type OtpInputRootProps = Omit<ComponentProps<typeof OTPInput>, "render" | "child
  * (active, char, fake caret) to descendant `OtpInput.Slot` parts via context.
  *
  * Wraps the `input-otp` library by Guilherme Rodz.
+ *
+ * Pass `validation="error"` (or `"success"` / `"warning"`) to recolor every
+ * slot's borders and the active focus ring with the matching validation hue.
+ * `validation="error"` also sets `aria-invalid` on the underlying input so
+ * assistive tech announces the failure state.
  *
  * @see https://mantle.ngrok.com/components/otp-input
  *
@@ -104,10 +121,25 @@ type OtpInputRootProps = Omit<ComponentProps<typeof OTPInput>, "render" | "child
 // owns its hidden `<input>` and its render contract — swapping the element
 // would break input-otp's internal focus and selection management.
 const Root = forwardRef<ComponentRef<typeof OTPInput>, OtpInputRootProps>(
-	({ children, className, containerClassName, ...props }, ref) => {
+	(
+		{
+			"aria-invalid": ariaInvalid,
+			children,
+			className,
+			containerClassName,
+			validation: _validation,
+			...props
+		},
+		ref,
+	) => {
+		const validation =
+			(typeof _validation === "function" ? _validation() : _validation) || undefined;
+		const resolvedAriaInvalid = ariaInvalid ?? (validation === "error" || undefined);
+
 		return (
 			<OTPInput
 				ref={ref}
+				aria-invalid={resolvedAriaInvalid}
 				data-slot="otp-input"
 				containerClassName={cx(
 					"flex items-center gap-2 has-disabled:opacity-50",
@@ -116,7 +148,7 @@ const Root = forwardRef<ComponentRef<typeof OTPInput>, OtpInputRootProps>(
 				className={cx("disabled:cursor-not-allowed", className)}
 				{...props}
 			>
-				<MantleOtpBridge>{children}</MantleOtpBridge>
+				<MantleOtpBridge validation={validation}>{children}</MantleOtpBridge>
 			</OTPInput>
 		);
 	},
@@ -166,6 +198,13 @@ const Group = forwardRef<HTMLDivElement, OtpInputGroupProps>(
 					// another active slot at the same nesting level, the
 					// group has at least 2 actives → draw the ring.
 					"has-[[data-active]~[data-active]]:ring-focus-accent has-[[data-active]~[data-active]]:ring-4",
+					// Validation overrides for the group-level range/all ring.
+					// When the parent root has a validation state set, recolor
+					// the multi-active ring so the validation feedback wins
+					// over the default accent focus ring.
+					"group-data-[validation=error]/otp:has-[[data-active]~[data-active]]:ring-focus-danger",
+					"group-data-[validation=success]/otp:has-[[data-active]~[data-active]]:ring-focus-success",
+					"group-data-[validation=warning]/otp:has-[[data-active]~[data-active]]:ring-focus-warning",
 					className,
 				)}
 				{...props}
@@ -261,6 +300,32 @@ const OtpInputSlotImpl = forwardRef<HTMLDivElement, OtpInputSlotProps>(
 					// seamlessly while still keeping the slot grid
 					// readable at full opacity.
 					"group-data-[otp-state=all]/otp:border-accent-600",
+					// Validation overrides. Only the *outer* edges of the
+					// group are tinted (top + bottom on every slot, left on
+					// the first slot, right on the last slot) so adjacent
+					// slots still join with a neutral divider — matching how
+					// `Input` tints the container border, not the internal
+					// elements. The all-state and caret-active overrides
+					// still recolor every border so a fully-active slot or
+					// select-all reads as a solid tinted box.
+					"group-data-[validation=error]/otp:border-y-danger-600",
+					"group-data-[validation=error]/otp:first:border-l-danger-600",
+					"group-data-[validation=error]/otp:last:border-r-danger-600",
+					"group-data-[validation=error]/otp:data-active:group-data-[otp-state=caret]/otp:border-danger-600",
+					"group-data-[validation=error]/otp:data-active:group-data-[otp-state=caret]/otp:ring-focus-danger",
+					"group-data-[validation=error]/otp:group-data-[otp-state=all]/otp:border-danger-600",
+					"group-data-[validation=success]/otp:border-y-success-600",
+					"group-data-[validation=success]/otp:first:border-l-success-600",
+					"group-data-[validation=success]/otp:last:border-r-success-600",
+					"group-data-[validation=success]/otp:data-active:group-data-[otp-state=caret]/otp:border-success-600",
+					"group-data-[validation=success]/otp:data-active:group-data-[otp-state=caret]/otp:ring-focus-success",
+					"group-data-[validation=success]/otp:group-data-[otp-state=all]/otp:border-success-600",
+					"group-data-[validation=warning]/otp:border-y-warning-600",
+					"group-data-[validation=warning]/otp:first:border-l-warning-600",
+					"group-data-[validation=warning]/otp:last:border-r-warning-600",
+					"group-data-[validation=warning]/otp:data-active:group-data-[otp-state=caret]/otp:border-warning-600",
+					"group-data-[validation=warning]/otp:data-active:group-data-[otp-state=caret]/otp:ring-focus-warning",
+					"group-data-[validation=warning]/otp:group-data-[otp-state=all]/otp:border-warning-600",
 					className,
 				)}
 				{...props}

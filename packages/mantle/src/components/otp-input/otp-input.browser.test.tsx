@@ -20,6 +20,12 @@ type RenderOtpProps = {
 	onChange?: (value: string) => void;
 	onComplete?: (value: string) => void;
 	pasteTransformer?: (pasted: string) => string;
+	validation?:
+		| "error"
+		| "success"
+		| "warning"
+		| false
+		| (() => "error" | "success" | "warning" | false);
 };
 
 function renderOtp(props: RenderOtpProps = {}) {
@@ -293,6 +299,57 @@ describe("OtpInput (browser)", () => {
 			const customGroup = screen.getByTestId("custom-group");
 			expect(customGroup.tagName).toBe("SECTION");
 			expect(customGroup).toHaveAttribute("data-slot", "otp-input-group");
+		});
+	});
+
+	describe("validation", () => {
+		test("no validation prop leaves data-validation unset on the bridge and aria-invalid unset on the input", () => {
+			const { input } = renderOtp();
+
+			const bridge = document.querySelector("[data-otp-state]");
+			expect(bridge).not.toBeNull();
+			expect(bridge).not.toHaveAttribute("data-validation");
+			expect(input).not.toHaveAttribute("aria-invalid");
+		});
+
+		test("validation='error' sets data-validation=error on the bridge and aria-invalid on the input", () => {
+			const { input } = renderOtp({ validation: "error" });
+
+			const bridge = document.querySelector("[data-otp-state]");
+			expect(bridge).toHaveAttribute("data-validation", "error");
+			expect(input).toHaveAttribute("aria-invalid", "true");
+		});
+
+		test("validation='success' sets data-validation=success and does NOT mark aria-invalid", () => {
+			const { input } = renderOtp({ validation: "success" });
+
+			const bridge = document.querySelector("[data-otp-state]");
+			expect(bridge).toHaveAttribute("data-validation", "success");
+			expect(input).not.toHaveAttribute("aria-invalid");
+		});
+
+		test("validation='warning' sets data-validation=warning and does NOT mark aria-invalid", () => {
+			const { input } = renderOtp({ validation: "warning" });
+
+			const bridge = document.querySelector("[data-otp-state]");
+			expect(bridge).toHaveAttribute("data-validation", "warning");
+			expect(input).not.toHaveAttribute("aria-invalid");
+		});
+
+		test("validation as a function is resolved and applied", () => {
+			const { input } = renderOtp({ validation: () => "error" });
+
+			const bridge = document.querySelector("[data-otp-state]");
+			expect(bridge).toHaveAttribute("data-validation", "error");
+			expect(input).toHaveAttribute("aria-invalid", "true");
+		});
+
+		test("validation={false} is treated as no validation", () => {
+			const { input } = renderOtp({ validation: false });
+
+			const bridge = document.querySelector("[data-otp-state]");
+			expect(bridge).not.toHaveAttribute("data-validation");
+			expect(input).not.toHaveAttribute("aria-invalid");
 		});
 	});
 

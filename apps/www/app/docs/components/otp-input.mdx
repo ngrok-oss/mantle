@@ -133,6 +133,65 @@ Pass `disabled` to the root to disable the entire input.
 </OtpInput.Root>
 ```
 
+## Validation
+
+Pass `validation="error"`, `"success"`, or `"warning"` on `OtpInput.Root` to
+recolor every slot's borders and the active focus ring with the matching
+validation hue. `validation="error"` also sets `aria-invalid` on the
+underlying input so assistive tech announces the failure state.
+
+`validation` may be a literal value or a function that returns a value — the
+function form is convenient for short-circuiting from form-library state, e.g.
+`validation={field.state.meta.errors.length > 0 && "error"}`.
+
+<Example className="flex-col gap-4">
+	<OtpInput.Root maxLength={6} validation="error">
+		<OtpInput.Group>
+			<OtpInput.Slot index={0} />
+			<OtpInput.Slot index={1} />
+			<OtpInput.Slot index={2} />
+		</OtpInput.Group>
+		<OtpInput.Separator />
+		<OtpInput.Group>
+			<OtpInput.Slot index={3} />
+			<OtpInput.Slot index={4} />
+			<OtpInput.Slot index={5} />
+		</OtpInput.Group>
+	</OtpInput.Root>
+	<OtpInput.Root maxLength={6} validation="success">
+		<OtpInput.Group>
+			<OtpInput.Slot index={0} />
+			<OtpInput.Slot index={1} />
+			<OtpInput.Slot index={2} />
+		</OtpInput.Group>
+		<OtpInput.Separator />
+		<OtpInput.Group>
+			<OtpInput.Slot index={3} />
+			<OtpInput.Slot index={4} />
+			<OtpInput.Slot index={5} />
+		</OtpInput.Group>
+	</OtpInput.Root>
+	<OtpInput.Root maxLength={6} validation="warning">
+		<OtpInput.Group>
+			<OtpInput.Slot index={0} />
+			<OtpInput.Slot index={1} />
+			<OtpInput.Slot index={2} />
+		</OtpInput.Group>
+		<OtpInput.Separator />
+		<OtpInput.Group>
+			<OtpInput.Slot index={3} />
+			<OtpInput.Slot index={4} />
+			<OtpInput.Slot index={5} />
+		</OtpInput.Group>
+	</OtpInput.Root>
+</Example>
+
+```tsx
+<OtpInput.Root maxLength={6} validation="error">
+	{/* ... */}
+</OtpInput.Root>
+```
+
 ## Polymorphism
 
 `OtpInput.Group` and `OtpInput.Separator` accept an `asChild` prop. When `true`,
@@ -188,17 +247,18 @@ parts via context.
 
 All props from the underlying [`OTPInput`](https://github.com/guilhermerodz/input-otp#api-reference) component, including standard `input` props, plus:
 
-| Prop                           | Type                            | Default  | Description                                                               |
-| ------------------------------ | ------------------------------- | -------- | ------------------------------------------------------------------------- |
-| `maxLength`                    | `number`                        | —        | The total number of character slots. Required.                            |
-| `value?`                       | `string`                        | —        | Controlled value.                                                         |
-| `onChange?`                    | `(value: string) => void`       | —        | Fired when the value changes.                                             |
-| `onComplete?`                  | `(value: string) => void`       | —        | Fired when the user fills the final slot.                                 |
-| `pattern?`                     | `string`                        | —        | Regex source restricting accepted characters (e.g. `REGEXP_ONLY_DIGITS`). |
-| `textAlign?`                   | `"left" \| "center" \| "right"` | `"left"` | Caret alignment within the hidden input.                                  |
-| `containerClassName?`          | `string`                        | —        | Class applied to the slot container element.                              |
-| `pasteTransformer?`            | `(pasted: string) => string`    | —        | Transform pasted text before it is consumed.                              |
-| `pushPasswordManagerStrategy?` | `"increase-width" \| "none"`    | —        | Strategy to push password-manager badges out of the way.                  |
+| Prop                           | Type                             | Default  | Description                                                               |
+| ------------------------------ | -------------------------------- | -------- | ------------------------------------------------------------------------- |
+| `maxLength`                    | `number`                         | —        | The total number of character slots. Required.                            |
+| `value?`                       | `string`                         | —        | Controlled value.                                                         |
+| `onChange?`                    | `(value: string) => void`        | —        | Fired when the value changes.                                             |
+| `onComplete?`                  | `(value: string) => void`        | —        | Fired when the user fills the final slot.                                 |
+| `pattern?`                     | `string`                         | —        | Regex source restricting accepted characters (e.g. `REGEXP_ONLY_DIGITS`). |
+| `textAlign?`                   | `"left" \| "center" \| "right"`  | `"left"` | Caret alignment within the hidden input.                                  |
+| `containerClassName?`          | `string`                         | —        | Class applied to the slot container element.                              |
+| `pasteTransformer?`            | `(pasted: string) => string`     | —        | Transform pasted text before it is consumed.                              |
+| `pushPasswordManagerStrategy?` | `"increase-width" \| "none"`     | —        | Strategy to push password-manager badges out of the way.                  |
+| `validation?`                  | `Validation \| () => Validation` | —        | Validation state. `"error"` also sets `aria-invalid` on the input.        |
 
 ### OtpInput.Group
 
