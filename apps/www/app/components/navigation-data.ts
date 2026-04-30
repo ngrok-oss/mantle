@@ -190,6 +190,23 @@ export const utilsRoutes = {
 	sorting: "/utils/sorting",
 } as const satisfies Record<(typeof utilsPages)[number], Route>;
 
+/** Block recipe pages. */
+export const blockPages = [
+	//,
+	"Sheet + Async Data",
+] as const;
+
+/** Route lookup for block recipe pages. */
+export const blockRoutes = {
+	"Sheet + Async Data": "/blocks/sheet-async",
+} as const satisfies Record<(typeof blockPages)[number], Route>;
+
+/** Short descriptions for block recipe index pages. */
+export const blockDescriptions = {
+	"Sheet + Async Data":
+		"Open a Sheet immediately, then swap the body between pending, loaded, 404, and 500 states with TanStack Query.",
+} as const satisfies Record<(typeof blockPages)[number], string>;
+
 /**
  * Override map for components whose docs URL slug does not match their
  * package import subpath. For example, "Icon Button" is documented at
