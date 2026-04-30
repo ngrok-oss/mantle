@@ -93,6 +93,12 @@ function clearRegionLinesCache(codeElement: Element): void {
 	FOLD_GEOMETRY_CACHE.delete(codeElement);
 }
 
+/** Clears per-code-element runtime state after the code element's HTML is replaced. */
+function resetFoldState(codeElement: Element): void {
+	clearRegionLinesCache(codeElement);
+	codeElement.removeAttribute("data-folded-regions");
+}
+
 /**
  * Cheap liveness probe: checks whether the first cached line is still
  * attached to the document. If `innerHTML` was replaced under us, the cached
@@ -156,17 +162,9 @@ function toggleFoldFromButton(button: HTMLButtonElement): boolean {
 		return false;
 	}
 
-	const wasExpanded = button.getAttribute("aria-expanded") !== "false";
-	const willCollapse = wasExpanded;
 	const foldedRegions = parseSpaceSeparated(codeElement.getAttribute("data-folded-regions"));
-
-	const alreadyCollapsed = foldedRegions.has(regionId);
-	if (willCollapse === alreadyCollapsed) {
-		// State already matches the target; skip attribute writes and the
-		// per-line sync. Defends against programmatic callers; user clicks
-		// always alternate state via the button's own aria-expanded.
-		return true;
-	}
+	const isCollapsed = foldedRegions.has(regionId);
+	const willCollapse = !isCollapsed;
 
 	if (willCollapse) {
 		foldedRegions.add(regionId);
@@ -222,4 +220,10 @@ function attachFoldHandler(preElement: HTMLElement): () => void {
 	};
 }
 
-export { attachFoldHandler, clearRegionLinesCache, getFoldGeometry, toggleFoldFromButton };
+export {
+	attachFoldHandler,
+	clearRegionLinesCache,
+	getFoldGeometry,
+	resetFoldState,
+	toggleFoldFromButton,
+};

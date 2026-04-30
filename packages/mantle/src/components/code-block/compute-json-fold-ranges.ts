@@ -101,8 +101,9 @@ function computeJsonFoldRanges(code: string): FoldableRange[] {
 					ranges.push({ id: String(top.line), startLine: top.line, endLine: line });
 				}
 			} else if (top != null) {
-				// Mismatched closer: invalidate the nearest opener so it cannot pair later.
-				stack.pop();
+				// Mismatched closer: the active bracket sequence is structurally
+				// invalid, so prevent any containing opener from pairing later.
+				stack.length = 0;
 			}
 			index += 1;
 			continue;

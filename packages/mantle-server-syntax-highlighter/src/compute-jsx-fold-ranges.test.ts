@@ -1,5 +1,34 @@
 import { describe, expect, test } from "vitest";
-import { computeJsxFoldRanges } from "./compute-jsx-fold-ranges.js";
+import { computeJsxFoldRanges, createOxcParserLoader } from "./compute-jsx-fold-ranges.js";
+
+type OxcParser = typeof import("oxc-parser");
+
+describe("createOxcParserLoader", () => {
+	test("caches load failures", () => {
+		let calls = 0;
+		const load = createOxcParserLoader(() => {
+			calls += 1;
+			throw new Error("missing native binding");
+		});
+
+		expect(load()).toBeUndefined();
+		expect(load()).toBeUndefined();
+		expect(calls).toBe(1);
+	});
+
+	test("caches successful loads", () => {
+		let calls = 0;
+		const parser = {} as OxcParser;
+		const load = createOxcParserLoader(() => {
+			calls += 1;
+			return parser;
+		});
+
+		expect(load()).toBe(parser);
+		expect(load()).toBe(parser);
+		expect(calls).toBe(1);
+	});
+});
 
 describe("computeJsxFoldRanges", () => {
 	test("returns no ranges for empty input", () => {

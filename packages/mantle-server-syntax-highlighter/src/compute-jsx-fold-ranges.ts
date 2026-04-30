@@ -10,23 +10,39 @@ import { buildLineOffsets, offsetToLine } from "./line-offsets.js";
  * — common on serverless hosts that ship the bundled JS without the binding
  * package alongside it. A throw at module-eval time would propagate through
  * the entire server bundle's import graph and 500 every route, not just
- * JSX/TSX folding. Deferring the load to `parseSync` invocation lets the
- * outer `computeServerFoldRanges` try/catch convert the failure into a
- * "no folds" fallback while keeping every other strategy working.
+ * JSX/TSX folding. Deferring the load until folding runs lets this strategy
+ * convert the failure into a cached "no folds" fallback while keeping every
+ * other strategy working.
  */
 type OxcParser = typeof import("oxc-parser");
 const requireOxc = createRequire(import.meta.url);
-let cachedOxcParser: OxcParser | undefined;
 
-/** Returns the lazily-resolved `oxc-parser` module. Throws on binding load failure. */
-function loadOxcParser(): OxcParser {
-	if (cachedOxcParser != null) {
-		return cachedOxcParser;
-	}
-	const oxcParser: OxcParser = requireOxc("oxc-parser");
-	cachedOxcParser = oxcParser;
-	return oxcParser;
+/** Creates a memoized parser loader that caches both success and load failure. */
+function createOxcParserLoader(load: () => OxcParser): () => OxcParser | undefined {
+	let cachedOxcParser: OxcParser | undefined;
+	let didFailToLoadOxcParser = false;
+
+	return () => {
+		if (cachedOxcParser != null) {
+			return cachedOxcParser;
+		}
+		if (didFailToLoadOxcParser) {
+			return undefined;
+		}
+		let oxcParser: OxcParser;
+		try {
+			oxcParser = load();
+		} catch {
+			didFailToLoadOxcParser = true;
+			return undefined;
+		}
+		cachedOxcParser = oxcParser;
+		return oxcParser;
+	};
 }
+
+/** Returns the lazily-resolved `oxc-parser` module, or undefined after a cached load failure. */
+const loadOxcParser = createOxcParserLoader(() => requireOxc("oxc-parser") as OxcParser);
 
 /**
  * AST-based fold computer for the JS/TS/JSX/TSX language family.
@@ -218,7 +234,11 @@ function computeJsxFoldRanges({
 		sourceType: "unambiguous",
 		lang: oxcLangFor(language),
 	};
-	const { parseSync } = loadOxcParser();
+	const oxcParser = loadOxcParser();
+	if (oxcParser == null) {
+		return [];
+	}
+	const { parseSync } = oxcParser;
 	const parsed = parseSync(SYNTHETIC_FILENAME, code, options);
 	const lineOffsets = buildLineOffsets(code);
 	const ranges: FoldableRange[] = [];
@@ -258,5 +278,5 @@ function computeJsxFoldRanges({
 	return finalizeFoldRanges(ranges);
 }
 
-export { computeJsxFoldRanges };
+export { computeJsxFoldRanges, createOxcParserLoader };
 export type { JsxFoldLanguage };

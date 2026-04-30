@@ -42,7 +42,7 @@ import { TrafficPolicyFileIcon } from "../icons/traffic-policy-file.js";
 import { IconButton } from "../button/icon-button.js";
 import { Slot } from "../slot/index.js";
 import { escapeHtml } from "./escape-html.js";
-import { attachFoldHandler, clearRegionLinesCache } from "./fold-runtime.js";
+import { attachFoldHandler, resetFoldState } from "./fold-runtime.js";
 import type { Mode } from "./resolve-pre-rendered-props.js";
 import type { MantleCodeBlockValue } from "./mantle-code.js";
 
@@ -380,7 +380,7 @@ const Code = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
 			}
 			const codeElement = pre.querySelector("code");
 			if (codeElement != null) {
-				clearRegionLinesCache(codeElement);
+				resetFoldState(codeElement);
 			}
 			return attachFoldHandler(pre);
 		}, [renderedHtml]);

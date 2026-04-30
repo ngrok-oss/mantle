@@ -141,6 +141,51 @@ describe("CodeBlock JSON folding (browser)", () => {
 		expect(innerLine4).not.toHaveAttribute("data-fold-hidden");
 	});
 
+	test("replacing highlighted HTML clears stale folded state from the code element", async () => {
+		const user = userEvent.setup();
+		const { rerender } = render(
+			<CodeBlock.Root>
+				<CodeBlock.Body>
+					<CodeBlock.Code value={makeJsonValue(SIMPLE_JSON)} />
+				</CodeBlock.Body>
+			</CodeBlock.Root>,
+		);
+
+		const firstButton = screen
+			.getAllByRole("button", { name: /toggle code folding/i })
+			.find((button) => button.getAttribute("data-fold-line") === "2");
+		if (firstButton == null) {
+			throw new Error("expected initial fold toggle for array");
+		}
+		await user.click(firstButton);
+
+		const codeElement = document.querySelector("code");
+		expect(codeElement).toHaveAttribute("data-folded-regions", "2");
+
+		const nextJson = ["{", '  "next": {', '    "value": true', "  }", "}"].join("\n");
+		rerender(
+			<CodeBlock.Root>
+				<CodeBlock.Body>
+					<CodeBlock.Code value={makeJsonValue(nextJson)} />
+				</CodeBlock.Body>
+			</CodeBlock.Root>,
+		);
+
+		expect(codeElement).not.toHaveAttribute("data-folded-regions");
+		const nextButton = screen
+			.getAllByRole("button", { name: /toggle code folding/i })
+			.find((button) => button.getAttribute("data-fold-line") === "2");
+		if (nextButton == null) {
+			throw new Error("expected replacement fold toggle for object");
+		}
+		expect(nextButton).toHaveAttribute("aria-expanded", "true");
+
+		await user.click(nextButton);
+
+		expect(nextButton).toHaveAttribute("aria-expanded", "false");
+		expect(codeElement).toHaveAttribute("data-folded-regions", "2");
+	});
+
 	test("collapsing an outer fold hides everything inside it without overriding inner state", async () => {
 		const user = userEvent.setup();
 		render(

@@ -3,6 +3,7 @@ import {
 	attachFoldHandler,
 	clearRegionLinesCache,
 	getFoldGeometry,
+	resetFoldState,
 	toggleFoldFromButton,
 } from "./fold-runtime.js";
 
@@ -87,6 +88,18 @@ describe("fold-runtime", () => {
 		expect(first).not.toBe(second);
 	});
 
+	test("resetFoldState clears cached geometry and persisted folded regions", () => {
+		const { code } = buildFoldDom();
+		const first = getFoldGeometry(code);
+		code.setAttribute("data-folded-regions", "2");
+
+		resetFoldState(code);
+
+		expect(code.hasAttribute("data-folded-regions")).toBe(false);
+		const second = getFoldGeometry(code);
+		expect(first).not.toBe(second);
+	});
+
 	test("getFoldGeometry pre-parses each line's region set so toggles avoid re-splitting", () => {
 		const { code } = buildFoldDom();
 		const { lineToRegions } = getFoldGeometry(code);
@@ -114,6 +127,27 @@ describe("fold-runtime", () => {
 		expect(code.getAttribute("data-folded-regions")).toBe("2");
 
 		toggleFoldFromButton(button);
+		expect(button.getAttribute("aria-expanded")).toBe("true");
+		expect(code.hasAttribute("data-folded-regions")).toBe(false);
+	});
+
+	test("toggleFoldFromButton derives the next state from folded regions and reconciles aria", () => {
+		const { code } = buildFoldDom();
+		const button = code.querySelector<HTMLButtonElement>('[data-fold-line="2"]');
+		if (button == null) {
+			throw new Error("expected fold toggle for region 2");
+		}
+		button.setAttribute("aria-expanded", "false");
+		expect(code.hasAttribute("data-folded-regions")).toBe(false);
+
+		toggleFoldFromButton(button);
+
+		expect(button.getAttribute("aria-expanded")).toBe("false");
+		expect(code.getAttribute("data-folded-regions")).toBe("2");
+
+		button.setAttribute("aria-expanded", "true");
+		toggleFoldFromButton(button);
+
 		expect(button.getAttribute("aria-expanded")).toBe("true");
 		expect(code.hasAttribute("data-folded-regions")).toBe(false);
 	});

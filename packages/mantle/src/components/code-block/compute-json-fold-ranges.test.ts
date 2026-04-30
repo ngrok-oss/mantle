@@ -109,6 +109,11 @@ describe("computeJsonFoldRanges", () => {
 		expect(computeJsonFoldRanges(code)).toEqual([]);
 	});
 
+	test("does not emit an outer range after a crossed nested mismatch", () => {
+		const code = ["{", '  "items": [', "  }", "}"].join("\n");
+		expect(computeJsonFoldRanges(code)).toEqual([]);
+	});
+
 	test("computes ranges for a deeply nested structure efficiently", () => {
 		const lines: string[] = [];
 		for (let i = 0; i < 500; i += 1) {
