@@ -617,6 +617,11 @@ MARK: SHIKI SYNTAX HIGHLIGHT
 	--mantle-code-line-number-color: var(--text-color-muted);
 	--mantle-code-line-number-width: 2rem;
 	--mantle-code-line-number-gap: 1rem;
+	--mantle-code-fold-gutter-width: 1.125rem;
+	--mantle-code-fold-gutter-gap: 0.25rem;
+	--mantle-code-fold-toggle-color: var(--text-color-muted);
+	--mantle-code-fold-toggle-hover-color: var(--text-color-strong);
+	--mantle-code-fold-ellipsis-color: var(--text-color-muted);
 }
 
 .mantle-code-line {
@@ -625,6 +630,10 @@ MARK: SHIKI SYNTAX HIGHLIGHT
 	min-width: 100%;
 	box-sizing: border-box;
 	padding-right: 3.5rem; /* space for the copy button overlay */
+}
+
+.mantle-code-line[data-fold-hidden="true"] {
+	display: none;
 }
 
 .mantle-code-line-highlighted {
@@ -639,6 +648,70 @@ MARK: SHIKI SYNTAX HIGHLIGHT
 	user-select: none;
 	text-align: right;
 	color: var(--mantle-code-line-number-color);
+}
+
+.mantle-code-fold-toggle {
+	flex-shrink: 0;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: var(--mantle-code-fold-gutter-width);
+	height: 1.5em; /* match line-height so the button is line-aligned */
+	margin-right: var(--mantle-code-fold-gutter-gap);
+	padding: 0;
+	border: 0;
+	background: transparent;
+	color: var(--mantle-code-fold-toggle-color);
+	cursor: pointer;
+	user-select: none;
+	appearance: none;
+	border-radius: 0.125rem;
+}
+
+.mantle-code-fold-toggle:hover {
+	color: var(--mantle-code-fold-toggle-hover-color);
+}
+
+.mantle-code-fold-toggle:focus-visible {
+	outline: 2px solid var(--color-accent-500);
+	outline-offset: 1px;
+}
+
+.mantle-code-fold-caret {
+	width: 0.75rem;
+	height: 0.75rem;
+	transition: transform 120ms ease;
+}
+
+.mantle-code-fold-toggle[aria-expanded="false"] .mantle-code-fold-caret {
+	transform: rotate(-90deg);
+}
+
+/*
+ * Reserve the fold-gutter column on every line in a fold-enabled <pre>, so
+ * lines without a toggle button stay aligned with opener lines. Doing this in
+ * CSS instead of emitting a per-line spacer span keeps HTML payload small for
+ * very large JSON blocks (a 1000-line block sheds ~75 kB of repeated markup).
+ */
+pre[data-slot="code-block-code"]:has(.mantle-code-fold-toggle)
+	.mantle-code-line:not(:has(> .mantle-code-fold-toggle))
+	> .mantle-code-line-content {
+	margin-left: calc(var(--mantle-code-fold-gutter-width) + var(--mantle-code-fold-gutter-gap));
+}
+
+.mantle-code-fold-ellipsis {
+	display: none;
+	margin-left: 0.25rem;
+	padding: 0 0.375rem;
+	border-radius: 0.25rem;
+	background-color: --alpha(var(--text-color-muted) / 18%);
+	color: var(--mantle-code-fold-ellipsis-color);
+	user-select: none;
+}
+
+.mantle-code-line:has(> .mantle-code-fold-toggle[aria-expanded="false"])
+	.mantle-code-fold-ellipsis {
+	display: inline;
 }
 
 .mantle-code-line-content {

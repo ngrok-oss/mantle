@@ -29,6 +29,8 @@
     "typecheck": "tsgo"
   },
   "dependencies": {
+    "oxc-parser": "0.128.0",
+    "parse5": "8.0.1",
     "shiki": "4.0.2"
   },
   "devDependencies": {

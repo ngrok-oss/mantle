@@ -28,6 +28,37 @@ export {
 
 export {
 	//,
+	computeJsonFoldRanges,
+} from "./compute-json-fold-ranges.js";
+
+export {
+	//,
+	finalizeFoldRanges,
+} from "./fold-range-utils.js";
+
+export type {
+	//,
+	FoldableRange,
+} from "./compute-json-fold-ranges.js";
+
+export {
+	//,
+	computeFoldRanges,
+	foldStrategyFor,
+} from "./compute-fold-ranges.js";
+
+export type {
+	//,
+	ComputeFoldRangesInput,
+	FoldExplanation,
+	FoldLine,
+	FoldScope,
+	FoldStrategy,
+	FoldToken,
+} from "./compute-fold-ranges.js";
+
+export {
+	//,
 	escapeHtml,
 } from "./escape-html.js";
 

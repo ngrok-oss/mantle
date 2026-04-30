@@ -13,6 +13,7 @@ import {
 	MantleCodeOptionsDemo,
 	OverridingIndentationDemo,
 	TabbedCodeBlockDemo,
+	FoldableJsonDemo,
 } from "~/features/code-block-demos";
 
 # Code Block
@@ -242,6 +243,49 @@ const value = createMantleCodeBlockValue({
 	preHtml: data.html,
 	showLineNumbers: data.showLineNumbers,
 });
+```
+
+### Foldable code blocks
+
+Code blocks automatically render editor-style fold carets in the gutter for any block whose language has a folding strategy — AST-based (JS/TS/JSX/TSX, HTML, XML), raw-source (JSON, CSS), bracket-paired (Go, Java, C#, Rust), indentation-based (Python, YAML), keyword-paired (Bash/Shell), or bracket + keyword (Ruby). Click the caret (or focus and press `Enter` / `Space`) to collapse the inner lines; the opener and closer lines stay visible, and a `⋯` placeholder marks the collapsed region.
+
+Folding is computed before the block reaches the browser, and the entire interaction runs through a single delegated click handler per code block — no per-line listeners and no React re-renders on toggle. This keeps fold/unfold cheap even for code blobs with thousands of lines.
+
+The `mantleCode()` Vite transform, MDX code fences, and `createMantleServerSyntaxHighlighter()` use the full server-side folding dispatcher. The lower-level `computeFoldRanges({ language, tokens })` export from `@ngrok/mantle/highlight-utils` is intentionally token-only for custom integrations; it covers bracket, indentation, and tag folds only. Use `@ngrok/mantle-server-syntax-highlighter` for AST, raw-source, or keyword strategies.
+
+For one example per supported language plus a list of caveats, see [folding by language](/components/code-block/folding-by-language).
+
+<FoldableJsonDemo />
+
+```tsx
+import { CodeBlock, mantleCode } from "@ngrok/mantle/code-block";
+
+<CodeBlock.Root>
+	<CodeBlock.Header>
+		<CodeBlock.Icon preset="file" />
+		<CodeBlock.Title>package.json</CodeBlock.Title>
+	</CodeBlock.Header>
+	<CodeBlock.Body>
+		<CodeBlock.CopyButton />
+		<CodeBlock.Code
+			value={mantleCode("json")`
+				{
+					"name": "@ngrok/mantle",
+					"scripts": {
+						"build": "tsdown",
+						"test": "vitest run"
+					},
+					"pnpm": {
+						"onlyBuiltDependencies": [
+							"esbuild",
+							"@tailwindcss/oxide"
+						]
+					}
+				}
+			`}
+		/>
+	</CodeBlock.Body>
+</CodeBlock.Root>;
 ```
 
 ### Tabbed Code Block
