@@ -28,7 +28,7 @@ mise run setup
 # comment, so the snippet itself can evolve without producing duplicates.
 MISE_RC_MARKER="mise marker: do not remove"
 
-if [ -z "${MISE_SHELL:-}" ] && [ "${CI:-}" != "true" ]; then
+if [ -z "${MISE_SHELL:-}" ] && [ -z "${CI:-}" ]; then
   shell_name="$(basename "${SHELL:-}")"
   rc=""
   rc_snippet=""
