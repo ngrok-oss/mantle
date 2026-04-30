@@ -13,6 +13,26 @@ import type { Validation, WithValidation } from "../input/types.js";
 type OtpState = "idle" | "caret" | "range" | "all";
 
 /**
+ * The color token name (`danger` / `success` / `warning`) that backs each
+ * validation value. The `Validation` vocabulary (`"error"` / `"success"` /
+ * `"warning"`) doesn't exactly match the color-token vocabulary — the
+ * `error` validation maps to the `danger` color hue.
+ */
+type ValidationHue = "danger" | "success" | "warning";
+
+const validationHues = {
+	error: "danger",
+	success: "success",
+	warning: "warning",
+} as const satisfies Record<Exclude<Validation, false>, ValidationHue>;
+
+const validationBorderColor = <T extends ValidationHue = ValidationHue>(hue: T) =>
+	`var(--color-${hue}-600)`;
+
+const validationRingColor = <T extends ValidationHue = ValidationHue>(hue: T) =>
+	`var(--ring-color-focus-${hue})`;
+
+/**
  * Map the count of active slots to a discrete `data-otp-state` value used by
  * descendant CSS selectors. Split out from the rendering component so the
  * decision tree reads as a flat `if`/`else` chain rather than a nested
@@ -69,11 +89,12 @@ const MantleOtpBridge = ({
 	// slot/group classes reference these vars instead of having one
 	// branch per validation value. When no validation is set, the vars
 	// are left undefined and the validation utilities (gated on
-	// `group-data-[validation]`) don't apply.
-	const validationStyle = validation
+	// `group-data-validation`) don't apply.
+	const hue = validation ? validationHues[validation] : undefined;
+	const validationStyle = hue
 		? $cssProperties({
-				"--otp-validation-border": `var(--color-${validation}-600)`,
-				"--otp-validation-ring": `var(--ring-color-focus-${validation})`,
+				"--otp-validation-border": validationBorderColor(hue),
+				"--otp-validation-ring": validationRingColor(hue),
 			})
 		: undefined;
 
