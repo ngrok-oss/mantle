@@ -49,6 +49,36 @@ jobs:
       - name: Lint Check 🔍
         run: pnpm run lint
 
+  mise-lock-check:
+    name: Mise Lockfile
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Install mise 🔧
+        run: |
+          ./scripts/install-mise
+          echo "${HOME}/.local/bin" >> "${GITHUB_PATH}"
+
+      - name: Verify mise.lock is in sync 🔒
+        env:
+          # `mise lock` refuses to run while settings.locked=true; opt out for
+          # this verification step only. We are not modifying the lockfile —
+          # we run `mise lock` and require the working tree to remain clean.
+          MISE_LOCKED: "0"
+        run: |
+          mise trust ./mise.toml
+          mise lock
+          if ! git diff --exit-code mise.lock; then
+            echo "::error::mise.lock is out of sync with .nvmrc / package.json#packageManager."
+            echo "::error::Run 'mise lock' locally and commit the result."
+            exit 1
+          fi
+
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -156,6 +186,7 @@ jobs:
     timeout-minutes: 5
     needs:
       - static-checks
+      - mise-lock-check
       - build
       - typecheck
       - test
@@ -164,16 +195,19 @@ jobs:
       - name: Verify all vibe check jobs passed
         env:
           STATIC_CHECKS_RESULT: ${{ needs.static-checks.result }}
+          MISE_LOCK_CHECK_RESULT: ${{ needs.mise-lock-check.result }}
           BUILD_RESULT: ${{ needs.build.result }}
           TYPECHECK_RESULT: ${{ needs.typecheck.result }}
           TEST_RESULT: ${{ needs.test.result }}
         run: |
           echo "static-checks: $STATIC_CHECKS_RESULT"
+          echo "mise-lock-check: $MISE_LOCK_CHECK_RESULT"
           echo "build: $BUILD_RESULT"
           echo "typecheck: $TYPECHECK_RESULT"
           echo "test: $TEST_RESULT"
 
           if [[ "$STATIC_CHECKS_RESULT" != "success" || \
+                "$MISE_LOCK_CHECK_RESULT" != "success" || \
                 "$BUILD_RESULT" != "success" || \
                 "$TYPECHECK_RESULT" != "success" || \
                 "$TEST_RESULT" != "success" ]]; then
