@@ -18,6 +18,23 @@ function token(content: string, ...scopeNames: string[]) {
 	};
 }
 
+/** Builds a token whose explanation content differs from the raw token text. */
+function tokenWithExplanation(
+	content: string,
+	explanationContent: string,
+	...scopeNames: string[]
+) {
+	return {
+		content,
+		explanation: [
+			{
+				content: explanationContent,
+				scopes: scopeNames.map((scopeName) => ({ scopeName })),
+			},
+		],
+	};
+}
+
 /**
  * Builds a tokenized line from a list of [content, ...scopeNames] tuples.
  * Each tuple becomes one token; the line itself is a flat array.
@@ -282,6 +299,30 @@ describe("computeFoldRanges (tag strategy)", () => {
 		];
 		expect(computeFoldRanges({ language: "xml", tokens })).toEqual([
 			{ id: "1", startLine: 1, endLine: 4 },
+		]);
+	});
+
+	test("preserves token whitespace when matching tag names", () => {
+		const tokens: FoldLine[] = [
+			[token("<div"), tokenWithExplanation(' class="x">', 'class="x">')],
+			line(["  <span>"]),
+			line(["  </span>"]),
+			line(["</div>"]),
+		];
+		expect(computeFoldRanges({ language: "html", tokens })).toEqual([
+			{ id: "1", startLine: 1, endLine: 4 },
+			{ id: "2", startLine: 2, endLine: 3 },
+		]);
+	});
+
+	test("ignores angle brackets inside quoted attributes", () => {
+		const tokens: FoldLine[] = [
+			line(['<div data-label="1 > 0">']),
+			line(["  hello"]),
+			line(["</div>"]),
+		];
+		expect(computeFoldRanges({ language: "html", tokens })).toEqual([
+			{ id: "1", startLine: 1, endLine: 3 },
 		]);
 	});
 

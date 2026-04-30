@@ -1,6 +1,32 @@
 import { finalizeFoldRanges, type FoldableRange } from "@ngrok/mantle/highlight-utils";
-import { parseSync, type ParserOptions } from "oxc-parser";
+import { createRequire } from "node:module";
+import type { ParserOptions } from "oxc-parser";
 import { buildLineOffsets, offsetToLine } from "./line-offsets.js";
+
+/**
+ * Loads `oxc-parser` lazily on first use. Eager `import` of oxc-parser runs
+ * its napi-rs bootstrap (`bindings.js`), which `throw`s synchronously when the
+ * platform-specific native binding (`@oxc-parser/binding-*`) isn't resolvable
+ * — common on serverless hosts that ship the bundled JS without the binding
+ * package alongside it. A throw at module-eval time would propagate through
+ * the entire server bundle's import graph and 500 every route, not just
+ * JSX/TSX folding. Deferring the load to `parseSync` invocation lets the
+ * outer `computeServerFoldRanges` try/catch convert the failure into a
+ * "no folds" fallback while keeping every other strategy working.
+ */
+type OxcParser = typeof import("oxc-parser");
+const requireOxc = createRequire(import.meta.url);
+let cachedOxcParser: OxcParser | undefined;
+
+/** Returns the lazily-resolved `oxc-parser` module. Throws on binding load failure. */
+function loadOxcParser(): OxcParser {
+	if (cachedOxcParser != null) {
+		return cachedOxcParser;
+	}
+	const oxcParser: OxcParser = requireOxc("oxc-parser");
+	cachedOxcParser = oxcParser;
+	return oxcParser;
+}
 
 /**
  * AST-based fold computer for the JS/TS/JSX/TSX language family.
@@ -23,17 +49,18 @@ import { buildLineOffsets, offsetToLine } from "./line-offsets.js";
 type JsxFoldLanguage = "javascript" | "js" | "typescript" | "ts" | "jsx" | "tsx";
 
 /**
- * Maps a Mantle language to the oxc-parser `lang` option. We always opt into
- * JSX so that JSX-in-JS still folds even when the user labelled the block as
- * `js`/`javascript` — oxc's JSX grammar is a strict superset of plain JS, and
- * mirrors how TypeScript's language service treats "JS with JSX" files.
+ * Maps a Mantle language to the oxc-parser `lang` option. JavaScript keeps
+ * JSX enabled so JSX-in-JS examples still fold, but TypeScript must stay in
+ * plain `ts` mode: TSX parses generic arrow functions (`<T>(x: T) => ...`) as
+ * JSX and drops the AST folds for otherwise-valid TypeScript snippets.
  */
-function oxcLangFor(language: JsxFoldLanguage): "jsx" | "tsx" {
+function oxcLangFor(language: JsxFoldLanguage): "jsx" | "ts" | "tsx" {
 	switch (language) {
 		case "tsx":
+			return "tsx";
 		case "typescript":
 		case "ts":
-			return "tsx";
+			return "ts";
 		case "jsx":
 		case "javascript":
 		case "js":
@@ -191,6 +218,7 @@ function computeJsxFoldRanges({
 		sourceType: "unambiguous",
 		lang: oxcLangFor(language),
 	};
+	const { parseSync } = loadOxcParser();
 	const parsed = parseSync(SYNTHETIC_FILENAME, code, options);
 	const lineOffsets = buildLineOffsets(code);
 	const ranges: FoldableRange[] = [];

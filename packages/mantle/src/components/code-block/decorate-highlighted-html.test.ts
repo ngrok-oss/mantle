@@ -204,6 +204,19 @@ describe("decorateHighlightedHtml", () => {
 			expect(result).toContain('data-line-number="3" data-fold-regions="1 2"');
 		});
 
+		test("encodes custom fold IDs before writing them to attributes", () => {
+			const html = shikiHtml(["{", '  "a": 1', "}"]);
+			const result = decorateHighlightedHtml({
+				html,
+				foldableRanges: [{ id: 'fold "1" & inner', startLine: 1, endLine: 3 }],
+			});
+
+			const encoded = "fold%20%221%22%20%26%20inner";
+			expect(result).toContain(`data-fold-line="${encoded}"`);
+			expect(result).toContain(`data-fold-regions="${encoded}"`);
+			expect(result).not.toContain('data-fold-line="fold "1" & inner"');
+		});
+
 		test("does not render fold gutter when no ranges are provided", () => {
 			const html = shikiHtml(["[", "  1", "]"]);
 			const result = decorateHighlightedHtml({ html });

@@ -1,5 +1,10 @@
 import { finalizeFoldRanges, type FoldableRange } from "./fold-range-utils.js";
 
+type JsonBracketStackEntry = {
+	opener: 123 | 91;
+	line: number;
+};
+
 /**
  * Computes foldable ranges for a JSON source string. Each multi-line `{...}`
  * or `[...]` produces one range whose opener and closer lines remain visible
@@ -31,7 +36,7 @@ function computeJsonFoldRanges(code: string): FoldableRange[] {
 		return [];
 	}
 
-	const stack: number[] = []; // entries are buffer line numbers of open brackets
+	const stack: JsonBracketStackEntry[] = [];
 	const ranges: FoldableRange[] = [];
 
 	let line = 1;
@@ -81,16 +86,23 @@ function computeJsonFoldRanges(code: string): FoldableRange[] {
 
 		if (character === 123 || character === 91) {
 			// '{' or '['
-			stack.push(line);
+			stack.push({ opener: character, line });
 			index += 1;
 			continue;
 		}
 
 		if (character === 125 || character === 93) {
 			// '}' or ']'
-			const startLine = stack.pop();
-			if (startLine != null && startLine !== line) {
-				ranges.push({ id: String(startLine), startLine, endLine: line });
+			const matchingOpener = character === 125 ? 123 : 91;
+			const top = stack[stack.length - 1];
+			if (top?.opener === matchingOpener) {
+				stack.pop();
+				if (top.line !== line) {
+					ranges.push({ id: String(top.line), startLine: top.line, endLine: line });
+				}
+			} else if (top != null) {
+				// Mismatched closer: invalidate the nearest opener so it cannot pair later.
+				stack.pop();
 			}
 			index += 1;
 			continue;

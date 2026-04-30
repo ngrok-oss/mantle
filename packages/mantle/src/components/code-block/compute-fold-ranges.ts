@@ -155,6 +155,36 @@ function explanationsOf(token: FoldToken): readonly FoldExplanation[] {
 }
 
 /**
+ * Reconstructs non-inert line text without losing Shiki-owned whitespace.
+ * Explanation pieces can omit leading spaces, so use the full token content
+ * whenever every explanation piece is visible.
+ */
+function visibleTextForLine(line: FoldLine): string {
+	let visible = "";
+	for (const token of line) {
+		const explanations = explanationsOf(token);
+		let hasInert = false;
+		for (const explanation of explanations) {
+			if (isInertScope(explanation.scopes)) {
+				hasInert = true;
+				break;
+			}
+		}
+		if (!hasInert) {
+			visible += token.content;
+			continue;
+		}
+		for (const explanation of explanations) {
+			if (isInertScope(explanation.scopes)) {
+				continue;
+			}
+			visible += explanation.content;
+		}
+	}
+	return visible;
+}
+
+/**
  * Returns the count of leading whitespace characters on a line, or `-1`
  * for blank lines. Reads only the first token's content — Shiki emits
  * leading whitespace as its own token, so a full-line concat is wasted
@@ -302,7 +332,7 @@ function computeIndentationFoldRanges(tokens: FoldLine[]): FoldableRange[] {
  * Tag-pair folding strategy for HTML and XML.
  *
  * Reconstructs each line's visible text from non-inert tokens, then scans
- * tag patterns with a small regex. Self-closing tags (`<br/>`, `<img />`)
+ * tag patterns with a small linear scanner. Self-closing tags (`<br/>`, `<img />`)
  * and known void HTML elements (`<br>`, `<img>`, `<input>`, …) don't push
  * onto the stack. Stack-based matching emits one range per line with an
  * unmatched opener and a matching closer on a later line.
@@ -321,16 +351,7 @@ function computeTagFoldRanges(tokens: FoldLine[]): FoldableRange[] {
 			continue;
 		}
 		const lineNumber = lineIndex + 1;
-
-		let visible = "";
-		for (const token of line) {
-			for (const explanation of explanationsOf(token)) {
-				if (isInertScope(explanation.scopes)) {
-					continue;
-				}
-				visible += explanation.content;
-			}
-		}
+		const visible = visibleTextForLine(line);
 
 		const matches = extractTagMatches(visible);
 		for (const match of matches) {
@@ -382,25 +403,119 @@ const VOID_HTML_ELEMENTS = new Set<string>([
  */
 function extractTagMatches(line: string): { name: string; kind: "open" | "close" }[] {
 	const matches: { name: string; kind: "open" | "close" }[] = [];
-	const tagPattern = /<\s*(\/?)\s*([A-Za-z][A-Za-z0-9:_-]*)\b([^>]*?)(\/?)>/g;
-	let match: RegExpExecArray | null;
-	while ((match = tagPattern.exec(line)) != null) {
-		const isClose = match[1] === "/";
-		const name = match[2] ?? "";
-		const selfClosing = match[4] === "/";
-		if (name.length === 0) {
+	let index = 0;
+
+	while (index < line.length) {
+		const tagStart = line.indexOf("<", index);
+		if (tagStart === -1) {
+			break;
+		}
+
+		let cursor = skipHtmlWhitespace(line, tagStart + 1);
+		const isClose = line.charCodeAt(cursor) === 47;
+		if (isClose) {
+			cursor = skipHtmlWhitespace(line, cursor + 1);
+		}
+
+		if (!isTagNameStart(line.charCodeAt(cursor))) {
+			index = tagStart + 1;
 			continue;
 		}
+
+		const nameStart = cursor;
+		cursor += 1;
+		while (cursor < line.length && isTagNameContinue(line.charCodeAt(cursor))) {
+			cursor += 1;
+		}
+		const name = line.slice(nameStart, cursor);
+		const tagEnd = findTagEnd(line, cursor);
+		if (tagEnd === -1) {
+			index = tagStart + 1;
+			continue;
+		}
+
 		if (isClose) {
 			matches.push({ name, kind: "close" });
+			index = tagEnd + 1;
 			continue;
 		}
+		const selfClosing = tagEndsSelfClosing(line, tagEnd);
 		if (selfClosing || VOID_HTML_ELEMENTS.has(name.toLowerCase())) {
+			index = tagEnd + 1;
 			continue;
 		}
 		matches.push({ name, kind: "open" });
+		index = tagEnd + 1;
 	}
 	return matches;
+}
+
+/** Returns true for whitespace accepted inside a tag opener. */
+function isHtmlWhitespace(character: number): boolean {
+	return (
+		character === 9 ||
+		character === 10 ||
+		character === 11 ||
+		character === 12 ||
+		character === 13 ||
+		character === 32
+	);
+}
+
+/** Skips HTML whitespace starting at `index`. */
+function skipHtmlWhitespace(line: string, index: number): number {
+	let cursor = index;
+	while (cursor < line.length && isHtmlWhitespace(line.charCodeAt(cursor))) {
+		cursor += 1;
+	}
+	return cursor;
+}
+
+/** Returns true when `character` can start an HTML/XML tag name. */
+function isTagNameStart(character: number): boolean {
+	return (character >= 65 && character <= 90) || (character >= 97 && character <= 122);
+}
+
+/** Returns true when `character` can continue an HTML/XML tag name. */
+function isTagNameContinue(character: number): boolean {
+	return (
+		isTagNameStart(character) ||
+		(character >= 48 && character <= 57) ||
+		character === 45 ||
+		character === 58 ||
+		character === 95
+	);
+}
+
+/** Finds the closing `>` for a tag, ignoring `>` inside quoted attributes. */
+function findTagEnd(line: string, index: number): number {
+	let quote: number | undefined;
+	for (let cursor = index; cursor < line.length; cursor += 1) {
+		const character = line.charCodeAt(cursor);
+		if (quote != null) {
+			if (character === quote) {
+				quote = undefined;
+			}
+			continue;
+		}
+		if (character === 34 || character === 39) {
+			quote = character;
+			continue;
+		}
+		if (character === 62) {
+			return cursor;
+		}
+	}
+	return -1;
+}
+
+/** Returns true when the tag ending at `tagEnd` has a trailing `/`. */
+function tagEndsSelfClosing(line: string, tagEnd: number): boolean {
+	let cursor = tagEnd - 1;
+	while (cursor >= 0 && isHtmlWhitespace(line.charCodeAt(cursor))) {
+		cursor -= 1;
+	}
+	return cursor >= 0 && line.charCodeAt(cursor) === 47;
 }
 
 export {

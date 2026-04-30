@@ -8,11 +8,11 @@ import {
  * Keyword-pair fold computer for languages whose blocks are delimited by
  * keywords rather than punctuation.
  *
- * VS Code models this with `foldingStartMarker` / `foldingStopMarker` regexes
- * declared in each language's `language-configuration.json`. We mirror that
- * approach with hand-vendored regexes per language, but evaluate them against
- * the *visible* (non-string, non-comment) portion of each line — the Shiki
- * tokens carry scope information that lets us strip those out reliably.
+ * VS Code models this with `foldingStartMarker` / `foldingStopMarker`
+ * declarations in each language's `language-configuration.json`. We mirror
+ * that behavior with linear marker predicates, evaluated against the
+ * *visible* (non-string, non-comment) portion of each line — the Shiki tokens
+ * carry scope information that lets us strip those out reliably.
  *
  * The stack is untyped — every closer pops the most recent opener, regardless
  * of which keyword opened it. Real source code nests properly, so this stays
@@ -27,16 +27,31 @@ import {
 type KeywordFoldLanguage = "ruby" | "rb" | "bash" | "sh" | "shell";
 
 /**
- * Per-line opener/closer regex pair. The patterns intentionally match the
+ * Per-line opener/closer marker pair. The predicates intentionally match the
  * *visible* line content (after string and comment scopes are filtered out)
  * — interpolated `do … end` markers inside a string don't trigger folds.
  */
 type KeywordPattern = {
-	/** Matches when this line opens a foldable block. */
-	start: RegExp;
-	/** Matches when this line closes a foldable block. */
-	end: RegExp;
+	/** Returns true when this line opens a foldable block. */
+	startsFold: (visible: string) => boolean;
+	/** Returns true when this line closes a foldable block. */
+	endsFold: (visible: string) => boolean;
 };
+
+const RUBY_START_KEYWORDS: readonly string[] = [
+	"def",
+	"class",
+	"module",
+	"begin",
+	"if",
+	"unless",
+	"while",
+	"until",
+	"for",
+	"case",
+];
+const BASH_START_KEYWORDS: readonly string[] = ["if", "while", "for", "case", "until", "select"];
+const BASH_END_KEYWORDS: readonly string[] = ["fi", "esac", "done"];
 
 /**
  * Ruby keyword folds modeled after VS Code's grammar. Covers:
@@ -51,8 +66,8 @@ type KeywordPattern = {
  * fold, not three.
  */
 const RUBY_PATTERN: KeywordPattern = {
-	start: /^\s*(def|class|module|begin|if|unless|while|until|for|case)\b|\bdo\b\s*(\|[^|]*\|)?\s*$/,
-	end: /^\s*end\b/,
+	startsFold: rubyStartsFold,
+	endsFold: (visible) => startsWithAnyWordAfterWhitespace(visible, ["end"]),
 };
 
 /**
@@ -63,14 +78,150 @@ const RUBY_PATTERN: KeywordPattern = {
  * - Lines ending with an unmatched `{` (function bodies, brace groups).
  * - Lines ending with `do` (the `for x in y; do` / `while cond; do` form).
  *
- * The end pattern matches `}` only when it leads its line — that lets us
+ * The end predicate matches `}` only when it leads its line — that lets us
  * close brace groups while ignoring `${VAR}` parameter expansions, which
  * are never line-leading.
  */
 const BASH_PATTERN: KeywordPattern = {
-	start: /^\s*(if|while|for|case|until|select)\b(?!.*\b(fi|esac|done)\b)|.*\{[^}]*$|\bdo\s*$/,
-	end: /^\s*(?:(?:fi|esac|done)\b|\})/,
+	startsFold: bashStartsFold,
+	endsFold: bashEndsFold,
 };
+
+/** Returns true for ASCII identifier characters used by shell/Ruby keywords. */
+function isWordChar(character: number): boolean {
+	return (
+		(character >= 48 && character <= 57) ||
+		(character >= 65 && character <= 90) ||
+		(character >= 97 && character <= 122) ||
+		character === 95
+	);
+}
+
+/** Returns true for whitespace characters accepted around language markers. */
+function isWhitespaceChar(character: number): boolean {
+	return (
+		character === 9 ||
+		character === 10 ||
+		character === 11 ||
+		character === 12 ||
+		character === 13 ||
+		character === 32
+	);
+}
+
+/** Returns the index of the first non-whitespace character in `text`. */
+function firstNonWhitespaceIndex(text: string): number {
+	let index = 0;
+	while (index < text.length && isWhitespaceChar(text.charCodeAt(index))) {
+		index += 1;
+	}
+	return index;
+}
+
+/** Returns the exclusive index after the last non-whitespace character. */
+function endTrimmedIndex(text: string): number {
+	let index = text.length;
+	while (index > 0 && isWhitespaceChar(text.charCodeAt(index - 1))) {
+		index -= 1;
+	}
+	return index;
+}
+
+/** Returns true if `word` appears at `index` with word boundaries. */
+function isWordAt(text: string, index: number, word: string, end = text.length): boolean {
+	if (index < 0 || index + word.length > end) {
+		return false;
+	}
+	if (text.slice(index, index + word.length) !== word) {
+		return false;
+	}
+	const beforeIsBoundary = index === 0 || !isWordChar(text.charCodeAt(index - 1));
+	const afterIndex = index + word.length;
+	const afterIsBoundary = afterIndex >= end || !isWordChar(text.charCodeAt(afterIndex));
+	return beforeIsBoundary && afterIsBoundary;
+}
+
+/** Returns true when a line begins with one of the given keywords. */
+function startsWithAnyWordAfterWhitespace(text: string, words: readonly string[]): boolean {
+	const index = firstNonWhitespaceIndex(text);
+	for (const word of words) {
+		if (isWordAt(text, index, word)) {
+			return true;
+		}
+	}
+	return false;
+}
+
+/** Returns true when a line contains one of the given keywords. */
+function containsAnyWord(text: string, words: readonly string[]): boolean {
+	for (const word of words) {
+		let index = text.indexOf(word);
+		while (index !== -1) {
+			if (isWordAt(text, index, word)) {
+				return true;
+			}
+			index = text.indexOf(word, index + word.length);
+		}
+	}
+	return false;
+}
+
+/** Returns true when a line ends with `word`, ignoring trailing whitespace. */
+function endsWithWord(text: string, word: string): boolean {
+	const end = endTrimmedIndex(text);
+	return isWordAt(text, end - word.length, word, end);
+}
+
+/** Returns true for trailing Ruby `do` / `do |args|` block openers. */
+function endsWithRubyDoBlock(text: string): boolean {
+	let end = endTrimmedIndex(text);
+	if (end <= 0) {
+		return false;
+	}
+	if (text.charCodeAt(end - 1) === 124) {
+		const paramsStart = text.lastIndexOf("|", end - 2);
+		if (paramsStart === -1) {
+			return false;
+		}
+		end = paramsStart;
+		while (end > 0 && isWhitespaceChar(text.charCodeAt(end - 1))) {
+			end -= 1;
+		}
+	}
+	return isWordAt(text, end - 2, "do", end);
+}
+
+/** Returns true when a Ruby line opens a keyword-paired block. */
+function rubyStartsFold(visible: string): boolean {
+	return (
+		startsWithAnyWordAfterWhitespace(visible, RUBY_START_KEYWORDS) || endsWithRubyDoBlock(visible)
+	);
+}
+
+/** Returns true when a shell line has a `{` with no later `}` on the same line. */
+function endsWithOpenBrace(visible: string): boolean {
+	return visible.lastIndexOf("{") > visible.lastIndexOf("}");
+}
+
+/** Returns true when a Bash/Shell line opens a keyword-paired block. */
+function bashStartsFold(visible: string): boolean {
+	if (
+		startsWithAnyWordAfterWhitespace(visible, BASH_START_KEYWORDS) &&
+		!containsAnyWord(visible, BASH_END_KEYWORDS)
+	) {
+		return true;
+	}
+	return endsWithOpenBrace(visible) || endsWithWord(visible, "do");
+}
+
+/** Returns true when a Bash/Shell line closes a keyword-paired block. */
+function bashEndsFold(visible: string): boolean {
+	const firstContent = firstNonWhitespaceIndex(visible);
+	return (
+		visible.charCodeAt(firstContent) === 125 ||
+		startsWithAnyWordAfterWhitespace(visible, BASH_END_KEYWORDS)
+	);
+}
 
 /** Resolves the keyword pattern for a given language. */
 function patternFor(language: KeywordFoldLanguage): KeywordPattern {
@@ -195,13 +346,13 @@ function computeKeywordFoldRanges({
 		// Closers come first: `end` on the same line as a `do` (e.g. `loop do
 		// end` written across two lines but both `do` and `end` are on different
 		// lines) shouldn't first push then pop on the same iteration.
-		if (pattern.end.test(visible)) {
+		if (pattern.endsFold(visible)) {
 			const startLine = stack.pop();
 			if (startLine != null && startLine < lineNumber) {
 				ranges.push({ id: String(startLine), startLine, endLine: lineNumber });
 			}
 		}
-		if (pattern.start.test(visible)) {
+		if (pattern.startsFold(visible)) {
 			stack.push(lineNumber);
 		}
 	}

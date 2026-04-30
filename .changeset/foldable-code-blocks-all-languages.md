@@ -5,16 +5,22 @@
 
 Extend fold gutters to every supported language, not just JSON. Each language uses the folding model that fits its grammar:
 
-- **Bracket-paired** (`javascript`, `typescript`, `jsx`, `tsx`, `json`, `css`, `go`, `java`, `csharp`, `rust`, `ruby`) — multi-line `{ … }` and `[ … ]` ranges fold via a single token-walking parser. TextMate scopes from Shiki are used to filter out brackets that appear inside strings, comments, or regular expressions, so one parser covers every C-family language without per-language string/comment logic.
+- **AST-based** (`javascript`, `typescript`, `jsx`, `tsx`) — `oxc-parser` emits folds for blocks, object/array literals, JSX elements/fragments, multi-line template literals, and TypeScript-only bodies.
+- **Raw-source** (`json`, `css`) — single-pass matchers fold braces/brackets while skipping strings, comments, and escapes without requiring Shiki scope explanations.
+- **Bracket-paired** (`go`, `java`, `csharp`, `rust`) — multi-line `{ … }` and `[ … ]` ranges fold via TextMate-scope-aware token walking.
 - **Indentation-based** (`python`, `yaml`) — blocks are detected by leading whitespace; the opener (e.g. `def`, `class`, a YAML key) stays visible and child lines collapse.
-- **Tag-based** (`html`, `xml`) — multi-line elements fold by matching `<tag>` / `</tag>` pairs. Self-closing tags and HTML void elements don't open folds.
-- **No folding** (`bash`, `shell`, `sh`, plain text) — shell languages use keyword pairs (`if … fi`, `do … done`) instead of brackets, so bracket folding would surface no useful blocks. Plain text has nothing to fold.
+- **AST-based** (`html`, `xml`) — `parse5` source locations fold multi-line elements and opening tags while honoring self-closing XML tags and HTML void elements.
+- **Keyword-paired** (`bash`, `shell`, `sh`) — shell blocks fold from VS Code-style keyword pairs (`if … fi`, `case … esac`, `do … done`) plus brace-form function bodies.
+- **Bracket + keyword** (`ruby`) — Ruby combines brace/array folds with keyword blocks such as `def`, `class`, `module`, `begin`, `do`, `if`, and `case`, all closing on `end`.
+- **No folding** (plain text) — text-like languages have no block model to fold.
 
 New helper exports from `@ngrok/mantle/code-block` and `@ngrok/mantle/highlight-utils`:
 
 - `computeFoldRanges({ language, tokens })` — generic fold-range computer that dispatches to the right strategy. Consumes Shiki tokens with `includeExplanation: 'scopeName'`.
 - `foldStrategyFor(language)` — returns `'bracket' | 'indentation' | 'tag' | 'none'` for a supported language.
 - Types: `ComputeFoldRangesInput`, `FoldStrategy`, `FoldLine`, `FoldToken`, `FoldExplanation`, `FoldScope`.
+
+`computeFoldRanges` is a low-level token helper for custom integrations; the Vite plugin, MDX code fences, and server highlighter use the richer `@ngrok/mantle-server-syntax-highlighter` dispatcher for AST, raw-source, and keyword folding.
 
 The existing `computeJsonFoldRanges` continues to work for callers that already use it on raw JSON source.
 

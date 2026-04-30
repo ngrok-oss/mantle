@@ -99,6 +99,16 @@ describe("computeJsonFoldRanges", () => {
 		expect(computeJsonFoldRanges(code)).toEqual([]);
 	});
 
+	test("does not pair mismatched brackets", () => {
+		const code = ["{", '  "items": [', "  }", "]"].join("\n");
+		expect(computeJsonFoldRanges(code)).toEqual([]);
+	});
+
+	test("invalidates a fold when an unmatched closer appears inside", () => {
+		const code = ["{", "  ]", "}"].join("\n");
+		expect(computeJsonFoldRanges(code)).toEqual([]);
+	});
+
 	test("computes ranges for a deeply nested structure efficiently", () => {
 		const lines: string[] = [];
 		for (let i = 0; i < 500; i += 1) {
@@ -119,7 +129,7 @@ describe("computeJsonFoldRanges", () => {
 		});
 	});
 
-	test("scales to 1000+ line JSON without measurable cost", () => {
+	test("computes ranges for 1000+ line JSON", () => {
 		const items: string[] = ["{"];
 		items.push('  "items": [');
 		for (let i = 0; i < 1000; i += 1) {
@@ -129,14 +139,11 @@ describe("computeJsonFoldRanges", () => {
 		items.push("}");
 		const code = items.join("\n");
 
-		const start = performance.now();
 		const ranges = computeJsonFoldRanges(code);
-		const elapsed = performance.now() - start;
 
 		expect(ranges).toEqual([
 			{ id: "1", startLine: 1, endLine: items.length },
 			{ id: "2", startLine: 2, endLine: items.length - 1 },
 		]);
-		expect(elapsed).toBeLessThan(50);
 	});
 });

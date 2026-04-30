@@ -87,6 +87,13 @@ describe("computeServerFoldRanges", () => {
 		]);
 	});
 
+	test("folds plain TypeScript generic arrow functions via the AST path", () => {
+		const code = ["const identity = <T>(value: T) => {", "  return value;", "};"].join("\n");
+		expect(computeServerFoldRanges({ code, language: "typescript", tokens: undefined })).toEqual([
+			{ id: "1", startLine: 1, endLine: 3 },
+		]);
+	});
+
 	test("folds HTML via parse5", () => {
 		const code = ["<div>", "  hi", "</div>"].join("\n");
 		expect(computeServerFoldRanges({ code, language: "html", tokens: undefined })).toEqual([

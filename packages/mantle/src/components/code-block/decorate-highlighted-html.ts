@@ -33,6 +33,16 @@ function splitHighlightedHtmlIntoLines(html: string): string[] {
 const FOLD_CARET_SVG =
 	'<svg class="mantle-code-fold-caret" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path fill="currentColor" fill-rule="evenodd" d="M3.22 5.97a.75.75 0 0 1 1.06 0L8 9.69l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L3.22 7.03a.75.75 0 0 1 0-1.06Z"/></svg>';
 
+/**
+ * Encodes public fold IDs for safe HTML attribute storage and for the
+ * runtime's space-separated region sets. Built-in strategies use numeric
+ * strings, but custom strategies may use descriptive IDs with spaces or
+ * quotes.
+ */
+function encodeFoldRegionId(id: string): string {
+	return encodeURIComponent(id);
+}
+
 /** Input for {@link decorateHighlightedHtml}. */
 type DecorateHighlightedHtmlInput = {
 	/**
@@ -70,20 +80,21 @@ function decorateHighlightedHtml({
 	// the per-line loop O(1) for fold lookups, even on 1000+ line inputs.
 	// Fold ranges are *buffer-relative* (1-indexed positions in the original
 	// code), independent of `lineNumberStart` which only affects display.
-	const openerByBufferLine = new Map<number, FoldableRange>();
+	const openerIdByBufferLine = new Map<number, string>();
 	const regionsByBufferLine = new Map<number, string[]>();
 	const hasFolds = foldableRanges != null && foldableRanges.length > 0;
 
 	if (hasFolds && foldableRanges != null) {
 		for (const range of foldableRanges) {
-			openerByBufferLine.set(range.startLine, range);
+			const encodedId = encodeFoldRegionId(range.id);
+			openerIdByBufferLine.set(range.startLine, encodedId);
 			for (let bufferLine = range.startLine + 1; bufferLine < range.endLine; bufferLine += 1) {
 				let regions = regionsByBufferLine.get(bufferLine);
 				if (regions == null) {
 					regions = [];
 					regionsByBufferLine.set(bufferLine, regions);
 				}
-				regions.push(range.id);
+				regions.push(encodedId);
 			}
 		}
 	}
@@ -111,9 +122,9 @@ function decorateHighlightedHtml({
 			// `:has(.mantle-code-fold-toggle)` rule in mantle.css. Skipping
 			// per-line spacer markup is what keeps HTML overhead near zero
 			// for large JSON blocks.
-			const opener = openerByBufferLine.get(bufferLineNumber);
-			if (opener != null) {
-				foldGutterHtml = `<button type="button" class="mantle-code-fold-toggle" data-slot="fold-toggle" data-fold-line="${opener.id}" aria-expanded="true" aria-label="Toggle code folding">${FOLD_CARET_SVG}</button>`;
+			const openerId = openerIdByBufferLine.get(bufferLineNumber);
+			if (openerId != null) {
+				foldGutterHtml = `<button type="button" class="mantle-code-fold-toggle" data-slot="fold-toggle" data-fold-line="${openerId}" aria-expanded="true" aria-label="Toggle code folding">${FOLD_CARET_SVG}</button>`;
 				trailingEllipsisHtml =
 					'<span class="mantle-code-fold-ellipsis" data-slot="fold-ellipsis" aria-hidden="true">⋯</span>';
 			}

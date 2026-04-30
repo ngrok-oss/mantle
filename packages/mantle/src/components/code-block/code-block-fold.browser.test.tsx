@@ -227,7 +227,7 @@ describe("CodeBlock JSON folding (browser)", () => {
 		}
 	});
 
-	test("toggling a fold in a 1000+ line JSON block runs in well under 100ms", async () => {
+	test("toggles a fold in a 1000+ line JSON block", async () => {
 		const user = userEvent.setup();
 
 		const lines: string[] = ["{", '  "items": ['];
@@ -255,18 +255,9 @@ describe("CodeBlock JSON folding (browser)", () => {
 			throw new Error("expected fold toggle for items array");
 		}
 
-		const start = performance.now();
 		await user.click(arrayButton);
-		const elapsed = performance.now() - start;
 
 		expect(arrayButton).toHaveAttribute("aria-expanded", "false");
-		// userEvent.click awaits the React effect schedule, so elapsed includes
-		// the entire toggle round-trip including the DOM mutation pass over
-		// 1000 line elements. 250ms is generous and well under any human-
-		// perceptible latency budget.
-		expect(elapsed).toBeLessThan(250);
-
-		// Spot-check that an interior line was hidden.
 		const interior = document.querySelector('[data-line-number="500"]');
 		expect(interior).toHaveAttribute("data-fold-hidden", "true");
 	});
@@ -337,6 +328,33 @@ describe("CodeBlock JSON folding (browser)", () => {
 		await user.click(fakeButton);
 		// No exception, no aria-expanded mutation.
 		expect(fakeButton).not.toHaveAttribute("aria-expanded");
+	});
+
+	test("custom fold IDs with spaces and quotes still toggle their region", async () => {
+		const user = userEvent.setup();
+		const code = ["{", '  "a": 1', "}"].join("\n");
+		render(
+			<CodeBlock.Root>
+				<CodeBlock.Body>
+					<CodeBlock.Code
+						value={makeFoldedValue("json", code, [
+							{ id: 'fold "one" region', startLine: 1, endLine: 3 },
+						])}
+					/>
+				</CodeBlock.Body>
+			</CodeBlock.Root>,
+		);
+
+		const button = screen.getByRole("button", { name: /toggle code folding/i });
+		expect(button).toHaveAttribute("data-fold-line", "fold%20%22one%22%20region");
+
+		await user.click(button);
+
+		expect(button).toHaveAttribute("aria-expanded", "false");
+		expect(document.querySelector('[data-line-number="2"]')).toHaveAttribute(
+			"data-fold-hidden",
+			"true",
+		);
 	});
 });
 

@@ -25,17 +25,19 @@ import {
 
 # Code Block Folding by Language
 
-Mantle dispatches per language to whichever folding strategy best mirrors VS Code's behavior. Most strategies run server- or build-side; only the toggle interaction is in the browser.
+Mantle dispatches each supported language to the folding strategy that best fits its syntax. Most strategies run server- or build-side; only the toggle interaction runs in the browser.
 
-- **AST-based (JS / TS / JSX / TSX)** — `oxc-parser` walks the AST and emits folds for block statements, object/array literals, JSX elements and fragments, multi-line template literals, and TypeScript-only constructs (interfaces, type literals, enums).
+- **AST-based (JS / TS / JSX / TSX)** — `oxc-parser` walks the AST and emits folds for block/class/switch bodies, object/array literals and patterns, JSX elements and fragments, multi-line template literals, and TypeScript constructs such as interfaces, type literals, enums, modules, and mapped types.
 - **AST-based (HTML / XML)** — `parse5` tokenizes the source with `sourceCodeLocationInfo`, so void elements never open folds and self-closing XML tags are honored. Multi-line opening tags fold their attribute list into the tag name.
-- **Raw-source (CSS / JSON)** — single-pass, parser-quality brace matchers that skip strings, comments, and escapes. Used for `css` and `json`.
+- **Raw-source (CSS / JSON)** — single-pass, parser-quality delimiter matchers. CSS folds `{ … }`; JSON folds `{ … }` and `[ … ]`; both skip strings and escapes, and CSS also skips comments.
 - **Indentation-based (Python / YAML)** — blocks are detected by leading whitespace; the opener line stays visible and child lines collapse.
 - **Bracket-paired (Go / Rust / Java / C#)** — multi-line `{ … }` / `[ … ]` ranges fold via TextMate-scope-aware token walking; brackets inside strings, comments, or regular expressions are ignored.
-- **Keyword-paired (Bash / Shell)** — opener / closer keyword pairs from VS Code's grammars: `if … fi`, `case … esac`, `for|while … do|done`, brace-form function bodies.
+- **Keyword-paired (Bash / Shell)** — opener / closer keyword pairs from VS Code's grammars: `if … fi`, `case … esac`, `for|while|until|select … do … done`, and brace-form function bodies.
 - **Bracket + keyword (Ruby)** — combines bracket-paired folding (block-style `{ … }`, arrays) with Ruby's keyword pairs: `def`, `class`, `module`, `begin`, `do`, `if`, `case`, etc., all closing on `end`.
 
 Plain text (`text`, `txt`, `plain`, `plaintext`) intentionally has no folds.
+
+The examples on this page use the full server highlighter pipeline. If you're building custom highlighting with `@ngrok/mantle/highlight-utils`, `computeFoldRanges({ language, tokens })` is a lower-level token helper for bracket, indentation, and tag folds. Use `@ngrok/mantle-server-syntax-highlighter` when you need the AST, raw-source, or keyword strategies listed here.
 
 ← [Back to Code Block](/components/code-block)
 
@@ -129,8 +131,8 @@ Ruby combines bracket folding (block-style `{ … }`, arrays) with keyword pairs
 
 ## Caveats
 
-- **JSX / TSX self-closing elements** (`<Foo />`) intentionally don't fold even when split across lines for long attribute lists — VS Code matches this behavior.
-- **Bracket strategy ignores `(…)`** — argument lists and tuple literals never fold. Mirrors VS Code's default.
+- **JSX / TSX self-closing elements** (`<Foo />`) get a toggle only when their attributes span multiple lines; collapsing hides the attribute lines while keeping the opening line and self-closing `/>` line visible.
+- **Bracket strategy ignores `(…)`** — argument lists and tuple / parenthesized expressions never fold. This mirrors VS Code's default bracket folding.
 - **Indentation strategy assumes consistent leading whitespace** within a block. Mixing tabs and spaces inside the same block can produce wrong spans.
-- **Single-line constructs never fold** — a multi-line opener whose closer is on the same line emits no range, and inline objects/arrays in a multi-line parent don't get their own toggle.
+- **Single-line spans never fold** — if a construct's opener and closer resolve to the same line, it emits no range. Inline objects/arrays inside a multi-line parent don't get their own toggle.
 - **CSS folding is brace-only** — `@import url(…)` and other no-body at-rules don't have their own toggle (there's nothing to fold).

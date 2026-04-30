@@ -16,7 +16,9 @@ type FoldableRange = {
 	 * stringified `startLine` (unique by construction after dedup), encoded
 	 * into `data-fold-line` on the toggle button and `data-fold-regions` on
 	 * each descendant line so the runtime delegated handler can resolve
-	 * toggles by attribute lookup.
+	 * toggles by attribute lookup. Custom strategies should provide non-empty
+	 * IDs that are unique within the code block; the decorator URI-encodes
+	 * them before rendering so spaces and quotes remain safe.
 	 */
 	id: string;
 	/** 1-based line number of the line that contains the opening token. */

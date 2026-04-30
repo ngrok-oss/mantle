@@ -1,6 +1,6 @@
 import { CodeBlock, mantleCode } from "@ngrok/mantle/code-block";
 
-/** JavaScript fold demo — bracket-paired strategy. */
+/** JavaScript fold demo — AST strategy. */
 export function FoldingJavaScriptDemo() {
 	return (
 		<CodeBlock.Root>
@@ -35,7 +35,7 @@ export function FoldingJavaScriptDemo() {
 	);
 }
 
-/** TypeScript fold demo — bracket-paired strategy with type literals. */
+/** TypeScript fold demo — AST strategy with type literals. */
 export function FoldingTypeScriptDemo() {
 	return (
 		<CodeBlock.Root>
@@ -166,7 +166,7 @@ export function FoldingJsxDemo() {
 	);
 }
 
-/** JSON fold demo — bracket-paired strategy. */
+/** JSON fold demo — raw-source strategy. */
 export function FoldingJsonDemo() {
 	return (
 		<CodeBlock.Root>
@@ -203,7 +203,7 @@ export function FoldingJsonDemo() {
 	);
 }
 
-/** CSS fold demo — bracket-paired strategy. */
+/** CSS fold demo — raw-source strategy. */
 export function FoldingCssDemo() {
 	return (
 		<CodeBlock.Root>
@@ -390,7 +390,7 @@ export function FoldingRustDemo() {
 	);
 }
 
-/** Ruby fold demo — bracket-paired strategy (block-style `{}` and arrays only). */
+/** Ruby fold demo — bracket + keyword strategy. */
 export function FoldingRubyDemo() {
 	return (
 		<CodeBlock.Root>
@@ -510,7 +510,7 @@ export function FoldingYamlDemo() {
 	);
 }
 
-/** HTML fold demo — tag-based strategy. */
+/** HTML fold demo — parse5 AST strategy. */
 export function FoldingHtmlDemo() {
 	return (
 		<CodeBlock.Root>
@@ -615,7 +615,7 @@ export function FoldingHtmlMultilineTagDemo() {
 	);
 }
 
-/** Bash fold demo — keyword strategy folds `if/fi`, `for/done`, brace groups. */
+/** Bash fold demo — keyword-paired strategy folds `if/fi`, `for/done`, brace groups. */
 export function FoldingBashDemo() {
 	return (
 		<CodeBlock.Root>

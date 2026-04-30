@@ -162,6 +162,13 @@ describe("computeJsxFoldRanges", () => {
 	});
 
 	describe("TypeScript constructs", () => {
+		test("folds a generic arrow function in plain TypeScript mode", () => {
+			const code = ["const identity = <T>(value: T) => {", "  return value;", "};"].join("\n");
+			expect(computeJsxFoldRanges({ code, language: "typescript" })).toEqual([
+				{ id: "1", startLine: 1, endLine: 3 },
+			]);
+		});
+
 		test("folds an interface body", () => {
 			const code = ["interface User {", "  id: string;", "  email: string;", "}"].join("\n");
 			expect(computeJsxFoldRanges({ code, language: "typescript" })).toEqual([
