@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import { createContext, useContext, useId, useMemo } from "react";
-import type { CSSProperties, ComponentProps, HTMLAttributes } from "react";
+import type { ComponentProps, HTMLAttributes } from "react";
+import { $cssProperties } from "../../types/index.js";
 import { cx } from "../../utils/cx/cx.js";
 import { clamp, isNumber, isValidMaxNumber, isValidValueNumber } from "./math.js";
 import type { ValueType } from "./types.js";
@@ -151,7 +152,7 @@ const Root = ({
 					fill="transparent"
 					stroke="currentColor"
 					strokeWidth={strokeWidthPx}
-					style={{ "--radius": radius } as CSSProperties}
+					style={$cssProperties({ "--radius": radius })}
 				/>
 				{children}
 			</svg>
@@ -215,7 +216,7 @@ const Indicator = ({ className, ...props }: ProgressDonutIndicatorProps) => {
 				strokeDashoffset={100 - percentage}
 				strokeLinecap="round"
 				strokeWidth={strokeWidthPx}
-				style={{ "--radius": radius } as CSSProperties}
+				style={$cssProperties({ "--radius": radius })}
 				transform="rotate(-90)" // rotate -90 degrees so it starts from the top
 			/>
 		</g>

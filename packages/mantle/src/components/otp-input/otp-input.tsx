@@ -5,6 +5,7 @@ import { OTPInput, OTPInputContext } from "input-otp";
 import type { ComponentProps, ComponentRef, ReactNode } from "react";
 import { forwardRef, useContext } from "react";
 import type { WithAsChild } from "../../types/as-child.js";
+import { $cssProperties } from "../../types/index.js";
 import { cx } from "../../utils/cx/cx.js";
 import { Slot as AsChildSlot } from "../slot/index.js";
 import type { Validation, WithValidation } from "../input/types.js";
@@ -64,6 +65,18 @@ const MantleOtpBridge = ({
 	);
 	const otpState = computeOtpState({ totalActive, total });
 
+	// Map the validation hue to two CSS custom properties — descendant
+	// slot/group classes reference these vars instead of having one
+	// branch per validation value. When no validation is set, the vars
+	// are left undefined and the validation utilities (gated on
+	// `group-data-[validation]`) don't apply.
+	const validationStyle = validation
+		? $cssProperties({
+				"--otp-validation-border": `var(--color-${validation}-600)`,
+				"--otp-validation-ring": `var(--ring-color-focus-${validation})`,
+			})
+		: undefined;
+
 	// `display: contents` keeps this element in the DOM tree (so `group/`
 	// ancestor selectors resolve) without producing a layout box.
 	return (
@@ -71,6 +84,7 @@ const MantleOtpBridge = ({
 			className="group/otp contents"
 			data-otp-state={otpState}
 			data-validation={validation || undefined}
+			style={validationStyle}
 		>
 			{children}
 		</div>
@@ -198,13 +212,11 @@ const Group = forwardRef<HTMLDivElement, OtpInputGroupProps>(
 					// another active slot at the same nesting level, the
 					// group has at least 2 actives → draw the ring.
 					"has-[[data-active]~[data-active]]:ring-focus-accent has-[[data-active]~[data-active]]:ring-4",
-					// Validation overrides for the group-level range/all ring.
-					// When the parent root has a validation state set, recolor
-					// the multi-active ring so the validation feedback wins
-					// over the default accent focus ring.
-					"group-data-[validation=error]/otp:has-[[data-active]~[data-active]]:ring-focus-danger",
-					"group-data-[validation=success]/otp:has-[[data-active]~[data-active]]:ring-focus-success",
-					"group-data-[validation=warning]/otp:has-[[data-active]~[data-active]]:ring-focus-warning",
+					// Validation override for the group-level range/all ring.
+					// `--otp-validation-ring` is set on the bridge based on
+					// the validation value, so a single class covers
+					// error/success/warning instead of one per hue.
+					"group-data-validation/otp:has-[[data-active]~[data-active]]:ring-(--otp-validation-ring)",
 					className,
 				)}
 				{...props}
@@ -307,25 +319,16 @@ const OtpInputSlotImpl = forwardRef<HTMLDivElement, OtpInputSlotProps>(
 					// `Input` tints the container border, not the internal
 					// elements. The all-state and caret-active overrides
 					// still recolor every border so a fully-active slot or
-					// select-all reads as a solid tinted box.
-					"group-data-[validation=error]/otp:border-y-danger-600",
-					"group-data-[validation=error]/otp:first:border-l-danger-600",
-					"group-data-[validation=error]/otp:last:border-r-danger-600",
-					"group-data-[validation=error]/otp:data-active:group-data-[otp-state=caret]/otp:border-danger-600",
-					"group-data-[validation=error]/otp:data-active:group-data-[otp-state=caret]/otp:ring-focus-danger",
-					"group-data-[validation=error]/otp:group-data-[otp-state=all]/otp:border-danger-600",
-					"group-data-[validation=success]/otp:border-y-success-600",
-					"group-data-[validation=success]/otp:first:border-l-success-600",
-					"group-data-[validation=success]/otp:last:border-r-success-600",
-					"group-data-[validation=success]/otp:data-active:group-data-[otp-state=caret]/otp:border-success-600",
-					"group-data-[validation=success]/otp:data-active:group-data-[otp-state=caret]/otp:ring-focus-success",
-					"group-data-[validation=success]/otp:group-data-[otp-state=all]/otp:border-success-600",
-					"group-data-[validation=warning]/otp:border-y-warning-600",
-					"group-data-[validation=warning]/otp:first:border-l-warning-600",
-					"group-data-[validation=warning]/otp:last:border-r-warning-600",
-					"group-data-[validation=warning]/otp:data-active:group-data-[otp-state=caret]/otp:border-warning-600",
-					"group-data-[validation=warning]/otp:data-active:group-data-[otp-state=caret]/otp:ring-focus-warning",
-					"group-data-[validation=warning]/otp:group-data-[otp-state=all]/otp:border-warning-600",
+					// select-all reads as a solid tinted box. The bridge
+					// sets `--otp-validation-{border,ring}` per validation
+					// value, so a single set of classes covers
+					// error/success/warning.
+					"group-data-validation/otp:border-y-(--otp-validation-border)",
+					"group-data-validation/otp:first:border-l-(--otp-validation-border)",
+					"group-data-validation/otp:last:border-r-(--otp-validation-border)",
+					"group-data-validation/otp:data-active:group-data-[otp-state=caret]/otp:border-(--otp-validation-border)",
+					"group-data-validation/otp:data-active:group-data-[otp-state=caret]/otp:ring-(--otp-validation-ring)",
+					"group-data-validation/otp:group-data-[otp-state=all]/otp:border-(--otp-validation-border)",
 					className,
 				)}
 				{...props}
