@@ -1,12 +1,22 @@
 import { type RouteConfig, index, layout, route } from "@react-router/dev/routes";
 
-// Helper to create doc routes (handles both /path and /path.md URLs)
-function docRoute(path: string) {
-	const id = `docs-${path.replace(/\//g, "-")}`;
+// Helper to create markdown-backed routes (handles both /path and /path.md URLs)
+function markdownRoute(path: string, idPrefix: string) {
+	const id = `${idPrefix}-${path.replace(/\//g, "-")}`;
 	return [
 		route(path, "./routes/$.tsx", { id }),
 		route(`${path}.md`, "./routes/$.md.tsx", { id: `${id}-md` }),
 	];
+}
+
+// Helper to create doc routes (handles both /path and /path.md URLs)
+function docRoute(path: string) {
+	return markdownRoute(path, "docs");
+}
+
+// Helper to create block routes under /blocks (handles both /blocks/path and /blocks/path.md URLs)
+function blockRoute(path: string) {
+	return markdownRoute(`blocks/${path}`, "blocks");
 }
 
 export default [
@@ -122,6 +132,6 @@ export default [
 	// blocks layout
 	layout("./routes/blocks-layout.tsx", [
 		route("blocks", "./routes/blocks.tsx"),
-		...docRoute("blocks/sheet-async"),
+		...blockRoute("sheet-async"),
 	]),
 ] satisfies RouteConfig;

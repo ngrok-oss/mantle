@@ -1,273 +1,107 @@
 ---
 title: Sheet + Async Data (React Query)
-description: A recipe for rendering async-loaded content inside a Sheet without blocking the overlay on the request.
+description: Render a Sheet immediately, then swap its body between pending, success, 404, and 500 states with TanStack Query.
 ---
 
-import { Alert } from "@ngrok/mantle/alert";
-import { Button } from "@ngrok/mantle/button";
-import { MediaObject } from "@ngrok/mantle/media-object";
-import { Separator } from "@ngrok/mantle/separator";
-import { Sheet } from "@ngrok/mantle/sheet";
-import { Skeleton } from "@ngrok/mantle/skeleton";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
 import { Example } from "~/components/example";
-
-export function UserDetails({ user }) {
-	return (
-		<div className="space-y-4">
-			<MediaObject.Root className="items-center">
-				<MediaObject.Media>
-					<div className="flex size-12 items-center justify-center rounded-full bg-accent-500 text-on-filled font-mono">
-						{user.name[0]}
-					</div>
-				</MediaObject.Media>
-				<MediaObject.Content>
-					<p className="font-medium text-strong">{user.name}</p>
-					<p className="text-sm text-muted">{user.email}</p>
-				</MediaObject.Content>
-			</MediaObject.Root>
-			<Separator />
-			<dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 text-sm">
-				<dt className="text-muted">ID</dt>
-				<dd className="font-mono text-strong">{user.id}</dd>
-				<dt className="text-muted">Role</dt>
-				<dd className="text-strong">{user.role}</dd>
-				<dt className="text-muted">Joined</dt>
-				<dd className="text-strong">{user.joinedAt}</dd>
-			</dl>
-		</div>
-	);
-}
-
-export function UserDetailsLoading() {
-	return (
-		<div className="space-y-4" aria-busy="true" aria-label="Loading user details">
-			<MediaObject.Root className="items-center">
-				<MediaObject.Media>
-					<Skeleton className="size-12 rounded-full" />
-				</MediaObject.Media>
-				<MediaObject.Content className="space-y-2">
-					<Skeleton className="h-4 w-40" />
-					<Skeleton className="h-3 w-56" />
-				</MediaObject.Content>
-			</MediaObject.Root>
-			<Separator />
-			<div className="space-y-2">
-				<Skeleton className="h-3 w-full" />
-				<Skeleton className="h-3 w-5/6" />
-				<Skeleton className="h-3 w-3/4" />
-			</div>
-		</div>
-	);
-}
-
-export function UserDetailsError({ error, onRetry }) {
-	return (
-		<div className="space-y-3">
-			<Alert.Root priority="danger">
-				<Alert.Icon />
-				<Alert.Content>
-					<Alert.Title>Couldn't load user</Alert.Title>
-					<Alert.Description>
-						{error instanceof Error ? error.message : "An unknown error occurred."}
-					</Alert.Description>
-				</Alert.Content>
-			</Alert.Root>
-			<Button type="button" appearance="outlined" priority="danger" onClick={onRetry}>
-				Try again
-			</Button>
-		</div>
-	);
-}
-
-export function fetchUser(userId, { mode }) {
-	return new Promise((resolve, reject) => {
-		setTimeout(() => {
-			if (mode === "error") {
-				reject(new Error("Network request failed (503 Service Unavailable)"));
-				return;
-			}
-			resolve({
-				id: userId,
-				name: "Ada Lovelace",
-				email: "ada@example.com",
-				role: "Founding Engineer",
-				joinedAt: "1843-07-08",
-			});
-		}, 1500);
-	});
-}
-
-export function UserSheet({ userId, mode, onClose }) {
-	const query = useQuery({
-		queryKey: ["user", userId, mode],
-		queryFn: () => fetchUser(userId, { mode }),
-		retry: false,
-		staleTime: 0,
-		gcTime: 0,
-	});
-
-    return (
-    	<Sheet.Root open onOpenChange={(next) => !next && onClose()}>
-    		<Sheet.Content>
-    			<Sheet.Header>
-    				<Sheet.TitleGroup>
-    					<Sheet.Title>User details</Sheet.Title>
-    					<Sheet.Actions>
-    						<Sheet.CloseIconButton />
-    					</Sheet.Actions>
-    				</Sheet.TitleGroup>
-    				<Sheet.Description>
-    					Viewing profile information for user <span className="font-mono">{userId}</span>.
-    				</Sheet.Description>
-    			</Sheet.Header>
-    			<Sheet.Body>
-    				{query.isPending && <UserDetailsLoading />}
-    				{query.isError && (
-    					<UserDetailsError error={query.error} onRetry={() => query.refetch()} />
-    				)}
-    				{query.isSuccess && <UserDetails user={query.data} />}
-    			</Sheet.Body>
-    			<Sheet.Footer>
-    				<Sheet.Close asChild>
-    					<Button type="button" appearance="outlined" priority="neutral">
-    						Close
-    					</Button>
-    				</Sheet.Close>
-    				<Button type="button" appearance="filled" disabled={!query.isSuccess}>
-    					Save
-    				</Button>
-    			</Sheet.Footer>
-    		</Sheet.Content>
-    	</Sheet.Root>
-    );
-
-}
-
-export function UserSheetDemo() {
-	const [mode, setMode] = useState("success");
-	const [openKey, setOpenKey] = useState(0);
-	const [isOpen, setIsOpen] = useState(false);
-	const queryClient = useQueryClient();
-
-    const open = (nextMode) => {
-    	setMode(nextMode);
-    	setOpenKey((k) => k + 1);
-    	setIsOpen(true);
-    };
-
-    return (
-    	<div className="flex flex-wrap items-center gap-2">
-    		<Button type="button" appearance="filled" onClick={() => open("success")}>
-    			Open (success)
-    		</Button>
-    		<Button type="button" appearance="outlined" priority="neutral" onClick={() => open("error")}>
-    			Open (error)
-    		</Button>
-    		{isOpen && (
-    			<UserSheet
-    				key={openKey}
-    				userId="user_01J8Q7Z5K2"
-    				mode={mode}
-    				onClose={() => {
-    					setIsOpen(false);
-    					queryClient.removeQueries({ queryKey: ["user"] });
-    				}}
-    			/>
-    		)}
-    	</div>
-    );
-
-}
+import { UserSheetDemo } from "~/features/sheet-async-demo";
 
 # Sheet + Async Data (React Query)
 
-A recipe for loading a slow remote resource inside a [`Sheet`](/components/sheet) without blocking the overlay on the request. The sheet opens immediately, a skeleton fills the body while the query is pending, and errors render inline — the sheet stays open so the user can retry without losing context.
+Use this pattern when opening a [`Sheet`](/components/sheet) is navigation into more context, but the body needs remote data before it can render. The shell opens immediately, the body starts in a skeleton state, and TanStack Query replaces that body with either loaded content or an inline error after retries finish.
 
-<Example>
+<Example className="rounded-b-lg border-b">
 	<UserSheetDemo />
 </Example>
 
-## When to use
+## What this covers
 
-Reach for this pattern when:
+| Case       | Demo behavior                                                                     |
+| ---------- | --------------------------------------------------------------------------------- |
+| Happy path | Waits 1.5 seconds, then renders a loaded user profile.                            |
+| 404 error  | Waits 1.5 seconds once, then renders a not-found empty state.                     |
+| 500 error  | Waits 1.5 seconds per request, retries twice, then renders a service empty state. |
 
-- Opening the sheet is a **navigation**, not a **submission**. The user expects the overlay to appear right away.
-- The resource is slow enough that a blocking spinner on the trigger would feel broken (> ~200ms).
-- A transient load failure should be **recoverable in place** — closing the sheet and reopening it would lose the user's context (scroll position, selected row, URL state).
-
-For fast, optimistic, or locally-derived data, skip this pattern and render the data synchronously in the `Sheet.Body`.
+The route is also available as plain markdown at [`/blocks/sheet-async.md`](/blocks/sheet-async.md), so humans and LLM tools can fetch the same recipe without scraping the rendered page.
 
 ## Principles
 
-1. **Render the sheet immediately.** Mount `Sheet.Root` as soon as the trigger fires. Do not gate it on the query.
-2. **Branch on query status inside `Sheet.Body`.** Keep the header, footer, and close affordances stable across all three states — the chrome should never flicker.
-3. **Skeletons over spinners.** A skeleton that mirrors the final layout prevents layout shift when the data arrives. Reach for [`ProgressDonut`](/components/progress-donut) (indeterminate) only when you genuinely can't predict the shape of the content.
-4. **Errors render inline with `Alert`.** Never close the sheet on error — the user can't retry what they can't see. Pair the `Alert` with a retry button immediately below it.
-5. **Disable destructive footer actions until `isSuccess`.** "Save" cannot be meaningful while the data is still pending or failed.
+1. **Open first, fetch inside.** Mount `Sheet.Root` as soon as the trigger fires. Do not wait for data before rendering the overlay.
+2. **Keep the chrome stable.** Header, close button, and footer stay mounted while only `Sheet.Body` branches on `query.isPending`, `query.isError`, and `query.isSuccess`.
+3. **Use a real query hook.** Keep fetching, retry, stale-time, and cancellation behavior in `useUserQuery`, not scattered across the view.
+4. **Retry transient failures only.** The example retries `500` responses, but not `404` responses because a completed not-found response is usually terminal.
+5. **Keep recovery in place when recovery is real.** The `500` state includes a retry button; the `404` state does not because retrying the same missing id is not useful.
 
 ## Anatomy
 
 ```text showLineNumbers=false
-Sheet.Root (open immediately)
-└── Sheet.Content
-    ├── Sheet.Header           ← stable across all states
-    ├── Sheet.Body
-    │   ├── <LoadingSkeleton /> when query.isPending
-    │   ├── <Alert priority="danger" />   when query.isError
-    │   └── <ResourceContent /> when query.isSuccess
-    └── Sheet.Footer           ← stable; gate destructive actions on isSuccess
+Parent selection state
+└── UserSheet (mounted immediately)
+    └── useUserQuery({ userId, scenario })
+        └── Sheet.Content
+            ├── Sheet.Header        stable
+            ├── Sheet.Body          pending | success | error
+            └── Sheet.Footer        stable; disable actions until success
 ```
 
-## Recipe
+## Complete Recipe
 
-Copy the snippet below and adapt `fetchUser` / `UserDetails` to your resource. It assumes a `QueryClientProvider` is mounted above this component (typically at the route or app root).
+Copy the UI recipe into a client component that already has a `QueryClientProvider` mounted near the app root. The demo-only mock API is shown in the appendix below; in production, replace that import with your real API client and error type.
 
 ```tsx
-import { Alert } from "@ngrok/mantle/alert";
 import { Button } from "@ngrok/mantle/button";
+import { DescriptionList } from "@ngrok/mantle/description-list";
+import { Empty } from "@ngrok/mantle/empty";
 import { MediaObject } from "@ngrok/mantle/media-object";
 import { Separator } from "@ngrok/mantle/separator";
 import { Sheet } from "@ngrok/mantle/sheet";
 import { Skeleton } from "@ngrok/mantle/skeleton";
-import { useQuery } from "@tanstack/react-query";
+import { MagnifyingGlassIcon } from "@phosphor-icons/react/MagnifyingGlass";
+import { SmileyMeltingIcon } from "@phosphor-icons/react/SmileyMelting";
+import { useQuery, useQueryClient, type UseQueryResult } from "@tanstack/react-query";
+import { type ReactNode, useState } from "react";
+import {
+	fetchUser,
+	RequestCancelledError,
+	UserRequestError,
+	type User,
+	type UserSheetScenario,
+} from "./mock-user-api";
 
-type User = {
-	id: string;
-	name: string;
-	email: string;
-	role: string;
-	joinedAt: string;
+const SERVER_ERROR_RETRY_LIMIT = 2;
+const USER_QUERY_RETRY_DELAY_MS = 500;
+const USER_QUERY_KEY_ROOT = ["sheet-async-user"];
+
+const scenarioLabels: Record<UserSheetScenario, string> = {
+	success: "happy path",
+	"not-found": "404",
+	"server-error": "500",
 };
 
-async function fetchUser(userId: string): Promise<User> {
-	const response = await fetch(`/api/users/${userId}`);
-	if (!response.ok) {
-		throw new Error(`Failed to load user (${response.status})`);
-	}
-	return response.json();
-}
-
+/** Props for the controlled async sheet. */
 type UserSheetProps = {
+	/** User identifier requested by the sheet. */
 	userId: string;
+	/** Demo scenario selected by the user. */
+	scenario: UserSheetScenario;
+	/** Called when the user dismisses the sheet. */
 	onClose: () => void;
 };
 
-/**
- * Renders a Sheet that loads a user record asynchronously. The sheet opens
- * immediately; the body transitions through loading → error → loaded without
- * closing the overlay.
- */
-export function UserSheet({ userId, onClose }: UserSheetProps) {
-	const query = useQuery({
-		queryKey: ["user", userId],
-		queryFn: () => fetchUser(userId),
-	});
+/** Renders immediately, then swaps the sheet body from pending to success or error. */
+export function UserSheet({ onClose, scenario, userId }: UserSheetProps) {
+	const query = useUserQuery({ scenario, userId });
 
 	return (
-		<Sheet.Root open onOpenChange={(next) => !next && onClose()}>
-			<Sheet.Content>
+		<Sheet.Root
+			open
+			onOpenChange={(nextOpen) => {
+				if (!nextOpen) {
+					onClose();
+				}
+			}}
+		>
+			<Sheet.Content preferredWidth="sm:max-w-[34rem]">
 				<Sheet.Header>
 					<Sheet.TitleGroup>
 						<Sheet.Title>User details</Sheet.Title>
@@ -276,15 +110,12 @@ export function UserSheet({ userId, onClose }: UserSheetProps) {
 						</Sheet.Actions>
 					</Sheet.TitleGroup>
 					<Sheet.Description>
-						Viewing profile information for user <span className="font-mono">{userId}</span>.
+						Loading <span className="font-mono">{userId}</span> through the{" "}
+						{scenarioLabels[scenario]} case.
 					</Sheet.Description>
 				</Sheet.Header>
 				<Sheet.Body>
-					{query.isPending && <UserDetailsLoading />}
-					{query.isError && (
-						<UserDetailsError error={query.error} onRetry={() => query.refetch()} />
-					)}
-					{query.isSuccess && <UserDetails user={query.data} />}
+					<UserSheetBody query={query} />
 				</Sheet.Body>
 				<Sheet.Footer>
 					<Sheet.Close asChild>
@@ -292,8 +123,8 @@ export function UserSheet({ userId, onClose }: UserSheetProps) {
 							Close
 						</Button>
 					</Sheet.Close>
-					<Button type="button" appearance="filled" disabled={!query.isSuccess}>
-						Save
+					<Button type="button" appearance="filled" priority="neutral" disabled={!query.isSuccess}>
+						Save changes
 					</Button>
 				</Sheet.Footer>
 			</Sheet.Content>
@@ -301,7 +132,45 @@ export function UserSheet({ userId, onClose }: UserSheetProps) {
 	);
 }
 
-function UserDetailsLoading() {
+/** Props for selecting which body state to render. */
+type UserSheetBodyProps = {
+	/** TanStack Query result that drives the body state. */
+	query: UseQueryResult<User, Error>;
+};
+
+/** Keeps the sheet chrome stable while only the body content changes. */
+function UserSheetBody({ query }: UserSheetBodyProps) {
+	if (query.isPending) {
+		return <UserDetailsLoading failureCount={query.failureCount} />;
+	}
+
+	if (query.isError) {
+		return (
+			<UserDetailsError
+				error={query.error}
+				isRetrying={query.isFetching}
+				onRetry={() => {
+					void query.refetch();
+				}}
+			/>
+		);
+	}
+
+	if (query.isSuccess) {
+		return <UserDetails user={query.data} />;
+	}
+
+	return null;
+}
+
+/** Props for the loading state. */
+type UserDetailsLoadingProps = {
+	/** Failed attempts observed while TanStack Query is still retrying. */
+	failureCount: number;
+};
+
+/** Mirrors the successful layout so the sheet body does not jump when data arrives. */
+function UserDetailsLoading({ failureCount }: UserDetailsLoadingProps) {
 	return (
 		<div className="space-y-4" aria-busy="true" aria-label="Loading user details">
 			<MediaObject.Root className="items-center">
@@ -319,40 +188,116 @@ function UserDetailsLoading() {
 				<Skeleton className="h-3 w-5/6" />
 				<Skeleton className="h-3 w-3/4" />
 			</div>
+			{failureCount > 0 && (
+				<p className="text-sm text-muted" role="status">
+					Retrying after {failureCount} failed {failureCount === 1 ? "attempt" : "attempts"}.
+				</p>
+			)}
 		</div>
 	);
 }
 
+/** Props for the inline error state. */
 type UserDetailsErrorProps = {
-	error: unknown;
+	/** Error thrown by the query function. */
+	error: Error;
+	/** Whether a manual retry is currently in flight. */
+	isRetrying: boolean;
+	/** Called when the user requests another attempt. */
 	onRetry: () => void;
 };
 
-function UserDetailsError({ error, onRetry }: UserDetailsErrorProps) {
+/** Renders a recoverable inline error instead of closing the sheet. */
+function UserDetailsError({ error, isRetrying, onRetry }: UserDetailsErrorProps) {
+	const copy = getUserErrorCopy(error);
+
 	return (
-		<div className="space-y-3">
-			<Alert.Root priority="danger">
-				<Alert.Icon />
-				<Alert.Content>
-					<Alert.Title>Couldn't load user</Alert.Title>
-					<Alert.Description>
-						{error instanceof Error ? error.message : "An unknown error occurred."}
-					</Alert.Description>
-				</Alert.Content>
-			</Alert.Root>
-			<Button type="button" appearance="outlined" priority="danger" onClick={onRetry}>
-				Try again
-			</Button>
-		</div>
+		<Empty.Root className="py-8">
+			<Empty.Icon svg={copy.icon} />
+			<Empty.Title className="text-lg">{copy.title}</Empty.Title>
+			<Empty.Description>
+				<p>{copy.description}</p>
+				{copy.requestId && (
+					<p>
+						Request ID <span className="font-mono text-strong">{copy.requestId}</span>
+					</p>
+				)}
+			</Empty.Description>
+			{copy.canRetry && (
+				<Empty.Actions>
+					<Button
+						type="button"
+						appearance="filled"
+						priority="danger"
+						isLoading={isRetrying}
+						onClick={onRetry}
+					>
+						Retry request
+					</Button>
+				</Empty.Actions>
+			)}
+		</Empty.Root>
 	);
 }
 
-function UserDetails({ user }: { user: User }) {
+/** Copy values shown by the inline error state. */
+type UserErrorCopy = {
+	/** Whether the Empty state should render a retry action. */
+	canRetry: boolean;
+	/** Icon shown by the Empty state. */
+	icon: ReactNode;
+	/** Short Empty state title. */
+	title: string;
+	/** Human-readable remediation context. */
+	description: string;
+	/** Optional request id shown for support workflows. */
+	requestId?: string;
+};
+
+/** Converts typed request errors into user-facing copy. */
+function getUserErrorCopy(error: Error): UserErrorCopy {
+	if (error instanceof UserRequestError && error.status === 404) {
+		return {
+			canRetry: false,
+			icon: <MagnifyingGlassIcon />,
+			title: "User not found",
+			description: "The request completed, but no user exists for that id.",
+			requestId: error.requestId,
+		};
+	}
+
+	if (error instanceof UserRequestError && error.status === 500) {
+		return {
+			canRetry: true,
+			icon: <SmileyMeltingIcon />,
+			title: "User service unavailable",
+			description:
+				"The service failed after retrying. Keep the sheet open so the user can try again.",
+			requestId: error.requestId,
+		};
+	}
+
+	return {
+		canRetry: true,
+		icon: <SmileyMeltingIcon />,
+		title: "Could not load user",
+		description: error.message || "An unknown error occurred.",
+	};
+}
+
+/** Props for the successful user details state. */
+type UserDetailsProps = {
+	/** Loaded user data returned by the query. */
+	user: User;
+};
+
+/** Renders the successful data state. */
+function UserDetails({ user }: UserDetailsProps) {
 	return (
 		<div className="space-y-4">
 			<MediaObject.Root className="items-center">
 				<MediaObject.Media>
-					<div className="flex size-12 items-center justify-center rounded-full bg-accent-500 text-on-filled font-mono">
+					<div className="flex size-12 items-center justify-center rounded-full bg-accent-500 font-mono text-on-filled">
 						{user.name[0]}
 					</div>
 				</MediaObject.Media>
@@ -362,65 +307,304 @@ function UserDetails({ user }: { user: User }) {
 				</MediaObject.Content>
 			</MediaObject.Root>
 			<Separator />
-			<dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 text-sm">
-				<dt className="text-muted">ID</dt>
-				<dd className="font-mono text-strong">{user.id}</dd>
-				<dt className="text-muted">Role</dt>
-				<dd className="text-strong">{user.role}</dd>
-				<dt className="text-muted">Joined</dt>
-				<dd className="text-strong">{user.joinedAt}</dd>
-			</dl>
+			<DescriptionList.Root>
+				<DescriptionList.Item>
+					<DescriptionList.Label>ID</DescriptionList.Label>
+					<DescriptionList.Value>{user.id}</DescriptionList.Value>
+				</DescriptionList.Item>
+				<DescriptionList.Item>
+					<DescriptionList.Label>Role</DescriptionList.Label>
+					<DescriptionList.Value>{user.role}</DescriptionList.Value>
+				</DescriptionList.Item>
+				<DescriptionList.Item>
+					<DescriptionList.Label>Workspace</DescriptionList.Label>
+					<DescriptionList.Value>{user.workspace}</DescriptionList.Value>
+				</DescriptionList.Item>
+				<DescriptionList.Item>
+					<DescriptionList.Label>Plan</DescriptionList.Label>
+					<DescriptionList.Value>{user.plan}</DescriptionList.Value>
+				</DescriptionList.Item>
+				<DescriptionList.Item>
+					<DescriptionList.Label>Joined</DescriptionList.Label>
+					<DescriptionList.Value>{user.joinedAt}</DescriptionList.Value>
+				</DescriptionList.Item>
+				<DescriptionList.Item>
+					<DescriptionList.Label>Last active</DescriptionList.Label>
+					<DescriptionList.Value>{user.lastActiveAt}</DescriptionList.Value>
+				</DescriptionList.Item>
+			</DescriptionList.Root>
 		</div>
 	);
 }
-```
 
-## Usage
+/** Selected sheet state owned by the parent list/page. */
+type SelectedUserSheet = {
+	/** User identifier requested by the sheet. */
+	userId: string;
+	/** Demo scenario selected by the user. */
+	scenario: UserSheetScenario;
+};
 
-Mount the sheet from whatever owns the "which user is selected" state — usually a parent list or a router param.
+/** Opens the three async sheet states from parent-owned selection state. */
+export function UserSheetDemo() {
+	const [selection, setSelection] = useState<SelectedUserSheet | null>(null);
+	const queryClient = useQueryClient();
 
-```tsx
-import { Button } from "@ngrok/mantle/button";
-import { useState } from "react";
-import { UserSheet } from "./user-sheet";
+	/** Opens a fresh sheet for the selected demo case. */
+	const openSheet = (scenario: UserSheetScenario) => {
+		setSelection({ scenario, userId: userIdForScenario(scenario) });
+	};
 
-export function UserList({ users }) {
-	const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
+	/** Closes the sheet and clears demo cache so each button shows the pending state. */
+	const closeSheet = () => {
+		setSelection(null);
+		queryClient.removeQueries({ queryKey: USER_QUERY_KEY_ROOT });
+	};
 
 	return (
-		<>
-			{users.map((user) => (
-				<Button key={user.id} onClick={() => setSelectedUserId(user.id)}>
-					{user.name}
-				</Button>
-			))}
-			{selectedUserId != null && (
-				<UserSheet userId={selectedUserId} onClose={() => setSelectedUserId(null)} />
+		<div className="flex flex-wrap items-center gap-2">
+			<Button
+				type="button"
+				appearance="filled"
+				priority="neutral"
+				onClick={() => openSheet("success")}
+			>
+				Happy path
+			</Button>
+			<Button
+				type="button"
+				appearance="outlined"
+				priority="neutral"
+				onClick={() => openSheet("not-found")}
+			>
+				404 error
+			</Button>
+			<Button
+				type="button"
+				appearance="filled"
+				priority="danger"
+				onClick={() => openSheet("server-error")}
+			>
+				500 error
+			</Button>
+			{selection && (
+				<UserSheet userId={selection.userId} scenario={selection.scenario} onClose={closeSheet} />
 			)}
-		</>
+		</div>
 	);
+}
+
+/** Returns the user id that makes the selected scenario readable in the UI. */
+function userIdForScenario(scenario: UserSheetScenario): string {
+	if (scenario === "not-found") {
+		return "user_missing";
+	}
+
+	return "user_01J8Q7Z5K2";
+}
+
+/** Options passed to the demo query hook. */
+type UseUserQueryOptions = {
+	/** User identifier requested by the sheet. */
+	userId: string;
+	/** Demo scenario selected by the user. */
+	scenario: UserSheetScenario;
+};
+
+/** Fetches user details for the sheet with TanStack Query and an explicit retry policy. */
+function useUserQuery({ scenario, userId }: UseUserQueryOptions): UseQueryResult<User, Error> {
+	return useQuery<User, Error>({
+		queryKey: [...USER_QUERY_KEY_ROOT, userId, scenario],
+		queryFn: ({ signal }) => fetchUser({ userId, scenario, signal }),
+		retry: (failureCount, error) => shouldRetryUserQuery({ error, failureCount }),
+		retryDelay: USER_QUERY_RETRY_DELAY_MS,
+		staleTime: 30_000,
+		gcTime: 5 * 60_000,
+	});
+}
+
+/** Options passed to the query retry policy. */
+type ShouldRetryUserQueryOptions = {
+	/** Number of failed attempts TanStack Query has observed. */
+	failureCount: number;
+	/** Error thrown by the query function. */
+	error: Error;
+};
+
+/** Retries transient server failures while skipping terminal and cancelled requests. */
+function shouldRetryUserQuery({ error, failureCount }: ShouldRetryUserQueryOptions): boolean {
+	if (error instanceof RequestCancelledError) {
+		return false;
+	}
+
+	if (error instanceof UserRequestError && error.status === 500) {
+		return failureCount < SERVER_ERROR_RETRY_LIMIT;
+	}
+
+	return false;
 }
 ```
 
-## Notes & variations
+## Mock API Appendix
 
-### Route-driven sheets
+The code above imports a mock API module so the sheet can demonstrate happy, 404, and 500 states without a backend. In production, replace this file with your real API client and preserve the same query behavior: accept `signal`, throw typed errors, and let the UI decide which errors are retryable.
 
-If the selection lives in the URL (e.g. `/users?selected=user_01J8…`), drive `open` from the search param and call `navigate` in `onClose` instead of local state. See the [_Router or state management controlled Sheet_](/components/sheet#router-or-state-management-controlled-sheet) example.
+```ts
+const SIMULATED_USER_API_LATENCY_MS = 1_500;
 
-### Prefetching
+/** Scenario names used by the docs demo controls. */
+export type UserSheetScenario = "success" | "not-found" | "server-error";
 
-If the trigger is a row in a table, call `queryClient.prefetchQuery({ queryKey: ["user", id], queryFn: () => fetchUser(id) })` on `onMouseEnter`/`onFocus` so the data is often already in cache by the time the sheet opens — the user sees the success state immediately with no skeleton flash.
+/** The typed user record returned by the demo API. */
+export type User = {
+	/** Stable user identifier from the backend. */
+	id: string;
+	/** Display name shown in the sheet header content. */
+	name: string;
+	/** Primary email address for the account. */
+	email: string;
+	/** Role within the current workspace. */
+	role: string;
+	/** Workspace name used to make the example feel like app data. */
+	workspace: string;
+	/** Billing plan attached to the workspace. */
+	plan: string;
+	/** ISO date string for when the user joined. */
+	joinedAt: string;
+	/** Human-readable recent activity summary. */
+	lastActiveAt: string;
+};
 
-### Background refetching
+/** The HTTP status codes intentionally simulated by the demo. */
+type UserRequestErrorStatus = 404 | 500;
 
-When reopening a sheet for a user whose data is already cached, React Query will serve the cached value and refetch in the background. `query.isPending` is `false` in that state, so the skeleton doesn't flash; use `query.isFetching` if you want to show a subtle loading indicator (e.g. a small [`ProgressDonut`](/components/progress-donut) in `Sheet.Actions`) during the background refetch.
+/** Options for constructing a typed demo request error. */
+type UserRequestErrorOptions = {
+	/** HTTP status returned by the simulated endpoint. */
+	status: UserRequestErrorStatus;
+	/** User-facing or operator-facing error message. */
+	message: string;
+	/** Request identifier included in the inline error UI. */
+	requestId: string;
+};
 
-### Don't use Suspense boundaries here
+/** Error shape used when the simulated endpoint returns a non-2xx response. */
+export class UserRequestError extends Error {
+	/** HTTP status returned by the simulated endpoint. */
+	readonly status: UserRequestErrorStatus;
+	/** Request identifier included in the inline error UI. */
+	readonly requestId: string;
 
-You _can_ use React Query's `useSuspenseQuery` with a `<Suspense fallback={<UserDetailsLoading />}>` boundary inside `Sheet.Body`. It works, but:
+	/** Creates a typed request error that preserves HTTP metadata. */
+	constructor({ message, requestId, status }: UserRequestErrorOptions) {
+		super(message);
+		this.name = "UserRequestError";
+		this.requestId = requestId;
+		this.status = status;
+	}
+}
 
-- The imperative `isPending` / `isError` / `isSuccess` branches keep the loading, error, and success UIs side-by-side in one component — easier to read and keep in sync.
-- Error handling with Suspense requires an additional `ErrorBoundary`, which has to be reset manually on retry.
+/** Error used when TanStack Query aborts a request after the sheet unmounts. */
+export class RequestCancelledError extends Error {
+	/** Creates a cancellation error that the retry policy can ignore. */
+	constructor() {
+		super("The user details request was cancelled.");
+		this.name = "RequestCancelledError";
+	}
+}
 
-Prefer the imperative branches shown above unless you have a specific reason to suspend.
+/** Options for delaying the simulated API response. */
+type WaitForDemoApiOptions = {
+	/** Delay duration in milliseconds. */
+	durationMs: number;
+	/** Abort signal passed by TanStack Query. */
+	signal?: AbortSignal;
+};
+
+/** Waits before resolving so the sheet can show the pending state. */
+function waitForDemoApi({ durationMs, signal }: WaitForDemoApiOptions): Promise<void> {
+	return new Promise((resolve, reject) => {
+		if (signal?.aborted) {
+			reject(new RequestCancelledError());
+			return;
+		}
+
+		const timeoutId = setTimeout(() => {
+			signal?.removeEventListener("abort", handleAbort);
+			resolve();
+		}, durationMs);
+
+		/** Cancels the simulated API delay when the query unmounts. */
+		function handleAbort() {
+			clearTimeout(timeoutId);
+			signal?.removeEventListener("abort", handleAbort);
+			reject(new RequestCancelledError());
+		}
+
+		signal?.addEventListener("abort", handleAbort, { once: true });
+	});
+}
+
+/** Options accepted by the simulated user fetcher. */
+type FetchUserOptions = {
+	/** User identifier requested by the sheet. */
+	userId: string;
+	/** Demo scenario selected by the user. */
+	scenario: UserSheetScenario;
+	/** Abort signal passed by TanStack Query. */
+	signal?: AbortSignal;
+};
+
+/** Simulates a production API client with latency, typed data, and HTTP errors. */
+export async function fetchUser({ scenario, signal, userId }: FetchUserOptions): Promise<User> {
+	await waitForDemoApi({ durationMs: SIMULATED_USER_API_LATENCY_MS, signal });
+
+	if (scenario === "not-found") {
+		throw new UserRequestError({
+			status: 404,
+			message: `No user exists for ${userId}.`,
+			requestId: createDemoRequestId({ status: 404, userId }),
+		});
+	}
+
+	if (scenario === "server-error") {
+		throw new UserRequestError({
+			status: 500,
+			message: "The user service failed before returning profile data.",
+			requestId: createDemoRequestId({ status: 500, userId }),
+		});
+	}
+
+	return {
+		id: userId,
+		name: "Ada Lovelace",
+		email: "ada.lovelace@example.com",
+		role: "Founding Engineer",
+		workspace: "Analytical Engines",
+		plan: "Enterprise",
+		joinedAt: "1843-07-08",
+		lastActiveAt: "2 minutes ago",
+	};
+}
+
+/** Options for creating a deterministic request id in the demo. */
+type CreateDemoRequestIdOptions = {
+	/** HTTP status returned by the simulated endpoint. */
+	status: UserRequestErrorStatus;
+	/** User identifier requested by the sheet. */
+	userId: string;
+};
+
+/** Creates a stable request id so the error UI looks like real production output. */
+function createDemoRequestId({ status, userId }: CreateDemoRequestIdOptions): string {
+	return `req_${status}_${userId.replace(/[^a-z0-9]/gi, "").slice(-8)}`;
+}
+```
+
+## Production Notes
+
+- Keep the sheet UI in one component and keep API details behind `fetchUser` or your app's equivalent data client.
+- Use the `signal` argument from TanStack Query's `queryFn` when your API client supports cancellation.
+- Tune `retry` by status code. This demo does not retry 404 because the server already answered definitively. Retry not-found responses only when eventual consistency is expected.
+- Keep cached success data if the sheet may reopen frequently. This demo clears its query cache on close only so every docs button shows the pending state again.
+- Prefer explicit query state branches here over `useSuspenseQuery`. Suspense works, but error recovery requires an additional reset boundary and is harder to copy into route-controlled sheets.
