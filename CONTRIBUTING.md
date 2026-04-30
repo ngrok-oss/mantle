@@ -43,7 +43,7 @@ echo 'mise activate fish | source' >> ~/.config/fish/config.fish
 Without activation, prefix commands with `mise x --`:
 
 ```sh
-mise x -- pnpm -w run start -F www
+mise x -- pnpm --filter www start
 ```
 
 This is also the standard form for CI and other non-interactive environments.
