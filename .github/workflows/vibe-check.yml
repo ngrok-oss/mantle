@@ -61,7 +61,7 @@ jobs:
 
       - name: Install mise 🔧
         run: |
-          curl -fsSL https://mise.run | MISE_VERSION="v2026.4.28" sh
+          ./scripts/install-mise
           echo "${HOME}/.local/bin" >> "${GITHUB_PATH}"
 
       - name: Verify mise.lock is in sync 🔒

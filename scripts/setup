@@ -9,13 +9,9 @@
 
 set -euo pipefail
 
-MISE_VERSION="v2026.4.28"
-
-if ! command -v mise >/dev/null 2>&1; then
-  echo "mantle: installing mise ${MISE_VERSION}…"
-  curl -fsSL https://mise.run | MISE_VERSION="${MISE_VERSION}" sh
-  export PATH="${HOME}/.local/bin:${PATH}"
-fi
+script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+source "${script_dir}/install-mise"
+ensure_pinned_mise
 
 repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "${repo_root}"
@@ -44,15 +40,28 @@ if [ -z "${MISE_SHELL:-}" ] && [ "${CI:-}" != "true" ]; then
         rc="${HOME}/.bashrc"
       fi
       rc_snippet='# '"${MISE_RC_MARKER}"' (added by mantle/scripts/setup)
-if [ -z "${MISE_SHELL:-}" ] && [ -x "$HOME/.local/bin/mise" ]; then
-  eval "$("$HOME/.local/bin/mise" activate '"${shell_name}"')"
+if [ -z "${MISE_SHELL:-}" ]; then
+  if [ -x "$HOME/.local/bin/mise" ] && [ "$("$HOME/.local/bin/mise" --version | awk '"'"'{print $1}'"'"')" = "'"${MISE_EXPECTED_VERSION}"'" ]; then
+    export PATH="$HOME/.local/bin:$PATH"
+  fi
+  if command -v mise >/dev/null 2>&1; then
+    eval "$(mise activate '"${shell_name}"')"
+  fi
 fi'
       ;;
     fish)
       rc="${HOME}/.config/fish/config.fish"
       rc_snippet='# '"${MISE_RC_MARKER}"' (added by mantle/scripts/setup)
-if test -z "$MISE_SHELL"; and test -x "$HOME/.local/bin/mise"
-    "$HOME/.local/bin/mise" activate fish | source
+if test -z "$MISE_SHELL"
+    if test -x "$HOME/.local/bin/mise"
+        set -l local_mise_version ("$HOME/.local/bin/mise" --version | awk '"'"'{print $1}'"'"')
+        if test "$local_mise_version" = "'"${MISE_EXPECTED_VERSION}"'"
+            set -gx PATH "$HOME/.local/bin" $PATH
+        end
+    end
+    if command -v mise >/dev/null 2>&1
+        mise activate fish | source
+    end
 end'
       ;;
   esac
