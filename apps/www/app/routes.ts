@@ -1,8 +1,8 @@
 import { type RouteConfig, index, layout, route } from "@react-router/dev/routes";
 
 // Helper to create markdown-backed routes (handles both /path and /path.md URLs)
-function markdownRoute(path: string, idPrefix: string) {
-	const id = `${idPrefix}-${path.replace(/\//g, "-")}`;
+function markdownRoute(path: string, idPrefix: string, idPath = path) {
+	const id = `${idPrefix}-${idPath.replace(/\//g, "-")}`;
 	return [
 		route(path, "./routes/$.tsx", { id }),
 		route(`${path}.md`, "./routes/$.md.tsx", { id: `${id}-md` }),
@@ -16,7 +16,7 @@ function docRoute(path: string) {
 
 // Helper to create block routes under /blocks (handles both /blocks/path and /blocks/path.md URLs)
 function blockRoute(path: string) {
-	return markdownRoute(`blocks/${path}`, "blocks");
+	return markdownRoute(`blocks/${path}`, "blocks", path);
 }
 
 export default [
