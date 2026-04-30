@@ -19,6 +19,11 @@ export {
 	computeJsonFoldRanges,
 } from "./compute-json-fold-ranges.js";
 
+export {
+	//,
+	finalizeFoldRanges,
+} from "./fold-range-utils.js";
+
 export type {
 	//,
 	FoldableRange,

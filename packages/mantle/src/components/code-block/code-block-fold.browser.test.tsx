@@ -7,6 +7,7 @@ import { CodeBlock } from "./code-block.js";
 import { computeJsonFoldRanges, type FoldableRange } from "./compute-json-fold-ranges.js";
 import { decorateHighlightedHtml } from "./decorate-highlighted-html.js";
 import { createMantleCodeBlockValue } from "./mantle-code.js";
+import type { SupportedLanguage } from "./supported-languages.js";
 
 /** Wraps each line of code in Shiki's `<span class="line">` markup. */
 function shikiLines(code: string): string {
@@ -30,6 +31,31 @@ function makeJsonValue(code: string, foldableRanges?: FoldableRange[]) {
 	});
 	return createMantleCodeBlockValue({
 		language: "json",
+		code,
+		preHtml: html,
+		showLineNumbers: true,
+	});
+}
+
+/**
+ * Builds a `MantleCodeBlockValue` from arbitrary code + caller-supplied
+ * fold ranges. Used by the JSX/HTML/CSS browser tests so they can exercise
+ * the runtime against any fold range layout the AST strategies produce
+ * without taking a build-time dependency on the highlighter package.
+ */
+function makeFoldedValue(
+	language: SupportedLanguage,
+	code: string,
+	foldableRanges: FoldableRange[],
+) {
+	const html = decorateHighlightedHtml({
+		foldableRanges,
+		html: shikiLines(code),
+		lineNumberStart: 1,
+		showLineNumbers: true,
+	});
+	return createMantleCodeBlockValue({
+		language,
 		code,
 		preHtml: html,
 		showLineNumbers: true,
@@ -311,5 +337,56 @@ describe("CodeBlock JSON folding (browser)", () => {
 		await user.click(fakeButton);
 		// No exception, no aria-expanded mutation.
 		expect(fakeButton).not.toHaveAttribute("aria-expanded");
+	});
+});
+
+describe("CodeBlock JSX folding (browser)", () => {
+	const JSX_SOURCE = ["<Outer>", "  <Inner>", "    text", "  </Inner>", "</Outer>"].join("\n");
+
+	const JSX_RANGES: FoldableRange[] = [
+		{ id: "1", startLine: 1, endLine: 5 },
+		{ id: "2", startLine: 2, endLine: 4 },
+	];
+
+	test("clicking a JSX element fold toggle hides nested element children", async () => {
+		const user = userEvent.setup();
+		render(
+			<CodeBlock.Root>
+				<CodeBlock.Body>
+					<CodeBlock.Code value={makeFoldedValue("tsx", JSX_SOURCE, JSX_RANGES)} />
+				</CodeBlock.Body>
+			</CodeBlock.Root>,
+		);
+
+		const innerButton = screen
+			.getAllByRole("button", { name: /toggle code folding/i })
+			.find((button) => button.getAttribute("data-fold-line") === "2");
+		expect(innerButton).toBeDefined();
+		if (innerButton == null) {
+			throw new Error("expected fold toggle for inner JSX element");
+		}
+
+		const innerLine3 = document.querySelector('[data-line-number="3"]');
+		expect(innerLine3).not.toBeNull();
+		expect(innerLine3).not.toHaveAttribute("data-fold-hidden");
+
+		await user.click(innerButton);
+
+		expect(innerButton).toHaveAttribute("aria-expanded", "false");
+		expect(innerLine3).toHaveAttribute("data-fold-hidden", "true");
+	});
+
+	test("a multi-line JSX block exposes one toggle per fold range", () => {
+		render(
+			<CodeBlock.Root>
+				<CodeBlock.Body>
+					<CodeBlock.Code value={makeFoldedValue("tsx", JSX_SOURCE, JSX_RANGES)} />
+				</CodeBlock.Body>
+			</CodeBlock.Root>,
+		);
+
+		const buttons = screen.getAllByRole("button", { name: /toggle code folding/i });
+		// One per JSX fold (outer + inner element).
+		expect(buttons).toHaveLength(2);
 	});
 });

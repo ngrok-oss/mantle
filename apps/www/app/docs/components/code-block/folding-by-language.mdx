@@ -4,10 +4,12 @@ description: One foldable code block per supported language, showing how each fo
 ---
 
 import {
+	FoldingBashDemo,
 	FoldingCSharpDemo,
 	FoldingCssDemo,
 	FoldingGoDemo,
 	FoldingHtmlDemo,
+	FoldingHtmlMultilineTagDemo,
 	FoldingJavaDemo,
 	FoldingJavaScriptDemo,
 	FoldingJsonDemo,
@@ -23,17 +25,21 @@ import {
 
 # Code Block Folding by Language
 
-Mantle picks one of three folding strategies based on the language:
+Mantle dispatches per language to whichever folding strategy best mirrors VS Code's behavior. Most strategies run server- or build-side; only the toggle interaction is in the browser.
 
-- **Bracket-paired** — multi-line `{ … }` and `[ … ]` ranges fold via TextMate-scope-aware token walking. Brackets inside strings, comments, or regular expressions are ignored. Used for `javascript`, `typescript`, `jsx`, `tsx`, `json`, `css`, `go`, `java`, `csharp`, `rust`, `ruby`.
-- **Indentation-based** — blocks are detected by leading whitespace; the opener line stays visible and child lines collapse. Used for `python`, `yaml`.
-- **Tag-based** — multi-line elements fold by matching `<tag>` / `</tag>` pairs. Self-closing tags and HTML void elements don't open folds. Used for `html`, `xml`.
+- **AST-based (JS / TS / JSX / TSX)** — `oxc-parser` walks the AST and emits folds for block statements, object/array literals, JSX elements and fragments, multi-line template literals, and TypeScript-only constructs (interfaces, type literals, enums).
+- **AST-based (HTML / XML)** — `parse5` tokenizes the source with `sourceCodeLocationInfo`, so void elements never open folds and self-closing XML tags are honored. Multi-line opening tags fold their attribute list into the tag name.
+- **Raw-source (CSS / JSON)** — single-pass, parser-quality brace matchers that skip strings, comments, and escapes. Used for `css` and `json`.
+- **Indentation-based (Python / YAML)** — blocks are detected by leading whitespace; the opener line stays visible and child lines collapse.
+- **Bracket-paired (Go / Rust / Java / C#)** — multi-line `{ … }` / `[ … ]` ranges fold via TextMate-scope-aware token walking; brackets inside strings, comments, or regular expressions are ignored.
+- **Keyword-paired (Bash / Shell)** — opener / closer keyword pairs from VS Code's grammars: `if … fi`, `case … esac`, `for|while … do|done`, brace-form function bodies.
+- **Bracket + keyword (Ruby)** — combines bracket-paired folding (block-style `{ … }`, arrays) with Ruby's keyword pairs: `def`, `class`, `module`, `begin`, `do`, `if`, `case`, etc., all closing on `end`.
 
-`bash`, `shell`, and plain text don't fold today — shell languages use keyword pairs (`if … fi`, `do … done`) we don't yet model, and plain text has nothing to fold.
+Plain text (`text`, `txt`, `plain`, `plaintext`) intentionally has no folds.
 
 ← [Back to Code Block](/components/code-block)
 
-## Bracket-paired languages
+## AST-based languages
 
 ### JavaScript
 
@@ -45,11 +51,31 @@ Mantle picks one of three folding strategies based on the language:
 
 ### TSX
 
+JSX elements (`<Foo>…</Foo>`), fragments (`<>…</>`), and multi-line template literals all fold in addition to function bodies and object/array literals.
+
 <FoldingTsxDemo />
 
 ### JSX
 
 <FoldingJsxDemo />
+
+### HTML
+
+<FoldingHtmlDemo />
+
+#### Multi-line opening tag
+
+`parse5` emits `startTag.startLine`/`endLine` for multi-line opening tags, so the attribute list collapses into the tag name (matching VS Code).
+
+<FoldingHtmlMultilineTagDemo />
+
+### XML
+
+XML-mode parsing routes through `parse5`'s SVG fragment context for XML-like (foreign-content) tokenizer rules — so `<empty/>` and `<other />` are correctly self-closing.
+
+<FoldingXmlDemo />
+
+## Raw-source languages
 
 ### JSON
 
@@ -58,6 +84,18 @@ Mantle picks one of three folding strategies based on the language:
 ### CSS
 
 <FoldingCssDemo />
+
+## Indentation-based languages
+
+### Python
+
+<FoldingPythonDemo />
+
+### YAML
+
+<FoldingYamlDemo />
+
+## Bracket-paired languages
 
 ### Go
 
@@ -75,37 +113,24 @@ Mantle picks one of three folding strategies based on the language:
 
 <FoldingRustDemo />
 
+## Keyword-paired languages
+
 ### Ruby
 
-Ruby's bracket folding catches block-style `{ … }` and array literals. Keyword-paired blocks (`do … end`, `def … end`, `class … end`) don't fold yet — see the caveats at the bottom of this page.
+Ruby combines bracket folding (block-style `{ … }`, arrays) with keyword pairs — `def`, `class`, `module`, `begin`, `do`, `if`, `case`, etc., all closing on `end`.
 
 <FoldingRubyDemo />
 
-## Indentation-based languages
+### Bash / Shell
 
-### Python
+`if … fi`, `case … esac`, `for|while|until|select … do … done`, and brace-form function bodies all fold.
 
-<FoldingPythonDemo />
-
-### YAML
-
-<FoldingYamlDemo />
-
-## Tag-based languages
-
-### HTML
-
-<FoldingHtmlDemo />
-
-### XML
-
-<FoldingXmlDemo />
+<FoldingBashDemo />
 
 ## Caveats
 
-- **HTML / XML** — multi-line opening tags (where `<` and `>` sit on different lines) don't fold; the tag scanner is per-line.
-- **Ruby / Bash / Shell** — keyword pairs (`do … end`, `def … end`, `if … fi`, `case … esac`, etc.) aren't modeled, so most idiomatic blocks in these languages don't fold today.
-- **JSX / TSX element pairs** (`<Foo>…</Foo>`) don't fold — the bracket strategy only matches `{}` `[]`. Inline `{…}` JSX expressions and `style={{…}}` braces fold normally.
+- **JSX / TSX self-closing elements** (`<Foo />`) intentionally don't fold even when split across lines for long attribute lists — VS Code matches this behavior.
 - **Bracket strategy ignores `(…)`** — argument lists and tuple literals never fold. Mirrors VS Code's default.
 - **Indentation strategy assumes consistent leading whitespace** within a block. Mixing tabs and spaces inside the same block can produce wrong spans.
 - **Single-line constructs never fold** — a multi-line opener whose closer is on the same line emits no range, and inline objects/arrays in a multi-line parent don't get their own toggle.
+- **CSS folding is brace-only** — `@import url(…)` and other no-body at-rules don't have their own toggle (there's nothing to fold).

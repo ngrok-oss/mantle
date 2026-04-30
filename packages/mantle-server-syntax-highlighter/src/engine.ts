@@ -1,8 +1,6 @@
 import { createHash } from "node:crypto";
 import {
-	computeFoldRanges,
 	decorateHighlightedHtml,
-	foldStrategyFor,
 	inferIndentation,
 	isSupportedLanguage,
 	normalizeIndentation,
@@ -13,6 +11,11 @@ import {
 	type SupportedLanguage,
 } from "@ngrok/mantle/highlight-utils";
 import { createLruCache } from "./lru-cache.js";
+import {
+	computeServerFoldRanges,
+	serverFoldNeedsTokens,
+	serverFoldStrategyFor,
+} from "./server-fold-ranges.js";
 
 /**
  * Shiki grammar IDs preloaded by Mantle's highlighting engine.
@@ -214,16 +217,17 @@ async function highlightWithMantleShiki(
 
 	const promise = (async () => {
 		const highlighter = await getMantleShikiHighlighter();
-		// `includeExplanation` adds per-token scope info that the fold
-		// strategies need to skip strings/comments; skip the cost when the
-		// language has no folding strategy.
-		const wantsFoldRanges = foldStrategyFor(resolvedLanguage) !== "none";
+		// AST and raw-source fold strategies don't need token explanations, so
+		// we skip the `includeExplanation` cost on the JS/TS/HTML/CSS hot path.
+		// Token-based strategies (Python, Ruby, Go, …) still pay for it.
+		const foldStrategy = serverFoldStrategyFor(resolvedLanguage);
+		const wantsTokens = serverFoldNeedsTokens(foldStrategy);
 		let capturedTokens: FoldLine[] | undefined;
 		const fullHtml = highlighter.codeToHtml(normalizedCode, {
 			lang: resolvedLanguage,
 			theme: mantleShikiThemeName,
-			includeExplanation: wantsFoldRanges ? "scopeName" : false,
-			transformers: wantsFoldRanges
+			includeExplanation: wantsTokens ? "scopeName" : false,
+			transformers: wantsTokens
 				? [
 						{
 							name: "mantle:capture-tokens",
@@ -240,9 +244,13 @@ async function highlightWithMantleShiki(
 			throw new Error("Failed to extract highlighted HTML from Shiki output");
 		}
 		const foldableRanges =
-			wantsFoldRanges && capturedTokens != null
-				? computeFoldRanges({ language: resolvedLanguage, tokens: capturedTokens })
-				: undefined;
+			foldStrategy === "none"
+				? undefined
+				: computeServerFoldRanges({
+						code: normalizedCode,
+						language: resolvedLanguage,
+						tokens: capturedTokens,
+					});
 		const html = decorateHighlightedHtml({
 			foldableRanges,
 			highlightLines,

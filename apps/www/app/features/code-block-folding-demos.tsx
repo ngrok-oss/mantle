@@ -71,7 +71,11 @@ export function FoldingTypeScriptDemo() {
 	);
 }
 
-/** TSX fold demo — bracket-paired strategy with JSX expressions. */
+/**
+ * TSX fold demo — AST strategy folds blocks, objects, JSX elements,
+ * multi-line opening tags, and self-closing tags with multi-line attribute
+ * lists.
+ */
 export function FoldingTsxDemo() {
 	return (
 		<CodeBlock.Root>
@@ -92,11 +96,21 @@ export function FoldingTsxDemo() {
 								}, [user.name]);
 
 								return (
-									<article className="profile">
+									<article
+										className="profile"
+										aria-labelledby="profile-name"
+										data-testid="profile-card"
+									>
 										<header>
-											<h1>{user.name}</h1>
+											<h1 id="profile-name">{user.name}</h1>
 											<p>{initials}</p>
 										</header>
+										<Avatar
+											src={user.avatarUrl}
+											alt={\`Avatar for \${user.name}\`}
+											size="lg"
+											fallback={initials}
+										/>
 									</article>
 								);
 							}
@@ -107,7 +121,11 @@ export function FoldingTsxDemo() {
 	);
 }
 
-/** JSX fold demo — bracket-paired strategy. */
+/**
+ * JSX fold demo — AST strategy folds blocks, objects, JSX elements,
+ * multi-line opening tags, and self-closing tags with multi-line attribute
+ * lists.
+ */
 export function FoldingJsxDemo() {
 	return (
 		<CodeBlock.Root>
@@ -121,13 +139,23 @@ export function FoldingJsxDemo() {
 					value={mantleCode("jsx")`
 							export function Card({ title, children }) {
 								return (
-									<section className="card">
+									<section
+										className="card"
+										role="region"
+										aria-label={title}
+									>
 										<header>
 											<h2>{title}</h2>
 										</header>
 										<div className="card-body">
 											{children}
 										</div>
+										<img
+											src="/icons/star.svg"
+											alt=""
+											width={16}
+											height={16}
+										/>
 									</section>
 								);
 							}
@@ -518,7 +546,7 @@ export function FoldingHtmlDemo() {
 	);
 }
 
-/** XML fold demo — tag-based strategy. */
+/** XML fold demo — parse5-based strategy (foreign-content / XML mode). */
 export function FoldingXmlDemo() {
 	return (
 		<CodeBlock.Root>
@@ -544,6 +572,82 @@ export function FoldingXmlDemo() {
 									</dependency>
 								</dependencies>
 							</project>
+						`}
+				/>
+			</CodeBlock.Body>
+		</CodeBlock.Root>
+	);
+}
+
+/**
+ * HTML multi-line opening tag fold demo — exercises parse5's `startTag`
+ * span so the attribute list collapses into the tag name.
+ */
+export function FoldingHtmlMultilineTagDemo() {
+	return (
+		<CodeBlock.Root>
+			<CodeBlock.Header>
+				<CodeBlock.Icon preset="file" />
+				<CodeBlock.Title>form.html</CodeBlock.Title>
+			</CodeBlock.Header>
+			<CodeBlock.Body>
+				<CodeBlock.CopyButton />
+				<CodeBlock.Code
+					value={mantleCode("html")`
+							<form
+								action="/submit"
+								method="post"
+								enctype="multipart/form-data"
+								novalidate
+							>
+								<input
+									type="email"
+									name="email"
+									placeholder="you@example.com"
+									required
+								/>
+								<button type="submit">Send</button>
+							</form>
+						`}
+				/>
+			</CodeBlock.Body>
+		</CodeBlock.Root>
+	);
+}
+
+/** Bash fold demo — keyword strategy folds `if/fi`, `for/done`, brace groups. */
+export function FoldingBashDemo() {
+	return (
+		<CodeBlock.Root>
+			<CodeBlock.Header>
+				<CodeBlock.Icon preset="cli" />
+				<CodeBlock.Title>deploy.sh</CodeBlock.Title>
+			</CodeBlock.Header>
+			<CodeBlock.Body>
+				<CodeBlock.CopyButton />
+				<CodeBlock.Code
+					value={mantleCode("bash")`
+							#!/usr/bin/env bash
+							set -euo pipefail
+
+							deploy() {
+								if [ -z "\${1:-}" ]; then
+									echo "usage: deploy <env>" >&2
+									return 1
+								fi
+								for region in us-east-1 eu-west-1; do
+									echo "deploying to $region in $1"
+								done
+							}
+
+							case "$1" in
+								staging)
+									deploy staging
+									;;
+								prod)
+									deploy prod
+									;;
+							esac
 						`}
 				/>
 			</CodeBlock.Body>
