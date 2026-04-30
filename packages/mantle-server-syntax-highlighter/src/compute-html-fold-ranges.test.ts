@@ -78,6 +78,14 @@ describe("computeHtmlFoldRanges", () => {
 		]);
 	});
 
+	test("emits nested ranges inside template content", () => {
+		const code = ["<template>", "  <div>", "    text", "  </div>", "</template>"].join("\n");
+		expect(computeHtmlFoldRanges({ code, language: "html" })).toEqual([
+			{ id: "1", startLine: 1, endLine: 5 },
+			{ id: "2", startLine: 2, endLine: 4 },
+		]);
+	});
+
 	describe("XML mode", () => {
 		test("folds a multi-line XML element", () => {
 			const code = ["<root>", "  <child>x</child>", "</root>"].join("\n");

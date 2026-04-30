@@ -74,7 +74,7 @@ const RUBY_PATTERN: KeywordPattern = {
  * Bash / Shell keyword folds modeled after VS Code's grammar.
  *
  * - Opener keywords at the start of a line — `if`, `while`, `for`, `case`,
- *   `until`, `select` — that aren't closed on the same line.
+ *   `until`, `select` — that aren't closed by a same-line command marker.
  * - Lines ending with an unmatched `{` (function bodies, brace groups).
  * - Lines ending with `do` (the `for x in y; do` / `while cond; do` form).
  *
@@ -152,16 +152,62 @@ function startsWithAnyWordAfterWhitespace(text: string, words: readonly string[]
 	return false;
 }
 
-/** Returns true when a line contains one of the given keywords. */
-function containsAnyWord(text: string, words: readonly string[]): boolean {
-	for (const word of words) {
-		let index = text.indexOf(word);
-		while (index !== -1) {
-			if (isWordAt(text, index, word)) {
+/**
+ * Returns true when `index` is positioned where the shell can begin another
+ * command word on the same physical line. This intentionally ignores ordinary
+ * arguments and variables like `$done`, so `case $done in` still opens a fold.
+ */
+function isShellCommandBoundary(text: string, index: number): boolean {
+	let cursor = index - 1;
+	while (cursor >= 0 && isWhitespaceChar(text.charCodeAt(cursor))) {
+		cursor -= 1;
+	}
+	if (cursor < 0) {
+		return true;
+	}
+	const previous = text.charCodeAt(cursor);
+	return previous === 38 || previous === 40 || previous === 59 || previous === 124;
+}
+
+/**
+ * Returns true when a Bash closer appears as a same-line command marker, e.g.
+ * `if ok; then echo hi; fi`. A single linear scan is cheaper than running one
+ * regex per marker and keeps shell variables / arguments named `done`, `fi`,
+ * or `esac` from suppressing valid opener folds.
+ */
+function hasShellSameLineEndKeyword(text: string): boolean {
+	for (let index = 0; index < text.length; index += 1) {
+		const character = text.charCodeAt(index);
+		if (!isWordChar(character)) {
+			continue;
+		}
+		for (const word of BASH_END_KEYWORDS) {
+			if (isWordAt(text, index, word) && isShellCommandBoundary(text, index)) {
 				return true;
 			}
-			index = text.indexOf(word, index + word.length);
 		}
+		while (index + 1 < text.length && isWordChar(text.charCodeAt(index + 1))) {
+			index += 1;
+		}
+	}
+	return false;
+}
+
+/**
+ * Returns true when a line starts with a shell closer command. `done)` and
+ * similar case labels are deliberately excluded; `)` is not a command
+ * separator, so those labels should not pop the fold stack.
+ */
+function startsWithShellEndKeyword(text: string): boolean {
+	const index = firstNonWhitespaceIndex(text);
+	for (const word of BASH_END_KEYWORDS) {
+		if (!isWordAt(text, index, word)) {
+			continue;
+		}
+		const next = text.charCodeAt(index + word.length);
+		return (
+			Number.isNaN(next) || isWhitespaceChar(next) || next === 38 || next === 59 || next === 124
+		);
 	}
 	return false;
 }
@@ -207,7 +253,7 @@ function endsWithOpenBrace(visible: string): boolean {
 function bashStartsFold(visible: string): boolean {
 	if (
 		startsWithAnyWordAfterWhitespace(visible, BASH_START_KEYWORDS) &&
-		!containsAnyWord(visible, BASH_END_KEYWORDS)
+		!hasShellSameLineEndKeyword(visible)
 	) {
 		return true;
 	}
@@ -217,10 +263,7 @@ function bashStartsFold(visible: string): boolean {
 /** Returns true when a Bash/Shell line closes a keyword-paired block. */
 function bashEndsFold(visible: string): boolean {
 	const firstContent = firstNonWhitespaceIndex(visible);
-	return (
-		visible.charCodeAt(firstContent) === 125 ||
-		startsWithAnyWordAfterWhitespace(visible, BASH_END_KEYWORDS)
-	);
+	return visible.charCodeAt(firstContent) === 125 || startsWithShellEndKeyword(visible);
 }
 
 /** Resolves the keyword pattern for a given language. */

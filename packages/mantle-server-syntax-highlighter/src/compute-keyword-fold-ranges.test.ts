@@ -142,6 +142,24 @@ describe("computeKeywordFoldRanges (bash)", () => {
 		]);
 	});
 
+	test("does not treat end keywords in shell arguments as same-line closers", () => {
+		const tokens: FoldLine[] = [
+			line(["case $done in"]),
+			line(["  done) echo yes ;;"]),
+			line(["esac"]),
+		];
+		expect(computeKeywordFoldRanges({ language: "bash", tokens })).toEqual([
+			{ id: "1", startLine: 1, endLine: 3 },
+		]);
+	});
+
+	test("does not treat end keywords in shell command arguments as same-line closers", () => {
+		const tokens: FoldLine[] = [line(["if echo done; then"]), line(["  echo yes"]), line(["fi"])];
+		expect(computeKeywordFoldRanges({ language: "bash", tokens })).toEqual([
+			{ id: "1", startLine: 1, endLine: 3 },
+		]);
+	});
+
 	test("folds a function with `function` keyword", () => {
 		const tokens: FoldLine[] = [line(["function foo() {"]), line(["  echo hi"]), line(["}"])];
 		expect(computeKeywordFoldRanges({ language: "bash", tokens })).toEqual([

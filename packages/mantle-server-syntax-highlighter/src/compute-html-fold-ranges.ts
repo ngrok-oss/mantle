@@ -13,6 +13,8 @@ import type { DefaultTreeAdapterMap } from "parse5";
  *   attribute list collapses).
  * - Correct void-element handling — parse5 already knows that `<br>`, `<img>`,
  *   etc. don't open folds.
+ * - Template content traversal — parse5 stores `<template>` descendants on a
+ *   separate `content` fragment, not on `childNodes`.
  * - String/comment scope filtering — angle brackets in `<!-- … -->` or
  *   inside `"…"` attribute values aren't mistaken for tag openings.
  *
@@ -92,15 +94,31 @@ function collectRanges(root: Node, ranges: FoldableRange[]): void {
 		if (isElement(node)) {
 			pushRangesForElement(node, ranges);
 		}
-		// Only ParentNodes (Document, DocumentFragment, Element, Template) carry
-		// childNodes; everything else (Text, Comment) hits the early continue.
-		if ("childNodes" in node && Array.isArray(node.childNodes)) {
-			for (let index = node.childNodes.length - 1; index >= 0; index -= 1) {
-				const child = node.childNodes[index];
-				if (child != null) {
-					stack.push(child);
-				}
-			}
+		pushChildNodes(node, stack);
+
+		// parse5 models `<template>` descendants inside `node.content`, a
+		// DocumentFragment, while `node.childNodes` stays empty. Include that
+		// fragment so nested HTML in templates gets the same folds as normal
+		// element children without recursing or re-walking the tree.
+		if ("content" in node && typeof node.content === "object" && node.content != null) {
+			pushChildNodes(node.content, stack);
+		}
+	}
+}
+
+/** Pushes parse5 child nodes onto the DFS stack in source order. */
+function pushChildNodes(parent: unknown, stack: Node[]): void {
+	if (typeof parent !== "object" || parent == null || !("childNodes" in parent)) {
+		return;
+	}
+	const childNodes = parent.childNodes;
+	if (!Array.isArray(childNodes)) {
+		return;
+	}
+	for (let index = childNodes.length - 1; index >= 0; index -= 1) {
+		const child = childNodes[index];
+		if (child != null) {
+			stack.push(child as Node);
 		}
 	}
 }
