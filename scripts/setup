@@ -1,0 +1,87 @@
+#!/usr/bin/env bash
+# Bootstrap the Mantle development environment.
+#
+# Installs a pinned mise (if missing), trusts the repo config, installs the
+# tools listed in mise.toml / .nvmrc / package.json#packageManager, and runs
+# the `setup` mise task (which installs workspace dependencies).
+#
+# Idempotent: safe to run repeatedly.
+
+set -euo pipefail
+
+MISE_VERSION="v2026.4.28"
+
+if ! command -v mise >/dev/null 2>&1; then
+  echo "mantle: installing mise ${MISE_VERSION}…"
+  curl -fsSL https://mise.run | MISE_VERSION="${MISE_VERSION}" sh
+  export PATH="${HOME}/.local/bin:${PATH}"
+fi
+
+repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "${repo_root}"
+
+mise trust ./mise.toml
+mise install
+mise run setup
+
+# If the user's shell isn't already activated for mise, append the activation
+# snippet to their shell rc so a new terminal in this repo "just works" — tools
+# and [env] vars load automatically on cd. mise sets MISE_SHELL when activated;
+# we also skip in CI (no interactive shell) and on unknown shells (print
+# manual instructions instead). The append is idempotent (grep-checked) and
+# loudly announced so the user knows we touched a file outside the repo.
+if [ -z "${MISE_SHELL:-}" ] && [ "${CI:-}" != "true" ]; then
+  shell_name="$(basename "${SHELL:-}")"
+  case "${shell_name}" in
+    zsh)
+      rc="${HOME}/.zshrc"
+      activate_line='eval "$(mise activate zsh)"'
+      ;;
+    bash)
+      rc="${HOME}/.bashrc"
+      activate_line='eval "$(mise activate bash)"'
+      ;;
+    fish)
+      rc="${HOME}/.config/fish/config.fish"
+      activate_line='mise activate fish | source'
+      ;;
+    *)
+      rc=""
+      ;;
+  esac
+
+  echo ""
+  echo "mantle: setup complete."
+
+  if [ -n "${rc}" ]; then
+    mkdir -p "$(dirname "${rc}")"
+    if [ ! -f "${rc}" ] || ! grep -qF "mise activate ${shell_name}" "${rc}"; then
+      {
+        echo ""
+        echo "# Added by mantle/scripts/setup — auto-loads mise-managed tools and env vars on cd"
+        echo "${activate_line}"
+      } >> "${rc}"
+      echo "mantle: added mise activation to ${rc}"
+      echo "        open a new terminal (or run: source ${rc}) and pnpm/node will be on PATH."
+    else
+      echo "mantle: mise activation already present in ${rc}."
+      echo "        open a new terminal if it's not yet active in this one."
+    fi
+  else
+    cat <<'EOF'
+
+Could not auto-detect your shell from \$SHELL. Add the appropriate line manually
+so tools and env vars apply automatically on cd:
+
+  zsh:  echo 'eval "$(mise activate zsh)"'  >> ~/.zshrc
+  bash: echo 'eval "$(mise activate bash)"' >> ~/.bashrc
+  fish: echo 'mise activate fish | source'  >> ~/.config/fish/config.fish
+
+Without activation, prefix commands with 'mise x --' (e.g.
+'mise x -- pnpm -w run start').
+EOF
+  fi
+else
+  echo ""
+  echo "mantle: setup complete."
+fi

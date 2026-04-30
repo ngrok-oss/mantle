@@ -2,6 +2,12 @@
 
 ngrok's UI library and design system built with React, TypeScript, Radix, and Tailwind CSS. This is a monorepo managed with pnpm workspaces and Turborepo.
 
+## Setup
+
+From a fresh clone, run `./scripts/setup`. It installs [mise](https://mise.jdx.dev/) (if missing), provisions Node and pnpm at the versions pinned in `.nvmrc` and `package.json#packageManager`, and runs `pnpm install --frozen-lockfile`.
+
+For non-interactive environments without shell activation, prefix workspace commands with `mise x --` (e.g., `mise x -- pnpm -w run build`). Run `mise run doctor` to verify the active toolchain matches committed pins.
+
 ## Code Style & Conventions
 
 @./CONVENTIONS.md
@@ -69,8 +75,7 @@ Before finishing work, run all of these from the workspace root and ensure they 
 - **Build failures**: Run `pnpm run clean` then `pnpm run build`
 - **Type errors**: Ensure all packages are built before typechecking
 - **Hot reload issues**: Restart dev server or clear `.react-router/` cache
-- **Node version**: Use Node 24+ (check with `node --version`)
-- **pnpm issues**: Use pnpm 10.13.1+ (`corepack enable pnpm && corepack install`)
+- **Toolchain drift**: Run `mise run doctor` to verify Node and pnpm match committed pins. Re-run `./scripts/setup` if they don't.
 
 ## Publishing Changes
 

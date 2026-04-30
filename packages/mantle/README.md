@@ -72,39 +72,6 @@ const result = await highlighter.highlight({
 });
 ```
 
-## Scaffolding a New Component
-
-If you're contributing a new mantle component and use [Claude Code](https://claude.com/claude-code), run the `/scaffold-component` slash command to scaffold one end-to-end (component files, package.json export, docs page, route, navigation entry, and changeset):
-
-```
-/scaffold-component <component-name>
-```
-
-See [`.claude/commands/scaffold-component.md`](https://github.com/ngrok-oss/mantle/blob/main/.claude/commands/scaffold-component.md) for the full step-by-step reference — it's also useful if you'd rather scaffold by hand.
-
-To validate that an existing component's docs, JSDoc, and scaffold wiring match the conventions (and auto-fix common drift), run `/audit-component`:
-
-```
-/audit-component <component-name>
-```
-
-Omit the name (or pass `all`) to sweep every component. See [`.claude/commands/audit-component.md`](https://github.com/ngrok-oss/mantle/blob/main/.claude/commands/audit-component.md) for the full checklist.
-
-## Git Hooks
-
-Pre-commit hooks run automatically via [husky](https://typicode.github.io/husky/) and [lint-staged](https://github.com/lint-staged/lint-staged). On every commit, staged files are formatted with oxfmt and linted with oxlint.
-
-### Opting Out
-
-If you need to skip the pre-commit hook locally (e.g., WIP commits, rebasing), set the `SKIP_HOOKS` env var:
-
-```bash
-SKIP_HOOKS=1 git commit -m "wip"
-```
-
-> [!NOTE]
-> This is a **local opt-out only**. CI will always run formatting and linting checks against your branch, so any issues will still be caught before merge.
-
 ## Related Packages
 
 | Package                                   | Description                                                                            | Links                                                                                                                                                                            |

@@ -1,0 +1,57 @@
+[settings]
+# Commit mise.lock so the toolchain is reproducible across machines.
+lockfile = true
+# Require every tool to have a pre-resolved URL+checksum in mise.lock for the
+# current platform. Bumping a tool version requires `mise lock` to refresh the
+# lockfile entries — see CONTRIBUTING.md.
+locked = true
+# Read Node from .nvmrc and pnpm from package.json#packageManager.
+# These remain the canonical version sources; mise.toml does not duplicate them.
+idiomatic_version_file_enable_tools = ["node", "pnpm"]
+
+[env]
+# Make node_modules/.bin available to `mise x --` and to shells that activate mise.
+_.path = ["{{config_root}}/node_modules/.bin"]
+DO_NOT_TRACK = "1"
+TURBO_TELEMETRY_DISABLED = "1"
+VERCEL_TELEMETRY_DISABLED = "1"
+TURBO_TEAM = "ngrok-frontend"
+# Local runs read-only; CI is the sole writer to ensure cache correctness and reproducibility.
+TURBO_CACHE = "remote:r"
+
+[tasks.install]
+description = "Install workspace dependencies using the committed lockfile"
+run = "pnpm install --frozen-lockfile"
+
+[tasks.setup]
+description = "Prepare the repository after a fresh clone"
+depends = ["install"]
+
+# Catches drift between the committed pins (.nvmrc, package.json#packageManager)
+# and the active Node/pnpm on PATH. Run after switching branches, after manual
+# tool installs, or in CI to confirm the toolchain is what's expected before
+# running builds. Reports only — does not install or repair.
+[tasks.doctor]
+description = "Verify active Node and pnpm match committed pins"
+run = '''
+set -euo pipefail
+
+# Compare active Node to .nvmrc (strip leading "v" so formats match).
+expected_node=$(tr -d '[:space:]' < .nvmrc)
+actual_node=$(node --version)
+actual_node="${actual_node#v}"
+if [ "$actual_node" != "$expected_node" ]; then
+  echo "node version mismatch: active=$actual_node, expected=$expected_node (.nvmrc)" >&2
+  exit 1
+fi
+
+# Compare active pnpm to package.json#packageManager (parse JSON via Node).
+expected_pnpm=$(node -p "require('./package.json').packageManager.split('@')[1]")
+actual_pnpm=$(pnpm --version)
+if [ "$actual_pnpm" != "$expected_pnpm" ]; then
+  echo "pnpm version mismatch: active=$actual_pnpm, expected=$expected_pnpm (package.json#packageManager)" >&2
+  exit 1
+fi
+
+echo "OK: node $actual_node, pnpm $actual_pnpm"
+'''
