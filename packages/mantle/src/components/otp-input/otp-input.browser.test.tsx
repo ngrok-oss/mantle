@@ -14,6 +14,7 @@ import { OtpInput, REGEXP_ONLY_DIGITS } from "./otp-input.js";
 // type is a discriminated union (render | children) which doesn't compose
 // cleanly with `Partial<>`. The runtime contract is the same.
 type RenderOtpProps = {
+	"aria-invalid"?: boolean | "true" | "false" | "grammar" | "spelling";
 	maxLength?: number;
 	disabled?: boolean;
 	pattern?: string;
@@ -334,6 +335,14 @@ describe("OtpInput (browser)", () => {
 			const bridge = document.querySelector("[data-otp-state]");
 			expect(bridge).toHaveAttribute("data-validation", "warning");
 			expect(input).not.toHaveAttribute("aria-invalid");
+		});
+
+		test("aria-invalid='true' forces data-validation=error with non-error validation", () => {
+			const { input } = renderOtp({ "aria-invalid": "true", validation: "success" });
+
+			const bridge = document.querySelector("[data-otp-state]");
+			expect(bridge).toHaveAttribute("data-validation", "error");
+			expect(input).toHaveAttribute("aria-invalid", "true");
 		});
 
 		test("validation as a function is resolved and applied", () => {

@@ -128,8 +128,8 @@ type OtpInputRootProps = Omit<ComponentProps<typeof OTPInput>, "render" | "child
  *
  * Wraps the `input-otp` library by Guilherme Rodz.
  *
- * Pass `validation="error"` (or `"success"` / `"warning"`) to recolor every
- * slot's borders and the active focus ring with the matching validation hue.
+ * Pass `validation="error"` (or `"success"` / `"warning"`) to recolor each
+ * group's outer borders and the active focus ring with the matching validation hue.
  * `validation="error"` also sets `aria-invalid` on the underlying input so
  * assistive tech announces the failure state.
  *
@@ -167,8 +167,10 @@ const Root = forwardRef<ComponentRef<typeof OTPInput>, OtpInputRootProps>(
 		},
 		ref,
 	) => {
-		const validation =
-			(typeof _validation === "function" ? _validation() : _validation) || undefined;
+		const isInvalid = ariaInvalid != null && ariaInvalid !== "false";
+		const validation = isInvalid
+			? "error"
+			: (typeof _validation === "function" ? _validation() : _validation) || undefined;
 		const resolvedAriaInvalid = ariaInvalid ?? (validation === "error" || undefined);
 
 		return (
