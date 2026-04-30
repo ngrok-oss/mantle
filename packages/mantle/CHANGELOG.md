@@ -1,5 +1,61 @@
 # @ngrok/mantle
 
+## 0.72.0
+
+### Minor Changes
+
+- [#1174](https://github.com/ngrok-oss/mantle/pull/1174) [`51a0864`](https://github.com/ngrok-oss/mantle/commit/51a086436804f6c4f576b9021e0e3ab7699e8907) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Extend code-block folding toward VS Code parity by switching the JS/TS/JSX/TSX, HTML, XML, and CSS strategies to AST / parser-quality matchers, and adding keyword-pair folding for Bash / Shell / Ruby. The runtime click handler is unchanged — all heavier work runs server- or build-side inside `@ngrok/mantle-server-syntax-highlighter`.
+
+  What now folds (per language):
+  - **JS / TS / JSX / TSX** (`oxc-parser`) — block statements, object/array literals, class/interface/type-literal/enum bodies, switch statements, multi-line template literals (including tagged), JSX elements (`<Foo>…</Foo>`), JSX fragments (`<>…</>`), member-expression element names (`<obj.Foo>`), and multi-line self-closing opening tags / attribute lists. Single-line self-closing JSX tags still don't get a toggle.
+  - **HTML / XML** (`parse5` with `sourceCodeLocationInfo`) — multi-line elements (`<div>…</div>`), nested element folds, multi-line opening tags (the attribute list collapses into the tag name), and full HTML documents with explicit `<html>`/`<head>`/`<body>`. XML routes through parse5's SVG fragment context for foreign-content (XML-like) tokenizer rules so `<empty/>` is correctly self-closing.
+  - **CSS** — single-pass CSS-aware brace matcher (skips `/* … */` comments, `"…"` and `'…'` strings, and backslash escapes) replacing the previous token-based bracket walk.
+  - **Bash / Shell** — keyword pairs from VS Code's `shellscript` grammar: `if … fi`, `case … esac`, `for|while|until|select … do … done`, brace-form function bodies. Folds the leading-`}` brace-group close while ignoring `${VAR}` parameter expansions (which never lead a line).
+  - **Ruby** — combines the bracket pass with keyword pairs from VS Code's `ruby` grammar: `def`, `class`, `module`, `begin`, `if`, `unless`, `while`, `until`, `for`, `case`, and `do |args|` blocks, all closing on `end`. Mid-block keywords (`else`, `rescue`, `when`) deliberately don't pop, so `begin … rescue … end` is a single fold.
+
+  New exports on `@ngrok/mantle-server-syntax-highlighter`:
+  - `computeServerFoldRanges({ code, language, tokens })` — main dispatcher, called by `highlightWithMantleShiki`.
+  - `serverFoldStrategyFor(language)` / `serverFoldNeedsTokens(strategy)` — let callers control whether to capture Shiki's `includeExplanation: 'scopeName'` tokens.
+  - `computeJsxFoldRanges`, `computeHtmlFoldRanges`, `computeCssFoldRanges`, `computeKeywordFoldRanges` — per-strategy computers, individually testable.
+
+  `@ngrok/mantle/highlight-utils` and `@ngrok/mantle/code-block` now also re-export `finalizeFoldRanges` so consumers building custom strategies can reuse the dedup pass.
+
+  Skipping `includeExplanation` on the AST and raw-source paths (JS/TS/HTML/CSS/JSON) keeps the highlight pipeline cheaper than the previous token-only approach for those languages.
+
+- [#1174](https://github.com/ngrok-oss/mantle/pull/1174) [`51a0864`](https://github.com/ngrok-oss/mantle/commit/51a086436804f6c4f576b9021e0e3ab7699e8907) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Extend fold gutters to every supported language, not just JSON. Each language uses the folding model that fits its grammar:
+  - **AST-based** (`javascript`, `typescript`, `jsx`, `tsx`) — `oxc-parser` emits folds for blocks, object/array literals, JSX elements/fragments, multi-line template literals, and TypeScript-only bodies.
+  - **Raw-source** (`json`, `css`) — single-pass matchers fold braces/brackets while skipping strings, comments, and escapes without requiring Shiki scope explanations.
+  - **Bracket-paired** (`go`, `java`, `csharp`, `rust`) — multi-line `{ … }` and `[ … ]` ranges fold via TextMate-scope-aware token walking.
+  - **Indentation-based** (`python`, `yaml`) — blocks are detected by leading whitespace; the opener (e.g. `def`, `class`, a YAML key) stays visible and child lines collapse.
+  - **AST-based** (`html`, `xml`) — `parse5` source locations fold multi-line elements and opening tags while honoring self-closing XML tags and HTML void elements.
+  - **Keyword-paired** (`bash`, `shell`, `sh`) — shell blocks fold from VS Code-style keyword pairs (`if … fi`, `case … esac`, `do … done`) plus brace-form function bodies.
+  - **Bracket + keyword** (`ruby`) — Ruby combines brace/array folds with keyword blocks such as `def`, `class`, `module`, `begin`, `do`, `if`, and `case`, all closing on `end`.
+  - **No folding** (plain text) — text-like languages have no block model to fold.
+
+  New helper exports from `@ngrok/mantle/code-block` and `@ngrok/mantle/highlight-utils`:
+  - `computeFoldRanges({ language, tokens })` — generic fold-range computer that dispatches to the right strategy. Consumes Shiki tokens with `includeExplanation: 'scopeName'`.
+  - `foldStrategyFor(language)` — returns `'bracket' | 'indentation' | 'tag' | 'none'` for a supported language.
+  - Types: `ComputeFoldRangesInput`, `FoldStrategy`, `FoldLine`, `FoldToken`, `FoldExplanation`, `FoldScope`.
+
+  `computeFoldRanges` is a low-level token helper for custom integrations; the Vite plugin, MDX code fences, and server highlighter use the richer `@ngrok/mantle-server-syntax-highlighter` dispatcher for AST, raw-source, and keyword folding.
+
+  The existing `computeJsonFoldRanges` continues to work for callers that already use it on raw JSON source.
+
+  Also fixes a latent bug where toggling `CodeBlock.ExpanderButton` would replace the highlighted `<code>`'s child DOM (because `dangerouslySetInnerHTML` received a fresh `{ __html }` object on every parent re-render). The replacement was invisible for plain code blocks but silently broke fold toggles, since the runtime's per-`<code>` geometry cache then pointed at detached line elements. The prop is now memoized so child DOM identity survives unrelated re-renders, and the fold runtime additionally validates that cached lines are still connected before reusing them.
+
+### Patch Changes
+
+- [#1174](https://github.com/ngrok-oss/mantle/pull/1174) [`51a0864`](https://github.com/ngrok-oss/mantle/commit/51a086436804f6c4f576b9021e0e3ab7699e8907) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add VS Code-style fold gutters to JSON code blocks. Every multi-line `{ … }` or `[ … ]` now renders a semantic `<button>` toggle in the gutter; clicking (or focusing and pressing `Enter` / `Space`) hides the inner content while keeping the opener and closer lines visible, with a `⋯` placeholder marking the collapsed region.
+  - Fold ranges are computed at build time, so there is zero highlighting cost in the browser.
+  - All toggle interaction runs through a single delegated click handler per `<pre>` — no per-line listeners and no React re-renders. This keeps fold/unfold cheap even on JSON blobs with thousands of lines.
+  - New helper exports from `@ngrok/mantle/code-block` and `@ngrok/mantle/highlight-utils`: `computeJsonFoldRanges(code)` and the `FoldableRange` type.
+  - `decorateHighlightedHtml` accepts a new optional `foldableRanges` input. When omitted, the decorator behaves exactly as before — no fold gutter is rendered.
+  - Server-highlighted code blocks can provide fold ranges for every supported language with a folding strategy; raw JSON callers can continue using `computeJsonFoldRanges(code)` directly.
+
+- [#1176](https://github.com/ngrok-oss/mantle/pull/1176) [`5174b31`](https://github.com/ngrok-oss/mantle/commit/5174b313d128c1db89f93cf5d45601ba48d834e0) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - `OtpInput.Root` now accepts a `validation` prop (`"error" | "success" | "warning" | false`, or a function returning one). When set, each group's outer borders and the active focus ring are recolored with the matching validation hue, mirroring the styling contract of `Input`. `validation="error"` additionally sets `aria-invalid` on the underlying input so assistive tech announces the failure state.
+
+  Internal: `ProgressDonut` now uses the `$cssProperties` helper for inline CSS-variable styles instead of an `as CSSProperties` cast — no behavior change.
+
 ## 0.71.1
 
 ### Patch Changes
