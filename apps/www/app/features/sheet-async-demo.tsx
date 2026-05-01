@@ -7,8 +7,13 @@ import { Sheet } from "@ngrok/mantle/sheet";
 import { Skeleton } from "@ngrok/mantle/skeleton";
 import { MagnifyingGlassIcon } from "@phosphor-icons/react/MagnifyingGlass";
 import { SmileyMeltingIcon } from "@phosphor-icons/react/SmileyMelting";
-import { useQuery, useQueryClient, type UseQueryResult } from "@tanstack/react-query";
-import { type ReactNode, useState } from "react";
+import {
+	useQuery,
+	useQueryClient,
+	type QueryClient,
+	type UseQueryResult,
+} from "@tanstack/react-query";
+import { type ReactNode, useEffect, useState } from "react";
 
 const SIMULATED_USER_API_LATENCY_MS = 1_500;
 const SERVER_ERROR_RETRY_LIMIT = 2;
@@ -486,48 +491,117 @@ function userIdForScenario(scenario: UserSheetScenario): string {
 	return "user_01J8Q7Z5K2";
 }
 
+/** Query key for the success scenario, used to observe and clear just the happy-path cache entry. */
+const HAPPY_PATH_QUERY_KEY = [...USER_QUERY_KEY_ROOT, userIdForScenario("success"), "success"];
+
+/** Tracks whether the happy-path query has a successful response in the cache. The 404 and 500 scenarios throw, so they never reach a successful cache state. */
+function useIsHappyPathCached(): boolean {
+	const queryClient = useQueryClient();
+	const [isCached, setIsCached] = useState(() => readIsHappyPathCached(queryClient));
+
+	useEffect(() => {
+		const cache = queryClient.getQueryCache();
+		const unsubscribe = cache.subscribe((event) => {
+			// Ignore cache events that don't touch the happy-path query so other consumers of the
+			// QueryClient don't trigger a recompute on every cache mutation.
+			if (!isHappyPathCacheEvent(event)) {
+				return;
+			}
+			const next = readIsHappyPathCached(queryClient);
+			setIsCached((prev) => (prev === next ? prev : next));
+		});
+		return unsubscribe;
+	}, [queryClient]);
+
+	return isCached;
+}
+
+/** Returns true when the happy-path query has a successful response in the cache. */
+function readIsHappyPathCached(queryClient: QueryClient): boolean {
+	const query = queryClient.getQueryCache().find({ queryKey: HAPPY_PATH_QUERY_KEY, exact: true });
+	return query?.state.status === "success";
+}
+
+/** True when a query-cache event refers to the happy-path query key. */
+function isHappyPathCacheEvent(event: { query: { queryKey: readonly unknown[] } }): boolean {
+	const queryKey = event.query.queryKey;
+	if (queryKey.length !== HAPPY_PATH_QUERY_KEY.length) {
+		return false;
+	}
+	return queryKey.every((part, index) => part === HAPPY_PATH_QUERY_KEY[index]);
+}
+
+/** Builds the cache-state caption shown beneath the demo controls. */
+function describeCacheState(isCached: boolean): string {
+	if (isCached) {
+		return `Happy path is cached. Reopening it now skips the pending state and renders the result immediately. Click "Clear cache" to reset.`;
+	}
+	return "No successful response is cached. Clicking happy path will fetch from scratch and show pending; closing the sheet keeps the result so reopening skips pending. The 404 and 500 scenarios throw, so reopening them always re-fetches.";
+}
+
 /** Opens the three async sheet states from parent-owned selection state. */
 export function UserSheetDemo() {
 	const [selection, setSelection] = useState<SelectedUserSheet | null>(null);
 	const queryClient = useQueryClient();
+	const isHappyPathCached = useIsHappyPathCached();
 
 	/** Opens a fresh sheet for the selected demo case. */
 	const openSheet = (scenario: UserSheetScenario) => {
 		setSelection({ scenario, userId: userIdForScenario(scenario) });
 	};
 
-	/** Closes the sheet and clears demo cache so each button shows the pending state. */
+	/** Dismisses the sheet without clearing the cache so reopening can demonstrate skip-pending. */
 	const closeSheet = () => {
 		setSelection(null);
+	};
+
+	/** Removes every cached sheet-async response so the next click shows the pending state again. */
+	const clearCache = () => {
 		queryClient.removeQueries({ queryKey: USER_QUERY_KEY_ROOT });
 	};
 
 	return (
-		<div className="flex flex-wrap items-center gap-2">
-			<Button
-				type="button"
-				appearance="filled"
-				priority="neutral"
-				onClick={() => openSheet("success")}
-			>
-				Happy path
-			</Button>
-			<Button
-				type="button"
-				appearance="outlined"
-				priority="neutral"
-				onClick={() => openSheet("not-found")}
-			>
-				404 error
-			</Button>
-			<Button
-				type="button"
-				appearance="filled"
-				priority="danger"
-				onClick={() => openSheet("server-error")}
-			>
-				500 error
-			</Button>
+		<div className="flex flex-col gap-3">
+			<div className="flex flex-wrap items-center gap-2">
+				<Button
+					type="button"
+					appearance="filled"
+					priority="neutral"
+					onClick={() => openSheet("success")}
+				>
+					Happy path
+				</Button>
+				<Button
+					type="button"
+					appearance="outlined"
+					priority="neutral"
+					onClick={() => openSheet("not-found")}
+				>
+					404 error
+				</Button>
+				<Button
+					type="button"
+					appearance="filled"
+					priority="danger"
+					onClick={() => openSheet("server-error")}
+				>
+					500 error
+				</Button>
+			</div>
+			<div className="flex flex-wrap items-center gap-2">
+				<Button
+					type="button"
+					appearance="ghost"
+					priority="neutral"
+					onClick={clearCache}
+					disabled={!isHappyPathCached}
+				>
+					Clear cache
+				</Button>
+			</div>
+			<p className="text-sm text-muted" aria-live="polite">
+				{describeCacheState(isHappyPathCached)}
+			</p>
 			{selection && (
 				<UserSheet userId={selection.userId} scenario={selection.scenario} onClose={closeSheet} />
 			)}
