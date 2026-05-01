@@ -8,11 +8,18 @@ import { UserSheetDemo } from "~/features/sheet-async-demo";
 
 # Sheet + Async Data (React Query)
 
-Use this pattern when opening a [`Sheet`](/components/sheet) is navigating into more context, but the body needs remote data before it can render. The shell opens immediately, the body starts in a skeleton state, and TanStack Query replaces that body with either loaded content or an inline error after retries finish.
+Opening a [`Sheet`](/components/sheet) is a navigation — the user has already committed to seeing more context by clicking the trigger. When the body needs remote data, fetching before opening turns a 404 or 500 into a silent drop back to the parent view, and a spinner on the trigger leaves the click feeling unregistered. This recipe mounts the shell immediately and resolves data inside it, so every click produces forward motion and every error stays in the place the user navigated to.
 
 <Example className="rounded-b-lg border-b">
 	<UserSheetDemo />
 </Example>
+
+## Why open the sheet first?
+
+- **The open should feel instant, especially on slow networks.** The user already committed to the navigation by clicking the trigger. Waiting for the request to resolve before opening means dead air at the parent view, and the wait scales with request latency — long-running endpoints or slow connections turn into seconds where users can't tell whether the click registered. Mounting the shell immediately decouples click feedback from request time.
+- **No flashing across the open → load → close → reopen cycle.** Within a single open, only `Sheet.Body` branches between pending, success, and error, so header, close, and footer stay mounted and layout shift is contained to one region. Across opens, TanStack Query's cache lets a re-trigger after a successful fetch skip the pending state entirely — fetch-then-open does the opposite, re-running the request on every trigger and flashing the chrome in only after each fetch resolves.
+- **Errors stay where the user intended to be.** An inline error inside the sheet preserves the navigation and keeps recovery actions in reach. Closing on error forces a re-trigger and re-orientation from the parent view.
+- **Retry is a product decision, not a default.** Transient `500` responses are worth another attempt; a definitive `404` is not. The query hook owns that policy so the view stays free of conditional retry logic and the intent stays reviewable in one place.
 
 ## What this covers
 
@@ -23,14 +30,6 @@ Use this pattern when opening a [`Sheet`](/components/sheet) is navigating into 
 | 500 error  | Waits 1.5 seconds per request, retries twice, then renders a service empty state. |
 
 The route is also available as plain markdown at [`/blocks/sheet-async.md`](/blocks/sheet-async.md), so humans and LLM tools can fetch the same recipe without scraping the rendered page.
-
-## Principles
-
-1. **Open first, fetch inside.** Mount `Sheet.Root` as soon as the trigger fires. Do not wait for data before rendering the overlay.
-2. **Keep the chrome stable.** Header, close button, and footer stay mounted while only `Sheet.Body` branches on `query.isPending`, `query.isError`, and `query.isSuccess`.
-3. **Use a real query hook.** Keep fetching, retry, stale-time, and cancellation behavior in `useUserQuery`, not scattered across the view.
-4. **Retry transient failures only.** The example retries `500` responses, but not `404` responses because a completed not-found response is usually terminal.
-5. **Keep recovery in place when recovery is real.** The `500` state includes a retry button; the `404` state does not because retrying the same missing id is not useful.
 
 ## Anatomy
 
@@ -43,6 +42,16 @@ Parent selection state
             ├── Sheet.Body          pending | success | error
             └── Sheet.Footer        stable; disable actions until success
 ```
+
+## Implementation
+
+The "Why" section above is the user-perceived case for the pattern. These rules are how to wire it up so the code stays consistent with that intent.
+
+1. **Mount the sheet on the click event.** Set selection state synchronously in the handler — never gate it on a fetch result.
+2. **Branch only `Sheet.Body` on query state.** `query.isPending`, `query.isError`, and `query.isSuccess` belong inside the body. Header, close button, and footer stay outside the conditional.
+3. **Factor the query into a hook.** `useUserQuery` owns fetching, retry, stale-time, and cancellation. The view consumes a `UseQueryResult` and never reaches into TanStack Query directly.
+4. **Encode the retry policy in `useQuery`.** Return `false` from `retry` for terminal errors like `404`. Return a bounded `failureCount` check for transient ones like `500`.
+5. **Match the retry UI to the retry policy.** Show a retry button on recoverable errors. Omit it on terminal ones — retrying a definitive not-found is just latency without recovery.
 
 ## Complete Recipe
 
@@ -58,8 +67,13 @@ import { Sheet } from "@ngrok/mantle/sheet";
 import { Skeleton } from "@ngrok/mantle/skeleton";
 import { MagnifyingGlassIcon } from "@phosphor-icons/react/MagnifyingGlass";
 import { SmileyMeltingIcon } from "@phosphor-icons/react/SmileyMelting";
-import { useQuery, useQueryClient, type UseQueryResult } from "@tanstack/react-query";
-import { type ReactNode, useState } from "react";
+import {
+	useQuery,
+	useQueryClient,
+	type QueryClient,
+	type UseQueryResult,
+} from "@tanstack/react-query";
+import { type ReactNode, useEffect, useState } from "react";
 import {
 	fetchUser,
 	RequestCancelledError,
@@ -345,48 +359,104 @@ type SelectedUserSheet = {
 	scenario: UserSheetScenario;
 };
 
+/** Tracks whether the happy-path query has a successful response in the cache. The 404 and 500 scenarios throw, so they never reach a successful cache state. */
+function useIsHappyPathCached(): boolean {
+	const queryClient = useQueryClient();
+	const [isCached, setIsCached] = useState(() => readIsHappyPathCached(queryClient));
+
+	useEffect(() => {
+		const cache = queryClient.getQueryCache();
+		const unsubscribe = cache.subscribe(() => {
+			setIsCached(readIsHappyPathCached(queryClient));
+		});
+		return unsubscribe;
+	}, [queryClient]);
+
+	return isCached;
+}
+
+/** Returns true when any sheet-async query is in a successful cache state. */
+function readIsHappyPathCached(queryClient: QueryClient): boolean {
+	return queryClient
+		.getQueryCache()
+		.findAll({ queryKey: USER_QUERY_KEY_ROOT })
+		.some((query) => query.state.status === "success");
+}
+
+/** Builds the cache-state caption shown beneath the demo controls. */
+function describeCacheState(isCached: boolean): string {
+	if (isCached) {
+		return `Happy path is cached. Reopening it now skips the pending state and renders the result immediately. Click "Clear cache" to reset.`;
+	}
+	return "Happy path isn't cached. Clicking it will fetch from scratch and show pending; closing the sheet keeps the result so reopening skips pending. The 404 and 500 scenarios throw, so they don't populate the cache.";
+}
+
 /** Opens the three async sheet states from parent-owned selection state. */
 export function UserSheetDemo() {
 	const [selection, setSelection] = useState<SelectedUserSheet | null>(null);
 	const queryClient = useQueryClient();
+	const isHappyPathCached = useIsHappyPathCached();
 
 	/** Opens a fresh sheet for the selected demo case. */
 	const openSheet = (scenario: UserSheetScenario) => {
 		setSelection({ scenario, userId: userIdForScenario(scenario) });
 	};
 
-	/** Closes the sheet and clears demo cache so each button shows the pending state. */
+	/** Dismisses the sheet without clearing the cache so reopening can demonstrate skip-pending. */
 	const closeSheet = () => {
 		setSelection(null);
-		queryClient.removeQueries({ queryKey: USER_QUERY_KEY_ROOT });
+	};
+
+	/** Removes the cached happy-path response so the next click shows the pending state again. */
+	const clearCache = () => {
+		queryClient.removeQueries({
+			queryKey: USER_QUERY_KEY_ROOT,
+			predicate: (query) => query.state.status === "success",
+		});
 	};
 
 	return (
-		<div className="flex flex-wrap items-center gap-2">
-			<Button
-				type="button"
-				appearance="filled"
-				priority="neutral"
-				onClick={() => openSheet("success")}
-			>
-				Happy path
-			</Button>
-			<Button
-				type="button"
-				appearance="outlined"
-				priority="neutral"
-				onClick={() => openSheet("not-found")}
-			>
-				404 error
-			</Button>
-			<Button
-				type="button"
-				appearance="filled"
-				priority="danger"
-				onClick={() => openSheet("server-error")}
-			>
-				500 error
-			</Button>
+		<div className="flex flex-col gap-3">
+			<div className="flex flex-wrap items-center gap-2">
+				<Button
+					type="button"
+					appearance="filled"
+					priority="neutral"
+					onClick={() => openSheet("success")}
+				>
+					Happy path
+				</Button>
+				<Button
+					type="button"
+					appearance="outlined"
+					priority="neutral"
+					onClick={() => openSheet("not-found")}
+				>
+					404 error
+				</Button>
+				<Button
+					type="button"
+					appearance="filled"
+					priority="danger"
+					onClick={() => openSheet("server-error")}
+				>
+					500 error
+				</Button>
+			</div>
+			<div className="flex flex-wrap items-center gap-2">
+				<Button
+					type="button"
+					appearance="ghost"
+					priority="neutral"
+					onClick={clearCache}
+					disabled={!isHappyPathCached}
+				>
+					Clear cache
+				</Button>
+			</div>
+			<p className="text-sm text-muted" aria-live="polite">
+				{describeCacheState(isHappyPathCached)}
+			</p>
 			{selection && (
 				<UserSheet userId={selection.userId} scenario={selection.scenario} onClose={closeSheet} />
 			)}
@@ -606,5 +676,5 @@ function createDemoRequestId({ status, userId }: CreateDemoRequestIdOptions): st
 - Keep the sheet UI in one component and keep API details behind `fetchUser` or your app's equivalent data client.
 - Use the `signal` argument from TanStack Query's `queryFn` when your API client supports cancellation.
 - Tune `retry` by status code. This demo does not retry 404 because the server already answered definitively. Retry not-found responses only when eventual consistency is expected.
-- Keep cached success data if the sheet may reopen frequently. This demo clears its query cache on close only so every docs button shows the pending state again.
+- Let `staleTime` and `gcTime` govern cache lifetime; the sheet does not need to manually evict on close. The demo's "Clear cache" button only exists to make the cache state observable in docs — production sheets typically don't surface a manual reset.
 - Prefer explicit query state branches here over `useSuspenseQuery`. Suspense works, but error recovery requires an additional reset boundary and is harder to copy into route-controlled sheets.
