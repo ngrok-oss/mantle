@@ -491,6 +491,9 @@ function userIdForScenario(scenario: UserSheetScenario): string {
 	return "user_01J8Q7Z5K2";
 }
 
+/** Query key for the success scenario, used to observe and clear just the happy-path cache entry. */
+const HAPPY_PATH_QUERY_KEY = [...USER_QUERY_KEY_ROOT, userIdForScenario("success"), "success"];
+
 /** Tracks whether the happy-path query has a successful response in the cache. The 404 and 500 scenarios throw, so they never reach a successful cache state. */
 function useIsHappyPathCached(): boolean {
 	const queryClient = useQueryClient();
@@ -498,8 +501,14 @@ function useIsHappyPathCached(): boolean {
 
 	useEffect(() => {
 		const cache = queryClient.getQueryCache();
-		const unsubscribe = cache.subscribe(() => {
-			setIsCached(readIsHappyPathCached(queryClient));
+		const unsubscribe = cache.subscribe((event) => {
+			// Ignore cache events that don't touch the happy-path query so other consumers of the
+			// QueryClient don't trigger a recompute on every cache mutation.
+			if (!isHappyPathCacheEvent(event)) {
+				return;
+			}
+			const next = readIsHappyPathCached(queryClient);
+			setIsCached((prev) => (prev === next ? prev : next));
 		});
 		return unsubscribe;
 	}, [queryClient]);
@@ -507,12 +516,19 @@ function useIsHappyPathCached(): boolean {
 	return isCached;
 }
 
-/** Returns true when any sheet-async query is in a successful cache state. */
+/** Returns true when the happy-path query has a successful response in the cache. */
 function readIsHappyPathCached(queryClient: QueryClient): boolean {
-	return queryClient
-		.getQueryCache()
-		.findAll({ queryKey: USER_QUERY_KEY_ROOT })
-		.some((query) => query.state.status === "success");
+	const query = queryClient.getQueryCache().find({ queryKey: HAPPY_PATH_QUERY_KEY, exact: true });
+	return query?.state.status === "success";
+}
+
+/** True when a query-cache event refers to the happy-path query key. */
+function isHappyPathCacheEvent(event: { query: { queryKey: readonly unknown[] } }): boolean {
+	const queryKey = event.query.queryKey;
+	if (queryKey.length !== HAPPY_PATH_QUERY_KEY.length) {
+		return false;
+	}
+	return queryKey.every((part, index) => part === HAPPY_PATH_QUERY_KEY[index]);
 }
 
 /** Builds the cache-state caption shown beneath the demo controls. */
@@ -520,7 +536,7 @@ function describeCacheState(isCached: boolean): string {
 	if (isCached) {
 		return `Happy path is cached. Reopening it now skips the pending state and renders the result immediately. Click "Clear cache" to reset.`;
 	}
-	return "Happy path isn't cached. Clicking it will fetch from scratch and show pending; closing the sheet keeps the result so reopening skips pending. The 404 and 500 scenarios throw, so they don't populate the cache.";
+	return "No successful response is cached. Clicking happy path will fetch from scratch and show pending; closing the sheet keeps the result so reopening skips pending. The 404 and 500 scenarios throw, so reopening them always re-fetches.";
 }
 
 /** Opens the three async sheet states from parent-owned selection state. */
@@ -539,12 +555,9 @@ export function UserSheetDemo() {
 		setSelection(null);
 	};
 
-	/** Removes the cached happy-path response so the next click shows the pending state again. */
+	/** Removes every cached sheet-async response so the next click shows the pending state again. */
 	const clearCache = () => {
-		queryClient.removeQueries({
-			queryKey: USER_QUERY_KEY_ROOT,
-			predicate: (query) => query.state.status === "success",
-		});
+		queryClient.removeQueries({ queryKey: USER_QUERY_KEY_ROOT });
 	};
 
 	return (
