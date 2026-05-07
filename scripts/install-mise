@@ -44,6 +44,28 @@ sha256_file() {
   fi
 }
 
+# Parse `mise --version` output. mise sometimes prints WARN lines (e.g. about
+# settings deprecations) before the version; positional `awk '{print $1}'`
+# would treat those as the version. Skip WARN lines and return the first
+# semver-shaped token, or empty if none found.
+mise_version() {
+  local mise_bin="${1:-mise}"
+
+  "${mise_bin}" --version 2>/dev/null | awk '
+    $2 == "WARN" { next }
+    {
+      for (i = 1; i <= NF; i++) {
+        version = $i
+        sub(/^v/, "", version)
+        if (version ~ /^[0-9]+[.][0-9]+[.][0-9]+$/) {
+          print version
+          exit
+        }
+      }
+    }
+  ' || true
+}
+
 is_musl_linux() {
   local ldd_output
 
@@ -144,22 +166,26 @@ ensure_pinned_mise() {
     install_pinned_mise
     export PATH="${HOME}/.local/bin:${PATH}"
   else
-    installed_mise_version="$(mise --version | awk '{print $1}')"
+    installed_mise_version="$(mise_version mise)"
     if [ "${installed_mise_version}" != "${MISE_EXPECTED_VERSION}" ]; then
-      echo "mantle: found mise ${installed_mise_version}, installing ${MISE_VERSION}..."
+      if [ -n "${installed_mise_version}" ]; then
+        echo "mantle: found mise ${installed_mise_version}, installing ${MISE_VERSION}..."
+      else
+        echo "mantle: found mise with unknown version, installing ${MISE_VERSION}..."
+      fi
       install_pinned_mise
       export PATH="${HOME}/.local/bin:${PATH}"
     fi
   fi
 
-  active_mise_version="$(mise --version | awk '{print $1}')"
+  active_mise_version="$(mise_version mise)"
   if [ "${active_mise_version}" != "${MISE_EXPECTED_VERSION}" ]; then
     echo "mantle: mise ${MISE_EXPECTED_VERSION} is required, but $(mise --version) is active" >&2
     echo "        ensure ${HOME}/.local/bin appears before other mise installs on PATH." >&2
     exit 1
   fi
 
-  if [ -x "${HOME}/.local/bin/mise" ] && [ "$("${HOME}/.local/bin/mise" --version | awk '{print $1}')" = "${MISE_EXPECTED_VERSION}" ]; then
+  if [ -x "${HOME}/.local/bin/mise" ] && [ "$(mise_version "${HOME}/.local/bin/mise")" = "${MISE_EXPECTED_VERSION}" ]; then
     export PATH="${HOME}/.local/bin:${PATH}"
   fi
 }

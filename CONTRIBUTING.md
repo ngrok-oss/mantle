@@ -82,8 +82,9 @@ Tool versions are pinned in `.nvmrc` and `package.json#packageManager`, with dow
 To bump a version:
 
 1. Update `.nvmrc` (Node) or `package.json#packageManager` (pnpm).
-2. Run `mise lock` to refresh `mise.lock` with the new URLs and checksums for all supported platforms.
-3. Commit `.nvmrc` / `package.json` and `mise.lock` together.
+2. Run `mise run relock` to refresh `mise.lock` with the new URLs and checksums for the locked platforms. (Plain `mise lock` is rejected by `locked = true`; the `relock` task flips `MISE_LOCKED=0` for you.)
+3. Run `mise install` to materialize the new toolchain locally.
+4. Commit `.nvmrc` / `package.json` and `mise.lock` together.
 
 ## Local Development
 
