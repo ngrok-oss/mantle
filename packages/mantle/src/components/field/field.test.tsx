@@ -3,22 +3,22 @@ import { describe, expect, test } from "vitest";
 import { Field } from "./field.js";
 
 describe("Field", () => {
-	describe("Field.Root", () => {
+	describe("Field.Item", () => {
 		test("renders a div with role=group by default", () => {
-			render(<Field.Root data-testid="root">content</Field.Root>);
+			render(<Field.Item data-testid="root">content</Field.Item>);
 			const root = screen.getByTestId("root");
 			expect(root.tagName).toBe("DIV");
 			expect(root).toHaveAttribute("role", "group");
 			expect(root).toHaveTextContent("content");
 		});
 
-		test("forwards data-slot=field", () => {
-			render(<Field.Root data-testid="root" />);
-			expect(screen.getByTestId("root")).toHaveAttribute("data-slot", "field");
+		test("forwards data-slot=field-item", () => {
+			render(<Field.Item data-testid="root" />);
+			expect(screen.getByTestId("root")).toHaveAttribute("data-slot", "field-item");
 		});
 
 		test("merges custom className while keeping default layout classes", () => {
-			render(<Field.Root className="custom-class" data-testid="root" />);
+			render(<Field.Item className="custom-class" data-testid="root" />);
 			const root = screen.getByTestId("root");
 			expect(root.className).toContain("custom-class");
 			expect(root.className).toContain("flex");
@@ -27,24 +27,24 @@ describe("Field", () => {
 		});
 
 		test("forwards arbitrary data-* attributes", () => {
-			render(<Field.Root data-custom="hello" data-testid="root" />);
+			render(<Field.Item data-custom="hello" data-testid="root" />);
 			expect(screen.getByTestId("root")).toHaveAttribute("data-custom", "hello");
 		});
 
 		test("allows overriding role", () => {
-			render(<Field.Root data-testid="root" role="region" />);
+			render(<Field.Item data-testid="root" role="region" />);
 			expect(screen.getByTestId("root")).toHaveAttribute("role", "region");
 		});
 
 		test("renders as child element when asChild is true", () => {
 			render(
-				<Field.Root asChild>
+				<Field.Item asChild>
 					<section data-testid="root">content</section>
-				</Field.Root>,
+				</Field.Item>,
 			);
 			const root = screen.getByTestId("root");
 			expect(root.tagName).toBe("SECTION");
-			expect(root).toHaveAttribute("data-slot", "field");
+			expect(root).toHaveAttribute("data-slot", "field-item");
 			expect(root).toHaveAttribute("role", "group");
 		});
 	});
@@ -405,23 +405,23 @@ describe("Field", () => {
 	});
 
 	describe("composition", () => {
-		test("renders a full Set + Legend + Group + Root tree", () => {
+		test("renders a full Set + Legend + Group + Item tree", () => {
 			render(
 				<Field.Set data-testid="set">
 					<Field.Legend data-testid="legend">Account</Field.Legend>
 					<Field.Group data-testid="group">
-						<Field.Root data-testid="root-1">
+						<Field.Item data-testid="root-1">
 							<label htmlFor="email">Email</label>
 							<input id="email" name="email" />
 							<Field.Error data-testid="err">Email is required.</Field.Error>
 							<Field.Description data-testid="desc">
 								We'll never share your email.
 							</Field.Description>
-						</Field.Root>
-						<Field.Root data-testid="root-2">
+						</Field.Item>
+						<Field.Item data-testid="root-2">
 							<label htmlFor="password">Password</label>
 							<input id="password" name="password" type="password" />
-						</Field.Root>
+						</Field.Item>
 					</Field.Group>
 				</Field.Set>,
 			);

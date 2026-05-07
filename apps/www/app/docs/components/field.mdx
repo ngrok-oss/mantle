@@ -13,14 +13,14 @@ import { Example } from "~/components/example";
 
 `Field` is a compound layout primitive for building a single form field. It groups the existing mantle [`Label`](/components/label) with a control (Input, Select, Checkbox, etc.) and adds slots for helper / hint text (`Field.Description`) and validation errors (`Field.Error`, `Field.ErrorList`). Multiple fields can be grouped under a shared caption with `Field.Set` + `Field.Legend` + `Field.Group`.
 
-`Field` does not invent a new label component — pair `Field.Root` with the existing `<Label>`, which already handles `htmlFor`, click-to-focus, and the auto `font-medium` typography.
+`Field` does not invent a new label component — pair `Field.Item` with the existing `<Label>`, which already handles `htmlFor`, click-to-focus, and the auto `font-medium` typography.
 
 <Example className="w-full">
-	<Field.Root className="max-w-80">
+	<Field.Item className="max-w-80">
 		<Label htmlFor="field-username">Username</Label>
 		<Input id="field-username" name="username" placeholder="ada-lovelace" />
 		<Field.Description>Pick something memorable — you can change it later.</Field.Description>
-	</Field.Root>
+	</Field.Item>
 </Example>
 
 ```tsx
@@ -28,11 +28,11 @@ import { Field } from "@ngrok/mantle/field";
 import { Input } from "@ngrok/mantle/input";
 import { Label } from "@ngrok/mantle/label";
 
-<Field.Root className="max-w-80">
+<Field.Item className="max-w-80">
 	<Label htmlFor="username">Username</Label>
 	<Input id="username" name="username" placeholder="ada-lovelace" />
 	<Field.Description>Pick something memorable — you can change it later.</Field.Description>
-</Field.Root>;
+</Field.Item>;
 ```
 
 ## Error message
@@ -42,7 +42,7 @@ Render `Field.Error` below the control when validation fails. Set `validation="e
 When a `Field.Description` follows directly after a `Field.Error` (or after the last error rendered by `Field.ErrorList`), `Field.Description` automatically collapses the parent's `gap-1.5` with a matching negative top margin so the error + helper read as one tight block — matching the figma. Pass any margin utility on `Field.Description` (e.g. `className="mt-1"`, `className="mt-0"`) to override.
 
 <Example className="w-full">
-	<Field.Root className="max-w-80">
+	<Field.Item className="max-w-80">
 		<Label htmlFor="field-email-error">Email</Label>
 		<Input
 			id="field-email-error"
@@ -53,16 +53,16 @@ When a `Field.Description` follows directly after a `Field.Error` (or after the 
 		/>
 		<Field.Error>Enter a valid email address.</Field.Error>
 		<Field.Description>We'll never share your email.</Field.Description>
-	</Field.Root>
+	</Field.Item>
 </Example>
 
 ```tsx
-<Field.Root>
+<Field.Item>
 	<Label htmlFor="email">Email</Label>
 	<Input id="email" name="email" type="email" validation="error" />
 	<Field.Error>Enter a valid email address.</Field.Error>
 	<Field.Description>We'll never share your email.</Field.Description>
-</Field.Root>
+</Field.Item>
 ```
 
 ## Multiple errors
@@ -70,7 +70,7 @@ When a `Field.Description` follows directly after a `Field.Error` (or after the 
 Render multiple `Field.Error` siblings when a validator produces more than one message at once (e.g. `minLength` + `pattern` + custom rule). The same gap-collapse rule applies between consecutive errors and between the last error and a `Field.Description`, so the whole error + helper section reads as a single tight block.
 
 <Example className="w-full">
-	<Field.Root className="max-w-80">
+	<Field.Item className="max-w-80">
 		<Label htmlFor="field-password">Password</Label>
 		<Input
 			id="field-password"
@@ -83,18 +83,18 @@ Render multiple `Field.Error` siblings when a validator produces more than one m
 		<Field.Error>Must include a number.</Field.Error>
 		<Field.Error>Must include a symbol.</Field.Error>
 		<Field.Description>Use a password manager to generate one.</Field.Description>
-	</Field.Root>
+	</Field.Item>
 </Example>
 
 ```tsx
-<Field.Root>
+<Field.Item>
 	<Label htmlFor="password">Password</Label>
 	<Input id="password" name="password" type="password" validation="error" />
 	<Field.Error>Must be at least 12 characters.</Field.Error>
 	<Field.Error>Must include a number.</Field.Error>
 	<Field.Error>Must include a symbol.</Field.Error>
 	<Field.Description>Use a password manager to generate one.</Field.Description>
-</Field.Root>
+</Field.Item>
 ```
 
 When errors arrive from a validator as an array (e.g. `field.state.meta.errors` from TanStack Form), reach for `Field.ErrorList` instead — it's the same output, mapped from an array. See [With TanStack Form](#with-tanstack-form) below.
@@ -104,23 +104,23 @@ When errors arrive from a validator as an array (e.g. `field.state.meta.errors` 
 Use `Field.Optional` inside a `<Label>` to mark a field as optional. It renders a muted "(Optional)" suffix at `text-sm` regular weight so it reads as secondary metadata without competing with the bolder label text. Defaults to the literal "(Optional)" — pass children to translate or replace.
 
 <Example className="w-full">
-	<Field.Root className="max-w-80">
+	<Field.Item className="max-w-80">
 		<Label htmlFor="field-nickname" className="flex items-baseline gap-1">
 			Nickname <Field.Optional />
 		</Label>
 		<Input id="field-nickname" name="nickname" placeholder="ada" />
 		<Field.Description>Visible on your public profile.</Field.Description>
-	</Field.Root>
+	</Field.Item>
 </Example>
 
 ```tsx
-<Field.Root>
+<Field.Item>
 	<Label htmlFor="nickname" className="flex items-baseline gap-1">
 		Nickname <Field.Optional />
 	</Label>
 	<Input id="nickname" name="nickname" placeholder="ada" />
 	<Field.Description>Visible on your public profile.</Field.Description>
-</Field.Root>
+</Field.Item>
 ```
 
 Place `Field.Optional` inside the `<Label>` so screen readers announce it as part of the accessible name (e.g. "Nickname, Optional, edit text"). The label's `flex items-baseline gap-1` keeps the suffix on the same baseline as the bolder label text.
@@ -134,7 +134,7 @@ Putting an interactive button inside `<label>` is a footgun: clicks on a `<label
 Reach for the bundled `Field.Help` / `Field.HelpTrigger` / `Field.HelpContent` rather than wiring `Popover` + `IconButton` + an icon by hand — it's the same composition, three thin wrappers, with sensible defaults (ghost `IconButton`, `xs` size, default Phosphor `QuestionIcon`, `text-body` color). [`Popover`](/components/popover) under the hood — not [`Tooltip`](/components/tooltip) — so the affordance is reachable on touch devices.
 
 <Example className="w-full">
-	<Field.Root className="max-w-80">
+	<Field.Item className="max-w-80">
 		<Field.LabelRow>
 			<Label htmlFor="field-api-key" className="flex items-baseline gap-1">
 				API key <Field.Optional />
@@ -146,11 +146,11 @@ Reach for the bundled `Field.Help` / `Field.HelpTrigger` / `Field.HelpContent` r
 		</Field.LabelRow>
 		<Input id="field-api-key" name="apiKey" placeholder="2A1b…" />
 		<Field.Description>You can find this in the ngrok dashboard.</Field.Description>
-	</Field.Root>
+	</Field.Item>
 </Example>
 
 ```tsx
-<Field.Root>
+<Field.Item>
 	<Field.LabelRow>
 		<Label htmlFor="api-key" className="flex items-baseline gap-1">
 			API key <Field.Optional />
@@ -162,13 +162,13 @@ Reach for the bundled `Field.Help` / `Field.HelpTrigger` / `Field.HelpContent` r
 	</Field.LabelRow>
 	<Input id="api-key" name="apiKey" />
 	<Field.Description>You can find this in the ngrok dashboard.</Field.Description>
-</Field.Root>
+</Field.Item>
 ```
 
 `Field.HelpTrigger` accepts every `IconButton` prop, so swap the icon, change the appearance, or relabel without dropping down to raw `Popover`:
 
 <Example className="w-full">
-	<Field.Root className="max-w-80">
+	<Field.Item className="max-w-80">
 		<Field.LabelRow>
 			<Label htmlFor="field-webhook-secret">Webhook secret</Label>
 			<Field.Help>
@@ -180,7 +180,7 @@ Reach for the bundled `Field.Help` / `Field.HelpTrigger` / `Field.HelpContent` r
 			</Field.Help>
 		</Field.LabelRow>
 		<Input id="field-webhook-secret" name="webhookSecret" placeholder="whsec_…" />
-	</Field.Root>
+	</Field.Item>
 </Example>
 
 ```tsx
@@ -194,21 +194,21 @@ Reach for the bundled `Field.Help` / `Field.HelpTrigger` / `Field.HelpContent` r
 
 ## Grouped fields
 
-Wrap related fields in a `Field.Set` with a `Field.Legend` to caption them as a semantic group. Use `Field.Group` to stack the individual `Field.Root`s with `gap-4` between them.
+Wrap related fields in a `Field.Set` with a `Field.Legend` to caption them as a semantic group. Use `Field.Group` to stack the individual `Field.Item`s with `gap-4` between them.
 
 <Example className="w-full">
 	<Field.Set className="max-w-80">
 		<Field.Legend>Account</Field.Legend>
 		<Field.Group>
-			<Field.Root>
+			<Field.Item>
 				<Label htmlFor="field-account-email">Email</Label>
 				<Input id="field-account-email" name="email" type="email" placeholder="you@ngrok.com" />
-			</Field.Root>
-			<Field.Root>
+			</Field.Item>
+			<Field.Item>
 				<Label htmlFor="field-account-password">Password</Label>
 				<Input id="field-account-password" name="password" type="password" />
 				<Field.Description>At least 12 characters.</Field.Description>
-			</Field.Root>
+			</Field.Item>
 		</Field.Group>
 	</Field.Set>
 </Example>
@@ -217,15 +217,15 @@ Wrap related fields in a `Field.Set` with a `Field.Legend` to caption them as a 
 <Field.Set>
 	<Field.Legend>Account</Field.Legend>
 	<Field.Group>
-		<Field.Root>
+		<Field.Item>
 			<Label htmlFor="email">Email</Label>
 			<Input id="email" name="email" type="email" />
-		</Field.Root>
-		<Field.Root>
+		</Field.Item>
+		<Field.Item>
 			<Label htmlFor="password">Password</Label>
 			<Input id="password" name="password" type="password" />
 			<Field.Description>At least 12 characters.</Field.Description>
-		</Field.Root>
+		</Field.Item>
 	</Field.Group>
 </Field.Set>
 ```
@@ -234,14 +234,14 @@ Wrap related fields in a `Field.Set` with a `Field.Legend` to caption them as a 
 
 ```tsx
 <Field.Group>
-	<Field.Root>
+	<Field.Item>
 		<Label htmlFor="first-name">First name</Label>
 		<Input id="first-name" name="firstName" />
-	</Field.Root>
-	<Field.Root>
+	</Field.Item>
+	<Field.Item>
 		<Label htmlFor="last-name">Last name</Label>
 		<Input id="last-name" name="lastName" />
-	</Field.Root>
+	</Field.Item>
 </Field.Group>
 ```
 
@@ -254,11 +254,11 @@ Wrap related fields in a `Field.Set` with a `Field.Legend` to caption them as a 
 		<Field.Legend>Payment method</Field.Legend>
 		<Field.Description>All transactions are secure and encrypted.</Field.Description>
 		<Field.Group>
-			<Field.Root>
+			<Field.Item>
 				<Label htmlFor="field-name-on-card">Name on card</Label>
 				<Input id="field-name-on-card" name="nameOnCard" placeholder="Evil Rabbit" />
-			</Field.Root>
-			<Field.Root>
+			</Field.Item>
+			<Field.Item>
 				<Label htmlFor="field-card-number">Card number</Label>
 				<Input
 					id="field-card-number"
@@ -267,7 +267,7 @@ Wrap related fields in a `Field.Set` with a `Field.Legend` to caption them as a 
 					placeholder="1234 5678 9012 3456"
 				/>
 				<Field.Description>Enter your 16-digit card number.</Field.Description>
-			</Field.Root>
+			</Field.Item>
 		</Field.Group>
 	</Field.Set>
 </Example>
@@ -277,15 +277,15 @@ Wrap related fields in a `Field.Set` with a `Field.Legend` to caption them as a 
 	<Field.Legend>Payment method</Field.Legend>
 	<Field.Description>All transactions are secure and encrypted.</Field.Description>
 	<Field.Group>
-		<Field.Root>
+		<Field.Item>
 			<Label htmlFor="name-on-card">Name on card</Label>
 			<Input id="name-on-card" name="nameOnCard" />
-		</Field.Root>
-		<Field.Root>
+		</Field.Item>
+		<Field.Item>
 			<Label htmlFor="card-number">Card number</Label>
 			<Input id="card-number" name="cardNumber" inputMode="numeric" />
 			<Field.Description>Enter your 16-digit card number.</Field.Description>
-		</Field.Root>
+		</Field.Item>
 	</Field.Group>
 </Field.Set>
 ```
@@ -330,7 +330,7 @@ export function AccountForm() {
 				<Field.Group>
 					<form.Field name="email">
 						{(field) => (
-							<Field.Root>
+							<Field.Item>
 								<Label htmlFor={field.name}>Email</Label>
 								<Input
 									id={field.name}
@@ -343,12 +343,12 @@ export function AccountForm() {
 								/>
 								<Field.ErrorList errors={field.state.meta.errors.map((error) => error?.message)} />
 								<Field.Description>We'll never share your email.</Field.Description>
-							</Field.Root>
+							</Field.Item>
 						)}
 					</form.Field>
 					<form.Field name="password">
 						{(field) => (
-							<Field.Root>
+							<Field.Item>
 								<Label htmlFor={field.name}>Password</Label>
 								<Input
 									id={field.name}
@@ -361,7 +361,7 @@ export function AccountForm() {
 								/>
 								<Field.ErrorList errors={field.state.meta.errors.map((error) => error?.message)} />
 								<Field.Description>At least 12 characters.</Field.Description>
-							</Field.Root>
+							</Field.Item>
 						)}
 					</form.Field>
 				</Field.Group>
@@ -382,7 +382,7 @@ Compose the parts of a `Field` together to build your own:
 Field.Set
 ├── Field.Legend
 └── Field.Group
-    └── Field.Root
+    └── Field.Item
         ├── Field.LabelRow
         │   ├── <Label>
         │   │   └── Field.Optional
@@ -395,11 +395,11 @@ Field.Set
         └── Field.Description
 ```
 
-Most fields only need `Field.Root` plus `Field.Description` / `Field.Error`. Reach for `Field.Set` + `Field.Legend` when you have multiple related fields that should be announced as a single semantic group (e.g. an address block, a set of related toggles).
+Most fields only need `Field.Item` plus `Field.Description` / `Field.Error`. Reach for `Field.Set` + `Field.Legend` when you have multiple related fields that should be announced as a single semantic group (e.g. an address block, a set of related toggles).
 
 ## Polymorphism
 
-Every `Field.*` part except `Field.ErrorList` accepts an `asChild` prop. When `true`, the part renders its single child instead of its default element, forwarding all class names, `data-*` attributes, and the ref onto that child. Reach for it when you need a different semantic element (e.g. wrapping a `Field.Root` around an inline checkbox + caption, rendering `Field.Legend` as an `h2`, or rendering `Field.Optional` as an `<em>`).
+Every `Field.*` part except `Field.ErrorList` accepts an `asChild` prop. When `true`, the part renders its single child instead of its default element, forwarding all class names, `data-*` attributes, and the ref onto that child. Reach for it when you need a different semantic element (e.g. wrapping a `Field.Item` around an inline checkbox + caption, rendering `Field.Legend` as an `h2`, or rendering `Field.Optional` as an `<em>`).
 
 ```tsx
 <Field.Legend asChild>
@@ -409,9 +409,9 @@ Every `Field.*` part except `Field.ErrorList` accepts an `asChild` prop. When `t
 
 ## API Reference
 
-### Field.Root
+### Field.Item
 
-The root container for a single form field. Renders `<div role="group">` with `flex flex-col gap-1.5` so a Label, control, and helper / error siblings stack tightly together.
+A single form field. Renders `<div role="group">` with `flex flex-col gap-1.5` so a Label, control, and helper / error siblings stack tightly together.
 
 All props from [div](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes), plus:
 
@@ -422,7 +422,7 @@ All props from [div](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/d
 
 ### Field.Group
 
-Layout container that stacks multiple `Field.Root`s vertically with `gap-4`. Use inside `Field.Set` for semantic grouping, or standalone when you only need spacing.
+Layout container that stacks multiple `Field.Item`s vertically with `gap-4`. Use inside `Field.Set` for semantic grouping, or standalone when you only need spacing.
 
 All props from [div](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes), plus:
 
@@ -502,7 +502,7 @@ All props from [span](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/
 
 Helper / hint text. Renders a `<p>` in the muted body color. Works in two positions:
 
-1. **Inside `Field.Root`**, below the control — clarifies expected format or constraints for that single field.
+1. **Inside `Field.Item`**, below the control — clarifies expected format or constraints for that single field.
 2. **Inside `Field.Set`, between `Field.Legend` and `Field.Group`** — describes the entire fieldset.
 
 When `Field.Description` is rendered immediately after a `Field.Error` (including the last one produced by `Field.ErrorList`), it automatically collapses the parent's `gap-1.5` via a `-mt-1.5` so error + helper read as a single tight block. The rule's specificity is flattened to `(0,1,0)` so any margin utility you pass on `Field.Description` (e.g. `mt-1`, `mt-0`) overrides cleanly. After a `Field.Legend` no negative margin is needed — Chromium renders the rendered legend with no flex gap to its next sibling, so the description naturally hugs the legend.

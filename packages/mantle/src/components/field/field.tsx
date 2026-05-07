@@ -18,14 +18,14 @@ import { Slot } from "../slot/index.js";
  * <Field.Set>
  *   <Field.Legend>Address</Field.Legend>
  *   <Field.Group>
- *     <Field.Root>
+ *     <Field.Item>
  *       <Label htmlFor="street">Street</Label>
  *       <Input id="street" name="street" />
- *     </Field.Root>
- *     <Field.Root>
+ *     </Field.Item>
+ *     <Field.Item>
  *       <Label htmlFor="city">City</Label>
  *       <Input id="city" name="city" />
- *     </Field.Root>
+ *     </Field.Item>
  *   </Field.Group>
  * </Field.Set>
  * ```
@@ -54,10 +54,10 @@ FieldSet.displayName = "FieldSet";
  * <Field.Set>
  *   <Field.Legend>Address</Field.Legend>
  *   <Field.Group>
- *     <Field.Root>
+ *     <Field.Item>
  *       <Label htmlFor="street">Street</Label>
  *       <Input id="street" name="street" />
- *     </Field.Root>
+ *     </Field.Item>
  *   </Field.Group>
  * </Field.Set>
  * ```
@@ -93,7 +93,7 @@ Legend.displayName = "FieldLegend";
  *
  * @example
  * ```tsx
- * <Field.Root>
+ * <Field.Item>
  *   <Field.LabelRow>
  *     <Label htmlFor="api-key">
  *       API key <Field.Optional />
@@ -112,7 +112,7 @@ Legend.displayName = "FieldLegend";
  *     </Popover.Root>
  *   </Field.LabelRow>
  *   <Input id="api-key" name="apiKey" />
- * </Field.Root>
+ * </Field.Item>
  * ```
  */
 const LabelRow = ({ asChild, className, ...props }: ComponentProps<"div"> & WithAsChild) => {
@@ -249,12 +249,12 @@ HelpContent.displayName = "FieldHelpContent";
  *
  * @example
  * ```tsx
- * <Field.Root>
+ * <Field.Item>
  *   <Label htmlFor="email" className="flex items-baseline gap-1">
  *     Email <Field.Optional />
  *   </Label>
  *   <Input id="email" name="email" type="email" />
- * </Field.Root>
+ * </Field.Item>
  * ```
  */
 const Optional = ({
@@ -278,7 +278,7 @@ const Optional = ({
 Optional.displayName = "FieldOptional";
 
 /**
- * Layout container that stacks multiple `Field.Root`s vertically with `gap-4`
+ * Layout container that stacks multiple `Field.Item`s vertically with `gap-4`
  * between them. Use inside a `Field.Set` (with `Field.Legend`) for semantic
  * grouping, or standalone when you only need consistent spacing between
  * fields without a legend.
@@ -288,14 +288,14 @@ Optional.displayName = "FieldOptional";
  * @example
  * ```tsx
  * <Field.Group>
- *   <Field.Root>
+ *   <Field.Item>
  *     <Label htmlFor="email">Email</Label>
  *     <Input id="email" name="email" type="email" />
- *   </Field.Root>
- *   <Field.Root>
+ *   </Field.Item>
+ *   <Field.Item>
  *     <Label htmlFor="password">Password</Label>
  *     <Input id="password" name="password" type="password" />
- *   </Field.Root>
+ *   </Field.Item>
  * </Field.Group>
  * ```
  */
@@ -313,30 +313,30 @@ const Group = ({ asChild, className, ...props }: ComponentProps<"div"> & WithAsC
 Group.displayName = "FieldGroup";
 
 /**
- * The root container for a single form field. Stacks a `Label`, a control
- * (`Input`, `Select`, `Checkbox`, etc.), and any `Field.Description` /
- * `Field.Error` / `Field.ErrorList` siblings vertically with a consistent
- * `gap-1.5` so help and error messaging sit tightly under the input.
+ * A single form field — `Label`, a control (`Input`, `Select`, `Checkbox`,
+ * etc.), and any `Field.Description` / `Field.Error` / `Field.ErrorList`
+ * siblings stacked vertically with a consistent `gap-1.5` so help and error
+ * messaging sit tightly under the input.
  *
  * Renders as a `<div role="group">` so screen readers announce the parts as
  * a related set. When you need explicit ARIA wiring between the control and
  * its description / error, set `aria-describedby` and `aria-errormessage` on
- * the control yourself — `Field.Root` is layout-only, by design, so it stays
+ * the control yourself — `Field.Item` is layout-only, by design, so it stays
  * compatible with the existing `<Label>` (no auto-wired IDs).
  *
  * @see https://mantle.ngrok.com/components/field
  *
  * @example
  * ```tsx
- * <Field.Root>
+ * <Field.Item>
  *   <Label htmlFor="username">Username</Label>
  *   <Input id="username" name="username" />
  *   <Field.Error>Username is required.</Field.Error>
  *   <Field.Description>Pick something memorable.</Field.Description>
- * </Field.Root>
+ * </Field.Item>
  * ```
  */
-const Root = ({
+const Item = ({
 	asChild,
 	className,
 	role = "group",
@@ -346,20 +346,20 @@ const Root = ({
 
 	return (
 		<Comp
-			data-slot="field"
+			data-slot="field-item"
 			role={role}
 			className={cx("flex w-full flex-col gap-1.5", className)}
 			{...props}
 		/>
 	);
 };
-Root.displayName = "Field";
+Item.displayName = "FieldItem";
 
 /**
  * Helper / hint text. Renders a `<p>` in the muted body color so it reads
  * as secondary to the bolder content above it. Works in two positions:
  *
- * 1. **Inside `Field.Root`**, below the control — clarifies expected format
+ * 1. **Inside `Field.Item`**, below the control — clarifies expected format
  *    or constraints for that single field.
  * 2. **Inside `Field.Set`, between `Field.Legend` and `Field.Group`** — describes
  *    the entire fieldset (e.g. "All transactions are secure and encrypted.").
@@ -367,7 +367,7 @@ Root.displayName = "Field";
  * **Auto-tighten.** Two sibling selectors collapse the parent's gap when
  * messages should read as a single block:
  * - After a `Field.Error` (including the last one rendered by
- *   `Field.ErrorList`) inside `Field.Root` → collapses `gap-1.5` to 0.
+ *   `Field.ErrorList`) inside `Field.Item` → collapses `gap-1.5` to 0.
  * - After a `Field.Legend` inside `Field.Set` → collapses `gap-4` down to a
  *   `gap-1.5` visual feel so the description hugs the legend.
  *
@@ -378,13 +378,13 @@ Root.displayName = "Field";
  *
  * @example
  * ```tsx
- * // Field-level helper (inside Field.Root)
- * <Field.Root>
+ * // Field-level helper (inside Field.Item)
+ * <Field.Item>
  *   <Label htmlFor="username">Username</Label>
  *   <Input id="username" name="username" />
  *   <Field.Error>Username is required.</Field.Error>
  *   <Field.Description>Pick something memorable.</Field.Description>
- * </Field.Root>
+ * </Field.Item>
  *
  * // Fieldset-level description (inside Field.Set, below Field.Legend)
  * <Field.Set>
@@ -434,12 +434,12 @@ Description.displayName = "FieldDescription";
  *
  * @example
  * ```tsx
- * <Field.Root>
+ * <Field.Item>
  *   <Label htmlFor="username">Username</Label>
  *   <Input id="username" name="username" />
  *   <Field.Error>Username is required.</Field.Error>
  *   <Field.Description>Pick something memorable.</Field.Description>
- * </Field.Root>
+ * </Field.Item>
  * ```
  */
 const FieldError = ({ asChild, className, ...props }: ComponentProps<"p"> & WithAsChild) => {
@@ -496,12 +496,12 @@ type FieldErrorListProps = {
  *
  * @example
  * ```tsx
- * <Field.Root>
+ * <Field.Item>
  *   <Label htmlFor="username">Username</Label>
  *   <Input id="username" name="username" />
  *   <Field.ErrorList errors={field.state.meta.errors.map((error) => error?.message)} />
  *   <Field.Description>Pick something memorable.</Field.Description>
- * </Field.Root>
+ * </Field.Item>
  * ```
  */
 const FieldErrorList = ({ errors }: FieldErrorListProps) => {
@@ -537,7 +537,7 @@ FieldErrorList.displayName = "FieldErrorList";
  * Field.Set
  * ├── Field.Legend
  * └── Field.Group
- *     └── Field.Root
+ *     └── Field.Item
  *         ├── Field.LabelRow
  *         │   ├── <Label>
  *         │   │   └── Field.Optional
@@ -555,27 +555,27 @@ FieldErrorList.displayName = "FieldErrorList";
  * <Field.Set>
  *   <Field.Legend>Account</Field.Legend>
  *   <Field.Group>
- *     <Field.Root>
+ *     <Field.Item>
  *       <Label htmlFor="email">Email</Label>
  *       <Input id="email" name="email" type="email" />
  *       <Field.Error>Email is required.</Field.Error>
  *       <Field.Description>We'll never share your email.</Field.Description>
- *     </Field.Root>
- *     <Field.Root>
+ *     </Field.Item>
+ *     <Field.Item>
  *       <Label htmlFor="nickname" className="flex items-baseline gap-1">
  *         Nickname <Field.Optional />
  *       </Label>
  *       <Input id="nickname" name="nickname" />
  *       <Field.Description>Visible on your public profile.</Field.Description>
- *     </Field.Root>
+ *     </Field.Item>
  *   </Field.Group>
  * </Field.Set>
  * ```
  */
 const Field = {
 	/**
-	 * The root container for a single form field — `Label` + control + helper
-	 * + error stacked vertically with `gap-1.5`. Renders `<div role="group">`.
+	 * A single form field — `Label` + control + helper + error stacked
+	 * vertically with `gap-1.5`. Renders `<div role="group">`.
 	 *
 	 * @see https://mantle.ngrok.com/components/field
 	 *
@@ -584,19 +584,19 @@ const Field = {
 	 * <Field.Set>
 	 *   <Field.Legend>Account</Field.Legend>
 	 *   <Field.Group>
-	 *     <Field.Root>
+	 *     <Field.Item>
 	 *       <Label htmlFor="email">Email</Label>
 	 *       <Input id="email" name="email" />
 	 *       <Field.Error>Email is required.</Field.Error>
 	 *       <Field.Description>We'll never share your email.</Field.Description>
-	 *     </Field.Root>
+	 *     </Field.Item>
 	 *   </Field.Group>
 	 * </Field.Set>
 	 * ```
 	 */
-	Root,
+	Item,
 	/**
-	 * Layout container that stacks multiple `Field.Root`s vertically with
+	 * Layout container that stacks multiple `Field.Item`s vertically with
 	 * `gap-4`. Use inside `Field.Set` for semantic grouping, or standalone
 	 * when you only need spacing.
 	 *
@@ -607,14 +607,14 @@ const Field = {
 	 * <Field.Set>
 	 *   <Field.Legend>Account</Field.Legend>
 	 *   <Field.Group>
-	 *     <Field.Root>
+	 *     <Field.Item>
 	 *       <Label htmlFor="email">Email</Label>
 	 *       <Input id="email" name="email" />
-	 *     </Field.Root>
-	 *     <Field.Root>
+	 *     </Field.Item>
+	 *     <Field.Item>
 	 *       <Label htmlFor="password">Password</Label>
 	 *       <Input id="password" name="password" type="password" />
-	 *     </Field.Root>
+	 *     </Field.Item>
 	 *   </Field.Group>
 	 * </Field.Set>
 	 * ```
@@ -631,10 +631,10 @@ const Field = {
 	 * <Field.Set>
 	 *   <Field.Legend>Account</Field.Legend>
 	 *   <Field.Group>
-	 *     <Field.Root>
+	 *     <Field.Item>
 	 *       <Label htmlFor="email">Email</Label>
 	 *       <Input id="email" name="email" />
-	 *     </Field.Root>
+	 *     </Field.Item>
 	 *   </Field.Group>
 	 * </Field.Set>
 	 * ```
@@ -651,10 +651,10 @@ const Field = {
 	 * <Field.Set>
 	 *   <Field.Legend>Account</Field.Legend>
 	 *   <Field.Group>
-	 *     <Field.Root>
+	 *     <Field.Item>
 	 *       <Label htmlFor="email">Email</Label>
 	 *       <Input id="email" name="email" />
-	 *     </Field.Root>
+	 *     </Field.Item>
 	 *   </Field.Group>
 	 * </Field.Set>
 	 * ```
@@ -669,7 +669,7 @@ const Field = {
 	 *
 	 * @example
 	 * ```tsx
-	 * <Field.Root>
+	 * <Field.Item>
 	 *   <Field.LabelRow>
 	 *     <Label htmlFor="api-key">
 	 *       API key <Field.Optional />
@@ -684,7 +684,7 @@ const Field = {
 	 *     </Popover.Root>
 	 *   </Field.LabelRow>
 	 *   <Input id="api-key" name="apiKey" />
-	 * </Field.Root>
+	 * </Field.Item>
 	 * ```
 	 */
 	LabelRow,
@@ -747,13 +747,13 @@ const Field = {
 	 *
 	 * @example
 	 * ```tsx
-	 * <Field.Root>
+	 * <Field.Item>
 	 *   <Label htmlFor="nickname" className="flex items-baseline gap-1">
 	 *     Nickname <Field.Optional />
 	 *   </Label>
 	 *   <Input id="nickname" name="nickname" />
 	 *   <Field.Description>Visible on your public profile.</Field.Description>
-	 * </Field.Root>
+	 * </Field.Item>
 	 * ```
 	 */
 	Optional,
@@ -764,12 +764,12 @@ const Field = {
 	 *
 	 * @example
 	 * ```tsx
-	 * <Field.Root>
+	 * <Field.Item>
 	 *   <Label htmlFor="username">Username</Label>
 	 *   <Input id="username" name="username" />
 	 *   <Field.Error>Username is required.</Field.Error>
 	 *   <Field.Description>Pick something memorable.</Field.Description>
-	 * </Field.Root>
+	 * </Field.Item>
 	 * ```
 	 */
 	Description,
@@ -781,12 +781,12 @@ const Field = {
 	 *
 	 * @example
 	 * ```tsx
-	 * <Field.Root>
+	 * <Field.Item>
 	 *   <Label htmlFor="username">Username</Label>
 	 *   <Input id="username" name="username" />
 	 *   <Field.Error>Username is required.</Field.Error>
 	 *   <Field.Description>Pick something memorable.</Field.Description>
-	 * </Field.Root>
+	 * </Field.Item>
 	 * ```
 	 */
 	Error: FieldError,
@@ -798,12 +798,12 @@ const Field = {
 	 *
 	 * @example
 	 * ```tsx
-	 * <Field.Root>
+	 * <Field.Item>
 	 *   <Label htmlFor="username">Username</Label>
 	 *   <Input id="username" name="username" />
 	 *   <Field.ErrorList errors={field.state.meta.errors.map((error) => error?.message)} />
 	 *   <Field.Description>Pick something memorable.</Field.Description>
-	 * </Field.Root>
+	 * </Field.Item>
 	 * ```
 	 */
 	ErrorList: FieldErrorList,
