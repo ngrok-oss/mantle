@@ -1,0 +1,534 @@
+---
+title: Field
+description: Layout primitive for a single form field — label, control, helper text, and error messaging stacked together with consistent spacing.
+---
+
+import { Field } from "@ngrok/mantle/field";
+import { Input } from "@ngrok/mantle/input";
+import { Label } from "@ngrok/mantle/label";
+import { InfoIcon } from "@phosphor-icons/react/Info";
+import { Example } from "~/components/example";
+
+# Field
+
+`Field` is a compound layout primitive for building a single form field. It groups the existing mantle [`Label`](/components/label) with a control (Input, Select, Checkbox, etc.) and adds slots for helper / hint text (`Field.Description`) and validation errors (`Field.Error`, `Field.ErrorList`). Multiple fields can be grouped under a shared caption with `Field.Set` + `Field.Legend` + `Field.Group`.
+
+`Field` does not invent a new label component — pair `Field.Root` with the existing `<Label>`, which already handles `htmlFor`, click-to-focus, and the auto `font-medium` typography.
+
+<Example className="w-full">
+	<Field.Root className="max-w-80">
+		<Label htmlFor="field-username">Username</Label>
+		<Input id="field-username" name="username" placeholder="ada-lovelace" />
+		<Field.Description>Pick something memorable — you can change it later.</Field.Description>
+	</Field.Root>
+</Example>
+
+```tsx
+import { Field } from "@ngrok/mantle/field";
+import { Input } from "@ngrok/mantle/input";
+import { Label } from "@ngrok/mantle/label";
+
+<Field.Root className="max-w-80">
+	<Label htmlFor="username">Username</Label>
+	<Input id="username" name="username" placeholder="ada-lovelace" />
+	<Field.Description>Pick something memorable — you can change it later.</Field.Description>
+</Field.Root>;
+```
+
+## Error message
+
+Render `Field.Error` below the control when validation fails. Set `validation="error"` on the control so the visual states stay in sync.
+
+When a `Field.Description` follows directly after a `Field.Error` (or after the last error rendered by `Field.ErrorList`), `Field.Description` automatically collapses the parent's `gap-1.5` with a matching negative top margin so the error + helper read as one tight block — matching the figma. Pass any margin utility on `Field.Description` (e.g. `className="mt-1"`, `className="mt-0"`) to override.
+
+<Example className="w-full">
+	<Field.Root className="max-w-80">
+		<Label htmlFor="field-email-error">Email</Label>
+		<Input
+			id="field-email-error"
+			name="email"
+			type="email"
+			defaultValue="not-an-email"
+			validation="error"
+		/>
+		<Field.Error>Enter a valid email address.</Field.Error>
+		<Field.Description>We'll never share your email.</Field.Description>
+	</Field.Root>
+</Example>
+
+```tsx
+<Field.Root>
+	<Label htmlFor="email">Email</Label>
+	<Input id="email" name="email" type="email" validation="error" />
+	<Field.Error>Enter a valid email address.</Field.Error>
+	<Field.Description>We'll never share your email.</Field.Description>
+</Field.Root>
+```
+
+## Multiple errors
+
+Render multiple `Field.Error` siblings when a validator produces more than one message at once (e.g. `minLength` + `pattern` + custom rule). The same gap-collapse rule applies between consecutive errors and between the last error and a `Field.Description`, so the whole error + helper section reads as a single tight block.
+
+<Example className="w-full">
+	<Field.Root className="max-w-80">
+		<Label htmlFor="field-password">Password</Label>
+		<Input
+			id="field-password"
+			name="password"
+			type="password"
+			defaultValue="abc"
+			validation="error"
+		/>
+		<Field.Error>Must be at least 12 characters.</Field.Error>
+		<Field.Error>Must include a number.</Field.Error>
+		<Field.Error>Must include a symbol.</Field.Error>
+		<Field.Description>Use a password manager to generate one.</Field.Description>
+	</Field.Root>
+</Example>
+
+```tsx
+<Field.Root>
+	<Label htmlFor="password">Password</Label>
+	<Input id="password" name="password" type="password" validation="error" />
+	<Field.Error>Must be at least 12 characters.</Field.Error>
+	<Field.Error>Must include a number.</Field.Error>
+	<Field.Error>Must include a symbol.</Field.Error>
+	<Field.Description>Use a password manager to generate one.</Field.Description>
+</Field.Root>
+```
+
+When errors arrive from a validator as an array (e.g. `field.state.meta.errors` from TanStack Form), reach for `Field.ErrorList` instead — it's the same output, mapped from an array. See [With TanStack Form](#with-tanstack-form) below.
+
+## Optional fields
+
+Use `Field.Optional` inside a `<Label>` to mark a field as optional. It renders a muted "(Optional)" suffix at `text-sm` regular weight so it reads as secondary metadata without competing with the bolder label text. Defaults to the literal "(Optional)" — pass children to translate or replace.
+
+<Example className="w-full">
+	<Field.Root className="max-w-80">
+		<Label htmlFor="field-nickname" className="flex items-baseline gap-1">
+			Nickname <Field.Optional />
+		</Label>
+		<Input id="field-nickname" name="nickname" placeholder="ada" />
+		<Field.Description>Visible on your public profile.</Field.Description>
+	</Field.Root>
+</Example>
+
+```tsx
+<Field.Root>
+	<Label htmlFor="nickname" className="flex items-baseline gap-1">
+		Nickname <Field.Optional />
+	</Label>
+	<Input id="nickname" name="nickname" placeholder="ada" />
+	<Field.Description>Visible on your public profile.</Field.Description>
+</Field.Root>
+```
+
+Place `Field.Optional` inside the `<Label>` so screen readers announce it as part of the accessible name (e.g. "Nickname, Optional, edit text"). The label's `flex items-baseline gap-1` keeps the suffix on the same baseline as the bolder label text.
+
+## Help icon next to the label
+
+When the label needs a sibling affordance that can't live inside the `<Label>` itself — most commonly an interactive help-icon button — wrap the label and its decorations in `Field.LabelRow`. It's a horizontal flex container with `items-center` and `gap-1` so the label, optional suffix, and help icon all sit on a shared center line. (Center alignment, not baseline — SVG icon buttons have no text baseline, so `items-baseline` would push them above the label text.)
+
+Putting an interactive button inside `<label>` is a footgun: clicks on a `<label>` forward focus to the associated control, so a help button nested in a `<Label>` would steal that behavior. `Field.LabelRow` is the way out.
+
+Reach for the bundled `Field.Help` / `Field.HelpTrigger` / `Field.HelpContent` rather than wiring `Popover` + `IconButton` + an icon by hand — it's the same composition, three thin wrappers, with sensible defaults (ghost `IconButton`, `xs` size, default Phosphor `QuestionIcon`, `text-body` color). [`Popover`](/components/popover) under the hood — not [`Tooltip`](/components/tooltip) — so the affordance is reachable on touch devices.
+
+<Example className="w-full">
+	<Field.Root className="max-w-80">
+		<Field.LabelRow>
+			<Label htmlFor="field-api-key" className="flex items-baseline gap-1">
+				API key <Field.Optional />
+			</Label>
+			<Field.Help>
+				<Field.HelpTrigger label="What is an API key?" />
+				<Field.HelpContent>Copy this from the ngrok dashboard.</Field.HelpContent>
+			</Field.Help>
+		</Field.LabelRow>
+		<Input id="field-api-key" name="apiKey" placeholder="2A1b…" />
+		<Field.Description>You can find this in the ngrok dashboard.</Field.Description>
+	</Field.Root>
+</Example>
+
+```tsx
+<Field.Root>
+	<Field.LabelRow>
+		<Label htmlFor="api-key" className="flex items-baseline gap-1">
+			API key <Field.Optional />
+		</Label>
+		<Field.Help>
+			<Field.HelpTrigger label="What is an API key?" />
+			<Field.HelpContent>Copy this from the ngrok dashboard.</Field.HelpContent>
+		</Field.Help>
+	</Field.LabelRow>
+	<Input id="api-key" name="apiKey" />
+	<Field.Description>You can find this in the ngrok dashboard.</Field.Description>
+</Field.Root>
+```
+
+`Field.HelpTrigger` accepts every `IconButton` prop, so swap the icon, change the appearance, or relabel without dropping down to raw `Popover`:
+
+<Example className="w-full">
+	<Field.Root className="max-w-80">
+		<Field.LabelRow>
+			<Label htmlFor="field-webhook-secret">Webhook secret</Label>
+			<Field.Help>
+				<Field.HelpTrigger icon={<InfoIcon />} label="What is a webhook secret?" />
+				<Field.HelpContent>
+					Used to sign outbound webhook payloads so your endpoint can verify the request came from
+					ngrok.
+				</Field.HelpContent>
+			</Field.Help>
+		</Field.LabelRow>
+		<Input id="field-webhook-secret" name="webhookSecret" placeholder="whsec_…" />
+	</Field.Root>
+</Example>
+
+```tsx
+<Field.Help>
+	<Field.HelpTrigger icon={<InfoIcon />} label="What is a webhook secret?" />
+	<Field.HelpContent>
+		Used to sign outbound webhook payloads so your endpoint can verify the request.
+	</Field.HelpContent>
+</Field.Help>
+```
+
+## Grouped fields
+
+Wrap related fields in a `Field.Set` with a `Field.Legend` to caption them as a semantic group. Use `Field.Group` to stack the individual `Field.Root`s with `gap-4` between them.
+
+<Example className="w-full">
+	<Field.Set className="max-w-80">
+		<Field.Legend>Account</Field.Legend>
+		<Field.Group>
+			<Field.Root>
+				<Label htmlFor="field-account-email">Email</Label>
+				<Input id="field-account-email" name="email" type="email" placeholder="you@ngrok.com" />
+			</Field.Root>
+			<Field.Root>
+				<Label htmlFor="field-account-password">Password</Label>
+				<Input id="field-account-password" name="password" type="password" />
+				<Field.Description>At least 12 characters.</Field.Description>
+			</Field.Root>
+		</Field.Group>
+	</Field.Set>
+</Example>
+
+```tsx
+<Field.Set>
+	<Field.Legend>Account</Field.Legend>
+	<Field.Group>
+		<Field.Root>
+			<Label htmlFor="email">Email</Label>
+			<Input id="email" name="email" type="email" />
+		</Field.Root>
+		<Field.Root>
+			<Label htmlFor="password">Password</Label>
+			<Input id="password" name="password" type="password" />
+			<Field.Description>At least 12 characters.</Field.Description>
+		</Field.Root>
+	</Field.Group>
+</Field.Set>
+```
+
+`Field.Group` also works standalone when you want consistent spacing between fields without the semantic fieldset wrapper:
+
+```tsx
+<Field.Group>
+	<Field.Root>
+		<Label htmlFor="first-name">First name</Label>
+		<Input id="first-name" name="firstName" />
+	</Field.Root>
+	<Field.Root>
+		<Label htmlFor="last-name">Last name</Label>
+		<Input id="last-name" name="lastName" />
+	</Field.Root>
+</Field.Group>
+```
+
+### Description below the legend
+
+`Field.Description` doubles as a fieldset description: drop it directly below a `Field.Legend` and it sits naturally tight to the legend (Chromium renders the legend with no flex gap to its next sibling, so no negative margin is needed). Same component as the field-level helper text — same color, same size — just positioned at the fieldset level.
+
+<Example className="w-full">
+	<Field.Set className="max-w-80">
+		<Field.Legend>Payment method</Field.Legend>
+		<Field.Description>All transactions are secure and encrypted.</Field.Description>
+		<Field.Group>
+			<Field.Root>
+				<Label htmlFor="field-name-on-card">Name on card</Label>
+				<Input id="field-name-on-card" name="nameOnCard" placeholder="Evil Rabbit" />
+			</Field.Root>
+			<Field.Root>
+				<Label htmlFor="field-card-number">Card number</Label>
+				<Input
+					id="field-card-number"
+					name="cardNumber"
+					inputMode="numeric"
+					placeholder="1234 5678 9012 3456"
+				/>
+				<Field.Description>Enter your 16-digit card number.</Field.Description>
+			</Field.Root>
+		</Field.Group>
+	</Field.Set>
+</Example>
+
+```tsx
+<Field.Set>
+	<Field.Legend>Payment method</Field.Legend>
+	<Field.Description>All transactions are secure and encrypted.</Field.Description>
+	<Field.Group>
+		<Field.Root>
+			<Label htmlFor="name-on-card">Name on card</Label>
+			<Input id="name-on-card" name="nameOnCard" />
+		</Field.Root>
+		<Field.Root>
+			<Label htmlFor="card-number">Card number</Label>
+			<Input id="card-number" name="cardNumber" inputMode="numeric" />
+			<Field.Description>Enter your 16-digit card number.</Field.Description>
+		</Field.Root>
+	</Field.Group>
+</Field.Set>
+```
+
+## With TanStack Form
+
+`Field` is designed to slot directly into [TanStack Form](https://tanstack.com/form). `field.name` is a stable, unique string for each field — pass it as both `htmlFor` on the `Label` and `id` on the control to wire the association without a separate `useId()` call. Map `field.state.meta.errors` (e.g. `ZodIssue[]`) down to message strings and hand the result to `Field.ErrorList`:
+
+```tsx
+import { Field } from "@ngrok/mantle/field";
+import { Input } from "@ngrok/mantle/input";
+import { Label } from "@ngrok/mantle/label";
+import { Button } from "@ngrok/mantle/button";
+import { useForm } from "@tanstack/react-form";
+import { z } from "zod";
+
+const schema = z.object({
+	email: z.email("Enter a valid email."),
+	password: z.string().min(12, "Must be at least 12 characters."),
+});
+
+export function AccountForm() {
+	const form = useForm({
+		defaultValues: { email: "", password: "" },
+		validators: { onChange: schema },
+		onSubmit: ({ value }) => {
+			console.log(value);
+		},
+	});
+
+	return (
+		<form
+			className="flex flex-col gap-4"
+			onSubmit={(event) => {
+				event.preventDefault();
+				event.stopPropagation();
+				void form.handleSubmit();
+			}}
+		>
+			<Field.Set>
+				<Field.Legend>Account</Field.Legend>
+				<Field.Group>
+					<form.Field name="email">
+						{(field) => (
+							<Field.Root>
+								<Label htmlFor={field.name}>Email</Label>
+								<Input
+									id={field.name}
+									name={field.name}
+									type="email"
+									value={field.state.value}
+									onBlur={field.handleBlur}
+									onChange={(event) => field.handleChange(event.target.value)}
+									validation={field.state.meta.errors.length > 0 ? "error" : false}
+								/>
+								<Field.ErrorList errors={field.state.meta.errors.map((error) => error?.message)} />
+								<Field.Description>We'll never share your email.</Field.Description>
+							</Field.Root>
+						)}
+					</form.Field>
+					<form.Field name="password">
+						{(field) => (
+							<Field.Root>
+								<Label htmlFor={field.name}>Password</Label>
+								<Input
+									id={field.name}
+									name={field.name}
+									type="password"
+									value={field.state.value}
+									onBlur={field.handleBlur}
+									onChange={(event) => field.handleChange(event.target.value)}
+									validation={field.state.meta.errors.length > 0 ? "error" : false}
+								/>
+								<Field.ErrorList errors={field.state.meta.errors.map((error) => error?.message)} />
+								<Field.Description>At least 12 characters.</Field.Description>
+							</Field.Root>
+						)}
+					</form.Field>
+				</Field.Group>
+			</Field.Set>
+			<Button type="submit" appearance="filled">
+				Submit
+			</Button>
+		</form>
+	);
+}
+```
+
+## Composition
+
+Compose the parts of a `Field` together to build your own:
+
+```text showLineNumbers=false
+Field.Set
+├── Field.Legend
+└── Field.Group
+    └── Field.Root
+        ├── Field.LabelRow
+        │   ├── <Label>
+        │   │   └── Field.Optional
+        │   └── Field.Help
+        │       ├── Field.HelpTrigger
+        │       └── Field.HelpContent
+        ├── (control)
+        ├── Field.Error
+        ├── Field.ErrorList
+        └── Field.Description
+```
+
+Most fields only need `Field.Root` plus `Field.Description` / `Field.Error`. Reach for `Field.Set` + `Field.Legend` when you have multiple related fields that should be announced as a single semantic group (e.g. an address block, a set of related toggles).
+
+## Polymorphism
+
+Every `Field.*` part except `Field.ErrorList` accepts an `asChild` prop. When `true`, the part renders its single child instead of its default element, forwarding all class names, `data-*` attributes, and the ref onto that child. Reach for it when you need a different semantic element (e.g. wrapping a `Field.Root` around an inline checkbox + caption, rendering `Field.Legend` as an `h2`, or rendering `Field.Optional` as an `<em>`).
+
+```tsx
+<Field.Legend asChild>
+	<h2>Account</h2>
+</Field.Legend>
+```
+
+## API Reference
+
+### Field.Root
+
+The root container for a single form field. Renders `<div role="group">` with `flex flex-col gap-1.5` so a Label, control, and helper / error siblings stack tightly together.
+
+All props from [div](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes), plus:
+
+| Prop       | Type      | Default   | Description                                                                              |
+| ---------- | --------- | --------- | ---------------------------------------------------------------------------------------- |
+| `asChild?` | `boolean` | `false`   | Render as a different element by passing a child.                                        |
+| `role?`    | `string`  | `"group"` | Override the default `role="group"` (e.g. set to `undefined` to drop the implicit ARIA). |
+
+### Field.Group
+
+Layout container that stacks multiple `Field.Root`s vertically with `gap-4`. Use inside `Field.Set` for semantic grouping, or standalone when you only need spacing.
+
+All props from [div](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes), plus:
+
+| Prop       | Type      | Default | Description                                       |
+| ---------- | --------- | ------- | ------------------------------------------------- |
+| `asChild?` | `boolean` | `false` | Render as a different element by passing a child. |
+
+### Field.Set
+
+Renders a semantic `<fieldset>` with default browser styling reset (no border, no padding, `min-width: 0`). Compose with `Field.Legend` and `Field.Group`.
+
+All props from [fieldset](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/fieldset#attributes), plus:
+
+| Prop       | Type      | Default | Description                                       |
+| ---------- | --------- | ------- | ------------------------------------------------- |
+| `asChild?` | `boolean` | `false` | Render as a different element by passing a child. |
+
+### Field.Legend
+
+Caption for a `Field.Set`. Renders a `<legend>` styled to match the mantle `Label` typography.
+
+All props from [legend](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/legend#attributes), plus:
+
+| Prop       | Type      | Default | Description                                                      |
+| ---------- | --------- | ------- | ---------------------------------------------------------------- |
+| `asChild?` | `boolean` | `false` | Render as a different element (e.g. an `h2`) by passing a child. |
+
+### Field.LabelRow
+
+Horizontal layout container for the label area of a field — a flex row with `items-center` and `gap-1`. Use when the label needs a sibling affordance that can't live inside the `<Label>` itself, like a help-icon `Field.HelpTrigger`. Center-aligned (not baseline) so SVG icon buttons sit visually centered next to the label text.
+
+All props from [div](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes), plus:
+
+| Prop       | Type      | Default | Description                                       |
+| ---------- | --------- | ------- | ------------------------------------------------- |
+| `asChild?` | `boolean` | `false` | Render as a different element by passing a child. |
+
+### Field.Help
+
+`Popover.Root` wrapper for the help-affordance pattern. Composes with `Field.HelpTrigger` and `Field.HelpContent`. Forwards all `Popover.Root` props (`open`, `defaultOpen`, `onOpenChange`, `modal`, etc.).
+
+### Field.HelpTrigger
+
+`Popover.Trigger` wired to a ghost-appearance `IconButton` with a default Phosphor `QuestionIcon`. Pre-styled with `text-body` so the icon reads as subtle metadata at rest; `IconButton`'s ghost `hover:text-strong` brightens it on interaction.
+
+Accepts every `IconButton` prop — they all become optional with sensible defaults:
+
+| Prop          | Type                       | Default            | Description                                                          |
+| ------------- | -------------------------- | ------------------ | -------------------------------------------------------------------- |
+| `icon?`       | `ReactNode`                | `<QuestionIcon />` | Icon rendered inside the trigger button. Override to swap the glyph. |
+| `label?`      | `string`                   | `"Show help"`      | Visually-hidden accessible label announced by screen readers.        |
+| `appearance?` | `"ghost"` \| `"outlined"`  | `"ghost"`          | `IconButton` appearance variant.                                     |
+| `size?`       | `"xs"` \| `"sm"` \| `"md"` | `"xs"`             | `IconButton` size.                                                   |
+| `className?`  | `string`                   | —                  | Merged onto the underlying `IconButton`.                             |
+
+### Field.HelpContent
+
+Body of a `Field.Help` popover. Forwards every `Popover.Content` prop — see the [Popover docs](/components/popover#popovercontent) for the full surface (`side`, `align`, `preferredWidth`, etc.).
+
+All props from [div](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes), plus:
+
+| Prop       | Type      | Default | Description                                       |
+| ---------- | --------- | ------- | ------------------------------------------------- |
+| `asChild?` | `boolean` | `false` | Render as a different element by passing a child. |
+
+### Field.Optional
+
+Inline "(Optional)" suffix to mark a field as optional. Renders a `<span>` in `text-muted` at `text-sm` / `font-normal`. Default content is the literal string "(Optional)" — pass children to translate or replace.
+
+All props from [span](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span#attributes), plus:
+
+| Prop       | Type      | Default | Description                                       |
+| ---------- | --------- | ------- | ------------------------------------------------- |
+| `asChild?` | `boolean` | `false` | Render as a different element by passing a child. |
+
+### Field.Description
+
+Helper / hint text. Renders a `<p>` in the muted body color. Works in two positions:
+
+1. **Inside `Field.Root`**, below the control — clarifies expected format or constraints for that single field.
+2. **Inside `Field.Set`, between `Field.Legend` and `Field.Group`** — describes the entire fieldset.
+
+When `Field.Description` is rendered immediately after a `Field.Error` (including the last one produced by `Field.ErrorList`), it automatically collapses the parent's `gap-1.5` via a `-mt-1.5` so error + helper read as a single tight block. The rule's specificity is flattened to `(0,1,0)` so any margin utility you pass on `Field.Description` (e.g. `mt-1`, `mt-0`) overrides cleanly. After a `Field.Legend` no negative margin is needed — Chromium renders the rendered legend with no flex gap to its next sibling, so the description naturally hugs the legend.
+
+All props from [p](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p#attributes), plus:
+
+| Prop       | Type      | Default | Description                                       |
+| ---------- | --------- | ------- | ------------------------------------------------- |
+| `asChild?` | `boolean` | `false` | Render as a different element by passing a child. |
+
+### Field.Error
+
+A single error message for a field. Renders a `<p>` in `text-danger-600`. Conditionally render this when validation fails, or use `Field.ErrorList` for multiple messages at once.
+
+When a `Field.Error` is rendered immediately after another `Field.Error` sibling (a manually-stacked pair OR consecutive items rendered by `Field.ErrorList`), it automatically collapses the parent's `gap-1.5` via a `-mt-1.5` so the messages read as a single block. The rule's specificity is flattened to `(0,1,0)` so any margin utility you pass on `Field.Error` overrides cleanly.
+
+All props from [p](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p#attributes), plus:
+
+| Prop       | Type      | Default | Description                                       |
+| ---------- | --------- | ------- | ------------------------------------------------- |
+| `asChild?` | `boolean` | `false` | Render as a different element by passing a child. |
+
+### Field.ErrorList
+
+Renders a list of validation errors, one `Field.Error` per truthy entry. Returns `null` when the resulting list is empty so it can be left mounted unconditionally.
+
+| Prop      | Type                   | Default | Description                                                                                                                         |
+| --------- | ---------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `errors?` | `readonly ReactNode[]` | —       | The list of error messages to render. Falsy entries (`null`, `undefined`, `false`, empty string) are filtered out before rendering. |

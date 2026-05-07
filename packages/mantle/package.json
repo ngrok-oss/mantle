@@ -160,6 +160,11 @@
 			"types": "./dist/empty.d.ts",
 			"import": "./dist/empty.js"
 		},
+		"./field": {
+			"@ngrok/src-live-types": "./src/components/field/index.ts",
+			"types": "./dist/field.d.ts",
+			"import": "./dist/field.js"
+		},
 		"./flag": {
 			"@ngrok/src-live-types": "./src/components/flag/index.ts",
 			"types": "./dist/flag.d.ts",
