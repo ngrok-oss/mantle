@@ -34,7 +34,10 @@ function getHeadings(container: HTMLElement): Array<TocEntry> {
 	return entries;
 }
 
-const HEADER_OFFSET = 80;
+// Matches the `scroll-mt-24` (6rem = 96px) on `HashLinkHeading`. Aligning the
+// trigger with where headings land after a hash-link click ensures the clicked
+// entry — not its predecessor — is the one marked active.
+const HEADER_OFFSET = 96;
 const EASE_START = 0.75;
 
 function clamp01(value: number): number {
