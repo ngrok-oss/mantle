@@ -138,7 +138,7 @@ declare global {
 export function Layout({ children }: PropsWithChildren) {
 	const loaderData = useRouteLoaderData<typeof loader>("root");
 	const initialHtmlThemeProps = useInitialHtmlThemeProps({
-		className: "h-full scroll-pt-16",
+		className: "h-full",
 	});
 	const scrollBehavior = useScrollBehavior();
 	const nonce = useNonce();
