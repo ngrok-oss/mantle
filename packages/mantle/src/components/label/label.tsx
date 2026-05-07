@@ -34,6 +34,15 @@ type LabelProps = ComponentPropsWithoutRef<"label"> & {
  * style. Typically you'll want this to mirror the underlying control's
  * disabled state so the visual treatment stays consistent.
  *
+ * **Font weight.** A `Label` automatically gets `font-medium` when it does
+ * **not** contain a nested form control (`<input>`, `<textarea>`, `<select>`,
+ * `<button>`, or `[contenteditable]`). When the label *does* wrap a control,
+ * the auto default is intentionally skipped so the control's own typography
+ * isn't bolded — apply `font-medium` to your own caption element (e.g. a
+ * `<span>` or `<p>`) inside the label. Override the default at any time by
+ * passing a font-weight utility on the `Label` itself, e.g.
+ * `<Label className="font-bold">`.
+ *
  * @see https://mantle.ngrok.com/components/label
  *
  * @example
@@ -71,6 +80,13 @@ const Label = forwardRef<ComponentRef<"label">, LabelProps>(
 			data-slot="label"
 			className={cx(
 				"text-strong cursor-pointer text-sm peer-disabled:cursor-default has-disabled:cursor-default aria-disabled:cursor-default font-sans",
+				// Default to font-medium when the label isn't wrapping a form control. The
+				// arbitrary variant wraps the *entire* matched selector — class + the
+				// `:not(:has(...))` check — in `:where()`, flattening total specificity to 0.
+				// That lets a user-supplied font-weight utility (`font-bold`, `font-normal`,
+				// etc.) at (0,1,0) override cleanly, even though `[contenteditable]` is an
+				// attribute selector that would otherwise lift the rule to (0,1,0) and tie.
+				"[:where(&:not(:has(input,textarea,select,button,[contenteditable])))]:font-medium",
 				className,
 			)}
 			onMouseDown={(event) => {

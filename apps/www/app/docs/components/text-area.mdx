@@ -15,34 +15,56 @@ import { Example } from "~/components/example";
 A multi-line plain-text editing control, useful when you want to allow users to enter a sizeable amount of free-form text, for example a comment on a review or feedback form.
 
 <Example className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-	<Label className="space-y-1">
-		<p>Default TextArea</p>
-		<TextArea placeholder="Tell us about your experience…" />
-	</Label>
-	<Label className="space-y-1">
-		<p>Monospaced TextArea</p>
-		<TextArea appearance="monospaced" placeholder="Tell us about your experience…" />
-	</Label>
-	<Label className="space-y-1">
-		<p>Error TextArea</p>
-		<TextArea placeholder="Tell us about your experience…" validation="error" />
-	</Label>
-	<Label className="space-y-1">
-		<p>Success TextArea</p>
-		<TextArea placeholder="Tell us about your experience…" validation="success" />
-	</Label>
-	<Label className="space-y-1">
-		<p>Warning TextArea</p>
-		<TextArea placeholder="Tell us about your experience…" validation="warning" />
-	</Label>
+	<div className="flex flex-col gap-1.5">
+		<Label htmlFor="textarea-default">Default TextArea</Label>
+		<TextArea id="textarea-default" placeholder="Tell us about your experience…" />
+	</div>
+	<div className="flex flex-col gap-1.5">
+		<Label htmlFor="textarea-monospaced">Monospaced TextArea</Label>
+		<TextArea
+			id="textarea-monospaced"
+			appearance="monospaced"
+			placeholder="Tell us about your experience…"
+		/>
+	</div>
+	<div className="flex flex-col gap-1.5">
+		<Label htmlFor="textarea-error">Error TextArea</Label>
+		<TextArea id="textarea-error" placeholder="Tell us about your experience…" validation="error" />
+	</div>
+	<div className="flex flex-col gap-1.5">
+		<Label htmlFor="textarea-success">Success TextArea</Label>
+		<TextArea
+			id="textarea-success"
+			placeholder="Tell us about your experience…"
+			validation="success"
+		/>
+	</div>
+	<div className="flex flex-col gap-1.5">
+		<Label htmlFor="textarea-warning">Warning TextArea</Label>
+		<TextArea
+			id="textarea-warning"
+			placeholder="Tell us about your experience…"
+			validation="warning"
+		/>
+	</div>
 </Example>
 
 ```tsx
+import { Label } from "@ngrok/mantle/label";
 import { TextArea } from "@ngrok/mantle/text-area";
 
-<TextArea placeholder="Tell us about your experience…" />
-<TextArea appearance="monospaced" placeholder="Tell us about your experience…" />
-<TextArea placeholder="Tell us about your experience…" validation="error" />
+<div className="flex flex-col gap-1.5">
+	<Label htmlFor="feedback">Default TextArea</Label>
+	<TextArea id="feedback" placeholder="Tell us about your experience…" />
+</div>
+<div className="flex flex-col gap-1.5">
+	<Label htmlFor="feedback-mono">Monospaced TextArea</Label>
+	<TextArea id="feedback-mono" appearance="monospaced" placeholder="Tell us about your experience…" />
+</div>
+<div className="flex flex-col gap-1.5">
+	<Label htmlFor="feedback-error">Error TextArea</Label>
+	<TextArea id="feedback-error" placeholder="Tell us about your experience…" validation="error" />
+</div>
 ```
 
 ## Examples

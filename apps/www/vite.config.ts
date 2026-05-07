@@ -72,6 +72,7 @@ export default defineConfig({
 	},
 	server: {
 		port: 3333,
+		allowedHosts: true,
 		warmup: {
 			clientFiles: [
 				"./app/**/!(*.server|*.test)*.tsx", // Include all .tsx files except server and test files (add more patterns if required)
