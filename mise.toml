@@ -1,13 +1,16 @@
 [settings]
 # Commit mise.lock so the toolchain is reproducible across machines.
 lockfile = true
-# Require every tool to have a pre-resolved URL+checksum in mise.lock for the
-# current platform. Bumping a tool version requires `mise lock` to refresh the
-# lockfile entries — see CONTRIBUTING.md.
+# Require tool installs to use the committed lockfile. Bumping a tool version
+# requires `mise run relock` to refresh the lockfile entries.
 locked = true
-# Read Node from .nvmrc and pnpm from package.json#packageManager.
-# These remain the canonical version sources; mise.toml does not duplicate them.
-idiomatic_version_file_enable_tools = ["node", "pnpm"]
+# Read Node from .nvmrc. pnpm is configured below via package.json#packageManager.
+idiomatic_version_file_enable_tools = ["node"]
+
+[tools]
+# Keep pnpm's version single-sourced in root package.json#packageManager.
+# The helper avoids needing Node before mise has installed Node.
+"aqua:pnpm/pnpm" = "{{ exec(command='./scripts/package-manager-version') }}"
 
 [env]
 # Make node_modules/.bin available to `mise x --` and to shells that activate mise.
@@ -27,6 +30,16 @@ run = "pnpm install --frozen-lockfile"
 description = "Prepare the repository after a fresh clone"
 depends = ["install"]
 
+# Refreshes mise.lock after bumping .nvmrc or package.json#packageManager.
+# `mise lock` refuses to run while settings.locked=true, so opt out for this
+# task only — relocking is an explicit, deliberate action by the user. After
+# this, run `mise install` to materialize the new versions and commit both
+# the source pin and mise.lock together.
+[tasks.relock]
+description = "Refresh mise.lock to match .nvmrc and package.json#packageManager"
+env = { MISE_LOCKED = "0" }
+run = "mise lock"
+
 # Catches drift between the committed pins (.nvmrc, package.json#packageManager)
 # and the active Node/pnpm on PATH. Run after switching branches, after manual
 # tool installs, or in CI to confirm the toolchain is what's expected before
@@ -45,8 +58,8 @@ if [ "$actual_node" != "$expected_node" ]; then
   exit 1
 fi
 
-# Compare active pnpm to package.json#packageManager (parse JSON via Node).
-expected_pnpm=$(node -p "require('./package.json').packageManager.split('@')[1]")
+# Compare active pnpm to package.json#packageManager.
+expected_pnpm=$(./scripts/package-manager-version)
 actual_pnpm=$(pnpm --version)
 if [ "$actual_pnpm" != "$expected_pnpm" ]; then
   echo "pnpm version mismatch: active=$actual_pnpm, expected=$expected_pnpm (package.json#packageManager)" >&2
