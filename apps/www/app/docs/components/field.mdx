@@ -16,6 +16,8 @@ import { Example } from "~/components/example";
 
 `Field` does not invent a new label component — pair `Field.Item` with the existing `<Label>`, which already handles `htmlFor`, click-to-focus, and the auto `font-medium` typography.
 
+`Field.Item` automatically gives descendant `Field.Description` and non-empty `Field.ErrorList` parts stable IDs, then merges those IDs onto known form controls via `aria-describedby` and `aria-errormessage`. It does not change the control's `id` or `name`, so `id={field.name}` stays the right TanStack Form pattern.
+
 <Example className="w-full">
 	<Field.Item className="max-w-80">
 		<Label htmlFor="field-username">Username</Label>
@@ -38,7 +40,7 @@ import { Label } from "@ngrok/mantle/label";
 
 ## Error messages
 
-Wrap one or more `Field.Error` children in a `Field.ErrorList` below the control when validation fails. The list renders a semantic `<ul>` with `<li>` items so screen readers announce the errors as a list, and a single error is just a list of one. Set `validation="error"` on the control so the visual states stay in sync.
+Wrap one or more `Field.Error` children in a `Field.ErrorList` below the control when validation fails. The list renders a semantic `<ul>` with `<li>` items so screen readers announce the errors as a list, and a single error is just a list of one. Set `validation="error"` on the control so the visual states stay in sync; `Field.Item` handles the `aria-errormessage` association and marks known controls invalid when an error list is present.
 
 When a `Field.Description` follows directly after a `Field.ErrorList`, `Field.Description` automatically collapses the parent's `gap-1.5` with a matching negative top margin so the errors + helper read as one tight block — matching the figma. Pass any margin utility on `Field.Description` (e.g. `className="mt-1"`, `className="mt-0"`) to override.
 
@@ -106,7 +108,7 @@ Render multiple `Field.Error` siblings inside `Field.ErrorList` when a validator
 </Field.Item>
 ```
 
-When errors arrive from a validator as an array (e.g. `field.state.meta.errors` from TanStack Form), `.map()` them inside `Field.ErrorList`. See [With TanStack Form](#with-tanstack-form) below.
+When errors arrive from a validator as an array (e.g. `field.state.meta.errors` from TanStack Form), `.map()` them inside `Field.ErrorList`. An empty array renders nothing and does not add an `aria-errormessage` reference. See [With TanStack Form](#with-tanstack-form) below.
 
 ## Optional fields
 
@@ -297,7 +299,7 @@ Add a `Field.Description` directly below the `Field.Legend` to clarify the quest
 
 ## With TanStack Form
 
-`Field` is designed to slot directly into [TanStack Form](https://tanstack.com/form). `field.name` is a stable, unique string for each field — pass it as both `htmlFor` on the `Label` and `id` on the control to wire the association without a separate `useId()` call. Map `field.state.meta.errors` (e.g. `ZodIssue[]`) inside `Field.ErrorList` to render one `Field.Error` per message; the list renders nothing when the array is empty so it's safe to leave mounted unconditionally:
+`Field` is designed to slot directly into [TanStack Form](https://tanstack.com/form). `field.name` is a stable, unique string for each field — pass it as both `htmlFor` on the `Label` and `id` on the control to wire the label association without a separate `useId()` call. `Field.Item` leaves that `id` alone while auto-wiring descendant descriptions and errors. Map `field.state.meta.errors` (e.g. `ZodIssue[]`) inside `Field.ErrorList` to render one `Field.Error` per message; the list renders nothing when the array is empty so it's safe to leave mounted unconditionally:
 
 ```tsx
 import { Field } from "@ngrok/mantle/field";
@@ -416,19 +418,22 @@ Skip `Field.Set` for unrelated fields stacked together — `<fieldset>` semantic
 
 ## Polymorphism
 
-Every `Field.*` part accepts an `asChild` prop. When `true`, the part renders its single child instead of its default element, forwarding all class names, `data-*` attributes, and the ref onto that child. Reach for it when you need a different semantic element (e.g. wrapping a `Field.Item` around an inline checkbox + caption, rendering `Field.Legend` as an `h2`, rendering `Field.ErrorList` as an `<ol>`, or rendering `Field.Optional` as an `<em>`).
+Layout and supplemental `Field.*` parts accept an `asChild` prop. When `true`, the part renders its single child instead of its default element, forwarding all class names, `data-*` attributes, and the ref onto that child. `Field.Set`, `Field.Legend`, and `Field.Error` always render `<fieldset>`, `<legend>`, and `<li>` respectively, because those elements are the semantics those parts exist to provide.
 
 ```tsx
-<Field.Legend asChild>
-	<h2>Account</h2>
-</Field.Legend>
+<Field.ErrorList asChild>
+	<ol>
+		<Field.Error>Fix this first.</Field.Error>
+		<Field.Error>Then fix this.</Field.Error>
+	</ol>
+</Field.ErrorList>
 ```
 
 ## API Reference
 
 ### Field.Item
 
-A single form field. Renders a plain `<div>` with `flex flex-col gap-1.5` so a Label, control, and helper / error siblings stack tightly together. No implicit ARIA role — the `<label htmlFor>` ↔ control association already provides the right semantics for a single field.
+A single form field. Renders a plain `<div>` with `flex flex-col gap-1.5` so a Label, control, and helper / error siblings stack tightly together. No implicit ARIA role — the `<label htmlFor>` ↔ control association already provides the right semantics for a single field. Descendant `Field.Description` IDs are merged into known controls' `aria-describedby`; non-empty `Field.ErrorList` IDs are merged into `aria-errormessage` and mark known controls invalid when they have not provided their own `aria-invalid`.
 
 **When to use:** for every individual field — text inputs, selects, single checkboxes, switches, password inputs, etc.
 
@@ -456,21 +461,13 @@ Renders a semantic `<fieldset>` with default browser styling reset (no border, n
 
 **When to use:** specifically for radios (one question, many possible answers) or sets of related checkboxes (preference toggles, permission flags). _Skip it_ for stacking unrelated fields — `Field.Group` is the right call there. A `<fieldset>` around plain inputs reads as noise to assistive tech.
 
-All props from [fieldset](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/fieldset#attributes), plus:
-
-| Prop       | Type      | Default | Description                                       |
-| ---------- | --------- | ------- | ------------------------------------------------- |
-| `asChild?` | `boolean` | `false` | Render as a different element by passing a child. |
+All props from [fieldset](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/fieldset#attributes).
 
 ### Field.Legend
 
 Caption for a `Field.Set`. Renders a `<legend>` styled to match the mantle `Label` typography. Always render a `Field.Legend` inside a `Field.Set` — it's what gives the surrounding fieldset its accessible name.
 
-All props from [legend](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/legend#attributes), plus:
-
-| Prop       | Type      | Default | Description                                                      |
-| ---------- | --------- | ------- | ---------------------------------------------------------------- |
-| `asChild?` | `boolean` | `false` | Render as a different element (e.g. an `h2`) by passing a child. |
+All props from [legend](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/legend#attributes).
 
 ### Field.LabelRow
 
@@ -527,7 +524,7 @@ Helper / hint text. Renders a `<p>` in the muted body color. Works in two positi
 1. **Inside `Field.Item`**, below the control — clarifies expected format or constraints for that single field.
 2. **Inside `Field.Set`, directly below the `Field.Legend`** — clarifies the question the legend names (most useful with radios or checkbox groups).
 
-When `Field.Description` is rendered immediately after a `Field.ErrorList`, it automatically collapses the parent's `gap-1.5` via a `-mt-1.5` so errors + helper read as a single tight block. The rule's specificity is flattened to `(0,1,0)` so any margin utility you pass on `Field.Description` (e.g. `mt-1`, `mt-0`) overrides cleanly. After a `Field.Legend` no negative margin is needed — Chromium renders the legend with no flex gap to its next sibling, so the description naturally hugs the legend.
+When rendered inside `Field.Item`, `Field.Description` receives a generated ID unless you provide one, and that ID is merged into the control's `aria-describedby`. When `Field.Description` is rendered immediately after a `Field.ErrorList`, it automatically collapses the parent's `gap-1.5` via a `-mt-1.5` so errors + helper read as a single tight block. The rule's specificity is flattened to `(0,1,0)` so any margin utility you pass on `Field.Description` (e.g. `mt-1`, `mt-0`) overrides cleanly. After a `Field.Legend` no negative margin is needed — Chromium renders the legend with no flex gap to its next sibling, so the description naturally hugs the legend.
 
 All props from [p](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p#attributes), plus:
 
@@ -539,15 +536,11 @@ All props from [p](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p#a
 
 A single error message for a field. Renders an `<li>` in `text-danger-600`, so it must be nested inside a `Field.ErrorList`. A single error is just a list of one.
 
-All props from [li](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li#attributes), plus:
-
-| Prop       | Type      | Default | Description                                       |
-| ---------- | --------- | ------- | ------------------------------------------------- |
-| `asChild?` | `boolean` | `false` | Render as a different element by passing a child. |
+All props from [li](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li#attributes).
 
 ### Field.ErrorList
 
-Wraps one or more `Field.Error` children in a semantic `<ul>` so a list of validation errors is announced as a list by screen readers. Renders nothing when given no children, so it can be left mounted while a validator produces a (possibly empty) error array. Strips the default browser `<ul>` styling (no bullets, no padding, no margin) and stacks items as a flex column with no gap so consecutive errors read as a single tight block. Pass `asChild` with an `<ol>` if the list is meaningfully ordered.
+Wraps one or more `Field.Error` children in a semantic `<ul>` with `role="list"` so a list of validation errors is announced as a list by screen readers, including Safari/VoiceOver combinations that drop list semantics when list styling is removed. Renders nothing when given no children, so it can be left mounted while a validator produces a (possibly empty) error array. When rendered inside `Field.Item`, a non-empty list receives a generated ID unless you provide one, and that ID is merged into the control's `aria-errormessage`. Strips the default browser `<ul>` styling (no bullets, no padding, no margin) and stacks items as a flex column with no gap so consecutive errors read as a single tight block. Pass `asChild` with an `<ol>` if the list is meaningfully ordered.
 
 All props from [ul](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul#attributes), plus:
 
