@@ -6,42 +6,9 @@ settings:
 
 catalogs:
   default:
-    '@phosphor-icons/react':
-      specifier: 2.1.10
-      version: 2.1.10
-    '@tailwindcss/vite':
-      specifier: 4.2.4
-      version: 4.2.4
-    '@testing-library/jest-dom':
-      specifier: 6.9.1
-      version: 6.9.1
-    '@tsdown/css':
-      specifier: 0.21.10
-      version: 0.21.10
-    '@vitest/browser-playwright':
-      specifier: 4.1.5
-      version: 4.1.5
-    happy-dom:
-      specifier: 20.9.0
-      version: 20.9.0
-    playwright:
-      specifier: 1.59.1
-      version: 1.59.1
-    tailwindcss:
-      specifier: 4.2.4
-      version: 4.2.4
-    tsdown:
-      specifier: 0.21.10
-      version: 0.21.10
     tsx:
       specifier: 4.21.0
       version: 4.21.0
-    typescript:
-      specifier: 6.0.3
-      version: 6.0.3
-    vite:
-      specifier: 8.0.10
-      version: 8.0.10
 
 overrides:
   '@types/node': 24.12.2
@@ -207,6 +174,9 @@ importers:
       '@vitejs/plugin-react':
         specifier: 6.0.1
         version: 6.0.1(vite@8.0.10(@types/node@24.12.2)(esbuild@0.28.0)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.3))
+      estree-util-value-to-estree:
+        specifier: 3.5.0
+        version: 3.5.0
       mdast-util-mdx-jsx:
         specifier: 3.2.0
         version: 3.2.0

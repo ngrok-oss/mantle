@@ -1,38 +1,8 @@
 import { cx } from "@ngrok/mantle/cx";
-import { useCallback, useEffect, useRef, useState, type RefObject } from "react";
-import { createPortal } from "react-dom";
+import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router";
+import type { TocEntry } from "~/utilities/docs";
 import { ScrollMask } from "./scroll-mask";
-
-type TocEntry = {
-	/** The heading's `id` attribute (from rehype-slug). */
-	id: string;
-	/** The visible text content of the heading. */
-	text: string;
-	/** The heading level (1, 2, or 3). */
-	level: number;
-};
-
-/**
- * Extracts h1, h2, and h3 headings from a container element.
- * Only includes headings that have an `id` attribute (added by rehype-slug).
- */
-function getHeadings(container: HTMLElement): Array<TocEntry> {
-	const headings = container.querySelectorAll<HTMLHeadingElement>("h1[id], h2[id], h3[id]");
-	const entries: Array<TocEntry> = [];
-	for (const heading of headings) {
-		const id = heading.id;
-		const text = heading.textContent?.trim();
-		if (id && text) {
-			entries.push({
-				id,
-				text,
-				level: Number(heading.tagName[1]),
-			});
-		}
-	}
-	return entries;
-}
 
 // Matches the `scroll-mt-24` (6rem = 96px) on `HashLinkHeading`. Aligning the
 // trigger with where headings land after a hash-link click ensures the clicked
@@ -54,21 +24,21 @@ function clamp01(value: number): number {
  * See https://thirty-five.com/overengineered-anchoring.
  */
 function useActiveHeading(entries: Array<TocEntry>): string | undefined {
-	const [activeId, setActiveId] = useState<string | undefined>(undefined);
+	const [activeId, setActiveId] = useState<string | undefined>(() => entries[0]?.id);
 	const location = useLocation();
-
-	useEffect(() => {
-		setActiveId(undefined);
-	}, [location.pathname]);
 
 	useEffect(() => {
 		if (entries.length === 0) {
 			return;
 		}
-		const hash = window.location.hash.slice(1);
-		const initial = hash && entries.some((entry) => entry.id === hash) ? hash : entries[0]?.id;
-		setActiveId(initial);
-	}, [entries]);
+		// Depend on `location.hash` so ToC link clicks update the highlight
+		// immediately — otherwise scroll-based detection lags the smooth-scroll
+		// animation and briefly highlights the predecessor heading.
+		const hash = location.hash.slice(1);
+		if (hash && entries.some((entry) => entry.id === hash)) {
+			setActiveId(hash);
+		}
+	}, [entries, location.hash]);
 
 	useEffect(() => {
 		if (entries.length === 0) {
@@ -86,7 +56,12 @@ function useActiveHeading(entries: Array<TocEntry>): string | undefined {
 			const progress = clamp01(scrollTop / maxScroll);
 			const easeT = clamp01((progress - EASE_START) / (1 - EASE_START));
 			const smoothstep = easeT * easeT * (3 - 2 * easeT);
-			const trigger = scrollTop + HEADER_OFFSET + smoothstep * (clientHeight - HEADER_OFFSET);
+			// Round to whole pixels so a heading landing at the scroll-margin
+			// position (where `offsetTop` and `trigger` are mathematically equal)
+			// can't be off-by-sub-pixel and lose the `<=` check to its predecessor.
+			const trigger = Math.round(
+				scrollTop + HEADER_OFFSET + smoothstep * (clientHeight - HEADER_OFFSET),
+			);
 
 			let next: string | undefined;
 			for (const entry of entries) {
@@ -94,7 +69,7 @@ function useActiveHeading(entries: Array<TocEntry>): string | undefined {
 				if (!element) {
 					continue;
 				}
-				const offsetTop = element.getBoundingClientRect().top + scrollTop;
+				const offsetTop = Math.round(element.getBoundingClientRect().top + scrollTop);
 				if (offsetTop <= trigger) {
 					next = entry.id;
 				} else {
@@ -125,70 +100,11 @@ function useActiveHeading(entries: Array<TocEntry>): string | undefined {
 	return activeId;
 }
 
-/** The id of the DOM element where the ToC portals into (placed in layout.tsx). */
-const TOC_PORTAL_ID = "toc-portal";
-
 /**
- * A table of contents sidebar that portals outside of `<main>` into a layout-level
- * container. Lists h2/h3 headings from the current MDX page and highlights the
- * active section based on scroll position.
- *
- * The portal target (`#toc-portal`) is rendered in `layout.tsx` alongside `<main>`.
- *
- * The `contentRef` should point to the container element that holds the MDX content
- * so headings can be extracted from it.
+ * A table of contents sidebar listing h1/h2/h3 headings from the current MDX
+ * page and highlighting the active section based on scroll position.
  */
-function TableOfContents({ contentRef }: { contentRef: RefObject<HTMLDivElement | null> }) {
-	const [entries, setEntries] = useState<Array<TocEntry>>([]);
-	const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
-	const location = useLocation();
-
-	useEffect(() => {
-		setPortalTarget(document.getElementById(TOC_PORTAL_ID));
-	}, []);
-
-	const updateEntries = useCallback(() => {
-		if (contentRef.current) {
-			setEntries(getHeadings(contentRef.current));
-		}
-	}, [contentRef]);
-
-	// MutationObserver catches Suspense-deferred MDX that mounts after the route effect fires.
-	useEffect(() => {
-		updateEntries();
-
-		const container = contentRef.current;
-		if (!container) {
-			return;
-		}
-
-		const observer = new MutationObserver((mutations) => {
-			for (const mutation of mutations) {
-				const nodes = [...mutation.addedNodes, ...mutation.removedNodes];
-				for (const node of nodes) {
-					if (!(node instanceof HTMLElement)) {
-						continue;
-					}
-
-					const tagName = node.tagName;
-					if ((tagName === "H1" || tagName === "H2" || tagName === "H3") && node.id) {
-						updateEntries();
-						return;
-					}
-
-					if (node.querySelector("h1[id], h2[id], h3[id]")) {
-						updateEntries();
-						return;
-					}
-				}
-			}
-		});
-		observer.observe(container, { childList: true, subtree: true });
-		return () => {
-			observer.disconnect();
-		};
-	}, [location.pathname, updateEntries, contentRef]);
-
+export function TableOfContents({ entries }: { entries: Array<TocEntry> }) {
 	const activeId = useActiveHeading(entries);
 	const itemRefs = useRef<Map<string, HTMLLIElement>>(new Map());
 
@@ -202,11 +118,11 @@ function TableOfContents({ contentRef }: { contentRef: RefObject<HTMLDivElement 
 		}
 	}, [activeId]);
 
-	if (entries.length === 0 || !portalTarget) {
+	if (entries.length === 0) {
 		return null;
 	}
 
-	return createPortal(
+	return (
 		<nav
 			aria-label="Table of contents"
 			className="sticky top-15 flex max-h-[calc(100vh-3.75rem)] w-40 flex-col pt-4"
@@ -232,8 +148,21 @@ function TableOfContents({ contentRef }: { contentRef: RefObject<HTMLDivElement 
 								preventScrollReset
 								aria-current={activeId === entry.id ? "location" : undefined}
 								className={cx(
-									"-ml-px block border-l py-1 text-xs leading-snug transition-colors",
-									entry.level <= 2 ? "pl-3" : "pl-6",
+									// 3px left bar that overlays the ol's 1px gray edge (descendant
+									// paints over ancestor) and extends 2px rightward into the content
+									// area. We can't extend leftward — `ScrollMask`'s `overflow-y-auto`
+									// implicitly clips horizontal overflow, so any negative-margin
+									// extension just gets cut off. Padding compensates so content text
+									// position stays the same as the previous 1px-bar layout.
+									"relative -ml-px block border-l-[3px] py-1 text-xs leading-snug transition-colors",
+									// Focus ring is a pseudo-element offset past the 3px bar so the
+									// active/gray left edge stays visible through the focused area.
+									"focus:outline-hidden",
+									"focus-visible:before:pointer-events-none focus-visible:before:absolute",
+									"focus-visible:before:inset-y-0 focus-visible:before:left-0.75 focus-visible:before:right-0",
+									"focus-visible:before:rounded-md focus-visible:before:content-['']",
+									"focus-visible:before:ring-3 focus-visible:before:ring-inset focus-visible:before:ring-focus-accent",
+									entry.level <= 2 ? "pl-2.5" : "pl-5.5",
 									activeId === entry.id
 										? "text-strong border-accent-500 font-medium"
 										: "text-muted border-transparent hover:text-strong hover:border-gray-400",
@@ -245,13 +174,6 @@ function TableOfContents({ contentRef }: { contentRef: RefObject<HTMLDivElement 
 					))}
 				</ol>
 			</ScrollMask>
-		</nav>,
-		portalTarget,
+		</nav>
 	);
 }
-
-export {
-	//,
-	TableOfContents,
-	TOC_PORTAL_ID,
-};

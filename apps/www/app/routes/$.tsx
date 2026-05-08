@@ -1,12 +1,7 @@
 import { Suspense, use } from "react";
 import { z } from "zod";
 import { ContentLayout } from "~/components/content-layout";
-import {
-	getDocComponent,
-	loadFrontmatter,
-	resolveDocComponent,
-	urlToFileMap,
-} from "~/utilities/docs";
+import { getDoc, loadDoc, loadFrontmatter, resolveDoc, urlToFileMap } from "~/utilities/docs";
 import { canonicalHref } from "~/utilities/canonical-origin";
 import {
 	jsonLdGraphMetaDescriptor,
@@ -83,9 +78,12 @@ export async function loader({ request }: Route.LoaderArgs) {
 		);
 	}
 
+	const doc = await loadDoc(filePath);
+
 	return {
 		filePath,
 		frontmatter: frontmatterResult.data,
+		toc: doc.toc,
 	};
 }
 
@@ -118,10 +116,11 @@ type DocContentProps = {
  * ensuring content is fully prerendered in the HTML.
  */
 function ProdDocContent({ filePath }: DocContentProps) {
-	const Component = getDocComponent(filePath);
-	if (!Component) {
+	const doc = getDoc(filePath);
+	if (!doc) {
 		throw Response.json({ message: "Not Found" }, { status: 404 });
 	}
+	const { Component } = doc;
 	return <Component />;
 }
 
@@ -131,7 +130,7 @@ function ProdDocContent({ filePath }: DocContentProps) {
  * individual MDX modules without a full page reload.
  */
 function DevDocContent({ filePath }: DocContentProps) {
-	const componentPromise = resolveDocComponent(filePath);
-	const Component = use(componentPromise);
+	const docPromise = resolveDoc(filePath);
+	const { Component } = use(docPromise);
 	return <Component />;
 }

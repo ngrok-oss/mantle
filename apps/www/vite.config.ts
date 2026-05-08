@@ -15,6 +15,7 @@ import { remarkMdxNoParagraphWrap } from "@ngrok/remark-mdx-no-paragraph-wrap";
 import { mantleChangelogMdx } from "./vite-plugins/mantle-changelog-mdx";
 import { mdxDocComponentImports } from "./vite-plugins/mdx-doc-component-imports";
 import { rawMdxDocs } from "./vite-plugins/raw-mdx-docs";
+import { rehypeMdxToc } from "./vite-plugins/rehype-mdx-toc";
 
 const codeBlockPlugins = mantleCodeBlockPlugins();
 
@@ -51,7 +52,7 @@ export default defineConfig({
 				remarkMdxGithubAlerts,
 				remarkMdxNoParagraphWrap,
 			],
-			rehypePlugins: [rehypeSlug, ...codeBlockPlugins.rehypePlugins],
+			rehypePlugins: [rehypeSlug, rehypeMdxToc, ...codeBlockPlugins.rehypePlugins],
 			providerImportSource: "@mdx-js/react",
 		}),
 		reactRouter(),
