@@ -256,6 +256,12 @@ FieldSet.displayName = "FieldSet";
  * and gives screen readers an accessible name for the surrounding group
  * (e.g. "Notification frequency, group, Daily").
  *
+ * **Spacing.** Has a default `mb-1.5` so the legend sits 6px above the next
+ * sibling — matching the figma. We use a margin (not the parent `Field.Set`'s
+ * flex `gap`) because `<legend>` has special browser rendering inside a
+ * `<fieldset>` that ignores the parent's flex `gap`. Override the default
+ * with any `mb-*` utility on `Field.Legend`.
+ *
  * @see https://mantle.ngrok.com/components/field
  *
  * @example
@@ -275,7 +281,12 @@ const Legend = forwardRef<ComponentRef<"legend">, ComponentProps<"legend">>(
 			<legend
 				ref={ref}
 				data-slot="field-legend"
-				className={cx("text-strong text-sm font-medium font-sans", className)}
+				// `mb-1.5` (not the parent's `gap-*`) drives the Legend ↔ next-sibling
+				// spacing because `<legend>` has special browser rendering inside a
+				// `<fieldset>` that ignores the parent's flex `gap`. Pairs with
+				// RadioGroup.Item's own `py-1` for a 10px text-bottom-to-radio rhythm
+				// matching the figma. Override with any `mb-*` utility on Field.Legend.
+				className={cx("text-strong mb-1.5 text-sm font-medium font-sans", className)}
 				{...props}
 			/>
 		);
@@ -395,7 +406,10 @@ type FieldHelpTriggerProps = Partial<Omit<IconButtonProps, "icon" | "label">> &
  *
  * Pre-styled with `text-body` (matching the figma) so the icon reads as
  * subtle metadata at rest; `IconButton`'s ghost `hover:text-strong` still
- * brightens it on interaction.
+ * brightens it on interaction. Carries a default `-my-0.5` so the 24px
+ * `xs` button keeps a full click target while contributing only 20px to
+ * the `Field.LabelRow` flex line — matching the label's text line-height
+ * so the label text is not pushed off-center.
  *
  * @see https://mantle.ngrok.com/components/field
  *
@@ -438,7 +452,11 @@ const HelpTrigger = forwardRef<ComponentRef<"button">, FieldHelpTriggerProps>(
 			<IconButton
 				ref={ref}
 				appearance={appearance}
-				className={cx("text-body", className)}
+				// `-my-0.5` keeps the 24px (`size-6`) `xs` IconButton click target while
+				// trimming 4px (2px each side) off its flex-line contribution so the row
+				// height matches the label's 20px line-height. Without this the trigger
+				// drives the LabelRow to 24px and pushes the label text down 2px.
+				className={cx("text-body -my-0.5", className)}
 				icon={icon}
 				label={label}
 				size={size}

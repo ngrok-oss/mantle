@@ -296,7 +296,7 @@ Keep the `Field.Legend` self-contained: it is the accessible name for the group.
 <Example className="w-full">
 	<Field.Set className="max-w-80">
 		<Field.Legend>Notification frequency</Field.Legend>
-		<RadioGroup.Root name="frequency" defaultValue="daily" className="grid gap-2">
+		<RadioGroup.Root name="frequency" defaultValue="daily">
 			<RadioGroup.Item value="daily" id="field-freq-daily">
 				<RadioGroup.Indicator />
 				<RadioGroup.ItemContent asChild>
@@ -322,7 +322,7 @@ Keep the `Field.Legend` self-contained: it is the accessible name for the group.
 ```tsx
 <Field.Set>
 	<Field.Legend>Notification frequency</Field.Legend>
-	<RadioGroup.Root name="frequency" defaultValue="daily" className="grid gap-2">
+	<RadioGroup.Root name="frequency" defaultValue="daily">
 		<RadioGroup.Item value="daily" id="freq-daily">
 			<RadioGroup.Indicator />
 			<RadioGroup.ItemContent asChild>
@@ -547,6 +547,8 @@ All props from [fieldset](https://developer.mozilla.org/en-US/docs/Web/HTML/Elem
 
 Caption for a `Field.Set`. Renders a `<legend>` styled to match the mantle `Label` typography. Always render a `Field.Legend` inside a `Field.Set` — it's what gives the surrounding fieldset its accessible name.
 
+Carries a default `mb-1.5` so the legend sits 6px above the next sibling. The margin is on the legend (not the parent `Field.Set`'s flex `gap`) because `<legend>` has special browser rendering inside a `<fieldset>` that ignores the parent's flex `gap`. Override with any `mb-*` utility passed on `Field.Legend`.
+
 All props from [legend](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/legend#attributes).
 
 ### Field.LabelRow
@@ -565,7 +567,7 @@ All props from [div](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/d
 
 ### Field.HelpTrigger
 
-`Popover.Trigger` wired to a ghost-appearance `IconButton` with a default Phosphor `QuestionIcon`. Requires a contextual accessible `label`. Pre-styled with `text-body` so the icon reads as subtle metadata at rest; `IconButton`'s ghost `hover:text-strong` brightens it on interaction.
+`Popover.Trigger` wired to a ghost-appearance `IconButton` with a default Phosphor `QuestionIcon`. Requires a contextual accessible `label`. Pre-styled with `text-body` so the icon reads as subtle metadata at rest; `IconButton`'s ghost `hover:text-strong` brightens it on interaction. Carries a default `-my-0.5` so the 24px `xs` button keeps a full click target while contributing only 20px to the `Field.LabelRow` flex line — matching the label's text line-height so the label is not pushed off-center.
 
 Accepts every `IconButton` prop, with sensible visual defaults. `label` remains required:
 

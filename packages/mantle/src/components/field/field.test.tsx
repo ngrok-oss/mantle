@@ -499,6 +499,31 @@ describe("Field", () => {
 			expect(legend.className).toContain("text-strong");
 			expect(legend.className).toContain("font-medium");
 		});
+
+		test("has a default mb-1.5 so the legend sits 6px above its next sibling", () => {
+			// `<legend>` ignores the parent fieldset's flex `gap`, so the legend
+			// owns its own bottom-margin. The default keeps Field.Set / RadioGroup
+			// rhythm matching the figma without extra wiring at the call site.
+			render(
+				<Field.Set>
+					<Field.Legend data-testid="legend">Title</Field.Legend>
+				</Field.Set>,
+			);
+			expect(screen.getByTestId("legend").className).toContain("mb-1.5");
+		});
+
+		test("user-supplied mb-* overrides the default mb-1.5", () => {
+			render(
+				<Field.Set>
+					<Field.Legend className="mb-0" data-testid="legend">
+						Title
+					</Field.Legend>
+				</Field.Set>,
+			);
+			const legend = screen.getByTestId("legend");
+			expect(legend.className).toContain("mb-0");
+			expect(legend.className).not.toContain("mb-1.5");
+		});
 	});
 
 	describe("Field.Description", () => {
@@ -641,6 +666,32 @@ describe("Field", () => {
 			const trigger = screen.getByRole("button", { name: "What is this?" });
 			expect(trigger.className).toContain("ml-2");
 			expect(trigger.className).toContain("text-body");
+		});
+
+		test("HelpTrigger trims its flex-line contribution with a default -my-0.5", () => {
+			// Without the negative y-margin the 24px (`size-6`) `xs` IconButton
+			// drives the LabelRow to 24px and pushes the 20px label text down 2px.
+			// The negative margin keeps the click target while contributing only
+			// 20px to the flex line so the label stays vertically centered.
+			render(
+				<Field.Help defaultOpen={false}>
+					<Field.HelpTrigger label="What is this?" />
+					<Field.HelpContent>help body</Field.HelpContent>
+				</Field.Help>,
+			);
+			expect(screen.getByRole("button", { name: "What is this?" }).className).toContain("-my-0.5");
+		});
+
+		test("user-supplied my-* overrides the default -my-0.5", () => {
+			render(
+				<Field.Help defaultOpen={false}>
+					<Field.HelpTrigger label="What is this?" className="my-0" />
+					<Field.HelpContent>help body</Field.HelpContent>
+				</Field.Help>,
+			);
+			const trigger = screen.getByRole("button", { name: "What is this?" });
+			expect(trigger.className).toContain("my-0");
+			expect(trigger.className).not.toContain("-my-0.5");
 		});
 
 		test("HelpContent renders the popover body when open", () => {
