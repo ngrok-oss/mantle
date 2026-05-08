@@ -33,6 +33,7 @@ Single source of truth for code style, patterns, and conventions in the Mantle d
 - No `any` — use `unknown` and narrow it
 - No `interface` — use `type` (covers all shapes, no declaration merging, expands inline in IntelliSense)
 - No non-null assertions: The postfix `!` operator (`value!`) is forbidden. Use proper null checks, early returns, or restructure the code to narrow the type instead
+- Prefer `value == null` / `value != null` for nullish checks. They intentionally cover both `null` and `undefined`, which is safer for runtime absence checks. Use `=== null` / `=== undefined` only when those states have distinct meanings (loading vs empty, invalid vs absent, explicit clear, etc.).
 - No type assertions: The `as` operator is forbidden in application code. Do not use `value as Type`. The only allowed exceptions are `as const` (to narrow literal types) and inside a dedicated type guard implementation. Type assertions must never be used to silence TypeScript errors or bypass proper type modeling.
 
 ## className Composition
