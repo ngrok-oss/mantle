@@ -65,11 +65,10 @@ function useActiveHeading(entries: Array<TocEntry>): string | undefined {
 		if (entries.length === 0) {
 			return;
 		}
+		// Depend on `location.hash` so ToC link clicks update the highlight
+		// immediately — otherwise scroll-based detection lags the smooth-scroll
+		// animation and briefly highlights the predecessor heading.
 		const hash = location.hash.slice(1);
-		// Sync the active entry to the URL hash on initial mount, when the
-		// heading list changes, AND when the user clicks a ToC link (hash-only
-		// navigation) — otherwise scroll-based detection would lag behind the
-		// smooth-scroll animation and briefly highlight the predecessor.
 		const initial = hash && entries.some((entry) => entry.id === hash) ? hash : entries[0]?.id;
 		setActiveId(initial);
 	}, [entries, location.hash]);
@@ -248,13 +247,14 @@ function TableOfContents({ contentRef }: { contentRef: RefObject<HTMLDivElement 
 									// extension just gets cut off. Padding compensates so content text
 									// position stays the same as the previous 1px-bar layout.
 									"relative -ml-px block border-l-[3px] py-1 text-xs leading-snug transition-colors",
-									// Focus ring uses the same `ring-focus-accent` token as the rest of
-									// the design system (sidebar nav-link, etc.) — subtle by design.
-									// Rendered as a rounded pseudo-element offset past the 3px bar so
-									// the active/gray left edge stays visible through the focused area.
+									// Focus ring is a pseudo-element offset past the 3px bar so the
+									// active/gray left edge stays visible through the focused area.
 									"focus:outline-hidden",
-									"focus-visible:before:pointer-events-none focus-visible:before:absolute focus-visible:before:inset-y-0 focus-visible:before:left-[3px] focus-visible:before:right-0 focus-visible:before:rounded-md focus-visible:before:content-[''] focus-visible:before:ring-3 focus-visible:before:ring-inset focus-visible:before:ring-focus-accent",
-									entry.level <= 2 ? "pl-[10px]" : "pl-[22px]",
+									"focus-visible:before:pointer-events-none focus-visible:before:absolute",
+									"focus-visible:before:inset-y-0 focus-visible:before:left-0.75 focus-visible:before:right-0",
+									"focus-visible:before:rounded-md focus-visible:before:content-['']",
+									"focus-visible:before:ring-3 focus-visible:before:ring-inset focus-visible:before:ring-focus-accent",
+									entry.level <= 2 ? "pl-2.5" : "pl-5.5",
 									activeId === entry.id
 										? "text-strong border-accent-500 font-medium"
 										: "text-muted border-transparent hover:text-strong hover:border-gray-400",
