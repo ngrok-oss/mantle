@@ -65,10 +65,14 @@ function useActiveHeading(entries: Array<TocEntry>): string | undefined {
 		if (entries.length === 0) {
 			return;
 		}
-		const hash = window.location.hash.slice(1);
+		const hash = location.hash.slice(1);
+		// Sync the active entry to the URL hash on initial mount, when the
+		// heading list changes, AND when the user clicks a ToC link (hash-only
+		// navigation) — otherwise scroll-based detection would lag behind the
+		// smooth-scroll animation and briefly highlight the predecessor.
 		const initial = hash && entries.some((entry) => entry.id === hash) ? hash : entries[0]?.id;
 		setActiveId(initial);
-	}, [entries]);
+	}, [entries, location.hash]);
 
 	useEffect(() => {
 		if (entries.length === 0) {
@@ -86,7 +90,12 @@ function useActiveHeading(entries: Array<TocEntry>): string | undefined {
 			const progress = clamp01(scrollTop / maxScroll);
 			const easeT = clamp01((progress - EASE_START) / (1 - EASE_START));
 			const smoothstep = easeT * easeT * (3 - 2 * easeT);
-			const trigger = scrollTop + HEADER_OFFSET + smoothstep * (clientHeight - HEADER_OFFSET);
+			// Round to whole pixels so a heading landing at the scroll-margin
+			// position (where `offsetTop` and `trigger` are mathematically equal)
+			// can't be off-by-sub-pixel and lose the `<=` check to its predecessor.
+			const trigger = Math.round(
+				scrollTop + HEADER_OFFSET + smoothstep * (clientHeight - HEADER_OFFSET),
+			);
 
 			let next: string | undefined;
 			for (const entry of entries) {
@@ -94,7 +103,7 @@ function useActiveHeading(entries: Array<TocEntry>): string | undefined {
 				if (!element) {
 					continue;
 				}
-				const offsetTop = element.getBoundingClientRect().top + scrollTop;
+				const offsetTop = Math.round(element.getBoundingClientRect().top + scrollTop);
 				if (offsetTop <= trigger) {
 					next = entry.id;
 				} else {
@@ -232,8 +241,20 @@ function TableOfContents({ contentRef }: { contentRef: RefObject<HTMLDivElement 
 								preventScrollReset
 								aria-current={activeId === entry.id ? "location" : undefined}
 								className={cx(
-									"-ml-px block border-l py-1 text-xs leading-snug transition-colors",
-									entry.level <= 2 ? "pl-3" : "pl-6",
+									// 3px left bar that overlays the ol's 1px gray edge (descendant
+									// paints over ancestor) and extends 2px rightward into the content
+									// area. We can't extend leftward — `ScrollMask`'s `overflow-y-auto`
+									// implicitly clips horizontal overflow, so any negative-margin
+									// extension just gets cut off. Padding compensates so content text
+									// position stays the same as the previous 1px-bar layout.
+									"relative -ml-px block border-l-[3px] py-1 text-xs leading-snug transition-colors",
+									// Focus ring uses the same `ring-focus-accent` token as the rest of
+									// the design system (sidebar nav-link, etc.) — subtle by design.
+									// Rendered as a rounded pseudo-element offset past the 3px bar so
+									// the active/gray left edge stays visible through the focused area.
+									"focus:outline-hidden",
+									"focus-visible:before:pointer-events-none focus-visible:before:absolute focus-visible:before:inset-y-0 focus-visible:before:left-[3px] focus-visible:before:right-0 focus-visible:before:rounded-md focus-visible:before:content-[''] focus-visible:before:ring-3 focus-visible:before:ring-inset focus-visible:before:ring-focus-accent",
+									entry.level <= 2 ? "pl-[10px]" : "pl-[22px]",
 									activeId === entry.id
 										? "text-strong border-accent-500 font-medium"
 										: "text-muted border-transparent hover:text-strong hover:border-gray-400",
