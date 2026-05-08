@@ -78,8 +78,9 @@ The `Checkbox` can be used in forms with client-side validation. Here's an examp
 
 ```tsx
 import { Button } from "@ngrok/mantle/button";
-import { Label } from "@ngrok/mantle/label";
 import { Checkbox } from "@ngrok/mantle/checkbox";
+import { Field } from "@ngrok/mantle/field";
+import { Label } from "@ngrok/mantle/label";
 import { useForm } from "@tanstack/react-form";
 import { z } from "zod";
 
@@ -111,9 +112,9 @@ function FormExample() {
 				void form.handleSubmit();
 			}}
 		>
-			<div className="space-y-1">
-				<form.Field name="acceptedTermsAndConditions">
-					{(field) => (
+			<form.Field name="acceptedTermsAndConditions">
+				{(field) => (
+					<Field.Item>
 						<Label htmlFor={field.name} className="flex items-center gap-2">
 							<Checkbox
 								name={field.name}
@@ -125,9 +126,14 @@ function FormExample() {
 							/>
 							Accept terms and conditions
 						</Label>
-					)}
-				</form.Field>
-			</div>
+						<Field.ErrorList>
+							{field.state.meta.errors.map((error, index) => (
+								<Field.Error key={index}>{error?.message}</Field.Error>
+							))}
+						</Field.ErrorList>
+					</Field.Item>
+				)}
+			</form.Field>
 			<form.Subscribe selector={(state) => state.isDirty}>
 				{(isDirty) => (
 					<Button type="submit" appearance="filled" disabled={!isDirty}>

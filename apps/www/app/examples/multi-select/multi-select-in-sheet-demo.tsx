@@ -1,4 +1,5 @@
 import { Button } from "@ngrok/mantle/button";
+import { Field } from "@ngrok/mantle/field";
 import { Label } from "@ngrok/mantle/label";
 import { MultiSelect } from "@ngrok/mantle/multi-select";
 import { Sheet } from "@ngrok/mantle/sheet";
@@ -66,7 +67,7 @@ export function InSheetDemo() {
 					<Sheet.Body className="space-y-4">
 						<form.Field name="favorites">
 							{(field) => (
-								<div className="space-y-1.5">
+								<Field.Item>
 									<Label htmlFor={field.name}>Fruits</Label>
 									<MultiSelect.Root
 										selectedValue={field.state.value}
@@ -115,12 +116,12 @@ export function InSheetDemo() {
 											)}
 										</MultiSelect.Content>
 									</MultiSelect.Root>
-									{field.state.meta.errors.map((error) => (
-										<p key={error?.message} className="text-sm leading-4 text-danger-600">
-											{error?.message}
-										</p>
-									))}
-								</div>
+									<Field.ErrorList>
+										{field.state.meta.errors.map((error, index) => (
+											<Field.Error key={index}>{error?.message}</Field.Error>
+										))}
+									</Field.ErrorList>
+								</Field.Item>
 							)}
 						</form.Field>
 						<p className="text-muted text-sm">

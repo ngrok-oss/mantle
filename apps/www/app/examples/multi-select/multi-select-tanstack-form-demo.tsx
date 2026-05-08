@@ -1,4 +1,5 @@
 import { Button } from "@ngrok/mantle/button";
+import { Field } from "@ngrok/mantle/field";
 import { Label } from "@ngrok/mantle/label";
 import { MultiSelect } from "@ngrok/mantle/multi-select";
 import { useForm } from "@tanstack/react-form";
@@ -49,7 +50,7 @@ export function TanStackFormDemo() {
 		>
 			<form.Field name="favorites">
 				{(field) => (
-					<div className="space-y-1">
+					<Field.Item>
 						<Label htmlFor={field.name}>Favorites</Label>
 						<MultiSelect.Root
 							selectedValue={field.state.value}
@@ -100,12 +101,12 @@ export function TanStackFormDemo() {
 								)}
 							</MultiSelect.Content>
 						</MultiSelect.Root>
-						{field.state.meta.errors.map((error) => (
-							<p key={error?.message} className="text-sm leading-4 text-danger-600">
-								{error?.message}
-							</p>
-						))}
-					</div>
+						<Field.ErrorList>
+							{field.state.meta.errors.map((error, index) => (
+								<Field.Error key={index}>{error?.message}</Field.Error>
+							))}
+						</Field.ErrorList>
+					</Field.Item>
 				)}
 			</form.Field>
 			<form.Subscribe selector={(state) => state.isDirty}>

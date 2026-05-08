@@ -1,5 +1,5 @@
 import { QuestionIcon } from "@phosphor-icons/react/Question";
-import type { ComponentProps, ReactNode } from "react";
+import { Children, type ComponentProps, type ReactNode } from "react";
 import type { WithAsChild } from "../../types/as-child.js";
 import { cx } from "../../utils/cx/cx.js";
 import { IconButton, type IconButtonProps } from "../button/icon-button.js";
@@ -7,26 +7,26 @@ import { Popover } from "../popover/index.js";
 import { Slot } from "../slot/index.js";
 
 /**
- * Renders a semantic `<fieldset>` for grouping related fields together.
- * Resets the default browser fieldset chrome (border, padding, `min-width`
- * quirk) so it composes cleanly with `Field.Legend` and `Field.Group`.
+ * Renders a semantic `<fieldset>` for grouping related controls under a
+ * single accessible name. Resets the default browser fieldset chrome
+ * (border, padding, `min-width` quirk) so it composes cleanly with
+ * `Field.Legend` and `Field.Group`.
+ *
+ * Reach for `Field.Set` when the grouping carries semantic weight — most
+ * commonly a `RadioGroup` (where the legend names the question the radios
+ * answer) or a set of related checkboxes. For laying out unrelated fields
+ * with consistent spacing, prefer `Field.Group` on its own.
  *
  * @see https://mantle.ngrok.com/components/field
  *
  * @example
  * ```tsx
  * <Field.Set>
- *   <Field.Legend>Address</Field.Legend>
- *   <Field.Group>
- *     <Field.Item>
- *       <Label htmlFor="street">Street</Label>
- *       <Input id="street" name="street" />
- *     </Field.Item>
- *     <Field.Item>
- *       <Label htmlFor="city">City</Label>
- *       <Input id="city" name="city" />
- *     </Field.Item>
- *   </Field.Group>
+ *   <Field.Legend>Notification frequency</Field.Legend>
+ *   <RadioGroup.Root name="frequency" defaultValue="daily">
+ *     <RadioGroup.Item value="daily" id="freq-daily">…</RadioGroup.Item>
+ *     <RadioGroup.Item value="weekly" id="freq-weekly">…</RadioGroup.Item>
+ *   </RadioGroup.Root>
  * </Field.Set>
  * ```
  */
@@ -45,20 +45,17 @@ FieldSet.displayName = "FieldSet";
 
 /**
  * The caption for a `Field.Set`. Renders a semantic `<legend>` styled to
- * match the `Label` component so a fieldset reads like a section header.
+ * match the `Label` component so a fieldset reads like a section header,
+ * and gives screen readers an accessible name for the surrounding group
+ * (e.g. "Notification frequency, group, Daily").
  *
  * @see https://mantle.ngrok.com/components/field
  *
  * @example
  * ```tsx
  * <Field.Set>
- *   <Field.Legend>Address</Field.Legend>
- *   <Field.Group>
- *     <Field.Item>
- *       <Label htmlFor="street">Street</Label>
- *       <Input id="street" name="street" />
- *     </Field.Item>
- *   </Field.Group>
+ *   <Field.Legend>Notification frequency</Field.Legend>
+ *   <RadioGroup.Root name="frequency" defaultValue="daily">…</RadioGroup.Root>
  * </Field.Set>
  * ```
  */
@@ -278,10 +275,11 @@ const Optional = ({
 Optional.displayName = "FieldOptional";
 
 /**
- * Layout container that stacks multiple `Field.Item`s vertically with `gap-4`
- * between them. Use inside a `Field.Set` (with `Field.Legend`) for semantic
- * grouping, or standalone when you only need consistent spacing between
- * fields without a legend.
+ * Layout container that stacks multiple `Field.Item`s vertically with
+ * `gap-4` between them. This is the default way to compose multiple fields
+ * — most forms only need a `Field.Group` of `Field.Item`s. Reach for
+ * `Field.Set` + `Field.Legend` only when the grouping carries semantic
+ * weight (e.g. a `RadioGroup` or related checkboxes).
  *
  * @see https://mantle.ngrok.com/components/field
  *
@@ -314,15 +312,16 @@ Group.displayName = "FieldGroup";
 
 /**
  * A single form field — `Label`, a control (`Input`, `Select`, `Checkbox`,
- * etc.), and any `Field.Description` / `Field.Error` / `Field.ErrorList`
- * siblings stacked vertically with a consistent `gap-1.5` so help and error
- * messaging sit tightly under the input.
+ * etc.), and any `Field.Description` / `Field.ErrorList` siblings stacked
+ * vertically with a consistent `gap-1.5` so help and error messaging sit
+ * tightly under the input.
  *
- * Renders as a `<div role="group">` so screen readers announce the parts as
- * a related set. When you need explicit ARIA wiring between the control and
- * its description / error, set `aria-describedby` and `aria-errormessage` on
- * the control yourself — `Field.Item` is layout-only, by design, so it stays
- * compatible with the existing `<Label>` (no auto-wired IDs).
+ * Renders a plain `<div>` — the `<label htmlFor>` ↔ control association
+ * already provides the right semantics for a single field, so no implicit
+ * `role` is added. When you need explicit ARIA wiring between the control
+ * and its description / error, set `aria-describedby` and `aria-errormessage`
+ * on the control yourself — `Field.Item` is layout-only, by design, so it
+ * stays compatible with the existing `<Label>` (no auto-wired IDs).
  *
  * @see https://mantle.ngrok.com/components/field
  *
@@ -331,23 +330,19 @@ Group.displayName = "FieldGroup";
  * <Field.Item>
  *   <Label htmlFor="username">Username</Label>
  *   <Input id="username" name="username" />
- *   <Field.Error>Username is required.</Field.Error>
+ *   <Field.ErrorList>
+ *     <Field.Error>Username is required.</Field.Error>
+ *   </Field.ErrorList>
  *   <Field.Description>Pick something memorable.</Field.Description>
  * </Field.Item>
  * ```
  */
-const Item = ({
-	asChild,
-	className,
-	role = "group",
-	...props
-}: ComponentProps<"div"> & WithAsChild) => {
+const Item = ({ asChild, className, ...props }: ComponentProps<"div"> & WithAsChild) => {
 	const Comp = asChild ? Slot : "div";
 
 	return (
 		<Comp
 			data-slot="field-item"
-			role={role}
 			className={cx("flex w-full flex-col gap-1.5", className)}
 			{...props}
 		/>
@@ -364,14 +359,10 @@ Item.displayName = "FieldItem";
  * 2. **Inside `Field.Set`, between `Field.Legend` and `Field.Group`** — describes
  *    the entire fieldset (e.g. "All transactions are secure and encrypted.").
  *
- * **Auto-tighten.** Two sibling selectors collapse the parent's gap when
- * messages should read as a single block:
- * - After a `Field.Error` (including the last one rendered by
- *   `Field.ErrorList`) inside `Field.Item` → collapses `gap-1.5` to 0.
- * - After a `Field.Legend` inside `Field.Set` → collapses `gap-4` down to a
- *   `gap-1.5` visual feel so the description hugs the legend.
- *
- * Pass any margin utility (`mt-1`, `mt-0`, etc.) to override — the rules'
+ * **Auto-tighten.** When this description sits directly after a
+ * `Field.ErrorList` sibling, the parent's `gap-1.5` collapses via a matching
+ * negative top margin so error list + helper read as one tight block. Pass
+ * any margin utility (`mt-1`, `mt-0`, etc.) to override — the rule's
  * specificity is flattened to `(0,1,0)` so a single user class wins.
  *
  * @see https://mantle.ngrok.com/components/field
@@ -382,7 +373,9 @@ Item.displayName = "FieldItem";
  * <Field.Item>
  *   <Label htmlFor="username">Username</Label>
  *   <Input id="username" name="username" />
- *   <Field.Error>Username is required.</Field.Error>
+ *   <Field.ErrorList>
+ *     <Field.Error>Username is required.</Field.Error>
+ *   </Field.ErrorList>
  *   <Field.Description>Pick something memorable.</Field.Description>
  * </Field.Item>
  *
@@ -402,14 +395,13 @@ const Description = ({ asChild, className, ...props }: ComponentProps<"p"> & Wit
 			data-slot="field-description"
 			className={cx(
 				"text-body text-sm leading-4",
-				// When this description sits directly after a Field.Error sibling
-				// (e.g. a single Field.Error or the last item rendered by
-				// Field.ErrorList), collapse the parent's gap-1.5 with a matching
-				// negative top margin so error + helper read as one tight block.
+				// When this description sits directly after a Field.ErrorList
+				// sibling, collapse the parent's gap-1.5 with a matching negative
+				// top margin so the list + helper read as one tight block.
 				// Wrapping the matched selector in :where() flattens its specificity
 				// to (0,1,0) so a user-supplied margin utility (mt-2, mt-0, etc.)
 				// passed on Field.Description still overrides cleanly.
-				"[:where([data-slot=field-error]+&)]:-mt-1.5",
+				"[:where([data-slot=field-error-list]+&)]:-mt-1.5",
 				className,
 			)}
 			{...props}
@@ -419,16 +411,9 @@ const Description = ({ asChild, className, ...props }: ComponentProps<"p"> & Wit
 Description.displayName = "FieldDescription";
 
 /**
- * A single error message for a field. Renders a `<p>` in `text-danger-600`
- * so it stands out from a sibling `Field.Description`. Conditionally render
- * this when validation fails, or use `Field.ErrorList` to render multiple
- * messages at once (one `Field.Error` per entry).
- *
- * **Auto-tighten after errors.** When a `Field.Error` is rendered immediately
- * after another `Field.Error` sibling, it automatically collapses the parent's
- * `gap-1.5` so consecutive error messages read as a single block. The rule's
- * specificity is flattened to `(0,1,0)` — pass any margin utility on
- * `Field.Error` to override.
+ * A single error message for a field. Renders an `<li>` in `text-danger-600`
+ * so it stands out from a sibling `Field.Description`. Must be rendered
+ * inside a `Field.ErrorList` — single errors are just a list of one.
  *
  * @see https://mantle.ngrok.com/components/field
  *
@@ -437,60 +422,35 @@ Description.displayName = "FieldDescription";
  * <Field.Item>
  *   <Label htmlFor="username">Username</Label>
  *   <Input id="username" name="username" />
- *   <Field.Error>Username is required.</Field.Error>
+ *   <Field.ErrorList>
+ *     <Field.Error>Username is required.</Field.Error>
+ *   </Field.ErrorList>
  *   <Field.Description>Pick something memorable.</Field.Description>
  * </Field.Item>
  * ```
  */
-const FieldError = ({ asChild, className, ...props }: ComponentProps<"p"> & WithAsChild) => {
-	const Comp = asChild ? Slot : "p";
+const FieldError = ({ asChild, className, ...props }: ComponentProps<"li"> & WithAsChild) => {
+	const Comp = asChild ? Slot : "li";
 
 	return (
 		<Comp
 			data-slot="field-error"
-			className={cx(
-				"text-danger-600 text-sm leading-4",
-				// When this error sits directly after another Field.Error sibling
-				// (a manually-stacked pair OR consecutive items rendered by
-				// Field.ErrorList), collapse the parent's gap-1.5 so the messages
-				// read as a single block. Wrapped in :where() so the rule's
-				// specificity stays at (0,1,0) — a user-supplied margin utility on
-				// Field.Error still overrides cleanly.
-				"[:where([data-slot=field-error]+&)]:-mt-1.5",
-				className,
-			)}
+			className={cx("text-danger-600 text-sm leading-4", className)}
 			{...props}
 		/>
 	);
 };
 FieldError.displayName = "FieldError";
 
-type FieldErrorListProps = {
-	/**
-	 * The list of error messages to render. Falsy entries (`null`, `undefined`,
-	 * `false`, empty string) are filtered out, so the component renders nothing
-	 * when the resulting list is empty — safe to leave mounted whether or not
-	 * the field currently has errors.
-	 *
-	 * Pairs naturally with TanStack Form's `field.state.meta.errors` after
-	 * mapping the validator's error shape down to a message:
-	 *
-	 * ```tsx
-	 * <Field.ErrorList errors={field.state.meta.errors.map((error) => error?.message)} />
-	 * ```
-	 */
-	errors?: readonly ReactNode[];
-};
-
 /**
- * Renders a list of validation errors, one `Field.Error` per truthy entry.
- * Returns `null` when the resulting list is empty so it can be left mounted
- * unconditionally.
+ * Wraps one or more `Field.Error` children in a semantic `<ul>` so a list of
+ * validation errors is announced as a list by screen readers. Renders nothing
+ * when no children are passed, so it can be left mounted unconditionally
+ * while a validator produces a (possibly empty) array of messages.
  *
- * Most fields show a single error at a time — reach for this when a validator
- * can produce several messages (e.g. minLength + pattern + custom rule) and
- * all of them should be visible to the user simultaneously. For a single
- * static error, use `<Field.Error>` directly.
+ * The list strips its default browser styling (`list-none`, `p-0`, `m-0`) and
+ * stacks items as a flex column with no gap so consecutive errors read as a
+ * single tight block.
  *
  * @see https://mantle.ngrok.com/components/field
  *
@@ -499,163 +459,180 @@ type FieldErrorListProps = {
  * <Field.Item>
  *   <Label htmlFor="username">Username</Label>
  *   <Input id="username" name="username" />
- *   <Field.ErrorList errors={field.state.meta.errors.map((error) => error?.message)} />
+ *   <Field.ErrorList>
+ *     {field.state.meta.errors.map((error, index) => (
+ *       <Field.Error key={index}>{error?.message}</Field.Error>
+ *     ))}
+ *   </Field.ErrorList>
  *   <Field.Description>Pick something memorable.</Field.Description>
  * </Field.Item>
  * ```
  */
-const FieldErrorList = ({ errors }: FieldErrorListProps) => {
-	const filtered = (errors ?? []).filter(
-		(entry) => entry != null && entry !== "" && entry !== false,
-	);
-
-	if (filtered.length === 0) {
+const FieldErrorList = ({
+	asChild,
+	children,
+	className,
+	...props
+}: ComponentProps<"ul"> & WithAsChild) => {
+	if (Children.count(children) === 0) {
 		return null;
 	}
 
+	const Comp = asChild ? Slot : "ul";
+
 	return (
-		<>
-			{filtered.map((error, index) => (
-				// biome-ignore lint/suspicious/noArrayIndexKey: errors are ReactNode and may not be uniquely keyable
-				<FieldError key={index}>{error}</FieldError>
-			))}
-		</>
+		<Comp
+			data-slot="field-error-list"
+			className={cx("m-0 flex w-full flex-col list-none p-0", className)}
+			{...props}
+		>
+			{children}
+		</Comp>
 	);
 };
 FieldErrorList.displayName = "FieldErrorList";
 
 /**
  * Compound component for building a semantic, accessible form field. Pair
- * with the existing mantle `<Label>` for individual fields, or `Field.Legend`
- * inside a `Field.Set` to caption a group of related fields.
+ * with the existing mantle `<Label>` for individual fields. Most forms only
+ * need a `Field.Group` of `Field.Item`s — reach for `Field.Set` +
+ * `Field.Legend` only when the grouping carries semantic weight (e.g. a
+ * `RadioGroup` or related checkboxes).
  *
  * @see https://mantle.ngrok.com/components/field
  *
  * @example
  * Composition:
  * ```
+ * Field.Group
+ * └── Field.Item
+ *     ├── Field.LabelRow
+ *     │   ├── <Label>
+ *     │   │   └── Field.Optional
+ *     │   └── Field.Help
+ *     │       ├── Field.HelpTrigger
+ *     │       └── Field.HelpContent
+ *     ├── (control)
+ *     ├── Field.ErrorList
+ *     │   └── Field.Error
+ *     └── Field.Description
+ *
+ * // For radios / checkboxes — semantic grouping under a shared legend:
  * Field.Set
  * ├── Field.Legend
- * └── Field.Group
- *     └── Field.Item
- *         ├── Field.LabelRow
- *         │   ├── <Label>
- *         │   │   └── Field.Optional
- *         │   └── Field.Help
- *         │       ├── Field.HelpTrigger
- *         │       └── Field.HelpContent
- *         ├── (control)
- *         ├── Field.Error
- *         ├── Field.ErrorList
- *         └── Field.Description
+ * └── (RadioGroup / Checkbox group)
  * ```
  *
  * @example
  * ```tsx
- * <Field.Set>
- *   <Field.Legend>Account</Field.Legend>
- *   <Field.Group>
- *     <Field.Item>
- *       <Label htmlFor="email">Email</Label>
- *       <Input id="email" name="email" type="email" />
+ * <Field.Group>
+ *   <Field.Item>
+ *     <Label htmlFor="email">Email</Label>
+ *     <Input id="email" name="email" type="email" />
+ *     <Field.ErrorList>
  *       <Field.Error>Email is required.</Field.Error>
- *       <Field.Description>We'll never share your email.</Field.Description>
- *     </Field.Item>
- *     <Field.Item>
- *       <Label htmlFor="nickname" className="flex items-baseline gap-1">
- *         Nickname <Field.Optional />
- *       </Label>
- *       <Input id="nickname" name="nickname" />
- *       <Field.Description>Visible on your public profile.</Field.Description>
- *     </Field.Item>
- *   </Field.Group>
- * </Field.Set>
+ *     </Field.ErrorList>
+ *     <Field.Description>We'll never share your email.</Field.Description>
+ *   </Field.Item>
+ *   <Field.Item>
+ *     <Label htmlFor="nickname" className="flex items-baseline gap-1">
+ *       Nickname <Field.Optional />
+ *     </Label>
+ *     <Input id="nickname" name="nickname" />
+ *     <Field.Description>Visible on your public profile.</Field.Description>
+ *   </Field.Item>
+ * </Field.Group>
  * ```
  */
 const Field = {
 	/**
 	 * A single form field — `Label` + control + helper + error stacked
-	 * vertically with `gap-1.5`. Renders `<div role="group">`.
+	 * vertically with `gap-1.5`. Renders a plain `<div>` (no implicit role).
+	 *
+	 * **When to use:** for every individual field in a form — text inputs,
+	 * selects, single checkboxes, switches, etc. The `<label htmlFor>` ↔
+	 * control association already provides the semantics.
 	 *
 	 * @see https://mantle.ngrok.com/components/field
 	 *
 	 * @example
 	 * ```tsx
-	 * <Field.Set>
-	 *   <Field.Legend>Account</Field.Legend>
-	 *   <Field.Group>
-	 *     <Field.Item>
-	 *       <Label htmlFor="email">Email</Label>
-	 *       <Input id="email" name="email" />
-	 *       <Field.Error>Email is required.</Field.Error>
-	 *       <Field.Description>We'll never share your email.</Field.Description>
-	 *     </Field.Item>
-	 *   </Field.Group>
-	 * </Field.Set>
+	 * <Field.Item>
+	 *   <Label htmlFor="email">Email</Label>
+	 *   <Input id="email" name="email" />
+	 *   <Field.ErrorList>
+	 *     <Field.Error>Email is required.</Field.Error>
+	 *   </Field.ErrorList>
+	 *   <Field.Description>We'll never share your email.</Field.Description>
+	 * </Field.Item>
 	 * ```
 	 */
 	Item,
 	/**
 	 * Layout container that stacks multiple `Field.Item`s vertically with
-	 * `gap-4`. Use inside `Field.Set` for semantic grouping, or standalone
-	 * when you only need spacing.
+	 * `gap-4`. Renders a plain `<div>` — pure layout, no semantics.
+	 *
+	 * **When to use:** any time a form has more than one field. This is the
+	 * default way to compose multiple `Field.Item`s. Reach for `Field.Set` +
+	 * `Field.Legend` instead only when the grouping itself carries semantic
+	 * weight (radios, related checkboxes).
 	 *
 	 * @see https://mantle.ngrok.com/components/field
 	 *
 	 * @example
 	 * ```tsx
-	 * <Field.Set>
-	 *   <Field.Legend>Account</Field.Legend>
-	 *   <Field.Group>
-	 *     <Field.Item>
-	 *       <Label htmlFor="email">Email</Label>
-	 *       <Input id="email" name="email" />
-	 *     </Field.Item>
-	 *     <Field.Item>
-	 *       <Label htmlFor="password">Password</Label>
-	 *       <Input id="password" name="password" type="password" />
-	 *     </Field.Item>
-	 *   </Field.Group>
-	 * </Field.Set>
+	 * <Field.Group>
+	 *   <Field.Item>
+	 *     <Label htmlFor="email">Email</Label>
+	 *     <Input id="email" name="email" />
+	 *   </Field.Item>
+	 *   <Field.Item>
+	 *     <Label htmlFor="password">Password</Label>
+	 *     <Input id="password" name="password" type="password" />
+	 *   </Field.Item>
+	 * </Field.Group>
 	 * ```
 	 */
 	Group,
 	/**
 	 * Renders a semantic `<fieldset>` with default browser styling reset.
-	 * Compose with `Field.Legend` and `Field.Group` for grouped fields.
+	 * Pair with `Field.Legend` to give the group an accessible name.
+	 *
+	 * **When to use:** specifically when the grouping carries semantic
+	 * weight — most commonly a `RadioGroup` (the legend names the question
+	 * the radios answer) or a set of related checkboxes. Skip this for
+	 * unrelated fields stacked together — `Field.Group` on its own is the
+	 * right choice there.
 	 *
 	 * @see https://mantle.ngrok.com/components/field
 	 *
 	 * @example
 	 * ```tsx
 	 * <Field.Set>
-	 *   <Field.Legend>Account</Field.Legend>
-	 *   <Field.Group>
-	 *     <Field.Item>
-	 *       <Label htmlFor="email">Email</Label>
-	 *       <Input id="email" name="email" />
-	 *     </Field.Item>
-	 *   </Field.Group>
+	 *   <Field.Legend>Notification frequency</Field.Legend>
+	 *   <RadioGroup.Root name="frequency" defaultValue="daily">
+	 *     <RadioGroup.Item value="daily" id="freq-daily">…</RadioGroup.Item>
+	 *     <RadioGroup.Item value="weekly" id="freq-weekly">…</RadioGroup.Item>
+	 *   </RadioGroup.Root>
 	 * </Field.Set>
 	 * ```
 	 */
 	Set: FieldSet,
 	/**
-	 * Caption for a `Field.Set`. Renders a `<legend>` with mantle label
-	 * typography.
+	 * Caption for a `Field.Set`. Renders a `<legend>` styled to match the
+	 * mantle `Label` typography.
+	 *
+	 * **When to use:** always alongside `Field.Set` — the legend is what
+	 * gives the surrounding fieldset an accessible name. A `Field.Set`
+	 * without a `Field.Legend` is rarely correct.
 	 *
 	 * @see https://mantle.ngrok.com/components/field
 	 *
 	 * @example
 	 * ```tsx
 	 * <Field.Set>
-	 *   <Field.Legend>Account</Field.Legend>
-	 *   <Field.Group>
-	 *     <Field.Item>
-	 *       <Label htmlFor="email">Email</Label>
-	 *       <Input id="email" name="email" />
-	 *     </Field.Item>
-	 *   </Field.Group>
+	 *   <Field.Legend>Notification frequency</Field.Legend>
+	 *   <RadioGroup.Root name="frequency" defaultValue="daily">…</RadioGroup.Root>
 	 * </Field.Set>
 	 * ```
 	 */
@@ -767,32 +744,32 @@ const Field = {
 	 * <Field.Item>
 	 *   <Label htmlFor="username">Username</Label>
 	 *   <Input id="username" name="username" />
-	 *   <Field.Error>Username is required.</Field.Error>
+	 *   <Field.ErrorList>
+	 *     <Field.Error>Username is required.</Field.Error>
+	 *   </Field.ErrorList>
 	 *   <Field.Description>Pick something memorable.</Field.Description>
 	 * </Field.Item>
 	 * ```
 	 */
 	Description,
 	/**
-	 * A single error message for a field, in `text-danger-600`. Use
-	 * `Field.ErrorList` to render multiple errors at once.
+	 * A single error message for a field. Renders an `<li>` in
+	 * `text-danger-600` and must be nested inside a `Field.ErrorList`.
 	 *
 	 * @see https://mantle.ngrok.com/components/field
 	 *
 	 * @example
 	 * ```tsx
-	 * <Field.Item>
-	 *   <Label htmlFor="username">Username</Label>
-	 *   <Input id="username" name="username" />
+	 * <Field.ErrorList>
 	 *   <Field.Error>Username is required.</Field.Error>
-	 *   <Field.Description>Pick something memorable.</Field.Description>
-	 * </Field.Item>
+	 * </Field.ErrorList>
 	 * ```
 	 */
 	Error: FieldError,
 	/**
-	 * Renders a list of validation errors, one `Field.Error` per truthy entry.
-	 * Returns `null` when the list is empty.
+	 * Wraps one or more `Field.Error` children in a semantic `<ul>`. Renders
+	 * nothing when given no children, so it can be left mounted while a
+	 * validator produces a (possibly empty) error array.
 	 *
 	 * @see https://mantle.ngrok.com/components/field
 	 *
@@ -801,7 +778,11 @@ const Field = {
 	 * <Field.Item>
 	 *   <Label htmlFor="username">Username</Label>
 	 *   <Input id="username" name="username" />
-	 *   <Field.ErrorList errors={field.state.meta.errors.map((error) => error?.message)} />
+	 *   <Field.ErrorList>
+	 *     {field.state.meta.errors.map((error, index) => (
+	 *       <Field.Error key={index}>{error?.message}</Field.Error>
+	 *     ))}
+	 *   </Field.ErrorList>
 	 *   <Field.Description>Pick something memorable.</Field.Description>
 	 * </Field.Item>
 	 * ```

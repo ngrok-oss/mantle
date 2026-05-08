@@ -4,11 +4,11 @@ import { Field } from "./field.js";
 
 describe("Field", () => {
 	describe("Field.Item", () => {
-		test("renders a div with role=group by default", () => {
+		test("renders a plain div with no implicit role", () => {
 			render(<Field.Item data-testid="root">content</Field.Item>);
 			const root = screen.getByTestId("root");
 			expect(root.tagName).toBe("DIV");
-			expect(root).toHaveAttribute("role", "group");
+			expect(root).not.toHaveAttribute("role");
 			expect(root).toHaveTextContent("content");
 		});
 
@@ -31,9 +31,9 @@ describe("Field", () => {
 			expect(screen.getByTestId("root")).toHaveAttribute("data-custom", "hello");
 		});
 
-		test("allows overriding role", () => {
-			render(<Field.Item data-testid="root" role="region" />);
-			expect(screen.getByTestId("root")).toHaveAttribute("role", "region");
+		test("allows opting in to a role when needed", () => {
+			render(<Field.Item data-testid="root" role="group" />);
+			expect(screen.getByTestId("root")).toHaveAttribute("role", "group");
 		});
 
 		test("renders as child element when asChild is true", () => {
@@ -45,7 +45,6 @@ describe("Field", () => {
 			const root = screen.getByTestId("root");
 			expect(root.tagName).toBe("SECTION");
 			expect(root).toHaveAttribute("data-slot", "field-item");
-			expect(root).toHaveAttribute("role", "group");
 		});
 	});
 
@@ -183,19 +182,19 @@ describe("Field", () => {
 			expect(description.className).toContain("text-body");
 		});
 
-		test("carries the auto -mt-1.5 collapse rule for following a Field.Error", () => {
+		test("carries the auto -mt-1.5 collapse rule for following a Field.ErrorList", () => {
 			render(<Field.Description data-testid="desc">help</Field.Description>);
 			expect(screen.getByTestId("desc").className).toContain(
-				"[:where([data-slot=field-error]+&)]:-mt-1.5",
+				"[:where([data-slot=field-error-list]+&)]:-mt-1.5",
 			);
 		});
 	});
 
 	describe("Field.Error", () => {
-		test("renders a p with data-slot=field-error", () => {
+		test("renders an li with data-slot=field-error", () => {
 			render(<Field.Error data-testid="err">Required</Field.Error>);
 			const error = screen.getByTestId("err");
-			expect(error.tagName).toBe("P");
+			expect(error.tagName).toBe("LI");
 			expect(error).toHaveAttribute("data-slot", "field-error");
 			expect(error).toHaveTextContent("Required");
 		});
@@ -228,13 +227,6 @@ describe("Field", () => {
 			expect(error.tagName).toBe("SPAN");
 			expect(error).toHaveAttribute("data-slot", "field-error");
 			expect(error.className).toContain("text-danger-600");
-		});
-
-		test("carries the auto -mt-1.5 collapse rule for following another Field.Error", () => {
-			render(<Field.Error data-testid="err">Required</Field.Error>);
-			expect(screen.getByTestId("err").className).toContain(
-				"[:where([data-slot=field-error]+&)]:-mt-1.5",
-			);
 		});
 	});
 
@@ -356,51 +348,75 @@ describe("Field", () => {
 	});
 
 	describe("Field.ErrorList", () => {
-		test("renders one Field.Error per entry in the array", () => {
-			render(<Field.ErrorList errors={["First error", "Second error", "Third error"]} />);
+		test("renders a ul with data-slot=field-error-list", () => {
+			render(
+				<Field.ErrorList data-testid="list">
+					<Field.Error>Required</Field.Error>
+				</Field.ErrorList>,
+			);
+			const list = screen.getByTestId("list");
+			expect(list.tagName).toBe("UL");
+			expect(list).toHaveAttribute("data-slot", "field-error-list");
+		});
+
+		test("strips default ul styling so it composes inside Field.Item", () => {
+			render(
+				<Field.ErrorList data-testid="list">
+					<Field.Error>Required</Field.Error>
+				</Field.ErrorList>,
+			);
+			const list = screen.getByTestId("list");
+			expect(list.className).toContain("list-none");
+			expect(list.className).toContain("p-0");
+			expect(list.className).toContain("m-0");
+		});
+
+		test("merges custom className", () => {
+			render(
+				<Field.ErrorList className="custom-list" data-testid="list">
+					<Field.Error>Required</Field.Error>
+				</Field.ErrorList>,
+			);
+			expect(screen.getByTestId("list").className).toContain("custom-list");
+		});
+
+		test("renders each Field.Error child as a list item", () => {
+			render(
+				<Field.ErrorList>
+					<Field.Error>First error</Field.Error>
+					<Field.Error>Second error</Field.Error>
+					<Field.Error>Third error</Field.Error>
+				</Field.ErrorList>,
+			);
 			const errors = screen.getAllByText(/error$/);
 			expect(errors).toHaveLength(3);
 			for (const error of errors) {
+				expect(error.tagName).toBe("LI");
 				expect(error).toHaveAttribute("data-slot", "field-error");
 			}
 		});
 
-		test("renders nothing when errors is undefined", () => {
+		test("renders nothing when given no children", () => {
 			const { container } = render(<Field.ErrorList />);
 			expect(container).toBeEmptyDOMElement();
 		});
 
-		test("renders nothing when errors is an empty array", () => {
-			const { container } = render(<Field.ErrorList errors={[]} />);
+		test("renders nothing when an empty array is passed as children", () => {
+			const { container } = render(<Field.ErrorList>{[]}</Field.ErrorList>);
 			expect(container).toBeEmptyDOMElement();
 		});
 
-		test("filters out null, undefined, false, and empty string entries", () => {
-			render(<Field.ErrorList errors={["A", null, undefined, "", false, "B"]} />);
-			const errors = screen.getAllByText(/^[AB]$/);
-			expect(errors).toHaveLength(2);
-		});
-
-		test("renders nothing when every entry is falsy", () => {
-			const { container } = render(<Field.ErrorList errors={[null, undefined, "", false]} />);
-			expect(container).toBeEmptyDOMElement();
-		});
-
-		test("renders ReactNode entries (not just strings)", () => {
+		test("renders as child element when asChild is true", () => {
 			render(
-				<Field.ErrorList
-					errors={[
-						<span key="a" data-testid="err-a">
-							A
-						</span>,
-						<span key="b" data-testid="err-b">
-							B
-						</span>,
-					]}
-				/>,
+				<Field.ErrorList asChild>
+					<ol data-testid="list">
+						<Field.Error>Required</Field.Error>
+					</ol>
+				</Field.ErrorList>,
 			);
-			expect(screen.getByTestId("err-a")).toBeInTheDocument();
-			expect(screen.getByTestId("err-b")).toBeInTheDocument();
+			const list = screen.getByTestId("list");
+			expect(list.tagName).toBe("OL");
+			expect(list).toHaveAttribute("data-slot", "field-error-list");
 		});
 	});
 
@@ -413,7 +429,9 @@ describe("Field", () => {
 						<Field.Item data-testid="root-1">
 							<label htmlFor="email">Email</label>
 							<input id="email" name="email" />
-							<Field.Error data-testid="err">Email is required.</Field.Error>
+							<Field.ErrorList data-testid="errs">
+								<Field.Error data-testid="err">Email is required.</Field.Error>
+							</Field.ErrorList>
 							<Field.Description data-testid="desc">
 								We'll never share your email.
 							</Field.Description>
@@ -429,8 +447,10 @@ describe("Field", () => {
 			expect(screen.getByTestId("set").tagName).toBe("FIELDSET");
 			expect(screen.getByTestId("legend").tagName).toBe("LEGEND");
 			expect(screen.getByTestId("group").tagName).toBe("DIV");
-			expect(screen.getByTestId("root-1")).toHaveAttribute("role", "group");
-			expect(screen.getByTestId("root-2")).toHaveAttribute("role", "group");
+			expect(screen.getByTestId("root-1").tagName).toBe("DIV");
+			expect(screen.getByTestId("root-2").tagName).toBe("DIV");
+			expect(screen.getByTestId("errs").tagName).toBe("UL");
+			expect(screen.getByTestId("err").tagName).toBe("LI");
 			expect(screen.getByTestId("err")).toHaveTextContent("Email is required.");
 			expect(screen.getByTestId("desc")).toHaveTextContent("We'll never share your email.");
 		});

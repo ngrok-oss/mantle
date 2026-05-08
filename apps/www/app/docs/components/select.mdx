@@ -3,6 +3,7 @@ title: Select
 description: Displays a list of options for the user to pick from—triggered by a button.
 ---
 
+import { Field } from "@ngrok/mantle/field";
 import { Label } from "@ngrok/mantle/label";
 import { Select } from "@ngrok/mantle/select";
 import { useState } from "react";
@@ -36,7 +37,7 @@ Displays a list of options for the user to pick from—triggered by a button.
 Use `Select` for a small, finite list of options (~2-15) where the user picks exactly one and search/filtering is unnecessary. For larger lists, async data, or any single-select where typing to filter is helpful, use [`Combobox`](/components/combobox). For picking multiple options, use [`Multi Select`](/components/multi-select).
 
 <Example className="flex-col gap-4">
-	<div className="flex w-full max-w-64 flex-col gap-1.5">
+	<Field.Item className="max-w-64">
 		<Label htmlFor="fruits">Fruits</Label>
 		<Select.Root id="fruits" name="number">
 			<Select.Trigger>
@@ -65,7 +66,7 @@ Use `Select` for a small, finite list of options (~2-15) where the user picks ex
 				</Select.Group>
 			</Select.Content>
 		</Select.Root>
-	</div>
+	</Field.Item>
 	<Select.Root validation="error">
 		<Select.Trigger className="max-w-64">
 			<Select.Value placeholder="Select a fruit" />
@@ -150,10 +151,11 @@ Use `Select` for a small, finite list of options (~2-15) where the user picks ex
 </Example>
 
 ```tsx
+import { Field } from "@ngrok/mantle/field";
 import { Label } from "@ngrok/mantle/label";
 import { Select } from "@ngrok/mantle/select";
 
-<div className="flex w-full max-w-64 flex-col gap-1.5">
+<Field.Item className="max-w-64">
 	<Label htmlFor="fruits">Fruits</Label>
 	<Select.Root id="fruits" name="number">
 		<Select.Trigger>
@@ -182,7 +184,7 @@ import { Select } from "@ngrok/mantle/select";
 			</Select.Group>
 		</Select.Content>
 	</Select.Root>
-</div>;
+</Field.Item>;
 ```
 
 ## Examples

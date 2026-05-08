@@ -7,6 +7,7 @@ import {
 	parseLanguage,
 	type MantleCodeBlockValue,
 } from "@ngrok/mantle/code-block";
+import { Field } from "@ngrok/mantle/field";
 import { Input } from "@ngrok/mantle/input";
 import { Label } from "@ngrok/mantle/label";
 import { Switch } from "@ngrok/mantle/switch";
@@ -302,7 +303,7 @@ export function ServerRenderedHighlightingDemo() {
 			>
 				<form.Field name="language">
 					{(field) => (
-						<div className="space-y-2">
+						<Field.Item>
 							<Label htmlFor={field.name}>Language</Label>
 							<select
 								id={field.name}
@@ -319,12 +320,12 @@ export function ServerRenderedHighlightingDemo() {
 								<option value="json">json</option>
 								<option value="bash">bash</option>
 							</select>
-						</div>
+						</Field.Item>
 					)}
 				</form.Field>
 				<form.Field name="code">
 					{(field) => (
-						<div className="space-y-2">
+						<Field.Item>
 							<Label htmlFor={field.name}>Code</Label>
 							<TextArea
 								appearance="monospaced"
@@ -337,7 +338,7 @@ export function ServerRenderedHighlightingDemo() {
 									field.handleChange(event.currentTarget.value);
 								}}
 							/>
-						</div>
+						</Field.Item>
 					)}
 				</form.Field>
 				<div className="flex flex-wrap items-end gap-4">
@@ -359,7 +360,7 @@ export function ServerRenderedHighlightingDemo() {
 					</form.Field>
 					<form.Field name="highlightLines">
 						{(field) => (
-							<div className="space-y-1">
+							<Field.Item>
 								<Label htmlFor={field.name}>Highlight lines</Label>
 								<Input
 									id={field.name}
@@ -372,12 +373,12 @@ export function ServerRenderedHighlightingDemo() {
 										field.handleChange(event.currentTarget.value);
 									}}
 								/>
-							</div>
+							</Field.Item>
 						)}
 					</form.Field>
 					<form.Field name="lineNumberStart">
 						{(field) => (
-							<div className="space-y-1">
+							<Field.Item>
 								<Label htmlFor={field.name}>Line number start</Label>
 								<Input
 									id={field.name}
@@ -390,7 +391,7 @@ export function ServerRenderedHighlightingDemo() {
 										field.handleChange(Number(event.currentTarget.value) || 1);
 									}}
 								/>
-							</div>
+							</Field.Item>
 						)}
 					</form.Field>
 				</div>
