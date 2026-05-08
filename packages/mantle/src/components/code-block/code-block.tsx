@@ -321,7 +321,7 @@ type CodeBlockCodeProps = Omit<ComponentProps<"pre">, "children"> & {
  * ```
  */
 const Code = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
-	({ className, style, tabIndex, value, ...props }, ref) => {
+	({ className, style, value, ...props }, ref) => {
 		const id = useId();
 		const preRef = useRef<HTMLPreElement>(null);
 		const { copyTextRef, hasCodeExpander, isCodeExpanded, registerCodeId, unregisterCodeId } =
@@ -401,7 +401,7 @@ const Code = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
 					"scrollbar overflow-x-auto overflow-y-hidden py-4",
 					!isPreRendered && "pr-14",
 					"data-[mantle-line-numbers~='false']:pl-4",
-					"text-mono m-0 font-mono",
+					"text-mono m-0 font-mono outline-hidden",
 					"aria-collapsed:max-h-[13.6rem]",
 					className,
 				)}
@@ -426,7 +426,6 @@ const Code = forwardRef<ComponentRef<"pre">, CodeBlockCodeProps>(
 						MozTabSize: 2,
 					} as ComponentProps<"pre">["style"]
 				}
-				tabIndex={tabIndex ?? -1}
 				{...props}
 			>
 				<code
