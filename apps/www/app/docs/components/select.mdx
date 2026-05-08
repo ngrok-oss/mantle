@@ -4,7 +4,6 @@ description: Displays a list of options for the user to pick from—triggered by
 ---
 
 import { Field } from "@ngrok/mantle/field";
-import { Label } from "@ngrok/mantle/label";
 import { Select } from "@ngrok/mantle/select";
 import { useState } from "react";
 import { Example } from "~/components/example";
@@ -40,7 +39,7 @@ When a `Select` is rendered inside `Field.Item`, wrap `Select.Trigger` in `Field
 
 <Example className="flex-col gap-4">
 	<Field.Item className="max-w-64">
-		<Label htmlFor="fruits">Fruits</Label>
+		<Field.Label htmlFor="fruits">Fruits</Field.Label>
 		<Select.Root id="fruits" name="number">
 			<Field.Control>
 				<Select.Trigger>
@@ -156,11 +155,10 @@ When a `Select` is rendered inside `Field.Item`, wrap `Select.Trigger` in `Field
 
 ```tsx
 import { Field } from "@ngrok/mantle/field";
-import { Label } from "@ngrok/mantle/label";
 import { Select } from "@ngrok/mantle/select";
 
 <Field.Item className="max-w-64">
-	<Label htmlFor="fruits">Fruits</Label>
+	<Field.Label htmlFor="fruits">Fruits</Field.Label>
 	<Select.Root id="fruits" name="number">
 		<Field.Control>
 			<Select.Trigger>

@@ -5,22 +5,21 @@ description: Layout primitive for a single form field — label, control, helper
 
 import { Field } from "@ngrok/mantle/field";
 import { Input } from "@ngrok/mantle/input";
-import { Label } from "@ngrok/mantle/label";
 import { RadioGroup } from "@ngrok/mantle/radio-group";
 import { InfoIcon } from "@phosphor-icons/react/Info";
 import { Example } from "~/components/example";
 
 # Field
 
-`Field` is a compound layout primitive for building a single form field. It groups the existing mantle [`Label`](/components/label) with a control (`Input`, `Select`, `Checkbox`, etc.) and adds slots for helper / hint text (`Field.Description`) and validation errors (`Field.Errors`, `Field.ErrorList`, `Field.ErrorItem`). Stack multiple fields together with `Field.Group`, or — for radios and related checkboxes specifically — wrap them in a `Field.Set` + `Field.Legend` for a properly-named semantic group.
+`Field` is a compound layout primitive for building a single form field. It groups `Field.Label`, a control (`Input`, `Select`, `Checkbox`, etc.), helper / hint text (`Field.Description`), and validation errors (`Field.Errors`, `Field.ErrorList`, `Field.ErrorItem`). Stack multiple fields together with `Field.Group`, or — for radios and related checkboxes specifically — wrap them in a `Field.Set` + `Field.Legend` for a properly-named semantic group.
 
-`Field` does not invent a new label component — pair `Field.Item` with the existing `<Label>`, which already handles `htmlFor`, click-to-focus, and the auto `font-medium` typography.
+`Field.Label` is the existing mantle [`Label`](/components/label) exposed on `Field` for ergonomic field composition. It keeps the same `htmlFor`, click-to-focus, disabled, and typography behavior as `Label`; see the [Label docs](/components/label) for the full surface.
 
 Wrap the focusable control in `Field.Control` so `Field.Item` can associate descriptions and rendered errors via `aria-describedby` / `aria-errormessage`. A rendered `Field.Errors` or `Field.ErrorList` infers error state; put `validation` on `Field.Item` or `Field.Control` only when you need to override that state.
 
 <Example className="w-full">
 	<Field.Item className="max-w-80">
-		<Label htmlFor="field-username">Username</Label>
+		<Field.Label htmlFor="field-username">Username</Field.Label>
 		<Field.Control>
 			<Input id="field-username" name="username" placeholder="ada-lovelace" />
 		</Field.Control>
@@ -31,10 +30,9 @@ Wrap the focusable control in `Field.Control` so `Field.Item` can associate desc
 ```tsx
 import { Field } from "@ngrok/mantle/field";
 import { Input } from "@ngrok/mantle/input";
-import { Label } from "@ngrok/mantle/label";
 
 <Field.Item className="max-w-80">
-	<Label htmlFor="username">Username</Label>
+	<Field.Label htmlFor="username">Username</Field.Label>
 	<Field.Control>
 		<Input id="username" name="username" placeholder="ada-lovelace" />
 	</Field.Control>
@@ -52,7 +50,7 @@ When a `Field.Description` follows directly after `Field.Errors` or `Field.Error
 
 <Example className="w-full">
 	<Field.Item className="max-w-80">
-		<Label htmlFor="field-email-error">Email</Label>
+		<Field.Label htmlFor="field-email-error">Email</Field.Label>
 		<Field.Control>
 			<Input id="field-email-error" name="email" type="email" defaultValue="not-an-email" />
 		</Field.Control>
@@ -63,7 +61,7 @@ When a `Field.Description` follows directly after `Field.Errors` or `Field.Error
 
 ```tsx
 <Field.Item>
-	<Label htmlFor="email">Email</Label>
+	<Field.Label htmlFor="email">Email</Field.Label>
 	<Field.Control>
 		<Input id="email" name="email" type="email" />
 	</Field.Control>
@@ -78,7 +76,7 @@ Pass multiple messages to `Field.Errors` when a validator produces more than one
 
 <Example className="w-full">
 	<Field.Item className="max-w-80">
-		<Label htmlFor="field-password">Password</Label>
+		<Field.Label htmlFor="field-password">Password</Field.Label>
 		<Field.Control>
 			<Input id="field-password" name="password" type="password" defaultValue="abc" />
 		</Field.Control>
@@ -95,7 +93,7 @@ Pass multiple messages to `Field.Errors` when a validator produces more than one
 
 ```tsx
 <Field.Item>
-	<Label htmlFor="password">Password</Label>
+	<Field.Label htmlFor="password">Password</Field.Label>
 	<Field.Control>
 		<Input id="password" name="password" type="password" />
 	</Field.Control>
@@ -118,7 +116,7 @@ Prefer `Field.Errors` when you already have plain string messages. Compose `Fiel
 
 <Example className="w-full">
 	<Field.Item className="max-w-80">
-		<Label htmlFor="field-username-manual-errors">Username</Label>
+		<Field.Label htmlFor="field-username-manual-errors">Username</Field.Label>
 		<Field.Control>
 			<Input id="field-username-manual-errors" name="username" defaultValue="a" />
 		</Field.Control>
@@ -132,7 +130,7 @@ Prefer `Field.Errors` when you already have plain string messages. Compose `Fiel
 
 ```tsx
 <Field.Item>
-	<Label htmlFor="username">Username</Label>
+	<Field.Label htmlFor="username">Username</Field.Label>
 	<Field.Control>
 		<Input id="username" name="username" />
 	</Field.Control>
@@ -146,13 +144,13 @@ Prefer `Field.Errors` when you already have plain string messages. Compose `Fiel
 
 ## Optional fields
 
-Use `Field.Optional` inside a `<Label>` to mark a field as optional. It renders a muted "(Optional)" suffix at `text-sm` regular weight so it reads as secondary metadata without competing with the bolder label text. Defaults to the literal "(Optional)" — pass children to translate or replace.
+Use `Field.Optional` inside a `<Field.Label>` to mark a field as optional. It renders a muted "(Optional)" suffix at `text-sm` regular weight so it reads as secondary metadata without competing with the bolder label text. Defaults to the literal "(Optional)" — pass children to translate or replace.
 
 <Example className="w-full">
 	<Field.Item className="max-w-80">
-		<Label htmlFor="field-nickname" className="flex items-baseline gap-1">
+		<Field.Label htmlFor="field-nickname" className="flex items-baseline gap-1">
 			Nickname <Field.Optional />
-		</Label>
+		</Field.Label>
 		<Field.Control>
 			<Input id="field-nickname" name="nickname" placeholder="ada" />
 		</Field.Control>
@@ -162,9 +160,9 @@ Use `Field.Optional` inside a `<Label>` to mark a field as optional. It renders 
 
 ```tsx
 <Field.Item>
-	<Label htmlFor="nickname" className="flex items-baseline gap-1">
+	<Field.Label htmlFor="nickname" className="flex items-baseline gap-1">
 		Nickname <Field.Optional />
-	</Label>
+	</Field.Label>
 	<Field.Control>
 		<Input id="nickname" name="nickname" placeholder="ada" />
 	</Field.Control>
@@ -172,22 +170,22 @@ Use `Field.Optional` inside a `<Label>` to mark a field as optional. It renders 
 </Field.Item>
 ```
 
-Place `Field.Optional` inside the `<Label>` so screen readers announce it as part of the accessible name (e.g. "Nickname, Optional, edit text"). The label's `flex items-baseline gap-1` keeps the suffix on the same baseline as the bolder label text.
+Place `Field.Optional` inside the `<Field.Label>` so screen readers announce it as part of the accessible name (e.g. "Nickname, Optional, edit text"). The label's `flex items-baseline gap-1` keeps the suffix on the same baseline as the bolder label text.
 
 ## Help icon next to the label
 
-When the label needs a sibling affordance that can't live inside the `<Label>` itself — most commonly an interactive help-icon button — wrap the label and its decorations in `Field.LabelRow`. It's a horizontal flex container with `items-center` and `gap-1` so the label, optional suffix, and help icon all sit on a shared center line. (Center alignment, not baseline — SVG icon buttons have no text baseline, so `items-baseline` would push them above the label text.)
+When the label needs a sibling affordance that can't live inside the `<Field.Label>` itself — most commonly an interactive help-icon button — wrap the label and its decorations in `Field.LabelRow`. It's a horizontal flex container with `items-center` and `gap-1` so the label, optional suffix, and help icon all sit on a shared center line. (Center alignment, not baseline — SVG icon buttons have no text baseline, so `items-baseline` would push them above the label text.)
 
-Putting an interactive button inside `<label>` is a footgun: clicks on a `<label>` forward focus to the associated control, so a help button nested in a `<Label>` would steal that behavior. `Field.LabelRow` is the way out.
+Putting an interactive button inside `<label>` is a footgun: clicks on a `<label>` forward focus to the associated control, so a help button nested in a `<Field.Label>` would steal that behavior. `Field.LabelRow` is the way out.
 
 Reach for the bundled `Field.Help` / `Field.HelpTrigger` / `Field.HelpContent` rather than wiring `Popover` + `IconButton` + an icon by hand — it's the same composition, three thin wrappers, with sensible visual defaults (ghost `IconButton`, `xs` size, default Phosphor `QuestionIcon`, `text-body` color). `Field.HelpTrigger` still requires a contextual accessible `label` so repeated help icons do not all announce the same thing. [`Popover`](/components/popover) under the hood — not [`Tooltip`](/components/tooltip) — so the affordance is reachable on touch devices.
 
 <Example className="w-full">
 	<Field.Item className="max-w-80">
 		<Field.LabelRow>
-			<Label htmlFor="field-api-key" className="flex items-baseline gap-1">
+			<Field.Label htmlFor="field-api-key" className="flex items-baseline gap-1">
 				API key <Field.Optional />
-			</Label>
+			</Field.Label>
 			<Field.Help>
 				<Field.HelpTrigger label="What is an API key?" />
 				<Field.HelpContent>Copy this from the ngrok dashboard.</Field.HelpContent>
@@ -203,9 +201,9 @@ Reach for the bundled `Field.Help` / `Field.HelpTrigger` / `Field.HelpContent` r
 ```tsx
 <Field.Item>
 	<Field.LabelRow>
-		<Label htmlFor="api-key" className="flex items-baseline gap-1">
+		<Field.Label htmlFor="api-key" className="flex items-baseline gap-1">
 			API key <Field.Optional />
-		</Label>
+		</Field.Label>
 		<Field.Help>
 			<Field.HelpTrigger label="What is an API key?" />
 			<Field.HelpContent>Copy this from the ngrok dashboard.</Field.HelpContent>
@@ -223,7 +221,7 @@ Reach for the bundled `Field.Help` / `Field.HelpTrigger` / `Field.HelpContent` r
 <Example className="w-full">
 	<Field.Item className="max-w-80">
 		<Field.LabelRow>
-			<Label htmlFor="field-webhook-secret">Webhook secret</Label>
+			<Field.Label htmlFor="field-webhook-secret">Webhook secret</Field.Label>
 			<Field.Help>
 				<Field.HelpTrigger icon={<InfoIcon />} label="What is a webhook secret?" />
 				<Field.HelpContent>
@@ -254,13 +252,13 @@ Wrap multiple `Field.Item`s in a `Field.Group` to stack them with consistent `ga
 <Example className="w-full">
 	<Field.Group className="max-w-80">
 		<Field.Item>
-			<Label htmlFor="field-account-email">Email</Label>
+			<Field.Label htmlFor="field-account-email">Email</Field.Label>
 			<Field.Control>
 				<Input id="field-account-email" name="email" type="email" placeholder="you@ngrok.com" />
 			</Field.Control>
 		</Field.Item>
 		<Field.Item>
-			<Label htmlFor="field-account-password">Password</Label>
+			<Field.Label htmlFor="field-account-password">Password</Field.Label>
 			<Field.Control>
 				<Input id="field-account-password" name="password" type="password" />
 			</Field.Control>
@@ -272,13 +270,13 @@ Wrap multiple `Field.Item`s in a `Field.Group` to stack them with consistent `ga
 ```tsx
 <Field.Group>
 	<Field.Item>
-		<Label htmlFor="email">Email</Label>
+		<Field.Label htmlFor="email">Email</Field.Label>
 		<Field.Control>
 			<Input id="email" name="email" type="email" />
 		</Field.Control>
 	</Field.Item>
 	<Field.Item>
-		<Label htmlFor="password">Password</Label>
+		<Field.Label htmlFor="password">Password</Field.Label>
 		<Field.Control>
 			<Input id="password" name="password" type="password" />
 		</Field.Control>
@@ -349,12 +347,11 @@ Keep the `Field.Legend` self-contained: it is the accessible name for the group.
 
 ## With TanStack Form
 
-`Field` is designed to slot directly into [TanStack Form](https://tanstack.com/form). `field.name` is a stable, unique string for each field — pass it as both `htmlFor` on the `Label` and `id` on the control to wire the label association without a separate `useId()` call. Wrap the input in `Field.Control` so descriptions and rendered errors are associated with the control. Map `field.state.meta.errors` (e.g. `ZodIssue[]`) to string messages for `Field.Errors`; the list renders nothing when the array is empty, and infers error state only when it has messages, so it's safe to leave mounted unconditionally:
+`Field` is designed to slot directly into [TanStack Form](https://tanstack.com/form). `field.name` is a stable, unique string for each field — pass it as both `htmlFor` on `Field.Label` and `id` on the control to wire the label association without a separate `useId()` call. Wrap the input in `Field.Control` so descriptions and rendered errors are associated with the control. Map `field.state.meta.errors` (e.g. `ZodIssue[]`) to string messages for `Field.Errors`; the list renders nothing when the array is empty, and infers error state only when it has messages, so it's safe to leave mounted unconditionally:
 
 ```tsx
 import { Field } from "@ngrok/mantle/field";
 import { Input } from "@ngrok/mantle/input";
-import { Label } from "@ngrok/mantle/label";
 import { Button } from "@ngrok/mantle/button";
 import { useForm } from "@tanstack/react-form";
 import { z } from "zod";
@@ -386,7 +383,7 @@ export function AccountForm() {
 				<form.Field name="email">
 					{(field) => (
 						<Field.Item>
-							<Label htmlFor={field.name}>Email</Label>
+							<Field.Label htmlFor={field.name}>Email</Field.Label>
 							<Field.Control>
 								<Input
 									id={field.name}
@@ -405,7 +402,7 @@ export function AccountForm() {
 				<form.Field name="password">
 					{(field) => (
 						<Field.Item>
-							<Label htmlFor={field.name}>Password</Label>
+							<Field.Label htmlFor={field.name}>Password</Field.Label>
 							<Field.Control>
 								<Input
 									id={field.name}
@@ -438,7 +435,7 @@ Most forms only need a `Field.Group` of `Field.Item`s — that's the default tre
 Field.Group
 └── Field.Item
     ├── Field.LabelRow
-    │   ├── <Label>
+    │   ├── Field.Label
     │   │   └── Field.Optional
     │   └── Field.Help
     │       ├── Field.HelpTrigger
@@ -476,9 +473,17 @@ Layout parts plus `Field.Description`, `Field.Optional`, and `Field.ErrorList` a
 
 ## API Reference
 
+### Field.Label
+
+`Field.Label` is the same component as [`Label`](/components/label), exposed on the `Field` compound component for field composition. Use it inside `Field.Item` to give the control an accessible name and click-to-focus behavior.
+
+See the [Label docs](/components/label) for association patterns, disabled state, and typography behavior.
+
+All props from [`Label`](/components/label).
+
 ### Field.Item
 
-A single form field. Renders a plain `<div>` with `flex flex-col gap-1.5` so a Label, control, and helper / error siblings stack tightly together. No implicit ARIA role — the `<label htmlFor>` ↔ control association already provides the right semantics for a single field. Provides description/error IDs and validation state to `Field.Control`; rendered errors infer `"error"` unless `validation` is provided.
+A single form field. Renders a plain `<div>` with `flex flex-col gap-1.5` so `Field.Label`, control, and helper / error siblings stack tightly together. No implicit ARIA role — the `<label htmlFor>` ↔ control association already provides the right semantics for a single field. Provides description/error IDs and validation state to `Field.Control`; rendered errors infer `"error"` unless `validation` is provided.
 
 **When to use:** for every individual field — text inputs, selects, single checkboxes, switches, password inputs, etc.
 
@@ -546,7 +551,7 @@ All props from [legend](https://developer.mozilla.org/en-US/docs/Web/HTML/Elemen
 
 ### Field.LabelRow
 
-Horizontal layout container for the label area of a field — a flex row with `items-center` and `gap-1`. Use when the label needs a sibling affordance that can't live inside the `<Label>` itself, like a help-icon `Field.HelpTrigger`. Center-aligned (not baseline) so SVG icon buttons sit visually centered next to the label text.
+Horizontal layout container for the label area of a field — a flex row with `items-center` and `gap-1`. Use when the label needs a sibling affordance that can't live inside the `<Field.Label>` itself, like a help-icon `Field.HelpTrigger`. Center-aligned (not baseline) so SVG icon buttons sit visually centered next to the label text.
 
 All props from [div](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes), plus:
 

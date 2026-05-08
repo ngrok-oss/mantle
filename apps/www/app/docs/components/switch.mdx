@@ -91,7 +91,7 @@ export function FormExample() {
     		<form.Field name="airplaneMode">
     			{(field) => (
     				<Field.Item>
-    					<Label htmlFor={field.name} className="inline-flex items-center gap-2">
+    					<Field.Label htmlFor={field.name} className="inline-flex items-center gap-2">
     						Airplane Mode
     						<Field.Control>
     							<Switch
@@ -102,7 +102,7 @@ export function FormExample() {
     								onCheckedChange={(value) => field.handleChange(value)}
     							/>
     						</Field.Control>
-    					</Label>
+    					</Field.Label>
     					<Field.Errors messages={field.state.meta.errors.map((error) => error?.message)} />
     				</Field.Item>
     			)}
@@ -126,7 +126,6 @@ export function FormExample() {
 ```tsx
 import { Button } from "@ngrok/mantle/button";
 import { Field } from "@ngrok/mantle/field";
-import { Label } from "@ngrok/mantle/label";
 import { Switch } from "@ngrok/mantle/switch";
 import { useForm } from "@tanstack/react-form";
 import { z } from "zod";
@@ -167,7 +166,7 @@ function FormExample() {
 			<form.Field name="airplaneMode">
 				{(field) => (
 					<Field.Item>
-						<Label htmlFor={field.name} className="flex items-center gap-2">
+						<Field.Label htmlFor={field.name} className="flex items-center gap-2">
 							Airplane Mode
 							<Field.Control>
 								<Switch
@@ -178,7 +177,7 @@ function FormExample() {
 									onCheckedChange={(value) => field.handleChange(value)}
 								/>
 							</Field.Control>
-						</Label>
+						</Field.Label>
 						<Field.Errors messages={field.state.meta.errors.map((error) => error?.message)} />
 					</Field.Item>
 				)}

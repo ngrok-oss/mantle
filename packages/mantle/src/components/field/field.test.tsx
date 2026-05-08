@@ -3,6 +3,7 @@ import { createRef } from "react";
 import type { ComponentProps, ReactNode } from "react";
 import { describe, expect, test } from "vitest";
 import { Input } from "../input/input.js";
+import { Label } from "../label/label.js";
 import { Field } from "./field.js";
 
 const MockControl = (props: ComponentProps<"input">) => <input {...props} />;
@@ -11,6 +12,14 @@ MockControl.displayName = "Input";
 const MockWrapper = ({ children }: { children: ReactNode }) => children;
 
 describe("Field", () => {
+	test("exposes the mantle Label as Field.Label", () => {
+		expect(Field.Label).toBe(Label);
+
+		render(<Field.Label htmlFor="email">Email</Field.Label>);
+		expect(screen.getByText("Email").tagName).toBe("LABEL");
+		expect(screen.getByText("Email")).toHaveAttribute("for", "email");
+	});
+
 	describe("refs", () => {
 		test("forwards refs to the default rendered elements", () => {
 			const setRef = createRef<HTMLFieldSetElement>();

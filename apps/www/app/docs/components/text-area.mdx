@@ -5,7 +5,6 @@ description: A multi-line plain-text editing control.
 
 import { Button } from "@ngrok/mantle/button";
 import { Field } from "@ngrok/mantle/field";
-import { Label } from "@ngrok/mantle/label";
 import { TextArea } from "@ngrok/mantle/text-area";
 import { useForm } from "@tanstack/react-form";
 import { z } from "zod";
@@ -17,11 +16,11 @@ A multi-line plain-text editing control, useful when you want to allow users to 
 
 <Example className="grid grid-cols-1 gap-6 sm:grid-cols-2">
 	<Field.Item>
-		<Label htmlFor="textarea-default">Default TextArea</Label>
+		<Field.Label htmlFor="textarea-default">Default TextArea</Field.Label>
 		<TextArea id="textarea-default" placeholder="Tell us about your experience…" />
 	</Field.Item>
 	<Field.Item>
-		<Label htmlFor="textarea-monospaced">Monospaced TextArea</Label>
+		<Field.Label htmlFor="textarea-monospaced">Monospaced TextArea</Field.Label>
 		<TextArea
 			id="textarea-monospaced"
 			appearance="monospaced"
@@ -29,11 +28,11 @@ A multi-line plain-text editing control, useful when you want to allow users to 
 		/>
 	</Field.Item>
 	<Field.Item>
-		<Label htmlFor="textarea-error">Error TextArea</Label>
+		<Field.Label htmlFor="textarea-error">Error TextArea</Field.Label>
 		<TextArea id="textarea-error" placeholder="Tell us about your experience…" validation="error" />
 	</Field.Item>
 	<Field.Item>
-		<Label htmlFor="textarea-success">Success TextArea</Label>
+		<Field.Label htmlFor="textarea-success">Success TextArea</Field.Label>
 		<TextArea
 			id="textarea-success"
 			placeholder="Tell us about your experience…"
@@ -41,7 +40,7 @@ A multi-line plain-text editing control, useful when you want to allow users to 
 		/>
 	</Field.Item>
 	<Field.Item>
-		<Label htmlFor="textarea-warning">Warning TextArea</Label>
+		<Field.Label htmlFor="textarea-warning">Warning TextArea</Field.Label>
 		<TextArea
 			id="textarea-warning"
 			placeholder="Tell us about your experience…"
@@ -52,19 +51,18 @@ A multi-line plain-text editing control, useful when you want to allow users to 
 
 ```tsx
 import { Field } from "@ngrok/mantle/field";
-import { Label } from "@ngrok/mantle/label";
 import { TextArea } from "@ngrok/mantle/text-area";
 
 <Field.Item>
-	<Label htmlFor="feedback">Default TextArea</Label>
+	<Field.Label htmlFor="feedback">Default TextArea</Field.Label>
 	<TextArea id="feedback" placeholder="Tell us about your experience…" />
 </Field.Item>
 <Field.Item>
-	<Label htmlFor="feedback-mono">Monospaced TextArea</Label>
+	<Field.Label htmlFor="feedback-mono">Monospaced TextArea</Field.Label>
 	<TextArea id="feedback-mono" appearance="monospaced" placeholder="Tell us about your experience…" />
 </Field.Item>
 <Field.Item>
-	<Label htmlFor="feedback-error">Error TextArea</Label>
+	<Field.Label htmlFor="feedback-error">Error TextArea</Field.Label>
 	<TextArea id="feedback-error" placeholder="Tell us about your experience…" validation="error" />
 </Field.Item>
 ```
@@ -103,7 +101,7 @@ export function FormExample() {
     		<form.Field name="feedback">
     			{(field) => (
     				<Field.Item>
-    					<Label htmlFor={field.name}>Feedback</Label>
+    					<Field.Label htmlFor={field.name}>Feedback</Field.Label>
     					<Field.Control>
     						<TextArea
     							id={field.name}
@@ -137,7 +135,6 @@ export function FormExample() {
 ```tsx
 import { Button } from "@ngrok/mantle/button";
 import { Field } from "@ngrok/mantle/field";
-import { Label } from "@ngrok/mantle/label";
 import { TextArea } from "@ngrok/mantle/text-area";
 import { useForm } from "@tanstack/react-form";
 import { z } from "zod";
@@ -178,7 +175,7 @@ function FormExample() {
 			<form.Field name="feedback">
 				{(field) => (
 					<Field.Item>
-						<Label htmlFor={field.name}>Feedback</Label>
+						<Field.Label htmlFor={field.name}>Feedback</Field.Label>
 						<Field.Control>
 							<TextArea
 								id={field.name}

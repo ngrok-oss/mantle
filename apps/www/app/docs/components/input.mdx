@@ -5,7 +5,6 @@ description: Fundamental component for inputs.
 
 import { Field } from "@ngrok/mantle/field";
 import { Input, InputCapture } from "@ngrok/mantle/input";
-import { Label } from "@ngrok/mantle/label";
 import { InfoIcon } from "@phosphor-icons/react/Info";
 import { MagnifyingGlassIcon } from "@phosphor-icons/react/MagnifyingGlass";
 import { Example } from "~/components/example";
@@ -16,26 +15,26 @@ Fundamental component for inputs.
 
 <Example className="flex flex-col gap-6">
 	<Field.Item className="max-w-80">
-		<Label htmlFor="input-username">Username</Label>
+		<Field.Label htmlFor="input-username">Username</Field.Label>
 		<Input placeholder="Enter a username" name="username" id="input-username" />
 	</Field.Item>
 	<Field.Item className="max-w-80">
-		<Label htmlFor="input-email">Email</Label>
+		<Field.Label htmlFor="input-email">Email</Field.Label>
 		<Input id="input-email" placeholder="Enter your email" autoComplete="email" />
 	</Field.Item>
 	<div className="w-full max-w-80 space-y-2">
 		<p className="font-medium">Validation States:</p>
 		<div className="flex w-full flex-col gap-6">
 			<Field.Item>
-				<Label htmlFor="input-error">Error</Label>
+				<Field.Label htmlFor="input-error">Error</Field.Label>
 				<Input id="input-error" placeholder={'validation="error"'} validation="error" />
 			</Field.Item>
 			<Field.Item>
-				<Label htmlFor="input-success">Success</Label>
+				<Field.Label htmlFor="input-success">Success</Field.Label>
 				<Input id="input-success" placeholder={'validation="success"'} validation="success" />
 			</Field.Item>
 			<Field.Item>
-				<Label htmlFor="input-warning">Warning</Label>
+				<Field.Label htmlFor="input-warning">Warning</Field.Label>
 				<Input id="input-warning" placeholder={'validation="warning"'} validation="warning" />
 			</Field.Item>
 		</div>
@@ -45,27 +44,26 @@ Fundamental component for inputs.
 ```tsx
 import { Field } from "@ngrok/mantle/field";
 import { Input } from "@ngrok/mantle/input";
-import { Label } from "@ngrok/mantle/label";
 
 <Field.Item className="max-w-80">
-	<Label htmlFor="username">Username</Label>
+	<Field.Label htmlFor="username">Username</Field.Label>
 	<Input id="username" name="username" placeholder="Enter a username" />
 </Field.Item>
 <Field.Item className="max-w-80">
-	<Label htmlFor="email">Email</Label>
+	<Field.Label htmlFor="email">Email</Field.Label>
 	<Input id="email" placeholder="Enter your email" autoComplete="email" />
 </Field.Item>
 
 <Field.Item>
-	<Label htmlFor="error">Error</Label>
+	<Field.Label htmlFor="error">Error</Field.Label>
 	<Input id="error" validation="error" />
 </Field.Item>
 <Field.Item>
-	<Label htmlFor="success">Success</Label>
+	<Field.Label htmlFor="success">Success</Field.Label>
 	<Input id="success" validation="success" />
 </Field.Item>
 <Field.Item>
-	<Label htmlFor="warning">Warning</Label>
+	<Field.Label htmlFor="warning">Warning</Field.Label>
 	<Input id="warning" validation="warning" />
 </Field.Item>
 ```
@@ -78,21 +76,21 @@ Note: when composing with interactive content (e.g. a `button`), you will need t
 
 <Example className="grid grid-cols-2 place-items-center gap-6">
 	<Field.Item className="max-w-80">
-		<Label htmlFor="input-search-start">Search with start icon</Label>
+		<Field.Label htmlFor="input-search-start">Search with start icon</Field.Label>
 		<Input id="input-search-start" className="max-w-64" placeholder="Search...">
 			<MagnifyingGlassIcon />
 			<InputCapture />
 		</Input>
 	</Field.Item>
 	<Field.Item className="max-w-80">
-		<Label htmlFor="input-search-end">Search with end icon</Label>
+		<Field.Label htmlFor="input-search-end">Search with end icon</Field.Label>
 		<Input id="input-search-end" className="max-w-64" placeholder="Search...">
 			<InputCapture />
 			<InfoIcon />
 		</Input>
 	</Field.Item>
 	<Field.Item className="max-w-80">
-		<Label htmlFor="input-search-both">Search with start and end icons</Label>
+		<Field.Label htmlFor="input-search-both">Search with start and end icons</Field.Label>
 		<Input id="input-search-both" className="max-w-64" placeholder="Search...">
 			<MagnifyingGlassIcon />
 			<InputCapture />
@@ -100,7 +98,7 @@ Note: when composing with interactive content (e.g. a `button`), you will need t
 		</Input>
 	</Field.Item>
 	<Field.Item className="max-w-80">
-		<Label htmlFor="input-search-start-error">Search with start icon (error)</Label>
+		<Field.Label htmlFor="input-search-start-error">Search with start icon (error)</Field.Label>
 		<Input
 			id="input-search-start-error"
 			className="max-w-64"
@@ -112,7 +110,7 @@ Note: when composing with interactive content (e.g. a `button`), you will need t
 		</Input>
 	</Field.Item>
 	<Field.Item className="max-w-80">
-		<Label htmlFor="input-search-end-error">Search with end icon (error)</Label>
+		<Field.Label htmlFor="input-search-end-error">Search with end icon (error)</Field.Label>
 		<Input
 			id="input-search-end-error"
 			className="max-w-64"
@@ -124,7 +122,9 @@ Note: when composing with interactive content (e.g. a `button`), you will need t
 		</Input>
 	</Field.Item>
 	<Field.Item className="max-w-80">
-		<Label htmlFor="input-search-both-error">Search with start and end icons (error)</Label>
+		<Field.Label htmlFor="input-search-both-error">
+			Search with start and end icons (error)
+		</Field.Label>
 		<Input
 			id="input-search-both-error"
 			className="max-w-64"
@@ -141,26 +141,25 @@ Note: when composing with interactive content (e.g. a `button`), you will need t
 ```tsx
 import { Field } from "@ngrok/mantle/field";
 import { Input, InputCapture } from "@ngrok/mantle/input";
-import { Label } from "@ngrok/mantle/label";
 import { InfoIcon } from "@phosphor-icons/react/Info";
 import { MagnifyingGlassIcon } from "@phosphor-icons/react/MagnifyingGlass";
 
 <Field.Item className="max-w-80">
-	<Label htmlFor="search-start">Search with start icon</Label>
+	<Field.Label htmlFor="search-start">Search with start icon</Field.Label>
 	<Input id="search-start" className="max-w-64" placeholder="Search...">
 		<MagnifyingGlassIcon />
 		<InputCapture />
 	</Input>
 </Field.Item>
 <Field.Item className="max-w-80">
-	<Label htmlFor="search-end">Search with end icon</Label>
+	<Field.Label htmlFor="search-end">Search with end icon</Field.Label>
 	<Input id="search-end" className="max-w-64" placeholder="Search...">
 		<InputCapture />
 		<InfoIcon />
 	</Input>
 </Field.Item>
 <Field.Item className="max-w-80">
-	<Label htmlFor="search-both">Search with start and end icons</Label>
+	<Field.Label htmlFor="search-both">Search with start and end icons</Field.Label>
 	<Input id="search-both" className="max-w-64" placeholder="Search...">
 		<MagnifyingGlassIcon />
 		<InputCapture />

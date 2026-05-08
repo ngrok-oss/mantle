@@ -1,6 +1,5 @@
 import { Button } from "@ngrok/mantle/button";
 import { Field } from "@ngrok/mantle/field";
-import { Label } from "@ngrok/mantle/label";
 import { MultiSelect } from "@ngrok/mantle/multi-select";
 import { useForm } from "@tanstack/react-form";
 import { matchSorter } from "match-sorter";
@@ -51,7 +50,7 @@ export function TanStackFormDemo() {
 			<form.Field name="favorites">
 				{(field) => (
 					<Field.Item>
-						<Label htmlFor={field.name}>Favorites</Label>
+						<Field.Label htmlFor={field.name}>Favorites</Field.Label>
 						<MultiSelect.Root
 							selectedValue={field.state.value}
 							setOpen={() => {

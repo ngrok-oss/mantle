@@ -1,6 +1,5 @@
 import { Button } from "@ngrok/mantle/button";
 import { Field } from "@ngrok/mantle/field";
-import { Label } from "@ngrok/mantle/label";
 import { MultiSelect } from "@ngrok/mantle/multi-select";
 import { Sheet } from "@ngrok/mantle/sheet";
 import { useForm } from "@tanstack/react-form";
@@ -68,7 +67,7 @@ export function InSheetDemo() {
 						<form.Field name="favorites">
 							{(field) => (
 								<Field.Item>
-									<Label htmlFor={field.name}>Fruits</Label>
+									<Field.Label htmlFor={field.name}>Fruits</Field.Label>
 									<MultiSelect.Root
 										selectedValue={field.state.value}
 										setSelectedValue={field.handleChange}

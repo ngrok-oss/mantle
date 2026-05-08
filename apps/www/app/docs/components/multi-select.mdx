@@ -427,7 +427,6 @@ Use `@tanstack/react-form` to manage the selected values when a side panel needs
 ```tsx
 import { Button } from "@ngrok/mantle/button";
 import { Field } from "@ngrok/mantle/field";
-import { Label } from "@ngrok/mantle/label";
 import { MultiSelect } from "@ngrok/mantle/multi-select";
 import { Sheet } from "@ngrok/mantle/sheet";
 import { useForm } from "@tanstack/react-form";
@@ -495,7 +494,7 @@ const filteredVeggies = useMemo(
 				<form.Field name="favorites">
 					{(field) => (
 						<Field.Item>
-							<Label htmlFor={field.name}>Fruits</Label>
+							<Field.Label htmlFor={field.name}>Fruits</Field.Label>
 							<MultiSelect.Root
 								selectedValue={field.state.value}
 								setSelectedValue={field.handleChange}
@@ -699,7 +698,6 @@ Use `@tanstack/react-form` to wire the multi-select into a form with validation.
 ```tsx
 import { Button } from "@ngrok/mantle/button";
 import { Field } from "@ngrok/mantle/field";
-import { Label } from "@ngrok/mantle/label";
 import { MultiSelect } from "@ngrok/mantle/multi-select";
 import { useForm } from "@tanstack/react-form";
 import { matchSorter } from "match-sorter";
@@ -748,7 +746,7 @@ function Example() {
 			<form.Field name="favorites">
 				{(field) => (
 					<Field.Item>
-						<Label htmlFor={field.name}>Favorites</Label>
+						<Field.Label htmlFor={field.name}>Favorites</Field.Label>
 						<MultiSelect.Root
 							selectedValue={field.state.value}
 							setOpen={() => {

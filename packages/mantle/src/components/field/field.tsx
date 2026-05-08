@@ -19,6 +19,7 @@ import { useIsomorphicLayoutEffect } from "../../hooks/use-isomorphic-layout-eff
 import type { WithAsChild } from "../../types/as-child.js";
 import { cx } from "../../utils/cx/cx.js";
 import { IconButton, type IconButtonProps } from "../button/icon-button.js";
+import { Label } from "../label/label.js";
 import { Popover } from "../popover/index.js";
 import { Slot } from "../slot/index.js";
 import {
@@ -261,7 +262,10 @@ FieldSet.displayName = "FieldSet";
  * ```tsx
  * <Field.Set>
  *   <Field.Legend>Notification frequency</Field.Legend>
- *   <RadioGroup.Root name="frequency" defaultValue="daily">…</RadioGroup.Root>
+ *   <RadioGroup.Root name="frequency" defaultValue="daily">
+ *     <RadioGroup.Item value="daily" id="freq-daily">…</RadioGroup.Item>
+ *     <RadioGroup.Item value="weekly" id="freq-weekly">…</RadioGroup.Item>
+ *   </RadioGroup.Root>
  * </Field.Set>
  * ```
  */
@@ -281,44 +285,40 @@ Legend.displayName = "FieldLegend";
 
 /**
  * Horizontal layout container for the label area of a field. Aligns a
- * `<Label>` (which may contain `Field.Optional`) with adjacent affordances
+ * `<Field.Label>` (which may contain `Field.Optional`) with adjacent affordances
  * like a help-icon `Popover.Trigger` on a shared center line with a tight
  * `gap-1`. Center-alignment is used (not baseline) so SVG icon buttons —
  * which have no text baseline — sit visually centered next to the label
  * text rather than dropping to the box bottom.
  *
  * Use this when the label needs sibling decorations that can't live inside
- * the `<Label>` itself (e.g. an interactive help button — clicking inside a
+ * the `<Field.Label>` itself (e.g. an interactive help button — clicking inside a
  * `<label>` would forward focus to the associated control). For a label
  * with only an `(Optional)` suffix, place `Field.Optional` directly inside
- * the `<Label>` instead — no `LabelRow` needed.
+ * the `<Field.Label>` instead — no `LabelRow` needed.
  *
  * @see https://mantle.ngrok.com/components/field
  *
  * @example
  * ```tsx
- * <Field.Item>
- *   <Field.LabelRow>
- *     <Label htmlFor="api-key">
- *       API key <Field.Optional />
- *     </Label>
- *     <Popover.Root>
- *       <Popover.Trigger asChild>
- *         <IconButton
- *           type="button"
- *           appearance="ghost"
- *           size="xs"
- *           label="More info"
- *           icon={<QuestionIcon />}
- *         />
- *       </Popover.Trigger>
- *       <Popover.Content>Copy this from the dashboard.</Popover.Content>
- *     </Popover.Root>
- *   </Field.LabelRow>
- *   <Field.Control>
- *     <Input id="api-key" name="apiKey" />
- *   </Field.Control>
- * </Field.Item>
+ * <Field.Group>
+ *   <Field.Item>
+ *     <Field.LabelRow>
+ *       <Field.Label htmlFor="api-key">
+ *         API key <Field.Optional />
+ *       </Field.Label>
+ *       <Field.Help>
+ *         <Field.HelpTrigger label="What is an API key?" />
+ *         <Field.HelpContent>Copy this from the dashboard.</Field.HelpContent>
+ *       </Field.Help>
+ *     </Field.LabelRow>
+ *     <Field.Control>
+ *       <Input id="api-key" name="apiKey" />
+ *     </Field.Control>
+ *     <Field.Errors messages={["API key is required."]} />
+ *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
+ *   </Field.Item>
+ * </Field.Group>
  * ```
  */
 const LabelRow = forwardRef<ComponentRef<"div">, ComponentProps<"div"> & WithAsChild>(
@@ -351,13 +351,24 @@ LabelRow.displayName = "FieldLabelRow";
  *
  * @example
  * ```tsx
- * <Field.LabelRow>
- *   <Label htmlFor="api-key">API key</Label>
- *   <Field.Help>
- *     <Field.HelpTrigger label="What is an API key?" />
- *     <Field.HelpContent>Copy this from the dashboard.</Field.HelpContent>
- *   </Field.Help>
- * </Field.LabelRow>
+ * <Field.Group>
+ *   <Field.Item>
+ *     <Field.LabelRow>
+ *       <Field.Label htmlFor="api-key">
+ *         API key <Field.Optional />
+ *       </Field.Label>
+ *       <Field.Help>
+ *         <Field.HelpTrigger label="What is an API key?" />
+ *         <Field.HelpContent>Copy this from the dashboard.</Field.HelpContent>
+ *       </Field.Help>
+ *     </Field.LabelRow>
+ *     <Field.Control>
+ *       <Input id="api-key" name="apiKey" />
+ *     </Field.Control>
+ *     <Field.Errors messages={["API key is required."]} />
+ *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
+ *   </Field.Item>
+ * </Field.Group>
  * ```
  */
 const Help = (props: ComponentProps<typeof Popover.Root>) => <Popover.Root {...props} />;
@@ -390,17 +401,24 @@ type FieldHelpTriggerProps = Partial<Omit<IconButtonProps, "icon" | "label">> &
  *
  * @example
  * ```tsx
- * // Default question-mark icon
- * <Field.Help>
- *   <Field.HelpTrigger label="What is an API key?" />
- *   <Field.HelpContent>Copy this from the dashboard.</Field.HelpContent>
- * </Field.Help>
- *
- * // Custom icon
- * <Field.Help>
- *   <Field.HelpTrigger icon={<InfoIcon />} label="What is this setting?" />
- *   <Field.HelpContent>Custom info.</Field.HelpContent>
- * </Field.Help>
+ * <Field.Group>
+ *   <Field.Item>
+ *     <Field.LabelRow>
+ *       <Field.Label htmlFor="api-key">
+ *         API key <Field.Optional />
+ *       </Field.Label>
+ *       <Field.Help>
+ *         <Field.HelpTrigger label="What is an API key?" />
+ *         <Field.HelpContent>Copy this from the dashboard.</Field.HelpContent>
+ *       </Field.Help>
+ *     </Field.LabelRow>
+ *     <Field.Control>
+ *       <Input id="api-key" name="apiKey" />
+ *     </Field.Control>
+ *     <Field.Errors messages={["API key is required."]} />
+ *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
+ *   </Field.Item>
+ * </Field.Group>
  * ```
  */
 const HelpTrigger = forwardRef<ComponentRef<"button">, FieldHelpTriggerProps>(
@@ -441,12 +459,24 @@ HelpTrigger.displayName = "FieldHelpTrigger";
  *
  * @example
  * ```tsx
- * <Field.Help>
- *   <Field.HelpTrigger label="What is an API key?" />
- *   <Field.HelpContent side="top">
- *     Pinned above the trigger.
- *   </Field.HelpContent>
- * </Field.Help>
+ * <Field.Group>
+ *   <Field.Item>
+ *     <Field.LabelRow>
+ *       <Field.Label htmlFor="api-key">
+ *         API key <Field.Optional />
+ *       </Field.Label>
+ *       <Field.Help>
+ *         <Field.HelpTrigger label="What is an API key?" />
+ *         <Field.HelpContent>Copy this from the dashboard.</Field.HelpContent>
+ *       </Field.Help>
+ *     </Field.LabelRow>
+ *     <Field.Control>
+ *       <Input id="api-key" name="apiKey" />
+ *     </Field.Control>
+ *     <Field.Errors messages={["API key is required."]} />
+ *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
+ *   </Field.Item>
+ * </Field.Group>
  * ```
  */
 const HelpContent = forwardRef<ComponentRef<"div">, ComponentProps<typeof Popover.Content>>(
@@ -461,7 +491,7 @@ HelpContent.displayName = "FieldHelpContent";
  * `<span>` in `text-muted` at `text-sm` / `font-normal` so it reads as
  * secondary metadata next to the bolder Label text.
  *
- * Place inside the `<Label>` so screen readers announce it as part of the
+ * Place inside the `<Field.Label>` so screen readers announce it as part of the
  * accessible name (e.g. "Email, Optional, edit text"). Pair with a small
  * `gap` on the label's flex layout, or rely on the natural inline spacing.
  *
@@ -469,14 +499,24 @@ HelpContent.displayName = "FieldHelpContent";
  *
  * @example
  * ```tsx
- * <Field.Item>
- *   <Label htmlFor="email" className="flex items-baseline gap-1">
- *     Email <Field.Optional />
- *   </Label>
- *   <Field.Control>
- *     <Input id="email" name="email" type="email" />
- *   </Field.Control>
- * </Field.Item>
+ * <Field.Group>
+ *   <Field.Item>
+ *     <Field.LabelRow>
+ *       <Field.Label htmlFor="api-key">
+ *         API key <Field.Optional />
+ *       </Field.Label>
+ *       <Field.Help>
+ *         <Field.HelpTrigger label="What is an API key?" />
+ *         <Field.HelpContent>Copy this from the dashboard.</Field.HelpContent>
+ *       </Field.Help>
+ *     </Field.LabelRow>
+ *     <Field.Control>
+ *       <Input id="api-key" name="apiKey" />
+ *     </Field.Control>
+ *     <Field.Errors messages={["API key is required."]} />
+ *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
+ *   </Field.Item>
+ * </Field.Group>
  * ```
  */
 const Optional = forwardRef<ComponentRef<"span">, ComponentProps<"span"> & WithAsChild>(
@@ -510,16 +550,20 @@ Optional.displayName = "FieldOptional";
  * ```tsx
  * <Field.Group>
  *   <Field.Item>
- *     <Label htmlFor="email">Email</Label>
+ *     <Field.LabelRow>
+ *       <Field.Label htmlFor="api-key">
+ *         API key <Field.Optional />
+ *       </Field.Label>
+ *       <Field.Help>
+ *         <Field.HelpTrigger label="What is an API key?" />
+ *         <Field.HelpContent>Copy this from the dashboard.</Field.HelpContent>
+ *       </Field.Help>
+ *     </Field.LabelRow>
  *     <Field.Control>
- *       <Input id="email" name="email" type="email" />
+ *       <Input id="api-key" name="apiKey" />
  *     </Field.Control>
- *   </Field.Item>
- *   <Field.Item>
- *     <Label htmlFor="password">Password</Label>
- *     <Field.Control>
- *       <Input id="password" name="password" type="password" />
- *     </Field.Control>
+ *     <Field.Errors messages={["API key is required."]} />
+ *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
  *   </Field.Item>
  * </Field.Group>
  * ```
@@ -557,14 +601,24 @@ Group.displayName = "FieldGroup";
  *
  * @example
  * ```tsx
- * <Field.Item>
- *   <Label htmlFor="username">Username</Label>
- *   <Field.Control>
- *     <Input id="username" name="username" />
- *   </Field.Control>
- *   <Field.Errors messages={["Username is required."]} />
- *   <Field.Description>Pick something memorable.</Field.Description>
- * </Field.Item>
+ * <Field.Group>
+ *   <Field.Item>
+ *     <Field.LabelRow>
+ *       <Field.Label htmlFor="api-key">
+ *         API key <Field.Optional />
+ *       </Field.Label>
+ *       <Field.Help>
+ *         <Field.HelpTrigger label="What is an API key?" />
+ *         <Field.HelpContent>Copy this from the dashboard.</Field.HelpContent>
+ *       </Field.Help>
+ *     </Field.LabelRow>
+ *     <Field.Control>
+ *       <Input id="api-key" name="apiKey" />
+ *     </Field.Control>
+ *     <Field.Errors messages={["API key is required."]} />
+ *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
+ *   </Field.Item>
+ * </Field.Group>
  * ```
  */
 const Item = forwardRef<ComponentRef<"div">, ComponentProps<"div"> & WithAsChild & WithValidation>(
@@ -635,13 +689,24 @@ Item.displayName = "FieldItem";
  *
  * @example
  * ```tsx
- * <Field.Item>
- *   <Label htmlFor="email">Email</Label>
- *   <Field.Control>
- *     <Input id="email" name="email" />
- *   </Field.Control>
- *   <Field.Errors messages={["Email is required."]} />
- * </Field.Item>
+ * <Field.Group>
+ *   <Field.Item>
+ *     <Field.LabelRow>
+ *       <Field.Label htmlFor="api-key">
+ *         API key <Field.Optional />
+ *       </Field.Label>
+ *       <Field.Help>
+ *         <Field.HelpTrigger label="What is an API key?" />
+ *         <Field.HelpContent>Copy this from the dashboard.</Field.HelpContent>
+ *       </Field.Help>
+ *     </Field.LabelRow>
+ *     <Field.Control>
+ *       <Input id="api-key" name="apiKey" />
+ *     </Field.Control>
+ *     <Field.Errors messages={["API key is required."]} />
+ *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
+ *   </Field.Item>
+ * </Field.Group>
  * ```
  */
 const Control = forwardRef<HTMLElement, FieldControlProps>(
@@ -725,15 +790,24 @@ Control.displayName = "FieldControl";
  *
  * @example
  * ```tsx
- * // Field-level helper (inside Field.Item)
- * <Field.Item>
- *   <Label htmlFor="username">Username</Label>
- *   <Field.Control>
- *     <Input id="username" name="username" />
- *   </Field.Control>
- *   <Field.Errors messages={["Username is required."]} />
- *   <Field.Description>Pick something memorable.</Field.Description>
- * </Field.Item>
+ * <Field.Group>
+ *   <Field.Item>
+ *     <Field.LabelRow>
+ *       <Field.Label htmlFor="api-key">
+ *         API key <Field.Optional />
+ *       </Field.Label>
+ *       <Field.Help>
+ *         <Field.HelpTrigger label="What is an API key?" />
+ *         <Field.HelpContent>Copy this from the dashboard.</Field.HelpContent>
+ *       </Field.Help>
+ *     </Field.LabelRow>
+ *     <Field.Control>
+ *       <Input id="api-key" name="apiKey" />
+ *     </Field.Control>
+ *     <Field.Errors messages={["API key is required."]} />
+ *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
+ *   </Field.Item>
+ * </Field.Group>
  * ```
  */
 const Description = forwardRef<ComponentRef<"p">, ComponentProps<"p"> & WithAsChild>(
@@ -774,16 +848,19 @@ Description.displayName = "FieldDescription";
  *
  * @example
  * ```tsx
- * <Field.Item validation="error">
- *   <Label htmlFor="username">Username</Label>
- *   <Field.Control>
- *     <Input id="username" name="username" />
- *   </Field.Control>
- *   <Field.ErrorList>
- *     <Field.ErrorItem>Username is required.</Field.ErrorItem>
- *   </Field.ErrorList>
- *   <Field.Description>Pick something memorable.</Field.Description>
- * </Field.Item>
+ * <Field.Group>
+ *   <Field.Item>
+ *     <Field.Label htmlFor="username">Username</Field.Label>
+ *     <Field.Control>
+ *       <Input id="username" name="username" />
+ *     </Field.Control>
+ *     <Field.ErrorList>
+ *       <Field.ErrorItem>Must be at least 3 characters.</Field.ErrorItem>
+ *       <Field.ErrorItem>Use letters, numbers, hyphens, or underscores.</Field.ErrorItem>
+ *     </Field.ErrorList>
+ *     <Field.Description>Pick something memorable.</Field.Description>
+ *   </Field.Item>
+ * </Field.Group>
  * ```
  */
 const FieldErrorItem = forwardRef<ComponentRef<"li">, ComponentProps<"li">>(
@@ -821,14 +898,24 @@ FieldErrorItem.displayName = "FieldErrorItem";
  *
  * @example
  * ```tsx
- * <Field.Item validation="error">
- *   <Label htmlFor="username">Username</Label>
- *   <Field.Control>
- *     <Input id="username" name="username" />
- *   </Field.Control>
- *   <Field.Errors messages={field.state.meta.errors.map((error) => error?.message)} />
- *   <Field.Description>Pick something memorable.</Field.Description>
- * </Field.Item>
+ * <Field.Group>
+ *   <Field.Item>
+ *     <Field.LabelRow>
+ *       <Field.Label htmlFor="api-key">
+ *         API key <Field.Optional />
+ *       </Field.Label>
+ *       <Field.Help>
+ *         <Field.HelpTrigger label="What is an API key?" />
+ *         <Field.HelpContent>Copy this from the dashboard.</Field.HelpContent>
+ *       </Field.Help>
+ *     </Field.LabelRow>
+ *     <Field.Control>
+ *       <Input id="api-key" name="apiKey" />
+ *     </Field.Control>
+ *     <Field.Errors messages={["API key is required."]} />
+ *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
+ *   </Field.Item>
+ * </Field.Group>
  * ```
  */
 const FieldErrors = forwardRef<ComponentRef<"ul">, FieldErrorsProps>(
@@ -865,17 +952,19 @@ FieldErrors.displayName = "FieldErrors";
  *
  * @example
  * ```tsx
- * <Field.Item validation="error">
- *   <Label htmlFor="username">Username</Label>
- *   <Field.Control>
- *     <Input id="username" name="username" />
- *   </Field.Control>
- *   <Field.ErrorList>
- *     <Field.ErrorItem>Username is required.</Field.ErrorItem>
- *     <Field.ErrorItem>Username must be at least 2 characters.</Field.ErrorItem>
- *   </Field.ErrorList>
- *   <Field.Description>Pick something memorable.</Field.Description>
- * </Field.Item>
+ * <Field.Group>
+ *   <Field.Item>
+ *     <Field.Label htmlFor="username">Username</Field.Label>
+ *     <Field.Control>
+ *       <Input id="username" name="username" />
+ *     </Field.Control>
+ *     <Field.ErrorList>
+ *       <Field.ErrorItem>Must be at least 3 characters.</Field.ErrorItem>
+ *       <Field.ErrorItem>Use letters, numbers, hyphens, or underscores.</Field.ErrorItem>
+ *     </Field.ErrorList>
+ *     <Field.Description>Pick something memorable.</Field.Description>
+ *   </Field.Item>
+ * </Field.Group>
  * ```
  */
 const FieldErrorList = forwardRef<ComponentRef<"ul">, ComponentProps<"ul"> & WithAsChild>(
@@ -906,11 +995,12 @@ const FieldErrorList = forwardRef<ComponentRef<"ul">, ComponentProps<"ul"> & Wit
 FieldErrorList.displayName = "FieldErrorList";
 
 /**
- * Compound component for building a semantic, accessible form field. Pair
- * with the existing mantle `<Label>` for individual fields. Most forms only
- * need a `Field.Group` of `Field.Item`s — reach for `Field.Set` +
- * `Field.Legend` only when the grouping carries semantic weight (e.g. a
- * `RadioGroup` or related checkboxes).
+ * Compound component for semantic, accessible form fields. Composes a
+ * `Field.Label`, control (`Input`, `Select`, etc.), `Field.Description`, and
+ * validation errors (`Field.Errors` / `Field.ErrorList` + `Field.ErrorItem`)
+ * with consistent spacing and ARIA wiring. Stack multiple fields with
+ * `Field.Group`; use `Field.Set` + `Field.Legend` for radios / related
+ * checkboxes that share one accessible name.
  *
  * @see https://mantle.ngrok.com/components/field
  *
@@ -920,7 +1010,7 @@ FieldErrorList.displayName = "FieldErrorList";
  * Field.Group
  * └── Field.Item
  *     ├── Field.LabelRow
- *     │   ├── <Label>
+ *     │   ├── Field.Label
  *     │   │   └── Field.Optional
  *     │   └── Field.Help
  *     │       ├── Field.HelpTrigger
@@ -931,87 +1021,34 @@ FieldErrorList.displayName = "FieldErrorList";
  *     ├── Field.ErrorList
  *     │   └── Field.ErrorItem
  *     └── Field.Description
- *
- * // For radios / checkboxes — semantic grouping under a shared legend:
- * Field.Set
- * ├── Field.Legend
- * └── (RadioGroup / Checkbox group)
  * ```
  *
  * @example
  * ```tsx
  * <Field.Group>
  *   <Field.Item>
- *     <Label htmlFor="email">Email</Label>
+ *     <Field.LabelRow>
+ *       <Field.Label htmlFor="api-key">
+ *         API key <Field.Optional />
+ *       </Field.Label>
+ *       <Field.Help>
+ *         <Field.HelpTrigger label="What is an API key?" />
+ *         <Field.HelpContent>Copy this from the dashboard.</Field.HelpContent>
+ *       </Field.Help>
+ *     </Field.LabelRow>
  *     <Field.Control>
- *       <Input id="email" name="email" type="email" />
+ *       <Input id="api-key" name="apiKey" />
  *     </Field.Control>
- *     <Field.Errors messages={["Email is required."]} />
- *     <Field.Description>We'll never share your email.</Field.Description>
- *   </Field.Item>
- *   <Field.Item>
- *     <Label htmlFor="nickname" className="flex items-baseline gap-1">
- *       Nickname <Field.Optional />
- *     </Label>
- *     <Field.Control>
- *       <Input id="nickname" name="nickname" />
- *     </Field.Control>
- *     <Field.Description>Visible on your public profile.</Field.Description>
+ *     <Field.Errors messages={["API key is required."]} />
+ *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
  *   </Field.Item>
  * </Field.Group>
  * ```
  */
 const Field = {
 	/**
-	 * A single form field — `Label` + control + helper + error stacked
-	 * vertically with `gap-1.5`. Renders a plain `<div>` (no implicit role).
-	 * Provides field description/error IDs and validation state to
-	 * `Field.Control`.
-	 *
-	 * **When to use:** for every individual field in a form — text inputs,
-	 * selects, single checkboxes, switches, etc. The `<label htmlFor>` ↔
-	 * control association already provides the semantics.
-	 *
-	 * @see https://mantle.ngrok.com/components/field
-	 *
-	 * @example
-	 * ```tsx
-	 * <Field.Item>
-	 *   <Label htmlFor="email">Email</Label>
-	 *   <Field.Control>
-	 *     <Input id="email" name="email" />
-	 *   </Field.Control>
-	 *   <Field.Errors messages={["Email is required."]} />
-	 *   <Field.Description>We'll never share your email.</Field.Description>
-	 * </Field.Item>
-	 * ```
-	 */
-	Item,
-	/**
-	 * Applies field description, error, and validation ARIA props to a single
-	 * focusable control. Pass one child element to receive the props, or use a
-	 * function child to manually place the returned prop bag. For compound
-	 * controls, wrap the focusable part that receives ARIA props (for example
-	 * `Select.Trigger`, not `Select.Root`).
-	 *
-	 * @see https://mantle.ngrok.com/components/field
-	 *
-	 * @example
-	 * ```tsx
-	 * <Field.Control>
-	 *   <Input id="email" name="email" />
-	 * </Field.Control>
-	 * ```
-	 */
-	Control,
-	/**
-	 * Layout container that stacks multiple `Field.Item`s vertically with
-	 * `gap-4`. Renders a plain `<div>` — pure layout, no semantics.
-	 *
-	 * **When to use:** any time a form has more than one field. This is the
-	 * default way to compose multiple `Field.Item`s. Reach for `Field.Set` +
-	 * `Field.Legend` instead only when the grouping itself carries semantic
-	 * weight (radios, related checkboxes).
+	 * A single form field. Provides message IDs and validation state to
+	 * `Field.Control`; rendered errors infer `"error"` validation.
 	 *
 	 * @see https://mantle.ngrok.com/components/field
 	 *
@@ -1019,30 +1056,85 @@ const Field = {
 	 * ```tsx
 	 * <Field.Group>
 	 *   <Field.Item>
-	 *     <Label htmlFor="email">Email</Label>
+	 *     <Field.LabelRow>
+	 *       <Field.Label htmlFor="api-key">
+	 *         API key <Field.Optional />
+	 *       </Field.Label>
+	 *       <Field.Help>
+	 *         <Field.HelpTrigger label="What is an API key?" />
+	 *         <Field.HelpContent>Copy this from the dashboard.</Field.HelpContent>
+	 *       </Field.Help>
+	 *     </Field.LabelRow>
 	 *     <Field.Control>
-	 *       <Input id="email" name="email" />
+	 *       <Input id="api-key" name="apiKey" />
 	 *     </Field.Control>
+	 *     <Field.Errors messages={["API key is required."]} />
+	 *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
 	 *   </Field.Item>
+	 * </Field.Group>
+	 * ```
+	 */
+	Item,
+	/**
+	 * Applies generated field ARIA props and validation state to a single
+	 * focusable control.
+	 *
+	 * @see https://mantle.ngrok.com/components/field
+	 *
+	 * @example
+	 * ```tsx
+	 * <Field.Group>
 	 *   <Field.Item>
-	 *     <Label htmlFor="password">Password</Label>
+	 *     <Field.LabelRow>
+	 *       <Field.Label htmlFor="api-key">
+	 *         API key <Field.Optional />
+	 *       </Field.Label>
+	 *       <Field.Help>
+	 *         <Field.HelpTrigger label="What is an API key?" />
+	 *         <Field.HelpContent>Copy this from the dashboard.</Field.HelpContent>
+	 *       </Field.Help>
+	 *     </Field.LabelRow>
 	 *     <Field.Control>
-	 *       <Input id="password" name="password" type="password" />
+	 *       <Input id="api-key" name="apiKey" />
 	 *     </Field.Control>
+	 *     <Field.Errors messages={["API key is required."]} />
+	 *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
+	 *   </Field.Item>
+	 * </Field.Group>
+	 * ```
+	 */
+	Control,
+	/**
+	 * Layout container that stacks multiple `Field.Item`s vertically.
+	 *
+	 * @see https://mantle.ngrok.com/components/field
+	 *
+	 * @example
+	 * ```tsx
+	 * <Field.Group>
+	 *   <Field.Item>
+	 *     <Field.LabelRow>
+	 *       <Field.Label htmlFor="api-key">
+	 *         API key <Field.Optional />
+	 *       </Field.Label>
+	 *       <Field.Help>
+	 *         <Field.HelpTrigger label="What is an API key?" />
+	 *         <Field.HelpContent>Copy this from the dashboard.</Field.HelpContent>
+	 *       </Field.Help>
+	 *     </Field.LabelRow>
+	 *     <Field.Control>
+	 *       <Input id="api-key" name="apiKey" />
+	 *     </Field.Control>
+	 *     <Field.Errors messages={["API key is required."]} />
+	 *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
 	 *   </Field.Item>
 	 * </Field.Group>
 	 * ```
 	 */
 	Group,
 	/**
-	 * Renders a semantic `<fieldset>` with default browser styling reset.
-	 * Pair with `Field.Legend` to give the group an accessible name.
-	 *
-	 * **When to use:** specifically when the grouping carries semantic
-	 * weight — most commonly a `RadioGroup` (the legend names the question
-	 * the radios answer) or a set of related checkboxes. Skip this for
-	 * unrelated fields stacked together — `Field.Group` on its own is the
-	 * right choice there.
+	 * Semantic `<fieldset>` for related controls that share one accessible
+	 * name from `Field.Legend`.
 	 *
 	 * @see https://mantle.ngrok.com/components/field
 	 *
@@ -1059,12 +1151,7 @@ const Field = {
 	 */
 	Set: FieldSet,
 	/**
-	 * Caption for a `Field.Set`. Renders a `<legend>` styled to match the
-	 * mantle `Label` typography.
-	 *
-	 * **When to use:** always alongside `Field.Set` — the legend is what
-	 * gives the surrounding fieldset an accessible name. A `Field.Set`
-	 * without a `Field.Legend` is rarely correct.
+	 * Caption for `Field.Set`. Renders a semantic `<legend>`.
 	 *
 	 * @see https://mantle.ngrok.com/components/field
 	 *
@@ -1072,38 +1159,47 @@ const Field = {
 	 * ```tsx
 	 * <Field.Set>
 	 *   <Field.Legend>Notification frequency</Field.Legend>
-	 *   <RadioGroup.Root name="frequency" defaultValue="daily">…</RadioGroup.Root>
+	 *   <RadioGroup.Root name="frequency" defaultValue="daily">
+	 *     <RadioGroup.Item value="daily" id="freq-daily">…</RadioGroup.Item>
+	 *     <RadioGroup.Item value="weekly" id="freq-weekly">…</RadioGroup.Item>
+	 *   </RadioGroup.Root>
 	 * </Field.Set>
 	 * ```
 	 */
 	Legend,
 	/**
+	 * The Mantle `Label`, exposed on `Field` for field composition.
+	 *
+	 * @see https://mantle.ngrok.com/components/label
+	 */
+	Label,
+	/**
 	 * Horizontal layout container for the label area of a field. Aligns a
-	 * `<Label>` (which may contain `Field.Optional`) with adjacent affordances
+	 * `<Field.Label>` (which may contain `Field.Optional`) with adjacent affordances
 	 * like a help-icon `Popover.Trigger` on a shared center line with `gap-1`.
 	 *
 	 * @see https://mantle.ngrok.com/components/field
 	 *
 	 * @example
 	 * ```tsx
-	 * <Field.Item>
-	 *   <Field.LabelRow>
-	 *     <Label htmlFor="api-key">
-	 *       API key <Field.Optional />
-	 *     </Label>
-	 *     <Popover.Root>
-	 *       <Popover.Trigger asChild>
-	 *         <button type="button" aria-label="More info">
-	 *           <QuestionIcon />
-	 *         </button>
-	 *       </Popover.Trigger>
-	 *       <Popover.Content>Copy this from the dashboard.</Popover.Content>
-	 *     </Popover.Root>
-	 *   </Field.LabelRow>
-	 *   <Field.Control>
-	 *     <Input id="api-key" name="apiKey" />
-	 *   </Field.Control>
-	 * </Field.Item>
+	 * <Field.Group>
+	 *   <Field.Item>
+	 *     <Field.LabelRow>
+	 *       <Field.Label htmlFor="api-key">
+	 *         API key <Field.Optional />
+	 *       </Field.Label>
+	 *       <Field.Help>
+	 *         <Field.HelpTrigger label="What is an API key?" />
+	 *         <Field.HelpContent>Copy this from the dashboard.</Field.HelpContent>
+	 *       </Field.Help>
+	 *     </Field.LabelRow>
+	 *     <Field.Control>
+	 *       <Input id="api-key" name="apiKey" />
+	 *     </Field.Control>
+	 *     <Field.Errors messages={["API key is required."]} />
+	 *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
+	 *   </Field.Item>
+	 * </Field.Group>
 	 * ```
 	 */
 	LabelRow,
@@ -1116,13 +1212,24 @@ const Field = {
 	 *
 	 * @example
 	 * ```tsx
-	 * <Field.LabelRow>
-	 *   <Label htmlFor="api-key">API key</Label>
-	 *   <Field.Help>
-	 *     <Field.HelpTrigger label="What is an API key?" />
-	 *     <Field.HelpContent>Copy this from the dashboard.</Field.HelpContent>
-	 *   </Field.Help>
-	 * </Field.LabelRow>
+	 * <Field.Group>
+	 *   <Field.Item>
+	 *     <Field.LabelRow>
+	 *       <Field.Label htmlFor="api-key">
+	 *         API key <Field.Optional />
+	 *       </Field.Label>
+	 *       <Field.Help>
+	 *         <Field.HelpTrigger label="What is an API key?" />
+	 *         <Field.HelpContent>Copy this from the dashboard.</Field.HelpContent>
+	 *       </Field.Help>
+	 *     </Field.LabelRow>
+	 *     <Field.Control>
+	 *       <Input id="api-key" name="apiKey" />
+	 *     </Field.Control>
+	 *     <Field.Errors messages={["API key is required."]} />
+	 *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
+	 *   </Field.Item>
+	 * </Field.Group>
 	 * ```
 	 */
 	Help,
@@ -1135,10 +1242,24 @@ const Field = {
 	 *
 	 * @example
 	 * ```tsx
-	 * <Field.Help>
-	 *   <Field.HelpTrigger label="What is an API key?" />
-	 *   <Field.HelpContent>Copy this from the dashboard.</Field.HelpContent>
-	 * </Field.Help>
+	 * <Field.Group>
+	 *   <Field.Item>
+	 *     <Field.LabelRow>
+	 *       <Field.Label htmlFor="api-key">
+	 *         API key <Field.Optional />
+	 *       </Field.Label>
+	 *       <Field.Help>
+	 *         <Field.HelpTrigger label="What is an API key?" />
+	 *         <Field.HelpContent>Copy this from the dashboard.</Field.HelpContent>
+	 *       </Field.Help>
+	 *     </Field.LabelRow>
+	 *     <Field.Control>
+	 *       <Input id="api-key" name="apiKey" />
+	 *     </Field.Control>
+	 *     <Field.Errors messages={["API key is required."]} />
+	 *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
+	 *   </Field.Item>
+	 * </Field.Group>
 	 * ```
 	 */
 	HelpTrigger,
@@ -1149,32 +1270,55 @@ const Field = {
 	 *
 	 * @example
 	 * ```tsx
-	 * <Field.Help>
-	 *   <Field.HelpTrigger label="What is an API key?" />
-	 *   <Field.HelpContent>Copy this from the dashboard.</Field.HelpContent>
-	 * </Field.Help>
+	 * <Field.Group>
+	 *   <Field.Item>
+	 *     <Field.LabelRow>
+	 *       <Field.Label htmlFor="api-key">
+	 *         API key <Field.Optional />
+	 *       </Field.Label>
+	 *       <Field.Help>
+	 *         <Field.HelpTrigger label="What is an API key?" />
+	 *         <Field.HelpContent>Copy this from the dashboard.</Field.HelpContent>
+	 *       </Field.Help>
+	 *     </Field.LabelRow>
+	 *     <Field.Control>
+	 *       <Input id="api-key" name="apiKey" />
+	 *     </Field.Control>
+	 *     <Field.Errors messages={["API key is required."]} />
+	 *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
+	 *   </Field.Item>
+	 * </Field.Group>
 	 * ```
 	 */
 	HelpContent,
 	/**
 	 * Inline "(Optional)" suffix to mark a field as optional. Default content
 	 * is `(Optional)`; pass children to translate or replace it. Place inside
-	 * the `<Label>` so screen readers announce it as part of the accessible
+	 * the `<Field.Label>` so screen readers announce it as part of the accessible
 	 * name.
 	 *
 	 * @see https://mantle.ngrok.com/components/field
 	 *
 	 * @example
 	 * ```tsx
-	 * <Field.Item>
-	 *   <Label htmlFor="nickname" className="flex items-baseline gap-1">
-	 *     Nickname <Field.Optional />
-	 *   </Label>
-	 *   <Field.Control>
-	 *     <Input id="nickname" name="nickname" />
-	 *   </Field.Control>
-	 *   <Field.Description>Visible on your public profile.</Field.Description>
-	 * </Field.Item>
+	 * <Field.Group>
+	 *   <Field.Item>
+	 *     <Field.LabelRow>
+	 *       <Field.Label htmlFor="api-key">
+	 *         API key <Field.Optional />
+	 *       </Field.Label>
+	 *       <Field.Help>
+	 *         <Field.HelpTrigger label="What is an API key?" />
+	 *         <Field.HelpContent>Copy this from the dashboard.</Field.HelpContent>
+	 *       </Field.Help>
+	 *     </Field.LabelRow>
+	 *     <Field.Control>
+	 *       <Input id="api-key" name="apiKey" />
+	 *     </Field.Control>
+	 *     <Field.Errors messages={["API key is required."]} />
+	 *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
+	 *   </Field.Item>
+	 * </Field.Group>
 	 * ```
 	 */
 	Optional,
@@ -1185,14 +1329,24 @@ const Field = {
 	 *
 	 * @example
 	 * ```tsx
-	 * <Field.Item validation="error">
-	 *   <Label htmlFor="username">Username</Label>
-	 *   <Field.Control>
-	 *     <Input id="username" name="username" />
-	 *   </Field.Control>
-	 *   <Field.Errors messages={["Username is required."]} />
-	 *   <Field.Description>Pick something memorable.</Field.Description>
-	 * </Field.Item>
+	 * <Field.Group>
+	 *   <Field.Item>
+	 *     <Field.LabelRow>
+	 *       <Field.Label htmlFor="api-key">
+	 *         API key <Field.Optional />
+	 *       </Field.Label>
+	 *       <Field.Help>
+	 *         <Field.HelpTrigger label="What is an API key?" />
+	 *         <Field.HelpContent>Copy this from the dashboard.</Field.HelpContent>
+	 *       </Field.Help>
+	 *     </Field.LabelRow>
+	 *     <Field.Control>
+	 *       <Input id="api-key" name="apiKey" />
+	 *     </Field.Control>
+	 *     <Field.Errors messages={["API key is required."]} />
+	 *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
+	 *   </Field.Item>
+	 * </Field.Group>
 	 * ```
 	 */
 	Description,
@@ -1205,7 +1359,24 @@ const Field = {
 	 *
 	 * @example
 	 * ```tsx
-	 * <Field.Errors messages={field.state.meta.errors.map((error) => error?.message)} />
+	 * <Field.Group>
+	 *   <Field.Item>
+	 *     <Field.LabelRow>
+	 *       <Field.Label htmlFor="api-key">
+	 *         API key <Field.Optional />
+	 *       </Field.Label>
+	 *       <Field.Help>
+	 *         <Field.HelpTrigger label="What is an API key?" />
+	 *         <Field.HelpContent>Copy this from the dashboard.</Field.HelpContent>
+	 *       </Field.Help>
+	 *     </Field.LabelRow>
+	 *     <Field.Control>
+	 *       <Input id="api-key" name="apiKey" />
+	 *     </Field.Control>
+	 *     <Field.Errors messages={["API key is required."]} />
+	 *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
+	 *   </Field.Item>
+	 * </Field.Group>
 	 * ```
 	 */
 	Errors: FieldErrors,
@@ -1217,16 +1388,19 @@ const Field = {
 	 *
 	 * @example
 	 * ```tsx
-	 * <Field.Item validation="error">
-	 *   <Label htmlFor="username">Username</Label>
-	 *   <Field.Control>
-	 *     <Input id="username" name="username" />
-	 *   </Field.Control>
-	 *   <Field.ErrorList>
-	 *     <Field.ErrorItem>Username is required.</Field.ErrorItem>
-	 *   </Field.ErrorList>
-	 *   <Field.Description>Pick something memorable.</Field.Description>
-	 * </Field.Item>
+	 * <Field.Group>
+	 *   <Field.Item>
+	 *     <Field.Label htmlFor="username">Username</Field.Label>
+	 *     <Field.Control>
+	 *       <Input id="username" name="username" />
+	 *     </Field.Control>
+	 *     <Field.ErrorList>
+	 *       <Field.ErrorItem>Must be at least 3 characters.</Field.ErrorItem>
+	 *       <Field.ErrorItem>Use letters, numbers, hyphens, or underscores.</Field.ErrorItem>
+	 *     </Field.ErrorList>
+	 *     <Field.Description>Pick something memorable.</Field.Description>
+	 *   </Field.Item>
+	 * </Field.Group>
 	 * ```
 	 */
 	ErrorList: FieldErrorList,
@@ -1238,9 +1412,19 @@ const Field = {
 	 *
 	 * @example
 	 * ```tsx
-	 * <Field.ErrorList>
-	 *   <Field.ErrorItem>Username is required.</Field.ErrorItem>
-	 * </Field.ErrorList>
+	 * <Field.Group>
+	 *   <Field.Item>
+	 *     <Field.Label htmlFor="username">Username</Field.Label>
+	 *     <Field.Control>
+	 *       <Input id="username" name="username" />
+	 *     </Field.Control>
+	 *     <Field.ErrorList>
+	 *       <Field.ErrorItem>Must be at least 3 characters.</Field.ErrorItem>
+	 *       <Field.ErrorItem>Use letters, numbers, hyphens, or underscores.</Field.ErrorItem>
+	 *     </Field.ErrorList>
+	 *     <Field.Description>Pick something memorable.</Field.Description>
+	 *   </Field.Item>
+	 * </Field.Group>
 	 * ```
 	 */
 	ErrorItem: FieldErrorItem,
