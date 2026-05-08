@@ -55,7 +55,7 @@ Before finishing work, run all of these from the workspace root and ensure they 
 
 - All external dependencies MUST use exact, pinned versions (no `^` or `~`): `pnpm -w add -E <package> -F @ngrok/mantle`
 - Root dev deps: `pnpm -w add -D -E <package>`
-- Workspace deps: `pnpm -w add -E @ngrok/mantle -F www`
+- Workspace deps: `pnpm -w add -E @ngrok/mantle -F @app/www`
 - Package names: Apps use app names, packages use `@ngrok/` prefix
 - **IMPORTANT**: Agents MUST explicitly call out violations of these conventions (e.g., unpinned versions)
 
