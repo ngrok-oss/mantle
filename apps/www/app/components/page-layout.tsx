@@ -1,8 +1,9 @@
 import type { ComponentProps, ReactNode } from "react";
-import { href, Link } from "react-router";
+import { href, Link, useMatches } from "react-router";
+import { z } from "zod";
 import { useNavigation } from "./navigation-context";
 import { ScrollMask } from "./scroll-mask";
-import { TOC_PORTAL_ID } from "./table-of-contents";
+import { TableOfContents } from "./table-of-contents";
 import { cx } from "@ngrok/mantle/cx";
 import { Main } from "@ngrok/mantle/main";
 
@@ -17,6 +18,16 @@ const mobileDrawerLinks = [
 	{ to: href("/blocks"), label: "Blocks" },
 ];
 
+const matchDataWithTocSchema = z.object({
+	toc: z.array(
+		z.object({
+			id: z.string(),
+			text: z.string(),
+			level: z.union([z.literal(1), z.literal(2), z.literal(3)]),
+		}),
+	),
+});
+
 /**
  * Shared page frame used by section layouts (docs, blocks, …). Renders the
  * three-column grid (sidebar | main | TOC aside) and the mobile drawer. The
@@ -25,6 +36,9 @@ const mobileDrawerLinks = [
  */
 export function PageLayout({ className, children, sidebar, ...props }: PageLayoutProps) {
 	const { showNavigation, setShowNavigation } = useNavigation();
+	const matches = useMatches();
+	const leafToc =
+		matchDataWithTocSchema.safeParse(matches[matches.length - 1]?.data).data?.toc ?? [];
 
 	const closeMobileNavigation = () => {
 		setShowNavigation(false);
@@ -37,7 +51,9 @@ export function PageLayout({ className, children, sidebar, ...props }: PageLayou
 					{sidebar}
 				</ScrollMask>
 				<Main className="w-0 flex-1 pb-[80vh] sm:px-8">{children}</Main>
-				<aside id={TOC_PORTAL_ID} className="hidden w-40 xl:block" />
+				<aside className="hidden w-40 xl:block">
+					<TableOfContents entries={leafToc} />
+				</aside>
 			</div>
 			{showNavigation && (
 				<div className="bg-card fixed bottom-0 left-0 right-0 top-15 z-50 p-4 md:hidden">
