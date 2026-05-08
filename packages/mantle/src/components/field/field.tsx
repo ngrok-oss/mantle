@@ -626,8 +626,10 @@ Item.displayName = "FieldItem";
  * Applies `Field.Item` description, error, and validation state to a single
  * focusable control. It always behaves like an `asChild` slot: pass one child
  * element to receive the generated ARIA props, or use a function child to
- * place those props manually. Pass `validation` here only when the control
- * needs to override the surrounding `Field.Item` state.
+ * place those props manually. For compound controls, wrap the focusable part
+ * that receives ARIA props (for example `Select.Trigger`, not `Select.Root`).
+ * Pass `validation` here only when the control needs to override the
+ * surrounding `Field.Item` state.
  *
  * @see https://mantle.ngrok.com/components/field
  *
@@ -988,7 +990,9 @@ const Field = {
 	/**
 	 * Applies field description, error, and validation ARIA props to a single
 	 * focusable control. Pass one child element to receive the props, or use a
-	 * function child to manually place the returned prop bag.
+	 * function child to manually place the returned prop bag. For compound
+	 * controls, wrap the focusable part that receives ARIA props (for example
+	 * `Select.Trigger`, not `Select.Root`).
 	 *
 	 * @see https://mantle.ngrok.com/components/field
 	 *

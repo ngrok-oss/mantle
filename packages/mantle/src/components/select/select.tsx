@@ -72,6 +72,10 @@ type SelectProps = PropsWithChildren & {
  * and search/filtering is unnecessary. For larger lists or async/searchable data, use
  * Combobox. For picking multiple options, use MultiSelect.
  *
+ * Pass `validation` here when the entire select has an explicit state. That
+ * root state is forwarded to `Select.Trigger` and takes precedence over field
+ * context from `Field.Item` / `Field.Control`.
+ *
  * @see https://mantle.ngrok.com/components/select#selectroot
  *
  * @example
@@ -111,8 +115,6 @@ const Root = forwardRef<HTMLButtonElement, SelectProps>(
 		},
 		ref,
 	) => {
-		const fieldValidation = useFieldValidation();
-
 		return (
 			<SelectPrimitive.Root
 				{...props}
@@ -125,7 +127,7 @@ const Root = forwardRef<HTMLButtonElement, SelectProps>(
 					value={{
 						"aria-invalid": _ariaInvalid,
 						id,
-						validation: validation ?? fieldValidation,
+						validation,
 						onBlur,
 						ref,
 					}}
@@ -217,6 +219,8 @@ type SelectTriggerProps = ComponentPropsWithoutRef<typeof SelectPrimitive.Trigge
 
 /**
  * The button that toggles the select. The Select.Content will position itself adjacent to the trigger.
+ * When composing with `Field.Item`, wrap this trigger in `Field.Control` so
+ * generated helper and error IDs are applied to the focusable button.
  *
  * @see https://mantle.ngrok.com/components/select#selecttrigger
  *
@@ -258,6 +262,9 @@ const Trigger = forwardRef<ComponentRef<typeof SelectPrimitive.Trigger>, SelectT
 		const ctx = useContext(SelectContext);
 		const fieldValidation = useFieldValidation();
 		const rawAriaInvalid = ctx["aria-invalid"] ?? ariaInValidProp;
+		// Explicit Select props win over ambient Field validation. This lets
+		// Field.Control override Field.Item while preserving Select.Root as the
+		// highest-precedence select-level state.
 		const rawValidation = ctx.validation ?? propValidation ?? fieldValidation;
 		const { ariaInvalid, validation } = parseValidation({
 			"aria-invalid": rawAriaInvalid,

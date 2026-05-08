@@ -36,13 +36,17 @@ Displays a list of options for the user to pick from—triggered by a button.
 
 Use `Select` for a small, finite list of options (~2-15) where the user picks exactly one and search/filtering is unnecessary. For larger lists, async data, or any single-select where typing to filter is helpful, use [`Combobox`](/components/combobox). For picking multiple options, use [`Multi Select`](/components/multi-select).
 
+When a `Select` is rendered inside `Field.Item`, wrap `Select.Trigger` in `Field.Control`. The trigger is the focusable button, so that is where `Field.Control` applies generated `aria-describedby`, `aria-errormessage`, and validation props.
+
 <Example className="flex-col gap-4">
 	<Field.Item className="max-w-64">
 		<Label htmlFor="fruits">Fruits</Label>
 		<Select.Root id="fruits" name="number">
-			<Select.Trigger>
-				<Select.Value placeholder="Select a fruit" />
-			</Select.Trigger>
+			<Field.Control>
+				<Select.Trigger>
+					<Select.Value placeholder="Select a fruit" />
+				</Select.Trigger>
+			</Field.Control>
 			<Select.Content width="trigger">
 				<Select.Group>
 					<Select.Label>Fruits</Select.Label>
@@ -158,9 +162,11 @@ import { Select } from "@ngrok/mantle/select";
 <Field.Item className="max-w-64">
 	<Label htmlFor="fruits">Fruits</Label>
 	<Select.Root id="fruits" name="number">
-		<Select.Trigger>
-			<Select.Value placeholder="Select a fruit" />
-		</Select.Trigger>
+		<Field.Control>
+			<Select.Trigger>
+				<Select.Value placeholder="Select a fruit" />
+			</Select.Trigger>
+		</Field.Control>
 		<Select.Content width="trigger">
 			<Select.Group>
 				<Select.Label>Fruits</Select.Label>
@@ -236,6 +242,8 @@ The `Select` components are built on top of [Radix Select](https://www.radix-ui.
 
 Displays a list of options for the user to pick from—triggered by a button.
 
+Set `validation` on `Select.Root` when the whole select has an explicit state; this root-level state is forwarded to the trigger and takes precedence over field-level validation from `Field.Item` / `Field.Control`.
+
 All props from Radix [Select.Root](https://www.radix-ui.com/primitives/docs/components/select#root), plus:
 
 | Prop             | Type                                                                                               | Default | Description                                                                                                                                                                                                                                                                                                                               |
@@ -246,6 +254,8 @@ All props from Radix [Select.Root](https://www.radix-ui.com/primitives/docs/comp
 ### Select.Trigger
 
 The button that toggles the `Select`. The `Select.Content` will position itself adjacent to the trigger.
+
+When composing with `Field.Item`, wrap `Select.Trigger` in `Field.Control` so helper text and errors are associated with the focusable button. Validation resolves from explicit `Select.Root`, then `Select.Trigger`, then the nearest `Field.Control` / `Field.Item`.
 
 All props from Radix [Select.Trigger](https://www.radix-ui.com/primitives/docs/components/select#trigger), plus:
 

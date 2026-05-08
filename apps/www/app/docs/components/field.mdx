@@ -491,12 +491,21 @@ All props from [div](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/d
 
 ### Field.Control
 
-Applies `Field.Item` description, error, and validation state to a single focusable control. It always behaves like an `asChild` slot: pass one child element to receive the generated ARIA props, or use a function child to place those props manually. Pass `validation` here only when this control needs to override the surrounding `Field.Item`.
+Applies `Field.Item` description, error, and validation state to a single focusable control. It always behaves like an `asChild` slot: pass one child element to receive the generated ARIA props, or use a function child to place those props manually. For compound controls, wrap the actual focusable part — for example `Select.Trigger`, not `Select.Root`. Pass `validation` here only when this control needs to override the surrounding `Field.Item`.
 
 ```tsx
 <Field.Control>
 	<Input id="email" name="email" />
 </Field.Control>
+
+<Select.Root id="plan" name="plan">
+	<Field.Control>
+		<Select.Trigger>
+			<Select.Value placeholder="Select a plan" />
+		</Select.Trigger>
+	</Field.Control>
+	<Select.Content>{/* ... */}</Select.Content>
+</Select.Root>
 
 <Field.Control>
 	{(controlProps) => <CustomInput inputProps={controlProps} />}
