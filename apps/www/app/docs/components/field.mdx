@@ -12,16 +12,18 @@ import { Example } from "~/components/example";
 
 # Field
 
-`Field` is a compound layout primitive for building a single form field. It groups the existing mantle [`Label`](/components/label) with a control (Input, Select, Checkbox, etc.) and adds slots for helper / hint text (`Field.Description`) and validation errors (`Field.Error`, `Field.ErrorList`). Stack multiple fields together with `Field.Group`, or — for radios and related checkboxes specifically — wrap them in a `Field.Set` + `Field.Legend` for a properly-named semantic group.
+`Field` is a compound layout primitive for building a single form field. It groups the existing mantle [`Label`](/components/label) with a control (`Input`, `Select`, `Checkbox`, etc.) and adds slots for helper / hint text (`Field.Description`) and validation errors (`Field.Errors`, `Field.ErrorList`, `Field.ErrorItem`). Stack multiple fields together with `Field.Group`, or — for radios and related checkboxes specifically — wrap them in a `Field.Set` + `Field.Legend` for a properly-named semantic group.
 
 `Field` does not invent a new label component — pair `Field.Item` with the existing `<Label>`, which already handles `htmlFor`, click-to-focus, and the auto `font-medium` typography.
 
-`Field.Item` automatically gives descendant `Field.Description` and non-empty `Field.ErrorList` parts stable IDs, then merges those IDs onto known form controls via `aria-describedby` and `aria-errormessage`. It does not change the control's `id` or `name`, so `id={field.name}` stays the right TanStack Form pattern.
+Wrap the focusable control in `Field.Control` so `Field.Item` can associate descriptions and rendered errors via `aria-describedby` / `aria-errormessage`. A rendered `Field.Errors` or `Field.ErrorList` infers error state; put `validation` on `Field.Item` or `Field.Control` only when you need to override that state.
 
 <Example className="w-full">
 	<Field.Item className="max-w-80">
 		<Label htmlFor="field-username">Username</Label>
-		<Input id="field-username" name="username" placeholder="ada-lovelace" />
+		<Field.Control>
+			<Input id="field-username" name="username" placeholder="ada-lovelace" />
+		</Field.Control>
 		<Field.Description>Pick something memorable — you can change it later.</Field.Description>
 	</Field.Item>
 </Example>
@@ -33,30 +35,28 @@ import { Label } from "@ngrok/mantle/label";
 
 <Field.Item className="max-w-80">
 	<Label htmlFor="username">Username</Label>
-	<Input id="username" name="username" placeholder="ada-lovelace" />
+	<Field.Control>
+		<Input id="username" name="username" placeholder="ada-lovelace" />
+	</Field.Control>
 	<Field.Description>Pick something memorable — you can change it later.</Field.Description>
 </Field.Item>;
 ```
 
 ## Error messages
 
-Wrap one or more `Field.Error` children in a `Field.ErrorList` below the control when validation fails. The list renders a semantic `<ul>` with `<li>` items so screen readers announce the errors as a list, and a single error is just a list of one. Set `validation="error"` on the control so the visual states stay in sync; `Field.Item` handles the `aria-errormessage` association and marks known controls invalid when an error list is present.
+Use `Field.Errors` below the control when validation fails. It accepts string messages, trims them, filters empty values, and renders a semantic `<ul>` with `<li>` items so screen readers announce the errors as a list. When the list renders, `Field.Item` infers error state so the visual state and ARIA invalid state stay in sync.
 
-When a `Field.Description` follows directly after a `Field.ErrorList`, `Field.Description` automatically collapses the parent's `gap-1.5` with a matching negative top margin so the errors + helper read as one tight block — matching the figma. Pass any margin utility on `Field.Description` (e.g. `className="mt-1"`, `className="mt-0"`) to override.
+For custom list markup or rich error content, compose the lower-level `Field.ErrorList` and `Field.ErrorItem` parts directly. A single error is still just a list of one.
+
+When a `Field.Description` follows directly after `Field.Errors` or `Field.ErrorList`, `Field.Description` automatically collapses the parent's `gap-1.5` with a matching negative top margin so the errors + helper read as one tight block — matching the figma. Pass any margin utility on `Field.Description` (e.g. `className="mt-1"`, `className="mt-0"`) to override.
 
 <Example className="w-full">
 	<Field.Item className="max-w-80">
 		<Label htmlFor="field-email-error">Email</Label>
-		<Input
-			id="field-email-error"
-			name="email"
-			type="email"
-			defaultValue="not-an-email"
-			validation="error"
-		/>
-		<Field.ErrorList>
-			<Field.Error>Enter a valid email address.</Field.Error>
-		</Field.ErrorList>
+		<Field.Control>
+			<Input id="field-email-error" name="email" type="email" defaultValue="not-an-email" />
+		</Field.Control>
+		<Field.Errors messages={["Enter a valid email address."]} />
 		<Field.Description>We'll never share your email.</Field.Description>
 	</Field.Item>
 </Example>
@@ -64,33 +64,31 @@ When a `Field.Description` follows directly after a `Field.ErrorList`, `Field.De
 ```tsx
 <Field.Item>
 	<Label htmlFor="email">Email</Label>
-	<Input id="email" name="email" type="email" validation="error" />
-	<Field.ErrorList>
-		<Field.Error>Enter a valid email address.</Field.Error>
-	</Field.ErrorList>
+	<Field.Control>
+		<Input id="email" name="email" type="email" />
+	</Field.Control>
+	<Field.Errors messages={["Enter a valid email address."]} />
 	<Field.Description>We'll never share your email.</Field.Description>
 </Field.Item>
 ```
 
 ## Multiple errors
 
-Render multiple `Field.Error` siblings inside `Field.ErrorList` when a validator produces more than one message at once (e.g. `minLength` + `pattern` + custom rule). Items stack tightly so the whole error block reads as one unit.
+Pass multiple messages to `Field.Errors` when a validator produces more than one message at once (e.g. `minLength` + `pattern` + custom rule). Items stack tightly so the whole error block reads as one unit.
 
 <Example className="w-full">
 	<Field.Item className="max-w-80">
 		<Label htmlFor="field-password">Password</Label>
-		<Input
-			id="field-password"
-			name="password"
-			type="password"
-			defaultValue="abc"
-			validation="error"
+		<Field.Control>
+			<Input id="field-password" name="password" type="password" defaultValue="abc" />
+		</Field.Control>
+		<Field.Errors
+			messages={[
+				"Must be at least 12 characters.",
+				"Must include a number.",
+				"Must include a symbol.",
+			]}
 		/>
-		<Field.ErrorList>
-			<Field.Error>Must be at least 12 characters.</Field.Error>
-			<Field.Error>Must include a number.</Field.Error>
-			<Field.Error>Must include a symbol.</Field.Error>
-		</Field.ErrorList>
 		<Field.Description>Use a password manager to generate one.</Field.Description>
 	</Field.Item>
 </Example>
@@ -98,17 +96,53 @@ Render multiple `Field.Error` siblings inside `Field.ErrorList` when a validator
 ```tsx
 <Field.Item>
 	<Label htmlFor="password">Password</Label>
-	<Input id="password" name="password" type="password" validation="error" />
-	<Field.ErrorList>
-		<Field.Error>Must be at least 12 characters.</Field.Error>
-		<Field.Error>Must include a number.</Field.Error>
-		<Field.Error>Must include a symbol.</Field.Error>
-	</Field.ErrorList>
+	<Field.Control>
+		<Input id="password" name="password" type="password" />
+	</Field.Control>
+	<Field.Errors
+		messages={[
+			"Must be at least 12 characters.",
+			"Must include a number.",
+			"Must include a symbol.",
+		]}
+	/>
 	<Field.Description>Use a password manager to generate one.</Field.Description>
 </Field.Item>
 ```
 
-When errors arrive from a validator as an array (e.g. `field.state.meta.errors` from TanStack Form), `.map()` them inside `Field.ErrorList`. An empty array renders nothing and does not add an `aria-errormessage` reference. See [With TanStack Form](#with-tanstack-form) below.
+When errors arrive from a validator as an array (e.g. `field.state.meta.errors` from TanStack Form), map them to messages and pass them to `Field.Errors`. Empty, blank, or missing messages render nothing and do not add an error message reference. See [With TanStack Form](#with-tanstack-form) below.
+
+## Manual error list
+
+Prefer `Field.Errors` when you already have plain string messages. Compose `Field.ErrorList` and `Field.ErrorItem` directly when you need custom list contents, richer message markup, or a polymorphic list element.
+
+<Example className="w-full">
+	<Field.Item className="max-w-80">
+		<Label htmlFor="field-username-manual-errors">Username</Label>
+		<Field.Control>
+			<Input id="field-username-manual-errors" name="username" defaultValue="a" />
+		</Field.Control>
+		<Field.ErrorList>
+			<Field.ErrorItem>Must be at least 3 characters.</Field.ErrorItem>
+			<Field.ErrorItem>Use letters, numbers, hyphens, or underscores.</Field.ErrorItem>
+		</Field.ErrorList>
+		<Field.Description>Pick something memorable.</Field.Description>
+	</Field.Item>
+</Example>
+
+```tsx
+<Field.Item>
+	<Label htmlFor="username">Username</Label>
+	<Field.Control>
+		<Input id="username" name="username" />
+	</Field.Control>
+	<Field.ErrorList>
+		<Field.ErrorItem>Must be at least 3 characters.</Field.ErrorItem>
+		<Field.ErrorItem>Use letters, numbers, hyphens, or underscores.</Field.ErrorItem>
+	</Field.ErrorList>
+	<Field.Description>Pick something memorable.</Field.Description>
+</Field.Item>
+```
 
 ## Optional fields
 
@@ -119,7 +153,9 @@ Use `Field.Optional` inside a `<Label>` to mark a field as optional. It renders 
 		<Label htmlFor="field-nickname" className="flex items-baseline gap-1">
 			Nickname <Field.Optional />
 		</Label>
-		<Input id="field-nickname" name="nickname" placeholder="ada" />
+		<Field.Control>
+			<Input id="field-nickname" name="nickname" placeholder="ada" />
+		</Field.Control>
 		<Field.Description>Visible on your public profile.</Field.Description>
 	</Field.Item>
 </Example>
@@ -129,7 +165,9 @@ Use `Field.Optional` inside a `<Label>` to mark a field as optional. It renders 
 	<Label htmlFor="nickname" className="flex items-baseline gap-1">
 		Nickname <Field.Optional />
 	</Label>
-	<Input id="nickname" name="nickname" placeholder="ada" />
+	<Field.Control>
+		<Input id="nickname" name="nickname" placeholder="ada" />
+	</Field.Control>
 	<Field.Description>Visible on your public profile.</Field.Description>
 </Field.Item>
 ```
@@ -142,7 +180,7 @@ When the label needs a sibling affordance that can't live inside the `<Label>` i
 
 Putting an interactive button inside `<label>` is a footgun: clicks on a `<label>` forward focus to the associated control, so a help button nested in a `<Label>` would steal that behavior. `Field.LabelRow` is the way out.
 
-Reach for the bundled `Field.Help` / `Field.HelpTrigger` / `Field.HelpContent` rather than wiring `Popover` + `IconButton` + an icon by hand — it's the same composition, three thin wrappers, with sensible defaults (ghost `IconButton`, `xs` size, default Phosphor `QuestionIcon`, `text-body` color). [`Popover`](/components/popover) under the hood — not [`Tooltip`](/components/tooltip) — so the affordance is reachable on touch devices.
+Reach for the bundled `Field.Help` / `Field.HelpTrigger` / `Field.HelpContent` rather than wiring `Popover` + `IconButton` + an icon by hand — it's the same composition, three thin wrappers, with sensible visual defaults (ghost `IconButton`, `xs` size, default Phosphor `QuestionIcon`, `text-body` color). `Field.HelpTrigger` still requires a contextual accessible `label` so repeated help icons do not all announce the same thing. [`Popover`](/components/popover) under the hood — not [`Tooltip`](/components/tooltip) — so the affordance is reachable on touch devices.
 
 <Example className="w-full">
 	<Field.Item className="max-w-80">
@@ -155,7 +193,9 @@ Reach for the bundled `Field.Help` / `Field.HelpTrigger` / `Field.HelpContent` r
 				<Field.HelpContent>Copy this from the ngrok dashboard.</Field.HelpContent>
 			</Field.Help>
 		</Field.LabelRow>
-		<Input id="field-api-key" name="apiKey" placeholder="2A1b…" />
+		<Field.Control>
+			<Input id="field-api-key" name="apiKey" placeholder="2A1b…" />
+		</Field.Control>
 		<Field.Description>You can find this in the ngrok dashboard.</Field.Description>
 	</Field.Item>
 </Example>
@@ -171,12 +211,14 @@ Reach for the bundled `Field.Help` / `Field.HelpTrigger` / `Field.HelpContent` r
 			<Field.HelpContent>Copy this from the ngrok dashboard.</Field.HelpContent>
 		</Field.Help>
 	</Field.LabelRow>
-	<Input id="api-key" name="apiKey" />
+	<Field.Control>
+		<Input id="api-key" name="apiKey" />
+	</Field.Control>
 	<Field.Description>You can find this in the ngrok dashboard.</Field.Description>
 </Field.Item>
 ```
 
-`Field.HelpTrigger` accepts every `IconButton` prop, so swap the icon, change the appearance, or relabel without dropping down to raw `Popover`:
+`Field.HelpTrigger` accepts every `IconButton` prop, so swap the icon or change the appearance without dropping down to raw `Popover`:
 
 <Example className="w-full">
 	<Field.Item className="max-w-80">
@@ -190,7 +232,9 @@ Reach for the bundled `Field.Help` / `Field.HelpTrigger` / `Field.HelpContent` r
 				</Field.HelpContent>
 			</Field.Help>
 		</Field.LabelRow>
-		<Input id="field-webhook-secret" name="webhookSecret" placeholder="whsec_…" />
+		<Field.Control>
+			<Input id="field-webhook-secret" name="webhookSecret" placeholder="whsec_…" />
+		</Field.Control>
 	</Field.Item>
 </Example>
 
@@ -211,11 +255,15 @@ Wrap multiple `Field.Item`s in a `Field.Group` to stack them with consistent `ga
 	<Field.Group className="max-w-80">
 		<Field.Item>
 			<Label htmlFor="field-account-email">Email</Label>
-			<Input id="field-account-email" name="email" type="email" placeholder="you@ngrok.com" />
+			<Field.Control>
+				<Input id="field-account-email" name="email" type="email" placeholder="you@ngrok.com" />
+			</Field.Control>
 		</Field.Item>
 		<Field.Item>
 			<Label htmlFor="field-account-password">Password</Label>
-			<Input id="field-account-password" name="password" type="password" />
+			<Field.Control>
+				<Input id="field-account-password" name="password" type="password" />
+			</Field.Control>
 			<Field.Description>At least 12 characters.</Field.Description>
 		</Field.Item>
 	</Field.Group>
@@ -225,11 +273,15 @@ Wrap multiple `Field.Item`s in a `Field.Group` to stack them with consistent `ga
 <Field.Group>
 	<Field.Item>
 		<Label htmlFor="email">Email</Label>
-		<Input id="email" name="email" type="email" />
+		<Field.Control>
+			<Input id="email" name="email" type="email" />
+		</Field.Control>
 	</Field.Item>
 	<Field.Item>
 		<Label htmlFor="password">Password</Label>
-		<Input id="password" name="password" type="password" />
+		<Field.Control>
+			<Input id="password" name="password" type="password" />
+		</Field.Control>
 		<Field.Description>At least 12 characters.</Field.Description>
 	</Field.Item>
 </Field.Group>
@@ -241,12 +293,11 @@ Wrap multiple `Field.Item`s in a `Field.Group` to stack them with consistent `ga
 
 **When _not_ to use it.** Stacking unrelated fields under a shared header is _not_ a semantic group — `Field.Group` (above) is the right call. A `<fieldset>` around plain inputs reads as noise to assistive tech and looks visually heavy. If you find yourself reaching for `Field.Set` to add a section title to a form, render a regular heading instead.
 
-Add a `Field.Description` directly below the `Field.Legend` to clarify the question — the legend itself is short by design, so a one-liner below it carries the context. (Chromium renders the legend with no flex gap to its next sibling, so the description naturally hugs the legend without extra styling.)
+Keep the `Field.Legend` self-contained: it is the accessible name for the group. `Field.Set` does not auto-associate `Field.Description`; if a group needs extra instructions announced by assistive technology, wire your own description with `aria-describedby`.
 
 <Example className="w-full">
 	<Field.Set className="max-w-80">
 		<Field.Legend>Notification frequency</Field.Legend>
-		<Field.Description>How often we'll email you a digest of activity.</Field.Description>
 		<RadioGroup.Root name="frequency" defaultValue="daily" className="grid gap-2">
 			<RadioGroup.Item value="daily" id="field-freq-daily">
 				<RadioGroup.Indicator />
@@ -273,7 +324,6 @@ Add a `Field.Description` directly below the `Field.Legend` to clarify the quest
 ```tsx
 <Field.Set>
 	<Field.Legend>Notification frequency</Field.Legend>
-	<Field.Description>How often we'll email you a digest of activity.</Field.Description>
 	<RadioGroup.Root name="frequency" defaultValue="daily" className="grid gap-2">
 		<RadioGroup.Item value="daily" id="freq-daily">
 			<RadioGroup.Indicator />
@@ -299,7 +349,7 @@ Add a `Field.Description` directly below the `Field.Legend` to clarify the quest
 
 ## With TanStack Form
 
-`Field` is designed to slot directly into [TanStack Form](https://tanstack.com/form). `field.name` is a stable, unique string for each field — pass it as both `htmlFor` on the `Label` and `id` on the control to wire the label association without a separate `useId()` call. `Field.Item` leaves that `id` alone while auto-wiring descendant descriptions and errors. Map `field.state.meta.errors` (e.g. `ZodIssue[]`) inside `Field.ErrorList` to render one `Field.Error` per message; the list renders nothing when the array is empty so it's safe to leave mounted unconditionally:
+`Field` is designed to slot directly into [TanStack Form](https://tanstack.com/form). `field.name` is a stable, unique string for each field — pass it as both `htmlFor` on the `Label` and `id` on the control to wire the label association without a separate `useId()` call. Wrap the input in `Field.Control` so descriptions and rendered errors are associated with the control. Map `field.state.meta.errors` (e.g. `ZodIssue[]`) to string messages for `Field.Errors`; the list renders nothing when the array is empty, and infers error state only when it has messages, so it's safe to leave mounted unconditionally:
 
 ```tsx
 import { Field } from "@ngrok/mantle/field";
@@ -337,20 +387,17 @@ export function AccountForm() {
 					{(field) => (
 						<Field.Item>
 							<Label htmlFor={field.name}>Email</Label>
-							<Input
-								id={field.name}
-								name={field.name}
-								type="email"
-								value={field.state.value}
-								onBlur={field.handleBlur}
-								onChange={(event) => field.handleChange(event.target.value)}
-								validation={field.state.meta.errors.length > 0 ? "error" : false}
-							/>
-							<Field.ErrorList>
-								{field.state.meta.errors.map((error, index) => (
-									<Field.Error key={index}>{error?.message}</Field.Error>
-								))}
-							</Field.ErrorList>
+							<Field.Control>
+								<Input
+									id={field.name}
+									name={field.name}
+									type="email"
+									value={field.state.value}
+									onBlur={field.handleBlur}
+									onChange={(event) => field.handleChange(event.target.value)}
+								/>
+							</Field.Control>
+							<Field.Errors messages={field.state.meta.errors.map((error) => error?.message)} />
 							<Field.Description>We'll never share your email.</Field.Description>
 						</Field.Item>
 					)}
@@ -359,20 +406,17 @@ export function AccountForm() {
 					{(field) => (
 						<Field.Item>
 							<Label htmlFor={field.name}>Password</Label>
-							<Input
-								id={field.name}
-								name={field.name}
-								type="password"
-								value={field.state.value}
-								onBlur={field.handleBlur}
-								onChange={(event) => field.handleChange(event.target.value)}
-								validation={field.state.meta.errors.length > 0 ? "error" : false}
-							/>
-							<Field.ErrorList>
-								{field.state.meta.errors.map((error, index) => (
-									<Field.Error key={index}>{error?.message}</Field.Error>
-								))}
-							</Field.ErrorList>
+							<Field.Control>
+								<Input
+									id={field.name}
+									name={field.name}
+									type="password"
+									value={field.state.value}
+									onBlur={field.handleBlur}
+									onChange={(event) => field.handleChange(event.target.value)}
+								/>
+							</Field.Control>
+							<Field.Errors messages={field.state.meta.errors.map((error) => error?.message)} />
 							<Field.Description>At least 12 characters.</Field.Description>
 						</Field.Item>
 					)}
@@ -399,9 +443,11 @@ Field.Group
     │   └── Field.Help
     │       ├── Field.HelpTrigger
     │       └── Field.HelpContent
-    ├── (control)
+    ├── Field.Control
+    │   └── (control)
+    ├── Field.Errors
     ├── Field.ErrorList
-    │   └── Field.Error
+    │   └── Field.ErrorItem
     └── Field.Description
 ```
 
@@ -410,7 +456,6 @@ For radios or related checkboxes — where the grouping is itself the question b
 ```text showLineNumbers=false
 Field.Set
 ├── Field.Legend
-├── Field.Description   (optional, clarifies the legend)
 └── (RadioGroup / Checkbox group)
 ```
 
@@ -418,13 +463,13 @@ Skip `Field.Set` for unrelated fields stacked together — `<fieldset>` semantic
 
 ## Polymorphism
 
-Layout and supplemental `Field.*` parts accept an `asChild` prop. When `true`, the part renders its single child instead of its default element, forwarding all class names, `data-*` attributes, and the ref onto that child. `Field.Set`, `Field.Legend`, and `Field.Error` always render `<fieldset>`, `<legend>`, and `<li>` respectively, because those elements are the semantics those parts exist to provide.
+Layout parts plus `Field.Description`, `Field.Optional`, and `Field.ErrorList` accept an `asChild` prop. When `true`, the part renders its single child instead of its default element, forwarding all class names, `data-*` attributes, and the ref onto that child. `Field.Set`, `Field.Legend`, and `Field.ErrorItem` always render `<fieldset>`, `<legend>`, and `<li>` respectively, because those elements are the semantics those parts exist to provide.
 
 ```tsx
 <Field.ErrorList asChild>
 	<ol>
-		<Field.Error>Fix this first.</Field.Error>
-		<Field.Error>Then fix this.</Field.Error>
+		<Field.ErrorItem>Fix this first.</Field.ErrorItem>
+		<Field.ErrorItem>Then fix this.</Field.ErrorItem>
 	</ol>
 </Field.ErrorList>
 ```
@@ -433,15 +478,34 @@ Layout and supplemental `Field.*` parts accept an `asChild` prop. When `true`, t
 
 ### Field.Item
 
-A single form field. Renders a plain `<div>` with `flex flex-col gap-1.5` so a Label, control, and helper / error siblings stack tightly together. No implicit ARIA role — the `<label htmlFor>` ↔ control association already provides the right semantics for a single field. Descendant `Field.Description` IDs are merged into known controls' `aria-describedby`; non-empty `Field.ErrorList` IDs are merged into `aria-errormessage` and mark known controls invalid when they have not provided their own `aria-invalid`.
+A single form field. Renders a plain `<div>` with `flex flex-col gap-1.5` so a Label, control, and helper / error siblings stack tightly together. No implicit ARIA role — the `<label htmlFor>` ↔ control association already provides the right semantics for a single field. Provides description/error IDs and validation state to `Field.Control`; rendered errors infer `"error"` unless `validation` is provided.
 
 **When to use:** for every individual field — text inputs, selects, single checkboxes, switches, password inputs, etc.
 
 All props from [div](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes), plus:
 
-| Prop       | Type      | Default | Description                                       |
-| ---------- | --------- | ------- | ------------------------------------------------- |
-| `asChild?` | `boolean` | `false` | Render as a different element by passing a child. |
+| Prop          | Type                                         | Default | Description                                                 |
+| ------------- | -------------------------------------------- | ------- | ----------------------------------------------------------- |
+| `asChild?`    | `boolean`                                    | `false` | Render as a different element by passing a child.           |
+| `validation?` | `"error" \| "success" \| "warning" \| false` | —       | Override the validation state inherited by `Field.Control`. |
+
+### Field.Control
+
+Applies `Field.Item` description, error, and validation state to a single focusable control. It always behaves like an `asChild` slot: pass one child element to receive the generated ARIA props, or use a function child to place those props manually. Pass `validation` here only when this control needs to override the surrounding `Field.Item`.
+
+```tsx
+<Field.Control>
+	<Input id="email" name="email" />
+</Field.Control>
+
+<Field.Control>
+	{(controlProps) => <CustomInput inputProps={controlProps} />}
+</Field.Control>
+```
+
+| Prop          | Type                                         | Default | Description                                    |
+| ------------- | -------------------------------------------- | ------- | ---------------------------------------------- |
+| `validation?` | `"error" \| "success" \| "warning" \| false` | —       | Override validation inherited from Field.Item. |
 
 ### Field.Group
 
@@ -460,6 +524,8 @@ All props from [div](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/d
 Renders a semantic `<fieldset>` with default browser styling reset (no border, no padding, `min-width: 0`). Pair with `Field.Legend` to give the surrounding controls a single accessible name.
 
 **When to use:** specifically for radios (one question, many possible answers) or sets of related checkboxes (preference toggles, permission flags). _Skip it_ for stacking unrelated fields — `Field.Group` is the right call there. A `<fieldset>` around plain inputs reads as noise to assistive tech.
+
+`Field.Set` does not automatically associate `Field.Description`. If the group needs additional announced instructions beyond the legend, pass `aria-describedby` to `Field.Set` and point it at your own text element.
 
 All props from [fieldset](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/fieldset#attributes).
 
@@ -485,14 +551,14 @@ All props from [div](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/d
 
 ### Field.HelpTrigger
 
-`Popover.Trigger` wired to a ghost-appearance `IconButton` with a default Phosphor `QuestionIcon`. Pre-styled with `text-body` so the icon reads as subtle metadata at rest; `IconButton`'s ghost `hover:text-strong` brightens it on interaction.
+`Popover.Trigger` wired to a ghost-appearance `IconButton` with a default Phosphor `QuestionIcon`. Requires a contextual accessible `label`. Pre-styled with `text-body` so the icon reads as subtle metadata at rest; `IconButton`'s ghost `hover:text-strong` brightens it on interaction.
 
-Accepts every `IconButton` prop — they all become optional with sensible defaults:
+Accepts every `IconButton` prop, with sensible visual defaults. `label` remains required:
 
 | Prop          | Type                       | Default            | Description                                                          |
 | ------------- | -------------------------- | ------------------ | -------------------------------------------------------------------- |
 | `icon?`       | `ReactNode`                | `<QuestionIcon />` | Icon rendered inside the trigger button. Override to swap the glyph. |
-| `label?`      | `string`                   | `"Show help"`      | Visually-hidden accessible label announced by screen readers.        |
+| `label`       | `string`                   | —                  | Contextual visually-hidden label announced by screen readers.        |
 | `appearance?` | `"ghost"` \| `"outlined"`  | `"ghost"`          | `IconButton` appearance variant.                                     |
 | `size?`       | `"xs"` \| `"sm"` \| `"md"` | `"xs"`             | `IconButton` size.                                                   |
 | `className?`  | `string`                   | —                  | Merged onto the underlying `IconButton`.                             |
@@ -519,12 +585,9 @@ All props from [span](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/
 
 ### Field.Description
 
-Helper / hint text. Renders a `<p>` in the muted body color. Works in two positions:
+Helper / hint text. Renders a `<p>` in the muted body color. Use inside `Field.Item`, below the control, to clarify expected format or constraints for that single field.
 
-1. **Inside `Field.Item`**, below the control — clarifies expected format or constraints for that single field.
-2. **Inside `Field.Set`, directly below the `Field.Legend`** — clarifies the question the legend names (most useful with radios or checkbox groups).
-
-When rendered inside `Field.Item`, `Field.Description` receives a generated ID unless you provide one, and that ID is merged into the control's `aria-describedby`. When `Field.Description` is rendered immediately after a `Field.ErrorList`, it automatically collapses the parent's `gap-1.5` via a `-mt-1.5` so errors + helper read as a single tight block. The rule's specificity is flattened to `(0,1,0)` so any margin utility you pass on `Field.Description` (e.g. `mt-1`, `mt-0`) overrides cleanly. After a `Field.Legend` no negative margin is needed — Chromium renders the legend with no flex gap to its next sibling, so the description naturally hugs the legend.
+When rendered inside `Field.Item`, `Field.Description` receives a generated ID unless you provide one. `Field.Control` merges that ID into the control's `aria-describedby`. When `Field.Description` is rendered immediately after `Field.Errors` or `Field.ErrorList`, it automatically collapses the parent's `gap-1.5` via a `-mt-1.5` so errors + helper read as a single tight block. The rule's specificity is flattened to `(0,1,0)` so any margin utility you pass on `Field.Description` (e.g. `mt-1`, `mt-0`) overrides cleanly.
 
 All props from [p](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p#attributes), plus:
 
@@ -532,15 +595,27 @@ All props from [p](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p#a
 | ---------- | --------- | ------- | ------------------------------------------------- |
 | `asChild?` | `boolean` | `false` | Render as a different element by passing a child. |
 
-### Field.Error
+### Field.Errors
 
-A single error message for a field. Renders an `<li>` in `text-danger-600`, so it must be nested inside a `Field.ErrorList`. A single error is just a list of one.
+Convenience renderer for validation messages. Accepts an array of strings, trims each message, filters empty, nullish, and false values, then renders a `Field.ErrorList` with one `Field.ErrorItem` per remaining message. When rendered inside `Field.Item`, a non-empty list receives a generated ID unless you provide one and infers `"error"` validation unless `Field.Item` or `Field.Control` overrides it. `Field.Control` merges that ID into the control's `aria-describedby` and `aria-errormessage` when the field is invalid.
+
+`Field.Errors` owns its generated list items and does not accept `children` or `asChild`. Use `Field.ErrorList` / `Field.ErrorItem` directly when you need custom list contents or polymorphic list markup.
+
+All props from [ul](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul#attributes), except `children`, plus:
+
+| Prop        | Type                                       | Default | Description                                     |
+| ----------- | ------------------------------------------ | ------- | ----------------------------------------------- |
+| `messages?` | `(string \| null \| undefined \| false)[]` | `[]`    | Messages to trim, filter, and render as errors. |
+
+### Field.ErrorItem
+
+A single error message for a field. Renders an `<li>` in `text-danger-600`, so it must be nested inside a `Field.ErrorList`. Empty or blank children render nothing. A single error is just a list of one.
 
 All props from [li](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li#attributes).
 
 ### Field.ErrorList
 
-Wraps one or more `Field.Error` children in a semantic `<ul>` with `role="list"` so a list of validation errors is announced as a list by screen readers, including Safari/VoiceOver combinations that drop list semantics when list styling is removed. Renders nothing when given no children, so it can be left mounted while a validator produces a (possibly empty) error array. When rendered inside `Field.Item`, a non-empty list receives a generated ID unless you provide one, and that ID is merged into the control's `aria-errormessage`. Strips the default browser `<ul>` styling (no bullets, no padding, no margin) and stacks items as a flex column with no gap so consecutive errors read as a single tight block. Pass `asChild` with an `<ol>` if the list is meaningfully ordered.
+Wraps one or more `Field.ErrorItem` children in a semantic `<ul>` with `role="list"` so a list of validation errors is announced as a list by screen readers, including Safari/VoiceOver combinations that drop list semantics when list styling is removed. Renders nothing when given no renderable children. When rendered inside `Field.Item`, a non-empty list receives a generated ID unless you provide one and infers `"error"` validation unless `Field.Item` or `Field.Control` overrides it. `Field.Control` merges that ID into the control's `aria-describedby` and `aria-errormessage` when the field is invalid. Strips the default browser `<ul>` styling (no bullets, no padding, no margin) and stacks items as a flex column with no gap so consecutive errors read as a single tight block. Pass `asChild` with an `<ol>` if the list is meaningfully ordered.
 
 All props from [ul](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul#attributes), plus:
 

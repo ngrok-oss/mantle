@@ -4,104 +4,143 @@ import {
 	cloneElement,
 	type ComponentRef,
 	type ComponentProps,
+	createContext,
 	forwardRef,
 	isValidElement,
 	type ReactElement,
 	type ReactNode,
+	useCallback,
+	useContext,
 	useId,
+	useMemo,
+	useState,
 } from "react";
+import { useIsomorphicLayoutEffect } from "../../hooks/use-isomorphic-layout-effect.js";
 import type { WithAsChild } from "../../types/as-child.js";
 import { cx } from "../../utils/cx/cx.js";
 import { IconButton, type IconButtonProps } from "../button/icon-button.js";
 import { Popover } from "../popover/index.js";
 import { Slot } from "../slot/index.js";
+import {
+	FieldValidationProvider,
+	parseValidation,
+	type ValidationProp,
+	type ValidationState,
+	type WithValidation,
+} from "./validation.js";
 
-type AutoWireFieldControlProps = {
+/**
+ * A validation message accepted by `Field.Errors`. Non-string absence values
+ * are allowed so consumers can pass mapped validator output directly while
+ * still rendering only real strings.
+ */
+type FieldErrorMessage = string | null | undefined | false;
+
+/**
+ * Props for the `Field.Errors` convenience renderer. It owns its generated
+ * children, so use `Field.ErrorList` / `Field.ErrorItem` directly when custom
+ * list contents or polymorphic list markup are needed.
+ */
+type FieldErrorsProps = Omit<ComponentProps<"ul">, "children"> & {
+	/**
+	 * Validation messages to render. Strings are trimmed, and empty, nullish,
+	 * or false values are ignored before rendering the list.
+	 */
+	messages?: readonly FieldErrorMessage[];
+};
+
+/**
+ * ARIA props that `Field.Control` applies to the field's focusable control.
+ */
+type FieldControlAriaProps = {
 	"aria-describedby"?: string;
 	"aria-errormessage"?: string;
 	"aria-invalid"?: ComponentProps<"input">["aria-invalid"];
-	children?: ReactNode;
-	id?: string;
 };
 
-type FieldMessageIds = {
+type FieldControlProps = Omit<
+	ComponentProps<typeof Slot>,
+	"aria-describedby" | "aria-errormessage" | "aria-invalid" | "children"
+> &
+	FieldControlAriaProps &
+	WithValidation & {
+		/**
+		 * A single control element to receive the field ARIA props, or a render
+		 * function for custom components that need to place those props manually.
+		 */
+		children: ReactElement | ((props: FieldControlAriaProps) => ReactNode);
+	};
+
+type FieldItemContextValue = {
 	descriptionIds: string[];
-	errorListIds: string[];
+	errorIds: string[];
+	registerDescriptionId: (id: string) => () => void;
+	registerErrorId: (id: string) => () => void;
+	validation?: ValidationState;
 };
 
-const autoWiredControlDisplayNames = new Set([
-	"Checkbox",
-	"ComboboxInput",
-	"Input",
-	"InputCapture",
-	"MultiSelectInput",
-	"OtpInput",
-	"PasswordInput",
-	"SelectTrigger",
-	"Switch",
-	"TextArea",
-]);
+const FieldItemContext = createContext<FieldItemContextValue | null>(null);
 
-const autoWiredControlTagNames = new Set(["input", "select", "textarea"]);
+const addId = (ids: string[], id: string) => (ids.includes(id) ? ids : [...ids, id]);
+
+const removeId = (ids: string[], id: string) => ids.filter((item) => item !== id);
 
 /**
- * Treats React's empty child values (`null`, `undefined`, and booleans) as
- * absent so conditional error arrays do not create empty ARIA references.
+ * Normalizes validator output into display-ready message strings without
+ * coupling `Field.Errors` to a specific form library's error object shape.
  */
-const hasRenderableChildren = (children: ReactNode) => Children.toArray(children).length > 0;
+const normalizeErrorMessages = (messages: readonly FieldErrorMessage[] | undefined) =>
+	messages
+		?.map((message) => {
+			if (typeof message !== "string") {
+				return "";
+			}
+
+			return message.trim();
+		})
+		.filter((message) => message.length > 0) ?? [];
 
 /**
- * Reads a React element's stable component display name when available, with
- * native tag names as the fallback for plain HTML controls.
+ * Treats blank string children the same as React's empty child values so
+ * message-less validation errors do not create empty list items.
  */
-const getElementTypeName = (element: ReactElement) => {
-	if (typeof element.type === "string") {
-		return element.type;
-	}
-
-	if (
-		(typeof element.type === "function" || typeof element.type === "object") &&
-		element.type != null
-	) {
-		const displayName = Reflect.get(element.type, "displayName");
-		const name = Reflect.get(element.type, "name");
-
-		if (typeof displayName === "string") {
-			return displayName;
+const hasRenderableErrorContent = (children: ReactNode) =>
+	Children.toArray(children).some((child) => {
+		if (typeof child === "string") {
+			return child.trim().length > 0;
 		}
 
-		if (typeof name === "string") {
-			return name;
+		return true;
+	});
+
+/**
+ * Checks for the local `Field.ErrorItem` component so empty manual error
+ * items can be ignored before wiring ARIA references.
+ */
+const isFieldErrorItemElement = (element: ReactElement) => element.type === FieldErrorItem;
+
+/**
+ * Detects whether a manual error list will render at least one message,
+ * including `Field.ErrorItem` children that collapse when empty.
+ */
+const hasRenderableErrorListChildren = (children: ReactNode): boolean =>
+	Children.toArray(children).some((child) => {
+		if (typeof child === "string") {
+			return child.trim().length > 0;
 		}
-	}
 
-	return undefined;
-};
+		if (isValidElement<{ children?: ReactNode }>(child)) {
+			if (isFieldErrorItemElement(child)) {
+				return hasRenderableErrorContent(child.props.children);
+			}
 
-/**
- * Limits automatic ARIA wiring to native controls and Mantle controls that
- * forward ARIA props to their focusable element.
- */
-const isAutoWiredControlElement = (element: ReactElement) => {
-	const typeName = getElementTypeName(element);
+			if (typeof child.type === "string") {
+				return hasRenderableErrorListChildren(child.props.children);
+			}
+		}
 
-	return (
-		typeName != null &&
-		(autoWiredControlTagNames.has(typeName) || autoWiredControlDisplayNames.has(typeName))
-	);
-};
-
-/**
- * Checks for the local `Field.Description` component so `Field.Item` can add
- * an ID without requiring users to wire one by hand.
- */
-const isFieldDescriptionElement = (element: ReactElement) => element.type === Description;
-
-/**
- * Checks for the local `Field.ErrorList` component so non-empty validation
- * messages can be associated with the descendant control.
- */
-const isFieldErrorListElement = (element: ReactElement) => element.type === FieldErrorList;
+		return true;
+	});
 
 /**
  * Combines existing consumer-supplied IDREFs with generated field message IDs
@@ -116,95 +155,59 @@ const mergeIdRefs = (existing: string | undefined, generated: string[]) => {
 	return ids.size > 0 ? [...ids].join(" ") : undefined;
 };
 
-/**
- * Precomputes description and error IDs before cloning children so every
- * control in a field can reference every rendered message.
- */
-const collectFieldMessageIds = (children: ReactNode, fieldId: string): FieldMessageIds => {
-	const descriptionIds: string[] = [];
-	const errorListIds: string[] = [];
-	let descriptionIndex = 0;
-	let errorListIndex = 0;
+const useFieldMessageId = (
+	idProp: string | undefined,
+	type: "description" | "error",
+	enabled = true,
+) => {
+	const context = useContext(FieldItemContext);
+	const generatedId = useId();
+	const id = idProp ?? (context ? generatedId : undefined);
+	const register =
+		type === "description" ? context?.registerDescriptionId : context?.registerErrorId;
 
-	const visit = (node: ReactNode): void => {
-		Children.forEach(node, (child) => {
-			if (!isValidElement<AutoWireFieldControlProps>(child)) {
-				return;
-			}
+	useIsomorphicLayoutEffect(() => {
+		if (!enabled || id == null || register == null) {
+			return;
+		}
 
-			if (isFieldDescriptionElement(child)) {
-				descriptionIndex += 1;
-				descriptionIds.push(child.props.id ?? `${fieldId}-description-${descriptionIndex}`);
-			}
+		return register(id);
+	}, [enabled, id, register]);
 
-			if (isFieldErrorListElement(child) && hasRenderableChildren(child.props.children)) {
-				errorListIndex += 1;
-				errorListIds.push(child.props.id ?? `${fieldId}-error-${errorListIndex}`);
-			}
-
-			if (typeof child.props.children !== "function") {
-				visit(child.props.children);
-			}
-		});
-	};
-
-	visit(children);
-
-	return { descriptionIds, errorListIds };
+	return id;
 };
 
-/**
- * Adds generated IDs to `Field.Description` / `Field.ErrorList` children and
- * merges those IDs into descendant control ARIA attributes.
- */
-const autoWireFieldChildren = (children: ReactNode, messageIds: FieldMessageIds): ReactNode => {
-	let descriptionIndex = 0;
-	let errorListIndex = 0;
+const resolveFieldControlAriaProps = ({
+	"aria-describedby": ariaDescribedBy,
+	"aria-errormessage": ariaErrorMessage,
+	"aria-invalid": ariaInvalid,
+	context,
+	validation,
+}: FieldControlAriaProps & {
+	context: FieldItemContextValue | null;
+	validation?: ValidationProp;
+}) => {
+	const parsedValidation = parseValidation({
+		"aria-invalid": ariaInvalid,
+		defaultAriaInvalid: false,
+		validation: validation ?? context?.validation,
+	});
+	const errorIds = context?.errorIds ?? [];
+	const descriptionIds = context?.descriptionIds ?? [];
+	const describedByIds = parsedValidation.isInvalid
+		? [...descriptionIds, ...errorIds]
+		: descriptionIds;
 
-	const visit = (node: ReactNode): ReactNode => {
-		const children = Children.map(node, (child) => {
-			if (!isValidElement<AutoWireFieldControlProps>(child)) {
-				return child;
-			}
-
-			const props: AutoWireFieldControlProps = {};
-
-			if (isFieldDescriptionElement(child)) {
-				props.id = child.props.id ?? messageIds.descriptionIds[descriptionIndex];
-				descriptionIndex += 1;
-			}
-
-			if (isFieldErrorListElement(child) && hasRenderableChildren(child.props.children)) {
-				props.id = child.props.id ?? messageIds.errorListIds[errorListIndex];
-				errorListIndex += 1;
-			}
-
-			if (isAutoWiredControlElement(child)) {
-				props["aria-describedby"] = mergeIdRefs(
-					child.props["aria-describedby"],
-					messageIds.descriptionIds,
-				);
-				props["aria-errormessage"] = mergeIdRefs(
-					child.props["aria-errormessage"],
-					messageIds.errorListIds,
-				);
-
-				if (messageIds.errorListIds.length > 0 && child.props["aria-invalid"] == null) {
-					props["aria-invalid"] = true;
-				}
-			}
-
-			if (typeof child.props.children !== "function") {
-				props.children = visit(child.props.children);
-			}
-
-			return cloneElement(child, props);
-		});
-
-		return isValidElement(node) && children != null ? children[0] : children;
+	return {
+		ariaProps: {
+			"aria-describedby": mergeIdRefs(ariaDescribedBy, describedByIds),
+			"aria-errormessage": parsedValidation.isInvalid
+				? mergeIdRefs(ariaErrorMessage, errorIds)
+				: ariaErrorMessage,
+			"aria-invalid": parsedValidation.ariaInvalid,
+		} satisfies FieldControlAriaProps,
+		validation: parsedValidation.validation,
 	};
-
-	return visit(children);
 };
 
 /**
@@ -312,7 +315,9 @@ Legend.displayName = "FieldLegend";
  *       <Popover.Content>Copy this from the dashboard.</Popover.Content>
  *     </Popover.Root>
  *   </Field.LabelRow>
- *   <Input id="api-key" name="apiKey" />
+ *   <Field.Control>
+ *     <Input id="api-key" name="apiKey" />
+ *   </Field.Control>
  * </Field.Item>
  * ```
  */
@@ -349,7 +354,7 @@ LabelRow.displayName = "FieldLabelRow";
  * <Field.LabelRow>
  *   <Label htmlFor="api-key">API key</Label>
  *   <Field.Help>
- *     <Field.HelpTrigger />
+ *     <Field.HelpTrigger label="What is an API key?" />
  *     <Field.HelpContent>Copy this from the dashboard.</Field.HelpContent>
  *   </Field.Help>
  * </Field.LabelRow>
@@ -358,19 +363,24 @@ LabelRow.displayName = "FieldLabelRow";
 const Help = (props: ComponentProps<typeof Popover.Root>) => <Popover.Root {...props} />;
 Help.displayName = "FieldHelp";
 
-type FieldHelpTriggerProps = Partial<Omit<IconButtonProps, "icon">> & {
-	/**
-	 * The icon to render inside the trigger button. Defaults to a Phosphor
-	 * `QuestionIcon` so the most common case requires no props.
-	 */
-	icon?: ReactNode;
-};
+/**
+ * Props for the default help popover trigger. A contextual label is required
+ * so repeated help affordances do not all share the same accessible name.
+ */
+type FieldHelpTriggerProps = Partial<Omit<IconButtonProps, "icon" | "label">> &
+	Pick<IconButtonProps, "label"> & {
+		/**
+		 * The icon to render inside the trigger button. Defaults to a Phosphor
+		 * `QuestionIcon` so the most common case only needs a contextual label.
+		 */
+		icon?: ReactNode;
+	};
 
 /**
  * The trigger for a `Field.Help` popover — a `Popover.Trigger` wired to a
  * ghost-appearance `IconButton` with a default Phosphor `QuestionIcon`.
- * Override the icon via `icon`, the screen-reader text via `label`, or any
- * other `IconButton` prop.
+ * Requires a contextual screen-reader label, and accepts `icon` or other
+ * `IconButton` props for visual customization.
  *
  * Pre-styled with `text-body` (matching the figma) so the icon reads as
  * subtle metadata at rest; `IconButton`'s ghost `hover:text-strong` still
@@ -382,13 +392,13 @@ type FieldHelpTriggerProps = Partial<Omit<IconButtonProps, "icon">> & {
  * ```tsx
  * // Default question-mark icon
  * <Field.Help>
- *   <Field.HelpTrigger />
+ *   <Field.HelpTrigger label="What is an API key?" />
  *   <Field.HelpContent>Copy this from the dashboard.</Field.HelpContent>
  * </Field.Help>
  *
- * // Custom icon + label
+ * // Custom icon
  * <Field.Help>
- *   <Field.HelpTrigger icon={<InfoIcon />} label="What is this?" />
+ *   <Field.HelpTrigger icon={<InfoIcon />} label="What is this setting?" />
  *   <Field.HelpContent>Custom info.</Field.HelpContent>
  * </Field.Help>
  * ```
@@ -399,7 +409,7 @@ const HelpTrigger = forwardRef<ComponentRef<"button">, FieldHelpTriggerProps>(
 			appearance = "ghost",
 			className,
 			icon = <QuestionIcon />,
-			label = "Show help",
+			label,
 			size = "xs",
 			type = "button",
 			...props
@@ -432,7 +442,7 @@ HelpTrigger.displayName = "FieldHelpTrigger";
  * @example
  * ```tsx
  * <Field.Help>
- *   <Field.HelpTrigger />
+ *   <Field.HelpTrigger label="What is an API key?" />
  *   <Field.HelpContent side="top">
  *     Pinned above the trigger.
  *   </Field.HelpContent>
@@ -463,7 +473,9 @@ HelpContent.displayName = "FieldHelpContent";
  *   <Label htmlFor="email" className="flex items-baseline gap-1">
  *     Email <Field.Optional />
  *   </Label>
- *   <Input id="email" name="email" type="email" />
+ *   <Field.Control>
+ *     <Input id="email" name="email" type="email" />
+ *   </Field.Control>
  * </Field.Item>
  * ```
  */
@@ -499,11 +511,15 @@ Optional.displayName = "FieldOptional";
  * <Field.Group>
  *   <Field.Item>
  *     <Label htmlFor="email">Email</Label>
- *     <Input id="email" name="email" type="email" />
+ *     <Field.Control>
+ *       <Input id="email" name="email" type="email" />
+ *     </Field.Control>
  *   </Field.Item>
  *   <Field.Item>
  *     <Label htmlFor="password">Password</Label>
- *     <Input id="password" name="password" type="password" />
+ *     <Field.Control>
+ *       <Input id="password" name="password" type="password" />
+ *     </Field.Control>
  *   </Field.Item>
  * </Field.Group>
  * ```
@@ -526,16 +542,16 @@ Group.displayName = "FieldGroup";
 
 /**
  * A single form field — `Label`, a control (`Input`, `Select`, `Checkbox`,
- * etc.), and any `Field.Description` / `Field.ErrorList` siblings stacked
+ * etc.), and any `Field.Description`, `Field.Errors`, or `Field.ErrorList` siblings stacked
  * vertically with a consistent `gap-1.5` so help and error messaging sit
  * tightly under the input.
  *
  * Renders a plain `<div>` — the `<label htmlFor>` ↔ control association
  * already provides the right semantics for a single field, so no implicit
- * `role` is added. `Field.Item` auto-generates stable IDs for descendant
- * `Field.Description` / `Field.ErrorList` parts and merges those IDs onto
- * known form controls with `aria-describedby` / `aria-errormessage` without
- * changing the control's own `id` or `name`.
+ * `role` is added. `Field.Item` owns the contextual description/error IDs
+ * that `Field.Control` applies to the focusable control. Rendered errors
+ * infer an `"error"` validation state unless `validation` is supplied as an
+ * explicit override.
  *
  * @see https://mantle.ngrok.com/components/field
  *
@@ -543,48 +559,165 @@ Group.displayName = "FieldGroup";
  * ```tsx
  * <Field.Item>
  *   <Label htmlFor="username">Username</Label>
- *   <Input id="username" name="username" />
- *   <Field.ErrorList>
- *     <Field.Error>Username is required.</Field.Error>
- *   </Field.ErrorList>
+ *   <Field.Control>
+ *     <Input id="username" name="username" />
+ *   </Field.Control>
+ *   <Field.Errors messages={["Username is required."]} />
  *   <Field.Description>Pick something memorable.</Field.Description>
  * </Field.Item>
  * ```
  */
-const Item = forwardRef<ComponentRef<"div">, ComponentProps<"div"> & WithAsChild>(
-	({ asChild, children, className, ...props }, ref) => {
+const Item = forwardRef<ComponentRef<"div">, ComponentProps<"div"> & WithAsChild & WithValidation>(
+	({ asChild, children, className, validation: validationProp, ...props }, ref) => {
 		const Comp = asChild ? Slot : "div";
-		const fieldId = useId();
-		const messageIds = collectFieldMessageIds(children, fieldId);
+		const [descriptionIds, setDescriptionIds] = useState<string[]>([]);
+		const [errorIds, setErrorIds] = useState<string[]>([]);
+		const hasValidationOverride = validationProp !== undefined;
+		const inferredValidation = errorIds.length > 0 ? "error" : undefined;
+		const { validation } = parseValidation({
+			defaultAriaInvalid: false,
+			validation: hasValidationOverride ? validationProp : inferredValidation,
+		});
+		const registerDescriptionId = useCallback((id: string) => {
+			setDescriptionIds((ids) => addId(ids, id));
+
+			return () => {
+				setDescriptionIds((ids) => removeId(ids, id));
+			};
+		}, []);
+		const registerErrorId = useCallback((id: string) => {
+			setErrorIds((ids) => addId(ids, id));
+
+			return () => {
+				setErrorIds((ids) => removeId(ids, id));
+			};
+		}, []);
+		const context = useMemo(
+			() => ({
+				descriptionIds,
+				errorIds,
+				registerDescriptionId,
+				registerErrorId,
+				validation,
+			}),
+			[descriptionIds, errorIds, registerDescriptionId, registerErrorId, validation],
+		);
 
 		return (
-			<Comp
-				ref={ref}
-				data-slot="field-item"
-				className={cx("flex w-full flex-col gap-1.5", className)}
-				{...props}
-			>
-				{autoWireFieldChildren(children, messageIds)}
-			</Comp>
+			<FieldItemContext.Provider value={context}>
+				<FieldValidationProvider validation={validation}>
+					<Comp
+						ref={ref}
+						data-slot="field-item"
+						data-validation={validation}
+						className={cx("flex w-full flex-col gap-1.5", className)}
+						{...props}
+					>
+						{children}
+					</Comp>
+				</FieldValidationProvider>
+			</FieldItemContext.Provider>
 		);
 	},
 );
 Item.displayName = "FieldItem";
 
 /**
+ * Applies `Field.Item` description, error, and validation state to a single
+ * focusable control. It always behaves like an `asChild` slot: pass one child
+ * element to receive the generated ARIA props, or use a function child to
+ * place those props manually. Pass `validation` here only when the control
+ * needs to override the surrounding `Field.Item` state.
+ *
+ * @see https://mantle.ngrok.com/components/field
+ *
+ * @example
+ * ```tsx
+ * <Field.Item>
+ *   <Label htmlFor="email">Email</Label>
+ *   <Field.Control>
+ *     <Input id="email" name="email" />
+ *   </Field.Control>
+ *   <Field.Errors messages={["Email is required."]} />
+ * </Field.Item>
+ * ```
+ */
+const Control = forwardRef<HTMLElement, FieldControlProps>(
+	(
+		{
+			"aria-describedby": ariaDescribedBy,
+			"aria-errormessage": ariaErrorMessage,
+			"aria-invalid": ariaInvalid,
+			children,
+			validation,
+			...props
+		},
+		ref,
+	) => {
+		const context = useContext(FieldItemContext);
+		const baseControlState = resolveFieldControlAriaProps({
+			"aria-describedby": ariaDescribedBy,
+			"aria-errormessage": ariaErrorMessage,
+			"aria-invalid": ariaInvalid,
+			context,
+			validation,
+		});
+
+		if (typeof children === "function") {
+			return (
+				<FieldValidationProvider validation={baseControlState.validation}>
+					{children(baseControlState.ariaProps)}
+				</FieldValidationProvider>
+			);
+		}
+
+		if (!isValidElement<FieldControlAriaProps>(children)) {
+			return (
+				<FieldValidationProvider validation={baseControlState.validation}>
+					<Slot ref={ref} {...props}>
+						{children}
+					</Slot>
+				</FieldValidationProvider>
+			);
+		}
+
+		const childDescribedBy = mergeIdRefs(
+			ariaDescribedBy,
+			children.props["aria-describedby"] ? [children.props["aria-describedby"]] : [],
+		);
+		const childErrorMessage = mergeIdRefs(
+			ariaErrorMessage,
+			children.props["aria-errormessage"] ? [children.props["aria-errormessage"]] : [],
+		);
+		const childControlState = resolveFieldControlAriaProps({
+			"aria-describedby": childDescribedBy,
+			"aria-errormessage": childErrorMessage,
+			"aria-invalid": children.props["aria-invalid"] ?? ariaInvalid,
+			context,
+			validation,
+		});
+
+		return (
+			<FieldValidationProvider validation={childControlState.validation}>
+				<Slot ref={ref} {...props}>
+					{cloneElement(children, childControlState.ariaProps)}
+				</Slot>
+			</FieldValidationProvider>
+		);
+	},
+);
+Control.displayName = "FieldControl";
+
+/**
  * Helper / hint text. Renders a `<p>` in the muted body color so it reads
- * as secondary to the bolder content above it. Works in two positions:
+ * as secondary to the bolder content above it. Use inside `Field.Item`, below
+ * the control, to clarify expected format or constraints for that single field.
  *
- * 1. **Inside `Field.Item`**, below the control — clarifies expected format
- *    or constraints for that single field.
- * 2. **Inside `Field.Set`, between `Field.Legend` and `Field.Group`** — describes
- *    the entire fieldset (e.g. "All transactions are secure and encrypted.").
- *
- * **Auto-tighten.** When this description sits directly after a
- * `Field.ErrorList` sibling, the parent's `gap-1.5` collapses via a matching
- * negative top margin so error list + helper read as one tight block. Pass
- * any margin utility (`mt-1`, `mt-0`, etc.) to override — the rule's
- * specificity is flattened to `(0,1,0)` so a single user class wins.
+ * **Auto-tighten.** When this description sits directly after rendered
+ * `Field.Errors` or `Field.ErrorList` output, the parent's `gap-1.5`
+ * collapses via a matching negative top margin so error list + helper read as
+ * one tight block. Pass any margin utility (`mt-1`, `mt-0`, etc.) to override
+ * — the rule's specificity is flattened to `(0,1,0)` so a single user class wins.
  *
  * @see https://mantle.ngrok.com/components/field
  *
@@ -593,29 +726,24 @@ Item.displayName = "FieldItem";
  * // Field-level helper (inside Field.Item)
  * <Field.Item>
  *   <Label htmlFor="username">Username</Label>
- *   <Input id="username" name="username" />
- *   <Field.ErrorList>
- *     <Field.Error>Username is required.</Field.Error>
- *   </Field.ErrorList>
+ *   <Field.Control>
+ *     <Input id="username" name="username" />
+ *   </Field.Control>
+ *   <Field.Errors messages={["Username is required."]} />
  *   <Field.Description>Pick something memorable.</Field.Description>
  * </Field.Item>
- *
- * // Fieldset-level description (inside Field.Set, below Field.Legend)
- * <Field.Set>
- *   <Field.Legend>Payment method</Field.Legend>
- *   <Field.Description>All transactions are secure and encrypted.</Field.Description>
- *   <Field.Group>...</Field.Group>
- * </Field.Set>
  * ```
  */
 const Description = forwardRef<ComponentRef<"p">, ComponentProps<"p"> & WithAsChild>(
-	({ asChild, className, ...props }, ref) => {
+	({ asChild, className, id: idProp, ...props }, ref) => {
 		const Comp = asChild ? Slot : "p";
+		const id = useFieldMessageId(idProp, "description");
 
 		return (
 			<Comp
 				ref={ref}
 				data-slot="field-description"
+				id={id}
 				className={cx(
 					"text-body text-sm leading-4",
 					// When this description sits directly after a Field.ErrorList
@@ -635,46 +763,97 @@ const Description = forwardRef<ComponentRef<"p">, ComponentProps<"p"> & WithAsCh
 Description.displayName = "FieldDescription";
 
 /**
- * A single error message for a field. Always renders an `<li>` in
+ * A single error message list item for a field. Renders an `<li>` in
  * `text-danger-600` so it stands out from a sibling `Field.Description`.
- * Must be rendered inside a `Field.ErrorList` — single errors are just a
- * list of one.
+ * Must be rendered inside a `Field.ErrorList`. Empty or blank children render
+ * nothing so message-less validator results do not produce empty list items.
  *
  * @see https://mantle.ngrok.com/components/field
  *
  * @example
  * ```tsx
- * <Field.Item>
+ * <Field.Item validation="error">
  *   <Label htmlFor="username">Username</Label>
- *   <Input id="username" name="username" />
+ *   <Field.Control>
+ *     <Input id="username" name="username" />
+ *   </Field.Control>
  *   <Field.ErrorList>
- *     <Field.Error>Username is required.</Field.Error>
+ *     <Field.ErrorItem>Username is required.</Field.ErrorItem>
  *   </Field.ErrorList>
  *   <Field.Description>Pick something memorable.</Field.Description>
  * </Field.Item>
  * ```
  */
-const FieldError = forwardRef<ComponentRef<"li">, ComponentProps<"li">>(
-	({ className, ...props }, ref) => {
+const FieldErrorItem = forwardRef<ComponentRef<"li">, ComponentProps<"li">>(
+	({ children, className, dangerouslySetInnerHTML, ...props }, ref) => {
+		if (dangerouslySetInnerHTML == null && !hasRenderableErrorContent(children)) {
+			return null;
+		}
+
 		return (
 			<li
 				ref={ref}
 				data-slot="field-error"
 				className={cx("text-danger-600 text-sm leading-4", className)}
+				dangerouslySetInnerHTML={dangerouslySetInnerHTML}
 				{...props}
-			/>
+			>
+				{children}
+			</li>
 		);
 	},
 );
-FieldError.displayName = "FieldError";
+FieldErrorItem.displayName = "FieldErrorItem";
 
 /**
- * Wraps one or more `Field.Error` children in a semantic `<ul>` with
+ * Convenience renderer for string validation messages. Trims each message,
+ * filters empty values, and renders a semantic `Field.ErrorList` containing
+ * one `Field.ErrorItem` per remaining message.
+ *
+ * Accepts strings directly so product code can map any validation library's
+ * error shape into messages without coupling Mantle to that library.
+ * Deliberately does not support `asChild` because it owns the generated list
+ * items; use `Field.ErrorList` with `asChild` for custom list markup.
+ *
+ * @see https://mantle.ngrok.com/components/field
+ *
+ * @example
+ * ```tsx
+ * <Field.Item validation="error">
+ *   <Label htmlFor="username">Username</Label>
+ *   <Field.Control>
+ *     <Input id="username" name="username" />
+ *   </Field.Control>
+ *   <Field.Errors messages={field.state.meta.errors.map((error) => error?.message)} />
+ *   <Field.Description>Pick something memorable.</Field.Description>
+ * </Field.Item>
+ * ```
+ */
+const FieldErrors = forwardRef<ComponentRef<"ul">, FieldErrorsProps>(
+	({ messages, ...props }, ref) => {
+		const normalizedMessages = normalizeErrorMessages(messages);
+
+		if (normalizedMessages.length === 0) {
+			return null;
+		}
+
+		return (
+			<FieldErrorList ref={ref} {...props}>
+				{normalizedMessages.map((message, index) => (
+					<FieldErrorItem key={`${message}-${index}`}>{message}</FieldErrorItem>
+				))}
+			</FieldErrorList>
+		);
+	},
+);
+FieldErrors.displayName = "FieldErrors";
+
+/**
+ * Wraps one or more `Field.ErrorItem` children in a semantic `<ul>` with
  * `role="list"` so a list of validation errors is announced as a list by
  * screen readers, including Safari/VoiceOver combinations that drop list
  * semantics when list styling is removed. Renders nothing when no children are
- * passed, so it can be left mounted unconditionally while a validator produces
- * a (possibly empty) array of messages.
+ * passed, or when all `Field.ErrorItem` children are empty.
  *
  * The list strips its default browser styling (`list-none`, `p-0`, `m-0`) and
  * stacks items as a flex column with no gap so consecutive errors read as a
@@ -684,21 +863,25 @@ FieldError.displayName = "FieldError";
  *
  * @example
  * ```tsx
- * <Field.Item>
+ * <Field.Item validation="error">
  *   <Label htmlFor="username">Username</Label>
- *   <Input id="username" name="username" />
+ *   <Field.Control>
+ *     <Input id="username" name="username" />
+ *   </Field.Control>
  *   <Field.ErrorList>
- *     {field.state.meta.errors.map((error, index) => (
- *       <Field.Error key={index}>{error?.message}</Field.Error>
- *     ))}
+ *     <Field.ErrorItem>Username is required.</Field.ErrorItem>
+ *     <Field.ErrorItem>Username must be at least 2 characters.</Field.ErrorItem>
  *   </Field.ErrorList>
  *   <Field.Description>Pick something memorable.</Field.Description>
  * </Field.Item>
  * ```
  */
 const FieldErrorList = forwardRef<ComponentRef<"ul">, ComponentProps<"ul"> & WithAsChild>(
-	({ asChild, children, className, ...props }, ref) => {
-		if (!hasRenderableChildren(children)) {
+	({ asChild, children, className, id: idProp, ...props }, ref) => {
+		const hasRenderableChildren = hasRenderableErrorListChildren(children);
+		const id = useFieldMessageId(idProp, "error", hasRenderableChildren);
+
+		if (!hasRenderableChildren) {
 			return null;
 		}
 
@@ -708,6 +891,7 @@ const FieldErrorList = forwardRef<ComponentRef<"ul">, ComponentProps<"ul"> & Wit
 			<Comp
 				ref={ref}
 				data-slot="field-error-list"
+				id={id}
 				role="list"
 				className={cx("m-0 flex w-full flex-col list-none p-0", className)}
 				{...props}
@@ -739,9 +923,11 @@ FieldErrorList.displayName = "FieldErrorList";
  *     │   └── Field.Help
  *     │       ├── Field.HelpTrigger
  *     │       └── Field.HelpContent
- *     ├── (control)
+ *     ├── Field.Control
+ *     │   └── (control)
+ *     ├── Field.Errors
  *     ├── Field.ErrorList
- *     │   └── Field.Error
+ *     │   └── Field.ErrorItem
  *     └── Field.Description
  *
  * // For radios / checkboxes — semantic grouping under a shared legend:
@@ -755,17 +941,19 @@ FieldErrorList.displayName = "FieldErrorList";
  * <Field.Group>
  *   <Field.Item>
  *     <Label htmlFor="email">Email</Label>
- *     <Input id="email" name="email" type="email" />
- *     <Field.ErrorList>
- *       <Field.Error>Email is required.</Field.Error>
- *     </Field.ErrorList>
+ *     <Field.Control>
+ *       <Input id="email" name="email" type="email" />
+ *     </Field.Control>
+ *     <Field.Errors messages={["Email is required."]} />
  *     <Field.Description>We'll never share your email.</Field.Description>
  *   </Field.Item>
  *   <Field.Item>
  *     <Label htmlFor="nickname" className="flex items-baseline gap-1">
  *       Nickname <Field.Optional />
  *     </Label>
- *     <Input id="nickname" name="nickname" />
+ *     <Field.Control>
+ *       <Input id="nickname" name="nickname" />
+ *     </Field.Control>
  *     <Field.Description>Visible on your public profile.</Field.Description>
  *   </Field.Item>
  * </Field.Group>
@@ -775,8 +963,8 @@ const Field = {
 	/**
 	 * A single form field — `Label` + control + helper + error stacked
 	 * vertically with `gap-1.5`. Renders a plain `<div>` (no implicit role).
-	 * Auto-wires descendant `Field.Description` / `Field.ErrorList` IDs onto
-	 * known form controls without changing the control's own `id` or `name`.
+	 * Provides field description/error IDs and validation state to
+	 * `Field.Control`.
 	 *
 	 * **When to use:** for every individual field in a form — text inputs,
 	 * selects, single checkboxes, switches, etc. The `<label htmlFor>` ↔
@@ -788,15 +976,30 @@ const Field = {
 	 * ```tsx
 	 * <Field.Item>
 	 *   <Label htmlFor="email">Email</Label>
-	 *   <Input id="email" name="email" />
-	 *   <Field.ErrorList>
-	 *     <Field.Error>Email is required.</Field.Error>
-	 *   </Field.ErrorList>
+	 *   <Field.Control>
+	 *     <Input id="email" name="email" />
+	 *   </Field.Control>
+	 *   <Field.Errors messages={["Email is required."]} />
 	 *   <Field.Description>We'll never share your email.</Field.Description>
 	 * </Field.Item>
 	 * ```
 	 */
 	Item,
+	/**
+	 * Applies field description, error, and validation ARIA props to a single
+	 * focusable control. Pass one child element to receive the props, or use a
+	 * function child to manually place the returned prop bag.
+	 *
+	 * @see https://mantle.ngrok.com/components/field
+	 *
+	 * @example
+	 * ```tsx
+	 * <Field.Control>
+	 *   <Input id="email" name="email" />
+	 * </Field.Control>
+	 * ```
+	 */
+	Control,
 	/**
 	 * Layout container that stacks multiple `Field.Item`s vertically with
 	 * `gap-4`. Renders a plain `<div>` — pure layout, no semantics.
@@ -813,11 +1016,15 @@ const Field = {
 	 * <Field.Group>
 	 *   <Field.Item>
 	 *     <Label htmlFor="email">Email</Label>
-	 *     <Input id="email" name="email" />
+	 *     <Field.Control>
+	 *       <Input id="email" name="email" />
+	 *     </Field.Control>
 	 *   </Field.Item>
 	 *   <Field.Item>
 	 *     <Label htmlFor="password">Password</Label>
-	 *     <Input id="password" name="password" type="password" />
+	 *     <Field.Control>
+	 *       <Input id="password" name="password" type="password" />
+	 *     </Field.Control>
 	 *   </Field.Item>
 	 * </Field.Group>
 	 * ```
@@ -889,7 +1096,9 @@ const Field = {
 	 *       <Popover.Content>Copy this from the dashboard.</Popover.Content>
 	 *     </Popover.Root>
 	 *   </Field.LabelRow>
-	 *   <Input id="api-key" name="apiKey" />
+	 *   <Field.Control>
+	 *     <Input id="api-key" name="apiKey" />
+	 *   </Field.Control>
 	 * </Field.Item>
 	 * ```
 	 */
@@ -906,7 +1115,7 @@ const Field = {
 	 * <Field.LabelRow>
 	 *   <Label htmlFor="api-key">API key</Label>
 	 *   <Field.Help>
-	 *     <Field.HelpTrigger />
+	 *     <Field.HelpTrigger label="What is an API key?" />
 	 *     <Field.HelpContent>Copy this from the dashboard.</Field.HelpContent>
 	 *   </Field.Help>
 	 * </Field.LabelRow>
@@ -915,15 +1124,15 @@ const Field = {
 	Help,
 	/**
 	 * Trigger for a `Field.Help` popover — a ghost `IconButton` with a default
-	 * `QuestionIcon`. Pass `icon` to swap the glyph; pass any other
-	 * `IconButton` prop (`label`, `size`, `appearance`, etc.) to customize.
+	 * `QuestionIcon`. Requires a contextual `label`; pass `icon` to swap the
+	 * glyph, or other `IconButton` props (`size`, `appearance`, etc.) to customize.
 	 *
 	 * @see https://mantle.ngrok.com/components/field
 	 *
 	 * @example
 	 * ```tsx
 	 * <Field.Help>
-	 *   <Field.HelpTrigger />
+	 *   <Field.HelpTrigger label="What is an API key?" />
 	 *   <Field.HelpContent>Copy this from the dashboard.</Field.HelpContent>
 	 * </Field.Help>
 	 * ```
@@ -937,7 +1146,7 @@ const Field = {
 	 * @example
 	 * ```tsx
 	 * <Field.Help>
-	 *   <Field.HelpTrigger />
+	 *   <Field.HelpTrigger label="What is an API key?" />
 	 *   <Field.HelpContent>Copy this from the dashboard.</Field.HelpContent>
 	 * </Field.Help>
 	 * ```
@@ -957,7 +1166,9 @@ const Field = {
 	 *   <Label htmlFor="nickname" className="flex items-baseline gap-1">
 	 *     Nickname <Field.Optional />
 	 *   </Label>
-	 *   <Input id="nickname" name="nickname" />
+	 *   <Field.Control>
+	 *     <Input id="nickname" name="nickname" />
+	 *   </Field.Control>
 	 *   <Field.Description>Visible on your public profile.</Field.Description>
 	 * </Field.Item>
 	 * ```
@@ -970,19 +1181,53 @@ const Field = {
 	 *
 	 * @example
 	 * ```tsx
-	 * <Field.Item>
+	 * <Field.Item validation="error">
 	 *   <Label htmlFor="username">Username</Label>
-	 *   <Input id="username" name="username" />
-	 *   <Field.ErrorList>
-	 *     <Field.Error>Username is required.</Field.Error>
-	 *   </Field.ErrorList>
+	 *   <Field.Control>
+	 *     <Input id="username" name="username" />
+	 *   </Field.Control>
+	 *   <Field.Errors messages={["Username is required."]} />
 	 *   <Field.Description>Pick something memorable.</Field.Description>
 	 * </Field.Item>
 	 * ```
 	 */
 	Description,
 	/**
-	 * A single error message for a field. Renders an `<li>` in
+	 * Convenience renderer for validation messages. Trims string messages,
+	 * filters empty values, and renders a `Field.ErrorList` with one
+	 * `Field.ErrorItem` for each remaining message.
+	 *
+	 * @see https://mantle.ngrok.com/components/field
+	 *
+	 * @example
+	 * ```tsx
+	 * <Field.Errors messages={field.state.meta.errors.map((error) => error?.message)} />
+	 * ```
+	 */
+	Errors: FieldErrors,
+	/**
+	 * Wraps one or more `Field.ErrorItem` children in a semantic `<ul>`.
+	 * Renders nothing when given no renderable children.
+	 *
+	 * @see https://mantle.ngrok.com/components/field
+	 *
+	 * @example
+	 * ```tsx
+	 * <Field.Item validation="error">
+	 *   <Label htmlFor="username">Username</Label>
+	 *   <Field.Control>
+	 *     <Input id="username" name="username" />
+	 *   </Field.Control>
+	 *   <Field.ErrorList>
+	 *     <Field.ErrorItem>Username is required.</Field.ErrorItem>
+	 *   </Field.ErrorList>
+	 *   <Field.Description>Pick something memorable.</Field.Description>
+	 * </Field.Item>
+	 * ```
+	 */
+	ErrorList: FieldErrorList,
+	/**
+	 * A single error message list item for a field. Renders an `<li>` in
 	 * `text-danger-600` and must be nested inside a `Field.ErrorList`.
 	 *
 	 * @see https://mantle.ngrok.com/components/field
@@ -990,33 +1235,11 @@ const Field = {
 	 * @example
 	 * ```tsx
 	 * <Field.ErrorList>
-	 *   <Field.Error>Username is required.</Field.Error>
+	 *   <Field.ErrorItem>Username is required.</Field.ErrorItem>
 	 * </Field.ErrorList>
 	 * ```
 	 */
-	Error: FieldError,
-	/**
-	 * Wraps one or more `Field.Error` children in a semantic `<ul>`. Renders
-	 * nothing when given no children, so it can be left mounted while a
-	 * validator produces a (possibly empty) error array.
-	 *
-	 * @see https://mantle.ngrok.com/components/field
-	 *
-	 * @example
-	 * ```tsx
-	 * <Field.Item>
-	 *   <Label htmlFor="username">Username</Label>
-	 *   <Input id="username" name="username" />
-	 *   <Field.ErrorList>
-	 *     {field.state.meta.errors.map((error, index) => (
-	 *       <Field.Error key={index}>{error?.message}</Field.Error>
-	 *     ))}
-	 *   </Field.ErrorList>
-	 *   <Field.Description>Pick something memorable.</Field.Description>
-	 * </Field.Item>
-	 * ```
-	 */
-	ErrorList: FieldErrorList,
+	ErrorItem: FieldErrorItem,
 } as const;
 
 export {

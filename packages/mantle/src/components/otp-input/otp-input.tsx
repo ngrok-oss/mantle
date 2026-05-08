@@ -7,8 +7,9 @@ import { forwardRef, useContext } from "react";
 import type { WithAsChild } from "../../types/as-child.js";
 import { $cssProperties } from "../../types/index.js";
 import { cx } from "../../utils/cx/cx.js";
+import { parseValidation, useFieldValidation } from "../field/validation.js";
+import type { Validation, WithValidation } from "../field/validation.js";
 import { Slot as AsChildSlot } from "../slot/index.js";
-import type { Validation, WithValidation } from "../input/types.js";
 
 type OtpState = "idle" | "caret" | "range" | "all";
 
@@ -167,11 +168,12 @@ const Root = forwardRef<ComponentRef<typeof OTPInput>, OtpInputRootProps>(
 		},
 		ref,
 	) => {
-		const isInvalid = ariaInvalid != null && ariaInvalid !== "false";
-		const validation = isInvalid
-			? "error"
-			: (typeof _validation === "function" ? _validation() : _validation) || undefined;
-		const resolvedAriaInvalid = ariaInvalid ?? (validation === "error" || undefined);
+		const fieldValidation = useFieldValidation();
+		const { ariaInvalid: resolvedAriaInvalid, validation } = parseValidation({
+			"aria-invalid": ariaInvalid,
+			defaultAriaInvalid: false,
+			validation: _validation ?? fieldValidation,
+		});
 
 		return (
 			<OTPInput

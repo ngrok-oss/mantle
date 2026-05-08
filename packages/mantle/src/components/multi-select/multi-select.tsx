@@ -25,8 +25,9 @@ import type { WithAsChild } from "../../types/as-child.js";
 import { getPrefersReducedMotion } from "../../hooks/use-prefers-reduced-motion.js";
 import { composeRefs } from "../../utils/compose-refs/compose-refs.js";
 import { cx } from "../../utils/cx/cx.js";
+import { parseValidation, useFieldValidation } from "../field/validation.js";
+import type { WithValidation } from "../field/validation.js";
 import { Icon } from "../icon/icon.js";
-import type { WithValidation } from "../input/types.js";
 import { Separator } from "../separator/separator.js";
 import { Slot } from "../slot/index.js";
 
@@ -152,12 +153,11 @@ const Trigger = forwardRef<HTMLDivElement, MultiSelectTriggerProps>(
 		const triggerRef = useContext(TriggerRefContext);
 		const { inputRef } = useContext(TagBridgeContext);
 		const store = Primitive.useComboboxContext();
-		const isInvalid = _ariaInvalid != null && _ariaInvalid !== "false";
-		const validation = isInvalid
-			? "error"
-			: typeof _validation === "function"
-				? _validation()
-				: _validation;
+		const fieldValidation = useFieldValidation();
+		const { validation } = parseValidation({
+			"aria-invalid": _ariaInvalid,
+			validation: _validation ?? fieldValidation,
+		});
 
 		return (
 			<div

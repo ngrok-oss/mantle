@@ -61,16 +61,15 @@ export function TanStackFormDemo() {
 								field.handleChange(values);
 							}}
 						>
-							<MultiSelect.Trigger
-								onBlur={field.handleBlur}
-								validation={field.state.meta.errors.length > 0 ? "error" : false}
-							>
+							<MultiSelect.Trigger onBlur={field.handleBlur}>
 								<MultiSelect.TagValues />
-								<MultiSelect.Input
-									id={field.name}
-									onValueChange={(value) => startTransition(() => setSearchValue(value))}
-									placeholder="Select fruits and vegetables..."
-								/>
+								<Field.Control>
+									<MultiSelect.Input
+										id={field.name}
+										onValueChange={(value) => startTransition(() => setSearchValue(value))}
+										placeholder="Select fruits and vegetables..."
+									/>
+								</Field.Control>
 							</MultiSelect.Trigger>
 							<MultiSelect.Content aria-busy={isPending}>
 								{filteredFruits.length > 0 && (
@@ -101,11 +100,7 @@ export function TanStackFormDemo() {
 								)}
 							</MultiSelect.Content>
 						</MultiSelect.Root>
-						<Field.ErrorList>
-							{field.state.meta.errors.map((error, index) => (
-								<Field.Error key={index}>{error?.message}</Field.Error>
-							))}
-						</Field.ErrorList>
+						<Field.Errors messages={field.state.meta.errors.map((error) => error?.message)} />
 					</Field.Item>
 				)}
 			</form.Field>

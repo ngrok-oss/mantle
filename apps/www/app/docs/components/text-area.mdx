@@ -104,20 +104,17 @@ export function FormExample() {
     			{(field) => (
     				<Field.Item>
     					<Label htmlFor={field.name}>Feedback</Label>
-    					<TextArea
-    						id={field.name}
-    						name={field.name}
-    						onBlur={field.handleBlur}
-    						onChange={(event) => field.handleChange(event.target.value)}
-    						placeholder="Tell us about your experience…"
-    						validation={field.state.meta.errors.length > 0 && "error"}
-    						value={field.state.value}
-    					/>
-    					<Field.ErrorList>
-    						{field.state.meta.errors.map((error, index) => (
-    							<Field.Error key={index}>{error?.message}</Field.Error>
-    						))}
-    					</Field.ErrorList>
+    					<Field.Control>
+    						<TextArea
+    							id={field.name}
+    							name={field.name}
+    							onBlur={field.handleBlur}
+    							onChange={(event) => field.handleChange(event.target.value)}
+    							placeholder="Tell us about your experience…"
+    							value={field.state.value}
+    						/>
+    					</Field.Control>
+    					<Field.Errors messages={field.state.meta.errors.map((error) => error?.message)} />
     				</Field.Item>
     			)}
     		</form.Field>
@@ -182,20 +179,17 @@ function FormExample() {
 				{(field) => (
 					<Field.Item>
 						<Label htmlFor={field.name}>Feedback</Label>
-						<TextArea
-							id={field.name}
-							name={field.name}
-							onBlur={field.handleBlur}
-							onChange={(event) => field.handleChange(event.target.value)}
-							placeholder="Tell us about your experience…"
-							validation={field.state.meta.errors.length > 0 && "error"}
-							value={field.state.value}
-						/>
-						<Field.ErrorList>
-							{field.state.meta.errors.map((error, index) => (
-								<Field.Error key={index}>{error?.message}</Field.Error>
-							))}
-						</Field.ErrorList>
+						<Field.Control>
+							<TextArea
+								id={field.name}
+								name={field.name}
+								onBlur={field.handleBlur}
+								onChange={(event) => field.handleChange(event.target.value)}
+								placeholder="Tell us about your experience…"
+								value={field.state.value}
+							/>
+						</Field.Control>
+						<Field.Errors messages={field.state.meta.errors.map((error) => error?.message)} />
 					</Field.Item>
 				)}
 			</form.Field>

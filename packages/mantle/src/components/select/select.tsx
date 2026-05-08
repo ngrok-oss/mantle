@@ -17,8 +17,9 @@ import type {
 import { createContext, forwardRef, useContext } from "react";
 import { composeRefs } from "../../utils/compose-refs/compose-refs.js";
 import { cx } from "../../utils/cx/cx.js";
+import { parseValidation, useFieldValidation } from "../field/validation.js";
+import type { WithValidation } from "../field/validation.js";
 import { Icon } from "../icon/icon.js";
-import type { WithValidation } from "../input/types.js";
 import { Separator } from "../separator/separator.js";
 
 type WithAriaInvalid = Pick<SelectHTMLAttributes<HTMLSelectElement>, "aria-invalid">;
@@ -110,6 +111,8 @@ const Root = forwardRef<HTMLButtonElement, SelectProps>(
 		},
 		ref,
 	) => {
+		const fieldValidation = useFieldValidation();
+
 		return (
 			<SelectPrimitive.Root
 				{...props}
@@ -119,7 +122,13 @@ const Root = forwardRef<HTMLButtonElement, SelectProps>(
 				}}
 			>
 				<SelectContext.Provider
-					value={{ "aria-invalid": _ariaInvalid, id, validation, onBlur, ref }}
+					value={{
+						"aria-invalid": _ariaInvalid,
+						id,
+						validation: validation ?? fieldValidation,
+						onBlur,
+						ref,
+					}}
 				>
 					{children}
 				</SelectContext.Provider>
@@ -247,15 +256,13 @@ const Trigger = forwardRef<ComponentRef<typeof SelectPrimitive.Trigger>, SelectT
 		ref,
 	) => {
 		const ctx = useContext(SelectContext);
+		const fieldValidation = useFieldValidation();
 		const rawAriaInvalid = ctx["aria-invalid"] ?? ariaInValidProp;
-		const isInvalid = rawAriaInvalid != null && rawAriaInvalid !== "false";
-		const rawValidation = ctx.validation ?? propValidation;
-		const validation = isInvalid
-			? "error"
-			: typeof rawValidation === "function"
-				? rawValidation()
-				: rawValidation;
-		const ariaInvalid = rawAriaInvalid ?? validation === "error";
+		const rawValidation = ctx.validation ?? propValidation ?? fieldValidation;
+		const { ariaInvalid, validation } = parseValidation({
+			"aria-invalid": rawAriaInvalid,
+			validation: rawValidation,
+		});
 		const id = ctx.id ?? propId;
 
 		return (

@@ -116,21 +116,18 @@ function FormExample() {
 				{(field) => (
 					<Field.Item>
 						<Label htmlFor={field.name} className="flex items-center gap-2">
-							<Checkbox
-								name={field.name}
-								id={field.name}
-								checked={field.state.value}
-								onBlur={field.handleBlur}
-								onChange={(event) => field.handleChange(event.target.checked)}
-								validation={field.state.meta.errors.length > 0 && "error"}
-							/>
+							<Field.Control>
+								<Checkbox
+									name={field.name}
+									id={field.name}
+									checked={field.state.value}
+									onBlur={field.handleBlur}
+									onChange={(event) => field.handleChange(event.target.checked)}
+								/>
+							</Field.Control>
 							Accept terms and conditions
 						</Label>
-						<Field.ErrorList>
-							{field.state.meta.errors.map((error, index) => (
-								<Field.Error key={index}>{error?.message}</Field.Error>
-							))}
-						</Field.ErrorList>
+						<Field.Errors messages={field.state.meta.errors.map((error) => error?.message)} />
 					</Field.Item>
 				)}
 			</form.Field>

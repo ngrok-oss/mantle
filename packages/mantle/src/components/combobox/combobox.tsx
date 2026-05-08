@@ -4,7 +4,8 @@ import * as Primitive from "@ariakit/react";
 import { type ComponentPropsWithoutRef, type ComponentRef, createContext, forwardRef } from "react";
 import type { WithAsChild } from "../../types/as-child.js";
 import { cx } from "../../utils/cx/cx.js";
-import type { WithValidation } from "../input/types.js";
+import { parseValidation, useFieldValidation } from "../field/validation.js";
+import type { WithValidation } from "../field/validation.js";
 import { Separator } from "../separator/separator.js";
 import { Slot } from "../slot/index.js";
 
@@ -69,13 +70,11 @@ const Input = forwardRef<ComponentRef<"input">, ComboboxInputProps>(
 		},
 		ref,
 	) => {
-		const isInvalid = _ariaInvalid != null && _ariaInvalid !== "false";
-		const validation = isInvalid
-			? "error"
-			: typeof _validation === "function"
-				? _validation()
-				: _validation;
-		const ariaInvalid = _ariaInvalid ?? validation === "error";
+		const fieldValidation = useFieldValidation();
+		const { ariaInvalid, validation } = parseValidation({
+			"aria-invalid": _ariaInvalid,
+			validation: _validation ?? fieldValidation,
+		});
 
 		return (
 			<Primitive.Combobox

@@ -4,7 +4,8 @@ import clsx from "clsx";
 import { forwardRef, useEffect, useRef, useState } from "react";
 import type { ComponentPropsWithoutRef, ComponentRef } from "react";
 import { composeRefs } from "../../utils/compose-refs/index.js";
-import type { WithValidation } from "../input/index.js";
+import { parseValidation, useFieldValidation } from "../field/validation.js";
+import type { WithValidation } from "../field/validation.js";
 
 type CheckedState = boolean | "indeterminate";
 
@@ -56,13 +57,11 @@ const Checkbox = forwardRef<ComponentRef<"input">, Props>(
 	) => {
 		const innerRef = useRef<ComponentRef<"input">>(null);
 		const [defaultChecked] = useState(_defaultChecked);
-		const isInvalid = _ariaInvalid != null && _ariaInvalid !== "false";
-		const validation = isInvalid
-			? "error"
-			: typeof _validation === "function"
-				? _validation()
-				: _validation;
-		const ariaInvalid = _ariaInvalid ?? validation === "error";
+		const fieldValidation = useFieldValidation();
+		const { ariaInvalid, validation } = parseValidation({
+			"aria-invalid": _ariaInvalid,
+			validation: _validation ?? fieldValidation,
+		});
 
 		useEffect(() => {
 			if (innerRef.current) {

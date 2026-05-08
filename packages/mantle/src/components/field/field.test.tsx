@@ -35,7 +35,7 @@ describe("Field", () => {
 							</Field.LabelRow>
 							<input id="email" />
 							<Field.ErrorList ref={errorListRef}>
-								<Field.Error ref={errorRef}>Required</Field.Error>
+								<Field.ErrorItem ref={errorRef}>Required</Field.ErrorItem>
 							</Field.ErrorList>
 							<Field.Description ref={descriptionRef}>Use your work email.</Field.Description>
 						</Field.Item>
@@ -84,13 +84,25 @@ describe("Field", () => {
 
 			render(
 				<Field.Help defaultOpen>
-					<Field.HelpTrigger ref={triggerRef} />
+					<Field.HelpTrigger ref={triggerRef} label="What is this field?" />
 					<Field.HelpContent ref={contentRef}>Help body</Field.HelpContent>
 				</Field.Help>,
 			);
 
-			expect(triggerRef.current).toBe(screen.getByRole("button", { name: "Show help" }));
+			expect(triggerRef.current).toBe(screen.getByRole("button", { name: "What is this field?" }));
 			expect(contentRef.current).toHaveTextContent("Help body");
+		});
+
+		test("forwards refs through Field.Control", () => {
+			const controlRef = createRef<HTMLElement>();
+
+			render(
+				<Field.Control ref={controlRef}>
+					<input aria-label="Email" />
+				</Field.Control>,
+			);
+
+			expect(controlRef.current).toBe(screen.getByRole("textbox", { name: "Email" }));
 		});
 	});
 
@@ -138,11 +150,13 @@ describe("Field", () => {
 			expect(root).toHaveAttribute("data-slot", "field-item");
 		});
 
-		test("auto-wires Field.Description to a descendant control", () => {
+		test("Field.Control wires Field.Description to the control", () => {
 			render(
 				<Field.Item>
 					<label htmlFor="email">Email</label>
-					<input id="email" name="email" />
+					<Field.Control>
+						<input id="email" name="email" />
+					</Field.Control>
 					<Field.Description>We'll never share your email.</Field.Description>
 				</Field.Item>,
 			);
@@ -158,7 +172,9 @@ describe("Field", () => {
 		test("merges generated description IDs with existing aria-describedby", () => {
 			render(
 				<Field.Item>
-					<input aria-label="Email" aria-describedby="existing-help" />
+					<Field.Control>
+						<input aria-label="Email" aria-describedby="existing-help" />
+					</Field.Control>
 					<Field.Description>Generated help.</Field.Description>
 				</Field.Item>,
 			);
@@ -171,7 +187,9 @@ describe("Field", () => {
 		test("uses explicit Field.Description IDs when provided", () => {
 			render(
 				<Field.Item>
-					<input aria-label="Email" />
+					<Field.Control>
+						<input aria-label="Email" />
+					</Field.Control>
 					<Field.Description id="email-help">Generated help.</Field.Description>
 				</Field.Item>,
 			);
@@ -182,12 +200,14 @@ describe("Field", () => {
 			);
 		});
 
-		test("auto-wires Field.ErrorList to a descendant control", () => {
+		test("Field.Control wires rendered Field.ErrorList to the control and infers invalid state", () => {
 			render(
 				<Field.Item>
-					<input aria-label="Email" />
+					<Field.Control>
+						<input aria-label="Email" />
+					</Field.Control>
 					<Field.ErrorList data-testid="errors">
-						<Field.Error>Email is required.</Field.Error>
+						<Field.ErrorItem>Email is required.</Field.ErrorItem>
 					</Field.ErrorList>
 				</Field.Item>,
 			);
@@ -195,6 +215,7 @@ describe("Field", () => {
 			const input = screen.getByRole("textbox", { name: "Email" });
 			const errorList = screen.getByTestId("errors");
 			expect(errorList).toHaveAttribute("id");
+			expect(input).toHaveAttribute("aria-describedby", errorList.id);
 			expect(input).toHaveAttribute("aria-errormessage", errorList.id);
 			expect(input).toHaveAttribute("aria-invalid", "true");
 		});
@@ -202,8 +223,60 @@ describe("Field", () => {
 		test("does not mark a control invalid for an empty Field.ErrorList", () => {
 			render(
 				<Field.Item>
-					<input aria-label="Email" />
+					<Field.Control>
+						<input aria-label="Email" />
+					</Field.Control>
 					<Field.ErrorList>{[]}</Field.ErrorList>
+				</Field.Item>,
+			);
+
+			const input = screen.getByRole("textbox", { name: "Email" });
+			expect(input).not.toHaveAttribute("aria-errormessage");
+			expect(input).not.toHaveAttribute("aria-invalid");
+		});
+
+		test("does not mark a control invalid when Field.ErrorItem children are empty", () => {
+			render(
+				<Field.Item>
+					<Field.Control>
+						<input aria-label="Email" />
+					</Field.Control>
+					<Field.ErrorList>
+						<Field.ErrorItem>{undefined}</Field.ErrorItem>
+					</Field.ErrorList>
+				</Field.Item>,
+			);
+
+			const input = screen.getByRole("textbox", { name: "Email" });
+			expect(input).not.toHaveAttribute("aria-errormessage");
+			expect(input).not.toHaveAttribute("aria-invalid");
+		});
+
+		test("Field.Control wires rendered Field.Errors to the control and infers invalid state", () => {
+			render(
+				<Field.Item>
+					<Field.Control>
+						<input aria-label="Email" />
+					</Field.Control>
+					<Field.Errors data-testid="errors" messages={["Email is required."]} />
+				</Field.Item>,
+			);
+
+			const input = screen.getByRole("textbox", { name: "Email" });
+			const errors = screen.getByTestId("errors");
+			expect(errors).toHaveAttribute("id");
+			expect(input).toHaveAttribute("aria-describedby", errors.id);
+			expect(input).toHaveAttribute("aria-errormessage", errors.id);
+			expect(input).toHaveAttribute("aria-invalid", "true");
+		});
+
+		test("does not mark a control invalid for empty Field.Errors messages", () => {
+			render(
+				<Field.Item>
+					<Field.Control>
+						<input aria-label="Email" />
+					</Field.Control>
+					<Field.Errors messages={[undefined, "  ", false]} />
 				</Field.Item>,
 			);
 
@@ -215,9 +288,11 @@ describe("Field", () => {
 		test("keeps explicit aria-invalid on a control when errors are present", () => {
 			render(
 				<Field.Item>
-					<input aria-label="Email" aria-invalid="false" />
+					<Field.Control>
+						<input aria-label="Email" aria-invalid="false" />
+					</Field.Control>
 					<Field.ErrorList>
-						<Field.Error>Email is required.</Field.Error>
+						<Field.ErrorItem>Email is required.</Field.ErrorItem>
 					</Field.ErrorList>
 				</Field.Item>,
 			);
@@ -228,13 +303,47 @@ describe("Field", () => {
 			);
 		});
 
-		test("auto-wires nested controls inside labels", () => {
+		test("lets Field.Item validation={false} override rendered errors", () => {
+			render(
+				<Field.Item validation={false}>
+					<Field.Control>
+						<input aria-label="Email" />
+					</Field.Control>
+					<Field.Errors messages={["Email is required."]} />
+				</Field.Item>,
+			);
+
+			const input = screen.getByRole("textbox", { name: "Email" });
+			expect(input).not.toHaveAttribute("aria-invalid");
+			expect(input).not.toHaveAttribute("aria-errormessage");
+		});
+
+		test("lets Field.Control validation={false} override rendered errors", () => {
 			render(
 				<Field.Item>
-					<label>
-						Accept terms
-						<input type="checkbox" />
-					</label>
+					<Field.Control validation={false}>
+						<input aria-label="Email" />
+					</Field.Control>
+					<Field.Errors messages={["Email is required."]} />
+				</Field.Item>,
+			);
+
+			const input = screen.getByRole("textbox", { name: "Email" });
+			expect(input).not.toHaveAttribute("aria-invalid");
+			expect(input).not.toHaveAttribute("aria-errormessage");
+		});
+
+		test("supports render props for controls that need manual prop placement", () => {
+			render(
+				<Field.Item>
+					<Field.Control>
+						{(controlProps) => (
+							<label>
+								Accept terms
+								<input type="checkbox" {...controlProps} />
+							</label>
+						)}
+					</Field.Control>
 					<Field.Description>Required to continue.</Field.Description>
 				</Field.Item>,
 			);
@@ -244,11 +353,13 @@ describe("Field", () => {
 			expect(checkbox).toHaveAttribute("aria-describedby", description.id);
 		});
 
-		test("auto-wires mantle Input without replacing TanStack-friendly id and name props", () => {
+		test("wires mantle Input without replacing TanStack-friendly id and name props", () => {
 			render(
 				<Field.Item>
 					<label htmlFor="account.email">Email</label>
-					<Input id="account.email" name="account.email" />
+					<Field.Control>
+						<Input id="account.email" name="account.email" />
+					</Field.Control>
 					<Field.Description>Use your work email.</Field.Description>
 				</Field.Item>,
 			);
@@ -260,12 +371,16 @@ describe("Field", () => {
 			expect(input).toHaveAttribute("name", "account.email");
 		});
 
-		test("auto-wires display-named controls nested in custom wrappers", () => {
+		test("supports custom wrappers with the render prop API", () => {
 			render(
 				<Field.Item>
-					<MockWrapper>
-						<MockControl aria-label="Wrapped control" />
-					</MockWrapper>
+					<Field.Control>
+						{(controlProps) => (
+							<MockWrapper>
+								<MockControl aria-label="Wrapped control" {...controlProps} />
+							</MockWrapper>
+						)}
+					</Field.Control>
 					<Field.Description>Wrapped help.</Field.Description>
 				</Field.Item>,
 			);
@@ -273,6 +388,36 @@ describe("Field", () => {
 			const input = screen.getByRole("textbox", { name: "Wrapped control" });
 			const description = screen.getByText("Wrapped help.");
 			expect(input).toHaveAttribute("aria-describedby", description.id);
+		});
+
+		test("provides validation from Field.Item to Mantle controls", () => {
+			render(
+				<Field.Item validation="success">
+					<label htmlFor="email">Email</label>
+					<Field.Control>
+						<Input id="email" name="email" />
+					</Field.Control>
+				</Field.Item>,
+			);
+
+			const input = screen.getByRole("textbox", { name: "Email" });
+			expect(input).toHaveAttribute("aria-invalid", "false");
+			expect(input).toHaveAttribute("data-validation", "success");
+		});
+
+		test("lets Field.Control validation override Field.Item validation", () => {
+			render(
+				<Field.Item validation="success">
+					<Field.Control validation="error">
+						<input aria-label="Email" />
+					</Field.Control>
+				</Field.Item>,
+			);
+
+			expect(screen.getByRole("textbox", { name: "Email" })).toHaveAttribute(
+				"aria-invalid",
+				"true",
+			);
 		});
 	});
 
@@ -394,9 +539,9 @@ describe("Field", () => {
 		});
 	});
 
-	describe("Field.Error", () => {
+	describe("Field.ErrorItem", () => {
 		test("renders an li with data-slot=field-error", () => {
-			render(<Field.Error data-testid="err">Required</Field.Error>);
+			render(<Field.ErrorItem data-testid="err">Required</Field.ErrorItem>);
 			const error = screen.getByTestId("err");
 			expect(error.tagName).toBe("LI");
 			expect(error).toHaveAttribute("data-slot", "field-error");
@@ -404,7 +549,7 @@ describe("Field", () => {
 		});
 
 		test("applies danger color and small text by default", () => {
-			render(<Field.Error data-testid="err">Required</Field.Error>);
+			render(<Field.ErrorItem data-testid="err">Required</Field.ErrorItem>);
 			const error = screen.getByTestId("err");
 			expect(error.className).toContain("text-danger-600");
 			expect(error.className).toContain("text-sm");
@@ -412,13 +557,18 @@ describe("Field", () => {
 
 		test("merges custom className", () => {
 			render(
-				<Field.Error className="font-bold" data-testid="err">
+				<Field.ErrorItem className="font-bold" data-testid="err">
 					Required
-				</Field.Error>,
+				</Field.ErrorItem>,
 			);
 			const error = screen.getByTestId("err");
 			expect(error.className).toContain("font-bold");
 			expect(error.className).toContain("text-danger-600");
+		});
+
+		test("renders nothing for empty or blank children", () => {
+			const { container } = render(<Field.ErrorItem> </Field.ErrorItem>);
+			expect(container).toBeEmptyDOMElement();
 		});
 	});
 
@@ -461,11 +611,11 @@ describe("Field", () => {
 		test("renders the default question-mark IconButton trigger", () => {
 			render(
 				<Field.Help defaultOpen={false}>
-					<Field.HelpTrigger />
+					<Field.HelpTrigger label="What is this field?" />
 					<Field.HelpContent>help body</Field.HelpContent>
 				</Field.Help>,
 			);
-			const trigger = screen.getByRole("button", { name: "Show help" });
+			const trigger = screen.getByRole("button", { name: "What is this field?" });
 			expect(trigger).toHaveAttribute("data-slot", "icon-button");
 			expect(trigger).toHaveAttribute("data-size", "xs");
 			expect(trigger).toHaveAttribute("data-appearance", "ghost");
@@ -487,7 +637,7 @@ describe("Field", () => {
 		test("HelpContent renders the popover body when open", () => {
 			render(
 				<Field.Help defaultOpen>
-					<Field.HelpTrigger />
+					<Field.HelpTrigger label="What is this field?" />
 					<Field.HelpContent>Copy this from the dashboard.</Field.HelpContent>
 				</Field.Help>,
 			);
@@ -543,7 +693,7 @@ describe("Field", () => {
 		test("renders a ul with data-slot=field-error-list", () => {
 			render(
 				<Field.ErrorList data-testid="list">
-					<Field.Error>Required</Field.Error>
+					<Field.ErrorItem>Required</Field.ErrorItem>
 				</Field.ErrorList>,
 			);
 			const list = screen.getByTestId("list");
@@ -554,7 +704,7 @@ describe("Field", () => {
 		test("sets role=list by default", () => {
 			render(
 				<Field.ErrorList data-testid="list">
-					<Field.Error>Required</Field.Error>
+					<Field.ErrorItem>Required</Field.ErrorItem>
 				</Field.ErrorList>,
 			);
 			expect(screen.getByTestId("list")).toHaveAttribute("role", "list");
@@ -563,7 +713,7 @@ describe("Field", () => {
 		test("allows overriding the default role", () => {
 			render(
 				<Field.ErrorList data-testid="list" role="presentation">
-					<Field.Error>Required</Field.Error>
+					<Field.ErrorItem>Required</Field.ErrorItem>
 				</Field.ErrorList>,
 			);
 			expect(screen.getByTestId("list")).toHaveAttribute("role", "presentation");
@@ -572,7 +722,7 @@ describe("Field", () => {
 		test("strips default ul styling so it composes inside Field.Item", () => {
 			render(
 				<Field.ErrorList data-testid="list">
-					<Field.Error>Required</Field.Error>
+					<Field.ErrorItem>Required</Field.ErrorItem>
 				</Field.ErrorList>,
 			);
 			const list = screen.getByTestId("list");
@@ -584,18 +734,18 @@ describe("Field", () => {
 		test("merges custom className", () => {
 			render(
 				<Field.ErrorList className="custom-list" data-testid="list">
-					<Field.Error>Required</Field.Error>
+					<Field.ErrorItem>Required</Field.ErrorItem>
 				</Field.ErrorList>,
 			);
 			expect(screen.getByTestId("list").className).toContain("custom-list");
 		});
 
-		test("renders each Field.Error child as a list item", () => {
+		test("renders each Field.ErrorItem child as a list item", () => {
 			render(
 				<Field.ErrorList>
-					<Field.Error>First error</Field.Error>
-					<Field.Error>Second error</Field.Error>
-					<Field.Error>Third error</Field.Error>
+					<Field.ErrorItem>First error</Field.ErrorItem>
+					<Field.ErrorItem>Second error</Field.ErrorItem>
+					<Field.ErrorItem>Third error</Field.ErrorItem>
 				</Field.ErrorList>,
 			);
 			const errors = screen.getAllByText(/error$/);
@@ -621,17 +771,70 @@ describe("Field", () => {
 			expect(container).toBeEmptyDOMElement();
 		});
 
+		test("renders nothing when every Field.ErrorItem child is empty", () => {
+			const { container } = render(
+				<Field.ErrorList>
+					<Field.ErrorItem>{undefined}</Field.ErrorItem>
+					<Field.ErrorItem> </Field.ErrorItem>
+				</Field.ErrorList>,
+			);
+			expect(container).toBeEmptyDOMElement();
+		});
+
 		test("renders as child element when asChild is true", () => {
 			render(
 				<Field.ErrorList asChild>
 					<ol data-testid="list">
-						<Field.Error>Required</Field.Error>
+						<Field.ErrorItem>Required</Field.ErrorItem>
 					</ol>
 				</Field.ErrorList>,
 			);
 			const list = screen.getByTestId("list");
 			expect(list.tagName).toBe("OL");
 			expect(list).toHaveAttribute("data-slot", "field-error-list");
+		});
+	});
+
+	describe("Field.Errors", () => {
+		test("renders normalized string messages as a semantic error list", () => {
+			render(
+				<Field.Errors
+					data-testid="errors"
+					messages={[" Required ", undefined, "", "Too short", false]}
+				/>,
+			);
+
+			const list = screen.getByTestId("errors");
+			expect(list.tagName).toBe("UL");
+			expect(list).toHaveAttribute("data-slot", "field-error-list");
+			expect(list).toHaveAttribute("role", "list");
+			expect(screen.getByText("Required").tagName).toBe("LI");
+			expect(screen.getByText("Too short").tagName).toBe("LI");
+			expect(screen.getAllByRole("listitem")).toHaveLength(2);
+		});
+
+		test("renders nothing when all messages normalize away", () => {
+			const { container } = render(<Field.Errors messages={[undefined, " ", false]} />);
+			expect(container).toBeEmptyDOMElement();
+		});
+
+		test("forwards refs and list props to the rendered error list", () => {
+			const errorListRef = createRef<HTMLUListElement>();
+
+			render(
+				<Field.Errors
+					ref={errorListRef}
+					className="custom-list"
+					data-testid="errors"
+					messages={["Required"]}
+					role="presentation"
+				/>,
+			);
+
+			const list = screen.getByTestId("errors");
+			expect(errorListRef.current).toBe(list);
+			expect(list.className).toContain("custom-list");
+			expect(list).toHaveAttribute("role", "presentation");
 		});
 	});
 
@@ -645,7 +848,7 @@ describe("Field", () => {
 							<label htmlFor="email">Email</label>
 							<input id="email" name="email" />
 							<Field.ErrorList data-testid="errs">
-								<Field.Error data-testid="err">Email is required.</Field.Error>
+								<Field.ErrorItem data-testid="err">Email is required.</Field.ErrorItem>
 							</Field.ErrorList>
 							<Field.Description data-testid="desc">
 								We'll never share your email.

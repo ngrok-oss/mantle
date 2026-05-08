@@ -93,19 +93,17 @@ export function FormExample() {
     				<Field.Item>
     					<Label htmlFor={field.name} className="inline-flex items-center gap-2">
     						Airplane Mode
-    						<Switch
-    							name={field.name}
-    							id={field.name}
-    							checked={field.state.value}
-    							onBlur={field.handleBlur}
-    							onCheckedChange={(value) => field.handleChange(value)}
-    						/>
+    						<Field.Control>
+    							<Switch
+    								name={field.name}
+    								id={field.name}
+    								checked={field.state.value}
+    								onBlur={field.handleBlur}
+    								onCheckedChange={(value) => field.handleChange(value)}
+    							/>
+    						</Field.Control>
     					</Label>
-    					<Field.ErrorList>
-    						{field.state.meta.errors.map((error, index) => (
-    							<Field.Error key={index}>{error?.message}</Field.Error>
-    						))}
-    					</Field.ErrorList>
+    					<Field.Errors messages={field.state.meta.errors.map((error) => error?.message)} />
     				</Field.Item>
     			)}
     		</form.Field>
@@ -171,19 +169,17 @@ function FormExample() {
 					<Field.Item>
 						<Label htmlFor={field.name} className="flex items-center gap-2">
 							Airplane Mode
-							<Switch
-								name={field.name}
-								id={field.name}
-								checked={field.state.value}
-								onBlur={field.handleBlur}
-								onCheckedChange={(value) => field.handleChange(value)}
-							/>
+							<Field.Control>
+								<Switch
+									name={field.name}
+									id={field.name}
+									checked={field.state.value}
+									onBlur={field.handleBlur}
+									onCheckedChange={(value) => field.handleChange(value)}
+								/>
+							</Field.Control>
 						</Label>
-						<Field.ErrorList>
-							{field.state.meta.errors.map((error, index) => (
-								<Field.Error key={index}>{error?.message}</Field.Error>
-							))}
-						</Field.ErrorList>
+						<Field.Errors messages={field.state.meta.errors.map((error) => error?.message)} />
 					</Field.Item>
 				)}
 			</form.Field>
