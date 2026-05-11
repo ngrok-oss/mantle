@@ -77,12 +77,12 @@ If you prefer to manage Node and pnpm yourself, match the committed pins:
 
 ### Bumping Node or pnpm
 
-Tool versions are pinned in `.nvmrc` and `package.json#packageManager`, with download URLs and SHA256 checksums locked in `mise.lock`. Because mise is configured with `locked = true`, every `mise install` must find the active version in the lockfile.
+Tool versions are pinned in `.nvmrc` (Node) and `package.json#packageManager` (pnpm); resolved entries with download URLs and SHA256 checksums are locked in `mise.lock`. `mise.toml` sets `[settings] lockfile = true` so installs record into `mise.lock`. CI enforces that the committed lockfile stays in sync with the source pins.
 
 To bump a version:
 
 1. Update `.nvmrc` (Node) or `package.json#packageManager` (pnpm).
-2. Run `mise run relock` to refresh `mise.lock` with the new URLs and checksums for the locked platforms. (Plain `mise lock` is rejected by `locked = true`; the `relock` task flips `MISE_LOCKED=0` for you.)
+2. Run `mise run relock` to refresh `mise.lock` for all platforms.
 3. Run `mise install` to materialize the new toolchain locally.
 4. Commit `.nvmrc` / `package.json` and `mise.lock` together.
 

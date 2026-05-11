@@ -76,7 +76,7 @@ Before finishing work, run all of these from the workspace root and ensure they 
 - **Type errors**: Ensure all packages are built before typechecking
 - **Hot reload issues**: Restart dev server or clear `.react-router/` cache
 - **Toolchain drift**: Run `mise run doctor` to verify Node and pnpm match committed pins. Re-run `./scripts/setup` if they don't.
-- **Lockfile drift** (`mise install` fails with "not in the lockfile"): bump the source pin in `.nvmrc` or `package.json#packageManager`, then `mise run relock && mise install` and commit `mise.lock` alongside the pin change.
+- **Lockfile drift** (CI flags `mise.lock` out of sync with `.nvmrc` / `package.json#packageManager`): bump the source pin in `.nvmrc` or `package.json#packageManager`, then `mise run relock && mise install` and commit `mise.lock` alongside the pin change.
 
 ## Publishing Changes
 

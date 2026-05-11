@@ -67,7 +67,7 @@ jobs:
       - name: Verify mise.lock is in sync 🔒
         run: |
           mise trust ./mise.toml
-          mise run relock
+          mise lock
           if ! git diff --exit-code mise.lock; then
             echo "::error::mise.lock is out of sync with .nvmrc / package.json#packageManager."
             echo "::error::Run 'mise run relock' locally and commit the result."

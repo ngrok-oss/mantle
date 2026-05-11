@@ -1,9 +1,6 @@
 [settings]
 # Commit mise.lock so the toolchain is reproducible across machines.
 lockfile = true
-# Require tool installs to use the committed lockfile. Bumping a tool version
-# requires `mise run relock` to refresh the lockfile entries.
-locked = true
 # Read Node from .nvmrc. pnpm is configured below via package.json#packageManager.
 idiomatic_version_file_enable_tools = ["node"]
 
@@ -31,13 +28,10 @@ description = "Prepare the repository after a fresh clone"
 depends = ["install"]
 
 # Refreshes mise.lock after bumping .nvmrc or package.json#packageManager.
-# `mise lock` refuses to run while settings.locked=true, so opt out for this
-# task only — relocking is an explicit, deliberate action by the user. After
-# this, run `mise install` to materialize the new versions and commit both
-# the source pin and mise.lock together.
+# After this, run `mise install` to materialize the new versions and commit
+# both the source pin and mise.lock together.
 [tasks.relock]
 description = "Refresh mise.lock to match .nvmrc and package.json#packageManager"
-env = { MISE_LOCKED = "0" }
 run = "mise lock"
 
 # Catches drift between the committed pins (.nvmrc, package.json#packageManager)
