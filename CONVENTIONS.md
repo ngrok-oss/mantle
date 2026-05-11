@@ -17,24 +17,65 @@ Single source of truth for code style, patterns, and conventions in the Mantle d
 
 ## Code Quality
 
-- Always brace control flow — no single-line `if`/`for` bodies
-- Descriptive names — `error` not `e`, `event` not `evt`, `element` not `el`. Widely-known initialisms (URL, CSS, SSR) are fine.
-- JSDoc on every function, method, component, and prop type.
-- Comments explain _why_, not _what_. Don't restate the code.
-- Inline single-use event handlers; don't hoist them
-- Errors are control flow — `console.error` is not handling. Every error path returns a recovery value or throws.
-- Avoid nested ternaries: Prefer early returns or component-based branching over nested ternaries. A single ternary is fine; nesting them harms readability
-- Never use `React.FC` / `FC` — use inline function types
-- Prefer named options objects over positional params: any boolean param, 3+ params, or 2 params when call sites wouldn't be self-evident (`fn({ enabled: true })`, not `fn(true)`)
+### Readability & Maintainability
+
+- Optimize for readability and changeability over terseness or cleverness. Code is read far more often than it is written.
+- Always brace control flow — no single-line `if`/`for` bodies.
+- Descriptive names — `error` not `e`, `event` not `evt`, `element` not `el`. Widely-known initialisms (`URL`, `CSS`, `SSR`) are fine.
+- Comments explain _why_, not _what_. Do not restate the code.
+- Prefer inline single-use event handlers when they improve locality and readability. Hoist handlers only when reused, memoized, or meaningfully simplifying the render body.
+- Avoid nested ternaries. Prefer early returns or component-based branching. A single ternary is fine; nesting harms readability.
+- Never use `React.FC` / `FC` — use inline function types.
+- Prefer named options objects over positional params: any boolean param, 3+ params, or 2 params when call sites would not be self-evident (`fn({ enabled: true })`, not `fn(true)`).
+- Optimize APIs for readability at the call site. Shared abstractions should make common usage simpler and more obvious, not merely reduce implementation duplication.
+- Do not use deprecated APIs or features — pick the current replacement. Only reach for a deprecated path when it is genuinely unavoidable (no working substitute, or a framework/runtime constraint forces it) and leave a short `// Why:` comment naming the constraint.
+
+### Error Handling
+
+- Errors are control flow — `console.error` is not handling. Every error path must recover, propagate, or terminate intentionally.
+- Prefer explicit failure handling over silent fallbacks or partial state updates.
+- Fail fast when invariants are violated rather than letting invalid state propagate deeper into the system.
+
+### State & Business Logic
+
+- Prefer composing small pure functions for transformations, parsing/formatting, validation, state derivation, and other business logic.
+- Keep I/O, framework state, and rendering at the edges so the core logic stays reusable, deterministic, and easy to unit test.
+- Prefer derived state over synchronized state. Avoid storing values that can be computed from existing state, props, loaders, or URL state.
+- Keep data flow directional and explicit. Avoid hidden coupling between components, hooks, modules, or mutable shared state.
+
+### Abstractions & Duplication
+
+- DRY follows YAGNI: do not introduce abstractions solely because two pieces of code look similar.
+- Prefer duplication over the wrong abstraction. A small amount of repeated code is cheaper than shared code that accumulates flags, conditionals, mode parameters, or caller-specific behavior. See Sandi Metz, [The Wrong Abstraction](https://sandimetz.com/blog/2016/1/20/the-wrong-abstraction).
+- Do not extract shared code until there are at least 3 uses with the same behavior, shape, and reason to change.
+- Prefer composition over generalization: small pure functions, focused components, hooks, slots/children, and explicit options objects.
+- Avoid inheritance, base components, broad wrappers, and “one helper to rule them all” APIs.
+- If an abstraction starts accumulating special cases for callers, inline it back into the call sites and let the real abstraction emerge naturally.
+- Prefer deleting unused abstractions, indirection, and dead code over preserving speculative flexibility.
+- Every layer of indirection must continuously justify its existence.
+
+### JSDoc
+
+- Add JSDoc to all exported functions, methods, hooks, components, and prop types.
+- Add JSDoc to complex file-local logic whose intent or contract would not be immediately obvious from the implementation and types alone.
+- Prefer concise contract-oriented documentation over implementation commentary.
+- JSDoc for functions, hooks, and components SHOULD include at least one concise `@example`.
+- Each `@example` should demonstrate the intended call or render shape with realistic inputs/props and the key expected behavior or result. Keep setup minimal.
+- Generated code, code-gen output, and config files are exempt.
 
 ### TypeScript
 
 - Strict mode enabled. Shared configs from `@cfg/tsconfig`.
-- No `any` — use `unknown` and narrow it
-- No `interface` — use `type` (covers all shapes, no declaration merging, expands inline in IntelliSense)
-- No non-null assertions: The postfix `!` operator (`value!`) is forbidden. Use proper null checks, early returns, or restructure the code to narrow the type instead
-- Prefer `value == null` / `value != null` for nullish checks. They intentionally cover both `null` and `undefined`, which is safer for runtime absence checks. Use `=== null` / `=== undefined` only when those states have distinct meanings (loading vs empty, invalid vs absent, explicit clear, etc.).
-- No type assertions: The `as` operator is forbidden in application code. Do not use `value as Type`. The only allowed exceptions are `as const` (to narrow literal types) and inside a dedicated type guard implementation. Type assertions must never be used to silence TypeScript errors or bypass proper type modeling.
+- No `any` — use `unknown` and narrow it intentionally.
+- Prefer `type` over `interface`. `type` handles unions, primitives, tuples, and mapped types consistently, avoids declaration merging, and expands more clearly in IntelliSense.
+- No non-null assertions. The postfix `!` operator (`value!`) is forbidden. Use proper null checks, early returns, assertions, or restructure the code to narrow the type safely.
+- Prefer `value == null` / `value != null` for nullish checks. They intentionally cover both `null` and `undefined`, which is safer for runtime absence checks. Use `=== null` / `=== undefined` only when those states have distinct meanings.
+- No type assertions in application code. Do not use `value as Type`. The only allowed exceptions are:
+  - `as const` for literal type narrowing
+  - assertions inside dedicated type guard implementations
+  - framework/runtime boundaries where external typing is impossible to model correctly
+- Type assertions must never be used to silence TypeScript errors or bypass proper type modeling.
+- Prefer discriminated unions, narrowing, and explicit state modeling over optional-property-heavy “bag of props” types.
 
 ## className Composition
 
