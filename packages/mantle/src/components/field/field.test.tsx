@@ -193,6 +193,19 @@ describe("Field", () => {
 			expect(input).toHaveAttribute("aria-describedby", `existing-help ${description.id}`);
 		});
 
+		test("deduplicates multi-token child IDREFs against wrapper IDREFs", () => {
+			render(
+				<Field.Control aria-errormessage="shared wrapper-error">
+					<input aria-label="Email" aria-errormessage="shared child-error" aria-invalid={false} />
+				</Field.Control>,
+			);
+
+			expect(screen.getByRole("textbox", { name: "Email" })).toHaveAttribute(
+				"aria-errormessage",
+				"shared wrapper-error child-error",
+			);
+		});
+
 		test("uses explicit Field.Description IDs when provided", () => {
 			render(
 				<Field.Item>
@@ -252,6 +265,23 @@ describe("Field", () => {
 					</Field.Control>
 					<Field.ErrorList>
 						<Field.ErrorItem>{undefined}</Field.ErrorItem>
+					</Field.ErrorList>
+				</Field.Item>,
+			);
+
+			const input = screen.getByRole("textbox", { name: "Email" });
+			expect(input).not.toHaveAttribute("aria-errormessage");
+			expect(input).not.toHaveAttribute("aria-invalid");
+		});
+
+		test("does not mark a control invalid when Field.ErrorList contains only an empty fragment", () => {
+			render(
+				<Field.Item>
+					<Field.Control>
+						<input aria-label="Email" />
+					</Field.Control>
+					<Field.ErrorList>
+						<></>
 					</Field.ErrorList>
 				</Field.Item>,
 			);
@@ -831,6 +861,15 @@ describe("Field", () => {
 			expect(container).toBeEmptyDOMElement();
 		});
 
+		test("renders nothing when an empty fragment is passed as children", () => {
+			const { container } = render(
+				<Field.ErrorList>
+					<></>
+				</Field.ErrorList>,
+			);
+			expect(container).toBeEmptyDOMElement();
+		});
+
 		test("renders nothing when every Field.ErrorItem child is empty", () => {
 			const { container } = render(
 				<Field.ErrorList>
@@ -839,6 +878,17 @@ describe("Field", () => {
 				</Field.ErrorList>,
 			);
 			expect(container).toBeEmptyDOMElement();
+		});
+
+		test("renders Field.ErrorItem children that use dangerouslySetInnerHTML", () => {
+			render(
+				<Field.ErrorList data-testid="list">
+					<Field.ErrorItem dangerouslySetInnerHTML={{ __html: "Required" }} />
+				</Field.ErrorList>,
+			);
+
+			expect(screen.getByTestId("list")).toHaveTextContent("Required");
+			expect(screen.getByText("Required").tagName).toBe("LI");
 		});
 
 		test("renders as child element when asChild is true", () => {

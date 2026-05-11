@@ -1,21 +1,17 @@
 import { QuestionIcon } from "@phosphor-icons/react/Question";
 import {
-	Children,
 	cloneElement,
 	type ComponentRef,
 	type ComponentProps,
-	createContext,
 	forwardRef,
 	isValidElement,
 	type ReactElement,
 	type ReactNode,
 	useCallback,
 	useContext,
-	useId,
 	useMemo,
 	useState,
 } from "react";
-import { useIsomorphicLayoutEffect } from "../../hooks/use-isomorphic-layout-effect.js";
 import type { WithAsChild } from "../../types/as-child.js";
 import { cx } from "../../utils/cx/cx.js";
 import { IconButton, type IconButtonProps } from "../button/icon-button.js";
@@ -23,19 +19,21 @@ import { Label } from "../label/label.js";
 import { Popover } from "../popover/index.js";
 import { Slot } from "../slot/index.js";
 import {
-	FieldValidationProvider,
-	parseValidation,
-	type ValidationProp,
-	type ValidationState,
-	type WithValidation,
-} from "./validation.js";
-
-/**
- * A validation message accepted by `Field.Errors`. Non-string absence values
- * are allowed so consumers can pass mapped validator output directly while
- * still rendering only real strings.
- */
-type FieldErrorMessage = string | null | undefined | false;
+	FieldItemContext,
+	resolveFieldControlAriaProps,
+	useFieldMessageId,
+	type FieldControlAriaProps,
+} from "./field-context.js";
+import {
+	addId,
+	hasRenderableErrorContent,
+	hasRenderableErrorListChildren,
+	mergeIdRefs,
+	normalizeErrorMessages,
+	removeId,
+	type FieldErrorMessage,
+} from "./field-helpers.js";
+import { FieldValidationProvider, parseValidation, type WithValidation } from "./validation.js";
 
 /**
  * Props for the `Field.Errors` convenience renderer. It owns its generated
@@ -50,15 +48,6 @@ type FieldErrorsProps = Omit<ComponentProps<"ul">, "children"> & {
 	messages?: readonly FieldErrorMessage[];
 };
 
-/**
- * ARIA props that `Field.Control` applies to the field's focusable control.
- */
-type FieldControlAriaProps = {
-	"aria-describedby"?: string;
-	"aria-errormessage"?: string;
-	"aria-invalid"?: ComponentProps<"input">["aria-invalid"];
-};
-
 type FieldControlProps = Omit<
 	ComponentProps<typeof Slot>,
 	"aria-describedby" | "aria-errormessage" | "aria-invalid" | "children"
@@ -71,145 +60,6 @@ type FieldControlProps = Omit<
 		 */
 		children: ReactElement | ((props: FieldControlAriaProps) => ReactNode);
 	};
-
-type FieldItemContextValue = {
-	descriptionIds: string[];
-	errorIds: string[];
-	registerDescriptionId: (id: string) => () => void;
-	registerErrorId: (id: string) => () => void;
-	validation?: ValidationState;
-};
-
-const FieldItemContext = createContext<FieldItemContextValue | null>(null);
-
-const addId = (ids: string[], id: string) => (ids.includes(id) ? ids : [...ids, id]);
-
-const removeId = (ids: string[], id: string) => ids.filter((item) => item !== id);
-
-/**
- * Normalizes validator output into display-ready message strings without
- * coupling `Field.Errors` to a specific form library's error object shape.
- */
-const normalizeErrorMessages = (messages: readonly FieldErrorMessage[] | undefined) =>
-	messages
-		?.map((message) => {
-			if (typeof message !== "string") {
-				return "";
-			}
-
-			return message.trim();
-		})
-		.filter((message) => message.length > 0) ?? [];
-
-/**
- * Treats blank string children the same as React's empty child values so
- * message-less validation errors do not create empty list items.
- */
-const hasRenderableErrorContent = (children: ReactNode) =>
-	Children.toArray(children).some((child) => {
-		if (typeof child === "string") {
-			return child.trim().length > 0;
-		}
-
-		return true;
-	});
-
-/**
- * Checks for the local `Field.ErrorItem` component so empty manual error
- * items can be ignored before wiring ARIA references.
- */
-const isFieldErrorItemElement = (element: ReactElement) => element.type === FieldErrorItem;
-
-/**
- * Detects whether a manual error list will render at least one message,
- * including `Field.ErrorItem` children that collapse when empty.
- */
-const hasRenderableErrorListChildren = (children: ReactNode): boolean =>
-	Children.toArray(children).some((child) => {
-		if (typeof child === "string") {
-			return child.trim().length > 0;
-		}
-
-		if (isValidElement<{ children?: ReactNode }>(child)) {
-			if (isFieldErrorItemElement(child)) {
-				return hasRenderableErrorContent(child.props.children);
-			}
-
-			if (typeof child.type === "string") {
-				return hasRenderableErrorListChildren(child.props.children);
-			}
-		}
-
-		return true;
-	});
-
-/**
- * Combines existing consumer-supplied IDREFs with generated field message IDs
- * while keeping the resulting attribute stable and duplicate-free.
- */
-const mergeIdRefs = (existing: string | undefined, generated: string[]) => {
-	const ids = new Set([
-		...(existing ?? "").split(/\s+/).filter(Boolean),
-		...generated.filter(Boolean),
-	]);
-
-	return ids.size > 0 ? [...ids].join(" ") : undefined;
-};
-
-const useFieldMessageId = (
-	idProp: string | undefined,
-	type: "description" | "error",
-	enabled = true,
-) => {
-	const context = useContext(FieldItemContext);
-	const generatedId = useId();
-	const id = idProp ?? (context ? generatedId : undefined);
-	const register =
-		type === "description" ? context?.registerDescriptionId : context?.registerErrorId;
-
-	useIsomorphicLayoutEffect(() => {
-		if (!enabled || id == null || register == null) {
-			return;
-		}
-
-		return register(id);
-	}, [enabled, id, register]);
-
-	return id;
-};
-
-const resolveFieldControlAriaProps = ({
-	"aria-describedby": ariaDescribedBy,
-	"aria-errormessage": ariaErrorMessage,
-	"aria-invalid": ariaInvalid,
-	context,
-	validation,
-}: FieldControlAriaProps & {
-	context: FieldItemContextValue | null;
-	validation?: ValidationProp;
-}) => {
-	const parsedValidation = parseValidation({
-		"aria-invalid": ariaInvalid,
-		defaultAriaInvalid: false,
-		validation: validation ?? context?.validation,
-	});
-	const errorIds = context?.errorIds ?? [];
-	const descriptionIds = context?.descriptionIds ?? [];
-	const describedByIds = parsedValidation.isInvalid
-		? [...descriptionIds, ...errorIds]
-		: descriptionIds;
-
-	return {
-		ariaProps: {
-			"aria-describedby": mergeIdRefs(ariaDescribedBy, describedByIds),
-			"aria-errormessage": parsedValidation.isInvalid
-				? mergeIdRefs(ariaErrorMessage, errorIds)
-				: ariaErrorMessage,
-			"aria-invalid": parsedValidation.ariaInvalid,
-		} satisfies FieldControlAriaProps,
-		validation: parsedValidation.validation,
-	};
-};
 
 /**
  * Renders a semantic `<fieldset>` for grouping related controls under a
@@ -987,7 +837,10 @@ FieldErrors.displayName = "FieldErrors";
  */
 const FieldErrorList = forwardRef<ComponentRef<"ul">, ComponentProps<"ul"> & WithAsChild>(
 	({ asChild, children, className, id: idProp, ...props }, ref) => {
-		const hasRenderableChildren = hasRenderableErrorListChildren(children);
+		const hasRenderableChildren = hasRenderableErrorListChildren({
+			children,
+			errorItemType: FieldErrorItem,
+		});
 		const id = useFieldMessageId(idProp, "error", hasRenderableChildren);
 
 		if (!hasRenderableChildren) {
