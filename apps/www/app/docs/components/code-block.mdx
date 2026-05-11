@@ -467,11 +467,12 @@ The (optional) copy button of the `CodeBlock`. Render this as a child of the `Co
 
 All props from [standard HTML button attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes), plus:
 
-| Prop           | Type                       | Default | Description                                                                                                                                         |
-| :------------- | :------------------------- | :------ | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `onCopy?`      | `(value: string) => void`  |         | Callback fired when the copy button is clicked, passes the copied text as an argument.                                                              |
-| `onCopyError?` | `(error: unknown) => void` |         | Callback fired when an error occurs during copying.                                                                                                 |
-| `asChild?`     | `boolean`                  | `false` | Use the `asChild` prop to compose the `CodeBlock.CopyButton` styling and functionality onto alternative element types or your own React components. |
+| Prop           | Type                       | Default       | Description                                                                                                                                         |
+| :------------- | :------------------------- | :------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `label?`       | `string`                   | `"Copy code"` | The accessible label for the copy button. Visually hidden but announced to screen reader users.                                                     |
+| `onCopy?`      | `(value: string) => void`  |               | Callback fired when the copy button is clicked, passes the copied text as an argument.                                                              |
+| `onCopyError?` | `(error: unknown) => void` |               | Callback fired when an error occurs during copying.                                                                                                 |
+| `asChild?`     | `boolean`                  | `false`       | Use the `asChild` prop to compose the `CodeBlock.CopyButton` styling and functionality onto alternative element types or your own React components. |
 
 ### CodeBlock.ExpanderButton
 

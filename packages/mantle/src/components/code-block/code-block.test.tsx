@@ -124,6 +124,45 @@ describe("CodeBlock", () => {
 	});
 
 	describe("CopyButton", () => {
+		test("uses the label prop as the accessible name", () => {
+			render(
+				<CodeBlock.Root>
+					<CodeBlock.Body>
+						<CodeBlock.CopyButton label="Copy TypeScript example" />
+						<CodeBlock.Code value={makeValue("code")} />
+					</CodeBlock.Body>
+				</CodeBlock.Root>,
+			);
+
+			expect(screen.getByRole("button", { name: "Copy TypeScript example" })).toBeInTheDocument();
+			expect(screen.queryByRole("button", { name: /copy code/i })).not.toBeInTheDocument();
+		});
+
+		test("supports asChild composition", async () => {
+			const user = userEvent.setup();
+			const onCopy = vi.fn();
+			const code = "const x = 1;";
+
+			render(
+				<CodeBlock.Root>
+					<CodeBlock.Body>
+						<CodeBlock.CopyButton asChild onCopy={onCopy}>
+							<button type="button" data-testid="custom-copy-button" />
+						</CodeBlock.CopyButton>
+						<CodeBlock.Code value={makeValue(code)} />
+					</CodeBlock.Body>
+				</CodeBlock.Root>,
+			);
+
+			const button = screen.getByTestId("custom-copy-button");
+			expect(screen.getByRole("button", { name: /copy code/i })).toBe(button);
+			expect(button).toHaveAttribute("data-slot", "icon-button");
+
+			await user.click(button);
+
+			expect(onCopy).toHaveBeenCalledWith(code);
+		});
+
 		test("fires onCopy with the code text after clicking", async () => {
 			const user = userEvent.setup();
 			const onCopy = vi.fn();

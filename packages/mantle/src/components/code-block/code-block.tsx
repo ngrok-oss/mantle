@@ -33,7 +33,7 @@ import {
 } from "@radix-ui/react-tabs";
 import assert from "tiny-invariant";
 import { useCopyToClipboard } from "../../hooks/use-copy-to-clipboard.js";
-import type { WithAsChild } from "../../types/as-child.js";
+import type { SelfClosingWithAsChild, WithAsChild } from "../../types/as-child.js";
 import { composeRefs } from "../../utils/compose-refs/compose-refs.js";
 import { cx } from "../../utils/cx/cx.js";
 import { Icon as MantleIcon } from "../icon/icon.js";
@@ -510,16 +510,23 @@ const Title = forwardRef<
 });
 Title.displayName = "CodeBlockTitle";
 
-type CodeBlockCopyButtonProps = Omit<ComponentProps<"button">, "children" | "type"> & {
-	/**
-	 * Callback fired when the copy button is clicked, passes the copied text as an argument.
-	 */
-	onCopy?: (value: string) => void;
-	/**
-	 * Callback fired when an error occurs during copying.
-	 */
-	onCopyError?: (error: unknown) => void;
-};
+type CodeBlockCopyButtonProps = Omit<ComponentProps<"button">, "children" | "type"> &
+	SelfClosingWithAsChild & {
+		/**
+		 * The accessible label for the copy button. This label will be visually hidden but announced to screen reader users, similar to alt text for img tags.
+		 *
+		 * @default "Copy code"
+		 */
+		label?: string;
+		/**
+		 * Callback fired when the copy button is clicked, passes the copied text as an argument.
+		 */
+		onCopy?: (value: string) => void;
+		/**
+		 * Callback fired when an error occurs during copying.
+		 */
+		onCopyError?: (error: unknown) => void;
+	};
 
 /**
  * The (optional) copy button of the `CodeBlock`. Copies the code content
@@ -541,7 +548,7 @@ type CodeBlockCopyButtonProps = Omit<ComponentProps<"button">, "children" | "typ
  * ```
  */
 const CopyButton = forwardRef<ComponentRef<"button">, CodeBlockCopyButtonProps>(
-	({ className, onCopy, onCopyError, onClick, ...props }, ref) => {
+	({ className, label = "Copy code", onCopy, onCopyError, onClick, ...props }, ref) => {
 		const { copyTextRef } = useCodeBlockContext();
 		const copyToClipboard = useCopyToClipboard();
 		const [wasCopied, setWasCopied] = useState(false);
@@ -564,7 +571,7 @@ const CopyButton = forwardRef<ComponentRef<"button">, CodeBlockCopyButtonProps>(
 					type="button"
 					appearance="ghost"
 					size="sm"
-					label="Copy code"
+					label={label}
 					icon={wasCopied ? <CheckIcon /> : <CopyIcon />}
 					className={className}
 					ref={ref}
