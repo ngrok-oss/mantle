@@ -512,6 +512,12 @@ Title.displayName = "CodeBlockTitle";
 
 type CodeBlockCopyButtonProps = Omit<ComponentProps<"button">, "children" | "type"> & {
 	/**
+	 * The accessible label for the copy button. This label will be visually hidden but announced to screen reader users, similar to alt text for img tags.
+	 *
+	 * @default "Copy code"
+	 */
+	label?: string;
+	/**
 	 * Callback fired when the copy button is clicked, passes the copied text as an argument.
 	 */
 	onCopy?: (value: string) => void;
@@ -541,7 +547,7 @@ type CodeBlockCopyButtonProps = Omit<ComponentProps<"button">, "children" | "typ
  * ```
  */
 const CopyButton = forwardRef<ComponentRef<"button">, CodeBlockCopyButtonProps>(
-	({ className, onCopy, onCopyError, onClick, ...props }, ref) => {
+	({ className, label = "Copy code", onCopy, onCopyError, onClick, ...props }, ref) => {
 		const { copyTextRef } = useCodeBlockContext();
 		const copyToClipboard = useCopyToClipboard();
 		const [wasCopied, setWasCopied] = useState(false);
@@ -564,7 +570,7 @@ const CopyButton = forwardRef<ComponentRef<"button">, CodeBlockCopyButtonProps>(
 					type="button"
 					appearance="ghost"
 					size="sm"
-					label="Copy code"
+					label={label}
 					icon={wasCopied ? <CheckIcon /> : <CopyIcon />}
 					className={className}
 					ref={ref}
