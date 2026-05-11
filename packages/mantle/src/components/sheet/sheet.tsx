@@ -444,7 +444,10 @@ CloseIconButton.displayName = "SheetCloseIconButton";
 const Body = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => (
 	<div
 		data-slot="sheet-body"
-		className={cx("scrollbar text-body flex-1 overflow-y-auto p-6", className)}
+		className={cx(
+			"scrollbar scrollbar-gutter-stable text-body flex-1 overflow-y-auto p-6",
+			className,
+		)}
 		{...props}
 	/>
 );

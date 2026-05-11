@@ -408,7 +408,10 @@ CloseIconButton.displayName = "DialogCloseIconButton";
 const Body = ({ className, ...props }: ComponentProps<"div">) => (
 	<div
 		data-slot="dialog-body"
-		className={cx("scrollbar text-body flex-1 overflow-y-auto p-6", className)}
+		className={cx(
+			"scrollbar scrollbar-gutter-stable text-body flex-1 overflow-y-auto p-6",
+			className,
+		)}
 		{...props}
 	/>
 );
