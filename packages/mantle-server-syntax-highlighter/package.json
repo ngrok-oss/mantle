@@ -29,7 +29,7 @@
     "typecheck": "tsgo"
   },
   "dependencies": {
-    "oxc-parser": "0.128.0",
+    "oxc-parser": "0.130.0",
     "parse5": "8.0.1",
     "shiki": "4.0.2"
   },
