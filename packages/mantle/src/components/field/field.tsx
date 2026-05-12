@@ -47,42 +47,6 @@ type FieldErrorsProps = Omit<ComponentProps<"ul">, "children" | "id"> & {
 	messages?: readonly FieldErrorMessage[];
 };
 
-type FieldControlSlotProps = Omit<
-	ComponentProps<typeof Slot>,
-	"aria-describedby" | "aria-errormessage" | "aria-invalid" | "children"
->;
-
-/**
- * Element-child form of `Field.Control`. Renders via `Slot`, so it accepts
- * any HTML/Slot props and a forwarded ref — those land on the single child
- * element along with the generated ARIA props.
- */
-type FieldControlElementProps = FieldControlSlotProps &
-	WithValidation & {
-		/**
-		 * A single control element to receive the field ARIA props.
-		 */
-		children: ReactElement;
-	};
-
-/**
- * Render-prop form of `Field.Control`. The caller owns the rendered element,
- * so `Field.Control` itself renders nothing — extra DOM props and `ref` have
- * no element to attach to and are intentionally not part of this variant.
- * Slot props are marked `never` so passing e.g. `className` alongside a
- * render-prop child is a type error rather than a silently ignored prop.
- */
-type FieldControlRenderProps = WithValidation & {
-	/**
-	 * A render function that places the field ARIA props onto a control of
-	 * the caller's choosing. Used for compound controls or wrappers where
-	 * `Slot` cannot reach the focusable element.
-	 */
-	children: (props: FieldControlAriaProps) => ReactNode;
-} & { [K in keyof FieldControlSlotProps]?: never };
-
-type FieldControlProps = FieldControlElementProps | FieldControlRenderProps;
-
 /**
  * Renders a semantic `<fieldset>` for grouping related controls under a
  * single accessible name. Resets the default browser fieldset chrome
@@ -565,6 +529,72 @@ const Item = forwardRef<ComponentRef<"div">, ComponentProps<"div"> & WithAsChild
 );
 Item.displayName = "FieldItem";
 
+type FieldControlSlotProps = Omit<
+	ComponentProps<typeof Slot>,
+	"aria-describedby" | "aria-errormessage" | "aria-invalid" | "children"
+>;
+
+/**
+ * Element-child form of `Field.Control`. Renders via `Slot`, so it accepts
+ * any HTML/Slot props and a forwarded ref — those land on the single child
+ * element along with the generated ARIA props.
+ */
+type FieldControlElementProps = FieldControlSlotProps &
+	WithValidation & {
+		/**
+		 * A single control element to receive the field ARIA props.
+		 */
+		children: ReactElement;
+	};
+
+/**
+ * Render-prop form of `Field.Control`. The caller owns the rendered element,
+ * so `Field.Control` itself renders nothing — extra DOM props and `ref` have
+ * no element to attach to and are intentionally not part of this variant.
+ * Slot props are marked `never` so passing e.g. `className` alongside a
+ * render-prop child is a type error rather than a silently ignored prop.
+ */
+type FieldControlRenderProps = WithValidation & {
+	/**
+	 * A render function that places the field ARIA props onto a control of
+	 * the caller's choosing. Used for compound controls or wrappers where
+	 * `Slot` cannot reach the focusable element.
+	 */
+	children: (props: FieldControlAriaProps) => ReactNode;
+} & { [K in keyof FieldControlSlotProps]?: never };
+
+/**
+ * Props for `Field.Control`. A discriminated union over how the caller
+ * supplies the focusable element:
+ *
+ * - `FieldControlElementProps` — pass a single React element child and
+ *   `Field.Control` clones the generated ARIA props onto it via `Slot`.
+ *   Accepts the full Slot prop surface plus a forwarded ref.
+ * - `FieldControlRenderProps` — pass a render function that receives the
+ *   ARIA props and places them on a control of the caller's choosing. The
+ *   caller owns the rendered element, so DOM/Slot props and `ref` are
+ *   excluded from this variant at the type level.
+ *
+ * @example
+ * ```tsx
+ * // Element form — Slot clones ARIA props onto <Input/>
+ * <Field.Control>
+ *   <Input id="email" name="email" />
+ * </Field.Control>
+ *
+ * // Render-prop form — caller spreads ARIA props onto its own element
+ * <Field.Control>
+ *   {(ariaProps) => (
+ *     <label>
+ *       Accept terms
+ *       <input type="checkbox" {...ariaProps} />
+ *     </label>
+ *   )}
+ * </Field.Control>
+ * ```
+ */
+type FieldControlProps = FieldControlElementProps | FieldControlRenderProps;
+
 /**
  * Applies `Field.Item` description, error, and validation state to a single
  * focusable control. It always behaves like an `asChild` slot: pass one child
@@ -958,30 +988,41 @@ const Field = {
 	Item,
 	/**
 	 * Applies generated field ARIA props and validation state to a single
-	 * focusable control.
+	 * focusable control. Accepts either a single React element child (cloned
+	 * via `Slot`) or a render-prop child that receives the ARIA props for
+	 * cases where `Slot` cannot reach the focusable element — for example a
+	 * `<label>`-wrapped native checkbox, or a third-party component that
+	 * needs the props placed manually on an inner input.
 	 *
 	 * @see https://mantle.ngrok.com/components/field
 	 *
 	 * @example
 	 * ```tsx
-	 * <Field.Group>
-	 *   <Field.Item>
-	 *     <Field.LabelRow>
-	 *       <Field.Label htmlFor="api-key">
-	 *         API key <Field.Optional />
-	 *       </Field.Label>
-	 *       <Field.Help>
-	 *         <Field.HelpTrigger label="What is an API key?" />
-	 *         <Field.HelpContent>Copy this from the dashboard.</Field.HelpContent>
-	 *       </Field.Help>
-	 *     </Field.LabelRow>
-	 *     <Field.Control>
-	 *       <Input id="api-key" name="apiKey" />
-	 *     </Field.Control>
-	 *     <Field.Errors messages={["API key is required."]} />
-	 *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
-	 *   </Field.Item>
-	 * </Field.Group>
+	 * // Element child — Slot clones the generated ARIA props onto <Input/>.
+	 * <Field.Item>
+	 *   <Field.Label htmlFor="api-key">API key</Field.Label>
+	 *   <Field.Control>
+	 *     <Input id="api-key" name="apiKey" />
+	 *   </Field.Control>
+	 *   <Field.Errors messages={["API key is required."]} />
+	 * </Field.Item>
+	 * ```
+	 *
+	 * @example
+	 * ```tsx
+	 * // Render-prop child — caller spreads the ARIA props onto an inner
+	 * // element when the focusable target is nested (e.g. inside a <label>).
+	 * <Field.Item>
+	 *   <Field.Control>
+	 *     {(ariaProps) => (
+	 *       <label>
+	 *         Accept terms
+	 *         <input type="checkbox" {...ariaProps} />
+	 *       </label>
+	 *     )}
+	 *   </Field.Control>
+	 *   <Field.Errors messages={["You must accept the terms."]} />
+	 * </Field.Item>
 	 * ```
 	 */
 	Control,

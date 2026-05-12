@@ -588,10 +588,36 @@ Applies `Field.Item` description, error, and validation state to a single focusa
 	</Field.Control>
 	<Select.Content>{/* ... */}</Select.Content>
 </Select.Root>
+```
 
-<Field.Control>
-	{(controlProps) => <CustomInput inputProps={controlProps} />}
-</Field.Control>
+Use a function child when the focusable element is nested inside a wrapper that `Slot` cannot reach — for example a `<label>`-wrapped native checkbox where the `<input>` is the focusable target but the outer `<label>` is the rendered element. The function receives the generated ARIA props and the caller spreads them onto the inner control.
+
+<Example className="w-full">
+	<Field.Item className="max-w-80">
+		<Field.Control>
+			{(controlProps) => (
+				<label className="flex items-center gap-2">
+					<input type="checkbox" {...controlProps} />
+					Accept the terms of service
+				</label>
+			)}
+		</Field.Control>
+		<Field.Errors messages={["You must accept the terms to continue."]} />
+	</Field.Item>
+</Example>
+
+```tsx
+<Field.Item>
+	<Field.Control>
+		{(controlProps) => (
+			<label className="flex items-center gap-2">
+				<input type="checkbox" {...controlProps} />
+				Accept the terms of service
+			</label>
+		)}
+	</Field.Control>
+	<Field.Errors messages={["You must accept the terms to continue."]} />
+</Field.Item>
 ```
 
 | Prop          | Type                                         | Default | Description                                    |
