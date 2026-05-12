@@ -1,5 +1,52 @@
 # @ngrok/mantle
 
+## 0.73.0
+
+### Minor Changes
+
+- [#1191](https://github.com/ngrok-oss/mantle/pull/1191) [`e09de2d`](https://github.com/ngrok-oss/mantle/commit/e09de2da092c6f0ab91251ea4a00170593a985a5) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add `Field`, a compound layout primitive for a single form field. Pair with the existing mantle `<Label>` — the component intentionally does not invent a new label primitive. Layout parts plus `Field.Description`, `Field.Optional`, and `Field.ErrorList` support `asChild`; `Field.Set`, `Field.Legend`, and `Field.ErrorItem` always render `<fieldset>`, `<legend>`, and `<li>` respectively so their core semantics cannot be accidentally removed.
+
+  The default tree is a `Field.Group` of `Field.Item`s — that's all most forms need. Reach for the semantic `Field.Set` + `Field.Legend` only when the grouping itself carries semantic weight (radios, related checkboxes); a `<fieldset>` around plain unrelated inputs reads as noise to assistive tech.
+
+  Parts:
+  - `Field.Item` — a single form field. Stacks `Label`, control (`Input`, `Select`, `Checkbox`, etc.), and any `Field.Description` / `Field.Errors` / `Field.ErrorList` siblings vertically with `gap-1.5`. Renders a plain `<div>` — no implicit ARIA role, since the `<label htmlFor>` ↔ control association already provides the right semantics for a single field.
+  - `Field.Group` — the default primitive for stacking multiple `Field.Item`s vertically with `gap-4`. Pure layout, no semantics.
+  - `Field.Set` / `Field.Legend` — a semantic `<fieldset>` + `<legend>` for grouping a set of related controls under a single accessible name. Use specifically with `RadioGroup` (one question, many answers) or related checkboxes (preference toggles, permission flags). Skip it for unrelated fields stacked together — `Field.Group` is the right call there. `Field.Legend` owns its own `mb-1.5` (instead of relying on the parent fieldset's flex `gap`, which `<legend>` ignores in browsers) so the legend sits 6px above the next sibling — override with any `mb-*` utility.
+  - `Field.LabelRow` — horizontal flex container (`items-center`, `gap-1`) for pairing a `<Label>` with a sibling affordance like a help-icon trigger. Clicks on a `<label>` forward focus to the associated control, so an interactive button can't live inside it — `Field.LabelRow` is the way out.
+  - `Field.Help` / `Field.HelpTrigger` / `Field.HelpContent` — thin wrappers over `Popover` + `IconButton` + a default Phosphor `QuestionIcon` so the help-affordance pattern stays concise while still requiring a contextual accessible label. `Popover` (not `Tooltip`) so the affordance is reachable on touch. `Field.HelpTrigger` carries a default `-my-0.5` so the 24px `xs` button keeps its full click target while contributing only 20px to the `Field.LabelRow` flex line — matching the label's text line-height so the label is not pushed off-center. Override with any `my-*` utility.
+  - `Field.Optional` — inline muted "(Optional)" suffix for placement inside the `<Label>` so screen readers announce it as part of the accessible name.
+  - `Field.Description` — muted body-color hint text. Sits below the control inside a `Field.Item`.
+  - `Field.Errors` — convenience renderer for string validation messages. Trims messages, filters empty values, and renders a semantic `Field.ErrorList` / `Field.ErrorItem` tree without coupling Mantle to a specific form library.
+  - `Field.ErrorList` / `Field.ErrorItem` — literal semantic `<ul role="list">` of `<li>` validation errors for custom error markup. Empty `Field.ErrorItem` children collapse so message-less validator results do not produce empty referenced list items.
+
+  Field parts forward refs through React 18's `forwardRef` API so refs land on the rendered DOM element, including supported `asChild` substitutions.
+
+  `Field.Item` auto-generates stable IDs for descendant `Field.Description` / non-empty `Field.Errors` / `Field.ErrorList` parts, then merges those IDs onto known form controls via `aria-describedby` / `aria-errormessage` without changing the control's own `id` or `name`, so `id={field.name}` remains the right TanStack Form pattern.
+
+  When a `Field.Description` follows `Field.Errors` or `Field.ErrorList`, the parent's `gap-1.5` auto-collapses via `-mt-1.5` so the error list and the trailing helper read as a single tight block. Pass any margin utility on `Field.Description` to override — the rule's specificity is flattened to `(0,1,0)` so a user class wins.
+
+  `Switch` now accepts `validation` and reads the ambient `Field.Item` / `Field.Control` state, matching the rest of the mantle form controls (`Checkbox`, `Input`, `Combobox`, `MultiSelect`, `OtpInput`, `Select`, `TextArea`). Validation-specific styles (`data-validation-{success,warning,error}`) drive the checked track color and focus ring.
+
+  `Field.Control` now throws a descriptive error when its child is not a valid React element or a render-prop function, instead of crashing inside `Slot` with an opaque "expected a single child" message.
+
+### Patch Changes
+
+- [#1195](https://github.com/ngrok-oss/mantle/pull/1195) [`fb7d6f3`](https://github.com/ngrok-oss/mantle/commit/fb7d6f33d30aacd6be7b215e5466acd58c3925fa) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Bump `tailwindcss` and `@tailwindcss/vite` to `4.3.0`, and `tailwind-merge` to `3.6.0`.
+
+- [#1193](https://github.com/ngrok-oss/mantle/pull/1193) [`985659f`](https://github.com/ngrok-oss/mantle/commit/985659fd8f91b6bae7d971a0a59e7666f79f46ec) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - `CodeBlock.CopyButton` now accepts an optional `label` prop for the accessible (screen-reader) label, defaulting to `"Copy code"`.
+
+- [#1189](https://github.com/ngrok-oss/mantle/pull/1189) [`e2c07e5`](https://github.com/ngrok-oss/mantle/commit/e2c07e5507fb1819b6e5d8d2237ca9bc6bfc1a16) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - `CodeBlock.Code` no longer paints a browser-default focus outline on its `<pre>`, and no longer hardcodes `tabIndex={-1}` on the element.
+
+  The `tabIndex={-1}` default was a leftover workaround from when Prism.js auto-injected `tabIndex={0}` on every `<pre>` it touched. Prism was replaced with build-time Shiki, so nothing is forcing a tabindex anymore — the override is dead weight that also opted the scroll container out of Chrome's keyboard-focusable-scroller heuristic, hurting keyboard-only users on overflowing blocks. The prop is now passed through cleanly via `...props`, so consumers can still set `tabIndex={-1}` (or any other value) per instance if they want to exclude a block from the tab order.
+
+  The `outline-hidden` is paired with the tabindex change so the now-optionally-focusable `<pre>` doesn't paint the browser-default focus ring when scripted focus or scroll-container heuristics put focus on it. Nested controls (fold toggles, copy buttons) keep their own `:focus-visible` styles.
+
+- [#1185](https://github.com/ngrok-oss/mantle/pull/1185) [`72b52b1`](https://github.com/ngrok-oss/mantle/commit/72b52b1bd442a5561a741430193558de84c01c9b) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - `Label` now defaults to `font-medium` when it doesn't wrap an interactive form control, and inherits weight when it does (e.g. `<Label><Input /></Label>`). The default is applied through a `:where()`-wrapped selector so the rule's total specificity is `(0,0,0)` — a user-supplied `font-bold` / `font-normal` / `font-semibold` overrides it cleanly without needing the `!` important modifier.
+
+  Detection covers `<input>`, `<textarea>`, `<select>`, `<button>`, and `[contenteditable]` descendants, which transitively covers mantle's checkbox/radio (real `<input>`), select/multi-select/menu triggers (real `<button>`), and any third-party control built on those primitives. The `[contenteditable]` attribute selector would normally raise the rule's specificity to `(0,1,0)` and tie with a bare utility class — wrapping the whole selector in `:where()` flattens it back to `(0,0,0)` so user overrides still win.
+
+- [#1194](https://github.com/ngrok-oss/mantle/pull/1194) [`40cb820`](https://github.com/ngrok-oss/mantle/commit/40cb82019e4eac86f0f47a42062954c11685d76b) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - `Dialog.Body` and `Sheet.Body` now reserve space for the scrollbar via `scrollbar-gutter: stable`, preventing horizontal content shift when the body grows past its container and a scrollbar appears.
+
 ## 0.72.0
 
 ### Minor Changes
