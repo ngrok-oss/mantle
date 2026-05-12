@@ -733,6 +733,19 @@ describe("Field", () => {
 			);
 			expect(screen.getByText("Copy this from the dashboard.")).toBeInTheDocument();
 		});
+
+		test("HelpContent overrides the inherited data-slot with field-help-content", () => {
+			render(
+				<Field.Help defaultOpen>
+					<Field.HelpTrigger label="What is this field?" />
+					<Field.HelpContent>Copy this from the dashboard.</Field.HelpContent>
+				</Field.Help>,
+			);
+			expect(screen.getByText("Copy this from the dashboard.")).toHaveAttribute(
+				"data-slot",
+				"field-help-content",
+			);
+		});
 	});
 
 	describe("Field.Optional", () => {
@@ -878,17 +891,6 @@ describe("Field", () => {
 				</Field.ErrorList>,
 			);
 			expect(container).toBeEmptyDOMElement();
-		});
-
-		test("renders Field.ErrorItem children that use dangerouslySetInnerHTML", () => {
-			render(
-				<Field.ErrorList data-testid="list">
-					<Field.ErrorItem dangerouslySetInnerHTML={{ __html: "Required" }} />
-				</Field.ErrorList>,
-			);
-
-			expect(screen.getByTestId("list")).toHaveTextContent("Required");
-			expect(screen.getByText("Required").tagName).toBe("LI");
 		});
 
 		test("renders as child element when asChild is true", () => {

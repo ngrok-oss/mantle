@@ -1,4 +1,4 @@
-import { Children, Fragment, isValidElement, type ReactElement, type ReactNode } from "react";
+import { Children, Fragment, isValidElement, type ReactNode } from "react";
 
 /**
  * A validation message accepted by `Field.Errors`. Non-string absence values
@@ -8,18 +8,16 @@ import { Children, Fragment, isValidElement, type ReactElement, type ReactNode }
 type FieldErrorMessage = string | null | undefined | false;
 
 /**
- * Props shared by renderability checks for elements that may render HTML
- * directly instead of React children.
+ * The shape of the child props that renderability checks need to inspect.
+ * Limited to `children` because `Field.ErrorItem` accepts only the standard
+ * `Field.Errors` / `Field.ErrorList` + `Field.ErrorItem` content shapes
+ * (string messages or React children) — no arbitrary HTML injection.
  */
 type RenderableContentProps = {
 	/**
 	 * React children to inspect for visible error content.
 	 */
 	children?: ReactNode;
-	/**
-	 * Raw HTML content that React will render even when `children` is absent.
-	 */
-	dangerouslySetInnerHTML?: unknown;
 };
 
 /**
@@ -31,20 +29,31 @@ type HasRenderableErrorListChildrenOptions = {
 	 */
 	children: ReactNode;
 	/**
-	 * The local `Field.ErrorItem` component type from `field.tsx`.
+	 * The local `Field.ErrorItem` component type from `field.tsx`. Passed in
+	 * (rather than imported) to avoid a circular dependency between
+	 * `field.tsx` and this helpers module.
 	 */
 	errorItemType: unknown;
 };
 
 /**
- * Adds an ID to an ordered ID collection without introducing duplicates.
+ * Appends `id` to `ids` when it is not already present.
+ *
+ * Returns the original `ids` reference on the no-op path so React `setState`
+ * setters bail out (no consumer re-render) when the same id registers twice
+ * — common under StrictMode double-effects or fast unmount/remount.
  */
 const addId = (ids: string[], id: string) => (ids.includes(id) ? ids : [...ids, id]);
 
 /**
- * Removes all matching IDs from an ordered ID collection.
+ * Removes every occurrence of `id` from `ids`.
+ *
+ * Returns the original `ids` reference when `id` is not present so React
+ * `setState` setters bail out (no consumer re-render) when an id deregisters
+ * twice — common under StrictMode double-effects or fast unmount/remount.
  */
-const removeId = (ids: string[], id: string) => ids.filter((item) => item !== id);
+const removeId = (ids: string[], id: string) =>
+	ids.includes(id) ? ids.filter((item) => item !== id) : ids;
 
 /**
  * Normalizes validator output into display-ready message strings without
@@ -52,133 +61,107 @@ const removeId = (ids: string[], id: string) => ids.filter((item) => item !== id
  */
 const normalizeErrorMessages = (messages: readonly FieldErrorMessage[] | undefined) =>
 	messages
-		?.map((message) => {
-			if (typeof message !== "string") {
-				return "";
-			}
-
-			return message.trim();
-		})
+		?.map((message) => (typeof message === "string" ? message.trim() : ""))
 		.filter((message) => message.length > 0) ?? [];
 
 /**
- * Treats blank string children the same as React's empty child values so
- * message-less validation errors do not create empty list items.
+ * Returns `true` when the supplied children would produce visible content in
+ * a `Field.ErrorItem` — i.e. they are not `null`, `undefined`, `false`, or a
+ * whitespace-only string. Used by both `Field.ErrorItem`'s render guard and
+ * the `Field.ErrorList` walker so an empty item is identified consistently.
  */
-const hasRenderableErrorContent = (children: ReactNode): boolean => {
-	let hasRenderableContent = false;
-
-	Children.forEach(children, (child) => {
-		if (hasRenderableContent || child == null) {
-			return;
-		}
-
-		if (typeof child === "string") {
-			hasRenderableContent = child.trim().length > 0;
-			return;
-		}
-
-		if (isValidElement<RenderableContentProps>(child)) {
-			if (child.props.dangerouslySetInnerHTML != null) {
-				hasRenderableContent = true;
-				return;
-			}
-
-			if (child.type === Fragment || typeof child.type === "string") {
-				hasRenderableContent = hasRenderableErrorContent(child.props.children);
-				return;
-			}
-		}
-
-		hasRenderableContent = true;
-	});
-
-	return hasRenderableContent;
+const isErrorItemRenderable = (children: ReactNode): boolean => {
+	if (children == null || children === false) {
+		return false;
+	}
+	if (typeof children === "string" && children.trim().length === 0) {
+		return false;
+	}
+	return true;
 };
 
 /**
- * Checks whether an element is the caller's local `Field.ErrorItem` component.
- */
-const isFieldErrorItemElement = ({
-	element,
-	errorItemType,
-}: {
-	/**
-	 * The element being inspected inside a manual error list.
-	 */
-	element: ReactElement;
-	/**
-	 * The local `Field.ErrorItem` component type from `field.tsx`.
-	 */
-	errorItemType: unknown;
-}) => element.type === errorItemType;
-
-/**
- * Mirrors `Field.ErrorItem`'s render guard so `Field.ErrorList` only wires
- * ARIA IDs for error items that will actually produce an `<li>`.
- */
-const hasRenderableErrorItemProps = ({
-	children,
-	dangerouslySetInnerHTML,
-}: RenderableContentProps) =>
-	dangerouslySetInnerHTML != null || hasRenderableErrorContent(children);
-
-/**
- * Detects whether a manual error list will render at least one message,
- * including `Field.ErrorItem` children that collapse when empty.
+ * Recursive walker for `Field.ErrorList`'s empty-detection. Iterates the
+ * list's children, recursing through Fragments and host elements so error
+ * items wrapped in conditional fragments still register. Treats children
+ * matching `errorItemType` as `Field.ErrorItem`s and applies the item's
+ * own render guard so empty items do not register as content.
  */
 const hasRenderableErrorListChildren = ({
 	children,
 	errorItemType,
 }: HasRenderableErrorListChildrenOptions): boolean => {
-	let hasRenderableChildren = false;
+	let found = false;
 
 	Children.forEach(children, (child) => {
-		if (hasRenderableChildren || child == null) {
+		if (found || child == null) {
 			return;
 		}
 
 		if (typeof child === "string") {
-			hasRenderableChildren = child.trim().length > 0;
+			if (child.trim().length > 0) {
+				found = true;
+			}
 			return;
 		}
 
-		if (isValidElement<RenderableContentProps>(child)) {
-			if (isFieldErrorItemElement({ element: child, errorItemType })) {
-				hasRenderableChildren = hasRenderableErrorItemProps(child.props);
-				return;
-			}
-
-			if (child.props.dangerouslySetInnerHTML != null) {
-				hasRenderableChildren = true;
-				return;
-			}
-
-			if (child.type === Fragment || typeof child.type === "string") {
-				hasRenderableChildren = hasRenderableErrorListChildren({
-					children: child.props.children,
-					errorItemType,
-				});
-				return;
-			}
+		if (!isValidElement<RenderableContentProps>(child)) {
+			found = true;
+			return;
 		}
 
-		hasRenderableChildren = true;
+		if (child.type === errorItemType) {
+			found = isErrorItemRenderable(child.props.children);
+			return;
+		}
+
+		if (child.type === Fragment || typeof child.type === "string") {
+			found = hasRenderableErrorListChildren({
+				children: child.props.children,
+				errorItemType,
+			});
+			return;
+		}
+
+		found = true;
 	});
 
-	return hasRenderableChildren;
+	return found;
 };
 
 /**
- * Tokenizes an ARIA IDREF attribute value into individual IDs.
+ * Tokenizes an ARIA IDREF attribute value (whitespace-separated IDs) into a
+ * filtered list of non-empty tokens. Returns an empty array for nullish or
+ * empty input so callers can spread the result without nullish guards.
  */
-const splitIdRefs = (value: string | undefined) => (value ?? "").split(/\s+/).filter(Boolean);
+const splitIdRefs = (value: string | undefined) =>
+	value == null || value.length === 0 ? [] : value.split(/\s+/).filter(Boolean);
 
 /**
  * Combines existing consumer-supplied IDREFs with generated field message IDs
  * while keeping the resulting attribute stable and duplicate-free.
+ *
+ * Fast-paths the common Field.Control shape (no consumer IDREFs, at most one
+ * generated whitespace-free ID) so the hot path avoids the Set allocation
+ * entirely. The slow path falls back to a Set so multi-token sources still
+ * dedupe correctly.
  */
 const mergeIdRefs = (existing: string | undefined, generated: readonly (string | undefined)[]) => {
+	if (existing == null || existing.length === 0) {
+		if (generated.length === 0) {
+			return undefined;
+		}
+		if (generated.length === 1) {
+			const only = generated[0];
+			if (only == null || only.length === 0) {
+				return undefined;
+			}
+			if (only.indexOf(" ") < 0) {
+				return only;
+			}
+		}
+	}
+
 	const ids = new Set([...splitIdRefs(existing), ...generated.flatMap(splitIdRefs)]);
 
 	return ids.size > 0 ? [...ids].join(" ") : undefined;
@@ -187,9 +170,8 @@ const mergeIdRefs = (existing: string | undefined, generated: readonly (string |
 export {
 	//,
 	addId,
-	hasRenderableErrorContent,
-	hasRenderableErrorItemProps,
 	hasRenderableErrorListChildren,
+	isErrorItemRenderable,
 	mergeIdRefs,
 	normalizeErrorMessages,
 	removeId,

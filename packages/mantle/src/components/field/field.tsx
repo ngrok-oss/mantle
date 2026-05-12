@@ -26,8 +26,8 @@ import {
 } from "./field-context.js";
 import {
 	addId,
-	hasRenderableErrorContent,
 	hasRenderableErrorListChildren,
+	isErrorItemRenderable,
 	mergeIdRefs,
 	normalizeErrorMessages,
 	removeId,
@@ -199,9 +199,9 @@ const LabelRow = forwardRef<ComponentRef<"div">, ComponentProps<"div"> & WithAsC
 LabelRow.displayName = "FieldLabelRow";
 
 /**
- * Lightweight `Popover.Root` wrapper for the help-affordance pattern. Pair
- * with `Field.HelpTrigger` (renders a default question-mark `IconButton`)
- * and `Field.HelpContent` (the popover body) to drop a help button into a
+ * `Popover.Root` re-export for the help-affordance pattern. Pair with
+ * `Field.HelpTrigger` (renders a default question-mark `IconButton`) and
+ * `Field.HelpContent` (the popover body) to drop a help button into a
  * `Field.LabelRow` without manually wiring `Popover` + `IconButton` +
  * `QuestionIcon`. All `Popover.Root` props are forwarded — pass `modal`,
  * `defaultOpen`, etc. as needed.
@@ -232,8 +232,7 @@ LabelRow.displayName = "FieldLabelRow";
  * </Field.Group>
  * ```
  */
-const Help = (props: ComponentProps<typeof Popover.Root>) => <Popover.Root {...props} />;
-Help.displayName = "FieldHelp";
+const Help = Popover.Root;
 
 /**
  * Props for the default help popover trigger. A contextual label is required
@@ -319,9 +318,11 @@ const HelpTrigger = forwardRef<ComponentRef<"button">, FieldHelpTriggerProps>(
 HelpTrigger.displayName = "FieldHelpTrigger";
 
 /**
- * The popover body for a `Field.Help`. Forwards every prop to
- * `Popover.Content`, so all positioning / sizing options (`side`, `align`,
- * `preferredWidth`, etc.) work as expected.
+ * The popover body for a `Field.Help`. Wraps `Popover.Content` so all
+ * positioning / sizing options (`side`, `align`, `preferredWidth`, etc.)
+ * work as expected, and overrides the inherited `data-slot` to
+ * `field-help-content` so consumers can target it as part of a `Field`
+ * subtree without colliding with other popovers.
  *
  * @see https://mantle.ngrok.com/components/field
  *
@@ -348,7 +349,7 @@ HelpTrigger.displayName = "FieldHelpTrigger";
  * ```
  */
 const HelpContent = forwardRef<ComponentRef<"div">, ComponentProps<typeof Popover.Content>>(
-	(props, ref) => <Popover.Content ref={ref} {...props} />,
+	(props, ref) => <Popover.Content ref={ref} data-slot="field-help-content" {...props} />,
 );
 HelpContent.displayName = "FieldHelpContent";
 
@@ -494,11 +495,9 @@ const Item = forwardRef<ComponentRef<"div">, ComponentProps<"div"> & WithAsChild
 		const Comp = asChild ? Slot : "div";
 		const [descriptionIds, setDescriptionIds] = useState<string[]>([]);
 		const [errorIds, setErrorIds] = useState<string[]>([]);
-		const hasValidationOverride = validationProp !== undefined;
-		const inferredValidation = errorIds.length > 0 ? "error" : undefined;
 		const { validation } = parseValidation({
 			defaultAriaInvalid: false,
-			validation: hasValidationOverride ? validationProp : inferredValidation,
+			validation: validationProp ?? (errorIds.length > 0 ? "error" : undefined),
 		});
 		const registerDescriptionId = useCallback((id: string) => {
 			setDescriptionIds((ids) => addId(ids, id));
@@ -590,15 +589,15 @@ const Control = forwardRef<HTMLElement, FieldControlProps>(
 		ref,
 	) => {
 		const context = useContext(FieldItemContext);
-		const baseControlState = resolveFieldControlAriaProps({
-			"aria-describedby": ariaDescribedBy,
-			"aria-errormessage": ariaErrorMessage,
-			"aria-invalid": ariaInvalid,
-			context,
-			validation,
-		});
 
 		if (typeof children === "function") {
+			const baseControlState = resolveFieldControlAriaProps({
+				"aria-describedby": ariaDescribedBy,
+				"aria-errormessage": ariaErrorMessage,
+				"aria-invalid": ariaInvalid,
+				context,
+				validation,
+			});
 			return (
 				<FieldValidationProvider validation={baseControlState.validation}>
 					{children(baseControlState.ariaProps)}
@@ -607,6 +606,13 @@ const Control = forwardRef<HTMLElement, FieldControlProps>(
 		}
 
 		if (!isValidElement<FieldControlAriaProps>(children)) {
+			const baseControlState = resolveFieldControlAriaProps({
+				"aria-describedby": ariaDescribedBy,
+				"aria-errormessage": ariaErrorMessage,
+				"aria-invalid": ariaInvalid,
+				context,
+				validation,
+			});
 			return (
 				<FieldValidationProvider validation={baseControlState.validation}>
 					<Slot ref={ref} {...props}>
@@ -731,25 +737,25 @@ Description.displayName = "FieldDescription";
  * </Field.Group>
  * ```
  */
-const FieldErrorItem = forwardRef<ComponentRef<"li">, ComponentProps<"li">>(
-	({ children, className, dangerouslySetInnerHTML, ...props }, ref) => {
-		if (dangerouslySetInnerHTML == null && !hasRenderableErrorContent(children)) {
-			return null;
-		}
+const FieldErrorItem = forwardRef<
+	ComponentRef<"li">,
+	Omit<ComponentProps<"li">, "dangerouslySetInnerHTML">
+>(({ children, className, ...props }, ref) => {
+	if (!isErrorItemRenderable(children)) {
+		return null;
+	}
 
-		return (
-			<li
-				ref={ref}
-				data-slot="field-error"
-				className={cx("text-danger-600 text-sm leading-4", className)}
-				dangerouslySetInnerHTML={dangerouslySetInnerHTML}
-				{...props}
-			>
-				{children}
-			</li>
-		);
-	},
-);
+	return (
+		<li
+			ref={ref}
+			data-slot="field-error"
+			className={cx("text-danger-600 text-sm leading-4", className)}
+			{...props}
+		>
+			{children}
+		</li>
+	);
+});
 FieldErrorItem.displayName = "FieldErrorItem";
 
 /**
@@ -1075,7 +1081,7 @@ const Field = {
 	 */
 	LabelRow,
 	/**
-	 * `Popover.Root` wrapper for the help-affordance pattern. Pair with
+	 * `Popover.Root` re-export for the help-affordance pattern. Pair with
 	 * `Field.HelpTrigger` and `Field.HelpContent` to drop a `?` button next to
 	 * a label without manually composing Popover + IconButton + QuestionIcon.
 	 *
@@ -1135,7 +1141,9 @@ const Field = {
 	 */
 	HelpTrigger,
 	/**
-	 * Body of a `Field.Help` popover. Forwards all `Popover.Content` props.
+	 * Body of a `Field.Help` popover. Re-exports `Popover.Content` so all
+	 * positioning / sizing options (`side`, `align`, `preferredWidth`, etc.)
+	 * work as expected.
 	 *
 	 * @see https://mantle.ngrok.com/components/field
 	 *

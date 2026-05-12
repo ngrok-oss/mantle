@@ -2,9 +2,8 @@ import { createElement, type ReactNode } from "react";
 import { describe, expect, test } from "vitest";
 import {
 	addId,
-	hasRenderableErrorContent,
-	hasRenderableErrorItemProps,
 	hasRenderableErrorListChildren,
+	isErrorItemRenderable,
 	mergeIdRefs,
 	normalizeErrorMessages,
 	removeId,
@@ -46,49 +45,19 @@ describe("field helpers", () => {
 		});
 	});
 
-	describe("hasRenderableErrorContent", () => {
-		test("returns false for empty React children", () => {
-			expect(hasRenderableErrorContent([null, undefined, false, true, " "])).toBe(false);
+	describe("isErrorItemRenderable", () => {
+		test("returns false for nullish / boolean / blank-string children", () => {
+			expect(isErrorItemRenderable(null)).toBe(false);
+			expect(isErrorItemRenderable(undefined)).toBe(false);
+			expect(isErrorItemRenderable(false)).toBe(false);
+			expect(isErrorItemRenderable("")).toBe(false);
+			expect(isErrorItemRenderable(" ")).toBe(false);
 		});
 
-		test("returns true for text-like renderable children", () => {
-			expect(hasRenderableErrorContent(0)).toBe(true);
-			expect(hasRenderableErrorContent("Required")).toBe(true);
-		});
-
-		test("recurses through fragments and host elements", () => {
-			expect(
-				hasRenderableErrorContent(
-					<span>
-						<>
-							<strong>Required</strong>
-						</>
-					</span>,
-				),
-			).toBe(true);
-			expect(
-				hasRenderableErrorContent(
-					<span>
-						<></>
-					</span>,
-				),
-			).toBe(false);
-		});
-
-		test("treats dangerouslySetInnerHTML as renderable content", () => {
-			expect(
-				hasRenderableErrorContent(<span dangerouslySetInnerHTML={{ __html: "Required" }} />),
-			).toBe(true);
-		});
-	});
-
-	describe("hasRenderableErrorItemProps", () => {
-		test("mirrors the Field.ErrorItem render guard", () => {
-			expect(hasRenderableErrorItemProps({ children: " " })).toBe(false);
-			expect(hasRenderableErrorItemProps({ children: "Required" })).toBe(true);
-			expect(hasRenderableErrorItemProps({ dangerouslySetInnerHTML: { __html: "Required" } })).toBe(
-				true,
-			);
+		test("returns true for non-blank string and other renderable values", () => {
+			expect(isErrorItemRenderable("Required")).toBe(true);
+			expect(isErrorItemRenderable(0)).toBe(true);
+			expect(isErrorItemRenderable(<span>Required</span>)).toBe(true);
 		});
 	});
 
@@ -112,17 +81,6 @@ describe("field helpers", () => {
 			expect(
 				hasRenderableErrorListChildren({
 					children: createElement(errorItemType, null, "Required"),
-					errorItemType,
-				}),
-			).toBe(true);
-		});
-
-		test("treats Field.ErrorItem dangerouslySetInnerHTML as renderable", () => {
-			expect(
-				hasRenderableErrorListChildren({
-					children: createElement(errorItemType, {
-						dangerouslySetInnerHTML: { __html: "Required" },
-					}),
 					errorItemType,
 				}),
 			).toBe(true);
