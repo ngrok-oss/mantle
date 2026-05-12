@@ -7,7 +7,7 @@ idiomatic_version_file_enable_tools = ["node"]
 [tools]
 # Keep pnpm's version single-sourced in root package.json#packageManager.
 # The helper avoids needing Node before mise has installed Node.
-"aqua:pnpm/pnpm" = "{{ exec(command='./scripts/package-manager-version') }}"
+"ubi:pnpm/pnpm" = "{{ exec(command='./scripts/package-manager-version') }}"
 
 [env]
 # Make node_modules/.bin available to `mise x --` and to shells that activate mise.
