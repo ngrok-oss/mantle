@@ -13,6 +13,7 @@ updates:
       tailwindcss:
         patterns:
           - "tailwindcss"
+          - "tailwind-*"
           - "@tailwindcss/*"
       playwright:
         patterns:
