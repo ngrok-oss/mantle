@@ -595,7 +595,10 @@ Use a function child when the focusable element is nested inside a wrapper that 
 <Example className="w-full">
 	<Field.Item className="max-w-80">
 		<Field.Control>
-			{(controlProps) => (
+			{(
+				// @ts-ignore
+				controlProps,
+			) => (
 				<label className="flex items-center gap-2">
 					<input type="checkbox" {...controlProps} />
 					Accept the terms of service
