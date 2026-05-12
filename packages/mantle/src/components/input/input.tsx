@@ -14,8 +14,10 @@ import type {
 import { createContext, forwardRef, useContext, useRef } from "react";
 import { composeRefs } from "../../utils/compose-refs/compose-refs.js";
 import { cx } from "../../utils/cx/cx.js";
+import { parseValidation, useFieldValidation } from "../field/validation.js";
+import type { Validation, WithValidation } from "../field/validation.js";
 import { Icon } from "../icon/icon.js";
-import type { Validation, WithAutoComplete, WithInputType, WithValidation } from "./types.js";
+import type { WithAutoComplete, WithInputType } from "./types.js";
 
 type BaseProps = WithAutoComplete & WithInputType & WithValidation;
 
@@ -99,11 +101,12 @@ const InputCapture = forwardRef<HTMLInputElement, InputCaptureProps>(
 			validation: ctxValidation,
 			...ctx
 		} = useContext(InputContext);
+		const fieldValidation = useFieldValidation();
 
-		const validation = ctxValidation ?? _validation;
-		const validationValue =
-			(typeof validation === "function" ? validation() : validation) || undefined;
-		const ariaInvalid = ctxAriaInvalid ?? _ariaInvalid ?? validation === "error";
+		const { ariaInvalid, validation } = parseValidation({
+			"aria-invalid": ctxAriaInvalid ?? _ariaInvalid,
+			validation: ctxValidation ?? _validation ?? fieldValidation,
+		});
 		const props = {
 			...ctx,
 			...restProps,
@@ -114,7 +117,7 @@ const InputCapture = forwardRef<HTMLInputElement, InputCaptureProps>(
 			<input
 				aria-invalid={ariaInvalid}
 				data-slot="input-capture"
-				data-validation={validationValue}
+				data-validation={validation}
 				className={cx(
 					"placeholder:text-placeholder min-w-0 flex-1 bg-transparent text-left autofill:shadow-[inset_0_0_0px_1000px_var(--color-blue-50)] focus:outline-hidden",
 					className,
@@ -173,12 +176,11 @@ const InputContainer = ({
 	validation: _validation,
 	...props
 }: InputContainerProps & { "data-slot"?: string }) => {
-	const isInvalid = _ariaInvalid != null && _ariaInvalid !== "false";
-	const validation = isInvalid
-		? "error"
-		: typeof _validation === "function"
-			? _validation()
-			: _validation;
+	const fieldValidation = useFieldValidation();
+	const { validation } = parseValidation({
+		"aria-invalid": _ariaInvalid,
+		validation: _validation ?? fieldValidation,
+	});
 	return (
 		<InputContext.Provider
 			value={{
@@ -186,7 +188,7 @@ const InputContainer = ({
 				"aria-disabled": _ariaDisabled,
 				disabled,
 				type,
-				validation,
+				validation: _validation,
 				...props,
 				forwardedRef,
 				innerRef,

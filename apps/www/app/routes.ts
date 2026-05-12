@@ -80,6 +80,7 @@ export default [
 		...docRoute("components/dialog"),
 		...docRoute("components/dropdown-menu"),
 		...docRoute("components/empty"),
+		...docRoute("components/field"),
 		...docRoute("components/flag"),
 		...docRoute("components/hover-card"),
 		...docRoute("components/icon-button"),

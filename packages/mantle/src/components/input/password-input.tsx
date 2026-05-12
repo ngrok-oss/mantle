@@ -6,9 +6,10 @@ import { forwardRef, useEffect, useRef, useState } from "react";
 import type { InputHTMLAttributes } from "react";
 import { flushSync } from "react-dom";
 import { getPrefersReducedMotion } from "../../hooks/use-prefers-reduced-motion.js";
+import type { WithValidation } from "../field/validation.js";
 import { Icon } from "../icon/icon.js";
 import { Input, InputCapture } from "./input.js";
-import type { InputType, WithAutoComplete, WithValidation } from "./types.js";
+import type { InputType, WithAutoComplete } from "./types.js";
 
 type PasswordInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, "autoComplete" | "type"> &
 	WithValidation &

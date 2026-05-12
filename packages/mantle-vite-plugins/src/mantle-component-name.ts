@@ -34,6 +34,7 @@ export const MANTLE_COMPONENT_NAMES = [
 	"dialog",
 	"dropdown-menu",
 	"empty",
+	"field",
 	"flag",
 	"hover-card",
 	"icon",

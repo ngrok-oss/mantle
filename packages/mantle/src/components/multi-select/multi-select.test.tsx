@@ -2,6 +2,7 @@ import { act, fireEvent, render, screen, within } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import { useState } from "react";
 import { describe, expect, test } from "vitest";
+import { Field } from "../field/field.js";
 import { Sheet } from "../sheet/sheet.js";
 import { MultiSelect } from "./multi-select.js";
 
@@ -302,5 +303,43 @@ describe("MultiSelect", () => {
 			</MultiSelect.Root>,
 		);
 		expect(screen.getByTestId("trigger")).toHaveAttribute("data-validation", "error");
+	});
+
+	test("inherits validation from Field.Item through Field.Control", () => {
+		render(
+			<Field.Item validation="warning">
+				<MultiSelect.Root>
+					<Field.Control>
+						<MultiSelect.Trigger data-testid="trigger">
+							<MultiSelect.TagValues />
+							<MultiSelect.Input placeholder="Select items..." />
+						</MultiSelect.Trigger>
+					</Field.Control>
+					<MultiSelect.Content>
+						<MultiSelect.Item value="apple">Apple</MultiSelect.Item>
+					</MultiSelect.Content>
+				</MultiSelect.Root>
+			</Field.Item>,
+		);
+		expect(screen.getByTestId("trigger")).toHaveAttribute("data-validation", "warning");
+	});
+
+	test("lets trigger validation override field validation", () => {
+		render(
+			<Field.Item validation="success">
+				<MultiSelect.Root>
+					<Field.Control validation={false}>
+						<MultiSelect.Trigger data-testid="trigger" validation="warning">
+							<MultiSelect.TagValues />
+							<MultiSelect.Input placeholder="Select items..." />
+						</MultiSelect.Trigger>
+					</Field.Control>
+					<MultiSelect.Content>
+						<MultiSelect.Item value="apple">Apple</MultiSelect.Item>
+					</MultiSelect.Content>
+				</MultiSelect.Root>
+			</Field.Item>,
+		);
+		expect(screen.getByTestId("trigger")).toHaveAttribute("data-validation", "warning");
 	});
 });

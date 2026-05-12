@@ -17,8 +17,9 @@ import type {
 import { createContext, forwardRef, useContext } from "react";
 import { composeRefs } from "../../utils/compose-refs/compose-refs.js";
 import { cx } from "../../utils/cx/cx.js";
+import { parseValidation, useFieldValidation } from "../field/validation.js";
+import type { WithValidation } from "../field/validation.js";
 import { Icon } from "../icon/icon.js";
-import type { WithValidation } from "../input/types.js";
 import { Separator } from "../separator/separator.js";
 
 type WithAriaInvalid = Pick<SelectHTMLAttributes<HTMLSelectElement>, "aria-invalid">;
@@ -71,6 +72,15 @@ type SelectProps = PropsWithChildren & {
  * and search/filtering is unnecessary. For larger lists or async/searchable data, use
  * Combobox. For picking multiple options, use MultiSelect.
  *
+ * Pass `validation` here when the entire select has an explicit state. That
+ * root state is forwarded to `Select.Trigger` and takes precedence over the
+ * ambient `validation` from `Field.Item` / `Field.Control`. Note: rendered
+ * `Field.Errors` / `Field.ErrorList` set `aria-invalid="true"` on the trigger
+ * via `Field.Control`'s wiring, which still forces the trigger into the error
+ * state — suppress the inferred error by passing `validation` on `Field.Item`
+ * or `Field.Control` if a non-error `Select.Root` state needs to win in that
+ * case.
+ *
  * @see https://mantle.ngrok.com/components/select#selectroot
  *
  * @example
@@ -119,7 +129,13 @@ const Root = forwardRef<HTMLButtonElement, SelectProps>(
 				}}
 			>
 				<SelectContext.Provider
-					value={{ "aria-invalid": _ariaInvalid, id, validation, onBlur, ref }}
+					value={{
+						"aria-invalid": _ariaInvalid,
+						id,
+						validation,
+						onBlur,
+						ref,
+					}}
 				>
 					{children}
 				</SelectContext.Provider>
@@ -208,6 +224,8 @@ type SelectTriggerProps = ComponentPropsWithoutRef<typeof SelectPrimitive.Trigge
 
 /**
  * The button that toggles the select. The Select.Content will position itself adjacent to the trigger.
+ * When composing with `Field.Item`, wrap this trigger in `Field.Control` so
+ * generated helper and error IDs are applied to the focusable button.
  *
  * @see https://mantle.ngrok.com/components/select#selecttrigger
  *
@@ -247,15 +265,16 @@ const Trigger = forwardRef<ComponentRef<typeof SelectPrimitive.Trigger>, SelectT
 		ref,
 	) => {
 		const ctx = useContext(SelectContext);
+		const fieldValidation = useFieldValidation();
 		const rawAriaInvalid = ctx["aria-invalid"] ?? ariaInValidProp;
-		const isInvalid = rawAriaInvalid != null && rawAriaInvalid !== "false";
-		const rawValidation = ctx.validation ?? propValidation;
-		const validation = isInvalid
-			? "error"
-			: typeof rawValidation === "function"
-				? rawValidation()
-				: rawValidation;
-		const ariaInvalid = rawAriaInvalid ?? validation === "error";
+		// Explicit Select props win over ambient Field validation. This lets
+		// Field.Control override Field.Item while preserving Select.Root as the
+		// highest-precedence select-level state.
+		const rawValidation = ctx.validation ?? propValidation ?? fieldValidation;
+		const { ariaInvalid, validation } = parseValidation({
+			"aria-invalid": rawAriaInvalid,
+			validation: rawValidation,
+		});
 		const id = ctx.id ?? propId;
 
 		return (

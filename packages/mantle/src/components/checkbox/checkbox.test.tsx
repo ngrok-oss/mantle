@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
+import { Field } from "../field/field.js";
 import { Checkbox } from "./checkbox.js";
 
 describe("Checkbox", () => {
@@ -41,6 +42,30 @@ describe("Checkbox", () => {
 
 	test('given aria-invalid="true" and validation="error", renders a checkbox with aria-invalid="true" and data-validation="error"', () => {
 		render(<Checkbox aria-invalid="true" validation="error" />);
+		expect(screen.getByRole("checkbox")).toHaveAttribute("aria-invalid", "true");
+		expect(screen.getByRole("checkbox")).toHaveAttribute("data-validation", "error");
+	});
+
+	test("inherits validation from Field.Item without a direct validation prop", () => {
+		render(
+			<Field.Item validation="warning">
+				<Checkbox />
+			</Field.Item>,
+		);
+
+		expect(screen.getByRole("checkbox")).toHaveAttribute("aria-invalid", "false");
+		expect(screen.getByRole("checkbox")).toHaveAttribute("data-validation", "warning");
+	});
+
+	test("inherits Field.Control validation over Field.Item validation", () => {
+		render(
+			<Field.Item validation="success">
+				<Field.Control validation="error">
+					<Checkbox />
+				</Field.Control>
+			</Field.Item>,
+		);
+
 		expect(screen.getByRole("checkbox")).toHaveAttribute("aria-invalid", "true");
 		expect(screen.getByRole("checkbox")).toHaveAttribute("data-validation", "error");
 	});

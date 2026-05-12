@@ -1,5 +1,5 @@
 import { Button } from "@ngrok/mantle/button";
-import { Label } from "@ngrok/mantle/label";
+import { Field } from "@ngrok/mantle/field";
 import { MultiSelect } from "@ngrok/mantle/multi-select";
 import { useForm } from "@tanstack/react-form";
 import { matchSorter } from "match-sorter";
@@ -49,8 +49,8 @@ export function TanStackFormDemo() {
 		>
 			<form.Field name="favorites">
 				{(field) => (
-					<div className="space-y-1">
-						<Label htmlFor={field.name}>Favorites</Label>
+					<Field.Item>
+						<Field.Label htmlFor={field.name}>Favorites</Field.Label>
 						<MultiSelect.Root
 							selectedValue={field.state.value}
 							setOpen={() => {
@@ -60,16 +60,15 @@ export function TanStackFormDemo() {
 								field.handleChange(values);
 							}}
 						>
-							<MultiSelect.Trigger
-								onBlur={field.handleBlur}
-								validation={field.state.meta.errors.length > 0 ? "error" : false}
-							>
+							<MultiSelect.Trigger onBlur={field.handleBlur}>
 								<MultiSelect.TagValues />
-								<MultiSelect.Input
-									id={field.name}
-									onValueChange={(value) => startTransition(() => setSearchValue(value))}
-									placeholder="Select fruits and vegetables..."
-								/>
+								<Field.Control>
+									<MultiSelect.Input
+										id={field.name}
+										onValueChange={(value) => startTransition(() => setSearchValue(value))}
+										placeholder="Select fruits and vegetables..."
+									/>
+								</Field.Control>
 							</MultiSelect.Trigger>
 							<MultiSelect.Content aria-busy={isPending}>
 								{filteredFruits.length > 0 && (
@@ -100,12 +99,8 @@ export function TanStackFormDemo() {
 								)}
 							</MultiSelect.Content>
 						</MultiSelect.Root>
-						{field.state.meta.errors.map((error) => (
-							<p key={error?.message} className="text-sm leading-4 text-danger-600">
-								{error?.message}
-							</p>
-						))}
-					</div>
+						<Field.Errors messages={field.state.meta.errors.map((error) => error?.message)} />
+					</Field.Item>
 				)}
 			</form.Field>
 			<form.Subscribe selector={(state) => state.isDirty}>
