@@ -4,7 +4,7 @@ description: Layout primitive for a single form field — label, control, helper
 ---
 
 import { Button } from "@ngrok/mantle/button";
-import { Field } from "@ngrok/mantle/field";
+import { Field, toErrorMessages } from "@ngrok/mantle/field";
 import { Input, PasswordInput } from "@ngrok/mantle/input";
 import { RadioGroup } from "@ngrok/mantle/radio-group";
 import { InfoIcon } from "@phosphor-icons/react/Info";
@@ -49,7 +49,7 @@ export const TanStackFormExample = () => {
     								onChange={(event) => field.handleChange(event.target.value)}
     							/>
     						</Field.Control>
-    						<Field.Errors messages={field.state.meta.errors.map((error) => error?.message)} />
+    						<Field.Errors messages={toErrorMessages(field.state.meta.errors)} />
     						<Field.Description>We'll never share your email.</Field.Description>
     					</Field.Item>
     				)}
@@ -67,7 +67,7 @@ export const TanStackFormExample = () => {
     								onChange={(event) => field.handleChange(event.target.value)}
     							/>
     						</Field.Control>
-    						<Field.Errors messages={field.state.meta.errors.map((error) => error?.message)} />
+    						<Field.Errors messages={toErrorMessages(field.state.meta.errors)} />
     						<Field.Description>At least 12 characters.</Field.Description>
     					</Field.Item>
     				)}
@@ -180,7 +180,7 @@ Pass multiple messages to `Field.Errors` when a validator produces more than one
 </Field.Item>
 ```
 
-When errors arrive from a validator as an array (e.g. `field.state.meta.errors` from TanStack Form), map them to messages and pass them to `Field.Errors`. Empty, blank, or missing messages render nothing and do not add an error message reference. See [With TanStack Form](#with-tanstack-form) below.
+When errors arrive from a validator as an array (e.g. `field.state.meta.errors` from TanStack Form), map them to messages and pass them to `Field.Errors`. Empty, blank, or missing messages render nothing and do not add an error message reference. Reach for `toErrorMessages` to handle the mixed string / `{ message }` / nullish shapes that TanStack Form yields — see [With TanStack Form](#with-tanstack-form) below.
 
 ## Manual error list
 
@@ -419,14 +419,16 @@ Keep the `Field.Legend` self-contained: it is the accessible name for the group.
 
 ## With TanStack Form
 
-`Field` is designed to slot directly into [TanStack Form](https://tanstack.com/form). `field.name` is a stable, unique string for each field — pass it as both `htmlFor` on `Field.Label` and `id` on the control to wire the label association without a separate `useId()` call. Wrap the input in `Field.Control` so descriptions and rendered errors are associated with the control. Map `field.state.meta.errors` (e.g. `ZodIssue[]`) to string messages for `Field.Errors`; the list renders nothing when the array is empty, and infers error state only when it has messages, so it's safe to leave mounted unconditionally:
+`Field` is designed to slot directly into [TanStack Form](https://tanstack.com/form). `field.name` is a stable, unique string for each field — pass it as both `htmlFor` on `Field.Label` and `id` on the control to wire the label association without a separate `useId()` call. Wrap the input in `Field.Control` so descriptions and rendered errors are associated with the control.
+
+`field.state.meta.errors` is a mixed array — TanStack Form yields plain strings, `{ message }` issue objects (Zod / Standard Schema), thrown `Error` instances, and falsy slots all in one place. Pass it through `toErrorMessages` to get a clean `string[]` for `Field.Errors`. The list renders nothing when the result is empty, and infers error state only when it has messages, so it's safe to leave mounted unconditionally:
 
 <Example className="w-full">
 	<TanStackFormExample />
 </Example>
 
 ```tsx
-import { Field } from "@ngrok/mantle/field";
+import { Field, toErrorMessages } from "@ngrok/mantle/field";
 import { Input, PasswordInput } from "@ngrok/mantle/input";
 import { Button } from "@ngrok/mantle/button";
 import { useForm } from "@tanstack/react-form";
@@ -470,7 +472,7 @@ export function AccountForm() {
 									onChange={(event) => field.handleChange(event.target.value)}
 								/>
 							</Field.Control>
-							<Field.Errors messages={field.state.meta.errors.map((error) => error?.message)} />
+							<Field.Errors messages={toErrorMessages(field.state.meta.errors)} />
 							<Field.Description>We'll never share your email.</Field.Description>
 						</Field.Item>
 					)}
@@ -488,7 +490,7 @@ export function AccountForm() {
 									onChange={(event) => field.handleChange(event.target.value)}
 								/>
 							</Field.Control>
-							<Field.Errors messages={field.state.meta.errors.map((error) => error?.message)} />
+							<Field.Errors messages={toErrorMessages(field.state.meta.errors)} />
 							<Field.Description>At least 12 characters.</Field.Description>
 						</Field.Item>
 					)}
@@ -501,6 +503,33 @@ export function AccountForm() {
 	);
 }
 ```
+
+### Without `toErrorMessages`
+
+`toErrorMessages` is a convenience — `Field.Errors` itself only needs a `string[]`. If you already know your validator's error shape (or you want to filter / re-format messages first), map the array inline and skip the helper. The example below mirrors the TanStack Form example above, but pulls `.message` off each entry by hand:
+
+```tsx
+<form.Field name="email">
+	{(field) => (
+		<Field.Item>
+			<Field.Label htmlFor={field.name}>Email</Field.Label>
+			<Field.Control>
+				<Input
+					id={field.name}
+					name={field.name}
+					type="email"
+					value={field.state.value}
+					onBlur={field.handleBlur}
+					onChange={(event) => field.handleChange(event.target.value)}
+				/>
+			</Field.Control>
+			<Field.Errors messages={field.state.meta.errors.map((error) => error?.message)} />
+		</Field.Item>
+	)}
+</form.Field>
+```
+
+`Field.Errors` already trims each string, filters empty / nullish / `false` entries, and renders nothing when no messages remain — so passing `undefined` / empty strings through the `.map` is safe and behaves the same as filtering them out. Use the inline form when the helper's mixed-shape handling isn't pulling its weight (e.g. a validator that always emits `{ message: string }`), and reach for `toErrorMessages` when you want a single call that handles the full TanStack Form error array shape.
 
 ## Composition
 
@@ -750,3 +779,21 @@ All props from [ul](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul
 | Prop       | Type      | Default | Description                                       |
 | ---------- | --------- | ------- | ------------------------------------------------- |
 | `asChild?` | `boolean` | `false` | Render as a different element by passing a child. |
+
+### toErrorMessages
+
+Normalize a TanStack React Form field's `meta.errors` array (or any mixed array of `string` / `{ message }` / nullish / `false` entries) into a clean `string[]` ready to pass to `Field.Errors`. Trims whitespace and drops empty / whitespace-only entries so callers don't have to filter again.
+
+Use this for [TanStack Form](https://tanstack.com/form) with Zod, Standard Schema, or thrown `Error` validators — `field.state.meta.errors` is a union of all of those shapes, and this helper folds them down to plain strings without coupling Mantle to a specific form library. For other validators where the error shape is already a `string[]`, skip the helper and pass the array directly.
+
+```tsx
+import { Field, toErrorMessages } from "@ngrok/mantle/field";
+
+<Field.Errors messages={toErrorMessages(field.state.meta.errors)} />;
+```
+
+| Argument | Type                                         | Description                                                    |
+| -------- | -------------------------------------------- | -------------------------------------------------------------- |
+| `errors` | `readonly FieldError[] \| null \| undefined` | Mixed array of validator outputs. `null` / `undefined` → `[]`. |
+
+Returns `string[]`. `FieldError` is `{ message?: string } \| string \| null \| undefined \| false`.
