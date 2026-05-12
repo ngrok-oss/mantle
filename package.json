@@ -47,6 +47,7 @@
       "ajv": ">=8.20.0",
       "cookie": ">=1.1.1",
       "esbuild": ">=0.28.0",
+      "playwright": "catalog:",
       "playwright-core": "catalog:",
       "react": "19.2.6",
       "react-dom": "19.2.6",

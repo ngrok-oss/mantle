@@ -24,9 +24,6 @@ catalogs:
     happy-dom:
       specifier: 20.9.0
       version: 20.9.0
-    playwright:
-      specifier: 1.59.1
-      version: 1.59.1
     tailwindcss:
       specifier: 4.3.0
       version: 4.3.0
@@ -50,6 +47,7 @@ overrides:
   ajv: '>=8.20.0'
   cookie: '>=1.1.1'
   esbuild: '>=0.28.0'
+  playwright: 1.59.1
   playwright-core: 1.59.1
   react: 19.2.6
   react-dom: 19.2.6
@@ -374,7 +372,7 @@ importers:
         specifier: 'catalog:'
         version: 20.9.0
       playwright:
-        specifier: 'catalog:'
+        specifier: 1.59.1
         version: 1.59.1
       react:
         specifier: 19.2.6
@@ -2698,7 +2696,7 @@ packages:
   '@vitest/browser-playwright@4.1.6':
     resolution: {integrity: sha512-4csoeyl/qwHyxU2zNL0++WaoDr8YJDXOQPwWPNJoTZ+QzcdO3INYKgF5Zfz730Io7zbkuv914aZmfQ+QE+1Hvw==}
     peerDependencies:
-      playwright: '*'
+      playwright: 1.59.1
       vitest: 4.1.6
 
   '@vitest/browser@4.1.6':
