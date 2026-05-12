@@ -59,10 +59,9 @@ export const TanStackFormExample = () => {
     					<Field.Item>
     						<Field.Label htmlFor={field.name}>Password</Field.Label>
     						<Field.Control>
-    							<Input
+    							<PasswordInput
     								id={field.name}
     								name={field.name}
-    								type="password"
     								value={field.state.value}
     								onBlur={field.handleBlur}
     								onChange={(event) => field.handleChange(event.target.value)}
@@ -333,7 +332,7 @@ Wrap multiple `Field.Item`s in a `Field.Group` to stack them with consistent `ga
 		<Field.Item>
 			<Field.Label htmlFor="field-account-password">Password</Field.Label>
 			<Field.Control>
-				<Input id="field-account-password" name="password" type="password" />
+				<PasswordInput id="field-account-password" name="password" />
 			</Field.Control>
 			<Field.Description>At least 12 characters.</Field.Description>
 		</Field.Item>
@@ -351,7 +350,7 @@ Wrap multiple `Field.Item`s in a `Field.Group` to stack them with consistent `ga
 	<Field.Item>
 		<Field.Label htmlFor="password">Password</Field.Label>
 		<Field.Control>
-			<Input id="password" name="password" type="password" />
+			<PasswordInput id="password" name="password" />
 		</Field.Control>
 		<Field.Description>At least 12 characters.</Field.Description>
 	</Field.Item>
@@ -428,7 +427,7 @@ Keep the `Field.Legend` self-contained: it is the accessible name for the group.
 
 ```tsx
 import { Field } from "@ngrok/mantle/field";
-import { Input } from "@ngrok/mantle/input";
+import { Input, PasswordInput } from "@ngrok/mantle/input";
 import { Button } from "@ngrok/mantle/button";
 import { useForm } from "@tanstack/react-form";
 import { z } from "zod";
@@ -481,10 +480,9 @@ export function AccountForm() {
 						<Field.Item>
 							<Field.Label htmlFor={field.name}>Password</Field.Label>
 							<Field.Control>
-								<Input
+								<PasswordInput
 									id={field.name}
 									name={field.name}
-									type="password"
 									value={field.state.value}
 									onBlur={field.handleBlur}
 									onChange={(event) => field.handleChange(event.target.value)}
