@@ -1,5 +1,16 @@
 # @ngrok/mantle-vite-plugins
 
+## 1.0.10
+
+### Patch Changes
+
+- [#1197](https://github.com/ngrok-oss/mantle/pull/1197) [`c30e470`](https://github.com/ngrok-oss/mantle/commit/c30e4707bb8d12ae80e59c8f89e87920a2d0d478) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump `oxc-parser` to `0.130.0`.
+
+- [#1191](https://github.com/ngrok-oss/mantle/pull/1191) [`e09de2d`](https://github.com/ngrok-oss/mantle/commit/e09de2da092c6f0ab91251ea4a00170593a985a5) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add `field` to the generated Mantle component name metadata so plugin allowlists and import analysis recognize the new Field component subpath.
+
+- Updated dependencies [[`c30e470`](https://github.com/ngrok-oss/mantle/commit/c30e4707bb8d12ae80e59c8f89e87920a2d0d478)]:
+  - @ngrok/mantle-server-syntax-highlighter@1.1.1
+
 ## 1.0.9
 
 ### Patch Changes
