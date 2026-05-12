@@ -188,7 +188,7 @@ const InputContainer = ({
 				"aria-disabled": _ariaDisabled,
 				disabled,
 				type,
-				validation,
+				validation: _validation,
 				...props,
 				forwardedRef,
 				innerRef,
