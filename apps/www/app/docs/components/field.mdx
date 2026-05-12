@@ -3,11 +3,84 @@ title: Field
 description: Layout primitive for a single form field — label, control, helper text, and error messaging stacked together with consistent spacing.
 ---
 
+import { Button } from "@ngrok/mantle/button";
 import { Field } from "@ngrok/mantle/field";
 import { Input } from "@ngrok/mantle/input";
 import { RadioGroup } from "@ngrok/mantle/radio-group";
 import { InfoIcon } from "@phosphor-icons/react/Info";
+import { useForm } from "@tanstack/react-form";
+import { z } from "zod";
 import { Example } from "~/components/example";
+
+export const TanStackFormExample = () => {
+	const schema = z.object({
+		email: z.email("Enter a valid email."),
+		password: z.string().min(12, "Must be at least 12 characters."),
+	});
+	const form = useForm({
+		defaultValues: { email: "", password: "" },
+		validators: { onChange: schema },
+		onSubmit: ({ value }) => {
+			window.alert(JSON.stringify(value, null, 2));
+		},
+	});
+
+    return (
+    	<form
+    		className="flex w-full max-w-80 flex-col gap-4"
+    		onSubmit={(event) => {
+    			event.preventDefault();
+    			event.stopPropagation();
+    			void form.handleSubmit();
+    		}}
+    	>
+    		<Field.Group>
+    			<form.Field name="email">
+    				{(field) => (
+    					<Field.Item>
+    						<Field.Label htmlFor={field.name}>Email</Field.Label>
+    						<Field.Control>
+    							<Input
+    								id={field.name}
+    								name={field.name}
+    								type="email"
+    								value={field.state.value}
+    								onBlur={field.handleBlur}
+    								onChange={(event) => field.handleChange(event.target.value)}
+    							/>
+    						</Field.Control>
+    						<Field.Errors messages={field.state.meta.errors.map((error) => error?.message)} />
+    						<Field.Description>We'll never share your email.</Field.Description>
+    					</Field.Item>
+    				)}
+    			</form.Field>
+    			<form.Field name="password">
+    				{(field) => (
+    					<Field.Item>
+    						<Field.Label htmlFor={field.name}>Password</Field.Label>
+    						<Field.Control>
+    							<Input
+    								id={field.name}
+    								name={field.name}
+    								type="password"
+    								value={field.state.value}
+    								onBlur={field.handleBlur}
+    								onChange={(event) => field.handleChange(event.target.value)}
+    							/>
+    						</Field.Control>
+    						<Field.Errors messages={field.state.meta.errors.map((error) => error?.message)} />
+    						<Field.Description>At least 12 characters.</Field.Description>
+    					</Field.Item>
+    				)}
+    			</form.Field>
+    		</Field.Group>
+    		<Button type="submit" appearance="filled">
+    			Submit
+    		</Button>
+    	</form>
+    );
+
+};
 
 # Field
 
@@ -349,6 +422,10 @@ Keep the `Field.Legend` self-contained: it is the accessible name for the group.
 
 `Field` is designed to slot directly into [TanStack Form](https://tanstack.com/form). `field.name` is a stable, unique string for each field — pass it as both `htmlFor` on `Field.Label` and `id` on the control to wire the label association without a separate `useId()` call. Wrap the input in `Field.Control` so descriptions and rendered errors are associated with the control. Map `field.state.meta.errors` (e.g. `ZodIssue[]`) to string messages for `Field.Errors`; the list renders nothing when the array is empty, and infers error state only when it has messages, so it's safe to leave mounted unconditionally:
 
+<Example className="w-full">
+	<TanStackFormExample />
+</Example>
+
 ```tsx
 import { Field } from "@ngrok/mantle/field";
 import { Input } from "@ngrok/mantle/input";
@@ -366,7 +443,7 @@ export function AccountForm() {
 		defaultValues: { email: "", password: "" },
 		validators: { onChange: schema },
 		onSubmit: ({ value }) => {
-			console.log(value);
+			window.alert(JSON.stringify(value, null, 2));
 		},
 	});
 

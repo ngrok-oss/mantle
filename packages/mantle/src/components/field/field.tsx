@@ -13,6 +13,7 @@ import {
 	useMemo,
 	useState,
 } from "react";
+import invariant from "tiny-invariant";
 import { useIsomorphicLayoutEffect } from "../../hooks/use-isomorphic-layout-effect.js";
 import type { WithAsChild } from "../../types/as-child.js";
 import { cx } from "../../utils/cx/cx.js";
@@ -28,11 +29,10 @@ import {
 import {
 	hasRenderableErrorListChildren,
 	isErrorItemRenderable,
-	mergeIdRefs,
 	normalizeErrorMessages,
 	type FieldErrorMessage,
-} from "./field-helpers.js";
-import { FieldValidationProvider, parseValidation, type WithValidation } from "./validation.js";
+} from "./error-helpers.js";
+import { FieldValidationProvider, resolveValidation, type WithValidation } from "./validation.js";
 
 /**
  * Props for the `Field.Errors` convenience renderer. It owns its generated
@@ -51,7 +51,6 @@ type FieldControlProps = Omit<
 	ComponentProps<typeof Slot>,
 	"aria-describedby" | "aria-errormessage" | "aria-invalid" | "children"
 > &
-	FieldControlAriaProps &
 	WithValidation & {
 		/**
 		 * A single control element to receive the field ARIA props, or a render
@@ -501,45 +500,26 @@ const Item = forwardRef<ComponentRef<"div">, ComponentProps<"div"> & WithAsChild
 		const Comp = asChild ? Slot : "div";
 		const descriptionId = useId();
 		const errorId = useId();
-		const [descriptionCount, setDescriptionCount] = useState(0);
-		const [errorCount, setErrorCount] = useState(0);
-		const { validation } = parseValidation({
-			defaultAriaInvalid: false,
-			validation: validationProp ?? (errorCount > 0 ? "error" : undefined),
-		});
-		const registerDescription = useCallback(() => {
-			setDescriptionCount((count) => count + 1);
+		const [hasErrors, setHasErrors] = useState(false);
+		const validation = resolveValidation(validationProp ?? (hasErrors ? "error" : undefined));
 
-			return () => {
-				setDescriptionCount((count) => count - 1);
-			};
-		}, []);
 		const registerError = useCallback(() => {
-			setErrorCount((count) => count + 1);
+			setHasErrors(true);
 
 			return () => {
-				setErrorCount((count) => count - 1);
+				setHasErrors(false);
 			};
 		}, []);
+
 		const context = useMemo(
 			() => ({
 				descriptionId,
 				errorId,
-				hasDescription: descriptionCount > 0,
-				hasErrors: errorCount > 0,
-				registerDescription,
+				hasErrors,
 				registerError,
 				validation,
 			}),
-			[
-				descriptionId,
-				errorId,
-				descriptionCount,
-				errorCount,
-				registerDescription,
-				registerError,
-				validation,
-			],
+			[descriptionId, errorId, hasErrors, registerError, validation],
 		);
 
 		return (
@@ -595,27 +575,11 @@ Item.displayName = "FieldItem";
  * ```
  */
 const Control = forwardRef<HTMLElement, FieldControlProps>(
-	(
-		{
-			"aria-describedby": ariaDescribedBy,
-			"aria-errormessage": ariaErrorMessage,
-			"aria-invalid": ariaInvalid,
-			children,
-			validation,
-			...props
-		},
-		ref,
-	) => {
+	({ children, validation, ...props }, ref) => {
 		const context = useContext(FieldItemContext);
 
 		if (typeof children === "function") {
-			const baseControlState = resolveFieldControlAriaProps({
-				"aria-describedby": ariaDescribedBy,
-				"aria-errormessage": ariaErrorMessage,
-				"aria-invalid": ariaInvalid,
-				context,
-				validation,
-			});
+			const baseControlState = resolveFieldControlAriaProps({ context, validation });
 			return (
 				<FieldValidationProvider validation={baseControlState.validation}>
 					{children(baseControlState.ariaProps)}
@@ -623,35 +587,18 @@ const Control = forwardRef<HTMLElement, FieldControlProps>(
 			);
 		}
 
-		if (!isValidElement<FieldControlAriaProps>(children)) {
-			const baseControlState = resolveFieldControlAriaProps({
-				"aria-describedby": ariaDescribedBy,
-				"aria-errormessage": ariaErrorMessage,
-				"aria-invalid": ariaInvalid,
-				context,
-				validation,
-			});
-			return (
-				<FieldValidationProvider validation={baseControlState.validation}>
-					<Slot ref={ref} {...props}>
-						{children}
-					</Slot>
-				</FieldValidationProvider>
-			);
-		}
+		invariant(
+			isValidElement<FieldControlAriaProps>(children),
+			"Field.Control expects a single React element child (or a render-prop function). Got a non-element value (string, array, fragment, null, or undefined). Wrap the control in a single element, or use the function child form: <Field.Control>{(props) => <YourControl {...props} />}</Field.Control>.",
+		);
 
-		const childDescribedBy = mergeIdRefs(
-			ariaDescribedBy,
-			children.props["aria-describedby"] ? [children.props["aria-describedby"]] : [],
-		);
-		const childErrorMessage = mergeIdRefs(
-			ariaErrorMessage,
-			children.props["aria-errormessage"] ? [children.props["aria-errormessage"]] : [],
-		);
+		// `aria-describedby` and `aria-errormessage` are owned by Field; values
+		// supplied on the child element are overwritten by `cloneElement`
+		// below. `aria-invalid` is the one ARIA prop a child may meaningfully
+		// override (e.g., explicit `aria-invalid="false"` to suppress an
+		// inferred error).
 		const childControlState = resolveFieldControlAriaProps({
-			"aria-describedby": childDescribedBy,
-			"aria-errormessage": childErrorMessage,
-			"aria-invalid": children.props["aria-invalid"] ?? ariaInvalid,
+			"aria-invalid": children.props["aria-invalid"],
 			context,
 			validation,
 		});
@@ -710,15 +657,6 @@ const Description = forwardRef<ComponentRef<"p">, Omit<ComponentProps<"p">, "id"
 	({ asChild, className, ...props }, ref) => {
 		const Comp = asChild ? Slot : "p";
 		const context = useContext(FieldItemContext);
-		const registerDescription = context?.registerDescription;
-
-		useIsomorphicLayoutEffect(() => {
-			if (registerDescription == null) {
-				return;
-			}
-
-			return registerDescription();
-		}, [registerDescription]);
 
 		return (
 			<Comp
@@ -768,25 +706,24 @@ Description.displayName = "FieldDescription";
  * </Field.Group>
  * ```
  */
-const FieldErrorItem = forwardRef<
-	ComponentRef<"li">,
-	Omit<ComponentProps<"li">, "dangerouslySetInnerHTML">
->(({ children, className, ...props }, ref) => {
-	if (!isErrorItemRenderable(children)) {
-		return null;
-	}
+const FieldErrorItem = forwardRef<ComponentRef<"li">, ComponentProps<"li">>(
+	({ children, className, ...props }, ref) => {
+		if (!isErrorItemRenderable(children)) {
+			return null;
+		}
 
-	return (
-		<li
-			ref={ref}
-			data-slot="field-error"
-			className={cx("text-danger-600 text-sm leading-4", className)}
-			{...props}
-		>
-			{children}
-		</li>
-	);
-});
+		return (
+			<li
+				ref={ref}
+				data-slot="field-error"
+				className={cx("text-danger-600 text-sm leading-4", className)}
+				{...props}
+			>
+				{children}
+			</li>
+		);
+	},
+);
 FieldErrorItem.displayName = "FieldErrorItem";
 
 /**
@@ -829,21 +766,13 @@ FieldErrorItem.displayName = "FieldErrorItem";
  * ```
  */
 const FieldErrors = forwardRef<ComponentRef<"ul">, FieldErrorsProps>(
-	({ messages, ...props }, ref) => {
-		const normalizedMessages = normalizeErrorMessages(messages);
-
-		if (normalizedMessages.length === 0) {
-			return null;
-		}
-
-		return (
-			<FieldErrorList ref={ref} {...props}>
-				{normalizedMessages.map((message, index) => (
-					<FieldErrorItem key={`${message}-${index}`}>{message}</FieldErrorItem>
-				))}
-			</FieldErrorList>
-		);
-	},
+	({ messages, ...props }, ref) => (
+		<FieldErrorList ref={ref} {...props}>
+			{normalizeErrorMessages(messages).map((message, index) => (
+				<FieldErrorItem key={index}>{message}</FieldErrorItem>
+			))}
+		</FieldErrorList>
+	),
 );
 FieldErrors.displayName = "FieldErrors";
 

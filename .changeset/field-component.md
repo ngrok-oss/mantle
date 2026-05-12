@@ -23,3 +23,7 @@ Field parts forward refs through React 18's `forwardRef` API so refs land on the
 `Field.Item` auto-generates stable IDs for descendant `Field.Description` / non-empty `Field.Errors` / `Field.ErrorList` parts, then merges those IDs onto known form controls via `aria-describedby` / `aria-errormessage` without changing the control's own `id` or `name`, so `id={field.name}` remains the right TanStack Form pattern.
 
 When a `Field.Description` follows `Field.Errors` or `Field.ErrorList`, the parent's `gap-1.5` auto-collapses via `-mt-1.5` so the error list and the trailing helper read as a single tight block. Pass any margin utility on `Field.Description` to override — the rule's specificity is flattened to `(0,1,0)` so a user class wins.
+
+`Switch` now accepts `validation` and reads the ambient `Field.Item` / `Field.Control` state, matching the rest of the mantle form controls (`Checkbox`, `Input`, `Combobox`, `MultiSelect`, `OtpInput`, `Select`, `TextArea`). Validation-specific styles (`data-validation-{success,warning,error}`) drive the checked track color and focus ring.
+
+`Field.Control` now throws a descriptive error when its child is not a valid React element or a render-prop function, instead of crashing inside `Slot` with an opaque "expected a single child" message.

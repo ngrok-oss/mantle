@@ -173,37 +173,32 @@ describe("Field", () => {
 			const input = screen.getByRole("textbox", { name: "Email" });
 			const description = screen.getByText("We'll never share your email.");
 			expect(description).toHaveAttribute("id");
-			expect(input).toHaveAttribute("aria-describedby", description.id);
+			expect(input.getAttribute("aria-describedby")).toContain(description.id);
 			expect(input).toHaveAttribute("id", "email");
 			expect(input).toHaveAttribute("name", "email");
 		});
 
-		test("merges generated description IDs with existing aria-describedby", () => {
+		test("drops child-supplied aria-describedby and aria-errormessage in favor of Field-owned IDs", () => {
+			// Field owns the ID contract. cloneElement overwrites any child-side
+			// aria-describedby / aria-errormessage cleanly.
 			render(
 				<Field.Item>
 					<Field.Control>
-						<input aria-label="Email" aria-describedby="existing-help" />
+						<input
+							aria-label="Email"
+							aria-describedby="child-help"
+							aria-errormessage="child-error"
+						/>
 					</Field.Control>
-					<Field.Description>Generated help.</Field.Description>
+					<Field.Errors messages={["Required."]} />
 				</Field.Item>,
 			);
 
 			const input = screen.getByRole("textbox", { name: "Email" });
-			const description = screen.getByText("Generated help.");
-			expect(input).toHaveAttribute("aria-describedby", `existing-help ${description.id}`);
-		});
-
-		test("deduplicates multi-token child IDREFs against wrapper IDREFs", () => {
-			render(
-				<Field.Control aria-errormessage="shared wrapper-error">
-					<input aria-label="Email" aria-errormessage="shared child-error" aria-invalid={false} />
-				</Field.Control>,
-			);
-
-			expect(screen.getByRole("textbox", { name: "Email" })).toHaveAttribute(
-				"aria-errormessage",
-				"shared wrapper-error child-error",
-			);
+			const errors = screen.getByText("Required.").closest("ul");
+			expect(errors).not.toBeNull();
+			expect(input.getAttribute("aria-describedby")).toContain(errors!.id);
+			expect(input).toHaveAttribute("aria-errormessage", errors!.id);
 		});
 
 		test("Field.Control wires rendered Field.ErrorList to the control and infers invalid state", () => {
@@ -221,7 +216,7 @@ describe("Field", () => {
 			const input = screen.getByRole("textbox", { name: "Email" });
 			const errorList = screen.getByTestId("errors");
 			expect(errorList).toHaveAttribute("id");
-			expect(input).toHaveAttribute("aria-describedby", errorList.id);
+			expect(input.getAttribute("aria-describedby")).toContain(errorList.id);
 			expect(input).toHaveAttribute("aria-errormessage", errorList.id);
 			expect(input).toHaveAttribute("aria-invalid", "true");
 		});
@@ -288,7 +283,7 @@ describe("Field", () => {
 			const input = screen.getByRole("textbox", { name: "Email" });
 			const errors = screen.getByTestId("errors");
 			expect(errors).toHaveAttribute("id");
-			expect(input).toHaveAttribute("aria-describedby", errors.id);
+			expect(input.getAttribute("aria-describedby")).toContain(errors.id);
 			expect(input).toHaveAttribute("aria-errormessage", errors.id);
 			expect(input).toHaveAttribute("aria-invalid", "true");
 		});
@@ -373,7 +368,7 @@ describe("Field", () => {
 
 			const checkbox = screen.getByRole("checkbox", { name: "Accept terms" });
 			const description = screen.getByText("Required to continue.");
-			expect(checkbox).toHaveAttribute("aria-describedby", description.id);
+			expect(checkbox.getAttribute("aria-describedby")).toContain(description.id);
 		});
 
 		test("wires mantle Input without replacing TanStack-friendly id and name props", () => {
@@ -389,7 +384,7 @@ describe("Field", () => {
 
 			const input = screen.getByRole("textbox", { name: "Email" });
 			const description = screen.getByText("Use your work email.");
-			expect(input).toHaveAttribute("aria-describedby", description.id);
+			expect(input.getAttribute("aria-describedby")).toContain(description.id);
 			expect(input).toHaveAttribute("id", "account.email");
 			expect(input).toHaveAttribute("name", "account.email");
 		});
@@ -410,7 +405,7 @@ describe("Field", () => {
 
 			const input = screen.getByRole("textbox", { name: "Wrapped control" });
 			const description = screen.getByText("Wrapped help.");
-			expect(input).toHaveAttribute("aria-describedby", description.id);
+			expect(input.getAttribute("aria-describedby")).toContain(description.id);
 		});
 
 		test("provides validation from Field.Item to Mantle controls", () => {
@@ -441,6 +436,23 @@ describe("Field", () => {
 				"aria-invalid",
 				"true",
 			);
+		});
+
+		test("throws a descriptive error when children is not a valid element or function", () => {
+			// The TS type forbids this, but JS callers can still pass strings
+			// or arrays. Surface a clear error instead of crashing inside Slot.
+			const consoleError = console.error;
+			console.error = () => {};
+			try {
+				expect(() =>
+					render(
+						// @ts-expect-error - intentionally passing invalid children for the runtime guard
+						<Field.Control>just a string</Field.Control>,
+					),
+				).toThrow(/Field\.Control/);
+			} finally {
+				console.error = consoleError;
+			}
 		});
 	});
 

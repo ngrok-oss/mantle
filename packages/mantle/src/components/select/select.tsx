@@ -73,8 +73,13 @@ type SelectProps = PropsWithChildren & {
  * Combobox. For picking multiple options, use MultiSelect.
  *
  * Pass `validation` here when the entire select has an explicit state. That
- * root state is forwarded to `Select.Trigger` and takes precedence over field
- * context from `Field.Item` / `Field.Control`.
+ * root state is forwarded to `Select.Trigger` and takes precedence over the
+ * ambient `validation` from `Field.Item` / `Field.Control`. Note: rendered
+ * `Field.Errors` / `Field.ErrorList` set `aria-invalid="true"` on the trigger
+ * via `Field.Control`'s wiring, which still forces the trigger into the error
+ * state — suppress the inferred error by passing `validation` on `Field.Item`
+ * or `Field.Control` if a non-error `Select.Root` state needs to win in that
+ * case.
  *
  * @see https://mantle.ngrok.com/components/select#selectroot
  *

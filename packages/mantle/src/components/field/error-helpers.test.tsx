@@ -3,9 +3,8 @@ import { describe, expect, test } from "vitest";
 import {
 	hasRenderableErrorListChildren,
 	isErrorItemRenderable,
-	mergeIdRefs,
 	normalizeErrorMessages,
-} from "./field-helpers.js";
+} from "./error-helpers.js";
 
 const errorItemType = "field-error-item";
 
@@ -66,7 +65,10 @@ describe("field helpers", () => {
 			).toBe(true);
 		});
 
-		test("recurses through host elements but treats custom components as opaque", () => {
+		test("treats host elements and custom components as opaque renderable content", () => {
+			// Wrapping ErrorItems in a host element inside a <ul> is invalid
+			// HTML; we don't recurse into it. Both inputs are treated as
+			// opaque-and-therefore-renderable.
 			expect(
 				hasRenderableErrorListChildren({
 					children: (
@@ -76,23 +78,13 @@ describe("field helpers", () => {
 					),
 					errorItemType,
 				}),
-			).toBe(false);
+			).toBe(true);
 			expect(
 				hasRenderableErrorListChildren({
 					children: <OpaqueError />,
 					errorItemType,
 				}),
 			).toBe(true);
-		});
-	});
-
-	describe("mergeIdRefs", () => {
-		test("returns undefined when there are no IDs", () => {
-			expect(mergeIdRefs(undefined, [])).toBeUndefined();
-		});
-
-		test("deduplicates existing and generated multi-token IDREF values", () => {
-			expect(mergeIdRefs("a b", ["b c", undefined, "d"])).toBe("a b c d");
 		});
 	});
 });

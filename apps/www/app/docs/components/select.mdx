@@ -240,7 +240,9 @@ The `Select` components are built on top of [Radix Select](https://www.radix-ui.
 
 Displays a list of options for the user to pick from—triggered by a button.
 
-Set `validation` on `Select.Root` when the whole select has an explicit state; this root-level state is forwarded to the trigger and takes precedence over field-level validation from `Field.Item` / `Field.Control`.
+Set `validation` on `Select.Root` when the whole select has an explicit state; this root-level state is forwarded to the trigger and takes precedence over ambient field-level validation from `Field.Item` / `Field.Control`.
+
+Rendered `Field.Errors` or `Field.ErrorList` still force the trigger into the error state because `Field.Control` sets `aria-invalid="true"` on the focusable trigger, and an explicit invalid ARIA value always wins. If a non-error `Select.Root` state needs to win even when errors are rendered, pass `validation` on `Field.Item` or `Field.Control` to suppress the inferred error.
 
 All props from Radix [Select.Root](https://www.radix-ui.com/primitives/docs/components/select#root), plus:
 

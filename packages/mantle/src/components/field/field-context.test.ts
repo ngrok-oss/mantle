@@ -6,10 +6,6 @@ import { resolveFieldControlAriaProps, type FieldItemContextValue } from "./fiel
  */
 type CreateFieldItemContextOptions = {
 	/**
-	 * Whether a `Field.Description` is mounted in the fixture context.
-	 */
-	hasDescription?: boolean;
-	/**
 	 * Whether a non-empty `Field.Errors` / `Field.ErrorList` is mounted in the
 	 * fixture context.
 	 */
@@ -23,34 +19,25 @@ type CreateFieldItemContextOptions = {
 /**
  * Creates a minimal `Field.Item` context value for ARIA resolver tests.
  */
-const createFieldItemContext = ({
-	hasDescription = false,
-	hasErrors = false,
-	validation,
-}: CreateFieldItemContextOptions) =>
+const createFieldItemContext = ({ hasErrors = false, validation }: CreateFieldItemContextOptions) =>
 	({
 		descriptionId: "description",
 		errorId: "error",
-		hasDescription,
 		hasErrors,
-		registerDescription: () => () => {},
 		registerError: () => () => {},
 		validation,
 	}) satisfies FieldItemContextValue;
 
 describe("field context helpers", () => {
 	describe("resolveFieldControlAriaProps", () => {
-		test("wires only descriptions when the resolved validation state is valid", () => {
+		test("emits both slot IDs in aria-describedby when the resolved validation state is valid", () => {
 			const result = resolveFieldControlAriaProps({
-				context: createFieldItemContext({
-					hasDescription: true,
-					hasErrors: true,
-				}),
+				context: createFieldItemContext({ hasErrors: true }),
 			});
 
 			expect(result).toEqual({
 				ariaProps: {
-					"aria-describedby": "description",
+					"aria-describedby": "description error",
 					"aria-errormessage": undefined,
 					"aria-invalid": undefined,
 				},
@@ -58,12 +45,9 @@ describe("field context helpers", () => {
 			});
 		});
 
-		test("wires descriptions and errors when validation resolves invalid", () => {
+		test("wires aria-errormessage when validation resolves invalid", () => {
 			const result = resolveFieldControlAriaProps({
-				"aria-describedby": "existing-description",
-				"aria-errormessage": "existing-error",
 				context: createFieldItemContext({
-					hasDescription: true,
 					hasErrors: true,
 					validation: "error",
 				}),
@@ -71,8 +55,8 @@ describe("field context helpers", () => {
 
 			expect(result).toEqual({
 				ariaProps: {
-					"aria-describedby": "existing-description description error",
-					"aria-errormessage": "existing-error error",
+					"aria-describedby": "description error",
+					"aria-errormessage": "error",
 					"aria-invalid": true,
 				},
 				validation: "error",
@@ -82,7 +66,6 @@ describe("field context helpers", () => {
 		test("lets explicit control validation override context validation", () => {
 			const result = resolveFieldControlAriaProps({
 				context: createFieldItemContext({
-					hasDescription: true,
 					hasErrors: true,
 					validation: "error",
 				}),
@@ -91,7 +74,7 @@ describe("field context helpers", () => {
 
 			expect(result).toEqual({
 				ariaProps: {
-					"aria-describedby": "description",
+					"aria-describedby": "description error",
 					"aria-errormessage": undefined,
 					"aria-invalid": undefined,
 				},
@@ -99,7 +82,7 @@ describe("field context helpers", () => {
 			});
 		});
 
-		test("omits description IDREF when no description is mounted", () => {
+		test("emits both slot IDs even when description is not mounted (dangling IDREFs are ignored by AT)", () => {
 			const result = resolveFieldControlAriaProps({
 				context: createFieldItemContext({
 					hasErrors: true,
@@ -107,21 +90,44 @@ describe("field context helpers", () => {
 				}),
 			});
 
-			expect(result.ariaProps["aria-describedby"]).toBe("error");
+			expect(result.ariaProps["aria-describedby"]).toBe("description error");
 		});
 
-		test("omits error wiring when validation is invalid but no errors are mounted", () => {
+		test("still wires aria-errormessage when validation is invalid but no errors are mounted", () => {
 			const result = resolveFieldControlAriaProps({
-				context: createFieldItemContext({
-					hasDescription: true,
-					validation: "error",
-				}),
+				context: createFieldItemContext({ validation: "error" }),
 			});
 
 			expect(result.ariaProps).toEqual({
-				"aria-describedby": "description",
-				"aria-errormessage": undefined,
+				"aria-describedby": "description error",
+				"aria-errormessage": "error",
 				"aria-invalid": true,
+			});
+		});
+
+		test("explicit aria-invalid on the child forces error styling and wires error IDREFs", () => {
+			const result = resolveFieldControlAriaProps({
+				"aria-invalid": "true",
+				context: createFieldItemContext({ hasErrors: true }),
+			});
+
+			expect(result).toEqual({
+				ariaProps: {
+					"aria-describedby": "description error",
+					"aria-errormessage": "error",
+					"aria-invalid": "true",
+				},
+				validation: "error",
+			});
+		});
+
+		test("omits aria-describedby entirely when not inside a Field.Item", () => {
+			const result = resolveFieldControlAriaProps({ context: null });
+
+			expect(result.ariaProps).toEqual({
+				"aria-describedby": undefined,
+				"aria-errormessage": undefined,
+				"aria-invalid": undefined,
 			});
 		});
 	});

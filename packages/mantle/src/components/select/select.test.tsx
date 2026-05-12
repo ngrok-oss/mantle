@@ -118,4 +118,26 @@ describe("Select", () => {
 		expect(screen.getByRole("combobox")).toHaveAttribute("aria-invalid", "true");
 		expect(screen.getByRole("combobox")).toHaveAttribute("data-validation", "error");
 	});
+
+	test("rendered Field errors force the trigger into error state even when Select.Root says otherwise", () => {
+		// Field.Control wires aria-invalid="true" onto the trigger when the
+		// Field has rendered errors, and an explicit invalid aria value always
+		// resolves to "error" in parseValidation — so a "warning" claim from
+		// Select.Root is overridden in this case. Consumers who need the
+		// non-error Select.Root state to win must suppress the inferred error
+		// via `validation` on Field.Item or Field.Control.
+		render(
+			<Field.Item>
+				<Select.Root validation="warning">
+					<Field.Control>
+						<Select.Trigger />
+					</Field.Control>
+				</Select.Root>
+				<Field.Errors messages={["Pick a value."]} />
+			</Field.Item>,
+		);
+
+		expect(screen.getByRole("combobox")).toHaveAttribute("aria-invalid", "true");
+		expect(screen.getByRole("combobox")).toHaveAttribute("data-validation", "error");
+	});
 });
