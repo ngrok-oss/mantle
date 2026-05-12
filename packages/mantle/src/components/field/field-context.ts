@@ -1,5 +1,4 @@
-import { createContext, useContext, useId, type ComponentProps } from "react";
-import { useIsomorphicLayoutEffect } from "../../hooks/use-isomorphic-layout-effect.js";
+import { createContext, type ComponentProps } from "react";
 import { mergeIdRefs } from "./field-helpers.js";
 import { parseValidation, type ValidationProp, type ValidationState } from "./validation.js";
 
@@ -23,24 +22,44 @@ type FieldControlAriaProps = {
 
 /**
  * Context value owned by `Field.Item` and consumed by message/control parts.
+ *
+ * `Field.Item` owns the two stable slot IDs (one for the description, one for
+ * the error list) so consumers don't manage ARIA wiring themselves. Children
+ * call the matching `register*` callback on mount and `Field.Control` reads
+ * `has*` to decide whether each IDREF is worth emitting.
  */
 type FieldItemContextValue = {
 	/**
-	 * Ordered IDs registered by rendered `Field.Description` instances.
+	 * Stable ID for the rendered `Field.Description` slot, generated once per
+	 * `Field.Item`.
 	 */
-	descriptionIds: string[];
+	descriptionId: string;
 	/**
-	 * Ordered IDs registered by rendered `Field.Errors` / `Field.ErrorList` instances.
+	 * Stable ID for the rendered `Field.Errors` / `Field.ErrorList` slot,
+	 * generated once per `Field.Item`.
 	 */
-	errorIds: string[];
+	errorId: string;
 	/**
-	 * Registers a description ID and returns its cleanup callback.
+	 * `true` while at least one `Field.Description` is mounted under this
+	 * `Field.Item`. Gates whether `Field.Control` emits `aria-describedby` for
+	 * the description slot.
 	 */
-	registerDescriptionId: (id: string) => () => void;
+	hasDescription: boolean;
 	/**
-	 * Registers an error ID and returns its cleanup callback.
+	 * `true` while at least one non-empty `Field.Errors` / `Field.ErrorList` is
+	 * mounted under this `Field.Item`. Gates `aria-errormessage` / `aria-invalid`
+	 * inference on `Field.Control`.
 	 */
-	registerErrorId: (id: string) => () => void;
+	hasErrors: boolean;
+	/**
+	 * Marks a `Field.Description` as mounted. Returns its cleanup callback.
+	 */
+	registerDescription: () => () => void;
+	/**
+	 * Marks a non-empty `Field.Errors` / `Field.ErrorList` as mounted. Returns
+	 * its cleanup callback.
+	 */
+	registerError: () => () => void;
 	/**
 	 * Validation state inferred or supplied by the surrounding `Field.Item`.
 	 */
@@ -67,32 +86,6 @@ type ResolveFieldControlAriaPropsOptions = FieldControlAriaProps & {
 const FieldItemContext = createContext<FieldItemContextValue | null>(null);
 
 /**
- * Resolves a message element ID and registers it with the nearest `Field.Item`
- * while the corresponding message component is rendered.
- */
-const useFieldMessageId = (
-	idProp: string | undefined,
-	type: "description" | "error",
-	enabled = true,
-) => {
-	const context = useContext(FieldItemContext);
-	const generatedId = useId();
-	const id = idProp ?? (context ? generatedId : undefined);
-	const register =
-		type === "description" ? context?.registerDescriptionId : context?.registerErrorId;
-
-	useIsomorphicLayoutEffect(() => {
-		if (!enabled || id == null || register == null) {
-			return;
-		}
-
-		return register(id);
-	}, [enabled, id, register]);
-
-	return id;
-};
-
-/**
  * Resolves the ARIA and validation props that `Field.Control` applies to its
  * focusable child from explicit props plus the surrounding `Field.Item` state.
  */
@@ -108,18 +101,21 @@ const resolveFieldControlAriaProps = ({
 		defaultAriaInvalid: false,
 		validation: validation ?? context?.validation,
 	});
-	const errorIds = context?.errorIds ?? [];
-	const descriptionIds = context?.descriptionIds ?? [];
-	const describedByIds = parsedValidation.isInvalid
-		? [...descriptionIds, ...errorIds]
-		: descriptionIds;
+	const describedByIds: string[] = [];
+	if (context?.hasDescription) {
+		describedByIds.push(context.descriptionId);
+	}
+	if (parsedValidation.isInvalid && context?.hasErrors) {
+		describedByIds.push(context.errorId);
+	}
 
 	return {
 		ariaProps: {
 			"aria-describedby": mergeIdRefs(ariaDescribedBy, describedByIds),
-			"aria-errormessage": parsedValidation.isInvalid
-				? mergeIdRefs(ariaErrorMessage, errorIds)
-				: ariaErrorMessage,
+			"aria-errormessage":
+				parsedValidation.isInvalid && context?.hasErrors
+					? mergeIdRefs(ariaErrorMessage, [context.errorId])
+					: ariaErrorMessage,
 			"aria-invalid": parsedValidation.ariaInvalid,
 		} satisfies FieldControlAriaProps,
 		validation: parsedValidation.validation,
@@ -130,7 +126,6 @@ export {
 	//,
 	FieldItemContext,
 	resolveFieldControlAriaProps,
-	useFieldMessageId,
 };
 export type {
 	//,

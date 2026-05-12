@@ -206,22 +206,6 @@ describe("Field", () => {
 			);
 		});
 
-		test("uses explicit Field.Description IDs when provided", () => {
-			render(
-				<Field.Item>
-					<Field.Control>
-						<input aria-label="Email" />
-					</Field.Control>
-					<Field.Description id="email-help">Generated help.</Field.Description>
-				</Field.Item>,
-			);
-
-			expect(screen.getByRole("textbox", { name: "Email" })).toHaveAttribute(
-				"aria-describedby",
-				"email-help",
-			);
-		});
-
 		test("Field.Control wires rendered Field.ErrorList to the control and infers invalid state", () => {
 			render(
 				<Field.Item>

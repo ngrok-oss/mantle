@@ -1,12 +1,10 @@
 import { createElement, type ReactNode } from "react";
 import { describe, expect, test } from "vitest";
 import {
-	addId,
 	hasRenderableErrorListChildren,
 	isErrorItemRenderable,
 	mergeIdRefs,
 	normalizeErrorMessages,
-	removeId,
 } from "./field-helpers.js";
 
 const errorItemType = "field-error-item";
@@ -19,24 +17,6 @@ const OpaqueError = ({ children }: { children?: ReactNode }) =>
 	createElement("span", null, children);
 
 describe("field helpers", () => {
-	describe("addId", () => {
-		test("keeps existing ID arrays stable when the ID is already present", () => {
-			const ids = ["description"];
-
-			expect(addId(ids, "description")).toBe(ids);
-		});
-
-		test("appends new IDs in order", () => {
-			expect(addId(["description"], "errors")).toEqual(["description", "errors"]);
-		});
-	});
-
-	describe("removeId", () => {
-		test("removes all matching IDs", () => {
-			expect(removeId(["a", "b", "a"], "a")).toEqual(["b"]);
-		});
-	});
-
 	describe("normalizeErrorMessages", () => {
 		test("trims strings and filters empty or non-string absence values", () => {
 			expect(

@@ -6,13 +6,14 @@ import { resolveFieldControlAriaProps, type FieldItemContextValue } from "./fiel
  */
 type CreateFieldItemContextOptions = {
 	/**
-	 * Description IDs registered in the fixture context.
+	 * Whether a `Field.Description` is mounted in the fixture context.
 	 */
-	descriptionIds?: string[];
+	hasDescription?: boolean;
 	/**
-	 * Error IDs registered in the fixture context.
+	 * Whether a non-empty `Field.Errors` / `Field.ErrorList` is mounted in the
+	 * fixture context.
 	 */
-	errorIds?: string[];
+	hasErrors?: boolean;
 	/**
 	 * Validation state exposed by the fixture context.
 	 */
@@ -23,15 +24,17 @@ type CreateFieldItemContextOptions = {
  * Creates a minimal `Field.Item` context value for ARIA resolver tests.
  */
 const createFieldItemContext = ({
-	descriptionIds = [],
-	errorIds = [],
+	hasDescription = false,
+	hasErrors = false,
 	validation,
 }: CreateFieldItemContextOptions) =>
 	({
-		descriptionIds,
-		errorIds,
-		registerDescriptionId: () => () => {},
-		registerErrorId: () => () => {},
+		descriptionId: "description",
+		errorId: "error",
+		hasDescription,
+		hasErrors,
+		registerDescription: () => () => {},
+		registerError: () => () => {},
 		validation,
 	}) satisfies FieldItemContextValue;
 
@@ -40,8 +43,8 @@ describe("field context helpers", () => {
 		test("wires only descriptions when the resolved validation state is valid", () => {
 			const result = resolveFieldControlAriaProps({
 				context: createFieldItemContext({
-					descriptionIds: ["description"],
-					errorIds: ["error"],
+					hasDescription: true,
+					hasErrors: true,
 				}),
 			});
 
@@ -60,8 +63,8 @@ describe("field context helpers", () => {
 				"aria-describedby": "existing-description",
 				"aria-errormessage": "existing-error",
 				context: createFieldItemContext({
-					descriptionIds: ["description"],
-					errorIds: ["error"],
+					hasDescription: true,
+					hasErrors: true,
 					validation: "error",
 				}),
 			});
@@ -79,8 +82,8 @@ describe("field context helpers", () => {
 		test("lets explicit control validation override context validation", () => {
 			const result = resolveFieldControlAriaProps({
 				context: createFieldItemContext({
-					descriptionIds: ["description"],
-					errorIds: ["error"],
+					hasDescription: true,
+					hasErrors: true,
 					validation: "error",
 				}),
 				validation: false,
@@ -93,6 +96,32 @@ describe("field context helpers", () => {
 					"aria-invalid": undefined,
 				},
 				validation: undefined,
+			});
+		});
+
+		test("omits description IDREF when no description is mounted", () => {
+			const result = resolveFieldControlAriaProps({
+				context: createFieldItemContext({
+					hasErrors: true,
+					validation: "error",
+				}),
+			});
+
+			expect(result.ariaProps["aria-describedby"]).toBe("error");
+		});
+
+		test("omits error wiring when validation is invalid but no errors are mounted", () => {
+			const result = resolveFieldControlAriaProps({
+				context: createFieldItemContext({
+					hasDescription: true,
+					validation: "error",
+				}),
+			});
+
+			expect(result.ariaProps).toEqual({
+				"aria-describedby": "description",
+				"aria-errormessage": undefined,
+				"aria-invalid": true,
 			});
 		});
 	});

@@ -37,25 +37,6 @@ type HasRenderableErrorListChildrenOptions = {
 };
 
 /**
- * Appends `id` to `ids` when it is not already present.
- *
- * Returns the original `ids` reference on the no-op path so React `setState`
- * setters bail out (no consumer re-render) when the same id registers twice
- * — common under StrictMode double-effects or fast unmount/remount.
- */
-const addId = (ids: string[], id: string) => (ids.includes(id) ? ids : [...ids, id]);
-
-/**
- * Removes every occurrence of `id` from `ids`.
- *
- * Returns the original `ids` reference when `id` is not present so React
- * `setState` setters bail out (no consumer re-render) when an id deregisters
- * twice — common under StrictMode double-effects or fast unmount/remount.
- */
-const removeId = (ids: string[], id: string) =>
-	ids.includes(id) ? ids.filter((item) => item !== id) : ids;
-
-/**
  * Normalizes validator output into display-ready message strings without
  * coupling `Field.Errors` to a specific form library's error object shape.
  */
@@ -169,12 +150,10 @@ const mergeIdRefs = (existing: string | undefined, generated: readonly (string |
 
 export {
 	//,
-	addId,
 	hasRenderableErrorListChildren,
 	isErrorItemRenderable,
 	mergeIdRefs,
 	normalizeErrorMessages,
-	removeId,
 };
 export type {
 	//,

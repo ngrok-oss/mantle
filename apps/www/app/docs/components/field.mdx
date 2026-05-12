@@ -112,7 +112,7 @@ When errors arrive from a validator as an array (e.g. `field.state.meta.errors` 
 
 ## Manual error list
 
-Prefer `Field.Errors` when you already have plain string messages. Compose `Field.ErrorList` and `Field.ErrorItem` directly when you need custom list contents, richer message markup, or a polymorphic list element.
+Prefer `Field.Errors` when you already have plain string messages. Compose `Field.ErrorList` and `Field.ErrorItem` directly when you need custom list contents, richer message markup, or a polymorphic list element. Use one or the other in a `Field.Item` — `Field.Item` owns a single errors slot ID, and `Field.Errors` is itself a `Field.ErrorList` under the hood, so rendering both would duplicate the `id` on the page.
 
 <Example className="w-full">
 	<Field.Item className="max-w-80">
@@ -429,7 +429,7 @@ export function AccountForm() {
 
 ## Composition
 
-Most forms only need a `Field.Group` of `Field.Item`s — that's the default tree:
+Most forms only need a `Field.Group` of `Field.Item`s — that's the default tree. Each `Field.Item` may render at most one `Field.Description` and one `Field.Errors` **or** one `Field.ErrorList` (not both) — they share a single slot ID owned by the item.
 
 ```text showLineNumbers=false
 Field.Group
@@ -442,7 +442,7 @@ Field.Group
     │       └── Field.HelpContent
     ├── Field.Control
     │   └── (control)
-    ├── Field.Errors
+    ├── Field.Errors             (or)
     ├── Field.ErrorList
     │   └── Field.ErrorItem
     └── Field.Description
@@ -484,6 +484,8 @@ All props from [`Label`](/components/label).
 ### Field.Item
 
 A single form field. Renders a plain `<div>` with `flex flex-col gap-1.5` so `Field.Label`, control, and helper / error siblings stack tightly together. No implicit ARIA role — the `<label htmlFor>` ↔ control association already provides the right semantics for a single field. Provides description/error IDs and validation state to `Field.Control`; rendered errors infer `"error"` unless `validation` is provided.
+
+**Single-slot constraint.** A `Field.Item` owns one description ID and one errors ID, so render at most one `Field.Description` and one `Field.Errors` _or_ `Field.ErrorList` (not both) per item. A second instance would duplicate the slot `id` in the DOM — pass multiple messages to one `Field.Errors`, or multiple `Field.ErrorItem` children to one `Field.ErrorList`, instead.
 
 **When to use:** for every individual field — text inputs, selects, single checkboxes, switches, password inputs, etc.
 
@@ -601,11 +603,11 @@ All props from [span](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/
 
 ### Field.Description
 
-Helper / hint text. Renders a `<p>` in the muted body color. Use inside `Field.Item`, below the control, to clarify expected format or constraints for that single field.
+Helper / hint text. Renders a `<p>` in the muted body color. Use inside `Field.Item`, below the control, to clarify expected format or constraints for that single field. Render at most one per `Field.Item` — `Field.Item` owns a single description slot ID and applies it via context.
 
-When rendered inside `Field.Item`, `Field.Description` receives a generated ID unless you provide one. `Field.Control` merges that ID into the control's `aria-describedby`. When `Field.Description` is rendered immediately after `Field.Errors` or `Field.ErrorList`, it automatically collapses the parent's `gap-1.5` via a `-mt-1.5` so errors + helper read as a single tight block. The rule's specificity is flattened to `(0,1,0)` so any margin utility you pass on `Field.Description` (e.g. `mt-1`, `mt-0`) overrides cleanly.
+When rendered inside `Field.Item`, `Field.Description` receives an automatic generated ID that `Field.Control` merges into the control's `aria-describedby`. The ID is owned by `Field.Item` and is not consumer-overridable. When `Field.Description` is rendered immediately after `Field.Errors` or `Field.ErrorList`, it automatically collapses the parent's `gap-1.5` via a `-mt-1.5` so errors + helper read as a single tight block. The rule's specificity is flattened to `(0,1,0)` so any margin utility you pass on `Field.Description` (e.g. `mt-1`, `mt-0`) overrides cleanly.
 
-All props from [p](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p#attributes), plus:
+All props from [p](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p#attributes) except `id`, plus:
 
 | Prop       | Type      | Default | Description                                       |
 | ---------- | --------- | ------- | ------------------------------------------------- |
@@ -613,11 +615,13 @@ All props from [p](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p#a
 
 ### Field.Errors
 
-Convenience renderer for validation messages. Accepts an array of strings, trims each message, filters empty, nullish, and false values, then renders a `Field.ErrorList` with one `Field.ErrorItem` per remaining message. When rendered inside `Field.Item`, a non-empty list receives a generated ID unless you provide one and infers `"error"` validation unless `Field.Item` or `Field.Control` overrides it. `Field.Control` merges that ID into the control's `aria-describedby` and `aria-errormessage` when the field is invalid.
+Convenience renderer for validation messages. Accepts an array of strings, trims each message, filters empty, nullish, and false values, then renders a `Field.ErrorList` with one `Field.ErrorItem` per remaining message. When rendered inside `Field.Item`, a non-empty list receives an automatic generated ID and infers `"error"` validation unless `Field.Item` or `Field.Control` overrides it. `Field.Control` merges that ID into the control's `aria-describedby` and `aria-errormessage` when the field is invalid. The ID is owned by `Field.Item` and is not consumer-overridable.
+
+Render at most one `Field.Errors` per `Field.Item`, and do not combine it with `Field.ErrorList` in the same item — both render a single shared errors slot. Pass multiple messages to one `Field.Errors` for the multi-error case.
 
 `Field.Errors` owns its generated list items and does not accept `children` or `asChild`. Use `Field.ErrorList` / `Field.ErrorItem` directly when you need custom list contents or polymorphic list markup.
 
-All props from [ul](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul#attributes), except `children`, plus:
+All props from [ul](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul#attributes) except `children` and `id`, plus:
 
 | Prop        | Type                                       | Default | Description                                     |
 | ----------- | ------------------------------------------ | ------- | ----------------------------------------------- |
@@ -631,9 +635,13 @@ All props from [li](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li
 
 ### Field.ErrorList
 
-Wraps one or more `Field.ErrorItem` children in a semantic `<ul>` with `role="list"` so a list of validation errors is announced as a list by screen readers, including Safari/VoiceOver combinations that drop list semantics when list styling is removed. Renders nothing when given no renderable children. When rendered inside `Field.Item`, a non-empty list receives a generated ID unless you provide one and infers `"error"` validation unless `Field.Item` or `Field.Control` overrides it. `Field.Control` merges that ID into the control's `aria-describedby` and `aria-errormessage` when the field is invalid. Strips the default browser `<ul>` styling (no bullets, no padding, no margin) and stacks items as a flex column with no gap so consecutive errors read as a single tight block. Pass `asChild` with an `<ol>` if the list is meaningfully ordered.
+Wraps one or more `Field.ErrorItem` children in a semantic `<ul>` with `role="list"` so a list of validation errors is announced as a list by screen readers, including Safari/VoiceOver combinations that drop list semantics when list styling is removed. Renders nothing when given no renderable children. When rendered inside `Field.Item`, a non-empty list receives an automatic generated ID and infers `"error"` validation unless `Field.Item` or `Field.Control` overrides it. `Field.Control` merges that ID into the control's `aria-describedby` and `aria-errormessage` when the field is invalid. The ID is owned by `Field.Item` and is not consumer-overridable.
 
-All props from [ul](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul#attributes), plus:
+Render at most one `Field.ErrorList` per `Field.Item`, and do not combine it with `Field.Errors` in the same item — both render a single shared errors slot. Put multiple `Field.ErrorItem` children inside one list for the multi-error case.
+
+Strips the default browser `<ul>` styling (no bullets, no padding, no margin) and stacks items as a flex column with no gap so consecutive errors read as a single tight block. Pass `asChild` with an `<ol>` if the list is meaningfully ordered.
+
+All props from [ul](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul#attributes) except `id`, plus:
 
 | Prop       | Type      | Default | Description                                       |
 | ---------- | --------- | ------- | ------------------------------------------------- |

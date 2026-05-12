@@ -9,9 +9,11 @@ import {
 	type ReactNode,
 	useCallback,
 	useContext,
+	useId,
 	useMemo,
 	useState,
 } from "react";
+import { useIsomorphicLayoutEffect } from "../../hooks/use-isomorphic-layout-effect.js";
 import type { WithAsChild } from "../../types/as-child.js";
 import { cx } from "../../utils/cx/cx.js";
 import { IconButton, type IconButtonProps } from "../button/icon-button.js";
@@ -21,16 +23,13 @@ import { Slot } from "../slot/index.js";
 import {
 	FieldItemContext,
 	resolveFieldControlAriaProps,
-	useFieldMessageId,
 	type FieldControlAriaProps,
 } from "./field-context.js";
 import {
-	addId,
 	hasRenderableErrorListChildren,
 	isErrorItemRenderable,
 	mergeIdRefs,
 	normalizeErrorMessages,
-	removeId,
 	type FieldErrorMessage,
 } from "./field-helpers.js";
 import { FieldValidationProvider, parseValidation, type WithValidation } from "./validation.js";
@@ -40,7 +39,7 @@ import { FieldValidationProvider, parseValidation, type WithValidation } from ".
  * children, so use `Field.ErrorList` / `Field.ErrorItem` directly when custom
  * list contents or polymorphic list markup are needed.
  */
-type FieldErrorsProps = Omit<ComponentProps<"ul">, "children"> & {
+type FieldErrorsProps = Omit<ComponentProps<"ul">, "children" | "id"> & {
 	/**
 	 * Validation messages to render. Strings are trimmed, and empty, nullish,
 	 * or false values are ignored before rendering the list.
@@ -466,6 +465,13 @@ Group.displayName = "FieldGroup";
  * infer an `"error"` validation state unless `validation` is supplied as an
  * explicit override.
  *
+ * **Single-slot constraint.** A `Field.Item` owns one description ID and one
+ * errors ID, so render at most one `Field.Description` and one
+ * `Field.Errors` *or* `Field.ErrorList` (not both) per item. A second instance
+ * would duplicate the slot `id` in the DOM. Pass multiple messages to
+ * `Field.Errors`, or multiple `Field.ErrorItem` children to `Field.ErrorList`,
+ * instead.
+ *
  * @see https://mantle.ngrok.com/components/field
  *
  * @example
@@ -493,35 +499,47 @@ Group.displayName = "FieldGroup";
 const Item = forwardRef<ComponentRef<"div">, ComponentProps<"div"> & WithAsChild & WithValidation>(
 	({ asChild, children, className, validation: validationProp, ...props }, ref) => {
 		const Comp = asChild ? Slot : "div";
-		const [descriptionIds, setDescriptionIds] = useState<string[]>([]);
-		const [errorIds, setErrorIds] = useState<string[]>([]);
+		const descriptionId = useId();
+		const errorId = useId();
+		const [descriptionCount, setDescriptionCount] = useState(0);
+		const [errorCount, setErrorCount] = useState(0);
 		const { validation } = parseValidation({
 			defaultAriaInvalid: false,
-			validation: validationProp ?? (errorIds.length > 0 ? "error" : undefined),
+			validation: validationProp ?? (errorCount > 0 ? "error" : undefined),
 		});
-		const registerDescriptionId = useCallback((id: string) => {
-			setDescriptionIds((ids) => addId(ids, id));
+		const registerDescription = useCallback(() => {
+			setDescriptionCount((count) => count + 1);
 
 			return () => {
-				setDescriptionIds((ids) => removeId(ids, id));
+				setDescriptionCount((count) => count - 1);
 			};
 		}, []);
-		const registerErrorId = useCallback((id: string) => {
-			setErrorIds((ids) => addId(ids, id));
+		const registerError = useCallback(() => {
+			setErrorCount((count) => count + 1);
 
 			return () => {
-				setErrorIds((ids) => removeId(ids, id));
+				setErrorCount((count) => count - 1);
 			};
 		}, []);
 		const context = useMemo(
 			() => ({
-				descriptionIds,
-				errorIds,
-				registerDescriptionId,
-				registerErrorId,
+				descriptionId,
+				errorId,
+				hasDescription: descriptionCount > 0,
+				hasErrors: errorCount > 0,
+				registerDescription,
+				registerError,
 				validation,
 			}),
-			[descriptionIds, errorIds, registerDescriptionId, registerErrorId, validation],
+			[
+				descriptionId,
+				errorId,
+				descriptionCount,
+				errorCount,
+				registerDescription,
+				registerError,
+				validation,
+			],
 		);
 
 		return (
@@ -654,6 +672,10 @@ Control.displayName = "FieldControl";
  * as secondary to the bolder content above it. Use inside `Field.Item`, below
  * the control, to clarify expected format or constraints for that single field.
  *
+ * **At most one per `Field.Item`.** `Field.Item` owns a single description
+ * slot ID and applies it via context, so a second `Field.Description` would
+ * duplicate that `id` in the DOM.
+ *
  * **Auto-tighten.** When this description sits directly after rendered
  * `Field.Errors` or `Field.ErrorList` output, the parent's `gap-1.5`
  * collapses via a matching negative top margin so error list + helper read as
@@ -684,16 +706,25 @@ Control.displayName = "FieldControl";
  * </Field.Group>
  * ```
  */
-const Description = forwardRef<ComponentRef<"p">, ComponentProps<"p"> & WithAsChild>(
-	({ asChild, className, id: idProp, ...props }, ref) => {
+const Description = forwardRef<ComponentRef<"p">, Omit<ComponentProps<"p">, "id"> & WithAsChild>(
+	({ asChild, className, ...props }, ref) => {
 		const Comp = asChild ? Slot : "p";
-		const id = useFieldMessageId(idProp, "description");
+		const context = useContext(FieldItemContext);
+		const registerDescription = context?.registerDescription;
+
+		useIsomorphicLayoutEffect(() => {
+			if (registerDescription == null) {
+				return;
+			}
+
+			return registerDescription();
+		}, [registerDescription]);
 
 		return (
 			<Comp
 				ref={ref}
 				data-slot="field-description"
-				id={id}
+				id={context?.descriptionId}
 				className={cx(
 					"text-body text-sm leading-4",
 					// When this description sits directly after a Field.ErrorList
@@ -768,6 +799,11 @@ FieldErrorItem.displayName = "FieldErrorItem";
  * Deliberately does not support `asChild` because it owns the generated list
  * items; use `Field.ErrorList` with `asChild` for custom list markup.
  *
+ * **At most one per `Field.Item`.** `Field.Errors` renders a `Field.ErrorList`
+ * under the hood, and `Field.Item` owns a single errors slot ID. Use either
+ * `Field.Errors` *or* `Field.ErrorList` per item, not both, and pass multiple
+ * messages to one `Field.Errors` instead of rendering it twice.
+ *
  * @see https://mantle.ngrok.com/components/field
  *
  * @example
@@ -822,6 +858,11 @@ FieldErrors.displayName = "FieldErrors";
  * stacks items as a flex column with no gap so consecutive errors read as a
  * single tight block.
  *
+ * **At most one per `Field.Item`.** `Field.Item` owns a single errors slot ID
+ * and applies it via context. Use either `Field.ErrorList` *or* `Field.Errors`
+ * per item, not both, and put multiple `Field.ErrorItem` children inside the
+ * single list instead of rendering two `Field.ErrorList`s.
+ *
  * @see https://mantle.ngrok.com/components/field
  *
  * @example
@@ -841,34 +882,44 @@ FieldErrors.displayName = "FieldErrors";
  * </Field.Group>
  * ```
  */
-const FieldErrorList = forwardRef<ComponentRef<"ul">, ComponentProps<"ul"> & WithAsChild>(
-	({ asChild, children, className, id: idProp, ...props }, ref) => {
-		const hasRenderableChildren = hasRenderableErrorListChildren({
-			children,
-			errorItemType: FieldErrorItem,
-		});
-		const id = useFieldMessageId(idProp, "error", hasRenderableChildren);
+const FieldErrorList = forwardRef<
+	ComponentRef<"ul">,
+	Omit<ComponentProps<"ul">, "id"> & WithAsChild
+>(({ asChild, children, className, ...props }, ref) => {
+	const hasRenderableChildren = hasRenderableErrorListChildren({
+		children,
+		errorItemType: FieldErrorItem,
+	});
+	const context = useContext(FieldItemContext);
+	const registerError = context?.registerError;
 
-		if (!hasRenderableChildren) {
-			return null;
+	useIsomorphicLayoutEffect(() => {
+		if (!hasRenderableChildren || registerError == null) {
+			return;
 		}
 
-		const Comp = asChild ? Slot : "ul";
+		return registerError();
+	}, [hasRenderableChildren, registerError]);
 
-		return (
-			<Comp
-				ref={ref}
-				data-slot="field-error-list"
-				id={id}
-				role="list"
-				className={cx("m-0 flex w-full flex-col list-none p-0", className)}
-				{...props}
-			>
-				{children}
-			</Comp>
-		);
-	},
-);
+	if (!hasRenderableChildren) {
+		return null;
+	}
+
+	const Comp = asChild ? Slot : "ul";
+
+	return (
+		<Comp
+			ref={ref}
+			data-slot="field-error-list"
+			id={context?.errorId}
+			role="list"
+			className={cx("m-0 flex w-full flex-col list-none p-0", className)}
+			{...props}
+		>
+			{children}
+		</Comp>
+	);
+});
 FieldErrorList.displayName = "FieldErrorList";
 
 /**
@@ -882,7 +933,7 @@ FieldErrorList.displayName = "FieldErrorList";
  * @see https://mantle.ngrok.com/components/field
  *
  * @example
- * Composition:
+ * Composition (pick `Field.Errors` *or* `Field.ErrorList` per item — not both):
  * ```
  * Field.Group
  * └── Field.Item
@@ -894,7 +945,7 @@ FieldErrorList.displayName = "FieldErrorList";
  *     │       └── Field.HelpContent
  *     ├── Field.Control
  *     │   └── (control)
- *     ├── Field.Errors
+ *     ├── Field.Errors             (or)
  *     ├── Field.ErrorList
  *     │   └── Field.ErrorItem
  *     └── Field.Description
