@@ -523,13 +523,17 @@ export function AccountForm() {
 					onChange={(event) => field.handleChange(event.target.value)}
 				/>
 			</Field.Control>
-			<Field.Errors messages={field.state.meta.errors.map((error) => error?.message)} />
+			<Field.Errors
+				messages={field.state.meta.errors.map((error) =>
+					typeof error === "string" ? error : error?.message,
+				)}
+			/>
 		</Field.Item>
 	)}
 </form.Field>
 ```
 
-`Field.Errors` already trims each string, filters empty / nullish / `false` entries, and renders nothing when no messages remain — so passing `undefined` / empty strings through the `.map` is safe and behaves the same as filtering them out. Use the inline form when the helper's mixed-shape handling isn't pulling its weight (e.g. a validator that always emits `{ message: string }`), and reach for `toErrorMessages` when you want a single call that handles the full TanStack Form error array shape.
+`Field.Errors` already trims each string, filters empty / nullish / `false` entries, and renders nothing when no messages remain — so passing `undefined` / empty strings through the `.map` is safe and behaves the same as filtering them out. Use the inline form when the helper's mixed-shape handling isn't pulling its weight (e.g. a validator that always emits `{ message: string }`, where a bare `error?.message` map is enough), and reach for `toErrorMessages` when you want a single call that handles the full TanStack Form error array shape.
 
 ## Composition
 

@@ -1,3 +1,5 @@
+import { normalizeErrorMessages } from "./error-helpers.js";
+
 /**
  * Shapes commonly found in `field.state.meta.errors` from TanStack React Form
  * across its built-in validators (Standard Schema / Zod issues, raw strings,
@@ -26,27 +28,10 @@ type FieldError = { readonly message?: string | undefined } | string | null | un
  * </Field.Item>
  * ```
  */
-const toErrorMessages = (errors: readonly FieldError[] | null | undefined): string[] => {
-	if (errors == null) {
-		return [];
-	}
-
-	const messages: string[] = [];
-	for (const error of errors) {
-		if (!error) {
-			continue;
-		}
-		const message = typeof error === "string" ? error : error.message;
-		if (typeof message !== "string") {
-			continue;
-		}
-		const trimmed = message.trim();
-		if (trimmed.length > 0) {
-			messages.push(trimmed);
-		}
-	}
-	return messages;
-};
+const toErrorMessages = (errors: readonly FieldError[] | null | undefined): string[] =>
+	normalizeErrorMessages(
+		errors?.map((error) => (typeof error === "string" || !error ? error : error.message)),
+	);
 
 export {
 	//,
