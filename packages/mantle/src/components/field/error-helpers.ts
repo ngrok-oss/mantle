@@ -41,7 +41,9 @@ const normalizeErrorMessages = (messages: readonly FieldErrorMessage[] | undefin
  * the `Field.ErrorList` walker so an empty item is identified consistently.
  */
 const isErrorItemRenderable = (children: ReactNode): boolean => {
-	if (children == null || children === false) {
+	// Booleans (including `true`) render nothing in React, so a `cond && expr`
+	// pattern that resolves to `true` would otherwise count as renderable here.
+	if (children == null || typeof children === "boolean") {
 		return false;
 	}
 	if (typeof children === "string" && children.trim().length === 0) {
@@ -64,7 +66,7 @@ const hasRenderableErrorListChildren = ({
 	let found = false;
 
 	Children.forEach(children, (child) => {
-		if (found || child == null) {
+		if (found || child == null || typeof child === "boolean") {
 			return;
 		}
 

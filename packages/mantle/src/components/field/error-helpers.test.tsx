@@ -29,6 +29,7 @@ describe("field helpers", () => {
 			expect(isErrorItemRenderable(null)).toBe(false);
 			expect(isErrorItemRenderable(undefined)).toBe(false);
 			expect(isErrorItemRenderable(false)).toBe(false);
+			expect(isErrorItemRenderable(true)).toBe(false);
 			expect(isErrorItemRenderable("")).toBe(false);
 			expect(isErrorItemRenderable(" ")).toBe(false);
 		});
@@ -45,6 +46,21 @@ describe("field helpers", () => {
 			expect(
 				hasRenderableErrorListChildren({
 					children: <></>,
+					errorItemType,
+				}),
+			).toBe(false);
+		});
+
+		test("returns false for boolean-only children", () => {
+			expect(
+				hasRenderableErrorListChildren({
+					children: true,
+					errorItemType,
+				}),
+			).toBe(false);
+			expect(
+				hasRenderableErrorListChildren({
+					children: [false, true, null],
 					errorItemType,
 				}),
 			).toBe(false);

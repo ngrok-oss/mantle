@@ -4,6 +4,7 @@ import type { ComponentProps, ReactNode } from "react";
 import { describe, expect, test } from "vitest";
 import { Input } from "../input/input.js";
 import { Label } from "../label/label.js";
+import type { FieldControlAriaProps } from "./field-context.js";
 import { Field } from "./field.js";
 
 const MockControl = (props: ComponentProps<"input">) => <input {...props} />;
@@ -387,6 +388,28 @@ describe("Field", () => {
 			expect(input.getAttribute("aria-describedby")).toContain(description.id);
 			expect(input).toHaveAttribute("id", "account.email");
 			expect(input).toHaveAttribute("name", "account.email");
+		});
+
+		test("render-prop variant rejects extra DOM props at the type level", () => {
+			// The render-prop form does not render `Slot`, so DOM props and a
+			// forwarded ref have nowhere to land. The discriminated union
+			// keeps those off the render-prop variant; the element-child form
+			// still accepts them.
+			const renderPropWithClassName = (
+				// @ts-expect-error -- className is not allowed alongside a render-prop child
+				<Field.Control className="should-not-typecheck">
+					{(controlProps: FieldControlAriaProps) => <input {...controlProps} />}
+				</Field.Control>
+			);
+
+			const elementWithClassName = (
+				<Field.Control className="ok-on-element-form">
+					<input />
+				</Field.Control>
+			);
+
+			expect(renderPropWithClassName).toBeTruthy();
+			expect(elementWithClassName).toBeTruthy();
 		});
 
 		test("supports custom wrappers with the render prop API", () => {

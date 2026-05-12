@@ -47,17 +47,41 @@ type FieldErrorsProps = Omit<ComponentProps<"ul">, "children" | "id"> & {
 	messages?: readonly FieldErrorMessage[];
 };
 
-type FieldControlProps = Omit<
+type FieldControlSlotProps = Omit<
 	ComponentProps<typeof Slot>,
 	"aria-describedby" | "aria-errormessage" | "aria-invalid" | "children"
-> &
+>;
+
+/**
+ * Element-child form of `Field.Control`. Renders via `Slot`, so it accepts
+ * any HTML/Slot props and a forwarded ref — those land on the single child
+ * element along with the generated ARIA props.
+ */
+type FieldControlElementProps = FieldControlSlotProps &
 	WithValidation & {
 		/**
-		 * A single control element to receive the field ARIA props, or a render
-		 * function for custom components that need to place those props manually.
+		 * A single control element to receive the field ARIA props.
 		 */
-		children: ReactElement | ((props: FieldControlAriaProps) => ReactNode);
+		children: ReactElement;
 	};
+
+/**
+ * Render-prop form of `Field.Control`. The caller owns the rendered element,
+ * so `Field.Control` itself renders nothing — extra DOM props and `ref` have
+ * no element to attach to and are intentionally not part of this variant.
+ * Slot props are marked `never` so passing e.g. `className` alongside a
+ * render-prop child is a type error rather than a silently ignored prop.
+ */
+type FieldControlRenderProps = WithValidation & {
+	/**
+	 * A render function that places the field ARIA props onto a control of
+	 * the caller's choosing. Used for compound controls or wrappers where
+	 * `Slot` cannot reach the focusable element.
+	 */
+	children: (props: FieldControlAriaProps) => ReactNode;
+} & { [K in keyof FieldControlSlotProps]?: never };
+
+type FieldControlProps = FieldControlElementProps | FieldControlRenderProps;
 
 /**
  * Renders a semantic `<fieldset>` for grouping related controls under a
