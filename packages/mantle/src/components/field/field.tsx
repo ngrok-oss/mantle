@@ -933,7 +933,7 @@ FieldErrorList.displayName = "FieldErrorList";
  * @see https://mantle.ngrok.com/components/field
  *
  * @example
- * Composition (pick `Field.Errors` *or* `Field.ErrorList` per item — not both):
+ * Composition:
  * ```
  * Field.Group
  * └── Field.Item
@@ -1099,6 +1099,28 @@ const Field = {
 	 * The Mantle `Label`, exposed on `Field` for field composition.
 	 *
 	 * @see https://mantle.ngrok.com/components/label
+	 *
+	 * @example
+	 * ```tsx
+	 * <Field.Group>
+	 *   <Field.Item>
+	 *     <Field.LabelRow>
+	 *       <Field.Label htmlFor="api-key">
+	 *         API key <Field.Optional />
+	 *       </Field.Label>
+	 *       <Field.Help>
+	 *         <Field.HelpTrigger label="What is an API key?" />
+	 *         <Field.HelpContent>Copy this from the dashboard.</Field.HelpContent>
+	 *       </Field.Help>
+	 *     </Field.LabelRow>
+	 *     <Field.Control>
+	 *       <Input id="api-key" name="apiKey" />
+	 *     </Field.Control>
+	 *     <Field.Errors messages={["API key is required."]} />
+	 *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
+	 *   </Field.Item>
+	 * </Field.Group>
+	 * ```
 	 */
 	Label,
 	/**
