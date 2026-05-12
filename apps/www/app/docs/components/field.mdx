@@ -5,7 +5,7 @@ description: Layout primitive for a single form field — label, control, helper
 
 import { Button } from "@ngrok/mantle/button";
 import { Field } from "@ngrok/mantle/field";
-import { Input } from "@ngrok/mantle/input";
+import { Input, PasswordInput } from "@ngrok/mantle/input";
 import { RadioGroup } from "@ngrok/mantle/radio-group";
 import { InfoIcon } from "@phosphor-icons/react/Info";
 import { useForm } from "@tanstack/react-form";
@@ -151,7 +151,7 @@ Pass multiple messages to `Field.Errors` when a validator produces more than one
 	<Field.Item className="max-w-80">
 		<Field.Label htmlFor="field-password">Password</Field.Label>
 		<Field.Control>
-			<Input id="field-password" name="password" type="password" defaultValue="abc" />
+			<PasswordInput id="field-password" name="password" defaultValue="abc" />
 		</Field.Control>
 		<Field.Errors
 			messages={[
@@ -168,7 +168,7 @@ Pass multiple messages to `Field.Errors` when a validator produces more than one
 <Field.Item>
 	<Field.Label htmlFor="password">Password</Field.Label>
 	<Field.Control>
-		<Input id="password" name="password" type="password" />
+		<PasswordInput id="password" name="password" />
 	</Field.Control>
 	<Field.Errors
 		messages={[
