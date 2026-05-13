@@ -537,7 +537,7 @@ Most forms only need a `Field.Group` of `Field.Item`s — that's the default tre
 Field.Group
 └── Field.Item
     ├── Field.LabelRow
-    │   ├── Field.Label
+    │   ├── Field.Label            (or Field.LabelText for control-less rows)
     │   │   └── Field.Optional
     │   └── Field.Help
     │       ├── Field.HelpTrigger
@@ -582,6 +582,35 @@ Layout parts plus `Field.Description`, `Field.Optional`, and `Field.ErrorList` a
 See the [Label docs](/components/label) for association patterns, disabled state, and typography behavior.
 
 All props from [`Label`](/components/label).
+
+### Field.LabelText
+
+Static, label-styled text for a `Field.Item` row that does **not** caption a focusable control. Renders a `<p>` (not a `<label>`) with the same typography as `Field.Label`, so a read-only row composes cleanly alongside real form fields without misrepresenting itself as a control caption.
+
+#### When to use
+
+- A `Field.Item` row that displays a derived or system-managed value — owner, created-at, computed status, an identity card — where there is no `<input>`, `<select>`, `<button>`, or other focusable target to caption.
+- Read-only summary rows inside a sheet or details panel that should visually align with sibling `Field.Item`s but have no editable control.
+- Anywhere you'd otherwise hand-roll a `<p>` styled to mimic `Field.Label` typography. Use `Field.LabelText` so the intent is explicit at the call site.
+
+#### When _not_ to use
+
+- The row has a focusable control. Use `Field.Label` so the `htmlFor` ↔ control association, click-to-focus, and accessible name are wired automatically.
+- For body copy, section headings, or any text whose typography only happens to match by accident. Reach for a heading or a plain `<p>` instead — `Field.LabelText` exists specifically to slot into the `Field.Label` position of a `Field.Item`.
+
+```tsx
+<Field.Item name="owner">
+	<Field.LabelText>Owner</Field.LabelText>
+	<CredentialOwnerCard owner={owner} />
+	<Field.Description>The user or service user that owns this API key.</Field.Description>
+</Field.Item>
+```
+
+All props from [p](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p#attributes), plus:
+
+| Prop       | Type      | Default | Description                                       |
+| ---------- | --------- | ------- | ------------------------------------------------- |
+| `asChild?` | `boolean` | `false` | Render as a different element by passing a child. |
 
 ### Field.Item
 
