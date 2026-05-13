@@ -3,9 +3,72 @@ title: OTP Input
 description: Accessible one-time passcode (OTP) input with paste, autofill, and IME support.
 ---
 
-import { Field } from "@ngrok/mantle/field";
+import { Button } from "@ngrok/mantle/button";
+import { Field, toErrorMessages } from "@ngrok/mantle/field";
 import { OtpInput, REGEXP_ONLY_DIGITS } from "@ngrok/mantle/otp-input";
+import { useForm } from "@tanstack/react-form";
+import { z } from "zod";
 import { Example } from "~/components/example";
+
+export const formSchema = z.object({
+code: z.string().length(6, "Enter the 6-digit code."),
+});
+export function TanStackFormExample() {
+const defaultValues = {
+code: "",
+};
+const form = useForm({
+defaultValues,
+validators: {
+onSubmit: formSchema,
+},
+onSubmit: ({ value }) => {
+window.alert(`Submitted: ${JSON.stringify(value, null, 2)}`);
+},
+});
+
+    return (
+    	<form
+    		className="w-full max-w-sm space-y-4"
+    		onSubmit={(event) => {
+    			event.preventDefault();
+    			event.stopPropagation();
+    			void form.handleSubmit();
+    		}}
+    	>
+    		<form.Field name="code">
+    			{(field) => (
+    				<Field.Item name={field.name}>
+    					<Field.Label>Verification code</Field.Label>
+    					<Field.Control>
+    						<OtpInput.Root
+    							value={field.state.value}
+    							onBlur={field.handleBlur}
+    							onChange={field.handleChange}
+    							maxLength={6}
+    							pattern={REGEXP_ONLY_DIGITS}
+    						>
+    							<OtpInput.Group>
+    								<OtpInput.Slot index={0} />
+    								<OtpInput.Slot index={1} />
+    								<OtpInput.Slot index={2} />
+    								<OtpInput.Slot index={3} />
+    								<OtpInput.Slot index={4} />
+    								<OtpInput.Slot index={5} />
+    							</OtpInput.Group>
+    						</OtpInput.Root>
+    					</Field.Control>
+    					<Field.Errors messages={toErrorMessages(field.state.meta.errors)} />
+    				</Field.Item>
+    			)}
+    		</form.Field>
+    		<Button type="submit" appearance="filled">
+    			Submit
+    		</Button>
+    	</form>
+    );
+
+}
 
 # OTP Input
 
@@ -92,6 +155,80 @@ import { OtpInput } from "@ngrok/mantle/otp-input";
 		<OtpInput.Slot index={5} />
 	</OtpInput.Group>
 </OtpInput.Root>;
+```
+
+## With TanStack Form
+
+Use `@tanstack/react-form` with `zod` to validate the hidden OTP input while `Field.Control` handles label, name, and validation ARIA.
+
+<Example className="w-full">
+	<TanStackFormExample />
+</Example>
+
+```tsx
+import { Button } from "@ngrok/mantle/button";
+import { Field, toErrorMessages } from "@ngrok/mantle/field";
+import { OtpInput, REGEXP_ONLY_DIGITS } from "@ngrok/mantle/otp-input";
+import { useForm } from "@tanstack/react-form";
+import { z } from "zod";
+
+export const formSchema = z.object({
+	code: z.string().length(6, "Enter the 6-digit code."),
+});
+function Example() {
+	const defaultValues = {
+		code: "",
+	};
+	const form = useForm({
+		defaultValues,
+		validators: {
+			onSubmit: formSchema,
+		},
+		onSubmit: ({ value }) => {
+			// Handle form submission here
+		},
+	});
+
+	return (
+		<form
+			onSubmit={(event) => {
+				event.preventDefault();
+				event.stopPropagation();
+				void form.handleSubmit();
+			}}
+		>
+			<form.Field name="code">
+				{(field) => (
+					<Field.Item name={field.name}>
+						<Field.Label>Verification code</Field.Label>
+						<Field.Control>
+							<OtpInput.Root
+								value={field.state.value}
+								onBlur={field.handleBlur}
+								onChange={field.handleChange}
+								maxLength={6}
+								pattern={REGEXP_ONLY_DIGITS}
+							>
+								<OtpInput.Group>
+									<OtpInput.Slot index={0} />
+									<OtpInput.Slot index={1} />
+									<OtpInput.Slot index={2} />
+									<OtpInput.Slot index={3} />
+									<OtpInput.Slot index={4} />
+									<OtpInput.Slot index={5} />
+								</OtpInput.Group>
+							</OtpInput.Root>
+						</Field.Control>
+						<Field.Errors messages={toErrorMessages(field.state.meta.errors)} />
+					</Field.Item>
+				)}
+			</form.Field>
+			<Button type="submit" appearance="filled">
+				Submit
+			</Button>
+		</form>
+	);
+}
 ```
 
 ## Single group

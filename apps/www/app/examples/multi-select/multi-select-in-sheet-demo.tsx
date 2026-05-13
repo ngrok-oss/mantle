@@ -1,5 +1,5 @@
 import { Button } from "@ngrok/mantle/button";
-import { Field } from "@ngrok/mantle/field";
+import { Field, toErrorMessages } from "@ngrok/mantle/field";
 import { MultiSelect } from "@ngrok/mantle/multi-select";
 import { Sheet } from "@ngrok/mantle/sheet";
 import { useForm } from "@tanstack/react-form";
@@ -22,12 +22,12 @@ export function InSheetDemo() {
 	const [searchValue, setSearchValue] = useState("");
 	const filteredFruits = useMemo(() => matchSorter(fruits, searchValue), [searchValue]);
 	const filteredVeggies = useMemo(() => matchSorter(vegetables, searchValue), [searchValue]);
+	const defaultValues: FormValues = {
+		favorites: ["Cherry"],
+	};
 	const form = useForm({
-		defaultValues: {
-			favorites: ["Cherry"],
-		} satisfies FormValues as FormValues,
+		defaultValues,
 		validators: {
-			onChange: formSchema,
 			onSubmit: formSchema,
 		},
 		onSubmit: ({ value }) => {
@@ -113,7 +113,7 @@ export function InSheetDemo() {
 											</MultiSelect.Content>
 										</MultiSelect.Root>
 									</Field.Control>
-									<Field.Errors messages={field.state.meta.errors.map((error) => error?.message)} />
+									<Field.Errors messages={toErrorMessages(field.state.meta.errors)} />
 								</Field.Item>
 							)}
 						</form.Field>

@@ -4,7 +4,7 @@ description: A control that allows the user to toggle between checked and not ch
 ---
 
 import { Button } from "@ngrok/mantle/button";
-import { Field } from "@ngrok/mantle/field";
+import { Field, toErrorMessages } from "@ngrok/mantle/field";
 import { Label } from "@ngrok/mantle/label";
 import { Switch } from "@ngrok/mantle/switch";
 import { useForm } from "@tanstack/react-form";
@@ -98,10 +98,11 @@ export const formSchema = z.object({
 });
 
 export function FormExample() {
+	const defaultValues = {
+		airplaneMode: false,
+	};
 	const form = useForm({
-		defaultValues: {
-			airplaneMode: false,
-		},
+		defaultValues,
 		validators: {
 			onSubmit: formSchema,
 		},
@@ -132,17 +133,13 @@ export function FormExample() {
     						/>
     					</Field.Control>
     				</Field.Label>
-    				<Field.Errors messages={field.state.meta.errors.map((error) => error?.message)} />
+    				<Field.Errors messages={toErrorMessages(field.state.meta.errors)} />
     			</Field.Item>
     		)}
     	</form.Field>
-    	<form.Subscribe selector={(state) => state.isDirty}>
-    		{(isDirty) => (
-    			<Button type="submit" appearance="filled" disabled={!isDirty}>
-    				Submit
-    			</Button>
-    		)}
-    	</form.Subscribe>
+    	<Button type="submit" appearance="filled">
+    		Submit
+    	</Button>
     </form>
     );
 
@@ -154,32 +151,25 @@ export function FormExample() {
 
 ```tsx
 import { Button } from "@ngrok/mantle/button";
-import { Field } from "@ngrok/mantle/field";
+import { Field, toErrorMessages } from "@ngrok/mantle/field";
 import { Switch } from "@ngrok/mantle/switch";
 import { useForm } from "@tanstack/react-form";
 import { z } from "zod";
-import { useSubmit } from "react-router";
 
 const formSchema = z.object({
 	airplaneMode: z.boolean(),
 });
-
-type FormValues = z.infer<typeof formSchema>;
-
 function FormExample() {
-	const submit = useSubmit();
+	const defaultValues = {
+		airplaneMode: false,
+	};
 	const form = useForm({
-		defaultValues: {
-			airplaneMode: false,
-		} satisfies FormValues as FormValues,
+		defaultValues,
 		validators: {
 			onSubmit: formSchema,
 		},
 		onSubmit: ({ value }) => {
 			// Handle form submission here
-			submit(value, {
-				method: "post",
-			});
 		},
 	});
 
@@ -205,17 +195,13 @@ function FormExample() {
 								/>
 							</Field.Control>
 						</Field.Label>
-						<Field.Errors messages={field.state.meta.errors.map((error) => error?.message)} />
+						<Field.Errors messages={toErrorMessages(field.state.meta.errors)} />
 					</Field.Item>
 				)}
 			</form.Field>
-			<form.Subscribe selector={(state) => state.isDirty}>
-				{(isDirty) => (
-					<Button type="submit" appearance="filled" disabled={!isDirty}>
-						Submit
-					</Button>
-				)}
-			</form.Subscribe>
+			<Button type="submit" appearance="filled">
+				Submit
+			</Button>
 		</form>
 	);
 }

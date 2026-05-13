@@ -3,9 +3,63 @@ title: Slider
 description: An input where the user selects a value from within a given range.
 ---
 
-import { Field } from "@ngrok/mantle/field";
+import { Button } from "@ngrok/mantle/button";
+import { Field, toErrorMessages } from "@ngrok/mantle/field";
 import { Slider } from "@ngrok/mantle/slider";
+import { useForm } from "@tanstack/react-form";
+import { z } from "zod";
 import { Example } from "~/components/example";
+
+export const formSchema = z.object({
+volume: z.number().min(25, "Choose at least 25."),
+});
+export function TanStackFormExample() {
+const defaultValues = {
+volume: 50,
+};
+const form = useForm({
+defaultValues,
+validators: {
+onSubmit: formSchema,
+},
+onSubmit: ({ value }) => {
+window.alert(`Submitted: ${JSON.stringify(value, null, 2)}`);
+},
+});
+
+    return (
+    	<form
+    		className="w-full max-w-sm space-y-4"
+    		onSubmit={(event) => {
+    			event.preventDefault();
+    			event.stopPropagation();
+    			void form.handleSubmit();
+    		}}
+    	>
+    		<form.Field name="volume">
+    			{(field) => (
+    				<Field.Item name={field.name}>
+    					<Field.Label>Volume</Field.Label>
+    					<Field.Control>
+    						<Slider
+    							value={field.state.value}
+    							onBlur={field.handleBlur}
+    							onValueChange={(value) => field.handleChange(value[0] ?? 0)}
+    							max={100}
+    							step={1}
+    						/>
+    					</Field.Control>
+    					<Field.Errors messages={toErrorMessages(field.state.meta.errors)} />
+    				</Field.Item>
+    			)}
+    		</form.Field>
+    		<Button type="submit" appearance="filled">
+    			Submit
+    		</Button>
+    	</form>
+    );
+
+}
 
 # Slider
 
@@ -53,6 +107,71 @@ import { Slider } from "@ngrok/mantle/slider";
 ```
 
 ## Examples
+
+### With TanStack Form
+
+Use `@tanstack/react-form` with `zod` to keep a single-thumb slider controlled. Radix emits slider values as an array, so pass the first value into `field.handleChange`.
+
+<Example className="w-full">
+	<TanStackFormExample />
+</Example>
+
+```tsx
+import { Button } from "@ngrok/mantle/button";
+import { Field, toErrorMessages } from "@ngrok/mantle/field";
+import { Slider } from "@ngrok/mantle/slider";
+import { useForm } from "@tanstack/react-form";
+import { z } from "zod";
+
+export const formSchema = z.object({
+	volume: z.number().min(25, "Choose at least 25."),
+});
+function Example() {
+	const defaultValues = {
+		volume: 50,
+	};
+	const form = useForm({
+		defaultValues,
+		validators: {
+			onSubmit: formSchema,
+		},
+		onSubmit: ({ value }) => {
+			// Handle form submission here
+		},
+	});
+
+	return (
+		<form
+			onSubmit={(event) => {
+				event.preventDefault();
+				event.stopPropagation();
+				void form.handleSubmit();
+			}}
+		>
+			<form.Field name="volume">
+				{(field) => (
+					<Field.Item name={field.name}>
+						<Field.Label>Volume</Field.Label>
+						<Field.Control>
+							<Slider
+								value={field.state.value}
+								onBlur={field.handleBlur}
+								onValueChange={(value) => field.handleChange(value[0] ?? 0)}
+								max={100}
+								step={1}
+							/>
+						</Field.Control>
+						<Field.Errors messages={toErrorMessages(field.state.meta.errors)} />
+					</Field.Item>
+				)}
+			</form.Field>
+			<Button type="submit" appearance="filled">
+				Submit
+			</Button>
+		</form>
+	);
+}
+```
 
 ### Single Thumb
 

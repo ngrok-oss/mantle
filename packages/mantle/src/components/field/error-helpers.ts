@@ -29,10 +29,26 @@ type HasRenderableErrorListChildrenOptions = {
  * Normalizes validator output into display-ready message strings without
  * coupling `Field.Errors` to a specific form library's error object shape.
  */
-const normalizeErrorMessages = (messages: readonly FieldErrorMessage[] | undefined) =>
-	messages
-		?.map((message) => (typeof message === "string" ? message.trim() : ""))
-		.filter((message) => message.length > 0) ?? [];
+const normalizeErrorMessages = (messages: readonly FieldErrorMessage[] | undefined) => {
+	const normalizedMessages: string[] = [];
+	const seenMessages = new Set<string>();
+
+	for (const message of messages ?? []) {
+		if (typeof message !== "string") {
+			continue;
+		}
+
+		const normalizedMessage = message.trim();
+		if (normalizedMessage.length === 0 || seenMessages.has(normalizedMessage)) {
+			continue;
+		}
+
+		seenMessages.add(normalizedMessage);
+		normalizedMessages.push(normalizedMessage);
+	}
+
+	return normalizedMessages;
+};
 
 /**
  * Returns `true` when the supplied children would produce visible content in

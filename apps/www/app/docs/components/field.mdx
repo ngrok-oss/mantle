@@ -114,7 +114,7 @@ import { Input } from "@ngrok/mantle/input";
 
 ## Error messages
 
-Use `Field.Errors` below the control when validation fails. It accepts string messages, trims them, filters empty values, and renders a semantic `<ul>` with `<li>` items so screen readers announce the errors as a list. When the list renders, `Field.Item` infers error state so the visual state and ARIA invalid state stay in sync.
+Use `Field.Errors` below the control when validation fails. It accepts string messages, trims them, filters empty values, removes duplicates, and renders a semantic `<ul>` with `<li>` items so screen readers announce the errors as a list. When the list renders, `Field.Item` infers error state so the visual state and ARIA invalid state stay in sync.
 
 For custom list markup or rich error content, compose the lower-level `Field.ErrorList` and `Field.ErrorItem` parts directly. A single error is still just a list of one.
 
@@ -180,7 +180,7 @@ Pass multiple messages to `Field.Errors` when a validator produces more than one
 </Field.Item>
 ```
 
-When errors arrive from a validator as an array (e.g. `field.state.meta.errors` from TanStack Form), map them to messages and pass them to `Field.Errors`. Empty, blank, or missing messages render nothing and do not add an error message reference. Reach for `toErrorMessages` to handle the mixed string / `{ message }` / nullish shapes that TanStack Form yields — see [With TanStack Form](#with-tanstack-form) below.
+When errors arrive from a validator as an array (e.g. `field.state.meta.errors` from TanStack Form), map them to messages and pass them to `Field.Errors`. Empty, blank, missing, or duplicate messages render nothing and do not add an error message reference. Reach for `toErrorMessages` to handle the mixed string / `{ message }` / nullish shapes that TanStack Form yields — see [With TanStack Form](#with-tanstack-form) below.
 
 ## Manual error list
 
@@ -787,7 +787,7 @@ All props from [ul](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul
 
 ### toErrorMessages
 
-Normalize a TanStack React Form field's `meta.errors` array (or any mixed array of `string` / `{ message }` / nullish / `false` entries) into a clean `string[]` ready to pass to `Field.Errors`. Trims whitespace and drops empty / whitespace-only entries so callers don't have to filter again.
+Normalize a TanStack React Form field's `meta.errors` array (or any mixed array of `string` / `{ message }` / nullish / `false` entries) into a clean `string[]` ready to pass to `Field.Errors`. Trims whitespace, drops empty / whitespace-only entries, and removes duplicates so callers don't have to filter again.
 
 Use this for [TanStack Form](https://tanstack.com/form) with Zod, Standard Schema, or thrown `Error` validators — `field.state.meta.errors` is a union of all of those shapes, and this helper folds them down to plain strings without coupling Mantle to a specific form library. For other validators where the error shape is already a `string[]`, skip the helper and pass the array directly.
 

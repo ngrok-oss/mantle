@@ -3,11 +3,65 @@ title: Input
 description: Fundamental component for inputs.
 ---
 
-import { Field } from "@ngrok/mantle/field";
+import { Button } from "@ngrok/mantle/button";
+import { Field, toErrorMessages } from "@ngrok/mantle/field";
 import { Input, InputCapture } from "@ngrok/mantle/input";
 import { InfoIcon } from "@phosphor-icons/react/Info";
 import { MagnifyingGlassIcon } from "@phosphor-icons/react/MagnifyingGlass";
+import { useForm } from "@tanstack/react-form";
+import { z } from "zod";
 import { Example } from "~/components/example";
+
+export const formSchema = z.object({
+email: z.string().email("Enter a valid email address."),
+});
+export function TanStackFormExample() {
+const defaultValues = {
+email: "",
+};
+const form = useForm({
+defaultValues,
+validators: {
+onSubmit: formSchema,
+},
+onSubmit: ({ value }) => {
+window.alert(`Submitted: ${JSON.stringify(value, null, 2)}`);
+},
+});
+
+    return (
+    	<form
+    		className="w-full max-w-sm space-y-4"
+    		onSubmit={(event) => {
+    			event.preventDefault();
+    			event.stopPropagation();
+    			void form.handleSubmit();
+    		}}
+    	>
+    		<form.Field name="email">
+    			{(field) => (
+    				<Field.Item name={field.name}>
+    					<Field.Label>Email</Field.Label>
+    					<Field.Control>
+    						<Input
+    							type="email"
+    							value={field.state.value}
+    							onBlur={field.handleBlur}
+    							onChange={(event) => field.handleChange(event.target.value)}
+    							placeholder="you@example.com"
+    						/>
+    					</Field.Control>
+    					<Field.Errors messages={toErrorMessages(field.state.meta.errors)} />
+    				</Field.Item>
+    			)}
+    		</form.Field>
+    		<Button type="submit" appearance="filled">
+    			Submit
+    		</Button>
+    	</form>
+    );
+
+}
 
 # Input
 
@@ -100,6 +154,72 @@ Or render the control on its own:
 import { Input } from "@ngrok/mantle/input";
 
 <Input placeholder="Enter a username" />;
+```
+
+## Examples
+
+### With TanStack Form
+
+Use `@tanstack/react-form` with `zod` when the input needs controlled value, blur, submit, and validation state. `Field.Item` owns the field name and `Field.Errors` renders normalized validator messages.
+
+<Example className="w-full">
+	<TanStackFormExample />
+</Example>
+
+```tsx
+import { Button } from "@ngrok/mantle/button";
+import { Field, toErrorMessages } from "@ngrok/mantle/field";
+import { Input } from "@ngrok/mantle/input";
+import { useForm } from "@tanstack/react-form";
+import { z } from "zod";
+
+export const formSchema = z.object({
+	email: z.string().email("Enter a valid email address."),
+});
+function Example() {
+	const defaultValues = {
+		email: "",
+	};
+	const form = useForm({
+		defaultValues,
+		validators: {
+			onSubmit: formSchema,
+		},
+		onSubmit: ({ value }) => {
+			// Handle form submission here
+		},
+	});
+
+	return (
+		<form
+			onSubmit={(event) => {
+				event.preventDefault();
+				event.stopPropagation();
+				void form.handleSubmit();
+			}}
+		>
+			<form.Field name="email">
+				{(field) => (
+					<Field.Item name={field.name}>
+						<Field.Label>Email</Field.Label>
+						<Field.Control>
+							<Input
+								type="email"
+								value={field.state.value}
+								onBlur={field.handleBlur}
+								onChange={(event) => field.handleChange(event.target.value)}
+							/>
+						</Field.Control>
+						<Field.Errors messages={toErrorMessages(field.state.meta.errors)} />
+					</Field.Item>
+				)}
+			</form.Field>
+			<Button type="submit" appearance="filled">
+				Submit
+			</Button>
+		</form>
+	);
+}
 ```
 
 ## Child Elements

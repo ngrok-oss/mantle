@@ -53,3 +53,7 @@ This is a particularly tight fit with TanStack Form's `field.name`:
 ```
 
 works end-to-end — `name` lands on `Select.Root`'s hidden form input, and the field's helper / error IDs reach the focusable trigger button.
+
+**Duplicate error messages**
+
+`Field.Errors` and `toErrorMessages` now collapse duplicate validation messages after trimming. This keeps repeated validator output — for example the same Zod message present in multiple TanStack Form validation phases — from rendering the same error twice.

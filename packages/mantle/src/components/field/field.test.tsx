@@ -947,7 +947,7 @@ describe("Field", () => {
 			render(
 				<Field.Errors
 					data-testid="errors"
-					messages={[" Required ", undefined, "", "Too short", false]}
+					messages={[" Required ", undefined, "", "Required", "Too short", " Too short ", false]}
 				/>,
 			);
 

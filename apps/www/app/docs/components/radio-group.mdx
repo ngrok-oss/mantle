@@ -3,9 +3,78 @@ title: Radio Group
 description: A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a time.
 ---
 
-import { Field } from "@ngrok/mantle/field";
+import { Button } from "@ngrok/mantle/button";
+import { Field, toErrorMessages } from "@ngrok/mantle/field";
 import { RadioGroup } from "@ngrok/mantle/radio-group";
+import { useForm } from "@tanstack/react-form";
+import { z } from "zod";
 import { Example } from "~/components/example";
+
+export const formSchema = z.object({
+density: z.string().min(1, "Choose a density."),
+});
+export function TanStackFormExample() {
+const defaultValues = {
+density: "",
+};
+const form = useForm({
+defaultValues,
+validators: {
+onSubmit: formSchema,
+},
+onSubmit: ({ value }) => {
+window.alert(`Submitted: ${JSON.stringify(value, null, 2)}`);
+},
+});
+
+    return (
+    	<form
+    		className="w-full max-w-sm space-y-4"
+    		onSubmit={(event) => {
+    			event.preventDefault();
+    			event.stopPropagation();
+    			void form.handleSubmit();
+    		}}
+    	>
+    		<form.Field name="density">
+    			{(field) => (
+    				<Field.Set>
+    					<Field.Legend>Density</Field.Legend>
+    					<RadioGroup.Root
+    						name={field.name}
+    						value={field.state.value}
+    						onChange={field.handleChange}
+    					>
+    						<RadioGroup.Item value="default" id="form-density-default">
+    							<RadioGroup.Indicator />
+    							<RadioGroup.ItemContent asChild>
+    								<label htmlFor="form-density-default">Default</label>
+    							</RadioGroup.ItemContent>
+    						</RadioGroup.Item>
+    						<RadioGroup.Item value="comfortable" id="form-density-comfortable">
+    							<RadioGroup.Indicator />
+    							<RadioGroup.ItemContent asChild>
+    								<label htmlFor="form-density-comfortable">Comfortable</label>
+    							</RadioGroup.ItemContent>
+    						</RadioGroup.Item>
+    						<RadioGroup.Item value="compact" id="form-density-compact">
+    							<RadioGroup.Indicator />
+    							<RadioGroup.ItemContent asChild>
+    								<label htmlFor="form-density-compact">Compact</label>
+    							</RadioGroup.ItemContent>
+    						</RadioGroup.Item>
+    					</RadioGroup.Root>
+    					<Field.Errors messages={toErrorMessages(field.state.meta.errors)} />
+    				</Field.Set>
+    			)}
+    		</form.Field>
+    		<Button type="submit" appearance="filled">
+    			Submit
+    		</Button>
+    	</form>
+    );
+
+}
 
 # Radio Group
 
@@ -265,6 +334,86 @@ import { RadioGroup } from "@ngrok/mantle/radio-group";
 		<RadioGroup.Indicator />
 	</RadioGroup.Card>
 </RadioGroup.Root>
+```
+
+## With TanStack Form
+
+Use `@tanstack/react-form` with `zod` to keep a radio group controlled. Use `Field.Set` and `Field.Legend` because the grouped choices answer one shared question.
+
+<Example className="w-full">
+	<TanStackFormExample />
+</Example>
+
+```tsx
+import { Button } from "@ngrok/mantle/button";
+import { Field, toErrorMessages } from "@ngrok/mantle/field";
+import { RadioGroup } from "@ngrok/mantle/radio-group";
+import { useForm } from "@tanstack/react-form";
+import { z } from "zod";
+
+export const formSchema = z.object({
+	density: z.string().min(1, "Choose a density."),
+});
+function Example() {
+	const defaultValues = {
+		density: "",
+	};
+	const form = useForm({
+		defaultValues,
+		validators: {
+			onSubmit: formSchema,
+		},
+		onSubmit: ({ value }) => {
+			// Handle form submission here
+		},
+	});
+
+	return (
+		<form
+			onSubmit={(event) => {
+				event.preventDefault();
+				event.stopPropagation();
+				void form.handleSubmit();
+			}}
+		>
+			<form.Field name="density">
+				{(field) => (
+					<Field.Set>
+						<Field.Legend>Density</Field.Legend>
+						<RadioGroup.Root
+							name={field.name}
+							value={field.state.value}
+							onChange={field.handleChange}
+						>
+							<RadioGroup.Item value="default" id="density-default">
+								<RadioGroup.Indicator />
+								<RadioGroup.ItemContent asChild>
+									<label htmlFor="density-default">Default</label>
+								</RadioGroup.ItemContent>
+							</RadioGroup.Item>
+							<RadioGroup.Item value="comfortable" id="density-comfortable">
+								<RadioGroup.Indicator />
+								<RadioGroup.ItemContent asChild>
+									<label htmlFor="density-comfortable">Comfortable</label>
+								</RadioGroup.ItemContent>
+							</RadioGroup.Item>
+							<RadioGroup.Item value="compact" id="density-compact">
+								<RadioGroup.Indicator />
+								<RadioGroup.ItemContent asChild>
+									<label htmlFor="density-compact">Compact</label>
+								</RadioGroup.ItemContent>
+							</RadioGroup.Item>
+						</RadioGroup.Root>
+						<Field.Errors messages={toErrorMessages(field.state.meta.errors)} />
+					</Field.Set>
+				)}
+			</form.Field>
+			<Button type="submit" appearance="filled">
+				Submit
+			</Button>
+		</form>
+	);
+}
 ```
 
 ## Composition

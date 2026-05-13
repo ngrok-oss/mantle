@@ -3,10 +3,64 @@ title: Checkbox
 description: A form control that allows the user to toggle between checked and not checked. Supports indeterminate state.
 ---
 
+import { Button } from "@ngrok/mantle/button";
 import { Checkbox } from "@ngrok/mantle/checkbox";
-import { Field } from "@ngrok/mantle/field";
+import { Field, toErrorMessages } from "@ngrok/mantle/field";
 import { Label } from "@ngrok/mantle/label";
+import { useForm } from "@tanstack/react-form";
+import { z } from "zod";
 import { Example } from "~/components/example";
+
+export const formSchema = z.object({
+acceptedTerms: z.boolean().refine((value) => value, "Accept the terms to continue."),
+});
+export function TanStackFormExample() {
+const defaultValues = {
+acceptedTerms: false,
+};
+const form = useForm({
+defaultValues,
+validators: {
+onSubmit: formSchema,
+},
+onSubmit: ({ value }) => {
+window.alert(`Submitted: ${JSON.stringify(value, null, 2)}`);
+},
+});
+
+    return (
+    	<form
+    		className="w-full max-w-sm space-y-4"
+    		onSubmit={(event) => {
+    			event.preventDefault();
+    			event.stopPropagation();
+    			void form.handleSubmit();
+    		}}
+    	>
+    		<form.Field name="acceptedTerms">
+    			{(field) => (
+    				<Field.Item name={field.name}>
+    					<Field.Label className="flex items-center gap-2">
+    						<Field.Control>
+    							<Checkbox
+    								checked={field.state.value}
+    								onBlur={field.handleBlur}
+    								onChange={(event) => field.handleChange(event.target.checked)}
+    							/>
+    						</Field.Control>
+    						Accept terms and conditions
+    					</Field.Label>
+    					<Field.Errors messages={toErrorMessages(field.state.meta.errors)} />
+    				</Field.Item>
+    			)}
+    		</form.Field>
+    		<Button type="submit" appearance="filled">
+    			Submit
+    		</Button>
+    	</form>
+    );
+
+}
 
 # Checkbox
 
@@ -104,28 +158,30 @@ import { Label } from "@ngrok/mantle/label";
 </Label>
 ```
 
-## Form Validation Example
+## With TanStack Form
 
-The `Checkbox` can be used in forms with client-side validation. Here's an example using `@tanstack/react-form` and `zod`:
+Use `@tanstack/react-form` with `zod` to keep the checkbox controlled and render errors through `Field.Errors`.
+
+<Example className="w-full">
+	<TanStackFormExample />
+</Example>
 
 ```tsx
 import { Button } from "@ngrok/mantle/button";
 import { Checkbox } from "@ngrok/mantle/checkbox";
-import { Field } from "@ngrok/mantle/field";
+import { Field, toErrorMessages } from "@ngrok/mantle/field";
 import { useForm } from "@tanstack/react-form";
 import { z } from "zod";
 
-const formSchema = z.object({
-	acceptedTermsAndConditions: z
-		.boolean()
-		.refine((value) => value, "You must accept the terms and conditions."),
+export const formSchema = z.object({
+	acceptedTerms: z.boolean().refine((value) => value, "Accept the terms to continue."),
 });
-
-function FormExample() {
+function Example() {
+	const defaultValues = {
+		acceptedTerms: false,
+	};
 	const form = useForm({
-		defaultValues: {
-			acceptedTermsAndConditions: false,
-		},
+		defaultValues,
 		validators: {
 			onSubmit: formSchema,
 		},
@@ -143,7 +199,7 @@ function FormExample() {
 				void form.handleSubmit();
 			}}
 		>
-			<form.Field name="acceptedTermsAndConditions">
+			<form.Field name="acceptedTerms">
 				{(field) => (
 					<Field.Item name={field.name}>
 						<Field.Label className="flex items-center gap-2">
@@ -156,17 +212,13 @@ function FormExample() {
 							</Field.Control>
 							Accept terms and conditions
 						</Field.Label>
-						<Field.Errors messages={field.state.meta.errors.map((error) => error?.message)} />
+						<Field.Errors messages={toErrorMessages(field.state.meta.errors)} />
 					</Field.Item>
 				)}
 			</form.Field>
-			<form.Subscribe selector={(state) => state.isDirty}>
-				{(isDirty) => (
-					<Button type="submit" appearance="filled" disabled={!isDirty}>
-						Submit
-					</Button>
-				)}
-			</form.Subscribe>
+			<Button type="submit" appearance="filled">
+				Submit
+			</Button>
 		</form>
 	);
 }
