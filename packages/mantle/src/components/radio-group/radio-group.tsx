@@ -18,6 +18,7 @@ import {
 import type { ComponentRef, HTMLAttributes, PropsWithChildren, ReactNode } from "react";
 import type { WithAsChild } from "../../types/as-child.js";
 import { cx } from "../../utils/cx/cx.js";
+import { FieldControlContext } from "../field/field-context.js";
 import { isInput } from "../input/is-input.js";
 import { Slot } from "../slot/index.js";
 
@@ -26,6 +27,14 @@ type RadioGroupProps = PropsWithChildren<Omit<HeadlessRadioGroupProps, "as" | "c
 /**
  * A group of radio items. It manages the state of the children radios. Unstyled and simple.
  * Used as the root component for grouping related radio items where only one can be selected.
+ *
+ * The recommended Field composition is `Field.Set` + `Field.Legend` + `RadioGroup.Root`,
+ * which uses fieldset semantics so all radios share a single accessible name from the
+ * legend. As an alternative, when individual items render inside a `Field.Control`,
+ * each item picks up `aria-invalid` and `aria-errormessage` from `FieldControlContext`.
+ * Note: `aria-describedby` is owned by Headless UI's Radio primitive and does not
+ * propagate through `FieldControlContext`, so helper text wired via `Field.Description`
+ * will not be associated automatically in that alternative composition.
  *
  * @see https://mantle.ngrok.com/components/radio-group#radiogrouproot
  *
@@ -78,6 +87,11 @@ type RadioItemProps = Omit<HeadlessRadioProps, "children"> & PropsWithChildren;
  * A simple radio item that can be used inside a radio group. The "conventional" use-case.
  * Must be a child of `RadioGroup`.
  *
+ * When rendered inside `Field.Control` (an alternative to the recommended
+ * `Field.Set` / `Field.Legend` composition), picks up `aria-invalid` and
+ * `aria-errormessage` from `FieldControlContext`. `aria-describedby` is owned
+ * by Headless UI's Radio primitive and does not propagate.
+ *
  * @see https://mantle.ngrok.com/components/radio-group#radiogroupitem
  *
  * @example
@@ -91,20 +105,30 @@ type RadioItemProps = Omit<HeadlessRadioProps, "children"> & PropsWithChildren;
  * ```
  */
 const Item = forwardRef<ComponentRef<"div">, RadioItemProps>(
-	({ children, className, ...props }, ref) => (
-		<HeadlessRadio
-			data-slot="radio-group-item"
-			className={cx(
-				"group/radio cursor-pointer aria-disabled:cursor-default [&_label]:cursor-inherit flex gap-2 py-1 text-sm focus:outline-hidden",
-				className,
-			)}
-			as="div"
-			{...props}
-			ref={ref}
-		>
-			{(ctx) => <RadioStateContext.Provider value={ctx}>{children}</RadioStateContext.Provider>}
-		</HeadlessRadio>
-	),
+	({ children, className, ...props }, ref) => {
+		const fieldControl = useContext(FieldControlContext);
+		return (
+			<HeadlessRadio
+				data-slot="radio-group-item"
+				className={cx(
+					"group/radio cursor-pointer aria-disabled:cursor-default [&_label]:cursor-inherit flex gap-2 py-1 text-sm focus:outline-hidden",
+					className,
+				)}
+				as="div"
+				{...props}
+				{...(fieldControl
+					? {
+							"aria-describedby": fieldControl["aria-describedby"],
+							"aria-errormessage": fieldControl["aria-errormessage"],
+							"aria-invalid": fieldControl["aria-invalid"],
+						}
+					: undefined)}
+				ref={ref}
+			>
+				{(ctx) => <RadioStateContext.Provider value={ctx}>{children}</RadioStateContext.Provider>}
+			</HeadlessRadio>
+		);
+	},
 );
 Item.displayName = "RadioItem";
 
@@ -193,9 +217,15 @@ type RadioListItemProps = RadioItemProps;
 
 /**
  * A radio list item that is used inside a `RadioGroup.List`.
+ *
+ * When rendered inside `Field.Control` (an alternative to the recommended
+ * `Field.Set` / `Field.Legend` composition), picks up `aria-invalid` and
+ * `aria-errormessage` from `FieldControlContext`. `aria-describedby` is owned
+ * by Headless UI's Radio primitive and does not propagate.
  */
 const ListItem = forwardRef<ComponentRef<"div">, RadioListItemProps>(
 	({ children, className, ...props }, ref) => {
+		const fieldControl = useContext(FieldControlContext);
 		return (
 			<HeadlessRadio
 				as="div"
@@ -212,6 +242,13 @@ const ListItem = forwardRef<ComponentRef<"div">, RadioListItemProps>(
 				)}
 				ref={ref}
 				{...props}
+				{...(fieldControl
+					? {
+							"aria-describedby": fieldControl["aria-describedby"],
+							"aria-errormessage": fieldControl["aria-errormessage"],
+							"aria-invalid": fieldControl["aria-invalid"],
+						}
+					: undefined)}
 			>
 				{(ctx) => (
 					<>
@@ -230,9 +267,15 @@ type RadioCardProps = RadioItemProps;
 
 /**
  * A radio card item. Use it as a child of `RadioGroup`
+ *
+ * When rendered inside `Field.Control` (an alternative to the recommended
+ * `Field.Set` / `Field.Legend` composition), picks up `aria-invalid` and
+ * `aria-errormessage` from `FieldControlContext`. `aria-describedby` is owned
+ * by Headless UI's Radio primitive and does not propagate.
  */
 const Card = forwardRef<ComponentRef<"div">, RadioCardProps>(
 	({ children, className, ...props }, ref) => {
+		const fieldControl = useContext(FieldControlContext);
 		return (
 			<HeadlessRadio
 				as="div"
@@ -247,6 +290,13 @@ const Card = forwardRef<ComponentRef<"div">, RadioCardProps>(
 					className,
 				)}
 				{...props}
+				{...(fieldControl
+					? {
+							"aria-describedby": fieldControl["aria-describedby"],
+							"aria-errormessage": fieldControl["aria-errormessage"],
+							"aria-invalid": fieldControl["aria-invalid"],
+						}
+					: undefined)}
 				ref={ref}
 			>
 				{(ctx) => (
@@ -301,9 +351,15 @@ type RadioButtonProps = RadioItemProps;
 
 /**
  * A radio button that is used inside a `RadioGroup.ButtonGroup`.
+ *
+ * When rendered inside `Field.Control` (an alternative to the recommended
+ * `Field.Set` / `Field.Legend` composition), picks up `aria-invalid` and
+ * `aria-errormessage` from `FieldControlContext`. `aria-describedby` is owned
+ * by Headless UI's Radio primitive and does not propagate.
  */
 const Button = forwardRef<ComponentRef<"div">, RadioButtonProps>(
 	({ children, className, ...props }, ref) => {
+		const fieldControl = useContext(FieldControlContext);
 		return (
 			<HeadlessRadio
 				as="div"
@@ -321,6 +377,13 @@ const Button = forwardRef<ComponentRef<"div">, RadioButtonProps>(
 				)}
 				ref={ref}
 				{...props}
+				{...(fieldControl
+					? {
+							"aria-describedby": fieldControl["aria-describedby"],
+							"aria-errormessage": fieldControl["aria-errormessage"],
+							"aria-invalid": fieldControl["aria-invalid"],
+						}
+					: undefined)}
 			>
 				{(ctx) => (
 					<>

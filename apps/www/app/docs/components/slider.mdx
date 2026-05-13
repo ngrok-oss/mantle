@@ -3,12 +3,40 @@ title: Slider
 description: An input where the user selects a value from within a given range.
 ---
 
+import { Field } from "@ngrok/mantle/field";
 import { Slider } from "@ngrok/mantle/slider";
 import { Example } from "~/components/example";
 
 # Slider
 
 An input where the user selects a value from within a given range.
+
+Pair with `Field.*` for label/description/error wiring in forms:
+
+<Example>
+	<Field.Item name="volume">
+		<Field.Label>Volume</Field.Label>
+		<Field.Control>
+			<Slider defaultValue={67} max={100} step={1} />
+		</Field.Control>
+		<Field.Description>Drag to adjust playback volume.</Field.Description>
+	</Field.Item>
+</Example>
+
+```tsx
+import { Field } from "@ngrok/mantle/field";
+import { Slider } from "@ngrok/mantle/slider";
+
+<Field.Item name="volume">
+	<Field.Label>Volume</Field.Label>
+	<Field.Control>
+		<Slider defaultValue={67} max={100} step={1} />
+	</Field.Control>
+	<Field.Description>Drag to adjust playback volume.</Field.Description>
+</Field.Item>;
+```
+
+Or render the control on its own:
 
 <Example className="flex-col gap-6">
 	<Slider defaultValue={67} max={100} step={1} />

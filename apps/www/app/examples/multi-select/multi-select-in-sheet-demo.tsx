@@ -66,54 +66,53 @@ export function InSheetDemo() {
 					<Sheet.Body className="space-y-4">
 						<form.Field name="favorites">
 							{(field) => (
-								<Field.Item>
-									<Field.Label htmlFor={field.name}>Fruits</Field.Label>
-									<MultiSelect.Root
-										selectedValue={field.state.value}
-										setSelectedValue={field.handleChange}
-										setOpen={() => {
-											setSearchValue("");
-										}}
-									>
-										<MultiSelect.Trigger onBlur={field.handleBlur}>
-											<MultiSelect.TagValues />
-											<Field.Control>
+								<Field.Item name={field.name}>
+									<Field.Label>Fruits</Field.Label>
+									<Field.Control>
+										<MultiSelect.Root
+											selectedValue={field.state.value}
+											setSelectedValue={field.handleChange}
+											setOpen={() => {
+												setSearchValue("");
+											}}
+										>
+											<MultiSelect.Trigger onBlur={field.handleBlur}>
+												<MultiSelect.TagValues />
 												<MultiSelect.Input
-													id={field.name}
 													onValueChange={(value) => startTransition(() => setSearchValue(value))}
 													placeholder="Select fruits and vegetables..."
 												/>
-											</Field.Control>
-										</MultiSelect.Trigger>
-										<MultiSelect.Content aria-busy={isPending}>
-											{filteredFruits.length > 0 && (
-												<MultiSelect.Group>
-													<MultiSelect.GroupLabel>Fruits</MultiSelect.GroupLabel>
-													{filteredFruits.map((value) => (
-														<MultiSelect.Item key={value} value={value}>
-															{value}
-														</MultiSelect.Item>
-													))}
-												</MultiSelect.Group>
-											)}
-											{filteredFruits.length > 0 && filteredVeggies.length > 0 && (
-												<MultiSelect.Separator />
-											)}
-											{filteredVeggies.length > 0 && (
-												<MultiSelect.Group>
-													<MultiSelect.GroupLabel>Vegetables</MultiSelect.GroupLabel>
-													{filteredVeggies.map((value) => (
-														<MultiSelect.Item key={value} value={value}>
-															{value}
-														</MultiSelect.Item>
-													))}
-												</MultiSelect.Group>
-											)}
-											{filteredFruits.length === 0 && filteredVeggies.length === 0 && (
-												<MultiSelect.Empty>No results found</MultiSelect.Empty>
-											)}
-										</MultiSelect.Content>
-									</MultiSelect.Root>
+											</MultiSelect.Trigger>
+											<MultiSelect.Content aria-busy={isPending}>
+												{filteredFruits.length > 0 && (
+													<MultiSelect.Group>
+														<MultiSelect.GroupLabel>Fruits</MultiSelect.GroupLabel>
+														{filteredFruits.map((value) => (
+															<MultiSelect.Item key={value} value={value}>
+																{value}
+															</MultiSelect.Item>
+														))}
+													</MultiSelect.Group>
+												)}
+												{filteredFruits.length > 0 && filteredVeggies.length > 0 && (
+													<MultiSelect.Separator />
+												)}
+												{filteredVeggies.length > 0 && (
+													<MultiSelect.Group>
+														<MultiSelect.GroupLabel>Vegetables</MultiSelect.GroupLabel>
+														{filteredVeggies.map((value) => (
+															<MultiSelect.Item key={value} value={value}>
+																{value}
+															</MultiSelect.Item>
+														))}
+													</MultiSelect.Group>
+												)}
+												{filteredFruits.length === 0 && filteredVeggies.length === 0 && (
+													<MultiSelect.Empty>No results found</MultiSelect.Empty>
+												)}
+											</MultiSelect.Content>
+										</MultiSelect.Root>
+									</Field.Control>
 									<Field.Errors messages={field.state.meta.errors.map((error) => error?.message)} />
 								</Field.Item>
 							)}

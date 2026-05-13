@@ -3,6 +3,7 @@ title: OTP Input
 description: Accessible one-time passcode (OTP) input with paste, autofill, and IME support.
 ---
 
+import { Field } from "@ngrok/mantle/field";
 import { OtpInput, REGEXP_ONLY_DIGITS } from "@ngrok/mantle/otp-input";
 import { Example } from "~/components/example";
 
@@ -13,6 +14,51 @@ email verification codes, magic-link codes, and similar flows. Built on top of
 [`input-otp`](https://github.com/guilhermerodz/input-otp), it renders a single
 hidden input that handles paste, autofill, and IME correctly while displaying
 each character in its own styled slot.
+
+Pair with `Field.*` for label/description/error wiring in forms:
+
+<Example>
+	<Field.Item name="otp">
+		<Field.Label>Verification code</Field.Label>
+		<Field.Control>
+			<OtpInput.Root maxLength={6}>
+				<OtpInput.Group>
+					<OtpInput.Slot index={0} />
+					<OtpInput.Slot index={1} />
+					<OtpInput.Slot index={2} />
+					<OtpInput.Slot index={3} />
+					<OtpInput.Slot index={4} />
+					<OtpInput.Slot index={5} />
+				</OtpInput.Group>
+			</OtpInput.Root>
+		</Field.Control>
+		<Field.Description>Enter the 6-digit code we emailed you.</Field.Description>
+	</Field.Item>
+</Example>
+
+```tsx
+import { Field } from "@ngrok/mantle/field";
+import { OtpInput } from "@ngrok/mantle/otp-input";
+
+<Field.Item name="otp">
+	<Field.Label>Verification code</Field.Label>
+	<Field.Control>
+		<OtpInput.Root maxLength={6}>
+			<OtpInput.Group>
+				<OtpInput.Slot index={0} />
+				<OtpInput.Slot index={1} />
+				<OtpInput.Slot index={2} />
+				<OtpInput.Slot index={3} />
+				<OtpInput.Slot index={4} />
+				<OtpInput.Slot index={5} />
+			</OtpInput.Group>
+		</OtpInput.Root>
+	</Field.Control>
+	<Field.Description>Enter the 6-digit code we emailed you.</Field.Description>
+</Field.Item>;
+```
+
+Or render the control on its own:
 
 <Example>
 	<OtpInput.Root maxLength={6}>

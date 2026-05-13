@@ -4,12 +4,44 @@ description: A form control that allows the user to toggle between checked and n
 ---
 
 import { Checkbox } from "@ngrok/mantle/checkbox";
+import { Field } from "@ngrok/mantle/field";
 import { Label } from "@ngrok/mantle/label";
 import { Example } from "~/components/example";
 
 # Checkbox
 
 A form control that allows the user to toggle between checked and not checked. Supports indeterminate state.
+
+Pair with `Field.*` for label/description/error wiring in forms:
+
+<Example>
+	<Field.Item name="terms-of-service">
+		<Field.Label className="flex items-center gap-2">
+			<Field.Control>
+				<Checkbox />
+			</Field.Control>
+			Accept terms and conditions
+		</Field.Label>
+		<Field.Description>You must accept before continuing.</Field.Description>
+	</Field.Item>
+</Example>
+
+```tsx
+import { Checkbox } from "@ngrok/mantle/checkbox";
+import { Field } from "@ngrok/mantle/field";
+
+<Field.Item name="terms-of-service">
+	<Field.Label className="flex items-center gap-2">
+		<Field.Control>
+			<Checkbox />
+		</Field.Control>
+		Accept terms and conditions
+	</Field.Label>
+	<Field.Description>You must accept before continuing.</Field.Description>
+</Field.Item>;
+```
+
+Or render the control on its own:
 
 <Example>
 	<div className="flex flex-col">
@@ -113,12 +145,10 @@ function FormExample() {
 		>
 			<form.Field name="acceptedTermsAndConditions">
 				{(field) => (
-					<Field.Item>
-						<Field.Label htmlFor={field.name} className="flex items-center gap-2">
+					<Field.Item name={field.name}>
+						<Field.Label className="flex items-center gap-2">
 							<Field.Control>
 								<Checkbox
-									name={field.name}
-									id={field.name}
 									checked={field.state.value}
 									onBlur={field.handleBlur}
 									onChange={(event) => field.handleChange(event.target.checked)}

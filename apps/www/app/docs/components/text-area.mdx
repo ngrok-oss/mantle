@@ -14,38 +14,38 @@ import { Example } from "~/components/example";
 
 A multi-line plain-text editing control, useful when you want to allow users to enter a sizeable amount of free-form text, for example a comment on a review or feedback form.
 
+Pair with `Field.*` for label/description/error wiring in forms:
+
 <Example className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-	<Field.Item>
-		<Field.Label htmlFor="textarea-default">Default TextArea</Field.Label>
-		<TextArea id="textarea-default" placeholder="Tell us about your experience…" />
+	<Field.Item name="textarea-default">
+		<Field.Label>Default TextArea</Field.Label>
+		<Field.Control>
+			<TextArea placeholder="Tell us about your experience…" />
+		</Field.Control>
 	</Field.Item>
-	<Field.Item>
-		<Field.Label htmlFor="textarea-monospaced">Monospaced TextArea</Field.Label>
-		<TextArea
-			id="textarea-monospaced"
-			appearance="monospaced"
-			placeholder="Tell us about your experience…"
-		/>
+	<Field.Item name="textarea-monospaced">
+		<Field.Label>Monospaced TextArea</Field.Label>
+		<Field.Control>
+			<TextArea appearance="monospaced" placeholder="Tell us about your experience…" />
+		</Field.Control>
 	</Field.Item>
-	<Field.Item>
-		<Field.Label htmlFor="textarea-error">Error TextArea</Field.Label>
-		<TextArea id="textarea-error" placeholder="Tell us about your experience…" validation="error" />
+	<Field.Item name="textarea-error">
+		<Field.Label>Error TextArea</Field.Label>
+		<Field.Control>
+			<TextArea placeholder="Tell us about your experience…" validation="error" />
+		</Field.Control>
 	</Field.Item>
-	<Field.Item>
-		<Field.Label htmlFor="textarea-success">Success TextArea</Field.Label>
-		<TextArea
-			id="textarea-success"
-			placeholder="Tell us about your experience…"
-			validation="success"
-		/>
+	<Field.Item name="textarea-success">
+		<Field.Label>Success TextArea</Field.Label>
+		<Field.Control>
+			<TextArea placeholder="Tell us about your experience…" validation="success" />
+		</Field.Control>
 	</Field.Item>
-	<Field.Item>
-		<Field.Label htmlFor="textarea-warning">Warning TextArea</Field.Label>
-		<TextArea
-			id="textarea-warning"
-			placeholder="Tell us about your experience…"
-			validation="warning"
-		/>
+	<Field.Item name="textarea-warning">
+		<Field.Label>Warning TextArea</Field.Label>
+		<Field.Control>
+			<TextArea placeholder="Tell us about your experience…" validation="warning" />
+		</Field.Control>
 	</Field.Item>
 </Example>
 
@@ -53,18 +53,36 @@ A multi-line plain-text editing control, useful when you want to allow users to 
 import { Field } from "@ngrok/mantle/field";
 import { TextArea } from "@ngrok/mantle/text-area";
 
-<Field.Item>
-	<Field.Label htmlFor="feedback">Default TextArea</Field.Label>
-	<TextArea id="feedback" placeholder="Tell us about your experience…" />
+<Field.Item name="feedback">
+	<Field.Label>Default TextArea</Field.Label>
+	<Field.Control>
+		<TextArea placeholder="Tell us about your experience…" />
+	</Field.Control>
 </Field.Item>
-<Field.Item>
-	<Field.Label htmlFor="feedback-mono">Monospaced TextArea</Field.Label>
-	<TextArea id="feedback-mono" appearance="monospaced" placeholder="Tell us about your experience…" />
+<Field.Item name="feedback-mono">
+	<Field.Label>Monospaced TextArea</Field.Label>
+	<Field.Control>
+		<TextArea appearance="monospaced" placeholder="Tell us about your experience…" />
+	</Field.Control>
 </Field.Item>
-<Field.Item>
-	<Field.Label htmlFor="feedback-error">Error TextArea</Field.Label>
-	<TextArea id="feedback-error" placeholder="Tell us about your experience…" validation="error" />
+<Field.Item name="feedback-error">
+	<Field.Label>Error TextArea</Field.Label>
+	<Field.Control>
+		<TextArea placeholder="Tell us about your experience…" validation="error" />
+	</Field.Control>
 </Field.Item>
+```
+
+Or render the control on its own:
+
+<Example>
+	<TextArea aria-label="Feedback" placeholder="Tell us about your experience…" />
+</Example>
+
+```tsx
+import { TextArea } from "@ngrok/mantle/text-area";
+
+<TextArea aria-label="Feedback" placeholder="Tell us about your experience…" />;
 ```
 
 ## Examples
@@ -90,40 +108,38 @@ export function FormExample() {
 	});
 
     return (
-    	<form
-    		className="space-y-4 w-full"
-    		onSubmit={(event) => {
-    			event.preventDefault();
-    			event.stopPropagation();
-    			void form.handleSubmit();
-    		}}
-    	>
-    		<form.Field name="feedback">
-    			{(field) => (
-    				<Field.Item>
-    					<Field.Label htmlFor={field.name}>Feedback</Field.Label>
-    					<Field.Control>
-    						<TextArea
-    							id={field.name}
-    							name={field.name}
-    							onBlur={field.handleBlur}
-    							onChange={(event) => field.handleChange(event.target.value)}
-    							placeholder="Tell us about your experience…"
-    							value={field.state.value}
-    						/>
-    					</Field.Control>
-    					<Field.Errors messages={field.state.meta.errors.map((error) => error?.message)} />
-    				</Field.Item>
-    			)}
-    		</form.Field>
-    		<form.Subscribe selector={(state) => state.isDirty}>
-    			{(isDirty) => (
-    				<Button type="submit" appearance="filled" disabled={!isDirty}>
-    					Submit
-    				</Button>
-    			)}
-    		</form.Subscribe>
-    	</form>
+    <form
+    	className="space-y-4 w-full"
+    	onSubmit={(event) => {
+    		event.preventDefault();
+    		event.stopPropagation();
+    		void form.handleSubmit();
+    	}}
+    >
+    	<form.Field name="feedback">
+    		{(field) => (
+    			<Field.Item name={field.name}>
+    				<Field.Label>Feedback</Field.Label>
+    				<Field.Control>
+    					<TextArea
+    						onBlur={field.handleBlur}
+    						onChange={(event) => field.handleChange(event.target.value)}
+    						placeholder="Tell us about your experience…"
+    						value={field.state.value}
+    					/>
+    				</Field.Control>
+    				<Field.Errors messages={field.state.meta.errors.map((error) => error?.message)} />
+    			</Field.Item>
+    		)}
+    	</form.Field>
+    	<form.Subscribe selector={(state) => state.isDirty}>
+    		{(isDirty) => (
+    			<Button type="submit" appearance="filled" disabled={!isDirty}>
+    				Submit
+    			</Button>
+    		)}
+    	</form.Subscribe>
+    </form>
     );
 
 }
@@ -174,12 +190,10 @@ function FormExample() {
 		>
 			<form.Field name="feedback">
 				{(field) => (
-					<Field.Item>
-						<Field.Label htmlFor={field.name}>Feedback</Field.Label>
+					<Field.Item name={field.name}>
+						<Field.Label>Feedback</Field.Label>
 						<Field.Control>
 							<TextArea
-								id={field.name}
-								name={field.name}
 								onBlur={field.handleBlur}
 								onChange={(event) => field.handleChange(event.target.value)}
 								placeholder="Tell us about your experience…"

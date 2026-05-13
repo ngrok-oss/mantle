@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
+import { Field } from "../field/field.js";
 import { Slider } from "./slider.js";
 
 describe("Slider", () => {
@@ -44,6 +45,35 @@ describe("Slider", () => {
 				"aria-hidden",
 				"true",
 			);
+		});
+	});
+
+	describe("Field integration", () => {
+		test("Field.Control wrapping Slider applies field ARIA wiring to the thumb", () => {
+			render(
+				<form>
+					<Field.Item name="volume">
+						<Field.Control>
+							<Slider defaultValue={50} max={100} step={1} />
+						</Field.Control>
+						<Field.Errors data-testid="errors" messages={["Required."]} />
+						<Field.Description data-testid="desc">Adjust volume.</Field.Description>
+					</Field.Item>
+				</form>,
+			);
+
+			const thumb = screen.getByRole("slider");
+			const errors = screen.getByTestId("errors");
+			const description = screen.getByTestId("desc");
+			expect(thumb).toHaveAttribute("aria-invalid", "true");
+			expect(thumb.getAttribute("aria-describedby")).toContain(errors.id);
+			expect(thumb.getAttribute("aria-describedby")).toContain(description.id);
+			expect(thumb).toHaveAttribute("aria-errormessage", errors.id);
+			expect(thumb).toHaveAttribute("id");
+			expect(
+				Array.from(document.querySelectorAll("[id]")).filter((node) => node.id === thumb.id),
+			).toHaveLength(1);
+			expect(document.querySelector('input[name="volume"]')).toBeInTheDocument();
 		});
 	});
 

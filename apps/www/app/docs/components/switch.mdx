@@ -15,6 +15,37 @@ import { Example } from "~/components/example";
 
 A control that allows the user to toggle between checked and not checked.
 
+Pair with `Field.*` for label/description/error wiring in forms:
+
+<Example>
+	<Field.Item name="airplane-mode-field">
+		<Field.Label className="inline-flex items-center gap-2">
+			<Field.Control>
+				<Switch />
+			</Field.Control>
+			Airplane Mode
+		</Field.Label>
+		<Field.Description>Disables wireless radios while in flight.</Field.Description>
+	</Field.Item>
+</Example>
+
+```tsx
+import { Field } from "@ngrok/mantle/field";
+import { Switch } from "@ngrok/mantle/switch";
+
+<Field.Item name="airplane-mode-field">
+	<Field.Label className="inline-flex items-center gap-2">
+		<Field.Control>
+			<Switch />
+		</Field.Control>
+		Airplane Mode
+	</Field.Label>
+	<Field.Description>Disables wireless radios while in flight.</Field.Description>
+</Field.Item>;
+```
+
+Or render the control on its own:
+
 <Example className="grid place-items-center">
 	<div className="flex flex-col gap-6">
 		<Label htmlFor="airplane-mode" className="self-start inline-flex items-center gap-2">
@@ -80,41 +111,39 @@ export function FormExample() {
 	});
 
     return (
-    	<form
-    		className="space-y-4 w-full"
-    		onSubmit={(event) => {
-    			event.preventDefault();
-    			event.stopPropagation();
-    			void form.handleSubmit();
-    		}}
-    	>
-    		<form.Field name="airplaneMode">
-    			{(field) => (
-    				<Field.Item>
-    					<Field.Label htmlFor={field.name} className="inline-flex items-center gap-2">
-    						Airplane Mode
-    						<Field.Control>
-    							<Switch
-    								name={field.name}
-    								id={field.name}
-    								checked={field.state.value}
-    								onBlur={field.handleBlur}
-    								onCheckedChange={(value) => field.handleChange(value)}
-    							/>
-    						</Field.Control>
-    					</Field.Label>
-    					<Field.Errors messages={field.state.meta.errors.map((error) => error?.message)} />
-    				</Field.Item>
-    			)}
-    		</form.Field>
-    		<form.Subscribe selector={(state) => state.isDirty}>
-    			{(isDirty) => (
-    				<Button type="submit" appearance="filled" disabled={!isDirty}>
-    					Submit
-    				</Button>
-    			)}
-    		</form.Subscribe>
-    	</form>
+    <form
+    	className="space-y-4 w-full"
+    	onSubmit={(event) => {
+    		event.preventDefault();
+    		event.stopPropagation();
+    		void form.handleSubmit();
+    	}}
+    >
+    	<form.Field name="airplaneMode">
+    		{(field) => (
+    			<Field.Item name={field.name}>
+    				<Field.Label className="inline-flex items-center gap-2">
+    					Airplane Mode
+    					<Field.Control>
+    						<Switch
+    							checked={field.state.value}
+    							onBlur={field.handleBlur}
+    							onCheckedChange={(value) => field.handleChange(value)}
+    						/>
+    					</Field.Control>
+    				</Field.Label>
+    				<Field.Errors messages={field.state.meta.errors.map((error) => error?.message)} />
+    			</Field.Item>
+    		)}
+    	</form.Field>
+    	<form.Subscribe selector={(state) => state.isDirty}>
+    		{(isDirty) => (
+    			<Button type="submit" appearance="filled" disabled={!isDirty}>
+    				Submit
+    			</Button>
+    		)}
+    	</form.Subscribe>
+    </form>
     );
 
 }
@@ -165,13 +194,11 @@ function FormExample() {
 		>
 			<form.Field name="airplaneMode">
 				{(field) => (
-					<Field.Item>
-						<Field.Label htmlFor={field.name} className="flex items-center gap-2">
+					<Field.Item name={field.name}>
+						<Field.Label className="flex items-center gap-2">
 							Airplane Mode
 							<Field.Control>
 								<Switch
-									name={field.name}
-									id={field.name}
 									checked={field.state.value}
 									onBlur={field.handleBlur}
 									onCheckedChange={(value) => field.handleChange(value)}

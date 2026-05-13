@@ -2,7 +2,9 @@
 
 import * as SliderPrimitive from "@radix-ui/react-slider";
 import type { ComponentProps } from "react";
+import { useContext } from "react";
 import { cx } from "../../utils/cx/cx.js";
+import { FieldControlContext } from "../field/field-context.js";
 
 type SliderBaseProps = Omit<ComponentProps<typeof SliderPrimitive.Root>, "defaultValue" | "value">;
 
@@ -57,6 +59,12 @@ type SliderProps = SliderBaseProps &
 /**
  * An input where the user selects a value from within a given range.
  *
+ * When composing with `Field.Item`, wrap `Slider` in `Field.Control`.
+ * `Field.Control` flows `aria-invalid`, `aria-describedby`, and
+ * `aria-errormessage` onto each thumb via `FieldControlContext`. Only the
+ * first thumb receives the field-generated `id` so `Field.Label`'s `htmlFor`
+ * lands on a single target for range/multi-thumb sliders.
+ *
  * @see https://mantle.ngrok.com/components/slider
  *
  * @example
@@ -90,17 +98,23 @@ type SliderProps = SliderBaseProps &
  * ```
  */
 function Slider({
+	"aria-describedby": ariaDescribedBy,
+	"aria-errormessage": ariaErrorMessage,
+	"aria-invalid": ariaInvalid,
 	className,
 	color = "bg-accent-600",
 	defaultValue,
+	id,
 	max = 100,
 	min = 0,
 	minStepsBetweenThumbs = 1,
+	name,
 	step = 1,
 	showTicks = false,
 	value,
 	...props
 }: SliderProps) {
+	const fieldControl = useContext(FieldControlContext);
 	const normalizedValue = value != null ? (Array.isArray(value) ? value : [value]) : undefined;
 	const normalizedDefaultValue =
 		defaultValue != null
@@ -116,9 +130,18 @@ function Slider({
 			data-slot="slider"
 			defaultValue={normalizedDefaultValue}
 			value={normalizedValue}
+			{...(fieldControl
+				? {}
+				: {
+						"aria-describedby": ariaDescribedBy,
+						"aria-errormessage": ariaErrorMessage,
+						"aria-invalid": ariaInvalid,
+						id,
+					})}
 			min={min}
 			minStepsBetweenThumbs={minStepsBetweenThumbs}
 			max={max}
+			name={name}
 			step={step}
 			className={cx(
 				"[--slider-thumb-size:--spacing(4.5)]",
@@ -148,6 +171,13 @@ function Slider({
 				<SliderPrimitive.Thumb
 					data-slot="slider-thumb"
 					key={index}
+					aria-describedby={fieldControl?.["aria-describedby"]}
+					aria-errormessage={fieldControl?.["aria-errormessage"]}
+					aria-invalid={fieldControl?.["aria-invalid"]}
+					// Only the first thumb receives the field-generated id so
+					// Field.Label's htmlFor lands on a unique element. Range/
+					// multi-thumb sliders share the surrounding aria wiring.
+					id={index === 0 ? fieldControl?.id : undefined}
 					className={cx(
 						"bg-card border-card relative size-(--slider-thumb-size) rounded-full border",
 						"shadow-md transition-[color,box-shadow]",

@@ -22,6 +22,7 @@ import { Label } from "../label/label.js";
 import { Popover } from "../popover/index.js";
 import { Slot } from "../slot/index.js";
 import {
+	FieldControlContext,
 	FieldItemContext,
 	resolveFieldControlAriaProps,
 	type FieldControlAriaProps,
@@ -33,19 +34,6 @@ import {
 	type FieldErrorMessage,
 } from "./error-helpers.js";
 import { FieldValidationProvider, resolveValidation, type WithValidation } from "./validation.js";
-
-/**
- * Props for the `Field.Errors` convenience renderer. It owns its generated
- * children, so use `Field.ErrorList` / `Field.ErrorItem` directly when custom
- * list contents or polymorphic list markup are needed.
- */
-type FieldErrorsProps = Omit<ComponentProps<"ul">, "children" | "id"> & {
-	/**
-	 * Validation messages to render. Strings are trimmed, and empty, nullish,
-	 * or false values are ignored before rendering the list.
-	 */
-	messages?: readonly FieldErrorMessage[];
-};
 
 /**
  * Renders a semantic `<fieldset>` for grouping related controls under a
@@ -131,6 +119,47 @@ const Legend = forwardRef<ComponentRef<"legend">, ComponentProps<"legend">>(
 Legend.displayName = "FieldLegend";
 
 /**
+ * Caption for a `Field.Item`. Renders the Mantle `Label` with the same
+ * `htmlFor`, click-to-focus, disabled, and typography behavior — but inside a
+ * `Field.Item`, the label-to-control association is automatic: `Field.Item`
+ * generates a stable id from its required `name`, `Field.Control` splats that
+ * id onto its focusable child, and `Field.Label` consumes the same id as the
+ * default `htmlFor`. The required `name` on `Field.Item` is the single source
+ * of truth — no matching `htmlFor` / `id` pair, no separate `useId()` call.
+ *
+ * Pass an explicit `htmlFor` to opt out — for example when the focusable
+ * element is rendered outside of `Field.Control` and the auto-generated id
+ * never lands on it.
+ *
+ * @see https://mantle.ngrok.com/components/field
+ *
+ * @example
+ * ```tsx
+ * // htmlFor is wired automatically from Field.Item's name.
+ * <Field.Item name="apiKey">
+ *   <Field.Label>API key</Field.Label>
+ *   <Field.Control>
+ *     <Input />
+ *   </Field.Control>
+ * </Field.Item>
+ *
+ * // Opt out with an explicit htmlFor when needed.
+ * <Field.Item name="legacy">
+ *   <Field.Label htmlFor="legacy-control">Legacy field</Field.Label>
+ *   <input id="legacy-control" />
+ * </Field.Item>
+ * ```
+ */
+const FieldLabel = forwardRef<ComponentRef<"label">, ComponentProps<typeof Label>>(
+	({ htmlFor, ...props }, ref) => {
+		const context = useContext(FieldItemContext);
+
+		return <Label ref={ref} htmlFor={htmlFor ?? context?.controlId} {...props} />;
+	},
+);
+FieldLabel.displayName = "FieldLabel";
+
+/**
  * Horizontal layout container for the label area of a field. Aligns a
  * `<Field.Label>` (which may contain `Field.Optional`) with adjacent affordances
  * like a help-icon `Popover.Trigger` on a shared center line with a tight
@@ -149,9 +178,9 @@ Legend.displayName = "FieldLegend";
  * @example
  * ```tsx
  * <Field.Group>
- *   <Field.Item>
+ *   <Field.Item name="apiKey">
  *     <Field.LabelRow>
- *       <Field.Label htmlFor="api-key">
+ *       <Field.Label>
  *         API key <Field.Optional />
  *       </Field.Label>
  *       <Field.Help>
@@ -160,7 +189,7 @@ Legend.displayName = "FieldLegend";
  *       </Field.Help>
  *     </Field.LabelRow>
  *     <Field.Control>
- *       <Input id="api-key" name="apiKey" />
+ *       <Input />
  *     </Field.Control>
  *     <Field.Errors messages={["API key is required."]} />
  *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
@@ -199,9 +228,9 @@ LabelRow.displayName = "FieldLabelRow";
  * @example
  * ```tsx
  * <Field.Group>
- *   <Field.Item>
+ *   <Field.Item name="apiKey">
  *     <Field.LabelRow>
- *       <Field.Label htmlFor="api-key">
+ *       <Field.Label>
  *         API key <Field.Optional />
  *       </Field.Label>
  *       <Field.Help>
@@ -210,7 +239,7 @@ LabelRow.displayName = "FieldLabelRow";
  *       </Field.Help>
  *     </Field.LabelRow>
  *     <Field.Control>
- *       <Input id="api-key" name="apiKey" />
+ *       <Input />
  *     </Field.Control>
  *     <Field.Errors messages={["API key is required."]} />
  *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
@@ -251,9 +280,9 @@ type FieldHelpTriggerProps = Partial<Omit<IconButtonProps, "icon" | "label">> &
  * @example
  * ```tsx
  * <Field.Group>
- *   <Field.Item>
+ *   <Field.Item name="apiKey">
  *     <Field.LabelRow>
- *       <Field.Label htmlFor="api-key">
+ *       <Field.Label>
  *         API key <Field.Optional />
  *       </Field.Label>
  *       <Field.Help>
@@ -262,7 +291,7 @@ type FieldHelpTriggerProps = Partial<Omit<IconButtonProps, "icon" | "label">> &
  *       </Field.Help>
  *     </Field.LabelRow>
  *     <Field.Control>
- *       <Input id="api-key" name="apiKey" />
+ *       <Input />
  *     </Field.Control>
  *     <Field.Errors messages={["API key is required."]} />
  *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
@@ -315,9 +344,9 @@ HelpTrigger.displayName = "FieldHelpTrigger";
  * @example
  * ```tsx
  * <Field.Group>
- *   <Field.Item>
+ *   <Field.Item name="apiKey">
  *     <Field.LabelRow>
- *       <Field.Label htmlFor="api-key">
+ *       <Field.Label>
  *         API key <Field.Optional />
  *       </Field.Label>
  *       <Field.Help>
@@ -326,7 +355,7 @@ HelpTrigger.displayName = "FieldHelpTrigger";
  *       </Field.Help>
  *     </Field.LabelRow>
  *     <Field.Control>
- *       <Input id="api-key" name="apiKey" />
+ *       <Input />
  *     </Field.Control>
  *     <Field.Errors messages={["API key is required."]} />
  *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
@@ -355,9 +384,9 @@ HelpContent.displayName = "FieldHelpContent";
  * @example
  * ```tsx
  * <Field.Group>
- *   <Field.Item>
+ *   <Field.Item name="apiKey">
  *     <Field.LabelRow>
- *       <Field.Label htmlFor="api-key">
+ *       <Field.Label>
  *         API key <Field.Optional />
  *       </Field.Label>
  *       <Field.Help>
@@ -366,7 +395,7 @@ HelpContent.displayName = "FieldHelpContent";
  *       </Field.Help>
  *     </Field.LabelRow>
  *     <Field.Control>
- *       <Input id="api-key" name="apiKey" />
+ *       <Input />
  *     </Field.Control>
  *     <Field.Errors messages={["API key is required."]} />
  *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
@@ -404,9 +433,9 @@ Optional.displayName = "FieldOptional";
  * @example
  * ```tsx
  * <Field.Group>
- *   <Field.Item>
+ *   <Field.Item name="apiKey">
  *     <Field.LabelRow>
- *       <Field.Label htmlFor="api-key">
+ *       <Field.Label>
  *         API key <Field.Optional />
  *       </Field.Label>
  *       <Field.Help>
@@ -415,7 +444,7 @@ Optional.displayName = "FieldOptional";
  *       </Field.Help>
  *     </Field.LabelRow>
  *     <Field.Control>
- *       <Input id="api-key" name="apiKey" />
+ *       <Input />
  *     </Field.Control>
  *     <Field.Errors messages={["API key is required."]} />
  *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
@@ -464,9 +493,9 @@ Group.displayName = "FieldGroup";
  * @example
  * ```tsx
  * <Field.Group>
- *   <Field.Item>
+ *   <Field.Item name="apiKey">
  *     <Field.LabelRow>
- *       <Field.Label htmlFor="api-key">
+ *       <Field.Label>
  *         API key <Field.Optional />
  *       </Field.Label>
  *       <Field.Help>
@@ -475,7 +504,7 @@ Group.displayName = "FieldGroup";
  *       </Field.Help>
  *     </Field.LabelRow>
  *     <Field.Control>
- *       <Input id="api-key" name="apiKey" />
+ *       <Input />
  *     </Field.Control>
  *     <Field.Errors messages={["API key is required."]} />
  *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
@@ -483,9 +512,21 @@ Group.displayName = "FieldGroup";
  * </Field.Group>
  * ```
  */
-const Item = forwardRef<ComponentRef<"div">, ComponentProps<"div"> & WithAsChild & WithValidation>(
-	({ asChild, children, className, validation: validationProp, ...props }, ref) => {
+type FieldItemProps = ComponentProps<"div"> &
+	WithAsChild &
+	WithValidation & {
+		/**
+		 * Form-value name for the field. Required so `Field.Control` can splat
+		 * it onto the focusable child while `Field.Item` owns the stable
+		 * generated control id used by `Field.Label`'s `htmlFor`.
+		 */
+		name: string;
+	};
+
+const Item = forwardRef<ComponentRef<"div">, FieldItemProps>(
+	({ asChild, children, className, name, validation: validationProp, ...props }, ref) => {
 		const Comp = asChild ? Slot : "div";
+		const controlId = useId();
 		const descriptionId = useId();
 		const errorId = useId();
 		const [hasErrors, setHasErrors] = useState(false);
@@ -501,13 +542,15 @@ const Item = forwardRef<ComponentRef<"div">, ComponentProps<"div"> & WithAsChild
 
 		const context = useMemo(
 			() => ({
+				controlId,
 				descriptionId,
 				errorId,
 				hasErrors,
+				name,
 				registerError,
 				validation,
 			}),
-			[descriptionId, errorId, hasErrors, registerError, validation],
+			[controlId, descriptionId, errorId, hasErrors, name, registerError, validation],
 		);
 
 		return (
@@ -539,13 +582,12 @@ type FieldControlSlotProps = Omit<
  * any HTML/Slot props and a forwarded ref — those land on the single child
  * element along with the generated ARIA props.
  */
-type FieldControlElementProps = FieldControlSlotProps &
-	WithValidation & {
-		/**
-		 * A single control element to receive the field ARIA props.
-		 */
-		children: ReactElement;
-	};
+type FieldControlElementProps = FieldControlSlotProps & {
+	/**
+	 * A single control element to receive the field ARIA props.
+	 */
+	children: ReactElement;
+};
 
 /**
  * Render-prop form of `Field.Control`. The caller owns the rendered element,
@@ -554,7 +596,7 @@ type FieldControlElementProps = FieldControlSlotProps &
  * Slot props are marked `never` so passing e.g. `className` alongside a
  * render-prop child is a type error rather than a silently ignored prop.
  */
-type FieldControlRenderProps = WithValidation & {
+type FieldControlRenderProps = {
 	/**
 	 * A render function that places the field ARIA props onto a control of
 	 * the caller's choosing. Used for compound controls or wrappers where
@@ -577,20 +619,24 @@ type FieldControlRenderProps = WithValidation & {
  *
  * @example
  * ```tsx
- * // Element form — Slot clones ARIA props onto <Input/>
- * <Field.Control>
- *   <Input id="email" name="email" />
- * </Field.Control>
+ * // Element form — Slot splats id, name, and ARIA props onto <Input/>
+ * <Field.Item name="email">
+ *   <Field.Control>
+ *     <Input type="email" />
+ *   </Field.Control>
+ * </Field.Item>
  *
- * // Render-prop form — caller spreads ARIA props onto its own element
- * <Field.Control>
- *   {(ariaProps) => (
- *     <label>
- *       Accept terms
- *       <input type="checkbox" {...ariaProps} />
- *     </label>
- *   )}
- * </Field.Control>
+ * // Render-prop form — caller spreads the props onto its own element
+ * <Field.Item name="acceptTerms">
+ *   <Field.Control>
+ *     {(controlProps) => (
+ *       <label>
+ *         Accept terms
+ *         <input type="checkbox" {...controlProps} />
+ *       </label>
+ *     )}
+ *   </Field.Control>
+ * </Field.Item>
  * ```
  */
 type FieldControlProps = FieldControlElementProps | FieldControlRenderProps;
@@ -599,19 +645,25 @@ type FieldControlProps = FieldControlElementProps | FieldControlRenderProps;
  * Applies `Field.Item` description, error, and validation state to a single
  * focusable control. It always behaves like an `asChild` slot: pass one child
  * element to receive the generated ARIA props, or use a function child to
- * place those props manually. For compound controls, wrap the focusable part
- * that receives ARIA props (for example `Select.Trigger`, not `Select.Root`).
- * Pass `validation` here only when the control needs to override the
- * surrounding `Field.Item` state.
+ * place those props manually. Mantle compound controls that consume
+ * `FieldControlContext` can be wrapped at the root when their docs show that
+ * composition; otherwise use the render-prop form to place the generated props
+ * on the actual focusable element.
+ *
+ * `Field.Item` owns the full control contract — `id`, `name`, `aria-*`, and
+ * `validation` all flow down from the surrounding `Field.Item` and overwrite
+ * anything passed on the child. To override these values, set them on
+ * `Field.Item` itself (e.g. `<Field.Item validation="error">`); to opt out of
+ * the contract entirely, render your control without `Field.Control`.
  *
  * @see https://mantle.ngrok.com/components/field
  *
  * @example
  * ```tsx
  * <Field.Group>
- *   <Field.Item>
+ *   <Field.Item name="apiKey">
  *     <Field.LabelRow>
- *       <Field.Label htmlFor="api-key">
+ *       <Field.Label>
  *         API key <Field.Optional />
  *       </Field.Label>
  *       <Field.Help>
@@ -620,7 +672,7 @@ type FieldControlProps = FieldControlElementProps | FieldControlRenderProps;
  *       </Field.Help>
  *     </Field.LabelRow>
  *     <Field.Control>
- *       <Input id="api-key" name="apiKey" />
+ *       <Input />
  *     </Field.Control>
  *     <Field.Errors messages={["API key is required."]} />
  *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
@@ -628,44 +680,44 @@ type FieldControlProps = FieldControlElementProps | FieldControlRenderProps;
  * </Field.Group>
  * ```
  */
-const Control = forwardRef<HTMLElement, FieldControlProps>(
-	({ children, validation, ...props }, ref) => {
-		const context = useContext(FieldItemContext);
+const Control = forwardRef<HTMLElement, FieldControlProps>(({ children, ...props }, ref) => {
+	const context = useContext(FieldItemContext);
+	// Field.Item owns id, name, aria-*, and validation — `cloneElement` below
+	// overwrites whatever the child supplied, and the resolver no longer reads
+	// child-side overrides. To override any of these, set them on Field.Item.
+	const controlState = resolveFieldControlAriaProps({ context });
 
-		if (typeof children === "function") {
-			const baseControlState = resolveFieldControlAriaProps({ context, validation });
-			return (
-				<FieldValidationProvider validation={baseControlState.validation}>
-					{children(baseControlState.ariaProps)}
-				</FieldValidationProvider>
-			);
-		}
-
-		invariant(
-			isValidElement<FieldControlAriaProps>(children),
-			"Field.Control expects a single React element child (or a render-prop function). Got a non-element value (string, array, fragment, null, or undefined). Wrap the control in a single element, or use the function child form: <Field.Control>{(props) => <YourControl {...props} />}</Field.Control>.",
-		);
-
-		// `aria-describedby` and `aria-errormessage` are owned by Field; values
-		// supplied on the child element are overwritten by `cloneElement`
-		// below. `aria-invalid` is the one ARIA prop a child may meaningfully
-		// override (e.g., explicit `aria-invalid="false"` to suppress an
-		// inferred error).
-		const childControlState = resolveFieldControlAriaProps({
-			"aria-invalid": children.props["aria-invalid"],
-			context,
-			validation,
-		});
-
+	if (typeof children === "function") {
 		return (
-			<FieldValidationProvider validation={childControlState.validation}>
-				<Slot ref={ref} {...props}>
-					{cloneElement(children, childControlState.ariaProps)}
-				</Slot>
+			<FieldValidationProvider validation={controlState.validation}>
+				<FieldControlContext.Provider value={context ? controlState.ariaProps : null}>
+					{children(controlState.ariaProps)}
+				</FieldControlContext.Provider>
 			</FieldValidationProvider>
 		);
-	},
-);
+	}
+
+	invariant(
+		isValidElement<FieldControlAriaProps>(children),
+		"Field.Control expects a single React element child (or a render-prop function). Got a non-element value (string, array, fragment, null, or undefined). Wrap the control in a single element, or use the function child form: <Field.Control>{(props) => <YourControl {...props} />}</Field.Control>.",
+	);
+
+	// Both `cloneElement` and `FieldControlContext` flow the same resolved
+	// props. `cloneElement` covers the simple case (Input, native input) where
+	// the direct child is the focusable element. `FieldControlContext` covers
+	// compound widgets like Select / MultiSelect, where the direct child is a
+	// context provider (e.g. `Select.Root`) that does not forward ARIA props
+	// to its inner focusable trigger — that trigger reads the context itself.
+	return (
+		<FieldValidationProvider validation={controlState.validation}>
+			<FieldControlContext.Provider value={context ? controlState.ariaProps : null}>
+				<Slot ref={ref} {...props}>
+					{cloneElement(children, controlState.ariaProps)}
+				</Slot>
+			</FieldControlContext.Provider>
+		</FieldValidationProvider>
+	);
+});
 Control.displayName = "FieldControl";
 
 /**
@@ -688,9 +740,9 @@ Control.displayName = "FieldControl";
  * @example
  * ```tsx
  * <Field.Group>
- *   <Field.Item>
+ *   <Field.Item name="apiKey">
  *     <Field.LabelRow>
- *       <Field.Label htmlFor="api-key">
+ *       <Field.Label>
  *         API key <Field.Optional />
  *       </Field.Label>
  *       <Field.Help>
@@ -699,7 +751,7 @@ Control.displayName = "FieldControl";
  *       </Field.Help>
  *     </Field.LabelRow>
  *     <Field.Control>
- *       <Input id="api-key" name="apiKey" />
+ *       <Input />
  *     </Field.Control>
  *     <Field.Errors messages={["API key is required."]} />
  *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
@@ -746,10 +798,10 @@ Description.displayName = "FieldDescription";
  * @example
  * ```tsx
  * <Field.Group>
- *   <Field.Item>
- *     <Field.Label htmlFor="username">Username</Field.Label>
+ *   <Field.Item name="username">
+ *     <Field.Label>Username</Field.Label>
  *     <Field.Control>
- *       <Input id="username" name="username" />
+ *       <Input />
  *     </Field.Control>
  *     <Field.ErrorList>
  *       <Field.ErrorItem>Must be at least 3 characters.</Field.ErrorItem>
@@ -781,6 +833,19 @@ const FieldErrorItem = forwardRef<ComponentRef<"li">, ComponentProps<"li">>(
 FieldErrorItem.displayName = "FieldErrorItem";
 
 /**
+ * Props for the `Field.Errors` convenience renderer. It owns its generated
+ * children, so use `Field.ErrorList` / `Field.ErrorItem` directly when custom
+ * list contents or polymorphic list markup are needed.
+ */
+type FieldErrorsProps = Omit<ComponentProps<"ul">, "children" | "id"> & {
+	/**
+	 * Validation messages to render. Strings are trimmed, and empty, nullish,
+	 * or false values are ignored before rendering the list.
+	 */
+	messages?: readonly FieldErrorMessage[];
+};
+
+/**
  * Convenience renderer for string validation messages. Trims each message,
  * filters empty values, and renders a semantic `Field.ErrorList` containing
  * one `Field.ErrorItem` per remaining message.
@@ -800,9 +865,9 @@ FieldErrorItem.displayName = "FieldErrorItem";
  * @example
  * ```tsx
  * <Field.Group>
- *   <Field.Item>
+ *   <Field.Item name="apiKey">
  *     <Field.LabelRow>
- *       <Field.Label htmlFor="api-key">
+ *       <Field.Label>
  *         API key <Field.Optional />
  *       </Field.Label>
  *       <Field.Help>
@@ -811,7 +876,7 @@ FieldErrorItem.displayName = "FieldErrorItem";
  *       </Field.Help>
  *     </Field.LabelRow>
  *     <Field.Control>
- *       <Input id="api-key" name="apiKey" />
+ *       <Input />
  *     </Field.Control>
  *     <Field.Errors messages={["API key is required."]} />
  *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
@@ -851,10 +916,10 @@ FieldErrors.displayName = "FieldErrors";
  * @example
  * ```tsx
  * <Field.Group>
- *   <Field.Item>
- *     <Field.Label htmlFor="username">Username</Field.Label>
+ *   <Field.Item name="username">
+ *     <Field.Label>Username</Field.Label>
  *     <Field.Control>
- *       <Input id="username" name="username" />
+ *       <Input />
  *     </Field.Control>
  *     <Field.ErrorList>
  *       <Field.ErrorItem>Must be at least 3 characters.</Field.ErrorItem>
@@ -937,9 +1002,9 @@ FieldErrorList.displayName = "FieldErrorList";
  * @example
  * ```tsx
  * <Field.Group>
- *   <Field.Item>
+ *   <Field.Item name="apiKey">
  *     <Field.LabelRow>
- *       <Field.Label htmlFor="api-key">
+ *       <Field.Label>
  *         API key <Field.Optional />
  *       </Field.Label>
  *       <Field.Help>
@@ -948,7 +1013,7 @@ FieldErrorList.displayName = "FieldErrorList";
  *       </Field.Help>
  *     </Field.LabelRow>
  *     <Field.Control>
- *       <Input id="api-key" name="apiKey" />
+ *       <Input />
  *     </Field.Control>
  *     <Field.Errors messages={["API key is required."]} />
  *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
@@ -966,9 +1031,9 @@ const Field = {
 	 * @example
 	 * ```tsx
 	 * <Field.Group>
-	 *   <Field.Item>
+	 *   <Field.Item name="apiKey">
 	 *     <Field.LabelRow>
-	 *       <Field.Label htmlFor="api-key">
+	 *       <Field.Label>
 	 *         API key <Field.Optional />
 	 *       </Field.Label>
 	 *       <Field.Help>
@@ -977,7 +1042,7 @@ const Field = {
 	 *       </Field.Help>
 	 *     </Field.LabelRow>
 	 *     <Field.Control>
-	 *       <Input id="api-key" name="apiKey" />
+	 *       <Input />
 	 *     </Field.Control>
 	 *     <Field.Errors messages={["API key is required."]} />
 	 *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
@@ -998,11 +1063,11 @@ const Field = {
 	 *
 	 * @example
 	 * ```tsx
-	 * // Element child — Slot clones the generated ARIA props onto <Input/>.
-	 * <Field.Item>
-	 *   <Field.Label htmlFor="api-key">API key</Field.Label>
+	 * // Element child — Slot splats id, name, and ARIA props onto <Input/>.
+	 * <Field.Item name="apiKey">
+	 *   <Field.Label>API key</Field.Label>
 	 *   <Field.Control>
-	 *     <Input id="api-key" name="apiKey" />
+	 *     <Input />
 	 *   </Field.Control>
 	 *   <Field.Errors messages={["API key is required."]} />
 	 * </Field.Item>
@@ -1010,14 +1075,14 @@ const Field = {
 	 *
 	 * @example
 	 * ```tsx
-	 * // Render-prop child — caller spreads the ARIA props onto an inner
-	 * // element when the focusable target is nested (e.g. inside a <label>).
-	 * <Field.Item>
+	 * // Render-prop child — caller spreads the props onto an inner element
+	 * // when the focusable target is nested (e.g. inside a <label>).
+	 * <Field.Item name="acceptTerms">
 	 *   <Field.Control>
-	 *     {(ariaProps) => (
+	 *     {(controlProps) => (
 	 *       <label>
 	 *         Accept terms
-	 *         <input type="checkbox" {...ariaProps} />
+	 *         <input type="checkbox" {...controlProps} />
 	 *       </label>
 	 *     )}
 	 *   </Field.Control>
@@ -1034,9 +1099,9 @@ const Field = {
 	 * @example
 	 * ```tsx
 	 * <Field.Group>
-	 *   <Field.Item>
+	 *   <Field.Item name="apiKey">
 	 *     <Field.LabelRow>
-	 *       <Field.Label htmlFor="api-key">
+	 *       <Field.Label>
 	 *         API key <Field.Optional />
 	 *       </Field.Label>
 	 *       <Field.Help>
@@ -1045,7 +1110,7 @@ const Field = {
 	 *       </Field.Help>
 	 *     </Field.LabelRow>
 	 *     <Field.Control>
-	 *       <Input id="api-key" name="apiKey" />
+	 *       <Input />
 	 *     </Field.Control>
 	 *     <Field.Errors messages={["API key is required."]} />
 	 *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
@@ -1090,16 +1155,23 @@ const Field = {
 	 */
 	Legend,
 	/**
-	 * The Mantle `Label`, exposed on `Field` for field composition.
+	 * The Mantle `Label`, exposed on `Field` for field composition. Inside a
+	 * `Field.Item`, `htmlFor` defaults to the same stable id that `Field.Control`
+	 * splats onto its focusable child — so the label-to-control association is
+	 * automatic from `Field.Item`'s required `name` and you don't need to thread
+	 * a matching `htmlFor` / `id` pair by hand. Pass an explicit `htmlFor` to
+	 * opt out (e.g. when the focusable element is rendered outside of
+	 * `Field.Control`).
 	 *
 	 * @see https://mantle.ngrok.com/components/label
 	 *
 	 * @example
 	 * ```tsx
+	 * // htmlFor is wired automatically from Field.Item's name.
 	 * <Field.Group>
-	 *   <Field.Item>
+	 *   <Field.Item name="apiKey">
 	 *     <Field.LabelRow>
-	 *       <Field.Label htmlFor="api-key">
+	 *       <Field.Label>
 	 *         API key <Field.Optional />
 	 *       </Field.Label>
 	 *       <Field.Help>
@@ -1108,7 +1180,7 @@ const Field = {
 	 *       </Field.Help>
 	 *     </Field.LabelRow>
 	 *     <Field.Control>
-	 *       <Input id="api-key" name="apiKey" />
+	 *       <Input />
 	 *     </Field.Control>
 	 *     <Field.Errors messages={["API key is required."]} />
 	 *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
@@ -1116,7 +1188,7 @@ const Field = {
 	 * </Field.Group>
 	 * ```
 	 */
-	Label,
+	Label: FieldLabel,
 	/**
 	 * Horizontal layout container for the label area of a field. Aligns a
 	 * `<Field.Label>` (which may contain `Field.Optional`) with adjacent affordances
@@ -1127,9 +1199,9 @@ const Field = {
 	 * @example
 	 * ```tsx
 	 * <Field.Group>
-	 *   <Field.Item>
+	 *   <Field.Item name="apiKey">
 	 *     <Field.LabelRow>
-	 *       <Field.Label htmlFor="api-key">
+	 *       <Field.Label>
 	 *         API key <Field.Optional />
 	 *       </Field.Label>
 	 *       <Field.Help>
@@ -1138,7 +1210,7 @@ const Field = {
 	 *       </Field.Help>
 	 *     </Field.LabelRow>
 	 *     <Field.Control>
-	 *       <Input id="api-key" name="apiKey" />
+	 *       <Input />
 	 *     </Field.Control>
 	 *     <Field.Errors messages={["API key is required."]} />
 	 *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
@@ -1157,9 +1229,9 @@ const Field = {
 	 * @example
 	 * ```tsx
 	 * <Field.Group>
-	 *   <Field.Item>
+	 *   <Field.Item name="apiKey">
 	 *     <Field.LabelRow>
-	 *       <Field.Label htmlFor="api-key">
+	 *       <Field.Label>
 	 *         API key <Field.Optional />
 	 *       </Field.Label>
 	 *       <Field.Help>
@@ -1168,7 +1240,7 @@ const Field = {
 	 *       </Field.Help>
 	 *     </Field.LabelRow>
 	 *     <Field.Control>
-	 *       <Input id="api-key" name="apiKey" />
+	 *       <Input />
 	 *     </Field.Control>
 	 *     <Field.Errors messages={["API key is required."]} />
 	 *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
@@ -1187,9 +1259,9 @@ const Field = {
 	 * @example
 	 * ```tsx
 	 * <Field.Group>
-	 *   <Field.Item>
+	 *   <Field.Item name="apiKey">
 	 *     <Field.LabelRow>
-	 *       <Field.Label htmlFor="api-key">
+	 *       <Field.Label>
 	 *         API key <Field.Optional />
 	 *       </Field.Label>
 	 *       <Field.Help>
@@ -1198,7 +1270,7 @@ const Field = {
 	 *       </Field.Help>
 	 *     </Field.LabelRow>
 	 *     <Field.Control>
-	 *       <Input id="api-key" name="apiKey" />
+	 *       <Input />
 	 *     </Field.Control>
 	 *     <Field.Errors messages={["API key is required."]} />
 	 *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
@@ -1217,9 +1289,9 @@ const Field = {
 	 * @example
 	 * ```tsx
 	 * <Field.Group>
-	 *   <Field.Item>
+	 *   <Field.Item name="apiKey">
 	 *     <Field.LabelRow>
-	 *       <Field.Label htmlFor="api-key">
+	 *       <Field.Label>
 	 *         API key <Field.Optional />
 	 *       </Field.Label>
 	 *       <Field.Help>
@@ -1228,7 +1300,7 @@ const Field = {
 	 *       </Field.Help>
 	 *     </Field.LabelRow>
 	 *     <Field.Control>
-	 *       <Input id="api-key" name="apiKey" />
+	 *       <Input />
 	 *     </Field.Control>
 	 *     <Field.Errors messages={["API key is required."]} />
 	 *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
@@ -1248,9 +1320,9 @@ const Field = {
 	 * @example
 	 * ```tsx
 	 * <Field.Group>
-	 *   <Field.Item>
+	 *   <Field.Item name="apiKey">
 	 *     <Field.LabelRow>
-	 *       <Field.Label htmlFor="api-key">
+	 *       <Field.Label>
 	 *         API key <Field.Optional />
 	 *       </Field.Label>
 	 *       <Field.Help>
@@ -1259,7 +1331,7 @@ const Field = {
 	 *       </Field.Help>
 	 *     </Field.LabelRow>
 	 *     <Field.Control>
-	 *       <Input id="api-key" name="apiKey" />
+	 *       <Input />
 	 *     </Field.Control>
 	 *     <Field.Errors messages={["API key is required."]} />
 	 *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
@@ -1276,9 +1348,9 @@ const Field = {
 	 * @example
 	 * ```tsx
 	 * <Field.Group>
-	 *   <Field.Item>
+	 *   <Field.Item name="apiKey">
 	 *     <Field.LabelRow>
-	 *       <Field.Label htmlFor="api-key">
+	 *       <Field.Label>
 	 *         API key <Field.Optional />
 	 *       </Field.Label>
 	 *       <Field.Help>
@@ -1287,7 +1359,7 @@ const Field = {
 	 *       </Field.Help>
 	 *     </Field.LabelRow>
 	 *     <Field.Control>
-	 *       <Input id="api-key" name="apiKey" />
+	 *       <Input />
 	 *     </Field.Control>
 	 *     <Field.Errors messages={["API key is required."]} />
 	 *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
@@ -1306,9 +1378,9 @@ const Field = {
 	 * @example
 	 * ```tsx
 	 * <Field.Group>
-	 *   <Field.Item>
+	 *   <Field.Item name="apiKey">
 	 *     <Field.LabelRow>
-	 *       <Field.Label htmlFor="api-key">
+	 *       <Field.Label>
 	 *         API key <Field.Optional />
 	 *       </Field.Label>
 	 *       <Field.Help>
@@ -1317,7 +1389,7 @@ const Field = {
 	 *       </Field.Help>
 	 *     </Field.LabelRow>
 	 *     <Field.Control>
-	 *       <Input id="api-key" name="apiKey" />
+	 *       <Input />
 	 *     </Field.Control>
 	 *     <Field.Errors messages={["API key is required."]} />
 	 *     <Field.Description>You can find this in the ngrok dashboard.</Field.Description>
@@ -1335,10 +1407,10 @@ const Field = {
 	 * @example
 	 * ```tsx
 	 * <Field.Group>
-	 *   <Field.Item>
-	 *     <Field.Label htmlFor="username">Username</Field.Label>
+	 *   <Field.Item name="username">
+	 *     <Field.Label>Username</Field.Label>
 	 *     <Field.Control>
-	 *       <Input id="username" name="username" />
+	 *       <Input />
 	 *     </Field.Control>
 	 *     <Field.ErrorList>
 	 *       <Field.ErrorItem>Must be at least 3 characters.</Field.ErrorItem>
@@ -1359,10 +1431,10 @@ const Field = {
 	 * @example
 	 * ```tsx
 	 * <Field.Group>
-	 *   <Field.Item>
-	 *     <Field.Label htmlFor="username">Username</Field.Label>
+	 *   <Field.Item name="username">
+	 *     <Field.Label>Username</Field.Label>
 	 *     <Field.Control>
-	 *       <Input id="username" name="username" />
+	 *       <Input />
 	 *     </Field.Control>
 	 *     <Field.ErrorList>
 	 *       <Field.ErrorItem>Must be at least 3 characters.</Field.ErrorItem>

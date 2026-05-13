@@ -17,6 +17,7 @@ import type {
 import { createContext, forwardRef, useContext } from "react";
 import { composeRefs } from "../../utils/compose-refs/compose-refs.js";
 import { cx } from "../../utils/cx/cx.js";
+import { FieldControlContext } from "../field/field-context.js";
 import { parseValidation, useFieldValidation } from "../field/validation.js";
 import type { WithValidation } from "../field/validation.js";
 import { Icon } from "../icon/icon.js";
@@ -74,12 +75,11 @@ type SelectProps = PropsWithChildren & {
  *
  * Pass `validation` here when the entire select has an explicit state. That
  * root state is forwarded to `Select.Trigger` and takes precedence over the
- * ambient `validation` from `Field.Item` / `Field.Control`. Note: rendered
- * `Field.Errors` / `Field.ErrorList` set `aria-invalid="true"` on the trigger
- * via `Field.Control`'s wiring, which still forces the trigger into the error
+ * ambient `validation` from `Field.Item`. Note: rendered `Field.Errors` /
+ * `Field.ErrorList` set `aria-invalid="true"` on the trigger via
+ * `Field.Control`'s wiring, which still forces the trigger into the error
  * state — suppress the inferred error by passing `validation` on `Field.Item`
- * or `Field.Control` if a non-error `Select.Root` state needs to win in that
- * case.
+ * if a non-error `Select.Root` state needs to win in that case.
  *
  * @see https://mantle.ngrok.com/components/select#selectroot
  *
@@ -224,8 +224,10 @@ type SelectTriggerProps = ComponentPropsWithoutRef<typeof SelectPrimitive.Trigge
 
 /**
  * The button that toggles the select. The Select.Content will position itself adjacent to the trigger.
- * When composing with `Field.Item`, wrap this trigger in `Field.Control` so
- * generated helper and error IDs are applied to the focusable button.
+ * When composing with `Field.Item`, wrap `Select.Root` in `Field.Control` —
+ * the generated `id`, `name`, and `aria-invalid` flow onto `Select.Root` (so
+ * the hidden form input gets the field name), and the trigger reads
+ * `aria-describedby` / `aria-errormessage` from `FieldControlContext`.
  *
  * @see https://mantle.ngrok.com/components/select#selecttrigger
  *
@@ -265,8 +267,11 @@ const Trigger = forwardRef<ComponentRef<typeof SelectPrimitive.Trigger>, SelectT
 		ref,
 	) => {
 		const ctx = useContext(SelectContext);
+		const fieldControl = useContext(FieldControlContext);
 		const fieldValidation = useFieldValidation();
-		const rawAriaInvalid = ctx["aria-invalid"] ?? ariaInValidProp;
+		const rawAriaInvalid = fieldControl
+			? fieldControl["aria-invalid"]
+			: (ctx["aria-invalid"] ?? ariaInValidProp);
 		// Explicit Select props win over ambient Field validation. This lets
 		// Field.Control override Field.Item while preserving Select.Root as the
 		// highest-precedence select-level state.
@@ -275,11 +280,10 @@ const Trigger = forwardRef<ComponentRef<typeof SelectPrimitive.Trigger>, SelectT
 			"aria-invalid": rawAriaInvalid,
 			validation: rawValidation,
 		});
-		const id = ctx.id ?? propId;
+		const id = fieldControl ? fieldControl.id : (ctx.id ?? propId);
 
 		return (
 			<SelectPrimitive.Trigger
-				aria-invalid={ariaInvalid}
 				data-slot="select-trigger"
 				className={cx(
 					"h-9 text-sm",
@@ -296,6 +300,13 @@ const Trigger = forwardRef<ComponentRef<typeof SelectPrimitive.Trigger>, SelectT
 				id={id}
 				ref={composeRefs(ref, ctx.ref)}
 				{...props}
+				{...(fieldControl
+					? {
+							"aria-describedby": fieldControl["aria-describedby"],
+							"aria-errormessage": fieldControl["aria-errormessage"],
+						}
+					: undefined)}
+				aria-invalid={ariaInvalid}
 			>
 				{children}
 				<SelectPrimitive.Icon asChild>

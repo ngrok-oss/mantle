@@ -3,12 +3,74 @@ title: Radio Group
 description: A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a time.
 ---
 
+import { Field } from "@ngrok/mantle/field";
 import { RadioGroup } from "@ngrok/mantle/radio-group";
 import { Example } from "~/components/example";
 
 # Radio Group
 
 A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a time.
+
+Pair with `Field.Set` and `Field.Legend` for grouped label/description/error wiring in forms. `RadioGroup` keeps its own `name` prop on `RadioGroup.Root`:
+
+<Example>
+	<Field.Set>
+		<Field.Legend>Density</Field.Legend>
+		<RadioGroup.Root name="density" defaultValue="compact">
+			<RadioGroup.Item value="default" id="density-default">
+				<RadioGroup.Indicator />
+				<RadioGroup.ItemContent asChild>
+					<label htmlFor="density-default">Default</label>
+				</RadioGroup.ItemContent>
+			</RadioGroup.Item>
+			<RadioGroup.Item value="comfortable" id="density-comfortable">
+				<RadioGroup.Indicator />
+				<RadioGroup.ItemContent asChild>
+					<label htmlFor="density-comfortable">Comfortable</label>
+				</RadioGroup.ItemContent>
+			</RadioGroup.Item>
+			<RadioGroup.Item value="compact" id="density-compact">
+				<RadioGroup.Indicator />
+				<RadioGroup.ItemContent asChild>
+					<label htmlFor="density-compact">Compact</label>
+				</RadioGroup.ItemContent>
+			</RadioGroup.Item>
+		</RadioGroup.Root>
+		<Field.Description>Choose the row spacing for tables.</Field.Description>
+	</Field.Set>
+</Example>
+
+```tsx
+import { Field } from "@ngrok/mantle/field";
+import { RadioGroup } from "@ngrok/mantle/radio-group";
+
+<Field.Set>
+	<Field.Legend>Density</Field.Legend>
+	<RadioGroup.Root name="density" defaultValue="compact">
+		<RadioGroup.Item value="default" id="density-default">
+			<RadioGroup.Indicator />
+			<RadioGroup.ItemContent asChild>
+				<label htmlFor="density-default">Default</label>
+			</RadioGroup.ItemContent>
+		</RadioGroup.Item>
+		<RadioGroup.Item value="comfortable" id="density-comfortable">
+			<RadioGroup.Indicator />
+			<RadioGroup.ItemContent asChild>
+				<label htmlFor="density-comfortable">Comfortable</label>
+			</RadioGroup.ItemContent>
+		</RadioGroup.Item>
+		<RadioGroup.Item value="compact" id="density-compact">
+			<RadioGroup.Indicator />
+			<RadioGroup.ItemContent asChild>
+				<label htmlFor="density-compact">Compact</label>
+			</RadioGroup.ItemContent>
+		</RadioGroup.Item>
+	</RadioGroup.Root>
+	<Field.Description>Choose the row spacing for tables.</Field.Description>
+</Field.Set>;
+```
+
+Or render the control on its own:
 
 <Example className="mt-4 grid gap-6">
 	<RadioGroup.Root defaultValue="compact">

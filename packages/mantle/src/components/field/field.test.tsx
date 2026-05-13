@@ -3,7 +3,6 @@ import { createRef } from "react";
 import type { ComponentProps, ReactNode } from "react";
 import { describe, expect, test } from "vitest";
 import { Input } from "../input/input.js";
-import { Label } from "../label/label.js";
 import type { FieldControlAriaProps } from "./field-context.js";
 import { Field } from "./field.js";
 
@@ -13,12 +12,26 @@ MockControl.displayName = "Input";
 const MockWrapper = ({ children }: { children: ReactNode }) => children;
 
 describe("Field", () => {
-	test("exposes the mantle Label as Field.Label", () => {
-		expect(Field.Label).toBe(Label);
-
+	test("renders a label that defaults htmlFor from the surrounding Field.Item", () => {
 		render(<Field.Label htmlFor="email">Email</Field.Label>);
 		expect(screen.getByText("Email").tagName).toBe("LABEL");
 		expect(screen.getByText("Email")).toHaveAttribute("for", "email");
+	});
+
+	test("Field.Label inherits htmlFor from the Field.Item control id when omitted", () => {
+		render(
+			<Field.Item name="email">
+				<Field.Label>Email</Field.Label>
+				<Field.Control>
+					<input />
+				</Field.Control>
+			</Field.Item>,
+		);
+
+		const label = screen.getByText("Email");
+		const input = label.parentElement?.querySelector("input");
+		expect(input).not.toBeNull();
+		expect(label).toHaveAttribute("for", input?.getAttribute("id") ?? "");
 	});
 
 	describe("refs", () => {
@@ -37,7 +50,7 @@ describe("Field", () => {
 				<Field.Set ref={setRef}>
 					<Field.Legend ref={legendRef}>Account</Field.Legend>
 					<Field.Group ref={groupRef}>
-						<Field.Item ref={itemRef}>
+						<Field.Item name="email" ref={itemRef}>
 							<Field.LabelRow ref={labelRowRef}>
 								<label htmlFor="email">
 									Email <Field.Optional ref={optionalRef} />
@@ -71,7 +84,7 @@ describe("Field", () => {
 
 			render(
 				<>
-					<Field.Item asChild ref={itemRef}>
+					<Field.Item asChild name="example" ref={itemRef}>
 						<div data-testid="item-child">Item</div>
 					</Field.Item>
 					<Field.Group asChild ref={groupRef}>
@@ -118,7 +131,11 @@ describe("Field", () => {
 
 	describe("Field.Item", () => {
 		test("renders a plain div with no implicit role", () => {
-			render(<Field.Item data-testid="root">content</Field.Item>);
+			render(
+				<Field.Item data-testid="root" name="example">
+					content
+				</Field.Item>,
+			);
 			const root = screen.getByTestId("root");
 			expect(root.tagName).toBe("DIV");
 			expect(root).not.toHaveAttribute("role");
@@ -126,12 +143,12 @@ describe("Field", () => {
 		});
 
 		test("forwards data-slot=field-item", () => {
-			render(<Field.Item data-testid="root" />);
+			render(<Field.Item data-testid="root" name="example" />);
 			expect(screen.getByTestId("root")).toHaveAttribute("data-slot", "field-item");
 		});
 
 		test("merges custom className while keeping default layout classes", () => {
-			render(<Field.Item className="custom-class" data-testid="root" />);
+			render(<Field.Item className="custom-class" data-testid="root" name="example" />);
 			const root = screen.getByTestId("root");
 			expect(root.className).toContain("custom-class");
 			expect(root.className).toContain("flex");
@@ -140,18 +157,18 @@ describe("Field", () => {
 		});
 
 		test("forwards arbitrary data-* attributes", () => {
-			render(<Field.Item data-custom="hello" data-testid="root" />);
+			render(<Field.Item data-custom="hello" data-testid="root" name="example" />);
 			expect(screen.getByTestId("root")).toHaveAttribute("data-custom", "hello");
 		});
 
 		test("allows opting in to a role when needed", () => {
-			render(<Field.Item data-testid="root" role="group" />);
+			render(<Field.Item data-testid="root" name="example" role="group" />);
 			expect(screen.getByTestId("root")).toHaveAttribute("role", "group");
 		});
 
 		test("renders as child element when asChild is true", () => {
 			render(
-				<Field.Item asChild>
+				<Field.Item asChild name="example">
 					<section data-testid="root">content</section>
 				</Field.Item>,
 			);
@@ -162,10 +179,10 @@ describe("Field", () => {
 
 		test("Field.Control wires Field.Description to the control", () => {
 			render(
-				<Field.Item>
-					<label htmlFor="email">Email</label>
+				<Field.Item name="email">
+					<Field.Label>Email</Field.Label>
 					<Field.Control>
-						<input id="email" name="email" />
+						<input />
 					</Field.Control>
 					<Field.Description>We'll never share your email.</Field.Description>
 				</Field.Item>,
@@ -175,15 +192,15 @@ describe("Field", () => {
 			const description = screen.getByText("We'll never share your email.");
 			expect(description).toHaveAttribute("id");
 			expect(input.getAttribute("aria-describedby")).toContain(description.id);
-			expect(input).toHaveAttribute("id", "email");
 			expect(input).toHaveAttribute("name", "email");
+			expect(input).toHaveAttribute("id");
 		});
 
 		test("drops child-supplied aria-describedby and aria-errormessage in favor of Field-owned IDs", () => {
 			// Field owns the ID contract. cloneElement overwrites any child-side
 			// aria-describedby / aria-errormessage cleanly.
 			render(
-				<Field.Item>
+				<Field.Item name="example">
 					<Field.Control>
 						<input
 							aria-label="Email"
@@ -204,7 +221,7 @@ describe("Field", () => {
 
 		test("Field.Control wires rendered Field.ErrorList to the control and infers invalid state", () => {
 			render(
-				<Field.Item>
+				<Field.Item name="example">
 					<Field.Control>
 						<input aria-label="Email" />
 					</Field.Control>
@@ -224,7 +241,7 @@ describe("Field", () => {
 
 		test("does not mark a control invalid for an empty Field.ErrorList", () => {
 			render(
-				<Field.Item>
+				<Field.Item name="example">
 					<Field.Control>
 						<input aria-label="Email" />
 					</Field.Control>
@@ -239,7 +256,7 @@ describe("Field", () => {
 
 		test("does not mark a control invalid when Field.ErrorItem children are empty", () => {
 			render(
-				<Field.Item>
+				<Field.Item name="example">
 					<Field.Control>
 						<input aria-label="Email" />
 					</Field.Control>
@@ -256,7 +273,7 @@ describe("Field", () => {
 
 		test("does not mark a control invalid when Field.ErrorList contains only an empty fragment", () => {
 			render(
-				<Field.Item>
+				<Field.Item name="example">
 					<Field.Control>
 						<input aria-label="Email" />
 					</Field.Control>
@@ -273,7 +290,7 @@ describe("Field", () => {
 
 		test("Field.Control wires rendered Field.Errors to the control and infers invalid state", () => {
 			render(
-				<Field.Item>
+				<Field.Item name="example">
 					<Field.Control>
 						<input aria-label="Email" />
 					</Field.Control>
@@ -291,7 +308,7 @@ describe("Field", () => {
 
 		test("does not mark a control invalid for empty Field.Errors messages", () => {
 			render(
-				<Field.Item>
+				<Field.Item name="example">
 					<Field.Control>
 						<input aria-label="Email" />
 					</Field.Control>
@@ -304,9 +321,12 @@ describe("Field", () => {
 			expect(input).not.toHaveAttribute("aria-invalid");
 		});
 
-		test("keeps explicit aria-invalid on a control when errors are present", () => {
+		test("ignores child-supplied aria-invalid — Field.Item owns the contract", () => {
+			// Field.Item is the single source of truth for aria-invalid. A
+			// child-side aria-invalid="false" no longer overrides the inferred
+			// error state; set validation on Field.Item to opt out.
 			render(
-				<Field.Item>
+				<Field.Item name="example">
 					<Field.Control>
 						<input aria-label="Email" aria-invalid="false" />
 					</Field.Control>
@@ -318,29 +338,14 @@ describe("Field", () => {
 
 			expect(screen.getByRole("textbox", { name: "Email" })).toHaveAttribute(
 				"aria-invalid",
-				"false",
+				"true",
 			);
 		});
 
 		test("lets Field.Item validation={false} override rendered errors", () => {
 			render(
-				<Field.Item validation={false}>
+				<Field.Item name="example" validation={false}>
 					<Field.Control>
-						<input aria-label="Email" />
-					</Field.Control>
-					<Field.Errors messages={["Email is required."]} />
-				</Field.Item>,
-			);
-
-			const input = screen.getByRole("textbox", { name: "Email" });
-			expect(input).not.toHaveAttribute("aria-invalid");
-			expect(input).not.toHaveAttribute("aria-errormessage");
-		});
-
-		test("lets Field.Control validation={false} override rendered errors", () => {
-			render(
-				<Field.Item>
-					<Field.Control validation={false}>
 						<input aria-label="Email" />
 					</Field.Control>
 					<Field.Errors messages={["Email is required."]} />
@@ -354,7 +359,7 @@ describe("Field", () => {
 
 		test("supports render props for controls that need manual prop placement", () => {
 			render(
-				<Field.Item>
+				<Field.Item name="example">
 					<Field.Control>
 						{(controlProps) => (
 							<label>
@@ -372,12 +377,15 @@ describe("Field", () => {
 			expect(checkbox.getAttribute("aria-describedby")).toContain(description.id);
 		});
 
-		test("wires mantle Input without replacing TanStack-friendly id and name props", () => {
+		test("splats Field.Item name and generated id onto the control, overriding child-supplied values", () => {
+			// Field.Item owns the name + id contract — context wins so the
+			// TanStack-friendly `name` only needs to live on Field.Item, and
+			// any name/id passed on the child is intentionally overwritten.
 			render(
-				<Field.Item>
-					<label htmlFor="account.email">Email</label>
+				<Field.Item name="account.email">
+					<Field.Label>Email</Field.Label>
 					<Field.Control>
-						<Input id="account.email" name="account.email" />
+						<Input id="ignored-by-context" name="ignored-by-context" />
 					</Field.Control>
 					<Field.Description>Use your work email.</Field.Description>
 				</Field.Item>,
@@ -386,8 +394,9 @@ describe("Field", () => {
 			const input = screen.getByRole("textbox", { name: "Email" });
 			const description = screen.getByText("Use your work email.");
 			expect(input.getAttribute("aria-describedby")).toContain(description.id);
-			expect(input).toHaveAttribute("id", "account.email");
 			expect(input).toHaveAttribute("name", "account.email");
+			expect(input.getAttribute("id")).not.toBe("ignored-by-context");
+			expect(input).toHaveAttribute("id");
 		});
 
 		test("render-prop variant rejects extra DOM props at the type level", () => {
@@ -414,7 +423,7 @@ describe("Field", () => {
 
 		test("supports custom wrappers with the render prop API", () => {
 			render(
-				<Field.Item>
+				<Field.Item name="example">
 					<Field.Control>
 						{(controlProps) => (
 							<MockWrapper>
@@ -433,10 +442,10 @@ describe("Field", () => {
 
 		test("provides validation from Field.Item to Mantle controls", () => {
 			render(
-				<Field.Item validation="success">
-					<label htmlFor="email">Email</label>
+				<Field.Item name="email" validation="success">
+					<Field.Label>Email</Field.Label>
 					<Field.Control>
-						<Input id="email" name="email" />
+						<Input />
 					</Field.Control>
 				</Field.Item>,
 			);
@@ -446,19 +455,26 @@ describe("Field", () => {
 			expect(input).toHaveAttribute("data-validation", "success");
 		});
 
-		test("lets Field.Control validation override Field.Item validation", () => {
+		test("preserves child props when Field.Control is rendered outside Field.Item", () => {
 			render(
-				<Field.Item validation="success">
-					<Field.Control validation="error">
-						<input aria-label="Email" />
-					</Field.Control>
-				</Field.Item>,
+				<Field.Control>
+					<input
+						aria-label="Email"
+						aria-describedby="help"
+						aria-errormessage="error"
+						aria-invalid="true"
+						id="email"
+						name="email"
+					/>
+				</Field.Control>,
 			);
 
-			expect(screen.getByRole("textbox", { name: "Email" })).toHaveAttribute(
-				"aria-invalid",
-				"true",
-			);
+			const input = screen.getByRole("textbox", { name: "Email" });
+			expect(input).toHaveAttribute("aria-describedby", "help");
+			expect(input).toHaveAttribute("aria-errormessage", "error");
+			expect(input).toHaveAttribute("aria-invalid", "true");
+			expect(input).toHaveAttribute("id", "email");
+			expect(input).toHaveAttribute("name", "email");
 		});
 
 		test("throws a descriptive error when children is not a valid element or function", () => {
@@ -975,7 +991,7 @@ describe("Field", () => {
 				<Field.Set data-testid="set">
 					<Field.Legend data-testid="legend">Account</Field.Legend>
 					<Field.Group data-testid="group">
-						<Field.Item data-testid="root-1">
+						<Field.Item data-testid="root-1" name="email">
 							<label htmlFor="email">Email</label>
 							<input id="email" name="email" />
 							<Field.ErrorList data-testid="errs">
@@ -985,7 +1001,7 @@ describe("Field", () => {
 								We'll never share your email.
 							</Field.Description>
 						</Field.Item>
-						<Field.Item data-testid="root-2">
+						<Field.Item data-testid="root-2" name="password">
 							<label htmlFor="password">Password</label>
 							<input id="password" name="password" type="password" />
 						</Field.Item>

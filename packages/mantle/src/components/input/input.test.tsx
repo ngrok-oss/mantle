@@ -55,7 +55,7 @@ describe("Input", () => {
 
 	test("with children, validation={false} on <Input> overrides inherited Field validation", () => {
 		render(
-			<Field.Item validation="error">
+			<Field.Item name="example" validation="error">
 				<Input validation={false}>
 					<InputCapture aria-label="Email" />
 				</Input>
