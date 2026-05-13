@@ -4,7 +4,7 @@ description: A control that allows the user to toggle between checked and not ch
 ---
 
 import { Button } from "@ngrok/mantle/button";
-import { Field } from "@ngrok/mantle/field";
+import { Field, toErrorMessages } from "@ngrok/mantle/field";
 import { Label } from "@ngrok/mantle/label";
 import { Switch } from "@ngrok/mantle/switch";
 import { useForm } from "@tanstack/react-form";
@@ -14,6 +14,37 @@ import { Example } from "~/components/example";
 # Switch
 
 A control that allows the user to toggle between checked and not checked.
+
+Pair with `Field.*` for label/description/error wiring in forms:
+
+<Example>
+	<Field.Item name="airplane-mode-field">
+		<Field.Label className="inline-flex items-center gap-2">
+			<Field.Control>
+				<Switch />
+			</Field.Control>
+			Airplane Mode
+		</Field.Label>
+		<Field.Description>Disables wireless radios while in flight.</Field.Description>
+	</Field.Item>
+</Example>
+
+```tsx
+import { Field } from "@ngrok/mantle/field";
+import { Switch } from "@ngrok/mantle/switch";
+
+<Field.Item name="airplane-mode-field">
+	<Field.Label className="inline-flex items-center gap-2">
+		<Field.Control>
+			<Switch />
+		</Field.Control>
+		Airplane Mode
+	</Field.Label>
+	<Field.Description>Disables wireless radios while in flight.</Field.Description>
+</Field.Item>;
+```
+
+Or render the control on its own:
 
 <Example className="grid place-items-center">
 	<div className="flex flex-col gap-6">
@@ -67,10 +98,11 @@ export const formSchema = z.object({
 });
 
 export function FormExample() {
+	const defaultValues = {
+		airplaneMode: false,
+	};
 	const form = useForm({
-		defaultValues: {
-			airplaneMode: false,
-		},
+		defaultValues,
 		validators: {
 			onSubmit: formSchema,
 		},
@@ -80,41 +112,35 @@ export function FormExample() {
 	});
 
     return (
-    	<form
-    		className="space-y-4 w-full"
-    		onSubmit={(event) => {
-    			event.preventDefault();
-    			event.stopPropagation();
-    			void form.handleSubmit();
-    		}}
-    	>
-    		<form.Field name="airplaneMode">
-    			{(field) => (
-    				<Field.Item>
-    					<Field.Label htmlFor={field.name} className="inline-flex items-center gap-2">
-    						Airplane Mode
-    						<Field.Control>
-    							<Switch
-    								name={field.name}
-    								id={field.name}
-    								checked={field.state.value}
-    								onBlur={field.handleBlur}
-    								onCheckedChange={(value) => field.handleChange(value)}
-    							/>
-    						</Field.Control>
-    					</Field.Label>
-    					<Field.Errors messages={field.state.meta.errors.map((error) => error?.message)} />
-    				</Field.Item>
-    			)}
-    		</form.Field>
-    		<form.Subscribe selector={(state) => state.isDirty}>
-    			{(isDirty) => (
-    				<Button type="submit" appearance="filled" disabled={!isDirty}>
-    					Submit
-    				</Button>
-    			)}
-    		</form.Subscribe>
-    	</form>
+    <form
+    	className="space-y-4 w-full"
+    	onSubmit={(event) => {
+    		event.preventDefault();
+    		event.stopPropagation();
+    		void form.handleSubmit();
+    	}}
+    >
+    	<form.Field name="airplaneMode">
+    		{(field) => (
+    			<Field.Item name={field.name}>
+    				<Field.Label className="inline-flex items-center gap-2">
+    					Airplane Mode
+    					<Field.Control>
+    						<Switch
+    							checked={field.state.value}
+    							onBlur={field.handleBlur}
+    							onCheckedChange={(value) => field.handleChange(value)}
+    						/>
+    					</Field.Control>
+    				</Field.Label>
+    				<Field.Errors messages={toErrorMessages(field.state.meta.errors)} />
+    			</Field.Item>
+    		)}
+    	</form.Field>
+    	<Button type="submit" appearance="filled">
+    		Submit
+    	</Button>
+    </form>
     );
 
 }
@@ -125,32 +151,25 @@ export function FormExample() {
 
 ```tsx
 import { Button } from "@ngrok/mantle/button";
-import { Field } from "@ngrok/mantle/field";
+import { Field, toErrorMessages } from "@ngrok/mantle/field";
 import { Switch } from "@ngrok/mantle/switch";
 import { useForm } from "@tanstack/react-form";
 import { z } from "zod";
-import { useSubmit } from "react-router";
 
 const formSchema = z.object({
 	airplaneMode: z.boolean(),
 });
-
-type FormValues = z.infer<typeof formSchema>;
-
 function FormExample() {
-	const submit = useSubmit();
+	const defaultValues = {
+		airplaneMode: false,
+	};
 	const form = useForm({
-		defaultValues: {
-			airplaneMode: false,
-		} satisfies FormValues as FormValues,
+		defaultValues,
 		validators: {
 			onSubmit: formSchema,
 		},
 		onSubmit: ({ value }) => {
 			// Handle form submission here
-			submit(value, {
-				method: "post",
-			});
 		},
 	});
 
@@ -165,30 +184,24 @@ function FormExample() {
 		>
 			<form.Field name="airplaneMode">
 				{(field) => (
-					<Field.Item>
-						<Field.Label htmlFor={field.name} className="flex items-center gap-2">
+					<Field.Item name={field.name}>
+						<Field.Label className="flex items-center gap-2">
 							Airplane Mode
 							<Field.Control>
 								<Switch
-									name={field.name}
-									id={field.name}
 									checked={field.state.value}
 									onBlur={field.handleBlur}
 									onCheckedChange={(value) => field.handleChange(value)}
 								/>
 							</Field.Control>
 						</Field.Label>
-						<Field.Errors messages={field.state.meta.errors.map((error) => error?.message)} />
+						<Field.Errors messages={toErrorMessages(field.state.meta.errors)} />
 					</Field.Item>
 				)}
 			</form.Field>
-			<form.Subscribe selector={(state) => state.isDirty}>
-				{(isDirty) => (
-					<Button type="submit" appearance="filled" disabled={!isDirty}>
-						Submit
-					</Button>
-				)}
-			</form.Subscribe>
+			<Button type="submit" appearance="filled">
+				Submit
+			</Button>
 		</form>
 	);
 }

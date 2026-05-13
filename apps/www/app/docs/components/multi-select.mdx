@@ -3,6 +3,7 @@ title: Multi Select
 description: A typeahead multi-select combobox that allows users to select multiple values with filtering. Selected values are displayed as removable tags.
 ---
 
+import { Field } from "@ngrok/mantle/field";
 import { MultiSelect } from "@ngrok/mantle/multi-select";
 import { matchSorter } from "match-sorter";
 import { useMemo, useState, useTransition } from "react";
@@ -322,6 +323,57 @@ A typeahead multi-select combobox that allows users to select multiple values wi
 
 Use `Multi Select` when the user can choose multiple values from a list, with selected values rendered as removable tags/chips. For single selection, use [`Combobox`](/components/combobox) (with search) or [`Select`](/components/select) (without).
 
+Pair with `Field.*` for label/description/error wiring in forms — wrap `MultiSelect.Root` in `Field.Control`. `Field.Control` flows the generated `id`, `name`, `aria-describedby`, `aria-errormessage`, and `aria-invalid` through to the focusable `MultiSelect.Input` via `FieldControlContext`.
+
+<Example>
+	<Field.Item name="fruits" className="max-w-96">
+		<Field.Label>Fruits</Field.Label>
+		<Field.Control>
+			<MultiSelect.Root>
+				<MultiSelect.Trigger>
+					<MultiSelect.TagValues />
+					<MultiSelect.Input placeholder="Select fruits..." />
+				</MultiSelect.Trigger>
+				<MultiSelect.Content>
+					{fruits.map((value) => (
+						<MultiSelect.Item key={value} value={value}>
+							{value}
+						</MultiSelect.Item>
+					))}
+				</MultiSelect.Content>
+			</MultiSelect.Root>
+		</Field.Control>
+		<Field.Description>Pick one or more.</Field.Description>
+	</Field.Item>
+</Example>
+
+```tsx
+import { Field } from "@ngrok/mantle/field";
+import { MultiSelect } from "@ngrok/mantle/multi-select";
+
+<Field.Item name="fruits">
+	<Field.Label>Fruits</Field.Label>
+	<Field.Control>
+		<MultiSelect.Root>
+			<MultiSelect.Trigger>
+				<MultiSelect.TagValues />
+				<MultiSelect.Input placeholder="Select fruits..." />
+			</MultiSelect.Trigger>
+			<MultiSelect.Content>
+				{fruits.map((value) => (
+					<MultiSelect.Item key={value} value={value}>
+						{value}
+					</MultiSelect.Item>
+				))}
+			</MultiSelect.Content>
+		</MultiSelect.Root>
+	</Field.Control>
+	<Field.Description>Pick one or more.</Field.Description>
+</Field.Item>;
+```
+
+Or render the control on its own:
+
 <Example>
 	<BasicDemo />
 </Example>
@@ -426,7 +478,7 @@ Use `@tanstack/react-form` to manage the selected values when a side panel needs
 
 ```tsx
 import { Button } from "@ngrok/mantle/button";
-import { Field } from "@ngrok/mantle/field";
+import { Field, toErrorMessages } from "@ngrok/mantle/field";
 import { MultiSelect } from "@ngrok/mantle/multi-select";
 import { Sheet } from "@ngrok/mantle/sheet";
 import { useForm } from "@tanstack/react-form";
@@ -438,15 +490,17 @@ const formSchema = z.object({
 	favorites: z.string().array().min(1, "Select at least one fruit."),
 });
 
+type FormValues = z.infer<typeof formSchema>;
+
 const [isPending, startTransition] = useTransition();
 const formId = useId();
 const [searchValue, setSearchValue] = useState("");
+const defaultValues: FormValues = {
+	favorites: ["Cherry"],
+};
 const form = useForm({
-	defaultValues: {
-		favorites: ["Cherry"],
-	},
+	defaultValues,
 	validators: {
-		onChange: formSchema,
 		onSubmit: formSchema,
 	},
 	onSubmit: ({ value }) => {
@@ -493,55 +547,54 @@ const filteredVeggies = useMemo(
 			<Sheet.Body>
 				<form.Field name="favorites">
 					{(field) => (
-						<Field.Item>
-							<Field.Label htmlFor={field.name}>Fruits</Field.Label>
-							<MultiSelect.Root
-								selectedValue={field.state.value}
-								setSelectedValue={field.handleChange}
-								setOpen={() => {
-									setSearchValue("");
-								}}
-							>
-								<MultiSelect.Trigger onBlur={field.handleBlur}>
-									<MultiSelect.TagValues />
-									<Field.Control>
+						<Field.Item name={field.name}>
+							<Field.Label>Fruits</Field.Label>
+							<Field.Control>
+								<MultiSelect.Root
+									selectedValue={field.state.value}
+									setSelectedValue={field.handleChange}
+									setOpen={() => {
+										setSearchValue("");
+									}}
+								>
+									<MultiSelect.Trigger onBlur={field.handleBlur}>
+										<MultiSelect.TagValues />
 										<MultiSelect.Input
-											id={field.name}
 											onValueChange={(value) => startTransition(() => setSearchValue(value))}
 											placeholder="Select fruits and vegetables..."
 										/>
-									</Field.Control>
-								</MultiSelect.Trigger>
-								<MultiSelect.Content aria-busy={isPending}>
-									{filteredFruits.length > 0 && (
-										<MultiSelect.Group>
-											<MultiSelect.GroupLabel>Fruits</MultiSelect.GroupLabel>
-											{filteredFruits.map((value) => (
-												<MultiSelect.Item key={value} value={value}>
-													{value}
-												</MultiSelect.Item>
-											))}
-										</MultiSelect.Group>
-									)}
-									{filteredFruits.length > 0 && filteredVeggies.length > 0 && (
-										<MultiSelect.Separator />
-									)}
-									{filteredVeggies.length > 0 && (
-										<MultiSelect.Group>
-											<MultiSelect.GroupLabel>Vegetables</MultiSelect.GroupLabel>
-											{filteredVeggies.map((value) => (
-												<MultiSelect.Item key={value} value={value}>
-													{value}
-												</MultiSelect.Item>
-											))}
-										</MultiSelect.Group>
-									)}
-									{filteredFruits.length === 0 && filteredVeggies.length === 0 && (
-										<MultiSelect.Empty>No results found</MultiSelect.Empty>
-									)}
-								</MultiSelect.Content>
-							</MultiSelect.Root>
-							<Field.Errors messages={field.state.meta.errors.map((error) => error?.message)} />
+									</MultiSelect.Trigger>
+									<MultiSelect.Content aria-busy={isPending}>
+										{filteredFruits.length > 0 && (
+											<MultiSelect.Group>
+												<MultiSelect.GroupLabel>Fruits</MultiSelect.GroupLabel>
+												{filteredFruits.map((value) => (
+													<MultiSelect.Item key={value} value={value}>
+														{value}
+													</MultiSelect.Item>
+												))}
+											</MultiSelect.Group>
+										)}
+										{filteredFruits.length > 0 && filteredVeggies.length > 0 && (
+											<MultiSelect.Separator />
+										)}
+										{filteredVeggies.length > 0 && (
+											<MultiSelect.Group>
+												<MultiSelect.GroupLabel>Vegetables</MultiSelect.GroupLabel>
+												{filteredVeggies.map((value) => (
+													<MultiSelect.Item key={value} value={value}>
+														{value}
+													</MultiSelect.Item>
+												))}
+											</MultiSelect.Group>
+										)}
+										{filteredFruits.length === 0 && filteredVeggies.length === 0 && (
+											<MultiSelect.Empty>No results found</MultiSelect.Empty>
+										)}
+									</MultiSelect.Content>
+								</MultiSelect.Root>
+							</Field.Control>
+							<Field.Errors messages={toErrorMessages(field.state.meta.errors)} />
 						</Field.Item>
 					)}
 				</form.Field>
@@ -687,9 +740,9 @@ Use `MultiSelect.Group`, `MultiSelect.GroupLabel`, and `MultiSelect.Separator` t
 </MultiSelect.Root>
 ```
 
-### With Groups in a Form
+### With TanStack Form
 
-Use `@tanstack/react-form` to wire the multi-select into a form with validation. Pass `field.state.value` to `selectedValue`, `field.handleChange` to `setSelectedValue`, and the `validation` prop to `MultiSelect.Trigger` to reflect field errors.
+Use `@tanstack/react-form` with `zod` to wire selected values into form state. Pass `field.state.value` to `selectedValue` and `field.handleChange` to `setSelectedValue`.
 
 <Example className="w-full">
 	<TanStackFormDemo />
@@ -697,36 +750,26 @@ Use `@tanstack/react-form` to wire the multi-select into a form with validation.
 
 ```tsx
 import { Button } from "@ngrok/mantle/button";
-import { Field } from "@ngrok/mantle/field";
+import { Field, toErrorMessages } from "@ngrok/mantle/field";
 import { MultiSelect } from "@ngrok/mantle/multi-select";
 import { useForm } from "@tanstack/react-form";
-import { matchSorter } from "match-sorter";
-import { useMemo, useState, useTransition } from "react";
 import { z } from "zod";
 
+const fruits = ["Apple", "Banana", "Cherry", "Grapes", "Orange", "Strawberry"];
+
 const formSchema = z.object({
-	favorites: z.string().array().min(1, "Select at least one item."),
+	favorites: z.string().array().min(1, "Select at least one fruit."),
 });
 
 type FormValues = z.infer<typeof formSchema>;
 
 function Example() {
-	const [isPending, startTransition] = useTransition();
-	const [searchValue, setSearchValue] = useState("");
-	const filteredFruits = useMemo(
-		() => matchSorter(["Apple", "Banana", "Cherry", "Grapes", "Orange", "Strawberry"], searchValue),
-		[searchValue],
-	);
-	const filteredVeggies = useMemo(
-		() => matchSorter(["Carrot", "Cucumber", "Lettuce", "Tomato", "Zucchini"], searchValue),
-		[searchValue],
-	);
+	const defaultValues: FormValues = {
+		favorites: [],
+	};
 	const form = useForm({
-		defaultValues: {
-			favorites: [],
-		} satisfies FormValues as FormValues,
+		defaultValues,
 		validators: {
-			onChange: formSchema,
 			onSubmit: formSchema,
 		},
 		onSubmit: ({ value }) => {
@@ -745,67 +788,33 @@ function Example() {
 		>
 			<form.Field name="favorites">
 				{(field) => (
-					<Field.Item>
-						<Field.Label htmlFor={field.name}>Favorites</Field.Label>
-						<MultiSelect.Root
-							selectedValue={field.state.value}
-							setOpen={() => {
-								setSearchValue("");
-							}}
-							setSelectedValue={(values) => {
-								field.handleChange(values);
-							}}
-						>
-							<MultiSelect.Trigger onBlur={field.handleBlur}>
-								<MultiSelect.TagValues />
-								<Field.Control>
-									<MultiSelect.Input
-										id={field.name}
-										onValueChange={(value) => startTransition(() => setSearchValue(value))}
-										placeholder="Select fruits and vegetables..."
-									/>
-								</Field.Control>
-							</MultiSelect.Trigger>
-							<MultiSelect.Content aria-busy={isPending}>
-								{filteredFruits.length > 0 && (
-									<MultiSelect.Group>
-										<MultiSelect.GroupLabel>Fruits</MultiSelect.GroupLabel>
-										{filteredFruits.map((value) => (
-											<MultiSelect.Item key={value} value={value}>
-												{value}
-											</MultiSelect.Item>
-										))}
-									</MultiSelect.Group>
-								)}
-								{filteredFruits.length > 0 && filteredVeggies.length > 0 && (
-									<MultiSelect.Separator />
-								)}
-								{filteredVeggies.length > 0 && (
-									<MultiSelect.Group>
-										<MultiSelect.GroupLabel>Vegetables</MultiSelect.GroupLabel>
-										{filteredVeggies.map((value) => (
-											<MultiSelect.Item key={value} value={value}>
-												{value}
-											</MultiSelect.Item>
-										))}
-									</MultiSelect.Group>
-								)}
-								{filteredFruits.length === 0 && filteredVeggies.length === 0 && (
-									<MultiSelect.Empty>No results found</MultiSelect.Empty>
-								)}
-							</MultiSelect.Content>
-						</MultiSelect.Root>
-						<Field.Errors messages={field.state.meta.errors.map((error) => error?.message)} />
+					<Field.Item name={field.name}>
+						<Field.Label>Favorites</Field.Label>
+						<Field.Control>
+							<MultiSelect.Root
+								selectedValue={field.state.value}
+								setSelectedValue={field.handleChange}
+							>
+								<MultiSelect.Trigger onBlur={field.handleBlur}>
+									<MultiSelect.TagValues />
+									<MultiSelect.Input placeholder="Select fruits..." />
+								</MultiSelect.Trigger>
+								<MultiSelect.Content>
+									{fruits.map((value) => (
+										<MultiSelect.Item key={value} value={value}>
+											{value}
+										</MultiSelect.Item>
+									))}
+								</MultiSelect.Content>
+							</MultiSelect.Root>
+						</Field.Control>
+						<Field.Errors messages={toErrorMessages(field.state.meta.errors)} />
 					</Field.Item>
 				)}
 			</form.Field>
-			<form.Subscribe selector={(state) => state.isDirty}>
-				{(isDirty) => (
-					<Button type="submit" appearance="filled" disabled={!isDirty}>
-						Submit
-					</Button>
-				)}
-			</form.Subscribe>
+			<Button type="submit" appearance="filled">
+				Submit
+			</Button>
 		</form>
 	);
 }

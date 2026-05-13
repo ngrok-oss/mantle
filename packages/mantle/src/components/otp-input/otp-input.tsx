@@ -7,6 +7,7 @@ import { forwardRef, useContext } from "react";
 import type { WithAsChild } from "../../types/as-child.js";
 import { $cssProperties } from "../../types/index.js";
 import { cx } from "../../utils/cx/cx.js";
+import { FieldControlContext } from "../field/field-context.js";
 import { parseValidation, useFieldValidation } from "../field/validation.js";
 import type { Validation, WithValidation } from "../field/validation.js";
 import { Slot as AsChildSlot } from "../slot/index.js";
@@ -134,6 +135,11 @@ type OtpInputRootProps = Omit<ComponentProps<typeof OTPInput>, "render" | "child
  * `validation="error"` also sets `aria-invalid` on the underlying input so
  * assistive tech announces the failure state.
  *
+ * When composing with `Field.Item`, wrap `OtpInput.Root` in `Field.Control`.
+ * `Field.Control` flows the generated `id`, `aria-invalid`, `aria-describedby`,
+ * and `aria-errormessage` through to the underlying focusable input via
+ * `FieldControlContext`.
+ *
  * @see https://mantle.ngrok.com/components/otp-input
  *
  * @example
@@ -169,6 +175,7 @@ const Root = forwardRef<ComponentRef<typeof OTPInput>, OtpInputRootProps>(
 		ref,
 	) => {
 		const fieldValidation = useFieldValidation();
+		const fieldControl = useContext(FieldControlContext);
 		const { ariaInvalid: resolvedAriaInvalid, validation } = parseValidation({
 			"aria-invalid": ariaInvalid,
 			defaultAriaInvalid: false,
@@ -186,6 +193,14 @@ const Root = forwardRef<ComponentRef<typeof OTPInput>, OtpInputRootProps>(
 				)}
 				className={cx("disabled:cursor-not-allowed", className)}
 				{...props}
+				{...(fieldControl
+					? {
+							"aria-describedby": fieldControl["aria-describedby"],
+							"aria-errormessage": fieldControl["aria-errormessage"],
+							id: fieldControl.id,
+							name: fieldControl.name,
+						}
+					: undefined)}
 			>
 				<MantleOtpBridge validation={validation}>{children}</MantleOtpBridge>
 			</OTPInput>

@@ -22,6 +22,18 @@ describe("field helpers", () => {
 				normalizeErrorMessages([" Required ", undefined, "", "  ", false, "Too short"]),
 			).toEqual(["Required", "Too short"]);
 		});
+
+		test("removes duplicate messages after trimming while preserving first occurrence order", () => {
+			expect(
+				normalizeErrorMessages([
+					" Required ",
+					"Too short",
+					"Required",
+					" Too short ",
+					"Use a symbol.",
+				]),
+			).toEqual(["Required", "Too short", "Use a symbol."]);
+		});
 	});
 
 	describe("isErrorItemRenderable", () => {

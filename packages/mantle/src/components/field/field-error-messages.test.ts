@@ -40,6 +40,18 @@ describe("toErrorMessages", () => {
 		]);
 	});
 
+	test("removes duplicate messages after trimming", () => {
+		expect(
+			toErrorMessages([
+				"  Required  ",
+				{ message: "Required" },
+				new Error("Required"),
+				"Too short",
+				{ message: " Too short " },
+			]),
+		).toEqual(["Required", "Too short"]);
+	});
+
 	test("handles a mixed array preserving order", () => {
 		expect(
 			toErrorMessages([

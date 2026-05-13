@@ -15,7 +15,8 @@ type FieldError = { readonly message?: string | undefined } | string | null | un
  * Handles the shapes TanStack form yields for Zod, Standard Schema, and
  * thrown `Error` validators: items may be strings, objects with `.message`,
  * `undefined`, `null`, or `false`. Empty / whitespace-only messages are
- * dropped so callers don't have to filter again.
+ * dropped and duplicate messages are collapsed so callers don't have to filter
+ * again.
  *
  * @example
  * ```tsx

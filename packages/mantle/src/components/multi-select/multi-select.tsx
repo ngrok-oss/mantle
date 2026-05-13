@@ -25,6 +25,7 @@ import type { WithAsChild } from "../../types/as-child.js";
 import { getPrefersReducedMotion } from "../../hooks/use-prefers-reduced-motion.js";
 import { composeRefs } from "../../utils/compose-refs/compose-refs.js";
 import { cx } from "../../utils/cx/cx.js";
+import { FieldControlContext } from "../field/field-context.js";
 import { parseValidation, useFieldValidation } from "../field/validation.js";
 import type { WithValidation } from "../field/validation.js";
 import { Icon } from "../icon/icon.js";
@@ -73,6 +74,11 @@ type MultiSelectProps = Primitive.ComboboxProviderProps<string[]>;
  * Use MultiSelect when the user can choose multiple values from a list, with selected
  * items rendered as removable tags/chips. For single selection, use Combobox (with search)
  * or Select (without).
+ *
+ * When composing with `Field.Item`, wrap `MultiSelect.Root` in `Field.Control`.
+ * `Field.Control` flows the generated `id`, `name`, `aria-describedby`,
+ * `aria-errormessage`, and `aria-invalid` through to the focusable
+ * `MultiSelect.Input` via `FieldControlContext`.
  *
  * @see https://mantle.ngrok.com/components/multi-select#multiselectroot
  *
@@ -609,6 +615,11 @@ type MultiSelectInputProps = Omit<Primitive.ComboboxProps, "render"> & {
  * The combobox input for filtering items. Place this inside `MultiSelect.Trigger`,
  * after `MultiSelect.TagValues`.
  *
+ * `MultiSelect.Input` is the focusable element of the multi-select. When the
+ * surrounding `MultiSelect.Root` is wrapped in `Field.Control`, the generated
+ * `id`, `aria-invalid`, `aria-describedby`, and `aria-errormessage` flow onto
+ * the input here via `FieldControlContext`.
+ *
  * @see https://mantle.ngrok.com/components/multi-select#multiselectinput
  *
  * @example
@@ -631,6 +642,7 @@ const Input = forwardRef<ComponentRef<"input">, MultiSelectInputProps>(
 	) => {
 		const store = Primitive.useComboboxContext();
 		const { onInputKeyDownRef, inputRef } = useContext(TagBridgeContext);
+		const fieldControl = useContext(FieldControlContext);
 		const rawSelectedValue = Primitive.useStoreState(store, "selectedValue");
 		const selectedValues = isStringArray(rawSelectedValue) ? rawSelectedValue : undefined;
 		const hasSelectedValues = (selectedValues?.length ?? 0) > 0;
@@ -674,6 +686,15 @@ const Input = forwardRef<ComponentRef<"input">, MultiSelectInputProps>(
 				// Register the input's DOM node in the bridge so TagValues can focus it for keyboard nav.
 				ref={composeRefs(inputRef, ref)}
 				{...props}
+				{...(fieldControl
+					? {
+							"aria-describedby": fieldControl["aria-describedby"],
+							"aria-errormessage": fieldControl["aria-errormessage"],
+							"aria-invalid": fieldControl["aria-invalid"],
+							id: fieldControl.id,
+							name: fieldControl.name,
+						}
+					: undefined)}
 			/>
 		);
 	},

@@ -303,7 +303,7 @@ export function ServerRenderedHighlightingDemo() {
 			>
 				<form.Field name="language">
 					{(field) => (
-						<Field.Item>
+						<Field.Item name={field.name}>
 							<Label htmlFor={field.name}>Language</Label>
 							<select
 								id={field.name}
@@ -325,7 +325,7 @@ export function ServerRenderedHighlightingDemo() {
 				</form.Field>
 				<form.Field name="code">
 					{(field) => (
-						<Field.Item>
+						<Field.Item name={field.name}>
 							<Label htmlFor={field.name}>Code</Label>
 							<TextArea
 								appearance="monospaced"
@@ -360,7 +360,7 @@ export function ServerRenderedHighlightingDemo() {
 					</form.Field>
 					<form.Field name="highlightLines">
 						{(field) => (
-							<Field.Item>
+							<Field.Item name={field.name}>
 								<Label htmlFor={field.name}>Highlight lines</Label>
 								<Input
 									id={field.name}
@@ -378,7 +378,7 @@ export function ServerRenderedHighlightingDemo() {
 					</form.Field>
 					<form.Field name="lineNumberStart">
 						{(field) => (
-							<Field.Item>
+							<Field.Item name={field.name}>
 								<Label htmlFor={field.name}>Line number start</Label>
 								<Input
 									id={field.name}

@@ -3,10 +3,70 @@ title: Combobox
 description: Fill in a React input field with autocomplete & autosuggest functionalities. Choose from a list of suggested values with full keyboard support.
 ---
 
-import { Anchor } from "@ngrok/mantle/anchor";
+import { Button } from "@ngrok/mantle/button";
 import { Combobox } from "@ngrok/mantle/combobox";
+import { Field, toErrorMessages } from "@ngrok/mantle/field";
 import { CirclesThreePlusIcon } from "@phosphor-icons/react/CirclesThreePlus";
+import { useForm } from "@tanstack/react-form";
+import { z } from "zod";
 import { Example } from "~/components/example";
+
+export const formSchema = z.object({
+region: z.string().min(1, "Choose a region."),
+});
+export function TanStackFormExample() {
+const defaultValues = {
+region: "",
+};
+const form = useForm({
+defaultValues,
+validators: {
+onSubmit: formSchema,
+},
+onSubmit: ({ value }) => {
+window.alert(`Submitted: ${JSON.stringify(value, null, 2)}`);
+},
+});
+
+    return (
+    	<form
+    		className="w-full max-w-sm space-y-4"
+    		onSubmit={(event) => {
+    			event.preventDefault();
+    			event.stopPropagation();
+    			void form.handleSubmit();
+    		}}
+    	>
+    		<form.Field name="region">
+    			{(field) => (
+    				<Field.Item name={field.name}>
+    					<Field.Label>Region</Field.Label>
+    					<Combobox.Root
+    						value={field.state.value}
+    						setValue={(value) => {
+    							field.handleChange(value);
+    						}}
+    					>
+    						<Field.Control>
+    							<Combobox.Input onBlur={field.handleBlur} placeholder="Choose a region..." />
+    						</Field.Control>
+    						<Combobox.Content>
+    							<Combobox.Item value="us-east-1">US East</Combobox.Item>
+    							<Combobox.Item value="us-west-2">US West</Combobox.Item>
+    							<Combobox.Item value="eu-west-1">EU West</Combobox.Item>
+    						</Combobox.Content>
+    					</Combobox.Root>
+    					<Field.Errors messages={toErrorMessages(field.state.meta.errors)} />
+    				</Field.Item>
+    			)}
+    		</form.Field>
+    		<Button type="submit" appearance="filled">
+    			Submit
+    		</Button>
+    	</form>
+    );
+
+}
 
 # Combobox
 
@@ -15,6 +75,65 @@ Fill in a React input field with autocomplete & autosuggest functionalities. Cho
 ## When to use
 
 Use `Combobox` for a list where the user types to filter — large static lists, async/server-side data, or any single-select where search is helpful. For small finite lists without filtering, use [`Select`](/components/select). For multi-selection, use [`Multi Select`](/components/multi-select).
+
+Pair with `Field.*` for label/description/error wiring in forms — wrap `Combobox.Input` in `Field.Control`. `Field.Control` flows the generated `id`, `name`, `aria-describedby`, `aria-errormessage`, and `aria-invalid` onto the focusable input.
+
+<Example>
+	<Field.Item name="subdomain" className="max-w-96">
+		<Field.Label>Subdomain</Field.Label>
+		<Combobox.Root>
+			<Field.Control>
+				<Combobox.Input placeholder="Choose an ngrok subdomain..." />
+			</Field.Control>
+			<Combobox.Content>
+				<Combobox.Group>
+					<Combobox.GroupLabel>Available domains</Combobox.GroupLabel>
+					<Combobox.Item value="https://${random}.ngrok.app">
+						<Combobox.ItemValue />
+					</Combobox.Item>
+					<Combobox.Item value="https://${random}.ngrok.dev">
+						<Combobox.ItemValue />
+					</Combobox.Item>
+					<Combobox.Item value="https://${random}.ngrok.io">
+						<Combobox.ItemValue />
+					</Combobox.Item>
+				</Combobox.Group>
+			</Combobox.Content>
+		</Combobox.Root>
+		<Field.Description>Start typing to filter available domains.</Field.Description>
+	</Field.Item>
+</Example>
+
+```tsx
+import { Combobox } from "@ngrok/mantle/combobox";
+import { Field } from "@ngrok/mantle/field";
+
+<Field.Item name="subdomain">
+	<Field.Label>Subdomain</Field.Label>
+	<Combobox.Root>
+		<Field.Control>
+			<Combobox.Input placeholder="Choose an ngrok subdomain..." />
+		</Field.Control>
+		<Combobox.Content>
+			<Combobox.Group>
+				<Combobox.GroupLabel>Available domains</Combobox.GroupLabel>
+				<Combobox.Item value="https://${random}.ngrok.app">
+					<Combobox.ItemValue />
+				</Combobox.Item>
+				<Combobox.Item value="https://${random}.ngrok.dev">
+					<Combobox.ItemValue />
+				</Combobox.Item>
+				<Combobox.Item value="https://${random}.ngrok.io">
+					<Combobox.ItemValue />
+				</Combobox.Item>
+			</Combobox.Group>
+		</Combobox.Content>
+	</Combobox.Root>
+	<Field.Description>Start typing to filter available domains.</Field.Description>
+</Field.Item>;
+```
+
+Or render the control on its own:
 
 <Example className="gap-2">
 	<Combobox.Root>
@@ -109,6 +228,79 @@ import { CirclesThreePlusIcon } from "@phosphor-icons/react/CirclesThreePlus";
 		</Combobox.Item>
 	</Combobox.Content>
 </Combobox.Root>;
+```
+
+## Examples
+
+### With TanStack Form
+
+Use `@tanstack/react-form` with `zod` to keep the combobox input controlled. Wrap `Combobox.Input` in `Field.Control` so label, name, and validation ARIA are applied to the focusable input.
+
+<Example className="w-full">
+	<TanStackFormExample />
+</Example>
+
+```tsx
+import { Button } from "@ngrok/mantle/button";
+import { Combobox } from "@ngrok/mantle/combobox";
+import { Field, toErrorMessages } from "@ngrok/mantle/field";
+import { useForm } from "@tanstack/react-form";
+import { z } from "zod";
+
+export const formSchema = z.object({
+	region: z.string().min(1, "Choose a region."),
+});
+function Example() {
+	const defaultValues = {
+		region: "",
+	};
+	const form = useForm({
+		defaultValues,
+		validators: {
+			onSubmit: formSchema,
+		},
+		onSubmit: ({ value }) => {
+			// Handle form submission here
+		},
+	});
+
+	return (
+		<form
+			onSubmit={(event) => {
+				event.preventDefault();
+				event.stopPropagation();
+				void form.handleSubmit();
+			}}
+		>
+			<form.Field name="region">
+				{(field) => (
+					<Field.Item name={field.name}>
+						<Field.Label>Region</Field.Label>
+						<Combobox.Root
+							value={field.state.value}
+							setValue={(value) => {
+								field.handleChange(value);
+							}}
+						>
+							<Field.Control>
+								<Combobox.Input onBlur={field.handleBlur} placeholder="Choose a region..." />
+							</Field.Control>
+							<Combobox.Content>
+								<Combobox.Item value="us-east-1">US East</Combobox.Item>
+								<Combobox.Item value="us-west-2">US West</Combobox.Item>
+								<Combobox.Item value="eu-west-1">EU West</Combobox.Item>
+							</Combobox.Content>
+						</Combobox.Root>
+						<Field.Errors messages={toErrorMessages(field.state.meta.errors)} />
+					</Field.Item>
+				)}
+			</form.Field>
+			<Button type="submit" appearance="filled">
+				Submit
+			</Button>
+		</form>
+	);
+}
 ```
 
 ## Composition

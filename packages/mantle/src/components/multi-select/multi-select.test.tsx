@@ -307,7 +307,7 @@ describe("MultiSelect", () => {
 
 	test("inherits validation from Field.Item through Field.Control", () => {
 		render(
-			<Field.Item validation="warning">
+			<Field.Item name="example" validation="warning">
 				<MultiSelect.Root>
 					<Field.Control>
 						<MultiSelect.Trigger data-testid="trigger">
@@ -324,11 +324,49 @@ describe("MultiSelect", () => {
 		expect(screen.getByTestId("trigger")).toHaveAttribute("data-validation", "warning");
 	});
 
+	test("Field.Control wrapping MultiSelect.Root applies field ARIA wiring to the input", () => {
+		render(
+			<Field.Item name="example">
+				<Field.Control>
+					<MultiSelect.Root>
+						<MultiSelect.Trigger>
+							<MultiSelect.TagValues />
+							<MultiSelect.Input
+								aria-describedby="ignored-description"
+								aria-errormessage="ignored-error"
+								data-testid="input"
+								id="ignored-input"
+								name="ignored-name"
+								placeholder="Select items..."
+							/>
+						</MultiSelect.Trigger>
+						<MultiSelect.Content>
+							<MultiSelect.Item value="apple">Apple</MultiSelect.Item>
+						</MultiSelect.Content>
+					</MultiSelect.Root>
+				</Field.Control>
+				<Field.Errors data-testid="errors" messages={["Required."]} />
+				<Field.Description data-testid="desc">Pick items.</Field.Description>
+			</Field.Item>,
+		);
+
+		const input = screen.getByTestId("input");
+		const errors = screen.getByTestId("errors");
+		const description = screen.getByTestId("desc");
+		expect(input).toHaveAttribute("aria-invalid", "true");
+		expect(input.getAttribute("aria-describedby")).toContain(errors.id);
+		expect(input.getAttribute("aria-describedby")).toContain(description.id);
+		expect(input.getAttribute("aria-describedby")).not.toContain("ignored-description");
+		expect(input).toHaveAttribute("aria-errormessage", errors.id);
+		expect(input).not.toHaveAttribute("id", "ignored-input");
+		expect(input).toHaveAttribute("name", "example");
+	});
+
 	test("lets trigger validation override field validation", () => {
 		render(
-			<Field.Item validation="success">
+			<Field.Item name="example" validation="success">
 				<MultiSelect.Root>
-					<Field.Control validation={false}>
+					<Field.Control>
 						<MultiSelect.Trigger data-testid="trigger" validation="warning">
 							<MultiSelect.TagValues />
 							<MultiSelect.Input placeholder="Select items..." />

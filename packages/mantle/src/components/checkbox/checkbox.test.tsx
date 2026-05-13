@@ -48,7 +48,7 @@ describe("Checkbox", () => {
 
 	test("inherits validation from Field.Item without a direct validation prop", () => {
 		render(
-			<Field.Item validation="warning">
+			<Field.Item name="example" validation="warning">
 				<Checkbox />
 			</Field.Item>,
 		);
@@ -57,10 +57,10 @@ describe("Checkbox", () => {
 		expect(screen.getByRole("checkbox")).toHaveAttribute("data-validation", "warning");
 	});
 
-	test("inherits Field.Control validation over Field.Item validation", () => {
+	test("inherits Field.Item validation through Field.Control", () => {
 		render(
-			<Field.Item validation="success">
-				<Field.Control validation="error">
+			<Field.Item name="example" validation="error">
+				<Field.Control>
 					<Checkbox />
 				</Field.Control>
 			</Field.Item>,
