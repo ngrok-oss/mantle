@@ -122,10 +122,11 @@ Legend.displayName = "FieldLegend";
  * Caption for a `Field.Item`. Renders the Mantle `Label` with the same
  * `htmlFor`, click-to-focus, disabled, and typography behavior — but inside a
  * `Field.Item`, the label-to-control association is automatic: `Field.Item`
- * generates a stable id from its required `name`, `Field.Control` splats that
- * id onto its focusable child, and `Field.Label` consumes the same id as the
- * default `htmlFor`. The required `name` on `Field.Item` is the single source
- * of truth — no matching `htmlFor` / `id` pair, no separate `useId()` call.
+ * generates a stable control id, `Field.Control` splats that id onto its
+ * focusable child, and `Field.Label` consumes the same id as the default
+ * `htmlFor`. The required `name` on `Field.Item` is the single source of truth
+ * for the control's form name — no matching `htmlFor` / `id` pair, no separate
+ * `useId()` call.
  *
  * Pass an explicit `htmlFor` to opt out — for example when the focusable
  * element is rendered outside of `Field.Control` and the auto-generated id

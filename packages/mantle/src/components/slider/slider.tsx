@@ -61,9 +61,10 @@ type SliderProps = SliderBaseProps &
  *
  * When composing with `Field.Item`, wrap `Slider` in `Field.Control`.
  * `Field.Control` flows `aria-invalid`, `aria-describedby`, and
- * `aria-errormessage` onto each thumb via `FieldControlContext`. Only the
- * first thumb receives the field-generated `id` so `Field.Label`'s `htmlFor`
- * lands on a single target for range/multi-thumb sliders.
+ * `aria-errormessage` onto each thumb via `FieldControlContext`. Because
+ * slider thumbs are ARIA slider widgets rather than native labelable controls,
+ * pass `aria-label` or `aria-labelledby` to `Slider`; Mantle forwards those
+ * labels to the rendered thumb(s).
  *
  * @see https://mantle.ngrok.com/components/slider
  *
@@ -71,6 +72,7 @@ type SliderProps = SliderBaseProps &
  * ```tsx
  * // single thumb
  * <Slider
+ *   aria-label="Volume"
  *   defaultValue={75}
  *   max={100}
  *   step={1}
@@ -81,6 +83,7 @@ type SliderProps = SliderBaseProps &
  * ```tsx
  * // range
  *  <Slider
+ *    aria-label="Price"
  *    defaultValue={[25, 50]}
  *    max={100}
  *    step={5}
@@ -91,6 +94,7 @@ type SliderProps = SliderBaseProps &
  * ```tsx
  * // multiple thumbs
  * <Slider
+ *   aria-label="Breakpoint"
  *   defaultValue={[10, 20, 70]}
  *   max={100}
  *   step={10}
@@ -101,6 +105,8 @@ function Slider({
 	"aria-describedby": ariaDescribedBy,
 	"aria-errormessage": ariaErrorMessage,
 	"aria-invalid": ariaInvalid,
+	"aria-label": ariaLabel,
+	"aria-labelledby": ariaLabelledBy,
 	className,
 	color = "bg-accent-600",
 	defaultValue,
@@ -171,9 +177,15 @@ function Slider({
 				<SliderPrimitive.Thumb
 					data-slot="slider-thumb"
 					key={index}
-					aria-describedby={fieldControl?.["aria-describedby"]}
-					aria-errormessage={fieldControl?.["aria-errormessage"]}
-					aria-invalid={fieldControl?.["aria-invalid"]}
+					aria-describedby={fieldControl?.["aria-describedby"] ?? ariaDescribedBy}
+					aria-errormessage={fieldControl?.["aria-errormessage"] ?? ariaErrorMessage}
+					aria-invalid={fieldControl?.["aria-invalid"] ?? ariaInvalid}
+					aria-label={resolveThumbAriaLabel({
+						ariaLabel,
+						index,
+						thumbCount: values.length,
+					})}
+					aria-labelledby={ariaLabelledBy}
 					// Only the first thumb receives the field-generated id so
 					// Field.Label's htmlFor lands on a unique element. Range/
 					// multi-thumb sliders share the surrounding aria wiring.
@@ -218,4 +230,28 @@ function computeTickCount(showTicks: boolean, min: number, max: number, step: nu
 		return 0;
 	}
 	return Math.floor(range / step) + 1;
+}
+
+function resolveThumbAriaLabel({
+	ariaLabel,
+	index,
+	thumbCount,
+}: {
+	ariaLabel?: string;
+	index: number;
+	thumbCount: number;
+}): string | undefined {
+	if (!ariaLabel) {
+		return undefined;
+	}
+
+	if (thumbCount === 1) {
+		return ariaLabel;
+	}
+
+	if (thumbCount === 2) {
+		return `${index === 0 ? "Minimum" : "Maximum"} ${ariaLabel}`;
+	}
+
+	return `${ariaLabel} ${index + 1} of ${thumbCount}`;
 }

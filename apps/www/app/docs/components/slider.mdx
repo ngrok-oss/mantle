@@ -11,21 +11,21 @@ import { z } from "zod";
 import { Example } from "~/components/example";
 
 export const formSchema = z.object({
-volume: z.number().min(25, "Choose at least 25."),
+	volume: z.number().min(25, "Choose at least 25."),
 });
 export function TanStackFormExample() {
-const defaultValues = {
-volume: 50,
-};
-const form = useForm({
-defaultValues,
-validators: {
-onSubmit: formSchema,
-},
-onSubmit: ({ value }) => {
-window.alert(`Submitted: ${JSON.stringify(value, null, 2)}`);
-},
-});
+	const defaultValues = {
+		volume: 50,
+	};
+	const form = useForm({
+		defaultValues,
+		validators: {
+			onSubmit: formSchema,
+		},
+		onSubmit: ({ value }) => {
+			window.alert(`Submitted: ${JSON.stringify(value, null, 2)}`);
+		},
+	});
 
     return (
     	<form
@@ -42,6 +42,7 @@ window.alert(`Submitted: ${JSON.stringify(value, null, 2)}`);
     					<Field.Label>Volume</Field.Label>
     					<Field.Control>
     						<Slider
+    							aria-label="Volume"
     							value={field.state.value}
     							onBlur={field.handleBlur}
     							onValueChange={(value) => field.handleChange(value[0] ?? 0)}
@@ -65,13 +66,13 @@ window.alert(`Submitted: ${JSON.stringify(value, null, 2)}`);
 
 An input where the user selects a value from within a given range.
 
-Pair with `Field.*` for label/description/error wiring in forms:
+Pair with `Field.*` for description/error wiring in forms. Pass `aria-label` to `Slider` so the rendered thumb has an accessible name:
 
 <Example>
 	<Field.Item name="volume">
 		<Field.Label>Volume</Field.Label>
 		<Field.Control>
-			<Slider defaultValue={67} max={100} step={1} />
+			<Slider aria-label="Volume" defaultValue={67} max={100} step={1} />
 		</Field.Control>
 		<Field.Description>Drag to adjust playback volume.</Field.Description>
 	</Field.Item>
@@ -84,7 +85,7 @@ import { Slider } from "@ngrok/mantle/slider";
 <Field.Item name="volume">
 	<Field.Label>Volume</Field.Label>
 	<Field.Control>
-		<Slider defaultValue={67} max={100} step={1} />
+		<Slider aria-label="Volume" defaultValue={67} max={100} step={1} />
 	</Field.Control>
 	<Field.Description>Drag to adjust playback volume.</Field.Description>
 </Field.Item>;
@@ -93,17 +94,23 @@ import { Slider } from "@ngrok/mantle/slider";
 Or render the control on its own:
 
 <Example className="flex-col gap-6">
-	<Slider defaultValue={67} max={100} step={1} />
-	<Slider defaultValue={67} max={100} step={1} disabled />
-	<Slider defaultValue={67} max={100} step={1} orientation="vertical" />
+	<Slider aria-label="Volume" defaultValue={67} max={100} step={1} />
+	<Slider aria-label="Disabled volume" defaultValue={67} max={100} step={1} disabled />
+	<Slider
+		aria-label="Vertical volume"
+		defaultValue={67}
+		max={100}
+		step={1}
+		orientation="vertical"
+	/>
 </Example>
 
 ```tsx
 import { Slider } from "@ngrok/mantle/slider";
 
-<Slider defaultValue={67} max={100} step={1} />
-<Slider defaultValue={67} max={100} step={1} disabled />
-<Slider defaultValue={67} max={100} step={1} orientation="vertical" />
+<Slider aria-label="Volume" defaultValue={67} max={100} step={1} />
+<Slider aria-label="Disabled volume" defaultValue={67} max={100} step={1} disabled />
+<Slider aria-label="Vertical volume" defaultValue={67} max={100} step={1} orientation="vertical" />
 ```
 
 ## Examples
@@ -154,6 +161,7 @@ function Example() {
 						<Field.Label>Volume</Field.Label>
 						<Field.Control>
 							<Slider
+								aria-label="Volume"
 								value={field.state.value}
 								onBlur={field.handleBlur}
 								onValueChange={(value) => field.handleChange(value[0] ?? 0)}
@@ -178,13 +186,13 @@ function Example() {
 A basic slider with a single thumb for selecting a single value. You can pass a single number instead of an array.
 
 <Example>
-	<Slider defaultValue={67} max={100} step={1} />
+	<Slider aria-label="Volume" defaultValue={67} max={100} step={1} />
 </Example>
 
 ```tsx
 import { Slider } from "@ngrok/mantle/slider";
 
-<Slider defaultValue={75} max={100} step={1} />;
+<Slider aria-label="Volume" defaultValue={75} max={100} step={1} />;
 ```
 
 ### Range
@@ -192,13 +200,13 @@ import { Slider } from "@ngrok/mantle/slider";
 Use two values to create a range slider with two thumbs.
 
 <Example>
-	<Slider defaultValue={[25, 50]} max={100} step={5} />
+	<Slider aria-label="Price" defaultValue={[25, 50]} max={100} step={5} />
 </Example>
 
 ```tsx
 import { Slider } from "@ngrok/mantle/slider";
 
-<Slider defaultValue={[25, 50]} max={100} step={5} />;
+<Slider aria-label="Price" defaultValue={[25, 50]} max={100} step={5} />;
 ```
 
 ### Multiple Thumbs
@@ -206,13 +214,13 @@ import { Slider } from "@ngrok/mantle/slider";
 Use more than two values to create a slider with multiple thumbs.
 
 <Example>
-	<Slider defaultValue={[10, 20, 70]} max={100} step={10} />
+	<Slider aria-label="Breakpoint" defaultValue={[10, 20, 70]} max={100} step={10} />
 </Example>
 
 ```tsx
 import { Slider } from "@ngrok/mantle/slider";
 
-<Slider defaultValue={[10, 20, 70]} max={100} step={10} />;
+<Slider aria-label="Breakpoint" defaultValue={[10, 20, 70]} max={100} step={10} />;
 ```
 
 ### Color
@@ -220,17 +228,35 @@ import { Slider } from "@ngrok/mantle/slider";
 Use the `color` prop to change the color of the slider range. Accepts any Tailwind `bg-*` class.
 
 <Example className="flex-col gap-6">
-	<Slider defaultValue={67} max={100} step={1} color="bg-warning-600" />
-	<Slider defaultValue={67} max={100} step={1} color="bg-danger-600" />
-	<Slider defaultValue={67} max={100} step={1} color="bg-emerald-600" />
+	<Slider
+		aria-label="Warning threshold"
+		defaultValue={67}
+		max={100}
+		step={1}
+		color="bg-warning-600"
+	/>
+	<Slider
+		aria-label="Danger threshold"
+		defaultValue={67}
+		max={100}
+		step={1}
+		color="bg-danger-600"
+	/>
+	<Slider
+		aria-label="Success threshold"
+		defaultValue={67}
+		max={100}
+		step={1}
+		color="bg-emerald-600"
+	/>
 </Example>
 
 ```tsx
 import { Slider } from "@ngrok/mantle/slider";
 
-<Slider defaultValue={67} max={100} step={1} color="bg-warning-600" />
-<Slider defaultValue={67} max={100} step={1} color="bg-danger-600" />
-<Slider defaultValue={67} max={100} step={1} color="bg-emerald-600" />
+<Slider aria-label="Warning threshold" defaultValue={67} max={100} step={1} color="bg-warning-600" />
+<Slider aria-label="Danger threshold" defaultValue={67} max={100} step={1} color="bg-danger-600" />
+<Slider aria-label="Success threshold" defaultValue={67} max={100} step={1} color="bg-emerald-600" />
 ```
 
 ### Ticks
@@ -238,15 +264,15 @@ import { Slider } from "@ngrok/mantle/slider";
 Use the `showTicks` prop to show tick marks at each `step` interval along the track.
 
 <Example className="flex-col gap-6">
-	<Slider defaultValue={50} max={100} step={10} showTicks />
-	<Slider defaultValue={[20, 80]} max={100} step={20} showTicks />
+	<Slider aria-label="Volume" defaultValue={50} max={100} step={10} showTicks />
+	<Slider aria-label="Price" defaultValue={[20, 80]} max={100} step={20} showTicks />
 </Example>
 
 ```tsx
 import { Slider } from "@ngrok/mantle/slider";
 
-<Slider defaultValue={50} max={100} step={10} showTicks />
-<Slider defaultValue={[20, 80]} max={100} step={20} showTicks />
+<Slider aria-label="Volume" defaultValue={50} max={100} step={10} showTicks />
+<Slider aria-label="Price" defaultValue={[20, 80]} max={100} step={20} showTicks />
 ```
 
 ## API Reference
@@ -260,6 +286,8 @@ The `Slider` is built on top of [Radix Slider](https://www.radix-ui.com/primitiv
 | Prop                    | Type                           | Default           | Description                                                                                                   |
 | :---------------------- | :----------------------------- | :---------------- | :------------------------------------------------------------------------------------------------------------ |
 | `color`                 | `` `bg-${string}` ``           | `"bg-accent-500"` | The color of the slider range. Accepts any Tailwind `bg-*` class.                                             |
+| `aria-label`            | `string`                       | —                 | Accessible name forwarded to the rendered thumb. Range sliders derive per-thumb labels from it.               |
+| `aria-labelledby`       | `string`                       | —                 | IDREF forwarded to the rendered thumb when another element provides the accessible name.                      |
 | `defaultValue`          | `number` \| `number[]`         | —                 | The value of the slider when initially rendered. Use when you do not need to control the state of the slider. |
 | `showTicks`             | `boolean`                      | `false`           | Whether to show tick marks along the track at each `step` interval.                                           |
 | `value`                 | `number` \| `number[]`         | —                 | The controlled value of the slider. Must be used with `onValueChange`.                                        |

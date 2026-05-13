@@ -54,6 +54,8 @@ This is a particularly tight fit with TanStack Form's `field.name`:
 
 works end-to-end — `name` lands on `Select.Root`'s hidden form input, and the field's helper / error IDs reach the focusable trigger button.
 
+`Slider` now forwards `aria-label` / `aria-labelledby` to its rendered thumb(s), and its Field examples pass an explicit `aria-label`. Slider thumbs are ARIA slider widgets rather than native labelable controls, so `Field.Label` provides the visible caption while the slider prop provides the accessible thumb name.
+
 **Duplicate error messages**
 
 `Field.Errors` and `toErrorMessages` now collapse duplicate validation messages after trimming. This keeps repeated validator output — for example the same Zod message present in multiple TanStack Form validation phases — from rendering the same error twice.

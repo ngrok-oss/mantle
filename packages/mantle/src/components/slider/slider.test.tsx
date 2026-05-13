@@ -6,7 +6,7 @@ import { Slider } from "./slider.js";
 describe("Slider", () => {
 	describe("showTicks", () => {
 		test("does not render ticks by default", () => {
-			render(<Slider defaultValue={50} max={100} step={10} />);
+			render(<Slider aria-label="Volume" defaultValue={50} max={100} step={10} />);
 			expect(screen.queryByRole("slider")).toBeInTheDocument();
 			expect(document.querySelector("[data-slot='slider-ticks']")).not.toBeInTheDocument();
 		});
@@ -53,8 +53,9 @@ describe("Slider", () => {
 			render(
 				<form>
 					<Field.Item name="volume">
+						<Field.Label>Volume</Field.Label>
 						<Field.Control>
-							<Slider defaultValue={50} max={100} step={1} />
+							<Slider aria-label="Volume" defaultValue={50} max={100} step={1} />
 						</Field.Control>
 						<Field.Errors data-testid="errors" messages={["Required."]} />
 						<Field.Description data-testid="desc">Adjust volume.</Field.Description>
@@ -62,7 +63,7 @@ describe("Slider", () => {
 				</form>,
 			);
 
-			const thumb = screen.getByRole("slider");
+			const thumb = screen.getByRole("slider", { name: "Volume" });
 			const errors = screen.getByTestId("errors");
 			const description = screen.getByTestId("desc");
 			expect(thumb).toHaveAttribute("aria-invalid", "true");
@@ -74,6 +75,13 @@ describe("Slider", () => {
 				Array.from(document.querySelectorAll("[id]")).filter((node) => node.id === thumb.id),
 			).toHaveLength(1);
 			expect(document.querySelector('input[name="volume"]')).toBeInTheDocument();
+		});
+
+		test("forwards slider aria-label to each thumb with range context", () => {
+			render(<Slider aria-label="Price" defaultValue={[25, 50]} max={100} step={1} />);
+
+			expect(screen.getByRole("slider", { name: "Minimum Price" })).toBeInTheDocument();
+			expect(screen.getByRole("slider", { name: "Maximum Price" })).toBeInTheDocument();
 		});
 	});
 
