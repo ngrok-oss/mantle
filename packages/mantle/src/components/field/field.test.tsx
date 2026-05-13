@@ -827,6 +827,47 @@ describe("Field", () => {
 		});
 	});
 
+	describe("Field.LabelText", () => {
+		test("renders a <p> with data-slot and label typography", () => {
+			render(<Field.LabelText data-testid="lt">Owner</Field.LabelText>);
+			const labelText = screen.getByTestId("lt");
+			expect(labelText.tagName).toBe("P");
+			expect(labelText).toHaveAttribute("data-slot", "field-label-text");
+			expect(labelText).toHaveTextContent("Owner");
+			expect(labelText.className).toContain("text-strong");
+			expect(labelText.className).toContain("text-sm");
+			expect(labelText.className).toContain("font-medium");
+		});
+
+		test("merges custom className", () => {
+			render(
+				<Field.LabelText className="italic" data-testid="lt">
+					Owner
+				</Field.LabelText>,
+			);
+			const labelText = screen.getByTestId("lt");
+			expect(labelText.className).toContain("italic");
+			expect(labelText.className).toContain("text-strong");
+		});
+
+		test("does not render a <label> — has no focusable control to caption", () => {
+			const { container } = render(<Field.LabelText>Owner</Field.LabelText>);
+			expect(container.querySelector("label")).toBeNull();
+		});
+
+		test("renders as child element when asChild is true", () => {
+			render(
+				<Field.LabelText asChild>
+					<span data-testid="lt">Owner</span>
+				</Field.LabelText>,
+			);
+			const labelText = screen.getByTestId("lt");
+			expect(labelText.tagName).toBe("SPAN");
+			expect(labelText).toHaveAttribute("data-slot", "field-label-text");
+			expect(labelText.className).toContain("text-strong");
+		});
+	});
+
 	describe("Field.ErrorList", () => {
 		test("renders a ul with data-slot=field-error-list", () => {
 			render(

@@ -161,6 +161,58 @@ const FieldLabel = forwardRef<ComponentRef<"label">, ComponentProps<typeof Label
 FieldLabel.displayName = "FieldLabel";
 
 /**
+ * Static, label-styled text for a `Field.Item` row that does **not** caption a
+ * focusable form control. Renders a `<p>` (not a `<label>`) with the same
+ * `text-strong text-sm font-medium` typography as `Field.Label`, so a read-only
+ * row inside a sheet or details panel composes cleanly next to real form fields
+ * without misrepresenting itself as a control caption.
+ *
+ * **When to use**
+ * - A `Field.Item` row that displays a derived or system-managed value
+ *   (owner, created-at, computed status) where there is no `<input>`,
+ *   `<select>`, `<button>`, or other focusable target to label.
+ * - Read-only summary rows inside a sheet or detail panel that should
+ *   visually align with sibling `Field.Item`s but have no editable control.
+ * - Anywhere you would otherwise write `<p className="text-strong text-sm font-medium">`
+ *   to mimic label typography — prefer this so intent is explicit at the call site.
+ *
+ * **When not to use**
+ * - The row has a focusable control (input, select, checkbox, switch,
+ *   button trigger). Use `Field.Label` so the click-to-focus and
+ *   accessible-name association are wired correctly.
+ * - For body copy, section headings, or any text whose typography happens
+ *   to look similar by accident — use the appropriate heading or `<p>`
+ *   directly. `Field.LabelText` exists specifically to slot into the
+ *   `Field.Label` position of a `Field.Item`.
+ *
+ * @see https://mantle.ngrok.com/components/field
+ *
+ * @example
+ * ```tsx
+ * <Field.Item name="owner">
+ *   <Field.LabelText>Owner</Field.LabelText>
+ *   <CredentialOwnerCard owner={owner} />
+ *   <Field.Description>The user or service user that owns this API key.</Field.Description>
+ * </Field.Item>
+ * ```
+ */
+const LabelText = forwardRef<ComponentRef<"p">, ComponentProps<"p"> & WithAsChild>(
+	({ asChild, className, ...props }, ref) => {
+		const Comp = asChild ? Slot : "p";
+
+		return (
+			<Comp
+				ref={ref}
+				data-slot="field-label-text"
+				className={cx("text-strong text-sm font-medium font-sans", className)}
+				{...props}
+			/>
+		);
+	},
+);
+LabelText.displayName = "FieldLabelText";
+
+/**
  * Horizontal layout container for the label area of a field. Aligns a
  * `<Field.Label>` (which may contain `Field.Optional`) with adjacent affordances
  * like a help-icon `Popover.Trigger` on a shared center line with a tight
@@ -987,7 +1039,7 @@ FieldErrorList.displayName = "FieldErrorList";
  * Field.Group
  * └── Field.Item
  *     ├── Field.LabelRow
- *     │   ├── Field.Label
+ *     │   ├── Field.Label            (or Field.LabelText for control-less rows)
  *     │   │   └── Field.Optional
  *     │   └── Field.Help
  *     │       ├── Field.HelpTrigger
@@ -1190,6 +1242,28 @@ const Field = {
 	 * ```
 	 */
 	Label: FieldLabel,
+	/**
+	 * Static, label-styled text for a `Field.Item` row that has no focusable
+	 * control to caption. Renders a `<p>` with the same typography as
+	 * `Field.Label`, so a read-only row composes cleanly alongside real form
+	 * fields without misrepresenting itself as a control caption.
+	 *
+	 * Use for derived / system-managed values (owner, created-at, computed
+	 * status) inside sheets or detail panels. For rows with a real control,
+	 * use `Field.Label` instead so the label-to-control association is wired.
+	 *
+	 * @see https://mantle.ngrok.com/components/field
+	 *
+	 * @example
+	 * ```tsx
+	 * <Field.Item name="owner">
+	 *   <Field.LabelText>Owner</Field.LabelText>
+	 *   <CredentialOwnerCard owner={owner} />
+	 *   <Field.Description>The user or service user that owns this API key.</Field.Description>
+	 * </Field.Item>
+	 * ```
+	 */
+	LabelText,
 	/**
 	 * Horizontal layout container for the label area of a field. Aligns a
 	 * `<Field.Label>` (which may contain `Field.Optional`) with adjacent affordances
