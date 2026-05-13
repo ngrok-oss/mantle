@@ -163,9 +163,9 @@ FieldLabel.displayName = "FieldLabel";
 /**
  * Static, label-styled text for a `Field.Item` row that does **not** caption a
  * focusable form control. Renders a `<p>` (not a `<label>`) with the same
- * `text-strong text-sm font-medium` typography as `Field.Label`, so a read-only
- * row inside a sheet or details panel composes cleanly next to real form fields
- * without misrepresenting itself as a control caption.
+ * typography as `Field.Label`, so a read-only row inside a sheet or details
+ * panel composes cleanly next to real form fields without misrepresenting
+ * itself as a control caption.
  *
  * **When to use**
  * - A `Field.Item` row that displays a derived or system-managed value
@@ -173,8 +173,8 @@ FieldLabel.displayName = "FieldLabel";
  *   `<select>`, `<button>`, or other focusable target to label.
  * - Read-only summary rows inside a sheet or detail panel that should
  *   visually align with sibling `Field.Item`s but have no editable control.
- * - Anywhere you would otherwise write `<p className="text-strong text-sm font-medium">`
- *   to mimic label typography — prefer this so intent is explicit at the call site.
+ * - Anywhere you would otherwise hand-roll a `<p>` styled to mimic
+ *   `Field.Label` typography — prefer this so intent is explicit at the call site.
  *
  * **When not to use**
  * - The row has a focusable control (input, select, checkbox, switch,

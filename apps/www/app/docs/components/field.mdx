@@ -585,13 +585,13 @@ All props from [`Label`](/components/label).
 
 ### Field.LabelText
 
-Static, label-styled text for a `Field.Item` row that does **not** caption a focusable control. Renders a `<p>` (not a `<label>`) with the same `text-strong text-sm font-medium` typography as `Field.Label`, so a read-only row composes cleanly alongside real form fields without misrepresenting itself as a control caption.
+Static, label-styled text for a `Field.Item` row that does **not** caption a focusable control. Renders a `<p>` (not a `<label>`) with the same typography as `Field.Label`, so a read-only row composes cleanly alongside real form fields without misrepresenting itself as a control caption.
 
 #### When to use
 
 - A `Field.Item` row that displays a derived or system-managed value — owner, created-at, computed status, an identity card — where there is no `<input>`, `<select>`, `<button>`, or other focusable target to caption.
 - Read-only summary rows inside a sheet or details panel that should visually align with sibling `Field.Item`s but have no editable control.
-- Anywhere you'd otherwise hand-roll `<p className="text-strong text-sm font-medium">` to mimic label typography. Use `Field.LabelText` so the intent is explicit at the call site.
+- Anywhere you'd otherwise hand-roll a `<p>` styled to mimic `Field.Label` typography. Use `Field.LabelText` so the intent is explicit at the call site.
 
 #### When _not_ to use
 
