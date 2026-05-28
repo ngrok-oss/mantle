@@ -15,6 +15,7 @@ import {
 	isValidElement,
 	useContext,
 	useEffect,
+	useMemo,
 	useRef,
 } from "react";
 import invariant from "tiny-invariant";
@@ -69,19 +70,24 @@ const Root = forwardRef<
 		 */
 		appearance?: "classic" | "pill";
 	}
->(({ className, children, orientation = "horizontal", appearance = "classic", ...props }, ref) => (
-	<TabsPrimitiveRoot
-		data-slot="tabs"
-		className={cx("flex gap-4", orientation === "horizontal" ? "flex-col" : "flex-row", className)}
-		orientation={orientation}
-		ref={ref}
-		{...props}
-	>
-		<TabsStateContext.Provider value={{ orientation, appearance }}>
-			{children}
-		</TabsStateContext.Provider>
-	</TabsPrimitiveRoot>
-));
+>(({ className, children, orientation = "horizontal", appearance = "classic", ...props }, ref) => {
+	const contextValue = useMemo(() => ({ orientation, appearance }), [orientation, appearance]);
+	return (
+		<TabsPrimitiveRoot
+			data-slot="tabs"
+			className={cx(
+				"flex gap-4",
+				orientation === "horizontal" ? "flex-col" : "flex-row",
+				className,
+			)}
+			orientation={orientation}
+			ref={ref}
+			{...props}
+		>
+			<TabsStateContext.Provider value={contextValue}>{children}</TabsStateContext.Provider>
+		</TabsPrimitiveRoot>
+	);
+});
 Root.displayName = "Tabs";
 
 /**

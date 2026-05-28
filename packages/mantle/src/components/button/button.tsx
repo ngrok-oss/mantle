@@ -258,6 +258,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 		}
 
 		return (
+			// oxlint-disable-next-line react/button-has-type -- `type` is resolved at runtime from the `type` prop (defaulted to "button"); the static analyzer can't see that.
 			<button {...buttonProps} type={type}>
 				{icon && <Icon svg={icon} className={clsx(iconPlacement === "end" && "order-last")} />}
 				{children}

@@ -743,7 +743,7 @@ function mantleCodeVitePlugin(): Plugin {
 					resolvedShowLineNumbers,
 				} = result;
 
-				for (const range of [...componentProps.attributeRemovalRanges].sort(
+				for (const range of [...componentProps.attributeRemovalRanges].toSorted(
 					(a, b) => b.start - a.start,
 				)) {
 					ms.remove(range.start, range.end);

@@ -250,11 +250,7 @@ const ListItem = forwardRef<ComponentRef<"div">, RadioListItemProps>(
 						}
 					: undefined)}
 			>
-				{(ctx) => (
-					<>
-						<RadioStateContext.Provider value={ctx}>{children}</RadioStateContext.Provider>
-					</>
-				)}
+				{(ctx) => <RadioStateContext.Provider value={ctx}>{children}</RadioStateContext.Provider>}
 			</HeadlessRadio>
 		);
 	},
@@ -299,11 +295,7 @@ const Card = forwardRef<ComponentRef<"div">, RadioCardProps>(
 					: undefined)}
 				ref={ref}
 			>
-				{(ctx) => (
-					<>
-						<RadioStateContext.Provider value={ctx}>{children}</RadioStateContext.Provider>
-					</>
-				)}
+				{(ctx) => <RadioStateContext.Provider value={ctx}>{children}</RadioStateContext.Provider>}
 			</HeadlessRadio>
 		);
 	},
@@ -385,11 +377,7 @@ const Button = forwardRef<ComponentRef<"div">, RadioButtonProps>(
 						}
 					: undefined)}
 			>
-				{(ctx) => (
-					<>
-						<RadioStateContext.Provider value={ctx}>{children}</RadioStateContext.Provider>
-					</>
-				)}
+				{(ctx) => <RadioStateContext.Provider value={ctx}>{children}</RadioStateContext.Provider>}
 			</HeadlessRadio>
 		);
 	},

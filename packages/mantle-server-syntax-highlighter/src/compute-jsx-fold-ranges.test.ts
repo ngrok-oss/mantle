@@ -1,7 +1,8 @@
+import type * as OxcParserModule from "oxc-parser";
 import { describe, expect, test } from "vitest";
 import { computeJsxFoldRanges, createOxcParserLoader } from "./compute-jsx-fold-ranges.js";
 
-type OxcParser = typeof import("oxc-parser");
+type OxcParser = typeof OxcParserModule;
 
 describe("createOxcParserLoader", () => {
 	test("caches load failures", () => {

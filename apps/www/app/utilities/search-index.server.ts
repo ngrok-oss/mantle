@@ -49,7 +49,7 @@ export function keywordsFrom(...sources: (string | undefined)[]): string[] {
 			}
 		}
 	}
-	return Array.from(seen).sort();
+	return Array.from(seen).toSorted();
 }
 
 type SearchIndexManifests = {
@@ -102,7 +102,7 @@ export function buildSearchEntries({
 		});
 	}
 
-	return entries.sort((a, b) => a.name.localeCompare(b.name));
+	return entries.toSorted((a, b) => a.name.localeCompare(b.name));
 }
 
 let cached: SearchIndex | null = null;

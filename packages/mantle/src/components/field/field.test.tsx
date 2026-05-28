@@ -215,8 +215,8 @@ describe("Field", () => {
 			const input = screen.getByRole("textbox", { name: "Email" });
 			const errors = screen.getByText("Required.").closest("ul");
 			expect(errors).not.toBeNull();
-			expect(input.getAttribute("aria-describedby")).toContain(errors!.id);
-			expect(input).toHaveAttribute("aria-errormessage", errors!.id);
+			expect(input.getAttribute("aria-describedby")).toContain(errors?.id);
+			expect(input).toHaveAttribute("aria-errormessage", errors?.id);
 		});
 
 		test("Field.Control wires rendered Field.ErrorList to the control and infers invalid state", () => {
@@ -278,6 +278,7 @@ describe("Field", () => {
 						<input aria-label="Email" />
 					</Field.Control>
 					<Field.ErrorList>
+						{/* oxlint-disable-next-line jsx-no-useless-fragment */}
 						<></>
 					</Field.ErrorList>
 				</Field.Item>,
@@ -953,6 +954,7 @@ describe("Field", () => {
 		test("renders nothing when an empty fragment is passed as children", () => {
 			const { container } = render(
 				<Field.ErrorList>
+					{/* oxlint-disable-next-line jsx-no-useless-fragment */}
 					<></>
 				</Field.ErrorList>,
 			);

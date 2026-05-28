@@ -47,7 +47,7 @@ describe("DataTable.Row", () => {
 
 	test("invokes `onClick` when the row is clicked", async () => {
 		const user = userEvent.setup();
-		const handleClick = vi.fn();
+		const handleClick = vi.fn<() => void>();
 		render(<Harness onClick={handleClick} />);
 
 		await user.click(screen.getByTestId("row"));

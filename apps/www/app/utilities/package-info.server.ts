@@ -31,7 +31,7 @@ function importableSubpaths(): string[] {
 	return Object.keys(mantlePackageJson.exports)
 		.filter((key) => key.startsWith("./") && !skip.has(key) && !key.endsWith(".css"))
 		.map((key) => `@ngrok/mantle/${key.slice(2)}`)
-		.sort((a, b) => a.localeCompare(b));
+		.toSorted((a, b) => a.localeCompare(b));
 }
 
 /**

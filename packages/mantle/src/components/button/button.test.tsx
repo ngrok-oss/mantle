@@ -13,7 +13,7 @@ describe("Button", () => {
 	test("renders a button, with `asChild`", () => {
 		render(
 			<Button asChild type="button">
-				{/* biome-ignore lint/a11y/useButtonType: test */}
+				{/* oxlint-disable-next-line button-has-type */}
 				<button>click me</button>
 			</Button>,
 		);

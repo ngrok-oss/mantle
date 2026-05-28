@@ -9,6 +9,9 @@ export default {
 		isVercelDeploy && vercelPreset(),
 	].filter(Boolean),
 	prerender: ({ getStaticPaths }) => {
-		return getStaticPaths();
+		// `.mdx` paths exist only to 301-redirect stale source URLs to the canonical
+		// doc page; they are not pages to snapshot. Visiting them during prerender
+		// fails because the framework treats the 301 as an unexpected status.
+		return getStaticPaths().filter((path) => !path.endsWith(".mdx"));
 	},
 } satisfies Config;

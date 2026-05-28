@@ -11,6 +11,7 @@ import {
 	createContext,
 	forwardRef,
 	useContext,
+	useMemo,
 } from "react";
 import * as ToastPrimitive from "sonner";
 import type { WithAsChild } from "../../types/as-child.js";
@@ -183,9 +184,10 @@ type ToastProps = ComponentProps<"div"> &
 const Root = forwardRef<ComponentRef<"div">, ToastProps>(
 	({ asChild, children, className, priority, ...props }, ref) => {
 		const Component = asChild ? Slot : "div";
+		const contextValue = useMemo(() => ({ priority }), [priority]);
 
 		return (
-			<ToastStateContext.Provider value={{ priority }}>
+			<ToastStateContext.Provider value={contextValue}>
 				<Component
 					data-slot="toast"
 					className={cx(

@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+import type { createHighlighter } from "shiki";
 import {
 	decorateHighlightedHtml,
 	inferIndentation,
@@ -47,7 +48,7 @@ const mantleShikiLanguageGrammarIds = [
 const mantleShikiThemeName = "mantle-css-variables" as const;
 const mantleHighlightCacheMaxEntries = 1000;
 
-type ShikiHighlighter = Awaited<ReturnType<(typeof import("shiki"))["createHighlighter"]>>;
+type ShikiHighlighter = Awaited<ReturnType<typeof createHighlighter>>;
 
 type MantleHighlightInput = {
 	/**

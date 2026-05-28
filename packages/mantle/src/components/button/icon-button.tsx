@@ -193,6 +193,7 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 		}
 
 		return (
+			// oxlint-disable-next-line react/button-has-type -- `type` is resolved at runtime from the `type` prop (defaulted to "button"); the static analyzer can't see that.
 			<button {...buttonProps} type={type}>
 				{innerChildren}
 			</button>

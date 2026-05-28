@@ -26,36 +26,17 @@
     "@changesets/changelog-github": "0.7.0",
     "@changesets/cli": "2.31.0",
     "@types/node": "catalog:",
-    "@typescript/native-preview": "7.0.0-dev.20260512.1",
+    "@typescript/native-preview": "7.0.0-dev.20260527.1",
     "husky": "9.1.7",
-    "lint-staged": "17.0.4",
-    "oxfmt": "0.49.0",
-    "oxlint": "1.64.0",
+    "lint-staged": "17.0.5",
+    "oxfmt": "0.52.0",
+    "oxlint": "1.67.0",
     "tsx": "catalog:",
-    "turbo": "2.9.12",
-    "vitest": "4.1.6"
+    "turbo": "2.9.15",
+    "vitest": "4.1.7"
   },
   "engines": {
     "node": "^24.0.0"
   },
-  "packageManager": "pnpm@10.33.4",
-  "pnpm": {
-    "overrides": {
-      "@types/node": "catalog:",
-      "@mjackson/node-fetch-server": "npm:@remix-run/node-fetch-server@0.10.0",
-      "@vitejs/plugin-react": "catalog:",
-      "ajv": ">=8.20.0",
-      "cookie": ">=1.1.1",
-      "esbuild": ">=0.28.0",
-      "playwright": "catalog:",
-      "playwright-core": "catalog:",
-      "react": "19.2.6",
-      "react-dom": "19.2.6",
-      "uuid": ">=14.0.0"
-    },
-    "onlyBuiltDependencies": [
-      "esbuild",
-      "@tailwindcss/oxide"
-    ]
-  }
+  "packageManager": "pnpm@11.4.0"
 }

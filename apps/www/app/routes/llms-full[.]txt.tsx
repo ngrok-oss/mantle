@@ -7,7 +7,7 @@ import type { Route } from "./+types/llms-full[.]txt";
 const CACHE_CONTROL = "public, max-age=300, s-maxage=300, stale-while-revalidate=3600";
 
 function buildBody(): string {
-	const slugs = Array.from(urlToFileMap.keys()).sort((a, b) => a.localeCompare(b));
+	const slugs = Array.from(urlToFileMap.keys()).toSorted((a, b) => a.localeCompare(b));
 
 	const sections: string[] = [
 		"# @ngrok/mantle — Full Documentation",

@@ -75,6 +75,15 @@ const Checkbox = forwardRef<ComponentRef<"input">, Props>(
 			}
 		}, [defaultChecked]);
 
+		// React warns (and the linter flags) when both `checked` and `defaultChecked` are
+		// passed on the same input. Pick exactly one based on whether the consumer is in
+		// controlled mode (`_checked !== undefined`). Indeterminate is still applied to the
+		// DOM node via the `useEffect`s above on both paths.
+		const checkedProp =
+			_checked !== undefined
+				? { checked: isIndeterminate(_checked) ? undefined : _checked }
+				: { defaultChecked: isIndeterminate(defaultChecked) ? undefined : defaultChecked };
+
 		return (
 			<input
 				aria-checked={isIndeterminate(_checked) ? "mixed" : _checked}
@@ -92,9 +101,8 @@ const Checkbox = forwardRef<ComponentRef<"input">, Props>(
 					"where:block where:size-4 where:p-0",
 					className,
 				)}
-				checked={isIndeterminate(_checked) ? undefined : _checked}
+				{...checkedProp}
 				data-validation={validation || undefined}
-				defaultChecked={isIndeterminate(defaultChecked) ? undefined : defaultChecked}
 				defaultValue={defaultValue}
 				onClick={(event) => {
 					if (readOnly) {

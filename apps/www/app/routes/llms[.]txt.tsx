@@ -64,17 +64,17 @@ function pathForSlug(slug: string, suffix: "" | ".md"): string {
 }
 
 async function buildBody(): Promise<string> {
-	const slugs = Array.from(urlToFileMap.keys()).sort((a, b) => a.localeCompare(b));
+	const slugs = Array.from(urlToFileMap.keys()).toSorted((a, b) => a.localeCompare(b));
 
 	const entries = await Promise.all(
-		slugs.map((slug) => {
+		slugs.map(async (slug): Promise<DocEntry> => {
 			const filePath = urlToFileMap.get(slug);
 			if (!filePath) {
-				return Promise.resolve<DocEntry>({
+				return {
 					slug,
 					title: fallbackTitleFromSlug(slug),
 					description: "",
-				});
+				};
 			}
 			return loadDocEntry(slug, filePath);
 		}),
@@ -84,7 +84,7 @@ async function buildBody(): Promise<string> {
 		...section,
 		entries: entries
 			.filter((entry) => section.match(entry.slug))
-			.sort((a, b) => a.title.localeCompare(b.title)),
+			.toSorted((a, b) => a.title.localeCompare(b.title)),
 	})).filter((section) => section.entries.length > 0);
 
 	const lines: string[] = [
