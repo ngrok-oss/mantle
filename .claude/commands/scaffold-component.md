@@ -99,6 +99,8 @@ Create `packages/mantle/src/components/<component-name>/` with:
 
 If the component has sub-parts, follow the POJO namespace pattern from `decisions/2025-07-16-compound-component-named-exports.md`:
 
+- **The namespace object is exactly one level deep.** Never nest a sub-namespace inside a compound (e.g. `Command.Dialog.Root`). If a sub-feature is dialog-wrapped or otherwise related to another primitive, flatten the relationship into member names (`DialogRoot`, `DialogTrigger`, `DialogContent`). Do not re-export another mantle namespace under your namespace — consumers can import that primitive directly. See `CONVENTIONS.md#compound-components` for the full rule and rationale.
+- **If any member's type comes from a third-party namespace** (e.g. wrapping a Radix primitive's `Root`/`Trigger`), give the enclosing namespace object an explicit type annotation so `.d.ts` emit doesn't synthesize a non-portable type: `const MyComponent: { Root: typeof Root; Trigger: typeof Trigger; … } = { … }`. Without this, `@types/react` upgrades can surface `TS2883` at build time.
 - Define each sub-component as a standalone const (e.g., `Root`, `Content`, `Title`)
 - Set `displayName` on each sub-component using the **original flat name** for React DevTools debugging:
   ```tsx

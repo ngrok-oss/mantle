@@ -59,7 +59,7 @@ export const PropTypeCell = ({ children, className, style }: PropTypeCellProps) 
 
 type PropDefaultValueCellProps = WithStyleProps & PropsWithChildren;
 export const PropDefaultValueCell = ({
-	children = <>&mdash;</>,
+	children = "—",
 	className,
 	style,
 }: PropDefaultValueCellProps) => (

@@ -89,6 +89,49 @@ import { cx } from "@ngrok/mantle/cx";
 <div className={`foo ${condition ? "bar" : ""}`} />
 ```
 
+## Compound Components
+
+Mantle compound components use a single-level POJO namespace (see [`decisions/2025-07-16-compound-component-named-exports.md`](./decisions/2025-07-16-compound-component-named-exports.md)). Sub-components are members of one namespace object — never nested namespaces.
+
+```tsx
+// ✅ flat, single-level namespace
+const Command = {
+	Root,
+	DialogRoot,
+	DialogTrigger,
+	DialogContent,
+	Input,
+	List,
+	// ...
+} as const;
+
+// ❌ nested namespace — do not do this
+const Command = {
+	Root,
+	Dialog: {
+		// ← nested compound inside a compound
+		Root,
+		Trigger,
+		Content,
+	},
+	// ...
+};
+```
+
+**Why:**
+
+- Every other mantle compound (`Dialog`, `Field`, `Alert`, `Sheet`, `DropdownMenu`, `Table`, …) is single-level. Nested namespaces break this consistency and force consumers to learn a special case.
+- Nested inferred-literal-of-`as const`-of-third-party-re-exports defeats TypeScript's portable type naming during `.d.ts` emit. This surfaces as `TS2883: The inferred type of 'X' cannot be named without a reference to …` on `@types/react` upgrades.
+- Re-exporting another mantle namespace under a sub-key (e.g. `Command.Dialog.Root = Dialog.Root`) does not shorten call sites and creates two import paths for the same primitive.
+
+**Rules:**
+
+1. A compound's namespace object has exactly one level of properties.
+2. If a sub-feature relates to a different existing primitive (e.g. Command's dialog-wrapped variant), flatten the relationship into member names (`DialogRoot`, `DialogTrigger`, `DialogContent`) rather than nesting.
+3. Do not re-export another component's namespace under your namespace. If consumers need that primitive, they can import it directly.
+4. Each member of a compound namespace must be a directly-defined component or `forwardRef` result whose type has an explicit name (`forwardRef<…, …>(…)`, `ComponentType<…>`, etc.) — not an inferred literal whose shape depends on chasing types through external packages.
+5. When wrapping a third-party namespace primitive (e.g. Radix), explicitly annotate the enclosing namespace object's type so `.d.ts` emit doesn't have to synthesize it: `const Foo: { Root: typeof Root; … } = { … }`.
+
 ## Testing
 
 - Runner: Vitest. Two modes — happy-dom (default, no per-file Playwright startup) and real-browser Chromium via Playwright.

@@ -184,7 +184,7 @@ describe("Field", () => {
 					<Field.Control>
 						<input />
 					</Field.Control>
-					<Field.Description>We'll never share your email.</Field.Description>
+					<Field.Description>We&apos;ll never share your email.</Field.Description>
 				</Field.Item>,
 			);
 
@@ -1041,7 +1041,7 @@ describe("Field", () => {
 								<Field.ErrorItem data-testid="err">Email is required.</Field.ErrorItem>
 							</Field.ErrorList>
 							<Field.Description data-testid="desc">
-								We'll never share your email.
+								We&apos;ll never share your email.
 							</Field.Description>
 						</Field.Item>
 						<Field.Item data-testid="root-2" name="password">

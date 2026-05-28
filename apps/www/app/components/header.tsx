@@ -210,8 +210,8 @@ function CommandPalette() {
 					<Kbd>K</Kbd>
 				</span>
 			</Button>
-			<Command.Dialog.Root open={open} onOpenChange={setOpen}>
-				<Command.Dialog.Content>
+			<Command.DialogRoot open={open} onOpenChange={setOpen}>
+				<Command.DialogContent>
 					<Command.Input placeholder="Search Mantle..." />
 					<Command.List>
 						<Command.Empty>No results found.</Command.Empty>
@@ -448,8 +448,8 @@ function CommandPalette() {
 							</Command.Item>
 						</Command.Group>
 					</Command.List>
-				</Command.Dialog.Content>
-			</Command.Dialog.Root>
+				</Command.DialogContent>
+			</Command.DialogRoot>
 		</>
 	);
 }

@@ -345,7 +345,7 @@
 		"typecheck": "tsgo"
 	},
 	"dependencies": {
-		"@ariakit/react": "0.4.26",
+		"@ariakit/react": "0.4.28",
 		"@headlessui/react": "2.2.10",
 		"@radix-ui/react-accordion": "1.2.12",
 		"@radix-ui/react-dialog": "1.1.15",
@@ -379,11 +379,11 @@
 		"@testing-library/react": "16.3.2",
 		"@testing-library/user-event": "14.6.1",
 		"@tsdown/css": "catalog:",
-		"@types/react": "19.2.14",
+		"@types/react": "19.2.15",
 		"@types/react-dom": "19.2.3",
 		"@vitest/browser-playwright": "catalog:",
 		"browserslist": "4.28.2",
-		"date-fns": "4.1.0",
+		"date-fns": "4.3.0",
 		"happy-dom": "catalog:",
 		"playwright": "catalog:",
 		"react": "19.2.6",
@@ -394,7 +394,7 @@
 	},
 	"peerDependencies": {
 		"@phosphor-icons/react": "^2.1.10",
-		"date-fns": "^4.1.0",
+		"date-fns": "^4.3.0",
 		"react": "^18 || ^19",
 		"react-dom": "^18 || ^19",
 		"tailwindcss": "^4.3.0"
