@@ -1,5 +1,31 @@
 # @ngrok/mantle
 
+## 0.73.4
+
+### Patch Changes
+
+- [#1207](https://github.com/ngrok-oss/mantle/pull/1207) [`b9fadca`](https://github.com/ngrok-oss/mantle/commit/b9fadca2c3e8ba923ece71578af197aca4220162) Thanks [@dependabot](https://github.com/apps/dependabot)! - Lint cleanup round across `@ngrok/mantle`. No public-API changes.
+  - `Checkbox`: the underlying `<input>` no longer receives both `checked` and `defaultChecked` at once (React would warn about this). The component now passes exactly one based on whether it's in controlled mode (`checked !== undefined`). Indeterminate behavior is unchanged for both controlled and uncontrolled usage — the DOM `indeterminate` flag is still applied via a ref effect.
+  - Context providers in `Input`, `CursorPagination`, `Dialog`, `Tabs`, `Select`, `Toast`, and the `www` navigation context now memoize their `value` prop via `useMemo`, and `HorizontalSeparatorGroup` lifts its constant value to module scope. This prevents unnecessary re-renders of context consumers when the providing component re-renders for unrelated reasons.
+  - `ThemeProvider`: the cross-tab `BroadcastChannel` listener now uses `addEventListener("message", …)` instead of assigning to `onmessage`, matching the modern event API used elsewhere in the file. Cleanup still goes through `BroadcastChannel.close()`.
+  - Internal: tightened `vi.fn` generics in tests, normalized JSDoc tag names (`@fileoverview` → `@file`), tightened a few helper JSDocs, and added inline lint-disables with justifications where rules were false-positives (notably `button-has-type` on `<button type={type}>` and `require-post-message-target-origin` on `BroadcastChannel.postMessage`).
+
+- [#1213](https://github.com/ngrok-oss/mantle/pull/1213) [`5a2c3f0`](https://github.com/ngrok-oss/mantle/commit/5a2c3f0b2c9dec32f8dd1bfd6c858607bf29c30c) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - **Breaking:** flattened the `Command.Dialog.*` namespace into top-level members on `Command`.
+
+  | Before                   | After                   |
+  | ------------------------ | ----------------------- |
+  | `Command.Dialog.Root`    | `Command.DialogRoot`    |
+  | `Command.Dialog.Trigger` | `Command.DialogTrigger` |
+  | `Command.Dialog.Content` | `Command.DialogContent` |
+
+  The nested `Command.Dialog` namespace was a pass-through re-export of `Dialog.Root` / `Dialog.Trigger` plus the `Command`-specific `Content` slot. The extra namespace level didn't shorten call sites, was inconsistent with every other compound in mantle (which are single-level), and the inferred-literal-of-`as const`-of-Radix-re-exports shape was brittle against `@types/react` upgrades. Flat exports type-check cleanly and resolve through stable, nameable types in the generated `.d.ts`.
+
+  Migration: replace `Command.Dialog.Root` → `Command.DialogRoot`, `Command.Dialog.Trigger` → `Command.DialogTrigger`, `Command.Dialog.Content` → `Command.DialogContent`.
+
+  Other changes in this release (no API impact):
+  - **Stable default prop references** in `Alert`, `Field`, and `MultiSelect`. The default `<XIcon />` for `Alert.DismissIconButton`, the default `<QuestionIcon />` for `Field.HelpTrigger`, and the default `[]` values for `MultiSelect.Root`'s `defaultSelectedValue` and `MultiSelect.TagValues`'s `lockedValues` are now hoisted to module scope so they keep referential equality across renders.
+  - **Dependency bumps**: `@ariakit/react` 0.4.26 → 0.4.28, `@types/react` 19.2.14 → 19.2.15, `date-fns` 4.1.0 → 4.3.0 (peer also bumped to `^4.3.0`).
+
 ## 0.73.3
 
 ### Patch Changes
