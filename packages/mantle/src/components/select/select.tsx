@@ -14,7 +14,7 @@ import type {
 	Ref,
 	SelectHTMLAttributes,
 } from "react";
-import { createContext, forwardRef, useContext } from "react";
+import { createContext, forwardRef, useContext, useMemo } from "react";
 import { composeRefs } from "../../utils/compose-refs/compose-refs.js";
 import { cx } from "../../utils/cx/cx.js";
 import { FieldControlContext } from "../field/field-context.js";
@@ -120,6 +120,16 @@ const Root = forwardRef<HTMLButtonElement, SelectProps>(
 		},
 		ref,
 	) => {
+		const contextValue = useMemo(
+			() => ({
+				"aria-invalid": _ariaInvalid,
+				id,
+				validation,
+				onBlur,
+				ref,
+			}),
+			[_ariaInvalid, id, validation, onBlur, ref],
+		);
 		return (
 			<SelectPrimitive.Root
 				{...props}
@@ -128,17 +138,7 @@ const Root = forwardRef<HTMLButtonElement, SelectProps>(
 					onValueChange?.(value);
 				}}
 			>
-				<SelectContext.Provider
-					value={{
-						"aria-invalid": _ariaInvalid,
-						id,
-						validation,
-						onBlur,
-						ref,
-					}}
-				>
-					{children}
-				</SelectContext.Provider>
+				<SelectContext.Provider value={contextValue}>{children}</SelectContext.Provider>
 			</SelectPrimitive.Root>
 		);
 	},

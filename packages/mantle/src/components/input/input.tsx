@@ -11,7 +11,7 @@ import type {
 	MutableRefObject,
 	PropsWithChildren,
 } from "react";
-import { createContext, forwardRef, useContext, useRef } from "react";
+import { createContext, forwardRef, useContext, useMemo, useRef } from "react";
 import { composeRefs } from "../../utils/compose-refs/compose-refs.js";
 import { cx } from "../../utils/cx/cx.js";
 import { parseValidation, useFieldValidation } from "../field/validation.js";
@@ -181,19 +181,21 @@ const InputContainer = ({
 		"aria-invalid": _ariaInvalid,
 		validation: _validation ?? fieldValidation,
 	});
+	const contextValue = useMemo(
+		() => ({
+			"aria-invalid": _ariaInvalid,
+			"aria-disabled": _ariaDisabled,
+			disabled,
+			type,
+			validation: _validation,
+			...props,
+			forwardedRef,
+			innerRef,
+		}),
+		[_ariaInvalid, _ariaDisabled, disabled, type, _validation, props, forwardedRef, innerRef],
+	);
 	return (
-		<InputContext.Provider
-			value={{
-				"aria-invalid": _ariaInvalid,
-				"aria-disabled": _ariaDisabled,
-				disabled,
-				type,
-				validation: _validation,
-				...props,
-				forwardedRef,
-				innerRef,
-			}}
-		>
+		<InputContext.Provider value={contextValue}>
 			<div
 				role="none"
 				data-slot={dataSlot}

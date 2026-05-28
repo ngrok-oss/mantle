@@ -117,7 +117,6 @@ const Root = ({
 
 	return (
 		<ProgressContext.Provider value={ctx}>
-			{/* biome-ignore lint/a11y/useFocusableInteractive: progress bars don't need to be focusable */}
 			<svg
 				data-slot="progress-donut"
 				aria-valuemax={max}
@@ -140,7 +139,6 @@ const Root = ({
 				data-min={0}
 				data-value={valueNow}
 				height="100%"
-				// biome-ignore lint/a11y/noNoninteractiveElementToInteractiveRole: this is a radial progress bar, which is possible by SVG
 				role="progressbar"
 				width="100%"
 				{...props}

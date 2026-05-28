@@ -2,7 +2,7 @@ import { cx } from "@ngrok/mantle/cx";
 import { Table } from "@ngrok/mantle/table";
 import { Tooltip } from "@ngrok/mantle/tooltip";
 import type { WithStyleProps } from "@ngrok/mantle/types";
-import { type PropsWithChildren } from "react";
+import type { PropsWithChildren } from "react";
 import { normalizeIndentation } from "@ngrok/mantle/code-block";
 
 type PropsTableProps = WithStyleProps & PropsWithChildren;

@@ -57,6 +57,7 @@ describe("field helpers", () => {
 		test("returns false for an empty fragment", () => {
 			expect(
 				hasRenderableErrorListChildren({
+					// oxlint-disable-next-line react/jsx-no-useless-fragment -- empty fragment is the test subject
 					children: <></>,
 					errorItemType,
 				}),

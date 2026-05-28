@@ -146,32 +146,51 @@ jobs:
           cache: "pnpm"
           cache-dependency-path: "pnpm-lock.yaml"
 
+      - name: Restore Playwright Docker image cache
+        uses: actions/cache@v5
+        with:
+          path: /tmp/playwright-image.tar
+          key: playwright-docker-${{ runner.os }}-${{ hashFiles('pnpm-workspace.yaml') }}
+
+      - name: Start Playwright sidecar 🎭
+        run: |
+          PLAYWRIGHT_VERSION=$(yq -r '.catalog.playwright' pnpm-workspace.yaml)
+          PLAYWRIGHT_IMAGE="mcr.microsoft.com/playwright:v${PLAYWRIGHT_VERSION}-noble"
+
+          if [[ -f /tmp/playwright-image.tar ]]; then
+            docker load --input /tmp/playwright-image.tar
+          else
+            docker pull "${PLAYWRIGHT_IMAGE}"
+            docker save --output /tmp/playwright-image.tar "${PLAYWRIGHT_IMAGE}"
+          fi
+
+          docker run -d --name playwright-server --network=host --ipc=host \
+            "${PLAYWRIGHT_IMAGE}" \
+            /bin/sh -c "npx -y playwright@${PLAYWRIGHT_VERSION} run-server --host 0.0.0.0 --port 3000"
+
       - name: Install Dependencies 📥
         run: pnpm install --frozen-lockfile
 
-      - name: Start Playwright server 🎭
+      - name: Wait for Playwright sidecar
         run: |
-          PLAYWRIGHT_VERSION=$(grep '"playwright"' pnpm-workspace.yaml | awk -F'"' '{print $4}')
-          docker run -d --name playwright-server --network=host \
-            mcr.microsoft.com/playwright:v${PLAYWRIGHT_VERSION}-noble \
-            /bin/sh -c "npx -y playwright@${PLAYWRIGHT_VERSION} run-server --host 0.0.0.0 --port 3000"
-
-      - name: Wait for Playwright server
-        run: |
+          echo "⏳ Waiting for Playwright server to be ready (timeout: 120s)..."
           for i in {1..60}; do
             if curl -s http://127.0.0.1:3000/ > /dev/null 2>&1; then
+              echo "✅ Playwright server is ready"
               exit 0
             fi
             sleep 2
           done
-          echo "Playwright server did not start in time" && exit 1
+          echo "❌ Playwright server failed to start"
+          docker logs playwright-server 2>&1 || true
+          exit 1
 
       - name: Test 🧪
         env:
           PLAYWRIGHT_WS_ENDPOINT: ws://127.0.0.1:3000/
         run: pnpm run test
 
-      - name: Stop Playwright server
+      - name: Cleanup Playwright sidecar
         if: always()
         run: docker rm -f playwright-server || true
 

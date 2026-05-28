@@ -1,11 +1,13 @@
 import { type RouteConfig, index, layout, route } from "@react-router/dev/routes";
 
-// Helper to create markdown-backed routes (handles both /path and /path.md URLs)
+// Helper to create markdown-backed routes (handles /path and /path.md URLs,
+// plus a permanent redirect from the never-served /path.mdx source URL)
 function markdownRoute(path: string, idPrefix: string, idPath = path) {
 	const id = `${idPrefix}-${idPath.replace(/\//g, "-")}`;
 	return [
 		route(path, "./routes/$.tsx", { id }),
 		route(`${path}.md`, "./routes/$.md.tsx", { id: `${id}-md` }),
+		route(`${path}.mdx`, "./routes/$.mdx.tsx", { id: `${id}-mdx` }),
 	];
 }
 
@@ -53,6 +55,7 @@ export default [
 		// so it bypasses $.md.tsx.
 		route("changelog", "./routes/$.tsx", { id: "docs-changelog" }),
 		route("changelog.md", "./routes/changelog[.]md.tsx", { id: "changelog-md" }),
+		route("changelog.mdx", "./routes/$.mdx.tsx", { id: "changelog-mdx" }),
 		...docRoute("base/breakpoints"),
 		...docRoute("base/colors"),
 		...docRoute("base/shadows"),

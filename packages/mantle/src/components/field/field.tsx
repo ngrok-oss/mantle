@@ -940,8 +940,8 @@ type FieldErrorsProps = Omit<ComponentProps<"ul">, "children" | "id"> & {
 const FieldErrors = forwardRef<ComponentRef<"ul">, FieldErrorsProps>(
 	({ messages, ...props }, ref) => (
 		<FieldErrorList ref={ref} {...props}>
-			{normalizeErrorMessages(messages).map((message, index) => (
-				<FieldErrorItem key={index}>{message}</FieldErrorItem>
+			{normalizeErrorMessages(messages).map((message) => (
+				<FieldErrorItem key={message}>{message}</FieldErrorItem>
 			))}
 		</FieldErrorList>
 	),

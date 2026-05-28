@@ -8,7 +8,7 @@ type TransformContext = {
 async function runTransform(source: string, id = "/virtual/test.tsx") {
 	const plugin = mantleCodeVitePlugin();
 	const context: TransformContext = {
-		warn: vi.fn(),
+		warn: vi.fn<(message: string) => void>(),
 	};
 	const transform = plugin.transform;
 	if (transform == null) {

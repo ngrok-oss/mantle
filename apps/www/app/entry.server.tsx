@@ -195,7 +195,6 @@ export default function handleRequest(
 					reject(error);
 				},
 				onError(error: unknown) {
-					// biome-ignore lint/style/noParameterAssign: this is react-router code
 					responseStatusCode = 500;
 					// Log streaming rendering errors from inside the shell.  Don't log
 					// errors encountered during initial shell rendering since they'll

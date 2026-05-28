@@ -287,7 +287,7 @@ function hasBracketChar(content: string): boolean {
  * neither Python nor YAML idiomatically mixes them.
  */
 function computeIndentationFoldRanges(tokens: FoldLine[]): FoldableRange[] {
-	const indents: number[] = new Array(tokens.length);
+	const indents: number[] = Array.from({ length: tokens.length });
 	for (let i = 0; i < tokens.length; i += 1) {
 		indents[i] = leadingIndentOfLine(tokens[i]);
 	}

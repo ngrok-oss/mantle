@@ -140,7 +140,7 @@ describe("CodeBlock", () => {
 
 		test("supports asChild composition", async () => {
 			const user = userEvent.setup();
-			const onCopy = vi.fn();
+			const onCopy = vi.fn<() => void>();
 			const code = "const x = 1;";
 
 			render(
@@ -165,7 +165,7 @@ describe("CodeBlock", () => {
 
 		test("fires onCopy with the code text after clicking", async () => {
 			const user = userEvent.setup();
-			const onCopy = vi.fn();
+			const onCopy = vi.fn<() => void>();
 			const code = "const x = 1;";
 
 			render(
@@ -188,7 +188,7 @@ describe("CodeBlock", () => {
 			navigator.clipboard.writeText = () => Promise.reject(new Error("clipboard denied"));
 
 			const user = userEvent.setup();
-			const onCopyError = vi.fn();
+			const onCopyError = vi.fn<(error: unknown) => void>();
 
 			render(
 				<CodeBlock.Root>
@@ -210,7 +210,7 @@ describe("CodeBlock", () => {
 
 		test("does not fire onCopy when onClick calls preventDefault", async () => {
 			const user = userEvent.setup();
-			const onCopy = vi.fn();
+			const onCopy = vi.fn<() => void>();
 
 			render(
 				<CodeBlock.Root>

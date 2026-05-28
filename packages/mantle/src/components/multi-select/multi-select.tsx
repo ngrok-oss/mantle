@@ -401,8 +401,7 @@ const TagValues = ({ children, lockedValues = [] }: MultiSelectTagValuesProps) =
 		[],
 	);
 	const raf = (callback: () => void): void => {
-		let id: number;
-		id = requestAnimationFrame(() => {
+		const id = requestAnimationFrame(() => {
 			// Remove the id once the rAF has fired so the set doesn't grow unbounded.
 			pendingRafsRef.current.delete(id);
 			callback();

@@ -1,4 +1,4 @@
-import { href } from "react-router";
+import type { href } from "react-router";
 
 type Route = Parameters<typeof href>[0];
 

@@ -191,7 +191,14 @@ describe("MultiSelect", () => {
 		 * Wrapped in act() so any resulting React state updates are flushed.
 		 */
 		const waitForRaf = () =>
-			act(() => new Promise<void>((resolve) => requestAnimationFrame(() => resolve())));
+			act(
+				() =>
+					new Promise<void>((resolve) => {
+						requestAnimationFrame(() => {
+							resolve();
+						});
+					}),
+			);
 
 		test("ArrowLeft from input focuses the first tag to the left of the input", () => {
 			render(<Subject />);

@@ -91,7 +91,7 @@ describe("OtpInput (browser)", () => {
 
 	test("onChange is called with each new value", async () => {
 		const user = userEvent.setup();
-		const handleChange = vi.fn();
+		const handleChange = vi.fn<(value: string) => void>();
 		const { input } = renderOtp({ onChange: handleChange });
 
 		await user.click(input);
@@ -103,7 +103,7 @@ describe("OtpInput (browser)", () => {
 
 	test("onComplete fires when the final slot is filled", async () => {
 		const user = userEvent.setup();
-		const handleComplete = vi.fn();
+		const handleComplete = vi.fn<(value: string) => void>();
 		const { input } = renderOtp({ onComplete: handleComplete });
 
 		await user.click(input);
@@ -144,7 +144,7 @@ describe("OtpInput (browser)", () => {
 	describe("paste", () => {
 		test("pasting a full code fills every slot and triggers onComplete", async () => {
 			const user = userEvent.setup();
-			const handleComplete = vi.fn();
+			const handleComplete = vi.fn<(value: string) => void>();
 			const { input, slots } = renderOtp({ onComplete: handleComplete });
 
 			await user.click(input);
@@ -186,6 +186,7 @@ describe("OtpInput (browser)", () => {
 		test("pasteTransformer rewrites the pasted value before it is consumed", async () => {
 			const user = userEvent.setup();
 			// e.g. strip dashes/spaces from "123-456" → "123456"
+			// oxlint-disable-next-line consistent-function-scoping
 			const pasteTransformer = (pasted: string) => pasted.replace(/[\s-]/g, "");
 			const { input } = renderOtp({ pasteTransformer });
 

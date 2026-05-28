@@ -1,5 +1,6 @@
 import { finalizeFoldRanges, type FoldableRange } from "@ngrok/mantle/highlight-utils";
 import { createRequire } from "node:module";
+import type * as OxcParserModule from "oxc-parser";
 import type { ParserOptions } from "oxc-parser";
 import { buildLineOffsets, offsetToLine } from "./line-offsets.js";
 
@@ -14,7 +15,7 @@ import { buildLineOffsets, offsetToLine } from "./line-offsets.js";
  * convert the failure into a cached "no folds" fallback while keeping every
  * other strategy working.
  */
-type OxcParser = typeof import("oxc-parser");
+type OxcParser = typeof OxcParserModule;
 const requireOxc = createRequire(import.meta.url);
 
 /** Creates a memoized parser loader that caches both success and load failure. */

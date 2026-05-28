@@ -13,6 +13,11 @@ type SeparatorGroupContextShape = {
 
 const SeparatorGroupContext = createContext<SeparatorGroupContextShape>({});
 
+// Module-level constant so the Provider value identity is stable across renders.
+const horizontalSeparatorGroupContextValue: SeparatorGroupContextShape = {
+	orientation: "horizontal",
+};
+
 /**
  * A container to layout a group of horizontal separators and other children.
  * Overrides all children `Separator`s to be `orientation="horizontal"`.
@@ -47,7 +52,7 @@ const HorizontalSeparatorGroup = ({
 	const Comp = asChild ? Slot : "div";
 
 	return (
-		<SeparatorGroupContext.Provider value={{ orientation: "horizontal" }}>
+		<SeparatorGroupContext.Provider value={horizontalSeparatorGroupContextValue}>
 			<Comp
 				data-slot="horizontal-separator-group"
 				data-horizontal-separator-group
