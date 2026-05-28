@@ -134,8 +134,8 @@ function CommandDialogDemo() {
 					Open Command Dialog
 				</Button>
 			</p>
-			<Command.Dialog.Root open={open} onOpenChange={setOpen}>
-				<Command.Dialog.Content>
+			<Command.DialogRoot open={open} onOpenChange={setOpen}>
+				<Command.DialogContent>
 					<Command.Input placeholder="Type a command or search..." />
 					<Command.List>
 						<Command.Empty>No results found.</Command.Empty>
@@ -178,8 +178,8 @@ function CommandDialogDemo() {
 							</Command.Item>
 						</Command.Group>
 					</Command.List>
-				</Command.Dialog.Content>
-			</Command.Dialog.Root>
+				</Command.DialogContent>
+			</Command.DialogRoot>
 		</>
 	);
 }
@@ -190,9 +190,9 @@ function CommandDialogDemo() {
 Compose the parts of a `Command` together to build your own:
 
 ```text showLineNumbers=false
-Command.Dialog.Root
-├── Command.Dialog.Trigger
-└── Command.Dialog.Content
+Command.DialogRoot
+├── Command.DialogTrigger
+└── Command.DialogContent
     ├── Command.Input
     └── Command.List
         ├── Command.Empty
@@ -214,21 +214,21 @@ All props from cmdk's [Command Root](https://github.com/pacocoursey/cmdk?tab=rea
 
 ### Command.Dialog
 
-A compound namespace for building a command palette dialog. Composed of `Command.Dialog.Root`, `Command.Dialog.Trigger`, and `Command.Dialog.Content`.
+A compound namespace for building a command palette dialog. Composed of `Command.DialogRoot`, `Command.DialogTrigger`, and `Command.DialogContent`.
 
-#### Command.Dialog.Root
+#### Command.DialogRoot
 
 The root stateful component for the CommandDialog. Manages open/closed state.
 
 All props from Radix UI's [Dialog.Root](https://www.radix-ui.com/primitives/docs/components/dialog#root).
 
-#### Command.Dialog.Trigger
+#### Command.DialogTrigger
 
 A button that opens the CommandDialog when clicked. Supports `asChild` for custom trigger elements.
 
 All props from Radix UI's [Dialog.Trigger](https://www.radix-ui.com/primitives/docs/components/dialog#trigger).
 
-#### Command.Dialog.Content
+#### Command.DialogContent
 
 The visible content of the CommandDialog. Renders inside the dialog portal and wraps the command palette UI.
 

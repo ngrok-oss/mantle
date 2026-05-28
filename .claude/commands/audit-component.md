@@ -54,6 +54,8 @@ Verify `packages/mantle/src/components/<component-name>/<component-name>.tsx` (a
 
 For compound components only:
 
+- **The namespace object is single-level.** No nested namespaces (e.g. `Foo.Bar.Root` is forbidden). If you find a nested namespace, flag it for flattening into top-level members (`Foo.BarRoot`, `Foo.BarTrigger`, …) and recommend removing any pass-through re-exports of other mantle namespaces. See `CONVENTIONS.md#compound-components`.
+- **If any namespace member's type comes from a third-party namespace** (e.g. `Radix.Root`, `Radix.Trigger`), the enclosing namespace declaration must carry an explicit type annotation (`const Foo: { Root: typeof Root; … } = { … }`). Without it, `.d.ts` emit can synthesize types that pull in non-portable `@types/react` paths and break on minor `@types/react` upgrades (`TS2883`).
 - Each sub-component `const Foo = forwardRef(...)` / `const Foo = (props) => ...` has a `displayName` set to the **original flat name** (e.g. `Root.displayName = "MyComponent"`, `Content.displayName = "MyComponentContent"`).
 - The JSDoc **immediately above the top-level namespace declaration** (`const <ComponentName> = {`) contains two `@example` blocks, in this order:
   1. A `Composition` ASCII-tree block — `@example` on one line, `Composition:` on the next, then a plain (no-language) fenced code block containing the tree. Use real Unicode box-drawing chars (`├` U+251C, `─` U+2500, `└` U+2514, `│` U+2502) with 4-char per-level indentation.
