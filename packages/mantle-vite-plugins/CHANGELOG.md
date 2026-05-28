@@ -1,5 +1,16 @@
 # @ngrok/mantle-vite-plugins
 
+## 1.0.11
+
+### Patch Changes
+
+- [#1207](https://github.com/ngrok-oss/mantle/pull/1207) [`b9fadca`](https://github.com/ngrok-oss/mantle/commit/b9fadca2c3e8ba923ece71578af197aca4220162) Thanks [@dependabot](https://github.com/apps/dependabot)! - Lint cleanup round. No behavior changes.
+  - Dropped a redundant `?? {}` fallback in an object spread inside `mantleCodeRehypePlugin` (`...preNode.properties` is safe to spread directly — falsy values in object spreads are no-ops).
+  - Tightened `vi.fn` generics in tests.
+
+- Updated dependencies [[`b9fadca`](https://github.com/ngrok-oss/mantle/commit/b9fadca2c3e8ba923ece71578af197aca4220162)]:
+  - @ngrok/mantle-server-syntax-highlighter@1.1.2
+
 ## 1.0.10
 
 ### Patch Changes

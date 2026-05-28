@@ -1,5 +1,13 @@
 # @ngrok/mantle-server-syntax-highlighter
 
+## 1.1.2
+
+### Patch Changes
+
+- [#1207](https://github.com/ngrok-oss/mantle/pull/1207) [`b9fadca`](https://github.com/ngrok-oss/mantle/commit/b9fadca2c3e8ba923ece71578af197aca4220162) Thanks [@dependabot](https://github.com/apps/dependabot)! - Lint cleanup round. No behavior changes.
+
+  Replaced the forbidden inline `typeof import("oxc-parser")` annotations with a type-only namespace import (`import type * as OxcParserModule from "oxc-parser"; type OxcParser = typeof OxcParserModule;`). The lazy `createRequire` loading path is unaffected — `import type * as` is fully erased at compile time.
+
 ## 1.1.1
 
 ### Patch Changes
