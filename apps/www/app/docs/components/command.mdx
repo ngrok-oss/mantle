@@ -212,25 +212,21 @@ The root component for the Command. It provides the context for all other comman
 
 All props from cmdk's [Command Root](https://github.com/pacocoursey/cmdk?tab=readme-ov-file#command-cmdk-root).
 
-### Command.Dialog
+### Command.DialogRoot
 
-A compound namespace for building a command palette dialog. Composed of `Command.DialogRoot`, `Command.DialogTrigger`, and `Command.DialogContent`.
-
-#### Command.DialogRoot
-
-The root stateful component for the CommandDialog. Manages open/closed state.
+The root stateful component for the Command dialog. Manages open/closed state.
 
 All props from Radix UI's [Dialog.Root](https://www.radix-ui.com/primitives/docs/components/dialog#root).
 
-#### Command.DialogTrigger
+### Command.DialogTrigger
 
-A button that opens the CommandDialog when clicked. Supports `asChild` for custom trigger elements.
+A button that opens the Command dialog when clicked. Supports `asChild` for custom trigger elements.
 
 All props from Radix UI's [Dialog.Trigger](https://www.radix-ui.com/primitives/docs/components/dialog#trigger).
 
-#### Command.DialogContent
+### Command.DialogContent
 
-The visible content of the CommandDialog. Renders inside the dialog portal and wraps the command palette UI.
+The visible content of the Command dialog. Renders inside the dialog portal and wraps the command palette UI.
 
 | Prop               | Type                                        | Default                            | Description                                              |
 | :----------------- | :------------------------------------------ | :--------------------------------- | :------------------------------------------------------- |
