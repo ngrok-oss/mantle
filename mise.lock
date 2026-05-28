@@ -4,6 +4,22 @@
 version = "0.42.1"
 backend = "aqua:ast-grep/ast-grep"
 
+[tools.ast-grep."platforms.linux-arm64"]
+checksum = "sha256:3ba383839044cf9817929435f5ce0027f91d06931e8efb32d942e58d73d92be5"
+url = "https://github.com/ast-grep/ast-grep/releases/download/0.42.1/app-aarch64-unknown-linux-gnu.zip"
+
+[tools.ast-grep."platforms.linux-x64"]
+checksum = "sha256:5de8b87cba67fc8dc3e239d54b6484802ad745a7ae3de76be4fe89661dc52657"
+url = "https://github.com/ast-grep/ast-grep/releases/download/0.42.1/app-x86_64-unknown-linux-gnu.zip"
+
+[tools.ast-grep."platforms.macos-arm64"]
+checksum = "sha256:c3961d8e8a4ee0ce2d0d98c7beeb168bb331cdc766b53630118a7b6c4fd39015"
+url = "https://github.com/ast-grep/ast-grep/releases/download/0.42.1/app-aarch64-apple-darwin.zip"
+
+[tools.ast-grep."platforms.macos-x64"]
+checksum = "sha256:a038965bfd7fe44257c771cdf8918dc3467dd8ec0eef673b8b14f639b144cdbd"
+url = "https://github.com/ast-grep/ast-grep/releases/download/0.42.1/app-x86_64-apple-darwin.zip"
+
 [[tools.node]]
 version = "24.16.0"
 backend = "core:node"
@@ -32,9 +48,18 @@ backend = "npm:pnpm"
 version = "15.1.0"
 backend = "aqua:BurntSushi/ripgrep"
 
-[[tools."ubi:pnpm/pnpm"]]
-version = "11.4.0"
-backend = "ubi:pnpm/pnpm"
+[tools.ripgrep."platforms.linux-arm64"]
+checksum = "sha256:2b661c6ef508e902f388e9098d9c4c5aca72c87b55922d94abdba830b4dc885e"
+url = "https://github.com/BurntSushi/ripgrep/releases/download/15.1.0/ripgrep-15.1.0-aarch64-unknown-linux-gnu.tar.gz"
 
-[tools."ubi:pnpm/pnpm"."platforms.macos-arm64-pnpm"]
-checksum = "blake3:4f4af6a0e0a88bd936fe3cc809608efd875651c84856ad7d35aca0b3e0d09e4f"
+[tools.ripgrep."platforms.linux-x64"]
+checksum = "sha256:1c9297be4a084eea7ecaedf93eb03d058d6faae29bbc57ecdaf5063921491599"
+url = "https://github.com/BurntSushi/ripgrep/releases/download/15.1.0/ripgrep-15.1.0-x86_64-unknown-linux-musl.tar.gz"
+
+[tools.ripgrep."platforms.macos-arm64"]
+checksum = "sha256:378e973289176ca0c6054054ee7f631a065874a352bf43f0fa60ef079b6ba715"
+url = "https://github.com/BurntSushi/ripgrep/releases/download/15.1.0/ripgrep-15.1.0-aarch64-apple-darwin.tar.gz"
+
+[tools.ripgrep."platforms.macos-x64"]
+checksum = "sha256:64811cb24e77cac3057d6c40b63ac9becf9082eedd54ca411b475b755d334882"
+url = "https://github.com/BurntSushi/ripgrep/releases/download/15.1.0/ripgrep-15.1.0-x86_64-apple-darwin.tar.gz"
