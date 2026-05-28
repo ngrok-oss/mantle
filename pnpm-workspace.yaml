@@ -31,7 +31,7 @@ catalog:
   "oxc-parser": "0.133.0"
   "playwright": "1.60.0"
   "playwright-core": "1.60.0"
-  "@tsdown/css": "0.22.0"
+  "@tsdown/css": "0.22.1"
   "tailwindcss": "4.3.0"
   "tsdown": "0.22.0"
   "tsx": "4.22.3"
