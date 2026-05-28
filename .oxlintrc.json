@@ -68,14 +68,22 @@
     "promise/no-return-wrap": "error",
     "react/button-has-type": "error",
     "react/checked-requires-onchange-or-readonly": "error",
+    "react/display-name": "warn",
+    "react/exhaustive-deps": "error",
+    "react/iframe-missing-sandbox": "error",
     "react/jsx-no-constructed-context-values": "error",
+    "react/jsx-no-script-url": "error",
     "react/jsx-no-target-blank": ["error", { "allowReferrer": true }],
     "react/jsx-no-useless-fragment": "error",
     "react/no-array-index-key": "warn",
     "react/no-danger": "off",
+    "react/no-object-type-as-default-prop": "error",
+    "react/no-unescaped-entities": "error",
+    "react/no-unknown-property": "error",
     "react/no-unstable-nested-components": ["warn", { "allowAsProps": true }],
     "react/react-in-jsx-scope": "off",
     "react/rules-of-hooks": "error",
+    "react/self-closing-comp": "error",
     "typescript/consistent-type-imports": "error",
     "typescript/no-import-type-side-effects": "error",
     "typescript/no-invalid-void-type": "error",
@@ -86,6 +94,7 @@
     {
       "files": ["**/*.test.{ts,tsx}", "**/*.browser.test.{ts,tsx}"],
       "rules": {
+        "react/no-object-type-as-default-prop": "off",
         "unicorn/consistent-function-scoping": "off"
       }
     }

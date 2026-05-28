@@ -302,6 +302,8 @@ LabelRow.displayName = "FieldLabelRow";
  */
 const Help = Popover.Root;
 
+const defaultHelpTriggerIcon = <QuestionIcon />;
+
 /**
  * Props for the default help popover trigger. A contextual label is required
  * so repeated help affordances do not all share the same accessible name.
@@ -357,7 +359,7 @@ const HelpTrigger = forwardRef<ComponentRef<"button">, FieldHelpTriggerProps>(
 		{
 			appearance = "ghost",
 			className,
-			icon = <QuestionIcon />,
+			icon = defaultHelpTriggerIcon,
 			label,
 			size = "xs",
 			type = "button",

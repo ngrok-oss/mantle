@@ -96,7 +96,7 @@ type MultiSelectProps = Primitive.ComboboxProviderProps<string[]>;
  * </MultiSelect.Root>
  * ```
  */
-const Root = ({ children, defaultSelectedValue = [], ...props }: MultiSelectProps) => {
+const Root = ({ children, defaultSelectedValue = EMPTY_ARRAY, ...props }: MultiSelectProps) => {
 	const triggerRef = useRef<HTMLDivElement | null>(null);
 	const onInputKeyDownRef = useRef<((event: KeyboardEvent<HTMLInputElement>) => void) | undefined>(
 		undefined,
@@ -374,7 +374,7 @@ type MultiSelectTagValuesProps = {
  * </MultiSelect.Root>
  * ```
  */
-const TagValues = ({ children, lockedValues = [] }: MultiSelectTagValuesProps) => {
+const TagValues = ({ children, lockedValues = EMPTY_ARRAY }: MultiSelectTagValuesProps) => {
 	const store = Primitive.useComboboxContext();
 	const rawSelectedValue = Primitive.useStoreState(store, "selectedValue");
 	const selectedValues = isStringArray(rawSelectedValue) ? rawSelectedValue : undefined;

@@ -35,6 +35,8 @@ type AlertContextValue = {
 
 const AlertContext = createContext<AlertContextValue | null>(null);
 
+const defaultDismissIcon = <XIcon />;
+
 function useAlertContext() {
 	const context = useContext(AlertContext);
 	invariant(context, "useAlertContext hook used outside of Alert parent!");
@@ -343,7 +345,7 @@ const DismissIconButton = ({
 	label = "Dismiss Alert",
 	appearance = "ghost",
 	className,
-	icon = <XIcon />,
+	icon = defaultDismissIcon,
 	style,
 	...props
 }: AlertDismissIconButtonProps) => {

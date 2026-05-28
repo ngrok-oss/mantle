@@ -94,7 +94,7 @@ export function RegionPinningDemo() {
 						<MultiSelect.Group>
 							<MultiSelect.GroupLabel>Points of presence</MultiSelect.GroupLabel>
 							<MultiSelect.GroupDescription>
-								If you've included a region, you cannot include PoPs that are within it.
+								If you&apos;ve included a region, you cannot include PoPs that are within it.
 							</MultiSelect.GroupDescription>
 							{filteredPops.map(({ value, location }) => (
 								<MultiSelect.Item key={value} value={value} disabled>
