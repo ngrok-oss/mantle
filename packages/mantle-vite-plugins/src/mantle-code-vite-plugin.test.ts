@@ -408,6 +408,25 @@ describe("mantleCodeVitePlugin static fragment inlining", () => {
 		expect(javaObject).toContain('"~preValToken":"__MANTLE_PRE_VAL_');
 	});
 
+	test("does not inline fragment declarations from nested scopes", async () => {
+		const source = [
+			mantleImport + 'const policy = { code: "runtime policy" };',
+			"function getPolicy() {",
+			'\tconst policy = mantleCode("yaml")`inner: true`;',
+			"\treturn policy;",
+			"}",
+			'const snippet = mantleCode("java")`x = ${policy.code};`;',
+		].join("\n");
+
+		const result = await runTransform(source);
+		const object = extractAssignedObject(result.code, "snippet");
+
+		expect(result.warn).not.toHaveBeenCalled();
+		expect(object).toContain('"~preVals":[policy.code]');
+		expect(object).toContain('"~preValToken":"__MANTLE_PRE_VAL_');
+		expect(object).not.toContain("inner: true");
+	});
+
 	test("does not inline an unknown identifier's `.code`", async () => {
 		const result = await runTransform(
 			mantleImport + 'const snippet = mantleCode("java")`x = ${external.code};`;',

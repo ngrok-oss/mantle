@@ -609,6 +609,11 @@ type OxcExportNamedDeclaration = OxcNode & {
 	source: OxcLiteral | null;
 };
 
+type OxcProgram = OxcNode & {
+	type: "Program";
+	body: unknown[];
+};
+
 /** Type predicate: checks if a node is an `ImportDeclaration`. */
 function isImportDeclaration(node: OxcNode | null | undefined): node is OxcImportDeclaration {
 	return node?.type === "ImportDeclaration";
@@ -621,6 +626,11 @@ function isExportNamedDeclaration(
 	return node?.type === "ExportNamedDeclaration";
 }
 
+/** Type predicate: checks if a node is a parsed program with top-level statements. */
+function isProgram(node: unknown): node is OxcProgram {
+	return isNode(node) && node.type === "Program" && Array.isArray(node.body);
+}
+
 /**
  * The static `mantleCode` symbol tables extracted from a single module. Used to resolve
  * `<fragment>.code` interpolations within the module and — for imported fragments — across
@@ -631,9 +641,9 @@ type ModuleFragmentContext = {
 	resolvedId: string;
 	/** Local names bound to the imported `mantleCode` tag (e.g. `mantleCode`, or an alias). */
 	mantleCodeNames: Set<string>;
-	/** Local `mantleCode` fragment bindings, keyed by their in-module binding name. */
+	/** Top-level `mantleCode` fragment bindings, keyed by their in-module binding name. */
 	fragmentsByName: Map<string, OxcTaggedTemplateExpression>;
-	/** `mantleCode` fragments exposed to other modules, keyed by their exported name. */
+	/** Top-level `mantleCode` fragments exposed to other modules, keyed by their exported name. */
 	exportedFragments: Map<string, OxcTaggedTemplateExpression>;
 	/** Named value imports, keyed by local binding name. */
 	importsByLocal: Map<string, { importedName: string; source: string }>;
@@ -646,10 +656,10 @@ type LoadModuleContext = (
 ) => Promise<ModuleFragmentContext | null>;
 
 /**
- * Extracts the `mantleCode` fragment symbol tables from a parsed module: which local bindings
- * are `mantleCode` fragments, which of those are exported, and which names are value imports.
- * Shared by the current-module transform and cross-module fragment resolution so both surfaces
- * recognize fragments identically.
+ * Extracts the `mantleCode` fragment symbol tables from top-level module statements: which
+ * local bindings are `mantleCode` fragments, which of those are exported, and which names are
+ * value imports. Shared by the current-module transform and cross-module fragment resolution so
+ * both surfaces recognize fragments identically.
  */
 function collectModuleSymbols(program: unknown): Omit<ModuleFragmentContext, "resolvedId"> {
 	const mantleCodeNames = new Set<string>();
@@ -658,65 +668,82 @@ function collectModuleSymbols(program: unknown): Omit<ModuleFragmentContext, "re
 	const exportedConstNames = new Set<string>();
 	const exportSpecifierLocalByExported = new Map<string, string>();
 
-	walk(program, (node) => {
-		if (isImportDeclaration(node)) {
-			if (node.importKind === "type" || typeof node.source.value !== "string") {
-				return;
+	function collectConstDeclarationFragments(declaration: OxcVariableDeclaration) {
+		for (const declarator of declaration.declarations) {
+			if (
+				isVariableDeclarator(declarator) &&
+				isIdentifier(declarator.id) &&
+				isTaggedTemplateExpression(declarator.init) &&
+				isCallExpression(declarator.init.tag) &&
+				isIdentifier(declarator.init.tag.callee)
+			) {
+				fragmentCandidates.push({ name: declarator.id.name, node: declarator.init });
 			}
-			const source = node.source.value;
-			for (const specifier of node.specifiers) {
-				if (
-					specifier.type === "ImportSpecifier" &&
-					specifier.importKind !== "type" &&
-					specifier.imported != null
-				) {
-					importsByLocal.set(specifier.local.name, {
-						importedName: specifier.imported.name,
-						source,
-					});
-					if (isMantleImportSource(source) && specifier.imported.name === "mantleCode") {
-						mantleCodeNames.add(specifier.local.name);
+		}
+	}
+
+	function collectExportedConstNames(declaration: OxcVariableDeclaration) {
+		for (const declarator of declaration.declarations) {
+			if (isVariableDeclarator(declarator) && isIdentifier(declarator.id)) {
+				exportedConstNames.add(declarator.id.name);
+			}
+		}
+	}
+
+	if (isProgram(program)) {
+		for (const statement of program.body) {
+			if (!isNode(statement)) {
+				continue;
+			}
+
+			if (isImportDeclaration(statement)) {
+				if (statement.importKind === "type" || typeof statement.source.value !== "string") {
+					continue;
+				}
+				const source = statement.source.value;
+				for (const specifier of statement.specifiers) {
+					if (
+						specifier.type === "ImportSpecifier" &&
+						specifier.importKind !== "type" &&
+						specifier.imported != null
+					) {
+						importsByLocal.set(specifier.local.name, {
+							importedName: specifier.imported.name,
+							source,
+						});
+						if (isMantleImportSource(source) && specifier.imported.name === "mantleCode") {
+							mantleCodeNames.add(specifier.local.name);
+						}
 					}
 				}
+				continue;
 			}
-			return;
-		}
 
-		if (isExportNamedDeclaration(node)) {
-			// `export … from "…"` is a re-export — out of scope for v1; skip.
-			if (node.source != null) {
-				return;
-			}
-			if (isVariableDeclaration(node.declaration) && node.declaration.kind === "const") {
-				for (const declarator of node.declaration.declarations) {
-					if (isVariableDeclarator(declarator) && isIdentifier(declarator.id)) {
-						exportedConstNames.add(declarator.id.name);
+			if (isExportNamedDeclaration(statement)) {
+				// `export … from "…"` is a re-export — out of scope for v1; skip.
+				if (statement.source != null) {
+					continue;
+				}
+				if (
+					isVariableDeclaration(statement.declaration) &&
+					statement.declaration.kind === "const"
+				) {
+					collectExportedConstNames(statement.declaration);
+					collectConstDeclarationFragments(statement.declaration);
+				}
+				for (const specifier of statement.specifiers) {
+					if (specifier.type === "ExportSpecifier" && specifier.exportKind !== "type") {
+						exportSpecifierLocalByExported.set(specifier.exported.name, specifier.local.name);
 					}
 				}
+				continue;
 			}
-			for (const specifier of node.specifiers) {
-				if (specifier.type === "ExportSpecifier" && specifier.exportKind !== "type") {
-					exportSpecifierLocalByExported.set(specifier.exported.name, specifier.local.name);
-				}
-			}
-			return;
-		}
 
-		if (isVariableDeclaration(node) && node.kind === "const") {
-			for (const declarator of node.declarations) {
-				if (
-					isVariableDeclarator(declarator) &&
-					isIdentifier(declarator.id) &&
-					isTaggedTemplateExpression(declarator.init) &&
-					isCallExpression(declarator.init.tag) &&
-					isIdentifier(declarator.init.tag.callee)
-				) {
-					fragmentCandidates.push({ name: declarator.id.name, node: declarator.init });
-				}
+			if (isVariableDeclaration(statement) && statement.kind === "const") {
+				collectConstDeclarationFragments(statement);
 			}
-			return;
 		}
-	});
+	}
 
 	const fragmentsByName = new Map<string, OxcTaggedTemplateExpression>();
 	for (const { name, node } of fragmentCandidates) {
@@ -777,9 +804,9 @@ async function resolveFragmentTemplate(
 
 /**
  * Resolves an interpolation of the form `someFragment.code` to its static code text.
- * `someFragment` may be a `mantleCode` `const` declared in the same module, or a named import of
- * a directly-exported `mantleCode` `const` from another module. Nested references are resolved
- * recursively across module boundaries.
+ * `someFragment` may be a top-level `mantleCode` `const` declared in the same module, or a named
+ * import of a directly-exported top-level `mantleCode` `const` from another module. Nested
+ * references are resolved recursively across module boundaries.
  *
  * Returns `null` — signalling the caller to keep the runtime placeholder path — when the
  * expression is not a non-computed `.code` member access, the binding is not a resolvable
