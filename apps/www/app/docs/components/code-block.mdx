@@ -14,6 +14,7 @@ import {
 	OverridingIndentationDemo,
 	TabbedCodeBlockDemo,
 	FoldableJsonDemo,
+	NestedFragmentInterpolationDemo,
 } from "~/features/code-block-demos";
 
 # Code Block
@@ -318,6 +319,40 @@ const policyJson = mantleCode("json")`…`;
 	</CodeBlock.Body>
 </CodeBlock.Root>;
 ```
+
+### Reusing Fragments with Nested Interpolation
+
+A `mantleCode` value can be embedded into another `mantleCode` template by interpolating its `.code` property. When the Vite plugin recognizes the reference, it inlines the fragment's source **at build time** — so the embedded code is highlighted line-for-line in its host language (correct line numbers, folding, and copy text) with **no runtime substitution cost**.
+
+This is ideal for sharing a Traffic Policy or config snippet across multiple SDK examples without duplicating it. The fragment can live in the same module, or be imported from another module:
+
+<NestedFragmentInterpolationDemo />
+
+```tsx
+// shared-policies.ts — author the reusable policy once.
+import { mantleCode } from "@ngrok/mantle/code-block";
+
+export const oauthPolicyFragment = mantleCode("yaml")`on_http_request:
+  - actions:
+      - type: oauth
+        config:
+          provider: google`;
+```
+
+```tsx
+// listener-demo.tsx — embed it into a Java text block.
+import { CodeBlock, mantleCode } from "@ngrok/mantle/code-block";
+import { oauthPolicyFragment } from "./shared-policies";
+
+// `${oauthPolicyFragment.code}` is resolved and inlined at build time.
+const javaSdkSnippet = mantleCode("java")`var policy = """
+${oauthPolicyFragment.code}
+""";
+
+var listener = agent.listen(policy);`;
+```
+
+The fragment must be a `mantleCode` `const` referenced as `.code` — either declared earlier in the same module, or a named import of a directly-exported `const` from another module. Nested fragments are resolved recursively. Interpolations that can't be resolved statically (dynamic values, re-exports, bare identifiers without `.code`) fall back to runtime placeholder substitution, and an unresolved imported `.code` reference emits a build warning. Note that the embedded source is highlighted using the **outer** language's grammar — e.g. the YAML above is highlighted as Java text-block content, not as YAML.
 
 ### `mantleCode()` Options
 

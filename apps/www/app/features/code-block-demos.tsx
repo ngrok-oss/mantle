@@ -17,6 +17,7 @@ import { useState } from "react";
 import { href } from "react-router";
 import { z } from "zod";
 import { Example } from "~/components/example";
+import { oauthPolicyFragment } from "~/features/shared-policies";
 
 /**
  * Primary code block demo with a full-featured example showing header, copy button, and expander.
@@ -620,6 +621,51 @@ export function FoldableJsonDemo() {
 							}
 						`}
 					/>
+				</CodeBlock.Body>
+			</CodeBlock.Root>
+		</Example>
+	);
+}
+
+// ngrok Java SDK snippet that embeds the shared policy in a text block via nested interpolation.
+const javaSdkSnippet = mantleCode("java")`var policy = """
+${oauthPolicyFragment.code}
+""";
+
+var agent = Session.withAuthtoken(authtoken).connect();
+var listener = agent.listen(policy);`;
+
+// ngrok Python SDK snippet that embeds the same shared policy via nested interpolation.
+const pythonSdkSnippet = mantleCode("python")`policy = """
+${oauthPolicyFragment.code}
+"""
+
+listener = ngrok.forward(8080, traffic_policy=policy)`;
+
+/**
+ * Demonstrates nested `mantleCode` interpolation: a reusable policy fragment authored once
+ * and embedded into multiple SDK snippets. Each `${oauthPolicyFragment.code}` is inlined at
+ * build time, so the embedded policy is highlighted as real lines of its host language with
+ * correct line numbers — and pays no runtime substitution cost.
+ */
+export function NestedFragmentInterpolationDemo() {
+	return (
+		<Example>
+			<CodeBlock.Root defaultTab="java">
+				<CodeBlock.Header>
+					<CodeBlock.TabList>
+						<CodeBlock.TabTrigger value="java">Listener.java</CodeBlock.TabTrigger>
+						<CodeBlock.TabTrigger value="python">listener.py</CodeBlock.TabTrigger>
+					</CodeBlock.TabList>
+				</CodeBlock.Header>
+				<CodeBlock.Body>
+					<CodeBlock.CopyButton />
+					<CodeBlock.TabContent value="java">
+						<CodeBlock.Code value={javaSdkSnippet} />
+					</CodeBlock.TabContent>
+					<CodeBlock.TabContent value="python">
+						<CodeBlock.Code value={pythonSdkSnippet} />
+					</CodeBlock.TabContent>
 				</CodeBlock.Body>
 			</CodeBlock.Root>
 		</Example>
