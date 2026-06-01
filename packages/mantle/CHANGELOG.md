@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.73.5
+
+### Patch Changes
+
+- [#1218](https://github.com/ngrok-oss/mantle/pull/1218) [`61d638d`](https://github.com/ngrok-oss/mantle/commit/61d638d19f71af96341bd7d128f684b2a4e2c7ba) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - `mantleCode` templates now support nested fragment interpolation: interpolating another top-level `mantleCode` value's `.code` (declared in the same module, or imported from another module) is highlighted inline at build time by the updated `@ngrok/mantle-vite-plugins`, with correct per-line rendering and no runtime substitution cost. There is no runtime API change — without the plugin, `${fragment.code}` continues to fall back to plain string interpolation.
+
 ## 0.73.4
 
 ### Patch Changes
