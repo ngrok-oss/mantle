@@ -103,6 +103,7 @@ export default [
 		...docRoute("components/preview/calendar"),
 		...docRoute("components/progress-bar"),
 		...docRoute("components/progress-donut"),
+		...docRoute("components/qr-code"),
 		...docRoute("components/radio-group"),
 		...docRoute("components/sandboxed-on-click"),
 		...docRoute("components/select"),

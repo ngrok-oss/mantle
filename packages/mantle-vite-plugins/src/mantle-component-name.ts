@@ -49,6 +49,7 @@ export const MANTLE_COMPONENT_NAMES = [
 	"pagination",
 	"popover",
 	"progress",
+	"qr-code",
 	"radio-group",
 	"sandboxed-on-click",
 	"select",
