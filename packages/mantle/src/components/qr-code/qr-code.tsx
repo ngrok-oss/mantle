@@ -8,6 +8,9 @@ import { cx } from "../../utils/cx/cx.js";
 import type { WithAsChild } from "../../types/as-child.js";
 import { Slot } from "../slot/index.js";
 
+/**
+ * The encoded geometry shared from `QrCode.Root` to the SVG rendering parts.
+ */
 type QrCodeContextValue = {
 	/** The `d` attribute for the QR `Pattern` path. */
 	path: string;
@@ -18,8 +21,35 @@ type QrCodeContextValue = {
 const QrCodeContext = createContext<QrCodeContextValue | null>(null);
 
 /**
+ * Validates sizing props before they reach `uqr` or SVG coordinate math.
+ *
+ * @throws When `pixelSize` is not a finite positive number, or `quietZone` is
+ * not a non-negative integer.
+ *
+ * @example
+ * ```ts
+ * assertValidRootProps(10, 4);
+ * ```
+ */
+function assertValidRootProps(pixelSize: number, quietZone: number): void {
+	invariant(
+		Number.isFinite(pixelSize) && pixelSize > 0,
+		"`QrCode.Root` pixelSize must be a finite number greater than 0.",
+	);
+	invariant(
+		Number.isInteger(quietZone) && quietZone >= 0,
+		"`QrCode.Root` quietZone must be a non-negative integer.",
+	);
+}
+
+/**
  * Reads the QR code context provided by `QrCode.Root`. Throws a clear error when
  * a part is rendered outside of a `QrCode.Root`.
+ *
+ * @example
+ * ```tsx
+ * const { dimension, path } = useQrCodeContext();
+ * ```
  */
 function useQrCodeContext(): QrCodeContextValue {
 	const context = useContext(QrCodeContext);
@@ -36,8 +66,10 @@ function useQrCodeContext(): QrCodeContextValue {
  * `pixelSize`. Returns an empty string when there are no dark modules.
  *
  * @example
+ * ```ts
  * buildPath([[true, false], [false, true]], 10);
  * // "M0,0h10v10h-10zM10,10h10v10h-10z"
+ * ```
  */
 function buildPath(modules: ReadonlyArray<ReadonlyArray<boolean>>, pixelSize: number): string {
 	const rects: string[] = [];
@@ -60,6 +92,10 @@ function buildPath(modules: ReadonlyArray<ReadonlyArray<boolean>>, pixelSize: nu
  */
 type QrCodeErrorCorrection = "L" | "M" | "Q" | "H";
 
+/**
+ * Props for `QrCode.Root`, the provider and positioned tile that encodes the QR
+ * value for child parts.
+ */
 type QrCodeRootProps = ComponentProps<"div"> &
 	WithAsChild & {
 		/** The string to encode (e.g. a URL or `otpauth://` MFA URI). */
@@ -90,9 +126,9 @@ type QrCodeRootProps = ComponentProps<"div"> &
  * scanner. Tighten the surrounding whitespace with `quietZone` (defaults to the
  * spec-recommended `4` light modules).
  *
- * The code is always black modules on a white tile in every theme (never
- * theme-aware tokens): inverting a QR code's colors makes it unreliable for many
- * scanners, so it stays high-contrast black-on-white for scannability.
+ * The default styling is black modules on a white tile in every theme (never
+ * theme-aware tokens). Consumers can override those styles, but inverting a QR
+ * code's colors makes it unreliable for many scanners.
  *
  * @see https://mantle.ngrok.com/components/qr-code
  *
@@ -113,11 +149,12 @@ const Root = forwardRef<HTMLDivElement, QrCodeRootProps>(
 		{ value, ecc = "L", pixelSize = 10, quietZone = 4, asChild, className, children, ...props },
 		ref,
 	) => {
+		assertValidRootProps(pixelSize, quietZone);
+
 		// The quiet zone is the QR spec's required margin (light modules on each
 		// side). It's part of the code itself — the scannable margin — not cosmetic
-		// padding, and it keeps the modules clear of the tile's rounded corners. The
-		// spec recommends 4; lowering it tightens the whitespace at the cost of
-		// scannability.
+		// padding. The spec recommends 4; lowering it tightens the whitespace at
+		// the cost of scannability.
 		const encoded = useMemo(
 			() => encode(value, { ecc, border: quietZone }),
 			[value, ecc, quietZone],
@@ -146,6 +183,10 @@ const Root = forwardRef<HTMLDivElement, QrCodeRootProps>(
 );
 Root.displayName = "QrCode";
 
+/**
+ * Props for `QrCode.Frame`, the fixed SVG element that sizes the encoded QR
+ * pattern with its `viewBox`.
+ */
 type QrCodeFrameProps = ComponentProps<"svg">;
 
 /**
@@ -181,6 +222,7 @@ const Frame = forwardRef<SVGSVGElement, QrCodeFrameProps>(
 				data-slot="qr-code-frame"
 				xmlns="http://www.w3.org/2000/svg"
 				viewBox={`0 0 ${dimension} ${dimension}`}
+				shapeRendering="crispEdges"
 				className={cx("block size-48", className)}
 			>
 				{children}
@@ -190,11 +232,16 @@ const Frame = forwardRef<SVGSVGElement, QrCodeFrameProps>(
 );
 Frame.displayName = "QrCodeFrame";
 
+/**
+ * Props for `QrCode.Pattern`, the fixed SVG `path` element that renders the
+ * encoded dark modules.
+ */
 type QrCodePatternProps = ComponentProps<"path">;
 
 /**
- * The encoded QR modules, rendered as a single `path` inside the `Frame`. Always
- * filled black (`fill-static-black`) so the code stays scannable in every theme.
+ * The encoded QR modules, rendered as a single `path` inside the `Frame`.
+ * Defaults to black fill (`fill-static-black`) so the code stays scannable in
+ * every theme.
  *
  * Does not support `asChild`: the modules are a fixed `path` and cannot be
  * swapped for another element.
@@ -228,6 +275,10 @@ const Pattern = forwardRef<SVGPathElement, QrCodePatternProps>(({ className, ...
 });
 Pattern.displayName = "QrCodePattern";
 
+/**
+ * Props for `QrCode.Overlay`, the optional centered logo container rendered on
+ * top of the QR pattern.
+ */
 type QrCodeOverlayProps = ComponentProps<"div"> & WithAsChild;
 
 /**
@@ -341,8 +392,8 @@ const QrCode = {
 	 */
 	Frame,
 	/**
-	 * The encoded QR modules, rendered as a `path` inside the `Frame`. Always
-	 * filled black so the code stays scannable in every theme.
+	 * The encoded QR modules, rendered as a `path` inside the `Frame`. Defaults
+	 * to black fill so the code stays scannable in every theme.
 	 *
 	 * @see https://mantle.ngrok.com/components/qr-code
 	 *
@@ -390,4 +441,8 @@ export {
 export type {
 	//,
 	QrCodeErrorCorrection,
+	QrCodeFrameProps,
+	QrCodeOverlayProps,
+	QrCodePatternProps,
+	QrCodeRootProps,
 };

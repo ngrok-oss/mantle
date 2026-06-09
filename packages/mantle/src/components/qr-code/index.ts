@@ -12,4 +12,8 @@ export {
 export type {
 	//,
 	QrCodeErrorCorrection,
+	QrCodeFrameProps,
+	QrCodeOverlayProps,
+	QrCodePatternProps,
+	QrCodeRootProps,
 } from "./qr-code.js";

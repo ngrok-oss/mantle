@@ -83,6 +83,11 @@ describe("QrCode", () => {
 		expect(frame).toHaveAttribute("data-slot", "qr-code-frame");
 	});
 
+	test("Frame renders modules with crisp SVG edges", () => {
+		renderQrCode();
+		expect(screen.getByTestId("frame")).toHaveAttribute("shape-rendering", "crispEdges");
+	});
+
 	test("Pattern renders a path that encodes the value into a non-empty `d`", () => {
 		renderQrCode();
 		const pattern = screen.getByTestId("pattern");
@@ -144,6 +149,24 @@ describe("QrCode", () => {
 		const sizeOf = (viewBox: string) => Number(viewBox.split(" ")[2]);
 		expect(sizeOf(viewBoxWith(1))).toBeLessThan(sizeOf(viewBoxWith()));
 	});
+
+	test.each([0, -1, Number.NaN, Number.POSITIVE_INFINITY])(
+		"throws a helpful error for invalid pixelSize %s",
+		(pixelSize) => {
+			const consoleError = vi.spyOn(console, "error").mockImplementation(() => {});
+			expect(() => renderQrCode({ pixelSize })).toThrow(/pixelSize/);
+			consoleError.mockRestore();
+		},
+	);
+
+	test.each([-1, 1.5, Number.NaN, Number.POSITIVE_INFINITY])(
+		"throws a helpful error for invalid quietZone %s",
+		(quietZone) => {
+			const consoleError = vi.spyOn(console, "error").mockImplementation(() => {});
+			expect(() => renderQrCode({ quietZone })).toThrow(/quietZone/);
+			consoleError.mockRestore();
+		},
+	);
 
 	test("Overlay renders a centered container with its children", () => {
 		render(
