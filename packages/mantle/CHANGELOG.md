@@ -1,5 +1,15 @@
 # @ngrok/mantle
 
+## 0.74.0
+
+### Minor Changes
+
+- [#1221](https://github.com/ngrok-oss/mantle/pull/1221) [`100debf`](https://github.com/ngrok-oss/mantle/commit/100debfbb49f035f07f254aece2448ade6a774cd) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add the `QrCode` component — a scannable QR code that encodes its `value` with the dependency-free `uqr` library. Compose `QrCode.Root` with a `QrCode.Frame` wrapping a `QrCode.Pattern`, plus an optional `QrCode.Overlay` for a centered brand logo. Always renders black modules on a white background for scannability in any theme. The quiet-zone margin around the code is configurable via the `quietZone` prop (defaults to the spec-recommended `4`).
+
+### Patch Changes
+
+- [#1223](https://github.com/ngrok-oss/mantle/pull/1223) [`6dc792c`](https://github.com/ngrok-oss/mantle/commit/6dc792c0f2f91f4f2b34f5ef5ccc4f5a06b2c1b5) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Update dependencies: `@ariakit/react` to 0.4.29, `@radix-ui/*` packages (accordion, dialog, dropdown-menu, hover-card, popover, progress, select, slider, slot, switch, tabs, tooltip), and `date-fns` to 4.4.0.
+
 ## 0.73.5
 
 ### Patch Changes
