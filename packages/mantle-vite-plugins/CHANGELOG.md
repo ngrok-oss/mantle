@@ -1,5 +1,14 @@
 # @ngrok/mantle-vite-plugins
 
+## 1.0.13
+
+### Patch Changes
+
+- [#1223](https://github.com/ngrok-oss/mantle/pull/1223) [`6dc792c`](https://github.com/ngrok-oss/mantle/commit/6dc792c0f2f91f4f2b34f5ef5ccc4f5a06b2c1b5) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Bump the `vite` peer dependency range to `^8.0.16`.
+
+- Updated dependencies [[`6dc792c`](https://github.com/ngrok-oss/mantle/commit/6dc792c0f2f91f4f2b34f5ef5ccc4f5a06b2c1b5)]:
+  - @ngrok/mantle-server-syntax-highlighter@1.1.3
+
 ## 1.0.12
 
 ### Patch Changes
