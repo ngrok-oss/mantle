@@ -5,11 +5,11 @@ on:
     branches:
       - main
 
+# GitHub writes (release PR, tags, releases) use the App token minted in the
+# publish job, not the default GITHUB_TOKEN — keep this least-privilege.
 permissions:
-  id-token: write # Required for OIDC
-  actions: write
-  contents: write
-  pull-requests: write
+  contents: read
+  id-token: write # Required for OIDC (npm provenance)
 
 env:
   DO_NOT_TRACK: 1
@@ -46,7 +46,7 @@ jobs:
 
       - name: Install Dependencies 📥
         run: |
-          pnpm install
+          pnpm install --frozen-lockfile
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets

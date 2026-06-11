@@ -42,10 +42,11 @@ jobs:
 
       - name: Install Dependencies 📥
         run: |
-          pnpm install
+          pnpm install --frozen-lockfile
 
+      # Pinned deploy tooling — bump intentionally, not via @latest.
       - name: Install Vercel CLI
-        run: pnpm install --global vercel@latest turbo@latest
+        run: pnpm install --global vercel@54.12.0 turbo@2.9.17
 
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
