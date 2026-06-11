@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.76.1
+
+### Patch Changes
+
+- [#1229](https://github.com/ngrok-oss/mantle/pull/1229) [`a569ca3`](https://github.com/ngrok-oss/mantle/commit/a569ca386a7c779328216c21e54de15500c89503) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Remove the unused `@uidotdev/usehooks` dependency. It was never imported by any mantle code; consumers no longer install it transitively.
+
 ## 0.76.0
 
 ### Minor Changes
