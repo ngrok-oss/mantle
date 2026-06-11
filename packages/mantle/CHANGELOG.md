@@ -1,5 +1,16 @@
 # @ngrok/mantle
 
+## 0.75.0
+
+### Minor Changes
+
+- [#1225](https://github.com/ngrok-oss/mantle/pull/1225) [`6b22e51`](https://github.com/ngrok-oss/mantle/commit/6b22e51c9829ba17e9c8b62a30f9d5101ec6b434) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - feat(mantle): add Well component
+
+  A recessed, inset container that renders like `Card.Root` but with the base
+  background and an inset shadow, for grouping and de-emphasizing content such as
+  empty states, code samples, and read-only summaries. Supports `asChild` for
+  polymorphic rendering.
+
 ## 0.74.0
 
 ### Minor Changes
