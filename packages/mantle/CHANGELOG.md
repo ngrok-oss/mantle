@@ -1,5 +1,11 @@
 # @ngrok/mantle
 
+## 0.76.2
+
+### Patch Changes
+
+- [#1233](https://github.com/ngrok-oss/mantle/pull/1233) [`fa978b0`](https://github.com/ngrok-oss/mantle/commit/fa978b0c5990cdbcb0d61e748419acc36aeb134c) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Refine `Empty` and `Well` styling: `Empty` uses tighter padding (`p-6`), `Empty.Icon` is smaller with a neutral color, `Empty.Title` and `Empty.Description` adopt smaller sans-serif text with a muted description, and `Well` uses the muted card border.
+
 ## 0.76.1
 
 ### Patch Changes
