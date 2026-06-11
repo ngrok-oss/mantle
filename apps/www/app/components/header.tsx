@@ -86,6 +86,7 @@ export function Header({ className, ...props }: Omit<ComponentProps<"header">, "
 					<HeaderNavLink to={href("/")}>Docs</HeaderNavLink>
 					<HeaderNavLink to={href("/components/alert-dialog")}>Components</HeaderNavLink>
 					<HeaderNavLink to={href("/blocks")}>Blocks</HeaderNavLink>
+					<HeaderNavLink to={href("/migrations")}>Migrations</HeaderNavLink>
 				</nav>
 
 				<div className="flex items-center ml-auto">

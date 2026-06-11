@@ -48,6 +48,10 @@ export default function handleRequest(
 	// Content negotiation: return raw markdown when Accept: text/markdown is requested
 	const accept = request.headers.get("Accept") ?? "";
 	if (accept.includes("text/markdown")) {
+		// `handleRequest` only receives document requests — single-fetch `.data`
+		// requests are handled before this — so `request.url` never carries a
+		// `.data` suffix here (and the normalized `url` loader arg isn't available
+		// to the entry handler regardless).
 		const url = new URL(request.url);
 		const pathname = url.pathname.replace(/^\//, "");
 		const filePath = urlToFileMap.get(pathname || "index");

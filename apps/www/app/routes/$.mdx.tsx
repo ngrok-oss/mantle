@@ -9,7 +9,6 @@ import type { Route } from "./+types/$.mdx";
  * ones. A 301 here consolidates them onto the canonical page and removes the
  * `.mdx` entries from the index.
  */
-export function loader({ request }: Route.LoaderArgs) {
-	const { pathname } = new URL(request.url);
-	return redirect(mdxUrlToCanonicalPath(pathname), 301);
+export function loader({ url }: Route.LoaderArgs) {
+	return redirect(mdxUrlToCanonicalPath(url.pathname), 301);
 }

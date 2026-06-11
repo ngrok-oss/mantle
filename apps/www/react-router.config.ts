@@ -3,6 +3,13 @@ import { vercelPreset } from "@vercel/react-router/vite";
 const isVercelDeploy = process.env.VERCEL === "1";
 
 export default {
+	future: {
+		v8_middleware: true,
+		v8_passThroughRequests: true,
+		v8_splitRouteModules: true,
+		v8_trailingSlashAwareDataRequests: true,
+		v8_viteEnvironmentApi: true,
+	},
 	ssr: true,
 	presets: [
 		//,

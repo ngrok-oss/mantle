@@ -21,6 +21,11 @@ function blockRoute(path: string) {
 	return markdownRoute(`blocks/${path}`, "blocks", path);
 }
 
+// Helper to create migration routes under /migrations (handles both /migrations/path and /migrations/path.md URLs)
+function migrationRoute(path: string) {
+	return markdownRoute(`migrations/${path}`, "migrations", path);
+}
+
 export default [
 	route("robots.txt", "./routes/robots[.]txt.tsx", { id: "robots-txt" }),
 	route("sitemap.xml", "./routes/sitemap[.]xml.tsx", { id: "sitemap-xml" }),
@@ -140,4 +145,16 @@ export default [
 		route("blocks", "./routes/blocks.tsx"),
 		...blockRoute("sheet-async"),
 	]),
+
+	// migrations layout
+	layout("./routes/migrations-layout.tsx", [
+		route("migrations", "./routes/migrations.tsx"),
+		...migrationRoute("code-block-migration"),
+		...migrationRoute("data-table-action-header-migration"),
+		...migrationRoute("dialog-footer-dom-order-migration"),
+	]),
+
+	// 404 — splat catch-all for any unmatched URL. Matches (so ancestor loaders
+	// run) and returns a 404 status, mirroring the dot-com www 404 route.
+	route("*", "./routes/catch-all.tsx", { id: "catch-all" }),
 ] satisfies RouteConfig;

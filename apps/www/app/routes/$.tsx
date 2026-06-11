@@ -1,8 +1,8 @@
 import { Suspense, use } from "react";
 import { z } from "zod";
 import { ContentLayout } from "~/components/content-layout";
-import { getDoc, loadDoc, loadFrontmatter, resolveDoc, urlToFileMap } from "~/utilities/docs";
 import { canonicalHref } from "~/utilities/canonical-origin";
+import { getDoc, loadDoc, loadFrontmatter, resolveDoc, urlToFileMap } from "~/utilities/docs";
 import {
 	jsonLdGraphMetaDescriptor,
 	mantleTechArticleJsonLd,
@@ -53,8 +53,7 @@ export function meta({ loaderData, location }: Route.MetaArgs) {
 	];
 }
 
-export async function loader({ request }: Route.LoaderArgs) {
-	const url = new URL(request.url);
+export async function loader({ url }: Route.LoaderArgs) {
 	let pathname = url.pathname;
 
 	if (pathname.startsWith("/")) {
