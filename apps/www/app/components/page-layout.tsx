@@ -16,6 +16,7 @@ const mobileDrawerLinks = [
 	{ to: href("/"), label: "Docs" },
 	{ to: href("/components/alert-dialog"), label: "Components" },
 	{ to: href("/blocks"), label: "Blocks" },
+	{ to: href("/migrations"), label: "Migrations" },
 ];
 
 const matchDataWithTocSchema = z.object({

@@ -18,6 +18,7 @@ import type { PropsWithChildren } from "react";
 import { lazy, Suspense, useEffect, useState } from "react";
 import {
 	href,
+	isRouteErrorResponse,
 	Links,
 	Meta,
 	Outlet,
@@ -27,6 +28,7 @@ import {
 	useRouteLoaderData,
 } from "react-router";
 import type { Route } from "./+types/root";
+import { ErrorPage } from "./components/error-page";
 import { SkipToMainLink } from "@ngrok/mantle/skip-to-main-link";
 import { Header } from "./components/header";
 import { NavigationProvider } from "./components/navigation-context";
@@ -215,6 +217,34 @@ export default function App() {
 			<Header />
 			<div className="mx-auto w-full max-w-7xl flex-1 px-4 pt-4 md:pt-20">
 				<Outlet />
+			</div>
+		</div>
+	);
+}
+
+/**
+ * Root error boundary. Renders the site chrome (header + page frame) around the
+ * shared {@link ErrorPage} for errors thrown from a matched route — e.g. the
+ * `404` a docs `.md` route raises for an unknown slug, or an unexpected `500`.
+ * Unmatched URLs are handled by the splat `catch-all` route instead, so the
+ * root loader runs there and the page renders with full chrome and data.
+ */
+export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
+	const isResponse = isRouteErrorResponse(error);
+	const status = isResponse ? error.status : 500;
+	const stack = !isResponse && import.meta.env.DEV && error instanceof Error ? error.stack : null;
+
+	return (
+		<div className="flex min-h-full flex-col">
+			<SkipToMainLink />
+			<Header />
+			<div className="mx-auto w-full max-w-7xl flex-1 px-4 pt-4 md:pt-20">
+				<ErrorPage status={status} />
+				{stack && (
+					<pre className="mx-auto max-w-full overflow-x-auto rounded-md bg-gray-100 p-4 text-left text-xs text-body">
+						{stack}
+					</pre>
+				)}
 			</div>
 		</div>
 	);

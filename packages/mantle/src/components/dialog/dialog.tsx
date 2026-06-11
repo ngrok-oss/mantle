@@ -451,7 +451,7 @@ const Footer = ({ className, ...props }: ComponentProps<"div">) => (
 	<div
 		data-slot="dialog-footer"
 		className={cx(
-			"border-dialog-muted flex shrink-0 flex-row-reverse gap-2 border-t px-6 py-4",
+			"border-dialog-muted flex shrink-0 justify-end gap-2 border-t px-6 py-4",
 			className,
 		)}
 		{...props}

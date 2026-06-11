@@ -213,6 +213,30 @@ export const blockDescriptions = {
 		"Open a Sheet immediately, then swap the body between pending, loaded, 404, and 500 states with TanStack Query.",
 } as const satisfies Record<(typeof blockPages)[number], string>;
 
+/** Migration guide pages. */
+export const migrationPages = [
+	//,
+	"CodeBlock",
+	"DataTable Action Column",
+	"Dialog.Footer DOM Order",
+] as const;
+
+/** Route lookup for migration guide pages. */
+export const migrationRoutes = {
+	CodeBlock: "/migrations/code-block-migration",
+	"DataTable Action Column": "/migrations/data-table-action-header-migration",
+	"Dialog.Footer DOM Order": "/migrations/dialog-footer-dom-order-migration",
+} as const satisfies Record<(typeof migrationPages)[number], Route>;
+
+/** Short descriptions for the migration guide index page. */
+export const migrationDescriptions = {
+	CodeBlock: "Migrate from PrismJS-powered code blocks to mantle's Shiki-powered CodeBlock.",
+	"DataTable Action Column":
+		"Switch a pinned action column's header to DataTable.ActionHeader so it stays aligned on horizontal scroll.",
+	"Dialog.Footer DOM Order":
+		"Dialog.Footer now renders children in DOM order — reverse footer children to preserve their layout.",
+} as const satisfies Record<(typeof migrationPages)[number], string>;
+
 /**
  * Override map for components whose docs URL slug does not match their
  * package import subpath. For example, "Icon Button" is documented at

@@ -30,8 +30,7 @@ function getPayload(filePath: string, rawContent: string): Payload {
 	return payload;
 }
 
-export async function loader({ request }: Route.LoaderArgs) {
-	const url = new URL(request.url);
+export async function loader({ request, url }: Route.LoaderArgs) {
 	const cleanSlug = url.pathname.replace(/^\/+/, "").replace(/\.md$/, "");
 
 	const filePath = urlToFileMap.get(cleanSlug);

@@ -28,6 +28,11 @@ const SECTION_ORDER = [
 		match: (slug: string) => slug.startsWith("components/preview/"),
 	},
 	{ id: "blocks", title: "Blocks", match: (slug: string) => slug.startsWith("blocks/") },
+	{
+		id: "migrations",
+		title: "Migrations",
+		match: (slug: string) => slug.startsWith("migrations/"),
+	},
 	{ id: "hooks", title: "Hooks", match: (slug: string) => slug === "hooks" },
 	{ id: "utils", title: "Utilities", match: (slug: string) => slug.startsWith("utils/") },
 ] as const;
