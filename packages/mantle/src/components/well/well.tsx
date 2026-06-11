@@ -39,7 +39,10 @@ const Well = forwardRef<ComponentRef<"div">, WellProps>(
 			<Comp
 				ref={ref}
 				data-slot="well"
-				className={cx("border-card bg-base relative rounded-md border shadow-inner", className)}
+				className={cx(
+					"border-card-muted bg-base relative rounded-md border shadow-inner",
+					className,
+				)}
 				{...props}
 			/>
 		);

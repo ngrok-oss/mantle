@@ -38,7 +38,7 @@ export function InSheetDemo() {
 	return (
 		<Sheet.Root>
 			<Sheet.Trigger asChild>
-				<Button type="button" appearance="filled">
+				<Button type="button" appearance="filled" priority="neutral">
 					Assign fruits
 				</Button>
 			</Sheet.Trigger>
@@ -130,7 +130,13 @@ export function InSheetDemo() {
 						</Sheet.Close>
 						<form.Subscribe selector={(state) => state.isDirty}>
 							{(isDirty) => (
-								<Button type="submit" form={formId} appearance="filled" disabled={!isDirty}>
+								<Button
+									type="submit"
+									form={formId}
+									appearance="filled"
+									priority="neutral"
+									disabled={!isDirty}
+								>
 									Save
 								</Button>
 							)}

@@ -27,6 +27,7 @@ export function ToastDemo() {
 			<Button
 				type="button"
 				appearance="filled"
+				priority="neutral"
 				onClick={() => {
 					makeToast(
 						<Toast.Root priority={priority}>
@@ -52,7 +53,7 @@ export function ToastDemo() {
 			</Button>
 			<Sheet.Root>
 				<Sheet.Trigger asChild>
-					<Button type="button" appearance="filled">
+					<Button type="button" appearance="filled" priority="neutral">
 						Open Sheet
 					</Button>
 				</Sheet.Trigger>
@@ -99,7 +100,7 @@ export function ToastDemo() {
 			</Sheet.Root>
 			<Dialog.Root>
 				<Dialog.Trigger asChild>
-					<Button type="button" appearance="filled">
+					<Button type="button" appearance="filled" priority="neutral">
 						Open dialog
 					</Button>
 				</Dialog.Trigger>
@@ -147,7 +148,7 @@ export function ToastDemo() {
 			</Dialog.Root>
 			<AlertDialog.Root priority="info">
 				<AlertDialog.Trigger asChild>
-					<Button type="button" appearance="filled">
+					<Button type="button" appearance="filled" priority="neutral">
 						Show Info Alert Dialog
 					</Button>
 				</AlertDialog.Trigger>
