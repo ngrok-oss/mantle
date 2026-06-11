@@ -58,6 +58,7 @@ export const prodReadyComponents = [
 	"Theme",
 	"Toast",
 	"Tooltip",
+	"Well",
 ] as const;
 
 /**
@@ -125,6 +126,7 @@ export const prodReadyComponentRouteLookup = {
 	Theme: "/components/theme",
 	Toast: "/components/toast",
 	Tooltip: "/components/tooltip",
+	Well: "/components/well",
 } as const satisfies Record<(typeof prodReadyComponents)[number], Route>;
 
 /** Route lookup for preview component pages. */

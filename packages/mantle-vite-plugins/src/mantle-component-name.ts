@@ -67,6 +67,7 @@ export const MANTLE_COMPONENT_NAMES = [
 	"theme",
 	"toast",
 	"tooltip",
+	"well",
 ] as const;
 
 /**
