@@ -169,6 +169,7 @@ export function Layout({ children }: PropsWithChildren) {
 				<PreventWrongThemeFlashScript nonce={nonce} />
 				<MantleStyleSheets {...themeUrls} nonce={nonce} ssrCookie={loaderData?.ssrCookie} />
 				<meta name="author" content="ngrok" />
+				<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 				<meta name="commit-sha" content={loaderData?.commitSha} />
 				<meta name="deployment-id" content={loaderData?.deploymentId} />
 				<Meta />
