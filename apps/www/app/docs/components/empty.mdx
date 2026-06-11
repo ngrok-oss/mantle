@@ -51,12 +51,12 @@ import { GhostIcon, PlusIcon } from "@phosphor-icons/react";
 
 ## Error page
 
-A full-page error state with a larger heading and multiple description paragraphs.
+A full-page error state with a retry action.
 
 <Example>
 	<Empty.Root>
 		<Empty.Icon svg={<SmileyMeltingIcon />} />
-		<Empty.Title className="text-2xl">Oops, something went wrong.</Empty.Title>
+		<Empty.Title>Oops, something went wrong.</Empty.Title>
 		<Empty.Description>
 			<p>Please try again in a few minutes.</p>
 		</Empty.Description>
@@ -75,7 +75,7 @@ import { SmileyMeltingIcon } from "@phosphor-icons/react";
 
 <Empty.Root>
 	<Empty.Icon svg={<SmileyMeltingIcon />} />
-	<Empty.Title className="text-2xl">Oops, something went wrong.</Empty.Title>
+	<Empty.Title>Oops, something went wrong.</Empty.Title>
 	<Empty.Description>
 		<p>Please try again in a few minutes.</p>
 	</Empty.Description>
@@ -94,8 +94,8 @@ A common pattern for empty states when a filter or search yields no results.
 <Example>
 	<Empty.Root>
 		<Empty.Icon svg={<MagnifyingGlassIcon />} />
-		<Empty.Title className="text-lg">No results matched your filter.</Empty.Title>
-		<Empty.Description className="text-xs">
+		<Empty.Title>No results matched your filter.</Empty.Title>
+		<Empty.Description>
 			<p>Check your spelling. It's possible what you're looking for no longer exists.</p>
 		</Empty.Description>
 		<Empty.Actions>
@@ -113,8 +113,8 @@ import { MagnifyingGlassIcon } from "@phosphor-icons/react";
 
 <Empty.Root>
 	<Empty.Icon svg={<MagnifyingGlassIcon />} />
-	<Empty.Title className="text-lg">No results matched your filter.</Empty.Title>
-	<Empty.Description className="text-xs">
+	<Empty.Title>No results matched your filter.</Empty.Title>
+	<Empty.Description>
 		<p>Check your spelling. It's possible what you're looking for no longer exists.</p>
 	</Empty.Description>
 	<Empty.Actions>
