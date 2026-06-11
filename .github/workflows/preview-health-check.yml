@@ -11,20 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.deployment_status.state == 'success' && github.event.deployment.environment == 'Preview'
     timeout-minutes: 5
+    env:
+      PREVIEW_URL: ${{ github.event.deployment_status.target_url }}
     steps:
-      - name: Get Preview URL
-        id: preview
-        env:
-          TARGET_URL: ${{ github.event.deployment_status.target_url }}
-        run: |
-          echo "url=${TARGET_URL}" >> "$GITHUB_OUTPUT"
-
       - name: Wait for deployment to stabilize
         run: sleep 10
 
       - name: Check homepage
-        env:
-          PREVIEW_URL: ${{ steps.preview.outputs.url }}
         run: |
           echo "Checking: $PREVIEW_URL"
           response=$(curl -sS -o /dev/null -w "%{http_code}" --retry 3 --retry-delay 5 "$PREVIEW_URL")
@@ -36,8 +29,6 @@ jobs:
           echo "✅ Homepage OK"
 
       - name: Check key routes
-        env:
-          PREVIEW_URL: ${{ steps.preview.outputs.url }}
         run: |
           base_url="$PREVIEW_URL"
           routes=(
