@@ -29,7 +29,7 @@ const Root = ({ asChild, children, className, ...props }: ComponentProps<"div"> 
 	return (
 		<Comp
 			data-slot="empty"
-			className={cx("mx-auto flex max-w-lg flex-col items-center py-14 text-center", className)}
+			className={cx("mx-auto flex max-w-lg flex-col items-center p-6 text-center", className)}
 			{...props}
 		>
 			{children}
@@ -67,7 +67,7 @@ const Icon = ({ className, svg, ...props }: EmptyIconProps) => {
 	return (
 		<SvgOnly
 			data-slot="empty-icon"
-			className={cx("mb-2 size-16 text-muted", className)}
+			className={cx("mb-1 size-10 text-neutral-400", className)}
 			svg={svg}
 			{...props}
 		/>
@@ -108,7 +108,7 @@ const Title = ({
 	return (
 		<Comp
 			data-slot="empty-title"
-			className={cx("text-strong text-xl font-medium", className)}
+			className={cx("text-strong text-sm font-medium font-sans", className)}
 			{...props}
 		>
 			{children}
@@ -152,7 +152,7 @@ const Description = ({
 	return (
 		<Comp
 			data-slot="empty-description"
-			className={cx("text-body mt-1 space-y-4 text-sm", className)}
+			className={cx("text-muted space-y-4 text-sm font-sans", className)}
 			{...props}
 		>
 			{children}
