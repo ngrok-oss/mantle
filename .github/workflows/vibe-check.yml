@@ -9,8 +9,7 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
 
 env:
   DO_NOT_TRACK: 1

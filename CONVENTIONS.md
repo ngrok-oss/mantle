@@ -11,7 +11,7 @@ Single source of truth for code style, patterns, and conventions in the Mantle d
 
 ## Formatting & Linting
 
-- Formatter: oxfmt (tabs, tabWidth 2, double quotes) — see `.oxfmtrc.json`
+- Formatter: oxfmt (tabs, tabWidth 2, double quotes) — see `.oxcfmtrc.json`. By default, oxfmt reads `.gitignore` and `.prettierignore` from the current working directory only. `.prettierignore` is kept deliberately as repo-level oxfmt ignore config; `ignorePatterns` supports gitignore-style globs and hard-excludes matching files, but paths are resolved relative to the config file and directory skipping is conservative so nested configs are not hidden.
 - Linter: oxlint — see `.oxlintrc.json`
 - Never biome, prettier, or eslint
 
