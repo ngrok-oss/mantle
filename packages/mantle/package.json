@@ -339,6 +339,11 @@
 			"@ngrok/src-live-types": "./src/utils/index.ts",
 			"types": "./dist/utils.d.ts",
 			"import": "./dist/utils.js"
+		},
+		"./well": {
+			"@ngrok/src-live-types": "./src/components/well/index.ts",
+			"types": "./dist/well.d.ts",
+			"import": "./dist/well.js"
 		}
 	},
 	"scripts": {

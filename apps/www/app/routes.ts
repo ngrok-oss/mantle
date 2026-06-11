@@ -121,6 +121,7 @@ export default [
 		...docRoute("components/theme"),
 		...docRoute("components/toast"),
 		...docRoute("components/tooltip"),
+		...docRoute("components/well"),
 
 		// hooks 🪝
 		...docRoute("hooks"),
