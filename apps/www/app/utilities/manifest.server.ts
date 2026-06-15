@@ -6,7 +6,10 @@ import {
 } from "~/components/navigation-data";
 import { canonicalHref, canonicalOrigin } from "~/utilities/canonical-origin";
 import { loadFrontmatter, urlToFileMap } from "~/utilities/docs";
-import { extractFirstSentenceForName } from "~/utilities/hooks-manifest.server";
+import {
+	extractExamplesForName,
+	extractFirstSentenceForName,
+} from "~/utilities/hooks-manifest.server";
 import { componentsSrcDir, sourceBasePath } from "~/utilities/mantle-source.server";
 
 /**
@@ -36,6 +39,14 @@ export type ManifestComponent = {
 	 * text that hovering the import would show.
 	 */
 	jsdoc?: string;
+	/**
+	 * Body of each `@example` block on the component's primary exported
+	 * identifier (read from the package source), in declaration order.
+	 * Gives agents copy-pasteable canonical usage — the same templates
+	 * hovering the import would show — without a network lookup. Omitted
+	 * when the source has no `@example` blocks.
+	 */
+	examples?: string[];
 };
 
 /** Top-level shape returned by `/api/components.json`. */
@@ -155,6 +166,29 @@ async function jsdocForComponent(slug: string, displayName: string): Promise<str
 }
 
 /**
+ * Best-effort `@example` lookup for a component, using the same
+ * candidate-name and source-path resolution as {@link jsdocForComponent}.
+ * Returns the example blocks from the first declaration that has any, or
+ * an empty array when none match.
+ */
+async function examplesForComponent(slug: string, displayName: string): Promise<string[]> {
+	const source = sourceBasesForSlug(slug);
+	if (!source) {
+		return [];
+	}
+	const candidates = new Set<string>([leafToPascal(source.leaf), displayName.replace(/\s+/g, "")]);
+	for (const basePath of source.basePaths) {
+		for (const name of candidates) {
+			const examples = await extractExamplesForName(basePath, name);
+			if (examples.length > 0) {
+				return examples;
+			}
+		}
+	}
+	return [];
+}
+
+/**
  * Build the public component manifest. Combines the docs navigation as the
  * source of truth for which components exist with each page's frontmatter
  * description for the summary field.
@@ -189,9 +223,10 @@ export async function buildManifest(): Promise<Manifest> {
 					return null;
 				}
 				const filePath = urlToFileMap.get(slug);
-				const [frontmatter, jsdoc] = await Promise.all([
+				const [frontmatter, jsdoc, examples] = await Promise.all([
 					filePath ? loadFrontmatter(filePath) : Promise.resolve(undefined),
 					jsdocForComponent(slug, name),
+					examplesForComponent(slug, name),
 				]);
 				const description =
 					typeof frontmatter?.description === "string" ? frontmatter.description : undefined;
@@ -204,6 +239,7 @@ export async function buildManifest(): Promise<Manifest> {
 					markdownUrl: canonicalHref(`/${slug}.md`),
 					summary: description,
 					jsdoc,
+					examples: examples.length > 0 ? examples : undefined,
 				};
 			}),
 		)

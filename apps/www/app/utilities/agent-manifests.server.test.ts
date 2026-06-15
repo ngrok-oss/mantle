@@ -40,4 +40,14 @@ describe("agent manifests", () => {
 		});
 		expect(componentsMissingJsdoc).toEqual([]);
 	});
+
+	it("extracts component @example blocks from bundled Mantle source", async () => {
+		const manifest = await buildManifest();
+		const field = manifest.components.find((component) => component.name === "Field");
+
+		expect(field?.examples?.length).toBeGreaterThan(0);
+		// Canonical composition: the control wraps the input and help text
+		// sits below it — the exact shape agents should copy.
+		expect(field?.examples?.some((example) => example.includes("<Field.Control>"))).toBe(true);
+	});
 });
