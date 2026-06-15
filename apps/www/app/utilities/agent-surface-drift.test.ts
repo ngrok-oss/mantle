@@ -29,6 +29,7 @@ type SurfaceEntry = Pick<
 	"name" | "slug" | "status" | "importPath" | "summary" | "jsdoc" | "examples"
 >;
 
+/** Project a manifest component down to the drift-guarded {@link SurfaceEntry}. */
 function toSurface(component: ManifestComponent): SurfaceEntry {
 	return {
 		name: component.name,

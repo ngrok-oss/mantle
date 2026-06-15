@@ -159,6 +159,7 @@ function examplesFromJsDoc(jsdoc: string): string[] {
 
 	const examples: string[] = [];
 	let current: string[] | null = null;
+	let inFence = false;
 
 	const flush = () => {
 		if (current == null) {
@@ -169,10 +170,19 @@ function examplesFromJsDoc(jsdoc: string): string[] {
 			examples.push(text);
 		}
 		current = null;
+		inFence = false;
 	};
 
 	for (const line of lines) {
-		const tagMatch = line.match(/^[ \t]*@(\w+)/);
+		// Inside a fenced code block, a leading `@word` is example content
+		// (a decorator, `@media`, etc.) — not a JSDoc tag. Track fence state
+		// so tag detection doesn't terminate the example early.
+		if (current != null && /^[ \t]*```/.test(line)) {
+			inFence = !inFence;
+			current.push(line);
+			continue;
+		}
+		const tagMatch = inFence ? null : line.match(/^[ \t]*@(\w+)/);
 		if (tagMatch) {
 			flush();
 			if (tagMatch[1] === "example") {
@@ -351,4 +361,4 @@ export async function buildHooksManifest(): Promise<HooksManifest> {
 	return cachedManifest;
 }
 
-export { extractExamplesForName, extractFirstSentenceForName };
+export { examplesFromJsDoc, extractExamplesForName, extractFirstSentenceForName };
