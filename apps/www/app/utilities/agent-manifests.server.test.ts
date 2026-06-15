@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { buildHooksManifest } from "./hooks-manifest.server";
+import { buildHooksManifest, examplesFromJsDoc } from "./hooks-manifest.server";
 import { buildManifest } from "./manifest.server";
 import { buildUtilitiesManifest } from "./utils-manifest.server";
 
@@ -39,5 +39,54 @@ describe("agent manifests", () => {
 			jsdoc: expect.stringContaining("Renders a button"),
 		});
 		expect(componentsMissingJsdoc).toEqual([]);
+	});
+
+	it("extracts component @example blocks from bundled Mantle source", async () => {
+		const manifest = await buildManifest();
+		const field = manifest.components.find((component) => component.name === "Field");
+
+		expect(field?.examples?.length).toBeGreaterThan(0);
+		// Canonical composition: the control wraps the input and help text
+		// sits below it — the exact shape agents should copy.
+		expect(field?.examples?.some((example) => example.includes("<Field.Control>"))).toBe(true);
+	});
+});
+
+describe("examplesFromJsDoc", () => {
+	it("returns each @example block and stops at the next real tag", () => {
+		const jsdoc = [
+			"/**",
+			" * Summary.",
+			" * @example",
+			" * ```tsx",
+			" * <Foo />",
+			" * ```",
+			" * @param x the thing",
+			" */",
+		].join("\n");
+
+		expect(examplesFromJsDoc(jsdoc)).toEqual(["```tsx\n<Foo />\n```"]);
+	});
+
+	it("does not terminate on an @-prefixed line inside a fenced code block", () => {
+		const jsdoc = [
+			"/**",
+			" * @example",
+			" * ```tsx",
+			" * @Component()",
+			" * class Widget {}",
+			" * ```",
+			" */",
+		].join("\n");
+
+		const [example] = examplesFromJsDoc(jsdoc);
+		// Without fence tracking, `@Component()` is mistaken for a tag and the
+		// example is truncated to just the opening fence.
+		expect(example).toContain("@Component()");
+		expect(example).toContain("class Widget {}");
+	});
+
+	it("returns an empty array when there are no @example blocks", () => {
+		expect(examplesFromJsDoc("/**\n * Just a summary.\n */")).toEqual([]);
 	});
 });

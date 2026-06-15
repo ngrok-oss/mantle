@@ -142,6 +142,68 @@ function firstSentenceFromJsDoc(jsdoc: string): string | undefined {
 }
 
 /**
+ * Extract the body of each `@example` block from a JSDoc comment. Strips
+ * the `/** … *\/` wrapper and per-line `*` markers, then collects every
+ * line after an `@example` tag up to the next block tag (`@word`) or the
+ * end of the comment. Fenced code blocks are preserved as authored.
+ *
+ * Returns one trimmed string per `@example`, in source order; an empty
+ * array when the comment has no `@example` blocks.
+ */
+function examplesFromJsDoc(jsdoc: string): string[] {
+	const lines = jsdoc
+		.replace(/^\/\*\*/, "")
+		.replace(/\*\/$/, "")
+		.split("\n")
+		.map((line) => line.replace(/^\s*\*\s?/, ""));
+
+	const examples: string[] = [];
+	let current: string[] | null = null;
+	let inFence = false;
+
+	const flush = () => {
+		if (current == null) {
+			return;
+		}
+		const text = current.join("\n").trim();
+		if (text) {
+			examples.push(text);
+		}
+		current = null;
+		inFence = false;
+	};
+
+	for (const line of lines) {
+		// Inside a fenced code block, a leading `@word` is example content
+		// (a decorator, `@media`, etc.) — not a JSDoc tag. Track fence state
+		// so tag detection doesn't terminate the example early.
+		if (current != null && /^[ \t]*```/.test(line)) {
+			inFence = !inFence;
+			current.push(line);
+			continue;
+		}
+		const tagMatch = inFence ? null : line.match(/^[ \t]*@(\w+)/);
+		if (tagMatch) {
+			flush();
+			if (tagMatch[1] === "example") {
+				current = [];
+				const inline = line.replace(/^[ \t]*@example[ \t]?/, "");
+				if (inline.trim()) {
+					current.push(inline);
+				}
+			}
+			continue;
+		}
+		if (current != null) {
+			current.push(line);
+		}
+	}
+	flush();
+
+	return examples;
+}
+
+/**
  * Escape a string for safe use inside a `RegExp`.
  */
 function escapeRegex(value: string): string {
@@ -198,6 +260,47 @@ async function extractFirstSentenceForName(
 	}
 
 	return undefined;
+}
+
+/**
+ * Walk a source file and return the body of every `@example` block in the
+ * JSDoc immediately preceding the named declaration (`function <name>` or
+ * `const <name>`, with or without `export`). Surfaces the same
+ * copy-pasteable canonical usage an agent would see hovering the import,
+ * without a network lookup. Returns an empty array when the declaration,
+ * its JSDoc, or any `@example` tag is absent.
+ *
+ * @example
+ * const examples = await extractExamplesForName("components/field/field", "Field");
+ * // examples[0] === "```tsx\n<Field.Group>…</Field.Group>\n```"
+ */
+async function extractExamplesForName(sourcePath: string, name: string): Promise<string[]> {
+	const source = readSourceFile(sourcePath);
+	if (source == null) {
+		return [];
+	}
+
+	const declarations = [
+		new RegExp(`(?:export\\s+)?function\\s+${escapeRegex(name)}\\b`),
+		new RegExp(`(?:export\\s+)?const\\s+${escapeRegex(name)}\\b`),
+	];
+
+	for (const declRegex of declarations) {
+		const match = declRegex.exec(source);
+		if (!match) {
+			continue;
+		}
+		const jsdoc = findPrecedingJsDoc(source, match.index);
+		if (jsdoc == null) {
+			continue;
+		}
+		const examples = examplesFromJsDoc(jsdoc);
+		if (examples.length > 0) {
+			return examples;
+		}
+	}
+
+	return [];
 }
 
 /**
@@ -258,4 +361,4 @@ export async function buildHooksManifest(): Promise<HooksManifest> {
 	return cachedManifest;
 }
 
-export { extractFirstSentenceForName };
+export { examplesFromJsDoc, extractExamplesForName, extractFirstSentenceForName };

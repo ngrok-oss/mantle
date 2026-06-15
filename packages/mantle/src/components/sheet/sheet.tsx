@@ -63,7 +63,7 @@ import * as SheetPrimitive from "../dialog/primitive.js";
  * @example
  * ```tsx
  * // Sheet without a trigger (e.g. router controlled)
- * <Sheet open opOpenChange={() => onClose()}>
+ * <Sheet open onOpenChange={() => onClose()}>
  *   <Sheet.Content>
  *     <Sheet.Header>
  *       <Sheet.TitleGroup>
@@ -262,7 +262,7 @@ type SheetContentProps = ComponentPropsWithoutRef<typeof SheetPrimitive.Content>
  * @example
  * ```tsx
  * // Sheet without a trigger (e.g. router controlled)
- * <Sheet open opOpenChange={() => onClose()}>
+ * <Sheet open onOpenChange={() => onClose()}>
  *   <Sheet.Content>
  *     <Sheet.Header>
  *       <Sheet.TitleGroup>
@@ -331,7 +331,7 @@ type SheetCloseIconButtonProps = Partial<Omit<IconButtonProps, "icon">>;
  * @example
  * ```tsx
  * // Sheet without a trigger (e.g. router controlled)
- * <Sheet open opOpenChange={() => onClose()}>
+ * <Sheet open onOpenChange={() => onClose()}>
  *   <Sheet.Content>
  *     <Sheet.Header>
  *       <Sheet.TitleGroup>
@@ -401,7 +401,7 @@ CloseIconButton.displayName = "SheetCloseIconButton";
  * @example
  * ```tsx
  * // Sheet without a trigger (e.g. router controlled)
- * <Sheet open opOpenChange={() => onClose()}>
+ * <Sheet open onOpenChange={() => onClose()}>
  *   <Sheet.Content>
  *     <Sheet.Header>
  *       <Sheet.TitleGroup>
@@ -462,7 +462,7 @@ Body.displayName = "SheetBody";
  * @example
  * ```tsx
  * // Sheet without a trigger (e.g. router controlled)
- * <Sheet open opOpenChange={() => onClose()}>
+ * <Sheet open onOpenChange={() => onClose()}>
  *   <Sheet.Content>
  *     <Sheet.Header>
  *       <Sheet.TitleGroup>
@@ -524,7 +524,7 @@ Header.displayName = "SheetHeader";
  * @example
  * ```tsx
  * // Sheet without a trigger (e.g. router controlled)
- * <Sheet open opOpenChange={() => onClose()}>
+ * <Sheet open onOpenChange={() => onClose()}>
  *   <Sheet.Content>
  *     <Sheet.Header>
  *       <Sheet.TitleGroup>
@@ -585,7 +585,7 @@ Footer.displayName = "SheetFooter";
  * @example
  * ```tsx
  * // Sheet without a trigger (e.g. router controlled)
- * <Sheet open opOpenChange={() => onClose()}>
+ * <Sheet open onOpenChange={() => onClose()}>
  *   <Sheet.Content>
  *     <Sheet.Header>
  *       <Sheet.TitleGroup>
@@ -646,7 +646,7 @@ Title.displayName = SheetPrimitive.Title.displayName;
  * @example
  * ```tsx
  * // Sheet without a trigger (e.g. router controlled)
- * <Sheet open opOpenChange={() => onClose()}>
+ * <Sheet open onOpenChange={() => onClose()}>
  *   <Sheet.Content>
  *     <Sheet.Header>
  *       <Sheet.TitleGroup>
@@ -708,7 +708,7 @@ TitleGroup.displayName = "SheetTitleGroup";
  * @example
  * ```tsx
  * // Sheet without a trigger (e.g. router controlled)
- * <Sheet open opOpenChange={() => onClose()}>
+ * <Sheet open onOpenChange={() => onClose()}>
  *   <Sheet.Content>
  *     <Sheet.Header>
  *       <Sheet.TitleGroup>
@@ -769,7 +769,7 @@ Description.displayName = SheetPrimitive.Description.displayName;
  * @example
  * ```tsx
  * // Sheet without a trigger (e.g. router controlled)
- * <Sheet open opOpenChange={() => onClose()}>
+ * <Sheet open onOpenChange={() => onClose()}>
  *   <Sheet.Content>
  *     <Sheet.Header>
  *       <Sheet.TitleGroup>
@@ -901,7 +901,7 @@ Actions.displayName = "SheetActions";
  * @example
  * ```tsx
  * // Sheet without a trigger (e.g. router controlled)
- * <Sheet open opOpenChange={() => onClose()}>
+ * <Sheet open onOpenChange={() => onClose()}>
  *   <Sheet.Content>
  *     <Sheet.Header>
  *       <Sheet.TitleGroup>

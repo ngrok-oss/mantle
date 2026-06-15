@@ -88,7 +88,7 @@
     "typescript/no-import-type-side-effects": "error",
     "typescript/no-invalid-void-type": "error",
     "typescript/no-non-null-assertion": "error",
-    "unicorn/filename-case": ["error", { "case": "kebabCase", "ignore": "[\\[\\$]" }]
+    "unicorn/filename-case": ["error", { "case": "kebabCase", "ignore": ["[\\[\\$]"] }]
   },
   "overrides": [
     {

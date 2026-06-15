@@ -1,5 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "cacheMaxAge": "7d",
   "globalEnv": ["VERCEL_GIT_COMMIT_SHA", "VERCEL_DEPLOYMENT_ID", "VERCEL"],
   "globalPassThroughEnv": ["CI", "DISABLE_HEADLESS", "PLAYWRIGHT_WS_ENDPOINT"],
   "tasks": {

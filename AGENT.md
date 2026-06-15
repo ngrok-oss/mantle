@@ -2,6 +2,37 @@
 
 ngrok's UI library and design system built with React, TypeScript, Radix, and Tailwind CSS. This is a monorepo managed with pnpm workspaces and Turborepo.
 
+## Non-Negotiable Agent Contract
+
+This file and [CONVENTIONS.md](./CONVENTIONS.md) are active instructions, not background reading. Work is incomplete until the agent has verified its own changed files against the conventions.
+
+Before editing:
+
+- Read the relevant [CONVENTIONS.md](./CONVENTIONS.md) sections for the files being changed.
+- Search before creating helpers, hooks, components, parsers, formatters, utilities, or dependencies — prefer existing tested code and package subpath exports over reimplementation. Inspect the smallest relevant scope first (`packages/mantle/src`, then the owning app).
+- For dependency changes, check `pnpm-workspace.yaml` and follow the catalog / exact-version rules.
+
+Before the final response:
+
+- Inspect `git diff --name-only` and `git diff` for the changed files.
+- Re-check those files against the relevant [CONVENTIONS.md](./CONVENTIONS.md) sections.
+- Fix convention drift before reporting completion.
+- Run the targeted [verification](#verification) commands, or explicitly say why they were not run.
+- Include a brief `Conventions pass:` note summarizing what was checked.
+
+Verification cadence: you do **not** need to run lint/typecheck/build/test after every individual edit. While rapidly iterating on a change, keep editing freely without validating each intermediate step. Run the targeted verification commands once a coherent chunk of work is done — and before the final response — rather than treating every keystroke as a checkpoint.
+
+Required diff-audit checklist:
+
+- JSDoc: exported functions, hooks, components, and prop types are documented; required `@example` blocks are present.
+- Tests: bug fixes have regression tests; business logic has edge-case tests (transformations, validation, conditional rendering, state machines, parsing/formatting).
+- TypeScript: no `any`, no forbidden `as Type` assertions, no non-null assertions (`value!`), no `React.FC`; prefer `type` over `interface`.
+- Nullish checks: `== null` / `!= null`, not `=== undefined` / `!== undefined`.
+- Imports: relative paths in `packages/`, `~/...` aliases in `apps/`; named exports; `import type` for type-only imports.
+- className: composed with `cx` from `@ngrok/mantle/cx` — no string interpolation, `+`, or ternaries inside `className`.
+- Compound components: single-level POJO namespace — no nested namespaces.
+- Deps: exact-pinned versions (no `^`/`~`); shared deps go through the `catalog:` in `pnpm-workspace.yaml`.
+
 ## Setup
 
 From a fresh clone, run `./scripts/setup`. It installs [mise](https://mise.jdx.dev/) (if missing), provisions Node and pnpm at the versions pinned in `.nvmrc` and `package.json#packageManager`, and runs `pnpm install --frozen-lockfile`.
@@ -47,7 +78,7 @@ Use `-F` to scope: `pnpm -w run build -F @ngrok/mantle`, `pnpm -w run test -F @n
 
 ## Verification
 
-Before finishing work, run all of these from the workspace root and ensure they pass:
+Run these from the workspace root once a coherent chunk of work is done and before the final response (see the Agent Contract's verification cadence) — not after every edit. Ensure they pass:
 
 1. `pnpm -w run lint` — 0 errors
 2. `pnpm -w run fmt:check` — 0 errors (run `pnpm -w run fmt` to auto-fix)
