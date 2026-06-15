@@ -85,6 +85,7 @@ type Props = ComponentProps<"div"> & WithAsChild & BaseProps;
  *     </SandboxedOnClick>
  *   </TableRowCell>
  * </TableRow>
+ * ```
  */
 const SandboxedOnClick = forwardRef<ComponentRef<"div">, Props>(
 	(
