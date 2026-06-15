@@ -145,21 +145,43 @@ jobs:
           cache: "pnpm"
           cache-dependency-path: "pnpm-lock.yaml"
 
+      - name: Resolve Playwright version 🔢
+        id: playwright
+        run: echo "version=$(yq -r '.catalog.playwright' pnpm-workspace.yaml)" >> "${GITHUB_OUTPUT}"
+
       - name: Restore Playwright Docker image cache
         uses: actions/cache@v5
         with:
           path: /tmp/playwright-image.tar
-          key: playwright-docker-${{ runner.os }}-${{ hashFiles('pnpm-workspace.yaml') }}
+          # Key on the Playwright version only — unrelated pnpm-workspace.yaml
+          # edits (overrides, other catalog bumps) must not invalidate the
+          # image cache and force a fresh MCR pull.
+          key: playwright-docker-${{ runner.os }}-${{ steps.playwright.outputs.version }}
 
       - name: Start Playwright sidecar 🎭
+        env:
+          PLAYWRIGHT_VERSION: ${{ steps.playwright.outputs.version }}
         run: |
-          PLAYWRIGHT_VERSION=$(yq -r '.catalog.playwright' pnpm-workspace.yaml)
           PLAYWRIGHT_IMAGE="mcr.microsoft.com/playwright:v${PLAYWRIGHT_VERSION}-noble"
 
           if [[ -f /tmp/playwright-image.tar ]]; then
             docker load --input /tmp/playwright-image.tar
           else
-            docker pull "${PLAYWRIGHT_IMAGE}"
+            # MCR intermittently returns transient 401 UNAUTHORIZED for anonymous
+            # pulls of public images. Retry with backoff before failing the job.
+            pulled=false
+            for attempt in 1 2 3 4 5; do
+              if docker pull "${PLAYWRIGHT_IMAGE}"; then
+                pulled=true
+                break
+              fi
+              echo "docker pull failed (attempt ${attempt}/5); retrying in $((attempt * 10))s..."
+              sleep "$((attempt * 10))"
+            done
+            if [[ "${pulled}" != true ]]; then
+              echo "::error::Failed to pull ${PLAYWRIGHT_IMAGE} after 5 attempts"
+              exit 1
+            fi
             docker save --output /tmp/playwright-image.tar "${PLAYWRIGHT_IMAGE}"
           fi
 
