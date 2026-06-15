@@ -145,75 +145,31 @@ jobs:
           cache: "pnpm"
           cache-dependency-path: "pnpm-lock.yaml"
 
+      - name: Install Dependencies 📥
+        run: pnpm install --frozen-lockfile
+
       - name: Resolve Playwright version 🔢
         id: playwright
         run: echo "version=$(yq -r '.catalog.playwright' pnpm-workspace.yaml)" >> "${GITHUB_OUTPUT}"
 
-      - name: Restore Playwright Docker image cache
+      - name: Cache Playwright browsers 🎭
         uses: actions/cache@v5
         with:
-          path: /tmp/playwright-image.tar
-          # Key on the Playwright version only — unrelated pnpm-workspace.yaml
-          # edits (overrides, other catalog bumps) must not invalidate the
-          # image cache and force a fresh MCR pull.
-          key: playwright-docker-${{ runner.os }}-${{ steps.playwright.outputs.version }}
+          path: ~/.cache/ms-playwright
+          # Key on the Playwright version only, so the cached browser binaries
+          # survive unrelated pnpm-workspace.yaml edits and are reused until the
+          # next genuine Playwright bump.
+          key: playwright-browsers-${{ runner.os }}-${{ steps.playwright.outputs.version }}
 
-      - name: Start Playwright sidecar 🎭
-        env:
-          PLAYWRIGHT_VERSION: ${{ steps.playwright.outputs.version }}
-        run: |
-          PLAYWRIGHT_IMAGE="mcr.microsoft.com/playwright:v${PLAYWRIGHT_VERSION}-noble"
-
-          if [[ -f /tmp/playwright-image.tar ]]; then
-            docker load --input /tmp/playwright-image.tar
-          else
-            # MCR intermittently returns transient 401 UNAUTHORIZED for anonymous
-            # pulls of public images. Retry with backoff before failing the job.
-            pulled=false
-            for attempt in 1 2 3 4 5; do
-              if docker pull "${PLAYWRIGHT_IMAGE}"; then
-                pulled=true
-                break
-              fi
-              echo "docker pull failed (attempt ${attempt}/5); retrying in $((attempt * 10))s..."
-              sleep "$((attempt * 10))"
-            done
-            if [[ "${pulled}" != true ]]; then
-              echo "::error::Failed to pull ${PLAYWRIGHT_IMAGE} after 5 attempts"
-              exit 1
-            fi
-            docker save --output /tmp/playwright-image.tar "${PLAYWRIGHT_IMAGE}"
-          fi
-
-          docker run -d --name playwright-server --network=host --ipc=host \
-            "${PLAYWRIGHT_IMAGE}" \
-            /bin/sh -c "npx -y playwright@${PLAYWRIGHT_VERSION} run-server --host 0.0.0.0 --port 3000"
-
-      - name: Install Dependencies 📥
-        run: pnpm install --frozen-lockfile
-
-      - name: Wait for Playwright sidecar
-        run: |
-          echo "⏳ Waiting for Playwright server to be ready (timeout: 120s)..."
-          for i in {1..60}; do
-            if curl -s http://127.0.0.1:3000/ > /dev/null 2>&1; then
-              echo "✅ Playwright server is ready"
-              exit 0
-            fi
-            sleep 2
-          done
-          echo "❌ Playwright server failed to start"
-          docker logs playwright-server 2>&1 || true
-          exit 1
+      - name: Install Playwright browser 🎭
+        # Browsers are downloaded from Playwright's own CDN rather than pulled
+        # from MCR, which rate-limits / 401s anonymous public image pulls and
+        # made the previous Docker sidecar approach flaky. vitest.config.ts
+        # launches Chromium locally when PLAYWRIGHT_WS_ENDPOINT is unset.
+        run: pnpm -F @ngrok/mantle exec playwright install --with-deps chromium
 
       - name: Test 🧪
-        env:
-          PLAYWRIGHT_WS_ENDPOINT: ws://127.0.0.1:3000/
         run: pnpm run test
-
-      - name: Cleanup Playwright sidecar
-        if: always()
-        run: docker rm -f playwright-server || true
 
   vibe-check:
     name: vibe-check
