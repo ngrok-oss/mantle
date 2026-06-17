@@ -1,5 +1,26 @@
 # @ngrok/mantle
 
+## 0.76.3
+
+### Patch Changes
+
+- [#1241](https://github.com/ngrok-oss/mantle/pull/1241) [`f7be346`](https://github.com/ngrok-oss/mantle/commit/f7be3464e3d823d8d8e8c1c96ba15b615871ddb7) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Update `react-day-picker` to `10.0.1` (from `9.14.0`) and bump the `tailwindcss` peer dependency to `^4.3.1`. The `Calendar` component already used the v9+ API surface — no removed navigation/focus/event props, formatter or label aliases, or renamed `classNames` keys — so this is a transparent dependency bump with no public API changes.
+
+- [#1247](https://github.com/ngrok-oss/mantle/pull/1247) [`846f5bd`](https://github.com/ngrok-oss/mantle/commit/846f5bddbb0b4bfbf16aff66960b79f5afd3a8fe) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Fix two issues with `Checkbox`'s indeterminate handling:
+
+  - A controlled checkbox toggling through `"indeterminate"` (e.g. a table "select all" header cycling unchecked → indeterminate → checked) logged React's "changing a controlled input to be uncontrolled" warning. The indeterminate frame now keeps `checked` a boolean, so the input stays controlled for its entire lifetime.
+  - A controlled `checked="indeterminate"` set on mount did not render the indeterminate visual — two competing effects clobbered each other. The native `indeterminate` DOM property is now driven by a single effect keyed on the effective checked state, so it renders correctly on first paint and on every update.
+
+  Add `selectAllChecked` to `@ngrok/mantle/checkbox` — a helper that resolves the tri-state `checked` value (`true` / `"indeterminate"` / `false`) for a "select all" checkbox from `{ allSelected, someSelected }` selection counts, ready to pass straight to `Checkbox`. Encapsulates the correctness-prone tri-state branch every multi-select list reinvents. Also exports the `CheckedState` type.
+
+- [#1247](https://github.com/ngrok-oss/mantle/pull/1247) [`846f5bd`](https://github.com/ngrok-oss/mantle/commit/846f5bddbb0b4bfbf16aff66960b79f5afd3a8fe) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Update the `DataTable` source JSDoc `@example` blocks so the regenerated `.d.ts`, `llms.txt`, and agent component manifest teach canonical patterns instead of throwaway ones: the two empty states (an `Empty` hosted in `DataTable.EmptyRow` — "no data yet" vs. "no results for the active filter", with a `Clear filters` reset) and pagination via `CursorPagination` with a page-size dropdown (replacing hand-rolled prev/next `Button`s). No runtime API changes.
+
+- [#1249](https://github.com/ngrok-oss/mantle/pull/1249) [`44ee551`](https://github.com/ngrok-oss/mantle/commit/44ee5510ae9ac938b32862244fc2c80848709d18) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Drive the `scroll-fade-x` edge-fade utility with a CSS scroll-driven animation instead of JS-toggled `data-scroll-left` / `data-scroll-right` attributes, and add a matching `scroll-fade-y` utility for vertical scroll containers. Single-edge variants — `scroll-fade-t`, `scroll-fade-b`, `scroll-fade-l`, `scroll-fade-r` — are also available for containers that should fade only one edge (e.g. a sidebar that fades content scrolling under a sticky header but stays flush at the bottom). `Table` and `Tabs` now render their horizontal edge fades purely in CSS: the `Tabs.List` effect no longer runs a scroll listener, `ResizeObserver`, or `MutationObserver` for the fade (it only keeps a keyboard-focused trigger scrolled into view), and `Table` no longer writes the fade attributes. Consumers can still pin an edge opaque by overriding `--_fade-left` / `--_fade-right` (the animation drives the upstream `--_scroll-fade-*` vars). Where `animation-timeline: scroll()` is unsupported (Firefox stable as of mid-2026) the fade is simply absent — content is never clipped.
+
+- [#1248](https://github.com/ngrok-oss/mantle/pull/1248) [`3a234e0`](https://github.com/ngrok-oss/mantle/commit/3a234e0ea88570d6c08ef3bf4264d138faf3edca) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Update Radix UI dependencies to their latest patch/minor releases: `@radix-ui/react-accordion` to `1.2.14`, `@radix-ui/react-dialog` to `1.1.17`, `@radix-ui/react-dropdown-menu` to `2.1.18`, `@radix-ui/react-hover-card` to `1.1.17`, `@radix-ui/react-popover` to `1.1.17`, `@radix-ui/react-progress` to `1.1.10`, `@radix-ui/react-select` to `2.3.1`, `@radix-ui/react-slider` to `1.4.1`, `@radix-ui/react-slot` to `1.3.0`, `@radix-ui/react-switch` to `1.3.1`, `@radix-ui/react-tabs` to `1.1.15`, and `@radix-ui/react-tooltip` to `1.2.10`. No public API changes.
+
+- [#1239](https://github.com/ngrok-oss/mantle/pull/1239) [`9b00072`](https://github.com/ngrok-oss/mantle/commit/9b000727a50b90e60c118652ab8bc04703c0839a) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Surface each component's JSDoc `@example` blocks in the agent-facing component manifest (`/api/components.json`), giving agents copy-pasteable canonical usage without a network lookup. Fix two malformed examples caught in the process: `Sheet` examples used `opOpenChange` instead of `onOpenChange`, and `SandboxedOnClick`'s example was missing its closing code fence. Also documents the `Field` slot-order anti-pattern — help text (`Field.Description`) renders below `Field.Control`, not above it.
+
 ## 0.76.2
 
 ### Patch Changes

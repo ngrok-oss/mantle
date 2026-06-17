@@ -1,5 +1,14 @@
 # @ngrok/mantle-vite-plugins
 
+## 1.0.14
+
+### Patch Changes
+
+- [#1241](https://github.com/ngrok-oss/mantle/pull/1241) [`f7be346`](https://github.com/ngrok-oss/mantle/commit/f7be3464e3d823d8d8e8c1c96ba15b615871ddb7) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Update the `oxc-parser` dependency to `0.136.0` (from `0.135.0`).
+
+- Updated dependencies [[`f7be346`](https://github.com/ngrok-oss/mantle/commit/f7be3464e3d823d8d8e8c1c96ba15b615871ddb7)]:
+  - @ngrok/mantle-server-syntax-highlighter@1.1.4
+
 ## 1.0.13
 
 ### Patch Changes
