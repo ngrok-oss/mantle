@@ -63,6 +63,7 @@ export default [
 		route("changelog.mdx", "./routes/$.mdx.tsx", { id: "changelog-mdx" }),
 		...docRoute("base/breakpoints"),
 		...docRoute("base/colors"),
+		...docRoute("base/scroll-fade"),
 		...docRoute("base/shadows"),
 		...docRoute("base/tailwind-variants"),
 		...docRoute("base/typography"),

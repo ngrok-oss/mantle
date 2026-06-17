@@ -641,6 +641,73 @@ MARK: UTILITIES
 	}
 }
 
+/*
+ * Single-edge variants of `scroll-fade-x` / `scroll-fade-y`, for when only one
+ * edge should fade (e.g. a sidebar that fades content scrolling under a sticky
+ * header but stays flush at the bottom). Each masks and drives only its own
+ * edge; the opposite edge stays fully opaque. Same scroll-driven mechanics and
+ * fallback behavior as the axis utilities — see `scroll-fade-x` for details.
+ */
+@utility scroll-fade-t {
+	--_fade-top: var(--_scroll-fade-top);
+
+	mask-image: linear-gradient(to bottom, var(--_fade-top), black 1.5rem);
+
+	@supports (animation-timeline: scroll()) {
+		animation-name: scroll-fade-y-start;
+		animation-fill-mode: both;
+		animation-timing-function: linear;
+		animation-range: 0 2px;
+		animation-timeline: scroll(self block);
+		animation-duration: 1ms;
+	}
+}
+
+@utility scroll-fade-b {
+	--_fade-bottom: var(--_scroll-fade-bottom);
+
+	mask-image: linear-gradient(to bottom, black calc(100% - 1.5rem), var(--_fade-bottom));
+
+	@supports (animation-timeline: scroll()) {
+		animation-name: scroll-fade-y-end;
+		animation-fill-mode: both;
+		animation-timing-function: linear;
+		animation-range: calc(100% - 2px) 100%;
+		animation-timeline: scroll(self block);
+		animation-duration: 1ms;
+	}
+}
+
+@utility scroll-fade-l {
+	--_fade-left: var(--_scroll-fade-left);
+
+	mask-image: linear-gradient(to right, var(--_fade-left), black 40px);
+
+	@supports (animation-timeline: scroll()) {
+		animation-name: scroll-fade-x-start;
+		animation-fill-mode: both;
+		animation-timing-function: linear;
+		animation-range: 0 2px;
+		animation-timeline: scroll(self inline);
+		animation-duration: 1ms;
+	}
+}
+
+@utility scroll-fade-r {
+	--_fade-right: var(--_scroll-fade-right);
+
+	mask-image: linear-gradient(to right, black calc(100% - 40px), var(--_fade-right));
+
+	@supports (animation-timeline: scroll()) {
+		animation-name: scroll-fade-x-end;
+		animation-fill-mode: both;
+		animation-timing-function: linear;
+		animation-range: calc(100% - 2px) 100%;
+		animation-timeline: scroll(self inline);
+		animation-duration: 1ms;
+	}
+}
+
 @utility nav-scroll-shadow {
 	/* Shadow Cover TOP */
 	background:
