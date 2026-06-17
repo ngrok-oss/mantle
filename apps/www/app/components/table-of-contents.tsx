@@ -2,7 +2,6 @@ import { cx } from "@ngrok/mantle/cx";
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router";
 import type { TocEntry } from "~/utilities/docs";
-import { ScrollMask } from "./scroll-mask";
 
 // Matches the `scroll-mt-24` (6rem = 96px) on `HashLinkHeading`. Aligning the
 // trigger with where headings land after a hash-link click ensures the clicked
@@ -128,12 +127,12 @@ export function TableOfContents({ entries }: { entries: Array<TocEntry> }) {
 			className="sticky top-15 flex max-h-[calc(100vh-3.75rem)] w-40 flex-col pt-4"
 		>
 			<p className="mb-3 text-xs font-medium uppercase tracking-wider font-mono">On this page</p>
-			<ScrollMask className="scrollbar min-h-0 flex-1 overflow-y-auto pb-4">
+			<div className="scroll-fade-y scrollbar min-h-0 flex-1 overflow-y-auto pb-4">
 				<ol className="space-y-1 border-l border-gray-300">
 					{entries.map((entry) => (
 						<li
 							key={entry.id}
-							// Keep active entries clear of the ScrollMask fade when auto-scrolled into view.
+							// Keep active entries clear of the scroll-fade-y edge fade when auto-scrolled into view.
 							className="scroll-my-6"
 							ref={(node) => {
 								if (node) {
@@ -150,7 +149,7 @@ export function TableOfContents({ entries }: { entries: Array<TocEntry> }) {
 								className={cx(
 									// 3px left bar that overlays the ol's 1px gray edge (descendant
 									// paints over ancestor) and extends 2px rightward into the content
-									// area. We can't extend leftward — `ScrollMask`'s `overflow-y-auto`
+									// area. We can't extend leftward — the scroll container's `overflow-y-auto`
 									// implicitly clips horizontal overflow, so any negative-margin
 									// extension just gets cut off. Padding compensates so content text
 									// position stays the same as the previous 1px-bar layout.
@@ -173,7 +172,7 @@ export function TableOfContents({ entries }: { entries: Array<TocEntry> }) {
 						</li>
 					))}
 				</ol>
-			</ScrollMask>
+			</div>
 		</nav>
 	);
 }

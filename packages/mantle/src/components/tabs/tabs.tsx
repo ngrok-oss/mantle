@@ -158,37 +158,11 @@ const List = forwardRef<
 		}
 
 		const abortController = new AbortController();
-		let maxScrollLeft = 0;
 
-		const updateShadows = () => {
-			element.toggleAttribute("data-scroll-left", element.scrollLeft > 0);
-			element.toggleAttribute(
-				"data-scroll-right",
-				Math.ceil(element.scrollLeft) < maxScrollLeft - 1,
-			);
-		};
-
-		const handleResize = () => {
-			maxScrollLeft = element.scrollWidth - element.clientWidth;
-			updateShadows();
-		};
-
-		// passive: true — lets the browser optimize scroll performance by guaranteeing
-		// we won't call preventDefault() inside this handler.
-		element.addEventListener("scroll", updateShadows, {
-			passive: true,
-			signal: abortController.signal,
-		});
-
-		// ResizeObserver alone won't catch scrollWidth changes caused by content
-		// mutations (e.g. font loading, badge count changes) when the list container
-		// itself doesn't resize. MutationObserver covers those cases.
-		const mutationObserver = new MutationObserver(handleResize);
-		mutationObserver.observe(element, {
-			childList: true,
-			subtree: true, // subtree catches badge/label content changes inside triggers
-		});
-
+		// The edge fade is handled declaratively by the `scroll-fade-x` utility
+		// (a CSS scroll-driven animation), so the only thing left for JS here is
+		// keeping a keyboard-focused trigger scrolled into view.
+		//
 		// When Radix moves focus via arrow keys it calls element.focus(), which doesn't
 		// always scroll the target into view inside an overflow container. We handle it
 		// explicitly here via event delegation so every trigger gets this behavior with
@@ -209,14 +183,9 @@ const List = forwardRef<
 			},
 			{ signal: abortController.signal },
 		);
-		const resizeObserver = new ResizeObserver(handleResize);
-		resizeObserver.observe(element);
-		handleResize();
 
 		return () => {
 			abortController.abort();
-			resizeObserver.disconnect();
-			mutationObserver.disconnect();
 		};
 	}, [orientation]);
 

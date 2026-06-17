@@ -158,6 +158,7 @@ export const basePages = [
 	//,
 	"Breakpoints",
 	"Colors",
+	"Scroll Fade",
 	"Shadows",
 	"Tailwind Variants",
 	"Typography",
@@ -167,6 +168,7 @@ export const basePages = [
 export const baseRoutes = {
 	Breakpoints: "/base/breakpoints",
 	Colors: "/base/colors",
+	"Scroll Fade": "/base/scroll-fade",
 	Shadows: "/base/shadows",
 	"Tailwind Variants": "/base/tailwind-variants",
 	Typography: "/base/typography",
