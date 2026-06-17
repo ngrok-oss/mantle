@@ -140,7 +140,11 @@ export default defineConfig((options) => [
 		// for one of the builds. rm -rf dist is run as a "prebuild" script to avoid this issue
 		clean: false,
 		minify: true,
-		sourcemap: true,
+		// Don't ship source maps: they were ~58% of the published package and
+		// embed the full source via `sourcesContent`. Consumers debug against
+		// the minified bundle; agents read the typed `.d.ts` surface and the
+		// docs site (dist/agent.json, dist/llms.txt) — not decoded map JSON.
+		sourcemap: false,
 		target: "ES2025",
 		tsconfig: "tsconfig.build.json",
 		fixedExtension: false,
