@@ -1,4 +1,5 @@
-import { IconButton } from "@ngrok/mantle/button";
+import { Button, IconButton } from "@ngrok/mantle/button";
+import { Checkbox, selectAllChecked } from "@ngrok/mantle/checkbox";
 import {
 	DataTable,
 	createColumnHelper,
@@ -6,14 +7,20 @@ import {
 	getFilteredRowModel,
 	getPaginationRowModel,
 	getSortedRowModel,
+	type RowSelectionState,
 	useReactTable,
 } from "@ngrok/mantle/data-table";
 import { DropdownMenu } from "@ngrok/mantle/dropdown-menu";
+import { Empty } from "@ngrok/mantle/empty";
 import { Icon } from "@ngrok/mantle/icon";
+import { Input } from "@ngrok/mantle/input";
+import { CursorPagination } from "@ngrok/mantle/pagination";
 import { DotsThreeIcon } from "@phosphor-icons/react/DotsThree";
+import { MagnifyingGlassIcon } from "@phosphor-icons/react/MagnifyingGlass";
 import { PencilSimpleIcon } from "@phosphor-icons/react/PencilSimple";
 import { TrashIcon } from "@phosphor-icons/react/Trash";
-import { useMemo } from "react";
+import { TrayIcon } from "@phosphor-icons/react/Tray";
+import { useMemo, useState } from "react";
 
 type Payment = {
 	id: string;
@@ -151,7 +158,10 @@ export function PaymentsDemo() {
 					))
 				) : (
 					<DataTable.EmptyRow>
-						<p className="flex items-center justify-center min-h-20">No results.</p>
+						<Empty.Root>
+							<Empty.Icon svg={<TrayIcon />} />
+							<Empty.Title>No payments yet</Empty.Title>
+						</Empty.Root>
 					</DataTable.EmptyRow>
 				)}
 			</DataTable.Body>
@@ -375,7 +385,10 @@ export function EndpointsDemo() {
 					rows.map((row) => <DataTable.Row key={row.id} row={row} />)
 				) : (
 					<DataTable.EmptyRow>
-						<p className="flex items-center justify-center min-h-20">No results.</p>
+						<Empty.Root>
+							<Empty.Icon svg={<TrayIcon />} />
+							<Empty.Title>No endpoints yet</Empty.Title>
+						</Empty.Root>
 					</DataTable.EmptyRow>
 				)}
 			</DataTable.Body>
@@ -384,7 +397,8 @@ export function EndpointsDemo() {
 }
 
 /**
- * Demo of a data table in an empty state.
+ * Demo of a data table in its "no data yet" empty state — an informational
+ * `Empty` with an optional primary "create" action, hosted in `DataTable.EmptyRow`.
  */
 export function EmptyPaymentsDemo() {
 	const data = useMemo<Payment[]>(() => [], []);
@@ -409,10 +423,222 @@ export function EmptyPaymentsDemo() {
 					rows.map((row) => <DataTable.Row key={row.id} row={row} />)
 				) : (
 					<DataTable.EmptyRow>
-						<p className="flex items-center justify-center min-h-20">No results.</p>
+						<Empty.Root>
+							<Empty.Icon svg={<TrayIcon />} />
+							<Empty.Title>No payments yet</Empty.Title>
+							<Empty.Description>
+								<p>Payments you receive will appear here.</p>
+							</Empty.Description>
+							<Empty.Actions>
+								<Button type="button" appearance="filled" priority="neutral">
+									Create payment
+								</Button>
+							</Empty.Actions>
+						</Empty.Root>
 					</DataTable.EmptyRow>
 				)}
 			</DataTable.Body>
 		</DataTable.Root>
+	);
+}
+
+/**
+ * Demo of the "no results for the active filter" empty state. Typing a query
+ * that matches nothing swaps in a filtered `Empty` whose `Clear filters` action
+ * resets the search — distinct from the "no data yet" state above.
+ */
+export function FilteredEmptyStateDemo() {
+	const data = useMemo(() => examplePayments, []);
+	const [globalFilter, setGlobalFilter] = useState("");
+	const table = useReactTable({
+		data,
+		columns,
+		state: { globalFilter },
+		onGlobalFilterChange: setGlobalFilter,
+		getCoreRowModel: getCoreRowModel(),
+		getSortedRowModel: getSortedRowModel(),
+		getFilteredRowModel: getFilteredRowModel(),
+		getPaginationRowModel: getPaginationRowModel(),
+		initialState: { pagination: { pageSize: 100 } },
+	});
+	const rows = table.getRowModel().rows;
+	const isFiltered = globalFilter.trim() !== "";
+	return (
+		<div className="flex w-full flex-col gap-4">
+			<Input
+				placeholder="Filter payments…"
+				value={globalFilter}
+				onChange={(event) => setGlobalFilter(event.target.value)}
+			/>
+			<DataTable.Root table={table}>
+				<DataTable.Head />
+				<DataTable.Body>
+					{rows.length > 0 ? (
+						rows.map((row) => <DataTable.Row key={row.id} row={row} />)
+					) : isFiltered ? (
+						<DataTable.EmptyRow>
+							<Empty.Root>
+								<Empty.Icon svg={<MagnifyingGlassIcon />} />
+								<Empty.Title>No payments match your filter</Empty.Title>
+								<Empty.Description>
+									<p>Try a different search, or clear the filter to see everything.</p>
+								</Empty.Description>
+								<Empty.Actions>
+									<Button
+										type="button"
+										appearance="outlined"
+										priority="neutral"
+										onClick={() => setGlobalFilter("")}
+									>
+										Clear filters
+									</Button>
+								</Empty.Actions>
+							</Empty.Root>
+						</DataTable.EmptyRow>
+					) : (
+						<DataTable.EmptyRow>
+							<Empty.Root>
+								<Empty.Icon svg={<TrayIcon />} />
+								<Empty.Title>No payments yet</Empty.Title>
+								<Empty.Description>
+									<p>Payments you receive will appear here.</p>
+								</Empty.Description>
+							</Empty.Root>
+						</DataTable.EmptyRow>
+					)}
+				</DataTable.Body>
+			</DataTable.Root>
+		</div>
+	);
+}
+
+// `defaultPageSize` seeds an UNCONTROLLED <Select>, so keep it stable — a module
+// const (or the table's INITIAL page size), never the live page size.
+const DEFAULT_PAGE_SIZE = 10;
+
+const paginatedStatuses = ["success", "processing", "failed", "pending"];
+
+// A larger, deterministic dataset so the page-size dropdown and prev/next have
+// something to page through.
+const paginatedPayments: Payment[] = Array.from({ length: 23 }, (_, index) => ({
+	id: `pmt_${(index + 1).toString().padStart(4, "0")}`,
+	amount: 100 + index * 37,
+	status: paginatedStatuses[index % paginatedStatuses.length] ?? "pending",
+	email: `user${index + 1}@example.com`,
+}));
+
+/**
+ * Demo of `CursorPagination` wired to a client-paginated TanStack table, with a
+ * working page-size dropdown plus previous/next buttons driven by the table
+ * instance (`getCanNextPage()` / `nextPage()` / `setPageSize()`).
+ */
+export function PaginatedPaymentsDemo() {
+	const data = useMemo(() => paginatedPayments, []);
+	const table = useReactTable({
+		data,
+		columns,
+		getCoreRowModel: getCoreRowModel(),
+		getPaginationRowModel: getPaginationRowModel(),
+		getSortedRowModel: getSortedRowModel(),
+		initialState: { pagination: { pageSize: DEFAULT_PAGE_SIZE } },
+	});
+	const rows = table.getRowModel().rows;
+	return (
+		<div className="flex w-full flex-col gap-4">
+			<DataTable.Root table={table}>
+				<DataTable.Head />
+				<DataTable.Body>
+					{rows.length > 0 ? (
+						rows.map((row) => <DataTable.Row key={row.id} row={row} />)
+					) : (
+						<DataTable.EmptyRow>
+							<Empty.Root>
+								<Empty.Icon svg={<TrayIcon />} />
+								<Empty.Title>No payments yet</Empty.Title>
+							</Empty.Root>
+						</DataTable.EmptyRow>
+					)}
+				</DataTable.Body>
+			</DataTable.Root>
+			<CursorPagination.Root className="flex justify-end" defaultPageSize={DEFAULT_PAGE_SIZE}>
+				<CursorPagination.PageSizeSelect
+					onChangePageSize={(size) => {
+						table.setPageSize(size);
+						table.setPageIndex(0); // reset to the first page when the size changes
+					}}
+				/>
+				<CursorPagination.Buttons
+					hasPreviousPage={table.getCanPreviousPage()}
+					hasNextPage={table.getCanNextPage()}
+					onPreviousPage={() => table.previousPage()}
+					onNextPage={() => table.nextPage()}
+				/>
+			</CursorPagination.Root>
+		</div>
+	);
+}
+
+const selectableColumns = [
+	columnHelper.display({
+		id: "select",
+		// `<th>` defaults to more horizontal padding (`px-4`) than `<td>` (`p-3`);
+		// match the cell's padding so the header checkbox lines up with the column
+		// of row checkboxes.
+		header: ({ table }) => (
+			<DataTable.Header className="w-10 px-3">
+				<Checkbox
+					aria-label="Select all rows"
+					checked={selectAllChecked({
+						allSelected: table.getIsAllRowsSelected(),
+						someSelected: table.getIsSomeRowsSelected(),
+					})}
+					onChange={(event) => table.toggleAllRowsSelected(event.target.checked)}
+				/>
+			</DataTable.Header>
+		),
+		cell: ({ row }) => (
+			<DataTable.Cell className="w-10">
+				<Checkbox
+					aria-label="Select row"
+					checked={row.getIsSelected()}
+					onChange={(event) => row.toggleSelected(event.target.checked)}
+				/>
+			</DataTable.Cell>
+		),
+	}),
+	...columns,
+];
+
+/**
+ * Demo of row selection with checkboxes. The header checkbox toggles every row
+ * (and goes indeterminate when only some are selected); the per-row checkboxes
+ * drive `rowSelection` state read back from the table instance.
+ */
+export function SelectablePaymentsDemo() {
+	const data = useMemo(() => examplePayments, []);
+	const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
+	const table = useReactTable({
+		data,
+		columns: selectableColumns,
+		getCoreRowModel: getCoreRowModel(),
+		state: { rowSelection },
+		onRowSelectionChange: setRowSelection,
+		enableRowSelection: true,
+	});
+	const selectedCount = table.getSelectedRowModel().rows.length;
+	return (
+		<div className="flex w-full flex-col gap-3">
+			<p className="text-muted text-sm" aria-live="polite">
+				{selectedCount} of {data.length} selected
+			</p>
+			<DataTable.Root table={table}>
+				<DataTable.Head />
+				<DataTable.Body>
+					{table.getRowModel().rows.map((row) => (
+						<DataTable.Row key={row.id} row={row} />
+					))}
+				</DataTable.Body>
+			</DataTable.Root>
+		</div>
 	);
 }

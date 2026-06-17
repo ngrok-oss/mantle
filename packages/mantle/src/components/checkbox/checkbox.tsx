@@ -63,25 +63,30 @@ const Checkbox = forwardRef<ComponentRef<"input">, Props>(
 			validation: _validation ?? fieldValidation,
 		});
 
+		// `indeterminate` is a DOM-only property (it has no HTML attribute), so set it
+		// imperatively from the *effective* checked state — the controlled `checked`
+		// when present, otherwise the (stable) initial `defaultChecked`. A single effect
+		// keyed on that value avoids two competing effects clobbering each other on
+		// mount, which previously dropped the indeterminate visual for a controlled
+		// `checked="indeterminate"`.
+		const effectiveChecked = _checked != null ? _checked : defaultChecked;
 		useEffect(() => {
 			if (innerRef.current) {
-				innerRef.current.indeterminate = isIndeterminate(_checked);
+				innerRef.current.indeterminate = isIndeterminate(effectiveChecked);
 			}
-		}, [_checked]);
-
-		useEffect(() => {
-			if (innerRef.current) {
-				innerRef.current.indeterminate = isIndeterminate(defaultChecked);
-			}
-		}, [defaultChecked]);
+		}, [effectiveChecked]);
 
 		// React warns (and the linter flags) when both `checked` and `defaultChecked` are
 		// passed on the same input. Pick exactly one based on whether the consumer is in
-		// controlled mode (`_checked !== undefined`). Indeterminate is still applied to the
-		// DOM node via the `useEffect`s above on both paths.
+		// controlled mode (`_checked != null`). The indeterminate *visual* is applied
+		// to the DOM node imperatively via the `useEffect`s above on both paths — so in
+		// controlled mode we still pass a boolean `checked` (treating indeterminate as
+		// unchecked) and never let it become `undefined`. Passing `checked: undefined` for
+		// the indeterminate frame flips the input controlled → uncontrolled and trips
+		// React's "changing a controlled input to be uncontrolled" warning.
 		const checkedProp =
-			_checked !== undefined
-				? { checked: isIndeterminate(_checked) ? undefined : _checked }
+			_checked != null
+				? { checked: isIndeterminate(_checked) ? false : _checked }
 				: { defaultChecked: isIndeterminate(defaultChecked) ? undefined : defaultChecked };
 
 		return (
@@ -121,7 +126,53 @@ const Checkbox = forwardRef<ComponentRef<"input">, Props>(
 );
 Checkbox.displayName = "Checkbox";
 
+/**
+ * Resolve the tri-state `checked` value for a "select all" checkbox from the
+ * current selection counts: `true` when everything is selected,
+ * `"indeterminate"` when only some is, and `false` when nothing is. The result
+ * is a {@link CheckedState}, ready to pass straight to `<Checkbox checked={…} />`.
+ *
+ * `allSelected` is checked first, so it wins even if a caller also reports
+ * `someSelected` for the all-selected case.
+ *
+ * @example
+ * ```tsx
+ * // Driving a TanStack Table "select all" header checkbox:
+ * <Checkbox
+ *   aria-label="Select all rows"
+ *   checked={selectAllChecked({
+ *     allSelected: table.getIsAllRowsSelected(),
+ *     someSelected: table.getIsSomeRowsSelected(),
+ *   })}
+ *   onChange={(event) => table.toggleAllRowsSelected(event.target.checked)}
+ * />
+ * ```
+ */
+function selectAllChecked({
+	allSelected,
+	someSelected,
+}: {
+	/** Whether every selectable item is currently selected. */
+	allSelected: boolean;
+	/** Whether some (but not necessarily all) items are selected. */
+	someSelected: boolean;
+}): CheckedState {
+	if (allSelected) {
+		return true;
+	}
+	if (someSelected) {
+		return "indeterminate";
+	}
+	return false;
+}
+
 export {
 	//,
 	Checkbox,
+	selectAllChecked,
+};
+
+export type {
+	//,
+	CheckedState,
 };

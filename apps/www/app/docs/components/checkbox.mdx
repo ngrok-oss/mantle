@@ -224,6 +224,30 @@ function Example() {
 }
 ```
 
+## Select-all helper
+
+`selectAllChecked` resolves the tri-state `checked` value for a "select all" checkbox from the current selection counts — `true` when everything is selected, `"indeterminate"` when only some is, and `false` when nothing is. Use it to keep the header checkbox of a multi-select list correct without hand-rolling the tri-state branch. It pairs directly with a [`DataTable`](/components/data-table#row-selection-with-checkboxes) row-selection column:
+
+```tsx
+import { Checkbox, selectAllChecked } from "@ngrok/mantle/checkbox";
+
+<Checkbox
+	aria-label="Select all rows"
+	checked={selectAllChecked({
+		allSelected: table.getIsAllRowsSelected(),
+		someSelected: table.getIsSomeRowsSelected(),
+	})}
+	onChange={(event) => table.toggleAllRowsSelected(event.target.checked)}
+/>;
+```
+
+Returns `boolean | "indeterminate"` (a `CheckedState`), ready to pass straight to `Checkbox`'s `checked` prop. `allSelected` takes precedence, so it wins even if a caller also reports `someSelected`.
+
+| Option         | Type      | Description                                                |
+| :------------- | :-------- | :--------------------------------------------------------- |
+| `allSelected`  | `boolean` | Whether every selectable item is currently selected.       |
+| `someSelected` | `boolean` | Whether some (but not necessarily all) items are selected. |
+
 ## API Reference
 
 ### Checkbox
