@@ -56,6 +56,15 @@ describe("Button", () => {
 			);
 			expect(screen.getByRole("link")).not.toHaveAttribute("type");
 		});
+
+		test("does not forward an explicit `type` to an `asChild` anchor", () => {
+			render(
+				<Button type="submit" asChild>
+					<a href="#yolo">click me</a>
+				</Button>,
+			);
+			expect(screen.getByRole("link")).not.toHaveAttribute("type");
+		});
 	});
 
 	test("when isLoading={false}, allows click and submit events to propagate", async () => {

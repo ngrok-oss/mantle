@@ -35,5 +35,14 @@ describe("IconButton", () => {
 			expect(link).toHaveAccessibleName("home");
 			expect(link).not.toHaveAttribute("type");
 		});
+
+		test("does not forward an explicit `type` to an `asChild` anchor", () => {
+			render(
+				<IconButton type="submit" asChild label="home" icon={<GlobeIcon />}>
+					<a href="#yolo" />
+				</IconButton>,
+			);
+			expect(screen.getByRole("link")).not.toHaveAttribute("type");
+		});
 	});
 });
