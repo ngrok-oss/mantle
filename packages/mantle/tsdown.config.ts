@@ -141,9 +141,10 @@ export default defineConfig((options) => [
 		clean: false,
 		minify: true,
 		// Don't ship source maps: they were ~58% of the published package and
-		// embed the full source via `sourcesContent`. Consumers debug against
-		// the minified bundle; agents read the typed `.d.ts` surface and the
-		// docs site (dist/agent.json, dist/llms.txt) — not decoded map JSON.
+		// embed the full source via `sourcesContent`, despite `src/` not being
+		// published. Consumers debug against the minified bundle; agents read the
+		// typed `.d.ts` surface and the bundled offline discovery artifacts
+		// (dist/agent.json, dist/llms.txt) — not decoded map JSON.
 		sourcemap: false,
 		target: "ES2025",
 		tsconfig: "tsconfig.build.json",
