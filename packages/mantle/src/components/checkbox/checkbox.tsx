@@ -69,7 +69,7 @@ const Checkbox = forwardRef<ComponentRef<"input">, Props>(
 		// keyed on that value avoids two competing effects clobbering each other on
 		// mount, which previously dropped the indeterminate visual for a controlled
 		// `checked="indeterminate"`.
-		const effectiveChecked = _checked !== undefined ? _checked : defaultChecked;
+		const effectiveChecked = _checked != null ? _checked : defaultChecked;
 		useEffect(() => {
 			if (innerRef.current) {
 				innerRef.current.indeterminate = isIndeterminate(effectiveChecked);
@@ -78,14 +78,14 @@ const Checkbox = forwardRef<ComponentRef<"input">, Props>(
 
 		// React warns (and the linter flags) when both `checked` and `defaultChecked` are
 		// passed on the same input. Pick exactly one based on whether the consumer is in
-		// controlled mode (`_checked !== undefined`). The indeterminate *visual* is applied
+		// controlled mode (`_checked != null`). The indeterminate *visual* is applied
 		// to the DOM node imperatively via the `useEffect`s above on both paths — so in
 		// controlled mode we still pass a boolean `checked` (treating indeterminate as
 		// unchecked) and never let it become `undefined`. Passing `checked: undefined` for
 		// the indeterminate frame flips the input controlled → uncontrolled and trips
 		// React's "changing a controlled input to be uncontrolled" warning.
 		const checkedProp =
-			_checked !== undefined
+			_checked != null
 				? { checked: isIndeterminate(_checked) ? false : _checked }
 				: { defaultChecked: isIndeterminate(defaultChecked) ? undefined : defaultChecked };
 

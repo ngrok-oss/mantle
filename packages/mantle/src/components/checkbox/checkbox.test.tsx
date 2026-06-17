@@ -80,17 +80,19 @@ describe("Checkbox", () => {
 	test("toggling a controlled checkbox through indeterminate does not warn about controlled/uncontrolled (regression)", () => {
 		const errorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
 
-		// A controlled "select all" checkbox cycles unchecked → indeterminate → checked.
-		// The indeterminate frame must keep `checked` a boolean so React never sees the
-		// input flip from controlled to uncontrolled.
-		const { rerender } = render(<Checkbox checked={false} onChange={() => {}} />);
-		rerender(<Checkbox checked="indeterminate" onChange={() => {}} />);
-		rerender(<Checkbox checked={true} onChange={() => {}} />);
+		try {
+			// A controlled "select all" checkbox cycles unchecked → indeterminate → checked.
+			// The indeterminate frame must keep `checked` a boolean so React never sees the
+			// input flip from controlled to uncontrolled.
+			const { rerender } = render(<Checkbox checked={false} onChange={() => {}} />);
+			rerender(<Checkbox checked="indeterminate" onChange={() => {}} />);
+			rerender(<Checkbox checked={true} onChange={() => {}} />);
 
-		const messages = errorSpy.mock.calls.map((args) => args.map(String).join(" "));
-		expect(messages.some((message) => message.includes("uncontrolled"))).toBe(false);
-
-		errorSpy.mockRestore();
+			const messages = errorSpy.mock.calls.map((args) => args.map(String).join(" "));
+			expect(messages.some((message) => message.includes("uncontrolled"))).toBe(false);
+		} finally {
+			errorSpy.mockRestore();
+		}
 	});
 });
 

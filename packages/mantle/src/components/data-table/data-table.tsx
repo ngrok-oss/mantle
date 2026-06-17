@@ -409,6 +409,10 @@ type DataTableEmptyRowProps = ComponentProps<typeof Table.Row>;
  * import { MagnifyingGlassIcon } from "@phosphor-icons/react/MagnifyingGlass";
  * import { TrayIcon } from "@phosphor-icons/react/Tray";
  *
+ * // `table` is your useReactTable instance; derive everything else from it.
+ * const rows = table.getRowModel().rows;
+ * const isFiltered = (table.getState().globalFilter ?? "") !== "";
+ *
  * // EmptyRow already spans every column and Empty.Root centers itself — drop a
  * // single Empty.Root in as the child; don't hand-roll a <td> or any centering.
  * <DataTable.Body>
@@ -424,7 +428,7 @@ type DataTableEmptyRowProps = ComponentProps<typeof Table.Row>;
  *             type="button"
  *             appearance="outlined"
  *             priority="neutral"
- *             onClick={() => setGlobalFilter("")}
+ *             onClick={() => table.setGlobalFilter("")}
  *           >
  *             Clear filters
  *           </Button>
@@ -1015,6 +1019,10 @@ const DataTable = {
 	 *
 	 * @example
 	 * ```tsx
+	 * import { DataTable } from "@ngrok/mantle/data-table";
+	 * import { Empty } from "@ngrok/mantle/empty";
+	 * import { TrayIcon } from "@phosphor-icons/react/Tray";
+	 *
 	 * <DataTable.EmptyRow>
 	 *   <Empty.Root>
 	 *     <Empty.Icon svg={<TrayIcon />} />
