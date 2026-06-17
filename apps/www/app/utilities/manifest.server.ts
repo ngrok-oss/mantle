@@ -1,3 +1,4 @@
+import type { ComponentPropSchema } from "@ngrok/mantle/types";
 import mantlePackageJson from "@ngrok/mantle/package.json" with { type: "json" };
 import {
 	componentImportPathOverrides,
@@ -10,7 +11,11 @@ import {
 	extractExamplesForName,
 	extractFirstSentenceForName,
 } from "~/utilities/hooks-manifest.server";
-import { componentsSrcDir, sourceBasePath } from "~/utilities/mantle-source.server";
+import {
+	componentsSrcDir,
+	readComponentPropSchemasForComponent,
+	sourceBasePath,
+} from "~/utilities/mantle-source.server";
 
 /**
  * One entry in the public component manifest. Designed for ingestion by
@@ -47,6 +52,21 @@ export type ManifestComponent = {
 	 * when the source has no `@example` blocks.
 	 */
 	examples?: string[];
+	/**
+	 * Type-level prop schemas extracted at build time by the Mantle codegen
+	 * (`packages/mantle/scripts/generate-component-props.ts`) and read from
+	 * the committed `component-props.json` artifact. Each entry carries the
+	 * component's own props with `type`/`required`/`default`/`description`,
+	 * plus `@enum` member meanings, `@see` URLs, the `hostElement` it spreads
+	 * onto or the named type it `extends`, and any discriminated-union
+	 * `variants`. Omitted when the artifact has no matching entry.
+	 *
+	 * A single component contributes exactly one schema (e.g. `Button`). A
+	 * compound (POJO-namespace) component contributes one schema per callable
+	 * sub-component, keyed by the dotted member path and sorted by name (e.g.
+	 * `AlertDialog.Action` … `AlertDialog.Trigger`).
+	 */
+	props?: ComponentPropSchema[];
 };
 
 /** Top-level shape returned by `/api/components.json`. */
@@ -189,6 +209,25 @@ async function examplesForComponent(slug: string, displayName: string): Promise<
 }
 
 /**
+ * Look up a component's build-time prop schema(s) using the same display-name
+ * ↔ PascalCase candidate resolution as {@link jsdocForComponent} (the
+ * kebab-derived name like `data-table` → `DataTable`, then the
+ * whitespace-stripped display name like `OTP Input` → `OTPInput`). Single
+ * components yield exactly one {@link ComponentPropSchema}; compound components
+ * (e.g. `AlertDialog`) yield one per callable sub-component, sorted by name.
+ * Returns `undefined` when the artifact has no entry — keeping the manifest
+ * field `props?: ComponentPropSchema[]` absent rather than empty.
+ */
+function propsForComponent(slug: string, displayName: string): ComponentPropSchema[] | undefined {
+	const source = sourceBasesForSlug(slug);
+	if (!source) {
+		return undefined;
+	}
+	const candidates = new Set<string>([leafToPascal(source.leaf), displayName.replace(/\s+/g, "")]);
+	return readComponentPropSchemasForComponent(candidates);
+}
+
+/**
  * Build the public component manifest. Combines the docs navigation as the
  * source of truth for which components exist with each page's frontmatter
  * description for the summary field.
@@ -240,6 +279,7 @@ export async function buildManifest(): Promise<Manifest> {
 					summary: description,
 					jsdoc,
 					examples: examples.length > 0 ? examples : undefined,
+					props: propsForComponent(slug, name),
 				};
 			}),
 		)

@@ -40,6 +40,7 @@ export default [
 	route("api/search-index.json", "./routes/api.search-index[.]json.tsx", {
 		id: "api-search-index-json",
 	}),
+	route("api/tokens.json", "./routes/api.tokens[.]json.tsx", { id: "api-tokens-json" }),
 	route("api/shiki-highlight", "./routes/api.shiki-highlight.tsx"),
 
 	// docs layout

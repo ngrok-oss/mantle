@@ -30,6 +30,7 @@
         "definedTags": [
           "defaultValue",
           "docs",
+          "extends",
           "note",
           "preview",
           "remarks",

@@ -114,57 +114,37 @@ AlertDialog.Root
 
 The root component for the Alert Dialog.
 
-All props from Radix [Dialog.Root](https://www.radix-ui.com/primitives/docs/components/dialog#root), plus:
-
-| Prop       | Type                   | Default | Description                                                                                                              |
-| ---------- | ---------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `priority` | `"info"` \| `"danger"` |         | Indicates the importance or impact level of the AlertDialog, affecting its color and styling to communicate its purpose. |
+<AutoPropsTable component="AlertDialog.Root" />
 
 ### AlertDialog.Trigger
 
 A button that opens the Alert Dialog.
 
-Radix [Dialog.Trigger](https://www.radix-ui.com/primitives/docs/components/dialog#trigger) props.
+<AutoPropsTable component="AlertDialog.Trigger" />
 
 ### AlertDialog.Content
 
 The popover Alert Dialog container. Renders on top of the overlay and is centered in the viewport.
 
-Radix [Dialog.Content](https://www.radix-ui.com/primitives/docs/components/dialog#content) props, plus:
-
-| Prop              | Type     | Default      | Description                                                                   |
-| ----------------- | -------- | ------------ | ----------------------------------------------------------------------------- |
-| `preferredWidth?` | `string` | `"max-w-md"` | The preferred width of the `AlertDialogContent` as a Tailwind `max-w-` class. |
+<AutoPropsTable component="AlertDialog.Content" />
 
 ### AlertDialog.Body
 
 Contains the main content of the alert dialog.
 
-All props from [div](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes), plus:
-
-| Prop       | Type      | Default | Description                                                                                                                  |
-| ---------- | --------- | ------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `asChild?` | `boolean` | `false` | Use the `asChild` prop to compose the `AlertDialogBody` styling onto alternative element types or your own React components. |
+<AutoPropsTable component="AlertDialog.Body" />
 
 ### AlertDialog.Header
 
 Contains the header content of the dialog, including the title and description.
 
-All props from [div](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes), plus:
-
-| Prop       | Type      | Default | Description                                                                                                                    |
-| ---------- | --------- | ------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| `asChild?` | `boolean` | `false` | Use the `asChild` prop to compose the `AlertDialogHeader` styling onto alternative element types or your own React components. |
+<AutoPropsTable component="AlertDialog.Header" />
 
 ### AlertDialog.Footer
 
 Contains the footer content of the dialog, including the action and cancel buttons.
 
-All props from [div](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes), plus:
-
-| Prop       | Type      | Default | Description                                                                                                                    |
-| ---------- | --------- | ------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| `asChild?` | `boolean` | `false` | Use the `asChild` prop to compose the `AlertDialogFooter` styling onto alternative element types or your own React components. |
+<AutoPropsTable component="AlertDialog.Footer" />
 
 ### AlertDialog.Title
 
@@ -172,7 +152,7 @@ An accessible name to be announced when the dialog is opened.
 
 Alternatively, you can provide `aria-label` or `aria-labelledby` to `AlertDialogContent` and exclude this component.
 
-Radix [Dialog.Title](https://www.radix-ui.com/primitives/docs/components/dialog#title) props.
+<AutoPropsTable component="AlertDialog.Title" />
 
 ### AlertDialog.Description
 
@@ -180,40 +160,32 @@ An accessible description to be announced when the dialog is opened. Renders as 
 
 Alternatively, you can provide `aria-describedby` to `AlertDialogContent` and exclude this component.
 
-Radix [Dialog.Description](https://www.radix-ui.com/primitives/docs/components/dialog#description) props.
+<AutoPropsTable component="AlertDialog.Description" />
 
 ### AlertDialog.Action
 
 A button that confirms the Alert Dialog action. Defaults to `appearance="filled"` and the priority color from `AlertDialog.Root`. Does not close the alert dialog by default.
 
-These buttons should be distinguished visually from `AlertDialog.Cancel`.
+These buttons should be distinguished visually from `AlertDialog.Cancel`. Composes around the mantle [Button](/components/button) component.
 
-Composes around the mantle [Button](/components/button) component. Same props as [Button](/components/button).
+<AutoPropsTable component="AlertDialog.Action" />
 
 ### AlertDialog.Cancel
 
 A button that closes the dialog and cancels the action. Defaults to `appearance="outlined"` and `priority="neutral"`.
 
-This button should be distinguished visually from `AlertDialog.Action`.
+This button should be distinguished visually from `AlertDialog.Action`. Composes around the mantle [Button](/components/button) component.
 
-Composes around the mantle [Button](/components/button) component. Same props as [Button](/components/button).
+<AutoPropsTable component="AlertDialog.Cancel" />
 
 ### AlertDialog.Icon
 
 An icon displayed in the alert dialog, usually to indicate the type of alert.
 
-All props from [div](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#attributes), plus:
-
-| Prop       | Type      | Default | Description                                                                                                                   |
-| ---------- | --------- | ------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| `asChild?` | `boolean` | `false` | Use the `asChild` prop to compose the `AlertDialog.Icon` styling onto alternative element types or your own React components. |
+<AutoPropsTable component="AlertDialog.Icon" />
 
 ### AlertDialog.Close
 
 A button that closes the dialog.
 
-All props from [button](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes), plus:
-
-| Prop       | Type      | Default | Description                                                                                                                    |
-| ---------- | --------- | ------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| `asChild?` | `boolean` | `false` | Use the `asChild` prop to compose the `AlertDialog.Close` styling onto alternative element types or your own React components. |
+<AutoPropsTable component="AlertDialog.Close" />

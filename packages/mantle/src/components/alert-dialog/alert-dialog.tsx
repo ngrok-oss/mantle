@@ -171,7 +171,7 @@ type AlertDialogContentProps = ComponentPropsWithoutRef<typeof AlertDialogPrimit
 	 * By default, a `AlertDialog`'s content width is responsive with a default
 	 * preferred width: the maximum width of the `AlertDialogContent`
 	 *
-	 * @default `max-w-md`
+	 * @default `max-w-lg`
 	 */
 	preferredWidth?: `max-w-${string}`;
 };
@@ -508,6 +508,8 @@ Description.displayName = "AlertDialogDescription";
  *
  * @see https://mantle.ngrok.com/components/alert-dialog#alertdialogaction
  *
+ * @extends Button
+ *
  * @example
  * ```tsx
  * <AlertDialog.Root priority="danger">
@@ -576,6 +578,8 @@ Action.displayName = "AlertDialogAction";
  * Composes around the mantle Button component.
  *
  * @see https://mantle.ngrok.com/components/alert-dialog#alertdialogcancel
+ *
+ * @extends Button
  *
  * @example
  * ```tsx

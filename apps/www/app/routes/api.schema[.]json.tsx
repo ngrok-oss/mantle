@@ -13,6 +13,92 @@ const SCHEMA_VERSION = 1;
  * against the schema should keep working when we add new fields. Bump
  * `SCHEMA_VERSION` when removing or renaming.
  */
+const EnumDocEntry = {
+	type: "object",
+	required: ["member", "meaning"],
+	additionalProperties: true,
+	properties: {
+		member: {
+			type: "string",
+			description: "The literal member, quotes included for string literals (e.g. '\"submit\"').",
+		},
+		meaning: { type: "string", description: "Prose describing what the member does." },
+	},
+} as const;
+
+const PropEntry = {
+	type: "object",
+	required: ["name", "required", "type", "typeKind", "source"],
+	additionalProperties: true,
+	properties: {
+		name: { type: "string", description: "Prop name as written by consumers." },
+		required: { type: "boolean", description: "Whether the prop must be supplied." },
+		type: { type: "string", description: 'Rendered type text (e.g. \'"start" | "end"\').' },
+		typeKind: {
+			type: "string",
+			enum: ["union", "boolean", "enum", "node", "string", "other"],
+		},
+		enumMembers: {
+			type: "array",
+			items: { type: "string" },
+			description: "Individual literal members for union/enum kinds, in source order.",
+		},
+		default: { type: "string", description: "Default value as rendered text." },
+		defaultSource: {
+			type: "string",
+			enum: ["cva", "destructure", "jsdoc"],
+			description: "Where the default was discovered (precedence: cva > destructure > jsdoc).",
+		},
+		description: { type: "string", description: "The prop's JSDoc description prose." },
+		deprecated: {
+			type: ["string", "boolean"],
+			description: "Reason string or `true` when the prop carries an `@deprecated` tag.",
+		},
+		see: {
+			type: "array",
+			items: { type: "string" },
+			description: "URLs gathered from `@see` JSDoc tags, in source order.",
+		},
+		enumDoc: { type: "array", items: { $ref: "#/definitions/EnumDocEntry" } },
+		source: {
+			type: "string",
+			enum: ["own", "inherited"],
+			description: "Whether the prop is Mantle-owned or inherited from external typings.",
+		},
+		branchInfo: {
+			type: "string",
+			description: "Conditional-requiredness note from a discriminated union.",
+		},
+	},
+} as const;
+
+const ComponentPropVariant = {
+	type: "object",
+	required: ["when", "props"],
+	additionalProperties: true,
+	properties: {
+		when: { type: "string", description: "The condition selecting this branch." },
+		props: { type: "array", items: { $ref: "#/definitions/PropEntry" } },
+	},
+} as const;
+
+const PropSchema = {
+	type: "object",
+	required: ["name", "importPath", "props"],
+	additionalProperties: true,
+	properties: {
+		name: { type: "string", description: "Component's exported PascalCase identifier." },
+		importPath: { type: "string", description: "ESM import path for the component." },
+		hostElement: {
+			type: "string",
+			description: "Intrinsic host element the component spreads props onto (e.g. 'button').",
+		},
+		extends: { type: "string", description: "A named type the component visibly extends." },
+		props: { type: "array", items: { $ref: "#/definitions/PropEntry" } },
+		variants: { type: "array", items: { $ref: "#/definitions/ComponentPropVariant" } },
+	},
+} as const;
+
 const ComponentEntry = {
 	type: "object",
 	required: ["name", "slug", "status", "importPath", "docsUrl", "markdownUrl"],
@@ -26,6 +112,12 @@ const ComponentEntry = {
 		markdownUrl: { type: "string", format: "uri" },
 		summary: { type: "string", description: "One-line summary from docs frontmatter." },
 		jsdoc: { type: "string", description: "First sentence of the source JSDoc, if available." },
+		props: {
+			type: "array",
+			items: { $ref: "#/definitions/PropSchema" },
+			description:
+				"Build-time-extracted prop schema(s) for the component; absent when the codegen has no entry.",
+		},
 	},
 } as const;
 
@@ -68,6 +160,55 @@ const SearchEntry = {
 		summary: { type: "string" },
 		keywords: { type: "array", items: { type: "string" } },
 		status: { type: "string", enum: ["stable", "preview"] },
+	},
+} as const;
+
+const TokenEntry = {
+	type: "object",
+	required: ["name", "cssVar", "category", "values"],
+	additionalProperties: true,
+	properties: {
+		name: { type: "string", description: "Bare token name without the `--` prefix." },
+		cssVar: { type: "string", description: "The CSS custom property, e.g. '--color-accent-600'." },
+		category: {
+			type: "string",
+			enum: [
+				"color",
+				"background",
+				"border",
+				"text",
+				"ring",
+				"shadow",
+				"divide",
+				"spacing",
+				"radius",
+				"typography",
+				"font",
+				"breakpoint",
+				"z-index",
+				"other",
+			],
+		},
+		semanticRole: {
+			type: "string",
+			description: "Role for semantic tokens (e.g. 'accent', 'danger').",
+		},
+		utilities: { type: "array", items: { type: "string" } },
+		aliasOf: {
+			type: "string",
+			description: "Verbatim single `var(...)` reference when the token is a pure alias.",
+		},
+		values: {
+			type: "object",
+			additionalProperties: true,
+			description: "Authored per-theme values; absent themes are omitted (never fabricated).",
+			properties: {
+				light: { type: "string" },
+				dark: { type: "string" },
+				lightHC: { type: "string" },
+				darkHC: { type: "string" },
+			},
+		},
 	},
 } as const;
 
@@ -166,6 +307,17 @@ const SearchIndex = {
 	},
 } as const;
 
+const TokensManifest = {
+	type: "object",
+	required: ["version", "origin", "tokens"],
+	additionalProperties: true,
+	properties: {
+		version: { type: "string" },
+		origin: { type: "string", format: "uri" },
+		tokens: { type: "array", items: { $ref: "#/definitions/TokenEntry" } },
+	},
+} as const;
+
 const SchemaDocument = {
 	type: "object",
 	required: ["$schema", "$id", "title", "description", "version", "endpoints", "definitions"],
@@ -195,13 +347,19 @@ const SCHEMA = {
 		"/api/package.json": "#/definitions/PackageInfo",
 		"/api/changelog.json": "#/definitions/Changelog",
 		"/api/search-index.json": "#/definitions/SearchIndex",
+		"/api/tokens.json": "#/definitions/TokensManifest",
 		"/api/schema.json": "#/definitions/SchemaDocument",
 	},
 	definitions: {
+		EnumDocEntry,
+		PropEntry,
+		ComponentPropVariant,
+		PropSchema,
 		ComponentEntry,
 		HookEntry,
 		UtilityEntry,
 		SearchEntry,
+		TokenEntry,
 		ChangelogChange,
 		ChangelogVersion,
 		ComponentsManifest,
@@ -210,6 +368,7 @@ const SCHEMA = {
 		PackageInfo,
 		Changelog,
 		SearchIndex,
+		TokensManifest,
 		SchemaDocument,
 	},
 } as const;

@@ -16,6 +16,7 @@ import { mantleChangelogMdx } from "./vite-plugins/mantle-changelog-mdx";
 import { mdxDocComponentImports } from "./vite-plugins/mdx-doc-component-imports";
 import { rawMdxDocs } from "./vite-plugins/raw-mdx-docs";
 import { rehypeMdxToc } from "./vite-plugins/rehype-mdx-toc";
+import { watchComponentProps } from "./vite-plugins/watch-component-props";
 
 const codeBlockPlugins = mantleCodeBlockPlugins();
 
@@ -24,7 +25,10 @@ export default defineConfig({
 		exclude: ["@ngrok/mantle"],
 	},
 	plugins: [
-		//
+		// Dev-only: regenerate the mantle prop artifact when its source changes so
+		// docs prop tables stay fresh under `react-router dev`. Listed first so its
+		// `handleHotUpdate` runs before the code-block plugins.
+		watchComponentProps(),
 		...codeBlockPlugins.vitePlugins,
 		rawMdxDocs(path.resolve(import.meta.dirname, "app/docs")),
 		mdxDocComponentImports(path.resolve(import.meta.dirname, "app/docs")),

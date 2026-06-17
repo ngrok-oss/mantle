@@ -1,3 +1,4 @@
+import { format } from "oxfmt";
 import { describe, expect, it } from "vitest";
 
 import { buildManifest, type ManifestComponent } from "./manifest.server";
@@ -26,7 +27,7 @@ import { buildManifest, type ManifestComponent } from "./manifest.server";
 /** The stable, content-bearing projection we guard against drift. */
 type SurfaceEntry = Pick<
 	ManifestComponent,
-	"name" | "slug" | "status" | "importPath" | "summary" | "jsdoc" | "examples"
+	"name" | "slug" | "status" | "importPath" | "summary" | "jsdoc" | "examples" | "props"
 >;
 
 /** Project a manifest component down to the drift-guarded {@link SurfaceEntry}. */
@@ -39,18 +40,30 @@ function toSurface(component: ManifestComponent): SurfaceEntry {
 		summary: component.summary,
 		jsdoc: component.jsdoc,
 		examples: component.examples,
+		props: component.props,
 	};
 }
+
+const snapshotPath = "./__snapshots__/components-surface.json";
 
 describe("agent surface drift", () => {
 	it("component manifest matches the committed snapshot (regenerate with `pnpm -F @app/www test -u`)", async () => {
 		const manifest = await buildManifest();
 		const surface = manifest.components.map(toSurface);
 
-		// 2-space JSON + trailing newline matches oxfmt's formatting, so the
-		// committed snapshot satisfies both this drift check and `fmt:check`.
-		await expect(`${JSON.stringify(surface, null, 2)}\n`).toMatchFileSnapshot(
-			"./__snapshots__/components-surface.json",
-		);
+		// Run the serialized surface through oxfmt so the committed snapshot is
+		// byte-identical to what `fmt:check` expects — it satisfies both this
+		// drift check and `fmt:check` without being excluded from the formatter.
+		// `JSON.stringify(_, null, 2)` alone diverges from oxfmt for short arrays
+		// (e.g. `see`, `enumMembers`), which oxfmt collapses onto one line.
+		const serialized = `${JSON.stringify(surface, null, 2)}\n`;
+		const formatted = await format(snapshotPath, serialized);
+		if (formatted.errors.length > 0) {
+			throw new Error(
+				`oxfmt failed to format the surface snapshot: ${formatted.errors[0]?.message}`,
+			);
+		}
+
+		await expect(formatted.code).toMatchFileSnapshot(snapshotPath);
 	});
 });

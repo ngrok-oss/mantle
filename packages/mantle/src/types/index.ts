@@ -6,3 +6,13 @@ export type { VariantProps } from "./variant-props.js";
 export type { DeepNonNullable } from "./deep-non-nullable.js";
 export type { Booleanish } from "./booleanish.js";
 export { $cssProperties, type CssProperties } from "./css-properties.js";
+export type {
+	ComponentPropSchema,
+	ComponentPropsArtifact,
+	ComponentPropVariant,
+	EnumDocEntry,
+	PropDefaultSource,
+	PropEntry,
+	PropSource,
+	PropTypeKind,
+} from "./component-prop-schema.js";

@@ -17,6 +17,7 @@ import { Link } from "react-router";
 import { isSafeLocalPath } from "../utilities/is-safe-local-path";
 import { isStaticResourcePath } from "../utilities/is-static-resource-path";
 import { HashLinkHeading } from "./hash-link-heading";
+import { AutoPropsTable } from "./props-table";
 
 // import { FigCaption, Figure } from "./figure";
 // import { Img } from "./img";
@@ -206,6 +207,7 @@ const components = {
 	},
 
 	// Custom components, these are globally available in MDX files
+	AutoPropsTable,
 	GithubAlert,
 } as const satisfies MDXComponents;
 
