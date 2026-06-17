@@ -1,0 +1,5 @@
+---
+"@ngrok/mantle": patch
+---
+
+Drive the `scroll-fade-x` edge-fade utility with a CSS scroll-driven animation instead of JS-toggled `data-scroll-left` / `data-scroll-right` attributes, and add a matching `scroll-fade-y` utility for vertical scroll containers. `Table` and `Tabs` now render their horizontal edge fades purely in CSS: the `Tabs.List` effect no longer runs a scroll listener, `ResizeObserver`, or `MutationObserver` for the fade (it only keeps a keyboard-focused trigger scrolled into view), and `Table` no longer writes the fade attributes. Consumers can still pin an edge opaque by overriding `--_fade-left` / `--_fade-right` (the animation drives the upstream `--_scroll-fade-*` vars). Where `animation-timeline: scroll()` is unsupported (Firefox stable as of mid-2026) the fade is simply absent — content is never clipped. No public API changes.
