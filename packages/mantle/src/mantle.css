@@ -604,6 +604,8 @@ MARK: UTILITIES
 	@supports (animation-timeline: scroll()) {
 		animation-name: scroll-fade-x-start, scroll-fade-x-end;
 		animation-fill-mode: both;
+		/* Linear so the fade tracks scroll position 1:1 across the range. */
+		animation-timing-function: linear;
 		/* Pixel-precise edge snap, independent of total scroll distance. */
 		animation-range:
 			0 2px,
@@ -630,6 +632,7 @@ MARK: UTILITIES
 	@supports (animation-timeline: scroll()) {
 		animation-name: scroll-fade-y-start, scroll-fade-y-end;
 		animation-fill-mode: both;
+		animation-timing-function: linear;
 		animation-range:
 			0 2px,
 			calc(100% - 2px) 100%;
