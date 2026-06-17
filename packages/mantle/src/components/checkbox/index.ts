@@ -7,4 +7,10 @@
 export {
 	//,
 	Checkbox,
+	selectAllChecked,
+} from "./checkbox.js";
+
+export type {
+	//,
+	CheckedState,
 } from "./checkbox.js";

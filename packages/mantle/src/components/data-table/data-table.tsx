@@ -395,21 +395,51 @@ type DataTableEmptyRowProps = ComponentProps<typeof Table.Row>;
  * collapsing to an empty `<tbody>`. The cell `colSpan` is computed from the
  * TanStack Table instance via context, so no manual column count is needed.
  *
+ * Host an `Empty` for a real empty state, and branch on whether a filter is
+ * active so the user sees the right message (and a way out when filtered):
+ *
  * @see https://mantle.ngrok.com/components/data-table#datatableemptyrow
+ * @see https://mantle.ngrok.com/components/empty
  *
  * @example
  * ```tsx
- * const table = useReactTable({ data, columns, getCoreRowModel: getCoreRowModel() });
- * const rows = table.getRowModel().rows;
+ * import { DataTable } from "@ngrok/mantle/data-table";
+ * import { Empty } from "@ngrok/mantle/empty";
+ * import { Button } from "@ngrok/mantle/button";
+ * import { MagnifyingGlassIcon } from "@phosphor-icons/react/MagnifyingGlass";
+ * import { TrayIcon } from "@phosphor-icons/react/Tray";
  *
- * <DataTable.Root table={table}>
- *   <DataTable.Head />
- *   <DataTable.Body>
- *     {rows.length > 0
- *       ? rows.map((row) => <DataTable.Row key={row.id} row={row} />)
- *       : <DataTable.EmptyRow>No results.</DataTable.EmptyRow>}
- *   </DataTable.Body>
- * </DataTable.Root>
+ * // EmptyRow already spans every column and Empty.Root centers itself — drop a
+ * // single Empty.Root in as the child; don't hand-roll a <td> or any centering.
+ * <DataTable.Body>
+ *   {rows.length > 0 ? (
+ *     rows.map((row) => <DataTable.Row key={row.id} row={row} />)
+ *   ) : isFiltered ? (
+ *     <DataTable.EmptyRow>
+ *       <Empty.Root>
+ *         <Empty.Icon svg={<MagnifyingGlassIcon />} />
+ *         <Empty.Title>No results match your filter</Empty.Title>
+ *         <Empty.Actions>
+ *           <Button
+ *             type="button"
+ *             appearance="outlined"
+ *             priority="neutral"
+ *             onClick={() => setGlobalFilter("")}
+ *           >
+ *             Clear filters
+ *           </Button>
+ *         </Empty.Actions>
+ *       </Empty.Root>
+ *     </DataTable.EmptyRow>
+ *   ) : (
+ *     <DataTable.EmptyRow>
+ *       <Empty.Root>
+ *         <Empty.Icon svg={<TrayIcon />} />
+ *         <Empty.Title>No endpoints yet</Empty.Title>
+ *       </Empty.Root>
+ *     </DataTable.EmptyRow>
+ *   )}
+ * </DataTable.Body>
  * ```
  */
 function EmptyRow<TData>({ children, ...props }: DataTableEmptyRowProps) {
@@ -630,7 +660,10 @@ Row.displayName = "DataTableRow";
  * ```
  *
  * @example
- * Sortable + filterable + paginated — with a global text filter and page controls:
+ * Sortable, filterable, paginated, with both empty states — a global text
+ * filter, the no-data vs. no-results-for-filter empty states (an `Empty`
+ * dropped into `DataTable.EmptyRow`), and `CursorPagination` with a page-size
+ * dropdown:
  * ```tsx
  * import {
  *   DataTable,
@@ -642,10 +675,18 @@ Row.displayName = "DataTableRow";
  *   useReactTable,
  * } from "@ngrok/mantle/data-table";
  * import { Button } from "@ngrok/mantle/button";
+ * import { CursorPagination } from "@ngrok/mantle/pagination";
+ * import { Empty } from "@ngrok/mantle/empty";
  * import { Input } from "@ngrok/mantle/input";
+ * import { MagnifyingGlassIcon } from "@phosphor-icons/react/MagnifyingGlass";
+ * import { TrayIcon } from "@phosphor-icons/react/Tray";
  * import { useState } from "react";
  *
  * type Payment = { id: string; amount: number; status: "pending" | "succeeded" | "failed"; email: string };
+ *
+ * // `defaultPageSize` seeds an UNCONTROLLED <Select>, so keep it stable — a
+ * // module const (or the table's INITIAL page size), never the live page size.
+ * const DEFAULT_PAGE_SIZE = 10;
  *
  * const columnHelper = createColumnHelper<Payment>();
  * const columns = [
@@ -705,8 +746,10 @@ Row.displayName = "DataTableRow";
  *     getSortedRowModel: getSortedRowModel(),
  *     getFilteredRowModel: getFilteredRowModel(),
  *     getPaginationRowModel: getPaginationRowModel(),
+ *     initialState: { pagination: { pageSize: DEFAULT_PAGE_SIZE } },
  *   });
  *   const rows = table.getRowModel().rows;
+ *   const isFiltered = globalFilter.trim() !== "";
  *
  *   return (
  *     <div className="space-y-4">
@@ -718,34 +761,57 @@ Row.displayName = "DataTableRow";
  *       <DataTable.Root table={table}>
  *         <DataTable.Head />
  *         <DataTable.Body>
- *           {rows.length > 0
- *             ? rows.map((row) => <DataTable.Row key={row.id} row={row} />)
- *             : <DataTable.EmptyRow>No payments match.</DataTable.EmptyRow>}
+ *           {rows.length > 0 ? (
+ *             rows.map((row) => <DataTable.Row key={row.id} row={row} />)
+ *           ) : isFiltered ? (
+ *             // No results for the active filter — give the user a way out.
+ *             <DataTable.EmptyRow>
+ *               <Empty.Root>
+ *                 <Empty.Icon svg={<MagnifyingGlassIcon />} />
+ *                 <Empty.Title>No payments match your filter</Empty.Title>
+ *                 <Empty.Description>
+ *                   <p>Try a different search, or clear the filter to see everything.</p>
+ *                 </Empty.Description>
+ *                 <Empty.Actions>
+ *                   <Button
+ *                     type="button"
+ *                     appearance="outlined"
+ *                     priority="neutral"
+ *                     onClick={() => setGlobalFilter("")}
+ *                   >
+ *                     Clear filters
+ *                   </Button>
+ *                 </Empty.Actions>
+ *               </Empty.Root>
+ *             </DataTable.EmptyRow>
+ *           ) : (
+ *             // No data yet — informational, optionally a primary "create" action.
+ *             <DataTable.EmptyRow>
+ *               <Empty.Root>
+ *                 <Empty.Icon svg={<TrayIcon />} />
+ *                 <Empty.Title>No payments yet</Empty.Title>
+ *                 <Empty.Description>
+ *                   <p>Payments you receive will appear here.</p>
+ *                 </Empty.Description>
+ *               </Empty.Root>
+ *             </DataTable.EmptyRow>
+ *           )}
  *         </DataTable.Body>
  *       </DataTable.Root>
- *       <div className="flex items-center justify-between gap-2">
- *         <span className="text-sm text-muted">
- *           Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
- *         </span>
- *         <div className="flex gap-2">
- *           <Button
- *             type="button"
- *             priority="neutral"
- *             onClick={() => table.previousPage()}
- *             disabled={!table.getCanPreviousPage()}
- *           >
- *             Previous
- *           </Button>
- *           <Button
- *             type="button"
- *             priority="neutral"
- *             onClick={() => table.nextPage()}
- *             disabled={!table.getCanNextPage()}
- *           >
- *             Next
- *           </Button>
- *         </div>
- *       </div>
+ *       <CursorPagination.Root className="flex justify-end" defaultPageSize={DEFAULT_PAGE_SIZE}>
+ *         <CursorPagination.PageSizeSelect
+ *           onChangePageSize={(size) => {
+ *             table.setPageSize(size);
+ *             table.setPageIndex(0); // reset to the first page when the size changes
+ *           }}
+ *         />
+ *         <CursorPagination.Buttons
+ *           hasPreviousPage={table.getCanPreviousPage()}
+ *           hasNextPage={table.getCanNextPage()}
+ *           onPreviousPage={() => table.previousPage()}
+ *           onNextPage={() => table.nextPage()}
+ *         />
+ *       </CursorPagination.Root>
  *     </div>
  *   );
  * }
@@ -940,15 +1006,21 @@ const DataTable = {
 	 * branch when `rows.length === 0` to keep the table's frame intact instead
 	 * of collapsing to an empty `<tbody>`.
 	 *
+	 * Drop an `Empty` in as the child for a real empty state — `EmptyRow` spans
+	 * every column and `Empty.Root` centers itself, so no `<td>` or centering
+	 * markup is needed.
+	 *
 	 * @see https://mantle.ngrok.com/components/data-table#datatableemptyrow
+	 * @see https://mantle.ngrok.com/components/empty
 	 *
 	 * @example
 	 * ```tsx
-	 * <DataTable.Body>
-	 *   {rows.length > 0
-	 *     ? rows.map((row) => <DataTable.Row key={row.id} row={row} />)
-	 *     : <DataTable.EmptyRow>No results.</DataTable.EmptyRow>}
-	 * </DataTable.Body>
+	 * <DataTable.EmptyRow>
+	 *   <Empty.Root>
+	 *     <Empty.Icon svg={<TrayIcon />} />
+	 *     <Empty.Title>No endpoints yet</Empty.Title>
+	 *   </Empty.Root>
+	 * </DataTable.EmptyRow>
 	 * ```
 	 */
 	EmptyRow,
