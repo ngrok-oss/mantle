@@ -4,25 +4,25 @@ import { parseChangeBody, parseVersions } from "./changelog.server";
 describe("parseChangeBody", () => {
 	it("extracts PR, commit, author, and trimmed summary from a typical changesets bullet", () => {
 		const raw =
-			"[#1167](https://github.com/ngrok-oss/mantle/pull/1167) " +
-			"[`acd0c55`](https://github.com/ngrok-oss/mantle/commit/acd0c55527fefdf410e28858db2eaf90a9f5d2f5) " +
+			"[#1167](https://github.com/ngrok/mantle/pull/1167) " +
+			"[`acd0c55`](https://github.com/ngrok/mantle/commit/acd0c55527fefdf410e28858db2eaf90a9f5d2f5) " +
 			"Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Add `OtpInput`.";
 		expect(parseChangeBody(raw)).toEqual({
 			summary: "Add `OtpInput`.",
-			pr: "https://github.com/ngrok-oss/mantle/pull/1167",
-			commit: "https://github.com/ngrok-oss/mantle/commit/acd0c55527fefdf410e28858db2eaf90a9f5d2f5",
+			pr: "https://github.com/ngrok/mantle/pull/1167",
+			commit: "https://github.com/ngrok/mantle/commit/acd0c55527fefdf410e28858db2eaf90a9f5d2f5",
 			author: "cody-dot-js",
 		});
 	});
 
 	it("handles partial metadata (no PR link)", () => {
 		const raw =
-			"[`abcdef0`](https://github.com/ngrok-oss/mantle/commit/abcdef0) " +
+			"[`abcdef0`](https://github.com/ngrok/mantle/commit/abcdef0) " +
 			"Thanks [@octocat](https://github.com/octocat)! - patch only";
 		expect(parseChangeBody(raw)).toEqual({
 			summary: "patch only",
 			pr: undefined,
-			commit: "https://github.com/ngrok-oss/mantle/commit/abcdef0",
+			commit: "https://github.com/ngrok/mantle/commit/abcdef0",
 			author: "octocat",
 		});
 	});

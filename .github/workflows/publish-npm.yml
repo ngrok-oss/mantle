@@ -21,7 +21,7 @@ env:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    if: github.repository == 'ngrok-oss/mantle'
+    if: github.repository == 'ngrok/mantle'
     steps:
       - uses: actions/create-github-app-token@v3
         id: generate-token
@@ -69,5 +69,5 @@ jobs:
             name=$(echo "$pkg" | jq -r '.name')
             version=$(echo "$pkg" | jq -r '.version')
             tag=$(echo "${name}@${version}" | sed 's/@/%40/g; s/\//%2F/g')
-            curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"\`${name}@${version}\` published to npm!\nInstall with: \`pnpm add -E ${name}@${version}\`\n<https://github.com/ngrok-oss/mantle/releases/tag/${tag}|Release Notes>\"}" "$SLACK_WEBHOOK_URL"
+            curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"\`${name}@${version}\` published to npm!\nInstall with: \`pnpm add -E ${name}@${version}\`\n<https://github.com/ngrok/mantle/releases/tag/${tag}|Release Notes>\"}" "$SLACK_WEBHOOK_URL"
           done

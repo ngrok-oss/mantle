@@ -99,7 +99,7 @@ async function buildBody(): Promise<string> {
 		"",
 		`Docs: ${canonicalHref("/")}`,
 		`NPM: https://www.npmjs.com/package/@ngrok/mantle`,
-		`Source: https://github.com/ngrok-oss/mantle`,
+		`Source: https://github.com/ngrok/mantle`,
 		`Component manifest: ${canonicalHref("/api/components.json")}`,
 		`Hooks manifest: ${canonicalHref("/api/hooks.json")}`,
 		`Utilities manifest: ${canonicalHref("/api/utils.json")}`,

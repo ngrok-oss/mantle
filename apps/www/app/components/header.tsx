@@ -103,7 +103,7 @@ export function Header({ className, ...props }: Omit<ComponentProps<"header">, "
 							label="ngrok Mantle GitHub repository"
 							icon={<GitHub />}
 						>
-							<a href="https://github.com/ngrok-oss/mantle" target="_blank" rel="noopener" />
+							<a href="https://github.com/ngrok/mantle" target="_blank" rel="noopener" />
 						</IconButton>
 
 						<DropdownMenu.Root>
@@ -132,7 +132,7 @@ export function Header({ className, ...props }: Omit<ComponentProps<"header">, "
 								</DropdownMenu.Item>
 								<DropdownMenu.Item asChild>
 									<a
-										href="https://github.com/ngrok-oss/mantle"
+										href="https://github.com/ngrok/mantle"
 										target="_blank"
 										rel="noopener"
 										className="justify-between gap-4"
@@ -238,14 +238,14 @@ function CommandPalette() {
 							))}
 							<Command.Item asChild onSelect={() => setOpen(false)}>
 								<a
-									href="https://github.com/ngrok-oss/mantle"
+									href="https://github.com/ngrok/mantle"
 									target="_blank"
 									rel="noopener"
 									className="flex items-center gap-2 justify-between"
 								>
 									<ItemName>
 										GitHub Repo
-										<span className="text-muted text-xs font-mono">ngrok-oss/mantle</span>
+										<span className="text-muted text-xs font-mono">ngrok/mantle</span>
 									</ItemName>
 									<ArrowSquareOutIcon />
 								</a>

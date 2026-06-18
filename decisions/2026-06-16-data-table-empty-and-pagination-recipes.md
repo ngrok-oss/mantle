@@ -15,7 +15,7 @@ Every list-style `DataTable` needs two things the docs under-taught:
 The docs previously shipped only bare `<DataTable.EmptyRow>No results.</DataTable.EmptyRow>`
 and a hand-rolled `<Button>`-based prev/next recipe. Because the source JSDoc `@example`
 blocks feed the `.d.ts`, `llms.txt`, and `/api/components.json` agent manifest (see
-[#1239](https://github.com/ngrok-oss/mantle/pull/1239)), those examples are **normative** —
+[#1239](https://github.com/ngrok/mantle/pull/1239)), those examples are **normative** —
 coding agents reproduce them verbatim. A downstream migration of ~57 tables copied exactly
 the bare-string empty and hand-rolled pagination the docs showed.
 

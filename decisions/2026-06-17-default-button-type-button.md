@@ -29,7 +29,7 @@ Why this is worth changing:
   a hard TypeScript error on the overwhelmingly common case (`<Button onClick={…}>Save</Button>`).
 - **Agent-facing friction.** The source JSDoc `@example` blocks feed the `.d.ts`, `llms.txt`,
   and the `/api/components.json` agent manifest (see
-  [#1239](https://github.com/ngrok-oss/mantle/pull/1239), and the
+  [#1239](https://github.com/ngrok/mantle/pull/1239), and the
   [2026-06-16 DataTable recipes decision](./2026-06-16-data-table-empty-and-pagination-recipes.md)),
   so examples are normative — agents reproduce them. A required `type` means every generated
   button must spell out `type="button"` or fail to compile; agents trained on the ecosystem
