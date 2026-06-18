@@ -57,7 +57,7 @@ const HorizontalSeparatorGroup = ({
 				data-slot="horizontal-separator-group"
 				data-horizontal-separator-group
 				className={cx(
-					"group flex items-center gap-2 [&_*:not([data-separator])]:shrink-0",
+					"group flex items-center gap-2 [&>*:not([data-separator])]:shrink-0",
 					className,
 				)}
 				{...props}

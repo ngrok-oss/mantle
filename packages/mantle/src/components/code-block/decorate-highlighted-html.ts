@@ -104,9 +104,18 @@ function decorateHighlightedHtml({
 		const line = lines[i] ?? "";
 		const bufferLineNumber = i + 1;
 		const displayedLineNumber = lineNumberStart + i;
+		// In a fold-enabled block, CSS reserves the gutter column on every line's
+		// content by default and resets it on opener lines (whose toggle button
+		// already occupies the gutter). Tagging the *opener* lines — which are
+		// sparse — instead of probing each line with a relational `:has()` keeps
+		// gutter alignment a flat class match whose cost does not scale with line
+		// count, and adds near-zero markup (see mantle.css). `openerId` is only set
+		// when folding is active, so the tag never appears in non-fold blocks.
+		const openerId = hasFolds ? openerIdByBufferLine.get(bufferLineNumber) : undefined;
 		const lineClassName = cx(
 			"mantle-code-line",
 			highlightedLineNumbers.has(displayedLineNumber) && "mantle-code-line-highlighted",
+			openerId != null && "mantle-code-line-opener",
 		);
 
 		const lineNumberHtml = showLineNumbers
@@ -118,11 +127,10 @@ function decorateHighlightedHtml({
 		let trailingEllipsisHtml = "";
 		if (hasFolds) {
 			// Opener lines render a real semantic <button> in the gutter.
-			// Non-opener lines reserve gutter space via CSS — see the
-			// `:has(.mantle-code-fold-toggle)` rule in mantle.css. Skipping
-			// per-line spacer markup is what keeps HTML overhead near zero
+			// Non-opener lines reserve gutter space via CSS (opener lines are
+			// tagged `mantle-code-line-opener` above so the rule can reset theirs).
+			// Skipping per-line spacer markup is what keeps HTML overhead near zero
 			// for large JSON blocks.
-			const openerId = openerIdByBufferLine.get(bufferLineNumber);
 			if (openerId != null) {
 				foldGutterHtml = `<button type="button" class="mantle-code-fold-toggle" data-slot="fold-toggle" data-fold-line="${openerId}" aria-expanded="true" aria-label="Toggle code folding">${FOLD_CARET_SVG}</button>`;
 				trailingEllipsisHtml =
