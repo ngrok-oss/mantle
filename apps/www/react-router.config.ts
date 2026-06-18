@@ -3,14 +3,11 @@ import { vercelPreset } from "@vercel/react-router/vite";
 const isVercelDeploy = process.env.VERCEL === "1";
 
 export default {
-	future: {
-		v8_middleware: true,
-		v8_passThroughRequests: true,
-		v8_splitRouteModules: true,
-		v8_trailingSlashAwareDataRequests: true,
-		v8_viteEnvironmentApi: true,
-	},
+	// The v8_* future flags this app opted into under React Router 7 are now the
+	// default behavior in v8 and were removed from the config type, so there is
+	// nothing left to enable here.
 	ssr: true,
+	splitRouteModules: true,
 	presets: [
 		//,
 		isVercelDeploy && vercelPreset(),

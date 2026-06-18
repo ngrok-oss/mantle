@@ -38,7 +38,7 @@ export function PageLayout({ className, children, sidebar, ...props }: PageLayou
 	const { showNavigation, setShowNavigation } = useNavigation();
 	const matches = useMatches();
 	const leafToc =
-		matchDataWithTocSchema.safeParse(matches[matches.length - 1]?.data).data?.toc ?? [];
+		matchDataWithTocSchema.safeParse(matches[matches.length - 1]?.loaderData).data?.toc ?? [];
 
 	const closeMobileNavigation = () => {
 		setShowNavigation(false);

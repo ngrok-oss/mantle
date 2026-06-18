@@ -41,7 +41,7 @@ checksum = "sha256:298b4c7b3cb80765c8703e42b90324a4ece3b6634947b89e769c3c980ab55
 url = "https://nodejs.org/dist/v24.16.0/node-v24.16.0-darwin-x64.tar.gz"
 
 [[tools."npm:pnpm"]]
-version = "11.7.0"
+version = "11.8.0"
 backend = "npm:pnpm"
 
 [[tools.ripgrep]]
