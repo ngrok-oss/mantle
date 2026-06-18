@@ -1,5 +1,28 @@
 # @ngrok/mantle
 
+## 0.76.4
+
+### Patch Changes
+
+- [#1257](https://github.com/ngrok/mantle/pull/1257) [`7a32ee9`](https://github.com/ngrok/mantle/commit/7a32ee90d58b597d19b9f990dbef0427b689388a) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Simplify several costly CSS selectors to cheaper, equivalent forms. All changes are behavior-, theming-, and a11y-preserving — no public API changes.
+
+  - **CodeBlock fold gutter** (`mantle.css` + `decorate-highlighted-html.ts`): the gutter-reservation rule no longer probes every line with a per-line relational `:not(:has(> .mantle-code-fold-toggle))` (whose style-recalc cost scaled with line count). A single per-`<pre>` `:has()` now scopes the rule, content gets the gutter margin by default, and the sparse opener lines are tagged `mantle-code-line-opener` so CSS can reset theirs. Measured in Chromium on a fold-enabled block, this removes ~0.5 ms of style-recalc at 5,000 lines and ~3.6 ms at 20,000 lines, while keeping HTML payload flat (only opener lines gain a class).
+  - **Command group heading** (`command.tsx`): the five `**:[[cmdk-group-heading]]:*` deep-descendant scans are now direct-child `[&>[cmdk-group-heading]]:*` selectors (cmdk renders the heading as a direct child of the group). Identical specificity, smaller match scope.
+  - **Command item icons** (`command.tsx`): the brittle `[&_svg:not([class*='size-'])]` / `[&_svg:not([class*='text-'])]` substring-attribute scans are replaced with `:where()`-wrapped defaults (`[:where(&_svg)]:size-5` / `[:where(&_svg)]:text-muted`), matching the `Label` precedent. Consumer icon size/color classes still override the defaults cleanly, without the substring scan or its false matches (e.g. `text-sm`).
+  - **HorizontalSeparatorGroup** (`separator.tsx`): the universal-descendant `[&_*:not([data-separator])]:shrink-0` is now a direct-child `[&>*:not([data-separator])]:shrink-0`. `flex-shrink` only affects direct flex items, so this collapses an unbounded subtree walk to a single parent check with no rendered difference.
+
+- [#1256](https://github.com/ngrok/mantle/pull/1256) [`1a48962`](https://github.com/ngrok/mantle/commit/1a489627fb8c4ac5374a38c5dd2a20f214f6dc7c) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - `Button` and `IconButton` now default `type` to `"button"` instead of requiring it.
+
+  The `type` prop is relaxed from required to optional on both components; when omitted it renders `type="button"`, matching the wider React ecosystem (Radix, shadcn, MUI, …) and neutralizing the native `<button>` accidental-form-submit footgun. This is backward compatible — every existing call site already passes `type`, so nothing changes for them; omitting `type` simply stops being a compile error.
+
+  Forms note: because the default is now `"button"`, a `Button`/`IconButton` that relies on **native** form submission must opt in with `type="submit"`.
+
+  When `asChild` is used, `type` continues to have no effect and is not forwarded to the child.
+
+- [#1254](https://github.com/ngrok/mantle/pull/1254) [`b5b72bc`](https://github.com/ngrok/mantle/commit/b5b72bc30a63bf00ccd615a7278fe1f3a42e36f7) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Stop publishing source maps. The `.js.map` files were ~58% of the package's unpacked size (and compressed tarball) and embedded the full original source via `sourcesContent`, despite `src/` not being shipped. Dropping them more than halves the published package.
+
+  This affects nothing consumers import at runtime. The typed `.d.ts` surface (with its JSDoc and `@example` blocks) and the bundled agent-discovery artifacts (`dist/agent.json`, `dist/llms.txt`) are unchanged; only stepping into mantle's original source in a debugger is no longer possible.
+
 ## 0.76.3
 
 ### Patch Changes
