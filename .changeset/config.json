@@ -3,7 +3,7 @@
   "changelog": [
     "@changesets/changelog-github",
     {
-      "repo": "ngrok-oss/mantle"
+      "repo": "ngrok/mantle"
     }
   ],
   "commit": false,

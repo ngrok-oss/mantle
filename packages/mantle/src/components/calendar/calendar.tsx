@@ -33,7 +33,7 @@ type CalendarProps = ComponentProps<typeof DayPicker>;
  * />
  * ```
  *
- * https://github.com/ngrok-oss/mantle/issues
+ * https://github.com/ngrok/mantle/issues
  */
 function Calendar({ className, classNames, showOutsideDays = false, ...props }: CalendarProps) {
 	return (

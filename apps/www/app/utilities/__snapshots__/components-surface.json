@@ -88,7 +88,7 @@
     "summary": "A date field component that allows users to enter and edit date.",
     "jsdoc": "A calendar component that allows users to select a date or a range of dates.",
     "examples": [
-      "```tsx\n<Calendar\n  mode=\"single\"\n  selected={selectedDate}\n  onSelect={setSelectedDate}\n/>\n\n<Calendar\n  mode=\"range\"\n  selected={dateRange}\n  onSelect={setDateRange}\n/>\n```\n\nhttps://github.com/ngrok-oss/mantle/issues"
+      "```tsx\n<Calendar\n  mode=\"single\"\n  selected={selectedDate}\n  onSelect={setSelectedDate}\n/>\n\n<Calendar\n  mode=\"range\"\n  selected={dateRange}\n  onSelect={setDateRange}\n/>\n```\n\nhttps://github.com/ngrok/mantle/issues"
     ]
   },
   {
