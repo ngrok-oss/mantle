@@ -23,6 +23,17 @@ export type {
 
 export {
 	//,
+	jsonCodeBlockValue,
+	jsonToShikiHtml,
+} from "./json-highlight.js";
+
+export type {
+	//,
+	JsonCodeBlockValueOptions,
+} from "./json-highlight.js";
+
+export {
+	//,
 	decorateHighlightedHtml,
 } from "./decorate-highlighted-html.js";
 

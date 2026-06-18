@@ -1,9 +1,12 @@
 import { Button, IconButton } from "@ngrok/mantle/button";
 import { Checkbox, selectAllChecked } from "@ngrok/mantle/checkbox";
+import { CodeBlock, jsonCodeBlockValue } from "@ngrok/mantle/code-block";
 import {
 	DataTable,
+	type ExpandedState,
 	createColumnHelper,
 	getCoreRowModel,
+	getExpandedRowModel,
 	getFilteredRowModel,
 	getPaginationRowModel,
 	getSortedRowModel,
@@ -20,7 +23,7 @@ import { MagnifyingGlassIcon } from "@phosphor-icons/react/MagnifyingGlass";
 import { PencilSimpleIcon } from "@phosphor-icons/react/PencilSimple";
 import { TrashIcon } from "@phosphor-icons/react/Trash";
 import { TrayIcon } from "@phosphor-icons/react/Tray";
-import { useMemo, useState } from "react";
+import { Fragment, useMemo, useState } from "react";
 
 type Payment = {
 	id: string;
@@ -640,5 +643,79 @@ export function SelectablePaymentsDemo() {
 				</DataTable.Body>
 			</DataTable.Root>
 		</div>
+	);
+}
+
+// A leading expand-toggle column in front of the existing payment columns (which
+// already end with a sticky action column) — so the +/- toggle on the left and
+// the pinned actions on the right coexist.
+const expandableColumns = [
+	columnHelper.display({
+		id: "expander",
+		header: () => <DataTable.ExpandHeader />,
+		cell: (props) => (
+			<DataTable.Cell className="w-9">
+				<DataTable.RowExpandButton row={props.row} label={props.row.original.email} />
+			</DataTable.Cell>
+		),
+	}),
+	...columns,
+];
+
+/**
+ * Demo of expandable rows. A `DataTable.RowExpandButton` in the leading column
+ * toggles a `DataTable.ExpandedRow` that renders the row's underlying object as
+ * JSON via `CodeBlock` — a common "inspect the raw record" support workflow.
+ * Expansion is driven entirely by native TanStack state (multiple rows may be
+ * open at once).
+ */
+export function ExpandableRowsDemo() {
+	const data = useMemo(() => examplePayments, []);
+	const [expanded, setExpanded] = useState<ExpandedState>({});
+	const table = useReactTable({
+		data,
+		columns: expandableColumns,
+		state: { expanded },
+		onExpandedChange: setExpanded,
+		getRowCanExpand: () => true,
+		getCoreRowModel: getCoreRowModel(),
+		getExpandedRowModel: getExpandedRowModel(),
+		getRowId: (row) => row.id,
+	});
+	const rows = table.getRowModel().rows;
+	return (
+		<DataTable.Root table={table}>
+			<DataTable.Head />
+			<DataTable.Body>
+				{rows.length > 0 ? (
+					rows.map((row) => (
+						// Fragment, not a DOM wrapper — a node between <tbody> and <tr> is
+						// invalid HTML and would break Table.Body's row styling.
+						<Fragment key={row.id}>
+							<DataTable.Row row={row} />
+							{row.getIsExpanded() ? (
+								<DataTable.ExpandedRow row={row}>
+									<CodeBlock.Root>
+										<CodeBlock.Body>
+											<CodeBlock.CopyButton />
+											{/* Highlighted entirely on the client — no Shiki runtime, no
+											    build-time plugin, no server roundtrip. */}
+											<CodeBlock.Code value={jsonCodeBlockValue(row.original)} />
+										</CodeBlock.Body>
+									</CodeBlock.Root>
+								</DataTable.ExpandedRow>
+							) : null}
+						</Fragment>
+					))
+				) : (
+					<DataTable.EmptyRow>
+						<Empty.Root>
+							<Empty.Icon svg={<TrayIcon />} />
+							<Empty.Title>No payments yet</Empty.Title>
+						</Empty.Root>
+					</DataTable.EmptyRow>
+				)}
+			</DataTable.Body>
+		</DataTable.Root>
 	);
 }
