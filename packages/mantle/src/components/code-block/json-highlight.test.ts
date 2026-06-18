@@ -60,4 +60,16 @@ describe("jsonCodeBlockValue", () => {
 	test("falls back to an empty string when the value is not JSON-serializable", () => {
 		expect(jsonCodeBlockValue(undefined).code).toBe("");
 	});
+
+	test("serializes BigInt values (as decimal strings) without throwing", () => {
+		const value = jsonCodeBlockValue({ id: 10n });
+		expect(value.code).toBe(JSON.stringify({ id: "10" }, null, 2));
+	});
+
+	test("does not throw on circular structures — falls back to a best-effort string", () => {
+		const circular: Record<string, unknown> = {};
+		circular.self = circular;
+		expect(() => jsonCodeBlockValue(circular)).not.toThrow();
+		expect(jsonCodeBlockValue(circular).code).toBeTypeOf("string");
+	});
 });

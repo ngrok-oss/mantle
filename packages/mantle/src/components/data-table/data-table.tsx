@@ -794,12 +794,13 @@ function RowExpandButton<TData>({
 			icon={isExpanded ? collapseIcon : expandIcon}
 			label={`${isExpanded ? "Hide" : "Show"} details for ${label}`}
 			onClick={(event) => {
+				// Always keep the toggle click from bubbling to a row-level onClick
+				// (e.g. navigation) — even when a consumer vetoes the toggle below.
+				event.stopPropagation();
 				onClick?.(event);
 				if (event.defaultPrevented) {
 					return;
 				}
-				// Keep the toggle from bubbling to a row-level onClick (e.g. navigation).
-				event.stopPropagation();
 				toggleExpanded();
 			}}
 			{...props}

@@ -232,6 +232,24 @@ function jsonToShikiHtml(code: string): string {
 	return lines.map(renderLine).join("\n");
 }
 
+/**
+ * `JSON.stringify` (2-space indent) that never throws — rendering a detail panel
+ * must not crash on awkward values. Serializes `BigInt` as its decimal string
+ * (JSON has no bigint), and falls back to `String(value)` for inputs
+ * `JSON.stringify` rejects outright (circular references, etc.). Returns `""` for
+ * values that serialize to `undefined` (functions, symbols, bare `undefined`).
+ */
+function safeJsonStringify(value: unknown): string {
+	try {
+		return (
+			JSON.stringify(value, (_key, val) => (typeof val === "bigint" ? val.toString() : val), 2) ??
+			""
+		);
+	} catch {
+		return String(value);
+	}
+}
+
 /** Options for {@link jsonCodeBlockValue}. */
 type JsonCodeBlockValueOptions = {
 	/**
@@ -268,7 +286,7 @@ function jsonCodeBlockValue(
 	value: unknown,
 	{ showLineNumbers = false }: JsonCodeBlockValueOptions = {},
 ): MantleCodeBlockValue {
-	const code = JSON.stringify(value, null, 2) ?? "";
+	const code = safeJsonStringify(value);
 	const preHtml = decorateHighlightedHtml({
 		html: jsonToShikiHtml(code),
 		showLineNumbers,

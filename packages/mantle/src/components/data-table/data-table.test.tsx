@@ -192,13 +192,22 @@ describe("DataTable.RowExpandButton", () => {
 		expect(screen.getByTestId("detail-row-1")).toBeInTheDocument();
 	});
 
-	test("lets a consumer onClick veto the toggle via preventDefault", async () => {
+	test("lets a consumer onClick veto the toggle via preventDefault — and still stops propagation", async () => {
 		const user = userEvent.setup();
-		render(<ExpandableHarness buttonOnClick={(event) => event.preventDefault()} />);
+		const handleRowClick = vi.fn<() => void>();
+		render(
+			<ExpandableHarness
+				onRowClick={handleRowClick}
+				buttonOnClick={(event) => event.preventDefault()}
+			/>,
+		);
 
 		await user.click(screen.getByRole("button", { name: "Show details for Alice" }));
 
+		// Vetoed: the row does not expand…
 		expect(screen.queryByTestId("detail-row-1")).not.toBeInTheDocument();
+		// …and the click still never bubbles to the row-level onClick.
+		expect(handleRowClick).not.toHaveBeenCalled();
 	});
 
 	test("renders nothing when the row cannot expand", () => {
