@@ -5,6 +5,7 @@ import type { ComponentProps, ReactNode } from "react";
 import { Children, cloneElement, forwardRef, isValidElement } from "react";
 import invariant from "tiny-invariant";
 import { parseBooleanish } from "../../types/index.js";
+import type { WithAsChild } from "../../types/index.js";
 import type { VariantProps } from "../../types/variant-props.js";
 import { cx } from "../../utils/cx/cx.js";
 import { Icon } from "../icon/index.js";
@@ -107,7 +108,8 @@ type ButtonPriority = Pick<ButtonVariants, "priority">["priority"];
  * The props for the `Button` component.
  */
 type ButtonProps = ComponentProps<"button"> &
-	ButtonVariants & {
+	ButtonVariants &
+	WithAsChild & {
 		/**
 		 * An icon to render inside the button. If the `state` is `"pending"`, then
 		 * the icon will automatically be replaced with a spinner.
@@ -119,57 +121,25 @@ type ButtonProps = ComponentProps<"button"> &
 		 * @default "start"
 		 */
 		iconPlacement?: "start" | "end";
-	} & (
-		| {
-				/**
-				 * Use the `asChild` prop to compose Radix's functionality onto alternative
-				 * element types or your own React components.
-				 *
-				 * When `asChild` is set to `true`, mantle will not render a default DOM
-				 * element, instead cloning the component's child and passing it the props and
-				 * behavior required to make it functional.
-				 *
-				 * asChild can be used as deeply as you need to. This means it is a great way
-				 * to compose multiple primitive's behavior together.
-				 *
-				 * @see https://www.radix-ui.com/docs/primitives/guides/composition#composition
-				 */
-				asChild: true;
-				/**
-				 * The default behavior of the button. Possible values are: `"button"`, `"submit"`, and `"reset"`.
-				 *
-				 * if `asChild` is NOT used: Unlike the native `<button>` element, this prop is required and has no default value.
-				 *
-				 * If `asChild` IS used: This prop HAS NO EFFECT, is REMOVED, and has no default value. This is because we do not want the `button` `type` to automatically merge with any child anchor `type` attribute because the `anchor` `type` is _strictly different_ than the `button` type, see: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#type
-				 *
-				 * @enum
-				 * - `"button"`: The button has no default behavior, and does nothing when pressed by default. It can have client-side scripts listen to the element's events, which are triggered when the events occur.
-				 * - `"reset"`: The button resets all the controls to their initial values.
-				 * - `"submit"`: The button submits the form data to the server.
-				 *
-				 * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#type
-				 */
-				type?: ComponentProps<"button">["type"];
-		  }
-		| {
-				asChild?: false | undefined;
-				/**
-				 * The default behavior of the button. Possible values are: `"button"`, `"submit"`, and `"reset"`.
-				 *
-				 * if `asChild` is NOT used: Unlike the native `<button>` element, this prop is required and has no default value.
-				 *
-				 * If `asChild` IS used: This prop HAS NO EFFECT, is REMOVED, and has no default value. This is because we do not want the `button` `type` to automatically merge with any child anchor `type` attribute because the `anchor` `type` is _strictly different_ than the `button` type, see: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#type
-				 *
-				 * @enum
-				 * - `"button"`: The button has no default behavior, and does nothing when pressed by default. It can have client-side scripts listen to the element's events, which are triggered when the events occur.
-				 * - `"reset"`: The button resets all the controls to their initial values.
-				 * - `"submit"`: The button submits the form data to the server.
-				 *
-				 * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#type
-				 */
-				type: Exclude<ComponentProps<"button">["type"], undefined>;
-		  }
-	);
+		/**
+		 * The behavior of the button when activated. Defaults to `"button"`, so the
+		 * button does not accidentally submit a surrounding `<form>` — pass
+		 * `type="submit"` to submit a form, or `type="reset"` to reset it.
+		 *
+		 * When `asChild` is used, `type` has no effect and is not forwarded to the
+		 * child, so a wrapped anchor never inherits a `button` `type`. See:
+		 * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#type
+		 *
+		 * @default "button"
+		 * @enum
+		 * - `"button"`: The button has no default behavior, and does nothing when pressed by default. It can have client-side scripts listen to the element's events, which are triggered when the events occur.
+		 * - `"reset"`: The button resets all the controls to their initial values.
+		 * - `"submit"`: The button submits the form data to the server.
+		 *
+		 * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#type
+		 */
+		type?: ComponentProps<"button">["type"];
+	};
 
 /**
  * Renders a button or a component that looks like a button, an interactive
@@ -181,8 +151,16 @@ type ButtonProps = ComponentProps<"button"> &
  *
  * @example
  * ```tsx
- * <Button type="button" appearance="filled" priority="default">
+ * <Button appearance="filled" onClick={handleClick}>
  *   Click me
+ * </Button>
+ * ```
+ *
+ * @example
+ * Submit a form — opt in with `type="submit"` (the default `"button"` does not submit):
+ * ```tsx
+ * <Button type="submit" appearance="filled">
+ *   Save
  * </Button>
  * ```
  */
@@ -258,8 +236,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 		}
 
 		return (
-			// oxlint-disable-next-line react/button-has-type -- `type` is resolved at runtime from the `type` prop (defaulted to "button"); the static analyzer can't see that.
-			<button {...buttonProps} type={type}>
+			// oxlint-disable-next-line react/button-has-type -- `type` defaults to "button" at runtime via the `?? "button"` fallback; the static analyzer can't resolve that expression.
+			<button {...buttonProps} type={type ?? "button"}>
 				{icon && <Icon svg={icon} className={clsx(iconPlacement === "end" && "order-last")} />}
 				{children}
 			</button>

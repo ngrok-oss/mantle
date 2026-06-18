@@ -76,7 +76,8 @@
     "summary": "Initiates an action, such as completing a task or submitting information.",
     "jsdoc": "Renders a button or a component that looks like a button, an interactive element activated by a user with a mouse, keyboard, finger, voice command, or other assistive technology.",
     "examples": [
-      "```tsx\n<Button type=\"button\" appearance=\"filled\" priority=\"default\">\n  Click me\n</Button>\n```"
+      "```tsx\n<Button appearance=\"filled\" onClick={handleClick}>\n  Click me\n</Button>\n```",
+      "Submit a form — opt in with `type=\"submit\"` (the default `\"button\"` does not submit):\n```tsx\n<Button type=\"submit\" appearance=\"filled\">\n  Save\n</Button>\n```"
     ]
   },
   {
@@ -277,7 +278,8 @@
     "summary": "Initiates an action, such as completing a task or submitting information. Renders only a single icon as children with an accessible, screen-reader-only label.",
     "jsdoc": "Renders a button or a component that looks like a button, an interactive element activated by a user with a mouse, keyboard, finger, voice command, or other assistive technology.",
     "examples": [
-      "```tsx\n<IconButton\n  type=\"button\"\n  icon={<TrashIcon />}\n  label=\"Delete item\"\n  appearance=\"ghost\"\n  size=\"sm\"\n/>\n```"
+      "```tsx\n<IconButton\n  icon={<TrashIcon />}\n  label=\"Delete item\"\n  appearance=\"ghost\"\n  size=\"sm\"\n  onClick={handleDelete}\n/>\n```",
+      "Submit a form — opt in with `type=\"submit\"` (the default `\"button\"` does not submit):\n```tsx\n<IconButton type=\"submit\" icon={<MagnifyingGlassIcon />} label=\"Search\" />\n```"
     ]
   },
   {

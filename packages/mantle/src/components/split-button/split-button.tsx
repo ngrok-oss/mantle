@@ -35,26 +35,23 @@ const Root = forwardRef<ComponentRef<"div">, RootProps>(
 );
 Root.displayName = "SplitButton";
 
-type PrimaryActionProps = Omit<ComponentProps<typeof Button>, "appearance" | "type" | "priority"> &
-	Pick<ComponentProps<"button">, "type">;
+type PrimaryActionProps = Omit<ComponentProps<typeof Button>, "appearance" | "priority">;
 
-const PrimaryAction = forwardRef<ComponentRef<"button">, PrimaryActionProps>(
-	({ type = "button", ...props }, ref) => {
-		return <Button appearance="outlined" priority="neutral" ref={ref} type={type} {...props} />;
-	},
-);
+const PrimaryAction = forwardRef<ComponentRef<"button">, PrimaryActionProps>((props, ref) => {
+	// `type` flows through; `Button` defaults it to "button".
+	return <Button appearance="outlined" priority="neutral" ref={ref} {...props} />;
+});
 PrimaryAction.displayName = "SplitButtonPrimaryAction";
 
 type MenuTriggerProps = Omit<
 	ComponentProps<typeof IconButton>,
 	"appearance" | "size" | "asChild" | "icon"
-> &
-	Pick<ComponentProps<"button">, "type"> & {
-		icon?: ReactNode;
-	};
+> & {
+	icon?: ReactNode;
+};
 
 const MenuTrigger = forwardRef<ComponentRef<"button">, MenuTriggerProps>(
-	({ icon, type = "button", ...props }, ref) => {
+	({ icon, ...props }, ref) => {
 		return (
 			<DropdownMenu.Trigger asChild className="group">
 				<IconButton
@@ -72,7 +69,6 @@ const MenuTrigger = forwardRef<ComponentRef<"button">, MenuTriggerProps>(
 					}
 					appearance="outlined"
 					ref={ref}
-					type={type}
 					{...props}
 				/>
 			</DropdownMenu.Trigger>

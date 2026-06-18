@@ -16,16 +16,16 @@ Initiates an action, such as completing a task or submitting information.
 	<div>
 		<p className="mb-2 text-center font-mono text-xs">Default</p>
 		<div className="flex items-center gap-2">
-			<Button type="button" appearance="ghost" priority="default">
+			<Button appearance="ghost" priority="default">
 				Ghost
 			</Button>
-			<Button type="button" appearance="filled" priority="default">
+			<Button appearance="filled" priority="default">
 				Filled
 			</Button>
-			<Button type="button" appearance="outlined" priority="default">
+			<Button appearance="outlined" priority="default">
 				Outlined
 			</Button>
-			<Button type="button" appearance="link" priority="default">
+			<Button appearance="link" priority="default">
 				Link
 			</Button>
 		</div>
@@ -33,16 +33,16 @@ Initiates an action, such as completing a task or submitting information.
 	<div>
 		<p className="mb-2 text-center font-mono text-xs">Neutral</p>
 		<div className="flex items-center gap-2">
-			<Button type="button" appearance="ghost" priority="neutral">
+			<Button appearance="ghost" priority="neutral">
 				Ghost
 			</Button>
-			<Button type="button" appearance="filled" priority="neutral">
+			<Button appearance="filled" priority="neutral">
 				Filled
 			</Button>
-			<Button type="button" appearance="outlined" priority="neutral">
+			<Button appearance="outlined" priority="neutral">
 				Outlined
 			</Button>
-			<Button type="button" appearance="link" priority="neutral">
+			<Button appearance="link" priority="neutral">
 				Link
 			</Button>
 		</div>
@@ -50,16 +50,16 @@ Initiates an action, such as completing a task or submitting information.
 	<div>
 		<p className="mb-2 text-center font-mono text-xs">Danger</p>
 		<div className="flex items-center gap-2">
-			<Button type="button" appearance="ghost" priority="danger">
+			<Button appearance="ghost" priority="danger">
 				Ghost
 			</Button>
-			<Button type="button" appearance="filled" priority="danger">
+			<Button appearance="filled" priority="danger">
 				Filled
 			</Button>
-			<Button type="button" appearance="outlined" priority="danger">
+			<Button appearance="outlined" priority="danger">
 				Outlined
 			</Button>
-			<Button type="button" appearance="link" priority="danger">
+			<Button appearance="link" priority="danger">
 				Link
 			</Button>
 		</div>
@@ -69,21 +69,37 @@ Initiates an action, such as completing a task or submitting information.
 ```tsx
 import { Button } from "@ngrok/mantle/button";
 
-<Button type="button">Outlined</Button>
-<Button type="button" appearance="filled">Filled</Button>
-<Button type="button" appearance="ghost">Ghost</Button>
-<Button type="button" appearance="link">Link</Button>
+<Button>Outlined</Button>
+<Button appearance="filled">Filled</Button>
+<Button appearance="ghost">Ghost</Button>
+<Button appearance="link">Link</Button>
 
-<Button type="button" priority="neutral">Outlined</Button>
-<Button type="button" priority="neutral" appearance="filled">Filled</Button>
-<Button type="button" priority="neutral" appearance="ghost">Ghost</Button>
-<Button type="button" priority="neutral" appearance="link">Link</Button>
+<Button priority="neutral">Outlined</Button>
+<Button priority="neutral" appearance="filled">Filled</Button>
+<Button priority="neutral" appearance="ghost">Ghost</Button>
+<Button priority="neutral" appearance="link">Link</Button>
 
-<Button type="button" priority="danger">Outlined</Button>
-<Button type="button" priority="danger" appearance="filled">Filled</Button>
-<Button type="button" priority="danger" appearance="ghost">Ghost</Button>
-<Button type="button" priority="danger" appearance="link">Link</Button>
+<Button priority="danger">Outlined</Button>
+<Button priority="danger" appearance="filled">Filled</Button>
+<Button priority="danger" appearance="ghost">Ghost</Button>
+<Button priority="danger" appearance="link">Link</Button>
 ```
+
+## Type
+
+Unlike the native `<button>` element — which defaults to `type="submit"` — a mantle `Button` defaults to **`type="button"`**. This matches the wider React ecosystem (Radix, shadcn, MUI, …) and stops a button from accidentally submitting a surrounding `<form>` when all you wanted was an `onClick`.
+
+The tradeoff: a button that _should_ submit a form has to opt in with `type="submit"` (or `type="reset"` to reset it). A plain `<Button>` that relies on native form submission will silently do nothing.
+
+```tsx
+// ✅ Opts in — submits the form
+<Button type="submit" appearance="filled">Save</Button>
+
+// ❌ Defaults to type="button" — native form submission never fires
+<Button appearance="filled">Save</Button>
+```
+
+When `asChild` is used, `type` has no effect and is not forwarded to the child, so a wrapped anchor never inherits a `button` `type`.
 
 ## Icon and Positioning
 
@@ -91,10 +107,8 @@ Use the `icon` prop to add an icon to the button. By default, it will render on 
 
 <Example>
 	<div className="flex items-center gap-2">
-		<Button type="button" icon={<FireIcon weight="fill" />}>
-			Icon Start
-		</Button>
-		<Button type="button" icon={<FireIcon weight="fill" />} iconPlacement="end">
+		<Button icon={<FireIcon weight="fill" />}>Icon Start</Button>
+		<Button icon={<FireIcon weight="fill" />} iconPlacement="end">
 			Icon End
 		</Button>
 	</div>
@@ -104,8 +118,8 @@ Use the `icon` prop to add an icon to the button. By default, it will render on 
 import { Button } from "@ngrok/mantle/button";
 import { FireIcon } from "@phosphor-icons/react/Fire";
 
-<Button type="button" icon={<FireIcon weight="fill" />}>Icon Start</Button>
-<Button type="button" icon={<FireIcon weight="fill" />} iconPlacement="end">
+<Button icon={<FireIcon weight="fill" />}>Icon Start</Button>
+<Button icon={<FireIcon weight="fill" />} iconPlacement="end">
 	Icon End
 </Button>
 ```
@@ -118,11 +132,9 @@ import { FireIcon } from "@phosphor-icons/react/Fire";
 	<div className="space-y-2">
 		<p className="mb-2 text-center font-mono text-xs">Idle</p>
 		<div className="flex flex-wrap items-center justify-center gap-2">
-			<Button type="button">No Icon + Idle</Button>
-			<Button type="button" icon={<FireIcon weight="fill" />}>
-				Icon Start + Idle
-			</Button>
-			<Button type="button" icon={<FireIcon weight="fill" />} iconPlacement="end">
+			<Button>No Icon + Idle</Button>
+			<Button icon={<FireIcon weight="fill" />}>Icon Start + Idle</Button>
+			<Button icon={<FireIcon weight="fill" />} iconPlacement="end">
 				Icon End + Idle
 			</Button>
 		</div>
@@ -130,13 +142,11 @@ import { FireIcon } from "@phosphor-icons/react/Fire";
 	<div className="space-y-2">
 		<p className="mb-2 text-center font-mono text-xs">isLoading</p>
 		<div className="flex flex-wrap items-center justify-center gap-2">
-			<Button type="button" isLoading>
-				No Icon + isLoading
-			</Button>
-			<Button type="button" icon={<FireIcon weight="fill" />} isLoading>
+			<Button isLoading>No Icon + isLoading</Button>
+			<Button icon={<FireIcon weight="fill" />} isLoading>
 				Icon Start + isLoading
 			</Button>
-			<Button type="button" icon={<FireIcon weight="fill" />} iconPlacement="end" isLoading>
+			<Button icon={<FireIcon weight="fill" />} iconPlacement="end" isLoading>
 				Icon End + isLoading
 			</Button>
 		</div>
@@ -147,16 +157,16 @@ import { FireIcon } from "@phosphor-icons/react/Fire";
 import { Button } from "@ngrok/mantle/button";
 import { FireIcon } from "@phosphor-icons/react/Fire";
 
-<Button type="button">No Icon + Idle</Button>
-<Button type="button" icon={<FireIcon weight="fill" />}>Icon Start + Idle</Button>
-<Button type="button" icon={<FireIcon weight="fill" />} iconPlacement="end">
+<Button>No Icon + Idle</Button>
+<Button icon={<FireIcon weight="fill" />}>Icon Start + Idle</Button>
+<Button icon={<FireIcon weight="fill" />} iconPlacement="end">
 	Icon End + Idle
 </Button>
-<Button type="button" isLoading>No Icon + isLoading</Button>
-<Button type="button" icon={<FireIcon weight="fill" />} isLoading>
+<Button isLoading>No Icon + isLoading</Button>
+<Button icon={<FireIcon weight="fill" />} isLoading>
 	Icon Start + isLoading
 </Button>
-<Button type="button" icon={<FireIcon weight="fill" />} iconPlacement="end" isLoading>
+<Button icon={<FireIcon weight="fill" />} iconPlacement="end" isLoading>
 	Icon End + isLoading
 </Button>
 ```
@@ -187,12 +197,12 @@ import { Link, href } from "react-router";
 
 All props from [button](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes), plus:
 
-| Prop             | Type                                                | Default      | Description                                                                                                                                                                                                                                                                      |
-| ---------------- | --------------------------------------------------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `appearance?`    | `"ghost"` \| `"filled"` \| `"outlined"` \| `"link"` | `"outlined"` | Defines the visual style of the `Button`.                                                                                                                                                                                                                                        |
-| `asChild?`       | `boolean`                                           | `false`      | Use the `asChild` prop to compose the `Button` styling onto alternative element types or your own React components.                                                                                                                                                              |
-| `icon?`          | `ReactNode`                                         |              | An icon to render inside the button. When `isLoading` is `true`, the icon will automatically be replaced with a spinner.                                                                                                                                                         |
-| `iconPlacement?` | `"start"` \| `"end"`                                | `"start"`    | The side that the icon will render on, if one is present. When `isLoading` is `true`, the loading spinner will also render on this side.                                                                                                                                         |
-| `isLoading?`     | `boolean`                                           | `false`      | Determines whether or not the button is in a loading state. Setting `isLoading` will replace any `icon` with a spinner, or add one if an icon wasn't given. It will also disable user interaction with the button and set `aria-disabled`.                                       |
-| `priority?`      | `"default"` \| `"danger"` \| `"neutral"`            | `"default"`  | Indicates the importance or impact level of the button, affecting its color and styling to communicate its purpose to the user.                                                                                                                                                  |
-| `type`           | `"button"` \| `"reset"` \| `"submit"`               |              | The default behavior of the `Button`. Unlike the native `button` element, unless you use the `asChild` prop, **this prop is required and has no default value**. See [the MDN docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#type) for more information. |
+| Prop             | Type                                                | Default      | Description                                                                                                                                                                                                                                                                                                                                                            |
+| ---------------- | --------------------------------------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `appearance?`    | `"ghost"` \| `"filled"` \| `"outlined"` \| `"link"` | `"outlined"` | Defines the visual style of the `Button`.                                                                                                                                                                                                                                                                                                                              |
+| `asChild?`       | `boolean`                                           | `false`      | Use the `asChild` prop to compose the `Button` styling onto alternative element types or your own React components.                                                                                                                                                                                                                                                    |
+| `icon?`          | `ReactNode`                                         |              | An icon to render inside the button. When `isLoading` is `true`, the icon will automatically be replaced with a spinner.                                                                                                                                                                                                                                               |
+| `iconPlacement?` | `"start"` \| `"end"`                                | `"start"`    | The side that the icon will render on, if one is present. When `isLoading` is `true`, the loading spinner will also render on this side.                                                                                                                                                                                                                               |
+| `isLoading?`     | `boolean`                                           | `false`      | Determines whether or not the button is in a loading state. Setting `isLoading` will replace any `icon` with a spinner, or add one if an icon wasn't given. It will also disable user interaction with the button and set `aria-disabled`.                                                                                                                             |
+| `priority?`      | `"default"` \| `"danger"` \| `"neutral"`            | `"default"`  | Indicates the importance or impact level of the button, affecting its color and styling to communicate its purpose to the user.                                                                                                                                                                                                                                        |
+| `type?`          | `"button"` \| `"reset"` \| `"submit"`               | `"button"`   | The behavior of the `Button` when activated. Defaults to `"button"`, so a `Button` inside a `<form>` will **not** submit it — pass `type="submit"` to submit the form. When `asChild` is used, `type` has no effect and is not forwarded to the child. See [the MDN docs](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#type) for more information. |
