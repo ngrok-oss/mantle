@@ -658,7 +658,7 @@ Expand a row into an inline detail panel with a `+`/`−` toggle — ideal for i
 
 Two parts cover the toggle: `DataTable.ExpandHeader` (the toggle column header) and `DataTable.RowExpandButton` (the accessible `+`/`−` toggle, dropped into a leading `columnHelper.display` cell). For the detail panel itself, pass `renderExpanded` to `DataTable.Row` — when the row is expanded it renders its data row plus a sibling detail row holding the returned content, so you never hand-write the extra `<tr>` or the expand conditional. `renderExpanded` is called lazily (only while the row is open), so collapsed rows never build their panel. The detail row spans every visible column and sits on an opaque surface, so it coexists with a sticky [action column](#action-column-with-a-dropdown-menu).
 
-The detail panel below renders each row's object as JSON via [`CodeBlock`](/components/code-block), highlighted with [`jsonCodeBlockValue`](/components/code-block) — entirely on the client, with no Shiki runtime shipped to the browser, no build-time plugin, and no server roundtrip.
+The detail panel below renders each row's object as JSON via [`CodeBlock`](/components/code-block), highlighted with [`jsonCodeBlockValue`](/components/code-block) — entirely on the client, with no Shiki runtime shipped to the browser, no build-time plugin, and no server roundtrip. Multi-line objects and arrays are collapsible by default, just like every other JSON code block (pass `{ foldable: false }` for a flat panel).
 
 <Example>
 	<ExpandableRowsDemo />

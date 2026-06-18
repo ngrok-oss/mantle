@@ -1,4 +1,7 @@
 import { describe, expect, test } from "vitest";
+import { computeJsonFoldRanges } from "./compute-json-fold-ranges.js";
+import { decorateHighlightedHtml } from "./decorate-highlighted-html.js";
+import { jsonFoldFixtures } from "./json-fold.fixtures.js";
 import { jsonHighlightFixtures } from "./json-highlight.fixtures.js";
 import { jsonCodeBlockValue, jsonToShikiHtml } from "./json-highlight.js";
 
@@ -72,4 +75,34 @@ describe("jsonCodeBlockValue", () => {
 		expect(() => jsonCodeBlockValue(circular)).not.toThrow();
 		expect(jsonCodeBlockValue(circular).code).toBeTypeOf("string");
 	});
+
+	test("emits fold-toggle markup for multi-line structures by default", () => {
+		const value = jsonCodeBlockValue({ nested: { a: 1 } });
+		expect(value["~preHtml"]).toContain("mantle-code-fold-toggle");
+	});
+
+	test("omits fold markup when `foldable` is false", () => {
+		const value = jsonCodeBlockValue({ nested: { a: 1 } }, { foldable: false });
+		expect(value["~preHtml"]).not.toContain("mantle-code-fold-toggle");
+	});
+});
+
+describe("JSON fold parity", () => {
+	// Reconstruct the client pipeline (client tokenizer + the shared
+	// computeJsonFoldRanges + decorateHighlightedHtml) and assert it matches the
+	// fold-decorated markup captured from the real Shiki server pipeline. This is
+	// the byte-for-byte "client folds === server/build folds" guarantee.
+	test.each(jsonFoldFixtures)(
+		"reconstructs the server's fold-decorated markup 1:1 — $name",
+		({ code, html, showLineNumbers, lineNumberStart, highlightLines }) => {
+			const reconstructed = decorateHighlightedHtml({
+				html: jsonToShikiHtml(code),
+				foldableRanges: computeJsonFoldRanges(code),
+				showLineNumbers,
+				lineNumberStart,
+				highlightLines,
+			});
+			expect(reconstructed).toBe(html);
+		},
+	);
 });

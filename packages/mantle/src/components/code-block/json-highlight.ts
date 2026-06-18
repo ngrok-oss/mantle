@@ -1,3 +1,4 @@
+import { computeJsonFoldRanges } from "./compute-json-fold-ranges.js";
 import { decorateHighlightedHtml } from "./decorate-highlighted-html.js";
 import { createMantleCodeBlockValue, type MantleCodeBlockValue } from "./mantle-code.js";
 
@@ -257,6 +258,13 @@ type JsonCodeBlockValueOptions = {
 	 * read better without a gutter.
 	 */
 	showLineNumbers?: boolean | undefined;
+	/**
+	 * Whether multi-line objects and arrays get collapsible fold toggles, matching
+	 * every other JSON `CodeBlock`. Uses the same `computeJsonFoldRanges` the
+	 * server/build pipeline uses, so the fold markup is identical. Defaults to
+	 * `true`; set `false` for a flat, non-collapsible panel.
+	 */
+	foldable?: boolean | undefined;
 };
 
 /**
@@ -266,6 +274,10 @@ type JsonCodeBlockValueOptions = {
  * Shiki-identical markup by {@link jsonToShikiHtml}, and decorated with the same
  * `decorateHighlightedHtml` the server pipeline uses, so it looks identical to a
  * server/build-time highlighted block and adapts to light/dark themes for free.
+ *
+ * By default, multi-line objects and arrays get collapsible fold toggles (opt
+ * out with `foldable: false`) — also identical to server/build-time blocks,
+ * since both compute ranges with the same `computeJsonFoldRanges`.
  *
  * Pass the result straight to `CodeBlock.Code`'s `value` prop. Ideal for
  * inspecting a row's underlying object inside a `DataTable.ExpandedRow`.
@@ -284,11 +296,12 @@ type JsonCodeBlockValueOptions = {
  */
 function jsonCodeBlockValue(
 	value: unknown,
-	{ showLineNumbers = false }: JsonCodeBlockValueOptions = {},
+	{ showLineNumbers = false, foldable = true }: JsonCodeBlockValueOptions = {},
 ): MantleCodeBlockValue {
 	const code = safeJsonStringify(value);
 	const preHtml = decorateHighlightedHtml({
 		html: jsonToShikiHtml(code),
+		foldableRanges: foldable ? computeJsonFoldRanges(code) : undefined,
 		showLineNumbers,
 	});
 
