@@ -1,5 +1,5 @@
 ---
-"@ngrok/mantle": minor
+"@ngrok/mantle": patch
 ---
 
 Add expandable-row support to `DataTable` for inline, per-row detail panels — restoring the click-to-expand record inspection pattern that the migration off `GenericTable` lost.
