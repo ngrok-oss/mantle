@@ -7,6 +7,7 @@ import { Example } from "~/components/example";
 import {
 	EmptyPaymentsDemo,
 	EndpointsDemo,
+	ExpandableRowsDemo,
 	FilteredEmptyStateDemo,
 	PaginatedPaymentsDemo,
 	PaymentsDemo,
@@ -651,6 +652,105 @@ function SelectableTable({ data }: { data: Payment[] }) {
 }
 ```
 
+### Expandable rows
+
+Expand a row into an inline detail panel with a `+`/`−` toggle — ideal for inspecting a row's underlying record without leaving the table. Expansion is driven entirely by [TanStack Table's expansion state](https://tanstack.com/table/latest/docs/guide/expanding) (mantle does not invent its own), so wire it up on `useReactTable` with `getExpandedRowModel()` and `getRowCanExpand: () => true` (required — without sub-rows, no row is expandable by default). A stable `getRowId` keeps both the expansion keys and the toggle's `aria-controls` association stable.
+
+Two parts cover the toggle: `DataTable.ExpandHeader` (the toggle column header) and `DataTable.RowExpandButton` (the accessible `+`/`−` toggle, dropped into a leading `columnHelper.display` cell). For the detail panel itself, pass `renderExpanded` to `DataTable.Row` — when the row is expanded it renders its data row plus a sibling detail row holding the returned content, so you never hand-write the extra `<tr>` or the expand conditional. `renderExpanded` is called lazily (only while the row is open), so collapsed rows never build their panel. The detail row spans every visible column and sits on an opaque surface, so it coexists with a sticky [action column](#action-column-with-a-dropdown-menu).
+
+The detail panel below renders each row's object as JSON via [`CodeBlock`](/components/code-block), highlighted with [`jsonCodeBlockValue`](/components/code-block) — entirely on the client, with no Shiki runtime shipped to the browser, no build-time plugin, and no server roundtrip. Multi-line objects and arrays are collapsible by default, just like every other JSON code block (pass `{ foldable: false }` for a flat panel).
+
+<Example>
+	<ExpandableRowsDemo />
+</Example>
+
+```tsx
+import { CodeBlock, jsonCodeBlockValue } from "@ngrok/mantle/code-block";
+import {
+	DataTable,
+	type ExpandedState,
+	createColumnHelper,
+	getCoreRowModel,
+	getExpandedRowModel,
+	useReactTable,
+} from "@ngrok/mantle/data-table";
+import { useState } from "react";
+
+const columnHelper = createColumnHelper<Payment>();
+
+const columns = [
+	// Leading expand-toggle column.
+	columnHelper.display({
+		id: "expander",
+		header: () => <DataTable.ExpandHeader />,
+		cell: (props) => (
+			<DataTable.Cell className="w-9 px-0 text-center">
+				<DataTable.RowExpandButton row={props.row} label={props.row.original.email} />
+			</DataTable.Cell>
+		),
+	}),
+	// ... your data columns (and an optional sticky action column)
+];
+
+function ExpandableTable({ data }: { data: Payment[] }) {
+	// Controlled expansion via native TanStack state. Multiple rows may be open;
+	// to enforce single-row expansion, reduce `next` down to one key in onExpandedChange.
+	const [expanded, setExpanded] = useState<ExpandedState>({});
+
+	const table = useReactTable({
+		data,
+		columns,
+		state: { expanded },
+		onExpandedChange: setExpanded,
+		getRowCanExpand: () => true, // required: no sub-rows exist, so opt every row in
+		getCoreRowModel: getCoreRowModel(),
+		getExpandedRowModel: getExpandedRowModel(), // required, or nothing expands
+		getRowId: (row) => row.id, // stable expansion keys + aria-controls id
+	});
+
+	return (
+		<DataTable.Root table={table}>
+			<DataTable.Head />
+			<DataTable.Body>
+				{table.getRowModel().rows.map((row) => (
+					<DataTable.Row
+						key={row.id}
+						row={row}
+						renderExpanded={(row) => (
+							<CodeBlock.Root>
+								<CodeBlock.Body>
+									<CodeBlock.CopyButton />
+									<CodeBlock.Code value={jsonCodeBlockValue(row.original)} />
+								</CodeBlock.Body>
+							</CodeBlock.Root>
+						)}
+					/>
+				))}
+			</DataTable.Body>
+		</DataTable.Root>
+	);
+}
+```
+
+For full control over the detail row — a custom `colSpan`, multiple panels, or bespoke markup — omit `renderExpanded` and render `DataTable.ExpandedRow` yourself, directly after `DataTable.Row` and wrapped in a `Fragment` (never a DOM element, since a node between `<tbody>` and `<tr>` is invalid HTML):
+
+```tsx
+import { Fragment } from "react";
+
+{
+	table.getRowModel().rows.map((row) => (
+		<Fragment key={row.id}>
+			<DataTable.Row row={row} />
+			{row.getIsExpanded() && (
+				<DataTable.ExpandedRow row={row} colSpan={4}>
+					{/* any detail markup */}
+				</DataTable.ExpandedRow>
+			)}
+		</Fragment>
+	));
+}
+```
+
 ## API Reference
 
 The `DataTable` components are built on top of [TanStack Table](https://tanstack.com/table/latest/docs/introduction). All TanStack Table utilities (`createColumnHelper`, `getCoreRowModel`, `getSortedRowModel`, `getPaginationRowModel`, `getFilteredRowModel`, `useReactTable`, etc.) are re-exported from `@ngrok/mantle/data-table`.
@@ -688,11 +788,12 @@ Renders a single body row using the column definitions from the table instance. 
 
 When `onClick` is provided, the row automatically receives `cursor-pointer`. Pass a different `cursor-*` class via `className` (for example, `cursor-wait`) to override.
 
-| Prop         | Type                                               | Default | Description                                                                                        |
-| :----------- | :------------------------------------------------- | :------ | :------------------------------------------------------------------------------------------------- |
-| `row`        | `TableRow<TData>`                                  |         | The TanStack Table row instance to render. **Required.**                                           |
-| `onClick?`   | `(event: MouseEvent<HTMLTableRowElement>) => void` |         | Fires when the row is clicked. Applying this auto-adds `cursor-pointer`.                           |
-| `className?` | `string`                                           |         | Extra classes merged onto the `<tr>`. A `cursor-*` class here overrides the auto `cursor-pointer`. |
+| Prop              | Type                                               | Default | Description                                                                                                                         |
+| :---------------- | :------------------------------------------------- | :------ | :---------------------------------------------------------------------------------------------------------------------------------- |
+| `row`             | `TableRow<TData>`                                  |         | The TanStack Table row instance to render. **Required.**                                                                            |
+| `renderExpanded?` | `(row: TableRow<TData>) => ReactNode`              |         | Renders an inline detail panel below the row, wrapped in a `DataTable.ExpandedRow`. Called lazily — only while the row is expanded. |
+| `onClick?`        | `(event: MouseEvent<HTMLTableRowElement>) => void` |         | Fires when the row is clicked. Applying this auto-adds `cursor-pointer`.                                                            |
+| `className?`      | `string`                                           |         | Extra classes merged onto the `<tr>`. A `cursor-*` class here overrides the auto `cursor-pointer`.                                  |
 
 Remaining props forward to the HTML `<tr>` element.
 
@@ -759,3 +860,35 @@ When the row has an `onClick`, pass `onClick={(event) => event.stopPropagation()
 | `children`   | `ReactNode`                                         |         | The row's action controls.                                                                |
 | `onClick?`   | `(event: MouseEvent<HTMLTableCellElement>) => void` |         | Use with `event.stopPropagation()` to prevent bubbling to a clickable row.                |
 | `className?` | `string`                                            |         | Extra classes merged onto the `<td>`. Remaining props forward to the HTML `<td>` element. |
+
+### DataTable.ExpandHeader
+
+A narrow `<th>` for the leading expand-toggle column, mirroring `DataTable.ActionHeader`. Renders a screen-reader-only label by default so the column is announced while staying visually empty.
+
+| Prop         | Type        | Default | Description                                                                                              |
+| :----------- | :---------- | :------ | :------------------------------------------------------------------------------------------------------- |
+| `children?`  | `ReactNode` |         | Optional header content, e.g. an "expand all" toggle wired to `table.getToggleAllRowsExpandedHandler()`. |
+| `className?` | `string`    |         | Extra classes merged onto the `<th>`. Remaining props forward to the HTML `<th>` element.                |
+
+### DataTable.RowExpandButton
+
+An accessible `+`/`−` toggle that expands or collapses a row's detail panel. Place it inside a `DataTable.Cell` in a leading `columnHelper.display` column and pair it with `DataTable.ExpandedRow`. Renders a real `<button>` that sets `aria-expanded` and (while expanded) `aria-controls`, stops click propagation so it never fires a row-level `onClick`, and renders nothing when `row.getCanExpand()` is `false`. Forwards [`IconButton`](/components/icon-button) props.
+
+| Prop            | Type              | Default                      | Description                                                                                                         |
+| :-------------- | :---------------- | :--------------------------- | :------------------------------------------------------------------------------------------------------------------ |
+| `row`           | `Row<TData>`      |                              | The TanStack Table row this button toggles. **Required.**                                                           |
+| `label`         | `string`          |                              | A human-readable row name, woven into the accessible label (`Show details for …` / `Hide details …`). **Required.** |
+| `expandIcon?`   | `ReactNode`       | `<PlusIcon weight="bold"/>`  | Icon shown while the row is collapsed.                                                                              |
+| `collapseIcon?` | `ReactNode`       | `<MinusIcon weight="bold"/>` | Icon shown while the row is expanded.                                                                               |
+| `onClick?`      | `(event) => void` |                              | Runs before the toggle; call `event.preventDefault()` to veto expansion. Other `IconButton` props forward too.      |
+
+### DataTable.ExpandedRow
+
+The sibling `<tr>` that renders a row's expanded detail panel. Render it directly after `DataTable.Row`, wrapped in a `Fragment` (never a DOM element), and only when `row.getIsExpanded()` is `true`. The single cell spans every visible column, carries the `id` that `DataTable.RowExpandButton` targets via `aria-controls`, and sits on an opaque card surface so it coexists with a sticky action column. Exposes `data-expanded-content` for styling.
+
+| Prop         | Type         | Default                        | Description                                                                               |
+| :----------- | :----------- | :----------------------------- | :---------------------------------------------------------------------------------------- |
+| `row`        | `Row<TData>` |                                | The row whose detail panel this displays. **Required.**                                   |
+| `children`   | `ReactNode`  |                                | The detail content rendered inside the full-width panel. **Required.**                    |
+| `colSpan?`   | `number`     | `row.getVisibleCells().length` | Override the cell's `colSpan`. Defaults to the count of visible columns.                  |
+| `className?` | `string`     |                                | Extra classes merged onto the `<tr>`. Remaining props forward to the HTML `<tr>` element. |

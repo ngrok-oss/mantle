@@ -1,3 +1,5 @@
+import { MinusIcon } from "@phosphor-icons/react/Minus";
+import { PlusIcon } from "@phosphor-icons/react/Plus";
 import {
 	type Column,
 	type HeaderContext,
@@ -20,6 +22,7 @@ import invariant from "tiny-invariant";
 import { cx } from "../../utils/cx/cx.js";
 import { $timeSortingDirection, type SortingMode } from "../../utils/sorting/direction.js";
 import { Button } from "../button/button.js";
+import { IconButton } from "../button/icon-button.js";
 import type { SvgAttributes } from "../icon/types.js";
 import { SortIcon } from "../icons/sort.js";
 import { Table } from "../table/table.js";
@@ -345,6 +348,18 @@ function Head<TData>(props: DataTableHeadProps) {
 
 type DataTableRowProps<TData> = Omit<ComponentProps<typeof Table.Row>, "children"> & {
 	row: TableRow<TData>;
+	/**
+	 * Renders an inline detail panel beneath the row. Called only while the row is
+	 * expanded (`row.getIsExpanded()`), so the panel — and any expensive work it
+	 * does — stays lazy. Mantle wraps the returned content in a sibling
+	 * `DataTable.ExpandedRow` spanning every visible column, so return just the
+	 * panel content (not a `<tr>`). Requires the table to be configured for
+	 * expansion (`getExpandedRowModel`, plus `getRowCanExpand` for detail panels);
+	 * pair it with a `DataTable.RowExpandButton` toggle in a leading column. For
+	 * full control over the detail row (custom `colSpan`, multiple panels), omit
+	 * this and render `DataTable.ExpandedRow` yourself.
+	 */
+	renderExpanded?: (row: TableRow<TData>) => ReactNode;
 };
 
 /**
@@ -356,9 +371,15 @@ type DataTableRowProps<TData> = Omit<ComponentProps<typeof Table.Row>, "children
  * `cursor-wait`) to override. For keyboard and screen-reader access, also
  * render a `<Link>` inside the primary cell — a `<tr>` is not focusable.
  *
+ * Pass `renderExpanded` to give the row an inline detail panel: when the row is
+ * expanded the row renders its data `<tr>` plus a sibling `DataTable.ExpandedRow`
+ * holding the returned content. Pair it with a `DataTable.RowExpandButton` toggle
+ * and configure the table for expansion (`getExpandedRowModel`, `getRowCanExpand`).
+ *
  * @see https://mantle.ngrok.com/components/data-table#datatablerow
  *
  * @example
+ * Clickable row navigating to a detail page:
  * ```tsx
  * const navigate = useNavigate();
  *
@@ -370,11 +391,36 @@ type DataTableRowProps<TData> = Omit<ComponentProps<typeof Table.Row>, "children
  *   />
  * ))}
  * ```
+ *
+ * @example
+ * Expandable row with an inline JSON detail panel (lazy — only built when open):
+ * ```tsx
+ * import { CodeBlock, jsonCodeBlockValue } from "@ngrok/mantle/code-block";
+ *
+ * {rows.map((row) => (
+ *   <DataTable.Row
+ *     key={row.id}
+ *     row={row}
+ *     renderExpanded={(row) => (
+ *       <CodeBlock.Root>
+ *         <CodeBlock.Body>
+ *           <CodeBlock.CopyButton />
+ *           <CodeBlock.Code value={jsonCodeBlockValue(row.original)} />
+ *         </CodeBlock.Body>
+ *       </CodeBlock.Root>
+ *     )}
+ *   />
+ * ))}
+ * ```
  */
-function Row<TData>({ className, row, ...props }: DataTableRowProps<TData>) {
-	return (
+function Row<TData>({ className, renderExpanded, row, ...props }: DataTableRowProps<TData>) {
+	const dataRow = (
 		<Table.Row
 			data-slot="data-table-row"
+			// Styling hook for the "this row is expanded" state (e.g. to pair the
+			// parent row visually with its `DataTable.ExpandedRow`). Absent when the
+			// row is collapsed or expansion is not configured.
+			data-expanded={row.getIsExpanded() || undefined}
 			className={cx(props.onClick && "cursor-pointer", className)}
 			{...props}
 		>
@@ -384,6 +430,20 @@ function Row<TData>({ className, row, ...props }: DataTableRowProps<TData>) {
 				</Fragment>
 			))}
 		</Table.Row>
+	);
+
+	// Without `renderExpanded`, behave exactly as a plain single-`<tr>` row.
+	if (renderExpanded == null) {
+		return dataRow;
+	}
+
+	// With it, render the data row plus — only while expanded — its detail row.
+	// `renderExpanded` is called lazily so collapsed rows pay nothing.
+	return (
+		<>
+			{dataRow}
+			{row.getIsExpanded() && <ExpandedRow row={row}>{renderExpanded(row)}</ExpandedRow>}
+		</>
 	);
 }
 
@@ -577,16 +637,289 @@ function ActionHeader({ children, className, ...props }: DataTableActionHeaderPr
 	);
 }
 
+/**
+ * Compute the stable DOM `id` for a row's expanded detail row. Shared by
+ * `DataTable.RowExpandButton` (as its `aria-controls` target) and
+ * `DataTable.ExpandedRow` (as its `id`) so the accessibility association is
+ * _derived_ from the row — never synchronized state — and stays correct whether
+ * or not the detail panel is currently rendered.
+ *
+ * REQUIRED: configure the table with a stable `getRowId` so `row.id` (and thus
+ * this id) is stable across sorting/filtering/pagination. Any `row.id` value is
+ * safe — it is URL-encoded into a valid, whitespace-free HTML id token (and thus
+ * a valid `aria-controls` IDREF), so display names with spaces, URLs, and emails
+ * all work; `getRowId` controls the value.
+ *
+ * @example
+ * ```tsx
+ * <DataTable.RowExpandButton row={row} label={row.original.name} />
+ * // ...renders aria-controls={expandedRowId(row)} while expanded, and
+ * <DataTable.ExpandedRow row={row}>...</DataTable.ExpandedRow>
+ * // ...renders id={expandedRowId(row)} — the same value, so they stay associated.
+ * ```
+ */
+function expandedRowId<TData>(row: TableRow<TData>): string {
+	// `encodeURIComponent` guarantees a whitespace-free, valid HTML id token (and
+	// thus a valid `aria-controls` IDREF) for ANY `getRowId` value — e.g. a display
+	// name like "Acme Inc". Both the toggle's `aria-controls` and the expanded
+	// row's `id` derive from this one function, so encoding both sides keeps them
+	// equal and preserves the accessibility association.
+	return `data-table-expanded-row-${encodeURIComponent(row.id)}`;
+}
+
+type DataTableExpandHeaderProps = Omit<ComponentProps<typeof Table.Header>, "children"> & {
+	/**
+	 * Optional header content — e.g. an "expand all" toggle wired to
+	 * `table.getToggleAllRowsExpandedHandler()`. Defaults to a screen-reader-only
+	 * label so the column is announced while staying visually empty.
+	 */
+	children?: ReactNode;
+};
+
+/**
+ * A narrow `<th>` for the leading expand-toggle column, mirroring
+ * `DataTable.ActionHeader`. Renders a screen-reader-only label by default so the
+ * column is announced to assistive tech while staying visually empty; pass
+ * `children` to render an "expand all" control instead.
+ *
+ * @see https://mantle.ngrok.com/components/data-table#datatableexpandheader
+ *
+ * @example
+ * ```tsx
+ * columnHelper.display({
+ *   id: "expander",
+ *   header: () => <DataTable.ExpandHeader />,
+ *   cell: (props) => (
+ *     <DataTable.Cell className="w-9 px-0 text-center">
+ *       <DataTable.RowExpandButton row={props.row} label={props.row.original.name} />
+ *     </DataTable.Cell>
+ *   ),
+ * });
+ * ```
+ */
+function ExpandHeader({ children, className, ...props }: DataTableExpandHeaderProps) {
+	return (
+		<Table.Header
+			data-slot="data-table-expand-header"
+			// `Table.Header` defaults to `px-4`; zero it (and center) so the column is
+			// actually as narrow as `w-9` and aligns with the icon toggle in the cells
+			// below it. A consumer `className` still wins via tailwind-merge.
+			className={cx("w-9 px-0 text-center", className)}
+			{...props}
+		>
+			{children ?? <span className="sr-only">Row details</span>}
+		</Table.Header>
+	);
+}
+
+// Stable element references for the default toggle icons — defining these inline
+// as default prop values would recreate them every render (and trips
+// react/no-object-type-as-default-prop). `size-3.5` overrides Icon's default
+// `size-5` (the `+`/`−` glyphs fill their full box, so 20px reads oversized for
+// a row affordance); the svg's own className wins the cx/tailwind-merge.
+const defaultExpandIcon = <PlusIcon weight="bold" className="size-3.5" />;
+const defaultCollapseIcon = <MinusIcon weight="bold" className="size-3.5" />;
+
+type DataTableRowExpandButtonProps<TData> = Omit<
+	ComponentProps<typeof IconButton>,
+	"aria-controls" | "aria-expanded" | "icon" | "label"
+> & {
+	/**
+	 * The TanStack Table row this button toggles. The table must be configured for
+	 * expansion (`getExpandedRowModel`, plus `getRowCanExpand: () => true` for
+	 * custom detail panels, which have no sub-rows).
+	 */
+	row: TableRow<TData>;
+	/**
+	 * A human-readable name for the row, woven into the accessible label:
+	 * `Show details for {label}` / `Hide details for {label}`.
+	 */
+	label: string;
+	/**
+	 * Icon shown while the row is collapsed (activating it expands the row).
+	 * @default <PlusIcon weight="bold" />
+	 */
+	expandIcon?: ReactNode;
+	/**
+	 * Icon shown while the row is expanded (activating it collapses the row).
+	 * @default <MinusIcon weight="bold" />
+	 */
+	collapseIcon?: ReactNode;
+};
+
+/**
+ * An accessible +/- toggle that expands or collapses a row's detail panel. Drop
+ * it inside a `DataTable.Cell` in a leading `columnHelper.display` column and
+ * pair it with `DataTable.ExpandedRow`.
+ *
+ * Renders a real `<button>` (keyboard operable) that sets `aria-expanded` and,
+ * while expanded, `aria-controls` pointing at the `DataTable.ExpandedRow`. It
+ * stops click propagation so it never triggers a row-level `onClick` (e.g. row
+ * navigation), and renders nothing when `row.getCanExpand()` is false so a
+ * `getRowCanExpand` predicate cleanly hides it. Forwards `IconButton` props, so
+ * pass `onClick` to run side effects before the toggle (call
+ * `event.preventDefault()` to veto it).
+ *
+ * @see https://mantle.ngrok.com/components/data-table#datatablerowexpandbutton
+ *
+ * @example
+ * ```tsx
+ * columnHelper.display({
+ *   id: "expander",
+ *   header: () => <DataTable.ExpandHeader />,
+ *   cell: (props) => (
+ *     <DataTable.Cell className="w-9 px-0 text-center">
+ *       <DataTable.RowExpandButton row={props.row} label={props.row.original.name} />
+ *     </DataTable.Cell>
+ *   ),
+ * });
+ * ```
+ */
+function RowExpandButton<TData>({
+	appearance = "ghost",
+	className,
+	collapseIcon = defaultCollapseIcon,
+	expandIcon = defaultExpandIcon,
+	label,
+	onClick,
+	row,
+	size = "sm",
+	...props
+}: DataTableRowExpandButtonProps<TData>) {
+	if (!row.getCanExpand()) {
+		return null;
+	}
+
+	const isExpanded = row.getIsExpanded();
+	const toggleExpanded = row.getToggleExpandedHandler();
+
+	return (
+		<IconButton
+			type="button"
+			data-slot="data-table-row-expand-button"
+			appearance={appearance}
+			size={size}
+			className={cx("rounded", className)}
+			aria-expanded={isExpanded}
+			// Reference the detail row only while it actually exists in the DOM — a
+			// dangling `aria-controls` IDREF is an accessibility validity violation.
+			aria-controls={isExpanded ? expandedRowId(row) : undefined}
+			icon={isExpanded ? collapseIcon : expandIcon}
+			label={`${isExpanded ? "Hide" : "Show"} details for ${label}`}
+			onClick={(event) => {
+				// Always keep the toggle click from bubbling to a row-level onClick
+				// (e.g. navigation) — even when a consumer vetoes the toggle below.
+				event.stopPropagation();
+				onClick?.(event);
+				if (event.defaultPrevented) {
+					return;
+				}
+				toggleExpanded();
+			}}
+			{...props}
+		/>
+	);
+}
+
+type DataTableExpandedRowProps<TData> = Omit<ComponentProps<typeof Table.Row>, "children"> & {
+	/** The row whose detail panel this displays. */
+	row: TableRow<TData>;
+	/**
+	 * Override the cell's `colSpan`. Defaults to the row's visible-cell count so
+	 * the panel spans every visible column (visibility- and pinning-aware).
+	 */
+	colSpan?: number;
+	/** The detail content rendered inside the full-width panel. */
+	children: ReactNode;
+};
+
+/**
+ * The sibling `<tr>` that renders a row's expanded detail panel. For the common
+ * case, prefer `DataTable.Row`'s `renderExpanded` prop, which renders this for
+ * you. Reach for `ExpandedRow` directly when you need full control — a custom
+ * `colSpan`, multiple panels, or bespoke markup. Render it directly after the
+ * parent `DataTable.Row` — wrapped in a `Fragment`, never a DOM element (a node
+ * between `<tbody>` and `<tr>` is invalid HTML) — and only when
+ * `row.getIsExpanded()` is true.
+ *
+ * The single cell spans every visible column (override with `colSpan`), carries
+ * the `id` that `DataTable.RowExpandButton` targets via `aria-controls`, and
+ * sits on an opaque card surface so horizontally-scrolled content never shows
+ * through a sticky action column. Its top divider is suppressed so it reads as
+ * one block with its parent row; the panel itself does not change on hover (only
+ * the parent data row reacts to hover). Exposes `data-expanded-content` for
+ * styling hooks.
+ *
+ * @see https://mantle.ngrok.com/components/data-table#datatableexpandedrow
+ *
+ * @example
+ * Render the row's underlying object as JSON (a common detail-panel use case).
+ * `jsonCodeBlockValue` highlights the JSON entirely on the client — no Shiki
+ * runtime, no build-time plugin, no server roundtrip — so it works for runtime
+ * data and matches server/build-time highlighting:
+ * ```tsx
+ * import { CodeBlock, jsonCodeBlockValue } from "@ngrok/mantle/code-block";
+ * import { Fragment } from "react";
+ *
+ * {table.getRowModel().rows.map((row) => (
+ *   <Fragment key={row.id}>
+ *     <DataTable.Row row={row} />
+ *     {row.getIsExpanded() && (
+ *       <DataTable.ExpandedRow row={row}>
+ *         <CodeBlock.Root>
+ *           <CodeBlock.Body>
+ *             <CodeBlock.CopyButton />
+ *             <CodeBlock.Code value={jsonCodeBlockValue(row.original)} />
+ *           </CodeBlock.Body>
+ *         </CodeBlock.Root>
+ *       </DataTable.ExpandedRow>
+ *     )}
+ *   </Fragment>
+ * ))}
+ * ```
+ */
+function ExpandedRow<TData>({
+	children,
+	className,
+	colSpan,
+	row,
+	...props
+}: DataTableExpandedRowProps<TData>) {
+	return (
+		<Table.Row
+			data-slot="data-table-expanded-row"
+			data-expanded-content
+			// Read as one block with the parent row: suppress the top divider that
+			// Table.Body paints between sibling rows.
+			className={cx("[&>td]:border-t-0", className)}
+			{...props}
+		>
+			<Table.Cell
+				id={expandedRowId(row)}
+				colSpan={colSpan ?? row.getVisibleCells().length}
+				// Opaque card surface (so scrolled content never shows through a sticky
+				// column) with neutral body typography (Table.Cell defaults to mono).
+				className="bg-card font-sans text-body"
+			>
+				{children}
+			</Table.Cell>
+		</Table.Row>
+	);
+}
+
 // Set display names to preserve original component names for debugging
 Root.displayName = "DataTable";
 ActionCell.displayName = "DataTableActionCell";
 ActionHeader.displayName = "DataTableActionHeader";
 Body.displayName = "DataTableBody";
 EmptyRow.displayName = "DataTableEmptyRow";
+ExpandHeader.displayName = "DataTableExpandHeader";
+ExpandedRow.displayName = "DataTableExpandedRow";
 Head.displayName = "DataTableHead";
 Header.displayName = "DataTableHeader";
 HeaderSortButton.displayName = "DataTableHeaderSortButton";
 Row.displayName = "DataTableRow";
+RowExpandButton.displayName = "DataTableRowExpandButton";
 
 /**
  * Use `DataTable` for INTERACTIVE tabular data — sorting, filtering, pagination,
@@ -609,13 +942,16 @@ Row.displayName = "DataTableRow";
  * DataTable.Root
  * ├── DataTable.Head
  * │   └── DataTable.Row
+ * │       ├── DataTable.ExpandHeader
  * │       ├── DataTable.Header
  * │       │   └── DataTable.HeaderSortButton
  * │       └── DataTable.ActionHeader
  * └── DataTable.Body
  *     ├── DataTable.Row
  *     │   ├── DataTable.Cell
+ *     │   │   └── DataTable.RowExpandButton
  *     │   └── DataTable.ActionCell
+ *     ├── DataTable.ExpandedRow
  *     └── DataTable.EmptyRow
  * ```
  *
@@ -1104,27 +1440,111 @@ const DataTable = {
 	 * Pass a different `cursor-*` class via `className` to override. For keyboard
 	 * and screen-reader access, also render a `<Link>` inside the primary cell.
 	 *
+	 * Pass `renderExpanded` to give the row an inline detail panel — the row then
+	 * renders a sibling `DataTable.ExpandedRow` (only while expanded) holding the
+	 * returned content. Pair with `DataTable.RowExpandButton`.
+	 *
 	 * @see https://mantle.ngrok.com/components/data-table#datatablerow
 	 *
 	 * @example
 	 * ```tsx
-	 * const navigate = useNavigate();
+	 * import { CodeBlock, jsonCodeBlockValue } from "@ngrok/mantle/code-block";
 	 *
 	 * {rows.map((row) => (
 	 *   <DataTable.Row
 	 *     key={row.id}
 	 *     row={row}
-	 *     onClick={() => navigate(href("/payments/:id", { id: row.original.id }))}
+	 *     renderExpanded={(row) => (
+	 *       <CodeBlock.Root>
+	 *         <CodeBlock.Body>
+	 *           <CodeBlock.CopyButton />
+	 *           <CodeBlock.Code value={jsonCodeBlockValue(row.original)} />
+	 *         </CodeBlock.Body>
+	 *       </CodeBlock.Root>
+	 *     )}
 	 *   />
 	 * ))}
 	 * ```
 	 */
 	Row,
+	/**
+	 * A narrow `<th>` for the leading expand-toggle column, mirroring
+	 * `DataTable.ActionHeader`. Renders a screen-reader-only label by default so
+	 * the column is announced while staying visually empty.
+	 *
+	 * @see https://mantle.ngrok.com/components/data-table#datatableexpandheader
+	 *
+	 * @example
+	 * ```tsx
+	 * columnHelper.display({
+	 *   id: "expander",
+	 *   header: () => <DataTable.ExpandHeader />,
+	 *   cell: (props) => (
+	 *     <DataTable.Cell className="w-9 px-0 text-center">
+	 *       <DataTable.RowExpandButton row={props.row} label={props.row.original.name} />
+	 *     </DataTable.Cell>
+	 *   ),
+	 * });
+	 * ```
+	 */
+	ExpandHeader,
+	/**
+	 * An accessible +/- toggle that expands or collapses a row's detail panel.
+	 * Place it inside a `DataTable.Cell` in a leading `columnHelper.display`
+	 * column and pair it with `DataTable.ExpandedRow`. Sets `aria-expanded` and
+	 * (while expanded) `aria-controls`, stops click propagation so it never fires
+	 * a row-level `onClick`, and renders nothing when `row.getCanExpand()` is
+	 * false.
+	 *
+	 * @see https://mantle.ngrok.com/components/data-table#datatablerowexpandbutton
+	 *
+	 * @example
+	 * ```tsx
+	 * <DataTable.Cell className="w-9 px-0 text-center">
+	 *   <DataTable.RowExpandButton row={props.row} label={props.row.original.name} />
+	 * </DataTable.Cell>
+	 * ```
+	 */
+	RowExpandButton,
+	/**
+	 * The sibling `<tr>` that renders a row's expanded detail panel. Render it
+	 * directly after the parent `DataTable.Row` (wrapped in a `Fragment`, never a
+	 * DOM element) and only when `row.getIsExpanded()` is true. Spans every
+	 * visible column, carries the `id` that `DataTable.RowExpandButton` targets,
+	 * and sits on an opaque card surface so it coexists with a sticky action
+	 * column.
+	 *
+	 * @see https://mantle.ngrok.com/components/data-table#datatableexpandedrow
+	 *
+	 * @example
+	 * ```tsx
+	 * import { CodeBlock, jsonCodeBlockValue } from "@ngrok/mantle/code-block";
+	 * import { Fragment } from "react";
+	 *
+	 * {table.getRowModel().rows.map((row) => (
+	 *   <Fragment key={row.id}>
+	 *     <DataTable.Row row={row} />
+	 *     {row.getIsExpanded() && (
+	 *       <DataTable.ExpandedRow row={row}>
+	 *         <CodeBlock.Root>
+	 *           <CodeBlock.Body>
+	 *             <CodeBlock.CopyButton />
+	 *             <CodeBlock.Code value={jsonCodeBlockValue(row.original)} />
+	 *           </CodeBlock.Body>
+	 *         </CodeBlock.Root>
+	 *       </DataTable.ExpandedRow>
+	 *     )}
+	 *   </Fragment>
+	 * ))}
+	 * ```
+	 */
+	ExpandedRow,
 } as const;
 
 export {
 	//,
 	DataTable,
+	expandedRowId,
 };
 
 type DefaultSortIconProps = SvgAttributes & {

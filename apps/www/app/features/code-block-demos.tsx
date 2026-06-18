@@ -2,6 +2,7 @@ import { Button } from "@ngrok/mantle/button";
 import {
 	CodeBlock,
 	createMantleCodeBlockValue,
+	jsonCodeBlockValue,
 	mantleCode,
 	parseCodeBlockHighlightLines,
 	parseLanguage,
@@ -671,6 +672,40 @@ export function NestedFragmentInterpolationDemo() {
 					<CodeBlock.TabContent value="python">
 						<CodeBlock.Code value={pythonSdkSnippet} />
 					</CodeBlock.TabContent>
+				</CodeBlock.Body>
+			</CodeBlock.Root>
+		</Example>
+	);
+}
+
+// A realistic "runtime" record — the kind of value you only have in the browser
+// (an API response, a table row's underlying object) and therefore can't run
+// through the build-time `mantleCode` transform.
+const exampleRuntimeRecord = {
+	id: "evt_31kPq9aZ",
+	type: "endpoint.created",
+	created_at: "2025-06-18T17:42:10Z",
+	endpoint: {
+		id: "ep_2hYqLm4",
+		region: "us-east-1",
+		url: "https://example.ngrok.app",
+		bindings: ["public", "internal"],
+	},
+	metadata: { source: "api", retries: 0, ok: true },
+};
+
+/**
+ * Demonstrates `jsonCodeBlockValue` highlighting a runtime value entirely on the
+ * client — no Shiki shipped to the browser — and folding multi-line objects/arrays
+ * by default, just like a build-time JSON block.
+ */
+export function JsonCodeBlockValueDemo() {
+	return (
+		<Example>
+			<CodeBlock.Root>
+				<CodeBlock.Body>
+					<CodeBlock.CopyButton />
+					<CodeBlock.Code value={jsonCodeBlockValue(exampleRuntimeRecord)} />
 				</CodeBlock.Body>
 			</CodeBlock.Root>
 		</Example>

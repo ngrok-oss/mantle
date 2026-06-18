@@ -9,4 +9,5 @@ export * from "@tanstack/react-table";
 export {
 	//,
 	DataTable,
+	expandedRowId,
 } from "./data-table.js";
