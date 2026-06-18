@@ -69,11 +69,50 @@ describe("jsonCodeBlockValue", () => {
 		expect(value.code).toBe(JSON.stringify({ id: "10" }, null, 2));
 	});
 
-	test("does not throw on circular structures — falls back to a best-effort string", () => {
-		const circular: Record<string, unknown> = {};
+	test("serializes circular structures by collapsing the cycle to `[Circular]`, keeping other fields", () => {
+		const circular: Record<string, unknown> = { id: "abc" };
 		circular.self = circular;
-		expect(() => jsonCodeBlockValue(circular)).not.toThrow();
-		expect(jsonCodeBlockValue(circular).code).toBeTypeOf("string");
+		const { code } = jsonCodeBlockValue(circular);
+		// Non-circular fields survive; only the back-reference is collapsed — not the
+		// useless whole-object `[object Object]` of a plain `String(value)` fallback.
+		expect(code).toContain('"id": "abc"');
+		expect(code).toContain('"self": "[Circular]"');
+		expect(code).not.toContain("[object Object]");
+	});
+
+	test("collapses a shared (acyclic) reference to `[Circular]` after its first occurrence", () => {
+		const shared = { value: 1 };
+		const { code } = jsonCodeBlockValue({ a: shared, b: shared });
+		expect(code).toContain('"a": {');
+		expect(code).toContain('"b": "[Circular]"');
+	});
+
+	test("never throws — even when both `JSON.stringify` and the `String()` fallback would throw", () => {
+		// Null-prototype object with a throwing getter: `JSON.stringify` throws while
+		// reading the getter, then `String(value)` throws too (no inherited
+		// `toString`). The doubly-guarded fallback must still return a string.
+		const hostile: Record<string, unknown> = Object.create(null);
+		Object.defineProperty(hostile, "boom", {
+			enumerable: true,
+			get() {
+				throw new Error("nope");
+			},
+		});
+		expect(() => jsonCodeBlockValue(hostile)).not.toThrow();
+		expect(jsonCodeBlockValue(hostile).code).toBe("");
+
+		// A null-prototype circular object — exercises the circular path without an
+		// inherited `toString` to fall back on.
+		const nullProtoCircular: Record<string, unknown> = Object.create(null);
+		nullProtoCircular.self = nullProtoCircular;
+		expect(() => jsonCodeBlockValue(nullProtoCircular)).not.toThrow();
+	});
+
+	test("normalizes CRLF input to match the LF-highlighted output (no stray `\\r` runs)", () => {
+		const lf = jsonToShikiHtml('{\n  "a": 1\n}');
+		const crlf = jsonToShikiHtml('{\r\n  "a": 1\r\n}');
+		expect(crlf).toBe(lf);
+		expect(crlf).not.toContain("\r");
 	});
 
 	test("emits fold-toggle markup for multi-line structures by default", () => {

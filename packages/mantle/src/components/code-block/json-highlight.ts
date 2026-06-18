@@ -78,9 +78,13 @@ function parseStringLiteral(
 	while (index < length) {
 		const char = code[index];
 		if (char === "\\") {
-			// JSON escapes: \" \\ \/ \b \f \n \r \t and \uXXXX. Treat \uXXXX as 6
-			// chars, everything else as 2 — matching the grammar's escape token.
-			const escapeLength = code[index + 1] === "u" ? 6 : 2;
+			// JSON escapes: \" \\ \/ \b \f \n \r \t and \uXXXX. A well-formed `\u`
+			// escape is 6 chars (`\u` + 4 hex digits); everything else is 2. Verify
+			// the 4 hex digits before consuming 6 so a malformed `\u` (e.g. `\uZZ`,
+			// or a truncated `\u12`) can't over-read and swallow the closing quote.
+			const isUnicodeEscape =
+				code[index + 1] === "u" && /^[0-9a-fA-F]{4}$/.test(code.slice(index + 2, index + 6));
+			const escapeLength = isUnicodeEscape ? 6 : 2;
 			if (buffer !== "") {
 				parts.push({ text: buffer, isEscape: false });
 				buffer = "";
@@ -169,14 +173,22 @@ function renderLine(segments: Segment[]): string {
 /**
  * Tokenize a JSON string into the same per-line, CSS-variable-colored span markup
  * that Mantle's server/build-time Shiki highlighter produces — without shipping
- * Shiki (or any grammar/theme/WASM) to the browser. Output is byte-for-byte
- * identical to `extractHighlightedCodeInnerHtml(shiki.codeToHtml(code, …))` for
- * the `json` language, so a client-highlighted block looks identical to one
- * highlighted on the server.
+ * Shiki (or any grammar/theme/WASM) to the browser.
  *
- * Expects well-formed JSON (e.g. the output of `JSON.stringify`). The result is
- * the inner HTML for a `<code>` element; feed it through `decorateHighlightedHtml`
- * (as `jsonCodeBlockValue` does) for the final `CodeBlock.Code` markup.
+ * Byte-for-byte parity with `extractHighlightedCodeInnerHtml(shiki.codeToHtml(code, …))`
+ * is guaranteed for **canonical `JSON.stringify` output** — the only shape
+ * {@link jsonCodeBlockValue} ever feeds it (2-space indent: an opener is always
+ * followed by a newline, never inline whitespace; line endings are `\n`). That
+ * exact-parity set is locked by the `json-*.fixtures` golden tests. Other valid
+ * but non-canonical JSON is highlighted on a best-effort basis and may diverge
+ * from Shiki in cosmetic ways: arbitrary inter-token whitespace attaches to the
+ * following token rather than the preceding one, and scopes Shiki treats
+ * specially (e.g. `invalid.illegal` escapes) are colored as ordinary tokens.
+ * CRLF input is normalized to `\n`.
+ *
+ * Expects well-formed JSON. The result is the inner HTML for a `<code>` element;
+ * feed it through `decorateHighlightedHtml` (as `jsonCodeBlockValue` does) for the
+ * final `CodeBlock.Code` markup.
  *
  * @example
  * ```ts
@@ -196,7 +208,13 @@ function jsonToShikiHtml(code: string): string {
 
 	while (index < length) {
 		const char = code[index];
-		if (char === "\n") {
+		if (char === "\n" || char === "\r") {
+			// Normalize line endings the way Shiki does: `\r\n` and bare `\r` both
+			// start a new line and never leak a stray `\r` into a token run. Mirrors
+			// `computeJsonFoldRanges`, which already treats `\r`/`\r\n` as breaks.
+			if (char === "\r" && code[index + 1] === "\n") {
+				index += 1;
+			}
 			const line: Segment[] = [];
 			lines.push(line);
 			current = line;
@@ -245,18 +263,48 @@ function jsonToShikiHtml(code: string): string {
 /**
  * `JSON.stringify` (2-space indent) that never throws — rendering a detail panel
  * must not crash on awkward values. Serializes `BigInt` as its decimal string
- * (JSON has no bigint), and falls back to `String(value)` for inputs
- * `JSON.stringify` rejects outright (circular references, etc.). Returns `""` for
- * values that serialize to `undefined` (functions, symbols, bare `undefined`).
+ * (JSON has no bigint), and collapses circular / repeated object references to
+ * `"[Circular]"` so a self-referential record still serializes its remaining
+ * fields instead of degrading to `"[object Object]"`. Returns `""` for values
+ * that serialize to `undefined` (functions, symbols, bare `undefined`) and for
+ * the rare value that defeats every fallback (a throwing `toJSON`/getter, or a
+ * null-prototype object with no `toString`).
+ *
+ * Note: a `WeakSet` tracks every object already visited, so a value referenced
+ * more than once — even acyclically (a shared "diamond" reference) — renders as
+ * `"[Circular]"` after its first occurrence. That trade keeps this a single,
+ * allocation-light pass and is acceptable for a best-effort inspector panel.
  */
 function safeJsonStringify(value: unknown): string {
+	const seen = new WeakSet<object>();
 	try {
 		return (
-			JSON.stringify(value, (_key, val) => (typeof val === "bigint" ? val.toString() : val), 2) ??
-			""
+			JSON.stringify(
+				value,
+				(_key, val) => {
+					if (typeof val === "bigint") {
+						return val.toString();
+					}
+					if (typeof val === "object" && val != null) {
+						if (seen.has(val)) {
+							return "[Circular]";
+						}
+						seen.add(val);
+					}
+					return val;
+				},
+				2,
+			) ?? ""
 		);
 	} catch {
-		return String(value);
+		// `JSON.stringify` still threw (e.g. a throwing `toJSON`/getter). Coerce to a
+		// primitive as a last resort — but guard that too: `String(value)` itself
+		// throws for a null-prototype object or a throwing `Symbol.toPrimitive`.
+		try {
+			return String(value);
+		} catch {
+			return "";
+		}
 	}
 }
 

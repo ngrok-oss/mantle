@@ -348,3 +348,72 @@ describe("DataTable.Row renderExpanded", () => {
 		expect(screen.getAllByRole("row")).toHaveLength(1);
 	});
 });
+
+describe("expandedRowId encoding", () => {
+	test("keeps the aria-controls↔panel id association for a row id containing whitespace", async () => {
+		const user = userEvent.setup();
+		const spacedData: Row[] = [{ id: "Acme Inc", name: "Acme" }];
+
+		function WhitespaceIdHarness() {
+			const [expanded, setExpanded] = useState<ExpandedState>({});
+			const cols = useMemo(
+				() => [
+					columnHelper.display({
+						id: "expander",
+						header: () => <DataTable.ExpandHeader />,
+						cell: (props) => (
+							<DataTable.Cell>
+								<DataTable.RowExpandButton row={props.row} label={props.row.original.name} />
+							</DataTable.Cell>
+						),
+					}),
+					columnHelper.accessor("name", {
+						id: "name",
+						header: () => <DataTable.Header>Name</DataTable.Header>,
+						cell: (props) => <DataTable.Cell>{props.getValue()}</DataTable.Cell>,
+					}),
+				],
+				[],
+			);
+			const table = useReactTable({
+				data: spacedData,
+				columns: cols,
+				state: { expanded },
+				onExpandedChange: setExpanded,
+				getRowCanExpand: () => true,
+				getCoreRowModel: getCoreRowModel(),
+				getExpandedRowModel: getExpandedRowModel(),
+				getRowId: (row) => row.id, // a row id WITH a space
+			});
+			return (
+				<DataTable.Root table={table}>
+					<DataTable.Head />
+					<DataTable.Body>
+						{table.getRowModel().rows.map((row) => (
+							<Fragment key={row.id}>
+								<DataTable.Row row={row} />
+								{row.getIsExpanded() && (
+									<DataTable.ExpandedRow row={row}>
+										<span>Detail</span>
+									</DataTable.ExpandedRow>
+								)}
+							</Fragment>
+						))}
+					</DataTable.Body>
+				</DataTable.Root>
+			);
+		}
+
+		render(<WhitespaceIdHarness />);
+		await user.click(screen.getByRole("button", { name: "Show details for Acme" }));
+
+		const button = screen.getByRole("button", { name: "Hide details for Acme" });
+		const ariaControls = button.getAttribute("aria-controls");
+		invariant(ariaControls, "expanded button should expose aria-controls");
+		// Encoded to a valid, whitespace-free IDREF (a space would split it into two
+		// tokens and sever the association)…
+		expect(ariaControls).not.toContain(" ");
+		// …and the panel cell carries the exact same id, so the association resolves.
+		expect(document.getElementById(ariaControls)).toBeInTheDocument();
+	});
+});

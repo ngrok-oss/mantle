@@ -645,9 +645,10 @@ function ActionHeader({ children, className, ...props }: DataTableActionHeaderPr
  * or not the detail panel is currently rendered.
  *
  * REQUIRED: configure the table with a stable `getRowId` so `row.id` (and thus
- * this id) is stable across sorting/filtering/pagination. `row.id` must be a
- * valid HTML id token — it must not contain whitespace. UUIDs, URLs, and emails
- * are fine; `getRowId` controls the value.
+ * this id) is stable across sorting/filtering/pagination. Any `row.id` value is
+ * safe — it is URL-encoded into a valid, whitespace-free HTML id token (and thus
+ * a valid `aria-controls` IDREF), so display names with spaces, URLs, and emails
+ * all work; `getRowId` controls the value.
  *
  * @example
  * ```tsx
@@ -658,7 +659,12 @@ function ActionHeader({ children, className, ...props }: DataTableActionHeaderPr
  * ```
  */
 function expandedRowId<TData>(row: TableRow<TData>): string {
-	return `data-table-expanded-row-${row.id}`;
+	// `encodeURIComponent` guarantees a whitespace-free, valid HTML id token (and
+	// thus a valid `aria-controls` IDREF) for ANY `getRowId` value — e.g. a display
+	// name like "Acme Inc". Both the toggle's `aria-controls` and the expanded
+	// row's `id` derive from this one function, so encoding both sides keeps them
+	// equal and preserves the accessibility association.
+	return `data-table-expanded-row-${encodeURIComponent(row.id)}`;
 }
 
 type DataTableExpandHeaderProps = Omit<ComponentProps<typeof Table.Header>, "children"> & {
@@ -684,7 +690,7 @@ type DataTableExpandHeaderProps = Omit<ComponentProps<typeof Table.Header>, "chi
  *   id: "expander",
  *   header: () => <DataTable.ExpandHeader />,
  *   cell: (props) => (
- *     <DataTable.Cell className="w-9">
+ *     <DataTable.Cell className="w-9 px-0 text-center">
  *       <DataTable.RowExpandButton row={props.row} label={props.row.original.name} />
  *     </DataTable.Cell>
  *   ),
@@ -693,7 +699,14 @@ type DataTableExpandHeaderProps = Omit<ComponentProps<typeof Table.Header>, "chi
  */
 function ExpandHeader({ children, className, ...props }: DataTableExpandHeaderProps) {
 	return (
-		<Table.Header data-slot="data-table-expand-header" className={cx("w-9", className)} {...props}>
+		<Table.Header
+			data-slot="data-table-expand-header"
+			// `Table.Header` defaults to `px-4`; zero it (and center) so the column is
+			// actually as narrow as `w-9` and aligns with the icon toggle in the cells
+			// below it. A consumer `className` still wins via tailwind-merge.
+			className={cx("w-9 px-0 text-center", className)}
+			{...props}
+		>
 			{children ?? <span className="sr-only">Row details</span>}
 		</Table.Header>
 	);
@@ -755,7 +768,7 @@ type DataTableRowExpandButtonProps<TData> = Omit<
  *   id: "expander",
  *   header: () => <DataTable.ExpandHeader />,
  *   cell: (props) => (
- *     <DataTable.Cell className="w-9">
+ *     <DataTable.Cell className="w-9 px-0 text-center">
  *       <DataTable.RowExpandButton row={props.row} label={props.row.original.name} />
  *     </DataTable.Cell>
  *   ),
@@ -1467,7 +1480,7 @@ const DataTable = {
 	 *   id: "expander",
 	 *   header: () => <DataTable.ExpandHeader />,
 	 *   cell: (props) => (
-	 *     <DataTable.Cell className="w-9">
+	 *     <DataTable.Cell className="w-9 px-0 text-center">
 	 *       <DataTable.RowExpandButton row={props.row} label={props.row.original.name} />
 	 *     </DataTable.Cell>
 	 *   ),
@@ -1487,7 +1500,7 @@ const DataTable = {
 	 *
 	 * @example
 	 * ```tsx
-	 * <DataTable.Cell className="w-9">
+	 * <DataTable.Cell className="w-9 px-0 text-center">
 	 *   <DataTable.RowExpandButton row={props.row} label={props.row.original.name} />
 	 * </DataTable.Cell>
 	 * ```

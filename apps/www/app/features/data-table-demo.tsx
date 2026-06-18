@@ -654,7 +654,7 @@ const expandableColumns = [
 		id: "expander",
 		header: () => <DataTable.ExpandHeader />,
 		cell: (props) => (
-			<DataTable.Cell className="w-9">
+			<DataTable.Cell className="w-9 px-0 text-center">
 				<DataTable.RowExpandButton row={props.row} label={props.row.original.email} />
 			</DataTable.Cell>
 		),
