@@ -6,6 +6,7 @@ import { describe, expect, test, vi } from "vitest";
 import {
 	DataTable,
 	type ExpandedState,
+	type Row as TableRow,
 	createColumnHelper,
 	getCoreRowModel,
 	getExpandedRowModel,
@@ -128,7 +129,7 @@ function ExpandableHarness({
 				{table.getRowModel().rows.map((row) => (
 					<Fragment key={row.id}>
 						<DataTable.Row data-testid={`row-${row.id}`} row={row} onClick={onRowClick} />
-						{row.getIsExpanded() ? (
+						{row.getIsExpanded() && (
 							<DataTable.ExpandedRow
 								data-testid={`detail-${row.id}`}
 								row={row}
@@ -136,7 +137,7 @@ function ExpandableHarness({
 							>
 								<span>Detail for {row.original.name}</span>
 							</DataTable.ExpandedRow>
-						) : null}
+						)}
 					</Fragment>
 				))}
 			</DataTable.Body>
@@ -251,5 +252,90 @@ describe("DataTable.ExpandHeader", () => {
 			</table>,
 		);
 		expect(screen.getByText("Expand all")).toBeInTheDocument();
+	});
+});
+
+/**
+ * Renders a table that drives its detail panel through `DataTable.Row`'s
+ * `renderExpanded` prop (rather than a hand-written `ExpandedRow`). `renderSpy`
+ * lets tests assert the lazy contract — that the panel is built only while open.
+ */
+function RenderExpandedHarness({ renderSpy }: { renderSpy?: (row: TableRow<Row>) => void }) {
+	const [expanded, setExpanded] = useState<ExpandedState>({});
+	const expandableColumns = useMemo(
+		() => [
+			columnHelper.display({
+				id: "expander",
+				header: () => <DataTable.ExpandHeader />,
+				cell: (props) => (
+					<DataTable.Cell>
+						<DataTable.RowExpandButton row={props.row} label={props.row.original.name} />
+					</DataTable.Cell>
+				),
+			}),
+			columnHelper.accessor("name", {
+				id: "name",
+				header: () => <DataTable.Header>Name</DataTable.Header>,
+				cell: (props) => <DataTable.Cell>{props.getValue()}</DataTable.Cell>,
+			}),
+		],
+		[],
+	);
+	const table = useReactTable({
+		data,
+		columns: expandableColumns,
+		state: { expanded },
+		onExpandedChange: setExpanded,
+		getRowCanExpand: () => true,
+		getCoreRowModel: getCoreRowModel(),
+		getExpandedRowModel: getExpandedRowModel(),
+		getRowId: (row) => row.id,
+	});
+	return (
+		<DataTable.Root table={table}>
+			<DataTable.Head />
+			<DataTable.Body>
+				{table.getRowModel().rows.map((row) => (
+					<DataTable.Row
+						key={row.id}
+						data-testid={`row-${row.id}`}
+						row={row}
+						renderExpanded={(row) => {
+							renderSpy?.(row);
+							return <span data-testid={`panel-${row.id}`}>Panel for {row.original.name}</span>;
+						}}
+					/>
+				))}
+			</DataTable.Body>
+		</DataTable.Root>
+	);
+}
+
+describe("DataTable.Row renderExpanded", () => {
+	test("does not render or call the panel while the row is collapsed (lazy)", () => {
+		const renderSpy = vi.fn<(row: TableRow<Row>) => void>();
+		render(<RenderExpandedHarness renderSpy={renderSpy} />);
+
+		expect(screen.queryByTestId("panel-row-1")).not.toBeInTheDocument();
+		expect(renderSpy).not.toHaveBeenCalled();
+	});
+
+	test("renders the panel in an ExpandedRow spanning every visible column once expanded", async () => {
+		const user = userEvent.setup();
+		const renderSpy = vi.fn<(row: TableRow<Row>) => void>();
+		render(<RenderExpandedHarness renderSpy={renderSpy} />);
+
+		await user.click(screen.getByRole("button", { name: "Show details for Alice" }));
+
+		expect(renderSpy).toHaveBeenCalled();
+		const panelCell = screen.getByTestId("panel-row-1").closest("td");
+		expect(panelCell).toHaveAttribute("colspan", "2");
+		expect(panelCell).toHaveAttribute("id", "data-table-expanded-row-row-1");
+	});
+
+	test("renders a single `<tr>` (no detail row) when `renderExpanded` is omitted", () => {
+		render(<Harness />);
+		// The base Row harness renders exactly one body row and no expanded detail.
+		expect(screen.getAllByRole("row")).toHaveLength(1);
 	});
 });

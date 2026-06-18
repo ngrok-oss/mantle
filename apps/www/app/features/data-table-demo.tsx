@@ -23,7 +23,7 @@ import { MagnifyingGlassIcon } from "@phosphor-icons/react/MagnifyingGlass";
 import { PencilSimpleIcon } from "@phosphor-icons/react/PencilSimple";
 import { TrashIcon } from "@phosphor-icons/react/Trash";
 import { TrayIcon } from "@phosphor-icons/react/Tray";
-import { Fragment, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 type Payment = {
 	id: string;
@@ -689,23 +689,22 @@ export function ExpandableRowsDemo() {
 			<DataTable.Body>
 				{rows.length > 0 ? (
 					rows.map((row) => (
-						// Fragment, not a DOM wrapper — a node between <tbody> and <tr> is
-						// invalid HTML and would break Table.Body's row styling.
-						<Fragment key={row.id}>
-							<DataTable.Row row={row} />
-							{row.getIsExpanded() ? (
-								<DataTable.ExpandedRow row={row}>
-									<CodeBlock.Root>
-										<CodeBlock.Body>
-											<CodeBlock.CopyButton />
-											{/* Highlighted entirely on the client — no Shiki runtime, no
-											    build-time plugin, no server roundtrip. */}
-											<CodeBlock.Code value={jsonCodeBlockValue(row.original)} />
-										</CodeBlock.Body>
-									</CodeBlock.Root>
-								</DataTable.ExpandedRow>
-							) : null}
-						</Fragment>
+						<DataTable.Row
+							key={row.id}
+							row={row}
+							// `renderExpanded` is called lazily — only while the row is open —
+							// so collapsed rows never build (or tokenize) their panel.
+							renderExpanded={(row) => (
+								<CodeBlock.Root>
+									<CodeBlock.Body>
+										<CodeBlock.CopyButton />
+										{/* Highlighted entirely on the client — no Shiki runtime, no
+										    build-time plugin, no server roundtrip. */}
+										<CodeBlock.Code value={jsonCodeBlockValue(row.original)} />
+									</CodeBlock.Body>
+								</CodeBlock.Root>
+							)}
+						/>
 					))
 				) : (
 					<DataTable.EmptyRow>

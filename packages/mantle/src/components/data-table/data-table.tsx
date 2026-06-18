@@ -348,6 +348,18 @@ function Head<TData>(props: DataTableHeadProps) {
 
 type DataTableRowProps<TData> = Omit<ComponentProps<typeof Table.Row>, "children"> & {
 	row: TableRow<TData>;
+	/**
+	 * Renders an inline detail panel beneath the row. Called only while the row is
+	 * expanded (`row.getIsExpanded()`), so the panel — and any expensive work it
+	 * does — stays lazy. Mantle wraps the returned content in a sibling
+	 * `DataTable.ExpandedRow` spanning every visible column, so return just the
+	 * panel content (not a `<tr>`). Requires the table to be configured for
+	 * expansion (`getExpandedRowModel`, plus `getRowCanExpand` for detail panels);
+	 * pair it with a `DataTable.RowExpandButton` toggle in a leading column. For
+	 * full control over the detail row (custom `colSpan`, multiple panels), omit
+	 * this and render `DataTable.ExpandedRow` yourself.
+	 */
+	renderExpanded?: (row: TableRow<TData>) => ReactNode;
 };
 
 /**
@@ -359,9 +371,15 @@ type DataTableRowProps<TData> = Omit<ComponentProps<typeof Table.Row>, "children
  * `cursor-wait`) to override. For keyboard and screen-reader access, also
  * render a `<Link>` inside the primary cell — a `<tr>` is not focusable.
  *
+ * Pass `renderExpanded` to give the row an inline detail panel: when the row is
+ * expanded the row renders its data `<tr>` plus a sibling `DataTable.ExpandedRow`
+ * holding the returned content. Pair it with a `DataTable.RowExpandButton` toggle
+ * and configure the table for expansion (`getExpandedRowModel`, `getRowCanExpand`).
+ *
  * @see https://mantle.ngrok.com/components/data-table#datatablerow
  *
  * @example
+ * Clickable row navigating to a detail page:
  * ```tsx
  * const navigate = useNavigate();
  *
@@ -373,9 +391,30 @@ type DataTableRowProps<TData> = Omit<ComponentProps<typeof Table.Row>, "children
  *   />
  * ))}
  * ```
+ *
+ * @example
+ * Expandable row with an inline JSON detail panel (lazy — only built when open):
+ * ```tsx
+ * import { CodeBlock, jsonCodeBlockValue } from "@ngrok/mantle/code-block";
+ *
+ * {rows.map((row) => (
+ *   <DataTable.Row
+ *     key={row.id}
+ *     row={row}
+ *     renderExpanded={(row) => (
+ *       <CodeBlock.Root>
+ *         <CodeBlock.Body>
+ *           <CodeBlock.CopyButton />
+ *           <CodeBlock.Code value={jsonCodeBlockValue(row.original)} />
+ *         </CodeBlock.Body>
+ *       </CodeBlock.Root>
+ *     )}
+ *   />
+ * ))}
+ * ```
  */
-function Row<TData>({ className, row, ...props }: DataTableRowProps<TData>) {
-	return (
+function Row<TData>({ className, renderExpanded, row, ...props }: DataTableRowProps<TData>) {
+	const dataRow = (
 		<Table.Row
 			data-slot="data-table-row"
 			// Styling hook for the "this row is expanded" state (e.g. to pair the
@@ -391,6 +430,20 @@ function Row<TData>({ className, row, ...props }: DataTableRowProps<TData>) {
 				</Fragment>
 			))}
 		</Table.Row>
+	);
+
+	// Without `renderExpanded`, behave exactly as a plain single-`<tr>` row.
+	if (renderExpanded == null) {
+		return dataRow;
+	}
+
+	// With it, render the data row plus — only while expanded — its detail row.
+	// `renderExpanded` is called lazily so collapsed rows pay nothing.
+	return (
+		<>
+			{dataRow}
+			{row.getIsExpanded() && <ExpandedRow row={row}>{renderExpanded(row)}</ExpandedRow>}
+		</>
 	);
 }
 
@@ -767,10 +820,13 @@ type DataTableExpandedRowProps<TData> = Omit<ComponentProps<typeof Table.Row>, "
 };
 
 /**
- * The sibling `<tr>` that renders a row's expanded detail panel. Render it
- * directly after the parent `DataTable.Row` — wrapped in a `Fragment`, never a
- * DOM element (a node between `<tbody>` and `<tr>` is invalid HTML) — and only
- * when `row.getIsExpanded()` is true.
+ * The sibling `<tr>` that renders a row's expanded detail panel. For the common
+ * case, prefer `DataTable.Row`'s `renderExpanded` prop, which renders this for
+ * you. Reach for `ExpandedRow` directly when you need full control — a custom
+ * `colSpan`, multiple panels, or bespoke markup. Render it directly after the
+ * parent `DataTable.Row` — wrapped in a `Fragment`, never a DOM element (a node
+ * between `<tbody>` and `<tr>` is invalid HTML) — and only when
+ * `row.getIsExpanded()` is true.
  *
  * The single cell spans every visible column (override with `colSpan`), carries
  * the `id` that `DataTable.RowExpandButton` targets via `aria-controls`, and
@@ -794,7 +850,7 @@ type DataTableExpandedRowProps<TData> = Omit<ComponentProps<typeof Table.Row>, "
  * {table.getRowModel().rows.map((row) => (
  *   <Fragment key={row.id}>
  *     <DataTable.Row row={row} />
- *     {row.getIsExpanded() ? (
+ *     {row.getIsExpanded() && (
  *       <DataTable.ExpandedRow row={row}>
  *         <CodeBlock.Root>
  *           <CodeBlock.Body>
@@ -803,7 +859,7 @@ type DataTableExpandedRowProps<TData> = Omit<ComponentProps<typeof Table.Row>, "
  *           </CodeBlock.Body>
  *         </CodeBlock.Root>
  *       </DataTable.ExpandedRow>
- *     ) : null}
+ *     )}
  *   </Fragment>
  * ))}
  * ```
@@ -1370,17 +1426,28 @@ const DataTable = {
 	 * Pass a different `cursor-*` class via `className` to override. For keyboard
 	 * and screen-reader access, also render a `<Link>` inside the primary cell.
 	 *
+	 * Pass `renderExpanded` to give the row an inline detail panel — the row then
+	 * renders a sibling `DataTable.ExpandedRow` (only while expanded) holding the
+	 * returned content. Pair with `DataTable.RowExpandButton`.
+	 *
 	 * @see https://mantle.ngrok.com/components/data-table#datatablerow
 	 *
 	 * @example
 	 * ```tsx
-	 * const navigate = useNavigate();
+	 * import { CodeBlock, jsonCodeBlockValue } from "@ngrok/mantle/code-block";
 	 *
 	 * {rows.map((row) => (
 	 *   <DataTable.Row
 	 *     key={row.id}
 	 *     row={row}
-	 *     onClick={() => navigate(href("/payments/:id", { id: row.original.id }))}
+	 *     renderExpanded={(row) => (
+	 *       <CodeBlock.Root>
+	 *         <CodeBlock.Body>
+	 *           <CodeBlock.CopyButton />
+	 *           <CodeBlock.Code value={jsonCodeBlockValue(row.original)} />
+	 *         </CodeBlock.Body>
+	 *       </CodeBlock.Root>
+	 *     )}
 	 *   />
 	 * ))}
 	 * ```
@@ -1443,7 +1510,7 @@ const DataTable = {
 	 * {table.getRowModel().rows.map((row) => (
 	 *   <Fragment key={row.id}>
 	 *     <DataTable.Row row={row} />
-	 *     {row.getIsExpanded() ? (
+	 *     {row.getIsExpanded() && (
 	 *       <DataTable.ExpandedRow row={row}>
 	 *         <CodeBlock.Root>
 	 *           <CodeBlock.Body>
@@ -1452,7 +1519,7 @@ const DataTable = {
 	 *           </CodeBlock.Body>
 	 *         </CodeBlock.Root>
 	 *       </DataTable.ExpandedRow>
-	 *     ) : null}
+	 *     )}
 	 *   </Fragment>
 	 * ))}
 	 * ```
