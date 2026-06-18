@@ -169,6 +169,38 @@ describe("decorateHighlightedHtml", () => {
 			expect(result).toContain('data-fold-regions="1"');
 		});
 
+		test("tags only opener lines with mantle-code-line-opener so the gutter reset is a flat class, not a per-line :has() probe", () => {
+			const html = shikiHtml(["{", '  "a": 1', "}"]);
+			const result = decorateHighlightedHtml({
+				html,
+				foldableRanges: [{ id: "1", startLine: 1, endLine: 3 }],
+			});
+
+			// Read a line's class list without pinning the exact class string or
+			// `cx()` ordering, so the assertions cover only what matters: which lines
+			// carry the opener tag.
+			const classesForLine = (lineNumber: number) =>
+				result
+					.match(new RegExp(`<span class="([^"]*)" data-line-number="${lineNumber}"`))?.[1]
+					?.split(" ") ?? [];
+
+			// Only the opener line (1) is tagged so CSS can reset its gutter margin
+			// (its button already occupies the gutter); the inner/closer lines reserve
+			// their gutter via the default rule and stay untagged.
+			expect(classesForLine(1)).toContain("mantle-code-line-opener");
+			expect(classesForLine(2)).not.toContain("mantle-code-line-opener");
+			expect(classesForLine(3)).not.toContain("mantle-code-line-opener");
+			// ...and the tag appears exactly once across the whole block.
+			expect(result.match(/mantle-code-line-opener/g) ?? []).toHaveLength(1);
+		});
+
+		test("does not tag any line when folding is disabled", () => {
+			const html = shikiHtml(["{", '  "a": 1', "}"]);
+			const result = decorateHighlightedHtml({ html });
+
+			expect(result).not.toContain("mantle-code-line-opener");
+		});
+
 		test("does not emit per-line fold spacers — gutter alignment is CSS-only", () => {
 			const html = shikiHtml(["[", "  1", "]"]);
 			const result = decorateHighlightedHtml({

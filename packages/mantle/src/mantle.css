@@ -858,15 +858,22 @@ MARK: SHIKI SYNTAX HIGHLIGHT
 }
 
 /*
- * Reserve the fold-gutter column on every line in a fold-enabled <pre>, so
- * lines without a toggle button stay aligned with opener lines. Doing this in
- * CSS instead of emitting a per-line spacer span keeps HTML payload small for
- * very large JSON blocks (a 1000-line block sheds ~75 kB of repeated markup).
+ * Reserve the fold-gutter column so non-opener lines stay aligned with opener
+ * lines (whose toggle button occupies the gutter). A single per-<pre> `:has()`
+ * scopes this to fold-enabled blocks; within them every line's content gets the
+ * gutter margin by default, and opener lines — tagged `mantle-code-line-opener`
+ * at HTML-generation time (see decorate-highlighted-html.ts) — reset it. This
+ * replaces the old *per-line* relational `:not(:has())` probe (whose cost scaled
+ * with line count) with a flat class match, while keeping HTML payload tiny:
+ * only the sparse opener lines carry an extra class.
  */
-pre[data-slot="code-block-code"]:has(.mantle-code-fold-toggle)
-	.mantle-code-line:not(:has(> .mantle-code-fold-toggle))
-	> .mantle-code-line-content {
+pre[data-slot="code-block-code"]:has(.mantle-code-fold-toggle) .mantle-code-line-content {
 	margin-left: calc(var(--mantle-code-fold-gutter-width) + var(--mantle-code-fold-gutter-gap));
+}
+pre[data-slot="code-block-code"]:has(.mantle-code-fold-toggle)
+	.mantle-code-line-opener
+	> .mantle-code-line-content {
+	margin-left: 0;
 }
 
 .mantle-code-fold-ellipsis {
