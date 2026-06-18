@@ -1,3 +1,12 @@
+// `decorateHighlightedHtml` and `computeJsonFoldRanges` are the SAME React-free
+// primitives Mantle's server/build renderer uses (it imports them from the shared
+// `@ngrok/mantle/highlight-utils` surface; we import the same leaf modules). Reusing
+// them — rather than reimplementing line/fold decoration — is what keeps this
+// client output identical to server/build-time rendering. `computeJsonFoldRanges`
+// is specifically the raw, token-free fold computer the server's `json-raw` strategy
+// delegates to, which is the right fit here since this path has no Shiki tokens.
+// The ONLY thing this module reimplements vs the server is the Shiki-free JSON
+// tokenization below — its byte-for-byte parity is locked by the json-*.fixtures tests.
 import { computeJsonFoldRanges } from "./compute-json-fold-ranges.js";
 import { decorateHighlightedHtml } from "./decorate-highlighted-html.js";
 import { createMantleCodeBlockValue, type MantleCodeBlockValue } from "./mantle-code.js";
