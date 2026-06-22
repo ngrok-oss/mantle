@@ -12,9 +12,9 @@ import type { RenderToPipeableStreamOptions } from "react-dom/server";
 import { renderToPipeableStream } from "react-dom/server";
 import type {
 	ActionFunctionArgs,
-	AppLoadContext,
 	EntryContext,
 	LoaderFunctionArgs,
+	RouterContextProvider,
 } from "react-router";
 import { ServerRouter } from "react-router";
 import { assetsCdnOrigin, preloadFontLink } from "@ngrok/mantle/theme";
@@ -43,7 +43,7 @@ export default function handleRequest(
 	responseStatusCode: number,
 	responseHeaders: Headers,
 	routerContext: EntryContext,
-	_loadContext: AppLoadContext,
+	_loadContext: RouterContextProvider,
 ) {
 	// Content negotiation: return raw markdown when Accept: text/markdown is requested
 	const accept = request.headers.get("Accept") ?? "";
