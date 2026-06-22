@@ -392,7 +392,6 @@
 		"@types/react": "19.2.17",
 		"@types/react-dom": "19.2.3",
 		"@vitest/browser-playwright": "catalog:",
-		"browserslist": "4.28.2",
 		"date-fns": "4.4.0",
 		"happy-dom": "catalog:",
 		"playwright": "catalog:",
@@ -409,9 +408,6 @@
 		"react-dom": "^18 || ^19",
 		"tailwindcss": "^4.3.1"
 	},
-	"browserslist": [
-		"last 2 years, not dead, > 0.2%"
-	],
 	"engines": {
 		"node": "^24.0.0"
 	}
