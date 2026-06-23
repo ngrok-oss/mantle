@@ -23,7 +23,7 @@ describe("agent manifests", () => {
 		const cx = manifest.utilities.find((utility) => utility.name === "cx");
 		const highlightUtils = manifest.utilities.find((utility) => utility.name === "highlight-utils");
 
-		expect(cx?.summary).toContain("Conditionally add Tailwind");
+		expect(cx?.summary).toContain("Conditionally compose class names");
 		expect(highlightUtils?.summary).toContain("React-free highlighting utilities");
 	});
 

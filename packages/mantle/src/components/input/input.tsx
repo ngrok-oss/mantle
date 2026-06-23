@@ -3,7 +3,6 @@
 import { CheckCircleIcon } from "@phosphor-icons/react/CheckCircle";
 import { WarningIcon } from "@phosphor-icons/react/Warning";
 import { WarningDiamondIcon } from "@phosphor-icons/react/WarningDiamond";
-import clsx from "clsx";
 import type {
 	ComponentRef,
 	ForwardedRef,
@@ -13,6 +12,7 @@ import type {
 } from "react";
 import { createContext, forwardRef, useContext, useMemo, useRef } from "react";
 import { composeRefs } from "../../utils/compose-refs/compose-refs.js";
+import { clsx } from "../../utils/cx/clsx.js";
 import { cx } from "../../utils/cx/cx.js";
 import { parseValidation, useFieldValidation } from "../field/validation.js";
 import type { Validation, WithValidation } from "../field/validation.js";

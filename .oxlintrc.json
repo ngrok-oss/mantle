@@ -110,6 +110,7 @@
     "dist",
     "node_modules",
     "public",
-    "*/code-gen"
+    "*/code-gen",
+    "packages/mantle/src/utils/cx/vendor"
   ]
 }

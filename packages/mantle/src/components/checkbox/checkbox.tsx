@@ -1,9 +1,9 @@
 "use client";
 
-import clsx from "clsx";
 import { forwardRef, useEffect, useRef, useState } from "react";
 import type { ComponentPropsWithoutRef, ComponentRef } from "react";
 import { composeRefs } from "../../utils/compose-refs/index.js";
+import { clsx } from "../../utils/cx/clsx.js";
 import { parseValidation, useFieldValidation } from "../field/validation.js";
 import type { WithValidation } from "../field/validation.js";
 
