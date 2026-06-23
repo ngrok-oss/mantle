@@ -1,5 +1,29 @@
 # @ngrok/mantle
 
+## 0.76.6
+
+### Patch Changes
+
+- [#1270](https://github.com/ngrok/mantle/pull/1270) [`3145538`](https://github.com/ngrok/mantle/commit/3145538cc0da903805a9b751f3402e37a0d5da95) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Remove unused dependencies and config.
+
+  - Drop the `browserslist` devDependency and config key — nothing in the current toolchain reads them. The build uses tsdown with an explicit `target`, and Tailwind 4 lowers CSS via its bundled lightningcss with its own defaults.
+  - Drop the unused `date-fns` `devDependency` and `peerDependency`. Mantle's source never imports `date-fns`; the calendar's `react-day-picker` declares `date-fns` as its own dependency, so consumers no longer need to install it just for Mantle.
+
+  Both packages remain available transitively where they are actually used.
+
+- [#1272](https://github.com/ngrok/mantle/pull/1272) [`006ad3a`](https://github.com/ngrok/mantle/commit/006ad3a3d633d6eedc703e26a6773c52815d1800) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - Vendor the `cx` class-merge engine and drop the `clsx` + `tailwind-merge` runtime dependencies.
+
+  `cx` is now powered by a vendored, byte-for-byte port of `clsx` + `tailwind-merge` (adapted from [`cnfast`](https://github.com/aidenybai/cnfast)), living in `src/utils/cx/vendor`. Mantle's previous `extendTailwindMerge` overrides — the `em` spacing scale (`w-em`, `p-em`, …) and the `text-mono` / `text-size-inherit` font-size utilities — are now baked directly into the vendored default config, so no extend call is needed.
+
+  - **Output is byte-identical** to the previous `clsx` + `extendTailwindMerge` implementation (guarded by a 3,200+ case parity fixture).
+  - **Same public API:** `cx(...inputs)` is unchanged (`(...inputs: ClassValue[]) => string`).
+  - **Faster**, with the largest gains on repeated re-render call sites (interned conflict keys, per-token descriptor caching, and a V8 arg cache).
+  - **New, additive:** `cx` can also be called as a tagged template — `` cx`px-2 px-4 ${active && "bg-blue-500"}` `` — which caches by call-site identity.
+
+  `clsx` and `tailwind-merge` are no longer dependencies of `@ngrok/mantle`. (`clsx` remains available transitively via `class-variance-authority`.)
+
+  Export `clsx` from the `@ngrok/mantle/cx` subpath alongside `cx`.
+
 ## 0.76.5
 
 ### Patch Changes
