@@ -18,8 +18,8 @@ DO_NOT_TRACK = "1"
 TURBO_TELEMETRY_DISABLED = "1"
 VERCEL_TELEMETRY_DISABLED = "1"
 TURBO_TEAM = "ngrok-frontend"
-# Local runs read-only; CI is the sole writer to ensure cache correctness and reproducibility.
-TURBO_CACHE = "remote:r"
+# Local runs may write local cache; CI is the sole remote writer for reproducibility.
+TURBO_CACHE = "local:rw,remote:r"
 
 [tasks.install]
 description = "Install workspace dependencies using the committed lockfile"

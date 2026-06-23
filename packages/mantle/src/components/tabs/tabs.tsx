@@ -5,7 +5,6 @@ import {
 	Trigger as TabsPrimitiveTrigger,
 } from "@radix-ui/react-tabs";
 import { cva } from "class-variance-authority";
-import clsx from "clsx";
 import type { ComponentPropsWithoutRef, ComponentRef, HTMLAttributes } from "react";
 import {
 	Children,
@@ -21,6 +20,7 @@ import {
 import invariant from "tiny-invariant";
 import { parseBooleanish } from "../../types/booleanish.js";
 import { composeRefs } from "../../utils/compose-refs/compose-refs.js";
+import { clsx } from "../../utils/cx/clsx.js";
 import { cx } from "../../utils/cx/cx.js";
 import { getPrefersReducedMotion } from "../../hooks/use-prefers-reduced-motion.js";
 import type { ScrollBehavior } from "../../hooks/use-scroll-behavior.js";

@@ -1,7 +1,7 @@
-import clsx from "clsx";
 import { createContext, useContext, useId, useMemo } from "react";
 import type { ComponentProps, HTMLAttributes } from "react";
 import { $cssProperties } from "../../types/index.js";
+import { clsx } from "../../utils/cx/clsx.js";
 import { cx } from "../../utils/cx/cx.js";
 import { clamp, isNumber, isValidMaxNumber, isValidValueNumber } from "./math.js";
 import type { ValueType } from "./types.js";

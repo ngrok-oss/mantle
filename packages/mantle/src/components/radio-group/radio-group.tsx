@@ -5,7 +5,6 @@ import type {
 	RadioGroupProps as HeadlessRadioGroupProps,
 	RadioProps as HeadlessRadioProps,
 } from "@headlessui/react";
-import clsx from "clsx";
 import {
 	Children,
 	cloneElement,
@@ -17,6 +16,7 @@ import {
 } from "react";
 import type { ComponentRef, HTMLAttributes, PropsWithChildren, ReactNode } from "react";
 import type { WithAsChild } from "../../types/as-child.js";
+import { clsx } from "../../utils/cx/clsx.js";
 import { cx } from "../../utils/cx/cx.js";
 import { FieldControlContext } from "../field/field-context.js";
 import { isInput } from "../input/is-input.js";
