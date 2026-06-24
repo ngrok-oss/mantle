@@ -4,8 +4,6 @@ import { CaretDownIcon } from "@phosphor-icons/react/CaretDown";
 import {
 	type ComponentPropsWithoutRef,
 	type ComponentRef,
-	type CSSProperties,
-	type ReactNode,
 	createContext,
 	forwardRef,
 	useCallback,
@@ -17,6 +15,7 @@ import {
 } from "react";
 import invariant from "tiny-invariant";
 import { useIsomorphicLayoutEffect } from "../../hooks/use-isomorphic-layout-effect.js";
+import type { WithAsChild } from "../../types/as-child.js";
 import { cx } from "../../utils/cx/cx.js";
 import { Icon, type IconProps } from "../icon/icon.js";
 import { Slot } from "../slot/index.js";
@@ -120,19 +119,14 @@ type AccordionMultipleProps = {
 /**
  * Props for {@link Root}. A discriminated union on `type` so `value`,
  * `defaultValue`, and `onValueChange` are typed as a single string in
- * `"single"` mode and a string array in `"multiple"` mode.
+ * `"single"` mode and a string array in `"multiple"` mode. Also accepts all
+ * standard `<div>` props (forwarded to the container) plus `asChild`.
  */
-type AccordionRootProps = (AccordionSingleProps | AccordionMultipleProps) & {
-	/**
-	 * Render the single child element as the container instead of a `<div>`,
-	 * merging the container's props onto it (Radix-style composition).
-	 */
-	asChild?: boolean;
-	children?: ReactNode;
-	className?: string;
-	id?: string;
-	style?: CSSProperties;
-};
+type AccordionRootProps = (AccordionSingleProps | AccordionMultipleProps) &
+	// `defaultValue` is omitted because the discriminated union above types it per
+	// `type` (a `string` or `string[]`), narrower than the DOM's `defaultValue`.
+	Omit<ComponentPropsWithoutRef<"div">, "defaultValue"> &
+	WithAsChild;
 
 /**
  * A vertically stacked set of disclosure sections. The root owns the open/closed
@@ -159,21 +153,35 @@ type AccordionRootProps = (AccordionSingleProps | AccordionMultipleProps) & {
  * </Accordion.Root>
  */
 const Root = forwardRef<ComponentRef<"div">, AccordionRootProps>((props, ref) => {
-	const type = props.type;
-	const isControlled = props.value != null;
+	// Pull the accordion-specific props out so the rest (`aria-*`, `data-*`, `id`,
+	// `style`, event handlers, …) can be forwarded to the container without leaking
+	// non-DOM attributes. `props` stays whole for `emitValueChange`, which relies on
+	// the discriminated-union narrowing on `props.type` — so `onValueChange` is only
+	// destructured to exclude it from `domProps` (hence the `_` name).
+	const {
+		type,
+		value,
+		defaultValue,
+		onValueChange: _onValueChange,
+		asChild,
+		children,
+		className,
+		...domProps
+	} = props;
+	const isControlled = value != null;
 
 	const [internalOpenValues, setInternalOpenValues] = useState<readonly string[]>(() =>
-		toOpenValues(props.defaultValue),
+		toOpenValues(defaultValue),
 	);
-	const openValues = isControlled ? toOpenValues(props.value) : internalOpenValues;
+	const openValues = isControlled ? toOpenValues(value) : internalOpenValues;
 
 	// `props` is intentionally a dependency: it carries the latest, correctly-typed
 	// `onValueChange` (see `emitValueChange`). The memo only exists to satisfy
 	// `react/jsx-no-constructed-context-values`; recomputing per render is fine at
 	// accordion scale.
 	const context = useMemo<AccordionContextValue>(() => {
-		const setItemOpen = (value: string, open: boolean) => {
-			const next = nextOpenValues(openValues, value, open, type);
+		const setItemOpen = (itemValue: string, open: boolean) => {
+			const next = nextOpenValues(openValues, itemValue, open, type);
 			if (next === openValues) {
 				return;
 			}
@@ -186,21 +194,20 @@ const Root = forwardRef<ComponentRef<"div">, AccordionRootProps>((props, ref) =>
 	}, [type, openValues, isControlled, props]);
 
 	const containerProps = {
+		...domProps,
 		"data-slot": "accordion",
-		id: props.id,
-		style: props.style,
-		className: cx("w-full", props.className),
+		className: cx("w-full", className),
 	};
 
 	return (
 		<AccordionContext.Provider value={context}>
-			{props.asChild ? (
+			{asChild ? (
 				<Slot ref={ref} {...containerProps}>
-					{props.children}
+					{children}
 				</Slot>
 			) : (
 				<div ref={ref} {...containerProps}>
-					{props.children}
+					{children}
 				</div>
 			)}
 		</AccordionContext.Provider>

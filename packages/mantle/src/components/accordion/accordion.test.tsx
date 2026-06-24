@@ -169,4 +169,29 @@ describe("Accordion", () => {
 		// The override still carries the part's data-slot for styling/targeting.
 		expect(icon).toHaveAttribute("data-slot", "accordion-trigger-icon");
 	});
+
+	test("Root forwards arbitrary DOM props to the container without leaking accordion props", () => {
+		render(
+			<Accordion.Root
+				type="single"
+				defaultValue=""
+				id="faq"
+				aria-label="FAQ"
+				data-testid="faq-root"
+			>
+				<Accordion.Item value="a">
+					<Accordion.Trigger>Trigger A</Accordion.Trigger>
+					<Accordion.Content>Body of section A</Accordion.Content>
+				</Accordion.Item>
+			</Accordion.Root>,
+		);
+		const root = screen.getByTestId("faq-root");
+		// Standard `<div>` props are forwarded to the container.
+		expect(root).toHaveAttribute("data-slot", "accordion");
+		expect(root).toHaveAttribute("id", "faq");
+		expect(root).toHaveAttribute("aria-label", "FAQ");
+		// Accordion-specific props must not leak onto the DOM element.
+		expect(root).not.toHaveAttribute("type");
+		expect(root).not.toHaveAttribute("defaultValue");
+	});
 });
