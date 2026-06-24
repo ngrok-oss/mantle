@@ -69,6 +69,7 @@ export default [
 		...docRoute("base/typography"),
 
 		// component docs
+		...docRoute("components/accordion"),
 		...docRoute("components/alert-dialog"),
 		...docRoute("components/alert"),
 		...docRoute("components/anchor"),
@@ -105,7 +106,6 @@ export default [
 		...docRoute("components/pagination"),
 		...docRoute("components/password-input"),
 		...docRoute("components/popover"),
-		...docRoute("components/preview/accordion"),
 		...docRoute("components/preview/calendar"),
 		...docRoute("components/progress-bar"),
 		...docRoute("components/progress-donut"),

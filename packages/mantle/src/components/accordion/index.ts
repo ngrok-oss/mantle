@@ -1,7 +1,7 @@
 /**
  * Re-exports for the Accordion component.
  *
- * @see https://mantle.ngrok.com/components/preview/accordion
+ * @see https://mantle.ngrok.com/components/accordion
  */
 
 export {
