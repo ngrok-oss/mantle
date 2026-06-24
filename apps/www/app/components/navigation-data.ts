@@ -6,6 +6,7 @@ type Route = Parameters<typeof href>[0];
  * Components that are ready for production use cases.
  */
 export const prodReadyComponents = [
+	"Accordion",
 	"Alert Dialog",
 	"Alert",
 	"Anchor",
@@ -68,12 +69,12 @@ export const prodReadyComponents = [
  */
 export const previewComponents = [
 	//,
-	"Accordion",
 	"Calendar",
 ] as const;
 
 /** Route lookup for production-ready component pages. */
 export const prodReadyComponentRouteLookup = {
+	Accordion: "/components/accordion",
 	Alert: "/components/alert",
 	"Alert Dialog": "/components/alert-dialog",
 	Anchor: "/components/anchor",
@@ -131,7 +132,6 @@ export const prodReadyComponentRouteLookup = {
 
 /** Route lookup for preview component pages. */
 export const previewComponentsRouteLookup = {
-	Accordion: "/components/preview/accordion",
 	Calendar: "/components/preview/calendar",
 } as const satisfies Record<(typeof previewComponents)[number], Route>;
 
