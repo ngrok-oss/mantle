@@ -1,5 +1,18 @@
 # @ngrok/mantle
 
+## 0.76.9
+
+### Patch Changes
+
+- [#1279](https://github.com/ngrok/mantle/pull/1279) [`6f0e022`](https://github.com/ngrok/mantle/commit/6f0e0222d66d4fdfeb1aa6cc2ed4a824b1a87815) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - fix(mantle): keep the Accordion trigger's focus ring from overlapping the body
+
+  When an open section's trigger was focused, the `ring-4` focus ring painted over
+  the first line of the body because the body sat flush against the bottom of the
+  trigger's box. The open-state trigger now trades 8px of its bottom padding for
+  matching top padding on `Accordion.Body`, moving that space outside the button
+  box to give the ring vertical clearance. The trigger→body gap stays a uniform
+  16px and the collapsed trigger keeps its symmetric `py-4` rhythm.
+
 ## 0.76.8
 
 ### Patch Changes
