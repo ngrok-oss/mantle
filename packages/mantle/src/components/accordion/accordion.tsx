@@ -357,10 +357,9 @@ const Trigger = forwardRef<
 				// vertical clearance it needs so it stops painting over the body's first line. The
 				// split is invisible without a ring, and only applies when open — the collapsed
 				// trigger keeps its symmetric `py-4`, so the trigger-to-divider rhythm is untouched.
-				// Transition the padding on the same 200ms/ease-out curve as `Accordion.Content`'s
-				// height so the bottom padding (and the ring's bottom edge) eases in step with the
-				// open/close slide instead of snapping.
-				"transition-[padding] duration-200 ease-out data-state-open:pb-2 motion-reduce:transition-none",
+				// The swap is intentionally not transitioned: the trigger stays instant while only
+				// the content height animates, keeping behavior consistent across engines.
+				"data-state-open:pb-2",
 				"focus:outline-hidden focus-visible:ring-4 focus-visible:ring-focus-accent",
 				className,
 			)}
