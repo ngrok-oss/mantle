@@ -19,14 +19,18 @@ describe("Accordion (browser)", () => {
 					Trigger A
 					<Accordion.TriggerIcon />
 				</Accordion.Trigger>
-				<Accordion.Content>Body of section A</Accordion.Content>
+				<Accordion.Content>
+					<Accordion.Body>Body of section A</Accordion.Body>
+				</Accordion.Content>
 			</Accordion.Item>
 			<Accordion.Item value="b">
 				<Accordion.Trigger>
 					Trigger B
 					<Accordion.TriggerIcon />
 				</Accordion.Trigger>
-				<Accordion.Content>Body of section B</Accordion.Content>
+				<Accordion.Content>
+					<Accordion.Body>Body of section B</Accordion.Body>
+				</Accordion.Content>
 			</Accordion.Item>
 		</>
 	);
@@ -158,7 +162,9 @@ describe("Accordion (browser)", () => {
 			<Accordion.Root type="single" defaultValue="">
 				<Accordion.Item value="a">
 					<Accordion.Trigger onClick={onClick}>Trigger A</Accordion.Trigger>
-					<Accordion.Content>Body of section A</Accordion.Content>
+					<Accordion.Content>
+						<Accordion.Body>Body of section A</Accordion.Body>
+					</Accordion.Content>
 				</Accordion.Item>
 			</Accordion.Root>,
 		);
@@ -180,7 +186,9 @@ describe("Accordion (browser)", () => {
 							Add Rule
 						</button>
 					</div>
-					<Accordion.Content>Body of section A</Accordion.Content>
+					<Accordion.Content>
+						<Accordion.Body>Body of section A</Accordion.Body>
+					</Accordion.Content>
 				</Accordion.Item>
 			</Accordion.Root>,
 		);
