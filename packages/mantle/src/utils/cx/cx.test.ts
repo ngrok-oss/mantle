@@ -189,6 +189,46 @@ describe("cx — modifiers, important, postfix, arbitrary", () => {
 	});
 });
 
+describe("cx — responsive breakpoint modifiers", () => {
+	// Mantle layers custom breakpoints on top of Tailwind's defaults in mantle.css
+	// (`--breakpoint-2xs: 22.5rem`, `--breakpoint-xs: 30rem`). The merge engine never validates a
+	// variant prefix against a configured breakpoint/screens list — every prefix, custom or
+	// built-in, is parsed and sorted as an opaque modifier. So mantle's custom breakpoints get
+	// conflict-scoped exactly like the built-ins with zero extra config: distinct breakpoints get
+	// distinct conflict keys and all survive, while same-breakpoint utilities in the same group
+	// collapse to the last. These cases lock that behavior in. Regression coverage for the
+	// reported `xs:gap-3 md:gap-4` blog layout.
+	test("different breakpoints on the same utility never conflict", () => {
+		expect(cx("pb-8 flex flex-col xs:gap-3 md:gap-4")).toBe("pb-8 flex flex-col xs:gap-3 md:gap-4");
+		expect(cx("gap-1 2xs:gap-2 xs:gap-3 sm:gap-4 md:gap-5 lg:gap-6")).toBe(
+			"gap-1 2xs:gap-2 xs:gap-3 sm:gap-4 md:gap-5 lg:gap-6",
+		);
+	});
+
+	test("custom mantle breakpoints (2xs, xs) behave like built-in ones", () => {
+		// same breakpoint + same group => last wins
+		expect(cx("xs:gap-3 xs:gap-5")).toBe("xs:gap-5");
+		expect(cx("2xs:p-2 2xs:p-4")).toBe("2xs:p-4");
+		// custom breakpoints are distinct conflict keys from each other and from built-ins
+		expect(cx("xs:gap-3 2xs:gap-3")).toBe("xs:gap-3 2xs:gap-3");
+		expect(cx("xs:gap-3 sm:gap-3")).toBe("xs:gap-3 sm:gap-3");
+	});
+
+	test("a base utility and its breakpoint variant coexist", () => {
+		expect(cx("hidden xs:block")).toBe("hidden xs:block");
+		expect(cx("gap-0 xs:gap-3")).toBe("gap-0 xs:gap-3");
+	});
+
+	test("breakpoints compose with state modifiers and still scope conflicts", () => {
+		expect(cx("xs:hover:gap-3 xs:hover:gap-5")).toBe("xs:hover:gap-5");
+		expect(cx("xs:hover:gap-3 md:hover:gap-4")).toBe("xs:hover:gap-3 md:hover:gap-4");
+	});
+
+	test("breakpoint modifiers survive when split across args", () => {
+		expect(cx("flex flex-col", "xs:gap-3", "md:gap-4")).toBe("flex flex-col xs:gap-3 md:gap-4");
+	});
+});
+
 describe("cx — tagged-template form", () => {
 	test("merges a static template", () => {
 		expect(cx`px-2 px-4`).toBe("px-4");
