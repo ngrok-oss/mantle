@@ -13,9 +13,10 @@ the color:
 - `Separator` (and everything built on it — `DropdownMenu.Separator`,
   `Command.Separator`, `MultiSelect.Separator`, `Combobox.Separator`,
   `Select.Separator`, `Sheet`, pagination) — refactor only, no visual change.
-- `Accordion` item dividers — previously `border-card-muted` (solid neutral),
-  now match the separator color.
+- `Accordion` — item dividers now come from `divide-y divide-separator` on
+  `Accordion.Root` (previously a per-item `border-card-muted` border with
+  `last:border-b-0`); they match the separator color and are drawn by the root.
 - `OtpInput.Separator` — previously `text-muted`, now `text-separator`.
 
-Consumers can use `border-separator` / `bg-separator` for their own dividers
-instead of replicating the color.
+Consumers can use `border-separator` / `bg-separator` / `divide-separator` for
+their own dividers instead of replicating the color.

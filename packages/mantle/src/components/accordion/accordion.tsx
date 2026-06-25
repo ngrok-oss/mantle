@@ -228,7 +228,10 @@ const Root = forwardRef<ComponentRef<"div">, AccordionRootProps>((props, ref) =>
 	const containerProps = {
 		...domProps,
 		"data-slot": "accordion",
-		className: cx("w-full", className),
+		// Dividers live on the root via `divide-y` (one border between adjacent items,
+		// none trailing) rather than a per-item `border-b` + `last:border-b-0`. The color
+		// is the shared `separator` token so dividers match `Separator` across the system.
+		className: cx("w-full divide-y divide-separator", className),
 	};
 
 	return (
@@ -276,7 +279,7 @@ const Item = forwardRef<
 		/** The unique value identifying this item within its accordion. */
 		value: string;
 	}
->(({ className, children, value, ...props }, ref) => {
+>(({ children, value, ...props }, ref) => {
 	const { openValues, setItemOpen } = useAccordionContext("Accordion.Item");
 	const open = isItemOpen(openValues, value);
 
@@ -300,9 +303,6 @@ const Item = forwardRef<
 				role="group"
 				data-slot="accordion-item"
 				data-state={open ? "open" : "closed"}
-				// Use the shared `separator` color token so item dividers match `Separator`
-				// (and every other divider in the system) in all themes.
-				className={cx("border-separator border-b last:border-b-0", className)}
 			>
 				{children}
 			</div>
