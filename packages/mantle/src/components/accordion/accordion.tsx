@@ -351,6 +351,15 @@ const Trigger = forwardRef<
 				// without shifting the trigger's content — the negative margin cancels the padding,
 				// the same trick the tabs trigger uses. `rounded-md` matches Button/IconButton.
 				"-mx-2 rounded-md px-2",
+				// When open, hand 8px of the trigger's bottom padding to `Accordion.Body`'s `pt-2`.
+				// The gap below the trigger text stays a uniform 16px (8px here + 8px there), but
+				// 8px of it now sits *outside* the button box, giving the `ring-4` focus ring the
+				// vertical clearance it needs so it stops painting over the body's first line. The
+				// split is invisible without a ring, and only applies when open — the collapsed
+				// trigger keeps its symmetric `py-4`, so the trigger-to-divider rhythm is untouched.
+				// The swap is intentionally not transitioned: the trigger stays instant while only
+				// the content height animates, keeping behavior consistent across engines.
+				"data-state-open:pb-2",
 				"focus:outline-hidden focus-visible:ring-4 focus-visible:ring-focus-accent",
 				className,
 			)}
@@ -410,7 +419,7 @@ const TriggerIcon = ({
 		data-slot="accordion-trigger-icon"
 		svg={svg}
 		className={cx(
-			"size-4 shrink-0 text-muted transition-transform duration-200 group-data-[state=open]:rotate-180",
+			"size-4 shrink-0 text-muted transition-transform duration-200 group-data-state-open:rotate-180",
 			className,
 		)}
 	/>
@@ -460,7 +469,7 @@ const Content = forwardRef<ComponentRef<"div">, ComponentPropsWithoutRef<"div">>
 			}
 			const handleBeforeMatch = () => {
 				// The browser reveals and highlights the match synchronously right after
-				// this event, but our React-driven height (`data-[state=open]:h-auto`) only
+				// this event, but our React-driven height (`data-state-open:h-auto`) only
 				// applies a tick later. Without expanding now, the box is still
 				// `h-0 overflow-hidden` when the browser paints its find highlight, so the
 				// match opens but its highlight is clipped to zero height and lost. Removing
@@ -514,7 +523,7 @@ const Content = forwardRef<ComponentRef<"div">, ComponentPropsWithoutRef<"div">>
 					// lives on `Accordion.Body`, never here: a padded `h-0` border-box can't
 					// collapse below its padding, so the closed section would stop short of
 					// zero height instead of fully collapsing.
-					"h-0 overflow-hidden transition-[height,content-visibility] duration-200 ease-out [interpolate-size:allow-keywords] transition-discrete data-[state=open]:h-auto motion-reduce:transition-none",
+					"h-0 overflow-hidden transition-[height,content-visibility] duration-200 ease-out [interpolate-size:allow-keywords] transition-discrete data-state-open:h-auto motion-reduce:transition-none",
 					className,
 				)}
 			>
@@ -527,12 +536,16 @@ Content.displayName = "AccordionContent";
 
 /**
  * The padded inner region of an {@link Item}'s {@link Content} — where the
- * section's body content lives. Owns the bottom padding so {@link Content} can
+ * section's body content lives. Owns the body's padding so {@link Content} can
  * stay a zero-padding animation viewport: a padded `h-0` border-box can't
  * collapse below its padding, so keeping the padding here lets the closed slide
- * reach zero height. Text inherits the ambient size — it isn't forced — so set a
- * size on the content where you need one. Override `className` to retune the
- * padding (e.g. `pb-0`, `px-6`); `cx` resolves last-wins.
+ * reach zero height. The `pt-2` doubles as the focus ring's vertical clearance —
+ * it pairs with the trigger's open-state `pb-2` so the gap below the trigger
+ * stays a uniform 16px while 8px of it sits outside the button box, keeping the
+ * ring off the body's first line (see {@link Trigger}). Text inherits the ambient
+ * size — it isn't forced — so set a size on the content where you need one.
+ * Override `className` to retune the padding (e.g. `pb-0`, `px-6`); `cx` resolves
+ * last-wins.
  *
  * @see https://mantle.ngrok.com/components/accordion#api-accordion-body
  *
@@ -545,7 +558,7 @@ Content.displayName = "AccordionContent";
  */
 const Body = forwardRef<ComponentRef<"div">, ComponentPropsWithoutRef<"div">>(
 	({ className, ...props }, ref) => (
-		<div ref={ref} {...props} data-slot="accordion-body" className={cx("pb-4", className)} />
+		<div ref={ref} {...props} data-slot="accordion-body" className={cx("pt-2 pb-4", className)} />
 	),
 );
 Body.displayName = "AccordionBody";
