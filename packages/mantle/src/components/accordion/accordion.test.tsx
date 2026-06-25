@@ -86,14 +86,18 @@ describe("Accordion", () => {
 						Trigger A
 						<Accordion.TriggerIcon />
 					</Accordion.Trigger>
-					<Accordion.Content>Body of section A</Accordion.Content>
+					<Accordion.Content>
+						<Accordion.Body>Body of section A</Accordion.Body>
+					</Accordion.Content>
 				</Accordion.Item>
 				<Accordion.Item value="b">
 					<Accordion.Trigger>
 						Trigger B
 						<Accordion.TriggerIcon />
 					</Accordion.Trigger>
-					<Accordion.Content>Body of section B</Accordion.Content>
+					<Accordion.Content>
+						<Accordion.Body>Body of section B</Accordion.Body>
+					</Accordion.Content>
 				</Accordion.Item>
 			</Accordion.Root>,
 		);
@@ -142,7 +146,9 @@ describe("Accordion", () => {
 				<section data-testid="root-section">
 					<Accordion.Item value="a">
 						<Accordion.Trigger>Trigger A</Accordion.Trigger>
-						<Accordion.Content>Body</Accordion.Content>
+						<Accordion.Content>
+							<Accordion.Body>Body</Accordion.Body>
+						</Accordion.Content>
 					</Accordion.Item>
 				</section>
 			</Accordion.Root>,
@@ -160,7 +166,9 @@ describe("Accordion", () => {
 						Custom icon
 						<Accordion.TriggerIcon svg={<svg data-testid="custom-trigger-icon" />} />
 					</Accordion.Trigger>
-					<Accordion.Content>Body of section A</Accordion.Content>
+					<Accordion.Content>
+						<Accordion.Body>Body of section A</Accordion.Body>
+					</Accordion.Content>
 				</Accordion.Item>
 			</Accordion.Root>,
 		);
@@ -181,7 +189,9 @@ describe("Accordion", () => {
 			>
 				<Accordion.Item value="a">
 					<Accordion.Trigger>Trigger A</Accordion.Trigger>
-					<Accordion.Content>Body of section A</Accordion.Content>
+					<Accordion.Content>
+						<Accordion.Body>Body of section A</Accordion.Body>
+					</Accordion.Content>
 				</Accordion.Item>
 			</Accordion.Root>,
 		);
@@ -193,5 +203,53 @@ describe("Accordion", () => {
 		// Accordion-specific props must not leak onto the DOM element.
 		expect(root).not.toHaveAttribute("type");
 		expect(root).not.toHaveAttribute("defaultValue");
+	});
+
+	test("Body marks the content region with data-slot and forwards a consumer className", () => {
+		render(
+			<Accordion.Root type="single" defaultValue="a">
+				<Accordion.Item value="a">
+					<Accordion.Trigger>Trigger A</Accordion.Trigger>
+					<Accordion.Content>
+						<Accordion.Body className="custom-body-class" data-testid="body-a">
+							Body of section A
+						</Accordion.Body>
+					</Accordion.Content>
+				</Accordion.Item>
+			</Accordion.Root>,
+		);
+		const body = screen.getByTestId("body-a");
+		// Assert the stable contract: Body is the styleable content slot and forwards
+		// a consumer className. We deliberately avoid asserting specific Tailwind
+		// utilities (e.g. `pb-4`) — those are implementation details that can change,
+		// and `cx`'s last-wins merge has its own dedicated tests.
+		expect(body).toHaveAttribute("data-slot", "accordion-body");
+		expect(body).toHaveClass("custom-body-class");
+	});
+
+	test("defaults to multiple mode when `type` is omitted (sections open independently)", () => {
+		render(
+			<Accordion.Root defaultValue={["a", "b"]}>
+				<Accordion.Item value="a">
+					<Accordion.Trigger>Trigger A</Accordion.Trigger>
+					<Accordion.Content>
+						<Accordion.Body>Body of section A</Accordion.Body>
+					</Accordion.Content>
+				</Accordion.Item>
+				<Accordion.Item value="b">
+					<Accordion.Trigger>Trigger B</Accordion.Trigger>
+					<Accordion.Content>
+						<Accordion.Body>Body of section B</Accordion.Body>
+					</Accordion.Content>
+				</Accordion.Item>
+			</Accordion.Root>,
+		);
+		// Both sections open at once is only possible in multiple mode, so this proves
+		// the omitted `type` defaults to "multiple" (and that `defaultValue` accepts a
+		// `string[]` without `type` being set).
+		const itemA = screen.getByText("Body of section A").closest('[data-slot="accordion-item"]');
+		const itemB = screen.getByText("Body of section B").closest('[data-slot="accordion-item"]');
+		expect(itemA).toHaveAttribute("data-state", "open");
+		expect(itemB).toHaveAttribute("data-state", "open");
 	});
 });

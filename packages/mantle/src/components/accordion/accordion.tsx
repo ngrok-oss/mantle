@@ -16,6 +16,7 @@ import {
 import invariant from "tiny-invariant";
 import { useIsomorphicLayoutEffect } from "../../hooks/use-isomorphic-layout-effect.js";
 import type { WithAsChild } from "../../types/as-child.js";
+import { useComposedRefs } from "../../utils/compose-refs/compose-refs.js";
 import { cx } from "../../utils/cx/cx.js";
 import { Icon, type IconProps } from "../icon/icon.js";
 import { Slot } from "../slot/index.js";
@@ -89,10 +90,18 @@ function useAccordionItemContext(component: string): AccordionItemContextValue {
 }
 
 /**
- * `"single"` mode props: at most one item open at a time. `value`/`defaultValue`
- * are the open item's value (`""` for none).
+ * `"single"` mode props: at most one item open at a time — opening a section
+ * auto-closes the previously open one. This is the **opt-in** behavior; `type`
+ * defaults to `"multiple"`, so you must set `type="single"` explicitly to get
+ * the auto-close accordion. `value`/`defaultValue` are the open item's value
+ * (`""` for none).
  */
 type AccordionSingleProps = {
+	/**
+	 * Keep at most one section open at a time: opening a section auto-closes the
+	 * previously open one. Must be set explicitly — the default is `"multiple"`,
+	 * where sections open independently.
+	 */
 	type: "single";
 	/** The controlled open item value (`""` for none). */
 	value?: string;
@@ -103,11 +112,21 @@ type AccordionSingleProps = {
 };
 
 /**
- * `"multiple"` mode props: any number of items may be open. `value`/`defaultValue`
- * are the list of open item values.
+ * `"multiple"` mode props — the **default** when `type` is omitted: any number
+ * of items may be open at once, and opening one never closes another.
+ * `value`/`defaultValue` are the list of open item values. Use `type="single"`
+ * instead if you want opening a section to auto-close the others.
  */
 type AccordionMultipleProps = {
-	type: "multiple";
+	/**
+	 * Allow any number of sections open at once — the **default** when `type` is
+	 * omitted. Opening one section never collapses the others. Switch to
+	 * `type="single"` for the accordion that auto-closes the previously open
+	 * section.
+	 *
+	 * @default "multiple"
+	 */
+	type?: "multiple";
 	/** The controlled list of open item values. */
 	value?: string[];
 	/** The initial list of open item values when uncontrolled. */
@@ -119,7 +138,11 @@ type AccordionMultipleProps = {
 /**
  * Props for {@link Root}. A discriminated union on `type` so `value`,
  * `defaultValue`, and `onValueChange` are typed as a single string in
- * `"single"` mode and a string array in `"multiple"` mode. Also accepts all
+ * `"single"` mode and a string array in `"multiple"` mode. `type` is optional
+ * and **defaults to `"multiple"`** — omitting it is the same as
+ * `type="multiple"` (sections open independently), so `value` / `defaultValue` /
+ * `onValueChange` are typed as string arrays. Set `type="single"` for the
+ * accordion that keeps at most one section open at a time. Also accepts all
  * standard `<div>` props (forwarded to the container) plus `asChild`.
  */
 type AccordionRootProps = (AccordionSingleProps | AccordionMultipleProps) &
@@ -139,6 +162,11 @@ type AccordionRootProps = (AccordionSingleProps | AccordionMultipleProps) &
  * with controlled (`value` + `onValueChange`) and uncontrolled (`defaultValue`)
  * usage in both `"single"` and `"multiple"` modes.
  *
+ * `type` is optional and **defaults to `"multiple"`** — sections open
+ * independently and opening one never closes another. Pass `type="single"` for
+ * the classic accordion where opening a section auto-closes the previously open
+ * one.
+ *
  * @see https://mantle.ngrok.com/components/accordion#api-accordion
  *
  * @example
@@ -148,7 +176,9 @@ type AccordionRootProps = (AccordionSingleProps | AccordionMultipleProps) &
  *       How long does shipping take?
  *       <Accordion.TriggerIcon />
  *     </Accordion.Trigger>
- *     <Accordion.Content>Two to five business days.</Accordion.Content>
+ *     <Accordion.Content>
+ *       <Accordion.Body>Two to five business days.</Accordion.Body>
+ *     </Accordion.Content>
  *   </Accordion.Item>
  * </Accordion.Root>
  */
@@ -159,7 +189,9 @@ const Root = forwardRef<ComponentRef<"div">, AccordionRootProps>((props, ref) =>
 	// the discriminated-union narrowing on `props.type` — so `onValueChange` is only
 	// destructured to exclude it from `domProps` (hence the `_` name).
 	const {
-		type,
+		// `type` defaults to "multiple": omitting it opens sections independently.
+		// `type="single"` is the opt-in for the auto-closing accordion.
+		type = "multiple",
 		value,
 		defaultValue,
 		onValueChange: _onValueChange,
@@ -233,7 +265,7 @@ Root.displayName = "Accordion";
  *       <Accordion.TriggerIcon />
  *     </Accordion.Trigger>
  *     <Accordion.Content>
- *       Yes. It adheres to the WAI-ARIA disclosure pattern.
+ *       <Accordion.Body>Yes. It adheres to the WAI-ARIA disclosure pattern.</Accordion.Body>
  *     </Accordion.Content>
  *   </Accordion.Item>
  * </Accordion.Root>
@@ -294,7 +326,7 @@ Item.displayName = "AccordionItem";
  *       <Accordion.TriggerIcon />
  *     </Accordion.Trigger>
  *     <Accordion.Content>
- *       Yes. It adheres to the WAI-ARIA disclosure pattern.
+ *       <Accordion.Body>Yes. It adheres to the WAI-ARIA disclosure pattern.</Accordion.Body>
  *     </Accordion.Content>
  *   </Accordion.Item>
  * </Accordion.Root>
@@ -314,7 +346,7 @@ const Trigger = forwardRef<
 			data-state={open ? "open" : "closed"}
 			aria-expanded={open}
 			className={cx(
-				"group flex w-full cursor-pointer items-center justify-between gap-4 py-4 text-left text-sm font-medium outline-none",
+				"group flex w-full cursor-pointer items-center justify-between gap-4 py-4 text-left font-medium outline-none",
 				// `-mx-2 px-2` gives the focus ring (and tap target) horizontal breathing room
 				// without shifting the trigger's content — the negative margin cancels the padding,
 				// the same trick the tabs trigger uses. `rounded-md` matches Button/IconButton.
@@ -354,7 +386,7 @@ const defaultTriggerIcon = <CaretDownIcon weight="bold" />;
  *       <Accordion.TriggerIcon />
  *     </Accordion.Trigger>
  *     <Accordion.Content>
- *       Yes. It adheres to the WAI-ARIA disclosure pattern.
+ *       <Accordion.Body>Yes. It adheres to the WAI-ARIA disclosure pattern.</Accordion.Body>
  *     </Accordion.Content>
  *   </Accordion.Item>
  * </Accordion.Root>
@@ -386,11 +418,14 @@ const TriggerIcon = ({
 TriggerIcon.displayName = "AccordionTriggerIcon";
 
 /**
- * The collapsible body of an {@link Item}. Always rendered into the DOM; when
- * collapsed (in supporting browsers) it carries `hidden="until-found"` so its
- * text stays discoverable by the browser's find-in-page, and a `beforematch`
- * listener opens the section when the browser reveals a match. It is flow
- * content, so it may contain anything — including interactive elements.
+ * The collapsible region of an {@link Item} — the zero-padding viewport that
+ * slides open and closed. Wrap its children in {@link Body} for the standard
+ * padding and text size; `Content` itself stays unpadded so its `h-0` collapse
+ * can reach zero height. Always rendered into the DOM; when collapsed (in
+ * supporting browsers) it carries `hidden="until-found"` so its text stays
+ * discoverable by the browser's find-in-page, and a `beforematch` listener opens
+ * the section when the browser reveals a match. It is flow content, so it may
+ * contain anything — including interactive elements.
  *
  * @see https://mantle.ngrok.com/components/accordion#api-accordion-content
  *
@@ -402,7 +437,7 @@ TriggerIcon.displayName = "AccordionTriggerIcon";
  *       <Accordion.TriggerIcon />
  *     </Accordion.Trigger>
  *     <Accordion.Content>
- *       Yes. It adheres to the WAI-ARIA disclosure pattern.
+ *       <Accordion.Body>Yes. It adheres to the WAI-ARIA disclosure pattern.</Accordion.Body>
  *     </Accordion.Content>
  *   </Accordion.Item>
  * </Accordion.Root>
@@ -410,25 +445,16 @@ TriggerIcon.displayName = "AccordionTriggerIcon";
 const Content = forwardRef<ComponentRef<"div">, ComponentPropsWithoutRef<"div">>(
 	({ className, children, ...props }, forwardedRef) => {
 		const { open, setOpen } = useAccordionItemContext("Accordion.Content");
-		const nodeRef = useRef<HTMLDivElement | null>(null);
-
-		const assignRef = useCallback(
-			(node: HTMLDivElement | null) => {
-				nodeRef.current = node;
-				if (typeof forwardedRef === "function") {
-					forwardedRef(node);
-				} else if (forwardedRef != null) {
-					forwardedRef.current = node;
-				}
-			},
-			[forwardedRef],
-		);
+		// Track the node ourselves (for the find-in-page reveal effects below) while
+		// still forwarding it to any ref the consumer passes.
+		const nodeRef = useRef<ComponentRef<"div">>(null);
+		const composedRef = useComposedRefs(nodeRef, forwardedRef);
 
 		// When the browser is about to reveal a find-in-page match inside this
 		// (collapsed) region, open the item so our state agrees and it stays open.
 		useEffect(() => {
 			const node = nodeRef.current;
-			if (node == null || !supportsBeforeMatch()) {
+			if (!node || !supportsBeforeMatch()) {
 				return;
 			}
 			const handleBeforeMatch = () => {
@@ -444,7 +470,9 @@ const Content = forwardRef<ComponentRef<"div">, ComponentPropsWithoutRef<"div">>
 				node.style.height = "auto";
 				setOpen(true);
 			};
+
 			node.addEventListener("beforematch", handleBeforeMatch);
+
 			return () => {
 				node.removeEventListener("beforematch", handleBeforeMatch);
 			};
@@ -456,9 +484,10 @@ const Content = forwardRef<ComponentRef<"div">, ComponentPropsWithoutRef<"div">>
 		// Layout effect so the collapsed item is hidden before first paint (no flash).
 		useIsomorphicLayoutEffect(() => {
 			const node = nodeRef.current;
-			if (node == null) {
+			if (!node) {
 				return;
 			}
+
 			if (open || !supportsBeforeMatch()) {
 				node.removeAttribute("hidden");
 			} else {
@@ -471,7 +500,7 @@ const Content = forwardRef<ComponentRef<"div">, ComponentPropsWithoutRef<"div">>
 
 		return (
 			<div
-				ref={assignRef}
+				ref={composedRef}
 				{...props}
 				data-slot="accordion-content"
 				data-state={open ? "open" : "closed"}
@@ -480,17 +509,45 @@ const Content = forwardRef<ComponentRef<"div">, ComponentPropsWithoutRef<"div">>
 					// engines snap, which is fine — the slide is a progressive enhancement and
 					// find-in-page works regardless). `content-visibility` transitions with
 					// `allow-discrete` so the content stays rendered through the close slide
-					// before `hidden="until-found"` skips it; `overflow-hidden` clips.
-					"h-0 overflow-hidden text-sm transition-[height,content-visibility] duration-200 ease-out [interpolate-size:allow-keywords] transition-discrete data-[state=open]:h-auto motion-reduce:transition-none",
+					// before `hidden="until-found"` skips it; `overflow-hidden` clips. Padding
+					// lives on `Accordion.Body`, never here: a padded `h-0` border-box can't
+					// collapse below its padding, so the closed section would stop short of
+					// zero height instead of fully collapsing.
+					"h-0 overflow-hidden transition-[height,content-visibility] duration-200 ease-out [interpolate-size:allow-keywords] transition-discrete data-[state=open]:h-auto motion-reduce:transition-none",
 					className,
 				)}
 			>
-				<div className="pb-4">{children}</div>
+				{children}
 			</div>
 		);
 	},
 );
 Content.displayName = "AccordionContent";
+
+/**
+ * The padded inner region of an {@link Item}'s {@link Content} — where the
+ * section's body content lives. Owns the bottom padding so {@link Content} can
+ * stay a zero-padding animation viewport: a padded `h-0` border-box can't
+ * collapse below its padding, so keeping the padding here lets the closed slide
+ * reach zero height. Text inherits the ambient size — it isn't forced — so set a
+ * size on the content where you need one. Override `className` to retune the
+ * padding (e.g. `pb-0`, `px-6`); `cx` resolves last-wins.
+ *
+ * @see https://mantle.ngrok.com/components/accordion#api-accordion-body
+ *
+ * @example
+ * <Accordion.Content>
+ *   <Accordion.Body className="pb-6">
+ *     Yes. It adheres to the WAI-ARIA disclosure pattern.
+ *   </Accordion.Body>
+ * </Accordion.Content>
+ */
+const Body = forwardRef<ComponentRef<"div">, ComponentPropsWithoutRef<"div">>(
+	({ className, ...props }, ref) => (
+		<div ref={ref} {...props} data-slot="accordion-body" className={cx("pb-4", className)} />
+	),
+);
+Body.displayName = "AccordionBody";
 
 /**
  * A vertically stacked set of disclosure sections styled after the shadcn /
@@ -503,6 +560,9 @@ Content.displayName = "AccordionContent";
  * section header can be any layout, including a non-toggling action button
  * beside the trigger.
  *
+ * `Accordion.Root` defaults to `type="multiple"` (sections open independently);
+ * pass `type="single"` when opening one section should auto-close the others.
+ *
  * @see https://mantle.ngrok.com/components/accordion
  *
  * @example
@@ -513,6 +573,7 @@ Content.displayName = "AccordionContent";
  *     ├── Accordion.Trigger
  *     │   └── Accordion.TriggerIcon
  *     └── Accordion.Content
+ *         └── Accordion.Body
  * ```
  *
  * @example
@@ -523,7 +584,7 @@ Content.displayName = "AccordionContent";
  *       <Accordion.TriggerIcon />
  *     </Accordion.Trigger>
  *     <Accordion.Content>
- *       Yes. It adheres to the WAI-ARIA disclosure pattern.
+ *       <Accordion.Body>Yes. It adheres to the WAI-ARIA disclosure pattern.</Accordion.Body>
  *     </Accordion.Content>
  *   </Accordion.Item>
  * </Accordion.Root>
@@ -540,7 +601,7 @@ const Accordion = {
 	 *       <Accordion.TriggerIcon />
 	 *     </Accordion.Trigger>
 	 *     <Accordion.Content>
-	 *       Yes. It adheres to the WAI-ARIA disclosure pattern.
+	 *       <Accordion.Body>Yes. It adheres to the WAI-ARIA disclosure pattern.</Accordion.Body>
 	 *     </Accordion.Content>
 	 *   </Accordion.Item>
 	 * </Accordion.Root>
@@ -557,7 +618,7 @@ const Accordion = {
 	 *       <Accordion.TriggerIcon />
 	 *     </Accordion.Trigger>
 	 *     <Accordion.Content>
-	 *       Yes. It adheres to the WAI-ARIA disclosure pattern.
+	 *       <Accordion.Body>Yes. It adheres to the WAI-ARIA disclosure pattern.</Accordion.Body>
 	 *     </Accordion.Content>
 	 *   </Accordion.Item>
 	 * </Accordion.Root>
@@ -574,7 +635,7 @@ const Accordion = {
 	 *       <Accordion.TriggerIcon />
 	 *     </Accordion.Trigger>
 	 *     <Accordion.Content>
-	 *       Yes. It adheres to the WAI-ARIA disclosure pattern.
+	 *       <Accordion.Body>Yes. It adheres to the WAI-ARIA disclosure pattern.</Accordion.Body>
 	 *     </Accordion.Content>
 	 *   </Accordion.Item>
 	 * </Accordion.Root>
@@ -591,7 +652,7 @@ const Accordion = {
 	 *       <Accordion.TriggerIcon />
 	 *     </Accordion.Trigger>
 	 *     <Accordion.Content>
-	 *       Yes. It adheres to the WAI-ARIA disclosure pattern.
+	 *       <Accordion.Body>Yes. It adheres to the WAI-ARIA disclosure pattern.</Accordion.Body>
 	 *     </Accordion.Content>
 	 *   </Accordion.Item>
 	 * </Accordion.Root>
@@ -608,12 +669,23 @@ const Accordion = {
 	 *       <Accordion.TriggerIcon />
 	 *     </Accordion.Trigger>
 	 *     <Accordion.Content>
-	 *       Yes. It adheres to the WAI-ARIA disclosure pattern.
+	 *       <Accordion.Body>Yes. It adheres to the WAI-ARIA disclosure pattern.</Accordion.Body>
 	 *     </Accordion.Content>
 	 *   </Accordion.Item>
 	 * </Accordion.Root>
 	 */
 	Content,
+	/**
+	 * The padded inner region of a {@link Content}. See {@link Body}.
+	 *
+	 * @example
+	 * <Accordion.Content>
+	 *   <Accordion.Body className="pb-6">
+	 *     Yes. It adheres to the WAI-ARIA disclosure pattern.
+	 *   </Accordion.Body>
+	 * </Accordion.Content>
+	 */
+	Body,
 } as const;
 
 export {

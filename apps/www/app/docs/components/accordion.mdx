@@ -24,14 +24,18 @@ export const ControlledAccordionExample = () => {
 						Payments
 						<Accordion.TriggerIcon />
 					</Accordion.Trigger>
-					<Accordion.Content>Connect a processor and manage payouts.</Accordion.Content>
+					<Accordion.Content>
+						<Accordion.Body>Connect a processor and manage payouts.</Accordion.Body>
+					</Accordion.Content>
 				</Accordion.Item>
 				<Accordion.Item value="members">
 					<Accordion.Trigger>
 						Members
 						<Accordion.TriggerIcon />
 					</Accordion.Trigger>
-					<Accordion.Content>Invite teammates and assign roles.</Accordion.Content>
+					<Accordion.Content>
+						<Accordion.Body>Invite teammates and assign roles.</Accordion.Body>
+					</Accordion.Content>
 				</Accordion.Item>
 			</Accordion.Root>
 			<p className="text-muted text-sm">
@@ -73,8 +77,10 @@ the item is a `role="group"` and the trigger a `<button aria-expanded>`), so a s
 				<Accordion.TriggerIcon />
 			</Accordion.Trigger>
 			<Accordion.Content>
-				Add a CNAME record at your DNS provider that targets the CNAME value shown on your reserved
-				domain, then start your tunnel with the matching <code>--domain</code> flag.
+				<Accordion.Body>
+					Add a CNAME record at your DNS provider that targets the CNAME value shown on your
+					reserved domain, then start your tunnel with the matching <code>--domain</code> flag.
+				</Accordion.Body>
 			</Accordion.Content>
 		</Accordion.Item>
 		<Accordion.Item value="webhooks">
@@ -83,8 +89,10 @@ the item is a `role="group"` and the trigger a `<button aria-expanded>`), so a s
 				<Accordion.TriggerIcon />
 			</Accordion.Trigger>
 			<Accordion.Content>
-				Yes. ngrok can validate webhook signatures from providers like Stripe, GitHub, and Slack at
-				the edge before the request ever reaches your service.
+				<Accordion.Body>
+					Yes. ngrok can validate webhook signatures from providers like Stripe, GitHub, and Slack
+					at the edge before the request ever reaches your service.
+				</Accordion.Body>
 			</Accordion.Content>
 		</Accordion.Item>
 		<Accordion.Item value="pricing">
@@ -93,8 +101,10 @@ the item is a `role="group"` and the trigger a `<button aria-expanded>`), so a s
 				<Accordion.TriggerIcon />
 			</Accordion.Trigger>
 			<Accordion.Content>
-				The free plan includes ephemeral endpoints and one reserved domain — enough to demo a
-				deployment or prototype an integration.
+				<Accordion.Body>
+					The free plan includes ephemeral endpoints and one reserved domain — enough to demo a
+					deployment or prototype an integration.
+				</Accordion.Body>
 			</Accordion.Content>
 		</Accordion.Item>
 	</Accordion.Root>
@@ -109,7 +119,9 @@ import { Accordion } from "@ngrok/mantle/accordion";
 			How do I point my custom domain at an ngrok endpoint?
 			<Accordion.TriggerIcon />
 		</Accordion.Trigger>
-		<Accordion.Content>Add a CNAME record at your DNS provider…</Accordion.Content>
+		<Accordion.Content>
+			<Accordion.Body>Add a CNAME record at your DNS provider…</Accordion.Body>
+		</Accordion.Content>
 	</Accordion.Item>
 </Accordion.Root>;
 ```
@@ -135,8 +147,8 @@ import { Accordion } from "@ngrok/mantle/accordion";
 
 ### Multiple sections open at once
 
-Use `type="multiple"` to let any number of sections be open at once. Pass `defaultValue` (uncontrolled) or `value` +
-`onValueChange` (controlled) as a `string[]`.
+`type="multiple"` lets any number of sections be open at once — and it's the **default**, so you can omit `type`
+entirely. Pass `defaultValue` (uncontrolled) or `value` + `onValueChange` (controlled) as a `string[]`.
 
 <Example className="flex-col gap-6">
 	<Accordion.Root type="multiple" defaultValue={["one"]} className="max-w-xl">
@@ -145,14 +157,18 @@ Use `type="multiple"` to let any number of sections be open at once. Pass `defau
 				First section
 				<Accordion.TriggerIcon />
 			</Accordion.Trigger>
-			<Accordion.Content>This section starts expanded.</Accordion.Content>
+			<Accordion.Content>
+				<Accordion.Body>This section starts expanded.</Accordion.Body>
+			</Accordion.Content>
 		</Accordion.Item>
 		<Accordion.Item value="two">
 			<Accordion.Trigger>
 				Second section
 				<Accordion.TriggerIcon />
 			</Accordion.Trigger>
-			<Accordion.Content>Open me without closing the first one.</Accordion.Content>
+			<Accordion.Content>
+				<Accordion.Body>Open me without closing the first one.</Accordion.Body>
+			</Accordion.Content>
 		</Accordion.Item>
 	</Accordion.Root>
 </Example>
@@ -186,7 +202,9 @@ function Settings() {
 					Payments
 					<Accordion.TriggerIcon />
 				</Accordion.Trigger>
-				<Accordion.Content>Connect a processor and manage payouts.</Accordion.Content>
+				<Accordion.Content>
+					<Accordion.Body>Connect a processor and manage payouts.</Accordion.Body>
+				</Accordion.Content>
 			</Accordion.Item>
 			{/* …items… */}
 		</Accordion.Root>
@@ -224,9 +242,11 @@ on `Item`, `w-auto` on `Trigger` so it sizes to its label) for the spaced-card l
 				</Button>
 			</div>
 			<Accordion.Content>
-				<Card.Root>
-					<Card.Body>Proident irure consequat Lorem incididunt ullamco.</Card.Body>
-				</Card.Root>
+				<Accordion.Body>
+					<Card.Root>
+						<Card.Body>Proident irure consequat Lorem incididunt ullamco.</Card.Body>
+					</Card.Root>
+				</Accordion.Body>
 			</Accordion.Content>
 		</Accordion.Item>
 		<Accordion.Item value="on_http_request" className="border-b-0">
@@ -244,9 +264,11 @@ on `Item`, `w-auto` on `Trigger` so it sizes to its label) for the spaced-card l
 				</Button>
 			</div>
 			<Accordion.Content>
-				<Card.Root>
-					<Card.Body>Excepteur amet laboris occaecat anim minim reprehenderit.</Card.Body>
-				</Card.Root>
+				<Accordion.Body>
+					<Card.Root>
+						<Card.Body>Excepteur amet laboris occaecat anim minim reprehenderit.</Card.Body>
+					</Card.Root>
+				</Accordion.Body>
 			</Accordion.Content>
 		</Accordion.Item>
 		<Accordion.Item value="on_http_response" className="border-b-0">
@@ -264,7 +286,9 @@ on `Item`, `w-auto` on `Trigger` so it sizes to its label) for the spaced-card l
 				</Button>
 			</div>
 			<Accordion.Content>
-				<p className="text-center">This phase does not have any rules defined</p>
+				<Accordion.Body>
+					<p className="text-center">This phase does not have any rules defined</p>
+				</Accordion.Body>
 			</Accordion.Content>
 		</Accordion.Item>
 	</Accordion.Root>
@@ -290,9 +314,11 @@ on `Item`, `w-auto` on `Trigger` so it sizes to its label) for the spaced-card l
 			</Button>
 		</div>
 		<Accordion.Content>
-			<Card.Root>
-				<Card.Body>Proident irure consequat Lorem incididunt ullamco.</Card.Body>
-			</Card.Root>
+			<Accordion.Body>
+				<Card.Root>
+					<Card.Body>Proident irure consequat Lorem incididunt ullamco.</Card.Body>
+				</Card.Root>
+			</Accordion.Body>
 		</Accordion.Content>
 	</Accordion.Item>
 </Accordion.Root>
@@ -313,7 +339,9 @@ its `className` to change that — here a right caret rotates 90° into a downwa
 					className="group-data-[state=open]:rotate-90"
 				/>
 			</Accordion.Trigger>
-			<Accordion.Content>Inspect recent requests, status codes, and latency.</Accordion.Content>
+			<Accordion.Content>
+				<Accordion.Body>Inspect recent requests, status codes, and latency.</Accordion.Body>
+			</Accordion.Content>
 		</Accordion.Item>
 		<Accordion.Item value="metrics">
 			<Accordion.Trigger>
@@ -323,7 +351,9 @@ its `className` to change that — here a right caret rotates 90° into a downwa
 					className="group-data-[state=open]:rotate-90"
 				/>
 			</Accordion.Trigger>
-			<Accordion.Content>Track throughput and error rates over time.</Accordion.Content>
+			<Accordion.Content>
+				<Accordion.Body>Track throughput and error rates over time.</Accordion.Body>
+			</Accordion.Content>
 		</Accordion.Item>
 	</Accordion.Root>
 </Example>
@@ -364,6 +394,7 @@ Accordion.Root
     ├── Accordion.Trigger
     │   └── Accordion.TriggerIcon
     └── Accordion.Content
+        └── Accordion.Body
 ```
 
 ## API Reference
@@ -376,21 +407,26 @@ the browser's find-in-page.
 Owns the accordion state and renders a wrapping `<div>` (or your own element via `asChild`). The `type` prop is a
 discriminated union that shapes the open value:
 
-- `type="single"` — at most one section open at a time. `value` / `defaultValue` are a `string` (use `""` for none),
-  and `onValueChange` receives the newly open value.
-- `type="multiple"` — any number open. `value` / `defaultValue` are a `string[]`, and `onValueChange` receives the new
-  list.
+- `type="multiple"` — **the default.** Any number of sections may be open at once, and opening one never closes
+  another. `value` / `defaultValue` are a `string[]`, and `onValueChange` receives the new list. Omitting `type`
+  entirely is the same as `type="multiple"`.
+- `type="single"` — at most one section open at a time: opening a section auto-closes the previously open one.
+  `value` / `defaultValue` are a `string` (use `""` for none), and `onValueChange` receives the newly open value.
+
+> [!IMPORTANT]
+> `type` defaults to `"multiple"`, so sections open independently. **If you want opening one section to auto-close
+> the others, you must set `type="single"` explicitly.**
 
 Provide `value` + `onValueChange` for controlled usage, or `defaultValue` for uncontrolled usage. Accepts all `<div>`
 props, plus:
 
-| Prop             | Type                                                   | Default | Description                                                                                             |
-| :--------------- | :----------------------------------------------------- | :------ | :------------------------------------------------------------------------------------------------------ |
-| `type`           | `"single" \| "multiple"`                               |         | **Required.** Whether at most one section may be open (`"single"`) or any number (`"multiple"`).        |
-| `value?`         | `string \| string[]`                                   |         | The controlled open value(s). A `string` in `single` mode, a `string[]` in `multiple` mode.             |
-| `defaultValue?`  | `string \| string[]`                                   |         | The initial open value(s) when uncontrolled. Typed per `type`, like `value`.                            |
-| `onValueChange?` | `(value: string) => void \| (value: string[]) => void` |         | Called when the open value(s) change. Receives a `string` in `single` mode, a `string[]` in `multiple`. |
-| `asChild?`       | `boolean`                                              | `false` | Render the single child element as the container instead of a `<div>`, merging container props onto it. |
+| Prop             | Type                                                   | Default      | Description                                                                                                             |
+| :--------------- | :----------------------------------------------------- | :----------- | :---------------------------------------------------------------------------------------------------------------------- |
+| `type?`          | `"single" \| "multiple"`                               | `"multiple"` | Whether at most one section may be open (`"single"`, auto-closes the others) or any number (`"multiple"`, the default). |
+| `value?`         | `string \| string[]`                                   |              | The controlled open value(s). A `string` in `single` mode, a `string[]` in `multiple` mode.                             |
+| `defaultValue?`  | `string \| string[]`                                   |              | The initial open value(s) when uncontrolled. Typed per `type`, like `value`.                                            |
+| `onValueChange?` | `(value: string) => void \| (value: string[]) => void` |              | Called when the open value(s) change. Receives a `string` in `single` mode, a `string[]` in `multiple`.                 |
+| `asChild?`       | `boolean`                                              | `false`      | Render the single child element as the container instead of a `<div>`, merging container props onto it.                 |
 
 ### Accordion.Item
 
@@ -421,7 +457,17 @@ The indicator icon. Defaults to a downward caret that rotates 180° when its sec
 
 ### Accordion.Content
 
-The collapsible body, rendered as a `<div>` that is always present in the DOM. When collapsed (in supporting browsers)
-it carries `hidden="until-found"` so its text stays discoverable by find-in-page, and a `beforematch` listener opens
-the section when the browser reveals a match. It is flow content, so it may contain **anything** — including
-interactive elements (buttons, links, inputs) or a nested `Accordion`. Accepts all `<div>` props.
+The collapsible region, rendered as a `<div>` that is always present in the DOM — the zero-padding viewport that slides
+open and closed. When collapsed (in supporting browsers) it carries `hidden="until-found"` so its text stays
+discoverable by find-in-page, and a `beforematch` listener opens the section when the browser reveals a match. It holds
+no padding of its own so its `h-0 ↔ h-auto` slide can collapse to zero height — put the section's content inside an
+`Accordion.Body`. It is flow content, so it may contain **anything** — including interactive elements (buttons, links,
+inputs) or a nested `Accordion`. Accepts all `<div>` props.
+
+### Accordion.Body
+
+The padded inner region of a `Content`, where the section's body content lives. It owns the bottom padding so `Content`
+can stay an unpadded animation viewport (a padded `h-0` border-box can't collapse below its padding, so the closed
+slide would never reach zero height). Text inherits the ambient size rather than being forced to a fixed size — set a
+text class where you need one. Override `className` to retune the spacing — e.g. `pb-0` to remove the bottom padding,
+`px-6` for horizontal padding — and `cx` resolves last-wins over the defaults. Accepts all `<div>` props.
