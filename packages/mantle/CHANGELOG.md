@@ -1,5 +1,37 @@
 # @ngrok/mantle
 
+## 0.76.10
+
+### Patch Changes
+
+- [#1281](https://github.com/ngrok/mantle/pull/1281) [`618f59a`](https://github.com/ngrok/mantle/commit/618f59a4d05589c44cbc4ed1e36cb6d5d8b32e0e) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - fix(mantle): ease the Accordion trigger's padding in step with the open/close slide
+
+  The open-state `pb-2` padding swap (which gives the focus ring its vertical
+  clearance) was applied instantly, so the trigger's bottom padding — and the
+  ring's bottom edge — snapped 16px→8px at the start of opening and back on close,
+  jittering against the content's height animation. The padding now transitions on
+  the same 200ms/ease-out curve as `Accordion.Content`'s height, so it eases in
+  lockstep with the slide. `motion-reduce` disables the transition.
+
+- [#1282](https://github.com/ngrok/mantle/pull/1282) [`b8acd99`](https://github.com/ngrok/mantle/commit/b8acd99f41a9948fe0323ee840f90d6493683055) Thanks [@cody-dot-js](https://github.com/cody-dot-js)! - fix(mantle): add a `separator` color token and use it for all dividers
+
+  Adds a semantic `separator` color token (`bg-separator` / `border-separator` /
+  `text-separator`, …) that resolves per theme to what `Separator` already
+  rendered: `gray-500/20` (light), `gray-600/20` (dark), and `black` (high
+  contrast). Every divider now points at this single token instead of hard-coding
+  the color:
+
+  - `Separator` (and everything built on it — `DropdownMenu.Separator`,
+    `Command.Separator`, `MultiSelect.Separator`, `Combobox.Separator`,
+    `Select.Separator`, `Sheet`, pagination) — refactor only, no visual change.
+  - `Accordion` — item dividers now come from `divide-y divide-separator` on
+    `Accordion.Root` (previously a per-item `border-card-muted` border with
+    `last:border-b-0`); they match the separator color and are drawn by the root.
+  - `OtpInput.Separator` — previously `text-muted`, now `text-separator`.
+
+  Consumers can use `border-separator` / `bg-separator` / `divide-separator` for
+  their own dividers instead of replicating the color.
+
 ## 0.76.9
 
 ### Patch Changes
