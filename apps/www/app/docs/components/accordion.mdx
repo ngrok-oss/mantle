@@ -69,8 +69,11 @@ The `beforematch` event — fired right before the browser reveals a match — s
 state. It's built on plain `<div>` and `<button>` elements (matching native `<details>`/`<summary>` accessibility:
 the item is a `role="group"` and the trigger a `<button aria-expanded>`), so a section header can be any layout.
 
+`type` is optional and **defaults to `"multiple"`** — sections open independently, so any number can be open at once
+(open one without collapsing another below).
+
 <Example className="flex-col gap-6">
-	<Accordion.Root type="single" defaultValue="dns" className="max-w-xl">
+	<Accordion.Root defaultValue={["dns"]} className="max-w-xl">
 		<Accordion.Item value="dns">
 			<Accordion.Trigger>
 				How do I point my custom domain at an ngrok endpoint?
@@ -113,7 +116,8 @@ the item is a `role="group"` and the trigger a `<button aria-expanded>`), so a s
 ```tsx
 import { Accordion } from "@ngrok/mantle/accordion";
 
-<Accordion.Root type="single" defaultValue="dns">
+// `type` is optional and defaults to "multiple" — any number of sections can be open at once.
+<Accordion.Root defaultValue={["dns"]}>
 	<Accordion.Item value="dns">
 		<Accordion.Trigger>
 			How do I point my custom domain at an ngrok endpoint?
@@ -124,6 +128,64 @@ import { Accordion } from "@ngrok/mantle/accordion";
 		</Accordion.Content>
 	</Accordion.Item>
 </Accordion.Root>;
+```
+
+Set `type="single"` to make opening one section auto-close the previously open one — the classic accordion where at
+most one section is open at a time:
+
+<Example className="flex-col gap-6">
+	<Accordion.Root type="single" defaultValue="dns" className="max-w-xl">
+		<Accordion.Item value="dns">
+			<Accordion.Trigger>
+				How do I point my custom domain at an ngrok endpoint?
+				<Accordion.TriggerIcon />
+			</Accordion.Trigger>
+			<Accordion.Content>
+				<Accordion.Body>
+					Add a CNAME record at your DNS provider that targets the CNAME value shown on your
+					reserved domain, then start your tunnel with the matching <code>--domain</code> flag.
+				</Accordion.Body>
+			</Accordion.Content>
+		</Accordion.Item>
+		<Accordion.Item value="webhooks">
+			<Accordion.Trigger>
+				Can I verify inbound webhook signatures?
+				<Accordion.TriggerIcon />
+			</Accordion.Trigger>
+			<Accordion.Content>
+				<Accordion.Body>
+					Yes. ngrok can validate webhook signatures from providers like Stripe, GitHub, and Slack
+					at the edge before the request ever reaches your service.
+				</Accordion.Body>
+			</Accordion.Content>
+		</Accordion.Item>
+		<Accordion.Item value="pricing">
+			<Accordion.Trigger>
+				Is there a free tier for development?
+				<Accordion.TriggerIcon />
+			</Accordion.Trigger>
+			<Accordion.Content>
+				<Accordion.Body>
+					The free plan includes ephemeral endpoints and one reserved domain — enough to demo a
+					deployment or prototype an integration.
+				</Accordion.Body>
+			</Accordion.Content>
+		</Accordion.Item>
+	</Accordion.Root>
+</Example>
+
+```tsx
+<Accordion.Root type="single" defaultValue="dns">
+	<Accordion.Item value="dns">
+		<Accordion.Trigger>
+			How do I point my custom domain at an ngrok endpoint?
+			<Accordion.TriggerIcon />
+		</Accordion.Trigger>
+		<Accordion.Content>
+			<Accordion.Body>Add a CNAME record at your DNS provider…</Accordion.Body>
+		</Accordion.Content>
+	</Accordion.Item>
+</Accordion.Root>
 ```
 
 > [!NOTE]
