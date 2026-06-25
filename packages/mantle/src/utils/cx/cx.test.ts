@@ -191,12 +191,13 @@ describe("cx — modifiers, important, postfix, arbitrary", () => {
 
 describe("cx — responsive breakpoint modifiers", () => {
 	// Mantle layers custom breakpoints on top of Tailwind's defaults in mantle.css
-	// (`--breakpoint-2xs: 22.5rem`, `--breakpoint-xs: 30rem`). The merge engine treats every
-	// breakpoint prefix — custom or built-in — as an opaque modifier: distinct breakpoints get
-	// distinct conflict keys and must all survive, while same-breakpoint utilities in the same
-	// group collapse to the last. This guards the vendored config against silently dropping a
-	// custom breakpoint, which is what an out-of-sync screens list would do. Regression coverage
-	// for the reported `xs:gap-3 md:gap-4` blog layout.
+	// (`--breakpoint-2xs: 22.5rem`, `--breakpoint-xs: 30rem`). The merge engine never validates a
+	// variant prefix against a configured breakpoint/screens list — every prefix, custom or
+	// built-in, is parsed and sorted as an opaque modifier. So mantle's custom breakpoints get
+	// conflict-scoped exactly like the built-ins with zero extra config: distinct breakpoints get
+	// distinct conflict keys and all survive, while same-breakpoint utilities in the same group
+	// collapse to the last. These cases lock that behavior in. Regression coverage for the
+	// reported `xs:gap-3 md:gap-4` blog layout.
 	test("different breakpoints on the same utility never conflict", () => {
 		expect(cx("pb-8 flex flex-col xs:gap-3 md:gap-4")).toBe("pb-8 flex flex-col xs:gap-3 md:gap-4");
 		expect(cx("gap-1 2xs:gap-2 xs:gap-3 sm:gap-4 md:gap-5 lg:gap-6")).toBe(
