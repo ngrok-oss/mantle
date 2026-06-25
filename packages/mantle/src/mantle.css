@@ -228,6 +228,7 @@ MARK: THEME
 
 	--color-card-border: var(--color-card-border);
 	--color-card-border-muted: var(--color-card-border-muted);
+	--color-separator: var(--color-separator);
 
 	--color-active-menu-item: var(--color-active-menu-item);
 	--color-selected-menu-item: var(--color-selected-menu-item);
@@ -341,6 +342,7 @@ MARK: LIGHT DEFS
 
 	--color-card-border: var(--color-neutral-300);
 	--color-card-border-muted: var(--color-neutral-200);
+	--color-separator: --alpha(var(--color-gray-500) / 0.2);
 
 	--color-active-menu-item: --alpha(var(--color-neutral-500) / 0.05);
 	--color-selected-menu-item: --alpha(var(--color-accent-500) / 0.1);

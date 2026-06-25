@@ -90,6 +90,11 @@ type SeparatorProps = ComponentProps<"div"> &
 /**
  * Visually or semantically separates content.
  *
+ * Rendered in the shared `separator` color token (`gray-500/20` in light,
+ * `gray-600/20` in dark, `black` in high contrast). Reuse that exact color on
+ * your own dividers with `bg-separator` / `border-separator` / `divide-separator`
+ * so they stay consistent with separators across the system.
+ *
  * @see https://mantle.ngrok.com/components/separator
  *
  * @example
@@ -135,7 +140,7 @@ const Separator = forwardRef<ComponentRef<"div">, SeparatorProps>(
 				data-slot="separator"
 				className={cx(
 					"separator",
-					"dark-high-contrast:bg-black high-contrast:bg-black bg-gray-500/20 dark:bg-gray-600/20",
+					"bg-separator",
 					orientation === "horizontal"
 						? "h-px w-full group-data-horizontal-separator-group:flex-1"
 						: "h-full w-px",

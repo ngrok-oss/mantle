@@ -431,7 +431,7 @@ const Separator = forwardRef<HTMLDivElement, OtpInputSeparatorProps>(
 			<Comp
 				ref={ref}
 				data-slot="otp-input-separator"
-				className={cx("text-muted flex items-center", className)}
+				className={cx("text-separator flex items-center", className)}
 				{...semanticProps}
 				{...props}
 			>

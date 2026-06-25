@@ -163,6 +163,20 @@ import { HorizontalSeparatorGroup, Separator } from "@ngrok/mantle/separator";
 </div>
 ```
 
+## Color
+
+The separator renders in the semantic `separator` color token — `gray-500/20` in light, `gray-600/20` in dark, and
+`black` in both high-contrast themes. This is the canonical divider color across mantle: `Accordion` dividers,
+`DropdownMenu.Separator`, `Command.Separator`, `Select.Separator`, and the rest all resolve to it.
+
+Reuse the same color on your own dividers instead of hard-coding it:
+
+```tsx
+<div className="border-separator border-b" />
+<ul className="divide-separator divide-y" />
+<span className="bg-separator h-px w-full" />
+```
+
 ## API Reference
 
 ### Separator
