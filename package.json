@@ -32,11 +32,11 @@
     "oxfmt": "0.56.0",
     "oxlint": "1.70.0",
     "tsx": "catalog:",
-    "turbo": "2.9.18",
+    "turbo": "2.10.0",
     "vitest": "4.1.9"
   },
   "engines": {
     "node": "^24.0.0"
   },
-  "packageManager": "pnpm@11.8.0"
+  "packageManager": "pnpm@11.9.0"
 }
