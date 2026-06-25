@@ -420,8 +420,9 @@ TriggerIcon.displayName = "AccordionTriggerIcon";
 /**
  * The collapsible region of an {@link Item} — the zero-padding viewport that
  * slides open and closed. Wrap its children in {@link Body} for the standard
- * padding and text size; `Content` itself stays unpadded so its `h-0` collapse
- * can reach zero height. Always rendered into the DOM; when collapsed (in
+ * padding (text inherits the ambient size); `Content` itself stays unpadded so
+ * its `h-0` collapse can reach zero height. Always rendered into the DOM; when
+ * collapsed (in
  * supporting browsers) it carries `hidden="until-found"` so its text stays
  * discoverable by the browser's find-in-page, and a `beforematch` listener opens
  * the section when the browser reveals a match. It is flow content, so it may
