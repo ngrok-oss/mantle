@@ -300,14 +300,9 @@ const Item = forwardRef<
 				role="group"
 				data-slot="accordion-item"
 				data-state={open ? "open" : "closed"}
-				className={cx(
-					"border-b last:border-b-0",
-					// Match `Separator`'s divider color exactly. `Separator` paints a 1px
-					// element with these as `bg-*`; we mirror them as `border-*` here. Keep
-					// in sync with `separator.tsx` if that color ever changes.
-					"border-gray-500/20 dark:border-gray-600/20 high-contrast:border-black dark-high-contrast:border-black",
-					className,
-				)}
+				// Use the shared `separator` color token so item dividers match `Separator`
+				// (and every other divider in the system) in all themes.
+				className={cx("border-separator border-b last:border-b-0", className)}
 			>
 				{children}
 			</div>

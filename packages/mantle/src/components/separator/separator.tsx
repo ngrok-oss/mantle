@@ -135,7 +135,7 @@ const Separator = forwardRef<ComponentRef<"div">, SeparatorProps>(
 				data-slot="separator"
 				className={cx(
 					"separator",
-					"dark-high-contrast:bg-black high-contrast:bg-black bg-gray-500/20 dark:bg-gray-600/20",
+					"bg-separator",
 					orientation === "horizontal"
 						? "h-px w-full group-data-horizontal-separator-group:flex-1"
 						: "h-full w-px",
