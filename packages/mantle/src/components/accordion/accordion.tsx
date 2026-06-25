@@ -167,6 +167,11 @@ type AccordionRootProps = (AccordionSingleProps | AccordionMultipleProps) &
  * the classic accordion where opening a section auto-closes the previously open
  * one.
  *
+ * Items are separated by a hairline divider drawn with `divide-y` on the root,
+ * colored with the shared `separator` token so it matches `Separator` and every
+ * other divider in the system. Disable the dividers with `divide-y-0` on the root
+ * (e.g. pair it with `space-y-*` for a spaced-card layout).
+ *
  * @see https://mantle.ngrok.com/components/accordion#api-accordion
  *
  * @example
@@ -406,7 +411,17 @@ const defaultTriggerIcon = <CaretDownIcon weight="bold" />;
  * // Custom icon
  * import { PlusIcon } from "@phosphor-icons/react/Plus";
  *
- * <Accordion.TriggerIcon svg={<PlusIcon />} />
+ * <Accordion.Root type="single" defaultValue="item-1">
+ *   <Accordion.Item value="item-1">
+ *     <Accordion.Trigger>
+ *       Is it accessible?
+ *       <Accordion.TriggerIcon svg={<PlusIcon />} />
+ *     </Accordion.Trigger>
+ *     <Accordion.Content>
+ *       <Accordion.Body>Yes. It adheres to the WAI-ARIA disclosure pattern.</Accordion.Body>
+ *     </Accordion.Content>
+ *   </Accordion.Item>
+ * </Accordion.Root>
  */
 const TriggerIcon = ({
 	className,
@@ -552,11 +567,19 @@ Content.displayName = "AccordionContent";
  * @see https://mantle.ngrok.com/components/accordion#api-accordion-body
  *
  * @example
- * <Accordion.Content>
- *   <Accordion.Body className="pb-6">
- *     Yes. It adheres to the WAI-ARIA disclosure pattern.
- *   </Accordion.Body>
- * </Accordion.Content>
+ * <Accordion.Root type="single" defaultValue="item-1">
+ *   <Accordion.Item value="item-1">
+ *     <Accordion.Trigger>
+ *       Is it accessible?
+ *       <Accordion.TriggerIcon />
+ *     </Accordion.Trigger>
+ *     <Accordion.Content>
+ *       <Accordion.Body className="pb-6">
+ *         Yes. It adheres to the WAI-ARIA disclosure pattern.
+ *       </Accordion.Body>
+ *     </Accordion.Content>
+ *   </Accordion.Item>
+ * </Accordion.Root>
  */
 const Body = forwardRef<ComponentRef<"div">, ComponentPropsWithoutRef<"div">>(
 	({ className, ...props }, ref) => (
@@ -695,11 +718,19 @@ const Accordion = {
 	 * The padded inner region of a {@link Content}. See {@link Body}.
 	 *
 	 * @example
-	 * <Accordion.Content>
-	 *   <Accordion.Body className="pb-6">
-	 *     Yes. It adheres to the WAI-ARIA disclosure pattern.
-	 *   </Accordion.Body>
-	 * </Accordion.Content>
+	 * <Accordion.Root type="single" defaultValue="item-1">
+	 *   <Accordion.Item value="item-1">
+	 *     <Accordion.Trigger>
+	 *       Is it accessible?
+	 *       <Accordion.TriggerIcon />
+	 *     </Accordion.Trigger>
+	 *     <Accordion.Content>
+	 *       <Accordion.Body className="pb-6">
+	 *         Yes. It adheres to the WAI-ARIA disclosure pattern.
+	 *       </Accordion.Body>
+	 *     </Accordion.Content>
+	 *   </Accordion.Item>
+	 * </Accordion.Root>
 	 */
 	Body,
 } as const;
