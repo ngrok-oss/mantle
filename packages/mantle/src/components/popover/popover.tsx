@@ -7,6 +7,10 @@ import { cx } from "../../utils/cx/cx.js";
  * A floating overlay that displays rich content in a portal, triggered by a button.
  * This is the root, stateful component that manages the open/closed state of the popover.
  *
+ * `Popover.Content` renders at Tailwind `z-50`, Mantle's shared floating
+ * z-index. When multiple shared layers are open, the most recently mounted
+ * layer renders on top.
+ *
  * @see https://mantle.ngrok.com/components/popover#popoverroot
  *
  * @example
@@ -113,6 +117,10 @@ type PopoverContentProps = ComponentPropsWithoutRef<typeof PopoverPrimitive.Cont
 /**
  * The content to render inside the popover.
  *
+ * `Popover.Content` renders at Tailwind `z-50`, Mantle's shared floating
+ * z-index. When multiple shared layers are open, the most recently mounted
+ * layer renders on top.
+ *
  * @see https://mantle.ngrok.com/components/popover#popovercontent
  *
  * @example
@@ -184,6 +192,10 @@ Content.displayName = "PopoverContent";
  * the content, block interaction with the rest of the page, and lock body
  * scroll while the popover is open.
  *
+ * `Popover.Content` renders at Tailwind `z-50`, Mantle's shared floating
+ * z-index. When multiple shared layers are open, the most recently mounted
+ * layer renders on top.
+ *
  * @see https://mantle.ngrok.com/components/popover
  * @see https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/
  *
@@ -214,6 +226,10 @@ Content.displayName = "PopoverContent";
 const Popover = {
 	/**
 	 * The root, stateful component that manages the open/closed state of the popover.
+	 *
+	 * `Popover.Content` renders at Tailwind `z-50`, Mantle's shared floating
+	 * z-index. When multiple shared layers are open, the most recently mounted
+	 * layer renders on top.
 	 *
 	 * @see https://mantle.ngrok.com/components/popover#popoverroot
 	 *
@@ -280,6 +296,10 @@ const Popover = {
 	Close,
 	/**
 	 * The content to render inside the popover. Appears in a portal with rich styling and animations.
+	 *
+	 * `Popover.Content` renders at Tailwind `z-50`, Mantle's shared floating
+	 * z-index. When multiple shared layers are open, the most recently mounted
+	 * layer renders on top.
 	 *
 	 * @see https://mantle.ngrok.com/components/popover#popovercontent
 	 *

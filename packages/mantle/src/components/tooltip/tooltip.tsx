@@ -45,6 +45,10 @@ TooltipProvider.displayName = "Tooltip.Provider";
  * the tooltip. Wrap your app in `TooltipProvider` when you want shared
  * app-wide delay and hover settings.
  *
+ * `Tooltip.Content` renders at Tailwind `z-50`, Mantle's shared floating
+ * z-index. When multiple shared layers are open, the most recently mounted
+ * layer renders on top.
+ *
  * @see https://mantle.ngrok.com/components/tooltip#tooltiproot
  *
  * @example
@@ -92,6 +96,10 @@ Trigger.displayName = "Tooltip.Trigger";
 
 /**
  * The content to render inside the tooltip.
+ *
+ * `Tooltip.Content` renders at Tailwind `z-50`, Mantle's shared floating
+ * z-index. When multiple shared layers are open, the most recently mounted
+ * layer renders on top.
  *
  * @see https://mantle.ngrok.com/components/tooltip#tooltipcontent
  *
@@ -148,6 +156,10 @@ Content.displayName = "Tooltip.Content";
  * Mount a `<TooltipProvider>` once at the app root when you want shared
  * tooltip behavior such as consistent delay and hover settings.
  *
+ * `Tooltip.Content` renders at Tailwind `z-50`, Mantle's shared floating
+ * z-index. When multiple shared layers are open, the most recently mounted
+ * layer renders on top.
+ *
  * @see https://mantle.ngrok.com/components/tooltip
  * @see https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/
  *
@@ -180,6 +192,10 @@ const Tooltip = {
 	 * the tooltip. Wrap your app in `TooltipProvider` when you want shared
 	 * app-wide delay and hover settings.
 	 *
+	 * `Tooltip.Content` renders at Tailwind `z-50`, Mantle's shared floating
+	 * z-index. When multiple shared layers are open, the most recently mounted
+	 * layer renders on top.
+	 *
 	 * @see https://mantle.ngrok.com/components/tooltip#tooltiproot
 	 *
 	 * @example
@@ -199,6 +215,10 @@ const Tooltip = {
 	Root,
 	/**
 	 * The content to render inside the tooltip.
+	 *
+	 * `Tooltip.Content` renders at Tailwind `z-50`, Mantle's shared floating
+	 * z-index. When multiple shared layers are open, the most recently mounted
+	 * layer renders on top.
 	 *
 	 * @see https://mantle.ngrok.com/components/tooltip#tooltipcontent
 	 *

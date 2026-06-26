@@ -80,6 +80,12 @@ import { ShrimpIcon } from "@phosphor-icons/react/Shrimp";
 </HoverCard.Root>;
 ```
 
+## Layering and z-index
+
+`HoverCard.Content` renders at Tailwind `z-50`, Mantle's shared floating z-index. The shared layer includes `Dialog`, `Sheet`, `AlertDialog`, `Popover`, `Tooltip`, `HoverCard`, `DropdownMenu`, `Select`, `Combobox`, and `MultiSelect`. When more than one shared layer is open, equal z-index means DOM or portal mount order decides the visual order, so the most recently mounted layer renders on top.
+
+`HoverCard` does not render a backdrop. Modal layers such as `Dialog`, `Sheet`, and `AlertDialog` do render backdrops, so stacking those layers compounds the dim and blur effect on the layers underneath.
+
 ## Composition
 
 Compose the parts of a `HoverCard` together to build your own:
@@ -97,6 +103,8 @@ The `HoverCard` component is built on top of [Radix UI Hover Card](https://www.r
 ### HoverCard.Root
 
 The root stateful component that manages the open/closed state of the hover card.
+
+Its floating `HoverCard.Content` layer renders at Tailwind `z-50`, Mantle's shared floating z-index.
 
 | Prop           | Type                      | Default | Description                                                                                                         |
 | -------------- | ------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------- |
@@ -117,6 +125,8 @@ The trigger element that opens the hover card when hovered.
 ### HoverCard.Content
 
 The content to render inside the hover card. Appears in a portal with rich styling and animations.
+
+Renders at Tailwind `z-50`, Mantle's shared floating z-index.
 
 | Prop                | Type                                           | Default     | Description                                                                                                                             |
 | ------------------- | ---------------------------------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------- |

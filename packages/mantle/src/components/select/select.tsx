@@ -81,6 +81,10 @@ type SelectProps = PropsWithChildren & {
  * state — suppress the inferred error by passing `validation` on `Field.Item`
  * if a non-error `Select.Root` state needs to win in that case.
  *
+ * `Select.Content` renders at Tailwind `z-50`, Mantle's shared floating
+ * z-index. When multiple shared layers are open, the most recently mounted
+ * layer renders on top.
+ *
  * @see https://mantle.ngrok.com/components/select#selectroot
  *
  * @example
@@ -367,6 +371,10 @@ type SelectContentProps = ComponentPropsWithoutRef<typeof SelectPrimitive.Conten
  * The component that pops out when the select is open as a portal adjacent to the trigger button.
  * It contains a scrolling viewport of the select items.
  *
+ * `Select.Content` renders at Tailwind `z-50`, Mantle's shared floating
+ * z-index. When multiple shared layers are open, the most recently mounted
+ * layer renders on top.
+ *
  * @see https://mantle.ngrok.com/components/select#selectcontent
  *
  * @example
@@ -573,6 +581,10 @@ SelectSeparatorComponent.displayName = "SelectSeparator";
  * and search/filtering is unnecessary. For larger lists or async/searchable data, use
  * Combobox. For picking multiple options, use MultiSelect.
  *
+ * `Select.Content` renders at Tailwind `z-50`, Mantle's shared floating
+ * z-index. When multiple shared layers are open, the most recently mounted
+ * layer renders on top.
+ *
  * @see https://mantle.ngrok.com/components/select
  *
  * @example
@@ -619,6 +631,10 @@ const Select = {
 	 * and search/filtering is unnecessary. For larger lists or async/searchable data, use
 	 * Combobox. For picking multiple options, use MultiSelect.
 	 *
+	 * `Select.Content` renders at Tailwind `z-50`, Mantle's shared floating
+	 * z-index. When multiple shared layers are open, the most recently mounted
+	 * layer renders on top.
+	 *
 	 * @see https://mantle.ngrok.com/components/select#selectroot
 	 *
 	 * @example
@@ -648,6 +664,10 @@ const Select = {
 	/**
 	 * The component that pops out when the select is open as a portal adjacent to the trigger button.
 	 * It contains a scrolling viewport of the select items.
+	 *
+	 * `Select.Content` renders at Tailwind `z-50`, Mantle's shared floating
+	 * z-index. When multiple shared layers are open, the most recently mounted
+	 * layer renders on top.
 	 *
 	 * @see https://mantle.ngrok.com/components/select#selectcontent
 	 *

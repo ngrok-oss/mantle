@@ -11,6 +11,10 @@ import { Separator } from "../separator/separator.js";
  * A menu of options or actions, triggered by a button.
  * This is the root, stateful component that manages the open/closed state of the dropdown menu.
  *
+ * `DropdownMenu.Content` and `DropdownMenu.SubContent` render at Tailwind
+ * `z-50`, Mantle's shared floating z-index. When multiple shared layers are
+ * open, the most recently mounted layer renders on top.
+ *
  * @see https://mantle.ngrok.com/components/dropdown-menu#dropdownmenuroot
  *
  * @example
@@ -127,6 +131,10 @@ SubTrigger.displayName = "DropdownMenuSubTrigger";
 /**
  * The content container for a dropdown menu sub-menu.
  *
+ * `DropdownMenu.SubContent` renders at Tailwind `z-50`, Mantle's shared
+ * floating z-index. When multiple shared layers are open, the most recently
+ * mounted layer renders on top.
+ *
  * @see https://mantle.ngrok.com/components/dropdown-menu#dropdownmenusubcontent
  */
 const SubContent = forwardRef<
@@ -159,6 +167,10 @@ type DropdownMenuContentProps = ComponentPropsWithoutRef<typeof DropdownMenuPrim
 
 /**
  * The container for the dropdown menu content.
+ *
+ * `DropdownMenu.Content` renders at Tailwind `z-50`, Mantle's shared floating
+ * z-index. When multiple shared layers are open, the most recently mounted
+ * layer renders on top.
  *
  * @see https://mantle.ngrok.com/components/dropdown-menu#dropdownmenucontent
  *
@@ -376,6 +388,10 @@ Shortcut.displayName = "DropdownMenuShortcut";
 /**
  * A menu of options or actions, triggered by a button.
  *
+ * `DropdownMenu.Content` and `DropdownMenu.SubContent` render at Tailwind
+ * `z-50`, Mantle's shared floating z-index. When multiple shared layers are
+ * open, the most recently mounted layer renders on top.
+ *
  * @see https://mantle.ngrok.com/components/dropdown-menu
  *
  * @example
@@ -416,6 +432,10 @@ const DropdownMenu = {
 	/**
 	 * The root, stateful component that manages the open/closed state of the dropdown menu.
 	 *
+	 * `DropdownMenu.Content` and `DropdownMenu.SubContent` render at Tailwind
+	 * `z-50`, Mantle's shared floating z-index. When multiple shared layers are
+	 * open, the most recently mounted layer renders on top.
+	 *
 	 * @see https://mantle.ngrok.com/components/dropdown-menu#dropdownmenuroot
 	 *
 	 * @example
@@ -451,6 +471,10 @@ const DropdownMenu = {
 	CheckboxItem,
 	/**
 	 * The container for the dropdown menu content. Appears in a portal with scrolling and animations.
+	 *
+	 * `DropdownMenu.Content` renders at Tailwind `z-50`, Mantle's shared
+	 * floating z-index. When multiple shared layers are open, the most recently
+	 * mounted layer renders on top.
 	 *
 	 * @see https://mantle.ngrok.com/components/dropdown-menu#dropdownmenucontent
 	 *
@@ -626,6 +650,10 @@ const DropdownMenu = {
 	Sub,
 	/**
 	 * The content container for submenu items.
+	 *
+	 * `DropdownMenu.SubContent` renders at Tailwind `z-50`, Mantle's shared
+	 * floating z-index. When multiple shared layers are open, the most recently
+	 * mounted layer renders on top.
 	 *
 	 * @see https://mantle.ngrok.com/components/dropdown-menu#dropdownmenusubcontent
 	 *

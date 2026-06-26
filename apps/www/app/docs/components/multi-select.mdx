@@ -431,6 +431,12 @@ function Example() {
 }
 ```
 
+## Layering and z-index
+
+`MultiSelect.Content` renders at Tailwind `z-50`, Mantle's shared floating z-index. The shared layer includes `Dialog`, `Sheet`, `AlertDialog`, `Popover`, `Tooltip`, `HoverCard`, `DropdownMenu`, `Select`, `Combobox`, and `MultiSelect`. When more than one shared layer is open, equal z-index means DOM or portal mount order decides the visual order, so the most recently mounted layer renders on top.
+
+`MultiSelect` does not render a backdrop by default. Modal layers such as `Dialog`, `Sheet`, and `AlertDialog` do render backdrops, so stacking those layers compounds the dim and blur effect on the layers underneath.
+
 ## Examples
 
 ### Controlled
@@ -1031,6 +1037,8 @@ The `MultiSelect` components are built on top of [ariakit Combobox](https://aria
 
 Root component for the multi-select. Provides state management for selecting multiple values with typeahead filtering.
 
+Its floating `MultiSelect.Content` layer renders at Tailwind `z-50`, Mantle's shared floating z-index.
+
 All props from ariakit [ComboboxProvider](https://ariakit.org/reference/combobox-provider) (typed to `string[]` for multi-select), plus:
 
 | Prop                    | Type                        | Default | Description                                           |
@@ -1095,6 +1103,8 @@ Also accepts all standard `span` element props (except `children`). The `onKeyDo
 ### MultiSelect.Content
 
 Renders a popover that contains multi-select content.
+
+Renders at Tailwind `z-50`, Mantle's shared floating z-index.
 
 All props from ariakit [ComboboxPopover](https://ariakit.org/reference/combobox-popover), plus:
 
