@@ -5,6 +5,7 @@ description: A window overlaid on either the primary window or another dialog wi
 
 import { Button, IconButton } from "@ngrok/mantle/button";
 import { Dialog } from "@ngrok/mantle/dialog";
+import { Sheet } from "@ngrok/mantle/sheet";
 import { Tooltip } from "@ngrok/mantle/tooltip";
 import { TrashSimpleIcon } from "@phosphor-icons/react/TrashSimple";
 import { Example } from "~/components/example";
@@ -83,6 +84,12 @@ import { Button } from "@ngrok/mantle/button";
 	</Dialog.Content>
 </Dialog.Root>;
 ```
+
+## Layering and z-index
+
+`Dialog.Content` renders at Tailwind `z-50`, Mantle's shared floating z-index. The shared layer includes `Dialog`, `Sheet`, `AlertDialog`, `Popover`, `Tooltip`, `HoverCard`, `DropdownMenu`, `Select`, `Combobox`, and `MultiSelect`. When more than one shared layer is open, equal z-index means DOM or portal mount order decides the visual order, so the most recently mounted layer renders on top.
+
+`Dialog`, `Sheet`, and `AlertDialog` each render their own backdrop, so stacking modal layers compounds the dim and blur effect on the layers underneath.
 
 ## Handling Autofill Overlays
 
@@ -205,11 +212,133 @@ import { TrashSimpleIcon } from "@phosphor-icons/react/TrashSimple";
 </Dialog.Root>;
 ```
 
+## Stacking a Sheet over a Dialog
+
+`Dialog` and `Sheet` share the same `z-50` layer, so the most recently mounted layer renders on top. Open the dialog below first, then open the sheet from inside it — the sheet stacks over the dialog rather than disappearing behind it. Each layer renders its own backdrop, so the dialog beneath is dimmed by the sheet's overlay.
+
+<Example>
+	<Dialog.Root>
+		<Dialog.Trigger asChild>
+			<Button type="button" appearance="filled" priority="neutral">
+				Open dialog
+			</Button>
+		</Dialog.Trigger>
+		<Dialog.Content>
+			<Dialog.Header>
+				<Dialog.Title>Dialog</Dialog.Title>
+				<Dialog.CloseIconButton />
+			</Dialog.Header>
+			<Dialog.Body className="space-y-4">
+				<p>Open the sheet below — it stacks on top of this dialog.</p>
+				<Sheet.Root>
+					<Sheet.Trigger asChild>
+						<Button type="button" appearance="outlined" priority="neutral">
+							Open sheet
+						</Button>
+					</Sheet.Trigger>
+					<Sheet.Content>
+						<Sheet.Header>
+							<Sheet.TitleGroup>
+								<Sheet.Title>Sheet over a dialog</Sheet.Title>
+								<Sheet.Actions>
+									<Sheet.CloseIconButton />
+								</Sheet.Actions>
+							</Sheet.TitleGroup>
+							<Sheet.Description>
+								This sheet renders on top of the dialog that opened it.
+							</Sheet.Description>
+						</Sheet.Header>
+						<Sheet.Body>
+							<p>Close this sheet to return to the dialog underneath.</p>
+						</Sheet.Body>
+						<Sheet.Footer>
+							<Sheet.Close asChild>
+								<Button type="button" appearance="outlined" priority="neutral">
+									Close
+								</Button>
+							</Sheet.Close>
+						</Sheet.Footer>
+					</Sheet.Content>
+				</Sheet.Root>
+			</Dialog.Body>
+			<Dialog.Footer>
+				<Dialog.Close asChild>
+					<Button type="button" appearance="outlined" priority="neutral">
+						Close
+					</Button>
+				</Dialog.Close>
+			</Dialog.Footer>
+		</Dialog.Content>
+	</Dialog.Root>
+</Example>
+
+```tsx
+import { Dialog } from "@ngrok/mantle/dialog";
+import { Sheet } from "@ngrok/mantle/sheet";
+import { Button } from "@ngrok/mantle/button";
+
+<Dialog.Root>
+	<Dialog.Trigger asChild>
+		<Button type="button" appearance="filled" priority="neutral">
+			Open dialog
+		</Button>
+	</Dialog.Trigger>
+	<Dialog.Content>
+		<Dialog.Header>
+			<Dialog.Title>Dialog</Dialog.Title>
+			<Dialog.CloseIconButton />
+		</Dialog.Header>
+		<Dialog.Body className="space-y-4">
+			<p>Open the sheet below — it stacks on top of this dialog.</p>
+			<Sheet.Root>
+				<Sheet.Trigger asChild>
+					<Button type="button" appearance="outlined" priority="neutral">
+						Open sheet
+					</Button>
+				</Sheet.Trigger>
+				<Sheet.Content>
+					<Sheet.Header>
+						<Sheet.TitleGroup>
+							<Sheet.Title>Sheet over a dialog</Sheet.Title>
+							<Sheet.Actions>
+								<Sheet.CloseIconButton />
+							</Sheet.Actions>
+						</Sheet.TitleGroup>
+						<Sheet.Description>
+							This sheet renders on top of the dialog that opened it.
+						</Sheet.Description>
+					</Sheet.Header>
+					<Sheet.Body>
+						<p>Close this sheet to return to the dialog underneath.</p>
+					</Sheet.Body>
+					<Sheet.Footer>
+						<Sheet.Close asChild>
+							<Button type="button" appearance="outlined" priority="neutral">
+								Close
+							</Button>
+						</Sheet.Close>
+					</Sheet.Footer>
+				</Sheet.Content>
+			</Sheet.Root>
+		</Dialog.Body>
+		<Dialog.Footer>
+			<Dialog.Close asChild>
+				<Button type="button" appearance="outlined" priority="neutral">
+					Close
+				</Button>
+			</Dialog.Close>
+		</Dialog.Footer>
+	</Dialog.Content>
+</Dialog.Root>;
+```
+
 ## API Reference
 
 ### Dialog.Root
 
 The root stateful component that manages the open/closed state of the dialog.
+
+Its floating `Dialog.Content` layer renders at Tailwind `z-50`, Mantle's shared floating z-index.
 
 | Prop            | Type                      | Default | Description                                                                                                                                                   |
 | --------------- | ------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -229,6 +358,8 @@ A button that opens the dialog.
 ### Dialog.Content
 
 The container for the dialog content. Renders on top of the overlay and is centered in the viewport.
+
+Renders at Tailwind `z-50`, Mantle's shared floating z-index.
 
 | Prop                 | Type                             | Default      | Description                                                                                                                |
 | -------------------- | -------------------------------- | ------------ | -------------------------------------------------------------------------------------------------------------------------- |

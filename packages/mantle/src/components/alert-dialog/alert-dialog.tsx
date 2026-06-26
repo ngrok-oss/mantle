@@ -49,6 +49,10 @@ type AlertDialogProps = ComponentProps<typeof AlertDialogPrimitive.Root> & {
  * response.
  * The root stateful component for the Alert Dialog.
  *
+ * `AlertDialog` renders its floating layer at Tailwind `z-50`, Mantle's
+ * shared floating z-index. When multiple shared layers are open, the most
+ * recently mounted layer renders on top.
+ *
  * @see https://mantle.ngrok.com/components/alert-dialog#alertdialogroot
  *
  * @example
@@ -180,6 +184,10 @@ type AlertDialogContentProps = ComponentPropsWithoutRef<typeof AlertDialogPrimit
  * The popover alert dialog container.
  *
  * Renders on top of the overlay and is centered in the viewport.
+ *
+ * `AlertDialog.Content` renders its floating layer at Tailwind `z-50`,
+ * Mantle's shared floating z-index. When multiple shared layers are open, the
+ * most recently mounted layer renders on top.
  *
  * @see https://mantle.ngrok.com/components/alert-dialog#alertdialogcontent
  *
@@ -754,6 +762,10 @@ Close.displayName = "AlertDialogClose";
  * `Dialog` instead. For side-panel content (filter panels, detail views,
  * navigation drawers), use `Sheet`.
  *
+ * `AlertDialog` renders its floating layer at Tailwind `z-50`, Mantle's
+ * shared floating z-index. When multiple shared layers are open, the most
+ * recently mounted layer renders on top.
+ *
  * @see https://mantle.ngrok.com/components/alert-dialog
  *
  * @example
@@ -809,6 +821,10 @@ const AlertDialog = {
 	 * destructive actions, `"info"` for informational confirmations) which
 	 * propagates color to descendants like `AlertDialog.Icon` and
 	 * `AlertDialog.Action`.
+	 *
+	 * `AlertDialog` renders its floating layer at Tailwind `z-50`, Mantle's
+	 * shared floating z-index. When multiple shared layers are open, the most
+	 * recently mounted layer renders on top.
 	 *
 	 * @see https://mantle.ngrok.com/components/alert-dialog#alertdialogroot
 	 *
@@ -1000,6 +1016,10 @@ const AlertDialog = {
 	/**
 	 * The popover alert dialog container. Renders on top of the overlay,
 	 * centered in the viewport.
+	 *
+	 * `AlertDialog.Content` renders its floating layer at Tailwind `z-50`,
+	 * Mantle's shared floating z-index. When multiple shared layers are open,
+	 * the most recently mounted layer renders on top.
 	 *
 	 * @see https://mantle.ngrok.com/components/alert-dialog#alertdialogcontent
 	 *

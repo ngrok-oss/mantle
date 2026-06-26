@@ -78,6 +78,12 @@ import { Popover } from "@ngrok/mantle/popover";
 </Popover.Root>;
 ```
 
+## Layering and z-index
+
+`Popover.Content` renders at Tailwind `z-50`, Mantle's shared floating z-index. The shared layer includes `Dialog`, `Sheet`, `AlertDialog`, `Popover`, `Tooltip`, `HoverCard`, `DropdownMenu`, `Select`, `Combobox`, and `MultiSelect`. When more than one shared layer is open, equal z-index means DOM or portal mount order decides the visual order, so the most recently mounted layer renders on top.
+
+`Popover` does not render a backdrop by default. Modal layers such as `Dialog`, `Sheet`, and `AlertDialog` do render backdrops, so stacking those layers compounds the dim and blur effect on the layers underneath.
+
 ## Composition
 
 Compose the parts of a `Popover` together to build your own:
@@ -97,6 +103,8 @@ The `Popover` components are built on top of [Radix Popover](https://www.radix-u
 ### Popover.Root
 
 The root, stateful component that manages the open/closed state of the popover.
+
+Its floating `Popover.Content` layer renders at Tailwind `z-50`, Mantle's shared floating z-index.
 
 All props from Radix [Popover.Root](https://www.radix-ui.com/primitives/docs/components/popover#root).
 
@@ -120,6 +128,8 @@ All props from Radix [Popover.Trigger](https://www.radix-ui.com/primitives/docs/
 ### Popover.Content
 
 The content to render inside the popover. Appears in a portal with styling and animations.
+
+Renders at Tailwind `z-50`, Mantle's shared floating z-index.
 
 All props from Radix [Popover.Content](https://www.radix-ui.com/primitives/docs/components/popover#content), plus:
 

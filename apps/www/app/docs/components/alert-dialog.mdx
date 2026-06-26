@@ -90,6 +90,12 @@ import { Button } from "@ngrok/mantle/button";
 </AlertDialog.Root>;
 ```
 
+## Layering and z-index
+
+`AlertDialog.Content` renders at Tailwind `z-50`, Mantle's shared floating z-index. The shared layer includes `Dialog`, `Sheet`, `AlertDialog`, `Popover`, `Tooltip`, `HoverCard`, `DropdownMenu`, `Select`, `Combobox`, and `MultiSelect`. When more than one shared layer is open, equal z-index means DOM or portal mount order decides the visual order, so the most recently mounted layer renders on top.
+
+`AlertDialog`, `Dialog`, and `Sheet` each render their own backdrop, so stacking modal layers compounds the dim and blur effect on the layers underneath.
+
 ## Composition
 
 Compose the parts of an `AlertDialog` together to build your own:
@@ -114,6 +120,8 @@ AlertDialog.Root
 
 The root component for the Alert Dialog.
 
+Its floating `AlertDialog.Content` layer renders at Tailwind `z-50`, Mantle's shared floating z-index.
+
 All props from Radix [Dialog.Root](https://www.radix-ui.com/primitives/docs/components/dialog#root), plus:
 
 | Prop       | Type                   | Default | Description                                                                                                              |
@@ -129,6 +137,8 @@ Radix [Dialog.Trigger](https://www.radix-ui.com/primitives/docs/components/dialo
 ### AlertDialog.Content
 
 The popover Alert Dialog container. Renders on top of the overlay and is centered in the viewport.
+
+Renders at Tailwind `z-50`, Mantle's shared floating z-index.
 
 Radix [Dialog.Content](https://www.radix-ui.com/primitives/docs/components/dialog#content) props, plus:
 

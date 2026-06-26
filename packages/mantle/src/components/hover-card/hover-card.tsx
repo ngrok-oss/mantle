@@ -9,6 +9,10 @@ import { cx } from "../../utils/cx/cx.js";
  * A floating card that appears when a user hovers over a trigger element.
  * This is the root, stateful component that manages the open/closed state of the hover card.
  *
+ * `HoverCard.Content` renders at Tailwind `z-50`, Mantle's shared floating
+ * z-index. When multiple shared layers are open, the most recently mounted
+ * layer renders on top.
+ *
  * @see https://mantle.ngrok.com/components/hover-card#hovercardroot
  *
  * @example
@@ -92,6 +96,10 @@ Portal.displayName = "HoverCardPortal";
 /**
  * The content to render inside the hover card.
  *
+ * `HoverCard.Content` renders at Tailwind `z-50`, Mantle's shared floating
+ * z-index. When multiple shared layers are open, the most recently mounted
+ * layer renders on top.
+ *
  * @see https://mantle.ngrok.com/components/hover-card#hovercardcontent
  *
  * @example
@@ -147,6 +155,10 @@ Content.displayName = HoverCardPrimitive.Content.displayName;
  * For short, non-interactive labels or hints, use `Tooltip`. For
  * interactive overlays the user opens deliberately, use `Popover`.
  *
+ * `HoverCard.Content` renders at Tailwind `z-50`, Mantle's shared floating
+ * z-index. When multiple shared layers are open, the most recently mounted
+ * layer renders on top.
+ *
  * @see https://mantle.ngrok.com/components/hover-card
  *
  * @example
@@ -175,6 +187,10 @@ const HoverCard = {
 	/**
 	 * The root, stateful component that manages the open/closed state of the hover card.
 	 *
+	 * `HoverCard.Content` renders at Tailwind `z-50`, Mantle's shared floating
+	 * z-index. When multiple shared layers are open, the most recently mounted
+	 * layer renders on top.
+	 *
 	 * @see https://mantle.ngrok.com/components/hover-card#hovercardroot
 	 *
 	 * @example
@@ -192,6 +208,10 @@ const HoverCard = {
 	Root,
 	/**
 	 * The content to render inside the hover card. Appears in a portal with rich styling and animations.
+	 *
+	 * `HoverCard.Content` renders at Tailwind `z-50`, Mantle's shared floating
+	 * z-index. When multiple shared layers are open, the most recently mounted
+	 * layer renders on top.
 	 *
 	 * @see https://mantle.ngrok.com/components/hover-card#hovercardcontent
 	 *

@@ -80,6 +80,10 @@ type MultiSelectProps = Primitive.ComboboxProviderProps<string[]>;
  * `aria-errormessage`, and `aria-invalid` through to the focusable
  * `MultiSelect.Input` via `FieldControlContext`.
  *
+ * `MultiSelect.Content` renders at Tailwind `z-50`, Mantle's shared floating
+ * z-index. When multiple shared layers are open, the most recently mounted
+ * layer renders on top.
+ *
  * @see https://mantle.ngrok.com/components/multi-select#multiselectroot
  *
  * @example
@@ -706,6 +710,10 @@ type MultiSelectContentProps = Omit<Primitive.ComboboxPopoverProps, "render"> & 
  * Renders a popover that contains multi-select content, such as items, groups,
  * and separators. Opens below the trigger.
  *
+ * `MultiSelect.Content` renders at Tailwind `z-50`, Mantle's shared floating
+ * z-index. When multiple shared layers are open, the most recently mounted
+ * layer renders on top.
+ *
  * @see https://mantle.ngrok.com/components/multi-select#multiselectcontent
  *
  * @example
@@ -1125,6 +1133,10 @@ ContentFooter.displayName = "MultiSelectContentFooter";
  * items rendered as removable tags/chips. For single selection, use Combobox (with search)
  * or Select (without).
  *
+ * `MultiSelect.Content` renders at Tailwind `z-50`, Mantle's shared floating
+ * z-index. When multiple shared layers are open, the most recently mounted
+ * layer renders on top.
+ *
  * @see https://mantle.ngrok.com/components/multi-select
  * @see https://www.w3.org/WAI/ARIA/apg/patterns/combobox/
  * @see https://ariakit.org/components/combobox
@@ -1169,6 +1181,10 @@ const MultiSelect = {
 	 * Use MultiSelect when the user can choose multiple values from a list, with selected
 	 * items rendered as removable tags/chips. For single selection, use Combobox (with search)
 	 * or Select (without).
+	 *
+	 * `MultiSelect.Content` renders at Tailwind `z-50`, Mantle's shared
+	 * floating z-index. When multiple shared layers are open, the most recently
+	 * mounted layer renders on top.
 	 *
 	 * @see https://mantle.ngrok.com/components/multi-select#multiselectroot
 	 *
@@ -1289,6 +1305,10 @@ const MultiSelect = {
 	Tag,
 	/**
 	 * Renders a popover that contains multi-select content.
+	 *
+	 * `MultiSelect.Content` renders at Tailwind `z-50`, Mantle's shared
+	 * floating z-index. When multiple shared layers are open, the most recently
+	 * mounted layer renders on top.
 	 *
 	 * @see https://mantle.ngrok.com/components/multi-select#multiselectcontent
 	 *

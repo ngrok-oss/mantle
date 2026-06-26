@@ -230,6 +230,12 @@ import { CirclesThreePlusIcon } from "@phosphor-icons/react/CirclesThreePlus";
 </Combobox.Root>;
 ```
 
+## Layering and z-index
+
+`Combobox.Content` renders at Tailwind `z-50`, Mantle's shared floating z-index. The shared layer includes `Dialog`, `Sheet`, `AlertDialog`, `Popover`, `Tooltip`, `HoverCard`, `DropdownMenu`, `Select`, `Combobox`, and `MultiSelect`. When more than one shared layer is open, equal z-index means DOM or portal mount order decides the visual order, so the most recently mounted layer renders on top.
+
+`Combobox` does not render a backdrop. Modal layers such as `Dialog`, `Sheet`, and `AlertDialog` do render backdrops, so stacking those layers compounds the dim and blur effect on the layers underneath.
+
 ## Examples
 
 ### With TanStack Form
@@ -326,6 +332,8 @@ The `Combobox` components are built on top of [ariakit Combobox](https://ariakit
 
 Root component for a combobox. Provides a combobox store that controls the state of Combobox components.
 
+Its floating `Combobox.Content` layer renders at Tailwind `z-50`, Mantle's shared floating z-index.
+
 All props from ariakit [ComboboxProvider](https://ariakit.org/reference/combobox-provider).
 
 ### Combobox.Input
@@ -343,6 +351,8 @@ All props from ariakit [Combobox](https://ariakit.org/reference/combobox), plus:
 ### Combobox.Content
 
 Renders a popover that contains combobox content, e.g. items, groups, and separators.
+
+Renders at Tailwind `z-50`, Mantle's shared floating z-index.
 
 All props from ariakit [ComboboxPopover](https://ariakit.org/reference/combobox-popover), plus:
 

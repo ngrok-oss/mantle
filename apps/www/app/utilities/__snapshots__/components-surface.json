@@ -206,7 +206,7 @@
     "status": "stable",
     "importPath": "@ngrok/mantle/dropdown-menu",
     "summary": "Displays a menu to the user — such as a set of actions or functions — triggered by a button.",
-    "jsdoc": "A menu of options or actions, triggered by a button.",
+    "jsdoc": "A menu of options or actions, triggered by a button. `DropdownMenu.Content` and `DropdownMenu.SubContent` render at Tailwind `z-50`, Mantle's shared floating z-index.",
     "examples": [
       "Composition:\n```\nDropdownMenu.Root\n├── DropdownMenu.Trigger\n└── DropdownMenu.Content\n    ├── DropdownMenu.Group\n    │   ├── DropdownMenu.Label\n    │   ├── DropdownMenu.Item\n    │   │   └── DropdownMenu.Shortcut\n    │   ├── DropdownMenu.CheckboxItem\n    │   └── DropdownMenu.RadioGroup\n    │       └── DropdownMenu.RadioItem\n    ├── DropdownMenu.Separator\n    └── DropdownMenu.Sub\n        ├── DropdownMenu.SubTrigger\n        └── DropdownMenu.SubContent\n```",
       "```tsx\n<DropdownMenu.Root>\n  <DropdownMenu.Trigger asChild>\n    <Button type=\"button\" appearance=\"outlined\">\n      Open Menu\n    </Button>\n  </DropdownMenu.Trigger>\n  <DropdownMenu.Content>\n    <DropdownMenu.Item>Item 1</DropdownMenu.Item>\n    <DropdownMenu.Item>Item 2</DropdownMenu.Item>\n  </DropdownMenu.Content>\n</DropdownMenu.Root>\n```"

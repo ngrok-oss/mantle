@@ -134,6 +134,12 @@ import { Icon } from "@ngrok/mantle/icon";
 </DropdownMenu.Root>;
 ```
 
+## Layering and z-index
+
+`DropdownMenu.Content` and `DropdownMenu.SubContent` render at Tailwind `z-50`, Mantle's shared floating z-index. The shared layer includes `Dialog`, `Sheet`, `AlertDialog`, `Popover`, `Tooltip`, `HoverCard`, `DropdownMenu`, `Select`, `Combobox`, and `MultiSelect`. When more than one shared layer is open, equal z-index means DOM or portal mount order decides the visual order, so the most recently mounted layer renders on top.
+
+`DropdownMenu` does not render a backdrop by default. Modal layers such as `Dialog`, `Sheet`, and `AlertDialog` do render backdrops, so stacking those layers compounds the dim and blur effect on the layers underneath.
+
 ## Composition
 
 Compose the parts of a `DropdownMenu` together to build your own:
@@ -163,6 +169,8 @@ The `DropdownMenu` components are built on top of [Radix Dropdown Menu](https://
 
 The root, stateful component that manages the open/closed state of the dropdown menu.
 
+Its floating `DropdownMenu.Content` and `DropdownMenu.SubContent` layers render at Tailwind `z-50`, Mantle's shared floating z-index.
+
 | Prop            | Type                      | Default | Description                                                                                                                                                        |
 | :-------------- | :------------------------ | :------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `open?`         | `boolean`                 |         | The controlled open state of the dropdown menu. Must be used in conjunction with `onOpenChange`.                                                                   |
@@ -182,6 +190,8 @@ The trigger button that opens the dropdown menu.
 ### DropdownMenu.Content
 
 The container for the dropdown menu content. Appears in a portal with scrolling and animations.
+
+Renders at Tailwind `z-50`, Mantle's shared floating z-index.
 
 All props from Radix [DropdownMenu.Content](https://www.radix-ui.com/primitives/docs/components/dropdown-menu#content), plus:
 
@@ -277,6 +287,8 @@ The trigger item that opens a submenu when hovered or focused.
 ### DropdownMenu.SubContent
 
 The content container for submenu items. Appears in a portal with scrolling and animations.
+
+Renders at Tailwind `z-50`, Mantle's shared floating z-index.
 
 | Prop    | Type      | Default | Description                                                                         |
 | :------ | :-------- | :------ | :---------------------------------------------------------------------------------- |

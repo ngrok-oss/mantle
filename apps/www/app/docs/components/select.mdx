@@ -171,6 +171,12 @@ import { Select } from "@ngrok/mantle/select";
 </Field.Item>;
 ```
 
+## Layering and z-index
+
+`Select.Content` renders at Tailwind `z-50`, Mantle's shared floating z-index. The shared layer includes `Dialog`, `Sheet`, `AlertDialog`, `Popover`, `Tooltip`, `HoverCard`, `DropdownMenu`, `Select`, `Combobox`, and `MultiSelect`. When more than one shared layer is open, equal z-index means DOM or portal mount order decides the visual order, so the most recently mounted layer renders on top.
+
+`Select` does not render a backdrop. Modal layers such as `Dialog`, `Sheet`, and `AlertDialog` do render backdrops, so stacking those layers compounds the dim and blur effect on the layers underneath.
+
 ## Examples
 
 ### With TanStack Form
@@ -387,6 +393,8 @@ The `Select` components are built on top of [Radix Select](https://www.radix-ui.
 
 Displays a list of options for the user to pick from—triggered by a button.
 
+Its floating `Select.Content` layer renders at Tailwind `z-50`, Mantle's shared floating z-index.
+
 Set `validation` on `Select.Root` when the whole select has an explicit state; this root-level state is forwarded to the trigger and takes precedence over ambient field-level validation from `Field.Item`.
 
 Rendered `Field.Errors` or `Field.ErrorList` still force the trigger into the error state because `Field.Control` sets `aria-invalid="true"` on the focusable trigger, and an explicit invalid ARIA value always wins. If a non-error `Select.Root` state needs to win even when errors are rendered, pass `validation` on `Field.Item` to suppress the inferred error.
@@ -419,6 +427,8 @@ Radix [Select.Value](https://www.radix-ui.com/primitives/docs/components/select#
 ### Select.Content
 
 The component that pops out when the `Select` is open as a portal adjacent to the `Select.Trigger` button. It contains a scrolling viewport of the select items.
+
+Renders at Tailwind `z-50`, Mantle's shared floating z-index.
 
 All props from Radix [Select.Content](https://www.radix-ui.com/primitives/docs/components/select#content), plus:
 

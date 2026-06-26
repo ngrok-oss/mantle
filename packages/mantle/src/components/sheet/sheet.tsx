@@ -10,6 +10,10 @@ import * as SheetPrimitive from "../dialog/primitive.js";
  * The root component for a `Sheet`. Should compose the `Sheet.Trigger` and `Sheet.Content`.
  * Acts as a stateful provider for the Sheet's open/closed state.
  *
+ * `Sheet` renders its floating layer at Tailwind `z-50`, Mantle's shared
+ * floating z-index. When multiple shared layers are open, the most recently
+ * mounted layer renders on top.
+ *
  * @see https://mantle.ngrok.com/components/sheet#sheetroot
  *
  * @example
@@ -210,7 +214,7 @@ const SheetOverlay = forwardRef<
 	<SheetPrimitive.Overlay
 		data-slot="sheet-overlay"
 		className={cx(
-			"bg-overlay data-state-closed:animate-out data-state-closed:fade-out-0 data-state-open:animate-in data-state-open:fade-in-0 fixed inset-0 z-40 backdrop-blur-xs",
+			"bg-overlay data-state-closed:animate-out data-state-closed:fade-out-0 data-state-open:animate-in data-state-open:fade-in-0 fixed inset-0 z-50 backdrop-blur-xs",
 			className,
 		)}
 		{...props}
@@ -220,7 +224,7 @@ const SheetOverlay = forwardRef<
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName;
 
 const SheetVariants = cva(
-	"bg-dialog border-dialog inset-y-0 h-full w-full fixed z-40 flex flex-col shadow-lg outline-hidden transition ease-in-out focus-within:outline-hidden data-state-closed:duration-100 data-state-closed:animate-out data-state-open:duration-100 data-state-open:animate-in",
+	"bg-dialog border-dialog inset-y-0 h-full w-full fixed z-50 flex flex-col shadow-lg outline-hidden transition ease-in-out focus-within:outline-hidden data-state-closed:duration-100 data-state-closed:animate-out data-state-open:duration-100 data-state-open:animate-in",
 	{
 		variants: {
 			/**
@@ -256,6 +260,10 @@ type SheetContentProps = ComponentPropsWithoutRef<typeof SheetPrimitive.Content>
  * The main container for a `Sheet`. Should be rendered as a child of the `Sheet` component.
  * Renders on top of the overlay backdrop.
  * Should contain the `Sheet.Header`, `Sheet.Body`, and `Sheet.Footer`.
+ *
+ * `Sheet.Content` renders its floating layer at Tailwind `z-50`, Mantle's
+ * shared floating z-index. When multiple shared layers are open, the most
+ * recently mounted layer renders on top.
  *
  * @see https://mantle.ngrok.com/components/sheet#sheetcontent
  *
@@ -832,6 +840,10 @@ Actions.displayName = "SheetActions";
  * interrupts the user, use `Dialog` (or `AlertDialog` for destructive
  * confirmations).
  *
+ * `Sheet` renders its floating layer at Tailwind `z-50`, Mantle's shared
+ * floating z-index. When multiple shared layers are open, the most recently
+ * mounted layer renders on top.
+ *
  * @see https://mantle.ngrok.com/components/sheet
  *
  * @example
@@ -945,6 +957,10 @@ const Sheet = {
 	/**
 	 * The root component for a `Sheet`. Should compose the `Sheet.Trigger` and `Sheet.Content`.
 	 * Acts as a stateful provider for the Sheet's open/closed state.
+	 *
+	 * `Sheet` renders its floating layer at Tailwind `z-50`, Mantle's shared
+	 * floating z-index. When multiple shared layers are open, the most recently
+	 * mounted layer renders on top.
 	 *
 	 * @see https://mantle.ngrok.com/components/sheet#sheetroot
 	 *
@@ -1136,6 +1152,10 @@ const Sheet = {
 	 * The main container for a `Sheet`. Should be rendered as a child of the `Sheet` component.
 	 * Renders on top of the overlay backdrop.
 	 * Should contain the `Sheet.Header`, `Sheet.Body`, and `Sheet.Footer`.
+	 *
+	 * `Sheet.Content` renders its floating layer at Tailwind `z-50`, Mantle's
+	 * shared floating z-index. When multiple shared layers are open, the most
+	 * recently mounted layer renders on top.
 	 *
 	 * @see https://mantle.ngrok.com/components/sheet#sheetcontent
 	 *

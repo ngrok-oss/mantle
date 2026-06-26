@@ -9,6 +9,10 @@ import * as DialogPrimitive from "./primitive.js";
  * A window overlaid on either the primary window or another dialog window.
  * The root stateful component for the Dialog.
  *
+ * `Dialog` renders its floating layer at Tailwind `z-50`, Mantle's shared
+ * floating z-index. When multiple shared layers are open, the most recently
+ * mounted layer renders on top.
+ *
  * @see https://mantle.ngrok.com/components/dialog#dialogroot
  *
  * @example
@@ -222,6 +226,10 @@ type ContentProps = ComponentPropsWithoutRef<typeof DialogPrimitive.Content> & {
 /**
  * The container for the dialog content.
  * Renders on top of the overlay and is centered in the viewport.
+ *
+ * `Dialog.Content` renders its floating layer at Tailwind `z-50`, Mantle's
+ * shared floating z-index. When multiple shared layers are open, the most
+ * recently mounted layer renders on top.
  *
  * @see https://mantle.ngrok.com/components/dialog#dialogcontent
  *
@@ -555,6 +563,10 @@ Description.displayName = "DialogDescription";
  * For side-panel content that slides in from an edge (filter panels, detail
  * views, navigation drawers), prefer `Sheet`.
  *
+ * `Dialog` renders its floating layer at Tailwind `z-50`, Mantle's shared
+ * floating z-index. When multiple shared layers are open, the most recently
+ * mounted layer renders on top.
+ *
  * @see https://mantle.ngrok.com/components/dialog
  *
  * @example
@@ -601,6 +613,10 @@ const Dialog = {
 	/**
 	 * A window overlaid on either the primary window or another dialog window.
 	 * The root stateful component for the Dialog.
+	 *
+	 * `Dialog` renders its floating layer at Tailwind `z-50`, Mantle's shared
+	 * floating z-index. When multiple shared layers are open, the most recently
+	 * mounted layer renders on top.
 	 *
 	 * @see https://mantle.ngrok.com/components/dialog#dialogroot
 	 *
@@ -726,6 +742,10 @@ const Dialog = {
 	/**
 	 * The container for the dialog content.
 	 * Renders on top of the overlay and is centered in the viewport.
+	 *
+	 * `Dialog.Content` renders its floating layer at Tailwind `z-50`, Mantle's
+	 * shared floating z-index. When multiple shared layers are open, the most
+	 * recently mounted layer renders on top.
 	 *
 	 * @see https://mantle.ngrok.com/components/dialog#dialogcontent
 	 *

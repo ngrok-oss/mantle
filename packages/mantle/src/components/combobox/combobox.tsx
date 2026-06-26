@@ -18,6 +18,10 @@ type ComboboxProps = Primitive.ComboboxProviderProps;
  * async/server-side data, or any single-select where search is helpful. For very small
  * finite lists with no filtering, prefer Select. For multi-selection, prefer MultiSelect.
  *
+ * `Combobox.Content` renders at Tailwind `z-50`, Mantle's shared floating
+ * z-index. When multiple shared layers are open, the most recently mounted
+ * layer renders on top.
+ *
  * @see https://mantle.ngrok.com/components/combobox#comboboxroot
  *
  * @example
@@ -109,6 +113,10 @@ type ComboboxContentProps = Omit<Primitive.ComboboxPopoverProps, "render"> & Wit
 
 /**
  * Renders a popover that contains combobox content, e.g. Combobox.Items, Combobox.Groups, and Combobox.Separators.
+ *
+ * `Combobox.Content` renders at Tailwind `z-50`, Mantle's shared floating
+ * z-index. When multiple shared layers are open, the most recently mounted
+ * layer renders on top.
  *
  * @see https://mantle.ngrok.com/components/combobox#comboboxcontent
  *
@@ -384,6 +392,10 @@ ComboboxSeparatorComponent.displayName = "ComboboxSeparator";
  * async/server-side data, or any single-select where search is helpful. For very small
  * finite lists with no filtering, prefer Select. For multi-selection, prefer MultiSelect.
  *
+ * `Combobox.Content` renders at Tailwind `z-50`, Mantle's shared floating
+ * z-index. When multiple shared layers are open, the most recently mounted
+ * layer renders on top.
+ *
  * @see https://www.w3.org/WAI/ARIA/apg/patterns/combobox/
  * @see https://ariakit.org/components/combobox
  *
@@ -421,6 +433,10 @@ const Combobox = {
 	 * async/server-side data, or any single-select where search is helpful. For very small
 	 * finite lists with no filtering, prefer Select. For multi-selection, prefer MultiSelect.
 	 *
+	 * `Combobox.Content` renders at Tailwind `z-50`, Mantle's shared floating
+	 * z-index. When multiple shared layers are open, the most recently mounted
+	 * layer renders on top.
+	 *
 	 * @see https://mantle.ngrok.com/components/combobox#comboboxroot
 	 *
 	 * @example
@@ -437,6 +453,10 @@ const Combobox = {
 	Root,
 	/**
 	 * Renders a popover that contains combobox content, e.g. Combobox.Items, Combobox.Groups, and Combobox.Separators.
+	 *
+	 * `Combobox.Content` renders at Tailwind `z-50`, Mantle's shared floating
+	 * z-index. When multiple shared layers are open, the most recently mounted
+	 * layer renders on top.
 	 *
 	 * @see https://mantle.ngrok.com/components/combobox#comboboxcontent
 	 *
