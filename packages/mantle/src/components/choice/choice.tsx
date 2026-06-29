@@ -125,6 +125,7 @@ const Root = forwardRef<ComponentRef<"div">, ChoiceRootProps>(
 	(
 		{
 			"aria-describedby": ariaDescribedBy,
+			"aria-errormessage": ariaErrorMessage,
 			"aria-invalid": ariaInvalid,
 			children,
 			className,
@@ -168,7 +169,7 @@ const Root = forwardRef<ComponentRef<"div">, ChoiceRootProps>(
 					disabled,
 					"aria-describedby": describedBy,
 					"aria-invalid": fieldAriaInvalid ?? ariaInvalid,
-					"aria-errormessage": fieldErrorMessage,
+					"aria-errormessage": fieldErrorMessage ?? ariaErrorMessage,
 				},
 			}),
 			[
@@ -181,6 +182,7 @@ const Root = forwardRef<ComponentRef<"div">, ChoiceRootProps>(
 				fieldAriaInvalid,
 				ariaInvalid,
 				fieldErrorMessage,
+				ariaErrorMessage,
 			],
 		);
 
@@ -333,6 +335,8 @@ const ChoiceLabel = forwardRef<ComponentRef<"label">, ComponentProps<typeof Labe
 			return (
 				<Slot
 					ref={ref}
+					htmlFor={controlId}
+					aria-disabled={disabled || undefined}
 					data-slot="choice-label"
 					className={cx(
 						"text-strong text-sm font-medium font-sans",

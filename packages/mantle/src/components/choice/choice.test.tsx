@@ -114,6 +114,43 @@ describe("Choice", () => {
 		expect(control).toHaveAttribute("name", "custom");
 	});
 
+	test("Label asChild forwards htmlFor and aria-disabled to its child", () => {
+		render(
+			<Choice.Root disabled>
+				<Choice.Indicator>
+					<input type="checkbox" aria-label="control" />
+				</Choice.Indicator>
+				<Choice.Content>
+					<Choice.Label asChild>
+						<span>Email</span>
+					</Choice.Label>
+				</Choice.Content>
+			</Choice.Root>,
+		);
+		const control = screen.getByRole("checkbox");
+		const label = screen.getByText("Email");
+		// Slot forwards the generated htmlFor + aria-disabled to the consumer's element.
+		expect(label).toHaveAttribute("for", control.id);
+		expect(label).toHaveAttribute("aria-disabled", "true");
+	});
+
+	test("forwards aria-errormessage from Root onto the control (standalone, not the wrapper)", () => {
+		render(
+			<Choice.Root aria-errormessage="error-1" aria-invalid="true">
+				<Choice.Indicator>
+					<input type="checkbox" aria-label="control" />
+				</Choice.Indicator>
+				<Choice.Content>
+					<Choice.Label>Email</Choice.Label>
+				</Choice.Content>
+			</Choice.Root>,
+		);
+		const control = screen.getByRole("checkbox");
+		expect(control).toHaveAttribute("aria-errormessage", "error-1");
+		// It must land on the control, not leak onto the layout wrapper.
+		expect(control.closest('[data-slot="choice"]')).not.toHaveAttribute("aria-errormessage");
+	});
+
 	test("a part rendered outside Root throws", () => {
 		expect(() => render(<Choice.Label>orphan</Choice.Label>)).toThrow(
 			/Choice\.Label must be rendered inside Choice\.Root/,
