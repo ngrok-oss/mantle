@@ -11,7 +11,7 @@ const SOURCE_ALL_CSS_SRC = new URL("./src/source-all.css", import.meta.url);
 const DOCS_ORIGIN = "https://mantle.ngrok.com";
 
 /**
- * A set of package names that should not be published to npm
+ * A set of package names that should not be published to npm.
  */
 const doNotPublish = new Set<string>(["portal"]);
 

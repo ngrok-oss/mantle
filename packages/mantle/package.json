@@ -100,6 +100,11 @@
 			"types": "./dist/checkbox.d.ts",
 			"import": "./dist/checkbox.js"
 		},
+		"./choice": {
+			"@ngrok/src-live-types": "./src/components/choice/index.ts",
+			"types": "./dist/choice.d.ts",
+			"import": "./dist/choice.js"
+		},
 		"./code": {
 			"@ngrok/src-live-types": "./src/components/code/index.ts",
 			"types": "./dist/code.d.ts",
@@ -389,6 +394,7 @@
 		"@types/react": "19.2.17",
 		"@types/react-dom": "19.2.3",
 		"@vitest/browser-playwright": "catalog:",
+		"axe-core": "4.12.1",
 		"happy-dom": "catalog:",
 		"playwright": "catalog:",
 		"react": "19.2.7",

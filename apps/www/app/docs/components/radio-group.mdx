@@ -4,6 +4,7 @@ description: A set of checkable buttons—known as radio buttons—where no more
 ---
 
 import { Button } from "@ngrok/mantle/button";
+import { Choice } from "@ngrok/mantle/choice";
 import { Field, toErrorMessages } from "@ngrok/mantle/field";
 import { RadioGroup } from "@ngrok/mantle/radio-group";
 import { useForm } from "@tanstack/react-form";
@@ -336,6 +337,59 @@ import { RadioGroup } from "@ngrok/mantle/radio-group";
 </RadioGroup.Root>
 ```
 
+## Rich option layout with `Choice`
+
+[`Choice`](/components/choice) gives each radio option the same indicator-left / title-over-description layout used across mantle, without hand-rolling the flexbox: put `RadioGroup.Indicator` in `Choice.Indicator` and the copy in `Choice.Content`.
+
+<Example>
+	<RadioGroup.Root defaultValue="pro" className="w-full max-w-md">
+		<RadioGroup.Item value="free">
+			<Choice.Root>
+				<Choice.Indicator>
+					<RadioGroup.Indicator />
+				</Choice.Indicator>
+				<Choice.Content>
+					<Choice.Title>Free</Choice.Title>
+					<Choice.Description>Up to 3 projects and 1 member.</Choice.Description>
+				</Choice.Content>
+			</Choice.Root>
+		</RadioGroup.Item>
+		<RadioGroup.Item value="pro">
+			<Choice.Root>
+				<Choice.Indicator>
+					<RadioGroup.Indicator />
+				</Choice.Indicator>
+				<Choice.Content>
+					<Choice.Title>Pro</Choice.Title>
+					<Choice.Description>Unlimited projects and up to 25 members.</Choice.Description>
+				</Choice.Content>
+			</Choice.Root>
+		</RadioGroup.Item>
+	</RadioGroup.Root>
+</Example>
+
+```tsx
+import { Choice } from "@ngrok/mantle/choice";
+import { RadioGroup } from "@ngrok/mantle/radio-group";
+
+<RadioGroup.Root defaultValue="pro">
+	<RadioGroup.Item value="free">
+		<Choice.Root>
+			<Choice.Indicator>
+				<RadioGroup.Indicator />
+			</Choice.Indicator>
+			<Choice.Content>
+				<Choice.Title>Free</Choice.Title>
+				<Choice.Description>Up to 3 projects and 1 member.</Choice.Description>
+			</Choice.Content>
+		</Choice.Root>
+	</RadioGroup.Item>
+	{/* …more items… */}
+</RadioGroup.Root>;
+```
+
+Use **`Choice.Title`** here, not `Choice.Label`: the whole `RadioGroup.Item` is the click target, and a `<label htmlFor>` can't associate with the radio's `role="radio"` element — the option's accessible name comes from its content. For helper text that is **programmatically** associated as a description, prefer the `Field.Set` / `Field.Legend` composition above; Headless UI owns the radio's `aria-describedby`, so a `Choice.Description` inside a radio is presented visually rather than wired via `aria-describedby`.
+
 ## With TanStack Form
 
 Use `@tanstack/react-form` with `zod` to keep a radio group controlled. Use `Field.Set` and `Field.Legend` because the grouped choices answer one shared question.
@@ -441,6 +495,16 @@ RadioGroup.ButtonGroup
 RadioGroup.Root
 └── RadioGroup.Card
     └── RadioGroup.Indicator
+
+# Rich option layout (Choice)
+RadioGroup.Root
+└── RadioGroup.Item
+    └── Choice.Root
+        ├── Choice.Indicator
+        │   └── RadioGroup.Indicator
+        └── Choice.Content
+            ├── Choice.Title
+            └── Choice.Description
 ```
 
 ## API Reference
