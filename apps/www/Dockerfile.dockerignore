@@ -33,14 +33,15 @@ apps/*/vite-plugins
 !apps/www/public
 !apps/www/vite-plugins
 
-# Env files — production build uses .env.production (if present) and platform env vars
+# Env files — never ship local env into the build context. The www build reads
+# no build-time secrets; runtime env is supplied to the container by the
+# platform. Ignoring every `.env*` (including `.env.production`) keeps local
+# secrets out of build layers and the build cache.
 **/.env
-**/.env.local
-**/.env.*.local
-**/.env.dev
-**/.env.lan
-**/.env.stage
-!**/.env.production
+**/.env.*
+
+# Version control — large and unused by the build; keep it out of the context
+.git
 
 # Dev tool config — not needed inside the build container
 .claude
