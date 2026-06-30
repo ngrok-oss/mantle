@@ -156,7 +156,7 @@ Choice.Root
 
 ## Polymorphism
 
-`Choice.Content`, `Choice.Label`, `Choice.Title`, and `Choice.Description` each accept `asChild` to render as your own element while keeping the styling and wiring. For example, render the description as a `<div>` so it can contain block content, or render the label `asChild` to swap the underlying element. `Choice.Indicator` is itself a slot: it clones whatever single control element you place inside it, injecting the shared `id` / `name` / `aria-*` / `disabled`.
+`Choice.Content`, `Choice.Title`, and `Choice.Description` each accept `asChild` to render as your own element while keeping the styling and wiring. For example, render the description as a `<div>` so it can contain block content. `Choice.Label` is the mantle [`Label`](/components/label) (it always renders a real `<label>`, like `Field.Label`); reach for `Choice.Title` (which accepts `asChild`) when you need a different element. `Choice.Indicator` is itself a slot: it clones whatever single control element you place inside it, injecting the shared `id` / `name` / `aria-*` / `disabled`.
 
 ```tsx
 <Choice.Description asChild>
@@ -205,14 +205,9 @@ All props from [div](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/d
 
 ### Choice.Label
 
-The title as a real `<label htmlFor>` wired to the control. Use when the `Choice` owns the labeling.
+The title as a real `<label htmlFor>` wired to the control. Use when the `Choice` owns the labeling. This is the mantle [`Label`](/components/label) (not a re-implementation), so it keeps all of its styling and behavior — mirroring how `Field.Label` reuses `Label`.
 
-All props from [label](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label#attributes), plus:
-
-| Prop        | Type      | Default | Description                                                            |
-| ----------- | --------- | ------- | ---------------------------------------------------------------------- |
-| `asChild?`  | `boolean` | `false` | Render the label as your own element instead of a `<label>`.           |
-| `disabled?` | `boolean` | `false` | Render the label in a disabled style. Usually driven by `Choice.Root`. |
+All props from [`Label`](/components/label) / [label](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label#attributes), **except** `htmlFor` and `disabled` — those are owned by `Choice.Root` (the control id and the choice's disabled state).
 
 ### Choice.Title
 

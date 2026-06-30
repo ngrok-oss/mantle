@@ -309,15 +309,25 @@ const Content = forwardRef<ComponentRef<"div">, ChoiceContentProps>(
 Content.displayName = "ChoiceContent";
 
 /**
+ * Props for `Choice.Label`. The mantle `Label` props, minus `htmlFor` and
+ * `disabled` — those are owned by `Choice.Root` (the control id and the choice's
+ * disabled state) and are not part of the public surface, so consumer props can
+ * never override the label-to-control wiring.
+ */
+type ChoiceLabelProps = Omit<ComponentProps<typeof Label>, "htmlFor" | "disabled">;
+
+/**
  * The emphasized title of a `Choice`, rendered as a real `<label>` wired to the
  * control by `htmlFor`, so clicking it toggles the control and it supplies the
  * control's accessible name. Use this when the `Choice` owns the labeling (a
  * standalone checkbox, a raw `<form>`, React-state-only).
  *
- * When an ancestor already owns the labeling and click target — a fully-clickable
- * list row or a Headless radio item — use `Choice.Title` instead (a label-less
- * `<p>`), so labels never nest or compete. Pass `asChild` to render the label as
- * your own element.
+ * It is the mantle {@link Label} (not a re-implementation), so it keeps every
+ * base-label behavior — cursor, the double-click text-selection guard, and the
+ * auto `font-medium` — and mirrors how `Field.Label` reuses `Label`. When an
+ * ancestor already owns the labeling and click target (a fully-clickable list
+ * row or a Headless radio item), use `Choice.Title` instead — a label-less `<p>`
+ * (it accepts `asChild`) — so labels never nest or compete.
  *
  * @see https://mantle.ngrok.com/components/choice
  *
@@ -334,35 +344,21 @@ Content.displayName = "ChoiceContent";
  * </Choice.Root>
  * ```
  */
-const ChoiceLabel = forwardRef<ComponentRef<"label">, ComponentProps<typeof Label> & WithAsChild>(
-	({ asChild, className, ...props }, ref) => {
+const ChoiceLabel = forwardRef<ComponentRef<"label">, ChoiceLabelProps>(
+	({ className, ...props }, ref) => {
 		const { controlId, disabled } = useChoiceContext("Label");
 
-		if (asChild) {
-			return (
-				<Slot
-					ref={ref}
-					htmlFor={controlId}
-					aria-disabled={disabled || undefined}
-					data-slot="choice-label"
-					className={cx(
-						"text-strong text-sm font-medium font-sans",
-						disabled && "opacity-50",
-						className,
-					)}
-					{...props}
-				/>
-			);
-		}
-
+		// Reuse the real `Label` rather than re-implementing it, so the title keeps
+		// all of `Label`'s styling and behavior. `htmlFor` / `disabled` come from
+		// `Choice.Root` and are applied after `{...props}` so the wiring always wins.
 		return (
 			<Label
 				ref={ref}
-				htmlFor={controlId}
-				disabled={disabled}
 				data-slot="choice-label"
 				className={cx(disabled && "opacity-50", className)}
 				{...props}
+				htmlFor={controlId}
+				disabled={disabled}
 			/>
 		);
 	},

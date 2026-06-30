@@ -134,24 +134,26 @@ describe("Choice", () => {
 		expect(control).toHaveAttribute("name", "custom");
 	});
 
-	test("Label asChild forwards htmlFor and aria-disabled to its child", () => {
+	test("Label reuses the base Label component (keeps its styling + context-owned wiring)", () => {
 		render(
 			<Choice.Root disabled>
 				<Choice.Indicator>
 					<input type="checkbox" aria-label="control" />
 				</Choice.Indicator>
 				<Choice.Content>
-					<Choice.Label asChild>
-						<span>Email</span>
-					</Choice.Label>
+					<Choice.Label>Email</Choice.Label>
 				</Choice.Content>
 			</Choice.Root>,
 		);
 		const control = screen.getByRole("checkbox");
 		const label = screen.getByText("Email");
-		// Slot forwards the generated htmlFor + aria-disabled to the consumer's element.
+		// It IS the mantle Label, not a re-implementation, so it keeps base-label
+		// styling (cursor-pointer); htmlFor + disabled are owned by Choice.Root.
+		expect(label.tagName).toBe("LABEL");
+		expect(label).toHaveClass("cursor-pointer");
 		expect(label).toHaveAttribute("for", control.id);
 		expect(label).toHaveAttribute("aria-disabled", "true");
+		expect(label).toHaveClass("opacity-50");
 	});
 
 	test("forwards aria-errormessage from Root onto the control (standalone, not the wrapper)", () => {
