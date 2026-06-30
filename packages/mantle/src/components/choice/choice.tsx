@@ -212,8 +212,9 @@ type ChoiceIndicatorProps = ComponentProps<"span">;
  * here is wired to `Choice.Label` and the description without the caller
  * threading ids. A non-element child (or none) is rendered untouched.
  *
- * The slot is one line tall (`h-lh`) and centers its child, so the control sits
- * on the leading of the title's first line and stays put when the title wraps.
+ * The slot is one line tall (`h-lh`) using the same `text-sm` line box as the
+ * title, and centers its child — so the control sits centered on the title's
+ * first line and stays put when the title wraps.
  *
  * @see https://mantle.ngrok.com/components/choice
  *
@@ -253,7 +254,13 @@ const Indicator = forwardRef<ComponentRef<"span">, ChoiceIndicatorProps>(
 			<span
 				ref={ref}
 				data-slot="choice-indicator"
-				className={cx("flex h-lh shrink-0 items-center", className)}
+				// `h-lh` resolves to this element's own line-height, so it must share the
+				// title's `text-sm` line box (14px / 20px) — otherwise the slot would size
+				// to the inherited line-height and the control could not center on the
+				// title's first line. `items-center` then centers the control in that
+				// one-line box; `items-start` on Root keeps it on the first line when the
+				// title wraps.
+				className={cx("flex h-lh shrink-0 items-center text-sm", className)}
 				{...props}
 			>
 				{control}

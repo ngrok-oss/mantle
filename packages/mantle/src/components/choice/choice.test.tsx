@@ -19,6 +19,25 @@ describe("Choice", () => {
 		expect(screen.getByRole("checkbox")).toHaveAttribute("id", expect.stringMatching(/.+/));
 	});
 
+	test("Indicator shares the title's text-sm line box so the control centers on the first line", () => {
+		render(
+			<Choice.Root>
+				<Choice.Indicator>
+					<input type="checkbox" aria-label="control" />
+				</Choice.Indicator>
+				<Choice.Content>
+					<Choice.Label>Email</Choice.Label>
+				</Choice.Content>
+			</Choice.Root>,
+		);
+		// `h-lh` resolves to the element's own line-height, so the indicator must use
+		// the same `text-sm` line box as the title/label — otherwise it sizes to the
+		// inherited line-height and the control can't vertically center on the first line.
+		const indicator = screen.getByRole("checkbox").closest('[data-slot="choice-indicator"]');
+		expect(indicator).toHaveClass("h-lh", "items-center", "text-sm");
+		expect(screen.getByText("Email")).toHaveClass("text-sm");
+	});
+
 	test("Label renders a <label> whose htmlFor targets the injected control id", () => {
 		render(
 			<Choice.Root>
