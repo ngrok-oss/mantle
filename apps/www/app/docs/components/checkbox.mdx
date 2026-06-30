@@ -5,6 +5,7 @@ description: A form control that allows the user to toggle between checked and n
 
 import { Button } from "@ngrok/mantle/button";
 import { Checkbox } from "@ngrok/mantle/checkbox";
+import { Choice } from "@ngrok/mantle/choice";
 import { Field, toErrorMessages } from "@ngrok/mantle/field";
 import { Label } from "@ngrok/mantle/label";
 import { useForm } from "@tanstack/react-form";
@@ -158,6 +159,91 @@ import { Label } from "@ngrok/mantle/label";
 </Label>
 ```
 
+## Multi-line label with description
+
+For a checkbox with an emphasized title and a supplementary description beneath it, compose it inside [`Choice`](/components/choice): drop the `Checkbox` into `Choice.Indicator` and pair `Choice.Label` (a real `<label>` — clicking it toggles the box) with an optional `Choice.Description`. The box aligns to the leading of the title's first line, and the description associates via `aria-describedby`.
+
+<Example>
+	<div className="w-full max-w-md">
+		<Choice.Root>
+			<Choice.Indicator>
+				<Checkbox defaultChecked />
+			</Choice.Indicator>
+			<Choice.Content>
+				<Choice.Label>Mark as disposable email provider</Choice.Label>
+				<Choice.Description>
+					Flags this domain as a disposable or throwaway email provider.
+				</Choice.Description>
+			</Choice.Content>
+		</Choice.Root>
+	</div>
+</Example>
+
+```tsx
+import { Checkbox } from "@ngrok/mantle/checkbox";
+import { Choice } from "@ngrok/mantle/choice";
+
+<Choice.Root>
+	<Choice.Indicator>
+		<Checkbox defaultChecked />
+	</Choice.Indicator>
+	<Choice.Content>
+		<Choice.Label>Mark as disposable email provider</Choice.Label>
+		<Choice.Description>
+			Flags this domain as a disposable or throwaway email provider.
+		</Choice.Description>
+	</Choice.Content>
+</Choice.Root>;
+```
+
+Wrap that same `Choice` in a `Field.Item` / `Field.Control` to bind a form `name` and pick up validation. The field's `id` / `name` / `aria-*` flow onto the checkbox, and the `Field.Description` (or a `Field.Errors`) is merged into the control's `aria-describedby` alongside the `Choice.Description` — no duplicate ids, no manual wiring:
+
+<Example>
+	<div className="w-full max-w-md">
+		<Field.Item name="disposable">
+			<Field.Control>
+				<Choice.Root>
+					<Choice.Indicator>
+						<Checkbox defaultChecked />
+					</Choice.Indicator>
+					<Choice.Content>
+						<Choice.Label>Mark as disposable email provider</Choice.Label>
+						<Choice.Description>
+							Flags this domain as a disposable or throwaway email provider.
+						</Choice.Description>
+					</Choice.Content>
+				</Choice.Root>
+			</Field.Control>
+			<Field.Description>Applied the next time this domain is scanned.</Field.Description>
+		</Field.Item>
+	</div>
+</Example>
+
+```tsx
+import { Checkbox } from "@ngrok/mantle/checkbox";
+import { Choice } from "@ngrok/mantle/choice";
+import { Field } from "@ngrok/mantle/field";
+
+<Field.Item name="disposable">
+	<Field.Control>
+		<Choice.Root>
+			<Choice.Indicator>
+				<Checkbox defaultChecked />
+			</Choice.Indicator>
+			<Choice.Content>
+				<Choice.Label>Mark as disposable email provider</Choice.Label>
+				<Choice.Description>
+					Flags this domain as a disposable or throwaway email provider.
+				</Choice.Description>
+			</Choice.Content>
+		</Choice.Root>
+	</Field.Control>
+	<Field.Description>Applied the next time this domain is scanned.</Field.Description>
+</Field.Item>;
+```
+
+For the fully-clickable list-row variant (and the full API), see the [`Choice` docs](/components/choice).
+
 ## With TanStack Form
 
 Use `@tanstack/react-form` with `zod` to keep the checkbox controlled and render errors through `Field.Errors`.
@@ -259,3 +345,5 @@ All props from [input\[type="checkbox"\]](https://developer.mozilla.org/en-US/do
 | `checked?`        | `boolean` \| `"indeterminate"`                                                                           |         | Whether the checkbox is checked or not. Setting this to `"indeterminate"` will show the indeterminate state. This is useful for parent-child relationships, but requires manual, controlled state.                                           |
 | `defaultChecked?` | `boolean` \| `"indeterminate"`                                                                           |         | The checked state of the checkbox when it is initially rendered. Use when you do not need to control its checked state.                                                                                                                      |
 | `validation?`     | `"error"` \| `"success"` \| `"warning"` \| `false` \| `() => "error" \| "success" \| "warning" \| false` |         | Use the `validation` prop to show a specific validation status. This will change the border and outline of the checkbox. The `false` type is useful with short-circuiting logic. Setting `validation` to `"error"` also sets `aria-invalid`. |
+
+For a checkbox with a titled, multi-line label and a description, see [`Choice`](/components/choice).

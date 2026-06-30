@@ -115,6 +115,18 @@
     ]
   },
   {
+    "name": "Choice",
+    "slug": "components/choice",
+    "status": "stable",
+    "importPath": "@ngrok/mantle/choice",
+    "summary": "A reusable indicator-left / content-right layout for a single choice — a control beside a titled, multi-line label.",
+    "jsdoc": "A reusable indicator-left / content-right layout for a single choice: a control (checkbox, radio, switch) beside an emphasized title and an optional de-emphasized description.",
+    "examples": [
+      "Composition:\n```\nChoice.Root\n├── Choice.Indicator\n└── Choice.Content\n    ├── Choice.Label        (or Choice.Title — pick one)\n    └── Choice.Description\n```",
+      "```tsx\n<Choice.Root name=\"notify\">\n  <Choice.Indicator>\n    <Checkbox />\n  </Choice.Indicator>\n  <Choice.Content>\n    <Choice.Label>Email</Choice.Label>\n    <Choice.Description>Get notified by email.</Choice.Description>\n  </Choice.Content>\n</Choice.Root>\n```"
+    ]
+  },
+  {
     "name": "Code",
     "slug": "components/code",
     "status": "stable",

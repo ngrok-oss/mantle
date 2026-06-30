@@ -78,6 +78,7 @@ export default [
 		...docRoute("components/button"),
 		...docRoute("components/card"),
 		...docRoute("components/checkbox"),
+		...docRoute("components/choice"),
 		...docRoute("components/code-block"),
 		// Sub-page linked from the Code Block doc; intentionally excluded from
 		// the sidebar nav.
