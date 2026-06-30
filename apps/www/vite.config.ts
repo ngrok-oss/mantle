@@ -19,7 +19,7 @@ import { rehypeMdxToc } from "./vite-plugins/rehype-mdx-toc";
 
 const codeBlockPlugins = mantleCodeBlockPlugins();
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
 	optimizeDeps: {
 		exclude: ["@ngrok/mantle"],
 	},
@@ -84,11 +84,28 @@ export default defineConfig({
 			ignored: ["!**/node_modules/@ngrok/mantle/src/**"],
 		},
 	},
+	preview: {
+		// React Router prerenders by booting a Vite *preview* server and issuing
+		// HTTP requests to `resolvedUrls.local[0]` (always IPv4 `127.0.0.1`).
+		// Without pinning the host, Vite binds loopback as `localhost`, which
+		// inside Linux build containers (e.g. the Docker image) resolves to IPv6
+		// `::1` only — so the prerender request to 127.0.0.1 is refused and the
+		// build dies with `ECONNREFUSED` on the first route. macOS aligns both
+		// stacks, which is why it only fails in containers. Pinning IPv4 makes
+		// the bind interface match the request target.
+		host: "127.0.0.1",
+	},
 	ssr: {
-		noExternal: [
-			// https://github.com/phosphor-icons/react/issues/45#issuecomment-2721119452
-			"@phosphor-icons/react",
-		],
+		noExternal:
+			command === "build"
+				? // Bundle every dependency into the server build so the production
+					// image can run without an app `node_modules` (the Docker runner
+					// stage ships only `@react-router/serve` and its runtime deps).
+					true
+				: [
+						// https://github.com/phosphor-icons/react/issues/45#issuecomment-2721119452
+						"@phosphor-icons/react",
+					],
 		resolve: {
 			// Same as above, but for the SSR renderer.
 			// Without this, the server falls back to dist and causes hydration mismatches
@@ -96,4 +113,4 @@ export default defineConfig({
 			conditions: ["@ngrok/src-live-types"],
 		},
 	},
-});
+}));
