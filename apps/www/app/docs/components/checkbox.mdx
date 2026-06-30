@@ -196,7 +196,53 @@ import { Choice } from "@ngrok/mantle/choice";
 </Choice.Root>;
 ```
 
-`Choice` works standalone, inside a `Field.Control` (the field's `id` / `name` / `aria-*` flow onto the checkbox and its `aria-describedby` is merged), and in fully-clickable list rows. See the [`Choice` docs](/components/choice) for those variants and the full API.
+Wrap that same `Choice` in a `Field.Item` / `Field.Control` to bind a form `name` and pick up validation. The field's `id` / `name` / `aria-*` flow onto the checkbox, and the `Field.Description` (or a `Field.Errors`) is merged into the control's `aria-describedby` alongside the `Choice.Description` — no duplicate ids, no manual wiring:
+
+<Example>
+	<div className="w-full max-w-md">
+		<Field.Item name="disposable">
+			<Field.Control>
+				<Choice.Root>
+					<Choice.Indicator>
+						<Checkbox defaultChecked />
+					</Choice.Indicator>
+					<Choice.Content>
+						<Choice.Label>Mark as disposable email provider</Choice.Label>
+						<Choice.Description>
+							Flags this domain as a disposable or throwaway email provider.
+						</Choice.Description>
+					</Choice.Content>
+				</Choice.Root>
+			</Field.Control>
+			<Field.Description>Applied the next time this domain is scanned.</Field.Description>
+		</Field.Item>
+	</div>
+</Example>
+
+```tsx
+import { Checkbox } from "@ngrok/mantle/checkbox";
+import { Choice } from "@ngrok/mantle/choice";
+import { Field } from "@ngrok/mantle/field";
+
+<Field.Item name="disposable">
+	<Field.Control>
+		<Choice.Root>
+			<Choice.Indicator>
+				<Checkbox defaultChecked />
+			</Choice.Indicator>
+			<Choice.Content>
+				<Choice.Label>Mark as disposable email provider</Choice.Label>
+				<Choice.Description>
+					Flags this domain as a disposable or throwaway email provider.
+				</Choice.Description>
+			</Choice.Content>
+		</Choice.Root>
+	</Field.Control>
+	<Field.Description>Applied the next time this domain is scanned.</Field.Description>
+</Field.Item>;
+```
+
+For the fully-clickable list-row variant (and the full API), see the [`Choice` docs](/components/choice).
 
 ## With TanStack Form
 

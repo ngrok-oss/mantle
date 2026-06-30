@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
 import { Field } from "../field/field.js";
+import { Switch } from "../switch/switch.js";
 import { Choice } from "./choice.js";
 
 describe("Choice", () => {
@@ -155,6 +156,44 @@ describe("Choice", () => {
 		expect(() => render(<Choice.Label>orphan</Choice.Label>)).toThrow(
 			/Choice\.Label must be rendered inside Choice\.Root/,
 		);
+	});
+});
+
+describe("Choice + Switch interop", () => {
+	test("Indicator wires a Switch: id on the switch, Label htmlFor targets it, description associated", () => {
+		render(
+			<Choice.Root name="airplane-mode">
+				<Choice.Indicator>
+					<Switch />
+				</Choice.Indicator>
+				<Choice.Content>
+					<Choice.Label>Airplane mode</Choice.Label>
+					<Choice.Description>Disables wireless radios while in flight.</Choice.Description>
+				</Choice.Content>
+			</Choice.Root>,
+		);
+		// Radix Switch renders a role="switch" button that receives the injected id.
+		const control = screen.getByRole("switch");
+		expect(control).toHaveAttribute("id", expect.stringMatching(/.+/));
+		expect(screen.getByText("Airplane mode")).toHaveAttribute("for", control.id);
+		expect(control.getAttribute("aria-describedby")?.split(" ")).toContain(
+			screen.getByText("Disables wireless radios while in flight.").id,
+		);
+	});
+
+	test("disabled flows from Root onto the Switch", () => {
+		render(
+			<Choice.Root disabled>
+				<Choice.Indicator>
+					<Switch />
+				</Choice.Indicator>
+				<Choice.Content>
+					<Choice.Label>Airplane mode</Choice.Label>
+				</Choice.Content>
+			</Choice.Root>,
+		);
+		expect(screen.getByRole("switch")).toBeDisabled();
+		expect(screen.getByText("Airplane mode")).toHaveClass("opacity-50");
 	});
 });
 

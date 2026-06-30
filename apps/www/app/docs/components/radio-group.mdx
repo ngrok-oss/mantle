@@ -342,7 +342,7 @@ import { RadioGroup } from "@ngrok/mantle/radio-group";
 [`Choice`](/components/choice) gives each radio option the same indicator-left / title-over-description layout used across mantle, without hand-rolling the flexbox: put `RadioGroup.Indicator` in `Choice.Indicator` and the copy in `Choice.Content`.
 
 <Example>
-	<RadioGroup.Root defaultValue="pro" className="w-full max-w-md">
+	<RadioGroup.Root aria-label="Plan" defaultValue="pro" className="w-full max-w-md">
 		<RadioGroup.Item value="free">
 			<Choice.Root>
 				<Choice.Indicator>
@@ -372,7 +372,7 @@ import { RadioGroup } from "@ngrok/mantle/radio-group";
 import { Choice } from "@ngrok/mantle/choice";
 import { RadioGroup } from "@ngrok/mantle/radio-group";
 
-<RadioGroup.Root defaultValue="pro">
+<RadioGroup.Root aria-label="Plan" defaultValue="pro">
 	<RadioGroup.Item value="free">
 		<Choice.Root>
 			<Choice.Indicator>
@@ -388,7 +388,65 @@ import { RadioGroup } from "@ngrok/mantle/radio-group";
 </RadioGroup.Root>;
 ```
 
-Use **`Choice.Title`** here, not `Choice.Label`: the whole `RadioGroup.Item` is the click target, and a `<label htmlFor>` can't associate with the radio's `role="radio"` element — the option's accessible name comes from its content. For helper text that is **programmatically** associated as a description, prefer the `Field.Set` / `Field.Legend` composition above; Headless UI owns the radio's `aria-describedby`, so a `Choice.Description` inside a radio is presented visually rather than wired via `aria-describedby`.
+Use **`Choice.Title`** here, not `Choice.Label`: the whole `RadioGroup.Item` is the click target, and a `<label htmlFor>` can't associate with the radio's `role="radio"` element — the option's accessible name comes from its content. Because `role="radio"` flattens its children, the `Choice.Title` **and** `Choice.Description` text both fold into that accessible name, so the description is announced as part of the option (not as a separate `aria-describedby`). For helper text that is **programmatically** associated as a description, prefer the `Field.Set` / `Field.Legend` composition above; Headless UI owns the radio's `aria-describedby`, so a `Choice.Description` inside a radio is presented visually rather than wired via `aria-describedby`.
+
+Give the `RadioGroup` itself an accessible name — an `aria-label` (as above) or a `Field.Set` / `Field.Legend` wrapper — so the group is announced as a named set rather than an anonymous `radiogroup`.
+
+To bind the same group into a form, wrap it in a `Field.Set` / `Field.Legend`: the legend names the set, and keeping `aria-label` on `RadioGroup.Root` names the inner `radiogroup` role too.
+
+<Example>
+	<Field.Set className="w-full max-w-md">
+		<Field.Legend>Plan</Field.Legend>
+		<RadioGroup.Root aria-label="Plan" defaultValue="pro">
+			<RadioGroup.Item value="free">
+				<Choice.Root>
+					<Choice.Indicator>
+						<RadioGroup.Indicator />
+					</Choice.Indicator>
+					<Choice.Content>
+						<Choice.Title>Free</Choice.Title>
+						<Choice.Description>Up to 3 projects and 1 member.</Choice.Description>
+					</Choice.Content>
+				</Choice.Root>
+			</RadioGroup.Item>
+			<RadioGroup.Item value="pro">
+				<Choice.Root>
+					<Choice.Indicator>
+						<RadioGroup.Indicator />
+					</Choice.Indicator>
+					<Choice.Content>
+						<Choice.Title>Pro</Choice.Title>
+						<Choice.Description>Unlimited projects and up to 25 members.</Choice.Description>
+					</Choice.Content>
+				</Choice.Root>
+			</RadioGroup.Item>
+		</RadioGroup.Root>
+	</Field.Set>
+</Example>
+
+```tsx
+import { Choice } from "@ngrok/mantle/choice";
+import { Field } from "@ngrok/mantle/field";
+import { RadioGroup } from "@ngrok/mantle/radio-group";
+
+<Field.Set>
+	<Field.Legend>Plan</Field.Legend>
+	<RadioGroup.Root aria-label="Plan" defaultValue="pro">
+		<RadioGroup.Item value="free">
+			<Choice.Root>
+				<Choice.Indicator>
+					<RadioGroup.Indicator />
+				</Choice.Indicator>
+				<Choice.Content>
+					<Choice.Title>Free</Choice.Title>
+					<Choice.Description>Up to 3 projects and 1 member.</Choice.Description>
+				</Choice.Content>
+			</Choice.Root>
+		</RadioGroup.Item>
+		{/* …more items… */}
+	</RadioGroup.Root>
+</Field.Set>;
+```
 
 ## With TanStack Form
 
